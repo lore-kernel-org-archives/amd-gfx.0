@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D06A3C44525
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3774C44515
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 191C910E7A4;
-	Mon, 20 Jul 2026 07:15:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE7DF10E725;
+	Mon, 20 Jul 2026 07:15:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PLEiyD+r";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ASAJZXnV";
 	dkim-atps=neutral
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52E1A10E088
- for <amd-gfx@lists.freedesktop.org>; Sun, 19 Jul 2026 18:01:03 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-2cf50c6f235so9780425ad.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 19 Jul 2026 11:01:03 -0700 (PDT)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A2B610E090
+ for <amd-gfx@lists.freedesktop.org>; Sun, 19 Jul 2026 18:01:18 +0000 (UTC)
+Received: by mail-pl1-f172.google.com with SMTP id
+ d9443c01a7336-2cace91f112so94614135ad.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 19 Jul 2026 11:01:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784484063; x=1785088863; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1784484077; x=1785088877; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
  :reply-to:content-type;
- bh=W1yw2ovWVlZBikeiXxsUocrBF67xVKX5IYM7DkLC69s=;
- b=PLEiyD+r4f9dcixEbP4SraUGEme1RauoGep8uehrrmi9k6PwGXTWzEMFgiDz6O533i
- 4G+zyPFFCE1UahCAT6uSy7r8Dd4uhrPlUKQawcy4sXIE1Alct7DG3p5+Uo7EtFYBqYOo
- AKtR3DmacJEcLKNjj2lomqApAHh5kbv1jkL6q39bMdZkt6j9VqIgDtpv4whtq1r6x2G8
- o6bOhi54fwS+r8MJP1yH2OAzhOlle1yPDe0oGFQW/hFoW4qsNX6Zd7wZzud/bwwLMsAF
- UGmRR+imfJyxlSTe2uEywI7WSZMeVK8R+PDuju0NHShU4mT1RJaiw7uxZLv87XgUhamj
- JhYA==
+ bh=OFMO/6wAurP0TcklziZGT9lYnZVfFUdBzO/mH5p+qV0=;
+ b=ASAJZXnV+90YkjeRz/jhI7LblADBFWzFNHen5Z9Yrd6m3NFIMZT0UVJ3+H3yhPga9f
+ ARTkSJdLXq1BFYE2FufSa4dw8vz1hgWI2EHcrpTkBLT0/V0jEBJQXq0kEBs13HZyJR9V
+ sEw0aNhFq2+/r6JHSwPQ8Mxz6PGYscY6MD6AYCtFJrBf7xxkDQWdXMKkvO5V/0RlCXrp
+ tUFPyjj7HeF+7j3UmNBPsQc9kBo3SLoYrQf1NxqSje4ftgD2dginuVybqZ7q1BKGXMSx
+ L80Lf9F6ozh1j0QZeawQpzgA6h1jdHSr3egt0ZlF2Hdc+ApDJOzY590qrM1sse5E0RzN
+ h+TQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784484063; x=1785088863;
+ d=1e100.net; s=20251104; t=1784484077; x=1785088877;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to:content-type;
- bh=W1yw2ovWVlZBikeiXxsUocrBF67xVKX5IYM7DkLC69s=;
- b=Ytnl0t/pQGLTYVtgeCirLsOGJUFWugpQWIymQim+4GbiBL5U0TneQotriJRljpM1S3
- ZqVBsguejWZU1WYK6/AAzzf7wMiDgh8FLyedMWMUASGGZ8z05hVMHZM73pCLYrGHgg0k
- c0+9njZcF0S4TruNQcSFpz7x79NYTwilySZTkBjBdwcIM4BzuLjKYrjZ2uP6zjO1wX9k
- 5kGXhr68NYMJ0fYvflslnVo02ON90mZFgLpOT+WaJpTbq1ewH3+/cFUA6kGzvygjcxrY
- Qh+/PnoflZYPx6Pa0WmTe9nHmogigE9Xi+w3vu2kvdL85WEpZNctqlX4TSxwZgg9NjQk
- /DqA==
+ bh=OFMO/6wAurP0TcklziZGT9lYnZVfFUdBzO/mH5p+qV0=;
+ b=YIs6mmNs3kvv5O5QPO5hnm4eCvwV0CGVLIpvxj0vMDMJY8dnrEmXgMRMUQJwwETnHT
+ 1acXgDbrDheR2HSrEPPp7JhEJOCD+bDuMOoS8VVgjLtHwmLNxCT0tL6cfdSejlDXh7vi
+ 13nkri6QzS9au3tveeo0mRMBOwzpunssgLWHwZy6uQayfX1SuT9HBvhk6/Nj7GvE4KCf
+ n+K2uo82kwhyMCKamiQUMu+W+NMTsOQ46SN9lS+NN2iqCiaXtewUWwSikiMIfQiorwQS
+ Gbj5AQd47YZ3ilZEfEcEAcssEi/Wx09IKKMH2QW23uvplV5YViYnsvO1+GPiguWS62M6
+ cXmA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rq4FdTsiQPi8okJQCxDXywkqOj/93giTvUoeVVkOeFoZrP3HL4LQ1dk8gGzS6t4R7ZeyKOrLkEl@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxV4l0kCFNKbcnSVf3YUGO6w6F5YO7vSR9skgu61eVAE+suiR94
- G8EUCx0wSOBWQusBCDI+sSHbIH7BDGzF823iOn5clEOjEOr1bAuHFdqM
-X-Gm-Gg: AfdE7clnEfH0GScXppbAcw0sUo/bwgFmpNjtpzPz8JFoMgiES8mPSy6oyjgeILN+RfP
- TFPAnuaww7P3ACMBe0gKX0Hiz37/9K4RJujZdHDzPTQ1j7fgi5qMqSh/itml9BJJ1gI6eaL4eig
- YzXDiifjqHzfGAuRVnR9QhWAdG1zqIBAUhXBbKeeah4vnPAPyoMR0Wbb1GYML4pZPQACRMZ1Hr7
- EbH3kZu74RjSep1plMJiLnpkOh14Cxu40QrrX3YOEbeVS1tTeMxtVxnfa3RT4xQ5WHtpNbZ+GOr
- mNln58qXt4N+qcpNWec6glV33w4aEfOvwXIonmx4ugGM63zm62osIWFjKKv+awuAfikvHDy53XM
- 5y4sGdPZX/1/8XG3LjRp02rg3tbUdQ0/fpMEvE4aCQx4gpY4Gz5RdetNvVwuD4KNSag==
-X-Received: by 2002:a17:902:e80e:b0:2ca:d666:df72 with SMTP id
- d9443c01a7336-2cf3489ae91mr117260965ad.21.1784484061981; 
- Sun, 19 Jul 2026 11:01:01 -0700 (PDT)
+ AHgh+RpB32sz749l0stej+eHmR6BVveCgtB+Tsfl8QEvfc3dTEfL4X7qDmC1cjH9Vn0oKW2BWY1Ms83t@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyVD5HNlhKfy0e3I80myEllPmxsluyX9rKVA6CMi0X1WAfZP76+
+ D1Ws34Ehds2jh4BHXylnLO5sMZvAmgpNs2IqgWBcRtP6cY6lvhBjMPVm
+X-Gm-Gg: AfdE7cliYzrhDZvYaXgdkJva8+AOePvQ57MmQwkxjFJcdphiVbl6APwu4/IO1dT6bZS
+ DSOx348PxjUBNiUEeF/x7IqsnWx5E5FkDWEOUZpZv+5XMPXhGvLKRIImGqeVZqzM0EOri8oZb71
+ F17TXpDrMhXcOfkZBOh6cHPd99Vdfdntb9auGVlSWYXtJnNMLOiTGYuweEUdwH5W069EaGQL8PM
+ 1g0w9UL3Zsr0aKJWbShgq0sjyuoa8qhrnW+NufvatL7Rat/fMY7T3i4MQyYuOpA3KqAOIBDkXMP
+ 5d1za0j9Nf9UxcJ2Wrm8JL6O7Na40GkbtsMsYPR6JIxIrkTgBQRgwQz8pYgMTvGdMGttahOJEOt
+ j5eaBKPGXCjolyWlh6TZwHyQ/R3DS9JUO7cRgLdsOuN3JeVeRaVOMWEB64vf1lg0t+A==
+X-Received: by 2002:a17:902:e5cb:b0:2cc:9763:e607 with SMTP id
+ d9443c01a7336-2cf349bc5c8mr112975505ad.27.1784484075635; 
+ Sun, 19 Jul 2026 11:01:15 -0700 (PDT)
 Received: from ap.. ([182.213.254.91]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2cf34769bd6sm43511065ad.74.2026.07.19.11.00.49
+ d9443c01a7336-2cf34769bd6sm43511065ad.74.2026.07.19.11.01.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 Jul 2026 11:01:00 -0700 (PDT)
+ Sun, 19 Jul 2026 11:01:14 -0700 (PDT)
 From: Taehee Yoo <ap420073@gmail.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  Alexei Starovoitov <ast@kernel.org>, amd-gfx@lists.freedesktop.org,
@@ -92,9 +92,10 @@ To: Alex Deucher <alexander.deucher@amd.com>,
  Song Liu <song@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>,
  Sumit Semwal <sumit.semwal@linaro.org>, Taehee Yoo <ap420073@gmail.com>,
  Tariq Toukan <tariqt@nvidia.com>, Yonghong Song <yonghong.song@linux.dev>
-Subject: [RFC PATCH net-next 07/13] drm/amdkfd: add knod provider core
-Date: Sun, 19 Jul 2026 17:58:51 +0000
-Message-ID: <20260719175857.4071636-8-ap420073@gmail.com>
+Subject: [RFC PATCH net-next 08/13] drm/amdkfd: add GPU instruction emitter
+ and disassembler
+Date: Sun, 19 Jul 2026 17:58:52 +0000
+Message-ID: <20260719175857.4071636-9-ap420073@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260719175857.4071636-1-ap420073@gmail.com>
 References: <20260719175857.4071636-1-ap420073@gmail.com>
@@ -115,2550 +116,14628 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add the knod accelerator provider, built into amdgpu.  It allocates and
-drives GPU AQL/SDMA queues, manages GPU memory for the RX data path,
-and registers a knod accelerator that binds to a NIC via the knod core.
-Feature workers (BPF, IPsec) plug in on top through the accel ops.
+Add the AMD GCN (gfx9/gfx10) instruction encoder used to build the GPU
+shaders that knod dispatches, plus a matching disassembler used for
+debugging the generated code.
 
 Signed-off-by: Taehee Yoo <ap420073@gmail.com>
-(cherry picked from commit acaff825a0e87188906fd59f8a377c04d0b0ed2e)
+(cherry picked from commit bbbe8531de11017f565a922b072d4aa5f99674fc)
 ---
- drivers/gpu/drm/amd/amdgpu/Makefile        |    1 +
- drivers/gpu/drm/amd/amdkfd/Kconfig         |   11 +
- drivers/gpu/drm/amd/amdkfd/Makefile        |    4 +
- drivers/gpu/drm/amd/amdkfd/kfd_knod.c      | 2202 ++++++++++++++++++++
- drivers/gpu/drm/amd/amdkfd/knod/kfd_knod.h |  270 +++
- 5 files changed, 2488 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/amdkfd/kfd_knod.c
- create mode 100644 drivers/gpu/drm/amd/amdkfd/knod/kfd_knod.h
+ drivers/gpu/drm/amd/amdkfd/knod/knod_amdgpu.h |  173 +
+ .../drm/amd/amdkfd/knod/knod_amdgpu_insn.h    | 6362 +++++++++++++++++
+ .../gpu/drm/amd/amdkfd/knod/knod_gfx10_insn.h | 3978 +++++++++++
+ .../gpu/drm/amd/amdkfd/knod/knod_gfx9_insn.h  | 4068 +++++++++++
+ 4 files changed, 14581 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/amdkfd/knod/knod_amdgpu.h
+ create mode 100644 drivers/gpu/drm/amd/amdkfd/knod/knod_amdgpu_insn.h
+ create mode 100644 drivers/gpu/drm/amd/amdkfd/knod/knod_gfx10_insn.h
+ create mode 100644 drivers/gpu/drm/amd/amdkfd/knod/knod_gfx9_insn.h
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/Makefile b/drivers/gpu/drm/amd/amdgpu/Makefile
-index ba80542ead9d..7a9826df9f37 100644
---- a/drivers/gpu/drm/amd/amdgpu/Makefile
-+++ b/drivers/gpu/drm/amd/amdgpu/Makefile
-@@ -42,6 +42,7 @@ ccflags-y := -I$(FULL_AMD_PATH)/include/asic_reg \
- 	-I$(FULL_AMD_DISPLAY_PATH)/dc \
- 	-I$(FULL_AMD_DISPLAY_PATH)/amdgpu_dm \
- 	-I$(FULL_AMD_PATH)/amdkfd \
-+	-I$(FULL_AMD_PATH)/amdkfd/knod \
- 	-I$(FULL_AMD_PATH)/ras/ras_mgr
- 
- # Locally disable W=1 warnings enabled in drm subsystem Makefile
-diff --git a/drivers/gpu/drm/amd/amdkfd/Kconfig b/drivers/gpu/drm/amd/amdkfd/Kconfig
-index a5d7467c2f34..d93f1af749ff 100644
---- a/drivers/gpu/drm/amd/amdkfd/Kconfig
-+++ b/drivers/gpu/drm/amd/amdkfd/Kconfig
-@@ -38,3 +38,14 @@ config HSA_AMD_P2P
- 	  GPUs with large memory BARs that expose the entire VRAM in PCIe bus
- 	  address space within the physical address limits of the GPUs.
- 
-+config HSA_AMD_KNOD
-+	bool "KNOD GPU network offload core"
-+	depends on HSA_AMD
-+	default y
-+	help
-+	  Core framework for KNOD, GPU-accelerated zero-copy network packet
-+	  processing on AMD GPUs.  It is built into amdgpu and cannot be a
-+	  module because it relies on non-exported amdgpu/amdkfd internals.
-+
-+	  Say N to drop the KNOD core along with the BPF and IPsec offloads
-+	  layered on top of it.  If unsure, say Y.
-diff --git a/drivers/gpu/drm/amd/amdkfd/Makefile b/drivers/gpu/drm/amd/amdkfd/Makefile
-index 85fc67d521e5..1834faa54863 100644
---- a/drivers/gpu/drm/amd/amdkfd/Makefile
-+++ b/drivers/gpu/drm/amd/amdkfd/Makefile
-@@ -71,3 +71,7 @@ ifneq ($(CONFIG_HSA_AMD_SVM),)
- AMDKFD_FILES += $(AMDKFD_PATH)/kfd_svm.o \
- 		$(AMDKFD_PATH)/kfd_migrate.o
- endif
-+
-+ifneq ($(CONFIG_HSA_AMD_KNOD),)
-+AMDKFD_FILES += $(AMDKFD_PATH)/kfd_knod.o
-+endif
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_knod.c b/drivers/gpu/drm/amd/amdkfd/kfd_knod.c
+diff --git a/drivers/gpu/drm/amd/amdkfd/knod/knod_amdgpu.h b/drivers/gpu/drm/amd/amdkfd/knod/knod_amdgpu.h
 new file mode 100644
-index 000000000000..03fff054dcb9
+index 000000000000..77d1c6afdd0a
 --- /dev/null
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_knod.c
-@@ -0,0 +1,2202 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
-+/*
-+ * Copyright (c) 2021 Taehee Yoo <ap420073@gmail.com>
-+ * Copyright (c) 2021 Hoyeon Lee <hoyeon.rhee@gmail.com>
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#include <linux/types.h>
-+#include <linux/mutex.h>
-+#include <linux/slab.h>
-+#include <linux/sched.h>
-+#include <linux/workqueue.h>
-+#include <linux/file.h>
-+#include <linux/dma-buf.h>
-+#include <crypto/algapi.h>
-+#include <crypto/internal/simd.h>
-+#include "kfd_priv.h"
-+#include "kfd_hsa.h"
-+#include "kfd_knod.h"
-+#include "kfd_topology.h"
-+#include "kfd_device_queue_manager.h"
-+#include "kfd_events.h"
-+#include <crypto/skcipher.h>
-+#include <crypto/internal/skcipher.h>
-+#include <linux/pid.h>
-+#include <linux/debugfs.h>
-+#include <linux/sched/signal.h>
-+#include "../amdgpu/amdgpu_amdkfd.h"
-+#include "../amdgpu/amdgpu_gfx.h"
-+#include "../amdgpu/./navi10_sdma_pkt_open.h"
-+#include "amdgpu_dpm.h"
-+#include "kgd_pp_interface.h"
-+#include <linux/kthread.h>
-+#include <linux/delay.h>
-+#include <drm/ttm/ttm_tt.h>
-+#include <linux/seq_file.h>
-+#include "knod_bpf.h"
-+#include <net/page_pool/helpers.h>
-+#include <linux/netdevice.h>
-+
-+struct umh_data {
-+	pid_t pid;
-+};
-+
-+LIST_HEAD(ctx_list);
-+
-+/*
-+ * AQL/SDMA queue pair count requested by the highest-demand accel
-+ * consumer (currently knod_ipsec's parallel-dispatcher machinery).
-+ * Each accel module sets this via knod_request_queue_cnt() during its
-+ * module_init BEFORE the NOD attach happens, so knod_attach() creates
-+ * a context with enough kaql[]/sdma[] pairs for the worst-case
-+ * consumer.
-+ *
-+ * The value is a high-water mark across all accel types - whichever
-+ * consumer asks for the most queue pairs wins; a consumer that needs
-+ * fewer just leaves the extra pairs unused (a minor, harmless GPU
-+ * resource waste).
-+ *
-+ * Default is 1 when nothing has called the setter - mirrors the
-+ * historical single-queue behaviour.
-+ */
-+static int knod_requested_queue_cnt = 1;
-+
-+static struct knod_accel *accels[KNOD_MAX_AQL];
-+static int nr_accels;
-+static struct knod_accel_ops accel_ops;
-+
-+/*
-+ * Thin wrappers around the KFD core entry points.  knod drives KFD from
-+ * kernel context using kernel-internal types, so it calls these directly
-+ * instead of going through the kfd_ioctl_* handlers (which marshal user
-+ * data and stay static to KFD).
-+ */
-+static int knod_create_queue(struct kfd_process *p,
-+			     struct queue_properties *qp, u32 gpu_id,
-+			     u32 *queue_id, u64 *doorbell_offset)
-+{
-+	return kfd_create_queue(p, qp, gpu_id, queue_id, doorbell_offset);
-+}
-+
-+static int knod_destroy_queue(struct kfd_process *p, u32 queue_id)
-+{
-+	int ret;
-+
-+	mutex_lock(&p->mutex);
-+	ret = pqm_destroy_queue(&p->pqm, queue_id);
-+	mutex_unlock(&p->mutex);
-+	return ret;
-+}
-+
-+static int knod_create_event(struct kfd_process *p, u32 event_type,
-+			     bool auto_reset, u32 node_id,
-+			     struct knod_event *event)
-+{
-+	u32 event_trigger_data;
-+	u64 event_page_offset = 0;
-+
-+	return kfd_event_create(NULL, p, event_type, auto_reset, node_id,
-+				&event->id, &event_trigger_data,
-+				&event_page_offset, &event->slot);
-+}
-+
-+static int knod_destroy_event(struct kfd_process *p, u32 event_id)
-+{
-+	return kfd_event_destroy(p, event_id);
-+}
-+
-+struct knod_mem *__knod_alloc_mem(struct knod *knod, size_t size,
-+				  int flags)
-+{
-+	struct kfd_process_device *pdd = knod->process->pdds[0];
-+	struct kfd_node *kdev = pdd->dev;
-+	struct knod_mem *mem;
-+	int err;
-+
-+	mem = kzalloc_obj(struct knod_mem, GFP_KERNEL);
-+	if (!mem)
-+		return ERR_PTR(-ENOMEM);
-+
-+	size = ALIGN(size, PAGE_SIZE);
-+	mem->flags = flags;
-+	mem->size = size;
-+	mem->gaddr = gen_pool_alloc(knod->pool, size);
-+	if (!mem->gaddr) {
-+		kfree(mem);
-+		return ERR_PTR(-ENOMEM);
-+	}
-+
-+	err = amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(kdev->adev, mem->gaddr,
-+						      size, pdd->drm_priv,
-+						      &mem->mem, NULL, flags,
-+						      false);
-+	if (err) {
-+		knod_err(" failed to alloc mem\n");
-+		gen_pool_free(knod->pool, mem->gaddr, mem->size);
-+		kfree(mem);
-+		return ERR_PTR(-ENOMEM);
-+	}
-+
-+	err = amdgpu_amdkfd_gpuvm_sync_memory(kdev->adev, mem->mem, true);
-+	if (err) {
-+		pr_debug("Sync memory failed, wait interrupted by user signal\n");
-+		amdgpu_amdkfd_gpuvm_free_memory_of_gpu(kdev->adev, mem->mem,
-+						       pdd->drm_priv, NULL);
-+		gen_pool_free(knod->pool, mem->gaddr, mem->size);
-+		kfree(mem);
-+		return ERR_PTR(-ENOMEM);
-+	}
-+
-+	list_add_tail(&mem->list, &knod->active_list);
-+
-+	return mem;
-+}
-+
-+int __knod_export_dma_buf(struct knod *knod, struct knod_mem *mem)
-+{
-+	struct dma_buf *dmabuf;
-+	int err;
-+
-+	err = amdgpu_amdkfd_gpuvm_export_dmabuf(mem->mem, &dmabuf);
-+	if (err) {
-+		pr_debug("export dmabuf failed\n");
-+		return -ENOMEM;
-+	}
-+
-+	dma_buf_put(dmabuf);
-+
-+	return 0;
-+}
-+
-+struct knod_mem *knod_alloc_mem(struct knod *knod, size_t size, int flags)
-+{
-+	struct knod_mem *mem;
-+	int err;
-+
-+	mem = kzalloc_obj(struct knod_mem, GFP_KERNEL);
-+	if (!mem)
-+		return ERR_PTR(-ENOMEM);
-+
-+	size = ALIGN(size, PAGE_SIZE);
-+	mem->flags = flags;
-+	mem->size = size;
-+	mem->gaddr = gen_pool_alloc(knod->pool, size);
-+	if (!mem->gaddr) {
-+		kfree(mem);
-+		return ERR_PTR(-ENOMEM);
-+	}
-+
-+	err = kfd_process_alloc_gpuvm(knod->process->pdds[0],
-+				      mem->gaddr,
-+				      mem->size,
-+				      flags,
-+				      &mem->mem,
-+				      &mem->kaddr);
-+
-+	if (err) {
-+		knod_err(" err = %d\n", err);
-+		gen_pool_free(knod->pool, mem->gaddr, mem->size);
-+		kfree(mem);
-+		return ERR_PTR(-ENOMEM);
-+	}
-+
-+	list_add_tail(&mem->list, &knod->active_list);
-+
-+	return mem;
-+}
-+EXPORT_SYMBOL(knod_alloc_mem);
-+
-+int __knod_map_kaddr(struct knod *knod, struct knod_mem *mem)
-+{
-+	int err = 0;
-+
-+	if (mem->flags & KFD_IOC_ALLOC_MEM_FLAGS_GTT) {
-+		err = amdgpu_amdkfd_gpuvm_map_gtt_bo_to_kernel(mem->mem,
-+							       &mem->kaddr,
-+							       NULL);
-+		if (err) {
-+			pr_debug("Map GTT BO to kernel failed\n");
-+			err = -ENOMEM;
-+		}
-+	} else if (mem->flags & KFD_IOC_ALLOC_MEM_FLAGS_VRAM) {
-+		err = amdgpu_amdkfd_gpuvm_map_vram_bo_to_kernel(mem->mem,
-+								&mem->kaddr,
-+								NULL);
-+		if (err) {
-+			pr_debug("Map VRAM BO to kernel failed\n");
-+			err = -ENOMEM;
-+		}
-+	}
-+
-+	return err;
-+}
-+
-+int __knod_map_mem(struct knod *knod, struct knod_mem *mem)
-+{
-+	struct kfd_process_device *pdd = knod->process->pdds[0];
-+	struct kfd_node *kdev = pdd->dev;
-+	int err;
-+
-+	err = amdgpu_amdkfd_gpuvm_map_memory_to_gpu(kdev->adev, mem->mem,
-+						    pdd->drm_priv);
-+	if (err) {
-+		knod_err(" failed to map gpu\n");
-+		return 1;
-+	}
-+
-+	err = amdgpu_amdkfd_gpuvm_sync_memory(kdev->adev, mem->mem, true);
-+	if (err) {
-+		pr_debug("Sync memory failed, wait interrupted by user signal\n");
-+		return 1;
-+	}
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(__knod_map_mem);
-+
-+void knod_free_mem(struct knod *knod, struct knod_mem *mem)
-+{
-+	if (mem) {
-+		list_del_init(&mem->list);
-+		kfd_process_free_gpuvm(mem->mem, knod->process->pdds[0],
-+				       &mem->kaddr);
-+		gen_pool_free(knod->pool, mem->gaddr, mem->size);
-+		kfree(mem);
-+	}
-+}
-+EXPORT_SYMBOL(knod_free_mem);
-+
-+void knod_sdma_copy(struct knod *knod, u64 dst_offset,
-+		    u64 src_offset, int idx, int size)
-+{
-+	struct knod_sdma *sdma = &knod->sdma[idx];
-+	u32 ring_mask = (sdma->sdma->size / 4) - 1;
-+	u64 *wptr = (u64 *)sdma->queue->kaddr + 1;
-+	u32 *ptr = sdma->sdma->kaddr;
-+
-+	ptr[sdma->idx++ & ring_mask] = SDMA_PKT_HEADER_OP(SDMA_OP_COPY) |
-+		SDMA_PKT_HEADER_SUB_OP(SDMA_SUBOP_COPY_LINEAR) |
-+		SDMA_PKT_COPY_LINEAR_HEADER_TMZ((0));
-+	ptr[sdma->idx++ & ring_mask] = size - 1;
-+	ptr[sdma->idx++ & ring_mask] = 0; /* src/dst endian swap */
-+	ptr[sdma->idx++ & ring_mask] = lower_32_bits(src_offset);
-+	ptr[sdma->idx++ & ring_mask] = upper_32_bits(src_offset);
-+	ptr[sdma->idx++ & ring_mask] = lower_32_bits(dst_offset);
-+	ptr[sdma->idx++ & ring_mask] = upper_32_bits(dst_offset);
-+
-+	*wptr += 7 * 4;
-+}
-+
-+void knod_sdma_fence(struct knod *knod, u64 fence_addr, u32 fence_val,
-+		     int idx)
-+{
-+	struct knod_sdma *sdma = &knod->sdma[idx];
-+	u32 ring_mask = (sdma->sdma->size / 4) - 1;
-+	u64 *wptr = (u64 *)sdma->queue->kaddr + 1;
-+	u32 *ptr = sdma->sdma->kaddr;
-+	u32 hdr = SDMA_PKT_HEADER_OP(SDMA_OP_FENCE);
-+
-+	if (knod->isa_version >= 10)
-+		hdr |= SDMA_PKT_FENCE_HEADER_MTYPE(3);
-+
-+	ptr[sdma->idx++ & ring_mask] = hdr;
-+	ptr[sdma->idx++ & ring_mask] = lower_32_bits(fence_addr);
-+	ptr[sdma->idx++ & ring_mask] = upper_32_bits(fence_addr);
-+	ptr[sdma->idx++ & ring_mask] = fence_val;
-+
-+	*wptr += 4 * 4;
-+}
-+
-+void knod_sdma_trap(struct knod *knod, int idx)
-+{
-+	struct knod_sdma *sdma = &knod->sdma[idx];
-+	u32 ring_mask = (sdma->sdma->size / 4) - 1;
-+	u64 *wptr = (u64 *)sdma->queue->kaddr + 1;
-+	u32 *ptr = sdma->sdma->kaddr;
-+	u32 ctx = knod->sdma_event[idx].id & 0x0fffffff;
-+	u64 slot_addr = knod->mailbox->gaddr +
-+		knod->sdma_event[idx].slot * 8;
-+	u32 hdr;
-+
-+	/* Write 0 to the signal page slot so lookup_signaled_event
-+	 * sees it as non-UNSIGNALED (0xFFFFFFFFFFFFFFFF).
-+	 */
-+	hdr = SDMA_PKT_HEADER_OP(SDMA_OP_FENCE);
-+	if (knod->isa_version >= 10)
-+		hdr |= SDMA_PKT_FENCE_HEADER_MTYPE(3);
-+
-+	ptr[sdma->idx++ & ring_mask] = hdr;
-+	ptr[sdma->idx++ & ring_mask] = lower_32_bits(slot_addr);
-+	ptr[sdma->idx++ & ring_mask] = upper_32_bits(slot_addr);
-+	ptr[sdma->idx++ & ring_mask] = 0;
-+
-+	ptr[sdma->idx++ & ring_mask] = SDMA_PKT_HEADER_OP(SDMA_OP_TRAP);
-+	ptr[sdma->idx++ & ring_mask] = ctx;
-+
-+	*wptr += 6 * 4;
-+}
-+
-+void knod_sdma_doorbell(struct knod *knod, int idx)
-+{
-+	struct knod_sdma *sdma = &knod->sdma[idx];
-+	u64 *wptr = (u64 *)sdma->queue->kaddr + 1;
-+
-+	/* ensure the SDMA ring writes are visible before ringing doorbell */
-+	wmb();
-+	writeq(*wptr, sdma->doorbell);
-+}
-+
-+u32 knod_sdma_submit(struct knod *knod, int idx,
-+		     const struct knod_sdma_copy_desc *copies, int n)
-+{
-+	struct knod_sdma *sdma = &knod->sdma[idx];
-+	u32 capacity = sdma->sdma->size / 4;
-+	u32 completed, inflight;
-+	int i;
-+
-+	/*
-+	 * knod_sdma_copy has no overflow guard (sdma->idx is the dword write
-+	 * cursor that just wraps), so drop the whole batch once the ring is
-+	 * near full.  @completed is the last fenced cursor (knod_sdma_kick
-+	 * writes sdma->idx into the signal), so @inflight is the unprocessed
-+	 * span; reserve room for these @n copies (7 dwords each) plus a fence.
-+	 * Signed compare so a stale signal ahead of the cursor (e.g. at
-+	 * startup) reads as "negative" inflight rather than a false full.
-+	 */
-+	completed = (u32)READ_ONCE(((struct amd_signal *)
-+				    sdma->queue_signal->kaddr)->value);
-+	inflight = (u32)sdma->idx - completed;
-+	if ((s32)(inflight + n * 7) >= (s32)(capacity - 64))
-+		return 0;
-+
-+	for (i = 0; i < n; i++)
-+		knod_sdma_copy(knod, copies[i].dst, copies[i].src, idx,
-+			       copies[i].len);
-+
-+	return (u32)sdma->idx;
-+}
-+EXPORT_SYMBOL(knod_sdma_submit);
-+
-+void knod_sdma_kick(struct knod *knod, int idx)
-+{
-+	struct knod_sdma *sdma = &knod->sdma[idx];
-+	u64 fence_addr;
-+
-+	fence_addr = sdma->queue_signal->gaddr +
-+		     offsetof(struct amd_signal, value);
-+	knod_sdma_fence(knod, fence_addr, (u32)sdma->idx, idx);
-+	knod_sdma_doorbell(knod, idx);
-+}
-+EXPORT_SYMBOL(knod_sdma_kick);
-+
-+int knod_gart_map(struct amdgpu_device *adev, u64 npages,
-+		  dma_addr_t *addr, u64 *gart_addr, u64 flags)
-+{
-+	struct amdgpu_ring *ring =
-+		to_amdgpu_ring(adev->mman.buffer_funcs_scheds[0]);
-+	struct amdgpu_job *job;
-+	unsigned int num_dw, num_bytes;
-+	struct dma_fence *fence;
-+	u64 src_addr, dst_addr;
-+	u64 pte_flags;
-+	void *cpu_addr;
-+	int r;
-+
-+	/* use gart window 0 */
-+	*gart_addr = adev->gmc.gart_start;
-+
-+	num_dw = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
-+	num_bytes = npages * 8;
-+
-+	r = amdgpu_job_alloc_with_ib(adev, &adev->mman.default_entity.base,
-+				     AMDGPU_FENCE_OWNER_UNDEFINED,
-+				     num_dw * 4 + num_bytes,
-+				     AMDGPU_IB_POOL_DELAYED,
-+				     &job,
-+				     AMDGPU_KERNEL_JOB_ID_TTM_MAP_BUFFER);
-+	if (r)
-+		return r;
-+
-+	src_addr = num_dw * 4;
-+	src_addr += job->ibs[0].gpu_addr;
-+
-+	dst_addr = amdgpu_bo_gpu_offset(adev->gart.bo);
-+	amdgpu_emit_copy_buffer(adev, &job->ibs[0], src_addr,
-+				dst_addr, num_bytes, 0);
-+
-+	amdgpu_ring_pad_ib(ring, &job->ibs[0]);
-+	WARN_ON(job->ibs[0].length_dw > num_dw);
-+
-+	pte_flags = AMDGPU_PTE_VALID | AMDGPU_PTE_READABLE;
-+	pte_flags |= AMDGPU_PTE_SYSTEM | AMDGPU_PTE_SNOOPED;
-+	if (!(flags & KFD_IOCTL_SVM_FLAG_GPU_RO))
-+		pte_flags |= AMDGPU_PTE_WRITEABLE;
-+	pte_flags |= adev->gart.gart_pte_flags;
-+
-+	cpu_addr = &job->ibs[0].ptr[num_dw];
-+
-+	amdgpu_gart_map(adev, 0, npages, addr, pte_flags, cpu_addr);
-+	fence = amdgpu_job_submit(job);
-+	dma_fence_put(fence);
-+
-+	return r;
-+}
-+
-+static void knod_init_aql_queue(struct knod *knod, int qid, int idx)
-+{
-+	struct amd_queue *amd_queue =
-+		(struct amd_queue *)knod->kaql[idx].queue->kaddr;
-+	union knod_aql_rsrc1 rsrc1;
-+	u32 scratch_gaddr;
-+	int i;
-+
-+	for (i = 0; i < knod->nr_aql_ring; i++)
-+		knod_setup_invalidate(knod, i, idx);
-+
-+	amd_queue->hsa_queue.type = HSA_QUEUE_TYPE_MULTI;
-+	amd_queue->hsa_queue.features = HSA_QUEUE_FEATURE_KERNEL_DISPATCH;
-+	amd_queue->hsa_queue.base_address = (void *)knod->kaql[idx].aql->gaddr;
-+	amd_queue->hsa_queue.doorbell_signal =
-+		knod->kaql[idx].queue_signal->gaddr;
-+	amd_queue->hsa_queue.size = knod->nr_aql_ring;
-+	amd_queue->hsa_queue.reserved1 = 0;
-+	amd_queue->hsa_queue.id = qid;
-+
-+	amd_queue->write_dispatch_id = 0; /* id is index */
-+	amd_queue->group_segment_aperture_base_hi = 0;
-+	amd_queue->private_segment_aperture_base_hi = 0;
-+	amd_queue->max_cu_id = -1;
-+	amd_queue->max_wave_id = -1;
-+	amd_queue->max_legacy_doorbell_dispatch_id_plus_1 = 0;
-+	amd_queue->legacy_doorbell_lock = 0;
-+	amd_queue->read_dispatch_id = 0; /* id is index */
-+	amd_queue->read_dispatch_id_field_base_byte_offset = 0x80;
-+	/* scratch resource descriptor - use allocated scratch BO address */
-+	scratch_gaddr = (u32)(knod->kaql[idx].scratch->gaddr & 0xffffffff);
-+	amd_queue->scratch_resource_descriptor[0] = scratch_gaddr;
-+	scratch_gaddr = (u32)((knod->kaql[idx].scratch->gaddr >> 32) & 0xffff);
-+	rsrc1.base_address_hi = scratch_gaddr;
-+	rsrc1.stride = 0;
-+	rsrc1.cache_swizzle = 0;
-+	rsrc1.swizzle_enable = 1;
-+	memcpy(&amd_queue->scratch_resource_descriptor[1], &rsrc1, sizeof(u32));
-+	amd_queue->scratch_resource_descriptor[2] =
-+		knod->kaql[idx].scratch->size;
-+	amd_queue->scratch_resource_descriptor[3] = 0x00ffffff;
-+	amd_queue->scratch_backing_memory_location =
-+		knod->kaql[idx].scratch->gaddr;
-+	amd_queue->scratch_backing_memory_byte_size =
-+		knod->kaql[idx].scratch->size;
-+	amd_queue->scratch_wave64_lane_byte_size = 64;
-+
-+	amd_queue->queue_properties.is_ptr64 = 1;
-+	amd_queue->queue_properties.enable_trap_handler_debug_sgprs = 0;
-+}
-+
-+static void knod_init_sdma_queue(struct knod *knod, int qid, int idx)
-+{
-+}
-+
-+static void knod_init_queue(struct knod *knod, int qid, int idx, int type)
-+{
-+	if (type == KFD_IOC_QUEUE_TYPE_COMPUTE_AQL)
-+		knod_init_aql_queue(knod, qid, idx);
-+	else if (type == KFD_IOC_QUEUE_TYPE_SDMA)
-+		knod_init_sdma_queue(knod, qid, idx);
-+}
-+
-+static void stop_umh(pid_t umh_pid)
-+{
-+	struct pid *p = find_get_pid(umh_pid);
-+
-+	if (!p)
-+		return;
-+
-+	kill_pid(p, SIGKILL, 1);
-+	put_pid(p);
-+}
-+
-+static int umh_init(struct subprocess_info *info, struct cred *new)
-+{
-+	struct umh_data *d = info->data;
-+
-+	d->pid = current->pid;
-+
-+	return 0;
-+}
-+
-+static int launch_and_get_pid(void)
-+{
-+	static const char * const argv[] = { "/bin/sleep", "2147483647", NULL };
-+	static const char * const envp[] = { "HOME=/", "PATH=/sbin:/bin", NULL };
-+	struct umh_data data = { .pid = -1 };
-+	struct subprocess_info *info;
-+	int ret;
-+
-+	info = call_usermodehelper_setup(argv[0], (char **)argv,
-+					 (char **)envp, GFP_KERNEL,
-+					 umh_init, NULL, &data);
-+	if (!info) {
-+		pr_err("UMH setup failed\n");
-+		return 0;
-+	}
-+
-+	ret = call_usermodehelper_exec(info, UMH_WAIT_EXEC);
-+	if (ret < 0) {
-+		pr_err("UMH exec failed: %d\n", ret);
-+		return 0;
-+	}
-+
-+	return data.pid;
-+}
-+
-+static int knod_set_isa(struct knod *knod)
-+{
-+	enum amd_asic_type asic_type;
-+
-+	asic_type = knod->process->pdds[0]->dev->adev->asic_type;
-+	if (knod->isa_version != 9 && knod->isa_version != 10)
-+		knod->isa_version = 0;
-+	if (knod->isa_version == 0) {
-+		if (asic_type <= CHIP_VEGAM) {
-+			pr_err("Not supported chip");
-+			return -EOPNOTSUPP;
-+		} else if (asic_type == CHIP_VEGA10 ||
-+				asic_type == CHIP_VEGA12 ||
-+				asic_type == CHIP_VEGA20 ||
-+				asic_type == CHIP_RAVEN ||
-+				asic_type == CHIP_RENOIR) {
-+			pr_debug("GCN5 is detected");
-+			knod->isa_version = 9;
-+		} else if (asic_type == CHIP_NAVI10 ||
-+				asic_type == CHIP_NAVI12 ||
-+				asic_type == CHIP_NAVI14 ||
-+				asic_type == CHIP_CYAN_SKILLFISH) {
-+			pr_err("RDNA1 is not supported yet");
-+			return -EOPNOTSUPP;
-+		} else if (asic_type == CHIP_SIENNA_CICHLID ||
-+				asic_type == CHIP_NAVY_FLOUNDER ||
-+				asic_type == CHIP_DIMGREY_CAVEFISH ||
-+				asic_type == CHIP_BEIGE_GOBY ||
-+				asic_type == CHIP_YELLOW_CARP) {
-+			pr_debug("RDNA2 is detected");
-+			knod->isa_version = 10;
-+		} else if (asic_type == CHIP_ARCTURUS ||
-+				asic_type == CHIP_ALDEBARAN) {
-+			pr_err("CDNA is not supported yet");
-+			return -EOPNOTSUPP;
-+		} else if (asic_type == CHIP_IP_DISCOVERY) {
-+			pr_err("Can't detect chip version, firmware update may be needed");
-+			return -EOPNOTSUPP;
-+		} else {
-+			pr_err("Not supported chip");
-+			return -EOPNOTSUPP;
-+		}
-+	}
-+
-+	knod->igpu = false;
-+	if (asic_type == CHIP_RENOIR || asic_type == CHIP_RAVEN ||
-+	    asic_type == CHIP_CYAN_SKILLFISH || asic_type == CHIP_BEIGE_GOBY ||
-+	    asic_type == CHIP_YELLOW_CARP) {
-+		pr_debug("iGPU is detected");
-+		knod->igpu = true;
-+	}
-+
-+	return 0;
-+}
-+
-+static void knod_destroy_one_queue(struct knod *knod, int idx)
-+{
-+	/* Destroy queue and event BEFORE freeing BOs.
-+	 * Queue holds references to BO VAs; freeing BOs first causes
-+	 * NULL deref in kfd_queue_unref_bo_vas when UMH exits.
-+	 * Use the created flag (not queue_id value) since KFD IDR can
-+	 * assign queue_id=0 to the first queue.
-+	 */
-+	if (knod->aql_queue_created[idx]) {
-+		int ret;
-+
-+		ret = knod_destroy_queue(knod->process,
-+					 knod->aql_queue_id[idx]);
-+		if (ret)
-+			pr_err("knod: destroy_queue failed: %d (queue_id=%u)\n",
-+			       ret, knod->aql_queue_id[idx]);
-+		knod->aql_queue_created[idx] = false;
-+		knod->aql_queue_id[idx] = 0;
-+	}
-+	if (knod->aql_event[idx].id) {
-+		knod_destroy_event(knod->process, knod->aql_event[idx].id);
-+		knod->aql_event[idx].id = 0;
-+	}
-+
-+	knod_free_mem(knod, knod->kaql[idx].aql);
-+	knod_free_mem(knod, knod->kaql[idx].queue);
-+	knod_free_mem(knod, knod->kaql[idx].eop);
-+	knod_free_mem(knod, knod->kaql[idx].ctx);
-+	knod_free_mem(knod, knod->kaql[idx].queue_signal);
-+	knod_free_mem(knod, knod->kaql[idx].amd_queue);
-+	knod_free_mem(knod, knod->kaql[idx].scratch);
-+}
-+
-+static int knod_alloc_one_queue(struct knod *knod, int idx,
-+				struct kfd_topology_device *topo_dev,
-+				struct kfd_process_device *pdd, void *ptr)
-+{
-+	int buf_flags = KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE |
-+			KFD_IOC_ALLOC_MEM_FLAGS_COHERENT |
-+			KFD_IOC_ALLOC_MEM_FLAGS_VRAM;
-+	int flags = KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE |
-+		    KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE |
-+		    KFD_IOC_ALLOC_MEM_FLAGS_COHERENT |
-+		    KFD_IOC_ALLOC_MEM_FLAGS_GTT;
-+	struct amd_signal *queue_signal;
-+	struct amd_queue *amd_queue;
-+	struct queue_properties qp;
-+	u32 total_cwsr_size;
-+	int err;
-+
-+	knod->kaql[idx].aql = knod_alloc_mem(knod,
-+		(NR_AQL_RING *
-+		 sizeof(struct hsa_kernel_dispatch_packet) * 2),
-+		KFD_IOC_ALLOC_MEM_FLAGS_GTT |
-+		KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE |
-+		KFD_IOC_ALLOC_MEM_FLAGS_COHERENT |
-+		KFD_IOC_ALLOC_MEM_FLAGS_UNCACHED |
-+		KFD_IOC_ALLOC_MEM_FLAGS_AQL_QUEUE_MEM |
-+		KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE);
-+	if (IS_ERR(knod->kaql[idx].aql)) {
-+		err = PTR_ERR(knod->kaql[idx].aql);
-+		knod->kaql[idx].aql = NULL;
-+		goto err_mem;
-+	}
-+
-+	knod->kaql[idx].queue = knod_alloc_mem(knod, PAGE_SIZE, flags);
-+	if (IS_ERR(knod->kaql[idx].queue)) {
-+		err = PTR_ERR(knod->kaql[idx].queue);
-+		knod->kaql[idx].queue = NULL;
-+		goto err_mem;
-+	}
-+
-+	knod->kaql[idx].eop = knod_alloc_mem(knod, PAGE_SIZE, flags);
-+	if (IS_ERR(knod->kaql[idx].eop)) {
-+		err = PTR_ERR(knod->kaql[idx].eop);
-+		knod->kaql[idx].eop = NULL;
-+		goto err_mem;
-+	}
-+
-+	total_cwsr_size = (topo_dev->node_props.cwsr_size +
-+			   topo_dev->node_props.debug_memory_size)
-+			  * NUM_XCC(pdd->dev->xcc_mask);
-+	total_cwsr_size = ALIGN(total_cwsr_size, PAGE_SIZE);
-+
-+	knod->kaql[idx].ctx = knod_alloc_mem(knod, total_cwsr_size, buf_flags);
-+	if (IS_ERR(knod->kaql[idx].ctx)) {
-+		err = PTR_ERR(knod->kaql[idx].ctx);
-+		knod->kaql[idx].ctx = NULL;
-+		goto err_mem;
-+	}
-+
-+	knod->kaql[idx].queue_signal = knod_alloc_mem(knod,
-+		PAGE_SIZE << 5,
-+		KFD_IOC_ALLOC_MEM_FLAGS_GTT |
-+		KFD_IOC_ALLOC_MEM_FLAGS_COHERENT |
-+		KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE |
-+		KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE);
-+	if (IS_ERR(knod->kaql[idx].queue_signal)) {
-+		err = PTR_ERR(knod->kaql[idx].queue_signal);
-+		knod->kaql[idx].queue_signal = NULL;
-+		goto err_mem;
-+	}
-+
-+	knod->kaql[idx].amd_queue = knod_alloc_mem(knod,
-+		PAGE_SIZE << 5,
-+		KFD_IOC_ALLOC_MEM_FLAGS_GTT |
-+		KFD_IOC_ALLOC_MEM_FLAGS_COHERENT);
-+	if (IS_ERR(knod->kaql[idx].amd_queue)) {
-+		err = PTR_ERR(knod->kaql[idx].amd_queue);
-+		knod->kaql[idx].amd_queue = NULL;
-+		goto err_mem;
-+	}
-+
-+	knod->kaql[idx].scratch = knod_alloc_mem(knod,
-+		PAGE_SIZE << 5,
-+		KFD_IOC_ALLOC_MEM_FLAGS_VRAM |
-+		KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE |
-+		KFD_IOC_ALLOC_MEM_FLAGS_COHERENT);
-+	if (IS_ERR(knod->kaql[idx].scratch)) {
-+		err = PTR_ERR(knod->kaql[idx].scratch);
-+		knod->kaql[idx].scratch = NULL;
-+		goto err_mem;
-+	}
-+
-+	knod->kaql[idx].idx = 0;
-+
-+	/*
-+	 * KNOD dispatchers poll queue_signal->value directly. Do not attach a
-+	 * KFD signal event to every AQL completion; at high packet rates the
-+	 * unused event notifications overflow the KFD interrupt/event path and
-+	 * add latency without contributing to completion detection.
-+	 */
-+	knod->aql_event[idx].id = 0;
-+	knod->aql_event[idx].slot = 0;
-+	knod->signal_eid = 0;
-+
-+	/* Zero ALL queue-related GPU memory BEFORE creating the HW queue.
-+	 * kfd_ioctl_create_queue loads HQD immediately - if the memory
-+	 * contains stale data from a previous session (write/read pointers,
-+	 * AQL dispatch packets, doorbell values), the GPU starts processing
-+	 * garbage packets and goes to 100%.
-+	 */
-+	memset(knod->kaql[idx].queue->kaddr, 0, knod->kaql[idx].queue->size);
-+	/* AQL ring is allocated 2x with AQL_QUEUE_MEM flag; the second
-+	 * half is a GPU-side mirror for wrap-around.  kaddr only covers
-+	 * the first half.
-+	 */
-+	memset(knod->kaql[idx].aql->kaddr, 0, knod->kaql[idx].aql->size / 2);
-+	memset(knod->kaql[idx].eop->kaddr, 0, knod->kaql[idx].eop->size);
-+	memset(knod->kaql[idx].amd_queue->kaddr, 0,
-+	       knod->kaql[idx].amd_queue->size);
-+	knod_init_queue(knod, idx, idx, KFD_IOC_QUEUE_TYPE_COMPUTE_AQL);
-+
-+	memset(&qp, 0, sizeof(qp));
-+	qp.type = KFD_QUEUE_TYPE_COMPUTE;
-+	qp.format = KFD_QUEUE_FORMAT_AQL;
-+	qp.queue_percent = 100;
-+	qp.priority = 15;
-+	qp.ctl_stack_size = topo_dev->node_props.ctl_stack_size;
-+	qp.ctx_save_restore_area_size = topo_dev->node_props.cwsr_size;
-+	qp.ctx_save_restore_area_address = (u64)knod->kaql[idx].ctx->gaddr;
-+	qp.queue_address = (u64)knod->kaql[idx].aql->gaddr;
-+	qp.queue_size = knod->kaql[idx].aql->size / 2;
-+	qp.write_ptr =
-+		(void __user *)((u64)knod->kaql[idx].queue->gaddr + 0x38);
-+	qp.read_ptr = (void __user *)((u64)knod->kaql[idx].queue->gaddr + 0x80);
-+	qp.eop_ring_buffer_address = (u64)knod->kaql[idx].eop->gaddr;
-+	qp.eop_ring_buffer_size = knod->kaql[idx].eop->size;
-+
-+	err = knod_create_event(knod->process, KFD_IOC_EVENT_SIGNAL, true, 1,
-+				&knod->aql_event[idx]);
-+	if (err) {
-+		knod_err(" failed to create AQL event[%d] err=%d\n", idx, err);
-+		goto err_mem;
-+	}
-+
-+	queue_signal = (struct amd_signal *)knod->kaql[idx].queue_signal->kaddr;
-+	queue_signal->kind = AMD_SIGNAL_KIND_USER;
-+	if (queue_signal->kind == AMD_SIGNAL_KIND_DOORBELL) {
-+		queue_signal->value = 0;
-+		queue_signal->event_id = 0;
-+		queue_signal->queue_ptr = (void *)knod->kaql[idx].queue->gaddr;
-+		queue_signal->hardware_doorbell_ptr = ptr;
-+		queue_signal->event_mailbox_ptr = 0;
-+	} else if (queue_signal->kind == AMD_SIGNAL_KIND_USER) {
-+		queue_signal->event_id = knod->aql_event[idx].id;
-+		queue_signal->queue_ptr = 0;
-+		queue_signal->event_mailbox_ptr = knod->mailbox->gaddr +
-+			knod->aql_event[idx].slot * 8;
-+		/* value is in union with hardware_doorbell_ptr - set last */
-+		queue_signal->value = 0xffffffffffffffff;
-+	}
-+	knod_dbg(" pre-create-queue signal=%lld kaddr=%p gaddr=0x%llx\n",
-+		 READ_ONCE(queue_signal->value), queue_signal,
-+		 knod->kaql[idx].queue_signal->gaddr);
-+
-+	err = knod_create_queue(knod->process, &qp, pdd->user_gpu_id,
-+				&knod->aql_queue_id[idx],
-+				&knod->aql_doorbell_offset[idx]);
-+	if (err) {
-+		knod_err(" failed to create queue, err = %d\n", err);
-+		goto err_mem;
-+	}
-+	knod->aql_queue_created[idx] = true;
-+
-+	knod_dbg(" post-create-queue signal=%lld queue_id=%d\n",
-+		 READ_ONCE(queue_signal->value), knod->aql_queue_id[idx]);
-+
-+	/* Update queue id with the actual KFD-assigned value */
-+	amd_queue = (struct amd_queue *)knod->kaql[idx].queue->kaddr;
-+	amd_queue->hsa_queue.id = knod->aql_queue_id[idx];
-+	return 0;
-+
-+err_mem:
-+	if (knod->aql_event[idx].id) {
-+		knod_destroy_event(knod->process, knod->aql_event[idx].id);
-+		knod->aql_event[idx].id = 0;
-+	}
-+	knod_free_mem(knod, knod->kaql[idx].aql);
-+	knod_free_mem(knod, knod->kaql[idx].queue);
-+	knod_free_mem(knod, knod->kaql[idx].eop);
-+	knod_free_mem(knod, knod->kaql[idx].ctx);
-+	knod_free_mem(knod, knod->kaql[idx].queue_signal);
-+	knod_free_mem(knod, knod->kaql[idx].amd_queue);
-+	knod_free_mem(knod, knod->kaql[idx].scratch);
-+	memset(&knod->kaql[idx], 0, sizeof(knod->kaql[idx]));
-+	return err;
-+}
-+
-+/*
-+ * Write a minimal no-op kernel into the kernel BO so that any dispatch
-+ * before a real shader (BPF/IPsec/MACsec/WG) is loaded executes a
-+ * harmless s_endpgm instead of faulting on uninitialised VRAM.
-+ *
-+ * Layout:
-+ *   [0..63]     kernel_descriptor  (kernel_code_entry_byte_offset = 256)
-+ *   [256..259]  s_endpgm           (0xBF810000)
-+ *   [260..1023] s_code_end padding (GFX10 SQC prefetch safety)
-+ */
-+#define KNOD_DEFAULT_KD_ENTRY_OFFSET	256
-+#define KNOD_S_ENDPGM			0xBF810000u
-+#define KNOD_S_CODE_END			0xBF9F0000u
-+
-+static void knod_init_default_kernel(struct knod *knod)
-+{
-+	struct kernel_descriptor *kd = knod->kernels[0]->kaddr;
-+	u32 *code = (u32 *)((u8 *)knod->kernels[0]->kaddr +
-+			    KNOD_DEFAULT_KD_ENTRY_OFFSET);
-+	int i;
-+
-+	memset(kd, 0, sizeof(*kd));
-+	kd->kernel_code_entry_byte_offset = KNOD_DEFAULT_KD_ENTRY_OFFSET;
-+	kd->compute_pgm_rsrc1.granulated_workitem_vgpr_count = 0;
-+	kd->compute_pgm_rsrc1.granulated_wavefront_sgpr_count = 0;
-+	kd->compute_pgm_rsrc1.float_denorm_mode_32 = 3;
-+	kd->compute_pgm_rsrc1.float_denorm_mode_16_64 = 3;
-+	kd->compute_pgm_rsrc1.enable_dx10_clamp = 1;
-+	kd->compute_pgm_rsrc1.enable_ieee_mode = 1;
-+	if (knod->isa_version >= 10)
-+		kd->compute_pgm_rsrc1.mem_ordered = 1;
-+	kd->compute_pgm_rsrc2.enable_sgpr_workgroup_id_x = 1;
-+
-+	code[0] = KNOD_S_ENDPGM;
-+	for (i = 1; i < (1024 - KNOD_DEFAULT_KD_ENTRY_OFFSET) / 4; i++)
-+		code[i] = KNOD_S_CODE_END;
-+}
-+
-+#define KNOD_DEFAULT_BATCH	64
-+
-+static struct knod_accel_xdp_ops *registered_xdp_ops;
-+
-+/*
-+ * feature=none has no per-feature ops: the default worker stamps XDP_PASS and
-+ * the NIC act handler delivers via knod_d2h_copy / knod_d2h_drain.
-+ */
-+static struct knod_accel_xdp_ops default_xdp_ops = {
-+};
-+
-+static int knod_default_worker(void *arg)
-+{
-+	struct knod *knod = arg;
-+	struct spsc_bd *bds[KNOD_DEFAULT_BATCH];
-+	struct knod_dev *knodev;
-+	unsigned int cnt;
-+	int qi, i;
-+
-+	while (!kthread_should_stop()) {
-+		knodev = READ_ONCE(knod->accel->knodev);
-+		if (!knodev || !knodev->started) {
-+			usleep_range(1000, 2000);
-+			continue;
-+		}
-+
-+		for (qi = 0; qi < knod->channels; qi++) {
-+			struct knod_work_priv *wpriv = &knodev->wpriv[qi];
-+
-+			if (!wpriv->napi)
-+				continue;
-+
-+			if (spsc_peek(&wpriv->spsc_bds, (void **)bds,
-+				      KNOD_DEFAULT_BATCH, &cnt))
-+				continue;
-+
-+			/*
-+			 * feature=none has no program, so every packet passes.
-+			 * Stamp the verdict before advancing the consumer
-+			 * cursor: spsc_acquire() publishes the window with a
-+			 * release barrier the act handler pairs with, so the
-+			 * verdict has to be written first or the act handler
-+			 * races a POISON read.  The NIC act handler does the
-+			 * device->host delivery via knod_d2h_copy.
-+			 */
-+			for (i = 0; i < cnt; i++)
-+				WRITE_ONCE(bds[i]->act, XDP_PASS);
-+
-+			spsc_acquire(&wpriv->spsc_bds, NULL, cnt, NULL);
-+			knod_napi_kick(wpriv);
-+		}
-+
-+		usleep_range(100, 200);
-+	}
-+	return 0;
-+}
-+
-+static int knod_start_default_worker(struct knod *knod)
-+{
-+	struct task_struct *p;
-+
-+	knod->worker_fn = knod_default_worker;
-+	knod->flush_fn = NULL;
-+	knod->worker_ctx = knod;
-+	p = kthread_run(knod_default_worker, knod, "knod_dflt_%d",
-+			knod->accel->id);
-+	if (IS_ERR(p))
-+		return PTR_ERR(p);
-+
-+	get_task_struct(p);
-+	knod->worker = p;
-+	return 0;
-+}
-+
-+static void knod_stop_worker(struct knod *knod)
-+{
-+	if (!knod->worker)
-+		return;
-+
-+	if (knod->flush_fn)
-+		knod->flush_fn(knod->worker_ctx);
-+
-+	kthread_stop(knod->worker);
-+	put_task_struct(knod->worker);
-+	knod->worker = NULL;
-+	knod->worker_fn = NULL;
-+	knod->flush_fn = NULL;
-+	knod->worker_ctx = NULL;
-+}
-+
-+int knod_register_worker(struct knod *knod, knod_worker_fn_t fn,
-+			 knod_flush_fn_t flush, void *ctx)
-+{
-+	struct task_struct *p;
-+
-+	knod_stop_worker(knod);
-+
-+	knod->worker_fn = fn;
-+	knod->flush_fn = flush;
-+	knod->worker_ctx = ctx;
-+	p = kthread_run(fn, ctx, "knod_%d", knod->accel->id);
-+	if (IS_ERR(p)) {
-+		knod->worker_fn = NULL;
-+		knod->flush_fn = NULL;
-+		knod->worker_ctx = NULL;
-+		return PTR_ERR(p);
-+	}
-+
-+	get_task_struct(p);
-+	knod->worker = p;
-+	return 0;
-+}
-+
-+void knod_unregister_worker(struct knod *knod)
-+{
-+	knod_stop_worker(knod);
-+	knod_start_default_worker(knod);
-+}
-+
-+int knod_wait_on_events(struct kfd_process *p, u32 num_events,
-+			void __user *data, bool all, u32 *user_timeout_ms,
-+			u32 *wait_result)
-+{
-+	return kfd_wait_on_events_kernel(p, num_events, data, all,
-+					 user_timeout_ms, wait_result);
-+}
-+EXPORT_SYMBOL(knod_wait_on_events);
-+
-+static int knod_alloc_ctx_init(struct knod *knod, int id, void **doorbell,
-+			       struct kfd_topology_device **out_topo_dev,
-+			       struct kfd_process_device **out_pdd)
-+{
-+	struct kfd_topology_device *topo_dev;
-+	struct kfd_process_device *pdd;
-+	struct file *drm_file;
-+	size_t mem_size;
-+	char path[64];
-+	int err;
-+
-+	sprintf(path, "/dev/dri/renderD%d", id);
-+
-+	drm_file = filp_open(path, O_RDWR, 0);
-+	if (IS_ERR(drm_file))
-+		return PTR_ERR(drm_file);
-+
-+	knod->drm_file = drm_file;
-+
-+	knod->process = kfd_create_process(knod->umh_task);
-+	if (IS_ERR(knod->process)) {
-+		err = PTR_ERR(knod->process);
-+		goto err_filp_close;
-+	}
-+	kref_get(&knod->process->ref);
-+
-+	err = knod_set_isa(knod);
-+	if (err < 0)
-+		goto err_unref_process;
-+
-+	pdd = knod->process->pdds[0];
-+
-+	topo_dev = kfd_topology_device_by_id(pdd->dev->id);
-+	if (!topo_dev) {
-+		pr_err("knod: can't find topo_dev for dev id %u\n",
-+		       pdd->dev->id);
-+		err = -ENODEV;
-+		goto err_unref_process;
-+	}
-+
-+	/* Acquire VM directly without installing an fd into any process's
-+	 * fdtable.  get_file() provides the ref that pdd->drm_file will own.
-+	 * kfd_process_destroy_pdds will fput it during process cleanup.
-+	 */
-+	get_file(drm_file);
-+	mutex_lock(&knod->process->mutex);
-+	err = kfd_process_device_init_vm(pdd, drm_file);
-+	mutex_unlock(&knod->process->mutex);
-+	if (err) {
-+		fput(drm_file);
-+		goto err_unref_process;
-+	}
-+
-+	*doorbell = kfd_kernel_doorbell_mmap(pdd->dev, knod->process);
-+	if (!*doorbell) {
-+		err = -ENOMEM;
-+		goto err_unref_process;
-+	}
-+
-+	knod->pool = gen_pool_create(PAGE_SHIFT,
-+				     dev_to_node(pdd->dev->adev->dev));
-+	if (!knod->pool) {
-+		err = -ENOMEM;
-+		goto err_release_doorbell;
-+	}
-+
-+	knod->dev = pdd->dev;
-+	knod->reserved_addr = pdd->gpuvm_base << 2;
-+	knod->limit_addr = pdd->gpuvm_limit;
-+	mem_size = knod->limit_addr - knod->reserved_addr;
-+
-+	err = gen_pool_add(knod->pool, knod->reserved_addr, mem_size,
-+			   dev_to_node(pdd->dev->adev->dev));
-+	if (err)
-+		goto err_gen_pool_destroy;
-+
-+	knod->kernels[0] = knod_alloc_mem(knod, PAGE_SIZE << 10,
-+				      KFD_IOC_ALLOC_MEM_FLAGS_VRAM |
-+				      KFD_IOC_ALLOC_MEM_FLAGS_COHERENT |
-+				      KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE |
-+				      KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE);
-+	if (IS_ERR(knod->kernels[0])) {
-+		err = PTR_ERR(knod->kernels[0]);
-+		knod->kernels[0] = NULL;
-+		goto err_gen_pool_destroy;
-+	}
-+	knod_init_default_kernel(knod);
-+
-+	/*
-+	 * Second dispatch slot for the BPF ping-pong swap, allocated right
-+	 * after knod->kernels[0] so both kernel BOs sit in the same low VA
-+	 * region.
-+	 * Allocating it later (at feature activate, past the RX buffers) put it
-+	 * at a high VA, and switching the dispatch kernel_object to that BO
-+	 * mid-stream wedged the compute queue.
-+	 */
-+	knod->kernels[1] = knod_alloc_mem(knod, PAGE_SIZE << 10,
-+					  KFD_IOC_ALLOC_MEM_FLAGS_VRAM |
-+					  KFD_IOC_ALLOC_MEM_FLAGS_COHERENT |
-+					  KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE |
-+					  KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE);
-+	if (IS_ERR(knod->kernels[1])) {
-+		err = PTR_ERR(knod->kernels[1]);
-+		knod->kernels[1] = NULL;
-+		goto err_free_kernel;
-+	}
-+
-+	knod->mailbox = knod_alloc_mem(knod, PAGE_SIZE << 5,
-+				       KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE |
-+				       KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE |
-+				       KFD_IOC_ALLOC_MEM_FLAGS_COHERENT |
-+				       KFD_IOC_ALLOC_MEM_FLAGS_VRAM);
-+	if (IS_ERR(knod->mailbox)) {
-+		err = PTR_ERR(knod->mailbox);
-+		knod->mailbox = NULL;
-+		goto err_free_kernel;
-+	}
-+
-+	*out_topo_dev = topo_dev;
-+	*out_pdd = pdd;
-+	return 0;
-+
-+err_free_kernel:
-+	if (knod->kernels[1])
-+		knod_free_mem(knod, knod->kernels[1]);
-+	knod->kernels[1] = NULL;
-+	knod_free_mem(knod, knod->kernels[0]);
-+	knod->kernels[0] = NULL;
-+err_gen_pool_destroy:
-+	gen_pool_destroy(knod->pool);
-+	knod->pool = NULL;
-+err_release_doorbell:
-+	iounmap(*doorbell);
-+	*doorbell = NULL;
-+err_unref_process:
-+	kfd_unref_process(knod->process);
-+err_filp_close:
-+	fput(knod->drm_file);
-+	return err;
-+}
-+
-+struct knod *knod_alloc_ctx(struct knod_dev *knodev, int queue_cnt, int id,
-+			    int channels)
-+{
-+	int buf_flags = KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE |
-+			KFD_IOC_ALLOC_MEM_FLAGS_COHERENT |
-+			KFD_IOC_ALLOC_MEM_FLAGS_VRAM;
-+	struct kfd_topology_device *topo_dev;
-+	struct kfd_process_device *pdd;
-+	struct process_queue_node *pqn;
-+	struct knod_work_priv *wpriv;
-+	struct task_struct *task;
-+	unsigned int sdma_cnt;
-+	void *ptr = NULL;
-+	struct knod *knod;
-+	struct knod_mem *buf;
-+	struct pid *spid;
-+	struct queue *q;
-+	int err, size;
-+	pid_t pid;
-+	int idx;
-+
-+	pid = launch_and_get_pid();
-+	if (!pid) {
-+		knod_err(" failed to create UMH\n");
-+		return ERR_PTR(-EINVAL);
-+	}
-+
-+	spid = find_get_pid(pid);
-+	if (!spid) {
-+		knod_err(" failed to find pid\n");
-+		return ERR_PTR(-ESRCH);
-+	}
-+
-+	task = get_pid_task(spid, PIDTYPE_PID);
-+	put_pid(spid);
-+	if (!task) {
-+		knod_err(" no task found\n");
-+		return ERR_PTR(-ESRCH);
-+	}
-+
-+	knod = kzalloc(sizeof(struct knod), GFP_KERNEL);
-+	if (!knod) {
-+		put_task_struct(task);
-+		return ERR_PTR(-ENOMEM);
-+	}
-+
-+	knod->queue_cnt = queue_cnt;
-+	knod->sdma_cnt = queue_cnt;
-+	knod->channels = channels;
-+	knod->umh_pid = pid;
-+	knod->umh_task = task;
-+	knod->nr_aql_ring = NR_AQL_RING;
-+	INIT_LIST_HEAD(&knod->list);
-+	INIT_LIST_HEAD(&knod->active_list);
-+
-+	err = knod_alloc_ctx_init(knod, id, &ptr, &topo_dev, &pdd);
-+	if (err)
-+		goto err_free_knod;
-+
-+	sdma_cnt = topo_dev->node_props.num_sdma_engines *
-+		   topo_dev->node_props.num_sdma_queues_per_engine;
-+	if (!sdma_cnt)
-+		sdma_cnt = queue_cnt;
-+	knod->sdma_cnt = min_t(int, queue_cnt, sdma_cnt);
-+	if (!knod->sdma_cnt)
-+		knod->sdma_cnt = 1;
-+	pr_info("knod: AQL queues=%d SDMA queues=%d channels=%d\n",
-+		queue_cnt, knod->sdma_cnt, channels);
-+
-+	knod->doorbell_base = ptr;
-+
-+	knod->buf = kmalloc_array(channels, sizeof(struct knod_mem *),
-+				  GFP_KERNEL | __GFP_ZERO);
-+	if (!knod->buf) {
-+		err = -ENOMEM;
-+		goto err_free_mailbox;
-+	}
-+
-+	if (knod->igpu)
-+		size = PAGE_SIZE << MAX_PAGE_ORDER;
-+	else
-+		size = PAGE_SIZE << 14;
-+
-+	for (idx = 0; idx < channels; idx++) {
-+		wpriv = &knodev->wpriv[idx];
-+		buf = __knod_alloc_mem(knod, size, buf_flags);
-+		if (IS_ERR(buf)) {
-+			err = PTR_ERR(buf);
-+			goto err_free_bufs;
-+		}
-+		if (__knod_export_dma_buf(knod, buf)) {
-+			knod_free_mem(knod, buf);
-+			err = -ENOMEM;
-+			goto err_free_bufs;
-+		}
-+		if (__knod_map_kaddr(knod, buf)) {
-+			knod_free_mem(knod, buf);
-+			err = -ENOMEM;
-+			goto err_free_bufs;
-+		}
-+		if (__knod_map_mem(knod, buf)) {
-+			knod_free_mem(knod, buf);
-+			err = -ENOMEM;
-+			goto err_free_bufs;
-+		}
-+		wpriv->dmabuf = buf->mem->dmabuf;
-+		wpriv->index = idx;
-+		knod->buf[idx] = buf;
-+	}
-+
-+	/*
-+	 * GPU->host delivery buffer + per-queue page_pools are owned by the
-+	 * NOD framework (knod_pass_attach), allocated via accel_ops->alloc_mem.
-+	 */
-+
-+	memset(knod->mailbox->kaddr, 0, knod->mailbox->size);
-+
-+	err = kfd_event_page_set(knod->process,
-+				 knod->mailbox->kaddr,
-+				 KFD_SIGNAL_EVENT_LIMIT * 8,
-+				 knod->mailbox->gaddr);
-+	if (err < 0)
-+		goto err_free_bufs;
-+
-+	for (idx = 0; idx < queue_cnt; idx++) {
-+		err = knod_alloc_one_queue(knod, idx, topo_dev, pdd, ptr);
-+		if (err)
-+			goto err_free_queues;
-+	}
-+
-+	/* Allocate only the SDMA queues the device can actually provide. BPF
-+	 * XDP_TX does not use SDMA for the verdict path, while PASS/d2h maps RX
-+	 * queues onto the available SDMA queues modulo sdma_cnt.
-+	 */
-+	for (idx = 0; idx < knod->sdma_cnt; idx++) {
-+		struct amd_signal *sdma_signal;
-+		struct queue_properties qp;
-+		long *sdma_lptr;
-+		int sdma_flags = KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE |
-+				 KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE |
-+				 KFD_IOC_ALLOC_MEM_FLAGS_COHERENT |
-+				 KFD_IOC_ALLOC_MEM_FLAGS_GTT;
-+
-+		knod->sdma[idx].sdma = knod_alloc_mem(knod, PAGE_SIZE << 4,
-+			KFD_IOC_ALLOC_MEM_FLAGS_GTT |
-+			KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE |
-+			KFD_IOC_ALLOC_MEM_FLAGS_COHERENT |
-+			KFD_IOC_ALLOC_MEM_FLAGS_UNCACHED |
-+			KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE);
-+		if (IS_ERR(knod->sdma[idx].sdma)) {
-+			err = PTR_ERR(knod->sdma[idx].sdma);
-+			knod->sdma[idx].sdma = NULL;
-+			goto err_free_sdma;
-+		}
-+		knod->sdma[idx].queue = knod_alloc_mem(knod, PAGE_SIZE,
-+						       sdma_flags);
-+		if (IS_ERR(knod->sdma[idx].queue)) {
-+			err = PTR_ERR(knod->sdma[idx].queue);
-+			knod->sdma[idx].queue = NULL;
-+			goto err_free_sdma;
-+		}
-+		knod->sdma[idx].queue_signal = knod_alloc_mem(knod,
-+			PAGE_SIZE << 5,
-+			KFD_IOC_ALLOC_MEM_FLAGS_GTT |
-+			KFD_IOC_ALLOC_MEM_FLAGS_COHERENT |
-+			KFD_IOC_ALLOC_MEM_FLAGS_EXECUTABLE |
-+			KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE);
-+		if (IS_ERR(knod->sdma[idx].queue_signal)) {
-+			err = PTR_ERR(knod->sdma[idx].queue_signal);
-+			knod->sdma[idx].queue_signal = NULL;
-+			goto err_free_sdma;
-+		}
-+		knod->sdma[idx].idx = 0;
-+
-+		err = knod_create_event(knod->process, KFD_IOC_EVENT_SIGNAL,
-+					true, 1, &knod->sdma_event[idx]);
-+		if (err) {
-+			knod_err(" failed to create SDMA event[%d] err=%d\n",
-+				 idx, err);
-+			goto err_free_sdma;
-+		}
-+
-+		memset(&qp, 0, sizeof(qp));
-+		qp.type = KFD_QUEUE_TYPE_SDMA;
-+		qp.format = KFD_QUEUE_FORMAT_PM4;
-+		qp.queue_percent = 100;
-+		qp.priority = 15;
-+		qp.queue_address = (u64)knod->sdma[idx].sdma->gaddr;
-+		qp.queue_size = knod->sdma[idx].sdma->size;
-+		qp.write_ptr = (void __user *)
-+			((u64)knod->sdma[idx].queue->gaddr + 0x08);
-+		qp.read_ptr = (void __user *)
-+			((u64)knod->sdma[idx].queue->gaddr + 0x10);
-+
-+		sdma_signal = (struct amd_signal *)
-+			knod->sdma[idx].queue_signal->kaddr;
-+		sdma_signal->kind = AMD_SIGNAL_KIND_USER;
-+		sdma_signal->event_id = knod->sdma_event[idx].id;
-+		sdma_signal->queue_ptr = 0;
-+		sdma_signal->event_mailbox_ptr = knod->mailbox->gaddr +
-+			(knod->sdma_event[idx].slot * 8);
-+		/* SDMA fence writes u32 to low 32 bits of value.
-+		 * Init to 0 (not -1 like AQL) so comparison works.
-+		 * value is in union with hardware_doorbell_ptr - set last.
-+		 */
-+		sdma_signal->value = 0;
-+		sdma_lptr = knod->mailbox->kaddr + (idx * 8);
-+		sdma_lptr[knod->sdma_event[idx].slot] = 0;
-+
-+		err = knod_create_queue(knod->process, &qp, pdd->user_gpu_id,
-+					&knod->sdma_queue_id[idx],
-+					&knod->sdma_doorbell_offset[idx]);
-+		if (err) {
-+			knod_err(" failed to create SDMA queue[%d] err=%d\n",
-+				 idx, err);
-+			goto err_free_sdma;
-+		}
-+		knod->sdma_queue_created[idx] = true;
-+
-+		knod_init_queue(knod, knod->sdma_queue_id[idx], idx,
-+				KFD_IOC_QUEUE_TYPE_SDMA);
-+		knod->sdma[idx].doorbell =
-+			(u64 *)((u8 *)ptr +
-+				(u32)knod->sdma_doorbell_offset[idx]);
-+		knod_dbg(" SDMA queue[%d] created: id=%d doorbell_offset=0x%x doorbell=%p\n",
-+			 idx, knod->sdma_queue_id[idx],
-+			 (u32)knod->sdma_doorbell_offset[idx],
-+			 knod->sdma[idx].doorbell);
-+	}
-+
-+	list_for_each_entry(pqn, &knod->process->pqm.queues,
-+			    process_queue_list) {
-+		if (!pqn->q)
-+			continue;
-+		q = pqn->q;
-+		for (idx = 0; idx < queue_cnt; idx++) {
-+			if (q->properties.queue_id == idx) {
-+				knod->kaql[idx].doorbell =
-+					(u64 *)((u8 *)ptr +
-+					(u32)knod->aql_doorbell_offset[idx]);
-+				q->properties.doorbell_ptr =
-+					knod->kaql[idx].doorbell;
-+				knod_dbg(" doorbell: idx=%d qid=%d door_off=0x%x doorbell=%p\n",
-+					 idx, q->properties.queue_id,
-+					 (u32)knod->aql_doorbell_offset[idx],
-+					 knod->kaql[idx].doorbell);
-+			}
-+		}
-+	}
-+
-+	list_add_tail(&knod->list, &ctx_list);
-+
-+	/* Create shared debugfs directory under dri/<N>/knod/ */
-+	{
-+		struct drm_minor *minor = adev_to_drm(pdd->dev->adev)->render;
-+
-+		if (minor && minor->debugfs_root) {
-+			struct dentry *dir;
-+
-+			dir = debugfs_lookup("knod", minor->debugfs_root);
-+			if (!dir) {
-+				dir = debugfs_create_dir("knod",
-+							 minor->debugfs_root);
-+				if (IS_ERR(dir))
-+					dir = NULL;
-+			}
-+			knod->debug_dir = dir;
-+		}
-+	}
-+
-+	return knod;
-+
-+err_free_sdma:
-+	{
-+		int j;
-+
-+		for (j = idx; j >= 0; j--) {
-+			if (knod->sdma_queue_created[j]) {
-+				knod_destroy_queue(knod->process,
-+						   knod->sdma_queue_id[j]);
-+				knod->sdma_queue_created[j] = false;
-+			}
-+			if (knod->sdma_event[j].id) {
-+				knod_destroy_event(knod->process,
-+						   knod->sdma_event[j].id);
-+				knod->sdma_event[j].id = 0;
-+			}
-+			knod_free_mem(knod, knod->sdma[j].sdma);
-+			knod_free_mem(knod, knod->sdma[j].queue);
-+			knod_free_mem(knod, knod->sdma[j].queue_signal);
-+		}
-+	}
-+	idx = queue_cnt;
-+err_free_queues:
-+	while (idx-- > 0)
-+		knod_destroy_one_queue(knod, idx);
-+err_free_bufs:
-+	for (idx = 0; idx < channels; idx++)
-+		knod_free_mem(knod, knod->buf[idx]);
-+	kfree(knod->buf);
-+err_free_mailbox:
-+	knod_free_mem(knod, knod->mailbox);
-+	knod_free_mem(knod, knod->kernels[1]);
-+	knod_free_mem(knod, knod->kernels[0]);
-+	gen_pool_destroy(knod->pool);
-+	iounmap(ptr);
-+	kfd_unref_process(knod->process);
-+	fput(knod->drm_file);
-+err_free_knod:
-+	put_task_struct(knod->umh_task);
-+	stop_umh(knod->umh_pid);
-+	kfree(knod);
-+	return ERR_PTR(err);
-+}
-+EXPORT_SYMBOL(knod_alloc_ctx);
-+
-+void knod_release_ctx(struct knod *knod)
-+{
-+	int idx;
-+
-+	list_del(&knod->list);
-+
-+	debugfs_remove_recursive(knod->debug_dir);
-+
-+	/* Release SDMA queues - destroy queue/event BEFORE freeing BOs.
-+	 * Same ordering as knod_destroy_one_queue() for AQL: the queue
-+	 * holds references to BO VAs, so freeing BOs first causes the
-+	 * queue destroy to fail and leaves internal BOs in kfd_bo_list.
-+	 */
-+	for (idx = 0; idx < knod->sdma_cnt; idx++) {
-+		knod_destroy_queue(knod->process, knod->sdma_queue_id[idx]);
-+		knod_destroy_event(knod->process, knod->sdma_event[idx].id);
-+		knod_free_mem(knod, knod->sdma[idx].sdma);
-+		knod_free_mem(knod, knod->sdma[idx].queue);
-+		knod_free_mem(knod, knod->sdma[idx].queue_signal);
-+	}
-+
-+	for (idx = 0; idx < knod->queue_cnt; idx++)
-+		knod_destroy_one_queue(knod, idx);
-+
-+	for (idx = 0; idx < knod->channels; idx++)
-+		knod_free_mem(knod, knod->buf[idx]);
-+	kfree(knod->buf);
-+
-+	knod_free_mem(knod, knod->mailbox);
-+	knod_free_mem(knod, knod->kernels[1]);
-+	knod_free_mem(knod, knod->kernels[0]);
-+	gen_pool_destroy(knod->pool);
-+	iounmap(knod->doorbell_base);
-+
-+	/* Tear down the KFD process.  It holds 3 refs:
-+	 *   ref 1: "open" ref from kfd_create_process (normally dropped
-+	 *           by kfd_release when /dev/kfd is closed - KNOD never
-+	 *           opens /dev/kfd so we must drop this ourselves)
-+	 *   ref 2: KNOD's explicit kref_get in knod_alloc_ctx
-+	 *   ref 3: mmu_notifier alloc_notifier ref (dropped by
-+	 *           free_notifier callback via SRCU after mmu_notifier_put)
-+	 *
-+	 * kfd_process_notifier_release_internal removes from hash,
-+	 * destroys queues, and calls mmu_notifier_put which schedules
-+	 * the SRCU callback to drop ref 3.  We drop refs 1 and 2 here.
-+	 * After SRCU fires, ref reaches 0 -> kfd_process_wq_release
-+	 * runs (sysfs removal, BO/PDD/doorbell/event cleanup, kfree).
-+	 *
-+	 * kfd_process_destroy_pdds fput's pdd->drm_file (the get_file
-+	 * ref from init_vm), bringing the DRM file ref from 2->1.
-+	 * The file/VM stays alive until we fput the filp_open ref below.
-+	 */
-+	kfd_process_notifier_release_internal(knod->process);
-+	kfd_unref_process(knod->process);
-+	kfd_unref_process(knod->process);
-+	mmu_notifier_synchronize();
-+	kfd_process_flush_wq();
-+
-+	/* Drop the filp_open ref (file ref 1->0).  kfd_process_destroy_pdds
-+	 * already fput'd the get_file ref during wq_release above.
-+	 */
-+	fput(knod->drm_file);
-+	flush_delayed_fput();
-+
-+	stop_umh(knod->umh_pid);
-+	put_task_struct(knod->umh_task);
-+	kfree(knod);
-+}
-+EXPORT_SYMBOL(knod_release_ctx);
-+
-+/* ---- feature control (knod genetlink) ---- */
-+
-+static void *knod_feature_ops(enum knod_feature feat)
-+{
-+	switch (feat) {
-+	case KNOD_FEATURE_BPF:
-+		return registered_xdp_ops;
-+	case KNOD_FEATURE_IPSEC:
-+		return accel_ops.ipsec_ops;
-+	default:
-+		return NULL;
-+	}
-+}
-+
-+/*
-+ * Feature lifecycle across three independent axes:
-+ *   init/exit            attach/detach      permanent per-attach state
-+ *   activate/deactivate  feature select     feature GPU resources
-+ *   start/stop           interface up/down  worker + GPU in-flight drain
-+ *
-+ * The worker only does useful work while (interface up AND a feature is
-+ * selected), so a feature switch is bracketed stop -> change -> start: the
-+ * worker is stopped and its GPU dispatch drained before deactivate() frees
-+ * the resources it used, then restarted afterwards.  start/stop never touch
-+ * the framework/NIC-owned RX SPSC ring (mlx5 co-owns it via rq->knodev), so
-+ * they are safe to run while the interface is up and traffic is flowing.
-+ */
-+static void knod_feature_stop(struct knod *knod)
-+{
-+	struct knod_dev *knodev = knod->accel->knodev;
-+
-+	knod_stop_worker(knod);
-+
-+	switch (knod->active_feature) {
-+	case KNOD_FEATURE_BPF:
-+		if (registered_xdp_ops && registered_xdp_ops->stop)
-+			registered_xdp_ops->stop(knodev);
-+		break;
-+	case KNOD_FEATURE_IPSEC:
-+		if (accel_ops.ipsec_ops && accel_ops.ipsec_ops->stop)
-+			accel_ops.ipsec_ops->stop(knodev);
-+		break;
-+	default:
-+		break;
-+	}
-+}
-+
-+static void knod_feature_start(struct knod *knod)
-+{
-+	struct knod_dev *knodev = knod->accel->knodev;
-+
-+	switch (knod->active_feature) {
-+	case KNOD_FEATURE_BPF:
-+		if (registered_xdp_ops && registered_xdp_ops->start)
-+			registered_xdp_ops->start(knodev);
-+		break;
-+	case KNOD_FEATURE_IPSEC:
-+		if (accel_ops.ipsec_ops && accel_ops.ipsec_ops->start)
-+			accel_ops.ipsec_ops->start(knodev);
-+		break;
-+	default:
-+		knod_start_default_worker(knod);
-+		break;
-+	}
-+}
-+
-+static void knod_feature_deactivate(struct knod *knod)
-+{
-+	struct knod_dev *knodev = knod->accel->knodev;
-+
-+	switch (knod->active_feature) {
-+	case KNOD_FEATURE_BPF:
-+		/*
-+		 * Phase 1: unregister the offload dev - this force-frees any
-+		 * user XDP progs/maps still bound.  The map-free ndo routes
-+		 * back through accel_ops.xdp_ops->xdp_install, so xdp_ops must
-+		 * still point at the BPF ops (and priv must be alive) here.
-+		 */
-+		if (registered_xdp_ops &&
-+		    registered_xdp_ops->xdp_offload_uninit)
-+			registered_xdp_ops->xdp_offload_uninit(knodev);
-+		/*
-+		 * Phase 2: repoint RX delivery at the default drain_pass and
-+		 * wait out the in-flight NAPI readers.
-+		 */
-+		WRITE_ONCE(accel_ops.xdp_ops, &default_xdp_ops);
-+		synchronize_net();
-+		knod_stop_worker(knod);
-+		if (registered_xdp_ops && registered_xdp_ops->deactivate)
-+			registered_xdp_ops->deactivate(knodev);
-+		break;
-+	case KNOD_FEATURE_IPSEC:
-+		/*
-+		 * knod_ipsec_detach() clears the netdev xfrm flags and runs
-+		 * ->deactivate(), which NULLs ipsec_priv and does its own
-+		 * synchronize_net() before freeing.
-+		 */
-+		knod_ipsec_detach(knodev);
-+		break;
-+	default:
-+		break;
-+	}
-+}
-+
-+static int knod_feature_activate(struct knod *knod)
-+{
-+	struct knod_dev *knodev = knod->accel->knodev;
-+	int err;
-+
-+	switch (knod->active_feature) {
-+	case KNOD_FEATURE_BPF:
-+		if (!registered_xdp_ops)
-+			return -ENODEV;
-+		/* Phase A: GPU compute buffers. */
-+		if (registered_xdp_ops->activate) {
-+			err = registered_xdp_ops->activate(knodev);
-+			if (err)
-+				return err;
-+		}
-+		/*
-+		 * Publish xdp_ops, then phase B: register the offload dev so
-+		 * user XDP progs/maps can bind (their install/free route
-+		 * through accel_ops.xdp_ops->xdp_install).
-+		 */
-+		WRITE_ONCE(accel_ops.xdp_ops, registered_xdp_ops);
-+		if (registered_xdp_ops->xdp_offload_init) {
-+			err = registered_xdp_ops->xdp_offload_init(knodev);
-+			if (err) {
-+				WRITE_ONCE(accel_ops.xdp_ops, &default_xdp_ops);
-+				synchronize_net();
-+				knod_stop_worker(knod);
-+				if (registered_xdp_ops->deactivate)
-+					registered_xdp_ops->deactivate(knodev);
-+				return err;
-+			}
-+		}
-+		return 0;
-+	case KNOD_FEATURE_IPSEC:
-+		if (!accel_ops.ipsec_ops)
-+			return -ENODEV;
-+		/* knod_ipsec_attach() runs ->activate() + sets netdev flags. */
-+		return knod_ipsec_attach(knodev);
-+	case KNOD_FEATURE_NONE:
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int knod_accel_feature_get(struct knod_accel *accel,
-+				u32 *ena, u32 *cap)
-+{
-+	struct knod *knod = READ_ONCE(accel->priv);
-+	u32 mask = 0;
-+	int i;
-+
-+	/* A registered-but-not-attached accel has no context yet. */
-+	*ena = knod ? knod->active_feature : KNOD_FEATURE_NONE;
-+	for (i = 0; i < KNOD_FEATURE_MAX; i++)
-+		if (i == KNOD_FEATURE_NONE || knod_feature_ops(i))
-+			mask |= BIT(i);
-+	*cap = mask;
-+	return 0;
-+}
-+
-+static int knod_accel_feature_set(struct knod_accel *accel, u32 feature,
-+				struct netlink_ext_ack *extack)
-+{
-+	struct knod *knod = READ_ONCE(accel->priv);
-+	struct knod_dev *knodev;
-+	bool started;
-+	int err = 0;
-+
-+	if (feature >= KNOD_FEATURE_MAX) {
-+		NL_SET_ERR_MSG(extack, "unknown feature");
-+		return -EINVAL;
-+	}
-+	if (feature != KNOD_FEATURE_NONE && !knod_feature_ops(feature)) {
-+		NL_SET_ERR_MSG(extack, "feature not available on this accelerator");
-+		return -ENOENT;
-+	}
-+	knodev = knod ? READ_ONCE(knod->accel->knodev) : NULL;
-+	if (!knod || !knodev) {
-+		NL_SET_ERR_MSG(extack, "accelerator not attached to a NIC");
-+		return -ENODEV;
-+	}
-+	if (feature == knod->active_feature)
-+		return 0;
-+
-+	/*
-+	 * Refuse to leave BPF while a user XDP prog or offloaded map is still
-+	 * bound - tearing the offload down underneath them is unsafe (the GPU
-+	 * dispatch keeps running against freed state).  The user must detach
-+	 * first, e.g. "ip link set dev <if> xdp off".
-+	 */
-+	if (knod->active_feature == KNOD_FEATURE_BPF && registered_xdp_ops &&
-+	    registered_xdp_ops->busy && registered_xdp_ops->busy(knodev)) {
-+		NL_SET_ERR_MSG(extack, "detach the XDP program/maps first");
-+		return -EBUSY;
-+	}
-+	if (knod->active_feature == KNOD_FEATURE_IPSEC && accel_ops.ipsec_ops &&
-+	    accel_ops.ipsec_ops->busy && accel_ops.ipsec_ops->busy(knodev)) {
-+		NL_SET_ERR_MSG(extack, "remove the offloaded xfrm SAs first");
-+		return -EBUSY;
-+	}
-+
-+	/*
-+	 * stop -> change -> start.  The worker only runs while the interface
-+	 * is up; bracket the resource change with worker stop/start in that
-+	 * case.  stop() drains the GPU in-flight so deactivate() frees safely.
-+	 */
-+	started = READ_ONCE(knodev->started);
-+	if (started)
-+		knod_feature_stop(knod);
-+	knod_feature_deactivate(knod);
-+	knod->active_feature = KNOD_FEATURE_NONE;
-+
-+	if (feature != KNOD_FEATURE_NONE) {
-+		knod->active_feature = feature;
-+		err = knod_feature_activate(knod);
-+		if (err) {
-+			knod->active_feature = KNOD_FEATURE_NONE;
-+			NL_SET_ERR_MSG(extack, "failed to activate feature");
-+		}
-+	}
-+	if (started)
-+		knod_feature_start(knod);
-+	return err;
-+}
-+
-+static int knod_attach(struct knod_dev *knodev)
-+{
-+	struct knod_accel *accel = knodev->accel;
-+	int render_idx = accel->id / KNOD_MAX_AQL;
-+	struct net_device *netdev = knodev->netdev;
-+	struct amdgpu_device *adev;
-+	struct knod *knod;
-+
-+	{
-+		int q_cnt = clamp(READ_ONCE(knod_requested_queue_cnt), 1,
-+				      KNOD_MAX_QUEUE_CNT);
-+
-+		knod = knod_alloc_ctx(knodev, q_cnt, render_idx,
-+				      min(netdev->num_rx_queues,
-+					  KNOD_SPSC_MAX));
-+	}
-+	if (IS_ERR(knod)) {
-+		pr_err("knod: Failed to allocate context\n");
-+		return -EINVAL;
-+	}
-+
-+	accel->priv = knod;
-+	knod->accel = accel;
-+
-+	/*
-+	 * Keep GFX engine out of GFXOFF while a KNOD accel is attached.
-+	 * On RDNA2 (tested RX6600 / gfx1032) the very first AQL dispatch
-+	 * after boot hangs with signal=-1 when GFXOFF is active - SMU exit
-+	 * from GFXOFF races with the doorbell ring and the completion
-+	 * signal is never decremented. Forcing GFXOFF off for the attached
-+	 * lifetime avoids the race entirely.
-+	 *
-+	 * Pin MCLK soft-min to HW max. KNOD's RX path is bandwidth-bound
-+	 * on VRAM (NIC->GPU p2pdma delivers frames directly to VRAM, then
-+	 * the shader streams them back out) but the individual dispatches
-+	 * are too short for SMU's activity monitor to react - MCLK sticks
-+	 * at the lowest DPM (~96 MHz on RX6600) in AUTO mode and caps
-+	 * throughput far below what the compute path can sustain. Switching
-+	 * to the COMPUTE power profile did not help on RDNA2: the COMPUTE
-+	 * DpmActivityMonitor coefficients tune GFX upclock aggressively
-+	 * but leave memory activity detection conservative.
-+	 *
-+	 * Setting soft_min via SetSoftMinByFreq is independent of
-+	 * pp_power_profile_mode and of power_dpm_force_performance_level,
-+	 * so AUTO governance stays in effect for SCLK/voltage - we get the
-+	 * same 30W full-throughput state the user reaches via "force
-+	 * performance = manual + echo 3 > pp_dpm_mclk", without the 75W
-+	 * voltage pin that PROFILE_PEAK imposes. Passing 0xFFFF MHz lets
-+	 * SMU firmware clamp to the actual hardware max.
-+	 */
-+	adev = knod->process->pdds[0]->dev->adev;
-+	amdgpu_gfx_off_ctrl_immediate(adev, false);
-+	amdgpu_dpm_set_soft_freq_range(adev, PP_MCLK, 0xFFFF, 0xFFFF);
-+
-+	/*
-+	 * Attach settles in KNOD_FEATURE_NONE with no worker running.  The
-+	 * worker is started by the NIC driver bringing the interface up
-+	 * (knod_dev_start -> ->dev_start), and each feature's GPU resources
-+	 * are allocated when the feature is selected (->activate).
-+	 */
-+	knod->active_feature = KNOD_FEATURE_NONE;
-+
-+	/*
-+	 * Permanent per-attach feature state (e.g. the BPF bpf_offload_dev,
-+	 * which must outlive feature switches so user XDP progs/maps survive).
-+	 */
-+	if (registered_xdp_ops && registered_xdp_ops->init)
-+		registered_xdp_ops->init(knodev);
-+	return 0;
-+}
-+
-+static void knod_pre_detach(struct knod_dev *knodev)
-+{
-+	struct knod *knod = knodev->accel->priv;
-+
-+	/*
-+	 * Detach requires the interface down, so the worker is already
-+	 * stopped; stop again defensively, free the active feature's
-+	 * resources, then tear down the permanent per-attach state.
-+	 */
-+	knod_feature_stop(knod);
-+	knod_feature_deactivate(knod);
-+	knod->active_feature = KNOD_FEATURE_NONE;
-+
-+	if (registered_xdp_ops && registered_xdp_ops->exit)
-+		registered_xdp_ops->exit(knodev);
-+}
-+
-+static void knod_dev_start_worker(struct knod_dev *knodev)
-+{
-+	struct knod *knod = knodev->accel->priv;
-+
-+	/* Interface up: start the current feature's worker. */
-+	if (knod)
-+		knod_feature_start(knod);
-+}
-+
-+static void knod_dev_stop_worker(struct knod_dev *knodev)
-+{
-+	struct knod *knod = knodev->accel->priv;
-+
-+	/* Interface down: stop the worker + drain the GPU in-flight. */
-+	if (knod)
-+		knod_feature_stop(knod);
-+}
-+
-+static void knod_detach(struct knod_dev *knodev)
-+{
-+	struct knod_accel *accel = knodev->accel;
-+	struct knod *knod = accel->priv;
-+	struct amdgpu_device *adev = knod->process->pdds[0]->dev->adev;
-+
-+	knod_stop_worker(knod);
-+	knod_release_ctx(knod);
-+	WRITE_ONCE(accel->priv, NULL);
-+
-+	/*
-+	 * Restore default MCLK range. min=1 triggers SetSoftMinByFreq (the
-+	 * API skips the call when min==0) and SMU clamps to HW min; max
-+	 * 0xFFFF clamps to HW max. Together this matches the pre-attach
-+	 * "no soft constraint" state so DPM can idle MCLK back down.
-+	 */
-+	amdgpu_dpm_set_soft_freq_range(adev, PP_MCLK, 1, 0xFFFF);
-+	amdgpu_gfx_off_ctrl(adev, true);
-+}
-+
-+static void *knod_accel_alloc_mem(struct knod_dev *knodev, size_t size,
-+				  u64 *gaddr, struct page ***pages, void **priv)
-+{
-+	struct knod_accel *accel = knodev->accel;
-+	struct knod *knod = accel->priv;
-+	struct knod_mem *mem;
-+	struct ttm_tt *tt;
-+	u32 flags;
-+
-+	/* SPSC rings are hot producer/consumer control data. Keep them plain
-+	 * GTT; only host-read delivery buffers need coherent CPU visibility.
-+	 */
-+	flags = KFD_IOC_ALLOC_MEM_FLAGS_GTT | KFD_IOC_ALLOC_MEM_FLAGS_WRITABLE;
-+	if (pages)
-+		flags |= KFD_IOC_ALLOC_MEM_FLAGS_COHERENT;
-+
-+	mem = knod_alloc_mem(knod, size, flags);
-+	if (IS_ERR(mem))
-+		return NULL;
-+
-+	if (pages) {
-+		tt = mem->mem->bo ? mem->mem->bo->tbo.ttm : NULL;
-+		if (!tt || !tt->pages) {
-+			knod_free_mem(knod, mem);
-+			return NULL;
-+		}
-+		*pages = tt->pages;
-+	}
-+
-+	*gaddr = mem->gaddr;
-+	*priv = mem;
-+	return mem->kaddr;
-+}
-+
-+static void knod_accel_free_mem(struct knod_dev *knodev, void *priv)
-+{
-+	struct knod_accel *accel = knodev->accel;
-+	struct knod *knod = accel->priv;
-+	struct knod_mem *mem = priv;
-+
-+	knod_free_mem(knod, mem);
-+}
-+
-+/*
-+ * Device->host copy primitives for the common knod_d2h_copy/knod_d2h_drain
-+ * path.  Thin wrappers over the SDMA engine (sdma[0]); the framework owns the
-+ * pending ring, fence counter and dst pool.
-+ */
-+static u32 knod_accel_d2h_submit(struct knod_dev *knodev, u64 dst, int queue,
-+				 u32 page_idx, u16 off, u32 len)
-+{
-+	struct knod *knod = knodev->accel->priv;
-+	struct knod_sdma_copy_desc c;
-+
-+	/* The netmem page_pool dma_addr is the NIC address; SDMA needs
-+	 * the GPU VM address, so derive the source from buf[queue].
-+	 */
-+	c.src = knod->buf[queue]->gaddr + ((u64)page_idx << PAGE_SHIFT) + off;
-+	c.dst = dst;
-+	c.len = len;
-+	return knod_sdma_submit(knod, 0, &c, 1);
-+}
-+
-+static void knod_accel_d2h_kick(struct knod_dev *knodev)
-+{
-+	knod_sdma_kick(knodev->accel->priv, 0);
-+}
-+
-+static u32 knod_accel_d2h_fence(struct knod_dev *knodev, int sdma_idx)
-+{
-+	struct knod *knod = READ_ONCE(knodev->accel->priv);
-+	struct knod_mem *signal;
-+
-+	if (!knod || sdma_idx < 0 || sdma_idx >= READ_ONCE(knod->sdma_cnt))
-+		return 0;
-+	signal = READ_ONCE(knod->sdma[sdma_idx].queue_signal);
-+	if (!signal || !signal->kaddr)
-+		return 0;
-+
-+	return (u32)READ_ONCE(((struct amd_signal *)signal->kaddr)->value);
-+}
-+
-+static int knod_accel_mp_map(struct knod_dev *knodev)
-+{
-+	struct knod *knod = knodev->accel->priv;
-+	int i;
-+
-+	if (!knod)
-+		return -ENODEV;
-+
-+	for (i = 0; i < knod->channels; i++)
-+		if (__knod_map_mem(knod, knod->buf[i]))
-+			knod_err(" mp_map failed ch %d\n", i);
-+
-+	return 0;
-+}
-+
-+static struct knod_accel_ops accel_ops = {
-+	.attach = knod_attach,
-+	.pre_detach = knod_pre_detach,
-+	.detach = knod_detach,
-+	.dev_start = knod_dev_start_worker,
-+	.dev_stop = knod_dev_stop_worker,
-+	.alloc_mem = knod_accel_alloc_mem,
-+	.free_mem = knod_accel_free_mem,
-+	.mp_map = knod_accel_mp_map,
-+	.d2h_submit = knod_accel_d2h_submit,
-+	.d2h_kick = knod_accel_d2h_kick,
-+	.d2h_fence = knod_accel_d2h_fence,
-+	.xdp_ops = &default_xdp_ops,
-+	.feature_get = knod_accel_feature_get,
-+	.feature_set = knod_accel_feature_set,
-+};
-+
-+/*
-+ * Tear a feature down on every accel still using it before its ops pointer
-+ * is cleared (module unload).  Mirrors the feature_set transition to NONE.
-+ */
-+static void knod_feature_force_none(enum knod_feature feat)
-+{
-+	int i;
-+
-+	for (i = 0; i < nr_accels; i++) {
-+		struct knod_dev *knodev;
-+		struct knod *knod;
-+		bool started;
-+
-+		if (!accels[i])
-+			continue;
-+		knod = READ_ONCE(accels[i]->priv);
-+		knodev = knod ? READ_ONCE(accels[i]->knodev) : NULL;
-+		if (!knod || !knodev || knod->active_feature != feat)
-+			continue;
-+		started = READ_ONCE(knodev->started);
-+		if (started)
-+			knod_feature_stop(knod);
-+		knod_feature_deactivate(knod);
-+		knod->active_feature = KNOD_FEATURE_NONE;
-+		if (started)
-+			knod_feature_start(knod);
-+	}
-+}
-+
-+void knod_accel_xdp_register(struct knod_accel_xdp_ops *xdp_ops)
-+{
-+	int i;
-+
-+	/*
-+	 * Module load advertises the feature and sets up the permanent
-+	 * per-attach state (bpf_offload_dev) on already-attached accels;
-+	 * GPU compute resources wait for ->activate() on feature select.
-+	 */
-+	WRITE_ONCE(registered_xdp_ops, xdp_ops);
-+	for (i = 0; i < nr_accels; i++) {
-+		struct knod_dev *knodev;
-+
-+		if (!accels[i])
-+			continue;
-+		knodev = READ_ONCE(accels[i]->knodev);
-+		if (knodev && xdp_ops->init)
-+			xdp_ops->init(knodev);
-+	}
-+}
-+EXPORT_SYMBOL(knod_accel_xdp_register);
-+
-+void knod_accel_xdp_unregister(void)
-+{
-+	int i;
-+
-+	/* Force any active BPF feature off, then drop the permanent state. */
-+	knod_feature_force_none(KNOD_FEATURE_BPF);
-+	for (i = 0; i < nr_accels; i++) {
-+		struct knod_dev *knodev;
-+
-+		if (!accels[i])
-+			continue;
-+		knodev = READ_ONCE(accels[i]->knodev);
-+		if (knodev && registered_xdp_ops && registered_xdp_ops->exit)
-+			registered_xdp_ops->exit(knodev);
-+	}
-+	WRITE_ONCE(registered_xdp_ops, NULL);
-+}
-+EXPORT_SYMBOL(knod_accel_xdp_unregister);
-+
-+void knod_accel_ipsec_register(struct knod_accel_ipsec_ops *ipsec_ops)
-+{
-+	/* Advertise only; resources are allocated by ->activate() on select. */
-+	WRITE_ONCE(accel_ops.ipsec_ops, ipsec_ops);
-+}
-+EXPORT_SYMBOL(knod_accel_ipsec_register);
-+
-+void knod_accel_ipsec_unregister(void)
-+{
-+	knod_feature_force_none(KNOD_FEATURE_IPSEC);
-+	WRITE_ONCE(accel_ops.ipsec_ops, NULL);
-+}
-+EXPORT_SYMBOL(knod_accel_ipsec_unregister);
-+
-+/*
-+ * Accel modules call this from their module_init before NOD attach to
-+ * request the minimum AQL/SDMA queue pair count their dispatcher
-+ * infrastructure needs. The value is a high-water mark: multiple
-+ * callers raise it but never lower it, so whichever module needs the
-+ * most queues wins.
-+ *
-+ * Must be called before knod_attach() runs - i.e. before any
-+ * `echo X,0 > /sys/kernel/debug/knod_dev/attach` - otherwise
-+ * the already-created knod context keeps its old queue_cnt and the
-+ * caller must unbind/rebind to pick up the new value.
-+ *
-+ * Clamped to [1, KNOD_MAX_QUEUE_CNT]. Values outside that range are ignored
-+ * (the internal cap can grow later without ABI break).
-+ */
-+void knod_request_queue_cnt(int n)
-+{
-+	int cur;
-+
-+	if (n < 1 || n > KNOD_MAX_QUEUE_CNT)
-+		return;
-+
-+	do {
-+		cur = READ_ONCE(knod_requested_queue_cnt);
-+		if (n <= cur)
-+			return;
-+	} while (cmpxchg(&knod_requested_queue_cnt, cur, n) != cur);
-+}
-+EXPORT_SYMBOL(knod_request_queue_cnt);
-+
-+int knod_init(struct amdgpu_device *adev)
-+{
-+	int base_id = adev_to_drm(adev)->render->index * KNOD_MAX_AQL;
-+	struct knod_accel *accel;
-+	int i, n;
-+
-+	n = KNOD_MAX_AQL;
-+
-+	for (i = 0; i < n; i++) {
-+		accel = kzalloc_obj(struct knod_accel, GFP_KERNEL);
-+		if (!accel) {
-+			pr_err("knod: Failed to allocate accel node %d\n", i);
-+			goto err;
-+		}
-+
-+		INIT_LIST_HEAD(&accel->list);
-+		accel->type = KNOD_TYPE_GPU;
-+		accel->accel_ops = &accel_ops;
-+		accel->owner = THIS_MODULE;
-+		accel->id = base_id + i;
-+		snprintf(accel->name, sizeof(accel->name), "amdgpu-%d", i);
-+		knod_accel_register(accel);
-+		accels[i] = accel;
-+	}
-+	nr_accels = n;
-+
-+	return 0;
-+
-+err:
-+	while (i-- > 0) {
-+		knod_accel_unregister(accels[i]);
-+		kfree(accels[i]);
-+		accels[i] = NULL;
-+	}
-+	return 0;
-+}
-+
-+void knod_fini(struct amdgpu_device *adev)
-+{
-+	int base_id = adev_to_drm(adev)->render->index * KNOD_MAX_AQL;
-+	int i;
-+
-+	for (i = 0; i < nr_accels; i++) {
-+		if (!accels[i] ||
-+		    accels[i]->id / KNOD_MAX_AQL != base_id / KNOD_MAX_AQL)
-+			continue;
-+		knod_accel_unregister(accels[i]);
-+		kfree(accels[i]);
-+		accels[i] = NULL;
-+	}
-+}
-+
-+void knod_exit(void)
-+{
-+	struct knod *knod, *tmp;
-+	int i;
-+
-+	for (i = 0; i < nr_accels; i++) {
-+		if (!accels[i])
-+			continue;
-+		knod_accel_unregister(accels[i]);
-+		kfree(accels[i]);
-+		accels[i] = NULL;
-+	}
-+	nr_accels = 0;
-+
-+	list_for_each_entry_safe(knod, tmp, &ctx_list, list) {
-+		knod_release_ctx(knod);
-+	}
-+}
-diff --git a/drivers/gpu/drm/amd/amdkfd/knod/kfd_knod.h b/drivers/gpu/drm/amd/amdkfd/knod/kfd_knod.h
-new file mode 100644
-index 000000000000..a1eafb13a410
---- /dev/null
-+++ b/drivers/gpu/drm/amd/amdkfd/knod/kfd_knod.h
-@@ -0,0 +1,270 @@
++++ b/drivers/gpu/drm/amd/amdkfd/knod/knod_amdgpu.h
+@@ -0,0 +1,173 @@
 +/* SPDX-License-Identifier: GPL-2.0-or-later */
 +/* Copyright (c) 2021 Taehee Yoo <ap420073@gmail.com>
 + * Copyright (c) 2021 Hoyeon Lee <hoyeon.rhee@gmail.com>
 + */
 +
-+#ifndef KFD_KNOD_H_
-+#define KFD_KNOD_H_
-+#include <linux/kfd_ioctl.h>
-+#include <net/knod.h>
-+#include <linux/genalloc.h>
-+#include "kfd_hsa.h"
-+#include <linux/completion.h>
++#ifndef KFD_AMDGPU_H_INCLUDED
++#define KFD_AMDGPU_H_INCLUDED
 +
-+/*
-+ * knod_dbg() is a pr_debug(), so it is off by default and toggled with
-+ * dynamic debug; knod_err() always fires.
-+ */
-+#define knod_dbg(fmt, ...)						\
-+	pr_debug("knod %s:%d" fmt, __func__, __LINE__, ##__VA_ARGS__)
-+#define knod_err(fmt, ...)						\
-+	pr_err("knod %s:%d" fmt, __func__, __LINE__, ##__VA_ARGS__)
++#define KNOD_AMDGPU_REG_PAIR(x)         ((x) / 2)
 +
-+struct page_pool;
-+
-+struct knod_mem {
-+	struct list_head list;
-+	struct kgd_mem *mem;
-+	void *kaddr;
-+	u32 flags;
-+	u32 size;
-+	u32 order;
-+	u64 gaddr;
++enum amdgcn_param_type {
++	AMDGCN_PARAM_TYPE_SGPR,
++	AMDGCN_PARAM_TYPE_VCC_LO,
++	AMDGCN_PARAM_TYPE_VCC_HI,
++	AMDGCN_PARAM_TYPE_TTPM_BASE,
++	AMDGCN_PARAM_TYPE_M0,
++	AMDGCN_PARAM_TYPE_NULL,
++	AMDGCN_PARAM_TYPE_EXEC_LO,
++	AMDGCN_PARAM_TYPE_EXEC_HI,
++	AMDGCN_PARAM_TYPE_INTEGER_0,
++	AMDGCN_PARAM_TYPE_INTEGER_MINUS_1,
++	AMDGCN_PARAM_TYPE_SHARED_BASE,
++	AMDGCN_PARAM_TYPE_SHARED_LIMIT,
++	AMDGCN_PARAM_TYPE_PRIVATE_BASE,
++	AMDGCN_PARAM_TYPE_PRIVATE_LIMIT,
++	AMDGCN_PARAM_TYPE_POPS_EXITING_WAVE_ID,
++	AMDGCN_PARAM_TYPE_SDWA,
++	AMDGCN_PARAM_TYPE_DPP16,
++	AMDGCN_PARAM_TYPE_VCCZ,
++	AMDGCN_PARAM_TYPE_EXECZ,
++	AMDGCN_PARAM_TYPE_SCC,
++	AMDGCN_PARAM_TYPE_LITERAL_CONST,
++	AMDGCN_PARAM_TYPE_VGPR,
++	__AMDGCN_PARAM_TYPE_MAX,
 +};
 +
-+union knod_aql_rsrc1 {
-+	struct {
-+#if defined(__LITTLE_ENDIAN)
-+		unsigned int base_address_hi : 16;
-+		unsigned int stride : 14;
-+		unsigned int cache_swizzle : 1;
-+		unsigned int swizzle_enable : 1;
-+#elif defined(__LITTLE_ENDIAN)
-+		unsigned int swizzle_enable : 1;
-+		unsigned int cache_swizzle : 1;
-+		unsigned int stride : 14;
-+		unsigned int base_address_hi : 16;
++struct amdgcn_param32 {
++	enum amdgcn_param_type type;
++	int v;
++};
++
++struct amdgcn_param64 {
++	struct amdgcn_param32 lo;
++	struct amdgcn_param32 hi;
++	u64 imm;
++};
++
++inline void knod_set(struct amdgcn_param32 *param,
++				  enum amdgcn_param_type type, int v)
++{
++	param->type = type;
++	param->v = v;
++}
++
++inline void knod_vset32(struct amdgcn_param32 *param, int v)
++{
++	param->type = AMDGCN_PARAM_TYPE_VGPR;
++	param->v = v;
++}
++
++inline void knod_vset64(struct amdgcn_param64 *param, int v)
++{
++	param->lo.type = AMDGCN_PARAM_TYPE_VGPR;
++	param->lo.v = v;
++	param->hi.type = AMDGCN_PARAM_TYPE_VGPR;
++	param->hi.v = v + 1;
++}
++
++inline void knod_sset32(struct amdgcn_param32 *param, int v)
++{
++	param->type = AMDGCN_PARAM_TYPE_SGPR;
++	param->v = v;
++}
++
++inline void knod_sset64(struct amdgcn_param64 *param, int v)
++{
++	param->lo.type = AMDGCN_PARAM_TYPE_SGPR;
++	param->lo.v = v;
++	param->hi.type = AMDGCN_PARAM_TYPE_SGPR;
++	param->hi.v = v + 1;
++}
++
++inline void knod_iset32(struct amdgcn_param32 *param, int v)
++{
++	if (v > 64 || v < -16) {
++		param->type = AMDGCN_PARAM_TYPE_LITERAL_CONST;
++		param->v = v;
++	} else if (v >= 0) {
++		param->type = AMDGCN_PARAM_TYPE_INTEGER_0;
++		param->v = v;
++	} else {
++		param->type = AMDGCN_PARAM_TYPE_INTEGER_MINUS_1;
++		param->v = ~v;
++	}
++}
++
++inline void knod_iset64(struct amdgcn_param64 *param,
++				     u64 v)
++{
++	int imm0 = v & ~0U;
++	int imm1 = v >> 32;
++
++	param->imm = v;
++
++	if (imm0 > 64 || imm0 < -16) {
++		param->lo.type = AMDGCN_PARAM_TYPE_LITERAL_CONST;
++		param->lo.v = imm0;
++	} else if (imm0 >= 0) {
++		param->lo.type = AMDGCN_PARAM_TYPE_INTEGER_0;
++		param->lo.v = imm0;
++	} else {
++		param->lo.type = AMDGCN_PARAM_TYPE_INTEGER_MINUS_1;
++		param->lo.v = ~imm0;
++	}
++
++	if (imm1 > 64 || imm1 < -16) {
++		param->hi.type = AMDGCN_PARAM_TYPE_LITERAL_CONST;
++		WARN_ON_ONCE(1);
++		param->hi.v = imm1;
++	} else if (imm1 >= 0) {
++		param->hi.type = AMDGCN_PARAM_TYPE_INTEGER_0;
++		param->hi.v = imm1;
++	} else {
++		param->hi.type = AMDGCN_PARAM_TYPE_INTEGER_MINUS_1;
++		param->hi.v = ~imm1;
++	}
++}
++
++inline void knod_lset32(struct amdgcn_param32 *param, int v)
++{
++	param->type = AMDGCN_PARAM_TYPE_LITERAL_CONST;
++	param->v = v;
++}
++
++inline void knod_vccset(struct amdgcn_param32 *param)
++{
++	param->type = AMDGCN_PARAM_TYPE_VCC_LO;
++	param->v = 0;
++}
++
++inline bool knod_param_is_literal(struct amdgcn_param32 param)
++{
++	return param.type == AMDGCN_PARAM_TYPE_LITERAL_CONST;
++}
++
++/* ======================================================================
++ * Param constructors - common to GFX9/GFX10 shader emitters.
++ *
++ * Usage: pass directly to emit_gfx{9,10}_* functions that take
++ *        struct amdgcn_param32 operands.
++ * ======================================================================
++ */
++
++#define P_S(n)	((struct amdgcn_param32){ AMDGCN_PARAM_TYPE_SGPR, (n) })
++#define P_V(n)	((struct amdgcn_param32){ AMDGCN_PARAM_TYPE_VGPR, (n) })
++#define P_I(n)	((struct amdgcn_param32){ AMDGCN_PARAM_TYPE_INTEGER_0, (n) })
++#define P_L(v)	((struct amdgcn_param32){ AMDGCN_PARAM_TYPE_LITERAL_CONST, (v) })
++#define P_VCC	((struct amdgcn_param32){ AMDGCN_PARAM_TYPE_VCC_LO, 0 })
++#define P_EXEC	((struct amdgcn_param32){ AMDGCN_PARAM_TYPE_EXEC_LO, 0 })
++
++/* ======================================================================
++ * Branch patching - operates directly on u32 *buf
++ * ======================================================================
++ */
++
++static inline void patch_branch(u32 *buf, int patch_pos, int target_pos)
++{
++	int offset = target_pos - (patch_pos + 1);
++
++	buf[patch_pos] = (buf[patch_pos] & 0xFFFF0000u) | (offset & 0xFFFF);
++}
++
 +#endif
+diff --git a/drivers/gpu/drm/amd/amdkfd/knod/knod_amdgpu_insn.h b/drivers/gpu/drm/amd/amdkfd/knod/knod_amdgpu_insn.h
+new file mode 100644
+index 000000000000..9703bf781ff5
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdkfd/knod/knod_amdgpu_insn.h
+@@ -0,0 +1,6362 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/* Copyright (c) 2021 Taehee Yoo <ap420073@gmail.com>
++ * Copyright (c) 2021 Hoyeon Lee <hoyeon.rhee@gmail.com>
++ */
++
++#ifndef KFD_AMDGPU_INSN_H_INCLUDED
++#define KFD_AMDGPU_INSN_H_INCLUDED
++
++#include "knod_amdgpu.h"
++#include "knod_gfx10_insn.h"
++#include "knod_gfx9_insn.h"
++
++enum amdgcn_insn_type {
++	AMDGCN_INSN_TYPE_SOP2,
++	AMDGCN_INSN_TYPE_SOPK,
++	AMDGCN_INSN_TYPE_SOP1,
++	AMDGCN_INSN_TYPE_SOPC,
++	AMDGCN_INSN_TYPE_SOPP,
++	AMDGCN_INSN_TYPE_SMEM,
++	AMDGCN_INSN_TYPE_VOP2,
++	AMDGCN_INSN_TYPE_VOP1,
++	AMDGCN_INSN_TYPE_VOPC,
++	AMDGCN_INSN_TYPE_VOP3A,
++	AMDGCN_INSN_TYPE_VOP3B,
++	AMDGCN_INSN_TYPE_VOP3P,
++	AMDGCN_INSN_TYPE_SDWA,
++	AMDGCN_INSN_TYPE_SDWAB,
++	AMDGCN_INSN_TYPE_DPP16,
++	AMDGCN_INSN_TYPE_DPP8,
++	AMDGCN_INSN_TYPE_VINTRP,
++	AMDGCN_INSN_TYPE_DS,
++	AMDGCN_INSN_TYPE_MTBUF,
++	AMDGCN_INSN_TYPE_MUBUF,
++	AMDGCN_INSN_TYPE_MIMG,
++	AMDGCN_INSN_TYPE_FLAT,
++	AMDGCN_INSN_TYPE_EXP,
++	__AMDGCN_INSN_TYPE_MAX,
++};
++
++static const char opnames_gfx10[__AMDGCN_INSN_TYPE_MAX][900][30] = {
++	[AMDGCN_INSN_TYPE_VOP3A] = {
++		[GFX10_V_FMA_LEGACY_F32] = "v_fma_legacy_f32",
++		[GFX10_V_MAD_I32_I24] = "V_MAD_I32_I24",
++		[GFX10_V_MAD_U32_U24] = "v_mad_u32_u24",
++		[GFX10_V_CUBEID_F32] = "v_cubeid_f32",
++		[GFX10_V_CUBESC_F32] = "v_cubesc_f32",
++		[GFX10_V_CUBETC_F32] = "v_cubetc_f32",
++		[GFX10_V_CUBEMA_F32] = "v_cubema_f32",
++		[GFX10_V_BFE_U32] = "v_bfe_u32",
++		[GFX10_V_BFE_I32] = "v_bfe_i32",
++		[GFX10_V_BFI_B32] = "v_bfi_b32",
++		[GFX10_V_FMA_F32] = "v_fma_f32",
++		[GFX10_V_FMA_F64] = "v_fma_f64",
++		[GFX10_V_LERP_U8] = "v_lerp_u8",
++		[GFX10_V_ALIGNBIT_B32] = "v_alignbit_b32",
++		[GFX10_V_ALIGNBYTE_B32] = "v_alignbyte_b32",
++		[GFX10_V_MULLIT_F32] = "v_mullit_f32",
++		[GFX10_V_MIN3_F32] = "v_min3_f32",
++		[GFX10_V_MIN3_I32] = "v_min3_i32",
++		[GFX10_V_MIN3_U32] = "v_min3_u32",
++		[GFX10_V_MAX3_F32] = "v_max3_f32",
++		[GFX10_V_MAX3_I32] = "v_max3_i32",
++		[GFX10_V_MAX3_U32] = "v_max3_u32",
++		[GFX10_V_MED3_F32] = "v_med3_f32",
++		[GFX10_V_MED3_I32] = "v_med3_i32",
++		[GFX10_V_MED3_U32] = "v_med3_u32",
++		[GFX10_V_SAD_U8] = "v_sad_u8",
++		[GFX10_V_SAD_HI_U8] = "v_sad_hi_u8",
++		[GFX10_V_SAD_U16] = "v_sad_u16",
++		[GFX10_V_SAD_U32] = "v_sad_u32",
++		[GFX10_V_CVT_PK_U8_F32] = "v_cvt_pk_u8_f32",
++		[GFX10_V_DIV_FIXUP_F32] = "v_div_fixup_f32",
++		[GFX10_V_DIV_FIXUP_F64] = "v_div_fixup_f64",
++		[GFX10_V_ADD_F64] = "v_add_f64",
++		[GFX10_V_MUL_F64] = "v_mul_f64",
++		[GFX10_V_MIN_F64] = "v_min_f64",
++		[GFX10_V_MAX_F64] = "v_max_f64",
++		[GFX10_V_LDEXP_F64] = "v_ldexp_f64",
++		[GFX10_V_MUL_LO_U32] = "v_mul_lo_u32",
++		[GFX10_V_MUL_HI_U32] = "v_mul_hi_u32",
++		[GFX10_V_MUL_HI_I32] = "v_mul_hi_i32",
++		[GFX10_V_DIV_FMAS_F32] = "v_div_fmas_f32",
++		[GFX10_V_DIV_FMAS_F64] = "v_div_fmas_f64",
++		[GFX10_V_MSAD_U8] = "v_msad_u8",
++		[GFX10_V_QSAD_PK_U16_U8] = "v_qsad_pk_u16_u8",
++		[GFX10_V_MQSAD_PK_U16_U8] = "v_mqsad_pk_u16_u8",
++		[GFX10_V_TRIG_PREOP_F64] = "v_trig_preop_f64",
++		[GFX10_V_MQSAD_U32_U8] = "v_mqsad_u32_u8",
++		[GFX10_V_XOR3_B32] = "v_xor3_b32",
++		[GFX10_V_LSHLREV_B64] = "v_lshlrev_b64",
++		[GFX10_V_LSHRREV_B64] = "v_lshrrev_b64",
++		[GFX10_V_ASHRREV_I64] = "v_ashrrev_i64",
++		[GFX10_V_ADD_NC_U16] = "v_add_nc_u16",
++		[GFX10_V_SUB_NC_U16] = "v_sub_nc_u16",
++		[GFX10_V_MUL_LO_U16] = "v_mul_lo_u16",
++		[GFX10_V_LSHRREV_B16] = "v_lshrrev_b16",
++		[GFX10_V_ASHRREV_I16] = "v_ashrrev_i16",
++		[GFX10_V_MAX_U16] = "v_max_u16",
++		[GFX10_V_MAX_I16] = "v_max_i16",
++		[GFX10_V_MIN_U16] = "v_min_u16",
++		[GFX10_V_MIN_I16] = "v_min_i16",
++		[GFX10_V_ADD_NC_I16] = "v_add_nc_i16",
++		[GFX10_V_SUB_NC_I16] = "v_sub_nc_i16",
++		[GFX10_V_PACK_B32_F16] = "v_pack_b32_f16",
++		[GFX10_V_CVT_PKNORM_I16_F16] = "v_cvt_pknorm_i16_f16",
++		[GFX10_V_CVT_PKNORM_U16_F16] = "v_cvt_pknorm_u16_f16",
++		[GFX10_V_LSHLREV_B16] = "v_lshlrev_b16",
++		[GFX10_V_MAD_U16] = "v_mad_u16",
++		[GFX10_V_INTERP_P1LL_F16] = "v_interp_p1ll_f16",
++		[GFX10_V_INTERP_P1LV_F16] = "v_interp_p1lv_f16",
++		[GFX10_V_PERM_B32] = "v_perm_b32",
++		[GFX10_V_XAD_U32] = "v_xad_u32",
++		[GFX10_V_LSHL_ADD_U32] = "v_lshl_add_u32",
++		[GFX10_V_ADD_LSHL_U32] = "v_add_lshl_u32",
++		[GFX10_V_FMA_F16] = "v_fma_f16",
++		[GFX10_V_MIN3_F16] = "v_min3_f16",
++		[GFX10_V_MIN3_I16] = "v_min3_i16",
++		[GFX10_V_MIN3_U16] = "v_min3_u16",
++		[GFX10_V_MAX3_F16] = "v_max3_f16",
++		[GFX10_V_MAX3_I16] = "v_max3_i16",
++		[GFX10_V_MAX3_U16] = "v_max3_u16",
++		[GFX10_V_MED3_F16] = "v_med3_f16",
++		[GFX10_V_MED3_I16] = "v_med3_i16",
++		[GFX10_V_MED3_U16] = "v_med3_u16",
++		[GFX10_V_INTERP_P2_F16] = "v_interp_p2_f16",
++		[GFX10_V_MAD_I16] = "v_mad_i16",
++		[GFX10_V_DIV_FIXUP_F16] = "v_div_fixup_f16",
++		[GFX10_V_READLANE_B32] = "v_readlane_b32",
++		[GFX10_V_WRITELANE_B32] = "v_writelane_b32",
++		[GFX10_V_LDEXP_F32] = "v_ldexp_f32",
++		[GFX10_V_BFM_B32] = "v_bfm_b32",
++		[GFX10_V_BCNT_U32_B32] = "v_bcnt_u32_b32",
++		[GFX10_V_MBCNT_LO_U32_B32] = "v_mbcnt_lo_u32_b32",
++		[GFX10_V_MBCNT_HI_U32_B32] = "v_mbcnt_hi_u32_b32",
++		[GFX10_V_CVT_PKNORM_I16_F32] = "v_cvt_pknorm_i16_f32",
++		[GFX10_V_CVT_PKNORM_U16_F32] = "v_cvt_pknorm_u16_f32",
++		[GFX10_V_CVT_PK_U16_U32] = "v_cvt_pk_u16_u32",
++		[GFX10_V_CVT_PK_I16_I32] = "v_cvt_pk_i16_i32",
++		[GFX10_V_ADD3_U32] = "v_add3_u32",
++		[GFX10_V_LSHL_OR_B32] = "v_lshl_or_b32",
++		[GFX10_V_AND_OR_B32] = "v_and_or_b32",
++		[GFX10_V_OR3_B32] = "v_or3_b32",
++		[GFX10_V_MAD_U32_U16] = "v_mad_u32_u16",
++		[GFX10_V_MAD_I32_I16] = "v_mad_i32_i16",
++		[GFX10_V_SUB_NC_I32] = "v_sub_nc_i32",
++		[GFX10_V_PERMLANE16_B32] = "v_permlane16_b32",
++		[GFX10_V_PERMLANEX16_B32] = "v_permlanex16_b32",
++		[GFX10_V_ADD_NC_I32] = "v_add_nc_i32",
++	},
++	[AMDGCN_INSN_TYPE_SOP2] = {
++		[GFX10_S_ADD_U32] = "s_add_u32",
++		[GFX10_S_SUB_U32] = "s_sub_u32",
++		[GFX10_S_ADD_I32] = "s_add_i32",
++		[GFX10_S_SUB_I32] = "s_sub_i32",
++		[GFX10_S_ADDC_U32] = "s_addc_u32",
++		[GFX10_S_SUBB_U32] = "s_subb_u32",
++		[GFX10_S_MIN_I32] = "s_min_i32",
++		[GFX10_S_MIN_U32] = "s_min_u32",
++		[GFX10_S_MAX_I32] = "s_max_i32",
++		[GFX10_S_MAX_U32] = "s_max_u32",
++		[GFX10_S_CSELECT_B32] = "s_cselect_b32",
++		[GFX10_S_CELECT_B64] = "s_celect_b64",
++		[GFX10_S_AND_B32] = "s_and_b32",
++		[GFX10_S_AND_B64] = "s_and_b64",
++		[GFX10_S_OR_B32] = "s_or_b32",
++		[GFX10_S_OR_B64] = "s_or_b64",
++		[GFX10_S_XOR_B32] = "s_xor_b32",
++		[GFX10_S_XOR_B64] = "s_xor_b64",
++		[GFX10_S_ANDN2_B32] = "s_andn2_b32",
++		[GFX10_S_ANDN2_B64] = "s_andn2_b64",
++		[GFX10_S_ORN2_B32] = "s_orn2_b32",
++		[GFX10_S_ORN2_B64] = "s_orn2_b64",
++		[GFX10_S_NAND_B32] = "s_nand_b32",
++		[GFX10_S_NAND_B64] = "s_nand_b64",
++		[GFX10_S_NOR_B32] = "s_nor_b32",
++		[GFX10_S_NOR_B64] = "s_nor_b64",
++		[GFX10_S_XNOR_B32] = "s_xnor_b32",
++		[GFX10_S_XNOR_B64] = "s_xnor_b64",
++		[GFX10_S_LSHL_B32] = "s_lshl_b32",
++		[GFX10_S_LSHL_B64] = "s_lshl_b64",
++		[GFX10_S_LSHR_B32] = "s_lshr_b32",
++		[GFX10_S_LSHR_B64] = "s_lshr_b64",
++		[GFX10_S_ASHR_I32] = "s_ashr_i32",
++		[GFX10_S_ASHR_I64] = "s_ashr_i64",
++		[GFX10_S_BFM_B32] = "s_bfm_b32",
++		[GFX10_S_BFM_B64] = "s_bfm_b64",
++		[GFX10_S_MUL_I32] = "s_mul_i32",
++		[GFX10_S_MUL_I64] = "s_mul_i64",
++		[GFX10_S_BFE_U32] = "s_bfe_u32",
++		[GFX10_S_BFE_I32] = "s_bfe_i32",
++		[GFX10_S_BFE_U64] = "s_bfe_u64",
++		[GFX10_S_ABSDIFF_I32] = "s_absdiff_i32",
++		[GFX10_S_LSHL1_ADD_U32] = "s_lshl1_add_u32",
++		[GFX10_S_LSHL2_ADD_U32] = "s_lshl2_add_u32",
++		[GFX10_S_LSHL3_ADD_U32] = "s_lshl3_add_u32",
++		[GFX10_S_LSHL4_ADD_U32] = "s_lshl4_add_u32",
++		[GFX10_S_PACK_LL_B32_B16] = "s_pack_ll_b32_b16",
++		[GFX10_S_PACK_LH_B32_B16] = "s_pack_lh_b32_b16",
++		[GFX10_S_MUL_HI_U32] = "s_mul_hi_u32",
++		[GFX10_S_MUL_HI_I32] = "s_mul_hi_i32",
++	},
++	[AMDGCN_INSN_TYPE_SOPK] = {
++		[GFX10_S_MOVK_I32] = "s_movk_i32",
++		[GFX10_S_VERSION] = "s_version",
++		[GFX10_S_CMOVK_I32] = "s_cmovk_i32",
++		[GFX10_S_CMPK_EQ_I32] = "s_cmpk_eq_i32",
++		[GFX10_S_CMPK_LG_I32] = "s_cmpk_lg_i32",
++		[GFX10_S_CMPK_GT_I32] = "s_cmpk_gt_i32",
++		[GFX10_S_CMPK_GE_I32] = "s_cmpk_ge_i32",
++		[GFX10_S_CMPK_LT_I32] = "s_cmpk_lt_i32",
++		[GFX10_S_CMPK_LE_I32] = "s_cmpk_le_i32",
++		[GFX10_S_CMPK_EQ_U32] = "s_cmpk_eq_u32",
++		[GFX10_S_CMPK_LG_U32] = "s_cmpk_lg_u32",
++		[GFX10_S_CMPK_GT_U32] = "s_cmpk_gt_u32",
++		[GFX10_S_CMPK_GE_U32] = "s_cmpk_ge_u32",
++		[GFX10_S_CMPK_LT_U32] = "s_cmpk_lt_u32",
++		[GFX10_S_CMPK_LE_U32] = "s_cmpk_le_u32",
++		[GFX10_S_ADDK_I32] = "s_addk_i32",
++		[GFX10_S_MULK_I32] = "s_mulk_i32",
++		[GFX10_S_GETREG_B32] = "s_getreg_b32",
++		[GFX10_S_SETREG_B32] = "s_setreg_b32",
++		[GFX10_S_SETREG_IMM32_B32] = "s_setreg_imm32_b32",
++		[GFX10_S_CALL_B64] = "s_call_b64",
++		[GFX10_S_WAITCNT_VSCNT] = "s_waitcnt_vscnt",
++		[GFX10_S_WAITCNT_VMCNT] = "s_waitcnt_vmcnt",
++		[GFX10_S_WAITCNT_EXPCNT] = "s_waitcnt_expcnt",
++		[GFX10_S_WAITCNT_LGKMCNT] = "s_waitcnt_lgkmcnt",
++		[GFX10_S_SUBVECTOR_LOOP_BEGIN] = "s_subvector_loop_begin",
++		[GFX10_S_SUBVECTOR_LOOP_END] = "s_subvector_loop_end",
++	},
++	[AMDGCN_INSN_TYPE_SOP1] = {
++		[GFX10_S_MOV_B32] = "s_mov_b32",
++		[GFX10_S_MOV_B64] = "s_mov_b64",
++		[GFX10_S_CMOV_B32] = "s_cmov_b32",
++		[GFX10_S_CMOV_B64] = "s_cmov_b64",
++		[GFX10_S_NOT_B32] = "s_not_b32",
++		[GFX10_S_NOT_B64] = "s_not_b64",
++		[GFX10_S_WQM_B32] = "s_wqm_b32",
++		[GFX10_S_WQM_B64] = "s_wqm_b64",
++		[GFX10_S_BREV_B32] = "s_brev_b32",
++		[GFX10_S_BREV_B64] = "s_brev_b64",
++		[GFX10_S_BCNT0_I32_B32] = "s_bcnt0_i32_b32",
++		[GFX10_S_BCNT0_I32_B64] = "s_bcnt0_i32_b64",
++		[GFX10_S_BCNT1_I32_B32] = "s_bcnt1_i32_b32",
++		[GFX10_S_BCNT1_I32_B64] = "s_bcnt1_i32_b64",
++		[GFX10_S_FF0_I32_B32] = "s_ff0_i32_b32",
++		[GFX10_S_FF0_I32_B64] = "s_ff0_i32_b64",
++		[GFX10_S_FF1_I32_B32] = "s_ff1_i32_b32",
++		[GFX10_S_FF1_I32_B64] = "s_ff1_i32_b64",
++		[GFX10_S_FLBIT_I32_B32] = "s_flbit_i32_b32",
++		[GFX10_S_FLBIT_I32_B64] = "s_flbit_i32_b64",
++		[GFX10_S_FLBIT_I32] = "s_flbit_i32",
++		[GFX10_S_FLBIT_I32_I64] = "s_flbit_i32_i64",
++		[GFX10_S_SEXT_I32_I8] = "s_sext_i32_i8",
++		[GFX10_S_SEXT_I32_I16] = "s_sext_i32_i16",
++		[GFX10_S_BITSET0_B32] = "s_bitset0_b32",
++		[GFX10_S_BITSET0_B64] = "s_bitset0_b64",
++		[GFX10_S_BITSET1_B32] = "s_bitset1_b32",
++		[GFX10_S_BITSET1_B64] = "s_bitset1_b64",
++		[GFX10_S_GETPC_B64] = "s_getpc_b64",
++		[GFX10_S_SETPC_B64] = "s_setpc_b64",
++		[GFX10_S_SWAPPC_B64] = "s_swappc_b64",
++		[GFX10_S_RFE_B64] = "s_rfe_b64",
++		[GFX10_S_AND_SAVEEXEC_B64] = "s_and_saveexec_b64",
++		[GFX10_S_XNOR_SAVEEXEC_B64] = "s_xnor_saveexec_b64",
++		[GFX10_S_QUADMASK_B32] = "s_quadmask_b32",
++		[GFX10_S_QUADMASK_B64] = "s_quadmask_b64",
++		[GFX10_S_MOVRELS_B32] = "s_movrels_b32",
++		[GFX10_S_MOVRELS_B64] = "s_movrels_b64",
++		[GFX10_S_MOVRELD_B32] = "s_movreld_b32",
++		[GFX10_S_MOVRELD_B64] = "s_movreld_b64",
++		[GFX10_S_ABS_I32] = "s_abs_i32",
++		[GFX10_S_ANDN1_SAVEEXEC_B64] = "s_andn1_saveexec_b64",
++		[GFX10_S_ORN1_SAVEEXEC_B64] = "s_orn1_saveexec_b64",
++		[GFX10_S_ANDN1_WREXEC_B64] = "s_andn1_wrexec_b64",
++		[GFX10_S_ANDN2_WREXEC_B64] = "s_andn2_wrexec_b64",
++		[GFX10_S_BITREPLICATE_B64_B32] = "s_bitreplicate_b64_b32",
++		[GFX10_S_AND_SAVEEXEC_B32] = "s_and_saveexec_b32",
++		[GFX10_S_OR_SAVEEXEC_B32] = "s_or_saveexec_b32",
++		[GFX10_S_XOR_SAVEEXEC_B32] = "s_xor_saveexec_b32",
++		[GFX10_S_ANDN2_SAVEEXEC_B32] = "s_andn2_saveexec_b32",
++		[GFX10_S_ORN2_SAVEEXEC_B32] = "s_orn2_saveexec_b32",
++		[GFX10_S_NAND_SAVEEXEC_B32] = "s_nand_saveexec_b32",
++		[GFX10_S_NOR_SAVEEXEC_B32] = "s_nor_saveexec_b32",
++		[GFX10_S_XNOR_SAVEEXEC_B32] = "s_xnor_saveexec_b32",
++		[GFX10_S_ANDN1_SAVEEXEC_B32] = "s_andn1_saveexec_b32",
++		[GFX10_S_ORN1_SAVEEXEC_B32] = "s_orn1_saveexec_b32",
++		[GFX10_S_ANDN1_WREXEC_B32] = "s_andn1_wrexec_b32",
++		[GFX10_S_ANDN2_WREXEC_B32] = "s_andn2_wrexec_b32",
++		[GFX10_S_MOVRELSD_2_B32] = "s_movrelsd_2_b32",
++	},
++	[AMDGCN_INSN_TYPE_SOPC] = {
++		[GFX10_S_CMP_EQ_I32] = "s_cmp_eq_i32",
++		[GFX10_S_CMP_LG_I32] = "s_cmp_lg_i32",
++		[GFX10_S_CMP_GT_I32] = "s_cmp_gt_i32",
++		[GFX10_S_CMP_GE_I32] = "s_cmp_ge_i32",
++		[GFX10_S_CMP_LT_I32] = "s_cmp_lt_i32",
++		[GFX10_S_CMP_LE_I32] = "s_cmp_le_i32",
++		[GFX10_S_CMP_EQ_U32] = "s_cmp_eq_u32",
++		[GFX10_S_CMP_LG_U32] = "s_cmp_lg_u32",
++		[GFX10_S_CMP_GT_U32] = "s_cmp_gt_u32",
++		[GFX10_S_CMP_GE_U32] = "s_cmp_ge_u32",
++		[GFX10_S_CMP_LT_U32] = "s_cmp_lt_u32",
++		[GFX10_S_CMP_LE_U32] = "s_cmp_le_u32",
++		[GFX10_S_BITCMP0_B32] = "s_bitcmp0_b32",
++		[GFX10_S_BITCMP1_B32] = "s_bitcmp1_b32",
++		[GFX10_S_BITCMP0_B64] = "s_bitcmp0_b64",
++		[GFX10_S_BITCMP1_B64] = "s_bitcmp1_b64",
++		[GFX10_S_CMP_EQ_U64] = "s_cmp_eq_u64",
++		[GFX10_S_CMP_LG_U64] = "s_cmp_lg_u64",
++	},
++	[AMDGCN_INSN_TYPE_SOPP] = {
++		[GFX10_S_NOP] = "s_nop",
++		[GFX10_S_ENDPGM] = "s_endpgm",
++		[GFX10_S_BRANCH] = "s_branch",
++		[GFX10_S_WAKEUP] = "s_wakeup",
++		[GFX10_S_CBRANCH_SCC0] = "s_cbranch_scc0",
++		[GFX10_S_CBRANCH_SCC1] = "s_cbranch_scc1",
++		[GFX10_S_CBRANCH_VCCZ] = "s_cbranch_vccz",
++		[GFX10_S_CBRANCH_VCCNZ] = "s_cbranch_vccnz",
++		[GFX10_S_CBRANCH_EXECZ] = "s_cbranch_execz",
++		[GFX10_S_CBRANCH_EXECNZ] = "s_cbranch_execnz",
++		[GFX10_S_BARRIER] = "s_barrier",
++		[GFX10_S_SETKILL] = "s_setkill",
++		[GFX10_S_WAITCNT] = "s_waitcnt",
++		[GFX10_S_SETHALT] = "s_sethalt",
++		[GFX10_S_SLEEP] = "s_sleep",
++		[GFX10_S_SETPRIO] = "s_setprio",
++		[GFX10_S_SENDMSG] = "s_sendmsg",
++		[GFX10_S_SENDMSGHALT] = "s_sendmsghalt",
++		[GFX10_S_TRAP] = "s_trap",
++		[GFX10_S_ICACHE_INV] = "s_icache_inv",
++		[GFX10_S_INCPERFLEVEL] = "s_incperflevel",
++		[GFX10_S_DECPERFLEVEL] = "s_decperflevel",
++		[GFX10_S_TTRACEDATA] = "s_ttracedata",
++		[GFX10_S_CBRANCH_CDBGSYS] = "s_cbranch_cdbgsys",
++		[GFX10_S_CBRANCH_CDBGUSER] = "s_cbranch_cdbguser",
++		[GFX10_S_CBRANCH_CDBGSYS_OR_USER] = "s_cbranch_cdbgsys_or_user",
++		[GFX10_S_CBRANCH_CDBGSYS_AND_USER] = "s_cbranch_cdbgsys_and_user",
++		[GFX10_S_ENDPGM_SAVED] = "s_endpgm_saved",
++		[GFX10_S_ENDPGM_ORDERED_PS_DONE] = "s_endpgm_ordered_ps_done",
++		[GFX10_S_CODE_END] = "s_code_end",
++		[GFX10_S_INST_PREFETCH] = "s_inst_prefetch",
++		[GFX10_S_CLAUSE] = "s_clause",
++		[GFX10_S_WAITCNT_DEPCTR] = "s_waitcnt_depctr",
++		[GFX10_S_ROUND_MODE] = "s_round_mode",
++		[GFX10_S_DENORM_MODE] = "s_denorm_mode",
++		[GFX10_S_TTRACEDATA_IMM] = "s_ttracedata_imm",
++	},
++	[AMDGCN_INSN_TYPE_SMEM] = {
++		[GFX10_S_LOAD_DWORD] = "s_load_dword",
++		[GFX10_S_LOAD_DWORDX2] = "s_load_dwordx2",
++		[GFX10_S_LOAD_DWORDX4] = "s_load_dwordx4",
++		[GFX10_S_LOAD_DWORDX8] = "s_load_dwordx8",
++		[GFX10_S_LOAD_DWORDX16] = "s_load_dwordx16",
++		[GFX10_S_BUFFER_LOAD_DWORD] = "s_buffer_load_dword",
++		[GFX10_S_BUFFER_LOAD_DWORDX2] = "s_buffer_load_dwordx2",
++		[GFX10_S_BUFFER_LOAD_DWORDX4] = "s_buffer_load_dwordx4",
++		[GFX10_S_BUFFER_LOAD_DWORDX8] = "s_buffer_load_dwordx8",
++		[GFX10_S_BUFFER_LOAD_DWORDX16] = "s_buffer_load_dwordx16",
++		[GFX10_S_GL1_INV] = "s_gl1_inv",
++		[GFX10_S_DCACHE_INV] = "s_dcache_inv",
++		[GFX10_S_MEMTIME] = "s_memtime",
++		[GFX10_S_MEMREALTIME] = "s_memrealtime",
++		[GFX10_S_ATC_PROBE] = "s_atc_probe",
++		[GFX10_S_ATC_PROBE_BUFFER] = "s_atc_probe_buffer",
++	},
++	[AMDGCN_INSN_TYPE_VOP2] = {
++		[GFX10_V_CNDMASK_B32] = "v_cndmask_b32",
++		[GFX10_V_DOT2C_F32_F16] = "v_dot2c_f32_f16",
++		[GFX10_V_ADD_F32] = "v_add_f32",
++		[GFX10_V_SUB_F32] = "v_sub_f32",
++		[GFX10_V_SUBREV_F32] = "v_subrev_f32",
++		[GFX10_V_FMAC_LEGACY_F32] = "v_fmac_legacy_f32",
++		[GFX10_V_MUL_LEGACY_F32] = "v_mul_legacy_f32",
++		[GFX10_V_MUL_F32] = "v_mul_f32",
++		[GFX10_V_MUL_I32_I24] = "v_mul_i32_i24",
++		[GFX10_V_MUL_HI_I32_I24] = "v_mul_hi_i32_i24",
++		[GFX10_V_MUL_U32_U24] = "v_mul_u32_u24",
++		[GFX10_V_MUL_HI_U32_U24] = "v_mul_hi_u32_u24",
++		[GFX10_V_DOT4C_I32_I8] = "v_dot4c_i32_i8",
++		[GFX10_V_MIN_F32] = "v_min_f32",
++		[GFX10_V_MAX_F32] = "v_max_f32",
++		[GFX10_V_MIN_I32] = "v_min_i32",
++		[GFX10_V_MAX_I32] = "v_max_i32",
++		[GFX10_V_MIN_U32] = "v_min_u32",
++		[GFX10_V_MAX_U32] = "v_max_u32",
++		[GFX10_V_LSHRREV_B32] = "v_lshrrev_b32",
++		[GFX10_V_ASHRREV_I32] = "v_ashrrev_i32",
++		[GFX10_V_LSHLREV_B32] = "v_lshlrev_b32",
++		[GFX10_V_AND_B32] = "v_and_b32",
++		[GFX10_V_OR_B32] = "v_or_b32",
++		[GFX10_V_XOR_B32] = "v_xor_b32",
++		[GFX10_V_XNOR_B32] = "v_xnor_b32",
++		[GFX10_V_ADD_NC_U32] = "v_add_nc_u32",
++		[GFX10_V_SUB_NC_U32] = "v_sub_nc_u32",
++		[GFX10_V_SUBREV_NC_U32] = "v_subrev_nc_u32",
++		[GFX10_V_ADD_CO_CI_U32] = "v_add_co_ci_u32",
++		[GFX10_V_SUB_CO_CI_U32] = "v_sub_co_ci_u32",
++		[GFX10_V_SUBREV_CO_CI_U32] = "v_subrev_co_ci_u32",
++		[GFX10_V_FMAC_F32] = "v_fmac_f32",
++		[GFX10_V_FMAMK_F32] = "v_fmamk_f32",
++		[GFX10_V_FMAAK_F32] = "v_fmaak_f32",
++		[GFX10_V_CVT_PKRTZ_F16_F32] = "v_cvt_pkrtz_f16_f32",
++		[GFX10_V_ADD_F16] = "v_add_f16",
++		[GFX10_V_SUB_F16] = "v_sub_f16",
++		[GFX10_V_SUBREV_F16] = "v_subrev_f16",
++		[GFX10_V_MUL_F16] = "v_mul_f16",
++		[GFX10_V_FMAC_F16] = "v_fmac_f16",
++		[GFX10_V_FMAMK_F16] = "v_fmamk_f16",
++		[GFX10_V_FMAAK_F16] = "v_fmaak_f16",
++		[GFX10_V_MAX_F16] = "v_max_f16",
++		[GFX10_V_MIN_F16] = "v_min_f16",
++		[GFX10_V_LDEXP_F16] = "v_ldexp_f16",
++		[GFX10_V_PK_FMAC_F16] = "v_pk_fmac_f16",
++	},
++	[AMDGCN_INSN_TYPE_VOP1] = {
++		[GFX10_V_NOP] = "v_nop",
++		[GFX10_V_MOV_B32] = "v_mov_b32",
++		[GFX10_V_READFIRSTLANE_B32] = "v_readfirstlane_b32",
++		[GFX10_V_CVT_I32_F64] = "v_cvt_i32_f64",
++		[GFX10_V_CVT_F64_I32] = "v_cvt_f64_i32",
++		[GFX10_V_CVT_F32_I32] = "v_cvt_f32_i32",
++		[GFX10_V_CVT_F32_U32] = "v_cvt_f32_u32",
++		[GFX10_V_CVT_U32_F32] = "v_cvt_u32_f32",
++		[GFX10_V_CVT_I32_F32] = "v_cvt_i32_f32",
++		[GFX10_V_CVT_F16_F32] = "v_cvt_f16_f32",
++		[GFX10_V_CVT_F32_F16] = "v_cvt_f32_f16",
++		[GFX10_V_CVT_RPI_I32_F32] = "v_cvt_rpi_i32_f32",
++		[GFX10_V_CVT_FLR_I32_F32] = "v_cvt_flr_i32_f32",
++		[GFX10_V_CVT_OFF_F32_I4] = "v_cvt_off_f32_i4",
++		[GFX10_V_CVT_F32_F64] = "v_cvt_f32_f64",
++		[GFX10_V_CVT_F64_F32] = "v_cvt_f64_f32",
++		[GFX10_V_CVT_F32_UBYTE0] = "v_cvt_f32_ubyte0",
++		[GFX10_V_CVT_F32_UBYTE1] = "v_cvt_f32_ubyte1",
++		[GFX10_V_CVT_F32_UBYTE2] = "v_cvt_f32_ubyte2",
++		[GFX10_V_CVT_F32_UBYTE3] = "v_cvt_f32_ubyte3",
++		[GFX10_V_CVT_U32_F64] = "v_cvt_u32_f64",
++		[GFX10_V_CVT_F64_U32] = "v_cvt_f64_u32",
++		[GFX10_V_TRUNC_F64] = "v_trunc_f64",
++		[GFX10_V_CEIL_F64] = "v_ceil_f64",
++		[GFX10_V_RNDNE_F64] = "v_rndne_f64",
++		[GFX10_V_FLOOR_F64] = "v_floor_f64",
++		[GFX10_V_PIPEFLUSH] = "v_pipeflush",
++		[GFX10_V_FRACT_F32] = "v_fract_f32",
++		[GFX10_V_TRUNC_F32] = "v_trunc_f32",
++		[GFX10_V_CEIL_F32] = "v_ceil_f32",
++		[GFX10_V_RNDNE_F32] = "v_rndne_f32",
++		[GFX10_V_FLOOR_F32] = "v_floor_f32",
++		[GFX10_V_EXP_F32] = "v_exp_f32",
++		[GFX10_V_LOG_F32] = "v_log_f32",
++		[GFX10_V_RCP_F32] = "v_rcp_f32",
++		[GFX10_V_RCP_IFLAG_F32] = "v_rcp_iflag_f32",
++		[GFX10_V_RSQ_F32] = "v_rsq_f32",
++		[GFX10_V_RCP_F64] = "v_rcp_f64",
++		[GFX10_V_RSQ_F64] = "v_rsq_f64",
++		[GFX10_V_SQRT_F32] = "v_sqrt_f32",
++		[GFX10_V_SQRT_F64] = "v_sqrt_f64",
++		[GFX10_V_SIN_F32] = "v_sin_f32",
++		[GFX10_V_COS_F32] = "v_cos_f32",
++		[GFX10_V_NOT_B32] = "v_not_b32",
++		[GFX10_V_BFREV_B32] = "v_bfrev_b32",
++		[GFX10_V_FFBH_U32] = "v_ffbh_u32",
++		[GFX10_V_FFBL_B32] = "v_ffbl_b32",
++		[GFX10_V_FFBH_I32] = "v_ffbh_i32",
++		[GFX10_V_FREXP_EXP_I32_F64] = "v_frexp_exp_i32_f64",
++		[GFX10_V_FREXP_MANT_F64] = "v_frexp_mant_f64",
++		[GFX10_V_FRACT_F64] = "v_fract_f64",
++		[GFX10_V_FREXP_EXP_I32_F32] = "v_frexp_exp_i32_f32",
++		[GFX10_V_FREXP_MANT_F32] = "v_frexp_mant_f32",
++		[GFX10_V_CLREXCP] = "v_clrexcp",
++		[GFX10_V_MOVRELD_B32] = "v_movreld_b32",
++		[GFX10_V_MOVRELS_B32] = "v_movrels_b32",
++		[GFX10_V_MOVRELSD_B32] = "v_movrelsd_b32",
++		[GFX10_V_MOVRELSD_2_B32] = "v_movrelsd_2_b32",
++		[GFX10_V_CVT_F16_U16] = "v_cvt_f16_u16",
++		[GFX10_V_CVT_F16_I16] = "v_cvt_f16_i16",
++		[GFX10_V_CVT_U16_F16] = "v_cvt_u16_f16",
++		[GFX10_V_CVT_I16_F16] = "v_cvt_i16_f16",
++		[GFX10_V_RCP_F16] = "v_rcp_f16",
++		[GFX10_V_SQRT_F16] = "v_sqrt_f16",
++		[GFX10_V_RSQ_F16] = "v_rsq_f16",
++		[GFX10_V_LOG_F16] = "v_log_f16",
++		[GFX10_V_EXP_F16] = "v_exp_f16",
++		[GFX10_V_FREXP_MANT_F16] = "v_frexp_mant_f16",
++		[GFX10_V_FREXP_EXP_I16_F16] = "v_frexp_exp_i16_f16",
++		[GFX10_V_FLOOR_F16] = "v_floor_f16",
++		[GFX10_V_CEIL_F16] = "v_ceil_f16",
++		[GFX10_V_TRUNC_F16] = "v_trunc_f16",
++		[GFX10_V_RNDNE_F16] = "v_rndne_f16",
++		[GFX10_V_FRACT_F16] = "v_fract_f16",
++		[GFX10_V_SIN_F16] = "v_sin_f16",
++		[GFX10_V_COS_F16] = "v_cos_f16",
++		[GFX10_V_SAT_PK_U8_I16] = "v_sat_pk_u8_i16",
++		[GFX10_V_CVT_NORM_I16_F16] = "v_cvt_norm_i16_f16",
++		[GFX10_V_CVT_NORM_U16_F16] = "v_cvt_norm_u16_f16",
++		[GFX10_V_SWAP_B32] = "v_swap_b32",
++		[GFX10_V_SWAPREL_B32] = "v_swaprel_b32",
++	},
++	[AMDGCN_INSN_TYPE_VOPC] = {
++		[GFX10_V_CMP_F_F32] = "v_cmp_f_f32",
++		[GFX10_V_CMP_LT_F32] = "v_cmp_lt_f32",
++		[GFX10_V_CMP_EQ_F32] = "v_cmp_eq_f32",
++		[GFX10_V_CMP_LE_F32] = "v_cmp_le_f32",
++		[GFX10_V_CMP_GT_F32] = "v_cmp_gt_f32",
++		[GFX10_V_CMP_LG_F32] = "v_cmp_lg_f32",
++		[GFX10_V_CMP_GE_F32] = "v_cmp_ge_f32",
++		[GFX10_V_CMP_O_F32] = "v_cmp_o_f32",
++		[GFX10_V_CMP_U_F32] = "v_cmp_u_f32",
++		[GFX10_V_CMP_NGE_F32] = "v_cmp_nge_f32",
++		[GFX10_V_CMP_NLG_F32] = "v_cmp_nlg_f32",
++		[GFX10_V_CMP_NGT_F32] = "v_cmp_ngt_f32",
++		[GFX10_V_CMP_NLE_F32] = "v_cmp_nle_f32",
++		[GFX10_V_CMP_NEQ_F32] = "v_cmp_neq_f32",
++		[GFX10_V_CMP_NLT_F32] = "v_cmp_nlt_f32",
++		[GFX10_V_CMP_TRU_F32] = "v_cmp_tru_f32",
++		[GFX10_V_CMPX_F_F32] = "v_cmpx_f_f32",
++		[GFX10_V_CMPX_LT_F32] = "v_cmpx_lt_f32",
++		[GFX10_V_CMPX_EQ_F32] = "v_cmpx_eq_f32",
++		[GFX10_V_CMPX_LE_F32] = "v_cmpx_le_f32",
++		[GFX10_V_CMPX_GT_F32] = "v_cmpx_gt_f32",
++		[GFX10_V_CMPX_LG_F32] = "v_cmpx_lg_f32",
++		[GFX10_V_CMPX_GE_F32] = "v_cmpx_ge_f32",
++		[GFX10_V_CMPX_O_F32] = "v_cmpx_o_f32",
++		[GFX10_V_CMPX_U_F32] = "v_cmpx_u_f32",
++		[GFX10_V_CMPX_NGE_F32] = "v_cmpx_nge_f32",
++		[GFX10_V_CMPX_NLG_F32] = "v_cmpx_nlg_f32",
++		[GFX10_V_CMPX_NGT_F32] = "v_cmpx_ngt_f32",
++		[GFX10_V_CMPX_NLE_F32] = "v_cmpx_nle_f32",
++		[GFX10_V_CMPX_NEQ_F32] = "v_cmpx_neq_f32",
++		[GFX10_V_CMPX_NLT_F32] = "v_cmpx_nlt_f32",
++		[GFX10_V_CMPX_TRU_F32] = "v_cmpx_tru_f32",
++		[GFX10_V_CMP_F_F64] = "v_cmp_f_f64",
++		[GFX10_V_CMP_LT_F64] = "v_cmp_lt_f64",
++		[GFX10_V_CMP_EQ_F64] = "v_cmp_eq_f64",
++		[GFX10_V_CMP_LE_F64] = "v_cmp_le_f64",
++		[GFX10_V_CMP_GT_F64] = "v_cmp_gt_f64",
++		[GFX10_V_CMP_LG_F64] = "v_cmp_lg_f64",
++		[GFX10_V_CMP_GE_F64] = "v_cmp_ge_f64",
++		[GFX10_V_CMP_O_F64] = "v_cmp_o_f64",
++		[GFX10_V_CMP_U_F64] = "v_cmp_u_f64",
++		[GFX10_V_CMP_NGE_F64] = "v_cmp_nge_f64",
++		[GFX10_V_CMP_NLG_F64] = "v_cmp_nlg_f64",
++		[GFX10_V_CMP_NGT_F64] = "v_cmp_ngt_f64",
++		[GFX10_V_CMP_NLE_F64] = "v_cmp_nle_f64",
++		[GFX10_V_CMP_NEQ_F64] = "v_cmp_neq_f64",
++		[GFX10_V_CMP_NLT_F64] = "v_cmp_nlt_f64",
++		[GFX10_V_CMP_TRU_F64] = "v_cmp_tru_f64",
++		[GFX10_V_CMPX_F_F64] = "v_cmpx_f_f64",
++		[GFX10_V_CMPX_LT_F64] = "v_cmpx_lt_f64",
++		[GFX10_V_CMPX_EQ_F64] = "v_cmpx_eq_f64",
++		[GFX10_V_CMPX_LE_F64] = "v_cmpx_le_f64",
++		[GFX10_V_CMPX_GT_F64] = "v_cmpx_gt_f64",
++		[GFX10_V_CMPX_LG_F64] = "v_cmpx_lg_f64",
++		[GFX10_V_CMPX_GE_F64] = "v_cmpx_ge_f64",
++		[GFX10_V_CMPX_O_F64] = "v_cmpx_o_f64",
++		[GFX10_V_CMPX_U_F64] = "v_cmpx_u_f64",
++		[GFX10_V_CMPX_NGE_F64] = "v_cmpx_nge_f64",
++		[GFX10_V_CMPX_NLG_F64] = "v_cmpx_nlg_f64",
++		[GFX10_V_CMPX_NGT_F64] = "v_cmpx_ngt_f64",
++		[GFX10_V_CMPX_NLE_F64] = "v_cmpx_nle_f64",
++		[GFX10_V_CMPX_NEQ_F64] = "v_cmpx_neq_f64",
++		[GFX10_V_CMPX_NLT_F64] = "v_cmpx_nlt_f64",
++		[GFX10_V_CMPX_TRU_F64] = "v_cmpx_tru_f64",
++		[GFX10_V_CMP_F_I32] = "v_cmp_f_i32",
++		[GFX10_V_CMP_LT_I32] = "v_cmp_lt_i32",
++		[GFX10_V_CMP_EQ_I32] = "v_cmp_eq_i32",
++		[GFX10_V_CMP_LE_I32] = "v_cmp_le_i32",
++		[GFX10_V_CMP_GT_I32] = "v_cmp_gt_i32",
++		[GFX10_V_CMP_NE_I32] = "v_cmp_ne_i32",
++		[GFX10_V_CMP_GE_I32] = "v_cmp_ge_i32",
++		[GFX10_V_CMP_T_I32] = "v_cmp_t_i32",
++		[GFX10_V_CMP_CLASS_F32] = "v_cmp_class_f32",
++		[GFX10_V_CMP_LT_I16] = "v_cmp_lt_i16",
++		[GFX10_V_CMP_EQ_I16] = "v_cmp_eq_i16",
++		[GFX10_V_CMP_LE_I16] = "v_cmp_le_i16",
++		[GFX10_V_CMP_GT_I16] = "v_cmp_gt_i16",
++		[GFX10_V_CMP_NE_I16] = "v_cmp_ne_i16",
++		[GFX10_V_CMP_GE_I16] = "v_cmp_ge_i16",
++		[GFX10_V_CMP_CLASS_F16] = "v_cmp_class_f16",
++		[GFX10_V_CMPX_F_I32] = "v_cmpx_f_i32",
++		[GFX10_V_CMPX_LT_I32] = "v_cmpx_lt_i32",
++		[GFX10_V_CMPX_EQ_I32] = "v_cmpx_eq_i32",
++		[GFX10_V_CMPX_LE_I32] = "v_cmpx_le_i32",
++		[GFX10_V_CMPX_GT_I32] = "v_cmpx_gt_i32",
++		[GFX10_V_CMPX_NE_I32] = "v_cmpx_ne_i32",
++		[GFX10_V_CMPX_GE_I32] = "v_cmpx_ge_i32",
++		[GFX10_V_CMPX_T_I32] = "v_cmpx_t_i32",
++		[GFX10_V_CMPX_CLASS_F32] = "v_cmpx_class_f32",
++		[GFX10_V_CMPX_LT_I16] = "v_cmpx_lt_i16",
++		[GFX10_V_CMPX_EQ_I16] = "v_cmpx_eq_i16",
++		[GFX10_V_CMPX_LE_I16] = "v_cmpx_le_i16",
++		[GFX10_V_CMPX_GT_I16] = "v_cmpx_gt_i16",
++		[GFX10_V_CMPX_NE_I16] = "v_cmpx_ne_i16",
++		[GFX10_V_CMPX_GE_I16] = "v_cmpx_ge_i16",
++		[GFX10_V_CMPX_CLASS_F16] = "v_cmpx_class_f16",
++		[GFX10_V_CMP_F_I64] = "v_cmp_f_i64",
++		[GFX10_V_CMP_LT_I64] = "v_cmp_lt_i64",
++		[GFX10_V_CMP_EQ_I64] = "v_cmp_eq_i64",
++		[GFX10_V_CMP_LE_I64] = "v_cmp_le_i64",
++		[GFX10_V_CMP_GT_I64] = "v_cmp_gt_i64",
++		[GFX10_V_CMP_NE_I64] = "v_cmp_ne_i64",
++		[GFX10_V_CMP_GE_I64] = "v_cmp_ge_i64",
++		[GFX10_V_CMP_T_I64] = "v_cmp_t_i64",
++		[GFX10_V_CMP_CLASS_F64] = "v_cmp_class_f64",
++		[GFX10_V_CMP_LT_U16] = "v_cmp_lt_u16",
++		[GFX10_V_CMP_EQ_U16] = "v_cmp_eq_u16",
++		[GFX10_V_CMP_LE_U16] = "v_cmp_le_u16",
++		[GFX10_V_CMP_GT_U16] = "v_cmp_gt_u16",
++		[GFX10_V_CMP_NE_U16] = "v_cmp_ne_u16",
++		[GFX10_V_CMP_GE_U16] = "v_cmp_ge_u16",
++		[GFX10_V_CMPX_F_I64] = "v_cmpx_f_i64",
++		[GFX10_V_CMPX_LT_I64] = "v_cmpx_lt_i64",
++		[GFX10_V_CMPX_EQ_I64] = "v_cmpx_eq_i64",
++		[GFX10_V_CMPX_LE_I64] = "v_cmpx_le_i64",
++		[GFX10_V_CMPX_GT_I64] = "v_cmpx_gt_i64",
++		[GFX10_V_CMPX_NE_I64] = "v_cmpx_ne_i64",
++		[GFX10_V_CMPX_GE_I64] = "v_cmpx_ge_i64",
++		[GFX10_V_CMPX_T_I64] = "v_cmpx_t_i64",
++		[GFX10_V_CMPX_CLASS_F64] = "v_cmpx_class_f64",
++		[GFX10_V_CMPX_LT_U16] = "v_cmpx_lt_u16",
++		[GFX10_V_CMPX_EQ_U16] = "v_cmpx_eq_u16",
++		[GFX10_V_CMPX_LE_U16] = "v_cmpx_le_u16",
++		[GFX10_V_CMPX_GT_U16] = "v_cmpx_gt_u16",
++		[GFX10_V_CMPX_NE_U16] = "v_cmpx_ne_u16",
++		[GFX10_V_CMPX_GE_U16] = "v_cmpx_ge_u16",
++		[GFX10_V_CMP_F_U32] = "v_cmp_f_u32",
++		[GFX10_V_CMP_LT_U32] = "v_cmp_lt_u32",
++		[GFX10_V_CMP_EQ_U32] = "v_cmp_eq_u32",
++		[GFX10_V_CMP_LE_U32] = "v_cmp_le_u32",
++		[GFX10_V_CMP_GT_U32] = "v_cmp_gt_u32",
++		[GFX10_V_CMP_NE_U32] = "v_cmp_ne_u32",
++		[GFX10_V_CMP_GE_U32] = "v_cmp_ge_u32",
++		[GFX10_V_CMP_T_U32] = "v_cmp_t_u32",
++		[GFX10_V_CMP_F_F16] = "v_cmp_f_f16",
++		[GFX10_V_CMP_LT_F16] = "v_cmp_lt_f16",
++		[GFX10_V_CMP_EQ_F16] = "v_cmp_eq_f16",
++		[GFX10_V_CMP_LE_F16] = "v_cmp_le_f16",
++		[GFX10_V_CMP_GT_F16] = "v_cmp_gt_f16",
++		[GFX10_V_CMP_LG_F16] = "v_cmp_lg_f16",
++		[GFX10_V_CMP_GE_F16] = "v_cmp_ge_f16",
++		[GFX10_V_CMP_O_F16] = "v_cmp_o_f16",
++		[GFX10_V_CMPX_F_U32] = "v_cmpx_f_u32",
++		[GFX10_V_CMPX_LT_U32] = "v_cmpx_lt_u32",
++		[GFX10_V_CMPX_EQ_U32] = "v_cmpx_eq_u32",
++		[GFX10_V_CMPX_LE_U32] = "v_cmpx_le_u32",
++		[GFX10_V_CMPX_GT_U32] = "v_cmpx_gt_u32",
++		[GFX10_V_CMPX_NE_U32] = "v_cmpx_ne_u32",
++		[GFX10_V_CMPX_GE_U32] = "v_cmpx_ge_u32",
++		[GFX10_V_CMPX_T_U32] = "v_cmpx_t_u32",
++		[GFX10_V_CMPX_F_F16] = "v_cmpx_f_f16",
++		[GFX10_V_CMPX_LT_F16] = "v_cmpx_lt_f16",
++		[GFX10_V_CMPX_EQ_F16] = "v_cmpx_eq_f16",
++		[GFX10_V_CMPX_LE_F16] = "v_cmpx_le_f16",
++		[GFX10_V_CMPX_GT_F16] = "v_cmpx_gt_f16",
++		[GFX10_V_CMPX_LG_F16] = "v_cmpx_lg_f16",
++		[GFX10_V_CMPX_GE_F16] = "v_cmpx_ge_f16",
++		[GFX10_V_CMPX_O_F16] = "v_cmpx_o_f16",
++		[GFX10_V_CMP_F_U64] = "v_cmp_f_u64",
++		[GFX10_V_CMP_LT_U64] = "v_cmp_lt_u64",
++		[GFX10_V_CMP_EQ_U64] = "v_cmp_eq_u64",
++		[GFX10_V_CMP_LE_U64] = "v_cmp_le_u64",
++		[GFX10_V_CMP_GT_U64] = "v_cmp_gt_u64",
++		[GFX10_V_CMP_NE_U64] = "v_cmp_ne_u64",
++		[GFX10_V_CMP_GE_U64] = "v_cmp_ge_u64",
++		[GFX10_V_CMP_T_U64] = "v_cmp_t_u64",
++		[GFX10_V_CMP_U_F16] = "v_cmp_u_f16",
++		[GFX10_V_CMP_NGE_F16] = "v_cmp_nge_f16",
++		[GFX10_V_CMP_NLG_F16] = "v_cmp_nlg_f16",
++		[GFX10_V_CMP_NGT_F16] = "v_cmp_ngt_f16",
++		[GFX10_V_CMP_NLE_F16] = "v_cmp_nle_f16",
++		[GFX10_V_CMP_NEQ_F16] = "v_cmp_neq_f16",
++		[GFX10_V_CMP_NLT_F16] = "v_cmp_nlt_f16",
++		[GFX10_V_CMP_TRU_F16] = "v_cmp_tru_f16",
++		[GFX10_V_CMPX_F_U64] = "v_cmpx_f_u64",
++		[GFX10_V_CMPX_LT_U64] = "v_cmpx_lt_u64",
++		[GFX10_V_CMPX_EQ_U64] = "v_cmpx_eq_u64",
++		[GFX10_V_CMPX_LE_U64] = "v_cmpx_le_u64",
++		[GFX10_V_CMPX_GT_U64] = "v_cmpx_gt_u64",
++		[GFX10_V_CMPX_NE_U64] = "v_cmpx_ne_u64",
++		[GFX10_V_CMPX_GE_U64] = "v_cmpx_ge_u64",
++		[GFX10_V_CMPX_T_U64] = "v_cmpx_t_u64",
++		[GFX10_V_CMPX_U_F16] = "v_cmpx_u_f16",
++		[GFX10_V_CMPX_NGE_F16] = "v_cmpx_nge_f16",
++		[GFX10_V_CMPX_NLG_F16] = "v_cmpx_nlg_f16",
++		[GFX10_V_CMPX_NGT_F16] = "v_cmpx_ngt_f16",
++		[GFX10_V_CMPX_NLE_F16] = "v_cmpx_nle_f16",
++		[GFX10_V_CMPX_NEQ_F16] = "v_cmpx_neq_f16",
++		[GFX10_V_CMPX_NLT_F16] = "v_cmpx_nlt_f16",
++		[GFX10_V_CMPX_TRU_F16] = "v_cmpx_tru_f16",
++	},
++	[AMDGCN_INSN_TYPE_VOP3B] = {
++		[GFX10_V_DIV_SCALE_F32] = "v_div_scale_f32",
++		[GFX10_V_DIV_SCALE_F64] = "v_div_scale_f64",
++		[GFX10_V_MAD_U64_U32] = "v_mad_u64_u32",
++		[GFX10_V_MAD_I64_I32] = "v_mad_i64_i32",
++		[GFX10_V_ADD_CO_U32] = "v_add_co_u32",
++		[GFX10_V_SUB_CO_U32] = "v_sub_co_u32",
++		[GFX10_V_SUBREV_CO_U32] = "v_subrev_co_u32",
++	},
++	[AMDGCN_INSN_TYPE_VOP3P] = {
++		[GFX10_V_PK_MAD_I16] = "v_pk_mad_i16",
++		[GFX10_V_PK_MUL_LO_U16] = "v_pk_mul_lo_u16",
++		[GFX10_V_PK_ADD_I16] = "v_pk_add_i16",
++		[GFX10_V_PK_SUB_I16] = "v_pk_sub_i16",
++		[GFX10_V_PK_LSHLREV_B16] = "v_pk_lshlrev_b16",
++		[GFX10_V_PK_LSHRREV_B16] = "v_pk_lshrrev_b16",
++		[GFX10_V_PK_ASHRREV_I16] = "v_pk_ashrrev_i16",
++		[GFX10_V_PK_MAX_I16] = "v_pk_max_i16",
++		[GFX10_V_PK_MIN_I16] = "v_pk_min_i16",
++		[GFX10_V_PK_MAD_U16] = "v_pk_mad_u16",
++		[GFX10_V_PK_ADD_U16] = "v_pk_add_u16",
++		[GFX10_V_PK_SUB_U16] = "v_pk_sub_u16",
++		[GFX10_V_PK_MAX_U16] = "v_pk_max_u16",
++		[GFX10_V_PK_MIN_U16] = "v_pk_min_u16",
++		[GFX10_V_PK_FMA_F16] = "v_pk_fma_f16",
++		[GFX10_V_PK_ADD_F16] = "v_pk_add_f16",
++		[GFX10_V_PK_MUL_F16] = "v_pk_mul_f16",
++		[GFX10_V_PK_MIN_F16] = "v_pk_min_f16",
++		[GFX10_V_PK_MAX_F16] = "v_pk_max_f16",
++		[GFX10_V_DOT2_F32_F16] = "v_dot2_f32_f16",
++		[GFX10_V_DOT2_I32_I16] = "v_dot2_i32_i16",
++		[GFX10_V_DOT2_U32_U16] = "v_dot2_u32_u16",
++		[GFX10_V_DOT4_I32_I8] = "v_dot4_i32_i8",
++		[GFX10_V_DOT4_U32_U8] = "v_dot4_u32_u8",
++		[GFX10_V_DOT8_I32_I4] = "v_dot8_i32_i4",
++		[GFX10_V_DOT8_U32_U4] = "v_dot8_u32_u4",
++		[GFX10_V_FMA_MIX_F32] = "v_fma_mix_f32",
++		[GFX10_V_FMA_MIXLO_F16] = "v_fma_mixlo_f16",
++		[GFX10_V_FMA_MIXHI_F16] = "v_fma_mixhi_f16",
++	},
++	[AMDGCN_INSN_TYPE_MUBUF] = {
++		[GFX10_BUFFER_LOAD_FORMAT_X] = "buffer_load_format_x",
++		[GFX10_BUFFER_LOAD_FORMAT_XY] = "buffer_load_format_xy",
++		[GFX10_BUFFER_LOAD_FORMAT_XYZ] = "buffer_load_format_xyz",
++		[GFX10_BUFFER_LOAD_FORMAT_XYZW] = "buffer_load_format_xyzw",
++		[GFX10_BUFFER_STORE_FORMAT_X] = "buffer_store_format_x",
++		[GFX10_BUFFER_STORE_FORMAT_XY] = "buffer_store_format_xy",
++		[GFX10_BUFFER_STORE_FORMAT_XYZ] = "buffer_store_format_xyz",
++		[GFX10_BUFFER_STORE_FORMAT_XYZW] = "buffer_store_format_xyzw",
++		[GFX10_BUFFER_LOAD_UBYTE] = "buffer_load_ubyte",
++		[GFX10_BUFFER_LOAD_SBYTE] = "buffer_load_sbyte",
++		[GFX10_BUFFER_LOAD_USHORT] = "buffer_load_ushort",
++		[GFX10_BUFFER_LOAD_SSHORT] = "buffer_load_sshort",
++		[GFX10_BUFFER_LOAD_DWORD] = "buffer_load_dword",
++		[GFX10_BUFFER_LOAD_DWORDX2] = "buffer_load_dwordx2",
++		[GFX10_BUFFER_LOAD_DWORDX4] = "buffer_load_dwordx4",
++		[GFX10_BUFFER_LOAD_DWORDX3] = "buffer_load_dwordx3",
++		[GFX10_BUFFER_STORE_BYTE] = "buffer_store_byte",
++		[GFX10_BUFFER_STORE_BYTE_D16_HI] = "buffer_store_byte_d16_hi",
++		[GFX10_BUFFER_STORE_SHORT] = "buffer_store_short",
++		[GFX10_BUFFER_STORE_SHORT_D16_HI] = "buffer_store_short_d16_hi",
++		[GFX10_BUFFER_STORE_DWORD] = "buffer_store_dword",
++		[GFX10_BUFFER_STORE_DWORDX2] = "buffer_store_dwordx2",
++		[GFX10_BUFFER_STORE_DWORDX4] = "buffer_store_dwordx4",
++		[GFX10_BUFFER_STORE_DWORDX3] = "buffer_store_dwordx3",
++		[GFX10_BUFFER_LOAD_UBYTE_D16] = "buffer_load_ubyte_d16",
++		[GFX10_BUFFER_LOAD_UBYTE_D16_HI] = "buffer_load_ubyte_d16_hi",
++		[GFX10_BUFFER_LOAD_SBYTE_D16] = "buffer_load_sbyte_d16",
++		[GFX10_BUFFER_LOAD_SBYTE_D16_HI] = "buffer_load_sbyte_d16_hi",
++		[GFX10_BUFFER_LOAD_SHORT_D16] = "buffer_load_short_d16",
++		[GFX10_BUFFER_LOAD_SHORT_D16_HI] = "buffer_load_short_d16_hi",
++		[GFX10_BUFFER_LOAD_FORMAT_D16_HI_X] = "buffer_load_format_d16_hi_x",
++		[GFX10_BUFFER_STORE_FORMAT_D16_HI_X] = "buffer_store_format_d16_hi_x",
++		[GFX10_BUFFER_ATOMIC_SWAP] = "buffer_atomic_swap",
++		[GFX10_BUFFER_ATOMIC_CMPSWAP] = "buffer_atomic_cmpswap",
++		[GFX10_BUFFER_ATOMIC_ADD] = "buffer_atomic_add",
++		[GFX10_BUFFER_ATOMIC_SUB] = "buffer_atomic_sub",
++		[GFX10_BUFFER_ATOMIC_CSUB] = "buffer_atomic_csub",
++		[GFX10_BUFFER_ATOMIC_SMIN] = "buffer_atomic_smin",
++		[GFX10_BUFFER_ATOMIC_UMIN] = "buffer_atomic_umin",
++		[GFX10_BUFFER_ATOMIC_SMAX] = "buffer_atomic_smax",
++		[GFX10_BUFFER_ATOMIC_UMAX] = "buffer_atomic_umax",
++		[GFX10_BUFFER_ATOMIC_AND] = "buffer_atomic_and",
++		[GFX10_BUFFER_ATOMIC_OR] = "buffer_atomic_or",
++		[GFX10_BUFFER_ATOMIC_XOR] = "buffer_atomic_xor",
++		[GFX10_BUFFER_ATOMIC_INC] = "buffer_atomic_inc",
++		[GFX10_BUFFER_ATOMIC_DEC] = "buffer_atomic_dec",
++		[GFX10_BUFFER_ATOMIC_FCMPSWAP] = "buffer_atomic_fcmpswap",
++		[GFX10_BUFFER_ATOMIC_FMIN] = "buffer_atomic_fmin",
++		[GFX10_BUFFER_ATOMIC_FMAX] = "buffer_atomic_fmax",
++		[GFX10_BUFFER_ATOMIC_SWAP_X2] = "buffer_atomic_swap_x2",
++		[GFX10_BUFFER_ATOMIC_CMPSWAP_X2] = "buffer_atomic_cmpswap_x2",
++		[GFX10_BUFFER_ATOMIC_ADD_X2] = "buffer_atomic_add_x2",
++		[GFX10_BUFFER_ATOMIC_SUB_X2] = "buffer_atomic_sub_x2",
++		[GFX10_BUFFER_ATOMIC_SMIN_X2] = "buffer_atomic_smin_x2",
++		[GFX10_BUFFER_ATOMIC_UMIN_X2] = "buffer_atomic_umin_x2",
++		[GFX10_BUFFER_ATOMIC_SMAX_X2] = "buffer_atomic_smax_x2",
++		[GFX10_BUFFER_ATOMIC_UMAX_X2] = "buffer_atomic_umax_x2",
++		[GFX10_BUFFER_ATOMIC_AND_X2] = "buffer_atomic_and_x2",
++		[GFX10_BUFFER_ATOMIC_OR_X2] = "buffer_atomic_or_x2",
++		[GFX10_BUFFER_ATOMIC_XOR_X2] = "buffer_atomic_xor_x2",
++		[GFX10_BUFFER_ATOMIC_INC_X2] = "buffer_atomic_inc_x2",
++		[GFX10_BUFFER_ATOMIC_DEC_X2] = "buffer_atomic_dec_x2",
++		[GFX10_BUFFER_ATOMIC_FCMPSWAP_X2] = "buffer_atomic_fcmpswap_x2",
++		[GFX10_BUFFER_ATOMIC_FMIN_X2] = "buffer_atomic_fmin_x2",
++		[GFX10_BUFFER_ATOMIC_FMAX_X2] = "buffer_atomic_fmax_x2",
++		[GFX10_BUFFER_GL0_INV] = "buffer_gl0_inv",
++		[GFX10_BUFFER_GL1_INV] = "buffer_gl1_inv",
++		[GFX10_BUFFER_LOAD_FORMAT_D16_X] = "buffer_load_format_d16_x",
++		[GFX10_BUFFER_LOAD_FORMAT_D16_XY] = "buffer_load_format_d16_xy",
++		[GFX10_BUFFER_LOAD_FORMAT_D16_XYZ] = "buffer_load_format_d16_xyz",
++		[GFX10_BUFFER_LOAD_FORMAT_D16_XYZW] = "buffer_load_format_d16_xyzw",
++		[GFX10_BUFFER_STORE_FORMAT_D16_X] = "buffer_store_format_d16_x",
++		[GFX10_BUFFER_STORE_FORMAT_D16_XY] = "buffer_store_format_d16_xy",
++		[GFX10_BUFFER_STORE_FORMAT_D16_XYZ] = "buffer_store_format_d16_xyz",
++		[GFX10_BUFFER_STORE_FORMAT_D16_XYZW] = "buffer_store_format_d16_xyzw",
++	},
++	[AMDGCN_INSN_TYPE_FLAT] = {
++		[GFX10_GLOBAL_LOAD_UBYTE] = "global_load_ubyte",
++		[GFX10_GLOBAL_LOAD_SBYTE] = "global_load_sbyte",
++		[GFX10_GLOBAL_LOAD_USHORT] = "global_load_ushort",
++		[GFX10_GLOBAL_LOAD_SSHORT] = "global_load_sshort",
++		[GFX10_GLOBAL_LOAD_DWORD] = "global_load_dword",
++		[GFX10_GLOBAL_LOAD_DWORDX2] = "global_load_dwordx2",
++		[GFX10_GLOBAL_LOAD_DWORDX4] = "global_load_dwordx4",
++		[GFX10_GLOBAL_LOAD_DWORDX3] = "global_load_dwordx3",
++		[GFX10_GLOBAL_LOAD_DWORD_ADDTID] = "global_load_dword_addtid",
++		[GFX10_GLOBAL_STORE_DWORD_ADDTID] = "global_store_dword_addtid",
++		[GFX10_GLOBAL_STORE_BYTE] = "global_store_byte",
++		[GFX10_GLOBAL_STORE_BYTE_D16_HI] = "global_store_byte_d16_hi",
++		[GFX10_GLOBAL_STORE_SHORT] = "global_store_short",
++		[GFX10_GLOBAL_STORE_SHORT_D16_HI] = "global_store_short_d16_hi",
++		[GFX10_GLOBAL_STORE_DWORD] = "global_store_dword",
++		[GFX10_GLOBAL_STORE_DWORDX2] = "global_store_dwordx2",
++		[GFX10_GLOBAL_STORE_DWORDX4] = "global_store_dwordx4",
++		[GFX10_GLOBAL_STORE_DWORDX3] = "global_store_dwordx3",
++		[GFX10_GLOBAL_LOAD_UBYTE_D16] = "global_load_ubyte_d16",
++		[GFX10_GLOBAL_LOAD_UBYTE_D16_HI] = "global_load_ubyte_d16_hi",
++		[GFX10_GLOBAL_LOAD_SBYTE_D16] = "global_load_sbyte_d16",
++		[GFX10_GLOBAL_LOAD_SBYTE_D16_HI] = "global_load_sbyte_d16_hi",
++		[GFX10_GLOBAL_LOAD_SHORT_D16] = "global_load_short_d16",
++		[GFX10_GLOBAL_LOAD_SHORT_D16_HI] = "global_load_short_d16_hi",
++		[GFX10_GLOBAL_ATOMIC_SWAP] = "global_atomic_swap",
++		[GFX10_GLOBAL_ATOMIC_CMPSWAP] = "global_atomic_cmpswap",
++		[GFX10_GLOBAL_ATOMIC_ADD] = "global_atomic_add",
++		[GFX10_GLOBAL_ATOMIC_SUB] = "global_atomic_sub",
++		[GFX10_GLOBAL_ATOMIC_CSUB] = "global_atomic_csub",
++		[GFX10_GLOBAL_ATOMIC_SMIN] = "global_atomic_smin",
++		[GFX10_GLOBAL_ATOMIC_UMIN] = "global_atomic_umin",
++		[GFX10_GLOBAL_ATOMIC_SMAX] = "global_atomic_smax",
++		[GFX10_GLOBAL_ATOMIC_UMAX] = "global_atomic_umax",
++		[GFX10_GLOBAL_ATOMIC_AND] = "global_atomic_and",
++		[GFX10_GLOBAL_ATOMIC_OR] = "global_atomic_or",
++		[GFX10_GLOBAL_ATOMIC_XOR] = "global_atomic_xor",
++		[GFX10_GLOBAL_ATOMIC_INC] = "global_atomic_inc",
++		[GFX10_GLOBAL_ATOMIC_DEC] = "global_atomic_dec",
++		[GFX10_GLOBAL_ATOMIC_FCMPSWAP] = "global_atomic_fcmpswap",
++		[GFX10_GLOBAL_ATOMIC_FMIN] = "global_atomic_fmin",
++		[GFX10_GLOBAL_ATOMIC_FMAX] = "global_atomic_fmax",
++		[GFX10_GLOBAL_ATOMIC_SWAP_X2] = "global_atomic_swap_x2",
++		[GFX10_GLOBAL_ATOMIC_CMPSWAP_X2] = "global_atomic_cmpswap_x2",
++		[GFX10_GLOBAL_ATOMIC_ADD_X2] = "global_atomic_add_x2",
++		[GFX10_GLOBAL_ATOMIC_SUB_X2] = "global_atomic_sub_x2",
++		[GFX10_GLOBAL_ATOMIC_SMIN_X2] = "global_atomic_smin_x2",
++		[GFX10_GLOBAL_ATOMIC_UMIN_X2] = "global_atomic_umin_x2",
++		[GFX10_GLOBAL_ATOMIC_SMAX_X2] = "global_atomic_smax_x2",
++		[GFX10_GLOBAL_ATOMIC_UMAX_X2] = "global_atomic_umax_x2",
++		[GFX10_GLOBAL_ATOMIC_AND_X2] = "global_atomic_and_x2",
++		[GFX10_GLOBAL_ATOMIC_OR_X2] = "global_atomic_or_x2",
++		[GFX10_GLOBAL_ATOMIC_XOR_X2] = "global_atomic_xor_x2",
++		[GFX10_GLOBAL_ATOMIC_INC_X2] = "global_atomic_inc_x2",
++		[GFX10_GLOBAL_ATOMIC_DEC_X2] = "global_atomic_dec_x2",
++		[GFX10_GLOBAL_ATOMIC_FCMPSWAP_X2] = "global_atomic_fcmpswap_x2",
++		[GFX10_GLOBAL_ATOMIC_FMIN_X2] = "global_atomic_fmin_x2",
++		[GFX10_GLOBAL_ATOMIC_FMAX_X2] = "global_atomic_fmax_x2",
++	},
++};
++
++static const char opnames_gfx9[__AMDGCN_INSN_TYPE_MAX][900][30] = {
++	[AMDGCN_INSN_TYPE_SOP2] = {
++		[GFX9_S_ADD_U32] = "s_add_u32",
++		[GFX9_S_SUB_U32] = "s_sub_u32",
++		[GFX9_S_ADD_I32] = "s_add_i32",
++		[GFX9_S_SUB_I32] = "s_sub_i32",
++		[GFX9_S_ADDC_U32] = "s_addc_u32",
++		[GFX9_S_SUBB_U32] = "s_subb_u32",
++		[GFX9_S_MIN_I32] = "s_min_i32",
++		[GFX9_S_MIN_U32] = "s_min_u32",
++		[GFX9_S_MAX_I32] = "s_max_i32",
++		[GFX9_S_MAX_U32] = "s_max_u32",
++		[GFX9_S_CSELECT_B32] = "s_cselect_b32",
++		[GFX9_S_CSELECT_B64] = "s_cselect_b64",
++		[GFX9_S_AND_B32] = "s_and_b32",
++		[GFX9_S_AND_B64] = "s_and_b64",
++		[GFX9_S_OR_B32] = "s_or_b32",
++		[GFX9_S_OR_B64] = "s_or_b64",
++		[GFX9_S_XOR_B32] = "s_xor_b32",
++		[GFX9_S_XOR_B64] = "s_xor_b64",
++		[GFX9_S_ANDN2_B32] = "s_andn2_b32",
++		[GFX9_S_ANDN2_B64] = "s_andn2_b64",
++		[GFX9_S_ORN2_B32] = "s_orn2_b32",
++		[GFX9_S_ORN2_B64] = "s_orn2_b64",
++		[GFX9_S_NAND_B32] = "s_nand_b32",
++		[GFX9_S_NAND_B64] = "s_nand_b64",
++		[GFX9_S_NOR_B32] = "s_nor_b32",
++		[GFX9_S_NOR_B64] = "s_nor_b64",
++		[GFX9_S_XNOR_B32] = "s_xnor_b32",
++		[GFX9_S_XNOR_B64] = "s_xnor_b64",
++		[GFX9_S_LSHL_B32] = "s_lshl_b32",
++		[GFX9_S_LSHL_B64] = "s_lshl_b64",
++		[GFX9_S_LSHR_B32] = "s_lshr_b32",
++		[GFX9_S_LSHR_B64] = "s_lshr_b64",
++		[GFX9_S_ASHR_I32] = "s_ashr_i32",
++		[GFX9_S_ASHR_I64] = "s_ashr_i64",
++		[GFX9_S_BFM_B32] = "s_bfm_b32",
++		[GFX9_S_BFM_B64] = "s_bfm_b64",
++		[GFX9_S_MUL_I32] = "s_mul_i32",
++		[GFX9_S_BFE_U32] = "s_bfe_u32",
++		[GFX9_S_BFE_I32] = "s_bfe_i32",
++		[GFX9_S_BFE_U64] = "s_bfe_u64",
++		[GFX9_S_BFE_I64] = "s_bfe_i64",
++		[GFX9_S_CBRANCH_G_FORK] = "s_cbranch_g_fork",
++		[GFX9_S_ABSDIFF_I32] = "s_absdiff_i32",
++		[GFX9_S_RFE_RESTORE_B64] = "s_rfe_restore_b64",
++		[GFX9_S_MUL_HI_U32] = "s_mul_hi_u32",
++		[GFX9_S_MUL_HI_I32] = "s_mul_hi_i32",
++		[GFX9_S_LSHL1_ADD_U32] = "s_lshl1_add_u32",
++		[GFX9_S_LSHL2_ADD_U32] = "s_lshl2_add_u32",
++		[GFX9_S_LSHL3_ADD_U32] = "s_lshl3_add_u32",
++		[GFX9_S_LSHL4_ADD_U32] = "s_lshl4_add_u32",
++		[GFX9_S_PACK_LL_B32_B16] = "s_pack_ll_b32_b16",
++		[GFX9_S_PACK_LH_B32_B16] = "s_pack_lh_b32_b16",
++		[GFX9_S_PACK_HH_B32_B16] = "s_pack_hh_b32_b16",
++	},
++	[AMDGCN_INSN_TYPE_SOPK] = {
++		[GFX9_S_MOVK_I32] = "s_movk_i32",
++		[GFX9_S_CMOVK_I32] = "s_cmovk_i32",
++		[GFX9_S_CMPK_EQ_I32] = "s_cmpk_eq_i32",
++		[GFX9_S_CMPK_LG_I32] = "s_cmpk_lg_i32",
++		[GFX9_S_CMPK_GT_I32] = "s_cmpk_gt_i32",
++		[GFX9_S_CMPK_GE_I32] = "s_cmpk_ge_i32",
++		[GFX9_S_CMPK_LT_I32] = "s_cmpk_lt_i32",
++		[GFX9_S_CMPK_LE_I32] = "s_cmpk_le_i32",
++		[GFX9_S_CMPK_EQ_U32] = "s_cmpk_eq_u32",
++		[GFX9_S_CMPK_LG_U32] = "s_cmpk_lg_u32",
++		[GFX9_S_CMPK_GT_U32] = "s_cmpk_gt_u32",
++		[GFX9_S_CMPK_GE_U32] = "s_cmpk_ge_u32",
++		[GFX9_S_CMPK_LT_U32] = "s_cmpk_lt_u32",
++		[GFX9_S_CMPK_LE_U32] = "s_cmpk_le_u32",
++		[GFX9_S_ADDK_I32] = "s_addk_i32",
++		[GFX9_S_MULK_I32] = "s_mulk_i32",
++		[GFX9_S_CBRANCH_I_FORK] = "s_cbranch_i_fork",
++		[GFX9_S_GETREG_B32] = "s_getreg_b32",
++		[GFX9_S_SETREG_B32] = "s_setreg_b32",
++		[GFX9_S_SETREG_IMM32_B32] = "s_setreg_imm32_b32",
++		[GFX9_S_CALL_B64] = "s_call_b64",
++	},
++	[AMDGCN_INSN_TYPE_SOP1] = {
++		[GFX9_S_MOV_B32] = "s_mov_b32",
++		[GFX9_S_MOV_B64] = "s_mov_b64",
++		[GFX9_S_CMOV_B32] = "s_cmov_b32",
++		[GFX9_S_CMOV_B64] = "s_cmov_b64",
++		[GFX9_S_NOT_B32] = "s_not_b32",
++		[GFX9_S_NOT_B64] = "s_not_b64",
++		[GFX9_S_WQM_B32] = "s_wqm_b32",
++		[GFX9_S_WQM_B64] = "s_wqm_b64",
++		[GFX9_S_BREV_B32] = "s_brev_b32",
++		[GFX9_S_BREV_B64] = "s_brev_b64",
++		[GFX9_S_BCNT0_I32_B32] = "s_bcnt0_i32_b32",
++		[GFX9_S_BCNT0_I32_B64] = "s_bcnt0_i32_b64",
++		[GFX9_S_BCNT1_I32_B32] = "s_bcnt1_i32_b32",
++		[GFX9_S_BCNT1_I32_B64] = "s_bcnt1_i32_b64",
++		[GFX9_S_FF0_I32_B32] = "s_ff0_i32_b32",
++		[GFX9_S_FF0_I32_B64] = "s_ff0_i32_b64",
++		[GFX9_S_FF1_I32_B32] = "s_ff1_i32_b32",
++		[GFX9_S_FF1_I32_B64] = "s_ff1_i32_b64",
++		[GFX9_S_FLBIT_I32_B32] = "s_flbit_i32_b32",
++		[GFX9_S_FLBIT_I32_B64] = "s_flbit_i32_b64",
++		[GFX9_S_FLBIT_I32] = "s_flbit_i32",
++		[GFX9_S_FLBIT_I32_I64] = "s_flbit_i32_i64",
++		[GFX9_S_SEXT_I32_I8] = "s_sext_i32_i8",
++		[GFX9_S_SEXT_I32_I16] = "s_sext_i32_i16",
++		[GFX9_S_BITSET0_B32] = "s_bitset0_b32",
++		[GFX9_S_BITSET0_B64] = "s_bitset0_b64",
++		[GFX9_S_BITSET1_B32] = "s_bitset1_b32",
++		[GFX9_S_BITSET1_B64] = "s_bitset1_b64",
++		[GFX9_S_GETPC_B64] = "s_getpc_b64",
++		[GFX9_S_SETPC_B64] = "s_setpc_b64",
++		[GFX9_S_SWAPPC_B64] = "s_swappc_b64",
++		[GFX9_S_RFE_B64] = "s_rfe_b64",
++		[GFX9_S_AND_SAVEEXEC_B64] = "s_and_saveexec_b64",
++		[GFX9_S_XNOR_SAVEEXEC_B64] = "s_xnor_saveexec_b64",
++		[GFX9_S_QUADMASK_B32] = "s_quadmask_b32",
++		[GFX9_S_QUADMASK_B64] = "s_quadmask_b64",
++		[GFX9_S_MOVRELS_B32] = "s_movrels_b32",
++		[GFX9_S_MOVRELS_B64] = "s_movrels_b64",
++		[GFX9_S_MOVRELD_B32] = "s_movreld_b32",
++		[GFX9_S_MOVRELD_B64] = "s_movreld_b64",
++		[GFX9_S_ABS_I32] = "s_abs_i32",
++		[GFX9_S_ANDN1_SAVEEXEC_B64] = "s_andn1_saveexec_b64",
++		[GFX9_S_ORN1_SAVEEXEC_B64] = "s_orn1_saveexec_b64",
++		[GFX9_S_ANDN1_WREXEC_B64] = "s_andn1_wrexec_b64",
++		[GFX9_S_ANDN2_WREXEC_B64] = "s_andn2_wrexec_b64",
++		[GFX9_S_BITREPLICATE_B64_B32] = "s_bitreplicate_b64_b32",
++		/* SOP1 opcodes missing from the table (Vega ISA 12.3). */
++		[GFX9_S_OR_SAVEEXEC_B64] = "s_or_saveexec_b64",
++		[GFX9_S_XOR_SAVEEXEC_B64] = "s_xor_saveexec_b64",
++		[GFX9_S_ANDN2_SAVEEXEC_B64] = "s_andn2_saveexec_b64",
++		[GFX9_S_ORN2_SAVEEXEC_B64] = "s_orn2_saveexec_b64",
++		[GFX9_S_NAND_SAVEEXEC_B64] = "s_nand_saveexec_b64",
++		[GFX9_S_NOR_SAVEEXEC_B64] = "s_nor_saveexec_b64",
++		[GFX9_S_SET_GPR_IDX_IDX] = "s_set_gpr_idx_idx",
++	},
++	[AMDGCN_INSN_TYPE_SOPC] = {
++		[GFX9_S_CMP_EQ_I32] = "s_cmp_eq_i32",
++		[GFX9_S_CMP_LG_I32] = "s_cmp_lg_i32",
++		[GFX9_S_CMP_GT_I32] = "s_cmp_gt_i32",
++		[GFX9_S_CMP_GE_I32] = "s_cmp_ge_i32",
++		[GFX9_S_CMP_LT_I32] = "s_cmp_lt_i32",
++		[GFX9_S_CMP_LE_I32] = "s_cmp_le_i32",
++		[GFX9_S_CMP_EQ_U32] = "s_cmp_eq_u32",
++		[GFX9_S_CMP_LG_U32] = "s_cmp_lg_u32",
++		[GFX9_S_CMP_GT_U32] = "s_cmp_gt_u32",
++		[GFX9_S_CMP_GE_U32] = "s_cmp_ge_u32",
++		[GFX9_S_CMP_LT_U32] = "s_cmp_lt_u32",
++		[GFX9_S_CMP_LE_U32] = "s_cmp_le_u32",
++		[GFX9_S_BITCMP0_B32] = "s_bitcmp0_b32",
++		[GFX9_S_BITCMP1_B32] = "s_bitcmp1_b32",
++		[GFX9_S_BITCMP0_B64] = "s_bitcmp0_b64",
++		[GFX9_S_BITCMP1_B64] = "s_bitcmp1_b64",
++		[GFX9_S_SETVSKIP] = "s_setvskip",
++		[GFX9_S_SET_GPR_IDX_ON] = "s_set_gpr_idx_on",
++		[GFX9_S_CMP_EQ_U64] = "s_cmp_eq_u64",
++		[GFX9_S_CMP_LG_U64] = "s_cmp_lg_u64",
++	},
++	[AMDGCN_INSN_TYPE_SOPP] = {
++		[GFX9_S_NOP] = "s_nop",
++		[GFX9_S_ENDPGM] = "s_endpgm",
++		[GFX9_S_BRANCH] = "s_branch",
++		[GFX9_S_WAKEUP] = "s_wakeup",
++		[GFX9_S_CBRANCH_SCC0] = "s_cbranch_scc0",
++		[GFX9_S_CBRANCH_SCC1] = "s_cbranch_scc1",
++		[GFX9_S_CBRANCH_VCCZ] = "s_cbranch_vccz",
++		[GFX9_S_CBRANCH_VCCNZ] = "s_cbranch_vccnz",
++		[GFX9_S_CBRANCH_EXECZ] = "s_cbranch_execz",
++		[GFX9_S_CBRANCH_EXECNZ] = "s_cbranch_execnz",
++		[GFX9_S_BARRIER] = "s_barrier",
++		[GFX9_S_SETKILL] = "s_setkill",
++		[GFX9_S_WAITCNT] = "s_waitcnt",
++		[GFX9_S_SETHALT] = "s_sethalt",
++		[GFX9_S_SLEEP] = "s_sleep",
++		[GFX9_S_SETPRIO] = "s_setprio",
++		[GFX9_S_SENDMSG] = "s_sendmsg",
++		[GFX9_S_SENDMSGHALT] = "s_sendmsghalt",
++		[GFX9_S_TRAP] = "s_trap",
++		[GFX9_S_ICACHE_INV] = "s_icache_inv",
++		[GFX9_S_INCPERFLEVEL] = "s_incperflevel",
++		[GFX9_S_DECPERFLEVEL] = "s_decperflevel",
++		[GFX9_S_TTRACEDATA] = "s_ttracedata",
++		[GFX9_S_CBRANCH_CDBGSYS] = "s_cbranch_cdbgsys",
++		[GFX9_S_CBRANCH_CDBGUSER] = "s_cbranch_cdbguser",
++		[GFX9_S_CBRANCH_CDBGSYS_OR_USER] = "s_cbranch_cdbgsys_or_user",
++		[GFX9_S_CBRANCH_CDBGSYS_AND_USER] = "s_cbranch_cdbgsys_and_user",
++		[GFX9_S_ENDPGM_SAVED] = "s_endpgm_saved",
++		[GFX9_S_SET_GPR_IDX_OFF] = "s_set_gpr_idx_off",
++		[GFX9_S_SET_GPR_IDX_MODE] = "s_set_gpr_idx_mode",
++		[GFX9_S_ENDPGM_ORDERED_PS_DONE] = "s_endpgm_ordered_ps_done",
++	},
++	[AMDGCN_INSN_TYPE_SMEM] = {
++		[GFX9_S_LOAD_DWORD] = "s_load_dword",
++		[GFX9_S_LOAD_DWORDX2] = "s_load_dwordx2",
++		[GFX9_S_LOAD_DWORDX4] = "s_load_dwordx4",
++		[GFX9_S_LOAD_DWORDX8] = "s_load_dwordx8",
++		[GFX9_S_LOAD_DWORDX16] = "s_load_dwordx16",
++		[GFX9_S_SCRATCH_LOAD_DWORD] = "s_scratch_load_dword",
++		[GFX9_S_SCRATCH_LOAD_DWORDX2] = "s_scratch_load_dwordx2",
++		[GFX9_S_SCRATCH_LOAD_DWORDX4] = "s_scratch_load_dwordx4",
++		[GFX9_S_BUFFER_LOAD_DWORD] = "s_buffer_load_dword",
++		[GFX9_S_BUFFER_LOAD_DWORDX2] = "s_buffer_load_dwordx2",
++		[GFX9_S_BUFFER_LOAD_DWORDX4] = "s_buffer_load_dwordx4",
++		[GFX9_S_BUFFER_LOAD_DWORDX8] = "s_buffer_load_dwordx8",
++		[GFX9_S_BUFFER_LOAD_DWORDX16] = "s_buffer_load_dwordx16",
++		[GFX9_S_STORE_DWORD] = "s_store_dword",
++		[GFX9_S_STORE_DWORDX2] = "s_store_dwordx2",
++		[GFX9_S_STORE_DWORDX4] = "s_store_dwordx4",
++		[GFX9_S_SCRATCH_STORE_DWORD] = "s_scratch_store_dword",
++		[GFX9_S_SCRATCH_STORE_DWORDX2] = "s_scratch_store_dwordx2",
++		[GFX9_S_SCRATCH_STORE_DWORDX4] = "s_scratch_store_dwordx4",
++		[GFX9_S_BUFFER_STORE_DWORD] = "s_buffer_store_dword",
++		[GFX9_S_BUFFER_STORE_DWORDX2] = "s_buffer_store_dwordx2",
++		[GFX9_S_BUFFER_STORE_DWORDX4] = "s_buffer_store_dwordx4",
++		[GFX9_S_DCACHE_INV] = "s_dcache_inv",
++		[GFX9_S_DCACHE_WB] = "s_dcache_wb",
++		[GFX9_S_DCACHE_INV_VOL] = "s_dcache_inv_vol",
++		[GFX9_S_DCACHE_WB_VOL] = "s_dcache_wb_vol",
++		[GFX9_S_MEMTIME] = "s_memtime",
++		[GFX9_S_MEMREALTIME] = "s_memrealtime",
++		[GFX9_S_ATC_PROBE] = "s_atc_probe",
++		[GFX9_S_ATC_PROBE_BUFFER] = "s_atc_probe_buffer",
++		[GFX9_S_DCACHE_DISCARD] = "s_dcache_discard",
++		[GFX9_S_DCACHE_DISCARD_X2] = "s_dcache_discard_x2",
++		[GFX9_S_BUFFER_ATOMIC_SWAP] = "s_buffer_atomic_swap",
++		[GFX9_S_BUFFER_ATOMIC_CMPSWAP] = "s_buffer_atomic_cmpswap",
++		[GFX9_S_BUFFER_ATOMIC_ADD] = "s_buffer_atomic_add",
++		[GFX9_S_BUFFER_ATOMIC_SUB] = "s_buffer_atomic_sub",
++		[GFX9_S_BUFFER_ATOMIC_SMIN] = "s_buffer_atomic_smin",
++		[GFX9_S_BUFFER_ATOMIC_UMIN] = "s_buffer_atomic_umin",
++		[GFX9_S_BUFFER_ATOMIC_SMAX] = "s_buffer_atomic_smax",
++		[GFX9_S_BUFFER_ATOMIC_UMAX] = "s_buffer_atomic_umax",
++		[GFX9_S_BUFFER_ATOMIC_AND] = "s_buffer_atomic_and",
++		[GFX9_S_BUFFER_ATOMIC_OR] = "s_buffer_atomic_or",
++		[GFX9_S_BUFFER_ATOMIC_XOR] = "s_buffer_atomic_xor",
++		[GFX9_S_BUFFER_ATOMIC_INC] = "s_buffer_atomic_inc",
++		[GFX9_S_BUFFER_ATOMIC_DEC] = "s_buffer_atomic_dec",
++		[GFX9_S_BUFFER_ATOMIC_SWAP_X2] = "s_buffer_atomic_swap_x2",
++		[GFX9_S_BUFFER_ATOMIC_CMPSWAP_X2] = "s_buffer_atomic_cmpswap_x2",
++		[GFX9_S_BUFFER_ATOMIC_ADD_X2] = "s_buffer_atomic_add_x2",
++		[GFX9_S_BUFFER_ATOMIC_SUB_X2] = "s_buffer_atomic_sub_x2",
++		[GFX9_S_BUFFER_ATOMIC_SMIN_X2] = "s_buffer_atomic_smin_x2",
++		[GFX9_S_BUFFER_ATOMIC_UMIN_X2] = "s_buffer_atomic_umin_x2",
++		[GFX9_S_BUFFER_ATOMIC_SMAX_X2] = "s_buffer_atomic_smax_x2",
++		[GFX9_S_BUFFER_ATOMIC_UMAX_X2] = "s_buffer_atomic_umax_x2",
++		[GFX9_S_BUFFER_ATOMIC_AND_X2] = "s_buffer_atomic_and_x2",
++		[GFX9_S_BUFFER_ATOMIC_OR_X2] = "s_buffer_atomic_or_x2",
++		[GFX9_S_BUFFER_ATOMIC_XOR_X2] = "s_buffer_atomic_xor_x2",
++		[GFX9_S_BUFFER_ATOMIC_INC_X2] = "s_buffer_atomic_inc_x2",
++		[GFX9_S_BUFFER_ATOMIC_DEC_X2] = "s_buffer_atomic_dec_x2",
++		[GFX9_S_ATOMIC_SWAP] = "s_atomic_swap",
++		[GFX9_S_ATOMIC_CMPSWAP] = "s_atomic_cmpswap",
++		[GFX9_S_ATOMIC_ADD] = "s_atomic_add",
++		[GFX9_S_ATOMIC_SUB] = "s_atomic_sub",
++		[GFX9_S_ATOMIC_SMIN] = "s_atomic_smin",
++		[GFX9_S_ATOMIC_UMIN] = "s_atomic_umin",
++		[GFX9_S_ATOMIC_SMAX] = "s_atomic_smax",
++		[GFX9_S_ATOMIC_UMAX] = "s_atomic_umax",
++		[GFX9_S_ATOMIC_AND] = "s_atomic_and",
++		[GFX9_S_ATOMIC_OR] = "s_atomic_or",
++		[GFX9_S_ATOMIC_XOR] = "s_atomic_xor",
++		[GFX9_S_ATOMIC_INC] = "s_atomic_inc",
++		[GFX9_S_ATOMIC_DEC] = "s_atomic_dec",
++		[GFX9_S_ATOMIC_SWAP_X2] = "s_atomic_swap_x2",
++		[GFX9_S_ATOMIC_CMPSWAP_X2] = "s_atomic_cmpswap_x2",
++		[GFX9_S_ATOMIC_ADD_X2] = "s_atomic_add_x2",
++		[GFX9_S_ATOMIC_SUB_X2] = "s_atomic_sub_x2",
++		[GFX9_S_ATOMIC_SMIN_X2] = "s_atomic_smin_x2",
++		[GFX9_S_ATOMIC_UMIN_X2] = "s_atomic_umin_x2",
++		[GFX9_S_ATOMIC_SMAX_X2] = "s_atomic_smax_x2",
++		[GFX9_S_ATOMIC_UMAX_X2] = "s_atomic_umax_x2",
++		[GFX9_S_ATOMIC_AND_X2] = "s_atomic_and_x2",
++		[GFX9_S_ATOMIC_OR_X2] = "s_atomic_or_x2",
++		[GFX9_S_ATOMIC_XOR_X2] = "s_atomic_xor_x2",
++		[GFX9_S_ATOMIC_INC_X2] = "s_atomic_inc_x2",
++		[GFX9_S_ATOMIC_DEC_X2] = "s_atomic_dec_x2",
++	},
++	[AMDGCN_INSN_TYPE_VOP2] = {
++		[GFX9_V_CNDMASK_B32] = "v_cndmask_b32",
++		[GFX9_V_ADD_F32] = "v_add_f32",
++		[GFX9_V_SUB_F32] = "v_sub_f32",
++		[GFX9_V_SUBREV_F32] = "v_subrev_f32",
++		[GFX9_V_MUL_LEGACY_F32] = "v_mul_legacy_f32",
++		[GFX9_V_MUL_F32] = "v_mul_f32",
++		[GFX9_V_MUL_I32_I24] = "v_mul_i32_i24",
++		[GFX9_V_MUL_HI_I32_I24] = "v_mul_hi_i32_i24",
++		[GFX9_V_MUL_U32_U24] = "v_mul_u32_u24",
++		[GFX9_V_MUL_HI_U32_U24] = "v_mul_hi_u32_u24",
++		[GFX9_V_MIN_F32] = "v_min_f32",
++		[GFX9_V_MAX_F32] = "v_max_f32",
++		[GFX9_V_MIN_I32] = "v_min_i32",
++		[GFX9_V_MAX_I32] = "v_max_i32",
++		[GFX9_V_MIN_U32] = "v_min_u32",
++		[GFX9_V_MAX_U32] = "v_max_u32",
++		[GFX9_V_LSHRREV_B32] = "v_lshrrev_b32",
++		[GFX9_V_ASHRREV_I32] = "v_ashrrev_i32",
++		[GFX9_V_LSHLREV_B32] = "v_lshlrev_b32",
++		[GFX9_V_AND_B32] = "v_and_b32",
++		[GFX9_V_OR_B32] = "v_or_b32",
++		[GFX9_V_XOR_B32] = "v_xor_b32",
++		[GFX9_V_MAC_F32] = "v_mac_f32",
++		[GFX9_V_MADMK_F32] = "v_madmk_f32",
++		[GFX9_V_MADAK_F32] = "v_madak_f32",
++		[GFX9_V_ADD_CO_U32] = "v_add_co_u32",
++		[GFX9_V_SUB_CO_U32] = "v_sub_co_u32",
++		[GFX9_V_SUBREV_CO_U32] = "v_subrev_co_u32",
++		[GFX9_V_ADDC_CO_U32] = "v_addc_co_u32",
++		[GFX9_V_SUBB_CO_U32] = "v_subb_co_u32",
++		[GFX9_V_SUBBREV_CO_U32] = "v_subbrev_co_u32",
++		[GFX9_V_ADD_F16] = "v_add_f16",
++		[GFX9_V_SUB_F16] = "v_sub_f16",
++		[GFX9_V_SUBREV_F16] = "v_subrev_f16",
++		[GFX9_V_MUL_F16] = "v_mul_f16",
++		[GFX9_V_MAC_F16] = "v_mac_f16",
++		[GFX9_V_MADMK_F16] = "v_madmk_f16",
++		[GFX9_V_MADAK_F16] = "v_madak_f16",
++		[GFX9_V_ADD_U16] = "v_add_u16",
++		[GFX9_V_SUB_U16] = "v_sub_u16",
++		[GFX9_V_SUBREV_U16] = "v_subrev_u16",
++		[GFX9_V_MUL_LO_U16] = "v_mul_lo_u16",
++		[GFX9_V_LSHLREV_B16] = "v_lshlrev_b16",
++		[GFX9_V_LSHRREV_B16] = "v_lshrrev_b16",
++		[GFX9_V_ASHRREV_I16] = "v_ashrrev_i16",
++		[GFX9_V_MAX_F16] = "v_max_f16",
++		[GFX9_V_MIN_F16] = "v_min_f16",
++		[GFX9_V_MAX_U16] = "v_max_u16",
++		[GFX9_V_MAX_I16] = "v_max_i16",
++		[GFX9_V_MIN_U16] = "v_min_u16",
++		[GFX9_V_MIN_I16] = "v_min_i16",
++		[GFX9_V_LDEXP_F16] = "v_ldexp_f16",
++		[GFX9_V_ADD_U32] = "v_add_u32",
++		[GFX9_V_SUB_U32] = "v_sub_u32",
++		[GFX9_V_SUBREV_U32] = "v_subrev_u32",
++	},
++	[AMDGCN_INSN_TYPE_VOP1] = {
++		[GFX9_V_NOP] = "v_nop",
++		[GFX9_V_MOV_B32] = "v_mov_b32",
++		[GFX9_V_READFIRSTLANE_B32] = "v_readfirstlane_b32",
++		[GFX9_V_CVT_I32_F64] = "v_cvt_i32_f64",
++		[GFX9_V_CVT_F64_I32] = "v_cvt_f64_i32",
++		[GFX9_V_CVT_F32_I32] = "v_cvt_f32_i32",
++		[GFX9_V_CVT_F32_U32] = "v_cvt_f32_u32",
++		[GFX9_V_CVT_U32_F32] = "v_cvt_u32_f32",
++		[GFX9_V_CVT_I32_F32] = "v_cvt_i32_f32",
++		[GFX9_V_CVT_F16_F32] = "v_cvt_f16_f32",
++		[GFX9_V_CVT_F32_F16] = "v_cvt_f32_f16",
++		[GFX9_V_CVT_RPI_I32_F32] = "v_cvt_rpi_i32_f32",
++		[GFX9_V_CVT_FLR_I32_F32] = "v_cvt_flr_i32_f32",
++		[GFX9_V_CVT_OFF_F32_I4] = "v_cvt_off_f32_i4",
++		[GFX9_V_CVT_F32_F64] = "v_cvt_f32_f64",
++		[GFX9_V_CVT_F64_F32] = "v_cvt_f64_f32",
++		[GFX9_V_CVT_F32_UBYTE0] = "v_cvt_f32_ubyte0",
++		[GFX9_V_CVT_F32_UBYTE1] = "v_cvt_f32_ubyte1",
++		[GFX9_V_CVT_F32_UBYTE2] = "v_cvt_f32_ubyte2",
++		[GFX9_V_CVT_F32_UBYTE3] = "v_cvt_f32_ubyte3",
++		[GFX9_V_CVT_U32_F64] = "v_cvt_u32_f64",
++		[GFX9_V_CVT_F64_U32] = "v_cvt_f64_u32",
++		[GFX9_V_TRUNC_F64] = "v_trunc_f64",
++		[GFX9_V_CEIL_F64] = "v_ceil_f64",
++		[GFX9_V_RNDNE_F64] = "v_rndne_f64",
++		[GFX9_V_FLOOR_F64] = "v_floor_f64",
++		[GFX9_V_FRACT_F32] = "v_fract_f32",
++		[GFX9_V_TRUNC_F32] = "v_trunc_f32",
++		[GFX9_V_CEIL_F32] = "v_ceil_f32",
++		[GFX9_V_RNDNE_F32] = "v_rndne_f32",
++		[GFX9_V_FLOOR_F32] = "v_floor_f32",
++		[GFX9_V_EXP_F32] = "v_exp_f32",
++		[GFX9_V_LOG_F32] = "v_log_f32",
++		[GFX9_V_RCP_F32] = "v_rcp_f32",
++		[GFX9_V_RCP_IFLAG_F32] = "v_rcp_iflag_f32",
++		[GFX9_V_RSQ_F32] = "v_rsq_f32",
++		[GFX9_V_RCP_F64] = "v_rcp_f64",
++		[GFX9_V_RSQ_F64] = "v_rsq_f64",
++		[GFX9_V_SQRT_F32] = "v_sqrt_f32",
++		[GFX9_V_SQRT_F64] = "v_sqrt_f64",
++		[GFX9_V_SIN_F32] = "v_sin_f32",
++		[GFX9_V_COS_F32] = "v_cos_f32",
++		[GFX9_V_NOT_B32] = "v_not_b32",
++		[GFX9_V_BFREV_B32] = "v_bfrev_b32",
++		[GFX9_V_FFBH_U32] = "v_ffbh_u32",
++		[GFX9_V_FFBL_B32] = "v_ffbl_b32",
++		[GFX9_V_FFBH_I32] = "v_ffbh_i32",
++		[GFX9_V_FREXP_EXP_I32_F64] = "v_frexp_exp_i32_f64",
++		[GFX9_V_FREXP_MANT_F64] = "v_frexp_mant_f64",
++		[GFX9_V_FRACT_F64] = "v_fract_f64",
++		[GFX9_V_FREXP_EXP_I32_F32] = "v_frexp_exp_i32_f32",
++		[GFX9_V_FREXP_MANT_F32] = "v_frexp_mant_f32",
++		[GFX9_V_CLREXCP] = "v_clrexcp",
++		[GFX9_V_SCREEN_PARTITION_4SE_B32] = "v_screen_partition_4se_b32",
++		[GFX9_V_CVT_F16_U16] = "v_cvt_f16_u16",
++		[GFX9_V_CVT_F16_I16] = "v_cvt_f16_i16",
++		[GFX9_V_CVT_U16_F16] = "v_cvt_u16_f16",
++		[GFX9_V_CVT_I16_F16] = "v_cvt_i16_f16",
++		[GFX9_V_RCP_F16] = "v_rcp_f16",
++		[GFX9_V_SQRT_F16] = "v_sqrt_f16",
++		[GFX9_V_RSQ_F16] = "v_rsq_f16",
++		[GFX9_V_LOG_F16] = "v_log_f16",
++		[GFX9_V_EXP_F16] = "v_exp_f16",
++		[GFX9_V_FREXP_MANT_F16] = "v_frexp_mant_f16",
++		[GFX9_V_FREXP_EXP_I16_F16] = "v_frexp_exp_i16_f16",
++		[GFX9_V_FLOOR_F16] = "v_floor_f16",
++		[GFX9_V_CEIL_F16] = "v_ceil_f16",
++		[GFX9_V_TRUNC_F16] = "v_trunc_f16",
++		[GFX9_V_RNDNE_F16] = "v_rndne_f16",
++		[GFX9_V_FRACT_F16] = "v_fract_f16",
++		[GFX9_V_SIN_F16] = "v_sin_f16",
++		[GFX9_V_COS_F16] = "v_cos_f16",
++		[GFX9_V_EXP_LEGACY_F32] = "v_exp_legacy_f32",
++		[GFX9_V_LOG_LEGACY_F32] = "v_log_legacy_f32",
++		[GFX9_V_CVT_NORM_I16_F16] = "v_cvt_norm_i16_f16",
++		[GFX9_V_CVT_NORM_U16_F16] = "v_cvt_norm_u16_f16",
++		[GFX9_V_SAT_PK_U8_I16] = "v_sat_pk_u8_i16",
++		[GFX9_V_SWAP_B32] = "v_swap_b32",
++	},
++	[AMDGCN_INSN_TYPE_VOPC] = {
++		[GFX9_V_CMP_CLASS_F32] = "v_cmp_class_f32",
++		[GFX9_V_CMPX_CLASS_F32] = "v_cmpx_class_f32",
++		[GFX9_V_CMP_CLASS_F64] = "v_cmp_class_f64",
++		[GFX9_V_CMPX_CLASS_F64] = "v_cmpx_class_f64",
++		[GFX9_V_CMP_CLASS_F16] = "v_cmp_class_f16",
++		[GFX9_V_CMPX_CLASS_F16] = "v_cmpx_class_f16",
++		[GFX9_V_CMP_F_F16] = "v_cmp_f_f16",
++		[GFX9_V_CMP_LT_F16] = "v_cmp_lt_f16",
++		[GFX9_V_CMP_EQ_F16] = "v_cmp_eq_f16",
++		[GFX9_V_CMP_LE_F16] = "v_cmp_le_f16",
++		[GFX9_V_CMP_GT_F16] = "v_cmp_gt_f16",
++		[GFX9_V_CMP_LG_F16] = "v_cmp_lg_f16",
++		[GFX9_V_CMP_GE_F16] = "v_cmp_ge_f16",
++		[GFX9_V_CMP_O_F16] = "v_cmp_o_f16",
++		[GFX9_V_CMP_U_F16] = "v_cmp_u_f16",
++		[GFX9_V_CMP_NGE_F16] = "v_cmp_nge_f16",
++		[GFX9_V_CMP_NLG_F16] = "v_cmp_nlg_f16",
++		[GFX9_V_CMP_NGT_F16] = "v_cmp_ngt_f16",
++		[GFX9_V_CMP_NLE_F16] = "v_cmp_nle_f16",
++		[GFX9_V_CMP_NEQ_F16] = "v_cmp_neq_f16",
++		[GFX9_V_CMP_NLT_F16] = "v_cmp_nlt_f16",
++		[GFX9_V_CMP_TRU_F16] = "v_cmp_tru_f16",
++		[GFX9_V_CMPX_F_F16] = "v_cmpx_f_f16",
++		[GFX9_V_CMPX_LT_F16] = "v_cmpx_lt_f16",
++		[GFX9_V_CMPX_EQ_F16] = "v_cmpx_eq_f16",
++		[GFX9_V_CMPX_LE_F16] = "v_cmpx_le_f16",
++		[GFX9_V_CMPX_GT_F16] = "v_cmpx_gt_f16",
++		[GFX9_V_CMPX_LG_F16] = "v_cmpx_lg_f16",
++		[GFX9_V_CMPX_GE_F16] = "v_cmpx_ge_f16",
++		[GFX9_V_CMPX_O_F16] = "v_cmpx_o_f16",
++		[GFX9_V_CMPX_U_F16] = "v_cmpx_u_f16",
++		[GFX9_V_CMPX_NGE_F16] = "v_cmpx_nge_f16",
++		[GFX9_V_CMPX_NLG_F16] = "v_cmpx_nlg_f16",
++		[GFX9_V_CMPX_NGT_F16] = "v_cmpx_ngt_f16",
++		[GFX9_V_CMPX_NLE_F16] = "v_cmpx_nle_f16",
++		[GFX9_V_CMPX_NEQ_F16] = "v_cmpx_neq_f16",
++		[GFX9_V_CMPX_NLT_F16] = "v_cmpx_nlt_f16",
++		[GFX9_V_CMPX_TRU_F16] = "v_cmpx_tru_f16",
++		[GFX9_V_CMP_F_F32] = "v_cmp_f_f32",
++		[GFX9_V_CMP_LT_F32] = "v_cmp_lt_f32",
++		[GFX9_V_CMP_EQ_F32] = "v_cmp_eq_f32",
++		[GFX9_V_CMP_LE_F32] = "v_cmp_le_f32",
++		[GFX9_V_CMP_GT_F32] = "v_cmp_gt_f32",
++		[GFX9_V_CMP_LG_F32] = "v_cmp_lg_f32",
++		[GFX9_V_CMP_GE_F32] = "v_cmp_ge_f32",
++		[GFX9_V_CMP_O_F32] = "v_cmp_o_f32",
++		[GFX9_V_CMP_U_F32] = "v_cmp_u_f32",
++		[GFX9_V_CMP_NGE_F32] = "v_cmp_nge_f32",
++		[GFX9_V_CMP_NLG_F32] = "v_cmp_nlg_f32",
++		[GFX9_V_CMP_NGT_F32] = "v_cmp_ngt_f32",
++		[GFX9_V_CMP_NLE_F32] = "v_cmp_nle_f32",
++		[GFX9_V_CMP_NEQ_F32] = "v_cmp_neq_f32",
++		[GFX9_V_CMP_NLT_F32] = "v_cmp_nlt_f32",
++		[GFX9_V_CMP_TRU_F32] = "v_cmp_tru_f32",
++		[GFX9_V_CMPX_F_F32] = "v_cmpx_f_f32",
++		[GFX9_V_CMPX_LT_F32] = "v_cmpx_lt_f32",
++		[GFX9_V_CMPX_EQ_F32] = "v_cmpx_eq_f32",
++		[GFX9_V_CMPX_LE_F32] = "v_cmpx_le_f32",
++		[GFX9_V_CMPX_GT_F32] = "v_cmpx_gt_f32",
++		[GFX9_V_CMPX_LG_F32] = "v_cmpx_lg_f32",
++		[GFX9_V_CMPX_GE_F32] = "v_cmpx_ge_f32",
++		[GFX9_V_CMPX_O_F32] = "v_cmpx_o_f32",
++		[GFX9_V_CMPX_U_F32] = "v_cmpx_u_f32",
++		[GFX9_V_CMPX_NGE_F32] = "v_cmpx_nge_f32",
++		[GFX9_V_CMPX_NLG_F32] = "v_cmpx_nlg_f32",
++		[GFX9_V_CMPX_NGT_F32] = "v_cmpx_ngt_f32",
++		[GFX9_V_CMPX_NLE_F32] = "v_cmpx_nle_f32",
++		[GFX9_V_CMPX_NEQ_F32] = "v_cmpx_neq_f32",
++		[GFX9_V_CMPX_NLT_F32] = "v_cmpx_nlt_f32",
++		[GFX9_V_CMPX_TRU_F32] = "v_cmpx_tru_f32",
++		[GFX9_V_CMP_F_F64] = "v_cmp_f_f64",
++		[GFX9_V_CMP_LT_F64] = "v_cmp_lt_f64",
++		[GFX9_V_CMP_EQ_F64] = "v_cmp_eq_f64",
++		[GFX9_V_CMP_LE_F64] = "v_cmp_le_f64",
++		[GFX9_V_CMP_GT_F64] = "v_cmp_gt_f64",
++		[GFX9_V_CMP_LG_F64] = "v_cmp_lg_f64",
++		[GFX9_V_CMP_GE_F64] = "v_cmp_ge_f64",
++		[GFX9_V_CMP_O_F64] = "v_cmp_o_f64",
++		[GFX9_V_CMP_U_F64] = "v_cmp_u_f64",
++		[GFX9_V_CMP_NGE_F64] = "v_cmp_nge_f64",
++		[GFX9_V_CMP_NLG_F64] = "v_cmp_nlg_f64",
++		[GFX9_V_CMP_NGT_F64] = "v_cmp_ngt_f64",
++		[GFX9_V_CMP_NLE_F64] = "v_cmp_nle_f64",
++		[GFX9_V_CMP_NEQ_F64] = "v_cmp_neq_f64",
++		[GFX9_V_CMP_NLT_F64] = "v_cmp_nlt_f64",
++		[GFX9_V_CMP_TRU_F64] = "v_cmp_tru_f64",
++		[GFX9_V_CMPX_F_F64] = "v_cmpx_f_f64",
++		[GFX9_V_CMPX_LT_F64] = "v_cmpx_lt_f64",
++		[GFX9_V_CMPX_EQ_F64] = "v_cmpx_eq_f64",
++		[GFX9_V_CMPX_LE_F64] = "v_cmpx_le_f64",
++		[GFX9_V_CMPX_GT_F64] = "v_cmpx_gt_f64",
++		[GFX9_V_CMPX_LG_F64] = "v_cmpx_lg_f64",
++		[GFX9_V_CMPX_GE_F64] = "v_cmpx_ge_f64",
++		[GFX9_V_CMPX_O_F64] = "v_cmpx_o_f64",
++		[GFX9_V_CMPX_U_F64] = "v_cmpx_u_f64",
++		[GFX9_V_CMPX_NGE_F64] = "v_cmpx_nge_f64",
++		[GFX9_V_CMPX_NLG_F64] = "v_cmpx_nlg_f64",
++		[GFX9_V_CMPX_NGT_F64] = "v_cmpx_ngt_f64",
++		[GFX9_V_CMPX_NLE_F64] = "v_cmpx_nle_f64",
++		[GFX9_V_CMPX_NEQ_F64] = "v_cmpx_neq_f64",
++		[GFX9_V_CMPX_NLT_F64] = "v_cmpx_nlt_f64",
++		[GFX9_V_CMPX_TRU_F64] = "v_cmpx_tru_f64",
++		[GFX9_V_CMP_F_I16] = "v_cmp_f_i16",
++		[GFX9_V_CMP_LT_I16] = "v_cmp_lt_i16",
++		[GFX9_V_CMP_EQ_I16] = "v_cmp_eq_i16",
++		[GFX9_V_CMP_LE_I16] = "v_cmp_le_i16",
++		[GFX9_V_CMP_GT_I16] = "v_cmp_gt_i16",
++		[GFX9_V_CMP_NE_I16] = "v_cmp_ne_i16",
++		[GFX9_V_CMP_GE_I16] = "v_cmp_ge_i16",
++		[GFX9_V_CMP_T_I16] = "v_cmp_t_i16",
++		[GFX9_V_CMP_F_U16] = "v_cmp_f_u16",
++		[GFX9_V_CMP_LT_U16] = "v_cmp_lt_u16",
++		[GFX9_V_CMP_EQ_U16] = "v_cmp_eq_u16",
++		[GFX9_V_CMP_LE_U16] = "v_cmp_le_u16",
++		[GFX9_V_CMP_GT_U16] = "v_cmp_gt_u16",
++		[GFX9_V_CMP_NE_U16] = "v_cmp_ne_u16",
++		[GFX9_V_CMP_GE_U16] = "v_cmp_ge_u16",
++		[GFX9_V_CMP_T_U16] = "v_cmp_t_u16",
++		[GFX9_V_CMPX_F_I16] = "v_cmpx_f_i16",
++		[GFX9_V_CMPX_LT_I16] = "v_cmpx_lt_i16",
++		[GFX9_V_CMPX_EQ_I16] = "v_cmpx_eq_i16",
++		[GFX9_V_CMPX_LE_I16] = "v_cmpx_le_i16",
++		[GFX9_V_CMPX_GT_I16] = "v_cmpx_gt_i16",
++		[GFX9_V_CMPX_NE_I16] = "v_cmpx_ne_i16",
++		[GFX9_V_CMPX_GE_I16] = "v_cmpx_ge_i16",
++		[GFX9_V_CMPX_T_I16] = "v_cmpx_t_i16",
++		[GFX9_V_CMPX_F_U16] = "v_cmpx_f_u16",
++		[GFX9_V_CMPX_LT_U16] = "v_cmpx_lt_u16",
++		[GFX9_V_CMPX_EQ_U16] = "v_cmpx_eq_u16",
++		[GFX9_V_CMPX_LE_U16] = "v_cmpx_le_u16",
++		[GFX9_V_CMPX_GT_U16] = "v_cmpx_gt_u16",
++		[GFX9_V_CMPX_NE_U16] = "v_cmpx_ne_u16",
++		[GFX9_V_CMPX_GE_U16] = "v_cmpx_ge_u16",
++		[GFX9_V_CMPX_T_U16] = "v_cmpx_t_u16",
++		[GFX9_V_CMP_F_I32] = "v_cmp_f_i32",
++		[GFX9_V_CMP_LT_I32] = "v_cmp_lt_i32",
++		[GFX9_V_CMP_EQ_I32] = "v_cmp_eq_i32",
++		[GFX9_V_CMP_LE_I32] = "v_cmp_le_i32",
++		[GFX9_V_CMP_GT_I32] = "v_cmp_gt_i32",
++		[GFX9_V_CMP_NE_I32] = "v_cmp_ne_i32",
++		[GFX9_V_CMP_GE_I32] = "v_cmp_ge_i32",
++		[GFX9_V_CMP_T_I32] = "v_cmp_t_i32",
++		[GFX9_V_CMP_F_U32] = "v_cmp_f_u32",
++		[GFX9_V_CMP_LT_U32] = "v_cmp_lt_u32",
++		[GFX9_V_CMP_EQ_U32] = "v_cmp_eq_u32",
++		[GFX9_V_CMP_LE_U32] = "v_cmp_le_u32",
++		[GFX9_V_CMP_GT_U32] = "v_cmp_gt_u32",
++		[GFX9_V_CMP_NE_U32] = "v_cmp_ne_u32",
++		[GFX9_V_CMP_GE_U32] = "v_cmp_ge_u32",
++		[GFX9_V_CMP_T_U32] = "v_cmp_t_u32",
++		[GFX9_V_CMPX_F_I32] = "v_cmpx_f_i32",
++		[GFX9_V_CMPX_LT_I32] = "v_cmpx_lt_i32",
++		[GFX9_V_CMPX_EQ_I32] = "v_cmpx_eq_i32",
++		[GFX9_V_CMPX_LE_I32] = "v_cmpx_le_i32",
++		[GFX9_V_CMPX_GT_I32] = "v_cmpx_gt_i32",
++		[GFX9_V_CMPX_NE_I32] = "v_cmpx_ne_i32",
++		[GFX9_V_CMPX_GE_I32] = "v_cmpx_ge_i32",
++		[GFX9_V_CMPX_T_I32] = "v_cmpx_t_i32",
++		[GFX9_V_CMPX_F_U32] = "v_cmpx_f_u32",
++		[GFX9_V_CMPX_LT_U32] = "v_cmpx_lt_u32",
++		[GFX9_V_CMPX_EQ_U32] = "v_cmpx_eq_u32",
++		[GFX9_V_CMPX_LE_U32] = "v_cmpx_le_u32",
++		[GFX9_V_CMPX_GT_U32] = "v_cmpx_gt_u32",
++		[GFX9_V_CMPX_NE_U32] = "v_cmpx_ne_u32",
++		[GFX9_V_CMPX_GE_U32] = "v_cmpx_ge_u32",
++		[GFX9_V_CMPX_T_U32] = "v_cmpx_t_u32",
++		[GFX9_V_CMP_F_I64] = "v_cmp_f_i64",
++		[GFX9_V_CMP_LT_I64] = "v_cmp_lt_i64",
++		[GFX9_V_CMP_EQ_I64] = "v_cmp_eq_i64",
++		[GFX9_V_CMP_LE_I64] = "v_cmp_le_i64",
++		[GFX9_V_CMP_GT_I64] = "v_cmp_gt_i64",
++		[GFX9_V_CMP_NE_I64] = "v_cmp_ne_i64",
++		[GFX9_V_CMP_GE_I64] = "v_cmp_ge_i64",
++		[GFX9_V_CMP_T_I64] = "v_cmp_t_i64",
++		[GFX9_V_CMP_F_U64] = "v_cmp_f_u64",
++		[GFX9_V_CMP_LT_U64] = "v_cmp_lt_u64",
++		[GFX9_V_CMP_EQ_U64] = "v_cmp_eq_u64",
++		[GFX9_V_CMP_LE_U64] = "v_cmp_le_u64",
++		[GFX9_V_CMP_GT_U64] = "v_cmp_gt_u64",
++		[GFX9_V_CMP_NE_U64] = "v_cmp_ne_u64",
++		[GFX9_V_CMP_GE_U64] = "v_cmp_ge_u64",
++		[GFX9_V_CMP_T_U64] = "v_cmp_t_u64",
++		[GFX9_V_CMPX_F_I64] = "v_cmpx_f_i64",
++		[GFX9_V_CMPX_LT_I64] = "v_cmpx_lt_i64",
++		[GFX9_V_CMPX_EQ_I64] = "v_cmpx_eq_i64",
++		[GFX9_V_CMPX_LE_I64] = "v_cmpx_le_i64",
++		[GFX9_V_CMPX_GT_I64] = "v_cmpx_gt_i64",
++		[GFX9_V_CMPX_NE_I64] = "v_cmpx_ne_i64",
++		[GFX9_V_CMPX_GE_I64] = "v_cmpx_ge_i64",
++		[GFX9_V_CMPX_T_I64] = "v_cmpx_t_i64",
++		[GFX9_V_CMPX_F_U64] = "v_cmpx_f_u64",
++		[GFX9_V_CMPX_LT_U64] = "v_cmpx_lt_u64",
++		[GFX9_V_CMPX_EQ_U64] = "v_cmpx_eq_u64",
++		[GFX9_V_CMPX_LE_U64] = "v_cmpx_le_u64",
++		[GFX9_V_CMPX_GT_U64] = "v_cmpx_gt_u64",
++		[GFX9_V_CMPX_NE_U64] = "v_cmpx_ne_u64",
++		[GFX9_V_CMPX_GE_U64] = "v_cmpx_ge_u64",
++		[GFX9_V_CMPX_T_U64] = "v_cmpx_t_u64",
++	},
++	[AMDGCN_INSN_TYPE_VOP3A] = {
++		[GFX9_V_MAD_LEGACY_F32] = "v_mad_legacy_f32",
++		[GFX9_V_MAD_F32] = "v_mad_f32",
++		[GFX9_V_MAD_I32_I24] = "v_mad_i32_i24",
++		[GFX9_V_MAD_U32_U24] = "v_mad_u32_u24",
++		[GFX9_V_CUBEID_F32] = "v_cubeid_f32",
++		[GFX9_V_CUBESC_F32] = "v_cubesc_f32",
++		[GFX9_V_CUBETC_F32] = "v_cubetc_f32",
++		[GFX9_V_CUBEMA_F32] = "v_cubema_f32",
++		[GFX9_V_BFE_U32] = "v_bfe_u32",
++		[GFX9_V_BFE_I32] = "v_bfe_i32",
++		[GFX9_V_BFI_B32] = "v_bfi_b32",
++		[GFX9_V_FMA_F32] = "v_fma_f32",
++		[GFX9_V_FMA_F64] = "v_fma_f64",
++		[GFX9_V_LERP_U8] = "v_lerp_u8",
++		[GFX9_V_ALIGNBIT_B32] = "v_alignbit_b32",
++		[GFX9_V_ALIGNBYTE_B32] = "v_alignbyte_b32",
++		[GFX9_V_MIN3_F32] = "v_min3_f32",
++		[GFX9_V_MIN3_I32] = "v_min3_i32",
++		[GFX9_V_MIN3_U32] = "v_min3_u32",
++		[GFX9_V_MAX3_F32] = "v_max3_f32",
++		[GFX9_V_MAX3_I32] = "v_max3_i32",
++		[GFX9_V_MAX3_U32] = "v_max3_u32",
++		[GFX9_V_MED3_F32] = "v_med3_f32",
++		[GFX9_V_MED3_I32] = "v_med3_i32",
++		[GFX9_V_MED3_U32] = "v_med3_u32",
++		[GFX9_V_SAD_U8] = "v_sad_u8",
++		[GFX9_V_SAD_HI_U8] = "v_sad_hi_u8",
++		[GFX9_V_SAD_U16] = "v_sad_u16",
++		[GFX9_V_SAD_U32] = "v_sad_u32",
++		[GFX9_V_CVT_PK_U8_F32] = "v_cvt_pk_u8_f32",
++		[GFX9_V_DIV_FIXUP_F32] = "v_div_fixup_f32",
++		[GFX9_V_DIV_FIXUP_F64] = "v_div_fixup_f64",
++		[GFX9_V_DIV_FMAS_F32] = "v_div_fmas_f32",
++		[GFX9_V_DIV_FMAS_F64] = "v_div_fmas_f64",
++		[GFX9_V_MSAD_U8] = "v_msad_u8",
++		[GFX9_V_QSAD_PK_U16_U8] = "v_qsad_pk_u16_u8",
++		[GFX9_V_MQSAD_PK_U16_U8] = "v_mqsad_pk_u16_u8",
++		[GFX9_V_MQSAD_U32_U8] = "v_mqsad_u32_u8",
++		[GFX9_V_MAD_LEGACY_F16] = "v_mad_legacy_f16",
++		[GFX9_V_MAD_LEGACY_U16] = "v_mad_legacy_u16",
++		[GFX9_V_MAD_LEGACY_I16] = "v_mad_legacy_i16",
++		[GFX9_V_PERM_B32] = "v_perm_b32",
++		[GFX9_V_FMA_LEGACY_F16] = "v_fma_legacy_f16",
++		[GFX9_V_DIV_FIXUP_LEGACY_F16] = "v_div_fixup_legacy_f16",
++		[GFX9_V_CVT_PKACCUM_U8_F32] = "v_cvt_pkaccum_u8_f32",
++		[GFX9_V_MAD_U32_U16] = "v_mad_u32_u16",
++		[GFX9_V_MAD_I32_I16] = "v_mad_i32_i16",
++		[GFX9_V_XAD_U32] = "v_xad_u32",
++		[GFX9_V_MIN3_F16] = "v_min3_f16",
++		[GFX9_V_MIN3_I16] = "v_min3_i16",
++		[GFX9_V_MIN3_U16] = "v_min3_u16",
++		[GFX9_V_MAX3_F16] = "v_max3_f16",
++		[GFX9_V_MAX3_I16] = "v_max3_i16",
++		[GFX9_V_MAX3_U16] = "v_max3_u16",
++		[GFX9_V_MED3_F16] = "v_med3_f16",
++		[GFX9_V_MED3_I16] = "v_med3_i16",
++		[GFX9_V_MED3_U16] = "v_med3_u16",
++		[GFX9_V_LSHL_ADD_U32] = "v_lshl_add_u32",
++		[GFX9_V_ADD_LSHL_U32] = "v_add_lshl_u32",
++		[GFX9_V_ADD3_U32] = "v_add3_u32",
++		[GFX9_V_LSHL_OR_B32] = "v_lshl_or_b32",
++		[GFX9_V_AND_OR_B32] = "v_and_or_b32",
++		[GFX9_V_OR3_B32] = "v_or3_b32",
++		[GFX9_V_MAD_F16] = "v_mad_f16",
++		[GFX9_V_MAD_U16] = "v_mad_u16",
++		[GFX9_V_MAD_I16] = "v_mad_i16",
++		[GFX9_V_FMA_F16] = "v_fma_f16",
++		[GFX9_V_DIV_FIXUP_F16] = "v_div_fixup_f16",
++		[GFX9_V_INTERP_P1LL_F16] = "v_interp_p1ll_f16",
++		[GFX9_V_INTERP_P1LV_F16] = "v_interp_p1lv_f16",
++		[GFX9_V_INTERP_P2_LEGACY_F16] = "v_interp_p2_legacy_f16",
++		[GFX9_V_INTERP_P2_F16] = "v_interp_p2_f16",
++		[GFX9_V_ADD_F64] = "v_add_f64",
++		[GFX9_V_MUL_F64] = "v_mul_f64",
++		[GFX9_V_MIN_F64] = "v_min_f64",
++		[GFX9_V_MAX_F64] = "v_max_f64",
++		[GFX9_V_LDEXP_F64] = "v_ldexp_f64",
++		[GFX9_V_MUL_LO_U32] = "v_mul_lo_u32",
++		[GFX9_V_MUL_HI_U32] = "v_mul_hi_u32",
++		[GFX9_V_MUL_HI_I32] = "v_mul_hi_i32",
++		[GFX9_V_LDEXP_F32] = "v_ldexp_f32",
++		[GFX9_V_READLANE_B32] = "v_readlane_b32",
++		[GFX9_V_WRITELANE_B32] = "v_writelane_b32",
++		[GFX9_V_BCNT_U32_B32] = "v_bcnt_u32_b32",
++		[GFX9_V_MBCNT_LO_U32_B32] = "v_mbcnt_lo_u32_b32",
++		[GFX9_V_MBCNT_HI_U32_B32] = "v_mbcnt_hi_u32_b32",
++		[GFX9_V_LSHLREV_B64] = "v_lshlrev_b64",
++		[GFX9_V_LSHRREV_B64] = "v_lshrrev_b64",
++		[GFX9_V_ASHRREV_I64] = "v_ashrrev_i64",
++		[GFX9_V_TRIG_PREOP_F64] = "v_trig_preop_f64",
++		[GFX9_V_BFM_B32] = "v_bfm_b32",
++		[GFX9_V_CVT_PKNORM_I16_F32] = "v_cvt_pknorm_i16_f32",
++		[GFX9_V_CVT_PKNORM_U16_F32] = "v_cvt_pknorm_u16_f32",
++		[GFX9_V_CVT_PKRTZ_F16_F32] = "v_cvt_pkrtz_f16_f32",
++		[GFX9_V_CVT_PK_U16_U32] = "v_cvt_pk_u16_u32",
++		[GFX9_V_CVT_PK_I16_I32] = "v_cvt_pk_i16_i32",
++		[GFX9_V_CVT_PKNORM_I16_F16] = "v_cvt_pknorm_i16_f16",
++		[GFX9_V_CVT_PKNORM_U16_F16] = "v_cvt_pknorm_u16_f16",
++		[GFX9_V_ADD_I32] = "v_add_i32",
++		[GFX9_V_SUB_I32] = "v_sub_i32",
++		[GFX9_V_ADD_I16] = "v_add_i16",
++		[GFX9_V_SUB_I16] = "v_sub_i16",
++		[GFX9_V_PACK_B32_F16] = "v_pack_b32_f16",
++	},
++	[AMDGCN_INSN_TYPE_VOP3B] = {
++		[GFX9_V_DIV_SCALE_F64] = "v_div_scale_f64",
++		[GFX9_V_MAD_U64_U32] = "v_mad_u64_u32",
++		[GFX9_V_MAD_I64_I32] = "v_mad_i64_i32",
++	},
++	[AMDGCN_INSN_TYPE_VOP3P] = {
++		[GFX9_V_PK_MAD_I16] = "v_pk_mad_i16",
++		[GFX9_V_PK_MUL_LO_U16] = "v_pk_mul_lo_u16",
++		[GFX9_V_PK_ADD_I16] = "v_pk_add_i16",
++		[GFX9_V_PK_SUB_I16] = "v_pk_sub_i16",
++		[GFX9_V_PK_LSHLREV_B16] = "v_pk_lshlrev_b16",
++		[GFX9_V_PK_LSHRREV_B16] = "v_pk_lshrrev_b16",
++		[GFX9_V_PK_ASHRREV_I16] = "v_pk_ashrrev_i16",
++		[GFX9_V_PK_MAX_I16] = "v_pk_max_i16",
++		[GFX9_V_PK_MIN_I16] = "v_pk_min_i16",
++		[GFX9_V_PK_MAD_U16] = "v_pk_mad_u16",
++		[GFX9_V_PK_ADD_U16] = "v_pk_add_u16",
++		[GFX9_V_PK_SUB_U16] = "v_pk_sub_u16",
++		[GFX9_V_PK_MAX_U16] = "v_pk_max_u16",
++		[GFX9_V_PK_MIN_U16] = "v_pk_min_u16",
++		[GFX9_V_PK_FMA_F16] = "v_pk_fma_f16",
++		[GFX9_V_PK_ADD_F16] = "v_pk_add_f16",
++		[GFX9_V_PK_MUL_F16] = "v_pk_mul_f16",
++		[GFX9_V_PK_MIN_F16] = "v_pk_min_f16",
++		[GFX9_V_PK_MAX_F16] = "v_pk_max_f16",
++		[GFX9_V_MAD_MIX_F32] = "v_mad_mix_f32",
++		[GFX9_V_MAD_MIXLO_F16] = "v_mad_mixlo_f16",
++		[GFX9_V_MAD_MIXHI_F16] = "v_mad_mixhi_f16",
++	},
++	[AMDGCN_INSN_TYPE_MUBUF] = {
++		[GFX9_BUFFER_LOAD_FORMAT_X] = "buffer_load_format_x",
++		[GFX9_BUFFER_LOAD_FORMAT_XY] = "buffer_load_format_xy",
++		[GFX9_BUFFER_LOAD_FORMAT_XYZ] = "buffer_load_format_xyz",
++		[GFX9_BUFFER_LOAD_FORMAT_XYZW] = "buffer_load_format_xyzw",
++		[GFX9_BUFFER_STORE_FORMAT_X] = "buffer_store_format_x",
++		[GFX9_BUFFER_STORE_FORMAT_XY] = "buffer_store_format_xy",
++		[GFX9_BUFFER_STORE_FORMAT_XYZ] = "buffer_store_format_xyz",
++		[GFX9_BUFFER_STORE_FORMAT_XYZW] = "buffer_store_format_xyzw",
++		[GFX9_BUFFER_LOAD_FORMAT_D16_X] = "buffer_load_format_d16_x",
++		[GFX9_BUFFER_LOAD_FORMAT_D16_XY] = "buffer_load_format_d16_xy",
++		[GFX9_BUFFER_LOAD_FORMAT_D16_XYZ] = "buffer_load_format_d16_xyz",
++		[GFX9_BUFFER_LOAD_FORMAT_D16_XYZW] = "buffer_load_format_d16_xyzw",
++		[GFX9_BUFFER_STORE_FORMAT_D16_X] = "buffer_store_format_d16_x",
++		[GFX9_BUFFER_STORE_FORMAT_D16_XY] = "buffer_store_format_d16_xy",
++		[GFX9_BUFFER_STORE_FORMAT_D16_XYZ] = "buffer_store_format_d16_xyz",
++		[GFX9_BUFFER_STORE_FORMAT_D16_XYZW] = "buffer_store_format_d16_xyzw",
++		[GFX9_BUFFER_LOAD_UBYTE] = "buffer_load_ubyte",
++		[GFX9_BUFFER_LOAD_SBYTE] = "buffer_load_sbyte",
++		[GFX9_BUFFER_LOAD_USHORT] = "buffer_load_ushort",
++		[GFX9_BUFFER_LOAD_SSHORT] = "buffer_load_sshort",
++		[GFX9_BUFFER_LOAD_DWORD] = "buffer_load_dword",
++		[GFX9_BUFFER_LOAD_DWORDX2] = "buffer_load_dwordx2",
++		[GFX9_BUFFER_LOAD_DWORDX3] = "buffer_load_dwordx3",
++		[GFX9_BUFFER_LOAD_DWORDX4] = "buffer_load_dwordx4",
++		[GFX9_BUFFER_STORE_BYTE] = "buffer_store_byte",
++		[GFX9_BUFFER_STORE_BYTE_D16_HI] = "buffer_store_byte_d16_hi",
++		[GFX9_BUFFER_STORE_SHORT] = "buffer_store_short",
++		[GFX9_BUFFER_STORE_SHORT_D16_HI] = "buffer_store_short_d16_hi",
++		[GFX9_BUFFER_STORE_DWORD] = "buffer_store_dword",
++		[GFX9_BUFFER_STORE_DWORDX2] = "buffer_store_dwordx2",
++		[GFX9_BUFFER_STORE_DWORDX3] = "buffer_store_dwordx3",
++		[GFX9_BUFFER_STORE_DWORDX4] = "buffer_store_dwordx4",
++		[GFX9_BUFFER_LOAD_UBYTE_D16] = "buffer_load_ubyte_d16",
++		[GFX9_BUFFER_LOAD_UBYTE_D16_HI] = "buffer_load_ubyte_d16_hi",
++		[GFX9_BUFFER_LOAD_SBYTE_D16] = "buffer_load_sbyte_d16",
++		[GFX9_BUFFER_LOAD_SBYTE_D16_HI] = "buffer_load_sbyte_d16_hi",
++		[GFX9_BUFFER_LOAD_SHORT_D16] = "buffer_load_short_d16",
++		[GFX9_BUFFER_LOAD_SHORT_D16_HI] = "buffer_load_short_d16_hi",
++		[GFX9_BUFFER_LOAD_FORMAT_D16_HI_X] = "buffer_load_format_d16_hi_x",
++		[GFX9_BUFFER_STORE_FORMAT_D16_HI_X] = "buffer_store_format_d16_hi_x",
++		[GFX9_BUFFER_STORE_LDS_DWORD] = "buffer_store_lds_dword",
++		[GFX9_BUFFER_WBINVL1] = "buffer_wbinvl1",
++		[GFX9_BUFFER_WBINVL1_VOL] = "buffer_wbinvl1_vol",
++		[GFX9_BUFFER_ATOMIC_SWAP] = "buffer_atomic_swap",
++		[GFX9_BUFFER_ATOMIC_CMPSWAP] = "buffer_atomic_cmpswap",
++		[GFX9_BUFFER_ATOMIC_ADD] = "buffer_atomic_add",
++		[GFX9_BUFFER_ATOMIC_SUB] = "buffer_atomic_sub",
++		[GFX9_BUFFER_ATOMIC_SMIN] = "buffer_atomic_smin",
++		[GFX9_BUFFER_ATOMIC_UMIN] = "buffer_atomic_umin",
++		[GFX9_BUFFER_ATOMIC_SMAX] = "buffer_atomic_smax",
++		[GFX9_BUFFER_ATOMIC_UMAX] = "buffer_atomic_umax",
++		[GFX9_BUFFER_ATOMIC_AND] = "buffer_atomic_and",
++		[GFX9_BUFFER_ATOMIC_OR] = "buffer_atomic_or",
++		[GFX9_BUFFER_ATOMIC_XOR] = "buffer_atomic_xor",
++		[GFX9_BUFFER_ATOMIC_INC] = "buffer_atomic_inc",
++		[GFX9_BUFFER_ATOMIC_DEC] = "buffer_atomic_dec",
++		[GFX9_BUFFER_ATOMIC_SWAP_X2] = "buffer_atomic_swap_x2",
++		[GFX9_BUFFER_ATOMIC_CMPSWAP_X2] = "buffer_atomic_cmpswap_x2",
++		[GFX9_BUFFER_ATOMIC_ADD_X2] = "buffer_atomic_add_x2",
++		[GFX9_BUFFER_ATOMIC_SUB_X2] = "buffer_atomic_sub_x2",
++		[GFX9_BUFFER_ATOMIC_SMIN_X2] = "buffer_atomic_smin_x2",
++		[GFX9_BUFFER_ATOMIC_UMIN_X2] = "buffer_atomic_umin_x2",
++		[GFX9_BUFFER_ATOMIC_SMAX_X2] = "buffer_atomic_smax_x2",
++		[GFX9_BUFFER_ATOMIC_UMAX_X2] = "buffer_atomic_umax_x2",
++		[GFX9_BUFFER_ATOMIC_AND_X2] = "buffer_atomic_and_x2",
++		[GFX9_BUFFER_ATOMIC_OR_X2] = "buffer_atomic_or_x2",
++		[GFX9_BUFFER_ATOMIC_XOR_X2] = "buffer_atomic_xor_x2",
++		[GFX9_BUFFER_ATOMIC_INC_X2] = "buffer_atomic_inc_x2",
++		[GFX9_BUFFER_ATOMIC_DEC_X2] = "buffer_atomic_dec_x2",
++	},
++	[AMDGCN_INSN_TYPE_FLAT] = {
++		[GFX9_GLOBAL_LOAD_UBYTE] = "global_load_ubyte",
++		[GFX9_GLOBAL_LOAD_SBYTE] = "global_load_sbyte",
++		[GFX9_GLOBAL_LOAD_USHORT] = "global_load_ushort",
++		[GFX9_GLOBAL_LOAD_SSHORT] = "global_load_sshort",
++		[GFX9_GLOBAL_LOAD_DWORD] = "global_load_dword",
++		[GFX9_GLOBAL_LOAD_DWORDX2] = "global_load_dwordx2",
++		[GFX9_GLOBAL_LOAD_DWORDX3] = "global_load_dwordx3",
++		[GFX9_GLOBAL_LOAD_DWORDX4] = "global_load_dwordx4",
++		[GFX9_GLOBAL_STORE_BYTE] = "global_store_byte",
++		[GFX9_GLOBAL_STORE_BYTE_D16_HI] = "global_store_byte_d16_hi",
++		[GFX9_GLOBAL_STORE_SHORT] = "global_store_short",
++		[GFX9_GLOBAL_STORE_SHORT_D16_HI] = "global_store_short_d16_hi",
++		[GFX9_GLOBAL_STORE_DWORD] = "global_store_dword",
++		[GFX9_GLOBAL_STORE_DWORDX2] = "global_store_dwordx2",
++		[GFX9_GLOBAL_STORE_DWORDX3] = "global_store_dwordx3",
++		[GFX9_GLOBAL_STORE_DWORDX4] = "global_store_dwordx4",
++		[GFX9_GLOBAL_LOAD_UBYTE_D16] = "global_load_ubyte_d16",
++		[GFX9_GLOBAL_LOAD_UBYTE_D16_HI] = "global_load_ubyte_d16_hi",
++		[GFX9_GLOBAL_LOAD_SBYTE_D16] = "global_load_sbyte_d16",
++		[GFX9_GLOBAL_LOAD_SBYTE_D16_HI] = "global_load_sbyte_d16_hi",
++		[GFX9_GLOBAL_LOAD_SHORT_D16] = "global_load_short_d16",
++		[GFX9_GLOBAL_LOAD_SHORT_D16_HI] = "global_load_short_d16_hi",
++		[GFX9_GLOBAL_ATOMIC_SWAP] = "global_atomic_swap",
++		[GFX9_GLOBAL_ATOMIC_CMPSWAP] = "global_atomic_cmpswap",
++		[GFX9_GLOBAL_ATOMIC_ADD] = "global_atomic_add",
++		[GFX9_GLOBAL_ATOMIC_SUB] = "global_atomic_sub",
++		[GFX9_GLOBAL_ATOMIC_SMIN] = "global_atomic_smin",
++		[GFX9_GLOBAL_ATOMIC_UMIN] = "global_atomic_umin",
++		[GFX9_GLOBAL_ATOMIC_SMAX] = "global_atomic_smax",
++		[GFX9_GLOBAL_ATOMIC_UMAX] = "global_atomic_umax",
++		[GFX9_GLOBAL_ATOMIC_AND] = "global_atomic_and",
++		[GFX9_GLOBAL_ATOMIC_OR] = "global_atomic_or",
++		[GFX9_GLOBAL_ATOMIC_XOR] = "global_atomic_xor",
++		[GFX9_GLOBAL_ATOMIC_INC] = "global_atomic_inc",
++		[GFX9_GLOBAL_ATOMIC_DEC] = "global_atomic_dec",
++		[GFX9_GLOBAL_ATOMIC_SWAP_X2] = "global_atomic_swap_x2",
++		[GFX9_GLOBAL_ATOMIC_CMPSWAP_X2] = "global_atomic_cmpswap_x2",
++		[GFX9_GLOBAL_ATOMIC_ADD_X2] = "global_atomic_add_x2",
++		[GFX9_GLOBAL_ATOMIC_SUB_X2] = "global_atomic_sub_x2",
++		[GFX9_GLOBAL_ATOMIC_SMIN_X2] = "global_atomic_smin_x2",
++		[GFX9_GLOBAL_ATOMIC_UMIN_X2] = "global_atomic_umin_x2",
++		[GFX9_GLOBAL_ATOMIC_SMAX_X2] = "global_atomic_smax_x2",
++		[GFX9_GLOBAL_ATOMIC_UMAX_X2] = "global_atomic_umax_x2",
++		[GFX9_GLOBAL_ATOMIC_AND_X2] = "global_atomic_and_x2",
++		[GFX9_GLOBAL_ATOMIC_OR_X2] = "global_atomic_or_x2",
++		[GFX9_GLOBAL_ATOMIC_XOR_X2] = "global_atomic_xor_x2",
++		[GFX9_GLOBAL_ATOMIC_INC_X2] = "global_atomic_inc_x2",
++		[GFX9_GLOBAL_ATOMIC_DEC_X2] = "global_atomic_dec_x2",
++	},
++	[AMDGCN_INSN_TYPE_DS] = {
++		/* DS opcode names (Vega ISA 12.13, opcodes 0-255). The DS
++		 * table was entirely unpopulated, so DS instructions
++		 * disassembled with a blank mnemonic. Enum values were
++		 * ISA-verified (one known value bug at DS_CONDXCHG32_RTN_B64
++		 * is tracked separately).
++		 */
++		[GFX9_DS_ADD_U32] = "ds_add_u32",
++		[GFX9_DS_SUB_U32] = "ds_sub_u32",
++		[GFX9_DS_RSUB_U32] = "ds_rsub_u32",
++		[GFX9_DS_INC_U32] = "ds_inc_u32",
++		[GFX9_DS_DEC_U32] = "ds_dec_u32",
++		[GFX9_DS_MIN_I32] = "ds_min_i32",
++		[GFX9_DS_MAX_I32] = "ds_max_i32",
++		[GFX9_DS_MIN_U32] = "ds_min_u32",
++		[GFX9_DS_MAX_U32] = "ds_max_u32",
++		[GFX9_DS_AND_B32] = "ds_and_b32",
++		[GFX9_DS_OR_B32] = "ds_or_b32",
++		[GFX9_DS_XOR_B32] = "ds_xor_b32",
++		[GFX9_DS_MSKOR_B32] = "ds_mskor_b32",
++		[GFX9_DS_WRITE_B32] = "ds_write_b32",
++		[GFX9_DS_WRITE2_B32] = "ds_write2_b32",
++		[GFX9_DS_WRITE2ST64_B32] = "ds_write2st64_b32",
++		[GFX9_DS_CMPST_B32] = "ds_cmpst_b32",
++		[GFX9_DS_CMPST_F32] = "ds_cmpst_f32",
++		[GFX9_DS_MIN_F32] = "ds_min_f32",
++		[GFX9_DS_MAX_F32] = "ds_max_f32",
++		[GFX9_DS_NOP] = "ds_nop",
++		[GFX9_DS_ADD_F32] = "ds_add_f32",
++		[GFX9_DS_WRITE_ADDTID_B32] = "ds_write_addtid_b32",
++		[GFX9_DS_WRITE_B8] = "ds_write_b8",
++		[GFX9_DS_WRITE_B16] = "ds_write_b16",
++		[GFX9_DS_ADD_RTN_U32] = "ds_add_rtn_u32",
++		[GFX9_DS_SUB_RTN_U32] = "ds_sub_rtn_u32",
++		[GFX9_DS_RSUB_RTN_U32] = "ds_rsub_rtn_u32",
++		[GFX9_DS_INC_RTN_U32] = "ds_inc_rtn_u32",
++		[GFX9_DS_DEC_RTN_U32] = "ds_dec_rtn_u32",
++		[GFX9_DS_MIN_RTN_I32] = "ds_min_rtn_i32",
++		[GFX9_DS_MAX_RTN_I32] = "ds_max_rtn_i32",
++		[GFX9_DS_MIN_RTN_U32] = "ds_min_rtn_u32",
++		[GFX9_DS_MAX_RTN_U32] = "ds_max_rtn_u32",
++		[GFX9_DS_AND_RTN_B32] = "ds_and_rtn_b32",
++		[GFX9_DS_OR_RTN_B32] = "ds_or_rtn_b32",
++		[GFX9_DS_XOR_RTN_B32] = "ds_xor_rtn_b32",
++		[GFX9_DS_MSKOR_RTN_B32] = "ds_mskor_rtn_b32",
++		[GFX9_DS_WRXCHG_RTN_B32] = "ds_wrxchg_rtn_b32",
++		[GFX9_DS_WRXCHG2_RTN_B32] = "ds_wrxchg2_rtn_b32",
++		[GFX9_DS_WRXCHG2ST64_RTN_B32] = "ds_wrxchg2st64_rtn_b32",
++		[GFX9_DS_CMPST_RTN_B32] = "ds_cmpst_rtn_b32",
++		[GFX9_DS_CMPST_RTN_F32] = "ds_cmpst_rtn_f32",
++		[GFX9_DS_MIN_RTN_F32] = "ds_min_rtn_f32",
++		[GFX9_DS_MAX_RTN_F32] = "ds_max_rtn_f32",
++		[GFX9_DS_WRAP_RTN_B32] = "ds_wrap_rtn_b32",
++		[GFX9_DS_ADD_RTN_F32] = "ds_add_rtn_f32",
++		[GFX9_DS_READ_B32] = "ds_read_b32",
++		[GFX9_DS_READ2_B32] = "ds_read2_b32",
++		[GFX9_DS_READ2ST64_B32] = "ds_read2st64_b32",
++		[GFX9_DS_READ_I8] = "ds_read_i8",
++		[GFX9_DS_READ_U8] = "ds_read_u8",
++		[GFX9_DS_READ_I16] = "ds_read_i16",
++		[GFX9_DS_READ_U16] = "ds_read_u16",
++		[GFX9_DS_SWIZZLE_B32] = "ds_swizzle_b32",
++		[GFX9_DS_PERMUTE_B32] = "ds_permute_b32",
++		[GFX9_DS_BPERMUTE_B32] = "ds_bpermute_b32",
++		[GFX9_DS_ADD_U64] = "ds_add_u64",
++		[GFX9_DS_SUB_U64] = "ds_sub_u64",
++		[GFX9_DS_RSUB_U64] = "ds_rsub_u64",
++		[GFX9_DS_INC_U64] = "ds_inc_u64",
++		[GFX9_DS_DEC_U64] = "ds_dec_u64",
++		[GFX9_DS_MIN_I64] = "ds_min_i64",
++		[GFX9_DS_MAX_I64] = "ds_max_i64",
++		[GFX9_DS_MIN_U64] = "ds_min_u64",
++		[GFX9_DS_MAX_U64] = "ds_max_u64",
++		[GFX9_DS_AND_B64] = "ds_and_b64",
++		[GFX9_DS_OR_B64] = "ds_or_b64",
++		[GFX9_DS_XOR_B64] = "ds_xor_b64",
++		[GFX9_DS_MSKOR_B64] = "ds_mskor_b64",
++		[GFX9_DS_WRITE_B64] = "ds_write_b64",
++		[GFX9_DS_WRITE2_B64] = "ds_write2_b64",
++		[GFX9_DS_WRITE2ST64_B64] = "ds_write2st64_b64",
++		[GFX9_DS_CMPST_B64] = "ds_cmpst_b64",
++		[GFX9_DS_CMPST_F64] = "ds_cmpst_f64",
++		[GFX9_DS_MIN_F64] = "ds_min_f64",
++		[GFX9_DS_MAX_F64] = "ds_max_f64",
++		[GFX9_DS_WRITE_B8_D16_HI] = "ds_write_b8_d16_hi",
++		[GFX9_DS_WRITE_B16_D16_HI] = "ds_write_b16_d16_hi",
++		[GFX9_DS_READ_U8_D16] = "ds_read_u8_d16",
++		[GFX9_DS_READ_U8_D16_HI] = "ds_read_u8_d16_hi",
++		[GFX9_DS_READ_I8_D16] = "ds_read_i8_d16",
++		[GFX9_DS_READ_I8_D16_HI] = "ds_read_i8_d16_hi",
++		[GFX9_DS_READ_U16_D16] = "ds_read_u16_d16",
++		[GFX9_DS_READ_U16_D16_HI] = "ds_read_u16_d16_hi",
++		[GFX9_DS_ADD_RTN_U64] = "ds_add_rtn_u64",
++		[GFX9_DS_SUB_RTN_U64] = "ds_sub_rtn_u64",
++		[GFX9_DS_RSUB_RTN_U64] = "ds_rsub_rtn_u64",
++		[GFX9_DS_INC_RTN_U64] = "ds_inc_rtn_u64",
++		[GFX9_DS_DEC_RTN_U64] = "ds_dec_rtn_u64",
++		[GFX9_DS_MIN_RTN_I64] = "ds_min_rtn_i64",
++		[GFX9_DS_MAX_RTN_I64] = "ds_max_rtn_i64",
++		[GFX9_DS_MIN_RTN_U64] = "ds_min_rtn_u64",
++		[GFX9_DS_MAX_RTN_U64] = "ds_max_rtn_u64",
++		[GFX9_DS_AND_RTN_B64] = "ds_and_rtn_b64",
++		[GFX9_DS_OR_RTN_B64] = "ds_or_rtn_b64",
++		[GFX9_DS_XOR_RTN_B64] = "ds_xor_rtn_b64",
++		[GFX9_DS_MSKOR_RTN_B64] = "ds_mskor_rtn_b64",
++		[GFX9_DS_WRXCHG_RTN_B64] = "ds_wrxchg_rtn_b64",
++		[GFX9_DS_WRXCHG2_RTN_B64] = "ds_wrxchg2_rtn_b64",
++		[GFX9_DS_WRXCHG2ST64_RTN_B64] = "ds_wrxchg2st64_rtn_b64",
++		[GFX9_DS_CMPST_RTN_B64] = "ds_cmpst_rtn_b64",
++		[GFX9_DS_CMPST_RTN_F64] = "ds_cmpst_rtn_f64",
++		[GFX9_DS_MIN_RTN_F64] = "ds_min_rtn_f64",
++		[GFX9_DS_MAX_RTN_F64] = "ds_max_rtn_f64",
++		[GFX9_DS_READ_B64] = "ds_read_b64",
++		[GFX9_DS_READ2_B64] = "ds_read2_b64",
++		[GFX9_DS_CONDXCHG32_RTN_B64] = "ds_condxchg32_rtn_b64",
++		[GFX9_DS_ADD_SRC2_U32] = "ds_add_src2_u32",
++		[GFX9_DS_SUB_SRC2_U32] = "ds_sub_src2_u32",
++		[GFX9_DS_RSUB_SRC2_U32] = "ds_rsub_src2_u32",
++		[GFX9_DS_INC_SRC2_U32] = "ds_inc_src2_u32",
++		[GFX9_DS_DEC_SRC2_U32] = "ds_dec_src2_u32",
++		[GFX9_DS_MIN_SRC2_I32] = "ds_min_src2_i32",
++		[GFX9_DS_MAX_SRC2_I32] = "ds_max_src2_i32",
++		[GFX9_DS_MIN_SRC2_U32] = "ds_min_src2_u32",
++		[GFX9_DS_MAX_SRC2_U32] = "ds_max_src2_u32",
++		[GFX9_DS_AND_SRC2_B32] = "ds_and_src2_b32",
++		[GFX9_DS_OR_SRC2_B32] = "ds_or_src2_b32",
++		[GFX9_DS_XOR_SRC2_B32] = "ds_xor_src2_b32",
++		[GFX9_DS_WRITE_SRC2_B32] = "ds_write_src2_b32",
++		[GFX9_DS_MIN_SRC2_F32] = "ds_min_src2_f32",
++		[GFX9_DS_MAX_SRC2_F32] = "ds_max_src2_f32",
++		[GFX9_DS_ADD_SRC2_F32] = "ds_add_src2_f32",
++		[GFX9_DS_GWS_SEMA_RELEASE_ALL] = "ds_gws_sema_release_all",
++		[GFX9_DS_ADD_SRC2_U64] = "ds_add_src2_u64",
++		[GFX9_DS_SUB_SRC2_U64] = "ds_sub_src2_u64",
++		[GFX9_DS_RSUB_SRC2_U64] = "ds_rsub_src2_u64",
++		[GFX9_DS_INC_SRC2_U64] = "ds_inc_src2_u64",
++		[GFX9_DS_DEC_SRC2_U64] = "ds_dec_src2_u64",
++		[GFX9_DS_MIN_SRC2_I64] = "ds_min_src2_i64",
++		[GFX9_DS_MAX_SRC2_I64] = "ds_max_src2_i64",
++		[GFX9_DS_MIN_SRC2_U64] = "ds_min_src2_u64",
++		[GFX9_DS_MAX_SRC2_U64] = "ds_max_src2_u64",
++		[GFX9_DS_AND_SRC2_B64] = "ds_and_src2_b64",
++		[GFX9_DS_OR_SRC2_B64] = "ds_or_src2_b64",
++		[GFX9_DS_XOR_SRC2_B64] = "ds_xor_src2_b64",
++		[GFX9_DS_WRITE_SRC2_B64] = "ds_write_src2_b64",
++		[GFX9_DS_MIN_SRC2_F64] = "ds_min_src2_f64",
++		[GFX9_DS_MAX_SRC2_F64] = "ds_max_src2_f64",
++		[GFX9_DS_WRITE_B96] = "ds_write_b96",
++		[GFX9_DS_WRITE_B128] = "ds_write_b128",
++		[GFX9_DS_READ_B96] = "ds_read_b96",
++		[GFX9_DS_READ_B128] = "ds_read_b128",
++	},
++};
++
++struct amdgcn_insn  {
++	union {
++		union amdgcn_gfx10_insn gfx10;
++		union amdgcn_gfx9_insn gfx9;
 +	};
++	u32 size;
++	u32 idx;
++	enum amdgcn_insn_type type;
 +};
 +
-+struct knod_aql {
-+	struct knod_mem *aql;
-+	struct knod_mem *ctx;
-+	struct knod_mem *queue;
-+	struct knod_mem *scratch;
-+	struct knod_mem *eop;
-+	struct knod_mem *queue_signal;
-+	struct knod_mem *tba;
-+	struct knod_mem *tma;
-+	struct knod_mem *amd_queue;
-+	u64 *doorbell;
-+	int idx;
-+};
++static inline void emit_s_load_dwordx2(int version, struct amdgcn_insn *insn,
++				struct amdgcn_param32 dst,
++				struct amdgcn_param32 src, int offset)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_load_dwordx2(&insn->gfx10, dst,
++						       src,
++						       offset);
++		insn->type = AMDGCN_INSN_TYPE_SMEM;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_load_dwordx2(&insn->gfx9, dst,
++						      src,
++						      offset);
++		insn->type = AMDGCN_INSN_TYPE_SMEM;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
 +
-+struct knod_sdma {
-+	struct knod_mem *sdma;
-+	struct knod_mem *queue;
-+	struct knod_mem *queue_signal;
-+	u64 *doorbell;
-+	int idx;
-+};
++static inline void emit_s_load_dwordx2_soff(int version,
++				     struct amdgcn_insn *insn,
++				     struct amdgcn_param32 dst,
++				     struct amdgcn_param32 src,
++				     int offset, u8 soffset)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_load_dwordx2(&insn->gfx10, dst,
++						       src, offset);
++		insn->gfx10.smem.soffset = soffset;
++		insn->type = AMDGCN_INSN_TYPE_SMEM;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_load_dwordx2(&insn->gfx9, dst,
++						      src, offset);
++		insn->gfx9.smem.soe = 1;
++		insn->gfx9.smem.soffset = soffset;
++		insn->type = AMDGCN_INSN_TYPE_SMEM;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
 +
-+/* KFD event handle as knod tracks it: signal event id + its slot index. */
-+struct knod_event {
-+	u32 id;
-+	u32 slot;
-+};
++static inline void emit_s_lshl_b32(int version, struct amdgcn_insn *insn,
++			     struct amdgcn_param32 dst,
++			     struct amdgcn_param32 src0,
++			     struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_lshl_b32(&insn->gfx10, dst,
++						    src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_SOP2;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_lshl_b32(&insn->gfx9, dst,
++						   src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_SOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
 +
-+typedef int (*knod_worker_fn_t)(void *ctx);
-+typedef void (*knod_flush_fn_t)(void *ctx);
++static inline void emit_v_bfe_i32(int version, struct amdgcn_insn *insn,
++			   struct amdgcn_param32 dst,
++			   struct amdgcn_param32 src0,
++			   struct amdgcn_param32 src1,
++			   struct amdgcn_param32 src2)
++{
++	WARN_ON(knod_param_is_literal(src0) ||
++		knod_param_is_literal(src1) ||
++		knod_param_is_literal(src2));
++	if (version == 10) {
++		insn->size = emit_gfx10_v_bfe_i32(&insn->gfx10,
++						  dst, src0, src1, src2);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_bfe_i32(&insn->gfx9,
++						 dst, src0, src1, src2);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
 +
-+enum knod_feature {
-+	KNOD_FEATURE_NONE = 0,
-+	KNOD_FEATURE_BPF,
-+	KNOD_FEATURE_IPSEC,
-+	KNOD_FEATURE_MAX,
-+};
++static inline void emit_v_bfe_u32(int version, struct amdgcn_insn *insn,
++			   struct amdgcn_param32 dst,
++			   struct amdgcn_param32 src0,
++			   struct amdgcn_param32 src1,
++			   struct amdgcn_param32 src2)
++{
++	WARN_ON(knod_param_is_literal(src0) ||
++		knod_param_is_literal(src1) ||
++		knod_param_is_literal(src2));
++	if (version == 10) {
++		insn->size = emit_gfx10_v_bfe_u32(&insn->gfx10,
++						  dst, src0, src1, src2);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_bfe_u32(&insn->gfx9,
++						 dst, src0, src1, src2);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_bfi_b32(int version, struct amdgcn_insn *insn,
++			   struct amdgcn_param32 dst,
++			   struct amdgcn_param32 src0,
++			   struct amdgcn_param32 src1,
++			   struct amdgcn_param32 src2)
++{
++	WARN_ON(knod_param_is_literal(src0) ||
++		knod_param_is_literal(src1) ||
++		knod_param_is_literal(src2));
++	if (version == 10) {
++		insn->size = emit_gfx10_v_bfi_b32(&insn->gfx10,
++						  dst, src0, src1, src2);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_bfi_b32(&insn->gfx9,
++						 dst, src0, src1, src2);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_lshl_add_u32(int version, struct amdgcn_insn *insn,
++				struct amdgcn_param32 dst,
++				struct amdgcn_param32 src0,
++				struct amdgcn_param32 src1,
++				struct amdgcn_param32 src2)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_v_lshl_add_u32(&insn->gfx10,
++						       dst, src0, src1, src2);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_lshl_add_u32(&insn->gfx9,
++						      dst, src0, src1, src2);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_lshl_or_b32(int version, struct amdgcn_insn *insn,
++			       struct amdgcn_param32 dst,
++			       struct amdgcn_param32 src0,
++			       struct amdgcn_param32 src1,
++			       struct amdgcn_param32 src2)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_v_lshl_or_b32(&insn->gfx10,
++						      dst, src0, src1, src2);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_lshl_or_b32(&insn->gfx9,
++						     dst, src0, src1, src2);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_alignbit_b32(int version, struct amdgcn_insn *insn,
++				struct amdgcn_param32 dst,
++				struct amdgcn_param32 src0,
++				struct amdgcn_param32 src1,
++				struct amdgcn_param32 src2)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_v_alignbit_b32(&insn->gfx10,
++						       dst, src0,
++						       src1, src2);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_alignbit_b32(&insn->gfx9,
++						      dst, src0,
++						      src1, src2);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_perm_b32(int version, struct amdgcn_insn *insn,
++			    struct amdgcn_param32 dst,
++			    struct amdgcn_param32 src0,
++			    struct amdgcn_param32 src1,
++			    struct amdgcn_param32 src2)
++{
++	WARN_ON(knod_param_is_literal(src0) ||
++		knod_param_is_literal(src1) ||
++		knod_param_is_literal(src2));
++	if (version == 10) {
++		insn->size = emit_gfx10_v_perm_b32(&insn->gfx10,
++						    dst, src0, src1, src2);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_perm_b32(&insn->gfx9,
++						   dst, src0, src1, src2);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_mad_u64_u32(int version, struct amdgcn_insn *insn,
++			       struct amdgcn_param64 dst,
++			       struct amdgcn_param32 dst2,
++			       struct amdgcn_param32 src0,
++			       struct amdgcn_param32 src1,
++			       struct amdgcn_param64 src2)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_v_mad_u64_u32(&insn->gfx10, dst,
++						      dst2, src0,
++						      src1, src2);
++		insn->type = AMDGCN_INSN_TYPE_VOP3B;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_mad_u64_u32(&insn->gfx9, dst,
++						     dst2, src0,
++						     src1, src2);
++		insn->type = AMDGCN_INSN_TYPE_VOP3B;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_mov_b32(int version, struct amdgcn_insn *insn,
++			   struct amdgcn_param32 dst, struct amdgcn_param32 src)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_mov_b32(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_SOP1;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_mov_b32(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_SOP1;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_mov_b32_e32(int version, struct amdgcn_insn *insn,
++			       struct amdgcn_param32 dst,
++			       struct amdgcn_param32 src)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_v_mov_b32_e32(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOP1;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_mov_b32_e32(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOP1;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_readfirstlane_b32(int version,
++				     struct amdgcn_insn *insn,
++				     u8 sdst, u8 vsrc)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_v_readfirstlane_b32(&insn->gfx10,
++							    sdst, vsrc);
++		insn->type = AMDGCN_INSN_TYPE_VOP1;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_readfirstlane_b32(&insn->gfx9,
++							   sdst, vsrc);
++		insn->type = AMDGCN_INSN_TYPE_VOP1;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_add_co_u32(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param32 dst,
++			      struct amdgcn_param32 src0,
++			      struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_v_add_co_u32(&insn->gfx10, dst,
++						     src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3B;
++	} else if (version == 9) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx9_v_add_co_u32(&insn->gfx9, dst,
++						    src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_add_co_ci_u32_e32(int version,
++				     struct amdgcn_insn *insn,
++				     struct amdgcn_param32 dst,
++				     struct amdgcn_param32 src0,
++				     struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_v_add_co_ci_u32_e32(&insn->gfx10,
++							    dst, src0,
++							    src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_addc_co_u32(&insn->gfx9, dst,
++						     src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++/* No carry in/out */
++static inline void emit_v_add_u32(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param32 dst,
++			      struct amdgcn_param32 src0,
++			      struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx10_v_add_nc_u32(&insn->gfx10, dst,
++						     src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else if (version == 9) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx9_v_add_u32(&insn->gfx9, dst,
++						    src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++/* No carry in/out */
++static inline void emit_v_sub_u32(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param32 dst,
++			      struct amdgcn_param32 src0,
++			      struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx10_v_sub_nc_u32(&insn->gfx10, dst,
++						     src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else if (version == 9) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx9_v_sub_u32(&insn->gfx9, dst,
++						    src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_xor_b32_e32(int version, struct amdgcn_insn *insn,
++			       struct amdgcn_param32 dst,
++			       struct amdgcn_param32 src0,
++			       struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx10_v_xor_b32_e32(&insn->gfx10, dst,
++						      src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else if (version == 9) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx9_v_xor_b32_e32(&insn->gfx9, dst,
++						     src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_or_b32_e32(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param32 dst,
++			      struct amdgcn_param32 src0,
++			      struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx10_v_or_b32_e32(&insn->gfx10, dst,
++						      src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else if (version == 9) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx9_v_or_b32_e32(&insn->gfx9, dst,
++						     src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cndmask_b32_e32(int version, struct amdgcn_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src0,
++				   struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx10_v_cndmask_b32_e32(&insn->gfx10, dst,
++							   src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else if (version == 9) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx9_v_cndmask_b32_e32(&insn->gfx9, dst,
++							  src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_and_b32_e32(int version, struct amdgcn_insn *insn,
++			       struct amdgcn_param32 dst,
++			       struct amdgcn_param32 src0,
++			       struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx10_v_and_b32_e32(&insn->gfx10, dst,
++						      src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else if (version == 9) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx9_v_and_b32_e32(&insn->gfx9, dst,
++						     src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_sub_co_ci_u32_e32(int version,
++				     struct amdgcn_insn *insn,
++				     struct amdgcn_param32 dst,
++				     struct amdgcn_param32 src0,
++				     struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx10_v_sub_co_ci_u32_e32(&insn->gfx10,
++							    dst, src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else if (version == 9) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx9_v_subb_co_u32(&insn->gfx9, dst,
++						     src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_subrev_co_ci_u32_e32(int version,
++					struct amdgcn_insn *insn,
++					struct amdgcn_param32 dst,
++					struct amdgcn_param32 src0,
++					struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx10_v_subrev_co_ci_u32_e32(&insn->gfx10,
++							       dst, src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else if (version == 9) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx9_v_subbrev_co_u32(&insn->gfx9, dst,
++							src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_sub_co_u32(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param32 dst,
++			      struct amdgcn_param32 src0,
++			      struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_v_sub_co_u32(&insn->gfx10, dst,
++						     src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3B;
++	} else if (version == 9) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx9_v_sub_co_u32(&insn->gfx9, dst,
++						    src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_subrev_co_u32(int version, struct amdgcn_insn *insn,
++				 struct amdgcn_param32 dst,
++				 struct amdgcn_param32 src0,
++				 struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_v_subrev_co_u32(&insn->gfx10, dst,
++							src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3B;
++	} else if (version == 9) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx9_v_subrev_co_u32(&insn->gfx9, dst,
++						       src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_mul_lo_u32(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param32 dst,
++			      struct amdgcn_param32 src0,
++			      struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_v_mul_lo_u32(&insn->gfx10, dst,
++						     src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_mul_lo_u32(&insn->gfx9, dst,
++						    src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_mbcnt_lo_u32_b32(int version,
++				    struct amdgcn_insn *insn,
++				    struct amdgcn_param32 dst,
++				    struct amdgcn_param32 src0,
++				    struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_v_mbcnt_lo_u32_b32(&insn->gfx10,
++							    dst, src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_mbcnt_lo_u32_b32(&insn->gfx9,
++							   dst, src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_mbcnt_hi_u32_b32(int version,
++				    struct amdgcn_insn *insn,
++				    struct amdgcn_param32 dst,
++				    struct amdgcn_param32 src0,
++				    struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_v_mbcnt_hi_u32_b32(&insn->gfx10,
++							    dst, src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_mbcnt_hi_u32_b32(&insn->gfx9,
++							   dst, src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_mul_hi_u32(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param32 dst,
++			      struct amdgcn_param32 src0,
++			      struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_v_mul_hi_u32(&insn->gfx10, dst,
++						     src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_mul_hi_u32(&insn->gfx9, dst,
++						    src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_lshlrev_b64(int version, struct amdgcn_insn *insn,
++			       struct amdgcn_param64 dst,
++			       struct amdgcn_param64 src0,
++			       struct amdgcn_param64 src1)
++{
++	/* D.u64 = S1.u64 << S0.u[5:0]. */
++	if (version == 10) {
++		insn->size = emit_gfx10_v_lshlrev_b64(&insn->gfx10, dst,
++						      src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_lshlrev_b64(&insn->gfx9, dst,
++						     src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_lshrrev_b64(int version, struct amdgcn_insn *insn,
++			       struct amdgcn_param64 dst,
++			       struct amdgcn_param64 src0,
++			       struct amdgcn_param64 src1)
++{
++	WARN_ON(src1.lo.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_lshrrev_b64(&insn->gfx10, dst,
++						      src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_lshrrev_b64(&insn->gfx9, dst,
++						     src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_ashrrev_i64(int version, struct amdgcn_insn *insn,
++			       struct amdgcn_param64 dst,
++			       struct amdgcn_param64 src0,
++			       struct amdgcn_param64 src1)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_v_ashrrev_i64(&insn->gfx10, dst, src0,
++						      src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_ashrrev_i64(&insn->gfx9, dst, src0,
++						     src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_ashrrev_i32(int version, struct amdgcn_insn *insn,
++			       struct amdgcn_param32 dst,
++			       struct amdgcn_param32 src0,
++			       struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_v_ashrrev_i32(&insn->gfx10, dst, src0,
++						      src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_ashrrev_i32(&insn->gfx9, dst, src0,
++						     src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP3A;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_lshlrev_b32(int version, struct amdgcn_insn *insn,
++			       struct amdgcn_param32 dst,
++			       struct amdgcn_param32 src0,
++			       struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx10_v_lshlrev_b32(&insn->gfx10, dst,
++						      src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else if (version == 9) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx9_v_lshlrev_b32(&insn->gfx9, dst,
++						     src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_lshrrev_b32(int version, struct amdgcn_insn *insn,
++			       struct amdgcn_param32 dst,
++			       struct amdgcn_param32 src0,
++			       struct amdgcn_param32 src1)
++{
++	if (version == 10) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx10_v_lshrrev_b32(&insn->gfx10, dst,
++						      src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else if (version == 9) {
++		WARN_ON_ONCE(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++		insn->size = emit_gfx9_v_lshrrev_b32(&insn->gfx9, dst,
++						     src0, src1);
++		insn->type = AMDGCN_INSN_TYPE_VOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cmp_eq_u64(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param32 dst,
++			      struct amdgcn_param32 src)
++{
++	WARN_ON_ONCE(dst.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	WARN_ON(src.type != AMDGCN_PARAM_TYPE_VGPR);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmp_eq_u64(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmp_eq_u64(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cmp_eq_u32(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param32 dst,
++			      struct amdgcn_param32 src)
++{
++	WARN_ON_ONCE(dst.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	WARN_ON(src.type != AMDGCN_PARAM_TYPE_VGPR);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmp_eq_u32(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmp_eq_u32(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cmp_gt_u64(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param64 dst,
++			      struct amdgcn_param64 src)
++{
++	WARN_ON_ONCE(dst.lo.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmp_gt_u64(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmp_gt_u64(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cmp_gt_i64(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param64 dst,
++			      struct amdgcn_param64 src)
++{
++	WARN_ON_ONCE(dst.lo.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmp_gt_i64(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmp_gt_i64(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cmp_ge_u32(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param32 dst,
++			      struct amdgcn_param32 src)
++{
++	WARN_ON_ONCE(dst.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmp_ge_u32(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmp_ge_u32(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cmp_gt_u32(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param32 dst,
++			      struct amdgcn_param32 src)
++{
++	WARN_ON_ONCE(dst.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	WARN_ON(src.type != AMDGCN_PARAM_TYPE_VGPR);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmp_gt_u32(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmp_gt_u32(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cmp_lt_u32(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param32 dst,
++			      struct amdgcn_param32 src)
++{
++	WARN_ON_ONCE(dst.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	WARN_ON(src.type != AMDGCN_PARAM_TYPE_VGPR);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmp_lt_u32(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmp_lt_u32(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cmp_le_u32(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param32 dst,
++			      struct amdgcn_param32 src)
++{
++	WARN_ON_ONCE(dst.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	WARN_ON(src.type != AMDGCN_PARAM_TYPE_VGPR);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmp_le_u32(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmp_le_u32(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cmp_gt_i32(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param32 dst,
++			      struct amdgcn_param32 src)
++{
++	WARN_ON_ONCE(dst.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	WARN_ON(src.type != AMDGCN_PARAM_TYPE_VGPR);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmp_gt_i32(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmp_gt_i32(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cmp_ge_i32(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param32 dst,
++			      struct amdgcn_param32 src)
++{
++	WARN_ON_ONCE(dst.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	WARN_ON(src.type != AMDGCN_PARAM_TYPE_VGPR);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmp_ge_i32(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmp_ge_i32(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cmp_lt_i32(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param32 dst,
++			      struct amdgcn_param32 src)
++{
++	WARN_ON_ONCE(dst.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	WARN_ON(src.type != AMDGCN_PARAM_TYPE_VGPR);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmp_lt_i32(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmp_lt_i32(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cmp_le_i32(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param32 dst,
++			      struct amdgcn_param32 src)
++{
++	WARN_ON_ONCE(dst.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	WARN_ON(src.type != AMDGCN_PARAM_TYPE_VGPR);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmp_le_i32(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmp_le_i32(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++/* EXEC &= (src0 < src1), per-lane mask update */
++static inline void emit_v_cmpx_lt_u32(int version, struct amdgcn_insn *insn,
++				struct amdgcn_param32 dst,
++				struct amdgcn_param32 src)
++{
++	WARN_ON_ONCE(dst.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmpx_lt_u32(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmpx_lt_u32(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cmp_ge_u64(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param64 dst,
++			      struct amdgcn_param64 src)
++{
++	WARN_ON_ONCE(dst.lo.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmp_ge_u64(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmp_ge_u64(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cmp_ge_i64(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param64 dst,
++			      struct amdgcn_param64 src)
++{
++	WARN_ON_ONCE(dst.lo.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmp_ge_i64(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmp_ge_i64(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cmp_lt_u64(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param64 dst,
++			      struct amdgcn_param64 src)
++{
++	WARN_ON_ONCE(dst.lo.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmp_lt_u64(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmp_lt_u64(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cmp_lt_i64(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param64 dst,
++			      struct amdgcn_param64 src)
++{
++	WARN_ON_ONCE(dst.lo.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmp_lt_i64(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmp_lt_i64(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cmp_le_u64(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param64 dst,
++			      struct amdgcn_param64 src)
++{
++	WARN_ON_ONCE(dst.lo.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmp_le_u64(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmp_le_u64(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_v_cmp_le_i64(int version, struct amdgcn_insn *insn,
++			      struct amdgcn_param64 dst,
++			      struct amdgcn_param64 src)
++{
++	WARN_ON_ONCE(dst.lo.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	if (version == 10) {
++		insn->size = emit_gfx10_v_cmp_le_i64(&insn->gfx10, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_v_cmp_le_i64(&insn->gfx9, dst, src);
++		insn->type = AMDGCN_INSN_TYPE_VOPC;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_buffer_load_ubyte(int version, struct amdgcn_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src,
++				   short off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_buffer_load_ubyte(&insn->gfx10,
++							  dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_MUBUF;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_buffer_load_ubyte(&insn->gfx9,
++							  dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_MUBUF;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_buffer_load_ushort(int version,
++				    struct amdgcn_insn *insn,
++				    struct amdgcn_param32 dst,
++				    struct amdgcn_param32 src,
++				    short off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_buffer_load_ushort(&insn->gfx10,
++							   dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_MUBUF;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_buffer_load_ushort(&insn->gfx9,
++							  dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_MUBUF;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_buffer_load_dword(int version, struct amdgcn_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src,
++				   short off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_buffer_load_dword(&insn->gfx10,
++							  dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_MUBUF;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_buffer_load_dword(&insn->gfx9,
++							 dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_MUBUF;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_buffer_load_dwordx2(int version,
++				     struct amdgcn_insn *insn,
++				     struct amdgcn_param32 dst,
++				     struct amdgcn_param32 src,
++				     short off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_buffer_load_dwordx2(&insn->gfx10,
++							    dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_MUBUF;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_buffer_load_dwordx2(&insn->gfx9,
++							   dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_MUBUF;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_buffer_load_dwordx4(int version,
++				     struct amdgcn_insn *insn,
++				     struct amdgcn_param32 dst,
++				     struct amdgcn_param32 src,
++				     short off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_buffer_load_dwordx4(&insn->gfx10,
++							    dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_MUBUF;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_buffer_load_dwordx4(&insn->gfx9,
++							   dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_MUBUF;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_global_load_ubyte(int version, struct amdgcn_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src,
++				   short off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_global_load_ubyte(&insn->gfx10,
++							  dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_global_load_ubyte(&insn->gfx9,
++							 dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_global_load_ushort(int version,
++				    struct amdgcn_insn *insn,
++				    struct amdgcn_param32 dst,
++				    struct amdgcn_param32 src,
++				    short off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_global_load_ushort(&insn->gfx10,
++							   dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_global_load_ushort(&insn->gfx9,
++							  dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_global_load_dword(int version, struct amdgcn_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src,
++				   short off)
++{
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	WARN_ON(src.type != AMDGCN_PARAM_TYPE_VGPR);
++	if (version == 10) {
++		insn->size = emit_gfx10_global_load_dword(&insn->gfx10,
++							  dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_global_load_dword(&insn->gfx9,
++							 dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_global_load_dwordx2(int version,
++				     struct amdgcn_insn *insn,
++				     struct amdgcn_param32 dst,
++				     struct amdgcn_param32 src,
++				     short off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_global_load_dwordx2(&insn->gfx10,
++							    dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_global_load_dwordx2(&insn->gfx9,
++							   dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_global_load_dwordx4(int version,
++				     struct amdgcn_insn *insn,
++				     struct amdgcn_param32 dst,
++				     struct amdgcn_param32 src,
++				     short off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_global_load_dwordx4(&insn->gfx10,
++							    dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_global_load_dwordx4(&insn->gfx9,
++							   dst, src, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_global_store_byte(int version, struct amdgcn_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src, int off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_global_store_byte(&insn->gfx10,
++							  src, dst, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_global_store_byte(&insn->gfx9,
++							 src, dst, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++#define DEFINE_EMIT_GLOBAL_ATOMIC(name)					\
++static inline void emit_global_atomic_##name(int version,		\
++				      struct amdgcn_insn *insn,		\
++				      struct amdgcn_param32 vdst,	\
++				      struct amdgcn_param32 addr,	\
++				      struct amdgcn_param32 data,	\
++				      int off, int glc)			\
++{									\
++	if (version == 10) {						\
++		insn->size = emit_gfx10_global_atomic_##name(		\
++			&insn->gfx10, vdst, addr, data, off, glc);	\
++		insn->type = AMDGCN_INSN_TYPE_FLAT;			\
++	} else if (version == 9) {					\
++		insn->size = emit_gfx9_global_atomic_##name(		\
++			&insn->gfx9, vdst, addr, data, off, glc);	\
++		insn->type = AMDGCN_INSN_TYPE_FLAT;			\
++	} else {							\
++		WARN_ON_ONCE(1);						\
++	}								\
++}
++
++DEFINE_EMIT_GLOBAL_ATOMIC(add)
++DEFINE_EMIT_GLOBAL_ATOMIC(and)
++DEFINE_EMIT_GLOBAL_ATOMIC(or)
++DEFINE_EMIT_GLOBAL_ATOMIC(xor)
++DEFINE_EMIT_GLOBAL_ATOMIC(swap)
++DEFINE_EMIT_GLOBAL_ATOMIC(cmpswap)
++DEFINE_EMIT_GLOBAL_ATOMIC(add_x2)
++DEFINE_EMIT_GLOBAL_ATOMIC(and_x2)
++DEFINE_EMIT_GLOBAL_ATOMIC(or_x2)
++DEFINE_EMIT_GLOBAL_ATOMIC(xor_x2)
++DEFINE_EMIT_GLOBAL_ATOMIC(swap_x2)
++DEFINE_EMIT_GLOBAL_ATOMIC(cmpswap_x2)
++
++static inline void emit_global_store_short(int version,
++				    struct amdgcn_insn *insn,
++				    struct amdgcn_param32 dst,
++				    struct amdgcn_param32 src, int off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_global_store_short(&insn->gfx10,
++							   src, dst, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_global_store_short(&insn->gfx9,
++							  src, dst, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_global_store_dword(int version,
++				    struct amdgcn_insn *insn,
++				    struct amdgcn_param32 dst,
++				    struct amdgcn_param32 src, int off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_global_store_dword(&insn->gfx10,
++							   src, dst, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_global_store_dword(&insn->gfx9,
++							  src, dst, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_global_store_dwordx2(int version,
++				      struct amdgcn_insn *insn,
++				      struct amdgcn_param32 dst,
++				      struct amdgcn_param32 src, int off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_global_store_dwordx2(&insn->gfx10,
++							     src, dst, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_global_store_dwordx2(&insn->gfx9,
++							    src, dst, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_global_store_dwordx4(int version,
++				      struct amdgcn_insn *insn,
++				      struct amdgcn_param32 dst,
++				      struct amdgcn_param32 src, int off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_global_store_dwordx4(&insn->gfx10,
++							     src, dst, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_global_store_dwordx4(&insn->gfx9,
++							    src, dst, off);
++		insn->type = AMDGCN_INSN_TYPE_FLAT;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_branch(int version, struct amdgcn_insn *insn,
++				 short off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_branch(&insn->gfx10, off);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_branch(&insn->gfx9, off);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_cbranch_vccz(int version, struct amdgcn_insn *insn,
++				       short off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_cbranch_vccz(&insn->gfx10, off);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_cbranch_vccz(&insn->gfx9, off);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_cbranch_vccnz(int version, struct amdgcn_insn *insn,
++					short off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_cbranch_vccnz(&insn->gfx10, off);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_cbranch_vccnz(&insn->gfx9, off);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++/* Structurized CFG wrapper functions.
++ * Use raw SGPR indices; EXEC=126, VCC=106, integer_0=128.
++ */
++
++static inline void emit_s_and_saveexec_b64(int version,
++				    struct amdgcn_insn *insn,
++				    u8 sdst, u8 ssrc)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_and_saveexec_b64(&insn->gfx10,
++							    sdst, ssrc);
++		insn->type = AMDGCN_INSN_TYPE_SOP1;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_and_saveexec_b64(&insn->gfx9,
++							   sdst, ssrc);
++		insn->type = AMDGCN_INSN_TYPE_SOP1;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_bcnt1_i32_b64(int version, struct amdgcn_insn *insn,
++				 u8 sdst, u8 ssrc)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_bcnt1_i32_b64(&insn->gfx10,
++							 sdst, ssrc);
++		insn->type = AMDGCN_INSN_TYPE_SOP1;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_bcnt1_i32_b64(&insn->gfx9,
++							sdst, ssrc);
++		insn->type = AMDGCN_INSN_TYPE_SOP1;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_mov_b64(int version, struct amdgcn_insn *insn,
++			   u8 sdst, u8 ssrc)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_mov_b64(&insn->gfx10, sdst, ssrc);
++		insn->type = AMDGCN_INSN_TYPE_SOP1;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_mov_b64(&insn->gfx9, sdst, ssrc);
++		insn->type = AMDGCN_INSN_TYPE_SOP1;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_and_b64(int version, struct amdgcn_insn *insn,
++			   u8 sdst, u8 ssrc0, u8 ssrc1)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_and_b64(&insn->gfx10,
++						   sdst, ssrc0, ssrc1);
++		insn->type = AMDGCN_INSN_TYPE_SOP2;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_and_b64(&insn->gfx9,
++						  sdst, ssrc0, ssrc1);
++		insn->type = AMDGCN_INSN_TYPE_SOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_or_b64(int version, struct amdgcn_insn *insn,
++			  u8 sdst, u8 ssrc0, u8 ssrc1)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_or_b64(&insn->gfx10,
++						  sdst, ssrc0, ssrc1);
++		insn->type = AMDGCN_INSN_TYPE_SOP2;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_or_b64(&insn->gfx9,
++						 sdst, ssrc0, ssrc1);
++		insn->type = AMDGCN_INSN_TYPE_SOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_andn2_b64(int version, struct amdgcn_insn *insn,
++			     u8 sdst, u8 ssrc0, u8 ssrc1)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_andn2_b64(&insn->gfx10,
++						     sdst, ssrc0, ssrc1);
++		insn->type = AMDGCN_INSN_TYPE_SOP2;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_andn2_b64(&insn->gfx9,
++						    sdst, ssrc0, ssrc1);
++		insn->type = AMDGCN_INSN_TYPE_SOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_cbranch_execz(int version, struct amdgcn_insn *insn,
++				 short off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_cbranch_execz(&insn->gfx10, off);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_cbranch_execz(&insn->gfx9, off);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_cbranch_execnz(int version, struct amdgcn_insn *insn,
++				  short off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_cbranch_execnz(&insn->gfx10, off);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_cbranch_execnz(&insn->gfx9, off);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_sub_u32(int version, struct amdgcn_insn *insn,
++			   u8 sdst, u8 ssrc0, u8 ssrc1)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_sub_u32(&insn->gfx10,
++						   sdst, ssrc0, ssrc1);
++		insn->type = AMDGCN_INSN_TYPE_SOP2;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_sub_u32(&insn->gfx9,
++						  sdst, ssrc0, ssrc1);
++		insn->type = AMDGCN_INSN_TYPE_SOP2;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_cbranch_scc0(int version, struct amdgcn_insn *insn,
++				short off)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_cbranch_scc0(&insn->gfx10, off);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_cbranch_scc0(&insn->gfx9, off);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_branch_fixup(int version, struct amdgcn_insn *insn,
++				     short off)
++{
++	if (version == 10)
++		insn->size = emit_gfx10_branch_fixup(&insn->gfx10, off);
++	else if (version == 9)
++		insn->size = emit_gfx9_branch_fixup(&insn->gfx9, off);
++	else
++		WARN_ON_ONCE(1);
++}
++
++static inline void emit_s_waitcnt_lgkmcnt(int version, struct amdgcn_insn *insn)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_waitcnt_lgkmcnt(&insn->gfx10);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_waitcnt_lgkmcnt(&insn->gfx9);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_waitcnt_vmcnt(int version, struct amdgcn_insn *insn)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_waitcnt_vmcnt(&insn->gfx10);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_waitcnt_vmcnt(&insn->gfx9);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_waitcnt_vmcnt_lgkmcnt(int version,
++						struct amdgcn_insn *insn)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_waitcnt_vmcnt_lgkmcnt(&insn->gfx10);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_waitcnt_vmcnt_lgkmcnt(&insn->gfx9);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_nop(int version, struct amdgcn_insn *insn)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_nop(&insn->gfx10);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_nop(&insn->gfx9);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_endpgm(int version, struct amdgcn_insn *insn)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_endpgm(&insn->gfx10);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_endpgm(&insn->gfx9);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_code_end(int version, struct amdgcn_insn *insn)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_code_end(&insn->gfx10);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else if (version == 9) {
++		WARN_ON_ONCE(1);
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void emit_s_icache_inv(int version, struct amdgcn_insn *insn)
++{
++	if (version == 10) {
++		insn->size = emit_gfx10_s_icache_inv(&insn->gfx10);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else if (version == 9) {
++		insn->size = emit_gfx9_s_icache_inv(&insn->gfx9);
++		insn->type = AMDGCN_INSN_TYPE_SOPP;
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void gfx10_debug_vop3a(union amdgcn_gfx10_insn *insn)
++{
++	char src0[20];
++	char src1[20];
++	char src2[20];
++
++	if (insn->vop3a.src0 < GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vop3a.src0);
++	else if (insn->vop3a.src0 == GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vop3a.src0 == GFX10_VOP3A_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vop3a.src0 == GFX10_VOP3A_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vop3a.src0 == GFX10_VOP3A_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vop3a.src0 == GFX10_VOP3A_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vop3a.src0 < GFX10_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vop3a.src0 - GFX10_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3a.src0 < GFX10_VOP3A_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vop3a.src0 - GFX10_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3a.src0 == GFX10_VOP3A_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vop3a.src0 == GFX10_VOP3A_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vop3a.src0 == GFX10_VOP3A_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vop3a.src0 == GFX10_VOP3A_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vop3a.literal);
++	else if (insn->vop3a.src0 >= GFX10_VOP3A_SRC_VGPR_BASE)
++		sprintf(src0, "v%d",
++			insn->vop3a.src0 - GFX10_VOP3A_SRC_VGPR_BASE);
++
++	if (insn->vop3a.src1 < GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src1, "s%d", insn->vop3a.src1);
++	else if (insn->vop3a.src1 == GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src1, "%s", "vcc_lo");
++	else if (insn->vop3a.src1 == GFX10_VOP3A_SRC_VCC_HI)
++		sprintf(src1, "%s", "vcc_hi");
++	else if (insn->vop3a.src1 == GFX10_VOP3A_SRC_NULL)
++		sprintf(src1, "%s", "null");
++	else if (insn->vop3a.src1 == GFX10_VOP3A_SRC_EXEC_LO)
++		sprintf(src1, "%s", "exec_lo");
++	else if (insn->vop3a.src1 == GFX10_VOP3A_SRC_EXEC_HI)
++		sprintf(src1, "%s", "exec_hi");
++	else if (insn->vop3a.src1 < GFX10_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(src1, "0x%x",
++			insn->vop3a.src1 - GFX10_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3a.src1 < GFX10_VOP3A_SRC_SHARED_BASE)
++		sprintf(src1, "-0x%x",
++			insn->vop3a.src1 - GFX10_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3a.src1 == GFX10_VOP3A_SRC_VCCZ)
++		sprintf(src1, "%s", "vcc");
++	else if (insn->vop3a.src1 == GFX10_VOP3A_SRC_EXECZ)
++		sprintf(src1, "%s", "exec");
++	else if (insn->vop3a.src1 == GFX10_VOP3A_SRC_SCC)
++		sprintf(src1, "%s", "scc");
++	else if (insn->vop3a.src1 == GFX10_VOP3A_SRC_LITERAL_CONST)
++		sprintf(src1, "0x%x", insn->vop3a.literal);
++	else if (insn->vop3a.src1 >= GFX10_VOP3A_SRC_VGPR_BASE)
++		sprintf(src1, "v%d",
++			insn->vop3a.src1 - GFX10_VOP3A_SRC_VGPR_BASE);
++
++	if (insn->vop3a.src2 < GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src2, "s%d", insn->vop3a.src2);
++	else if (insn->vop3a.src2 == GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src2, "%s", "vcc_lo");
++	else if (insn->vop3a.src2 == GFX10_VOP3A_SRC_VCC_HI)
++		sprintf(src2, "%s", "vcc_hi");
++	else if (insn->vop3a.src2 == GFX10_VOP3A_SRC_NULL)
++		sprintf(src2, "%s", "null");
++	else if (insn->vop3a.src2 == GFX10_VOP3A_SRC_EXEC_LO)
++		sprintf(src2, "%s", "exec_lo");
++	else if (insn->vop3a.src2 == GFX10_VOP3A_SRC_EXEC_HI)
++		sprintf(src2, "%s", "exec_hi");
++	else if (insn->vop3a.src2 < GFX10_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(src2, "0x%x",
++			insn->vop3a.src2 - GFX10_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3a.src2 < GFX10_VOP3A_SRC_SHARED_BASE)
++		sprintf(src2, "-0x%x",
++			insn->vop3a.src2 - GFX10_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3a.src2 == GFX10_VOP3A_SRC_VCCZ)
++		sprintf(src2, "%s", "vcc");
++	else if (insn->vop3a.src2 == GFX10_VOP3A_SRC_EXECZ)
++		sprintf(src2, "%s", "exec");
++	else if (insn->vop3a.src2 == GFX10_VOP3A_SRC_SCC)
++		sprintf(src2, "%s", "scc");
++	else if (insn->vop3a.src2 == GFX10_VOP3A_SRC_LITERAL_CONST)
++		sprintf(src2, "0x%x", insn->vop3a.literal);
++	else if (insn->vop3a.src2 >= GFX10_VOP3A_SRC_VGPR_BASE)
++		sprintf(src2, "v%d",
++			insn->vop3a.src2 - GFX10_VOP3A_SRC_VGPR_BASE);
++
++	pr_debug("knod_asm %s v%d, %s, %s, %s\n",
++		opnames_gfx10[AMDGCN_INSN_TYPE_VOP3A][insn->vop3a.op],
++		insn->vop3a.vdst, src0, src1, src2);
++}
++
++static inline void gfx10_debug_vop3b(union amdgcn_gfx10_insn *insn)
++{
++	char src0[20];
++	char src1[20];
++	char src2[20];
++	char sdst[20];
++
++	if (insn->vop3b.sdst < GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(sdst, "s%d", insn->vop3b.sdst);
++	else if (insn->vop3b.sdst == GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(sdst, "%s", "vcc_lo");
++	else if (insn->vop3b.sdst == GFX10_VOP3A_SRC_VCC_HI)
++		sprintf(sdst, "%s", "vcc_hi");
++	else if (insn->vop3b.sdst == GFX10_VOP3A_SRC_NULL)
++		sprintf(sdst, "%s", "null");
++	else if (insn->vop3b.sdst == GFX10_VOP3A_SRC_EXEC_LO)
++		sprintf(sdst, "%s", "exec_lo");
++	else if (insn->vop3b.sdst == GFX10_VOP3A_SRC_EXEC_HI)
++		sprintf(sdst, "%s", "exec_hi");
++	else if (insn->vop3b.sdst < GFX10_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(sdst, "0x%x",
++			insn->vop3b.sdst - GFX10_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3b.sdst < GFX10_VOP3A_SRC_SHARED_BASE)
++		sprintf(sdst, "-0x%x",
++			insn->vop3b.sdst - GFX10_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3b.sdst == GFX10_VOP3A_SRC_VCCZ)
++		sprintf(sdst, "%s", "vcc");
++	else if (insn->vop3b.sdst == GFX10_VOP3A_SRC_EXECZ)
++		sprintf(sdst, "%s", "exec");
++	else if (insn->vop3b.sdst == GFX10_VOP3A_SRC_SCC)
++		sprintf(sdst, "%s", "scc");
++	else if (insn->vop3b.sdst == GFX10_VOP3A_SRC_LITERAL_CONST)
++		sprintf(sdst, "0x%x", insn->vop3b.literal);
++	else if (insn->vop3b.sdst >= GFX10_VOP3A_SRC_VGPR_BASE)
++		sprintf(sdst, "v%d",
++			insn->vop3b.sdst - GFX10_VOP3A_SRC_VGPR_BASE);
++
++	if (insn->vop3b.src0 < GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vop3b.src0);
++	else if (insn->vop3b.src0 == GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vop3b.src0 == GFX10_VOP3A_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vop3b.src0 == GFX10_VOP3A_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vop3b.src0 == GFX10_VOP3A_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vop3b.src0 == GFX10_VOP3A_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vop3b.src0 < GFX10_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vop3b.src0 - GFX10_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3b.src0 < GFX10_VOP3A_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vop3b.src0 - GFX10_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3b.src0 == GFX10_VOP3A_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vop3b.src0 == GFX10_VOP3A_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vop3b.src0 == GFX10_VOP3A_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vop3b.src0 == GFX10_VOP3A_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vop3b.literal);
++	else if (insn->vop3b.src0 >= GFX10_VOP3A_SRC_VGPR_BASE)
++		sprintf(src0, "v%d",
++			insn->vop3b.src0 - GFX10_VOP3A_SRC_VGPR_BASE);
++
++	if (insn->vop3b.src1 < GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src1, "s%d", insn->vop3b.src1);
++	else if (insn->vop3b.src1 == GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src1, "%s", "vcc_lo");
++	else if (insn->vop3b.src1 == GFX10_VOP3A_SRC_VCC_HI)
++		sprintf(src1, "%s", "vcc_hi");
++	else if (insn->vop3b.src1 == GFX10_VOP3A_SRC_NULL)
++		sprintf(src1, "%s", "null");
++	else if (insn->vop3b.src1 == GFX10_VOP3A_SRC_EXEC_LO)
++		sprintf(src1, "%s", "exec_lo");
++	else if (insn->vop3b.src1 == GFX10_VOP3A_SRC_EXEC_HI)
++		sprintf(src1, "%s", "exec_hi");
++	else if (insn->vop3b.src1 < GFX10_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(src1, "0x%x",
++			insn->vop3b.src1 - GFX10_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3b.src1 < GFX10_VOP3A_SRC_SHARED_BASE)
++		sprintf(src1, "-0x%x",
++			insn->vop3b.src1 - GFX10_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3b.src1 == GFX10_VOP3A_SRC_VCCZ)
++		sprintf(src1, "%s", "vcc");
++	else if (insn->vop3b.src1 == GFX10_VOP3A_SRC_EXECZ)
++		sprintf(src1, "%s", "exec");
++	else if (insn->vop3b.src1 == GFX10_VOP3A_SRC_SCC)
++		sprintf(src1, "%s", "scc");
++	else if (insn->vop3b.src1 == GFX10_VOP3A_SRC_LITERAL_CONST)
++		sprintf(src1, "0x%x", insn->vop3b.literal);
++	else if (insn->vop3b.src1 >= GFX10_VOP3A_SRC_VGPR_BASE)
++		sprintf(src1, "v%d",
++			insn->vop3b.src1 - GFX10_VOP3A_SRC_VGPR_BASE);
++
++	if (insn->vop3b.src2 < GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src2, "s%d", insn->vop3b.src2);
++	else if (insn->vop3b.src2 == GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src2, "%s", "vcc_lo");
++	else if (insn->vop3b.src2 == GFX10_VOP3A_SRC_VCC_HI)
++		sprintf(src2, "%s", "vcc_hi");
++	else if (insn->vop3b.src2 == GFX10_VOP3A_SRC_NULL)
++		sprintf(src2, "%s", "null");
++	else if (insn->vop3b.src2 == GFX10_VOP3A_SRC_EXEC_LO)
++		sprintf(src2, "%s", "exec_lo");
++	else if (insn->vop3b.src2 == GFX10_VOP3A_SRC_EXEC_HI)
++		sprintf(src2, "%s", "exec_hi");
++	else if (insn->vop3b.src2 < GFX10_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(src2, "0x%x",
++			insn->vop3b.src2 - GFX10_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3b.src2 < GFX10_VOP3A_SRC_SHARED_BASE)
++		sprintf(src2, "-0x%x",
++			insn->vop3b.src2 - GFX10_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3b.src2 == GFX10_VOP3A_SRC_VCCZ)
++		sprintf(src2, "%s", "vcc");
++	else if (insn->vop3b.src2 == GFX10_VOP3A_SRC_EXECZ)
++		sprintf(src2, "%s", "exec");
++	else if (insn->vop3b.src2 == GFX10_VOP3A_SRC_SCC)
++		sprintf(src2, "%s", "scc");
++	else if (insn->vop3b.src2 == GFX10_VOP3A_SRC_LITERAL_CONST)
++		sprintf(src2, "0x%x", insn->vop3b.literal);
++	else if (insn->vop3b.src2 >= GFX10_VOP3A_SRC_VGPR_BASE)
++		sprintf(src2, "v%d",
++			insn->vop3b.src2 - GFX10_VOP3A_SRC_VGPR_BASE);
++
++	pr_debug("knod_asm %s v%d, %s, %s, %s, %s\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_VOP3B][insn->vop3b.op],
++		 insn->vop3b.vdst, sdst, src0, src1, src2);
++}
++
++static inline void gfx10_debug_vop1(union amdgcn_gfx10_insn *insn)
++{
++	char src0[20];
++
++	if (insn->vop1.src0 < GFX10_VOP1_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vop1.src0);
++	else if (insn->vop1.src0 == GFX10_VOP1_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vop1.src0 == GFX10_VOP1_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vop1.src0 == GFX10_VOP1_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vop1.src0 == GFX10_VOP1_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vop1.src0 == GFX10_VOP1_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vop1.src0 < GFX10_VOP1_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vop1.src0 - GFX10_VOP1_SRC_INTEGER_0);
++	else if (insn->vop1.src0 < GFX10_VOP1_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vop1.src0 - GFX10_VOP1_SRC_INTEGER_MINUS_1);
++	else if (insn->vop1.src0 == GFX10_VOP1_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vop1.src0 == GFX10_VOP1_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vop1.src0 == GFX10_VOP1_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vop1.src0 == GFX10_VOP1_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vop1.literal);
++	else if (insn->vop1.src0 >= GFX10_VOP1_SRC_VGPR_BASE)
++		sprintf(src0, "v%d",
++			insn->vop1.src0 - GFX10_VOP1_SRC_VGPR_BASE);
++
++	pr_debug("knod_asm %s v%d, %s\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_VOP1][insn->vop1.op],
++		 insn->vop1.vdst, src0);
++}
++
++static inline void gfx10_debug_vopc(union amdgcn_gfx10_insn *insn)
++{
++	char src0[20];
++
++	if (insn->vopc.src0 < GFX10_VOPC_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vopc.src0);
++	else if (insn->vopc.src0 == GFX10_VOPC_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vopc.src0 == GFX10_VOPC_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vopc.src0 == GFX10_VOPC_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vopc.src0 == GFX10_VOPC_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vopc.src0 == GFX10_VOPC_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vopc.src0 < GFX10_VOPC_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vopc.src0 - GFX10_VOPC_SRC_INTEGER_0);
++	else if (insn->vopc.src0 < GFX10_VOPC_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vopc.src0 - GFX10_VOPC_SRC_INTEGER_MINUS_1);
++	else if (insn->vopc.src0 == GFX10_VOPC_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vopc.src0 == GFX10_VOPC_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vopc.src0 == GFX10_VOPC_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vopc.src0 == GFX10_VOPC_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vopc.literal);
++	else if (insn->vopc.src0 >= GFX10_VOPC_SRC_VGPR_BASE)
++		sprintf(src0, "v%d",
++			insn->vopc.src0 - GFX10_VOPC_SRC_VGPR_BASE);
++
++	pr_debug("knod_asm %s %s, v%d\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_VOPC][insn->vopc.op],
++		 src0, insn->vopc.vsrc1);
++}
++
++static inline void gfx10_debug_vop2(union amdgcn_gfx10_insn *insn)
++{
++	char src0[20];
++
++	if (insn->vop2.src0 < GFX10_VOP2_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vop2.src0);
++	else if (insn->vop2.src0 == GFX10_VOP2_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vop2.src0 == GFX10_VOP2_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vop2.src0 == GFX10_VOP2_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vop2.src0 == GFX10_VOP2_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vop2.src0 == GFX10_VOP2_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vop2.src0 < GFX10_VOP2_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vop2.src0 - GFX10_VOP2_SRC_INTEGER_0);
++	else if (insn->vop2.src0 < GFX10_VOP2_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vop2.src0 - GFX10_VOP2_SRC_INTEGER_MINUS_1);
++	else if (insn->vop2.src0 == GFX10_VOP2_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vop2.src0 == GFX10_VOP2_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vop2.src0 == GFX10_VOP2_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vop2.src0 == GFX10_VOP2_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vop2.literal);
++	else if (insn->vop2.src0 >= GFX10_VOP2_SRC_VGPR_BASE)
++		sprintf(src0, "v%d",
++			insn->vop2.src0 - GFX10_VOP2_SRC_VGPR_BASE);
++
++	pr_debug("knod_asm %s v%d, %s v%d\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_VOP2][insn->vop2.op],
++		 insn->vop2.vdst,
++		 src0,
++		 insn->vop2.vsrc1);
++}
++
++static inline void gfx10_debug_sop1(union amdgcn_gfx10_insn *insn)
++{
++	char ssrc0[20];
++
++	if (insn->sop1.ssrc0 < GFX10_SOP1_SSRC_VCC_LO)
++		sprintf(ssrc0, "s%d", insn->sop1.ssrc0);
++	else if (insn->sop1.ssrc0 == GFX10_SOP1_SSRC_VCC_LO)
++		sprintf(ssrc0, "%s", "vcc_lo");
++	else if (insn->sop1.ssrc0 == GFX10_SOP1_SSRC_VCC_HI)
++		sprintf(ssrc0, "%s", "vcc_hi");
++	else if (insn->sop1.ssrc0 == GFX10_SOP1_SSRC_NULL)
++		sprintf(ssrc0, "%s", "null");
++	else if (insn->sop1.ssrc0 == GFX10_SOP1_SSRC_EXEC_LO)
++		sprintf(ssrc0, "%s", "exec_lo");
++	else if (insn->sop1.ssrc0 == GFX10_SOP1_SSRC_EXEC_HI)
++		sprintf(ssrc0, "%s", "exec_hi");
++	else if (insn->sop1.ssrc0 < GFX10_SOP1_SSRC_INTEGER_MINUS_1)
++		sprintf(ssrc0, "0x%x",
++			insn->sop1.ssrc0 - GFX10_SOP1_SSRC_INTEGER_0);
++	else if (insn->sop1.ssrc0 < GFX10_SOP1_SSRC_SHARED_BASE)
++		sprintf(ssrc0, "-0x%x",
++			insn->sop1.ssrc0 - GFX10_SOP1_SSRC_INTEGER_MINUS_1);
++	else if (insn->sop1.ssrc0 == GFX10_SOP1_SSRC_VCCZ)
++		sprintf(ssrc0, "%s", "vcc");
++	else if (insn->sop1.ssrc0 == GFX10_SOP1_SSRC_EXECZ)
++		sprintf(ssrc0, "%s", "exec");
++	else if (insn->sop1.ssrc0 == GFX10_SOP1_SSRC_SCC)
++		sprintf(ssrc0, "%s", "scc");
++	else if (insn->sop1.ssrc0 == GFX10_SOP1_SSRC_LITERAL_CONST)
++		sprintf(ssrc0, "0x%x", insn->sop1.literal);
++
++	pr_debug("knod_asm %s s%d, %s\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_SOP1][insn->sop1.op],
++		 insn->sop1.sdst,
++		 ssrc0);
++}
++
++static inline void gfx10_debug_sopp(union amdgcn_gfx10_insn *insn)
++{
++	pr_debug("knod_asm %s 0x%x\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_SOPP][insn->sopp.op],
++		 insn->sopp.simm16);
++}
++
++static inline void gfx10_debug_smem(union amdgcn_gfx10_insn *insn)
++{
++	pr_debug("%s s[%d:%d], s[%d:%d], 0x%x\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_SMEM][insn->smem.op],
++		 insn->smem.sdata,
++		 insn->smem.sdata + 1,
++		 (insn->smem.sbase * 2),
++		 (insn->smem.sbase * 2) + 1,
++		 insn->smem.offset);
++}
++
++static inline void gfx10_debug_mubuf(union amdgcn_gfx10_insn *insn)
++{
++	pr_debug("knod_asm %s v%d, v%d, s[%d:%d], 0x%x offen offset:%d\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_MUBUF][insn->mubuf.op],
++		 insn->mubuf.vdata,
++		 insn->mubuf.vaddr,
++		 insn->mubuf.srsrc,
++		 insn->mubuf.srsrc + 3,
++		 insn->mubuf.soffset,
++		 insn->mubuf.offset);
++}
++
++static inline void gfx10_debug_global(union amdgcn_gfx10_insn *insn)
++{
++	if (insn->flat.op == GFX9_GLOBAL_STORE_BYTE) {
++		pr_debug("knod_asm %s v[%d:%d], v%d, off offset:%d\n",
++			 opnames_gfx10[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			 insn->flat.addr,
++			 insn->flat.addr + 1,
++			 insn->flat.data,
++			 insn->flat.offset);
++	} else if (insn->flat.op == GFX9_GLOBAL_STORE_SHORT) {
++		pr_debug("knod_asm %s v[%d:%d], v%d, off offset:%d\n",
++			 opnames_gfx10[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			 insn->flat.addr,
++			 insn->flat.addr + 1,
++			 insn->flat.data,
++			 insn->flat.offset);
++	} else if (insn->flat.op == GFX9_GLOBAL_STORE_DWORD) {
++		pr_debug("knod_asm %s v[%d:%d], v%d, off offset:%d\n",
++			 opnames_gfx10[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			 insn->flat.addr,
++			 insn->flat.addr + 1,
++			 insn->flat.data,
++			 insn->flat.offset);
++	} else if (insn->flat.op == GFX9_GLOBAL_STORE_DWORDX2) {
++		pr_debug("knod_asm %s v[%d:%d], v[%d:%d], off offset:%d\n",
++			 opnames_gfx10[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			 insn->flat.addr,
++			 insn->flat.addr + 1,
++			 insn->flat.data,
++			 insn->flat.data + 1,
++			 insn->flat.offset);
++	} else {
++		pr_debug("knod_asm %s v[%d:%d], v[%d:%d], off offset:%d\n",
++			 opnames_gfx10[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			 insn->flat.vdst,
++			 insn->flat.vdst + 1,
++			 insn->flat.addr,
++			 insn->flat.addr + 1,
++			 insn->flat.offset);
++	}
++}
++
++static inline void decode_ssrc8(int ssrc, u32 literal, char *buf)
++{
++	if (ssrc < 106)
++		sprintf(buf, "s%d", ssrc);
++	else if (ssrc == 106)
++		sprintf(buf, "vcc_lo");
++	else if (ssrc == 107)
++		sprintf(buf, "vcc_hi");
++	else if (ssrc == 125)
++		sprintf(buf, "null");
++	else if (ssrc == 126)
++		sprintf(buf, "exec_lo");
++	else if (ssrc == 127)
++		sprintf(buf, "exec_hi");
++	else if (ssrc < 193)
++		sprintf(buf, "0x%x", ssrc - 128);
++	else if (ssrc < 235)
++		sprintf(buf, "-0x%x", ssrc - 193);
++	else if (ssrc == 251)
++		sprintf(buf, "vcc");
++	else if (ssrc == 252)
++		sprintf(buf, "exec");
++	else if (ssrc == 253)
++		sprintf(buf, "scc");
++	else if (ssrc == 255)
++		sprintf(buf, "0x%x", literal);
++	else
++		sprintf(buf, "?%d", ssrc);
++}
++
++static inline void decode_vsrc9(int src, u32 literal, char *buf)
++{
++	if (src >= 256)
++		sprintf(buf, "v%d", src - 256);
++	else
++		decode_ssrc8(src, literal, buf);
++}
++
++static inline void gfx10_debug_sop2(union amdgcn_gfx10_insn *insn)
++{
++	char ssrc0[20], ssrc1[20];
++
++	decode_ssrc8(insn->sop2.ssrc0, insn->sop2.literal, ssrc0);
++	decode_ssrc8(insn->sop2.ssrc1, insn->sop2.literal, ssrc1);
++	pr_debug("knod_asm %s s%d, %s, %s\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_SOP2][insn->sop2.op],
++		 insn->sop2.sdst, ssrc0, ssrc1);
++}
++
++static inline void gfx10_debug_sopk(union amdgcn_gfx10_insn *insn)
++{
++	pr_debug("knod_asm %s s%d, 0x%x\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_SOPK][insn->sopk.op],
++		 insn->sopk.sdst, insn->sopk.simm16);
++}
++
++static inline void gfx10_debug_sopc(union amdgcn_gfx10_insn *insn)
++{
++	char ssrc0[20], ssrc1[20];
++
++	decode_ssrc8(insn->sopc.ssrc0, insn->sopc.literal, ssrc0);
++	decode_ssrc8(insn->sopc.ssrc1, insn->sopc.literal, ssrc1);
++	pr_debug("knod_asm %s %s, %s\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_SOPC][insn->sopc.op],
++		 ssrc0, ssrc1);
++}
++
++static inline void gfx10_debug_vop3p(union amdgcn_gfx10_insn *insn)
++{
++	char src0[20], src1[20], src2[20];
++
++	decode_vsrc9(insn->vop3p.src0, insn->vop3p.literal, src0);
++	decode_vsrc9(insn->vop3p.src1, insn->vop3p.literal, src1);
++	decode_vsrc9(insn->vop3p.src2, insn->vop3p.literal, src2);
++	pr_debug("knod_asm %s v%d, %s, %s, %s\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_VOP3P][insn->vop3p.op],
++		 (int)insn->vop3p.vdst, src0, src1, src2);
++}
++
++static inline void gfx10_debug_sdwa(union amdgcn_gfx10_insn *insn)
++{
++	pr_debug("knod_asm sdwa src0:%d dst_sel:%d src0_sel:%d src1_sel:%d\n",
++		 insn->sdwa.src0, insn->sdwa.dst_sel,
++		 insn->sdwa.src0_sel, insn->sdwa.src1_sel);
++}
++
++static inline void gfx10_debug_sdwab(union amdgcn_gfx10_insn *insn)
++{
++	pr_debug("knod_asm sdwab src0:%d sdst:s%d src0_sel:%d src1_sel:%d\n",
++		 insn->sdwab.src0, insn->sdwab.sdst,
++		 insn->sdwab.src0_sel, insn->sdwab.src1_sel);
++}
++
++static inline void gfx10_debug_dpp16(union amdgcn_gfx10_insn *insn)
++{
++	pr_debug("knod_asm dpp16 (not decoded)\n");
++}
++
++static inline void gfx10_debug_dpp8(union amdgcn_gfx10_insn *insn)
++{
++	pr_debug("knod_asm dpp8 (not decoded)\n");
++}
++
++static inline void gfx10_debug_vintrp(union amdgcn_gfx10_insn *insn)
++{
++	pr_debug("knod_asm vintrp (not decoded)\n");
++}
++
++static inline void gfx10_debug_ds(union amdgcn_gfx10_insn *insn)
++{
++	pr_debug("knod_asm %s v%d, v%d, v%d, v%d offset0:%d offset1:%d%s\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_DS][insn->ds.op],
++		 (int)insn->ds.vdst, (int)insn->ds.addr,
++		 (int)insn->ds.data0, (int)insn->ds.data1,
++		 (int)insn->ds.offset0, (int)insn->ds.offset1,
++		 insn->ds.gds ? " gds" : "");
++}
++
++static inline void gfx10_debug_mtbuf(union amdgcn_gfx10_insn *insn)
++{
++	pr_debug("knod_asm %s v%d, v%d, s[%d:%d], s%d format:%d offset:%d\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_MTBUF][insn->mtbuf.op],
++		 (int)insn->mtbuf.vdata, (int)insn->mtbuf.vaddr,
++		 (int)insn->mtbuf.srsrc * 4, (int)insn->mtbuf.srsrc * 4 + 3,
++		 (int)insn->mtbuf.soffset, (int)insn->mtbuf.foamat,
++		 (int)insn->mtbuf.offset);
++}
++
++static inline void gfx10_debug_mimg(union amdgcn_gfx10_insn *insn)
++{
++	pr_debug("knod_asm mimg (not decoded)\n");
++}
++
++static inline void gfx10_debug_exp(union amdgcn_gfx10_insn *insn)
++{
++	pr_debug("knod_asm exp (not decoded)\n");
++}
++
++static inline void gfx10_debug_insn(struct amdgcn_insn *insn)
++{
++	u32 *ptr;
++
++	switch (insn->type) {
++	case AMDGCN_INSN_TYPE_SOP2:
++		gfx10_debug_sop2(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_SOPK:
++		gfx10_debug_sopk(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_SOP1:
++		gfx10_debug_sop1(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_SOPC:
++		gfx10_debug_sopc(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_SOPP:
++		gfx10_debug_sopp(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_SMEM:
++		gfx10_debug_smem(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_VOP2:
++		gfx10_debug_vop2(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_VOP1:
++		gfx10_debug_vop1(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_VOPC:
++		gfx10_debug_vopc(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_VOP3A:
++		gfx10_debug_vop3a(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_VOP3B:
++		gfx10_debug_vop3b(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_VOP3P:
++		gfx10_debug_vop3p(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_SDWA:
++		gfx10_debug_sdwa(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_SDWAB:
++		gfx10_debug_sdwab(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_DPP16:
++		gfx10_debug_dpp16(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_DPP8:
++		gfx10_debug_dpp8(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_VINTRP:
++		gfx10_debug_vintrp(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_DS:
++		gfx10_debug_ds(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_MTBUF:
++		gfx10_debug_mtbuf(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_MUBUF:
++		gfx10_debug_mubuf(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_MIMG:
++		gfx10_debug_mimg(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_FLAT:
++		gfx10_debug_global(&insn->gfx10);
++		break;
++	case AMDGCN_INSN_TYPE_EXP:
++		gfx10_debug_exp(&insn->gfx10);
++		break;
++	default:
++		WARN_ON_ONCE(1);
++		break;
++	}
++
++	ptr = (u32 *)&insn->gfx10;
++	if (insn->size == 4) {
++		pr_debug("knod_asm %s %u %.8X\n", __func__, __LINE__, ptr[0]);
++	} else if (insn->size == 8) {
++		pr_debug("knod_asm %s %u %.8X %.8X\n",
++			 __func__, __LINE__, ptr[0], ptr[1]);
++	} else if (insn->size == 12) {
++		pr_debug("knod_asm %s %u %.8X %.8X %.8X\n",
++			 __func__, __LINE__, ptr[0], ptr[1], ptr[2]);
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void gfx9_debug_vop3a(union amdgcn_gfx9_insn *insn)
++{
++	char src0[20];
++	char src1[20];
++	char src2[20];
++
++	if (insn->vop3a.src0 < GFX9_VOP3A_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vop3a.src0);
++	else if (insn->vop3a.src0 == GFX9_VOP3A_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vop3a.src0 == GFX9_VOP3A_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vop3a.src0 == GFX9_VOP3A_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vop3a.src0 == GFX9_VOP3A_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vop3a.src0 == GFX9_VOP3A_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vop3a.src0 < GFX9_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vop3a.src0 - GFX9_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3a.src0 < GFX9_VOP3A_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vop3a.src0 - GFX9_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3a.src0 == GFX9_VOP3A_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vop3a.src0 == GFX9_VOP3A_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vop3a.src0 == GFX9_VOP3A_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vop3a.src0 == GFX9_VOP3A_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vop3a.literal);
++	else if (insn->vop3a.src0 >= GFX9_VOP3A_SRC_VGPR_BASE)
++		sprintf(src0, "v%d",
++			insn->vop3a.src0 - GFX9_VOP3A_SRC_VGPR_BASE);
++
++	if (insn->vop3a.src1 < GFX9_VOP3A_SRC_VCC_LO)
++		sprintf(src1, "s%d", insn->vop3a.src1);
++	else if (insn->vop3a.src1 == GFX9_VOP3A_SRC_VCC_LO)
++		sprintf(src1, "%s", "vcc_lo");
++	else if (insn->vop3a.src1 == GFX9_VOP3A_SRC_VCC_HI)
++		sprintf(src1, "%s", "vcc_hi");
++	else if (insn->vop3a.src1 == GFX9_VOP3A_SRC_NULL)
++		sprintf(src1, "%s", "null");
++	else if (insn->vop3a.src1 == GFX9_VOP3A_SRC_EXEC_LO)
++		sprintf(src1, "%s", "exec_lo");
++	else if (insn->vop3a.src1 == GFX9_VOP3A_SRC_EXEC_HI)
++		sprintf(src1, "%s", "exec_hi");
++	else if (insn->vop3a.src1 < GFX9_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(src1, "0x%x",
++			insn->vop3a.src1 - GFX9_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3a.src1 < GFX9_VOP3A_SRC_SHARED_BASE)
++		sprintf(src1, "-0x%x",
++			insn->vop3a.src1 - GFX9_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3a.src1 == GFX9_VOP3A_SRC_VCCZ)
++		sprintf(src1, "%s", "vcc");
++	else if (insn->vop3a.src1 == GFX9_VOP3A_SRC_EXECZ)
++		sprintf(src1, "%s", "exec");
++	else if (insn->vop3a.src1 == GFX9_VOP3A_SRC_SCC)
++		sprintf(src1, "%s", "scc");
++	else if (insn->vop3a.src1 == GFX9_VOP3A_SRC_LITERAL_CONST)
++		sprintf(src1, "0x%x", insn->vop3a.literal);
++	else if (insn->vop3a.src1 >= GFX9_VOP3A_SRC_VGPR_BASE)
++		sprintf(src1, "v%d",
++			insn->vop3a.src1 - GFX9_VOP3A_SRC_VGPR_BASE);
++
++	if (insn->vop3a.src2 < GFX9_VOP3A_SRC_VCC_LO)
++		sprintf(src2, "s%d", insn->vop3a.src2);
++	else if (insn->vop3a.src2 == GFX9_VOP3A_SRC_VCC_LO)
++		sprintf(src2, "%s", "vcc_lo");
++	else if (insn->vop3a.src2 == GFX9_VOP3A_SRC_VCC_HI)
++		sprintf(src2, "%s", "vcc_hi");
++	else if (insn->vop3a.src2 == GFX9_VOP3A_SRC_NULL)
++		sprintf(src2, "%s", "null");
++	else if (insn->vop3a.src2 == GFX9_VOP3A_SRC_EXEC_LO)
++		sprintf(src2, "%s", "exec_lo");
++	else if (insn->vop3a.src2 == GFX9_VOP3A_SRC_EXEC_HI)
++		sprintf(src2, "%s", "exec_hi");
++	else if (insn->vop3a.src2 < GFX9_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(src2, "0x%x",
++			insn->vop3a.src2 - GFX9_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3a.src2 < GFX9_VOP3A_SRC_SHARED_BASE)
++		sprintf(src2, "-0x%x",
++			insn->vop3a.src2 - GFX9_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3a.src2 == GFX9_VOP3A_SRC_VCCZ)
++		sprintf(src2, "%s", "vcc");
++	else if (insn->vop3a.src2 == GFX9_VOP3A_SRC_EXECZ)
++		sprintf(src2, "%s", "exec");
++	else if (insn->vop3a.src2 == GFX9_VOP3A_SRC_SCC)
++		sprintf(src2, "%s", "scc");
++	else if (insn->vop3a.src2 == GFX9_VOP3A_SRC_LITERAL_CONST)
++		sprintf(src2, "0x%x", insn->vop3a.literal);
++	else if (insn->vop3a.src2 >= GFX9_VOP3A_SRC_VGPR_BASE)
++		sprintf(src2, "v%d",
++			insn->vop3a.src2 - GFX9_VOP3A_SRC_VGPR_BASE);
++
++	pr_debug("knod_asm %s v%d, %s, %s, %s\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_VOP3A][insn->vop3a.op],
++		 insn->vop3a.vdst, src0, src1, src2);
++}
++
++static inline void gfx9_debug_vop3b(union amdgcn_gfx9_insn *insn)
++{
++	char src0[20];
++	char src1[20];
++	char src2[20];
++	char sdst[20];
++
++	if (insn->vop3b.sdst < GFX9_VOP3B_SRC_VCC_LO)
++		sprintf(sdst, "s%d", insn->vop3b.sdst);
++	else if (insn->vop3b.sdst == GFX9_VOP3B_SRC_VCC_LO)
++		sprintf(sdst, "%s", "vcc_lo");
++	else if (insn->vop3b.sdst == GFX9_VOP3B_SRC_VCC_HI)
++		sprintf(sdst, "%s", "vcc_hi");
++	else if (insn->vop3b.sdst == GFX9_VOP3B_SRC_NULL)
++		sprintf(sdst, "%s", "null");
++	else if (insn->vop3b.sdst == GFX9_VOP3B_SRC_EXEC_LO)
++		sprintf(sdst, "%s", "exec_lo");
++	else if (insn->vop3b.sdst == GFX9_VOP3B_SRC_EXEC_HI)
++		sprintf(sdst, "%s", "exec_hi");
++	else if (insn->vop3b.sdst < GFX9_VOP3B_SRC_INTEGER_MINUS_1)
++		sprintf(sdst, "0x%x",
++			insn->vop3b.sdst - GFX9_VOP3B_SRC_INTEGER_0);
++	else if (insn->vop3b.sdst < GFX9_VOP3B_SRC_SHARED_BASE)
++		sprintf(sdst, "-0x%x",
++			insn->vop3b.sdst - GFX9_VOP3B_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3b.sdst == GFX9_VOP3B_SRC_VCCZ)
++		sprintf(sdst, "%s", "vcc");
++	else if (insn->vop3b.sdst == GFX9_VOP3B_SRC_EXECZ)
++		sprintf(sdst, "%s", "exec");
++	else if (insn->vop3b.sdst == GFX9_VOP3B_SRC_SCC)
++		sprintf(sdst, "%s", "scc");
++	else if (insn->vop3b.sdst == GFX9_VOP3B_SRC_LITERAL_CONST)
++		sprintf(sdst, "0x%x", insn->vop3b.literal);
++	else if (insn->vop3b.sdst >= GFX9_VOP3B_SRC_VGPR_BASE)
++		sprintf(sdst, "v%d",
++			insn->vop3b.sdst - GFX9_VOP3B_SRC_VGPR_BASE);
++
++	if (insn->vop3b.src0 < GFX9_VOP3B_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vop3b.src0);
++	else if (insn->vop3b.src0 == GFX9_VOP3B_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vop3b.src0 == GFX9_VOP3B_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vop3b.src0 == GFX9_VOP3B_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vop3b.src0 == GFX9_VOP3B_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vop3b.src0 == GFX9_VOP3B_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vop3b.src0 < GFX9_VOP3B_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vop3b.src0 - GFX9_VOP3B_SRC_INTEGER_0);
++	else if (insn->vop3b.src0 < GFX9_VOP3B_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vop3b.src0 - GFX9_VOP3B_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3b.src0 == GFX9_VOP3B_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vop3b.src0 == GFX9_VOP3B_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vop3b.src0 == GFX9_VOP3B_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vop3b.src0 == GFX9_VOP3B_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vop3b.literal);
++	else if (insn->vop3b.src0 >= GFX9_VOP3B_SRC_VGPR_BASE)
++		sprintf(src0, "v%d",
++			insn->vop3b.src0 - GFX9_VOP3B_SRC_VGPR_BASE);
++
++	if (insn->vop3b.src1 < GFX9_VOP3B_SRC_VCC_LO)
++		sprintf(src1, "s%d", insn->vop3b.src1);
++	else if (insn->vop3b.src1 == GFX9_VOP3B_SRC_VCC_LO)
++		sprintf(src1, "%s", "vcc_lo");
++	else if (insn->vop3b.src1 == GFX9_VOP3B_SRC_VCC_HI)
++		sprintf(src1, "%s", "vcc_hi");
++	else if (insn->vop3b.src1 == GFX9_VOP3B_SRC_NULL)
++		sprintf(src1, "%s", "null");
++	else if (insn->vop3b.src1 == GFX9_VOP3B_SRC_EXEC_LO)
++		sprintf(src1, "%s", "exec_lo");
++	else if (insn->vop3b.src1 == GFX9_VOP3B_SRC_EXEC_HI)
++		sprintf(src1, "%s", "exec_hi");
++	else if (insn->vop3b.src1 < GFX9_VOP3B_SRC_INTEGER_MINUS_1)
++		sprintf(src1, "0x%x",
++			insn->vop3b.src1 - GFX9_VOP3B_SRC_INTEGER_0);
++	else if (insn->vop3b.src1 < GFX9_VOP3B_SRC_SHARED_BASE)
++		sprintf(src1, "-0x%x",
++			insn->vop3b.src1 - GFX9_VOP3B_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3b.src1 == GFX9_VOP3B_SRC_VCCZ)
++		sprintf(src1, "%s", "vcc");
++	else if (insn->vop3b.src1 == GFX9_VOP3B_SRC_EXECZ)
++		sprintf(src1, "%s", "exec");
++	else if (insn->vop3b.src1 == GFX9_VOP3B_SRC_SCC)
++		sprintf(src1, "%s", "scc");
++	else if (insn->vop3b.src1 == GFX9_VOP3B_SRC_LITERAL_CONST)
++		sprintf(src1, "0x%x", insn->vop3b.literal);
++	else if (insn->vop3b.src1 >= GFX9_VOP3B_SRC_VGPR_BASE)
++		sprintf(src1, "v%d",
++			insn->vop3b.src1 - GFX9_VOP3B_SRC_VGPR_BASE);
++
++	if (insn->vop3b.src2 < GFX9_VOP3B_SRC_VCC_LO)
++		sprintf(src2, "s%d", insn->vop3b.src2);
++	else if (insn->vop3b.src2 == GFX9_VOP3B_SRC_VCC_LO)
++		sprintf(src2, "%s", "vcc_lo");
++	else if (insn->vop3b.src2 == GFX9_VOP3B_SRC_VCC_HI)
++		sprintf(src2, "%s", "vcc_hi");
++	else if (insn->vop3b.src2 == GFX9_VOP3B_SRC_NULL)
++		sprintf(src2, "%s", "null");
++	else if (insn->vop3b.src2 == GFX9_VOP3B_SRC_EXEC_LO)
++		sprintf(src2, "%s", "exec_lo");
++	else if (insn->vop3b.src2 == GFX9_VOP3B_SRC_EXEC_HI)
++		sprintf(src2, "%s", "exec_hi");
++	else if (insn->vop3b.src2 < GFX9_VOP3B_SRC_INTEGER_MINUS_1)
++		sprintf(src2, "0x%x",
++			insn->vop3b.src2 - GFX9_VOP3B_SRC_INTEGER_0);
++	else if (insn->vop3b.src2 < GFX9_VOP3B_SRC_SHARED_BASE)
++		sprintf(src2, "-0x%x",
++			insn->vop3b.src2 - GFX9_VOP3B_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3b.src2 == GFX9_VOP3B_SRC_VCCZ)
++		sprintf(src2, "%s", "vcc");
++	else if (insn->vop3b.src2 == GFX9_VOP3B_SRC_EXECZ)
++		sprintf(src2, "%s", "exec");
++	else if (insn->vop3b.src2 == GFX9_VOP3B_SRC_SCC)
++		sprintf(src2, "%s", "scc");
++	else if (insn->vop3b.src2 == GFX9_VOP3B_SRC_LITERAL_CONST)
++		sprintf(src2, "0x%x", insn->vop3b.literal);
++	else if (insn->vop3b.src2 >= GFX9_VOP3B_SRC_VGPR_BASE)
++		sprintf(src2, "v%d",
++			insn->vop3b.src2 - GFX9_VOP3B_SRC_VGPR_BASE);
++
++	pr_debug("knod_asm %s v%d, %s, %s, %s, %s\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_VOP3B][insn->vop3b.op],
++		 insn->vop3b.vdst, sdst, src0, src1, src2);
++}
++
++static inline void gfx9_debug_vop1(union amdgcn_gfx9_insn *insn)
++{
++	char src0[20];
++
++	if (insn->vop1.src0 < GFX9_VOP1_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vop1.src0);
++	else if (insn->vop1.src0 == GFX9_VOP1_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vop1.src0 == GFX9_VOP1_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vop1.src0 == GFX9_VOP1_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vop1.src0 == GFX9_VOP1_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vop1.src0 == GFX9_VOP1_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vop1.src0 < GFX9_VOP1_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vop1.src0 - GFX9_VOP1_SRC_INTEGER_0);
++	else if (insn->vop1.src0 < GFX9_VOP1_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vop1.src0 - GFX9_VOP1_SRC_INTEGER_MINUS_1);
++	else if (insn->vop1.src0 == GFX9_VOP1_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vop1.src0 == GFX9_VOP1_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vop1.src0 == GFX9_VOP1_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vop1.src0 == GFX9_VOP1_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vop1.literal);
++	else if (insn->vop1.src0 >= GFX9_VOP1_SRC_VGPR_BASE)
++		sprintf(src0, "v%d", insn->vop1.src0 - GFX9_VOP1_SRC_VGPR_BASE);
++
++	pr_debug("knod_asm %s v%d, %s\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_VOP1][insn->vop1.op],
++		 insn->vop1.vdst, src0);
++}
++
++static inline void gfx9_debug_vopc(union amdgcn_gfx9_insn *insn)
++{
++	char src0[20];
++
++	if (insn->vopc.src0 < GFX9_VOPC_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vopc.src0);
++	else if (insn->vopc.src0 == GFX9_VOPC_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vopc.src0 == GFX9_VOPC_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vopc.src0 == GFX9_VOPC_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vopc.src0 == GFX9_VOPC_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vopc.src0 == GFX9_VOPC_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vopc.src0 < GFX9_VOPC_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vopc.src0 - GFX9_VOPC_SRC_INTEGER_0);
++	else if (insn->vopc.src0 < GFX9_VOPC_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vopc.src0 - GFX9_VOPC_SRC_INTEGER_MINUS_1);
++	else if (insn->vopc.src0 == GFX9_VOPC_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vopc.src0 == GFX9_VOPC_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vopc.src0 == GFX9_VOPC_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vopc.src0 == GFX9_VOPC_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vopc.literal);
++	else if (insn->vopc.src0 >= GFX9_VOPC_SRC_VGPR_BASE)
++		sprintf(src0, "v%d", insn->vopc.src0 - GFX9_VOPC_SRC_VGPR_BASE);
++
++	pr_debug("knod_asm %s %s, v%d\n",
++		opnames_gfx9[AMDGCN_INSN_TYPE_VOPC][insn->vopc.op],
++		src0,
++		insn->vopc.vsrc1);
++}
++
++static inline void gfx9_debug_vop2(union amdgcn_gfx9_insn *insn)
++{
++	char src0[20];
++
++	if (insn->vop2.src0 < GFX9_VOP2_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vop2.src0);
++	else if (insn->vop2.src0 == GFX9_VOP2_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vop2.src0 == GFX9_VOP2_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vop2.src0 == GFX9_VOP2_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vop2.src0 == GFX9_VOP2_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vop2.src0 == GFX9_VOP2_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vop2.src0 < GFX9_VOP2_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vop2.src0 - GFX9_VOP2_SRC_INTEGER_0);
++	else if (insn->vop2.src0 < GFX9_VOP2_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vop2.src0 - GFX9_VOP2_SRC_INTEGER_MINUS_1);
++	else if (insn->vop2.src0 == GFX9_VOP2_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vop2.src0 == GFX9_VOP2_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vop2.src0 == GFX9_VOP2_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vop2.src0 == GFX9_VOP2_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vop2.literal);
++	else if (insn->vop2.src0 >= GFX9_VOP2_SRC_VGPR_BASE)
++		sprintf(src0, "v%d", insn->vop2.src0 - GFX9_VOP2_SRC_VGPR_BASE);
++
++	pr_debug("knod_asm %s v%d, %s v%d\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_VOP2][insn->vop2.op],
++		 insn->vop2.vdst,
++		 src0,
++		 insn->vop2.vsrc1);
++}
++
++static inline void gfx9_debug_sop1(union amdgcn_gfx9_insn *insn)
++{
++	char ssrc0[20];
++
++	if (insn->sop1.ssrc0 < GFX9_SOP1_SSRC_VCC_LO)
++		sprintf(ssrc0, "s%d", insn->sop1.ssrc0);
++	else if (insn->sop1.ssrc0 == GFX9_SOP1_SSRC_VCC_LO)
++		sprintf(ssrc0, "%s", "vcc_lo");
++	else if (insn->sop1.ssrc0 == GFX9_SOP1_SSRC_VCC_HI)
++		sprintf(ssrc0, "%s", "vcc_hi");
++	else if (insn->sop1.ssrc0 == GFX9_SOP1_SSRC_NULL)
++		sprintf(ssrc0, "%s", "null");
++	else if (insn->sop1.ssrc0 == GFX9_SOP1_SSRC_EXEC_LO)
++		sprintf(ssrc0, "%s", "exec_lo");
++	else if (insn->sop1.ssrc0 == GFX9_SOP1_SSRC_EXEC_HI)
++		sprintf(ssrc0, "%s", "exec_hi");
++	else if (insn->sop1.ssrc0 < GFX9_SOP1_SSRC_INTEGER_MINUS_1)
++		sprintf(ssrc0, "0x%x",
++			insn->sop1.ssrc0 - GFX9_SOP1_SSRC_INTEGER_0);
++	else if (insn->sop1.ssrc0 < GFX9_SOP1_SSRC_SHARED_BASE)
++		sprintf(ssrc0, "-0x%x",
++			insn->sop1.ssrc0 - GFX9_SOP1_SSRC_INTEGER_MINUS_1);
++	else if (insn->sop1.ssrc0 == GFX9_SOP1_SSRC_VCCZ)
++		sprintf(ssrc0, "%s", "vcc");
++	else if (insn->sop1.ssrc0 == GFX9_SOP1_SSRC_EXECZ)
++		sprintf(ssrc0, "%s", "exec");
++	else if (insn->sop1.ssrc0 == GFX9_SOP1_SSRC_SCC)
++		sprintf(ssrc0, "%s", "scc");
++	else if (insn->sop1.ssrc0 == GFX9_SOP1_SSRC_LITERAL_CONST)
++		sprintf(ssrc0, "0x%x", insn->sop1.literal);
++
++	pr_debug("knod_asm %s s%d, %s\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_SOP1][insn->sop1.op],
++		 insn->sop1.sdst,
++		 ssrc0);
++}
++
++static inline void gfx9_debug_sopp(union amdgcn_gfx9_insn *insn)
++{
++	pr_debug("knod_asm %s 0x%x\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_SOPP][insn->sopp.op],
++		 insn->sopp.simm16);
++}
++
++static inline void gfx9_debug_smem(union amdgcn_gfx9_insn *insn)
++{
++	pr_debug("%s s[%d:%d], s[%d:%d], 0x%x\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_SMEM][insn->smem.op],
++		 insn->smem.sdata,
++		 insn->smem.sdata + 1,
++		 (insn->smem.sbase * 2),
++		 (insn->smem.sbase * 2) + 1,
++		 insn->smem.offset);
++}
++
++static inline void gfx9_debug_mubuf(union amdgcn_gfx9_insn *insn)
++{
++	pr_debug("knod_asm %s v%d, v%d, s[%d:%d], 0x%x offen offset:%d\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_MUBUF][insn->mubuf.op],
++		 insn->mubuf.vdata,
++		 insn->mubuf.vaddr,
++		 insn->mubuf.srsrc,
++		 insn->mubuf.srsrc + 3,
++		 insn->mubuf.soffset,
++		 insn->mubuf.offset);
++}
++
++static inline void gfx9_debug_global(union amdgcn_gfx9_insn *insn)
++{
++	if (insn->flat.op == GFX9_GLOBAL_STORE_BYTE) {
++		pr_debug("knod_asm %s v[%d:%d], v%d, off offset:%d\n",
++			opnames_gfx9[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			insn->flat.addr,
++			insn->flat.addr + 1,
++			insn->flat.data,
++			insn->flat.offset);
++	} else if (insn->flat.op == GFX9_GLOBAL_STORE_SHORT) {
++		pr_debug("knod_asm %s v[%d:%d], v%d, off offset:%d\n",
++			opnames_gfx9[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			insn->flat.addr,
++			insn->flat.addr + 1,
++			insn->flat.data,
++			insn->flat.offset);
++	} else if (insn->flat.op == GFX9_GLOBAL_STORE_DWORD) {
++		pr_debug("knod_asm %s v[%d:%d], v%d, off offset:%d\n",
++			opnames_gfx9[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			insn->flat.addr,
++			insn->flat.addr + 1,
++			insn->flat.data,
++			insn->flat.offset);
++	} else if (insn->flat.op == GFX9_GLOBAL_STORE_DWORDX2) {
++		pr_debug("knod_asm %s v[%d:%d], v[%d:%d], off offset:%d\n",
++			opnames_gfx9[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			insn->flat.addr,
++			insn->flat.addr + 1,
++			insn->flat.data,
++			insn->flat.data + 1,
++			insn->flat.offset);
++	} else {
++		pr_debug("knod_asm %s v[%d:%d], v[%d:%d], off offset:%d\n",
++			opnames_gfx9[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			insn->flat.vdst,
++			insn->flat.vdst + 1,
++			insn->flat.addr,
++			insn->flat.addr + 1,
++			insn->flat.offset);
++	}
++}
++
++static inline void gfx9_debug_sop2(union amdgcn_gfx9_insn *insn)
++{
++	char ssrc0[20], ssrc1[20];
++
++	decode_ssrc8(insn->sop2.ssrc0, insn->sop2.literal, ssrc0);
++	decode_ssrc8(insn->sop2.ssrc1, insn->sop2.literal, ssrc1);
++	pr_debug("knod_asm %s s%d, %s, %s\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_SOP2][insn->sop2.op],
++		 insn->sop2.sdst, ssrc0, ssrc1);
++}
++
++static inline void gfx9_debug_sopk(union amdgcn_gfx9_insn *insn)
++{
++	pr_debug("knod_asm %s s%d, 0x%x\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_SOPK][insn->sopk.op],
++		 insn->sopk.sdst, insn->sopk.simm16);
++}
++
++static inline void gfx9_debug_sopc(union amdgcn_gfx9_insn *insn)
++{
++	char ssrc0[20], ssrc1[20];
++
++	decode_ssrc8(insn->sopc.ssrc0, insn->sopc.literal, ssrc0);
++	decode_ssrc8(insn->sopc.ssrc1, insn->sopc.literal, ssrc1);
++	pr_debug("knod_asm %s %s, %s\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_SOPC][insn->sopc.op],
++		 ssrc0, ssrc1);
++}
++
++static inline void gfx9_debug_vop3p(union amdgcn_gfx9_insn *insn)
++{
++	char src0[20], src1[20], src2[20];
++
++	decode_vsrc9(insn->vop3p.src0, insn->vop3p.literal, src0);
++	decode_vsrc9(insn->vop3p.src1, insn->vop3p.literal, src1);
++	decode_vsrc9(insn->vop3p.src2, insn->vop3p.literal, src2);
++	pr_debug("knod_asm %s v%d, %s, %s, %s\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_VOP3P][insn->vop3p.op],
++		 (int)insn->vop3p.vdst, src0, src1, src2);
++}
++
++static inline void gfx9_debug_sdwa(union amdgcn_gfx9_insn *insn)
++{
++	pr_debug("knod_asm sdwa src0:%d dst_sel:%d src0_sel:%d src1_sel:%d\n",
++		 insn->sdwa.src0, insn->sdwa.dst_sel,
++		 insn->sdwa.src0_sel, insn->sdwa.src1_sel);
++}
++
++static inline void gfx9_debug_sdwab(union amdgcn_gfx9_insn *insn)
++{
++	pr_debug("knod_asm sdwab src0:%d sdst:s%d src0_sel:%d src1_sel:%d\n",
++		 insn->sdwab.src0, insn->sdwab.sdst,
++		 insn->sdwab.src0_sel, insn->sdwab.src1_sel);
++}
++
++static inline void gfx9_debug_dpp16(union amdgcn_gfx9_insn *insn)
++{
++	pr_debug("knod_asm dpp16 (not decoded)\n");
++}
++
++static inline void gfx9_debug_dpp8(union amdgcn_gfx9_insn *insn)
++{
++	pr_debug("knod_asm dpp8 (not decoded)\n");
++}
++
++static inline void gfx9_debug_vintrp(union amdgcn_gfx9_insn *insn)
++{
++	pr_debug("knod_asm vintrp (not decoded)\n");
++}
++
++static inline void gfx9_debug_ds(union amdgcn_gfx9_insn *insn)
++{
++	pr_debug("knod_asm %s v%d, v%d, v%d, v%d offset0:%d offset1:%d%s\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_DS][insn->ds.op],
++		 (int)insn->ds.vdst, (int)insn->ds.addr,
++		 (int)insn->ds.data0, (int)insn->ds.data1,
++		 (int)insn->ds.offset0, (int)insn->ds.offset1,
++		 insn->ds.gds ? " gds" : "");
++}
++
++static inline void gfx9_debug_mtbuf(union amdgcn_gfx9_insn *insn)
++{
++	pr_debug("knod_asm %s v%d, v%d, s[%d:%d], s%d dfmt:%d nfmt:%d offset:%d\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_MTBUF][insn->mtbuf.op],
++		 (int)insn->mtbuf.vdata, (int)insn->mtbuf.vaddr,
++		 (int)insn->mtbuf.srsrc * 4, (int)insn->mtbuf.srsrc * 4 + 3,
++		 (int)insn->mtbuf.soffset, (int)insn->mtbuf.dfmt,
++		 (int)insn->mtbuf.nfmt, (int)insn->mtbuf.offset);
++}
++
++static inline void gfx9_debug_mimg(union amdgcn_gfx9_insn *insn)
++{
++	pr_debug("knod_asm mimg (not decoded)\n");
++}
++
++static inline void gfx9_debug_exp(union amdgcn_gfx9_insn *insn)
++{
++	pr_debug("knod_asm exp (not decoded)\n");
++}
++
++static inline void gfx9_debug_insn(struct amdgcn_insn *insn)
++{
++	u32 *ptr;
++
++	switch (insn->type) {
++	case AMDGCN_INSN_TYPE_SOP2:
++		gfx9_debug_sop2(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_SOPK:
++		gfx9_debug_sopk(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_SOP1:
++		gfx9_debug_sop1(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_SOPC:
++		gfx9_debug_sopc(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_SOPP:
++		gfx9_debug_sopp(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_SMEM:
++		gfx9_debug_smem(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_VOP2:
++		gfx9_debug_vop2(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_VOP1:
++		gfx9_debug_vop1(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_VOPC:
++		gfx9_debug_vopc(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_VOP3A:
++		gfx9_debug_vop3a(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_VOP3B:
++		gfx9_debug_vop3b(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_VOP3P:
++		gfx9_debug_vop3p(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_SDWA:
++		gfx9_debug_sdwa(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_SDWAB:
++		gfx9_debug_sdwab(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_DPP16:
++		gfx9_debug_dpp16(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_DPP8:
++		gfx9_debug_dpp8(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_VINTRP:
++		gfx9_debug_vintrp(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_DS:
++		gfx9_debug_ds(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_MTBUF:
++		gfx9_debug_mtbuf(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_MUBUF:
++		gfx9_debug_mubuf(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_MIMG:
++		gfx9_debug_mimg(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_FLAT:
++		gfx9_debug_global(&insn->gfx9);
++		break;
++	case AMDGCN_INSN_TYPE_EXP:
++		gfx9_debug_exp(&insn->gfx9);
++		break;
++	default:
++		WARN_ON_ONCE(1);
++		break;
++	}
++
++	ptr = (u32 *)&insn->gfx9;
++	if (insn->size == 4) {
++		pr_debug("knod_asm %s %u %.8X\n", __func__, __LINE__, ptr[0]);
++	} else if (insn->size == 8) {
++		pr_debug("knod_asm %s %u %.8X %.8X\n",
++			 __func__, __LINE__, ptr[0], ptr[1]);
++	} else if (insn->size == 12) {
++		pr_debug("knod_asm %s %u %.8X %.8X %.8X\n",
++			 __func__, __LINE__, ptr[0], ptr[1], ptr[2]);
++	} else {
++		WARN_ON_ONCE(1);
++	}
++}
++
++static inline void debug_insn(int version, struct amdgcn_insn *insn)
++{
++	if (version == 10)
++		gfx10_debug_insn(insn);
++	else if (version == 9)
++		gfx9_debug_insn(insn);
++	else
++		WARN_ON_ONCE(1);
++}
++
++static inline void gfx10_debugfs_vop3a(union amdgcn_gfx10_insn *insn,
++				       struct seq_file *m)
++{
++	char src0[20];
++	char src1[20];
++	char src2[20];
++
++	if (insn->vop3a.src0 < GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vop3a.src0);
++	else if (insn->vop3a.src0 == GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vop3a.src0 == GFX10_VOP3A_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vop3a.src0 == GFX10_VOP3A_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vop3a.src0 == GFX10_VOP3A_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vop3a.src0 == GFX10_VOP3A_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vop3a.src0 < GFX10_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vop3a.src0 - GFX10_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3a.src0 < GFX10_VOP3A_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vop3a.src0 - GFX10_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3a.src0 == GFX10_VOP3A_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vop3a.src0 == GFX10_VOP3A_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vop3a.src0 == GFX10_VOP3A_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vop3a.src0 == GFX10_VOP3A_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vop3a.literal);
++	else if (insn->vop3a.src0 >= GFX10_VOP3A_SRC_VGPR_BASE)
++		sprintf(src0, "v%d",
++			insn->vop3a.src0 - GFX10_VOP3A_SRC_VGPR_BASE);
++
++	if (insn->vop3a.src1 < GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src1, "s%d", insn->vop3a.src1);
++	else if (insn->vop3a.src1 == GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src1, "%s", "vcc_lo");
++	else if (insn->vop3a.src1 == GFX10_VOP3A_SRC_VCC_HI)
++		sprintf(src1, "%s", "vcc_hi");
++	else if (insn->vop3a.src1 == GFX10_VOP3A_SRC_NULL)
++		sprintf(src1, "%s", "null");
++	else if (insn->vop3a.src1 == GFX10_VOP3A_SRC_EXEC_LO)
++		sprintf(src1, "%s", "exec_lo");
++	else if (insn->vop3a.src1 == GFX10_VOP3A_SRC_EXEC_HI)
++		sprintf(src1, "%s", "exec_hi");
++	else if (insn->vop3a.src1 < GFX10_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(src1, "0x%x",
++			insn->vop3a.src1 - GFX10_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3a.src1 < GFX10_VOP3A_SRC_SHARED_BASE)
++		sprintf(src1, "-0x%x",
++			insn->vop3a.src1 - GFX10_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3a.src1 == GFX10_VOP3A_SRC_VCCZ)
++		sprintf(src1, "%s", "vcc");
++	else if (insn->vop3a.src1 == GFX10_VOP3A_SRC_EXECZ)
++		sprintf(src1, "%s", "exec");
++	else if (insn->vop3a.src1 == GFX10_VOP3A_SRC_SCC)
++		sprintf(src1, "%s", "scc");
++	else if (insn->vop3a.src1 == GFX10_VOP3A_SRC_LITERAL_CONST)
++		sprintf(src1, "0x%x", insn->vop3a.literal);
++	else if (insn->vop3a.src1 >= GFX10_VOP3A_SRC_VGPR_BASE)
++		sprintf(src1, "v%d",
++			insn->vop3a.src1 - GFX10_VOP3A_SRC_VGPR_BASE);
++
++	if (insn->vop3a.src2 < GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src2, "s%d", insn->vop3a.src2);
++	else if (insn->vop3a.src2 == GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src2, "%s", "vcc_lo");
++	else if (insn->vop3a.src2 == GFX10_VOP3A_SRC_VCC_HI)
++		sprintf(src2, "%s", "vcc_hi");
++	else if (insn->vop3a.src2 == GFX10_VOP3A_SRC_NULL)
++		sprintf(src2, "%s", "null");
++	else if (insn->vop3a.src2 == GFX10_VOP3A_SRC_EXEC_LO)
++		sprintf(src2, "%s", "exec_lo");
++	else if (insn->vop3a.src2 == GFX10_VOP3A_SRC_EXEC_HI)
++		sprintf(src2, "%s", "exec_hi");
++	else if (insn->vop3a.src2 < GFX10_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(src2, "0x%x",
++			insn->vop3a.src2 - GFX10_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3a.src2 < GFX10_VOP3A_SRC_SHARED_BASE)
++		sprintf(src2, "-0x%x",
++			insn->vop3a.src2 - GFX10_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3a.src2 == GFX10_VOP3A_SRC_VCCZ)
++		sprintf(src2, "%s", "vcc");
++	else if (insn->vop3a.src2 == GFX10_VOP3A_SRC_EXECZ)
++		sprintf(src2, "%s", "exec");
++	else if (insn->vop3a.src2 == GFX10_VOP3A_SRC_SCC)
++		sprintf(src2, "%s", "scc");
++	else if (insn->vop3a.src2 == GFX10_VOP3A_SRC_LITERAL_CONST)
++		sprintf(src2, "0x%x", insn->vop3a.literal);
++	else if (insn->vop3a.src2 >= GFX10_VOP3A_SRC_VGPR_BASE)
++		sprintf(src2, "v%d",
++			insn->vop3a.src2 - GFX10_VOP3A_SRC_VGPR_BASE);
++
++	seq_printf(m, "%s v%d, %s, %s, %s\n",
++		opnames_gfx10[AMDGCN_INSN_TYPE_VOP3A][insn->vop3a.op],
++		insn->vop3a.vdst, src0, src1, src2);
++}
++
++static inline void gfx10_debugfs_vop3b(union amdgcn_gfx10_insn *insn,
++				       struct seq_file *m)
++{
++	char src0[20];
++	char src1[20];
++	char src2[20];
++	char sdst[20];
++
++	if (insn->vop3b.sdst < GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(sdst, "s%d", insn->vop3b.sdst);
++	else if (insn->vop3b.sdst == GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(sdst, "%s", "vcc_lo");
++	else if (insn->vop3b.sdst == GFX10_VOP3A_SRC_VCC_HI)
++		sprintf(sdst, "%s", "vcc_hi");
++	else if (insn->vop3b.sdst == GFX10_VOP3A_SRC_NULL)
++		sprintf(sdst, "%s", "null");
++	else if (insn->vop3b.sdst == GFX10_VOP3A_SRC_EXEC_LO)
++		sprintf(sdst, "%s", "exec_lo");
++	else if (insn->vop3b.sdst == GFX10_VOP3A_SRC_EXEC_HI)
++		sprintf(sdst, "%s", "exec_hi");
++	else if (insn->vop3b.sdst < GFX10_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(sdst, "0x%x",
++			insn->vop3b.sdst - GFX10_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3b.sdst < GFX10_VOP3A_SRC_SHARED_BASE)
++		sprintf(sdst, "-0x%x",
++			insn->vop3b.sdst - GFX10_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3b.sdst == GFX10_VOP3A_SRC_VCCZ)
++		sprintf(sdst, "%s", "vcc");
++	else if (insn->vop3b.sdst == GFX10_VOP3A_SRC_EXECZ)
++		sprintf(sdst, "%s", "exec");
++	else if (insn->vop3b.sdst == GFX10_VOP3A_SRC_SCC)
++		sprintf(sdst, "%s", "scc");
++	else if (insn->vop3b.sdst == GFX10_VOP3A_SRC_LITERAL_CONST)
++		sprintf(sdst, "0x%x", insn->vop3b.literal);
++	else if (insn->vop3b.sdst >= GFX10_VOP3A_SRC_VGPR_BASE)
++		sprintf(sdst, "v%d",
++			insn->vop3b.sdst - GFX10_VOP3A_SRC_VGPR_BASE);
++
++	if (insn->vop3b.src0 < GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vop3b.src0);
++	else if (insn->vop3b.src0 == GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vop3b.src0 == GFX10_VOP3A_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vop3b.src0 == GFX10_VOP3A_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vop3b.src0 == GFX10_VOP3A_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vop3b.src0 == GFX10_VOP3A_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vop3b.src0 < GFX10_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vop3b.src0 - GFX10_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3b.src0 < GFX10_VOP3A_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vop3b.src0 - GFX10_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3b.src0 == GFX10_VOP3A_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vop3b.src0 == GFX10_VOP3A_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vop3b.src0 == GFX10_VOP3A_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vop3b.src0 == GFX10_VOP3A_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vop3b.literal);
++	else if (insn->vop3b.src0 >= GFX10_VOP3A_SRC_VGPR_BASE)
++		sprintf(src0, "v%d",
++			insn->vop3b.src0 - GFX10_VOP3A_SRC_VGPR_BASE);
++
++	if (insn->vop3b.src1 < GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src1, "s%d", insn->vop3b.src1);
++	else if (insn->vop3b.src1 == GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src1, "%s", "vcc_lo");
++	else if (insn->vop3b.src1 == GFX10_VOP3A_SRC_VCC_HI)
++		sprintf(src1, "%s", "vcc_hi");
++	else if (insn->vop3b.src1 == GFX10_VOP3A_SRC_NULL)
++		sprintf(src1, "%s", "null");
++	else if (insn->vop3b.src1 == GFX10_VOP3A_SRC_EXEC_LO)
++		sprintf(src1, "%s", "exec_lo");
++	else if (insn->vop3b.src1 == GFX10_VOP3A_SRC_EXEC_HI)
++		sprintf(src1, "%s", "exec_hi");
++	else if (insn->vop3b.src1 < GFX10_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(src1, "0x%x",
++			insn->vop3b.src1 - GFX10_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3b.src1 < GFX10_VOP3A_SRC_SHARED_BASE)
++		sprintf(src1, "-0x%x",
++			insn->vop3b.src1 - GFX10_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3b.src1 == GFX10_VOP3A_SRC_VCCZ)
++		sprintf(src1, "%s", "vcc");
++	else if (insn->vop3b.src1 == GFX10_VOP3A_SRC_EXECZ)
++		sprintf(src1, "%s", "exec");
++	else if (insn->vop3b.src1 == GFX10_VOP3A_SRC_SCC)
++		sprintf(src1, "%s", "scc");
++	else if (insn->vop3b.src1 == GFX10_VOP3A_SRC_LITERAL_CONST)
++		sprintf(src1, "0x%x", insn->vop3b.literal);
++	else if (insn->vop3b.src1 >= GFX10_VOP3A_SRC_VGPR_BASE)
++		sprintf(src1, "v%d",
++			insn->vop3b.src1 - GFX10_VOP3A_SRC_VGPR_BASE);
++
++	if (insn->vop3b.src2 < GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src2, "s%d", insn->vop3b.src2);
++	else if (insn->vop3b.src2 == GFX10_VOP3A_SRC_VCC_LO)
++		sprintf(src2, "%s", "vcc_lo");
++	else if (insn->vop3b.src2 == GFX10_VOP3A_SRC_VCC_HI)
++		sprintf(src2, "%s", "vcc_hi");
++	else if (insn->vop3b.src2 == GFX10_VOP3A_SRC_NULL)
++		sprintf(src2, "%s", "null");
++	else if (insn->vop3b.src2 == GFX10_VOP3A_SRC_EXEC_LO)
++		sprintf(src2, "%s", "exec_lo");
++	else if (insn->vop3b.src2 == GFX10_VOP3A_SRC_EXEC_HI)
++		sprintf(src2, "%s", "exec_hi");
++	else if (insn->vop3b.src2 < GFX10_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(src2, "0x%x",
++			insn->vop3b.src2 - GFX10_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3b.src2 < GFX10_VOP3A_SRC_SHARED_BASE)
++		sprintf(src2, "-0x%x",
++			insn->vop3b.src2 - GFX10_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3b.src2 == GFX10_VOP3A_SRC_VCCZ)
++		sprintf(src2, "%s", "vcc");
++	else if (insn->vop3b.src2 == GFX10_VOP3A_SRC_EXECZ)
++		sprintf(src2, "%s", "exec");
++	else if (insn->vop3b.src2 == GFX10_VOP3A_SRC_SCC)
++		sprintf(src2, "%s", "scc");
++	else if (insn->vop3b.src2 == GFX10_VOP3A_SRC_LITERAL_CONST)
++		sprintf(src2, "0x%x", insn->vop3b.literal);
++	else if (insn->vop3b.src2 >= GFX10_VOP3A_SRC_VGPR_BASE)
++		sprintf(src2, "v%d",
++			insn->vop3b.src2 - GFX10_VOP3A_SRC_VGPR_BASE);
++
++	seq_printf(m, "%s v%d, %s, %s, %s, %s\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_VOP3B][insn->vop3b.op],
++		 insn->vop3b.vdst, sdst, src0, src1, src2);
++}
++
++static inline void gfx10_debugfs_vop1(union amdgcn_gfx10_insn *insn,
++				      struct seq_file *m)
++{
++	char src0[20];
++
++	if (insn->vop1.src0 < GFX10_VOP1_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vop1.src0);
++	else if (insn->vop1.src0 == GFX10_VOP1_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vop1.src0 == GFX10_VOP1_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vop1.src0 == GFX10_VOP1_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vop1.src0 == GFX10_VOP1_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vop1.src0 == GFX10_VOP1_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vop1.src0 < GFX10_VOP1_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vop1.src0 - GFX10_VOP1_SRC_INTEGER_0);
++	else if (insn->vop1.src0 < GFX10_VOP1_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vop1.src0 - GFX10_VOP1_SRC_INTEGER_MINUS_1);
++	else if (insn->vop1.src0 == GFX10_VOP1_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vop1.src0 == GFX10_VOP1_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vop1.src0 == GFX10_VOP1_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vop1.src0 == GFX10_VOP1_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vop1.literal);
++	else if (insn->vop1.src0 >= GFX10_VOP1_SRC_VGPR_BASE)
++		sprintf(src0, "v%d",
++			insn->vop1.src0 - GFX10_VOP1_SRC_VGPR_BASE);
++
++	seq_printf(m, "%s v%d, %s\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_VOP1][insn->vop1.op],
++		 insn->vop1.vdst, src0);
++}
++
++static inline void gfx10_debugfs_vopc(union amdgcn_gfx10_insn *insn,
++				      struct seq_file *m)
++{
++	char src0[20];
++
++	if (insn->vopc.src0 < GFX10_VOPC_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vopc.src0);
++	else if (insn->vopc.src0 == GFX10_VOPC_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vopc.src0 == GFX10_VOPC_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vopc.src0 == GFX10_VOPC_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vopc.src0 == GFX10_VOPC_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vopc.src0 == GFX10_VOPC_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vopc.src0 < GFX10_VOPC_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vopc.src0 - GFX10_VOPC_SRC_INTEGER_0);
++	else if (insn->vopc.src0 < GFX10_VOPC_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vopc.src0 - GFX10_VOPC_SRC_INTEGER_MINUS_1);
++	else if (insn->vopc.src0 == GFX10_VOPC_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vopc.src0 == GFX10_VOPC_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vopc.src0 == GFX10_VOPC_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vopc.src0 == GFX10_VOPC_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vopc.literal);
++	else if (insn->vopc.src0 >= GFX10_VOPC_SRC_VGPR_BASE)
++		sprintf(src0, "v%d",
++			insn->vopc.src0 - GFX10_VOPC_SRC_VGPR_BASE);
++
++	seq_printf(m, "%s %s, v%d\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_VOPC][insn->vopc.op],
++		 src0, insn->vopc.vsrc1);
++}
++
++static inline void gfx10_debugfs_vop2(union amdgcn_gfx10_insn *insn,
++				      struct seq_file *m)
++{
++	char src0[20];
++
++	if (insn->vop2.src0 < GFX10_VOP2_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vop2.src0);
++	else if (insn->vop2.src0 == GFX10_VOP2_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vop2.src0 == GFX10_VOP2_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vop2.src0 == GFX10_VOP2_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vop2.src0 == GFX10_VOP2_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vop2.src0 == GFX10_VOP2_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vop2.src0 < GFX10_VOP2_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vop2.src0 - GFX10_VOP2_SRC_INTEGER_0);
++	else if (insn->vop2.src0 < GFX10_VOP2_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vop2.src0 - GFX10_VOP2_SRC_INTEGER_MINUS_1);
++	else if (insn->vop2.src0 == GFX10_VOP2_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vop2.src0 == GFX10_VOP2_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vop2.src0 == GFX10_VOP2_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vop2.src0 == GFX10_VOP2_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vop2.literal);
++	else if (insn->vop2.src0 >= GFX10_VOP2_SRC_VGPR_BASE)
++		sprintf(src0, "v%d",
++			insn->vop2.src0 - GFX10_VOP2_SRC_VGPR_BASE);
++
++	seq_printf(m, "%s v%d, %s v%d\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_VOP2][insn->vop2.op],
++		 insn->vop2.vdst,
++		 src0,
++		 insn->vop2.vsrc1);
++}
++
++static inline void gfx10_debugfs_sop1(union amdgcn_gfx10_insn *insn,
++				      struct seq_file *m)
++{
++	char ssrc0[20];
++
++	if (insn->sop1.ssrc0 < GFX10_SOP1_SSRC_VCC_LO)
++		sprintf(ssrc0, "s%d", insn->sop1.ssrc0);
++	else if (insn->sop1.ssrc0 == GFX10_SOP1_SSRC_VCC_LO)
++		sprintf(ssrc0, "%s", "vcc_lo");
++	else if (insn->sop1.ssrc0 == GFX10_SOP1_SSRC_VCC_HI)
++		sprintf(ssrc0, "%s", "vcc_hi");
++	else if (insn->sop1.ssrc0 == GFX10_SOP1_SSRC_NULL)
++		sprintf(ssrc0, "%s", "null");
++	else if (insn->sop1.ssrc0 == GFX10_SOP1_SSRC_EXEC_LO)
++		sprintf(ssrc0, "%s", "exec_lo");
++	else if (insn->sop1.ssrc0 == GFX10_SOP1_SSRC_EXEC_HI)
++		sprintf(ssrc0, "%s", "exec_hi");
++	else if (insn->sop1.ssrc0 < GFX10_SOP1_SSRC_INTEGER_MINUS_1)
++		sprintf(ssrc0, "0x%x",
++			insn->sop1.ssrc0 - GFX10_SOP1_SSRC_INTEGER_0);
++	else if (insn->sop1.ssrc0 < GFX10_SOP1_SSRC_SHARED_BASE)
++		sprintf(ssrc0, "-0x%x",
++			insn->sop1.ssrc0 - GFX10_SOP1_SSRC_INTEGER_MINUS_1);
++	else if (insn->sop1.ssrc0 == GFX10_SOP1_SSRC_VCCZ)
++		sprintf(ssrc0, "%s", "vcc");
++	else if (insn->sop1.ssrc0 == GFX10_SOP1_SSRC_EXECZ)
++		sprintf(ssrc0, "%s", "exec");
++	else if (insn->sop1.ssrc0 == GFX10_SOP1_SSRC_SCC)
++		sprintf(ssrc0, "%s", "scc");
++	else if (insn->sop1.ssrc0 == GFX10_SOP1_SSRC_LITERAL_CONST)
++		sprintf(ssrc0, "0x%x", insn->sop1.literal);
++
++	seq_printf(m, "%s s%d, %s\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_SOP1][insn->sop1.op],
++		 insn->sop1.sdst,
++		 ssrc0);
++}
++
++static inline void gfx10_debugfs_sopp(union amdgcn_gfx10_insn *insn,
++				      struct seq_file *m)
++{
++	seq_printf(m, "%s 0x%x\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_SOPP][insn->sopp.op],
++		 insn->sopp.simm16);
++}
++
++static inline void gfx10_debugfs_smem(union amdgcn_gfx10_insn *insn,
++				      struct seq_file *m)
++{
++	seq_printf(m, "%s s[%d:%d], s[%d:%d], 0x%x\n",
++		   opnames_gfx10[AMDGCN_INSN_TYPE_SMEM][insn->smem.op],
++		   insn->smem.sdata,
++		   insn->smem.sdata + 1,
++		   (insn->smem.sbase * 2),
++		   (insn->smem.sbase * 2) + 1,
++		   insn->smem.offset);
++}
++
++static inline void gfx10_debugfs_mubuf(union amdgcn_gfx10_insn *insn,
++				       struct seq_file *m)
++{
++	seq_printf(m, "%s v%d, v%d, s[%d:%d], 0x%x offen offset:%d\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_MUBUF][insn->mubuf.op],
++		 insn->mubuf.vdata,
++		 insn->mubuf.vaddr,
++		 insn->mubuf.srsrc,
++		 insn->mubuf.srsrc + 3,
++		 insn->mubuf.soffset,
++		 insn->mubuf.offset);
++}
++
++static inline void gfx10_debugfs_global(union amdgcn_gfx10_insn *insn,
++					struct seq_file *m)
++{
++	if (insn->flat.op == GFX9_GLOBAL_STORE_BYTE) {
++		seq_printf(m, "%s v[%d:%d], v%d, off offset:%d\n",
++			 opnames_gfx10[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			 insn->flat.addr,
++			 insn->flat.addr + 1,
++			 insn->flat.data,
++			 insn->flat.offset);
++	} else if (insn->flat.op == GFX9_GLOBAL_STORE_SHORT) {
++		seq_printf(m, "%s v[%d:%d], v%d, off offset:%d\n",
++			 opnames_gfx10[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			 insn->flat.addr,
++			 insn->flat.addr + 1,
++			 insn->flat.data,
++			 insn->flat.offset);
++	} else if (insn->flat.op == GFX9_GLOBAL_STORE_DWORD) {
++		seq_printf(m, "%s v[%d:%d], v%d, off offset:%d\n",
++			 opnames_gfx10[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			 insn->flat.addr,
++			 insn->flat.addr + 1,
++			 insn->flat.data,
++			 insn->flat.offset);
++	} else if (insn->flat.op == GFX9_GLOBAL_STORE_DWORDX2) {
++		seq_printf(m, "%s v[%d:%d], v[%d:%d], off offset:%d\n",
++			 opnames_gfx10[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			 insn->flat.addr,
++			 insn->flat.addr + 1,
++			 insn->flat.data,
++			 insn->flat.data + 1,
++			 insn->flat.offset);
++	} else {
++		seq_printf(m, "%s v[%d:%d], v[%d:%d], off offset:%d\n",
++			 opnames_gfx10[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			 insn->flat.vdst,
++			 insn->flat.vdst + 1,
++			 insn->flat.addr,
++			 insn->flat.addr + 1,
++			 insn->flat.offset);
++	}
++}
++
++static inline void gfx10_debugfs_sop2(union amdgcn_gfx10_insn *insn,
++				      struct seq_file *m)
++{
++	char ssrc0[20], ssrc1[20];
++
++	decode_ssrc8(insn->sop2.ssrc0, insn->sop2.literal, ssrc0);
++	decode_ssrc8(insn->sop2.ssrc1, insn->sop2.literal, ssrc1);
++	seq_printf(m, "%s s%d, %s, %s\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_SOP2][insn->sop2.op],
++		 insn->sop2.sdst, ssrc0, ssrc1);
++}
++
++static inline void gfx10_debugfs_sopk(union amdgcn_gfx10_insn *insn,
++				      struct seq_file *m)
++{
++	seq_printf(m, "%s s%d, 0x%x\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_SOPK][insn->sopk.op],
++		 insn->sopk.sdst, insn->sopk.simm16);
++}
++
++static inline void gfx10_debugfs_sopc(union amdgcn_gfx10_insn *insn,
++				      struct seq_file *m)
++{
++	char ssrc0[20], ssrc1[20];
++
++	decode_ssrc8(insn->sopc.ssrc0, insn->sopc.literal, ssrc0);
++	decode_ssrc8(insn->sopc.ssrc1, insn->sopc.literal, ssrc1);
++	seq_printf(m, "%s %s, %s\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_SOPC][insn->sopc.op],
++		 ssrc0, ssrc1);
++}
++
++static inline void gfx10_debugfs_vop3p(union amdgcn_gfx10_insn *insn,
++					struct seq_file *m)
++{
++	char src0[20], src1[20], src2[20];
++
++	decode_vsrc9(insn->vop3p.src0, insn->vop3p.literal, src0);
++	decode_vsrc9(insn->vop3p.src1, insn->vop3p.literal, src1);
++	decode_vsrc9(insn->vop3p.src2, insn->vop3p.literal, src2);
++	seq_printf(m, "%s v%d, %s, %s, %s\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_VOP3P][insn->vop3p.op],
++		 (int)insn->vop3p.vdst, src0, src1, src2);
++}
++
++static inline void gfx10_debugfs_sdwa(union amdgcn_gfx10_insn *insn,
++				      struct seq_file *m)
++{
++	seq_printf(m, "sdwa src0:%d dst_sel:%d src0_sel:%d src1_sel:%d\n",
++		 insn->sdwa.src0, insn->sdwa.dst_sel,
++		 insn->sdwa.src0_sel, insn->sdwa.src1_sel);
++}
++
++static inline void gfx10_debugfs_sdwab(union amdgcn_gfx10_insn *insn,
++					struct seq_file *m)
++{
++	seq_printf(m, "sdwab src0:%d sdst:s%d src0_sel:%d src1_sel:%d\n",
++		 insn->sdwab.src0, insn->sdwab.sdst,
++		 insn->sdwab.src0_sel, insn->sdwab.src1_sel);
++}
++
++static inline void gfx10_debugfs_dpp16(union amdgcn_gfx10_insn *insn,
++					struct seq_file *m)
++{
++	seq_puts(m, "dpp16 (not decoded)\n");
++}
++
++static inline void gfx10_debugfs_dpp8(union amdgcn_gfx10_insn *insn,
++				      struct seq_file *m)
++{
++	seq_puts(m, "dpp8 (not decoded)\n");
++}
++
++static inline void gfx10_debugfs_vintrp(union amdgcn_gfx10_insn *insn,
++					 struct seq_file *m)
++{
++	seq_puts(m, "vintrp (not decoded)\n");
++}
++
++static inline void gfx10_debugfs_ds(union amdgcn_gfx10_insn *insn,
++				    struct seq_file *m)
++{
++	seq_printf(m, "%s v%d, v%d, v%d, v%d offset0:%d offset1:%d%s\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_DS][insn->ds.op],
++		 (int)insn->ds.vdst, (int)insn->ds.addr,
++		 (int)insn->ds.data0, (int)insn->ds.data1,
++		 (int)insn->ds.offset0, (int)insn->ds.offset1,
++		 insn->ds.gds ? " gds" : "");
++}
++
++static inline void gfx10_debugfs_mtbuf(union amdgcn_gfx10_insn *insn,
++					struct seq_file *m)
++{
++	seq_printf(m, "%s v%d, v%d, s[%d:%d], s%d format:%d offset:%d\n",
++		 opnames_gfx10[AMDGCN_INSN_TYPE_MTBUF][insn->mtbuf.op],
++		 (int)insn->mtbuf.vdata, (int)insn->mtbuf.vaddr,
++		 (int)insn->mtbuf.srsrc * 4, (int)insn->mtbuf.srsrc * 4 + 3,
++		 (int)insn->mtbuf.soffset, (int)insn->mtbuf.foamat,
++		 (int)insn->mtbuf.offset);
++}
++
++static inline void gfx10_debugfs_mimg(union amdgcn_gfx10_insn *insn,
++				      struct seq_file *m)
++{
++	seq_puts(m, "mimg (not decoded)\n");
++}
++
++static inline void gfx10_debugfs_exp(union amdgcn_gfx10_insn *insn,
++				     struct seq_file *m)
++{
++	seq_puts(m, "exp (not decoded)\n");
++}
++
++static inline void gfx10_debugfs_insn(struct amdgcn_insn *insn,
++				      struct seq_file *m)
++{
++	u32 *ptr = (u32 *)&insn->gfx10;
++
++	if (insn->size == 4)
++		seq_printf(m, "%.8X\t\t\t", ptr[0]);
++	else if (insn->size == 8)
++		seq_printf(m, "%.8X %.8X\t\t", ptr[0], ptr[1]);
++	else if (insn->size == 12)
++		seq_printf(m, "%.8X %.8X %.8X\t\t\t", ptr[0], ptr[1], ptr[2]);
++	else
++		WARN_ON_ONCE(1);
++
++	switch (insn->type) {
++	case AMDGCN_INSN_TYPE_SOP2:
++		gfx10_debugfs_sop2(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_SOPK:
++		gfx10_debugfs_sopk(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_SOP1:
++		gfx10_debugfs_sop1(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_SOPC:
++		gfx10_debugfs_sopc(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_SOPP:
++		gfx10_debugfs_sopp(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_SMEM:
++		gfx10_debugfs_smem(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_VOP2:
++		gfx10_debugfs_vop2(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_VOP1:
++		gfx10_debugfs_vop1(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_VOPC:
++		gfx10_debugfs_vopc(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_VOP3A:
++		gfx10_debugfs_vop3a(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_VOP3B:
++		gfx10_debugfs_vop3b(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_VOP3P:
++		gfx10_debugfs_vop3p(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_SDWA:
++		gfx10_debugfs_sdwa(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_SDWAB:
++		gfx10_debugfs_sdwab(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_DPP16:
++		gfx10_debugfs_dpp16(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_DPP8:
++		gfx10_debugfs_dpp8(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_VINTRP:
++		gfx10_debugfs_vintrp(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_DS:
++		gfx10_debugfs_ds(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_MTBUF:
++		gfx10_debugfs_mtbuf(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_MUBUF:
++		gfx10_debugfs_mubuf(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_MIMG:
++		gfx10_debugfs_mimg(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_FLAT:
++		gfx10_debugfs_global(&insn->gfx10, m);
++		break;
++	case AMDGCN_INSN_TYPE_EXP:
++		gfx10_debugfs_exp(&insn->gfx10, m);
++		break;
++	default:
++		WARN_ON_ONCE(1);
++		break;
++	}
++}
++
++static inline void gfx9_debugfs_vop3a(union amdgcn_gfx9_insn *insn,
++				      struct seq_file *m)
++{
++	char src0[20];
++	char src1[20];
++	char src2[20];
++
++	if (insn->vop3a.src0 < GFX9_VOP3A_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vop3a.src0);
++	else if (insn->vop3a.src0 == GFX9_VOP3A_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vop3a.src0 == GFX9_VOP3A_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vop3a.src0 == GFX9_VOP3A_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vop3a.src0 == GFX9_VOP3A_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vop3a.src0 == GFX9_VOP3A_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vop3a.src0 < GFX9_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vop3a.src0 - GFX9_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3a.src0 < GFX9_VOP3A_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vop3a.src0 - GFX9_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3a.src0 == GFX9_VOP3A_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vop3a.src0 == GFX9_VOP3A_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vop3a.src0 == GFX9_VOP3A_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vop3a.src0 == GFX9_VOP3A_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vop3a.literal);
++	else if (insn->vop3a.src0 >= GFX9_VOP3A_SRC_VGPR_BASE)
++		sprintf(src0, "v%d",
++			insn->vop3a.src0 - GFX9_VOP3A_SRC_VGPR_BASE);
++
++	if (insn->vop3a.src1 < GFX9_VOP3A_SRC_VCC_LO)
++		sprintf(src1, "s%d", insn->vop3a.src1);
++	else if (insn->vop3a.src1 == GFX9_VOP3A_SRC_VCC_LO)
++		sprintf(src1, "%s", "vcc_lo");
++	else if (insn->vop3a.src1 == GFX9_VOP3A_SRC_VCC_HI)
++		sprintf(src1, "%s", "vcc_hi");
++	else if (insn->vop3a.src1 == GFX9_VOP3A_SRC_NULL)
++		sprintf(src1, "%s", "null");
++	else if (insn->vop3a.src1 == GFX9_VOP3A_SRC_EXEC_LO)
++		sprintf(src1, "%s", "exec_lo");
++	else if (insn->vop3a.src1 == GFX9_VOP3A_SRC_EXEC_HI)
++		sprintf(src1, "%s", "exec_hi");
++	else if (insn->vop3a.src1 < GFX9_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(src1, "0x%x",
++			insn->vop3a.src1 - GFX9_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3a.src1 < GFX9_VOP3A_SRC_SHARED_BASE)
++		sprintf(src1, "-0x%x",
++			insn->vop3a.src1 - GFX9_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3a.src1 == GFX9_VOP3A_SRC_VCCZ)
++		sprintf(src1, "%s", "vcc");
++	else if (insn->vop3a.src1 == GFX9_VOP3A_SRC_EXECZ)
++		sprintf(src1, "%s", "exec");
++	else if (insn->vop3a.src1 == GFX9_VOP3A_SRC_SCC)
++		sprintf(src1, "%s", "scc");
++	else if (insn->vop3a.src1 == GFX9_VOP3A_SRC_LITERAL_CONST)
++		sprintf(src1, "0x%x", insn->vop3a.literal);
++	else if (insn->vop3a.src1 >= GFX9_VOP3A_SRC_VGPR_BASE)
++		sprintf(src1, "v%d",
++			insn->vop3a.src1 - GFX9_VOP3A_SRC_VGPR_BASE);
++
++	if (insn->vop3a.src2 < GFX9_VOP3A_SRC_VCC_LO)
++		sprintf(src2, "s%d", insn->vop3a.src2);
++	else if (insn->vop3a.src2 == GFX9_VOP3A_SRC_VCC_LO)
++		sprintf(src2, "%s", "vcc_lo");
++	else if (insn->vop3a.src2 == GFX9_VOP3A_SRC_VCC_HI)
++		sprintf(src2, "%s", "vcc_hi");
++	else if (insn->vop3a.src2 == GFX9_VOP3A_SRC_NULL)
++		sprintf(src2, "%s", "null");
++	else if (insn->vop3a.src2 == GFX9_VOP3A_SRC_EXEC_LO)
++		sprintf(src2, "%s", "exec_lo");
++	else if (insn->vop3a.src2 == GFX9_VOP3A_SRC_EXEC_HI)
++		sprintf(src2, "%s", "exec_hi");
++	else if (insn->vop3a.src2 < GFX9_VOP3A_SRC_INTEGER_MINUS_1)
++		sprintf(src2, "0x%x",
++			insn->vop3a.src2 - GFX9_VOP3A_SRC_INTEGER_0);
++	else if (insn->vop3a.src2 < GFX9_VOP3A_SRC_SHARED_BASE)
++		sprintf(src2, "-0x%x",
++			insn->vop3a.src2 - GFX9_VOP3A_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3a.src2 == GFX9_VOP3A_SRC_VCCZ)
++		sprintf(src2, "%s", "vcc");
++	else if (insn->vop3a.src2 == GFX9_VOP3A_SRC_EXECZ)
++		sprintf(src2, "%s", "exec");
++	else if (insn->vop3a.src2 == GFX9_VOP3A_SRC_SCC)
++		sprintf(src2, "%s", "scc");
++	else if (insn->vop3a.src2 == GFX9_VOP3A_SRC_LITERAL_CONST)
++		sprintf(src2, "0x%x", insn->vop3a.literal);
++	else if (insn->vop3a.src2 >= GFX9_VOP3A_SRC_VGPR_BASE)
++		sprintf(src2, "v%d",
++			insn->vop3a.src2 - GFX9_VOP3A_SRC_VGPR_BASE);
++
++	seq_printf(m, "%s v%d, %s, %s, %s\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_VOP3A][insn->vop3a.op],
++		 insn->vop3a.vdst, src0, src1, src2);
++}
++
++static inline void gfx9_debugfs_vop3b(union amdgcn_gfx9_insn *insn,
++				      struct seq_file *m)
++{
++	char src0[20];
++	char src1[20];
++	char src2[20];
++	char sdst[20];
++
++	if (insn->vop3b.sdst < GFX9_VOP3B_SRC_VCC_LO)
++		sprintf(sdst, "s%d", insn->vop3b.sdst);
++	else if (insn->vop3b.sdst == GFX9_VOP3B_SRC_VCC_LO)
++		sprintf(sdst, "%s", "vcc_lo");
++	else if (insn->vop3b.sdst == GFX9_VOP3B_SRC_VCC_HI)
++		sprintf(sdst, "%s", "vcc_hi");
++	else if (insn->vop3b.sdst == GFX9_VOP3B_SRC_NULL)
++		sprintf(sdst, "%s", "null");
++	else if (insn->vop3b.sdst == GFX9_VOP3B_SRC_EXEC_LO)
++		sprintf(sdst, "%s", "exec_lo");
++	else if (insn->vop3b.sdst == GFX9_VOP3B_SRC_EXEC_HI)
++		sprintf(sdst, "%s", "exec_hi");
++	else if (insn->vop3b.sdst < GFX9_VOP3B_SRC_INTEGER_MINUS_1)
++		sprintf(sdst, "0x%x",
++			insn->vop3b.sdst - GFX9_VOP3B_SRC_INTEGER_0);
++	else if (insn->vop3b.sdst < GFX9_VOP3B_SRC_SHARED_BASE)
++		sprintf(sdst, "-0x%x",
++			insn->vop3b.sdst - GFX9_VOP3B_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3b.sdst == GFX9_VOP3B_SRC_VCCZ)
++		sprintf(sdst, "%s", "vcc");
++	else if (insn->vop3b.sdst == GFX9_VOP3B_SRC_EXECZ)
++		sprintf(sdst, "%s", "exec");
++	else if (insn->vop3b.sdst == GFX9_VOP3B_SRC_SCC)
++		sprintf(sdst, "%s", "scc");
++	else if (insn->vop3b.sdst == GFX9_VOP3B_SRC_LITERAL_CONST)
++		sprintf(sdst, "0x%x", insn->vop3b.literal);
++	else if (insn->vop3b.sdst >= GFX9_VOP3B_SRC_VGPR_BASE)
++		sprintf(sdst, "v%d",
++			insn->vop3b.sdst - GFX9_VOP3B_SRC_VGPR_BASE);
++
++	if (insn->vop3b.src0 < GFX9_VOP3B_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vop3b.src0);
++	else if (insn->vop3b.src0 == GFX9_VOP3B_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vop3b.src0 == GFX9_VOP3B_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vop3b.src0 == GFX9_VOP3B_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vop3b.src0 == GFX9_VOP3B_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vop3b.src0 == GFX9_VOP3B_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vop3b.src0 < GFX9_VOP3B_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vop3b.src0 - GFX9_VOP3B_SRC_INTEGER_0);
++	else if (insn->vop3b.src0 < GFX9_VOP3B_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vop3b.src0 - GFX9_VOP3B_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3b.src0 == GFX9_VOP3B_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vop3b.src0 == GFX9_VOP3B_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vop3b.src0 == GFX9_VOP3B_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vop3b.src0 == GFX9_VOP3B_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vop3b.literal);
++	else if (insn->vop3b.src0 >= GFX9_VOP3B_SRC_VGPR_BASE)
++		sprintf(src0, "v%d",
++			insn->vop3b.src0 - GFX9_VOP3B_SRC_VGPR_BASE);
++
++	if (insn->vop3b.src1 < GFX9_VOP3B_SRC_VCC_LO)
++		sprintf(src1, "s%d", insn->vop3b.src1);
++	else if (insn->vop3b.src1 == GFX9_VOP3B_SRC_VCC_LO)
++		sprintf(src1, "%s", "vcc_lo");
++	else if (insn->vop3b.src1 == GFX9_VOP3B_SRC_VCC_HI)
++		sprintf(src1, "%s", "vcc_hi");
++	else if (insn->vop3b.src1 == GFX9_VOP3B_SRC_NULL)
++		sprintf(src1, "%s", "null");
++	else if (insn->vop3b.src1 == GFX9_VOP3B_SRC_EXEC_LO)
++		sprintf(src1, "%s", "exec_lo");
++	else if (insn->vop3b.src1 == GFX9_VOP3B_SRC_EXEC_HI)
++		sprintf(src1, "%s", "exec_hi");
++	else if (insn->vop3b.src1 < GFX9_VOP3B_SRC_INTEGER_MINUS_1)
++		sprintf(src1, "0x%x",
++			insn->vop3b.src1 - GFX9_VOP3B_SRC_INTEGER_0);
++	else if (insn->vop3b.src1 < GFX9_VOP3B_SRC_SHARED_BASE)
++		sprintf(src1, "-0x%x",
++			insn->vop3b.src1 - GFX9_VOP3B_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3b.src1 == GFX9_VOP3B_SRC_VCCZ)
++		sprintf(src1, "%s", "vcc");
++	else if (insn->vop3b.src1 == GFX9_VOP3B_SRC_EXECZ)
++		sprintf(src1, "%s", "exec");
++	else if (insn->vop3b.src1 == GFX9_VOP3B_SRC_SCC)
++		sprintf(src1, "%s", "scc");
++	else if (insn->vop3b.src1 == GFX9_VOP3B_SRC_LITERAL_CONST)
++		sprintf(src1, "0x%x", insn->vop3b.literal);
++	else if (insn->vop3b.src1 >= GFX9_VOP3B_SRC_VGPR_BASE)
++		sprintf(src1, "v%d",
++			insn->vop3b.src1 - GFX9_VOP3B_SRC_VGPR_BASE);
++
++	if (insn->vop3b.src2 < GFX9_VOP3B_SRC_VCC_LO)
++		sprintf(src2, "s%d", insn->vop3b.src2);
++	else if (insn->vop3b.src2 == GFX9_VOP3B_SRC_VCC_LO)
++		sprintf(src2, "%s", "vcc_lo");
++	else if (insn->vop3b.src2 == GFX9_VOP3B_SRC_VCC_HI)
++		sprintf(src2, "%s", "vcc_hi");
++	else if (insn->vop3b.src2 == GFX9_VOP3B_SRC_NULL)
++		sprintf(src2, "%s", "null");
++	else if (insn->vop3b.src2 == GFX9_VOP3B_SRC_EXEC_LO)
++		sprintf(src2, "%s", "exec_lo");
++	else if (insn->vop3b.src2 == GFX9_VOP3B_SRC_EXEC_HI)
++		sprintf(src2, "%s", "exec_hi");
++	else if (insn->vop3b.src2 < GFX9_VOP3B_SRC_INTEGER_MINUS_1)
++		sprintf(src2, "0x%x",
++			insn->vop3b.src2 - GFX9_VOP3B_SRC_INTEGER_0);
++	else if (insn->vop3b.src2 < GFX9_VOP3B_SRC_SHARED_BASE)
++		sprintf(src2, "-0x%x",
++			insn->vop3b.src2 - GFX9_VOP3B_SRC_INTEGER_MINUS_1);
++	else if (insn->vop3b.src2 == GFX9_VOP3B_SRC_VCCZ)
++		sprintf(src2, "%s", "vcc");
++	else if (insn->vop3b.src2 == GFX9_VOP3B_SRC_EXECZ)
++		sprintf(src2, "%s", "exec");
++	else if (insn->vop3b.src2 == GFX9_VOP3B_SRC_SCC)
++		sprintf(src2, "%s", "scc");
++	else if (insn->vop3b.src2 == GFX9_VOP3B_SRC_LITERAL_CONST)
++		sprintf(src2, "0x%x", insn->vop3b.literal);
++	else if (insn->vop3b.src2 >= GFX9_VOP3B_SRC_VGPR_BASE)
++		sprintf(src2, "v%d",
++			insn->vop3b.src2 - GFX9_VOP3B_SRC_VGPR_BASE);
++
++	seq_printf(m, "%s v%d, %s, %s, %s, %s\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_VOP3B][insn->vop3b.op],
++		 insn->vop3b.vdst, sdst, src0, src1, src2);
++}
++
++static inline void gfx9_debugfs_vop1(union amdgcn_gfx9_insn *insn,
++				     struct seq_file *m)
++{
++	char src0[20];
++
++	if (insn->vop1.src0 < GFX9_VOP1_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vop1.src0);
++	else if (insn->vop1.src0 == GFX9_VOP1_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vop1.src0 == GFX9_VOP1_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vop1.src0 == GFX9_VOP1_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vop1.src0 == GFX9_VOP1_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vop1.src0 == GFX9_VOP1_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vop1.src0 < GFX9_VOP1_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vop1.src0 - GFX9_VOP1_SRC_INTEGER_0);
++	else if (insn->vop1.src0 < GFX9_VOP1_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vop1.src0 - GFX9_VOP1_SRC_INTEGER_MINUS_1);
++	else if (insn->vop1.src0 == GFX9_VOP1_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vop1.src0 == GFX9_VOP1_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vop1.src0 == GFX9_VOP1_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vop1.src0 == GFX9_VOP1_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vop1.literal);
++	else if (insn->vop1.src0 >= GFX9_VOP1_SRC_VGPR_BASE)
++		sprintf(src0, "v%d", insn->vop1.src0 - GFX9_VOP1_SRC_VGPR_BASE);
++
++	seq_printf(m, "%s v%d, %s\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_VOP1][insn->vop1.op],
++		 insn->vop1.vdst, src0);
++}
++
++static inline void gfx9_debugfs_vopc(union amdgcn_gfx9_insn *insn,
++				     struct seq_file *m)
++{
++	char src0[20];
++
++	if (insn->vopc.src0 < GFX9_VOPC_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vopc.src0);
++	else if (insn->vopc.src0 == GFX9_VOPC_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vopc.src0 == GFX9_VOPC_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vopc.src0 == GFX9_VOPC_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vopc.src0 == GFX9_VOPC_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vopc.src0 == GFX9_VOPC_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vopc.src0 < GFX9_VOPC_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vopc.src0 - GFX9_VOPC_SRC_INTEGER_0);
++	else if (insn->vopc.src0 < GFX9_VOPC_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vopc.src0 - GFX9_VOPC_SRC_INTEGER_MINUS_1);
++	else if (insn->vopc.src0 == GFX9_VOPC_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vopc.src0 == GFX9_VOPC_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vopc.src0 == GFX9_VOPC_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vopc.src0 == GFX9_VOPC_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vopc.literal);
++	else if (insn->vopc.src0 >= GFX9_VOPC_SRC_VGPR_BASE)
++		sprintf(src0, "v%d", insn->vopc.src0 - GFX9_VOPC_SRC_VGPR_BASE);
++
++	seq_printf(m, "%s %s, v%d\n",
++		opnames_gfx9[AMDGCN_INSN_TYPE_VOPC][insn->vopc.op],
++		src0,
++		insn->vopc.vsrc1);
++}
++
++static inline void gfx9_debugfs_vop2(union amdgcn_gfx9_insn *insn,
++				     struct seq_file *m)
++{
++	char src0[20];
++
++	if (insn->vop2.src0 < GFX9_VOP2_SRC_VCC_LO)
++		sprintf(src0, "s%d", insn->vop2.src0);
++	else if (insn->vop2.src0 == GFX9_VOP2_SRC_VCC_LO)
++		sprintf(src0, "%s", "vcc_lo");
++	else if (insn->vop2.src0 == GFX9_VOP2_SRC_VCC_HI)
++		sprintf(src0, "%s", "vcc_hi");
++	else if (insn->vop2.src0 == GFX9_VOP2_SRC_NULL)
++		sprintf(src0, "%s", "null");
++	else if (insn->vop2.src0 == GFX9_VOP2_SRC_EXEC_LO)
++		sprintf(src0, "%s", "exec_lo");
++	else if (insn->vop2.src0 == GFX9_VOP2_SRC_EXEC_HI)
++		sprintf(src0, "%s", "exec_hi");
++	else if (insn->vop2.src0 < GFX9_VOP2_SRC_INTEGER_MINUS_1)
++		sprintf(src0, "0x%x",
++			insn->vop2.src0 - GFX9_VOP2_SRC_INTEGER_0);
++	else if (insn->vop2.src0 < GFX9_VOP2_SRC_SHARED_BASE)
++		sprintf(src0, "-0x%x",
++			insn->vop2.src0 - GFX9_VOP2_SRC_INTEGER_MINUS_1);
++	else if (insn->vop2.src0 == GFX9_VOP2_SRC_VCCZ)
++		sprintf(src0, "%s", "vcc");
++	else if (insn->vop2.src0 == GFX9_VOP2_SRC_EXECZ)
++		sprintf(src0, "%s", "exec");
++	else if (insn->vop2.src0 == GFX9_VOP2_SRC_SCC)
++		sprintf(src0, "%s", "scc");
++	else if (insn->vop2.src0 == GFX9_VOP2_SRC_LITERAL_CONST)
++		sprintf(src0, "0x%x", insn->vop2.literal);
++	else if (insn->vop2.src0 >= GFX9_VOP2_SRC_VGPR_BASE)
++		sprintf(src0, "v%d", insn->vop2.src0 - GFX9_VOP2_SRC_VGPR_BASE);
++
++	seq_printf(m, "%s v%d, %s v%d\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_VOP2][insn->vop2.op],
++		 insn->vop2.vdst,
++		 src0,
++		 insn->vop2.vsrc1);
++}
++
++static inline void gfx9_debugfs_sop1(union amdgcn_gfx9_insn *insn,
++				     struct seq_file *m)
++{
++	char ssrc0[20];
++
++	if (insn->sop1.ssrc0 < GFX9_SOP1_SSRC_VCC_LO)
++		sprintf(ssrc0, "s%d", insn->sop1.ssrc0);
++	else if (insn->sop1.ssrc0 == GFX9_SOP1_SSRC_VCC_LO)
++		sprintf(ssrc0, "%s", "vcc_lo");
++	else if (insn->sop1.ssrc0 == GFX9_SOP1_SSRC_VCC_HI)
++		sprintf(ssrc0, "%s", "vcc_hi");
++	else if (insn->sop1.ssrc0 == GFX9_SOP1_SSRC_NULL)
++		sprintf(ssrc0, "%s", "null");
++	else if (insn->sop1.ssrc0 == GFX9_SOP1_SSRC_EXEC_LO)
++		sprintf(ssrc0, "%s", "exec_lo");
++	else if (insn->sop1.ssrc0 == GFX9_SOP1_SSRC_EXEC_HI)
++		sprintf(ssrc0, "%s", "exec_hi");
++	else if (insn->sop1.ssrc0 < GFX9_SOP1_SSRC_INTEGER_MINUS_1)
++		sprintf(ssrc0, "0x%x",
++			insn->sop1.ssrc0 - GFX9_SOP1_SSRC_INTEGER_0);
++	else if (insn->sop1.ssrc0 < GFX9_SOP1_SSRC_SHARED_BASE)
++		sprintf(ssrc0, "-0x%x",
++			insn->sop1.ssrc0 - GFX9_SOP1_SSRC_INTEGER_MINUS_1);
++	else if (insn->sop1.ssrc0 == GFX9_SOP1_SSRC_VCCZ)
++		sprintf(ssrc0, "%s", "vcc");
++	else if (insn->sop1.ssrc0 == GFX9_SOP1_SSRC_EXECZ)
++		sprintf(ssrc0, "%s", "exec");
++	else if (insn->sop1.ssrc0 == GFX9_SOP1_SSRC_SCC)
++		sprintf(ssrc0, "%s", "scc");
++	else if (insn->sop1.ssrc0 == GFX9_SOP1_SSRC_LITERAL_CONST)
++		sprintf(ssrc0, "0x%x", insn->sop1.literal);
++
++	seq_printf(m, "%s s%d, %s\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_SOP1][insn->sop1.op],
++		 insn->sop1.sdst,
++		 ssrc0);
++}
++
++static inline void gfx9_debugfs_sopp(union amdgcn_gfx9_insn *insn,
++				     struct seq_file *m)
++{
++	seq_printf(m, "%s 0x%x\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_SOPP][insn->sopp.op],
++		 insn->sopp.simm16);
++}
++
++static inline void gfx9_debugfs_smem(union amdgcn_gfx9_insn *insn,
++				     struct seq_file *m)
++{
++	seq_printf(m, "%s s[%d:%d], s[%d:%d], 0x%x\n",
++		   opnames_gfx9[AMDGCN_INSN_TYPE_SMEM][insn->smem.op],
++		   insn->smem.sdata,
++		   insn->smem.sdata + 1,
++		   (insn->smem.sbase * 2),
++		   (insn->smem.sbase * 2) + 1,
++		   insn->smem.offset);
++}
++
++static inline void gfx9_debugfs_mubuf(union amdgcn_gfx9_insn *insn,
++				      struct seq_file *m)
++{
++	seq_printf(m, "%s v%d, v%d, s[%d:%d], 0x%x offen offset:%d\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_MUBUF][insn->mubuf.op],
++		 insn->mubuf.vdata,
++		 insn->mubuf.vaddr,
++		 insn->mubuf.srsrc,
++		 insn->mubuf.srsrc + 3,
++		 insn->mubuf.soffset,
++		 insn->mubuf.offset);
++}
++
++static inline void gfx9_debugfs_global(union amdgcn_gfx9_insn *insn,
++				       struct seq_file *m)
++{
++	if (insn->flat.op == GFX9_GLOBAL_STORE_BYTE) {
++		seq_printf(m, "%s v[%d:%d], v%d, off offset:%d\n",
++			opnames_gfx9[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			insn->flat.addr,
++			insn->flat.addr + 1,
++			insn->flat.data,
++			insn->flat.offset);
++	} else if (insn->flat.op == GFX9_GLOBAL_STORE_SHORT) {
++		seq_printf(m, "%s v[%d:%d], v%d, off offset:%d\n",
++			opnames_gfx9[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			insn->flat.addr,
++			insn->flat.addr + 1,
++			insn->flat.data,
++			insn->flat.offset);
++	} else if (insn->flat.op == GFX9_GLOBAL_STORE_DWORD) {
++		seq_printf(m, "%s v[%d:%d], v%d, off offset:%d\n",
++			opnames_gfx9[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			insn->flat.addr,
++			insn->flat.addr + 1,
++			insn->flat.data,
++			insn->flat.offset);
++	} else if (insn->flat.op == GFX9_GLOBAL_STORE_DWORDX2) {
++		seq_printf(m, "%s v[%d:%d], v[%d:%d], off offset:%d\n",
++			opnames_gfx9[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			insn->flat.addr,
++			insn->flat.addr + 1,
++			insn->flat.data,
++			insn->flat.data + 1,
++			insn->flat.offset);
++	} else {
++		seq_printf(m, "%s v[%d:%d], v[%d:%d], off offset:%d\n",
++			opnames_gfx9[AMDGCN_INSN_TYPE_FLAT][insn->flat.op],
++			insn->flat.vdst,
++			insn->flat.vdst + 1,
++			insn->flat.addr,
++			insn->flat.addr + 1,
++			insn->flat.offset);
++	}
++}
++
++static inline void gfx9_debugfs_sop2(union amdgcn_gfx9_insn *insn,
++				     struct seq_file *m)
++{
++	char ssrc0[20], ssrc1[20];
++
++	decode_ssrc8(insn->sop2.ssrc0, insn->sop2.literal, ssrc0);
++	decode_ssrc8(insn->sop2.ssrc1, insn->sop2.literal, ssrc1);
++	seq_printf(m, "%s s%d, %s, %s\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_SOP2][insn->sop2.op],
++		 insn->sop2.sdst, ssrc0, ssrc1);
++}
++
++static inline void gfx9_debugfs_sopk(union amdgcn_gfx9_insn *insn,
++				     struct seq_file *m)
++{
++	seq_printf(m, "%s s%d, 0x%x\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_SOPK][insn->sopk.op],
++		 insn->sopk.sdst, insn->sopk.simm16);
++}
++
++static inline void gfx9_debugfs_sopc(union amdgcn_gfx9_insn *insn,
++				     struct seq_file *m)
++{
++	char ssrc0[20], ssrc1[20];
++
++	decode_ssrc8(insn->sopc.ssrc0, insn->sopc.literal, ssrc0);
++	decode_ssrc8(insn->sopc.ssrc1, insn->sopc.literal, ssrc1);
++	seq_printf(m, "%s %s, %s\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_SOPC][insn->sopc.op],
++		 ssrc0, ssrc1);
++}
++
++static inline void gfx9_debugfs_vop3p(union amdgcn_gfx9_insn *insn,
++				      struct seq_file *m)
++{
++	char src0[20], src1[20], src2[20];
++
++	decode_vsrc9(insn->vop3p.src0, insn->vop3p.literal, src0);
++	decode_vsrc9(insn->vop3p.src1, insn->vop3p.literal, src1);
++	decode_vsrc9(insn->vop3p.src2, insn->vop3p.literal, src2);
++	seq_printf(m, "%s v%d, %s, %s, %s\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_VOP3P][insn->vop3p.op],
++		 (int)insn->vop3p.vdst, src0, src1, src2);
++}
++
++static inline void gfx9_debugfs_sdwa(union amdgcn_gfx9_insn *insn,
++				     struct seq_file *m)
++{
++	seq_printf(m, "sdwa src0:%d dst_sel:%d src0_sel:%d src1_sel:%d\n",
++		 insn->sdwa.src0, insn->sdwa.dst_sel,
++		 insn->sdwa.src0_sel, insn->sdwa.src1_sel);
++}
++
++static inline void gfx9_debugfs_sdwab(union amdgcn_gfx9_insn *insn,
++				      struct seq_file *m)
++{
++	seq_printf(m, "sdwab src0:%d sdst:s%d src0_sel:%d src1_sel:%d\n",
++		 insn->sdwab.src0, insn->sdwab.sdst,
++		 insn->sdwab.src0_sel, insn->sdwab.src1_sel);
++}
++
++static inline void gfx9_debugfs_dpp16(union amdgcn_gfx9_insn *insn,
++				      struct seq_file *m)
++{
++	seq_puts(m, "dpp16 (not decoded)\n");
++}
++
++static inline void gfx9_debugfs_dpp8(union amdgcn_gfx9_insn *insn,
++				     struct seq_file *m)
++{
++	seq_puts(m, "dpp8 (not decoded)\n");
++}
++
++static inline void gfx9_debugfs_vintrp(union amdgcn_gfx9_insn *insn,
++					struct seq_file *m)
++{
++	seq_puts(m, "vintrp (not decoded)\n");
++}
++
++static inline void gfx9_debugfs_ds(union amdgcn_gfx9_insn *insn,
++				   struct seq_file *m)
++{
++	seq_printf(m, "%s v%d, v%d, v%d, v%d offset0:%d offset1:%d%s\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_DS][insn->ds.op],
++		 (int)insn->ds.vdst, (int)insn->ds.addr,
++		 (int)insn->ds.data0, (int)insn->ds.data1,
++		 (int)insn->ds.offset0, (int)insn->ds.offset1,
++		 insn->ds.gds ? " gds" : "");
++}
++
++static inline void gfx9_debugfs_mtbuf(union amdgcn_gfx9_insn *insn,
++				      struct seq_file *m)
++{
++	seq_printf(m, "%s v%d, v%d, s[%d:%d], s%d dfmt:%d nfmt:%d offset:%d\n",
++		 opnames_gfx9[AMDGCN_INSN_TYPE_MTBUF][insn->mtbuf.op],
++		 (int)insn->mtbuf.vdata, (int)insn->mtbuf.vaddr,
++		 (int)insn->mtbuf.srsrc * 4, (int)insn->mtbuf.srsrc * 4 + 3,
++		 (int)insn->mtbuf.soffset, (int)insn->mtbuf.dfmt,
++		 (int)insn->mtbuf.nfmt, (int)insn->mtbuf.offset);
++}
++
++static inline void gfx9_debugfs_mimg(union amdgcn_gfx9_insn *insn,
++				     struct seq_file *m)
++{
++	seq_puts(m, "mimg (not decoded)\n");
++}
++
++static inline void gfx9_debugfs_exp(union amdgcn_gfx9_insn *insn,
++				    struct seq_file *m)
++{
++	seq_puts(m, "exp (not decoded)\n");
++}
++
++static inline void gfx9_debugfs_insn(struct amdgcn_insn *insn,
++				     struct seq_file *m)
++{
++	u32 *ptr = (u32 *)&insn->gfx9;
++
++	if (insn->size == 4)
++		seq_printf(m, "%.8X\t\t\t", ptr[0]);
++	else if (insn->size == 8)
++		seq_printf(m, "%.8X %.8X\t\t", ptr[0], ptr[1]);
++	else if (insn->size == 12)
++		seq_printf(m, "%.8X %.8X %.8X\t", ptr[0], ptr[1], ptr[2]);
++	else
++		WARN_ON_ONCE(1);
++
++	switch (insn->type) {
++	case AMDGCN_INSN_TYPE_SOP2:
++		gfx9_debugfs_sop2(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_SOPK:
++		gfx9_debugfs_sopk(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_SOP1:
++		gfx9_debugfs_sop1(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_SOPC:
++		gfx9_debugfs_sopc(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_SOPP:
++		gfx9_debugfs_sopp(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_SMEM:
++		gfx9_debugfs_smem(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_VOP2:
++		gfx9_debugfs_vop2(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_VOP1:
++		gfx9_debugfs_vop1(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_VOPC:
++		gfx9_debugfs_vopc(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_VOP3A:
++		gfx9_debugfs_vop3a(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_VOP3B:
++		gfx9_debugfs_vop3b(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_VOP3P:
++		gfx9_debugfs_vop3p(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_SDWA:
++		gfx9_debugfs_sdwa(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_SDWAB:
++		gfx9_debugfs_sdwab(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_DPP16:
++		gfx9_debugfs_dpp16(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_DPP8:
++		gfx9_debugfs_dpp8(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_VINTRP:
++		gfx9_debugfs_vintrp(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_DS:
++		gfx9_debugfs_ds(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_MTBUF:
++		gfx9_debugfs_mtbuf(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_MUBUF:
++		gfx9_debugfs_mubuf(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_MIMG:
++		gfx9_debugfs_mimg(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_FLAT:
++		gfx9_debugfs_global(&insn->gfx9, m);
++		break;
++	case AMDGCN_INSN_TYPE_EXP:
++		gfx9_debugfs_exp(&insn->gfx9, m);
++		break;
++	default:
++		WARN_ON_ONCE(1);
++		break;
++	}
++}
++
++static inline void debugfs_insn(int version, struct amdgcn_insn *insn,
++				struct seq_file *m)
++{
++	if (version == 10)
++		gfx10_debugfs_insn(insn, m);
++	else if (version == 9)
++		gfx9_debugfs_insn(insn, m);
++	else
++		WARN_ON_ONCE(1);
++}
 +
 +/*
-+ * One accel per GPU: NIC:GPU is fixed 1:1 so a single NIC owns the whole
-+ * device. The accel id is just the DRM render index (stride 1). Pipeline
-+ * depth within the one accel is provided by KNOD_MAX_QUEUE_CNT HW queues,
-+ * unrelated to this stride.
++ * Recover instruction type + size from a raw machine-code word stream into a
++ * struct amdgcn_insn, so code holding only the emitted u32 blob (the feature
++ * shaders emit via the low-level emit_gfxN_* helpers straight into the GPU
++ * code buffer, discarding type/size) can be fed to the shared disassembler
++ * debugfs_insn() instead of a per-feature hand-rolled hex re-parser.
++ *
++ * This mirrors the proven encoding-detection that used to live in the
++ * per-feature disassemblers. The checks are ordered widest
++ * fixed-prefix first: SOPP/SOP1/SOPC (9-bit enc) before SOPK (4-bit) before
++ * SOP2 (2-bit), and every bit31==1 class (VOP1/VOPC/SMEM/DS/FLAT/MUBUF/VOP3)
++ * before the VOP2 (bit31==0) catch-all. Version-specific encodings: SMEM
++ * (gfx9 0x30 / gfx10 0x3d), SOPC literal (gfx10 only) and VOP3 (gfx9 0x34 /
++ * gfx10 0x35). size is in bytes (4/8/12) to match what emit_* stamps in.
 + */
-+#define KNOD_MAX_AQL  1
-+
-+/* Internal AQL/SDMA queue pairs per attached knod context. BPF can keep these
-+ * queues in flight independently while the public accel-id ABI remains stable.
-+ */
-+#define KNOD_MAX_QUEUE_CNT  32
-+
-+#define NR_AQL_RING 16384
-+#define AQL_STRUCT_SIZE 128
-+struct knod {
-+	struct list_head list;
-+	struct list_head active_list;
-+
-+	struct gen_pool *pool;
-+
-+	struct hsa_kernel_dispatch_packet *dp;
-+	pid_t umh_pid;
-+	struct task_struct *umh_task;
-+	u32 nr_aql_ring;
-+	/* AQLs */
-+	int queue_cnt;
-+	int sdma_cnt;
-+	int igpu;
-+	int isa_version;
-+	/* NAPIs */
-+	int channels;
-+	struct kfd_process *process;
-+	struct mm_struct *mm;
-+	struct kfd_node *dev;
-+	struct file *drm_file;
-+	void __iomem *doorbell_base;
-+	u64 reserved_addr;
-+	u64 limit_addr;
-+	struct mutex lock;
-+	struct hsa_event *event;
-+	struct knod_mem *kernels[2];	/* dispatch slots: [0] default/pass, [1] BPF alt */
-+	struct knod_mem *mailbox;
-+	/* packet data path buf */
-+	struct knod_mem **buf;
-+
-+	u32 signal_eid;
-+	u32 completion_eid;
-+	struct knod_aql kaql[NR_CPUS];
-+	struct knod_sdma sdma[NR_CPUS];
-+	struct knod_event aql_event[NR_CPUS];
-+	struct knod_event sdma_event[NR_CPUS];
-+	u32 aql_queue_id[NR_CPUS];
-+	u32 sdma_queue_id[NR_CPUS];
-+	u64 aql_doorbell_offset[NR_CPUS];
-+	u64 sdma_doorbell_offset[NR_CPUS];
-+	bool aql_queue_created[NR_CPUS];
-+	bool sdma_queue_created[NR_CPUS];
-+	struct kfd_event_data *event_data;
-+	struct knod_accel *accel;
-+	struct dentry *debug_dir;
-+	/* Worker callback - one active worker at a time */
-+	enum knod_feature active_feature;
-+	knod_worker_fn_t worker_fn;
-+	knod_flush_fn_t flush_fn;
-+	void *worker_ctx;
-+	struct task_struct *worker;
-+};
-+
-+struct knod_dispatch_params {
-+	u16 workgroup_size_x;
-+	u32 grid_size_x;
-+	u32 grid_size_y;
-+	u32 private_segment_size;
-+	u32 group_segment_size;
-+	u64 kernel_object;
-+	u64 kernarg_address;
-+};
-+
-+static inline void
-+knod_setup_invalidate(struct knod *knod, int idx, int q_idx)
++static inline void amdgcn_classify(int version, const u32 *code,
++				   struct amdgcn_insn *out)
 +{
-+	struct hsa_kernel_dispatch_packet *dp = knod->kaql[q_idx].aql->kaddr;
++	enum amdgcn_insn_type type;
++	u32 w0 = code[0];
++	bool is_b;
++	u32 dwords;
++	u32 enc;
++	u32 op;
 +
-+	dp += idx;
-+	dp->header = HSA_PACKET_TYPE_INVALID << HSA_PACKET_HEADER_TYPE;
++	enc = (w0 >> 23) & 0x1ff;
++
++	if (enc == 0x17f) {				/* SOPP */
++		type = AMDGCN_INSN_TYPE_SOPP;
++		dwords = 1;
++	} else if (enc == 0x17d) {			/* SOP1 */
++		type = AMDGCN_INSN_TYPE_SOP1;
++		dwords = ((w0 & 0xff) == 0xff) ? 2 : 1;
++	} else if (enc == 0x17e) {			/* SOPC */
++		type = AMDGCN_INSN_TYPE_SOPC;
++		dwords = (version == 10 &&
++			  ((w0 & 0xff) == 0xff || ((w0 >> 8) & 0xff) == 0xff))
++			 ? 2 : 1;
++	} else if (((w0 >> 28) & 0xf) == 0xb) {		/* SOPK */
++		type = AMDGCN_INSN_TYPE_SOPK;
++		dwords = 1;
++	} else if (((w0 >> 30) & 0x3) == 0x2) {		/* SOP2 */
++		type = AMDGCN_INSN_TYPE_SOP2;
++		dwords = ((w0 & 0xff) == 0xff ||
++			  ((w0 >> 8) & 0xff) == 0xff) ? 2 : 1;
++	} else if (((w0 >> 26) & 0x3f) ==
++		   (version == 10 ? 0x3d : 0x30)) {	/* SMEM */
++		type = AMDGCN_INSN_TYPE_SMEM;
++		dwords = 2;
++	} else if (((w0 >> 25) & 0x7f) == 0x3f) {	/* VOP1 */
++		type = AMDGCN_INSN_TYPE_VOP1;
++		dwords = ((w0 & 0xff) == 0xff) ? 2 : 1;
++	} else if (((w0 >> 25) & 0x7f) == 0x3e) {	/* VOPC */
++		type = AMDGCN_INSN_TYPE_VOPC;
++		dwords = 1;
++	} else if (((w0 >> 26) & 0x3f) == 0x36) {	/* DS */
++		type = AMDGCN_INSN_TYPE_DS;
++		dwords = 2;
++	/* FLAT/GLOBAL/SCRATCH */
++	} else if (((w0 >> 26) & 0x3f) == 0x37) {
++		type = AMDGCN_INSN_TYPE_FLAT;
++		dwords = 2;
++	} else if (((w0 >> 26) & 0x3f) == 0x38) {	/* MUBUF */
++		type = AMDGCN_INSN_TYPE_MUBUF;
++		dwords = 2;
++	} else if (((w0 >> 26) & 0x3f) ==
++		   (version == 10 ? 0x35 : 0x34)) {	/* VOP3A / VOP3B */
++		op = (w0 >> 16) & 0x3ff;
++		if (version == 10)
++			is_b = (op == GFX10_V_ADD_CO_U32 ||
++				op == GFX10_V_SUB_CO_U32 ||
++				op == GFX10_V_SUBREV_CO_U32 ||
++				op == GFX10_V_MAD_U64_U32 ||
++				op == GFX10_V_MAD_I64_I32 ||
++				op == GFX10_V_DIV_SCALE_F32 ||
++				op == GFX10_V_DIV_SCALE_F64);
++		else
++			is_b = (op == GFX9_V_MAD_U64_U32 ||
++				op == GFX9_V_MAD_I64_I32 ||
++				op == GFX9_V_DIV_SCALE_F64);
++		type = is_b ? AMDGCN_INSN_TYPE_VOP3B : AMDGCN_INSN_TYPE_VOP3A;
++		dwords = 2;
++	} else if (((w0 >> 31) & 0x1) == 0) {		/* VOP2 */
++		type = AMDGCN_INSN_TYPE_VOP2;
++		dwords = ((w0 & 0xff) == 0xff) ? 2 : 1;
++	} else {					/* unknown: 1 dword */
++		type = AMDGCN_INSN_TYPE_SOPP;
++		dwords = 1;
++	}
++
++	memset(out, 0, sizeof(*out));
++	out->type = type;
++	out->size = dwords * 4;
++	memcpy(&out->gfx10, code, dwords * 4);
 +}
-+
-+static inline void
-+knod_setup_dispatch(struct knod *knod, int idx,
-+		    const struct knod_dispatch_params *p, int q_idx)
-+{
-+	struct hsa_kernel_dispatch_packet *dp = knod->kaql[q_idx].aql->kaddr;
-+
-+	dp += idx;
-+	dp->setup = 2;
-+	dp->workgroup_size_x = p->workgroup_size_x;
-+	dp->workgroup_size_y = 1;
-+	dp->workgroup_size_z = 1;
-+	dp->grid_size_x = p->grid_size_x;
-+	dp->grid_size_y = p->grid_size_y;
-+	dp->grid_size_z = 1;
-+	dp->private_segment_size = p->private_segment_size;
-+	dp->group_segment_size = p->group_segment_size;
-+	dp->kernel_object = p->kernel_object;
-+	dp->kernarg_address = (void *)p->kernarg_address;
-+	dp->completion_signal = knod->kaql[q_idx].queue_signal->gaddr;
-+	/* publish the packet body before the valid header (WRITE_ONCE below) */
-+	wmb();
-+	WRITE_ONCE(dp->header,
-+		   (HSA_PACKET_TYPE_KERNEL_DISPATCH <<
-+		    HSA_PACKET_HEADER_TYPE) |
-+		   (HSA_FENCE_SCOPE_SYSTEM <<
-+		    HSA_PACKET_HEADER_ACQUIRE_FENCE_SCOPE) |
-+		   (HSA_FENCE_SCOPE_SYSTEM <<
-+		    HSA_PACKET_HEADER_RELEASE_FENCE_SCOPE));
-+}
-+
-+static inline void
-+knod_setup_header(struct knod *knod,
-+		  const struct knod_dispatch_params *p, int q_idx)
-+{
-+	struct amd_queue *amd_queue = (struct amd_queue *)knod->kaql[q_idx].amd_queue->kaddr;
-+	int curr_idx = knod->kaql[q_idx].idx;
-+	int next_idx = curr_idx + 1;
-+	u64 *ptr = knod->kaql[q_idx].doorbell;
-+
-+	knod_setup_invalidate(knod, next_idx % knod->nr_aql_ring, q_idx);
-+	knod_setup_dispatch(knod, curr_idx % knod->nr_aql_ring, p, q_idx);
-+	WRITE_ONCE(amd_queue->write_dispatch_id, curr_idx);
-+	writeq(curr_idx, ptr);
-+	knod->kaql[q_idx].idx = next_idx;
-+}
-+
-+#define KNOD_NR_AQL_DEFAULT   1
-+struct knod *knod_alloc_ctx(struct knod_dev *knodev, int queue_cnt, int id,
-+			    int channels);
-+void knod_release_ctx(struct knod *knod);
-+void knod_accel_xdp_register(struct knod_accel_xdp_ops *xdp_ops);
-+void knod_accel_xdp_unregister(void);
-+void knod_accel_ipsec_register(struct knod_accel_ipsec_ops *ipsec_ops);
-+void knod_accel_ipsec_unregister(void);
-+void knod_request_queue_cnt(int n);
-+struct knod_mem *knod_alloc_mem(struct knod *knod, size_t size, int flags);
-+struct knod_mem *__knod_alloc_mem(struct knod *knod, size_t size, int flags);
-+int __knod_map_mem(struct knod *knod, struct knod_mem *mem);
-+int __knod_export_dma_buf(struct knod *knod, struct knod_mem *mem);
-+int __knod_map_kaddr(struct knod *knod, struct knod_mem *mem);
-+void knod_free_mem(struct knod *pknod, struct knod_mem *mem);
-+void knod_sdma_copy(struct knod *knod, u64 dst_gart_addr, u64 src_gart_addr,
-+		    int idx, int size);
-+void knod_sdma_fence(struct knod *knod, u64 fence_addr, u32 fence_val,
-+		     int idx);
-+void knod_sdma_trap(struct knod *knod, int idx);
-+void knod_sdma_doorbell(struct knod *knod, int idx);
-+
-+/* One linear GPU->host SDMA copy (GPU VM addresses). */
-+struct knod_sdma_copy_desc {
-+	u64 dst;
-+	u64 src;
-+	u32 len;
-+};
 +
 +/*
-+ * Emit @n copies on sdma[@idx] as one batch with ring backpressure.
-+ * Returns the post-batch ring position to fence/await, or 0 if the ring
-+ * is too full (caller drops the whole batch).  Pair with knod_sdma_kick().
++ * Drop-in replacement for the old per-feature hex re-parsers: classify
++ * one raw instruction at @code, print it through the
++ * shared (complete-opnames) disassembler, and return the number of dwords
++ * consumed so the caller can advance. @max_dwords guards against reading a
++ * second dword past the end of the buffer.
 + */
-+u32 knod_sdma_submit(struct knod *knod, int idx,
-+		     const struct knod_sdma_copy_desc *copies, int n);
-+void knod_sdma_kick(struct knod *knod, int idx);
++static inline int amdgcn_disasm_raw(int version, const u32 *code,
++				    int max_dwords, struct seq_file *m)
++{
++	struct amdgcn_insn insn;
 +
-+int knod_gart_map(struct amdgpu_device *adev, u64 npages,
-+		  dma_addr_t *addr, u64 *gart_addr, u64 flags);
-+int knod_register_worker(struct knod *knod, knod_worker_fn_t fn,
-+			 knod_flush_fn_t flush, void *ctx);
-+void knod_unregister_worker(struct knod *knod);
-+int knod_wait_on_events(struct kfd_process *p, u32 num_events,
-+			void __user *data, bool all, u32 *user_timeout_ms,
-+			u32 *wait_result);
++	if (max_dwords <= 0)
++		return 1;
++	amdgcn_classify(version, code, &insn);
++	if ((int)(insn.size / 4) > max_dwords) {
++		seq_printf(m, "%.8X\t\t\t(truncated)\n", code[0]);
++		return 1;
++	}
++	debugfs_insn(version, &insn, m);
++	return insn.size / 4;
++}
 +
-+#endif /* KFD_KNOD_H_ */
++
++#endif
+diff --git a/drivers/gpu/drm/amd/amdkfd/knod/knod_gfx10_insn.h b/drivers/gpu/drm/amd/amdkfd/knod/knod_gfx10_insn.h
+new file mode 100644
+index 000000000000..f2699adb6c7d
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdkfd/knod/knod_gfx10_insn.h
+@@ -0,0 +1,3978 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/* Copyright (c) 2021 Taehee Yoo <ap420073@gmail.com>
++ * Copyright (c) 2021 Hoyeon Lee <hoyeon.rhee@gmail.com>
++ */
++
++#ifndef KFD_AMDGPU_GFX10_INSN_H_INCLUDED
++#define KFD_AMDGPU_GFX10_INSN_H_INCLUDED
++
++#include "knod_amdgpu.h"
++
++/* See knod_gfx9_insn.h for rationale on not including knod_amdgpu_insn.h */
++
++#define GFX10_SRC_SGPR_BASE		0
++#define GFX10_SRC_VCC_LO		106
++#define GFX10_SRC_VCC_HI		107
++#define GFX10_SRC_TTPM_BASE		108
++#define GFX10_SRC_M0			124
++#define GFX10_SRC_NULL			125
++#define GFX10_SRC_EXEC_LO		126
++#define GFX10_SRC_EXEC_HI		127
++#define GFX10_SRC_INTEGER_0		128
++#define GFX10_SRC_INTEGER_MINUS_1	193
++#define GFX10_SRC_SHARED_BASE		235
++#define GFX10_SRC_SHARED_LIMIT		236
++#define GFX10_SRC_PRIVATE_BASE		237
++#define GFX10_SRC_PRIVATE_LIMIT		238
++#define GFX10_SRC_POPS_EXITING_WAVE_ID	239
++#define GFX10_SRC_SDWA			249
++#define GFX10_SRC_DDP16			250
++#define GFX10_SRC_VCCZ			251
++#define GFX10_SRC_EXECZ			252
++#define GFX10_SRC_SCC			253
++#define GFX10_SRC_LITERAL_CONST		255
++#define GFX10_SRC_VGPR_BASE		256
++
++static int gfx10_param_base[__AMDGCN_PARAM_TYPE_MAX] = {
++	GFX10_SRC_SGPR_BASE,
++	GFX10_SRC_VCC_LO,
++	GFX10_SRC_VCC_HI,
++	GFX10_SRC_TTPM_BASE,
++	GFX10_SRC_M0,
++	GFX10_SRC_NULL,
++	GFX10_SRC_EXEC_LO,
++	GFX10_SRC_EXEC_HI,
++	GFX10_SRC_INTEGER_0,
++	GFX10_SRC_INTEGER_MINUS_1,
++	GFX10_SRC_SHARED_BASE,
++	GFX10_SRC_SHARED_LIMIT,
++	GFX10_SRC_PRIVATE_BASE,
++	GFX10_SRC_PRIVATE_LIMIT,
++	GFX10_SRC_POPS_EXITING_WAVE_ID,
++	GFX10_SRC_SDWA,
++	GFX10_SRC_DDP16,
++	GFX10_SRC_VCCZ,
++	GFX10_SRC_EXECZ,
++	GFX10_SRC_SCC,
++	GFX10_SRC_LITERAL_CONST,
++	GFX10_SRC_VGPR_BASE,
++};
++
++/* Scalar ALU and Control Format */
++struct amdgcn_gfx10_sop2 {
++	u32 ssrc0:8;
++	u32 ssrc1:8;
++	u32 sdst:7;
++	u32 op:7;
++	u32 encoding:2;
++	u32 literal;
++};
++
++enum amdgcn_gfx10_sop2_opcode {
++	GFX10_S_ADD_U32 = 0,
++	GFX10_S_SUB_U32 = 1,
++	GFX10_S_ADD_I32 = 2,
++	GFX10_S_SUB_I32 = 3,
++	GFX10_S_ADDC_U32 = 4,
++	GFX10_S_SUBB_U32 = 5,
++	GFX10_S_MIN_I32 = 6,
++	GFX10_S_MIN_U32 = 7,
++	GFX10_S_MAX_I32 = 8,
++	GFX10_S_MAX_U32 = 9,
++	GFX10_S_CSELECT_B32 = 10,
++	GFX10_S_CELECT_B64 = 11,
++	/* 12-13: reserved */
++	GFX10_S_AND_B32 = 14,
++	GFX10_S_AND_B64 = 15,
++	GFX10_S_OR_B32 = 16,
++	GFX10_S_OR_B64 = 17,
++	GFX10_S_XOR_B32 = 18,
++	GFX10_S_XOR_B64 = 19,
++	GFX10_S_ANDN2_B32 = 20,
++	GFX10_S_ANDN2_B64 = 21,
++	GFX10_S_ORN2_B32 = 22,
++	GFX10_S_ORN2_B64 = 23,
++	GFX10_S_NAND_B32 = 24,
++	GFX10_S_NAND_B64 = 25,
++	GFX10_S_NOR_B32 = 26,
++	GFX10_S_NOR_B64 = 27,
++	GFX10_S_XNOR_B32 = 28,
++	GFX10_S_XNOR_B64 = 29,
++	GFX10_S_LSHL_B32 = 30,
++	GFX10_S_LSHL_B64 = 31,
++	GFX10_S_LSHR_B32 = 32,
++	GFX10_S_LSHR_B64 = 33,
++	GFX10_S_ASHR_I32 = 34,
++	GFX10_S_ASHR_I64 = 35,
++	GFX10_S_BFM_B32 = 36,
++	GFX10_S_BFM_B64 = 37,
++	GFX10_S_MUL_I32 = 38,
++	GFX10_S_MUL_I64 = 39,
++	GFX10_S_BFE_U32 = 40,
++	GFX10_S_BFE_I32 = 41,
++	GFX10_S_BFE_U64 = 42,
++	GFX10_S_ABSDIFF_I32 = 44,
++	GFX10_S_LSHL1_ADD_U32 = 46,
++	GFX10_S_LSHL2_ADD_U32 = 47,
++	GFX10_S_LSHL3_ADD_U32 = 48,
++	GFX10_S_LSHL4_ADD_U32 = 49,
++	GFX10_S_PACK_LL_B32_B16 = 50,
++	GFX10_S_PACK_LH_B32_B16 = 51,
++	GFX10_S_PACK_HH_B32_B16 = 52,
++	GFX10_S_MUL_HI_U32 = 53,
++	GFX10_S_MUL_HI_I32 = 54,
++};
++
++#define GFX10_SOP2_ENCODING			0x2
++#define GFX10_SOP2_SSRC_SGPR_BASE		0
++#define GFX10_SOP2_SSRC_VCC_LO			106
++#define GFX10_SOP2_SSRC_VCC_HI			107
++#define GFX10_SOP2_SSRC_TTPM_BASE		108
++#define GFX10_SOP2_SSRC_M0			124
++#define GFX10_SOP2_SSRC_NULL			125
++#define GFX10_SOP2_SSRC_EXEC_LO			126
++#define GFX10_SOP2_SSRC_EXEC_HI			127
++#define GFX10_SOP2_SSRC_INTEGER_0		128
++#define GFX10_SOP2_SSRC_INTEGER_MINUS_1		193
++#define GFX10_SOP2_SSRC_SHARED_BASE		235
++#define GFX10_SOP2_SSRC_SHARED_LIMIT		236
++#define GFX10_SOP2_SSRC_PRIVATE_BASE		237
++#define GFX10_SOP2_SSRC_PRIVATE_LIMIT		238
++#define GFX10_SOP2_SSRC_POPS_EXITING_WAVE_ID	239
++#define GFX10_SOP2_SSRC_VCCZ			251
++#define GFX10_SOP2_SSRC_EXECZ			252
++#define GFX10_SOP2_SSRC_SCC			253
++/* SDST
++ * Same codes as SSRC0, above except only codes 0-127 are valid.
++ */
++
++struct amdgcn_gfx10_sopk {
++	u32 simm16:16;
++	u32 sdst:7;
++	u32 op:5;
++	u32 encoding:4;
++};
++
++enum amdgcn_gfx10_sopk_opcode {
++	GFX10_S_MOVK_I32 = 0,
++	GFX10_S_VERSION = 1,
++	GFX10_S_CMOVK_I32 = 2,
++	GFX10_S_CMPK_EQ_I32 = 3,
++	GFX10_S_CMPK_LG_I32 = 4,
++	GFX10_S_CMPK_GT_I32 = 5,
++	GFX10_S_CMPK_GE_I32 = 6,
++	GFX10_S_CMPK_LT_I32 = 7,
++	GFX10_S_CMPK_LE_I32 = 8,
++	GFX10_S_CMPK_EQ_U32 = 9,
++	GFX10_S_CMPK_LG_U32 = 10,
++	GFX10_S_CMPK_GT_U32 = 11,
++	GFX10_S_CMPK_GE_U32 = 12,
++	GFX10_S_CMPK_LT_U32 = 13,
++	GFX10_S_CMPK_LE_U32 = 14,
++	GFX10_S_ADDK_I32 = 15,
++	GFX10_S_MULK_I32 = 16,
++	/* 17: reserved */
++	GFX10_S_GETREG_B32 = 18,
++	GFX10_S_SETREG_B32 = 19,
++	/* 20: reserved */
++	GFX10_S_SETREG_IMM32_B32 = 21,
++	GFX10_S_CALL_B64 = 22,
++	GFX10_S_WAITCNT_VSCNT = 23,
++	GFX10_S_WAITCNT_VMCNT = 24,
++	GFX10_S_WAITCNT_EXPCNT = 25,
++	GFX10_S_WAITCNT_LGKMCNT = 26,
++	GFX10_S_SUBVECTOR_LOOP_BEGIN = 27,
++	GFX10_S_SUBVECTOR_LOOP_END = 28,
++};
++
++#define GFX10_SOPK_ENCODING			0xb
++#define GFX10_SOPK_SDST_SGPR0_BASE		0
++#define GFX10_SOPK_SDST_VCC_LO			106
++#define GFX10_SOPK_SDST_VCC_HI			107
++#define GFX10_SOPK_SDST_TTPM_BASE		108
++#define GFX10_SOPK_SDST_M0			124
++#define GFX10_SOPK_SDST_NULL			125
++#define GFX10_SOPK_SDST_EXEC_LO			126
++#define GFX10_SOPK_SDST_EXEC_HI			127
++
++struct amdgcn_gfx10_sop1 {
++	u32 ssrc0:8;
++	u32 op:8;
++	u32 sdst:7;
++	u32 encoding:9;
++	u32 literal;
++};
++
++enum amdgcn_gfx10_sop1_opcode {
++	GFX10_S_MOV_B32 = 3,
++	GFX10_S_MOV_B64 = 4,
++	GFX10_S_CMOV_B32 = 5,
++	GFX10_S_CMOV_B64 = 6,
++	GFX10_S_NOT_B32 = 7,
++	GFX10_S_NOT_B64 = 8,
++	GFX10_S_WQM_B32 = 9,
++	GFX10_S_WQM_B64 = 10,
++	GFX10_S_BREV_B32 = 11,
++	GFX10_S_BREV_B64 = 12,
++	GFX10_S_BCNT0_I32_B32 = 13,
++	GFX10_S_BCNT0_I32_B64 = 14,
++	GFX10_S_BCNT1_I32_B32 = 15,
++	GFX10_S_BCNT1_I32_B64 = 16,
++	GFX10_S_FF0_I32_B32 = 17,
++	GFX10_S_FF0_I32_B64 = 18,
++	GFX10_S_FF1_I32_B32 = 19,
++	GFX10_S_FF1_I32_B64 = 20,
++	GFX10_S_FLBIT_I32_B32 = 21,
++	GFX10_S_FLBIT_I32_B64 = 22,
++	GFX10_S_FLBIT_I32 = 23,
++	GFX10_S_FLBIT_I32_I64 = 24,
++	GFX10_S_SEXT_I32_I8 = 25,
++	GFX10_S_SEXT_I32_I16 = 26,
++	GFX10_S_BITSET0_B32 = 27,
++	GFX10_S_BITSET0_B64 = 28,
++	GFX10_S_BITSET1_B32 = 29,
++	GFX10_S_BITSET1_B64 = 30,
++	GFX10_S_GETPC_B64 = 31,
++	GFX10_S_SETPC_B64 = 32,
++	GFX10_S_SWAPPC_B64 = 33,
++	GFX10_S_RFE_B64 = 34,
++	/* 35: reserved */
++	GFX10_S_AND_SAVEEXEC_B64 = 36,
++	/* 37-42: OR/XOR/ANDN2/ORN2/NAND/NOR_SAVEEXEC_B64 (unused) */
++	GFX10_S_XNOR_SAVEEXEC_B64 = 43,
++	GFX10_S_QUADMASK_B32 = 44,
++	GFX10_S_QUADMASK_B64 = 45,
++	GFX10_S_MOVRELS_B32 = 46,
++	GFX10_S_MOVRELS_B64 = 47,
++	GFX10_S_MOVRELD_B32 = 48,
++	GFX10_S_MOVRELD_B64 = 49,
++	/* 50-51: reserved */
++	GFX10_S_ABS_I32 = 52,
++	/* 53-54: reserved */
++	GFX10_S_ANDN1_SAVEEXEC_B64 = 55,
++	GFX10_S_ORN1_SAVEEXEC_B64 = 56,
++	GFX10_S_ANDN1_WREXEC_B64 = 57,
++	GFX10_S_ANDN2_WREXEC_B64 = 58,
++	GFX10_S_BITREPLICATE_B64_B32 = 59,
++	GFX10_S_AND_SAVEEXEC_B32 = 60,
++	GFX10_S_OR_SAVEEXEC_B32 = 61,
++	GFX10_S_XOR_SAVEEXEC_B32 = 62,
++	GFX10_S_ANDN2_SAVEEXEC_B32 = 63,
++	GFX10_S_ORN2_SAVEEXEC_B32 = 64,
++	GFX10_S_NAND_SAVEEXEC_B32 = 65,
++	GFX10_S_NOR_SAVEEXEC_B32 = 66,
++	GFX10_S_XNOR_SAVEEXEC_B32 = 67,
++	GFX10_S_ANDN1_SAVEEXEC_B32 = 68,
++	GFX10_S_ORN1_SAVEEXEC_B32 = 69,
++	GFX10_S_ANDN1_WREXEC_B32 = 70,
++	GFX10_S_ANDN2_WREXEC_B32 = 71,
++	/* 72: reserved */
++	GFX10_S_MOVRELSD_2_B32 = 73,
++};
++
++#define GFX10_SOP1_ENCODING			0x17d
++#define GFX10_SOP1_SSRC_SGPR_BASE		0
++#define GFX10_SOP1_SSRC_VCC_LO			106
++#define GFX10_SOP1_SSRC_VCC_HI			107
++#define GFX10_SOP1_SSRC_TTPM_BASE		108
++#define GFX10_SOP1_SSRC_M0			124
++#define GFX10_SOP1_SSRC_NULL			125
++#define GFX10_SOP1_SSRC_EXEC_LO			126
++#define GFX10_SOP1_SSRC_EXEC_HI			127
++#define GFX10_SOP1_SSRC_INTEGER_0		128
++#define GFX10_SOP1_SSRC_INTEGER_MINUS_1		193
++#define GFX10_SOP1_SSRC_SHARED_BASE		235
++#define GFX10_SOP1_SSRC_SHARED_LIMIT		236
++#define GFX10_SOP1_SSRC_PRIVATE_BASE		237
++#define GFX10_SOP1_SSRC_PRIVATE_LIMIT		238
++#define GFX10_SOP1_SSRC_POPS_EXITING_WAVE_ID	239
++#define GFX10_SOP1_SSRC_VCCZ			251
++#define GFX10_SOP1_SSRC_EXECZ			252
++#define GFX10_SOP1_SSRC_SCC			253
++#define GFX10_SOP1_SSRC_LITERAL_CONST		255
++/* SDST
++ * Same codes as SSRC0, above except only codes 0-127 are valid.
++ */
++
++struct amdgcn_gfx10_sopc {
++	u32 ssrc0:8;
++	u32 ssrc1:8;
++	u32 op:7;
++	u32 encoding:9;
++	u32 literal;
++};
++
++enum amdgcn_gfx10_sopc_opcode {
++	GFX10_S_CMP_EQ_I32 = 0,
++	GFX10_S_CMP_LG_I32 = 1,
++	GFX10_S_CMP_GT_I32 = 2,
++	GFX10_S_CMP_GE_I32 = 3,
++	GFX10_S_CMP_LT_I32 = 4,
++	GFX10_S_CMP_LE_I32 = 5,
++	GFX10_S_CMP_EQ_U32 = 6,
++	GFX10_S_CMP_LG_U32 = 7,
++	GFX10_S_CMP_GT_U32 = 8,
++	GFX10_S_CMP_GE_U32 = 9,
++	GFX10_S_CMP_LT_U32 = 10,
++	GFX10_S_CMP_LE_U32 = 11,
++	GFX10_S_BITCMP0_B32 = 12,
++	GFX10_S_BITCMP1_B32 = 13,
++	GFX10_S_BITCMP0_B64 = 14,
++	GFX10_S_BITCMP1_B64 = 15,
++	/* 16-17: reserved */
++	GFX10_S_CMP_EQ_U64 = 18,
++	GFX10_S_CMP_LG_U64 = 19,
++};
++
++#define GFX10_SOPC_ENCODING			0x17e
++#define GFX10_SOPC_SSRC_SGPR_BASE		0
++#define GFX10_SOPC_SSRC_VCC_LO			106
++#define GFX10_SOPC_SSRC_VCC_HI			107
++#define GFX10_SOPC_SSRC_TTPM_BASE		108
++#define GFX10_SOPC_SSRC_M0			124
++#define GFX10_SOPC_SSRC_NULL			125
++#define GFX10_SOPC_SSRC_EXEC_LO			126
++#define GFX10_SOPC_SSRC_EXEC_HI			127
++#define GFX10_SOPC_SSRC_INTEGER_0		128
++#define GFX10_SOPC_SSRC_INTEGER_MINUS_1		193
++#define GFX10_SOPC_SSRC_SHARED_BASE		235
++#define GFX10_SOPC_SSRC_SHARED_LIMIT		236
++#define GFX10_SOPC_SSRC_PRIVATE_BASE		237
++#define GFX10_SOPC_SSRC_PRIVATE_LIMIT		238
++#define GFX10_SOPC_SSRC_POPS_EXITING_WAVE_ID	239
++#define GFX10_SOPC_SSRC_VCCZ			251
++#define GFX10_SOPC_SSRC_EXECZ			252
++#define GFX10_SOPC_SSRC_SCC			253
++/* SDST
++ * Same codes as SSRC0, above except only codes 0-127 are valid.
++ */
++
++struct amdgcn_gfx10_sopp_vmcnt {
++	u16 vmcnt1:4;
++	u16 expcnt:3;
++	u16 dummy:1;
++	u16 lgkmcnt:6;
++	u16 vmcnt2:2;
++};
++
++struct amdgcn_gfx10_sopp {
++	u32 simm16:16;
++	u32 op:7;
++	u32 encoding:9;
++};
++
++enum amdgcn_gfx10_sopp_opcode {
++	GFX10_S_NOP = 0,
++	GFX10_S_ENDPGM = 1,
++	GFX10_S_BRANCH = 2,
++	GFX10_S_WAKEUP = 3,
++	GFX10_S_CBRANCH_SCC0 = 4,
++	GFX10_S_CBRANCH_SCC1 = 5,
++	GFX10_S_CBRANCH_VCCZ = 6,
++	GFX10_S_CBRANCH_VCCNZ = 7,
++	GFX10_S_CBRANCH_EXECZ = 8,
++	GFX10_S_CBRANCH_EXECNZ = 9,
++	GFX10_S_BARRIER = 10,
++	GFX10_S_SETKILL = 11,
++	GFX10_S_WAITCNT = 12,
++	GFX10_S_SETHALT = 13,
++	GFX10_S_SLEEP = 14,
++	GFX10_S_SETPRIO = 15,
++	GFX10_S_SENDMSG = 16,
++	GFX10_S_SENDMSGHALT = 17,
++	GFX10_S_TRAP = 18,
++	GFX10_S_ICACHE_INV = 19,
++	GFX10_S_INCPERFLEVEL = 20,
++	GFX10_S_DECPERFLEVEL = 21,
++	GFX10_S_TTRACEDATA = 22,
++	GFX10_S_CBRANCH_CDBGSYS = 23,
++	GFX10_S_CBRANCH_CDBGUSER = 24,
++	GFX10_S_CBRANCH_CDBGSYS_OR_USER = 25,
++	GFX10_S_CBRANCH_CDBGSYS_AND_USER = 26,
++	GFX10_S_ENDPGM_SAVED = 27,
++	/* 28-29: reserved */
++	GFX10_S_ENDPGM_ORDERED_PS_DONE = 30,
++	GFX10_S_CODE_END = 31,
++	GFX10_S_INST_PREFETCH = 32,
++	GFX10_S_CLAUSE = 33,
++	/* 34: reserved */
++	GFX10_S_WAITCNT_DEPCTR = 35,
++	GFX10_S_ROUND_MODE = 36,
++	GFX10_S_DENORM_MODE = 37,
++	/* 38-39: reserved */
++	GFX10_S_TTRACEDATA_IMM = 40,
++};
++
++#define GFX10_SOPP_ENCODING		0x17f
++
++/* Scalar Memory Format */
++struct amdgcn_gfx10_smem {
++	u64 sbase:6;
++	u64 sdata:7;
++	u64 dummy1:1;
++	u64 dlc:1;
++	u64 dummy2:1;
++	u64 glc:1;
++	u64 dummy3:1;
++	u64 op:8;
++	u64 encoding:6;
++	u64 offset:21;
++	u64 dummy4:4;
++	u64 soffset:7;
++};
++
++enum amdgcn_gfx10_smem_opcode {
++	GFX10_S_LOAD_DWORD = 0,
++	GFX10_S_LOAD_DWORDX2 = 1,
++	GFX10_S_LOAD_DWORDX4 = 2,
++	GFX10_S_LOAD_DWORDX8 = 3,
++	GFX10_S_LOAD_DWORDX16 = 4,
++	/* 5-7: reserved */
++	GFX10_S_BUFFER_LOAD_DWORD = 8,
++	GFX10_S_BUFFER_LOAD_DWORDX2 = 9,
++	GFX10_S_BUFFER_LOAD_DWORDX4 = 10,
++	GFX10_S_BUFFER_LOAD_DWORDX8 = 11,
++	GFX10_S_BUFFER_LOAD_DWORDX16 = 12,
++	/* 13-30: reserved */
++	GFX10_S_GL1_INV = 31,
++	GFX10_S_DCACHE_INV = 32,
++	/* 33-35: reserved */
++	GFX10_S_MEMTIME = 36,
++	GFX10_S_MEMREALTIME = 37,
++	GFX10_S_ATC_PROBE = 38,
++	GFX10_S_ATC_PROBE_BUFFER = 39,
++};
++
++#define GFX10_SMEM_ENCODING		0x3d
++#define GFX10_SMEM_SOFFSET_NULL		125
++
++/* Vector ALU Format */
++struct amdgcn_gfx10_vop2 {
++	u32 src0:9;
++	u32 vsrc1:8;
++	u32 vdst:8;
++	u32 op:6;
++	u32 encoding:1;
++	u32 literal;
++};
++
++enum amdgcn_gfx10_vop2_opcode {
++	/* 0: reserved */
++	GFX10_V_CNDMASK_B32 = 1,
++	GFX10_V_DOT2C_F32_F16 = 2,
++	GFX10_V_ADD_F32 = 3,
++	GFX10_V_SUB_F32 = 4,
++	GFX10_V_SUBREV_F32 = 5,
++	GFX10_V_FMAC_LEGACY_F32 = 6,
++	GFX10_V_MUL_LEGACY_F32 = 7,
++	GFX10_V_MUL_F32 = 8,
++	GFX10_V_MUL_I32_I24 = 9,
++	GFX10_V_MUL_HI_I32_I24 = 10,
++	GFX10_V_MUL_U32_U24 = 11,
++	GFX10_V_MUL_HI_U32_U24 = 12,
++	GFX10_V_DOT4C_I32_I8 = 13,
++	/* 14: reserved */
++	GFX10_V_MIN_F32 = 15,
++	GFX10_V_MAX_F32 = 16,
++	GFX10_V_MIN_I32 = 17,
++	GFX10_V_MAX_I32 = 18,
++	GFX10_V_MIN_U32 = 19,
++	GFX10_V_MAX_U32 = 20,
++	/* 21: reserved */
++	GFX10_V_LSHRREV_B32 = 22,
++	/* 23: reserved */
++	GFX10_V_ASHRREV_I32 = 24,
++	/* 25: reserved */
++	GFX10_V_LSHLREV_B32 = 26,
++	GFX10_V_AND_B32 = 27,
++	GFX10_V_OR_B32 = 28,
++	GFX10_V_XOR_B32 = 29,
++	GFX10_V_XNOR_B32 = 30,
++	/* 31-36: reserved */
++	GFX10_V_ADD_NC_U32 = 37,
++	GFX10_V_SUB_NC_U32 = 38,
++	GFX10_V_SUBREV_NC_U32 = 39,
++	GFX10_V_ADD_CO_CI_U32 = 40,
++	GFX10_V_SUB_CO_CI_U32 = 41,
++	GFX10_V_SUBREV_CO_CI_U32 = 42,
++	GFX10_V_FMAC_F32 = 43,
++	GFX10_V_FMAMK_F32 = 44,
++	GFX10_V_FMAAK_F32 = 45,
++	/* 46: reserved */
++	GFX10_V_CVT_PKRTZ_F16_F32 = 47,
++	/* 48-49: reserved */
++	GFX10_V_ADD_F16 = 50,
++	GFX10_V_SUB_F16 = 51,
++	GFX10_V_SUBREV_F16 = 52,
++	GFX10_V_MUL_F16 = 53,
++	GFX10_V_FMAC_F16 = 54,
++	GFX10_V_FMAMK_F16 = 55,
++	GFX10_V_FMAAK_F16 = 56,
++	GFX10_V_MAX_F16 = 57,
++	GFX10_V_MIN_F16 = 58,
++	GFX10_V_LDEXP_F16 = 59,
++	GFX10_V_PK_FMAC_F16 = 60,
++};
++
++#define GFX10_VOP2_ENCODING			0x0
++#define GFX10_VOP2_SRC_SGPR_BASE		0
++#define GFX10_VOP2_SRC_VCC_LO			106
++#define GFX10_VOP2_SRC_VCC_HI			107
++#define GFX10_VOP2_SRC_TTPM_BASE		108
++#define GFX10_VOP2_SRC_M0			124
++#define GFX10_VOP2_SRC_NULL			125
++#define GFX10_VOP2_SRC_EXEC_LO			126
++#define GFX10_VOP2_SRC_EXEC_HI			127
++#define GFX10_VOP2_SRC_INTEGER_0		128
++#define GFX10_VOP2_SRC_INTEGER_MINUS_1		193
++#define GFX10_VOP2_SRC_SHARED_BASE		235
++#define GFX10_VOP2_SRC_SHARED_LIMIT		236
++#define GFX10_VOP2_SRC_PRIVATE_BASE		237
++#define GFX10_VOP2_SRC_PRIVATE_LIMIT		238
++#define GFX10_VOP2_SRC_POPS_EXITING_WAVE_ID	239
++#define GFX10_VOP2_SRC_SDWA			249
++#define GFX10_VOP2_SRC_DDP16			250
++#define GFX10_VOP2_SRC_VCCZ			251
++#define GFX10_VOP2_SRC_EXECZ			252
++#define GFX10_VOP2_SRC_SCC			253
++#define GFX10_VOP2_SRC_LITERAL_CONST		255
++#define GFX10_VOP2_SRC_VGPR_BASE		256
++
++struct amdgcn_gfx10_vop1 {
++	u32 src0:9;
++	u32 op:8;
++	u32 vdst:8;
++	u32 encoding:7;
++	u32 literal;
++};
++
++enum amdgcn_gfx10_vop1_opcode {
++	GFX10_V_NOP = 0,
++	GFX10_V_MOV_B32 = 1,
++	GFX10_V_READFIRSTLANE_B32 = 2,
++	GFX10_V_CVT_I32_F64 = 3,
++	GFX10_V_CVT_F64_I32 = 4,
++	GFX10_V_CVT_F32_I32 = 5,
++	GFX10_V_CVT_F32_U32 = 6,
++	GFX10_V_CVT_U32_F32 = 7,
++	GFX10_V_CVT_I32_F32 = 8,
++	/* 9: reserved */
++	GFX10_V_CVT_F16_F32 = 10,
++	GFX10_V_CVT_F32_F16 = 11,
++	GFX10_V_CVT_RPI_I32_F32 = 12,
++	GFX10_V_CVT_FLR_I32_F32 = 13,
++	GFX10_V_CVT_OFF_F32_I4 = 14,
++	GFX10_V_CVT_F32_F64 = 15,
++	GFX10_V_CVT_F64_F32 = 16,
++	GFX10_V_CVT_F32_UBYTE0 = 17,
++	GFX10_V_CVT_F32_UBYTE1 = 18,
++	GFX10_V_CVT_F32_UBYTE2 = 19,
++	GFX10_V_CVT_F32_UBYTE3 = 20,
++	GFX10_V_CVT_U32_F64 = 21,
++	GFX10_V_CVT_F64_U32 = 22,
++	GFX10_V_TRUNC_F64 = 23,
++	GFX10_V_CEIL_F64 = 24,
++	GFX10_V_RNDNE_F64 = 25,
++	GFX10_V_FLOOR_F64 = 26,
++	GFX10_V_PIPEFLUSH = 27,
++	/* 28-31: reserved */
++	GFX10_V_FRACT_F32 = 32,
++	GFX10_V_TRUNC_F32 = 33,
++	GFX10_V_CEIL_F32 = 34,
++	GFX10_V_RNDNE_F32 = 35,
++	GFX10_V_FLOOR_F32 = 36,
++	GFX10_V_EXP_F32 = 37,
++	/* 38: reserved */
++	GFX10_V_LOG_F32 = 39,
++	/* 40-41: reserved */
++	GFX10_V_RCP_F32 = 42,
++	GFX10_V_RCP_IFLAG_F32 = 43,
++	/* 44-45: reserved */
++	GFX10_V_RSQ_F32 = 46,
++	GFX10_V_RCP_F64 = 47,
++	/* 48: reserved */
++	GFX10_V_RSQ_F64 = 49,
++	/* 50: reserved */
++	GFX10_V_SQRT_F32 = 51,
++	GFX10_V_SQRT_F64 = 52,
++	GFX10_V_SIN_F32 = 53,
++	GFX10_V_COS_F32 = 54,
++	GFX10_V_NOT_B32 = 55,
++	GFX10_V_BFREV_B32 = 56,
++	GFX10_V_FFBH_U32 = 57,
++	GFX10_V_FFBL_B32 = 58,
++	GFX10_V_FFBH_I32 = 59,
++	GFX10_V_FREXP_EXP_I32_F64 = 60,
++	GFX10_V_FREXP_MANT_F64 = 61,
++	GFX10_V_FRACT_F64 = 62,
++	GFX10_V_FREXP_EXP_I32_F32 = 63,
++	GFX10_V_FREXP_MANT_F32 = 64,
++	GFX10_V_CLREXCP = 65,
++	GFX10_V_MOVRELD_B32 = 66,
++	GFX10_V_MOVRELS_B32 = 67,
++	GFX10_V_MOVRELSD_B32 = 68,
++	/* 69-71: reserved */
++	GFX10_V_MOVRELSD_2_B32 = 72,
++	/* 73-79: reserved */
++	GFX10_V_CVT_F16_U16 = 80,
++	GFX10_V_CVT_F16_I16 = 81,
++	GFX10_V_CVT_U16_F16 = 82,
++	GFX10_V_CVT_I16_F16 = 83,
++	GFX10_V_RCP_F16 = 84,
++	GFX10_V_SQRT_F16 = 85,
++	GFX10_V_RSQ_F16 = 86,
++	GFX10_V_LOG_F16 = 87,
++	GFX10_V_EXP_F16 = 88,
++	GFX10_V_FREXP_MANT_F16 = 89,
++	GFX10_V_FREXP_EXP_I16_F16 = 90,
++	GFX10_V_FLOOR_F16 = 91,
++	GFX10_V_CEIL_F16 = 92,
++	GFX10_V_TRUNC_F16 = 93,
++	GFX10_V_RNDNE_F16 = 94,
++	GFX10_V_FRACT_F16 = 95,
++	GFX10_V_SIN_F16 = 96,
++	GFX10_V_COS_F16 = 97,
++	GFX10_V_SAT_PK_U8_I16 = 98,
++	GFX10_V_CVT_NORM_I16_F16 = 99,
++	GFX10_V_CVT_NORM_U16_F16 = 100,
++	GFX10_V_SWAP_B32 = 101,
++	/* 102-103: reserved */
++	GFX10_V_SWAPREL_B32 = 104,
++};
++
++#define GFX10_VOP1_ENCODING			0x3f
++#define GFX10_VOP1_SRC_SGPR_BASE		0
++#define GFX10_VOP1_SRC_VCC_LO			106
++#define GFX10_VOP1_SRC_VCC_HI			107
++#define GFX10_VOP1_SRC_TTPM_BASE		108
++#define GFX10_VOP1_SRC_M0			124
++#define GFX10_VOP1_SRC_NULL			125
++#define GFX10_VOP1_SRC_EXEC_LO			126
++#define GFX10_VOP1_SRC_EXEC_HI			127
++#define GFX10_VOP1_SRC_INTEGER_0		128
++#define GFX10_VOP1_SRC_INTEGER_MINUS_1		193
++#define GFX10_VOP1_SRC_SHARED_BASE		235
++#define GFX10_VOP1_SRC_SHARED_LIMIT		236
++#define GFX10_VOP1_SRC_PRIVATE_BASE		237
++#define GFX10_VOP1_SRC_PRIVATE_LIMIT		238
++#define GFX10_VOP1_SRC_POPS_EXITING_WAVE_ID	239
++#define GFX10_VOP1_SRC_SDWA			249
++#define GFX10_VOP1_SRC_DDP16			250
++#define GFX10_VOP1_SRC_VCCZ			251
++#define GFX10_VOP1_SRC_EXECZ			252
++#define GFX10_VOP1_SRC_SCC			253
++#define GFX10_VOP1_SRC_LITERAL_CONST		255
++#define GFX10_VOP1_SRC_VGPR_BASE		256
++
++struct amdgcn_gfx10_vopc {
++	u32 src0:9;
++	u32 vsrc1:8;
++	u32 op:8;
++	u32 encoding:7;
++	u32 literal;
++};
++
++enum amdgcn_gfx10_vopc_compare_offset16 {
++	GFX10_VOPC16_F = 0,
++	GFX10_VOPC16_LT = 1,
++	GFX10_VOPC16_EQ = 2,
++	GFX10_VOPC16_LE = 3,
++	GFX10_VOPC16_GT = 4,
++	GFX10_VOPC16_LG = 5,
++	GFX10_VOPC16_GE = 6,
++	GFX10_VOPC16_O = 7,
++	GFX10_VOPC16_U = 8,
++	GFX10_VOPC16_NGE = 9,
++	GFX10_VOPC16_NLG = 10,
++	GFX10_VOPC16_NGT = 11,
++	GFX10_VOPC16_NLE = 12,
++	GFX10_VOPC16_NEQ = 13,
++	GFX10_VOPC16_NLT = 14,
++	GFX10_VOPC16_TRU = 15,
++};
++
++enum amdgcn_gfx10_vopc_compare_offset8 {
++	GFX10_VOPC8_F = 0,
++	GFX10_VOPC8_LT = 1,
++	GFX10_VOPC8_EQ = 2,
++	GFX10_VOPC8_LE = 3,
++	GFX10_VOPC8_GT = 4,
++	GFX10_VOPC8_LG = 5,
++	GFX10_VOPC8_GE = 6,
++	GFX10_VOPC8_TRU = 7,
++};
++
++enum amdgcn_gfx10_vopc_opcode {
++	GFX10_V_CMP_F_F32 = 0,
++	GFX10_V_CMP_LT_F32 = 1,
++	GFX10_V_CMP_EQ_F32 = 2,
++	GFX10_V_CMP_LE_F32 = 3,
++	GFX10_V_CMP_GT_F32 = 4,
++	GFX10_V_CMP_LG_F32 = 5,
++	GFX10_V_CMP_GE_F32 = 6,
++	GFX10_V_CMP_O_F32 = 7,
++	GFX10_V_CMP_U_F32 = 8,
++	GFX10_V_CMP_NGE_F32 = 9,
++	GFX10_V_CMP_NLG_F32 = 10,
++	GFX10_V_CMP_NGT_F32 = 11,
++	GFX10_V_CMP_NLE_F32 = 12,
++	GFX10_V_CMP_NEQ_F32 = 13,
++	GFX10_V_CMP_NLT_F32 = 14,
++	GFX10_V_CMP_TRU_F32 = 15,
++	GFX10_V_CMPX_F_F32 = 16,
++	GFX10_V_CMPX_LT_F32 = 17,
++	GFX10_V_CMPX_EQ_F32 = 18,
++	GFX10_V_CMPX_LE_F32 = 19,
++	GFX10_V_CMPX_GT_F32 = 20,
++	GFX10_V_CMPX_LG_F32 = 21,
++	GFX10_V_CMPX_GE_F32 = 22,
++	GFX10_V_CMPX_O_F32 = 23,
++	GFX10_V_CMPX_U_F32 = 24,
++	GFX10_V_CMPX_NGE_F32 = 25,
++	GFX10_V_CMPX_NLG_F32 = 26,
++	GFX10_V_CMPX_NGT_F32 = 27,
++	GFX10_V_CMPX_NLE_F32 = 28,
++	GFX10_V_CMPX_NEQ_F32 = 29,
++	GFX10_V_CMPX_NLT_F32 = 30,
++	GFX10_V_CMPX_TRU_F32 = 31,
++	GFX10_V_CMP_F_F64 = 32,
++	GFX10_V_CMP_LT_F64 = 33,
++	GFX10_V_CMP_EQ_F64 = 34,
++	GFX10_V_CMP_LE_F64 = 35,
++	GFX10_V_CMP_GT_F64 = 36,
++	GFX10_V_CMP_LG_F64 = 37,
++	GFX10_V_CMP_GE_F64 = 38,
++	GFX10_V_CMP_O_F64 = 39,
++	GFX10_V_CMP_U_F64 = 40,
++	GFX10_V_CMP_NGE_F64 = 41,
++	GFX10_V_CMP_NLG_F64 = 42,
++	GFX10_V_CMP_NGT_F64 = 43,
++	GFX10_V_CMP_NLE_F64 = 44,
++	GFX10_V_CMP_NEQ_F64 = 45,
++	GFX10_V_CMP_NLT_F64 = 46,
++	GFX10_V_CMP_TRU_F64 = 47,
++	GFX10_V_CMPX_F_F64 = 48,
++	GFX10_V_CMPX_LT_F64 = 49,
++	GFX10_V_CMPX_EQ_F64 = 50,
++	GFX10_V_CMPX_LE_F64 = 51,
++	GFX10_V_CMPX_GT_F64 = 52,
++	GFX10_V_CMPX_LG_F64 = 53,
++	GFX10_V_CMPX_GE_F64 = 54,
++	GFX10_V_CMPX_O_F64 = 55,
++	GFX10_V_CMPX_U_F64 = 56,
++	GFX10_V_CMPX_NGE_F64 = 57,
++	GFX10_V_CMPX_NLG_F64 = 58,
++	GFX10_V_CMPX_NGT_F64 = 59,
++	GFX10_V_CMPX_NLE_F64 = 60,
++	GFX10_V_CMPX_NEQ_F64 = 61,
++	GFX10_V_CMPX_NLT_F64 = 62,
++	GFX10_V_CMPX_TRU_F64 = 63,
++	/* 64-127: reserved */
++	GFX10_V_CMP_F_I32 = 128,
++	GFX10_V_CMP_LT_I32 = 129,
++	GFX10_V_CMP_EQ_I32 = 130,
++	GFX10_V_CMP_LE_I32 = 131,
++	GFX10_V_CMP_GT_I32 = 132,
++	GFX10_V_CMP_NE_I32 = 133,
++	GFX10_V_CMP_GE_I32 = 134,
++	GFX10_V_CMP_T_I32 = 135,
++	GFX10_V_CMP_CLASS_F32 = 136,
++	GFX10_V_CMP_LT_I16 = 137,
++	GFX10_V_CMP_EQ_I16 = 138,
++	GFX10_V_CMP_LE_I16 = 139,
++	GFX10_V_CMP_GT_I16 = 140,
++	GFX10_V_CMP_NE_I16 = 141,
++	GFX10_V_CMP_GE_I16 = 142,
++	GFX10_V_CMP_CLASS_F16 = 143,
++	GFX10_V_CMPX_F_I32 = 144,
++	GFX10_V_CMPX_LT_I32 = 145,
++	GFX10_V_CMPX_EQ_I32 = 146,
++	GFX10_V_CMPX_LE_I32 = 147,
++	GFX10_V_CMPX_GT_I32 = 148,
++	GFX10_V_CMPX_NE_I32 = 149,
++	GFX10_V_CMPX_GE_I32 = 150,
++	GFX10_V_CMPX_T_I32 = 151,
++	GFX10_V_CMPX_CLASS_F32 = 152,
++	GFX10_V_CMPX_LT_I16 = 153,
++	GFX10_V_CMPX_EQ_I16 = 154,
++	GFX10_V_CMPX_LE_I16 = 155,
++	GFX10_V_CMPX_GT_I16 = 156,
++	GFX10_V_CMPX_NE_I16 = 157,
++	GFX10_V_CMPX_GE_I16 = 158,
++	GFX10_V_CMPX_CLASS_F16 = 159,
++	GFX10_V_CMP_F_I64 = 160,
++	GFX10_V_CMP_LT_I64 = 161,
++	GFX10_V_CMP_EQ_I64 = 162,
++	GFX10_V_CMP_LE_I64 = 163,
++	GFX10_V_CMP_GT_I64 = 164,
++	GFX10_V_CMP_NE_I64 = 165,
++	GFX10_V_CMP_GE_I64 = 166,
++	GFX10_V_CMP_T_I64 = 167,
++	GFX10_V_CMP_CLASS_F64 = 168,
++	GFX10_V_CMP_LT_U16 = 169,
++	GFX10_V_CMP_EQ_U16 = 170,
++	GFX10_V_CMP_LE_U16 = 171,
++	GFX10_V_CMP_GT_U16 = 172,
++	GFX10_V_CMP_NE_U16 = 173,
++	GFX10_V_CMP_GE_U16 = 174,
++	/* 175: reserved */
++	GFX10_V_CMPX_F_I64 = 176,
++	GFX10_V_CMPX_LT_I64 = 177,
++	GFX10_V_CMPX_EQ_I64 = 178,
++	GFX10_V_CMPX_LE_I64 = 179,
++	GFX10_V_CMPX_GT_I64 = 180,
++	GFX10_V_CMPX_NE_I64 = 181,
++	GFX10_V_CMPX_GE_I64 = 182,
++	GFX10_V_CMPX_T_I64 = 183,
++	GFX10_V_CMPX_CLASS_F64 = 184,
++	GFX10_V_CMPX_LT_U16 = 185,
++	GFX10_V_CMPX_EQ_U16 = 186,
++	GFX10_V_CMPX_LE_U16 = 187,
++	GFX10_V_CMPX_GT_U16 = 188,
++	GFX10_V_CMPX_NE_U16 = 189,
++	GFX10_V_CMPX_GE_U16 = 190,
++	/* 191: reserved */
++	GFX10_V_CMP_F_U32 = 192,
++	GFX10_V_CMP_LT_U32 = 193,
++	GFX10_V_CMP_EQ_U32 = 194,
++	GFX10_V_CMP_LE_U32 = 195,
++	GFX10_V_CMP_GT_U32 = 196,
++	GFX10_V_CMP_NE_U32 = 197,
++	GFX10_V_CMP_GE_U32 = 198,
++	GFX10_V_CMP_T_U32 = 199,
++	GFX10_V_CMP_F_F16 = 200,
++	GFX10_V_CMP_LT_F16 = 201,
++	GFX10_V_CMP_EQ_F16 = 202,
++	GFX10_V_CMP_LE_F16 = 203,
++	GFX10_V_CMP_GT_F16 = 204,
++	GFX10_V_CMP_LG_F16 = 205,
++	GFX10_V_CMP_GE_F16 = 206,
++	GFX10_V_CMP_O_F16 = 207,
++	GFX10_V_CMPX_F_U32 = 208,
++	GFX10_V_CMPX_LT_U32 = 209,
++	GFX10_V_CMPX_EQ_U32 = 210,
++	GFX10_V_CMPX_LE_U32 = 211,
++	GFX10_V_CMPX_GT_U32 = 212,
++	GFX10_V_CMPX_NE_U32 = 213,
++	GFX10_V_CMPX_GE_U32 = 214,
++	GFX10_V_CMPX_T_U32 = 215,
++	GFX10_V_CMPX_F_F16 = 216,
++	GFX10_V_CMPX_LT_F16 = 217,
++	GFX10_V_CMPX_EQ_F16 = 218,
++	GFX10_V_CMPX_LE_F16 = 219,
++	GFX10_V_CMPX_GT_F16 = 220,
++	GFX10_V_CMPX_LG_F16 = 221,
++	GFX10_V_CMPX_GE_F16 = 222,
++	GFX10_V_CMPX_O_F16 = 223,
++	GFX10_V_CMP_F_U64 = 224,
++	GFX10_V_CMP_LT_U64 = 225,
++	GFX10_V_CMP_EQ_U64 = 226,
++	GFX10_V_CMP_LE_U64 = 227,
++	GFX10_V_CMP_GT_U64 = 228,
++	GFX10_V_CMP_NE_U64 = 229,
++	GFX10_V_CMP_GE_U64 = 230,
++	GFX10_V_CMP_T_U64 = 231,
++	GFX10_V_CMP_U_F16 = 232,
++	GFX10_V_CMP_NGE_F16 = 233,
++	GFX10_V_CMP_NLG_F16 = 234,
++	GFX10_V_CMP_NGT_F16 = 235,
++	GFX10_V_CMP_NLE_F16 = 236,
++	GFX10_V_CMP_NEQ_F16 = 237,
++	GFX10_V_CMP_NLT_F16 = 238,
++	GFX10_V_CMP_TRU_F16 = 239,
++	GFX10_V_CMPX_F_U64 = 240,
++	GFX10_V_CMPX_LT_U64 = 241,
++	GFX10_V_CMPX_EQ_U64 = 242,
++	GFX10_V_CMPX_LE_U64 = 243,
++	GFX10_V_CMPX_GT_U64 = 244,
++	GFX10_V_CMPX_NE_U64 = 245,
++	GFX10_V_CMPX_GE_U64 = 246,
++	GFX10_V_CMPX_T_U64 = 247,
++	GFX10_V_CMPX_U_F16 = 248,
++	GFX10_V_CMPX_NGE_F16 = 249,
++	GFX10_V_CMPX_NLG_F16 = 250,
++	GFX10_V_CMPX_NGT_F16 = 251,
++	GFX10_V_CMPX_NLE_F16 = 252,
++	GFX10_V_CMPX_NEQ_F16 = 253,
++	GFX10_V_CMPX_NLT_F16 = 254,
++	GFX10_V_CMPX_TRU_F16 = 255,
++};
++
++#define GFX10_VOPC_ENCODING			0x3e
++#define GFX10_VOPC_SRC_SGPR_BASE		0
++#define GFX10_VOPC_SRC_VCC_LO			106
++#define GFX10_VOPC_SRC_VCC_HI			107
++#define GFX10_VOPC_SRC_TTPM_BASE		108
++#define GFX10_VOPC_SRC_M0			124
++#define GFX10_VOPC_SRC_NULL			125
++#define GFX10_VOPC_SRC_EXEC_LO			126
++#define GFX10_VOPC_SRC_EXEC_HI			127
++#define GFX10_VOPC_SRC_INTEGER_0		128
++#define GFX10_VOPC_SRC_INTEGER_MINUS_1		193
++#define GFX10_VOPC_SRC_SHARED_BASE		235
++#define GFX10_VOPC_SRC_SHARED_LIMIT		236
++#define GFX10_VOPC_SRC_PRIVATE_BASE		237
++#define GFX10_VOPC_SRC_PRIVATE_LIMIT		238
++#define GFX10_VOPC_SRC_POPS_EXITING_WAVE_ID	239
++#define GFX10_VOPC_SRC_SDWA			249
++#define GFX10_VOPC_SRC_DDP16			250
++#define GFX10_VOPC_SRC_VCCZ			251
++#define GFX10_VOPC_SRC_EXECZ			252
++#define GFX10_VOPC_SRC_SCC			253
++#define GFX10_VOPC_SRC_LITERAL_CONST		255
++#define GFX10_VOPC_SRC_VGPR_BASE		256
++
++struct amdgcn_gfx10_vop3a {
++	u64 vdst:8;
++	u64 abs:3;
++	u64 op_sel:4;
++	u64 clmp:1;
++	u64 op:10;
++	u64 encoding:6;
++	u64 src0:9;
++	u64 src1:9;
++	u64 src2:9;
++	u64 omod:2;
++	u64 neg:3;
++	u32 literal;
++};
++
++enum amdgcn_gfx10_vop3a_opcode {
++	GFX10_V_FMA_LEGACY_F32 = 320,
++	/* 321: reserved */
++	GFX10_V_MAD_I32_I24 = 322,
++	GFX10_V_MAD_U32_U24 = 323,
++	GFX10_V_CUBEID_F32 = 324,
++	GFX10_V_CUBESC_F32 = 325,
++	GFX10_V_CUBETC_F32 = 326,
++	GFX10_V_CUBEMA_F32 = 327,
++	GFX10_V_BFE_U32 = 328,
++	GFX10_V_BFE_I32 = 329,
++	GFX10_V_BFI_B32 = 330,
++	GFX10_V_FMA_F32 = 331,
++	GFX10_V_FMA_F64 = 332,
++	GFX10_V_LERP_U8 = 333,
++	GFX10_V_ALIGNBIT_B32 = 334,
++	GFX10_V_ALIGNBYTE_B32 = 335,
++	GFX10_V_MULLIT_F32 = 336,
++	GFX10_V_MIN3_F32 = 337,
++	GFX10_V_MIN3_I32 = 338,
++	GFX10_V_MIN3_U32 = 339,
++	GFX10_V_MAX3_F32 = 340,
++	GFX10_V_MAX3_I32 = 341,
++	GFX10_V_MAX3_U32 = 342,
++	GFX10_V_MED3_F32 = 343,
++	GFX10_V_MED3_I32 = 344,
++	GFX10_V_MED3_U32 = 345,
++	GFX10_V_SAD_U8 = 346,
++	GFX10_V_SAD_HI_U8 = 347,
++	GFX10_V_SAD_U16 = 348,
++	GFX10_V_SAD_U32 = 349,
++	GFX10_V_CVT_PK_U8_F32 = 350,
++	GFX10_V_DIV_FIXUP_F32 = 351,
++	GFX10_V_DIV_FIXUP_F64 = 352,
++	/* 353-355: reserved */
++	GFX10_V_ADD_F64 = 356,
++	GFX10_V_MUL_F64 = 357,
++	GFX10_V_MIN_F64 = 358,
++	GFX10_V_MAX_F64 = 359,
++	GFX10_V_LDEXP_F64 = 360,
++	GFX10_V_MUL_LO_U32 = 361,
++	GFX10_V_MUL_HI_U32 = 362,
++	/* 363: reserved */
++	GFX10_V_MUL_HI_I32 = 364,
++	/* 365-366: VOP3B (V_DIV_SCALE_F32/F64) */
++	GFX10_V_DIV_FMAS_F32 = 367,
++	GFX10_V_DIV_FMAS_F64 = 368,
++	GFX10_V_MSAD_U8 = 369,
++	GFX10_V_QSAD_PK_U16_U8 = 370,
++	GFX10_V_MQSAD_PK_U16_U8 = 371,
++	GFX10_V_TRIG_PREOP_F64 = 372,
++	GFX10_V_MQSAD_U32_U8 = 373,
++	/* 374-375: VOP3B (V_MAD_U64_U32/I64_I32) */
++	GFX10_V_XOR3_B32 = 376,
++	/* 377-766: reserved */
++	GFX10_V_LSHLREV_B64 = 767,
++	GFX10_V_LSHRREV_B64 = 768,
++	GFX10_V_ASHRREV_I64 = 769,
++	/* 770: reserved */
++	GFX10_V_ADD_NC_U16 = 771,
++	GFX10_V_SUB_NC_U16 = 772,
++	GFX10_V_MUL_LO_U16 = 773,
++	/* 774: reserved */
++	GFX10_V_LSHRREV_B16 = 775,
++	GFX10_V_ASHRREV_I16 = 776,
++	GFX10_V_MAX_U16 = 777,
++	GFX10_V_MAX_I16 = 778,
++	GFX10_V_MIN_U16 = 779,
++	GFX10_V_MIN_I16 = 780,
++	GFX10_V_ADD_NC_I16 = 781,
++	GFX10_V_SUB_NC_I16 = 782,
++	/* 783-784: VOP3B (V_ADD_CO_U32/V_SUB_CO_U32) */
++	GFX10_V_PACK_B32_F16 = 785,
++	GFX10_V_CVT_PKNORM_I16_F16 = 786,
++	GFX10_V_CVT_PKNORM_U16_F16 = 787,
++	GFX10_V_LSHLREV_B16 = 788,
++	/* 789-792: reserved; 793: VOP3B (V_SUBREV_CO_U32) */
++	GFX10_V_MAD_U16 = 832,
++	/* 833: reserved */
++	GFX10_V_INTERP_P1LL_F16 = 834,
++	GFX10_V_INTERP_P1LV_F16 = 835,
++	GFX10_V_PERM_B32 = 836,
++	GFX10_V_XAD_U32 = 837,
++	GFX10_V_LSHL_ADD_U32 = 838,
++	GFX10_V_ADD_LSHL_U32 = 839,
++	/* 840-842: reserved */
++	GFX10_V_FMA_F16 = 843,
++	/* 844-848: reserved */
++	GFX10_V_MIN3_F16 = 849,
++	GFX10_V_MIN3_I16 = 850,
++	GFX10_V_MIN3_U16 = 851,
++	GFX10_V_MAX3_F16 = 852,
++	GFX10_V_MAX3_I16 = 853,
++	GFX10_V_MAX3_U16 = 854,
++	GFX10_V_MED3_F16 = 855,
++	GFX10_V_MED3_I16 = 856,
++	GFX10_V_MED3_U16 = 857,
++	GFX10_V_INTERP_P2_F16 = 858,
++	/* 859-861: reserved */
++	GFX10_V_MAD_I16 = 862,
++	GFX10_V_DIV_FIXUP_F16 = 863,
++	GFX10_V_READLANE_B32 = 864,
++	GFX10_V_WRITELANE_B32 = 865,
++	GFX10_V_LDEXP_F32 = 866,
++	GFX10_V_BFM_B32 = 867,
++	GFX10_V_BCNT_U32_B32 = 868,
++	GFX10_V_MBCNT_LO_U32_B32 = 869,
++	GFX10_V_MBCNT_HI_U32_B32 = 870,
++	/* 871: reserved */
++	GFX10_V_CVT_PKNORM_I16_F32 = 872,
++	GFX10_V_CVT_PKNORM_U16_F32 = 873,
++	GFX10_V_CVT_PK_U16_U32 = 874,
++	GFX10_V_CVT_PK_I16_I32 = 875,
++	/* 876: reserved */
++	GFX10_V_ADD3_U32 = 877,
++	/* 878: reserved */
++	GFX10_V_LSHL_OR_B32 = 879,
++	/* 880: reserved */
++	GFX10_V_AND_OR_B32 = 881,
++	GFX10_V_OR3_B32 = 882,
++	GFX10_V_MAD_U32_U16 = 883,
++	/* 884: reserved */
++	GFX10_V_MAD_I32_I16 = 885,
++	GFX10_V_SUB_NC_I32 = 886,
++	GFX10_V_PERMLANE16_B32 = 887,
++	GFX10_V_PERMLANEX16_B32 = 888,
++	/* 889-894: reserved */
++	GFX10_V_ADD_NC_I32 = 895,
++};
++
++enum amdgcn_gfx10_vop3a_abs {
++	GFX10_VOP3A_ABS_SRC0,
++	GFX10_VOP3A_ABS_SRC1,
++	GFX10_VOP3A_ABS_SRC2,
++};
++
++#define GFX10_VOP3A_ENCODING			0x35
++#define GFX10_VOP3A_SRC_SGPR_BASE		0
++#define GFX10_VOP3A_SRC_VCC_LO			106
++#define GFX10_VOP3A_SRC_VCC_HI			107
++#define GFX10_VOP3A_SRC_TTPM_BASE		108
++#define GFX10_VOP3A_SRC_M0			124
++#define GFX10_VOP3A_SRC_NULL			125
++#define GFX10_VOP3A_SRC_EXEC_LO			126
++#define GFX10_VOP3A_SRC_EXEC_HI			127
++#define GFX10_VOP3A_SRC_INTEGER_0		128
++#define GFX10_VOP3A_SRC_INTEGER_MINUS_1		193
++#define GFX10_VOP3A_SRC_SHARED_BASE		235
++#define GFX10_VOP3A_SRC_SHARED_LIMIT		236
++#define GFX10_VOP3A_SRC_PRIVATE_BASE		237
++#define GFX10_VOP3A_SRC_PRIVATE_LIMIT		238
++#define GFX10_VOP3A_SRC_POPS_EXITING_WAVE_ID	239
++#define GFX10_VOP3A_SRC_SDWA			249
++#define GFX10_VOP3A_SRC_DDP16			250
++#define GFX10_VOP3A_SRC_VCCZ			251
++#define GFX10_VOP3A_SRC_EXECZ			252
++#define GFX10_VOP3A_SRC_SCC			253
++#define GFX10_VOP3A_SRC_LITERAL_CONST		255
++#define GFX10_VOP3A_SRC_VGPR_BASE		256
++
++/*
++ * Two-source VOP3 forms have reserved third-source bits on gfx10. Encoding
++ * an inline integer zero there executes, but LLVM/RGP reject the instruction.
++ */
++#define GFX10_VOP3_UNUSED_SRC			0
++
++struct amdgcn_gfx10_vop3b {
++	u64 vdst:8;
++	u64 sdst:7;
++	u64 clmp:1;
++	u64 op:10;
++	u64 encoding:6;
++	u64 src0:9;
++	u64 src1:9;
++	u64 src2:9;
++	u64 omod:2;
++	u64 neg:3;
++	u32 literal;
++};
++
++enum amdgcn_gfx10_vop3b_opcode {
++	GFX10_V_DIV_SCALE_F32 = 365,
++	GFX10_V_DIV_SCALE_F64 = 366,
++	GFX10_V_MAD_U64_U32 = 374,
++	GFX10_V_MAD_I64_I32 = 375,
++	GFX10_V_ADD_CO_U32 = 783,
++	GFX10_V_SUB_CO_U32 = 784,
++	GFX10_V_SUBREV_CO_U32 = 793,
++};
++
++#define GFX10_VOP3B_ENCODING			0x35
++#define GFX10_VOP3B_SRC_SGPR_BASE		0
++#define GFX10_VOP3B_SRC_VCC_LO			106
++#define GFX10_VOP3B_SRC_VCC_HI			107
++#define GFX10_VOP3B_SRC_TTPM_BASE		108
++#define GFX10_VOP3B_SRC_M0			124
++#define GFX10_VOP3B_SRC_NULL			125
++#define GFX10_VOP3B_SRC_EXEC_LO			126
++#define GFX10_VOP3B_SRC_EXEC_HI			127
++#define GFX10_VOP3B_SRC_INTEGER_0		128
++#define GFX10_VOP3B_SRC_INTEGER_MINUS_1		193
++#define GFX10_VOP3B_SRC_SHARED_BASE		235
++#define GFX10_VOP3B_SRC_SHARED_LIMIT		236
++#define GFX10_VOP3B_SRC_PRIVATE_BASE		237
++#define GFX10_VOP3B_SRC_PRIVATE_LIMIT		238
++#define GFX10_VOP3B_SRC_POPS_EXITING_WAVE_ID	239
++#define GFX10_VOP3B_SRC_SDWA			249
++#define GFX10_VOP3B_SRC_DDP16			250
++#define GFX10_VOP3B_SRC_VCCZ			251
++#define GFX10_VOP3B_SRC_EXECZ			252
++#define GFX10_VOP3B_SRC_SCC			253
++#define GFX10_VOP3B_SRC_LITERAL_CONST		255
++#define GFX10_VOP3B_SRC_VGPR_BASE		256
++
++struct amdgcn_gfx10_vop3p {
++	u64 vdst:8;
++	u64 neg_hi:3;
++	u64 op_sel:3;
++	u64 op_sel_hi2:1;
++	u64 clmp:1;
++	u64 op:7;
++	u64 dummy:3;
++	u64 encoding:6;
++	u64 src0:9;
++	u64 src1:9;
++	u64 src2:9;
++	u64 op_sel_hi:2;
++	u64 neg:3;
++	u32 literal;
++};
++
++enum amdgcn_gfx10_vop3p_opcode {
++	GFX10_V_PK_MAD_I16 = 0,
++	GFX10_V_PK_MUL_LO_U16 = 1,
++	GFX10_V_PK_ADD_I16 = 2,
++	GFX10_V_PK_SUB_I16 = 3,
++	GFX10_V_PK_LSHLREV_B16 = 4,
++	GFX10_V_PK_LSHRREV_B16 = 5,
++	GFX10_V_PK_ASHRREV_I16 = 6,
++	GFX10_V_PK_MAX_I16 = 7,
++	GFX10_V_PK_MIN_I16 = 8,
++	GFX10_V_PK_MAD_U16 = 9,
++	GFX10_V_PK_ADD_U16 = 10,
++	GFX10_V_PK_SUB_U16 = 11,
++	GFX10_V_PK_MAX_U16 = 12,
++	GFX10_V_PK_MIN_U16 = 13,
++	GFX10_V_PK_FMA_F16 = 14,
++	GFX10_V_PK_ADD_F16 = 15,
++	GFX10_V_PK_MUL_F16 = 16,
++	GFX10_V_PK_MIN_F16 = 17,
++	GFX10_V_PK_MAX_F16 = 18,
++	GFX10_V_DOT2_F32_F16 = 19,
++	GFX10_V_DOT2_I32_I16 = 20,
++	GFX10_V_DOT2_U32_U16 = 21,
++	GFX10_V_DOT4_I32_I8 = 22,
++	GFX10_V_DOT4_U32_U8 = 23,
++	GFX10_V_DOT8_I32_I4 = 24,
++	GFX10_V_DOT8_U32_U4 = 25,
++	/* 26-31: reserved */
++	GFX10_V_FMA_MIX_F32 = 32,
++	GFX10_V_FMA_MIXLO_F16 = 33,
++	GFX10_V_FMA_MIXHI_F16 = 34,
++};
++
++#define GFX10_VOP3P_ENCODING			0x33
++#define GFX10_VOP3P_SRC_SGPR_BASE		0
++#define GFX10_VOP3P_SRC_VCC_LO		106
++#define GFX10_VOP3P_SRC_VCC_HI		107
++#define GFX10_VOP3P_SRC_TTPM_BASE		108
++#define GFX10_VOP3P_SRC_M0			124
++#define GFX10_VOP3P_SRC_NULL			125
++#define GFX10_VOP3P_SRC_EXEC_LO		126
++#define GFX10_VOP3P_SRC_EXEC_HI		127
++#define GFX10_VOP3P_SRC_INTEGER_0		128
++#define GFX10_VOP3P_SRC_INTEGER_MINUS_1	193
++#define GFX10_VOP3P_SRC_SHARED_BASE		235
++#define GFX10_VOP3P_SRC_SHARED_LIMIT		236
++#define GFX10_VOP3P_SRC_PRIVATE_BASE		237
++#define GFX10_VOP3P_SRC_PRIVATE_LIMIT		238
++#define GFX10_VOP3P_SRC_POPS_EXITING_WAVE_ID	239
++#define GFX10_VOP3P_SRC_SDWA			249
++#define GFX10_VOP3P_SRC_DDP16			250
++#define GFX10_VOP3P_SRC_VCCZ			251
++#define GFX10_VOP3P_SRC_EXECZ			252
++#define GFX10_VOP3P_SRC_SCC			253
++#define GFX10_VOP3P_SRC_VGPR_BASE		256
++
++struct amdgcn_gfx10_sdwa {
++	u32 src0:8;
++	u32 dst_sel:3;
++	u32 dst_u:2;
++	u32 clmp:1;
++	u32 omod:2;
++	u32 src0_sel:3;
++	u32 src0_sext:1;
++	u32 src0_neg:1;
++	u32 src0_abs:1;
++	u32 dummy1:1;
++	u32 s0:1;
++	u32 src1_sel:3;
++	u32 src1_sext:1;
++	u32 src1_neg:1;
++	u32 src1_abs:1;
++	u32 dummy2:1;
++	u32 s1:1;
++};
++
++struct amdgcn_gfx10_sdwab {
++	u32 src0:8;
++	u32 sdst:7;
++	u32 sd:1;
++	u32 src0_sel:3;
++	u32 src0_sext:1;
++	u32 src0_neg:1;
++	u32 src0_abs:1;
++	u32 dummy1:1;
++	u32 s0:1;
++	u32 src1_sel:3;
++	u32 src1_sext:1;
++	u32 src1_neg:1;
++	u32 src1_abs:1;
++	u32 dummy2:1;
++	u32 s1:1;
++};
++
++struct amdgcn_gfx10_dpp16 {
++};
++
++struct amdgcn_gfx10_dpp8 {
++};
++
++/* Vector Parameter Interpolation Format */
++struct amdgcn_gfx10_vintrp {
++};
++
++/* LDS and GDS Format */
++struct amdgcn_gfx10_ds {
++	u64 offset0:8;
++	u64 offset1:8;
++	u64 dummy:1;
++	u64 gds:1;
++	u64 op:8;
++	u64 encoding:6;
++	u64 addr:8;
++	u64 data0:8;
++	u64 data1:8;
++	u64 vdst:8;
++};
++
++enum amdgcn_gfx10_ds_opcode {
++	GFX10_DS_ADD_U32 = 0,
++	GFX10_DS_SUB_U32 = 1,
++	GFX10_DS_RSUB_U32 = 2,
++	GFX10_DS_INC_U32 = 3,
++	GFX10_DS_DEC_U32 = 4,
++	GFX10_DS_MIN_I32 = 5,
++	GFX10_DS_MAX_I32 = 6,
++	GFX10_DS_MIN_U32 = 7,
++	GFX10_DS_MAX_U32 = 8,
++	GFX10_DS_AND_B32 = 9,
++	GFX10_DS_OR_B32 = 10,
++	GFX10_DS_XOR_B32 = 11,
++	GFX10_DS_MSKOR_B32 = 12,
++	GFX10_DS_WRITE_B32 = 13,
++	GFX10_DS_WRITE2_B32 = 14,
++	GFX10_DS_WRITE2ST64_B32 = 15,
++	GFX10_DS_CMPST_B32 = 16,
++	GFX10_DS_CMPST_F32 = 17,
++	GFX10_DS_MIN_F32 = 18,
++	GFX10_DS_MAX_F32 = 19,
++	GFX10_DS_NOP = 20,
++	GFX10_DS_ADD_F32 = 21,
++	/* 22-23: reserved */
++	GFX10_DS_GWS_SEMA_RELEASE_ALL = 24,
++	GFX10_DS_GWS_INIT = 25,
++	GFX10_DS_GWS_SEMA_V = 26,
++	GFX10_DS_GWS_SEMA_BR = 27,
++	GFX10_DS_GWS_SEMA_P = 28,
++	GFX10_DS_GWS_BARRIER = 29,
++	GFX10_DS_WRITE_B8 = 30,
++	GFX10_DS_WRITE_B16 = 31,
++	GFX10_DS_ADD_RTN_U32 = 32,
++	GFX10_DS_SUB_RTN_U32 = 33,
++	GFX10_DS_RSUB_RTN_U32 = 34,
++	GFX10_DS_INC_RTN_U32 = 35,
++	GFX10_DS_DEC_RTN_U32 = 36,
++	GFX10_DS_MIN_RTN_I32 = 37,
++	GFX10_DS_MAX_RTN_I32 = 38,
++	GFX10_DS_MIN_RTN_U32 = 39,
++	GFX10_DS_MAX_RTN_U32 = 40,
++	GFX10_DS_AND_RTN_B32 = 41,
++	GFX10_DS_OR_RTN_B32 = 42,
++	GFX10_DS_XOR_RTN_B32 = 43,
++	GFX10_DS_MSKOR_RTN_B32 = 44,
++	GFX10_DS_WRXCHG_RTN_B32 = 45,
++	GFX10_DS_WRXCHG2_RTN_B32 = 46,
++	GFX10_DS_WRXCHG2ST64_RTN_B32 = 47,
++	GFX10_DS_CMPST_RTN_B32 = 48,
++	GFX10_DS_CMPST_RTN_F32 = 49,
++	GFX10_DS_MIN_RTN_F32 = 50,
++	GFX10_DS_MAX_RTN_F32 = 51,
++	GFX10_DS_WRAP_RTN_B32 = 52,
++	GFX10_DS_SWIZZLE_B32 = 53,
++	GFX10_DS_READ_B32 = 54,
++	GFX10_DS_READ2_B32 = 55,
++	GFX10_DS_READ2ST64_B32 = 56,
++	GFX10_DS_READ_I8 = 57,
++	GFX10_DS_READ_U8 = 58,
++	GFX10_DS_READ_I16 = 59,
++	GFX10_DS_READ_U16 = 60,
++	GFX10_DS_CONSUME = 61,
++	GFX10_DS_APPEND = 62,
++	GFX10_DS_ORDERED_COUNT = 63,
++	GFX10_DS_ADD_U64 = 64,
++	GFX10_DS_SUB_U64 = 65,
++	GFX10_DS_RSUB_U64 = 66,
++	GFX10_DS_INC_U64 = 67,
++	GFX10_DS_DEC_U64 = 68,
++	GFX10_DS_MIN_I64 = 69,
++	GFX10_DS_MAX_I64 = 70,
++	GFX10_DS_MIN_U64 = 71,
++	GFX10_DS_MAX_U64 = 72,
++	GFX10_DS_AND_B64 = 73,
++	GFX10_DS_OR_B64 = 74,
++	GFX10_DS_XOR_B64 = 75,
++	GFX10_DS_MSKOR_B64 = 76,
++	GFX10_DS_WRITE_B64 = 77,
++	GFX10_DS_WRITE2_B64 = 78,
++	GFX10_DS_WRITE2ST64_B64 = 79,
++	GFX10_DS_CMPST_B64 = 80,
++	GFX10_DS_CMPST_F64 = 81,
++	GFX10_DS_MIN_F64 = 82,
++	GFX10_DS_MAX_F64 = 83,
++	/* 84: reserved */
++	GFX10_DS_ADD_RTN_F32 = 85,
++	/* 86-95: reserved */
++	GFX10_DS_ADD_RTN_U64 = 96,
++	GFX10_DS_SUB_RTN_U64 = 97,
++	GFX10_DS_RSUB_RTN_U64 = 98,
++	GFX10_DS_INC_RTN_U64 = 99,
++	GFX10_DS_DEC_RTN_U64 = 100,
++	GFX10_DS_MIN_RTN_I64 = 101,
++	GFX10_DS_MAX_RTN_I64 = 102,
++	GFX10_DS_MIN_RTN_U64 = 103,
++	GFX10_DS_MAX_RTN_U64 = 104,
++	GFX10_DS_AND_RTN_B64 = 105,
++	GFX10_DS_OR_RTN_B64 = 106,
++	GFX10_DS_XOR_RTN_B64 = 107,
++	GFX10_DS_MSKOR_RTN_B64 = 108,
++	GFX10_DS_WRXCHG_RTN_B64 = 109,
++	GFX10_DS_WRXCHG2_RTN_B64 = 110,
++	GFX10_DS_WRXCHG2ST64_RTN_B64 = 111,
++	GFX10_DS_CMPST_RTN_B64 = 112,
++	GFX10_DS_CMPST_RTN_F64 = 113,
++	GFX10_DS_MIN_RTN_F64 = 114,
++	GFX10_DS_MAX_RTN_F64 = 115,
++	/* 116-117: reserved */
++	GFX10_DS_READ_B64 = 118,
++	GFX10_DS_READ2_B64 = 119,
++	GFX10_DS_READ2ST64_B64 = 120,
++	/* 121-125: reserved */
++	GFX10_DS_CONDXCHG32_RTN_B64 = 126,
++	/* 127-159: reserved */
++	GFX10_DS_WRITE_B8_D16_HI = 160,
++	GFX10_DS_WRITE_B16_D16_HI = 161,
++	GFX10_DS_READ_U8_D16 = 162,
++	GFX10_DS_READ_U8_D16_HI = 163,
++	GFX10_DS_READ_I8_D16 = 164,
++	GFX10_DS_READ_I8_D16_HI = 165,
++	GFX10_DS_READ_U16_D16 = 166,
++	GFX10_DS_READ_U16_D16_HI = 167,
++	/* 168-175: reserved */
++	GFX10_DS_WRITE_ADDTID_B32 = 176,
++	GFX10_DS_READ_ADDTID_B32 = 177,
++	GFX10_DS_PERMUTE_B32 = 178,
++	GFX10_DS_BPERMUTE_B32 = 179,
++	/* 180-221: reserved */
++	GFX10_DS_WRITE_B96 = 222,
++	GFX10_DS_WRITE_B128 = 223,
++	/* 224-253: reserved */
++	GFX10_DS_READ_B96 = 254,
++	GFX10_DS_READ_B128 = 255,
++};
++
++#define GFX10_DS_ENCODING		0x36
++#define GFX10_DS_GDS			1
++#define GFX10_DS_LDS			0
++
++/* Vector Memory Buffer Formats */
++struct amdgcn_gfx10_mtbuf {
++	u64 offset:12;
++	u64 offen:1;
++	u64 idxen:1;
++	u64 glc:1;
++	u64 dlc:1;
++	u64 op:3;
++	u64 foamat:7;
++	u64 encoding:6;
++	u64 vaddr:8;
++	u64 vdata:8;
++	u64 srsrc:5;
++	u64 opm:1;
++	u64 slc:1;
++	u64 tfe:1;
++	u64 soffset:8;
++};
++
++enum amdgcn_gfx10_mtbuf_opcode {
++	GFX10_TBUFFER_LOAD_FORMAT_X = 0,
++	GFX10_TBUFFER_LOAD_FORMAT_XY = 1,
++	GFX10_TBUFFER_LOAD_FORMAT_XYZ = 2,
++	GFX10_TBUFFER_LOAD_FORMAT_XYZW = 3,
++	GFX10_TBUFFER_STORE_FORMAT_X = 4,
++	GFX10_TBUFFER_STORE_FORMAT_XY = 5,
++	GFX10_TBUFFER_STORE_FORMAT_XYZ = 6,
++	GFX10_TBUFFER_STORE_FORMAT_XYZW = 7,
++	GFX10_TBUFFER_LOAD_FORMAT_D16_X = 8,
++	GFX10_TBUFFER_LOAD_FORMAT_D16_XY = 9,
++	GFX10_TBUFFER_LOAD_FORMAT_D16_XYZ = 10,
++	GFX10_TBUFFER_LOAD_FORMAT_D16_XYZW = 11,
++	GFX10_TBUFFER_STORE_FORMAT_D16_X = 12,
++	GFX10_TBUFFER_STORE_FORMAT_D16_XY = 13,
++	GFX10_TBUFFER_STORE_FORMAT_D16_XYZ = 14,
++	GFX10_TBUFFER_STORE_FORMAT_D16_XYZW = 15,
++};
++
++#define GFX10_MUBUF_ENCODING				0x38
++#define GFX10_MUBUF_SOFFSET_SGPR_BASE			0
++#define GFX10_MUBUF_SOFFSET_VCC_LO			106
++#define GFX10_MUBUF_SOFFSET_VCC_HI			107
++#define GFX10_MUBUF_SOFFSET_TTPM_BASE			108
++#define GFX10_MUBUF_SOFFSET_M0				124
++#define GFX10_MUBUF_SOFFSET_NULL			125
++#define GFX10_MUBUF_SOFFSET_EXEC_LO			126
++#define GFX10_MUBUF_SOFFSET_EXEC_HI			127
++#define GFX10_MUBUF_SOFFSET_INTEGER_0			128
++#define GFX10_MUBUF_SOFFSET_INTEGER_MINUS_1		193
++#define GFX10_MUBUF_SOFFSET_SHARED_BASE			235
++#define GFX10_MUBUF_SOFFSET_SHARED_LIMIT		236
++#define GFX10_MUBUF_SOFFSET_PRIVATE_BASE		237
++#define GFX10_MUBUF_SOFFSET_PRIVATE_LIMIT		238
++#define GFX10_MUBUF_SOFFSET_POPS_EXITING_WAVE_ID	239
++#define GFX10_MUBUF_SOFFSET_VCCZ			251
++#define GFX10_MUBUF_SOFFSET_EXECZ			252
++#define GFX10_MUBUF_SOFFSET_SCC				253
++
++struct amdgcn_gfx10_mubuf {
++	u64 offset:12;
++	u64 offen:1;
++	u64 idxen:1;
++	u64 glc:1;
++	u64 dlc:1;
++	u64 lds:1;
++	u64 dummy1:1;
++	u64 op:7;
++	u64 opm:1;
++	u64 encoding:6;
++	u64 vaddr:8;
++	u64 vdata:8;
++	u64 srsrc:5;
++	u64 dummy2:1;
++	u64 slc:1;
++	u64 tfe:1;
++	u64 soffset:8;
++};
++
++enum amdgcn_gfx10_mubuf_opcode {
++	GFX10_BUFFER_LOAD_FORMAT_X = 0,
++	GFX10_BUFFER_LOAD_FORMAT_XY = 1,
++	GFX10_BUFFER_LOAD_FORMAT_XYZ = 2,
++	GFX10_BUFFER_LOAD_FORMAT_XYZW = 3,
++	GFX10_BUFFER_STORE_FORMAT_X = 4,
++	GFX10_BUFFER_STORE_FORMAT_XY = 5,
++	GFX10_BUFFER_STORE_FORMAT_XYZ = 6,
++	GFX10_BUFFER_STORE_FORMAT_XYZW = 7,
++	GFX10_BUFFER_LOAD_UBYTE = 8,
++	GFX10_BUFFER_LOAD_SBYTE = 9,
++	GFX10_BUFFER_LOAD_USHORT = 10,
++	GFX10_BUFFER_LOAD_SSHORT = 11,
++	GFX10_BUFFER_LOAD_DWORD = 12,
++	GFX10_BUFFER_LOAD_DWORDX2 = 13,
++	GFX10_BUFFER_LOAD_DWORDX4 = 14,
++	GFX10_BUFFER_LOAD_DWORDX3 = 15,
++	/* 16-23: reserved */
++	GFX10_BUFFER_STORE_BYTE = 24,
++	GFX10_BUFFER_STORE_BYTE_D16_HI = 25,
++	GFX10_BUFFER_STORE_SHORT = 26,
++	GFX10_BUFFER_STORE_SHORT_D16_HI = 27,
++	GFX10_BUFFER_STORE_DWORD = 28,
++	GFX10_BUFFER_STORE_DWORDX2 = 29,
++	GFX10_BUFFER_STORE_DWORDX4 = 30,
++	GFX10_BUFFER_STORE_DWORDX3 = 31,
++	GFX10_BUFFER_LOAD_UBYTE_D16 = 32,
++	GFX10_BUFFER_LOAD_UBYTE_D16_HI = 33,
++	GFX10_BUFFER_LOAD_SBYTE_D16 = 34,
++	GFX10_BUFFER_LOAD_SBYTE_D16_HI = 35,
++	GFX10_BUFFER_LOAD_SHORT_D16 = 36,
++	GFX10_BUFFER_LOAD_SHORT_D16_HI = 37,
++	GFX10_BUFFER_LOAD_FORMAT_D16_HI_X = 38,
++	GFX10_BUFFER_STORE_FORMAT_D16_HI_X = 39,
++	/* 40-47: reserved */
++	GFX10_BUFFER_ATOMIC_SWAP = 48,
++	GFX10_BUFFER_ATOMIC_CMPSWAP = 49,
++	GFX10_BUFFER_ATOMIC_ADD = 50,
++	GFX10_BUFFER_ATOMIC_SUB = 51,
++	GFX10_BUFFER_ATOMIC_CSUB = 52,
++	GFX10_BUFFER_ATOMIC_SMIN = 53,
++	GFX10_BUFFER_ATOMIC_UMIN = 54, /* was 58 - BUG FIX (ISA p.212) */
++	GFX10_BUFFER_ATOMIC_SMAX = 55,
++	GFX10_BUFFER_ATOMIC_UMAX = 56,
++	GFX10_BUFFER_ATOMIC_AND = 57,
++	GFX10_BUFFER_ATOMIC_OR = 58,
++	GFX10_BUFFER_ATOMIC_XOR = 59,
++	GFX10_BUFFER_ATOMIC_INC = 60,
++	GFX10_BUFFER_ATOMIC_DEC = 61,
++	GFX10_BUFFER_ATOMIC_FCMPSWAP = 62,
++	GFX10_BUFFER_ATOMIC_FMIN = 63,
++	GFX10_BUFFER_ATOMIC_FMAX = 64,
++	/* 65-79: reserved */
++	GFX10_BUFFER_ATOMIC_SWAP_X2 = 80,
++	GFX10_BUFFER_ATOMIC_CMPSWAP_X2 = 81,
++	GFX10_BUFFER_ATOMIC_ADD_X2 = 82,
++	GFX10_BUFFER_ATOMIC_SUB_X2 = 83,
++	/* 84: reserved */
++	GFX10_BUFFER_ATOMIC_SMIN_X2 = 85,
++	GFX10_BUFFER_ATOMIC_UMIN_X2 = 86,
++	GFX10_BUFFER_ATOMIC_SMAX_X2 = 87,
++	GFX10_BUFFER_ATOMIC_UMAX_X2 = 88,
++	GFX10_BUFFER_ATOMIC_AND_X2 = 89,
++	GFX10_BUFFER_ATOMIC_OR_X2 = 90,
++	GFX10_BUFFER_ATOMIC_XOR_X2 = 91,
++	GFX10_BUFFER_ATOMIC_INC_X2 = 92,
++	GFX10_BUFFER_ATOMIC_DEC_X2 = 93,
++	GFX10_BUFFER_ATOMIC_FCMPSWAP_X2 = 94,
++	GFX10_BUFFER_ATOMIC_FMIN_X2 = 95,
++	GFX10_BUFFER_ATOMIC_FMAX_X2 = 96,
++	/* 97-112: reserved */
++	GFX10_BUFFER_GL0_INV = 113,
++	GFX10_BUFFER_GL1_INV = 114,
++	/* 115-127: reserved */
++	GFX10_BUFFER_LOAD_FORMAT_D16_X = 128,
++	GFX10_BUFFER_LOAD_FORMAT_D16_XY = 129,
++	GFX10_BUFFER_LOAD_FORMAT_D16_XYZ = 130,
++	GFX10_BUFFER_LOAD_FORMAT_D16_XYZW = 131,
++	GFX10_BUFFER_STORE_FORMAT_D16_X = 132,
++	GFX10_BUFFER_STORE_FORMAT_D16_XY = 133,
++	GFX10_BUFFER_STORE_FORMAT_D16_XYZ = 134,
++	GFX10_BUFFER_STORE_FORMAT_D16_XYZW = 135,
++};
++
++/* Vector Memory Image Format */
++struct amdgcn_gfx10_mimg {
++};
++
++#define GFX10_FLAT_ENCODING			0x37
++#define GFX10_FLAT_SADDR_SGPR_BASE		0
++#define GFX10_FLAT_SADDR_VCC_LO			106
++#define GFX10_FLAT_SADDR_VCC_HI			107
++#define GFX10_FLAT_SADDR_TTPM_BASE		108
++#define GFX10_FLAT_SADDR_M0			124
++#define GFX10_FLAT_SADDR_NULL			125
++#define GFX10_FLAT_SADDR_EXEC_LO		126
++#define GFX10_FLAT_SADDR_EXEC_HI		127
++#define GFX10_FLAT_SADDR_INTEGER_0		128
++#define GFX10_FLAT_SADDR_INTEGER_MINUS_1	193
++#define GFX10_FLAT_SADDR_SHARED_BASE		235
++#define GFX10_FLAT_SADDR_SHARED_LIMIT		236
++#define GFX10_FLAT_SADDR_PRIVATE_BASE		237
++#define GFX10_FLAT_SADDR_PRIVATE_LIMIT		238
++#define GFX10_FLAT_SADDR_POPS_EXITING_WAVE_ID	239
++#define GFX10_FLAT_SADDR_VCCZ			251
++#define GFX10_FLAT_SADDR_EXECZ			252
++#define GFX10_FLAT_SADDR_SCC			253
++
++/*
++ * Scalar SGPR that provides an offset address. Use NULL for disabled global
++ * addressing; the 0x7f encoding is not accepted by LLVM/RGP for gfx10 global
++ * memory instructions.
++ * Meaning of this field is different for Scratch and Global:
++ * Flat: Unused.
++ * Scratch: Use an SGPR (instead of VGPR) for the address.
++ * Global: Use the SGPR to provide a base address; the VGPR provides a 32-bit
++ * offset per lane.
++ */
++#define GFX10_FLAT_SADDR_DISABLE                 GFX10_FLAT_SADDR_NULL
++#define GFX10_FLAT_SEG_FLAT                      0
++#define GFX10_FLAT_SEG_SCRATCH                   1
++#define GFX10_FLAT_SEG_GLOBAL                    2
++
++/* Flat Formats */
++struct amdgcn_gfx10_flat {
++	u64 offset:12;
++	u64 dlc:1;
++	u64 lds:1;
++	u64 seg:2;
++	u64 glc:1;
++	u64 slc:1;
++	u64 op:7;
++	u64 dummy1:1;
++	u64 encoding:6;
++	u64 addr:8;
++	u64 data:8;
++	u64 saddr:7;
++	u64 dummy2:1;
++	u64 vdst:8;
++};
++
++enum amdgcn_gfx10_flat_opcode {
++	/* 0-7: reserved */
++	GFX10_FLAT_LOAD_UBYTE = 8,
++	GFX10_FLAT_LOAD_SBYTE = 9,
++	GFX10_FLAT_LOAD_USHORT = 10,
++	GFX10_FLAT_LOAD_SSHORT = 11,
++	GFX10_FLAT_LOAD_DWORD = 12,
++	GFX10_FLAT_LOAD_DWORDX2 = 13,
++	GFX10_FLAT_LOAD_DWORDX4 = 14,
++	GFX10_FLAT_LOAD_DWORDX3 = 15,
++	/* 16-23: reserved */
++	GFX10_FLAT_STORE_BYTE = 24,
++	GFX10_FLAT_STORE_BYTE_D16_HI = 25,
++	GFX10_FLAT_STORE_SHORT = 26,
++	GFX10_FLAT_STORE_SHORT_D16_HI = 27,
++	GFX10_FLAT_STORE_DWORD = 28,
++	GFX10_FLAT_STORE_DWORDX2 = 29,
++	GFX10_FLAT_STORE_DWORDX4 = 30,
++	GFX10_FLAT_STORE_DWORDX3 = 31,
++	GFX10_FLAT_LOAD_UBYTE_D16 = 32,
++	GFX10_FLAT_LOAD_UBYTE_D16_HI = 33,
++	GFX10_FLAT_LOAD_SBYTE_D16 = 34,
++	GFX10_FLAT_LOAD_SBYTE_D16_HI = 35,
++	GFX10_FLAT_LOAD_SHORT_D16 = 36,
++	GFX10_FLAT_LOAD_SHORT_D16_HI = 37,
++	/* 38-47: reserved */
++	GFX10_FLAT_ATOMIC_SWAP = 48,
++	GFX10_FLAT_ATOMIC_CMPSWAP = 49,
++	GFX10_FLAT_ATOMIC_ADD = 50,
++	GFX10_FLAT_ATOMIC_SUB = 51,
++	/* 52: reserved (CSUB is GLOBAL/MUBUF only) */
++	GFX10_FLAT_ATOMIC_SMIN = 53,
++	GFX10_FLAT_ATOMIC_UMIN = 54,
++	GFX10_FLAT_ATOMIC_SMAX = 55,
++	GFX10_FLAT_ATOMIC_UMAX = 56,
++	GFX10_FLAT_ATOMIC_AND = 57,
++	GFX10_FLAT_ATOMIC_OR = 58,
++	GFX10_FLAT_ATOMIC_XOR = 59,
++	GFX10_FLAT_ATOMIC_INC = 60,
++	GFX10_FLAT_ATOMIC_DEC = 61,
++	GFX10_FLAT_ATOMIC_FCMPSWAP = 62,
++	GFX10_FLAT_ATOMIC_FMIN = 63,
++	GFX10_FLAT_ATOMIC_FMAX = 64,
++	/* 65-79: reserved */
++	GFX10_FLAT_ATOMIC_SWAP_X2 = 80,
++	GFX10_FLAT_ATOMIC_CMPSWAP_X2 = 81,
++	GFX10_FLAT_ATOMIC_ADD_X2 = 82,
++	GFX10_FLAT_ATOMIC_SUB_X2 = 83,
++	/* 84: reserved */
++	GFX10_FLAT_ATOMIC_SMIN_X2 = 85,
++	GFX10_FLAT_ATOMIC_UMIN_X2 = 86,
++	GFX10_FLAT_ATOMIC_SMAX_X2 = 87,
++	GFX10_FLAT_ATOMIC_UMAX_X2 = 88,
++	GFX10_FLAT_ATOMIC_AND_X2 = 89,
++	GFX10_FLAT_ATOMIC_OR_X2 = 90,
++	GFX10_FLAT_ATOMIC_XOR_X2 = 91,
++	GFX10_FLAT_ATOMIC_INC_X2 = 92,
++	GFX10_FLAT_ATOMIC_DEC_X2 = 93,
++	GFX10_FLAT_ATOMIC_FCMPSWAP_X2 = 94,
++	GFX10_FLAT_ATOMIC_FMIN_X2 = 95,
++	GFX10_FLAT_ATOMIC_FMAX_X2 = 96,
++};
++
++enum amdgcn_gfx10_global_opcode {
++	/* 0-7: reserved */
++	GFX10_GLOBAL_LOAD_UBYTE = 8,
++	GFX10_GLOBAL_LOAD_SBYTE = 9,
++	GFX10_GLOBAL_LOAD_USHORT = 10,
++	GFX10_GLOBAL_LOAD_SSHORT = 11,
++	GFX10_GLOBAL_LOAD_DWORD = 12,
++	GFX10_GLOBAL_LOAD_DWORDX2 = 13,
++	GFX10_GLOBAL_LOAD_DWORDX4 = 14,
++	GFX10_GLOBAL_LOAD_DWORDX3 = 15,
++	/* 16-21: reserved */
++	GFX10_GLOBAL_LOAD_DWORD_ADDTID = 22,
++	GFX10_GLOBAL_STORE_DWORD_ADDTID = 23,
++	GFX10_GLOBAL_STORE_BYTE = 24,
++	GFX10_GLOBAL_STORE_BYTE_D16_HI = 25,
++	GFX10_GLOBAL_STORE_SHORT = 26,
++	GFX10_GLOBAL_STORE_SHORT_D16_HI = 27,
++	GFX10_GLOBAL_STORE_DWORD = 28,
++	GFX10_GLOBAL_STORE_DWORDX2 = 29,
++	GFX10_GLOBAL_STORE_DWORDX4 = 30,
++	GFX10_GLOBAL_STORE_DWORDX3 = 31,
++	GFX10_GLOBAL_LOAD_UBYTE_D16 = 32,
++	GFX10_GLOBAL_LOAD_UBYTE_D16_HI = 33,
++	GFX10_GLOBAL_LOAD_SBYTE_D16 = 34,
++	GFX10_GLOBAL_LOAD_SBYTE_D16_HI = 35,
++	GFX10_GLOBAL_LOAD_SHORT_D16 = 36,
++	GFX10_GLOBAL_LOAD_SHORT_D16_HI = 37,
++	/* 38-47: reserved */
++	GFX10_GLOBAL_ATOMIC_SWAP = 48,
++	GFX10_GLOBAL_ATOMIC_CMPSWAP = 49,
++	GFX10_GLOBAL_ATOMIC_ADD = 50,
++	GFX10_GLOBAL_ATOMIC_SUB = 51,
++	GFX10_GLOBAL_ATOMIC_CSUB = 52,
++	GFX10_GLOBAL_ATOMIC_SMIN = 53,
++	GFX10_GLOBAL_ATOMIC_UMIN = 54,
++	GFX10_GLOBAL_ATOMIC_SMAX = 55,
++	GFX10_GLOBAL_ATOMIC_UMAX = 56,
++	GFX10_GLOBAL_ATOMIC_AND = 57,
++	GFX10_GLOBAL_ATOMIC_OR = 58,
++	GFX10_GLOBAL_ATOMIC_XOR = 59,
++	GFX10_GLOBAL_ATOMIC_INC = 60,
++	GFX10_GLOBAL_ATOMIC_DEC = 61,
++	GFX10_GLOBAL_ATOMIC_FCMPSWAP = 62,
++	GFX10_GLOBAL_ATOMIC_FMIN = 63,
++	GFX10_GLOBAL_ATOMIC_FMAX = 64,
++	/* 65-79: reserved */
++	GFX10_GLOBAL_ATOMIC_SWAP_X2 = 80,
++	GFX10_GLOBAL_ATOMIC_CMPSWAP_X2 = 81,
++	GFX10_GLOBAL_ATOMIC_ADD_X2 = 82,
++	GFX10_GLOBAL_ATOMIC_SUB_X2 = 83,
++	/* 84: reserved */
++	GFX10_GLOBAL_ATOMIC_SMIN_X2 = 85,
++	GFX10_GLOBAL_ATOMIC_UMIN_X2 = 86,
++	GFX10_GLOBAL_ATOMIC_SMAX_X2 = 87,
++	GFX10_GLOBAL_ATOMIC_UMAX_X2 = 88,
++	GFX10_GLOBAL_ATOMIC_AND_X2 = 89,
++	GFX10_GLOBAL_ATOMIC_OR_X2 = 90,
++	GFX10_GLOBAL_ATOMIC_XOR_X2 = 91,
++	GFX10_GLOBAL_ATOMIC_INC_X2 = 92,
++	GFX10_GLOBAL_ATOMIC_DEC_X2 = 93,
++	GFX10_GLOBAL_ATOMIC_FCMPSWAP_X2 = 94,
++	GFX10_GLOBAL_ATOMIC_FMIN_X2 = 95,
++	GFX10_GLOBAL_ATOMIC_FMAX_X2 = 96,
++};
++
++enum amdgcn_gfx10_scratch_opcode {
++	/* 0-7: reserved */
++	GFX10_SCRATCH_LOAD_UBYTE = 8,
++	GFX10_SCRATCH_LOAD_SBYTE = 9,
++	GFX10_SCRATCH_LOAD_USHORT = 10,
++	GFX10_SCRATCH_LOAD_SSHORT = 11,
++	GFX10_SCRATCH_LOAD_DWORD = 12,
++	GFX10_SCRATCH_LOAD_DWORDX2 = 13,
++	GFX10_SCRATCH_LOAD_DWORDX4 = 14,
++	GFX10_SCRATCH_LOAD_DWORDX3 = 15,
++	/* 16-23: reserved */
++	GFX10_SCRATCH_STORE_BYTE = 24,
++	GFX10_SCRATCH_STORE_BYTE_D16_HI = 25,
++	GFX10_SCRATCH_STORE_SHORT = 26,
++	GFX10_SCRATCH_STORE_SHORT_D16_HI = 27,
++	GFX10_SCRATCH_STORE_DWORD = 28,
++	GFX10_SCRATCH_STORE_DWORDX2 = 29,
++	GFX10_SCRATCH_STORE_DWORDX4 = 30,
++	GFX10_SCRATCH_STORE_DWORDX3 = 31,
++	GFX10_SCRATCH_LOAD_UBYTE_D16 = 32,
++	GFX10_SCRATCH_LOAD_UBYTE_D16_HI = 33,
++	GFX10_SCRATCH_LOAD_SBYTE_D16 = 34,
++	GFX10_SCRATCH_LOAD_SBYTE_D16_HI = 35,
++	GFX10_SCRATCH_LOAD_SHORT_D16 = 36,
++	GFX10_SCRATCH_LOAD_SHORT_D16_HI = 37,
++};
++
++/* Export Format */
++struct amdgcn_gfx10_exp {
++};
++
++union amdgcn_gfx10_insn {
++	struct amdgcn_gfx10_sop2 sop2;
++	struct amdgcn_gfx10_sopk sopk;
++	struct amdgcn_gfx10_sop1 sop1;
++	struct amdgcn_gfx10_sopc sopc;
++	struct amdgcn_gfx10_sopp sopp;
++	struct amdgcn_gfx10_smem smem;
++	struct amdgcn_gfx10_vop2 vop2;
++	struct amdgcn_gfx10_vop1 vop1;
++	struct amdgcn_gfx10_vopc vopc;
++	struct amdgcn_gfx10_vop3a vop3a;
++	struct amdgcn_gfx10_vop3b vop3b;
++	struct amdgcn_gfx10_vop3p vop3p;
++	struct amdgcn_gfx10_sdwa sdwa;
++	struct amdgcn_gfx10_sdwab sdwab;
++	struct amdgcn_gfx10_dpp16 dpp16;
++	struct amdgcn_gfx10_dpp8 dpp8;
++	struct amdgcn_gfx10_vintrp vintrp;
++	struct amdgcn_gfx10_ds ds;
++	struct amdgcn_gfx10_mtbuf mtbuf;
++	struct amdgcn_gfx10_mubuf mubuf;
++	struct amdgcn_gfx10_mimg mimg;
++	struct amdgcn_gfx10_flat flat;
++	struct amdgcn_gfx10_exp exp;
++};
++
++/* Cast macro - convert u32 *buf position to GFX10 insn union pointer. */
++#define I10(buf, n)	((union amdgcn_gfx10_insn *)&(buf)[(n)])
++
++inline u32 gfx10_get_param_base(struct amdgcn_param32 param)
++{
++	return gfx10_param_base[param.type];
++}
++
++inline u32 emit_gfx10_s_load_dwordx2(union amdgcn_gfx10_insn *insn,
++				     struct amdgcn_param32 dst,
++				     struct amdgcn_param32 src, int offset)
++{
++	/* s_load_dwordx2 <dst/sdata>, <src/sbase>, <offset>
++	 * sdata: register, load to.
++	 * sbase: sgpr-pair, load from.
++	 * offset: offset of kernarg_address in the hsa_kernel_dispatch_packet.
++	 *
++	 * sdata = *(sbase + offset);
++	 * param = (__global struct _knod_bpf_param *)pkt.kernarg_address;
++	 */
++
++	insn->smem.sbase = KNOD_AMDGPU_REG_PAIR(src.v);
++	insn->smem.sdata = dst.v;
++	insn->smem.dummy1 = 0;
++	insn->smem.dlc = 0;
++	insn->smem.dummy2 = 0;
++	insn->smem.glc = 0;
++	insn->smem.dummy3 = 0;
++	insn->smem.op = GFX10_S_LOAD_DWORDX2;
++	insn->smem.encoding = GFX10_SMEM_ENCODING;
++	insn->smem.offset = offset;
++	insn->smem.dummy4 = 0;
++	insn->smem.soffset = GFX10_SMEM_SOFFSET_NULL; /* no SGPR offset */
++
++	return 8;
++}
++
++inline u32 emit_gfx10_v_bfe_i32(union amdgcn_gfx10_insn *insn,
++				struct amdgcn_param32 dst,
++				struct amdgcn_param32 src0,
++				struct amdgcn_param32 src1,
++				struct amdgcn_param32 src2)
++{
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	WARN_ON(src1.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src2.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX10_V_BFE_I32;
++	insn->vop3a.encoding = GFX10_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx10_get_param_base(src1) + src1.v;
++	insn->vop3a.src2 = gfx10_get_param_base(src2) + src2.v;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx10_get_param_base(src0);
++		insn->vop3a.literal = src0.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_v_bfe_u32(union amdgcn_gfx10_insn *insn,
++				struct amdgcn_param32 dst,
++				struct amdgcn_param32 src0,
++				struct amdgcn_param32 src1,
++				struct amdgcn_param32 src2)
++{
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	WARN_ON(src1.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src2.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX10_V_BFE_U32;
++	insn->vop3a.encoding = GFX10_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx10_get_param_base(src1) + src1.v;
++	insn->vop3a.src2 = gfx10_get_param_base(src2) + src2.v;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx10_get_param_base(src0);
++		insn->vop3a.literal = src0.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_v_bfi_b32(union amdgcn_gfx10_insn *insn,
++				struct amdgcn_param32 dst,
++				struct amdgcn_param32 src0,
++				struct amdgcn_param32 src1,
++				struct amdgcn_param32 src2)
++{
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	WARN_ON(src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src1.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src2.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX10_V_BFI_B32;
++	insn->vop3a.encoding = GFX10_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx10_get_param_base(src1) + src1.v;
++	insn->vop3a.src2 = gfx10_get_param_base(src2) + src2.v;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx10_get_param_base(src0);
++		insn->vop3a.literal = src0.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_v_lshl_add_u32(union amdgcn_gfx10_insn *insn,
++				     struct amdgcn_param32 dst,
++				     struct amdgcn_param32 src0,
++				     struct amdgcn_param32 src1,
++				     struct amdgcn_param32 src2)
++{
++	/* v_lshl_add_u32 <dst>, <src0>, <src1>, <src2>
++	 *
++	 * <dst> = (<src0> << <src1>) + <src2>;
++	 */
++
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX10_V_LSHL_ADD_U32;
++	insn->vop3a.encoding = GFX10_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx10_get_param_base(src1) + src1.v;
++	insn->vop3a.src2 = gfx10_get_param_base(src2) + src2.v;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx10_get_param_base(src0);
++		insn->vop3a.literal = src0.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_v_lshl_or_b32(union amdgcn_gfx10_insn *insn,
++				    struct amdgcn_param32 dst,
++				    struct amdgcn_param32 src0,
++				    struct amdgcn_param32 src1,
++				    struct amdgcn_param32 src2)
++{
++	/* v_lshl_or_b32 <dst>, <src0>, <src1>, <src2>
++	 *
++	 * D.u = (S0.u << S1.u[4:0]) | S2.u
++	 */
++
++	WARN_ON(src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src1.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src2.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src2.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX10_V_LSHL_OR_B32;
++	insn->vop3a.encoding = GFX10_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx10_get_param_base(src1) + src1.v;
++	insn->vop3a.src2 = gfx10_get_param_base(src2) + src2.v;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx10_get_param_base(src0);
++		insn->vop3a.literal = src0.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_v_mad_u64_u32(union amdgcn_gfx10_insn *insn,
++				    struct amdgcn_param64 vdst,
++				    struct amdgcn_param32 sdst,
++				    struct amdgcn_param32 src0,
++				    struct amdgcn_param32 src1,
++				    struct amdgcn_param64 src2)
++{
++	/* v_mad_u64_u32 <vdst>, <sdst>, <src0_imm>, <src1>, <src2>
++	 * <vdst>: destination vgpr.
++	 * <sdst>: destination sgpr.
++	 * <src0>: source vgpr
++	 * <src1>: source vgpr
++	 * <src2>: source vgpr
++	 *
++	 * {vcc_out,D.u64} = S0.u32 * S1.u32 + S2.u64.
++	 * ctx = &param->sub[idx].ctx;
++	 */
++	WARN_ON(src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src1.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src2.lo.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src2.hi.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	insn->vop3b.vdst = vdst.lo.v;
++	insn->vop3b.sdst = sdst.v;
++	insn->vop3b.clmp = 0;
++	insn->vop3b.op = GFX10_V_MAD_U64_U32;
++	insn->vop3b.encoding = GFX10_VOP3B_ENCODING;
++	insn->vop3b.src1 = gfx10_get_param_base(src1) + src1.v;
++	insn->vop3b.src2 = gfx10_get_param_base(src2.lo) + src2.lo.v;
++	insn->vop3b.omod = 0;
++	insn->vop3b.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3b.src0 = gfx10_get_param_base(src0);
++		insn->vop3b.literal = src0.v;
++		return 12;
++	}
++	insn->vop3b.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_s_mov_b32(union amdgcn_gfx10_insn *insn,
++				struct amdgcn_param32 dst, struct amdgcn_param32 src)
++{
++	if (src.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->sop1.ssrc0 = gfx10_get_param_base(src);
++		insn->sop1.literal = src.v;
++	} else {
++		insn->sop1.ssrc0 = gfx10_get_param_base(src) + src.v;
++	}
++	insn->sop1.op = GFX10_S_MOV_B32;
++	insn->sop1.sdst = gfx10_get_param_base(dst) + dst.v;
++	insn->sop1.encoding = GFX10_SOP1_ENCODING;
++
++	if (src.type == AMDGCN_PARAM_TYPE_LITERAL_CONST)
++		return 8;
++	return 4;
++}
++
++inline u32 emit_gfx10_v_mov_b32_e32(union amdgcn_gfx10_insn *insn,
++				    struct amdgcn_param32 dst,
++				    struct amdgcn_param32 src)
++{
++	if (dst.type != AMDGCN_PARAM_TYPE_VGPR)
++		WARN_ON_ONCE(1);
++	insn->vop1.encoding = GFX10_VOP1_ENCODING;
++	insn->vop1.vdst = dst.v;
++	insn->vop1.op = GFX10_V_MOV_B32;
++	if (src.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop1.src0 = GFX10_VOP1_SRC_LITERAL_CONST;
++		insn->vop1.literal = src.v;
++
++		return 8;
++	}
++	insn->vop1.src0 = gfx10_get_param_base(src) + src.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_add_co_u32(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src0,
++				   struct amdgcn_param32 src1)
++{
++	insn->vop3b.vdst = dst.v;
++	insn->vop3b.sdst = GFX10_VOP3B_SRC_VCC_LO;
++	insn->vop3b.clmp = 0;
++	insn->vop3b.op = GFX10_V_ADD_CO_U32;
++	insn->vop3b.encoding = GFX10_VOP3B_ENCODING;
++	insn->vop3b.src1 = gfx10_get_param_base(src1) + src1.v;
++	insn->vop3b.src2 = GFX10_VOP3_UNUSED_SRC;
++	insn->vop3b.omod = 0;
++	insn->vop3b.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3b.src0 = gfx10_get_param_base(src0);
++		insn->vop3b.literal = src0.v;
++		return 12;
++	}
++	insn->vop3b.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_v_add_co_ci_u32_e32(union amdgcn_gfx10_insn *insn,
++					  struct amdgcn_param32 dst,
++					  struct amdgcn_param32 src0,
++					  struct amdgcn_param32 src1)
++{
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX10_V_ADD_CO_CI_U32;
++	insn->vop2.encoding = GFX10_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx10_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx10_get_param_base(src0) + src0.v;
++	return 4;
++}
++
++inline u32 emit_gfx10_v_xor_b32_e32(union amdgcn_gfx10_insn *insn,
++				    struct amdgcn_param32 dst,
++				    struct amdgcn_param32 src0,
++				    struct amdgcn_param32 src1)
++{
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX10_V_XOR_B32;
++	insn->vop2.encoding = GFX10_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx10_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_or_b32_e32(union amdgcn_gfx10_insn *insn,
++				    struct amdgcn_param32 dst,
++				    struct amdgcn_param32 src0,
++				    struct amdgcn_param32 src1)
++{
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX10_V_OR_B32;
++	insn->vop2.encoding = GFX10_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx10_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cndmask_b32_e32(union amdgcn_gfx10_insn *insn,
++					struct amdgcn_param32 dst,
++					struct amdgcn_param32 src0,
++					struct amdgcn_param32 src1)
++{
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX10_V_CNDMASK_B32;
++	insn->vop2.encoding = GFX10_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx10_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_and_b32_e32(union amdgcn_gfx10_insn *insn,
++				    struct amdgcn_param32 dst,
++				    struct amdgcn_param32 src0,
++				    struct amdgcn_param32 src1)
++{
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX10_V_AND_B32;
++	insn->vop2.encoding = GFX10_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx10_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_sub_co_ci_u32_e32(union amdgcn_gfx10_insn *insn,
++					  struct amdgcn_param32 dst,
++					  struct amdgcn_param32 src0,
++					  struct amdgcn_param32 src1)
++{
++	/* vdst = src0 - vsrc1 - vcc */
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX10_V_SUB_CO_CI_U32;
++	insn->vop2.encoding = GFX10_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx10_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx10_get_param_base(src0) + src0.v;
++	return 4;
++}
++
++inline u32 emit_gfx10_v_subrev_co_ci_u32_e32(union amdgcn_gfx10_insn *insn,
++					     struct amdgcn_param32 dst,
++					     struct amdgcn_param32 src0,
++					     struct amdgcn_param32 src1)
++{
++	/* vdst = src0 - vsrc1 - vcc */
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX10_V_SUBREV_CO_CI_U32;
++	insn->vop2.encoding = GFX10_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx10_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx10_get_param_base(src0) + src0.v;
++	return 4;
++}
++
++inline u32 emit_gfx10_v_sub_co_u32(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src0,
++				   struct amdgcn_param32 src1)
++{
++	/* dst = src0 - src1 */
++	insn->vop3b.vdst = dst.v;
++	insn->vop3b.sdst = GFX10_VOP3B_SRC_VCC_LO;
++	insn->vop3b.clmp = 0;
++	insn->vop3b.op = GFX10_V_SUB_CO_U32;
++	insn->vop3b.encoding = GFX10_VOP3B_ENCODING;
++	insn->vop3b.src1 = gfx10_get_param_base(src1) + src1.v;
++	insn->vop3b.src2 = GFX10_VOP3_UNUSED_SRC;
++	insn->vop3b.omod = 0;
++	insn->vop3b.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3b.src0 = gfx10_get_param_base(src0);
++		insn->vop3b.literal = src0.v;
++		return 12;
++	}
++	insn->vop3b.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_v_subrev_co_u32(union amdgcn_gfx10_insn *insn,
++				      struct amdgcn_param32 dst,
++				      struct amdgcn_param32 src0,
++				      struct amdgcn_param32 src1)
++{
++	/* dst = src0 - src1 */
++	insn->vop3b.vdst = dst.v;
++	insn->vop3b.sdst = GFX10_VOP3B_SRC_VCC_LO;
++	insn->vop3b.clmp = 0;
++	insn->vop3b.op = GFX10_V_SUBREV_CO_U32;
++	insn->vop3b.encoding = GFX10_VOP3B_ENCODING;
++	insn->vop3b.src1 = gfx10_get_param_base(src1) + src1.v;
++	insn->vop3b.src2 = GFX10_VOP3_UNUSED_SRC;
++	insn->vop3b.omod = 0;
++	insn->vop3b.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3b.src0 = gfx10_get_param_base(src0);
++		insn->vop3b.literal = src0.v;
++		return 12;
++	}
++	insn->vop3b.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_v_mul_lo_u32(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src0,
++				   struct amdgcn_param32 src1)
++{
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX10_V_MUL_LO_U32;
++	insn->vop3a.encoding = GFX10_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx10_get_param_base(src1) + src1.v;
++	insn->vop3a.src2 = GFX10_VOP3_UNUSED_SRC;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx10_get_param_base(src0);
++		insn->vop3a.literal = src0.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++/* v_mbcnt_lo_u32_b32 vdst, src0, vsrc1 */
++inline u32 emit_gfx10_v_mbcnt_lo_u32_b32(union amdgcn_gfx10_insn *insn,
++					  struct amdgcn_param32 dst,
++					  struct amdgcn_param32 src0,
++					  struct amdgcn_param32 src1)
++{
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX10_V_MBCNT_LO_U32_B32;
++	insn->vop3a.encoding = GFX10_VOP3A_ENCODING;
++	insn->vop3a.src0 = gfx10_get_param_base(src0) + src0.v;
++	insn->vop3a.src1 = gfx10_get_param_base(src1) + src1.v;
++	insn->vop3a.src2 = GFX10_VOP3_UNUSED_SRC;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++
++	return 8;
++}
++
++/* v_mbcnt_hi_u32_b32 vdst, src0, vsrc1 */
++inline u32 emit_gfx10_v_mbcnt_hi_u32_b32(union amdgcn_gfx10_insn *insn,
++					  struct amdgcn_param32 dst,
++					  struct amdgcn_param32 src0,
++					  struct amdgcn_param32 src1)
++{
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX10_V_MBCNT_HI_U32_B32;
++	insn->vop3a.encoding = GFX10_VOP3A_ENCODING;
++	insn->vop3a.src0 = gfx10_get_param_base(src0) + src0.v;
++	insn->vop3a.src1 = gfx10_get_param_base(src1) + src1.v;
++	insn->vop3a.src2 = GFX10_VOP3_UNUSED_SRC;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_v_mul_hi_u32(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src0,
++				   struct amdgcn_param32 src1)
++{
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX10_V_MUL_HI_U32;
++	insn->vop3a.encoding = GFX10_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx10_get_param_base(src1) + src1.v;
++	insn->vop3a.src2 = GFX10_VOP3_UNUSED_SRC;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx10_get_param_base(src0);
++		insn->vop3a.literal = src0.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_v_lshlrev_b64(union amdgcn_gfx10_insn *insn,
++				    struct amdgcn_param64 dst,
++				    struct amdgcn_param64 src0,
++				    struct amdgcn_param64 src1)
++{
++	/* dst = s1 << s0 */
++	insn->vop3a.vdst = dst.lo.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX10_V_LSHLREV_B64;
++	insn->vop3a.encoding = GFX10_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx10_get_param_base(src1.lo) + src1.lo.v;
++	insn->vop3a.src2 = GFX10_VOP3_UNUSED_SRC;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.lo.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx10_get_param_base(src0.lo);
++		insn->vop3a.literal = src0.lo.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx10_get_param_base(src0.lo) + src0.lo.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_v_lshrrev_b64(union amdgcn_gfx10_insn *insn,
++				    struct amdgcn_param64 dst,
++				    struct amdgcn_param64 src0,
++				    struct amdgcn_param64 src1)
++{
++	/* dst = s1 >> s0 */
++	insn->vop3a.vdst = dst.lo.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX10_V_LSHRREV_B64;
++	insn->vop3a.encoding = GFX10_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx10_get_param_base(src1.lo) + src1.lo.v;
++	insn->vop3a.src2 = GFX10_VOP3_UNUSED_SRC;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.lo.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx10_get_param_base(src0.lo);
++		insn->vop3a.literal = src0.lo.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx10_get_param_base(src0.lo) + src0.lo.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_v_lshlrev_b32(union amdgcn_gfx10_insn *insn,
++				    struct amdgcn_param32 dst,
++				    struct amdgcn_param32 src0,
++				    struct amdgcn_param32 src1)
++{
++	/* dst = s1 << s0 */
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX10_V_LSHLREV_B32;
++	insn->vop2.encoding = GFX10_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx10_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_lshrrev_b32(union amdgcn_gfx10_insn *insn,
++				    struct amdgcn_param32 dst,
++				    struct amdgcn_param32 src0,
++				    struct amdgcn_param32 src1)
++{
++	/* dst = s1 << s0 */
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX10_V_LSHRREV_B32;
++	insn->vop2.encoding = GFX10_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx10_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_add_nc_u32(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src0,
++				   struct amdgcn_param32 src1)
++{
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX10_V_ADD_NC_U32;
++	insn->vop2.encoding = GFX10_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx10_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx10_get_param_base(src0) + src0.v;
++	return 4;
++}
++
++inline u32 emit_gfx10_v_sub_nc_u32(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src0,
++				   struct amdgcn_param32 src1)
++{
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX10_V_SUB_NC_U32;
++	insn->vop2.encoding = GFX10_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx10_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx10_get_param_base(src0) + src0.v;
++	return 4;
++}
++
++inline u32 emit_gfx10_v_ashrrev_i64(union amdgcn_gfx10_insn *insn,
++				    struct amdgcn_param64 dst,
++				    struct amdgcn_param64 src0,
++				    struct amdgcn_param64 src1)
++{
++	/* dst = s1 >> s0 */
++	insn->vop3a.vdst = dst.lo.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX10_V_ASHRREV_I64;
++	insn->vop3a.encoding = GFX10_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx10_get_param_base(src1.lo) + src1.lo.v;
++	insn->vop3a.src2 = GFX10_VOP3_UNUSED_SRC;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.lo.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx10_get_param_base(src0.lo);
++		insn->vop3a.literal = src0.lo.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx10_get_param_base(src0.lo) + src0.lo.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_v_ashrrev_i32(union amdgcn_gfx10_insn *insn,
++				    struct amdgcn_param32 dst,
++				    struct amdgcn_param32 src0,
++				    struct amdgcn_param32 src1)
++{
++	/* dst = s1 >> s0 (arithmetic) */
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX10_V_ASHRREV_I32;
++	insn->vop2.encoding = GFX10_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx10_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_alignbit_b32(union amdgcn_gfx10_insn *insn,
++				     struct amdgcn_param32 dst,
++				     struct amdgcn_param32 src0,
++				     struct amdgcn_param32 src1,
++				     struct amdgcn_param32 src2)
++{
++	/* dst = s1 >> s0 */
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX10_V_ALIGNBIT_B32;
++	insn->vop3a.encoding = GFX10_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx10_get_param_base(src1) + src1.v;
++	insn->vop3a.src2 = gfx10_get_param_base(src2) + src2.v;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx10_get_param_base(src0);
++		insn->vop3a.literal = src0.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_v_cmp_eq_u64(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src)
++{
++	/* VCC = S0 == S1 */
++	insn->vopc.src0 = gfx10_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX10_V_CMP_EQ_U64;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cmp_eq_u32(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src)
++{
++	/* VCC = S0 == S1 */
++	insn->vopc.src0 = gfx10_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX10_V_CMP_EQ_U32;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cmp_gt_u64(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param64 dst,
++				   struct amdgcn_param64 src)
++{
++	/* VCC = S0 > S1 */
++	insn->vopc.src0 = gfx10_get_param_base(dst.lo) + dst.lo.v;
++	insn->vopc.vsrc1 = src.lo.v;
++	insn->vopc.op = GFX10_V_CMP_GT_U64;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cmp_gt_i64(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param64 dst,
++				   struct amdgcn_param64 src)
++{
++	/* VCC = S0 > S1 (signed) */
++	insn->vopc.src0 = gfx10_get_param_base(dst.lo) + dst.lo.v;
++	insn->vopc.vsrc1 = src.lo.v;
++	insn->vopc.op = GFX10_V_CMP_GT_I64;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cmp_ge_u32(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src)
++{
++	/* VCC = S0 >= S1 */
++	insn->vopc.src0 = gfx10_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX10_V_CMP_GE_U32;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cmp_gt_u32(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src)
++{
++	/* VCC = S0 > S1 */
++	insn->vopc.src0 = gfx10_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX10_V_CMP_GT_U32;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cmp_lt_u32(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src)
++{
++	/* VCC = S0 < S1 */
++	insn->vopc.src0 = gfx10_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX10_V_CMP_LT_U32;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cmp_le_u32(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src)
++{
++	/* VCC = S0 <= S1 */
++	insn->vopc.src0 = gfx10_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX10_V_CMP_LE_U32;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cmp_gt_i32(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src)
++{
++	/* VCC = S0 > S1 (signed) */
++	insn->vopc.src0 = gfx10_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX10_V_CMP_GT_I32;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cmp_ge_i32(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src)
++{
++	/* VCC = S0 >= S1 (signed) */
++	insn->vopc.src0 = gfx10_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX10_V_CMP_GE_I32;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cmp_lt_i32(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src)
++{
++	/* VCC = S0 < S1 (signed) */
++	insn->vopc.src0 = gfx10_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX10_V_CMP_LT_I32;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cmp_le_i32(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src)
++{
++	/* VCC = S0 <= S1 (signed) */
++	insn->vopc.src0 = gfx10_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX10_V_CMP_LE_I32;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cmpx_lt_u32(union amdgcn_gfx10_insn *insn,
++				    struct amdgcn_param32 dst,
++				    struct amdgcn_param32 src)
++{
++	/* EXEC &= (S0 < S1) */
++	insn->vopc.src0 = gfx10_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX10_V_CMPX_LT_U32;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cmp_ge_u64(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param64 dst,
++				   struct amdgcn_param64 src)
++{
++	/* VCC = S0 >= S1 */
++	insn->vopc.src0 = gfx10_get_param_base(dst.lo) + dst.lo.v;
++	insn->vopc.vsrc1 = src.lo.v;
++	insn->vopc.op = GFX10_V_CMP_GE_U64;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cmp_ge_i64(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param64 dst,
++				   struct amdgcn_param64 src)
++{
++	/* VCC = S0 >= S1 (signed) */
++	insn->vopc.src0 = gfx10_get_param_base(dst.lo) + dst.lo.v;
++	insn->vopc.vsrc1 = src.lo.v;
++	insn->vopc.op = GFX10_V_CMP_GE_I64;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cmp_lt_u64(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param64 dst,
++				   struct amdgcn_param64 src)
++{
++	/* VCC = S0 < S1 */
++	insn->vopc.src0 = gfx10_get_param_base(dst.lo) + dst.lo.v;
++	insn->vopc.vsrc1 = src.lo.v;
++	insn->vopc.op = GFX10_V_CMP_LT_U64;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cmp_lt_i64(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param64 dst,
++				   struct amdgcn_param64 src)
++{
++	/* VCC = S0 < S1 (signed) */
++	insn->vopc.src0 = gfx10_get_param_base(dst.lo) + dst.lo.v;
++	insn->vopc.vsrc1 = src.lo.v;
++	insn->vopc.op = GFX10_V_CMP_LT_I64;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cmp_le_u64(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param64 dst,
++				   struct amdgcn_param64 src)
++{
++	/* VCC = S0 <= S1 */
++	insn->vopc.src0 = gfx10_get_param_base(dst.lo) + dst.lo.v;
++	insn->vopc.vsrc1 = src.lo.v;
++	insn->vopc.op = GFX10_V_CMP_LE_U64;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_v_cmp_le_i64(union amdgcn_gfx10_insn *insn,
++				   struct amdgcn_param64 dst,
++				   struct amdgcn_param64 src)
++{
++	/* VCC = S0 <= S1 (signed) */
++	insn->vopc.src0 = gfx10_get_param_base(dst.lo) + dst.lo.v;
++	insn->vopc.vsrc1 = src.lo.v;
++	insn->vopc.op = GFX10_V_CMP_LE_I64;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_buffer_load_ubyte(union amdgcn_gfx10_insn *insn,
++					struct amdgcn_param32 dst,
++					struct amdgcn_param32 src,
++					short off)
++{
++	/* buffer_load_ubyte <dst>, <src>, s[0:3], 0 offen offset:<off> */
++	insn->mubuf.offset = off;
++	insn->mubuf.offen = 1;
++	insn->mubuf.idxen = 0;
++	insn->mubuf.glc = 0;
++	insn->mubuf.dlc = 0;
++	insn->mubuf.lds = 0;
++	insn->mubuf.dummy1 = 0;
++	insn->mubuf.op = GFX10_BUFFER_LOAD_UBYTE;
++	insn->mubuf.opm = 0;
++	insn->mubuf.encoding = GFX10_MUBUF_ENCODING;
++	insn->mubuf.vaddr = src.v;
++	insn->mubuf.vdata = dst.v;
++	insn->mubuf.srsrc = 0; /* s[0:3] */
++	insn->mubuf.dummy2 = 0;
++	insn->mubuf.slc = 0;
++	insn->mubuf.tfe = 0;
++	insn->mubuf.soffset = GFX10_MUBUF_SOFFSET_INTEGER_0;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_buffer_load_ushort(union amdgcn_gfx10_insn *insn,
++					 struct amdgcn_param32 dst,
++					 struct amdgcn_param32 src,
++					 short off)
++{
++	/* buffer_load_ushort <dst>, <src>, s[0:3], 0 offen offset:<off> */
++	insn->mubuf.offset = off;
++	insn->mubuf.offen = 1;
++	insn->mubuf.idxen = 0;
++	insn->mubuf.glc = 0;
++	insn->mubuf.dlc = 0;
++	insn->mubuf.lds = 0;
++	insn->mubuf.dummy1 = 0;
++	insn->mubuf.op = GFX10_BUFFER_LOAD_USHORT;
++	insn->mubuf.opm = 0;
++	insn->mubuf.encoding = GFX10_MUBUF_ENCODING;
++	insn->mubuf.vaddr = src.v;
++	insn->mubuf.vdata = dst.v;
++	insn->mubuf.srsrc = 0; /* s[0:3] */
++	insn->mubuf.dummy2 = 0;
++	insn->mubuf.slc = 0;
++	insn->mubuf.tfe = 0;
++	insn->mubuf.soffset = GFX10_MUBUF_SOFFSET_INTEGER_0;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_buffer_load_dword(union amdgcn_gfx10_insn *insn,
++					struct amdgcn_param32 dst,
++					struct amdgcn_param32 src,
++					short off)
++{
++	/* buffer_load_dword <dst>, <src>, s[0:3], 0 offen offset:<off> */
++	insn->mubuf.offset = off;
++	insn->mubuf.offen = 1;
++	insn->mubuf.idxen = 0;
++	insn->mubuf.glc = 0;
++	insn->mubuf.dlc = 0;
++	insn->mubuf.lds = 0;
++	insn->mubuf.dummy1 = 0;
++	insn->mubuf.op = GFX10_BUFFER_LOAD_DWORD;
++	insn->mubuf.opm = 0;
++	insn->mubuf.encoding = GFX10_MUBUF_ENCODING;
++	insn->mubuf.vaddr = src.v;
++	insn->mubuf.vdata = dst.v;
++	insn->mubuf.srsrc = 0; /* s[0:3] */
++	insn->mubuf.dummy2 = 0;
++	insn->mubuf.slc = 0;
++	insn->mubuf.tfe = 0;
++	insn->mubuf.soffset = GFX10_MUBUF_SOFFSET_INTEGER_0;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_buffer_load_dwordx2(union amdgcn_gfx10_insn *insn,
++					  struct amdgcn_param32 dst,
++					  struct amdgcn_param32 src,
++					  short off)
++{
++	/* buffer_load_dwordx2 <dst>, <src>, s[0:3], 0 offen offset:<off> */
++	insn->mubuf.offset = off;
++	insn->mubuf.offen = 1;
++	insn->mubuf.idxen = 0;
++	insn->mubuf.glc = 0;
++	insn->mubuf.dlc = 0;
++	insn->mubuf.lds = 0;
++	insn->mubuf.dummy1 = 0;
++	insn->mubuf.op = GFX10_BUFFER_LOAD_DWORDX2;
++	insn->mubuf.opm = 0;
++	insn->mubuf.encoding = GFX10_MUBUF_ENCODING;
++	insn->mubuf.vaddr = src.v;
++	insn->mubuf.vdata = dst.v;
++	insn->mubuf.srsrc = 0; /* s[0:3] */
++	insn->mubuf.dummy2 = 0;
++	insn->mubuf.slc = 0;
++	insn->mubuf.tfe = 0;
++	insn->mubuf.soffset = GFX10_MUBUF_SOFFSET_INTEGER_0;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_buffer_load_dwordx4(union amdgcn_gfx10_insn *insn,
++					  struct amdgcn_param32 dst,
++					  struct amdgcn_param32 src,
++					  short off)
++{
++	/* buffer_load_dwordx4 <dst>, <src>, s[0:3], 0 offen offset:<off> */
++	insn->mubuf.offset = off;
++	insn->mubuf.offen = 1;
++	insn->mubuf.idxen = 0;
++	insn->mubuf.glc = 0;
++	insn->mubuf.dlc = 0;
++	insn->mubuf.lds = 0;
++	insn->mubuf.dummy1 = 0;
++	insn->mubuf.op = GFX10_BUFFER_LOAD_DWORDX4;
++	insn->mubuf.opm = 0;
++	insn->mubuf.encoding = GFX10_MUBUF_ENCODING;
++	insn->mubuf.vaddr = src.v;
++	insn->mubuf.vdata = dst.v;
++	insn->mubuf.srsrc = 0; /* s[0:3] */
++	insn->mubuf.dummy2 = 0;
++	insn->mubuf.slc = 0;
++	insn->mubuf.tfe = 0;
++	insn->mubuf.soffset = GFX10_MUBUF_SOFFSET_INTEGER_0;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_global_load_ubyte(union amdgcn_gfx10_insn *insn,
++					struct amdgcn_param32 dst,
++					struct amdgcn_param32 src,
++					short off)
++{
++	/* global_load_ubyte <dst>, <srcs>, off offset:<off> */
++	insn->flat.offset = off;
++	insn->flat.dlc = 0;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX10_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 0;
++	insn->flat.slc = 0;
++	insn->flat.op = GFX10_GLOBAL_LOAD_UBYTE;
++	insn->flat.encoding = GFX10_FLAT_ENCODING;
++	insn->flat.addr = src.v;
++	insn->flat.data = 0;
++	insn->flat.saddr = GFX10_FLAT_SADDR_DISABLE;
++	insn->flat.dummy1 = 0;
++	insn->flat.dummy2 = 0;
++	insn->flat.vdst = dst.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_global_load_ushort(union amdgcn_gfx10_insn *insn,
++					 struct amdgcn_param32 dst,
++					 struct amdgcn_param32 src,
++					 short off)
++{
++	/* global_load_ushort <dst>, <srcs>, off offset:<off> */
++	insn->flat.offset = off;
++	insn->flat.dlc = 0;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX10_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 0;
++	insn->flat.slc = 0;
++	insn->flat.op = GFX10_GLOBAL_LOAD_USHORT;
++	insn->flat.encoding = GFX10_FLAT_ENCODING;
++	insn->flat.addr = src.v;
++	insn->flat.data = 0;
++	insn->flat.saddr = GFX10_FLAT_SADDR_DISABLE;
++	insn->flat.dummy1 = 0;
++	insn->flat.dummy2 = 0;
++	insn->flat.vdst = dst.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_global_load_dword(union amdgcn_gfx10_insn *insn,
++					struct amdgcn_param32 dst,
++					struct amdgcn_param32 src,
++					short off)
++{
++	/* global_load_dword <dst>, <srcs>, off offset:<off> */
++	insn->flat.offset = off;
++	insn->flat.dlc = 0;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX10_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 0;
++	insn->flat.slc = 0;
++	insn->flat.op = GFX10_GLOBAL_LOAD_DWORD;
++	insn->flat.encoding = GFX10_FLAT_ENCODING;
++	insn->flat.addr = src.v;
++	insn->flat.data = 0;
++	insn->flat.saddr = GFX10_FLAT_SADDR_DISABLE;
++	insn->flat.dummy1 = 0;
++	insn->flat.dummy2 = 0;
++	insn->flat.vdst = dst.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_global_load_dwordx2(union amdgcn_gfx10_insn *insn,
++					  struct amdgcn_param32 dst,
++					  struct amdgcn_param32 src,
++					  short off)
++{
++	/* global_load_dwordx2 <dst>, <srcs>, off offset:<off> */
++	insn->flat.offset = off;
++	insn->flat.dlc = 0;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX10_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 0;
++	insn->flat.slc = 0;
++	insn->flat.op = GFX10_GLOBAL_LOAD_DWORDX2;
++	insn->flat.encoding = GFX10_FLAT_ENCODING;
++	insn->flat.addr = src.v;
++	insn->flat.data = 0;
++	insn->flat.saddr = GFX10_FLAT_SADDR_DISABLE;
++	insn->flat.dummy1 = 0;
++	insn->flat.dummy2 = 0;
++	insn->flat.vdst = dst.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_global_load_dwordx4(union amdgcn_gfx10_insn *insn,
++					  struct amdgcn_param32 dst,
++					  struct amdgcn_param32 src,
++					  short off)
++{
++	/* global_load_dwordx4 <dst>, <srcs>, off offset:<off> */
++	insn->flat.offset = off;
++	insn->flat.dlc = 0;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX10_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 0;
++	insn->flat.slc = 0;
++	insn->flat.op = GFX10_GLOBAL_LOAD_DWORDX4;
++	insn->flat.encoding = GFX10_FLAT_ENCODING;
++	insn->flat.addr = src.v;
++	insn->flat.data = 0;
++	insn->flat.saddr = GFX10_FLAT_SADDR_DISABLE;
++	insn->flat.dummy1 = 0;
++	insn->flat.dummy2 = 0;
++	insn->flat.vdst = dst.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_global_store_byte(union amdgcn_gfx10_insn *insn,
++					struct amdgcn_param32 dst,
++					struct amdgcn_param32 src, int off)
++{
++	/* global_store_byte <src>, <dst>, off offset:<off>
++	 * *(char *)(dst + off) = src;
++	 */
++	insn->flat.offset = off;
++	insn->flat.dlc = 0;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX10_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 1;
++	insn->flat.slc = 1;
++	insn->flat.op = GFX10_GLOBAL_STORE_BYTE;
++	insn->flat.encoding = GFX10_FLAT_ENCODING;
++	insn->flat.addr = dst.v;
++	insn->flat.data = src.v;
++	insn->flat.saddr = GFX10_FLAT_SADDR_DISABLE;
++	insn->flat.dummy1 = 0;
++	insn->flat.dummy2 = 0;
++	insn->flat.vdst = 0;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_global_store_short(union amdgcn_gfx10_insn *insn,
++					 struct amdgcn_param32 dst,
++					 struct amdgcn_param32 src, int off)
++{
++	/* global_store_short <src>, <dst>, off offset:<off>
++	 * *(char *)(dst + off) = src;
++	 */
++	insn->flat.offset = off;
++	insn->flat.dlc = 0;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX10_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 1;
++	insn->flat.slc = 1;
++	insn->flat.op = GFX10_GLOBAL_STORE_SHORT;
++	insn->flat.encoding = GFX10_FLAT_ENCODING;
++	insn->flat.addr = dst.v;
++	insn->flat.data = src.v;
++	insn->flat.saddr = GFX10_FLAT_SADDR_DISABLE;
++	insn->flat.dummy1 = 0;
++	insn->flat.dummy2 = 0;
++	insn->flat.vdst = 0;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_global_store_dword(union amdgcn_gfx10_insn *insn,
++					 struct amdgcn_param32 dst,
++					 struct amdgcn_param32 src, int off)
++{
++	/* global_store_dword <src>, <dst>, off offset:<off>
++	 * *(char *)(dst + off) = src;
++	 */
++	insn->flat.offset = off;
++	insn->flat.dlc = 0;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX10_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 1;
++	insn->flat.slc = 1;
++	insn->flat.op = GFX10_GLOBAL_STORE_DWORD;
++	insn->flat.encoding = GFX10_FLAT_ENCODING;
++	insn->flat.addr = dst.v;
++	insn->flat.data = src.v;
++	insn->flat.saddr = GFX10_FLAT_SADDR_DISABLE;
++	insn->flat.dummy1 = 0;
++	insn->flat.dummy2 = 0;
++	insn->flat.vdst = 0;
++
++	return 8;
++}
++
++/* global_atomic_add vdst, addr, data, off  (GLC=1: return old value)
++ * old_val = *(u32 *)(addr + off); *(u32 *)(addr + off) += data; vdst = old_val
++ */
++/* GFX10 global atomic: opcode only differs, all else identical */
++#define DEFINE_GFX10_GLOBAL_ATOMIC(name, opcode)			 \
++inline u32 emit_gfx10_global_atomic_##name(union amdgcn_gfx10_insn *insn,\
++					    struct amdgcn_param32 vdst,	 \
++					    struct amdgcn_param32 addr,	 \
++					    struct amdgcn_param32 data,	 \
++					    int off, int glc)		 \
++{									 \
++	insn->flat.offset = off;					 \
++	insn->flat.dlc = 0;						 \
++	insn->flat.lds = 0;						 \
++	insn->flat.seg = GFX10_FLAT_SEG_GLOBAL;				 \
++	insn->flat.glc = glc;						 \
++	insn->flat.slc = 0;						 \
++	insn->flat.op = (opcode);					 \
++	insn->flat.encoding = GFX10_FLAT_ENCODING;			 \
++	insn->flat.addr = addr.v;					 \
++	insn->flat.data = data.v;					 \
++	insn->flat.saddr = GFX10_FLAT_SADDR_DISABLE;			 \
++	insn->flat.dummy1 = 0;						 \
++	insn->flat.dummy2 = 0;						 \
++	insn->flat.vdst = vdst.v;					 \
++	return 8;							 \
++}
++
++DEFINE_GFX10_GLOBAL_ATOMIC(add, GFX10_GLOBAL_ATOMIC_ADD)
++DEFINE_GFX10_GLOBAL_ATOMIC(and, GFX10_GLOBAL_ATOMIC_AND)
++DEFINE_GFX10_GLOBAL_ATOMIC(or, GFX10_GLOBAL_ATOMIC_OR)
++DEFINE_GFX10_GLOBAL_ATOMIC(xor, GFX10_GLOBAL_ATOMIC_XOR)
++DEFINE_GFX10_GLOBAL_ATOMIC(swap, GFX10_GLOBAL_ATOMIC_SWAP)
++DEFINE_GFX10_GLOBAL_ATOMIC(cmpswap, GFX10_GLOBAL_ATOMIC_CMPSWAP)
++DEFINE_GFX10_GLOBAL_ATOMIC(add_x2, GFX10_GLOBAL_ATOMIC_ADD_X2)
++DEFINE_GFX10_GLOBAL_ATOMIC(and_x2, GFX10_GLOBAL_ATOMIC_AND_X2)
++DEFINE_GFX10_GLOBAL_ATOMIC(or_x2, GFX10_GLOBAL_ATOMIC_OR_X2)
++DEFINE_GFX10_GLOBAL_ATOMIC(xor_x2, GFX10_GLOBAL_ATOMIC_XOR_X2)
++DEFINE_GFX10_GLOBAL_ATOMIC(swap_x2, GFX10_GLOBAL_ATOMIC_SWAP_X2)
++DEFINE_GFX10_GLOBAL_ATOMIC(cmpswap_x2, GFX10_GLOBAL_ATOMIC_CMPSWAP_X2)
++
++inline u32 emit_gfx10_global_store_dwordx2(union amdgcn_gfx10_insn *insn,
++					   struct amdgcn_param32 dst,
++					   struct amdgcn_param32 src, int off)
++{
++	/* global_store_dwordx2 <src>, <dst>, off offset:<off>
++	 * *(char *)(dst + off) = src;
++	 */
++	insn->flat.offset = off;
++	insn->flat.dlc = 0;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX10_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 1;
++	insn->flat.slc = 1;
++	insn->flat.op = GFX10_GLOBAL_STORE_DWORDX2;
++	insn->flat.encoding = GFX10_FLAT_ENCODING;
++	insn->flat.addr = dst.v;
++	insn->flat.data = src.v;
++	insn->flat.saddr = GFX10_FLAT_SADDR_DISABLE;
++	insn->flat.dummy1 = 0;
++	insn->flat.dummy2 = 0;
++	insn->flat.vdst = 0;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_global_store_dwordx4(union amdgcn_gfx10_insn *insn,
++					   struct amdgcn_param32 dst,
++					   struct amdgcn_param32 src, int off)
++{
++	/* global_store_dwordx4 <src>, <dst>, off offset:<off>
++	 * *(char *)(dst + off) = src;
++	 */
++	insn->flat.offset = off;
++	insn->flat.dlc = 0;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX10_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 1;
++	insn->flat.slc = 1;
++	insn->flat.op = GFX10_GLOBAL_STORE_DWORDX4;
++	insn->flat.encoding = GFX10_FLAT_ENCODING;
++	insn->flat.addr = dst.v;
++	insn->flat.data = src.v;
++	insn->flat.saddr = GFX10_FLAT_SADDR_DISABLE;
++	insn->flat.dummy1 = 0;
++	insn->flat.dummy2 = 0;
++	insn->flat.vdst = 0;
++
++	return 8;
++}
++
++inline u32 emit_gfx10_s_branch(union amdgcn_gfx10_insn *insn,
++			       short off)
++{
++	insn->sopp.simm16 = off;
++	insn->sopp.op = GFX10_S_BRANCH;
++	insn->sopp.encoding = GFX10_SOPP_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_s_cbranch_vccz(union amdgcn_gfx10_insn *insn,
++				     short off)
++{
++	insn->sopp.simm16 = off;
++	insn->sopp.op = GFX10_S_CBRANCH_VCCZ;
++	insn->sopp.encoding = GFX10_SOPP_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_s_cbranch_vccnz(union amdgcn_gfx10_insn *insn,
++				      short off)
++{
++	insn->sopp.simm16 = off;
++	insn->sopp.op = GFX10_S_CBRANCH_VCCNZ;
++	insn->sopp.encoding = GFX10_SOPP_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_branch_fixup(union amdgcn_gfx10_insn *insn,
++				   short off)
++{
++	WARN_ON(insn->sopp.op != GFX10_S_BRANCH &&
++		insn->sopp.op != GFX10_S_CBRANCH_VCCZ &&
++		insn->sopp.op != GFX10_S_CBRANCH_VCCNZ &&
++		insn->sopp.op != GFX10_S_CBRANCH_EXECZ &&
++		insn->sopp.op != GFX10_S_CBRANCH_EXECNZ);
++	insn->sopp.simm16 = off;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_s_waitcnt_lgkmcnt(union amdgcn_gfx10_insn *insn)
++{
++	struct amdgcn_gfx10_sopp_vmcnt vmcnt;
++	u16 simm16;
++	/* s_waitcnt lgkmcnt (0)
++	 * wait for memory
++	 */
++	vmcnt.vmcnt1 = -1;
++	vmcnt.vmcnt2 = -1;
++	vmcnt.expcnt = -1;
++	vmcnt.dummy = 0;
++	vmcnt.lgkmcnt = 0;
++	memcpy(&simm16, &vmcnt, sizeof(u16));
++	insn->sopp.simm16 = simm16;
++	insn->sopp.op = GFX10_S_WAITCNT;
++	insn->sopp.encoding = GFX10_SOPP_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_s_waitcnt_vmcnt(union amdgcn_gfx10_insn *insn)
++{
++	struct amdgcn_gfx10_sopp_vmcnt vmcnt;
++	u16 simm16;
++	/* s_waitcnt lgkmcnt (0)
++	 * wait for memory
++	 */
++	vmcnt.vmcnt1 = 0;
++	vmcnt.vmcnt2 = 0;
++	vmcnt.expcnt = -1;
++	vmcnt.dummy = 0;
++	vmcnt.lgkmcnt = -1;
++	memcpy(&simm16, &vmcnt, sizeof(u16));
++	insn->sopp.simm16 = simm16;
++	insn->sopp.op = GFX10_S_WAITCNT;
++	insn->sopp.encoding = GFX10_SOPP_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_s_waitcnt_vmcnt_lgkmcnt(union amdgcn_gfx10_insn *insn)
++{
++	struct amdgcn_gfx10_sopp_vmcnt vmcnt;
++	u16 simm16;
++	/* s_waitcnt lgkmcnt (0)
++	 * wait for memory
++	 */
++	vmcnt.vmcnt1 = 0;
++	vmcnt.vmcnt2 = 0;
++	vmcnt.expcnt = -1;
++	vmcnt.dummy = 0;
++	vmcnt.lgkmcnt = 0;
++	memcpy(&simm16, &vmcnt, sizeof(u16));
++	insn->sopp.simm16 = simm16;
++	insn->sopp.op = GFX10_S_WAITCNT;
++	insn->sopp.encoding = GFX10_SOPP_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_s_nop(union amdgcn_gfx10_insn *insn)
++{
++	insn->sopp.simm16 = 0;
++	insn->sopp.op = GFX10_S_NOP;
++	insn->sopp.encoding = GFX10_SOPP_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_s_endpgm(union amdgcn_gfx10_insn *insn)
++{
++	insn->sopp.simm16 = 0;
++	insn->sopp.op = GFX10_S_ENDPGM;
++	insn->sopp.encoding = GFX10_SOPP_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_s_code_end(union amdgcn_gfx10_insn *insn)
++{
++	insn->sopp.simm16 = 0;
++	insn->sopp.op = GFX10_S_CODE_END;
++	insn->sopp.encoding = GFX10_SOPP_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx10_s_icache_inv(union amdgcn_gfx10_insn *insn)
++{
++	insn->sopp.simm16 = 0;
++	insn->sopp.op = GFX10_S_ICACHE_INV;
++	insn->sopp.encoding = GFX10_SOPP_ENCODING;
++
++	return 4;
++}
++
++/* Structurized CFG instructions.
++ * These use raw SGPR indices for 64-bit pair operations involving
++ * EXEC (126) and VCC (106) special registers.
++ */
++
++/* s_and_saveexec_b64 s[sdst:sdst+1], s[ssrc:ssrc+1]
++ * sdst = EXEC; EXEC &= ssrc; SCC = (EXEC != 0)
++ */
++inline u32 emit_gfx10_s_and_saveexec_b64(union amdgcn_gfx10_insn *insn,
++					  u8 sdst, u8 ssrc)
++{
++	insn->sop1.ssrc0 = ssrc;
++	insn->sop1.op = GFX10_S_AND_SAVEEXEC_B64;
++	insn->sop1.sdst = sdst;
++	insn->sop1.encoding = GFX10_SOP1_ENCODING;
++
++	return 4;
++}
++
++/* s_bcnt1_i32_b64 sdst, s[ssrc:ssrc+1]
++ * sdst = popcount(ssrc). SCC = (sdst != 0)
++ */
++inline u32 emit_gfx10_s_bcnt1_i32_b64(union amdgcn_gfx10_insn *insn,
++				       u8 sdst, u8 ssrc)
++{
++	insn->sop1.ssrc0 = ssrc;
++	insn->sop1.op = GFX10_S_BCNT1_I32_B64;
++	insn->sop1.sdst = sdst;
++	insn->sop1.encoding = GFX10_SOP1_ENCODING;
++
++	return 4;
++}
++
++/* s_mov_b64 s[sdst:sdst+1], s[ssrc:ssrc+1] (or special src like 0) */
++inline u32 emit_gfx10_s_mov_b64(union amdgcn_gfx10_insn *insn,
++				 u8 sdst, u8 ssrc)
++{
++	insn->sop1.ssrc0 = ssrc;
++	insn->sop1.op = GFX10_S_MOV_B64;
++	insn->sop1.sdst = sdst;
++	insn->sop1.encoding = GFX10_SOP1_ENCODING;
++
++	return 4;
++}
++
++/* s_and_b64 s[sdst:sdst+1], s[ssrc0:ssrc0+1], s[ssrc1:ssrc1+1] */
++inline u32 emit_gfx10_s_and_b64(union amdgcn_gfx10_insn *insn,
++				 u8 sdst, u8 ssrc0, u8 ssrc1)
++{
++	insn->sop2.ssrc0 = ssrc0;
++	insn->sop2.ssrc1 = ssrc1;
++	insn->sop2.sdst = sdst;
++	insn->sop2.op = GFX10_S_AND_B64;
++	insn->sop2.encoding = GFX10_SOP2_ENCODING;
++
++	return 4;
++}
++
++/* s_or_b64 s[sdst:sdst+1], s[ssrc0:ssrc0+1], s[ssrc1:ssrc1+1] */
++inline u32 emit_gfx10_s_or_b64(union amdgcn_gfx10_insn *insn,
++				u8 sdst, u8 ssrc0, u8 ssrc1)
++{
++	insn->sop2.ssrc0 = ssrc0;
++	insn->sop2.ssrc1 = ssrc1;
++	insn->sop2.sdst = sdst;
++	insn->sop2.op = GFX10_S_OR_B64;
++	insn->sop2.encoding = GFX10_SOP2_ENCODING;
++
++	return 4;
++}
++
++/* s_andn2_b64 s[sdst:sdst+1], s[ssrc0:ssrc0+1], s[ssrc1:ssrc1+1]
++ * sdst = ssrc0 & ~ssrc1
++ */
++inline u32 emit_gfx10_s_andn2_b64(union amdgcn_gfx10_insn *insn,
++				   u8 sdst, u8 ssrc0, u8 ssrc1)
++{
++	insn->sop2.ssrc0 = ssrc0;
++	insn->sop2.ssrc1 = ssrc1;
++	insn->sop2.sdst = sdst;
++	insn->sop2.op = GFX10_S_ANDN2_B64;
++	insn->sop2.encoding = GFX10_SOP2_ENCODING;
++
++	return 4;
++}
++
++/* s_cbranch_execz off - branch if EXEC == 0 */
++inline u32 emit_gfx10_s_cbranch_execz(union amdgcn_gfx10_insn *insn,
++				       short off)
++{
++	insn->sopp.simm16 = off;
++	insn->sopp.op = GFX10_S_CBRANCH_EXECZ;
++	insn->sopp.encoding = GFX10_SOPP_ENCODING;
++
++	return 4;
++}
++
++/* s_cbranch_execnz off - branch if EXEC != 0 */
++inline u32 emit_gfx10_s_cbranch_execnz(union amdgcn_gfx10_insn *insn,
++					short off)
++{
++	insn->sopp.simm16 = off;
++	insn->sopp.op = GFX10_S_CBRANCH_EXECNZ;
++	insn->sopp.encoding = GFX10_SOPP_ENCODING;
++
++	return 4;
++}
++
++/* s_sub_u32 sdst, ssrc0, ssrc1 - sdst = ssrc0 - ssrc1; SCC = borrow */
++inline u32 emit_gfx10_s_sub_u32(union amdgcn_gfx10_insn *insn,
++				 u8 sdst, u8 ssrc0, u8 ssrc1)
++{
++	insn->sop2.ssrc0 = ssrc0;
++	insn->sop2.ssrc1 = ssrc1;
++	insn->sop2.sdst = sdst;
++	insn->sop2.op = GFX10_S_SUB_U32;
++	insn->sop2.encoding = GFX10_SOP2_ENCODING;
++
++	return 4;
++}
++
++/* s_cbranch_scc0 off - branch if SCC == 0 (no borrow) */
++inline u32 emit_gfx10_s_cbranch_scc0(union amdgcn_gfx10_insn *insn,
++				      short off)
++{
++	insn->sopp.simm16 = off;
++	insn->sopp.op = GFX10_S_CBRANCH_SCC0;
++	insn->sopp.encoding = GFX10_SOPP_ENCODING;
++
++	return 4;
++}
++
++static inline void __emit_gfx10_sop2(union amdgcn_gfx10_insn *insn,
++				      int op, int sdst, int ssrc0, int ssrc1)
++{
++	insn->sop2.encoding = GFX10_SOP2_ENCODING;
++	insn->sop2.op = op;
++	insn->sop2.sdst = sdst;
++	insn->sop2.ssrc0 = ssrc0;
++	insn->sop2.ssrc1 = ssrc1;
++}
++
++static inline void __emit_gfx10_sop1(union amdgcn_gfx10_insn *insn,
++				      int op, int sdst, int ssrc0)
++{
++	insn->sop1.encoding = GFX10_SOP1_ENCODING;
++	insn->sop1.op = op;
++	insn->sop1.sdst = sdst;
++	insn->sop1.ssrc0 = ssrc0;
++}
++
++static inline void __emit_gfx10_sopp(union amdgcn_gfx10_insn *insn,
++				      int op, u16 simm16)
++{
++	insn->sopp.encoding = GFX10_SOPP_ENCODING;
++	insn->sopp.op = op;
++	insn->sopp.simm16 = simm16;
++}
++
++static inline void __emit_gfx10_vop2(union amdgcn_gfx10_insn *insn,
++				      int op, int vdst, int vsrc1, int src0)
++{
++	insn->vop2.encoding = GFX10_VOP2_ENCODING;
++	insn->vop2.op = op;
++	insn->vop2.vdst = vdst;
++	insn->vop2.vsrc1 = vsrc1;
++	insn->vop2.src0 = src0;
++}
++
++static inline void __emit_gfx10_smem(union amdgcn_gfx10_insn *insn,
++				      int op, int sdata, int sbase_pair,
++				      u32 offset)
++{
++	insn->smem.encoding = GFX10_SMEM_ENCODING;
++	insn->smem.op = op;
++	insn->smem.sdata = sdata;
++	insn->smem.sbase = sbase_pair;
++	insn->smem.offset = offset;
++	insn->smem.soffset = GFX10_SRC_NULL;
++}
++
++static inline void __emit_gfx10_ds(union amdgcn_gfx10_insn *insn,
++				    int op, int addr, int data0, int vdst,
++				    int off0, int off1)
++{
++	insn->ds.encoding = GFX10_DS_ENCODING;
++	insn->ds.op = op;
++	insn->ds.gds = GFX10_DS_LDS;
++	insn->ds.addr = addr;
++	insn->ds.data0 = data0;
++	insn->ds.vdst = vdst;
++	insn->ds.offset0 = off0;
++	insn->ds.offset1 = off1;
++}
++
++static inline void __emit_gfx10_global(union amdgcn_gfx10_insn *insn,
++					int op, int vdst, int vaddr,
++					int vdata, int saddr, int offset)
++{
++	insn->flat.encoding = GFX10_FLAT_ENCODING;
++	insn->flat.seg = GFX10_FLAT_SEG_GLOBAL;
++	insn->flat.op = op;
++	insn->flat.vdst = vdst;
++	insn->flat.addr = vaddr;
++	insn->flat.data = vdata;
++	insn->flat.saddr = saddr;
++	insn->flat.offset = offset;
++}
++
++/* ======================================================================
++ * GFX10 Param-Aware Emit Functions
++ *
++ * Paired with GFX9 equivalents in knod_gfx9_insn.h.  Used by shader
++ * emitters (aesgcm_shader.h, ipsec_fused_gfx10.h, ...) that construct
++ * operands via P_S/P_V/P_I/P_L helpers.
++ * ======================================================================
++ */
++
++static inline int __p2e10(struct amdgcn_param32 p)
++{
++	if (p.type == AMDGCN_PARAM_TYPE_LITERAL_CONST)
++		return gfx10_get_param_base(p);
++	return gfx10_get_param_base(p) + p.v;
++}
++
++/* --- GFX10 SOP2 (param32) --- */
++
++#define DEFINE_GFX10_SOP2_P(name, opcode)				\
++inline u32 emit_gfx10_##name(union amdgcn_gfx10_insn *insn,		\
++			      struct amdgcn_param32 dst,		\
++			      struct amdgcn_param32 src0,		\
++			      struct amdgcn_param32 src1)		\
++{									\
++	insn->sop2.sdst = __p2e10(dst);				\
++	insn->sop2.ssrc0 = __p2e10(src0);				\
++	insn->sop2.ssrc1 = __p2e10(src1);				\
++	insn->sop2.op = opcode;					\
++	insn->sop2.encoding = GFX10_SOP2_ENCODING;			\
++	if (knod_param_is_literal(src0)) {			\
++		insn->sop2.literal = src0.v;				\
++		return 8;						\
++	}								\
++	if (knod_param_is_literal(src1)) {			\
++		insn->sop2.literal = src1.v;				\
++		return 8;						\
++	}								\
++	return 4;							\
++}
++
++DEFINE_GFX10_SOP2_P(s_add_u32,   GFX10_S_ADD_U32)
++DEFINE_GFX10_SOP2_P(s_sub_u32_p, GFX10_S_SUB_U32)
++DEFINE_GFX10_SOP2_P(s_addc_u32,  GFX10_S_ADDC_U32)
++DEFINE_GFX10_SOP2_P(s_subb_u32,  GFX10_S_SUBB_U32)
++DEFINE_GFX10_SOP2_P(s_and_b32_p, GFX10_S_AND_B32)
++DEFINE_GFX10_SOP2_P(s_lshl_b32,  GFX10_S_LSHL_B32)
++DEFINE_GFX10_SOP2_P(s_lshr_b32,  GFX10_S_LSHR_B32)
++DEFINE_GFX10_SOP2_P(s_mul_i32,   GFX10_S_MUL_I32)
++DEFINE_GFX10_SOP2_P(s_xor_b32,   GFX10_S_XOR_B32)
++
++#undef DEFINE_GFX10_SOP2_P
++
++/* --- GFX10 SOPC (param32) --- */
++
++#define DEFINE_GFX10_SOPC_P(name, opcode)				\
++inline u32 emit_gfx10_##name(union amdgcn_gfx10_insn *insn,		\
++			      struct amdgcn_param32 src0,		\
++			      struct amdgcn_param32 src1)		\
++{									\
++	insn->sopc.ssrc0 = __p2e10(src0);				\
++	insn->sopc.ssrc1 = __p2e10(src1);				\
++	insn->sopc.op = opcode;					\
++	insn->sopc.encoding = GFX10_SOPC_ENCODING;			\
++	if (knod_param_is_literal(src0)) {			\
++		insn->sopc.literal = src0.v;				\
++		return 8;						\
++	}								\
++	if (knod_param_is_literal(src1)) {			\
++		insn->sopc.literal = src1.v;				\
++		return 8;						\
++	}								\
++	return 4;							\
++}
++
++DEFINE_GFX10_SOPC_P(s_cmp_eq_u32, GFX10_S_CMP_EQ_U32)
++DEFINE_GFX10_SOPC_P(s_cmp_lg_u32, GFX10_S_CMP_LG_U32)
++DEFINE_GFX10_SOPC_P(s_cmp_ge_u32, GFX10_S_CMP_GE_U32)
++DEFINE_GFX10_SOPC_P(s_cmp_lt_u32, GFX10_S_CMP_LT_U32)
++
++#undef DEFINE_GFX10_SOPC_P
++
++/* --- GFX10 SOPP --- */
++
++inline u32 emit_gfx10_s_barrier(union amdgcn_gfx10_insn *insn)
++{
++	insn->sopp.simm16 = 0;
++	insn->sopp.op = GFX10_S_BARRIER;
++	insn->sopp.encoding = GFX10_SOPP_ENCODING;
++	return 4;
++}
++
++inline u32 emit_gfx10_s_cbranch_scc1(union amdgcn_gfx10_insn *insn,
++				      short off)
++{
++	insn->sopp.simm16 = off;
++	insn->sopp.op = GFX10_S_CBRANCH_SCC1;
++	insn->sopp.encoding = GFX10_SOPP_ENCODING;
++	return 4;
++}
++
++/*
++ * GFX10 s_waitcnt encoding:
++ *   simm16[3:0]   = vmcnt[3:0]
++ *   simm16[7:4]   = expcnt (set to 7 = unused)
++ *   simm16[13:8]  = lgkmcnt[5:0]
++ *   simm16[15:14] = vmcnt[5:4]
++ */
++#define GFX10_WAITCNT(vm, lgkm) \
++	(((((vm) >> 4) & 0x3) << 14) | (((lgkm) & 0x3F) << 8) | \
++	 (7 << 4) | ((vm) & 0xF))
++
++inline u32 emit_gfx10_s_waitcnt(union amdgcn_gfx10_insn *insn,
++				 int vm, int lgkm)
++{
++	insn->sopp.simm16 = GFX10_WAITCNT(vm, lgkm);
++	insn->sopp.op = GFX10_S_WAITCNT;
++	insn->sopp.encoding = GFX10_SOPP_ENCODING;
++	return 4;
++}
++
++/* --- GFX10 SOP1 --- */
++
++inline u32 emit_gfx10_s_not_b64(union amdgcn_gfx10_insn *insn,
++				 u8 sdst, u8 ssrc)
++{
++	insn->sop1.ssrc0 = ssrc;
++	insn->sop1.op = GFX10_S_NOT_B64;
++	insn->sop1.sdst = sdst;
++	insn->sop1.encoding = GFX10_SOP1_ENCODING;
++	return 4;
++}
++
++/* --- GFX10 VOPC (v_cmp_ne_u32 param variant) --- */
++
++inline u32 emit_gfx10_v_cmp_ne_u32(union amdgcn_gfx10_insn *insn,
++				     struct amdgcn_param32 src0,
++				     struct amdgcn_param32 src1)
++{
++	WARN_ON(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++	insn->vopc.vsrc1 = src1.v;
++	insn->vopc.op = GFX10_V_CMP_NE_U32;
++	insn->vopc.encoding = GFX10_VOPC_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vopc.src0 = gfx10_get_param_base(src0);
++		insn->vopc.literal = src0.v;
++		return 8;
++	}
++	insn->vopc.src0 = gfx10_get_param_base(src0) + src0.v;
++	return 4;
++}
++
++/* --- GFX10 SMEM --- */
++
++#define DEFINE_GFX10_SMEM_P(name, opcode)				\
++inline u32 emit_gfx10_##name(union amdgcn_gfx10_insn *insn,		\
++			      struct amdgcn_param32 dst,		\
++			      struct amdgcn_param32 src, int offset)	\
++{									\
++	insn->smem.sdata = dst.v;					\
++	insn->smem.sbase = src.v / 2;					\
++	insn->smem.op = opcode;					\
++	insn->smem.offset = offset;					\
++	insn->smem.soffset = GFX10_SRC_NULL;				\
++	insn->smem.encoding = GFX10_SMEM_ENCODING;			\
++	return 8;							\
++}
++
++DEFINE_GFX10_SMEM_P(s_load_dword,   GFX10_S_LOAD_DWORD)
++DEFINE_GFX10_SMEM_P(s_load_dwordx4, GFX10_S_LOAD_DWORDX4)
++
++#undef DEFINE_GFX10_SMEM_P
++
++/* s_dcache_inv - no operands */
++inline u32 emit_gfx10_s_dcache_inv(union amdgcn_gfx10_insn *insn)
++{
++	insn->smem.sdata = 0;
++	insn->smem.sbase = 0;
++	insn->smem.op = GFX10_S_DCACHE_INV;
++	insn->smem.offset = 0;
++	insn->smem.soffset = GFX10_SRC_NULL;
++	insn->smem.encoding = GFX10_SMEM_ENCODING;
++	return 8;
++}
++
++/* --- GFX10 VOP1: v_readfirstlane_b32 --- */
++
++inline u32 emit_gfx10_v_readfirstlane_b32(union amdgcn_gfx10_insn *insn,
++					   u8 sdst, u8 vsrc)
++{
++	insn->vop1.encoding = GFX10_VOP1_ENCODING;
++	insn->vop1.vdst = sdst;
++	insn->vop1.op = GFX10_V_READFIRSTLANE_B32;
++	insn->vop1.src0 = GFX10_SRC_VGPR_BASE + vsrc;
++	return 4;
++}
++
++/* --- GFX10 VOP2: v_max_i32 --- */
++
++inline u32 emit_gfx10_v_max_i32(union amdgcn_gfx10_insn *insn,
++				 struct amdgcn_param32 dst,
++				 struct amdgcn_param32 src0,
++				 struct amdgcn_param32 src1)
++{
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	WARN_ON(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX10_V_MAX_I32;
++	insn->vop2.encoding = GFX10_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx10_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx10_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++/* --- GFX10 VOP3A: v_perm_b32 --- */
++
++inline u32 emit_gfx10_v_perm_b32(union amdgcn_gfx10_insn *insn,
++				  struct amdgcn_param32 dst,
++				  struct amdgcn_param32 src0,
++				  struct amdgcn_param32 src1,
++				  struct amdgcn_param32 src2)
++{
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	/* VOP3 does not support literal constants on GFX10 */
++	WARN_ON(src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src1.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src2.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX10_V_PERM_B32;
++	insn->vop3a.encoding = GFX10_VOP3A_ENCODING;
++	insn->vop3a.src0 = gfx10_get_param_base(src0) + src0.v;
++	insn->vop3a.src1 = gfx10_get_param_base(src1) + src1.v;
++	insn->vop3a.src2 = gfx10_get_param_base(src2) + src2.v;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++
++	return 8;
++}
++
++/* --- GFX10 DS --- */
++
++inline u32 emit_gfx10_ds_write_b32(union amdgcn_gfx10_insn *insn,
++				     int addr, int data0)
++{
++	__emit_gfx10_ds(insn, GFX10_DS_WRITE_B32, addr, data0, 0, 0, 0);
++	return 8;
++}
++
++inline u32 emit_gfx10_ds_read_b32(union amdgcn_gfx10_insn *insn,
++				    int vdst, int addr)
++{
++	__emit_gfx10_ds(insn, GFX10_DS_READ_B32, addr, 0, vdst, 0, 0);
++	return 8;
++}
++
++inline u32 emit_gfx10_ds_write_b32_off(union amdgcn_gfx10_insn *insn,
++					 int addr, int data0, int offset)
++{
++	__emit_gfx10_ds(insn, GFX10_DS_WRITE_B32, addr, data0, 0, offset, 0);
++	return 8;
++}
++
++inline u32 emit_gfx10_ds_read_b32_off(union amdgcn_gfx10_insn *insn,
++					int vdst, int addr, int offset)
++{
++	__emit_gfx10_ds(insn, GFX10_DS_READ_B32, addr, 0, vdst, offset, 0);
++	return 8;
++}
++
++inline u32 emit_gfx10_ds_write_b128(union amdgcn_gfx10_insn *insn,
++				     int addr, int data0)
++{
++	__emit_gfx10_ds(insn, GFX10_DS_WRITE_B128, addr, data0, 0, 0, 0);
++	return 8;
++}
++
++inline u32 emit_gfx10_ds_read_b128(union amdgcn_gfx10_insn *insn,
++				    int vdst, int addr)
++{
++	__emit_gfx10_ds(insn, GFX10_DS_READ_B128, addr, 0, vdst, 0, 0);
++	return 8;
++}
++
++/* --- GFX10 GLOBAL with saddr mode (scalar base + VGPR offset) --- */
++
++inline u32 emit_gfx10_global_load_dword_saddr(union amdgcn_gfx10_insn *insn,
++						int vdst, int vaddr,
++						int saddr, short off)
++{
++	insn->flat.offset = off;
++	insn->flat.dlc = 0;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX10_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 0;
++	insn->flat.slc = 0;
++	insn->flat.op = GFX10_GLOBAL_LOAD_DWORD;
++	insn->flat.encoding = GFX10_FLAT_ENCODING;
++	insn->flat.addr = vaddr;
++	insn->flat.data = 0;
++	insn->flat.saddr = saddr / 2;
++	insn->flat.dummy1 = 0;
++	insn->flat.dummy2 = 0;
++	insn->flat.vdst = vdst;
++	return 8;
++}
++
++inline u32 emit_gfx10_global_load_dwordx4_saddr(union amdgcn_gfx10_insn *insn,
++						  int vdst, int vaddr,
++						  int saddr, short off)
++{
++	insn->flat.offset = off;
++	insn->flat.dlc = 0;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX10_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 0;
++	insn->flat.slc = 0;
++	insn->flat.op = GFX10_GLOBAL_LOAD_DWORDX4;
++	insn->flat.encoding = GFX10_FLAT_ENCODING;
++	insn->flat.addr = vaddr;
++	insn->flat.data = 0;
++	insn->flat.saddr = saddr / 2;
++	insn->flat.dummy1 = 0;
++	insn->flat.dummy2 = 0;
++	insn->flat.vdst = vdst;
++	return 8;
++}
++
++inline u32 emit_gfx10_global_store_dwordx4_saddr(union amdgcn_gfx10_insn *insn,
++						   int vaddr, int vdata,
++						   int saddr, short off)
++{
++	insn->flat.offset = off;
++	insn->flat.dlc = 0;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX10_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 1;
++	insn->flat.slc = 1;
++	insn->flat.op = GFX10_GLOBAL_STORE_DWORDX4;
++	insn->flat.encoding = GFX10_FLAT_ENCODING;
++	insn->flat.addr = vaddr;
++	insn->flat.data = vdata;
++	insn->flat.saddr = saddr / 2;
++	insn->flat.dummy1 = 0;
++	insn->flat.dummy2 = 0;
++	insn->flat.vdst = 0;
++	return 8;
++}
++
++#endif
+diff --git a/drivers/gpu/drm/amd/amdkfd/knod/knod_gfx9_insn.h b/drivers/gpu/drm/amd/amdkfd/knod/knod_gfx9_insn.h
+new file mode 100644
+index 000000000000..ea987188f982
+--- /dev/null
++++ b/drivers/gpu/drm/amd/amdkfd/knod/knod_gfx9_insn.h
+@@ -0,0 +1,4068 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/* Copyright (c) 2021 Taehee Yoo <ap420073@gmail.com>
++ * Copyright (c) 2021 Hoyeon Lee <hoyeon.rhee@gmail.com>
++ */
++
++#ifndef KFD_AMDGPU_GFX9_INSN_H_INCLUDED
++#define KFD_AMDGPU_GFX9_INSN_H_INCLUDED
++
++#include "knod_amdgpu.h"
++
++/*
++ * knod_amdgpu_insn.h is intentionally NOT included here.
++ * This file provides ISA definitions (structs, enums, encoding constants)
++ * and per-version emit functions that are self-contained.
++ *
++ * The version-dispatch layer (knod_amdgpu_insn.h) includes this file
++ * and adds struct amdgcn_insn + wrapper functions on top.
++ */
++
++#define GFX9_SRC_SGPR_BASE		0
++#define GFX9_SRC_VCC_LO			106
++#define GFX9_SRC_VCC_HI			107
++#define GFX9_SRC_TTPM_BASE		108
++#define GFX9_SRC_M0			124
++#define GFX9_SRC_NULL			125
++#define GFX9_SRC_EXEC_LO		126
++#define GFX9_SRC_EXEC_HI		127
++#define GFX9_SRC_INTEGER_0		128
++#define GFX9_SRC_INTEGER_MINUS_1	193
++#define GFX9_SRC_SHARED_BASE		235
++#define GFX9_SRC_SHARED_LIMIT		236
++#define GFX9_SRC_PRIVATE_BASE		237
++#define GFX9_SRC_PRIVATE_LIMIT		238
++#define GFX9_SRC_POPS_EXITING_WAVE_ID	239
++#define GFX9_SRC_SDWA			249
++#define GFX9_SRC_DDP16			250
++#define GFX9_SRC_VCCZ			251
++#define GFX9_SRC_EXECZ			252
++#define GFX9_SRC_SCC			253
++#define GFX9_SRC_LITERAL_CONST		255
++#define GFX9_SRC_VGPR_BASE		256
++
++static int gfx9_param_base[__AMDGCN_PARAM_TYPE_MAX] = {
++	GFX9_SRC_SGPR_BASE,
++	GFX9_SRC_VCC_LO,
++	GFX9_SRC_VCC_HI,
++	GFX9_SRC_TTPM_BASE,
++	GFX9_SRC_M0,
++	GFX9_SRC_NULL,
++	GFX9_SRC_EXEC_LO,
++	GFX9_SRC_EXEC_HI,
++	GFX9_SRC_INTEGER_0,
++	GFX9_SRC_INTEGER_MINUS_1,
++	GFX9_SRC_SHARED_BASE,
++	GFX9_SRC_SHARED_LIMIT,
++	GFX9_SRC_PRIVATE_BASE,
++	GFX9_SRC_PRIVATE_LIMIT,
++	GFX9_SRC_POPS_EXITING_WAVE_ID,
++	GFX9_SRC_SDWA,
++	GFX9_SRC_DDP16,
++	GFX9_SRC_VCCZ,
++	GFX9_SRC_EXECZ,
++	GFX9_SRC_SCC,
++	GFX9_SRC_LITERAL_CONST,
++	GFX9_SRC_VGPR_BASE,
++};
++
++/* Scalar ALU and Control Format */
++struct amdgcn_gfx9_sop2 {
++	u32 ssrc0:8;
++	u32 ssrc1:8;
++	u32 sdst:7;
++	u32 op:7;
++	u32 encoding:2;
++	u32 literal;
++};
++
++enum amdgcn_gfx9_sop2_opcode {
++	GFX9_S_ADD_U32,
++	GFX9_S_SUB_U32,
++	GFX9_S_ADD_I32,
++	GFX9_S_SUB_I32,
++	GFX9_S_ADDC_U32,
++	GFX9_S_SUBB_U32,
++	GFX9_S_MIN_I32,
++	GFX9_S_MIN_U32,
++	GFX9_S_MAX_I32,
++	GFX9_S_MAX_U32,
++	GFX9_S_CSELECT_B32,
++	GFX9_S_CSELECT_B64,
++	GFX9_S_AND_B32,
++	GFX9_S_AND_B64,
++	GFX9_S_OR_B32,
++	GFX9_S_OR_B64,
++	GFX9_S_XOR_B32,
++	GFX9_S_XOR_B64,
++	GFX9_S_ANDN2_B32,
++	GFX9_S_ANDN2_B64,
++	GFX9_S_ORN2_B32,
++	GFX9_S_ORN2_B64,
++	GFX9_S_NAND_B32,
++	GFX9_S_NAND_B64,
++	GFX9_S_NOR_B32,
++	GFX9_S_NOR_B64,
++	GFX9_S_XNOR_B32,
++	GFX9_S_XNOR_B64,
++	GFX9_S_LSHL_B32,
++	GFX9_S_LSHL_B64,
++	GFX9_S_LSHR_B32,
++	GFX9_S_LSHR_B64,
++	GFX9_S_ASHR_I32,
++	GFX9_S_ASHR_I64,
++	GFX9_S_BFM_B32,
++	GFX9_S_BFM_B64,
++	GFX9_S_MUL_I32,
++	GFX9_S_BFE_U32,
++	GFX9_S_BFE_I32,
++	GFX9_S_BFE_U64,
++	GFX9_S_BFE_I64,
++	GFX9_S_CBRANCH_G_FORK,
++	GFX9_S_ABSDIFF_I32,
++	GFX9_S_RFE_RESTORE_B64,
++	GFX9_S_MUL_HI_U32,
++	GFX9_S_MUL_HI_I32,
++	GFX9_S_LSHL1_ADD_U32,
++	GFX9_S_LSHL2_ADD_U32,
++	GFX9_S_LSHL3_ADD_U32,
++	GFX9_S_LSHL4_ADD_U32,
++	GFX9_S_PACK_LL_B32_B16,
++	GFX9_S_PACK_LH_B32_B16,
++	GFX9_S_PACK_HH_B32_B16,
++};
++
++#define GFX9_SOP2_ENCODING			0x2
++#define GFX9_SOP2_SSRC_SGPR_BASE		0
++#define GFX9_SOP2_SSRC_VCC_LO			106
++#define GFX9_SOP2_SSRC_VCC_HI			107
++#define GFX9_SOP2_SSRC_TTPM_BASE		108
++#define GFX9_SOP2_SSRC_M0			124
++#define GFX9_SOP2_SSRC_NULL			125
++#define GFX9_SOP2_SSRC_EXEC_LO			126
++#define GFX9_SOP2_SSRC_EXEC_HI			127
++#define GFX9_SOP2_SSRC_INTEGER_0		128
++#define GFX9_SOP2_SSRC_INTEGER_MINUS_1		193
++#define GFX9_SOP2_SSRC_SHARED_BASE		235
++#define GFX9_SOP2_SSRC_SHARED_LIMIT		236
++#define GFX9_SOP2_SSRC_PRIVATE_BASE		237
++#define GFX9_SOP2_SSRC_PRIVATE_LIMIT		238
++#define GFX9_SOP2_SSRC_POPS_EXITING_WAVE_ID	239
++#define GFX9_SOP2_SSRC_VCCZ			251
++#define GFX9_SOP2_SSRC_EXECZ			252
++#define GFX9_SOP2_SSRC_SCC			253
++/* SDST
++ * Same codes as SSRC0, above except only codes 0-127 are valid.
++ */
++
++struct amdgcn_gfx9_sopk {
++	u32 simm16:16;
++	u32 sdst:7;
++	u32 op:5;
++	u32 encoding:4;
++};
++
++enum amdgcn_gfx9_sopk_opcode {
++	GFX9_S_MOVK_I32,
++	GFX9_S_CMOVK_I32,
++	GFX9_S_CMPK_EQ_I32,
++	GFX9_S_CMPK_LG_I32,
++	GFX9_S_CMPK_GT_I32,
++	GFX9_S_CMPK_GE_I32,
++	GFX9_S_CMPK_LT_I32,
++	GFX9_S_CMPK_LE_I32,
++	GFX9_S_CMPK_EQ_U32,
++	GFX9_S_CMPK_LG_U32,
++	GFX9_S_CMPK_GT_U32,
++	GFX9_S_CMPK_GE_U32,
++	GFX9_S_CMPK_LT_U32,
++	GFX9_S_CMPK_LE_U32,
++	GFX9_S_ADDK_I32,
++	GFX9_S_MULK_I32,
++	GFX9_S_CBRANCH_I_FORK,
++	GFX9_S_GETREG_B32,
++	GFX9_S_SETREG_B32 = 18,
++	GFX9_S_SETREG_IMM32_B32 = 20,
++	GFX9_S_CALL_B64,
++};
++
++#define GFX9_SOPK_ENCODING			0xb
++#define GFX9_SOPK_SDST_SGPR0_BASE		0
++#define GFX9_SOPK_SDST_VCC_LO			106
++#define GFX9_SOPK_SDST_VCC_HI			107
++#define GFX9_SOPK_SDST_TTPM_BASE		108
++#define GFX9_SOPK_SDST_M0			124
++#define GFX9_SOPK_SDST_NULL			125
++#define GFX9_SOPK_SDST_EXEC_LO			126
++#define GFX9_SOPK_SDST_EXEC_HI			127
++
++struct amdgcn_gfx9_sop1 {
++	u32 ssrc0:8;
++	u32 op:8;
++	u32 sdst:7;
++	u32 encoding:9;
++	u32 literal;
++};
++
++enum amdgcn_gfx9_sop1_opcode {
++	GFX9_S_MOV_B32 = 0,
++	GFX9_S_MOV_B64,
++	GFX9_S_CMOV_B32,
++	GFX9_S_CMOV_B64,
++	GFX9_S_NOT_B32,
++	GFX9_S_NOT_B64,
++	GFX9_S_WQM_B32,
++	GFX9_S_WQM_B64,
++	GFX9_S_BREV_B32,
++	GFX9_S_BREV_B64,
++	GFX9_S_BCNT0_I32_B32,
++	GFX9_S_BCNT0_I32_B64,
++	GFX9_S_BCNT1_I32_B32,
++	GFX9_S_BCNT1_I32_B64,
++	GFX9_S_FF0_I32_B32,
++	GFX9_S_FF0_I32_B64,
++	GFX9_S_FF1_I32_B32,
++	GFX9_S_FF1_I32_B64,
++	GFX9_S_FLBIT_I32_B32,
++	GFX9_S_FLBIT_I32_B64,
++	GFX9_S_FLBIT_I32,
++	GFX9_S_FLBIT_I32_I64,
++	GFX9_S_SEXT_I32_I8,
++	GFX9_S_SEXT_I32_I16,
++	GFX9_S_BITSET0_B32,
++	GFX9_S_BITSET0_B64,
++	GFX9_S_BITSET1_B32,
++	GFX9_S_BITSET1_B64,
++	GFX9_S_GETPC_B64,
++	GFX9_S_SETPC_B64,
++	GFX9_S_SWAPPC_B64,
++	GFX9_S_RFE_B64 = 31,
++	GFX9_S_AND_SAVEEXEC_B64,
++	GFX9_S_OR_SAVEEXEC_B64,
++	GFX9_S_XOR_SAVEEXEC_B64,
++	GFX9_S_ANDN2_SAVEEXEC_B64,
++	GFX9_S_ORN2_SAVEEXEC_B64,
++	GFX9_S_NAND_SAVEEXEC_B64,
++	GFX9_S_NOR_SAVEEXEC_B64,
++	GFX9_S_XNOR_SAVEEXEC_B64,
++	GFX9_S_QUADMASK_B32,
++	GFX9_S_QUADMASK_B64,
++	GFX9_S_MOVRELS_B32,
++	GFX9_S_MOVRELS_B64,
++	GFX9_S_MOVRELD_B32,
++	GFX9_S_MOVRELD_B64,
++	GFX9_S_ABS_I32 = 48,
++	GFX9_S_SET_GPR_IDX_IDX = 50,
++	GFX9_S_ANDN1_SAVEEXEC_B64,
++	GFX9_S_ORN1_SAVEEXEC_B64,
++	GFX9_S_ANDN1_WREXEC_B64,
++	GFX9_S_ANDN2_WREXEC_B64,
++	GFX9_S_BITREPLICATE_B64_B32,
++};
++
++#define GFX9_SOP1_ENCODING			0x17d
++#define GFX9_SOP1_SSRC_SGPR_BASE		0
++#define GFX9_SOP1_SSRC_VCC_LO			106
++#define GFX9_SOP1_SSRC_VCC_HI			107
++#define GFX9_SOP1_SSRC_TTPM_BASE		108
++#define GFX9_SOP1_SSRC_M0			124
++#define GFX9_SOP1_SSRC_NULL			125
++#define GFX9_SOP1_SSRC_EXEC_LO			126
++#define GFX9_SOP1_SSRC_EXEC_HI			127
++#define GFX9_SOP1_SSRC_INTEGER_0		128
++#define GFX9_SOP1_SSRC_INTEGER_MINUS_1		193
++#define GFX9_SOP1_SSRC_SHARED_BASE		235
++#define GFX9_SOP1_SSRC_SHARED_LIMIT		236
++#define GFX9_SOP1_SSRC_PRIVATE_BASE		237
++#define GFX9_SOP1_SSRC_PRIVATE_LIMIT		238
++#define GFX9_SOP1_SSRC_POPS_EXITING_WAVE_ID	239
++#define GFX9_SOP1_SSRC_VCCZ			251
++#define GFX9_SOP1_SSRC_EXECZ			252
++#define GFX9_SOP1_SSRC_SCC			253
++#define GFX9_SOP1_SSRC_LITERAL_CONST		255
++/* SDST
++ * Same codes as SSRC0, above except only codes 0-127 are valid.
++ */
++
++struct amdgcn_gfx9_sopc {
++	u32 ssrc0:8;
++	u32 ssrc1:8;
++	u32 op:7;
++	u32 encoding:9;
++	u32 literal;
++};
++
++enum amdgcn_gfx9_sopc_opcode {
++	GFX9_S_CMP_EQ_I32,
++	GFX9_S_CMP_LG_I32,
++	GFX9_S_CMP_GT_I32,
++	GFX9_S_CMP_GE_I32,
++	GFX9_S_CMP_LT_I32,
++	GFX9_S_CMP_LE_I32,
++	GFX9_S_CMP_EQ_U32,
++	GFX9_S_CMP_LG_U32,
++	GFX9_S_CMP_GT_U32,
++	GFX9_S_CMP_GE_U32,
++	GFX9_S_CMP_LT_U32,
++	GFX9_S_CMP_LE_U32,
++	GFX9_S_BITCMP0_B32,
++	GFX9_S_BITCMP1_B32,
++	GFX9_S_BITCMP0_B64,
++	GFX9_S_BITCMP1_B64,
++	GFX9_S_SETVSKIP,
++	GFX9_S_SET_GPR_IDX_ON,
++	GFX9_S_CMP_EQ_U64,
++	GFX9_S_CMP_LG_U64,
++};
++
++#define GFX9_SOPC_ENCODING			0x17e
++#define GFX9_SOPC_SSRC_SGPR_BASE		0
++#define GFX9_SOPC_SSRC_VCC_LO			106
++#define GFX9_SOPC_SSRC_VCC_HI			107
++#define GFX9_SOPC_SSRC_TTPM_BASE		108
++#define GFX9_SOPC_SSRC_M0			124
++#define GFX9_SOPC_SSRC_NULL			125
++#define GFX9_SOPC_SSRC_EXEC_LO			126
++#define GFX9_SOPC_SSRC_EXEC_HI			127
++#define GFX9_SOPC_SSRC_INTEGER_0		128
++#define GFX9_SOPC_SSRC_INTEGER_MINUS_1		193
++#define GFX9_SOPC_SSRC_SHARED_BASE		235
++#define GFX9_SOPC_SSRC_SHARED_LIMIT		236
++#define GFX9_SOPC_SSRC_PRIVATE_BASE		237
++#define GFX9_SOPC_SSRC_PRIVATE_LIMIT		238
++#define GFX9_SOPC_SSRC_POPS_EXITING_WAVE_ID	239
++#define GFX9_SOPC_SSRC_VCCZ			251
++#define GFX9_SOPC_SSRC_EXECZ			252
++#define GFX9_SOPC_SSRC_SCC			253
++/* SDST
++ * Same codes as SSRC0, above except only codes 0-127 are valid.
++ */
++
++struct amdgcn_gfx9_sopp_vmcnt {
++	u16 vmcnt1:4;
++	u16 expcnt:3;
++	u16 dummy1:1;
++	u16 lgkmcnt:4;	/* GFX9: 4-bit counter, max=15 */
++	u16 dummy2:2;
++	u16 vmcnt2:2;
++};
++
++struct amdgcn_gfx9_sopp {
++	u32 simm16:16;
++	u32 op:7;
++	u32 encoding:9;
++};
++
++enum amdgcn_gfx9_sopp_opcode {
++	GFX9_S_NOP,
++	GFX9_S_ENDPGM,
++	GFX9_S_BRANCH,
++	GFX9_S_WAKEUP,
++	GFX9_S_CBRANCH_SCC0,
++	GFX9_S_CBRANCH_SCC1,
++	GFX9_S_CBRANCH_VCCZ,
++	GFX9_S_CBRANCH_VCCNZ,
++	GFX9_S_CBRANCH_EXECZ,
++	GFX9_S_CBRANCH_EXECNZ,
++	GFX9_S_BARRIER,
++	GFX9_S_SETKILL,
++	GFX9_S_WAITCNT,
++	GFX9_S_SETHALT,
++	GFX9_S_SLEEP,
++	GFX9_S_SETPRIO,
++	GFX9_S_SENDMSG,
++	GFX9_S_SENDMSGHALT,
++	GFX9_S_TRAP,
++	GFX9_S_ICACHE_INV,
++	GFX9_S_INCPERFLEVEL,
++	GFX9_S_DECPERFLEVEL,
++	GFX9_S_TTRACEDATA,
++	GFX9_S_CBRANCH_CDBGSYS,
++	GFX9_S_CBRANCH_CDBGUSER,
++	GFX9_S_CBRANCH_CDBGSYS_OR_USER,
++	GFX9_S_CBRANCH_CDBGSYS_AND_USER,
++	GFX9_S_ENDPGM_SAVED,
++	GFX9_S_SET_GPR_IDX_OFF,
++	GFX9_S_SET_GPR_IDX_MODE,
++	GFX9_S_ENDPGM_ORDERED_PS_DONE,
++};
++
++#define GFX9_SOPP_ENCODING		0x17f
++
++/* Scalar Memory Format */
++struct amdgcn_gfx9_smem {
++	u64 sbase:6;
++	u64 sdata:7;
++	u64 dummy1:1;
++	u64 soe:1; /* Scalar Offset Enable */
++	u64 nv:1; /* Non-Volatile */
++	u64 glc:1; /* Globally Memory Coherent */
++	u64 imm:1; /* Immediate Enable */
++	u64 op:8;
++	u64 encoding:6;
++	u64 offset:21;
++	u64 dummy2:4;
++	u64 soffset:7;
++};
++
++enum amdgcn_gfx9_smem_opcode {
++	GFX9_S_LOAD_DWORD,
++	GFX9_S_LOAD_DWORDX2,
++	GFX9_S_LOAD_DWORDX4,
++	GFX9_S_LOAD_DWORDX8,
++	GFX9_S_LOAD_DWORDX16,
++	GFX9_S_SCRATCH_LOAD_DWORD,
++	GFX9_S_SCRATCH_LOAD_DWORDX2,
++	GFX9_S_SCRATCH_LOAD_DWORDX4,
++	GFX9_S_BUFFER_LOAD_DWORD,
++	GFX9_S_BUFFER_LOAD_DWORDX2,
++	GFX9_S_BUFFER_LOAD_DWORDX4,
++	GFX9_S_BUFFER_LOAD_DWORDX8,
++	GFX9_S_BUFFER_LOAD_DWORDX16 = 12,
++	GFX9_S_STORE_DWORD = 16,
++	GFX9_S_STORE_DWORDX2,
++	GFX9_S_STORE_DWORDX4 = 18,
++	GFX9_S_SCRATCH_STORE_DWORD = 21,
++	GFX9_S_SCRATCH_STORE_DWORDX2,
++	GFX9_S_SCRATCH_STORE_DWORDX4,
++	GFX9_S_BUFFER_STORE_DWORD,
++	GFX9_S_BUFFER_STORE_DWORDX2,
++	GFX9_S_BUFFER_STORE_DWORDX4 = 26,
++	GFX9_S_DCACHE_INV = 32,
++	GFX9_S_DCACHE_WB,
++	GFX9_S_DCACHE_INV_VOL,
++	GFX9_S_DCACHE_WB_VOL,
++	GFX9_S_MEMTIME,
++	GFX9_S_MEMREALTIME,
++	GFX9_S_ATC_PROBE,
++	GFX9_S_ATC_PROBE_BUFFER,
++	GFX9_S_DCACHE_DISCARD,
++	GFX9_S_DCACHE_DISCARD_X2 = 41,
++	GFX9_S_BUFFER_ATOMIC_SWAP = 64,
++	GFX9_S_BUFFER_ATOMIC_CMPSWAP,
++	GFX9_S_BUFFER_ATOMIC_ADD,
++	GFX9_S_BUFFER_ATOMIC_SUB,
++	GFX9_S_BUFFER_ATOMIC_SMIN,
++	GFX9_S_BUFFER_ATOMIC_UMIN,
++	GFX9_S_BUFFER_ATOMIC_SMAX,
++	GFX9_S_BUFFER_ATOMIC_UMAX,
++	GFX9_S_BUFFER_ATOMIC_AND,
++	GFX9_S_BUFFER_ATOMIC_OR,
++	GFX9_S_BUFFER_ATOMIC_XOR,
++	GFX9_S_BUFFER_ATOMIC_INC,
++	GFX9_S_BUFFER_ATOMIC_DEC = 76,
++	GFX9_S_BUFFER_ATOMIC_SWAP_X2 = 96,
++	GFX9_S_BUFFER_ATOMIC_CMPSWAP_X2,
++	GFX9_S_BUFFER_ATOMIC_ADD_X2,
++	GFX9_S_BUFFER_ATOMIC_SUB_X2,
++	GFX9_S_BUFFER_ATOMIC_SMIN_X2,
++	GFX9_S_BUFFER_ATOMIC_UMIN_X2,
++	GFX9_S_BUFFER_ATOMIC_SMAX_X2,
++	GFX9_S_BUFFER_ATOMIC_UMAX_X2,
++	GFX9_S_BUFFER_ATOMIC_AND_X2,
++	GFX9_S_BUFFER_ATOMIC_OR_X2,
++	GFX9_S_BUFFER_ATOMIC_XOR_X2,
++	GFX9_S_BUFFER_ATOMIC_INC_X2,
++	GFX9_S_BUFFER_ATOMIC_DEC_X2 = 108,
++	GFX9_S_ATOMIC_SWAP = 128,
++	GFX9_S_ATOMIC_CMPSWAP,
++	GFX9_S_ATOMIC_ADD,
++	GFX9_S_ATOMIC_SUB,
++	GFX9_S_ATOMIC_SMIN,
++	GFX9_S_ATOMIC_UMIN,
++	GFX9_S_ATOMIC_SMAX,
++	GFX9_S_ATOMIC_UMAX,
++	GFX9_S_ATOMIC_AND,
++	GFX9_S_ATOMIC_OR,
++	GFX9_S_ATOMIC_XOR,
++	GFX9_S_ATOMIC_INC,
++	GFX9_S_ATOMIC_DEC = 140,
++	GFX9_S_ATOMIC_SWAP_X2 = 160,
++	GFX9_S_ATOMIC_CMPSWAP_X2,
++	GFX9_S_ATOMIC_ADD_X2,
++	GFX9_S_ATOMIC_SUB_X2,
++	GFX9_S_ATOMIC_SMIN_X2,
++	GFX9_S_ATOMIC_UMIN_X2,
++	GFX9_S_ATOMIC_SMAX_X2,
++	GFX9_S_ATOMIC_UMAX_X2,
++	GFX9_S_ATOMIC_AND_X2,
++	GFX9_S_ATOMIC_OR_X2,
++	GFX9_S_ATOMIC_XOR_X2,
++	GFX9_S_ATOMIC_INC_X2,
++	GFX9_S_ATOMIC_DEC_X2,
++};
++
++#define GFX9_SMEM_ENCODING		0x30
++#define GFX9_SMEM_SOFFSET_NULL		125
++
++/* Vector ALU Format */
++struct amdgcn_gfx9_vop2 {
++	u32 src0:9;
++	u32 vsrc1:8;
++	u32 vdst:8;
++	u32 op:6;
++	u32 encoding:1;
++	u32 literal;
++};
++
++enum amdgcn_gfx9_vop2_opcode {
++	GFX9_V_CNDMASK_B32,
++	GFX9_V_ADD_F32,
++	GFX9_V_SUB_F32,
++	GFX9_V_SUBREV_F32,
++	GFX9_V_MUL_LEGACY_F32,
++	GFX9_V_MUL_F32,
++	GFX9_V_MUL_I32_I24,
++	GFX9_V_MUL_HI_I32_I24,
++	GFX9_V_MUL_U32_U24,
++	GFX9_V_MUL_HI_U32_U24,
++	GFX9_V_MIN_F32,
++	GFX9_V_MAX_F32,
++	GFX9_V_MIN_I32,
++	GFX9_V_MAX_I32,
++	GFX9_V_MIN_U32,
++	GFX9_V_MAX_U32,
++	GFX9_V_LSHRREV_B32,
++	GFX9_V_ASHRREV_I32,
++	GFX9_V_LSHLREV_B32,
++	GFX9_V_AND_B32,
++	GFX9_V_OR_B32,
++	GFX9_V_XOR_B32,
++	GFX9_V_MAC_F32,
++	GFX9_V_MADMK_F32,
++	GFX9_V_MADAK_F32,
++	GFX9_V_ADD_CO_U32,
++	GFX9_V_SUB_CO_U32,
++	GFX9_V_SUBREV_CO_U32,
++	GFX9_V_ADDC_CO_U32,
++	GFX9_V_SUBB_CO_U32,
++	GFX9_V_SUBBREV_CO_U32,
++	GFX9_V_ADD_F16,
++	GFX9_V_SUB_F16,
++	GFX9_V_SUBREV_F16,
++	GFX9_V_MUL_F16,
++	GFX9_V_MAC_F16,
++	GFX9_V_MADMK_F16,
++	GFX9_V_MADAK_F16,
++	GFX9_V_ADD_U16,
++	GFX9_V_SUB_U16,
++	GFX9_V_SUBREV_U16,
++	GFX9_V_MUL_LO_U16,
++	GFX9_V_LSHLREV_B16,
++	GFX9_V_LSHRREV_B16,
++	GFX9_V_ASHRREV_I16,
++	GFX9_V_MAX_F16,
++	GFX9_V_MIN_F16,
++	GFX9_V_MAX_U16,
++	GFX9_V_MAX_I16,
++	GFX9_V_MIN_U16,
++	GFX9_V_MIN_I16,
++	GFX9_V_LDEXP_F16,
++	GFX9_V_ADD_U32,
++	GFX9_V_SUB_U32,
++	GFX9_V_SUBREV_U32,
++};
++
++#define GFX9_VOP2_ENCODING			0x0
++#define GFX9_VOP2_SRC_SGPR_BASE		0
++#define GFX9_VOP2_SRC_VCC_LO			106
++#define GFX9_VOP2_SRC_VCC_HI			107
++#define GFX9_VOP2_SRC_TTPM_BASE		108
++#define GFX9_VOP2_SRC_M0			124
++#define GFX9_VOP2_SRC_NULL			125
++#define GFX9_VOP2_SRC_EXEC_LO			126
++#define GFX9_VOP2_SRC_EXEC_HI			127
++#define GFX9_VOP2_SRC_INTEGER_0		128
++#define GFX9_VOP2_SRC_INTEGER_MINUS_1		193
++#define GFX9_VOP2_SRC_SHARED_BASE		235
++#define GFX9_VOP2_SRC_SHARED_LIMIT		236
++#define GFX9_VOP2_SRC_PRIVATE_BASE		237
++#define GFX9_VOP2_SRC_PRIVATE_LIMIT		238
++#define GFX9_VOP2_SRC_POPS_EXITING_WAVE_ID	239
++#define GFX9_VOP2_SRC_SDWA			249
++#define GFX9_VOP2_SRC_DDP16			250
++#define GFX9_VOP2_SRC_VCCZ			251
++#define GFX9_VOP2_SRC_EXECZ			252
++#define GFX9_VOP2_SRC_SCC			253
++#define GFX9_VOP2_SRC_LITERAL_CONST		255
++#define GFX9_VOP2_SRC_VGPR_BASE		256
++
++struct amdgcn_gfx9_vop1 {
++	u32 src0:9;
++	u32 op:8;
++	u32 vdst:8;
++	u32 encoding:7;
++	u32 literal;
++};
++
++enum amdgcn_gfx9_vop1_opcode {
++	GFX9_V_NOP,
++	GFX9_V_MOV_B32,
++	GFX9_V_READFIRSTLANE_B32,
++	GFX9_V_CVT_I32_F64,
++	GFX9_V_CVT_F64_I32,
++	GFX9_V_CVT_F32_I32,
++	GFX9_V_CVT_F32_U32,
++	GFX9_V_CVT_U32_F32,
++	GFX9_V_CVT_I32_F32 = 8,
++	GFX9_V_CVT_F16_F32 = 10,
++	GFX9_V_CVT_F32_F16,
++	GFX9_V_CVT_RPI_I32_F32,
++	GFX9_V_CVT_FLR_I32_F32,
++	GFX9_V_CVT_OFF_F32_I4,
++	GFX9_V_CVT_F32_F64,
++	GFX9_V_CVT_F64_F32,
++	GFX9_V_CVT_F32_UBYTE0,
++	GFX9_V_CVT_F32_UBYTE1,
++	GFX9_V_CVT_F32_UBYTE2,
++	GFX9_V_CVT_F32_UBYTE3,
++	GFX9_V_CVT_U32_F64,
++	GFX9_V_CVT_F64_U32,
++	GFX9_V_TRUNC_F64,
++	GFX9_V_CEIL_F64,
++	GFX9_V_RNDNE_F64,
++	GFX9_V_FLOOR_F64,
++	GFX9_V_FRACT_F32,
++	GFX9_V_TRUNC_F32,
++	GFX9_V_CEIL_F32,
++	GFX9_V_RNDNE_F32,
++	GFX9_V_FLOOR_F32,
++	GFX9_V_EXP_F32,
++	GFX9_V_LOG_F32,
++	GFX9_V_RCP_F32,
++	GFX9_V_RCP_IFLAG_F32,
++	GFX9_V_RSQ_F32,
++	GFX9_V_RCP_F64,
++	GFX9_V_RSQ_F64,
++	GFX9_V_SQRT_F32,
++	GFX9_V_SQRT_F64,
++	GFX9_V_SIN_F32,
++	GFX9_V_COS_F32,
++	GFX9_V_NOT_B32,
++	GFX9_V_BFREV_B32,
++	GFX9_V_FFBH_U32,
++	GFX9_V_FFBL_B32,
++	GFX9_V_FFBH_I32,
++	GFX9_V_FREXP_EXP_I32_F64,
++	GFX9_V_FREXP_MANT_F64,
++	GFX9_V_FRACT_F64,
++	GFX9_V_FREXP_EXP_I32_F32,
++	GFX9_V_FREXP_MANT_F32,
++	GFX9_V_CLREXCP,
++	/* ISA opcodes 54 and 56 are not defined (reserved gaps). */
++	GFX9_V_SCREEN_PARTITION_4SE_B32 = 55,
++	GFX9_V_CVT_F16_U16 = 57,
++	GFX9_V_CVT_F16_I16,
++	GFX9_V_CVT_U16_F16,
++	GFX9_V_CVT_I16_F16,
++	GFX9_V_RCP_F16,
++	GFX9_V_SQRT_F16,
++	GFX9_V_RSQ_F16,
++	GFX9_V_LOG_F16,
++	GFX9_V_EXP_F16,
++	GFX9_V_FREXP_MANT_F16,
++	GFX9_V_FREXP_EXP_I16_F16,
++	GFX9_V_FLOOR_F16,
++	GFX9_V_CEIL_F16,
++	GFX9_V_TRUNC_F16,
++	GFX9_V_RNDNE_F16,
++	GFX9_V_FRACT_F16,
++	GFX9_V_SIN_F16,
++	GFX9_V_COS_F16,
++	GFX9_V_EXP_LEGACY_F32,
++	GFX9_V_LOG_LEGACY_F32,
++	GFX9_V_CVT_NORM_I16_F16,
++	GFX9_V_CVT_NORM_U16_F16,
++	GFX9_V_SAT_PK_U8_I16 = 79,
++	GFX9_V_SWAP_B32 = 81,
++};
++
++#define GFX9_VOP1_ENCODING			0x3f
++#define GFX9_VOP1_SRC_SGPR_BASE			0
++#define GFX9_VOP1_SRC_VCC_LO			106
++#define GFX9_VOP1_SRC_VCC_HI			107
++#define GFX9_VOP1_SRC_TTPM_BASE			108
++#define GFX9_VOP1_SRC_M0			124
++#define GFX9_VOP1_SRC_NULL			125
++#define GFX9_VOP1_SRC_EXEC_LO			126
++#define GFX9_VOP1_SRC_EXEC_HI			127
++#define GFX9_VOP1_SRC_INTEGER_0			128
++#define GFX9_VOP1_SRC_INTEGER_MINUS_1		193
++#define GFX9_VOP1_SRC_SHARED_BASE		235
++#define GFX9_VOP1_SRC_SHARED_LIMIT		236
++#define GFX9_VOP1_SRC_PRIVATE_BASE		237
++#define GFX9_VOP1_SRC_PRIVATE_LIMIT		238
++#define GFX9_VOP1_SRC_POPS_EXITING_WAVE_ID	239
++#define GFX9_VOP1_SRC_SDWA			249
++#define GFX9_VOP1_SRC_DDP16			250
++#define GFX9_VOP1_SRC_VCCZ			251
++#define GFX9_VOP1_SRC_EXECZ			252
++#define GFX9_VOP1_SRC_SCC			253
++#define GFX9_VOP1_SRC_LITERAL_CONST		255
++#define GFX9_VOP1_SRC_VGPR_BASE		256
++
++struct amdgcn_gfx9_vopc {
++	u32 src0:9;
++	u32 vsrc1:8;
++	u32 op:8;
++	u32 encoding:7;
++	u32 literal;
++};
++
++enum amdgcn_gfx9_vopc_compare_offset16 {
++	GFX9_VOPC16_F = 0,
++	GFX9_VOPC16_LT,
++	GFX9_VOPC16_EQ,
++	GFX9_VOPC16_LE,
++	GFX9_VOPC16_GT,
++	GFX9_VOPC16_LG,
++	GFX9_VOPC16_GE,
++	GFX9_VOPC16_O,
++	GFX9_VOPC16_U,
++	GFX9_VOPC16_NGE,
++	GFX9_VOPC16_NLG,
++	GFX9_VOPC16_NGT,
++	GFX9_VOPC16_NLE,
++	GFX9_VOPC16_NEQ,
++	GFX9_VOPC16_NLT,
++	GFX9_VOPC16_TRU,
++};
++
++enum amdgcn_gfx9_vopc_compare_offset8 {
++	GFX9_VOPC8_F = 0,
++	GFX9_VOPC8_LT,
++	GFX9_VOPC8_EQ,
++	GFX9_VOPC8_LE,
++	GFX9_VOPC8_GT,
++	GFX9_VOPC8_LG,
++	GFX9_VOPC8_GE,
++	GFX9_VOPC8_TRU,
++};
++
++enum amdgcn_gfx9_vopc_opcode {
++	GFX9_V_CMP_CLASS_F32 = 16,
++	GFX9_V_CMPX_CLASS_F32,
++	GFX9_V_CMP_CLASS_F64,
++	GFX9_V_CMPX_CLASS_F64,
++	GFX9_V_CMP_CLASS_F16,
++	GFX9_V_CMPX_CLASS_F16 = 21,
++	GFX9_V_CMP_F_F16 = 32,
++	GFX9_V_CMP_LT_F16,
++	GFX9_V_CMP_EQ_F16,
++	GFX9_V_CMP_LE_F16,
++	GFX9_V_CMP_GT_F16,
++	GFX9_V_CMP_LG_F16,
++	GFX9_V_CMP_GE_F16,
++	GFX9_V_CMP_O_F16,
++	GFX9_V_CMP_U_F16,
++	GFX9_V_CMP_NGE_F16,
++	GFX9_V_CMP_NLG_F16,
++	GFX9_V_CMP_NGT_F16,
++	GFX9_V_CMP_NLE_F16,
++	GFX9_V_CMP_NEQ_F16,
++	GFX9_V_CMP_NLT_F16,
++	GFX9_V_CMP_TRU_F16,
++	GFX9_V_CMPX_F_F16,
++	GFX9_V_CMPX_LT_F16,
++	GFX9_V_CMPX_EQ_F16,
++	GFX9_V_CMPX_LE_F16,
++	GFX9_V_CMPX_GT_F16,
++	GFX9_V_CMPX_LG_F16,
++	GFX9_V_CMPX_GE_F16,
++	GFX9_V_CMPX_O_F16,
++	GFX9_V_CMPX_U_F16,
++	GFX9_V_CMPX_NGE_F16,
++	GFX9_V_CMPX_NLG_F16,
++	GFX9_V_CMPX_NGT_F16,
++	GFX9_V_CMPX_NLE_F16,
++	GFX9_V_CMPX_NEQ_F16,
++	GFX9_V_CMPX_NLT_F16,
++	GFX9_V_CMPX_TRU_F16,
++	GFX9_V_CMP_F_F32,
++	GFX9_V_CMP_LT_F32,
++	GFX9_V_CMP_EQ_F32,
++	GFX9_V_CMP_LE_F32,
++	GFX9_V_CMP_GT_F32,
++	GFX9_V_CMP_LG_F32,
++	GFX9_V_CMP_GE_F32,
++	GFX9_V_CMP_O_F32,
++	GFX9_V_CMP_U_F32,
++	GFX9_V_CMP_NGE_F32,
++	GFX9_V_CMP_NLG_F32,
++	GFX9_V_CMP_NGT_F32,
++	GFX9_V_CMP_NLE_F32,
++	GFX9_V_CMP_NEQ_F32,
++	GFX9_V_CMP_NLT_F32,
++	GFX9_V_CMP_TRU_F32,
++	GFX9_V_CMPX_F_F32,
++	GFX9_V_CMPX_LT_F32,
++	GFX9_V_CMPX_EQ_F32,
++	GFX9_V_CMPX_LE_F32,
++	GFX9_V_CMPX_GT_F32,
++	GFX9_V_CMPX_LG_F32,
++	GFX9_V_CMPX_GE_F32,
++	GFX9_V_CMPX_O_F32,
++	GFX9_V_CMPX_U_F32,
++	GFX9_V_CMPX_NGE_F32,
++	GFX9_V_CMPX_NLG_F32,
++	GFX9_V_CMPX_NGT_F32,
++	GFX9_V_CMPX_NLE_F32,
++	GFX9_V_CMPX_NEQ_F32,
++	GFX9_V_CMPX_NLT_F32,
++	GFX9_V_CMPX_TRU_F32,
++	GFX9_V_CMP_F_F64,
++	GFX9_V_CMP_LT_F64,
++	GFX9_V_CMP_EQ_F64,
++	GFX9_V_CMP_LE_F64,
++	GFX9_V_CMP_GT_F64,
++	GFX9_V_CMP_LG_F64,
++	GFX9_V_CMP_GE_F64,
++	GFX9_V_CMP_O_F64,
++	GFX9_V_CMP_U_F64,
++	GFX9_V_CMP_NGE_F64,
++	GFX9_V_CMP_NLG_F64,
++	GFX9_V_CMP_NGT_F64,
++	GFX9_V_CMP_NLE_F64,
++	GFX9_V_CMP_NEQ_F64,
++	GFX9_V_CMP_NLT_F64,
++	GFX9_V_CMP_TRU_F64,
++	GFX9_V_CMPX_F_F64,
++	GFX9_V_CMPX_LT_F64,
++	GFX9_V_CMPX_EQ_F64,
++	GFX9_V_CMPX_LE_F64,
++	GFX9_V_CMPX_GT_F64,
++	GFX9_V_CMPX_LG_F64,
++	GFX9_V_CMPX_GE_F64,
++	GFX9_V_CMPX_O_F64,
++	GFX9_V_CMPX_U_F64,
++	GFX9_V_CMPX_NGE_F64,
++	GFX9_V_CMPX_NLG_F64,
++	GFX9_V_CMPX_NGT_F64,
++	GFX9_V_CMPX_NLE_F64,
++	GFX9_V_CMPX_NEQ_F64,
++	GFX9_V_CMPX_NLT_F64,
++	GFX9_V_CMPX_TRU_F64 = 127,
++	GFX9_V_CMP_F_I16 = 160,
++	GFX9_V_CMP_LT_I16,
++	GFX9_V_CMP_EQ_I16,
++	GFX9_V_CMP_LE_I16,
++	GFX9_V_CMP_GT_I16,
++	GFX9_V_CMP_NE_I16,
++	GFX9_V_CMP_GE_I16,
++	GFX9_V_CMP_T_I16,
++	GFX9_V_CMP_F_U16,
++	GFX9_V_CMP_LT_U16,
++	GFX9_V_CMP_EQ_U16,
++	GFX9_V_CMP_LE_U16,
++	GFX9_V_CMP_GT_U16,
++	GFX9_V_CMP_NE_U16,
++	GFX9_V_CMP_GE_U16,
++	GFX9_V_CMP_T_U16,
++	GFX9_V_CMPX_F_I16,
++	GFX9_V_CMPX_LT_I16,
++	GFX9_V_CMPX_EQ_I16,
++	GFX9_V_CMPX_LE_I16,
++	GFX9_V_CMPX_GT_I16,
++	GFX9_V_CMPX_NE_I16,
++	GFX9_V_CMPX_GE_I16,
++	GFX9_V_CMPX_T_I16,
++	GFX9_V_CMPX_F_U16,
++	GFX9_V_CMPX_LT_U16,
++	GFX9_V_CMPX_EQ_U16,
++	GFX9_V_CMPX_LE_U16,
++	GFX9_V_CMPX_GT_U16,
++	GFX9_V_CMPX_NE_U16,
++	GFX9_V_CMPX_GE_U16,
++	GFX9_V_CMPX_T_U16,
++	GFX9_V_CMP_F_I32,
++	GFX9_V_CMP_LT_I32,
++	GFX9_V_CMP_EQ_I32,
++	GFX9_V_CMP_LE_I32,
++	GFX9_V_CMP_GT_I32,
++	GFX9_V_CMP_NE_I32,
++	GFX9_V_CMP_GE_I32,
++	GFX9_V_CMP_T_I32,
++	GFX9_V_CMP_F_U32,
++	GFX9_V_CMP_LT_U32,
++	GFX9_V_CMP_EQ_U32,
++	GFX9_V_CMP_LE_U32,
++	GFX9_V_CMP_GT_U32,
++	GFX9_V_CMP_NE_U32,
++	GFX9_V_CMP_GE_U32,
++	GFX9_V_CMP_T_U32,
++	GFX9_V_CMPX_F_I32,
++	GFX9_V_CMPX_LT_I32,
++	GFX9_V_CMPX_EQ_I32,
++	GFX9_V_CMPX_LE_I32,
++	GFX9_V_CMPX_GT_I32,
++	GFX9_V_CMPX_NE_I32,
++	GFX9_V_CMPX_GE_I32,
++	GFX9_V_CMPX_T_I32,
++	GFX9_V_CMPX_F_U32,
++	GFX9_V_CMPX_LT_U32,
++	GFX9_V_CMPX_EQ_U32,
++	GFX9_V_CMPX_LE_U32,
++	GFX9_V_CMPX_GT_U32,
++	GFX9_V_CMPX_NE_U32,
++	GFX9_V_CMPX_GE_U32,
++	GFX9_V_CMPX_T_U32,
++	GFX9_V_CMP_F_I64,
++	GFX9_V_CMP_LT_I64,
++	GFX9_V_CMP_EQ_I64,
++	GFX9_V_CMP_LE_I64,
++	GFX9_V_CMP_GT_I64,
++	GFX9_V_CMP_NE_I64,
++	GFX9_V_CMP_GE_I64,
++	GFX9_V_CMP_T_I64,
++	GFX9_V_CMP_F_U64,
++	GFX9_V_CMP_LT_U64,
++	GFX9_V_CMP_EQ_U64,
++	GFX9_V_CMP_LE_U64,
++	GFX9_V_CMP_GT_U64,
++	GFX9_V_CMP_NE_U64,
++	GFX9_V_CMP_GE_U64,
++	GFX9_V_CMP_T_U64,
++	GFX9_V_CMPX_F_I64,
++	GFX9_V_CMPX_LT_I64,
++	GFX9_V_CMPX_EQ_I64,
++	GFX9_V_CMPX_LE_I64,
++	GFX9_V_CMPX_GT_I64,
++	GFX9_V_CMPX_NE_I64,
++	GFX9_V_CMPX_GE_I64,
++	GFX9_V_CMPX_T_I64,
++	GFX9_V_CMPX_F_U64,
++	GFX9_V_CMPX_LT_U64,
++	GFX9_V_CMPX_EQ_U64,
++	GFX9_V_CMPX_LE_U64,
++	GFX9_V_CMPX_GT_U64,
++	GFX9_V_CMPX_NE_U64,
++	GFX9_V_CMPX_GE_U64,
++	GFX9_V_CMPX_T_U64,
++};
++
++#define GFX9_VOPC_ENCODING			0x3e
++#define GFX9_VOPC_SRC_SGPR_BASE			0
++#define GFX9_VOPC_SRC_VCC_LO			106
++#define GFX9_VOPC_SRC_VCC_HI			107
++#define GFX9_VOPC_SRC_TTPM_BASE			108
++#define GFX9_VOPC_SRC_M0			124
++#define GFX9_VOPC_SRC_NULL			125
++#define GFX9_VOPC_SRC_EXEC_LO			126
++#define GFX9_VOPC_SRC_EXEC_HI			127
++#define GFX9_VOPC_SRC_INTEGER_0			128
++#define GFX9_VOPC_SRC_INTEGER_MINUS_1		193
++#define GFX9_VOPC_SRC_SHARED_BASE		235
++#define GFX9_VOPC_SRC_SHARED_LIMIT		236
++#define GFX9_VOPC_SRC_PRIVATE_BASE		237
++#define GFX9_VOPC_SRC_PRIVATE_LIMIT		238
++#define GFX9_VOPC_SRC_POPS_EXITING_WAVE_ID	239
++#define GFX9_VOPC_SRC_SDWA			249
++#define GFX9_VOPC_SRC_DDP16			250
++#define GFX9_VOPC_SRC_VCCZ			251
++#define GFX9_VOPC_SRC_EXECZ			252
++#define GFX9_VOPC_SRC_SCC			253
++#define GFX9_VOPC_SRC_LITERAL_CONST		255
++#define GFX9_VOPC_SRC_VGPR_BASE			256
++
++struct amdgcn_gfx9_vop3a {
++	u64 vdst:8;
++	u64 abs:3;
++	u64 op_sel:4;
++	u64 clmp:1;
++	u64 op:10;
++	u64 encoding:6;
++	u64 src0:9;
++	u64 src1:9;
++	u64 src2:9;
++	u64 omod:2;
++	u64 neg:3;
++	u32 literal;
++};
++
++enum amdgcn_gfx9_vop3a_opcode {
++	GFX9_V_MAD_LEGACY_F32 = 448,
++	GFX9_V_MAD_F32,
++	GFX9_V_MAD_I32_I24,
++	GFX9_V_MAD_U32_U24,
++	GFX9_V_CUBEID_F32,
++	GFX9_V_CUBESC_F32,
++	GFX9_V_CUBETC_F32,
++	GFX9_V_CUBEMA_F32,
++	GFX9_V_BFE_U32,
++	GFX9_V_BFE_I32,
++	GFX9_V_BFI_B32,
++	GFX9_V_FMA_F32,
++	GFX9_V_FMA_F64,
++	GFX9_V_LERP_U8,
++	GFX9_V_ALIGNBIT_B32,
++	GFX9_V_ALIGNBYTE_B32,
++	GFX9_V_MIN3_F32,
++	GFX9_V_MIN3_I32,
++	GFX9_V_MIN3_U32,
++	GFX9_V_MAX3_F32,
++	GFX9_V_MAX3_I32,
++	GFX9_V_MAX3_U32,
++	GFX9_V_MED3_F32,
++	GFX9_V_MED3_I32,
++	GFX9_V_MED3_U32,
++	GFX9_V_SAD_U8,
++	GFX9_V_SAD_HI_U8,
++	GFX9_V_SAD_U16,
++	GFX9_V_SAD_U32,
++	GFX9_V_CVT_PK_U8_F32,
++	GFX9_V_DIV_FIXUP_F32,
++	GFX9_V_DIV_FIXUP_F64 = 479,
++	GFX9_V_DIV_FMAS_F32 = 482,
++	GFX9_V_DIV_FMAS_F64,
++	GFX9_V_MSAD_U8,
++	GFX9_V_QSAD_PK_U16_U8,
++	GFX9_V_MQSAD_PK_U16_U8,
++	GFX9_V_MQSAD_U32_U8 = 487,
++	GFX9_V_MAD_LEGACY_F16 = 490,
++	GFX9_V_MAD_LEGACY_U16,
++	GFX9_V_MAD_LEGACY_I16,
++	GFX9_V_PERM_B32,
++	GFX9_V_FMA_LEGACY_F16,
++	GFX9_V_DIV_FIXUP_LEGACY_F16,
++	GFX9_V_CVT_PKACCUM_U8_F32,
++	GFX9_V_MAD_U32_U16,
++	GFX9_V_MAD_I32_I16,
++	GFX9_V_XAD_U32,
++	GFX9_V_MIN3_F16,
++	GFX9_V_MIN3_I16,
++	GFX9_V_MIN3_U16,
++	GFX9_V_MAX3_F16,
++	GFX9_V_MAX3_I16,
++	GFX9_V_MAX3_U16,
++	GFX9_V_MED3_F16,
++	GFX9_V_MED3_I16,
++	GFX9_V_MED3_U16,
++	GFX9_V_LSHL_ADD_U32,
++	GFX9_V_ADD_LSHL_U32,
++	GFX9_V_ADD3_U32,
++	GFX9_V_LSHL_OR_B32,
++	GFX9_V_AND_OR_B32,
++	GFX9_V_OR3_B32,
++	GFX9_V_MAD_F16,
++	GFX9_V_MAD_U16,
++	GFX9_V_MAD_I16,
++	GFX9_V_FMA_F16,
++	GFX9_V_DIV_FIXUP_F16 = 519,
++	GFX9_V_INTERP_P1LL_F16 = 628,
++	GFX9_V_INTERP_P1LV_F16,
++	GFX9_V_INTERP_P2_LEGACY_F16,
++	GFX9_V_INTERP_P2_F16 = 631,
++	GFX9_V_ADD_F64 = 640,
++	GFX9_V_MUL_F64,
++	GFX9_V_MIN_F64,
++	GFX9_V_MAX_F64,
++	GFX9_V_LDEXP_F64,
++	GFX9_V_MUL_LO_U32,
++	GFX9_V_MUL_HI_U32,
++	GFX9_V_MUL_HI_I32,
++	GFX9_V_LDEXP_F32,
++	GFX9_V_READLANE_B32,
++	GFX9_V_WRITELANE_B32,
++	GFX9_V_BCNT_U32_B32,
++	GFX9_V_MBCNT_LO_U32_B32,
++	GFX9_V_MBCNT_HI_U32_B32 = 653,
++	GFX9_V_LSHLREV_B64 = 655,
++	GFX9_V_LSHRREV_B64,
++	GFX9_V_ASHRREV_I64,
++	GFX9_V_TRIG_PREOP_F64,
++	GFX9_V_BFM_B32,
++	GFX9_V_CVT_PKNORM_I16_F32,
++	GFX9_V_CVT_PKNORM_U16_F32,
++	GFX9_V_CVT_PKRTZ_F16_F32,
++	GFX9_V_CVT_PK_U16_U32,
++	GFX9_V_CVT_PK_I16_I32,
++	GFX9_V_CVT_PKNORM_I16_F16,
++	GFX9_V_CVT_PKNORM_U16_F16 = 666,
++	GFX9_V_ADD_I32 = 668,
++	GFX9_V_SUB_I32,
++	GFX9_V_ADD_I16,
++	GFX9_V_SUB_I16,
++	GFX9_V_PACK_B32_F16,
++};
++
++enum amdgcn_gfx9_vop3a_abs {
++	GFX9_VOP3A_ABS_SRC0,
++	GFX9_VOP3A_ABS_SRC1,
++	GFX9_VOP3A_ABS_SRC2,
++};
++
++#define GFX9_VOP3A_ENCODING			0x34
++#define GFX9_VOP3A_SRC_SGPR_BASE		0
++#define GFX9_VOP3A_SRC_VCC_LO			106
++#define GFX9_VOP3A_SRC_VCC_HI			107
++#define GFX9_VOP3A_SRC_TTPM_BASE		108
++#define GFX9_VOP3A_SRC_M0			124
++#define GFX9_VOP3A_SRC_NULL			125
++#define GFX9_VOP3A_SRC_EXEC_LO			126
++#define GFX9_VOP3A_SRC_EXEC_HI			127
++#define GFX9_VOP3A_SRC_INTEGER_0		128
++#define GFX9_VOP3A_SRC_INTEGER_MINUS_1		193
++#define GFX9_VOP3A_SRC_SHARED_BASE		235
++#define GFX9_VOP3A_SRC_SHARED_LIMIT		236
++#define GFX9_VOP3A_SRC_PRIVATE_BASE		237
++#define GFX9_VOP3A_SRC_PRIVATE_LIMIT		238
++#define GFX9_VOP3A_SRC_POPS_EXITING_WAVE_ID	239
++#define GFX9_VOP3A_SRC_SDWA			249
++#define GFX9_VOP3A_SRC_DDP16			250
++#define GFX9_VOP3A_SRC_VCCZ			251
++#define GFX9_VOP3A_SRC_EXECZ			252
++#define GFX9_VOP3A_SRC_SCC			253
++#define GFX9_VOP3A_SRC_LITERAL_CONST		255
++#define GFX9_VOP3A_SRC_VGPR_BASE		256
++
++struct amdgcn_gfx9_vop3b {
++	u64 vdst:8;
++	u64 sdst:7;
++	u64 clmp:1;
++	u64 op:10;
++	u64 encoding:6;
++	u64 src0:9;
++	u64 src1:9;
++	u64 src2:9;
++	u64 omod:2;
++	u64 neg:3;
++	u32 literal;
++};
++
++enum amdgcn_gfx9_vop3b_opcode {
++	GFX9_V_DIV_SCALE_F64 = 481,
++	GFX9_V_MAD_U64_U32 = 488,
++	GFX9_V_MAD_I64_I32 = 489,
++};
++
++#define GFX9_VOP3B_ENCODING			0x34
++#define GFX9_VOP3B_SRC_SGPR_BASE		0
++#define GFX9_VOP3B_SRC_VCC_LO			106
++#define GFX9_VOP3B_SRC_VCC_HI			107
++#define GFX9_VOP3B_SRC_TTPM_BASE		108
++#define GFX9_VOP3B_SRC_M0			124
++#define GFX9_VOP3B_SRC_NULL			125
++#define GFX9_VOP3B_SRC_EXEC_LO			126
++#define GFX9_VOP3B_SRC_EXEC_HI			127
++#define GFX9_VOP3B_SRC_INTEGER_0		128
++#define GFX9_VOP3B_SRC_INTEGER_MINUS_1		193
++#define GFX9_VOP3B_SRC_SHARED_BASE		235
++#define GFX9_VOP3B_SRC_SHARED_LIMIT		236
++#define GFX9_VOP3B_SRC_PRIVATE_BASE		237
++#define GFX9_VOP3B_SRC_PRIVATE_LIMIT		238
++#define GFX9_VOP3B_SRC_POPS_EXITING_WAVE_ID	239
++#define GFX9_VOP3B_SRC_SDWA			249
++#define GFX9_VOP3B_SRC_DDP16			250
++#define GFX9_VOP3B_SRC_VCCZ			251
++#define GFX9_VOP3B_SRC_EXECZ			252
++#define GFX9_VOP3B_SRC_SCC			253
++#define GFX9_VOP3B_SRC_LITERAL_CONST		255
++#define GFX9_VOP3B_SRC_VGPR_BASE		256
++
++struct amdgcn_gfx9_vop3p {
++	u64 vdst:8;
++	u64 neg_hi:3;
++	u64 op_sel:3;
++	u64 op_sel_hi2:1;
++	u64 clmp:1;
++	u64 op:7;
++	u64 encoding:9;
++	u64 src0:9;
++	u64 src1:9;
++	u64 src2:9;
++	u64 op_sel_hi:2;
++	u64 neg:3;
++	u32 literal;
++};
++
++enum amdgcn_gfx9_vop3p_opcode {
++	GFX9_V_PK_MAD_I16,
++	GFX9_V_PK_MUL_LO_U16,
++	GFX9_V_PK_ADD_I16,
++	GFX9_V_PK_SUB_I16,
++	GFX9_V_PK_LSHLREV_B16,
++	GFX9_V_PK_LSHRREV_B16,
++	GFX9_V_PK_ASHRREV_I16,
++	GFX9_V_PK_MAX_I16,
++	GFX9_V_PK_MIN_I16,
++	GFX9_V_PK_MAD_U16,
++	GFX9_V_PK_ADD_U16,
++	GFX9_V_PK_SUB_U16,
++	GFX9_V_PK_MAX_U16,
++	GFX9_V_PK_MIN_U16,
++	GFX9_V_PK_FMA_F16,
++	GFX9_V_PK_ADD_F16,
++	GFX9_V_PK_MUL_F16,
++	GFX9_V_PK_MIN_F16,
++	GFX9_V_PK_MAX_F16 = 18,
++	GFX9_V_MAD_MIX_F32 = 32,
++	GFX9_V_MAD_MIXLO_F16,
++	GFX9_V_MAD_MIXHI_F16,
++};
++
++#define GFX9_VOP3P_ENCODING			0x1a7
++#define GFX9_VOP3P_SRC_SGPR_BASE		0
++#define GFX9_VOP3P_SRC_VCC_LO		106
++#define GFX9_VOP3P_SRC_VCC_HI		107
++#define GFX9_VOP3P_SRC_TTPM_BASE		108
++#define GFX9_VOP3P_SRC_M0			124
++#define GFX9_VOP3P_SRC_NULL			125
++#define GFX9_VOP3P_SRC_EXEC_LO		126
++#define GFX9_VOP3P_SRC_EXEC_HI		127
++#define GFX9_VOP3P_SRC_INTEGER_0		128
++#define GFX9_VOP3P_SRC_INTEGER_MINUS_1	193
++#define GFX9_VOP3P_SRC_SHARED_BASE		235
++#define GFX9_VOP3P_SRC_SHARED_LIMIT		236
++#define GFX9_VOP3P_SRC_PRIVATE_BASE		237
++#define GFX9_VOP3P_SRC_PRIVATE_LIMIT		238
++#define GFX9_VOP3P_SRC_POPS_EXITING_WAVE_ID	239
++#define GFX9_VOP3P_SRC_SDWA			249
++#define GFX9_VOP3P_SRC_DDP16			250
++#define GFX9_VOP3P_SRC_VCCZ			251
++#define GFX9_VOP3P_SRC_EXECZ			252
++#define GFX9_VOP3P_SRC_SCC			253
++#define GFX9_VOP3P_SRC_VGPR_BASE		256
++
++struct amdgcn_gfx9_sdwa {
++	u32 src0:8;
++	u32 dst_sel:3;
++	u32 dst_u:2;
++	u32 clmp:1;
++	u32 omod:2;
++	u32 src0_sel:3;
++	u32 src0_sext:1;
++	u32 src0_neg:1;
++	u32 src0_abs:1;
++	u32 dummy1:1;
++	u32 s0:1;
++	u32 src1_sel:3;
++	u32 src1_sext:1;
++	u32 src1_neg:1;
++	u32 src1_abs:1;
++	u32 dummy2:1;
++	u32 s1:1;
++};
++
++struct amdgcn_gfx9_sdwab {
++	u32 src0:8;
++	u32 sdst:7;
++	u32 sd:1;
++	u32 src0_sel:3;
++	u32 src0_sext:1;
++	u32 src0_neg:1;
++	u32 src0_abs:1;
++	u32 dummy1:1;
++	u32 s0:1;
++	u32 src1_sel:3;
++	u32 src1_sext:1;
++	u32 src1_neg:1;
++	u32 src1_abs:1;
++	u32 dummy2:1;
++	u32 s1:1;
++};
++
++struct amdgcn_gfx9_dpp16 {
++};
++
++struct amdgcn_gfx9_dpp8 {
++};
++
++/* Vector Parameter Interpolation Format */
++struct amdgcn_gfx9_vintrp {
++};
++
++/* LDS and GDS Format */
++struct amdgcn_gfx9_ds {
++	u64 offset0:8;
++	u64 offset1:8;
++	u64 gds:1;
++	u64 op:9;	/* bits [25:17] */
++	u64 encoding:6;	/* bits [31:26] = 0x36 */
++	u64 addr:8;
++	u64 data0:8;
++	u64 data1:8;
++	u64 vdst:8;
++};
++
++enum amdgcn_gfx9_ds_opcode {
++	GFX9_DS_ADD_U32,
++	GFX9_DS_SUB_U32,
++	GFX9_DS_RSUB_U32,
++	GFX9_DS_INC_U32,
++	GFX9_DS_DEC_U32,
++	GFX9_DS_MIN_I32,
++	GFX9_DS_MAX_I32,
++	GFX9_DS_MIN_U32,
++	GFX9_DS_MAX_U32,
++	GFX9_DS_AND_B32,
++	GFX9_DS_OR_B32,
++	GFX9_DS_XOR_B32,
++	GFX9_DS_MSKOR_B32,
++	GFX9_DS_WRITE_B32,
++	GFX9_DS_WRITE2_B32,
++	GFX9_DS_WRITE2ST64_B32,
++	GFX9_DS_CMPST_B32,
++	GFX9_DS_CMPST_F32,
++	GFX9_DS_MIN_F32,
++	GFX9_DS_MAX_F32,
++	GFX9_DS_NOP,
++	GFX9_DS_ADD_F32 = 21,
++	GFX9_DS_WRITE_ADDTID_B32 = 29,
++	GFX9_DS_WRITE_B8,
++	GFX9_DS_WRITE_B16,
++	GFX9_DS_ADD_RTN_U32,
++	GFX9_DS_SUB_RTN_U32,
++	GFX9_DS_RSUB_RTN_U32,
++	GFX9_DS_INC_RTN_U32,
++	GFX9_DS_DEC_RTN_U32,
++	GFX9_DS_MIN_RTN_I32,
++	GFX9_DS_MAX_RTN_I32,
++	GFX9_DS_MIN_RTN_U32,
++	GFX9_DS_MAX_RTN_U32,
++	GFX9_DS_AND_RTN_B32,
++	GFX9_DS_OR_RTN_B32,
++	GFX9_DS_XOR_RTN_B32,
++	GFX9_DS_MSKOR_RTN_B32,
++	GFX9_DS_WRXCHG_RTN_B32,
++	GFX9_DS_WRXCHG2_RTN_B32,
++	GFX9_DS_WRXCHG2ST64_RTN_B32,
++	GFX9_DS_CMPST_RTN_B32,
++	GFX9_DS_CMPST_RTN_F32,
++	GFX9_DS_MIN_RTN_F32,
++	GFX9_DS_MAX_RTN_F32,
++	GFX9_DS_WRAP_RTN_B32,
++	GFX9_DS_ADD_RTN_F32,
++	GFX9_DS_READ_B32,
++	GFX9_DS_READ2_B32,
++	GFX9_DS_READ2ST64_B32,
++	GFX9_DS_READ_I8,
++	GFX9_DS_READ_U8,
++	GFX9_DS_READ_I16,
++	GFX9_DS_READ_U16,
++	GFX9_DS_SWIZZLE_B32,
++	GFX9_DS_PERMUTE_B32,
++	GFX9_DS_BPERMUTE_B32,
++	GFX9_DS_ADD_U64,
++	GFX9_DS_SUB_U64,
++	GFX9_DS_RSUB_U64,
++	GFX9_DS_INC_U64,
++	GFX9_DS_DEC_U64,
++	GFX9_DS_MIN_I64,
++	GFX9_DS_MAX_I64,
++	GFX9_DS_MIN_U64,
++	GFX9_DS_MAX_U64,
++	GFX9_DS_AND_B64,
++	GFX9_DS_OR_B64,
++	GFX9_DS_XOR_B64,
++	GFX9_DS_MSKOR_B64,
++	GFX9_DS_WRITE_B64,
++	GFX9_DS_WRITE2_B64,
++	GFX9_DS_WRITE2ST64_B64,
++	GFX9_DS_CMPST_B64,
++	GFX9_DS_CMPST_F64,
++	GFX9_DS_MIN_F64,
++	GFX9_DS_MAX_F64,
++	GFX9_DS_WRITE_B8_D16_HI,
++	GFX9_DS_WRITE_B16_D16_HI,
++	GFX9_DS_READ_U8_D16,
++	GFX9_DS_READ_U8_D16_HI,
++	GFX9_DS_READ_I8_D16,
++	GFX9_DS_READ_I8_D16_HI,
++	GFX9_DS_READ_U16_D16,
++	GFX9_DS_READ_U16_D16_HI = 91,
++	GFX9_DS_ADD_RTN_U64 = 96,
++	GFX9_DS_SUB_RTN_U64,
++	GFX9_DS_RSUB_RTN_U64,
++	GFX9_DS_INC_RTN_U64,
++	GFX9_DS_DEC_RTN_U64,
++	GFX9_DS_MIN_RTN_I64,
++	GFX9_DS_MAX_RTN_I64,
++	GFX9_DS_MIN_RTN_U64,
++	GFX9_DS_MAX_RTN_U64,
++	GFX9_DS_AND_RTN_B64,
++	GFX9_DS_OR_RTN_B64,
++	GFX9_DS_XOR_RTN_B64,
++	GFX9_DS_MSKOR_RTN_B64,
++	GFX9_DS_WRXCHG_RTN_B64,
++	GFX9_DS_WRXCHG2_RTN_B64,
++	GFX9_DS_WRXCHG2ST64_RTN_B64,
++	GFX9_DS_CMPST_RTN_B64,
++	GFX9_DS_CMPST_RTN_F64,
++	GFX9_DS_MIN_RTN_F64,
++	GFX9_DS_MAX_RTN_F64 = 115,
++	GFX9_DS_READ_B64 = 118,
++	GFX9_DS_READ2_B64 = 119,
++	GFX9_DS_READ2ST64_B64 = 120,
++	/* ISA opcodes 121-125 are reserved gaps. */
++	GFX9_DS_CONDXCHG32_RTN_B64 = 126,
++	/* ISA opcode 127 is a reserved gap. */
++	GFX9_DS_ADD_SRC2_U32 = 128,
++	GFX9_DS_SUB_SRC2_U32,
++	GFX9_DS_RSUB_SRC2_U32,
++	GFX9_DS_INC_SRC2_U32,
++	GFX9_DS_DEC_SRC2_U32,
++	GFX9_DS_MIN_SRC2_I32,
++	GFX9_DS_MAX_SRC2_I32,
++	GFX9_DS_MIN_SRC2_U32,
++	GFX9_DS_MAX_SRC2_U32,
++	GFX9_DS_AND_SRC2_B32,
++	GFX9_DS_OR_SRC2_B32,
++	GFX9_DS_XOR_SRC2_B32 = 139,
++	GFX9_DS_WRITE_SRC2_B32 = 141,
++	GFX9_DS_MIN_SRC2_F32 = 146,
++	GFX9_DS_MAX_SRC2_F32 = 147,
++	GFX9_DS_ADD_SRC2_F32 = 149,
++	GFX9_DS_GWS_SEMA_RELEASE_ALL = 152,
++	GFX9_DS_GWS_INIT,
++	GFX9_DS_GWS_SEMA_V,
++	GFX9_DS_GWS_SEMA_BR,
++	GFX9_DS_GWS_SEMA_P,
++	GFX9_DS_GWS_BARRIER = 157,
++	GFX9_DS_READ_ADDTID_B32 = 182,
++	GFX9_DS_CONSUME = 189,
++	GFX9_DS_APPEND,
++	GFX9_DS_ORDERED_COUNT,
++	GFX9_DS_ADD_SRC2_U64,
++	GFX9_DS_SUB_SRC2_U64,
++	GFX9_DS_RSUB_SRC2_U64,
++	GFX9_DS_INC_SRC2_U64,
++	GFX9_DS_DEC_SRC2_U64,
++	GFX9_DS_MIN_SRC2_I64,
++	GFX9_DS_MAX_SRC2_I64,
++	GFX9_DS_MIN_SRC2_U64,
++	GFX9_DS_MAX_SRC2_U64,
++	GFX9_DS_AND_SRC2_B64,
++	GFX9_DS_OR_SRC2_B64,
++	GFX9_DS_XOR_SRC2_B64 = 203,
++	GFX9_DS_WRITE_SRC2_B64 = 205,
++	GFX9_DS_MIN_SRC2_F64 = 210,
++	GFX9_DS_MAX_SRC2_F64 = 211,
++	GFX9_DS_WRITE_B96 = 222,
++	GFX9_DS_WRITE_B128 = 223,
++	GFX9_DS_READ_B96 = 254,
++	GFX9_DS_READ_B128 = 255,
++};
++
++#define GFX9_DS_ENCODING		0x36
++#define GFX9_DS_GDS			1
++#define GFX9_DS_LDS			0
++
++////////////////////////////////////////////////////
++/* Vector Memory Buffer Formats */
++struct amdgcn_gfx9_mtbuf {
++	u64 offset:12;
++	u64 offen:1;
++	u64 idxen:1;
++	u64 glc:1;
++	u64 op:4;
++	u64 dfmt:4;
++	u64 nfmt:3;
++	u64 encoding:6;
++	u64 vaddr:8;
++	u64 vdata:8;
++	u64 srsrc:5;
++	u64 dummy:1;
++	u64 slc:1;
++	u64 tfe:1;
++	u64 soffset:8;
++};
++
++enum amdgcn_gfx9_mtbuf_opcode {
++	GFX9_TBUFFER_LOAD_FORMAT_X,
++	GFX9_TBUFFER_LOAD_FORMAT_XY,
++	GFX9_TBUFFER_LOAD_FORMAT_XYZ,
++	GFX9_TBUFFER_LOAD_FORMAT_XYZW,
++	GFX9_TBUFFER_STORE_FORMAT_X,
++	GFX9_TBUFFER_STORE_FORMAT_XY,
++	GFX9_TBUFFER_STORE_FORMAT_XYZ,
++	GFX9_TBUFFER_STORE_FORMAT_XYZW,
++	GFX9_TBUFFER_LOAD_FORMAT_D16_X,
++	GFX9_TBUFFER_LOAD_FORMAT_D16_XY,
++	GFX9_TBUFFER_LOAD_FORMAT_D16_XYZ,
++	GFX9_TBUFFER_LOAD_FORMAT_D16_XYZW,
++	GFX9_TBUFFER_STORE_FORMAT_D16_X,
++	GFX9_TBUFFER_STORE_FORMAT_D16_XY,
++	GFX9_TBUFFER_STORE_FORMAT_D16_XYZ,
++	GFX9_TBUFFER_STORE_FORMAT_D16_XYZW,
++};
++
++#define GFX9_MUBUF_ENCODING				0x38
++#define GFX9_MUBUF_SOFFSET_SGPR_BASE			0
++#define GFX9_MUBUF_SOFFSET_VCC_LO			106
++#define GFX9_MUBUF_SOFFSET_VCC_HI			107
++#define GFX9_MUBUF_SOFFSET_TTPM_BASE			108
++#define GFX9_MUBUF_SOFFSET_M0				124
++#define GFX9_MUBUF_SOFFSET_NULL			125
++#define GFX9_MUBUF_SOFFSET_EXEC_LO			126
++#define GFX9_MUBUF_SOFFSET_EXEC_HI			127
++#define GFX9_MUBUF_SOFFSET_INTEGER_0			128
++#define GFX9_MUBUF_SOFFSET_INTEGER_MINUS_1		193
++#define GFX9_MUBUF_SOFFSET_SHARED_BASE			235
++#define GFX9_MUBUF_SOFFSET_SHARED_LIMIT		236
++#define GFX9_MUBUF_SOFFSET_PRIVATE_BASE		237
++#define GFX9_MUBUF_SOFFSET_PRIVATE_LIMIT		238
++#define GFX9_MUBUF_SOFFSET_POPS_EXITING_WAVE_ID	239
++#define GFX9_MUBUF_SOFFSET_VCCZ			251
++#define GFX9_MUBUF_SOFFSET_EXECZ			252
++#define GFX9_MUBUF_SOFFSET_SCC				253
++
++struct amdgcn_gfx9_mubuf {
++	u64 offset:12;
++	u64 offen:1;
++	u64 idxen:1;
++	u64 glc:1;
++	u64 dummy1:1;
++	u64 lds:1;
++	u64 slc:1;
++	u64 op:7;
++	u64 dummy2:1;
++	u64 encoding:6;
++	u64 vaddr:8;
++	u64 vdata:8;
++	u64 srsrc:5;
++	u64 dummy3:2;
++	u64 tfe:1;
++	u64 soffset:8;
++};
++
++enum amdgcn_gfx9_mubuf_opcode {
++	GFX9_BUFFER_LOAD_FORMAT_X,
++	GFX9_BUFFER_LOAD_FORMAT_XY,
++	GFX9_BUFFER_LOAD_FORMAT_XYZ,
++	GFX9_BUFFER_LOAD_FORMAT_XYZW,
++	GFX9_BUFFER_STORE_FORMAT_X,
++	GFX9_BUFFER_STORE_FORMAT_XY,
++	GFX9_BUFFER_STORE_FORMAT_XYZ,
++	GFX9_BUFFER_STORE_FORMAT_XYZW,
++	GFX9_BUFFER_LOAD_FORMAT_D16_X,
++	GFX9_BUFFER_LOAD_FORMAT_D16_XY,
++	GFX9_BUFFER_LOAD_FORMAT_D16_XYZ,
++	GFX9_BUFFER_LOAD_FORMAT_D16_XYZW,
++	GFX9_BUFFER_STORE_FORMAT_D16_X,
++	GFX9_BUFFER_STORE_FORMAT_D16_XY,
++	GFX9_BUFFER_STORE_FORMAT_D16_XYZ,
++	GFX9_BUFFER_STORE_FORMAT_D16_XYZW,
++	GFX9_BUFFER_LOAD_UBYTE,
++	GFX9_BUFFER_LOAD_SBYTE,
++	GFX9_BUFFER_LOAD_USHORT,
++	GFX9_BUFFER_LOAD_SSHORT,
++	GFX9_BUFFER_LOAD_DWORD,
++	GFX9_BUFFER_LOAD_DWORDX2,
++	GFX9_BUFFER_LOAD_DWORDX3,
++	GFX9_BUFFER_LOAD_DWORDX4,
++	GFX9_BUFFER_STORE_BYTE,
++	GFX9_BUFFER_STORE_BYTE_D16_HI,
++	GFX9_BUFFER_STORE_SHORT,
++	GFX9_BUFFER_STORE_SHORT_D16_HI,
++	GFX9_BUFFER_STORE_DWORD,
++	GFX9_BUFFER_STORE_DWORDX2,
++	GFX9_BUFFER_STORE_DWORDX3,
++	GFX9_BUFFER_STORE_DWORDX4,
++	GFX9_BUFFER_LOAD_UBYTE_D16,
++	GFX9_BUFFER_LOAD_UBYTE_D16_HI,
++	GFX9_BUFFER_LOAD_SBYTE_D16,
++	GFX9_BUFFER_LOAD_SBYTE_D16_HI,
++	GFX9_BUFFER_LOAD_SHORT_D16,
++	GFX9_BUFFER_LOAD_SHORT_D16_HI,
++	GFX9_BUFFER_LOAD_FORMAT_D16_HI_X,
++	GFX9_BUFFER_STORE_FORMAT_D16_HI_X = 39,
++	GFX9_BUFFER_STORE_LDS_DWORD = 61,
++	GFX9_BUFFER_WBINVL1,
++	GFX9_BUFFER_WBINVL1_VOL,
++	GFX9_BUFFER_ATOMIC_SWAP,
++	GFX9_BUFFER_ATOMIC_CMPSWAP,
++	GFX9_BUFFER_ATOMIC_ADD,
++	GFX9_BUFFER_ATOMIC_SUB,
++	GFX9_BUFFER_ATOMIC_SMIN,
++	GFX9_BUFFER_ATOMIC_UMIN,
++	GFX9_BUFFER_ATOMIC_SMAX,
++	GFX9_BUFFER_ATOMIC_UMAX,
++	GFX9_BUFFER_ATOMIC_AND,
++	GFX9_BUFFER_ATOMIC_OR,
++	GFX9_BUFFER_ATOMIC_XOR,
++	GFX9_BUFFER_ATOMIC_INC,
++	GFX9_BUFFER_ATOMIC_DEC = 76,
++	GFX9_BUFFER_ATOMIC_SWAP_X2 = 96,
++	GFX9_BUFFER_ATOMIC_CMPSWAP_X2,
++	GFX9_BUFFER_ATOMIC_ADD_X2,
++	GFX9_BUFFER_ATOMIC_SUB_X2,
++	GFX9_BUFFER_ATOMIC_SMIN_X2,
++	GFX9_BUFFER_ATOMIC_UMIN_X2,
++	GFX9_BUFFER_ATOMIC_SMAX_X2,
++	GFX9_BUFFER_ATOMIC_UMAX_X2,
++	GFX9_BUFFER_ATOMIC_AND_X2,
++	GFX9_BUFFER_ATOMIC_OR_X2,
++	GFX9_BUFFER_ATOMIC_XOR_X2,
++	GFX9_BUFFER_ATOMIC_INC_X2,
++	GFX9_BUFFER_ATOMIC_DEC_X2,
++};
++
++/* Vector Memory Image Format */
++struct amdgcn_gfx9_mimg {
++};
++
++#define GFX9_FLAT_ENCODING			0x37
++#define GFX9_FLAT_SADDR_SGPR_BASE		0
++#define GFX9_FLAT_SADDR_VCC_LO			106
++#define GFX9_FLAT_SADDR_VCC_HI			107
++#define GFX9_FLAT_SADDR_TTPM_BASE		108
++#define GFX9_FLAT_SADDR_M0			124
++#define GFX9_FLAT_SADDR_NULL			125
++#define GFX9_FLAT_SADDR_EXEC_LO			126
++#define GFX9_FLAT_SADDR_EXEC_HI			127
++#define GFX9_FLAT_SADDR_INTEGER_0		128
++#define GFX9_FLAT_SADDR_INTEGER_MINUS_1		193
++#define GFX9_FLAT_SADDR_SHARED_BASE		235
++#define GFX9_FLAT_SADDR_SHARED_LIMIT		236
++#define GFX9_FLAT_SADDR_PRIVATE_BASE		237
++#define GFX9_FLAT_SADDR_PRIVATE_LIMIT		238
++#define GFX9_FLAT_SADDR_POPS_EXITING_WAVE_ID	239
++#define GFX9_FLAT_SADDR_VCCZ			251
++#define GFX9_FLAT_SADDR_EXECZ			252
++#define GFX9_FLAT_SADDR_SCC			253
++
++/*
++ * Scalar SGPR that provides an offset address. To disable, set this field to
++ * 0x7F. Meaning of this field is different for Scratch and Global:
++ * Flat: Unused.
++ * Scratch: Use an SGPR (instead of VGPR) for the address.
++ * Global: Use the SGPR to provide a base address; the VGPR provides a
++ *         32-bit offset.
++ */
++#define GFX9_FLAT_SADDR_DISABLE			0x7f
++#define GFX9_FLAT_SEG_FLAT			0
++#define GFX9_FLAT_SEG_SCRATCH			1
++#define GFX9_FLAT_SEG_GLOBAL			2
++
++/* Flat Formats */
++struct amdgcn_gfx9_flat {
++	u64 offset:13;
++	u64 lds:1;
++	u64 seg:2;
++	u64 glc:1;
++	u64 slc:1;
++	u64 op:7;
++	u64 dummy:1;
++	u64 encoding:6;
++	u64 addr:8;
++	u64 data:8;
++	u64 saddr:7;
++	u64 nv:1;
++	u64 vdst:8;
++};
++
++enum amdgcn_gfx9_global_opcode {
++	GFX9_GLOBAL_LOAD_UBYTE = 16,
++	GFX9_GLOBAL_LOAD_SBYTE,
++	GFX9_GLOBAL_LOAD_USHORT,
++	GFX9_GLOBAL_LOAD_SSHORT,
++	GFX9_GLOBAL_LOAD_DWORD,
++	GFX9_GLOBAL_LOAD_DWORDX2,
++	GFX9_GLOBAL_LOAD_DWORDX3,
++	GFX9_GLOBAL_LOAD_DWORDX4,
++	GFX9_GLOBAL_STORE_BYTE,
++	GFX9_GLOBAL_STORE_BYTE_D16_HI,
++	GFX9_GLOBAL_STORE_SHORT,
++	GFX9_GLOBAL_STORE_SHORT_D16_HI,
++	GFX9_GLOBAL_STORE_DWORD,
++	GFX9_GLOBAL_STORE_DWORDX2,
++	GFX9_GLOBAL_STORE_DWORDX3,
++	GFX9_GLOBAL_STORE_DWORDX4,
++	GFX9_GLOBAL_LOAD_UBYTE_D16,
++	GFX9_GLOBAL_LOAD_UBYTE_D16_HI,
++	GFX9_GLOBAL_LOAD_SBYTE_D16,
++	GFX9_GLOBAL_LOAD_SBYTE_D16_HI,
++	GFX9_GLOBAL_LOAD_SHORT_D16,
++	GFX9_GLOBAL_LOAD_SHORT_D16_HI = 37,
++	GFX9_GLOBAL_ATOMIC_SWAP = 64,
++	GFX9_GLOBAL_ATOMIC_CMPSWAP,
++	GFX9_GLOBAL_ATOMIC_ADD,
++	GFX9_GLOBAL_ATOMIC_SUB,
++	GFX9_GLOBAL_ATOMIC_SMIN,
++	GFX9_GLOBAL_ATOMIC_UMIN,
++	GFX9_GLOBAL_ATOMIC_SMAX,
++	GFX9_GLOBAL_ATOMIC_UMAX,
++	GFX9_GLOBAL_ATOMIC_AND,
++	GFX9_GLOBAL_ATOMIC_OR,
++	GFX9_GLOBAL_ATOMIC_XOR,
++	GFX9_GLOBAL_ATOMIC_INC,
++	GFX9_GLOBAL_ATOMIC_DEC = 76,
++	GFX9_GLOBAL_ATOMIC_SWAP_X2 = 96,
++	GFX9_GLOBAL_ATOMIC_CMPSWAP_X2,
++	GFX9_GLOBAL_ATOMIC_ADD_X2,
++	GFX9_GLOBAL_ATOMIC_SUB_X2,
++	GFX9_GLOBAL_ATOMIC_SMIN_X2,
++	GFX9_GLOBAL_ATOMIC_UMIN_X2,
++	GFX9_GLOBAL_ATOMIC_SMAX_X2,
++	GFX9_GLOBAL_ATOMIC_UMAX_X2,
++	GFX9_GLOBAL_ATOMIC_AND_X2,
++	GFX9_GLOBAL_ATOMIC_OR_X2,
++	GFX9_GLOBAL_ATOMIC_XOR_X2,
++	GFX9_GLOBAL_ATOMIC_INC_X2,
++	GFX9_GLOBAL_ATOMIC_DEC_X2,
++};
++
++/* Export Format */
++struct amdgcn_gfx9_exp {
++};
++
++union amdgcn_gfx9_insn {
++	struct amdgcn_gfx9_sop2 sop2;
++	struct amdgcn_gfx9_sopk sopk;
++	struct amdgcn_gfx9_sop1 sop1;
++	struct amdgcn_gfx9_sopc sopc;
++	struct amdgcn_gfx9_sopp sopp;
++	struct amdgcn_gfx9_smem smem;
++	struct amdgcn_gfx9_vop2 vop2;
++	struct amdgcn_gfx9_vop1 vop1;
++	struct amdgcn_gfx9_vopc vopc;
++	struct amdgcn_gfx9_vop3a vop3a;
++	struct amdgcn_gfx9_vop3b vop3b;
++	struct amdgcn_gfx9_vop3p vop3p;
++	struct amdgcn_gfx9_sdwa sdwa;
++	struct amdgcn_gfx9_sdwab sdwab;
++	struct amdgcn_gfx9_dpp16 dpp16;
++	struct amdgcn_gfx9_dpp8 dpp8;
++	struct amdgcn_gfx9_vintrp vintrp;
++	struct amdgcn_gfx9_ds ds;
++	struct amdgcn_gfx9_mtbuf mtbuf;
++	struct amdgcn_gfx9_mubuf mubuf;
++	struct amdgcn_gfx9_mimg mimg;
++	struct amdgcn_gfx9_flat flat;
++	struct amdgcn_gfx9_exp exp;
++};
++
++/* Cast macro - convert u32 *buf position to GFX9 insn union pointer. */
++#define I9(buf, n)	((union amdgcn_gfx9_insn *)&(buf)[(n)])
++
++inline u32 gfx9_get_param_base(struct amdgcn_param32 param)
++{
++	return gfx9_param_base[param.type];
++}
++
++inline u32 emit_gfx9_s_load_dwordx2(union amdgcn_gfx9_insn *insn,
++				    struct amdgcn_param32 dst,
++				    struct amdgcn_param32 src, int offset)
++{
++	/* s_load_dwordx2 <dst/sdata>, <src/sbase>, <offset>
++	 * sdata: register, load to.
++	 * sbase: sgpr-pair, load from.
++	 * offset: offset of kernarg_address in the hsa_kernel_dispatch_packet.
++	 *
++	 * sdata = *(sbase + offset);
++	 * param = (__global struct _knod_bpf_param *)pkt.kernarg_address;
++	 */
++
++	insn->smem.sbase = KNOD_AMDGPU_REG_PAIR(src.v);
++	insn->smem.sdata = dst.v;
++	insn->smem.dummy1 = 0;
++	insn->smem.soe = 0;
++	insn->smem.nv = 0;
++	insn->smem.glc = 0;
++	insn->smem.imm = 1;
++	insn->smem.op = GFX9_S_LOAD_DWORDX2;
++	insn->smem.encoding = GFX9_SMEM_ENCODING;
++	insn->smem.offset = offset;
++	insn->smem.dummy2 = 0;
++	insn->smem.soffset = 0;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_v_bfe_i32(union amdgcn_gfx9_insn *insn,
++			       struct amdgcn_param32 dst,
++			       struct amdgcn_param32 src0,
++			       struct amdgcn_param32 src1,
++			       struct amdgcn_param32 src2)
++{
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	WARN_ON(src1.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src2.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX9_V_BFE_I32;
++	insn->vop3a.encoding = GFX9_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx9_get_param_base(src1) + src1.v;
++	insn->vop3a.src2 = gfx9_get_param_base(src2) + src2.v;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx9_get_param_base(src0);
++		insn->vop3a.literal = src0.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_v_bfe_u32(union amdgcn_gfx9_insn *insn,
++			       struct amdgcn_param32 dst,
++			       struct amdgcn_param32 src0,
++			       struct amdgcn_param32 src1,
++			       struct amdgcn_param32 src2)
++{
++	/* v_bfe_u32 v0, v0, 8
++	 * <dst>: destination vgpr.
++	 * <src>: initialized to workitem in first bitfields.
++	 * 8: bitfield size to extract from.
++	 *
++	 * extract workitem ID from <src>
++	 */
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	WARN_ON(src1.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src2.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX9_V_BFE_U32;
++	insn->vop3a.encoding = GFX9_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx9_get_param_base(src1) + src1.v;
++	insn->vop3a.src2 = gfx9_get_param_base(src2) + src2.v;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx9_get_param_base(src0);
++		insn->vop3a.literal = src0.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_v_bfi_b32(union amdgcn_gfx9_insn *insn,
++			       struct amdgcn_param32 dst,
++			       struct amdgcn_param32 src0,
++			       struct amdgcn_param32 src1,
++			       struct amdgcn_param32 src2)
++{
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	WARN_ON(src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src1.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src2.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX9_V_BFI_B32;
++	insn->vop3a.encoding = GFX9_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx9_get_param_base(src1) + src1.v;
++	insn->vop3a.src2 = gfx9_get_param_base(src2) + src2.v;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx9_get_param_base(src0);
++		insn->vop3a.literal = src0.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_v_lshl_add_u32(union amdgcn_gfx9_insn *insn,
++				    struct amdgcn_param32 dst,
++				    struct amdgcn_param32 src0,
++				    struct amdgcn_param32 src1,
++				    struct amdgcn_param32 src2)
++{
++	/* v_lshl_add_u32 <dst>, <src0>, <src1>, <src2>
++	 *
++	 * <dst> = (<src0> << <src1>) + <src2>;
++	 */
++
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX9_V_LSHL_ADD_U32;
++	insn->vop3a.encoding = GFX9_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx9_get_param_base(src1) + src1.v;
++	insn->vop3a.src2 = gfx9_get_param_base(src2) + src2.v;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx9_get_param_base(src0);
++		insn->vop3a.literal = src0.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_v_lshl_or_b32(union amdgcn_gfx9_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src0,
++				   struct amdgcn_param32 src1,
++				   struct amdgcn_param32 src2)
++{
++	/* v_lshl_or_b32 <dst>, <src0>, <src1>, <src2>
++	 *
++	 * D.u = (S0.u << S1.u[4:0]) | S2.u
++	 */
++
++	WARN_ON(src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src1.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src2.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src2.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX9_V_LSHL_OR_B32;
++	insn->vop3a.encoding = GFX9_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx9_get_param_base(src1) + src1.v;
++	insn->vop3a.src2 = gfx9_get_param_base(src2) + src2.v;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx9_get_param_base(src0);
++		insn->vop3a.literal = src0.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_v_mad_u64_u32(union amdgcn_gfx9_insn *insn,
++				   struct amdgcn_param64 vdst,
++				   struct amdgcn_param32 sdst,
++				   struct amdgcn_param32 src0,
++				   struct amdgcn_param32 src1,
++				   struct amdgcn_param64 src2)
++{
++	/* v_mad_u64_u32 <dst>, <dst2>, <src0_imm>, <src1>, <src2>
++	 * <vdst>: destination vgpr.
++	 * <sdst>: destination sgpr.
++	 * <src0>: source vgpr.
++	 * <src1>: source vgpr.
++	 * <src2>: source vgpr.
++	 *
++	 * {vcc_out, D.u64} = S0.u32 * S1.u32 + S2.u64.
++	 * ctx = &param->sub[idx].ctx;
++	 */
++
++	WARN_ON(src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src1.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src2.lo.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src2.hi.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	insn->vop3b.vdst = vdst.lo.v;
++	insn->vop3b.sdst = sdst.v;
++	insn->vop3b.clmp = 0;
++	insn->vop3b.op = GFX9_V_MAD_U64_U32;
++	insn->vop3b.encoding = GFX9_VOP3B_ENCODING;
++	insn->vop3b.src1 = gfx9_get_param_base(src1) + src1.v;
++	insn->vop3b.src2 = gfx9_get_param_base(src2.lo) + src2.lo.v;
++	insn->vop3b.omod = 0;
++	insn->vop3b.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3b.src0 = gfx9_get_param_base(src0);
++		insn->vop3b.literal = src0.v;
++		return 12;
++	}
++	insn->vop3b.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_s_mov_b32(union amdgcn_gfx9_insn *insn,
++			       struct amdgcn_param32 dst,
++			       struct amdgcn_param32 src)
++{
++	if (src.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->sop1.ssrc0 = gfx9_get_param_base(src);
++		insn->sop1.literal = src.v;
++	} else {
++		insn->sop1.ssrc0 = gfx9_get_param_base(src) + src.v;
++	}
++	insn->sop1.op = GFX9_S_MOV_B32;
++	insn->sop1.sdst = gfx9_get_param_base(dst) + dst.v;
++	insn->sop1.encoding = GFX9_SOP1_ENCODING;
++
++	if (src.type == AMDGCN_PARAM_TYPE_LITERAL_CONST)
++		return 8;
++	return 4;
++}
++
++/*
++ * v_readfirstlane_b32 sdst, vsrc
++ * Copies VGPR[vsrc] from the first active lane to SGPR[sdst].
++ * VOP1 encoding, dst = SGPR (not VGPR).
++ */
++inline u32 emit_gfx9_v_readfirstlane_b32(union amdgcn_gfx9_insn *insn,
++					  u8 sdst, u8 vsrc)
++{
++	insn->vop1.encoding = GFX9_VOP1_ENCODING;
++	insn->vop1.vdst = sdst;
++	insn->vop1.op = GFX9_V_READFIRSTLANE_B32;
++	insn->vop1.src0 = GFX9_SRC_VGPR_BASE + vsrc;
++	return 4;
++}
++
++inline u32 emit_gfx9_v_mov_b32_e32(union amdgcn_gfx9_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src)
++{
++	if (dst.type != AMDGCN_PARAM_TYPE_VGPR)
++		WARN_ON_ONCE(1);
++	insn->vop1.encoding = GFX9_VOP1_ENCODING;
++	insn->vop1.vdst = dst.v;
++	insn->vop1.op = GFX9_V_MOV_B32;
++	if (src.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop1.src0 = GFX9_VOP1_SRC_LITERAL_CONST;
++		insn->vop1.literal = src.v;
++
++		return 8;
++	}
++	insn->vop1.src0 = gfx9_get_param_base(src) + src.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_add_co_u32(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param32 dst,
++				  struct amdgcn_param32 src0,
++				  struct amdgcn_param32 src1)
++{
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	WARN_ON(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX9_V_ADD_CO_U32;
++	insn->vop2.encoding = GFX9_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx9_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_add_u32(union amdgcn_gfx9_insn *insn,
++			       struct amdgcn_param32 dst,
++			       struct amdgcn_param32 src0,
++			       struct amdgcn_param32 src1)
++{
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	WARN_ON(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX9_V_ADD_U32;
++	insn->vop2.encoding = GFX9_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx9_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_sub_u32(union amdgcn_gfx9_insn *insn,
++			       struct amdgcn_param32 dst,
++			       struct amdgcn_param32 src0,
++			       struct amdgcn_param32 src1)
++{
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	WARN_ON(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX9_V_SUB_U32;
++	insn->vop2.encoding = GFX9_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx9_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_addc_co_u32(union amdgcn_gfx9_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src0,
++				   struct amdgcn_param32 src1)
++{
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX9_V_ADDC_CO_U32;
++	insn->vop2.encoding = GFX9_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		WARN_ON_ONCE(1);
++		insn->vop2.src0 = gfx9_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_xor_b32_e32(union amdgcn_gfx9_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src0,
++				   struct amdgcn_param32 src1)
++{
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX9_V_XOR_B32;
++	insn->vop2.encoding = GFX9_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx9_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_or_b32_e32(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param32 dst,
++				  struct amdgcn_param32 src0,
++				  struct amdgcn_param32 src1)
++{
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX9_V_OR_B32;
++	insn->vop2.encoding = GFX9_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx9_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cndmask_b32_e32(union amdgcn_gfx9_insn *insn,
++				       struct amdgcn_param32 dst,
++				       struct amdgcn_param32 src0,
++				       struct amdgcn_param32 src1)
++{
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX9_V_CNDMASK_B32;
++	insn->vop2.encoding = GFX9_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx9_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_and_b32_e32(union amdgcn_gfx9_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src0,
++				   struct amdgcn_param32 src1)
++{
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX9_V_AND_B32;
++	insn->vop2.encoding = GFX9_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx9_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_sub_co_u32(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param32 dst,
++				  struct amdgcn_param32 src0,
++				  struct amdgcn_param32 src1)
++{
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX9_V_SUB_CO_U32;
++	insn->vop2.encoding = GFX9_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx9_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_subrev_co_u32(union amdgcn_gfx9_insn *insn,
++				     struct amdgcn_param32 dst,
++				     struct amdgcn_param32 src0,
++				     struct amdgcn_param32 src1)
++{
++	/* D.u = S1.u - S0.u; */
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX9_V_SUBREV_CO_U32;
++	insn->vop2.encoding = GFX9_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx9_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_subbrev_co_u32(union amdgcn_gfx9_insn *insn,
++				     struct amdgcn_param32 dst,
++				     struct amdgcn_param32 src0,
++				     struct amdgcn_param32 src1)
++{
++	/* D.u = S1.u - S0.u; */
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX9_V_SUBBREV_CO_U32;
++	insn->vop2.encoding = GFX9_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx9_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_subb_co_u32(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param32 dst,
++				  struct amdgcn_param32 src0,
++				  struct amdgcn_param32 src1)
++
++{
++	/* dst = src0 - src1 */
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX9_V_SUBB_CO_U32;
++	insn->vop2.encoding = GFX9_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx9_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_mul_lo_u32(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param32 dst,
++				  struct amdgcn_param32 src0,
++				  struct amdgcn_param32 src1)
++{
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX9_V_MUL_LO_U32;
++	insn->vop3a.encoding = GFX9_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx9_get_param_base(src1) + src1.v;
++	/* 128: src2=0 reads s0 on gfx9 */
++	insn->vop3a.src2 = GFX9_SRC_INTEGER_0;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx9_get_param_base(src0);
++		insn->vop3a.literal = src0.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++/* v_mbcnt_lo_u32_b32 vdst, src0, vsrc1
++ * vdst = popcount(src0 & ((1 << lane_id[4:0]) - 1)) + vsrc1
++ */
++inline u32 emit_gfx9_v_mbcnt_lo_u32_b32(union amdgcn_gfx9_insn *insn,
++					 struct amdgcn_param32 dst,
++					 struct amdgcn_param32 src0,
++					 struct amdgcn_param32 src1)
++{
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX9_V_MBCNT_LO_U32_B32;
++	insn->vop3a.encoding = GFX9_VOP3A_ENCODING;
++	insn->vop3a.src0 = gfx9_get_param_base(src0) + src0.v;
++	insn->vop3a.src1 = gfx9_get_param_base(src1) + src1.v;
++	/* 128: src2=0 reads s0 on gfx9 */
++	insn->vop3a.src2 = GFX9_SRC_INTEGER_0;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++
++	return 8;
++}
++
++/* v_mbcnt_hi_u32_b32 vdst, src0, vsrc1
++ * vdst = popcount(src0 & ((1 << lane_id[5]) - 1)) + vsrc1
++ */
++inline u32 emit_gfx9_v_mbcnt_hi_u32_b32(union amdgcn_gfx9_insn *insn,
++					 struct amdgcn_param32 dst,
++					 struct amdgcn_param32 src0,
++					 struct amdgcn_param32 src1)
++{
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX9_V_MBCNT_HI_U32_B32;
++	insn->vop3a.encoding = GFX9_VOP3A_ENCODING;
++	insn->vop3a.src0 = gfx9_get_param_base(src0) + src0.v;
++	insn->vop3a.src1 = gfx9_get_param_base(src1) + src1.v;
++	/* 128: src2=0 reads s0 on gfx9 */
++	insn->vop3a.src2 = GFX9_SRC_INTEGER_0;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_v_mul_hi_u32(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param32 dst,
++				  struct amdgcn_param32 src0,
++				  struct amdgcn_param32 src1)
++{
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX9_V_MUL_HI_U32;
++	insn->vop3a.encoding = GFX9_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx9_get_param_base(src1) + src1.v;
++	/* 128: src2=0 reads s0 on gfx9 */
++	insn->vop3a.src2 = GFX9_SRC_INTEGER_0;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx9_get_param_base(src0);
++		insn->vop3a.literal = src0.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_v_lshlrev_b64(union amdgcn_gfx9_insn *insn,
++				   struct amdgcn_param64 dst,
++				   struct amdgcn_param64 src0,
++				   struct amdgcn_param64 src1)
++{
++	/* dst = s1 << s0 */
++	insn->vop3a.vdst = dst.lo.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX9_V_LSHLREV_B64;
++	insn->vop3a.encoding = GFX9_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx9_get_param_base(src1.lo) + src1.lo.v;
++	/* 128: src2=0 reads s0 on gfx9 */
++	insn->vop3a.src2 = GFX9_SRC_INTEGER_0;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.lo.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx9_get_param_base(src0.lo);
++		insn->vop3a.literal = src0.lo.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx9_get_param_base(src0.lo) + src0.lo.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_v_lshlrev_b32(union amdgcn_gfx9_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src0,
++				   struct amdgcn_param32 src1)
++{
++	/* dst = s1 << s0 */
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX9_V_LSHLREV_B32;
++	insn->vop2.encoding = GFX9_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx9_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_lshrrev_b32(union amdgcn_gfx9_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src0,
++				   struct amdgcn_param32 src1)
++{
++	/* dst = s1 << s0 */
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX9_V_LSHRREV_B32;
++	insn->vop2.encoding = GFX9_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx9_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_lshrrev_b64(union amdgcn_gfx9_insn *insn,
++				   struct amdgcn_param64 dst,
++				   struct amdgcn_param64 src0,
++				   struct amdgcn_param64 src1)
++{
++	/* dst = s1 >> s0 */
++	insn->vop3a.vdst = dst.lo.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX9_V_LSHRREV_B64;
++	insn->vop3a.encoding = GFX9_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx9_get_param_base(src1.lo) + src1.lo.v;
++	/* 128: src2=0 reads s0 on gfx9 */
++	insn->vop3a.src2 = GFX9_SRC_INTEGER_0;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.lo.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx9_get_param_base(src0.lo);
++		insn->vop3a.literal = src0.lo.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx9_get_param_base(src0.lo) + src0.lo.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_v_ashrrev_i64(union amdgcn_gfx9_insn *insn,
++				   struct amdgcn_param64 dst,
++				   struct amdgcn_param64 src0,
++				   struct amdgcn_param64 src1)
++{
++	/* dst = s1 >> s0 */
++	insn->vop3a.vdst = dst.lo.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX9_V_ASHRREV_I64;
++	insn->vop3a.encoding = GFX9_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx9_get_param_base(src1.lo) + src1.lo.v;
++	/* 128: src2=0 reads s0 on gfx9 */
++	insn->vop3a.src2 = GFX9_SRC_INTEGER_0;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.lo.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx9_get_param_base(src0.lo);
++		insn->vop3a.literal = src0.lo.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx9_get_param_base(src0.lo) + src0.lo.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_v_ashrrev_i32(union amdgcn_gfx9_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src0,
++				   struct amdgcn_param32 src1)
++{
++	/* dst = s1 >> s0 */
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	/*
++	 * VOP2 ops encoded in VOP3A use opcode 0x100 + vop2_op (V_ASHRREV_I32
++	 * is a VOP2 instruction). Without the +0x100 the op field decodes as a
++	 * different VOP3A instruction, so the arithmetic shift (used for 64-bit
++	 * sign-extension, e.g. bpf_xdp_adjust_head's delta) produced garbage.
++	 */
++	insn->vop3a.op = GFX9_V_ASHRREV_I32 + 0x100;
++	insn->vop3a.encoding = GFX9_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx9_get_param_base(src1) + src1.v;
++	/* 128: src2=0 reads s0 on gfx9 */
++	insn->vop3a.src2 = GFX9_SRC_INTEGER_0;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx9_get_param_base(src0);
++		insn->vop3a.literal = src0.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_v_alignbit_b32(union amdgcn_gfx9_insn *insn,
++				    struct amdgcn_param32 dst,
++				    struct amdgcn_param32 src0,
++				    struct amdgcn_param32 src1,
++				    struct amdgcn_param32 src2)
++{
++	/* D.u = ({S0,S1} >> S2.u[4:0]) & 0xffffffff. */
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX9_V_ALIGNBIT_B32;
++	insn->vop3a.encoding = GFX9_VOP3A_ENCODING;
++	insn->vop3a.src1 = gfx9_get_param_base(src1) + src1.v;
++	insn->vop3a.src2 = gfx9_get_param_base(src2) + src2.v;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop3a.src0 = gfx9_get_param_base(src0);
++		insn->vop3a.literal = src0.v;
++		return 12;
++	}
++	insn->vop3a.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_v_perm_b32(union amdgcn_gfx9_insn *insn,
++				struct amdgcn_param32 dst,
++				struct amdgcn_param32 src0,
++				struct amdgcn_param32 src1,
++				struct amdgcn_param32 src2)
++{
++	/*
++	 * v_perm_b32: D.u[31:24] = src[sel[14:12]],
++	 *             D.u[23:16] = src[sel[10:8]], ...
++	 * For bswap32: sel = 0x00010203 reverses bytes.
++	 */
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	/* VOP3 does not support literal constants on GFX9 */
++	WARN_ON(src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src1.type == AMDGCN_PARAM_TYPE_LITERAL_CONST ||
++		src2.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	insn->vop3a.vdst = dst.v;
++	insn->vop3a.abs = 0;
++	insn->vop3a.op_sel = 0;
++	insn->vop3a.clmp = 0;
++	insn->vop3a.op = GFX9_V_PERM_B32;
++	insn->vop3a.encoding = GFX9_VOP3A_ENCODING;
++	insn->vop3a.src0 = gfx9_get_param_base(src0) + src0.v;
++	insn->vop3a.src1 = gfx9_get_param_base(src1) + src1.v;
++	insn->vop3a.src2 = gfx9_get_param_base(src2) + src2.v;
++	insn->vop3a.omod = 0;
++	insn->vop3a.neg = 0;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_v_cmp_eq_u64(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param32 dst,
++				  struct amdgcn_param32 src)
++{
++	/* VCC = S0 == S1 */
++	insn->vopc.src0 = gfx9_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX9_V_CMP_EQ_U64;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cmp_eq_u32(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param32 dst,
++				  struct amdgcn_param32 src)
++{
++	/*
++	 * VOPC src0 supports SGPR/inline/VGPR but NOT literal
++	 * (no 8-byte path)
++	 */
++	WARN_ON(dst.type == AMDGCN_PARAM_TYPE_LITERAL_CONST);
++	WARN_ON(src.type != AMDGCN_PARAM_TYPE_VGPR);
++	/* VCC = S0 == S1 */
++	insn->vopc.src0 = gfx9_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX9_V_CMP_EQ_U32;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cmp_gt_u64(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param64 dst,
++				  struct amdgcn_param64 src)
++{
++	/* VCC = S0 > S1 */
++	insn->vopc.src0 = gfx9_get_param_base(dst.lo) + dst.lo.v;
++	insn->vopc.vsrc1 = src.lo.v;
++	insn->vopc.op = GFX9_V_CMP_GT_U64;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cmp_gt_i64(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param64 dst,
++				  struct amdgcn_param64 src)
++{
++	/* VCC = S0 > S1 (signed) */
++	insn->vopc.src0 = gfx9_get_param_base(dst.lo) + dst.lo.v;
++	insn->vopc.vsrc1 = src.lo.v;
++	insn->vopc.op = GFX9_V_CMP_GT_I64;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cmp_ge_u32(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param32 dst,
++				  struct amdgcn_param32 src)
++{
++	/* VCC = S0 >= S1 */
++	insn->vopc.src0 = gfx9_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX9_V_CMP_GE_U32;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cmp_gt_u32(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param32 dst,
++				  struct amdgcn_param32 src)
++{
++	/* VCC = S0 > S1 */
++	insn->vopc.src0 = gfx9_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX9_V_CMP_GT_U32;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cmp_lt_u32(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param32 dst,
++				  struct amdgcn_param32 src)
++{
++	/* VCC = S0 < S1 */
++	insn->vopc.src0 = gfx9_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX9_V_CMP_LT_U32;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cmp_le_u32(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param32 dst,
++				  struct amdgcn_param32 src)
++{
++	/* VCC = S0 <= S1 */
++	insn->vopc.src0 = gfx9_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX9_V_CMP_LE_U32;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cmp_gt_i32(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param32 dst,
++				  struct amdgcn_param32 src)
++{
++	/* VCC = S0 > S1 (signed) */
++	insn->vopc.src0 = gfx9_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX9_V_CMP_GT_I32;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cmp_ge_i32(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param32 dst,
++				  struct amdgcn_param32 src)
++{
++	/* VCC = S0 >= S1 (signed) */
++	insn->vopc.src0 = gfx9_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX9_V_CMP_GE_I32;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cmp_lt_i32(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param32 dst,
++				  struct amdgcn_param32 src)
++{
++	/* VCC = S0 < S1 (signed) */
++	insn->vopc.src0 = gfx9_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX9_V_CMP_LT_I32;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cmp_le_i32(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param32 dst,
++				  struct amdgcn_param32 src)
++{
++	/* VCC = S0 <= S1 (signed) */
++	insn->vopc.src0 = gfx9_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX9_V_CMP_LE_I32;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cmpx_lt_u32(union amdgcn_gfx9_insn *insn,
++				   struct amdgcn_param32 dst,
++				   struct amdgcn_param32 src)
++{
++	/* EXEC &= (S0 < S1) */
++	insn->vopc.src0 = gfx9_get_param_base(dst) + dst.v;
++	insn->vopc.vsrc1 = src.v;
++	insn->vopc.op = GFX9_V_CMPX_LT_U32;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cmp_ge_u64(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param64 dst,
++				  struct amdgcn_param64 src)
++{
++	/* VCC = S0 >= S1 */
++	insn->vopc.src0 = gfx9_get_param_base(dst.lo) + dst.lo.v;
++	insn->vopc.vsrc1 = src.lo.v;
++	insn->vopc.op = GFX9_V_CMP_GE_U64;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cmp_ge_i64(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param64 dst,
++				  struct amdgcn_param64 src)
++{
++	/* VCC = S0 >= S1 (signed) */
++	insn->vopc.src0 = gfx9_get_param_base(dst.lo) + dst.lo.v;
++	insn->vopc.vsrc1 = src.lo.v;
++	insn->vopc.op = GFX9_V_CMP_GE_I64;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cmp_lt_u64(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param64 dst,
++				  struct amdgcn_param64 src)
++{
++	/* VCC = S0 < S1 */
++	insn->vopc.src0 = gfx9_get_param_base(dst.lo) + dst.lo.v;
++	insn->vopc.vsrc1 = src.lo.v;
++	insn->vopc.op = GFX9_V_CMP_LT_U64;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cmp_lt_i64(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param64 dst,
++				  struct amdgcn_param64 src)
++{
++	/* VCC = S0 < S1 (signed) */
++	insn->vopc.src0 = gfx9_get_param_base(dst.lo) + dst.lo.v;
++	insn->vopc.vsrc1 = src.lo.v;
++	insn->vopc.op = GFX9_V_CMP_LT_I64;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cmp_le_u64(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param64 dst,
++				  struct amdgcn_param64 src)
++{
++	/* VCC = S0 <= S1 */
++	insn->vopc.src0 = gfx9_get_param_base(dst.lo) + dst.lo.v;
++	insn->vopc.vsrc1 = src.lo.v;
++	insn->vopc.op = GFX9_V_CMP_LE_U64;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_v_cmp_le_i64(union amdgcn_gfx9_insn *insn,
++				  struct amdgcn_param64 dst,
++				  struct amdgcn_param64 src)
++{
++	/* VCC = S0 <= S1 (signed) */
++	insn->vopc.src0 = gfx9_get_param_base(dst.lo) + dst.lo.v;
++	insn->vopc.vsrc1 = src.lo.v;
++	insn->vopc.op = GFX9_V_CMP_LE_I64;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_buffer_load_ubyte(union amdgcn_gfx9_insn *insn,
++				       struct amdgcn_param32 dst,
++				       struct amdgcn_param32 src,
++				       short off)
++{
++	/* buffer_load_ubyte <dst>, <src>, s[0:3], 0 offen offset:<off> */
++	insn->mubuf.offset = off;
++	insn->mubuf.offen = 1;
++	insn->mubuf.idxen = 0;
++	insn->mubuf.glc = 0;
++	insn->mubuf.dummy1 = 0;
++	insn->mubuf.lds = 0;
++	insn->mubuf.op = GFX9_BUFFER_LOAD_UBYTE;
++	insn->mubuf.dummy2 = 0;
++	insn->mubuf.encoding = GFX9_MUBUF_ENCODING;
++	insn->mubuf.vaddr = src.v;
++	insn->mubuf.vdata = dst.v;
++	insn->mubuf.srsrc = 0; /* s[0:3] */
++	insn->mubuf.dummy3 = 0;
++	insn->mubuf.tfe = 0;
++	insn->mubuf.soffset = GFX9_MUBUF_SOFFSET_INTEGER_0;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_buffer_load_ushort(union amdgcn_gfx9_insn *insn,
++					struct amdgcn_param32 dst,
++					struct amdgcn_param32 src,
++					short off)
++{
++	/* buffer_load_ushort <dst>, <src>, s[0:3], 0 offen offset:<off> */
++	insn->mubuf.offset = off;
++	insn->mubuf.offen = 1;
++	insn->mubuf.idxen = 0;
++	insn->mubuf.glc = 0;
++	insn->mubuf.dummy1 = 0;
++	insn->mubuf.lds = 0;
++	insn->mubuf.op = GFX9_BUFFER_LOAD_USHORT;
++	insn->mubuf.dummy2 = 0;
++	insn->mubuf.encoding = GFX9_MUBUF_ENCODING;
++	insn->mubuf.vaddr = src.v;
++	insn->mubuf.vdata = dst.v;
++	insn->mubuf.srsrc = 0; /* s[0:3] */
++	insn->mubuf.dummy3 = 0;
++	insn->mubuf.tfe = 0;
++	insn->mubuf.soffset = GFX9_MUBUF_SOFFSET_INTEGER_0;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_buffer_load_dword(union amdgcn_gfx9_insn *insn,
++				       struct amdgcn_param32 dst,
++				       struct amdgcn_param32 src,
++				       short off)
++{
++	/* buffer_load_dword <dst>, <src>, s[0:3], 0 offen offset:<off> */
++	insn->mubuf.offset = off;
++	insn->mubuf.offen = 1;
++	insn->mubuf.idxen = 0;
++	insn->mubuf.glc = 0;
++	insn->mubuf.dummy1 = 0;
++	insn->mubuf.lds = 0;
++	insn->mubuf.op = GFX9_BUFFER_LOAD_DWORD;
++	insn->mubuf.dummy2 = 0;
++	insn->mubuf.encoding = GFX9_MUBUF_ENCODING;
++	insn->mubuf.vaddr = src.v;
++	insn->mubuf.vdata = dst.v;
++	insn->mubuf.srsrc = 0; /* s[0:3] */
++	insn->mubuf.dummy3 = 0;
++	insn->mubuf.tfe = 0;
++	insn->mubuf.soffset = GFX9_MUBUF_SOFFSET_INTEGER_0;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_buffer_load_dwordx2(union amdgcn_gfx9_insn *insn,
++					 struct amdgcn_param32 dst,
++					 struct amdgcn_param32 src,
++					 short off)
++{
++	/* buffer_load_dwordx2 <dst>, <src>, s[0:3], 0 offen offset:<off> */
++	insn->mubuf.offset = off;
++	insn->mubuf.offen = 1;
++	insn->mubuf.idxen = 0;
++	insn->mubuf.glc = 0;
++	insn->mubuf.dummy1 = 0;
++	insn->mubuf.lds = 0;
++	insn->mubuf.op = GFX9_BUFFER_LOAD_DWORDX2;
++	insn->mubuf.dummy2 = 0;
++	insn->mubuf.encoding = GFX9_MUBUF_ENCODING;
++	insn->mubuf.vaddr = src.v;
++	insn->mubuf.vdata = dst.v;
++	insn->mubuf.srsrc = 0; /* s[0:3] */
++	insn->mubuf.dummy3 = 0;
++	insn->mubuf.tfe = 0;
++	insn->mubuf.soffset = GFX9_MUBUF_SOFFSET_INTEGER_0;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_buffer_load_dwordx4(union amdgcn_gfx9_insn *insn,
++					 struct amdgcn_param32 dst,
++					 struct amdgcn_param32 src,
++					 short off)
++{
++	/* buffer_load_dwordx4 <dst>, <src>, s[0:3], 0 offen offset:<off> */
++	insn->mubuf.offset = off;
++	insn->mubuf.offen = 1;
++	insn->mubuf.idxen = 0;
++	insn->mubuf.glc = 0;
++	insn->mubuf.dummy1 = 0;
++	insn->mubuf.lds = 0;
++	insn->mubuf.op = GFX9_BUFFER_LOAD_DWORDX4;
++	insn->mubuf.dummy2 = 0;
++	insn->mubuf.encoding = GFX9_MUBUF_ENCODING;
++	insn->mubuf.vaddr = src.v;
++	insn->mubuf.vdata = dst.v;
++	insn->mubuf.srsrc = 0; /* s[0:3] */
++	insn->mubuf.dummy3 = 0;
++	insn->mubuf.tfe = 0;
++	insn->mubuf.soffset = GFX9_MUBUF_SOFFSET_INTEGER_0;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_global_load_ubyte(union amdgcn_gfx9_insn *insn,
++				       struct amdgcn_param32 dst,
++				       struct amdgcn_param32 src,
++				       short off)
++{
++	/* global_load_ubyte <dst>, <srcs>, off offset:<off> */
++	insn->flat.offset = off;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX9_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 0;
++	insn->flat.slc = 0;
++	insn->flat.op = GFX9_GLOBAL_LOAD_UBYTE;
++	insn->flat.dummy = 0;
++	insn->flat.encoding = GFX9_FLAT_ENCODING;
++	insn->flat.addr = src.v;
++	insn->flat.data = 0; /* ignored? */
++	insn->flat.saddr = GFX9_FLAT_SADDR_DISABLE;
++	insn->flat.nv = 0;
++	insn->flat.vdst = dst.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_global_load_ushort(union amdgcn_gfx9_insn *insn,
++				       struct amdgcn_param32 dst,
++				       struct amdgcn_param32 src,
++				       short off)
++{
++	/* global_load_ushort <dst>, <srcs>, off offset:<off> */
++	insn->flat.offset = off;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX9_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 0;
++	insn->flat.slc = 0;
++	insn->flat.op = GFX9_GLOBAL_LOAD_USHORT;
++	insn->flat.dummy = 0;
++	insn->flat.encoding = GFX9_FLAT_ENCODING;
++	insn->flat.addr = src.v;
++	insn->flat.data = 0; /* ignored? */
++	insn->flat.saddr = GFX9_FLAT_SADDR_DISABLE;
++	insn->flat.nv = 0;
++	insn->flat.vdst = dst.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_global_load_dword(union amdgcn_gfx9_insn *insn,
++				       struct amdgcn_param32 dst,
++				       struct amdgcn_param32 src,
++				       short off)
++{
++	/* global_load_dword <dst>, <srcs>, off offset:<off> */
++	insn->flat.offset = off;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX9_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 0;
++	insn->flat.slc = 0;
++	insn->flat.op = GFX9_GLOBAL_LOAD_DWORD;
++	insn->flat.dummy = 0;
++	insn->flat.encoding = GFX9_FLAT_ENCODING;
++	insn->flat.addr = src.v;
++	insn->flat.data = 0; /* ignored? */
++	insn->flat.saddr = GFX9_FLAT_SADDR_DISABLE;
++	insn->flat.nv = 0;
++	insn->flat.vdst = dst.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_global_load_dwordx2(union amdgcn_gfx9_insn *insn,
++					 struct amdgcn_param32 dst,
++					 struct amdgcn_param32 src,
++					 short off)
++{
++	/* global_load_dwordx2 <dst>, <srcs>, off offset:<off> */
++	insn->flat.offset = off;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX9_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 0;
++	insn->flat.slc = 0;
++	insn->flat.op = GFX9_GLOBAL_LOAD_DWORDX2;
++	insn->flat.dummy = 0;
++	insn->flat.encoding = GFX9_FLAT_ENCODING;
++	insn->flat.addr = src.v;
++	insn->flat.data = 0; /* ignored? */
++	insn->flat.saddr = GFX9_FLAT_SADDR_DISABLE;
++	insn->flat.nv = 0;
++	insn->flat.vdst = dst.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_global_load_dwordx4(union amdgcn_gfx9_insn *insn,
++					 struct amdgcn_param32 dst,
++					 struct amdgcn_param32 src,
++					 short off)
++{
++	/* global_load_dwordx4 <dst>, <srcs>, off offset:<off> */
++	insn->flat.offset = off;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX9_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 0;
++	insn->flat.slc = 0;
++	insn->flat.op = GFX9_GLOBAL_LOAD_DWORDX4;
++	insn->flat.dummy = 0;
++	insn->flat.encoding = GFX9_FLAT_ENCODING;
++	insn->flat.addr = src.v;
++	insn->flat.data = 0; /* ignored? */
++	insn->flat.saddr = GFX9_FLAT_SADDR_DISABLE;
++	insn->flat.nv = 0;
++	insn->flat.vdst = dst.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_global_load_dwordx4_glc(union amdgcn_gfx9_insn *insn,
++					      struct amdgcn_param32 dst,
++					      struct amdgcn_param32 src,
++					      short off)
++{
++	/* global_load_dwordx4 <dst>, <srcs>, off offset:<off> glc slc
++	 * GLC=1: bypass L1 (TCP). SLC=1: bypass L2 (TCC).
++	 * Both needed for VRAM written by external DMA (NIC via PCIe)
++	 * since L2 is not invalidated on external writes.
++	 */
++	insn->flat.offset = off;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX9_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 1;
++	insn->flat.slc = 1;
++	insn->flat.op = GFX9_GLOBAL_LOAD_DWORDX4;
++	insn->flat.dummy = 0;
++	insn->flat.encoding = GFX9_FLAT_ENCODING;
++	insn->flat.addr = src.v;
++	insn->flat.data = 0;
++	insn->flat.saddr = GFX9_FLAT_SADDR_DISABLE;
++	insn->flat.nv = 0;
++	insn->flat.vdst = dst.v;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_global_store_byte(union amdgcn_gfx9_insn *insn,
++				       struct amdgcn_param32 dst,
++				       struct amdgcn_param32 src, int off)
++{
++	/* global_store_byte <src>, <dst>, off offset:<off>
++	 * *(char *)(dst + off) = src;
++	 */
++	insn->flat.offset = off;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX9_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 0;
++	insn->flat.slc = 0;
++	insn->flat.op = GFX9_GLOBAL_STORE_BYTE;
++	insn->flat.dummy = 0;
++	insn->flat.encoding = GFX9_FLAT_ENCODING;
++	insn->flat.addr = dst.v;
++	insn->flat.data = src.v;
++	insn->flat.saddr = GFX9_FLAT_SADDR_DISABLE;
++	insn->flat.nv = 0;
++	insn->flat.vdst = 0;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_global_store_short(union amdgcn_gfx9_insn *insn,
++					struct amdgcn_param32 dst,
++					struct amdgcn_param32 src, int off)
++{
++	/* global_store_short <src>, <dst>, off offset:<off>
++	 * *(char *)(dst + off) = src;
++	 */
++	insn->flat.offset = off;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX9_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 0;
++	insn->flat.slc = 0;
++	insn->flat.op = GFX9_GLOBAL_STORE_SHORT;
++	insn->flat.dummy = 0;
++	insn->flat.encoding = GFX9_FLAT_ENCODING;
++	insn->flat.addr = dst.v;
++	insn->flat.data = src.v;
++	insn->flat.saddr = GFX9_FLAT_SADDR_DISABLE;
++	insn->flat.nv = 0;
++	insn->flat.vdst = 0;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_global_store_dword(union amdgcn_gfx9_insn *insn,
++					struct amdgcn_param32 dst,
++					struct amdgcn_param32 src, int off)
++{
++	/* global_store_dword <src>, <dst>, off offset:<off>
++	 * *(char *)(dst + off) = src;
++	 */
++	insn->flat.offset = off;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX9_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 0;
++	insn->flat.slc = 0;
++	insn->flat.op = GFX9_GLOBAL_STORE_DWORD;
++	insn->flat.dummy = 0;
++	insn->flat.encoding = GFX9_FLAT_ENCODING;
++	insn->flat.addr = dst.v;
++	insn->flat.data = src.v;
++	insn->flat.saddr = GFX9_FLAT_SADDR_DISABLE;
++	insn->flat.nv = 0;
++	insn->flat.vdst = 0;
++
++	return 8;
++}
++
++/* global_atomic_add vdst, addr, data, off  (GLC=1: return old value)
++ * old_val = *(u32 *)(addr + off); *(u32 *)(addr + off) += data; vdst = old_val
++ */
++/* GFX9 global atomic: opcode only differs, all else identical */
++#define DEFINE_GFX9_GLOBAL_ATOMIC(name, opcode)				\
++inline u32 emit_gfx9_global_atomic_##name(union amdgcn_gfx9_insn *insn,\
++					   struct amdgcn_param32 vdst,	\
++					   struct amdgcn_param32 addr,	\
++					   struct amdgcn_param32 data,	\
++					   int off, int glc)		\
++{									\
++	insn->flat.offset = off;					\
++	insn->flat.lds = 0;						\
++	insn->flat.seg = GFX9_FLAT_SEG_GLOBAL;				\
++	insn->flat.glc = glc;						\
++	insn->flat.slc = 0;						\
++	insn->flat.op = (opcode);					\
++	insn->flat.dummy = 0;						\
++	insn->flat.encoding = GFX9_FLAT_ENCODING;			\
++	insn->flat.addr = addr.v;					\
++	insn->flat.data = data.v;					\
++	insn->flat.saddr = GFX9_FLAT_SADDR_DISABLE;			\
++	insn->flat.nv = 0;						\
++	insn->flat.vdst = vdst.v;					\
++	return 8;							\
++}
++
++DEFINE_GFX9_GLOBAL_ATOMIC(add, GFX9_GLOBAL_ATOMIC_ADD)
++DEFINE_GFX9_GLOBAL_ATOMIC(and, GFX9_GLOBAL_ATOMIC_AND)
++DEFINE_GFX9_GLOBAL_ATOMIC(or, GFX9_GLOBAL_ATOMIC_OR)
++DEFINE_GFX9_GLOBAL_ATOMIC(xor, GFX9_GLOBAL_ATOMIC_XOR)
++DEFINE_GFX9_GLOBAL_ATOMIC(swap, GFX9_GLOBAL_ATOMIC_SWAP)
++DEFINE_GFX9_GLOBAL_ATOMIC(cmpswap, GFX9_GLOBAL_ATOMIC_CMPSWAP)
++DEFINE_GFX9_GLOBAL_ATOMIC(add_x2, GFX9_GLOBAL_ATOMIC_ADD_X2)
++DEFINE_GFX9_GLOBAL_ATOMIC(and_x2, GFX9_GLOBAL_ATOMIC_AND_X2)
++DEFINE_GFX9_GLOBAL_ATOMIC(or_x2, GFX9_GLOBAL_ATOMIC_OR_X2)
++DEFINE_GFX9_GLOBAL_ATOMIC(xor_x2, GFX9_GLOBAL_ATOMIC_XOR_X2)
++DEFINE_GFX9_GLOBAL_ATOMIC(swap_x2, GFX9_GLOBAL_ATOMIC_SWAP_X2)
++DEFINE_GFX9_GLOBAL_ATOMIC(cmpswap_x2, GFX9_GLOBAL_ATOMIC_CMPSWAP_X2)
++
++inline u32 emit_gfx9_global_store_dwordx2(union amdgcn_gfx9_insn *insn,
++					  struct amdgcn_param32 dst,
++					  struct amdgcn_param32 src, int off)
++{
++	/* global_store_dwordx2 <src>, <dst>, off offset:<off>
++	 * *(char *)(dst + off) = src;
++	 */
++	insn->flat.offset = off;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX9_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 0;
++	insn->flat.slc = 0;
++	insn->flat.op = GFX9_GLOBAL_STORE_DWORDX2;
++	insn->flat.dummy = 0;
++	insn->flat.encoding = GFX9_FLAT_ENCODING;
++	insn->flat.addr = dst.v;
++	insn->flat.data = src.v;
++	insn->flat.saddr = GFX9_FLAT_SADDR_DISABLE;
++	insn->flat.nv = 0;
++	insn->flat.vdst = 0;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_global_store_dwordx4(union amdgcn_gfx9_insn *insn,
++					  struct amdgcn_param32 dst,
++					  struct amdgcn_param32 src, int off)
++{
++	/* global_store_dwordx4 <src>, <dst>, off offset:<off>
++	 * *(char *)(dst + off) = src;
++	 */
++	insn->flat.offset = off;
++	insn->flat.lds = 0;
++	insn->flat.seg = GFX9_FLAT_SEG_GLOBAL;
++	insn->flat.glc = 0;
++	insn->flat.slc = 0;
++	insn->flat.op = GFX9_GLOBAL_STORE_DWORDX4;
++	insn->flat.dummy = 0;
++	insn->flat.encoding = GFX9_FLAT_ENCODING;
++	insn->flat.addr = dst.v;
++	insn->flat.data = src.v;
++	insn->flat.saddr = GFX9_FLAT_SADDR_DISABLE;
++	insn->flat.nv = 0;
++	insn->flat.vdst = 0;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_ds_read2_b64(union amdgcn_gfx9_insn *insn,
++				  int dst, int src, short off0, short off1)
++{
++	/*
++	 * ds_read2_b64 v[<dst>+3:<dst>], v<src> off
++	 * offset0:<off0> offset1:<off1>
++	 */
++
++	insn->ds.offset0 = off0;
++	insn->ds.offset1 = off1;
++	insn->ds.gds = GFX9_DS_LDS;
++	insn->ds.op = GFX9_DS_READ2_B64;
++	insn->ds.encoding = GFX9_DS_ENCODING;
++	insn->ds.addr = src;
++	insn->ds.data0 = 0;
++	insn->ds.data1 = 0;
++	insn->ds.vdst = dst;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_ds_read_b64(union amdgcn_gfx9_insn *insn,
++				 int dst, int src, short off)
++{
++	/* ds_read_b64 v[<dst>+1:<dst>], v<src> offset:<off> */
++
++	insn->ds.offset0 = off & 0xff;
++	insn->ds.offset1 = off >> 8;
++	insn->ds.gds = GFX9_DS_LDS;
++	insn->ds.op = GFX9_DS_READ_B64;
++	insn->ds.encoding = GFX9_DS_ENCODING;
++	insn->ds.addr = src;
++	insn->ds.data0 = 0;
++	insn->ds.data1 = 0;
++	insn->ds.vdst = dst;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_ds_read_b32(union amdgcn_gfx9_insn *insn,
++				 int dst, int src, short off)
++{
++	/* ds_read_b32 v<dst>, v<src> offset:<off> */
++
++	insn->ds.offset0 = off & 0xff;
++	insn->ds.offset1 = off >> 8;
++	insn->ds.gds = GFX9_DS_LDS;
++	insn->ds.op = GFX9_DS_READ_B32;
++	insn->ds.encoding = GFX9_DS_ENCODING;
++	insn->ds.addr = src;
++	insn->ds.data0 = 0;
++	insn->ds.data1 = 0;
++	insn->ds.vdst = dst;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_ds_read_u16(union amdgcn_gfx9_insn *insn,
++				 int dst, int src, short off)
++{
++	/* ds_read_u16 v<dst>, v<src> offset:<off> */
++
++	insn->ds.offset0 = off & 0xff;
++	insn->ds.offset1 = off >> 8;
++	insn->ds.gds = GFX9_DS_LDS;
++	insn->ds.op = GFX9_DS_READ_U16;
++	insn->ds.encoding = GFX9_DS_ENCODING;
++	insn->ds.addr = src;
++	insn->ds.data0 = 0;
++	insn->ds.data1 = 0;
++	insn->ds.vdst = dst;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_ds_read_u8(union amdgcn_gfx9_insn *insn,
++				 int dst, int src, short off)
++{
++	/* ds_read_u8 v<dst>, v<src> offset:<off> */
++
++	insn->ds.offset0 = off & 0xff;
++	insn->ds.offset1 = off >> 8;
++	insn->ds.gds = GFX9_DS_LDS;
++	insn->ds.op = GFX9_DS_READ_U8;
++	insn->ds.encoding = GFX9_DS_ENCODING;
++	insn->ds.addr = src;
++	insn->ds.data0 = 0;
++	insn->ds.data1 = 0;
++	insn->ds.vdst = dst;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_ds_write2_b64(union amdgcn_gfx9_insn *insn,
++				   int dst, int src0, int src1,
++				   short off0, short off1)
++{
++	/*
++	 * ds_write2_b64 v[<dst>+3:<dst>], v<src> off
++	 * offset0:<off0> offset1:<off1>
++	 */
++
++	insn->ds.offset0 = off0;
++	insn->ds.offset1 = off1;
++	insn->ds.gds = GFX9_DS_LDS;
++	insn->ds.op = GFX9_DS_WRITE2_B64;
++	insn->ds.encoding = GFX9_DS_ENCODING;
++	insn->ds.addr = dst;
++	insn->ds.data0 = src0;
++	insn->ds.data1 = src1;
++	insn->ds.vdst = 0;
++
++	return 8;
++}
++
++inline u32 emit_gfx9_s_branch(union amdgcn_gfx9_insn *insn,
++			       short off)
++{
++	insn->sopp.simm16 = off;
++	insn->sopp.op = GFX9_S_BRANCH;
++	insn->sopp.encoding = GFX9_SOPP_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_s_cbranch_vccz(union amdgcn_gfx9_insn *insn,
++				     short off)
++{
++	insn->sopp.simm16 = off;
++	insn->sopp.op = GFX9_S_CBRANCH_VCCZ;
++	insn->sopp.encoding = GFX9_SOPP_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_s_cbranch_vccnz(union amdgcn_gfx9_insn *insn,
++				      short off)
++{
++	insn->sopp.simm16 = off;
++	insn->sopp.op = GFX9_S_CBRANCH_VCCNZ;
++	insn->sopp.encoding = GFX9_SOPP_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_branch_fixup(union amdgcn_gfx9_insn *insn,
++				  short off)
++{
++	WARN_ON(insn->sopp.op != GFX9_S_BRANCH &&
++		insn->sopp.op != GFX9_S_CBRANCH_SCC0 &&
++		insn->sopp.op != GFX9_S_CBRANCH_VCCZ &&
++		insn->sopp.op != GFX9_S_CBRANCH_VCCNZ &&
++		insn->sopp.op != GFX9_S_CBRANCH_EXECZ &&
++		insn->sopp.op != GFX9_S_CBRANCH_EXECNZ);
++	insn->sopp.simm16 = off;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_s_waitcnt_lgkmcnt(union amdgcn_gfx9_insn *insn)
++{
++	struct amdgcn_gfx9_sopp_vmcnt vmcnt;
++	u16 simm16;
++	/* s_waitcnt lgkmcnt (0)
++	 * wait for memory
++	 */
++	vmcnt.vmcnt1 = -1;
++	vmcnt.vmcnt2 = -1;
++	vmcnt.expcnt = -1;
++	vmcnt.dummy1 = 0;
++	vmcnt.dummy2 = 0;
++	vmcnt.lgkmcnt = 0;
++	memcpy(&simm16, &vmcnt, sizeof(u16));
++	insn->sopp.simm16 = simm16;
++	insn->sopp.op = GFX9_S_WAITCNT;
++	insn->sopp.encoding = GFX9_SOPP_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_s_waitcnt_vmcnt(union amdgcn_gfx9_insn *insn)
++{
++	struct amdgcn_gfx9_sopp_vmcnt vmcnt;
++	u16 simm16;
++	/* s_waitcnt lgkmcnt (0)
++	 * wait for memory
++	 */
++	vmcnt.vmcnt1 = 0;
++	vmcnt.vmcnt2 = 0;
++	vmcnt.expcnt = -1;
++	vmcnt.dummy1 = 0;
++	vmcnt.dummy2 = 0;
++	vmcnt.lgkmcnt = -1;
++	memcpy(&simm16, &vmcnt, sizeof(u16));
++	insn->sopp.simm16 = simm16;
++	insn->sopp.op = GFX9_S_WAITCNT;
++	insn->sopp.encoding = GFX9_SOPP_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_s_waitcnt_vmcnt_lgkmcnt(union amdgcn_gfx9_insn *insn)
++{
++	struct amdgcn_gfx9_sopp_vmcnt vmcnt;
++	u16 simm16;
++	/* s_waitcnt lgkmcnt (0)
++	 * wait for memory
++	 */
++	vmcnt.vmcnt1 = 0;
++	vmcnt.vmcnt2 = 0;
++	vmcnt.expcnt = -1;
++	vmcnt.dummy1 = 0;
++	vmcnt.dummy2 = 0;
++	vmcnt.lgkmcnt = 0;
++	memcpy(&simm16, &vmcnt, sizeof(u16));
++	insn->sopp.simm16 = simm16;
++	insn->sopp.op = GFX9_S_WAITCNT;
++	insn->sopp.encoding = GFX9_SOPP_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_s_nop(union amdgcn_gfx9_insn *insn)
++{
++	insn->sopp.simm16 = 0;
++	insn->sopp.op = GFX9_S_NOP;
++	insn->sopp.encoding = GFX9_SOPP_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_s_endpgm(union amdgcn_gfx9_insn *insn)
++{
++	insn->sopp.simm16 = 0;
++	insn->sopp.op = GFX9_S_ENDPGM;
++	insn->sopp.encoding = GFX9_SOPP_ENCODING;
++
++	return 4;
++}
++
++inline u32 emit_gfx9_s_icache_inv(union amdgcn_gfx9_insn *insn)
++{
++	insn->sopp.simm16 = 0;
++	insn->sopp.op = GFX9_S_ICACHE_INV;
++	insn->sopp.encoding = GFX9_SOPP_ENCODING;
++
++	return 4;
++}
++
++/* Structurized CFG instructions.
++ * These use raw SGPR indices for 64-bit pair operations involving
++ * EXEC (126) and VCC (106) special registers.
++ */
++
++/* s_and_saveexec_b64 s[sdst:sdst+1], s[ssrc:ssrc+1]
++ * sdst = EXEC; EXEC &= ssrc; SCC = (EXEC != 0)
++ */
++inline u32 emit_gfx9_s_and_saveexec_b64(union amdgcn_gfx9_insn *insn,
++					 u8 sdst, u8 ssrc)
++{
++	insn->sop1.ssrc0 = ssrc;
++	insn->sop1.op = GFX9_S_AND_SAVEEXEC_B64;
++	insn->sop1.sdst = sdst;
++	insn->sop1.encoding = GFX9_SOP1_ENCODING;
++
++	return 4;
++}
++
++/* s_bcnt1_i32_b64 sdst, s[ssrc:ssrc+1]
++ * sdst = popcount(ssrc). SCC = (sdst != 0)
++ */
++inline u32 emit_gfx9_s_bcnt1_i32_b64(union amdgcn_gfx9_insn *insn,
++				      u8 sdst, u8 ssrc)
++{
++	insn->sop1.ssrc0 = ssrc;
++	insn->sop1.op = GFX9_S_BCNT1_I32_B64;
++	insn->sop1.sdst = sdst;
++	insn->sop1.encoding = GFX9_SOP1_ENCODING;
++
++	return 4;
++}
++
++/* s_mov_b64 s[sdst:sdst+1], s[ssrc:ssrc+1] (or special src like 0) */
++inline u32 emit_gfx9_s_mov_b64(union amdgcn_gfx9_insn *insn,
++				u8 sdst, u8 ssrc)
++{
++	insn->sop1.ssrc0 = ssrc;
++	insn->sop1.op = GFX9_S_MOV_B64;
++	insn->sop1.sdst = sdst;
++	insn->sop1.encoding = GFX9_SOP1_ENCODING;
++
++	return 4;
++}
++
++/* s_and_b64 s[sdst:sdst+1], s[ssrc0:ssrc0+1], s[ssrc1:ssrc1+1] */
++inline u32 emit_gfx9_s_and_b64(union amdgcn_gfx9_insn *insn,
++				u8 sdst, u8 ssrc0, u8 ssrc1)
++{
++	insn->sop2.ssrc0 = ssrc0;
++	insn->sop2.ssrc1 = ssrc1;
++	insn->sop2.sdst = sdst;
++	insn->sop2.op = GFX9_S_AND_B64;
++	insn->sop2.encoding = GFX9_SOP2_ENCODING;
++
++	return 4;
++}
++
++/* s_or_b64 s[sdst:sdst+1], s[ssrc0:ssrc0+1], s[ssrc1:ssrc1+1] */
++inline u32 emit_gfx9_s_or_b64(union amdgcn_gfx9_insn *insn,
++			       u8 sdst, u8 ssrc0, u8 ssrc1)
++{
++	insn->sop2.ssrc0 = ssrc0;
++	insn->sop2.ssrc1 = ssrc1;
++	insn->sop2.sdst = sdst;
++	insn->sop2.op = GFX9_S_OR_B64;
++	insn->sop2.encoding = GFX9_SOP2_ENCODING;
++
++	return 4;
++}
++
++/* s_andn2_b64 s[sdst:sdst+1], s[ssrc0:ssrc0+1], s[ssrc1:ssrc1+1]
++ * sdst = ssrc0 & ~ssrc1
++ */
++inline u32 emit_gfx9_s_andn2_b64(union amdgcn_gfx9_insn *insn,
++				  u8 sdst, u8 ssrc0, u8 ssrc1)
++{
++	insn->sop2.ssrc0 = ssrc0;
++	insn->sop2.ssrc1 = ssrc1;
++	insn->sop2.sdst = sdst;
++	insn->sop2.op = GFX9_S_ANDN2_B64;
++	insn->sop2.encoding = GFX9_SOP2_ENCODING;
++
++	return 4;
++}
++
++/* s_and_b32 s[sdst], s[ssrc0], s[ssrc1] */
++inline u32 emit_gfx9_s_and_b32(union amdgcn_gfx9_insn *insn,
++				u8 sdst, u8 ssrc0, u8 ssrc1)
++{
++	insn->sop2.ssrc0 = ssrc0;
++	insn->sop2.ssrc1 = ssrc1;
++	insn->sop2.sdst = sdst;
++	insn->sop2.op = GFX9_S_AND_B32;
++	insn->sop2.encoding = GFX9_SOP2_ENCODING;
++
++	return 4;
++}
++
++/* s_or_b32 s[sdst], s[ssrc0], s[ssrc1] */
++inline u32 emit_gfx9_s_or_b32(union amdgcn_gfx9_insn *insn,
++			       u8 sdst, u8 ssrc0, u8 ssrc1)
++{
++	insn->sop2.ssrc0 = ssrc0;
++	insn->sop2.ssrc1 = ssrc1;
++	insn->sop2.sdst = sdst;
++	insn->sop2.op = GFX9_S_OR_B32;
++	insn->sop2.encoding = GFX9_SOP2_ENCODING;
++
++	return 4;
++}
++
++/* s_andn2_b32 s[sdst], s[ssrc0], s[ssrc1]
++ * sdst = ssrc0 & ~ssrc1
++ */
++inline u32 emit_gfx9_s_andn2_b32(union amdgcn_gfx9_insn *insn,
++				  u8 sdst, u8 ssrc0, u8 ssrc1)
++{
++	insn->sop2.ssrc0 = ssrc0;
++	insn->sop2.ssrc1 = ssrc1;
++	insn->sop2.sdst = sdst;
++	insn->sop2.op = GFX9_S_ANDN2_B32;
++	insn->sop2.encoding = GFX9_SOP2_ENCODING;
++
++	return 4;
++}
++
++/* s_cbranch_execz off - branch if EXEC == 0 */
++inline u32 emit_gfx9_s_cbranch_execz(union amdgcn_gfx9_insn *insn,
++				      short off)
++{
++	insn->sopp.simm16 = off;
++	insn->sopp.op = GFX9_S_CBRANCH_EXECZ;
++	insn->sopp.encoding = GFX9_SOPP_ENCODING;
++
++	return 4;
++}
++
++/* s_cbranch_execnz off - branch if EXEC != 0 */
++inline u32 emit_gfx9_s_cbranch_execnz(union amdgcn_gfx9_insn *insn,
++				       short off)
++{
++	insn->sopp.simm16 = off;
++	insn->sopp.op = GFX9_S_CBRANCH_EXECNZ;
++	insn->sopp.encoding = GFX9_SOPP_ENCODING;
++
++	return 4;
++}
++
++/* s_sub_u32 sdst, ssrc0, ssrc1 - sdst = ssrc0 - ssrc1; SCC = borrow */
++inline u32 emit_gfx9_s_sub_u32(union amdgcn_gfx9_insn *insn,
++				u8 sdst, u8 ssrc0, u8 ssrc1)
++{
++	insn->sop2.ssrc0 = ssrc0;
++	insn->sop2.ssrc1 = ssrc1;
++	insn->sop2.sdst = sdst;
++	insn->sop2.op = GFX9_S_SUB_U32;
++	insn->sop2.encoding = GFX9_SOP2_ENCODING;
++
++	return 4;
++}
++
++/* s_cbranch_scc0 off - branch if SCC == 0 (no borrow) */
++inline u32 emit_gfx9_s_cbranch_scc0(union amdgcn_gfx9_insn *insn,
++				     short off)
++{
++	insn->sopp.simm16 = off;
++	insn->sopp.op = GFX9_S_CBRANCH_SCC0;
++	insn->sopp.encoding = GFX9_SOPP_ENCODING;
++
++	return 4;
++}
++
++static inline void __emit_gfx9_sop2(union amdgcn_gfx9_insn *insn,
++				     int op, int sdst, int ssrc0, int ssrc1)
++{
++	insn->sop2.encoding = GFX9_SOP2_ENCODING;
++	insn->sop2.op = op;
++	insn->sop2.sdst = sdst;
++	insn->sop2.ssrc0 = ssrc0;
++	insn->sop2.ssrc1 = ssrc1;
++}
++
++static inline void __emit_gfx9_sop1(union amdgcn_gfx9_insn *insn,
++				     int op, int sdst, int ssrc0)
++{
++	insn->sop1.encoding = GFX9_SOP1_ENCODING;
++	insn->sop1.op = op;
++	insn->sop1.sdst = sdst;
++	insn->sop1.ssrc0 = ssrc0;
++}
++
++static inline void __emit_gfx9_sopp(union amdgcn_gfx9_insn *insn,
++				     int op, u16 simm16)
++{
++	insn->sopp.encoding = GFX9_SOPP_ENCODING;
++	insn->sopp.op = op;
++	insn->sopp.simm16 = simm16;
++}
++
++static inline void __emit_gfx9_sopc(union amdgcn_gfx9_insn *insn,
++				     int op, int ssrc0, int ssrc1)
++{
++	insn->sopc.encoding = GFX9_SOPC_ENCODING;
++	insn->sopc.op = op;
++	insn->sopc.ssrc0 = ssrc0;
++	insn->sopc.ssrc1 = ssrc1;
++}
++
++static inline void __emit_gfx9_vop1(union amdgcn_gfx9_insn *insn,
++				     int op, int vdst, int src0)
++{
++	insn->vop1.encoding = GFX9_VOP1_ENCODING;
++	insn->vop1.op = op;
++	insn->vop1.vdst = vdst;
++	insn->vop1.src0 = src0;
++}
++
++static inline void __emit_gfx9_vop2(union amdgcn_gfx9_insn *insn,
++				     int op, int vdst, int vsrc1, int src0)
++{
++	insn->vop2.encoding = GFX9_VOP2_ENCODING;
++	insn->vop2.op = op;
++	insn->vop2.vdst = vdst;
++	insn->vop2.vsrc1 = vsrc1;
++	insn->vop2.src0 = src0;
++}
++
++static inline void __emit_gfx9_vopc(union amdgcn_gfx9_insn *insn,
++				     int op, int vsrc1, int src0)
++{
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++	insn->vopc.op = op;
++	insn->vopc.vsrc1 = vsrc1;
++	insn->vopc.src0 = src0;
++}
++
++static inline void __emit_gfx9_smem(union amdgcn_gfx9_insn *insn,
++				     int op, int sdata, int sbase_pair,
++				     u32 offset)
++{
++	insn->smem.encoding = GFX9_SMEM_ENCODING;
++	insn->smem.op = op;
++	insn->smem.sdata = sdata;
++	insn->smem.sbase = sbase_pair;
++	insn->smem.imm = 1;
++	insn->smem.offset = offset;
++	insn->smem.soffset = GFX9_SRC_NULL;
++}
++
++static inline void __emit_gfx9_ds(union amdgcn_gfx9_insn *insn,
++				   int op, int addr, int data0, int vdst,
++				   int off0, int off1)
++{
++	insn->ds.encoding = GFX9_DS_ENCODING;
++	insn->ds.op = op;
++	insn->ds.gds = GFX9_DS_LDS;
++	insn->ds.addr = addr;
++	insn->ds.data0 = data0;
++	insn->ds.vdst = vdst;
++	insn->ds.offset0 = off0;
++	insn->ds.offset1 = off1;
++}
++
++static inline void __emit_gfx9_global(union amdgcn_gfx9_insn *insn,
++				       int op, int vdst, int vaddr,
++				       int vdata, int saddr, int offset)
++{
++	insn->flat.encoding = GFX9_FLAT_ENCODING;
++	insn->flat.seg = GFX9_FLAT_SEG_GLOBAL;
++	insn->flat.op = op;
++	insn->flat.vdst = vdst;
++	insn->flat.addr = vaddr;
++	insn->flat.data = vdata;
++	insn->flat.saddr = saddr;
++	insn->flat.offset = offset;
++}
++
++/* ======================================================================
++ * GFX9 Param-Aware Emit Functions
++ *
++ * Used by shader-emitters (aesgcm_shader.h, ipsec_fused_gfx9.h, ...) that
++ * construct param32 operands via P_S/P_V/P_I/P_L helpers.  Paired with
++ * the GFX10 equivalents in knod_gfx10_insn.h.
++ * ======================================================================
++ */
++
++static inline int __p2e9(struct amdgcn_param32 p)
++{
++	if (p.type == AMDGCN_PARAM_TYPE_LITERAL_CONST)
++		return gfx9_get_param_base(p);
++	return gfx9_get_param_base(p) + p.v;
++}
++
++/* --- SOP2 family (param32 version) --- */
++
++#define DEFINE_GFX9_SOP2_P(name, opcode)				\
++inline u32 emit_gfx9_##name(union amdgcn_gfx9_insn *insn,		\
++			     struct amdgcn_param32 dst,			\
++			     struct amdgcn_param32 src0,		\
++			     struct amdgcn_param32 src1)		\
++{									\
++	insn->sop2.sdst = __p2e9(dst);					\
++	insn->sop2.ssrc0 = __p2e9(src0);				\
++	insn->sop2.ssrc1 = __p2e9(src1);				\
++	insn->sop2.op = opcode;					\
++	insn->sop2.encoding = GFX9_SOP2_ENCODING;			\
++	if (knod_param_is_literal(src0)) {			\
++		insn->sop2.literal = src0.v;				\
++		return 8;						\
++	}								\
++	if (knod_param_is_literal(src1)) {			\
++		insn->sop2.literal = src1.v;				\
++		return 8;						\
++	}								\
++	return 4;							\
++}
++
++DEFINE_GFX9_SOP2_P(s_add_u32,  GFX9_S_ADD_U32)
++DEFINE_GFX9_SOP2_P(s_sub_u32_p,  GFX9_S_SUB_U32)
++DEFINE_GFX9_SOP2_P(s_addc_u32, GFX9_S_ADDC_U32)
++DEFINE_GFX9_SOP2_P(s_subb_u32, GFX9_S_SUBB_U32)
++DEFINE_GFX9_SOP2_P(s_and_b32_p,  GFX9_S_AND_B32)
++DEFINE_GFX9_SOP2_P(s_lshl_b32, GFX9_S_LSHL_B32)
++DEFINE_GFX9_SOP2_P(s_lshr_b32, GFX9_S_LSHR_B32)
++DEFINE_GFX9_SOP2_P(s_mul_i32,  GFX9_S_MUL_I32)
++DEFINE_GFX9_SOP2_P(s_xor_b32,  GFX9_S_XOR_B32)
++
++#undef DEFINE_GFX9_SOP2_P
++
++/* --- SOPC family (param32 version) --- */
++
++#define DEFINE_GFX9_SOPC_P(name, opcode)				\
++inline u32 emit_gfx9_##name(union amdgcn_gfx9_insn *insn,		\
++			     struct amdgcn_param32 src0,		\
++			     struct amdgcn_param32 src1)		\
++{									\
++	insn->sopc.ssrc0 = __p2e9(src0);				\
++	insn->sopc.ssrc1 = __p2e9(src1);				\
++	insn->sopc.op = opcode;					\
++	insn->sopc.encoding = GFX9_SOPC_ENCODING;			\
++	if (knod_param_is_literal(src0)) {			\
++		insn->sopc.literal = src0.v;				\
++		return 8;						\
++	}								\
++	if (knod_param_is_literal(src1)) {			\
++		insn->sopc.literal = src1.v;				\
++		return 8;						\
++	}								\
++	return 4;							\
++}
++
++DEFINE_GFX9_SOPC_P(s_cmp_eq_u32, GFX9_S_CMP_EQ_U32)
++DEFINE_GFX9_SOPC_P(s_cmp_lg_u32, GFX9_S_CMP_LG_U32)
++DEFINE_GFX9_SOPC_P(s_cmp_ge_u32, GFX9_S_CMP_GE_U32)
++DEFINE_GFX9_SOPC_P(s_cmp_lt_u32, GFX9_S_CMP_LT_U32)
++
++#undef DEFINE_GFX9_SOPC_P
++
++/* --- SOPP family --- */
++
++inline u32 emit_gfx9_s_barrier(union amdgcn_gfx9_insn *insn)
++{
++	insn->sopp.simm16 = 0;
++	insn->sopp.op = GFX9_S_BARRIER;
++	insn->sopp.encoding = GFX9_SOPP_ENCODING;
++	return 4;
++}
++
++/* waitcnt with arbitrary vm/lgkm */
++#define GFX9_WAITCNT(vm, lgkm)	(((lgkm) << 8) | (7 << 4) | (vm))
++
++inline u32 emit_gfx9_s_waitcnt(union amdgcn_gfx9_insn *insn,
++				int vm, int lgkm)
++{
++	insn->sopp.simm16 = GFX9_WAITCNT(vm, lgkm);
++	insn->sopp.op = GFX9_S_WAITCNT;
++	insn->sopp.encoding = GFX9_SOPP_ENCODING;
++	return 4;
++}
++
++inline u32 emit_gfx9_s_cbranch_scc1(union amdgcn_gfx9_insn *insn,
++				     short off)
++{
++	insn->sopp.simm16 = off;
++	insn->sopp.op = GFX9_S_CBRANCH_SCC1;
++	insn->sopp.encoding = GFX9_SOPP_ENCODING;
++	return 4;
++}
++
++/* --- SOP1 family --- */
++
++inline u32 emit_gfx9_s_not_b64(union amdgcn_gfx9_insn *insn,
++				u8 sdst, u8 ssrc)
++{
++	insn->sop1.ssrc0 = ssrc;
++	insn->sop1.op = GFX9_S_NOT_B64;
++	insn->sop1.sdst = sdst;
++	insn->sop1.encoding = GFX9_SOP1_ENCODING;
++	return 4;
++}
++
++/* --- VOPC (v_cmp_ne_u32 param variant) --- */
++
++inline u32 emit_gfx9_v_cmp_ne_u32(union amdgcn_gfx9_insn *insn,
++				    struct amdgcn_param32 src0,
++				    struct amdgcn_param32 src1)
++{
++	WARN_ON(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++	insn->vopc.vsrc1 = src1.v;
++	insn->vopc.op = GFX9_V_CMP_NE_U32;
++	insn->vopc.encoding = GFX9_VOPC_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vopc.src0 = gfx9_get_param_base(src0);
++		insn->vopc.literal = src0.v;
++		return 8;
++	}
++	insn->vopc.src0 = gfx9_get_param_base(src0) + src0.v;
++	return 4;
++}
++
++/* --- SMEM family (param32 version) --- */
++
++#define DEFINE_GFX9_SMEM_P(name, opcode)				\
++inline u32 emit_gfx9_##name(union amdgcn_gfx9_insn *insn,		\
++			     struct amdgcn_param32 dst,			\
++			     struct amdgcn_param32 src, int offset)	\
++{									\
++	insn->smem.sdata = dst.v;					\
++	insn->smem.sbase = src.v / 2;					\
++	insn->smem.op = opcode;					\
++	insn->smem.imm = 1;						\
++	insn->smem.offset = offset;					\
++	insn->smem.encoding = GFX9_SMEM_ENCODING;			\
++	return 8;							\
++}
++
++DEFINE_GFX9_SMEM_P(s_load_dword,   GFX9_S_LOAD_DWORD)
++DEFINE_GFX9_SMEM_P(s_load_dwordx4, GFX9_S_LOAD_DWORDX4)
++DEFINE_GFX9_SMEM_P(s_load_dwordx8, GFX9_S_LOAD_DWORDX8)
++
++#undef DEFINE_GFX9_SMEM_P
++
++/* s_dcache_inv - no operands, just opcode + encoding */
++inline u32 emit_gfx9_s_dcache_inv(union amdgcn_gfx9_insn *insn)
++{
++	insn->smem.sdata = 0;
++	insn->smem.sbase = 0;
++	insn->smem.op = GFX9_S_DCACHE_INV;
++	insn->smem.imm = 0;
++	insn->smem.offset = 0;
++	insn->smem.encoding = GFX9_SMEM_ENCODING;
++	return 8;
++}
++
++/* --- SOPK: s_getreg_b32 --- */
++
++/*
++ * HWREG encoding for s_getreg_b32 simm16:
++ *   bits[5:0]   = hwreg_id
++ *   bits[10:6]  = offset (bit position)
++ *   bits[15:11] = size - 1 (in bits)
++ */
++#define GFX9_HWREG(id, off, sz)	(((sz) - 1) << 11 | (off) << 6 | (id))
++#define GFX9_HW_REG_LDS_ALLOC	6
++
++inline u32 emit_gfx9_s_getreg_b32(union amdgcn_gfx9_insn *insn,
++				   int sdst, u16 hwreg)
++{
++	insn->sopk.encoding = GFX9_SOPK_ENCODING;
++	insn->sopk.op = GFX9_S_GETREG_B32;
++	insn->sopk.sdst = sdst;
++	insn->sopk.simm16 = hwreg;
++	return 4;
++}
++
++/* --- DS family --- */
++
++inline u32 emit_gfx9_gds_write_b32(union amdgcn_gfx9_insn *insn,
++				    int addr, int data0)
++{
++	__emit_gfx9_ds(insn, GFX9_DS_WRITE_B32, addr, data0, 0, 0, 0);
++	insn->ds.gds = GFX9_DS_GDS;
++	return 8;
++}
++
++inline u32 emit_gfx9_gds_read_b32(union amdgcn_gfx9_insn *insn,
++				   int vdst, int addr, int offset)
++{
++	__emit_gfx9_ds(insn, GFX9_DS_READ_B32, addr, 0, vdst, offset, 0);
++	insn->ds.gds = GFX9_DS_GDS;
++	return 8;
++}
++
++inline u32 emit_gfx9_ds_write_b32(union amdgcn_gfx9_insn *insn,
++				    int addr, int data0)
++{
++	__emit_gfx9_ds(insn, GFX9_DS_WRITE_B32, addr, data0, 0, 0, 0);
++	return 8;
++}
++
++inline u32 emit_gfx9_ds_write_b32_off(union amdgcn_gfx9_insn *insn,
++					int addr, int data0, int offset)
++{
++	__emit_gfx9_ds(insn, GFX9_DS_WRITE_B32, addr, data0, 0, offset, 0);
++	return 8;
++}
++
++inline u32 emit_gfx9_ds_read_b32_off(union amdgcn_gfx9_insn *insn,
++				       int vdst, int addr, int offset)
++{
++	__emit_gfx9_ds(insn, GFX9_DS_READ_B32, addr, 0, vdst, offset, 0);
++	return 8;
++}
++
++/* ds_write_b128 v<addr>, v[<data>:<data>+3] - write 128 bits to LDS */
++inline u32 emit_gfx9_ds_write_b128(union amdgcn_gfx9_insn *insn,
++				    int addr, int data0)
++{
++	__emit_gfx9_ds(insn, GFX9_DS_WRITE_B128, addr, data0, 0, 0, 0);
++	return 8;
++}
++
++/* ds_read_b128 v[<vdst>:<vdst>+3], v<addr> - read 128 bits from LDS */
++inline u32 emit_gfx9_ds_read_b128(union amdgcn_gfx9_insn *insn,
++				   int vdst, int addr)
++{
++	__emit_gfx9_ds(insn, GFX9_DS_READ_B128, addr, 0, vdst, 0, 0);
++	return 8;
++}
++
++/* v_max_i32 vdst, src0, vsrc1 - VOP2 */
++inline u32 emit_gfx9_v_max_i32(union amdgcn_gfx9_insn *insn,
++				struct amdgcn_param32 dst,
++				struct amdgcn_param32 src0,
++				struct amdgcn_param32 src1)
++{
++	WARN_ON(dst.type != AMDGCN_PARAM_TYPE_VGPR);
++	WARN_ON(src1.type != AMDGCN_PARAM_TYPE_VGPR);
++
++	insn->vop2.vsrc1 = src1.v;
++	insn->vop2.vdst = dst.v;
++	insn->vop2.op = GFX9_V_MAX_I32;
++	insn->vop2.encoding = GFX9_VOP2_ENCODING;
++	if (src0.type == AMDGCN_PARAM_TYPE_LITERAL_CONST) {
++		insn->vop2.src0 = gfx9_get_param_base(src0);
++		insn->vop2.literal = src0.v;
++		return 8;
++	}
++	insn->vop2.src0 = gfx9_get_param_base(src0) + src0.v;
++
++	return 4;
++}
++
++#endif
 -- 
 2.43.0
 
