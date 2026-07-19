@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1528C4452C
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA5EAC4452C
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 07:16:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CAFC10E793;
-	Mon, 20 Jul 2026 07:15:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21C2410E7A7;
+	Mon, 20 Jul 2026 07:15:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qp2MK3or";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YQxmDAZ+";
 	dkim-atps=neutral
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C93510E070
- for <amd-gfx@lists.freedesktop.org>; Sun, 19 Jul 2026 17:59:51 +0000 (UTC)
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-2cf41bab353so24082935ad.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 19 Jul 2026 10:59:51 -0700 (PDT)
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A370F10E08D
+ for <amd-gfx@lists.freedesktop.org>; Sun, 19 Jul 2026 18:01:42 +0000 (UTC)
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-2ccf2360620so53577345ad.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 19 Jul 2026 11:01:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784483991; x=1785088791; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1784484102; x=1785088902; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
  :reply-to:content-type;
- bh=YyqhYngq0RlhZPKjh6r1tvXs2LIUb0LhEqMCu17FH5w=;
- b=qp2MK3orsy3R+PiByV2IFpeRxQvCcK2E1SeF1uhtMX0qwKlrxK58EYraEQdqq7N5ta
- Lu9VBZYnP5In+ssVv+gQbmG1ZKeo3Mz3ChscVdD9w+bx0Mdxg2L+DClP5rchBRN54Txo
- XEZqE7QL81ofQdzVlN3G608zHxSBOUP+JpAJceQOtFOREUzFX1FVKV05+JXe+VU498Gn
- XYvxFFKxl6pQnVw4gvGP+PZcRD/NwY8bkbz5KwpoqSU4Lp5R+MqM1KM7naSiJWXSXd+l
- 0W6qSeEAeRyA+xikFPQlqF54ymoZ0ezvjmQEIbyHc2w4uaemIEkuAQ1lU0Ntxt7+la+S
- 7QKw==
+ bh=Mn9ILc7KfHYPQN6h07+6ERrU/MrbOq4Gmsuwq4UE7rc=;
+ b=YQxmDAZ+kqiOuoy2k4KccyUZOVeN4l5KxpG4QENcYc3FimGM4kXMtAiWIhR0ZuBtae
+ vtPK/o2oREtRRx4H/XRDJ8ciQLqJ2rIAsj4ZaH8qr70ujhC25jD0Jwu3oSFEq7bW9CNU
+ yPYc9QO2Sl/ovGUoqqWy/Wsw6Lh9JcdqkR3lUoZS1EQcntldjxWvS7cG2vKsEP7E/Ga8
+ JE+Vr6dachRas2yu4VprPtMD9/LtU3YKH1IQv4tfVCWRV6ES1icd8jGQZHfJam6ydI1S
+ 9i4RZj4sEISQmIRd/hc1J4L1FyGMvb3hA9hTlE9RDnqbJ+aMOaXi0uCmlAP7d0vWZMpB
+ j3jA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784483991; x=1785088791;
+ d=1e100.net; s=20251104; t=1784484102; x=1785088902;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to:content-type;
- bh=YyqhYngq0RlhZPKjh6r1tvXs2LIUb0LhEqMCu17FH5w=;
- b=Gn5r480VK0a25PNbG06nQljwvZ8eNFKL39gill+RgTwLu3VbQA0FV6yCPJhpi/m0Ea
- fr6cU0GanBqohRlAcaifhSBH5DIZRTqiX6XkuXGSgLIhc3uP3lua2cvKDdv0B9XfcOYo
- GqHrbIiwkyyiMpWg5ZofjeqxOwFhPvAGoR+e+IN8MGwTY8uRs8ouXVlClWjePmovidRq
- yT0T5IAklPzHul10qFROLhSQqHHiSsFpS8FrAmy695AHmIYDM+Ndxqr+ebMAJc7oEGgU
- 9pt4dsmYxXbMh0chAeNHWWT5USVFl91uaaSNIThlRTxCA1OS/m0nrjUdW/in1IER2P/X
- fR5A==
+ bh=Mn9ILc7KfHYPQN6h07+6ERrU/MrbOq4Gmsuwq4UE7rc=;
+ b=A38SlIoIiEeKTBDwp3P/gKwvPjhUmsOGoRfy1XHL2MmXE9/P7tGDaHvRrX1LYtV0bZ
+ ovo8T0fZrRW4G44cAGiAXxqXPw0CffuPbtwk7hXE5ufmMlqgoNp4aDTbw/gt3W4IfYOy
+ i4rJEBgawC6OP/B2kvPLlz+8Zt4Q1xfLj6ybaz7c5QSHL6+lbrY4A0HLtvfETQa8lM/k
+ BSYDbLoQmUpXvWUcN43lOF6yXFJMZx2BV21XVtLi7ZTL9HXtWknG33PDJjv1n3i9xGJc
+ v41YfqjcS4L8WG1Wv+roU9A6pUOuffssRNSi47JxxODbm0PVCu93nZkSPTkgXvjDus4Z
+ w8CQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rp6rpsnKnnGQCpPqkqH1COgzH0dGMIClmpqJWUZJBGVKjaODOdQ430UkKiWG00aUciJhttoz6TW@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxU/FyBSSfyrQ6lfbJKlCRsNjXuAY2qaa0q75UBoucMnuwUXOJu
- 3gsygbjaFDVqGWhZlQjWKBq4CC76/sUdTc56TP+lFt58L+ZQ7VQbpO2V
-X-Gm-Gg: AfdE7cmDSq9AkXA0e7Tnmw+JbZ6kPcI0p8BjoYji3scP75IjAswxA4UrLVtZjnx3AAN
- YRpt5Q2dQzRGy5VONq019UFDP7cb+Q7RJZ/ZK4zDsMnzFjUmt0hBlpfSNvQPMYj2tUUFpA9xHli
- 4KLpF4upVhbwjrKmxp77RDXosa0SHRCcugtHKsmWlIBjXAnEsAE9kIcNceqFqlQVWfr+bsU+/1Y
- CxFL9TwMjAZbUJ/rYf9XehBRB+umwZ5LlxqXugXKSr99n+QmdhkwROJvoygVRGMhpJ7bRLSWeaP
- qqyd1crJ24dl5B2UQrhkZzWOvou3GpBQGXluGyxHzYWxnVkeyRytip/EJGt4UhXAXnxTtT4wsbG
- 6JBgmBbeckMAhTkaakOA5YFp2dAdQDpVdsYoDurx1U80cknPIm4p2Cpd2AsWR8PoZTw==
-X-Received: by 2002:a17:903:1987:b0:2ce:9c48:22d3 with SMTP id
- d9443c01a7336-2cf348840dfmr128578695ad.11.1784483990726; 
- Sun, 19 Jul 2026 10:59:50 -0700 (PDT)
+ AHgh+Rp70eXsH7DfO8TKU1bHE79ejXvawRkMvAb+xvfvh0Q1bUHojGUSSSscrRf7HO9Mr/JrRSiDhO2i@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzC2YBVNoC6ZL5i1yiTGYzFXopoqOVCK5D5RtNYmALGFTFmdEVB
+ J6CziJ4Yhofqv4CvKcfakJuMgc3ys9Kc7YGcJ+gR1bixlhA0xqufIfvg
+X-Gm-Gg: AfdE7ck4i8Lu243L1971MN9ocoXQovKQslhhUTIjJwtWig0cdFYA6uPArfGg/CN/1WP
+ q+4tJiEhge4G7EBUYYi7axB0ga+x7zDlCHPC09w7d8gV1gks8t4H7c3DUtcMEXQz/3X8MevWnpj
+ oSpTza/6oX706brIlNqLukeR/uLyEGSmfdeuMMhsgznzuCm3DOk1PlT/83qfoyWbua/imrgFqWZ
+ uSJ2q3hr8wuoJjKBUdHRCJEnRoGSxFFL5mvmwsrRwWUCgO1rTUVvkLxDyO2MY4/5mMqHqMUBDIl
+ kSmmkFJgvGcEuryP65fT0thjZsz2srzumJQRpqFRpbdeFzEKCEDNc4kLTSzod7u4kVY6PmJ7/vX
+ Y7iSWBHB7w7Rt/0bzU4EbOeLB5zI/4RMZApjAR4G/0js7M8+1wcDgJIagAp2RmAcfAQ==
+X-Received: by 2002:a17:902:d586:b0:2ca:4cfd:a6df with SMTP id
+ d9443c01a7336-2cf34a0b335mr124560325ad.43.1784484101843; 
+ Sun, 19 Jul 2026 11:01:41 -0700 (PDT)
 Received: from ap.. ([182.213.254.91]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2cf34769bd6sm43511065ad.74.2026.07.19.10.59.39
+ d9443c01a7336-2cf34769bd6sm43511065ad.74.2026.07.19.11.01.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 19 Jul 2026 10:59:49 -0700 (PDT)
+ Sun, 19 Jul 2026 11:01:40 -0700 (PDT)
 From: Taehee Yoo <ap420073@gmail.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  Alexei Starovoitov <ast@kernel.org>, amd-gfx@lists.freedesktop.org,
@@ -92,9 +92,9 @@ To: Alex Deucher <alexander.deucher@amd.com>,
  Song Liu <song@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>,
  Sumit Semwal <sumit.semwal@linaro.org>, Taehee Yoo <ap420073@gmail.com>,
  Tariq Toukan <tariqt@nvidia.com>, Yonghong Song <yonghong.song@linux.dev>
-Subject: [RFC PATCH net-next 01/13] net: knod: add uapi and core headers
-Date: Sun, 19 Jul 2026 17:58:45 +0000
-Message-ID: <20260719175857.4071636-2-ap420073@gmail.com>
+Subject: [RFC PATCH net-next 10/13] net/mlx5e: add knod XDP offload support
+Date: Sun, 19 Jul 2026 17:58:54 +0000
+Message-ID: <20260719175857.4071636-11-ap420073@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260719175857.4071636-1-ap420073@gmail.com>
 References: <20260719175857.4071636-1-ap420073@gmail.com>
@@ -115,1407 +115,870 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add the uAPI and core headers for KNOD, an in-kernel network offload
-device that connects a NIC RX path to an accelerator (e.g. a GPU) for
-zero-copy packet processing.
-
- - include/uapi/linux/knod.h: genetlink uAPI
- - Documentation/netlink/specs/knod.yaml: netlink spec
- - include/net/knod.h: core framework types and ops
- - include/net/spsc_ring.h: lock-free SPSC ring for the data path
+Let mlx5e act as a knod NIC: register with the knod core, feed received
+packets to the accelerator over the per-queue SPSC ring, and transmit
+accelerator verdicts (XDP_TX) back through the XDP SQ.  Restricted to
+inline-none TX and single-page MTU.
 
 Signed-off-by: Taehee Yoo <ap420073@gmail.com>
-(cherry picked from commit d93829acbce14528fcf70e155a0594c0c6151cce)
+(cherry picked from commit 218c3a122d6b53638b99441560b7a0da65f6d8c1)
 ---
- Documentation/netlink/specs/knod.yaml | 176 +++++++
- include/net/knod.h                    | 467 +++++++++++++++++++
- include/net/spsc_ring.h               | 645 ++++++++++++++++++++++++++
- include/uapi/linux/knod.h             |  67 +++
- 4 files changed, 1355 insertions(+)
- create mode 100644 Documentation/netlink/specs/knod.yaml
- create mode 100644 include/net/knod.h
- create mode 100644 include/net/spsc_ring.h
- create mode 100644 include/uapi/linux/knod.h
+ drivers/net/ethernet/mellanox/mlx5/core/en.h  |  10 +
+ .../net/ethernet/mellanox/mlx5/core/en/xdp.c  | 351 ++++++++++++++++++
+ .../net/ethernet/mellanox/mlx5/core/en/xdp.h  |  19 +-
+ .../net/ethernet/mellanox/mlx5/core/en_main.c |  38 +-
+ .../net/ethernet/mellanox/mlx5/core/en_rx.c   | 107 +++++-
+ .../net/ethernet/mellanox/mlx5/core/en_txrx.c |  45 +++
+ 6 files changed, 564 insertions(+), 6 deletions(-)
 
-diff --git a/Documentation/netlink/specs/knod.yaml b/Documentation/netlink/specs/knod.yaml
-new file mode 100644
-index 000000000000..7c64df467634
---- /dev/null
-+++ b/Documentation/netlink/specs/knod.yaml
-@@ -0,0 +1,176 @@
-+# SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause)
-+---
-+name: knod
-+
-+doc:
-+  KNOD (KFD network offload) control plane.
-+
-+  Bind a NIC netdevice to a GPU/DPU offload accelerator and select which
-+  offload feature (BPF, IPsec) the accelerator runs.
-+
-+definitions:
-+  -
-+    type: enum
-+    name: feature
-+    entries: [none, bpf, ipsec]
-+  -
-+    type: enum
-+    name: accel-type
-+    entries: [gpu, dpu]
-+
-+attribute-sets:
-+  -
-+    name: accel
-+    attributes:
-+      -
-+        name: id
-+        doc: Accelerator id.
-+        type: u32
-+        checks:
-+          min: 1
-+      -
-+        name: name
-+        doc: Accelerator name.
-+        type: string
-+      -
-+        name: type
-+        doc: Accelerator type.
-+        type: u32
-+        enum: accel-type
-+      -
-+        name: feature-cap
-+        doc: Bitmask of offload features the accelerator supports.
-+        type: u32
-+        enum: feature
-+        enum-as-flags: true
-+      -
-+        name: feature-ena
-+        doc: Currently active offload feature on the accelerator.
-+        type: u32
-+        enum: feature
-+  -
-+    name: nic
-+    attributes:
-+      -
-+        name: ifindex
-+        doc: ifindex of the NIC netdevice registered with KNOD.
-+        type: u32
-+        checks:
-+          min: 1
-+      -
-+        name: name
-+        doc: Name of the NIC netdevice.
-+        type: string
-+  -
-+    name: dev
-+    attributes:
-+      -
-+        name: nic-ifindex
-+        doc: ifindex of the bound NIC netdevice.
-+        type: u32
-+        checks:
-+          min: 1
-+      -
-+        name: accel-id
-+        doc: id of the bound accelerator.
-+        type: u32
-+        checks:
-+          min: 1
-+
-+operations:
-+  list:
-+    -
-+      name: accel-get
-+      doc: Get / dump accelerators registered on the system.
-+      attribute-set: accel
-+      do:
-+        request:
-+          attributes:
-+            - id
-+        reply: &accel-all
-+          attributes:
-+            - id
-+            - name
-+            - type
-+            - feature-cap
-+            - feature-ena
-+      dump:
-+        reply: *accel-all
-+    -
-+      name: accel-set
-+      doc: Select the active offload feature of an accelerator.
-+      attribute-set: accel
-+      flags: [admin-perm]
-+      do:
-+        request:
-+          attributes:
-+            - id
-+            - feature-ena
-+        reply:
-+          attributes: []
-+    -
-+      name: nic-get
-+      doc: Get / dump NICs registered with the KNOD framework.
-+      attribute-set: nic
-+      do:
-+        request:
-+          attributes:
-+            - ifindex
-+        reply: &nic-all
-+          attributes:
-+            - ifindex
-+            - name
-+      dump:
-+        reply: *nic-all
-+    -
-+      name: attach
-+      doc: Attach a NIC netdevice to an accelerator.
-+      attribute-set: dev
-+      flags: [admin-perm]
-+      do:
-+        request:
-+          attributes:
-+            - nic-ifindex
-+            - accel-id
-+        reply:
-+          attributes: []
-+    -
-+      name: detach
-+      doc: Detach a NIC netdevice from its accelerator.
-+      attribute-set: dev
-+      flags: [admin-perm]
-+      do:
-+        request:
-+          attributes:
-+            - nic-ifindex
-+        reply:
-+          attributes: []
-+    -
-+      name: dev-get
-+      doc: Get / dump active NIC <-> accelerator bindings.
-+      attribute-set: dev
-+      do:
-+        request:
-+          attributes:
-+            - nic-ifindex
-+        reply: &dev-all
-+          attributes:
-+            - nic-ifindex
-+            - accel-id
-+      dump:
-+        reply: *dev-all
-+    -
-+      name: dev-add-ntf
-+      doc: Notification about a new NIC <-> accelerator binding.
-+      notify: dev-get
-+      mcgrp: mgmt
-+    -
-+      name: dev-del-ntf
-+      doc: Notification about a removed NIC <-> accelerator binding.
-+      notify: dev-get
-+      mcgrp: mgmt
-+
-+mcast-groups:
-+  list:
-+    -
-+      name: mgmt
-diff --git a/include/net/knod.h b/include/net/knod.h
-new file mode 100644
-index 000000000000..50333b0e028b
---- /dev/null
-+++ b/include/net/knod.h
-@@ -0,0 +1,467 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+#ifndef __NET_KNOD_H
-+#define __NET_KNOD_H
-+
-+#include <linux/bpf.h>
-+#include <linux/dma-buf.h>
-+#include <linux/ethtool_netlink.h>
-+#include <linux/netdevice.h>
-+#include <linux/slab.h>
-+#include <linux/types.h>
-+#include <linux/rtnetlink.h>
-+#include <linux/mutex.h>
-+#include <linux/list.h>
-+#include <linux/if_link.h>
-+#include <linux/workqueue.h>
-+#include <linux/completion.h>
-+#include <linux/atomic.h>
-+#include <net/xdp.h>
-+#include <net/spsc_ring.h>
-+
-+struct knod_dev;
-+struct knod_netdev;
-+struct knod_accel;
-+struct gen_pool;
-+struct page_pool;
-+struct netlink_ext_ack;
-+struct net_devmem_dmabuf_binding;
-+
-+extern struct mutex knod_lock;
-+
-+struct spsc_bd {
-+	netmem_ref netmem;
-+	u64 act;
-+	u16 off;
-+	u16 len;
-+	u32 page_idx;
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en.h b/drivers/net/ethernet/mellanox/mlx5/core/en.h
+index d507289096c2..1401a24e1740 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en.h
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en.h
+@@ -48,6 +48,7 @@
+ #include <net/udp_tunnel.h>
+ #include <net/switchdev.h>
+ #include <net/psp/types.h>
++#include <net/knod.h>
+ #include <net/xdp.h>
+ #include <linux/dim.h>
+ #include <linux/bits.h>
+@@ -568,6 +569,8 @@ struct mlx5e_icosq {
+ 
+ struct mlx5e_frag_page {
+ 	netmem_ref netmem;
 +	struct page_pool *pp;
-+};
++	u32 page_idx;
+ 	u16 frags;
+ };
+ 
+@@ -739,6 +742,11 @@ struct mlx5e_rq {
+ 
+ 	struct mlx5e_xdp_buff mxbuf;
+ 
++	struct knod_dev *knodev;
++	struct knod_netdev *knetdev;
++	u32                    knod_spsc_prod_head;
++	bool                   knod_spsc_prod_valid;
 +
-+/*
-+ * KNOD action codes for spsc_bd.act
-+ *
-+ * Base actions (compatible with XDP constants for BPF/XDP path):
-+ */
-+#define KNOD_ABORTED	XDP_ABORTED	/* 0 */
-+#define KNOD_DROP	XDP_DROP	/* 1 */
-+#define KNOD_PASS	XDP_PASS	/* 2 */
-+#define KNOD_TX		XDP_TX		/* 3 */
-+#define KNOD_REDIRECT	XDP_REDIRECT	/* 4 */
+ 	/* AF_XDP zero-copy */
+ 	struct xsk_buff_pool  *xsk_pool;
+ 
+@@ -985,6 +993,8 @@ struct mlx5e_priv {
+ 	struct dentry             *dfs_root;
+ 	struct mlx5_devcom_comp_dev *devcom;
+ 	struct ethtool_fec_hist_range *fec_ranges;
++	struct knod_dev *knodev;
++	struct knod_netdev *knetdev;
+ };
+ 
+ static inline u16 mlx5e_stats_nch_read(const struct mlx5e_priv *priv)
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/xdp.c b/drivers/net/ethernet/mellanox/mlx5/core/en/xdp.c
+index d8c7cb8837d7..82adfc9b7c1b 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en/xdp.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en/xdp.c
+@@ -35,8 +35,18 @@
+ #include "en/xdp.h"
+ #include "en/params.h"
+ #include <linux/bitfield.h>
++#include <linux/module.h>
+ #include <net/page_pool/helpers.h>
+ 
++INDIRECT_CALLABLE_SCOPE bool
++mlx5e_xmit_xdp_frame(struct mlx5e_xdpsq *sq, struct mlx5e_xmit_data *xdptxd,
++		     int check_result, struct xsk_tx_metadata *meta);
 +
-+/*
-+ * Extended actions - accel-specific, must not collide with XDP range [0..7].
-+ * The NIC act_handler treats any unknown code as "in-flight to accel":
-+ * stop releasing at that entry and wait for the accel to update bd->act.
-+ */
-+#define KNOD_ACT_INFLIGHT	0x80	/* accel processing in progress */
-+#define KNOD_IPSEC_INFLIGHT	0x100	/* GPU IPsec dispatch in progress */
-+#define KNOD_IPSEC_PASS		0x101	/* GPU IPsec done, recycle page */
-+#define KNOD_IPSEC_DROP		0x102	/* GPU IPsec done, drop + recycle */
-+
-+/*
-+ * PASS hand-off descriptor: the DD (NIC act_handler) fills one per PASS bd
-+ * during its single act traversal and hands a batch to accel_ops->pass_copy.
-+ * @netmem is the source RX page (GPU memory); @off/@len are post-BPF (may
-+ * differ from the bd's original values if the program adjusted head/tail).
-+ */
-+struct spsc_pass_bd {
-+	/* source RX page, recycled after the copy lands */
-+	netmem_ref netmem;
-+	u32 page_idx;		/* page index in the queue's dmabuf RX buffer
-+				 * (the accel turns this into the GPU src addr;
-+				 * the netmem dma_addr is the NIC's, not the
-+				 * GPU's)
-+				 */
-+	u16 off;		/* packet offset within the page (post-BPF) */
-+	u16 len;		/* packet length (post-BPF) */
-+};
-+
-+/*
-+ * Host-page page_pool provider context (GPU->host delivery pools).  The
-+ * framework fills the public fields, points page_pool_params.mp_priv at it and
-+ * sets .mp_ops to the NOD-private page_pool_hostmem_ops (knod_dev.c);
-+ * ->init() builds @genpool and ->destroy() tears it down.  Must outlive the
-+ * page_pool; @freed fires once the pool has fully drained.
-+ */
-+struct page_pool_hostmem {
-+	struct page **pages;		/* owner-supplied, @count real pages */
-+	unsigned int count;
-+	dma_addr_t base_addr;		/* device addr of pages[0] */
-+	void (*freed)(void *arg);	/* called once the pool fully drains */
-+	void *arg;
-+	struct gen_pool *genpool;	/* private: managed by the provider */
-+};
-+
-+struct knod_work_priv {
-+	struct dma_buf *dmabuf;
-+	netmem_ref *netmems;
-+	unsigned int *data_lens;
-+	int *data_offs;
-+	int cnt;
-+	int index;
-+	struct napi_struct *napi;
-+	struct spsc_ring spsc_bds;
-+	void *spsc_pool_priv;	/* accel driver priv for spsc pool memory */
-+	u64 spsc_pool_gaddr;	/* device-visible address of spsc pool */
-+	/* framework-owned delivery pool */
-+	struct page_pool *pass_pool;
-+	/* provider ctx (owner storage) */
-+	struct page_pool_hostmem pass_hm;
-+	/* d2h: SDMA-issued, awaiting drain */
-+	struct spsc_ring pass_pending;
-+} ____cacheline_aligned_in_smp;
-+
-+static inline void knod_napi_kick(struct knod_work_priv *wpriv)
++static inline struct page_pool *mlx5e_knod_bd_pp(struct spsc_bd *bd)
 +{
-+	struct napi_struct *napi;
-+
-+	rcu_read_lock();
-+	napi = READ_ONCE(wpriv->napi);
-+	if (napi)
-+		napi_schedule(napi);
-+	rcu_read_unlock();
++	return likely(bd->pp) ? bd->pp : netmem_get_pp(bd->netmem);
 +}
 +
-+#define KNOD_DEFAULT_PASS_SLOTS	64
+ int mlx5e_xdp_max_mtu(struct mlx5e_params *params,
+ 		      struct mlx5e_rq_opt_param *rqo)
+ {
+@@ -58,6 +68,36 @@ int mlx5e_xdp_max_mtu(struct mlx5e_params *params,
+ 	return MLX5E_HW2SW_MTU(params, SKB_MAX_HEAD(hr));
+ }
+ 
++static inline bool mlx5e_xmit_xdp_offload_buff(struct mlx5e_xdpsq *sq,
++					       struct mlx5e_rq *rq,
++					       struct spsc_bd *bd)
++{
++	struct mlx5e_xmit_data_frags xdptxdf = {};
++	struct mlx5e_xmit_data *xdptxd;
 +
-+/*
-+ * GPU->host delivery descriptor: a packet at @off (preserved headroom) for
-+ * @len bytes within @netmem, a page from the framework delivery pool.  The
-+ * d2h path fills these into the per-queue pass_pending ring; knod_d2h_drain()
-+ * turns each into an skb once its SDMA copy lands and hands it to the stack.
-+ */
-+struct knod_pass_desc {
-+	u16 len;		/* head_frag length (ipsec: inner_len) */
-+	u16 off;		/* head_frag offset (ipsec: inner_off) */
-+	netmem_ref netmem;	/* dst: framework delivery-pool page */
-+	netmem_ref src;		/* src: RX page recycled once the copy lands, or
-+				 * 0 when the producer recycles it elsewhere
-+				 * (ipsec: NIC act handler recycles via the bd)
++	/* attach is restricted to inline-none NICs, so the WQE inlines no
++	 * header and xdptxd->data is never read (left NULL here).
++	 */
++	xdptxd = &xdptxdf.xd;
++	xdptxd->len = bd->len;
++	xdptxd->has_frags = 0;
++	xdptxd->dma_addr = netmem_to_net_iov(bd->netmem)->desc.dma_addr +
++			   bd->off;
++
++	if (!mlx5e_xmit_xdp_frame(sq, xdptxd, 0, NULL))
++		return false;
++
++	mlx5e_xdpi_fifo_push(&sq->db.xdpi_fifo,
++			     (union mlx5e_xdp_info) {
++				.mode = MLX5E_XDP_XMIT_MODE_OFFLOAD });
++	mlx5e_xdpi_fifo_push(&sq->db.xdpi_fifo,
++			     (union mlx5e_xdp_info) {
++				.offload.netmem = bd->netmem,
++				.offload.pp = mlx5e_knod_bd_pp(bd) });
++
++	return true;
++}
++
+ static inline bool
+ mlx5e_xmit_xdp_buff(struct mlx5e_xdpsq *sq, struct mlx5e_rq *rq,
+ 		    struct xdp_buff *xdp)
+@@ -353,6 +393,154 @@ bool mlx5e_xdp_handle(struct mlx5e_rq *rq,
+ 	}
+ }
+ 
++static inline u16 mlx5e_xdpsq_get_avail(struct mlx5e_xdpsq *sq)
++{
++	if (sq->pc == sq->cc)
++		return sq->wq.fbc.sz_m1 + 1;
++
++	return sq->wq.fbc.sz_m1 & (sq->cc - sq->pc);
++}
++
++static inline u16 mlx5e_xdpsq_get_avail_after_poll(struct mlx5e_xdpsq *sq)
++{
++	u16 avail = mlx5e_xdpsq_get_avail(sq);
++
++	if (likely(avail))
++		return avail;
++
++	mlx5e_xmit_xdp_doorbell(sq);
++	mlx5e_poll_xdpsq_cq(&sq->cq);
++
++	return mlx5e_xdpsq_get_avail(sq);
++}
++
++struct mlx5e_knod_release_batch {
++	struct spsc_bd *bds[NAPI_POLL_WEIGHT];
++	struct spsc_pass_bd pass[NAPI_POLL_WEIGHT];
++};
++
++static struct mlx5e_knod_release_batch
++mlx5e_knod_release_batch[KNOD_SPSC_MAX];
++
++static noinline int
++mlx5e_rx_offload_release_pending(struct mlx5e_rq *rq,
++				 struct knod_work_priv *wpriv,
++				 bool flush, int budget)
++{
++	struct knod_dev *knodev = rq->knodev;
++	struct mlx5e_xdpsq *sq = rq->xdpsq;
++	struct mlx5e_knod_release_batch *batch =
++		&mlx5e_knod_release_batch[rq->ix];
++	struct spsc_bd **bds = batch->bds;
++	struct spsc_pass_bd *pass = batch->pass;
++	int cnt, i, done = 0;
++
++	while (done < budget) {
++		int pass_cnt = 0;
++
++		if (!mlx5e_xdpsq_get_avail_after_poll(sq))
++			break;
++		cnt = min(NAPI_POLL_WEIGHT, budget - done);
++
++		spsc_release(&wpriv->spsc_bds, (void **)bds, cnt, &cnt);
++		if (!cnt)
++			break;
++
++		for (i = 0; i < cnt; i++) {
++			switch ((u32)bds[i]->act) {
++			case KNOD_ACT_INFLIGHT:
++				fallthrough;
++			case KNOD_IPSEC_INFLIGHT:
++				goto stop_release;
++			case KNOD_IPSEC_PASS:
++				fallthrough;
++			case KNOD_IPSEC_DROP:
++				/* Finish worker has set the final verdict.
++				 * Safe to recycle the netmem page now.
 +				 */
-+	/* SDMA fence to await before delivery (async) */
-+	u32 fence_val;
-+	u8  sdma_idx;		/* which accel SDMA queue's fence to await */
-+	/* Feature finalisation context, consumed by knod_dev->post_copy. */
++				page_pool_recycle_direct_netmem(
++					mlx5e_knod_bd_pp(bds[i]),
++					bds[i]->netmem);
++				break;
++			case KNOD_TX:
++				if (!mlx5e_xmit_xdp_offload_buff(rq->xdpsq, rq,
++								 bds[i]))
++					goto stop_release;
++				break;
++			case XDP_DROP:
++				fallthrough;
++			case XDP_ABORTED:
++				rq->stats->xdp_drop++;
++				page_pool_recycle_direct_netmem(
++					mlx5e_knod_bd_pp(bds[i]),
++					bds[i]->netmem);
++				break;
++			case XDP_PASS:
++				/* Hand to the common device->host delivery:
++				 * accumulate here, flush to knod_d2h_copy
++				 * after the bd loop.  The source page is
++				 * recycled by knod_d2h_drain once the copy
++				 * has landed, so it is NOT recycled here.
++				 */
++				pass[pass_cnt].netmem = bds[i]->netmem;
++				pass[pass_cnt].page_idx = bds[i]->page_idx;
++				pass[pass_cnt].off = bds[i]->off;
++				pass[pass_cnt].len = bds[i]->len;
++				pass_cnt++;
++				break;
++			case XDP_REDIRECT:
++				/* No redirect delivery path yet; recycle. */
++				page_pool_recycle_direct_netmem(
++					mlx5e_knod_bd_pp(bds[i]),
++					bds[i]->netmem);
++				break;
++			default:
++				/* Unknown value: either the accel shader
++				 * did not stamp a verdict for this slot
++				 * (lane skip bug) or the slot never went
++				 * through an accel at all. Treat as DROP +
++				 * recycle + WARN so the ring keeps advancing.
++				 */
++				rq->stats->xdp_drop++;
++				pr_warn_ratelimited("mlx5 nod: invalid bd->act=0x%llx rq%d, treating as DROP\n",
++						    bds[i]->act, rq->ix);
++				page_pool_recycle_direct_netmem(
++					mlx5e_knod_bd_pp(bds[i]),
++					bds[i]->netmem);
++				break;
++			}
++		}
++stop_release:
++		spsc_release_commit(&wpriv->spsc_bds, i);
++		done += i;
++
++		/* Issue the device->host copies for this batch's PASS bds. */
++		if (pass_cnt)
++			knod_d2h_copy(knodev, rq->ix, pass, pass_cnt);
++
++		if (i < cnt)
++			break;
++	}
++
++	if (flush)
++		mlx5e_xmit_xdp_doorbell(sq);
++
++	return done;
++}
++
++int mlx5e_rx_offload_act_handler(struct mlx5e_rq *rq, bool flush, int budget)
++{
++	struct knod_work_priv *wpriv = &rq->knodev->wpriv[rq->ix];
++
++	if (!spsc_pending(&wpriv->spsc_bds)) {
++		if (flush)
++			mlx5e_xmit_xdp_doorbell(rq->xdpsq);
++		return 0;
++	}
++
++	return mlx5e_rx_offload_release_pending(rq, wpriv, flush, budget);
++}
++
+ static u16 mlx5e_xdpsq_get_next_pi(struct mlx5e_xdpsq *sq, u16 size)
+ {
+ 	struct mlx5_wq_cyc *wq = &sq->wq;
+@@ -741,6 +929,18 @@ static void mlx5e_free_xdpsq_desc(struct mlx5e_xdpsq *sq,
+ 			(*xsk_frames)++;
+ 			break;
+ 		}
++		case MLX5E_XDP_XMIT_MODE_OFFLOAD: {
++			netmem_ref netmem;
++			struct page_pool *pp;
++
++			xdpi = mlx5e_xdpi_fifo_pop(xdpi_fifo);
++			netmem = xdpi.offload.netmem;
++			pp = xdpi.offload.pp;
++
++			page_pool_recycle_direct_netmem(pp, netmem);
++
++			break;
++		}
+ 		default:
+ 			WARN_ON_ONCE(true);
+ 		}
+@@ -974,3 +1174,154 @@ void mlx5e_set_xmit_fp(struct mlx5e_xdpsq *sq, bool is_mpw)
+ 	sq->xmit_xdp_frame = is_mpw ?
+ 		mlx5e_xmit_xdp_frame_mpwqe : mlx5e_xmit_xdp_frame;
+ }
++
++static int mlx5e_rx_offload_xdp_attach(struct knod_dev *knodev)
++{
++	struct mlx5e_priv *priv = netdev_priv(knodev->netdev);
++	struct mlx5e_params *params = &priv->channels.params;
++	int max_mtu = mlx5e_xdp_max_mtu(params, NULL);
++
++	if (knodev->netdev->mtu > max_mtu) {
++		netdev_warn(knodev->netdev,
++			    "MTU %u too big for single-page RX offload (max %d)\n",
++			    knodev->netdev->mtu, max_mtu);
++		return -EOPNOTSUPP;
++	}
++
++	/* The offload TX WQE carries the packet only in a data segment; the
++	 * eth header is not inlined (a zero dummy stands in). NICs that require
++	 * a minimum inline header (e.g. ConnectX-4) would transmit that dummy,
++	 * so only allow attach when the device needs no inline header.
++	 */
++	if (params->tx_min_inline_mode != MLX5_INLINE_MODE_NONE) {
++		netdev_warn(knodev->netdev,
++			    "knod offload requires a NIC with inline header mode 'none'\n");
++		return -EOPNOTSUPP;
++	}
++
++	pr_debug("Attaching XDP offload to netdev %s\n", knodev->netdev->name);
++	WRITE_ONCE(priv->knodev, knodev);
++
++	return 0;
++}
++
++static int mlx5e_rx_offload_xdp_detach(struct knod_dev *knodev)
++{
++	struct mlx5e_priv *priv = netdev_priv(knodev->netdev);
++
++	pr_debug("Detaching XDP offload from netdev %s\n",
++		 knodev->netdev->name);
++	WRITE_ONCE(priv->knodev, NULL);
++
++	return 0;
++}
++
++struct knod_nic_ops nic_ops = {
++	.attach = mlx5e_rx_offload_xdp_attach,
++	.detach = mlx5e_rx_offload_xdp_detach,
++};
++
++int mlx5e_knod_init(struct mlx5e_priv *priv)
++{
++	struct knod_netdev *knetdev;
++
++	knetdev = kzalloc_obj(struct knod_netdev, GFP_KERNEL);
++	if (!knetdev) {
++		pr_debug("Failed to allocate knetdev\n");
++		return -ENOMEM;
++	}
++
++	INIT_LIST_HEAD(&knetdev->list);
++	knetdev->dev = priv->netdev;
++	knetdev->priv = priv;
++	knetdev->nic_ops = &nic_ops;
++	knetdev->owner = THIS_MODULE;
++	knetdev->flags |= KNOD_FLAGS_XDP;
++	knod_netdev_register(knetdev);
++	priv->knetdev = knetdev;
++
++	return 0;
++}
++
++void mlx5e_knod_uninit(struct mlx5e_priv *priv)
++{
++	knod_netdev_unregister(priv->knetdev);
++	kfree(priv->knetdev);
++	priv->knetdev = NULL;
++	kfree(priv->knodev);
++	WRITE_ONCE(priv->knodev, NULL);
++}
++
++void mlx5e_rx_offload_set_napi(struct mlx5e_priv *priv)
++{
++	struct knod_dev *knodev = priv->knodev;
++	int i;
++
++	if (!knodev)
++		return;
++
++	for (i = 0; i < priv->channels.num; i++) {
++		struct mlx5e_channel *c = priv->channels.c[i];
++		struct spsc_ring *r = &knodev->wpriv[i].spsc_bds;
++
++		WRITE_ONCE(knodev->wpriv[i].napi, &c->napi);
++		c->rq.knod_spsc_prod_head = READ_ONCE(r->head);
++		c->rq.knod_spsc_prod_valid = true;
++	}
++}
++
++void mlx5e_rx_offload_clear_napi(struct mlx5e_priv *priv)
++{
++	struct knod_dev *knodev = priv->knodev;
++	int i;
++
++	if (!knodev)
++		return;
++
++	for (i = 0; i < KNOD_SPSC_MAX; i++)
++		WRITE_ONCE(knodev->wpriv[i].napi, NULL);
++}
++
++void mlx5e_rx_offload_start(struct mlx5e_priv *priv)
++{
++	if (!priv->knodev)
++		return;
++
++	knod_dev_start(priv->knodev);
++}
++
++void mlx5e_rx_offload_stop(struct mlx5e_priv *priv)
++{
++	struct knod_dev *knodev = priv->knodev;
++	int i;
++
++	if (!priv->knodev)
++		return;
++
++	knod_dev_stop(knodev);
++
++	synchronize_net();
++	for (i = 0; i < KNOD_SPSC_MAX; i++) {
++		struct spsc_bd *bd;
++
++		if (i < priv->channels.num) {
++			struct mlx5e_rq *rq = &priv->channels.c[i]->rq;
++
++			mlx5e_knod_spsc_flush(rq);
++			rq->knod_spsc_prod_head = 0;
++			rq->knod_spsc_prod_valid = false;
++		}
++
++		WRITE_ONCE(knodev->wpriv[i].napi, NULL);
++		/*
++		 * RX is quiesced now (worker stopped by knod_dev_stop, NAPI
++		 * drained by synchronize_net).  Return any frames the GPU
++		 * worker did not consume back to the page_pool before the RX
++		 * page_pool is torn down on interface down.
++		 */
++		spsc_rewind(&knodev->wpriv[i].spsc_bds);
++		while (!spsc_pop(&knodev->wpriv[i].spsc_bds, (void **)&bd))
++			page_pool_put_full_netmem(netmem_get_pp(bd->netmem),
++						  bd->netmem, true);
++	}
++}
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/xdp.h b/drivers/net/ethernet/mellanox/mlx5/core/en/xdp.h
+index 3c54f8962664..4de6babdafc5 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en/xdp.h
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en/xdp.h
+@@ -34,6 +34,7 @@
+ 
+ #include <linux/indirect_call_wrapper.h>
+ #include <net/xdp_sock.h>
++#include <net/knod.h>
+ 
+ #include "en.h"
+ #include "en/txrx.h"
+@@ -64,6 +65,8 @@ enum mlx5e_xdp_xmit_mode {
+ 	 * page. The UMEM Completion Ring producer pointer has to be increased.
+ 	 */
+ 	MLX5E_XDP_XMIT_MODE_XSK,
++
++	MLX5E_XDP_XMIT_MODE_OFFLOAD,
+ };
+ 
+ /* xmit_mode entry is pushed to the fifo per packet, followed by multiple
+@@ -78,6 +81,9 @@ enum mlx5e_xdp_xmit_mode {
+  *
+  * MLX5E_XDP_XMIT_MODE_XSK:
+  *    frame.xsk_meta.
++ *
++ * MLX5E_XDP_XMIT_MODE_OFFLOAD:
++ *    offload.netmem.
+  */
+ #define MLX5E_XDP_FIFO_ENTRIES2DS_MAX_RATIO 4
+ 
+@@ -93,6 +99,10 @@ union mlx5e_xdp_info {
+ 		struct page *page;
+ 	} page;
+ 	struct xsk_tx_metadata_compl xsk_meta;
 +	struct {
-+		u32 sa_slot;	/* ipsec SA table slot */
-+		u32 seq_lo;	/* ESP sequence low 32 bits */
-+		u32 seq_hi;	/* ESN high 32 bits (0 if !ESN) */
-+		u8  mode;	/* XFRM_MODE_TRANSPORT / _TUNNEL */
-+		u8  next_hdr;	/* ESP trailer next-header */
-+		u8  family;	/* AF_INET / AF_INET6 */
-+	} feat;
-+};
++		netmem_ref netmem;
++		struct page_pool *pp;
++	} offload;
+ };
+ 
+ struct mlx5e_xsk_param;
+@@ -100,14 +110,21 @@ int mlx5e_xdp_max_mtu(struct mlx5e_params *params,
+ 		      struct mlx5e_rq_opt_param *rqo);
+ bool mlx5e_xdp_handle(struct mlx5e_rq *rq,
+ 		      struct bpf_prog *prog, struct mlx5e_xdp_buff *mlctx);
++int mlx5e_rx_offload_act_handler(struct mlx5e_rq *rq, bool flush, int budget);
++void mlx5e_knod_spsc_flush(struct mlx5e_rq *rq);
+ void mlx5e_xdp_mpwqe_complete(struct mlx5e_xdpsq *sq);
+ bool mlx5e_poll_xdpsq_cq(struct mlx5e_cq *cq);
+ void mlx5e_free_xdpsq_descs(struct mlx5e_xdpsq *sq);
+ void mlx5e_set_xmit_fp(struct mlx5e_xdpsq *sq, bool is_mpw);
++int mlx5e_knod_init(struct mlx5e_priv *priv);
++void mlx5e_knod_uninit(struct mlx5e_priv *priv);
+ void mlx5e_xdp_rx_poll_complete(struct mlx5e_rq *rq);
+ int mlx5e_xdp_xmit(struct net_device *dev, int n, struct xdp_frame **frames,
+ 		   u32 flags);
+-
++void mlx5e_rx_offload_start(struct mlx5e_priv *priv);
++void mlx5e_rx_offload_stop(struct mlx5e_priv *priv);
++void mlx5e_rx_offload_set_napi(struct mlx5e_priv *priv);
++void mlx5e_rx_offload_clear_napi(struct mlx5e_priv *priv);
+ extern const struct xdp_metadata_ops mlx5e_xdp_metadata_ops;
+ extern const struct xsk_tx_metadata_ops mlx5e_xsk_tx_metadata_ops;
+ 
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+index aa8610cedaa8..cfc6ba6dc492 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
+@@ -918,6 +918,7 @@ static int mlx5e_alloc_rq(struct mlx5e_params *params,
+ 	pool_size = 1 << params->log_rq_mtu_frames;
+ 
+ 	rq->mkey_be = cpu_to_be32(mdev->mlx5e_res.hw_objs.mkey);
++	rq->knodev = rq->priv->knodev;
+ 
+ 	switch (rq->wq_type) {
+ 	case MLX5_WQ_TYPE_LINKED_LIST_STRIDING_RQ:
+@@ -1022,7 +1023,7 @@ static int mlx5e_alloc_rq(struct mlx5e_params *params,
+ 		pp_params.queue_idx = rq->ix;
+ 
+ 		/* Shampo header data split allow for unreadable netmem */
+-		if (test_bit(MLX5E_RQ_STATE_SHAMPO, &rq->state))
++		if (test_bit(MLX5E_RQ_STATE_SHAMPO, &rq->state) || rq->knodev)
+ 			pp_params.flags |= PP_FLAG_ALLOW_UNREADABLE_NETMEM;
+ 
+ 		/* page_pool can be used even when there is no rq->xdp_prog,
+@@ -2873,7 +2874,7 @@ static int mlx5e_open_channel(struct mlx5e_priv *priv, int ix,
+ 	c->netdev   = priv->netdev;
+ 	c->mkey_be  = cpu_to_be32(mdev->mlx5e_res.hw_objs.mkey);
+ 	c->num_tc   = mlx5e_get_dcb_num_tc(params);
+-	c->xdp      = !!params->xdp_prog;
++	c->xdp      = !!params->xdp_prog || !!priv->knodev;
+ 	c->stats    = &priv->channel_stats[ix]->ch;
+ 	c->aff_mask = irq_get_effective_affinity_mask(irq);
+ 	c->lag_port = mlx5e_enumerate_lag_port(mdev, ix);
+@@ -3365,6 +3366,8 @@ void mlx5e_activate_priv_channels(struct mlx5e_priv *priv)
+ 
+ 	if (priv->rx_res)
+ 		mlx5e_rx_res_channels_activate(priv->rx_res, &priv->channels);
 +
-+struct knod_accel_xdp_ops {
-+	/* init/exit: permanent per-attach setup (attach/detach). */
-+	int (*init)(struct knod_dev *knodev);
-+	void (*exit)(struct knod_dev *knodev);
-+	/* activate/deactivate: feature resource alloc/free (feature select). */
-+	int (*activate)(struct knod_dev *knodev);
-+	void (*deactivate)(struct knod_dev *knodev);
-+	/*
-+	 * true while user XDP progs/maps are still bound (blocks feature
-+	 * switch).
-+	 */
-+	bool (*busy)(struct knod_dev *knodev);
-+	int (*xdp_offload_init)(struct knod_dev *knodev);
-+	void (*xdp_offload_uninit)(struct knod_dev *knodev);
-+	int (*xdp_install)(struct knod_dev *knodev,
-+			   struct netdev_bpf *bpf);
-+	int (*rx_netmem)(struct knod_dev *knodev, netmem_ref netmem,
-+			 unsigned int data_len, int data_offset, int index);
-+	int (*rx_netmem_bulk)(struct knod_dev *knodev,
-+			      struct knod_work_priv *wpriv);
-+	/* Direct dispatch */
-+	int (*dispatch)(struct knod_dev *knodev, int index);
-+	/* Direct finish */
-+	int (*finish)(struct knod_dev *knodev, int index);
-+	void (*start)(struct knod_dev *knodev);
-+	void (*stop)(struct knod_dev *knodev);
-+};
++	mlx5e_rx_offload_set_napi(priv);
+ }
+ 
+ static void mlx5e_cancel_tx_timeout_work(struct mlx5e_priv *priv)
+@@ -3376,6 +3379,8 @@ static void mlx5e_cancel_tx_timeout_work(struct mlx5e_priv *priv)
+ 
+ void mlx5e_deactivate_priv_channels(struct mlx5e_priv *priv)
+ {
++	mlx5e_rx_offload_clear_napi(priv);
 +
-+struct xfrm_state;
-+struct xfrm_policy;
-+struct netlink_ext_ack;
-+
-+struct knod_accel_ipsec_ops {
-+	/* init/exit: permanent per-attach setup (attach/detach). */
-+	int (*init)(struct knod_dev *knodev);
-+	void (*exit)(struct knod_dev *knodev);
-+	/* activate/deactivate: feature resource alloc/free (feature select). */
-+	int (*activate)(struct knod_dev *knodev);
-+	void (*deactivate)(struct knod_dev *knodev);
-+	/*
-+	 * true while offloaded xfrm SAs are still bound (blocks feature
-+	 * switch).
-+	 */
-+	bool (*busy)(struct knod_dev *knodev);
-+	/*
-+	 * start/stop: worker/dispatcher start + GPU drain (interface
-+	 * up/down).
-+	 */
-+	void (*start)(struct knod_dev *knodev);
-+	void (*stop)(struct knod_dev *knodev);
-+	int (*xdo_dev_state_add)(struct knod_dev *knodev,
-+				 struct xfrm_state *x,
-+				 struct netlink_ext_ack *extack);
-+	void (*xdo_dev_state_delete)(struct knod_dev *knodev,
-+				     struct xfrm_state *x);
-+	void (*xdo_dev_state_free)(struct knod_dev *knodev,
-+				   struct xfrm_state *x);
-+	bool (*xdo_dev_offload_ok)(struct knod_dev *knodev,
-+				   struct sk_buff *skb,
-+				   struct xfrm_state *x);
-+	void (*xdo_dev_state_advance_esn)(struct knod_dev *knodev,
-+					  struct xfrm_state *x);
-+	void (*xdo_dev_state_update_stats)(struct knod_dev *knodev,
-+					   struct xfrm_state *x);
-+	int (*xdo_dev_policy_add)(struct knod_dev *knodev,
-+				  struct xfrm_policy *x,
-+				  struct netlink_ext_ack *extack);
-+	void (*xdo_dev_policy_delete)(struct knod_dev *knodev,
-+				      struct xfrm_policy *x);
-+	void (*xdo_dev_policy_free)(struct knod_dev *knodev,
-+				    struct xfrm_policy *x);
-+};
-+
-+struct knod_accel_ops {
-+	int (*attach)(struct knod_dev *knodev);
-+	void (*pre_detach)(struct knod_dev *knodev);
-+	void (*detach)(struct knod_dev *knodev);
-+	/* interface up/down (NIC driver knod_dev_start/stop): worker only. */
-+	void (*dev_start)(struct knod_dev *knodev);
-+	void (*dev_stop)(struct knod_dev *knodev);
-+	void *(*alloc_mem)(struct knod_dev *knodev, size_t size,
-+			   u64 *gaddr, struct page ***pages, void **priv);
-+	void (*free_mem)(struct knod_dev *knodev, void *priv);
-+	/*
-+	 * Map dmabuf RX BOs into the GPU VM; must run after
-+	 * knod_dmabuf_attach().
-+	 */
-+	int (*mp_map)(struct knod_dev *knodev);
-+	/*
-+	 * Device->host copy primitives, used by the common knod_d2h_copy /
-+	 * knod_d2h_drain delivery path.  The accel owns the SDMA engine (and
-+	 * its fence/ring); the framework owns the pending ring and dst pool.
-+	 *   d2h_submit: queue one GPU->host copy.  Returns a monotonic fence
-+	 *               position to tag the descriptor with, or 0 if the SDMA
-+	 *               ring is full (caller drops -- backpressure).
-+	 *   d2h_kick:   publish the batch (fence + doorbell).
-+	 *   d2h_fence:  current completed fence position of an SDMA queue
-+	 *               (drain compares the descriptor's tag against this).
-+	 */
-+	u32 (*d2h_submit)(struct knod_dev *knodev, u64 dst, int queue,
-+			  u32 page_idx, u16 off, u32 len);
-+	void (*d2h_kick)(struct knod_dev *knodev);
-+	u32 (*d2h_fence)(struct knod_dev *knodev, int sdma_idx);
-+	struct knod_accel_xdp_ops *xdp_ops;
-+	struct knod_accel_ipsec_ops *ipsec_ops;
-+
-+	/* control plane (knod genetlink) feature select */
-+	int (*feature_get)(struct knod_accel *accel, u32 *ena, u32 *cap);
-+	int (*feature_set)(struct knod_accel *accel, u32 feature,
-+			   struct netlink_ext_ack *extack);
-+};
-+
-+struct knod_nic_ops {
-+	int (*attach)(struct knod_dev *knodev);
-+	int (*detach)(struct knod_dev *knodev);
-+	int (*tx_handler)(struct knod_dev *knodev, struct spsc_bd **bds,
-+			  int cnt, int napi_index, void *priv);
-+	int (*redir_handler)(struct knod_dev *knodev, netmem_ref *netmems,
-+			     u16 *lens, int cnt, int napi_index,
-+			     struct net_device *target_dev, void *priv);
-+	int (*drop_handler)(struct knod_dev *knodev, netmem_ref *netmems,
-+			    u16 *lens, int cnt, void *priv);
-+};
-+
-+struct knod_dev_stats {
-+	u64_stats_t             tx_packets;
-+	u64_stats_t             tx_bytes;
-+	struct u64_stats_sync   syncp;
-+	u32                     tx_dropped;
-+	u32                     tx_errors;
-+};
-+
-+#define __NOD_FLAGS_XDP		0
-+#define __NOD_FLAGS_IPSEC	2
-+#define __NOD_FLAGS_KTLS	3
-+#define __NOD_FLAGS_MAX		(__NOD_FLAGS_KTLS + 1)
-+#define KNOD_FLAGS_XDP		(1 << __NOD_FLAGS_XDP)
-+#define KNOD_FLAGS_IPSEC		(1 << __NOD_FLAGS_IPSEC)
-+#define KNOD_FLAGS_KTLS		(1 << __NOD_FLAGS_KTLS)
-+
-+#define KNOD_TYPE_GPU		0
-+#define KNOD_TYPE_DPU		1
-+#define KNOD_TYPE_MAX		(KNOD_TYPE_DPU + 1)
-+
-+#define KNOD_SPSC_MAX		32
-+#define KNOD_SPSC_ELEMS_MAX	8192
-+
-+/* Per-RX-queue GPU->host delivery pages (in-flight cap; sized for the deepest
-+ * feature pipeline, independent of any per-feature descriptor ring size).
-+ * Must cover the worst case where one RSS-concentrated flow lands every
-+ * in-flight work on a single queue: ipsec holds a full batch of delivery
-+ * pages per work (alloc precedes the SDMA copy into them), so the cap needs
-+ * KNOD_IPSEC_NR_WORK * KNOD_IPSEC_PKT_BATCH (= 4 * 512) plus the pass_pending
-+ * ring depth. Sized to absorb a full bd ring (KNOD_SPSC_ELEMS_MAX = 8192)
-+ * worth of decrypted-but-undelivered packets plus the in-flight works. The
-+ * backing is GTT, sized nqueues * KNOD_PASS_SLOTS * PAGE_SIZE (2 GiB at the
-+ * 32-queue cap), which is why the alloc size path is size_t rather than int.
-+ */
-+#define KNOD_PASS_SLOTS		16384
-+
-+#define KNOD_STATUS_FREE		0
-+#define KNOD_STATUS_USED		1
-+
-+struct knod_netdev {
-+	struct list_head list;
-+	struct net_device *dev;
-+	struct knod_dev *knodev;
-+	struct knod_accel *accel;
-+	struct knod_nic_ops *nic_ops;
-+	struct module *owner;
-+	int flags;
-+	int status;
-+	void *priv;
-+};
-+
-+struct knod_accel_xdp {
-+	struct bpf_offload_dev *bpf_dev;
-+	struct xdp_attachment_info xdp;
-+	struct xdp_attachment_info xdp_hw;
-+	struct bpf_prog *bpf_offloaded;
-+	struct list_head bound_maps;
-+	void *priv;
-+};
-+
-+struct knod_accel {
-+	struct list_head list;
-+	struct knod_accel_ops *accel_ops;
-+	struct module *owner;
-+	struct knod_accel_xdp xdp;
-+	struct knod_dev *knodev;
-+	struct knod_netdev *knetdev;
-+	int status;
-+	int type;
-+	int flags;
-+	int id;
-+	void *priv;
-+	char name[16];
-+};
-+
-+struct knod_dev {
-+	struct list_head list;
-+	struct knod_netdev *knetdev;
-+	struct knod_accel *accel;
-+	struct net_devmem_dmabuf_binding *bindings[KNOD_SPSC_MAX];
-+	struct mutex lock;
-+	struct net_device *netdev;
-+	struct knod_dev_stats *stats __percpu;
-+
-+	struct knod_nic_ops *nic_ops;
-+	struct knod_accel_ops *accel_ops;
-+	/* per-queue priv data */
-+	struct knod_work_priv *wpriv;
-+	bool started;
-+
-+	/* IPsec proxy: original NIC xfrmdev_ops/feature state saved at attach,
-+	 * restored at detach so a NIC's native offload is not clobbered.
-+	 */
-+	const struct xfrmdev_ops *ipsec_orig_xfrmdev_ops;
-+	bool ipsec_added_hw_esp;
-+
-+	/* framework-owned GPU->host delivery (default pass): drain barrier */
-+	/* accel handle for the delivery buffer */
-+	void *pass_priv;
-+	atomic_t pp_live;		/* live delivery page_pools */
-+	struct completion pp_drained;	/* all pools drained (teardown) */
-+	/*
-+	 * device->host (d2h) delivery: the accel owns the fence counter (its
-+	 * SDMA ring position); this lock just serialises the shared SDMA
-+	 * submit path across the per-queue NAPIs that drive knod_d2h_copy.
-+	 */
-+	spinlock_t d2h_lock;
-+
-+	/*
-+	 * Feature delivery hook, set by the active feature on activate (NULL
-+	 * for bpf/none).  knod_d2h_drain calls it after building the head_frag
-+	 * skb to run feature-specific finalisation (ipsec: SA/replay/secpath);
-+	 * it returns false to drop the packet.
-+	 */
-+	bool (*post_copy)(struct knod_dev *knodev, struct sk_buff *skb,
-+			  const struct knod_pass_desc *desc, int queue_idx);
-+};
-+
-+static inline bool knod_dev_active(struct knod_dev *knodev)
-+{
-+	return !!knodev->accel->xdp.xdp_hw.prog;
-+}
-+
-+static inline struct bpf_prog *
-+knod_dev_offloaded(struct knod_dev *knodev)
-+{
-+	return knodev->accel->xdp.bpf_offloaded;
-+}
-+
-+static inline void knod_dev_offload(struct knod_dev *knodev,
-+					   struct bpf_prog *bpf_offloaded)
-+{
-+	knodev->accel->xdp.bpf_offloaded = bpf_offloaded;
-+}
-+
-+static inline bool knod_dev_map_empty(struct knod_dev *knodev)
-+{
-+	return list_empty(&knodev->accel->xdp.bound_maps);
-+}
-+
-+void knod_netdev_register(struct knod_netdev *netdev);
-+void knod_netdev_unregister(struct knod_netdev *netdev);
-+void knod_accel_register(struct knod_accel *accel);
-+void knod_accel_unregister(struct knod_accel *accel);
-+void knod_dev_start(struct knod_dev *knodev);
-+void knod_dev_stop(struct knod_dev *knodev);
-+int knod_dev_xdp_install(struct knod_dev *knodev,
-+				struct netdev_bpf *xdp);
-+void knod_dev_get_stats64(struct knod_dev *knodev,
-+				 struct rtnl_link_stats64 *stats);
-+void knod_dev_lock(void);
-+void knod_dev_unlock(void);
-+struct sk_buff *knod_pass_build_skb(netmem_ref netmem, u16 off, u16 len,
-+				    struct page_pool *pool, bool napi);
-+int knod_d2h_copy(struct knod_dev *knodev, int napi_index,
-+		  struct spsc_pass_bd *bds, int cnt);
-+int knod_d2h_drain(struct knod_dev *knodev, int napi_index,
-+		   struct napi_struct *napi, int budget);
-+
-+extern struct list_head knod_dev_list;
-+extern struct list_head knod_netdev_list;
-+extern struct list_head knod_accel_list;
-+
-+#define for_each_xdev(d)         \
-+		list_for_each_entry(d, &knod_dev_list, list)
-+#define for_each_xdev_safe(d)         \
-+		list_for_each_entry_safe(d, n, &knod_dev_list, list)
-+#define for_each_nodev(d)         \
-+		list_for_each_entry(d, &knod_netdev_list, list)
-+#define for_each_nodev_safe(d, n)         \
-+		list_for_each_entry_safe(d, n, &knod_netdev_list, list)
-+#define for_each_accel(d)         \
-+		list_for_each_entry(d, &knod_accel_list, list)
-+#define for_each_accel_safe(d, n)         \
-+		list_for_each_entry_safe(d, n, &knod_accel_list, list)
-+
-+/* IPsec proxy functions */
-+#if IS_ENABLED(CONFIG_XFRM_OFFLOAD)
-+int knod_ipsec_attach(struct knod_dev *knodev);
-+void knod_ipsec_detach(struct knod_dev *knodev);
-+#else
-+#endif
-+
-+/* XDP PASS drain - called from NIC NAPI poll */
-+int knod_dev_xdp_drain_pass(struct knod_dev *knodev,
-+				   struct napi_struct *napi,
-+				   int queue_idx, int budget);
-+
-+#endif
-diff --git a/include/net/spsc_ring.h b/include/net/spsc_ring.h
-new file mode 100644
-index 000000000000..1eccadc927d6
---- /dev/null
-+++ b/include/net/spsc_ring.h
-@@ -0,0 +1,645 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * spsc_ring.h - Lock-free SPSC Ring Buffer with embedded element pool
-+ *
-+ * Single-Producer Single-Consumer ring buffer.  The ring owns a
-+ * contiguous page-backed memory pool.  Each slot is permanently bound
-+ * to a cacheline-aligned element inside that pool.
-+ *
-+ *   Producer calls spsc_produce() -> receives a pointer to a free
-+ *   element, writes data into it, then calls spsc_produce_commit()
-+ *   to publish.
-+ *
-+ *   Consumer calls spsc_acquire() / spsc_pop() -> receives a pointer
-+ *   to a filled element.  After spsc_release() the slot becomes
-+ *   available to the producer again - the element pointer is reused
-+ *   automatically because it is fixed to the slot.
-+ *
-+ * Two consumer modes (do NOT mix on the same instance):
-+ *
-+ *   Mode 1 - Sliding window (2-step consumer):
-+ *     spsc_produce / commit -> peek -> acquire -> release
-+ *
-+ *   Mode 2 - Simple queue:
-+ *     spsc_push -> pop
-+ *
-+ * Return convention:
-+ *   0           success
-+ *   -ENOSPC     ring full   (producer side)
-+ *   -ENOENT     ring empty  (consumer side)
-+ *   -EINVAL     bad parameter
-+ *   -ENOMEM     allocation failure
-+ *
-+ * Memory ordering:
-+ *   Producer: write data -> smp_store_release(head)
-+ *   Consumer: smp_load_acquire(head) -> read data
-+ *   Consumer: done -> smp_store_release(tail)
-+ *   Producer: smp_load_acquire(tail) -> write data
-+ *
-+ * Capacity is always a power of two.
-+ */
-+
-+#ifndef _SPSC_RING_H
-+#define _SPSC_RING_H
-+
-+#include <linux/types.h>
-+#include <linux/slab.h>
-+#include <linux/log2.h>
-+#include <linux/compiler.h>
-+#include <linux/errno.h>
-+#include <linux/minmax.h>
-+#include <linux/mm.h>
-+#include <linux/cache.h>
-+#include <asm/barrier.h>
-+
-+struct spsc_ring {
-+	void		**slots;	/* pointer-per-slot into pool */
-+	unsigned int	mask;		/* capacity - 1 */
-+
-+	/* Producer side */
-+	unsigned int	head;		/* next slot to publish */
-+
-+	/* Consumer side */
-+	unsigned int	tail;		/* oldest unconsumed slot */
-+	unsigned int	acquired;	/* sliding window read cursor
-+					 *   tail <= acquired <= head
-+					 */
-+
-+	/* Element pool */
-+	struct page	*pool_page;	/* compound page backing elements */
-+	unsigned int	pool_order;	/* page order */
-+	unsigned int	elem_stride;	/* cacheline-aligned element size */
-+} ____cacheline_aligned_in_smp;
-+
-+/* ================================================================== */
-+/*  Init / Destroy                                                     */
-+/* ================================================================== */
-+
-+/**
-+ * __spsc_init - initialize ring with a pre-allocated element pool
-+ * @r:         pointer to caller-allocated spsc_ring
-+ * @elem_size: size of each element (rounded up to cacheline)
-+ * @capacity:  number of elements (rounded up to power of 2)
-+ * @pool:      pre-allocated pool memory (must be at least stride * capacity)
-+ * @gfp:       allocation flags (for slots array only)
-+ *
-+ * The caller owns the pool memory; spsc_destroy will NOT free it.
-+ * Returns 0 on success, negative errno on failure.
-+ */
-+static inline int __spsc_init(struct spsc_ring *r, unsigned int elem_size,
-+			      unsigned int capacity, void *pool, gfp_t gfp)
-+{
-+	unsigned int stride = ALIGN(elem_size, SMP_CACHE_BYTES);
-+	unsigned int i;
-+	char *base = pool;
-+
-+	if (elem_size == 0 || capacity == 0 || !pool)
-+		return -EINVAL;
-+
-+	capacity = roundup_pow_of_two(capacity);
-+
-+	r->slots = kcalloc(capacity, sizeof(void *), gfp);
-+	if (!r->slots)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < capacity; i++)
-+		r->slots[i] = base + (unsigned long)stride * i;
-+
-+	r->mask        = capacity - 1;
-+	r->head        = 0;
-+	r->tail        = 0;
-+	r->acquired    = 0;
-+	r->pool_page   = NULL;
-+	r->pool_order  = 0;
-+	r->elem_stride = stride;
-+
-+	return 0;
-+}
-+
-+/**
-+ * spsc_init - allocate ring and element pool
-+ * @r:         pointer to caller-allocated spsc_ring
-+ * @elem_size: size of each element (rounded up to cacheline)
-+ * @capacity:  number of elements (rounded up to power of 2)
-+ * @gfp:       allocation flags
-+ *
-+ * Returns 0 on success, negative errno on failure.
-+ */
-+static inline int spsc_init(struct spsc_ring *r, unsigned int elem_size,
-+			    unsigned int capacity, gfp_t gfp)
-+{
-+	unsigned int stride = ALIGN(elem_size, SMP_CACHE_BYTES);
-+	unsigned long pool_bytes;
-+	unsigned int order;
-+	struct page *page;
-+
-+	if (elem_size == 0 || capacity == 0)
-+		return -EINVAL;
-+
-+	capacity = roundup_pow_of_two(capacity);
-+	pool_bytes = (unsigned long)stride * capacity;
-+	order = get_order(pool_bytes);
-+
-+	if (pool_bytes > (PAGE_SIZE << order))
-+		return -EOVERFLOW;
-+
-+	/* Allocate element pool */
-+	page = alloc_pages(gfp | __GFP_COMP | __GFP_ZERO, order);
-+	if (!page)
-+		return -ENOMEM;
-+
-+	if (__spsc_init(r, elem_size, capacity, page_address(page), gfp)) {
-+		__free_pages(page, order);
-+		return -ENOMEM;
+ 	if (priv->rx_res)
+ 		mlx5e_rx_res_channels_deactivate(priv->rx_res);
+ 
+@@ -3592,6 +3597,7 @@ int mlx5e_open(struct net_device *netdev)
+ 		mlx5e_modify_admin_state(priv->mdev, MLX5_PORT_UP);
+ 	mutex_unlock(&priv->state_lock);
+ 
++	mlx5e_rx_offload_start(priv);
+ 	return err;
+ }
+ 
+@@ -3623,6 +3629,7 @@ int mlx5e_close(struct net_device *netdev)
+ 	if (!netif_device_present(netdev))
+ 		return -ENODEV;
+ 
++	mlx5e_rx_offload_stop(priv);
+ 	mutex_lock(&priv->state_lock);
+ 	mlx5e_modify_admin_state(priv->mdev, MLX5_PORT_DOWN);
+ 	err = mlx5e_close_locked(netdev);
+@@ -4475,7 +4482,7 @@ void mlx5e_set_xdp_feature(struct mlx5e_priv *priv)
+ 	    params->packet_merge.type == MLX5E_PACKET_MERGE_NONE)
+ 		val = NETDEV_XDP_ACT_BASIC | NETDEV_XDP_ACT_REDIRECT |
+ 		      NETDEV_XDP_ACT_XSK_ZEROCOPY |
+-		      NETDEV_XDP_ACT_RX_SG;
++		      NETDEV_XDP_ACT_RX_SG | NETDEV_XDP_ACT_HW_OFFLOAD;
+ 
+ 	if (netdev->netdev_ops->ndo_xdp_xmit && params->xdp_prog)
+ 		val |= NETDEV_XDP_ACT_NDO_XMIT |
+@@ -4738,6 +4745,14 @@ int mlx5e_change_mtu(struct net_device *netdev, int new_mtu,
+ 		goto out;
+ 	}
+ 
++	if (priv->knodev && new_mtu > mlx5e_xdp_max_mtu(&new_params, NULL)) {
++		netdev_warn(netdev,
++			    "MTU %d too big for single-page RX offload (max %d)\n",
++			    new_mtu, mlx5e_xdp_max_mtu(&new_params, NULL));
++		err = -EINVAL;
++		goto out;
 +	}
 +
-+	r->pool_page  = page;
-+	r->pool_order = order;
+ 	if (priv->xsk.refcnt &&
+ 	    !mlx5e_xsk_validate_mtu(netdev, &priv->channels,
+ 				    &new_params, priv->mdev)) {
+@@ -5261,15 +5276,30 @@ static int mlx5e_xdp_set(struct net_device *netdev, struct bpf_prog *prog)
+ 
+ static int mlx5e_xdp(struct net_device *dev, struct netdev_bpf *xdp)
+ {
++	struct mlx5e_priv *priv = netdev_priv(dev);
++	struct knod_dev *knodev = priv->knodev;
++	int rc;
 +
-+	return 0;
-+}
+ 	switch (xdp->command) {
+ 	case XDP_SETUP_PROG:
+ 		return mlx5e_xdp_set(dev, xdp->prog);
+ 	case XDP_SETUP_XSK_POOL:
+ 		return mlx5e_xsk_setup_pool(dev, xdp->xsk.pool,
+ 					    xdp->xsk.queue_id);
++	case XDP_SETUP_PROG_HW:
++	case BPF_OFFLOAD_MAP_ALLOC:
++	case BPF_OFFLOAD_MAP_FREE:
++		if (!knodev)
++			return -EOPNOTSUPP;
 +
-+/**
-+ * spsc_destroy - free ring and element pool
-+ */
-+static inline void spsc_destroy(struct spsc_ring *r)
++		rc = knod_dev_xdp_install(knodev, xdp);
++		break;
++
+ 	default:
+ 		return -EINVAL;
+ 	}
++
++	return rc;
+ }
+ 
+ #ifdef CONFIG_MLX5_ESWITCH
+@@ -6931,6 +6961,7 @@ static int _mlx5e_probe(struct auxiliary_device *adev)
+ 	mlx5e_dcbnl_init_app(priv);
+ 	mlx5_core_uplink_netdev_set(mdev, netdev);
+ 	mlx5e_params_print_info(mdev, &priv->channels.params);
++	mlx5e_knod_init(priv);
+ 	return 0;
+ 
+ err_resume:
+@@ -6982,6 +7013,7 @@ static void _mlx5e_remove(struct auxiliary_device *adev)
+ 	struct mlx5e_priv *priv = netdev_priv(netdev);
+ 	struct mlx5_core_dev *mdev = edev->mdev;
+ 
++	mlx5e_knod_uninit(priv);
+ 	mlx5_eswitch_safe_aux_devs_remove(mdev);
+ 	mlx5_core_uplink_netdev_set(mdev, NULL);
+ 
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
+index 6fbc0441c4b8..ff4627a0895c 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_rx.c
+@@ -276,15 +276,20 @@ static int mlx5e_page_alloc_fragmented(struct page_pool *pp,
+ 				       struct mlx5e_frag_page *frag_page)
+ {
+ 	netmem_ref netmem = page_pool_dev_alloc_netmems(pp);
++	u32 page_idx = 0;
+ 
+ 	if (unlikely(!netmem))
+ 		return -ENOMEM;
+ 
+ 	page_pool_fragment_netmem(netmem, MLX5E_PAGECNT_BIAS_MAX);
++	if (netmem_is_net_iov(netmem))
++		page_idx = net_iov_binding_idx(netmem_to_net_iov(netmem));
+ 
+ 	*frag_page = (struct mlx5e_frag_page) {
+-		.netmem	= netmem,
+-		.frags	= 0,
++		.netmem		= netmem,
++		.pp		= pp,
++		.page_idx	= page_idx,
++		.frags		= 0,
+ 	};
+ 
+ 	return 0;
+@@ -1572,19 +1577,92 @@ static void mlx5e_fill_mxbuf(struct mlx5e_rq *rq, struct mlx5_cqe64 *cqe,
+ 	mxbuf->rq = rq;
+ }
+ 
++static inline int mlx5e_knod_spsc_produce_defer(struct mlx5e_rq *rq,
++						struct knod_work_priv *wpriv,
++						struct spsc_bd **bd)
 +{
-+	if (r->pool_page) {
-+		__free_pages(r->pool_page, r->pool_order);
-+		r->pool_page = NULL;
-+	}
-+	kfree(r->slots);
-+	r->slots = NULL;
-+}
-+
-+/* ================================================================== */
-+/*  Status helpers                                                     */
-+/* ================================================================== */
-+
-+static inline unsigned int spsc_capacity(const struct spsc_ring *r)
-+{
-+	return r->mask + 1;
-+}
-+
-+static inline unsigned int spsc_elem_size(const struct spsc_ring *r)
-+{
-+	return r->elem_stride;
-+}
-+
-+/** spsc_count - total unconsumed entries (including acquired) */
-+static inline unsigned int spsc_count(const struct spsc_ring *r)
-+{
-+	/* acquire head so a concurrent producer's slot writes are observed */
-+	return smp_load_acquire(&((struct spsc_ring *)r)->head) - r->tail;
-+}
-+
-+static inline bool spsc_empty(const struct spsc_ring *r)
-+{
-+	return spsc_count(r) == 0;
-+}
-+
-+static inline bool spsc_full(const struct spsc_ring *r)
-+{
-+	return spsc_count(r) > r->mask;
-+}
-+
-+/** spsc_pending - entries acquired but not yet released */
-+static inline unsigned int spsc_pending(const struct spsc_ring *r)
-+{
-+	return r->acquired - r->tail;
-+}
-+
-+/* ================================================================== */
-+/*  Producer API  (single thread only, shared by both modes)           */
-+/*                                                                     */
-+/*  Two-phase produce:                                                 */
-+/*    1) spsc_produce()        -> get pointer to free element           */
-+/*    2) caller writes data                                            */
-+/*    3) spsc_produce_commit() -> publish to consumer                   */
-+/*                                                                     */
-+/*  Or one-shot: spsc_push() for pre-filled elements.                  */
-+/* ================================================================== */
-+
-+/**
-+ * spsc_produce - reserve one slot and return its element pointer
-+ * @r:   ring buffer
-+ * @out: receives pointer to the element to write into
-+ *
-+ * The slot is NOT yet visible to the consumer.  Caller must write
-+ * data into *out and then call spsc_produce_commit().
-+ *
-+ * Returns 0 on success, -ENOSPC if full.
-+ */
-+static inline int spsc_produce(struct spsc_ring *r, void **out)
-+{
-+	unsigned int head = r->head;
++	struct spsc_ring *r = &wpriv->spsc_bds;
++	unsigned int head;
 +	unsigned int tail;
 +
-+	/* acquire tail to observe the slots the consumer has released */
++	if (unlikely(!rq->knod_spsc_prod_valid)) {
++		rq->knod_spsc_prod_head = READ_ONCE(r->head);
++		rq->knod_spsc_prod_valid = true;
++	}
++
++	head = rq->knod_spsc_prod_head;
++	/* acquire tail to observe the slots the GPU worker has released */
 +	tail = smp_load_acquire(&r->tail);
-+
-+	if (head - tail > r->mask)
++	if (unlikely(head - tail > r->mask))
 +		return -ENOSPC;
 +
-+	*out = r->slots[head & r->mask];
++	*bd = r->slots[head & r->mask];
++	rq->knod_spsc_prod_head = head + 1;
 +
 +	return 0;
 +}
 +
-+/**
-+ * spsc_produce_commit - publish the previously reserved slot
-+ * @r: ring buffer
-+ *
-+ * Must be called exactly once after each successful spsc_produce().
-+ */
-+static inline void spsc_produce_commit(struct spsc_ring *r)
++void mlx5e_knod_spsc_flush(struct mlx5e_rq *rq)
 +{
-+	/* wmb() (sfence on x86) is needed when the pool backing memory
-+	 * is mapped Write-Combining (e.g. GPU GTT).  WC stores are not
-+	 * ordered by x86 TSO, so smp_store_release (compiler barrier)
-+	 * alone cannot guarantee the element writes are visible before
-+	 * the head update reaches the consumer.
-+	 */
++	struct knod_work_priv *wpriv;
++	struct spsc_ring *r;
++	unsigned int head;
++
++	if (unlikely(!rq->knodev || !rq->knod_spsc_prod_valid))
++		return;
++
++	wpriv = &rq->knodev->wpriv[rq->ix];
++	r = &wpriv->spsc_bds;
++	head = rq->knod_spsc_prod_head;
++	if (head == READ_ONCE(r->head))
++		return;
++
++	/* drain WC descriptor stores before publishing the new head */
 +	wmb();
-+	/* release: publish the reserved slot; pairs with the head acquire */
-+	smp_store_release(&r->head, r->head + 1);
++	/* release: publish the produced descriptors to the GPU worker */
++	smp_store_release(&r->head, head);
 +}
 +
-+/**
-+ * spsc_produce_n - reserve up to @n slots
-+ * @r:   ring buffer
-+ * @out: destination array for element pointers
-+ * @n:   max slots to reserve
-+ * @cnt: out - number actually reserved (may be NULL)
-+ *
-+ * Caller must write data into each out[i] and then call
-+ * spsc_produce_commit_n(r, *cnt).
-+ *
-+ * Returns 0 on success, -ENOSPC if zero could be reserved.
-+ */
-+static inline int spsc_produce_n(struct spsc_ring *r, void **out,
-+				 unsigned int n, unsigned int *cnt)
-+{
-+	/* acquire tail to observe the slots the consumer has released */
-+	unsigned int tail = smp_load_acquire(&r->tail);
-+	unsigned int head = r->head;
-+	unsigned int free;
-+	unsigned int i;
+ static struct sk_buff *
+ mlx5e_skb_from_cqe_linear(struct mlx5e_rq *rq, struct mlx5e_wqe_frag_info *wi,
+ 			  struct mlx5_cqe64 *cqe, u32 cqe_bcnt)
+ {
+ 	struct mlx5e_frag_page *frag_page = wi->frag_page;
+ 	u16 rx_headroom = rq->buff.headroom;
++	struct knod_work_priv *wpriv;
+ 	struct bpf_prog *prog;
+ 	struct sk_buff *skb;
++	struct spsc_bd *bd;
+ 	u32 metasize = 0;
+ 	void *va, *data;
+ 	dma_addr_t addr;
+ 	u32 frag_size;
+ 
++	if (likely(rq->knodev)) {
++		wpriv = &rq->knodev->wpriv[rq->ix];
++		if (unlikely(mlx5e_knod_spsc_produce_defer(rq, wpriv, &bd))) {
++			mlx5e_knod_spsc_flush(rq);
++			mlx5e_rx_offload_act_handler(rq, false, INT_MAX);
++			if (mlx5e_knod_spsc_produce_defer(rq, wpriv, &bd)) {
++				rq->stats->buff_alloc_err++;
++				return NULL;
++			}
++		}
 +
-+	free = (r->mask + 1) - (head - tail);
++		bd->netmem = frag_page->netmem;
++		bd->pp = frag_page->pp;
++		bd->len = cqe_bcnt;
++		bd->off = wi->offset + rx_headroom;
++		bd->page_idx = frag_page->page_idx;
++		frag_page->frags++;
++		rq->stats->packets++;
++		rq->stats->bytes += cqe_bcnt;
++		pr_debug("mlx5_nod: spsc produce q=%d len=%u\n",
++			 rq->ix, cqe_bcnt);
 +
-+	n = min(n, free);
-+	if (n == 0) {
-+		if (cnt)
-+			*cnt = 0;
-+		return -ENOSPC;
++		return NULL;
 +	}
 +
-+	for (i = 0; i < n; i++)
-+		out[i] = r->slots[(head + i) & r->mask];
+ 	va             = netmem_address(frag_page->netmem) + wi->offset;
+ 	data           = va + rx_headroom;
+ 	frag_size      = MLX5_SKB_FRAG_SZ(rx_headroom + cqe_bcnt);
+@@ -2101,8 +2179,10 @@ mlx5e_skb_from_cqe_mpwrq_linear(struct mlx5e_rq *rq, struct mlx5e_mpw_info *wi,
+ {
+ 	struct mlx5e_frag_page *frag_page = &wi->alloc_units.frag_pages[page_idx];
+ 	u16 rx_headroom = rq->buff.headroom;
++	struct knod_work_priv *wpriv;
+ 	struct bpf_prog *prog;
+ 	struct sk_buff *skb;
++	struct spsc_bd *bd;
+ 	u32 metasize = 0;
+ 	void *va, *data;
+ 	dma_addr_t addr;
+@@ -2114,6 +2194,29 @@ mlx5e_skb_from_cqe_mpwrq_linear(struct mlx5e_rq *rq, struct mlx5e_mpw_info *wi,
+ 		return NULL;
+ 	}
+ 
++	if (likely(rq->knodev)) {
++		wpriv = &rq->knodev->wpriv[rq->ix];
++		if (unlikely(mlx5e_knod_spsc_produce_defer(rq, wpriv, &bd))) {
++			mlx5e_knod_spsc_flush(rq);
++			mlx5e_rx_offload_act_handler(rq, false, INT_MAX);
++			if (mlx5e_knod_spsc_produce_defer(rq, wpriv, &bd)) {
++				rq->stats->buff_alloc_err++;
++				return NULL;
++			}
++		}
 +
-+	if (cnt)
-+		*cnt = n;
-+	return 0;
-+}
++		bd->netmem = frag_page->netmem;
++		bd->pp = frag_page->pp;
++		bd->len = cqe_bcnt;
++		bd->off = head_offset + rx_headroom;
++		bd->page_idx = frag_page->page_idx;
++		frag_page->frags++;
++		rq->stats->packets++;
++		rq->stats->bytes += cqe_bcnt;
 +
-+/**
-+ * spsc_produce_commit_n - publish @n previously reserved slots
-+ * @r: ring buffer
-+ * @n: number of slots to publish (must match produce_n count)
-+ */
-+static inline void spsc_produce_commit_n(struct spsc_ring *r, unsigned int n)
-+{
-+	/* drain WC element stores before the head update (see commit above) */
-+	wmb();
-+	/* release: publish the reserved slots; pairs with the head acquire */
-+	smp_store_release(&r->head, r->head + n);
-+}
-+
-+/* ================================================================== */
-+/*  Mode 1: Sliding window consumer  (single thread only)              */
-+/*                                                                     */
-+/*    peek    -> read from acquired cursor, no cursor movement          */
-+/*    acquire -> advance acquired cursor, return element pointers       */
-+/*    release -> advance tail, slots become reusable by producer        */
-+/*    rewind  -> reset acquired back to tail                            */
-+/* ================================================================== */
-+
-+/**
-+ * spsc_peek - read element pointers from acquired cursor (read-only)
-+ * @r:   ring buffer
-+ * @out: destination array for element pointers
-+ * @max: max entries to peek
-+ * @cnt: out - number of entries peeked (may be NULL)
-+ *
-+ * Does NOT move any cursor.
-+ *
-+ * Returns 0 on success, -ENOENT if nothing to peek.
-+ */
-+static inline int spsc_peek(struct spsc_ring *r, void **out, unsigned int max,
-+			    unsigned int *cnt)
-+{
-+	/* acquire the producer's head; slots it published are now visible */
-+	unsigned int head = smp_load_acquire(&r->head);
-+	unsigned int acq = r->acquired;
-+	unsigned int avail;
-+	unsigned int i;
-+
-+	avail = head - acq;
-+	avail = min(avail, max);
-+
-+	if (avail == 0) {
-+		if (cnt)
-+			*cnt = 0;
-+		return -ENOENT;
++		return NULL;
 +	}
 +
-+	for (i = 0; i < avail; i++)
-+		out[i] = r->slots[(acq + i) & r->mask];
+ 	va             = netmem_address(frag_page->netmem) + head_offset;
+ 	data           = va + rx_headroom;
+ 	frag_size      = MLX5_SKB_FRAG_SZ(rx_headroom + cqe_bcnt);
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_txrx.c b/drivers/net/ethernet/mellanox/mlx5/core/en_txrx.c
+index 185105606469..10c2ffd93dab 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_txrx.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_txrx.c
+@@ -177,6 +177,51 @@ int mlx5e_napi_poll(struct napi_struct *napi, int budget)
+ 	if (likely(budget - work_done))
+ 		work_done += mlx5e_poll_rx_cq(&rq->cq, budget - work_done);
+ 
++	if (likely(rq->knodev))
++		mlx5e_knod_spsc_flush(rq);
 +
-+	if (cnt)
-+		*cnt = avail;
-+	return 0;
-+}
-+
-+/**
-+ * spsc_peek_at - peek starting at an offset past the acquired cursor
-+ * @r:    ring buffer
-+ * @skip: number of entries to skip past r->acquired
-+ * @out:  destination array for element pointers
-+ * @max:  max entries to peek
-+ * @cnt:  out - number of entries peeked (may be NULL)
-+ *
-+ * Lets the consumer stage a second batch past entries that have been
-+ * read by a previous peek but not yet committed via spsc_acquire.
-+ * Does NOT move any cursor.  The caller is responsible for tracking
-+ * the cumulative skip across staged batches; when those batches are
-+ * eventually released to the producer via spsc_acquire, pass the same
-+ * count so r->acquired catches up.
-+ *
-+ * Returns 0 on success, -ENOENT if nothing to peek at that offset.
-+ */
-+static inline int spsc_peek_at(struct spsc_ring *r, unsigned int skip,
-+			       void **out, unsigned int max, unsigned int *cnt)
-+{
-+	/* acquire the producer's head; slots it published are now visible */
-+	unsigned int head = smp_load_acquire(&r->head);
-+	unsigned int pos = r->acquired + skip;
-+	unsigned int avail;
-+	unsigned int i;
-+
-+	if ((int)(head - pos) <= 0) {
-+		if (cnt)
-+			*cnt = 0;
-+		return -ENOENT;
-+	}
-+
-+	avail = min(head - pos, max);
-+	for (i = 0; i < avail; i++)
-+		out[i] = r->slots[(pos + i) & r->mask];
-+
-+	if (cnt)
-+		*cnt = avail;
-+	return 0;
-+}
-+
-+/**
-+ * spsc_acquire - advance acquired cursor (step 1)
-+ * @r:   ring buffer
-+ * @out: destination array for element pointers, or NULL to skip
-+ * @max: max entries to acquire
-+ * @cnt: out - number acquired (may be NULL)
-+ *
-+ * Returns 0 on success, -ENOENT if nothing to acquire.
-+ */
-+static inline int spsc_acquire(struct spsc_ring *r, void **out,
-+			       unsigned int max, unsigned int *cnt)
-+{
-+	/* acquire the producer's head; slots it published are now visible */
-+	unsigned int head = smp_load_acquire(&r->head);
-+	unsigned int acq = r->acquired;
-+	unsigned int avail;
-+	unsigned int i;
-+
-+	avail = head - acq;
-+	avail = min(avail, max);
-+
-+	if (avail == 0) {
-+		if (cnt)
-+			*cnt = 0;
-+		return -ENOENT;
-+	}
-+
-+	if (out) {
-+		for (i = 0; i < avail; i++)
-+			out[i] = r->slots[(acq + i) & r->mask];
-+	}
-+
-+	/* Publish the window to the releasing consumer (a different CPU than
-+	 * this acquirer): pair with the smp_load_acquire() in spsc_release()
-+	 * so it cannot observe the advanced cursor before the element stores
-+	 * (e.g. an accel verdict) those slots now point at.
++	/* KNOD release can process thousands of completed verdicts and enqueue
++	 * XDP_TX MPWQEs. Refill RX WQEs first so the NIC is not left waiting
++	 * for descriptors while the release side drains. The normal post below
++	 * stays in place to publish pages recycled by this release pass.
 +	 */
-+	smp_store_release(&r->acquired, acq + avail);
++	if (likely(rq->knodev))
++		busy |= INDIRECT_CALL_2(rq->post_wqes,
++					mlx5e_post_rx_mpwqes,
++					mlx5e_post_rx_wqes,
++					rq);
 +
-+	if (cnt)
-+		*cnt = avail;
-+	return 0;
-+}
-+
-+/**
-+ * spsc_acquire_all - acquire all available entries
-+ */
-+static inline int spsc_acquire_all(struct spsc_ring *r, void **out,
-+				   unsigned int *cnt)
-+{
-+	return spsc_acquire(r, out, UINT_MAX, cnt);
-+}
-+
-+/**
-+ * spsc_release - get element pointers of acquired entries (release step 1)
-+ * @r:   ring buffer
-+ * @out: destination array for element pointers, or NULL to skip
-+ * @n:   number of entries to release (<= pending)
-+ * @cnt: out - number of entries prepared for release (may be NULL)
-+ *
-+ * Returns element pointers for the oldest @n acquired entries but
-+ * does NOT advance tail - the producer still cannot reuse these slots.
-+ * Caller processes the elements, then calls spsc_release_commit() to
-+ * actually free them.
-+ *
-+ * Returns 0 on success, -ENOENT if nothing to release.
-+ */
-+static inline int spsc_release(struct spsc_ring *r, void **out, unsigned int n,
-+			       unsigned int *cnt)
-+{
-+	unsigned int tail = r->tail;
-+	unsigned int pending;
-+	unsigned int i;
-+
-+	/* Pairs with smp_store_release(&r->acquired) in spsc_acquire(): once
-+	 * we see the advanced cursor we are guaranteed to see the element
-+	 * stores (e.g. the accel verdict) for the slots it exposes.
++	/* Drain SPSC bd ring + IPsec desc_ring unconditionally.
++	 * napi_schedule from the GPU finish_worker may wake us with
++	 * zero new CQEs, so act_handler (called per-CQE inside
++	 * poll_rx_cq) won't run.  Without this top-level call,
++	 * PASS/DROP-stamped bds are never recycled after traffic stops
++	 * and the SPSC ring fills up.
 +	 */
-+	pending = smp_load_acquire(&r->acquired) - tail;
++	if (likely(rq->knodev)) {
++		struct knod_work_priv *wpriv = &rq->knodev->wpriv[rq->ix];
++		struct napi_struct *napi;
 +
-+	n = min(n, pending);
-+	if (n == 0) {
-+		if (cnt)
-+			*cnt = 0;
-+		return -ENOENT;
++		work_done += mlx5e_rx_offload_act_handler(rq, true,
++							  budget - work_done);
++
++		/* KNOD direct XDP_TX keeps the RX netmem owned by the TX SQ
++		 * until the NIC reports TX completion.  The normal NAPI order
++		 * polls the XDP SQ before RX CQ processing, then the KNOD
++		 * release pass can enqueue and doorbell a large burst of
++		 * MPWQEs.  Poll once more here so completions that arrived
++		 * during RX/release processing are visible before the final
++		 * RX repost below.
++		 */
++		if (rq->xdpsq)
++			busy |= mlx5e_poll_xdpsq_cq(&rq->xdpsq->cq);
++
++		napi = READ_ONCE(wpriv->napi);
++		if (napi)
++			knod_dev_xdp_drain_pass(rq->knodev, napi, rq->ix,
++						budget);
 +	}
 +
-+	if (out) {
-+		for (i = 0; i < n; i++)
-+			out[i] = r->slots[(tail + i) & r->mask];
-+	}
-+
-+	if (cnt)
-+		*cnt = n;
-+	return 0;
-+}
-+
-+/**
-+ * spsc_release_commit - advance tail, free slots for producer (release step 2)
-+ * @r: ring buffer
-+ * @n: number of entries to commit (must match prior spsc_release count)
-+ *
-+ * After this call the producer may reuse these slots.
-+ */
-+static inline void spsc_release_commit(struct spsc_ring *r, unsigned int n)
-+{
-+	/* release: hand the consumed slots back to the producer */
-+	smp_store_release(&r->tail, r->tail + n);
-+}
-+
-+/**
-+ * spsc_release_all - get all acquired entries' pointers (release step 1)
-+ * @r:   ring buffer
-+ * @out: destination array for element pointers, or NULL to skip
-+ * @cnt: out - number of entries prepared for release (may be NULL)
-+ *
-+ * Convenience for spsc_release(r, out, pending, cnt).
-+ * Caller must still call spsc_release_commit(r, *cnt) afterward.
-+ *
-+ * Returns 0 on success, -ENOENT if nothing pending.
-+ */
-+static inline int spsc_release_all(struct spsc_ring *r, void **out,
-+				   unsigned int *cnt)
-+{
-+	return spsc_release(r, out, r->acquired - r->tail, cnt);
-+}
-+
-+/**
-+ * spsc_rewind - undo acquires, reset acquired cursor to tail
-+ */
-+static inline void spsc_rewind(struct spsc_ring *r)
-+{
-+	r->acquired = r->tail;
-+}
-+
-+/* ================================================================== */
-+/*  Mode 2: Simple push / pop  (single thread per side)                */
-+/*                                                                     */
-+/*  One-shot convenience wrappers.                                     */
-+/*  Do NOT mix with Mode 1 acquire/release on the same instance.       */
-+/* ================================================================== */
-+
-+/**
-+ * spsc_push - reserve, let caller fill, and publish in one shot
-+ * @r:   ring buffer
-+ * @out: receives pointer to the element to write into
-+ *
-+ * Unlike produce/commit, the slot is published immediately.
-+ * Caller must fill *out BEFORE this function returns if another
-+ * thread could consume it - but since this is SPSC with push/pop
-+ * the typical pattern is:
-+ *
-+ *   spsc_push(&r, &elem);
-+ *   fill(elem);            // safe: consumer hasn't seen it yet?
-+ *
-+ * NO - push publishes immediately.  Use produce/commit if you need
-+ * to fill before publishing.  push is an alias for produce+commit.
-+ *
-+ * Returns 0 on success, -ENOSPC if full.
-+ */
-+static inline int spsc_push(struct spsc_ring *r, void **out)
-+{
-+	int ret;
-+
-+	ret = spsc_produce(r, out);
-+	if (ret)
-+		return ret;
-+
-+	spsc_produce_commit(r);
-+	return 0;
-+}
-+
-+/**
-+ * spsc_pop - dequeue one element
-+ * @r:   ring buffer
-+ * @out: receives pointer to the consumed element
-+ *
-+ * The element pointer remains valid until the next spsc_push() or
-+ * spsc_produce() reuses that slot.
-+ *
-+ * Returns 0 on success, -ENOENT if empty.
-+ */
-+static inline int spsc_pop(struct spsc_ring *r, void **out)
-+{
-+	/* acquire the producer's head; slots it published are now visible */
-+	unsigned int head = smp_load_acquire(&r->head);
-+	unsigned int tail = r->tail;
-+
-+	if (tail == head)
-+		return -ENOENT;
-+
-+	*out = r->slots[tail & r->mask];
-+
-+	r->acquired = tail + 1;
-+	/* release: hand the consumed slot back to the producer */
-+	smp_store_release(&r->tail, tail + 1);
-+
-+	return 0;
-+}
-+
-+/**
-+ * spsc_pop_n - dequeue up to @n elements
-+ * @r:   ring buffer
-+ * @out: destination array for element pointers
-+ * @n:   max entries to dequeue
-+ * @cnt: out - number dequeued (may be NULL)
-+ *
-+ * Returns 0 on success, -ENOENT if empty.
-+ */
-+static inline int spsc_pop_n(struct spsc_ring *r, void **out, unsigned int n,
-+			     unsigned int *cnt)
-+{
-+	/* acquire the producer's head; slots it published are now visible */
-+	unsigned int head = smp_load_acquire(&r->head);
-+	unsigned int tail = r->tail;
-+	unsigned int avail;
-+	unsigned int i;
-+
-+	avail = head - tail;
-+	n = min(n, avail);
-+
-+	if (n == 0) {
-+		if (cnt)
-+			*cnt = 0;
-+		return -ENOENT;
-+	}
-+
-+	for (i = 0; i < n; i++)
-+		out[i] = r->slots[(tail + i) & r->mask];
-+
-+	r->acquired = tail + n;
-+	/* release: hand the consumed slots back to the producer */
-+	smp_store_release(&r->tail, tail + n);
-+
-+	if (cnt)
-+		*cnt = n;
-+	return 0;
-+}
-+
-+#endif /* _SPSC_RING_H */
-diff --git a/include/uapi/linux/knod.h b/include/uapi/linux/knod.h
-new file mode 100644
-index 000000000000..57602685c14e
---- /dev/null
-+++ b/include/uapi/linux/knod.h
-@@ -0,0 +1,67 @@
-+/* SPDX-License-Identifier: ((GPL-2.0 WITH Linux-syscall-note) OR BSD-3-Clause) */
-+/* Do not edit directly, auto-generated from: */
-+/*	Documentation/netlink/specs/knod.yaml */
-+/* YNL-GEN uapi header */
-+/* To regenerate run: tools/net/ynl/ynl-regen.sh */
-+
-+#ifndef _UAPI_LINUX_KNOD_H
-+#define _UAPI_LINUX_KNOD_H
-+
-+#define KNOD_FAMILY_NAME	"knod"
-+#define KNOD_FAMILY_VERSION	1
-+
-+enum knod_feature {
-+	KNOD_FEATURE_NONE,
-+	KNOD_FEATURE_BPF,
-+	KNOD_FEATURE_IPSEC,
-+};
-+
-+enum knod_accel_type {
-+	KNOD_ACCEL_TYPE_GPU,
-+	KNOD_ACCEL_TYPE_DPU,
-+};
-+
-+enum {
-+	KNOD_A_ACCEL_ID = 1,
-+	KNOD_A_ACCEL_NAME,
-+	KNOD_A_ACCEL_TYPE,
-+	KNOD_A_ACCEL_FEATURE_CAP,
-+	KNOD_A_ACCEL_FEATURE_ENA,
-+
-+	__KNOD_A_ACCEL_MAX,
-+	KNOD_A_ACCEL_MAX = (__KNOD_A_ACCEL_MAX - 1)
-+};
-+
-+enum {
-+	KNOD_A_NIC_IFINDEX = 1,
-+	KNOD_A_NIC_NAME,
-+
-+	__KNOD_A_NIC_MAX,
-+	KNOD_A_NIC_MAX = (__KNOD_A_NIC_MAX - 1)
-+};
-+
-+enum {
-+	KNOD_A_DEV_NIC_IFINDEX = 1,
-+	KNOD_A_DEV_ACCEL_ID,
-+
-+	__KNOD_A_DEV_MAX,
-+	KNOD_A_DEV_MAX = (__KNOD_A_DEV_MAX - 1)
-+};
-+
-+enum {
-+	KNOD_CMD_ACCEL_GET = 1,
-+	KNOD_CMD_ACCEL_SET,
-+	KNOD_CMD_NIC_GET,
-+	KNOD_CMD_ATTACH,
-+	KNOD_CMD_DETACH,
-+	KNOD_CMD_DEV_GET,
-+	KNOD_CMD_DEV_ADD_NTF,
-+	KNOD_CMD_DEV_DEL_NTF,
-+
-+	__KNOD_CMD_MAX,
-+	KNOD_CMD_MAX = (__KNOD_CMD_MAX - 1)
-+};
-+
-+#define KNOD_MCGRP_MGMT	"mgmt"
-+
-+#endif /* _UAPI_LINUX_KNOD_H */
+ 	busy |= work_done == budget;
+ 
+ 	mlx5e_poll_ico_cq(&c->icosq.cq);
 -- 
 2.43.0
 
