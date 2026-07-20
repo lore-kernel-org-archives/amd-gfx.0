@@ -4,44 +4,63 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A299C4451C
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 07:22:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96903C4452B
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 07:22:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1920E10E6C8;
-	Tue, 21 Jul 2026 07:22:13 +0000 (UTC)
-X-Greylist: delayed 696 seconds by postgrey-1.36 at gabe;
- Mon, 20 Jul 2026 12:43:57 UTC
-Received: from h6.fbrelay.privateemail.com (h6.fbrelay.privateemail.com
- [162.0.218.229])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 79DF810E902;
- Mon, 20 Jul 2026 12:43:57 +0000 (UTC)
-Received: from MTA-10-3.privateemail.com (mta-10.privateemail.com
- [198.54.118.218])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by h5.fbrelay.privateemail.com (Postfix) with ESMTPSA id 4h3fzQ5K5jz2xjv;
- Mon, 20 Jul 2026 12:32:18 +0000 (UTC)
-Received: from mail.privateemail.com (K8S-PROD-WORKER-10 [142.188.184.102])
- by mta-10.privateemail.com (Postfix) with ESMTPA id 4h3fzD0NJlz3hhTX;
- Mon, 20 Jul 2026 08:32:07 -0400 (EDT)
-Date: Mon, 20 Jul 2026 08:32:04 -0400
-From: Hamza Mahfooz <someguy@effective-light.com>
-To: LetsDank <ichi2209@icloud.com>
-Cc: Leo Li <sunpeng.li@amd.com>, Mario Limonciello <superm1@kernel.org>,
- Harry Wentland <harry.wentland@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 2/2] drm/amd/display: add DMU timeout recovery support
-Message-ID: <al4VRK6IAYLPSm3c@hal-station.localdomain>
-References: <20260505182105.420525-1-someguy@effective-light.com>
- <20260505182105.420525-2-someguy@effective-light.com>
- <178429570497.694276.1089609041510474786.dmub-recovery-v6-test@icloud.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DD9D10E6CC;
+	Tue, 21 Jul 2026 07:22:15 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="X6t28ym+";
+	dkim-atps=neutral
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
+ [136.143.188.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DB2F10E912;
+ Mon, 20 Jul 2026 13:04:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1784552660; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=ehHzSpYz0V8EqhdM6EaBEumDPGR8sGmdS4JCTGmnlybjizGiVLuY6BG48JZFwiopfrn1xAoX5nMkONF4+4GDcw8YYDC1srZoA31xKfhXN/D49sVE/KBqn69UL0JHIv/9porcqQGi+1ypeeoMnbpSsfQcHzSlBgDd5mNOLRaHlxA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1784552660;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=HN6kXcysOJTr101hpnG7NcuN/66ELXnKkFR6JHIY2pk=; 
+ b=cKPVZKlH/AhN7djjCHYWlH25lEpgA4afBBKsuDb6hv7wfPnIlYsyzPGzJcBEot2CJ7D1TG+ZSoEq4KF/XDd4GLpAk9JGy611AW9fnpiaL7HIaGYqz5E7LQ6f4f7TSGrA1BqOMqw8wiZtyE7GNZ35aHCOwVK/lqIz6qyRUZmRWVQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784552660; 
+ s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
+ bh=HN6kXcysOJTr101hpnG7NcuN/66ELXnKkFR6JHIY2pk=;
+ b=X6t28ym+Q1c2Hgiw1gNAGYOUlvwWeGIMnUZgR5ERmumVio2zJYE5uusYgKFz/nR1
+ VNH9sr5uv5f1nAz0MJR96qf7hIg2xFmE6m8dBHMHsJJu0DNGMPwW05noTrzFESgEeCg
+ Iml1oMvyDB5i5TCDUCuFtTEdn+WTLRLUOJXLGSrY=
+Received: by mx.zohomail.com with SMTPS id 1784552658856490.3691525909395;
+ Mon, 20 Jul 2026 06:04:18 -0700 (PDT)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Mon, 20 Jul 2026 15:03:57 +0200
+Subject: [PATCH] drm/amd/display: Remove redundant AUTO color format
+ handling in else
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178429570497.694276.1089609041510474786.dmub-recovery-v6-test@icloud.com>
-X-Rspamd-Queue-Id: 4h3fzQ5K5jz2xjv
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260720-color-format-amdgpu-fix-v1-1-4ec896bb1531@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NwQqDMBBEf0X23IXVgqK/UnqIyWq3NMZuYhHEf
+ 2+sPb5hZt4GkVU4QldsoPyRKGHKUF4KsA8zjYziMkNFVU1NRWjDKygOQb1JaLwb5wUHWZFaQ9e
+ Sats6A3k9K+f493y7nxyX/sk2HXf/hvJ7ycp01qA3kbPAe0ld4dSjl2hx4jXh4UdqsKzhvu9fs
+ hhtXrcAAAA=
+X-Change-ID: 20260720-color-format-amdgpu-fix-09a03106c9da
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Daniel Stone <daniel@fooishbar.org>, 
+ Marius Vlad <marius.vlad@collabora.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Dan Carpenter <error27@gmail.com>, 
+ kernel@collabora.com, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Tue, 21 Jul 2026 07:22:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,57 +76,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 17, 2026 at 04:41:44PM +0300, LetsDank wrote:
-> Hi,
-> 
-> I have been seeing what appears to be the same failure on an MSI Bravo
-> 15 C7VF with a Ryzen 5 7535HS / Rembrandt Radeon 660M (1002:1681), an
-> internal 1920x1080 144 Hz eDP panel, and KDE X11. It occurred on Fedora
-> kernels 6.19 and 7.1.3. The relevant signatures included:
-> 
->   flip_done timed out
->   commit wait timed out
->   Error queueing DMUB command: status=2
-> 
-> Using amdgpu.dcdebugmask=0x810 has avoided the failure for more than 53
-> hours across four boots, including one continuous run longer than 27
-> hours.
-> 
-> I built this v6 series on top of v7.2-rc3 and booted it with:
-> 
->   amdgpu.dcdebugmask=0 amdgpu.gpu_recovery=1
-> 
-> It passed five DPMS off/on cycles, five modeset cycles between 60 Hz and
-> 144 Hz, and a short fullscreen rendering test. It then ran a normal KDE
-> X11 workload for about 12.5 hours without any DMUB queue-full, DMCUB, or
-> page-flip timeout message.
-> 
-> The original intermittent timeout did not occur during that run, so I
-> cannot offer a Tested-by for the recovery path.
-> 
-> After about 12.5 hours the test kernel hit a separate gfxhub VM page
-> fault attributed to Xorg, followed by a gfx_0.0.0 ring timeout and a
-> successful ring reset. Mesa then aborted Xorg. There were no DMUB,
-> DMCUB, or flip timeout messages in that incident. I preserved the full
-> AMDGPU devcoredump and symbolized userspace coredumps if they would be
-> useful as a separate report.
-> 
-> Patch 1 also needed a small API adaptation on v7.2-rc3 from
-> drm_atomic_state and drm_atomic_state_*() to drm_atomic_commit and
-> drm_atomic_commit_*(). The resulting kernel built cleanly, and all three
-> commits passed checkpatch.pl --strict. I can send that fixup if it would
-> help with a respin.
-> 
-> Is this series still being worked on, and would testing a revised version
-> on this Rembrandt system be useful?
+The AUTO connector color format is handled in the earlier branches for
+both RGB and YUV420. The repeated check in the else branch is therefore
+redundant.
 
-I haven't had much time to work on this, though if you look at the
-previous thread [1] the whole idea around having a recovery path for KMS
-was NACKed by Ville. So, it doesn't appear to me that there is much of
-an appetite for this.
+Remove it to make the code less confusing to read.
 
-[1] https://lore.kernel.org/r/afuMqXoBt2oIFRm9@intel.com/
-> 
-> Regards,
-> LetsDank
-> 
+Reported-by: Dan Carpenter <error27@gmail.com>
+Closes: https://lore.kernel.org/r/alCcJmDeIYEE94Eh@stanley.mountain/
+Fixes: 8a0343b03b98 ("drm/amdgpu: Implement "color format" DRM property")
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 88f938a8f24f..ea277c991234 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -854,12 +854,7 @@ static void fill_stream_properties_from_drm_display_mode(
+ 		 * error bubbles up to userspace. This way, userspace knows it
+ 		 * needs to make a better choice.
+ 		 */
+-		if (connector_state->color_format != DRM_CONNECTOR_COLOR_FORMAT_AUTO)
+-			timing_out->pixel_encoding = PIXEL_ENCODING_UNDEFINED;
+-		else if (drm_mode_is_420_only(info, mode_in))
+-			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+-		else
+-			timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
++		timing_out->pixel_encoding = PIXEL_ENCODING_UNDEFINED;
+ 	}
+ 
+ 	timing_out->timing_3d_format = TIMING_3D_FORMAT_NONE;
+
+---
+base-commit: e6a72e9b927165081566252d972ea1cbbee5bf28
+change-id: 20260720-color-format-amdgpu-fix-09a03106c9da
+
+Best regards,
+--  
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+
