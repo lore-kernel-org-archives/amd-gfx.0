@@ -4,97 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2942EC44515
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 16:17:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0766CC44520
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 17:28:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B683510E9F6;
-	Mon, 20 Jul 2026 16:17:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5E73B10E9DD;
+	Mon, 20 Jul 2026 17:28:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iYXIif06";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="l5JYLhGA";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013057.outbound.protection.outlook.com
- [40.93.196.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B174D10E9E5
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jul 2026 16:17:02 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012071.outbound.protection.outlook.com [52.101.43.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA4B110E9DD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jul 2026 17:28:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PQMO+/XQ0UVrakaLHxxmgQJ4ENQkdmWfMDxcOvvxARaRZmkOjRldNSZEWNl8QBThc0l1HVZwctPs367Ic/C1a/1bFe72y3agVCTwP97tyQL3IuoG9PkTllgyUQKBNS8pzijOF891IgzFj7uo6Kbl6SKflHUE7Zkeds2GtqIopW1vYPK+vDl7TVdS4gV6EZ8dw37M7faxSsgUNOmekxP6yyoH5wK7EJMIV6Z/r+ZnOLB2N0SmFO97Etqv++NTFXtwIultXbUVTz4KoJoTQ//L46XHjA1WxbNnabWTatWh2w4OBU/jkMwKcIGbDt3/YQlgab2bgQDgAlJqdMn8Xe8onA==
+ b=as33zaKuiXItk25/xqAHgAEvF+EDNjoPJJq16jaCrfXyxhCFcTPF6kA+xoGbpd/XsVGy6wfqIyRL7xQpaURq31o7Zxu+PXpdLvEmUIc31T4n2mFWOi5y3b07G3IXZISuNvnoTiyGSWPsggP0b1WVfqhFABE7Ls8RuACoSBtcDTV3AFln7xMb3OjZrxXpATSoH9GyCe1fMNERvCd4pdAIKcfS7946t5ThTB/ZSiNbKeVSJdOAUFjGEGAfHsSzcTVryyRNIUlt4Yljx4RT4um8l5rjaOnOWSp2bTFbuEwt1MDk6nh6AneSUmps3nMT28cCpB78hJ/sKNHwUQm9gflBmA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SDe/t37fHrdK1zb2HBKzKrYTtjnYSSodr9MH0gfnK3o=;
- b=duNDVft3B+VKq3QjhviRhN9CLxriD/xOsitNQxFEOP+x+JXGwDEJNXWl7lch10s1zhfpk0XPgHJKzf5pyEazoK3uTw79dFctf1IrYhKO6irinZcf3PNeF7dD/Nv+8p+RCC6sIwUu0oBD05ekZNKDGXC2JY/STmasXFCHADGwiITe40KIgNleRp4qeX5lH1nQZCx9tX8AgsweTdNeFeZ4E+l2/Nm5JWOnRL0t+98vISTQR6YNqJawa8Hgcntzo9mPb0stPguLk/OqQGSzsGOSwfKLbnLU4s5LgMICY1r3rP22oeaSlzk8LMFRG1K7eK3dEDd3JHTNKnqnHaN6cW6CSA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=ga7kjd2NShChguP2OyutJswHzZjMh8REQj3VMHJWg5k=;
+ b=GuIA+ZJWEFktLOJgMUvo9creB5cE/4Z+gPGtg3fQ9KbipvY89Yk9bxpdOLL9j6oRG6mBiLpohT6zgQH5VKtSZiSTMSpYGdn+XIuU8p3zdsaqvrrl9OX9ed3WwL27gMefr+XEqTX14OiUkGwXgU+9QK58O1XiJYCe7c9YdpIpWDrk2Zd2T9VYUXIbHOXFvhwt9uHMsDvWstuJ9MLe4Q5v2eGhExWQWPDfNJUVi5FZzC0cfbWkyRHrnZR+zCoVIZ4N543AmqZ9Npo1yTpVZrG9RnCEfhZJdEUzEUEYvMYThkW6mm+E7Pkb1uslWhW3GT8HG5IJ27TnPN8HEf6b4BWs/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SDe/t37fHrdK1zb2HBKzKrYTtjnYSSodr9MH0gfnK3o=;
- b=iYXIif06yOKHOhKhA2g1AeWS7ZvtxMrzwgKi7jINMjz9j1uEtVmPK+tYw9nXCKCKFTrYT06L3EzcljMV5aofcewiHgXqlYev7HafSaaQgER/0tTh0I1YhYwqU1VM/H3yL3GefsGpUJLPho8MzFk5k8a1rsMwL8/21ds5A7AfjcU=
-Received: from CY5PR18CA0006.namprd18.prod.outlook.com (2603:10b6:930:5::15)
- by PH0PR12MB999089.namprd12.prod.outlook.com (2603:10b6:510:38e::17) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=ga7kjd2NShChguP2OyutJswHzZjMh8REQj3VMHJWg5k=;
+ b=l5JYLhGA49blj/iKJPMp2cDz7lr/+BMA2o+tXoahp4f618T3y41IolUMtoq2Pfo3bPjUgUMNM2HjcqG8AMHdl6Z3+TiKaX08JNin1fq9tu96sKfB8+LebaR1UESZ2GSzqR8Uq7UqbazFIMAdw3IefRRS8tTGqwfhCoePfqmbOjo=
+Received: from BL1PR12MB5898.namprd12.prod.outlook.com (2603:10b6:208:396::7)
+ by IA0PR12MB7697.namprd12.prod.outlook.com (2603:10b6:208:433::19)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Mon, 20 Jul
- 2026 16:16:58 +0000
-Received: from CY4PEPF0000EE37.namprd05.prod.outlook.com
- (2603:10b6:930:5:cafe::17) by CY5PR18CA0006.outlook.office365.com
- (2603:10b6:930:5::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.18 via Frontend Transport; Mon,
- 20 Jul 2026 16:16:57 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000EE37.mail.protection.outlook.com (10.167.242.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.245.5 via Frontend Transport; Mon, 20 Jul 2026 16:16:56 +0000
-Received: from alysaliu-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 20 Jul
- 2026 11:16:55 -0500
-From: William Palacek <William.Palacek@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Kent.Russell@amd.com>, <Alysa.Liu@amd.com>,
- <Harish.Kasiviswanathan@amd.com>, <William.Palacek@amd.com>
-Subject: [PATCH] drm/amdkfd: allow CWSR grace period of 0 on supported firmware
-Date: Mon, 20 Jul 2026 12:15:52 -0400
-Message-ID: <20260720161552.744674-1-William.Palacek@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE37:EE_|PH0PR12MB999089:EE_
-X-MS-Office365-Filtering-Correlation-Id: 290d8f6d-fafe-4dba-c709-08dee67a51c2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|56012099006|11063799006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: t14VjGigLFBQO95UA4s1WGanzyeCNkeHmYX3w5XcTy+0q3zaEG8mk6ma0eHRHk3RWt8nVMDJbpMIAxUNxWhbVI7Q/ECxzoY+NM22UTwL2AmoBcjaAxSnvsbsXbnZ9KxwUtJF0GHjIsMt59yU5h6lr+o95NbSGic2nZ3lgV0c4Z00eH+gDkBkpdqMAd+97SzZeZHDnIvCazjKdkH26e3vP3rlprrjG83ZwnSw2f9kP68hZUdLeqQNNJ/+AmjZvmwMhsdldj0zpEnmHa8jkjsL3b6E/tQM4YpOWdpmPvIMM25OWADJA7r/c+3qR/jz+az89PR+iPP6AnTFhQME4RYJp12L4bzupaZc71TbSTVY9XwVeghVHEXx1/A8N4DrZoYtEWjobvVtsfm17Stba0+bcYZTbkNYVB0HYMv5BYUJWTaU/RJ1na3jYChjIFK5clUuzc6XYgNUYS1xB0Ce8h5bDzBv1P9if5yu2wMQh8PC5MXjzUc5bLww7g1rx8aLEhFq31QEvNdHBc42TOl6ftEz4HFEFdGnM+xhGeYhSRFHUZPaWdRcVikL33Ex628LStzVu4zdC0NmoyfFmcYRy8YxWscjx7v/8BkldX0tUoyniFlofWD/KjBi3TdJs/Pes524x8UaFQhBz22rgnGw24YHNEVwyHzU7S8izYDVi6ophDYHqqibPy8OQKVQHmkB+Nci8uaXxMmmb/D+TmF8q3XTkQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(56012099006)(11063799006)(10067099003)(18002099003);
+ 2026 17:28:44 +0000
+Received: from BL1PR12MB5898.namprd12.prod.outlook.com
+ ([fe80::914d:6a80:1477:4ed0]) by BL1PR12MB5898.namprd12.prod.outlook.com
+ ([fe80::914d:6a80:1477:4ed0%5]) with mapi id 15.21.0223.017; Mon, 20 Jul 2026
+ 17:28:44 +0000
+From: "Russell, Kent" <Kent.Russell@amd.com>
+To: "Ba, Gang" <Gang.Ba@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdkfd: Fix missing authorization check in
+ KFD_IOC_DBG_TRAP_DISABLE
+Thread-Topic: [PATCH] drm/amdkfd: Fix missing authorization check in
+ KFD_IOC_DBG_TRAP_DISABLE
+Thread-Index: AQHdGFzYlb1xj9cu9UC2EkbjP5s2pLZ2qaOQ
+Date: Mon, 20 Jul 2026 17:28:43 +0000
+Message-ID: <BL1PR12MB58984ED153E63A5C8C68BB9385C32@BL1PR12MB5898.namprd12.prod.outlook.com>
+References: <20260720153112.53712-1-Gang.Ba@amd.com>
+In-Reply-To: <20260720153112.53712-1-Gang.Ba@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-20T17:28:30.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5898:EE_|IA0PR12MB7697:EE_
+x-ms-office365-filtering-correlation-id: 22fcbbc8-4c02-43ea-3c1d-08dee6845939
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|23010399003|18002099003|22082099003|38070700021|10067099003|56012099006|11063799006;
+x-microsoft-antispam-message-info: Sz5AAyIO+ZAP8FloWYzU56QNxKv6tY+EOK70t1XGjGe3sHUI719ia8WiPBXE5yw/w3n62lh7OdtBMTClMQWH9VdFpQ+HmE3N54GC/0wCUCXfh5Os1DAYCtKDA54iYEMnZpohQzrG7RauhB/cvC9t86L5Cu2gx6dRQG4MvLkiO/dHyxBo1NCcT+xWPUcXLXmbRqQ7QE7++TLkgaFueGu3WNqBbY1EUCjO/Kibzuj8DmKh0nyXFxpTn+vu9aB9P+QGVv0tSzE9klzt7vMmqeA5EZPR9jih+sj5w3aWf1JK1ZHmKaI2q1LjgRH+WxNUQSliuHHnsebj12tPN+rIe195dsb5hqwpB7Od2wnI2BWdAAVSHbQpYuwFXvrge2HStB+IggId8F178vesEhWCGRPIetSYIP6gUIBttC4sgYMh0Kd4O6wQBoxHRrUUPsFbWMN7KjWOE9zSq1O8buWcaG9G4jkC02EtJ88ENUkLkkhXtfKuWOvLE+r2y3rpqpkzYReD1c0Ajx8kWqV+bk+WxFM/XS4uBGDpb2/QLyAuocRCF9J9A8TU5go47ZwGvahJeza0ghWdxrKFYfeZ0dzukhMRad1on3QCcV5px7RxUlfGVrklqOUE33svilOm74RtCbXMvjlTVY7sPmNkMIMppwtD2qrLV2+Tq70i1gWGjxhTfHMGyBQr5MEGwebX6qeptlOwecpWpuG4LuvSgDUC0OpkmQq7K55bghJeHhU1v84X7dk=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5898.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(38070700021)(10067099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 2X3fjNgE/HSVngKZF3rYYpWMB4eFORkBPHR2/ZQUh7PdyozbEUYRbv7FAp5Oqh/qwHIovAyN8Ama0CHqmVFgQmr2qJ//+lejVyefmAGsdWspVxkY5LlYTkbDL9QeU3WfoBlacdwr3HX5S4XmKvT/jltCgkfj+oKRoUmmNwSkuKo7c7vDVMuklPeXrqaSn3risH0aR12OeVjcaQGCft6B4ur5DXYuJ/LEleUmkjTe5I75t7xcXam4I6i1tYDOHd+MSaWuLh/rcxj139eMa7Fk2Jda/YOtfqlSOTYsdu01Rk8IL9xrfupfCVHBrSBBzgJ0L2w7h+O3nZe8nzYoFPiJkvSkRiYZ2Kc+YWZqsot17OeKMXohtwHTlbiEgzD3r2LDae21UkO1WkjZc9/qaRkZorFjt3ykOZnBDnXmEE7upyINXGJsfFNErfjc8E1X331A
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?QJrQposPZ8PPj68uWHg5vNV4pCOwXe8vmrSrGQtKffxjjxWVbxLpnBEPHgN+?=
+ =?us-ascii?Q?mzOPvjET3Q02SZOUrprnzmFJmxNkadNgZ4EEocW1UrQwdvGi07tVI7aWflQh?=
+ =?us-ascii?Q?IWTdJ7s5xB+Bojmm9d+siNgHy1obSXTSSfOKCLu3pmvDAyJAi7aWSN4+T0ZD?=
+ =?us-ascii?Q?m1OHnMgMEEVt3sZPzEMXyLKqBKzv09uwhl2OApwX9CtpWfKjEluCXTwxZzTl?=
+ =?us-ascii?Q?ferDg6MIgbppxZ7knRR8w2y+Xi3n8E8WxcN0fHJ8+JjGGwRO/mN1Nh7Qql7L?=
+ =?us-ascii?Q?fs+m6JLOPemDk/kLBAylVaVo/SWi/l7L/Uu//Z3PkBPld7iAdp2Li/P2uv8M?=
+ =?us-ascii?Q?lhE9y9WH8LJG03Lz3nQNFPkWJYMOWRjrsdMhrJYG/kBSawrxYxZ5wq1OB6i0?=
+ =?us-ascii?Q?0fGozfWIaRUBQkzLAJhnpIINlsRSEABGdVYSMuygwD7426zdljFE+m7Bb+jn?=
+ =?us-ascii?Q?Xqfyqsg9Bp5WzggnhBAShG6qX9ObxE0GTSzsWA3leLS+S6ka48mnVN2KNEH7?=
+ =?us-ascii?Q?4Pfh8j1+DPmvnC868/+xCGmdYD2eA4lYtUEadcJ+mVHkWhHx24lnQNLNa2hO?=
+ =?us-ascii?Q?uy2LYAVKTAeQp8CWWc4jP/ukSGQwBJu5JGoAhyun1mCj34ZV8m3AgfosSOei?=
+ =?us-ascii?Q?Q5OKvFvTFvJS5apOOdrTtsamiMsBNlZ32jpDjVDILxGyvw9C9tHw4mFc1yRX?=
+ =?us-ascii?Q?q1n/fq2bmSF9EDjq8vXN1KcjpEkG28nUUY2LZeTkarCBe5C6wpE7Rs2C1aHS?=
+ =?us-ascii?Q?lWFa4YfkTLmkPEeiMMdD/y+oHWFn0vlxSea2q8RwQVp9lWLt3kNQXYPzP2yU?=
+ =?us-ascii?Q?bdLHd0eXHOmc9tWuWSgVrYH0YoIczoldw9shzo92gNZDdNSSiw82C+D0E615?=
+ =?us-ascii?Q?uBSno53P4GUeaekxnmrdV/l82zdFgqXwgQnL1O11eecSKADyst6hq7XcyxZM?=
+ =?us-ascii?Q?pKHD8xExltMIoNKnNGm+1RTA7XUNAtMV1TLyYtsmlce9v2KUuK/V+/WMuGPg?=
+ =?us-ascii?Q?12U6PzOtdHzFpOv86xZKCp/jqMElUJv6dMx7dxQGFbxNu8nwa9LyMpHjiuDX?=
+ =?us-ascii?Q?CZFoHpEAKXRTmWkSp9w2UXb6s27oIJbyw+0VZgSX/Rc3ejsiE2rQn0ijSvDa?=
+ =?us-ascii?Q?dm9RETVGbtcxfmhr9svizb3A8XDNF7Ph2RbOkXfhA81OFgB2BdDBw9Pw1G/1?=
+ =?us-ascii?Q?FYe7wMcikAwkfSD9t4xZKdxQBdGXfcNd/5Pflyeo5y5OT4dIXaETYUE6TSyN?=
+ =?us-ascii?Q?oGwno2Vuy4HhqBFqDhgqRJxgL2jfiLwOnuuUNIiQ2oQYm2T178vEI1tRWO7q?=
+ =?us-ascii?Q?Y3kHQkv4AKv545FQa0qW+RbGQtQJk7hOgzj5qcubAtgCRG0Jw8Xb4uVtbTaV?=
+ =?us-ascii?Q?g8Rwwfb6Y4JIUuYwD+wVeYOhUL2Tj0c0YdsD2QHT/HwZplUloXbz+8yGi4W8?=
+ =?us-ascii?Q?gmGdnGAS539b1WCqAVii3n/anIDWR3sQKyVCsk+9fwows1PHNJ4k8EQF0Dr0?=
+ =?us-ascii?Q?ROhymC+hlE7buf5W4Bj08sPNRFSiRqcoqGgGGYW+bhZcaa7zVT6FSjbSiDZt?=
+ =?us-ascii?Q?0Cded2ykZYTNMQiePgwKd1pWslu+nkfCUics78YrzMldOkFYqcFAYNOA/okH?=
+ =?us-ascii?Q?zENGHT8NqiQRoJQIfPzGF3ke8i40+WKgy0xTkWLfKYnlscx9D2EEjle6ywgF?=
+ =?us-ascii?Q?5S0ASuRM2C7dtvdToCvyxQLG7y7uu43Okr+QAG59Sgr4D4it?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 16:16:56.4407 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 290d8f6d-fafe-4dba-c709-08dee67a51c2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE37.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB999089
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5898.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 22fcbbc8-4c02-43ea-3c1d-08dee6845939
+X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jul 2026 17:28:44.0154 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: veJBHbfXiTAkRtZKi+s+Kjsd+WtXQq9qfWGrn1KXQQU/UIL1m7+lxmKPWb65KjEq5wAP5bGH+zBj07ALlwNo0Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7697
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,107 +132,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The debugger sets the CWSR grace period via AMDKFD_IOC_DBG_TRAP and may
-request a value of 0. An earlier change clamped 0 to 1 unconditionally
-because most firmware revisions locked up when given an infinite (0)
-grace period.
+AMD General
 
-Firmware has since been fixed on most ASICs, so gate the clamp on ASIC
-type and MEC firmware version and allow 0 where the running firmware is
-known to handle it. Navi3x always supports 0. MI100 never received the
-firmware fix and is kept clamped. gfx9.5.0 and any unlisted or future
-ASIC default to the safe (clamped) behaviour.
+Reviewed-by: Kent Russell <kent.russell@amd.com>
 
-Signed-off-by: William Palacek <William.Palacek@amd.com>
----
- .../drm/amd/amdkfd/kfd_packet_manager_v9.c    | 66 +++++++++++++++++--
- 1 file changed, 62 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-index 3d2375817c3e..e4092ba81fe5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-@@ -309,6 +309,63 @@ static inline void pm_build_dequeue_wait_counts_packet_info(struct packet_manage
- 		reg_data);
- }
- 
-+/* pm_grace_period_0_supported - whether firmware tolerates a CWSR grace
-+ * period of 0 on this ASIC.
-+ *
-+ * The debugger may request a grace period of 0 via AMDKFD_IOC_DBG_TRAP.
-+ * Most firmware revisions locked up on an infinite (0) grace period, so
-+ * an earlier change clamped 0 to 1 for all ASICs. Firmware has since been
-+ * fixed on most ASICs; return true only where the running MEC firmware is
-+ * known to handle 0. The +32768 offset on IP_VERSION(9, 0, 1) accounts for
-+ * the SR-IOV firmware version encoding.
-+ *
-+ * Navi3x (gfx11) always supports a grace period of 0. MI100
-+ * (IP_VERSION(9, 4, 1)) never received the fix and is intentionally kept
-+ * clamped. gfx9.5.0 and any unlisted or future ASIC default to the safe
-+ * behaviour (clamp).
-+ */
-+static bool pm_grace_period_0_supported(struct packet_manager *pm)
-+{
-+	struct kfd_node *dev = pm->dqm->dev;
-+	uint32_t mec_fw_version = dev->kfd->mec_fw_version;
-+
-+	/* Navi3x (gfx11) always supports a grace period of 0. */
-+	if (KFD_GC_VERSION(dev) >= IP_VERSION(11, 0, 0) &&
-+	    KFD_GC_VERSION(dev) < IP_VERSION(12, 0, 0))
-+		return true;
-+
-+	switch (KFD_GC_VERSION(dev)) {
-+	case IP_VERSION(9, 0, 1):
-+		return mec_fw_version >= 461 + 32768;
-+	case IP_VERSION(9, 1, 0):
-+	case IP_VERSION(9, 2, 1):
-+	case IP_VERSION(9, 2, 2):
-+	case IP_VERSION(9, 3, 0):
-+	case IP_VERSION(9, 4, 0):
-+		return mec_fw_version >= 461;
-+	/* MI100/Arcturus never received the firmware fix; keep clamped. */
-+	case IP_VERSION(9, 4, 1):
-+		return false;
-+	case IP_VERSION(9, 4, 2):
-+		return mec_fw_version >= 63;
-+	case IP_VERSION(9, 4, 3):
-+	case IP_VERSION(9, 4, 4):
-+		return mec_fw_version >= 96;
-+	case IP_VERSION(10, 1, 10):
-+	case IP_VERSION(10, 1, 2):
-+	case IP_VERSION(10, 1, 1):
-+		return mec_fw_version >= 146;
-+	case IP_VERSION(10, 3, 0):
-+	case IP_VERSION(10, 3, 2):
-+	case IP_VERSION(10, 3, 1):
-+	case IP_VERSION(10, 3, 4):
-+	case IP_VERSION(10, 3, 5):
-+		return mec_fw_version >= 93;
-+	default:
-+		return false;
-+	}
-+}
-+
- /* pm_config_dequeue_wait_counts_v9: Builds WRITE_DATA packet with
-  *    register/value for configuring dequeue wait counts
-  *
-@@ -357,11 +414,12 @@ static int pm_config_dequeue_wait_counts_v9(struct packet_manager *pm,
- 		break;
- 
- 	case KFD_DEQUEUE_WAIT_SET_SCH_WAVE:
--		/* The CP cannot handle value 0 and it will result in
--		 * an infinite grace period being set so set to 1 to prevent this. Also
--		 * avoid debugger API breakage as it sets 0 and expects a low value.
-+		/* A grace period of 0 requests an infinite CWSR grace period.
-+		 * Older firmware locks up on this, so clamp to 1 unless the ASIC
-+		 * firmware is known to handle 0. Also avoid debugger API breakage
-+		 * as it sets 0 and expects a low value.
- 		 */
--		if (!value)
-+		if (!value && !pm_grace_period_0_supported(pm))
- 			value = 1;
- 		pm_build_dequeue_wait_counts_packet_info(pm, value, 0, &reg_offset, &reg_data);
- 		break;
--- 
-2.34.1
+
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Gang B=
+a
+> Sent: July 20, 2026 11:31 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: --cc=3DKent.Russell@amd.com
+> Subject: [PATCH] drm/amdkfd: Fix missing authorization check in
+> KFD_IOC_DBG_TRAP_DISABLE
+>
+> Prevent unauthorized termination of active GPU debug sessions.
+> Previously, users with /dev/kfd access could terminate another process's
+> debug session without proper ownership or ptrace authorization.
+>
+> Signed-off-by: Gang Ba <Gang.Ba@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> index 7d058d93e219..05dd0b6a87f0 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -3112,10 +3112,14 @@ static int kfd_ioctl_set_debug_trap(struct file *=
+filep,
+> struct kfd_process *p, v
+>               goto out;
+>       }
+>
+> -     /* Check if target is still PTRACED. */
+> +     /*
+> +      * Verify debugger has permission to debug target process.
+> +      * For cross-process debugging, require active ptrace relationship.
+> +      * This applies to ALL operations to prevent unauthorized interfere=
+nce.
+> +      */
+>       rcu_read_lock();
+> -     if (target !=3D p && args->op !=3D KFD_IOC_DBG_TRAP_DISABLE
+> -                             && ptrace_parent(target->lead_thread) !=3D
+> current) {
+> +     if (target !=3D p && ptrace_parent(target->lead_thread) !=3D curren=
+t
+> +                     && target->debugger_process !=3D p) {
+>               pr_err("PID %i is not PTRACED and cannot be debugged\n", ar=
+gs-
+> >pid);
+>               r =3D -EPERM;
+>       }
+> --
+> 2.54.0
 
