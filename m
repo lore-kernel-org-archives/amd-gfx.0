@@ -4,79 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3E446C44515
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 13:59:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB7C1C4452A
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 14:24:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0B4A897FB;
-	Mon, 20 Jul 2026 13:59:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2786189C49;
+	Mon, 20 Jul 2026 14:24:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="mffbusBR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JMBeSe+Z";
 	dkim-atps=neutral
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74FDB897FB
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jul 2026 13:59:30 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-c1712a04ddaso636359866b.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jul 2026 06:59:30 -0700 (PDT)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7BF5A89C49
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jul 2026 14:24:46 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-69c600f76ccso10535606a12.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jul 2026 07:24:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784555969; x=1785160769; darn=lists.freedesktop.org;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=/w4/3RiluFhCb8tUheKIGpgsGQ6fJL81TFLkp6APJdI=;
- b=mffbusBRUPk5koz9k4tgdO1gVvwcbdRYtUb2LVxy+XBW9ZUyKyjAKnvFTCcNlVLxK+
- DOvzvNo/zixDf6pkp5OdRztX97PuGBLFZ1JurKy5dDHYzPsClUlq2lNU+4YHq3v2aapB
- h83RNx8zgF9JvWG801WrZ0pfEgTWv4TR9C0snvTicbyYunU6MwGlPNBrBb/veW9G03al
- gpBdyc6wmV8z0P1oh4kHq1bOak4PixbIO1QxtGV98JcKCJ40xodShfn9YzAJP2PsT8Gd
- yc1q4MIy334knlCIb1BZGJC/DrLgSCMD84jmmJ2res7scQ6VJKoij9jtIEqoUuAxCbOp
- te8g==
+ d=gmail.com; s=20251104; t=1784557485; x=1785162285; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=PmBvn+AX3Qnuwr/pMW67QihkJ9ghecGIp8Ygs9aw8VI=;
+ b=JMBeSe+ZASBQz7MCykF/jU2U3k1HHAawuPWh9aTDKVnqcDYvOirRkoGaFiHlvo2ikN
+ oXJVYL9HwszpyJzhhHK4lX7JtZKkdmgeIJleh0K4YuAsM1YaWEPpcY09lJsjI+qKc9z7
+ z/ZQQIUyHHcQVl58APqW4WYzHhjAacIIxTWA2SxjCZegZfrv/2dWxeNO1Z42VfFPJPCr
+ 31x84ruHFyKtmPVWJOGcW1z9i3IeiM1a/vPhnrHfxBUdRx+7eocjyeMdAY1u6/UfkDA+
+ rJvM7Z8zQn5x+1e37mViKrHsw5WUoRdQ5vuBO4RC5AFdf9/mOb1Ys5aBp2FDg1Pm0Zpb
+ VMvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784555969; x=1785160769;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=/w4/3RiluFhCb8tUheKIGpgsGQ6fJL81TFLkp6APJdI=;
- b=TkzITdIL8BvvZQCT/5GOsHr8fb1qd/wxKolo4KeXQoOmOP2/Jl9zLXA/6FNl49Tdz4
- YjAhOfVUyIumBfhdKDfJUb++r2hmpNc9/hWgAK6I4c8YxG5S27ixG0koe4EALaVJNEUM
- dz4fY26efbtRH5lwsYK+sT328cZqeayE+zrlDa/oYTDmn9blbu9QGLCPM8W9D31eM40e
- WI4cZ4fmwsprLB1qLy6K5Axcbg4Yij/WSiddOV+LR/Vi61mIPEbbc4hvke9j3h7vvEdE
- 3FTpjjl6Wag8ns0YRCOJYTPENE2n4P1yKkHtYXCAx4/DlcjM6Nj7Nn6UrnNY99xylEHq
- Y5Eg==
-X-Gm-Message-State: AOJu0YyxEz6b23W3C7/YfmVI8YozjcTfQEyKwDGPRSwZ1RVn9dlH030M
- EscQya2UexhHrzQDkPfrfLPDmKFk5nqG8SkIRJBdVGcP4+6FZaaAH8wg
-X-Gm-Gg: AfdE7cmd0AH9lm2CGISRAP9m2TC7cqeb4vi01o94MQg168jaKAOFgXUVS0aJlhpbRDt
- 0ky5FhklCHydZKcrYlXPcYTJcO1Qk2NPSyKMRvrfMP+Uh+EUKXEOxj8BYdgdPH5eCZJ8E9FyWxo
- DNtvXR9uLwdWbvTZ5utS6e1tkQtG3kSsg/8UTw96CH+ZF1XPSV/Leyq0xAtFZRsnedvdHBqditi
- blJUaEzWEahluP12N+F5MsJRFJsszIFCfPRF03sPTumX1tNW/jHq00NLqeOQ+VIm9o2gOWN+yP1
- InVdMXNmzdsTlRP3XhPMzt6P8bMYAgR4Sckh1tyD8Ofs6ukMyRtlVq47/Gw1l91iBZLnSLZD3kn
- A7Jd26sxATY7dpxssznqe+VHNezRmAZjzMQfiYLEjYNH9dlZIIb0D9FEwva78uaTfNT7iA2e9n2
- 2vYrBYIKINI09OIz5YlTJ/2ht2gClcqQ3ZfGC9vEZ7uEZS9Pqb
-X-Received: by 2002:a17:907:b04d:10b0:c19:6a94:5beb with SMTP id
- a640c23a62f3a-c196a945cd7mr158276066b.51.1784555968788; 
- Mon, 20 Jul 2026 06:59:28 -0700 (PDT)
-Received: from timur-hyperion.localnet (5401D94C.dsl.pool.telekom.hu.
+ d=1e100.net; s=20251104; t=1784557485; x=1785162285;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=PmBvn+AX3Qnuwr/pMW67QihkJ9ghecGIp8Ygs9aw8VI=;
+ b=oHQUBy7KI1rXb9EHNOi3i8RY5P2eTiToPihusM+9CVSj1VmHlT0NMvUy4vgWQYh6Dk
+ 6Dzw8D36sLA6Geh42BNLl7fxNtkQrPTOtdL6bOQ4PqCn2lwNuxnrEqqY++NjWNivsj8W
+ tl17y7fR4kMO7vgY1FBTym8g0yyPSttx75tZjZxNtguzl5hvjXex0QofI8TdnuhLGfjV
+ P3WigTGLRP8pD3UIrUfNG4xXQonAutHiRzL6OxisTpmJi1fBWem/9E3zYB3AcE61kzIn
+ dvTs8qUzgRwBEXPBMQMKotuli91rVIfnPZWNqWP8mHoOt9skm7TZuMBclah7aGqv3Hih
+ JcKg==
+X-Gm-Message-State: AOJu0YyZpjDPRMDoFw0kq1MptiQHbx/w8roE3JGLT9euX8+bBQzftQ3W
+ FV9oBYS+uDyFxPr5lmNdK1deIukTeBsIzK8lmGB38RAUMsUTY9mEz0ENMCNGo2Cf
+X-Gm-Gg: AfdE7clNF2scQGY/rf0UK9U05AYnBw8u8oBE0uN3/dhUqxmRRBJytj00WKpFhFnJaof
+ 7rsdHIJr7QfFzVT2wtMAs9dILrKp5JC048q5xUDDpd7UTRz+rgJG84CTE7Fd+G3/5FTFFVI2EId
+ HzUdtzaPSj1oNBkSpL2S9j8c8XprQMYZ0K4is+QpFYVcRacDHnuzvSOj4UztxuOvyUnftXol+jW
+ WUaBGP6dyC+9fvF5UkoVWOCInZrODBuPA4UK1C9phN60Gx+M/hikK2TUg2rnuPSCXkMHn56kKRB
+ iZNOI3IIfIge5J07ml1UdhB5R297P1/9UVkJfit3v/vk8TVDS+yUM0o6ccIxbLDYXoIUOw4IIfE
+ SDdMua2e7NigqbC7V/Awt2DUHDj1rBOGOEmgqTqgD0DBgZuWqnA8kgv8vLLNKIdhQDZyIykC2gP
+ RQFFxlXTyIXVyySfbrIfZtjSC+9XonjEO14eagaICCoUc=
+X-Received: by 2002:a05:6402:455a:b0:699:39c5:204b with SMTP id
+ 4fb4d7f45d1cf-69e6528aa2cmr4079154a12.18.1784557484524; 
+ Mon, 20 Jul 2026 07:24:44 -0700 (PDT)
+Received: from Timur-Hyperion.home (5401D94C.dsl.pool.telekom.hu.
  [84.1.217.76]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c1740bf48d9sm464218966b.57.2026.07.20.06.59.27
+ 4fb4d7f45d1cf-69e6fff5efasm4999534a12.26.2026.07.20.07.24.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jul 2026 06:59:27 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: Tvrtko Ursulin <tursulin@ursulin.net>, Alex Deucher <alexdeucher@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- christian.koenig@amd.com, pierre-eric.pelloux-prayer@amd.com,
+ Mon, 20 Jul 2026 07:24:43 -0700 (PDT)
+From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ Link Mauve <linkmauve@linkmauve.fr>,
+ =?UTF-8?q?Nikola=20Medi=C4=87?= <nmedic89@gmail.com>,
+ =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>,
+ Daniel Stone <daniels@collabora.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?q?Dieter=20N=C3=BCtzel?= <Dieter@nuetzel-hh.de>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, pierre-eric.pelloux-prayer@amd.com,
  Natalie Vock <natalie.vock@gmx.de>
-Subject: Re: [PATCH 07/11] drm/amdgpu/gfx6: Properly enable/disable priv_req
- and priv_inst interrupts
-Date: Mon, 20 Jul 2026 15:59:26 +0200
-Message-ID: <XMA6udstQameeRGAv_w1iw@gmail.com>
-In-Reply-To: <CADnq5_OTNp-+mJ=BLU6p4vF4B4xrim+8hOVb6fbkmXC01PxURg@mail.gmail.com>
-References: <20260713130709.34262-1-timur.kristof@gmail.com>
- <afb43e28-45d2-4529-98af-6fc7ea071ec7@ursulin.net>
- <CADnq5_OTNp-+mJ=BLU6p4vF4B4xrim+8hOVb6fbkmXC01PxURg@mail.gmail.com>
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH 0/4] drm/amdgpu: Support DRM format modifiers on GFX6-8 (v3)
+Date: Mon, 20 Jul 2026 16:24:36 +0200
+Message-ID: <20260720142440.22076-1-timur.kristof@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,57 +92,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thursday, July 16, 2026 4:00:50=E2=80=AFPM Central European Summer Time =
-Alex=20
-> >=20
-> > Right, AFAIU assuming the CP hangs, instead of waiting for the TDR
-> > timeout with this patch it will be instant via drm_sched_fault() called
-> > from either irq handler. Or if CP does not hang but somehow ends up
-> > going over it with corruption with this patch it will insta GPU hang.
-> >=20
-> > In any case I think it is needed to have a definitive answer whether the
-> > interrupts were not enabled until now, and if so, also exercise the
-> > until now unused code paths just to make sure it all works as expected.
-> > Presumably there are test cases which trigger both conditions?
-> >=20
-> > Then I would suggest putting this info in the commit message. That is,
-> > instead of saying "These were used without ever calling get()/put() on
-> > them." expand with the full story so the whole situation is clear both
-> > before and after the patch.
-> >=20
-> > Assuming interrupts were not enabled until now, that the unused irq
->=20
-> > handlers work as expected, and with the improved commit message:
-> The interrupts would not have been enabled if get() was never called.
-> I think they were never enabled because radeon didn't implement
-> support and this code was ported from radeon.
-> >=20
-> > Unless you don't have the hardware to test it and there are no existing
-> > test cases to verify it?
->=20
-> An example test would be attempting to access a privileged register
-> from a user IB.
+GFX6-8 are the oldest GPUs supported by the amdgpu
+kernel driver, and the last ones that didn't support
+DRM format modifiers until now.
 
-Unfortunately I don't have any test cases like that. We've had some plans f=
-or=20
-writing such test cases and integrating them in IGT but the person who was=
-=20
-going to write them left and since then I haven't managed to get around to =
-it=20
-yet. So I've mainly just used the hang test suite for testing that soft res=
-et=20
-works.
+On GFX6-8, the GFX block can only use pre-determined tiling
+modes which are programmed by the kernel according to the
+tiling mode table. The new modifiers encode all the details
+needed for tiling on these GPUs.
 
-If you have doubts about these interrupts on GFX6 then I think we should ju=
-st=20
-drop this patch until we finish those test cases.
+For the exact details, see the commit message of:
+"drm/fourcc: Add modifiers for AMD GFX6-8"
 
-I still plan to write those test cases but it's really tedious and thankles=
-s=20
-work, so it hasn't been my priority thus far.
+For a userspace implementation, see this Mesa MR:
+https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/41557
+And for libdrm:
+https://gitlab.freedesktop.org/mesa/libdrm/-/merge_requests/481
 
-Best regards,
-Timur
+Supporting DRM format modifiers on GFX6-8 will
+unblock many things in the Linux graphics ecosystem
+that previously either didn't work on these GPUs
+or had to implement fallbacks.
+For example, compositors written in Vulkan or
+compositors running on Zink, interop between
+different APIs (eg. VAAPI / OpenGL / Vulkan) etc.
 
+Changes from v1 to v2:
 
+* Fix checking DRM_FORMAT_MOD_INVALID
+
+Changes from v2 to v3:
+
+* Return -EINVAL when pipe_config is invalid
+* Log unsupported array mode with drm_dbg_kms()
+* Fix block size calculation in amdgpu_display_verify_sizes()
+* Add NULL check to amdgpu_dm_plane_add_modifier_dedup()
+* Fix tile size calculation to bits not bytes
+
+Timur Kristóf (4):
+  drm/fourcc: Add modifiers for AMD GFX6-8
+  drm/amdgpu: Convert tiling flags to modifiers on GFX6-8
+  drm/amd/display: Support DRM format modifiers on GFX6-8
+  drm/amd/display: Don't use tiling flags anymore
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_display.c   | 144 +++++++-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  29 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 343 ++++++++++++++++--
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.h   |   3 -
+ .../amdgpu_dm/tests/amdgpu_dm_plane_test.c    |  84 -----
+ include/uapi/drm/drm_fourcc.h                 | 209 ++++++++++-
+ 6 files changed, 641 insertions(+), 171 deletions(-)
+
+-- 
+2.55.0
 
