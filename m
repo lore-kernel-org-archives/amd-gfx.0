@@ -4,122 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7A61C44520
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 15:42:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2942EC44515
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 16:17:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26B8A10E9A2;
-	Mon, 20 Jul 2026 15:42:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B683510E9F6;
+	Mon, 20 Jul 2026 16:17:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cIPmvHzP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iYXIif06";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011025.outbound.protection.outlook.com
- [40.93.194.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B44B610E9A2
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jul 2026 15:42:21 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013057.outbound.protection.outlook.com
+ [40.93.196.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B174D10E9E5
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jul 2026 16:17:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Vpm1q1I/AEEFz8i8gP9XPoAvzYHfjcXVjzjRBhrfEzIzAeAydPZRlFxv4VSp43UAG2Y/P8ykPab5u2D3lWGs12iJZ99c3WwCZMKDzl0O/fut+/qb3hzZrlnPyNXgaG3WQ1h9uMO6NjqIkgrGCq9r9TjT6vsPZmJzk4LS+y4MhrjUg7oXkCof6vo+kTFCADKsB5vY5QoxuHj9TUZtGM3F2dUItLjtab7ljRMmKj/bKGBn3TjokUiq1GFu+eV21faTjDlTFINcToWcAb3Pp7p2hJ4Ry6uFM1daDrwVCoKA59gvif76xs84Zbhv+5T9a654POAp0Zx/pH/6Gp7wiMyCrg==
+ b=PQMO+/XQ0UVrakaLHxxmgQJ4ENQkdmWfMDxcOvvxARaRZmkOjRldNSZEWNl8QBThc0l1HVZwctPs367Ic/C1a/1bFe72y3agVCTwP97tyQL3IuoG9PkTllgyUQKBNS8pzijOF891IgzFj7uo6Kbl6SKflHUE7Zkeds2GtqIopW1vYPK+vDl7TVdS4gV6EZ8dw37M7faxSsgUNOmekxP6yyoH5wK7EJMIV6Z/r+ZnOLB2N0SmFO97Etqv++NTFXtwIultXbUVTz4KoJoTQ//L46XHjA1WxbNnabWTatWh2w4OBU/jkMwKcIGbDt3/YQlgab2bgQDgAlJqdMn8Xe8onA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jc3L9xMIY6ucFEUSlXV/QBib0BtymkWyuiFAWqw4mfs=;
- b=FaRVDQ92qWb9dMlvqWKMEmQPlaL7Eq2JCQ6LIs/rtnor2QGxVO8uUttwL7g8hCu5QDFYEHUXLdDVACWd1kltY4Ds/SHq3Ey2mNT7B8Vt9vVIu8ttcRIqVUHYNdNZ1pyIhklcPNdaTYNiBopODsozF3g2jBUTKESopIgMxCPw6jVvi8A/6wIqSchzC9G2DhlCq9Nm31gEGg7q5OxOby/ZFqpzJnFnsSfR4SqK4efEu7/DF+uylW1E23QIkM21u7dgkoO0U6KM0uLtAVSvgttqJzM79peohe8mxJiU7pytVsbb5hxthtkfh+hK+xZUv0HuTTguBrXffaRGYruzKb/Qrw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=SDe/t37fHrdK1zb2HBKzKrYTtjnYSSodr9MH0gfnK3o=;
+ b=duNDVft3B+VKq3QjhviRhN9CLxriD/xOsitNQxFEOP+x+JXGwDEJNXWl7lch10s1zhfpk0XPgHJKzf5pyEazoK3uTw79dFctf1IrYhKO6irinZcf3PNeF7dD/Nv+8p+RCC6sIwUu0oBD05ekZNKDGXC2JY/STmasXFCHADGwiITe40KIgNleRp4qeX5lH1nQZCx9tX8AgsweTdNeFeZ4E+l2/Nm5JWOnRL0t+98vISTQR6YNqJawa8Hgcntzo9mPb0stPguLk/OqQGSzsGOSwfKLbnLU4s5LgMICY1r3rP22oeaSlzk8LMFRG1K7eK3dEDd3JHTNKnqnHaN6cW6CSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jc3L9xMIY6ucFEUSlXV/QBib0BtymkWyuiFAWqw4mfs=;
- b=cIPmvHzPQeNr/BFA1xm9sVozq/ay0ItglJ83Ti5saU9X1wQQthmjOn04cXhcda0syb5XrAq0+S3j9bJ4spkNDMeGSaJIOvAtFCb3lM3C3D1OPAtuBa6uluUXQYcPfFAhYnNqcvsQjRf2Mvy6lgMkdRkZ0PdNedayLfBY1Pgc2vM=
-Received: from DM6PR12MB3611.namprd12.prod.outlook.com (2603:10b6:5:3c::17) by
- MN2PR12MB4190.namprd12.prod.outlook.com (2603:10b6:208:1dd::24) with
+ bh=SDe/t37fHrdK1zb2HBKzKrYTtjnYSSodr9MH0gfnK3o=;
+ b=iYXIif06yOKHOhKhA2g1AeWS7ZvtxMrzwgKi7jINMjz9j1uEtVmPK+tYw9nXCKCKFTrYT06L3EzcljMV5aofcewiHgXqlYev7HafSaaQgER/0tTh0I1YhYwqU1VM/H3yL3GefsGpUJLPho8MzFk5k8a1rsMwL8/21ds5A7AfjcU=
+Received: from CY5PR18CA0006.namprd18.prod.outlook.com (2603:10b6:930:5::15)
+ by PH0PR12MB999089.namprd12.prod.outlook.com (2603:10b6:510:38e::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Mon, 20 Jul
- 2026 15:42:17 +0000
-Received: from DM6PR12MB3611.namprd12.prod.outlook.com
- ([fe80::7861:6815:8b7d:bd0b]) by DM6PR12MB3611.namprd12.prod.outlook.com
- ([fe80::7861:6815:8b7d:bd0b%4]) with mapi id 15.21.0202.023; Mon, 20 Jul 2026
- 15:42:17 +0000
-From: "Chen, Michael" <Michael.Chen@amd.com>
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Liang,
- Prike" <Prike.Liang@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Add missing MES helper parameter descriptions
-Thread-Topic: [PATCH] drm/amdgpu: Add missing MES helper parameter descriptions
-Thread-Index: AQHdF6Us5o0l+E5ssUyWJsQt4r62+rZ2jTMo
-Date: Mon, 20 Jul 2026 15:42:17 +0000
-Message-ID: <DM6PR12MB3611824F6F06889882D1665E94C32@DM6PR12MB3611.namprd12.prod.outlook.com>
-References: <20260719173627.3598744-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20260719173627.3598744-1-srinivasan.shanmugam@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-20T15:42:16.095Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB3611:EE_|MN2PR12MB4190:EE_
-x-ms-office365-filtering-correlation-id: 49d3437c-1f58-4373-88d9-08dee6757a6c
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|38070700021|6133799003|18002099003|22082099003|56012099006|11063799006|10067099003|8096899003|3023799007;
-x-microsoft-antispam-message-info: kRIXlM8BTD6dJwT8rTeyuH+UbGUjBX1B0XurZdrWHnQs3ZM5B16rxxje9nRSGPdWe3KQprjVbYgES6hwCQeTzQ+Ve3Blv6KKf/dRJYaLH3d0iLHQ1f9xCFOJepG5QEY26buhylVUhgSHdLSClKnTSJ8lUYvDDQ7qgTQt3r31iF9/qsYLQwjtPLrHq6aCUK/4F18mtRGbnHpXMhaHsS7c6NXDeh9YJU1upsfHz/F/gsdd97eaTg49n13RsqSpS5T7HnYfVdXgpM1r3SFktoSWFWpK4IijQ5+5CK+zZbmQIre//7zW0WMaWT9U/fFFkz6pMtLP/EMSA7CBjRobRs1XqC/CMm7t1U+cwkBY8n/2HGH1Ix+quhPTUrKEcjCTTao8dL6sXuOY0G8rA2Y47xp6yeKH8oVPU8XnstjvWbgmUC6BrWjRgPKkzoEceT+2nuX9Svas+xWjWD5gOhYXXPTSZ1knK3rklwyZOgYYaAFV5ADAAFIM2hLxLEsgIBsI6EH86EOb3mHxa0SfZv3lZAzw+/NnFRv7/Rl7kP+DhqgDYU80Ez/lbJ3xyjs/0cxuoJGgoN08MAu7KpN0ohrtwKvOyS8iY4g0RB9GHkiNIT1T//Y4VXY5BqONfGNm0ZfDTr9DFd2L+s3CI1EP/PAB0tRWbXoJRxi122D213PEvDDNovT2lDRbdundM2wrUGZTgbjIQPGkpBIw++X/2porTAfKzgQcM9eWWiXQUmlmxkDeOh8=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3611.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(38070700021)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003)(8096899003)(3023799007);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?6M50SzTwCxb3c0mM//gmZ9O7tKnCXvU8HGsC+k0R/hbX/UFHtfCjthtBDV8j?=
- =?us-ascii?Q?LO57WLv0jNqgviGxVYxtwFkzXXcWrsWtPgo03cSEcN3Tf5Gt1EFxnGid1gjr?=
- =?us-ascii?Q?gi3/AyfXhjfLt2z1IsW5kFZ0PfGNGvxtqXmaRbh758n5KMQ7SuNPoiHvrafw?=
- =?us-ascii?Q?+GPuEAqUJzyN6bGTieSTzeaomTt/nFq2xoMM+54gc9C8RJBCmpytxDQfoLlK?=
- =?us-ascii?Q?NHVC4zP3Bu6oIJw+7oA3Wf8uqd960MPZh9pi2kw0Y1w9XryEapeh+WIJDnKE?=
- =?us-ascii?Q?OaAX/OW/Yuu+aHuL8wgHiQ+LJEAKqIh0OLelKBZ92rHF0PRYHIU6S9RvN1qB?=
- =?us-ascii?Q?AfM8m5VhCwm7Hn2NINJ+um5k0e4WQp2BdxSBvkEJI6931BRClhGhAXOVuma8?=
- =?us-ascii?Q?XqST2cS18BU0fvtQs9wX8mqM0qrcQgPqoHQd009A+sJCwvIUiTyiBmnsSReF?=
- =?us-ascii?Q?WQzUcfDIbqsJiS7R60gKCJPw1eBXg6e0te0pQn8S6yiVM1JNJESOXIajltCo?=
- =?us-ascii?Q?GyOFVLg7acYwGI0mceV4/uRDRWEiQ4kwd966MGbtNIDYsbgxhWwl914YO1gf?=
- =?us-ascii?Q?GULcWC+T3HKm2Ir2qYfEh8O9WMM2diKE0TXo+hokzBIblCR2zk6wH7Ad2Q8n?=
- =?us-ascii?Q?BGd22aNTgCugm02/Lq52c8r5nmDtFfyOnP4gpIVVKlfmnNjl4c+dHhogIVpX?=
- =?us-ascii?Q?gnxIDfDMQ9q5N2NIwZ+S9YzuP5RF6fYxW9xpJCk27cjPeViD20hWKAc4qoVd?=
- =?us-ascii?Q?fxe4LXU8eEgr+qRn6YY7mV4bdNAU4ildWwAT5F+GdmaQNwIRc5yi0128gPbB?=
- =?us-ascii?Q?JAtCmXdT1+P7ktohPCy/DorRcusHZCRAOb0F9NNdjhBDJ/uNCJ/URUZs7W6W?=
- =?us-ascii?Q?5+irJiYcL3rhFdBUw+DkabtSVL8P0/DKIasjrei+QOqe5UoDGGzOFQKag397?=
- =?us-ascii?Q?p+S+dbZIyDJlY1BNJx4OTR5eE3YauriEwUdDUgNJkqiusCX0t8fUsJ2XZRmf?=
- =?us-ascii?Q?PJSQQq3UvZiTbJ/cXGoRuVBEPdp3iArdMaBWaVJ9DkeKkUpXc0IprcGP71u4?=
- =?us-ascii?Q?efrWm5Vp6DsK2oKQzIiOWNPlC8YDK4I5K9Ya7lqL7xJqC2NHMR2niGK8JNRv?=
- =?us-ascii?Q?X3HumOh72d/H3asHmmQJIs0/Q+/HYglKWQMCOciKT8LBsm6Oipgn3/N2Cko6?=
- =?us-ascii?Q?m7iH6D4wdJp3inrLxb5M7gTlfWhMW1hR7S6SVK+WSWwPNVSDVK0a42dkd+tf?=
- =?us-ascii?Q?wKaFoJHWj4DK7GKCj0p+vSIstJXQFYRq+IJnxABFUyB4wiRvynkCwxryb0ah?=
- =?us-ascii?Q?xqwvgXDiw4RiNTHZyA8e4gdAG1kRScvVbQLhSGroz8qUrNHWWI5LgYk4ikvI?=
- =?us-ascii?Q?zmiGSrkY8uy4v211JwfcXspsnfJJVw5l4lTP0GiSsbhD/1zMOid024TcUw77?=
- =?us-ascii?Q?6R0tKSr/G4LNJ0dr2T7s8i4y2F+J5oKAfjGJWl+8+hYiZCZ58/AfWBck3u5t?=
- =?us-ascii?Q?K1aSodkLVjmWD0nXS0/Phlf1rOgswqggEvqBxwWPTIw0CEKDRkixaLXrIgkn?=
- =?us-ascii?Q?C3hj7EEEp7ucXhy1mezO+7Gwi96Pf0KFD4p65fOz06sbKZP1TBTUfgrAcaSK?=
- =?us-ascii?Q?jy2SjPB2Hv7t86cqusimEc9yVYylEpCxSbczWhy66wgD5pqCP//hzA4gL/rc?=
- =?us-ascii?Q?9vKZjC4BkWZfxvX21Px1eNiBHPdWRuCXKN/+iWywEI1iuy/t?=
-Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB3611824F6F06889882D1665E94C32DM6PR12MB3611namp_"
+ 2026 16:16:58 +0000
+Received: from CY4PEPF0000EE37.namprd05.prod.outlook.com
+ (2603:10b6:930:5:cafe::17) by CY5PR18CA0006.outlook.office365.com
+ (2603:10b6:930:5::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.18 via Frontend Transport; Mon,
+ 20 Jul 2026 16:16:57 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000EE37.mail.protection.outlook.com (10.167.242.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.5 via Frontend Transport; Mon, 20 Jul 2026 16:16:56 +0000
+Received: from alysaliu-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 20 Jul
+ 2026 11:16:55 -0500
+From: William Palacek <William.Palacek@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Kent.Russell@amd.com>, <Alysa.Liu@amd.com>,
+ <Harish.Kasiviswanathan@amd.com>, <William.Palacek@amd.com>
+Subject: [PATCH] drm/amdkfd: allow CWSR grace period of 0 on supported firmware
+Date: Mon, 20 Jul 2026 12:15:52 -0400
+Message-ID: <20260720161552.744674-1-William.Palacek@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE37:EE_|PH0PR12MB999089:EE_
+X-MS-Office365-Filtering-Correlation-Id: 290d8f6d-fafe-4dba-c709-08dee67a51c2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|56012099006|11063799006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: t14VjGigLFBQO95UA4s1WGanzyeCNkeHmYX3w5XcTy+0q3zaEG8mk6ma0eHRHk3RWt8nVMDJbpMIAxUNxWhbVI7Q/ECxzoY+NM22UTwL2AmoBcjaAxSnvsbsXbnZ9KxwUtJF0GHjIsMt59yU5h6lr+o95NbSGic2nZ3lgV0c4Z00eH+gDkBkpdqMAd+97SzZeZHDnIvCazjKdkH26e3vP3rlprrjG83ZwnSw2f9kP68hZUdLeqQNNJ/+AmjZvmwMhsdldj0zpEnmHa8jkjsL3b6E/tQM4YpOWdpmPvIMM25OWADJA7r/c+3qR/jz+az89PR+iPP6AnTFhQME4RYJp12L4bzupaZc71TbSTVY9XwVeghVHEXx1/A8N4DrZoYtEWjobvVtsfm17Stba0+bcYZTbkNYVB0HYMv5BYUJWTaU/RJ1na3jYChjIFK5clUuzc6XYgNUYS1xB0Ce8h5bDzBv1P9if5yu2wMQh8PC5MXjzUc5bLww7g1rx8aLEhFq31QEvNdHBc42TOl6ftEz4HFEFdGnM+xhGeYhSRFHUZPaWdRcVikL33Ex628LStzVu4zdC0NmoyfFmcYRy8YxWscjx7v/8BkldX0tUoyniFlofWD/KjBi3TdJs/Pes524x8UaFQhBz22rgnGw24YHNEVwyHzU7S8izYDVi6ophDYHqqibPy8OQKVQHmkB+Nci8uaXxMmmb/D+TmF8q3XTkQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(56012099006)(11063799006)(10067099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 2X3fjNgE/HSVngKZF3rYYpWMB4eFORkBPHR2/ZQUh7PdyozbEUYRbv7FAp5Oqh/qwHIovAyN8Ama0CHqmVFgQmr2qJ//+lejVyefmAGsdWspVxkY5LlYTkbDL9QeU3WfoBlacdwr3HX5S4XmKvT/jltCgkfj+oKRoUmmNwSkuKo7c7vDVMuklPeXrqaSn3risH0aR12OeVjcaQGCft6B4ur5DXYuJ/LEleUmkjTe5I75t7xcXam4I6i1tYDOHd+MSaWuLh/rcxj139eMa7Fk2Jda/YOtfqlSOTYsdu01Rk8IL9xrfupfCVHBrSBBzgJ0L2w7h+O3nZe8nzYoFPiJkvSkRiYZ2Kc+YWZqsot17OeKMXohtwHTlbiEgzD3r2LDae21UkO1WkjZc9/qaRkZorFjt3ykOZnBDnXmEE7upyINXGJsfFNErfjc8E1X331A
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3611.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49d3437c-1f58-4373-88d9-08dee6757a6c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 20 Jul 2026 15:42:17.2172 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: o7WActoJyzX/25XuEFvv65DR5h/e0sdaPyZTkWRqqFF/MMO22M37ISTXpzv92g5e557wQYShTCaJfnptDCWWew==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4190
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 16:16:56.4407 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 290d8f6d-fafe-4dba-c709-08dee67a51c2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE37.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB999089
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,306 +109,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB3611824F6F06889882D1665E94C32DM6PR12MB3611namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+The debugger sets the CWSR grace period via AMDKFD_IOC_DBG_TRAP and may
+request a value of 0. An earlier change clamped 0 to 1 unconditionally
+because most firmware revisions locked up when given an infinite (0)
+grace period.
 
-AMD General
+Firmware has since been fixed on most ASICs, so gate the clamp on ASIC
+type and MEC firmware version and allow 0 where the running firmware is
+known to handle it. Navi3x always supports 0. MI100 never received the
+firmware fix and is kept clamped. gfx9.5.0 and any unlisted or future
+ASIC default to the safe (clamped) behaviour.
 
-Reviewed-by: Michael Chen <michael.chen@amd.com>
-________________________________
-From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
-Sent: Sunday, July 19, 2026 1:36 PM
-To: Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander <Alexa=
-nder.Deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; SHANMUGA=
-M, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Liang, Prike <Prike.Liang@amd=
-.com>; Chen, Michael <Michael.Chen@amd.com>
-Subject: [PATCH] drm/amdgpu: Add missing MES helper parameter descriptions
-
-Complete the kernel-doc comments for the MES RS64 memory, process
-context, and gang context helper functions by documenting the missing
-function parameters to keep the kernel-doc comments consistent with
-their function signatures.
-
-Fixes: d160cbf3e4db ("drm/amdgpu: add RS64 local memory context array init/=
-fini")
-Fixes: dded4c22699e ("drm/amdgpu: add mes process context alloc/free")
-Fixes: a755b0cf3ef3 ("drm/amdgpu: add mes gang contex alloc/free helper")
-Cc: Prike Liang <Prike.Liang@amd.com>
-Cc: Michael Chen <michael.chen@amd.com>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Signed-off-by: William Palacek <William.Palacek@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 43 +++++++++++++++++--------
- 1 file changed, 29 insertions(+), 14 deletions(-)
+ .../drm/amd/amdkfd/kfd_packet_manager_v9.c    | 66 +++++++++++++++++--
+ 1 file changed, 62 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_mes.c
-index 1e3a23c81552..9af7c97af5be 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -952,9 +952,11 @@ int amdgpu_mes_rs64mem_init(struct amdgpu_mes *mes)
-         return 0;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+index 3d2375817c3e..e4092ba81fe5 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
+@@ -309,6 +309,63 @@ static inline void pm_build_dequeue_wait_counts_packet_info(struct packet_manage
+ 		reg_data);
  }
-
--/**
-- * amdgpu_mes_rs64mem_fini - tear down RS64 local memory management
-- */
-+ /**
-+  * amdgpu_mes_rs64mem_fini - tear down RS64 local memory management
-+  *
-+  * @mes: MES instance
-+  */
- void amdgpu_mes_rs64mem_fini(struct amdgpu_mes *mes)
- {
-         if (mes->ctx_array_size_bo) {
-@@ -1038,9 +1040,10 @@ int amdgpu_mes_rs64mem_setup_bitmaps(struct amdgpu_m=
-es *mes)
-  * amdgpu_mes_alloc_proc_ctx_index - allocate a process context slot
+ 
++/* pm_grace_period_0_supported - whether firmware tolerates a CWSR grace
++ * period of 0 on this ASIC.
++ *
++ * The debugger may request a grace period of 0 via AMDKFD_IOC_DBG_TRAP.
++ * Most firmware revisions locked up on an infinite (0) grace period, so
++ * an earlier change clamped 0 to 1 for all ASICs. Firmware has since been
++ * fixed on most ASICs; return true only where the running MEC firmware is
++ * known to handle 0. The +32768 offset on IP_VERSION(9, 0, 1) accounts for
++ * the SR-IOV firmware version encoding.
++ *
++ * Navi3x (gfx11) always supports a grace period of 0. MI100
++ * (IP_VERSION(9, 4, 1)) never received the fix and is intentionally kept
++ * clamped. gfx9.5.0 and any unlisted or future ASIC default to the safe
++ * behaviour (clamp).
++ */
++static bool pm_grace_period_0_supported(struct packet_manager *pm)
++{
++	struct kfd_node *dev = pm->dqm->dev;
++	uint32_t mec_fw_version = dev->kfd->mec_fw_version;
++
++	/* Navi3x (gfx11) always supports a grace period of 0. */
++	if (KFD_GC_VERSION(dev) >= IP_VERSION(11, 0, 0) &&
++	    KFD_GC_VERSION(dev) < IP_VERSION(12, 0, 0))
++		return true;
++
++	switch (KFD_GC_VERSION(dev)) {
++	case IP_VERSION(9, 0, 1):
++		return mec_fw_version >= 461 + 32768;
++	case IP_VERSION(9, 1, 0):
++	case IP_VERSION(9, 2, 1):
++	case IP_VERSION(9, 2, 2):
++	case IP_VERSION(9, 3, 0):
++	case IP_VERSION(9, 4, 0):
++		return mec_fw_version >= 461;
++	/* MI100/Arcturus never received the firmware fix; keep clamped. */
++	case IP_VERSION(9, 4, 1):
++		return false;
++	case IP_VERSION(9, 4, 2):
++		return mec_fw_version >= 63;
++	case IP_VERSION(9, 4, 3):
++	case IP_VERSION(9, 4, 4):
++		return mec_fw_version >= 96;
++	case IP_VERSION(10, 1, 10):
++	case IP_VERSION(10, 1, 2):
++	case IP_VERSION(10, 1, 1):
++		return mec_fw_version >= 146;
++	case IP_VERSION(10, 3, 0):
++	case IP_VERSION(10, 3, 2):
++	case IP_VERSION(10, 3, 1):
++	case IP_VERSION(10, 3, 4):
++	case IP_VERSION(10, 3, 5):
++		return mec_fw_version >= 93;
++	default:
++		return false;
++	}
++}
++
+ /* pm_config_dequeue_wait_counts_v9: Builds WRITE_DATA packet with
+  *    register/value for configuring dequeue wait counts
   *
-  * @mes: MES instance
-+ * @queue: Usermode queue receiving the allocated process context index
-  *
-- * Returns 0 on success, -ENOSPC if all slots are used (caller should
-- * fall back to system memory path).
-+ * Returns 0 on success, -ENOSPC if all slots are used, or
-+ * -EOPNOTSUPP if RS64 local memory is unavailable.
-  */
- int amdgpu_mes_alloc_proc_ctx_index(struct amdgpu_mes *mes,
-                                     struct amdgpu_usermode_queue *queue)
-@@ -1064,9 +1067,12 @@ int amdgpu_mes_alloc_proc_ctx_index(struct amdgpu_me=
-s *mes,
-         return 0;
- }
-
--/**
-- * amdgpu_mes_free_proc_ctx_index - free a process context slot
-- */
-+ /**
-+  * amdgpu_mes_free_proc_ctx_index - free a process context slot
-+  *
-+  * @mes: MES instance
-+  * @queue: Usermode queue whose process context index is released
-+  */
- void amdgpu_mes_free_proc_ctx_index(struct amdgpu_mes *mes,
-                                     struct amdgpu_usermode_queue *queue)
- {
-@@ -1080,9 +1086,15 @@ void amdgpu_mes_free_proc_ctx_index(struct amdgpu_me=
-s *mes,
-         amdgpu_mes_unlock(mes);
- }
-
--/**
-- * amdgpu_mes_alloc_gang_ctx_index - allocate a gang context slot
-- */
-+ /**
-+  * amdgpu_mes_alloc_gang_ctx_index - allocate a gang context slot
-+  *
-+  * @mes: MES instance
-+  * @queue: Usermode queue receiving the allocated gang context index
-+  *
-+  * Returns 0 on success, -ENOSPC if all slots are used, or
-+  * -EOPNOTSUPP if RS64 local memory is unavailable.
-+  */
- int amdgpu_mes_alloc_gang_ctx_index(struct amdgpu_mes *mes,
-                                     struct amdgpu_usermode_queue *queue)
- {
-@@ -1105,9 +1117,12 @@ int amdgpu_mes_alloc_gang_ctx_index(struct amdgpu_me=
-s *mes,
-         return 0;
- }
-
--/**
-- * amdgpu_mes_free_gang_ctx_index - free a gang context slot
-- */
-+ /**
-+  * amdgpu_mes_free_gang_ctx_index - free a gang context slot
-+  *
-+  * @mes: MES instance
-+  * @queue: Usermode queue whose gang context index is released
-+  */
- void amdgpu_mes_free_gang_ctx_index(struct amdgpu_mes *mes,
-                                     struct amdgpu_usermode_queue *queue)
- {
---
+@@ -357,11 +414,12 @@ static int pm_config_dequeue_wait_counts_v9(struct packet_manager *pm,
+ 		break;
+ 
+ 	case KFD_DEQUEUE_WAIT_SET_SCH_WAVE:
+-		/* The CP cannot handle value 0 and it will result in
+-		 * an infinite grace period being set so set to 1 to prevent this. Also
+-		 * avoid debugger API breakage as it sets 0 and expects a low value.
++		/* A grace period of 0 requests an infinite CWSR grace period.
++		 * Older firmware locks up on this, so clamp to 1 unless the ASIC
++		 * firmware is known to handle 0. Also avoid debugger API breakage
++		 * as it sets 0 and expects a low value.
+ 		 */
+-		if (!value)
++		if (!value && !pm_grace_period_0_supported(pm))
+ 			value = 1;
+ 		pm_build_dequeue_wait_counts_packet_info(pm, value, 0, &reg_offset, &reg_data);
+ 		break;
+-- 
 2.34.1
 
-
---_000_DM6PR12MB3611824F6F06889882D1665E94C32DM6PR12MB3611namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-AMD General</div>
-<br>
-</div>
-Reviewed-by: Michael Chen &lt;michael.chen@amd.com&gt;</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> SHANMUGAM, SRINIVASAN=
- &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;<br>
-<b>Sent:</b> Sunday, July 19, 2026 1:36 PM<br>
-<b>To:</b> Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; Deucher, Ale=
-xander &lt;Alexander.Deucher@amd.com&gt;<br>
-<b>Cc:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; SHANMUGAM, SRINIVASAN &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;; Liang, Pri=
-ke &lt;Prike.Liang@amd.com&gt;; Chen, Michael &lt;Michael.Chen@amd.com&gt;<=
-br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Add missing MES helper parameter descri=
-ptions</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Complete the kernel-doc comments for the MES RS64 =
-memory, process<br>
-context, and gang context helper functions by documenting the missing<br>
-function parameters to keep the kernel-doc comments consistent with<br>
-their function signatures.<br>
-<br>
-Fixes: d160cbf3e4db (&quot;drm/amdgpu: add RS64 local memory context array =
-init/fini&quot;)<br>
-Fixes: dded4c22699e (&quot;drm/amdgpu: add mes process context alloc/free&q=
-uot;)<br>
-Fixes: a755b0cf3ef3 (&quot;drm/amdgpu: add mes gang contex alloc/free helpe=
-r&quot;)<br>
-Cc: Prike Liang &lt;Prike.Liang@amd.com&gt;<br>
-Cc: Michael Chen &lt;michael.chen@amd.com&gt;<br>
-Signed-off-by: Srinivasan Shanmugam &lt;srinivasan.shanmugam@amd.com&gt;<br=
->
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 43 +++++++++++++++++-------=
--<br>
-&nbsp;1 file changed, 29 insertions(+), 14 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_mes.c<br>
-index 1e3a23c81552..9af7c97af5be 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c<br>
-@@ -952,9 +952,11 @@ int amdgpu_mes_rs64mem_init(struct amdgpu_mes *mes)<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
--/**<br>
-- * amdgpu_mes_rs64mem_fini - tear down RS64 local memory management<br>
-- */<br>
-+ /**<br>
-+&nbsp; * amdgpu_mes_rs64mem_fini - tear down RS64 local memory management<=
-br>
-+&nbsp; *<br>
-+&nbsp; * @mes: MES instance<br>
-+&nbsp; */<br>
-&nbsp;void amdgpu_mes_rs64mem_fini(struct amdgpu_mes *mes)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mes-&gt;ctx_array_size=
-_bo) {<br>
-@@ -1038,9 +1040,10 @@ int amdgpu_mes_rs64mem_setup_bitmaps(struct amdgpu_m=
-es *mes)<br>
-&nbsp; * amdgpu_mes_alloc_proc_ctx_index - allocate a process context slot<=
-br>
-&nbsp; *<br>
-&nbsp; * @mes: MES instance<br>
-+ * @queue: Usermode queue receiving the allocated process context index<br=
->
-&nbsp; *<br>
-- * Returns 0 on success, -ENOSPC if all slots are used (caller should<br>
-- * fall back to system memory path).<br>
-+ * Returns 0 on success, -ENOSPC if all slots are used, or<br>
-+ * -EOPNOTSUPP if RS64 local memory is unavailable.<br>
-&nbsp; */<br>
-&nbsp;int amdgpu_mes_alloc_proc_ctx_index(struct amdgpu_mes *mes,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct a=
-mdgpu_usermode_queue *queue)<br>
-@@ -1064,9 +1067,12 @@ int amdgpu_mes_alloc_proc_ctx_index(struct amdgpu_me=
-s *mes,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
--/**<br>
-- * amdgpu_mes_free_proc_ctx_index - free a process context slot<br>
-- */<br>
-+ /**<br>
-+&nbsp; * amdgpu_mes_free_proc_ctx_index - free a process context slot<br>
-+&nbsp; *<br>
-+&nbsp; * @mes: MES instance<br>
-+&nbsp; * @queue: Usermode queue whose process context index is released<br=
->
-+&nbsp; */<br>
-&nbsp;void amdgpu_mes_free_proc_ctx_index(struct amdgpu_mes *mes,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct a=
-mdgpu_usermode_queue *queue)<br>
-&nbsp;{<br>
-@@ -1080,9 +1086,15 @@ void amdgpu_mes_free_proc_ctx_index(struct amdgpu_me=
-s *mes,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mes_unlock(mes);<br=
->
-&nbsp;}<br>
-&nbsp;<br>
--/**<br>
-- * amdgpu_mes_alloc_gang_ctx_index - allocate a gang context slot<br>
-- */<br>
-+ /**<br>
-+&nbsp; * amdgpu_mes_alloc_gang_ctx_index - allocate a gang context slot<br=
->
-+&nbsp; *<br>
-+&nbsp; * @mes: MES instance<br>
-+&nbsp; * @queue: Usermode queue receiving the allocated gang context index=
-<br>
-+&nbsp; *<br>
-+&nbsp; * Returns 0 on success, -ENOSPC if all slots are used, or<br>
-+&nbsp; * -EOPNOTSUPP if RS64 local memory is unavailable.<br>
-+&nbsp; */<br>
-&nbsp;int amdgpu_mes_alloc_gang_ctx_index(struct amdgpu_mes *mes,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct a=
-mdgpu_usermode_queue *queue)<br>
-&nbsp;{<br>
-@@ -1105,9 +1117,12 @@ int amdgpu_mes_alloc_gang_ctx_index(struct amdgpu_me=
-s *mes,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&nbsp;}<br>
-&nbsp;<br>
--/**<br>
-- * amdgpu_mes_free_gang_ctx_index - free a gang context slot<br>
-- */<br>
-+ /**<br>
-+&nbsp; * amdgpu_mes_free_gang_ctx_index - free a gang context slot<br>
-+&nbsp; *<br>
-+&nbsp; * @mes: MES instance<br>
-+&nbsp; * @queue: Usermode queue whose gang context index is released<br>
-+&nbsp; */<br>
-&nbsp;void amdgpu_mes_free_gang_ctx_index(struct amdgpu_mes *mes,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct a=
-mdgpu_usermode_queue *queue)<br>
-&nbsp;{<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_DM6PR12MB3611824F6F06889882D1665E94C32DM6PR12MB3611namp_--
