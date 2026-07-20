@@ -4,86 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEC77C44529
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 07:22:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8A299C4451C
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 07:22:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A53D10E6B9;
-	Tue, 21 Jul 2026 07:22:12 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=baylibre.com header.i=@baylibre.com header.b="EWaeLO3n";
-	dkim-atps=neutral
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 13B4810E18C
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jul 2026 11:34:56 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-47f707e5d75so785434f8f.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jul 2026 04:34:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1784547294; x=1785152094;
- darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=5MEo8NUpZhRQI5j1rCBJtgFOMjhyLVipMDpM+l3a/38=;
- b=EWaeLO3nna+D5L9LsREjPOugThtVZrVwIVsTZHuzSzanTo/rVtcW7kKjN66rWnRPar
- 1cBbd7YZoaicbQfmAx21upRLBlXJv4qZmCLzWGASDqSmC79kTB3HQcSrDaplkWdPmmBN
- gDFoPfL87yic6lBBNMzN1Kh3/esxrqv1Vw8dcCNZBYH6PHgPhVRGuX8/+273IoR2Nr73
- IoRkjvf/h+1r9Cki+UReG1eW0BjEXkK0x24zA9a0rYScZ5G64p9WGGdObLnBZTfyGS9T
- AEVWkHKgXifTYu4lEa86EhlFwWJuygzWWHr0IFcpvf2zxrdTFRaw2KB53cqYCR9FI+DD
- /h5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784547294; x=1785152094;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=5MEo8NUpZhRQI5j1rCBJtgFOMjhyLVipMDpM+l3a/38=;
- b=ORcey3o9oCOagqIrKtcIm6RFxa9ftjenQGCMuDEi+8/nDzXeVi4JitiJvxvsrJJnD0
- ICePvn0T0k0u1CQjioMnYXgpy9bhhcCiRrJf2PkPQ5wacccekJAQOofArBYE0f8zP22g
- 3fqYK+YJrbA26X0/pj3OM88QVxMBRiQfw7rw+Q2J2hXIiIDpj8ljaz5HFPe11zvJqTBX
- QCZJ1HYqeV6J+REWgIepg+all86EVmjlIE8cW5Id8biGFwaRhJdloSKTgfU4kN9Wdbzw
- Yobo844LxBAg5E/FcpqlHqsOKqTtmK6eGgPn4a4rSZZNWeO1oLC6DYvdfzFS3QOaaXhK
- NK+w==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrvOjeTRaJm/9ZWSSnJeBNQBp0YjXjytMaJHu7FvEKA2G2BbGI+OIiD3fe1C7MA/XtRtxePt6Yl@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwEvjBIVATwgkDFth3AprwUd7q+t6bpFSKlh7+rrOfmG0dnKPrJ
- YsZsuCiPlMMSHnLi5cFUsjNuRuC7R+b5mYlXITgJ1Kgp2s69N3Wyn2Mq/rI/W6HtmUs=
-X-Gm-Gg: AR+sD11kW7sgK9n5yMAB/TzQFbqpb0WFvSNUmDjUFi9RwZ1yzIFonfGDbrWYEZoKse6
- PFTSVU8TzLxIxqL2zQDTwq+poLXRcxmX43SKCjKzNueKs1FtFdGENwSDdndobV8s8R7aP2/EtbU
- OJOVRbWbPKmIOu0wc5k9DXXfC6KRHtM0xSrUDZcAiVk7eEm7Gn7qAXuJ7bbwvHpCS9hZYlJlQVw
- T4kndzJlswOYVmxWSloVMx6QQLxEfWAHrr441ysDcOuvxk6BLVG9Sskl6uHGpcjJt9dPPEDR/Cr
- 7rDl3vUK2yS5929zgf5NMo8tjI9qnv4Eyl0bC/KWCoB+E8InVG7mHmXUsEhtE6H8DgBg/Cfjupk
- RoS05/YS9DGqzQ5fuBI19c+U8ZCfyiDDaEBfUav8ACpoQgswPS5jEfuUb5hRflXlnFCNOyKEjvb
- ng2ESlnjjdddXoAiVXVzmNmtWLZXZchRfXVx9LSEznFNmHjv2CGD+FxCvhPVroApS0cQ==
-X-Received: by 2002:a05:6000:4b14:b0:47e:aa3f:f822 with SMTP id
- ffacd0b85a97d-47f6233be35mr16319068f8f.53.1784547294401; 
- Mon, 20 Jul 2026 04:34:54 -0700 (PDT)
-Received: from localhost
- (p200300f65f47db048587886ecb5b26b2.dip0.t-ipconnect.de.
- [2003:f6:5f47:db04:8587:886e:cb5b:26b2])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-47f6fa848fcsm19241724f8f.0.2026.07.20.04.34.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jul 2026 04:34:53 -0700 (PDT)
-Date: Mon, 20 Jul 2026 13:34:52 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-To: Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Markus Schneider-Pargmann <msp@baylibre.com>, 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1920E10E6C8;
+	Tue, 21 Jul 2026 07:22:13 +0000 (UTC)
+X-Greylist: delayed 696 seconds by postgrey-1.36 at gabe;
+ Mon, 20 Jul 2026 12:43:57 UTC
+Received: from h6.fbrelay.privateemail.com (h6.fbrelay.privateemail.com
+ [162.0.218.229])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79DF810E902;
+ Mon, 20 Jul 2026 12:43:57 +0000 (UTC)
+Received: from MTA-10-3.privateemail.com (mta-10.privateemail.com
+ [198.54.118.218])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by h5.fbrelay.privateemail.com (Postfix) with ESMTPSA id 4h3fzQ5K5jz2xjv;
+ Mon, 20 Jul 2026 12:32:18 +0000 (UTC)
+Received: from mail.privateemail.com (K8S-PROD-WORKER-10 [142.188.184.102])
+ by mta-10.privateemail.com (Postfix) with ESMTPA id 4h3fzD0NJlz3hhTX;
+ Mon, 20 Jul 2026 08:32:07 -0400 (EDT)
+Date: Mon, 20 Jul 2026 08:32:04 -0400
+From: Hamza Mahfooz <someguy@effective-light.com>
+To: LetsDank <ichi2209@icloud.com>
+Cc: Leo Li <sunpeng.li@amd.com>, Mario Limonciello <superm1@kernel.org>,
+ Harry Wentland <harry.wentland@amd.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/amdgpu: Consistently define pci_device_ids using
- named initializers
-Message-ID: <al4HlJxVqCDae5yL@monoceros>
-References: <20260429171644.8406-2-u.kleine-koenig@baylibre.com>
- <aimWvtBTQvd7O2F0@monoceros>
+Subject: Re: [PATCH v6 2/2] drm/amd/display: add DMU timeout recovery support
+Message-ID: <al4VRK6IAYLPSm3c@hal-station.localdomain>
+References: <20260505182105.420525-1-someguy@effective-light.com>
+ <20260505182105.420525-2-someguy@effective-light.com>
+ <178429570497.694276.1089609041510474786.dmub-recovery-v6-test@icloud.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
- protocol="application/pgp-signature"; boundary="rjr5ydhtag5cemwi"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aimWvtBTQvd7O2F0@monoceros>
+In-Reply-To: <178429570497.694276.1089609041510474786.dmub-recovery-v6-test@icloud.com>
+X-Rspamd-Queue-Id: 4h3fzQ5K5jz2xjv
 X-Mailman-Approved-At: Tue, 21 Jul 2026 07:22:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,65 +57,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Fri, Jul 17, 2026 at 04:41:44PM +0300, LetsDank wrote:
+> Hi,
+> 
+> I have been seeing what appears to be the same failure on an MSI Bravo
+> 15 C7VF with a Ryzen 5 7535HS / Rembrandt Radeon 660M (1002:1681), an
+> internal 1920x1080 144 Hz eDP panel, and KDE X11. It occurred on Fedora
+> kernels 6.19 and 7.1.3. The relevant signatures included:
+> 
+>   flip_done timed out
+>   commit wait timed out
+>   Error queueing DMUB command: status=2
+> 
+> Using amdgpu.dcdebugmask=0x810 has avoided the failure for more than 53
+> hours across four boots, including one continuous run longer than 27
+> hours.
+> 
+> I built this v6 series on top of v7.2-rc3 and booted it with:
+> 
+>   amdgpu.dcdebugmask=0 amdgpu.gpu_recovery=1
+> 
+> It passed five DPMS off/on cycles, five modeset cycles between 60 Hz and
+> 144 Hz, and a short fullscreen rendering test. It then ran a normal KDE
+> X11 workload for about 12.5 hours without any DMUB queue-full, DMCUB, or
+> page-flip timeout message.
+> 
+> The original intermittent timeout did not occur during that run, so I
+> cannot offer a Tested-by for the recovery path.
+> 
+> After about 12.5 hours the test kernel hit a separate gfxhub VM page
+> fault attributed to Xorg, followed by a gfx_0.0.0 ring timeout and a
+> successful ring reset. Mesa then aborted Xorg. There were no DMUB,
+> DMCUB, or flip timeout messages in that incident. I preserved the full
+> AMDGPU devcoredump and symbolized userspace coredumps if they would be
+> useful as a separate report.
+> 
+> Patch 1 also needed a small API adaptation on v7.2-rc3 from
+> drm_atomic_state and drm_atomic_state_*() to drm_atomic_commit and
+> drm_atomic_commit_*(). The resulting kernel built cleanly, and all three
+> commits passed checkpatch.pl --strict. I can send that fixup if it would
+> help with a respin.
+> 
+> Is this series still being worked on, and would testing a revised version
+> on this Rembrandt system be useful?
 
---rjr5ydhtag5cemwi
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] drm/amdgpu: Consistently define pci_device_ids using
- named initializers
-MIME-Version: 1.0
+I haven't had much time to work on this, though if you look at the
+previous thread [1] the whole idea around having a recovery path for KMS
+was NACKed by Ville. So, it doesn't appear to me that there is much of
+an appetite for this.
 
-Hello,
-
-On Wed, Jun 10, 2026 at 06:55:09PM +0200, Uwe Kleine-K=F6nig (The Capable H=
-ub) wrote:
-> On Wed, Apr 29, 2026 at 07:16:44PM +0200, Uwe Kleine-K=F6nig (The Capable=
- Hub) wrote:
-> > ... and PCI device helpers.
-> >=20
-> > The struct pci_device_id array of supported device was initialized
-> > by list expressions. This isn't easily readable if you're not into PCI.
-> >=20
-> > Use PCI_DEVICE* helper macros and named initializers which is more
-> > explicit and thus easier to parse. Also skip explicit assignments of 0
-> > (which the compiler then takes care of).
-> >=20
-> > The secret plan is to make struct pci_device_id::driver_data an
-> > anonymous union (similar to
-> > https://lore.kernel.org/all/cover.1776579304.git.u.kleine-koenig@baylib=
-re.com/)
-> > and that requires named initializers. But it's also a nice cleanup on
-> > its own.
-> >=20
-> > This change doesn't introduce changes to the compiled pci_device_id
-> > array. Tested on x86 and arm64.
-> >=20
-> > Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@ba=
-ylibre.com>
->=20
-> Gentil ping! I'd like to work on changing pci_device_id, but that
-> requires that this patch hits mainline first ...
-
-Would it help to resend? Did I fail to Cc: someone to get this patch
-into some tracking?
-
-Best regards
-Uwe
-
---rjr5ydhtag5cemwi
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpeB9kACgkQj4D7WH0S
-/k5Z6Af9Gq2QxbDClvePDJgb1S0Btc3vPaIme+YCro+lTIwcbZZ1CHZKRKdrSSda
-ajvSbtUH6ZT2Dj/grtQNq0MAgwRXNJjpEtNUVhuKa/g/O9G6HseGT/JLZ6gpbE3V
-FvjvZLvFYE0cC5UBxPsfpJZWSZ4b6HHG2yaqgGbKG01UIuW0bu2ElQXzN8z9FLqW
-QjR8PEoBgfPQZA2TUqtRQ0tjbMFA+FEpFWkuPSmdDFVR4OPZUbAIltzKfYnCcmch
-cEnAnx/m12gfxUS1cBy7m120C/Ko+q4UszZPzbPrivbFGby8/E52ee+rVAuzdcCE
-TPAmP3ysP/Olxv7n3XJ9LHGrkhVHuQ==
-=E0ji
------END PGP SIGNATURE-----
-
---rjr5ydhtag5cemwi--
+[1] https://lore.kernel.org/r/afuMqXoBt2oIFRm9@intel.com/
+> 
+> Regards,
+> LetsDank
+> 
