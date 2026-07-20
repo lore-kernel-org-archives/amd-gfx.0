@@ -4,63 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 96903C4452B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C103BC4452D
 	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 07:22:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1DD9D10E6CC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 31E4810E6D1;
 	Tue, 21 Jul 2026 07:22:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="X6t28ym+";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=lunn.ch header.i=@lunn.ch header.b="kWRD/WwS";
 	dkim-atps=neutral
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com
- [136.143.188.112])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3DB2F10E912;
- Mon, 20 Jul 2026 13:04:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1784552660; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=ehHzSpYz0V8EqhdM6EaBEumDPGR8sGmdS4JCTGmnlybjizGiVLuY6BG48JZFwiopfrn1xAoX5nMkONF4+4GDcw8YYDC1srZoA31xKfhXN/D49sVE/KBqn69UL0JHIv/9porcqQGi+1ypeeoMnbpSsfQcHzSlBgDd5mNOLRaHlxA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1784552660;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=HN6kXcysOJTr101hpnG7NcuN/66ELXnKkFR6JHIY2pk=; 
- b=cKPVZKlH/AhN7djjCHYWlH25lEpgA4afBBKsuDb6hv7wfPnIlYsyzPGzJcBEot2CJ7D1TG+ZSoEq4KF/XDd4GLpAk9JGy611AW9fnpiaL7HIaGYqz5E7LQ6f4f7TSGrA1BqOMqw8wiZtyE7GNZ35aHCOwVK/lqIz6qyRUZmRWVQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
- dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784552660; 
- s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
- h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
- bh=HN6kXcysOJTr101hpnG7NcuN/66ELXnKkFR6JHIY2pk=;
- b=X6t28ym+Q1c2Hgiw1gNAGYOUlvwWeGIMnUZgR5ERmumVio2zJYE5uusYgKFz/nR1
- VNH9sr5uv5f1nAz0MJR96qf7hIg2xFmE6m8dBHMHsJJu0DNGMPwW05noTrzFESgEeCg
- Iml1oMvyDB5i5TCDUCuFtTEdn+WTLRLUOJXLGSrY=
-Received: by mx.zohomail.com with SMTPS id 1784552658856490.3691525909395;
- Mon, 20 Jul 2026 06:04:18 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Date: Mon, 20 Jul 2026 15:03:57 +0200
-Subject: [PATCH] drm/amd/display: Remove redundant AUTO color format
- handling in else
+X-Greylist: delayed 2034 seconds by postgrey-1.36 at gabe;
+ Mon, 20 Jul 2026 21:27:21 UTC
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE4C410E1F0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jul 2026 21:27:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=rLkNesRCYNFOq+ZuVFxEEhkM0txhhysUwpvEFeMD4Fw=; b=kWRD/WwSdH3oQGCu/bb2MqxLFt
+ GxxMAXajZYFA8mU3N1Pm9DTmh8P/j0xPt/6IE5Pei2n1jaMYNVOfrjUkv5qnofA/1mh5DxHW6vw6w
+ G6xJB9AiVVAZK+u8aHNV/3Pt2rqgYDi1iqaQ5Jt98DQbpEtpuFBvr45lX/W5wsB0Shy0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1wluz9-00DK2K-VG; Mon, 20 Jul 2026 22:53:11 +0200
+Date: Mon, 20 Jul 2026 22:53:11 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Natalie Vock <nat@pixelcluster.dev>
+Cc: Taehee Yoo <ap420073@gmail.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Alexei Starovoitov <ast@kernel.org>, amd-gfx@lists.freedesktop.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Andrii Nakryiko <andrii@kernel.org>,
+ Bill Wendling <morbo@google.com>, bpf@vger.kernel.org,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, David Airlie <airlied@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Donald Hunter <donald.hunter@gmail.com>, dri-devel@lists.freedesktop.org,
+ Eduard Zingerman <eddyz87@gmail.com>,
+ Emil Tsalapatis <emil@etsalapatis.com>, Eric Dumazet <edumazet@google.com>,
+ Felix Kuehling <Felix.Kuehling@amd.com>,
+ Hoyeon Lee <hoyeon.rhee@gmail.com>,
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Jakub Kicinski <kuba@kernel.org>, Jesper Dangaard Brouer <hawk@kernel.org>,
+ Jiri Olsa <jolsa@kernel.org>, John Fastabend <john.fastabend@gmail.com>,
+ Justin Stitt <justinstitt@google.com>, Kees Cook <kees@kernel.org>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Leon Romanovsky <leon@kernel.org>, linaro-mm-sig@lists.linaro.org,
+ linux-hardening@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-rdma@vger.kernel.org, llvm@lists.linux.dev,
+ Mark Bloch <mbloch@nvidia.com>, Martin KaFai Lau <martin.lau@linux.dev>,
+ Michael Chan <michael.chan@broadcom.com>,
+ Nathan Chancellor <nathan@kernel.org>, netdev@vger.kernel.org,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Paolo Abeni <pabeni@redhat.com>, Pavan Chebbi <pavan.chebbi@broadcom.com>,
+ Saeed Mahameed <saeedm@nvidia.com>, Shuah Khan <shuah@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Simon Horman <horms@kernel.org>,
+ Song Liu <song@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Tariq Toukan <tariqt@nvidia.com>,
+ Yonghong Song <yonghong.song@linux.dev>
+Subject: Re: [RFC PATCH net-next 08/13] drm/amdkfd: add GPU instruction
+ emitter and disassembler
+Message-ID: <8dfbef48-db20-4642-8f50-e37f46af6627@lunn.ch>
+References: <20260719175857.4071636-1-ap420073@gmail.com>
+ <20260719175857.4071636-9-ap420073@gmail.com>
+ <41e73be8-242a-4e7b-b085-439375303590@pixelcluster.dev>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260720-color-format-amdgpu-fix-v1-1-4ec896bb1531@collabora.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NwQqDMBBEf0X23IXVgqK/UnqIyWq3NMZuYhHEf
- 2+sPb5hZt4GkVU4QldsoPyRKGHKUF4KsA8zjYziMkNFVU1NRWjDKygOQb1JaLwb5wUHWZFaQ9e
- Sats6A3k9K+f493y7nxyX/sk2HXf/hvJ7ycp01qA3kbPAe0ld4dSjl2hx4jXh4UdqsKzhvu9fs
- hhtXrcAAAA=
-X-Change-ID: 20260720-color-format-amdgpu-fix-09a03106c9da
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Daniel Stone <daniel@fooishbar.org>, 
- Marius Vlad <marius.vlad@collabora.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Dan Carpenter <error27@gmail.com>, 
- kernel@collabora.com, Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <41e73be8-242a-4e7b-b085-439375303590@pixelcluster.dev>
 X-Mailman-Approved-At: Tue, 21 Jul 2026 07:22:12 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,44 +87,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The AUTO connector color format is handled in the earlier branches for
-both RGB and YUV420. The repeated check in the else branch is therefore
-redundant.
+On Mon, Jul 20, 2026 at 10:05:33PM +0200, Natalie Vock wrote:
+> On 7/19/26 19:58, Taehee Yoo wrote:
+> > Add the AMD GCN (gfx9/gfx10) instruction encoder used to build the GPU
+> > shaders that knod dispatches, plus a matching disassembler used for
+> > debugging the generated code.
+> 
+> Is it really necessary to have a full-on compiler and disassembler in the
+> kernel driver? This patch is massive and I'm wondering how much benefit it
+> really provides. Is there really no way to move GPU compilation out of the
+> kernel, one way or another? Could you get acceptable perf with a static
+> shader that interprets BPF programs at runtime? Such a shader can be
+> compiled beforehand and just embedded into the kernel - there's prior art
+> there with the CWSR trap handler in amdkfd.
+> 
+> In case you really, really need to compile the BPF to native ISA, could you
+> still have userspace take care of that in one way or another?
 
-Remove it to make the code less confusing to read.
+There was a long and painful discussion about P4, and offloading it to
+hardware. The proponents of that wanted to do the compilation stage in
+user space to produce a binary blob, but it was hard to prove that the
+P4 passed to the kernel for software processing, and the binary blob
+passed to the hardware actually where the same. It opened up the path
+for closed source P4 where the kernel never got to see the actual P4
+code. So it was not really offload, but kernel bypass.
 
-Reported-by: Dan Carpenter <error27@gmail.com>
-Closes: https://lore.kernel.org/r/alCcJmDeIYEE94Eh@stanley.mountain/
-Fixes: 8a0343b03b98 ("drm/amdgpu: Implement "color format" DRM property")
-Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+So having a compiler in the kernel is probably the correct way to go,
+if you want to be friendly to open source.
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 88f938a8f24f..ea277c991234 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -854,12 +854,7 @@ static void fill_stream_properties_from_drm_display_mode(
- 		 * error bubbles up to userspace. This way, userspace knows it
- 		 * needs to make a better choice.
- 		 */
--		if (connector_state->color_format != DRM_CONNECTOR_COLOR_FORMAT_AUTO)
--			timing_out->pixel_encoding = PIXEL_ENCODING_UNDEFINED;
--		else if (drm_mode_is_420_only(info, mode_in))
--			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
--		else
--			timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
-+		timing_out->pixel_encoding = PIXEL_ENCODING_UNDEFINED;
- 	}
- 
- 	timing_out->timing_3d_format = TIMING_3D_FORMAT_NONE;
+The other option is to get the GPU to do the compilation itself, so
+you pass BPF byte codes to the GPU and it generates its own native
+code. I've no idea if that is possible, but clang can target OpenMP,
+so maybe it is possible to move this compiler into the GPU?
 
----
-base-commit: e6a72e9b927165081566252d972ea1cbbee5bf28
-change-id: 20260720-color-format-amdgpu-fix-09a03106c9da
-
-Best regards,
---  
-Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-
+      Andrew
