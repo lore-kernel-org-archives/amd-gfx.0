@@ -4,84 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AD3AC4452D
-	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 14:24:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B6BFC4452A
+	for <amd-gfx@archiver.kernel.org>; Mon, 20 Jul 2026 14:36:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC04B10E710;
-	Mon, 20 Jul 2026 14:24:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A2D410E1AD;
+	Mon, 20 Jul 2026 14:36:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hki4RF+y";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ndVfzh8G";
 	dkim-atps=neutral
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com
- [209.85.218.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E68B310E95F
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jul 2026 14:24:56 +0000 (UTC)
-Received: by mail-ej1-f46.google.com with SMTP id
- a640c23a62f3a-c15dd4b9132so1640335066b.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jul 2026 07:24:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784557495; x=1785162295; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=P8PwqyBHNjFdce8qQVbwsdIAnoB3bJRdMu7cUIdQ61c=;
- b=hki4RF+yrlP0Uou7NLyvZWbfsJvaAAkNhUO3Wwj9jOEOP0Ww09a67CViVyFCogI5RS
- PnUH1JaQQswzv7nB5lC9qf9lF+cU1De+8bikmwqBvIGu9Gbi6rZRC+PLXZIWAr6Yel9g
- k8iQj8BXeHOzRK4bPVB5H9QfAtMoU+OxyYujfB4tc/sQkGsfYkjmKxw/C62Yxp6lHWp/
- 3Fy21hLxSFl2NjRSmZR63Bgxj4ox+WOiQ87CSirRSaOWonnlU7rtCA1Q/fczulzi09/H
- +b034sQBGTdVArGa6nb4sI2yK6s+EyLq4mk24qh/DNirKA2prHhslkKWOQxz2NeGbaA7
- y2WQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784557495; x=1785162295;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=P8PwqyBHNjFdce8qQVbwsdIAnoB3bJRdMu7cUIdQ61c=;
- b=qMWqJwZtPFzBQHBLDKEhLb0Sx21eZxpQGZirx+ZY+u4as+VGRd/Su/yKI4+rN78nYZ
- Kw2nZVt68pRHqyKdnCo1iW3LERc4u7KejB+YcxVVt/pya/J1sKMWl/N6svzaXrkmtj8T
- Zs2CGCF1n8+km8zcaH+S5gRapp10Vqbyq9ytbFVG4s8wtPvKF/mNv+tIYhNjD/VED206
- nn/3mRWCUwFBso35VEP6zUpvxaoLF0xh3oSVo4f/MgUlKdEQTTVZ3Sbdpv7ydGjA1ThY
- GXi6ukNiE8dVmC38QOR/MxaI2pimqK1GzPOPonJ0ftC1a1YuNTBj4qt0ZapwA7VJHerf
- KKoA==
-X-Gm-Message-State: AOJu0Ywm7DbDbmLPDQiq/RO215O9s8Wc3qnBduV3G9a0pOhXYB3SptlU
- hW24Gvv/8Gvxos/k46LGWs6El0nZ/qwRsYvuv3VcAvR0c0FF/gJoCRSc83KyoTNL
-X-Gm-Gg: AfdE7clAfyUBMFaWDa8mK/T0z1mw3eMjtPg6wGeuj1ycS56gaZyqL8uMzwO11bRAJ++
- Yu2QdAcvWnEfj2maN7Cshh7oSMSCd3fcuNOv9VNGws24dGAXkaGWGh9Yvr9vl3qevAXx8zj94H8
- 3iKvgGF1AdDvbMtDL1lkpbAIbbyHZ6k86yk+AIO2y2TJrKr19cx7IC7aXxZuOYOIYrNn4Ghn7nn
- QfgWK3pQlKcwjELGFRCN2c7ExpuOlx8Wca+8x8Nrsg8vYTm5A/CIDEwSr6hr0XyBkey9fr1dwHp
- 4CIR+wAQGDMp7p+FHRGH0V4+NPe76U6xPq89ZYibKC8iVhIWmia1g4l3EcQqM7UivU9K1FkSUuA
- KNUOKmR5j/wK1bhEigBhBal3xbucDVjBoAQX+F1bAFHDjwz18VvDAPEFp0lW42qRW2EjcAZZNvT
- FEb1OOkbdmfVf/whHFZSMfbVxzeSwk8KWBib2gh2MBEw8=
-X-Received: by 2002:a17:907:787:b0:c15:cc30:6c74 with SMTP id
- a640c23a62f3a-c16b4768a08mr640813066b.44.1784557495172; 
- Mon, 20 Jul 2026 07:24:55 -0700 (PDT)
-Received: from Timur-Hyperion.home (5401D94C.dsl.pool.telekom.hu.
- [84.1.217.76]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-69e6fff5efasm4999534a12.26.2026.07.20.07.24.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 20 Jul 2026 07:24:53 -0700 (PDT)
-From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- Link Mauve <linkmauve@linkmauve.fr>,
- =?UTF-8?q?Nikola=20Medi=C4=87?= <nmedic89@gmail.com>,
- =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>,
- Daniel Stone <daniels@collabora.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- =?UTF-8?q?Dieter=20N=C3=BCtzel?= <Dieter@nuetzel-hh.de>,
- Tvrtko Ursulin <tursulin@ursulin.net>, pierre-eric.pelloux-prayer@amd.com,
- Natalie Vock <natalie.vock@gmx.de>
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 4/4] drm/amd/display: Don't use tiling flags anymore
-Date: Mon, 20 Jul 2026 16:24:40 +0200
-Message-ID: <20260720142440.22076-5-timur.kristof@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260720142440.22076-1-timur.kristof@gmail.com>
-References: <20260720142440.22076-1-timur.kristof@gmail.com>
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012003.outbound.protection.outlook.com [40.107.209.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1E18110E1AD
+ for <amd-gfx@lists.freedesktop.org>; Mon, 20 Jul 2026 14:36:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ghFGRUPBoTrtwz8jTrEJNpvF+EzcvTjSG4sVRQlWqmWN/n2Y5LnhjuwRDb16dJxR/OgvMsaLwDfjaZf3f6mYNMPxzbjZp3Usle/MVas7QbiiA5B86rCzH0YyRnkgfFuMU1zUL6UGXrfMsvIyV9DIo5zTRW1S00QVegkmkFYXz9Mdzu0M5Z/yGSJBoS7uPSBFr1NbvObLaJmPbOOaiWLT/NwBv+tqE7/m8sDjQ7/g12j7Tie0YQEwxRyxBqTuTqDfgFKlHiS81lcgF3qt/C1BJuHEd2PBrFLD1A6S9HaV7DRu1j/dNOBG861weJ9Q+TXTeBBYkNhMIqPXtfXuGMqrhg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eoNowkhm3hEe7sD7afStsL3VsNmaK2qU1Vn5wc3j2b8=;
+ b=O2xYzVQaJWYNbQRgG3yCPgoa1st3l/2d0itnsbg7z3MogWP3kNjjSU33qXtYwVhuapOyokCAPu7X5GSntXC7FGw7Cbza4rThODge7Dc7ceKJ/q3WCjSlnZzfo0op0bK5lwRMV/KZPj+7sLPriJvBe482WO3EnFzBznFh5ZnoqzUqKOdPqqwaXgSWHiMRiSQHhGrO/jFdKke9bdRwfB2tNoXnXBAmgBoA3HpGL/Ixi05MbsigKPGS73sucjAY72t1J7qhF06f0yHLVnIAiTdjVWU+j/HsqOBnIJM6TqBgezSCvdlEWDTjhnL5l42Dh582xQbUi8sPaokFU+SKNE86HQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eoNowkhm3hEe7sD7afStsL3VsNmaK2qU1Vn5wc3j2b8=;
+ b=ndVfzh8GTag0v9iEXroIzbCsVtmPB5j73ZIJVCuJZcbikvm8pE9saLMtnQPKZbT4G3zlnofEh8HbbPnTJwPu/3k3ohLDiR9IlITEwPjpIBJfCBKbxjbKPSsBqnUafVRzZ/3S/pv09vYyxd2D7i+Ik0X7I7RVZKiz8qJWoftl3Gs=
+Received: from MW4PR03CA0321.namprd03.prod.outlook.com (2603:10b6:303:dd::26)
+ by MW4PR12MB7466.namprd12.prod.outlook.com (2603:10b6:303:212::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Mon, 20 Jul
+ 2026 14:36:30 +0000
+Received: from CO1PEPF000075EE.namprd03.prod.outlook.com
+ (2603:10b6:303:dd:cafe::9f) by MW4PR03CA0321.outlook.office365.com
+ (2603:10b6:303:dd::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.223.16 via Frontend Transport; Mon,
+ 20 Jul 2026 14:36:30 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF000075EE.mail.protection.outlook.com (10.167.249.37) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.5 via Frontend Transport; Mon, 20 Jul 2026 14:36:30 +0000
+Received: from shubhankar-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.41; Mon, 20 Jul 2026 09:36:27 -0500
+From: Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpande@amd.com>
+To: <Alexander.Deucher@amd.com>, <Pratik.Vishwakarma@amd.com>,
+ <Christian.Koenig@amd.com>, <Lijo.Lazar@amd.com>,
+ <amd-gfx@lists.freedesktop.org>
+CC: <Shubhankar.MilindsSardeshpande@amd.com>,
+ <Veerabadhran.Gopalakrishnan@amd.com>, Shubhankar Milind Sardeshpande
+ <Shubhankar.MilindSardeshpande@amd.com>
+Subject: [PATCH 1/2] drm/amd/pm/smu15: add metrics table header for SMU v15.0.0
+Date: Mon, 20 Jul 2026 20:03:32 +0530
+Message-ID: <20260720143545.805691-1-Shubhankar.MilindSardeshpande@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075EE:EE_|MW4PR12MB7466:EE_
+X-MS-Office365-Filtering-Correlation-Id: 53aee0d6-bda9-4266-1011-08dee66c49bf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|82310400026|36860700016|376014|1800799024|3023799007|10067099003|5023799004|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: 7Xgjuxf581TKzHSQOnZHxHk67zvLGNFw17DJbIvDFPKryt1ltai23NuPgQx2oNbYMWoWwSkXuWk2NyI9Zk25m62jmN682N/1TfdGyxv0v91SvnpY7U4P7q5hmjLzoszLrfIRXRYhWiVa6MpZ36YYHe+gCgmd7+2IWDJgM+uuKpAs5xtQ+qSwcVETKt0h4RxOVdliEkOG0XCjWonCWF/JJf6Q21FdrHJhNNA7XheZ6WzU7V+yYiBt/St9nf5GkYZRPHoG/kdwzyuz4NV7yjTOd0/L/IoMxuvppRE7o9I2lPWuRv4PbcKBzv2YxpmUuULjgmWqJHfRxaZUb8qYv3B82hKpHAuBLYLKj/KpjntbRF65OyW/UVay1f1Iu+dsa8hFQVm5nLnA1xGF9r8kdCJar9uOg7b7UlaVPP0QM2i0RmIFHoPSz8I6VwMxTxv5jfXV3QrzI/jD32oMKjPHlT0Emm2d5cC2GXL0I8+C6sbKT5Q3TL7tBgEdHdkAyjUeH4kLW24PMr+2NVtupNqdZBqZhRToKIk+gfl6aZTLUciLNxT1X5W9TpThXakqZor6n8jlihUmLF4QUM/VWdapqCPbZ+7NbZk8ngWWyoDU1kSwZ7N0PSDuO84bb9oLBxLLlUuF31xEzZHK9NTye3QL1j24pHbwgwoaXiBHVNtiJYKROXocO/Cl6rdlRMFLGmHLwtDgqVxLtwwI9DDVRgfghGNjVw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(3023799007)(10067099003)(5023799004)(56012099006)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: OVtbbV/J8+9UeK7zX5HFGJL+ZrQMJfemxaW+HOHfA04Xk2ev9sIumy5p7YItRzskucEoPyXJcgfOZzQ5Vagm2r5beQJbAFOzoIqd/DkpPZfV24VWMKw8OEy5n/9qWQ5nN85/x9RDZH2zjoGC3BAFsjZRLAAGx9ymJMRMnCmfCHvRsEe8HfI1Ef43C8nmE+AU5c0RozV97xYz/tG4Yn0toVYS77E6W8m42ueRVKXDKg2EP1L6pJMv7v7oz1Cfr4amkgYJo8v0dqrWoYsxXzDcgK+6J7NY0YMzZRI4VYiJnUkfZ+M9CX/yMJBf7TCgr1ZWbO8wECi4G1ll2jxiAzdhjYYHhayvdBUsEOIaQyDJGP7DWsGdCpW5sbOowZTqdJB9Tedz/QwvSOR7jmPKpcJTsIo3lcywRFdvTnFfuUh92HSN6CKpps8HikTkOFJWE0kA
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Jul 2026 14:36:30.0207 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 53aee0d6-bda9-4266-1011-08dee66c49bf
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075EE.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7466
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,303 +111,254 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-All supported GPU generations now support DRM format modifiers.
-Remove all code from amdgpu_dm that dealt with tiling flags.
+Add smu_v15_0_0_metrics.h defining the v0x04 metrics table structures
+(MetricsTable_IOD_t, MetricsTable_CCX_t, MetricsTable_t) exported by
+SMU firmware. These structures describe voltage, power, thermal,
+frequency, bandwidth, activity, and overclock telemetry fields used
+for PM reporting on SMU v15.0.0 APUs.
 
-Note that the legacy non-DC display code still relies on
-tiling flags, so we can't remove them outside of DC
-until we also remove the legacy display code.
-
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Tested-by: Link Mauve <linkmauve@linkmauve.fr>
-Tested-by: Nikola Medić <nmedic89@gmail.com>
-Tested-by: Dieter Nützel <Dieter@nuetzel-hh.de>
-Reviewed-by: Marek Olšák <maraeo@gmail.com>
-Reviewed-by: Daniel Stone <daniels@collabora.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-Acked-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpande@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 29 +------
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 37 --------
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.h   |  3 -
- .../amdgpu_dm/tests/amdgpu_dm_plane_test.c    | 84 -------------------
- 4 files changed, 2 insertions(+), 151 deletions(-)
+ .../swsmu/inc/pmfw_if/smu_v15_0_0_metrics.h   | 230 ++++++++++++++++++
+ 1 file changed, 230 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_0_metrics.h
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index f8d8132ea50e..200d6bd41a7a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3059,7 +3059,6 @@ EXPORT_IF_KUNIT(fill_plane_color_attributes);
- static int
- fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
- 			    const struct drm_plane_state *plane_state,
--			    const u64 tiling_flags,
- 			    struct dc_plane_info *plane_info,
- 			    struct dc_plane_address *address,
- 			    bool tmz_surface)
-@@ -3157,7 +3156,7 @@ fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
- 		return ret;
- 
- 	ret = amdgpu_dm_plane_fill_plane_buffer_attributes(adev, afb, plane_info->format,
--					   plane_info->rotation, tiling_flags,
-+					   plane_info->rotation,
- 					   &plane_info->tiling_info,
- 					   &plane_info->plane_size,
- 					   &plane_info->dcc, address,
-@@ -3193,7 +3192,6 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
- 	dc_plane_state->scaling_quality = scaling_info.scaling_quality;
- 
- 	ret = fill_dc_plane_info_and_addr(adev, plane_state,
--					  afb->tiling_flags,
- 					  &plane_info,
- 					  &dc_plane_state->address,
- 					  afb->tmz_surface);
-@@ -4281,7 +4279,6 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 
- 		fill_dc_plane_info_and_addr(
- 			dm->adev, new_plane_state,
--			afb->tiling_flags,
- 			&bundle->plane_infos[planes_count],
- 			&bundle->flip_addrs[planes_count].address,
- 			afb->tmz_surface);
-@@ -6254,8 +6251,7 @@ static bool should_reset_plane(struct drm_atomic_commit *state,
- 		new_afb = (struct amdgpu_framebuffer *)new_other_state->fb;
- 
- 		/* Tiling and DCC changes also require bandwidth updates. */
--		if (old_afb->tiling_flags != new_afb->tiling_flags ||
--		    old_afb->base.modifier != new_afb->base.modifier)
-+		if (old_afb->base.modifier != new_afb->base.modifier)
- 			return true;
- 	}
- 
-@@ -6267,9 +6263,7 @@ static int dm_check_cursor_fb(struct amdgpu_crtc *new_acrtc,
- 			      struct drm_framebuffer *fb)
- {
- 	struct amdgpu_device *adev = drm_to_adev(new_acrtc->base.dev);
--	struct amdgpu_framebuffer *afb = to_amdgpu_framebuffer(fb);
- 	unsigned int pitch;
--	bool linear;
- 
- 	if (fb->width > new_acrtc->max_cursor_width ||
- 	    fb->height > new_acrtc->max_cursor_height) {
-@@ -6304,25 +6298,6 @@ static int dm_check_cursor_fb(struct amdgpu_crtc *new_acrtc,
- 		return -EINVAL;
- 	}
- 
--	/* Core DRM takes care of checking FB modifiers, so we only need to
--	 * check tiling flags when the FB doesn't have a modifier.
--	 */
--	if (!(fb->flags & DRM_MODE_FB_MODIFIERS)) {
--		if (adev->family == AMDGPU_FAMILY_GC_12_0_0) {
--			linear = AMDGPU_TILING_GET(afb->tiling_flags, GFX12_SWIZZLE_MODE) == 0;
--		} else if (adev->family >= AMDGPU_FAMILY_AI) {
--			linear = AMDGPU_TILING_GET(afb->tiling_flags, SWIZZLE_MODE) == 0;
--		} else {
--			linear = AMDGPU_TILING_GET(afb->tiling_flags, ARRAY_MODE) != DC_ARRAY_2D_TILED_THIN1 &&
--				 AMDGPU_TILING_GET(afb->tiling_flags, ARRAY_MODE) != DC_ARRAY_1D_TILED_THIN1 &&
--				 AMDGPU_TILING_GET(afb->tiling_flags, MICRO_TILE_MODE) == 0;
--		}
--		if (!linear) {
--			drm_dbg_atomic(adev_to_drm(adev), "Cursor FB not linear");
--			return -EINVAL;
--		}
--	}
--
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 2706b2ea4eae..82a6235904ab 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -211,39 +211,6 @@ STATIC_IFN_KUNIT unsigned int amdgpu_dm_plane_modifier_gfx9_swizzle_mode(uint64_
- }
- EXPORT_IF_KUNIT(amdgpu_dm_plane_modifier_gfx9_swizzle_mode);
- 
--STATIC_IFN_KUNIT void amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags(struct dc_tiling_info *tiling_info,
--								       uint64_t tiling_flags)
--{
--	/* Fill GFX8 params */
--	if (AMDGPU_TILING_GET(tiling_flags, ARRAY_MODE) == DC_ARRAY_2D_TILED_THIN1) {
--		unsigned int bankw, bankh, mtaspect, tile_split, num_banks;
--		bankw = AMDGPU_TILING_GET(tiling_flags, BANK_WIDTH);
--		bankh = AMDGPU_TILING_GET(tiling_flags, BANK_HEIGHT);
--		mtaspect = AMDGPU_TILING_GET(tiling_flags, MACRO_TILE_ASPECT);
--		tile_split = AMDGPU_TILING_GET(tiling_flags, TILE_SPLIT);
--		num_banks = AMDGPU_TILING_GET(tiling_flags, NUM_BANKS);
--
--		tiling_info->gfxversion = DcGfxVersion8;
--		/* XXX fix me for VI */
--		tiling_info->gfx8.num_banks = num_banks;
--		tiling_info->gfx8.array_mode =
--				DC_ARRAY_2D_TILED_THIN1;
--		tiling_info->gfx8.tile_split = tile_split;
--		tiling_info->gfx8.bank_width = bankw;
--		tiling_info->gfx8.bank_height = bankh;
--		tiling_info->gfx8.tile_aspect = mtaspect;
--		tiling_info->gfx8.tile_mode =
--				DC_ADDR_SURF_MICRO_TILING_DISPLAY;
--	} else if (AMDGPU_TILING_GET(tiling_flags, ARRAY_MODE)
--			== DC_ARRAY_1D_TILED_THIN1) {
--		tiling_info->gfx8.array_mode = DC_ARRAY_1D_TILED_THIN1;
--	}
--
--	tiling_info->gfx8.pipe_config =
--			AMDGPU_TILING_GET(tiling_flags, PIPE_CONFIG);
--}
--EXPORT_IF_KUNIT(amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags);
--
- STATIC_IFN_KUNIT int amdgpu_dm_plane_fill_gfx6_tiling_info_from_modifier(
- 						struct dc_tiling_info *tiling_info,
- 						uint64_t modifier)
-@@ -1160,7 +1127,6 @@ int amdgpu_dm_plane_fill_plane_buffer_attributes(struct amdgpu_device *adev,
- 			     const struct amdgpu_framebuffer *afb,
- 			     const enum surface_pixel_format format,
- 			     const enum dc_rotation_angle rotation,
--			     const uint64_t tiling_flags,
- 			     struct dc_tiling_info *tiling_info,
- 			     struct plane_size *plane_size,
- 			     struct dc_plane_dcc_param *dcc,
-@@ -1235,8 +1201,6 @@ int amdgpu_dm_plane_fill_plane_buffer_attributes(struct amdgpu_device *adev,
- 										address);
- 		if (ret)
- 			return ret;
--	} else if (afb->base.modifier == DRM_FORMAT_MOD_INVALID) {
--		amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags(tiling_info, tiling_flags);
- 	} else {
- 		ret = amdgpu_dm_plane_fill_gfx6_tiling_info_from_modifier(tiling_info,
- 									  afb->base.modifier);
-@@ -1332,7 +1296,6 @@ static int amdgpu_dm_plane_helper_prepare_fb(struct drm_plane *plane,
- 
- 		amdgpu_dm_plane_fill_plane_buffer_attributes(
- 			adev, afb, plane_state->format, plane_state->rotation,
--			afb->tiling_flags,
- 			&plane_state->tiling_info, &plane_state->plane_size,
- 			&plane_state->dcc, &plane_state->address,
- 			afb->tmz_surface);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-index 365e306a52e7..2b9b5f250737 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-@@ -48,7 +48,6 @@ int amdgpu_dm_plane_fill_plane_buffer_attributes(struct amdgpu_device *adev,
- 				 const struct amdgpu_framebuffer *afb,
- 				 const enum surface_pixel_format format,
- 				 const enum dc_rotation_angle rotation,
--				 const uint64_t tiling_flags,
- 				 struct dc_tiling_info *tiling_info,
- 				 struct plane_size *plane_size,
- 				 struct dc_plane_dcc_param *dcc,
-@@ -71,8 +70,6 @@ bool amdgpu_dm_plane_is_video_format(uint32_t format);
- #if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
- void amdgpu_dm_plane_add_modifier(uint64_t **mods, uint64_t *size,
- 				  uint64_t *cap, uint64_t mod);
--void amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags(struct dc_tiling_info *tiling_info,
--						      uint64_t tiling_flags);
- void amdgpu_dm_plane_fill_gfx9_tiling_info_from_device(const struct amdgpu_device *adev,
- 						       struct dc_tiling_info *tiling_info);
- void amdgpu_dm_plane_fill_gfx9_tiling_info_from_modifier(const struct amdgpu_device *adev,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-index a751e67cadf1..a210ca1d0a12 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-@@ -998,86 +998,6 @@ static void dm_test_add_modifier_noop_when_mods_null(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, cap, 7ULL);
- }
- 
--/**
-- * dm_test_fill_gfx8_tiling_info_2d_tiled() - Verify GFX8 2D tiled flag parsing.
-- * @test: KUnit test context.
-- *
-- * Verify if 2D tiled GFX8 flags populate expected tiling fields.
-- */
--static void dm_test_fill_gfx8_tiling_info_2d_tiled(struct kunit *test)
--{
--	struct dc_tiling_info tiling_info = {0};
--	uint64_t tiling_flags = 0;
--
--	tiling_flags |= AMDGPU_TILING_SET(ARRAY_MODE, DC_ARRAY_2D_TILED_THIN1);
--	tiling_flags |= AMDGPU_TILING_SET(BANK_WIDTH, 2);
--	tiling_flags |= AMDGPU_TILING_SET(BANK_HEIGHT, 1);
--	tiling_flags |= AMDGPU_TILING_SET(MACRO_TILE_ASPECT, 3);
--	tiling_flags |= AMDGPU_TILING_SET(TILE_SPLIT, 4);
--	tiling_flags |= AMDGPU_TILING_SET(NUM_BANKS, 2);
--	tiling_flags |= AMDGPU_TILING_SET(PIPE_CONFIG, 7);
--
--	amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags(&tiling_info, tiling_flags);
--
--	KUNIT_EXPECT_EQ(test, (int)tiling_info.gfxversion, (int)DcGfxVersion8);
--	KUNIT_EXPECT_EQ(test, (int)tiling_info.gfx8.array_mode, (int)DC_ARRAY_2D_TILED_THIN1);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.bank_width, 2U);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.bank_height, 1U);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.tile_aspect, 3U);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.tile_split, 4U);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.num_banks, 2U);
--	KUNIT_EXPECT_EQ(test, (int)tiling_info.gfx8.tile_mode,
--			(int)DC_ADDR_SURF_MICRO_TILING_DISPLAY);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.pipe_config, 7U);
--}
--
--/**
-- * dm_test_fill_gfx8_tiling_info_1d_tiled() - Verify GFX8 1D tiled flag parsing.
-- * @test: KUnit test context.
-- *
-- * Verify if 1D tiled GFX8 flags populate array mode and pipe config.
-- */
--static void dm_test_fill_gfx8_tiling_info_1d_tiled(struct kunit *test)
--{
--	struct dc_tiling_info tiling_info = {0};
--	uint64_t tiling_flags = 0;
--
--	tiling_flags |= AMDGPU_TILING_SET(ARRAY_MODE, DC_ARRAY_1D_TILED_THIN1);
--	tiling_flags |= AMDGPU_TILING_SET(PIPE_CONFIG, 5);
--
--	amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags(&tiling_info, tiling_flags);
--
--	KUNIT_EXPECT_EQ(test, (int)tiling_info.gfx8.array_mode, (int)DC_ARRAY_1D_TILED_THIN1);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.pipe_config, 5U);
--}
--
--/**
-- * dm_test_fill_gfx8_tiling_info_other_mode() - Verify non-1D/non-2D mode handling.
-- * @test: KUnit test context.
-- *
-- * Verify if unsupported array mode keeps preset fields and updates pipe config.
-- */
--static void dm_test_fill_gfx8_tiling_info_other_mode(struct kunit *test)
--{
--	struct dc_tiling_info tiling_info = {0};
--	uint64_t tiling_flags = 0;
--
--	tiling_info.gfxversion = 0x7f;
--	tiling_info.gfx8.array_mode = 0x7f;
--	tiling_info.gfx8.tile_mode = 0x7f;
--	tiling_info.gfx8.num_banks = 0x7f;
--
--	tiling_flags |= AMDGPU_TILING_SET(PIPE_CONFIG, 6);
--
--	amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags(&tiling_info, tiling_flags);
--
--	KUNIT_EXPECT_EQ(test, tiling_info.gfxversion, 0x7f);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.array_mode, 0x7f);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.tile_mode, 0x7f);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.num_banks, 0x7f);
--	KUNIT_EXPECT_EQ(test, tiling_info.gfx8.pipe_config, 6U);
--}
--
- /**
-  * dm_test_fill_gfx9_tiling_info_from_device_pre_10_3() - Verify GFX9 field copy before 10.3.
-  * @test: KUnit test context.
-@@ -3251,10 +3171,6 @@ static struct kunit_case amdgpu_dm_plane_test_cases[] = {
- 	KUNIT_CASE(dm_test_add_modifier_appends_value),
- 	KUNIT_CASE(dm_test_add_modifier_grows_capacity),
- 	KUNIT_CASE(dm_test_add_modifier_noop_when_mods_null),
--	/* amdgpu_dm_plane_fill_gfx8_tiling_info_from_flags() */
--	KUNIT_CASE(dm_test_fill_gfx8_tiling_info_2d_tiled),
--	KUNIT_CASE(dm_test_fill_gfx8_tiling_info_1d_tiled),
--	KUNIT_CASE(dm_test_fill_gfx8_tiling_info_other_mode),
- 	/* amdgpu_dm_plane_fill_gfx9_tiling_info_from_device() */
- 	KUNIT_CASE(dm_test_fill_gfx9_tiling_info_from_device_pre_10_3),
- 	KUNIT_CASE(dm_test_fill_gfx9_tiling_info_from_device_10_3_plus),
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_0_metrics.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_0_metrics.h
+new file mode 100644
+index 000000000000..19b4d84410a4
+--- /dev/null
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_0_metrics.h
+@@ -0,0 +1,230 @@
++/*
++ * Copyright 2025 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#ifndef __SMU_V15_0_0_METRICS_H__
++#define __SMU_V15_0_0_METRICS_H__
++
++#define METRICS_TABLE_VERSION 0x04
++#define NUM_MAX_CORES         12
++#define NUM_CLK_DPM_LEVELS    8
++#define METRIC_CORE_TYPE_MAX  4
++#define METRIC_CCX_MAX        4
++
++// Variable Type | Description
++#pragma pack(push, 4)
++typedef struct {
++  uint32_t AccumulationCounter;
++
++  //SET_VOLTAGES
++  uint64_t VDDCR_SetVoltage;                                              // Acc Float (V)
++  uint64_t VDDCR_SOC_SetVoltage;                                          // Acc Float (V)
++  uint64_t VDDCR_NPU_SetVoltage;                                          // Acc Float (V)
++  uint64_t VDDCR_LP_SetVoltage;                                           // Acc Float (V)
++  uint64_t VDDCR_GFX_SetVoltage;                                          // Acc Float (V)
++  uint64_t VDD_MISC_SetVoltage;                                           // Acc Float (V)
++
++  //TELEMETRY_VOLTAGES
++  uint64_t VDDCR_TelemetryVoltage;                                        // Acc Float (V)
++  uint64_t VDDCR_SOC_TelemetryVoltage;                                    // Acc Float (V)
++  uint64_t VDDCR_NPU_TelemetryVoltage;                                    // Acc Float (V)
++  uint64_t VDDCR_LP_TelemetryVoltage;                                     // Acc Float (V)
++  uint64_t VDDCR_GFX_TelemetryVoltage;                                    // Acc Float (V)
++  uint64_t VDD_MISC_TelemetryVoltage;                                     // Acc Float (V)
++
++  //TELEMETRY_POWERS
++  uint64_t VDDCR_TelemetryPower;                                          // Acc Float (W)
++  uint64_t VDDCR_SOC_TelemetryPower;                                      // Acc Float (W)
++  uint64_t VDDCR_NPU_TelemetryPower;                                      // Acc Float (W)
++  uint64_t VDDCR_LP_TelemetryPower;                                       // Acc Float (W)
++  uint64_t VDDCR_GFX_TelemetryPower;                                      // Acc Float (W)
++  uint64_t VDD_MISC_TelemetryPower;                                       // Acc Float (W)
++
++  //THROTTLERS
++  uint32_t fPPT_FusedLimit;                                               // Inst Float (W)
++  uint32_t fPPT_MaxIrmLimit;                                              // Inst Float (W)
++  uint32_t fPPT_MaxPboLimit;                                              // Inst Float (W)
++  uint32_t fPPT_Limit;                                                    // Inst Float (W)
++  uint64_t fPPT_ValueAcc;                                                 // Acc Int (W)
++  uint32_t fPPT_ResidencyAcc;                                             // Acc Float
++
++  uint32_t sPPT_FusedLimit;                                               // Inst Float (W)
++  uint32_t sPPT_MaxIrmLimit;                                              // Inst Float (W)
++  uint32_t sPPT_MaxPboLimit;                                              // Inst Float (W)
++  uint32_t sPPT_Limit;                                                    // Inst Float (W)
++  uint64_t sPPT_ValueAcc;                                                 // Acc Int (W)
++  uint32_t sPPT_ResidencyAcc;                                             // Acc Float
++
++  uint32_t SPL_FusedLimit;                                                // Inst Float (W)
++  uint32_t SPL_MaxIrmLimit;                                               // Inst Float (W)
++  uint32_t SPL_MaxPboLimit;                                               // Inst Float (W)
++  uint32_t SPL_Limit;                                                     // Inst Float (W)
++  uint64_t SPL_ValueAcc;                                                  // Acc Int (W)
++  uint32_t SPL_ResidencyAcc;                                              // Acc Float
++
++  uint32_t TDC_VDDCR_FusedLimit;                                          // Inst Float (A)
++  uint32_t TDC_VDDCR_MaxIrmLimit;                                         // Inst Float (A)
++  uint32_t TDC_VDDCR_MaxPboLimit;                                         // Inst Float (A)
++  uint32_t TDC_VDDCR_Limit;                                               // Inst Float (A)
++  uint64_t TDC_VDDCR_ValueAcc;                                            // Acc Int    (A)
++  uint32_t TDC_VDDCR_ResidencyAcc;                                        // Acc Float
++
++  uint32_t TDC_VDDCR_SOC_FusedLimit;                                      // Inst Float (A)
++  uint32_t TDC_VDDCR_SOC_MaxIrmLimit;                                     // Inst Float (A)
++  uint32_t TDC_VDDCR_SOC_MaxPboLimit;                                     // Inst Float (A)
++  uint32_t TDC_VDDCR_SOC_Limit;                                           // Inst Float (A)
++  uint64_t TDC_VDDCR_SOC_ValueAcc;                                        // Acc Int    (A)
++  uint32_t TDC_VDDCR_SOC_ResidencyAcc;                                    // Acc Float
++
++  uint32_t TDC_VDDCR_NPU_FusedLimit;                                      // Inst Float (A)
++  uint32_t TDC_VDDCR_NPU_MaxIrmLimit;                                     // Inst Float (A)
++  uint32_t TDC_VDDCR_NPU_MaxPboLimit;                                     // Inst Float (A)
++  uint32_t TDC_VDDCR_NPU_Limit;                                           // Inst Float (A)
++  uint64_t TDC_VDDCR_NPU_ValueAcc;                                        // Acc Int    (A)
++  uint32_t TDC_VDDCR_NPU_ResidencyAcc;                                    // Acc Float
++
++  uint32_t TDC_VDDCR_LP_FusedLimit;                                       // Inst Float (A)
++  uint32_t TDC_VDDCR_LP_MaxIrmLimit;                                      // Inst Float (A)
++  uint32_t TDC_VDDCR_LP_MaxPboLimit;                                      // Inst Float (A)
++  uint32_t TDC_VDDCR_LP_Limit;                                            // Inst Float (A)
++  uint64_t TDC_VDDCR_LP_ValueAcc;                                         // Acc Int    (A)
++  uint32_t TDC_VDDCR_LP_ResidencyAcc;                                     // Acc Float
++
++  uint32_t TDC_VDDCR_GFX_FusedLimit;                                      // Inst Float (A)
++  uint32_t TDC_VDDCR_GFX_MaxIrmLimit;                                     // Inst Float (A)
++  uint32_t TDC_VDDCR_GFX_MaxPboLimit;                                     // Inst Float (A)
++  uint32_t TDC_VDDCR_GFX_Limit;                                           // Inst Float (A)
++  uint64_t TDC_VDDCR_GFX_ValueAcc;                                        // Acc Int    (A)
++  uint32_t TDC_VDDCR_GFX_ResidencyAcc;                                    // Acc Float
++
++  uint32_t EDC_VDDCR_FusedLimit;                                          // Inst Float (A)
++  uint32_t EDC_VDDCR_MaxIrmLimit;                                         // Inst Float (A)
++  uint32_t EDC_VDDCR_MaxPboLimit;                                         // Inst Float (A)
++  uint32_t EDC_VDDCR_Limit;                                               // Inst Float (A)
++
++  uint32_t THM_FusedLimit;                                                // Inst Float (C)
++  uint32_t THM_Limit;                                                     // Inst Float (C)
++  uint64_t THM_ValueAcc;                                                  // Acc Float  (C)
++  uint32_t THM_ResidencyAcc;                                              // Acc Float
++  uint32_t PROCHOT_ResidencyAcc;                                          // Acc Float
++  uint64_t GFX_TempAcc;                                                   // Acc Float  (C)
++  uint64_t SOC_TempAcc;                                                   // Acc Float  (C)
++  uint32_t P3T_FusedLimit;                                                // Inst Float (W)
++  uint64_t P3T_ValueAcc;                                                  // Acc Float  (W)
++
++  //POWER
++  uint64_t SystemPowerAcc;                                                // Acc Float (W)
++  uint64_t ApuPowerAcc;                                                   // Acc Float (W)
++  uint64_t dGpuPowerAcc;                                                  // Acc Float (W)
++  uint64_t NpuPowerAcc;                                                   // Acc Float (W)
++
++  //FREQUENCIES
++  uint64_t FclkFreqEffAcc;                                                // Acc Float (MHz)
++  uint64_t MemclkFreqEffAcc;                                              // Acc Float (MHz)
++  uint64_t LclkFreqEffAcc;                                                // Acc Float (MHz)
++  uint64_t GfxclkFreqEffAcc;                                              // Acc Float (MHz)
++  uint64_t SocclkFreqEffAcc;                                              // Acc Float (MHz)
++  uint64_t VclkFreqEffAcc;                                                // Acc Float (MHz)
++  uint64_t VpeclkFreqEffAcc;                                              // Acc Float (MHz)
++  uint64_t AieclkFreqEffAcc;                                              // Acc Float (MHz)
++  uint64_t NpuhclkFreqEffAcc;                                             // Acc Float (MHz)
++  //BANDWIDTH
++  uint64_t DramReadBandwidth;                                             // Acc Float (GB/sec)
++  uint64_t DramWriteBandwidth;                                            // Acc Float (GB/sec)
++
++  //ACTIVITY MONITORS
++  uint64_t GfxBusyAcc;                                                    // Acc Float (%)
++  uint64_t VcnBusyAcc;                                                    // Acc Float (%)
++  uint64_t NpuBusyAcc[3];                                                 // Acc Float (%)
++
++  //STT
++  uint32_t STT_MinLimit;                                                  // Inst Float (W)
++  uint64_t STT_APU_HotSpotTempAcc;                                        // Acc Float (C)
++  uint64_t STT_HS2_HotSpotTempAcc;                                        // Acc Float (C)
++  uint32_t STT_APU_Temp_Limit;                                            // Inst Float (C)
++  uint64_t STT_APU_SkinTempAcc;                                           // Acc Float (C)
++
++  //RESIDENCIES
++  uint64_t CpuOffResidency_CCX0;                                          // Acc Float (%)
++  uint64_t CpuOffResidency_CCX1;                                          // Acc Float (%)
++  uint64_t CpuOffResidency_CCX2;                                          // Acc Float (%)
++  uint64_t CpuOffResidency_CCX3;                                          // Acc Float (%)
++
++  //DFPSTATES
++  uint32_t FclkFreqTable[NUM_CLK_DPM_LEVELS];                             // Inst Int (MHz)
++  uint32_t UclkFreqTable[NUM_CLK_DPM_LEVELS];                             // Inst Int (MHz)
++  uint32_t DdrRateTable[NUM_CLK_DPM_LEVELS];                              // Inst Int (MT/s)
++  uint8_t  DfPstate_Source[NUM_CLK_DPM_LEVELS];                           // Inst Int
++
++  //SYSTEM
++  uint8_t  GfxDisabled;                                                   // Inst Int
++  uint8_t  spare2[3];
++  uint32_t GfxClk_Fmax;                                                   // Inst Float (GHz)
++  uint8_t  CClk_CoreFuseEnable[METRIC_CORE_TYPE_MAX][NUM_MAX_CORES];      // Inst Int
++  uint8_t  CClk_CoreEnabled[METRIC_CORE_TYPE_MAX][NUM_MAX_CORES];         // Inst Int
++  uint32_t CClk_Fmax[METRIC_CORE_TYPE_MAX][NUM_MAX_CORES];                // Inst Float (GHz)
++
++  //OVERCLOCK CAPABLE
++  uint8_t CpuPreciseAndDirectOverClockingCapable;                         // Inst Int
++  uint8_t GfxPreciseAndDirectOverClockingCapable;                         // Inst Int
++  uint8_t PboBasicOverClockingCapable;                                    // Inst Int
++  uint8_t PboAdvancedOverClockingCapable;                                 // Inst Int
++  uint8_t PboNitroOverClockingCapable;                                    // Inst Int
++  uint8_t MemoryAndFabricOverClockingCapable;                             // Inst Int
++  uint8_t MiscOverClockingCapable;                                        // Inst Int
++  uint8_t ExtremeColdOverclockingCapable;                                 // Inst Int
++  uint8_t DownConfigControlCapable;                                       // Inst Int
++  uint8_t spare0[3];
++
++  //OVERCLOCK STATUS
++  uint32_t FIT_LimitScalar;                                               // Inst Float
++  uint8_t  LN2Enabled;                                                    // Inst Int
++  uint8_t  CpuPreciseAndDirectOcEnabled;                                  // Inst Int
++  uint8_t  GfxPreciseAndDirectOcEnabled;                                  // Inst Int
++  uint8_t  spare1[2];
++  int8_t   PsmGuardband[5][5][3];                                         // Inst Int
++  int32_t  CorePowerLimitOffset;                                          // Inst Float (W)
++  uint32_t MaxFreqOffset[5];                                              // Inst Float (GHz)
++
++  uint64_t NpuTempAcc;                                                    // Acc Float (C)
++  uint64_t DfPStateResidencyAcc[NUM_CLK_DPM_LEVELS];                      // Acc Int (%)
++  uint32_t CClk_Fboost;                                                   // Inst Float (GHz)
++  uint32_t spare3[5];
++} MetricsTable_IOD_t;
++
++typedef struct {
++  uint64_t Core_C0[NUM_MAX_CORES];                                        // Acc Float (%)
++  uint64_t Core_CC6[NUM_MAX_CORES];                                       // Acc Float (%)
++  uint64_t Core_FREQ[NUM_MAX_CORES];                                      // Acc Float (GHz)
++  uint64_t Core_FREQEFF[NUM_MAX_CORES];                                   // Acc Float (GHz)
++  uint64_t Core_TEMP[NUM_MAX_CORES];                                      // Acc Float (C)
++  uint64_t Core_POWER[NUM_MAX_CORES];                                     // Acc Float (W)
++} MetricsTable_CCX_t;
++
++typedef struct {
++  MetricsTable_IOD_t IOD;
++  MetricsTable_CCX_t CCX[METRIC_CCX_MAX];
++} MetricsTable_t;
++
++#pragma pack(pop)
++
++#endif
 -- 
-2.55.0
+2.43.0
 
