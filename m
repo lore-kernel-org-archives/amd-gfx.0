@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 368FCC44529
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 07:48:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D78C8C44529
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 09:21:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD21310E2E1;
-	Tue, 21 Jul 2026 07:48:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6912310E306;
+	Tue, 21 Jul 2026 09:21:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FGs+IIoP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JjmMq3sQ";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012030.outbound.protection.outlook.com [40.107.209.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B33310E2E1
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 07:47:59 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010030.outbound.protection.outlook.com [52.101.46.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EC3810E306
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 09:21:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VdD+9ogK1PmkPBXKY7P4cfWSKhlcvtGTARmxvLQkgfJGZ/gnw536CGKyAKzcexkavkWuPZ+zX0dONRMFuGxA6w9GW3X73vsWi6zSfTCaC6bsJ2cpV/kRNWUljNpV8sjiWHzgpU1RTf6rgyACqD4cpgEFm9Mu0KFmOxH/woMTz7wvpr6miPnFRNz3E+1DHJB2vUA4l/1WP0yeASBa13i3DfGGe4ag2Wj+7lyK2ZSUclgHJjopmMkL36bX0b6nJth8BzOyjJFhuqVfweZN+5uKI8hNuBgNnDjWmGu6zLmSSlRuq7dt2dzkYGOdfdbd7hM2FTZ281xGTPV8IL1DPabvPQ==
+ b=LK2ItESMcjLZ0aiTSnXBNuH61j1ENA4ywtMcJT76czJRHj6p5C2P3pCm7EmJdhIOrcJ8MNkTHNVdW0Vbnj0xi+f9YE5T4E84ERsbjgsXaFv/Q4MnEQRP8IMrDnpthGCTCZCwBG4uEXWM4WVQ7fwa0Wv3Z1CFagu0Hx2PvCylJnk1Du8gsLbfE13JR3ksKiCpJuJFWcVB6aD3oKjscxJICIJ/dz46zLCf+mwg29VDQlmxlEAn5Xti4uX5lTgYH2uB7Krwg97i4A4C4sk0W+4ZC7KryORLDSHfQ5Tu7qEgC/zoKVtJjXnz7uecEJgsxARj5liNsebv3MQiqGICcoxMrg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jBngsk51EfJgPIFWaVEqWEuKnFKTGpjEDsmkLNtvxGU=;
- b=t71C8SdcdgjbHqlDpXWJuVpEyFVanCZBQ60zwgFvdX6BpgJ0mxsezUIcsRpAI01SYZIJw04vj/BHP0fFRUaheoNCX1ZH7BWvr3wN6G1Q94TwF1RkrwdC9cbCgyO1paFS3nXNMpGGNA1LCxUDKxveEV2wouRQeZ6uHp+oRq5Tk4X7hwupIR0PbvtXs6BlkbGnVF9n0Z/pfRL02q9mo94ZAq4CL9Bs7ykMVNEqfhIowZqrhOT+JZQUCQvNNwxu2oL41692Qery2GTiLIV1U7KtHeKCTD61d9lHQ2OFv7+dn1HfbYxt2g/7zdinZs8NSQf2eq98jyDgslL9pxjGqLFeBw==
+ bh=Z1+bN4ylm/hgsNMC/lDnwIVfiqe6oRwJiid7kmNZPu0=;
+ b=qsy6IWg40FKV0Agnxn0d2gcel/By7w3sbvQulloV1++YIATLeSPprUARE/KcP/5koo1qwz0ozgbZOWKYTV8jlkI0hm2jzwtzkw8YDusIpFKFo81cxv1QguOQTIJ6GBX8Du3j2G8Rt4AISEtKL1wW3VrQ5kfnvlw3UedDASfwM4FYtCxzdaAU+teIlU7tg8CxsB/y1bi4EI9XRvFxBcmNRfnpT0xvtFiqE0qcSqzHKqFBbWMp3GFE52hE3J4XjHueNfC0TBuVvOTvDMyZNgIvXYgrCwXQ1Y0y8Klj1rCIsolDGw4X95tqoF2Fg03CTIHy6QHrucy7RMQzWKMzVFXSFg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jBngsk51EfJgPIFWaVEqWEuKnFKTGpjEDsmkLNtvxGU=;
- b=FGs+IIoPNJvm8KVaI2XPo6IvsP/uP/F3kkaMJZHTokZh1+5zFcCr24xU9/Ksvzbq7QvKafh3p6jElnyDGTKs+zY3+GpcoRb0CSeGp3UyHLR8pL1dl4mTmKTdg5cIlALNufG3oYU6H2Br8/H1aZO1R8QM0bwCgprRk7XzIWymesw=
-Received: from BL1PR13CA0305.namprd13.prod.outlook.com (2603:10b6:208:2c1::10)
- by DM4PR12MB6278.namprd12.prod.outlook.com (2603:10b6:8:a4::15) with
+ bh=Z1+bN4ylm/hgsNMC/lDnwIVfiqe6oRwJiid7kmNZPu0=;
+ b=JjmMq3sQzhv+D/LBVkeJaE1lTiGUvOR61CQMyoEtdvn30imrmIEeb7Ux0tBA0VJD21mwq2k08UzVoN7ykozMKEoU6k7yXlK3Duf6X90Psp9XZbGIZE+LnDJTHD3OJ3vRq8Ap0XnB7ALkVmkDJLDZjBo2euduc01CPpcj//oDPII=
+Received: from DS1PR06CA0015.namprd06.prod.outlook.com (2603:10b6:8:23e::14)
+ by SJ0PR12MB5634.namprd12.prod.outlook.com (2603:10b6:a03:429::7) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Tue, 21 Jul
- 2026 07:47:54 +0000
-Received: from BN3PEPF0000B073.namprd04.prod.outlook.com
- (2603:10b6:208:2c1:cafe::a2) by BL1PR13CA0305.outlook.office365.com
- (2603:10b6:208:2c1::10) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 09:21:43 +0000
+Received: from CH3PEPF00000015.namprd21.prod.outlook.com
+ (2603:10b6:8:23e:cafe::2) by DS1PR06CA0015.outlook.office365.com
+ (2603:10b6:8:23e::14) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Tue,
- 21 Jul 2026 07:47:54 +0000
+ 21 Jul 2026 09:21:43 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,21 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B073.mail.protection.outlook.com (10.167.243.118) with Microsoft
+ CH3PEPF00000015.mail.protection.outlook.com (10.167.244.120) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.245.5 via Frontend Transport; Tue, 21 Jul 2026 07:47:53 +0000
-Received: from stanley-amd.amd.com (10.180.168.240) by satlexmb07.amd.com
+ 15.21.270.0 via Frontend Transport; Tue, 21 Jul 2026 09:21:43 +0000
+Received: from canli-build.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 21 Jul
- 2026 02:47:52 -0500
-From: Stanley.Yang <Stanley.Yang@amd.com>
+ 2026 04:21:42 -0500
+From: Candice Li <candice.li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Stanley.Yang <Stanley.Yang@amd.com>, Tao Zhou <tao.zhou1@amd.com>
-Subject: [PATCH 1/1] drm/amdgpu/ras: use vram_base_offset for UMC inject
- address
-Date: Tue, 21 Jul 2026 15:47:37 +0800
-Message-ID: <20260721074737.635912-1-Stanley.Yang@amd.com>
-X-Mailer: git-send-email 2.43.0
+CC: Candice Li <candice.li@amd.com>
+Subject: [PATCH] drm/amdgpu: fix BO placement overflow with four domain bits
+Date: Tue, 21 Jul 2026 17:21:24 +0800
+Message-ID: <20260721092124.1967369-1-candice.li@amd.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -71,29 +70,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B073:EE_|DM4PR12MB6278:EE_
-X-MS-Office365-Filtering-Correlation-Id: 47983c93-84c6-4615-d1a5-08dee6fc5f6b
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000015:EE_|SJ0PR12MB5634:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b994c07-4bba-4b8a-ce69-08dee7097ad4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|23010399003|376014|36860700016|18002099003|6133799003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: 94xMtoLzHT0nsnH+KTkXCh695bLsftvOinxDc8U2FHKI3J/tSNjBU1C9VLppIPVOPE5HENvne/n5AoaHq8cepJv6WAnFbD0fMR7r7tVZ4OK1lVj3GMBcWZ9mjPsTYokH2aALWSFMUBr7HOLbvNBVTLuWCpPsa7+NoE0/ukyd3lc4RKtg+vkNHEH9anm0jgJYhBjRWfpscr7WfBjAqpOPr4+6FUfBNyu80MP3Gdk9fGIzcjZcf8GG3cyKpLfoGbGn/joVGod371AGn0SARKBtm+XFSJnqIhufva3fKTLjN556uvs86U66o/u1bTRRMOFyJDN4pKnD4KsPzZK2OgeZLjWtHBaxNzt6IZ7XnYNRXaVhgoXxeUXSxVqVD7QgP47p1ynu5Rxauyt+KsfWlr1IsXVgEc5ysVzQkKXIY3odlwrsk1DDCmsIROlkL0JJ++4vNk8GGtihpo7CZIhBGxwgPdDc1aKZZFiK2Kw+AIhDJn83wMfSsDZZ2CbAN9uZdIodEBSwpDmsj23ik4pYMNx9WTwi68CBntbHox6lqvP4ZuiwUPbHrIXaJx6JdzQ9kM3oj2+vfoUMWXFmXf5zV+eTUK+hFMklcaTp26fNEXlldAg9aCxuUmM37pBBH/w6FmIRPLjKxHtYbi9HVsSUPD6gymFyfLZ0X+iueNcLh3iOi2mHRYXoiEszY7+IRaFePp8pQUu7zoT2RrHhD72ZJTCfEQ==
+ ARA:13230040|36860700016|1800799024|23010399003|376014|82310400026|56012099006|10067099003|11063799006|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info: tu1dDUohAB3Vis0PyCEeGyELk/dWwlhZBrBdVKR5K8yOOm1QcSJAyFLOzHocRu73m3pX+aL9yP5TE+uREFLIeUtPuum137Z+YZoICdeAn1RJg/OPPZOGm7yIS5Oo7KEFw79H9A1XNOAIqgAFY7v6/qPW9u1vS3gHcVUJ3XNPCNdf/NrdgQmbdoS3N8JVQ8xprK6Ss092zSJ/yuf25a7FTzUA/y698JJp7kRoTGQlK24apB0kIGu7ILic1iB2CtoBg7h72ZVz7aFntF6fO53dL1wo7Kmw+2FbZhoUNGfZtwpfwa6Ub8siGKf15iIr7dogXcqaiLsSE4+FVsgRdQ2bNKTSErMFxT9uZ5uw9S493m2IFeAs0PCMR4oPN29b0kd5KkKGme6xvxEhEQI5Xrr1TfKqvcrWLw8K6/jZ2doSjlomY3Co2J+pyroA1dkC34OCt9wFOCio0jroqDdj8qgx1jrEvNvo+OKJs1LLFM6YDZTEcoC1SA1UGlcyj6OTjSlsbHOzJrOlE9fwIcC2AivrnHAgozfojtm5ZKEddLCsMGFEVBW8IGy/teoNJcG0pzlvoVYOK/W14W5DVfgMaB2P8o1kodpG6CQb1WxBw1kOUG+9eplqdNh6czrzpjwyMMek93og5UeRM212V3N8ypF/I+umvbevihG9HvV83duT1IMdmJv7SYuDbflPZnn691nyCASzZa5f5BvXNrR0vS20Lw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(23010399003)(376014)(36860700016)(18002099003)(6133799003)(10067099003)(56012099006)(11063799006);
+ SFS:(13230040)(36860700016)(1800799024)(23010399003)(376014)(82310400026)(56012099006)(10067099003)(11063799006)(6133799003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: pRXoxBqIDhA7nINvzKbPoLxuGg0s93h+70GYlfmIMXEE6OrIoYthrHSlnfMf5hi/X28nDp3lV2jx1CjE8suK4qgbDShgF6KibJxTnwsxxu56kbAEaulE6Yfc5/nGPjYL6So30JsB0SwSVanzXK+M49pY2shk4dzQsMFALuYNpeTlbLDOZIpJhft/nNneb89eCLpI+gdIpmDWHi3qo9ce47Y4ONzE1rfDMRvTcATapspUil12FEkJQ9YYPGOVdHQ6S0kJUFUULEF747lagym55ijxp9D0q98ArFU4LB3uJNp2vuXJyuzEFL+RWJelyuKN3DHfHnvtiHQe2wa/9Md/3m4lep20nwcZ22ikIxQC4t1E70htr3mg1o5gdnmQ/oboGPNDYh1DZvEsNNUyyrZBoh713loIgTqspDSIyQtIfe0GLFs9+bZFS+L+VvVBtKE6
+X-MS-Exchange-AntiSpam-MessageData-0: QfoLTeCWIWIMSSRnJKhIpxtTW8mMcUux4YfHQsTjAqs9g4liy2HF62dJ+6xeTouuaybf0m+2zVrjJJW9KlnDcDoM6sPaSCK+VMUgmdNl2UDNGUVVKfHwuA6Hurmuy3rHTnUU5qPGCEFMcD3bu1xliDyTfkhfW65xmWKG+QM3n9nAL1pYNGlLjs4WRhZM+LwMwSjfZzH2d/Cd3vV3GF34jBz5e4l7NGQTBRhes7RWL4UC8mDVpav+3H0uuAqmFsnXE9lvkA0OdwCH2E/dFAumGw1uDeWOtvtbi3p62Mv4nRsX/Fl9/mPJ62bqtl/lusJDMTjr453OUC46YaiNg6Ylb7W8pXqGx+p4Wjh9Qs5jDiO6Eqv4p89W3dvgaqNLvNb3Y/q3CT0g6J0H7jlyXJSBfnKYvEV41lnELjJwVW8okgR4lbr9qxNwsF2ARhP+0YAs
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 07:47:53.9820 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 47983c93-84c6-4615-d1a5-08dee6fc5f6b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 09:21:43.4024 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b994c07-4bba-4b8a-ce69-08dee7097ad4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B073.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000015.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6278
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5634
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,50 +107,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Cover both XGMI hive offset and A+A platform MC FB offset in one calculation.
+AMDGPU_BO_MAX_PLACEMENTS was 3 but amdgpu_bo_placement_from_domain()
+can emit up to four entries for CPU|GTT|VRAM|DOORBELL. Unprivileged
+GEM_CREATE with domains=0x47 writes past placements[] and triggers
+BUG_ON().
 
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Increase the array to four and normalize mixed GDS/GWS/OA domain
+masks to CPU-only placement on all rebuild paths.
 
+Signed-off-by: Candice Li <candice.li@amd.com>
 ---
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c    | 17 +++++------------
- 1 file changed, 5 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    |  3 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h    |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 18 ++++++++++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.h |  3 ++-
+ 4 files changed, 21 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
-index c28ecdb78e4f..b5fb667df5e9 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_cmd.c
-@@ -76,15 +76,6 @@ static int amdgpu_ras_trigger_error_end(struct ras_core_context *ras_core,
- 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 6a0699746fbcd6..bcf81aba942842 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -431,8 +431,7 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+ 	flags |= AMDGPU_GEM_CREATE_VRAM_CLEARED;
+ 
+ 	/* create a gem object to contain this object in */
+-	if (args->in.domains & (AMDGPU_GEM_DOMAIN_GDS |
+-	    AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA)) {
++	if (args->in.domains & AMDGPU_GEM_DOMAIN_GDS_GWS_OA) {
+ 		if (flags & AMDGPU_GEM_CREATE_VM_ALWAYS_VALID) {
+ 			/* if gds bo is created from user space, it must be
+ 			 * passed to bo list
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+index b558336bc4c6ca..321db2ca29f4a3 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h
+@@ -31,6 +31,8 @@
+  */
+ 
+ #define AMDGPU_GEM_DOMAIN_MAX		0x3
++#define AMDGPU_GEM_DOMAIN_GDS_GWS_OA \
++	(AMDGPU_GEM_DOMAIN_GDS | AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA)
+ #define gem_to_amdgpu_bo(gobj) container_of((gobj), struct amdgpu_bo, tbo.base)
+ 
+ extern const struct drm_gem_object_funcs amdgpu_gem_object_funcs;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+index d4a9d5e8fb429a..bb02858cbebf0d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
+@@ -99,6 +99,19 @@ bool amdgpu_bo_is_amdgpu_bo(struct ttm_buffer_object *bo)
+ 	return false;
  }
  
--static uint64_t local_addr_to_xgmi_global_addr(struct ras_core_context *ras_core,
--					   uint64_t addr)
--{
--	struct amdgpu_device *adev = (struct amdgpu_device *)ras_core->dev;
--	struct amdgpu_xgmi *xgmi = &adev->gmc.xgmi;
--
--	return (addr + xgmi->physical_node_id * xgmi->node_segment_size);
--}
--
- /*
-  * UMC error injection is dispatched by the RAS TA using the injection method
-  * carried in struct ras_cmd_inject_error_req. Only the "coherent" methods
-@@ -157,9 +148,11 @@ static int amdgpu_ras_inject_error(struct ras_core_context *ras_core,
- 				return RAS_CMD__ERROR_INVALID_INPUT_DATA;
- 			}
++static u32 amdgpu_bo_filter_placement_domain(u32 domain)
++{
++	/*
++	 * GDS/GWS/OA are not normal fallback placement domains. When mixed
++	 * with CPU/GTT/VRAM/DOORBELL, fall back to CPU like amdgpu_bo_create().
++	 */
++	if ((domain & AMDGPU_GEM_DOMAIN_GDS_GWS_OA) &&
++	    (domain & ~AMDGPU_GEM_DOMAIN_GDS_GWS_OA))
++		return AMDGPU_GEM_DOMAIN_CPU;
++
++	return domain;
++}
++
+ /**
+  * amdgpu_bo_placement_from_domain - set buffer's placement
+  * @abo: &amdgpu_bo buffer object whose placement is to be set
+@@ -115,6 +128,8 @@ void amdgpu_bo_placement_from_domain(struct amdgpu_bo *abo, u32 domain)
+ 	u64 flags = abo->flags;
+ 	u32 c = 0;
  
--			/* Calculate XGMI relative offset */
--			if (adev->gmc.xgmi.num_physical_nodes > 1)
--				req->address = local_addr_to_xgmi_global_addr(ras_core, req->address);
-+			/*
-+			 * Calculate XGMI relative offset if in XGMI hive,
-+			 * adapt to A+A platform with mc fb offset calculated.
-+			 */
-+			req->address += adev->vm_manager.vram_base_offset;
- 		}
- 	}
++	domain = amdgpu_bo_filter_placement_domain(domain);
++
+ 	if (domain & AMDGPU_GEM_DOMAIN_VRAM) {
+ 		unsigned int visible_pfn = adev->gmc.visible_vram_size >> PAGE_SHIFT;
+ 		int8_t mem_id = KFD_XCP_MEM_ID(adev, abo->xcp_id);
+@@ -690,8 +705,7 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
+ 		bo->flags &= ~AMDGPU_GEM_CREATE_CPU_GTT_USWC;
  
+ 	bo->tbo.bdev = &adev->mman.bdev;
+-	if (bp->domain & (AMDGPU_GEM_DOMAIN_GWS | AMDGPU_GEM_DOMAIN_OA |
+-			  AMDGPU_GEM_DOMAIN_GDS))
++	if (bp->domain & AMDGPU_GEM_DOMAIN_GDS_GWS_OA)
+ 		amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_CPU);
+ 	else
+ 		amdgpu_bo_placement_from_domain(bo, bp->domain);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+index ff11a09034997e..20f4d8c243afdd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.h
+@@ -37,7 +37,8 @@
+ #endif
+ 
+ #define AMDGPU_BO_INVALID_OFFSET	LONG_MAX
+-#define AMDGPU_BO_MAX_PLACEMENTS	3
++/* Covers CPU | GTT | VRAM | DOORBELL placement candidates */
++#define AMDGPU_BO_MAX_PLACEMENTS	4
+ 
+ /* BO flag to indicate a KFD userptr BO */
+ #define AMDGPU_AMDKFD_CREATE_USERPTR_BO	(1ULL << 63)
 -- 
-2.43.0
+2.25.1
 
