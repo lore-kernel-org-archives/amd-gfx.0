@@ -4,48 +4,46 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1107CC4452B
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 17:00:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32499C4452B
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 17:14:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 796E210EAC5;
-	Tue, 21 Jul 2026 17:00:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAF6810E369;
+	Tue, 21 Jul 2026 17:14:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="W53qLrMv";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R4619fn3";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3ECCF10EAC4;
- Tue, 21 Jul 2026 17:00:38 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2174B10E369
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 17:14:07 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9BE8F600D8;
- Tue, 21 Jul 2026 17:00:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D771F1F000E9;
- Tue, 21 Jul 2026 17:00:35 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F200F40874;
+ Tue, 21 Jul 2026 17:14:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FF9C1F00A3A;
+ Tue, 21 Jul 2026 17:14:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784653237;
- bh=4u3yqzBlcqOhlH1BxlMM1UKVS718nzSRJ+577jUOt+8=;
+ s=k20260515; t=1784654046;
+ bh=IvEkqaPJhGIH9CuwSJAja+NNijobUX4lyHDD1B+0lGs=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=W53qLrMvh8bxOI6nOYXWdSeOqDGoBU4O5TvmuTeUM7eaPzdeFlwdanJfIA0ZjEKi3
- yUPQnBkeUKMead5VmH6RNVGQOUEJ74qMzwf8DJIKKahirQe/0Jbcud1UI0lwJfsel1
- p8IOYJ4TyVRR7l+ePt4QUVTfOYQcPTMKhZB1lOTE8f6R3nZZE8TgNjZTlhv6L6ZyXC
- uvM9vKsOpQgY1/7fYjZBDitwa235pixG98kwl+9XvggI85+TTj4H4aka/NyD85OlWP
- iy8lO37gCNLEtwVDoOflCs0NLYE02qjf8+s3WiyKsnbf2PMhTqa1MemEtamqrq2fkc
- pGtKPntjos9Gg==
-Message-ID: <0c3920b2-781d-47b8-a3dd-82a2667ba7df@kernel.org>
-Date: Tue, 21 Jul 2026 12:00:34 -0500
+ b=R4619fn3jQ7pl+HyIPxp3uC6Pfcz24gueXRMJqi2vR+mUKifgAmW/+vOEozvJb/zP
+ gmArAi4u0F8IiYcOR9dP5gT0kuj4KNZDCRUxjGKIpGv+ZplJogbs5+v7+57aeHV/if
+ jjnLwmN65VkvziqN5Em8+0OyJn5Scb94wp4fEnCCxmqxi+HUvBbSxUt3qoso93Z09o
+ gWGg7bpdU0bAP51dT9dN45BoDl8q2ghZ3zJf5YfjOtjM0N7vKVtvrYfhlwcqLLxkW9
+ I0IZ5BK5vEcQyUrdNT2ObPx+O7TnM+JolQHyc38m2f7GixMBPbnmW4EPP+3tdFUybA
+ vsTe+gKpUgncQ==
+Message-ID: <53ba9a3e-7cce-4fa5-9cc9-a6c43afcb840@kernel.org>
+Date: Tue, 21 Jul 2026 12:14:05 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] drm/edid: Parse AMD VSDB for FreeSync refresh range
+Subject: Re: [PATCH v2] drm/amdgpu: Update driver if header for SMU V15.0.5
 Content-Language: en-US
-To: Alex Huang <Alex.Huang2@amd.com>, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
- harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, alex.hung@amd.com
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260721164430.2121326-1-Alex.Huang2@amd.com>
- <20260721164430.2121326-2-Alex.Huang2@amd.com>
+To: Kanala Ramalingeswara Reddy <Kanala.RamalingeswaraReddy@amd.com>,
+ Alexander.Deucher@amd.com, Christian.Koenig@amd.com,
+ Pratik.Vishwakarma@amd.com, Lijo.Lazar@amd.com, amd-gfx@lists.freedesktop.org
+Cc: Veerabadhran.Gopalakrishnan@amd.com, Pierre.Jabbour@amd.com
+References: <20260721145054.1295003-1-Kanala.RamalingeswaraReddy@amd.com>
+ <20260721164417.1902635-1-Kanala.RamalingeswaraReddy@amd.com>
 From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260721164430.2121326-2-Alex.Huang2@amd.com>
+In-Reply-To: <20260721164417.1902635-1-Kanala.RamalingeswaraReddy@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -62,264 +60,370 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/21/26 11:44, Alex Huang wrote:
-> Commit 118362a96286 ("drm/edid: Parse AMD Vendor-Specific Data Block")
-> added parsing of the AMD VSDB, but only for version 3 and only for the
-> replay/panel-type/luminance fields. Monitors that only advertise
-> FreeSync through a v1 or v2 AMD VSDB therefore get no variable refresh
-> rate range from the common EDID parser.
+
+
+On 7/21/26 11:44, Kanala Ramalingeswara Reddy wrote:
+> Update smu v15.0.0 driver if header to be v15.0.5 compatible.
 > 
-> Restructure drm_parse_amd_vsdb() and implement parsing for the FreeSync
-> refresh range fields provided in the AMD VSDB.
-> 
-> Signed-off-by: Alex Huang <Alex.Huang2@amd.com>
+> Signed-off-by: Kanala Ramalingeswara Reddy <Kanala.RamalingeswaraReddy@amd.com>
 > ---
->   drivers/gpu/drm/drm_edid.c  | 134 ++++++++++++++++++++++++++++--------
->   include/drm/drm_connector.h |  22 +++++-
->   2 files changed, 126 insertions(+), 30 deletions(-)
+>   .../inc/pmfw_if/smu15_driver_if_v15_0_0.h     |  38 +++
+>   drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h  |   2 +-
+>   .../drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c  | 220 +++++++++++++++++-
+>   3 files changed, 253 insertions(+), 7 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index df3c25bac761..c9452066b9be 100644
-> --- a/drivers/gpu/drm/drm_edid.c
-> +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -101,20 +101,58 @@ enum drm_edid_internal_quirk {
->   #define MICROSOFT_IEEE_OUI	0xca125c
->   #define AMD_IEEE_OUI        0x00001A
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu15_driver_if_v15_0_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu15_driver_if_v15_0_0.h
+> index 47ddf533b08f..a5d3e8d88860 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu15_driver_if_v15_0_0.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu15_driver_if_v15_0_0.h
+> @@ -144,6 +144,44 @@ typedef struct {
+>     uint32_t MaxGfxClk;
+>   } DpmClocks_t;
 >   
-> +#define AMD_VSDB_V1_PAYLOAD_LEN 8
-> +#define AMD_VSDB_V2_PAYLOAD_LEN 13
->   #define AMD_VSDB_V3_PAYLOAD_MIN_LEN 15
-> -#define AMD_VSDB_V3_PAYLOAD_MAX_LEN 20
-> +#define AMD_VSDB_V3_PAYLOAD_MAX_LEN 21
+> +//Freq in MHz
+> +//Voltage in milli volts with 2 fractional bits
+> +typedef struct {
+> +	uint32_t DcfClocks[NUM_DCFCLK_DPM_LEVELS];
+> +	uint32_t DispClocks[NUM_DISPCLK_DPM_LEVELS];
+> +	uint32_t DppClocks[NUM_DPPCLK_DPM_LEVELS];
+> +	uint32_t SocClocks[NUM_SOCCLK_DPM_LEVELS];
 > +
-> +#define AMD_VSDB_V3_MAX_VFREQ_EXT2_LEN 21
+> +	uint32_t VPEClocks[NUM_VPE_DPM_LEVELS];
+> +	uint32_t FclkClocks_Freq[NUM_FCLK_DPM_LEVELS];
+> +	uint32_t FclkClocks_Voltage[NUM_FCLK_DPM_LEVELS];
+> +	uint32_t SocVoltage[NUM_SOC_VOLTAGE_LEVELS];
+> +	MemPstateTable_t MemPstateTable[NUM_MEM_PSTATE_LEVELS];
 > +
-> +struct amd_vsdb_common_payload {
-> +	u8 oui[3];
-> +	u8 version;
-> +} __packed;
+> +	uint8_t  NumDcfClkLevelsEnabled;
+> +	uint8_t  NumDispClkLevelsEnabled; //Applies to both Dispclk and Dppclk
+> +	uint8_t  NumSocClkLevelsEnabled;
 > +
-> +struct amd_vsdb_v1_payload {
-> +	u8 oui[3];
-> +	u8 version;
-
-Since this is just the common header would it be helpful to have here:
-
-	struct amd_vsdb_common_payload common;
-
-> +	u8 feature_caps;
-> +	u8 min_vfreq;
-> +	u8 max_vfreq;
-> +	u8 freesync_vcp_code;
-> +} __packed;
+> +	uint8_t  VpeClkLevelsEnabled;
 > +
-> +struct amd_vsdb_v2_payload {
-> +	u8 oui[3];
-> +	u8 version;
-> +	u8 feature_caps;
-> +	u8 min_vfreq;
-> +	u8 max_vfreq;
-> +	u8 freesync_vcp_code;
-
-Similarly would it be helpful to have here:
-
-	struct amd_vsdb_common_payload v1;
-
-> +	u8 cs_eotf_support;
-> +	u8 lum1_max;
-> +	u8 lum1_min;
-> +	u8 lum2_max;
-> +	u8 lum2_min;
-> +} __packed;
+> +	uint8_t  NumMemPstatesEnabled;
+> +	uint8_t  NumFclkLevelsEnabled;
+> +	uint8_t  Spare1;
+> +	uint8_t  Spare2;
+> +
+> +	uint8_t  Spare3;
+> +	uint8_t  Spare4;
+> +	uint8_t  Spare5[2];
+> +
+> +	uint32_t MinGfxClk;
+> +	uint32_t MaxGfxClk;
+> +
+> +	uint32_t Spare6[8];
+> +	uint32_t Spare7[8];
+> +	uint32_t Spare8[8];
+> +	uint32_t Spare9[8];
+> +} DpmClocks_t_v15_0_5;
+> +
+>   typedef struct {
+>     uint16_t CoreFrequency[16];          //Target core frequency [MHz]
+>     uint16_t CorePower[16];              //CAC calculated core power [mW]
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h
+> index 13723d45a7de..38e625cda97d 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h
+> @@ -26,7 +26,7 @@
+>   #include "amdgpu_smu.h"
 >   
->   struct amd_vsdb_v3_payload {
->   	u8 oui[3];
->   	u8 version;
->   	u8 feature_caps;
-> -	u8 rsvd0[3];
-> +	u8 min_vfreq;
-> +	u8 max_vfreq;
-> +	u8 freesync_vcp_code;
->   	u8 cs_eotf_support;
->   	u8 lum1_max;
->   	u8 lum1_min;
->   	u8 lum2_max;
->   	u8 lum2_min;
-
-And then
-
-	struct amd_vsdb_common_payload v2;
-
-> -	u8 rsvd1[2];
-> +	u8 max_vfreq_ext_low;
-> +	/*
-> +	 * byte 14: bits 0-1 extend MSB of max refresh rate
-> +	 */
-> +	u8 max_vfreq_ext_high;
->   	/*
->   	 * Bytes beyond AMD_VSDB_V3_PAYLOAD_MIN_LEN are optional; a
->   	 * monitor may provide a payload as short as 15 bytes.  Always
-> @@ -5231,7 +5269,7 @@ static bool cea_db_is_microsoft_vsdb(const struct cea_db *db)
->   static bool cea_db_is_amd_vsdb(const struct cea_db *db)
+>   #define SMU15_DRIVER_IF_VERSION_INV 0xFFFFFFFF
+> -#define SMU15_DRIVER_IF_VERSION_SMU_V15_0 0x7
+> +#define SMU15_DRIVER_IF_VERSION_SMU_V15_0 0x9
+>   
+>   
+>   #define FEATURE_MASK(feature) (1ULL << feature)
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
+> index bb8d09e73c7d..faa7d661f3bf 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
+> @@ -168,7 +168,7 @@ static int smu_v15_0_0_init_smc_tables(struct smu_context *smu)
+>   
+>   	SMU_TABLE_INIT(tables, SMU_TABLE_WATERMARKS, sizeof(Watermarks_t),
+>   		PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+> -	SMU_TABLE_INIT(tables, SMU_TABLE_DPMCLOCKS, sizeof(DpmClocks_t),
+> +	SMU_TABLE_INIT(tables, SMU_TABLE_DPMCLOCKS, sizeof(DpmClocks_t_v15_0_5),
+>   		PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+>   	SMU_TABLE_INIT(tables, SMU_TABLE_SMU_METRICS, sizeof(SmuMetrics_t),
+>   		PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+> @@ -178,7 +178,7 @@ static int smu_v15_0_0_init_smc_tables(struct smu_context *smu)
+>   		goto err0_out;
+>   	smu_table->metrics_time = 0;
+>   
+> -	smu_table->clocks_table = kzalloc_obj(DpmClocks_t);
+> +	smu_table->clocks_table = kzalloc_obj(DpmClocks_t_v15_0_5);
+>   	if (!smu_table->clocks_table)
+>   		goto err1_out;
+>   
+> @@ -752,11 +752,48 @@ static int smu_v15_0_0_get_dpm_freq_by_index(struct smu_context *smu,
+>   	return 0;
+>   }
+>   
+> +static int smu_v15_0_5_get_dpm_freq_by_index(struct smu_context *smu,
+> +						enum smu_clk_type clk_type,
+> +						uint32_t dpm_level,
+> +						uint32_t *freq)
+> +{
+> +	DpmClocks_t_v15_0_5 *clk_table = smu->smu_table.clocks_table;
+> +
+> +	if (!clk_table || clk_type >= SMU_CLK_COUNT)
+> +		return -EINVAL;
+> +
+> +	switch (clk_type) {
+> +	case SMU_SOCCLK:
+> +		if (dpm_level >= clk_table->NumSocClkLevelsEnabled)
+> +			return -EINVAL;
+> +		*freq = clk_table->SocClocks[dpm_level];
+> +		break;
+> +	case SMU_UCLK:
+> +	case SMU_MCLK:
+> +		if (dpm_level >= clk_table->NumMemPstatesEnabled)
+> +			return -EINVAL;
+> +		*freq = clk_table->MemPstateTable[dpm_level].MemClk;
+> +		break;
+> +	case SMU_FCLK:
+> +		if (dpm_level >= clk_table->NumFclkLevelsEnabled)
+> +			return -EINVAL;
+> +		*freq = clk_table->FclkClocks_Freq[dpm_level];
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>   static int smu_v15_0_common_get_dpm_freq_by_index(struct smu_context *smu,
+>   						enum smu_clk_type clk_type,
+>   						uint32_t dpm_level,
+>   						uint32_t *freq)
 >   {
->   	return cea_db_is_vendor(db, AMD_IEEE_OUI) &&
-> -		cea_db_payload_len(db) >= AMD_VSDB_V3_PAYLOAD_MIN_LEN &&
-> +		cea_db_payload_len(db) >= AMD_VSDB_V1_PAYLOAD_LEN &&
->   		cea_db_payload_len(db) <= AMD_VSDB_V3_PAYLOAD_MAX_LEN;
+> +	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 5))
+> +		smu_v15_0_5_get_dpm_freq_by_index(smu, clk_type, dpm_level, freq);
+> +	else
+>   		smu_v15_0_0_get_dpm_freq_by_index(smu, clk_type, dpm_level, freq);
+>   
+>   	return 0;
+> @@ -907,12 +944,116 @@ static int smu_v15_0_0_get_dpm_ultimate_freq(struct smu_context *smu,
+>   	return ret;
 >   }
 >   
-> @@ -6431,43 +6469,81 @@ static void drm_parse_microsoft_vsdb(struct drm_connector *connector,
->   		    connector->base.id, connector->name, version, db[5]);
+> +static int smu_v15_0_5_get_dpm_ultimate_freq(struct smu_context *smu,
+> +							enum smu_clk_type clk_type,
+> +							uint32_t *min,
+> +							uint32_t *max)
+> +{
+> +	DpmClocks_t_v15_0_5 *clk_table = smu->smu_table.clocks_table;
+> +	uint32_t clock_limit;
+> +	uint32_t max_dpm_level, min_dpm_level;
+> +	int ret = 0;
+> +
+> +	if (!smu_v15_0_0_clk_dpm_is_enabled(smu, clk_type)) {
+> +		switch (clk_type) {
+> +		case SMU_MCLK:
+> +		case SMU_UCLK:
+> +			clock_limit = smu->smu_table.boot_values.uclk;
+> +			break;
+> +		case SMU_FCLK:
+> +			clock_limit = smu->smu_table.boot_values.fclk;
+> +			break;
+> +		case SMU_GFXCLK:
+> +		case SMU_SCLK:
+> +			clock_limit = smu->smu_table.boot_values.gfxclk;
+> +			break;
+> +		case SMU_SOCCLK:
+> +			clock_limit = smu->smu_table.boot_values.socclk;
+> +			break;
+> +		default:
+> +			clock_limit = 0;
+> +			break;
+> +		}
+> +
+> +		/* clock in Mhz unit */
+> +		if (min)
+> +			*min = clock_limit / 100;
+> +		if (max)
+> +			*max = clock_limit / 100;
+> +
+> +		return 0;
+> +	}
+> +
+> +	if (max) {
+> +		switch (clk_type) {
+> +		case SMU_GFXCLK:
+> +		case SMU_SCLK:
+> +			*max = clk_table->MaxGfxClk;
+> +			break;
+> +		case SMU_MCLK:
+> +		case SMU_UCLK:
+> +			max_dpm_level = 0;
+> +			break;
+> +		case SMU_FCLK:
+> +			max_dpm_level = clk_table->NumFclkLevelsEnabled - 1;
+> +			break;
+> +		case SMU_SOCCLK:
+> +			max_dpm_level = clk_table->NumSocClkLevelsEnabled - 1;
+> +			break;
+> +		default:
+> +			ret = -EINVAL;
+> +			goto failed;
+> +		}
+> +
+> +		if (clk_type != SMU_GFXCLK && clk_type != SMU_SCLK) {
+> +			ret = smu_v15_0_common_get_dpm_freq_by_index(smu, clk_type,
+> +				max_dpm_level, max);
+> +			if (ret)
+> +				goto failed;
+> +		}
+> +	}
+> +
+> +	if (min) {
+> +		switch (clk_type) {
+> +		case SMU_GFXCLK:
+> +		case SMU_SCLK:
+> +			*min = clk_table->MinGfxClk;
+> +			break;
+> +		case SMU_MCLK:
+> +		case SMU_UCLK:
+> +			min_dpm_level = clk_table->NumMemPstatesEnabled - 1;
+> +			break;
+> +		case SMU_FCLK:
+> +			min_dpm_level = 0;
+> +			break;
+> +		case SMU_SOCCLK:
+> +			min_dpm_level = 0;
+> +			break;
+> +		default:
+> +			ret = -EINVAL;
+> +			goto failed;
+> +		}
+> +
+> +		if (clk_type != SMU_GFXCLK && clk_type != SMU_SCLK) {
+> +			ret = smu_v15_0_common_get_dpm_freq_by_index(smu, clk_type,
+> +				min_dpm_level, min);
+> +			if (ret)
+> +				goto failed;
+> +		}
+> +	}
+> +
+> +failed:
+> +	return ret;
+> +}
+> +
+>   static int smu_v15_0_common_get_dpm_ultimate_freq(struct smu_context *smu,
+>   							enum smu_clk_type clk_type,
+>   							uint32_t *min,
+>   							uint32_t *max)
+>   {
+> -	if (clk_type != SMU_VCLK1 && clk_type != SMU_DCLK1)
+> +	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 5))
+> +		smu_v15_0_5_get_dpm_ultimate_freq(smu, clk_type, min, max);
+> +	else if (clk_type != SMU_VCLK1 && clk_type != SMU_DCLK1)
+>   		smu_v15_0_0_get_dpm_ultimate_freq(smu, clk_type, min, max);
+>   
+>   	return 0;
+> @@ -986,11 +1127,36 @@ static int smu_v15_0_0_get_dpm_level_count(struct smu_context *smu,
+>   	return 0;
 >   }
 >   
-> +static void drm_parse_amd_vsdb_v1(struct drm_display_info *info,
-> +				  const u8 *data)
+> +static int smu_v15_0_5_get_dpm_level_count(struct smu_context *smu,
+> +					   enum smu_clk_type clk_type,
+> +					   uint32_t *count)
 > +{
-> +	const struct amd_vsdb_v1_payload *p =
-> +		(const struct amd_vsdb_v1_payload *)data;
+> +	DpmClocks_t_v15_0_5 *clk_table = smu->smu_table.clocks_table;
 > +
-> +	info->amd_vsdb.freesync_supported = p->feature_caps & 0x1;
-> +	info->amd_vsdb.min_frame_rate = p->min_vfreq;
-> +	info->amd_vsdb.max_frame_rate = p->max_vfreq;
-> +	info->amd_vsdb.freesync_vcp_code = p->freesync_vcp_code;
+> +	switch (clk_type) {
+> +	case SMU_SOCCLK:
+> +		*count = clk_table->NumSocClkLevelsEnabled;
+> +		break;
+> +	case SMU_MCLK:
+> +		*count = clk_table->NumMemPstatesEnabled;
+> +		break;
+> +	case SMU_FCLK:
+> +		*count = clk_table->NumFclkLevelsEnabled;
+> +		break;
+> +	default:
+> +		break;
+> +	}
+> +
+> +	return 0;
 > +}
 > +
-> +static void drm_parse_amd_vsdb_v2(struct drm_display_info *info,
-> +				  const u8 *data)
+>   static int smu_v15_0_common_get_dpm_level_count(struct smu_context *smu,
+>   					   enum smu_clk_type clk_type,
+>   					   uint32_t *count)
+>   {
+> -	if (clk_type != SMU_VCLK1 && clk_type != SMU_DCLK1)
+> +	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 5))
+> +		smu_v15_0_5_get_dpm_level_count(smu, clk_type, count);
+> +	else if (clk_type != SMU_VCLK1 && clk_type != SMU_DCLK1)
+>   		smu_v15_0_0_get_dpm_level_count(smu, clk_type, count);
+>   
+>   	return 0;
+> @@ -1363,9 +1529,24 @@ static int smu_v15_0_0_set_fine_grain_gfx_freq_parameters(struct smu_context *sm
+>   	return 0;
+>   }
+>   
+> +static int smu_v15_0_5_set_fine_grain_gfx_freq_parameters(struct smu_context *smu)
 > +{
-> +	const struct amd_vsdb_v2_payload *p =
-> +		(const struct amd_vsdb_v2_payload *)data;
+> +	DpmClocks_t_v15_0_5 *clk_table = smu->smu_table.clocks_table;
 > +
-> +	info->amd_vsdb.luminance_range1.max_luminance = p->lum1_max;
-> +	info->amd_vsdb.luminance_range1.min_luminance = p->lum1_min;
-> +	info->amd_vsdb.luminance_range2.max_luminance = p->lum2_max;
-> +	info->amd_vsdb.luminance_range2.min_luminance = p->lum2_min;
+> +	smu->gfx_default_hard_min_freq = clk_table->MinGfxClk;
+> +	smu->gfx_default_soft_max_freq = clk_table->MaxGfxClk;
+> +	smu->gfx_actual_hard_min_freq = 0;
+> +	smu->gfx_actual_soft_max_freq = 0;
+> +
+> +	return 0;
 > +}
 > +
-> +static void drm_parse_amd_vsdb_v3(struct drm_display_info *info,
-> +				  const u8 *data, int payload_len)
+>   static int smu_v15_0_common_set_fine_grain_gfx_freq_parameters(struct smu_context *smu)
+>   {
+> -	smu_v15_0_0_set_fine_grain_gfx_freq_parameters(smu);
+> +	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 5))
+> +		smu_v15_0_5_set_fine_grain_gfx_freq_parameters(smu);
+> +	else
+> +		smu_v15_0_0_set_fine_grain_gfx_freq_parameters(smu);
+>   
+>   	return 0;
+>   }
+> @@ -1405,9 +1586,36 @@ static int smu_v15_0_0_get_dpm_table(struct smu_context *smu, struct dpm_clocks
+>   	return 0;
+>   }
+>   
+> +static int smu_v15_0_5_get_dpm_table(struct smu_context *smu, struct dpm_clocks *clock_table)
 > +{
-> +	const struct amd_vsdb_v3_payload *p =
-> +		(const struct amd_vsdb_v3_payload *)data;
-> +	u16 max_frame_rate;
-> +
-> +	info->amd_vsdb.replay_mode = p->feature_caps & 0x40;
-> +	info->amd_vsdb.panel_type = (p->cs_eotf_support & 0xC0) >> 6;
-> +
-> +	/* vfreq is provded in a different set of fields for v3. */
-> +	max_frame_rate = p->max_vfreq_ext_low |
-> +			 (p->max_vfreq_ext_high & 0x3) << 8;
+> +	DpmClocks_t_v15_0_5 *clk_table = smu->smu_table.clocks_table;
+> +	uint8_t idx;
 > +
 > +	/*
-> +	 * The AMD VSDB v3 payload length is variable (15..21 bytes).
-> +	 * All fields through max_vfreq_ext_high (byte 14) are always
-> +	 * present, but p->extra[] (bytes 15+) may not be, so any access
-> +	 * to extra[] must be guarded with a runtime length check to
-> +	 * avoid out-of-bounds reads on shorter (but spec-valid) payloads.
+> +	 * Only the Clock information of SOC and
+> +	 * VPE is copied to provide VPE DPM settings for use.
 > +	 */
-> +	if (payload_len >= AMD_VSDB_V3_MAX_VFREQ_EXT2_LEN)
-> +		max_frame_rate |= (p->extra[5] & 0x3) << 10;
+> +	for (idx = 0; idx < NUM_SOCCLK_DPM_LEVELS; idx++) {
+> +		clock_table->SocClocks[idx].Freq =
+> +			(idx < clk_table->NumSocClkLevelsEnabled) ? clk_table->SocClocks[idx]:0;
+> +		clock_table->SocClocks[idx].Vol = 0;
+> +	}
 > +
-> +	info->amd_vsdb.max_frame_rate = max_frame_rate;
+> +	for (idx = 0; idx < NUM_VPE_DPM_LEVELS; idx++) {
+> +		clock_table->VPEClocks[idx].Freq =
+> +			(idx < clk_table->VpeClkLevelsEnabled) ? clk_table->VPEClocks[idx]:0;
+> +		clock_table->VPEClocks[idx].Vol = 0;
+> +	}
+> +
+> +	return 0;
 > +}
 > +
-
-If you follow my suggestions  you might be able to do a ladder where
-drm_parse_amd_vsdb_v3() calls drm_parse_amd_vsdb_v2() with those pieces 
-and that calls drm_parse_amd_vsdb_v1() and that calls 
-drm_parse_amd_vsdb_common() or similar.
-
-
->   static void drm_parse_amd_vsdb(struct drm_connector *connector,
->   			       const struct cea_db *db)
+>   static int smu_v15_0_common_get_dpm_table(struct smu_context *smu, struct dpm_clocks *clock_table)
 >   {
->   	struct drm_display_info *info = &connector->display_info;
->   	const u8 *data = cea_db_data(db);
-> -	const struct amd_vsdb_v3_payload *p;
-> -
-> -	p = (const struct amd_vsdb_v3_payload *)data;
-> +	const struct amd_vsdb_common_payload *common =
-> +		(const struct amd_vsdb_common_payload *)data;
+> -	smu_v15_0_0_get_dpm_table(smu, clock_table);
+> +	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 5))
+> +		smu_v15_0_5_get_dpm_table(smu, clock_table);
+> +	else
+> +		smu_v15_0_0_get_dpm_table(smu, clock_table);
 >   
-> -	if (p->version != 0x03) {
-> +	if (common->version < 1 || common->version > 3) {
->   		drm_dbg_kms(connector->dev,
->   			    "[CONNECTOR:%d:%s] Unsupported AMD VSDB version %u\n",
-> -			    connector->base.id, connector->name, p->version);
-> +			    connector->base.id, connector->name, common->version);
->   		return;
->   	}
->   
-> -	info->amd_vsdb.version = p->version;
-> -	info->amd_vsdb.replay_mode = p->feature_caps & 0x40;
-> -	info->amd_vsdb.panel_type = (p->cs_eotf_support & 0xC0) >> 6;
-> -	info->amd_vsdb.luminance_range1.max_luminance = p->lum1_max;
-> -	info->amd_vsdb.luminance_range1.min_luminance = p->lum1_min;
-> -	info->amd_vsdb.luminance_range2.max_luminance = p->lum2_max;
-> -	info->amd_vsdb.luminance_range2.min_luminance = p->lum2_min;
-> +	info->amd_vsdb.version = common->version;
->   
-> -	/*
-> -	 * The AMD VSDB v3 payload length is variable (15..20 bytes).
-> -	 * All fields through p->rsvd1 (byte 14) are always present,
-> -	 * but p->extra[] (bytes 15+) may not be.  Any future access to
-> -	 * extra[] must be guarded with a runtime length check to avoid
-> -	 * out-of-bounds reads on shorter (but spec-valid) payloads.
-> -	 * For example:
-> -	 *
-> -	 *   int len = cea_db_payload_len(db);
-> -	 *
-> -	 *   if (len > AMD_VSDB_V3_PAYLOAD_MIN_LEN)
-> -	 *       info->amd_vsdb.foo = p->extra[0];
-> -	 */
-> +	drm_parse_amd_vsdb_v1(info, data);
-> +
-> +	if (common->version >= 2)
-> +		drm_parse_amd_vsdb_v2(info, data);
-> +
-> +	if (common->version >= 3)
-> +		drm_parse_amd_vsdb_v3(info, data, cea_db_payload_len(db));
+>   	return 0;
 >   }
->   
->   static void drm_parse_cea_ext(struct drm_connector *connector,
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index 5f5ca023cd65..0914a2bd8ef1 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -697,7 +697,7 @@ enum drm_bus_flags {
->    * struct drm_amd_vsdb_info - AMD-specific VSDB information
->    *
->    * This structure holds information parsed from the AMD Vendor-Specific Data
-> - * Block (VSDB) version 3.
-> + * Block (VSDB) versions 1 to 3.
->    */
->   struct drm_amd_vsdb_info {
->   	/**
-> @@ -705,6 +705,26 @@ struct drm_amd_vsdb_info {
->   	 */
->   	u8 version;
->   
-> +	/**
-> +	 * @freesync_supported: FreeSync (variable refresh rate) supported by panel
-> +	 */
-> +	bool freesync_supported;
-> +
-> +	/**
-> +	 * @min_frame_rate: FreeSync minimum refresh rate in Hz
-> +	 */
-> +	u16 min_frame_rate;
-> +
-> +	/**
-> +	 * @max_frame_rate: FreeSync maximum refresh rate in Hz
-> +	 */
-> +	u16 max_frame_rate;
-> +
-> +	/**
-> +	 * @freesync_vcp_code: MCCS VCP code for FreeSync
-> +	 */
-> +	u8 freesync_vcp_code;
-> +
->   	/**
->   	 * @replay_mode: Panel Replay supported
->   	 */
 
