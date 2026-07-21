@@ -4,141 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59307C44533
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 14:39:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A5B9C44532
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 14:51:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8E3E10EA43;
-	Tue, 21 Jul 2026 14:39:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C88B710E338;
+	Tue, 21 Jul 2026 14:51:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xHuj3Lf/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="bbUqeyVY";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011038.outbound.protection.outlook.com [40.107.208.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DA6410EA5C;
- Tue, 21 Jul 2026 14:39:36 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012046.outbound.protection.outlook.com [40.107.209.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1B6210E338
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 14:51:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z36/sLUmn9nEd28FNI93vqUouDUYyNRhiDp22lV9ZtzlUV611WL4mbW+vRdkUEIjdkKjgRWCriuYrcnTYRM5B7N703jQGUjTUU662e/eDgz7n6vissUQVY77dYlPOaH8b3FbVGeGsoODeEHBOx1NUXd26arJ6zRyx8R0Vgd/3LXXLP9KUPGJMsUZkp92blGu9DHU8hM/Ondc/WDpeLmzSRHueKHY9ItCMR3kaTGc/H3ZG3k47dI4b7l/hSVRX8vO6aToiBgUg6S00QMQ5vfcKm0Kfd7zThxhq823hzXXaJGBUxxSQIlcEqWOvFwnqyCLq2cfD5xyBSgx6YGx7sqZcw==
+ b=TXtWehWZq/dvf+/hZkbw0wt69fePH/8ez5ymDSiWULIiP8G4yRx9WH+hF0sfGCrgknMdIMjHgct+pnN9x9hMDMlN37L/7wxVggTZGrYrWM95oUPiCdLXf8r0w6Taui52VdDNT7MQoRj6zWLk92K/TwKb6LsppQNEc5CfNDw0s6KT+79SOc7xmhRC9uVdkyqsSrXBbX9BGpR/0ZYpZt9uboizVel0tI1pQJQginu+PpTlNqWvtqGNWXxH9OPuZB3N1YDOo4+u31by11ailN2zg1hL1Cd2noDmlYYuuWmU2smNClETCGck6D9U+x0irJdhE7osdaQ460AWOohWLaVvkA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Px5xoDgSRAwDpjI4lKFNkd45i6dCDJqQ5jGnywxKGDs=;
- b=AF7ohTQyOwNrwkedli59JuqwPgWmS4DjQPbRZcDUL74qQjeJGTbU+fJlhBsf9yhxq/Y0Nnq0BblRl7+vMbKMUPeqeEHwnMGi6p2tYdE/9hI3r1tmGQXKM8xnBkvdYNyvCwk2pygYP1qtI8cGoKxpeMgLX5ns9Ty242JksPx22Hp7cxeWvz3MHIqxg4EbLQO74I+iuprjxVdFAcW+g9DG35vIQmFr0UlwKvGb3xIa7cQYuT7llGk5quUJQQmUXnZNpxcgllpAdUb81yqW89SFPO67o9G8Zv4IzMofNzslEE0/Gl5E1J7Vx4/MbRru3w3mZ8GAdM8YV52bADIYHijKVQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=BMZ93xjaYa3yni2LfVQE6ENbXCQe9fMc51BDpIUBztA=;
+ b=XO3q/uRT0gTHQluHMRupsUbfkxUzgYYaxKLHv6Tb9WryCOk91d6SDfkA6001Z025IsSLvMkwAMCCxCQRMwkNGIYpnewXvhRzXNeNIbLBd9K1P8bem3vZQs0cgU/CuUNDdcbhyPxbpIXR7qBsyVeXEfyWi8qoxjjRj51SUE2cIlOSFhVJGQVFcT+8tw1m+uWtjVrzAZ6y+wmali8sRC9VN0j8f+9YY81MKjyQ02tjqCy15rVR8a92ove84Q8N5RJtyOB/Dw6w3wnlcmzrZVVHjDIcwJ0ydjfyWdIlSio6nwpGcd0YXjjGScOWr0wXhTo7/G67egbvVmLex7cWn3l0HA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Px5xoDgSRAwDpjI4lKFNkd45i6dCDJqQ5jGnywxKGDs=;
- b=xHuj3Lf/sR+AnKFzS0TdvacD89am9yHCUfA+3ynJasa3x7W2BQeWIaFxIKsppToYn6qWLtxKSHkBwwmSrQICuBXpnklhFFpY90kPFfmYHXIXvkvKYclh+7em4sLoQQSfJ7lNIK8YSG5A9J5g+w8V8Ym67WJnFbEBZT5BKBs7yao=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7003.namprd12.prod.outlook.com (2603:10b6:806:2c0::10)
- by SJ2PR12MB8941.namprd12.prod.outlook.com (2603:10b6:a03:542::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Tue, 21 Jul
- 2026 14:39:32 +0000
-Received: from SA0PR12MB7003.namprd12.prod.outlook.com
- ([fe80::4099:396e:1f40:169b]) by SA0PR12MB7003.namprd12.prod.outlook.com
- ([fe80::4099:396e:1f40:169b%3]) with mapi id 15.21.0245.009; Tue, 21 Jul 2026
- 14:39:32 +0000
-Message-ID: <c18739cd-0b66-45f9-8637-67ac1f95b29b@amd.com>
-Date: Tue, 21 Jul 2026 10:39:27 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
-To: Robert Mader <robert.mader@collabora.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
- dri-devel@lists.freedesktop.org
-Cc: Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- Daniel Stone <daniels@collabora.com>, Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
- Simon Ser <contact@emersion.fr>,
- Pekka Paalanen <pekka.paalanen@collabora.com>,
- Leandro Ribeiro <leandro.ribeiro@collabora.com>
-References: <20260703073230.19982-1-robert.mader@collabora.com>
- <6d8806b8-fc71-4699-82c4-7189a0ea2284@intel.com>
- <bb5918f5-a6da-4908-9332-18e0df39c005@linux.intel.com>
- <7d58b289-eabe-4d68-9080-c7202b0f60a0@intel.com>
- <d42d5750-f3c5-4e2b-baa3-514b87e59e86@linux.intel.com>
- <361dfc91-94e8-4289-9b3e-5280803d9257@collabora.com>
- <a7887776-c26c-4f6d-a662-2d8ef005ff4c@linux.intel.com>
- <2fa23cb1-b4c9-459b-a0dc-31960313a243@amd.com>
- <b670d594-0582-4c91-8264-88d1de5de1d8@amd.com>
- <9339663a-a0ed-4b7d-968e-1ced87db7c65@collabora.com>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <9339663a-a0ed-4b7d-968e-1ced87db7c65@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT1PR01CA0064.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:2e::33) To SA0PR12MB7003.namprd12.prod.outlook.com
- (2603:10b6:806:2c0::10)
+ bh=BMZ93xjaYa3yni2LfVQE6ENbXCQe9fMc51BDpIUBztA=;
+ b=bbUqeyVYL7FSs71KRkMeh39++QaM+2o3r47kOi0Y0aXooOprvmVMfbsadcoxVL943jRjzOiT/muPN92S4veYyZRhm7xbAEzmj8jtJgM0Ujyt00J0TSlPhwCevNnNMUItRipSDQrjfuWZAJmEZowgbBw0A5k0USoeFfM14hVqQ98=
+Received: from CYXPR02CA0029.namprd02.prod.outlook.com (2603:10b6:930:cc::27)
+ by DS7PR12MB6007.namprd12.prod.outlook.com (2603:10b6:8:7e::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Tue, 21 Jul
+ 2026 14:51:16 +0000
+Received: from CY4PEPF0000EE37.namprd05.prod.outlook.com
+ (2603:10b6:930:cc:cafe::4) by CYXPR02CA0029.outlook.office365.com
+ (2603:10b6:930:cc::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Tue,
+ 21 Jul 2026 14:51:16 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000EE37.mail.protection.outlook.com (10.167.242.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.5 via Frontend Transport; Tue, 21 Jul 2026 14:51:16 +0000
+Received: from ram-Splinter.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 21 Jul
+ 2026 09:51:09 -0500
+From: Kanala Ramalingeswara Reddy <Kanala.RamalingeswaraReddy@amd.com>
+To: <Alexander.Deucher@amd.com>, <Mario.Limonciello@amd.com>,
+ <Christian.Koenig@amd.com>, <Pratik.Vishwakarma@amd.com>,
+ <Lijo.Lazar@amd.com>, <amd-gfx@lists.freedesktop.org>
+CC: <Veerabadhran.Gopalakrishnan@amd.com>, <Pierre.Jabbour@amd.com>, "Kanala
+ Ramalingeswara Reddy" <Kanala.RamalingeswaraReddy@amd.com>
+Subject: [PATCH] drm/amdgpu: Update driver if header for SMU V15.0.5
+Date: Tue, 21 Jul 2026 20:20:54 +0530
+Message-ID: <20260721145054.1295003-1-Kanala.RamalingeswaraReddy@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7003:EE_|SJ2PR12MB8941:EE_
-X-MS-Office365-Filtering-Correlation-Id: 28a2add6-9008-4fd3-06c9-08dee735e0b7
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE37:EE_|DS7PR12MB6007:EE_
+X-MS-Office365-Filtering-Correlation-Id: d41248ce-89ef-456d-904d-08dee7378452
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|7416014|376014|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 0cz48jAVSg5CdGtHSbq+ICu9mb/x1uR/61Xjaod6CiAjBzWujEQZX/6kmKnmZBVVEk5ltU+CJTtAk3lbmPTJZVytl7H3vJrOTkHcs9ZDuhzis90qLssjG6f2A0rQt8rUPSGVAi4+4ls8gOaHLLpEVfXErZzMOoBgSR6BrqCBkX8ugOLu3JbisaY9LDxuyLtPe2tWMv98Oxw4XGS7rmY818KlvqhZw/mUUvYQ2SQTAQe0DwNhTmOB9/c1o8M7cRAzcrFJ4geJpbTpPpqCRHXsF5HoxgTYokIICFWm1xEbStaqtwRaq6CfQc8Ob65c4LaIqA/sEiEncCEU/JvC/eSplI4RxuLemaM1dh2mqKQG2CqkDWSdktgNrjdMEWz2+thw+ACx1+h2gOXOSWDmEpViNJMmflR+J619iyrWLKGJggQESty3lTQUu9Cwh7czaPfh7RxobUFaqjeiggTV3mMWcp5SCHvc1J+Znb6KAJZw812ZfKAWbvzeWqLNy2rwTad5gyrxmEZC8SXV32sK9pFPjaKAfX4JFaRUdVY5iyPpzitOycGTzsxiBYMRkcyCTmTGNeeW9aXx9DizQpDFQUuOFJ0F/jSeozWHoPriEiLc4SYLPoCb6cv+5y9g3jMhgR7KCJLRAK33Nz+YDjKQn4KilrDG4HougG2vjo3c/j51nwA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7003.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(7416014)(376014)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);
+ ARA:13230040|36860700016|1800799024|23010399003|376014|82310400026|56012099006|10067099003|3023799007|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: WS7seaS6zzuBYUtAmuyTpTihbKdaHsCct1z+O+GTChEa1s8h6H4kfx9OgLOmNyxUMX0OfUONDvkHeiKw+jtyqAWGkIbi/sWk0UieIjn+I/cuZzFpC72uThgfkb632lOafqgBY33E/1kgd/pvBtu70z0vtdUsNKi0df6B2qv5VKnmD2FYFx9T6ad0ccG+MxM2I5Ih9hr/+auQhEcigQNhMTke3sMGlWTlpBj/wJgQmMtvg9wmUeO5MvsPZdRrkgctdCJGwlKfSEef/JZPuRV8rkNovR8+ZwRHOq6vGXFDTtFl4dKKgKobUKui8OrNwnfew3V9jc9Dtbe9glYYejwSXF2QZlEoJHD4Dn98RJ9Yp6eeIPoX2Zpb4FFggptFZPFwJkt9my+Wkgv1nXYiXnT1mtzKWzH82YKkOqNPX17i8vsnmrLnKPILpHKo8gcBcLmmm0BoOYVvamNbGrlrHYSSFsD+Yq+LlQtRaONR9hV5Q8mM3Tkc1KHHBSNGIqaFNVbqZNnk5KmQwnL4n8kEhaCpyLpHlpa2C/edZrBUvhMuqLedWduXaHZmSOyBwPL/DPnaS97MsULwo1BSfder8rAGfLyapqD8KxiODAYNv7ZcFEmyg15iZKqfRW2mELEsA/iVMARftSeTTQ4Sl+oFxuRdjEB7LkvF7l6mZfpOC5cRgvn6FJjJtELXraJzRX/A4JkJWAu9gUTzt92U6/MajfM9FA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(23010399003)(376014)(82310400026)(56012099006)(10067099003)(3023799007)(11063799006)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TUh6aTRwK1ZLMHlHRjJPTkl1aVN6WUY5aU0xTkpKdHl1M2xZYXlwelRRRzBy?=
- =?utf-8?B?Rk5GQlZjZE1qRWFHa0FKWkNkTzI0Mk5RQUhPUFNUbEtselVtUmtFakxqYTRE?=
- =?utf-8?B?UDdudU5ZMGMvUkx2T0VhSXVuSkhkMjZob2swdEdhOFNGRm9kKzFCMVc3ZEFQ?=
- =?utf-8?B?UzkxOC9zdjAvZTE1L3J5Z3cwZ1VLS0Z0N1VtN0JPb3hJOWZFRSt0UE1wL0J6?=
- =?utf-8?B?cDRTdEZXcUpuN29xVnM4dGhnaWJpN1B2THBvZkJtOGl6K0t5Y2RZNUJ2TGM3?=
- =?utf-8?B?MEloUXJtT0RSSmRQSkpCN3pXd2ROUks5blIxSkgzVm14ZW8wVDk4L2hUcWNt?=
- =?utf-8?B?YWhQUlV1QzBIVHJ3OVpZL1E2cm1weWNXelg5MTRsT0RncGlrNzhMUHpIZ3pI?=
- =?utf-8?B?bTNpOTQzcTRLdUtmd3BScHd6UExwWGJzVWtiZ3FWN3pwZk9WMlQ3eGpOTzN6?=
- =?utf-8?B?VWZmUU5TS3BVTjBqanQ5OWZnTm5pdFVRajNEOWxvVFozOGx3Rlg1OUQ2SWl2?=
- =?utf-8?B?MkVnTUxZOE8zY2M4aDBLSmdRZmlXTTdzQnFPM2JtWHFMT25uRmtGaGxsKytL?=
- =?utf-8?B?ZDNpeitxQWxNUlBjandPL1J3TXdMbG1ESHc1V1Q2L3VRQ2lPSlhnNXlTT2li?=
- =?utf-8?B?RUFUcXNKWDdPUWMza1RrMHB2TTU2SDZSRFpPbUJPVUo5WGVUeXV5REllUjg0?=
- =?utf-8?B?cWdRa0haZzdOTzJIb2JYT3lRMWV0NDdMZk9nckhZRkFWZWJUT2hxSmFBeHpC?=
- =?utf-8?B?L1czRXAxMEMwRE5GYWpSYTN3Z0hMckZCYnFKS0lrbG44a1JjWmxqcWFaV2tE?=
- =?utf-8?B?bG54aXcwa28ya3dqVnBOZVlRVUcrWVpEZDI3WjhwT20wRU5jMnpLVHBEVmpV?=
- =?utf-8?B?WHcyMHNlV2ZJVTJabXliem5WWWhFdHladEJuNmMybUtCWCt3U0ZhODk1am8v?=
- =?utf-8?B?QWZYQUgrcDV4QTRWekREL1JDbFZ0cUtuSnJFZ00zVWU0bER3SnVoWEkxUVg0?=
- =?utf-8?B?d0lheWtScDRWNE1ZL2xNK29JdWtHNVFlaVhTL1Vpbmt3ZXhseG1pZ0Jyc0RU?=
- =?utf-8?B?bk9ybUdkNDJNeW5SQjZEeHVockdyMXgvTkpOdFptMFljT212bE1UUTdwVGY4?=
- =?utf-8?B?amFxQXc3Tmx6eDNpb1VDK2NmT283UUxtdXd4a2NEaSsySncwNFNXRG5Tdjcx?=
- =?utf-8?B?T0R2bUNiMU91dTNNNVhYMTgzVlpmZFBvMW9zR3F3eENDZWZhZHNQYUwrYVlt?=
- =?utf-8?B?eWhUSFljVFlTL0NYUE85Tm9CTVRoSDByTlBDM0FzSmQ1WHptZUxyeFJ2RHMv?=
- =?utf-8?B?Y0F4bDQ4NUxHV0hxRHNxb25Iekk4WFY5RmZBNDg4OWhPM2R5ODNvMlNQNEFR?=
- =?utf-8?B?U0l0S3dCMDZuYzRDTEkvVWk2elpONFNBQnJ3N24ybXhaOXNQdDNSS2R2Ylls?=
- =?utf-8?B?SmlZOVZucnhWMm5kaG1Pa2RiYVNtclVzMGh1OE9DOU80M0hDajB5ZlplcFdQ?=
- =?utf-8?B?REFnS0t6SXJYS01oRW1BWXlvOE1VRGU5UWZYbzhCMEJBbm1CekJYUHJoZmd0?=
- =?utf-8?B?SlVNWmpxOUZwbkJSRFhUUDZ5Um9NSmNuMFpqUHFTY3BBUEV4bldnUDN5UHRM?=
- =?utf-8?B?NjNuZVhyZExhZ29MMzZhcXhOYldSRUc2ZUF4MWxuNlhoQllNV0lobHE3akE2?=
- =?utf-8?B?dmN2a1lNM1ZjbFNoeFNpMThDcDl3UzdaUkQ5V1RQa2p0bXF5OE5yMUV5WnlU?=
- =?utf-8?B?QjYxSnZvdWJFbXM2ZnV4RWUxVjc2ZWpyL1JOdUM3QkFyWmFLQzROVysyUGlk?=
- =?utf-8?B?K2dZQVRNcFNQTVc1dnI1NGFUOXR5VGtWK3ZDUE5WNzVhTTY0dFNaZXNvdTFB?=
- =?utf-8?B?NEhCb09JNzdoQTFoU2pZc0lPTmZOazJYMCtyMmorcTFDemdDSEMrQVR1dnpF?=
- =?utf-8?B?dFBHY0JuUjdRRzN2c2hVV0dyZlF4a2lqUkpUQ0dWNEhZNTlnOGxaNHJuTXAz?=
- =?utf-8?B?TnU2NGZZakVIZmdRVzk3c09DQjFGYVlqQW5VaXU2anRoZGJaMGJpWTdvTWVR?=
- =?utf-8?B?T0Z0WXBRRnI2SjVDTmp6a0o0V0tXK1FPYVh6Ty94Mnl1Y281S1VVWVphZnd1?=
- =?utf-8?B?WXFqRm9FNytiMy81bzVqa0RFTU9PWXhac1FHdGRKanI1dEdvd1RUZDFGb2hY?=
- =?utf-8?B?Lzhpcnk4ZTVOMmZTQW50bUMwR0pGMHhjdnlXVXVyQ0d6S2MwRjRDRW02eVZW?=
- =?utf-8?B?dXg2TmVSV1JCNEFObjZJaElMLzlDMzg1MlkrRzhSTG1waTd4MU8va2N3dVpV?=
- =?utf-8?B?Q1VXQjYxS2s4amZpS21RNE1CUnkvaHk5SVV5Qk44UjdaZDRZdklwZz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: CnCX26Nm47mg+/CqWaLj+hUVaOQAQ9RANUcWDNimH9VqE7pxo9rh4JI+/j9apRWtoKchMQ1q1VB/B3C5Z35xMKvJqxUYW/gvio3YDE710hTpflOTKsA8Pd/oFI/I4RfQiEFL9tKGUvCmtzEJhy9txR0qBnQg/Nq4cBqUUUCD/tWCrUK/MMHYkGtH5eJWMWyfLAjow3v1XWwK4EY9pwaLKklZ1XsoMNohn7HR4ShVCSIa6AGmM2UckWCbfZqKvZVaxRW3JqM313KCdJeuADoo9YZf9fChjM5jTtCE/RJFQ/bv7kgGMjcuTJ3Idq8aJZOx/aztK5xWrzpVzMALxNrOm7ecR9AKOfujcJ5fqeNcvPjjLfYT2A99AlS/XjKQ1q2QQjle5XCq4rUQ1EVTLVU2/awXXAhIazW4AhKVHk62gnDzL7cS7AOUSj1xcIoHWIGM
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 28a2add6-9008-4fd3-06c9-08dee735e0b7
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7003.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 14:39:32.5735 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 14:51:16.1522 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d41248ce-89ef-456d-904d-08dee7378452
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: n842ZFbJfIwkCTzme/QCKwSdec5rDi6dxzpA1B8q7h1dPTol2nfVihFT1d3hxA+/Zs8rdCNWcMykEVhgzwXhag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8941
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE37.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6007
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,60 +110,370 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Update smu v15.0.0 driver if header to be v15.0.5 compatible.
 
+Signed-off-by: Kanala Ramalingeswara Reddy <Kanala.RamalingeswaraReddy@amd.com>
+---
+ .../inc/pmfw_if/smu15_driver_if_v15_0_0.h     |  38 +++
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h  |   2 +-
+ .../drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c  | 222 +++++++++++++++++-
+ 3 files changed, 255 insertions(+), 7 deletions(-)
 
-On 2026-07-21 10:15, Robert Mader wrote:
-> Hi Harry,
-> 
-> On 21.07.26 15:55, Harry Wentland wrote:
->>>> ...
->>> If I understand you correctly you suggest to map legacy COLOR_RANGE and COLOR_ENCODING to the new FIXED_MATRIX colorop in a generic way, instead of having drivers advertise them separately. Do I have that right?
->>>
->>> It's probably a good idea. It should be easy to make that change after merging the Fixed Matrix series with YUV support.
->>>
->> I sketched this out but both VKMS and amdgpu have HW generations
->> or configs where no color pipeline is created. For that we still
->> need the current way of COLOR_RANGE and COLOR_ENCODING handling.
->> Because of this the code to create COLOR_RANGE and COLOR_ENCODING
->> based on the color pipeline is not really simplifying things, but
->> merely adding more code.
->>
->> At this point I am not convinced adding helpers to create COLOR_RANGE
->> and COLOR_ENCODING based on the color pipeline is a net positive.
->> Maybe in the future that equation changes.
->>
->> If anyone is interested I'm still happy to share the code. Just
->> let me know.
->>
->> Harry
-> 
-> thanks for taking a look! I'd be very interested - mainly because in my understanding the "both VKMS and amdgpu have HW generations or configs where no color pipeline is created" should be fixable:
-> 
->  1. For amdgpu every hardware generation supporting COLOR_RANGE and COLOR_ENCODING should be able to create a color pipeline *only* exposing the corresponding FIXED_MATRIX colorop, mapping to the exact same hardware block internally. I hope that shouldn't conflict too much with the current architecture?
->  2. In case of VKMS the "enable_plane_pipeline" config could be adopted so that - if it is disabled - the plane pipeline is still initialized but only the FIXED_MATRIX colorop is added. Additionally we would need to disable DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE - possibly by a driver cap similar to v1 of this series - so that userspace can't enable/use the colop-op directly. As a result, VKMS with enable_plane_pipeline=0 should get the legacy properties via your helper, be able to drop explicit handling of them.
-> 
-> Does that make sense / do you think that could work?
-> 
-
-That makes sense and yes, it could work. If I have time I
-might give that a try.
-
-I'm worried we'd be still adding overhead by creating this
-fixed-matrix-only pipeline, but once we have code it'd be
-easy to see.
-
-Harry
-
-> Best regards,
-> 
-> Robert
-> 
-> -- 
-> Robert Mader
-> Consultant Software Developer 
-> 
-> Collabora Ltd.
-> Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-> Registered in England & Wales, no. 5513718
-> 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu15_driver_if_v15_0_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu15_driver_if_v15_0_0.h
+index 47ddf533b08f..3676f8946dc8 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu15_driver_if_v15_0_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu15_driver_if_v15_0_0.h
+@@ -144,6 +144,44 @@ typedef struct {
+   uint32_t MaxGfxClk;
+ } DpmClocks_t;
+ 
++//Freq in MHz
++//Voltage in milli volts with 2 fractional bits
++typedef struct {
++	uint32_t DcfClocks[NUM_DCFCLK_DPM_LEVELS];
++	uint32_t DispClocks[NUM_DISPCLK_DPM_LEVELS];
++	uint32_t DppClocks[NUM_DPPCLK_DPM_LEVELS];
++	uint32_t SocClocks[NUM_SOCCLK_DPM_LEVELS];
++
++	uint32_t VPEClocks[NUM_VPE_DPM_LEVELS];
++	uint32_t FclkClocks_Freq[NUM_FCLK_DPM_LEVELS];
++	uint32_t FclkClocks_Voltage[NUM_FCLK_DPM_LEVELS];
++	uint32_t SocVoltage[NUM_SOC_VOLTAGE_LEVELS];
++	MemPstateTable_t MemPstateTable[NUM_MEM_PSTATE_LEVELS];
++
++	uint8_t  NumDcfClkLevelsEnabled;
++	uint8_t  NumDispClkLevelsEnabled; //Applies to both Dispclk and Dppclk
++	uint8_t  NumSocClkLevelsEnabled;
++
++	uint8_t  VpeClkLevelsEnabled;
++
++	uint8_t  NumMemPstatesEnabled;
++	uint8_t  NumFclkLevelsEnabled;
++	uint8_t  Spare1;
++	uint8_t  Spare2;
++
++	uint8_t  Spare3;
++	uint8_t  SPare4;
++	uint8_t  spare5[2];
++
++	uint32_t MinGfxClk;
++	uint32_t MaxGfxClk;
++
++	uint32_t spare6[8];
++	uint32_t spare7[8];
++	uint32_t spare8[8];
++	uint32_t spare9[8];
++} DpmClocks_t_v15_0_5;
++
+ typedef struct {
+   uint16_t CoreFrequency[16];          //Target core frequency [MHz]
+   uint16_t CorePower[16];              //CAC calculated core power [mW]
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h
+index 13723d45a7de..38e625cda97d 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h
+@@ -26,7 +26,7 @@
+ #include "amdgpu_smu.h"
+ 
+ #define SMU15_DRIVER_IF_VERSION_INV 0xFFFFFFFF
+-#define SMU15_DRIVER_IF_VERSION_SMU_V15_0 0x7
++#define SMU15_DRIVER_IF_VERSION_SMU_V15_0 0x9
+ 
+ 
+ #define FEATURE_MASK(feature) (1ULL << feature)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
+index bb8d09e73c7d..79ad8b612d61 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
+@@ -168,7 +168,8 @@ static int smu_v15_0_0_init_smc_tables(struct smu_context *smu)
+ 
+ 	SMU_TABLE_INIT(tables, SMU_TABLE_WATERMARKS, sizeof(Watermarks_t),
+ 		PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+-	SMU_TABLE_INIT(tables, SMU_TABLE_DPMCLOCKS, sizeof(DpmClocks_t),
++	SMU_TABLE_INIT(tables, SMU_TABLE_DPMCLOCKS,
++		max(sizeof(DpmClocks_t), sizeof(DpmClocks_t_v15_0_5)),
+ 		PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+ 	SMU_TABLE_INIT(tables, SMU_TABLE_SMU_METRICS, sizeof(SmuMetrics_t),
+ 		PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+@@ -178,7 +179,8 @@ static int smu_v15_0_0_init_smc_tables(struct smu_context *smu)
+ 		goto err0_out;
+ 	smu_table->metrics_time = 0;
+ 
+-	smu_table->clocks_table = kzalloc_obj(DpmClocks_t);
++	smu_table->clocks_table = kzalloc(max(sizeof(DpmClocks_t), sizeof(DpmClocks_t_v15_0_5)),
++		GFP_KERNEL);
+ 	if (!smu_table->clocks_table)
+ 		goto err1_out;
+ 
+@@ -752,11 +754,48 @@ static int smu_v15_0_0_get_dpm_freq_by_index(struct smu_context *smu,
+ 	return 0;
+ }
+ 
++static int smu_v15_0_5_get_dpm_freq_by_index(struct smu_context *smu,
++						enum smu_clk_type clk_type,
++						uint32_t dpm_level,
++						uint32_t *freq)
++{
++	DpmClocks_t_v15_0_5 *clk_table = smu->smu_table.clocks_table;
++
++	if (!clk_table || clk_type >= SMU_CLK_COUNT)
++		return -EINVAL;
++
++	switch (clk_type) {
++	case SMU_SOCCLK:
++		if (dpm_level >= clk_table->NumSocClkLevelsEnabled)
++			return -EINVAL;
++		*freq = clk_table->SocClocks[dpm_level];
++		break;
++	case SMU_UCLK:
++	case SMU_MCLK:
++		if (dpm_level >= clk_table->NumMemPstatesEnabled)
++			return -EINVAL;
++		*freq = clk_table->MemPstateTable[dpm_level].MemClk;
++		break;
++	case SMU_FCLK:
++		if (dpm_level >= clk_table->NumFclkLevelsEnabled)
++			return -EINVAL;
++		*freq = clk_table->FclkClocks_Freq[dpm_level];
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ static int smu_v15_0_common_get_dpm_freq_by_index(struct smu_context *smu,
+ 						enum smu_clk_type clk_type,
+ 						uint32_t dpm_level,
+ 						uint32_t *freq)
+ {
++	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 5))
++		smu_v15_0_5_get_dpm_freq_by_index(smu, clk_type, dpm_level, freq);
++	else
+ 		smu_v15_0_0_get_dpm_freq_by_index(smu, clk_type, dpm_level, freq);
+ 
+ 	return 0;
+@@ -907,12 +946,116 @@ static int smu_v15_0_0_get_dpm_ultimate_freq(struct smu_context *smu,
+ 	return ret;
+ }
+ 
++static int smu_v15_0_5_get_dpm_ultimate_freq(struct smu_context *smu,
++							enum smu_clk_type clk_type,
++							uint32_t *min,
++							uint32_t *max)
++{
++	DpmClocks_t_v15_0_5 *clk_table = smu->smu_table.clocks_table;
++	uint32_t clock_limit;
++	uint32_t max_dpm_level, min_dpm_level;
++	int ret = 0;
++
++	if (!smu_v15_0_0_clk_dpm_is_enabled(smu, clk_type)) {
++		switch (clk_type) {
++		case SMU_MCLK:
++		case SMU_UCLK:
++			clock_limit = smu->smu_table.boot_values.uclk;
++			break;
++		case SMU_FCLK:
++			clock_limit = smu->smu_table.boot_values.fclk;
++			break;
++		case SMU_GFXCLK:
++		case SMU_SCLK:
++			clock_limit = smu->smu_table.boot_values.gfxclk;
++			break;
++		case SMU_SOCCLK:
++			clock_limit = smu->smu_table.boot_values.socclk;
++			break;
++		default:
++			clock_limit = 0;
++			break;
++		}
++
++		/* clock in Mhz unit */
++		if (min)
++			*min = clock_limit / 100;
++		if (max)
++			*max = clock_limit / 100;
++
++		return 0;
++	}
++
++	if (max) {
++		switch (clk_type) {
++		case SMU_GFXCLK:
++		case SMU_SCLK:
++			*max = clk_table->MaxGfxClk;
++			break;
++		case SMU_MCLK:
++		case SMU_UCLK:
++			max_dpm_level = 0;
++			break;
++		case SMU_FCLK:
++			max_dpm_level = clk_table->NumFclkLevelsEnabled - 1;
++			break;
++		case SMU_SOCCLK:
++			max_dpm_level = clk_table->NumSocClkLevelsEnabled - 1;
++			break;
++		default:
++			ret = -EINVAL;
++			goto failed;
++		}
++
++		if (clk_type != SMU_GFXCLK && clk_type != SMU_SCLK) {
++			ret = smu_v15_0_common_get_dpm_freq_by_index(smu, clk_type,
++				max_dpm_level, max);
++			if (ret)
++				goto failed;
++		}
++	}
++
++	if (min) {
++		switch (clk_type) {
++		case SMU_GFXCLK:
++		case SMU_SCLK:
++			*min = clk_table->MinGfxClk;
++			break;
++		case SMU_MCLK:
++		case SMU_UCLK:
++			min_dpm_level = clk_table->NumMemPstatesEnabled - 1;
++			break;
++		case SMU_FCLK:
++			min_dpm_level = 0;
++			break;
++		case SMU_SOCCLK:
++			min_dpm_level = 0;
++			break;
++		default:
++			ret = -EINVAL;
++			goto failed;
++		}
++
++		if (clk_type != SMU_GFXCLK && clk_type != SMU_SCLK) {
++			ret = smu_v15_0_common_get_dpm_freq_by_index(smu, clk_type,
++				min_dpm_level, min);
++			if (ret)
++				goto failed;
++		}
++	}
++
++failed:
++	return ret;
++}
++
+ static int smu_v15_0_common_get_dpm_ultimate_freq(struct smu_context *smu,
+ 							enum smu_clk_type clk_type,
+ 							uint32_t *min,
+ 							uint32_t *max)
+ {
+-	if (clk_type != SMU_VCLK1 && clk_type != SMU_DCLK1)
++	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 5))
++		smu_v15_0_5_get_dpm_ultimate_freq(smu, clk_type, min, max);
++	else if (clk_type != SMU_VCLK1 && clk_type != SMU_DCLK1)
+ 		smu_v15_0_0_get_dpm_ultimate_freq(smu, clk_type, min, max);
+ 
+ 	return 0;
+@@ -986,11 +1129,36 @@ static int smu_v15_0_0_get_dpm_level_count(struct smu_context *smu,
+ 	return 0;
+ }
+ 
++static int smu_v15_0_5_get_dpm_level_count(struct smu_context *smu,
++					   enum smu_clk_type clk_type,
++					   uint32_t *count)
++{
++	DpmClocks_t_v15_0_5 *clk_table = smu->smu_table.clocks_table;
++
++	switch (clk_type) {
++	case SMU_SOCCLK:
++		*count = clk_table->NumSocClkLevelsEnabled;
++		break;
++	case SMU_MCLK:
++		*count = clk_table->NumMemPstatesEnabled;
++		break;
++	case SMU_FCLK:
++		*count = clk_table->NumFclkLevelsEnabled;
++		break;
++	default:
++		break;
++	}
++
++	return 0;
++}
++
+ static int smu_v15_0_common_get_dpm_level_count(struct smu_context *smu,
+ 					   enum smu_clk_type clk_type,
+ 					   uint32_t *count)
+ {
+-	if (clk_type != SMU_VCLK1 && clk_type != SMU_DCLK1)
++	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 5))
++		smu_v15_0_5_get_dpm_level_count(smu, clk_type, count);
++	else if (clk_type != SMU_VCLK1 && clk_type != SMU_DCLK1)
+ 		smu_v15_0_0_get_dpm_level_count(smu, clk_type, count);
+ 
+ 	return 0;
+@@ -1363,9 +1531,24 @@ static int smu_v15_0_0_set_fine_grain_gfx_freq_parameters(struct smu_context *sm
+ 	return 0;
+ }
+ 
++static int smu_v15_0_5_set_fine_grain_gfx_freq_parameters(struct smu_context *smu)
++{
++	DpmClocks_t_v15_0_5 *clk_table = smu->smu_table.clocks_table;
++
++	smu->gfx_default_hard_min_freq = clk_table->MinGfxClk;
++	smu->gfx_default_soft_max_freq = clk_table->MaxGfxClk;
++	smu->gfx_actual_hard_min_freq = 0;
++	smu->gfx_actual_soft_max_freq = 0;
++
++	return 0;
++}
++
+ static int smu_v15_0_common_set_fine_grain_gfx_freq_parameters(struct smu_context *smu)
+ {
+-	smu_v15_0_0_set_fine_grain_gfx_freq_parameters(smu);
++	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 5))
++		smu_v15_0_5_set_fine_grain_gfx_freq_parameters(smu);
++	else
++		smu_v15_0_0_set_fine_grain_gfx_freq_parameters(smu);
+ 
+ 	return 0;
+ }
+@@ -1405,9 +1588,36 @@ static int smu_v15_0_0_get_dpm_table(struct smu_context *smu, struct dpm_clocks
+ 	return 0;
+ }
+ 
++static int smu_v15_0_5_get_dpm_table(struct smu_context *smu, struct dpm_clocks *clock_table)
++{
++	DpmClocks_t_v15_0_5 *clk_table = smu->smu_table.clocks_table;
++	uint8_t idx;
++
++	/*
++	 * Only the Clock information of SOC and
++	 * VPE is copied to provide VPE DPM settings for use.
++	 */
++	for (idx = 0; idx < NUM_SOCCLK_DPM_LEVELS; idx++) {
++		clock_table->SocClocks[idx].Freq =
++			(idx < clk_table->NumSocClkLevelsEnabled) ? clk_table->SocClocks[idx]:0;
++		clock_table->SocClocks[idx].Vol = 0;
++	}
++
++	for (idx = 0; idx < NUM_VPE_DPM_LEVELS; idx++) {
++		clock_table->VPEClocks[idx].Freq =
++			(idx < clk_table->VpeClkLevelsEnabled) ? clk_table->VPEClocks[idx]:0;
++		clock_table->VPEClocks[idx].Vol = 0;
++	}
++
++	return 0;
++}
++
+ static int smu_v15_0_common_get_dpm_table(struct smu_context *smu, struct dpm_clocks *clock_table)
+ {
+-	smu_v15_0_0_get_dpm_table(smu, clock_table);
++	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 5))
++		smu_v15_0_5_get_dpm_table(smu, clock_table);
++	else
++		smu_v15_0_0_get_dpm_table(smu, clock_table);
+ 
+ 	return 0;
+ }
+-- 
+2.53.0
 
