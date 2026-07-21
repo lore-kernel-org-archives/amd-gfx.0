@@ -4,93 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 755E1C4452B
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 18:09:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A6EFCC4451C
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 18:32:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 16FF210E3A8;
-	Tue, 21 Jul 2026 18:09:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39EFC10EB0C;
+	Tue, 21 Jul 2026 18:32:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JbU8pu1j";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Golzh6jm";
 	dkim-atps=neutral
-Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
- [209.85.210.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8521410E3A8
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 18:09:53 +0000 (UTC)
-Received: by mail-ot1-f51.google.com with SMTP id
- 46e09a7af769-7eb6573bd52so6258528a34.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 11:09:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784657392; cv=none;
- d=google.com; s=arc-20260327;
- b=QveO04wJgGKXg2NrOgLv2jMeQk8JHRGerwPm2ONDptsFe+EQOeEh8iIpinQ7BGyCQp
- 7P9Po0yLOHYq0sRFTa6LxofynlmkQNpId3KNG5Qv0UwI1sOMDu8Bn6bj+Snztgxzp4JX
- VexhD+erls88D/UHzyfbEhDZuKSsApJlC4+MQAMPH1LHjf+SwwCMrUK5Fqkd+7XcAjkX
- tT8p+A/41v97tShWcKmJ7NbDDKbxF4BO1qeNW1odycS8OuvkBeMPGf3bnIO5680tUbuE
- XMXoMA9XsOJh37P6DUvoJ+PPXaTb0D3GEmd5y9RAfamt3yomnR4VMBMs7QtYpcnj4+Qf
- olzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=657PTF+kjp07ScPIuFpyWerZ9DUGDt4h3eqh5FIi338=;
- fh=SwhwLCcbfM0wPvG0a6QOg8fd2iQIQujEbJG/Oxr+9CM=;
- b=igZLQCcvAPO9+nBilGM3vGtOQ0fca0DDwF9IRkfWYraQlmo3RNLrfduNQwaTj1s9q/
- oFF/ldCsrm8EOtGFxIcFfqkht/ZfqLkfvx/KURfXjTE5GBPXPDyTPhzdjl3xOpE/ha4s
- K4YHJnOS2YU3/P9L8QzaTWQa/PC7N/zR8L+bnQjdVbL+/XGbUswUodaHukru3p1kxcfW
- 0kHzRaVpE3DqN6YUOOVgpmkm8bm9iLMBBp4QJBflpBaHs9SF/m1d6+HLtLbndmTUVJxT
- 0jeEQEo23CD5XIJJjYuALf9k/kFlN3pvGXLGZIj+k4PX+AvklLyW+x/I0bYv2ED+D3ea
- HPBw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784657392; x=1785262192; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=657PTF+kjp07ScPIuFpyWerZ9DUGDt4h3eqh5FIi338=;
- b=JbU8pu1jQd8O8NQMr7vQOLDUKi01rn9un+wslWFdN9BWhnoL0B+zjQI13KxlNEKlCU
- huqZu6f7linZCJgK6V0UMydsxjYKpgO/wgqu9pPypIGeVUpaIBVhSceedNJtoSIX+Lfn
- WqOA8Psa0FtVlbvuG2r4CKAyoy2fc8oovsCYMnzqEsU7mLTSG/J3Au7R9GrvY4xsx+6A
- 2YnH/RUindW2RCYm99qi1Kcq52S97UN6VLS5BVVBAGjVt1J7B+p1JfAcsc2+kQ37QMoK
- J6cpO9dm+6ysiGJ9wnGFDzG45T1jxvcgY/Fp2bvZx+spXtaj1pTmVd/wSKrtTZ3dZo2+
- YsEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784657392; x=1785262192;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=657PTF+kjp07ScPIuFpyWerZ9DUGDt4h3eqh5FIi338=;
- b=hj+92u0hTm4Tb4bKK5bNhKtG6OrSH4L3aa0B7BszEEMCBmsHa1wTnwDdG0ny3dJMs3
- IbzJNfFnpXdgu6mpfxq+WB3tyhuVYBECf64gxRUEPKXcHXhnoaTQdW+5e9idDEA/iQVN
- 6jrIykKZnVJb5nKgMe1jHspEcjzuSldEziD/NObCri667p51qSmm5+uHUmsUyYh2x3Au
- peuuSzXGl+SZOPQOKsk2NwPsqcT8X9+05jWjjK41ZcEUut2mz6GTNVL9NaUctmbTGnvW
- IQIhrLnfYQ7Imdah6lMnFdpXS69QCLZ7OX7XPw8TMPGxqOt87+AJ2o8K0GMvC4yNPH4V
- dhYg==
-X-Gm-Message-State: AOJu0YxIlNZ9PxK3/CnH7hjbnSW3zKoLhJkb0PThs8zSNW2RF2ZyARAL
- vqIHnIyHYlkH23mE3PoY7pY1wPfaOJD3+ly3fFBg8gawzbWJgMUxlI75VZE2BZVgLhNkDIUsgZQ
- uhqE3tTzDuR6Uojk0RNyFl1/keRMLD1Y=
-X-Gm-Gg: AfdE7cn59fSCDG9vKwunTtLusrCb5kR6hPb5sIZY7Xu9CeQV30f98Pw0uDQPsjKqNdT
- kzD7qKXtIFAYZTlekrDpIpT7TTJREpyFtZMvs3PfYJr94R8uwOscsvAErye/yvkNQm1tmmtgaOS
- /LrDdv/CjqkVgo856QHaRTBjayur/IJ0+Jnx8qdq6EUx+5y8X1Ci8rOKPdcPka6JA71DFtF3wvf
- K+jplLk1HdvW5hQQtGVsUJAKrjDVQbOrxoTucmPTe42aewJ3yASpiP91pNsPhRZ
-X-Received: by 2002:a05:6830:3496:b0:7e9:c72e:e5d6 with SMTP id
- 46e09a7af769-7eda084eaedmr11684574a34.14.1784657392489; Tue, 21 Jul 2026
- 11:09:52 -0700 (PDT)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010041.outbound.protection.outlook.com [52.101.201.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37F4310EB0C
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 18:32:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XAzxRzubBt1pcz6mjcGyc156BTA4QNho6a9qaQziy5pgnD7dAYC5JSFRNMbdhsPY1520Cudla8dAOMj+HmRFq15iKLWiEIqKtLyKFJ4uBE1by3YNWpAcG+miAfDJKMFQcI9cSZU+5bdEmBy+jMPWvcXXmLapWZKEHPlL9YbfYggo+2HfLHdh9vcFwI118PdvW1XTvJ00mOU5OXKvXvs5p//AGb519o4w8700lBRo1T9DgJT/VIvyIB8Fx1buUbsbe5u2hfHiTy+a7VirI+HlL/G8W9tqhvBwBR80a/iG4yThJ5dMDDONipdB9XYNFQIDew1KFdUnHVoHDgDCS4wJDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RFoBiM4+L4tuFPW/3UHUbcViheBk6N0Vp5z0hJlKgkA=;
+ b=ccciyh2yidEkn8oVVzCh/+ru9de8yc+PmVPNw+6CNYCiN7RkW7rbCrUmD4fMY9pLg+4SYpRqi8tKFWv6q0NVvDeYGmD91gog5UUaX7rJIC2xEjO3mcDXkeaeZJIvEvEPWJ3q9G9klqyXpNhQGGYlxQVIlYf7T/fJC8nTe8DUYNwwcoeGaQFGm6zfRsJD9cS/OZ1klM9uCSPmLnD2L7Ugs+Xi7gO3zHehpf6Ii6Yu0k2RR6abEpOoZVaCjXzgccRqXvIKYdH7Ytd4oDocqz2DnZPjQBsVzUx1oEoHTFzZWDlolSexmxkkQcjAWR5o3JSLWlWBj27P6u+0yq6y/7wm/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RFoBiM4+L4tuFPW/3UHUbcViheBk6N0Vp5z0hJlKgkA=;
+ b=Golzh6jm9v0ovLStV/JT9ilSL8FZU6kgXi0Fx2/kqE12TSxA+WLMEARgorpCCj2V+QU57aCkuLt4uNIgMb7YpBM5YhLs06T+CqW9nlnytumCokQnWhniw24/c66bIi4ypmZCQPDQdEW5b/0N+/eUKWO92/v+y541MhkWIZ3EE3M=
+Received: from CH0PR13CA0030.namprd13.prod.outlook.com (2603:10b6:610:b1::35)
+ by PH0PR12MB8821.namprd12.prod.outlook.com (2603:10b6:510:28d::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Tue, 21 Jul
+ 2026 18:32:08 +0000
+Received: from BL6PEPF0001AB77.namprd02.prod.outlook.com
+ (2603:10b6:610:b1:cafe::60) by CH0PR13CA0030.outlook.office365.com
+ (2603:10b6:610:b1::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Tue,
+ 21 Jul 2026 18:32:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0001AB77.mail.protection.outlook.com (10.167.242.170) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.5 via Frontend Transport; Tue, 21 Jul 2026 18:32:07 +0000
+Received: from sclement-ThinkStation-P8.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.41; Tue, 21 Jul 2026 13:32:06 -0500
+From: Sunday Clement <Sunday.Clement@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Kent.Russell@amd.com>, <Harish.Kasiviswanathan@amd.com>, Sunday Clement
+ <Sunday.Clement@amd.com>, Sunday Clement <sunday.clement@amd.com>
+Subject: [PATCH] drm/amdgpu: drain SDMA before process eviction during GPU
+ reset
+Date: Tue, 21 Jul 2026 14:31:50 -0400
+Message-ID: <20260721183150.303360-1-Sunday.Clement@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260721001851.113927-1-vitaly.prosyak@amd.com>
- <20260721001851.113927-2-vitaly.prosyak@amd.com>
-In-Reply-To: <20260721001851.113927-2-vitaly.prosyak@amd.com>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Tue, 21 Jul 2026 23:09:39 +0500
-X-Gm-Features: AUfX_mw6I8-srEOZv-ct3TaNXNnCqiGWYvw5PMQwSGtCQxNY5ldnuWYUg2R-rDE
-Message-ID: <CABXGCsOsrFVyFEuOfUm5Vqpf64fbC3RifzGV2QDpGuP0o+gu8Q@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Fix lockdep false positive in
- amdgpu_lockdep_init
-To: vitaly.prosyak@amd.com
-Cc: amd-gfx@lists.freedesktop.org, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB77:EE_|PH0PR12MB8821:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2dcc812d-9d4d-4fe3-6948-08dee7565e7c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|36860700016|376014|82310400026|1800799024|6133799003|56012099006|11063799006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 1UPHLMOSTZB+/I39m6SWfk1aT1/pMlUKA03gn55ZBxmm1T35djXNwqxXEMRbH6gb2B6163rCLIz9sqEBT43o/sXR/JseNgc+/fhKOhEJWFnxS8mtvBjKtsXlmX8eUGez1x4zdZURQHCORHp0ARhhJLwi7Q4QEVQvUM9GJanMcY9gpxAaTml9JDJtzHRQ8Y+mEcXO9BhnGYn2CGXMp1GyR6+PzEvzokwdF6FZZnnqrTh4qUo1oTwk/0Yh+kGt029mDaFTebr+i4DnHtLvNJxHbzDlbQ55YLzKPfAE65uSEJWl1sjoXySAF0JfySiCO2jhazZ3WBO+4+cpOXIt954JqwBZLpNelDq/dGaqXQSllXRu0OrVR7ySWEeTgHnSUiy2NRzZj9HVpa4OxagtcGvhnCNQsHQjgVbxQirGkn+yG/j2hOW4dIZA/5IRk4RmP2Dpm2nnpFFkpXMAHlySCrcgYXrzxmSGN331OnNq4raS/fhyIxPRlfnOiACTKEM2NeTcUPQw1ILjqtCB+Ar9QxodkjS3LVXAOod4W/fgfepdzdDURekHHywKxV7Y+JxcSt8ZjIsQ7X0Zyr/TESHyHmA7kNowjjlL+0c5sZLLnIuK6kUTWJAfObgbpUeFl2tXiaSgB1RGzXBEBRVDauYayJ1GK+MYy+ShHxoATN2/7wDSikOY4zx2SK/v7V+5jQR/d7gnut3tBEieGJ3FgtbzMTcD3g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(36860700016)(376014)(82310400026)(1800799024)(6133799003)(56012099006)(11063799006)(10067099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: kPb2gOmvBfq9bs9TS3jF6+lY5G5dJ0UdFalXalStwqcSdn39dPo0OKPAwbHItsJc01Mv4idsEnAFdEkLckURrVuUNDP3N4vhP0tSQlVdvGTq5Bj+9cUwopn3fMDw78Fis2ot93k0ePQ3wb8cRpFIPk6yf8y1JYtpG72VWSdlyFEyhUnrqsy8qHpR8XayMCP3O6f5WFzlCRuJa9l67FkjPsfBj5hUWISgfJ/hzRDsnwIK+vZYVvxz19eEUzWftRc085TiJQNvTo1Xac9SB9G7cY7rKCyA17Kj4Vv7cEiXSEOlnSyraghC8JDFReY+JyET2+huqzOPiRd7qlOySbOgm8Lce//Sf4UKEl3qgLNbH5Hpxgbad2bpREQI3oePdpyrZs/whEyK+qkxAAdsj0vyxKbeHDXvajeOnvji3uiKz7kMrkczOdcwdDPjBIxZvDV+
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 18:32:07.1206 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2dcc812d-9d4d-4fe3-6948-08dee7565e7c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB77.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8821
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,196 +109,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 21, 2026 at 5:19=E2=80=AFAM <vitaly.prosyak@amd.com> wrote:
->
-> From: Vitaly Prosyak <vitaly.prosyak@amd.com>
->
-> Move fs_reclaim_acquire() to before all lock acquisitions to eliminate
-> false positive circular locking dependency warning.
->
-> This is a 7.2-cycle regression fix suitable for stable backport.
->
-> PROBLEM:
->
-> amdgpu_lockdep_init() trains lockdep by acquiring locks in sequence
-> while calling fs_reclaim_acquire() in the middle. The fs_reclaim call
-> was placed while notifier_lock was held, teaching lockdep:
->
->     notifier_lock -> fs_reclaim
->
-> However, at runtime, MMU notifier callbacks run from inside memory
-> reclaim, establishing the opposite dependency:
->
->     fs_reclaim -> mmu_notifier -> notifier_lock
->
-> These form a false cycle that lockdep reports when reclaim unmaps a
-> page covered by an amdgpu userptr notifier.
->
-> LOCKDEP WARNING EXAMPLE (BEFORE FIX):
->
->     WARNING: possible circular locking dependency detected
->     6.19.0+ #48 Not tainted
->     amd_lockdep/3762 is trying to acquire lock:
->     ffff8881756f3c30 (&amdgpu_notifier_lock_key), at: amdgpu_hmm_invalida=
-te_gfx
->
->     but task is already holding lock:
->     ffffffff92e4b5c0 (mmu_notifier_invalidate_range_start), at: try_to_un=
-map_one
->
->     Chain exists of:
->       &amdgpu_notifier_lock_key --> fs_reclaim --> mmu_notifier_invalidat=
-e_range_start
->
->     Possible unsafe locking scenario:
->           CPU0                    CPU1
->           ----                    ----
->      lock(mmu_notifier_invalidate_range_start);
->                                   lock(fs_reclaim);
->                                   lock(mmu_notifier_invalidate_range_star=
-t);
->      lock(&amdgpu_notifier_lock_key);
->
->      *** DEADLOCK ***
->
-> The dependency chain shows:
->   -> #5 (fs_reclaim):
->        amdgpu_lockdep_init+0x61e/0x730 [amdgpu]  <- FALSE EDGE
->   -> #0 (&amdgpu_notifier_lock_key):
->        amdgpu_hmm_invalidate_gfx+0x77/0x110 [amdgpu]  <- RUNTIME PATH
->
-> SOLUTION:
->
-> Move fs_reclaim_acquire/release to BEFORE all lock acquisitions.
-> The acquire/release pair does not create a static lockdep edge by itself
-> (no locks are held between acquire and release), but it registers the
-> fs_reclaim lock class. The actual fs_reclaim -> notifier_lock ordering
-> is established at runtime when memory reclaim invokes MMU notifiers that
-> take notifier_lock. By moving the fs_reclaim registration before any
-> lock acquisition, we avoid teaching lockdep the false reverse dependency.
->
-> VERIFICATION (AFTER FIX):
->
-> Test reproducer (based on Mikhail Gavrilov's standalone test case)
-> creates a 64MB GPU userptr memory buffer, then repeatedly forces the
-> kernel to reclaim it by moving pages to disk (simulating memory
-> pressure). Each reclaim cycle triggers the MMU notifier callback path.
->
-> The test is available as an IGT subtest:
->   tests/amdgpu/amd_lockdep.c::notifier-reclaim-splat
->
-> Results:
->   Before fix: Lockdep false positive warning on first reclaim attempt
->   After fix:  Completed 8 reclaim cycles with no lockdep warnings
->
-> dmesg after fix shows only test success messages, no circular dependency
-> warnings. The fix is minimal (relocate 2 lines) with no runtime overhead,
-> only corrects lockdep's static analysis model.
->
-> v2: Address Mikhail Gavrilov's review feedback:
->     - Fix author name: Michael -> Mikhail Gavrilov in all trailers
->     - Add Fixes: tag to link regression to original commit
->     - Add Tested-by: Mikhail Gavrilov (tested on RX 7900 XTX)
->     - Rewrite fs_reclaim comment to be technically accurate about what
->       fs_reclaim_acquire/release actually does (registers lock class,
->       doesn't create static edge)
->     - Add note that this is a 7.2-cycle regression for stable routing
->
-> Fixes: 1d0f5838b126 ("drm/amdgpu: Add lockdep annotations for lock orderi=
-ng validation")
-> Reported-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-> Analyzed-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-> Test-case-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-> Tested-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Tested-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c | 18 ++++++++++++------
->  1 file changed, 12 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c b/drivers/gpu/dr=
-m/amd/amdgpu/amdgpu_lockdep.c
-> index b251350b1fb2..718411f724f3 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
-> @@ -150,6 +150,18 @@ int amdgpu_lockdep_init(void)
->          * Take locks in the correct order to train lockdep.
->          * This establishes the dependency chain.
->          */
-> +       /*
-> +        * Train fs_reclaim FIRST, before taking any locks.
-> +        * This teaches lockdep that fs_reclaim is the OUTERMOST context.
-> +        * When memory reclaim later calls MMU notifiers (which take noti=
-fier_lock),
-> +        * lockdep will see: fs_reclaim -> notifier_lock (correct runtime=
- edge).
-> +        *
-> +        * Bug fix: Previously fs_reclaim_acquire() was called while hold=
-ing
-> +        * notifier_lock, teaching lockdep the FALSE edge: notifier_lock =
--> fs_reclaim.
-> +        * This caused false positive circular dependency warnings.
-> +        */
-> +       fs_reclaim_acquire(GFP_KERNEL);
-> +       fs_reclaim_release(GFP_KERNEL);
->
->         /* Level 1: Global userq scheduler mutex (outermost) */
->         mutex_lock(&locks->userq_sch_mutex);
-> @@ -168,11 +180,6 @@ int amdgpu_lockdep_init(void)
->
->         /* Level 7: DRM file list mutex */
->         mutex_lock(&locks->filelist_mutex);
-> -       /*
-> -        * Mark potential memory reclaim boundary.
-> -        * GPU operations might trigger memory allocation/reclaim.
-> -        */
-> -       fs_reclaim_acquire(GFP_KERNEL);
->
->         /* Level 8: SRBM register access */
->         mutex_lock(&locks->srbm_mutex);
-> @@ -190,7 +197,6 @@ int amdgpu_lockdep_init(void)
->         spin_unlock_irqrestore(&locks->mmio_idx_lock, flags);
->         mutex_unlock(&locks->grbm_idx_mutex);
->         mutex_unlock(&locks->srbm_mutex);
-> -       fs_reclaim_release(GFP_KERNEL);
->
->         mutex_unlock(&locks->filelist_mutex);
->         mutex_unlock(&locks->reset_lock);
-> --
-> 2.54.0
->
+Host kernel panics (Oops in free_swap_cache) when GPU reset is
+triggered under multi-process load. The crash is caused by SDMA engines
+writing to memory while munmap clears page table entries during process
+eviction.
 
-v2 looks good, thanks for fixing the name and adding the Fixes tag. No
-objection from me.
+The race condition:
+amdgpu_device_halt_activities() loops over all devices in the reset
+list and calls amdgpu_amdkfd_pre_reset() on each device. The first call
+to amdgpu_amdkfd_pre_reset() triggers global process eviction across
+all GPUs via kgd2kfd_suspend_process(), which starts munmap clearing
+PTEs. However, SDMA engines on other devices in the reset list still
+have in-flight DMA transactions that have not been drained.
 
-One question on the comment above the
-fs_reclaim_acquire()/fs_reclaim_release() pair, just so the annotation
-file stays accurate. As written the pair is:
+Fix by draining ALL SDMA rings on ALL devices in the reset list BEFORE
+calling amdgpu_amdkfd_pre_reset() on any device. Also flush the HDP
+write cache to ensure SDMA writes reach system memory before PTEs are
+cleared. This guarantees no in-flight DMAs exist when process eviction
+begins.
 
-fs_reclaim_acquire(GFP_KERNEL);
-fs_reclaim_release(GFP_KERNEL);
-mutex_lock(&locks->userq_sch_mutex);
-...
+Signed-off-by: Sunday Clement <sunday.clement@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 31 +++++++++++++++++++++-
+ 1 file changed, 30 insertions(+), 1 deletion(-)
 
-Since fs_reclaim is released again before any hierarchy lock is taken,
-is it right that this pair does not actually create an fs_reclaim ->
-notifier_lock edge? As far as I understand lockdep records an edge
-only when a lock is acquired while another is held, so with nothing
-taken between acquire and release the pair only registers the
-fs_reclaim class. The real fs_reclaim -> notifier_lock edge then comes
-from runtime, when reclaim invokes the MMU notifier that takes
-notifier_lock (which your comment also calls the "correct runtime
-edge").
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 472e96ae884e..0cd3dc4cffb2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5340,7 +5340,36 @@ static void amdgpu_device_halt_activities(struct amdgpu_device *adev,
+ 					  bool need_emergency_restart)
+ {
+ 	struct amdgpu_device *tmp_adev = NULL;
+-	int i;
++	int i, r;
++	struct amdgpu_ring *ring;
++
++    /*
++     * Drain all SDMA on all devices before any KFD pre_reset.
++     *
++     * amdgpu_amdkfd_pre_reset() triggers global process eviction across
++     * all GPUs, which starts munmap clearing PTEs. We must ensure no
++     * in-flight SDMA DMAs on any device when eviction begins, otherwise
++     * SDMA writes race with munmap, corrupting PTEs.
++     */
++	list_for_each_entry(tmp_adev, device_list, reset_list) {
++		for (i = 0; i < tmp_adev->sdma.num_instances; i++) {
++			ring = &tmp_adev->sdma.instance[i].ring;
++			if (ring->sched.timeout == MAX_SCHEDULE_TIMEOUT)
++				continue;
++
++			r = amdgpu_fence_wait_empty(ring);
++			if (r)
++				dev_warn(tmp_adev->dev,
++					"SDMA%d ring drain timeout before reset, proceeding\n", i);
++		}
++
++		/*
++		 * Flush HDP write cache to ensure SDMA writes reach system
++		 * memory before munmap. Prevents cached writes from arriving
++		 * after pages are freed.
++		 */
++		amdgpu_device_flush_hdp(tmp_adev, NULL);
++	}
+ 
+ 	/* block all schedulers and reset given job's ring */
+ 	list_for_each_entry(tmp_adev, device_list, reset_list) {
+-- 
+2.43.0
 
-If that is correct, the pair is functionally equivalent to just
-dropping the old misplaced acquire, and the comment's "teaches lockdep
-that fs_reclaim is the OUTERMOST context" slightly overstates what the
-annotation does. Just wanted to check my understanding.
-
---=20
-Best Regards,
-Mike Gavrilov.
