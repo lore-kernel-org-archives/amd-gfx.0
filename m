@@ -4,48 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32499C4452B
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 17:14:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 755E1C4452B
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 18:09:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAF6810E369;
-	Tue, 21 Jul 2026 17:14:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 16FF210E3A8;
+	Tue, 21 Jul 2026 18:09:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="R4619fn3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JbU8pu1j";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2174B10E369
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 17:14:07 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id F200F40874;
- Tue, 21 Jul 2026 17:14:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FF9C1F00A3A;
- Tue, 21 Jul 2026 17:14:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784654046;
- bh=IvEkqaPJhGIH9CuwSJAja+NNijobUX4lyHDD1B+0lGs=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=R4619fn3jQ7pl+HyIPxp3uC6Pfcz24gueXRMJqi2vR+mUKifgAmW/+vOEozvJb/zP
- gmArAi4u0F8IiYcOR9dP5gT0kuj4KNZDCRUxjGKIpGv+ZplJogbs5+v7+57aeHV/if
- jjnLwmN65VkvziqN5Em8+0OyJn5Scb94wp4fEnCCxmqxi+HUvBbSxUt3qoso93Z09o
- gWGg7bpdU0bAP51dT9dN45BoDl8q2ghZ3zJf5YfjOtjM0N7vKVtvrYfhlwcqLLxkW9
- I0IZ5BK5vEcQyUrdNT2ObPx+O7TnM+JolQHyc38m2f7GixMBPbnmW4EPP+3tdFUybA
- vsTe+gKpUgncQ==
-Message-ID: <53ba9a3e-7cce-4fa5-9cc9-a6c43afcb840@kernel.org>
-Date: Tue, 21 Jul 2026 12:14:05 -0500
+Received: from mail-ot1-f51.google.com (mail-ot1-f51.google.com
+ [209.85.210.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8521410E3A8
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 18:09:53 +0000 (UTC)
+Received: by mail-ot1-f51.google.com with SMTP id
+ 46e09a7af769-7eb6573bd52so6258528a34.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 11:09:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784657392; cv=none;
+ d=google.com; s=arc-20260327;
+ b=QveO04wJgGKXg2NrOgLv2jMeQk8JHRGerwPm2ONDptsFe+EQOeEh8iIpinQ7BGyCQp
+ 7P9Po0yLOHYq0sRFTa6LxofynlmkQNpId3KNG5Qv0UwI1sOMDu8Bn6bj+Snztgxzp4JX
+ VexhD+erls88D/UHzyfbEhDZuKSsApJlC4+MQAMPH1LHjf+SwwCMrUK5Fqkd+7XcAjkX
+ tT8p+A/41v97tShWcKmJ7NbDDKbxF4BO1qeNW1odycS8OuvkBeMPGf3bnIO5680tUbuE
+ XMXoMA9XsOJh37P6DUvoJ+PPXaTb0D3GEmd5y9RAfamt3yomnR4VMBMs7QtYpcnj4+Qf
+ olzw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=657PTF+kjp07ScPIuFpyWerZ9DUGDt4h3eqh5FIi338=;
+ fh=SwhwLCcbfM0wPvG0a6QOg8fd2iQIQujEbJG/Oxr+9CM=;
+ b=igZLQCcvAPO9+nBilGM3vGtOQ0fca0DDwF9IRkfWYraQlmo3RNLrfduNQwaTj1s9q/
+ oFF/ldCsrm8EOtGFxIcFfqkht/ZfqLkfvx/KURfXjTE5GBPXPDyTPhzdjl3xOpE/ha4s
+ K4YHJnOS2YU3/P9L8QzaTWQa/PC7N/zR8L+bnQjdVbL+/XGbUswUodaHukru3p1kxcfW
+ 0kHzRaVpE3DqN6YUOOVgpmkm8bm9iLMBBp4QJBflpBaHs9SF/m1d6+HLtLbndmTUVJxT
+ 0jeEQEo23CD5XIJJjYuALf9k/kFlN3pvGXLGZIj+k4PX+AvklLyW+x/I0bYv2ED+D3ea
+ HPBw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784657392; x=1785262192; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=657PTF+kjp07ScPIuFpyWerZ9DUGDt4h3eqh5FIi338=;
+ b=JbU8pu1jQd8O8NQMr7vQOLDUKi01rn9un+wslWFdN9BWhnoL0B+zjQI13KxlNEKlCU
+ huqZu6f7linZCJgK6V0UMydsxjYKpgO/wgqu9pPypIGeVUpaIBVhSceedNJtoSIX+Lfn
+ WqOA8Psa0FtVlbvuG2r4CKAyoy2fc8oovsCYMnzqEsU7mLTSG/J3Au7R9GrvY4xsx+6A
+ 2YnH/RUindW2RCYm99qi1Kcq52S97UN6VLS5BVVBAGjVt1J7B+p1JfAcsc2+kQ37QMoK
+ J6cpO9dm+6ysiGJ9wnGFDzG45T1jxvcgY/Fp2bvZx+spXtaj1pTmVd/wSKrtTZ3dZo2+
+ YsEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784657392; x=1785262192;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=657PTF+kjp07ScPIuFpyWerZ9DUGDt4h3eqh5FIi338=;
+ b=hj+92u0hTm4Tb4bKK5bNhKtG6OrSH4L3aa0B7BszEEMCBmsHa1wTnwDdG0ny3dJMs3
+ IbzJNfFnpXdgu6mpfxq+WB3tyhuVYBECf64gxRUEPKXcHXhnoaTQdW+5e9idDEA/iQVN
+ 6jrIykKZnVJb5nKgMe1jHspEcjzuSldEziD/NObCri667p51qSmm5+uHUmsUyYh2x3Au
+ peuuSzXGl+SZOPQOKsk2NwPsqcT8X9+05jWjjK41ZcEUut2mz6GTNVL9NaUctmbTGnvW
+ IQIhrLnfYQ7Imdah6lMnFdpXS69QCLZ7OX7XPw8TMPGxqOt87+AJ2o8K0GMvC4yNPH4V
+ dhYg==
+X-Gm-Message-State: AOJu0YxIlNZ9PxK3/CnH7hjbnSW3zKoLhJkb0PThs8zSNW2RF2ZyARAL
+ vqIHnIyHYlkH23mE3PoY7pY1wPfaOJD3+ly3fFBg8gawzbWJgMUxlI75VZE2BZVgLhNkDIUsgZQ
+ uhqE3tTzDuR6Uojk0RNyFl1/keRMLD1Y=
+X-Gm-Gg: AfdE7cn59fSCDG9vKwunTtLusrCb5kR6hPb5sIZY7Xu9CeQV30f98Pw0uDQPsjKqNdT
+ kzD7qKXtIFAYZTlekrDpIpT7TTJREpyFtZMvs3PfYJr94R8uwOscsvAErye/yvkNQm1tmmtgaOS
+ /LrDdv/CjqkVgo856QHaRTBjayur/IJ0+Jnx8qdq6EUx+5y8X1Ci8rOKPdcPka6JA71DFtF3wvf
+ K+jplLk1HdvW5hQQtGVsUJAKrjDVQbOrxoTucmPTe42aewJ3yASpiP91pNsPhRZ
+X-Received: by 2002:a05:6830:3496:b0:7e9:c72e:e5d6 with SMTP id
+ 46e09a7af769-7eda084eaedmr11684574a34.14.1784657392489; Tue, 21 Jul 2026
+ 11:09:52 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] drm/amdgpu: Update driver if header for SMU V15.0.5
-Content-Language: en-US
-To: Kanala Ramalingeswara Reddy <Kanala.RamalingeswaraReddy@amd.com>,
- Alexander.Deucher@amd.com, Christian.Koenig@amd.com,
- Pratik.Vishwakarma@amd.com, Lijo.Lazar@amd.com, amd-gfx@lists.freedesktop.org
-Cc: Veerabadhran.Gopalakrishnan@amd.com, Pierre.Jabbour@amd.com
-References: <20260721145054.1295003-1-Kanala.RamalingeswaraReddy@amd.com>
- <20260721164417.1902635-1-Kanala.RamalingeswaraReddy@amd.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260721164417.1902635-1-Kanala.RamalingeswaraReddy@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260721001851.113927-1-vitaly.prosyak@amd.com>
+ <20260721001851.113927-2-vitaly.prosyak@amd.com>
+In-Reply-To: <20260721001851.113927-2-vitaly.prosyak@amd.com>
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Date: Tue, 21 Jul 2026 23:09:39 +0500
+X-Gm-Features: AUfX_mw6I8-srEOZv-ct3TaNXNnCqiGWYvw5PMQwSGtCQxNY5ldnuWYUg2R-rDE
+Message-ID: <CABXGCsOsrFVyFEuOfUm5Vqpf64fbC3RifzGV2QDpGuP0o+gu8Q@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Fix lockdep false positive in
+ amdgpu_lockdep_init
+To: vitaly.prosyak@amd.com
+Cc: amd-gfx@lists.freedesktop.org, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,370 +105,196 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 7/21/26 11:44, Kanala Ramalingeswara Reddy wrote:
-> Update smu v15.0.0 driver if header to be v15.0.5 compatible.
-> 
-> Signed-off-by: Kanala Ramalingeswara Reddy <Kanala.RamalingeswaraReddy@amd.com>
+On Tue, Jul 21, 2026 at 5:19=E2=80=AFAM <vitaly.prosyak@amd.com> wrote:
+>
+> From: Vitaly Prosyak <vitaly.prosyak@amd.com>
+>
+> Move fs_reclaim_acquire() to before all lock acquisitions to eliminate
+> false positive circular locking dependency warning.
+>
+> This is a 7.2-cycle regression fix suitable for stable backport.
+>
+> PROBLEM:
+>
+> amdgpu_lockdep_init() trains lockdep by acquiring locks in sequence
+> while calling fs_reclaim_acquire() in the middle. The fs_reclaim call
+> was placed while notifier_lock was held, teaching lockdep:
+>
+>     notifier_lock -> fs_reclaim
+>
+> However, at runtime, MMU notifier callbacks run from inside memory
+> reclaim, establishing the opposite dependency:
+>
+>     fs_reclaim -> mmu_notifier -> notifier_lock
+>
+> These form a false cycle that lockdep reports when reclaim unmaps a
+> page covered by an amdgpu userptr notifier.
+>
+> LOCKDEP WARNING EXAMPLE (BEFORE FIX):
+>
+>     WARNING: possible circular locking dependency detected
+>     6.19.0+ #48 Not tainted
+>     amd_lockdep/3762 is trying to acquire lock:
+>     ffff8881756f3c30 (&amdgpu_notifier_lock_key), at: amdgpu_hmm_invalida=
+te_gfx
+>
+>     but task is already holding lock:
+>     ffffffff92e4b5c0 (mmu_notifier_invalidate_range_start), at: try_to_un=
+map_one
+>
+>     Chain exists of:
+>       &amdgpu_notifier_lock_key --> fs_reclaim --> mmu_notifier_invalidat=
+e_range_start
+>
+>     Possible unsafe locking scenario:
+>           CPU0                    CPU1
+>           ----                    ----
+>      lock(mmu_notifier_invalidate_range_start);
+>                                   lock(fs_reclaim);
+>                                   lock(mmu_notifier_invalidate_range_star=
+t);
+>      lock(&amdgpu_notifier_lock_key);
+>
+>      *** DEADLOCK ***
+>
+> The dependency chain shows:
+>   -> #5 (fs_reclaim):
+>        amdgpu_lockdep_init+0x61e/0x730 [amdgpu]  <- FALSE EDGE
+>   -> #0 (&amdgpu_notifier_lock_key):
+>        amdgpu_hmm_invalidate_gfx+0x77/0x110 [amdgpu]  <- RUNTIME PATH
+>
+> SOLUTION:
+>
+> Move fs_reclaim_acquire/release to BEFORE all lock acquisitions.
+> The acquire/release pair does not create a static lockdep edge by itself
+> (no locks are held between acquire and release), but it registers the
+> fs_reclaim lock class. The actual fs_reclaim -> notifier_lock ordering
+> is established at runtime when memory reclaim invokes MMU notifiers that
+> take notifier_lock. By moving the fs_reclaim registration before any
+> lock acquisition, we avoid teaching lockdep the false reverse dependency.
+>
+> VERIFICATION (AFTER FIX):
+>
+> Test reproducer (based on Mikhail Gavrilov's standalone test case)
+> creates a 64MB GPU userptr memory buffer, then repeatedly forces the
+> kernel to reclaim it by moving pages to disk (simulating memory
+> pressure). Each reclaim cycle triggers the MMU notifier callback path.
+>
+> The test is available as an IGT subtest:
+>   tests/amdgpu/amd_lockdep.c::notifier-reclaim-splat
+>
+> Results:
+>   Before fix: Lockdep false positive warning on first reclaim attempt
+>   After fix:  Completed 8 reclaim cycles with no lockdep warnings
+>
+> dmesg after fix shows only test success messages, no circular dependency
+> warnings. The fix is minimal (relocate 2 lines) with no runtime overhead,
+> only corrects lockdep's static analysis model.
+>
+> v2: Address Mikhail Gavrilov's review feedback:
+>     - Fix author name: Michael -> Mikhail Gavrilov in all trailers
+>     - Add Fixes: tag to link regression to original commit
+>     - Add Tested-by: Mikhail Gavrilov (tested on RX 7900 XTX)
+>     - Rewrite fs_reclaim comment to be technically accurate about what
+>       fs_reclaim_acquire/release actually does (registers lock class,
+>       doesn't create static edge)
+>     - Add note that this is a 7.2-cycle regression for stable routing
+>
+> Fixes: 1d0f5838b126 ("drm/amdgpu: Add lockdep annotations for lock orderi=
+ng validation")
+> Reported-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+> Analyzed-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+> Test-case-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+> Tested-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+> Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Tested-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
 > ---
->   .../inc/pmfw_if/smu15_driver_if_v15_0_0.h     |  38 +++
->   drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h  |   2 +-
->   .../drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c  | 220 +++++++++++++++++-
->   3 files changed, 253 insertions(+), 7 deletions(-)
-> 
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu15_driver_if_v15_0_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu15_driver_if_v15_0_0.h
-> index 47ddf533b08f..a5d3e8d88860 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu15_driver_if_v15_0_0.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu15_driver_if_v15_0_0.h
-> @@ -144,6 +144,44 @@ typedef struct {
->     uint32_t MaxGfxClk;
->   } DpmClocks_t;
->   
-> +//Freq in MHz
-> +//Voltage in milli volts with 2 fractional bits
-> +typedef struct {
-> +	uint32_t DcfClocks[NUM_DCFCLK_DPM_LEVELS];
-> +	uint32_t DispClocks[NUM_DISPCLK_DPM_LEVELS];
-> +	uint32_t DppClocks[NUM_DPPCLK_DPM_LEVELS];
-> +	uint32_t SocClocks[NUM_SOCCLK_DPM_LEVELS];
-> +
-> +	uint32_t VPEClocks[NUM_VPE_DPM_LEVELS];
-> +	uint32_t FclkClocks_Freq[NUM_FCLK_DPM_LEVELS];
-> +	uint32_t FclkClocks_Voltage[NUM_FCLK_DPM_LEVELS];
-> +	uint32_t SocVoltage[NUM_SOC_VOLTAGE_LEVELS];
-> +	MemPstateTable_t MemPstateTable[NUM_MEM_PSTATE_LEVELS];
-> +
-> +	uint8_t  NumDcfClkLevelsEnabled;
-> +	uint8_t  NumDispClkLevelsEnabled; //Applies to both Dispclk and Dppclk
-> +	uint8_t  NumSocClkLevelsEnabled;
-> +
-> +	uint8_t  VpeClkLevelsEnabled;
-> +
-> +	uint8_t  NumMemPstatesEnabled;
-> +	uint8_t  NumFclkLevelsEnabled;
-> +	uint8_t  Spare1;
-> +	uint8_t  Spare2;
-> +
-> +	uint8_t  Spare3;
-> +	uint8_t  Spare4;
-> +	uint8_t  Spare5[2];
-> +
-> +	uint32_t MinGfxClk;
-> +	uint32_t MaxGfxClk;
-> +
-> +	uint32_t Spare6[8];
-> +	uint32_t Spare7[8];
-> +	uint32_t Spare8[8];
-> +	uint32_t Spare9[8];
-> +} DpmClocks_t_v15_0_5;
-> +
->   typedef struct {
->     uint16_t CoreFrequency[16];          //Target core frequency [MHz]
->     uint16_t CorePower[16];              //CAC calculated core power [mW]
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h
-> index 13723d45a7de..38e625cda97d 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h
-> @@ -26,7 +26,7 @@
->   #include "amdgpu_smu.h"
->   
->   #define SMU15_DRIVER_IF_VERSION_INV 0xFFFFFFFF
-> -#define SMU15_DRIVER_IF_VERSION_SMU_V15_0 0x7
-> +#define SMU15_DRIVER_IF_VERSION_SMU_V15_0 0x9
->   
->   
->   #define FEATURE_MASK(feature) (1ULL << feature)
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
-> index bb8d09e73c7d..faa7d661f3bf 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
-> @@ -168,7 +168,7 @@ static int smu_v15_0_0_init_smc_tables(struct smu_context *smu)
->   
->   	SMU_TABLE_INIT(tables, SMU_TABLE_WATERMARKS, sizeof(Watermarks_t),
->   		PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
-> -	SMU_TABLE_INIT(tables, SMU_TABLE_DPMCLOCKS, sizeof(DpmClocks_t),
-> +	SMU_TABLE_INIT(tables, SMU_TABLE_DPMCLOCKS, sizeof(DpmClocks_t_v15_0_5),
->   		PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
->   	SMU_TABLE_INIT(tables, SMU_TABLE_SMU_METRICS, sizeof(SmuMetrics_t),
->   		PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
-> @@ -178,7 +178,7 @@ static int smu_v15_0_0_init_smc_tables(struct smu_context *smu)
->   		goto err0_out;
->   	smu_table->metrics_time = 0;
->   
-> -	smu_table->clocks_table = kzalloc_obj(DpmClocks_t);
-> +	smu_table->clocks_table = kzalloc_obj(DpmClocks_t_v15_0_5);
->   	if (!smu_table->clocks_table)
->   		goto err1_out;
->   
-> @@ -752,11 +752,48 @@ static int smu_v15_0_0_get_dpm_freq_by_index(struct smu_context *smu,
->   	return 0;
->   }
->   
-> +static int smu_v15_0_5_get_dpm_freq_by_index(struct smu_context *smu,
-> +						enum smu_clk_type clk_type,
-> +						uint32_t dpm_level,
-> +						uint32_t *freq)
-> +{
-> +	DpmClocks_t_v15_0_5 *clk_table = smu->smu_table.clocks_table;
-> +
-> +	if (!clk_table || clk_type >= SMU_CLK_COUNT)
-> +		return -EINVAL;
-> +
-> +	switch (clk_type) {
-> +	case SMU_SOCCLK:
-> +		if (dpm_level >= clk_table->NumSocClkLevelsEnabled)
-> +			return -EINVAL;
-> +		*freq = clk_table->SocClocks[dpm_level];
-> +		break;
-> +	case SMU_UCLK:
-> +	case SMU_MCLK:
-> +		if (dpm_level >= clk_table->NumMemPstatesEnabled)
-> +			return -EINVAL;
-> +		*freq = clk_table->MemPstateTable[dpm_level].MemClk;
-> +		break;
-> +	case SMU_FCLK:
-> +		if (dpm_level >= clk_table->NumFclkLevelsEnabled)
-> +			return -EINVAL;
-> +		*freq = clk_table->FclkClocks_Freq[dpm_level];
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   static int smu_v15_0_common_get_dpm_freq_by_index(struct smu_context *smu,
->   						enum smu_clk_type clk_type,
->   						uint32_t dpm_level,
->   						uint32_t *freq)
->   {
-> +	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 5))
-> +		smu_v15_0_5_get_dpm_freq_by_index(smu, clk_type, dpm_level, freq);
-> +	else
->   		smu_v15_0_0_get_dpm_freq_by_index(smu, clk_type, dpm_level, freq);
->   
->   	return 0;
-> @@ -907,12 +944,116 @@ static int smu_v15_0_0_get_dpm_ultimate_freq(struct smu_context *smu,
->   	return ret;
->   }
->   
-> +static int smu_v15_0_5_get_dpm_ultimate_freq(struct smu_context *smu,
-> +							enum smu_clk_type clk_type,
-> +							uint32_t *min,
-> +							uint32_t *max)
-> +{
-> +	DpmClocks_t_v15_0_5 *clk_table = smu->smu_table.clocks_table;
-> +	uint32_t clock_limit;
-> +	uint32_t max_dpm_level, min_dpm_level;
-> +	int ret = 0;
-> +
-> +	if (!smu_v15_0_0_clk_dpm_is_enabled(smu, clk_type)) {
-> +		switch (clk_type) {
-> +		case SMU_MCLK:
-> +		case SMU_UCLK:
-> +			clock_limit = smu->smu_table.boot_values.uclk;
-> +			break;
-> +		case SMU_FCLK:
-> +			clock_limit = smu->smu_table.boot_values.fclk;
-> +			break;
-> +		case SMU_GFXCLK:
-> +		case SMU_SCLK:
-> +			clock_limit = smu->smu_table.boot_values.gfxclk;
-> +			break;
-> +		case SMU_SOCCLK:
-> +			clock_limit = smu->smu_table.boot_values.socclk;
-> +			break;
-> +		default:
-> +			clock_limit = 0;
-> +			break;
-> +		}
-> +
-> +		/* clock in Mhz unit */
-> +		if (min)
-> +			*min = clock_limit / 100;
-> +		if (max)
-> +			*max = clock_limit / 100;
-> +
-> +		return 0;
-> +	}
-> +
-> +	if (max) {
-> +		switch (clk_type) {
-> +		case SMU_GFXCLK:
-> +		case SMU_SCLK:
-> +			*max = clk_table->MaxGfxClk;
-> +			break;
-> +		case SMU_MCLK:
-> +		case SMU_UCLK:
-> +			max_dpm_level = 0;
-> +			break;
-> +		case SMU_FCLK:
-> +			max_dpm_level = clk_table->NumFclkLevelsEnabled - 1;
-> +			break;
-> +		case SMU_SOCCLK:
-> +			max_dpm_level = clk_table->NumSocClkLevelsEnabled - 1;
-> +			break;
-> +		default:
-> +			ret = -EINVAL;
-> +			goto failed;
-> +		}
-> +
-> +		if (clk_type != SMU_GFXCLK && clk_type != SMU_SCLK) {
-> +			ret = smu_v15_0_common_get_dpm_freq_by_index(smu, clk_type,
-> +				max_dpm_level, max);
-> +			if (ret)
-> +				goto failed;
-> +		}
-> +	}
-> +
-> +	if (min) {
-> +		switch (clk_type) {
-> +		case SMU_GFXCLK:
-> +		case SMU_SCLK:
-> +			*min = clk_table->MinGfxClk;
-> +			break;
-> +		case SMU_MCLK:
-> +		case SMU_UCLK:
-> +			min_dpm_level = clk_table->NumMemPstatesEnabled - 1;
-> +			break;
-> +		case SMU_FCLK:
-> +			min_dpm_level = 0;
-> +			break;
-> +		case SMU_SOCCLK:
-> +			min_dpm_level = 0;
-> +			break;
-> +		default:
-> +			ret = -EINVAL;
-> +			goto failed;
-> +		}
-> +
-> +		if (clk_type != SMU_GFXCLK && clk_type != SMU_SCLK) {
-> +			ret = smu_v15_0_common_get_dpm_freq_by_index(smu, clk_type,
-> +				min_dpm_level, min);
-> +			if (ret)
-> +				goto failed;
-> +		}
-> +	}
-> +
-> +failed:
-> +	return ret;
-> +}
-> +
->   static int smu_v15_0_common_get_dpm_ultimate_freq(struct smu_context *smu,
->   							enum smu_clk_type clk_type,
->   							uint32_t *min,
->   							uint32_t *max)
->   {
-> -	if (clk_type != SMU_VCLK1 && clk_type != SMU_DCLK1)
-> +	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 5))
-> +		smu_v15_0_5_get_dpm_ultimate_freq(smu, clk_type, min, max);
-> +	else if (clk_type != SMU_VCLK1 && clk_type != SMU_DCLK1)
->   		smu_v15_0_0_get_dpm_ultimate_freq(smu, clk_type, min, max);
->   
->   	return 0;
-> @@ -986,11 +1127,36 @@ static int smu_v15_0_0_get_dpm_level_count(struct smu_context *smu,
->   	return 0;
->   }
->   
-> +static int smu_v15_0_5_get_dpm_level_count(struct smu_context *smu,
-> +					   enum smu_clk_type clk_type,
-> +					   uint32_t *count)
-> +{
-> +	DpmClocks_t_v15_0_5 *clk_table = smu->smu_table.clocks_table;
-> +
-> +	switch (clk_type) {
-> +	case SMU_SOCCLK:
-> +		*count = clk_table->NumSocClkLevelsEnabled;
-> +		break;
-> +	case SMU_MCLK:
-> +		*count = clk_table->NumMemPstatesEnabled;
-> +		break;
-> +	case SMU_FCLK:
-> +		*count = clk_table->NumFclkLevelsEnabled;
-> +		break;
-> +	default:
-> +		break;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   static int smu_v15_0_common_get_dpm_level_count(struct smu_context *smu,
->   					   enum smu_clk_type clk_type,
->   					   uint32_t *count)
->   {
-> -	if (clk_type != SMU_VCLK1 && clk_type != SMU_DCLK1)
-> +	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 5))
-> +		smu_v15_0_5_get_dpm_level_count(smu, clk_type, count);
-> +	else if (clk_type != SMU_VCLK1 && clk_type != SMU_DCLK1)
->   		smu_v15_0_0_get_dpm_level_count(smu, clk_type, count);
->   
->   	return 0;
-> @@ -1363,9 +1529,24 @@ static int smu_v15_0_0_set_fine_grain_gfx_freq_parameters(struct smu_context *sm
->   	return 0;
->   }
->   
-> +static int smu_v15_0_5_set_fine_grain_gfx_freq_parameters(struct smu_context *smu)
-> +{
-> +	DpmClocks_t_v15_0_5 *clk_table = smu->smu_table.clocks_table;
-> +
-> +	smu->gfx_default_hard_min_freq = clk_table->MinGfxClk;
-> +	smu->gfx_default_soft_max_freq = clk_table->MaxGfxClk;
-> +	smu->gfx_actual_hard_min_freq = 0;
-> +	smu->gfx_actual_soft_max_freq = 0;
-> +
-> +	return 0;
-> +}
-> +
->   static int smu_v15_0_common_set_fine_grain_gfx_freq_parameters(struct smu_context *smu)
->   {
-> -	smu_v15_0_0_set_fine_grain_gfx_freq_parameters(smu);
-> +	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 5))
-> +		smu_v15_0_5_set_fine_grain_gfx_freq_parameters(smu);
-> +	else
-> +		smu_v15_0_0_set_fine_grain_gfx_freq_parameters(smu);
->   
->   	return 0;
->   }
-> @@ -1405,9 +1586,36 @@ static int smu_v15_0_0_get_dpm_table(struct smu_context *smu, struct dpm_clocks
->   	return 0;
->   }
->   
-> +static int smu_v15_0_5_get_dpm_table(struct smu_context *smu, struct dpm_clocks *clock_table)
-> +{
-> +	DpmClocks_t_v15_0_5 *clk_table = smu->smu_table.clocks_table;
-> +	uint8_t idx;
-> +
-> +	/*
-> +	 * Only the Clock information of SOC and
-> +	 * VPE is copied to provide VPE DPM settings for use.
-> +	 */
-> +	for (idx = 0; idx < NUM_SOCCLK_DPM_LEVELS; idx++) {
-> +		clock_table->SocClocks[idx].Freq =
-> +			(idx < clk_table->NumSocClkLevelsEnabled) ? clk_table->SocClocks[idx]:0;
-> +		clock_table->SocClocks[idx].Vol = 0;
-> +	}
-> +
-> +	for (idx = 0; idx < NUM_VPE_DPM_LEVELS; idx++) {
-> +		clock_table->VPEClocks[idx].Freq =
-> +			(idx < clk_table->VpeClkLevelsEnabled) ? clk_table->VPEClocks[idx]:0;
-> +		clock_table->VPEClocks[idx].Vol = 0;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   static int smu_v15_0_common_get_dpm_table(struct smu_context *smu, struct dpm_clocks *clock_table)
->   {
-> -	smu_v15_0_0_get_dpm_table(smu, clock_table);
-> +	if (amdgpu_ip_version(smu->adev, MP1_HWIP, 0) == IP_VERSION(15, 0, 5))
-> +		smu_v15_0_5_get_dpm_table(smu, clock_table);
-> +	else
-> +		smu_v15_0_0_get_dpm_table(smu, clock_table);
->   
->   	return 0;
->   }
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c | 18 ++++++++++++------
+>  1 file changed, 12 insertions(+), 6 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c b/drivers/gpu/dr=
+m/amd/amdgpu/amdgpu_lockdep.c
+> index b251350b1fb2..718411f724f3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c
+> @@ -150,6 +150,18 @@ int amdgpu_lockdep_init(void)
+>          * Take locks in the correct order to train lockdep.
+>          * This establishes the dependency chain.
+>          */
+> +       /*
+> +        * Train fs_reclaim FIRST, before taking any locks.
+> +        * This teaches lockdep that fs_reclaim is the OUTERMOST context.
+> +        * When memory reclaim later calls MMU notifiers (which take noti=
+fier_lock),
+> +        * lockdep will see: fs_reclaim -> notifier_lock (correct runtime=
+ edge).
+> +        *
+> +        * Bug fix: Previously fs_reclaim_acquire() was called while hold=
+ing
+> +        * notifier_lock, teaching lockdep the FALSE edge: notifier_lock =
+-> fs_reclaim.
+> +        * This caused false positive circular dependency warnings.
+> +        */
+> +       fs_reclaim_acquire(GFP_KERNEL);
+> +       fs_reclaim_release(GFP_KERNEL);
+>
+>         /* Level 1: Global userq scheduler mutex (outermost) */
+>         mutex_lock(&locks->userq_sch_mutex);
+> @@ -168,11 +180,6 @@ int amdgpu_lockdep_init(void)
+>
+>         /* Level 7: DRM file list mutex */
+>         mutex_lock(&locks->filelist_mutex);
+> -       /*
+> -        * Mark potential memory reclaim boundary.
+> -        * GPU operations might trigger memory allocation/reclaim.
+> -        */
+> -       fs_reclaim_acquire(GFP_KERNEL);
+>
+>         /* Level 8: SRBM register access */
+>         mutex_lock(&locks->srbm_mutex);
+> @@ -190,7 +197,6 @@ int amdgpu_lockdep_init(void)
+>         spin_unlock_irqrestore(&locks->mmio_idx_lock, flags);
+>         mutex_unlock(&locks->grbm_idx_mutex);
+>         mutex_unlock(&locks->srbm_mutex);
+> -       fs_reclaim_release(GFP_KERNEL);
+>
+>         mutex_unlock(&locks->filelist_mutex);
+>         mutex_unlock(&locks->reset_lock);
+> --
+> 2.54.0
+>
 
+v2 looks good, thanks for fixing the name and adding the Fixes tag. No
+objection from me.
+
+One question on the comment above the
+fs_reclaim_acquire()/fs_reclaim_release() pair, just so the annotation
+file stays accurate. As written the pair is:
+
+fs_reclaim_acquire(GFP_KERNEL);
+fs_reclaim_release(GFP_KERNEL);
+mutex_lock(&locks->userq_sch_mutex);
+...
+
+Since fs_reclaim is released again before any hierarchy lock is taken,
+is it right that this pair does not actually create an fs_reclaim ->
+notifier_lock edge? As far as I understand lockdep records an edge
+only when a lock is acquired while another is held, so with nothing
+taken between acquire and release the pair only registers the
+fs_reclaim class. The real fs_reclaim -> notifier_lock edge then comes
+from runtime, when reclaim invokes the MMU notifier that takes
+notifier_lock (which your comment also calls the "correct runtime
+edge").
+
+If that is correct, the pair is functionally equivalent to just
+dropping the old misplaced acquire, and the comment's "teaches lockdep
+that fs_reclaim is the OUTERMOST context" slightly overstates what the
+annotation does. Just wanted to check my understanding.
+
+--=20
+Best Regards,
+Mike Gavrilov.
