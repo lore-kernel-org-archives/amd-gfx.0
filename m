@@ -4,145 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5495C531CB
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 07:08:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 283B2C531D2
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 07:08:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1212010EFEA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 304F510EFEC;
 	Thu, 23 Jul 2026 07:08:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="j72SmSNo";
-	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kS8ml1c+";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HxnKHgqw";
 	dkim-atps=neutral
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 96A4010EB0A
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 18:32:03 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66LHROs82376890
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 18:32:02 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- OaTD6dHrwwXWksGv6iIyR3RVuuH2sI/MiqMl2YqMmkA=; b=j72SmSNou1mszlrm
- s9BNg0A32p9PJv5/CjXVhlBgQgQTppfIOFBfCq3fclseMSQeOi5ljf4hkW6iWC+U
- uMkgmzJwgiuMKVbFC3K7MGyyGEj31EaVkkHLdWQKsjngIWamU0Ebuyf+oDrqA57m
- Sz94nQAXG+hQyrsMDJtqSomFe7koDfdE/6niawR8Rhqx+YGeyXJXPP+NHINGBYJV
- 1V++gMq6iO57u0UZa01YBYwIX3TdF7RRjT0cAHdUEFDg0NWPoEGnq1Zn9EikQrbg
- 83EywVpn7hxHd3Iri5fpURZt+37WgmGkmgtPsxraOGObiGOaJi9b+NPLUyZZjyLk
- QF7DOw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fjd6a8a41-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 18:32:02 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-91931144870so1665962285a.1
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 11:32:01 -0700 (PDT)
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com
+ [209.85.210.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C2E3B10EA81
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 15:17:53 +0000 (UTC)
+Received: by mail-ot1-f52.google.com with SMTP id
+ 46e09a7af769-7e9f5637634so5099822a34.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 08:17:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784647073; cv=none;
+ d=google.com; s=arc-20260327;
+ b=WNIXHOwJ0u61GEs6zT0laVbKYptkMGYzwBxeCdoX2SLLx42tITlX56D3To4mOPRRAl
+ ybOR5aJOcngQ3yHJwsCLRWaV9UVz6IMkApGGzR9YnnsfBEsvDfD49nL51FMlaZb76Ee+
+ vgJs2IuRcaKm3m2o9L5e7gmd5EPjr1IpfnECUUUp85wBV5glm87gPlfirSxTt5RYXyQE
+ B7eTZ37+mRzes8fnA6qfhs4NvOKarRsHXSGgh1+sPgnJIRn2mlEAImyGw1QSstNpjTez
+ aClqbvkpHudKOAL3bMpLcIcHQ1TAx0uUoaDMJlZLyqb82A3gb2wvHHcWlj+p7k5WgCRe
+ RT9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=PMoHz0UZ2YFtSigDv9V4lPoZ67yQ64GXiacPhsl7yN8=;
+ fh=vj/G33/EHb0YrfoJKQRjydhNzoE6Oq0/w2IqjN45wWQ=;
+ b=h7AYjd3wZw470e0eIrlQKO4FOtr3EIT9SSb7YzvO3wJeTIn7vZRDbyIXhTZjviV+I/
+ sHhBaCZvH2n4oIvRdYK04l+m+g4TcGO8EYkf5Qp8ejBzLizRfgUc/Yal/9hfJu/2+cC5
+ Rxl3RA4ZOYlJtbF8Tp0lQ7DiJ7TPWXFD4ul/4+pg/rhkO5M94y19YQTh2fAmm7dVzBhI
+ nm74JSUBlTC4312PL+F1JnfstXeC0Vd2oOY2pF+xz6mvsBtFDkJhjOGBVygcmr0mE3VU
+ 9pbSr7oUcN2EV8ByL/gncYez2VOtK7ccEVdYTXcDtNpv+euWx84TyzdnRAw9zUJv4Wvo
+ DU0g==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1784658721; x=1785263521;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=OaTD6dHrwwXWksGv6iIyR3RVuuH2sI/MiqMl2YqMmkA=;
- b=kS8ml1c+ulJt4JCNBNyzEXxsZewv56z2yNsSJaA3t/reouWBYRVnBKyV88xAXXrMnm
- xxntoSlIM9Woi28xPHNJ4Sfa6qy2c9xQXSs9rC7buzrcalt14nUuFWfQ6VTYPsVeZ0bd
- hUB6vthT6gvCGnBREo2ub6BLhU6MDNCeZ7wnN+ggmH4wqpTyEtW0gOlS2b+BTyuoBujI
- rsmT3yuX5+j+3dOrqRr0olt7mQtEe8CcLg+1MfxmdVgwDxHtAAmTQlLw9tVFoJrzgU2B
- gaguzj6h70fipXiFKacgcZ6ratGqjAURYBGUIvzU8QolR4npQdJbeKL5fXYRFel+Qhfn
- 6h7w==
+ d=gmail.com; s=20251104; t=1784647073; x=1785251873; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=PMoHz0UZ2YFtSigDv9V4lPoZ67yQ64GXiacPhsl7yN8=;
+ b=HxnKHgqwIFOMzCzJW+SV6buDUSonx55eEueQtvH2oJnSUEVaH4U3WGHlGfjGCdvR4X
+ BCm21P1g2AO7SbMyyd0kJQj7g3K9Ds1DJJZXIJ3qh08kNrWoNIKWn7Xrkbvt0gMd1PpV
+ D0MfE1WvgSFxLzMEZMztmO8eL/KmFH6BS9GMrzRwozq3KivYBYjNh53tqFyvts8qsUow
+ TprVTZJuulglqKrbu3PYTHt6MdKh5pphducYzFYCbz3fSFPhnegwTmhE1sKZdIqleY0I
+ EKABIa4DEiX/vFE+M8ugVKHVvsLMhKUW5hB+5zoqYT0yKVyYuHk2Nz7inHamxSHB72Lh
+ b8vw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784658721; x=1785263521;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=OaTD6dHrwwXWksGv6iIyR3RVuuH2sI/MiqMl2YqMmkA=;
- b=ng1YYt5CfC/5S71Ot8PjXUECbFuOuBcbr7k/maGRtdgh4AzgxbAAaDDFSsvjMIlsfu
- PN6E1qld7bFcCGsuM72VlVfPUWV707lI5qh4oh11xbx1EkdbBQXj/wpiVfiob1v8vzxN
- ZmmMeZzB3ophYBu6f8YBHFfaCrRFfXWsrmnM3GbOo5QIa5kuWtf7lCuH3aMgpEuDsTkP
- iwliDtjDESW3yaWsvhygpwDBTGJKbTKgLdwBGEPZhadfN2rhQxvPrGs6hKFLRskfWXTg
- XV7eO4vQ1OTRuTCNFEydCRzOk//V0cEqRUckhLOY+hJJBX28MM0P29fN96MEqhpJU3i6
- bpdQ==
+ d=1e100.net; s=20251104; t=1784647073; x=1785251873;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=PMoHz0UZ2YFtSigDv9V4lPoZ67yQ64GXiacPhsl7yN8=;
+ b=kuKqMWBMpd5BMWkmp7u5OHf99Iaemi5Pta7gJJ86vr4tQuG4zMYg9Ji3/u+ABY7yfR
+ VR8UKCOyyOWxQKZ/miogV5WtAMdA/zCa/bVZpEwmmnE62XtLsjttv/EiBJSBLtPM+5Cq
+ aZe1/ckb3kdfYULEgvejysQrT6fe8XdOzwPVKZywGmhg3q8WLJlJ8SoO2ne5jMQK4vXJ
+ ZCFJa0cMXgF5VUyq1o8gK4pe3FOLxccA8DovgRFRuVWv6N5VDHK3pRQrEsVnlQrCw/Ct
+ jC6vCfD3fkpMOMzxwH2GCffZXQ1cLBhePy9Re6gNGUznA0UJffOtlrJHgrCi420e9FzX
+ FN0Q==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqDC6hGJ2/GaT0OIdmgPvSoxxzrvCEBTLmTAY3fK472Db8N/Txs3qyu15Q31RpUv6nbsuDgGzac@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YywmZ6eCgcSaQTjIzlSnVRoLzdr6XANSFmzrUCbcvbaVecZZEEl
- FOr5E8syKSFwr39qgvrZ3dZk9k6tDMglUReaVqoF/P6q+56psRIKwYX5CtmOQXKd3Km620VanIJ
- cHdNiLifVxkuBfYMwt0NY35jxd1sQrCqnJalKRmrSml783QjKpjtV5oICeD8MYZYxVlvo
-X-Gm-Gg: AfdE7cl6Q0WGbWKmVaMx3Q0wCd6dirNQdzpgdsx+zvNy8clgq2BFzYg3ui732OsoKHL
- CarYGABzfJlDNchNYUlSWLVrbk3KN4pnAYsv14gtU+yhVX8GCLBf52xw2J60zZ9E7CCRRWFD8cI
- kUEzm38udDYX8Uc9tRT3KFNX89ypuEFfcVnO7m5KRTbhWRpnvvz+Gy+CcQrRJ7GXAmE3rM/5BhH
- kk2GcHks/u41V5vI9semr4LNSi6RWcoSM0h94zPs8T+V5BHMb3j/i3q1FxQKzvUWVX1lRY6bTuj
- HzlFxZBHu8BQExHvpQ/D2rtAG35z+kqR1vNPnk054q3ZgqXD63CTv3EsrFQixx2W/R/1gJdZdSh
- lIb0ILAGrbzTW3vi6XWHoXWNUmFS1tDNpQZho5Yv6urRx4jXuiSY0t7E55iuvN1at1zt3geHvqZ
- hN8CeuoGZYbzgzOhImHI9FgB7COFbARkB7HJUZcTxxkmz926I9g7e2HXS0PQ+6sPRJ77E=
-X-Received: by 2002:a05:622a:528c:b0:516:d955:ea6 with SMTP id
- d75a77b69052e-5213bf113dfmr162689781cf.14.1784658720976; 
- Tue, 21 Jul 2026 11:32:00 -0700 (PDT)
-X-Received: by 2002:a05:622a:528c:b0:516:d955:ea6 with SMTP id
- d75a77b69052e-5213bf113dfmr162689241cf.14.1784658720221; 
- Tue, 21 Jul 2026 11:32:00 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec?
- (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl.
- [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c1c32a798a5sm7925466b.9.2026.07.21.11.31.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 21 Jul 2026 11:31:59 -0700 (PDT)
-Message-ID: <b95cc41e-78df-4b8c-84a8-6e6e0dea7f9b@oss.qualcomm.com>
-Date: Tue, 21 Jul 2026 20:31:58 +0200
+ AHgh+RpdAlQAcmyaaX6yMzLpInaZpXWP8mi2Q95r71kETuqBvd3mQO1VW1XAW4oTESeTGFVs6PML90KN@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxIR/XkP3eJVefKO1fb42XBv0USE+z9GSEheMt+iyqR6bbMP8db
+ u978/iNIDfRF+5zBVFVlIKv5YCS5H8na/WXQpAB3Qqayhdve4TaC14IJA2BoNMUOdvma9iQoC+7
+ 9tqVVH5UjioYQOPkgbT+Oicxa3Y3hFMI=
+X-Gm-Gg: AfdE7cnvIi0qIVKw8zXY9r0e/M3Ms4tnRlJa+14CG9f7a9CakqveM/10zMTRrZJowO6
+ wqZfdZ6BAmLuXJSDdRCritrY79HvfaL5/fsbEpDKKm1TxyILNOvmWDM7De6tdGO2S+xkq1eEdy/
+ KsBTC4knB/q+sR8WTj97qEE+ndv7bdPDwU4BSuEybIqrORKY/4uTJzaKR1neiISxU7Bujhj4XoW
+ 5hTB4BLqskb4CtDrJt5FvFYIxobEP8vPoTHBFTjh4akM9j7dkIfZ3UAFkRSfvQ=
+X-Received: by 2002:a05:6808:f8f:b0:495:f519:70f1 with SMTP id
+ 5614622812f47-4a4d05655bamr11557394b6e.31.1784647067874; Tue, 21 Jul 2026
+ 08:17:47 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 04/10] DRM: Add support for client indicating support
- for luminance
-To: Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>
-Cc: Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-gfx@lists.freedesktop.org>,
- "open list:INTEL DRM DISPLAY FOR XE AND I915 DRIVERS"
- <intel-xe@lists.freedesktop.org>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260624165751.2014759-1-mario.limonciello@amd.com>
- <20260624165751.2014759-5-mario.limonciello@amd.com>
-From: Hans de Goede <johannes.goede@oss.qualcomm.com>
-Content-Language: en-US, nl
-In-Reply-To: <20260624165751.2014759-5-mario.limonciello@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzIxMDE5NSBTYWx0ZWRfX39NcCfLIqomY
- dejqkU1ra6hYUjIb/63+xzPLI9GxmTlh3KcLk0rdVYRxbCU4kdLpBDFqxxSYqWzVeiTyFbO13Io
- 79VLosoN/ot2WQ41LXH6fKk0zMMOhgU+ghrzmvdKPiYWyoRsnqvul/X+d+bTg++//MFQvYY6AXD
- wPOWvJwatFFxwSOPlgoyMk2AoMg/BIXUFsFy8J8xia3Wow9lprlBLiUehrTAigtLxaS1jeHevRH
- CRHDNHZeqGIQGwuEvknt38jlPSWiKd0QBNxPQHfgYsMMidMNWayYeITXuTTrhNymn2hVxL4Fopu
- c9c0yOZC7VXQyx2rPz7UmOtCHPoNdP+fM9lTU+gR+9UOk6axKVe1+aHkFsNbd3AMQY4/HEhvCh0
- jF1uhpMKZSD8Tai2x4P+vyoJcJdyVoTxZ6F1Iiwm25DZKAMiI9RKO7gPlRQVFUWOwHrERKU/XPr
- bOO20G0QkPU6xLXsJXA==
-X-Proofpoint-GUID: pE5tR1nCh8MnN7cW4aXk1NNjnrp6tRuZ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzIxMDE5NSBTYWx0ZWRfXyM0JH1su7A81
- +majbK7LvLlUnkJCkbaCqJxNHwDGy6f3wsGTKCHmPjqlTkGgAgvwdV2YcTaodIK0zdza9BJ4vnT
- bnjF4PtoP3i5RnnRfpGU6cCL+iOCGWo=
-X-Authority-Analysis: v=2.4 cv=HvJG3UTS c=1 sm=1 tr=0 ts=6a5fbb22 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=XbyYF2C9stMiDSnLSv4A:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: pE5tR1nCh8MnN7cW4aXk1NNjnrp6tRuZ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-21_03,2026-07-21_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 clxscore=1015
- adultscore=0 priorityscore=1501 impostorscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607210195
+References: <20260719175857.4071636-1-ap420073@gmail.com>
+ <CAHS8izMocev_0TtAsUr9BqCm6sH2DBh-bPK4DfZYNEAb_d2G6w@mail.gmail.com>
+In-Reply-To: <CAHS8izMocev_0TtAsUr9BqCm6sH2DBh-bPK4DfZYNEAb_d2G6w@mail.gmail.com>
+From: Taehee Yoo <ap420073@gmail.com>
+Date: Wed, 22 Jul 2026 00:17:36 +0900
+X-Gm-Features: AUfX_mz2BhMqLPLPvuogKcIXppoGgoP6WsP21eb7KRTuGc6qaIlknUYcLS2hihA
+Message-ID: <CAMArcTXoUyPm1j1HW7xHRbRCLryvmJQVhJGBpGJ2c65mbxs5QQ@mail.gmail.com>
+Subject: Re: [RFC PATCH net-next 00/13] net: knod: in-kernel network offload
+ device
+To: Mina Almasry <almasrymina@google.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Alexei Starovoitov <ast@kernel.org>, 
+ amd-gfx@lists.freedesktop.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ Andrii Nakryiko <andrii@kernel.org>, Bill Wendling <morbo@google.com>,
+ bpf@vger.kernel.org, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Daniel Borkmann <daniel@iogearbox.net>, David Airlie <airlied@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>,
+ Donald Hunter <donald.hunter@gmail.com>, 
+ dri-devel@lists.freedesktop.org, Eduard Zingerman <eddyz87@gmail.com>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, Eric Dumazet <edumazet@google.com>, 
+ Felix Kuehling <Felix.Kuehling@amd.com>, Hoyeon Lee <hoyeon.rhee@gmail.com>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Jakub Kicinski <kuba@kernel.org>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>,
+ Justin Stitt <justinstitt@google.com>, 
+ Kees Cook <kees@kernel.org>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Leon Romanovsky <leon@kernel.org>, 
+ linaro-mm-sig@lists.linaro.org, linux-hardening@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-media@vger.kernel.org, linux-rdma@vger.kernel.org, llvm@lists.linux.dev, 
+ Mark Bloch <mbloch@nvidia.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
+ Michael Chan <michael.chan@broadcom.com>, Nathan Chancellor <nathan@kernel.org>,
+ netdev@vger.kernel.org, 
+ Nick Desaulniers <ndesaulniers@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Pavan Chebbi <pavan.chebbi@broadcom.com>, Saeed Mahameed <saeedm@nvidia.com>, 
+ Shuah Khan <shuah@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Simon Horman <horms@kernel.org>, 
+ Song Liu <song@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Tariq Toukan <tariqt@nvidia.com>, 
+ Yonghong Song <yonghong.song@linux.dev>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 23 Jul 2026 07:07:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -158,396 +137,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Mario,
+On Tue, Jul 21, 2026 at 4:18=E2=80=AFAM Mina Almasry <almasrymina@google.co=
+m> wrote:
+>
 
-On 24-Jun-26 18:57, Mario Limonciello wrote:
-> From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-> 
-> The legacy backlight control interface can only be disabled when both
-> the client and driver has connector support that the luminance can be
-> set during a modeset. Add capability for the client to register.
-> 
-> When a luminance-aware client sets DRM_CLIENT_CAP_LUMINANCE, each
-> DRM-connected backlight on the device is marked as taken over. Writes
-> to the legacy /sys/class/backlight/<dev>/brightness attribute then
-> return -EBUSY until the last luminance-aware client clears the cap or
-> closes its DRM file. The takeover follows the active backlight_device
-> when drm_backlight_link() retargets the link.
-> 
-> Tested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> # SM8150-HDK
-> Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> ---
+Hi Mina,
+Thanks a lot for your review!
 
-<snip>
+> On Sun, Jul 19, 2026 at 11:01=E2=80=AFAM Taehee Yoo <ap420073@gmail.com> =
+wrote:
+> >
+> > knod (in-kernel network offload device) drives a GPU directly from the
+> > Linux kernel - with no userspace GPU runtime such as CUDA or ROCm, and
+> > no userspace component in the data path - to accelerate packet
+> > processing.
+> >
+> > The kernel itself allocates the GPU's queues, JIT-compiles the
+> > per-packet program to GPU machine code, and dispatches it; the NIC DMAs
+> > received packets straight into GPU memory and the GPU returns a verdict=
+.
+> > The GPU is programmed like any other in-kernel offload, not through a
+> > userspace framework, so existing XDP programs and IPsec SAs can be
+> > offloaded to it transparently.
+> >
+> > The design and motivation were presented at Linux Plumbers Conference
+> > 2025:
+> >
+> >   https://lpc.events/event/19/contributions/2267/
+> >
+> > Motivation
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >
+> > Line-rate packet processing that does non-trivial per-packet work - an
+> > XDP program doing L4 load balancing, or IPsec crypto - is bound by the
+> > host CPU: each core handles one packet at a time, so scaling means
+> > spending more cores. A GPU is the opposite shape - thousands of lanes
+> > running the same small program over many packets at once (SIMT) - which
+> > happens to match the per-packet-program model of XDP.
+> >
+> > knod moves that per-packet compute off the host CPU and onto a GPU. The
+> > NIC DMAs received packets directly into GPU memory, the GPU runs the
+> > program across a batch of packets in parallel, and only the result
+> > comes back: a verdict for every packet, plus the packet itself for the
+> > ones destined to the host. The CPU no longer pays the per-packet
+> > program cost, and throughput scales with GPU occupancy rather than core
+> > count.
+> >
+> > Crucially this happens entirely inside the kernel. GPU packet processin=
+g
+> > today generally launches work from a userspace GPU runtime (CUDA and
+> > friends) and keeps that runtime in the data path; knod instead builds
+> > the GPU queues, compiles the program, and dispatches it from the kernel=
+,
+> > so it plugs into existing offload paths (XDP, xfrm) with nothing to
+> > install or keep running in userspace.
+> >
+>
+> TBH I found this motivation weak, especially since IIUC you're asking
+> for almost ~50K lines of code to be merged to the kernel. My thinking
+> is that (a) it's true that Native XDP takes up CPU cores, but
+> HW-offload XDP already exists and takes up no CPU. (b) with AI, GPUs
+> are very expensive and the work they're doing is critical, so you're
+> unlikely to buy a GPU and use it for knod-offloaded XDP; you'd
+> probably buy a cheaper smart-NIC? And in the cases where you do have a
+> GPU, it's likely your system's money-maker, and you probably want to
+> offload work from the GPU, not to your GPU.
+>
 
-> diff --git a/drivers/gpu/drm/drm_backlight.c b/drivers/gpu/drm/drm_backlight.c
-> index b1ec470be86ca..2cddf209d5088 100644
-> --- a/drivers/gpu/drm/drm_backlight.c
-> +++ b/drivers/gpu/drm/drm_backlight.c
-> @@ -71,6 +71,7 @@ static bool __drm_backlight_is_registered(struct drm_backlight *b)
->  /* caller must hold @drm_backlight_lock */
->  static void __drm_backlight_real_changed(struct drm_backlight *b, uint64_t v)
->  {
-> +	struct drm_connector *connector = b->connector;
->  	unsigned int max, set;
->  
->  	lockdep_assert_held(&drm_backlight_lock);
-> @@ -85,6 +86,15 @@ static void __drm_backlight_real_changed(struct drm_backlight *b, uint64_t v)
->  	set = v;
->  	if (set >= max)
->  		set = max;
-> +
-> +	/* Update the atomic state directly.
-> +	 * For atomic drivers, the luminance value is stored in
-> +	 * connector->state->luminance, not in the legacy property array.
-> +	 * We update it unconditionally to reflect the hardware state,
-> +	 * regardless of DPMS.
-> +	 */
-> +	if (connector->state)
-> +		connector->state->luminance = set;
->  }
->  
->  /**
-> @@ -100,18 +110,22 @@ static void __drm_backlight_update_prop_range(struct drm_backlight *b)
->  	struct drm_device *dev = b->connector->dev;
->  	struct drm_property *prop = dev->mode_config.luminance_property;
->  	unsigned int max = 0;
-> +	bool can_disable = false;
->  
->  	lockdep_assert_held(&drm_backlight_lock);
->  
-> -	if (b->link && b->link->props.max_brightness > 0)
-> +	if (b->link && b->link->props.max_brightness > 0) {
->  		max = b->link->props.max_brightness;
-> +		can_disable = b->link->props.can_disable;
-> +	}
->  
->  	/* Update property range to match hardware capabilities.
->  	 * Range of 0-0 indicates no backing device.
-> -	 * Range of 1-max for normal operation (0 reserved for display off).
-> +	 * Range of 1-max for normal operation.
-> +	 * Range of 0-max means that the display would turn off at 0
->  	 */
->  	if (prop->values[1] != max) {
-> -		prop->values[0] = max ? 1 : 0;
-> +		prop->values[0] = max ? (can_disable ? 0 : 1) : 0;
->  		prop->values[1] = max;
->  	}
+Thanks, these are fair concerns.
 
-So here we now get:
+For a system where the GPU is already fully utilized, a SmartNIC may
+indeed be the better target for XDP offload. We are not arguing that
+GPU offload is always cheaper or more efficient.
 
-range 0 - 0   for max = 0, aka no backlight control support
-range 0 - max for max != 0, can_disable = true
-range 1 - max for max != 0, can_disable = false
+The goal of KNOD is to provide an upstream path for using programmable
+accelerators already available in the system for kernel networking.
+Hardware XDP offload exists, but the available functionality is tied to
+the NIC, its firmware, and the features maintained by the vendor.
+KNOD instead aims to provide an execution layer that can be extended
+in the kernel community. XDP is the first workload used to validate
+this layer, rather than the intended limit of KNOD.
 
-<snip>
+> But as far as I can tell there should be much more interesting
+> applications for what you're doing rather than offloading XDP. Like
+> wouldn't you with this feature be able to implement ML collectively
+> like all-to-all/all-reduce/all-gather as purely XDP programs offloaded
+> to the GPU? If you have that implemented and can positively compare
+> performance to RoCE or RDMA that would be a much more interesting use
+> case IMO.
+>
 
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-> index 128d431f0d6b0..70afe3d579f38 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -1512,6 +1512,57 @@ EXPORT_SYMBOL(drm_hdmi_connector_get_output_format_name);
->   * 	Summarizing: Only set "DPMS" when the connector is known to be enabled,
->   * 	assume that a successful SETCONFIG call also sets "DPMS" to on, and
->   * 	never read back the value of "DPMS" because it can be incorrect.
-> + * LUMINANCE:
-> + * 	Atomic property for controlling the backlight brightness level of the
-> + * 	connector's display. This property provides unified access to the display
-> + * 	backlight, replacing the legacy sysfs interface for brightness control.
-> + *
-> + * 	The property value is an unsigned integer representing the brightness level.
-> + * 	The valid range is dynamically determined by the capabilities of the
-> + * 	connected backlight hardware and is exposed through the property's minimum
-> + * 	and maximum values:
-> + *
-> + * 	- Range 0-0: No backlight device is available for this connector.
-> + * 	- Range 1-N: Normal operation. Values from 1 to N (max_brightness) are
-> + * 	  valid brightness levels, where 1 is the minimum visible brightness and
-> + * 	  N is the maximum brightness the hardware supports.
+I agree that this is a promising direction, and collective communication
+could be a good fit for this model. At least for all-reduce, however,
+BPF/XDP does not currently support the required floating-point
+operations. If that support is discussed and added by the BPF community,
+this would be an interesting use case to explore with KNOD and evaluate
+against RoCE or RDMA.
 
-But here range 0 - N is not documented.
+> > Model
+> > =3D=3D=3D=3D=3D
+> >
+> > knod binds two endpoints through a third object:
+> >
+> >   - a NIC-side netdev, registered by the NIC driver;
+> >   - an accelerator (the GPU), registered by a provider built into the
+> >     GPU driver;
+> >   - an offload device, created on attach, that connects them and owns
+> >     the per-queue data-path state.
+> >
+> > The accelerator ops are feature-agnostic, so different per-packet
+> > programs plug in behind one interface. This series ships two features
+> > to show the framework is not tied to a single use case (the accel-type
+> > uAPI also reserves "dpu" for future non-GPU backends):
+> >
+> >   - BPF:   an XDP program attached in offload mode is JIT-compiled from
+> >            eBPF to an AMD GCN shader and executed on the GPU.
+> >   - IPsec: RX ESP full-packet decrypt on the GPU (proof of concept,
+> >            see below).
+> >
+> > Data path
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >
+> > For a NIC RX queue bound to an accelerator, a received packet flows as
+> > follows:
+> >
+> >   1. Attach reconfigures the NIC's page_pool so its pages come from GPU
+> >      memory, exported as a dma-buf and plugged in through the devmem
+> >      memory provider. The NIC therefore DMAs the packet straight into
+> >      GPU memory - there is no host-side copy on RX.
+> >
+> >   2. Instead of building an skb and entering the stack, the NIC's NAPI
+> >      pushes a small descriptor (memory ref + offset + length) onto a
+> >      per-queue lock-free SPSC ring shared with the GPU.
+> >
+> >   3. A persistent GPU worker drains descriptors and runs the active
+> >      feature's shader over a batch of packets in parallel - one
+> >      workgroup per packet - then writes a per-packet verdict back onto
+> >      the ring: PASS, DROP or TX.
+> >
+> >   4. Back on the NIC NAPI, each verdict is applied:
+> >        - DROP: the GPU page is recycled to the pool;
+> >        - TX:   the packet is sent back out the NIC directly from GPU
+> >                memory (XDP_TX), with no host round-trip;
+> >        - PASS: the packet is copied out of GPU memory into a host
+> >                delivery page by the GPU's DMA engine (async SDMA),
+> >                wrapped as an skb, and handed to the normal stack.
+> >
+> > So only PASS packets ever touch host memory, and even then the copy is
+> > done by the GPU, not the CPU.
+> >
+> > The control plane is a generic netlink family ("knod") for
+> > attach/detach, accelerator/NIC inventory, and per-accelerator feature
+> > selection, with notifications on bind/unbind.
+> >
+> > Code layout
+> > =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+> >
+> > knod separates into a subsystem-neutral core and a GPU-specific
+> > provider; nothing in the core knows about GPUs. Roughly:
+> >
+> >   - core + control plane + NIC drivers   net/, kernel/bpf/       (~4.4k=
+)
+> >   - GPU provider (queues, JIT, shaders)  drivers/gpu/drm/amd/    (~39k)
+> >
+>
+> Since the changes are so large, I would break this work into many
+> series, the first which only supports a very minimal set of work
+> (which I would guess would be XDP_DROP and XDP_TX), and then follow up
+> with another series which adds XDP_PASS support, and then IPSec, etc.
+>
 
-Good that this documents that "1 is the minimum visible brightness" but I think
-some drivers may need to be adjusted for that. Last time I checked the amdgpu
-driver would take a certain fixed minimum percentage as lowest brightness when
-the firmware provided a 0 value for minimum pwm duty-cycle, so amdgpu has this
-covered. But the i915 driver happily goes down to 0% duty when the VBT does
-not give a non 0 minimum.
+That makes sense. We will split the work and start with the minimum
+functionality needed to demonstrate the architecture, likely XDP_DROP
+and XDP_TX. XDP_PASS, IPsec, and the remaining functionality can follow
+in separate series.
 
-This is why e.g. GNOME adds its own minimum percentage and never writes 0 to
-the classic sysfs interface. So assuming this all holds, this means that
-supporting "1 is the minimum visible brightness" will require some fixes on
-the i915 driver (which would be good to have) and possibly other drivers
-need fixing as well.
+Thanks a lot!
+Taehee Yoo
 
-> + * 	- Value 0: Special value to turn off the display backlight completely.
-> + * 	  This value is accepted even when the normal range starts at 1.
-> + *> + * 	The range may change during runtime if a new backlight device is linked
-> + * 	or unlinked. The kernel will send a change uevent when this occurs.
-> + *
-> + * 	Setting LUMINANCE to 0 turns off the backlight, which may turn off the
-> + * 	display completely depending on the hardware.
-
-Ok, so 0 is DPMS off, right ? maybe mention that explicitly because
-I think that has certain implications like possible no longer getting
-vsync events / framebuffer swap completions which userspace might
-depend on. Where as a classic set pwm duty to 0 for backlight does
-result in vsync events to continue. "turn off the display" is a bit
-ambigous IMHO, e.g. is it just the panel which gets turned off or
-the entire dsiplay pipeline?
-
-Might also just me not being familiar enough with the kms API...
-
-Regards,
-
-Hans
-
-
-
-> Setting it to any value
-> + * 	from 1 to N adjusts the brightness accordingly. Reading this property
-> + * 	returns the current brightness level that was last set (or the hardware's
-> + * 	current state for drivers that support reading actual brightness).
-> + *
-> + * 	For atomic drivers, the luminance value is stored in
-> + * 	&drm_connector_state.luminance. The actual hardware update only occurs
-> + * 	when the connector is active (DPMS is ON). When DPMS transitions to OFF,
-> + * 	the kernel automatically sets luminance to 0 to turn off the backlight.
-> + * 	When DPMS transitions back to ON, the kernel restores the previously
-> + * 	set luminance value.
-> + *
-> + * 	This property is only available on connectors that have an associated
-> + * 	backlight device.  The property is created by calling drm_backlight_alloc()
-> + * 	during connector initialization.
-> + *
-> + * 	Client Capability:
-> + * 		User-space must set the DRM_CLIENT_CAP_LUMINANCE client capability
-> + * 		to 1 before using this property. When this capability is enabled,
-> + * 		the legacy sysfs backlight interface is inhibited to prevent
-> + * 		conflicts between multiple clients trying to control the same
-> + * 		backlight. This ensures that only luminance-aware clients control
-> + * 		the backlight through the DRM atomic interface.
-> + *
-> + * 		Legacy clients that do not set this capability will not see the
-> + * 		LUMINANCE property and should continue using the sysfs interface
-> + * 		(if available).
-> + *
-> + * 	Note: This property can be set through MODE_ATOMIC ioctl as part of the
-> + * 	atomic state.
->   * panel_type:
->   * 	Immutable enum property to indicate the type of connected panel.
->   * 	Possible values are "unknown" (default) and "OLED".
-> diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-> index ec820686b3021..4d2520de7614c 100644
-> --- a/drivers/gpu/drm/drm_file.c
-> +++ b/drivers/gpu/drm/drm_file.c
-> @@ -41,6 +41,7 @@
->  #include <linux/slab.h>
->  #include <linux/vga_switcheroo.h>
->  
-> +#include <drm/drm_backlight.h>
->  #include <drm/drm_client_event.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_file.h>
-> @@ -252,6 +253,10 @@ void drm_file_free(struct drm_file *file)
->  	if (drm_core_check_feature(dev, DRIVER_MODESET)) {
->  		drm_fb_release(file);
->  		drm_property_destroy_user_blobs(dev, file);
-> +		if (file->supports_luminance_control) {
-> +			drm_backlight_uninhibit_legacy_all(dev);
-> +			file->supports_luminance_control = false;
-> +		}
->  	}
->  
->  	if (drm_core_check_feature(dev, DRIVER_SYNCOBJ))
-> diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-> index ff193155129e7..fdae36b13300a 100644
-> --- a/drivers/gpu/drm/drm_ioctl.c
-> +++ b/drivers/gpu/drm/drm_ioctl.c
-> @@ -28,12 +28,14 @@
->   * OTHER DEALINGS IN THE SOFTWARE.
->   */
->  
-> +#include "drm/drm.h"
->  #include <linux/export.h>
->  #include <linux/nospec.h>
->  #include <linux/pci.h>
->  #include <linux/uaccess.h>
->  
->  #include <drm/drm_auth.h>
-> +#include <drm/drm_backlight.h>
->  #include <drm/drm_crtc.h>
->  #include <drm/drm_drv.h>
->  #include <drm/drm_file.h>
-> @@ -380,6 +382,19 @@ drm_setclientcap(struct drm_device *dev, void *data, struct drm_file *file_priv)
->  			return -EINVAL;
->  		file_priv->plane_color_pipeline = req->value;
->  		break;
-> +	case DRM_CLIENT_CAP_LUMINANCE:
-> +		if (!file_priv->atomic)
-> +			return -EINVAL;
-> +		if (req->value > 1)
-> +			return -EINVAL;
-> +		if (req->value == file_priv->supports_luminance_control)
-> +			break;
-> +		if (req->value)
-> +			drm_backlight_inhibit_legacy_all(dev);
-> +		else
-> +			drm_backlight_uninhibit_legacy_all(dev);
-> +		file_priv->supports_luminance_control = req->value;
-> +		break;
->  	default:
->  		return -EINVAL;
->  	}
-> diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_property.c
-> index f38f2c5437e68..4475896c963b4 100644
-> --- a/drivers/gpu/drm/drm_property.c
-> +++ b/drivers/gpu/drm/drm_property.c
-> @@ -952,6 +952,12 @@ bool drm_property_change_valid_get(struct drm_property *property,
->  	*ref = NULL;
->  
->  	if (drm_property_type_is(property, DRM_MODE_PROP_RANGE)) {
-> +		/* Special case for luminance property: allow 0 to turn off display
-> +		 * even when the normal range starts at 1.
-> +		 */
-> +		if (property == property->dev->mode_config.luminance_property &&
-> +		    value == 0 && property->values[1] > 0)
-> +			return true;
->  		if (value < property->values[0] || value > property->values[1])
->  			return false;
->  		return true;
-> diff --git a/drivers/video/backlight/backlight.c b/drivers/video/backlight/backlight.c
-> index 13954c2220b7e..40cfc2296445c 100644
-> --- a/drivers/video/backlight/backlight.c
-> +++ b/drivers/video/backlight/backlight.c
-> @@ -217,6 +217,13 @@ static ssize_t brightness_store(struct device *dev,
->  	struct backlight_device *bd = to_backlight_device(dev);
->  	unsigned long brightness;
->  
-> +	/* A luminance-aware DRM client has taken over this backlight; the
-> +	 * legacy sysfs interface is disabled until the last such client
-> +	 * goes away.
-> +	 */
-> +	if (atomic_read(&bd->drm_takeover) > 0)
-> +		return -EBUSY;
-> +
->  	rc = kstrtoul(buf, 0, &brightness);
->  	if (rc)
->  		return rc;
-> diff --git a/include/drm/drm_backlight.h b/include/drm/drm_backlight.h
-> index e0e09e38f7c06..2af48be3aa372 100644
-> --- a/include/drm/drm_backlight.h
-> +++ b/include/drm/drm_backlight.h
-> @@ -43,9 +43,9 @@ void drm_backlight_unregister(struct drm_backlight *b);
->  
->  void drm_backlight_link(struct drm_backlight *b, struct backlight_device *bd);
->  struct backlight_device *drm_backlight_get_device(struct drm_backlight *b);
-> -void drm_backlight_set_luminance(struct drm_backlight *b, unsigned int value);
->  void drm_backlight_inhibit_legacy(struct drm_backlight *b);
->  void drm_backlight_uninhibit_legacy(struct drm_backlight *b);
->  void drm_backlight_inhibit_legacy_all(struct drm_device *dev);
->  void drm_backlight_uninhibit_legacy_all(struct drm_device *dev);
-> +void drm_backlight_set_luminance(struct drm_backlight *b, unsigned int value);
->  #endif /* __DRM_BACKLIGHT_H__ */
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index d78ac1068d12e..5e32b6063d228 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -1209,6 +1209,11 @@ struct drm_connector_state {
->  	 * @drm_atomic_helper_connector_hdmi_check().
->  	 */
->  	struct drm_connector_hdmi_state hdmi;
-> +
-> +	/**
-> +	 * @luminance: Luminance for the connector
-> +	 */
-> +	unsigned int luminance;
->  };
->  
->  struct drm_connector_hdmi_audio_funcs {
-> diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-> index 6ee70ad65e1fd..0bb1e53f36bec 100644
-> --- a/include/drm/drm_file.h
-> +++ b/include/drm/drm_file.h
-> @@ -248,6 +248,14 @@ struct drm_file {
->  	 */
->  	bool supports_virtualized_cursor_plane;
->  
-> +	/**
-> +	 * @supports_luminance_control:
-> +	 *
-> +	 * This client is capable of setting the luminance for connectors.
-> +	 *
-> +	 */
-> +	bool supports_luminance_control;
-> +
->  	/**
->  	 * @master:
->  	 *
-> diff --git a/include/linux/backlight.h b/include/linux/backlight.h
-> index 26a7281d179c1..b03737ee8dacd 100644
-> --- a/include/linux/backlight.h
-> +++ b/include/linux/backlight.h
-> @@ -197,6 +197,13 @@ struct backlight_properties {
->  	 */
->  	int brightness;
->  
-> +	/**
-> +	 * @can_disable: Minimum brightness would turn off the panel.
-> +	 *
-> +	 * Setting minimum brightness turns off the panel.
-> +	 */
-> +	bool can_disable;
-> +
->  	/**
->  	 * @max_brightness: The maximum brightness value.
->  	 *
-> @@ -314,6 +321,14 @@ struct backlight_device {
->  	 * @use_count: The number of unblanked displays.
->  	 */
->  	int use_count;
-> +
-> +	/**
-> +	 * @drm_takeover: Number of luminance-aware DRM clients that have
-> +	 * taken over brightness control of this device. When non-zero,
-> +	 * writes to the legacy sysfs ``brightness`` attribute return
-> +	 * ``-EBUSY``. Managed by the DRM backlight helpers.
-> +	 */
-> +	atomic_t drm_takeover;
->  };
->  
->  /* Forward declaration for backlight_update_status */
-> diff --git a/include/uapi/drm/drm.h b/include/uapi/drm/drm.h
-> index bc7ef7684099b..a3141d46d7d66 100644
-> --- a/include/uapi/drm/drm.h
-> +++ b/include/uapi/drm/drm.h
-> @@ -903,6 +903,28 @@ struct drm_get_cap {
->   */
->  #define DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE	7
->  
-> +/**
-> + * DRM_CLIENT_CAP_LUMINANCE
-> + *
-> + * If set to 1, the client declares support for the LUMINANCE connector property
-> + * and will control backlight brightness through the DRM atomic interface. This
-> + * enables the kernel to expose the LUMINANCE property on connectors that have
-> + * an associated backlight device.
-> + *
-> + * When this capability is enabled:
-> + *  - The LUMINANCE property becomes visible on supported connectors
-> + *  - Legacy sysfs writes to /sys/class/backlight/{*}/brightness will return
-> + *    -EBUSY to prevent conflicts with DRM-based brightness control
-> + *  - The client should include luminance values as part of atomic commits
-> + *  - Brightness changes are synchronized with display power state (DPMS)
-> + *
-> + * The LUMINANCE property accepts values from 0 to max_brightness, where 0 turns
-> + * off the backlight, and 1 to max_brightness control the brightness level.
-> + *
-> + * This capability is supported starting in kernel 7.2.
-> + */
-> +#define DRM_CLIENT_CAP_LUMINANCE		8
-> +
->  /* DRM_IOCTL_SET_CLIENT_CAP ioctl argument type */
->  struct drm_set_client_cap {
->  	__u64 capability;
-
+> --
+> Thanks,
+> Mina
