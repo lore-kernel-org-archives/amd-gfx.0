@@ -4,100 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C0E5C44533
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 11:43:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49B96C4451C
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 11:43:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A62110E777;
-	Tue, 21 Jul 2026 11:43:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E2A6310E931;
+	Tue, 21 Jul 2026 11:43:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="b04gTSTA";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bRscJ+p9";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010009.outbound.protection.outlook.com
- [40.93.198.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE38610E34B;
- Tue, 21 Jul 2026 11:43:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DYGwBB0mi7QJpgG1IhUlushELx794EWsXiWLcWhNMMieLoOmMIVA0uYe+qDMeF0UBK2xk4fuDLn0CTRcevV7O9XPaUPHIr5avgKFrIswiuqqimLfVFdj853ofo+Jr0hpDFf84Um9lJxxLrnVuY7bJ/UV8h+uGFDNWYouD6uEdxXGNb6YQnwYe1tRes6e0nYBTHj5fln1zqwqjBgGCzcswWHiJ0IJRNIieB73NYMKv44AMJvXYNilXuivuJxUbPJP60Fs8PThko55pC476vlNhD8gXHMaCGbvHlbFZNEtbVyqdA6pXkwBgGv2W79w8apMUP0OL1/cimh+yVUa0RsasA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7N/HdavdWyUmF5+YaGNBKT110155ZjaTO8v3FW8Igrg=;
- b=v33gkXajh12aZByXn7LLHr9pL0RBIsA8B5dyYNYAkaOXrmqDHY7Jt8EkS1NfKOcidxdM0IB3RNKDMRJbc9YlcmE5y5+VCmhPvYIwKPJZ2NU1fw+dLN3N9WX7abMWZBxsTY4jkoS27LDYG1hmu0sRUhqNYo9O0iy8L5vqUr/jMubSnjvIsNTEPGSdnK15TlGd41YHNBpu+wVm/oskyU5B9i+cDww7T9i1tUrQ5yHKfo74dzsVgsvaxTCyZq+XFIGy4C/ajLxovLUYcNtJ4kJUNoL9kudI+kpyeGcv3NbskGIrYXYC6lYTOJRfLP4A8BaP+/d+nxAWuSI4J5fr06n7ZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7N/HdavdWyUmF5+YaGNBKT110155ZjaTO8v3FW8Igrg=;
- b=b04gTSTANV6ylC+Ded0ejCViUxoZnLcaYORFmGfZN4qhSh/9svahJFyUJgc2659560nSIkS8ayKEBx1OCVw5WxM6DnIj6VSITDacBHemJMvcBqDzkKw8Z/O/RiyR1udV7xooFbxmXrdaEeM8lg4UZt3IrNYSTF0KeO7hYEt7Izs=
-Received: from CY8PR12CA0040.namprd12.prod.outlook.com (2603:10b6:930:49::7)
- by CYXPR12MB9278.namprd12.prod.outlook.com (2603:10b6:930:e5::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Tue, 21 Jul
- 2026 11:43:04 +0000
-Received: from CY4PEPF0000EE31.namprd05.prod.outlook.com
- (2603:10b6:930:49:cafe::3d) by CY8PR12CA0040.outlook.office365.com
- (2603:10b6:930:49::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Tue,
- 21 Jul 2026 11:43:04 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000EE31.mail.protection.outlook.com (10.167.242.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.245.5 via Frontend Transport; Tue, 21 Jul 2026 11:43:04 +0000
-Received: from arun-nv33.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 21 Jul
- 2026 06:43:01 -0500
-From: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-To: <matthew.auld@intel.com>, <christian.koenig@amd.com>,
- <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
- <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: <alexander.deucher@amd.com>, Arunpravin Paneer Selvam
- <Arunpravin.PaneerSelvam@amd.com>
-Subject: [PATCH v6] drm/tests/gpu_buddy: add a new test case for buffer
- clearance during resume
-Date: Tue, 21 Jul 2026 17:12:36 +0530
-Message-ID: <20260721114236.507578-1-Arunpravin.PaneerSelvam@amd.com>
-X-Mailer: git-send-email 2.34.1
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07E6610E931
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 11:43:28 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-c15ca7a7ca9so829045066b.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 04:43:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784634206; x=1785239006; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=rJaXy4eiZ/R+QixSif/Ul2tLSB9RBhOjDNwmi6fxvQY=;
+ b=bRscJ+p9GFyP8K+8MauaOwyGmBW9Ee1koxunUYxZESJxQR3NI6ybHZG27ceR1vKwDy
+ i6+Bjy39JUjZqTIE1UAshoAfSquZJ3dKOVerX/4cD6NIQVRT3YO7MkVg6HegEE0uKkiK
+ 5Zl4AQ2L5qXoun3fRl10LHgsUmwSGHO9cx8+e/yaKQhlOa67HgR2HOk1UAlgmi5xF9uB
+ 3z/m0mKOVOlrt+l/9C+JsG7oukJz3bbGB7Zpa03h5JTi+pcDt1PCbxTOXAVkdjFE4GUp
+ YyxtTwn2lt6vQxk0v7qRmUxfqbFYpq3gqN3/yOk2xl8mVW5CAGEYdRwPX87ZxHgD7vgp
+ 7XGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784634206; x=1785239006;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=rJaXy4eiZ/R+QixSif/Ul2tLSB9RBhOjDNwmi6fxvQY=;
+ b=LEV4qhDR0VoKgorF6RCvdFjiMCmaNv27OEBmenXS75gkhiuQtklQ2FBzZ0mIrfYErA
+ WP0WoHJxfTb9qOrstt6+XjZTsbm0TbFj0oQMgrNkVuT+qowj0pGQskmGuorpiA2E5AQ3
+ Kb+bp3NDWb1id6q1I818SbNmh+a+/0gOuaNTCB5WPe0ea2ts0zRNIeXsfgCigUREbTYW
+ tcKmYGL4EhuZ/XGOo/LbozEJO/HhcwR8DOt+PUis0yKKiGbkHnD+6erYzfbb6+Ej6O8q
+ w9Mnnw1xqa6ztFrmiSB7v6qAUdowfktWJoK7jVYou84TIWbAajJ0uo+TOE+QcUzYQKXr
+ NSRg==
+X-Gm-Message-State: AOJu0YzV/FtsFyzli+r2QR+t/lQ9tUu/ERZw+vj+c6Z/E6y4fEHTlpmm
+ E2hnqzh46Hjm2uh7aR3dOdjZEwdMB7SmleZ4G2Tl2+hn34W4Q7hMxVwdYBNQYw==
+X-Gm-Gg: AR+sD12n+sM7ZbKDQXqalZda9wjetrRTnUPrxdnyEPZHqB6g8Iw36MzGF5hqADAEZW2
+ 3+uwgvQpPrND0X/301gg/PhrM77zz+v74qmnx86T5dITKkfLrDUgiixsrImYtPegi0TnhMdCOUE
+ iK7A9ExoADHFwN17HuaMzfPC5oDE2kyc4lxMnEKnmRBdQsE94y4UwH74dp2LLMWLwLEEYdZEo0M
+ LLTb7E/ILrxqRJ4g4c5SufGNRxmgW3KQ5tDJJ1xvLXOu7ILzOANtSsJRKtQWvwKTMINYOzI+sbQ
+ RENSvkZeGk1FwaJOwAa+mfUgioFh0/TpZUvsVjgFV/qZicrKheQKitWQir+kcIIQW5SwSdTNPEM
+ hIHfDLU5g6HPwKe25zzmoYjKPWBjeBl4oKIvJgDwUp28AjjlF6VezZ2OzXBuFs57XnDRh0ZD2jP
+ OvAbznLg7Ymqkmxtt+xlK2E7Uy4Dvwy9Q/A7pAy2SEeEE=
+X-Received: by 2002:a17:907:1c06:b0:c11:efec:6ca9 with SMTP id
+ a640c23a62f3a-c16b4699a22mr843301166b.8.1784634206071; 
+ Tue, 21 Jul 2026 04:43:26 -0700 (PDT)
+Received: from Timur-Hyperion.home (5401D94C.dsl.pool.telekom.hu.
+ [84.1.217.76]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c17009ae00asm571635366b.7.2026.07.21.04.43.24
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 21 Jul 2026 04:43:25 -0700 (PDT)
+From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, pierre-eric.pelloux-prayer@amd.com,
+ Natalie Vock <natalie.vock@gmx.de>
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH 0/9] drm/amdgpu/gfx7: Use GFX IP block soft reset on GFX7 (v2)
+Date: Tue, 21 Jul 2026 13:43:13 +0200
+Message-ID: <20260721114322.17535-1-timur.kristof@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE31:EE_|CYXPR12MB9278:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4fed0e95-1b92-4ad8-dd6b-08dee71d3a01
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|56012099006|11063799006|5023799004|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: woyyVycRKsedmiA/9JLr+b9BA5IpOKHokVgFXKAKHJ9+mEzlxO0QmDCM4Tb45QGL7rmAzcQWZI8T0UOERjSPIIaeu/aEb+vp4HBtGZ3vtrSYqYw3wHridKNmRvBXikurnziGQJXvfaOAesP/ge/OiygmBlE7HLgoce3yW6lQJ1okpH3w9E9PRl/32dCrjnV9zofmV96WMRbgpqWvuSumscUkUcRXTEo/8iDAHYMImGwZazhVWa2PBFnPA/tHNBHGZMeVI9cxd4+ckw5yMRuDy3qGafYCXDD0xi2mitNGeKcGQ5oJI+dJbk1kHtXSePwYc6dfEhuUtgstZC4LOLlzWEknXWJEoTVWBPFzrU0z15gwfXzvrNlO0ctBRPlJNeKcJCgb7F7kuiN/jzU1H7VD0kYlSD48BmYwNmiJPz76Eb/8eFEcZjLVuE/WWMt+kUZpA/3kLetGY02QuMcwc8wMF0JwqfAgJeF1tm9xB/VJayr2vgUslu3jUuWaK7cR3ho5QHqGYmXsQClIVoYNXXNbBldMrt+L16bnMMycnG6qJGRMD6cF51L73o0+4ncEuzbRqqDd6EClYhvFSN7wPoeH6zLL9HE96ntTZ4IKjiNrBG89CRZZVcEKVAS0C4bNYmMdYVcVEXMe9ws4CiXBUt781G2uQX8oM2b64BQNV3yAFhHmGisv3h/UAQ1tOEIR/qLCRKitvnIwMa1rrcNuaFPl6Q==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(56012099006)(11063799006)(5023799004)(10067099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: M3uEeuNJrIrvuM2pC1Ve6YW90zSR+1c6YsdV74mhdUUTmX5EwssxnQd4NLQCliTguEA+Y5tlCcBJ5Pf6IDx4fBvRg2Dmosk6+jBvVKE4TQfU92RuH1lnauSjXi+ErwYXAWcyEM0RjBRlpVtpyT64MCNFquT6HKCYTzoeG5uLxgRVrq2kY83h2uAi2oIbgO/vNxNru+R35YDQ4gBkDw9h4cDuXHtEkhsDw6JKoi2NoHWISeG8auRG2O95qTUtox93bkWSPJH/HSdUPYcIZ99Y1O3TqtQUSCS7ew7Ym37Bx1VMsLmFps/VKhcEa5PjsEXRtwT1ZFUzLwGpSxj5VAG4HdtZQ9Sgn1lab8SrDaYsI2R3Ff18/0chTQ/TvIqzn8AJa+qyMjywtNp+GtpcmeXYtrj4j4vR0u+KiD5T3oM3Rg5hTtZ4iuylrj5ajSE7z4gk
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 11:43:04.5510 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4fed0e95-1b92-4ad8-dd6b-08dee71d3a01
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE31.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9278
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,79 +86,69 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a new unit test case for buffer clearance issue during
-resume.
+GFX IP block soft reset has been implemented as recovery
+method so that we can have a way to reset just the GFX
+block without resetting the whole GPU or losing the
+contents of VRAM.
 
-Using a non-power-of-two mm size, allocate alternating blocks of
-4KiB in an even sequence and free them as cleared. All alternate
-blocks should be marked as dirty and the split blocks should be
-merged back to their original size when the blocks clear reset
-function is called.
+Fix up various things in the GFX7 code to prepare it
+to work with IP block soft reset. The main challenge
+was fixing up the MQD/HQD handling to ensure that it
+doesn't hang after the soft reset. There are also
+other minor fixups.
 
-Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
----
-v6: Standalone repost of patch 3/3 from series 151686; the other two
-    patches are already applied. Rebased onto the gpu_buddy rename
-    (drm_buddy_test.c -> gpu_buddy_test.c, drm_buddy_* -> gpu_buddy_*)
-    and updated the subject accordingly. No functional change; kept
-    Matthew's Reviewed-by as the port is mechanical.
+Rework the pre-existing GFX7 soft reset implementation
+like the reworked version on GFX8 to make it more robust.
+In practice, this means that it will now reset everything
+in the GFX IP block (instead of taking a guess at which
+parts need to be reset) to make it consistent, and it now
+also handles clock and power gating to make sure not to
+degrade GPU functionality after a GFX IP block soft reset.
 
- drivers/gpu/tests/gpu_buddy_test.c | 41 ++++++++++++++++++++++++++++++
- 1 file changed, 41 insertions(+)
+This improves current user experience on all GFX7 chips:
 
-diff --git a/drivers/gpu/tests/gpu_buddy_test.c b/drivers/gpu/tests/gpu_buddy_test.c
-index 7df5c2ae83bb..89698563c61b 100644
---- a/drivers/gpu/tests/gpu_buddy_test.c
-+++ b/drivers/gpu/tests/gpu_buddy_test.c
-@@ -1002,6 +1002,47 @@ static void gpu_test_buddy_alloc_clear(struct kunit *test)
- 				"buddy_alloc hit an error size=%lu\n", ps);
- 	gpu_buddy_free_list(&mm, &allocated, GPU_BUDDY_CLEARED);
- 	gpu_buddy_fini(&mm);
-+
-+	/*
-+	 * Using a non-power-of-two mm size, allocate alternating blocks of 4KiB in an
-+	 * even sequence and free them as cleared. All blocks should be marked as
-+	 * dirty and the split blocks should be merged back to their original
-+	 * size when the blocks clear reset function is called.
-+	 */
-+	KUNIT_EXPECT_FALSE(test, gpu_buddy_init(&mm, mm_size, ps));
-+	KUNIT_EXPECT_EQ(test, mm.max_order, max_order);
-+
-+	i = 0;
-+	n_pages = mm_size / ps;
-+	do {
-+		if (i % 2 == 0)
-+			KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_alloc_blocks(&mm, 0, mm_size,
-+									    ps, ps, &allocated, 0),
-+					"buddy_alloc hit an error size=%lu\n", ps);
-+	} while (++i < n_pages);
-+
-+	gpu_buddy_free_list(&mm, &allocated, GPU_BUDDY_CLEARED);
-+	gpu_buddy_reset_clear(&mm, false);
-+	KUNIT_EXPECT_EQ(test, mm.clear_avail, 0);
-+
-+	/*
-+	 * Using a non-power-of-two mm size, allocate alternating blocks of 4KiB in an
-+	 * odd sequence and free them as cleared. All blocks should be marked as
-+	 * cleared and the split blocks should be merged back to their original
-+	 * size when the blocks clear reset function is called.
-+	 */
-+	i = 0;
-+	do {
-+		if (i % 2 != 0)
-+			KUNIT_ASSERT_FALSE_MSG(test, gpu_buddy_alloc_blocks(&mm, 0, mm_size,
-+									    ps, ps, &allocated, 0),
-+					"buddy_alloc hit an error size=%lu\n", ps);
-+	} while (++i < n_pages);
-+
-+	gpu_buddy_free_list(&mm, &allocated, GPU_BUDDY_CLEARED);
-+	gpu_buddy_reset_clear(&mm, true);
-+	KUNIT_EXPECT_EQ(test, mm.clear_avail, mm_size);
-+	gpu_buddy_fini(&mm);
- }
- 
- static void gpu_test_buddy_alloc_contiguous(struct kunit *test)
+On Kaveri and Kabini there is currently no working
+GPU recovery method so those chips currently require
+the user to manually reset the computer when there
+was a hang.
+
+On Hawaii and Bonaire, the current GPU recovery method
+always clears the contents of VRAM, which means that
+a buggy (hanging) app can crash the whole graphical
+session, which is less than ideal.
+
+Using GFX IP block soft reset means that we can now
+have a working recovery on GFX7 APUs and we can also
+move on from GFX hangs on dGPUs without crashing the
+whole system.
+
+Tested on the following chips:
+
+Bonaire (Radeon HD 7790)
+Hawaii (Radeon R9 390X)
+Kaveri (A10-7850K)
+
+Changes from v1 to v2:
+
+* Add more explanation to various patches
+* Address feedback from the review of the v1
+
+Timur Kristóf (9):
+  drm/amdgpu/gfx7: Make amdgpu_gfx_mqd_sw_init() usable on GFX7
+  drm/amdgpu/gfx7: Refactor MQD initialization and finalization
+  drm/amdgpu/gfx7: Return error code when compute ring tests fail
+  drm/amdgpu/gfx7: Return error code when failing to start GFX ring
+  drm/amdgpu/gfx7: Fixup emitting SWITCH_BUFFER packets
+  drm/amdgpu/gfx7: Clean up gfx ring during reset
+  drm/amdgpu/gfx7: Use COND_EXEC
+  drm/amdgpu/gfx7: Fixup IP block soft reset
+  drm/amdgpu/gfx7: Enable IP block soft reset as a GPU recovery method
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c  |   7 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c   | 331 +++++++++++++-----------
+ 3 files changed, 186 insertions(+), 156 deletions(-)
+
 -- 
-2.34.1
+2.55.0
 
