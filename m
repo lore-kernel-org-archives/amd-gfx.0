@@ -4,121 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA85EC44529
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 14:04:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7856C44529
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 14:16:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70B0E10E1B6;
-	Tue, 21 Jul 2026 14:04:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B191E10E6F8;
+	Tue, 21 Jul 2026 14:16:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="f4SYbq3G";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="V+PSS6fI";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010016.outbound.protection.outlook.com [52.101.201.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0790410E1B6
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 14:04:29 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JjUMd9C/PpSAe532Ayw17X2KilqeCl0V09UPmnmx5eNdNO+l1pAoYQaI12+lbePxB7bdLyVLypAEVRZ6nvbJqR3yRb9a8seXFsDI2uPH/Wsrk9bgWV7oc8Y7xlapIYtjAHHnN2UdD5rEvT9p+W+uNfcHHesJT2G1NQlMmcZDzfm3+MmAnBcGFMuhdvt3FFHQ6irELNcq+kK/HGbCaZsoxkHpjQl990r0yEfMMtBDu4ENRhaQyyKLkFR8C8cHK+cRF++ka+/2RYqBi1Mg1jgyC8gnNZgr/sL++7ZMJ5hoKnFzLmaQKrOS1gCy19ORHPrkRRxYTHkB/ph8HAHEfxFeYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YK+V0dYQIecQ7ySIViCtEdkVXGBK2rNBAMUv6T/gl0Y=;
- b=GgxM6/D0b1cOHd6gbUddroxLj/SbHHayoTf1whT3LqImhI5ok7SLGF/o4EJeFckHKQfkgH9zxesiXBJulGFUYAGJKlMvcV2O9FBLDm8vECiL55JRJvoqxxrRXpA3gIYc/jtOp1QfXbkZXRsm/AeKJcTV85B/E/4VPSThZCdPYU96NjguoUaoNMd87xUe9LSwEuejSgQDALJnNlQrb64xbCQATaQuWiR2WfTJb2nOe+CkbZ+orG1wurev+y0CwjIA88+5b4Qal9n4chFMLPrmPTj6JdrpH4fGAVRERUHj69cI3/Yhp+N6JIlPEYSk8syVNqIL+NqevMnoAf9+1B+BdQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YK+V0dYQIecQ7ySIViCtEdkVXGBK2rNBAMUv6T/gl0Y=;
- b=f4SYbq3Gh5RSQfX9ldyFuSpIBvYZwGNfVWMOTkNyvWcvV339nUSVsoXzKJ5if0rlwDIOY4IpEZXfA6AFLDxSDIZu2+fnNv1vtOWvgSlqB3gyv82r6PGacDrDqSEWS9CHFgpSmH1uL9VPwpQ1RUu2L3aL9tZCUHXBFwqSsIBD7PI=
-Received: from BL1PR12MB5898.namprd12.prod.outlook.com (2603:10b6:208:396::7)
- by CH2PR12MB4102.namprd12.prod.outlook.com (2603:10b6:610:a9::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Tue, 21 Jul
- 2026 14:04:26 +0000
-Received: from BL1PR12MB5898.namprd12.prod.outlook.com
- ([fe80::914d:6a80:1477:4ed0]) by BL1PR12MB5898.namprd12.prod.outlook.com
- ([fe80::914d:6a80:1477:4ed0%5]) with mapi id 15.21.0245.009; Tue, 21 Jul 2026
- 14:04:26 +0000
-From: "Russell, Kent" <Kent.Russell@amd.com>
-To: "Francis, David" <David.Francis@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Francis, David" <David.Francis@amd.com>
-Subject: RE: [PATCH] drm/amdkfd: Handle invalid event type in CRIU event
- restore
-Thread-Topic: [PATCH] drm/amdkfd: Handle invalid event type in CRIU event
- restore
-Thread-Index: AQHdGRY6xnkrq4e/b0mFQpV3WffKtLZ4ASuQ
-Date: Tue, 21 Jul 2026 14:04:25 +0000
-Message-ID: <BL1PR12MB589874896FE87FE0AF19A35D85C22@BL1PR12MB5898.namprd12.prod.outlook.com>
-References: <20260721133803.899885-1-David.Francis@amd.com>
-In-Reply-To: <20260721133803.899885-1-David.Francis@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-21T14:03:13.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BL1PR12MB5898:EE_|CH2PR12MB4102:EE_
-x-ms-office365-filtering-correlation-id: d2d066b1-c7ab-4a4a-5c8e-08dee730f94a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|376014|10067099003|56012099006|11063799006|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info: AEAddyaFCgphsWsEoEvpGL8jfLfdCc6edY6eSLVAl4XkoR3D4NwWb8Y8jbQ4mu0FMi80ILbOluon6jrI5i9e4c4wnmgfRuH9XTMoBnmgXZ5NZDAiw6g0CaIgdjls1p03J+tiP2MnmIV+YPDofDa5jXQsP40WxILNK8FW+lztSkjHs+jI0LoCCG/1+GyLSYYnUfxrSvBmh00Qv3+/9aQ1l1BzscNd9ezQKp/y92AwHOSOZepjWOnQhBdpuuy1CVk7FhDS8O65eXBLWqSgFxY48QC8fGIgRpb/7wFO9ExsKqEMOFxh0Co81j4cwdHJbnkdcN2nwf4Mv/5rs/jbewzL/+mSOZFiNrflH4gDWTloMfACn4foa57jMBas2N/RMLwulH9oZyESGMFGUzHJg8pmu4rGuvbkcYUTM/Xu48P21XXbdNfOCKUwjZEzPu6jNcH++8bIRjQmrp8q0Z8b/7NIRR9SmE0GOa4xODoKDwXOEhtBOp1aVnRW1l0c8didGa6MSDC8iQV48UlwVdVCxThHbqjQARmIelqfxKFJxe9YxM5vKceJ2u69DZxLVOW2KaRtQy52tFxkJgZYXNJeZra2NlGHBrNBueQpr5J2Eie0ttcaG+hC4VPZ8o16azRvONZNT2Wqiv1dwKrc4LlQPIlIAYnXjvS8X2WJ7FDWSsfAg1cjGZ9D9esnnK3a7/AaXKoueJLUDI0yIWUGHYHjybBU+ZSoxOfTg9Dv8CQmTDnLRiw=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL1PR12MB5898.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?/3WUo2VletLuslq/yGs/0Sa8Nd50/OeG6y4MnXoFaj+D+vnxif4hERQHVtA0?=
- =?us-ascii?Q?JMtGp1he9o0agzNMh27+T9cSe4tjM0HE6UGFMpWv3jO2RERbmgAfJL91scwB?=
- =?us-ascii?Q?nEzAXVsAvIBMIDit6D7P/AT0M30Xnfx0/7zoHWMoW6Vrvm0IecbUFz9IkLvK?=
- =?us-ascii?Q?v0rbQjuT53KT/Sg/Z6UPfet7scR5PXHZzOeuCvdGI9cpUDsdEhb0ybscFBKR?=
- =?us-ascii?Q?Cq3QqdqQ3u7mvcSvcHN7PyT6mWYvcHQqP5071Giuk4Ziwv3/soXpTdmJ2swB?=
- =?us-ascii?Q?400mPKuC2dVYjwRF9FwwEgWBxkVPiEueT9Oi+WL9aazZYVKru8FrTnAnHxCz?=
- =?us-ascii?Q?aq+z9Twg864UUXBGWvdmvlkWsLxaFSH1v3qNTrtYrsFgqHJMbXImeje2AJcj?=
- =?us-ascii?Q?yA5kGc7Tt19F8ewm8PdfSvLtl3DIT8wnNY0lRLDElQ1vWP+tzfg98hCOY7/d?=
- =?us-ascii?Q?y2QmCVEiLGgwVa2aXsKYmrO99dG9p33aNqjFVetPP1PBDpDC7wJcQP0VLRHa?=
- =?us-ascii?Q?DMJzZKmynHJ/j+e5cNYpwqc2jVQ4HpnlSicF6t0z6tckUqx/WbG1vb9Lzp9Q?=
- =?us-ascii?Q?DXoL8OfWKeZr7UiBH+2nHxXovSL4Em0Qw4XohFKHbGrUV6suv3hepf9y8iuj?=
- =?us-ascii?Q?cYPJoFpwZl4VLVSe0h4cavXaYZhXTrD/RtX0qPuMPmdJ5bV7OefmzaA+9Vyz?=
- =?us-ascii?Q?y+y7dAUSeWGHn2JR3q+mA8EhoOrsbYUHzJnueP92aPYsHoA6YGVU0oWMGLGp?=
- =?us-ascii?Q?fwAtzRuU2tcO5bTTlKoHcNskEKDhwSltsxGnyI/ocP5uiYIUQkvXNt05wl4L?=
- =?us-ascii?Q?vXdgjF/AxbG5VjK47ydp9gEXs230xSFYTrXjXgt3lvDd4kRV9Cz0G9RL0W3t?=
- =?us-ascii?Q?PkGK4kzHGglTBFYdvDQuKv/IrqY9pve1TzDrlvIbdxawg0IwKCN6OU2oRYBV?=
- =?us-ascii?Q?weiXMipvuuAemyf7i4W2MqW68jc5s+37WN0DPAt19a6BEZhHmX6YYuHQaAcd?=
- =?us-ascii?Q?6xOds1VOEsq9ICv0VRuvPLzwExk6qepQyrbTkz4QzMAD8FLywYsxX5s4yexi?=
- =?us-ascii?Q?uyCQBBA0Wq+Upp4Drb80ongekSwM0at1QaD7cS6QSCTABLv/cdNhV03ztqKG?=
- =?us-ascii?Q?9QfoIzeG/a5klcw/wyhRGRQc42/WfczENGomv8XwSssOF1Fs79cFMnGxJ64T?=
- =?us-ascii?Q?ZIcDlxc5HfhykIyhfSHJWUiyGXxGJ0MBsA8p/rrnWgn8YiZ/2kUKXVUy/80i?=
- =?us-ascii?Q?Q706yTJEbSSb6agQu/g239rjKRC65bNz5CMkDpZ9BP2fIxdeAGuOOF7B1l9z?=
- =?us-ascii?Q?S6FYTvNbTMoLDPEc9Mw33r+gW7V6HSEQjUMvHabCXn5pNaKb+vqrLyQfjxX+?=
- =?us-ascii?Q?6V9npUk6fbP90Jrv1IPj2l/bEE/X0NQ7gpyEZAoj9ZoJIvJN5jMnLzfBVRSB?=
- =?us-ascii?Q?EI1v3/uCHC1ClzaGcGRmwAvAahb11Uu0t3p/qvoA1WcYa+tgjj1rtVXU9OL/?=
- =?us-ascii?Q?BJi6uC9iYb8lVjbb9YJSLFtBRjYYgtj/4QM00d6G9zoLUFm1idVEvA+i12pV?=
- =?us-ascii?Q?Y5/bc42GZkOQZP7jDxmPaj8Mn82Ts23TCO4FFtXesdZB6iYmyNdp2kj2hkss?=
- =?us-ascii?Q?lFPylEi2qfPcgHTg6DFPnSXfzJoblzmpyvwpXIcxiULLTOQ4Ob2aF5VBIhft?=
- =?us-ascii?Q?qj1qwOsWrwIoP4FqyYSq9UjbVM7AmsI+JZU17TC954TL7PFZ?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 363EE10E4D7;
+ Tue, 21 Jul 2026 14:16:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1784643357; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=QuGCdl4Szlg2KXEmcHJjRrk/SIi4eWKvbTtkl929ldYHyqcXkMIFptezcql8xahJHk+POokMWZ2bkUbV1B2OT67PAhO7Qvt4H4Dr2YL5n7ZHMcx+QruwQCJ9jDCWtrxjeDkiOEIp/TLHrq++4VeHOgUz+jUYHD3bIhnI4F5nxcc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1784643357;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=OUxzupHf4j6LntV2VOwhFmAlGB9SptJ5KFJPdSciEow=; 
+ b=dGqu8NhMHGewwcnl3g+ThmgwPsKJYjIcUVsmDNUHnX1ub7cItuV8kdr7Dk3eTqEgd0Q47dY2BHxJzWrNBVbb3GDL8VH3R9ouF2jk2uk+DiGIWDV4wVC1c8ldkaWx3mpGhwsJYUOxLH3pSrSpU5Qs1+SJeAmA4Sa8MoAwW7GUb/M=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784643357; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=Content-Type:Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Message-Id:Reply-To;
+ bh=OUxzupHf4j6LntV2VOwhFmAlGB9SptJ5KFJPdSciEow=;
+ b=V+PSS6fIyGouG0O9oQ9uM72oovX37UGAe+4jduj9YVl1AkkyDw8Q/jnbaP4ak8Hd
+ oHBnJXTTcC4nrQiaid7QY5dnnvabwC8XGUKll3lhqI5Eiw5A9jcv+TIxZx63Y4fRB6Y
+ HH1D3/5jWNDmzJbAvtk6wvKR/NovaZxKlzoX9eGE=
+Received: by mx.zohomail.com with SMTPS id 1784643355399871.6881216922268;
+ Tue, 21 Jul 2026 07:15:55 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------3aQ6Vfv9xo3S5dEIz0PeyWI4"
+Message-ID: <9339663a-a0ed-4b7d-968e-1ced87db7c65@collabora.com>
+Date: Tue, 21 Jul 2026 16:15:49 +0200
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5898.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2d066b1-c7ab-4a4a-5c8e-08dee730f94a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jul 2026 14:04:25.9852 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: znpVH6LvkgHZL2uQtW88nrxBOVV3RFESsFGeS7qa6Bz56iAtnygn2WBv7SM0++6KnE6MgeBOjo8j+/2hXDQYxQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4102
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm: Guard DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE
+To: Harry Wentland <harry.wentland@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-kernel@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ Daniel Stone <daniels@collabora.com>, Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>,
+ Pekka Paalanen <pekka.paalanen@collabora.com>,
+ Leandro Ribeiro <leandro.ribeiro@collabora.com>
+References: <20260703073230.19982-1-robert.mader@collabora.com>
+ <6d8806b8-fc71-4699-82c4-7189a0ea2284@intel.com>
+ <bb5918f5-a6da-4908-9332-18e0df39c005@linux.intel.com>
+ <7d58b289-eabe-4d68-9080-c7202b0f60a0@intel.com>
+ <d42d5750-f3c5-4e2b-baa3-514b87e59e86@linux.intel.com>
+ <361dfc91-94e8-4289-9b3e-5280803d9257@collabora.com>
+ <a7887776-c26c-4f6d-a662-2d8ef005ff4c@linux.intel.com>
+ <2fa23cb1-b4c9-459b-a0dc-31960313a243@amd.com>
+ <b670d594-0582-4c91-8264-88d1de5de1d8@amd.com>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <b670d594-0582-4c91-8264-88d1de5de1d8@amd.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,47 +83,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
+This is a multi-part message in MIME format.
+--------------3aQ6Vfv9xo3S5dEIz0PeyWI4
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Reviewed-by: Kent Russell <kent.russell@amd.com>
+Hi Harry,
 
+On 21.07.26 15:55, Harry Wentland wrote:
+>>> ...
+>> If I understand you correctly you suggest to map legacy COLOR_RANGE and COLOR_ENCODING to the new FIXED_MATRIX colorop in a generic way, instead of having drivers advertise them separately. Do I have that right?
+>>
+>> It's probably a good idea. It should be easy to make that change after merging the Fixed Matrix series with YUV support.
+>>
+> I sketched this out but both VKMS and amdgpu have HW generations
+> or configs where no color pipeline is created. For that we still
+> need the current way of COLOR_RANGE and COLOR_ENCODING handling.
+> Because of this the code to create COLOR_RANGE and COLOR_ENCODING
+> based on the color pipeline is not really simplifying things, but
+> merely adding more code.
+>
+> At this point I am not convinced adding helpers to create COLOR_RANGE
+> and COLOR_ENCODING based on the color pipeline is a net positive.
+> Maybe in the future that equation changes.
+>
+> If anyone is interested I'm still happy to share the code. Just
+> let me know.
+>
+> Harry
 
+thanks for taking a look! I'd be very interested - mainly because in my 
+understanding the "both VKMS and amdgpu have HW generations or configs 
+where no color pipeline is created" should be fixable:
 
-> -----Original Message-----
-> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of David
-> Francis
-> Sent: July 21, 2026 9:38 AM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Francis, David <David.Francis@amd.com>
-> Subject: [PATCH] drm/amdkfd: Handle invalid event type in CRIU event rest=
-ore
->
-> In kfd_criu_restore_event, there was no handling for
-> the event priv data having an invalid event type. The priv
-> data here is untrusted and can be invalid.
->
-> In that case, fail with EINVAL.
->
-> Signed-off-by: David Francis <David.Francis@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdkfd/kfd_events.c | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> index f5fd78f0df7d..9e0f57cfa3bf 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
-> @@ -452,6 +452,9 @@ int kfd_criu_restore_event(struct file *devkfd,
->
->               ret =3D create_other_event(p, ev, &ev_priv->event_id);
->               break;
-> +     default:
-> +             ret =3D -EINVAL;
-> +             break;
->       }
->       mutex_unlock(&p->event_mutex);
->
-> --
-> 2.34.1
+ 1. For amdgpu every hardware generation supporting COLOR_RANGE and
+    COLOR_ENCODING should be able to create a color pipeline *only*
+    exposing the corresponding FIXED_MATRIX colorop, mapping to the
+    exact same hardware block internally. I hope that shouldn't conflict
+    too much with the current architecture?
+ 2. In case of VKMS the "enable_plane_pipeline" config could be adopted
+    so that - if it is disabled - the plane pipeline is still
+    initialized but only the FIXED_MATRIX colorop is added. Additionally
+    we would need to disable DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE -
+    possibly by a driver cap similar to v1 of this series - so that
+    userspace can't enable/use the colop-op directly. As a result, VKMS
+    with enable_plane_pipeline=0 should get the legacy properties via
+    your helper, be able to drop explicit handling of them.
 
+Does that make sense / do you think that could work?
+
+Best regards,
+
+Robert
+
+-- 
+Robert Mader
+Consultant Software Developer
+
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
+
+--------------3aQ6Vfv9xo3S5dEIz0PeyWI4
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+  <body>
+    <p>Hi Harry,</p>
+    <div class="moz-cite-prefix">On 21.07.26 15:55, Harry Wentland
+      wrote:<br>
+    </div>
+    <blockquote type="cite"
+      cite="mid:b670d594-0582-4c91-8264-88d1de5de1d8@amd.com">
+      <blockquote type="cite">
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">...</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+If I understand you correctly you suggest to map legacy COLOR_RANGE and COLOR_ENCODING to the new FIXED_MATRIX colorop in a generic way, instead of having drivers advertise them separately. Do I have that right?
+
+It's probably a good idea. It should be easy to make that change after merging the Fixed Matrix series with YUV support.
+
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+I sketched this out but both VKMS and amdgpu have HW generations
+or configs where no color pipeline is created. For that we still
+need the current way of COLOR_RANGE and COLOR_ENCODING handling.
+Because of this the code to create COLOR_RANGE and COLOR_ENCODING
+based on the color pipeline is not really simplifying things, but
+merely adding more code.
+
+At this point I am not convinced adding helpers to create COLOR_RANGE
+and COLOR_ENCODING based on the color pipeline is a net positive.
+Maybe in the future that equation changes.
+
+If anyone is interested I'm still happy to share the code. Just
+let me know.
+
+Harry</pre>
+    </blockquote>
+    <p>thanks for taking a look! I'd be very interested - mainly because
+      in my understanding the "both VKMS and amdgpu have HW generations
+      or configs where no color pipeline is created" should be fixable:</p>
+    <ol>
+      <li>For amdgpu every hardware generation supporting COLOR_RANGE
+        and COLOR_ENCODING should be able to create a color pipeline
+        *only* exposing the corresponding FIXED_MATRIX colorop, mapping
+        to the exact same hardware block internally. I hope that
+        shouldn't conflict too much with the current architecture?</li>
+      <li>In case of VKMS the "enable_plane_pipeline" config could be
+        adopted so that - if it is disabled - the plane pipeline is
+        still initialized but only the FIXED_MATRIX colorop is added.
+        Additionally we would need to disable
+        DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE - possibly by a driver cap
+        similar to v1 of this series - so that userspace can't
+        enable/use the colop-op directly. As a result, VKMS with enable_plane_pipeline=0
+        should get the legacy properties via your helper, be able to
+        drop explicit handling of them.</li>
+    </ol>
+    <p>Does that make sense / do you think that could work?</p>
+    <p>Best regards,</p>
+    <p>Robert</p>
+    <pre class="moz-signature" cols="72">-- 
+Robert Mader
+Consultant Software Developer 
+
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England &amp; Wales, no. 5513718</pre>
+  </body>
+</html>
+
+--------------3aQ6Vfv9xo3S5dEIz0PeyWI4--
