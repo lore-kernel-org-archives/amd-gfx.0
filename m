@@ -4,121 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6344C44515
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 02:10:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 83269C44520
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 02:27:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 529A610E18D;
-	Tue, 21 Jul 2026 02:10:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 192D210E269;
+	Tue, 21 Jul 2026 02:27:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="w0wMZ3Ox";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ms0wmxb1";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010048.outbound.protection.outlook.com [52.101.46.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5775710E18D
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 02:10:55 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011017.outbound.protection.outlook.com [40.107.208.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F4D210E268
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 02:27:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fp8HeeUqEdX2rM87NorP3r8G3gKr5Ri6SyiqVrm7fuJNLU8W39bvgboaBZFeOXvpbfT5NZZUAJKhAE3zln6IeQsQx1ZK/Z/SmY4q3deD7qAsgI9XPF+ofUZ1RmW14D3be5vh4eEYos7lTv2sEf4Auf3OTFnfHXSJWCxl/MggcKEtirr3pHwkI6YaBOYrHe/kAdzpZBHI2cve+36OY5ej9k2PSxyXIHUtkeqjiSpG2unZOf41pFBMNrQTxd76yL5J3XxuMAXtpS8Ots4Q+NnKqg9Mx1IO/w5Fgdz2p9J7+EllqZSAF7m3cuhS9QHDjORIS7QyZyGq5roZxCjVV+GygA==
+ b=k0cPhls4AI7ghPH1VXnNBNEmeG3vCHU4g9MCXfVlFK0ZE/atsoQezVYBjwoWwDqxFqbjMVwdxI7dGcGycbBbUBIRSigF8gCpp1bMcE/AQyEhJDRCb7UJdomYXFtdsAxaTEO6jXN0HzQ7TJ9Yuj53M5xvse5XhHaf9YcXuxvNq9KfYcR78Ff98RUW2dYE3fLY5WiBLhE+4APfbPs3/CLhIcPdk3xg61ReuXNAFsYV+xCf53wL3J9LsTCMPHmBx/lHgCJZSNrdHLuin4lrW9HWoa3GWVY3vYYZietyMLLGI/nLnQQvPDUsosU9Ag29wWfnsFFlKIOBRHOG5amdOoehqQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6C/2J81o/CFiVNdS0TljxoKJS0IRfPptYhAHPh5ZiSM=;
- b=ZKRynjlHaVMKYrOAFawEMGm6URyaPFjszdEwh8sT2QA/KxbeiBmkVcBmA5x0cxSNmjJ1Go6a9QPdkuOW2XytnIE2wf39PF6e0XlAAdu59RBE8ABIs5mb0olvc1KWxvQKLBCQah+P2kB7b51KbTi654QlZTFjLv0A8vb1UV/ZyIJFw9bDasN23vRcSqqLv6Kh3DUmck1yBb41hSu/dbiKVUQ61Mp2lm3qyudW9uRIRSW/EVQQB/yaVNWkKI2u1Ts5eSEdx5vT8PLmJAJdlUXfXrmVXZW4bTYS//jQqvFPLP6h7B6LnCzL6BnuL1kLP8sWmncvkurw8IY6FmDluslPcg==
+ bh=PwuJVI1zoT54TnV9hPfHMjOe51V23Y/92EwFJKR2pJ8=;
+ b=o8fZY1ZJeIfZ4ky6VaLYT3+bS2apcRQ6Am91IEJLH8oEr5jHL3KiQJA1LtQhlRqdXKgmoe5TtxqPDXV5pd9JigauUu84bphhzqM7pGUii+PRq2UFVHKdKfdpRVeLL6nMGmtlGISbtoQ/jEql+QxZECXJ0WYI6oJJ0U1kGbMTLWf1N2RH4GzXWF0s216lAlIPND7MhMiXZYKmVuDpHJWEj6UBzfuY3XpkGGYN7W05HswwagqTA3VCNLFe9c/tGoSQgvN6iJau9m7hPx2xqcod0sXrvapxsHoVJo8FvM94yY7qPAC8kuB0o8u30z0hxrbcBT+YcGt2snabjed5CK2w5Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6C/2J81o/CFiVNdS0TljxoKJS0IRfPptYhAHPh5ZiSM=;
- b=w0wMZ3Ox050qrk8l1IlJhHUNuZiEGhsJnLbsIS2cttLYMUpDPX96+JgGV2smjdzBGvNY+UEAvTbAvyP1bbtyTiz09jJh8O1ppvy+ypiFA7FWRR3yPFcrgnghs4/Ns45PJ63LkTiAxbeD/cbArTGdv+A6+cJnMkLAdxC8aI2TKFI=
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
- IA0PPFAF4999BF6.namprd12.prod.outlook.com (2603:10b6:20f:fc04::be0)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Tue, 21 Jul
- 2026 02:10:51 +0000
-Received: from DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::ab84:617d:61a9:3727]) by DS7PR12MB6005.namprd12.prod.outlook.com
- ([fe80::ab84:617d:61a9:3727%3]) with mapi id 15.21.0223.017; Tue, 21 Jul 2026
- 02:10:48 +0000
-From: "Liang, Prike" <Prike.Liang@amd.com>
-To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Chen,
- Michael" <Michael.Chen@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Add missing MES helper parameter descriptions
-Thread-Topic: [PATCH] drm/amdgpu: Add missing MES helper parameter descriptions
-Thread-Index: AQHdF6Usin17VU1n+U++dJVhBqq3wLZ3PIkw
-Date: Tue, 21 Jul 2026 02:10:48 +0000
-Message-ID: <DS7PR12MB6005C8C9C61904AF2C242129FBC22@DS7PR12MB6005.namprd12.prod.outlook.com>
-References: <20260719173627.3598744-1-srinivasan.shanmugam@amd.com>
-In-Reply-To: <20260719173627.3598744-1-srinivasan.shanmugam@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-21T02:09:08.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
+ bh=PwuJVI1zoT54TnV9hPfHMjOe51V23Y/92EwFJKR2pJ8=;
+ b=Ms0wmxb1qnvZOBadq9cidYkFR8k0wcmsood8szK0Yafa5Nb/Pr7ejocYeYhXcXA/uGipCAB639i3iVIMVtChilhko94XWVbZW8SfcA8umC6Tz8j1YwID1GRzH8AFzCZL0trsgNhGY5ToAPw8pG+Q7nTw9R6fSL1+8sW/J28rEvw=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|IA0PPFAF4999BF6:EE_
-x-ms-office365-filtering-correlation-id: e0115b73-21e1-492b-081e-08dee6cd4839
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|10067099003|6133799003|3023799007|56012099006|11063799006|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info: S0GSw+t1k7lpdXYOFkAXZSBNnM/9fattakYlv8KxQfRBjO7x8uQfKI1dAc2uBCGhUX++D3FSgULTPhhRcV05hABajPIHYMpZO7T79W29SK14nKhirsbCpAafEamyCX+LXBZyjLFueGElaUC1FrTp5+gd7x34zrHT0oo8O42RCD8xa799a93WE4m36vTar0+Qpd2lh9FS9X/G9l+S/4onqhc5CAtTZ7mTxVToDwva3FFY0A7MQPTXFz5RXfFxWZjQiq60cg0z3l35gaAcPepv6KL/fIYEphNjfxrANMJvV5fcOdT3z5zL8Z5u3iqaX8RWJTDAcIWKtQV8cC0zI8vwu99JoHEC5T/M1QugIBGj1VJC7c2LNOu4A+60kaBFif6uYmBNuG023E11+nHuJ3V+NtOH/DSpK11zHb3fxgIoi8X3p0QgrR8ykfIDZ8Pni3nCk8nxlHIqK1cHNAPsx0gpB62kmegbizqu/8+BBq2riAjz7hughNCO/yF5x4e9dBI1t1fWHhbFx9Xo/IOgw/DGm9hY9yjM0G1flY4zN18qBg+9zDnf0cdelIaPFZfDAonGCG6lN6jKDUrz06d9zvYwYXuMiqm87bb0iij0mDx3emdPiNE3ukSiz9+QUZrqyaE63m4E9DnAXZjZqNrghXL+TNsT0UouHc2KbDwNsuNhBOZpxfKJqEw45U1liImq6FX+0k9wCMJZlF2VE9hRG/Ww9QtziICW38YVomQXq3WmKXA=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(10067099003)(6133799003)(3023799007)(56012099006)(11063799006)(22082099003)(18002099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?CvrNfODRAmMRYpYyXkGM0WIl2nurTvCpZB96we7WrwjFkU9Jm5qQ3wJFO+sq?=
- =?us-ascii?Q?AfPQacJhBqWDj7sBqwx9qXnBo5mQNY/VovzQvAwNap3k9z0oDlUtpZScdhkk?=
- =?us-ascii?Q?lGHfB+p83OmbUXUr0qvx8Mh3JRrnGdkdkrGmTH9MyyYHO2LWDcPAuJEdeW5i?=
- =?us-ascii?Q?+mPe9DfcKXqQ1TQ0XXou/phtyNOY+bWoB7FyGBvuc0e56EV4a86i5iLCkF4S?=
- =?us-ascii?Q?n68d5WiVmwxOQV4jb+QbUeWgUUA00/AtiFLZ4E1VWIcb2udvJtf10eK65sZr?=
- =?us-ascii?Q?cYegyZXhmQFmhZN37InymOshFa1ZucQFBKmn6ThNznU1E7XQv0/zNo5qNckE?=
- =?us-ascii?Q?yN2IVePGhujKKu+W9MePPVLLXYQts7KvmoXSCbO9ea4Z0NXpRPn6l8cTz+Vs?=
- =?us-ascii?Q?39Ko0ieeNhfJspVUcxRcmm5Bgct5DtKOFrEKYDxYYc81/6QHGyp1jfNWNcEt?=
- =?us-ascii?Q?VL2grjXoW41kVAqb4zBbNMzXAdQUS7pFsBLfw3/qkR5sDN/tAkQN8rYUhClP?=
- =?us-ascii?Q?Ivk57+H16iAX5Or1DG7h2ZRIffQj1IHBJSNnXVroqXmHoRT0q2wx/qSzADeG?=
- =?us-ascii?Q?BNEkBLTRvXf9RAdZJSnYd36Yi86dZL2NhFcYC7Iccvocf2fuR/Qw5PU6k3kd?=
- =?us-ascii?Q?ktxKtIPDA3r6+iW5ELyq3IYAX12TPeIZwUMkb7wxZOFuNDC+uJQJ6I/76enf?=
- =?us-ascii?Q?JoaYpqCtzYtngc2HGsHyk8ayJzPCLsSAVABJ1v9mthTNHr0C8j/l+d7ao82r?=
- =?us-ascii?Q?2y3t48VNzzDC92PgES3pVcKyu+4g5ys4yI1yoF1IMoXuyQVRBywsffP0b9Hh?=
- =?us-ascii?Q?LZOv/9ZEDHK0ENX85Oig1xeSmeod50YBWM0UxCF/gFHzdTATFIKdt60aVaCR?=
- =?us-ascii?Q?3fxP3eB3qQ9oOweifV+NZ149dCV8/iuHpxWmA/RIFVZ3RvSmhAfIoUfni5rI?=
- =?us-ascii?Q?CKnNkbADHcrQ192qDQTTGZJIiMfgHCZ48qOQkAMDbHtO8JU8Heh5c4GQM/3X?=
- =?us-ascii?Q?JeqyLDqtkqBeVnYVex1NQej01uenKyUzPRvomu2U8FEeNq1MAOVWJlDlQtxy?=
- =?us-ascii?Q?Fc1yaMLvUT6ML8q8tF8Dc9sXa5KyeTZoWAcGT4ELBleSJOIlni4QED96UYbf?=
- =?us-ascii?Q?guBqUNXM3c9A6yfdUTpPsQgfMBmdR64VY3rE+0hpb7095ACrbATSuJamjXOQ?=
- =?us-ascii?Q?Z8TI6IAztXShuUwwpke5m+Qw3d0emmMhijouKPA+SVIwTnyhTybvepviMhYq?=
- =?us-ascii?Q?eVQ3j6tEGOEo4JnLIY/kQVlHAOoL9U2lvH/xdPS6FTYKHhpr9WT3RYC/dGx9?=
- =?us-ascii?Q?0+D1FPpoOIPt2qYxiPto+GPOF8mZhhe21DVP/U6zwm/i+pthsjopC1UeL6aw?=
- =?us-ascii?Q?jtXwqNIaPRlDV3r+2uOWWuL8Qe3U5yXrJ4K2O877cN/qB3+40LfncVBeUttJ?=
- =?us-ascii?Q?TIirqpgpApWrk3zSJfjFvq1eaqbu4kwlnHT0LwCaEW/1736XDZYlVtEWznOW?=
- =?us-ascii?Q?fwYK4LM2JtlfnYVR+7Vm9vEnkL1m6wBuwbquRRLDtjzH3gWMyLwHjaH3IQhh?=
- =?us-ascii?Q?eagvWSMoprC7Faw8GXwhWKF8jVTO5kHJJyrlUomVwxxFmysF1I+myoV5t3bu?=
- =?us-ascii?Q?/MfwZnmuyLOmx8pwqE6kViXxk/Bntg0SI4hPOxlXyPUq4WoKi2WtZZrW2xd/?=
- =?us-ascii?Q?mGimg9Gqa3TxJtT2ptk9c00cAPxwTIxs2dHf4HWnYwlQ/a9d?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from CY5PR12MB6132.namprd12.prod.outlook.com (2603:10b6:930:24::8)
+ by PH7PR12MB6719.namprd12.prod.outlook.com (2603:10b6:510:1b2::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Tue, 21 Jul
+ 2026 02:27:52 +0000
+Received: from CY5PR12MB6132.namprd12.prod.outlook.com
+ ([fe80::d9ab:4258:a9ef:b8cd]) by CY5PR12MB6132.namprd12.prod.outlook.com
+ ([fe80::d9ab:4258:a9ef:b8cd%4]) with mapi id 15.21.0223.017; Tue, 21 Jul 2026
+ 02:27:51 +0000
+Message-ID: <407e7ce1-4fff-47c5-b899-1d2bb824c68a@amd.com>
+Date: Tue, 21 Jul 2026 10:27:43 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 16/32] drm/amd/display: Add Support for HDMI Compliance
+ Automation
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+ amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Alex Hung <alex.hung@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>, 
+ Roman Li <roman.li@amd.com>, Wayne Lin <wayne.lin@amd.com>,
+ Tom Chung <chiahsuan.chung@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu <Ray.Wu@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, James Lin <PingLei.Lin@amd.com>
+References: <20260610094639.1965367-1-chen-yu.chen@amd.com>
+ <20260610094639.1965367-17-chen-yu.chen@amd.com>
+ <nGLVvJOTS8eSI7IusBrUxw@collabora.com> <dvZfompQRf-4fxleZDXPUg@collabora.com>
+Content-Language: en-US
+From: "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>
+In-Reply-To: <dvZfompQRf-4fxleZDXPUg@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: JH0PR01CA0145.apcprd01.prod.exchangelabs.com
+ (2603:1096:990:5b::9) To CY5PR12MB6132.namprd12.prod.outlook.com
+ (2603:10b6:930:24::8)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6132:EE_|PH7PR12MB6719:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5672f76b-9161-4b4d-04e5-08dee6cfa9c1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|376014|18002099003|22082099003|56012099006|11063799006|4143699003|10067099003|6133799003;
+X-Microsoft-Antispam-Message-Info: zaTLZerNtDhPIgEE4KLwJqNRHFvGyO2QusIbGlKWNvT/XtGxLSoR9n7TBrA09cyLyN6YOwY4M60S1tayr8HAxf14LzwAlYtYHj745PuhWMk7RAdg2m3Q8QXmScLKq+Nf2seYEY0veeyGfyGi9etIfP+XFgXvqRd3h6BQXoVQNPdmjO1XxezFnn8FVYqbN99YRxl0yWxwUn8ubofTlHH3OV/Ao8lPvJerlSjsa977+SsDQe5I0FlG14K53GDTD4+BjFoFS2fWWwOWbzdLp9o2jkMnOspE97oCUCrP/1T/XJjqxVCqbeuapvDlhuL6A3nzRsaMbKgV9BAYgHpHK67rWnKuteWgyMxw9EzRfLWhxvBACnxpnFqXFANJ5jdmK8Q7RJ4ByVlbFFQ40rNrUEt3h6Em95Mz5FZENZ+STOd2s+IfyTrHth4sgjfELOO96RY57jtFQ627jIndc7HDc/ptbu4pg/6iHKgzjtQCR4i3xbew6Z42H9ci+TFfYa5W9mbvcxoMknF+J5rL3jr6kInUmddRJdWotsbVyWFNrUMsWtAqEezLJHGGFzG3hdqqyYBQBGMec2+c2vZ1Dz0AlcT9Xvety/2VqDDvNGF5TvtCFc95N5q5YtnboQDuTrGFBrt6qWRoXiL+olqjYWepPPT/ERuiZDO73H+qI7r0mjBCBZg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY5PR12MB6132.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(10067099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YjRqdVdRMTZlWUhvdnNzV1Nvbm5UMVludDdqalgxYUFyZkhmckxtT1VwbzRB?=
+ =?utf-8?B?d25RckU3aGFyMjdmKzN4aCsrZVQ1UUMwRHFNUnh0QXoxUWdFN1lxaGM2eGx0?=
+ =?utf-8?B?MmRyRUExald5Nm11ZmwwTTQzSTZaSXF6dzBpRTZzYkRUR3M0NzQyYmFPN1di?=
+ =?utf-8?B?QW00NmNIa3BxUkQzc3h1NGE3QjFTYXBwUXlrWThwVFlnRGdicSsxTFB6eUt1?=
+ =?utf-8?B?ME5zeGluc21FNTc0ekt2RTdJdjJyRXRpSGw5bEFtM2syMUNHTkxUcjM4elRz?=
+ =?utf-8?B?TkVWcUtOZSt4YzhmcWo0aHN3ajlqTWVKQjVtL2hRUDR0bWl3WUtzSzdRcWgw?=
+ =?utf-8?B?aGJzRk54VUlTSjRYcVZOckVpSjd3Tm1tTmMzRjh6bGhUdW5DOGtyTXlPaFI2?=
+ =?utf-8?B?aU1nbUltdkk0aVR6OVlkMGVhNDlTRUJld1lBSTcvciswMytPWHVmRFcySzBI?=
+ =?utf-8?B?Uit1WXE0QkZsSUQrWHFxTUt4bjh3TCtSMDNncEpRTyt6T3lmTVU5bzZuT2ty?=
+ =?utf-8?B?K2FSVk44bHJvQlVvWFNwRitvRWdwazdxRXlqWjlicG5kQzFDWDVMSlRrQ2FD?=
+ =?utf-8?B?RWVjU1RyYzhROHg4UGJZaTU1NVZZY3U0T2tsMDNJeVlXdGFPR2cwT0pPc2Vi?=
+ =?utf-8?B?ZC94VzRMZTVBWVFUSll5YVFXQklJaFljK09VcXN5QVNRaWx6TGRmMi84dGtJ?=
+ =?utf-8?B?MXA1aEJPVkRNcU42RjJaTThBU3A3UFAyWThQazd2d0JtejN2cVJLdEh4TG1m?=
+ =?utf-8?B?WnQ4cVVtV2Rqb2NZcGg1Y2VRcWJhQ2p4RkxkRUxOS3RhUFFJUUNjZ1R1V2ZZ?=
+ =?utf-8?B?emlnZ0ZDandhdEE1a0x3dnRCRVpGMVBBNlBZaFJqUmdxNS9Xa3RFRktZcUM2?=
+ =?utf-8?B?Qm1Pc1orS1RxeExjTGpWcUNzUjAvRzk5dXU5cGVvS3Y1OE1RRmwzQ05QYnZB?=
+ =?utf-8?B?VGcydnYydGNaTk9CdGVVRVdlQWo2MURKTjRhWEJiN2Z5ZXo3NzZ5OU9jVFR6?=
+ =?utf-8?B?L01CcDNBL1dKNkEvS2cwM2RNeVBnVjJtYk01WnZyaWtQaU5hT2paN3dWbTdi?=
+ =?utf-8?B?Y0FpT3M4QklSVUE4bkxrS1NYNmNmaFdKVm5VN0M1a2x1Vmc5b0s3UTFVbXFZ?=
+ =?utf-8?B?ODVHcG8wNmI0REMzQXZqMnZ1QUJURWp4SndTSTk4ZEw4NjEzVlZqVWM4OG5x?=
+ =?utf-8?B?NTkzeC9ERmV2Zmd4WFl0TE9VNHFhWlNWSXBsVFFaKzIxdytCZDI3T2JreWFT?=
+ =?utf-8?B?WSs3M0ROQXJlZm5rUE1KQng1RUZQcnNhbGNHWWxZRjl6UDA5S09HVlUwOThr?=
+ =?utf-8?B?Y0MyS2hCVlJKb3FkKzdNQ1phM1FiQ2k3Q3dNc1UrU3FtRjRDcE9PSUhheVE4?=
+ =?utf-8?B?Zk96b0F3cE44TGpqQnVBbmhtWVo3VGRyMUI4VnZha093VjVBbVd2Ulk5cFNX?=
+ =?utf-8?B?bzhzcURzTXY3M0JYZ1VzRXNFajVKMjZLZ2ZIVjRYUmdweDBFczBjR1UwUUJR?=
+ =?utf-8?B?WGpJV1c1UlJPSyt0bmZDakluTWRodEVjZ294UFV1YTBtYk9JOUN3N3VoZjNv?=
+ =?utf-8?B?MklDUk9KbUpLSllxcWxCclZmVHhDQVRYNVlCWXB6MFZOeG4vMWFLUzJNNnFC?=
+ =?utf-8?B?aVNCVHU1Y3lNZzBkWVZyQkFHWktWcVZkcUNVMlM4YlVYNWlXaVMwRlJubE1w?=
+ =?utf-8?B?ak1vR1NLNi9yNmcwdTZrWnRIRmxzSWJkMW1VTFJXclpqVVFvLzAwaXBHTEJy?=
+ =?utf-8?B?Sk9zNGpzNFBGSXhuLzNmaGwxUm5zejVFVzZVZnJaRVBLU1o2UEJhdkZRMW5t?=
+ =?utf-8?B?UG15SklINHhwQ3ZUeFhvUnhYNVFXR29MQm40SnpYYVh4S2p5UVF5bmxTYTk3?=
+ =?utf-8?B?TlRvUXVoYnZMTUpFa3QvMHhWQmU5d01veGNOUWs4L0tCRHFiSkozaVJNWGxO?=
+ =?utf-8?B?RHJhaUU1c01VTjBkUUZGeWpUVXFlQTh3Z2hlMGNNbStqcjBGdWFLNDZtZnAw?=
+ =?utf-8?B?YlZlSXNQc2UxM1V6cENmWVlSakdtcEZaaWN2VFNoTmtYV1FxMlphbDlTa1pP?=
+ =?utf-8?B?b1Byck5JRVA1T3JIZUsxcVVjakJma3pMQUFTTmFZQzR4UFdXcGlkbnpoZzM4?=
+ =?utf-8?B?akV3Q1Q3Q21GaWUrRW5tQWE2Nm1hS1A0K25aSVA0TktUUDRLSG82blhmbyti?=
+ =?utf-8?B?a3VFaFBtYVNkTmllL2oxK2E1clJRM2YxaExFWER2R1JCNmkxbndldzMwUEFC?=
+ =?utf-8?B?Y0l0SGNYWEl3d1dvdC9XVFBMTjFNdWt0TkVoMC9pVnBxUFdqWHRPVzBZNnQ3?=
+ =?utf-8?Q?UsmSrE7RdPCYJQQg/m?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5672f76b-9161-4b4d-04e5-08dee6cfa9c1
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6132.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0115b73-21e1-492b-081e-08dee6cd4839
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jul 2026 02:10:48.6949 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: qdiPbYpSIpLQdqPufe9cR4zYloMU9LpqFN0ZI8sxemchE1OVLOzMeS9EF+h1QuZn
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPFAF4999BF6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 02:27:51.7079 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VAQQhI6UVmz63B34XL27bb/opuabfXPX1oyzbISnBCR7PowLA4td1YgaXGG0YRW6a5+1bVJazPAvcVj4uqLC/A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6719
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,128 +142,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
 
-Thanks for the fix, but I already had a fix for documenting the MES rs64mem=
- a few days ago.
+
+On 7/20/2026 9:14 PM, Nicolas Frattaroli wrote:
+> On Wednesday, 10 June 2026 16:43:37 Central European Summer Time Nicolas Frattaroli wrote:
+>> On Wednesday, 10 June 2026 11:45:00 Central European Summer Time Chenyu Chen wrote:
+>>> From: Fangzhi Zuo <Jerry.Zuo@amd.com>
+>>>
+>>> Add support to get DUT trained at FRL link rate when working with
+>>> Teledyne M41h compliance automation.
+>>>
+>>> Reviewed-by: Alex Hung <alex.hung@amd.com>
+>>> Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+>>> Signed-off-by: Chenyu Chen <chen-yu.chen@amd.com>
+>>> ---
+>>>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  3 +
+>>>  .../display/amdgpu_dm/amdgpu_dm_connector.c   |  5 ++
+>>>  .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 67 ++++++++++++++++++-
+>>>  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  6 ++
+>>>  4 files changed, 80 insertions(+), 1 deletion(-)
+>>>
+>>> [... snip ...]
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+>>> @@ -2982,6 +2982,64 @@ static ssize_t hdmi_cec_state_write(struct file *f, const char __user *buf,
+>>>  	return size;
+>>>  }
+>>>  
+>>> +/**
+>>> + * hdmi_automation_enable - Enable/Disable HDMI automation feature
+>>> + * @f: file structure.
+>>> + * @buf: userspace buffer. set to '1' to enable; '0' to disable automation feature.
+>>> + * @size: size of buffer from userpsace.
+>>> + * @pos: unused.
+>>> + *
+>>> + * Return size on success, error code on failure
+>>> + */
+>>> +static ssize_t hdmi_automation_enable(struct file *f, const char __user *buf,
+>>> +	size_t size, loff_t *pos)
+>>> +{
+>>> +	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
+>>> +	char *wr_buf = NULL;
+>>> +	const uint32_t wr_buf_size = 40;
+>>> +	int max_param_num = 1;
+>>> +	uint8_t param_nums = 0;
+>>> +	long param[2];
+>>> +	bool hdmi_comp_auto;
+>>> +
+>>> +	if (size == 0)
+>>> +		return -EINVAL;
+>>> +
+>>> +	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
+>>> +	if (!wr_buf)
+>>> +		return -ENOSPC;
+>>> +
+>>> +	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+>>> +					   (long *)param, buf,
+>>> +					   max_param_num,
+>>> +					   &param_nums)) {
+>>> +		kfree(wr_buf);
+>>> +		return -EINVAL;
+>>> +	}
+>>> +
+>>> +	if (param_nums <= 0) {
+>>> +		kfree(wr_buf);
+>>> +		DRM_DEBUG_DRIVER("user data not be read\n");
+>>> +		return -EINVAL;
+>>> +	}
+>>> +
+>>> +	switch (param[0]) {
+>>> +	case 0:
+>>> +		hdmi_comp_auto = false;
+>>> +		break;
+>>> +	case 1:
+>>> +	default:
+>>> +		hdmi_comp_auto = true;
+>>> +		break;
+>>> +	}
+>>> +
+>>> +	/* Persist setting across sink re-detection/hotplug. */
+>>> +	aconnector->hdmi_comp_auto = hdmi_comp_auto;
+>>> +
+>>> +	kfree(wr_buf);
+>>> +	return size;
+>>> +}
+>>> +
+>>>  DEFINE_SHOW_ATTRIBUTE(dp_dsc_fec_support);
+>>>  DEFINE_SHOW_ATTRIBUTE(dmub_fw_state);
+>>>  DEFINE_SHOW_ATTRIBUTE(dmub_tracebuffer);
+>>> @@ -3099,6 +3157,12 @@ static const struct file_operations dp_mst_link_settings_debugfs_fops = {
+>>>  	.llseek = default_llseek
+>>>  };
+>>>  
+>>> +static const struct file_operations hdmi_automation_debugfs_fops = {
+>>> +	.owner = THIS_MODULE,
+>>> +	.write = hdmi_automation_enable,
+>>> +	.llseek = default_llseek
+>>> +};
+>>> +
+>>
+>> I really don't understand why this can't just be a DEFINE_DEBUGFS_ATTRIBUTE,
+>> and then you can replace the overcomplicated hdmi_automation_enable() with
+>> just simple setter and getter functions that already receive the parameter
+>> of the right type.
+> 
+> Aaaand this was applied without the review comment being addressed.
+> 
+> Along with the incredible other things in this series, like
+> 
+>    link.dpcd_caps.dongle_type = (typeof(link.dpcd_caps.dongle_type))0x7f;
+> 
+> in "[PATCH 21/32] drm/amd/display: Add KUnit tests for amdgpu_dm_connector",
+> I'm feeling like AMD is treating mainline as a vendor BSP to just dump code
+> into.
+> 
+Hi Nicolas,
+
+Sorry, that's on me. I missed your review comment when I promoted the series. Thanks for pointing it out.
+
+I'll take a look at your feedback and follow up with the author to make sure it's addressed.
+
+Hi Alex, 
+
+Could you please take a look at the feedback above? It also looks like pointed out another issue in the patch below that may need to be addressed.
+
+Please let us know whether a follow-up fix is needed.
+
+Apologies for the oversight on my side.
 
 Regards,
-      Prike
-
-> -----Original Message-----
-> From: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>
-> Sent: Monday, July 20, 2026 1:36 AM
-> To: Koenig, Christian <Christian.Koenig@amd.com>; Deucher, Alexander
-> <Alexander.Deucher@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org; SHANMUGAM, SRINIVASAN
-> <SRINIVASAN.SHANMUGAM@amd.com>; Liang, Prike <Prike.Liang@amd.com>;
-> Chen, Michael <Michael.Chen@amd.com>
-> Subject: [PATCH] drm/amdgpu: Add missing MES helper parameter description=
-s
->
-> Complete the kernel-doc comments for the MES RS64 memory, process context=
-,
-> and gang context helper functions by documenting the missing function par=
-ameters
-> to keep the kernel-doc comments consistent with their function signatures=
-.
->
-> Fixes: d160cbf3e4db ("drm/amdgpu: add RS64 local memory context array ini=
-t/fini")
-> Fixes: dded4c22699e ("drm/amdgpu: add mes process context alloc/free")
-> Fixes: a755b0cf3ef3 ("drm/amdgpu: add mes gang contex alloc/free helper")
-> Cc: Prike Liang <Prike.Liang@amd.com>
-> Cc: Michael Chen <michael.chen@amd.com>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 43 +++++++++++++++++--------
->  1 file changed, 29 insertions(+), 14 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> index 1e3a23c81552..9af7c97af5be 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -952,9 +952,11 @@ int amdgpu_mes_rs64mem_init(struct amdgpu_mes *mes)
->       return 0;
->  }
->
-> -/**
-> - * amdgpu_mes_rs64mem_fini - tear down RS64 local memory management
-> - */
-> + /**
-> +  * amdgpu_mes_rs64mem_fini - tear down RS64 local memory management
-> +  *
-> +  * @mes: MES instance
-> +  */
->  void amdgpu_mes_rs64mem_fini(struct amdgpu_mes *mes)  {
->       if (mes->ctx_array_size_bo) {
-> @@ -1038,9 +1040,10 @@ int amdgpu_mes_rs64mem_setup_bitmaps(struct
-> amdgpu_mes *mes)
->   * amdgpu_mes_alloc_proc_ctx_index - allocate a process context slot
->   *
->   * @mes: MES instance
-> + * @queue: Usermode queue receiving the allocated process context index
->   *
-> - * Returns 0 on success, -ENOSPC if all slots are used (caller should
-> - * fall back to system memory path).
-> + * Returns 0 on success, -ENOSPC if all slots are used, or
-> + * -EOPNOTSUPP if RS64 local memory is unavailable.
->   */
->  int amdgpu_mes_alloc_proc_ctx_index(struct amdgpu_mes *mes,
->                                   struct amdgpu_usermode_queue *queue) @@=
- -
-> 1064,9 +1067,12 @@ int amdgpu_mes_alloc_proc_ctx_index(struct amdgpu_mes
-> *mes,
->       return 0;
->  }
->
-> -/**
-> - * amdgpu_mes_free_proc_ctx_index - free a process context slot
-> - */
-> + /**
-> +  * amdgpu_mes_free_proc_ctx_index - free a process context slot
-> +  *
-> +  * @mes: MES instance
-> +  * @queue: Usermode queue whose process context index is released  */
->  void amdgpu_mes_free_proc_ctx_index(struct amdgpu_mes *mes,
->                                   struct amdgpu_usermode_queue *queue)  {=
- @@ -
-> 1080,9 +1086,15 @@ void amdgpu_mes_free_proc_ctx_index(struct amdgpu_mes
-> *mes,
->       amdgpu_mes_unlock(mes);
->  }
->
-> -/**
-> - * amdgpu_mes_alloc_gang_ctx_index - allocate a gang context slot
-> - */
-> + /**
-> +  * amdgpu_mes_alloc_gang_ctx_index - allocate a gang context slot
-> +  *
-> +  * @mes: MES instance
-> +  * @queue: Usermode queue receiving the allocated gang context index
-> +  *
-> +  * Returns 0 on success, -ENOSPC if all slots are used, or
-> +  * -EOPNOTSUPP if RS64 local memory is unavailable.
-> +  */
->  int amdgpu_mes_alloc_gang_ctx_index(struct amdgpu_mes *mes,
->                                   struct amdgpu_usermode_queue *queue)  {=
- @@ -
-> 1105,9 +1117,12 @@ int amdgpu_mes_alloc_gang_ctx_index(struct amdgpu_mes
-> *mes,
->       return 0;
->  }
->
-> -/**
-> - * amdgpu_mes_free_gang_ctx_index - free a gang context slot
-> - */
-> + /**
-> +  * amdgpu_mes_free_gang_ctx_index - free a gang context slot
-> +  *
-> +  * @mes: MES instance
-> +  * @queue: Usermode queue whose gang context index is released  */
->  void amdgpu_mes_free_gang_ctx_index(struct amdgpu_mes *mes,
->                                   struct amdgpu_usermode_queue *queue)  {
-> --
-> 2.34.1
+Chenyu
+>>>  static const struct {
+>>>  	char *name;
+>>>  	const struct file_operations *fops;
+>>> @@ -3131,7 +3195,8 @@ static const struct {
+>>>  	const struct file_operations *fops;
+>>>  } hdmi_debugfs_entries[] = {
+>>>  		{"hdcp_sink_capability", &hdcp_sink_capability_fops},
+>>> -		{"hdmi_cec_state", &hdmi_cec_state_fops}
+>>> +		{"hdmi_cec_state", &hdmi_cec_state_fops},
+>>> +		{"hdmi_automation", &hdmi_automation_debugfs_fops}
+>>>  };
+>>>  
+>>>  /*
+>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+>>> index a2d0bb34e639..6350212b9a66 100644
+>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+>>> @@ -193,6 +193,12 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+>>>  					__func__, connector->name, edid_caps->frl_dsc_10bpc, edid_caps->frl_dsc_12bpc, \
+>>>  					edid_caps->frl_dsc_all_bpp, edid_caps->frl_dsc_native_420, edid_caps->frl_dsc_max_slices, \
+>>>  					edid_caps->frl_dsc_max_frl_rate, edid_caps->frl_dsc_total_chunk_kbytes);
+>>> +		if (aconnector->hdmi_comp_auto) {
+>>> +			edid_caps->panel_patch.hdmi_comp_auto = true;
+>>> +			link->ctx->dc->debug.force_frl_max = true;
+>>> +			link->ctx->dc->debug.force_frl_dsc = true;
+>>> +			drm_dbg_driver(connector->dev, "%s: HDMI_FRL [%s] hdmi_comp_auto --> enabled\n", __func__, connector->name);
+>>> +		}
+>>>  	}
+>>>  
+>>>  	apply_edid_quirks(link, edid_buf, edid_caps);
+>>>
+>>
+>>
+> 
+> 
+> 
+> 
 
