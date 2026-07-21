@@ -4,131 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4C97C4452F
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 03:25:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D46C3C4451C
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 07:20:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EEF610E286;
-	Tue, 21 Jul 2026 03:25:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5A17B10E2A1;
+	Tue, 21 Jul 2026 07:20:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1ByhxG9l";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tey7qC2w";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010045.outbound.protection.outlook.com
- [40.93.198.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1927A10E286
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 03:25:42 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012063.outbound.protection.outlook.com [40.107.209.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4695610E2A1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 07:20:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WQB4uDRKrylYGIE9CkcH3rjjwapLarcIEgyXoEj/9XTsXihMjt66br3aLU0B7zOPQhZ/80CmJ9Y41VVpaNB0yyXNpFLAC9cXIPj7XPC3IrVb89N3CNOpLR0tslT/nD41KwNXUiRVxcplCd31BQoet8wKaPfwOGkjRvy76iURFejjnY2nELYsPJABRxshiRBcBsmbjuNb/wc+3UqJZS7Au7IyofhM0r3xfiWqPqVKsQMd+U/2i7FjqXHoDBnKVvvoVDcc7DIEDjpO15norUAFWxwevKnQeC2FpICU5F373LBCQk2Dq8vURWGJyqesqWJBm2C5VfhNWcvTAs+EZp1qjg==
+ b=DOLVj/Ky5zxQlUnTZ/wwlZSLqvSV/YLdjM3a6CiwGd1F9sxQs7HlKSv/iRx7kj3u/ORiIOC4rRVnZ1H2xgtDS4SuEhxFwp3EMsCHh7rO2vuQ650HNczzQkti3seVtK4qFecyUX9Z330ul36RBtynlsQzA+S422NsPnC6f3bEHupqQRzv4jnQg4FOvvihAI7QFeAGDB/iW+gqYcEJrLPdDqdz1qP8Sp5OEJbSHjvq9qPvPrSwTOeDK/uQtGWXrYQ0Ue9l0wC2EyWFpb86kmCzth2ekmPiOi7KdqQYBv+HorGha9BXuzNKMFv09rOQZM/PiPcSPr56xhAGZqZHtYRRJw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7Ws8oI13gEkzbmf4kV2mWlQvq9IuyQiEwaVs3RmKKu0=;
- b=TVbHxgJZNBhByPVX1Mc9KkWcuGgP47ef05Ix6J9TQ57XECI1jAkj7TChdqntvAf5pBVrCoZ3uvjbLuZs8OBzFR/gIzGVa7Lk6Q7NwuHYlK6Hatc7flrYCxpFWOceOshaEeV9gGcxxx+6TgJNFlh9lOXMa8C+NYZRnLCnXI5en0nJAPL6rybQLBn5DIZ8vbwy/uPFZIAFCyf1ZZKJS4p6fvluMj8/AgSMgJCCwSo0eiF7Er1G/INk4RY/FhkoK8DoaIBTIgrPqysl138T6iJkrkeSg/GVkzn2HZKAlWfx6sCBUZxrra/qgHFsCijpV/MneDQz5NY1YYHFSaiEAGggQw==
+ bh=8Ir3djTl1xXX/02yI/wyQLtrFlAJoweNRpa6CshQXJk=;
+ b=WwlFRhlYhVO42hak6UgSZkNX0VPtBokvFF99PNlnNPv5qxb+pth56HJ8Ca6oomP7Yn4veFlCTQ8eQzNaCyoenCKBQnr/KvUDGl6DZJlaJufBAzhxi61ul7//McR5CkvYzaIa2FLOy1UX8BD3cw8Nx+wSrgmPsMhiRNJOE89Akj48761DnloCzEsgzCMLRh+b6zQ8d/+cL0siY0dp80WmuRUsnh8D46q9I4Z783g+zl698s5VEjtMi+AhsbbHBnls7+u56I+oWqxSEAvwU+iV5NNTWa78an5eaCndYj8WGWNKFFEDJeIBDp/oE4xsxz3aRz0FYBP39G1WLfkMov1qxQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7Ws8oI13gEkzbmf4kV2mWlQvq9IuyQiEwaVs3RmKKu0=;
- b=1ByhxG9lm+3tCUo8wMVsrctszF6FdjmpVAI8ihouQb118ZDay8Xfy/TFCTTiu7kii1b13ZMkvFBPsfIAWdXSVtnjIFndI25Yinou6czVuD43yDQPzbN82XJ3226yDMidy/EBNj9tjYN1mTwpJ5kg/rdE8EbFK64Ze7HgyRpXM4U=
+ bh=8Ir3djTl1xXX/02yI/wyQLtrFlAJoweNRpa6CshQXJk=;
+ b=tey7qC2whuu4Y4H2xt5FXRAUfvN7tYrS0uRM13faBoGoKeiueVGsiCFb93hdocXr4k4HBSKHhgYr3DCw0pPX1gjg3+Ze5SaOozxVepJSfMcCo3lRODaAijjgR0w9uO+tte8NXxmZ5TthDmrt0NevLuR5nGavF7rhRa5anQbFYCE=
 Received: from SA1PR12MB7343.namprd12.prod.outlook.com (2603:10b6:806:2b5::22)
- by SA0PR12MB4462.namprd12.prod.outlook.com (2603:10b6:806:95::22)
+ by PH7PR12MB5596.namprd12.prod.outlook.com (2603:10b6:510:136::13)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Tue, 21 Jul
- 2026 03:25:39 +0000
+ 2026 07:20:01 +0000
 Received: from SA1PR12MB7343.namprd12.prod.outlook.com
  ([fe80::f66a:f590:f149:2fee]) by SA1PR12MB7343.namprd12.prod.outlook.com
  ([fe80::f66a:f590:f149:2fee%6]) with mapi id 15.21.0223.017; Tue, 21 Jul 2026
- 03:25:39 +0000
+ 07:20:01 +0000
 From: "Fan, Shikang" <Shikang.Fan@amd.com>
 To: "Koenig, Christian" <Christian.Koenig@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "SHANMUGAM,
  SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, "Kuehling, Felix"
- <Felix.Kuehling@amd.com>
+ <Felix.Kuehling@amd.com>, "Limonciello, Mario" <Mario.Limonciello@amd.com>
 CC: "Yang, Philip" <Philip.Yang@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>
+ <Alexander.Deucher@amd.com>, "Zhao, Victor" <Victor.Zhao@amd.com>, "Zhang,
+ Tiantian (Celine)" <Tiantian.Zhang@amd.com>
 Subject: Re: [PATCH v2] drm/amdkfd: save/restore MQD across hibernation when
  MQD is in VRAM
 Thread-Topic: [PATCH v2] drm/amdkfd: save/restore MQD across hibernation when
  MQD is in VRAM
-Thread-Index: AQHdFcno/vE+AMxPbkO89jaTg2SEG7ZxaYuAgAAUMtKABdc5sg==
-Date: Tue, 21 Jul 2026 03:25:39 +0000
-Message-ID: <SA1PR12MB7343DCAFB25F4BA191AA3A6AEBC22@SA1PR12MB7343.namprd12.prod.outlook.com>
+Thread-Index: AQHdFcno/vE+AMxPbkO89jaTg2SEG7ZxaYuAgAAUMtKABdc5soAAQU2M
+Date: Tue, 21 Jul 2026 07:20:01 +0000
+Message-ID: <SA1PR12MB7343FE954902BF06C7996A90EBC22@SA1PR12MB7343.namprd12.prod.outlook.com>
 References: <20260715103056.3529178-1-shikang.fan@amd.com>
  <20260717085357.41610-1-shikang.fan@amd.com>
  <da934005-b10b-4e86-b8b0-a910e59b3d66@amd.com>
  <SA1PR12MB73439B22EB3FB6CFDCD16438EBC62@SA1PR12MB7343.namprd12.prod.outlook.com>
-In-Reply-To: <SA1PR12MB73439B22EB3FB6CFDCD16438EBC62@SA1PR12MB7343.namprd12.prod.outlook.com>
+ <SA1PR12MB7343DCAFB25F4BA191AA3A6AEBC22@SA1PR12MB7343.namprd12.prod.outlook.com>
+In-Reply-To: <SA1PR12MB7343DCAFB25F4BA191AA3A6AEBC22@SA1PR12MB7343.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
-X-Mentions: SRINIVASAN.SHANMUGAM@amd.com,Felix.Kuehling@amd.com
+X-Mentions: Victor.Zhao@amd.com, Tiantian.Zhang@amd.com,
+ Mario.Limonciello@amd.com
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-21T03:25:38.276Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-21T07:20:00.540Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
  General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR12MB7343:EE_|SA0PR12MB4462:EE_
-x-ms-office365-filtering-correlation-id: 580fc839-277c-487b-d43e-08dee6d7bca7
+x-ms-traffictypediagnostic: SA1PR12MB7343:EE_|PH7PR12MB5596:EE_
+x-ms-office365-filtering-correlation-id: caa1a5b3-6d0c-4b34-2a47-08dee6f87a76
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|38070700021|56012099006|5023799004|11063799006|4143699003|10067099003|8096899003|6133799003|18002099003|22082099003;
-x-microsoft-antispam-message-info: YTF+DFJhwac7lMJ2LrlWYCfcCJAH20JkCMa3yAMjjO9zhy8rkAoXBJbE/YZX0GC2A49MFEaOxRkSq8ty+eVkhbcmJioaHWPq0aBM5fPqqKR9v3eGgI9M+nK+2cFqeVdEpOzux/fSfcGM0blZy54z84UHEpaHZQ4/IZdUr7cMhMDCJ+HMoT7XS6gQyKwMxojFNBDPaGuf5b5dPQ2dMLJxNx4c6DHyqTQeqmiawN5BJGzBgOUiJfbfPZIAGalS2bQBAsJ3/YyIdTKnwZfdpOskrzafFRLXO8HjoFpSTfYZ7nT9HZE1utWd/WPywbUA+5t3ACUHpHyDP1gGkjTVRaO+dMmXeK5EvnY49J75AEuUVt/EbhbXegaYK8NyEfB1L7ZBC9YY6JHT6v1hmxynhqll1pY8fDEq10O5CLgFgPgdr3DzcPBTJ6A4qhpxZBmT3pm6U1+eh9XgR2fotXIXJLaBCba24fd22SfFGuaYmOK1dC4WERQaRKp4gSTOX397JguttSEkD03cEGNvWv47xEGbpH6ZOa0ASqTxIwn23CM1qV5zJOIoqFfBfvyzVLNO0lDUIPur5xG24Kr2jnI1utlvIXf5j/jbbdeICF+VTQBct8lZLjnX3/6QsAGCVZr3yjgBkYB3HCbofzS9chSOgrnA+9ar15xXzwenUf67yYiDvkp4mPECjqjk7BZvGDMEqizNsFAKlBBni4255E8APlNZWyvrn93uTQs8+3Alhhy4WsI=
+ ARA:13230040|23010399003|376014|366016|1800799024|38070700021|6133799003|56012099006|5023799004|11063799006|10067099003|4143699003|22082099003|18002099003|8096899003;
+x-microsoft-antispam-message-info: rMUYAMkFHy9oh/c1YpbFXKgRMzkA2rhvmFuw31QsJY8JL6cR9X4fbdK0kuC8Vx9p2AGMf4IE16kNh4bVmW4/QV7fuS2gI0IfuqeRUJ0PsxNvnEF+uZVx4w1TSthwuX+A+cYSm1XRuEEm+CJMA37aQkS64qlAqkIOIDWisSxjkezdUgssqxQeiN8aoPJ+BvgQzXu8Ua4YwHMkO81q4OWbOumrjNDhAgaDnvdtA3g8i+pBKroOytRbl4waJnJrJFc94b5EbeAcE8PpmJc6dwJ7pUji4JEij76QwBq7LzybcssDRtYJH0LqZDyovots7QP8J9hukVS2ErK2J5HylzOFXSww+p7MbeXaaOAXmg6s1t9joVFYRVusBlwDmJPKLPocS21hUxJM9vZbrrkGtdokhmn69coDy272XDhfLZ+9iv5+wcVPTF+br4St4mICcADEO2KACeSqY8bFibnHOon3XFT2jYFr0K9MhBXhvrCN+nSeA1fnLAdbzyX29eYyydc75OK6R8JAu636ud+w0smVSiBcqePRYNxoeD85U8PTkVh553gxUkpKJjX9Dc637eM24sdLSr/LMq7ish/4AFHUZHr8zCGV9IAU+U1oENiMaSCxJx3NJrx80latNTyFywcs2vrX2dQvHXgQFWUfoV7Od9zMolByRFHoEVNnQJCaYhFG5OVwbHn9OHdVs76hDScygSNDcpIyWG+gnIGHCJTPyCUQETiwyptnCJVwB/d7DBg=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA1PR12MB7343.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(38070700021)(56012099006)(5023799004)(11063799006)(4143699003)(10067099003)(8096899003)(6133799003)(18002099003)(22082099003);
+ SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(38070700021)(6133799003)(56012099006)(5023799004)(11063799006)(10067099003)(4143699003)(22082099003)(18002099003)(8096899003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?zASg/kNnXiqsBhAqpT9J6EUhI0c5BShNHms2Lauh5SmdQGQ9JmtwK5qY?=
- =?Windows-1252?Q?DxOUQd24kw+k8eiDy3PZdW33EvUxmA2TxqfuPANQIJT7BvqkuXy5AyGf?=
- =?Windows-1252?Q?JofeJ5CLYrlR6yYFw4FC3Pa/ztYv9NBfaesUWXb/bCs0y9kWwHYJoMFN?=
- =?Windows-1252?Q?GCKoLIjRlScwueIcHG/6fgmcCLRs+5mcHePfqlC0C+VzruDp9kSHju13?=
- =?Windows-1252?Q?BAPF+KJshiSUMQ0n/BG5V3cOnaiBecXyDxS8OkKi8jIAplWPitXreI3s?=
- =?Windows-1252?Q?qNqYToOpxwOELj5RidHxdrbNQvVuN8EDxfaL8pQ7nZahsPWTiuG6+fWG?=
- =?Windows-1252?Q?r24rsQ+/oIJTTHXkP5peaPyCyfaYRif7Klf1ujKTTWZglFhIFkA6pska?=
- =?Windows-1252?Q?07Al49asw/rhNEo+7CdmF1Np1CzCdlzmd2Ed2/ubMgF5/+jROclDbG0h?=
- =?Windows-1252?Q?AZLRNUYQbWczUVMsitS4tlGZYjLMLaOK3ZZDhHS/XK1f99I+Jueysh27?=
- =?Windows-1252?Q?+bPiqyksdIdKXfP0uD7MDIxIrEEYAsW4Q0yTS33JWfZgX+lq3ad+gkKE?=
- =?Windows-1252?Q?DN36gvjCh42PeelkYELnxKUJMsBotdki+DPLAqdKMZArL1obe3AYzhT3?=
- =?Windows-1252?Q?28MEYuWjV4865LhSLbM0DfXmQEhm+CB5tolVGxS5BCAt7zzoO0rkZmja?=
- =?Windows-1252?Q?0qGLGTC4/khkTgZhZDG4NM1+SIuSd8sxCtpqh3477jgXYmTVR1T/9m7e?=
- =?Windows-1252?Q?tGfUhckMCvN2cJZvE2I+TuqE8HHVhPyB/vyHrmIk89VXmvr3jPhZ4pzn?=
- =?Windows-1252?Q?oABlwPs+vlwgdluMOwO6RoE/AG9pLkqdCnf8ZkJGh3X74JYcwiaLdwXz?=
- =?Windows-1252?Q?XO+lErcif9PtwKBujdzBwuc82bwMUyM1q3+sVmAvOVZuiSz2CdqoStG4?=
- =?Windows-1252?Q?DHHl25bN608WU2uvHtXJzMoFc9a3ECI59ttS3kJcvaHIhTL4vQaRwjCY?=
- =?Windows-1252?Q?3Q65c4ZONyjUdcYZmsjj+jxz1xnsOCDxThPfS9kjjlP2vNyW8TW58OuK?=
- =?Windows-1252?Q?yGJrKOyZRKmlRe3jWAQIccuFzmZORGXVGseAsO3NGD7iiyT6QoyY3uSq?=
- =?Windows-1252?Q?DS4IEzMGN84mxRm50oQjveeBic1E6G+LfESUdj4Ug55aJg990mi0Qsi9?=
- =?Windows-1252?Q?jW0fsOE1P5RBfxSDC2qV3IXgfiStEe1pXddSDxsQc1IAC64tsomnoXms?=
- =?Windows-1252?Q?lT1tfx/BWkUfldy1zTxng9m3xGWCMiyf1pybsUWjtvD02OA1GQxtWQXo?=
- =?Windows-1252?Q?3OIc5iyHiwpaMxW5Ki4ToO/oE64SzxgXJG+Qer5UrmtjMHpsK8oHr75d?=
- =?Windows-1252?Q?cAGxqIIxga0gLWaODrIuqwcl1OmoBlju/BG8fgay+KXMGnS1r/fE1rT6?=
- =?Windows-1252?Q?xV5FdNSN9lvvrRO9oF6Bkq/aS1V4j8EXn+AJfS0MYxzSua1VrSsJijEm?=
- =?Windows-1252?Q?26pKbenR3uC98XhwjSL0zJE5XpBX6suH5C4+avG1e64n5JnNI9D8jwDS?=
- =?Windows-1252?Q?7UcIl1TQ+FpT+/JreXl+ynCDt+gT6HXorM/EfV++paYmJ+qM0sOtWcHa?=
- =?Windows-1252?Q?LPh6KpKCPKgWP8ZAp4A7uowwjXfFHWDdZZd8qByBTZw4KPfg1mDiWQlH?=
- =?Windows-1252?Q?0j+HrYAJQ+pLliK/5LckpPXVjNn4XVXBvb52fKJmm8wwbtVDXO0QaaDX?=
- =?Windows-1252?Q?+MW6vFIVmi7mLNshyfDsXpr8K3gKrn+XmltrrApoQb4GeeakBPGtFXZJ?=
- =?Windows-1252?Q?bwn8zo3W4Sf5qJQ3WdoVYv64xIDvrsknDQmkOCXEL6/b51Y4?=
+x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?qRhzg2OcblV772s5dVxvzlzQrZUyvztzmwFuVV9RZViwNc1LQtacvols?=
+ =?Windows-1252?Q?9IifiuC6VyaNDgU4AHzmxN1r4doPgTt/CU96b44szN8Hb+BLZKCAwb5D?=
+ =?Windows-1252?Q?C4DRIBwQBQm7GQPXS/8ytbHOLjOm3f+4FlWbj207oQcJ2I7h944iztg8?=
+ =?Windows-1252?Q?OAEwilVe6ORJF/3qf8iOwrzcaD50DtR9u5VOWAKL/2hM33cgGJltqmHR?=
+ =?Windows-1252?Q?BnNbK/mr+1YpJS9UE6HPRDfh/y/VuBzqjYn9woICAQ65MPsqEP+dOQOx?=
+ =?Windows-1252?Q?E5a3iSvpDvsLqQiZNkgTfQBEhNdRB87+NqmsZz2e4y/xH+JsgUtSrVmn?=
+ =?Windows-1252?Q?K04+WGFHgX9O85TpTHZemVgFuKXiI/otGwrbPYfjy+3q3xAUqMrmevjo?=
+ =?Windows-1252?Q?dsXYeqAi91V36SfifBgWdK3zgZN+FX8ehXK42dRFoLyzrw/MzCYzM7JZ?=
+ =?Windows-1252?Q?nTcM+eXrTh9xK20ri+yvPADBmdpzMvKT9J7SQxIn4aIuZRPBPVJgofcY?=
+ =?Windows-1252?Q?nkIks0wafTD9CfINLcBoXbxc6Kldq+Lo8QCLnbh3z+1GysC6CA71bkLV?=
+ =?Windows-1252?Q?44rF+h2h+nQ9wRtZKISIX0nRNmwDUz42P5358fT+NRtIzkC7uij7JcFe?=
+ =?Windows-1252?Q?hOlEI4xgf/eZ4pcX/7RL7SIVjZ96etENOlbrpdrIdYngnVx5qEb4+FFm?=
+ =?Windows-1252?Q?DXA48aZqglwySUPMdfUQhjClTneR3LqKjNKRu+eoXFueYsBWSFEwp4SZ?=
+ =?Windows-1252?Q?QLLsWf1XCwVQgoXGYI2QYrbgVb7dW/43w5C3t+vBYf8TbW0o0oKfDcRn?=
+ =?Windows-1252?Q?89l4Nnnv6l6oKxjruKl/PQtwG03+z5FvEJNrNuskIr7zuRkFCRdAEpR8?=
+ =?Windows-1252?Q?OH4vfvmXcFx11PJLcEw0rlRlF5H5t6vieIUq+zi5n9nFoC/zPtX+7XZz?=
+ =?Windows-1252?Q?7MOSeHsi/QX2Y8sezj68zz4tAHXv++JZ4qEcIL9Jw30zEqTACQhQQgve?=
+ =?Windows-1252?Q?A9JmhKNU+sNkPLjmGgXoT/YiY1a5f34vHXB1hpmNf3/z5EygynYEY+FZ?=
+ =?Windows-1252?Q?FburiNg1vu4C7Ctugj9nSTJubbc02o5RppyVoguPsVCOEyIkOfYMwEMh?=
+ =?Windows-1252?Q?6i5Q+nsJKvkQRuSonnvJLFf3Lc3vywLjej8kguziBs1X9sxK6Z0zmde/?=
+ =?Windows-1252?Q?d0Jzrfp49rUke0vUUCBSO5s6S2cm/uBdSyHHIoFmo9rb0cp2PRpKM6Nx?=
+ =?Windows-1252?Q?dtmlSiJ0qlGku5IPA4M0oAK1ZPWCdMAOWI/IyuuisOO2U8fEepyLsTVy?=
+ =?Windows-1252?Q?EMG/kr7lDqYhWOAhroq7jtXQ+hpmtZmdfiN4+3P3qHvhpfaY3a1R9IQ1?=
+ =?Windows-1252?Q?sf+xntD0x9OltyVyPnVEXHck0SIqMJdHYBDF2dipqRw4WAvqelfvBb6l?=
+ =?Windows-1252?Q?D7JUamPyTQ6zg0+h3P4/PgcvebGfiyu/F+VW30RVwN4fkZnOCqcmhq0W?=
+ =?Windows-1252?Q?MKSscVwtwpCz3KMZ6RChLftUuHM4YXk8wbdWfQRCSlb/VoSVkG1pdsd5?=
+ =?Windows-1252?Q?LjHmNx219hs03nILzyawaDSnWPWF9T1bxeMh3YCClaRWz9jbz2uZwMC2?=
+ =?Windows-1252?Q?W1yCo4Z3sFxEvaSO9bzpoqQ4zu+Vy+DpUQoDO9qQZg+Z3aW+LGsn+diZ?=
+ =?Windows-1252?Q?voNW4+5HS7hJM/+rw2UKXYXoiVKrGVE9T8PrbaDg0lNtOoGz8skDjfma?=
+ =?Windows-1252?Q?WMibWFsuazh1HL7v7EAUXkugNbvrUeWopALv60MM2n6mVeyl5abgtdl0?=
+ =?Windows-1252?Q?vVBjVmy6DGgIcy81AvX2v3w4CXerxFlgYdjqhtqy2E0FtmMy?=
 Content-Type: multipart/alternative;
- boundary="_000_SA1PR12MB7343DCAFB25F4BA191AA3A6AEBC22SA1PR12MB7343namp_"
+ boundary="_000_SA1PR12MB7343FE954902BF06C7996A90EBC22SA1PR12MB7343namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB7343.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 580fc839-277c-487b-d43e-08dee6d7bca7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jul 2026 03:25:39.0256 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: caa1a5b3-6d0c-4b34-2a47-08dee6f87a76
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Jul 2026 07:20:01.3435 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: GJQsHjpAisoMQjC/zHdLxIP8luyz75kFEloaFVkx1rvhx/Iw/26kuIyXiqD39ruVwG1CaBEkc3J1MnoUH55lZA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4462
+X-MS-Exchange-CrossTenant-userprincipalname: b69BdG3K7o1N/Vx3wGl8NRxJgYciGjzm2W3jmHieiP0tgxSbSqwDGCADsdKSzovFe9KZxT6KvV62b2SdTHqcFw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5596
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,9 +145,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_SA1PR12MB7343DCAFB25F4BA191AA3A6AEBC22SA1PR12MB7343namp_
+--_000_SA1PR12MB7343FE954902BF06C7996A90EBC22SA1PR12MB7343namp_
 Content-Type: text/plain; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
+
+AMD General
+
++@Zhao, Victor<mailto:Victor.Zhao@amd.com>, @Zhang, Tiantian (Celine)<mailt=
+o:Tiantian.Zhang@amd.com>.  And also @Limonciello, Mario<mailto:Mario.Limon=
+ciello@amd.com> to help with the review.
+
+Regards,
+Shikang
+
+________________________________
+From: Fan, Shikang <Shikang.Fan@amd.com>
+Sent: Tuesday, July 21, 2026 11:25 AM
+To: Koenig, Christian <Christian.Koenig@amd.com>; amd-gfx@lists.freedesktop=
+.org <amd-gfx@lists.freedesktop.org>; SHANMUGAM, SRINIVASAN <SRINIVASAN.SHA=
+NMUGAM@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.com>
+Cc: Yang, Philip <Philip.Yang@amd.com>; Deucher, Alexander <Alexander.Deuch=
+er@amd.com>
+Subject: Re: [PATCH v2] drm/amdkfd: save/restore MQD across hibernation whe=
+n MQD is in VRAM
 
 AMD General
 
@@ -517,7 +539,7 @@ perties *properties)
 >
 
 
---_000_SA1PR12MB7343DCAFB25F4BA191AA3A6AEBC22SA1PR12MB7343namp_
+--_000_SA1PR12MB7343FE954902BF06C7996A90EBC22SA1PR12MB7343namp_
 Content-Type: text/html; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 
@@ -538,12 +560,13 @@ AMD General</div>
 <div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
 nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
 olor: rgb(0, 0, 0);">
-+<a href=3D"mailto:SRINIVASAN.SHANMUGAM@amd.com" id=3D"OWAAM517752" class=
-=3D"tWKOu mention ms-bgc-nlr ms-fcl-b">@SHANMUGAM, SRINIVASAN</a>&nbsp;and
-<a href=3D"mailto:Felix.Kuehling@amd.com" id=3D"OWAAM431627" class=3D"tWKOu=
++<a href=3D"mailto:Victor.Zhao@amd.com" id=3D"OWAAM420325" class=3D"tWKOu m=
+ention ms-bgc-nlr ms-fcl-b">@Zhao, Victor</a>,
+<a href=3D"mailto:Tiantian.Zhang@amd.com" id=3D"OWAAM394558" class=3D"tWKOu=
  mention ms-bgc-nlr ms-fcl-b">
-@Kuehling, Felix</a>&nbsp;to the review discussion as Christian is currentl=
-y OOO.</div>
+@Zhang, Tiantian (Celine)</a>. &nbsp;And also&nbsp;<a href=3D"mailto:Mario.=
+Limonciello@amd.com" id=3D"OWAAM671300" class=3D"tWKOu mention ms-bgc-nlr m=
+s-fcl-b">@Limonciello, Mario</a>&nbsp;to help with the review.</div>
 <div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
 nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
 olor: rgb(0, 0, 0);">
@@ -564,6 +587,56 @@ t-size: 12pt; color: rgb(0, 0, 0);"><br>
 <div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
 : 12pt; color: rgb(0, 0, 0);">
 <b>From:</b> Fan, Shikang &lt;Shikang.Fan@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, July 21, 2026 11:25 AM<br>
+<b>To:</b> Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; amd-gfx@list=
+s.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;; SHANMUGAM, SRINIVA=
+SAN &lt;SRINIVASAN.SHANMUGAM@amd.com&gt;; Kuehling, Felix &lt;Felix.Kuehlin=
+g@amd.com&gt;<br>
+<b>Cc:</b> Yang, Philip &lt;Philip.Yang@amd.com&gt;; Deucher, Alexander &lt=
+;Alexander.Deucher@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH v2] drm/amdkfd: save/restore MQD across hibernat=
+ion when MQD is in VRAM
+</div>
+<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
+: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"direction: ltr; text-align: left; margin-left: 5pt; font-fami=
+ly: Calibri; font-size: 10pt; color: rgb(0, 0, 255);">
+AMD General</div>
+<div style=3D"direction: ltr;"><br>
+</div>
+<div style=3D"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos=
+_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb=
+(0, 0, 0);">
++<a href=3D"mailto:SRINIVASAN.SHANMUGAM@amd.com" id=3D"OWAAM517752" class=
+=3D"x_tWKOu x_mention x_ms-bgc-nlr x_ms-fcl-b">@SHANMUGAM, SRINIVASAN</a>&n=
+bsp;and
+<a href=3D"mailto:Felix.Kuehling@amd.com" id=3D"OWAAM431627" class=3D"x_tWK=
+Ou x_mention x_ms-bgc-nlr x_ms-fcl-b">
+@Kuehling, Felix</a>&nbsp;to the review discussion as Christian is currentl=
+y OOO.</div>
+<div style=3D"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos=
+_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb=
+(0, 0, 0);">
+<br>
+</div>
+<div style=3D"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos=
+_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb=
+(0, 0, 0);">
+Regards,</div>
+<div style=3D"direction: ltr; font-family: Aptos, Aptos_EmbeddedFont, Aptos=
+_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb=
+(0, 0, 0);">
+Shikang</div>
+<div style=3D"direction: ltr; font-family: Calibri, Arial, Helvetica, sans-=
+serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<hr style=3D"direction: ltr; display: inline-block; width: 98%;">
+<div style=3D"direction: ltr; font-family: Calibri, Arial, Helvetica, sans-=
+serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<b>From:</b> Fan, Shikang &lt;Shikang.Fan@amd.com&gt;<br>
 <b>Sent:</b> Friday, July 17, 2026 6:25 PM<br>
 <b>To:</b> Koenig, Christian &lt;Christian.Koenig@amd.com&gt;; amd-gfx@list=
 s.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
@@ -571,10 +644,9 @@ s.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
 ;Alexander.Deucher@amd.com&gt;; Kuehling, Felix &lt;Felix.Kuehling@amd.com&=
 gt;<br>
 <b>Subject:</b> Re: [PATCH v2] drm/amdkfd: save/restore MQD across hibernat=
-ion when MQD is in VRAM
-</div>
-<div style=3D"font-family: Calibri, Arial, Helvetica, sans-serif; font-size=
-: 12pt; color: rgb(0, 0, 0);">
+ion when MQD is in VRAM</div>
+<div style=3D"direction: ltr; font-family: Calibri, Arial, Helvetica, sans-=
+serif; font-size: 12pt; color: rgb(0, 0, 0);">
 <br>
 </div>
 <div style=3D"direction: ltr; text-align: left; margin-left: 5pt; font-fami=
@@ -1107,4 +1179,4 @@ properties *properties)<br>
 </body>
 </html>
 
---_000_SA1PR12MB7343DCAFB25F4BA191AA3A6AEBC22SA1PR12MB7343namp_--
+--_000_SA1PR12MB7343FE954902BF06C7996A90EBC22SA1PR12MB7343namp_--
