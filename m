@@ -4,78 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 67C05C44529
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 11:43:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85BBAC44532
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 11:45:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0146A10E968;
-	Tue, 21 Jul 2026 11:43:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6F4410E97C;
+	Tue, 21 Jul 2026 11:45:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ipsq+fEk";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bZnXy0sZ";
 	dkim-atps=neutral
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com
- [209.85.208.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51AA010E97C
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 11:43:39 +0000 (UTC)
-Received: by mail-ed1-f44.google.com with SMTP id
- 4fb4d7f45d1cf-69eae037da1so4433360a12.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 04:43:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784634218; x=1785239018; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=B07sKwvX/hjwiUDOOjpR8gixvw+OrdA4sLxGt5eGMSA=;
- b=Ipsq+fEkeqrLTZfM0wcgsOcCz2oevT2v+VP2UgHMS4bu/PTOLzUgWLvQgu70+noIcd
- wkJv2Qci6ZBG3m+hxM11hQ+ZHTn1ifkDhDznYxZHVfOCjw5o76QEun8pw17Eo8i8gr3d
- F6rwaNwdOyire82ZFH25EojLjDGsBXl3V8zBNYBczg8oGJjyqAv9WmsHz6MkkUGq3sJB
- 4WKfpJHsZlWba8uAo0JHGDO2ontrhG8moqk7fg6fVhv502tUp9iURF+QMyKd4eocUaUd
- Iu3wHI9DJB1Z5CSkkyw6aEnhjPj0QAafCNVqcOS9C+9zUZt44Z2hsBb2CRBHXVj14M1p
- XQ9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784634218; x=1785239018;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=B07sKwvX/hjwiUDOOjpR8gixvw+OrdA4sLxGt5eGMSA=;
- b=p2wV7xcCNt7DsAXEwGc8k3WhdJv5zcFc81bGzl4O3K8Mfp0jdqd5FUqhHG3CKc5tR5
- Xya+wjRcm8KUrNCMuggzzSmb3rKkBKGB+6y/2qh1II4Qk1gZuWPBMoOwfvP8xQOymqJg
- yTXY2iE3+eIDR6fBWx8j5/7j08W7J+vKITQYSTyWhLOW5r4HqxvB+06VcaoczP/+Gxhz
- GfMQ+TODcYufNv17aVonylEEvQ9CCo/hE79fIy4uAWn4DTtoNndO1fwLUDbt6G0YAZSh
- muKIX6m9M3fF/46WJ153dkCfd45wMF17J+U8al6VKF6tbgb/X2kqomSiLrngZSqgydb8
- YEDw==
-X-Gm-Message-State: AOJu0YwJY4ptMJGo581Nauu59huSCVyVs4mChNF9ACb0QvE0iFj4TPbD
- u7FZnBxEke1lKPLuEpyigf2RUrf3O8Ns+4jwKLgnLL8HNFGcQVHBvjucXNQ2fFum
-X-Gm-Gg: AR+sD11LHZ0/FJI4mx3vLWxr7X7h7EKG9UqhI3ViHfiLunKP4rZOVqsnUrRX0WQE+qW
- 91pYGIgnmFPMioh7hG2Dg7ZaEzrTwn1qC3Wmk1sDucUmsKlM7XMUlM3g0GLf3+q1auEiJrvurb6
- c7ddRVHbkxxkyna8i99LLuAm0UPpwo03GGhtEsOtdK8s2eKfW8oLIjV0J1Kmp2iOA2YJdND6/JD
- /sLFmNmqpByOKDN5decIVNT9cSaeeDipIS4hRtLlY3PngYQLhQdSqJ5U80pMmArlTqQBiK/Obdv
- 5B2m58f1Fh1I68YFvz+biHyvUH0F8iPF/4oqQYXhADSUMxj6pkG2kHNgB8NXo51qZ31oqgmhhDr
- Q4+OavS+/OEMHLEpxdExYTrx9zrrP/8boo8kOt+jvR/RPoVOFy88pj2HiMB5JNcXImu0oTofLbP
- 1YxdMcqi7+v7c5u5u+Ad+M3wOrTfhksxfW+tlbF/9nI2k=
-X-Received: by 2002:a17:907:940a:b0:c10:256:3d6a with SMTP id
- a640c23a62f3a-c16b47368damr689559266b.31.1784634217655; 
- Tue, 21 Jul 2026 04:43:37 -0700 (PDT)
-Received: from Timur-Hyperion.home (5401D94C.dsl.pool.telekom.hu.
- [84.1.217.76]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c17009ae00asm571635366b.7.2026.07.21.04.43.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 21 Jul 2026 04:43:37 -0700 (PDT)
-From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, pierre-eric.pelloux-prayer@amd.com,
- Natalie Vock <natalie.vock@gmx.de>
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH 9/9] drm/amdgpu/gfx7: Enable IP block soft reset as a GPU
- recovery method
-Date: Tue, 21 Jul 2026 13:43:22 +0200
-Message-ID: <20260721114322.17535-10-timur.kristof@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260721114322.17535-1-timur.kristof@gmail.com>
-References: <20260721114322.17535-1-timur.kristof@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE67910E751;
+ Tue, 21 Jul 2026 11:45:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784634325; x=1816170325;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=J1xsi8VIiBy3ADMhHE51f9v/YO6RpUregFBkwBXQQeo=;
+ b=bZnXy0sZBrm++e5fp/wsZReB3T0ZDPVlLzrOiA/8+oiVk/bfVX52Kbie
+ DN2Auz4z2mABSCaSIpggTwN0i6oNmc6rSTBaAhbEOt/YHz8UvFxupj2LY
+ SbBlBRvZ7qW/4zEIEebxRbQsPiRodOC70bOkdyWO0YEh8nq4EIGeYc+tT
+ dC41/eAGoZTc7QGHNeZi/LUYsGf10IMfxkD1JtKZzWIZt442TejGUGy/6
+ 4gGOArp4wXF53PRV+L9fABdXLRYkMVM6Rgjk4N0qzAGz/sIKB4VaDbzD2
+ l7KVWgmf2inh/tlqIkzwu+YLGP8Or6Un5UfAy/iTWXjFzxsdlaz4s573f Q==;
+X-CSE-ConnectionGUID: FZMsdGURRf+t/5ggSgRRpQ==
+X-CSE-MsgGUID: aMrUAqnMTCie3odVgqXPQA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="85323376"
+X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; d="scan'208";a="85323376"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+ by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2026 04:45:24 -0700
+X-CSE-ConnectionGUID: ku8MPGn/Tp29kK3iZ9FQwg==
+X-CSE-MsgGUID: 7EkwXeWOTE28ofZcw2n6qw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; d="scan'208";a="281016028"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO [10.245.245.93])
+ ([10.245.245.93])
+ by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 21 Jul 2026 04:45:18 -0700
+Message-ID: <2e50a938-af3d-4495-926f-fbe084aaae9a@linux.intel.com>
+Date: Tue, 21 Jul 2026 13:46:15 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 1/6] drm/amdgpu: Fix init ordering in
+ amdgpu_vram_mgr_init()
+To: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Sashiko-bot <sashiko-bot@kernel.org>,
+ Friedrich Vock <friedrich.vock@gmx.de>, Maarten Lankhorst
+ <dev@lankhorst.se>, Tejun Heo <tj@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, cgroups@vger.kernel.org,
+ Huang Rui <ray.huang@amd.com>, Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-kernel@vger.kernel.org
+References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
+ <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
+ <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
+ <9c8b4367-c029-4731-8ea8-b8263e11ada1@amd.com>
+Content-Language: en-US
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+In-Reply-To: <9c8b4367-c029-4731-8ea8-b8263e11ada1@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -92,62 +89,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Enable IP block soft reset as a GPU recovery method for GFX7
-graphics and compute rings.
+Hey,
 
-This improves current user experience on all GFX7 chips:
+Can I merge this through drm-misc-next together with the rest of the series?
 
-* On Kaveri and Kabini there is currently no working
-  GPU recovery method so those chips currently require
-  the user to manually reset the computer when there
-  was a hang.
+Kind regards
+~Maarten
 
-* On Hawaii and Bonaire, the current GPU recovery method
-  always clears the contents of VRAM, which means that
-  a buggy (hanging) app can crash the whole graphical
-  session, which is less than ideal.
-
-Using GFX IP block soft reset means that we can now
-have a working recovery on GFX7 APUs and we can also
-move on from GFX hangs on dGPUs without crashing the
-whole system.
-
-Tested with the "hard_reset_cp_wait" test case from the
-Hang Test Suite created by Natalie Vock and Konstantin Seurer.
-This Vulkan testcase waits for an event that never occurs,
-effectively a WAIT_REG_MEM packet that intentionally hangs.
-IP block soft reset can resolve that hang and allow
-the rest of the system to move on and keep functioning
-without needing a full ASIC reset.
-
-Tested on the following chips:
-
-Bonaire (Radeon HD 7790)
-Hawaii (Radeon R9 390X)
-Kaveri (A10-7850K)
-
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index e31a2101f308..bf5595db6d74 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -4432,6 +4432,11 @@ static int gfx_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	adev->gfx.compute_supported_reset =
- 		amdgpu_get_soft_full_reset_mask(&adev->gfx.compute_ring[0]);
- 
-+	if (!amdgpu_sriov_vf(adev) && !adev->debug_disable_ip_block_soft_reset) {
-+		adev->gfx.compute_supported_reset |= AMDGPU_RESET_TYPE_IP_BLOCK_SOFT_RESET;
-+		adev->gfx.gfx_supported_reset |= AMDGPU_RESET_TYPE_IP_BLOCK_SOFT_RESET;
-+	}
-+
- 	return r;
- }
- 
--- 
-2.55.0
+On 7/7/26 20:05, Arunpravin Paneer Selvam wrote:
+> 
+> 
+> On 7/3/2026 6:38 PM, Christian König wrote:
+>> Arun please take a look at this.
+> Sure Christian. This fix looks correct to me.
+> Reviewed-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> 
+> Thanks,
+> Arun.
+>>
+>> Thanks,
+>> Christian.
+>>
+>> On 7/3/26 15:05, Thomas Hellström wrote:
+>>> drmm_cgroup_register_region() is called before INIT_LIST_HEAD() and
+>>> gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the function
+>>> returns early and bypasses those initializations.
+>>>
+>>> Since adev->mman.initialized is set to true before amdgpu_vram_mgr_init()
+>>> is called, a failure triggers amdgpu_ttm_fini(), which calls
+>>> amdgpu_vram_mgr_fini(), which then:
+>>>
+>>>   - Calls list_for_each_entry_safe() on reservations_pending and
+>>>     reserved_pages, whose list_head::next pointers are zero-initialized
+>>>     (NULL). The loop does not recognize them as empty and dereferences NULL.
+>>>
+>>>   - Calls gpu_buddy_fini(), which iterates free_trees[] unconditionally
+>>>     via for_each_free_tree(). Since mm->free_trees is NULL
+>>>     (never allocated), this dereferences NULL.
+>>>
+>>> Both result in a kernel panic on the module load error path.
+>>>
+>>> Fix by moving drmm_cgroup_register_region() to after the list and buddy
+>>> allocator are fully initialized, so the teardown path is safe to run.
+>>>
+>>> Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
+>>> Closes: https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
+>>> Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in TTM")
+>>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
+>>> Cc: Maarten Lankhorst <dev@lankhorst.se>
+>>> Cc: Tejun Heo <tj@kernel.org>
+>>> Cc: Maxime Ripard <mripard@kernel.org>
+>>> Cc: Christian König <christian.koenig@amd.com>
+>>> Cc: Alex Deucher <alexander.deucher@amd.com>
+>>> Cc: amd-gfx@lists.freedesktop.org
+>>> Cc: dri-devel@lists.freedesktop.org
+>>> Cc: <stable@vger.kernel.org> # v6.14+
+>>> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+>>> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+>>> ---
+>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
+>>>   1 file changed, 4 insertions(+), 3 deletions(-)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>> index 2a241a5b12c4..ac3f71d77140 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+>>> @@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+>>>       struct ttm_resource_manager *man = &mgr->manager;
+>>>       int err;
+>>>   -    man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
+>>> -    if (IS_ERR(man->cg))
+>>> -        return PTR_ERR(man->cg);
+>>>       ttm_resource_manager_init(man, &adev->mman.bdev,
+>>>                     adev->gmc.real_vram_size);
+>>>   @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+>>>       if (err)
+>>>           return err;
+>>>   +    man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
+>>> +    if (IS_ERR(man->cg))
+>>> +        return PTR_ERR(man->cg);
+>>> +
+>>>       ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
+>>>       ttm_resource_manager_set_used(man, true);
+>>>       return 0;
+> 
 
