@@ -4,125 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89A9EC44524
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 07:08:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 474E5C531D4
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 07:08:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E61610EFE9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAFA510EFF1;
 	Thu, 23 Jul 2026 07:08:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hyU/HFyP";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qZBVHTXb";
 	dkim-atps=neutral
-Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com
- [209.85.167.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C6CB410E1A7
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 16:15:34 +0000 (UTC)
-Received: by mail-oi1-f182.google.com with SMTP id
- 5614622812f47-497deab2d66so3919686b6e.0
- for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 09:15:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784650534; cv=none;
- d=google.com; s=arc-20260327;
- b=qChALko/gkoKcgRzHv2k1yyBuhARwsz+gXJDsCtFLcZ/57Mr2SmDtgR+YfL3TGdd3F
- YrFPMjboJq4f7pr2JO6ipLSaUr7rg6oNfM/Nn7lV9zxY0qTIVm1eCdeTZ4XKKxCg+sXE
- UY0hl5MsmwdnhtMhx30jbTKIWSzO8WGVq1OX/pdB05bKm8WJPx35IfLopxZnpGj/ISej
- BwgGZK8GHKQxFTLwmUlkZARnVfAjMNK2QmIXQlgiazYIUlZSraxxtWgn2rFiEX0zEtDd
- 1MbbFDG0+igVBd1opNVHRikJz9AVuOBcNnnCtWWPTPBj7vpchS27drTLAV98lbb5mMCo
- gYDw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=061OgT0DczhRmlwQ4HiKPIppyoeB89N03B5P6SpVAYA=;
- fh=mKstbb+f5qpw4dKEybf+kKm7S71Lv+J7Sp6LxSA31xE=;
- b=E4WhiVqYmzoHLDrBWX8pDN8wwDLMTqDv0tUUX0vBxvBpY/w4E73K2xaERJqIqUlz0m
- iAYvDrBTFV5o2D7+DkmPvXt93+aOlDbd/TorQi/+BtA77a2a0W708oHz+e+PEDu8jYGA
- KiXp/vkza87tTIP0x/Cz6ijeuaPP92YX2dwn7geOpEI+/MzbVchMwez0K+zJnv62bRxj
- SUlFno7hZCTAcRcUHGRT9w+bBpHLNQju7sMRyXYwdSOpw+7Ui2kzwQ4VUVAO9625x8PW
- QztDI8YQK4U+aavmDKEsS+npJNpR3ICCW8ss6WtTBxGCpsZt++1ZlACN+CurzwTlGdEn
- o4Yw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784650534; x=1785255334; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=061OgT0DczhRmlwQ4HiKPIppyoeB89N03B5P6SpVAYA=;
- b=hyU/HFyPotQ2lzqigZ0QP732CezW/6ypSriuJl4cDeHV0yPcqTujd7FP6H/8+aqE3O
- hLcdMYRku73P98Kf+isGUbJJy8gZXJepwQWS58EQnhlgtKeaEWhF4Jjkhlu0DNlSF58u
- OvWfUHAxZEZPAF4kAmkD5o3ySnpqpDzTPChjVnjK0jek2lZKG5ojTRecZtFW8cLNIDHS
- dwuTiFMS6PXURwc5eD98EGvFfhgr0QVCxqkHabNWyRCOI3lOeSJUT5h3HsvA0LxnnJqh
- LuVoofit4m444uAHNa/cFtFAJgcKhDhXHQRObjOiAyQ/zMmAkxLSI71/uviYO5FIRpBz
- zh+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784650534; x=1785255334;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=061OgT0DczhRmlwQ4HiKPIppyoeB89N03B5P6SpVAYA=;
- b=iDH3w1C89t0KnOaubSVankOG+Vp95L82K3NQ7fClpiv6XEqWePBay03m3r6JeUQnrj
- 3lFaR9jEeU19FnzgFF9qXoVMCMjY8MD45fz9pbYbWcBPkel8KyJoP8TG+pCkxd6hPRyv
- F3lxOt/SVnz0Jwwi37bszFPt48VtCPk4DVA07LparHe4AyCi41JHoY4JlUMzW4W9JBQw
- nSK7NlYeGcS5ODEL7kZZfPR/hD/JzwsnPaqtqWlCm+LRLtmZ7v2XsUkcQLZ0ogGdpQLj
- FelDerqqHuw1eWvtwpbpWd1DxDx0OQPcKYH6IfmKFUBRIXmdQoyf/z5OkaOEpBb2+h4R
- Lg5g==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqKKW55noZxKJEAOrnfvnbZIT5DyXobtUYzupk+y3jmr/+LCeQyqeIdzVcwzco5S5KZ7Ut4gu8A@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Ywj0hmwJuodWAup3Z9pWGFwMTMTWliFwBSyYnYGI9aWwepNtARe
- wWkKv++Uhw/Fx7pIXN3Qy30UCm7SpFfBLxHinYutW5gVAae6++jhSznPg3T5Pu+qv0xcsC8iZrm
- 8DCCSj7IrfOFp7zcN0xZeQFj1eSKLhGs=
-X-Gm-Gg: AfdE7clejUIgPFOKo+k6z+xQfCRis/mfsMtbOAD5iakj91yAQUMSNFq2UTjqchNnriZ
- iKxLEZ9+N+kj3P6WgG149decC8OCM+2qRDe0B43yoaq2tZiOUJTwuWaAseLXN7ED7J8+1JRPNqJ
- /sNceLvlhpSshoLOd5gbD0SFbYENccFNdyf/NfWPpqU7cXjYNfqtMjOQIUgh4/Z7luVKnsmcONv
- gOa38CGfnY56KITUJuZjAYMt6yALqPqG0j1ITA4HquTtR9t7ljzvK371QLRE4M=
-X-Received: by 2002:a05:6808:1719:b0:495:ca1b:7865 with SMTP id
- 5614622812f47-4aaaa45f35fmr115856b6e.11.1784650533635; Tue, 21 Jul 2026
- 09:15:33 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C68C510EAE7;
+ Tue, 21 Jul 2026 18:00:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Subject:Cc:To:From:Date:From:Reply-To;
+ bh=5yEiyqBo9BHY5fwhIZBUZYRN1WWovER+0Yiy2s7YlAY=; b=qZBVHTXbu8uP6YWyeqcMV6xIOL
+ O66N5rkS0JrrlV1xZSPX1NpAH9OD3ofLXe0Tn2X2ZKx8X6UHv/FRKdKrkpCej7igdMB5i4Rs1oK+g
+ RbxzwSB2tvFArnvQwluXjuzX22P2ZULsABD4FjPUZXyZ7GyFsAL4UhZOTqVvaZAnE4VDpCVvXghfY
+ TdlVryTHPfXYMNmd7+QiR2YtrRUW5+eQeVejFub9sOh0TmZGICn4hI8/IaRlVQ7i7tPYKovMTGTYt
+ 1FRhZ+3QxaKw2Hk1vop/SITCpeTdMEsWRYXYfkMDuHFT+jv6x7f2GevY7rBtuCGMbhkhiCgLFR9Yd
+ memidESQ==;
+Received: from 179-125-91-91-dinamico.pombonet.net.br ([179.125.91.91]
+ helo=quatroqueijos.cascardo.eti.br)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wmElu-001j3F-HN; Tue, 21 Jul 2026 20:00:51 +0200
+Date: Tue, 21 Jul 2026 15:00:43 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= via Kernel-dev <kernel-dev@igalia.com>
+Cc: igt-dev@lists.freedesktop.org, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+Subject: Re: [PATCH i-g-t v4 7/7] tests/dmem_cgroups: add test for dmem.current
+Message-ID: <al-zyxVn0RNpZXq6@quatroqueijos.cascardo.eti.br>
+References: <20260717120447.1837818-1-cascardo@igalia.com>
+ <20260717120447.1837818-8-cascardo@igalia.com>
+ <93ec79b4fe0ab7d75affdb7c01367ff4400354d2.camel@linux.intel.com>
 MIME-Version: 1.0
-References: <20260719175857.4071636-1-ap420073@gmail.com>
- <20260719175857.4071636-3-ap420073@gmail.com>
- <CAHS8izMU4gQCH2v0dcOFkjP6Sxj7RUvC8=Baet=+pFXG24qh7A@mail.gmail.com>
-In-Reply-To: <CAHS8izMU4gQCH2v0dcOFkjP6Sxj7RUvC8=Baet=+pFXG24qh7A@mail.gmail.com>
-From: Taehee Yoo <ap420073@gmail.com>
-Date: Wed, 22 Jul 2026 01:15:21 +0900
-X-Gm-Features: AUfX_myzxRudA1U0N4kTpj_-EeksspXQRshMpn_Oino0jucUwXolnXuNEcZWdbw
-Message-ID: <CAMArcTXba+A+MR2rpODbpdWbHOE3XLi6RfkCsK9fjgWzzTxSow@mail.gmail.com>
-Subject: Re: [RFC PATCH net-next 02/13] net: devmem: extend memory provider
- for knod
-To: Mina Almasry <almasrymina@google.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Alexei Starovoitov <ast@kernel.org>, 
- amd-gfx@lists.freedesktop.org, Andrew Lunn <andrew+netdev@lunn.ch>, 
- Andrii Nakryiko <andrii@kernel.org>, Bill Wendling <morbo@google.com>,
- bpf@vger.kernel.org, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Daniel Borkmann <daniel@iogearbox.net>, David Airlie <airlied@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>,
- Donald Hunter <donald.hunter@gmail.com>, 
- dri-devel@lists.freedesktop.org, Eduard Zingerman <eddyz87@gmail.com>, 
- Emil Tsalapatis <emil@etsalapatis.com>, Eric Dumazet <edumazet@google.com>, 
- Felix Kuehling <Felix.Kuehling@amd.com>, Hoyeon Lee <hoyeon.rhee@gmail.com>, 
- Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Jakub Kicinski <kuba@kernel.org>, 
- Jesper Dangaard Brouer <hawk@kernel.org>, Jiri Olsa <jolsa@kernel.org>, 
- John Fastabend <john.fastabend@gmail.com>,
- Justin Stitt <justinstitt@google.com>, 
- Kees Cook <kees@kernel.org>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
- Leon Romanovsky <leon@kernel.org>, 
- linaro-mm-sig@lists.linaro.org, linux-hardening@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-media@vger.kernel.org, linux-rdma@vger.kernel.org, llvm@lists.linux.dev, 
- Mark Bloch <mbloch@nvidia.com>, Martin KaFai Lau <martin.lau@linux.dev>, 
- Michael Chan <michael.chan@broadcom.com>, Nathan Chancellor <nathan@kernel.org>,
- netdev@vger.kernel.org, 
- Nick Desaulniers <ndesaulniers@google.com>, Paolo Abeni <pabeni@redhat.com>, 
- Pavan Chebbi <pavan.chebbi@broadcom.com>, Saeed Mahameed <saeedm@nvidia.com>, 
- Shuah Khan <shuah@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Simon Horman <horms@kernel.org>, 
- Song Liu <song@kernel.org>, Stanislav Fomichev <sdf@fomichev.me>, 
- Sumit Semwal <sumit.semwal@linaro.org>, Tariq Toukan <tariqt@nvidia.com>, 
- Yonghong Song <yonghong.song@linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <93ec79b4fe0ab7d75affdb7c01367ff4400354d2.camel@linux.intel.com>
 X-Mailman-Approved-At: Thu, 23 Jul 2026 07:07:46 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -138,337 +69,394 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Jul 21, 2026 at 4:44=E2=80=AFAM Mina Almasry <almasrymina@google.co=
-m> wrote:
->
-
-Hi Mina,
-Thanks a lot for your review!
-
-> On Sun, Jul 19, 2026 at 11:03=E2=80=AFAM Taehee Yoo <ap420073@gmail.com> =
-wrote:
-> >
-> > Extend the devmem memory-provider path so a knod accelerator can back a
-> > NIC page_pool with accelerator-exported memory (dma-buf), letting the
-> > NIC DMA received packets directly into accelerator memory.
-> >
-> > Signed-off-by: Taehee Yoo <ap420073@gmail.com>
->
-> Changes look fine in general but I do not understand in the design how
-> the page_pool not bound to rx queue would be used. Maybe elaborate on
-> the design in the commit message or cover letter in the next
-> iteration.
->
-
-Sorry, this is not clear from the commit message or cover letter.
-
-We added a custom provider type for page_pool that allocates GTT memory
-- host memory that is also mapped to a GPU VA, which lets us copy between
-VRAM and host without a separate staging buffer. So when the XDP verdict
-is XDP_PASS, or on the IPsec path, this page_pool is used for the
-allocation. To configure the page_pool with our KNOD backend, we
-define mp_ops/priv in knod_core.c and set them directly as the
-page_pool's mp_ops/priv, rather than going through netdev_rx_queue.
-
-As a result, each combined channel has two page_pools: a NETMEM
-page_pool created by the device driver to refill the RX ring through
-the normal netdev_rx_queue path, and one CUSTOM_PROVIDER page_pool
-created and managed by knod core for the XDP_PASS / IPsec allocations.
-The latter is created per channel by knod core, so it is not bound
-through netdev_rx_queue.
-
-We will describe this distinction in the next revision.
-
-> > (cherry picked from commit d511a8cb3e229f8f5cf060985880d45bd384db87)
->
-> I guess remove unintended cherry-pick tag.
->
-
-Yes, we will remove it.
-
-> > ---
-> >  include/net/devmem.h                    |  58 +++++++++++++
-> >  include/net/netmem.h                    |   9 +++
-> >  include/net/page_pool/memory_provider.h |   4 +
-> >  include/net/page_pool/types.h           |  23 +++++-
-> >  net/core/devmem.c                       | 103 +++++++++++++++++++-----
-> >  net/core/devmem.h                       |   7 +-
-> >  net/core/page_pool.c                    |  22 ++++-
-> >  7 files changed, 198 insertions(+), 28 deletions(-)
-> >  create mode 100644 include/net/devmem.h
-> >
-> > diff --git a/include/net/devmem.h b/include/net/devmem.h
-> > new file mode 100644
-> > index 000000000000..f1c3895d7833
-> > --- /dev/null
-> > +++ b/include/net/devmem.h
->
-> Try to keep only include/net/netmem.h and net/core/devmem.h rather
-> than add an include/net/devmem.h
->
-
-Thanks. We will keep the declarations in include/net/netmem.h and
-
-> > @@ -0,0 +1,58 @@
-> > +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> > +/*
-> > + * Device memory TCP support
-> > + *
-> > + * Authors:    Mina Almasry <almasrymina@google.com>
-> > + *             Willem de Bruijn <willemb@google.com>
-> > + *             Kaiyuan Zhang <kaiyuanz@google.com>
-> > + *
-> > + */
-> > +#ifndef _NET_DEVMEM_H
-> > +#define _NET_DEVMEM_H
-> > +
-> > +#include <linux/dma-direction.h>
-> > +#include <linux/err.h>
-> > +#include <linux/types.h>
-> > +
-> > +struct device;
-> > +struct dma_buf;
-> > +struct dma_buf_attach_ops;
-> > +struct net_device;
-> > +struct net_devmem_dmabuf_binding;
-> > +struct netlink_ext_ack;
-> > +
-> > +#if defined(CONFIG_NET_DEVMEM)
-> > +struct net_devmem_dmabuf_binding *
-> > +__net_devmem_binding_create(struct net_device *dev, struct device *dma=
-_dev,
-> > +                           struct dma_buf *dmabuf,
-> > +                           enum dma_data_direction direction,
-> > +                           const struct dma_buf_attach_ops *importer_o=
-ps,
-> > +                           struct netlink_ext_ack *extack);
-> > +int net_devmem_bind_dmabuf_to_queue_direct(struct net_device *dev, u32=
- rxq_idx,
-> > +                                          struct net_devmem_dmabuf_bin=
-ding *binding);
-> > +void net_devmem_unbind_dmabuf_direct(struct net_devmem_dmabuf_binding =
-*binding);
-> > +#else
-> > +static inline struct net_devmem_dmabuf_binding *
-> > +__net_devmem_binding_create(struct net_device *dev, struct device *dma=
-_dev,
-> > +                           struct dma_buf *dmabuf,
-> > +                           enum dma_data_direction direction,
-> > +                           const struct dma_buf_attach_ops *importer_o=
-ps,
-> > +                           struct netlink_ext_ack *extack)
-> > +{
-> > +       return ERR_PTR(-EOPNOTSUPP);
-> > +}
-> > +
-> > +static inline int
-> > +net_devmem_bind_dmabuf_to_queue_direct(struct net_device *dev, u32 rxq=
-_idx,
-> > +                                      struct net_devmem_dmabuf_binding=
- *binding)
-> > +{
-> > +       return -EOPNOTSUPP;
-> > +}
-> > +
-> > +static inline void
-> > +net_devmem_unbind_dmabuf_direct(struct net_devmem_dmabuf_binding *bind=
-ing)
-> > +{
-> > +}
-> > +#endif
-> > +
-> > +#endif /* _NET_DEVMEM_H */
-> > diff --git a/include/net/netmem.h b/include/net/netmem.h
-> > index bccacd21b6c3..3ddfbd37500f 100644
-> > --- a/include/net/netmem.h
-> > +++ b/include/net/netmem.h
-> > @@ -127,6 +127,15 @@ static inline void net_iov_init(struct net_iov *ni=
-ov,
-> >         niov->type =3D type;
-> >  }
-> >
-> > +/* Global page index within the dma-buf, accounting for multi-chunk
-> > + * scatter-gather layouts where each chunk owner's niovs start at 0.
-> > + */
-> > +static inline unsigned int net_iov_binding_idx(const struct net_iov *n=
-iov)
-> > +{
-> > +       return (net_iov_owner(niov)->base_virtual >> PAGE_SHIFT) +
-> > +              net_iov_idx(niov);
-> > +}
-> > +
-> >  /* netmem */
-> >
-> >  /**
-> > diff --git a/include/net/page_pool/memory_provider.h b/include/net/page=
-_pool/memory_provider.h
-> > index 255ce4cfd975..4b58a9702fb7 100644
-> > --- a/include/net/page_pool/memory_provider.h
-> > +++ b/include/net/page_pool/memory_provider.h
-> > @@ -23,6 +23,10 @@ bool net_mp_niov_set_dma_addr(struct net_iov *niov, =
-dma_addr_t addr);
-> >  void net_mp_niov_set_page_pool(struct page_pool *pool, struct net_iov =
-*niov);
-> >  void net_mp_niov_clear_page_pool(struct net_iov *niov);
-> >
-> > +void page_pool_provider_set_netmem(struct page_pool *pool, netmem_ref =
-netmem,
-> > +                                  dma_addr_t addr);
-> > +void page_pool_clear_pp_info(netmem_ref netmem);
-> > +
-> >  int netif_mp_open_rxq(struct net_device *dev, unsigned int rxq_idx,
-> >                       const struct pp_memory_provider_params *p,
-> >                       struct netlink_ext_ack *extack);
-> > diff --git a/include/net/page_pool/types.h b/include/net/page_pool/type=
-s.h
-> > index 03da138722f5..3e866f249768 100644
-> > --- a/include/net/page_pool/types.h
-> > +++ b/include/net/page_pool/types.h
-> > @@ -31,8 +31,16 @@
-> >   */
-> >  #define PP_FLAG_ALLOW_UNREADABLE_NETMEM BIT(3)
-> >
-> > +/* Driver-managed pool with a directly-supplied memory provider, not b=
-ound to a
-> > + * netdev rx queue. Setting this flag requires page_pool_params.mp_ops=
- and
-> > + * .mp_priv to both be set.
-> > + */
-> > +#define PP_FLAG_CUSTOM_MEMORY_PROVIDER BIT(4)
-> > +
-> >  #define PP_FLAG_ALL            (PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV=
- | \
-> > -                                PP_FLAG_SYSTEM_POOL | PP_FLAG_ALLOW_UN=
-READABLE_NETMEM)
-> > +                                PP_FLAG_SYSTEM_POOL | \
-> > +                                PP_FLAG_ALLOW_UNREADABLE_NETMEM | \
-> > +                                PP_FLAG_CUSTOM_MEMORY_PROVIDER)
-> >
-> >  /* Index limit to stay within PP_DMA_INDEX_BITS for DMA indices */
-> >  #define PP_DMA_INDEX_LIMIT XA_LIMIT(1, BIT(PP_DMA_INDEX_BITS) - 1)
-> > @@ -54,11 +62,11 @@
-> >   * would have to take a slower code path.
-> >   */
-> >  #if PAGE_SIZE >=3D SZ_64K
-> > -#define PP_ALLOC_CACHE_REFILL  4
-> > +#define PP_ALLOC_CACHE_REFILL  256
-> >  #elif PAGE_SIZE >=3D SZ_16K
-> > -#define PP_ALLOC_CACHE_REFILL  16
-> > +#define PP_ALLOC_CACHE_REFILL  1024
-> >  #else
-> > -#define PP_ALLOC_CACHE_REFILL  64
-> > +#define PP_ALLOC_CACHE_REFILL  4096
-> >  #endif
-> >
->
-> I'm guessing this is just a workaround/optimization. You need a proper
-> change for this, maybe make it configurable arguments when creating a
-> pp or something.
->
-
-Agreed. We will rework this as a per-pool setting instead of changing
-the global page_pool cache size.
-
-> >  #define PP_ALLOC_CACHE_SIZE    (PP_ALLOC_CACHE_REFILL * 2)
-> > @@ -67,6 +75,8 @@ struct pp_alloc_cache {
-> >         netmem_ref cache[PP_ALLOC_CACHE_SIZE];
-> >  };
-> >
-> > +struct memory_provider_ops;
-> > +
-> >  /**
-> >   * struct page_pool_params - page pool parameters
-> >   * @fast:      params accessed frequently on hotpath
-> > @@ -83,6 +93,9 @@ struct pp_alloc_cache {
-> >   * @queue_idx: queue idx this page_pool is being created for.
-> >   * @flags:     PP_FLAG_DMA_MAP, PP_FLAG_DMA_SYNC_DEV, PP_FLAG_SYSTEM_P=
-OOL,
-> >   *             PP_FLAG_ALLOW_UNREADABLE_NETMEM.
-> > + * @mp_ops:    driver-supplied memory provider for a pool not bound to=
- a
-> > + *             netdev rx queue (NULL to use rxq->mp_params instead)
-> > + * @mp_priv:   context passed to @mp_ops
-> >   */
-> >  struct page_pool_params {
-> >         struct_group_tagged(page_pool_params_fast, fast,
-> > @@ -99,6 +112,8 @@ struct page_pool_params {
-> >                 struct net_device *netdev;
-> >                 unsigned int queue_idx;
-> >                 unsigned int    flags;
-> > +               const struct memory_provider_ops *mp_ops;
-> > +               void *mp_priv;
-> >  /* private: used by test code only */
-> >                 void (*init_callback)(netmem_ref netmem, void *arg);
-> >                 void *init_arg;
-> > diff --git a/net/core/devmem.c b/net/core/devmem.c
-> > index 957d6b96216b..9e21cffc9643 100644
-> > --- a/net/core/devmem.c
-> > +++ b/net/core/devmem.c
-> > @@ -121,12 +121,9 @@ void net_devmem_free_dmabuf(struct net_iov *niov)
-> >         gen_pool_free(binding->chunk_pool, dma_addr, PAGE_SIZE);
-> >  }
-> >
-> > -void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *bindin=
-g)
-> > +static void
-> > +net_devmem_binding_unpublish(struct net_devmem_dmabuf_binding *binding=
-)
-> >  {
-> > -       struct netdev_rx_queue *rxq;
-> > -       unsigned long xa_idx;
-> > -       unsigned int rxq_idx;
-> > -
-> >         xa_erase(&net_devmem_dmabuf_bindings, binding->id);
-> >
-> >         /* Ensure no tx net_devmem_lookup_dmabuf() are in flight after =
-the
-> > @@ -136,6 +133,15 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dm=
-abuf_binding *binding)
-> >
-> >         if (binding->list.next)
-> >                 list_del(&binding->list);
-> > +}
-> > +
-> > +void net_devmem_unbind_dmabuf(struct net_devmem_dmabuf_binding *bindin=
-g)
-> > +{
-> > +       struct netdev_rx_queue *rxq;
-> > +       unsigned long xa_idx;
-> > +       unsigned int rxq_idx;
-> > +
-> > +       net_devmem_binding_unpublish(binding);
-> >
-> >         xa_for_each(&binding->bound_rxqs, xa_idx, rxq) {
-> >                 const struct pp_memory_provider_params mp_params =3D {
-> > @@ -151,6 +157,47 @@ void net_devmem_unbind_dmabuf(struct net_devmem_dm=
-abuf_binding *binding)
-> >         percpu_ref_kill(&binding->ref);
-> >  }
-> >
-> > +/* Bind/unbind variants for in-kernel offload importers that drive the=
- rx
-> > + * queue lifecycle themselves. The mp_params are poked directly, witho=
-ut the
-> > + * tcp-data-split/XDP guards or the queue reconfigure that the netlink=
- control
-> > + * plane applies through netif_mp_open_rxq()/netif_mp_close_rxq().
-> > + */
-> > +int net_devmem_bind_dmabuf_to_queue_direct(struct net_device *dev, u32=
- rxq_idx,
-> > +                                          struct net_devmem_dmabuf_bin=
-ding *binding)
-> > +{
->
-> The LLM says in this function you need to check if the queue is
-> already bound to a devmem tcp memory provider.
->
-
-Right. We will reject the bind if the RX queue already has a memory
-provider.
-
-Thanks a lot!
-Taehee Yoo
-
-> --
+On Fri, Jul 17, 2026 at 03:00:33PM +0200, Thomas Hellström via Kernel-dev wrote:
+> On Fri, 2026-07-17 at 09:04 -0300, Thadeu Lima de Souza Cascardo wrote:
+> > Based on the work of Thomas Hellström to test dmem.max eviction, add
+> > a
+> > test for dmem.current usage after allocations and setting dmem.max.
+> > 
+> > Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
+> > check current usage is within a small slack of the expected
+> > allocation.
+> > Then, set max to a small value and check allocations and current
+> > usage
+> > are limited to the max set.  Set max to less than a single BO size,
+> > then
+> > check no allocations are allowed and current usage is also within the
+> > slack. After each allocation, release memory and check current usage
+> > has gone down.
+> > 
+> > Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> 
+> In what situations do you see the need for a slack? I've seen it only
+> when max is set close to 0. For higher max limit, the slack usage may
+> potentially mask bugs. Is there a way the slack can be activated only
+> when it's needed?
+> 
 > Thanks,
-> Mina
+> Thomas
+> 
+
+I found this was necessary when testing on Xe and I suspected it could be
+related to page tables or some extra pages I noticed in one specific code
+path.
+
+Now that I looked more into the logs that I have, I noticed around 56KiB
+extra bytes when allocating as many BOs as possible when there is no max.
+And when releasing them all, 32KiB bytes were still accounted for.
+
+Reading the code, I could not find where these exactly these come from. And
+given I ended up changing the way we allocate memory on Xe due to the
+allocation trigger on write_eviction_interruptible and
+write_eviction_nonblock, this might not even be true.
+
+Unfortunately, Rodrigo Siqueira, who helped me run those tests on Xe, is
+not available for the next few weeks, so I will have to chase some other
+discrete Xe GPUs around.
+
+I will chase this down and at try to pinpoint exactly where these are
+coming from. They might even point out to a bug.
+
+This might take me a few days. If there is anything else that you want me
+to fix in the meantime, let me know.
+
+Thanks.
+Cascardo.
+
+> 
+> 
+> > ---
+> >  tests/cgroup_dmem.c | 251
+> > +++++++++++++++++++++++++++++++++++++++++++-
+> >  1 file changed, 246 insertions(+), 5 deletions(-)
+> > 
+> > diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
+> > index 442c965f9bbf..fa4694b45035 100644
+> > --- a/tests/cgroup_dmem.c
+> > +++ b/tests/cgroup_dmem.c
+> > @@ -1,6 +1,8 @@
+> >  // SPDX-License-Identifier: MIT
+> >  /*
+> >   * Copyright © 2025 Intel Corporation
+> > + * Copyright © 2026 Intel Corporation
+> > + * Copyright 2026 Valve Corporation
+> >   */
+> >  
+> >  /**
+> > @@ -17,10 +19,214 @@
+> >   * Test category: uapi
+> >   */
+> >  
+> > +#include <errno.h>
+> >  #include <inttypes.h>
+> > +#include <signal.h>
+> > +#include <stdatomic.h>
+> > +#include <stdint.h>
+> > +#include <stdlib.h>
+> > +#include <string.h>
+> > +#include <unistd.h>
+> >  
+> > +#include "drmtest.h"
+> >  #include "igt.h"
+> > +#include "igt_aux.h"
+> >  #include "igt_cgroup.h"
+> > +#include "igt_dmem_driver.h"
+> > +
+> > +#define BO_SIZE			SZ_64M
+> > +#define MAX_LIMIT		((uint64_t)4 * SZ_1G)
+> > +#define USAGE_SLACK		SZ_4M		/* tolerance above
+> > the set max */
+> > +#define USAGE_POLL_MS		10
+> > +#define USAGE_DROP_TIMEOUT_MS	1000
+> > +
+> > +/**
+> > + * SUBTEST: simple
+> > + * DESCRIPTION:
+> > + *  Creates a cgroup, moves the process into it, enumerates all dmem
+> > regions,
+> > + *  prints their capacity, system-wide current usage, per-cgroup
+> > current usage
+> > + *  and configured limits, then destroys the cgroup.
+> > + */
+> > +
+> > +/**
+> > + * SUBTEST: current
+> > + * DESCRIPTION:
+> > + *  Create a dmem cgroup, allocate close to capacity (or at most
+> > 4GiB),
+> > + *  check current usage is within a small slack of the expected
+> > allocation.
+> > + *  Then, set max to a small value and check allocations and current
+> > usage
+> > + *  are limited to the max set.
+> > + *  Set max to less than a single BO size, then check no allocations
+> > are allowed
+> > + *  and current usage is also within the slack.
+> > + *  After each allocation, release memory and check current usage
+> > has gone
+> > + *  down.
+> > + * REQUIREMENTS: xe or amdgpu device with at least one VRAM region
+> > + */
+> > +
+> > +static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const
+> > char *region,
+> > +				    uint64_t limit)
+> > +{
+> > +	uint64_t current;
+> > +	unsigned int elapsed = 0;
+> > +
+> > +	do {
+> > +		igt_cgroup_dmem_get_current(cg, region, &current);
+> > +		if (current <= limit)
+> > +			return current;
+> > +		usleep(USAGE_POLL_MS * 1000);
+> > +		elapsed += USAGE_POLL_MS;
+> > +	} while (elapsed < USAGE_DROP_TIMEOUT_MS);
+> > +
+> > +	return current;
+> > +}
+> > +
+> > +static int allocate_vram(const struct igt_dmem_driver *drv, void
+> > *ctx, int fd, int max_bo, size_t len)
+> > +{
+> > +	int n_bo, err = 0;
+> > +	for (n_bo = 0; n_bo < max_bo; n_bo++) {
+> > +		err = drv->allocate_vram(ctx, n_bo, len);
+> > +		if (err)
+> > +			break;
+> > +	}
+> > +	/* These are expected failures we can ignore. */
+> > +	if (err == -ENOMEM || err == -ENOSPC)
+> > +		err = 0;
+> > +	return err ?: n_bo;
+> > +}
+> > +
+> > +static void free_vram(const struct igt_dmem_driver *drv, void *ctx,
+> > int max_bo)
+> > +{
+> > +	int i;
+> > +	for (i = 0; i < max_bo; i++)
+> > +		drv->free_vram(ctx, i);
+> > +}
+> > +
+> > +static void test_current(int fd, char *cg_region, unsigned int
+> > flags, const struct igt_dmem_driver *drv)
+> > +{
+> > +	struct igt_cgroup *cg;
+> > +	void *ctx;
+> > +	uint64_t current, capacity, cg_max;
+> > +	int n_bo = 0, max_bo;
+> > +	int err;
+> > +
+> > +	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
+> > +	igt_require_f(capacity >= 4 * BO_SIZE,
+> > +		      "VRAM capacity (%"PRIu64" MiB) too small to
+> > test\n",
+> > +		      capacity / SZ_1M);
+> > +
+> > +	/*
+> > +	 * Use up to 4 GiB, or the full capacity if the device has
+> > less.
+> > +	 * Leave one BO_SIZE worth of headroom so the device isn't
+> > completely
+> > +	 * exhausted before the cgroup limit is hit.
+> > +	 */
+> > +	cg_max = min(MAX_LIMIT, capacity - BO_SIZE - USAGE_SLACK);
+> > +	cg_max = ALIGN_DOWN(cg_max, BO_SIZE);
+> > +
+> > +	/* Create cgroup and move into it */
+> > +	cg = igt_cgroup_new("igt_cgroups_test");
+> > +	igt_cgroup_move_current(cg);
+> > +
+> > +	max_bo = cg_max / BO_SIZE;
+> > +
+> > +	err = drv->init(&ctx, fd, max_bo);
+> > +	igt_assert_f(!err, "Failed to initialize driver");
+> > +
+> > +	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
+> > +	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
+> > +
+> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> > +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
+> > +		  "max = %"PRIu64" MiB\n",
+> > +		  current / SZ_1M, cg_max / SZ_1M);
+> > +	igt_assert_f(current < cg_max + USAGE_SLACK && current >
+> > cg_max - USAGE_SLACK,
+> > +		     "current usage (%"PRIu64" MiB) is not within
+> > margin of allocation (%"PRIu64" MiB)\n",
+> > +		     current / SZ_1M, cg_max / SZ_1M);
+> > +
+> > +	free_vram(drv, ctx, n_bo);
+> > +	wait_for_usage_drop(cg, cg_region, USAGE_SLACK);
+> > +
+> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> > +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
+> > +		  "max = %"PRIu64" MiB\n",
+> > +		  current / SZ_1M, cg_max / SZ_1M);
+> > +	igt_assert_f(current < USAGE_SLACK,
+> > +		     "current usage (%"PRIu64" MiB) is not within
+> > margin (%d MiB)\n",
+> > +		     current / SZ_1M, USAGE_SLACK / SZ_1M);
+> > +
+> > +	/* Allow for a slack as there might be some extra pages
+> > allocated. */
+> > +	igt_cgroup_dmem_set_max(cg, cg_region, 2 * BO_SIZE +
+> > USAGE_SLACK, false);
+> > +
+> > +	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
+> > +	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
+> > +
+> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> > +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
+> > +		  "max = %"PRIu64" MiB\n",
+> > +		  current / SZ_1M, cg_max / SZ_1M);
+> > +	igt_assert_f(current < 2 * BO_SIZE + USAGE_SLACK && current
+> > > 2 * BO_SIZE - USAGE_SLACK,
+> > +		     "current usage (%"PRIu64" MiB) is not within
+> > margin of allocation (%"PRIu64" MiB)\n",
+> > +		     current / SZ_1M, cg_max / SZ_1M);
+> > +
+> > +	free_vram(drv, ctx, n_bo);
+> > +	wait_for_usage_drop(cg, cg_region, USAGE_SLACK);
+> > +
+> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> > +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
+> > +		  "max = %"PRIu64" MiB\n",
+> > +		  current / SZ_1M, cg_max / SZ_1M);
+> > +	igt_assert_f(current < USAGE_SLACK,
+> > +		     "current usage (%"PRIu64" MiB) is not within
+> > margin (%d MiB)\n",
+> > +		     current / SZ_1M, USAGE_SLACK / SZ_1M);
+> > +
+> > +	igt_cgroup_dmem_set_max(cg, cg_region, USAGE_SLACK, false);
+> > +
+> > +	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
+> > +
+> > +	/*
+> > +	 * amdgpu may succeed the allocation, by falling back to
+> > GTT, so no assertion here.
+> > +	 * Verify by reading current usage.
+> > +	 */
+> > +
+> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> > +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
+> > +		  "max = %"PRIu64" MiB\n",
+> > +		  current / SZ_1M, cg_max / SZ_1M);
+> > +	igt_assert_f(current < USAGE_SLACK,
+> > +		     "current usage (%"PRIu64" MiB) is not within
+> > margin\n",
+> > +		     current / SZ_1M);
+> > +
+> > +	if (n_bo > 0)
+> > +		free_vram(drv, ctx, n_bo);
+> > +	wait_for_usage_drop(cg, cg_region, USAGE_SLACK);
+> > +
+> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
+> > +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
+> > +		  "max = %"PRIu64" MiB\n",
+> > +		  current / SZ_1M, cg_max / SZ_1M);
+> > +	igt_assert_f(current < USAGE_SLACK,
+> > +		     "current usage (%"PRIu64" MiB) is not within
+> > margin (%d MiB)\n",
+> > +		     current / SZ_1M, USAGE_SLACK / SZ_1M);
+> > +
+> > +	drv->deinit(ctx);
+> > +	igt_cgroup_free(cg);
+> > +}
+> > +
+> > +static const struct {
+> > +	const char *name;
+> > +	void (*test_fn)(int fd, char *cg_region, unsigned int flags,
+> > const struct igt_dmem_driver *drv);
+> > +	unsigned int flags;
+> > +} subtests[] = {
+> > +	{ "current", test_current, 0 },
+> > +	{ }
+> > +};
+> > +
+> > +static const struct {
+> > +	int driver_flag;
+> > +	const struct igt_dmem_driver *driver;
+> > +} drivers[] = {
+> > +	{ DRIVER_XE, &xe_dmem_driver },
+> > +	{ DRIVER_AMDGPU, &amdgpu_dmem_driver },
+> > +	{ },
+> > +};
+> >  
+> >  IGT_TEST_DESCRIPTION("Exercises the cgroup v2 dmem controller
+> > interface.");
+> >  
+> > @@ -32,7 +238,7 @@ static void fmt_bytes(uint64_t v, char *buf,
+> > size_t len)
+> >  		snprintf(buf, len, "%" PRIu64, v);
+> >  }
+> >  
+> > -int igt_simple_main()
+> > +static void simple_cgroup(void)
+> >  {
+> >  	struct igt_cgroup *cg;
+> >  	const char *region;
+> > @@ -42,10 +248,6 @@ int igt_simple_main()
+> >  	char min_s[32], low_s[32], max_s[32];
+> >  	int i;
+> >  
+> > -	igt_require_f(igt_cgroup_dmem_available(),
+> > -		      "No dmem regions found; is cgroup v2 with the
+> > "
+> > -		      "dmem controller available?\n");
+> > -
+> >  	cg = igt_cgroup_new("igt-cgroup-dmem-test");
+> >  	igt_assert_f(cg, "Failed to create cgroup\n");
+> >  
+> > @@ -90,3 +292,42 @@ int igt_simple_main()
+> >  	igt_cgroup_dmem_regions_free(regions);
+> >  	igt_cgroup_free(cg);
+> >  }
+> > +
+> > +int igt_main()
+> > +{
+> > +	igt_fixture() {
+> > +		igt_require_f(getuid() == 0, "Test requires
+> > root\n");
+> > +		/* Check dmem cgroup controller is available before
+> > doing anything else */
+> > +		igt_require_f(igt_cgroup_dmem_available(),
+> > +			      "dmem cgroup controller not available
+> > (no cgroup v2 or no registered regions)\n");
+> > +
+> > +	}
+> > +
+> > +	igt_subtest("simple")
+> > +		simple_cgroup();
+> > +
+> > +	for (int d = 0; drivers[d].driver; d++) {
+> > +		igt_subtest_group() {
+> > +			int fd = -1;
+> > +			char *cg_region;
+> > +			igt_fixture() {
+> > +				fd =
+> > drm_open_driver(drivers[d].driver_flag);
+> > +				igt_require_f(fd >= 0,
+> > +					"No %s device found,
+> > skipping\n",
+> > +					drivers[d].driver->name);
+> > +				cg_region = drivers[d].driver-
+> > >get_region_name(fd);
+> > +				igt_require_f(cg_region, "Region not
+> > tracked by dmem cgroup controller\n");
+> > +			}
+> > +
+> > +			for (int i = 0; subtests[i].name; i++)
+> > +				igt_subtest_f("%s-%s",
+> > drivers[d].driver->name, subtests[i].name)
+> > +					subtests[i].test_fn(fd,
+> > cg_region, subtests[i].flags, drivers[d].driver);
+> > +
+> > +			igt_fixture() {
+> > +				if (fd >= 0)
+> > +					drm_close_driver(fd);
+> > +				free(cg_region);
+> > +			}
+> > +		}
+> > +	}
+> > +}
