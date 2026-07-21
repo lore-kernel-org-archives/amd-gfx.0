@@ -4,79 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A6F9C4452F
-	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 12:25:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB68DC44532
+	for <amd-gfx@archiver.kernel.org>; Tue, 21 Jul 2026 13:38:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0EEE310E978;
-	Tue, 21 Jul 2026 12:25:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3550710EA47;
+	Tue, 21 Jul 2026 13:38:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eCgUvlu1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MRaFshP7";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 35ECB10E329;
- Tue, 21 Jul 2026 12:25:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784636745; x=1816172745;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=I/YKssBTmCWpxAzh41dfBNeIEMvOCor3EGtfl9H79gE=;
- b=eCgUvlu1aIM11aZuXru9WjvTcjJV0CwrFckrqlG2lo5wbQP/F+XJzTnA
- xMztsAseZlBDVrkjcrHxMEN7EXZxAqAeEnRY+c9jHfXSF8XMJ1oucAY/E
- gbWnUx1wmAu4s4CLZVlmPnJLyqXgZNpKwDgVU/3pMbOm0x11DOXrhvNBA
- 7RAm0xLME9hArdfWSl7hjpCAhkNq2tz7FRyto4LZqlM2QPX8OWuASZkvd
- i/hKJfkwJVhUnZ1ZMkcz/YitYRF6v+0Rx+50qSFqy3MDIJ0o6uJyP525q
- cAlvyaToOtbk16AEO9Q3qTiI68fARP/lqXnNuWQ4gyqQOiAGAz5yChMFE w==;
-X-CSE-ConnectionGUID: 5L9jsiGYTWentO2z0ZXdDA==
-X-CSE-MsgGUID: 8uZjR8xOQ36mzEIXh+NUlQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11852"; a="85251826"
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; d="scan'208";a="85251826"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2026 05:25:43 -0700
-X-CSE-ConnectionGUID: TRZNSRRfRZmcBxvcQyaQxA==
-X-CSE-MsgGUID: PHvGZ7zoS+u3lvSXILpcyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,176,1779174000"; d="scan'208";a="258396724"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO [10.245.245.93])
- ([10.245.245.93])
- by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 21 Jul 2026 05:25:38 -0700
-Message-ID: <06bcc2e8-a7fd-483d-8c73-2a253b433840@linux.intel.com>
-Date: Tue, 21 Jul 2026 14:26:34 +0200
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010055.outbound.protection.outlook.com [52.101.46.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B639810E330
+ for <amd-gfx@lists.freedesktop.org>; Tue, 21 Jul 2026 13:38:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mM035SaZ3k3SoI+Qd1ikp9qz/8k85HLofwJ01DtECHGZDPnRqvTFadAJGMLfCeortlsf54calb1lyCxH/KZ4XThwxIwHDuFUvVQkXjRp9qsYCISuBQryJSN0mV534i/unmKL1QzkK6y3AwKX9JGTvezi9yxYYqlYAxEex7HU0gbVtsHDIB+x1PEa04wqsPY0Dc3U84fnWOCbVD2hXNRa3/6G55iUiN3SpWEQmpPtQd1C2B/+Vwst4SBEQ8F8e6bOMjcEj7+i9usU2e7PsemRLoIKzoH6sILveuzpw5XnCt7wvoOdEWqJnCv9jJ7hVnT4Dl3O9LLG0EaC/XDQ5sW6Iw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sXRqfv+gt6f71OwniPIZ6P4KR6EBbvNYZ6/mtauVrxs=;
+ b=sNSZQTJf+KO0ACKj5N2m5a0S1NV1NT9PCpNbLu2KYu6sj9357iQ+sBZuI8Fn9AnFkhGYNJtHN8nm4pGBtIQsgTCZgl1ZGwbeHm0eYute2NLg4SrAYTJKbZoOQdh5uFq/NubfEEnbk+yXBHX33AqFqOLWA76Pax5ivRAP6UWG8JFz+SugTy/DAFDJTJADr4nYmwlz1Wgu33VHhmwJqSYX5+bMb+as1iVH/DH14yjEHJxajyy6r3KFCvHUDAg0BDlkTPQDCiomIX5ZKvVyGEVCFEtxoJyU6AeDhlPPt5GljL0HGKQ6YV3OCeqEGRMcCM+2bnSRt51bMlPN2mq+Q9/F0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sXRqfv+gt6f71OwniPIZ6P4KR6EBbvNYZ6/mtauVrxs=;
+ b=MRaFshP7uW/jehGb50OZnV2bFxoYuXpOfj7mLXK8Ws0Xu3ufI6acvooca1v9xLRc2NqyneQbzjP7of1qNiNnKYpyNZ+zPrYjMRLmKKVDNyEIrlHkqy35a6doIPidwyJ2BzXM/7MsBPbpFVPEZsBD4qnOKPfIhVkI+ldsRJl+DyM=
+Received: from DS7P220CA0025.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:223::22) by
+ LV8PR12MB9419.namprd12.prod.outlook.com (2603:10b6:408:206::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.223.18; Tue, 21 Jul 2026 13:38:18 +0000
+Received: from DS3PEPF000099DC.namprd04.prod.outlook.com
+ (2603:10b6:8:223:cafe::24) by DS7P220CA0025.outlook.office365.com
+ (2603:10b6:8:223::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Tue,
+ 21 Jul 2026 13:38:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS3PEPF000099DC.mail.protection.outlook.com (10.167.17.198) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.5 via Frontend Transport; Tue, 21 Jul 2026 13:38:16 +0000
+Received: from fdavid-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 21 Jul
+ 2026 08:38:16 -0500
+From: David Francis <David.Francis@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: David Francis <David.Francis@amd.com>
+Subject: [PATCH] drm/amdkfd: Handle invalid event type in CRIU event restore
+Date: Tue, 21 Jul 2026 09:38:03 -0400
+Message-ID: <20260721133803.899885-1-David.Francis@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/6] drm/amdgpu: Fix init ordering in
- amdgpu_vram_mgr_init()
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- intel-xe@lists.freedesktop.org
-Cc: Sashiko-bot <sashiko-bot@kernel.org>,
- Friedrich Vock <friedrich.vock@gmx.de>, Maarten Lankhorst
- <dev@lankhorst.se>, Tejun Heo <tj@kernel.org>,
- Maxime Ripard <mripard@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
- =?UTF-8?Q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>, cgroups@vger.kernel.org,
- Huang Rui <ray.huang@amd.com>, Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-kernel@vger.kernel.org
-References: <20260703130541.2686-1-thomas.hellstrom@linux.intel.com>
- <20260703130541.2686-2-thomas.hellstrom@linux.intel.com>
- <9eae1a5c-d2ef-4d75-a581-58299ca37a1f@amd.com>
- <9c8b4367-c029-4731-8ea8-b8263e11ada1@amd.com>
- <2e50a938-af3d-4495-926f-fbe084aaae9a@linux.intel.com>
- <60de7db0d25e387de4c13d0acb52d2dc1cc22d39.camel@linux.intel.com>
-Content-Language: en-US
-From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-In-Reply-To: <60de7db0d25e387de4c13d0acb52d2dc1cc22d39.camel@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099DC:EE_|LV8PR12MB9419:EE_
+X-MS-Office365-Filtering-Correlation-Id: aa359c56-d6a7-4e77-7bb1-08dee72d521b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|36860700016|82310400026|1800799024|11063799006|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: c5wo2gdzmwearZ5DgNZdcjxqgqEKVmW7ofmkhWphFvihNEI4CImY3poG9PrvERUoCEF2KA3HwPw/WfwjeBZCP+GrqJXH7shyeqttfbbLsY/dXjM8neZuFpgCi5W5srlOt5zkibU7H2OtsWALkgAs3+vbg3gVjadIs9spfXpZbS310rRvNniGe0kfjJUjaYDdhdpqpEX7+Tca1kQCDT+TH9Q5d4jF3PWBwu3XYKDMFFWvD5ACaF7hR7FYxutsZvBkGo1HEGtSLJdMndMy2qt2kRVZzrqJyVIPKtrGCGlsaZsiMrsGwpUuBEr7A8NxZG9KJzN3cn1e4nA+EgyHJBkT9qqcRH8ZmfIczDF28fHfoggEpdeMHj8IQPeeDmfXQHu9jx+eDL+M31R0mXEcX5gVHmoTzwForuPg/VS9p3s/ouZ/ZvICcmCC6PMsMQWJ4L9p1CQXb4tCEown5WBQ/sEPE8Y3ZHcQ7GS47TGUsPnGinmLH+BnpMecJHfodUEiJbPbnrv2WJIo7KhOo+hfuBjDIpJqfHLA26OEd/sY2tmxOkukYsG5nUG7tC+AaozhBfYV8IBZx4P/ZO0us26kIMNdb95iM03rE4DuXZr5cv5AYvii5fYcGAzvucPmqBwBHFJIA12a/C+macjTNnvqlZs/G04P7N5B1MNdn4RGrr26dymvxWjUJnWQ/u2h+ZpaxFLvFPot6EyKxZzzGksb+DXwUQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(36860700016)(82310400026)(1800799024)(11063799006)(56012099006)(10067099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: xkLPw4scRO9V00F+9ufxvOy/IfbUN+kPbHBgChdBqWUCsPT88Rfolr7fYKCFhKvjtthdO28oqXTEvzTTfLYq0hgvL88Ue6MeWDYneRra5Z2znPa+JudN17vEvPR7Ea+mSSAWasZ3Wt7EG6An2j78bJFDYpcNDzanau4qNdjCc3O/51meu5ewY0fue3ppWCVpKr945FniFhCSjBpTGGvpc6fnCfYPjkCyoP2Mxo4K7xC2jWPaVUg7jD3tekhhCOTJ2N9n/YpqMhwMIrRxSVPfHLvZZK8trv4MQ4WOTHfLGQvOVUQXa9Tvxr/8TVXmT3Jqtlr6HSiTnyrBg3fXVRTCHIVfNkPABfYVpNhEd5tVOkiPP04UgB7nHp9FQzwsgb8OpfwUmDCGO61OzGkL5PD8ENWBHqy84awDnbyzQllIYGp+TZl9TFIPat+4dZTdKxLx
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Jul 2026 13:38:16.9464 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: aa359c56-d6a7-4e77-7bb1-08dee72d521b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DC.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9419
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,131 +107,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hey,
+In kfd_criu_restore_event, there was no handling for
+the event priv data having an invalid event type. The priv
+data here is untrusted and can be invalid.
 
-On 7/21/26 14:10, Thomas Hellström wrote:
-> Hi, Maarten,
-> 
-> On Tue, 2026-07-21 at 13:46 +0200, Maarten Lankhorst wrote:
->> Hey,
->>
->> Can I merge this through drm-misc-next together with the rest of the
->> series?
->>
->> Kind regards
->> ~Maarten
-> 
-> For the xe patches, Ack from me.
-> 
-> I do have a v8 that fixes a sashiko comment on the last patch, though,
-> but I was holding that awaiting a review on the other patches.
-Yeah seems about right. Patches themselves look good to me now, so would be nice if amd can ack here or in v8.
+In that case, fail with EINVAL.
 
-Series themselves look good, so feel free to add my r-b to entire series: (and Thadeu's t-b)
+Signed-off-by: David Francis <David.Francis@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_events.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Reviewed-By: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-
-> 
-> Thanks,
-> Thomas
-> 
-> 
-> 
->>
->> On 7/7/26 20:05, Arunpravin Paneer Selvam wrote:
->>>
->>>
->>> On 7/3/2026 6:38 PM, Christian König wrote:
->>>> Arun please take a look at this.
->>> Sure Christian. This fix looks correct to me.
->>> Reviewed-by: Arunpravin Paneer Selvam
->>> <Arunpravin.PaneerSelvam@amd.com>
->>>
->>> Thanks,
->>> Arun.
->>>>
->>>> Thanks,
->>>> Christian.
->>>>
->>>> On 7/3/26 15:05, Thomas Hellström wrote:
->>>>> drmm_cgroup_register_region() is called before INIT_LIST_HEAD()
->>>>> and
->>>>> gpu_buddy_init() in amdgpu_vram_mgr_init(). If it fails, the
->>>>> function
->>>>> returns early and bypasses those initializations.
->>>>>
->>>>> Since adev->mman.initialized is set to true before
->>>>> amdgpu_vram_mgr_init()
->>>>> is called, a failure triggers amdgpu_ttm_fini(), which calls
->>>>> amdgpu_vram_mgr_fini(), which then:
->>>>>
->>>>>   - Calls list_for_each_entry_safe() on reservations_pending
->>>>> and
->>>>>     reserved_pages, whose list_head::next pointers are zero-
->>>>> initialized
->>>>>     (NULL). The loop does not recognize them as empty and
->>>>> dereferences NULL.
->>>>>
->>>>>   - Calls gpu_buddy_fini(), which iterates free_trees[]
->>>>> unconditionally
->>>>>     via for_each_free_tree(). Since mm->free_trees is NULL
->>>>>     (never allocated), this dereferences NULL.
->>>>>
->>>>> Both result in a kernel panic on the module load error path.
->>>>>
->>>>> Fix by moving drmm_cgroup_register_region() to after the list
->>>>> and buddy
->>>>> allocator are fully initialized, so the teardown path is safe
->>>>> to run.
->>>>>
->>>>> Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
->>>>> Closes:
->>>>> https://sashiko.dev/#/patchset/20260428073116.15687-1-thomas.hellstrom@linux.intel.com?part=4
->>>>> Fixes: 2b624a2c1865 ("drm/ttm: Handle cgroup based eviction in
->>>>> TTM")
->>>>> Cc: Friedrich Vock <friedrich.vock@gmx.de>
->>>>> Cc: Maarten Lankhorst <dev@lankhorst.se>
->>>>> Cc: Tejun Heo <tj@kernel.org>
->>>>> Cc: Maxime Ripard <mripard@kernel.org>
->>>>> Cc: Christian König <christian.koenig@amd.com>
->>>>> Cc: Alex Deucher <alexander.deucher@amd.com>
->>>>> Cc: amd-gfx@lists.freedesktop.org
->>>>> Cc: dri-devel@lists.freedesktop.org
->>>>> Cc: <stable@vger.kernel.org> # v6.14+
->>>>> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
->>>>> Signed-off-by: Thomas Hellström
->>>>> <thomas.hellstrom@linux.intel.com>
->>>>> ---
->>>>>   drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 7 ++++---
->>>>>   1 file changed, 4 insertions(+), 3 deletions(-)
->>>>>
->>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>>> index 2a241a5b12c4..ac3f71d77140 100644
->>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
->>>>> @@ -918,9 +918,6 @@ int amdgpu_vram_mgr_init(struct
->>>>> amdgpu_device *adev)
->>>>>       struct ttm_resource_manager *man = &mgr->manager;
->>>>>       int err;
->>>>>   -    man->cg = drmm_cgroup_register_region(adev_to_drm(adev),
->>>>> "vram", adev->gmc.real_vram_size);
->>>>> -    if (IS_ERR(man->cg))
->>>>> -        return PTR_ERR(man->cg);
->>>>>       ttm_resource_manager_init(man, &adev->mman.bdev,
->>>>>                     adev->gmc.real_vram_size);
->>>>>   @@ -935,6 +932,10 @@ int amdgpu_vram_mgr_init(struct
->>>>> amdgpu_device *adev)
->>>>>       if (err)
->>>>>           return err;
->>>>>   +    man->cg = drmm_cgroup_register_region(adev_to_drm(adev),
->>>>> "vram", adev->gmc.real_vram_size);
->>>>> +    if (IS_ERR(man->cg))
->>>>> +        return PTR_ERR(man->cg);
->>>>> +
->>>>>       ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM,
->>>>> &mgr->manager);
->>>>>       ttm_resource_manager_set_used(man, true);
->>>>>       return 0;
->>>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_events.c b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+index f5fd78f0df7d..9e0f57cfa3bf 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_events.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_events.c
+@@ -452,6 +452,9 @@ int kfd_criu_restore_event(struct file *devkfd,
+ 
+ 		ret = create_other_event(p, ev, &ev_priv->event_id);
+ 		break;
++	default:
++		ret = -EINVAL;
++		break;
+ 	}
+ 	mutex_unlock(&p->event_mutex);
+ 
+-- 
+2.34.1
 
