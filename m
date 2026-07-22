@@ -4,67 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3285C531BC
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jul 2026 13:46:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60C06C531CA
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jul 2026 13:46:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 47A3C10EE09;
-	Wed, 22 Jul 2026 13:46:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9427B10EDF7;
+	Wed, 22 Jul 2026 13:46:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="K39ESfqS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZA+Mrzfm";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010013.outbound.protection.outlook.com [52.101.46.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E25A310EDEC;
- Wed, 22 Jul 2026 13:46:30 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011045.outbound.protection.outlook.com [40.107.208.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 53B5B10EDEC;
+ Wed, 22 Jul 2026 13:46:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oEzjnSrp2sDvKUifoDRFiwuTEuuE51CMMvBtebyvBj+3XPdH/NxLle3LmoAmATm+5N3ZLfyCJjEjk892sp/iIV597o0+EINEcWYQdW6Bl3k4USZku44z4l9yCe9Nal/dBChE3/kobQMsgCFJg6Z3NyI+ucW4D4UNED7wkRLlzklWDdReGrfw3njPPjYnGGCdw4bWwO1+6qjs+Kk4r9zmNuiBDLNMyCifooV5WxsgbV9VeLooMppDdL3ny9+/xeBxnrQUQqDYv+9aRiPtHlSCBdn2WTSnEzQIgKyYtYTIDBDNiqDpD3fBUlkvilYWpTJjsIjY+t2AtQcQ6EoXeVloFw==
+ b=Y5EOOs3SLnGrSE4CZ3nSffp94TtQapPitkgMgvAviHfrbB2/8VVgIzLEIhVcwJprqWI0tPMCZWLOW+5vspz7NWg38LLanOQEoPeLktCcx17kFZdLrhTSfjzP+gAKrR6n8OIrAftZ+eViQsFcVlKQ86AU/0L2OAbhwcp0a1prkH1yRInRUchgp0RxUKYm8QFzs1wxQN2ma/CaOEEn9QYcxi+woXQ5WJj3XTWXpAVIm3TLVMl+KO2EvLcQo/ZrEVac9pCdeBor026yfK0OuxwRNtFKLN7kCaPIRF4WvaLMmQL0cVCAdOOcBQ4bmK1eBAnxPH4OBx7Ne/gsGiRLj4CdlA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=35e+IOeiBiSZBIgM1vbLy8v8yILaydojEG6euFhDxlg=;
- b=kxmKCk+lr9uE04M362DmOsu9ni42HDjtvfEhL4gDVmq+JQXeYWW598rogMzW6ubexIfZJi8xCG0PQaQFuSuBiz5uHVM8Zxl8Q0G5it/D6XdnycYeaZxowCmwlKvcVBIcgY5j4k1v3TXAEg7C54MVqaMXwold7CNlB8lVNtv0asvJEFinYaLWwljmGVjzBFh3OuoyRtErAsu8kcicT+hbyKLkDth4POus5dilovzElK7Prs9bjdjD6NQaTc069K1PcDh5MOyS9pOziY3eWyU5UuDWnr4iZ/8h8ez7W62iAlmGbbnUke9I2/8w5/5+oociPIRXSu6jqt6/unIciyLGuQ==
+ bh=QYU+ZnRDOdfdGc6sQuTbR1TIimlTbNyDICDQxOU6p4I=;
+ b=SvyKzUepX8mvbel+GIqP92mZ9axc1lQi/GVr5hPuRAUayYZ45abRhZ53jR60USlFNobQztBBm5fINhrFLVXzuGks+VzrFtcFHbXFTKYpubuG+/PiNSqsy/ib7d7nFhd8Cndno8kGwCRilR2x5GrX/TBKngBZCDsWCRiuAExUkHtAO1ZlydeSsI6sxdJufebKROwxz25+9nFZAPiPqA6jSonPGvWNWcTj/zAzcU4DPbR3Dl/RHxgRBvZBbo7NtNcJKkuv5ZxOcbVS3epkEAgGSVqGO6fGqrMPxoeRMSUoaT9U6MZF21j6S3vOp+1uNISX9uOm7NE2IH4eQfufMghb+w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=35e+IOeiBiSZBIgM1vbLy8v8yILaydojEG6euFhDxlg=;
- b=K39ESfqS+A3vYfA0/Z7fZw2RcEhLHrnedk44y6UdPnEcBlvftaP+VFusCGeoH3I9Ia+Pvuifo9+GM/r1WsMUOIMiTrovcFJeGW0vSWWkQKNFSAzHlBUhb2kEcOZi6oJvdJUHi39bf9xBemjBvCv6njR1dQnpe3rdlvhRWNz4eo8=
-Received: from BY3PR10CA0004.namprd10.prod.outlook.com (2603:10b6:a03:255::9)
- by PH7PR12MB5617.namprd12.prod.outlook.com (2603:10b6:510:133::6)
+ bh=QYU+ZnRDOdfdGc6sQuTbR1TIimlTbNyDICDQxOU6p4I=;
+ b=ZA+MrzfmkKcuHcCn+OtzLAb6PYE5LfmjZMYvzVqfWdtEx6PScds8TfSOS1rpdLdSC80a5nxx5Wo3q8GYfVYjio6cVSKfkek1ipIoMD1vIWpxLpzqKdeWjRHGD89fTjnEfx7nJJ/BdAfBDe+bk6kWWsLAJKoZlFTJ3tZq/2fM6Rk=
+Received: from SJ0PR03CA0381.namprd03.prod.outlook.com (2603:10b6:a03:3a1::26)
+ by SN7PR12MB8171.namprd12.prod.outlook.com (2603:10b6:806:322::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
- 2026 13:46:18 +0000
-Received: from CO1PEPF000066ED.namprd05.prod.outlook.com
- (2603:10b6:a03:255:cafe::25) by BY3PR10CA0004.outlook.office365.com
- (2603:10b6:a03:255::9) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 13:46:23 +0000
+Received: from SJ5PEPF000001CE.namprd05.prod.outlook.com
+ (2603:10b6:a03:3a1:cafe::3) by SJ0PR03CA0381.outlook.office365.com
+ (2603:10b6:a03:3a1::26) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Wed,
- 22 Jul 2026 13:46:18 +0000
+ 22 Jul 2026 13:46:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CO1PEPF000066ED.mail.protection.outlook.com (10.167.249.10) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001CE.mail.protection.outlook.com (10.167.242.38) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.245.5 via Frontend Transport; Wed, 22 Jul 2026 13:46:18 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.245.5 via Frontend Transport; Wed, 22 Jul 2026 13:46:23 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 22 Jul
- 2026 08:46:16 -0500
+ 2026 08:46:21 -0500
 Received: from hwentlanryzen (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 22 Jul 2026 08:46:16 -0500
+ Transport; Wed, 22 Jul 2026 08:46:20 -0500
 From: Harry Wentland <harry.wentland@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH v4 02/11] drm/vkms: Fix limited-range YCbCr to RGB conversion
- scaling
-Date: Wed, 22 Jul 2026 09:45:58 -0400
-Message-ID: <20260722134607.136293-3-harry.wentland@amd.com>
+CC: Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>
+Subject: [PATCH v4 09/11] drm/amd/display: Check actual state during
+ commit_tail
+Date: Wed, 22 Jul 2026 09:46:05 -0400
+Message-ID: <20260722134607.136293-10-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260722134607.136293-1-harry.wentland@amd.com>
 References: <20260722134607.136293-1-harry.wentland@amd.com>
@@ -73,29 +73,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000066ED:EE_|PH7PR12MB5617:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1b57cfa5-e094-470f-b16f-08dee7f79b96
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001CE:EE_|SN7PR12MB8171:EE_
+X-MS-Office365-Filtering-Correlation-Id: e2c6dfaa-1241-4232-f1e2-08dee7f79e6a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|376014|23010399003|82310400026|22082099003|18002099003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: 7iZU9L+curDAlLCjhERWXNPK1IvmPNTiDHl5OTsUD9Yb0l0R3DPZ696XT/v94eG49Y7xBfFq/YcmU1SejJoAkkdkRj0ZhKS9/ugBYGNxwabVYhDdbutyoKmdxloBlM3smrVjRS8nQhcQsZTkVtmWRLIlVqPmOMCNJQFet1V6Y3oXw5ZCvq3ZzQd2hL6XYGd09uYjJdCtyJ9bdpKHu3tUJ1BKrll54iFtdqtL82YU4xzuI2mfQjmNDVps0Wp4x3R0lffKZGcCQ6HqTYoLxbknS5i8D1kIyiPRmElZbznsxY4MKD5BJWqgUMjGHe/SeKDYUstqnuYrVo5hFXZ6/RCWvO6RXDRcY1gAoV8kUCQzkUlTFF1ybQLD16SXwxYPNlpx61LA9hXDKR9UZUTQ5qs1IzqD88GSk5KZfXJu5alkMuePs7PpqWVw8GZJWZHNumaKbY0GFUVe8YtsMxZV+CIIgSHZr6nz+KMjou7smf8uV6jcqic27LjvnjHNZM0/pEaHCI/3tSn4ykD+dTc7iH/DhY0LQvU0lS0O32MbQemxmT2hqehX8FmDm8xyOMpZZ2oh4yt4RR95NuZjop9LC1v+LtNwbP9GrWInU4awdTLLxh+JUj0AnbG9iD7AzFj05Cqh5HTC833FZ1BBKBoPd7YoiXCzoBOj+846j6X/SO+sXQP75hvZitWBeIFLavHiK7VsUwbuPixqU/zwviMU2EN93Q==
+ ARA:13230040|36860700016|1800799024|23010399003|376014|82310400026|56012099006|10067099003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: XzeLcSf16ENn9C/a46zXJjirR0xmOQUnDAwt+pZzrLH7dN1wLKOTerpaHjfIV8RTtiKdfLmBHUp9FmU3VF9mt5kKeIVhwn2i/Pa1MI1jYGC/zjreJmfok/vSxRZsIGk7Gp3Fw25UGUl2l4T2w1GZypCoe3jb224YGVOqu1OMGzZykWTm0/k4lZIUV+M4ya50xCnxScBTvFAaqKbMz0ZsiREvPMPAx34NbNdaeqKsQchITjAa6AYxWh0k7r05lYBZaJeHFJkRSBr9lzv56jdyI1f1iVU/IzVJHn1KO4W2Md/P1wxitkVG1kX+HaLsRaON44h1twH82/7lj8SCCRlLWaVQ6d7SBkBsJvjxAR914QOjUoRwRt2z0cYoZZMp8sOu+7zgBI+JKgTbOX8cYkhCWe6oWV78Ir2rM+f7PGWjfPv0KUUCxGbEnTkNfORjx76mo8yZzjnGlRe9eUAxRkheAkdOzZMjCgKmE/mNC9s/5bGER1UXF9vUDFgbGT0NW7uccwhP3ne86o0Q05edXgt61ISXI+lLC3Slhgx7IJu1mx9RSFo12W9PF/rqu3MFr4BhBQ1WgetlwD1ZipfazL4O1l/oLvndSvdPL4Hu/LIuljB5JldYU8QWpDqiIUpo4mQxquA1zoHm0cOLohFdlvfqO30F7F5ZuVv7fti8YbbNflWM4n9Onw3mcKpyS9d4wZCqSnUYtKDFzxKbq9nyyGxtmQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(376014)(23010399003)(82310400026)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(23010399003)(376014)(82310400026)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 43o2gMCutcbontlq/I3yXiHS9YSvByFgfvy+QEnNGJX6hz9w8o4FD7IJqw7687wXOyNde7kSrLv9PBxC30Dau/sdwsmvvxQRRvHNCJiLmsGEJfc2eaTDp/8SsgSRx/vd41DjXQOvy4uDVhfvChHZ+fsIHFnBEAmvZV9bBmzn/JH2R/kB39SUqaAsI7r15pZoUWqC4PTOMgwDgHaPdB+S1XCjYT/CMjAXCAS2yPpH7rA2LMjzsKLimC6qiJ6wd64e77pR3c3hBnkRbSWUWOsAbVvwz7bxTY8tSQTJURDAJu5K+vrZhoiakWHLtZhgLvXOjMpEgyHuAlFwam7J6fzsdFs++enjAUzfbjEipkQ1SXBerlZUQNlpMZ/5+cWVrBXqMaIl7BZsGLl6c2QX3zYwuL2Rs0iN7uMPcEVHtpVLQWfYGHAbufYN1tlDZGxYeqJI
+X-MS-Exchange-AntiSpam-MessageData-0: jFiFBn2itBf8seOGK0qOa98xAqcK7xtF6KbsxuXehhfVWaiqGAMEhqkeKObenoI2+1AkOGU3VuKkuotDclY2/KIi2Iz+9eHhAXC2T/Ld6CaqEAo1vXOBwy5fsd58nLXPpSVDbj2z5Exlu0lbhebJKqN4ZC9RPM3iG/R+L1y0he3j4jbTXQfxCFmntfgRDAZI8bHzfVHCLJCnq9oHKuJF9DtxP6eHEfGbNmUoPouyn8+WT5AKQQ6YlKxFg4xPv2tf7mSjGJmsdwyCVQcHWS9w/dVWzt0W2aUiI427vgU1QcAYe5uoTfHc+dC5EgIo57BOELvyUrg8aCzghp25nXp+GEKP15A/fG9n3Wng89/OZbcCUImSXFLhD/TXYz/15Lk3CX+djsX5AQCnJLAzN5mDlJbYDxvWNqPkzjOv/w0XFLyRxbd6NBHcj9Y3ChI13el0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 13:46:18.5116 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1b57cfa5-e094-470f-b16f-08dee7f79b96
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 13:46:23.2585 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e2c6dfaa-1241-4232-f1e2-08dee7f79e6a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000066ED.namprd05.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001CE.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5617
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8171
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,195 +110,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The limited-/studio-range YCbCr to RGB conversion matrices were generated
-with colour.matrix_YCbCr(is_legal=True, bits=8), which normalises the
-narrow range by 2^bits (256 for 8-bit) rather than by the full-range
-maximum 2^bits - 1 (255). As a result the luma scale was 256/219 and the
-chroma scale 256/224 instead of the correct 255/219 and 255/224.
+Previously we checked the plane_state->state's plane_color_pipeline
+client config when determining whether fill_plane_color_attributes
+should run, i.e., whether we had a plane color pipeline and should
+use that code for handling fixed matrix properties, or whether we
+should look at legacy plane encoding and range.
 
-This over-scales every limited-range conversion by a factor of 256/255,
-producing an error of up to ~3/255 (8-bit) and causing IGT tests that
-compare software-computed surfaces against VKMS-processed ones to fail.
+The problem is that we also call this during commit_tail, during
+which plane_state doesn't have the state backpointer. This meant
+that during commit_tail we'd look at the legacy plane COLOR_RANGE
+and COLOR_ENCODING values and overwrite what we pulled from the
+fixed matrix colorop in atomic_check previously.
 
-Recompute the three limited-range matrices from first principles rather
-than relying on colour's is_legal scaling:
+Instead pass the drm_atomic_state in explicitly and check that.
 
- 1. Start from the standard ITU-R YCbCr -> RGB relations for the luma
-    weights Kr, Kb (Kg = 1 - Kr - Kb) of each encoding (BT.601, BT.709
-    and BT.2020 non-constant luminance). These are the same relations
-    that produce the existing full-range matrices.
- 2. Expand the studio input range to full range relative to a full-range
-    maximum of 2^n - 1: the luma coefficient by 255/(235 - 16) and the
-    chroma coefficients by 255/(240 - 16). This matches the DRM UAPI
-    definition and IGT's igt_ycbcr_to_rgb_matrix().
- 3. Convert each coefficient to S31.32 fixed point (round(coeff * 2^32)).
-
-The full-range matrices (is_legal=False) are unaffected as they use exact
-1.0/2.0 scaling.
-
-Update the limited-range reference values in the vkms-format KUnit test
-accordingly: the expected YCbCr inputs now use the studio-range encoding
-consistent with the corrected matrices (8-bit value v placed at v * 257,
-i.e. relative to a full-range maximum of 255).
-
-Fixes: fe22d21e9342 ("drm/vkms: Add YUV support")
-Assisted-by: Copilot:claude-opus-4.8
+Assisted-by:Claude:claude-sonnet-4.5
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 ---
- drivers/gpu/drm/vkms/tests/vkms_format_test.c | 36 ++++++------
- drivers/gpu/drm/vkms/vkms_formats.c           | 55 +++++++++++++------
- 2 files changed, 55 insertions(+), 36 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/vkms/tests/vkms_format_test.c b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-index a7788fbc45dc..789c59d07ffb 100644
---- a/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-+++ b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-@@ -101,12 +101,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
- 		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
- 		.n_colors = 6,
- 		.colors = {
--			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
--			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
--			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
--			{ "red",   { 0x517b, 0x5a34, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
--			{ "green", { 0x908e, 0x35cc, 0x2237 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
--			{ "blue",  { 0x28f7, 0xf000, 0x6dc9 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
-+			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-+			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-+			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-+			{ "red",   { 0x51cd, 0x5a8e, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-+			{ "green", { 0x911e, 0x3602, 0x2259 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-+			{ "blue",  { 0x2920, 0xf0f0, 0x6e37 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
- 		}
- 	},
- 	/*
-@@ -151,12 +151,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
- 		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
- 		.n_colors = 6,
- 		.colors = {
--			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
--			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
--			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
--			{ "red",   { 0x3e8f, 0x6656, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
--			{ "green", { 0xaca1, 0x29aa, 0x1a45 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
--			{ "blue",  { 0x1fd0, 0xf000, 0x75bb }, { 0xffff, 0x0000, 0x0000, 0xffff }},
-+			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-+			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-+			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-+			{ "red",   { 0x3ece, 0x66bc, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-+			{ "green", { 0xad4e, 0x29d4, 0x1a5f }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-+			{ "blue",  { 0x1ff0, 0xf0f0, 0x7631 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
- 		}
- 	},
- 	/*
-@@ -201,12 +201,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
- 		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
- 		.n_colors = 6,
- 		.colors = {
--			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
--			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
--			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
--			{ "red",   { 0x4988, 0x60b9, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
--			{ "green", { 0xa47b, 0x2f47, 0x1902 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
--			{ "blue",  { 0x1cfd, 0xf000, 0x76fe }, { 0xffff, 0x0000, 0x0000, 0xffff }},
-+			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-+			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-+			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-+			{ "red",   { 0x49d2, 0x611a, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-+			{ "green", { 0xa520, 0x2f76, 0x191b }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-+			{ "blue",  { 0x1d1a, 0xf0f0, 0x7775 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
- 		}
- 	},
- };
-diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
-index dfb8e13cba87..4d5fcaeb82c5 100644
---- a/drivers/gpu/drm/vkms/vkms_formats.c
-+++ b/drivers/gpu/drm/vkms/vkms_formats.c
-@@ -788,15 +788,36 @@ static const struct conversion_matrix yuv_bt601_full = {
- };
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 67b825cbb88f..b7d815997753 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2984,7 +2984,8 @@ STATIC_IFN_KUNIT bool modereset_required(struct drm_crtc_state *crtc_state)
+ EXPORT_IF_KUNIT(modereset_required);
  
- /*
-- * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.601"],
-- *                                  is_legal = True,
-- *                                  bits = 8) * 2**32).astype(int)
-+ * BT.601 limited-/studio-range YCbCr to full-range RGB.
-+ *
-+ * The coefficients are derived as follows:
-+ *
-+ *  1. Take the standard ITU-R YCbCr -> RGB relations for luma weights
-+ *     Kr, Kb (Kg = 1 - Kr - Kb), with Y in [0, 1] and Cb, Cr in
-+ *     [-0.5, 0.5]. For BT.601 Kr = 0.299 and Kb = 0.114:
-+ *
-+ *       R = Y                                + 2 * (1 - Kr)          * Cr
-+ *       G = Y - 2 * (1 - Kb) * Kb / Kg * Cb - 2 * (1 - Kr) * Kr / Kg * Cr
-+ *       B = Y + 2 * (1 - Kb)          * Cb
-+ *
-+ *     These are exactly the yuv_bt601_full coefficients above.
-+ *
-+ *  2. Expand the studio input range to full range, relative to a
-+ *     full-range maximum of 2^n - 1 (255 for 8-bit): the luma
-+ *     coefficient is scaled by 255/(235 - 16) and the chroma
-+ *     coefficients by 255/(240 - 16). This matches the DRM UAPI
-+ *     definition and IGT's igt_ycbcr_to_rgb_matrix(). Note this differs
-+ *     from colour.matrix_YCbCr(is_legal=True), which normalises by 2^n
-+ *     and is thus off by a factor of 256/255.
-+ *
-+ *  3. Convert each coefficient to S31.32 fixed point, i.e.
-+ *     round(coeff * 2^32).
-  */
- static const struct conversion_matrix yuv_bt601_limited = {
- 	.matrix = {
--		{ 5020601039, 0,           6881764740 },
--		{ 5020601039, -1689204679, -3505362278 },
--		{ 5020601039, 8697922339,  0 },
-+		{ 5000989317, 0,           6854882848 },
-+		{ 5000989317, -1682606224, -3491669458 },
-+		{ 5000989317, 8663946082,  0 },
- 	},
- 	.y_offset = 16,
- };
-@@ -816,15 +837,14 @@ static const struct conversion_matrix yuv_bt709_full = {
- };
+ STATIC_IFN_KUNIT int
+-fill_plane_color_attributes(const struct drm_plane_state *plane_state,
++fill_plane_color_attributes(struct drm_atomic_commit *state,
++			    const struct drm_plane_state *plane_state,
+ 			    const enum surface_pixel_format format,
+ 			    enum dc_color_space *color_space)
+ {
+@@ -2993,7 +2994,7 @@ fill_plane_color_attributes(const struct drm_plane_state *plane_state,
+ 	*color_space = COLOR_SPACE_SRGB;
  
- /*
-- * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.709"],
-- *                                  is_legal = True,
-- *                                  bits = 8) * 2**32).astype(int)
-+ * BT.709 limited-range YCbCr to full-range RGB (Kr = 0.2126, Kb = 0.0722).
-+ * Derived as described for yuv_bt601_limited.
-  */
- static const struct conversion_matrix yuv_bt709_limited = {
- 	.matrix = {
--		{ 5020601039, 0,          7729959424 },
--		{ 5020601039, -919487572, -2297803934 },
--		{ 5020601039, 9108275786, 0 },
-+		{ 5000989317, 0,          7699764272 },
-+		{ 5000989317, -915895824, -2288828138 },
-+		{ 5000989317, 9072696586, 0 },
- 	},
- 	.y_offset = 16,
- };
-@@ -844,15 +864,14 @@ static const struct conversion_matrix yuv_bt2020_full = {
- };
+ 	/* Ignore properties when DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE is set */
+-	if (plane_state->state && plane_state->state->plane_color_pipeline)
++	if (state && state->plane_color_pipeline)
+ 		return 0;
  
- /*
-- * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.2020"],
-- *                                  is_legal = True,
-- *                                  bits = 8) * 2**32).astype(int)
-+ * BT.2020 non-constant-luminance limited-range YCbCr to full-range RGB
-+ * (Kr = 0.2627, Kb = 0.0593). Derived as described for yuv_bt601_limited.
-  */
- static const struct conversion_matrix yuv_bt2020_limited = {
- 	.matrix = {
--		{ 5020601039, 0,          7238124312 },
--		{ 5020601039, -807714626, -2804506279 },
--		{ 5020601039, 9234915964, 0 },
-+		{ 5000989317, 0,          7209850391 },
-+		{ 5000989317, -804559491, -2793551177 },
-+		{ 5000989317, 9198842076, 0 },
- 	},
- 	.y_offset = 16,
- };
+ 	/* DRM color properties only affect non-RGB formats. */
+@@ -3034,6 +3035,7 @@ EXPORT_IF_KUNIT(fill_plane_color_attributes);
+ 
+ static int
+ fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
++			    struct drm_atomic_commit *state,
+ 			    const struct drm_plane_state *plane_state,
+ 			    const u64 tiling_flags,
+ 			    struct dc_plane_info *plane_info,
+@@ -3127,7 +3129,7 @@ fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
+ 
+ 	plane_info->layer_index = plane_state->normalized_zpos;
+ 
+-	ret = fill_plane_color_attributes(plane_state, plane_info->format,
++	ret = fill_plane_color_attributes(state, plane_state, plane_info->format,
+ 					  &plane_info->color_space);
+ 	if (ret)
+ 		return ret;
+@@ -3168,7 +3170,7 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
+ 	dc_plane_state->clip_rect = scaling_info.clip_rect;
+ 	dc_plane_state->scaling_quality = scaling_info.scaling_quality;
+ 
+-	ret = fill_dc_plane_info_and_addr(adev, plane_state,
++	ret = fill_dc_plane_info_and_addr(adev, plane_state->state, plane_state,
+ 					  afb->tiling_flags,
+ 					  &plane_info,
+ 					  &dc_plane_state->address,
+@@ -4226,7 +4228,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 		}
+ 
+ 		fill_dc_plane_info_and_addr(
+-			dm->adev, new_plane_state,
++			dm->adev, state, new_plane_state,
+ 			afb->tiling_flags,
+ 			&bundle->plane_infos[planes_count],
+ 			&bundle->flip_addrs[planes_count].address,
 -- 
 2.55.0
 
