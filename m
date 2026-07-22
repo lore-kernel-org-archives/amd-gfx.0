@@ -4,119 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5FD33C44532
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jul 2026 11:13:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12704C44539
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jul 2026 12:11:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3EDA10ED67;
-	Wed, 22 Jul 2026 11:13:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9615C10E248;
+	Wed, 22 Jul 2026 12:11:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4qluDQT6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yV6pahd3";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012057.outbound.protection.outlook.com [40.107.209.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C73D10ED67
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Jul 2026 11:13:19 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012010.outbound.protection.outlook.com
+ [40.107.200.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E0EC10E248
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Jul 2026 12:11:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bNuWAXYlV9Mc/HDYYOt4Z/myZoxKORcdmN1CX1fc4CH/Nx82K6ZS62e2JSVzjmVXk72KpkRPZoaX3xXt3eR2BH0uEC9O6KVIYDjvRm1JTQiDJ9pn1i8aSymzfAVlt1K4Kt3o+4qm0+crlEjXxb3eICWKAW2pM0zgVhMRCdyykpAmWNLBJA3WN9VXDC152xCGfSyRasZy+4suGBdNjMknBtzHIRJLfgp6JxVkHXVzZ4asDHTUfO7mELdfyAe+t9YJDdgxsL3xdyuVSdP1dm8/aJ2zcvU60vLXvEjGEQ9P/NszeHabOSlUIoQ8NumiwLdcE2W+0SXkd5cnzzMuBbIQ4w==
+ b=mDbZ3Wj+6qK8V+z+R9VvW6qSRkoCyQSLW48ODfn4uWGe7VAJopcodnawB6TdK0u09O+O5G7d8gLM3l96JrGGbGnqb3rp5ceCMaheJA2IEYpLhikbrLE7iK8DY3W2Qo06uMRLn+CCsRMz8Sw7y+2TfSM4SInK4SeE0CzB6oDORuth8BsJ0P5jJO/dE3GOrQNseFjqm5k9IzN6GPi/+BD8C3Jj0p2d+Yyj4zHqMRAHChPyf1Q7q7BJuVWnbxUtV92NhCJw7DL2iW2gDIjZT52cO+giAgJWmFagiHuWSr5RzObvu7bI+E5crh+ZYwkH+RnTDrJ59HVCJcRyMsu9BW5K+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QQWLcL3fP4mzzwjNNUO27p2r2kS7HUKmB5o/NVrsTow=;
- b=tfB6O6LwyDy+NiAWVChzvZJUL+1Z8Kd8NVhLD68sdg2hXft/lHv0u/lMcBS9t7jJSQyodGVg0KWIJjXJp6yq/V/SplyIiL0YC5PAPq5LtEG+kyn+mKJeIAqJo+JHEnEeM8ALE6wuP/2nH0GDo/Tri09iCBDdBuOkXt3TFjSyMGwjs663srVPuTfh51MA3oryn+OVHwtQbX/FCbU/s3nZXpFHIWKwX/RHsDqG3vH/j5LcGO4Fhydlb3fu8ws67VWdVX7BDFBYMvT93QQksgW0BZ22Xj9MzF6Y49vCtjkhaZF1QDw9arfUOXZYHqEKhy1dFV09uMpuPJ0i0+z5ywmBtw==
+ bh=kKYRpUpsKJC0fvOVTQ/A/wlFYxhRw68tXUZElq7BfyY=;
+ b=Rx+JoRf5OS0YavGyf7eRbBUHBipexRYBTQnHQvMxvLs+zl89WvCKsGTixfALCaJjRwWvFcFVJ5uRUOXq3cr7a09CHLeSvTIixVLgw2RVN7mokn2sZriaRykXqPMCx6Y2F0+8pB+6O2N5smJRGyXrzF2+u2VB3HKNvyzqRgsjr2Sx3nXMd4LxwgKC7rWyjwQ2uG4Mp+hVxWez41DZfhyJuR4PYgk35a5eOeVoRi8Ewje1NCsnSmjlDcp0gdpDw1dUCWKg0fOM+BlvihQrncywN3GsA+Q3Ht2COhQgVg1G8eBlxNtE2jk12kCgxISMxIzeaLs7qoePyfnASodQz2vefw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QQWLcL3fP4mzzwjNNUO27p2r2kS7HUKmB5o/NVrsTow=;
- b=4qluDQT6zEiDDHRmlX2rQ74Rw9qHeZnO0x0q9ib54buPJ7b/BXIj+gt9OxugVAI08+XNcDxC3xAIL3rFmbfSxN7Upszr3aLQHESYnhU6BLpL6e0tMgjkSWKkZCwA7yb4udAhFZSLsiUEPuXT/Y5i8eYUkONXrmGuN3IuRgJFQ3I=
-Received: from EAYPR12MB999158.namprd12.prod.outlook.com
- (2603:10b6:303:2c1::15) by DM4PR12MB7504.namprd12.prod.outlook.com
- (2603:10b6:8:110::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
- 2026 11:13:16 +0000
-Received: from EAYPR12MB999158.namprd12.prod.outlook.com
- ([fe80::c52f:2856:964e:a4b2]) by EAYPR12MB999158.namprd12.prod.outlook.com
- ([fe80::c52f:2856:964e:a4b2%4]) with mapi id 15.21.0223.017; Wed, 22 Jul 2026
- 11:13:16 +0000
-From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
-To: "Li, Candice" <Candice.Li@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Li, Candice" <Candice.Li@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: restore perf state after runtime resume
-Thread-Topic: [PATCH] drm/amdgpu: restore perf state after runtime resume
-Thread-Index: AQHdGcYGvdAqbspsaUmkRKlWr+y59bZ5Yo5g
-Date: Wed, 22 Jul 2026 11:13:16 +0000
-Message-ID: <EAYPR12MB9991584ED579327E914EB32293FCC12@EAYPR12MB999158.namprd12.prod.outlook.com>
-References: <20260722103619.2737329-1-candice.li@amd.com>
-In-Reply-To: <20260722103619.2737329-1-candice.li@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-22T11:12:58.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
+ bh=kKYRpUpsKJC0fvOVTQ/A/wlFYxhRw68tXUZElq7BfyY=;
+ b=yV6pahd3D+OzQfT+LPw1ie1fHw+yqq+I+hjjeSZKsJHFS1ENV5c6gSRcNtQdkaa73qSYCNE1BAZ2C1Me+fSAnscwwdDmeqgmtTyt13sGul3lHc8sjLSbpLQkW8vw2LS3FArGxYk9ITRwsH9C6raO8msiuo4CgXndvSy5LNbX8bM=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: EAYPR12MB999158:EE_|DM4PR12MB7504:EE_
-x-ms-office365-filtering-correlation-id: cc0fb864-3c4d-44c1-23cf-08dee7e23a76
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|18002099003|22082099003|38070700021|10067099003|56012099006|11063799006;
-x-microsoft-antispam-message-info: YtAqMS06wb1iAFryGqMhwVElCvF/ip/8JuTAyHEthEqiU3h4HLHqhYZJXvgve3ccVs/SVThWhyWKB+Z+NaOg3fg26r2LF7FIxaZjEhI7a7iRQcU4xfRS0ORAcQksmNXxQt024rq9L6S2zjEURwz6FQyedZ4WRmLUnbfoHA4yTQ/cPpjw+QeM7+SLW79Gut06cnHksypJkQZhOYD4f7cW24vY1295i+S5jqNy7HbbNJ/8Y/Is4THUdsKhXtZlEll1/Rl2tTHbeq5g0hmSerTMdPayzH0eGd0VganKQc1Fyp29HDIUN9FD+cbmq1RuVEmvyVzKlX0Uf3GweSMYDCd/ca1yPcODRFN+89D0aW58Mbw+sGGXqjAA/0fPuCGZAUijQ2S3TFNUyI0jQTmS+cDu9Mf6hWsshCdUTiB13M/lvq3BhPwm8xvQV4iS4DVz/ZWOIH6qMjuBNW99Ti9doomnzKSJ5IOSLAW6l0t7l1ds2pZo2qUEz4uhG7FGE6l08eCMRxO8OyKLj62xZO1I/Dw3ItVsObR5X72TCE3Jz+uzKG//kdn2za51MHy/IlReAVAiIgDVUYyK9irJ85Avn6KmzfIsEAMhwmLwmaGI3WzD5KIXW8KJCPOdBgWJy7gefl80f4LYdJ/XAftn3tNv0vHfUHtdM+egc51d3lEKO3W4WHQCFkotFBH/VmXEz18Ua7hENI3NPZVxVWwXONTQf2Zydg/kHYzeGS41Qw9VYOsOU6Q=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:EAYPR12MB999158.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(38070700021)(10067099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?Pwxt8+kLsq4UB/uTjjs0Z5ov+3q7iG6XNRmLHcHgUBKAMC55TO1zPQjc1IR+?=
- =?us-ascii?Q?VFgsl3hz7Vf0Nl8MkgmXvF4iz0njtKdLoXqgl3rcFL0QNx0UPj3D0l3O1lJY?=
- =?us-ascii?Q?Rm3p1H5uHzu7dsEUgWzPQUhZ2nV4IsEErMacSArG0yeFA64yGqUq9KyMCuq4?=
- =?us-ascii?Q?IbwwI31+vkYd3N7q0Vw6CQIPVyttWTbCYRzbIDeF013TBgACbeTalPRHRe8j?=
- =?us-ascii?Q?yNxehBTQNRxYCylpysCgPDShENOnqNqXXLSD9Ql9vrgL/h/xEkywteaGwWHQ?=
- =?us-ascii?Q?Hy1JZosX7dkzBTMwr6zGbRuvVi5YzFMhWv2woFkzrBij/vQ9P9r4jmf1CvY9?=
- =?us-ascii?Q?3VW0uy6yIJh+ui6N+LLnpSEHv5WsFNC56CxnY9B1GaPYzUC/Cpy982y5N8GO?=
- =?us-ascii?Q?3Tacj5j6cpx2ZJ9yf8+Hq1ZCiW4FAel5cS1yi2pT6mtdkzhRs3kSDO+kN+lQ?=
- =?us-ascii?Q?5B5o76maA5bm1K5jf5HqME7zj5y/bZTyzQh2p+ugqivN5AS9kTg9CMwN7NBd?=
- =?us-ascii?Q?Yrp87GdUoJsU2PQBQdGJwtt38NapuC5SheVeN2hlmnIuYsBLPh5It7exKuTy?=
- =?us-ascii?Q?ii+VEUdjdAxqtPCcnkTtTzbxgZIqG85G/8UOjGIpqEwlwH1njvuQgJ+avKh6?=
- =?us-ascii?Q?ija3GrLzl2lX2cZXbvKetWVvXF6w8KXbZDxIUDT4qrCmk8YbnOkVWH1GmKWy?=
- =?us-ascii?Q?J4PL0baakywmJ2B8yCVBRG5TrUEK1yWsR73qr/OuiH2/CDl98IEI+FEGrxzf?=
- =?us-ascii?Q?nmNin1fdBPf9ewjoZT7kDgWNxeQf7mYEKfCC8dfAUmRz3+P360kQURNwapU3?=
- =?us-ascii?Q?PShSNJDQxGwLdBgTJbF1tfTh3JlsYJUjskoUCtGT/r3Cgg6bBmAzpTAMJH+O?=
- =?us-ascii?Q?f32LGaojarnusL7G+iVH0wOSNIjFy8J1WkyiD+wcp4Y1I1mFzO6BUDi/gTBt?=
- =?us-ascii?Q?+T9jCaVA5TSy7MFJoIbESxfi/Ss8dm7YNWPYEELfWCXqed3Dh+u4l1pZZRH6?=
- =?us-ascii?Q?E1Mrn7BtTsw8uwqkFI22/fI6cjcwBHw+p0iEmb8TSUZUxy3T+lo1xpM74mg7?=
- =?us-ascii?Q?grTiuVIJ4q5/z/nz2M9VD40JQPL7skcbZm09DCz7S7uaPMBq5By+7mooT6Po?=
- =?us-ascii?Q?K3iSrzITXZefWtvPsRbgNitFdBiMEby8oQ1wgkYfdQYgcqGaaRV7KRpuFdl3?=
- =?us-ascii?Q?yLX4qN8dVXkkA1tuLccoV840KA81aVnl3Xgfw+dDfNR5dGHq8h+H90Y5GbZg?=
- =?us-ascii?Q?HeQDk4lzU4Q4xiGQajqXnW6+oT1RBieWuMkNjJ0hdVBv7yGsjZDB5Of0leBR?=
- =?us-ascii?Q?hd5KWxFxNnssGTFmKFgwtPPz1JzeTi4JaKUB/dnwO9QgdJ95GZ9CAJGzTn7k?=
- =?us-ascii?Q?R8GWU/R7F1DN9jzX4QRDw4aeSPbKdreais1iTZ82UV+f5wMipliirL4e7Zf9?=
- =?us-ascii?Q?ZK3K9V7fB4LE7KE4xigN4hi4DYJYOWCpP7WdbopcfftKVWG2Gb3H5lSG1Ahi?=
- =?us-ascii?Q?2tXVgcFyKV/HH2D/htTMv+SH72yxAaYQsTndieDINs+2xcJ+cUQeBPFN4yB+?=
- =?us-ascii?Q?iECfsQWMfiv2z+dkTKjSjw+RcaVSZOrkAhUa21fs0L1Jo6xYCebB3xlWjBcD?=
- =?us-ascii?Q?208pvfPQtJIhPTX2jJMBjD9zGEaoy/f2Hb7CjRDm/J4KbmFBHxT2HmGUeg1p?=
- =?us-ascii?Q?uqXY0Q/hD9sAMPlayH/USa9hpNLU41LVHU7hDA2FhMHeAUTk?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by PH0PR12MB7095.namprd12.prod.outlook.com (2603:10b6:510:21d::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Wed, 22 Jul
+ 2026 12:11:10 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0245.009; Wed, 22 Jul 2026
+ 12:11:10 +0000
+Message-ID: <0de168fb-a9b8-43ce-a85b-a31033478f15@amd.com>
+Date: Wed, 22 Jul 2026 17:41:04 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: restore perf state after runtime resume
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Li, Candice"
+ <Candice.Li@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20260722103619.2737329-1-candice.li@amd.com>
+ <EAYPR12MB9991584ED579327E914EB32293FCC12@EAYPR12MB999158.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <EAYPR12MB9991584ED579327E914EB32293FCC12@EAYPR12MB999158.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0247.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:223::16) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|PH0PR12MB7095:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3b252fe4-87fa-4493-af2d-08dee7ea50ea
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|366016|376014|4143699003|11063799006|56012099006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: IXZYKyDONLd+oh1CPO0E+Ahc0fApAEWNxkWZzFiA+AWubmRlYXXtWk4Utl+w8+6+95ckZ3kCaepdGzNhIKcxZEvmm9RkgA/r3M/ZUPucldivvrpTL3UBvAMKuH8lcnnoNqootRyzm3BPdVtZi0utO8IUS5bw/qjqf2J2De5CPkyI0/V5dk1wMttsE4KXQwcaOCbiVxQd+z0vj7vC4q11RHwcLjUi/K3IDw82wiJAzh7CvAqKGzNxUSh+wDiaol1F6NXuca5sVwbBVQSOXqrM8LXdSIS99K2jQd6/+4KXoTA84zI/M4Z8FiiZTkz9m1JPVr1CWJW6imVhXVTMKddokQ6im6aWYxztt3UzHwk8BJEm8fx1Ba5xv82JKM35GDCYNOjv7lg3uND5pwg7Ij+0eKleaXpcyMhisWn7k60/7Z0fp4CCfqDDX4KbboQaUcRY36ySSdfLpmsRM/NIDVPvZT2E4UKRHwfQ+mOF9LyCUjPVGQNQ0r4Kk3qvgFsR8C4q4u3A+IUUoScKRmWgTRg4kUToDLqF7SaQ8cSEwC5PxV+O7/+/CRx5GKv62wTBhRMpk+sH3o+NO5wZSkmklY8vPIY3gMPR0o268EMY1u1ttyAJ4n03VbLD228owu5A0GWGAYs7zVvDYadwtE+poDsu5cxElGFOECWoEFP7/vq4lQw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(4143699003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U0srQ0pQbERzNWRESXJha2VDUkt6Y1JuWE9NZlVXVndyL1FmRHRhMmhZeXlM?=
+ =?utf-8?B?MHV1TkJUUTlMTHhnUW9ydHI4YzVET2hSamExR0VBSXJmNUZiOWpFRXQrd3ha?=
+ =?utf-8?B?akNhSmpVNlY2SCtSd2tOSUxoK0JYOFhVUXRoeUJlMmNYY2d1Z3B6NWY5bjk2?=
+ =?utf-8?B?TVZIMWlsblFvVU1tMFhmeWRERkxPNm4va21nNFhtRUxkcHJCcG9rYnhOaUFC?=
+ =?utf-8?B?akwwMTBkeEZmV0F1MVh4UkdUV1RqNXRobXNubC82VHBWSTd2MWlBVXFwTEo4?=
+ =?utf-8?B?TXllWDFVUmdPa1VZMyt5Ynl4bEJGOXAvL1QzMDdhaVFGVEI5NWp5MHBLV2hZ?=
+ =?utf-8?B?WTh1VXc2YU9kUzlCV1RhQ2lFaUJ5NVByRWFDSmI2NmJKanR2di9xb2JHN214?=
+ =?utf-8?B?R0hjVklZaVFZanpiUTFXTDNJK0djUkhpd3ZML0dnQlh6MERiS2VJL0R3K25v?=
+ =?utf-8?B?dWh0SkRGdjZwaVMxUW11c3VhbkVuVFJmOUZncXMxTWRxanlIZnZ0SDdMdUtC?=
+ =?utf-8?B?VWpnRDkrN0VhSVU2eVFuYzQydEY5K20rcmd6bFhvN01BUUcvYWNUL1Joa09v?=
+ =?utf-8?B?cDZUNThMZTBsTDZ2WlNKVjZwc1NNcldHalZRZndXWXBmbHhJRHBYREpRcUEz?=
+ =?utf-8?B?YkFNaVFnblVWSExneDR6YkpMQ0QrWURsMmNPcWJkLzN3ZFgxMXlWbmx6SWhx?=
+ =?utf-8?B?Y2h2SXVHWVpSZU0wWGNudCtXWjc5T2RUcnhSRGRuYXhHWjJVTElVSkJFNWtH?=
+ =?utf-8?B?ckxpN1RNV0I3WURxL0ZYRVQzQUgrTmZycU1BeGszdzh5QnNqaEJ4Y2hDS3B5?=
+ =?utf-8?B?NmFaYUlvOEY2MFk1YWY5V25nWHc3OW1UZGgxMXZhTGpuUnFrTi94eVVJTEFD?=
+ =?utf-8?B?b3p0Uk43dDUvNm1QMk1XUmlZdDhXWEh0MWJ0Y3RLNEJtY09LQ1pyZFBkMFNM?=
+ =?utf-8?B?SWVJeFY4ek1SYjJ3VExIdVdFLzY4RmpxZ256RFVkRnZ6alIweURxMEFJYzNX?=
+ =?utf-8?B?Nlo0SUJQL3JUNU1QU0J3dDJjL0t0bUVIRWMxZlFPUXJoWWkvRWNkbEpGWm11?=
+ =?utf-8?B?OTh2TjBwU2FPTWxmb281MjRWT291dkFEbjdXaVR5RndpcldiMXI4RUZiU1FN?=
+ =?utf-8?B?YS82K3JZRDRnM2hTVE80MkI5ZGNKNDdpQ25DYm9SekpoYlZlemEvSkNuMjZP?=
+ =?utf-8?B?RjlIUkRKa3ZHSXRYa1BLMncwRWM1S2lwakRnemYwQ3M5RUJZK0xKcUtNMTNp?=
+ =?utf-8?B?NU1EZkNjNjZrY21vc25Wd1NPQVEyR0U4bTUzM0dCZGhWckRMUG5rbFZ2VWFh?=
+ =?utf-8?B?Z0Zva1dUZ1hMbzduYS9CMzVGVjFWaFBUOWd6ZlErSmJMbGRGenM5ZUd5QWNF?=
+ =?utf-8?B?RDJHNVJhemxFT3FUK3hnZmVzZUl6QlhVVGhzSm5tYStqbUtLV3lBVFhvNUQ4?=
+ =?utf-8?B?dDIzMU5xSEh5UEtCK1c2Z3pWSitJbDJ0cTdvQkcyZ2dCMFNIcmVld1FkbG1V?=
+ =?utf-8?B?Z1lyejc4eTN3OVFVWFgxZ0RwMlhteEJTMnBUYXhuNzB0OHYweFdBdXM3dGd6?=
+ =?utf-8?B?aUVMK3R6SVdCN09HVlhxVk5JWi9TS0YyS2JHQ1hoSkZRMTUvbGpQQzNTWSs3?=
+ =?utf-8?B?YzBMbUtOcEkzWkZ5TWNqRFpJYVNiREFXV3BwMk9zdkJYNUdXMlYyRGV2SXh3?=
+ =?utf-8?B?eWtkSlRTNTZZd3BXQmVXNytQV000QWF4Y0FvZVJ1MXhRZDVBNEwyUVBQQ3NI?=
+ =?utf-8?B?TThuUXBpR0tYRklPWWxKVCtyQ1hUU1BZM0U5NXNNYnEzOFBoM1owRi9vVkhu?=
+ =?utf-8?B?RE40UnlmVVJFeGpicHEwT2lDVFpGUWNYZG5vYXNuVW1zYzgzRjRJQzYzSDJ1?=
+ =?utf-8?B?aytBekIxR1F5SkRSM1p4N3UyUmh0VytjalI4cXRaNGZXbjRmdDFwR0ROUU9R?=
+ =?utf-8?B?TzZ2c1c4dDJqUnRFa25xdTllanlzazJEaEdwOXdEdFVybWpMOFJnRUlGRWFF?=
+ =?utf-8?B?a202UFNUMVRNZGE2V3FOamp2K3BPOEM2elF4dXNKYlZ1TUVTWTh4Z0J6d0lp?=
+ =?utf-8?B?TXRiaG9OUEhQR2FobnVLbjFlRHVvTFJKTnNrR2w5d3FQTFo3ZXYzcTM4UWJH?=
+ =?utf-8?B?MTl5U2RHTitUd2VpRzhWME9pY2paOEtCVjlkNDdYWWprUitJVElPV3B0T1Rx?=
+ =?utf-8?B?TXNzbUpiR1ZxYVFEa1pGSWNLNnhEWlk1Yy9PTjRHR2MrbHlyTUlyU1VYRkZG?=
+ =?utf-8?B?ZU9zeFduNlBReks5alIxZmFWUk5wSTlsUEhUSStDTzRUM1gzRDRzQ3ZnMmdQ?=
+ =?utf-8?B?d3dnUXk4MGRDTHNLQSswbHJDRkdtQTBvZHZyZVh0K2JDU3E1Y213QT09?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b252fe4-87fa-4493-af2d-08dee7ea50ea
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: EAYPR12MB999158.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc0fb864-3c4d-44c1-23cf-08dee7e23a76
-X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Jul 2026 11:13:16.2415 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: ODT8ABWu3weoDJC1KZFmisseQZtmT0ctS2ystYq8MFQNQkohcCs9r5OyHVhL8pEN5Oz3of7nsMLPUT0Ezif+5Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7504
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jul 2026 12:11:10.2936 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zW1ta3+U0LZXDm4YoqqXMURKDALBNUhqz2LsAIJULxHWn1v26x9MsXLSsHf+seLb
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7095
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,219 +136,205 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
 
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-Regards,
-Hawking
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Candice =
-Li
-Sent: Wednesday, July 22, 2026 6:36 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Li, Candice <Candice.Li@amd.com>
-Subject: [PATCH] drm/amdgpu: restore perf state after runtime resume
+On 22-Jul-26 4:43 PM, Zhang, Hawking wrote:
+> AMD General
+> 
+> Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+> 
+> Regards,
+> Hawking
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Candice Li
+> Sent: Wednesday, July 22, 2026 6:36 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Li, Candice <Candice.Li@amd.com>
+> Subject: [PATCH] drm/amdgpu: restore perf state after runtime resume
+> 
+> Runtime suspend runs GFX hw_fini and clears perfmon clock gating while KFD keeps running, so block perf counters read zero after resume even though profiling remains enabled in software.
+> 
+> Re-apply UMD stable pstate for profile DPM modes and re-enable KFD perfcount after a successful runtime resume.
+> 
+> Signed-off-by: Candice Li <candice.li@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 46 ++++++++++++++++++++++  drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 17 ++++++++
+>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c   |  8 ++++
+>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h      |  2 +
+>   drivers/gpu/drm/amd/amdkfd/kfd_process.c   |  1 +
+>   6 files changed, 75 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> index 121282dd30c161..38974beb98ef88 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+> @@ -38,6 +38,7 @@
+>   #include "amdgpu_reset.h"
+>   #if IS_ENABLED(CONFIG_HSA_AMD)
+>   #include "kfd_priv.h"
+> +#include "kfd_device_queue_manager.h"
+>   #endif
+> 
+>   /* Total memory size in system memory and all GPU VRAM. Used to @@ -280,6 +281,51 @@ int amdgpu_amdkfd_resume(struct amdgpu_device *adev, bool resume_proc)
+>          return r;
+>   }
+> 
+> +void amdgpu_amdkfd_restore_profiler_after_runpm(struct amdgpu_device
+> +*adev) { #if IS_ENABLED(CONFIG_HSA_AMD)
+> +       struct kfd_dev *kfd;
+> +       struct kfd_process *p;
+> +       struct kfd_process_device *pdd;
+> +       struct device_queue_manager *dqm;
+> +       int i;
+> +
+> +       if (!adev->kfd.dev || !adev->kfd.init_complete)
+> +               return;
+> +
+> +       kfd = adev->kfd.dev;
+> +
+> +       mutex_lock(&kfd->profiler_lock);
+> +       p = kfd->profiler_process;
+> +       if (!p || !kfd->profiler_perfcount_enabled) {
+> +               mutex_unlock(&kfd->profiler_lock);
+> +               return;
+> +       }
+> +       mutex_unlock(&kfd->profiler_lock);
+> +
+> +       mutex_lock(&p->mutex);
+> +
+> +       mutex_lock(&kfd->profiler_lock);
+> +       if (kfd->profiler_process != p || !kfd->profiler_perfcount_enabled) {
+> +               mutex_unlock(&kfd->profiler_lock);
+> +               mutex_unlock(&p->mutex);
+> +               return;
+> +       }
+> +       mutex_unlock(&kfd->profiler_lock);
+> +
+> +       for (i = 0; i < p->n_pdds; i++) {
+> +               pdd = p->pdds[i];
+> +               if (!pdd || !pdd->dev || pdd->dev->kfd != kfd)
+> +                       continue;
+> +
+> +               dqm = pdd->dev->dqm;
+> +               if (dqm && dqm->ops.set_perfcount)
+> +                       dqm->ops.set_perfcount(dqm, 1);
+> +       }
+> +       mutex_unlock(&p->mutex);
+> +#endif
+> +}
+> +
+>   void amdgpu_amdkfd_suspend_process(struct amdgpu_device *adev)  {
+>          if (adev->kfd.dev)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> index 338412a750edf0..1be9d5ef97d6d0 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+> @@ -164,6 +164,7 @@ void amdgpu_amdkfd_teardown_processes(struct amdgpu_device *adev);
+> 
+>   void amdgpu_amdkfd_suspend(struct amdgpu_device *adev, bool suspend_proc);  int amdgpu_amdkfd_resume(struct amdgpu_device *adev, bool resume_proc);
+> +void amdgpu_amdkfd_restore_profiler_after_runpm(struct amdgpu_device
+> +*adev);
+>   void amdgpu_amdkfd_suspend_process(struct amdgpu_device *adev);  int amdgpu_amdkfd_resume_process(struct amdgpu_device *adev);  void amdgpu_amdkfd_interrupt(struct amdgpu_device *adev, diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 5362705143bc75..f7a1064c340692 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -2920,6 +2920,21 @@ static int amdgpu_pmops_runtime_suspend(struct device *dev)
+>          return 0;
+>   }
+> 
+> +static void amdgpu_restore_perf_state_after_runpm(struct amdgpu_device
+> +*adev) {
+> +       enum amd_dpm_forced_level level;
+> +       uint32_t profile_mode_mask = AMD_DPM_FORCED_LEVEL_PROFILE_STANDARD |
+> +               AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK |
+> +               AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK |
+> +               AMD_DPM_FORCED_LEVEL_PROFILE_PEAK;
+> +
+> +       level = amdgpu_dpm_get_performance_level(adev);
+> +       if (level & profile_mode_mask)
+> +               amdgpu_asic_update_umd_stable_pstate(adev, true);
 
-Runtime suspend runs GFX hw_fini and clears perfmon clock gating while KFD =
-keeps running, so block perf counters read zero after resume even though pr=
-ofiling remains enabled in software.
+This is supposed to be called before entering the force dpm level mode. 
+It's better to move this logic inside swsmu late_init before reapplying 
+the level.
 
-Re-apply UMD stable pstate for profile DPM modes and re-enable KFD perfcoun=
-t after a successful runtime resume.
+Thanks,
+Lijo
 
-Signed-off-by: Candice Li <candice.li@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 46 ++++++++++++++++++++++  dr=
-ivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 17 ++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c   |  8 ++++
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h      |  2 +
- drivers/gpu/drm/amd/amdkfd/kfd_process.c   |  1 +
- 6 files changed, 75 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_amdkfd.c
-index 121282dd30c161..38974beb98ef88 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
-@@ -38,6 +38,7 @@
- #include "amdgpu_reset.h"
- #if IS_ENABLED(CONFIG_HSA_AMD)
- #include "kfd_priv.h"
-+#include "kfd_device_queue_manager.h"
- #endif
-
- /* Total memory size in system memory and all GPU VRAM. Used to @@ -280,6 =
-+281,51 @@ int amdgpu_amdkfd_resume(struct amdgpu_device *adev, bool resume=
-_proc)
-        return r;
- }
-
-+void amdgpu_amdkfd_restore_profiler_after_runpm(struct amdgpu_device
-+*adev) { #if IS_ENABLED(CONFIG_HSA_AMD)
-+       struct kfd_dev *kfd;
-+       struct kfd_process *p;
-+       struct kfd_process_device *pdd;
-+       struct device_queue_manager *dqm;
-+       int i;
-+
-+       if (!adev->kfd.dev || !adev->kfd.init_complete)
-+               return;
-+
-+       kfd =3D adev->kfd.dev;
-+
-+       mutex_lock(&kfd->profiler_lock);
-+       p =3D kfd->profiler_process;
-+       if (!p || !kfd->profiler_perfcount_enabled) {
-+               mutex_unlock(&kfd->profiler_lock);
-+               return;
-+       }
-+       mutex_unlock(&kfd->profiler_lock);
-+
-+       mutex_lock(&p->mutex);
-+
-+       mutex_lock(&kfd->profiler_lock);
-+       if (kfd->profiler_process !=3D p || !kfd->profiler_perfcount_enable=
-d) {
-+               mutex_unlock(&kfd->profiler_lock);
-+               mutex_unlock(&p->mutex);
-+               return;
-+       }
-+       mutex_unlock(&kfd->profiler_lock);
-+
-+       for (i =3D 0; i < p->n_pdds; i++) {
-+               pdd =3D p->pdds[i];
-+               if (!pdd || !pdd->dev || pdd->dev->kfd !=3D kfd)
-+                       continue;
-+
-+               dqm =3D pdd->dev->dqm;
-+               if (dqm && dqm->ops.set_perfcount)
-+                       dqm->ops.set_perfcount(dqm, 1);
-+       }
-+       mutex_unlock(&p->mutex);
-+#endif
-+}
-+
- void amdgpu_amdkfd_suspend_process(struct amdgpu_device *adev)  {
-        if (adev->kfd.dev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_amdkfd.h
-index 338412a750edf0..1be9d5ef97d6d0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -164,6 +164,7 @@ void amdgpu_amdkfd_teardown_processes(struct amdgpu_dev=
-ice *adev);
-
- void amdgpu_amdkfd_suspend(struct amdgpu_device *adev, bool suspend_proc);=
-  int amdgpu_amdkfd_resume(struct amdgpu_device *adev, bool resume_proc);
-+void amdgpu_amdkfd_restore_profiler_after_runpm(struct amdgpu_device
-+*adev);
- void amdgpu_amdkfd_suspend_process(struct amdgpu_device *adev);  int amdgp=
-u_amdkfd_resume_process(struct amdgpu_device *adev);  void amdgpu_amdkfd_in=
-terrupt(struct amdgpu_device *adev, diff --git a/drivers/gpu/drm/amd/amdgpu=
-/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 5362705143bc75..f7a1064c340692 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2920,6 +2920,21 @@ static int amdgpu_pmops_runtime_suspend(struct devic=
-e *dev)
-        return 0;
- }
-
-+static void amdgpu_restore_perf_state_after_runpm(struct amdgpu_device
-+*adev) {
-+       enum amd_dpm_forced_level level;
-+       uint32_t profile_mode_mask =3D AMD_DPM_FORCED_LEVEL_PROFILE_STANDAR=
-D |
-+               AMD_DPM_FORCED_LEVEL_PROFILE_MIN_SCLK |
-+               AMD_DPM_FORCED_LEVEL_PROFILE_MIN_MCLK |
-+               AMD_DPM_FORCED_LEVEL_PROFILE_PEAK;
-+
-+       level =3D amdgpu_dpm_get_performance_level(adev);
-+       if (level & profile_mode_mask)
-+               amdgpu_asic_update_umd_stable_pstate(adev, true);
-+
-+       amdgpu_amdkfd_restore_profiler_after_runpm(adev);
-+}
-+
- static int amdgpu_pmops_runtime_resume(struct device *dev)  {
-        struct pci_dev *pdev =3D to_pci_dev(dev); @@ -2964,6 +2979,8 @@ sta=
-tic int amdgpu_pmops_runtime_resume(struct device *dev)
-
-        if (adev->pm.rpm_mode =3D=3D AMDGPU_RUNPM_PX)
-                drm_dev->switch_power_state =3D DRM_SWITCH_POWER_ON;
-+
-+       amdgpu_restore_perf_state_after_runpm(adev);
-        adev->in_runpm =3D false;
-        return 0;
- }
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_chardev.c
-index 2c1a936459ac87..2a140c40b53f9c 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -3347,6 +3347,7 @@ static inline uint32_t profile_lock_device(struct kfd=
-_process *p,
-        if (op =3D=3D 1) {
-                if (!kfd->profiler_process) {
-                        kfd->profiler_process =3D p;
-+                       kfd->profiler_perfcount_enabled =3D false;
-                        status =3D 0;
-                        mutex_unlock(&kfd->profiler_lock);
-                        if (ptl->hw_supported) {
-@@ -3364,6 +3365,7 @@ static inline uint32_t profile_lock_device(struct kfd=
-_process *p,
-                }
-        } else if (op =3D=3D 0 && kfd->profiler_process =3D=3D p) {
-                kfd->profiler_process =3D NULL;
-+               kfd->profiler_perfcount_enabled =3D false;
-                status =3D 0;
-                mutex_unlock(&kfd->profiler_lock);
-
-@@ -3404,6 +3406,12 @@ static inline int kfd_profiler_pmc(struct kfd_proces=
-s *p,
-        mutex_unlock(&p->mutex);
-
-        dqm->ops.set_perfcount(dqm, args->perfcount_enable);
-+
-+       mutex_lock(&pdd->dev->kfd->profiler_lock);
-+       if (pdd->dev->kfd->profiler_process =3D=3D p)
-+               pdd->dev->kfd->profiler_perfcount_enabled =3D !!args->perfc=
-ount_enable;
-+       mutex_unlock(&pdd->dev->kfd->profiler_lock);
-+
-        return status;
- }
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/am=
-dkfd/kfd_priv.h
-index 88191a4c165796..81055ada4f80b8 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-@@ -389,6 +389,8 @@ struct kfd_dev {
-        struct mutex profiler_lock;
-        /* Process currently holding the lock */
-        struct kfd_process *profiler_process;
-+       /* Whether perfcount is enabled for profiler_process */
-+       bool profiler_perfcount_enabled;
- };
-
- enum kfd_mempool {
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd=
-/amdkfd/kfd_process.c
-index eb508fe3ded780..8b7020fc0577a2 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -1180,6 +1180,7 @@ static void kfd_process_profiler_release(struct kfd_p=
-rocess *p, struct kfd_proce
-        if (pdd->dev->kfd->profiler_process =3D=3D p) {
-                pdd->qpd.dqm->ops.set_perfcount(pdd->qpd.dqm, 0);
-                pdd->dev->kfd->profiler_process =3D NULL;
-+               pdd->dev->kfd->profiler_perfcount_enabled =3D false;
-        }
-        mutex_unlock(&pdd->dev->kfd->profiler_lock);
- }
---
-2.25.1
+> +
+> +       amdgpu_amdkfd_restore_profiler_after_runpm(adev);
+> +}
+> +
+>   static int amdgpu_pmops_runtime_resume(struct device *dev)  {
+>          struct pci_dev *pdev = to_pci_dev(dev); @@ -2964,6 +2979,8 @@ static int amdgpu_pmops_runtime_resume(struct device *dev)
+> 
+>          if (adev->pm.rpm_mode == AMDGPU_RUNPM_PX)
+>                  drm_dev->switch_power_state = DRM_SWITCH_POWER_ON;
+> +
+> +       amdgpu_restore_perf_state_after_runpm(adev);
+>          adev->in_runpm = false;
+>          return 0;
+>   }
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> index 2c1a936459ac87..2a140c40b53f9c 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+> @@ -3347,6 +3347,7 @@ static inline uint32_t profile_lock_device(struct kfd_process *p,
+>          if (op == 1) {
+>                  if (!kfd->profiler_process) {
+>                          kfd->profiler_process = p;
+> +                       kfd->profiler_perfcount_enabled = false;
+>                          status = 0;
+>                          mutex_unlock(&kfd->profiler_lock);
+>                          if (ptl->hw_supported) {
+> @@ -3364,6 +3365,7 @@ static inline uint32_t profile_lock_device(struct kfd_process *p,
+>                  }
+>          } else if (op == 0 && kfd->profiler_process == p) {
+>                  kfd->profiler_process = NULL;
+> +               kfd->profiler_perfcount_enabled = false;
+>                  status = 0;
+>                  mutex_unlock(&kfd->profiler_lock);
+> 
+> @@ -3404,6 +3406,12 @@ static inline int kfd_profiler_pmc(struct kfd_process *p,
+>          mutex_unlock(&p->mutex);
+> 
+>          dqm->ops.set_perfcount(dqm, args->perfcount_enable);
+> +
+> +       mutex_lock(&pdd->dev->kfd->profiler_lock);
+> +       if (pdd->dev->kfd->profiler_process == p)
+> +               pdd->dev->kfd->profiler_perfcount_enabled = !!args->perfcount_enable;
+> +       mutex_unlock(&pdd->dev->kfd->profiler_lock);
+> +
+>          return status;
+>   }
+> 
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index 88191a4c165796..81055ada4f80b8 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -389,6 +389,8 @@ struct kfd_dev {
+>          struct mutex profiler_lock;
+>          /* Process currently holding the lock */
+>          struct kfd_process *profiler_process;
+> +       /* Whether perfcount is enabled for profiler_process */
+> +       bool profiler_perfcount_enabled;
+>   };
+> 
+>   enum kfd_mempool {
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index eb508fe3ded780..8b7020fc0577a2 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -1180,6 +1180,7 @@ static void kfd_process_profiler_release(struct kfd_process *p, struct kfd_proce
+>          if (pdd->dev->kfd->profiler_process == p) {
+>                  pdd->qpd.dqm->ops.set_perfcount(pdd->qpd.dqm, 0);
+>                  pdd->dev->kfd->profiler_process = NULL;
+> +               pdd->dev->kfd->profiler_perfcount_enabled = false;
+>          }
+>          mutex_unlock(&pdd->dev->kfd->profiler_lock);
+>   }
+> --
+> 2.25.1
+> 
 
