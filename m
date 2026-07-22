@@ -4,37 +4,37 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF0F1C44539
-	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jul 2026 15:12:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55D42C44536
+	for <amd-gfx@archiver.kernel.org>; Wed, 22 Jul 2026 15:13:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8096310E44B;
-	Wed, 22 Jul 2026 15:12:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE3BC10E418;
+	Wed, 22 Jul 2026 15:13:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="F3+zVyTS";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lG3OwLWM";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B91E410E418
- for <amd-gfx@lists.freedesktop.org>; Wed, 22 Jul 2026 15:12:24 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EFF7F10E418
+ for <amd-gfx@lists.freedesktop.org>; Wed, 22 Jul 2026 15:13:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CFDD6600B0;
- Wed, 22 Jul 2026 15:12:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E47961F000E9;
- Wed, 22 Jul 2026 15:12:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B385340247;
+ Wed, 22 Jul 2026 15:13:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7F401F000E9;
+ Wed, 22 Jul 2026 15:12:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784733143;
- bh=f4ChfY6jnlzkp7LQ/e19z/W8YngKsAp/w9/niRf5ydU=;
+ s=k20260515; t=1784733180;
+ bh=rSZGsxAHBGU3vYc1yiCvW0d/D0MTTeIJ4xHa391STK0=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=F3+zVyTSftGo4cRlPBgrw77vPBYEkwGcJT2c+BcCnLW8kz+o5bP6MHp2eupA9B0Bd
- h4zluUiE6nCp2ws1iFEDs2Ix5JV5l82hxM49tCmJYuytFMCMpmI0mZ0IJzGR6hC6K0
- 8JbQLFeKLBCdYi7Y80EUWSPDxXe3nPb83+bg4SO24YvANxRjHdO65RLlNxPSi8WTB4
- Si2FZXMmgkWfVhPj8WZfpdUsrOWr8ghSe/bXRuFpKCjl4ZoHoXqRI2NAIKf5sJSUro
- kCf7vQNVQzHOx5UfPXRpu34HhoA8oravG2i6iOAPA6UBCeFwCBnMoEFqRD0cJyGNpd
- xeFL8aQTlCHkA==
-Message-ID: <b9903553-a977-4721-bab8-a1882359341b@kernel.org>
-Date: Wed, 22 Jul 2026 10:12:21 -0500
+ b=lG3OwLWM5I/C7HxF+IoFyVWB7C/VKgnu2tYGwRyHhKWGXh6TxbbSPhW4sqRwkWN3H
+ GffBdibQBp1rJdzoDTUoqgJfzzs7zQtNrpWhEWD5hZFSqOGufAGT1wh2HhKMi//jX+
+ WlcUrBAmH9D2CNTZT0NDCzonvuTFtn3kGnw33gP9vAjr2NB/VLld9kU7UfI481jkzK
+ 0rRppu7XHfAtjhKzI8nKMfiu7/2GhcJ8AqaGqGgY92jWokzyhKsiE1YcE3aJgE2xal
+ rPlppvtT3su+FkQmG8ATlBH17IKRj64dwieBUcA1ahjRzXPt5gu+VsyOPLa6MG+h+t
+ 67rEIgJsIYhTA==
+Message-ID: <8e657905-5ccf-47de-bec6-6e3aa93d296f@kernel.org>
+Date: Wed, 22 Jul 2026 10:12:58 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/amdgpu: Enable support for PSP 15_0_5
+Subject: Re: [PATCH 2/2] drm/amdgpu: Fix NBIO 7.11.5 offsets
 Content-Language: en-US
 To: Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpande@amd.com>,
  amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
@@ -42,8 +42,9 @@ To: Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpande@amd.com>,
  Arunpravin.PaneerSelvam@amd.com
 Cc: Veerabadhran.Gopalakrishnan@amd.com, Pratik.Vishwakarma@amd.com
 References: <20260722081727.1691277-1-Shubhankar.MilindSardeshpande@amd.com>
+ <20260722081727.1691277-2-Shubhankar.MilindSardeshpande@amd.com>
 From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260722081727.1691277-1-Shubhankar.MilindSardeshpande@amd.com>
+In-Reply-To: <20260722081727.1691277-2-Shubhankar.MilindSardeshpande@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -63,211 +64,228 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 On 7/22/26 03:17, Shubhankar Milind Sardeshpande wrote:
-> Add PSP 15.0.5 related offsets for GFX to KMD interface
-> and enable support for it.
+> Fix NBIO 7.11.5 related offsets
 > 
-> Co-developed-by: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>
-> Signed-off-by: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>
 > Signed-off-by: Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpande@amd.com>
-
-A few minor comments below.
-
 Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |  1 +
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |  5 +-
->   drivers/gpu/drm/amd/amdgpu/psp_v15_0.c        | 93 ++++++++++++++++---
->   3 files changed, 83 insertions(+), 16 deletions(-)
+>   drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c | 146 ++++++++++++-----------
+>   1 file changed, 76 insertions(+), 70 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> index 44e7d2e3e6df..f9f3e5ddcbe7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> @@ -2530,6 +2530,7 @@ static int amdgpu_discovery_set_psp_ip_blocks(struct amdgpu_device *adev)
->   		break;
->   	case IP_VERSION(15, 0, 0):
->   	case IP_VERSION(15, 0, 9):
-> +	case IP_VERSION(15, 0, 5):
-
-I would put 15.0.5 between 15.0.0 and 15.0.9.
-
->   		amdgpu_device_ip_block_add(adev, &psp_v15_0_ip_block);
->   		break;
->   	case IP_VERSION(15, 0, 8):
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> index fdcba94ec0d1..3e49af8414ff 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -276,6 +276,7 @@ static int psp_early_init(struct amdgpu_ip_block *ip_block)
->   		break;
->   	case IP_VERSION(15, 0, 0):
->   	case IP_VERSION(15, 0, 9):
-> +	case IP_VERSION(15, 0, 5):
-
-Similarly here I would put 15.0.5 between 15.0.0 and 15.0.9.
-
->   		psp_v15_0_0_set_psp_funcs(psp);
->   		psp->boot_time_tmr = false;
->   		break;
-> @@ -3509,7 +3510,9 @@ static int psp_load_non_psp_fw(struct psp_context *psp)
->   		     amdgpu_ip_version(adev, MP0_HWIP, 0) ==
->   			     IP_VERSION(15, 0, 8) ||
->   		     amdgpu_ip_version(adev, MP0_HWIP, 0) ==
-> -			     IP_VERSION(15, 0, 9)) &&
-> +			     IP_VERSION(15, 0, 9) ||
-> +			amdgpu_ip_version(adev, MP0_HWIP, 0) ==
-> +			     IP_VERSION(15, 0, 5)) &&
-
-Similarly here I would put 15.0.5 between 15.0.0 and 15.0.9.
-
->   		    (ucode->ucode_id == AMDGPU_UCODE_ID_SDMA1 ||
->   		     ucode->ucode_id == AMDGPU_UCODE_ID_SDMA2 ||
->   		     ucode->ucode_id == AMDGPU_UCODE_ID_SDMA3))
-> diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c
-> index 2a4d91368ac6..f4ace98171bb 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/psp_v15_0.c
-> @@ -31,8 +31,21 @@
->   #include "mp/mp_15_0_0_offset.h"
->   #include "mp/mp_15_0_0_sh_mask.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
+> index c78f0598637f..000516b5845a 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
+> @@ -30,70 +30,76 @@
+>   #include "ivsrcid/nbio/irqsrcs_nbif_7_4.h"
+>   #include <uapi/linux/kfd_ioctl.h>
 >   
-> +#define regMPASP_PCRU0_MPASP_C2PMSG_64                                         0x4280
-> +#define regMPASP_PCRU0_MPASP_C2PMSG_64_BASE_IDX                                2
-> +#define regMPASP_PCRU0_MPASP_C2PMSG_67                                         0x4283
-> +#define regMPASP_PCRU0_MPASP_C2PMSG_67_BASE_IDX                                2
-> +#define regMPASP_PCRU0_MPASP_C2PMSG_69                                         0x4285
-> +#define regMPASP_PCRU0_MPASP_C2PMSG_69_BASE_IDX                                2
-> +#define regMPASP_PCRU0_MPASP_C2PMSG_70                                         0x4286
-> +#define regMPASP_PCRU0_MPASP_C2PMSG_70_BASE_IDX                                2
-> +#define regMPASP_PCRU0_MPASP_C2PMSG_71                                         0x4287
-> +#define regMPASP_PCRU0_MPASP_C2PMSG_71_BASE_IDX                                2
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_0_CTRL_nbif_4_10                                                           0x4f0aeb
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_0_CTRL_nbif_4_10_BASE_IDX                                                  3
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_0_CTRL1_nbif_4_10                                                          0x4f0aec
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_0_CTRL1_nbif_4_10_BASE_IDX                                                 3
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_1_CTRL_nbif_4_10                                                           0x4f0aed
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_1_CTRL_nbif_4_10_BASE_IDX                                                  3
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_1_CTRL1_nbif_4_10                                                          0x4f0aee
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_1_CTRL1_nbif_4_10_BASE_IDX                                                 3
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_2_CTRL_nbif_4_10                                                           0x4f0aef
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_2_CTRL_nbif_4_10_BASE_IDX                                                  3
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_2_CTRL1_nbif_4_10                                                          0x4f0af0
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_2_CTRL1_nbif_4_10_BASE_IDX                                                 3
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_3_CTRL_nbif_4_10                                                           0x4f0af1
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_3_CTRL_nbif_4_10_BASE_IDX                                                  3
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_3_CTRL1_nbif_4_10                                                          0x4f0af2
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_3_CTRL1_nbif_4_10_BASE_IDX                                                 3
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_4_CTRL_nbif_4_10                                                           0x4f0af3
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_4_CTRL_nbif_4_10_BASE_IDX                                                  3
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_4_CTRL1_nbif_4_10                                                          0x4f0af4
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_4_CTRL1_nbif_4_10_BASE_IDX                                                 3
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_5_CTRL_nbif_4_10                                                           0x4f0af5
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_5_CTRL_nbif_4_10_BASE_IDX                                                  3
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_5_CTRL1_nbif_4_10                                                          0x4f0af6
+> -#define regGDC_S2A0_S2A_DOORBELL_ENTRY_5_CTRL1_nbif_4_10_BASE_IDX                                                 3
+> -#define regRCC_STRAP0_RCC_DEV0_EPF0_STRAP0_nbif_4_10                                                              0x0021
+> -#define regRCC_STRAP0_RCC_DEV0_EPF0_STRAP0_nbif_4_10_BASE_IDX                                                     2
+> -
+> -#define regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_BASE_HIGH_nbio_7_11_5                                      0x8e13
+> -#define regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_BASE_HIGH_nbio_7_11_5_BASE_IDX                             5
+> -#define regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_BASE_LOW_nbio_7_11_5                                       0x8e14
+> -#define regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_BASE_LOW_nbio_7_11_5_BASE_IDX                              5
+> -#define regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_CNTL_nbio_7_11_5                                           0x8e15
+> -#define regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_CNTL_nbio_7_11_5_BASE_IDX                                  5
+> -
+> -#define regBIF_BX0_REMAP_HDP_MEM_FLUSH_CNTL_nbio_7_11_5                                                     0x8e4d
+> -#define regBIF_BX0_REMAP_HDP_MEM_FLUSH_CNTL_nbio_7_11_5_BASE_IDX                                            5
+> -#define regBIF_BX0_REMAP_HDP_REG_FLUSH_CNTL_nbio_7_11_5                                                     0x8e4e
+> -#define regBIF_BX0_REMAP_HDP_REG_FLUSH_CNTL_nbio_7_11_5_BASE_IDX                                            5
+> -
+> -#define regRCC_STRAP0_RCC_DEV0_EPF0_STRAP0_nbio_7_11_5                                                      0xd000
+> -#define regRCC_STRAP0_RCC_DEV0_EPF0_STRAP0_nbio_7_11_5_BASE_IDX                                             5
+> -
+> -#define regBIF_BX0_BIF_FB_EN_nbio_7_11_5                                                                    0x8e20
+> -#define regBIF_BX0_BIF_FB_EN_nbio_7_11_5_BASE_IDX                                                           5
+> -
+> -#define regBIF_BX0_INTERRUPT_CNTL_nbio_7_11_5                                                               0x8e11
+> -#define regBIF_BX0_INTERRUPT_CNTL_nbio_7_11_5_BASE_IDX                                                      5
+> -#define regBIF_BX0_INTERRUPT_CNTL2_nbio_7_11_5                                                              0x8e12
+> -#define regBIF_BX0_INTERRUPT_CNTL2_nbio_7_11_5_BASE_IDX                                                     5
+> -
+> -#define regBIF_BX_PF0_GPU_HDP_FLUSH_REQ_nbio_7_11_5                                                         0x8e26
+> -#define regBIF_BX_PF0_GPU_HDP_FLUSH_REQ_nbio_7_11_5_BASE_IDX                                                5
+> -#define regBIF_BX_PF0_GPU_HDP_FLUSH_DONE_nbio_7_11_5                                                        0x8e27
+> -#define regBIF_BX_PF0_GPU_HDP_FLUSH_DONE_nbio_7_11_5_BASE_IDX                                               5
+> -
+> -#define regBIF_BX_PF0_HDP_MEM_COHERENCY_FLUSH_CNTL_nbio_7_11_5                                              0x8e17
+> -#define regBIF_BX_PF0_HDP_MEM_COHERENCY_FLUSH_CNTL_nbio_7_11_5_BASE_IDX                                     5
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_0_CTRL_nbif_4_10                                 0x4f0aeb
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_0_CTRL_nbif_4_10_BASE_IDX                        3
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_0_CTRL1_nbif_4_10                                0x4f0aec
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_0_CTRL1_nbif_4_10_BASE_IDX                       3
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_1_CTRL_nbif_4_10                                 0x4f0aed
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_1_CTRL_nbif_4_10_BASE_IDX                        3
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_1_CTRL1_nbif_4_10                                0x4f0aee
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_1_CTRL1_nbif_4_10_BASE_IDX                       3
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_2_CTRL_nbif_4_10                                 0x4f0aef
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_2_CTRL_nbif_4_10_BASE_IDX                        3
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_2_CTRL1_nbif_4_10                                0x4f0af0
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_2_CTRL1_nbif_4_10_BASE_IDX                       3
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_3_CTRL_nbif_4_10                                 0x4f0af1
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_3_CTRL_nbif_4_10_BASE_IDX                        3
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_3_CTRL1_nbif_4_10                                0x4f0af2
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_3_CTRL1_nbif_4_10_BASE_IDX                       3
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_4_CTRL_nbif_4_10                                 0x4f0af3
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_4_CTRL_nbif_4_10_BASE_IDX                        3
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_4_CTRL1_nbif_4_10                                0x4f0af4
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_4_CTRL1_nbif_4_10_BASE_IDX                       3
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_5_CTRL_nbif_4_10                                 0x4f0af5
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_5_CTRL_nbif_4_10_BASE_IDX                        3
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_5_CTRL1_nbif_4_10                                0x4f0af6
+> +#define regGDC_S2A0_S2A_DOORBELL_ENTRY_5_CTRL1_nbif_4_10_BASE_IDX                       3
+> +#define regRCC_STRAP0_RCC_DEV0_EPF0_STRAP0_nbif_4_10                                    0x0021
+> +#define regRCC_STRAP0_RCC_DEV0_EPF0_STRAP0_nbif_4_10_BASE_IDX                           2
 > +
->   MODULE_FIRMWARE("amdgpu/psp_15_0_0_toc.bin");
->   MODULE_FIRMWARE("amdgpu/psp_15_0_0_ta.bin");
-> +MODULE_FIRMWARE("amdgpu/psp_15_0_5_toc.bin");
-> +MODULE_FIRMWARE("amdgpu/psp_15_0_5_ta.bin");
->   MODULE_FIRMWARE("amdgpu/psp_15_0_9_toc.bin");
->   MODULE_FIRMWARE("amdgpu/psp_15_0_9_ta.bin");
+> +#define regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_BASE_HIGH_nbio_7_11_5                  0x8e13
+> +#define regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_BASE_HIGH_nbio_7_11_5_BASE_IDX         5
+> +#define regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_BASE_LOW_nbio_7_11_5                   0x8e14
+> +#define regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_BASE_LOW_nbio_7_11_5_BASE_IDX          5
+> +#define regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_CNTL_nbio_7_11_5                       0x8e15
+> +#define regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_CNTL_nbio_7_11_5_BASE_IDX              5
+> +
+> +#define regBIF_BX1_REMAP_HDP_MEM_FLUSH_CNTL_nbio_7_11_5                                 0x012d
+> +#define regBIF_BX1_REMAP_HDP_MEM_FLUSH_CNTL_nbio_7_11_5_BASE_IDX                        2
+> +#define regBIF_BX1_REMAP_HDP_REG_FLUSH_CNTL_nbio_7_11_5                                 0x012e
+> +#define regBIF_BX1_REMAP_HDP_REG_FLUSH_CNTL_nbio_7_11_5_BASE_IDX                        2
+> +
+> +#define regRCC_STRAP1_RCC_DEV0_EPF0_STRAP0_nbio_7_11_5                                  0x0021
+> +#define regRCC_STRAP1_RCC_DEV0_EPF0_STRAP0_nbio_7_11_5_BASE_IDX                         2
+> +
+> +#define regBIF_BX1_BIF_FB_EN_nbio_7_11_5                                                0x0100
+> +#define regBIF_BX1_BIF_FB_EN_nbio_7_11_5_BASE_IDX                                       2
+> +
+> +#define regBIF_BX1_INTERRUPT_CNTL_nbio_7_11_5                                           0x00f1
+> +#define regBIF_BX1_INTERRUPT_CNTL_nbio_7_11_5_BASE_IDX                                  2
+> +#define regBIF_BX1_INTERRUPT_CNTL2_nbio_7_11_5                                          0x00f2
+> +#define regBIF_BX1_INTERRUPT_CNTL2_nbio_7_11_5_BASE_IDX                                 2
+> +
+> +#define regBIF_BX_PF1_GPU_HDP_FLUSH_REQ_nbio_7_11_5                                     0x0106
+> +#define regBIF_BX_PF1_GPU_HDP_FLUSH_REQ_nbio_7_11_5_BASE_IDX                            2
+> +#define regBIF_BX_PF1_GPU_HDP_FLUSH_DONE_nbio_7_11_5                                    0x0107
+> +#define regBIF_BX_PF1_GPU_HDP_FLUSH_DONE_nbio_7_11_5_BASE_IDX                           2
+> +
+> +#define regBIF_BX_PF1_HDP_MEM_COHERENCY_FLUSH_CNTL_nbio_7_11_5                          0x00f7
+> +#define regBIF_BX_PF1_HDP_MEM_COHERENCY_FLUSH_CNTL_nbio_7_11_5_BASE_IDX                 2
+> +
+> +//BIF_BX1_BIF_FB_EN
+> +#define BIF_BX1_BIF_FB_EN__FB_READ_EN__SHIFT_nbio_7_11_5                                0x0
+> +#define BIF_BX1_BIF_FB_EN__FB_WRITE_EN__SHIFT_nbio_7_11_5                               0x1
+> +#define BIF_BX1_BIF_FB_EN__FB_READ_EN_MASK_nbio_7_11_5                                  0x00000001L
+> +#define BIF_BX1_BIF_FB_EN__FB_WRITE_EN_MASK_nbio_7_11_5                                 0x00000002L
 >   
-> @@ -71,14 +84,25 @@ static int psp_v15_0_0_ring_stop(struct psp_context *psp,
->   		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPASP_SMN_C2PMSG_101),
->   				   0x80000000, 0x80000000, false);
+>   static void nbif_v6_3_1_remap_hdp_registers(struct amdgpu_device *adev)
+>   {
+>   	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 5)) {
+> -		WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_MEM_FLUSH_CNTL_nbio_7_11_5,
+> +		WREG32_SOC15(NBIO, 0, regBIF_BX1_REMAP_HDP_MEM_FLUSH_CNTL_nbio_7_11_5,
+>   			adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL);
+> -		WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_REG_FLUSH_CNTL_nbio_7_11_5,
+> +		WREG32_SOC15(NBIO, 0, regBIF_BX1_REMAP_HDP_REG_FLUSH_CNTL_nbio_7_11_5,
+>   			adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_REG_FLUSH_CNTL);
 >   	} else {
-> -		/* Write the ring destroy command*/
-> -		WREG32_SOC15(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG_64,
-> -			     GFX_CTRL_CMD_ID_DESTROY_RINGS);
-> -		/* there might be handshake issue with hardware which needs delay */
-> -		mdelay(20);
-> -		/* Wait for response flag (bit 31) */
-> -		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG_64),
-> -				   0x80000000, 0x80000000, false);
-> +		if (amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(15, 0, 5)) {
-> +				/* Write the ring destroy command*/
-> +			WREG32_SOC15(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG_64,
-> +					GFX_CTRL_CMD_ID_DESTROY_RINGS);
-> +			/* there might be handshake issue with hardware which needs delay */
-> +			mdelay(20);
-> +			/* Wait for response flag (bit 31) */
-> +			ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG_64),
-> +					0x80000000, 0x80000000, false);
-> +			} else {
-> +				/* Write the ring destroy command*/
-> +				WREG32_SOC15(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG_64,
-> +						GFX_CTRL_CMD_ID_DESTROY_RINGS);
-> +				/* there might be handshake issue with hardware which needs delay */
-> +				mdelay(20);
-> +				/* Wait for response flag (bit 31) */
-> +				ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG_64),
-> +						0x80000000, 0x80000000, false);
-> +		}
->   	}
+>   		WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_MEM_FLUSH_CNTL,
+> @@ -110,7 +116,7 @@ static u32 nbif_v6_3_1_get_rev_id(struct amdgpu_device *adev)
+>   	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 4))
+>   		tmp = RREG32_SOC15(NBIO, 0, regRCC_STRAP0_RCC_DEV0_EPF0_STRAP0_nbif_4_10);
+>   	else if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 5))
+> -		tmp = RREG32_SOC15(NBIO, 0, regRCC_STRAP0_RCC_DEV0_EPF0_STRAP0_nbio_7_11_5);
+> +		tmp = RREG32_SOC15(NBIO, 0, regRCC_STRAP1_RCC_DEV0_EPF0_STRAP0_nbio_7_11_5);
+>   	else
+>   		tmp = RREG32_SOC15(NBIO, 0, regRCC_STRAP0_RCC_DEV0_EPF0_STRAP0);
 >   
->   	return ret;
-> @@ -118,14 +142,44 @@ static int psp_v15_0_0_ring_create(struct psp_context *psp,
->   				   0x80000000, 0x8000FFFF, false);
->   
+> @@ -124,11 +130,11 @@ static void nbif_v6_3_1_mc_access_enable(struct amdgpu_device *adev, bool enable
+>   {
+>   	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 5)) {
+>   		if (enable)
+> -			WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_FB_EN_nbio_7_11_5,
+> -				     BIF_BX0_BIF_FB_EN__FB_READ_EN_MASK |
+> -				     BIF_BX0_BIF_FB_EN__FB_WRITE_EN_MASK);
+> +			WREG32_SOC15(NBIO, 0, regBIF_BX1_BIF_FB_EN_nbio_7_11_5,
+> +				     BIF_BX1_BIF_FB_EN__FB_READ_EN_MASK_nbio_7_11_5 |
+> +				     BIF_BX1_BIF_FB_EN__FB_WRITE_EN_MASK_nbio_7_11_5);
+>   		else
+> -			WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_FB_EN_nbio_7_11_5, 0);
+> +			WREG32_SOC15(NBIO, 0, regBIF_BX1_BIF_FB_EN_nbio_7_11_5, 0);
 >   	} else {
-> -		/* Wait for sOS ready for ring creation */
-> -		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG_64),
-> -				   0x80000000, 0x80000000, false);
-> +		if (amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(15, 0, 5)) {
-> +			/* Wait for sOS ready for ring creation */
-> +			ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG_64),
-> +					0x80000000, 0x80000000, false);
->   		if (ret) {
->   			DRM_ERROR("Failed to wait for trust OS ready for ring creation\n");
->   			return ret;
->   		}
+>   		if (enable)
+>   			WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_FB_EN,
+> @@ -383,12 +389,12 @@ static void nbif_v6_3_1_ih_control(struct amdgpu_device *adev)
 >   
-> +		/* Write low address of the ring to C2PMSG_69 */
-> +		psp_ring_reg = lower_32_bits(ring->ring_mem_mc_addr);
-> +		WREG32_SOC15(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG_69, psp_ring_reg);
-> +		/* Write high address of the ring to C2PMSG_70 */
-> +		psp_ring_reg = upper_32_bits(ring->ring_mem_mc_addr);
-> +		WREG32_SOC15(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG_70, psp_ring_reg);
-> +		/* Write size of ring to C2PMSG_71 */
-> +		psp_ring_reg = ring->ring_size;
-> +		WREG32_SOC15(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG_71, psp_ring_reg);
-> +		/* Write the ring initialization command to C2PMSG_64 */
-> +		psp_ring_reg = ring_type;
-> +		psp_ring_reg = psp_ring_reg << 16;
-> +		WREG32_SOC15(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG_64, psp_ring_reg);
-> +
-> +		/* there might be handshake issue with hardware which needs delay */
-> +		mdelay(20);
-> +
-> +		/* Wait for response flag (bit 31) in C2PMSG_64 */
-> +		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG_64),
-> +				   0x80000000, 0x8000FFFF, false);
-> +		} else {
-> +			/* Wait for sOS ready for ring creation */
-> +			ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG_64),
-> +					   0x80000000, 0x80000000, false);
-> +			if (ret) {
-> +				DRM_ERROR("Failed to wait for trust OS ready for ring creation\n");
-> +				return ret;
-> +			}
-> +
->   		/* Write low address of the ring to C2PMSG_69 */
->   		psp_ring_reg = lower_32_bits(ring->ring_mem_mc_addr);
->   		WREG32_SOC15(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG_69, psp_ring_reg);
-> @@ -146,6 +200,7 @@ static int psp_v15_0_0_ring_create(struct psp_context *psp,
->   		/* Wait for response flag (bit 31) in C2PMSG_64 */
->   		ret = psp_wait_for(psp, SOC15_REG_OFFSET(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG_64),
->   				   0x80000000, 0x8000FFFF, false);
-> +		}
->   	}
+>   	/* setup interrupt control */
+>   	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 5))
+> -		WREG32_SOC15(NBIO, 0, regBIF_BX0_INTERRUPT_CNTL2_nbio_7_11_5,
+> +		WREG32_SOC15(NBIO, 0, regBIF_BX1_INTERRUPT_CNTL2_nbio_7_11_5,
+>   				adev->dummy_page_addr >> 8);
+>   	else
+>   		WREG32_SOC15(NBIO, 0, regBIF_BX0_INTERRUPT_CNTL2, adev->dummy_page_addr >> 8);
 >   
->   	return ret;
-> @@ -176,8 +231,12 @@ static uint32_t psp_v15_0_0_ring_get_wptr(struct psp_context *psp)
+> -	interrupt_cntl = RREG32_SOC15(NBIO, 0, regBIF_BX0_INTERRUPT_CNTL_nbio_7_11_5);
+> +	interrupt_cntl = RREG32_SOC15(NBIO, 0, regBIF_BX1_INTERRUPT_CNTL_nbio_7_11_5);
+>   	/*
+>   	 * BIF_BX0_INTERRUPT_CNTL__IH_DUMMY_RD_OVERRIDE_MASK=0 - dummy read disabled with msi, enabled without msi
+>   	 * BIF_BX0_INTERRUPT_CNTL__IH_DUMMY_RD_OVERRIDE_MASK=1 - dummy read controlled by IH_DUMMY_RD_EN
+> @@ -401,7 +407,7 @@ static void nbif_v6_3_1_ih_control(struct amdgpu_device *adev)
+>   				       IH_REQ_NONSNOOP_EN, 0);
 >   
->   	if (amdgpu_sriov_vf(adev))
->   		data = RREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_102);
-> -	else
-> -		data = RREG32_SOC15(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG_67);
-> +	else {
-> +		if (amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(15, 0, 5))
-> +			data = RREG32_SOC15(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG_67);
-> +		else
-> +			data = RREG32_SOC15(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG_67);
-> +		}
->   
->   	return data;
+>   	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 5))
+> -		WREG32_SOC15(NBIO, 0, regBIF_BX0_INTERRUPT_CNTL_nbio_7_11_5, interrupt_cntl);
+> +		WREG32_SOC15(NBIO, 0, regBIF_BX1_INTERRUPT_CNTL_nbio_7_11_5, interrupt_cntl);
+>   	else
+>   		WREG32_SOC15(NBIO, 0, regBIF_BX0_INTERRUPT_CNTL, interrupt_cntl);
 >   }
-> @@ -190,8 +249,12 @@ static void psp_v15_0_0_ring_set_wptr(struct psp_context *psp, uint32_t value)
->   		WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_102, value);
->   		WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_101,
->   			     GFX_CTRL_CMD_ID_CONSUME_CMD);
-> -	} else
-> -		WREG32_SOC15(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG_67, value);
-> +	} else {
-> +		if (amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(15, 0, 5))
-> +			WREG32_SOC15(MP0, 0, regMPASP_PCRU0_MPASP_C2PMSG_67, value);
-> +		else
-> +			WREG32_SOC15(MP0, 0, regMPASP_PCRU1_MPASP_C2PMSG_67, value);
-> +	}
+> @@ -427,7 +433,7 @@ nbif_v6_3_1_get_clockgating_state(struct amdgpu_device *adev,
+>   static u32 nbif_v6_3_1_get_hdp_flush_req_offset(struct amdgpu_device *adev)
+>   {
+>   	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 5))
+> -		return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF0_GPU_HDP_FLUSH_REQ_nbio_7_11_5);
+> +		return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF1_GPU_HDP_FLUSH_REQ_nbio_7_11_5);
+>   	else
+>   		return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF0_GPU_HDP_FLUSH_REQ);
 >   }
->   
->   static const struct psp_funcs psp_v15_0_0_funcs = {
+> @@ -435,7 +441,7 @@ static u32 nbif_v6_3_1_get_hdp_flush_req_offset(struct amdgpu_device *adev)
+>   static u32 nbif_v6_3_1_get_hdp_flush_done_offset(struct amdgpu_device *adev)
+>   {
+>   	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 5))
+> -		return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF0_GPU_HDP_FLUSH_DONE_nbio_7_11_5);
+> +		return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF1_GPU_HDP_FLUSH_DONE_nbio_7_11_5);
+>   	else
+>   		return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF0_GPU_HDP_FLUSH_DONE);
+>   }
+> @@ -622,7 +628,7 @@ static void nbif_v6_3_1_set_reg_remap(struct amdgpu_device *adev)
+>   	} else {
+>   		if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 5))
+>   			adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
+> -				regBIF_BX_PF0_HDP_MEM_COHERENCY_FLUSH_CNTL_nbio_7_11_5) << 2;
+> +				regBIF_BX_PF1_HDP_MEM_COHERENCY_FLUSH_CNTL_nbio_7_11_5) << 2;
+>   		else
+>   			adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
+>   				regBIF_BX_PF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
 
