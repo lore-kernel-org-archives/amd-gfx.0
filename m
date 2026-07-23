@@ -4,136 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43C00C5321B
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86E8DC54F40
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCCB110F304;
-	Fri, 24 Jul 2026 07:30:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4214710F30A;
+	Fri, 24 Jul 2026 07:30:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="GAbr5sXz";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="ZdAUFz9M";
 	dkim-atps=neutral
-Received: from mout.web.de (mout.web.de [212.227.15.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D88E810F0DB
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 12:34:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1784810091; x=1785414891; i=spasswolf@web.de;
- bh=EN7LFjbrarA2Zx1ELswnBw7byrrfs9PEX+abaEhRh/Q=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
- MIME-Version:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=GAbr5sXzkh0VPQbxy3oR0ELZ26/ncAJAtm//vVU6tEDruuIefgGh4mBJoPcVL9BP
- u7zKqm1mPqREHl/5yGMQDoNwFcHqs4MLRSrEZnhw3mCoM+7haKVNO6hi3V4T/qmYT
- VqQCIsPJgBFM7Na09me9fHGGc0pyZzVWamHB38iZDgtH4qXHws1bWBxFnS+22bg8V
- BLTg7MhwKrWwoc2Y3eEZLV7hyYnvr/K9bfjp+XAiJH8XfpvDHJSW9ZMswUFW9toBO
- pSsvP0GMDgBZzkGhz6EGG3qTDucsdSzMleO9XqZE2AADCvPBcn1cYM9UtHiqkNfsX
- g5633VTiKDXV5hv5VA==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb006
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MHmq2-1wj5HJ0gIo-002hCv; Thu, 23
- Jul 2026 14:34:51 +0200
-From: Bert Karwatzki <spasswolf@web.de>
-To: linux-kernel@vger.kernel.org,
-	Rafal Ostrowski <rafal.ostrowski@amd.com>
-Cc: Bert Karwatzki <spasswolf@web.de>, linux-next@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Thomas Gleixner <tglx@linutronix.de>
-Subject: kernel panic during shutdown in v7.2-rc4 and next-20260722 with
- PREEMPT_RT
-Date: Thu, 23 Jul 2026 14:34:48 +0200
-Message-ID: <20260723123449.6494-1-spasswolf@web.de>
-X-Mailer: git-send-email 2.53.0
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 228B210E5EB;
+ Thu, 23 Jul 2026 19:43:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:From:Reply-To;
+ bh=9cr8Ubi5jgLAq2dt2VqaqSgBFLU/gKIxoc+p4Pvu8zQ=; b=ZdAUFz9MJsomM4zwAhjKPWjeV+
+ hzC0rUGXqrcLwqjpQu6AWrOj8IhUHAxtyWR6VmV3QerLfol42LCnbD0wHE9GUyRNfE1+NJxPgqAo0
+ O71cVMyjoDyJgjQlJXlWCMzdcBcIixAu4RmBlz4Wd/cqhvwyUKGhDf+TVO/q5FL2q/yFhfhjwQRSK
+ TBy5NcSYhsBBmEtu8Izx6kouboGM6xi8nZdaIyu/1slHhLjSDQ+l0Gz6LNOtV1mFgLRcbSAvkYI6V
+ KE0W+hbSc0Rmi5IHaEqlMF8diZAQyTDSpPVpM/vLbcxcsMAXYaiKVd1Q2K18PXF+S9C1kK/I5sSN6
+ I8J9gP3A==;
+Received: from 179-125-91-91-dinamico.pombonet.net.br ([179.125.91.91]
+ helo=quatroqueijos.lan) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wmzKV-003a1P-AS; Thu, 23 Jul 2026 21:43:40 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: igt-dev@lists.freedesktop.org
+Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+Subject: [PATCH i-g-t v5 1/7] lib/igt_cgroup: add cgroup v2 and dmem
+ controller helpers
+Date: Thu, 23 Jul 2026 16:43:07 -0300
+Message-ID: <20260723194313.2748143-2-cascardo@igalia.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260723194313.2748143-1-cascardo@igalia.com>
+References: <20260723194313.2748143-1-cascardo@igalia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:3ZpLTijiT1+HXlb7j1D13gdnZ3msFoWe6/b24IJjnm4+2cQvwK/
- sFDO0jOt7x64V4WIAWI2B8U9kpvvV12e0n4ZAVrQQ98kVHRken1PZQzcdsYn1tLU4Aj46pF
- GADRwQVELWgHXhuiQ4Z1ycSKFSJGsBocEMVBo9FEPz9fNMynM+EckMm55YNSiAztbjxpvib
- jmIIOeB0mwDlVSESXrOjA==
-UI-OutboundReport: notjunk:1;M01:P0:TBc9zathqY4=;2eEYp2qoaB5lvq0QFMeOToeUnJe
- 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
- 8Q0W7K461BibD7zlzVQJz
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 24 Jul 2026 07:30:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -149,561 +67,772 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When shutting down my Linux system (debian sid with kernel next-20260722 wi=
-th PREEMPT_RT)
-I either get an indefinite hang (with cursor blinking in the top left corner
-of the screen) or a kernel panic qrcode with message "fatal exception in
-interrupt". Unfortunately the qrcode cannot store the whole kernel message,
-so I tried to bisect this (from v7.2-rc4 to next-20260722).
-=20
-During the bisection I also had kernel panics occuring when shutting down v=
-7.2-rc4,
-but these are much harder to reproduce.
-I'll try to figure out what's going using git bisect but this may take some=
- time as I
-a) Have to search for a good case
-b) Go throught 10-20 reboot cycles to declare a commit as good
+From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-I used netconsole to capture an error message from next-20260722=20
-T1473;BUG: scheduling while atomic: Xorg/1473/0x00000003
-T1473,ncfrag=3D0/961;Modules linked in: netconsole snd_seq_dummy snd_hrtime=
-r snd_seq nls_ascii nls_cp437 vfat fat joydev snd_usb_audio mt7925e snd_usb=
-midi_lib snd_ump mt7925_common snd_rawmidi mt792x_lib snd_seq_device mt76_c=
-onnac_lib intel_rapl_msr iosf_mbi mt76 snd_hda_codec_atihdmi intel_rapl_com=
-mon snd_hda_codec_hdmi rapl mac80211 snd_hda_intel snd_hda_codec spd5118 re=
-gmap_i2c snd_hda_core pcspkr snd_intel_dspcfg snd_hwdep snd_pcm snd_timer l=
-ibarc4 snd cfg80211 soundcore k10temp rfkill evdev ccp nct6775 nct6775_core=
- hwmon_vid configfs efi_pstore efivarfs autofs4 ext4 mbcache jbd2 amdgpu hi=
-d_generic usbhid hid drm_client_lib i2c_algo_bit drm_buddy drm_ttm_helper t=
-tm drm_exec drm_suballoc_helper mfd_core drm_panel_backlight_quirks gpu_sch=
-ed amdxcp drm_display_helper ahci libahci libata drm_kms_helper xhci_pci dr=
-m xhci_hcd scsi_mod igc nvme usbcore cec nvme_core scsi_common crc16 video =
-nvme_keyring nvme_au
-T1473,ncfrag=3D899/961;th usb_common i2c_piix4 gpio_amdpt wmi gpio_generic =
-i2c_smbus
-T1473;CPU: 17 UID: 0 PID: 1473 Comm: Xorg Not tainted 7.2.0-rc4-next-202607=
-22-gpuresetfix-00002-ga578edd2a4b3 #601 PREEMPT_RT=20
-T1473;Hardware name: ASUS System Product Name/ROG STRIX B850-F GAMING WIFI,=
- BIOS 1627 02/05/2026
-T1473;Call Trace:
-T1473; <TASK>
-T1473; ? dump_stack_lvl+0x4b/0x70
-T1473; ? __schedule_bug.cold+0x3e/0x4a
-T1473; ? __schedule+0xf5f/0x16e0
-T1473; ? dml2_core_calcs_mode_programming_ex+0x2f60/0x6c80 [amdgpu]
-T1473; ? schedule_rtlock+0x15/0x30
-T1473; ? rtlock_slowlock_locked+0x30c/0xe50
-T1473; ? rt_spin_lock+0xc3/0x120
-T1473; ? get_page_from_freelist+0x248/0x19f0
-T1473; ? __alloc_frozen_pages_noprof+0x197/0x330
-T1473; ? ___kmalloc_large_node+0xb1/0xd0
-T1473; ? __kvmalloc_node_noprof+0x383/0x560
-T1473; ? dc_create_plane_state+0x24/0x90 [amdgpu]
-T1473; ? dc_create_plane_state+0x24/0x90 [amdgpu]
-T1473; ? dc_state_create_phantom_plane+0x15/0x50 [amdgpu]
-T1473; ? dml21_handle_phantom_streams_planes+0x292/0x510 [amdgpu]
-T1473; ? dml21_mode_check_and_programming+0x157/0x7d0 [amdgpu]
-T1473; ? spl_set_filters_data+0xbc/0xd0 [amdgpu]
-T1473; ? dcn401_validate_bandwidth+0xb8/0x1f0 [amdgpu]
-T1473; ? update_planes_and_stream_state+0xffa/0x1630 [amdgpu]
-T1473; ? update_planes_and_stream_prepare_v3+0xb6/0x440 [amdgpu]
-T1473; ? dc_update_planes_and_stream+0x87/0x140 [amdgpu]
-T1473; ? amdgpu_dm_atomic_commit_tail+0x1740/0x3750 [amdgpu]
-T1473; ? commit_tail+0xcd/0x160 [drm_kms_helper]
-T1473; ? drm_atomic_helper_commit+0x137/0x180 [drm_kms_helper]
-T1473; ? drm_atomic_commit+0xac/0xe0 [drm]
-T1473; ? __drm_universal_plane_init.cold+0x19/0x19 [drm]
-T1473; ? drm_atomic_helper_set_config+0x6f/0xb0 [drm_kms_helper]
-T1473; ? drm_mode_setcrtc+0x443/0x8b0 [drm]
-T1473; ? drm_syncobj_transfer_ioctl+0x300/0x300 [drm]
-T1473; ? rt_spin_trylock+0x1c/0x80
-T1473; ? drm_mode_getcrtc+0x180/0x180 [drm]
-T1473; ? drm_ioctl_kernel+0xa1/0xf0 [drm]
-T1473; ? drm_ioctl+0x27f/0x520 [drm]
-T1473; ? drm_mode_getcrtc+0x180/0x180 [drm]
-T1473; ? amdgpu_drm_ioctl+0x45/0x80 [amdgpu]
-T1473; ? __x64_sys_ioctl+0x92/0xe0
-T1473; ? do_syscall_64+0xbd/0x500
-T1473; ? __futex_wake_mark+0x50/0x50
-T1473; ? futex_wait+0x66/0x110
-T1473; ? wake_up_q+0x32/0x80
-T1473; ? futex_wake+0x101/0x220
-T1473; ? do_futex+0xd6/0x210
-T1473; ? __x64_sys_futex+0x10d/0x200
-T1473; ? do_futex+0x107/0x210
-T1473; ? __x64_sys_futex+0x10d/0x200
-T1473; ? do_syscall_64+0x1fa/0x500
-T1473; ? __task_pid_nr_ns+0x53/0xe0
-T1473; ? do_syscall_64+0xbd/0x500
-T1473; ? do_syscall_64+0x37/0x500
-T1473; ? entry_SYSCALL_64_after_hwframe+0x55/0x5d
-T1473; </TASK>
-C17;------------[ cut here ]------------
-T1473;WARNING: drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/dc_fpu.c:97 =
-at dc_fpu_begin+0x4f/0x60 [amdgpu], CPU#17: Xorg/1473
-T1473,ncfrag=3D0/961;Modules linked in: netconsole snd_seq_dummy snd_hrtime=
-r snd_seq nls_ascii nls_cp437 vfat fat joydev snd_usb_audio mt7925e snd_usb=
-midi_lib snd_ump mt7925_common snd_rawmidi mt792x_lib snd_seq_device mt76_c=
-onnac_lib intel_rapl_msr iosf_mbi mt76 snd_hda_codec_atihdmi intel_rapl_com=
-mon snd_hda_codec_hdmi rapl mac80211 snd_hda_intel snd_hda_codec spd5118 re=
-gmap_i2c snd_hda_core pcspkr snd_intel_dspcfg snd_hwdep snd_pcm snd_timer l=
-ibarc4 snd cfg80211 soundcore k10temp rfkill evdev ccp nct6775 nct6775_core=
- hwmon_vid configfs efi_pstore efivarfs autofs4 ext4 mbcache jbd2 amdgpu hi=
-d_generic usbhid hid drm_client_lib i2c_algo_bit drm_buddy drm_ttm_helper t=
-tm drm_exec drm_suballoc_helper mfd_core drm_panel_backlight_quirks gpu_sch=
-ed amdxcp drm_display_helper ahci libahci libata drm_kms_helper xhci_pci dr=
-m xhci_hcd scsi_mod igc nvme usbcore cec nvme_core scsi_common crc16 video =
-nvme_keyring nvme_au
-T1473,ncfrag=3D899/961;th usb_common i2c_piix4 gpio_amdpt wmi gpio_generic =
-i2c_smbus
-T1473;CPU: 17 UID: 0 PID: 1473 Comm: Xorg Tainted: G        W           7.2=
-.0-rc4-next-20260722-gpuresetfix-00002-ga578edd2a4b3 #601 PREEMPT_RT=20
-T1473;Tainted: [W]=3DWARN
-T1473;Hardware name: ASUS System Product Name/ROG STRIX B850-F GAMING WIFI,=
- BIOS 1627 02/05/2026
-T1473;RIP: 0010:dc_fpu_begin+0x4f/0x60 [amdgpu]
-T1473;Code: d0 75 27 65 ff 05 a1 e8 db ce b8 01 00 00 00 65 0f c1 05 64 f8 =
-dc ce 85 c0 74 05 c3 cc cc cc cc bf 02 00 00 00 e9 11 6d b8 cd <0f> 0b eb d=
-5 66 90 66 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 d6 b8
-T1473;RSP: 0018:ffffb251c623f5d0 EFLAGS: 00010206
-T1473;RAX: 0000000000ff0000 RBX: ffff8a8f21400000 RCX: ffff8a8ed0f00000
-T1473;RDX: 0000000000ff0000 RSI: 000000000000073d RDI: ffffffffc11b1540
-T1473;RBP: 0000000000000001 R08: ffffb251c623f5a4 R09: 000000000000000a
-T1473;R10: ffffb251c623f548 R11: 0000000000000002 R12: ffff8a8fa4468000
-T1473;R13: ffff8a8ed1888000 R14: ffff8a8f89380000 R15: ffff8a8f21400000
-T1473;FS:  00007eff71d77b80(0000) GS:ffff8a9e6e1b0000(0000) knlGS:000000000=
-0000000
-T1473;CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-T1473;CR2: 00007ffcab257cc8 CR3: 0000000162691000 CR4: 0000000000f50ef0
-T1473;PKRU: 55555554
-T1473;Call Trace:
-T1473; <TASK>
-T1473; ? dcn401_prepare_mcache_programming+0x2f/0x70 [amdgpu]
-T1473; ? commit_planes_for_stream+0x155/0x1900 [amdgpu]
-T1473; ? update_planes_and_stream_execute_v3+0x3c/0xd0 [amdgpu]
-T1473; ? dc_update_planes_and_stream+0xb6/0x140 [amdgpu]
-T1473; ? amdgpu_dm_atomic_commit_tail+0x1740/0x3750 [amdgpu]
-T1473; ? commit_tail+0xcd/0x160 [drm_kms_helper]
-T1473; ? drm_atomic_helper_commit+0x137/0x180 [drm_kms_helper]
-T1473; ? drm_atomic_commit+0xac/0xe0 [drm]
-T1473; ? __drm_universal_plane_init.cold+0x19/0x19 [drm]
-T1473; ? drm_atomic_helper_set_config+0x6f/0xb0 [drm_kms_helper]
-T1473; ? drm_mode_setcrtc+0x443/0x8b0 [drm]
-T1473; ? drm_syncobj_transfer_ioctl+0x300/0x300 [drm]
-T1473; ? rt_spin_trylock+0x1c/0x80
-T1473; ? drm_mode_getcrtc+0x180/0x180 [drm]
-T1473; ? drm_ioctl_kernel+0xa1/0xf0 [drm]
-T1473; ? drm_ioctl+0x27f/0x520 [drm]
-T1473; ? drm_mode_getcrtc+0x180/0x180 [drm]
-T1473; ? amdgpu_drm_ioctl+0x45/0x80 [amdgpu]
-T1473; ? __x64_sys_ioctl+0x92/0xe0
-T1473; ? do_syscall_64+0xbd/0x500
-T1473; ? __futex_wake_mark+0x50/0x50
-T1473; ? futex_wait+0x66/0x110
-T1473; ? wake_up_q+0x32/0x80
-T1473; ? futex_wake+0x101/0x220
-T1473; ? do_futex+0xd6/0x210
-T1473; ? __x64_sys_futex+0x10d/0x200
-T1473; ? do_futex+0x107/0x210
-T1473; ? __x64_sys_futex+0x10d/0x200
-T1473; ? do_syscall_64+0x1fa/0x500
-T1473; ? __task_pid_nr_ns+0x53/0xe0
-T1473; ? do_syscall_64+0xbd/0x500
-T1473; ? do_syscall_64+0x37/0x500
-T1473; ? entry_SYSCALL_64_after_hwframe+0x55/0x5d
-T1473; </TASK>
-T1473;---[ end trace 0000000000000000 ]---
-C17;BUG: scheduling while atomic: Xorg/1473/0x7fffffff
-C17,ncfrag=3D0/961;Modules linked in: netconsole snd_seq_dummy snd_hrtimer =
-snd_seq nls_ascii nls_cp437 vfat fat joydev snd_usb_audio mt7925e snd_usbmi=
-di_lib snd_ump mt7925_common snd_rawmidi mt792x_lib snd_seq_device mt76_con=
-nac_lib intel_rapl_msr iosf_mbi mt76 snd_hda_codec_atihdmi intel_rapl_commo=
-n snd_hda_codec_hdmi rapl mac80211 snd_hda_intel snd_hda_codec spd5118 regm=
-ap_i2c snd_hda_core pcspkr snd_intel_dspcfg snd_hwdep snd_pcm snd_timer lib=
-arc4 snd cfg80211 soundcore k10temp rfkill evdev ccp nct6775 nct6775_core h=
-wmon_vid configfs efi_pstore efivarfs autofs4 ext4 mbcache jbd2 amdgpu hid_=
-generic usbhid hid drm_client_lib i2c_algo_bit drm_buddy drm_ttm_helper ttm=
- drm_exec drm_suballoc_helper mfd_core drm_panel_backlight_quirks gpu_sched=
- amdxcp drm_display_helper ahci libahci libata drm_kms_helper xhci_pci drm =
-xhci_hcd scsi_mod igc nvme usbcore cec nvme_core scsi_common crc16 video nv=
-me_keyring nvme_auth
-C17,ncfrag=3D901/961; usb_common i2c_piix4 gpio_amdpt wmi gpio_generic i2c_=
-smbus
-C17;CPU: 17 UID: 0 PID: 1473 Comm: Xorg Tainted: G        W           7.2.0=
--rc4-next-20260722-gpuresetfix-00002-ga578edd2a4b3 #601 PREEMPT_RT=20
-C17;Tainted: [W]=3DWARN
-C17;Hardware name: ASUS System Product Name/ROG STRIX B850-F GAMING WIFI, B=
-IOS 1627 02/05/2026
-C17;Call Trace:
-C17; <TASK>
-C17; ? dump_stack_lvl+0x4b/0x70
-C17; ? __schedule_bug.cold+0x3e/0x4a
-C17; ? __schedule+0xf5f/0x16e0
-C17; ? __hrtimer_rearm_deferred+0x4c/0xd0
-C17; ? schedule+0x22/0xa0
-C17; ? usleep_range_state+0xbb/0xf0
-C17; ? hrtimer_hres_workfn+0x10/0x10
-C17; ? dcn10_wait_for_pipe_update_if_needed+0x231/0x240 [amdgpu]
-C17; ? commit_planes_for_stream+0x2f2/0x1900 [amdgpu]
-C17; ? update_planes_and_stream_execute_v3+0x3c/0xd0 [amdgpu]
-C17; ? dc_update_planes_and_stream+0xb6/0x140 [amdgpu]
-C17; ? amdgpu_dm_atomic_commit_tail+0x1740/0x3750 [amdgpu]
-C17; ? commit_tail+0xcd/0x160 [drm_kms_helper]
-C17; ? drm_atomic_helper_commit+0x137/0x180 [drm_kms_helper]
-C17; ? drm_atomic_commit+0xac/0xe0 [drm]
-C17; ? __drm_universal_plane_init.cold+0x19/0x19 [drm]
-C17; ? drm_atomic_helper_set_config+0x6f/0xb0 [drm_kms_helper]
-C17; ? drm_mode_setcrtc+0x443/0x8b0 [drm]
-C17; ? drm_syncobj_transfer_ioctl+0x300/0x300 [drm]
-C17; ? rt_spin_trylock+0x1c/0x80
-C17; ? drm_mode_getcrtc+0x180/0x180 [drm]
-C17; ? drm_ioctl_kernel+0xa1/0xf0 [drm]
-C17; ? drm_ioctl+0x27f/0x520 [drm]
-C17; ? drm_mode_getcrtc+0x180/0x180 [drm]
-C17; ? amdgpu_drm_ioctl+0x45/0x80 [amdgpu]
-C17; ? __x64_sys_ioctl+0x92/0xe0
-C17; ? do_syscall_64+0xbd/0x500
-C17; ? __futex_wake_mark+0x50/0x50
-C17; ? futex_wait+0x66/0x110
-C17; ? wake_up_q+0x32/0x80
-C17; ? futex_wake+0x101/0x220
-C17; ? do_futex+0xd6/0x210
-C17; ? __x64_sys_futex+0x10d/0x200
-C17; ? do_futex+0x107/0x210
-C17; ? __x64_sys_futex+0x10d/0x200
-C17; ? do_syscall_64+0x1fa/0x500
-C17; ? __task_pid_nr_ns+0x53/0xe0
-C17; ? do_syscall_64+0xbd/0x500
-C17; ? do_syscall_64+0x37/0x500
-C17; ? entry_SYSCALL_64_after_hwframe+0x55/0x5d
-C17; </TASK>
-T1473;BUG: scheduling while atomic: Xorg/1473/0x00000003
-T1473,ncfrag=3D0/961;Modules linked in: netconsole snd_seq_dummy snd_hrtime=
-r snd_seq nls_ascii nls_cp437 vfat fat joydev snd_usb_audio mt7925e snd_usb=
-midi_lib snd_ump mt7925_common snd_rawmidi mt792x_lib snd_seq_device mt76_c=
-onnac_lib intel_rapl_msr iosf_mbi mt76 snd_hda_codec_atihdmi intel_rapl_com=
-mon snd_hda_codec_hdmi rapl mac80211 snd_hda_intel snd_hda_codec spd5118 re=
-gmap_i2c snd_hda_core pcspkr snd_intel_dspcfg snd_hwdep snd_pcm snd_timer l=
-ibarc4 snd cfg80211 soundcore k10temp rfkill evdev ccp nct6775 nct6775_core=
- hwmon_vid configfs efi_pstore efivarfs autofs4 ext4 mbcache jbd2 amdgpu hi=
-d_generic usbhid hid drm_client_lib i2c_algo_bit drm_buddy drm_ttm_helper t=
-tm drm_exec drm_suballoc_helper mfd_core drm_panel_backlight_quirks gpu_sch=
-ed amdxcp drm_display_helper ahci libahci libata drm_kms_helper xhci_pci dr=
-m xhci_hcd scsi_mod igc nvme usbcore cec nvme_core scsi_common crc16 video =
-nvme_keyring nvme_au
-T1473,ncfrag=3D899/961;th usb_common i2c_piix4 gpio_amdpt wmi gpio_generic =
-i2c_smbus
-T1473;CPU: 17 UID: 0 PID: 1473 Comm: Xorg Tainted: G        W           7.2=
-.0-rc4-next-20260722-gpuresetfix-00002-ga578edd2a4b3 #601 PREEMPT_RT=20
-T1473;Tainted: [W]=3DWARN
-T1473;Hardware name: ASUS System Product Name/ROG STRIX B850-F GAMING WIFI,=
- BIOS 1627 02/05/2026
-T1473;Call Trace:
-T1473; <TASK>
-T1473; ? dump_stack_lvl+0x4b/0x70
-T1473; ? __schedule_bug.cold+0x3e/0x4a
-T1473; ? __schedule+0xf5f/0x16e0
-T1473; ? dml2_core_calcs_mode_programming_ex+0x2f60/0x6c80 [amdgpu]
-T1473; ? schedule_rtlock+0x15/0x30
-T1473; ? rtlock_slowlock_locked+0x30c/0xe50
-T1473; ? rt_spin_lock+0xc3/0x120
-T1473; ? get_page_from_freelist+0x248/0x19f0
-T1473; ? update_cfs_rq_load_avg+0x1a/0x240
-T1473; ? __alloc_frozen_pages_noprof+0x197/0x330
-T1473; ? ___kmalloc_large_node+0xb1/0xd0
-T1473; ? __kvmalloc_node_noprof+0x383/0x560
-T1473; ? dc_create_plane_state+0x24/0x90 [amdgpu]
-T1473; ? dc_create_plane_state+0x24/0x90 [amdgpu]
-T1473; ? dc_state_create_phantom_plane+0x15/0x50 [amdgpu]
-T1473; ? dml21_handle_phantom_streams_planes+0x292/0x510 [amdgpu]
-T1473; ? dml21_mode_check_and_programming+0x157/0x7d0 [amdgpu]
-T1473; ? ___task_rq_lock+0x2d/0xa0
-T1473; ? update_rq_clock+0x70/0x110
-T1473; ? rt_mutex_setprio+0x61/0x340
-T1473; ? calculate_plane_rec_in_timing_active+0x142/0x1f0 [amdgpu]
-T1473; ? spl_calculate_number_of_taps.constprop.0.isra.0+0x142/0xf00 [amdgp=
-u]
-T1473; ? spl_calculate_number_of_taps.constprop.0.isra.0+0xed4/0xf00 [amdgp=
-u]
-T1473; ? dcn401_validate_bandwidth+0xb8/0x1f0 [amdgpu]
-T1473; ? dc_validate_with_context+0x5c5/0x6a0 [amdgpu]
-T1473; ? dc_commit_streams+0x27c/0x4f0 [amdgpu]
-T1473; ? amdgpu_dm_atomic_commit_tail+0x681/0x3750 [amdgpu]
-T1473; ? generic_reg_get+0x1c/0x30 [amdgpu]
-T1473; ? optc1_get_crtc_scanoutpos+0x5f/0xa0 [amdgpu]
-T1473; ? dc_stream_get_scanoutpos+0x7a/0xc0 [amdgpu]
-T1473; ? amdgpu_display_get_crtc_scanoutpos+0xa5/0x1c0 [amdgpu]
-T1473; ? amdgpu_display_crtc_idx_to_irq_type+0x30/0x30 [amdgpu]
-T1473; ? amdgpu_crtc_get_scanout_position+0x23/0x30 [amdgpu]
-T1473; ? drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x180/0x3b0 [=
-drm]
-T1473; ? wait_for_completion_timeout+0x122/0x170
-T1473; ? drm_crtc_get_last_vbltimestamp+0x50/0x80 [drm]
-T1473; ? commit_tail+0xcd/0x160 [drm_kms_helper]
-T1473; ? drm_atomic_helper_commit+0x137/0x180 [drm_kms_helper]
-T1473; ? drm_atomic_commit+0xac/0xe0 [drm]
-T1473; ? __drm_universal_plane_init.cold+0x19/0x19 [drm]
-T1473; ? drm_mode_obj_set_property_ioctl+0x162/0x3b0 [drm]
-T1473; ? drm_mode_obj_find_prop_id+0x50/0x50 [drm]
-T1473; ? drm_ioctl_kernel+0xa1/0xf0 [drm]
-T1473; ? drm_ioctl+0x27f/0x520 [drm]
-T1473; ? drm_mode_obj_find_prop_id+0x50/0x50 [drm]
-T1473; ? rt_spin_trylock+0x1c/0x80
-T1473; ? kmem_cache_free+0x214/0x430
-T1473; ? amdgpu_drm_ioctl+0x45/0x80 [amdgpu]
-T1473; ? __x64_sys_ioctl+0x92/0xe0
-T1473; ? do_syscall_64+0xbd/0x500
-T1473; ? do_epoll_ctl+0xbb/0xe0
-T1473; ? __x64_sys_epoll_ctl+0x5f/0xa0
-T1473; ? do_syscall_64+0xbd/0x500
-T1473; ? count_memcg_events+0x67/0x110
-T1473; ? handle_mm_fault+0x1bb/0x2c0
-T1473; ? do_user_addr_fault+0x1e3/0x5e0
-T1473; ? __flush_smp_call_function_queue+0x16a/0x1f0
-T1473; ? do_syscall_64+0x37/0x500
-T1473; ? entry_SYSCALL_64_after_hwframe+0x55/0x5d
-T1473; </TASK>
-C17;BUG: scheduling while atomic: Xorg/1473/0x7fffffff
-C17,ncfrag=3D0/961;Modules linked in: netconsole snd_seq_dummy snd_hrtimer =
-snd_seq nls_ascii nls_cp437 vfat fat joydev snd_usb_audio mt7925e snd_usbmi=
-di_lib snd_ump mt7925_common snd_rawmidi mt792x_lib snd_seq_device mt76_con=
-nac_lib intel_rapl_msr iosf_mbi mt76 snd_hda_codec_atihdmi intel_rapl_commo=
-n snd_hda_codec_hdmi rapl mac80211 snd_hda_intel snd_hda_codec spd5118 regm=
-ap_i2c snd_hda_core pcspkr snd_intel_dspcfg snd_hwdep snd_pcm snd_timer lib=
-arc4 snd cfg80211 soundcore k10temp rfkill evdev ccp nct6775 nct6775_core h=
-wmon_vid configfs efi_pstore efivarfs autofs4 ext4 mbcache jbd2 amdgpu hid_=
-generic usbhid hid drm_client_lib i2c_algo_bit drm_buddy drm_ttm_helper ttm=
- drm_exec drm_suballoc_helper mfd_core drm_panel_backlight_quirks gpu_sched=
- amdxcp drm_display_helper ahci libahci libata drm_kms_helper xhci_pci drm =
-xhci_hcd scsi_mod igc nvme usbcore cec nvme_core scsi_common crc16 video nv=
-me_keyring nvme_auth
-C17,ncfrag=3D901/961; usb_common i2c_piix4 gpio_amdpt wmi gpio_generic i2c_=
-smbus
-C17;CPU: 17 UID: 0 PID: 1473 Comm: Xorg Tainted: G        W           7.2.0=
--rc4-next-20260722-gpuresetfix-00002-ga578edd2a4b3 #601 PREEMPT_RT=20
-C17;Tainted: [W]=3DWARN
-C17;Hardware name: ASUS System Product Name/ROG STRIX B850-F GAMING WIFI, B=
-IOS 1627 02/05/2026
-C17;Call Trace:
-C17; <TASK>
-C17; ? dump_stack_lvl+0x4b/0x70
-C17; ? __schedule_bug.cold+0x3e/0x4a
-C17; ? __schedule+0xf5f/0x16e0
-C17; ? schedule+0x22/0xa0
-C17; ? usleep_range_state+0xbb/0xf0
-C17; ? hrtimer_hres_workfn+0x10/0x10
-C17; ? dcn10_wait_for_pipe_update_if_needed+0x231/0x240 [amdgpu]
-C17; ? dc_commit_state_no_check+0x1b0/0xe00 [amdgpu]
-C17; ? dc_commit_streams+0x2f4/0x4f0 [amdgpu]
-C17; ? amdgpu_dm_atomic_commit_tail+0x681/0x3750 [amdgpu]
-C17; ? generic_reg_get+0x1c/0x30 [amdgpu]
-C17; ? optc1_get_crtc_scanoutpos+0x5f/0xa0 [amdgpu]
-C17; ? dc_stream_get_scanoutpos+0x7a/0xc0 [amdgpu]
-C17; ? amdgpu_display_get_crtc_scanoutpos+0xa5/0x1c0 [amdgpu]
-C17; ? amdgpu_display_crtc_idx_to_irq_type+0x30/0x30 [amdgpu]
-C17; ? amdgpu_crtc_get_scanout_position+0x23/0x30 [amdgpu]
-C17; ? drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x180/0x3b0 [dr=
-m]
-C17; ? wait_for_completion_timeout+0x122/0x170
-C17; ? drm_crtc_get_last_vbltimestamp+0x50/0x80 [drm]
-C17; ? commit_tail+0xcd/0x160 [drm_kms_helper]
-C17; ? drm_atomic_helper_commit+0x137/0x180 [drm_kms_helper]
-C17; ? drm_atomic_commit+0xac/0xe0 [drm]
-C17; ? __drm_universal_plane_init.cold+0x19/0x19 [drm]
-C17; ? drm_mode_obj_set_property_ioctl+0x162/0x3b0 [drm]
-C17; ? drm_mode_obj_find_prop_id+0x50/0x50 [drm]
-C17; ? drm_ioctl_kernel+0xa1/0xf0 [drm]
-C17; ? drm_ioctl+0x27f/0x520 [drm]
-C17; ? drm_mode_obj_find_prop_id+0x50/0x50 [drm]
-C17; ? rt_spin_trylock+0x1c/0x80
-C17; ? kmem_cache_free+0x214/0x430
-C17; ? amdgpu_drm_ioctl+0x45/0x80 [amdgpu]
-C17; ? __x64_sys_ioctl+0x92/0xe0
-C17; ? do_syscall_64+0xbd/0x500
-C17; ? do_epoll_ctl+0xbb/0xe0
-C17; ? __x64_sys_epoll_ctl+0x5f/0xa0
-C17; ? do_syscall_64+0xbd/0x500
-C17; ? count_memcg_events+0x67/0x110
-C17; ? handle_mm_fault+0x1bb/0x2c0
-C17; ? do_user_addr_fault+0x1e3/0x5e0
-C17; ? __flush_smp_call_function_queue+0x16a/0x1f0
-C17; ? do_syscall_64+0x37/0x500
-C17; ? entry_SYSCALL_64_after_hwframe+0x55/0x5d
-C17; </TASK>
-T1273;wlp9s0: deauthenticating from 54:67:51:3d:a2:d2 by local choice (Reas=
-on: 3=3DDEAUTH_LEAVING)
-T23080;EXT4-fs (nvme0n1p5): unmounting filesystem 15783f8d-d7dd-4c1a-a7f8-8=
-4d944f03886.
-T23079;EXT4-fs (nvme0n1p4): unmounting filesystem ab8e4bed-5cab-4ae8-875a-8=
-a42e075b551.
-T1;systemd-shutdown[1]: Syncing filesystems and block devices.
-T1;systemd-shutdown[1]: Sending SIGTERM to remaining processes...
-T752;systemd-journald[752]: Received SIGTERM from PID 1 (systemd-shutdow).
-T1;systemd-shutdown[1]: Sending SIGKILL to remaining processes...
-T1;systemd-shutdown[1]: Unmounting file systems.
-T23096;(sd-umount)[23096]: Unmounting '/run/credentials/systemd-journald.se=
-rvice'.
-T23097;(sd-remount)[23097]: Remounting '/' read-only with options 'errors=
-=3Dremount-ro'.
-T23097;EXT4-fs (nvme0n1p2): re-mounted 3d5cdc5d-1902-40bf-9e16-ca819372d350=
- ro.
-T1;systemd-shutdown[1]: All filesystems unmounted.
-T1;systemd-shutdown[1]: Deactivating swaps.
-T1;systemd-shutdown[1]: All swaps deactivated.
-T1;systemd-shutdown[1]: Detaching loop devices.
-T1;systemd-shutdown[1]: All loop devices detached.
-T1;systemd-shutdown[1]: Stopping MD devices.
-T1;systemd-shutdown[1]: All MD devices stopped.
-T1;systemd-shutdown[1]: Detaching DM devices.
-T1;systemd-shutdown[1]: All DM devices detached.
-T1;systemd-shutdown[1]: All filesystems, swaps, loop devices, MD devices an=
-d DM devices detached.
-T1;systemd-shutdown[1]: Syncing filesystems and block devices.
-T1;systemd-shutdown[1]: Rebooting.
+Add igt_cgroup, a library module providing helpers to create and manage
+cgroup v2 sub-cgroups from IGT tests, with support for the dmem
+controller that governs device memory (e.g. GPU VRAM) limits.
 
-This error message shows that this is an amdgpu problem and also probably
-a PREEMPT_RT problem (due to the scheduling while atomic message).
-@rafal.ostrowski: This looks vaguely similar to the bug I reported in april=
-, so maybe
-you have an idea what's going on:
-https://lore.kernel.org/all/20260409131411.10598-1-spasswolf@web.de/
+The API covers:
+ - igt_cgroup_new() / igt_cgroup_free(): create and destroy a named
+   sub-cgroup under the unified cgroupv2 hierarchy, enabling the dmem
+   controller automatically.
+ - igt_cgroup_move_current(): move the calling process into a cgroup.
+ - igt_cgroup_dmem_set/get_max/min/low(): write and read dmem.max,
+   dmem.min and dmem.low for a named device memory region.
+ - igt_cgroup_dmem_get_current(): read current per-cgroup device memory
+   usage.
+ - igt_cgroup_dmem_get_system_current(): read system-wide device memory
+   usage from the root cgroup.
+ - igt_cgroup_dmem_get_capacity(): read total region capacity from the
+   root cgroup's dmem.capacity file.
+ - igt_cgroup_dmem_regions() / igt_cgroup_dmem_regions_free(): enumerate
+   all registered device memory regions.
 
+All public API functions that can fail use igt_assert internally rather
+than returning error codes, following the IGT convention.
 
-Hardware:
-$ lspci -nn
-00:00.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Raphael/Gran=
-ite Ridge Root Complex [1022:14d8]
-00:00.2 IOMMU [0806]: Advanced Micro Devices, Inc. [AMD] Raphael/Granite Ri=
-dge IOMMU [1022:14d9]
-00:01.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Raphael/Gran=
-ite Ridge Dummy Host Bridge [1022:14da]
-00:01.1 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Raphael/Grani=
-te Ridge GPP Bridge [1022:14db]
-00:01.2 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Raphael/Grani=
-te Ridge GPP Bridge [1022:14db]
-00:02.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Raphael/Gran=
-ite Ridge Dummy Host Bridge [1022:14da]
-00:02.1 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Raphael/Grani=
-te Ridge GPP Bridge [1022:14db]
-00:03.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Raphael/Gran=
-ite Ridge Dummy Host Bridge [1022:14da]
-00:04.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Raphael/Gran=
-ite Ridge Dummy Host Bridge [1022:14da]
-00:08.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Raphael/Gran=
-ite Ridge Dummy Host Bridge [1022:14da]
-00:08.1 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Raphael/Grani=
-te Ridge Internal GPP Bridge to Bus [C:A] [1022:14dd]
-00:08.3 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] Raphael/Grani=
-te Ridge Internal GPP Bridge to Bus [C:A] [1022:14dd]
-00:14.0 SMBus [0c05]: Advanced Micro Devices, Inc. [AMD] FCH SMBus Controll=
-er [1022:790b] (rev 71)
-00:14.3 ISA bridge [0601]: Advanced Micro Devices, Inc. [AMD] FCH LPC Bridg=
-e [1022:790e] (rev 51)
-00:18.0 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Raphael/Gran=
-ite Ridge Data Fabric; Function 0 [1022:14e0]
-00:18.1 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Raphael/Gran=
-ite Ridge Data Fabric; Function 1 [1022:14e1]
-00:18.2 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Raphael/Gran=
-ite Ridge Data Fabric; Function 2 [1022:14e2]
-00:18.3 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Raphael/Gran=
-ite Ridge Data Fabric; Function 3 [1022:14e3]
-00:18.4 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Raphael/Gran=
-ite Ridge Data Fabric; Function 4 [1022:14e4]
-00:18.5 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Raphael/Gran=
-ite Ridge Data Fabric; Function 5 [1022:14e5]
-00:18.6 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Raphael/Gran=
-ite Ridge Data Fabric; Function 6 [1022:14e6]
-00:18.7 Host bridge [0600]: Advanced Micro Devices, Inc. [AMD] Raphael/Gran=
-ite Ridge Data Fabric; Function 7 [1022:14e7]
-01:00.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD/ATI] Navi 10 X=
-L Upstream Port of PCI Express Switch [1002:1478] (rev 25)
-02:00.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD/ATI] Navi 10 X=
-L Downstream Port of PCI Express Switch [1002:1479] (rev 25)
-03:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD=
-/ATI] Navi 44 [Radeon RX 9060 XT] [1002:7590] (rev c0)
-03:00.1 Audio device [0403]: Advanced Micro Devices, Inc. [AMD/ATI] Navi 48=
- HDMI/DP Audio Controller [1002:ab40]
-04:00.0 Non-Volatile memory controller [0108]: Samsung Electronics Co Ltd N=
-VMe SSD 9100 PRO [PM9E1] [144d:a810]
-05:00.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] 600 Series Ch=
-ipset PCIe Switch Upstream Port [1022:43f4] (rev 01)
-06:00.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] 600 Series Ch=
-ipset PCIe Switch Downstream Port [1022:43f5] (rev 01)
-06:06.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] 600 Series Ch=
-ipset PCIe Switch Downstream Port [1022:43f5] (rev 01)
-06:07.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] 600 Series Ch=
-ipset PCIe Switch Downstream Port [1022:43f5] (rev 01)
-06:08.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] 600 Series Ch=
-ipset PCIe Switch Downstream Port [1022:43f5] (rev 01)
-06:0c.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] 600 Series Ch=
-ipset PCIe Switch Downstream Port [1022:43f5] (rev 01)
-06:0d.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] 600 Series Ch=
-ipset PCIe Switch Downstream Port [1022:43f5] (rev 01)
-08:00.0 Ethernet controller [0200]: Intel Corporation Ethernet Controller I=
-226-V [8086:125c] (rev 06)
-09:00.0 Network controller [0280]: MEDIATEK Corp. MT7925 802.11be 160MHz 2x=
-2 PCIe Wireless Network Adapter [Filogic 360] [14c3:7925]
-0b:00.0 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD] 800 Serie=
-s Chipset USB 3.x XHCI Controller [1022:43fc] (rev 01)
-0c:00.0 SATA controller [0106]: Advanced Micro Devices, Inc. [AMD] 600 Seri=
-es Chipset SATA Controller [1022:43f6] (rev 01)
-0d:00.0 Non-Essential Instrumentation [1300]: Advanced Micro Devices, Inc. =
-[AMD] Raphael/Granite Ridge PCIe Dummy Function [1022:14de] (rev c1)
-0d:00.2 Encryption controller [1080]: Advanced Micro Devices, Inc. [AMD] Fa=
-mily 19h PSP/CCP [1022:1649]
-0d:00.3 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD] Raphael/G=
-ranite Ridge USB 3.1 xHCI [1022:15b6]
-0d:00.4 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD] Raphael/G=
-ranite Ridge USB 3.1 xHCI [1022:15b7]
-0e:00.0 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD] Raphael/G=
-ranite Ridge USB 2.0 xHCI [1022:15b8]
+Assisted-by: GitHub Copilot:claude-sonnet-4.6
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+---
+ lib/igt.h        |   1 +
+ lib/igt_cgroup.c | 638 +++++++++++++++++++++++++++++++++++++++++++++++
+ lib/igt_cgroup.h |  56 +++++
+ lib/meson.build  |   1 +
+ 4 files changed, 696 insertions(+)
+ create mode 100644 lib/igt_cgroup.c
+ create mode 100644 lib/igt_cgroup.h
 
-$ cat /proc/cpuinfo=20
-processor	: 0
-vendor_id	: AuthenticAMD
-cpu family	: 26
-model		: 68
-model name	: AMD Ryzen 9 9950X 16-Core Processor
-stepping	: 0
-microcode	: 0xb404035
-cpu MHz		: 624.194
-cache size	: 1024 KB
-physical id	: 0
-siblings	: 32
-core id		: 0
-cpu cores	: 16
-apicid		: 0
-initial apicid	: 0
-fpu		: yes
-fpu_exception	: yes
-cpuid level	: 16
-wp		: yes
-flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat =
-pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtsc=
-p lm constant_tsc rep_good amd_lbr_v2 nopl xtopology nonstop_tsc cpuid extd=
-_apicid aperfmperf rapl pni pclmulqdq monitor ssse3 fma cx16 sse4_1 sse4_2 =
-movbe popcnt aes xsave avx f16c rdrand lahf_lm cmp_legacy svm extapic cr8_l=
-egacy abm sse4a misalignsse 3dnowprefetch osvw ibs skinit wdt tce topoext p=
-erfctr_core perfctr_nb bpext perfctr_llc mwaitx cpuid_fault cpb cat_l3 cdp_=
-l3 hw_pstate ssbd mba perfmon_v2 ibrs ibpb stibp ibrs_enhanced vmmcall fsgs=
-base tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm rdt_a avx512f avx512dq=
- rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512=
-vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_m=
-bm_local user_shstk avx_vnni avx512_bf16 clzero irperf xsaveerptr rdpru wbn=
-oinvd cppc arat npt lbrv svm_lock nrip_save tsc_scale vmcb_clean flushbyasi=
-d decodeassists pausefilter pfthreshold avic v_vmsave_vmload vgif x2avic v_=
-spec_ctrl vnmi avx512vbmi umip pku ospke avx512_vbmi2 gfni vaes vpclmulqdq =
-avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid bus_lock_detect movdiri mo=
-vdir64b overflow_recov succor smca fsrm avx512_vp2intersect flush_l1d amd_l=
-br_pmc_freeze
-bugs		: sysret_ss_attrs spectre_v1 spectre_v2 spec_store_bypass srso spectr=
-e_v2_user vmscape
-bogomips	: 8599.98
-TLB size	: 192 4K pages
-clflush size	: 64
-cache_alignment	: 64
-address sizes	: 48 bits physical, 48 bits virtual
-power management: ts ttp tm hwpstate cpb eff_freq_ro [13] [14]
+diff --git a/lib/igt.h b/lib/igt.h
+index 173ca70bff28..d8e5de7dcd2f 100644
+--- a/lib/igt.h
++++ b/lib/igt.h
+@@ -27,6 +27,7 @@
+ #include "drmtest.h"
+ #include "i915_3d.h"
+ #include "igt_aux.h"
++#include "igt_cgroup.h"
+ #include "igt_configfs.h"
+ #include "igt_core.h"
+ #include "igt_debugfs.h"
+diff --git a/lib/igt_cgroup.c b/lib/igt_cgroup.c
+new file mode 100644
+index 000000000000..60586ccc4861
+--- /dev/null
++++ b/lib/igt_cgroup.c
+@@ -0,0 +1,638 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2025 Intel Corporation
++ */
++
++/**
++ * SECTION:igt_cgroup
++ * @short_description: cgroup v2 helpers for IGT tests
++ * @title: cgroup
++ * @include: igt_cgroup.h
++ *
++ * This library provides helpers for creating and managing cgroup v2
++ * sub-cgroups from IGT tests, including support for the dmem controller
++ * which governs device memory (e.g. GPU VRAM) limits.
++ */
++
++#include <errno.h>
++#include <fcntl.h>
++#include <inttypes.h>
++#include <limits.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <sys/stat.h>
++#include <sys/statfs.h>
++#include <sys/types.h>
++#include <unistd.h>
++
++#include "igt_cgroup.h"
++#include "igt_core.h"
++#include "igt_fs.h"
++
++#ifndef CGROUP2_SUPER_MAGIC
++#define CGROUP2_SUPER_MAGIC 0x63677270
++#endif
++
++/**
++ * struct igt_cgroup - Opaque handle to a cgroup v2 sub-cgroup.
++ * @dirfd: File descriptor for the cgroup directory.
++ * @path: Absolute path to the cgroup directory.
++ * @parent_path: Absolute path to the parent cgroup directory.
++ *
++ * Allocated by igt_cgroup_new() and freed by igt_cgroup_free().
++ */
++struct igt_cgroup {
++	int dirfd;
++	char *path;
++	char *parent_path;
++};
++
++static const char *cgroupv2_mount(void)
++{
++	static const char *path;
++	static const char * const candidates[] = {
++		"/sys/fs/cgroup",
++		"/sys/fs/cgroup/unified",
++		NULL,
++	};
++	struct statfs st;
++	int i;
++
++	if (path)
++		return path;
++
++	for (i = 0; candidates[i]; i++) {
++		if (statfs(candidates[i], &st) == 0 &&
++		    (unsigned long)st.f_type == CGROUP2_SUPER_MAGIC) {
++			path = candidates[i];
++			return path;
++		}
++	}
++
++	return NULL;
++}
++
++/*
++ * Write "+controller" to @cgroup_path/cgroup.subtree_control to enable
++ * the named controller for children of that cgroup.
++ */
++static int enable_controller(const char *cgroup_path, const char *controller)
++{
++	char path[PATH_MAX];
++	char cmd[64];
++	ssize_t ret;
++	int fd;
++
++	snprintf(path, sizeof(path), "%s/cgroup.subtree_control", cgroup_path);
++	snprintf(cmd, sizeof(cmd), "+%s", controller);
++
++	fd = open(path, O_WRONLY);
++	if (fd < 0)
++		return -errno;
++
++	ret = write(fd, cmd, strlen(cmd));
++	close(fd);
++
++	return (ret < 0) ? -errno : 0;
++}
++
++/*
++ * Move every PID listed in @cgroup_path/cgroup.procs to
++ * @parent_path/cgroup.procs.  Silently ignores individual failures
++ * (a PID may have exited between reading and writing).
++ */
++static void drain_procs_to_parent(const char *cgroup_path,
++				  const char *parent_path)
++{
++	char proc_path[PATH_MAX];
++	char parent_procs[PATH_MAX];
++	int parent_fd;
++	FILE *f;
++	int pid;
++
++	snprintf(proc_path, sizeof(proc_path), "%s/cgroup.procs", cgroup_path);
++	snprintf(parent_procs, sizeof(parent_procs), "%s/cgroup.procs", parent_path);
++
++	parent_fd = open(parent_procs, O_WRONLY);
++	if (parent_fd < 0)
++		return;
++
++	f = fopen(proc_path, "r");
++	if (f) {
++		while (fscanf(f, "%d", &pid) == 1) {
++			char pidbuf[32];
++			ssize_t len = snprintf(pidbuf, sizeof(pidbuf), "%d", pid);
++
++			write(parent_fd, pidbuf, len);
++		}
++		fclose(f);
++	}
++
++	close(parent_fd);
++}
++
++/**
++ * igt_cgroup_new() - Create a new cgroup v2 sub-cgroup.
++ * @name: Name for the new cgroup directory.
++ *
++ * Creates a sub-cgroup named @name under the system's unified cgroupv2
++ * hierarchy.  The dmem controller is enabled in the parent's
++ * subtree_control so that igt_cgroup_dmem_set_max() and friends take effect
++ * immediately.
++ *
++ * Return: Pointer to an &struct igt_cgroup on success, %NULL on failure.
++ */
++struct igt_cgroup *igt_cgroup_new(const char *name)
++{
++	struct igt_cgroup *cg;
++	const char *mount;
++	int ret;
++
++	mount = cgroupv2_mount();
++	if (!mount) {
++		igt_debug("cgroup v2 not found\n");
++		return NULL;
++	}
++
++	cg = calloc(1, sizeof(*cg));
++	if (!cg)
++		return NULL;
++
++	cg->parent_path = strdup(mount);
++	if (!cg->parent_path)
++		goto err_free;
++
++	if (asprintf(&cg->path, "%s/%s", mount, name) < 0) {
++		cg->path = NULL;
++		goto err_parent;
++	}
++
++	/*
++	 * Try to enable the dmem controller in the parent's subtree_control.
++	 * Ignore EINVAL which the kernel returns when the controller is already
++	 * listed (i.e. already enabled).
++	 */
++	ret = enable_controller(mount, "dmem");
++	if (ret < 0 && ret != -EINVAL)
++		igt_debug("Failed to enable dmem controller in %s: %d\n",
++			  mount, ret);
++
++	if (mkdir(cg->path, 0755) < 0 && errno != EEXIST) {
++		igt_debug("Failed to create cgroup %s: %m\n", cg->path);
++		goto err_path;
++	}
++
++	cg->dirfd = open(cg->path, O_RDONLY | O_DIRECTORY);
++	if (cg->dirfd < 0) {
++		igt_debug("Failed to open cgroup dir %s: %m\n", cg->path);
++		goto err_rmdir;
++	}
++
++	return cg;
++
++err_rmdir:
++	rmdir(cg->path);
++err_path:
++	free(cg->path);
++err_parent:
++	free(cg->parent_path);
++err_free:
++	free(cg);
++	return NULL;
++}
++
++/**
++ * igt_cgroup_free() - Destroy a cgroup and release its resources.
++ * @cg: The cgroup to destroy.
++ *
++ * Moves any processes still running inside @cg back to the parent cgroup,
++ * removes the cgroup directory, and frees all associated memory.
++ * After this call @cg must not be used.
++ */
++void igt_cgroup_free(struct igt_cgroup *cg)
++{
++	if (!cg)
++		return;
++
++	drain_procs_to_parent(cg->path, cg->parent_path);
++
++	close(cg->dirfd);
++
++	if (rmdir(cg->path) < 0)
++		igt_debug("Failed to remove cgroup %s: %m\n", cg->path);
++
++	free(cg->path);
++	free(cg->parent_path);
++	free(cg);
++}
++
++/**
++ * igt_cgroup_move_current() - Move the calling process into a cgroup.
++ * @cg: Target cgroup.
++ *
++ * Writes the calling process's PID to @cg's cgroup.procs file, transferring
++ * it into the cgroup.  All threads of the process move together.
++ * Fails the test via igt_assert on error.
++ */
++void igt_cgroup_move_current(struct igt_cgroup *cg)
++{
++	char pidbuf[32];
++	ssize_t len;
++	int fd, ret;
++
++	len = snprintf(pidbuf, sizeof(pidbuf), "%d", (int)getpid());
++
++	fd = openat(cg->dirfd, "cgroup.procs", O_WRONLY);
++	igt_assert_f(fd >= 0, "Failed to open cgroup.procs: %m\n");
++
++	ret = write(fd, pidbuf, len);
++	close(fd);
++
++	igt_assert_f(ret == len, "Failed to write PID to cgroup.procs: %m\n");
++}
++
++/*
++ * Parse a single dmem interface file line of the form "region_name value\n"
++ * where value is either a decimal byte count or the string "max".
++ * Returns 0 and writes to *out on success, -EINVAL on parse error.
++ */
++static int dmem_parse_line(char *line, const char *region, uint64_t *out)
++{
++	char *space = strchr(line, ' ');
++
++	if (!space)
++		return -EINVAL;
++
++	*space = '\0';
++	if (strcmp(line, region) != 0)
++		return -ENOENT;
++
++	if (strcmp(space + 1, "max") == 0) {
++		*out = IGT_CGROUP_DMEM_MAX;
++		return 0;
++	}
++
++	errno = 0;
++	*out = strtoull(space + 1, &space, 10);
++	if (errno || *space != '\0')
++		return -EINVAL;
++
++	return 0;
++}
++
++/*
++ * Read a dmem interface file opened relative to @dirfd, searching for
++ * @region.  On success writes the region's value to @out and returns 0.
++ * Returns -ENOENT when @region is absent, or a negative errno otherwise.
++ */
++static int dmem_read_region(int dirfd, const char *file,
++			    const char *region, uint64_t *out)
++{
++	char buf[4096];
++	char *line, *saveptr;
++	ssize_t n;
++	int fd;
++
++	fd = openat(dirfd, file, O_RDONLY);
++	if (fd < 0)
++		return -errno;
++
++	n = igt_readn(fd, buf, sizeof(buf) - 1);
++	close(fd);
++	if (n < 0)
++		return (int)n;
++	buf[n] = '\0';
++
++	for (line = strtok_r(buf, "\n", &saveptr); line;
++	     line = strtok_r(NULL, "\n", &saveptr)) {
++		int ret = dmem_parse_line(line, region, out);
++
++		if (ret != -ENOENT)
++			return ret;
++	}
++
++	return -ENOENT;
++}
++
++/*
++ * Write "region_name value" (or "region_name max") to the dmem interface
++ * file @file opened relative to @dirfd.
++ * If @nonblock is true the file is opened with O_NONBLOCK, causing any
++ * eviction triggered by the limit change to be skipped rather than waited
++ * for; the write still succeeds (returns 0).
++ * Returns 0 on success, negative errno on failure.
++ */
++static int dmem_write_region(int dirfd, const char *file,
++			     const char *region, uint64_t bytes, bool nonblock)
++{
++	char buf[PATH_MAX + 64];
++	ssize_t len;
++	int fd, ret;
++	int flags = O_WRONLY;
++
++	if (bytes == IGT_CGROUP_DMEM_MAX)
++		len = snprintf(buf, sizeof(buf), "%s max", region);
++	else
++		len = snprintf(buf, sizeof(buf), "%s %" PRIu64, region, bytes);
++
++	if (nonblock)
++		flags |= O_NONBLOCK;
++
++	fd = openat(dirfd, file, flags);
++	if (fd < 0)
++		return -errno;
++
++	do {
++		ret = write(fd, buf, len);
++		if (ret < 0 && errno == EINTR)
++			igt_debug("dmem cgroup write interrupted by signal, retrying\n");
++	} while (ret < 0 && errno == EINTR);
++	close(fd);
++
++	return (ret < 0) ? -errno : 0;
++}
++
++/**
++ * igt_cgroup_dmem_set_max() - Set the hard device memory limit for a region.
++ * @cg: Target cgroup.
++ * @region: Device memory region name (e.g. "drm/0000:03:00.0/vram0").
++ * @bytes: Hard limit in bytes.  Use %IGT_CGROUP_DMEM_MAX for no limit.
++ * @nonblock: If true, open the file with O_NONBLOCK so that eviction
++ *            triggered by the limit change is skipped rather than awaited.
++ *
++ * Writes @bytes to dmem.max for @region inside @cg.  Allocation attempts
++ * that would push usage past this limit fail with -EAGAIN in the kernel.
++ * Fails the test via igt_assert on error.
++ */
++void igt_cgroup_dmem_set_max(struct igt_cgroup *cg, const char *region,
++			     uint64_t bytes, bool nonblock)
++{
++	igt_assert_f(dmem_write_region(cg->dirfd, "dmem.max", region, bytes,
++				       nonblock) == 0,
++		     "Failed to set dmem.max for region %s\n", region);
++}
++
++/**
++ * igt_cgroup_dmem_set_min() - Set the hard protection threshold for a region.
++ * @cg: Target cgroup.
++ * @region: Device memory region name.
++ * @bytes: Hard protection threshold in bytes.  Pass 0 to disable.
++ *
++ * Writes @bytes to dmem.min for @region inside @cg.  Device memory below
++ * this threshold is never reclaimed regardless of system pressure.
++ * Fails the test via igt_assert on error.
++ */
++void igt_cgroup_dmem_set_min(struct igt_cgroup *cg, const char *region,
++			     uint64_t bytes)
++{
++	igt_assert_f(dmem_write_region(cg->dirfd, "dmem.min", region, bytes,
++				       false) == 0,
++		     "Failed to set dmem.min for region %s\n", region);
++}
++
++/**
++ * igt_cgroup_dmem_set_low() - Set the soft protection threshold for a region.
++ * @cg: Target cgroup.
++ * @region: Device memory region name.
++ * @bytes: Soft protection threshold in bytes.  Pass 0 to disable.
++ *
++ * Writes @bytes to dmem.low for @region inside @cg.  Device memory below
++ * this threshold is only reclaimed when no unprotected memory remains.
++ * Fails the test via igt_assert on error.
++ */
++void igt_cgroup_dmem_set_low(struct igt_cgroup *cg, const char *region,
++			     uint64_t bytes)
++{
++	igt_assert_f(dmem_write_region(cg->dirfd, "dmem.low", region, bytes,
++				       false) == 0,
++		     "Failed to set dmem.low for region %s\n", region);
++}
++
++/**
++ * igt_cgroup_dmem_get_current() - Read current device memory usage for a region.
++ * @cg: Target cgroup.
++ * @region: Device memory region name.
++ * @out: Receives the current usage in bytes.
++ *
++ * Reads dmem.current from @cg and returns the usage for @region.
++ * Fails the test via igt_assert on error.
++ */
++void igt_cgroup_dmem_get_current(struct igt_cgroup *cg, const char *region,
++				 uint64_t *out)
++{
++	igt_assert_f(dmem_read_region(cg->dirfd, "dmem.current", region, out) == 0,
++		     "Failed to read dmem.current for region %s\n", region);
++}
++
++/**
++ * igt_cgroup_dmem_get_max() - Read the configured hard limit for a region.
++ * @cg: Target cgroup.
++ * @region: Device memory region name.
++ * @out: Receives the limit in bytes, or %IGT_CGROUP_DMEM_MAX if unset.
++ *
++ * Reads dmem.max from @cg for @region.
++ * Fails the test via igt_assert on error.
++ */
++void igt_cgroup_dmem_get_max(struct igt_cgroup *cg, const char *region,
++			     uint64_t *out)
++{
++	igt_assert_f(dmem_read_region(cg->dirfd, "dmem.max", region, out) == 0,
++		     "Failed to read dmem.max for region %s\n", region);
++}
++
++/**
++ * igt_cgroup_dmem_get_min() - Read the configured hard protection threshold for a region.
++ * @cg: Target cgroup.
++ * @region: Device memory region name.
++ * @out: Receives the threshold in bytes.
++ *
++ * Reads dmem.min from @cg for @region.
++ * Fails the test via igt_assert on error.
++ */
++void igt_cgroup_dmem_get_min(struct igt_cgroup *cg, const char *region,
++			     uint64_t *out)
++{
++	igt_assert_f(dmem_read_region(cg->dirfd, "dmem.min", region, out) == 0,
++		     "Failed to read dmem.min for region %s\n", region);
++}
++
++/**
++ * igt_cgroup_dmem_get_low() - Read the configured soft protection threshold for a region.
++ * @cg: Target cgroup.
++ * @region: Device memory region name.
++ * @out: Receives the threshold in bytes.
++ *
++ * Reads dmem.low from @cg for @region.
++ * Fails the test via igt_assert on error.
++ */
++void igt_cgroup_dmem_get_low(struct igt_cgroup *cg, const char *region,
++			     uint64_t *out)
++{
++	igt_assert_f(dmem_read_region(cg->dirfd, "dmem.low", region, out) == 0,
++		     "Failed to read dmem.low for region %s\n", region);
++}
++
++/**
++ * igt_cgroup_dmem_available() - Check if the dmem cgroup controller is available.
++ *
++ * Probes the cgroup v2 hierarchy for the presence of a dmem.capacity file at
++ * the root, indicating that the kernel dmem controller is compiled in and at
++ * least one device memory region has been registered.
++ *
++ * Return: %true if the dmem controller is available, %false otherwise.
++ */
++bool igt_cgroup_dmem_available(void)
++{
++	char **regions = igt_cgroup_dmem_regions();
++
++	if (!regions)
++		return false;
++
++	igt_cgroup_dmem_regions_free(regions);
++	return true;
++}
++
++/**
++ * igt_cgroup_dmem_regions() - Enumerate all registered device memory regions.
++ *
++ * Reads the root cgroup's dmem.capacity file and returns a NULL-terminated
++ * array of region name strings.  Each name can be passed directly to
++ * igt_cgroup_dmem_get_capacity(), igt_cgroup_dmem_get_current(), and the
++ * igt_cgroup_dmem_set_*() / igt_cgroup_dmem_get_*() family.
++ *
++ * Free the returned array with igt_cgroup_dmem_regions_free().
++ *
++ * Return: A NULL-terminated array of strings on success, %NULL if cgroupv2
++ * is unavailable or no regions are registered.
++ */
++char **igt_cgroup_dmem_regions(void)
++{
++	char buf[4096];
++	char *line, *saveptr, *space, *name;
++	char **regions = NULL, **tmp;
++	int count = 0;
++	const char *mount;
++	ssize_t n;
++	int dirfd, fd;
++
++	mount = cgroupv2_mount();
++	if (!mount)
++		return NULL;
++
++	dirfd = open(mount, O_RDONLY | O_DIRECTORY);
++	if (dirfd < 0)
++		return NULL;
++
++	fd = openat(dirfd, "dmem.capacity", O_RDONLY);
++	close(dirfd);
++	if (fd < 0)
++		return NULL;
++
++	n = igt_readn(fd, buf, sizeof(buf) - 1);
++	close(fd);
++	if (n <= 0)
++		return NULL;
++	buf[n] = '\0';
++
++	for (line = strtok_r(buf, "\n", &saveptr); line;
++	     line = strtok_r(NULL, "\n", &saveptr)) {
++		space = strchr(line, ' ');
++
++		if (!space)
++			continue;
++		*space = '\0';
++
++		name = strdup(line);
++		if (!name)
++			goto err;
++
++		tmp = realloc(regions, (count + 2) * sizeof(*regions));
++		if (!tmp) {
++			free(name);
++			goto err;
++		}
++		regions = tmp;
++		regions[count++] = name;
++		regions[count] = NULL;
++	}
++
++	return regions;
++
++err:
++	igt_cgroup_dmem_regions_free(regions);
++	return NULL;
++}
++
++/**
++ * igt_cgroup_dmem_regions_free() - Free a region list returned by igt_cgroup_dmem_regions().
++ * @regions: NULL-terminated array returned by igt_cgroup_dmem_regions().
++ *
++ * Frees each string in @regions and the array itself.  Safe to call with
++ * %NULL.
++ */
++void igt_cgroup_dmem_regions_free(char **regions)
++{
++	int i;
++
++	if (!regions)
++		return;
++
++	for (i = 0; regions[i]; i++)
++		free(regions[i]);
++
++	free(regions);
++}
++
++/**
++ * igt_cgroup_dmem_get_capacity() - Read total device memory capacity for a region.
++ * @region: Device memory region name.
++ * @out: Receives the total capacity in bytes.
++ *
++ * Reads dmem.capacity from the root cgroup and returns the capacity for
++ * @region.  This reflects the maximum allocatable bytes, excluding memory
++ * reserved by the kernel for internal use.
++ * Fails the test via igt_assert on error.
++ */
++void igt_cgroup_dmem_get_capacity(const char *region, uint64_t *out)
++{
++	const char *mount;
++	int dirfd, ret;
++
++	mount = cgroupv2_mount();
++	igt_assert_f(mount, "cgroup v2 not available\n");
++
++	dirfd = open(mount, O_RDONLY | O_DIRECTORY);
++	igt_assert_f(dirfd >= 0, "Failed to open cgroup root: %m\n");
++
++	ret = dmem_read_region(dirfd, "dmem.capacity", region, out);
++	close(dirfd);
++
++	igt_assert_f(ret == 0, "Failed to read dmem.capacity for region %s\n", region);
++}
++
++/**
++ * igt_cgroup_dmem_get_system_current() - Read system-wide device memory usage for a region.
++ * @region: Device memory region name.
++ * @out: Receives the total system-wide usage in bytes.
++ *
++ * Reads dmem.current from the root cgroup for @region.  This reflects the
++ * aggregate device memory usage across all cgroups on the system.
++ * Fails the test via igt_assert on error.
++ */
++void igt_cgroup_dmem_get_system_current(const char *region, uint64_t *out)
++{
++	const char *mount;
++	int dirfd, ret;
++
++	mount = cgroupv2_mount();
++	igt_assert_f(mount, "cgroup v2 not available\n");
++
++	dirfd = open(mount, O_RDONLY | O_DIRECTORY);
++	igt_assert_f(dirfd >= 0, "Failed to open cgroup root: %m\n");
++
++	ret = dmem_read_region(dirfd, "dmem.current", region, out);
++	close(dirfd);
++
++	igt_assert_f(ret == 0, "Failed to read root dmem.current for region %s\n", region);
++}
+diff --git a/lib/igt_cgroup.h b/lib/igt_cgroup.h
+new file mode 100644
+index 000000000000..379de457a54d
+--- /dev/null
++++ b/lib/igt_cgroup.h
+@@ -0,0 +1,56 @@
++/* SPDX-License-Identifier: MIT */
++/*
++ * Copyright © 2025 Intel Corporation
++ */
++
++#ifndef __IGT_CGROUP_H__
++#define __IGT_CGROUP_H__
++
++#include <stdbool.h>
++#include <stdint.h>
++
++/**
++ * IGT_CGROUP_DMEM_MAX - Sentinel value meaning "no device memory limit".
++ *
++ * Pass this to igt_cgroup_dmem_set_max() to remove a previously set limit,
++ * equivalent to writing "max" to the dmem.max interface file.
++ */
++#define IGT_CGROUP_DMEM_MAX UINT64_MAX
++
++/**
++ * struct igt_cgroup - Opaque handle to a cgroup v2 sub-cgroup.
++ *
++ * Allocated by igt_cgroup_new() and freed by igt_cgroup_free().
++ * All other functions in this module take a pointer to this type.
++ */
++struct igt_cgroup;
++
++struct igt_cgroup *igt_cgroup_new(const char *name);
++void igt_cgroup_free(struct igt_cgroup *cg);
++
++void igt_cgroup_move_current(struct igt_cgroup *cg);
++
++void igt_cgroup_dmem_set_max(struct igt_cgroup *cg, const char *region,
++			     uint64_t bytes, bool nonblock);
++void igt_cgroup_dmem_set_min(struct igt_cgroup *cg, const char *region,
++			     uint64_t bytes);
++void igt_cgroup_dmem_set_low(struct igt_cgroup *cg, const char *region,
++			     uint64_t bytes);
++
++void igt_cgroup_dmem_get_max(struct igt_cgroup *cg, const char *region,
++			     uint64_t *out);
++void igt_cgroup_dmem_get_min(struct igt_cgroup *cg, const char *region,
++			     uint64_t *out);
++void igt_cgroup_dmem_get_low(struct igt_cgroup *cg, const char *region,
++			     uint64_t *out);
++
++void igt_cgroup_dmem_get_current(struct igt_cgroup *cg, const char *region,
++				 uint64_t *out);
++void igt_cgroup_dmem_get_capacity(const char *region, uint64_t *out);
++void igt_cgroup_dmem_get_system_current(const char *region, uint64_t *out);
++
++bool igt_cgroup_dmem_available(void);
++char **igt_cgroup_dmem_regions(void);
++void igt_cgroup_dmem_regions_free(char **regions);
++
++#endif /* __IGT_CGROUP_H__ */
+diff --git a/lib/meson.build b/lib/meson.build
+index 8db9fffdecec..868220408f8c 100644
+--- a/lib/meson.build
++++ b/lib/meson.build
+@@ -19,6 +19,7 @@ lib_sources = [
+ 	'i915/i915_dp.c',
+ 	'igt_collection.c',
+ 	'igt_color_encoding.c',
++	'igt_cgroup.c',
+ 	'igt_configfs.c',
+ 	'igt_facts.c',
+ 	'igt_crc.c',
+-- 
+2.47.3
 
-
-Bert Karwatzki
