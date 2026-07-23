@@ -4,95 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEC15C531D0
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 21:17:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3334DC531D0
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 22:19:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65F5610F1FD;
-	Thu, 23 Jul 2026 21:17:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C09EC10F238;
+	Thu, 23 Jul 2026 22:19:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="OpLT0iQs";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="a2by6s00";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93E1210F1FD
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 21:17:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 0D9D943F3D;
- Thu, 23 Jul 2026 21:17:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 853F51F000E9;
- Thu, 23 Jul 2026 21:17:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784841438;
- bh=rM+8Y3olctXvMpbMgVGqadZGQylqpDvv56qHD9Bu4ho=;
- h=Date:Subject:To:References:From:In-Reply-To;
- b=OpLT0iQsyP/JxV+29CQS+WuXIOW4/TRcNCat7d+ipK5u03vJVwLvO7bo9+8fjiT8Y
- Ch3tlUqwjZ0+CPuHi3/pA3K1lh1qzJGKIS3svqn0URzSWYwaWpaoVFI//YzAMniSlm
- a3CXM9fbSpMYjhaZkqYqoIM5eUVnRrDJ9qFhhMAY/JdTx8zormsj5X13UrbNqrLsll
- zrZ1fGExCaajitmmmzRbu41Z9bVFo+hX8351WomIkE35oxNe2wcGKsXgZwqK9Kc6rZ
- 2Qv/jdv7Lx+ogKvMvt7mzDiyQHjW0TbVdviC5CKkvGjrU2WX+qlGewQw0AuaqoozKC
- qFaT4+J4QXBPA==
-Message-ID: <e9debc91-2a69-496f-9004-f05109072ee8@kernel.org>
-Date: Thu, 23 Jul 2026 23:17:13 +0200
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010015.outbound.protection.outlook.com [52.101.61.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D34110F238
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 22:19:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q/pLbjg23l2zxzoHiyO050h1E8WTHMf2+PAwkKzraCDeQOzppOIeN8iqJ1PPi8L48ksv3OHKIXbhgJZxwS/9Ddb4VaCs+mju5PvCgbKmycUvcdKDG5MAYBB/vgPJVw4pcqm3q4vdmks8PzCzLH9uiT0Bp9UTWNAMfBF90IdhYIJiSYfNkhJDUOizuGf2EuJ+Wpaj0TEtop1pDpSWJqUFVcQfGiz6BVJ6+9pYYr9eIfwX5umH26yn8N9Wn+0p+/OfSvV6vuUF3UohOXZWoR3DnShYZWfu88Cll+VR/LIoXAFRoQuIUWWEPsVt7bPZ/d9FnwNhouYMzSmmfa4F6tk+oQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZTCH0zx/IFvK6x7rNc8BoloembtmIg+dKocKSNtx0g0=;
+ b=PlAt6DYGZyLOK72fL+yxQe+BaMQaQkBoUMh7dYAsI+kFgbiuDVZoEvSyy28W7zvM6UHmS2F9r2NV1fUBsVkGnYLrQbE6+ExckxA4BzUAinpyqDEDkuF+Gz4wjJtK4j50fvWKWJEyWwJjJay/XDWDOHDszT1Q1M0bpInkuen4KNKODA/Xn6vevDVCuAwdP9TyRIpwe9YNSJ0bPGBCGNxcvKvJTv1QAhMDU47GDa3NNmW+Fx5MTkQW1ppSHZEbsl++zkL2cNVxVZmWR2t6zln1BMs86PHvjuxHJ2FtjVc/fnkli4I4JcrEmyhNN3Pwe37PuWZu7dbGQ+aUgsm3lk6jgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZTCH0zx/IFvK6x7rNc8BoloembtmIg+dKocKSNtx0g0=;
+ b=a2by6s00MTMbk++sHO9wZ/urb5q8Ox2PbrNMbQDCYBZIPojp2Hv2FgK0EYMwaHCdwUL+4JwkfUxOSBg40WPUj4czFujrIvrju1jrtdOPq79us06eTKg4L9e6OXwVmBxAyfRG6RZ3z5k5zL9psrbIcvArXrC7nQoJVrKzLS8gdGk=
+Received: from SA0PR12CA0011.namprd12.prod.outlook.com (2603:10b6:806:6f::16)
+ by LV8PR12MB9205.namprd12.prod.outlook.com (2603:10b6:408:191::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Thu, 23 Jul
+ 2026 22:19:15 +0000
+Received: from SA2PEPF00003F67.namprd04.prod.outlook.com
+ (2603:10b6:806:6f:cafe::30) by SA0PR12CA0011.outlook.office365.com
+ (2603:10b6:806:6f::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.11 via Frontend Transport; Thu,
+ 23 Jul 2026 22:19:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SA2PEPF00003F67.mail.protection.outlook.com (10.167.248.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 22:19:13 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 23 Jul
+ 2026 17:19:13 -0500
+Received: from AB350-desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 23 Jul 2026 17:19:12 -0500
+From: <vitaly.prosyak@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Vitaly Prosyak <vitaly.prosyak@amd.com>
+Subject: [PATCH v3 0/2] drm/amdgpu: Fix lockdep false positive in MMU notifier
+ reclaim path
+Date: Thu, 23 Jul 2026 18:18:41 -0400
+Message-ID: <20260723221910.85822-1-vitaly.prosyak@amd.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 16/32] drm/amd/display: Add Support for HDMI Compliance
- Automation
-To: "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "Zuo, Jerry" <Jerry.Zuo@amd.com>, Alex Hung <alex.hung@amd.com>
-References: <20260610094639.1965367-1-chen-yu.chen@amd.com>
- <20260610094639.1965367-17-chen-yu.chen@amd.com>
- <nGLVvJOTS8eSI7IusBrUxw@collabora.com>
- <CY5PR12MB6132D29C644F51CD57A3B3B8D2C22@CY5PR12MB6132.namprd12.prod.outlook.com>
- <3dcc390a-716b-45bd-bd4c-6a7c90a5bd49@amd.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <3dcc390a-716b-45bd-bd4c-6a7c90a5bd49@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003F67:EE_|LV8PR12MB9205:EE_
+X-MS-Office365-Filtering-Correlation-Id: 51fdc5ef-c2ae-4d7b-cc88-08dee9086d61
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|23010399003|1800799024|82310400026|376014|11063799006|5023799004|56012099006|10067099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: 8X7dRPpIXNK2NlCPdgiqAd/qm7hQdIQuqBzBjhvs1e/GNNye0CGdMCII97MvBRaGA1XqBvg1GDbvhtCVZD8kYdF+CXpdKUrg9Q09JQJoDaIASvBjtlrzxNFgjBZZWjI7jARtvHWwMm7GNvJVVqpXYGGlJuZ58Wkq8OgB69JDbnk+Aky/fl54acojwbJX9NMmRh8vPWrEabQVW+i3bt4UZwZBzeNYu8LBK6DFSmBCTIjhATWgkddpERtZkdGYPXYXzfTfVgdOd23MoWmJ8P6vn/kqHyqeMmzg7XhHzjve/uLeK3P512x0vlwhHFaNZ5qSVU+EB5DgHBUEcJurxuwPsB2hubRuW+1czbupdOI8Yi03adQI5d82gtJc7fjB3GTnEZeVMIL0gFhdPKQETmJyFbXyZY+ce3vqMlQoZk3vapdDlKp7c60L2g0MX7L419TqXdjdfgOMkGBy9/XPkvFKMwS+wLcGwFoZZ1FE9YZcqrp+y8ePSXcah2dUVgBp9MjPradNnEymt8KRfDGzi4sxLQuyAG2pM5q1qeONV4njTRn6PtwBxcBZkmheqCwpDyDltEN7Qvno8WzBehESMGitMcPwh8m2q6bv5kqDq71lFVktUkNVt+2ImPnNLSLaqvjU8x7hR2rdKC+IJ1X0Rma6jabqHZvDhZTINhgoTIJdGTq7+/KMguDUGrLOeZiFmReBQMRu5OQW59Pyy7SIxsOs3g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(23010399003)(1800799024)(82310400026)(376014)(11063799006)(5023799004)(56012099006)(10067099003)(18002099003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: QasLb0Sa7jH9IbYd9nzzKiqh91JHch+aFNT/hGp1HWo0SKHd57of0NA99sJOPHgC+a1RtdyUTwdpgIe20q6ZLaMq3rTCjiKAn7rKf4fr7HBYvGqn/qTxmqIS/UCIyBxnzz1vEHYMQjh1IsT26iSeG26KGKvvP5tHNeBbKCog8ZCqxDQj5xOaA/6H5+MiwUEYHAHVoHPTPNvFaRPv4Y9DwrW8sk9SWY4owm+NyTOKiry9YTaandhrOunblNYQwjoQowa01xhQu1VR9s+1kAS/rX1YDHZivkxvOXSw87xaIhHzfQ1t9SnclxI4tznpJAWq816RZn40z6RC26WVmTfyagJ/9e7/LE9W3Ed48mx6AdX4o9/dG0jKVaRMrAnQo8g7JfmfJrFHh31k304dSXoyyf71xBTVPI5jbAf+V8NuUI/KkYwRpic4lh6ArLsiHwOG
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 22:19:13.6707 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51fdc5ef-c2ae-4d7b-cc88-08dee9086d61
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F67.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9205
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,49 +108,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 23/07/2026 05:57, Chen, Chen-Yu wrote:
-> Hi Nicolas,
-> 
-> Sorry for the very late reply.
-> 
-> I recently discovered that I missed this review comment when promoting the series upstream. That was my mistake, and I apologize for overlooking your feedback.
-> 
-> I have since reviewed the comment with the original author. After revisiting the implementation, we do not plan to make further changes to this patch.
+From: Vitaly Prosyak <vitaly.prosyak@amd.com>
 
-NAK, drop the patches and implement the review.
+This series fixes a lockdep false positive warning that occurs when memory
+reclaim triggers MMU notifiers with amdgpu userptr buffers.
 
-You received review, which you completely ignored because you are used
-to develop all this stuff behind closed doors and LKML is just dumping
-ground for you. Dumping of already approved work which you do not even
-bother to discuss.
+The root cause is that amdgpu_lockdep_init() was teaching lockdep the
+incorrect lock ordering by calling fs_reclaim_acquire() while holding
+notifier_lock. At runtime, memory reclaim establishes the opposite ordering,
+creating a false circular dependency.
 
-Dumping ground of such reviews and multiple Signed off by:
+Patch 1 adds filelist_mutex to the lockdep hierarchy (preparation).
+Patch 2 moves fs_reclaim registration before all locks to fix the false positive.
 
-https://web.git.kernel.org/pub/scm/linux/kernel/git/docs/linux.git/commit/?h=docs-next&id=a8657c82a6dbda34c918e13d93c4005a103eb00b
+This is a 7.2-cycle regression fix suitable for stable backport.
 
-Really, what did you review there? This:
+Testing: Mikhail Gavrilov's reproducer (IGT amd_lockdep test) runs 8 reclaim
+cycles with no warnings after the fix. Before fix: warning on first cycle.
 
--#define DC_VER "3.2.388"
-+#define DC_VER "3.2.389"
+v3 changes (addressing Mikhail Gavrilov's technical review):
+  - Clarified that fs_reclaim_acquire/release pair only REGISTERS the
+    fs_reclaim lock class when called with no locks held (doesn't create
+    a static lockdep edge)
+  - Explained that the actual fs_reclaim -> notifier_lock dependency is
+    established at runtime when memory reclaim invokes MMU notifiers
+  - Added Cc: Arunpravin PaneerSelvam
 
-This is even better:
-https://web.git.kernel.org/pub/scm/linux/kernel/git/docs/linux.git/commit/?h=docs-next&id=312c2729b0130fc1629f19eceebbce60aae5c7eb
+v2 changes:
+  - Fixed author name: Michael -> Mikhail Gavrilov in all trailers
+  - Added Fixes: tag linking to original commit
+  - Added Tested-by: Mikhail Gavrilov
+  - Rewrote fs_reclaim comment to be technically accurate
+  - Noted this is a 7.2-cycle regression for stable routing
 
-Because you even tested something like this:
+Vitaly Prosyak (2):
+  drm/amdgpu: add filelist_mutex to lockdep lock ordering annotations
+  drm/amdgpu: Fix lockdep false positive in amdgpu_lockdep_init
 
--#define DC_VER "3.2.386"
-+#define DC_VER "3.2.387"
+ drivers/gpu/drm/amd/amdgpu/amdgpu_lockdep.c | 48 +++++++++++++++------
+ 1 file changed, 35 insertions(+), 13 deletions(-)
 
-Of course these fake tests and fake reviews barely matter. What matters
-is how you actually *ignore* public discussion (so your email client is
-not even configured to discuss on LKML and does not wrap replies) and
-then claim "we do not plan to make further changes"...
-
-Otherwise this is just bcachefs style of upstream collaboration.
-
-So please start making a plan and start discussing your work BEFORE you
-merge such patches. That's how upstream development works.
-
-
-Best regards,
-Krzysztof
+--
+2.54.0
