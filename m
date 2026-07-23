@@ -4,141 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C1ED8C531FA
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C2BAC531F9
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4773A10F312;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB59D10F316;
 	Fri, 24 Jul 2026 07:30:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=w_armin@gmx.de header.b="W2Thpkhq";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="dlYpT52u";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ADF8410F27E;
- Fri, 24 Jul 2026 03:00:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1784862013; x=1785466813; i=w_armin@gmx.de;
- bh=1mJEEvm4FbiJHeJ6b+OnPJ/M4l9XDDZkezBn7mj51to=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-Id:In-Reply-To:
- References:MIME-Version:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=W2ThpkhqtxThz+XzTFv6CUQcVsaJnFtcSiY10W1pWLsrgS2bnErX5HQ05j+qAS8j
- Oa7dPQTPT95gaq8R8d4j5n8qABOjc9sfiqVg3KVQFOgAZ+lLpFFpski6SFScVvs77
- 5xnu73LZhANysPADEFy7jnMyDkYbOgohgWsAAWiopLiy8WfQ+9UX8F2lMvtev9tKc
- Cy7uRwMlgtzcFjNGin1xwcrfeYkrx6EhyMvUp3B7qA4ss2rcqcBsSLgZtBueDmboP
- asxstc6KV/MhBmxam0ENPqK0lFzSDvOxjYV8iSTqRwKMJelGQGvQsAti9Y9J+i+sa
- PKLIEiVpVSv5SQ5oXw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MPXhA-1wZGW645QI-00RbLf; Fri, 24
- Jul 2026 05:00:13 +0200
-From: Armin Wolf <W_Armin@gmx.de>
-To: hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux@weissschuh.net, rafael@kernel.org, lenb@kernel.org,
- linux-acpi@vger.kernel.org, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tursulin@ursulin.net, intel-gfx@lists.freedesktop.org,
- matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
- intel-xe@lists.freedesktop.org
-Subject: [PATCH v3 1/3] platform/wmi: Remove dependency on CONFIG_X86
-Date: Fri, 24 Jul 2026 04:59:57 +0200
-Message-Id: <20260724025959.142826-2-W_Armin@gmx.de>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260724025959.142826-1-W_Armin@gmx.de>
-References: <20260724025959.142826-1-W_Armin@gmx.de>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 692D610E5F1;
+ Thu, 23 Jul 2026 19:44:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:From:Reply-To;
+ bh=4N7ZrzUxksJCloF1voPrYmTsXCsDwjvdwNT3L8MC02k=; b=dlYpT52uTl6w9SSsZswjjF1MoP
+ C+6Ga+X+ZYuU2FkfXpaXR9HZs7A/o+bnY/RhMU7gud+R1OmuHo2d9JsCdgilgiRjrFKJq2+pYZrUq
+ ffHCXRXbHWkiAzhFArd/WE9c12xvbCb2alIMb0/i1x+rvgA0zfb/lI/Yuog78N9JKmsBgH8Pp4fC9
+ znqAeulLNRAHi8UqPQCKjbNPLcBjXxnLTSi3wZDObVletx/ec1xYIzY24Oz26R35EgRZWFFc/JSiD
+ a6m1qRwe2rF+3sUL8+qmp7EUdWm4S8DQmBYPoZYg9p1ZaRNOhMcXOMZyqquoW4/9uTz07cglhGN+i
+ LOjQ1wbg==;
+Received: from 179-125-91-91-dinamico.pombonet.net.br ([179.125.91.91]
+ helo=quatroqueijos.lan) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wmzLB-003a1P-4i; Thu, 23 Jul 2026 21:44:21 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: igt-dev@lists.freedesktop.org
+Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+Subject: [PATCH i-g-t v5 4/7] lib/xe: Introduce dmem driver and implement Xe
+ support
+Date: Thu, 23 Jul 2026 16:43:10 -0300
+Message-ID: <20260723194313.2748143-5-cascardo@igalia.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260723194313.2748143-1-cascardo@igalia.com>
+References: <20260723194313.2748143-1-cascardo@igalia.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:Z3MbxzPPYKQicaaumWy6P+M7JgBRPhBcbTCUf3GNzrYX7mY1aom
- hw+dk0kxUxRiHu+I+WgYGrn9PYkYHR8wOh6DiuddkRLgmcSfKfT5IazyWaQNW23ROsklUVU
- 5q0J9ytlcv3V9PzcgQ1Ih0Dm31ItduBz5Kx6hYitY+Tlk9CNd0kbZXtymhX9zwuWMB2P+L/
- z28TS7VeDHeyYgeFxG/7A==
-UI-OutboundReport: notjunk:1;M01:P0:HSY8VWzZRVA=;XjVMKAg8CMp+03cJIcxnFTCXPPc
- 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
- vYNdasHA8=
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 24 Jul 2026 07:30:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -154,31 +67,212 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The aarch64-laptops project found out that some Windows-on-Arm
-notebooks contain WMI-ACPI mapping devices (PNP0C14) that work
-exactly like on x86. Remove the dependency on CONFIG_X86 to
-make it possible to build the ACPI-WMI driver on arm64.
+In order to be reuse the same dmem tests with multiple drivers, we need to
+abstract a few operations. That includes getting the region name, and
+allocating and releasing VRAM. As there is some initialization also when
+multiple allocations are done, also provide init and deinit functions.
 
-Link: https://lists.linaro.org/archives/list/aarch64-laptops@lists.linaro.=
-org/thread/U2IZENSIOOHZHGXVN7GM5HX5O3FD5KCF/
-Signed-off-by: Armin Wolf <W_Armin@gmx.de>
-=2D--
- drivers/platform/wmi/Kconfig | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+The Xe implementation was based on the original operations from
+xe_cgroups.c written by Thomas Hellström. However, instead of doing a
+deferred backing, followed by a bind, it does a simple non-deferred GEM
+object creation on the VRAM region.
 
-diff --git a/drivers/platform/wmi/Kconfig b/drivers/platform/wmi/Kconfig
-index d62f51ff3b7f..36934b5f0194 100644
-=2D-- a/drivers/platform/wmi/Kconfig
-+++ b/drivers/platform/wmi/Kconfig
-@@ -5,7 +5,7 @@
-=20
- menuconfig ACPI_WMI
- 	tristate "ACPI-WMI support"
--	depends on ACPI && X86
-+	depends on ACPI
- 	select NLS
- 	help
- 	  This option enables support for the ACPI-WMI driver core.
-=2D-=20
-2.39.5
+Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+---
+ lib/igt_dmem_driver.h |  24 ++++++++
+ lib/meson.build       |   1 +
+ lib/xe/xe_dmem.c      | 139 ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 164 insertions(+)
+ create mode 100644 lib/igt_dmem_driver.h
+ create mode 100644 lib/xe/xe_dmem.c
+
+diff --git a/lib/igt_dmem_driver.h b/lib/igt_dmem_driver.h
+new file mode 100644
+index 000000000000..2f4a4673ab16
+--- /dev/null
++++ b/lib/igt_dmem_driver.h
+@@ -0,0 +1,24 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Valve Corporation
++ * Authors:
++ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
++ */
++
++#ifndef __IGT_DMEM_DRIVER_H__
++#define __IGT_DMEM_DRIVER_H__
++
++#include <stdlib.h>
++
++struct igt_dmem_driver {
++	const char *name;
++	char * (*get_region_name)(int fd);
++	int (*init)(void **ctx, int fd, int max_bo);
++	void (*deinit)(void *ctx);
++	int (*allocate_vram)(void *ctx, int n_bo, size_t len);
++	void (*free_vram)(void *ctx, int n_bo);
++};
++
++extern const struct igt_dmem_driver xe_dmem_driver;
++
++#endif
+diff --git a/lib/meson.build b/lib/meson.build
+index 868220408f8c..012802475de0 100644
+--- a/lib/meson.build
++++ b/lib/meson.build
+@@ -126,6 +126,7 @@ lib_sources = [
+ 	'igt_msm.c',
+ 	'igt_dsc.c',
+ 	'igt_hook.c',
++	'xe/xe_dmem.c',
+ 	'xe/xe_gt.c',
+ 	'xe/xe_ioctl.c',
+ 	'xe/xe_legacy.c',
+diff --git a/lib/xe/xe_dmem.c b/lib/xe/xe_dmem.c
+new file mode 100644
+index 000000000000..1dec8cf8b0a1
+--- /dev/null
++++ b/lib/xe/xe_dmem.c
+@@ -0,0 +1,139 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright 2026 Valve Corporation
++ * Authors:
++ *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
++ */
++
++#include <errno.h>
++
++#include "igt.h"
++#include "igt_cgroup.h"
++#include "igt_dmem_driver.h"
++#include "xe_drm.h"
++#include "xe/xe_ioctl.h"
++#include "xe/xe_query.h"
++
++static char * xe_dmem_get_region_name(int fd)
++{
++	uint64_t vram_region = 0;
++	uint64_t region;
++	char *cg_region;
++
++	/* Find first VRAM region */
++	xe_for_each_mem_region(fd, all_memory_regions(fd), region) {
++		if (xe_region_class(fd, region) == DRM_XE_MEM_REGION_CLASS_VRAM) {
++			vram_region = region;
++			break;
++		}
++	}
++	if (!vram_region)
++		return NULL;
++
++	cg_region = xe_cgroup_region_name(fd, vram_region);
++
++	return cg_region;
++}
++
++struct xe_bo {
++	uint32_t handle;
++	size_t len;
++};
++
++struct xe_dmem_ctx {
++	int fd;
++	struct xe_bo *bos;
++	uint64_t vram_region;
++	int max_bo;
++};
++
++static int xe_dmem_init(void **ctx, int fd, int max_bo)
++{
++	struct xe_dmem_ctx *xe_ctx;
++	uint64_t region;
++
++	xe_ctx = malloc(sizeof(*xe_ctx));
++	if (!xe_ctx)
++		return -ENOMEM;
++
++	xe_ctx->bos = calloc(max_bo, sizeof(xe_ctx->bos[0]));
++	if (!xe_ctx->bos)
++		goto out;
++	memset(xe_ctx->bos, 0, max_bo * sizeof(xe_ctx->bos[0]));
++	xe_ctx->max_bo = max_bo;
++
++	xe_ctx->vram_region = 0;
++	/* Find first VRAM region */
++	xe_for_each_mem_region(fd, all_memory_regions(fd), region) {
++		if (xe_region_class(fd, region) == DRM_XE_MEM_REGION_CLASS_VRAM) {
++			xe_ctx->vram_region = region;
++			break;
++		}
++	}
++	if (!xe_ctx->vram_region)
++		goto out;
++
++	xe_ctx->fd = fd;
++
++	*ctx = xe_ctx;
++
++	return 0;
++
++out:
++	if (xe_ctx->bos)
++		free(xe_ctx->bos);
++	free(xe_ctx);
++
++	return -ENOMEM;
++}
++
++static void xe_dmem_deinit(void *ctx)
++{
++	struct xe_dmem_ctx *xe_ctx = ctx;
++
++	free(xe_ctx->bos);
++	free(xe_ctx);
++}
++
++static int xe_dmem_allocate_vram(void *ctx, int n_bo, size_t len)
++{
++	struct xe_dmem_ctx *xe_ctx = ctx;
++	uint32_t handle;
++	int err;
++
++	if (n_bo >= xe_ctx->max_bo)
++		return -ENOMEM;
++
++	err = __xe_bo_create(xe_ctx->fd, 0, len, xe_ctx->vram_region, 0,
++			     NULL, &handle);
++	if (err)
++		goto out;
++
++	xe_ctx->bos[n_bo].handle = handle;
++	xe_ctx->bos[n_bo].len = len;
++
++out:
++	return err;
++}
++
++static void xe_dmem_free_vram(void *ctx, int n_bo)
++{
++	struct xe_dmem_ctx *xe_ctx = ctx;
++	size_t len;
++	if (n_bo >= xe_ctx->max_bo)
++		return;
++	len = xe_ctx->bos[n_bo].len;
++	if (len) {
++		gem_close(xe_ctx->fd, xe_ctx->bos[n_bo].handle);
++		xe_ctx->bos[n_bo].len = 0;
++	}
++}
++
++const struct igt_dmem_driver xe_dmem_driver = {
++	.name = "xe",
++	.get_region_name = xe_dmem_get_region_name,
++	.init = xe_dmem_init,
++	.deinit = xe_dmem_deinit,
++	.allocate_vram = xe_dmem_allocate_vram,
++	.free_vram = xe_dmem_free_vram,
++};
+-- 
+2.47.3
 
