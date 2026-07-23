@@ -4,48 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE375C44524
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 04:25:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 233A3C4453C
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 05:45:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E21610E05D;
-	Thu, 23 Jul 2026 04:25:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9221B10E527;
+	Thu, 23 Jul 2026 05:45:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hIkpad+Q";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rWb7xsyb";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B03710E05D;
- Thu, 23 Jul 2026 04:25:54 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9437A600AB;
- Thu, 23 Jul 2026 04:25:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B75171F000E9;
- Thu, 23 Jul 2026 04:25:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784780753;
- bh=XOAiBQVsKE+a+mmnQ5qruWwz3JayhWyzQU7FibWfMRY=;
- h=From:To:Cc:Subject:Date;
- b=hIkpad+QEoEj5yIDC7JoO0ilqCJQJu/7GlUBYpWlx3/6TFH9CtJh7FY7aFKxj1m/d
- SogHWhgNB02Ie1uGA6E9DF63oyM2PaViWdRdyda95uB7yxqT2aIgChJp6P8Xnwj6E4
- S4oTUP/mW+0uF+Y5eTRs3dLfD45W8XChrwW7e5HtlyOOR4xyLf1+LlgfKqiB5IqzqS
- n88SZihMAvbyL9wbE2gef8uVQoFQmgu5oFIdnvbe81/8hXdWTHvAcvm1IxZXLYKCdD
- u7ybbYcqiQ2w2IzhCyfKvSI7wtQMbS6trxJiphYyZCE8lwNhBecg0aytzn8V+dwWU9
- 66fbmV4gjdI8g==
-From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
-To: alexander.deucher@amd.com
-Cc: linux-kernel@vger.kernel.org, "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
- "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Subject: [PATCH v2] drm/amd/display: use proper context for logging
-Date: Thu, 23 Jul 2026 06:25:48 +0200
-Message-ID: <20260723042548.1225691-1-jirislaby@kernel.org>
-X-Mailer: git-send-email 2.55.0
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012066.outbound.protection.outlook.com [52.101.43.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2217610E6EE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 05:45:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=umC8bBFGHdY1HcvpPefwZczybv6C3bxasKuICGQAaYCPT9KT8mqv7jwrtaG9vzwMxMRPPjwMdzii5dMkCF2qbzO8+jsl1hmbrccOoslY10t9YidDBj6urxW/M7DH+1wInhZiO0deHMtzMfMdGeohuGM95jmh9HeI3XWRuAXaZpaF7Z77Ky1Ih0BqUuEb7nsP55mrcuAPUk3wF9so0C1cQ+/r+mJoVCGvw1FOWRoBEfXem8Lhxcsb95la45IJ2p1QI5QMBC8GffPQk2lNVONIOIvSmN0g6MMwK+Nz3/xI7zarjBIlRkdEgixA1EaXWiWxVLUJ/mJBRvw9dV8t+JvbAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pJ24lK7z8PF9NKSO/Pvk6WKmj7ZdPFQ0C/URquSSRls=;
+ b=eCImxFw/rVcO/SCrpx/YCKChnjiIbD/r3zeObdAqPqbGAl4dvk4J4H6Taf53NkKMeFCckCuelJwnxmF+QkyEPZI6aBE/8Q0jGJHL7Uxx84NLd3wobT8hPlC52qJxt7INkYewSMjp4lcLRP7IOARfPDtXZ2LBBcG/cSZwvwo1AeUgRpdkqVywpuu8fm7KM+yOO+q8+BR+T4z9Ud3Gs5Tdav3Sotbu5zNfKFg/pF3GjYRe6m1opXozQyShs9Kpd7kIaAnztXmuXRd5DU5rkkMbNN7QTDhsVtqPIPYkTAKStSoPLmUocpua5r8TTc0kEqKiEhvDvy2hS9y5iDc0yKTByg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pJ24lK7z8PF9NKSO/Pvk6WKmj7ZdPFQ0C/URquSSRls=;
+ b=rWb7xsybmCkvU+jkWEmLde5JxxbeWm4GxlNQB4Zrsi6H1SVS93Rf1C4UdD7X25QfMIay1AkVo1jwkPIQbRmbn2DvtmBCGjA0Q8HkI4X1BqXRm7axZA8vl88DbW6+nfdyUabNtMSLMWHxlok9qKWQ1WaQTMGohL7rLNMxyPT4YDk=
+Received: from MN2PR11CA0005.namprd11.prod.outlook.com (2603:10b6:208:23b::10)
+ by PH7PR12MB7841.namprd12.prod.outlook.com (2603:10b6:510:273::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
+ 2026 05:45:00 +0000
+Received: from BL6PEPF0001AB73.namprd02.prod.outlook.com
+ (2603:10b6:208:23b:cafe::a9) by MN2PR11CA0005.outlook.office365.com
+ (2603:10b6:208:23b::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Thu,
+ 23 Jul 2026 05:45:00 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0001AB73.mail.protection.outlook.com (10.167.242.166) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 05:44:59 +0000
+Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 23 Jul
+ 2026 00:44:57 -0500
+From: Prike Liang <Prike.Liang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <harry.wentland@amd.com>,
+ <sunpeng.li@amd.com>, <jun.lei@amd.com>, Prike Liang <Prike.Liang@amd.com>
+Subject: [PATCH] drm/amd/display: Fix DML file discovery for out-of-tree builds
+Date: Thu, 23 Jul 2026 13:44:48 +0800
+Message-ID: <20260723054448.177257-1-Prike.Liang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB73:EE_|PH7PR12MB7841:EE_
+X-MS-Office365-Filtering-Correlation-Id: 15a4f74a-b499-4c47-3e03-08dee87d88cb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|82310400026|36860700016|1800799024|11063799006|10067099003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: 7nDwKFVIkA30u8cVz27Z6T4lce7KwEFuru0cy+saQ4SStWTc5alGZx+HRjhsZkbi3dN08u8N8Wp63nJJM5hCWk+vfOnJaewpCV9diiR+DocbXd2k8b3PsjeQKdXhqPHwY6lHVvN3e0/otJRHdvnq1UZaZVtc7IGrxtYCuj3S/WMmhMHCbr1TUkw2fCxMwAfer7pm5TOUs0LC08TaJstVSU6O6nVDPYFFKUIgDTxGjC8pfC4Jm4urBy77KaWA/c1I0cClHhvcyvQppFu///Xgmd5WOWAF8DQOMk89YlBhf4S0OewKAI41pn/bXnKlzzmfqYBiTaEpvkh4WQyR6+4b8sx7CUOTGnmM3fmknfgaonl3O+5RV6i2nPWWWyq8TiKma2Z1PPeny/GWuWxXwsmnh24LEFCLLhdhz+WjLTIB18z8ylKD1VuBM2LIPJMdX2cF7IMF/90TJ8ObzHBCDiUu6Rpf8wEtCc1xY9NSPgPdYiY1010TRZBoXf7eGwpXF7mUFjvVoP/pR3JOZx6L+W0u4C0XWSFblXufD4yGu2s70qnR+LI6ZqHQYvwVMbWbHC35Orn8mKhy+EHQZBhXNaFkpTjE7tqrLz3Qvs9XWxGh0/RYFQoIIl1Qzm9XNbwG7jC73xn4bKSallaNtcac72aXW3gnGvA3vgjG2OYHpgs9zZXiVNDk+I/7i2zOI9Y1YjCL+KdMb7O0XB4s8eOpbUVhuw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(82310400026)(36860700016)(1800799024)(11063799006)(10067099003)(56012099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: vDwtNPqOSSSaMZ35NiaHzH7hWp3G33kkslyWufBSm8W+ST2/9rmN499MdWANrQDgjwqXwbp+bS5ZflPAmoEdY0EVSoPE8nnkj0Spl9RiDqR32brxRPtc45wzV38vl9Jj4RZwwgY+ya8rm0a3mCWaT+mB9X/KUVVouJbq9rzRrSDiFVODEE+OasahnixUivpntQW3VzJmYBIRBBfFXRO+fTRAHVySQU6YAPnaQDwGpdKbBdYB8OAqCiJ28OUq9/We6JKo5CYkSwYVErkmRo7RHSo2HL+zd5Xe7NyxMonGIMP55XqsD/5IyMYkQWE9Bg97kq66FmengSt33ahoYtfrPE3q+PPhb+0N0PSDchKGuyxZ2d8KX8LYHwUPYGQqw8SNeL4SCiKFNRb7NKkxLIPTXhzLL47VR0BVhnCRiLD1SqXsnU90IEv6HRroB8MvB8xq
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 05:44:59.6319 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15a4f74a-b499-4c47-3e03-08dee87d88cb
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB73.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7841
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,171 +108,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The same as the rest of the code, get_ss_info_from_atombios() uses
-calc_pll_cs->ctx->logger for logging. But calc_pll_cs->ctx is
-initialized only later in calc_pll_max_vco_construct(). Therefore, any
-output using DC_LOG_SYNC() leads to a NULL pointer deference in
-get_ss_info_from_atombios().
+By anchoring the search to the DML top-level Makefile directory,
+FPU CFLAGS are now correctly applied to all relevant source files.
 
-According to Sashiko, the very same problem exists in
-dce112_get_pix_clk_dividers() and dcn3_get_pix_clk_dividers() too.
-
-To avoid accessing the NULL context, use clk_src->base.ctx->logger
-everywhere. That context in base is initialized earlier in
-dce110_clk_src_construct() and dce112_clk_src_construct(). Before
-get_ss_info_from_atombios() or Sashiko's get_pix_clk_dividers functions
-above are actually called. This is done by redefining DC_LOGGER to
-CTX->logger.
-
-Before:
-dce110_clk_src_construct() did:
- -> sets clk_src->base.ctx = ctx;
- -> ss_info_from_atombios_create()
-   -> get_ss_info_from_atombios()   <- uses calc_pll_cs->ctx  # BOOM
- -> calc_pll_max_vco_construct()    <- sets calc_pll_cs->ctx
-
-After:
-dce110_clk_src_construct() does:
- -> sets clk_src->base.ctx = ctx;
- -> ss_info_from_atombios_create()
-   -> get_ss_info_from_atombios()   <- uses clk_src->base.ctx
-
-Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271175
-Closes: https://lore.kernel.org/all/a9ee54e6-2413-4156-9bde-d528ae3c63a3@kernel.org/
-Fixes: 1296423bf23c ("drm/amd/display: define DC_LOGGER for logger")
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 ---
-Cc: dri-devel@lists.freedesktop.org
+ drivers/gpu/drm/amd/display/dc/dml2_0/Makefile | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-[v2] Set DC_LOGGER to CTX->logger unconditionally (Bhawanpreet).
-[v1] https://lore.kernel.org/all/20260722063210.1144266-1-jirislaby@kernel.org/
----
- .../drm/amd/display/dc/dce/dce_clock_source.c | 20 +++++++++----------
- 1 file changed, 9 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-index ecb8493ec523..8e3862f6dac2 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-@@ -45,9 +45,7 @@
- 	clk_src->base.ctx
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile b/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
+index 44e00c2b7ac7..e9ce7813b0f5 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/Makefile
+@@ -55,8 +55,11 @@ subdir-ccflags-y += -I$(FULL_AMD_DISPLAY_PATH)/dc/dml2_0/dml21/
  
- #define DC_LOGGER \
--	calc_pll_cs->ctx->logger
--#define DC_LOGGER_INIT() \
--	struct calc_pll_clock_source *calc_pll_cs = &clk_src->calc_pll
-+	CTX->logger
- 
- #undef FN
- #define FN(reg_name, field_name) \
-@@ -287,6 +285,7 @@ static bool calc_pll_dividers_in_range(
- }
- 
- static uint32_t calculate_pixel_clock_pll_dividers(
-+		struct dce110_clk_src *clk_src,
- 		struct calc_pll_clock_source *calc_pll_cs,
- 		struct pll_settings *pll_settings)
- {
-@@ -474,7 +473,7 @@ static uint32_t dce110_get_pix_clk_dividers_helper (
- {
- 	uint32_t field = 0;
- 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
--	DC_LOGGER_INIT();
+ # Add FPU flags to all dml2 files by default, remove NO_FPU flags.
+ # FPU flags step 1: Find all .c files in dal/dc/dml2_0 and it's subfolders
+-DML2_ABS_PATH := $(FULL_AMD_DISPLAY_PATH)/dc/dml2_0
+-DML2_C_FILES := $(shell find $(DML2_ABS_PATH) -name '*.c' -type f)
 +
- 	/* Check if reference clock is external (not pcie/xtalin)
- 	* HW Dce80 spec:
- 	* 00 - PCIE_REFCLK, 01 - XTALIN,    02 - GENERICA,    03 - GENERICB
-@@ -517,12 +516,14 @@ static uint32_t dce110_get_pix_clk_dividers_helper (
- 		/*Calculate Dividers by HDMI object, no SS case or SS case */
- 		pll_calc_error =
- 			calculate_pixel_clock_pll_dividers(
-+				        clk_src,
- 					&clk_src->calc_pll_hdmi,
- 					pll_settings);
- 	else
- 		/*Calculate Dividers by default object, no SS case or SS case */
- 		pll_calc_error =
- 			calculate_pixel_clock_pll_dividers(
-+					clk_src,
- 					&clk_src->calc_pll,
- 					pll_settings);
- 
-@@ -568,7 +569,6 @@ static uint32_t dce110_get_pix_clk_dividers(
- {
- 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
- 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
--	DC_LOGGER_INIT();
- 
- 	if (pix_clk_params == NULL || pll_settings == NULL
- 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
-@@ -600,7 +600,6 @@ static uint32_t dce112_get_pix_clk_dividers(
- 		struct pll_settings *pll_settings)
- {
- 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
--	DC_LOGGER_INIT();
- 
- 	if (pix_clk_params == NULL || pll_settings == NULL
- 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
-@@ -1442,8 +1441,6 @@ static uint32_t dcn3_get_pix_clk_dividers(
- 	unsigned long long actual_pix_clk_100Hz = pix_clk_params ? pix_clk_params->requested_pix_clk_100hz : 0;
- 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
- 
--	DC_LOGGER_INIT();
--
- 	if (pix_clk_params == NULL || pll_settings == NULL
- 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
- 		DC_LOG_ERROR(
-@@ -1513,7 +1510,6 @@ static const struct clock_source_funcs dce110_clk_src_funcs = {
- 	.get_dp_dto_frequency_100hz = get_dp_dto_frequency_100hz
- };
- 
--
- static void get_ss_info_from_atombios(
- 		struct dce110_clk_src *clk_src,
- 		enum as_signal_type as_signal,
-@@ -1526,7 +1522,7 @@ static void get_ss_info_from_atombios(
- 	struct spread_spectrum_info *ss_info_cur;
- 	struct spread_spectrum_data *ss_data_cur;
- 	uint32_t i;
--	DC_LOGGER_INIT();
++THIS_MAKEFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
++DML2_ABS_PATH := $(patsubst %/,%,$(dir $(THIS_MAKEFILE_PATH)))
 +
- 	if (ss_entries_num == NULL) {
- 		DC_LOG_SYNC(
- 			"Invalid entry !!!\n");
-@@ -1657,6 +1653,7 @@ static void ss_info_from_atombios_create(
- }
++DML2_C_FILES := $(shell find $(DML2_ABS_PATH) -name '*.c')
  
- static bool calc_pll_max_vco_construct(
-+			struct dce110_clk_src *clk_src,
- 			struct calc_pll_clock_source *calc_pll_cs,
- 			struct calc_pll_clock_source_init_data *init_data)
- {
-@@ -1808,6 +1805,7 @@ bool dce110_clk_src_construct(
- 	ss_info_from_atombios_create(clk_src);
- 
- 	if (!calc_pll_max_vco_construct(
-+			clk_src,
- 			&clk_src->calc_pll,
- 			&calc_pll_cs_init_data)) {
- 		ASSERT_CRITICAL(false);
-@@ -1822,7 +1820,7 @@ bool dce110_clk_src_construct(
- 
- 
- 	if (!calc_pll_max_vco_construct(
--			&clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
-+			clk_src, &clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
- 		ASSERT_CRITICAL(false);
- 		goto unexpected_failure;
- 	}
+ # FPU flags step 2: Convert to .o and make paths relative to $(AMDDALPATH)/dc/dml2_0/
+ DML2_RELATIVE_O_FILES := $(patsubst $(DML2_ABS_PATH)/%,dc/dml2_0/%,$(patsubst %.c,%.o,$(DML2_C_FILES)))
 -- 
-2.55.0
+2.34.1
 
