@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44DB8C531D0
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 20:19:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF21FC531D0
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 20:20:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAE7110F1EE;
-	Thu, 23 Jul 2026 20:19:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6EEA710F1F0;
+	Thu, 23 Jul 2026 20:20:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Nve3xL0F";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="He9R7Qf2";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010004.outbound.protection.outlook.com [52.101.201.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA82910F1EF
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 20:19:55 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012059.outbound.protection.outlook.com
+ [40.93.195.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EF40910F1EF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 20:19:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hl619pY3/lEIs1y3IUCKVGeMvTpWdLdXNvjgpHZr+jH8G4UrtOjmZ9s2B/WKT+8c1z5z8apAkMZG5RQxPf72rjarH2sVRTVH1pF8OU1MTUl7epQvcxJEHGYT0L9vxAPSQUthK7+Jgr5Kx0YK69g97lbwsp+v0USHI2JsC6NYsrMDPZIiQxHssLKQvfSYrhZtMqSJNaC8jQlsE71Js+SlJD4+jwou0WoqSsh7fwJmZcbln/cYxDHGQWPJKl3pj1ECagMVKlVcrgXeg3hpwPSFKUnOkkyD1/FhfC3h3yOJSyGsJhXEExriYP5NH26QIUceG3PAb1WMcw/8g46azEanyA==
+ b=wCfjpSPBpKCDgdpBTAaO9Cs6DaGHYNZu95ZYHhBhfUeW9QZK8PzBedCkXwpozpIQIfQB2QIOmV8qTedNMBq2gPoGJK1M7/GiAkkoRsHtD176lgQLvs7FnJRcBymbhdZBaKxv04rVWDCg1I+3KuVWo7/arVcm/ijnnHzuODtvakwLl88wt1jhVq8wGJEC1p+uBP86rCtrQpAIfZwhDJ1hHrG6qaVIfWAnYzYhNq8i6a1FJAccQeQUcSuhFqZ1G/27RVSqiGshFJ3X08GD1XpZC8CBRZr/m1cmMkIgucWVNzf9Vn9V7iDUXArEULYXAWZTHNSLdjZgqcifp4kidaPjXQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5E8KL7ZDcsuO41HNy09LmrKm4/11pg0F5kn9KxcPDrk=;
- b=Q7p963pWt/b8A6XXUIGz4WCfPK+1yGqzxgW7evae7Xyi8L4wcEWGvDl1OSV32sTRjwQED2QkGc72/Ta8TlpliuEf0zzh+8dH4sMTTQCirLYJE1ayOmLCmZIiA7WyNM4eaPBjm0HFGlYeeonvsE4jpEKpHbINm3/rALdHKzGypNDDOjdU8xVBKqlmaf72qTuvcqkC4q2w2J/ocAhhvun8eau+74BZYA37Re7kJWP3B+tmB2T7kf6UoZJH11UhoqNiEsct4x8EHML0Pa1SnL7Db9GX30cbvNhw1sG5cB3ukOb1xND+gGFwKf7Diww0uQFNW0E3SecRJB5mr+7OPsoscQ==
+ bh=NEXv4s6Ic8CQ1j+DBac6L8Sk0jfMZ/UmqB1Dx8AkvMo=;
+ b=mRuitIirgA1WHSGOtkXEDtVrO/EvDi4bIsE+Zia6UZLJ41jvNV7deptfF0SZ0LQ00DTwY0bPqqL/RQM5NHrLMQjQImaV7RUSIHeBzBYtIohJnGb6gGq4meq4d1ubxLhdt2O3MvV850bgwNbJsOy3vrDH4NQ9LMB3j8X2oD88Sfw6cwInkT7OaNfXnnMZLJwdBo2awR4l5sTVwnPL14KbnrrDNTIOwFRNeGW/CRulAF4aIk80omN/rZXdiPiEGmCw/1UbBsT6QL7J2HVoYG3YToBFisaXIc7Mq8B9OZV4kmDM8Q03oskSYxilQopljoPcDXSY1kUOARjbZaTLJjUUGg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5E8KL7ZDcsuO41HNy09LmrKm4/11pg0F5kn9KxcPDrk=;
- b=Nve3xL0FzWVMuA9I1ECArFwqenwzL8mXZ1VCpgt1RT7c3MpIttLRWhHFB4COz0GsTqD9dFOH2Z2X/sKqh6w+L4q0uxw2bUJvygDH9vZcf+6msFGZB7+iKQb8E+EpPoSLCBCg/vZRgA8a4sccRgOF1rgJ3iKqiUrV3pAuRzWc3Cg=
-Received: from BL1PR13CA0362.namprd13.prod.outlook.com (2603:10b6:208:2c0::7)
- by SN7PR12MB7275.namprd12.prod.outlook.com (2603:10b6:806:2ae::9)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=NEXv4s6Ic8CQ1j+DBac6L8Sk0jfMZ/UmqB1Dx8AkvMo=;
+ b=He9R7Qf2+NrMahiVVLkJjEjcu8SisDK4lM9wC430T4obstIHQvrEzRgb57RZt1dSfwMiPFtROoLUyNVw80T9f/A34su6KkUsrXF8gAvXyo4xeR9ayqs0d6NBPTh1u8WuOxG3z47uki2m47vbYj4sEH1c5j4R5boQCIFPjHhw0ZA=
+Received: from BL1PR13CA0373.namprd13.prod.outlook.com (2603:10b6:208:2c0::18)
+ by SJ5PPF183341E5B.namprd12.prod.outlook.com
+ (2603:10b6:a0f:fc02::98c) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 20:19:48 +0000
+ 2026 20:19:52 +0000
 Received: from BL02EPF00021F6A.namprd02.prod.outlook.com
- (2603:10b6:208:2c0:cafe::61) by BL1PR13CA0362.outlook.office365.com
- (2603:10b6:208:2c0::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Thu,
- 23 Jul 2026 20:19:48 +0000
+ (2603:10b6:208:2c0:cafe::5c) by BL1PR13CA0373.outlook.office365.com
+ (2603:10b6:208:2c0::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.5 via Frontend Transport; Thu, 23
+ Jul 2026 20:19:50 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +51,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BL02EPF00021F6A.mail.protection.outlook.com (10.167.249.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 20:19:48 +0000
+ 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 20:19:50 +0000
 Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 23 Jul
- 2026 15:19:18 -0500
+ 2026 15:19:20 -0500
 From: Fangzhi Zuo <jerry.zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,46 +64,47 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, George Zhang <george.zhang@amd.com>, Dillon Varone
- <dillon.varone@amd.com>
-Subject: [PATCH 40/49] drm/amd/display: Fix divide-by-zero in
- calculate_mcache_setting on zero viewport
-Date: Thu, 23 Jul 2026 16:13:48 -0400
-Message-ID: <20260723201908.373300-41-jerry.zuo@amd.com>
+ <Chen-Yu.Chen@amd.com>, Alexander Chechik <alexander.chechik@amd.com>,
+ "Dillon Varone" <dillon.varone@amd.com>, Matthew Stewart
+ <matthew.stewart2@amd.com>
+Subject: [PATCH 43/49] drm/amd/display: enforce UCLK pstate support in
+ mode_support
+Date: Thu, 23 Jul 2026 16:13:51 -0400
+Message-ID: <20260723201908.373300-44-jerry.zuo@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260723201908.373300-1-jerry.zuo@amd.com>
 References: <20260723201908.373300-1-jerry.zuo@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Originating-IP: [10.180.168.240]
 X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6A:EE_|SN7PR12MB7275:EE_
-X-MS-Office365-Filtering-Correlation-Id: 97416dd4-1660-4664-d0dc-08dee8f7be65
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6A:EE_|SJ5PPF183341E5B:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9b203fb4-e1e5-44a2-cb82-08dee8f7bfa3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|23010399003|10067099003|11063799006|56012099006|18002099003|22082099003|13003099007;
-X-Microsoft-Antispam-Message-Info: 1stMmuGubTh1iVBwHyf+ZPQ1soNPyYb9FZ1L8LLlE4GyORuCpN8qrSLPQpaxF30V78cedfHMdVqVN5xHg6sfaUZMPa5okJzQACuStDzQGdO8fvzjNuy6gk8e4qsq+rmH1crDLLxH1fIZyKKkVrvtGYEfJJwGnIE7Uf/GyJzpZxAetMKpa3eq3QcHSN2J7bB6UCEgv/YdfPkXmntseWcPDooyQrCuocTAKl/gj0fR9Ut1ucz37VmXI9CT5H1UlvShyFNoPCxRDO8mfr4bEZ8c3+D3q36qowA5WLV7MA03FyZ6pjh4Z9Snb0vJtfu4e+E3NiZUJAnxG9B2dLzaIwrraqe7EpsNCZ1hdyM/ksUjPGEyAxQUfI2GrZQHuOCvYCO4efRLwayfH+xNjtdwMGpuMz2ufHvJqua0RImp2IP5mw5mr5MrlTvveXX8Jr/HCYs/2ZB6+jMiw8nRCzeHPiHAELMG/ajj3jFa3Zs1Jc04bDai+nIakWjflU9Or6Cj9aa91QEcXl1vpOPaT5b+8naQANJM/cGKZjePdgCBxZB1wp5j2Qq8tGXvo0UVIg7C5fT4Y9ldfHfTGAhGrT5I/LK07j4uaHO4CVaKBYlPlxCMQrUDiRRxqPKG2RuFwWeEwRxNUDexU8IjfWFVp1KeQQuZGw==
+ ARA:13230040|36860700016|23010399003|376014|82310400026|1800799024|6133799003|56012099006|11063799006|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: S8em1ntj349BC6CDUYqqaCHtkgIRVm0sA2W8dk8wGKcHmWolsECxKlTOtP0NVRNGCHbbeiHjjiAqUaRIaV+7XXi8qfdBZKt/KWg9vtyly/Qesf447va9stxyd7i1oQBgU3a7rPoreg1NPOZ4zcuWog8FPGO9FwRr0t2vrBMHlqdMu7zRqYQK7+LN1jjnFfKb7tynAJCktz7ifN1dJYYlJfb5RRAbyE9Ytne/8B+DvF6ewgdjJOa3r5jCpZRoftS1b/d1MP+TrVvMcfp1sXINzt4GeFjwOnQi6fesKOmWxGj7rXx4LfXtqSWZ7mAuGWk0x3NCq9aWxqgSCzT2Kdo7t2HmZxmAkJzv6xsIVY57hQwZev399JAE1iOTUWkiRS7F3sItESIkV+ihu3MwKJfAino3yN8ttT/FLfXwV8dv5lQ24wOdCAgFY81X0pGFk06XnizGIZDk3DbUyVzMfbE9UG2ob1LhkFjfRQkX6NpUpjTp3TCVA7hv23iw7vMLF+sjMdmztVd5/EO+h53hNT3t5AMf+WCqw7lET7K75PbJHukl7+wbW+ZGL7tv4eMtnLm1jJHQadzoD8m6xTWerAL7vuxuzJE76INdkwLXJQVupLUCsW8b4+cIyyp1pWjDBFp4omLHM0yBQp13aSC6W7eU1PoZEnDCevHYFEuhj4gqkqLNWvhK9uABRjqszf4j0zdueRIjnGzKtZkKBDkNaz8KNQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003)(13003099007);
+ SFS:(13230040)(36860700016)(23010399003)(376014)(82310400026)(1800799024)(6133799003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: zEPnANdXFZse9ggGJKJgNfOdWj71xwiz9bsFU3m81Ot61ecPF8+//6Tk5USWs2+0vAZTth/Etk1K4/UIIUI8KdtA4rUQUEe7vdc1Vmv2lpPhOSUyNtW4yfMKogjIf1kMmuVGiYPdfG+Ktxq66DppmzdC2OwOfs3NBx5QY9sHiC9xho6ymGS+nLW8YUozObvOpxlYzVB8wut2TOMciIKDHNZ4hQPKN8hh3XCfJqM5V94BnN24+RO9szNlPV5Zw9n4CBbku84rUVzz6TlB3lKnRXEQmeSYosjEyZeBR7Dc+X+uF4Xyff1E9l4Xjh5aDEYIn88USl0nRHE03Z6QBB7hcrGN8Is4iqyIxaGXTBRhR+0XMiMt6FxaWsIgN9VCqgysOgVRt4OHJ63IQ2ZRaIMPrAV1swxO1iGvPVpW23krVbgqfK/JZIQNh7qjFSa0Tsv1
+X-MS-Exchange-AntiSpam-MessageData-0: AYgdlKG7HOm5FLTz1G9WnvOF2CoKplx8d0gpr4h7C065Mtsun3LvPWKXtoaYNa8yysPT7mTNb0+JUa+dg2/zSwQRBJ7stbDe7I7Z8qM1inzVliJ9s+o5/VrY7iI5JWrkPLZXkRIdfkwIF7mia7O+0/KEnCN7LWGYlV7fRuvN87r8itkSaw2SgMftEoedMGL4CGqN4BtLyGuy4Lf7rAcUc7qS/1rYJwAsiEdObQ/El8OiL2eQfWox96Qm+glxedLK8XEX91Qn3JpHmXIDmXwfvEdkTKocJeN2r5mYolcUGkVZtyoFoCPDwFqxZ3DFN9DaCcfS6lyGuwNZLO6tS694rV6cRIhCRGcgyvYlxDqO+EyMNj2Qt43Yod+mG1NomQCfDbKgUbm1B2pX1LwRUezWh9jkHXsTh7HzP4Gh/X/UNodJlMJvqECgnJuG5NgaVN/O
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 20:19:48.1657 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97416dd4-1660-4664-d0dc-08dee8f7be65
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 20:19:50.2498 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9b203fb4-e1e5-44a2-cb82-08dee8f7bfa3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6A.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7275
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF183341E5B
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,113 +119,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: George Zhang <george.zhang@amd.com>
+From: Alexander Chechik <alexander.chechik@amd.com>
 
-If a plane reaches calculate_mcache_setting with a zero-area viewport,
-calculate_mcache_setting exits early with num_mcaches == 0 and
-mvmpg_width/height == 0. This will cause a divide-by-zero panic and can
-also cause an underflow on num_mcaches.
+[Why]
+mode_support does not require UCLK pstate today, so later PMO optimization
+stages can push a plane's VActive latency-hiding margin below zero without
+rechecking that the config still supports UCLK pstate. This can blank the
+display on high-bandwidth configs.
 
-Fix this by changing calculate_mcache_setting to bool and adding guards
-after each calculate_mcache_row_bytes call. If num_mcaches or
-mvmpg_width/height is zero, return a false. Callers will propagate the
-failure as a rejected mode, which prevents the panic.
+[How]
+Plumb the PMO-selected per-plane pstate method into mode_support and fail
+the config only when UCLK pstate is required (method != na) but not
+supported. For planes committed to a vactive method, require a non-negative
+VActive latency-hiding margin, and skip the check when all streams are
+blanked. No-op the PMO DCN42 pstate test (returning false only on the
+initial candidate so the optimize/FAMS2 stage-3 setup still runs), since
+reserved time is guaranteed by the override and the vactive margin is now
+enforced in core mode_support.
 
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5302
-
-Reviewed-by: Sun peng (Leo) Li <sunpeng.li@amd.com>
 Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: George Zhang <george.zhang@amd.com>
-Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
+Signed-off-by: Alexander Chechik <alexander.chechik@amd.com>
+Signed-off-by: Matthew Stewart <matthew.stewart2@amd.com>
 Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 ---
- .../src/dml2_core/dml2_core_dcn4_calcs.c      | 31 +++++++++++++++----
- 1 file changed, 25 insertions(+), 6 deletions(-)
+ .../dml21/src/dml2_core/dml2_core_dcn4.c      |  8 +++++
+ .../src/dml2_core/dml2_core_dcn4_calcs.c      | 18 +++++++++++
+ .../dml21/src/dml2_pmo/dml2_pmo_dcn42.c       | 32 ++++++-------------
+ 3 files changed, 36 insertions(+), 22 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c
+index 727b01ca18bf..45f1bf5e14bf 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4.c
+@@ -554,6 +554,14 @@ bool core_dcn4_mode_support(struct dml2_core_mode_support_in_out *in_out)
+ 	l->mode_support_ex_params.min_clk_index = in_out->min_clk_index;
+ 	l->mode_support_ex_params.out_evaluation_info = &in_out->mode_support_result.cfg_support_info.clean_me_up.support_info;
+ 
++	for (i = 0; i < l->svp_expanded_display_cfg.num_planes; i++) {
++		if (i < in_out->display_cfg->display_config.num_planes)
++			core->clean_me_up.mode_lib.ms.uclk_pstate_switch_modes[i] =
++				in_out->display_cfg->stage3.pstate_switch_modes[i];
++		else
++			core->clean_me_up.mode_lib.ms.uclk_pstate_switch_modes[i] = dml2_pstate_method_na;
++	}
++
+ 	result = dml2_core_calcs_mode_support_ex(&l->mode_support_ex_params);
+ 
+ 	in_out->mode_support_result.cfg_support_info.is_supported = result;
 diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-index fa78016b32fc..110ab26a6a39 100644
+index 110ab26a6a39..da9a1c4e2bdc 100644
 --- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
 +++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-@@ -2453,7 +2453,7 @@ static void calculate_mcache_row_bytes(
- 	DML_ASSERT(*p->num_mcaches > 0);
- }
+@@ -9637,6 +9637,22 @@ static bool dml_core_mode_support(struct dml2_core_calcs_mode_support_ex *in_out
+ 	DML_LOG_VERBOSE("DML::%s: ROBSupport = %u\n", __func__, mode_lib->ms.support.ROBSupport);
+ #endif
  
--static void calculate_mcache_setting(
-+static bool calculate_mcache_setting(
- 	struct dml2_core_internal_scratch *scratch,
- 	struct dml2_core_calcs_calculate_mcache_setting_params *p)
- {
-@@ -2479,7 +2479,7 @@ static void calculate_mcache_setting(
- 	*p->lc_comb_mcache = 0;
- 
- 	if (!p->dcc_enable)
--		return;
-+		return true;
- 
- 	l->is_dual_plane = dml_is_420(p->source_format) || p->source_format == dml2_rgbe_alpha;
- 
-@@ -2516,7 +2516,14 @@ static void calculate_mcache_setting(
- 	l->l_p.mvmpg_per_mcache_lb = &l->mvmpg_per_mcache_lb_l;
- 
- 	calculate_mcache_row_bytes(scratch, &l->l_p);
--	DML_ASSERT(*p->num_mcaches_l > 0);
-+	if (*p->num_mcaches_l == 0 ||
-+	    (p->surf_vert ? l->mvmpg_height_l : l->mvmpg_width_l) == 0) {
-+		DML_LOG_VERBOSE("DML::%s: degenerate luma viewport (num_mcaches_l=%u mvmpg_%s_l=%u) — mode not supported\n",
-+			__func__, *p->num_mcaches_l,
-+			p->surf_vert ? "height" : "width",
-+			p->surf_vert ? l->mvmpg_height_l : l->mvmpg_width_l);
-+		return false;
-+	}
- 
- 	if (l->is_dual_plane) {
- 		l->c_p.num_chans = p->num_chans;
-@@ -2552,7 +2559,14 @@ static void calculate_mcache_setting(
- 		l->c_p.mvmpg_per_mcache_lb = &l->mvmpg_per_mcache_lb_c;
- 
- 		calculate_mcache_row_bytes(scratch, &l->c_p);
--		DML_ASSERT(*p->num_mcaches_c > 0);
-+		if (*p->num_mcaches_c == 0 ||
-+		    (p->surf_vert ? l->mvmpg_height_c : l->mvmpg_width_c) == 0) {
-+			DML_LOG_VERBOSE("DML::%s: degenerate chroma viewport (num_mcaches_c=%u mvmpg_%s_c=%u) — mode not supported\n",
-+				__func__, *p->num_mcaches_c,
-+				p->surf_vert ? "height" : "width",
-+				p->surf_vert ? l->mvmpg_height_c : l->mvmpg_width_c);
-+			return false;
++	mode_lib->ms.support.global_dram_clock_change_support_required = false;
++
++	if (!display_cfg->overrides.all_streams_blanked) {
++		for (k = 0; k < mode_lib->ms.num_active_planes; k++) {
++			if (mode_lib->ms.uclk_pstate_switch_modes[k] == dml2_pstate_method_na)
++				continue;
++
++			mode_lib->ms.support.global_dram_clock_change_support_required = true;
++
++			if ((mode_lib->ms.uclk_pstate_switch_modes[k] == dml2_pstate_method_vactive ||
++					mode_lib->ms.uclk_pstate_switch_modes[k] == dml2_pstate_method_fw_vactive_drr) &&
++					mode_lib->ms.VActiveLatencyHidingMargin[k] < 0)
++				mode_lib->ms.support.global_dram_clock_change_supported = false;
 +		}
++	}
++
+ 	/*Mode Support, Voltage State and SOC Configuration*/
+ 	{
+ 		if (mode_lib->ms.support.ScaleRatioAndTapsSupport
+@@ -9683,6 +9699,8 @@ static bool dml_core_mode_support(struct dml2_core_calcs_mode_support_ex *in_out
+ 			&& mode_lib->ms.support.DCCMetaBufferSizeNotExceeded
+ 			&& !mode_lib->ms.support.ExceededMALLSize
+ 			&& mode_lib->ms.support.g6_temp_read_support
++			&& (mode_lib->ms.support.global_dram_clock_change_supported
++				|| !mode_lib->ms.support.global_dram_clock_change_support_required)
+ 			&& ((!display_cfg->hostvm_enable && !s->ImmediateFlipRequired) || mode_lib->ms.support.ImmediateFlipSupport)) {
+ 			DML_LOG_VERBOSE("DML::%s: mode is supported\n", __func__);
+ 			mode_lib->ms.support.ModeSupport = true;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_pmo/dml2_pmo_dcn42.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_pmo/dml2_pmo_dcn42.c
+index 790aef95caa6..57a6a7d5b740 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_pmo/dml2_pmo_dcn42.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_pmo/dml2_pmo_dcn42.c
+@@ -13,8 +13,6 @@
+  * configurations, ensuring p-state watermark support in the blank period only.
+  */
+ 
+-static const double MIN_VACTIVE_MARGIN_PCT = 0.25; // We need more than non-zero margin because DET buffer granularity can alter vactive latency hiding
+-
+ static const struct dml2_pmo_pstate_strategy dcn42_strategy_list_1_display[] = {
+ 	// VBlank only
+ 	{
+@@ -179,7 +177,7 @@ bool pmo_dcn42_init_for_pstate_support(struct dml2_pmo_init_for_pstate_support_i
+ 
+ 	// Figure out which streams can do vactive, and also build up implicit SVP and FAMS2 meta
+ 	for (stream_index = 0; stream_index < display_config->display_config.num_streams; stream_index++) {
+-		if (dcn4_get_vactive_pstate_margin(display_config, s->pmo_dcn4.stream_plane_mask[stream_index]) >= (int)(MIN_VACTIVE_MARGIN_PCT * pmo->soc_bb->power_management_parameters.dram_clk_change_blackout_us))
++		if (dcn4_get_vactive_pstate_margin(display_config, s->pmo_dcn4.stream_plane_mask[stream_index]) >= 0)
+ 			dcn42_set_bit_in_bitfield(&s->pmo_dcn4.stream_vactive_capability_mask, stream_index);
  	}
  
- 	// Sharing for iMALL access
-@@ -2662,6 +2676,7 @@ static void calculate_mcache_setting(
+@@ -259,27 +257,17 @@ bool pmo_dcn42_fams2_optimize_for_pstate_support(struct dml2_pmo_optimize_for_ps
  
- 	*p->mcache_shift_granularity_l = l->mvmpg_access_width_l;
- 	*p->mcache_shift_granularity_c = l->mvmpg_access_width_c;
+ bool pmo_dcn42_test_for_pstate_support(struct dml2_pmo_test_for_pstate_support_in_out *in_out)
+ {
+-	const struct dml2_pmo_scratch *s = &in_out->instance->scratch;
+-	bool p_state_supported = true;
+-	unsigned int stream_index;
+-
+-	if (s->pmo_dcn4.cur_pstate_candidate < 0)
++	/* Return false on the initial candidate (cur_pstate_candidate == -1) so the
++	 * optimization phase runs at least one optimize iteration; otherwise the
++	 * FAMS2/stage-3 setup in the optimize callback is skipped.
++	 */
++	if (in_out->instance->scratch.pmo_dcn4.cur_pstate_candidate < 0)
+ 		return false;
+ 
+-	for (stream_index = 0; stream_index < in_out->base_display_config->display_config.num_streams; stream_index++) {
+-		if (s->pmo_dcn4.pstate_strategy_candidates[s->pmo_dcn4.cur_pstate_candidate].per_stream_pstate_method[stream_index] == dml2_pstate_method_vactive) {
+-			if (dcn4_get_minimum_reserved_time_us_for_planes(in_out->base_display_config, s->pmo_dcn4.stream_plane_mask[stream_index]) < (int)in_out->instance->soc_bb->power_management_parameters.dram_clk_change_blackout_us ||
+-			    dcn4_get_vactive_pstate_margin(in_out->base_display_config, s->pmo_dcn4.stream_plane_mask[stream_index]) < (int)(MIN_VACTIVE_MARGIN_PCT * in_out->instance->soc_bb->power_management_parameters.dram_clk_change_blackout_us)) {
+-				p_state_supported = false;
+-				break;
+-			}
+-		} else {
+-			p_state_supported = false;
+-			break;
+-		}
+-	}
+-
+-	return p_state_supported;
++	/* No-op: reserved time is guaranteed by the override and vactive p-state
++	 * margin is now enforced in core mode support.
++	 */
 +	return true;
  }
  
- static void calculate_mall_bw_overhead_factor(
-@@ -9490,7 +9505,10 @@ static bool dml_core_mode_support(struct dml2_core_calcs_mode_support_ex *in_out
- 			calculate_mcache_setting_params->mall_comb_mcache_c = &mode_lib->ms.mall_comb_mcache_c[k];
- 			calculate_mcache_setting_params->lc_comb_mcache = &mode_lib->ms.lc_comb_mcache[k];
- 
--			calculate_mcache_setting(&mode_lib->scratch, calculate_mcache_setting_params);
-+			if (!calculate_mcache_setting(&mode_lib->scratch, calculate_mcache_setting_params)) {
-+				mode_lib->ms.support.ModeSupport = false;
-+				return false;
-+			}
- 		}
- 
- 		calculate_mall_bw_overhead_factor(
-@@ -10969,7 +10987,8 @@ static bool dml_core_mode_programming(struct dml2_core_calcs_mode_programming_ex
- 			calculate_mcache_setting_params->mall_comb_mcache_l = &mode_lib->mp.mall_comb_mcache_l[k];
- 			calculate_mcache_setting_params->mall_comb_mcache_c = &mode_lib->mp.mall_comb_mcache_c[k];
- 			calculate_mcache_setting_params->lc_comb_mcache = &mode_lib->mp.lc_comb_mcache[k];
--			calculate_mcache_setting(&mode_lib->scratch, calculate_mcache_setting_params);
-+			if (!calculate_mcache_setting(&mode_lib->scratch, calculate_mcache_setting_params))
-+				return false;
- 		}
- 
- 		calculate_mall_bw_overhead_factor(
+ bool pmo_dcn42_initialize(struct dml2_pmo_initialize_in_out *in_out)
 -- 
 2.53.0
 
