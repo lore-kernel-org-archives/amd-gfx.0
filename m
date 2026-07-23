@@ -4,77 +4,138 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08CC8C53215
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B2C0C5321C
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC9CF10F305;
-	Fri, 24 Jul 2026 07:30:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D9FE10F30B;
+	Fri, 24 Jul 2026 07:30:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RWVTmXDk";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="hEL0345Z";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 134C410E476
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 18:46:00 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-38dfe910e9dso853030a91.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 11:46:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784832359; x=1785437159; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=OFWWMcPCcMgyyaWxMapaPQ6yr5T+tvoKVuXbzZSZnOI=;
- b=RWVTmXDkLv8gS5agl6NX7splrrr2uTltGEi1CRdIUZxZY9eKLA089l5GCrt9F8NTkp
- 3AAEOvSFU4hcJ0txu0eMBTPVc0fEMC9LaqHPebxwRbComF46iCIKVTY2gSk8YqaNXSgE
- kSnsPpKqcF23lJuL84b0UhDOd3IHyJS9YxIHPZcfW3x/dZ5LYxX8B79QqYLHUOpOPTrb
- UrAdFxa7akQ+/6dSmTA2MNlFOsNRDONsaP5GocpOWOmczWup7p/Yn5nx9UfAAiRvW9Oy
- j+92CLB3r1+UYUtcsCSkursoa+wRRvCVwVGE6/6JSJ5Le5s4LGj0x9eSbCd3dnJBsgs7
- 0UjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784832359; x=1785437159;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=OFWWMcPCcMgyyaWxMapaPQ6yr5T+tvoKVuXbzZSZnOI=;
- b=OhXssJDqcHmvu8HEzzAiNYJb1cxrhYirsMQPiSqEbnsqERtxe9//lLaH6/vVhdhjQQ
- OxZyoe8Lz/rs7kCV3bM/89tWcoKCk8WRzXsQxNv57wYhC8jR+hZ2wC6qV++W5O1sOFPZ
- bX1mghDwmmAwm3+micxdUIPu+QSC0D7BVJywZBLOD8gBHJhyPn0W2+mqyTmqqpQCFWj1
- j+xW9vHJ4WdH7KjZxSdtYe4qEH2i4oQfLoh6DBpMawfGhdyzJGbSoLZ+AfOhkvFbvER+
- 4nYYMC9X9bres8ouwhM9n1xJDaqGZiR+B2K14z19fHzUVSLYuXOGnJOR1pVjmgXEaX4V
- KIsw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rrkzze4qwu3GKThnGQ9owB4jwQVdPhiTeiI3ihQuuEosytIMIrNwi+FYcuGMpkoKtJeGMeC9EPW@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzblZwCtmqC1gVaKOn5sE5QqWBFEVuO/XfmRcxcc98q7t4XcmF4
- HXm9UVntqMIJ125fzUHtVm+5NcrnWtN7Pxc+XbZrztBWRSimzxzCuxds
-X-Gm-Gg: AR+sD12J3tS4sy1CVSRoPGn/oc4FNEEcadt6FDPWd9OVpsI3t06nv/MQe2B3RcA929J
- kalz10otqCxKfvEh2c0OFVfupUMS8ZjOJUIfRBSoBMtVLVkxBTOTpBXf7cqhO/eFrpSyVlqk220
- pmVy393KdHIeQVMEJLsMDEwPljCQ8w4QKyGry8XHtxuqCDKDW3tcoSjDXeo4j6suctjGkEpaqXA
- kZVjaSQR07eiRbtIILnud/QHuAx6bQxZNpi5WJvKGOcD2+fdVTSvfMSlpodNsNnWgUsW5b92wxc
- cLVrlZDk52n0Q+RsY9BTdnEDNhlhRyw9oK3HMpWG2aBmBtA8jKmK2g4nYHjzig1IMncxzcHd1UO
- juHzGhsgC7rhnLQZ4mle+n/lzTHawP0hslAsf44ST1G0yGlFdnQdVKuymeejU9+0JPl6LvaWw
-X-Received: by 2002:a17:90b:55c3:b0:38d:fda6:4873 with SMTP id
- 98e67ed59e1d1-38ec64f19b0mr4395595a91.10.1784832359386; 
- Thu, 23 Jul 2026 11:45:59 -0700 (PDT)
-Received: from ubuntu.. ([110.9.142.4]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-38f03af8a45sm308155a91.10.2026.07.23.11.45.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Jul 2026 11:45:58 -0700 (PDT)
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-To: Julia.Lawall@inria.fr, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kenneth Feng <kenneth.feng@amd.com>
-Cc: cocci@inria.fr, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 02/36] drm/amd: remove conditional return with no effect
-Date: Fri, 24 Jul 2026 03:45:04 +0900
-Message-ID: <20260723184538.3888637-3-ekffu200098@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260723184538.3888637-1-ekffu200098@gmail.com>
-References: <20260723184538.3888637-1-ekffu200098@gmail.com>
+Received: from mout.web.de (mout.web.de [212.227.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C2F110F109
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 13:23:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1784813000; x=1785417800; i=spasswolf@web.de;
+ bh=h1G172Wbfq5Nqo8SH5tpgVdYNXUQ7xzhdTX/Yx3s+Os=;
+ h=X-UI-Sender-Class:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+ References:Content-Type:MIME-Version:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=hEL0345ZCR+KRCy2XKkcAzHM1VyWKeAcqDHfU3asCQPI/88ro2Lek3ndRgcUVDo+
+ naKWExLXGs2GWivknhkgML4fFvl1+rN8yMrhHak+cTvcQDg6jDI5MT4AnfebILzVy
+ UEL3ApqdkP1/4ECGmyFpDON5i/ka+xiKeT1gpwjRsy9JPbHfsUl9hNZ7DAmRaxJ+m
+ BcZnhBwHxRK4sLDm0osI8Q8WAL4+GwY6K6PiQRpbxEmuFrU2GfhtFdYMX80xMIBb4
+ NKxIPPzGVmYbEsITQ2O4294x08Snt4IyfGDQgOsX9pA10g5yitv0r/o7JPqHIrG8c
+ jFzUfWTF/37bFnwQ2Q==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1N30ZL-1wzVfZ2ah3-00sm0z; Thu, 23
+ Jul 2026 15:23:20 +0200
+Message-ID: <d24a136539c5931984f4855ad6596ca7aee8ebe2.camel@web.de>
+Subject: Re: [Re] kernel panic during shutdown in v7.2-rc{3,4} and
+ next-20260722 with PREEMPT_RT
+From: Bert Karwatzki <spasswolf@web.de>
+To: linux-kernel@vger.kernel.org, Rafal Ostrowski <rafal.ostrowski@amd.com>
+Cc: linux-next@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, Sebastian Andrzej Siewior
+ <bigeasy@linutronix.de>, Thomas Gleixner	 <tglx@linutronix.de>,
+ spasswolf@web.de
+Date: Thu, 23 Jul 2026 15:23:19 +0200
+In-Reply-To: <20260723131001.11565-1-spasswolf@web.de>
+References: <20260723131001.11565-1-spasswolf@web.de>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.56.2-0+deb13u1 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:HDXwAzK+odJYOo++iTc2jLMMqJTM8Nv2uFVqQK5pPQ7o+sDoHmA
+ /HyRh2B9WVgdVQLY2r4SSucfGb4CWA+tUp58LSOMqMkzcslHdIj05jK8OeqczZyTNwkYusM
+ NVUherRpf0NmK7wMaM1CkgUq1aJrURXizmYIutR8oDw8ny0K2dcd91HmBpnIKlu+WvNQNra
+ psII8m988FcGfpPGP/5hQ==
+UI-OutboundReport: notjunk:1;M01:P0:+GnoH5/lZ10=;zUNWzszV6Dhc8whIlKRl5tiyPPb
+ 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
+ 5gjcvji530eF
 X-Mailman-Approved-At: Fri, 24 Jul 2026 07:30:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,653 +151,466 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Both branches of the check return the same value, so the check has
-no effect. Remove it and return the value directly.
+Am Donnerstag, dem 23.07.2026 um 15:10 +0200 schrieb Bert Karwatzki:
+> I was able to gather the panic error message from a failed shutdown via =
+netconsole,
+> this time the kernel used was v7.2-rc3:
+> #
+> Bert Karwatzki
 
-This is the result of running the Coccinelle script from
-scripts/coccinelle/misc/cond_return_no_effect.cocci.
+Unfortunatetly I can now reproduce these kernel panics in v7.1:
 
-Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         |  6 +---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         |  6 +---
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       |  6 +---
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      |  6 +---
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |  6 +---
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |  6 +---
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |  6 +---
- drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c         |  6 +---
- drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c         |  6 +---
- drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c         |  6 +---
- drivers/gpu/drm/amd/amdgpu/vce_v4_0.c         |  6 +---
- drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    | 32 +++++++------------
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |  6 +---
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  6 +---
- .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |  6 +---
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |  6 +---
- .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    | 19 ++++-------
- .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  |  7 ++--
- .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |  7 ++--
- .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |  6 +---
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    | 19 ++++-------
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  6 +---
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 10 ++----
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |  6 +---
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c    | 19 ++++-------
- .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  |  6 +---
- .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c    |  9 ++----
- .../drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c  | 16 ++--------
- 28 files changed, 60 insertions(+), 192 deletions(-)
+T1581;BUG: scheduling while atomic: Xorg/1581/0x00000003
+T1581,ncfrag=3D0/979;Modules linked in: netconsole ccm snd_seq_dummy snd_h=
+rtimer snd_seq nls_ascii nls_cp437 vfat fat joydev snd_usb_audio mt7925e m=
+t7925_common
+snd_usbmidi_lib mt792x_lib snd_ump mt76_connac_lib snd_rawmidi mt76 snd_se=
+q_device intel_rapl_msr iosf_mbi intel_rapl_common snd_hda_codec_atihdmi m=
+ac80211 rapl
+wmi_bmof snd_hda_codec_hdmi snd_hda_intel snd_hda_codec pcspkr libarc4 snd=
+_hda_core cfg80211 snd_intel_dspcfg snd_hwdep snd_pcm snd_timer snd rfkill=
+ soundcore
+aead evdev spd5118 regmap_i2c ccp k10temp nct6775 nct6775_core hwmon_vid c=
+onfigfs efi_pstore efivarfs autofs4 ext4 mbcache jbd2 amdgpu hid_generic
+drm_client_lib i2c_algo_bit drm_buddy drm_ttm_helper ttm usbhid drm_exec d=
+rm_suballoc_helper mfd_core hid drm_panel_backlight_quirks gpu_sched amdxc=
+p
+drm_display_helper drm_kms_helper ahci libahci xhci_pci drm libata xhci_hc=
+d nvme scsi_mod usbcore igc nvme_core video cec scsi_common nvme_keyring c=
+rc16
+nvme_auth i2c_piix4 gpio_amdpt usb_common i2c
+T1581,ncfrag=3D955/979;_smbus gpio_generic wmi
+T1581;CPU: 19 UID: 0 PID: 1581 Comm: Xorg Not tainted 7.1.0-stable #1241 P=
+REEMPT_{RT,(full)}=20
+T1581;Hardware name: ASUS System Product Name/ROG STRIX B850-F GAMING WIFI=
+, BIOS 1627 02/05/2026
+T1581;Call Trace:
+T1581; <TASK>
+T1581; ? dump_stack_lvl+0x4b/0x70
+T1581; ? __schedule_bug.cold+0x3e/0x4a
+T1581; ? __schedule+0xf6f/0x1700
+T1581; ? try_to_take_rt_mutex+0x191/0x300
+T1581; ? rtlock_slowlock_locked+0x39/0xe50
+T1581; ? schedule_rtlock+0x15/0x30
+T1581; ? rtlock_slowlock_locked+0x30b/0xe50
+T1581; ? rt_spin_lock+0xc3/0x120
+T1581; ? get_page_from_freelist+0x221/0x15f0
+T1581; ? dc_link_get_highest_encoding_format+0x61/0xb0 [amdgpu]
+T1581; ? __alloc_frozen_pages_noprof+0x146/0x2b0
+T1581; ? ___kmalloc_large_node+0xae/0xd0
+T1581; ? __kvmalloc_node_noprof+0x398/0x540
+T1581; ? dcn401_build_pipe_pix_clk_params+0x10a/0x1f0 [amdgpu]
+T1581; ? dc_create_plane_state+0x24/0x80 [amdgpu]
+T1581; ? dc_state_create_phantom_plane+0x15/0x50 [amdgpu]
+T1581; ? dml21_handle_phantom_streams_planes+0x292/0x510 [amdgpu]
+T1581; ? dml21_mode_check_and_programming+0x157/0x7e0 [amdgpu]
+T1581; ? sysvec_call_function_single+0xe/0x80
+T1581; ? asm_sysvec_call_function_single+0x1a/0x20
+T1581; ? try_to_take_rt_mutex+0x191/0x300
+T1581; ? calculate_plane_rec_in_timing_active+0x142/0x1f0 [amdgpu]
+T1581; ? spl_calculate_number_of_taps.constprop.0.isra.0+0x142/0xf00 [amdg=
+pu]
+T1581; ? spl_calculate_number_of_taps.constprop.0.isra.0+0xed4/0xf00 [amdg=
+pu]
+T1581; ? dcn401_validate_bandwidth+0xb8/0x1f0 [amdgpu]
+T1581; ? dc_validate_with_context+0x5cf/0x6b0 [amdgpu]
+T1581; ? dc_commit_streams+0x27c/0x4e0 [amdgpu]
+T1581; ? amdgpu_dm_atomic_commit_tail+0x4ec/0x3610 [amdgpu]
+T1581; ? optc1_get_crtc_scanoutpos+0x5f/0xa0 [amdgpu]
+T1581; ? dc_stream_get_scanoutpos+0x7a/0xc0 [amdgpu]
+T1581; ? amdgpu_display_get_crtc_scanoutpos+0xa5/0x1c0 [amdgpu]
+T1581; ? amdgpu_display_crtc_idx_to_irq_type+0x30/0x30 [amdgpu]
+T1581; ? amdgpu_crtc_get_scanout_position+0x23/0x30 [amdgpu]
+T1581; ? drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x176/0x3a0 =
+[drm]
+T1581; ? wait_for_completion_timeout+0x127/0x170
+T1581; ? drm_crtc_get_last_vbltimestamp+0x50/0x80 [drm]
+T1581; ? commit_tail+0xad/0x140 [drm_kms_helper]
+T1581; ? drm_atomic_helper_commit+0x137/0x180 [drm_kms_helper]
+T1581; ? drm_atomic_commit+0xac/0xe0 [drm]
+T1581; ? __drm_universal_plane_init.cold+0x12/0x12 [drm]
+T1581; ? drm_atomic_helper_set_config+0x6f/0xb0 [drm_kms_helper]
+T1581; ? drm_mode_setcrtc+0x443/0x8b0 [drm]
+T1581; ? __schedule+0x389/0x1700
+T1581; ? rt_spin_lock+0x35/0x120
+T1581; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1581; ? drm_ioctl_kernel+0xa1/0xf0 [drm]
+T1581; ? drm_ioctl+0x27f/0x520 [drm]
+T1581; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1581; ? amdgpu_drm_ioctl+0x45/0x80 [amdgpu]
+T1581; ? __x64_sys_ioctl+0x92/0xe0
+T1581; ? do_syscall_64+0xdd/0x5d0
+T1581; ? switch_fpu_return+0x42/0x70
+T1581; ? handle_irq_event+0x4c/0x80
+T1581; ? do_syscall_64+0x94/0x5d0
+T1581; ? entry_SYSCALL_64_after_hwframe+0x55/0x5d
+T1581; </TASK>
+T1581;------------[ cut here ]------------
+T1581;WARNING: drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/dc_fpu.c:12=
+6 at dc_fpu_end+0x36/0x40 [amdgpu], CPU#20: Xorg/1581
+T1581,ncfrag=3D0/979;Modules linked in: netconsole ccm snd_seq_dummy snd_h=
+rtimer snd_seq nls_ascii nls_cp437 vfat fat joydev snd_usb_audio mt7925e m=
+t7925_common
+snd_usbmidi_lib mt792x_lib snd_ump mt76_connac_lib snd_rawmidi mt76 snd_se=
+q_device intel_rapl_msr iosf_mbi intel_rapl_common snd_hda_codec_atihdmi m=
+ac80211 rapl
+wmi_bmof snd_hda_codec_hdmi snd_hda_intel snd_hda_codec pcspkr libarc4 snd=
+_hda_core cfg80211 snd_intel_dspcfg snd_hwdep snd_pcm snd_timer snd rfkill=
+ soundcore
+aead evdev spd5118 regmap_i2c ccp k10temp nct6775 nct6775_core hwmon_vid c=
+onfigfs efi_pstore efivarfs autofs4 ext4 mbcache jbd2 amdgpu hid_generic
+drm_client_lib i2c_algo_bit drm_buddy drm_ttm_helper ttm usbhid drm_exec d=
+rm_suballoc_helper mfd_core hid drm_panel_backlight_quirks gpu_sched amdxc=
+p
+drm_display_helper drm_kms_helper ahci libahci xhci_pci drm libata xhci_hc=
+d nvme scsi_mod usbcore igc nvme_core video cec scsi_common nvme_keyring c=
+rc16
+nvme_auth i2c_piix4 gpio_amdpt usb_common i2c
+T1581,ncfrag=3D955/979;_smbus gpio_generic wmi
+T1581;CPU: 20 UID: 0 PID: 1581 Comm: Xorg Tainted: G        W           7.=
+1.0-stable #1241 PREEMPT_{RT,(full)}=20
+T1581;Tainted: [W]=3DWARN
+T1581;Hardware name: ASUS System Product Name/ROG STRIX B850-F GAMING WIFI=
+, BIOS 1627 02/05/2026
+T1581;RIP: 0010:dc_fpu_end+0x36/0x40 [amdgpu]
+T1581;Code: 05 0f 2b f7 d6 ff c8 74 10 78 1f 65 ff 0d 32 1b f6 d6 74 0c c3=
+ cc cc cc cc e8 96 f7 f2 d5 eb eb e8 4f 65 f1 d5 c3 cc cc cc cc <0f> 0b eb=
+ dd 66 0f 1f
+44 00 00 41 56 41 55 41 54 55 53 48 83 ec 10
+T1581;RSP: 0018:ffff9d3305d835b8 EFLAGS: 00010296
+T1581;RAX: 00000000ffffffff RBX: ffff8face4600000 RCX: 0000000000000008
+T1581;RDX: 0000000000000000 RSI: 00000000000006a4 RDI: ffffffffc15999d0
+T1581;RBP: 0000000000000001 R08: 0000000000000000 R09: 0000000000000001
+T1581;R10: ffff8face4600000 R11: 0000000000000002 R12: ffff8fac0d6c0000
+T1581;R13: ffff8faca1000000 R14: 0000000000000000 R15: ffff8faca1000000
+T1581;FS:  00007ff40af34b80(0000) GS:ffff8fbba5c76000(0000) knlGS:00000000=
+00000000
+T1581;CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+T1581;CR2: 0000559cb13d5018 CR3: 0000000120bd9000 CR4: 0000000000f50ef0
+T1581;PKRU: 55555554
+T1581;Call Trace:
+T1581; <TASK>
+T1581; ? dcn401_validate_bandwidth+0xd1/0x1f0 [amdgpu]
+T1581; ? dc_validate_with_context+0x5cf/0x6b0 [amdgpu]
+T1581; ? dc_commit_streams+0x27c/0x4e0 [amdgpu]
+T1581; ? amdgpu_dm_atomic_commit_tail+0x4ec/0x3610 [amdgpu]
+T1581; ? optc1_get_crtc_scanoutpos+0x5f/0xa0 [amdgpu]
+T1581; ? dc_stream_get_scanoutpos+0x7a/0xc0 [amdgpu]
+T1581; ? amdgpu_display_get_crtc_scanoutpos+0xa5/0x1c0 [amdgpu]
+T1581; ? amdgpu_display_crtc_idx_to_irq_type+0x30/0x30 [amdgpu]
+T1581; ? amdgpu_crtc_get_scanout_position+0x23/0x30 [amdgpu]
+T1581; ? drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x176/0x3a0 =
+[drm]
+T1581; ? wait_for_completion_timeout+0x127/0x170
+T1581; ? drm_crtc_get_last_vbltimestamp+0x50/0x80 [drm]
+T1581; ? commit_tail+0xad/0x140 [drm_kms_helper]
+T1581; ? drm_atomic_helper_commit+0x137/0x180 [drm_kms_helper]
+T1581; ? drm_atomic_commit+0xac/0xe0 [drm]
+T1581; ? __drm_universal_plane_init.cold+0x12/0x12 [drm]
+T1581; ? drm_atomic_helper_set_config+0x6f/0xb0 [drm_kms_helper]
+T1581; ? drm_mode_setcrtc+0x443/0x8b0 [drm]
+T1581; ? __schedule+0x389/0x1700
+T1581; ? rt_spin_lock+0x35/0x120
+T1581; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1581; ? drm_ioctl_kernel+0xa1/0xf0 [drm]
+T1581; ? drm_ioctl+0x27f/0x520 [drm]
+T1581; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1581; ? amdgpu_drm_ioctl+0x45/0x80 [amdgpu]
+T1581; ? __x64_sys_ioctl+0x92/0xe0
+T1581; ? do_syscall_64+0xdd/0x5d0
+T1581; ? switch_fpu_return+0x42/0x70
+T1581; ? handle_irq_event+0x4c/0x80
+T1581; ? do_syscall_64+0x94/0x5d0
+T1581; ? entry_SYSCALL_64_after_hwframe+0x55/0x5d
+T1581; </TASK>
+T1581;---[ end trace 0000000000000000 ]---
+T1581;------------[ cut here ]------------
+T1581;WARNING: drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/dc_fpu.c:97=
+ at dc_fpu_begin+0x4f/0x60 [amdgpu], CPU#1: Xorg/1581
+T1581,ncfrag=3D0/979;Modules linked in: netconsole ccm snd_seq_dummy snd_h=
+rtimer snd_seq nls_ascii nls_cp437 vfat fat joydev snd_usb_audio mt7925e m=
+t7925_common
+snd_usbmidi_lib mt792x_lib snd_ump mt76_connac_lib snd_rawmidi mt76 snd_se=
+q_device intel_rapl_msr iosf_mbi intel_rapl_common snd_hda_codec_atihdmi m=
+ac80211 rapl
+wmi_bmof snd_hda_codec_hdmi snd_hda_intel snd_hda_codec pcspkr libarc4 snd=
+_hda_core cfg80211 snd_intel_dspcfg snd_hwdep snd_pcm snd_timer snd rfkill=
+ soundcore
+aead evdev spd5118 regmap_i2c ccp k10temp nct6775 nct6775_core hwmon_vid c=
+onfigfs efi_pstore efivarfs autofs4 ext4 mbcache jbd2 amdgpu hid_generic
+drm_client_lib i2c_algo_bit drm_buddy drm_ttm_helper ttm usbhid drm_exec d=
+rm_suballoc_helper mfd_core hid drm_panel_backlight_quirks gpu_sched amdxc=
+p
+drm_display_helper drm_kms_helper ahci libahci xhci_pci drm libata xhci_hc=
+d nvme scsi_mod usbcore igc nvme_core video cec scsi_common nvme_keyring c=
+rc16
+nvme_auth i2c_piix4 gpio_amdpt usb_common i2c
+T1581,ncfrag=3D955/979;_smbus gpio_generic wmi
+T1581;CPU: 1 UID: 0 PID: 1581 Comm: Xorg Tainted: G        W           7.1=
+.0-stable #1241 PREEMPT_{RT,(full)}=20
+T1581;Tainted: [W]=3DWARN
+T1581;Hardware name: ASUS System Product Name/ROG STRIX B850-F GAMING WIFI=
+, BIOS 1627 02/05/2026
+T1581;RIP: 0010:dc_fpu_begin+0x4f/0x60 [amdgpu]
+T1581;Code: d0 75 27 65 ff 05 81 1b f6 d6 b8 01 00 00 00 65 0f c1 05 44 2b=
+ f7 d6 85 c0 74 05 c3 cc cc cc cc bf 02 00 00 00 e9 51 f8 f2 d5 <0f> 0b eb=
+ d5 66 90 66
+66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 d6 b8
+T1581;RSP: 0018:ffff9d3305d83640 EFLAGS: 00010206
+T1581;RAX: 0000000000ff0000 RBX: ffff8fad48480000 RCX: ffff8face86d3e28
+T1581;RDX: 0000000000ff0000 RSI: 000000000000011f RDI: ffffffffc15bcda0
+T1581;RBP: ffff8fad65380000 R08: ffffffff97b01fc0 R09: 0000000000000006
+T1581;R10: ffffffff97cb5440 R11: 0000000000000076 R12: ffff8fad48480000
+T1581;R13: 0000000000000001 R14: ffff8faca1000000 R15: 0000000000000000
+T1581;FS:  00007ff40af34b80(0000) GS:ffff8fbba57b6000(0000) knlGS:00000000=
+00000000
+T1581;CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+T1581;CR2: 00007f593eec2478 CR3: 0000000120bd9000 CR4: 0000000000f50ef0
+T1581;PKRU: 55555554
+T1581;Call Trace:
+T1581; <TASK>
+T1581; ? dc_state_create_copy+0x76/0x120 [amdgpu]
+T1581; ? dc_commit_state_no_check+0x271/0xde0 [amdgpu]
+T1581; ? dc_commit_streams+0x2f4/0x4e0 [amdgpu]
+T1581; ? amdgpu_dm_atomic_commit_tail+0x4ec/0x3610 [amdgpu]
+T1581; ? optc1_get_crtc_scanoutpos+0x5f/0xa0 [amdgpu]
+T1581; ? dc_stream_get_scanoutpos+0x7a/0xc0 [amdgpu]
+T1581; ? amdgpu_display_get_crtc_scanoutpos+0xa5/0x1c0 [amdgpu]
+T1581; ? amdgpu_display_crtc_idx_to_irq_type+0x30/0x30 [amdgpu]
+T1581; ? amdgpu_crtc_get_scanout_position+0x23/0x30 [amdgpu]
+T1581; ? drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x176/0x3a0 =
+[drm]
+T1581; ? wait_for_completion_timeout+0x127/0x170
+T1581; ? drm_crtc_get_last_vbltimestamp+0x50/0x80 [drm]
+T1581; ? commit_tail+0xad/0x140 [drm_kms_helper]
+T1581; ? drm_atomic_helper_commit+0x137/0x180 [drm_kms_helper]
+T1581; ? drm_atomic_commit+0xac/0xe0 [drm]
+T1581; ? __drm_universal_plane_init.cold+0x12/0x12 [drm]
+T1581; ? drm_atomic_helper_set_config+0x6f/0xb0 [drm_kms_helper]
+T1581; ? drm_mode_setcrtc+0x443/0x8b0 [drm]
+T1581; ? __schedule+0x389/0x1700
+T1581; ? rt_spin_lock+0x35/0x120
+T1581; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1581; ? drm_ioctl_kernel+0xa1/0xf0 [drm]
+T1581; ? drm_ioctl+0x27f/0x520 [drm]
+T1581; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1581; ? amdgpu_drm_ioctl+0x45/0x80 [amdgpu]
+T1581; ? __x64_sys_ioctl+0x92/0xe0
+T1581; ? do_syscall_64+0xdd/0x5d0
+T1581; ? switch_fpu_return+0x42/0x70
+T1581; ? handle_irq_event+0x4c/0x80
+T1581; ? do_syscall_64+0x94/0x5d0
+T1581; ? entry_SYSCALL_64_after_hwframe+0x55/0x5d
+T1581; </TASK>
+T1581;---[ end trace 0000000000000000 ]---
+T1581;------------[ cut here ]------------
+T1581;kernel BUG at mm/vmalloc.c:3206!
+T1581;Oops: invalid opcode: 0000 [#1] SMP NOPTI
+T1581;CPU: 29 UID: 0 PID: 1581 Comm: Xorg Tainted: G        W           7.=
+1.0-stable #1241 PREEMPT_{RT,(full)}=20
+T1581;Tainted: [W]=3DWARN
+T1581;Hardware name: ASUS System Product Name/ROG STRIX B850-F GAMING WIFI=
+, BIOS 1627 02/05/2026
+T1581;RIP: 0010:__get_vm_area_node+0x113/0x130
+T1581;Code: ff bd ff ff ff ff 48 0f bd e8 b8 0c 00 00 00 ff c5 39 c5 0f 4c=
+ e8 b8 1e 00 00 00 39 c5 0f 4f e8 c4 e2 d1 f7 ee e9 34 ff ff ff <0f> 0b 4c=
+ 89 ef e8 23
+51 01 00 45 31 ed eb ae 0f 1f 00 66 66 2e 0f
+T1581;RSP: 0018:ffff9d3305d834f8 EFLAGS: 00010286
+T1581;RAX: 00000000ffffffff RBX: 0000000000000001 RCX: 0000000000000022
+T1581;RDX: 000000000000000c RSI: 0000000000000001 RDI: 000000000000f720
+T1581;RBP: 000000000000000c R08: ffff9d3300000000 R09: ffffbd32ffffffff
+T1581;R10: 00000000ffffffff R11: 0000000000000076 R12: ffff8fad48480000
+T1581;R13: 0000000000000001 R14: 0000000000000dc0 R15: 000000000000f720
+T1581;FS:  00007ff40af34b80(0000) GS:ffff8fbba5eb6000(0000) knlGS:00000000=
+00000000
+T1581;CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+T1581;CR2: 00007f6ae0f90110 CR3: 0000000120bd9000 CR4: 0000000000f50ef0
+T1581;PKRU: 55555554
+T1581;Call Trace:
+T1581; <TASK>
+T1581; ? __vmalloc_node_range_noprof+0x14a/0x920
+T1581; ? dml21_allocate_memory+0x124/0x180 [amdgpu]
+T1581; ? dml21_allocate_memory+0x124/0x180 [amdgpu]
+T1581; ? exc_invalid_op+0x18/0x70
+T1581; ? __vmalloc_node_noprof+0x47/0x60
+T1581; ? dml21_allocate_memory+0x124/0x180 [amdgpu]
+T1581; ? dml21_allocate_memory+0x124/0x180 [amdgpu]
+T1581; ? dml21_create_copy+0x16/0x40 [amdgpu]
+T1581; ? dc_state_create_copy+0x89/0x120 [amdgpu]
+T1581; ? dc_commit_state_no_check+0x271/0xde0 [amdgpu]
+T1581; ? dc_commit_streams+0x2f4/0x4e0 [amdgpu]
+T1581; ? amdgpu_dm_atomic_commit_tail+0x4ec/0x3610 [amdgpu]
+T1581; ? optc1_get_crtc_scanoutpos+0x5f/0xa0 [amdgpu]
+T1581; ? dc_stream_get_scanoutpos+0x7a/0xc0 [amdgpu]
+T1581; ? amdgpu_display_get_crtc_scanoutpos+0xa5/0x1c0 [amdgpu]
+T1581; ? amdgpu_display_crtc_idx_to_irq_type+0x30/0x30 [amdgpu]
+T1581; ? amdgpu_crtc_get_scanout_position+0x23/0x30 [amdgpu]
+T1581; ? drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x176/0x3a0 =
+[drm]
+T1581; ? wait_for_completion_timeout+0x127/0x170
+T1581; ? drm_crtc_get_last_vbltimestamp+0x50/0x80 [drm]
+T1581; ? commit_tail+0xad/0x140 [drm_kms_helper]
+T1581; ? drm_atomic_helper_commit+0x137/0x180 [drm_kms_helper]
+T1581; ? drm_atomic_commit+0xac/0xe0 [drm]
+T1581; ? __drm_universal_plane_init.cold+0x12/0x12 [drm]
+T1581; ? drm_atomic_helper_set_config+0x6f/0xb0 [drm_kms_helper]
+T1581; ? drm_mode_setcrtc+0x443/0x8b0 [drm]
+T1581; ? __schedule+0x389/0x1700
+T1581; ? rt_spin_lock+0x35/0x120
+T1581; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1581; ? drm_ioctl_kernel+0xa1/0xf0 [drm]
+T1581; ? drm_ioctl+0x27f/0x520 [drm]
+T1581; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1581; ? amdgpu_drm_ioctl+0x45/0x80 [amdgpu]
+T1581; ? __x64_sys_ioctl+0x92/0xe0
+T1581; ? do_syscall_64+0xdd/0x5d0
+T1581; ? switch_fpu_return+0x42/0x70
+T1581; ? handle_irq_event+0x4c/0x80
+T1581; ? do_syscall_64+0x94/0x5d0
+T1581; ? entry_SYSCALL_64_after_hwframe+0x55/0x5d
+T1581; </TASK>
+T1581,ncfrag=3D0/979;Modules linked in: netconsole ccm snd_seq_dummy snd_h=
+rtimer snd_seq nls_ascii nls_cp437 vfat fat joydev snd_usb_audio mt7925e m=
+t7925_common
+snd_usbmidi_lib mt792x_lib snd_ump mt76_connac_lib snd_rawmidi mt76 snd_se=
+q_device intel_rapl_msr iosf_mbi intel_rapl_common snd_hda_codec_atihdmi m=
+ac80211 rapl
+wmi_bmof snd_hda_codec_hdmi snd_hda_intel snd_hda_codec pcspkr libarc4 snd=
+_hda_core cfg80211 snd_intel_dspcfg snd_hwdep snd_pcm snd_timer snd rfkill=
+ soundcore
+aead evdev spd5118 regmap_i2c ccp k10temp nct6775 nct6775_core hwmon_vid c=
+onfigfs efi_pstore efivarfs autofs4 ext4 mbcache jbd2 amdgpu hid_generic
+drm_client_lib i2c_algo_bit drm_buddy drm_ttm_helper ttm usbhid drm_exec d=
+rm_suballoc_helper mfd_core hid drm_panel_backlight_quirks gpu_sched amdxc=
+p
+drm_display_helper drm_kms_helper ahci libahci xhci_pci drm libata xhci_hc=
+d nvme scsi_mod usbcore igc nvme_core video cec scsi_common nvme_keyring c=
+rc16
+nvme_auth i2c_piix4 gpio_amdpt usb_common i2c
+T1581,ncfrag=3D955/979;_smbus gpio_generic wmi
+T1581;---[ end trace 0000000000000000 ]---
+T1581;------------[ cut here ]------------
+T1581;WARNING: kernel/printk/nbcon.c:1739 at nbcon_cpu_emergency_exit+0x85=
+/0xa0, CPU#26: Xorg/1581
+T1581,ncfrag=3D0/979;Modules linked in: netconsole ccm snd_seq_dummy snd_h=
+rtimer snd_seq nls_ascii nls_cp437 vfat fat joydev snd_usb_audio mt7925e m=
+t7925_common
+snd_usbmidi_lib mt792x_lib snd_ump mt76_connac_lib snd_rawmidi mt76 snd_se=
+q_device intel_rapl_msr iosf_mbi intel_rapl_common snd_hda_codec_atihdmi m=
+ac80211 rapl
+wmi_bmof snd_hda_codec_hdmi snd_hda_intel snd_hda_codec pcspkr libarc4 snd=
+_hda_core cfg80211 snd_intel_dspcfg snd_hwdep snd_pcm snd_timer snd rfkill=
+ soundcore
+aead evdev spd5118 regmap_i2c ccp k10temp nct6775 nct6775_core hwmon_vid c=
+onfigfs efi_pstore efivarfs autofs4 ext4 mbcache jbd2 amdgpu hid_generic
+drm_client_lib i2c_algo_bit drm_buddy drm_ttm_helper ttm usbhid drm_exec d=
+rm_suballoc_helper mfd_core hid drm_panel_backlight_quirks gpu_sched amdxc=
+p
+drm_display_helper drm_kms_helper ahci libahci xhci_pci drm libata xhci_hc=
+d nvme scsi_mod usbcore igc nvme_core video cec scsi_common nvme_keyring c=
+rc16
+nvme_auth i2c_piix4 gpio_amdpt usb_common i2c
+T1581,ncfrag=3D955/979;_smbus gpio_generic wmi
+T1581;CPU: 26 UID: 0 PID: 1581 Comm: Xorg Tainted: G      D W           7.=
+1.0-stable #1241 PREEMPT_{RT,(full)}=20
+T1581;Tainted: [D]=3DDIE, [W]=3DWARN
+T1581;Hardware name: ASUS System Product Name/ROG STRIX B850-F GAMING WIFI=
+, BIOS 1627 02/05/2026
+T1581;RIP: 0010:nbcon_cpu_emergency_exit+0x85/0xa0
+T1581;Code: 75 38 48 83 c4 10 c3 cc cc cc cc 48 8d 7c 24 04 e8 e0 ef ff ff=
+ 80 7c 24 05 00 74 ce e8 74 fc ff ff eb c7 e8 0d 86 f2 ff eb c9 <0f> 0b 8b=
+ 05 c3 78 fc
+00 85 c0 75 a2 0f 0b eb b0 e8 46 01 8a 00 66
+T1581;RSP: 0018:ffff9d3305d83368 EFLAGS: 00010246
+T1581;RAX: 0000000000000000 RBX: 000000000000000b RCX: 0000000000000000
+T1581;RDX: ffff8fbb3da9b3c4 RSI: 0000000000000001 RDI: ffff8fbb3da9b200
+T1581;RBP: 0000000000000246 R08: 0000000000000000 R09: 3fffffffffffdfff
+T1581;R10: ffffffff97cd3dc0 R11: ffff9d3305d83170 R12: ffff9d3305d83448
+T1581;R13: ffffffff96ec5913 R14: 0000000000000002 R15: 0000000000000004
+T1581;FS:  00007ff40af34b80(0000) GS:ffff8fbba5df6000(0000) knlGS:00000000=
+00000000
+T1581;CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+T1581;CR2: 00007f4d92ce39d0 CR3: 0000000120bd9000 CR4: 0000000000f50ef0
+T1581;PKRU: 55555554
+T1581;Call Trace:
+T1581; <TASK>
+T1581; ? oops_exit.cold+0x13/0x1f
+T1581; ? oops_end+0x66/0xe0
+T1581; ? do_trap+0xc5/0x110
+T1581; ? do_error_trap+0x60/0x80
+T1581; ? __get_vm_area_node+0x113/0x130
+T1581; ? exc_invalid_op+0x4f/0x70
+T1581; ? __get_vm_area_node+0x113/0x130
+T1581; ? asm_exc_invalid_op+0x1a/0x20
+T1581; ? __get_vm_area_node+0x113/0x130
+T1581; ? __vmalloc_node_range_noprof+0x14a/0x920
+T1581; ? dml21_allocate_memory+0x124/0x180 [amdgpu]
+T1581; ? dml21_allocate_memory+0x124/0x180 [amdgpu]
+T1581; ? exc_invalid_op+0x18/0x70
+T1581; ? __vmalloc_node_noprof+0x47/0x60
+T1581; ? dml21_allocate_memory+0x124/0x180 [amdgpu]
+T1581; ? dml21_allocate_memory+0x124/0x180 [amdgpu]
+T1581; ? dml21_create_copy+0x16/0x40 [amdgpu]
+T1581; ? dc_state_create_copy+0x89/0x120 [amdgpu]
+T1581; ? dc_commit_state_no_check+0x271/0xde0 [amdgpu]
+T1581; ? dc_commit_streams+0x2f4/0x4e0 [amdgpu]
+T1581; ? amdgpu_dm_atomic_commit_tail+0x4ec/0x3610 [amdgpu]
+T1581; ? optc1_get_crtc_scanoutpos+0x5f/0xa0 [amdgpu]
+T1581; ? dc_stream_get_scanoutpos+0x7a/0xc0 [amdgpu]
+T1581; ? amdgpu_display_get_crtc_scanoutpos+0xa5/0x1c0 [amdgpu]
+T1581; ? amdgpu_display_crtc_idx_to_irq_type+0x30/0x30 [amdgpu]
+T1581; ? amdgpu_crtc_get_scanout_position+0x23/0x30 [amdgpu]
+T1581; ? drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x176/0x3a0 =
+[drm]
+T1581; ? wait_for_completion_timeout+0x127/0x170
+T1581; ? drm_crtc_get_last_vbltimestamp+0x50/0x80 [drm]
+T1581; ? commit_tail+0xad/0x140 [drm_kms_helper]
+T1581; ? drm_atomic_helper_commit+0x137/0x180 [drm_kms_helper]
+T1581; ? drm_atomic_commit+0xac/0xe0 [drm]
+T1581; ? __drm_universal_plane_init.cold+0x12/0x12 [drm]
+T1581; ? drm_atomic_helper_set_config+0x6f/0xb0 [drm_kms_helper]
+T1581; ? drm_mode_setcrtc+0x443/0x8b0 [drm]
+T1581; ? __schedule+0x389/0x1700
+T1581; ? rt_spin_lock+0x35/0x120
+T1581; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1581; ? drm_ioctl_kernel+0xa1/0xf0 [drm]
+T1581; ? drm_ioctl+0x27f/0x520 [drm]
+T1581; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1581; ? amdgpu_drm_ioctl+0x45/0x80 [amdgpu]
+T1581; ? __x64_sys_ioctl+0x92/0xe0
+T1581; ? do_syscall_64+0xdd/0x5d0
+T1581; ? switch_fpu_return+0x42/0x70
+T1581; ? handle_irq_event+0x4c/0x80
+T1581; ? do_syscall_64+0x94/0x5d0
+T1581; ? entry_SYSCALL_64_after_hwframe+0x55/0x5d
+T1581; </TASK>
+T1581;---[ end trace 0000000000000000 ]---
+C19;RIP: 0010:__get_vm_area_node+0x113/0x130
+C28;Code: ff bd ff ff ff ff 48 0f bd e8 b8 0c 00 00 00 ff c5 39 c5 0f 4c e=
+8 b8 1e 00 00 00 39 c5 0f 4f e8 c4 e2 d1 f7 ee e9 34 ff ff ff <0f> 0b 4c 8=
+9 ef e8 23
+51 01 00 45 31 ed eb ae 0f 1f 00 66 66 2e 0f
+C28;RSP: 0018:ffff9d3305d834f8 EFLAGS: 00010286
+C28;RAX: 00000000ffffffff RBX: 0000000000000001 RCX: 0000000000000022
+C28;RDX: 000000000000000c RSI: 0000000000000001 RDI: 000000000000f720
+C28;RBP: 000000000000000c R08: ffff9d3300000000 R09: ffffbd32ffffffff
+C28;R10: 00000000ffffffff R11: 0000000000000076 R12: ffff8fad48480000
+C28;R13: 0000000000000001 R14: 0000000000000dc0 R15: 000000000000f720
+C28;FS:  00007ff40af34b80(0000) GS:ffff8fbba5e76000(0000) knlGS:0000000000=
+000000
+C28;CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+C28;CR2: 00007f6ae2fa7010 CR3: 0000000120bd9000 CR4: 0000000000f50ef0
+C28;PKRU: 55555554
+T1581;Kernel panic - not syncing: Fatal exception in interrupt
+T1581;Kernel Offset: 0x15a00000 from 0xffffffff81000000 (relocation range:=
+ 0xffffffff80000000-0xffffffffbfffffff)
+T1581;---[ end Kernel panic - not syncing: Fatal exception in interrupt ]-=
+=2D-
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-index 65b8497ad5f0..c64c79db3016 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
-@@ -4482,11 +4482,7 @@ static int gfx_v7_0_hw_init(struct amdgpu_ip_block *ip_block)
- 	if (r)
- 		return r;
- 
--	r = gfx_v7_0_cp_resume(adev);
--	if (r)
--		return r;
--
--	return r;
-+	return gfx_v7_0_cp_resume(adev);
- }
- 
- static int gfx_v7_0_hw_fini(struct amdgpu_ip_block *ip_block)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-index 1cad6dc9476e..5baacf86facb 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
-@@ -1614,11 +1614,7 @@ static int gfx_v9_0_init_microcode(struct amdgpu_device *adev)
- 	if (r)
- 		return r;
- 
--	r = gfx_v9_0_init_cp_compute_microcode(adev, ucode_prefix);
--	if (r)
--		return r;
--
--	return r;
-+	return gfx_v9_0_init_cp_compute_microcode(adev, ucode_prefix);
- }
- 
- static u32 gfx_v9_0_get_csb_size(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-index 9512fef81d84..22b48f4232b1 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
-@@ -599,11 +599,7 @@ static int gfx_v9_4_3_init_microcode(struct amdgpu_device *adev)
- 	if (r)
- 		return r;
- 
--	r = gfx_v9_4_3_init_cp_compute_microcode(adev, ucode_prefix);
--	if (r)
--		return r;
--
--	return r;
-+	return gfx_v9_4_3_init_cp_compute_microcode(adev, ucode_prefix);
- }
- 
- static void gfx_v9_4_3_mec_fini(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index 6fe3d3d56c40..4dac16bb330c 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -1537,11 +1537,7 @@ static int sdma_v4_4_2_sw_init(struct amdgpu_ip_block *ip_block)
- 	else
- 		DRM_ERROR("Failed to allocated memory for SDMA IP Dump\n");
- 
--	r = amdgpu_sdma_sysfs_reset_mask_init(adev);
--	if (r)
--		return r;
--
--	return r;
-+	return amdgpu_sdma_sysfs_reset_mask_init(adev);
- }
- 
- static int sdma_v4_4_2_sw_fini(struct amdgpu_ip_block *ip_block)
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-index 1ca0e7f65442..5192fe097385 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-@@ -1440,11 +1440,7 @@ static int sdma_v5_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	else
- 		DRM_ERROR("Failed to allocated memory for SDMA IP Dump\n");
- 
--	r = amdgpu_sdma_sysfs_reset_mask_init(adev);
--	if (r)
--		return r;
--
--	return r;
-+	return amdgpu_sdma_sysfs_reset_mask_init(adev);
- }
- 
- static int sdma_v5_0_sw_fini(struct amdgpu_ip_block *ip_block)
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index 81f1e9882177..4ddb8277c37d 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -1358,11 +1358,7 @@ static int sdma_v5_2_sw_init(struct amdgpu_ip_block *ip_block)
- 	else
- 		DRM_ERROR("Failed to allocated memory for SDMA IP Dump\n");
- 
--	r = amdgpu_sdma_sysfs_reset_mask_init(adev);
--	if (r)
--		return r;
--
--	return r;
-+	return amdgpu_sdma_sysfs_reset_mask_init(adev);
- }
- 
- static int sdma_v5_2_sw_fini(struct amdgpu_ip_block *ip_block)
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-index cf3d2997fff8..d41e3720020f 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c
-@@ -1406,11 +1406,7 @@ static int sdma_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
- 		break;
- 	}
- 
--	r = amdgpu_sdma_sysfs_reset_mask_init(adev);
--	if (r)
--		return r;
--
--	return r;
-+	return amdgpu_sdma_sysfs_reset_mask_init(adev);
- }
- 
- static int sdma_v6_0_sw_fini(struct amdgpu_ip_block *ip_block)
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-index 8a9ba2276275..004a8ce8eedc 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c
-@@ -128,11 +128,7 @@ static int uvd_v4_2_sw_init(struct amdgpu_ip_block *ip_block)
- 	if (r)
- 		return r;
- 
--	r = amdgpu_uvd_resume(adev);
--	if (r)
--		return r;
--
--	return r;
-+	return amdgpu_uvd_resume(adev);
- }
- 
- static int uvd_v4_2_sw_fini(struct amdgpu_ip_block *ip_block)
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-index 454f109cbb2e..52700e9048f7 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c
-@@ -121,11 +121,7 @@ static int uvd_v5_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	if (r)
- 		return r;
- 
--	r = amdgpu_uvd_resume(adev);
--	if (r)
--		return r;
--
--	return r;
-+	return amdgpu_uvd_resume(adev);
- }
- 
- static int uvd_v5_0_sw_fini(struct amdgpu_ip_block *ip_block)
-diff --git a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-index 46222fc30be6..3760a06d8ef2 100644
---- a/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c
-@@ -484,11 +484,7 @@ static int uvd_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	if (r)
- 		return r;
- 
--	r = amdgpu_virt_alloc_mm_table(adev);
--	if (r)
--		return r;
--
--	return r;
-+	return amdgpu_virt_alloc_mm_table(adev);
- }
- 
- static int uvd_v7_0_sw_fini(struct amdgpu_ip_block *ip_block)
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-index ee445d8abe47..a2f908f86df3 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v4_0.c
-@@ -491,11 +491,7 @@ static int vce_v4_0_sw_init(struct amdgpu_ip_block *ip_block)
- 			return r;
- 	}
- 
--	r = amdgpu_virt_alloc_mm_table(adev);
--	if (r)
--		return r;
--
--	return r;
-+	return amdgpu_virt_alloc_mm_table(adev);
- }
- 
- static int vce_v4_0_sw_fini(struct amdgpu_ip_block *ip_block)
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-index b763fdf43c60..0d241002df82 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c
-@@ -1075,16 +1075,12 @@ static int kv_populate_samu_table(struct amdgpu_device *adev)
- 	if (ret)
- 		return ret;
- 
--	ret = amdgpu_kv_copy_bytes_to_smc(adev,
--				   pi->dpm_table_start +
--				   offsetof(SMU7_Fusion_DpmTable, SamuLevel),
--				   (u8 *)&pi->samu_level,
--				   sizeof(SMU7_Fusion_ExtClkLevel) * SMU7_MAX_LEVELS_SAMU,
--				   pi->sram_end);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return amdgpu_kv_copy_bytes_to_smc(adev,
-+					   pi->dpm_table_start +
-+					   offsetof(SMU7_Fusion_DpmTable, SamuLevel),
-+					   (u8 *)&pi->samu_level,
-+					   sizeof(SMU7_Fusion_ExtClkLevel) * SMU7_MAX_LEVELS_SAMU,
-+					   pi->sram_end);
- }
- 
- 
-@@ -1134,16 +1130,12 @@ static int kv_populate_acp_table(struct amdgpu_device *adev)
- 	if (ret)
- 		return ret;
- 
--	ret = amdgpu_kv_copy_bytes_to_smc(adev,
--				   pi->dpm_table_start +
--				   offsetof(SMU7_Fusion_DpmTable, AcpLevel),
--				   (u8 *)&pi->acp_level,
--				   sizeof(SMU7_Fusion_ExtClkLevel) * SMU7_MAX_LEVELS_ACP,
--				   pi->sram_end);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return amdgpu_kv_copy_bytes_to_smc(adev,
-+					   pi->dpm_table_start +
-+					   offsetof(SMU7_Fusion_DpmTable, AcpLevel),
-+					   (u8 *)&pi->acp_level,
-+					   sizeof(SMU7_Fusion_ExtClkLevel) * SMU7_MAX_LEVELS_ACP,
-+					   pi->sram_end);
- }
- 
- static void kv_calculate_dfs_bypass_settings(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-index 012227c70600..50973f92ccbf 100644
---- a/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c
-@@ -6989,11 +6989,7 @@ static int si_set_temperature_range(struct amdgpu_device *adev)
- 	ret = si_thermal_set_temperature_range(adev, R600_TEMP_RANGE_MIN, R600_TEMP_RANGE_MAX);
- 	if (ret)
- 		return ret;
--	ret = si_thermal_enable_alert(adev, true);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return si_thermal_enable_alert(adev, true);
- }
- 
- static void si_dpm_disable(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-index f4e817885e54..9c2eb6431727 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -1922,11 +1922,7 @@ static int smu_start_smc_engine(struct smu_context *smu)
- 	 * Send msg GetDriverIfVersion to check if the return value is equal
- 	 * with DRIVER_IF_VERSION of smc header.
- 	 */
--	ret = smu_check_fw_version(smu);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return smu_check_fw_version(smu);
- }
- 
- static int smu_hw_init(struct amdgpu_ip_block *ip_block)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-index db5db2c9c8e8..0dd2dbbfb2cd 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c
-@@ -540,11 +540,7 @@ static int arcturus_setup_pptable(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
--	ret = arcturus_check_powerplay_table(smu);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return arcturus_check_powerplay_table(smu);
- }
- 
- static int arcturus_run_btc(struct smu_context *smu)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-index 8feea44f3ca0..48af342aa549 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c
-@@ -484,11 +484,7 @@ static int navi10_setup_pptable(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
--	ret = navi10_check_powerplay_table(smu);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return navi10_check_powerplay_table(smu);
- }
- 
- static int navi10_tables_init(struct smu_context *smu)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-index a889d846e9c5..8f35ddaabe88 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c
-@@ -528,12 +528,10 @@ int smu_v11_0_notify_memory_pool_location(struct smu_context *smu)
- 					  address_low, NULL);
- 	if (ret)
- 		return ret;
--	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_DramLogSetDramSize,
--					  (uint32_t)memory_pool->size, NULL);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return smu_cmn_send_smc_msg_with_param(smu,
-+					       SMU_MSG_DramLogSetDramSize,
-+					       (uint32_t)memory_pool->size,
-+					       NULL);
- }
- 
- int smu_v11_0_set_min_deep_sleep_dcefclk(struct smu_context *smu, uint32_t clk)
-@@ -1378,13 +1376,8 @@ int smu_v11_0_register_irq_handler(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
--	ret = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_MP1,
--				SMU_IH_INTERRUPT_ID_TO_DRIVER,
--				irq_src);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_MP1,
-+				 SMU_IH_INTERRUPT_ID_TO_DRIVER, irq_src);
- }
- 
- int smu_v11_0_get_max_sustainable_clocks_by_dc(struct smu_context *smu,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-index 016a5c893fee..3350ea1bea24 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c
-@@ -1368,11 +1368,8 @@ static int vangogh_set_peak_clock_by_device(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
--	ret = vangogh_set_soft_freq_limited_range(smu, SMU_DCLK, dclk_freq, dclk_freq, false);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return vangogh_set_soft_freq_limited_range(smu, SMU_DCLK, dclk_freq,
-+						   dclk_freq, false);
- }
- 
- static int vangogh_set_performance_level(struct smu_context *smu,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-index 2b011610e3c7..85f77754a0c0 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c
-@@ -893,11 +893,8 @@ static int renoir_set_peak_clock_by_device(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
--	ret = smu_v12_0_set_soft_freq_limited_range(smu, SMU_UCLK, uclk_freq, uclk_freq, false);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return smu_v12_0_set_soft_freq_limited_range(smu, SMU_UCLK, uclk_freq,
-+						     uclk_freq, false);
- }
- 
- static int renior_set_dpm_profile_freq(struct smu_context *smu,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-index cd7bf36673cb..2a74bb8a7b78 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-@@ -533,11 +533,7 @@ static int aldebaran_setup_pptable(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
--	ret = aldebaran_check_powerplay_table(smu);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return aldebaran_check_powerplay_table(smu);
- }
- 
- static bool aldebaran_is_primary(struct smu_context *smu)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-index 4f10bce36756..a2b0a2f23916 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c
-@@ -583,12 +583,10 @@ int smu_v13_0_notify_memory_pool_location(struct smu_context *smu)
- 					      address_low, NULL);
- 	if (ret)
- 		return ret;
--	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_DramLogSetDramSize,
--					      (uint32_t)memory_pool->size, NULL);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return smu_cmn_send_smc_msg_with_param(smu,
-+					       SMU_MSG_DramLogSetDramSize,
-+					       (uint32_t)memory_pool->size,
-+					       NULL);
- }
- 
- int smu_v13_0_set_driver_table_location(struct smu_context *smu)
-@@ -1281,13 +1279,8 @@ int smu_v13_0_register_irq_handler(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
--	ret = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_MP1,
--				SMU_IH_INTERRUPT_ID_TO_DRIVER,
--				irq_src);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_MP1,
-+				 SMU_IH_INTERRUPT_ID_TO_DRIVER, irq_src);
- }
- 
- int smu_v13_0_get_max_sustainable_clocks_by_dc(struct smu_context *smu,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-index 4ce1429cf57b..0ca404ccb4a9 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c
-@@ -463,11 +463,7 @@ static int smu_v13_0_0_setup_pptable(struct smu_context *smu)
- 			return ret;
- 	}
- 
--	ret = smu_v13_0_0_check_powerplay_table(smu);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return smu_v13_0_0_check_powerplay_table(smu);
- }
- 
- static int smu_v13_0_0_tables_init(struct smu_context *smu)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-index 64db62a8d642..b55626f61be7 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-@@ -1893,7 +1893,6 @@ static int smu_v13_0_6_register_irq_handler(struct smu_context *smu)
- {
- 	struct amdgpu_device *adev = smu->adev;
- 	struct amdgpu_irq_src *irq_src = &smu->irq_source;
--	int ret = 0;
- 
- 	if (amdgpu_sriov_vf(adev))
- 		return 0;
-@@ -1901,13 +1900,8 @@ static int smu_v13_0_6_register_irq_handler(struct smu_context *smu)
- 	irq_src->num_types = 1;
- 	irq_src->funcs = &smu_v13_0_6_irq_funcs;
- 
--	ret = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_MP1,
--				IH_INTERRUPT_ID_TO_DRIVER,
--				irq_src);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_MP1,
-+				 IH_INTERRUPT_ID_TO_DRIVER, irq_src);
- }
- 
- static int smu_v13_0_6_notify_unload(struct smu_context *smu)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-index 5f23f2e7f401..0cc3ec648521 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
-@@ -499,11 +499,7 @@ static int smu_v13_0_7_setup_pptable(struct smu_context *smu)
- 			return ret;
- 	}
- 
--	ret = smu_v13_0_7_check_powerplay_table(smu);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return smu_v13_0_7_check_powerplay_table(smu);
- }
- 
- static int smu_v13_0_7_tables_init(struct smu_context *smu)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-index 2a0c7cde938d..27a3f5d9cba6 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c
-@@ -549,12 +549,10 @@ int smu_v14_0_notify_memory_pool_location(struct smu_context *smu)
- 					      address_low, NULL);
- 	if (ret)
- 		return ret;
--	ret = smu_cmn_send_smc_msg_with_param(smu, SMU_MSG_DramLogSetDramSize,
--					      (uint32_t)memory_pool->size, NULL);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return smu_cmn_send_smc_msg_with_param(smu,
-+					       SMU_MSG_DramLogSetDramSize,
-+					       (uint32_t)memory_pool->size,
-+					       NULL);
- }
- 
- int smu_v14_0_set_driver_table_location(struct smu_context *smu)
-@@ -911,13 +909,8 @@ int smu_v14_0_register_irq_handler(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
--	ret = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_MP1,
--				SMU_IH_INTERRUPT_ID_TO_DRIVER,
--				irq_src);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_MP1,
-+				 SMU_IH_INTERRUPT_ID_TO_DRIVER, irq_src);
- }
- 
- static int smu_v14_0_wait_for_reset_complete(struct smu_context *smu,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-index 0fbcaf884419..0aec08200038 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c
-@@ -366,11 +366,7 @@ static int smu_v14_0_2_setup_pptable(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
--	ret = smu_v14_0_2_check_powerplay_table(smu);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return smu_v14_0_2_check_powerplay_table(smu);
- }
- 
- static int smu_v14_0_2_tables_init(struct smu_context *smu)
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c
-index 046069e93854..cb1602cfab98 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c
-@@ -782,13 +782,8 @@ int smu_v15_0_register_irq_handler(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
--	ret = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_MP1,
--				SMU_IH_INTERRUPT_ID_TO_DRIVER,
--				irq_src);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_MP1,
-+				 SMU_IH_INTERRUPT_ID_TO_DRIVER, irq_src);
- }
- 
- static int smu_v15_0_wait_for_reset_complete(struct smu_context *smu,
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-index 227cd86e13e8..b398e1606177 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-@@ -318,11 +318,7 @@ static int smu_v15_0_8_fini_smc_tables(struct smu_context *smu)
- 	if (ret)
- 		return ret;
- 
--	ret = smu_v15_0_fini_smc_tables(smu);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return smu_v15_0_fini_smc_tables(smu);
- }
- 
- static int smu_v15_0_8_init_allowed_features(struct smu_context *smu)
-@@ -1253,7 +1249,6 @@ static int smu_v15_0_8_register_irq_handler(struct smu_context *smu)
- {
- 	struct amdgpu_device *adev = smu->adev;
- 	struct amdgpu_irq_src *irq_src = &smu->irq_source;
--	int ret = 0;
- 
- 	if (amdgpu_sriov_vf(adev))
- 		return 0;
-@@ -1261,13 +1256,8 @@ static int smu_v15_0_8_register_irq_handler(struct smu_context *smu)
- 	irq_src->num_types = 1;
- 	irq_src->funcs = &smu_v15_0_8_irq_funcs;
- 
--	ret = amdgpu_irq_add_id(adev, SOC_V1_0_IH_CLIENTID_MP1,
--				IH_INTERRUPT_ID_TO_DRIVER,
--				irq_src);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return amdgpu_irq_add_id(adev, SOC_V1_0_IH_CLIENTID_MP1,
-+				 IH_INTERRUPT_ID_TO_DRIVER, irq_src);
- }
- 
- static int smu_v15_0_8_notify_unload(struct smu_context *smu)
--- 
-2.43.0
+So now I'm going to use memtest86+ on my machine and then look at the chan=
+ges I had in
+my userspace as the first error occured on 22.7.2026. Let's hope this does=
+ not escalate ...
 
+Bert Karwatzki
