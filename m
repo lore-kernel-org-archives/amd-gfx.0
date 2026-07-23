@@ -4,57 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 474E5C531D4
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 07:08:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66B21C531C7
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 08:23:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAFA510EFF1;
-	Thu, 23 Jul 2026 07:08:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F133510E548;
+	Thu, 23 Jul 2026 08:23:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="qZBVHTXb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Q6JAf/53";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C68C510EAE7;
- Tue, 21 Jul 2026 18:00:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Subject:Cc:To:From:Date:From:Reply-To;
- bh=5yEiyqBo9BHY5fwhIZBUZYRN1WWovER+0Yiy2s7YlAY=; b=qZBVHTXbu8uP6YWyeqcMV6xIOL
- O66N5rkS0JrrlV1xZSPX1NpAH9OD3ofLXe0Tn2X2ZKx8X6UHv/FRKdKrkpCej7igdMB5i4Rs1oK+g
- RbxzwSB2tvFArnvQwluXjuzX22P2ZULsABD4FjPUZXyZ7GyFsAL4UhZOTqVvaZAnE4VDpCVvXghfY
- TdlVryTHPfXYMNmd7+QiR2YtrRUW5+eQeVejFub9sOh0TmZGICn4hI8/IaRlVQ7i7tPYKovMTGTYt
- 1FRhZ+3QxaKw2Hk1vop/SITCpeTdMEsWRYXYfkMDuHFT+jv6x7f2GevY7rBtuCGMbhkhiCgLFR9Yd
- memidESQ==;
-Received: from 179-125-91-91-dinamico.pombonet.net.br ([179.125.91.91]
- helo=quatroqueijos.cascardo.eti.br)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wmElu-001j3F-HN; Tue, 21 Jul 2026 20:00:51 +0200
-Date: Tue, 21 Jul 2026 15:00:43 -0300
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= via Kernel-dev <kernel-dev@igalia.com>
-Cc: igt-dev@lists.freedesktop.org, siqueira@igalia.com,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com,
- Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Subject: Re: [PATCH i-g-t v4 7/7] tests/dmem_cgroups: add test for dmem.current
-Message-ID: <al-zyxVn0RNpZXq6@quatroqueijos.cascardo.eti.br>
-References: <20260717120447.1837818-1-cascardo@igalia.com>
- <20260717120447.1837818-8-cascardo@igalia.com>
- <93ec79b4fe0ab7d75affdb7c01367ff4400354d2.camel@linux.intel.com>
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010066.outbound.protection.outlook.com
+ [40.93.198.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B905610E548
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 08:23:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lkB6rgI6P6g4zyGWZ9uXzNQc1UvzgZEawXPhf6N0WHHEiPeYIgaPqHaY8Kl6sux3ZExRCi3V6wjFZscjXvH/CzAdoTTq4fwDejSYwYoWMF2teAeLTn5Dy/N2IXgyfvhq/xRde5kQ5GOpuTuSwgxOyCpWv1fswmbqMQwyJ5qbTSOVgomb7LdxgnGkwRycc4aRcch6mLyNQHZCprz11TjpYrmfwXwLpy3tRXD+ViKgp47lnNZh0mLrio56vkxfrjZLdpRRrdqyn6k78kkh0BTeOvtQdmol2SD4ytbzK3D95AXjPkMaNLJJGhetUUAtzkFjr+jxLzZQWwraRJQRAkQf2g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GVhfxXlSolgSkrL0PHcYWTE4XcpLREqIzRn4Sd2vopw=;
+ b=Ugiy3HH05oyEyTN2ZIfHWQGckm6CTmD+/jT71I95LNBTLSBUPbLXEsnUyDcg0k2e8yX/2MfoU1mced8FlNfUYbpNTTTwwrN6VhQ2HC10RSejO3dx0pdUh2IxAopJbpa+glzKVh/d0I81/0uPUNJj1TdFfSK2zbzVQFoN7UwrpM0bgnIz+kWtZ5Yj6e84ox4Mup1BsFqeU2DDAHtogCpIPs+cXVlC7ttvz/JeCfAzQKPX7EoP2bmqq804oyGAGf67VqoxV7e1R0kc/8IGZ8JdmlC1aWsEm0j1lHoxKD5jjZSoKKI/cKn8Rk6Xla4ytxGMo/LIJWKks6/U0yWHIXMPOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GVhfxXlSolgSkrL0PHcYWTE4XcpLREqIzRn4Sd2vopw=;
+ b=Q6JAf/53wKPfoiLsZfephBIdrP1sTePLWmHkyvPbVQ0e5hY+Hl0rGhmkEoMpEkj+iOVIWdavs/608mOkQzw9L9S/dntOo4apNbqNFbkjQ44IG8jCLL4g0NchdF99KpoEZfuaGQowheztnU8O5u9INSPKfFpxBwOGvTMGrIXbhjs=
+Received: from SJ0PR13CA0206.namprd13.prod.outlook.com (2603:10b6:a03:2c3::31)
+ by LV0PR12MB999070.namprd12.prod.outlook.com (2603:10b6:408:32a::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Thu, 23 Jul
+ 2026 08:23:51 +0000
+Received: from SJ1PEPF000026C4.namprd04.prod.outlook.com
+ (2603:10b6:a03:2c3:cafe::e) by SJ0PR13CA0206.outlook.office365.com
+ (2603:10b6:a03:2c3::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Thu,
+ 23 Jul 2026 08:23:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000026C4.mail.protection.outlook.com (10.167.244.101) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 08:23:50 +0000
+Received: from ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 23 Jul
+ 2026 03:23:48 -0500
+From: Zhu Lingshan <lingshan.zhu@amd.com>
+To: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>
+CC: <Ray.Huang@amd.com>, <amd-gfx@lists.freedesktop.org>, Zhu Lingshan
+ <lingshan.zhu@amd.com>
+Subject: [PATCH] drm/amdgpu: ensure all userq VAs mapped before restore
+Date: Thu, 23 Jul 2026 16:23:34 +0800
+Message-ID: <20260723082334.606456-1-lingshan.zhu@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <93ec79b4fe0ab7d75affdb7c01367ff4400354d2.camel@linux.intel.com>
-X-Mailman-Approved-At: Thu, 23 Jul 2026 07:07:46 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C4:EE_|LV0PR12MB999070:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ce973b5-5d9a-439a-3348-08dee893b9d4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|82310400026|36860700016|1800799024|56012099006|11063799006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: Q7lmFM1J5d/sC46wLhf/cPKjnl4d0bVKSc9QAeGQRpeNEvE9gWlvZmN1/N5k/yCzZt+PxYXVJ3q0x8O4MhA8OUF+sHTleWl/WBUJT+6l8ZnQOo0Hid5YV0LtFFyqd2YnOyTgHuKenbQi+O7TJU4hMIlKRN36knJ0FnBgcFT34mPO3R18BZavA6JELmVRcpGhyiu67oGbwNpyG40OZRsA2bWAvokQXC/NbNPLynlYjXBSJAfMOMhW/hAPzDqm/u5Q+3YxuE0frj2F+YM6P56cBpQ9h+KjKh7eR7GXM0s7UAhdmswsoJIsCTtCjBh9dNvGz2oMgEpHbAL1znlP4DyHpbvDQdlX4IFe8z35M6K8kcILNA3PoepdgYSWU2Bnq7xCem1Iz/7AGYAdhkpTjZsbcTFF3Thu2pW1n7FM2hRHHzf9o4Z8MtiEzgWb88mXYKDriKZYXBnsYNy8PlosXU4+cgMuZrSb5UtW5+Ek8+oDopNt/5VKQBym9nDdnGZl0qmr/szODNxtP3k7NFgVnLdlBGFQHXVG8HH7ReTpLH5QB3aWNFKVgi7ZWkvQ7uNjz7tPR9P6y5Vwi9Fuc00VEKhszmR9uHkwze2l3iD63OIf4MSxZTov5ESb84MvPIpBIwlcNH9vF/A31jQpSjzboNHevPWNzlcFQVbL5cWLrKjs/0WQfELgp7pg6c4uPq+3Nt9juUNq9jSwleco7aR3JSRSkA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(82310400026)(36860700016)(1800799024)(56012099006)(11063799006)(10067099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: RWnqlYGeBTwBkWACHzqKFpGbZreImpTzfAGVbS5HBNT6pp0NyNqgWGb/K84qO5xQoGzDBCjp2xTFqcAtscqKDYDetQ9hGXZIXUrCkvIOCb4jz5E3pCd1v681oSjvG5pA/yYJ0KAG6/1SCIvUVdtI3kUNJRz4On2ftkpuB7ZrDSsrxn3F/N+Q/wf7NakExvdEM8J7C1k2tl0KpzCmrXsnJCdDxePDpAVVL0mSUgJwo+ehr/Ox+RM7Ktdr3qTfSq97OZdZkI81PHdr9MPnomnIvXjqnparvktzy/sOFqbZslhZRRh4IyPqdsHDjzKT9WAqL7Fb2wFgQlFVtfHndgGRQ2HmM8O9ozI/tNiUKf0PuOAZUCBtOJPo7we75Y10Mbt/SgULyfr0yUy+XhKQGsn653AUlDhC037xyZRouFwg6yhU3abo1FNRRo9E6Xpy94Yx
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 08:23:50.7433 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ce973b5-5d9a-439a-3348-08dee893b9d4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000026C4.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV0PR12MB999070
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,394 +109,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 17, 2026 at 03:00:33PM +0200, Thomas Hellström via Kernel-dev wrote:
-> On Fri, 2026-07-17 at 09:04 -0300, Thadeu Lima de Souza Cascardo wrote:
-> > Based on the work of Thomas Hellström to test dmem.max eviction, add
-> > a
-> > test for dmem.current usage after allocations and setting dmem.max.
-> > 
-> > Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
-> > check current usage is within a small slack of the expected
-> > allocation.
-> > Then, set max to a small value and check allocations and current
-> > usage
-> > are limited to the max set.  Set max to less than a single BO size,
-> > then
-> > check no allocations are allowed and current usage is also within the
-> > slack. After each allocation, release memory and check current usage
-> > has gone down.
-> > 
-> > Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-> 
-> In what situations do you see the need for a slack? I've seen it only
-> when max is set close to 0. For higher max limit, the slack usage may
-> potentially mask bugs. Is there a way the slack can be activated only
-> when it's needed?
-> 
-> Thanks,
-> Thomas
-> 
+amdgpu_userq_buffer_vas_mapped() checks whether all VAs
+of a queue are mapped before restoring it.
+So that HW won't access any invalid addresses.
 
-I found this was necessary when testing on Xe and I suspected it could be
-related to page tables or some extra pages I noticed in one specific code
-path.
+Currently, this function assumes all VAs are mapped if
+any VA of a queue has been mapped, which is wrong.
 
-Now that I looked more into the logs that I have, I noticed around 56KiB
-extra bytes when allocating as many BOs as possible when there is no max.
-And when releasing them all, 32KiB bytes were still accounted for.
+This commit fixes this problem by examining all VAs of
+a queue and reporting false if any of them is not mapped.
 
-Reading the code, I could not find where these exactly these come from. And
-given I ended up changing the way we allocate memory on Xe due to the
-allocation trigger on write_eviction_interruptible and
-write_eviction_nonblock, this might not even be true.
+Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
-Unfortunately, Rodrigo Siqueira, who helped me run those tests on Xe, is
-not available for the next few weeks, so I will have to chase some other
-discrete Xe GPUs around.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 3fe10d6af757..2b3cb4ec4835 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -280,22 +280,24 @@ static bool amdgpu_userq_buffer_va_mapped(struct amdgpu_vm *vm, u64 addr)
+ 
+ static bool amdgpu_userq_buffer_vas_mapped(struct amdgpu_usermode_queue *queue)
+ {
+-	int i, r = 0;
++	int i;
++	bool mapped;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(queue->userq_vas.va_array); i++) {
+ 		if (!queue->userq_vas.va_array[i])
+ 			continue;
+-		r += amdgpu_userq_buffer_va_mapped(queue->vm,
++
++		mapped = amdgpu_userq_buffer_va_mapped(queue->vm,
+ 						   queue->userq_vas.va_array[i]);
+ 		dev_dbg(queue->userq_mgr->adev->dev,
+ 			"validate the userq mapping:%p va:%llx r:%d\n",
+-			queue, queue->userq_vas.va_array[i], r);
+-	}
++			queue, queue->userq_vas.va_array[i], mapped);
+ 
+-	if (r != 0)
+-		return true;
++		if (!mapped)
++			return false;
++	}
+ 
+-	return false;
++	return true;
+ }
+ 
+ 
+-- 
+2.53.0
 
-I will chase this down and at try to pinpoint exactly where these are
-coming from. They might even point out to a bug.
-
-This might take me a few days. If there is anything else that you want me
-to fix in the meantime, let me know.
-
-Thanks.
-Cascardo.
-
-> 
-> 
-> > ---
-> >  tests/cgroup_dmem.c | 251
-> > +++++++++++++++++++++++++++++++++++++++++++-
-> >  1 file changed, 246 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
-> > index 442c965f9bbf..fa4694b45035 100644
-> > --- a/tests/cgroup_dmem.c
-> > +++ b/tests/cgroup_dmem.c
-> > @@ -1,6 +1,8 @@
-> >  // SPDX-License-Identifier: MIT
-> >  /*
-> >   * Copyright © 2025 Intel Corporation
-> > + * Copyright © 2026 Intel Corporation
-> > + * Copyright 2026 Valve Corporation
-> >   */
-> >  
-> >  /**
-> > @@ -17,10 +19,214 @@
-> >   * Test category: uapi
-> >   */
-> >  
-> > +#include <errno.h>
-> >  #include <inttypes.h>
-> > +#include <signal.h>
-> > +#include <stdatomic.h>
-> > +#include <stdint.h>
-> > +#include <stdlib.h>
-> > +#include <string.h>
-> > +#include <unistd.h>
-> >  
-> > +#include "drmtest.h"
-> >  #include "igt.h"
-> > +#include "igt_aux.h"
-> >  #include "igt_cgroup.h"
-> > +#include "igt_dmem_driver.h"
-> > +
-> > +#define BO_SIZE			SZ_64M
-> > +#define MAX_LIMIT		((uint64_t)4 * SZ_1G)
-> > +#define USAGE_SLACK		SZ_4M		/* tolerance above
-> > the set max */
-> > +#define USAGE_POLL_MS		10
-> > +#define USAGE_DROP_TIMEOUT_MS	1000
-> > +
-> > +/**
-> > + * SUBTEST: simple
-> > + * DESCRIPTION:
-> > + *  Creates a cgroup, moves the process into it, enumerates all dmem
-> > regions,
-> > + *  prints their capacity, system-wide current usage, per-cgroup
-> > current usage
-> > + *  and configured limits, then destroys the cgroup.
-> > + */
-> > +
-> > +/**
-> > + * SUBTEST: current
-> > + * DESCRIPTION:
-> > + *  Create a dmem cgroup, allocate close to capacity (or at most
-> > 4GiB),
-> > + *  check current usage is within a small slack of the expected
-> > allocation.
-> > + *  Then, set max to a small value and check allocations and current
-> > usage
-> > + *  are limited to the max set.
-> > + *  Set max to less than a single BO size, then check no allocations
-> > are allowed
-> > + *  and current usage is also within the slack.
-> > + *  After each allocation, release memory and check current usage
-> > has gone
-> > + *  down.
-> > + * REQUIREMENTS: xe or amdgpu device with at least one VRAM region
-> > + */
-> > +
-> > +static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const
-> > char *region,
-> > +				    uint64_t limit)
-> > +{
-> > +	uint64_t current;
-> > +	unsigned int elapsed = 0;
-> > +
-> > +	do {
-> > +		igt_cgroup_dmem_get_current(cg, region, &current);
-> > +		if (current <= limit)
-> > +			return current;
-> > +		usleep(USAGE_POLL_MS * 1000);
-> > +		elapsed += USAGE_POLL_MS;
-> > +	} while (elapsed < USAGE_DROP_TIMEOUT_MS);
-> > +
-> > +	return current;
-> > +}
-> > +
-> > +static int allocate_vram(const struct igt_dmem_driver *drv, void
-> > *ctx, int fd, int max_bo, size_t len)
-> > +{
-> > +	int n_bo, err = 0;
-> > +	for (n_bo = 0; n_bo < max_bo; n_bo++) {
-> > +		err = drv->allocate_vram(ctx, n_bo, len);
-> > +		if (err)
-> > +			break;
-> > +	}
-> > +	/* These are expected failures we can ignore. */
-> > +	if (err == -ENOMEM || err == -ENOSPC)
-> > +		err = 0;
-> > +	return err ?: n_bo;
-> > +}
-> > +
-> > +static void free_vram(const struct igt_dmem_driver *drv, void *ctx,
-> > int max_bo)
-> > +{
-> > +	int i;
-> > +	for (i = 0; i < max_bo; i++)
-> > +		drv->free_vram(ctx, i);
-> > +}
-> > +
-> > +static void test_current(int fd, char *cg_region, unsigned int
-> > flags, const struct igt_dmem_driver *drv)
-> > +{
-> > +	struct igt_cgroup *cg;
-> > +	void *ctx;
-> > +	uint64_t current, capacity, cg_max;
-> > +	int n_bo = 0, max_bo;
-> > +	int err;
-> > +
-> > +	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
-> > +	igt_require_f(capacity >= 4 * BO_SIZE,
-> > +		      "VRAM capacity (%"PRIu64" MiB) too small to
-> > test\n",
-> > +		      capacity / SZ_1M);
-> > +
-> > +	/*
-> > +	 * Use up to 4 GiB, or the full capacity if the device has
-> > less.
-> > +	 * Leave one BO_SIZE worth of headroom so the device isn't
-> > completely
-> > +	 * exhausted before the cgroup limit is hit.
-> > +	 */
-> > +	cg_max = min(MAX_LIMIT, capacity - BO_SIZE - USAGE_SLACK);
-> > +	cg_max = ALIGN_DOWN(cg_max, BO_SIZE);
-> > +
-> > +	/* Create cgroup and move into it */
-> > +	cg = igt_cgroup_new("igt_cgroups_test");
-> > +	igt_cgroup_move_current(cg);
-> > +
-> > +	max_bo = cg_max / BO_SIZE;
-> > +
-> > +	err = drv->init(&ctx, fd, max_bo);
-> > +	igt_assert_f(!err, "Failed to initialize driver");
-> > +
-> > +	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
-> > +	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
-> > +
-> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> > +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-> > +		  "max = %"PRIu64" MiB\n",
-> > +		  current / SZ_1M, cg_max / SZ_1M);
-> > +	igt_assert_f(current < cg_max + USAGE_SLACK && current >
-> > cg_max - USAGE_SLACK,
-> > +		     "current usage (%"PRIu64" MiB) is not within
-> > margin of allocation (%"PRIu64" MiB)\n",
-> > +		     current / SZ_1M, cg_max / SZ_1M);
-> > +
-> > +	free_vram(drv, ctx, n_bo);
-> > +	wait_for_usage_drop(cg, cg_region, USAGE_SLACK);
-> > +
-> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> > +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-> > +		  "max = %"PRIu64" MiB\n",
-> > +		  current / SZ_1M, cg_max / SZ_1M);
-> > +	igt_assert_f(current < USAGE_SLACK,
-> > +		     "current usage (%"PRIu64" MiB) is not within
-> > margin (%d MiB)\n",
-> > +		     current / SZ_1M, USAGE_SLACK / SZ_1M);
-> > +
-> > +	/* Allow for a slack as there might be some extra pages
-> > allocated. */
-> > +	igt_cgroup_dmem_set_max(cg, cg_region, 2 * BO_SIZE +
-> > USAGE_SLACK, false);
-> > +
-> > +	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
-> > +	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
-> > +
-> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> > +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-> > +		  "max = %"PRIu64" MiB\n",
-> > +		  current / SZ_1M, cg_max / SZ_1M);
-> > +	igt_assert_f(current < 2 * BO_SIZE + USAGE_SLACK && current
-> > > 2 * BO_SIZE - USAGE_SLACK,
-> > +		     "current usage (%"PRIu64" MiB) is not within
-> > margin of allocation (%"PRIu64" MiB)\n",
-> > +		     current / SZ_1M, cg_max / SZ_1M);
-> > +
-> > +	free_vram(drv, ctx, n_bo);
-> > +	wait_for_usage_drop(cg, cg_region, USAGE_SLACK);
-> > +
-> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> > +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-> > +		  "max = %"PRIu64" MiB\n",
-> > +		  current / SZ_1M, cg_max / SZ_1M);
-> > +	igt_assert_f(current < USAGE_SLACK,
-> > +		     "current usage (%"PRIu64" MiB) is not within
-> > margin (%d MiB)\n",
-> > +		     current / SZ_1M, USAGE_SLACK / SZ_1M);
-> > +
-> > +	igt_cgroup_dmem_set_max(cg, cg_region, USAGE_SLACK, false);
-> > +
-> > +	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
-> > +
-> > +	/*
-> > +	 * amdgpu may succeed the allocation, by falling back to
-> > GTT, so no assertion here.
-> > +	 * Verify by reading current usage.
-> > +	 */
-> > +
-> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> > +	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-> > +		  "max = %"PRIu64" MiB\n",
-> > +		  current / SZ_1M, cg_max / SZ_1M);
-> > +	igt_assert_f(current < USAGE_SLACK,
-> > +		     "current usage (%"PRIu64" MiB) is not within
-> > margin\n",
-> > +		     current / SZ_1M);
-> > +
-> > +	if (n_bo > 0)
-> > +		free_vram(drv, ctx, n_bo);
-> > +	wait_for_usage_drop(cg, cg_region, USAGE_SLACK);
-> > +
-> > +	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-> > +	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-> > +		  "max = %"PRIu64" MiB\n",
-> > +		  current / SZ_1M, cg_max / SZ_1M);
-> > +	igt_assert_f(current < USAGE_SLACK,
-> > +		     "current usage (%"PRIu64" MiB) is not within
-> > margin (%d MiB)\n",
-> > +		     current / SZ_1M, USAGE_SLACK / SZ_1M);
-> > +
-> > +	drv->deinit(ctx);
-> > +	igt_cgroup_free(cg);
-> > +}
-> > +
-> > +static const struct {
-> > +	const char *name;
-> > +	void (*test_fn)(int fd, char *cg_region, unsigned int flags,
-> > const struct igt_dmem_driver *drv);
-> > +	unsigned int flags;
-> > +} subtests[] = {
-> > +	{ "current", test_current, 0 },
-> > +	{ }
-> > +};
-> > +
-> > +static const struct {
-> > +	int driver_flag;
-> > +	const struct igt_dmem_driver *driver;
-> > +} drivers[] = {
-> > +	{ DRIVER_XE, &xe_dmem_driver },
-> > +	{ DRIVER_AMDGPU, &amdgpu_dmem_driver },
-> > +	{ },
-> > +};
-> >  
-> >  IGT_TEST_DESCRIPTION("Exercises the cgroup v2 dmem controller
-> > interface.");
-> >  
-> > @@ -32,7 +238,7 @@ static void fmt_bytes(uint64_t v, char *buf,
-> > size_t len)
-> >  		snprintf(buf, len, "%" PRIu64, v);
-> >  }
-> >  
-> > -int igt_simple_main()
-> > +static void simple_cgroup(void)
-> >  {
-> >  	struct igt_cgroup *cg;
-> >  	const char *region;
-> > @@ -42,10 +248,6 @@ int igt_simple_main()
-> >  	char min_s[32], low_s[32], max_s[32];
-> >  	int i;
-> >  
-> > -	igt_require_f(igt_cgroup_dmem_available(),
-> > -		      "No dmem regions found; is cgroup v2 with the
-> > "
-> > -		      "dmem controller available?\n");
-> > -
-> >  	cg = igt_cgroup_new("igt-cgroup-dmem-test");
-> >  	igt_assert_f(cg, "Failed to create cgroup\n");
-> >  
-> > @@ -90,3 +292,42 @@ int igt_simple_main()
-> >  	igt_cgroup_dmem_regions_free(regions);
-> >  	igt_cgroup_free(cg);
-> >  }
-> > +
-> > +int igt_main()
-> > +{
-> > +	igt_fixture() {
-> > +		igt_require_f(getuid() == 0, "Test requires
-> > root\n");
-> > +		/* Check dmem cgroup controller is available before
-> > doing anything else */
-> > +		igt_require_f(igt_cgroup_dmem_available(),
-> > +			      "dmem cgroup controller not available
-> > (no cgroup v2 or no registered regions)\n");
-> > +
-> > +	}
-> > +
-> > +	igt_subtest("simple")
-> > +		simple_cgroup();
-> > +
-> > +	for (int d = 0; drivers[d].driver; d++) {
-> > +		igt_subtest_group() {
-> > +			int fd = -1;
-> > +			char *cg_region;
-> > +			igt_fixture() {
-> > +				fd =
-> > drm_open_driver(drivers[d].driver_flag);
-> > +				igt_require_f(fd >= 0,
-> > +					"No %s device found,
-> > skipping\n",
-> > +					drivers[d].driver->name);
-> > +				cg_region = drivers[d].driver-
-> > >get_region_name(fd);
-> > +				igt_require_f(cg_region, "Region not
-> > tracked by dmem cgroup controller\n");
-> > +			}
-> > +
-> > +			for (int i = 0; subtests[i].name; i++)
-> > +				igt_subtest_f("%s-%s",
-> > drivers[d].driver->name, subtests[i].name)
-> > +					subtests[i].test_fn(fd,
-> > cg_region, subtests[i].flags, drivers[d].driver);
-> > +
-> > +			igt_fixture() {
-> > +				if (fd >= 0)
-> > +					drm_close_driver(fd);
-> > +				free(cg_region);
-> > +			}
-> > +		}
-> > +	}
-> > +}
