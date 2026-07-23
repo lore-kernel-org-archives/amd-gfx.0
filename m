@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4F94C531F7
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 20:19:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43B42C531FA
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 20:19:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6B1B610F1D0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B785210F1D9;
 	Thu, 23 Jul 2026 20:19:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Bo4sDvIt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UboURbeN";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011009.outbound.protection.outlook.com [52.101.52.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6419910E623
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 20:19:23 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010047.outbound.protection.outlook.com
+ [40.93.198.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8B0710E623
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 20:19:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HH7u+/dtEo3RM5RDKeKWbU8xGubk70Ed0qdRAI39RMakDEei2W83IRXUbunJ7R/5P3VWlt2ZVLdeRPgzy/0CS/hUznTca9Uh4IwVZtpUiCrCvuFZGBMOdn+IRp6fEauVEtzHlBTg7//kWrAvMFcVnBpaZqYdZ0a5XKYF0kN7q+nmfhQ6TeJVHXqZ3+8EJXKo/hUZ/bwRFhv8ccvwxQO4yvYVUnYh5ww1+19M0aohdE7FFv0/ZhJO3AlYidsDwu0+ALY4CeMJimq3IEp/4IxpO/8v8z/GD0QUyUJ6HrtI0QPrsqF7iiEf2Uv/L5ucZ3h8yDecnspaIf+sGTRZZdCXUA==
+ b=m3pJTh4jaMTwhxhKWtpU7ShCUeCA1JueixDPRGCCCdigYkoEmnkg3O2vpnt3uwud6MTt3+TSNoTV4+zmsJTJV4eFdAVrS+JMMR//uI4NAAvSyHj5McycUiuhJP9pYzKfqeEyB6+Y5NJHdSxl1BINQ5qSGuav/m4cJ2V5/7bZCvM85R5pXlWMg3qWOVVpURoFeK63i2NRbXFHHqk3mB/Or/izbYGBRQkAznvCA/LssDh9GJrt3XP7uBvGEYXfN5F3yg6Qd3d099aFInU3NXrdS7AddYy3oWdbLfQf9qIFwLivcEixIKwW3iKKscJdlhs/hyCKnyOOZi54WVcv3S1eIQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/NRMRRUmw1wi0MziRszzqpiRhHJS358odgjb2QsOB+k=;
- b=h6iyAWBIYVLXtS/V0r3fyc8RXiaWV4/19wTXB395sGtzO7W/1iajxLmWiL0hgVJgllIeW7ymdZOr3IjCAWmv1bd777RB3en6M1LRYbx5r7lbRaaigRxB4lSoyXeIDklLXmrZlW5se7gAn0fPBfs9xUiTVFrOtvaHxiYVbS6acF3t+mIswHL4Gr4IP+XdsxsTGaVGfnKanoki58AEvksVn91xMyCbEMdrpderX5ArJpfoRPF2f5H0EwMsBYs0hFPQUO77WJRV9C5e7knRWwcGmV3VYRz9Ig1QWRx1vzPSo6gd6ooFvq0EdWHuOY3+nNNDM2XDZb25B/a6K3n39F8ZSg==
+ bh=apLMxjneQeo+bAyzLUREkolOp5FCA/qKl4igzQLLCg0=;
+ b=ekWqOJXLY8TKih3mJo3ZWq34TBJSB51GBHLILx2aP/jkLPVHTdwxQy/MZUnd/tUjcI3hkW1YLMP5n/JLl9vKte+ftQ1FBy3uD4WTL1YF44HJVPpXsTNREK82dkY1gMajV+tf6L90GcKdoPRj62s/G6JVU/cdQf+3Ss1L67iMNF87YGSD8QaKPPsRdaJC/gNAO2Gxs2V/TL0C3Xa0LH9MDrlEm6/ULv36C2zvuNORx4IqgzMI0xpEob3mFkarn9Cgef4ZewAE9i3cI7fhYBqMK2erl3/8Q394436WycHJjlKrTHiJ5T3tC8cEGKpRffRumMQ7dTG2C7Tx4EVcBEsV4g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/NRMRRUmw1wi0MziRszzqpiRhHJS358odgjb2QsOB+k=;
- b=Bo4sDvItrLNm2bcfXz6/R7MQTi3WPpTawp10tkx8/nz+BiLqqNrdtG71GjqyYj3DmLkqqDTE42ierLVCYzfgRu9quLU/wajlu1g8+v/2+8wvmuiuEcJkEoW6KucSLt9/3IY3mBdFyUhALhte/NsoyqRzb01amAD5zUGxU8309wU=
-Received: from BN1PR12CA0029.namprd12.prod.outlook.com (2603:10b6:408:e1::34)
- by CYYPR12MB8922.namprd12.prod.outlook.com (2603:10b6:930:b8::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 20:19:19 +0000
+ bh=apLMxjneQeo+bAyzLUREkolOp5FCA/qKl4igzQLLCg0=;
+ b=UboURbeNyjBA7gT/UVe93nw//a1XIBQcVlpdXrlmZ/5yZmBnOtxcTumBvCzLLWhpOH5eE6Yc1HtrYkRO+qwpn8IzijJ97/F9soNqiQ3bGP5WfpryHRCUKwMVJWG/+EbQHhjWlLd6nCwQfgsyRTtBiq7FKwKZWfzqLbdXrLeVgfw=
+Received: from BN1PR12CA0008.namprd12.prod.outlook.com (2603:10b6:408:e1::13)
+ by SJ2PR12MB7823.namprd12.prod.outlook.com (2603:10b6:a03:4c9::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Thu, 23 Jul
+ 2026 20:19:16 +0000
 Received: from BL02EPF00021F69.namprd02.prod.outlook.com
- (2603:10b6:408:e1:cafe::1a) by BN1PR12CA0029.outlook.office365.com
- (2603:10b6:408:e1::34) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:e1:cafe::4e) by BN1PR12CA0008.outlook.office365.com
+ (2603:10b6:408:e1::13) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.11 via Frontend Transport; Thu,
- 23 Jul 2026 20:19:18 +0000
+ 23 Jul 2026 20:19:16 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +51,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BL02EPF00021F69.mail.protection.outlook.com (10.167.249.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 20:19:18 +0000
+ 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 20:19:16 +0000
 Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 23 Jul
- 2026 15:19:06 -0500
+ 2026 15:19:04 -0500
 From: Fangzhi Zuo <jerry.zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,9 +65,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 24/49] drm/amd/display: Add atomic transfer-function tests
-Date: Thu, 23 Jul 2026 16:13:32 -0400
-Message-ID: <20260723201908.373300-25-jerry.zuo@amd.com>
+Subject: [PATCH 22/49] drm/amd/display: Add KUnit test for native backlight
+ registration
+Date: Thu, 23 Jul 2026 16:13:30 -0400
+Message-ID: <20260723201908.373300-23-jerry.zuo@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260723201908.373300-1-jerry.zuo@amd.com>
 References: <20260723201908.373300-1-jerry.zuo@amd.com>
@@ -78,29 +80,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F69:EE_|CYYPR12MB8922:EE_
-X-MS-Office365-Filtering-Correlation-Id: a1e2af49-ff15-4cc0-2c28-08dee8f7acf4
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F69:EE_|SJ2PR12MB7823:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5bcf36c3-0ad8-45a3-1053-08dee8f7ab56
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|1800799024|23010399003|376014|56012099006|10067099003|11063799006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: SjDRiv7FZJ6SGJdrgPNHQ6SpKVoxWwTXkdu3FgIlc27CXUMWoH7OrbT52qwGKzn8HKAzTJhGJsWbZFjfE0pnz/6pfPo3ZeYJ8OYLdSF4bDUcLRf65DtfCCGu0iB7TLm1VzFh8KHeXx6lN1SDMyQEawxw1GNeWWRHftl4tC75JvwmoXxV5a2qJUXAAdDEQVQwe6sL6MOUswA9rxQWzWfibe48KDvRFimofG/zVs37E/RKgxsoNvqWRCOYYOYZDmQtsg5nmJLydiGw0+nVznZoo+QJ/JzxmhZ8GcwWOFG2B2S6j9p+1Syx0QpQNBSEay+wpVuMwRBYRCVqHcZedt3DGobS0JjhcAYy9klsfkv+salBAp2Y7i1jPC6AR+PAr/GJFfB5MWgeSDOAz2c8LaM5lhMPCT2NlGEr8VHxl5J0WY975FURsBkhtPjWKkZJuhhUpJ3cZMePWbHXfi+tQo414l2oR1NU6OrZmJhiilo2cRn71FR1rw2y3CA0ifru4lfTmdNADDiqLcLL1tg/26V73zhxFo21Jcx6bcNScMplANRGAXEm7IV2rcDygxDKR7vz42YFJvBWQEPC7PDn8FIvEaNIzbsB/qBqpeYgipAqFm+dN+qpvyL5aAeEwA44g/ZLFuXhvEN/E/Qgd++WXauscDWHCthz83Ku0i6T6zwajikj215LEIJsNmK5H/4+AzyO1v1ZR6hGMkn12D7ywj88rQ==
+ ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|56012099006|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: tmKcTfs8d43VxK2+YOik94DiDSwzICvmBR3c6/aarPubTTCpiwOu9dYvL3MNDLhBjqSwKVFr8+TR7Zzy+XP+Fw0mintwdqMNcimOyqNOKJl0F7SbS/gPc020nPVny8RHMO8tdxXHO+cQ4/AzWFQU8+9CT1ZnfydNaFElmdH0qc+NQTmZ/oqsPhTMKVW0LGXzdI/FlrK/Z0pWJaAwB0zBl8ulj13zXcXdf/XCHQ+p9o3QAOKd+jRAUW3IpG0aEYTD7rZ5o51xXveg19fQdPWPf7iTlSu0bWSolJdUG7zMCtXZrfKrPO/ycoGLzY61VU9SoFCQwNyVKIhuUAmAWOsYj3qm6PDfdGPL7EJ8WJqEfOKRtYXltMMiKP1JtJBBB48ajFzK4vBAGpTR1SYna3HHM1E9G7HqDFyBEXYrAvZo4WXKJVK70qVspEwoybJKUcphR8HarWN8/zXB54zU5OogS7GaBl9F1duw0PgUby5R2f46UuK7+yz1OSsH2G4gMggjcoHinVw8ih4VzhBKvzTbbnmv0NP2S/pwa6klVPQwrBytu+GPX0JzU+k8i8MEhkAa1a3ijaCkJbQpTinzY41B2+FauNjPp8MCVQS6GSaQ/kJaOEDCI+0swKpmZcKK4JaTjSMR7pkpS+n0Gxbv0pSMlKUMswavm7aphpmqLCgioRTfor4c6hIxBCAJS+hciV219wVciKgM+o8K6U5dy65j0g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(1800799024)(23010399003)(376014)(56012099006)(10067099003)(11063799006)(6133799003)(22082099003)(18002099003);
+ SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: vMyZ9HiI+FwY1j0cyEArA/LV7pPpeokSB1SDZis/fDjz7jGZf/KBAig3gRcmQxywQXp86lazqra009Q6hWy//jmi+OMmc8OtuMtTEwqPoH5dC+2kgUy/54SdJ8EnMfs6BeN/Ld6wWsCwvtCthPllnQWCaEjh5HCOhyrGNX3FA5A4V8F0JdfzUCtUxxF6FukYGedbZ1xMpzQI95SlkGUPRUPLIfyusaYVljp4veDtcXMYYnYG1ElEDsw8tMIwRsoO7hYjYYPILuWwdkOcHT3MCdAl1UATEy1nG8z0GwhrVH+ZdH0a6MSSwR7rH7rQGT8/oB3mxTbBXdhg9qj468nl1MitXG8c83gTH8zHa2uoJYIZBjjFPE0dVu7YjpaawMEUi0+jUrCy3xgCQZEYak3TK+s4Cr1YVi8pe9WnZRH0Bl0NqE59O6LASo5JAeUaAeij
+X-MS-Exchange-AntiSpam-MessageData-0: 0lPSCxXFP5vZPhJA3dThZDMvwj5rO3ZmVGai50UXDh2KchqmQjyeSeOGfxRmzPC9UWl6hg6f2RMzcekQr7EvtEAzkAkjQnZpVyaIeCvmAkU+3kQGXraX9uQx9LeaoXusrOQP+3OfS1VRmTfX4+Q98LoZVDfEqsgveINVgR4jwnYHqUMlOHTGLLGUuvMQYwb9yuTh0sbI26RPHN9/YpPXuNKW+sCzVllZ0ZSvj45DYW/X5FnJRfzaGuJ4n8Dat1wzPwmPbQfDtrjqaAI6HCh+Von82WzdIrIFAmikneTqaZlXLSYl6dARLIIwksUY2EnZJdi3SWIvOJgKEoNp6N6Rq+YOY14Zgzw/ws2Mro6rBdsVDbTgW2Ozv/xHnQBawdSoBcIVpIAek630sbLFWYXNAzK93/MF8pHgNBJ5XWEoIzmuLmuQO31Vreu+HEeTk1rU
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 20:19:18.9005 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1e2af49-ff15-4cc0-2c28-08dee8f7acf4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 20:19:16.1874 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5bcf36c3-0ad8-45a3-1053-08dee8f7ab56
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F69.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8922
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB7823
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,94 +119,100 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Alex Hung <alex.hung@amd.com>
 
-[WHY]
-The atomic regamma, shaper, and blend helpers were only exercised on
-their linear bypass paths, leaving the generated transfer-function
-cases untested.
+[WHAT]
+Add a KUnit case covering the successful path of
+amdgpu_dm_register_backlight_device(). The test uses the standard DRM
+KUnit device helpers to register a native backlight device, verifies the
+calculated backlight properties and cached brightness, and unregisters
+the device through KUnit cleanup to avoid leaking a class device across
+cases.
 
-[HOW]
-Add sRGB success-path tests that verify the generated transfer
-functions and the corresponding plane color-management enable flags.
-
-Assisted-by: Copilot:GPT-5.6-Sol
+Assisted-by: Copilot:GPT-5.6-Terra
 Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_color_test.c    | 41 +++++++++++++++++++
- 1 file changed, 41 insertions(+)
+ .../tests/amdgpu_dm_backlight_test.c          | 52 +++++++++++++++++++
+ 1 file changed, 52 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_color_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_color_test.c
-index de11a606a88c..4945f5429bc1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_color_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_color_test.c
-@@ -1535,6 +1535,23 @@ static void dm_test_set_atomic_regamma_bypass(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, (int)out_tf->tf, (int)TRANSFER_FUNCTION_LINEAR);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+index 618fd5142da0..7ca17f803f9d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
+@@ -326,6 +326,11 @@ static int dm_test_get_backlight_level_error(const struct dc_link *link)
+ 	return DC_ERROR_UNEXPECTED;
+ }
+ 
++static void dm_test_unregister_backlight_device(void *data)
++{
++	backlight_device_unregister(data);
++}
++
+ static bool dm_test_get_backlight_level_nits(struct dc_link *link,
+ 					     uint32_t *avg,
+ 					     uint32_t *peak)
+@@ -463,6 +468,52 @@ static void dm_test_register_backlight_device_negative_index(struct kunit *test)
+ 	KUNIT_EXPECT_NULL(test, adev->dm.backlight_dev[0]);
  }
  
 +/**
-+ * dm_test_set_atomic_regamma_srgb - Non-linear TF enables generated regamma
-+ * @test: KUnit test context
++ * dm_test_register_backlight_device_success - Test native backlight registration
++ * @test: The KUnit test context
++ *
++ * A native backlight device must be registered with the calculated
++ * properties, and its initial readback must retain the initial brightness.
 + */
-+static void dm_test_set_atomic_regamma_srgb(struct kunit *test)
++static void dm_test_register_backlight_device_success(struct kunit *test)
 +{
-+	struct dc_transfer_func *out_tf;
++	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
++	struct amdgpu_dm_connector *aconnector;
++	struct amdgpu_dm_backlight_caps *caps;
++	struct dc_link *link = dm_kunit_alloc_link(test);
++	struct drm_minor *primary;
++	unsigned int max;
 +
-+	out_tf = kunit_kzalloc(test, sizeof(*out_tf), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, out_tf);
++	setup_test_link_service(test, link);
++	link->dc->link_srv->edp_get_backlight_level = dm_test_get_backlight_level_error;
++	primary = kunit_kzalloc(test, sizeof(*primary), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, primary);
++	adev->ddev.primary = primary;
++	adev->dm.backlight_link[0] = link;
 +
-+	KUNIT_EXPECT_EQ(test,
-+			amdgpu_dm_set_atomic_regamma(out_tf, NULL, 0, true, TRANSFER_FUNCTION_SRGB),
-+			0);
-+	KUNIT_EXPECT_EQ(test, (int)out_tf->type, (int)TF_TYPE_DISTRIBUTED_POINTS);
++	aconnector = dm_kunit_alloc_connector(test, adev, link);
++	aconnector->bl_idx = 0;
++	aconnector->base.kdev = adev->ddev.dev;
++	caps = &adev->dm.backlight_caps[0];
++	caps->min_input_signal = AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
++	caps->max_input_signal = AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
++	caps->ac_level = 50;
++	caps->dc_level = 25;
++	max = 0x101 * AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
++
++	amdgpu_dm_register_backlight_device(aconnector);
++
++	KUNIT_ASSERT_NOT_NULL(test, adev->dm.backlight_dev[0]);
++	KUNIT_EXPECT_EQ(test, adev->dm.backlight_dev[0]->props.max_brightness, max);
++	KUNIT_EXPECT_EQ(test, adev->dm.backlight_dev[0]->props.brightness,
++			DIV_ROUND_CLOSEST(max * caps->ac_level, 100));
++	KUNIT_EXPECT_EQ(test, adev->dm.brightness[0],
++			adev->dm.backlight_dev[0]->props.brightness);
++	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test,
++			dm_test_unregister_backlight_device,
++			adev->dm.backlight_dev[0]), 0);
 +}
 +
- /**
-  * dm_test_atomic_shaper_lut_bypass - No LUT and linear TF: must take bypass path
-  * @test: KUnit test context
-@@ -1577,6 +1594,28 @@ static void dm_test_atomic_blend_lut_bypass(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, (int)cm->blend_func.tf, (int)TRANSFER_FUNCTION_LINEAR);
- }
- 
-+/**
-+ * dm_test_atomic_shaper_blend_srgb - Non-linear TFs enable shaper and blend
-+ * @test: KUnit test context
-+ */
-+static void dm_test_atomic_shaper_blend_srgb(struct kunit *test)
-+{
-+	struct dc_plane_cm *cm;
-+
-+	cm = kunit_kzalloc(test, sizeof(*cm), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, cm);
-+
-+	KUNIT_EXPECT_EQ(test,
-+			amdgpu_dm_atomic_shaper_lut(NULL, true, TRANSFER_FUNCTION_SRGB, 0, cm),
-+			0);
-+	KUNIT_EXPECT_TRUE(test, cm->flags.bits.shaper_enable);
-+
-+	KUNIT_EXPECT_EQ(test,
-+			amdgpu_dm_atomic_blend_lut(NULL, false, TRANSFER_FUNCTION_SRGB, 0, cm),
-+			0);
-+	KUNIT_EXPECT_TRUE(test, cm->flags.bits.blend_enable);
-+}
-+
- /* ---- Tests for __set_colorop_in_tf_1d_curve ---- */
- 
- /**
-@@ -2533,10 +2572,12 @@ static struct kunit_case dm_color_test_cases[] = {
- 	KUNIT_CASE(dm_test_set_transfer_funcs_with_luts),
- 	/* amdgpu_dm_set_atomic_regamma */
- 	KUNIT_CASE(dm_test_set_atomic_regamma_bypass),
-+	KUNIT_CASE(dm_test_set_atomic_regamma_srgb),
- 	/* amdgpu_dm_atomic_shaper_lut */
- 	KUNIT_CASE(dm_test_atomic_shaper_lut_bypass),
- 	/* amdgpu_dm_atomic_blend_lut */
- 	KUNIT_CASE(dm_test_atomic_blend_lut_bypass),
-+	KUNIT_CASE(dm_test_atomic_shaper_blend_srgb),
- 	/* __set_colorop_in_tf_1d_curve */
- 	KUNIT_CASE(dm_test_set_colorop_in_tf_1d_curve_invalid_type),
- 	KUNIT_CASE(dm_test_set_colorop_in_tf_1d_curve_unsupported_curve),
+ static struct drm_connector *setup_panel_power_savings_connector(struct kunit *test,
+ 							 struct device **device_out,
+ 							 struct dm_connector_state **state_out)
+@@ -1861,6 +1912,7 @@ static struct kunit_case dm_backlight_test_cases[] = {
+ 	KUNIT_CASE(dm_test_backlight_get_brightness_uses_device_index),
+ 	/* amdgpu_dm_register_backlight_device */
+ 	KUNIT_CASE(dm_test_register_backlight_device_negative_index),
++	KUNIT_CASE(dm_test_register_backlight_device_success),
+ 	/* panel_power_savings_show / store */
+ 	KUNIT_CASE(dm_test_panel_power_savings_show_maps_disable_to_zero),
+ 	KUNIT_CASE(dm_test_panel_power_savings_show_reports_level),
 -- 
 2.53.0
 
