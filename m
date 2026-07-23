@@ -4,71 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5BACC54F4E
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34614C53209
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 751DB10F310;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DE39E10F311;
 	Fri, 24 Jul 2026 07:30:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="I3kUD4Y3";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="BxFliabs";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E29410F05E;
- Thu, 23 Jul 2026 10:04:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784801078; x=1816337078;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=LSIbpIUprAnSR6s20WoY+YmaIs+5N8lYqV2A45WV08g=;
- b=I3kUD4Y3JzA+bJTCN4yKBayQJFuH/NCjo183pQAmnhpqhDmYV/M1+6U0
- ZmiYmn4xTVfM0UxqxZosQck6QLnON7wY38uHhlR1smQxk4Vqqe6jeyVZX
- J6Pkk+BlfsVDq1FI/bnhoy4BQwuuVSZ0V3DaeyIATS/t1Gbfx9dSOScQN
- BCo82On/voyt4GEfqkoTbp83T6fLF9tgTzsicYX2uPvbAw8uv34X1szpR
- WTRP7Y0CFK0gpc3XRI2XwMAKgy3sd7yIoJBIRZtm1zIAocUfPfy7mCU5s
- ZTrSPmme1prkBM/k921sFwRXn+KpEG60auK/K1gsLaQqYdLYA9ThV5veC w==;
-X-CSE-ConnectionGUID: jwxxaoLcSsCNRNvKRznpUg==
-X-CSE-MsgGUID: IgBD9gLETFOpQ2jv1vrSdg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="87991913"
-X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="87991913"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2026 03:04:38 -0700
-X-CSE-ConnectionGUID: 0jt0tPFZTCCQg33H2heUmw==
-X-CSE-MsgGUID: kSdyQqXBTIiiMUosD8I+qg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="254984929"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO fedora)
- ([10.245.244.122])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2026 03:04:33 -0700
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
- Tejun Heo <tj@kernel.org>,
- =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
- cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- David Airlie <airlied@gmail.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+Received: from mout.web.de (mout.web.de [212.227.17.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7893A10F0E5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 13:10:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1784812203; x=1785417003; i=spasswolf@web.de;
+ bh=krTN5OSRjF+KYbNd9Q2WHl5Y9svSCLcteFyfFAqzMH8=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+ References:MIME-Version:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=BxFliabs0dwVWL1Xkdi2hkCF2UAodFn+jkC9dH8KPUsujjtRsVefmx83FEGEFzGu
+ gM4lV6TL6ZLVlyIt0i+qO0SssqniDaC3x8AbAbQuCiHoFd6gktDNb4Yc54P2YP/HM
+ jo2nuk8t3gGZLywrYoKHxmTrK3uIAHHc+Iqga9hPhCziUK5OQE0ZUT9TzQBkYOwt1
+ +TImRrfmvCDgIxjvsCW6LEnjTOMsM7wPSo+m5UbkGa8Vi/IHq5VGEopZlOR514YiB
+ cAarWbZH24s8B6A0tvYti0inC3N4SpoIGwVvHA5VmWOkGpLTRe9DZfSM5w5Ctue3I
+ huJjM7pGXc1I4ScNgA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MKuON-1wYwpq1V7d-00SK1C; Thu, 23
+ Jul 2026 15:10:03 +0200
+From: Bert Karwatzki <spasswolf@web.de>
+To: linux-kernel@vger.kernel.org,
+	Rafal Ostrowski <rafal.ostrowski@amd.com>
+Cc: Bert Karwatzki <spasswolf@web.de>, linux-next@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, amd-gfx@lists.freedesktop.org,
  Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v8 4/6] drm/ttm: Hook up a cgroup-aware reclaim callback for
- the dmem controller
-Date: Thu, 23 Jul 2026 12:03:48 +0200
-Message-ID: <20260723100350.16895-5-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260723100350.16895-1-thomas.hellstrom@linux.intel.com>
-References: <20260723100350.16895-1-thomas.hellstrom@linux.intel.com>
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Thomas Gleixner <tglx@linutronix.de>
+Subject: [Re] kernel panic during shutdown in v7.2-rc{3,
+ 4} and next-20260722 with PREEMPT_RT
+Date: Thu, 23 Jul 2026 15:10:01 +0200
+Message-ID: <20260723131001.11565-1-spasswolf@web.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260723124353.13040-1-spasswolf@web.de>
+References: 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:gPMg2U6cWLtzL75vQ+8RD58uRyWsMTO1VzQQWiFdEUmRAGC3eQD
+ 0qFl1VllFFR/aWgH5jHF+wllIqyHml7A+OTvfJW93K0H5ljX+iedd/iVVXoTeBrnkUwe/xN
+ T4HG6cErKz0kHV3satqlaRAhrWv8JRSNbfE2YVnETf5rBSwsY5bWpQaoajL8DHAkdJ9YXlb
+ dj0fkcsZVODTzQOPcxaqQ==
+UI-OutboundReport: notjunk:1;M01:P0:CZLEXlwAu0U=;KVHLPmTMgO/AIAl2v74WYwVDu/5
+ 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
+ SlxAfkrIZpdQ
 X-Mailman-Approved-At: Fri, 24 Jul 2026 07:30:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,314 +152,418 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add ttm_bo_evict_cgroup() to evict buffer objects charged to a specific
-dmem cgroup pool from a resource manager's LRU until a byte target is
-met.  Add ttm_resource_manager_set_dmem_region() to associate a dmem
-cgroup region with a resource manager; drivers supply their own
-dmem_cgroup_ops with ttm_resource_manager_dmem_reclaim as the reclaim
-function and the manager pointer as reclaim_priv in the dmem_cgroup_init
-to wire up TTM eviction as the reclaim callback.
+I was able to gather the panic error message from a failed shutdown via ne=
+tconsole,
+this time the kernel used was v7.2-rc3:
 
-The eviction context is interruptible; signals abort the operation and
-propagate back through the write() syscall.
+T6298;netconsole: network logging started
+T6298;netconsole-setup: Test log message to verify netconsole configuratio=
+n.
+T1575;BUG: scheduling while atomic: Xorg/1575/0x00000003
+T1575,ncfrag=3D0/979;Modules linked in: netconsole ccm snd_seq_dummy snd_h=
+rtimer snd_seq nls_ascii nls_cp437 vfat fat joydev snd_usb_audio mt7925e m=
+t7925_common snd_usbmidi_lib snd_ump mt792x_lib snd_rawmidi mt76_connac_li=
+b snd_seq_device intel_rapl_msr iosf_mbi mt76 intel_rapl_common rapl mac80=
+211 snd_hda_codec_atihdmi snd_hda_codec_hdmi pcspkr wmi_bmof snd_hda_intel=
+ snd_hda_codec libarc4 snd_hda_core cfg80211 snd_intel_dspcfg snd_hwdep sn=
+d_pcm spd5118 regmap_i2c snd_timer snd rfkill soundcore aead evdev k10temp=
+ ccp nct6775 nct6775_core hwmon_vid configfs efi_pstore efivarfs autofs4 e=
+xt4 mbcache jbd2 amdgpu hid_generic usbhid hid drm_client_lib i2c_algo_bit=
+ drm_buddy drm_ttm_helper ttm drm_exec drm_suballoc_helper mfd_core drm_pa=
+nel_backlight_quirks gpu_sched amdxcp drm_display_helper ahci libahci xhci=
+_pci libata xhci_hcd drm_kms_helper drm scsi_mod igc nvme usbcore cec scsi=
+_common nvme_core crc16 video nvme_keyring gpio_amdpt i2c_piix4 nvme_auth =
+usb_common gpi
+T1575,ncfrag=3D955/979;o_generic i2c_smbus wmi
+T1575;CPU: 16 UID: 0 PID: 1575 Comm: Xorg Not tainted 7.2.0-rc3-stable #12=
+55 PREEMPT_{RT,(full)}=20
+T1575;Hardware name: ASUS System Product Name/ROG STRIX B850-F GAMING WIFI=
+, BIOS 1627 02/05/2026
+T1575;Call Trace:
+T1575; <TASK>
+T1575; ? dump_stack_lvl+0x4b/0x70
+T1575; ? __schedule_bug.cold+0x3e/0x4a
+T1575; ? __schedule+0xf64/0x16f0
+T1575; ? schedule_rtlock+0x15/0x30
+T1575; ? rtlock_slowlock_locked+0x30c/0xe50
+T1575; ? rt_spin_lock+0xc3/0x120
+T1575; ? get_page_from_freelist+0x22e/0x1640
+T1575; ? __alloc_frozen_pages_noprof+0x146/0x2b0
+T1575; ? ___kmalloc_large_node+0xae/0xd0
+T1575; ? __kvmalloc_node_noprof+0x36c/0x580
+T1575; ? dc_create_plane_state+0x24/0x80 [amdgpu]
+T1575; ? dc_create_plane_state+0x24/0x80 [amdgpu]
+T1575; ? dc_state_create_phantom_plane+0x15/0x50 [amdgpu]
+T1575; ? dml21_handle_phantom_streams_planes+0x292/0x510 [amdgpu]
+T1575; ? dml21_mode_check_and_programming+0x157/0x7e0 [amdgpu]
+T1575; ? try_to_wake_up+0x120/0x530
+T1575; ? rt_mutex_setprio+0x61/0x340
+T1575; ? calculate_plane_rec_in_timing_active+0x142/0x1f0 [amdgpu]
+T1575; ? spl_calculate_number_of_taps.constprop.0.isra.0+0x142/0xf00 [amdg=
+pu]
+T1575; ? spl_calculate_number_of_taps.constprop.0.isra.0+0xed4/0xf00 [amdg=
+pu]
+T1575; ? dcn401_validate_bandwidth+0xb8/0x1f0 [amdgpu]
+T1575; ? dc_validate_with_context+0x5ed/0x6b0 [amdgpu]
+T1575; ? dc_commit_streams+0x27c/0x4e0 [amdgpu]
+T1575; ? amdgpu_dm_atomic_commit_tail+0x61f/0x3650 [amdgpu]
+T1575; ? generic_reg_get+0x1c/0x30 [amdgpu]
+T1575; ? optc1_get_crtc_scanoutpos+0x5f/0xa0 [amdgpu]
+T1575; ? dc_stream_get_scanoutpos+0x7a/0xc0 [amdgpu]
+T1575; ? amdgpu_display_get_crtc_scanoutpos+0xa5/0x1c0 [amdgpu]
+T1575; ? amdgpu_display_crtc_idx_to_irq_type+0x30/0x30 [amdgpu]
+T1575; ? amdgpu_crtc_get_scanout_position+0x23/0x30 [amdgpu]
+T1575; ? drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x180/0x3b0 =
+[drm]
+T1575; ? wait_for_completion_timeout+0x127/0x170
+T1575; ? drm_crtc_get_last_vbltimestamp+0x50/0x80 [drm]
+T1575; ? commit_tail+0xad/0x140 [drm_kms_helper]
+T1575; ? drm_atomic_helper_commit+0x137/0x180 [drm_kms_helper]
+T1575; ? drm_atomic_commit+0xac/0xe0 [drm]
+T1575; ? __drm_universal_plane_init.cold+0x11/0x11 [drm]
+T1575; ? drm_atomic_helper_set_config+0x6f/0xb0 [drm_kms_helper]
+T1575; ? drm_mode_setcrtc+0x443/0x8b0 [drm]
+T1575; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1575; ? drm_ioctl_kernel+0xa1/0xf0 [drm]
+T1575; ? drm_ioctl+0x27f/0x500 [drm]
+T1575; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1575; ? amdgpu_drm_ioctl+0x45/0x80 [amdgpu]
+T1575; ? __x64_sys_ioctl+0x92/0xe0
+T1575; ? do_syscall_64+0xdd/0x5d0
+T1575; ? do_syscall_64+0x94/0x5d0
+T1575; ? entry_SYSCALL_64_after_hwframe+0x55/0x5d
+T1575; </TASK>
+T1575;------------[ cut here ]------------
+T1575;WARNING: drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/dc_fpu.c:12=
+6 at dc_fpu_end+0x36/0x40 [amdgpu], CPU#22: Xorg/1575
+T1575,ncfrag=3D0/979;Modules linked in: netconsole ccm snd_seq_dummy snd_h=
+rtimer snd_seq nls_ascii nls_cp437 vfat fat joydev snd_usb_audio mt7925e m=
+t7925_common snd_usbmidi_lib snd_ump mt792x_lib snd_rawmidi mt76_connac_li=
+b snd_seq_device intel_rapl_msr iosf_mbi mt76 intel_rapl_common rapl mac80=
+211 snd_hda_codec_atihdmi snd_hda_codec_hdmi pcspkr wmi_bmof snd_hda_intel=
+ snd_hda_codec libarc4 snd_hda_core cfg80211 snd_intel_dspcfg snd_hwdep sn=
+d_pcm spd5118 regmap_i2c snd_timer snd rfkill soundcore aead evdev k10temp=
+ ccp nct6775 nct6775_core hwmon_vid configfs efi_pstore efivarfs autofs4 e=
+xt4 mbcache jbd2 amdgpu hid_generic usbhid hid drm_client_lib i2c_algo_bit=
+ drm_buddy drm_ttm_helper ttm drm_exec drm_suballoc_helper mfd_core drm_pa=
+nel_backlight_quirks gpu_sched amdxcp drm_display_helper ahci libahci xhci=
+_pci libata xhci_hcd drm_kms_helper drm scsi_mod igc nvme usbcore cec scsi=
+_common nvme_core crc16 video nvme_keyring gpio_amdpt i2c_piix4 nvme_auth =
+usb_common gpi
+T1575,ncfrag=3D955/979;o_generic i2c_smbus wmi
+T1575;CPU: 22 UID: 0 PID: 1575 Comm: Xorg Tainted: G        W           7.=
+2.0-rc3-stable #1255 PREEMPT_{RT,(full)}=20
+T1575;Tainted: [W]=3DWARN
+T1575;Hardware name: ASUS System Product Name/ROG STRIX B850-F GAMING WIFI=
+, BIOS 1627 02/05/2026
+T1575;RIP: 0010:dc_fpu_end+0x36/0x40 [amdgpu]
+T1575;Code: 05 cf e5 16 e6 ff c8 74 10 78 1f 65 ff 0d f2 d5 15 e6 74 0c c3=
+ cc cc cc cc e8 16 9c 12 e5 eb eb e8 6f 10 11 e5 c3 cc cc cc cc <0f> 0b eb=
+ dd 66 0f 1f 44 00 00 41 56 41 55 41 54 55 53 48 83 ec 10
+T1575;RSP: 0018:ffffa11ac5bfb638 EFLAGS: 00010296
+T1575;RAX: 00000000ffffffff RBX: ffff9490f7480000 RCX: 0000000000000008
+T1575;RDX: 0000000000000000 RSI: 0000000000000719 RDI: ffffffffc15b3550
+T1575;RBP: 0000000000000001 R08: 0000000000000000 R09: 0000000000000001
+T1575;R10: ffff9490f7480000 R11: 0000000000000002 R12: ffff948e09668000
+T1575;R13: ffff948e11400000 R14: 0000000000000000 R15: 0000000000000001
+T1575;FS:  00007f2b496ccb80(0000) GS:ffff949d96af5000(0000) knlGS:00000000=
+00000000
+T1575;CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+T1575;CR2: 0000557ef27b3000 CR3: 000000011543b000 CR4: 0000000000f50ef0
+T1575;PKRU: 55555554
+T1575;Call Trace:
+T1575; <TASK>
+T1575; ? dcn401_validate_bandwidth+0xd1/0x1f0 [amdgpu]
+T1575; ? dc_validate_with_context+0x5ed/0x6b0 [amdgpu]
+T1575; ? dc_commit_streams+0x27c/0x4e0 [amdgpu]
+T1575; ? amdgpu_dm_atomic_commit_tail+0x61f/0x3650 [amdgpu]
+T1575; ? generic_reg_get+0x1c/0x30 [amdgpu]
+T1575; ? optc1_get_crtc_scanoutpos+0x5f/0xa0 [amdgpu]
+T1575; ? dc_stream_get_scanoutpos+0x7a/0xc0 [amdgpu]
+T1575; ? amdgpu_display_get_crtc_scanoutpos+0xa5/0x1c0 [amdgpu]
+T1575; ? amdgpu_display_crtc_idx_to_irq_type+0x30/0x30 [amdgpu]
+T1575; ? amdgpu_crtc_get_scanout_position+0x23/0x30 [amdgpu]
+T1575; ? drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x180/0x3b0 =
+[drm]
+T1575; ? wait_for_completion_timeout+0x127/0x170
+T1575; ? drm_crtc_get_last_vbltimestamp+0x50/0x80 [drm]
+T1575; ? commit_tail+0xad/0x140 [drm_kms_helper]
+T1575; ? drm_atomic_helper_commit+0x137/0x180 [drm_kms_helper]
+T1575; ? drm_atomic_commit+0xac/0xe0 [drm]
+T1575; ? __drm_universal_plane_init.cold+0x11/0x11 [drm]
+T1575; ? drm_atomic_helper_set_config+0x6f/0xb0 [drm_kms_helper]
+T1575; ? drm_mode_setcrtc+0x443/0x8b0 [drm]
+T1575; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1575; ? drm_ioctl_kernel+0xa1/0xf0 [drm]
+T1575; ? drm_ioctl+0x27f/0x500 [drm]
+T1575; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1575; ? amdgpu_drm_ioctl+0x45/0x80 [amdgpu]
+T1575; ? __x64_sys_ioctl+0x92/0xe0
+T1575; ? do_syscall_64+0xdd/0x5d0
+T1575; ? do_syscall_64+0x94/0x5d0
+T1575; ? entry_SYSCALL_64_after_hwframe+0x55/0x5d
+T1575; </TASK>
+T1575;---[ end trace 0000000000000000 ]---
+T1575;------------[ cut here ]------------
+T1575;WARNING: drivers/gpu/drm/amd/amdgpu/../display/amdgpu_dm/dc_fpu.c:97=
+ at dc_fpu_begin+0x4f/0x60 [amdgpu], CPU#17: Xorg/1575
+T1575,ncfrag=3D0/979;Modules linked in: netconsole ccm snd_seq_dummy snd_h=
+rtimer snd_seq nls_ascii nls_cp437 vfat fat joydev snd_usb_audio mt7925e m=
+t7925_common snd_usbmidi_lib snd_ump mt792x_lib snd_rawmidi mt76_connac_li=
+b snd_seq_device intel_rapl_msr iosf_mbi mt76 intel_rapl_common rapl mac80=
+211 snd_hda_codec_atihdmi snd_hda_codec_hdmi pcspkr wmi_bmof snd_hda_intel=
+ snd_hda_codec libarc4 snd_hda_core cfg80211 snd_intel_dspcfg snd_hwdep sn=
+d_pcm spd5118 regmap_i2c snd_timer snd rfkill soundcore aead evdev k10temp=
+ ccp nct6775 nct6775_core hwmon_vid configfs efi_pstore efivarfs autofs4 e=
+xt4 mbcache jbd2 amdgpu hid_generic usbhid hid drm_client_lib i2c_algo_bit=
+ drm_buddy drm_ttm_helper ttm drm_exec drm_suballoc_helper mfd_core drm_pa=
+nel_backlight_quirks gpu_sched amdxcp drm_display_helper ahci libahci xhci=
+_pci libata xhci_hcd drm_kms_helper drm scsi_mod igc nvme usbcore cec scsi=
+_common nvme_core crc16 video nvme_keyring gpio_amdpt i2c_piix4 nvme_auth =
+usb_common gpi
+T1575,ncfrag=3D955/979;o_generic i2c_smbus wmi
+T1575;CPU: 17 UID: 0 PID: 1575 Comm: Xorg Tainted: G        W           7.=
+2.0-rc3-stable #1255 PREEMPT_{RT,(full)}=20
+T1575;Tainted: [W]=3DWARN
+T1575;Hardware name: ASUS System Product Name/ROG STRIX B850-F GAMING WIFI=
+, BIOS 1627 02/05/2026
+T1575;RIP: 0010:dc_fpu_begin+0x4f/0x60 [amdgpu]
+T1575;Code: d0 75 27 65 ff 05 41 d6 15 e6 b8 01 00 00 00 65 0f c1 05 04 e6=
+ 16 e6 85 c0 74 05 c3 cc cc cc cc bf 02 00 00 00 e9 d1 9c 12 e5 <0f> 0b eb=
+ d5 66 90 66 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 40 d6 b8
+T1575;RSP: 0018:ffffa11ac5bfb6c8 EFLAGS: 00010206
+T1575;RAX: 0000000000ff0000 RBX: ffff949040380000 RCX: ffff9490a92f96a0
+T1575;RDX: 0000000000ff0000 RSI: 000000000000011f RDI: ffffffffc15de7a0
+T1575;RBP: ffff948e14700000 R08: ffffffffa6d02440 R09: 0000000000000006
+T1575;R10: ffffffffa6eb6440 R11: 0000000000000066 R12: ffff949040380000
+T1575;R13: 0000000000000001 R14: 0000000000000000 R15: 0000000000000000
+T1575;FS:  00007f2b496ccb80(0000) GS:ffff949d969b5000(0000) knlGS:00000000=
+00000000
+T1575;CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+T1575;CR2: 00007fb5ea0bfa7c CR3: 000000011543b000 CR4: 0000000000f50ef0
+T1575;PKRU: 55555554
+T1575;Call Trace:
+T1575; <TASK>
+T1575; ? dc_state_create_copy+0x76/0x120 [amdgpu]
+T1575; ? dc_commit_state_no_check+0x271/0xe00 [amdgpu]
+T1575; ? dc_commit_streams+0x2f4/0x4e0 [amdgpu]
+T1575; ? amdgpu_dm_atomic_commit_tail+0x61f/0x3650 [amdgpu]
+T1575; ? generic_reg_get+0x1c/0x30 [amdgpu]
+T1575; ? optc1_get_crtc_scanoutpos+0x5f/0xa0 [amdgpu]
+T1575; ? dc_stream_get_scanoutpos+0x7a/0xc0 [amdgpu]
+T1575; ? amdgpu_display_get_crtc_scanoutpos+0xa5/0x1c0 [amdgpu]
+T1575; ? amdgpu_display_crtc_idx_to_irq_type+0x30/0x30 [amdgpu]
+T1575; ? amdgpu_crtc_get_scanout_position+0x23/0x30 [amdgpu]
+T1575; ? drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x180/0x3b0 =
+[drm]
+T1575; ? wait_for_completion_timeout+0x127/0x170
+T1575; ? drm_crtc_get_last_vbltimestamp+0x50/0x80 [drm]
+T1575; ? commit_tail+0xad/0x140 [drm_kms_helper]
+T1575; ? drm_atomic_helper_commit+0x137/0x180 [drm_kms_helper]
+T1575; ? drm_atomic_commit+0xac/0xe0 [drm]
+T1575; ? __drm_universal_plane_init.cold+0x11/0x11 [drm]
+T1575; ? drm_atomic_helper_set_config+0x6f/0xb0 [drm_kms_helper]
+T1575; ? drm_mode_setcrtc+0x443/0x8b0 [drm]
+T1575; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1575; ? drm_ioctl_kernel+0xa1/0xf0 [drm]
+T1575; ? drm_ioctl+0x27f/0x500 [drm]
+T1575; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1575; ? amdgpu_drm_ioctl+0x45/0x80 [amdgpu]
+T1575; ? __x64_sys_ioctl+0x92/0xe0
+T1575; ? do_syscall_64+0xdd/0x5d0
+T1575; ? do_syscall_64+0x94/0x5d0
+T1575; ? entry_SYSCALL_64_after_hwframe+0x55/0x5d
+T1575; </TASK>
+T1575;---[ end trace 0000000000000000 ]---
+T1575;------------[ cut here ]------------
+T1575;kernel BUG at mm/vmalloc.c:3206!
+T1575;Oops: invalid opcode: 0000 [#1] SMP NOPTI
+T1575;CPU: 17 UID: 0 PID: 1575 Comm: Xorg Tainted: G        W           7.=
+2.0-rc3-stable #1255 PREEMPT_{RT,(full)}=20
+T1575;Tainted: [W]=3DWARN
+T1575;Hardware name: ASUS System Product Name/ROG STRIX B850-F GAMING WIFI=
+, BIOS 1627 02/05/2026
+T1575;RIP: 0010:__get_vm_area_node+0x113/0x130
+T1575;Code: ff bd ff ff ff ff 48 0f bd e8 b8 0c 00 00 00 ff c5 39 c5 0f 4c=
+ e8 b8 1e 00 00 00 39 c5 0f 4f e8 c4 e2 d1 f7 ee e9 34 ff ff ff <0f> 0b 4c=
+ 89 ef e8 e3 46 01 00 45 31 ed eb ae 0f 1f 00 66 66 2e 0f
+T1575;RSP: 0018:ffffa11ac5bfb580 EFLAGS: 00010286
+T1575;RAX: 00000000ffffffff RBX: 0000000000000001 RCX: 0000000000000022
+T1575;RDX: 000000000000000c RSI: 0000000000000001 RDI: 000000000000f720
+T1575;RBP: 000000000000000c R08: ffffa11ac0000000 R09: ffffc11abfffffff
+T1575;R10: 00000000ffffffff R11: 0000000000000066 R12: ffff949040380000
+T1575;R13: 0000000000000001 R14: 0000000000000dc0 R15: 000000000000f720
+T1575;FS:  00007f2b496ccb80(0000) GS:ffff949d969b5000(0000) knlGS:00000000=
+00000000
+T1575;CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+T1575;CR2: 00007fb5ea0bfa7c CR3: 000000011543b000 CR4: 0000000000f50ef0
+T1575;PKRU: 55555554
+T1575;Call Trace:
+T1575; <TASK>
+T1575; ? __vmalloc_node_range_noprof+0x14a/0x920
+T1575; ? dml21_allocate_memory+0x124/0x180 [amdgpu]
+T1575; ? dc_fpu_begin+0x51/0x60 [amdgpu]
+T1575; ? dml21_allocate_memory+0x124/0x180 [amdgpu]
+T1575; ? asm_exc_invalid_op+0x1a/0x20
+T1575; ? __vmalloc_node_noprof+0x47/0x60
+T1575; ? dml21_allocate_memory+0x124/0x180 [amdgpu]
+T1575; ? dml21_allocate_memory+0x124/0x180 [amdgpu]
+T1575; ? dml21_create_copy+0x16/0x40 [amdgpu]
+T1575; ? dc_state_create_copy+0x89/0x120 [amdgpu]
+T1575; ? dc_commit_state_no_check+0x271/0xe00 [amdgpu]
+T1575; ? dc_commit_streams+0x2f4/0x4e0 [amdgpu]
+T1575; ? amdgpu_dm_atomic_commit_tail+0x61f/0x3650 [amdgpu]
+T1575; ? generic_reg_get+0x1c/0x30 [amdgpu]
+T1575; ? optc1_get_crtc_scanoutpos+0x5f/0xa0 [amdgpu]
+T1575; ? dc_stream_get_scanoutpos+0x7a/0xc0 [amdgpu]
+T1575; ? amdgpu_display_get_crtc_scanoutpos+0xa5/0x1c0 [amdgpu]
+T1575; ? amdgpu_display_crtc_idx_to_irq_type+0x30/0x30 [amdgpu]
+T1575; ? amdgpu_crtc_get_scanout_position+0x23/0x30 [amdgpu]
+T1575; ? drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x180/0x3b0 =
+[drm]
+T1575; ? wait_for_completion_timeout+0x127/0x170
+T1575; ? drm_crtc_get_last_vbltimestamp+0x50/0x80 [drm]
+T1575; ? commit_tail+0xad/0x140 [drm_kms_helper]
+T1575; ? drm_atomic_helper_commit+0x137/0x180 [drm_kms_helper]
+T1575; ? drm_atomic_commit+0xac/0xe0 [drm]
+T1575; ? __drm_universal_plane_init.cold+0x11/0x11 [drm]
+T1575; ? drm_atomic_helper_set_config+0x6f/0xb0 [drm_kms_helper]
+T1575; ? drm_mode_setcrtc+0x443/0x8b0 [drm]
+T1575; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1575; ? drm_ioctl_kernel+0xa1/0xf0 [drm]
+T1575; ? drm_ioctl+0x27f/0x500 [drm]
+T1575; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1575; ? amdgpu_drm_ioctl+0x45/0x80 [amdgpu]
+T1575; ? __x64_sys_ioctl+0x92/0xe0
+T1575; ? do_syscall_64+0xdd/0x5d0
+T1575; ? do_syscall_64+0x94/0x5d0
+T1575; ? entry_SYSCALL_64_after_hwframe+0x55/0x5d
+T1575; </TASK>
+T1575,ncfrag=3D0/979;Modules linked in: netconsole ccm snd_seq_dummy snd_h=
+rtimer snd_seq nls_ascii nls_cp437 vfat fat joydev snd_usb_audio mt7925e m=
+t7925_common snd_usbmidi_lib snd_ump mt792x_lib snd_rawmidi mt76_connac_li=
+b snd_seq_device intel_rapl_msr iosf_mbi mt76 intel_rapl_common rapl mac80=
+211 snd_hda_codec_atihdmi snd_hda_codec_hdmi pcspkr wmi_bmof snd_hda_intel=
+ snd_hda_codec libarc4 snd_hda_core cfg80211 snd_intel_dspcfg snd_hwdep sn=
+d_pcm spd5118 regmap_i2c snd_timer snd rfkill soundcore aead evdev k10temp=
+ ccp nct6775 nct6775_core hwmon_vid configfs efi_pstore efivarfs autofs4 e=
+xt4 mbcache jbd2 amdgpu hid_generic usbhid hid drm_client_lib i2c_algo_bit=
+ drm_buddy drm_ttm_helper ttm drm_exec drm_suballoc_helper mfd_core drm_pa=
+nel_backlight_quirks gpu_sched amdxcp drm_display_helper ahci libahci xhci=
+_pci libata xhci_hcd drm_kms_helper drm scsi_mod igc nvme usbcore cec scsi=
+_common nvme_core crc16 video nvme_keyring gpio_amdpt i2c_piix4 nvme_auth =
+usb_common gpi
+T1575,ncfrag=3D955/979;o_generic i2c_smbus wmi
+T1575;---[ end trace 0000000000000000 ]---
+T1575;------------[ cut here ]------------
+T1575;WARNING: kernel/printk/nbcon.c:1739 at nbcon_cpu_emergency_exit+0x85=
+/0xa0, CPU#23: Xorg/1575
+T1575,ncfrag=3D0/979;Modules linked in: netconsole ccm snd_seq_dummy snd_h=
+rtimer snd_seq nls_ascii nls_cp437 vfat fat joydev snd_usb_audio mt7925e m=
+t7925_common snd_usbmidi_lib snd_ump mt792x_lib snd_rawmidi mt76_connac_li=
+b snd_seq_device intel_rapl_msr iosf_mbi mt76 intel_rapl_common rapl mac80=
+211 snd_hda_codec_atihdmi snd_hda_codec_hdmi pcspkr wmi_bmof snd_hda_intel=
+ snd_hda_codec libarc4 snd_hda_core cfg80211 snd_intel_dspcfg snd_hwdep sn=
+d_pcm spd5118 regmap_i2c snd_timer snd rfkill soundcore aead evdev k10temp=
+ ccp nct6775 nct6775_core hwmon_vid configfs efi_pstore efivarfs autofs4 e=
+xt4 mbcache jbd2 amdgpu hid_generic usbhid hid drm_client_lib i2c_algo_bit=
+ drm_buddy drm_ttm_helper ttm drm_exec drm_suballoc_helper mfd_core drm_pa=
+nel_backlight_quirks gpu_sched amdxcp drm_display_helper ahci libahci xhci=
+_pci libata xhci_hcd drm_kms_helper drm scsi_mod igc nvme usbcore cec scsi=
+_common nvme_core crc16 video nvme_keyring gpio_amdpt i2c_piix4 nvme_auth =
+usb_common gpi
+T1575,ncfrag=3D955/979;o_generic i2c_smbus wmi
+T1575;CPU: 23 UID: 0 PID: 1575 Comm: Xorg Tainted: G      D W           7.=
+2.0-rc3-stable #1255 PREEMPT_{RT,(full)}=20
+T1575;Tainted: [D]=3DDIE, [W]=3DWARN
+T1575;Hardware name: ASUS System Product Name/ROG STRIX B850-F GAMING WIFI=
+, BIOS 1627 02/05/2026
+T1575;RIP: 0010:nbcon_cpu_emergency_exit+0x85/0xa0
+T1575;Code: 75 38 48 83 c4 10 c3 cc cc cc cc 48 8d 7c 24 04 e8 e0 ef ff ff=
+ 80 7c 24 05 00 74 ce e8 74 fc ff ff eb c7 e8 8d 67 f2 ff eb c9 <0f> 0b 8b=
+ 05 43 6a fc 00 85 c0 75 a2 0f 0b eb b0 e8 16 15 8b 00 66
+T1575;RSP: 0018:ffffa11ac5bfb3f8 EFLAGS: 00010246
+T1575;RAX: 0000000000000000 RBX: 000000000000000b RCX: 0000000000000000
+T1575;RDX: ffff949d3d9db204 RSI: 0000000000000001 RDI: ffff949d3d9db040
+T1575;RBP: 0000000000000246 R08: 0000000000000000 R09: 3fffffffffffdfff
+T1575;R10: ffffffffa6ed4e20 R11: ffffa11ac5bfb200 R12: ffffa11ac5bfb4d8
+T1575;R13: ffffffffa60d2ad3 R14: 0000000000000002 R15: 0000000000000004
+T1575;FS:  00007f2b496ccb80(0000) GS:ffff949d96b35000(0000) knlGS:00000000=
+00000000
+T1575;CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+T1575;CR2: 0000557ef2780ef8 CR3: 000000011543b000 CR4: 0000000000f50ef0
+T1575;PKRU: 55555554
+T1575;Call Trace:
+T1575; <TASK>
+T1575; ? oops_exit.cold+0x13/0x1f
+T1575; ? oops_end+0x66/0xe0
+T1575; ? do_trap+0xc5/0x110
+T1575; ? do_error_trap+0x60/0x80
+T1575; ? __get_vm_area_node+0x113/0x130
+T1575; ? exc_invalid_op+0x4f/0x70
+T1575; ? __get_vm_area_node+0x113/0x130
+T1575; ? asm_exc_invalid_op+0x1a/0x20
+T1575; ? __get_vm_area_node+0x113/0x130
+T1575; ? __vmalloc_node_range_noprof+0x14a/0x920
+T1575; ? dml21_allocate_memory+0x124/0x180 [amdgpu]
+T1575; ? dc_fpu_begin+0x51/0x60 [amdgpu]
+T1575; ? dml21_allocate_memory+0x124/0x180 [amdgpu]
+T1575; ? asm_exc_invalid_op+0x1a/0x20
+T1575; ? __vmalloc_node_noprof+0x47/0x60
+T1575; ? dml21_allocate_memory+0x124/0x180 [amdgpu]
+T1575; ? dml21_allocate_memory+0x124/0x180 [amdgpu]
+T1575; ? dml21_create_copy+0x16/0x40 [amdgpu]
+T1575; ? dc_state_create_copy+0x89/0x120 [amdgpu]
+T1575; ? dc_commit_state_no_check+0x271/0xe00 [amdgpu]
+T1575; ? dc_commit_streams+0x2f4/0x4e0 [amdgpu]
+T1575; ? amdgpu_dm_atomic_commit_tail+0x61f/0x3650 [amdgpu]
+T1575; ? generic_reg_get+0x1c/0x30 [amdgpu]
+T1575; ? optc1_get_crtc_scanoutpos+0x5f/0xa0 [amdgpu]
+T1575; ? dc_stream_get_scanoutpos+0x7a/0xc0 [amdgpu]
+T1575; ? amdgpu_display_get_crtc_scanoutpos+0xa5/0x1c0 [amdgpu]
+T1575; ? amdgpu_display_crtc_idx_to_irq_type+0x30/0x30 [amdgpu]
+T1575; ? amdgpu_crtc_get_scanout_position+0x23/0x30 [amdgpu]
+T1575; ? drm_crtc_vblank_helper_get_vblank_timestamp_internal+0x180/0x3b0 =
+[drm]
+T1575; ? wait_for_completion_timeout+0x127/0x170
+T1575; ? drm_crtc_get_last_vbltimestamp+0x50/0x80 [drm]
+T1575; ? commit_tail+0xad/0x140 [drm_kms_helper]
+T1575; ? drm_atomic_helper_commit+0x137/0x180 [drm_kms_helper]
+T1575; ? drm_atomic_commit+0xac/0xe0 [drm]
+T1575; ? __drm_universal_plane_init.cold+0x11/0x11 [drm]
+T1575; ? drm_atomic_helper_set_config+0x6f/0xb0 [drm_kms_helper]
+T1575; ? drm_mode_setcrtc+0x443/0x8b0 [drm]
+T1575; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1575; ? drm_ioctl_kernel+0xa1/0xf0 [drm]
+T1575; ? drm_ioctl+0x27f/0x500 [drm]
+T1575; ? drm_mode_getcrtc+0x180/0x180 [drm]
+T1575; ? amdgpu_drm_ioctl+0x45/0x80 [amdgpu]
+T1575; ? __x64_sys_ioctl+0x92/0xe0
+T1575; ? do_syscall_64+0xdd/0x5d0
+T1575; ? do_syscall_64+0x94/0x5d0
+T1575; ? entry_SYSCALL_64_after_hwframe+0x55/0x5d
+T1575; </TASK>
+T1575;---[ end trace 0000000000000000 ]---
+C23;RIP: 0010:__get_vm_area_node+0x113/0x130
+C5;Code: ff bd ff ff ff ff 48 0f bd e8 b8 0c 00 00 00 ff c5 39 c5 0f 4c e8=
+ b8 1e 00 00 00 39 c5 0f 4f e8 c4 e2 d1 f7 ee e9 34 ff ff ff <0f> 0b 4c 89=
+ ef e8 e3 46 01 00 45 31 ed eb ae 0f 1f 00 66 66 2e 0f
+C5;RSP: 0018:ffffa11ac5bfb580 EFLAGS: 00010286
+C5;RAX: 00000000ffffffff RBX: 0000000000000001 RCX: 0000000000000022
+C5;RDX: 000000000000000c RSI: 0000000000000001 RDI: 000000000000f720
+C5;RBP: 000000000000000c R08: ffffa11ac0000000 R09: ffffc11abfffffff
+C5;R10: 00000000ffffffff R11: 0000000000000066 R12: ffff949040380000
+C5;R13: 0000000000000001 R14: 0000000000000dc0 R15: 000000000000f720
+C5;FS:  00007f2b496ccb80(0000) GS:ffff949d966b5000(0000) knlGS:00000000000=
+00000
+C5;CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+C5;CR2: 00007f17b8093940 CR3: 000000011543b000 CR4: 0000000000f50ef0
+C5;PKRU: 55555554
+T1575;Kernel panic - not syncing: Fatal exception in interrupt
+T1575;Kernel Offset: 0x24c00000 from 0xffffffff81000000 (relocation range:=
+ 0xffffffff80000000-0xffffffffbfffffff)
+T1575;---[ end Kernel panic - not syncing: Fatal exception in interrupt ]-=
+=2D-
 
-Introduce a new mode for the bo LRU walker so that sleeping locks
-can be taken. This can be used when the caller doesn't hold any
-previous dma_resv locks, and where it intends to hold at most
-one lock at a time.
 
-Like the rest of the TTM eviction this should sooner than later
-be converted to full WW transactions.
-
-v3:
-- Fix ttm_resource_manager_set_dmem_region() storing an error pointer
-  in man->cg unconditionally. (Sashiko-bot)
-- Fix kernel-doc function name format for ttm_bo_evict_cgroup() and
-  ttm_resource_manager_set_dmem_region().
-
-v5:
-- Rebased on the introduction of struct dmem_cgroup_init.
-- Handle NULL region in ttm_resource_manager_set_dmem_region() to clear
-  the reclaim callback, preventing use-after-free when the manager is
-  torn down while the dmem region outlives it. (Sashiko-bot)
-- Return 0 on any progress (even partial eviction), -ENOSPC only when
-  nothing was freed; fixes callers that expected 0 on partial success.
-- Document that the reclaim callback should return 0 if some progress
-  was made, -ENOSPC if no progress at all, or another error for fatal
-  failures.
-
-v8:
-- Fix ttm_resource_manager_set_dmem_region() using IS_ERR_OR_NULL(),
-  which skipped the assignment for a NULL region and thus never
-  cleared man->cg. Use IS_ERR() so that a NULL region detaches the
-  region as the kernel-doc and the v5 changelog intended. (Sashiko-bot)
-
-Assisted-by: GitHub_Copilot:claude-sonnet-4.6
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com> #v7
----
- drivers/gpu/drm/ttm/ttm_bo.c       | 95 +++++++++++++++++++++++++++++-
- drivers/gpu/drm/ttm/ttm_bo_util.c  |  3 +-
- drivers/gpu/drm/ttm/ttm_resource.c | 52 ++++++++++++++++
- include/drm/ttm/ttm_bo.h           | 10 ++++
- include/drm/ttm/ttm_resource.h     |  7 +++
- 5 files changed, 163 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
-index 3980f376e3ba..b2bbbb69add3 100644
---- a/drivers/gpu/drm/ttm/ttm_bo.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo.c
-@@ -515,12 +515,20 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
- {
- 	struct ttm_bo_evict_walk *evict_walk =
- 		container_of(walk, typeof(*evict_walk), walk);
-+	/* Capture size before eviction in case res is cleared. */
-+	s64 bo_size = bo->base.size;
- 	s64 lret;
- 
- 	if (!dmem_cgroup_state_evict_valuable(evict_walk->limit_pool, bo->resource->css,
- 					      evict_walk->try_low, &evict_walk->hit_low))
- 		return 0;
- 
-+	/*
-+	 * evict_walk->place is NULL in cgroup drain mode.  Drivers'
-+	 * eviction_valuable() callbacks must handle a NULL place, treating it
-+	 * as "any placement": the TTM base implementation already does so via
-+	 * ttm_resource_intersects().
-+	 */
- 	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, evict_walk->place))
- 		return 0;
- 
-@@ -536,11 +544,15 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
- 		goto out;
- 
- 	evict_walk->evicted++;
--	if (evict_walk->res)
-+	if (evict_walk->res) {
- 		lret = ttm_resource_alloc(evict_walk->evictor, evict_walk->place,
- 					  evict_walk->res, NULL);
--	if (lret == 0)
--		return 1;
-+		if (lret == 0)
-+			return 1;
-+	} else {
-+		/* Cgroup drain: return bytes freed for byte-denominated progress. */
-+		return bo_size;
-+	}
- out:
- 	/* Errors that should terminate the walk. */
- 	if (lret == -ENOSPC)
-@@ -614,6 +626,83 @@ static int ttm_bo_evict_alloc(struct ttm_device *bdev,
- 	return 0;
- }
- 
-+/**
-+ * ttm_bo_evict_cgroup() - Evict buffer objects charged to a specific cgroup.
-+ * @bdev: The TTM device.
-+ * @man: The resource manager whose LRU to walk.
-+ * @limit_pool: The cgroup pool state whose members should be evicted.
-+ * @target_bytes: Number of bytes to free.
-+ * @ctx: The TTM operation context.
-+ *
-+ * Walk the LRU of @man and evict buffer objects that are charged to the
-+ * cgroup identified by @limit_pool, until at least @target_bytes have been
-+ * freed.  Mirrors the two-pass (trylock -> sleeping-lock, low-watermark)
-+ * strategy used by ttm_bo_evict_alloc().
-+ *
-+ * Return: >= @target_bytes on full success, 0..target_bytes-1 if partial,
-+ *         negative error code on fatal error.
-+ */
-+s64 ttm_bo_evict_cgroup(struct ttm_device *bdev,
-+			struct ttm_resource_manager *man,
-+			struct dmem_cgroup_pool_state *limit_pool,
-+			s64 target_bytes,
-+			struct ttm_operation_ctx *ctx)
-+{
-+	struct ttm_bo_evict_walk evict_walk = {
-+		.walk = {
-+			.ops = &ttm_evict_walk_ops,
-+			.arg = { .ctx = ctx },
-+		},
-+		.limit_pool = limit_pool,
-+		/* place, evictor, res left NULL: selects cgroup drain mode */
-+	};
-+	s64 lret, pass;
-+
-+	evict_walk.walk.arg.trylock_only = true;
-+	lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, target_bytes);
-+	if (lret < 0 || lret >= target_bytes)
-+		return lret;
-+
-+	/* Second pass: also evict BOs at the low watermark. */
-+	if (evict_walk.hit_low) {
-+		evict_walk.try_low = true;
-+		pass = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man,
-+					      target_bytes - lret);
-+		if (pass < 0)
-+			return pass;
-+		lret += pass;
-+		if (lret >= target_bytes)
-+			return lret;
-+	}
-+
-+	/* Full sleeping-lock pass for remaining target. */
-+	evict_walk.try_low = evict_walk.hit_low = false;
-+	evict_walk.walk.arg.trylock_only = false;
-+
-+retry:
-+	evict_walk.walk.arg.sleeping_lock = true;
-+	do {
-+		evict_walk.evicted = 0;
-+		pass = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man,
-+					      target_bytes - lret);
-+		if (pass < 0) {
-+			lret = pass;
-+			goto out;
-+		}
-+		lret += pass;
-+	} while (lret < target_bytes && evict_walk.evicted);
-+
-+	/* One more attempt if we hit the low limit during sleeping-lock pass. */
-+	if (lret < target_bytes && evict_walk.hit_low && !evict_walk.try_low) {
-+		evict_walk.try_low = true;
-+		goto retry;
-+	}
-+
-+out:
-+	return lret;
-+}
-+EXPORT_SYMBOL(ttm_bo_evict_cgroup);
-+
- /**
-  * ttm_bo_pin - Pin the buffer object.
-  * @bo: The buffer object to pin
-diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
-index 3e3c201a0222..bd0b23ac2cc4 100644
---- a/drivers/gpu/drm/ttm/ttm_bo_util.c
-+++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
-@@ -999,7 +999,8 @@ __ttm_bo_lru_cursor_next(struct ttm_bo_lru_cursor *curs)
- 		bo = res->bo;
- 		if (ttm_lru_walk_trylock(curs, bo))
- 			bo_locked = true;
--		else if (!arg->ticket || arg->ctx->no_wait_gpu || arg->trylock_only)
-+		else if ((!arg->ticket && !arg->sleeping_lock) || arg->ctx->no_wait_gpu ||
-+			 arg->trylock_only)
- 			continue;
- 
- 		if (!ttm_bo_get_unless_zero(bo)) {
-diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
-index 154d6739256f..1ff4a470b083 100644
---- a/drivers/gpu/drm/ttm/ttm_resource.c
-+++ b/drivers/gpu/drm/ttm/ttm_resource.c
-@@ -953,3 +953,55 @@ void ttm_resource_manager_create_debugfs(struct ttm_resource_manager *man,
- #endif
- }
- EXPORT_SYMBOL(ttm_resource_manager_create_debugfs);
-+
-+/**
-+ * ttm_resource_manager_dmem_reclaim() - dmem cgroup reclaim callback for TTM
-+ *                                       resource managers.
-+ * @pool: The dmem cgroup pool state for the cgroup being reclaimed.
-+ * @target_bytes: Number of bytes to try to free.
-+ * @priv: The &ttm_resource_manager pointer, passed as @init.reclaim_priv to
-+ *        dmem_cgroup_register_region().
-+ *
-+ * Drivers should use this as the @reclaim member of their own
-+ * &struct dmem_cgroup_ops, with the &ttm_resource_manager pointer as
-+ * @init.reclaim_priv.
-+ *
-+ * Return: 0 if some memory was freed, -ENOSPC if nothing was freed, or
-+ *         another negative error code on fatal failure.
-+ */
-+int ttm_resource_manager_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
-+				      u64 target_bytes, void *priv)
-+{
-+	struct ttm_resource_manager *man = priv;
-+	struct ttm_operation_ctx ctx = { .interruptible = true };
-+	s64 freed;
-+
-+	freed = ttm_bo_evict_cgroup(man->bdev, man, pool, target_bytes, &ctx);
-+	if (freed < 0)
-+		return freed;
-+
-+	return freed > 0 ? 0 : -ENOSPC;
-+}
-+EXPORT_SYMBOL(ttm_resource_manager_dmem_reclaim);
-+
-+/**
-+ * ttm_resource_manager_set_dmem_region() - Associate a dmem cgroup region with a
-+ *                                        resource manager.
-+ * @man: The resource manager.
-+ * @region: The dmem cgroup region to associate, may be NULL or IS_ERR().
-+ *
-+ * When @region is valid, stores it in @man->cg so that TTM can look up the
-+ * associated pool during charging and eviction-target selection.  When
-+ * @region is %NULL, clears @man->cg to detach the region before teardown.
-+ * An IS_ERR() @region is ignored, leaving @man->cg unchanged.
-+ * The reclaim callback must be wired up using ttm_resource_manager_dmem_reclaim()
-+ * in the driver's own &struct dmem_cgroup_ops, with the manager pointer as
-+ * @init.reclaim_priv.
-+ */
-+void ttm_resource_manager_set_dmem_region(struct ttm_resource_manager *man,
-+					  struct dmem_cgroup_region *region)
-+{
-+	if (!IS_ERR(region))
-+		man->cg = region;
-+}
-+EXPORT_SYMBOL(ttm_resource_manager_set_dmem_region);
-diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
-index 8310bc3d55f9..32791c4db2a9 100644
---- a/include/drm/ttm/ttm_bo.h
-+++ b/include/drm/ttm/ttm_bo.h
-@@ -226,6 +226,11 @@ struct ttm_lru_walk_arg {
- 	struct ww_acquire_ctx *ticket;
- 	/** @trylock_only: Only use trylock for locking. */
- 	bool trylock_only;
-+	/**
-+	 * @sleeping_lock: Use sleeping locks even with %NULL @ticket.
-+	 * @trylock_only has precedence over this field.
-+	 */
-+	bool sleeping_lock;
- };
- 
- /**
-@@ -431,6 +436,11 @@ void ttm_bo_unpin(struct ttm_buffer_object *bo);
- int ttm_bo_evict_first(struct ttm_device *bdev,
- 		       struct ttm_resource_manager *man,
- 		       struct ttm_operation_ctx *ctx);
-+s64 ttm_bo_evict_cgroup(struct ttm_device *bdev,
-+			struct ttm_resource_manager *man,
-+			struct dmem_cgroup_pool_state *limit_pool,
-+			s64 target_bytes,
-+			struct ttm_operation_ctx *ctx);
- int ttm_bo_access(struct ttm_buffer_object *bo, unsigned long offset,
- 		  void *buf, int len, int write);
- vm_fault_t ttm_bo_vm_reserve(struct ttm_buffer_object *bo,
-diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
-index a5d386583fb6..32e485fdce9a 100644
---- a/include/drm/ttm/ttm_resource.h
-+++ b/include/drm/ttm/ttm_resource.h
-@@ -39,6 +39,7 @@
- 
- struct dentry;
- struct dmem_cgroup_device;
-+struct dmem_cgroup_region;
- struct drm_printer;
- struct ttm_device;
- struct ttm_resource_manager;
-@@ -477,6 +478,12 @@ void ttm_resource_manager_init(struct ttm_resource_manager *man,
- 			       struct ttm_device *bdev,
- 			       uint64_t size);
- 
-+void ttm_resource_manager_set_dmem_region(struct ttm_resource_manager *man,
-+					  struct dmem_cgroup_region *region);
-+
-+int ttm_resource_manager_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
-+				      u64 target_bytes, void *priv);
-+
- int ttm_resource_manager_evict_all(struct ttm_device *bdev,
- 				   struct ttm_resource_manager *man);
- 
--- 
-2.55.0
-
+Bert Karwatzki
