@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4673C531CC
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 20:19:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 79F28C531D0
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 20:19:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1718310F1A6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D7F510F1AF;
 	Thu, 23 Jul 2026 20:19:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Jlz1rM7s";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LDvIvtKK";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013043.outbound.protection.outlook.com
- [40.93.201.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D297310E5F0
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011063.outbound.protection.outlook.com [40.107.208.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F2C4610E5FD
  for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 20:19:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ELFO6WA7bxhqz5mLTSId6MWSsNo8Cl906dgpJXC+jqJveOQADsT5+zToAiUmlrDzo05eMOhe20b+luyW4pXbwzAvK8NYsDoyWch+brUD785Ty79jmc2kgltxwywanONNmCuiUTTMCcH1TK/dAwlAFr+9d7PUe1MFc7FXQd88wVo8ayhR+yL601iS/2Kz191X+a1d7GQrimEvy6RmBBDYBAM8jVNkuDWV1FaOFvXro6xYCKwnCYp2bvA8wg8r8xM9dI54QQE24jvnpAzRA4WcSDagfENTFX0TguqPfiRrh2S65azVQzZhwyRRKtPZEWSHEjb/DIqmLWxIX/E4dIvf/Q==
+ b=hcvavtHfK450k+OZ9yIQm9cuH+1XWMszmUQht4mS3FqqeeNNieCSYbQQD47ezc9mF7fHISKjaXjUc8hiJq3pNB3cZuKtHoM0bJz4FUw/019cVfCvKE5gupKdAIntr6GC1svGh5KQnfSo5KR5/j7T1gcFsrmi5QV2EbW+U2VLQQiGOtkxLlHmmogJmnK0umspaoBQwlG0eXRl5P+LIB+e+GIn6zipER0gH3B7wWrHUj8QnPMeT++EdCVf9Kc25wS8cSNGV2Z4MSfTP2WyGkPgSxM6A4ZHqEW5KrBM7Pvy9+oCAZAEYy4FmmUpoE0LhFEP9TYu45LMtXzQPFmu7u8hog==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7NIzSNxu5yXEWaJcBY0AWge3aG689ZC7bX27oIbfAf4=;
- b=QIle9jrCi2zzERe3ixedJZ2j5H/ZhKU0VB+EBuxP2wyFcH6sMfZYvCUP6BWZLZ/td5K8RrMgf7y2K/hunMa50M3eqtWYxJHm1TRkpiruYeql9+Rmdo2UULWVhCNdrBKlfeThjIy9SqS1kVA+cLfS5o198Yv12tz+9S7IsQX4jNQVotRyPYCf8tmSwUEsMTHufvKiA15KqMnfiCyMv4rhjw1cp9ht7ka6N03KUiJUj7BFgz3nqWjYibOJfqaXJzpCI09LxVCsvTlWftm5GLlstZr8uINCGplDVMz8sRvN6NNvDNHhPRYHws+9EVYk60qL3GnJktEq4TuKYQJqrEUSyQ==
+ bh=9gXy8YJYiMcMWuoFRO16b17KcKR3X5CzwrBCPSjCJu0=;
+ b=R3gsZxhHC7FaWz67vhAWWeTHlAzbf41dmlG+ODf45Nl0Cu0HW9BVwQo5KjcxHTFHJYs1hUWfpWsiIpUrARsebT/99+0tW96rn9BcoOhNAhhoBgXieMliLbPvCcxFF25htMT9qsCnXhlBY/a+wCoyZMYl2Xn1cmdHw9lqUm1dO8LcPTdeiwo3IrA23xesO4y49Sqlyb/j3NLYIebRc2AxVxarGWCVKGBZVC1ObfHCiNbdOugx/TfHXKCTTkDX3dd+eRATnJVPo77R2gyBFsCT78iS84+30uTk01DQ/f/BFN4vQLwDIpY8tSZCND53VZb/Xzfpmz6Hx5bTLfxFAvQaFw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7NIzSNxu5yXEWaJcBY0AWge3aG689ZC7bX27oIbfAf4=;
- b=Jlz1rM7sqw+Iq6FbLNC3pMLlNXcpUzgSKbDQsZoq6LXspjkKE/DJ+LKl9NovxMB+o31qrgHi3Xd0yZG/kCLlbHulKmRFyMJs4d6WXrEfoCZcAGIR3q/XP7oBT7HU+t4VjtIUF2+x0jt1jHA72VP/2jkHx5Xn/1yu5ETPmkIlPXA=
-Received: from MN0P223CA0003.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::30)
- by CH3PR12MB9022.namprd12.prod.outlook.com (2603:10b6:610:171::8)
+ bh=9gXy8YJYiMcMWuoFRO16b17KcKR3X5CzwrBCPSjCJu0=;
+ b=LDvIvtKKUjfjmguIZ2bhMyk1p5hQbmnKbbBsmpM+9mxKf8Ku2ouaNmJmA4YXYw6rUQ4qtRf4YeW20XqqDyBLpLGVinaPD+ghNfvgP5TTnGZ4dq3yI/MoNPGYJsRCVTJSOKP+CvtN4ohEsqWpQ7334WWK+4V6j8dUwPnWltTso/Y=
+Received: from MN0P223CA0026.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::12)
+ by SN7PR12MB7910.namprd12.prod.outlook.com (2603:10b6:806:34b::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 20:18:52 +0000
+ 2026 20:18:56 +0000
 Received: from BL02EPF00021F6D.namprd02.prod.outlook.com
- (2603:10b6:208:52b:cafe::60) by MN0P223CA0003.outlook.office365.com
- (2603:10b6:208:52b::30) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:208:52b:cafe::31) by MN0P223CA0026.outlook.office365.com
+ (2603:10b6:208:52b::12) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.11 via Frontend Transport; Thu,
- 23 Jul 2026 20:18:52 +0000
+ 23 Jul 2026 20:18:55 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BL02EPF00021F6D.mail.protection.outlook.com (10.167.249.9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 20:18:52 +0000
+ 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 20:18:55 +0000
 Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 23 Jul
- 2026 15:18:49 -0500
+ 2026 15:18:53 -0500
 From: Fangzhi Zuo <jerry.zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,12 +63,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Dillon Varone <Dillon.Varone@amd.com>, "Sridevi
- Arvindekar" <sridevi.arvindekar@amd.com>
-Subject: [PATCH 02/49] drm/amd/display: Port DCN4+ MCIF ARB programming to new
- format
-Date: Thu, 23 Jul 2026 16:13:10 -0400
-Message-ID: <20260723201908.373300-3-jerry.zuo@amd.com>
+ <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Subject: [PATCH 07/49] drm/amd/display: Add KUnit tests for
+ event_property_validate
+Date: Thu, 23 Jul 2026 16:13:15 -0400
+Message-ID: <20260723201908.373300-8-jerry.zuo@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260723201908.373300-1-jerry.zuo@amd.com>
 References: <20260723201908.373300-1-jerry.zuo@amd.com>
@@ -81,29 +79,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6D:EE_|CH3PR12MB9022:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d6354ff-35bb-4e59-01f1-08dee8f79d39
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6D:EE_|SN7PR12MB7910:EE_
+X-MS-Office365-Filtering-Correlation-Id: f5d992b9-d37f-45c5-6fc0-08dee8f79eea
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|30052699003|376014|1800799024|82310400026|36860700016|23010399003|5023799004|11063799006|6133799003|3023799007|56012099006|18002099003|22082099003|10067099003;
-X-Microsoft-Antispam-Message-Info: IMEbyxTlAHzcwInCRa9tyQx/4bcn4iQIP+QRnIp51MuwA3I07Llj76iLPG3rhE6Pm8ojxZ+M8YKZc664s43Qt9369AOHwT9+mLEAb21+gmQ9MeSsjY0QlgYsEsMB7rit+3xfUCwmVmIOM3nBkymIpUGL4DHET3v3u/tW5+tdVRmU6ev4W7ZiXL/xb81ztJkSD7ZNMdg/ysfA82lpQZkma2PuFHyk5c3JqA59LVIhLbQwFFEGXEVk3VJOH4bQWK8RnKHy+kwiOhVs608L+u9GnRt2JW+bXyv81UNTvqzz+jWc5BkycqELUVJlRSsAhb7tSLhCjAZII2Es/O8/w+vO2EFtdcys1F1xKjfzDeekJVlUnmm4Q8xgun8mqHX2A9qJUxbMDm+7F9zxyXwBmh61N1p8QdTWRDV6f6SQsE5mN83X+/7ZiO6LOkkA2comtL2yIpknsphTQ+YXOh1I8YFPafUitQJkF+fq5xXC0fpRBUtWqWU1l3X56q4dN2lsB4M8RsDfeTP3J0Pziz/8ehMZPmvlEdb/fakg4veN71c+eCZ5OQpr5OHtHWitIIpL1O3i7GybeD+bdCRs6UyH3jbWH+0zMKjJTUIAl0rQOT0/VkdnhsmXTW2lO2ZYGdT6JOjnVhtf/8q1CxuzO/FYIWhFp4ISD7xSeGVy1PrRnqOAbA1Z3lPMujNemP45Jr73eK4a6G2aAw6rj3FkaJbW4V2jUQ==
+ ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|11063799006|56012099006|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info: smpFAumFuxxzi2Df28+uv+OWjI6FKO3lzLi+dkq+RZVognAQcEcj1iWYuJGSjcD+m/kdWw7ohrpquRb7OLERA3oFCKDj2Y+EV94N04vSfHv568zo0SmW6/U4gMTpslnNCE40pX3yy3fXxDgXAGNgWGH65Ka+PdES24EGa5TceJJ0AIluVAr+wSqVGgO6idI/YMRtp/fUpRpEMMOjZ1NNEnrFZZirtAVkZXiLKMVuvomYFKfXgrVhJ8y/OqguGJPy8Ju1KjCc8cZOltavmWCLTwro2gOHRvZGa/+ExVIr52RbnY0THp26M+VPvk8S/a7YJtIMaan6cBCDcnfvgg+VnlQKXSoOoSJSXy4+P5aZoCD5ecyJuurVNvcpCGi7gVl7q4uI7p47xUpGYL6je+Ef7olZzKfvB+nuDeH8TxO+Lt7VHpFQVHXeJw2uX2nZLdfHjeMmsLdkGx1axbTXb4bvk/1n4w5jUq66YC+Rxa9+/tOr1ejaBfpt4CuzoDcLkMljM5XxuPFiqh0Q+39ovW3LI5Y2fCsSnsyquRE2IFw6IpsjH4zB0F/KmWTuFN7UrgPXKw1mcdvExM6vQnJv7scfk1h+d5+A4VdlFTZsZVMHw81oGEsgeQEl/cNViec+c036c5Fi6LyVDbw9OulPLKDJ1AD8KDDvTyUOdUXpXGr/WLubAmksXzNn5Nmpl5X0Y82XABRj4gYwUVpWzW6weu7SSg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(30052699003)(376014)(1800799024)(82310400026)(36860700016)(23010399003)(5023799004)(11063799006)(6133799003)(3023799007)(56012099006)(18002099003)(22082099003)(10067099003);
+ SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 5LnfOkqTl+qEjyjsk+QBuSjQeLTG2lS5P3MU5bPhjFJaCxgVjRHaB83v1EzX7ptV6jM5gInCsh6OJcYllpMg79BZJP+fkKklB5W8mEzRxXgK576AtysB+8rDVrICqAxotUShzUXw/WHQwxpW6rH5lSM1mBmi0AHfkYx9QylR2xiJMSwpaMm/qHPuJMblpkJTLFTX1oydA86e5Bd7/ItHX0E1hbvexoQDWleiwiPZ0p9nakp0Rdy1maxwPKJ5pQ1thHx13uOHgwi2yguRO3zDzidhy2bQaj3JOBMz5AhzjWcVej3fmqCLmjqYD7JPoYKuEZy4H+5Cclx/xM1+52fALtRgfssdOmf2whUhoP/PYO4o+/IyR1EECPyWbzXtIRmubXIVUx5Ck9wZSn3SjNUK0P+5qpkNsCdmu9UyTuFJe6dykGWsaB3R3aCumooMa/9i
+X-MS-Exchange-AntiSpam-MessageData-0: hU3XZnDXjMtMnCY2LzoaNEVy08MYko7rJ2ioHaSRlAMcLtCsy8XhfC2BdT5TYEtub++DjSBWdQbEVjLtUK9h9qYjGSwkyTKw8zatd/6+Jszl4LH9OkDAPDwMHbdDbhm3X4Dqq8cqcxWPv21tPVmsvJ+zsU5KNw2Map49ujnQ6n8yJWswMBGWD/mPrxTwJSWzzKY7Y7BAiyh5D+Z036GjjXxz/AIdrb3FY2PLjzxAmeUGL1O06+tAt+raxkZo9lZvmlE4dOMxQVSSBoq658VEVMaxawKCp85X7oj0sKnqSurkc1X7eQmDdj895ljsWijPlWUr2YePiTjusbeHqZivPL/HBgMXF4krQbf6IS/xl+nllb/NBIgeOdVFIfo2nehGcRJoxNrKSL5A3jqr3DdoM/r7LCTtpFu33sfcHzXKkEKTSucJytJxkejalDtMUXf0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 20:18:52.5073 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d6354ff-35bb-4e59-01f1-08dee8f79d39
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 20:18:55.3372 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f5d992b9-d37f-45c5-6fc0-08dee8f79eea
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9022
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7910
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,424 +116,254 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Dillon Varone <Dillon.Varone@amd.com>
+From: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 
-[WHY&HOW]
-DML2.1 now outputs MCIF arbiter programming, but using a new
-structure. Change  DCN401 and DCN42 to use this new format.
+Cover the per-connector scan in event_property_validate(): NULL,
+disconnected and NULL-state connectors are skipped; a changed
+encryption status updates the cached value and schedules
+property_update_work; and an unchanged status leaves it
+untouched.
 
-Reviewed-by: Sridevi Arvindekar <sridevi.arvindekar@amd.com>
-Signed-off-by: Dillon Varone <Dillon.Varone@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 ---
- .../gpu/drm/amd/display/dc/mmhubbub/Makefile  |  10 ++
- .../dc/mmhubbub/dcn32/dcn32_mmhubbub.c        |   4 +-
- .../dc/mmhubbub/dcn32/dcn32_mmhubbub.h        |   5 +
- .../dc/mmhubbub/dcn401/dcn401_mmhubbub.c      | 135 ++++++++++++++++++
- .../dc/mmhubbub/dcn401/dcn401_mmhubbub.h      |  40 ++++++
- .../dc/mmhubbub/dcn42/dcn42_mmhubbub.h        |   1 +
- .../dc/resource/dcn401/dcn401_resource.c      |  29 ++--
- .../dc/resource/dcn401/dcn401_resource.h      |   4 +
- .../dc/resource/dcn42/dcn42_resource.c        |  28 ++--
- 9 files changed, 227 insertions(+), 29 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/display/dc/mmhubbub/dcn401/dcn401_mmhubbub.c
- create mode 100644 drivers/gpu/drm/amd/display/dc/mmhubbub/dcn401/dcn401_mmhubbub.h
+ .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    |   4 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.h    |   1 +
+ .../amdgpu_dm/tests/amdgpu_dm_hdcp_test.c     | 178 ++++++++++++++++++
+ 3 files changed, 182 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/mmhubbub/Makefile b/drivers/gpu/drm/amd/display/dc/mmhubbub/Makefile
-index afc376defa0b..dddf5a9eb0b8 100644
---- a/drivers/gpu/drm/amd/display/dc/mmhubbub/Makefile
-+++ b/drivers/gpu/drm/amd/display/dc/mmhubbub/Makefile
-@@ -50,6 +50,16 @@ MMHUBBUB_DCN35 = dcn35_mmhubbub.o
- AMD_DAL_MMHUBBUB_DCN35 = $(addprefix $(AMDDALPATH)/dc/mmhubbub/dcn35/,$(MMHUBBUB_DCN35))
- 
- AMD_DISPLAY_FILES += $(AMD_DAL_MMHUBBUB_DCN35)
-+
-+
-+###############################################################################
-+# DCN401
-+###############################################################################
-+MMHUBBUB_DCN401 = dcn401_mmhubbub.o
-+
-+AMD_DAL_MMHUBBUB_DCN401 = $(addprefix $(AMDDALPATH)/dc/mmhubbub/dcn401/,$(MMHUBBUB_DCN401))
-+
-+AMD_DISPLAY_FILES += $(AMD_DAL_MMHUBBUB_DCN401)
- endif
- 
- ###############################################################################
-diff --git a/drivers/gpu/drm/amd/display/dc/mmhubbub/dcn32/dcn32_mmhubbub.c b/drivers/gpu/drm/amd/display/dc/mmhubbub/dcn32/dcn32_mmhubbub.c
-index 6b6f80a3bfd5..5ce787632fe9 100644
---- a/drivers/gpu/drm/amd/display/dc/mmhubbub/dcn32/dcn32_mmhubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/mmhubbub/dcn32/dcn32_mmhubbub.c
-@@ -73,7 +73,7 @@
-  *    the bufmgr status can show the progress of write back, can be used for debug purpose
-  */
- 
--static void mmhubbub32_warmup_mcif(struct mcif_wb *mcif_wb,
-+void mmhubbub32_warmup_mcif(struct mcif_wb *mcif_wb,
- 		struct mcif_warmup_params *params)
- {
- 	struct dcn30_mmhubbub *mcif_wb30 = TO_DCN30_MMHUBBUB(mcif_wb);
-@@ -100,7 +100,7 @@ static void mmhubbub32_warmup_mcif(struct mcif_wb *mcif_wb,
- 	REG_UPDATE(MMHUBBUB_WARMUP_CONTROL_STATUS, MMHUBBUB_WARMUP_EN, false);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+index 34f70e517dc6..622d9c275c3a 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
+@@ -465,7 +465,8 @@ void event_property_update(struct work_struct *work)
  }
+ EXPORT_IF_KUNIT(event_property_update);
  
--static void mmhubbub32_config_mcif_buf(struct mcif_wb *mcif_wb,
-+void mmhubbub32_config_mcif_buf(struct mcif_wb *mcif_wb,
- 		struct mcif_buf_params *params,
- 		unsigned int dest_height)
+-static void event_property_validate(struct work_struct *work)
++STATIC_IFN_KUNIT
++void event_property_validate(struct work_struct *work)
  {
-diff --git a/drivers/gpu/drm/amd/display/dc/mmhubbub/dcn32/dcn32_mmhubbub.h b/drivers/gpu/drm/amd/display/dc/mmhubbub/dcn32/dcn32_mmhubbub.h
-index ef15b4f1f6b9..682f3bba6d50 100644
---- a/drivers/gpu/drm/amd/display/dc/mmhubbub/dcn32/dcn32_mmhubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/mmhubbub/dcn32/dcn32_mmhubbub.h
-@@ -200,6 +200,11 @@
- 	SF(MMHUBBUB_WARMUP_CONTROL_STATUS, MMHUBBUB_WARMUP_SW_INT_ACK, mask_sh),\
- 	SF(MMHUBBUB_WARMUP_CONTROL_STATUS, MMHUBBUB_WARMUP_INC_ADDR, mask_sh)
+ 	struct hdcp_workqueue *hdcp_work =
+ 		container_of(to_delayed_work(work), struct hdcp_workqueue, property_validate_dwork);
+@@ -514,6 +515,7 @@ static void event_property_validate(struct work_struct *work)
+ 		}
+ 	}
+ }
++EXPORT_IF_KUNIT(event_property_validate);
  
-+void mmhubbub32_warmup_mcif(struct mcif_wb *mcif_wb,
-+		struct mcif_warmup_params *params);
-+void mmhubbub32_config_mcif_buf(struct mcif_wb *mcif_wb,
-+		struct mcif_buf_params *params,
-+		unsigned int dest_height);
+ static void event_watchdog_timer(struct work_struct *work)
+ {
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
+index 4b8ba743f9d8..57c534efbc71 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
+@@ -114,6 +114,7 @@ void hdcp_update_display_encryption_control(struct hdcp_workqueue *hdcp_work,
+ 					    unsigned int conn_index,
+ 					    bool enable_encryption);
+ void event_property_update(struct work_struct *work);
++void event_property_validate(struct work_struct *work);
+ void event_callback(struct work_struct *work);
+ void link_lock(struct hdcp_workqueue *work, bool lock);
+ void hdcp_remove_display(struct hdcp_workqueue *hdcp_work, unsigned int link_index,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c
+index e0386030b35e..6f5cae0960e1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c
+@@ -576,6 +576,178 @@ static void dm_test_event_callback_schedules_property_validate(struct kunit *tes
  
- void dcn32_mmhubbub_construct(struct dcn30_mmhubbub *mcif_wb30,
- 	struct dc_context *ctx,
-diff --git a/drivers/gpu/drm/amd/display/dc/mmhubbub/dcn401/dcn401_mmhubbub.c b/drivers/gpu/drm/amd/display/dc/mmhubbub/dcn401/dcn401_mmhubbub.c
-new file mode 100644
-index 000000000000..d2845acb74c8
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/mmhubbub/dcn401/dcn401_mmhubbub.c
-@@ -0,0 +1,135 @@
-+// SPDX-License-Identifier: MIT
-+//
-+// Copyright 2026 Advanced Micro Devices, Inc.
+ /* End of tests for event_callback() */
+ 
++/* Tests for event_property_validate() */
 +
-+#include "dcn401_mmhubbub.h"
-+#include "reg_helper.h"
-+
-+#define REG(reg)                                                             \
-+	((const struct dcn35_mmhubbub_registers *)(mcif_wb30->mcif_wb_regs)) \
-+		->reg
-+
-+#define CTX mcif_wb30->base.ctx
-+
-+#undef FN
-+#define FN(reg_name, field_name)                                                \
-+	((const struct dcn401_mmhubbub_shift *)(mcif_wb30->mcif_wb_shift))       \
-+		->field_name,                                                   \
-+		((const struct dcn401_mmhubbub_mask *)(mcif_wb30->mcif_wb_mask)) \
-+			->field_name
-+
-+static void mmhubbub401_config_mcif_arb(struct mcif_wb *mcif_wb,
-+		struct mcif_arb_params *params)
++/**
++ * alloc_test_workqueue_for_property_validate - workqueue for validate tests
++ * @test: KUnit test context for managed allocation
++ *
++ * Allocates a minimal hdcp_workqueue with its mutex and property_update_work
++ * initialised, as required by the guard(mutex) and schedule_work() usage
++ * inside event_property_validate().
++ */
++static struct hdcp_workqueue *alloc_test_workqueue_for_property_validate(struct kunit *test)
 +{
-+	struct dcn30_mmhubbub *mcif_wb30 = TO_DCN30_MMHUBBUB(mcif_wb);
++	struct hdcp_workqueue *work;
 +
-+	/* Programmed by the video driver based on the CRTC timing (for DWB) */
-+	REG_UPDATE(MCIF_WB_ARBITRATION_CONTROL,
-+			MCIF_WB_TIME_PER_PIXEL, params->dcn4x.inst_regs.time_per_pixel);
++	work = kunit_kzalloc(test, sizeof(*work), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, work);
 +
-+	/*
-+	 * Programming DWB watermark.
-+	 * Watermark to generate urgent in MCIF_WB_CLI, value is determined by MCIF_WB_CLI_WATERMARK_MASK.
-+	 * Program in ns. A formula will be provided in the pseudo code to calculate the value.
-+	 */
-+	/* Program urgent_watermarkA */
-+	REG_UPDATE_2(MCIF_WB_WATERMARK,
-+			MCIF_WB_CLI_WATERMARK_MASK, 0x0,
-+			MCIF_WB_CLI_WATERMARK, params->dcn4x.global_regs.wm_regs[0].urgent);
-+	/* Program urgent_watermarkB */
-+	REG_UPDATE_2(MCIF_WB_WATERMARK,
-+			MCIF_WB_CLI_WATERMARK_MASK, 0x1,
-+			MCIF_WB_CLI_WATERMARK, params->dcn4x.global_regs.wm_regs[0].urgent);
-+	/* Program urgent_watermarkC */
-+	REG_UPDATE_2(MCIF_WB_WATERMARK,
-+			MCIF_WB_CLI_WATERMARK_MASK, 0x2,
-+			MCIF_WB_CLI_WATERMARK, params->dcn4x.global_regs.wm_regs[0].urgent);
-+	/* Program urgent_watermarkD */
-+	REG_UPDATE_2(MCIF_WB_WATERMARK,
-+			MCIF_WB_CLI_WATERMARK_MASK, 0x3,
-+			MCIF_WB_CLI_WATERMARK, params->dcn4x.global_regs.wm_regs[0].urgent);
++	mutex_init(&work->mutex);
++	INIT_WORK(&work->property_update_work, dummy_work_fn);
 +
-+	/* Programming UCLK P-State watermark */
-+	/* Program nbp_state_change_watermarkA */
-+	REG_UPDATE_3(MCIF_WB_NB_PSTATE_LATENCY_WATERMARK,
-+		NB_PSTATE_CHANGE_WATERMARK_MASK, 0x0,
-+		NB_PSTATE_CHANGE_WATERMARK_TYPE, 0x0,
-+		NB_PSTATE_CHANGE_REFRESH_WATERMARK, params->dcn4x.global_regs.wm_regs[0].uclk_pstate);
-+	/* Program nbp_state_change_watermarkB */
-+	REG_UPDATE_3(MCIF_WB_NB_PSTATE_LATENCY_WATERMARK,
-+		NB_PSTATE_CHANGE_WATERMARK_MASK, 0x1,
-+		NB_PSTATE_CHANGE_WATERMARK_TYPE, 0x0,
-+		NB_PSTATE_CHANGE_REFRESH_WATERMARK, params->dcn4x.global_regs.wm_regs[0].uclk_pstate);
-+	/* Program nbp_state_change_watermarkC */
-+	REG_UPDATE_3(MCIF_WB_NB_PSTATE_LATENCY_WATERMARK,
-+		NB_PSTATE_CHANGE_WATERMARK_MASK, 0x2,
-+		NB_PSTATE_CHANGE_WATERMARK_TYPE, 0x0,
-+		NB_PSTATE_CHANGE_REFRESH_WATERMARK, params->dcn4x.global_regs.wm_regs[0].uclk_pstate);
-+	/* Program nbp_state_change_watermarkD */
-+	REG_UPDATE_3(MCIF_WB_NB_PSTATE_LATENCY_WATERMARK,
-+		NB_PSTATE_CHANGE_WATERMARK_MASK, 0x3,
-+		NB_PSTATE_CHANGE_WATERMARK_TYPE, 0x0,
-+		NB_PSTATE_CHANGE_REFRESH_WATERMARK, params->dcn4x.global_regs.wm_regs[0].uclk_pstate);
-+
-+	/* Programming FCLK P-State watermark */
-+	/* Program nbp_state_change_watermarkA */
-+	REG_UPDATE_3(MCIF_WB_NB_PSTATE_LATENCY_WATERMARK,
-+		NB_PSTATE_CHANGE_WATERMARK_MASK, 0x0,
-+		NB_PSTATE_CHANGE_WATERMARK_TYPE, 0x1,
-+		NB_PSTATE_CHANGE_REFRESH_WATERMARK, params->dcn4x.global_regs.wm_regs[0].temp_read_or_ppt);
-+	/* Program nbp_state_change_watermarkB */
-+	REG_UPDATE_3(MCIF_WB_NB_PSTATE_LATENCY_WATERMARK,
-+		NB_PSTATE_CHANGE_WATERMARK_MASK, 0x1,
-+		NB_PSTATE_CHANGE_WATERMARK_TYPE, 0x1,
-+		NB_PSTATE_CHANGE_REFRESH_WATERMARK, params->dcn4x.global_regs.wm_regs[0].temp_read_or_ppt);
-+	/* Program nbp_state_change_watermarkC */
-+	REG_UPDATE_3(MCIF_WB_NB_PSTATE_LATENCY_WATERMARK,
-+		NB_PSTATE_CHANGE_WATERMARK_MASK, 0x2,
-+		NB_PSTATE_CHANGE_WATERMARK_TYPE, 0x1,
-+		NB_PSTATE_CHANGE_REFRESH_WATERMARK, params->dcn4x.global_regs.wm_regs[0].fclk_pstate);
-+	/* Program nbp_state_change_watermarkD */
-+	REG_UPDATE_3(MCIF_WB_NB_PSTATE_LATENCY_WATERMARK,
-+		NB_PSTATE_CHANGE_WATERMARK_MASK, 0x3,
-+		NB_PSTATE_CHANGE_WATERMARK_TYPE, 0x1,
-+		NB_PSTATE_CHANGE_REFRESH_WATERMARK, params->dcn4x.global_regs.wm_regs[0].fclk_pstate);
-+
-+	/* Program max_scaled_time */
-+	REG_UPDATE(MULTI_LEVEL_QOS_CTRL,
-+			MAX_SCALED_TIME_TO_URGENT, params->dcn4x.inst_regs.max_scaled_time_ns);
-+
-+	/* Program slice_lines */
-+	REG_UPDATE(MCIF_WB_BUFMGR_VCE_CONTROL,
-+			MCIF_WB_BUFMGR_SLICE_SIZE, params->dcn4x.inst_regs.slice_lines);
-+
-+	/* Set arbitration unit for Luma/Chroma */
-+	/* arb_unit=2 should be chosen for more efficiency */
-+	/* Arbitration size, 0: 2048 bytes 1: 4096 bytes 2: 8192 Bytes */
-+	REG_UPDATE(MCIF_WB_ARBITRATION_CONTROL,
-+			MCIF_WB_CLIENT_ARBITRATION_SLICE, params->dcn4x.inst_regs.arbitration_slice);
++	return work;
 +}
 +
-+static const struct mcif_wb_funcs dcn401_mmhubbub_funcs = {
-+	.warmup_mcif		= mmhubbub32_warmup_mcif,
-+	.enable_mcif		= mmhubbub2_enable_mcif,
-+	.disable_mcif		= mmhubbub2_disable_mcif,
-+	.config_mcif_buf	= mmhubbub32_config_mcif_buf,
-+	.config_mcif_arb	= mmhubbub401_config_mcif_arb,
-+	.config_mcif_irq	= mmhubbub2_config_mcif_irq,
-+	.dump_frame			= mcifwb2_dump_frame,
-+};
-+
-+void dcn401_mmhubbub_construct(struct dcn30_mmhubbub *mcif_wb30,
-+		struct dc_context *ctx,
-+		const struct dcn35_mmhubbub_registers *mcif_wb_regs,
-+		const struct dcn401_mmhubbub_shift *mcif_wb_shift,
-+		const struct dcn401_mmhubbub_mask *mcif_wb_mask,
-+		int inst)
++/**
++ * alloc_validate_connector - connector for event_property_validate() tests
++ * @test: KUnit test context for managed allocation
++ * @index: drm connector index to assign
++ * @status: drm connector detection status to assign
++ * @with_state: whether to attach a zeroed drm_connector_state
++ *
++ * Allocates an amdgpu_dm_connector sufficient for the traversal in
++ * event_property_validate(). mod_hdcp_query_display() has no active display
++ * so it returns early, leaving the pre-set HDCP_OFF query untouched.
++ */
++static struct amdgpu_dm_connector *alloc_validate_connector(struct kunit *test,
++							    unsigned int index,
++							    enum drm_connector_status status,
++							    bool with_state)
 +{
-+	mcif_wb30->base.ctx = ctx;
++	struct amdgpu_dm_connector *aconnector;
 +
-+	mcif_wb30->base.inst = inst;
-+	mcif_wb30->base.funcs = &dcn401_mmhubbub_funcs;
-+	mcif_wb30->mcif_wb_regs = (const struct dcn30_mmhubbub_registers *)mcif_wb_regs;
-+	mcif_wb30->mcif_wb_shift = (const struct dcn30_mmhubbub_shift *)mcif_wb_shift;
-+	mcif_wb30->mcif_wb_mask = (const struct dcn30_mmhubbub_mask *)mcif_wb_mask;
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/mmhubbub/dcn401/dcn401_mmhubbub.h b/drivers/gpu/drm/amd/display/dc/mmhubbub/dcn401/dcn401_mmhubbub.h
-new file mode 100644
-index 000000000000..fbc69a210fa7
---- /dev/null
-+++ b/drivers/gpu/drm/amd/display/dc/mmhubbub/dcn401/dcn401_mmhubbub.h
-@@ -0,0 +1,40 @@
-+/* SPDX-License-Identifier: MIT */
-+/* Copyright 2026 Advanced Micro Devices, Inc. */
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aconnector);
 +
++	aconnector->base.index = index;
++	aconnector->base.status = status;
 +
-+#ifndef __DCN401_MMHUBBUB_H
-+#define __DCN401_MMHUBBUB_H
++	if (with_state) {
++		struct drm_connector_state *conn_state;
 +
-+#include "mcif_wb.h"
-+#include "dcn32/dcn32_mmhubbub.h"
-+#include "dcn35/dcn35_mmhubbub.h"
-+
-+#define MCIF_WB_REG_VARIABLE_LIST_DCN4_01  \
-+	MCIF_WB_REG_VARIABLE_LIST_DCN3_5;
-+
-+#define MCIF_WB_COMMON_MASK_SH_LIST_DCN4_01(mask_sh)                            \
-+	MCIF_WB_COMMON_MASK_SH_LIST_DCN3_5(mask_sh),                            \
-+    SF(MCIF_WB_NB_PSTATE_LATENCY_WATERMARK, NB_PSTATE_CHANGE_WATERMARK_TYPE, mask_sh)
-+
-+#define MCIF_WB_REG_FIELD_LIST_DCN4_01(type)          \
-+	struct {                                     \
-+		MCIF_WB_REG_FIELD_LIST_DCN3_5(type); \
-+		type NB_PSTATE_CHANGE_WATERMARK_TYPE;          \
++		conn_state = kunit_kzalloc(test, sizeof(*conn_state), GFP_KERNEL);
++		KUNIT_ASSERT_NOT_NULL(test, conn_state);
++		aconnector->base.state = conn_state;
 +	}
 +
-+struct dcn401_mmhubbub_mask {
-+	MCIF_WB_REG_FIELD_LIST_DCN4_01(uint32_t);
-+};
++	return aconnector;
++}
 +
-+struct dcn401_mmhubbub_shift {
-+	MCIF_WB_REG_FIELD_LIST_DCN4_01(uint8_t);
-+};
++/**
++ * dm_test_event_property_validate_skips_null_connector - null entries ignored
++ * @test: KUnit test context
++ *
++ * With every aconnector entry NULL, event_property_validate() must not
++ * schedule property_update_work and must leave encryption_status untouched.
++ */
++static void dm_test_event_property_validate_skips_null_connector(struct kunit *test)
++{
++	struct hdcp_workqueue *work = alloc_test_workqueue_for_property_validate(test);
 +
-+void dcn401_mmhubbub_construct(struct dcn30_mmhubbub *mcif_wb30,
-+		struct dc_context *ctx,
-+		const struct dcn35_mmhubbub_registers *mcif_wb_regs,
-+		const struct dcn401_mmhubbub_shift *mcif_wb_shift,
-+		const struct dcn401_mmhubbub_mask *mcif_wb_mask,
-+		int inst);
++	work->encryption_status[0] = MOD_HDCP_ENCRYPTION_STATUS_HDCP2_TYPE1_ON;
 +
-+#endif // __DCN401_MMHUBBUB_H
-diff --git a/drivers/gpu/drm/amd/display/dc/mmhubbub/dcn42/dcn42_mmhubbub.h b/drivers/gpu/drm/amd/display/dc/mmhubbub/dcn42/dcn42_mmhubbub.h
-index 0dd1f0d2eb88..0001903a04ec 100644
---- a/drivers/gpu/drm/amd/display/dc/mmhubbub/dcn42/dcn42_mmhubbub.h
-+++ b/drivers/gpu/drm/amd/display/dc/mmhubbub/dcn42/dcn42_mmhubbub.h
-@@ -8,6 +8,7 @@
- #include "mcif_wb.h"
- #include "dcn32/dcn32_mmhubbub.h"
- #include "dcn35/dcn35_mmhubbub.h"
-+#include "dcn401/dcn401_mmhubbub.h"
- 
- void dcn42_mmhubbub_set_fgcg(struct dcn30_mmhubbub *mcif_wb30, bool enabled);
- #endif // __DCN42_MMHUBBUB_H
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-index e3ee792fb2e8..f7ba0509e6bd 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.c
-@@ -16,6 +16,7 @@
- #include "dcn30/dcn30_resource.h"
- #include "dcn32/dcn32_resource.h"
- #include "dcn321/dcn321_resource.h"
-+#include "dcn35/dcn35_resource.h"
- 
- #include "dcn10/dcn10_ipp.h"
- #include "dcn401/dcn401_hubbub.h"
-@@ -58,7 +59,7 @@
- #include "dcn31/dcn31_panel_cntl.h"
- 
- #include "dcn30/dcn30_dwb.h"
--#include "dcn32/dcn32_mmhubbub.h"
-+#include "dcn401/dcn401_mmhubbub.h"
- 
- #include "dcn/dcn_4_1_0_offset.h"
- #include "dcn/dcn_4_1_0_sh_mask.h"
-@@ -435,17 +436,17 @@ static const struct dcn30_dwbc_mask dwbc401_mask = {
- };
- 
- 
--#define mcif_wb_regs_dcn3_init(id)\
--	MCIF_WB_COMMON_REG_LIST_DCN32_RI(id)
-+#define mcif_wb_regs_dcn401_init(id) \
-+	MCIF_WB_COMMON_REG_LIST_DCN4_01_RI(id)
- 
--static struct dcn30_mmhubbub_registers mcif_wb30_regs[1];
-+static struct dcn35_mmhubbub_registers mcif_wb401_regs[1];
- 
--static const struct dcn30_mmhubbub_shift mcif_wb30_shift = {
--	MCIF_WB_COMMON_MASK_SH_LIST_DCN32(__SHIFT)
-+static const struct dcn401_mmhubbub_shift mcif_wb401_shift = {
-+	MCIF_WB_COMMON_MASK_SH_LIST_DCN4_01(__SHIFT)
- };
- 
--static const struct dcn30_mmhubbub_mask mcif_wb30_mask = {
--	MCIF_WB_COMMON_MASK_SH_LIST_DCN32(_MASK)
-+static const struct dcn401_mmhubbub_mask mcif_wb401_mask = {
-+	MCIF_WB_COMMON_MASK_SH_LIST_DCN4_01(_MASK)
- };
- 
- #define dsc_regs_init(id)\
-@@ -1704,13 +1705,13 @@ static bool dcn401_mmhubbub_create(struct dc_context *ctx, struct resource_pool
- 		}
- 
- #undef REG_STRUCT
--#define REG_STRUCT mcif_wb30_regs
--		mcif_wb_regs_dcn3_init(0);
-+#define REG_STRUCT mcif_wb401_regs
-+		mcif_wb_regs_dcn401_init(0);
- 
--		dcn32_mmhubbub_construct(mcif_wb30, ctx,
--				&mcif_wb30_regs[i],
--				&mcif_wb30_shift,
--				&mcif_wb30_mask,
-+		dcn401_mmhubbub_construct(mcif_wb30, ctx,
-+				&mcif_wb401_regs[i],
-+				&mcif_wb401_shift,
-+				&mcif_wb401_mask,
- 				i);
- 
- 		pool->mcif_wb[i] = &mcif_wb30->base;
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.h
-index ce96fe1ddb7c..42a0986d6fe2 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.h
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn401/dcn401_resource.h
-@@ -7,6 +7,7 @@
- 
- #include "core_types.h"
- #include "dcn32/dcn32_resource.h"
-+#include "dcn35/dcn35_resource.h"
- #include "dcn401/dcn401_hubp.h"
- 
- #define TO_DCN401_RES_POOL(pool)\
-@@ -660,4 +661,7 @@ int dcn401_get_power_profile(const struct dc_state *context);
- 	SR(SYMCLKC_CLOCK_ENABLE),\
- 	SR(SYMCLKD_CLOCK_ENABLE)
- 
-+#define MCIF_WB_COMMON_REG_LIST_DCN4_01_RI(inst)  \
-+	MCIF_WB_COMMON_REG_LIST_DCN3_5_RI(inst)
++	event_property_validate(&work->property_validate_dwork.work);
 +
- #endif /* _DCN401_RESOURCE_H_ */
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c
-index 547a0b816539..67673a9e5155 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn42/dcn42_resource.c
-@@ -400,16 +400,18 @@ static const struct dcn30_dwbc_shift dwbc401_shift = {
- static const struct dcn30_dwbc_mask dwbc401_mask = {
- 	DWBC_COMMON_MASK_SH_LIST_DCN30(_MASK)};
++	KUNIT_EXPECT_FALSE(test, work_pending(&work->property_update_work));
++	KUNIT_EXPECT_EQ(test, work->encryption_status[0],
++			MOD_HDCP_ENCRYPTION_STATUS_HDCP2_TYPE1_ON);
++}
++
++/**
++ * dm_test_event_property_validate_skips_disconnected - disconnected is skipped
++ * @test: KUnit test context
++ *
++ * A connector whose status is not connector_status_connected must be
++ * skipped, leaving encryption_status unchanged and no work scheduled.
++ */
++static void dm_test_event_property_validate_skips_disconnected(struct kunit *test)
++{
++	struct hdcp_workqueue *work = alloc_test_workqueue_for_property_validate(test);
++
++	work->aconnector[1] = alloc_validate_connector(test, 1,
++						       connector_status_disconnected, true);
++	work->encryption_status[1] = MOD_HDCP_ENCRYPTION_STATUS_HDCP2_TYPE1_ON;
++
++	event_property_validate(&work->property_validate_dwork.work);
++
++	KUNIT_EXPECT_FALSE(test, work_pending(&work->property_update_work));
++	KUNIT_EXPECT_EQ(test, work->encryption_status[1],
++			MOD_HDCP_ENCRYPTION_STATUS_HDCP2_TYPE1_ON);
++}
++
++/**
++ * dm_test_event_property_validate_skips_null_state - missing state is skipped
++ * @test: KUnit test context
++ *
++ * A connected connector without a drm_connector_state must be skipped
++ * before the query, leaving encryption_status unchanged.
++ */
++static void dm_test_event_property_validate_skips_null_state(struct kunit *test)
++{
++	struct hdcp_workqueue *work = alloc_test_workqueue_for_property_validate(test);
++
++	work->aconnector[2] = alloc_validate_connector(test, 2,
++						       connector_status_connected, false);
++	work->encryption_status[2] = MOD_HDCP_ENCRYPTION_STATUS_HDCP2_TYPE1_ON;
++
++	event_property_validate(&work->property_validate_dwork.work);
++
++	KUNIT_EXPECT_FALSE(test, work_pending(&work->property_update_work));
++	KUNIT_EXPECT_EQ(test, work->encryption_status[2],
++			MOD_HDCP_ENCRYPTION_STATUS_HDCP2_TYPE1_ON);
++}
++
++/**
++ * dm_test_event_property_validate_updates_on_status_change - change triggers update
++ * @test: KUnit test context
++ *
++ * For a connected connector with state, the query returns HDCP_OFF (no
++ * active hdcp display). When the stored encryption_status differs, it must
++ * be updated to HDCP_OFF and property_update_work must be scheduled.
++ */
++static void dm_test_event_property_validate_updates_on_status_change(struct kunit *test)
++{
++	struct hdcp_workqueue *work = alloc_test_workqueue_for_property_validate(test);
++
++	work->aconnector[3] = alloc_validate_connector(test, 3,
++						       connector_status_connected, true);
++	work->encryption_status[3] = MOD_HDCP_ENCRYPTION_STATUS_HDCP2_TYPE1_ON;
++
++	event_property_validate(&work->property_validate_dwork.work);
++
++	KUNIT_EXPECT_EQ(test, work->encryption_status[3],
++			MOD_HDCP_ENCRYPTION_STATUS_HDCP_OFF);
++	KUNIT_EXPECT_TRUE(test, work_pending(&work->property_update_work));
++
++	cancel_work_sync(&work->property_update_work);
++}
++
++/**
++ * dm_test_event_property_validate_no_update_when_unchanged - no change, no work
++ * @test: KUnit test context
++ *
++ * For a connected connector with state whose stored encryption_status is
++ * already HDCP_OFF (matching the query result), event_property_validate()
++ * must not reschedule property_update_work.
++ */
++static void dm_test_event_property_validate_no_update_when_unchanged(struct kunit *test)
++{
++	struct hdcp_workqueue *work = alloc_test_workqueue_for_property_validate(test);
++
++	work->aconnector[4] = alloc_validate_connector(test, 4,
++						       connector_status_connected, true);
++	work->encryption_status[4] = MOD_HDCP_ENCRYPTION_STATUS_HDCP_OFF;
++
++	event_property_validate(&work->property_validate_dwork.work);
++
++	KUNIT_EXPECT_EQ(test, work->encryption_status[4],
++			MOD_HDCP_ENCRYPTION_STATUS_HDCP_OFF);
++	KUNIT_EXPECT_FALSE(test, work_pending(&work->property_update_work));
++}
++
++/* End of tests for event_property_validate() */
++
+ /* Tests for hdcp_handle_cpirq() */
  
--#define mcif_wb_regs_dcn3_init(id) \
--	MCIF_WB_COMMON_REG_LIST_DCN3_5_RI(id)
-+#define mcif_wb_regs_dcn401_init(id) \
-+	MCIF_WB_COMMON_REG_LIST_DCN4_01_RI(id)
- 
--static struct dcn35_mmhubbub_registers mcif_wb35_regs[1];
-+static struct dcn35_mmhubbub_registers mcif_wb401_regs[1];
- 
--static const struct dcn35_mmhubbub_shift mcif_wb35_shift = {
--	MCIF_WB_COMMON_MASK_SH_LIST_DCN3_5(__SHIFT)};
-+static const struct dcn401_mmhubbub_shift mcif_wb401_shift = {
-+	MCIF_WB_COMMON_MASK_SH_LIST_DCN4_01(__SHIFT)
-+};
- 
--static const struct dcn35_mmhubbub_mask mcif_wb35_mask = {
--	MCIF_WB_COMMON_MASK_SH_LIST_DCN3_5(_MASK)};
-+static const struct dcn401_mmhubbub_mask mcif_wb401_mask = {
-+	MCIF_WB_COMMON_MASK_SH_LIST_DCN4_01(_MASK)
-+};
- 
- #define dsc_regs_init(id) \
- 	DSC_REG_LIST_DCN401_RI(id)
-@@ -1768,13 +1770,13 @@ static bool dcn42_mmhubbub_create(struct dc_context *ctx, struct resource_pool *
- 		}
- 
- #undef REG_STRUCT
--#define REG_STRUCT mcif_wb35_regs
--		mcif_wb_regs_dcn3_init(0);
-+#define REG_STRUCT mcif_wb401_regs
-+		mcif_wb_regs_dcn401_init(0);
- 
--		dcn35_mmhubbub_construct(mcif_wb30, ctx,
--					&mcif_wb35_regs[i],
--					&mcif_wb35_shift,
--					&mcif_wb35_mask,
-+		dcn401_mmhubbub_construct(mcif_wb30, ctx,
-+					&mcif_wb401_regs[i],
-+					&mcif_wb401_shift,
-+					&mcif_wb401_mask,
- 					i);
- 
- 		dcn42_mmhubbub_init(mcif_wb30, ctx);
+ /**
+@@ -1055,6 +1227,12 @@ static struct kunit_case dm_hdcp_test_cases[] = {
+ 	/* event_callback() */
+ 	KUNIT_CASE(dm_test_event_callback_cancels_callback_dwork),
+ 	KUNIT_CASE(dm_test_event_callback_schedules_property_validate),
++	/* event_property_validate() */
++	KUNIT_CASE(dm_test_event_property_validate_skips_null_connector),
++	KUNIT_CASE(dm_test_event_property_validate_skips_disconnected),
++	KUNIT_CASE(dm_test_event_property_validate_skips_null_state),
++	KUNIT_CASE(dm_test_event_property_validate_updates_on_status_change),
++	KUNIT_CASE(dm_test_event_property_validate_no_update_when_unchanged),
+ 	/* hdcp_handle_cpirq() */
+ 	KUNIT_CASE(dm_test_hdcp_handle_cpirq_schedules_work),
+ 	KUNIT_CASE(dm_test_hdcp_handle_cpirq_selects_link_index),
 -- 
 2.53.0
 
