@@ -4,140 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBEE9C531FA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92293C53219
 	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B799C10F325;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6182110F322;
 	Fri, 24 Jul 2026 07:30:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=w_armin@gmx.de header.b="G1BbkuVy";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TjpbbNHw";
 	dkim-atps=neutral
-X-Greylist: delayed 334 seconds by postgrey-1.36 at gabe;
- Fri, 24 Jul 2026 02:31:30 UTC
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED5D010E644;
- Fri, 24 Jul 2026 02:31:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1784860289; x=1785465089; i=w_armin@gmx.de;
- bh=2qGkW5IDIDpgVl8My3ODiAecgzop5vUsyHT6AYoXDJk=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-Id:
- MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=G1BbkuVyYLKmHvXFK1rzOoDwJP7dqy2+bcsSM6pYK4KHGcyTfnyTrqmc188Pby7W
- MLqH8OkHLF0rdisTpbr6DoXAH4186xiFtbcIwV6Gokgki039o43U9P4Tob6iui1SR
- OSPNNHPUbsJ5Ce0UlDyrWyG+o3YsMRcBCmr6/VILL/zk1Oh2+rS/V+MqXzCFFlyss
- v/wrowm49h3W5pulPdVJJWo1Mqobm49R2Suc62yJ4O/g9ZggAAXlQ9schhd018C38
- fbP3gav4osP/nvMdy3vQJ10idZKvwCq/lR5rGT6hPd5TbkYfPpemjypul6Hc/Olu3
- dM8TenY7CYAAGreDGw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1N6sn1-1x39DE1hcd-01541x; Fri, 24
- Jul 2026 04:25:51 +0200
-From: Armin Wolf <W_Armin@gmx.de>
-To: hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux@weissschuh.net, rafael@kernel.org, lenb@kernel.org,
- linux-acpi@vger.kernel.org, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, tzimmermann@suse.de, jani.nikula@linux.intel.com,
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com,
- tursulin@ursulin.net, intel-gfx@lists.freedesktop.org,
- matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
- intel-xe@lists.freedesktop.org
-Subject: [PATCH v2 0/3] platform/wmi: Add aarch64 support
-Date: Fri, 24 Jul 2026 04:25:23 +0200
-Message-Id: <20260724022526.139370-1-W_Armin@gmx.de>
-X-Mailer: git-send-email 2.39.5
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C1D110E117
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 18:45:55 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-382ef647e20so1065704a91.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 11:45:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784832355; x=1785437155; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=+cqQ6sQJkvsR3VtIbpEjUXStuHRs0SJj4jk7Uojzitk=;
+ b=TjpbbNHwdlhaxHE/saw6j+pz6acgfEzl1OHsf1b5nkfcwBAWbygT3RSFFi1A8cwnu9
+ 1TL1ZoSr0jAjbcq8p3w+M1v0r/zq+4dsNE3VixAK8WOlWxCvlRbJQv3f3AYCtf/8I96m
+ /2vnpOjvFXjfl9Laa5F8zbd3TwRZNmeiAha4GpwHUrHA8m5jM4H54hqR4wZDY7S0hwrd
+ ejz0TI4BarS3bzYgfdJjSiyVKkgLOMfGupJK0TrDFEv9hmayhvfe9sXzStKsw/ZyrblB
+ Ii7VxIuOC8b80eH1h0dZiSRGaPTrznmrfoAaGfQ4SXRZZi1kKlle78IVtFqTH7vdzrt/
+ hgoA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784832355; x=1785437155;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=+cqQ6sQJkvsR3VtIbpEjUXStuHRs0SJj4jk7Uojzitk=;
+ b=qvcXzoc6tLiUy31192eB9ofFFm9QwQ8TQFvd4HgoUqsXxzZ47RBa3Gb1fBIEBTfz7l
+ QO0VvMlPnQAuiVr1MVikMwS4EkSJbKla560eIJ1fN+lqic4d7BS+ylGEAI1xjFSi2STt
+ hv7DGNyS7sIPIIs/TfDIVdr8nDmGv/sBKbJQcLftxoyCM5lexRulnqjLxE9ivGZU8tRt
+ mcbsDje79RGkHrbBqnLgPE5LW8yvpXm8xLYm2r4P+BNU+8oxSX7raLNCwV6oeYY2i/hQ
+ j8vhvqAaNJm/gIpjUi6366wwWGrbMZk5CmQM/D0taU1mN3YPTBHRwh60BGbnK+jMd66i
+ OtXw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpaxDvZlDCJTpmZa5+FK/2Np9G2t8Q+LZKs4ztDBJDHir3Lhb5U0diKdQ83zzd29fazf9yJyVdN@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxfoHFLRtI7H8/xPaLYrx+GjEHndTDISj8RoYqzWopjr+XMc2Ji
+ pPtxjjPjRM3/s52FMoD3uiRUNMGYahTlFhUKqoqQkml7yOokxnE1pa8x
+X-Gm-Gg: AR+sD13zvWcZsVbpP45iSCrQtPi+PspsuhZiVf7brHUy8ZtvQktxaiQwr1av+aY7dPX
+ P78dzU+hajUXn75NaaQ+CUt9qo5juZ1SBe9RIJwMi6PXoYBefX29+EbfmsPzPjDWHTUz5wjmqXh
+ UCx89D6VQeaguR4FFVEcCdUAfXV0/YvE5zUMpkHELARKPqex+liIf/xGdXxcUaI4ZZ/sgTcxn/y
+ WQEjn8qjpJIOUhUYthpgHLh4ABILF3meCVZfzGnEAiu0cA6krMehaZS3d+y0tUwSas3Z2+7nTgr
+ pVWJGNiojpJurp7uh99YdfhItuG2Bzb11BE+CnqRLMVdOVZRSS2BTFTf5P9nehrNgqDPMfjVi+n
+ n5kl6lgysa/lqjc5YrUGt1WEQmIs/8GsDM6vlTwuF9m+eiHfiJZEwSYya5BnQtEgITFYBFKqu
+X-Received: by 2002:a17:90b:1350:b0:36d:66d4:270e with SMTP id
+ 98e67ed59e1d1-38ec6455120mr4430242a91.5.1784832354540; 
+ Thu, 23 Jul 2026 11:45:54 -0700 (PDT)
+Received: from ubuntu.. ([110.9.142.4]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-38f03af8a45sm308155a91.10.2026.07.23.11.45.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 23 Jul 2026 11:45:53 -0700 (PDT)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: Julia.Lawall@inria.fr, Alex Deucher <alexander.deucher@amd.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Andrew Lunn <andrew@lunn.ch>, Andrew Morton <akpm@linux-foundation.org>,
+ Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+ Borislav Petkov <bp@alien8.de>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ David Airlie <airlied@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Eric Dumazet <edumazet@google.com>, Florian Westphal <fw@strlen.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Jakub Kicinski <kuba@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Jaroslav Kysela <perex@perex.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jiri Pirko <jiri@resnulli.us>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Johan Hovold <johan@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Julian Anastasov <ja@ssi.bg>, Leon Romanovsky <leon@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Linus Walleij <linusw@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Matthew Sakai <msakai@redhat.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Mike Rapoport <rppt@kernel.org>,
+ Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+ Nicolas Palix <nicolas.palix@imag.fr>,
+ Pablo Neira Ayuso <pablo@netfilter.org>, Paolo Abeni <pabeni@redhat.com>,
+ Ping-Ke Shih <pkshih@realtek.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Sebastian Reichel <sre@kernel.org>,
+ Shuah Khan <shuah@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+ Simon Horman <horms@verge.net.au>, Stephen Boyd <sboyd@kernel.org>,
+ Steve French <sfrench@samba.org>, Takashi Iwai <tiwai@suse.com>,
+ Thomas Renninger <trenn@suse.com>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Tony Luck <tony.luck@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>, Vinod Koul <vkoul@kernel.org>,
+ Will Deacon <will@kernel.org>, Yazen Ghannam <Yazen.Ghannam@amd.com>
+Cc: cocci@inria.fr, amd-gfx@lists.freedesktop.org, dmaengine@vger.kernel.org,
+ dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-wired-lan@lists.osuosl.org,
+ iommu@lists.linux.dev, linux-cifs@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-edac@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-mm@kvack.org, linux-pm@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
+ lvs-devel@vger.kernel.org, netdev@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, nouveau@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org
+Subject: [PATCH 00/36] treewide: remove conditional returns with no effect
+Date: Fri, 24 Jul 2026 03:45:02 +0900
+Message-ID: <20260723184538.3888637-1-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:MLfKRpNO6nS1LngI27vrPWgZMqr/zoES9fILiLM7ihhune/Rl/w
- rLzT8yEaIURU42tHiBT56Lq69UB/u/ciPQQetClZFygcgUBHZhBn79e6SMgIYi5QJLo/XHE
- lIA/fEeY7oCG+ri+TXqXjTv3fd8DmKmqVgkIeVpFET+mPVhSHE+ySBj1AnX9RPzszssSCou
- dbIIJB3gkFzcjzpnHp1wQ==
-UI-OutboundReport: notjunk:1;M01:P0:pyeBmqVYPpo=;h8anL59bMJzRRhSZ237LFfuIg7b
- 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
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 24 Jul 2026 07:30:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -153,45 +141,181 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The aarch64-laptops project found out that some Windows-on-Arm
-notebooks contain WMI-ACPI mapping devices (PNP0C14) that work
-exactly like on x86. Those devices however are currently not
-supported by the WMI driver core due to only supporting x86.
+Hello,
 
-The first patch removes this restriction and allows the WMI
-driver core to run on all architectures that support ACPI.
-The second patch updates the acpi-video driver to take advantage
-of the improved support for architectures other than x86, and
-the last patch enables the generic WMI BMOF driver to support
-aarch64 as well.
+While reading mm/memblock, I found a conditional return where both
+branches return the same value:
 
-All patches have been tested on a ACPI-based aarch64 VM and
-work just fine.
+	err = do_something();
+	if (err)
+		return err;
+	return err;
 
-Changes  since v1:
-- add additional tags
+Such code is usually a leftover from removing a statement between
+the two returns, and the tree has about a hundred of these.
 
-Armin Wolf (3):
-  platform/wmi: Remove dependency on CONFIG_X86
-  ACPI: video: Remove CONFIG_X86 handling from nvidia_wmi_ec_supported()
-  platform/x86: wmi-bmof: Move to generic WMI code
+Patch 1 adds a Coccinelle script that matches the pattern, including
+negation and constant-comparison variants. Where a local variable is
+assigned right before the check, the assignment and the two returns
+turn into a single return of the assigned expression.
 
- MAINTAINERS                                     |  2 +-
- drivers/acpi/Kconfig                            |  2 +-
- drivers/acpi/video_detect.c                     |  8 --------
- drivers/gpu/drm/amd/amdgpu/Kconfig              |  4 +---
- drivers/gpu/drm/gma500/Kconfig                  |  1 -
- drivers/gpu/drm/i915/Kconfig                    |  1 -
- drivers/gpu/drm/radeon/Kconfig                  |  4 +---
- drivers/gpu/drm/xe/Kconfig                      |  5 ++---
- drivers/platform/wmi/Kconfig                    | 14 +++++++++++++-
- drivers/platform/wmi/Makefile                   |  4 ++++
- drivers/platform/{x86/wmi-bmof.c =3D> wmi/bmof.c} |  0
- drivers/platform/x86/Kconfig                    | 12 ------------
- drivers/platform/x86/Makefile                   |  3 ---
- 13 files changed, 23 insertions(+), 37 deletions(-)
- rename drivers/platform/{x86/wmi-bmof.c =3D> wmi/bmof.c} (100%)
+Patches 2-36 are generated by the script, with hand fixes to restore
+unexpectedly removed comments and to fix the formatting checkpatch.pl
+complained about.
 
-=2D-=20
-2.39.5
+The patches are grouped by subsystem instead of split per file. If
+you would rather split, merge or drop your part, just let me know
+and I will address it in the next version.
+
+All patches are independent and can be applied separately, but for
+everyone's convenience, it would be nice if they were merged through
+a single tree.
+
+The series is based on next-20260721.
+
+Sang-Heon Jeon (36):
+  coccinelle: misc: add cond_return_no_effect.cocci
+  drm/amd: remove conditional return with no effect
+  drm/radeon: remove conditional return with no effect
+  dpll: zl3073x: remove conditional return with no effect
+  drm/i915: remove conditional return with no effect
+  drm: remove conditional return with no effect
+  net: ethernet: remove conditional return with no effect
+  net: remove conditional return with no effect
+  net: intel: remove conditional return with no effect
+  wifi: remove conditional return with no effect
+  ipvs: remove conditional return with no effect
+  media: remove conditional return with no effect
+  ALSA: remove conditional return with no effect
+  ASoC: remove conditional return with no effect
+  iio: remove conditional return with no effect
+  Input: remove conditional return with no effect
+  clk: remove conditional return with no effect
+  crypto: drivers - remove conditional return with no effect
+  dmaengine: qcom_hidma: remove conditional return with no effect
+  stm class: remove conditional return with no effect
+  RDMA/ocrdma: remove conditional return with no effect
+  iommu/s390: remove conditional return with no effect
+  dm vdo: remove conditional return with no effect
+  pinctrl: mediatek: remove conditional return with no effect
+  platform/x86: toshiba_haps: remove conditional return with no effect
+  power: supply: pm8916_lbc: remove conditional return with no effect
+  RAS/AMD/ATL: remove conditional return with no effect
+  regulator: wm831x-isink: remove conditional return with no effect
+  rtc: pcf2127: remove conditional return with no effect
+  scsi: mpt3sas: remove conditional return with no effect
+  thermal/drivers/k3_bandgap: remove conditional return with no effect
+  USB: serial: ch341: remove conditional return with no effect
+  usb: typec: fusb302: remove conditional return with no effect
+  smb: client: remove conditional return with no effect
+  cpupower: remove conditional return with no effect
+  memblock: remove conditional return with no effect
+
+ drivers/clk/clk-cs2000-cp.c                   |   6 +-
+ drivers/clk/clk-lmk04832.c                    |  12 +-
+ .../intel/qat/qat_common/adf_gen2_config.c    |   8 +-
+ .../marvell/octeontx2/otx2_cpt_mbox_common.c  |   7 +-
+ drivers/dma/qcom/hidma_ll.c                   |   6 +-
+ drivers/dpll/zl3073x/dpll.c                   |   6 +-
+ drivers/dpll/zl3073x/out.c                    |   8 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         |   6 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         |   6 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       |   6 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      |   6 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |   6 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |   6 +-
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |   6 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c         |   6 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c         |   6 +-
+ drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c         |   6 +-
+ drivers/gpu/drm/amd/amdgpu/vce_v4_0.c         |   6 +-
+ drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  32 ++---
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |   6 +-
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |   6 +-
+ .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |   6 +-
+ .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |   6 +-
+ .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  19 +--
+ .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  |   7 +-
+ .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |   7 +-
+ .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |   6 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  19 +--
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |   6 +-
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  |  10 +-
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |   6 +-
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c    |  19 +--
+ .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  |   6 +-
+ .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c    |   9 +-
+ .../drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c  |  16 +--
+ drivers/gpu/drm/i915/display/intel_hdmi.c     |   7 +-
+ drivers/gpu/drm/i915/gvt/gtt.c                |   8 +-
+ drivers/gpu/drm/imx/ipuv3/imx-drm-core.c      |   6 +-
+ drivers/gpu/drm/nouveau/dispnv50/disp.c       |  14 +-
+ .../drm/panel/panel-osd-osd101t2587-53ts.c    |   7 +-
+ drivers/gpu/drm/radeon/ci_dpm.c               |   6 +-
+ drivers/gpu/drm/radeon/kv_dpm.c               |  30 ++---
+ drivers/gpu/drm/radeon/si_dpm.c               |  14 +-
+ drivers/gpu/drm/tilcdc/tilcdc_drv.c           |   6 +-
+ drivers/hwtracing/stm/core.c                  |   8 +-
+ drivers/iio/light/isl29028.c                  |   6 +-
+ drivers/iio/light/tsl2583.c                   |  14 +-
+ drivers/iio/magnetometer/ak8974.c             |   6 +-
+ drivers/infiniband/hw/ocrdma/ocrdma_verbs.c   |   7 +-
+ drivers/input/keyboard/pmic8xxx-keypad.c      |   8 +-
+ drivers/input/mouse/synaptics_i2c.c           |   6 +-
+ drivers/input/rmi4/rmi_smbus.c                |   7 +-
+ drivers/iommu/s390-iommu.c                    |   8 +-
+ drivers/md/dm-vdo/encodings.c                 |   8 +-
+ drivers/media/i2c/mt9p031.c                   |   6 +-
+ .../microchip/microchip-sama7g5-isc.c         |   7 +-
+ .../media/platform/qcom/iris/iris_resources.c |   6 +-
+ .../media/platform/qcom/venus/pm_helpers.c    |   7 +-
+ drivers/media/platform/renesas/rcar-csi2.c    |   6 +-
+ .../platform/samsung/s3c-camif/camif-core.c   |   7 +-
+ drivers/media/usb/dvb-usb-v2/mxl111sf.c       |  12 +-
+ drivers/media/usb/gspca/jl2005bcd.c           |   7 +-
+ drivers/net/ethernet/amazon/ena/ena_netdev.c  |   6 +-
+ .../ethernet/aquantia/atlantic/aq_macsec.c    |   6 +-
+ .../ethernet/freescale/dpaa2/dpaa2-switch.c   |   6 +-
+ drivers/net/ethernet/freescale/gianfar.c      |   6 +-
+ drivers/net/ethernet/intel/i40e/i40e_main.c   |   8 +-
+ drivers/net/ethernet/intel/igb/e1000_i210.c   |   6 +-
+ drivers/net/ethernet/intel/igc/igc_phy.c      |   6 +-
+ .../ethernet/qlogic/netxen/netxen_nic_hw.c    |   7 +-
+ .../ethernet/qlogic/qlcnic/qlcnic_83xx_init.c |   6 +-
+ drivers/net/ethernet/renesas/rtsn.c           |   7 +-
+ drivers/net/phy/microchip_t1.c                |   6 +-
+ drivers/net/pse-pd/tps23881.c                 |   6 +-
+ drivers/net/wireless/ath/ath6kl/init.c        |   6 +-
+ drivers/net/wireless/intel/iwlwifi/mvm/link.c |   6 +-
+ .../wireless/realtek/rtlwifi/rtl8821ae/hw.c   |   7 +-
+ drivers/net/wireless/realtek/rtw89/mac.c      |   6 +-
+ drivers/net/wireless/realtek/rtw89/mac_be.c   |   6 +-
+ .../pinctrl/mediatek/pinctrl-mtk-common-v2.c  |   6 +-
+ drivers/platform/x86/toshiba_haps.c           |   6 +-
+ drivers/power/supply/pm8916_lbc.c             |   8 +-
+ drivers/ras/amd/atl/map.c                     |   6 +-
+ drivers/regulator/wm831x-isink.c              |   6 +-
+ drivers/rtc/rtc-pcf2127.c                     |   7 +-
+ drivers/scsi/mpt3sas/mpt3sas_base.c           |   6 +-
+ drivers/thermal/k3_bandgap.c                  |   7 +-
+ drivers/usb/serial/ch341.c                    |   8 +-
+ drivers/usb/typec/tcpm/fusb302.c              |  14 +-
+ fs/smb/client/smb1maperror.c                  |   6 +-
+ mm/memblock.c                                 |   7 +-
+ net/netfilter/ipvs/ip_vs_sync.c               |   7 +-
+ .../misc/cond_return_no_effect.cocci          | 121 ++++++++++++++++++
+ sound/pci/echoaudio/echoaudio_dsp.c           |   6 +-
+ sound/pci/echoaudio/layla24_dsp.c             |   6 +-
+ sound/pci/riptide/riptide.c                   |   5 +-
+ sound/soc/amd/acp/acp-mach-common.c           |  11 +-
+ sound/soc/intel/atom/sst-mfld-platform-pcm.c  |   7 +-
+ sound/soc/samsung/smdk_spdif.c                |   8 +-
+ sound/soc/sof/intel/hda-dsp.c                 |   6 +-
+ sound/usb/mixer_scarlett.c                    |  26 ++--
+ tools/power/cpupower/utils/powercap-info.c    |   2 -
+ 102 files changed, 295 insertions(+), 643 deletions(-)
+ create mode 100644 scripts/coccinelle/misc/cond_return_no_effect.cocci
+
+--
+2.43.0
 
