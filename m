@@ -4,82 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4AC9C53219
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1887C53217
 	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B86F10F302;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36A8210F2FC;
 	Fri, 24 Jul 2026 07:30:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="m4YRSg/c";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="cB1xSMpw";
 	dkim-atps=neutral
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 066F210F08E
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 10:55:32 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-47640541585so295855f8f.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 03:55:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784804130; x=1785408930; darn=lists.freedesktop.org;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Qulu7xaEZm5in98pb3j2S+1mh+F5hfFMoEBjvFStRow=;
- b=m4YRSg/cEqPqlabvEL32nA035seN3wnPJfFlTrZ6OLKFc3JjTqRHy+0HCuBtTehQvw
- jxUK7GNNY7pbk84+4BVGRjVWaynLB84EV0QUyGGxW8Gc4w8ie6lKu0K8c/mXtDLJMCqc
- mRfJCgGWTU8ByJzPdfUfuNo/dMaul933LECzE/qfqLzpzAydOv3jzFRhvn11nMjsrIPh
- Ouw6h+F/kv5pOH9cKDjSAsxeDKzO2DRvoUMeeElXu45luFwnonzE2XskJzWkqqjmlQCB
- YOYZpaaO/2FWPTt2VtcItr6okSdsnOW/grNKlbiJhAKICxDutwHQue/e/aYzW78MFEKu
- HALA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784804130; x=1785408930;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Qulu7xaEZm5in98pb3j2S+1mh+F5hfFMoEBjvFStRow=;
- b=ZV+gqM3DIrUb1sfRvbCDBhuKcFkuXJKFABZZzlb1V3PpYvmcopuuSlM4PGePdUR6GG
- Jn/2NrFViSiPMlykpcG99XmoJmXqgtOiK39ZSjaO11nLhA2cwHJsWWJHgQMHu1N5wHa/
- nyoJ4LpgpkQXBWAEawD9W73eWvHotSs7u+ngdTIxIOa51U38chzezf4Zsde2aNyTveU+
- 23QjZT1466e7F45Sh8LxdE/NT2tVL8zXt/eGF7L2s5KOHcZZ462mZUe3Cs1t0inOQ9IM
- AO//BaenwmcrXd3EUBk/SpX+fY6DV8YWLgeqiUVmJPCWZZGjXtDsboV+1qu934fFlnmT
- OhOA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpMU1tI8cnr9Ruf/B8UE6lPuKxCh8yP9zA50NdpKn4rWyN6pAWPyeCb/3NT8FlawuG1sKFG0mdc@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwbRVT8bwrIsTi6gtigoy7QcxxIEZfliYSLEQwgxlwChgTfsbW4
- CRyhekGV3+u+joua8r3sDYb+G2FmUmY0VO3oMNLHxLh14YJNhDWGYufp
-X-Gm-Gg: AR+sD10UXd/O6+Asu9HQGOvhSf7xReXgy57ST3ltH/pQAhFBHa+Pyd1FJyI3+E3aYXB
- 9RUBOOF0HnLou+PfXm1iMFr5JG7uO+NB4XUnIFrpyxPL09n9ASj7dRuxYk1Q/w/+jPAOfDwDzbQ
- XVnrGo9NKy+IRuWF+vVE0CmTZCR9d64HRhkPUdkG5mP8BSU93ZmwV/LtqvoZkldsXBW5sqwotM7
- TMfzWchtL6uJCIpb0+MdoLY7e/m71KeLJ/k+fF1B9xpHE2Ez7eR7o07sBL5zhHDAGNljrSvplgW
- CL+LvEehVmzmxXiXeLMtL1YElkPzHXZQLN4dNP48+j+fdEbrtcsuTCk3dHBX5l0WR1F/8Jm7xLy
- TYIqxZ2YAZ5rFN7FHsJW5nf+LRLs6c5lxZ8B1bqQ8TvJxIztcT9+FLGSuUqPbQkx6PZjqe8jN1A
- ==
-X-Received: by 2002:a05:6000:983:b0:472:3090:d878 with SMTP id
- ffacd0b85a97d-47f8d76dd6dmr3589927f8f.4.1784804130300; 
- Thu, 23 Jul 2026 03:55:30 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47f85c531afsm13939992f8f.24.2026.07.23.03.55.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Jul 2026 03:55:29 -0700 (PDT)
-Date: Thu, 23 Jul 2026 13:55:25 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Benjamin Cheng <benjamin.cheng@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- "David (Ming Qiang) Wu" <David.Wu3@amd.com>,
- amd-gfx@lists.freedesktop.org, Leo Liu <leo.liu@amd.com>,
- Ruijing Dong <ruijing.dong@amd.com>,
- Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH v4 2/5] drm/amdgpu/vce: Prevent partial address patches
-Message-ID: <amHzHa_2Cjcu5_7G@stanley.mountain>
-References: <20260330195757.901509-1-benjamin.cheng@amd.com>
- <20260330195757.901509-2-benjamin.cheng@amd.com>
+Received: from mout.web.de (mout.web.de [212.227.15.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AAA610F24C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 22:51:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1784847080; x=1785451880; i=spasswolf@web.de;
+ bh=wzyumeaKbuqqTbtsC17CmUJz30QzeufvXy7FOjdaQGM=;
+ h=X-UI-Sender-Class:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+ References:Content-Type:MIME-Version:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=cB1xSMpwuLaIEItUY5H2Wyefab7O8/yqJbZWpJiJA+twCyLiGxDHg5NLHT6hmeg8
+ L02KFCdlmq/lLO7OWG9J9PpDHEOX63ZhSHeCtcl7avLb0r7n0+cHoHKqpkm0m3qd8
+ RkonM3Z4mD9ljvGfdo1FI+iDCeMevSNFpZz42OtKJopJOvzlnTs4un938j5uy1aed
+ /sftUcxK8DdgIUREhXQUU5lHnIzRnM/OEtPYL09icAlZGrQwxHxaqmXTp5iA5N0WI
+ z3jYAgIAaI17RnaK4qLzUpAijNSqypu5Uh/NmRAv0k4DKS3/MQA9t/IFK2dzmkURz
+ 76ri7icepQzpEQG90g==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1My6lX-1xBy0F1Mhb-00zdSz; Fri, 24
+ Jul 2026 00:51:20 +0200
+Message-ID: <4d7c2dd588cd77d1d112da473f2a262d22051d57.camel@web.de>
+Subject: Re: [Re] kernel panic during shutdown in  next-20260722
+From: Bert Karwatzki <spasswolf@web.de>
+To: linux-kernel@vger.kernel.org, Rafal Ostrowski <rafal.ostrowski@amd.com>
+Cc: linux-next@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+ amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+ Mario Limonciello <mario.limonciello@amd.com>, Sebastian Andrzej Siewior
+ <bigeasy@linutronix.de>, Thomas Gleixner	 <tglx@linutronix.de>,
+ spasswolf@web.de
+Date: Fri, 24 Jul 2026 00:51:19 +0200
+In-Reply-To: <1a0800888c2fcd42f1fcd661d8f6f50580ac2fd4.camel@web.de>
+References: <20260723131001.11565-1-spasswolf@web.de>
+ <d24a136539c5931984f4855ad6596ca7aee8ebe2.camel@web.de>
+ <1a0800888c2fcd42f1fcd661d8f6f50580ac2fd4.camel@web.de>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.56.2-10 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260330195757.901509-2-benjamin.cheng@amd.com>
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:VlyCl2HRhbixJ6VEUvSQPjND0W/G3vzyzbHtRPfrLf2d8lyyXFz
+ HDEe2L/qUgFvVFHKaIFORSAaMx/zTBEhbqk9sDDwvf8GWbV8+E883J1Ej2lt2sjo8NYIEMJ
+ IvzurlzeNfkoFWjp3f37gcc740WpflQJYfcI72lFdMG+UXaMg+4K9NZPapqgqT03D9iaQtn
+ hJgDpPyyexqEhkx53LZRw==
+UI-OutboundReport: notjunk:1;M01:P0:+Xw1Lx6sx1E=;04TITx2Ssql5z69tZR5SyfWicKH
+ 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
+ lrIja5itcgTg3MtdirHAr81CBlYgSc
 X-Mailman-Approved-At: Fri, 24 Jul 2026 07:30:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,42 +150,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Mar 30, 2026 at 03:57:54PM -0400, Benjamin Cheng wrote:
-> In the case that only one of lo/hi is valid, the patching could result
-> in a bad address written to in FW.
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> index eb4a15db2ef2..efdebd9c0a1f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vce.c
-> @@ -680,6 +680,9 @@ static int amdgpu_vce_cs_reloc(struct amdgpu_cs_parser *p, struct amdgpu_ib *ib,
->  	uint64_t addr;
->  	int r;
->  
-> +	if (lo >= ib->length_dw || hi >= ib->length_dw)
-> +		return -EINVAL;
-> +
+Am Donnerstag, dem 23.07.2026 um 18:17 +0200 schrieb Bert Karwatzki:
+> Am Donnerstag, dem 23.07.2026 um 15:23 +0200 schrieb Bert Karwatzki:
+> > Am Donnerstag, dem 23.07.2026 um 15:10 +0200 schrieb Bert Karwatzki:
+> > > I was able to gather the panic error message from a failed shutdown =
+via netconsole,
+> > > this time the kernel used was v7.2-rc3:
+> > > #
+> > > Bert Karwatzki
+> >=20
+> > Unfortunatetly I can now reproduce these kernel panics in v7.1:
+> >=20
+> >=20
+> > So now I'm going to use memtest86+ on my machine and then look at the =
+changes I had in
+> > my userspace as the first error occured on 22.7.2026. Let's hope this =
+does not escalate ...
+> >=20
+> > Bert Karwatzki
+>=20
+>=20
+> But I found out an exciting thing:
+> I can only reproduce the crashes in v7.2-rc4 when watching the reboot vi=
+a netconsole,
+> without netconsole no crash occurs!(This also explains why I had not see=
+n this crashes before ...)=C2=A0
+>=20
+Actually this is not cause by netconsole, but by rebooting right after a c=
+rash. Some
+broken state seems to be preserved across reboots. Switching off the power=
+ supply after
+a crash or even a ~30s wait after switching off the crashed machine seems =
+to be enough
+to get around this.
+ Also the hang when rebooting next-20260722 also occurs when compiling wit=
+hout PREEMPT_RT.
 
-I feel like the better fix would be to change the amdgpu_ib_get_value()
-function to return negative for invalid indexes instead of returning 0.
-
-drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-   562  static inline u32 amdgpu_ib_get_value(struct amdgpu_ib *ib, uint32_t idx)
-   563  {
-   564          if (idx < ib->length_dw)
-   565                  return ib->ptr[idx];
-   566          return 0;
-
-s/return 0/return -EINVAL/
-
-   567  }
-
-amdgpu_vce_validate_bo() has the same issue where invalid lo hi are
-treated as success.
-
-regards,
-dan carpenter
+Bert Karwatzki
 
