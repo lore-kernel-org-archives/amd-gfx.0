@@ -4,123 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68469C4452B
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 11:17:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EDB63C531CF
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 12:01:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E288E10E56E;
-	Thu, 23 Jul 2026 11:17:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7215D10F0B3;
+	Thu, 23 Jul 2026 12:01:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nIS9if+a";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="BDZLgCsJ";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013059.outbound.protection.outlook.com
- [40.93.201.59])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F93310E56E
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 11:17:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z/Zb5iCP1gY4yk5QCaUaZgUk2HLenuHSdQEF4MZ89TyfdD1s680JxCi7rWd9s7YIXGpfQvwbGZqF5rCN2WN3DqvaW7bqlSdnV9rGUI6AEZmS9uJ3ELk7FP+l0toso1AqtzM2yMVVJsraZEKMJKzt2KDD+F5XW1x+uBCxF99J2IOYYk39uZ8kfNDIARAxVH/IAa5vJQV+Eiuj23VKA0HwWbg95v6Xlgfuy15wrCvdrVrutUeZFa8MkIpFOl2+1YezaTwf4WXtGjU/FMLV7CY66Xtv1SOBezJtpX8VBCTtv4ln7RhmIp5iK3wvJPOLtPzbGXkrKGQcoO1FCwitFnUqqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aBcrRLpesaT+op3wfnOhMAwanXfY639c2ripSd0Gxn0=;
- b=AoAHFqnOhpp01gHZVuaZJtMDIfi6+/Ww/cVQ5f17hKf8IYgveHWrw+vh20JyTU6J8Jl5Qb1Tz1jxsO2om8In3A/wiJ/j7j+jchrOTG8j4eXNatz+1O3W80qqV+o9ocGt9gJ1y0XjwS2qGm9T30OZHue7FLbUAmgFUvzg02hrehvXH/05HZo+ugMGI1dgiC5yp7YAqSuqImheoTY9ciQHEgsDTisrWaUL9hHdkcwfwLHM+7428ne0XwJuASDwv1wom3Qi79GohAxU8O4fs+MQ7M2MDtmG1pIJ6/0v6lev94LOiQ0EmBP+ZD/wcxVlscqgnGb8iuS7jIg9/sLqIdEvYA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aBcrRLpesaT+op3wfnOhMAwanXfY639c2ripSd0Gxn0=;
- b=nIS9if+a595t5QuDgxCa/YeQj7lDfo7glcdTShPu49gYXjkyJtO3l3UqsyYdkWWQtML2l1SIV98L5PMdejPidKVloHoZk793HdjVAS+VxKFw9hptqrjRL3LaXCNldlSp4psOPpyd3QOXewZTUUnInvUqB0jeEFAkIrwEepRv94o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB7794.namprd12.prod.outlook.com (2603:10b6:510:276::15)
- by DS0PR12MB999290.namprd12.prod.outlook.com (2603:10b6:8:424::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Thu, 23 Jul
- 2026 11:17:41 +0000
-Received: from PH7PR12MB7794.namprd12.prod.outlook.com
- ([fe80::e0be:f851:96ea:cf85]) by PH7PR12MB7794.namprd12.prod.outlook.com
- ([fe80::e0be:f851:96ea:cf85%6]) with mapi id 15.21.0245.009; Thu, 23 Jul 2026
- 11:17:41 +0000
-Message-ID: <c2a5fb47-d8b8-44c3-ab16-3538e7925fc8@amd.com>
-Date: Thu, 23 Jul 2026 16:47:35 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: ensure all userq VAs mapped before restore
-To: Zhu Lingshan <lingshan.zhu@amd.com>, Alexander.Deucher@amd.com,
- Christian.Koenig@amd.com
-Cc: Ray.Huang@amd.com, amd-gfx@lists.freedesktop.org
-References: <20260723082334.606456-1-lingshan.zhu@amd.com>
-Content-Language: en-US
-From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <20260723082334.606456-1-lingshan.zhu@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0089.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d4::9) To PH7PR12MB7794.namprd12.prod.outlook.com
- (2603:10b6:510:276::15)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EAFA010F0A5;
+ Thu, 23 Jul 2026 12:01:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784808078; x=1816344078;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=lwWTC4uqP8ZPyP0BwP/1aVHm/yUippzRxg9v7EZz6QY=;
+ b=BDZLgCsJa9Qxk0DmO5DgWeAG0AvcfyIiX5aVT1Fn+J+hkcWwslZwiDav
+ 8qFTlZOho9ZzqxrIUt0Da7ICM2LUDed5tvD2lBh6LQFqaCuBSr+GZYYw5
+ ceZrI/9dSixh+LUxtGrR3qgWeIoiP+tMsY8oRXcelGjqfS9bbPIEpGSvV
+ 9P8safugF4qjWzfK8IDJljDdlGPdQUfYHXVDOMlIvgyxBgWbjA+9eeFIb
+ eKCtlauNomQKE0aGS2gtFdklOJQc2ttvRK5m72nboDIqB/u+MDa6SX20T
+ EDG+hv6ZI+FB7oVBKXLAZsfBQAOULvQdJhbrj0Kyuah8iI4vewAo/AGoi Q==;
+X-CSE-ConnectionGUID: +K46pQDNTNa9dJfFtsgAFg==
+X-CSE-MsgGUID: 0JA/EX3AS1WSI3CVaYCz+Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="96049579"
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="96049579"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2026 05:01:16 -0700
+X-CSE-ConnectionGUID: mFWsKu0YTOmGZqJdYEYupw==
+X-CSE-MsgGUID: 1m2QZhjFS6e2COZHFbG2nA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="261941639"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.104])
+ ([10.245.244.104])
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2026 05:01:12 -0700
+Message-ID: <43e44b78-3a3f-425d-b327-1a7a90bc7f76@linux.intel.com>
+Date: Thu, 23 Jul 2026 14:02:05 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB7794:EE_|DS0PR12MB999290:EE_
-X-MS-Office365-Filtering-Correlation-Id: cc86ffd2-acb4-4757-60ab-08dee8ac0291
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|11063799006|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 93HjQ/lREOcclsg5uYjGX5AQnj56+JbDExZuwlHLoOdUne4sdybYCqdx5DsH8pRrVy9DTXHZ8YzHLSFAC45g8RRsDDjQ9oLkZneTQCA4tUCNMvksXW0qm91526glTrXEoE6eBhWmkhLDEc2uSn/0yOFBuIVTJBcETEWm7HJutEWlM5q/ASw2KYobb9YmY33TcrEnSOQ3xXuDXuCe4w7TAudFP3odGtbbeHdfH7QKMGCafQ1ZY3Il/GgRK2AWFDolWfY23z9NrGDWKO+/krEhA1FmToq8i1rHeEjcgtK4C/pjXv9DAfGeatHUIbQZ+Vum2aMw6g4uxONLz48l58KUtgc4zG8trLB4NTC08+hGRhFc0TzpiFWr7KvYONTNV3H0RkTVov3x+sclmF2WW2ubt9dLQeZrz6V7mfMthVa0n53LRDoQp5oOvBV0bzLkgnbxdUTaGt501YrBwly9Az3HcqzzRrGI0N0SwPzNF8AXC4X/wD9mVoDIYTifpalD3qSmYLP6CNrCCuoq77oACMLgP97Qrbw/dmFba6y7xzAItMZHWNXzT55h7RK8oZEyCH5hq46G+/0+X7sdzwPSd5AbmOSLAlKqBGYtkcr3CS3pnQaeX6FktD+8CE+KEvSeh0tlwgZ2ush2rubfd21gSKRdEqHqJ43rxigbnUh2akotH/A=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB7794.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dWpSN3FTbnhGQm9WaDZnQ0ZraGJpbjgxZmpLTWwyejF1eTBuaDVuck4zRWJW?=
- =?utf-8?B?bnR1L1pDaThHWUtIRVR5V3JhUG05T3c2QlJ5TTJEYjRPTnlWb3E5eVpRZ0x0?=
- =?utf-8?B?OXhKdUpiR1NSMnpBdDNDMXRXUjRGVGhnTmJYanc5YTF4VEhOUnR6aHpZWXFO?=
- =?utf-8?B?L1hGM2N5YW85V3o4c3h1Tmk5SkEyWTYyZ0ZGZE93YmdBbWhUaXJCZExtRlEy?=
- =?utf-8?B?QU5yeE1heVBDQ1JsbnNRS0w4VHVmVWZQc0xaOG5xeDNHUGNkOXFsbHZKa2ha?=
- =?utf-8?B?c1Blekl1VXg1a0RlcENLVG5Wb2svYlF3NDdJdzhaYjBOUno3ajAyUFhYOHhT?=
- =?utf-8?B?bDIwSS9LL2s0OWFJaUp2REVWcEJpM1o4WmRvbk5aamtkeFQ0T3o4N2ZKT05s?=
- =?utf-8?B?QzVqVE9mbUI2WHd1VUdQNVl6WlBVT01KOTBUTjc3c1ZvaVZtcXNVNmVlaHBo?=
- =?utf-8?B?OFNtaTA1bjJqSWdqMnA2VVFYdTF4VE1FQTZXREJMaVltaGdrNFJVRjZ5NEpn?=
- =?utf-8?B?UGFYUlZTenNPZkFQLzBpSmJhd1hTOVk3dDNGSzFOMDRFZk4ralVhQjkzOVdo?=
- =?utf-8?B?OFo5VEFGTitwYnJtVFBqUG5sMW41eDVFazBMOEFkdWo0NS9lR2VNSk1Wb0Rp?=
- =?utf-8?B?UGtEWTJDRjF1bHFuT1E2VFhKSGZJNDduSUNlWU8wbGVwV09EeGdKOElPUDdv?=
- =?utf-8?B?ZXlLMlhMOStKUlI3cmhoUWNFM0VxMDM5U1oyOERlbnRKajJiZjNYb1ZFYUlu?=
- =?utf-8?B?Yk9RSlp2bzUzeTc2dVZFdm5xTHV6QmtlMVhMTTNmaE1mTUV4MjJSRFpSZFpJ?=
- =?utf-8?B?MVZ5dmVoa3FOTDY3YTV5UEd2YTlSenRzNzVBMFVhdlVVWHpldDlyU25QazlV?=
- =?utf-8?B?a1hmWVJTWmpJUzBUVFAvZjE0NUdOK0ZSejhJdW5pb2F4ekRaYmpGaE9mc3Jv?=
- =?utf-8?B?V1BhNGRQMUs2MUlSWVVabzFrN01LbjBJcEV2TkcxdVYzSWc5MTFyQk5CbkR0?=
- =?utf-8?B?bjZERVhzMCtiOUx6bEFCTW1ETEU4MHJzNmlZTFpsK0d4SXRBem1GY1FVRXZp?=
- =?utf-8?B?WEdFN2hsbUtYb1dMamF5QmR4eVJ5cEdoNzMzMW9RTVEwY2xtTkJQQ041a1py?=
- =?utf-8?B?bG1DdzZlTHNzWW8vMzc3WUxRTmMwbWtFVFNuNjVvamxSdThIajQwUk81Ujk4?=
- =?utf-8?B?L3RSK0JjTGxiYXV6N2FlYVFDTHZJSHlZN1ZyejJMQkVRc2dENjY2YzFRMS8w?=
- =?utf-8?B?TUJ3aFluWlRwN1hJT1NPQ3BYL0grd1VtTkxjMzNZckYzakdSMHBLQXp0Z3NO?=
- =?utf-8?B?b3oyK3oyTWpYdTk2QXhJTEkyMTRNL21TUkNmaWRFQm9vRVZqUkVmZklEU0hv?=
- =?utf-8?B?N2I2Z3g2a3BtYUphWS9sbU00aCtneVFlam83ME9ONkdXTWZlTnh1bWY0WnRM?=
- =?utf-8?B?ak51N2pQMjgrUTlXVDJ3bUs2eXFxKy8zQUhXdVZHNEc3YUEyZDRYNis5VlEr?=
- =?utf-8?B?SklHcm1YbkgwS1Q0aGdGdmxXaTUwUi84WDRVeU1nQmpmZzM3Z0NqaGYrMFlV?=
- =?utf-8?B?ZlZ3Smdqc2JVZXV1Wjk1VTJxNHdGdU9CdHh2YXY2VXBrNWhnZ3ZHY05Tcngz?=
- =?utf-8?B?MmlDOHk3OVRtSUJNQUdjZVEwMUFCK1JWVThvUXNnYzJYN09pUCtqdU5EcGhS?=
- =?utf-8?B?MHRIUmtEZGlzVnE5UUpEUGxVaHdMRldYYXlNZDM2aTV0UWlVMkJDTi9JU1V0?=
- =?utf-8?B?TFRTV1FoYkg4QWMvZTIveEd3dkM4ZXVJQzdEUkFYYkFNeCthRzZQYXZlNHUz?=
- =?utf-8?B?NzJxWVVUZVRVUmVpVjZRTlRhQStpMnpSelBORkNlZEE0RW9QYnVXY20rVU1n?=
- =?utf-8?B?c0VkNXpqdkp1VmpONjYvb3FSbXlJdnV4MmsrTi9RZDVDUHpQT1BOcjEvKzdn?=
- =?utf-8?B?ZU9seDBzVHhQMXlWZzY2Z0REbGpKd0lUUzlLRGsrOTR1NnBGUEFJREdjRXBK?=
- =?utf-8?B?WDBEZS9KRFpQSkJ0MU9ySmRaODl6MFdYbk5XQjVkSVBTa2lYRjRNVC9hOGRn?=
- =?utf-8?B?UGh3cGJCcklKK1dXRmM0RGlHczRZSzFsK3FpcjVRR2M1QWNSTVk3aUdQb2Js?=
- =?utf-8?B?Y2hHRFpqQStIRW1zZE5JalAyZ014R2RSNlhGVnc2VEMrSDZTNStreUN0bm90?=
- =?utf-8?B?VURDQlBMMTl5WTFoZXd6NjhBZXBLYjNyWCtkamNCUUZMcGJiLzQ5UVJ4MjJo?=
- =?utf-8?B?WWZLeUlZYm9BbWVVaDBoZWxKNm5qWWV3V1BsNU1ib2hWdGtVWUtwdTh3Y29v?=
- =?utf-8?B?UHFHR2FkdUptZ29ZUEtsdUpWREpwaFUwUTEzRmQyZVpXeFlHRjl6Zz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cc86ffd2-acb4-4757-60ab-08dee8ac0291
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB7794.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 11:17:41.3848 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: avCuuOtR4q6CLCrjh7h1h58xU5mhgNHsOptQNNtp1BoAREaGZiKY3TMlmeKtUzM+5LxcbRMfV7rGzhNKPsx+mQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999290
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 4/6] drm/ttm: Hook up a cgroup-aware reclaim callback
+ for the dmem controller
+To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Cc: Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>, 
+ Tejun Heo <tj@kernel.org>, =?UTF-8?Q?Michal_Koutn=C3=BD?=
+ <mkoutny@suse.com>, cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+References: <20260723100350.16895-1-thomas.hellstrom@linux.intel.com>
+ <20260723100350.16895-5-thomas.hellstrom@linux.intel.com>
+Content-Language: en-US
+From: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+In-Reply-To: <20260723100350.16895-5-thomas.hellstrom@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,57 +83,318 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
+Hey,
 
-On 23-07-2026 01:53 pm, Zhu Lingshan wrote:
-> amdgpu_userq_buffer_vas_mapped() checks whether all VAs
-> of a queue are mapped before restoring it.
-> So that HW won't access any invalid addresses.
->
-> Currently, this function assumes all VAs are mapped if
-> any VA of a queue has been mapped, which is wrong.
->
-> This commit fixes this problem by examining all VAs of
-> a queue and reporting false if any of them is not mapped.
->
-> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+On 7/23/26 12:03, Thomas Hellström wrote:
+> Add ttm_bo_evict_cgroup() to evict buffer objects charged to a specific
+> dmem cgroup pool from a resource manager's LRU until a byte target is
+> met.  Add ttm_resource_manager_set_dmem_region() to associate a dmem
+> cgroup region with a resource manager; drivers supply their own
+> dmem_cgroup_ops with ttm_resource_manager_dmem_reclaim as the reclaim
+> function and the manager pointer as reclaim_priv in the dmem_cgroup_init
+> to wire up TTM eviction as the reclaim callback.
+> 
+> The eviction context is interruptible; signals abort the operation and
+> propagate back through the write() syscall.
+> 
+> Introduce a new mode for the bo LRU walker so that sleeping locks
+> can be taken. This can be used when the caller doesn't hold any
+> previous dma_resv locks, and where it intends to hold at most
+> one lock at a time.
+> 
+> Like the rest of the TTM eviction this should sooner than later
+> be converted to full WW transactions.
+> 
+> v3:
+> - Fix ttm_resource_manager_set_dmem_region() storing an error pointer
+>   in man->cg unconditionally. (Sashiko-bot)
+> - Fix kernel-doc function name format for ttm_bo_evict_cgroup() and
+>   ttm_resource_manager_set_dmem_region().
+> 
+> v5:
+> - Rebased on the introduction of struct dmem_cgroup_init.
+> - Handle NULL region in ttm_resource_manager_set_dmem_region() to clear
+>   the reclaim callback, preventing use-after-free when the manager is
+>   torn down while the dmem region outlives it. (Sashiko-bot)
+> - Return 0 on any progress (even partial eviction), -ENOSPC only when
+>   nothing was freed; fixes callers that expected 0 on partial success.
+> - Document that the reclaim callback should return 0 if some progress
+>   was made, -ENOSPC if no progress at all, or another error for fatal
+>   failures.
+> 
+> v8:
+> - Fix ttm_resource_manager_set_dmem_region() using IS_ERR_OR_NULL(),
+>   which skipped the assignment for a NULL region and thus never
+>   cleared man->cg. Use IS_ERR() so that a NULL region detaches the
+>   region as the kernel-doc and the v5 changelog intended. (Sashiko-bot)
+> 
+> Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+> Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com> #v7
 > ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 16 +++++++++-------
->   1 file changed, 9 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index 3fe10d6af757..2b3cb4ec4835 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -280,22 +280,24 @@ static bool amdgpu_userq_buffer_va_mapped(struct amdgpu_vm *vm, u64 addr)
->   
->   static bool amdgpu_userq_buffer_vas_mapped(struct amdgpu_usermode_queue *queue)
->   {
-> -	int i, r = 0;
-> +	int i;
-> +	bool mapped;
->   
->   	for (i = 0; i < ARRAY_SIZE(queue->userq_vas.va_array); i++) {
->   		if (!queue->userq_vas.va_array[i])
->   			continue;
-> -		r += amdgpu_userq_buffer_va_mapped(queue->vm,
-> +
-> +		mapped = amdgpu_userq_buffer_va_mapped(queue->vm,
->   						   queue->userq_vas.va_array[i]);
->   		dev_dbg(queue->userq_mgr->adev->dev,
->   			"validate the userq mapping:%p va:%llx r:%d\n",
-> -			queue, queue->userq_vas.va_array[i], r);
-> -	}
-> +			queue, queue->userq_vas.va_array[i], mapped);
->   
-> -	if (r != 0)
-> -		return true;
-> +		if (!mapped)
-> +			return false;
+>  drivers/gpu/drm/ttm/ttm_bo.c       | 95 +++++++++++++++++++++++++++++-
+>  drivers/gpu/drm/ttm/ttm_bo_util.c  |  3 +-
+>  drivers/gpu/drm/ttm/ttm_resource.c | 52 ++++++++++++++++
+>  include/drm/ttm/ttm_bo.h           | 10 ++++
+>  include/drm/ttm/ttm_resource.h     |  7 +++
+>  5 files changed, 163 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+> index 3980f376e3ba..b2bbbb69add3 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo.c
+> @@ -515,12 +515,20 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
+>  {
+>  	struct ttm_bo_evict_walk *evict_walk =
+>  		container_of(walk, typeof(*evict_walk), walk);
+> +	/* Capture size before eviction in case res is cleared. */
+> +	s64 bo_size = bo->base.size;
+
+I just noticed this comment, a bo's size should be fixed, even if the backing store is gone?
+
+>  	s64 lret;
+>  
+>  	if (!dmem_cgroup_state_evict_valuable(evict_walk->limit_pool, bo->resource->css,
+>  					      evict_walk->try_low, &evict_walk->hit_low))
+>  		return 0;
+>  
+> +	/*
+> +	 * evict_walk->place is NULL in cgroup drain mode.  Drivers'
+> +	 * eviction_valuable() callbacks must handle a NULL place, treating it
+> +	 * as "any placement": the TTM base implementation already does so via
+> +	 * ttm_resource_intersects().
+> +	 */
+>  	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, evict_walk->place))
+>  		return 0;
+>  
+> @@ -536,11 +544,15 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
+>  		goto out;
+>  
+>  	evict_walk->evicted++;
+> -	if (evict_walk->res)
+> +	if (evict_walk->res) {
+>  		lret = ttm_resource_alloc(evict_walk->evictor, evict_walk->place,
+>  					  evict_walk->res, NULL);
+> -	if (lret == 0)
+> -		return 1;
+> +		if (lret == 0)
+> +			return 1;
+> +	} else {
+> +		/* Cgroup drain: return bytes freed for byte-denominated progress. */
+> +		return bo_size;
 > +	}
->   
-> -	return false;
-> +	return true;
->   }
->   
->   
+>  out:
+>  	/* Errors that should terminate the walk. */
+>  	if (lret == -ENOSPC)
+> @@ -614,6 +626,83 @@ static int ttm_bo_evict_alloc(struct ttm_device *bdev,
+>  	return 0;
+>  }
+>  
+> +/**
+> + * ttm_bo_evict_cgroup() - Evict buffer objects charged to a specific cgroup.
+> + * @bdev: The TTM device.
+> + * @man: The resource manager whose LRU to walk.
+> + * @limit_pool: The cgroup pool state whose members should be evicted.
+> + * @target_bytes: Number of bytes to free.
+> + * @ctx: The TTM operation context.
+> + *
+> + * Walk the LRU of @man and evict buffer objects that are charged to the
+> + * cgroup identified by @limit_pool, until at least @target_bytes have been
+> + * freed.  Mirrors the two-pass (trylock -> sleeping-lock, low-watermark)
+> + * strategy used by ttm_bo_evict_alloc().
+> + *
+> + * Return: >= @target_bytes on full success, 0..target_bytes-1 if partial,
+> + *         negative error code on fatal error.
+> + */
+> +s64 ttm_bo_evict_cgroup(struct ttm_device *bdev,
+> +			struct ttm_resource_manager *man,
+> +			struct dmem_cgroup_pool_state *limit_pool,
+> +			s64 target_bytes,
+> +			struct ttm_operation_ctx *ctx)
+> +{
+> +	struct ttm_bo_evict_walk evict_walk = {
+> +		.walk = {
+> +			.ops = &ttm_evict_walk_ops,
+> +			.arg = { .ctx = ctx },
+> +		},
+> +		.limit_pool = limit_pool,
+> +		/* place, evictor, res left NULL: selects cgroup drain mode */
+> +	};
+> +	s64 lret, pass;
+> +
+> +	evict_walk.walk.arg.trylock_only = true;
+> +	lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, target_bytes);
+> +	if (lret < 0 || lret >= target_bytes)
+> +		return lret;
+> +
+> +	/* Second pass: also evict BOs at the low watermark. */
+> +	if (evict_walk.hit_low) {
+> +		evict_walk.try_low = true;
+> +		pass = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man,
+> +					      target_bytes - lret);
+> +		if (pass < 0)
+> +			return pass;
+> +		lret += pass;
+> +		if (lret >= target_bytes)
+> +			return lret;
+> +	}
+> +
+> +	/* Full sleeping-lock pass for remaining target. */
+> +	evict_walk.try_low = evict_walk.hit_low = false;
+> +	evict_walk.walk.arg.trylock_only = false;
+> +
+> +retry:
+> +	evict_walk.walk.arg.sleeping_lock = true;
+> +	do {
+> +		evict_walk.evicted = 0;
+> +		pass = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man,
+> +					      target_bytes - lret);
+> +		if (pass < 0) {
+> +			lret = pass;
+> +			goto out;
+> +		}
+> +		lret += pass;
+> +	} while (lret < target_bytes && evict_walk.evicted);
+> +
+> +	/* One more attempt if we hit the low limit during sleeping-lock pass. */
+> +	if (lret < target_bytes && evict_walk.hit_low && !evict_walk.try_low) {
+> +		evict_walk.try_low = true;
+> +		goto retry;
+> +	}
+> +
+> +out:
+> +	return lret;
+> +}
+> +EXPORT_SYMBOL(ttm_bo_evict_cgroup);
+> +
+>  /**
+>   * ttm_bo_pin - Pin the buffer object.
+>   * @bo: The buffer object to pin
+> diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> index 3e3c201a0222..bd0b23ac2cc4 100644
+> --- a/drivers/gpu/drm/ttm/ttm_bo_util.c
+> +++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+> @@ -999,7 +999,8 @@ __ttm_bo_lru_cursor_next(struct ttm_bo_lru_cursor *curs)
+>  		bo = res->bo;
+>  		if (ttm_lru_walk_trylock(curs, bo))
+>  			bo_locked = true;
+> -		else if (!arg->ticket || arg->ctx->no_wait_gpu || arg->trylock_only)
+> +		else if ((!arg->ticket && !arg->sleeping_lock) || arg->ctx->no_wait_gpu ||
+> +			 arg->trylock_only)
+>  			continue;
+>  
+>  		if (!ttm_bo_get_unless_zero(bo)) {
+> diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+> index 154d6739256f..1ff4a470b083 100644
+> --- a/drivers/gpu/drm/ttm/ttm_resource.c
+> +++ b/drivers/gpu/drm/ttm/ttm_resource.c
+> @@ -953,3 +953,55 @@ void ttm_resource_manager_create_debugfs(struct ttm_resource_manager *man,
+>  #endif
+>  }
+>  EXPORT_SYMBOL(ttm_resource_manager_create_debugfs);
+> +
+> +/**
+> + * ttm_resource_manager_dmem_reclaim() - dmem cgroup reclaim callback for TTM
+> + *                                       resource managers.
+> + * @pool: The dmem cgroup pool state for the cgroup being reclaimed.
+> + * @target_bytes: Number of bytes to try to free.
+> + * @priv: The &ttm_resource_manager pointer, passed as @init.reclaim_priv to
+> + *        dmem_cgroup_register_region().
+> + *
+> + * Drivers should use this as the @reclaim member of their own
+> + * &struct dmem_cgroup_ops, with the &ttm_resource_manager pointer as
+> + * @init.reclaim_priv.
+> + *
+> + * Return: 0 if some memory was freed, -ENOSPC if nothing was freed, or
+> + *         another negative error code on fatal failure.
+> + */
+> +int ttm_resource_manager_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
+> +				      u64 target_bytes, void *priv)
+> +{
+> +	struct ttm_resource_manager *man = priv;
+> +	struct ttm_operation_ctx ctx = { .interruptible = true };
+> +	s64 freed;
+> +
+> +	freed = ttm_bo_evict_cgroup(man->bdev, man, pool, target_bytes, &ctx);
+> +	if (freed < 0)
+> +		return freed;
+> +
+> +	return freed > 0 ? 0 : -ENOSPC;
+> +}
+> +EXPORT_SYMBOL(ttm_resource_manager_dmem_reclaim);
+> +
+> +/**
+> + * ttm_resource_manager_set_dmem_region() - Associate a dmem cgroup region with a
+> + *                                        resource manager.
+> + * @man: The resource manager.
+> + * @region: The dmem cgroup region to associate, may be NULL or IS_ERR().
+> + *
+> + * When @region is valid, stores it in @man->cg so that TTM can look up the
+> + * associated pool during charging and eviction-target selection.  When
+> + * @region is %NULL, clears @man->cg to detach the region before teardown.
+> + * An IS_ERR() @region is ignored, leaving @man->cg unchanged.
+> + * The reclaim callback must be wired up using ttm_resource_manager_dmem_reclaim()
+> + * in the driver's own &struct dmem_cgroup_ops, with the manager pointer as
+> + * @init.reclaim_priv.
+> + */
+> +void ttm_resource_manager_set_dmem_region(struct ttm_resource_manager *man,
+> +					  struct dmem_cgroup_region *region)
+> +{
+> +	if (!IS_ERR(region))
+> +		man->cg = region;
+> +}
+> +EXPORT_SYMBOL(ttm_resource_manager_set_dmem_region);
+> diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+> index 8310bc3d55f9..32791c4db2a9 100644
+> --- a/include/drm/ttm/ttm_bo.h
+> +++ b/include/drm/ttm/ttm_bo.h
+> @@ -226,6 +226,11 @@ struct ttm_lru_walk_arg {
+>  	struct ww_acquire_ctx *ticket;
+>  	/** @trylock_only: Only use trylock for locking. */
+>  	bool trylock_only;
+> +	/**
+> +	 * @sleeping_lock: Use sleeping locks even with %NULL @ticket.
+> +	 * @trylock_only has precedence over this field.
+> +	 */
+> +	bool sleeping_lock;
+>  };
+>  
+>  /**
+> @@ -431,6 +436,11 @@ void ttm_bo_unpin(struct ttm_buffer_object *bo);
+>  int ttm_bo_evict_first(struct ttm_device *bdev,
+>  		       struct ttm_resource_manager *man,
+>  		       struct ttm_operation_ctx *ctx);
+> +s64 ttm_bo_evict_cgroup(struct ttm_device *bdev,
+> +			struct ttm_resource_manager *man,
+> +			struct dmem_cgroup_pool_state *limit_pool,
+> +			s64 target_bytes,
+> +			struct ttm_operation_ctx *ctx);
+>  int ttm_bo_access(struct ttm_buffer_object *bo, unsigned long offset,
+>  		  void *buf, int len, int write);
+>  vm_fault_t ttm_bo_vm_reserve(struct ttm_buffer_object *bo,
+> diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
+> index a5d386583fb6..32e485fdce9a 100644
+> --- a/include/drm/ttm/ttm_resource.h
+> +++ b/include/drm/ttm/ttm_resource.h
+> @@ -39,6 +39,7 @@
+>  
+>  struct dentry;
+>  struct dmem_cgroup_device;
+> +struct dmem_cgroup_region;
+>  struct drm_printer;
+>  struct ttm_device;
+>  struct ttm_resource_manager;
+> @@ -477,6 +478,12 @@ void ttm_resource_manager_init(struct ttm_resource_manager *man,
+>  			       struct ttm_device *bdev,
+>  			       uint64_t size);
+>  
+> +void ttm_resource_manager_set_dmem_region(struct ttm_resource_manager *man,
+> +					  struct dmem_cgroup_region *region);
+> +
+> +int ttm_resource_manager_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
+> +				      u64 target_bytes, void *priv);
+> +
+>  int ttm_resource_manager_evict_all(struct ttm_device *bdev,
+>  				   struct ttm_resource_manager *man);
+>  
+
