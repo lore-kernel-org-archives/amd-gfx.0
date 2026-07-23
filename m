@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C261C531F7
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 20:19:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 10AD0C531FC
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 20:19:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F24B710E5F6;
-	Thu, 23 Jul 2026 20:18:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00F6710E5FD;
+	Thu, 23 Jul 2026 20:19:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="p/A2NAGq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gbjGEgGF";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010033.outbound.protection.outlook.com [52.101.46.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6D6D10E5EF
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 20:18:58 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010000.outbound.protection.outlook.com [52.101.61.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 63FE310E5FD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 20:19:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I4ArjuQ4djN7pIDXY/UKEU1J5V5E14weQXlCDlAOe4AR5/cICKeCxAyoPXuptv/7ZR/VQJyLTi4DqS84hPZqJ7DK+Qmv6HVQF5jR7nupTjcRpFscQ9gkXWfNisIh/giBqAZDv1tbqk+WvdyxnvH0lzDa7zTk1oyttfyY/aiIZj9lxrsZZ1ydyDnz/lwnSiHQVSwoW6ZxKu97mAgxnwl5Awt61EXfdcXi1trb2lvHoV8Ky8xOdI41mqcQJTZQaYiny6n0nFLsxMtNFNRa4JXFCZWu+CI7/cwSawRCu5p0OZo+piEIN4MhcRK7ki5iafiqSkd4V0Z3EoLJZDTIbayRfw==
+ b=NIqRI5UQ4ZrhfcqY7Cm/Zsp7f4kvOIUYaKVwdlG2scIILk1ORTU/8ZAzc8SPkVor64L+Mw/ZRkh2+E560nv8sEubopKfud+M0roo3S0gNBdkNF2E1zo2ZJZD12UJTqP+JrNw2X7OyqQY4iR4LHPiMg0RudQa8pJmFQ902RoT9AsWq6YOypOVvT61HVPSWdaoapkAZJlxL4s/iT4icF45Ab0nNlcli6SQ1epHuJCr5soL4Xk2IB2FTlg5QEwrp4gdhoueIhcAUMaNbqHTHSSwkEv9Cj/r3ncc02BzrA7aJkNX7q2hbbN7gj40tZhDMBHu8Kl2ds4IST7PlnAxjkZZxg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xBOnuzHY2SYr8y9cSQ+FKZu7KB7U+aV7UFj0vg38MWs=;
- b=Z9dyS0AZUHmuiGHUTg5i7f4LNNQi3LPzi2BJ0PBqLR1Pu6YkJF7M5IS489SNbBmDG0KZK5jl/rZObgLnz+NfGV8ndq5daaL1FhdKRc5uNyo4jOakQRiO/PImOZaHPnB/3779RNpngZHBcwGgPXg+iDaUmI1rRa1F65DF5TGqPhS2B9DVDQeDJf8y/Nrb+Nz7BOpyGf4an+KWgrBa232E4fK9AGArUMn9nXD1FOoFWKO/cPoaF2+XwXLDigDSiHIByL0EepZdZYjDhS4lmwHLEC1OvdAyke1+20UhRA4AnqNMKvmugW7TESgACP9EwX3+p6IUuDcB6nAiMb1tqMZQ5g==
+ bh=0/nEz/+j6KoI+ek+g0JbL7q2/VWKgaOoUs2bBgnJm7I=;
+ b=mNX9mdHCqtNfarRDrHb18loVgNT6CGqDRHn/WCiMXyOeQokQrI1sDOmNgF2DTcvdY8KB8HHdgLDBosCJXiTpo+EElmKS5luRHQYkhmMqH2CAeauh/UFr2C8Dny273JuEhrAT2lxSM7ivwoqDOe6w/Or4TNPFlbsoGRN9WDsc5bjs6P6pBL0dWWu4TiN5GfbfYJpyonfejm7g3dYSsIffaGKbHaTB61dDgOMfQvVT/2LQY0t2J8MYbiUTJQ1H2VjCPou/4kafErRauiJ4pcXHDIgms8DUU4Vv9EiYjd/U4bMRqEdUg1Yn4LUdYi2kVF3fes1ehEh3aVSeF3rRqKkkXA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xBOnuzHY2SYr8y9cSQ+FKZu7KB7U+aV7UFj0vg38MWs=;
- b=p/A2NAGqCkKnHthIELqMc4hiCF0ulCiO0n8IrCrGylefsk4dG8WJQpqsk77T9ddp/zAzaXiAuplRV2xT/UIlATA5Zvt2APbPEI2v0R8tHqJYo1N2S2+C+d5CFZc3a18CXg1uPgjCi1qi6+4BaNkKArUdFyfQXzx89326F6vUcHs=
-Received: from MN0P223CA0021.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::25)
- by DM6PR12MB4074.namprd12.prod.outlook.com (2603:10b6:5:218::11) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=0/nEz/+j6KoI+ek+g0JbL7q2/VWKgaOoUs2bBgnJm7I=;
+ b=gbjGEgGFz6EuHPNw1I6+O5NWILAohu+ZulcTRkE3RU6xai3o/TNNRnzBhuCuK9MHsSWvKE3eGaiPKu7bjrerwRuRm+zCuTPBCWdxkDaKIWnF19YnG49W6kCTG2lm2iWDII59HUkjDETdsjR6wJUXOh5/fL0yDIkNNRRIXWyUSMM=
+Received: from MN0P223CA0030.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::33)
+ by LV3PR12MB9096.namprd12.prod.outlook.com (2603:10b6:408:198::22)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Thu, 23 Jul
- 2026 20:18:54 +0000
+ 2026 20:18:56 +0000
 Received: from BL02EPF00021F6D.namprd02.prod.outlook.com
- (2603:10b6:208:52b:cafe::55) by MN0P223CA0021.outlook.office365.com
- (2603:10b6:208:52b::25) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:208:52b:cafe::5c) by MN0P223CA0030.outlook.office365.com
+ (2603:10b6:208:52b::33) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.11 via Frontend Transport; Thu,
- 23 Jul 2026 20:18:53 +0000
+ 23 Jul 2026 20:18:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BL02EPF00021F6D.mail.protection.outlook.com (10.167.249.9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 20:18:53 +0000
+ 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 20:18:56 +0000
 Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 23 Jul
- 2026 15:18:51 -0500
+ 2026 15:18:54 -0500
 From: Fangzhi Zuo <jerry.zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,10 +64,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 04/49] drm/amd/display: Add KUnit tests for link_lock and psp
- SRM helpers
-Date: Thu, 23 Jul 2026 16:13:12 -0400
-Message-ID: <20260723201908.373300-5-jerry.zuo@amd.com>
+Subject: [PATCH 08/49] drm/amd/display: Add KUnit tests for watchdog and cpirq
+ events
+Date: Thu, 23 Jul 2026 16:13:16 -0400
+Message-ID: <20260723201908.373300-9-jerry.zuo@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260723201908.373300-1-jerry.zuo@amd.com>
 References: <20260723201908.373300-1-jerry.zuo@amd.com>
@@ -79,29 +79,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6D:EE_|DM6PR12MB4074:EE_
-X-MS-Office365-Filtering-Correlation-Id: da7645cb-c0d0-454e-c3bd-08dee8f79e01
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6D:EE_|LV3PR12MB9096:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2cf0f406-142a-438c-fae7-08dee8f79fa4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|23010399003|36860700016|376014|6133799003|56012099006|5023799004|11063799006|10067099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info: lo1PGOps2dsrJZYYX+gNzEqhvi5iTavA+TS7MO4shiBfE0JfcN/P6TNdv2vXegkksmOL7wrHaX0ECQjptRCjhxo0b2QUi8wyyeIH3xNdSkJr+fH685amymF86c5D2PTd5QrsuFzxBCoXln2DkVMApd9CBGQoxtbDlWyVhn5kF7LahZzAUlxrwOgIC7u3cJw/LcueHZyNWzgTD62poK3DTkiF9S7or2NiAUkGh3MsrvZIOL5hjQFnyBfSGJ/QiyhpFooDjzbhrdh0YckKyoYBmrzCpji/Ky0XSpCcnS5HnWxXn23R5VNiCP/ct0r+o5czNtHvQkFoeLH8bTsgnKsTt+dBUj7DJbMGnFmfN6a6lPO3eqcdjZNUzcgcC2i/NPe4vHZ7vXsindDUm2an+XA/HqidU/LBpEViv7eHjK5zZDbho9tmwZXX/aVrK/zx+q1KIm9u8LKNoMZvaE1jsotTNqONBIetbP1QU09ENesaWgwoEaMVRVFeF2mdTZWDAQLMpVHBAx8b8Qr8p0eULnW7SahGn/4STVLglWRWe7eS1atx8MbRoEnKIBd9jIn/OjQBmW9ch6PKnz1o+k9fqE42yUNdJe3n1zZ1Hb2BVWAMbKZA2vk/u+GMy7TepuJ+XxaxAwzk/Mw2/2mGztarKvBk1lWdCc14bnXym5HDTItgI3s2qDVu5dG7WLCPKaVBgi+Q3Wtrc/MvdR3+aGsY/0T8Og==
+ ARA:13230040|376014|1800799024|82310400026|36860700016|23010399003|11063799006|3023799007|18002099003|22082099003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: PrEACVNot5Inhyk8aAIPmjwDG6cj+GuTmSqifKhVOXMp3y8DCd8P2o3Sp7kybpxL/4BZlVpBP/dmIxE41vWb9PHtKJlmpLpcwOSwa2QwIfUVeNfu8hh5s+OkwpSzhpznQffiPPJpeAUMwab+MI8sVvjxSjUkitX9+qftqowJ0ne/LSiqhy+J5LSOe+nAOaHBUgayPi12aniDD6OI25uATLWFPBKtSCCvxXVxusi2w2K2J7gVeg1oF7cpV+SI/SgTW8jbwgFSEuVoHjM9vpZSMgHtNhnZ+mGdwjJsO4JtypXvFnfwIcKaB58SVb0orMo5sglTMvSKWiBHt5DyNU5EMRspMxrFEY8dOFkYx+OoLrRylbwwiwaV7GYS5ruZ8M3qCK4Yn2CyJPjn5IrOhA8ueKOKdlh6l+4KUo2sxCaoB3rf1HZDl4WzRx6Krip7rAS2Oma+5xWJiFICd9o/iLJUgSHank0n6Nmr9lnJlBblfsw8/dhyAmHFB0pqtzl7H6OTVVb3r17uuu/GX3gNELKg8FfwDATFI51byyWpjeazbOdMs/G63T5nuAUC1Ny1Xi5gYyBqsB03lwX0D0GLDHm2H0Wax+1GBlwMtWp2m5Ym2dySRyF/P3Zbb6B8vD6iALOJZIA362PVre62UR0meWqpy9sAZAq9oI028xJig0DQHhR+oCnEu4EMpyoeoUziaVF6aE28VhaCEYDrkFG8hPThWg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(23010399003)(36860700016)(376014)(6133799003)(56012099006)(5023799004)(11063799006)(10067099003)(18002099003)(22082099003)(3023799007);
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(23010399003)(11063799006)(3023799007)(18002099003)(22082099003)(56012099006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: rMoTP38Lzz8iGXdIKgVMxzSZwhaMF4peAo50VAQSn/qQoiCG1NFPwWDKEoVSlV44ty2AC9QPIxlffbgzc1A0wAwSjJ1KOZUfMIyJCpuSsmtI/Wye/Fl5nrMtll+RWHHO862qnL0q/IPgarzBWsE4KXbjqNcSDpBV6+nCSTq4bhJ790VaHw9sN15PGGnldKDfm7/aGKSQO3Q6/W4SutHf4SxG8Hb9Yp+yBMTXBDVgFigjvWW1jpHkdSMdukRos5nPzcvNfudgWsnK4lNJzHa9TbT48IeXII27KFraZwbMeK5VO/JRRAh6IT8lnMWlcEfn5XbNP2uminM2HEl+9jKwsEJcrM2qExaJ9zGZDpRrKLvnaeOsWsaB4sX+F82D4m02pFi0cP4w+W7JL8IyBlB9/0QRZfaYWYk1QWGOtt9/M16DYkcFUQiKNZGKBofEMqTk
+X-MS-Exchange-AntiSpam-MessageData-0: 3wTX9DMEyVaJU1owjfnGfjueCRmMDp9fUf2QovPoxV+t6bAaAO3srD5femObnjFAHb/8LJqxVTv1gQYwvewI5TjoEdFfS9aNl9EpOuND46TSnGOP3qkMWbyzHlilA6oDIHxoY2EhjHSF08rldnuw6cuGhoTAIlQd7/TkrufuO8xDiX958Usb7EW5hZ1WETyk2iuWrzSRyo0Um2AAqNKd29tfKIGfZEqLLQgi4WqUz+dFTL8HWKGk65r4gaLYsFj043OR3Gvg7P5lzOHuUXnIU9WZG6lDBYBiSAkikz6e2uzSqdojsa2qvwUF0hHVttnqYJ/kvJowALX9YxVr+Y2bAwZmFlLcMtjPZVVjfM7vow8n403tFRXU1wZMRuNNdgMr5k1la3bBC+7ngK8iNXs0v3e0hI61Snc0ak3eFTF6OD59nQ3V36uWIQEVytDn7RXa
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 20:18:53.8230 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: da7645cb-c0d0-454e-c3bd-08dee8f79e01
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 20:18:56.5697 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2cf0f406-142a-438c-fae7-08dee8f79fa4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4074
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9096
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,163 +118,140 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 
-Cover link_lock() across all links (lock then unlock) and the
-max_link == 0 no-op path, checking each per-link mutex ends in
-the expected state.
-
-Also cover the psp_get_srm() and psp_set_srm() guard paths when
-the HDCP TA context is uninitialized: psp_get_srm() returns NULL
-and psp_set_srm() returns -EINVAL, both leaving their output
-parameters untouched. The post-guard paths invoke real PSP
-firmware and are not unit-testable in UML.
+Verify event_watchdog_timer() cancels its pending watchdog_dwork
+and runs process_output(), and that event_cpirq() runs
+process_output() without arming the callback or watchdog timers.
+Both release the work-queue mutex on return.
 
 Reviewed-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    |  12 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.h    |   4 +
- .../amdgpu_dm/tests/amdgpu_dm_hdcp_test.c     | 127 ++++++++++++++++++
- 3 files changed, 140 insertions(+), 3 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    |   8 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.h    |   2 +
+ .../amdgpu_dm/tests/amdgpu_dm_hdcp_test.c     | 132 ++++++++++++++++++
+ 3 files changed, 140 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-index 0dee603ecfaa..3b5e0e64adde 100644
+index 622d9c275c3a..896668c92888 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-@@ -106,7 +106,8 @@ static bool lp_atomic_write_poll_read_aux(
- 	return dm_atomic_write_poll_read_aux(link, write, poll, read, poll_timeout_us, poll_mask_msb);
+@@ -517,7 +517,8 @@ void event_property_validate(struct work_struct *work)
  }
+ EXPORT_IF_KUNIT(event_property_validate);
  
--static uint8_t *psp_get_srm(struct psp_context *psp, uint32_t *srm_version, uint32_t *srm_size)
+-static void event_watchdog_timer(struct work_struct *work)
 +STATIC_IFN_KUNIT
-+uint8_t *psp_get_srm(struct psp_context *psp, uint32_t *srm_version, uint32_t *srm_size)
++void event_watchdog_timer(struct work_struct *work)
  {
- 	struct ta_hdcp_shared_memory *hdcp_cmd;
+ 	struct hdcp_workqueue *hdcp_work;
  
-@@ -129,8 +130,10 @@ static uint8_t *psp_get_srm(struct psp_context *psp, uint32_t *srm_version, uint
+@@ -535,8 +536,10 @@ static void event_watchdog_timer(struct work_struct *work)
  
- 	return hdcp_cmd->out_msg.hdcp_get_srm.srm_buf;
+ 	process_output(hdcp_work);
  }
-+EXPORT_IF_KUNIT(psp_get_srm);
++EXPORT_IF_KUNIT(event_watchdog_timer);
  
--static int psp_set_srm(struct psp_context *psp,
+-static void event_cpirq(struct work_struct *work)
 +STATIC_IFN_KUNIT
-+int psp_set_srm(struct psp_context *psp,
- 		       u8 *srm, uint32_t srm_size, uint32_t *srm_version)
++void event_cpirq(struct work_struct *work)
  {
- 	struct ta_hdcp_shared_memory *hdcp_cmd;
-@@ -157,6 +160,7 @@ static int psp_set_srm(struct psp_context *psp,
- 	*srm_version = hdcp_cmd->out_msg.hdcp_set_srm.srm_version;
- 	return 0;
- }
-+EXPORT_IF_KUNIT(psp_set_srm);
+ 	struct hdcp_workqueue *hdcp_work;
  
- STATIC_IFN_KUNIT
- void process_output(struct hdcp_workqueue *hdcp_work)
-@@ -245,7 +249,8 @@ void hdcp_get_link_display_adjustments(
- }
- EXPORT_IF_KUNIT(hdcp_get_link_display_adjustments);
+@@ -548,6 +551,7 @@ static void event_cpirq(struct work_struct *work)
  
--static void link_lock(struct hdcp_workqueue *work, bool lock)
-+STATIC_IFN_KUNIT
-+void link_lock(struct hdcp_workqueue *work, bool lock)
+ 	process_output(hdcp_work);
+ }
++EXPORT_IF_KUNIT(event_cpirq);
+ 
+ void hdcp_destroy(struct kobject *kobj, struct hdcp_workqueue *hdcp_work)
  {
- 	int i = 0;
- 
-@@ -256,6 +261,7 @@ static void link_lock(struct hdcp_workqueue *work, bool lock)
- 			mutex_unlock(&work[i].mutex);
- 	}
- }
-+EXPORT_IF_KUNIT(link_lock);
- 
- STATIC_IFN_KUNIT
- void hdcp_update_display_encryption_control(struct hdcp_workqueue *hdcp_work,
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
-index a82a20b80518..fb66f48d7297 100644
+index 57c534efbc71..a2b08bec58b5 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
-@@ -44,6 +44,7 @@ struct mod_hdcp_link;
- struct mod_hdcp_display;
- struct cp_psp;
- struct amdgpu_device;
-+struct psp_context;
- 
- struct hdcp_workqueue {
- 	struct work_struct cpirq_work;
-@@ -113,6 +114,9 @@ void hdcp_update_display_encryption_control(struct hdcp_workqueue *hdcp_work,
- 					    unsigned int conn_index,
- 					    bool enable_encryption);
+@@ -116,6 +116,8 @@ void hdcp_update_display_encryption_control(struct hdcp_workqueue *hdcp_work,
  void event_property_update(struct work_struct *work);
-+void link_lock(struct hdcp_workqueue *work, bool lock);
-+uint8_t *psp_get_srm(struct psp_context *psp, uint32_t *srm_version, uint32_t *srm_size);
-+int psp_set_srm(struct psp_context *psp, u8 *srm, uint32_t srm_size, uint32_t *srm_version);
- #endif
- 
- #endif /* AMDGPU_DM_AMDGPU_DM_HDCP_H_ */
+ void event_property_validate(struct work_struct *work);
+ void event_callback(struct work_struct *work);
++void event_watchdog_timer(struct work_struct *work);
++void event_cpirq(struct work_struct *work);
+ void link_lock(struct hdcp_workqueue *work, bool lock);
+ void hdcp_remove_display(struct hdcp_workqueue *hdcp_work, unsigned int link_index,
+ 			 struct amdgpu_dm_connector *aconnector);
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c
-index dbcff92672e6..43c7efcdd22c 100644
+index 6f5cae0960e1..a4097a4aec26 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c
-@@ -8,6 +8,7 @@
- #include <kunit/test.h>
- #include <linux/workqueue.h>
+@@ -748,6 +748,132 @@ static void dm_test_event_property_validate_no_update_when_unchanged(struct kuni
  
-+#include "amdgpu.h"
- #include "amdgpu_dm_hdcp.h"
+ /* End of tests for event_property_validate() */
  
- static void dummy_work_fn(struct work_struct *work) {}
-@@ -632,6 +633,126 @@ static void dm_test_hdcp_create_workqueue_zero_max_links_returns_null(struct kun
- 
- /* End of tests for hdcp_create_workqueue() */
- 
-+/* Tests for link_lock() */
++/* Tests for event_watchdog_timer() */
 +
 +/**
-+ * dm_test_link_lock_locks_and_unlocks_all_links - lock/unlock spans every link
++ * dm_test_event_watchdog_timer_cancels_watchdog_dwork - watchdog work is cancelled
 + * @test: KUnit test context
 + *
-+ * link_lock() should acquire the mutex of every entry from 0 to max_link
-+ * when locking, and release all of them when unlocking. A subsequent
-+ * lock/unlock cycle must succeed, proving the mutexes were left released.
++ * event_watchdog_timer() must cancel a previously scheduled
++ * watchdog_timer_dwork. With no active hdcp display,
++ * mod_hdcp_process_event() leaves output cleared so the watchdog is not
++ * requeued and watchdog_timer_dwork ends up not pending.
 + */
-+static void dm_test_link_lock_locks_and_unlocks_all_links(struct kunit *test)
++static void dm_test_event_watchdog_timer_cancels_watchdog_dwork(struct kunit *test)
 +{
-+	const int num_links = 3;
-+	struct hdcp_workqueue *work;
-+	int i;
++	struct hdcp_workqueue *work = alloc_test_workqueue_for_callback(test);
 +
-+	work = kunit_kcalloc(test, num_links, sizeof(*work), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, work);
++	/* Pre-schedule watchdog_timer_dwork with a long delay so it won't fire. */
++	schedule_delayed_work(&work->watchdog_timer_dwork, msecs_to_jiffies(10000));
++	KUNIT_ASSERT_TRUE(test, delayed_work_pending(&work->watchdog_timer_dwork));
 +
-+	/* max_link is read from the first element. */
-+	work[0].max_link = num_links;
-+	for (i = 0; i < num_links; i++)
-+		mutex_init(&work[i].mutex);
++	event_watchdog_timer(&work->watchdog_timer_dwork.work);
 +
-+	link_lock(work, true);
-+	for (i = 0; i < num_links; i++)
-+		KUNIT_EXPECT_TRUE(test, mutex_is_locked(&work[i].mutex));
++	KUNIT_EXPECT_FALSE(test, delayed_work_pending(&work->watchdog_timer_dwork));
 +
-+	link_lock(work, false);
-+	for (i = 0; i < num_links; i++)
-+		KUNIT_EXPECT_FALSE(test, mutex_is_locked(&work[i].mutex));
-+
-+	/* Mutexes must be re-acquirable after being released. */
-+	link_lock(work, true);
-+	for (i = 0; i < num_links; i++)
-+		KUNIT_EXPECT_TRUE(test, mutex_is_locked(&work[i].mutex));
-+	link_lock(work, false);
++	cancel_delayed_work_sync(&work->callback_dwork);
++	cancel_delayed_work_sync(&work->watchdog_timer_dwork);
++	cancel_delayed_work_sync(&work->property_validate_dwork);
 +}
 +
 +/**
-+ * dm_test_link_lock_zero_links_is_noop - zero max_link touches no mutexes
++ * dm_test_event_watchdog_timer_schedules_property_validate - process_output() runs
 + * @test: KUnit test context
 + *
-+ * When max_link is zero, link_lock() must not touch any mutex and simply
-+ * return, leaving the (single) entry's mutex unlocked.
++ * event_watchdog_timer() finishes by calling process_output(), which always
++ * enqueues property_validate_dwork with delay=0. Verifying it is pending
++ * proves the handler reached process_output() and released the mutex.
 + */
-+static void dm_test_link_lock_zero_links_is_noop(struct kunit *test)
++static void dm_test_event_watchdog_timer_schedules_property_validate(struct kunit *test)
++{
++	struct hdcp_workqueue *work = alloc_test_workqueue_for_callback(test);
++
++	event_watchdog_timer(&work->watchdog_timer_dwork.work);
++
++	KUNIT_EXPECT_TRUE(test, work_pending(&work->property_validate_dwork.work));
++	/* Mutex must be released after the guard scope exits. */
++	KUNIT_EXPECT_FALSE(test, mutex_is_locked(&work->mutex));
++
++	cancel_delayed_work_sync(&work->callback_dwork);
++	cancel_delayed_work_sync(&work->watchdog_timer_dwork);
++	cancel_delayed_work_sync(&work->property_validate_dwork);
++}
++
++/* End of tests for event_watchdog_timer() */
++
++/* Tests for event_cpirq() */
++
++/**
++ * alloc_test_workqueue_for_cpirq - workqueue ready for event_cpirq()
++ * @test: KUnit test context for managed allocation
++ *
++ * Allocates a minimal hdcp_workqueue with its mutex, cpirq_work and the
++ * three delayed works initialised, as required by the guard(mutex) and
++ * process_output() usage inside event_cpirq().
++ */
++static struct hdcp_workqueue *alloc_test_workqueue_for_cpirq(struct kunit *test)
 +{
 +	struct hdcp_workqueue *work;
 +
@@ -282,88 +259,77 @@ index dbcff92672e6..43c7efcdd22c 100644
 +	KUNIT_ASSERT_NOT_NULL(test, work);
 +
 +	mutex_init(&work->mutex);
-+	work->max_link = 0;
++	INIT_WORK(&work->cpirq_work, dummy_work_fn);
++	INIT_DELAYED_WORK(&work->callback_dwork, dummy_work_fn);
++	INIT_DELAYED_WORK(&work->watchdog_timer_dwork, dummy_work_fn);
++	INIT_DELAYED_WORK(&work->property_validate_dwork, dummy_work_fn);
 +
-+	link_lock(work, true);
++	return work;
++}
 +
++/**
++ * dm_test_event_cpirq_schedules_property_validate - process_output() runs
++ * @test: KUnit test context
++ *
++ * event_cpirq() finishes by calling process_output(), which always
++ * enqueues property_validate_dwork with delay=0. Verifying it is pending
++ * proves the handler reached process_output() and released the mutex.
++ */
++static void dm_test_event_cpirq_schedules_property_validate(struct kunit *test)
++{
++	struct hdcp_workqueue *work = alloc_test_workqueue_for_cpirq(test);
++
++	event_cpirq(&work->cpirq_work);
++
++	KUNIT_EXPECT_TRUE(test, work_pending(&work->property_validate_dwork.work));
++	/* Mutex must be released after the guard scope exits. */
 +	KUNIT_EXPECT_FALSE(test, mutex_is_locked(&work->mutex));
-+}
 +
-+/* End of tests for link_lock() */
-+
-+/* Tests for psp_get_srm() and psp_set_srm() */
-+
-+/**
-+ * dm_test_psp_get_srm_uninitialized_returns_null - GET fails when TA not initialized
-+ * @test: KUnit test context
-+ *
-+ * When the HDCP TA context is not initialized, psp_get_srm() must take the
-+ * guard path and return NULL without touching the output parameters or
-+ * invoking the (real) firmware path.
-+ */
-+static void dm_test_psp_get_srm_uninitialized_returns_null(struct kunit *test)
-+{
-+	struct psp_context *psp;
-+	uint32_t srm_version = 0xdead;
-+	uint32_t srm_size = 0xbeef;
-+	uint8_t *srm;
-+
-+	psp = kunit_kzalloc(test, sizeof(*psp), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, psp);
-+
-+	/* kzalloc leaves hdcp_context.context.initialized == false */
-+	srm = psp_get_srm(psp, &srm_version, &srm_size);
-+
-+	KUNIT_EXPECT_PTR_EQ(test, srm, NULL);
-+	/* Output parameters must be left untouched on the guard path. */
-+	KUNIT_EXPECT_EQ(test, srm_version, 0xdead);
-+	KUNIT_EXPECT_EQ(test, srm_size, 0xbeef);
++	cancel_delayed_work_sync(&work->callback_dwork);
++	cancel_delayed_work_sync(&work->watchdog_timer_dwork);
++	cancel_delayed_work_sync(&work->property_validate_dwork);
 +}
 +
 +/**
-+ * dm_test_psp_set_srm_uninitialized_returns_einval - SET fails when TA not initialized
++ * dm_test_event_cpirq_leaves_callback_and_watchdog_idle - only validate is queued
 + * @test: KUnit test context
 + *
-+ * When the HDCP TA context is not initialized, psp_set_srm() must take the
-+ * guard path and return -EINVAL without updating srm_version or invoking
-+ * the (real) firmware path.
++ * With no active hdcp display, mod_hdcp_process_event() leaves output
++ * cleared, so event_cpirq() must not schedule callback_dwork or
++ * watchdog_timer_dwork; only property_validate_dwork is enqueued.
 + */
-+static void dm_test_psp_set_srm_uninitialized_returns_einval(struct kunit *test)
++static void dm_test_event_cpirq_leaves_callback_and_watchdog_idle(struct kunit *test)
 +{
-+	struct psp_context *psp;
-+	uint32_t srm_version = 0xdead;
-+	u8 srm_buf[4] = {0};
-+	int ret;
++	struct hdcp_workqueue *work = alloc_test_workqueue_for_cpirq(test);
 +
-+	psp = kunit_kzalloc(test, sizeof(*psp), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, psp);
++	event_cpirq(&work->cpirq_work);
 +
-+	/* kzalloc leaves hdcp_context.context.initialized == false */
-+	ret = psp_set_srm(psp, srm_buf, sizeof(srm_buf), &srm_version);
++	KUNIT_EXPECT_FALSE(test, delayed_work_pending(&work->callback_dwork));
++	KUNIT_EXPECT_FALSE(test, delayed_work_pending(&work->watchdog_timer_dwork));
 +
-+	KUNIT_EXPECT_EQ(test, ret, -EINVAL);
-+	/* srm_version must be left untouched on the guard path. */
-+	KUNIT_EXPECT_EQ(test, srm_version, 0xdead);
++	cancel_delayed_work_sync(&work->callback_dwork);
++	cancel_delayed_work_sync(&work->watchdog_timer_dwork);
++	cancel_delayed_work_sync(&work->property_validate_dwork);
 +}
 +
-+/* End of tests for psp_get_srm() and psp_set_srm() */
++/* End of tests for event_cpirq() */
 +
- static struct kunit_case dm_hdcp_test_cases[] = {
- 	/* hdcp_get_content_protection_from_status() */
- 	KUNIT_CASE(dm_test_hdcp_get_cp_disabled_returns_desired),
-@@ -663,6 +784,12 @@ static struct kunit_case dm_hdcp_test_cases[] = {
- 	KUNIT_CASE(dm_test_hdcp_update_display_disable_resets_status_and_cancels_validate),
- 	/* hdcp_create_workqueue() */
- 	KUNIT_CASE(dm_test_hdcp_create_workqueue_zero_max_links_returns_null),
-+	/* link_lock() */
-+	KUNIT_CASE(dm_test_link_lock_locks_and_unlocks_all_links),
-+	KUNIT_CASE(dm_test_link_lock_zero_links_is_noop),
-+	/* psp_get_srm() / psp_set_srm() */
-+	KUNIT_CASE(dm_test_psp_get_srm_uninitialized_returns_null),
-+	KUNIT_CASE(dm_test_psp_set_srm_uninitialized_returns_einval),
- 	{}
- };
+ /* Tests for hdcp_handle_cpirq() */
  
+ /**
+@@ -1233,6 +1359,12 @@ static struct kunit_case dm_hdcp_test_cases[] = {
+ 	KUNIT_CASE(dm_test_event_property_validate_skips_null_state),
+ 	KUNIT_CASE(dm_test_event_property_validate_updates_on_status_change),
+ 	KUNIT_CASE(dm_test_event_property_validate_no_update_when_unchanged),
++	/* event_watchdog_timer() */
++	KUNIT_CASE(dm_test_event_watchdog_timer_cancels_watchdog_dwork),
++	KUNIT_CASE(dm_test_event_watchdog_timer_schedules_property_validate),
++	/* event_cpirq() */
++	KUNIT_CASE(dm_test_event_cpirq_schedules_property_validate),
++	KUNIT_CASE(dm_test_event_cpirq_leaves_callback_and_watchdog_idle),
+ 	/* hdcp_handle_cpirq() */
+ 	KUNIT_CASE(dm_test_hdcp_handle_cpirq_schedules_work),
+ 	KUNIT_CASE(dm_test_hdcp_handle_cpirq_selects_link_index),
 -- 
 2.53.0
 
