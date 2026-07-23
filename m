@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59F46C531D0
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 20:19:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 964E0C531D0
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 20:19:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1A5D10F1E9;
-	Thu, 23 Jul 2026 20:19:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D16A10F1EA;
+	Thu, 23 Jul 2026 20:19:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E+Odhw3U";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zTBF6urt";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010043.outbound.protection.outlook.com [52.101.46.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 879B410F1EB
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 20:19:50 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012010.outbound.protection.outlook.com [52.101.48.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8754D10F1EA
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 20:19:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kvsWiAiXqxNYCNg8ZEmeRl+mc5Vz+uf/ho8hc4hOPHtSUfOjK8vzERjm7I6L9NUMB8p9iPfW8RWnIeUJpvzzKjkCknzT9GxTp+XIFhyR+/K8DHTrY955aPj5I3PdHUxy+Co9CbHOQnpkzn51hYxmEWXB3qVVSHGthNE8TXY0ZVEs0ke2BllKQxvFo4LosIXDVHoPzDSK05kTq6GfPUD9NJ7M6xqC8DwnUS5ah/0ghjcvQhUGlko2nwoDwz81CAaeawyfO07R4IjyAgjjJmPqDP4O0yZToYC0tcH2scorWj5464CSOq+lfYR1z3ucBUNrlqgWmHIkrOrqgwrp0JM+HA==
+ b=WXtVqAdQ4kzjC8fgJW+6IQqDiZsyfof+bqAjOs1BhiTex0DvusC6+7vhxIvonVeqolA1Btrs8Ye9lgKR6yv1bMROhA6rZSB343t7MmnQhFje690+aNVBhYvnVtSHot+Xy10+OpdSKP5s+6f4xn4oGznqVMYZEeWy+EdmA/ulUcatsVIa5n/2dKNTUfHIdlTVxGyCUjBcG4FQ1A1ahs1Li+674wMTroPOAaCgHTcE9Fk8oW/1EfoW/vvKvrXRQ63StV7M5SHV8t97UYOJVcsl0/IKJovjPoVkuiJr7DxecEK3zabS6GiHpa2NtziXTz9c8RU76R9pZMMKxoRSEZ/crg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9qelEqDI/YOLQZBKR2rhQq/hR9UaZkF6+KDANPO2I4o=;
- b=n237QcFotx5tGI7tk1tQI2XhiFeQauFVLL/Qo8S403eCBz+vYGZCW/jmYSru8IWmu7Q9DA+RLYvawTB5zY0rW2vXNRkWMT7H5TZ/dGJ0NqFHpIL73L9X8ww9KLPLp9glt2Sc3oduo6AGBkwGnhDh0ZnXI2h+8MnVN1A7HZJja4mYQ/qfEev5RcRbhUmvQ860zcGPOGpAL27pe/FV3Hcmsp+1IiupC1Rlxf4CWek0dgCrIylZiiNuL12KBZ2/ZYa+oZzK+HfkcKBFkXQpCzwv3t0Y6tIxtotqUr8eadhY93S8ApDF8Q6JdbAZJZnKG9IClaOo6M/e8IkJ3JZkSCJgWg==
+ bh=MnwDUxuF/Oshq1lyF42xuZSU+4P8BGfrWjhOt1Mlg68=;
+ b=XyGGy+VMzytwsCcnmiCR2YckYr7IAsEqTzobGfh3LhRwUBm++q5RjWtzRlNuNYDFpNMHwHHtJSX0RIRfZNLkXc7akW+x/Um+CaJINY9mnSaaM5uwVOafctdqFiJ8ZCg0ynIvirS2Pd2/wXkWDqcGgqpMdyz/QS1nRtgyuiveZ3R0w2N12xJ8UNXY1DFK0g8jkdlZZPISVEiVm8Yd1OzNdg1T/xSkChz14IkiFtqnjXg6z24RfaJInXkMyjTsxGywmGosTZgP5cFHIoCGoKgcWtWvXPTmkDBDvTBWfFegpjrn+8WFZHmcZa+l9v7l2Bfov25oWgdVx7WkX5jn5t87uA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9qelEqDI/YOLQZBKR2rhQq/hR9UaZkF6+KDANPO2I4o=;
- b=E+Odhw3U7rCX3XKpvto71nVoFyfoUuTGgzJT+Q7v477S59WbEKiCYF0LCmmiq1a+K7cAd+gUJ7iNtkwMl6JO55zfr3p+kd7mNSkfBvtnTYujCefSO01tx7z46LE8n++bC7Wn5hItiksQa/3DIk+LNSUum0vhSOfDkpo/c9xe7Rc=
-Received: from BL1PR13CA0368.namprd13.prod.outlook.com (2603:10b6:208:2c0::13)
- by IA0PR12MB7775.namprd12.prod.outlook.com (2603:10b6:208:431::19)
+ bh=MnwDUxuF/Oshq1lyF42xuZSU+4P8BGfrWjhOt1Mlg68=;
+ b=zTBF6urtYCflGTpzeQqO2Umgp/oBxRJuuRnmSqTynh7i3m8HlASIm7PvrjI8eb26ekHstjG1RE03NARIdUZIdaGJ9D56M4kvzxIdi52CDU862HSv7xmRBgOT4EOYgEhXdTEnLA1nFOduV/CMRQ5Veo0f7y63hI5Q4kRR1Krw0ns=
+Received: from BL1PR13CA0387.namprd13.prod.outlook.com (2603:10b6:208:2c0::32)
+ by CYYPR12MB8872.namprd12.prod.outlook.com (2603:10b6:930:c8::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 20:19:41 +0000
+ 2026 20:19:47 +0000
 Received: from BL02EPF00021F6A.namprd02.prod.outlook.com
- (2603:10b6:208:2c0:cafe::5b) by BL1PR13CA0368.outlook.office365.com
- (2603:10b6:208:2c0::13) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:208:2c0:cafe::5d) by BL1PR13CA0387.outlook.office365.com
+ (2603:10b6:208:2c0::32) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Thu,
- 23 Jul 2026 20:19:41 +0000
+ 23 Jul 2026 20:19:47 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BL02EPF00021F6A.mail.protection.outlook.com (10.167.249.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 20:19:41 +0000
+ 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 20:19:47 +0000
 Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 23 Jul
- 2026 15:19:16 -0500
+ 2026 15:19:17 -0500
 From: Fangzhi Zuo <jerry.zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,11 +63,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>
-Subject: [PATCH 38/49] drm/amd/display: Prune per-tile Timing from Apple
- Studio Display Primary Tile
-Date: Thu, 23 Jul 2026 16:13:46 -0400
-Message-ID: <20260723201908.373300-39-jerry.zuo@amd.com>
+ <Chen-Yu.Chen@amd.com>, "Huang, Leon" <Leon.Huang1@amd.com>, Robin Chen
+ <robin.chen@amd.com>
+Subject: [PATCH 39/49] drm/amd/display: Add get replay residency function
+Date: Thu, 23 Jul 2026 16:13:47 -0400
+Message-ID: <20260723201908.373300-40-jerry.zuo@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260723201908.373300-1-jerry.zuo@amd.com>
 References: <20260723201908.373300-1-jerry.zuo@amd.com>
@@ -79,29 +79,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6A:EE_|IA0PR12MB7775:EE_
-X-MS-Office365-Filtering-Correlation-Id: 615a131d-9283-4b68-50d7-08dee8f7ba76
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6A:EE_|CYYPR12MB8872:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8496c74-d1e9-4f1f-c4d8-08dee8f7be06
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|23010399003|36860700016|1800799024|18002099003|22082099003|56012099006|11063799006|5023799004|10067099003;
-X-Microsoft-Antispam-Message-Info: yP9ZKpN2ueUqwIscbrFnEJw/35Dbr+7wfyZvc++nThk72oewymEkf++HC1HNnoo4UU9KLCN7epCoTeDCtsTDmwpiYjyNIkCDUq3DPcZ1+i9LFadAeboYOH5qpSrCJITvEtEcgUxfEqmfUNUT3lpHGCZh4fn6JgbV2ghTZoDn6tW7RqD1Hzzlk0BzSRqqN3aqDKJ7Lrd0y1INnRNVXT0i7IXgCsLMPInAfmCioViNM3DplNc6YejkxGZa3i+RyD+3RCxGzsC/MrCEjZ0UpFWxJEz+m2bYSBrBg+n6YdBmN47b9RynZLUU64FqhLHtiKeeN3HoYFSTDaxxbzVK/ynV+hVsPwEQVj0ds/tM3FzvUoniYMBORcdmhGUpa2m+0WHrr7SHC6SwN5qN7nAzQgYIaemxpAJcm/udc9PenzogVWCg2sFo27K7qraG9Kw1Mg5T4agbBgLt6ead6p44NGjCoF7nch+uA+CH/PshI2f33BIL3kSQQ09HvKPIvSDh30YugkbK5Yef74KjvO+K07FVGy/JOatxrLP5+laeoCGKV/nhBJswA0Nhd40wGFyvkOaCuWdrMQ1o59jpFk7ftXxaM2b9Pn0Us4WhrbkItTRHthvA/jq3/VCEOQOhZSTDUraOoX+NvBy6MUqFmsDm19rAXQryzsaAzVE9yLVx7qR0bMeCRhr2kqwYe4pg6ndG5fL/xI9PAxXsv/ytBi0Kjxg1Mg==
+ ARA:13230040|23010399003|82310400026|1800799024|36860700016|376014|56012099006|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: XzvmoAYY6a0ERC89GlUicgybEv4DZ7Wz5i8W9HO+nPXd9Uin58uh+435zTVv7CD1vLk71nlwXe4Yn50iaWy3PHmKG0uRRQvNlkKtW9AAW5/BrZAM43fRS3KY4sIzzX/O0bUnAluo0iYfD1cEJAasA/Pyc0sGBotWlsYAKgtRW/JAV3wVJQSx5EBuYrYZxfpbrcTF7Hf/zoi6NWMidk58fq6HBeW542i5ntbmt6Fm9fUaAPirK27ddJdx12lSJts844EJWyWQvIAYFCmASEYv/ZE6fMSYenTvBKoIr8SwAwtgpLSB4wXIXVQntHe7oSMgzlAX+d2v8Sy9/UOIFdxeyyWcFVZM0kFACU5rkV1IvjB6jsWX/Y3fDAlFfqi/qKvHxdXljyN4qOelCI0m9nmK05kCWih76/+uK5dJomsEZyj65M42Bih8avJRMLqGKA4Ro5qLQgH4+sIjvbf+KsvkeL0R/4I5NiJBM1qCU84d6IfRk+AmpD243xICunzC4Vsb7USKiikxY975c9BX/IQFPrUfZZoJ/gJ/DSc1CFtN+E3Z4buQOg0oO5YSnypEmJNOBh8w3rp7uQcbu30IY5Nr1qy6ugVEeGOwjYr+yVOCokuoRGiCjDSDMZLivvVdZBkHfOkV1uyfdH4s3hMjqJxja2ehM/QP3voxwIlQEl95liMveTL0RmwiY50tcBIAqrtdd2KLBSYw+Bvxjc2xv5+mqg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(23010399003)(36860700016)(1800799024)(18002099003)(22082099003)(56012099006)(11063799006)(5023799004)(10067099003);
+ SFS:(13230040)(23010399003)(82310400026)(1800799024)(36860700016)(376014)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: wVDayuGfqZLyMHBBfwWs1+0RNErDucCQZ1WSmfpVUxzfLYE0wTUD1bX3xCko/DQsndjBnqliUh0uah4/3SEvjBp1BUCT9V8pLAhQq5ICoRAINS7o6zmOT9M1OZKyMMQTlu22Mfl2UP46slD3pusbdM7f+DSVt9BQQ9zg1Nk8EvNuasuG3yk6UnQFv6LTQrvfban3AsS9nc4eHU019syh002RvmLakR673mCwUiQL1ch1gYuuEYxxTet0F/hTY5sf2Lzl9Dxpovz18AOcDohZySyWfcvNJphWPSw7IFciD2KnHJBlDd6vyyBVk2R8Fq03nlaqzw4+gj9Q6BtuQ657C+Smsl0rStbfZlPKhaRpDJWcrPzRQ4fVN3o0Hec2rkcqo+C1hjysnQvUCvfpuEvN3NXL56kT1vzTMimK7YQY1JwloyPLYxbYC0vvkmkwIBFZ
+X-MS-Exchange-AntiSpam-MessageData-0: GAUf+sTVxm5CvbNkBEsNaOoOjmvatxAeQHxSMfCuQNgjFqFyVHTo4zXyu7cXm1Qw+lB81T0afhBRN+zjcGFds1eZ4h/0aDHljnx1j0SquYM8RemASKayJ4jr47eHqJz5m9C8eoX6axXZ3qVBM90AfvV/+SPCWB+VdWrC0hxH3TmUXYcLYalzoQRUis/vZ83nmmhVpixSVLbYS2wI2y4X/h6IVMzVLPHRbX+JZHUdK9SSmFDlR4jl7CsgFfSyfpbVh7sNFjC5q8DeTIsgWfdDnpprkUXM39+d1d1lRDJHg0cTisnbw/qw/coCA7XjfqFLn8w8ysGe75PiL3xm31BjPUC8h2DXYHefhYlzazPgI1SOCn5u/yJuQj27EhIMYQvyI3bt5faCkHe9IsmBD9a58lM8SaPfT09L0I1BZVcePAZRQMoJ0NEmbJm0vH+iISrG
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 20:19:41.5624 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 615a131d-9283-4b68-50d7-08dee8f7ba76
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 20:19:47.5424 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8496c74-d1e9-4f1f-c4d8-08dee8f7be06
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6A.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7775
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8872
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,88 +116,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[why]
-The Apple Studio Display primary tile advertises both the full 5120x2880
-mode and the per-tile 2560x2880 timing. With the secondary tile already
-hidden from userspace, the stray 2560x2880 mode on the primary connector
-can still be picked by compositors, defeating the single 5K stream goal.
+From: "Huang, Leon" <Leon.Huang1@amd.com>
 
-[how]
-Prune the per-tile timing from the primary connector during get_modes:
-when the sink carries the disable_second_tile quirk and the connector is
-the primary tile (tile_h_loc == 0 && tile_v_loc == 0), drop any probed
-mode matching the advertised tile size (tile_h_size x tile_v_size) so
-userspace only sees the full 5120x2880 mode.
+[Why&How]
+Add dc interface to export link service function for getting Replay
+residency
 
-Fixes: 22ea891606 ("drm/amd/display: hide Apple Studio Display secondary tile")
-Reviewed-by: Wayne Lin <wayne.lin@amd.com>
+Reviewed-by: Robin Chen <robin.chen@amd.com>
+Signed-off-by: Huang, Leon <Leon.Huang1@amd.com>
 Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 ---
- .../display/amdgpu_dm/amdgpu_dm_connector.c   | 43 +++++++++++++++++++
- 1 file changed, 43 insertions(+)
+ drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c | 7 +++++++
+ drivers/gpu/drm/amd/display/dc/dc.h                   | 8 ++++++++
+ 2 files changed, 15 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 135107c73971..a8f089d4fb72 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -2751,6 +2751,47 @@ void amdgpu_set_panel_orientation(struct drm_connector *connector)
- 						       native_mode->vdisplay);
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c b/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
+index f25d4b3e11ac..14fc4ef482f1 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_link_exports.c
+@@ -534,6 +534,13 @@ bool dc_link_set_pr_general_cmd(struct dc_link *link,
+ 	return link->dc->link_srv->dp_pr_set_general_cmd(link, general_cmd_data);
  }
  
-+/*
-+ * The Apple Studio Display primary tile advertises both the full 5120x2880
-+ * mode and the per-tile 2560x2880 timing. As the secondary tile is hidden from
-+ * userspace (see amdgpu_dm_hide_secondary_tile_from_userspace()), drop the
-+ * per-tile timing from the primary connector so compositors only pick the full
-+ * 5K mode.
-+ */
-+static void amdgpu_dm_prune_primary_tile_modes(struct drm_connector *connector)
++void dc_link_edp_replay_residency(const struct dc_link *link,
++		unsigned int *residency, bool is_start, enum pr_residency_mode mode)
 +{
-+	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
-+	struct drm_display_mode *mode, *t;
-+
-+	if (!aconnector->dc_sink)
-+		return;
-+
-+	if (!aconnector->dc_sink->edid_caps.panel_patch.disable_second_tile)
-+		return;
-+
-+	if (!connector->has_tile)
-+		return;
-+
-+	/* Only prune the per-tile timing from the primary tile. */
-+	if (connector->tile_h_loc || connector->tile_v_loc)
-+		return;
-+
-+	list_for_each_entry_safe(mode, t, &connector->probed_modes, head) {
-+		if (mode->hdisplay != connector->tile_h_size ||
-+		    mode->vdisplay != connector->tile_v_size)
-+			continue;
-+
-+		drm_dbg_kms(connector->dev,
-+			    "[CONNECTOR:%d:%s] pruning per-tile %dx%d timing from primary Apple Studio Display tile\n",
-+			    connector->base.id, connector->name,
-+			    mode->hdisplay, mode->vdisplay);
-+
-+		list_del(&mode->head);
-+		drm_mode_destroy(connector->dev, mode);
-+		aconnector->num_modes--;
-+	}
++	if (link && link->dc && link->dc->link_srv)
++		link->dc->link_srv->edp_replay_residency(link, residency, is_start, mode);
 +}
 +
- STATIC_IFN_KUNIT void amdgpu_dm_connector_ddc_get_modes(struct drm_connector *connector,
- 					      const struct drm_edid *drm_edid)
+ bool dc_link_get_pr_state(const struct dc_link *link, uint64_t *state)
  {
-@@ -2763,6 +2804,8 @@ STATIC_IFN_KUNIT void amdgpu_dm_connector_ddc_get_modes(struct drm_connector *co
- 		amdgpu_dm_connector->num_modes =
- 				drm_edid_connector_add_modes(connector);
+ 	return link->dc->link_srv->dp_pr_get_state(link, state);
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 07ebd98f0d3b..8eaa219132a6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -2984,6 +2984,14 @@ bool dc_link_update_pr_state(struct dc_link *link,
+ bool dc_link_set_pr_general_cmd(struct dc_link *link,
+ 		struct dmub_cmd_pr_general_cmd_data *general_cmd_data);
  
-+		amdgpu_dm_prune_primary_tile_modes(connector);
++/*
++ * Measure Panel Replay residency for the given link.
++ * mode: PR_RESIDENCY_MODE_PHY, PR_RESIDENCY_MODE_ALPM, or
++ *       PR_RESIDENCY_MODE_ENABLEMENT_PERIOD
++ */
++void dc_link_edp_replay_residency(const struct dc_link *link,
++		unsigned int *residency, bool is_start, enum pr_residency_mode mode);
 +
- 		/* sorting the probed modes before calling function
- 		 * amdgpu_dm_get_native_mode() since EDID can have
- 		 * more than one preferred mode. The modes that are
+ /*
+  * Get Panel Replay state:
+  *
 -- 
 2.53.0
 
