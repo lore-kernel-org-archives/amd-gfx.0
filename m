@@ -4,50 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 830CBC53214
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D5BACC54F4E
 	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2236B10F30F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 751DB10F310;
 	Fri, 24 Jul 2026 07:30:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="fOffTOoY";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="I3kUD4Y3";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 127EE10E5F6;
- Thu, 23 Jul 2026 19:44:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Date:Subject:Cc:To:From:From:Reply-To;
- bh=KAz7i9Ove4XcBDdQk9YpMoj2vNPIO7CntXdd+16g+78=; b=fOffTOoY5LI0qYaAbmQaZIyhF5
- yXy8pXp1zqZCGaxIFz/dHQr5pODCPUbB6M/5Ce5SEN71elJO3EycCdNAr+sKrsSG20i6aHvod7WyQ
- wEZVEn4+f28NdNk39NpvSWgiItb64iuJ3S2qDuEQ8mvY1+iTQz6pYs/ZMG5CFNElv4nLH03Ocx9kD
- KfNQIuF7cmHGjFPyLKfp0z2Kvpm7PXjUH5lj8iAGHayAtwRYWWTYvripX3KUHc/XyzfZxblK+T9Kp
- FvMd6E2x+TcfiiQnRYkUO3YSg4wUQ8Kp331qyssv6KP0rWs93smcmYGra83nMawOXggLVVLscYm1e
- M8O2D6oA==;
-Received: from 179-125-91-91-dinamico.pombonet.net.br ([179.125.91.91]
- helo=quatroqueijos.lan) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wmzLS-003a1P-MB; Thu, 23 Jul 2026 21:44:39 +0200
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: igt-dev@lists.freedesktop.org
-Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org,
- Christian Koenig <christian.koenig@amd.com>,
- maarten.lankhorst@linux.intel.com,
- =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Kamil Konieczny <kamil.konieczny@linux.intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
-Subject: [PATCH i-g-t v5 7/7] tests/dmem_cgroups: add test for dmem.current
-Date: Thu, 23 Jul 2026 16:43:13 -0300
-Message-ID: <20260723194313.2748143-8-cascardo@igalia.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260723194313.2748143-1-cascardo@igalia.com>
-References: <20260723194313.2748143-1-cascardo@igalia.com>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E29410F05E;
+ Thu, 23 Jul 2026 10:04:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784801078; x=1816337078;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=LSIbpIUprAnSR6s20WoY+YmaIs+5N8lYqV2A45WV08g=;
+ b=I3kUD4Y3JzA+bJTCN4yKBayQJFuH/NCjo183pQAmnhpqhDmYV/M1+6U0
+ ZmiYmn4xTVfM0UxqxZosQck6QLnON7wY38uHhlR1smQxk4Vqqe6jeyVZX
+ J6Pkk+BlfsVDq1FI/bnhoy4BQwuuVSZ0V3DaeyIATS/t1Gbfx9dSOScQN
+ BCo82On/voyt4GEfqkoTbp83T6fLF9tgTzsicYX2uPvbAw8uv34X1szpR
+ WTRP7Y0CFK0gpc3XRI2XwMAKgy3sd7yIoJBIRZtm1zIAocUfPfy7mCU5s
+ ZTrSPmme1prkBM/k921sFwRXn+KpEG60auK/K1gsLaQqYdLYA9ThV5veC w==;
+X-CSE-ConnectionGUID: jwxxaoLcSsCNRNvKRznpUg==
+X-CSE-MsgGUID: IgBD9gLETFOpQ2jv1vrSdg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="87991913"
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="87991913"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2026 03:04:38 -0700
+X-CSE-ConnectionGUID: 0jt0tPFZTCCQg33H2heUmw==
+X-CSE-MsgGUID: kSdyQqXBTIiiMUosD8I+qg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="254984929"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO fedora)
+ ([10.245.244.122])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2026 03:04:33 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ Tejun Heo <tj@kernel.org>,
+ =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>, Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v8 4/6] drm/ttm: Hook up a cgroup-aware reclaim callback for
+ the dmem controller
+Date: Thu, 23 Jul 2026 12:03:48 +0200
+Message-ID: <20260723100350.16895-5-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260723100350.16895-1-thomas.hellstrom@linux.intel.com>
+References: <20260723100350.16895-1-thomas.hellstrom@linux.intel.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -66,312 +84,314 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Based on the work of Thomas Hellström to test dmem.max eviction, add a
-test for dmem.current usage after allocations and setting dmem.max.
+Add ttm_bo_evict_cgroup() to evict buffer objects charged to a specific
+dmem cgroup pool from a resource manager's LRU until a byte target is
+met.  Add ttm_resource_manager_set_dmem_region() to associate a dmem
+cgroup region with a resource manager; drivers supply their own
+dmem_cgroup_ops with ttm_resource_manager_dmem_reclaim as the reclaim
+function and the manager pointer as reclaim_priv in the dmem_cgroup_init
+to wire up TTM eviction as the reclaim callback.
 
-Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
-check current usage is within a small slack of the expected allocation.
-Then, set max to a small value and check allocations and current usage
-are limited to the max set.  Set max to less than a single BO size, then
-check no allocations are allowed and current usage is also within the
-slack. After each allocation, release memory and check current usage
-has gone down.
+The eviction context is interruptible; signals abort the operation and
+propagate back through the write() syscall.
 
-Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+Introduce a new mode for the bo LRU walker so that sleeping locks
+can be taken. This can be used when the caller doesn't hold any
+previous dma_resv locks, and where it intends to hold at most
+one lock at a time.
+
+Like the rest of the TTM eviction this should sooner than later
+be converted to full WW transactions.
+
+v3:
+- Fix ttm_resource_manager_set_dmem_region() storing an error pointer
+  in man->cg unconditionally. (Sashiko-bot)
+- Fix kernel-doc function name format for ttm_bo_evict_cgroup() and
+  ttm_resource_manager_set_dmem_region().
+
+v5:
+- Rebased on the introduction of struct dmem_cgroup_init.
+- Handle NULL region in ttm_resource_manager_set_dmem_region() to clear
+  the reclaim callback, preventing use-after-free when the manager is
+  torn down while the dmem region outlives it. (Sashiko-bot)
+- Return 0 on any progress (even partial eviction), -ENOSPC only when
+  nothing was freed; fixes callers that expected 0 on partial success.
+- Document that the reclaim callback should return 0 if some progress
+  was made, -ENOSPC if no progress at all, or another error for fatal
+  failures.
+
+v8:
+- Fix ttm_resource_manager_set_dmem_region() using IS_ERR_OR_NULL(),
+  which skipped the assignment for a NULL region and thus never
+  cleared man->cg. Use IS_ERR() so that a NULL region detaches the
+  region as the kernel-doc and the v5 changelog intended. (Sashiko-bot)
+
+Assisted-by: GitHub_Copilot:claude-sonnet-4.6
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com> #v7
 ---
- tests/cgroup_dmem.c | 250 +++++++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 245 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/ttm/ttm_bo.c       | 95 +++++++++++++++++++++++++++++-
+ drivers/gpu/drm/ttm/ttm_bo_util.c  |  3 +-
+ drivers/gpu/drm/ttm/ttm_resource.c | 52 ++++++++++++++++
+ include/drm/ttm/ttm_bo.h           | 10 ++++
+ include/drm/ttm/ttm_resource.h     |  7 +++
+ 5 files changed, 163 insertions(+), 4 deletions(-)
 
-diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
-index 442c965f9bbf..a192fd9e23fe 100644
---- a/tests/cgroup_dmem.c
-+++ b/tests/cgroup_dmem.c
-@@ -1,6 +1,8 @@
- // SPDX-License-Identifier: MIT
- /*
-  * Copyright © 2025 Intel Corporation
-+ * Copyright © 2026 Intel Corporation
-+ * Copyright 2026 Valve Corporation
-  */
+diff --git a/drivers/gpu/drm/ttm/ttm_bo.c b/drivers/gpu/drm/ttm/ttm_bo.c
+index 3980f376e3ba..b2bbbb69add3 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo.c
++++ b/drivers/gpu/drm/ttm/ttm_bo.c
+@@ -515,12 +515,20 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
+ {
+ 	struct ttm_bo_evict_walk *evict_walk =
+ 		container_of(walk, typeof(*evict_walk), walk);
++	/* Capture size before eviction in case res is cleared. */
++	s64 bo_size = bo->base.size;
+ 	s64 lret;
+ 
+ 	if (!dmem_cgroup_state_evict_valuable(evict_walk->limit_pool, bo->resource->css,
+ 					      evict_walk->try_low, &evict_walk->hit_low))
+ 		return 0;
+ 
++	/*
++	 * evict_walk->place is NULL in cgroup drain mode.  Drivers'
++	 * eviction_valuable() callbacks must handle a NULL place, treating it
++	 * as "any placement": the TTM base implementation already does so via
++	 * ttm_resource_intersects().
++	 */
+ 	if (bo->pin_count || !bo->bdev->funcs->eviction_valuable(bo, evict_walk->place))
+ 		return 0;
+ 
+@@ -536,11 +544,15 @@ static s64 ttm_bo_evict_cb(struct ttm_lru_walk *walk, struct ttm_buffer_object *
+ 		goto out;
+ 
+ 	evict_walk->evicted++;
+-	if (evict_walk->res)
++	if (evict_walk->res) {
+ 		lret = ttm_resource_alloc(evict_walk->evictor, evict_walk->place,
+ 					  evict_walk->res, NULL);
+-	if (lret == 0)
+-		return 1;
++		if (lret == 0)
++			return 1;
++	} else {
++		/* Cgroup drain: return bytes freed for byte-denominated progress. */
++		return bo_size;
++	}
+ out:
+ 	/* Errors that should terminate the walk. */
+ 	if (lret == -ENOSPC)
+@@ -614,6 +626,83 @@ static int ttm_bo_evict_alloc(struct ttm_device *bdev,
+ 	return 0;
+ }
+ 
++/**
++ * ttm_bo_evict_cgroup() - Evict buffer objects charged to a specific cgroup.
++ * @bdev: The TTM device.
++ * @man: The resource manager whose LRU to walk.
++ * @limit_pool: The cgroup pool state whose members should be evicted.
++ * @target_bytes: Number of bytes to free.
++ * @ctx: The TTM operation context.
++ *
++ * Walk the LRU of @man and evict buffer objects that are charged to the
++ * cgroup identified by @limit_pool, until at least @target_bytes have been
++ * freed.  Mirrors the two-pass (trylock -> sleeping-lock, low-watermark)
++ * strategy used by ttm_bo_evict_alloc().
++ *
++ * Return: >= @target_bytes on full success, 0..target_bytes-1 if partial,
++ *         negative error code on fatal error.
++ */
++s64 ttm_bo_evict_cgroup(struct ttm_device *bdev,
++			struct ttm_resource_manager *man,
++			struct dmem_cgroup_pool_state *limit_pool,
++			s64 target_bytes,
++			struct ttm_operation_ctx *ctx)
++{
++	struct ttm_bo_evict_walk evict_walk = {
++		.walk = {
++			.ops = &ttm_evict_walk_ops,
++			.arg = { .ctx = ctx },
++		},
++		.limit_pool = limit_pool,
++		/* place, evictor, res left NULL: selects cgroup drain mode */
++	};
++	s64 lret, pass;
++
++	evict_walk.walk.arg.trylock_only = true;
++	lret = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man, target_bytes);
++	if (lret < 0 || lret >= target_bytes)
++		return lret;
++
++	/* Second pass: also evict BOs at the low watermark. */
++	if (evict_walk.hit_low) {
++		evict_walk.try_low = true;
++		pass = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man,
++					      target_bytes - lret);
++		if (pass < 0)
++			return pass;
++		lret += pass;
++		if (lret >= target_bytes)
++			return lret;
++	}
++
++	/* Full sleeping-lock pass for remaining target. */
++	evict_walk.try_low = evict_walk.hit_low = false;
++	evict_walk.walk.arg.trylock_only = false;
++
++retry:
++	evict_walk.walk.arg.sleeping_lock = true;
++	do {
++		evict_walk.evicted = 0;
++		pass = ttm_lru_walk_for_evict(&evict_walk.walk, bdev, man,
++					      target_bytes - lret);
++		if (pass < 0) {
++			lret = pass;
++			goto out;
++		}
++		lret += pass;
++	} while (lret < target_bytes && evict_walk.evicted);
++
++	/* One more attempt if we hit the low limit during sleeping-lock pass. */
++	if (lret < target_bytes && evict_walk.hit_low && !evict_walk.try_low) {
++		evict_walk.try_low = true;
++		goto retry;
++	}
++
++out:
++	return lret;
++}
++EXPORT_SYMBOL(ttm_bo_evict_cgroup);
++
+ /**
+  * ttm_bo_pin - Pin the buffer object.
+  * @bo: The buffer object to pin
+diff --git a/drivers/gpu/drm/ttm/ttm_bo_util.c b/drivers/gpu/drm/ttm/ttm_bo_util.c
+index 3e3c201a0222..bd0b23ac2cc4 100644
+--- a/drivers/gpu/drm/ttm/ttm_bo_util.c
++++ b/drivers/gpu/drm/ttm/ttm_bo_util.c
+@@ -999,7 +999,8 @@ __ttm_bo_lru_cursor_next(struct ttm_bo_lru_cursor *curs)
+ 		bo = res->bo;
+ 		if (ttm_lru_walk_trylock(curs, bo))
+ 			bo_locked = true;
+-		else if (!arg->ticket || arg->ctx->no_wait_gpu || arg->trylock_only)
++		else if ((!arg->ticket && !arg->sleeping_lock) || arg->ctx->no_wait_gpu ||
++			 arg->trylock_only)
+ 			continue;
+ 
+ 		if (!ttm_bo_get_unless_zero(bo)) {
+diff --git a/drivers/gpu/drm/ttm/ttm_resource.c b/drivers/gpu/drm/ttm/ttm_resource.c
+index 154d6739256f..1ff4a470b083 100644
+--- a/drivers/gpu/drm/ttm/ttm_resource.c
++++ b/drivers/gpu/drm/ttm/ttm_resource.c
+@@ -953,3 +953,55 @@ void ttm_resource_manager_create_debugfs(struct ttm_resource_manager *man,
+ #endif
+ }
+ EXPORT_SYMBOL(ttm_resource_manager_create_debugfs);
++
++/**
++ * ttm_resource_manager_dmem_reclaim() - dmem cgroup reclaim callback for TTM
++ *                                       resource managers.
++ * @pool: The dmem cgroup pool state for the cgroup being reclaimed.
++ * @target_bytes: Number of bytes to try to free.
++ * @priv: The &ttm_resource_manager pointer, passed as @init.reclaim_priv to
++ *        dmem_cgroup_register_region().
++ *
++ * Drivers should use this as the @reclaim member of their own
++ * &struct dmem_cgroup_ops, with the &ttm_resource_manager pointer as
++ * @init.reclaim_priv.
++ *
++ * Return: 0 if some memory was freed, -ENOSPC if nothing was freed, or
++ *         another negative error code on fatal failure.
++ */
++int ttm_resource_manager_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
++				      u64 target_bytes, void *priv)
++{
++	struct ttm_resource_manager *man = priv;
++	struct ttm_operation_ctx ctx = { .interruptible = true };
++	s64 freed;
++
++	freed = ttm_bo_evict_cgroup(man->bdev, man, pool, target_bytes, &ctx);
++	if (freed < 0)
++		return freed;
++
++	return freed > 0 ? 0 : -ENOSPC;
++}
++EXPORT_SYMBOL(ttm_resource_manager_dmem_reclaim);
++
++/**
++ * ttm_resource_manager_set_dmem_region() - Associate a dmem cgroup region with a
++ *                                        resource manager.
++ * @man: The resource manager.
++ * @region: The dmem cgroup region to associate, may be NULL or IS_ERR().
++ *
++ * When @region is valid, stores it in @man->cg so that TTM can look up the
++ * associated pool during charging and eviction-target selection.  When
++ * @region is %NULL, clears @man->cg to detach the region before teardown.
++ * An IS_ERR() @region is ignored, leaving @man->cg unchanged.
++ * The reclaim callback must be wired up using ttm_resource_manager_dmem_reclaim()
++ * in the driver's own &struct dmem_cgroup_ops, with the manager pointer as
++ * @init.reclaim_priv.
++ */
++void ttm_resource_manager_set_dmem_region(struct ttm_resource_manager *man,
++					  struct dmem_cgroup_region *region)
++{
++	if (!IS_ERR(region))
++		man->cg = region;
++}
++EXPORT_SYMBOL(ttm_resource_manager_set_dmem_region);
+diff --git a/include/drm/ttm/ttm_bo.h b/include/drm/ttm/ttm_bo.h
+index 8310bc3d55f9..32791c4db2a9 100644
+--- a/include/drm/ttm/ttm_bo.h
++++ b/include/drm/ttm/ttm_bo.h
+@@ -226,6 +226,11 @@ struct ttm_lru_walk_arg {
+ 	struct ww_acquire_ctx *ticket;
+ 	/** @trylock_only: Only use trylock for locking. */
+ 	bool trylock_only;
++	/**
++	 * @sleeping_lock: Use sleeping locks even with %NULL @ticket.
++	 * @trylock_only has precedence over this field.
++	 */
++	bool sleeping_lock;
+ };
  
  /**
-@@ -17,10 +19,213 @@
-  * Test category: uapi
-  */
+@@ -431,6 +436,11 @@ void ttm_bo_unpin(struct ttm_buffer_object *bo);
+ int ttm_bo_evict_first(struct ttm_device *bdev,
+ 		       struct ttm_resource_manager *man,
+ 		       struct ttm_operation_ctx *ctx);
++s64 ttm_bo_evict_cgroup(struct ttm_device *bdev,
++			struct ttm_resource_manager *man,
++			struct dmem_cgroup_pool_state *limit_pool,
++			s64 target_bytes,
++			struct ttm_operation_ctx *ctx);
+ int ttm_bo_access(struct ttm_buffer_object *bo, unsigned long offset,
+ 		  void *buf, int len, int write);
+ vm_fault_t ttm_bo_vm_reserve(struct ttm_buffer_object *bo,
+diff --git a/include/drm/ttm/ttm_resource.h b/include/drm/ttm/ttm_resource.h
+index a5d386583fb6..32e485fdce9a 100644
+--- a/include/drm/ttm/ttm_resource.h
++++ b/include/drm/ttm/ttm_resource.h
+@@ -39,6 +39,7 @@
  
-+#include <errno.h>
- #include <inttypes.h>
-+#include <signal.h>
-+#include <stdatomic.h>
-+#include <stdint.h>
-+#include <stdlib.h>
-+#include <string.h>
-+#include <unistd.h>
+ struct dentry;
+ struct dmem_cgroup_device;
++struct dmem_cgroup_region;
+ struct drm_printer;
+ struct ttm_device;
+ struct ttm_resource_manager;
+@@ -477,6 +478,12 @@ void ttm_resource_manager_init(struct ttm_resource_manager *man,
+ 			       struct ttm_device *bdev,
+ 			       uint64_t size);
  
-+#include "drmtest.h"
- #include "igt.h"
-+#include "igt_aux.h"
- #include "igt_cgroup.h"
-+#include "igt_dmem_driver.h"
++void ttm_resource_manager_set_dmem_region(struct ttm_resource_manager *man,
++					  struct dmem_cgroup_region *region);
 +
-+#define BO_SIZE			SZ_64M
-+#define MAX_LIMIT		((uint64_t)4 * SZ_1G)
-+#define USAGE_POLL_MS		10
-+#define USAGE_DROP_TIMEOUT_MS	1000
++int ttm_resource_manager_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
++				      u64 target_bytes, void *priv);
 +
-+/**
-+ * SUBTEST: simple
-+ * DESCRIPTION:
-+ *  Creates a cgroup, moves the process into it, enumerates all dmem regions,
-+ *  prints their capacity, system-wide current usage, per-cgroup current usage
-+ *  and configured limits, then destroys the cgroup.
-+ */
-+
-+/**
-+ * SUBTEST: current
-+ * DESCRIPTION:
-+ *  Create a dmem cgroup, allocate close to capacity (or at most 4GiB),
-+ *  check current usage is within a small slack of the expected allocation.
-+ *  Then, set max to a small value and check allocations and current usage
-+ *  are limited to the max set.
-+ *  Set max to less than a single BO size, then check no allocations are allowed
-+ *  and current usage is also within the slack.
-+ *  After each allocation, release memory and check current usage has gone
-+ *  down.
-+ * REQUIREMENTS: xe or amdgpu device with at least one VRAM region
-+ */
-+
-+static uint64_t wait_for_usage_drop(struct igt_cgroup *cg, const char *region,
-+				    uint64_t limit)
-+{
-+	uint64_t current;
-+	unsigned int elapsed = 0;
-+
-+	do {
-+		igt_cgroup_dmem_get_current(cg, region, &current);
-+		if (current <= limit)
-+			return current;
-+		usleep(USAGE_POLL_MS * 1000);
-+		elapsed += USAGE_POLL_MS;
-+	} while (elapsed < USAGE_DROP_TIMEOUT_MS);
-+
-+	return current;
-+}
-+
-+static int allocate_vram(const struct igt_dmem_driver *drv, void *ctx, int fd, int max_bo, size_t len)
-+{
-+	int n_bo, err = 0;
-+	for (n_bo = 0; n_bo < max_bo; n_bo++) {
-+		err = drv->allocate_vram(ctx, n_bo, len);
-+		if (err)
-+			break;
-+	}
-+	/* These are expected failures we can ignore. */
-+	if (err == -ENOMEM || err == -ENOSPC)
-+		err = 0;
-+	return err ?: n_bo;
-+}
-+
-+static void free_vram(const struct igt_dmem_driver *drv, void *ctx, int max_bo)
-+{
-+	int i;
-+	for (i = 0; i < max_bo; i++)
-+		drv->free_vram(ctx, i);
-+}
-+
-+static void test_current(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv)
-+{
-+	struct igt_cgroup *cg;
-+	void *ctx;
-+	uint64_t current, capacity, cg_max;
-+	int n_bo = 0, max_bo;
-+	int err;
-+
-+	igt_cgroup_dmem_get_capacity(cg_region, &capacity);
-+	igt_require_f(capacity >= 4 * BO_SIZE,
-+		      "VRAM capacity (%"PRIu64" MiB) too small to test\n",
-+		      capacity / SZ_1M);
-+
-+	/*
-+	 * Use up to 4 GiB, or the full capacity if the device has less.
-+	 * Leave one BO_SIZE worth of headroom so the device isn't completely
-+	 * exhausted before the cgroup limit is hit.
-+	 */
-+	cg_max = min(MAX_LIMIT, capacity - BO_SIZE);
-+	cg_max = ALIGN_DOWN(cg_max, BO_SIZE);
-+
-+	/* Create cgroup and move into it */
-+	cg = igt_cgroup_new("igt_cgroups_test");
-+	igt_cgroup_move_current(cg);
-+
-+	max_bo = cg_max / BO_SIZE;
-+
-+	err = drv->init(&ctx, fd, max_bo);
-+	igt_assert_f(!err, "Failed to initialize driver");
-+
-+	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
-+	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == cg_max,
-+		     "current usage (%"PRIu64" MiB) is not requested allocation (%"PRIu64" MiB)\n",
-+		     current / SZ_1M, cg_max / SZ_1M);
-+
-+	free_vram(drv, ctx, n_bo);
-+	wait_for_usage_drop(cg, cg_region, 0);
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 0,
-+		     "current usage (%"PRIu64" MiB) is not zero\n",
-+		     current / SZ_1M);
-+
-+	/* Allow for a slack as there might be some extra pages allocated. */
-+	igt_cgroup_dmem_set_max(cg, cg_region, 2 * BO_SIZE, false);
-+
-+	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
-+	igt_assert_f(n_bo > 0, "failed to allocate VRAM\n");
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 2 * BO_SIZE,
-+		     "current usage (%"PRIu64" MiB) is not requested max allocation (%"PRIu64" MiB)\n",
-+		     current / SZ_1M, cg_max / SZ_1M);
-+
-+	free_vram(drv, ctx, n_bo);
-+	wait_for_usage_drop(cg, cg_region, 0);
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 0,
-+		     "current usage (%"PRIu64" MiB) is not zero\n",
-+		     current / SZ_1M);
-+
-+	igt_cgroup_dmem_set_max(cg, cg_region, 0, false);
-+
-+	n_bo = allocate_vram(drv, ctx, fd, max_bo, BO_SIZE);
-+
-+	/*
-+	 * amdgpu may succeed the allocation, by falling back to GTT, so no assertion here.
-+	 * Verify by reading current usage.
-+	 */
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After fill: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 0,
-+		     "current usage (%"PRIu64" MiB) is not zero\n",
-+		     current / SZ_1M);
-+
-+	if (n_bo > 0)
-+		free_vram(drv, ctx, n_bo);
-+	wait_for_usage_drop(cg, cg_region, 0);
-+
-+	igt_cgroup_dmem_get_current(cg, cg_region, &current);
-+	igt_debug("After free: cgroup current = %"PRIu64" MiB, "
-+		  "max = %"PRIu64" MiB\n",
-+		  current / SZ_1M, cg_max / SZ_1M);
-+	igt_assert_f(current == 0,
-+		     "current usage (%"PRIu64" MiB) is not zero\n",
-+		     current / SZ_1M);
-+
-+	drv->deinit(ctx);
-+	igt_cgroup_free(cg);
-+}
-+
-+static const struct {
-+	const char *name;
-+	void (*test_fn)(int fd, char *cg_region, unsigned int flags, const struct igt_dmem_driver *drv);
-+	unsigned int flags;
-+} subtests[] = {
-+	{ "current", test_current, 0 },
-+	{ }
-+};
-+
-+static const struct {
-+	int driver_flag;
-+	const struct igt_dmem_driver *driver;
-+} drivers[] = {
-+	{ DRIVER_XE, &xe_dmem_driver },
-+	{ DRIVER_AMDGPU, &amdgpu_dmem_driver },
-+	{ },
-+};
+ int ttm_resource_manager_evict_all(struct ttm_device *bdev,
+ 				   struct ttm_resource_manager *man);
  
- IGT_TEST_DESCRIPTION("Exercises the cgroup v2 dmem controller interface.");
- 
-@@ -32,7 +237,7 @@ static void fmt_bytes(uint64_t v, char *buf, size_t len)
- 		snprintf(buf, len, "%" PRIu64, v);
- }
- 
--int igt_simple_main()
-+static void simple_cgroup(void)
- {
- 	struct igt_cgroup *cg;
- 	const char *region;
-@@ -42,10 +247,6 @@ int igt_simple_main()
- 	char min_s[32], low_s[32], max_s[32];
- 	int i;
- 
--	igt_require_f(igt_cgroup_dmem_available(),
--		      "No dmem regions found; is cgroup v2 with the "
--		      "dmem controller available?\n");
--
- 	cg = igt_cgroup_new("igt-cgroup-dmem-test");
- 	igt_assert_f(cg, "Failed to create cgroup\n");
- 
-@@ -90,3 +291,42 @@ int igt_simple_main()
- 	igt_cgroup_dmem_regions_free(regions);
- 	igt_cgroup_free(cg);
- }
-+
-+int igt_main()
-+{
-+	igt_fixture() {
-+		igt_require_f(getuid() == 0, "Test requires root\n");
-+		/* Check dmem cgroup controller is available before doing anything else */
-+		igt_require_f(igt_cgroup_dmem_available(),
-+			      "dmem cgroup controller not available (no cgroup v2 or no registered regions)\n");
-+
-+	}
-+
-+	igt_subtest("simple")
-+		simple_cgroup();
-+
-+	for (int d = 0; drivers[d].driver; d++) {
-+		igt_subtest_group() {
-+			int fd = -1;
-+			char *cg_region;
-+			igt_fixture() {
-+				fd = drm_open_driver(drivers[d].driver_flag);
-+				igt_require_f(fd >= 0,
-+					"No %s device found, skipping\n",
-+					drivers[d].driver->name);
-+				cg_region = drivers[d].driver->get_region_name(fd);
-+				igt_require_f(cg_region, "Region not tracked by dmem cgroup controller\n");
-+			}
-+
-+			for (int i = 0; subtests[i].name; i++)
-+				igt_subtest_f("%s-%s", drivers[d].driver->name, subtests[i].name)
-+					subtests[i].test_fn(fd, cg_region, subtests[i].flags, drivers[d].driver);
-+
-+			igt_fixture() {
-+				if (fd >= 0)
-+					drm_close_driver(fd);
-+				free(cg_region);
-+			}
-+		}
-+	}
-+}
 -- 
-2.47.3
+2.55.0
 
