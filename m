@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F940C531FA
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 20:19:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6116CC531F7
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 20:19:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF54E10F1D5;
-	Thu, 23 Jul 2026 20:19:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A42B910F1D8;
+	Thu, 23 Jul 2026 20:19:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cERnpTub";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="l+DVI7lm";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010037.outbound.protection.outlook.com
- [40.93.198.37])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99B2010F1D0
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 20:19:09 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012003.outbound.protection.outlook.com [52.101.48.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D694310F1D0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 20:19:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V+5zlfw5PvgVGpMvI+hsJ0ZIw4qu5xApLHaEZHVLPTWplom9cbeOKEF6nga2lZAWZcEnmX7NUWWk9hzM+NKFAI4zR8/GCiwhXotxNRR1AFD+IY9xj+Kgt3WCiwGFzhheMZH62I6EfBHtIRHi7mweBtglx7ZdojuwFlP2Z/tJZkIzqhuaStbVkvbnN09MgJH36Rz2C+jvKdFHoFWLfW/rVZDOdwcw3bVzqoBKsQVaS9ztnYx81CuHLIgxBXsgwfotuFNz6U2WnMY6+XoGzK2yJ+MyasqUJb2EYTbJQd6lqR+UYm/AnPYuU3wuR9ALtFL78dO6Fm1/kJOaew0Je5MzTw==
+ b=lwXNJ1tD6KlcRCXhrnHQOgGSQrBkVGfhUCV4kKnyLtH7ktFCybHGS1155tWY/FDv2Wwn9Gmp7JMcrIPW9KUVOssUdSowk1m5Jq0W/9Ei1FZuP1WKhib2fkL+qjLrua+MjSop2h1p3Ockyi9bT7vrXekX2RisdTRb6GdQL6F5hVU4VJeDS5+QgamNilL4RCBZZBva34q1P4spFIwpBr0FSMwf/EsHsvyyT4HNFQHDz+e285tjF+mg10rhM2oinRQeadNis45SRgFFP5a0Qk5KL3UhQB2plhdxuahbNwJYk//TyRHeHPw5TbY1PGIgvujPhjyCic/XHMBQ697/uV153Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bDvAB10R7YvuZySDiH+gYlqupoXhAw/3bucH89vDZTI=;
- b=OWo+v2jh9LWKZmJzwfLp5f+oPZS0KLQD2O0R3Vyddqv0/vvPKELPOESiqyUugiuj30vK+4B7bSOLGCX8eGYMMGUjxSkjkngbrI72nR0XaBKL58ZW4b2xkQBEfpvWtYe7rRnDj/P/PxFCBoPxDmv4RudYldGMZyv3Gvj8tsgEPNG0K03LzaVBDCcVsaZmRa2/JFQ8kgPTxHwHuIgJUocA+4tMiLE4maz4PBZNg9/x9kDS4P6pWXE/6/xCLdyo4tYucXED1rZKxpfmPvVOCvKi+izRbbpmfdFpokKiGJNqR27dDhcoGn3uTNhJezSrmMwx1c6x5IfG4uEPgzOQtFBWJQ==
+ bh=epPB/PW8d8eDYLxDoI8JcYCXQoXrShfKAGR3wI2JITs=;
+ b=iAKm+pZMO/0Szf0lFKK+tO9pEwEXYrFppP/Dgze5j0IwJS1pZuRfeHElImYDlyD32gx8j6qxPvtLqbJCJzXjAlVhkErXYE9aONMdeZ+q+xsdUbD60Def5Hq1Qg/i0Ebv2dEhMxQBbBWUeKQ/wKH8izTxFuGCulkHA2Sgbb4qBNSZXb2iVVi0/ngSxTTUOpLmGnN2hEPviJvOqV4Eyp90H7pU1pMw37WbhNksa+EtIDU4byWwtBGonoipbVtPDvFGFVbAodwCxZUcFhC43R1qk2sSOt21DbCDplGGkLb231Yp+DyGgqK1MI8lgEwlQKSAumXrp9eFpFgfGs79YPnWzw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bDvAB10R7YvuZySDiH+gYlqupoXhAw/3bucH89vDZTI=;
- b=cERnpTubmvaW3uWJWGKfrM3B4AzHwwUyH1xI/GqhqpzVXggLmQ57TA0lm91eSYj7ZDSn7NkvZP3Owrn6PbQy8i1aJhxTGRWtxwFlgaeK67QX7+V4SBY4QY3z1lUYcM/XbnA4OfAl5aKv5R5lczM06EPADBn678U3RqToP3rB5+8=
-Received: from BN9PR03CA0689.namprd03.prod.outlook.com (2603:10b6:408:10e::34)
- by IA0PPF64A94D5DF.namprd12.prod.outlook.com
- (2603:10b6:20f:fc04::bd0) with Microsoft SMTP Server (version=TLS1_2,
+ bh=epPB/PW8d8eDYLxDoI8JcYCXQoXrShfKAGR3wI2JITs=;
+ b=l+DVI7lmFNaFFxU7d7b84VYuqtZ3R/0i0py3CAsMAbe7C6cORg5BIl8S6uhY/Ncx4P7lPsHzlewmA0O4Xr8vkOXvVguW+ZxQthWngRz/FU0J+IlcRHufebsP/PZSoTyruAO9fZHN7w0L0bZ9l6NqJrkdM4jF3AeqEEYAb9ndD9U=
+Received: from BN9PR03CA0669.namprd03.prod.outlook.com (2603:10b6:408:10e::14)
+ by PH7PR12MB9126.namprd12.prod.outlook.com (2603:10b6:510:2f0::21)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 20:19:04 +0000
+ 2026 20:19:12 +0000
 Received: from BL02EPF00021F6C.namprd02.prod.outlook.com
- (2603:10b6:408:10e:cafe::9d) by BN9PR03CA0689.outlook.office365.com
- (2603:10b6:408:10e::34) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:10e:cafe::86) by BN9PR03CA0669.outlook.office365.com
+ (2603:10b6:408:10e::14) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.11 via Frontend Transport; Thu,
- 23 Jul 2026 20:19:04 +0000
+ 23 Jul 2026 20:19:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,11 +50,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BL02EPF00021F6C.mail.protection.outlook.com (10.167.249.8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 20:19:04 +0000
+ 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 20:19:12 +0000
 Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 23 Jul
- 2026 15:18:59 -0500
+ 2026 15:19:01 -0500
 From: Fangzhi Zuo <jerry.zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,9 +64,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 15/49] drm/amd/display: move GPU mem helpers to services
-Date: Thu, 23 Jul 2026 16:13:23 -0400
-Message-ID: <20260723201908.373300-16-jerry.zuo@amd.com>
+Subject: [PATCH 18/49] drm/amd/display: add KUnit tests for audio component
+ get_eld
+Date: Thu, 23 Jul 2026 16:13:26 -0400
+Message-ID: <20260723201908.373300-19-jerry.zuo@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260723201908.373300-1-jerry.zuo@amd.com>
 References: <20260723201908.373300-1-jerry.zuo@amd.com>
@@ -79,29 +79,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6C:EE_|IA0PPF64A94D5DF:EE_
-X-MS-Office365-Filtering-Correlation-Id: 11c83534-a893-47f9-d991-08dee8f7a425
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6C:EE_|PH7PR12MB9126:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5922b988-b244-4c1b-7d3d-08dee8f7a923
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|376014|1800799024|36860700016|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: eDwASTS0sb3IL2Oo2K55ixPxDkefggVAMcbP+Zq+WCdQBNzBuGBe2qgqMFau73X+jRrvN7MBMo0V9pSsr3vtAUR9L1f+RwFA+B7i5LhhmNDJbDQLr7iExFX1qE0Vc/OgMY19seoLFayP/BvzitouKuH/BL6TjsXS619kvetXqQr9wuUNMdfRY9/3YlONifBETB7YOinJn/QEKqudMoE4E5cyvm0YAAGgNRU/27mB2pzM095cEhajLHFDuFh9NShEiYu3N1Ylb11uW3ToLqQjaXtuKNpzZrHOucXlXFyJchnt1n96FsQYGI14qUaG+pCJUE366VVsvuJh/YTSyxQe54Deux8lmmxE4jdLMojsfZQWB2psH2drja+hjpWtqKAbFSZeNN0p5LeFogLIOlrIEagu0F0sIxcSrtGcKTyAFuDbC1SH7t4R4GeU/dmnd4QAXOLoEmIJ+ItwglEtaNNzOMnNoB/JFyYAyIOIaeCxMoV7M3XRUHtOCnIOB7ZuhzEHShsGhUfXnqz8lCo2yXhuvpbcGdRNxYSSwLB8iN03gWlK9AfddQaNGSX9ME+JOQkmwWXpRxqke8ADeLV1wIbXqcGavjGoUMErthhkWAF51ZYjgCPLD8gf+5WviGBvGZhdBdDp6e4H6UVYwGzZnhZ6tf18FL6NoM0ixforO1s3Y0XXEjUZoO+tN8mtwawJgY7J31bFT9r1W9N7avTWCZty5g==
+ ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|18002099003|22082099003|6133799003|56012099006|11063799006|5023799004|10067099003;
+X-Microsoft-Antispam-Message-Info: dYEFHhC3Z1FmMChQd+SK50AIpJg7GEjoF5/JfXCwR4XIOVNTvl/KwM1A0TQNRQz4PsymTyOXrM7zxnwcvL7WNZ6U7Iwdf//kRm+kdTOJGC1NU68QiaL0XSjOqXF3T6KdwDKbdCJgUGIU91lsfSNGgsU9FDoSuNJ2hP2kaImcSROFe7VJMpDG/hBIZZ1BcrJA2L8sZeAoVXxDiIJ9/9w0uepO1/JpFYJS5R8Kr3ZIEh/0fpBBgSeA6+JI/Gu5/Gv5prSh6a44JGhd6ck3AAabl+hX5aCmbDnvcqMk1LcTGH6g32WUwqlPKAvlYN2b71yg8qf6vrbDC6uBsg3OWiGWoWaLyjtExyfbp5ghPnuP5b3eek7qkopAoOtW5FOHgrchpcuqe6JBTvKuOOSER0GpvacYcV4VHSKqX4RF+aH0KfMvHvcwR8CkrNPKKxGLNZeznPOBlEhfSGBjpB4vnLP/dAW9aj96+fBkh0tgGxi5AKuwX/eSScYxhYkURVxhbV76bNgN1L8ydBLKf6iE/hVXpRn+qToGUlBLrNDXtXEIKRndXm1SccjArf0ZgXmeBTgioHOAVtnRXOZtvDVSR1gEPydDxONPODnduIssezLSvGgjFimBHl1MZvu606cCaGSiKeWXKEdLApGz0cjZqBqBfNAZTX9krSn4v2CJ93me0lDVBAMMR6yCmx4PpzFYDAYZDUJAjB3yWVVZYLN8U8uyTQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(376014)(1800799024)(36860700016)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
+ SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(18002099003)(22082099003)(6133799003)(56012099006)(11063799006)(5023799004)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: VS0wUOgCQetBo2enPu8ef9xK5I1rsR8VLUMtZsxu72hE9Ph3V2ru6bypsBoG2AjIxdtkvEsALeajC2mYlncPws80PvQi5x1w69iUiSYU64PcYhy5CJPCr6HLGQmMspwFEVz2wi6bV92xQ/fbwgg0oYo6cTBC7edwdAS2om4/Zz/eb/JN/pwxgHckfjValJrqiIQMTqFz+trW8jfaBzg71Arap2DnVJN1BjOPz44FE9m9PYkAYLvDfKKv1YlFUeZ2pGgaD8I3o7Vnan3pAGXDqL7j59dF9DR7FkQTxbrtAqhr8Pw8fbwsC1oDV3yzgRb/FAOjHaumYcgouFrTKw4aROvq/B2zhig6cKwf3g1X9VpSwU8IgA4Q5GSoUVk2zmSqb9RYnqMokk+y6trokIUTC7r6BnQrByLmhjnwfdgSrRmRNdMohNdp8CnymfXrUi3w
+X-MS-Exchange-AntiSpam-MessageData-0: k+HgCc20Jntqg4VNvJMJ38zaRe6HWuzVVYbNDvBpuX20uLsq1v+ZGO5B+DIh/dQKr3QV7Ll8ZVUuWhtKARvGJY3Jplv5BxCJuFrqqToBcY68tA4MzUv+fxxig6jQpPAznWtz1Pwjm+ngfn3nM+Y+OCdmAUZHKKZKgdgIRruSav2hSjPF6dNIV+XbGQ0XEnQFcpEVdFr5Q30yhHQK0ApctC4uqpf6iEoXMjKo31CElOKYrqB9LZSXfXgxuyCYNRdWKZWxehomuz+bnO604mKnIZZA8MZW4ysrlvGnPvi76J9N0j3ilD7hBfkCirOICqgSEYfUjmAtkGrSax8E80Rfe+jTdgnwkeRdFxJMtv4Hnio8Op7VLZryV1jV8tkjUAUdZwsZmhzB4Z+Yie7HorqxvNZBPWVvaE+EHFY3DXQDrW7p4avz4SJTOJ/Z0wT7KINA
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 20:19:04.1243 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11c83534-a893-47f9-d991-08dee8f7a425
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 20:19:12.4983 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5922b988-b244-4c1b-7d3d-08dee8f7a923
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6C.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF64A94D5DF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9126
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,150 +119,175 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Alex Hung <alex.hung@amd.com>
 
 [WHAT]
-dm_allocate_gpu_mem() and dm_free_gpu_mem() are generic DM service
-helpers that wrap amdgpu_bo_create_kernel()/amdgpu_bo_free_kernel()
-and track allocations on adev->dm.da_list. Move them out of
-amdgpu_dm.c into amdgpu_dm_services.c alongside the other dm_* service
-callbacks.
+Add KUnit coverage for amdgpu_dm_audio_component_get_eld(), one of the
+functions reported as untested by gcov.
 
-Both are already public and declared in amdgpu_dm.h; their callers in
-amdgpu_dm_dmub.c and amdgpu_dm_helpers.c are unaffected. No functional
-change.
+The tests use the standard DRM KUnit device plus drm_connector_init()
+to build a real connector list, then invoke the bound audio component
+get_eld callback. They cover the matching-connector ELD copy path, the
+writeback-connector skip, and the no-match (disabled) path. A shared
+connector funcs table and cleanup action back the fixtures.
 
 Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 53 -------------------
- .../display/amdgpu_dm/amdgpu_dm_services.c    | 53 +++++++++++++++++++
- 2 files changed, 53 insertions(+), 53 deletions(-)
+ .../amdgpu_dm/tests/amdgpu_dm_audio_test.c    | 119 ++++++++++++++++++
+ 1 file changed, 119 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index d49f0cd3b113..dfc16f5e415a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -411,59 +411,6 @@ static void mmhub_read_system_context(struct amdgpu_device *adev, struct dc_phy_
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_audio_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_audio_test.c
+index 3f0108e9a951..d30b7f644f97 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_audio_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_audio_test.c
+@@ -8,7 +8,12 @@
+ #include <kunit/test.h>
+ #include <linux/device.h>
  
- }
++#include <drm/drm_atomic_helper.h>
+ #include <drm/drm_audio_component.h>
++#include <drm/drm_connector.h>
++#include <drm/drm_eld.h>
++#include <drm/drm_kunit_helpers.h>
++#include <drm/drm_probe_helper.h>
  
--void*
--dm_allocate_gpu_mem(
--		struct amdgpu_device *adev,
--		enum dc_gpu_mem_alloc_type type,
--		size_t size,
--		long long *addr)
--{
--	struct dal_allocation *da;
--	u32 domain = (type == DC_MEM_ALLOC_TYPE_GART) ?
--		AMDGPU_GEM_DOMAIN_GTT : AMDGPU_GEM_DOMAIN_VRAM;
--	int ret;
--
--	da = kzalloc_obj(struct dal_allocation);
--	if (!da)
--		return NULL;
--
--	ret = amdgpu_bo_create_kernel(adev, size, PAGE_SIZE,
--				      domain, &da->bo,
--				      &da->gpu_addr, &da->cpu_ptr);
--
--	*addr = da->gpu_addr;
--
--	if (ret) {
--		kfree(da);
--		return NULL;
--	}
--
--	/* add da to list in dm */
--	list_add(&da->list, &adev->dm.da_list);
--
--	return da->cpu_ptr;
--}
--
--void
--dm_free_gpu_mem(
--		struct amdgpu_device *adev,
--		enum dc_gpu_mem_alloc_type type,
--		void *pvMem)
--{
--	struct dal_allocation *da;
--
--	/* walk the da list in DM */
--	list_for_each_entry(da, &adev->dm.da_list, list) {
--		if (pvMem == da->cpu_ptr) {
--			amdgpu_bo_free_kernel(&da->bo, &da->gpu_addr, &da->cpu_ptr);
--			list_del(&da->list);
--			kfree(da);
--			break;
--		}
--	}
--
--}
--
- static int amdgpu_dm_init_power_module(struct amdgpu_display_manager *dm)
- {
- 	struct mod_power_init_params init_data[MAX_NUM_EDP];
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
-index dbdda6ed12d4..6dbc8d1b4ecd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
-@@ -96,3 +96,56 @@ bool dm_query_extended_brightness_caps(struct dc_context *ctx,
- 	return true;
- }
- EXPORT_IF_KUNIT(dm_query_extended_brightness_caps);
+ #include "dc.h"
+ #include "dc/inc/core_types.h"
+@@ -17,6 +22,20 @@
+ #include "amdgpu_mode.h"
+ #include "amdgpu_dm.h"
+ #include "amdgpu_dm_audio.h"
++#include "amdgpu_dm_kunit_test_helpers.h"
 +
-+void*
-+dm_allocate_gpu_mem(
-+		struct amdgpu_device *adev,
-+		enum dc_gpu_mem_alloc_type type,
-+		size_t size,
-+		long long *addr)
++static const struct drm_connector_funcs dm_test_audio_connector_funcs = {
++	.reset = drm_atomic_helper_connector_reset,
++	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
++	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
++	.fill_modes = drm_helper_probe_single_connector_modes,
++	.destroy = drm_connector_cleanup,
++};
++
++static void dm_test_audio_connector_cleanup(void *data)
 +{
-+	struct dal_allocation *da;
-+	u32 domain = (type == DC_MEM_ALLOC_TYPE_GART) ?
-+		AMDGPU_GEM_DOMAIN_GTT : AMDGPU_GEM_DOMAIN_VRAM;
++	drm_connector_cleanup(data);
++}
+ 
+ /* Tests for amdgpu_dm_audio_init() */
+ 
+@@ -569,6 +588,103 @@ static void dm_test_audio_init_pins_zero_count(struct kunit *test)
+ 
+ /* End of tests for amdgpu_dm_audio_init_pins() */
+ 
++/* Tests for amdgpu_dm_audio_component_get_eld() */
++
++/**
++ * dm_test_audio_component_get_eld_copies_matching_connector - Test ELD lookup
++ * @test: The KUnit test context
++ *
++ * The bound component callback should find the connector whose audio instance
++ * matches the requested port, report it enabled, and copy the connector ELD.
++ */
++static void dm_test_audio_component_get_eld_copies_matching_connector(struct kunit *test)
++{
++	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
++	struct amdgpu_dm_connector *aconnector;
++	struct drm_connector *wb_connector;
++	struct drm_audio_component *acomp;
++	struct device *kdev;
++	unsigned char buf[DRM_ELD_HEADER_BLOCK_SIZE + 8] = {0};
++	bool enabled = false;
 +	int ret;
 +
-+	da = kzalloc_obj(*da);
-+	if (!da)
-+		return NULL;
++	kdev = adev->ddev.dev;
++	KUNIT_ASSERT_NOT_NULL(test, kdev);
++	acomp = kunit_kzalloc(test, sizeof(*acomp), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, acomp);
++	wb_connector = kunit_kzalloc(test, sizeof(*wb_connector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, wb_connector);
++	KUNIT_ASSERT_EQ(test, drm_connector_init(&adev->ddev, wb_connector,
++						 &dm_test_audio_connector_funcs,
++						 DRM_MODE_CONNECTOR_WRITEBACK), 0);
++	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test,
++			 dm_test_audio_connector_cleanup, wb_connector), 0);
 +
-+	ret = amdgpu_bo_create_kernel(adev, size, PAGE_SIZE,
-+				      domain, &da->bo,
-+				      &da->gpu_addr, &da->cpu_ptr);
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aconnector);
++	KUNIT_ASSERT_EQ(test, drm_connector_init(&adev->ddev, &aconnector->base,
++						 &dm_test_audio_connector_funcs,
++						 DRM_MODE_CONNECTOR_HDMIA), 0);
++	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test,
++			 dm_test_audio_connector_cleanup, &aconnector->base), 0);
 +
-+	*addr = da->gpu_addr;
++	mutex_init(&adev->dm.audio_lock);
++	aconnector->audio_inst = 3;
++	aconnector->base.eld[DRM_ELD_BASELINE_ELD_LEN] = 2;
++	aconnector->base.eld[DRM_ELD_VER] = DRM_ELD_VER_CEA861D;
++	aconnector->base.eld[DRM_ELD_SPEAKER] = DRM_ELD_SPEAKER_FLR;
++	dev_set_drvdata(kdev, &adev->ddev);
 +
-+	if (ret) {
-+		kfree(da);
-+		return NULL;
-+	}
++	KUNIT_ASSERT_EQ(test, amdgpu_dm_audio_component_bind(kdev, NULL, acomp), 0);
++	ret = acomp->ops->get_eld(kdev, 3, 0, &enabled, buf, sizeof(buf));
 +
-+	/* add da to list in dm */
-+	list_add(&da->list, &adev->dm.da_list);
-+
-+	return da->cpu_ptr;
++	KUNIT_EXPECT_EQ(test, ret, DRM_ELD_HEADER_BLOCK_SIZE + 8);
++	KUNIT_EXPECT_TRUE(test, enabled);
++	KUNIT_EXPECT_EQ(test, memcmp(buf, aconnector->base.eld, ret), 0);
 +}
 +
-+void
-+dm_free_gpu_mem(
-+		struct amdgpu_device *adev,
-+		enum dc_gpu_mem_alloc_type type,
-+		void *pvMem)
++/**
++ * dm_test_audio_component_get_eld_no_match - Test ELD lookup miss
++ * @test: The KUnit test context
++ *
++ * A non-matching connector should leave the audio port disabled and return an
++ * empty ELD size without copying data.
++ */
++static void dm_test_audio_component_get_eld_no_match(struct kunit *test)
 +{
-+	struct dal_allocation *da;
++	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
++	struct amdgpu_dm_connector *aconnector;
++	struct drm_audio_component *acomp;
++	struct device *kdev;
++	unsigned char buf[DRM_ELD_HEADER_BLOCK_SIZE] = {0x5a};
++	bool enabled = true;
++	int ret;
 +
-+	/* walk the da list in DM */
-+	list_for_each_entry(da, &adev->dm.da_list, list) {
-+		if (pvMem == da->cpu_ptr) {
-+			amdgpu_bo_free_kernel(&da->bo, &da->gpu_addr, &da->cpu_ptr);
-+			list_del(&da->list);
-+			kfree(da);
-+			break;
-+		}
-+	}
++	kdev = adev->ddev.dev;
++	KUNIT_ASSERT_NOT_NULL(test, kdev);
++	acomp = kunit_kzalloc(test, sizeof(*acomp), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, acomp);
 +
++	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, aconnector);
++	KUNIT_ASSERT_EQ(test, drm_connector_init(&adev->ddev, &aconnector->base,
++						 &dm_test_audio_connector_funcs,
++						 DRM_MODE_CONNECTOR_HDMIA), 0);
++	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test,
++			 dm_test_audio_connector_cleanup, &aconnector->base), 0);
++
++	mutex_init(&adev->dm.audio_lock);
++	aconnector->audio_inst = 4;
++	dev_set_drvdata(kdev, &adev->ddev);
++
++	KUNIT_ASSERT_EQ(test, amdgpu_dm_audio_component_bind(kdev, NULL, acomp), 0);
++	ret = acomp->ops->get_eld(kdev, 3, 0, &enabled, buf, sizeof(buf));
++
++	KUNIT_EXPECT_EQ(test, ret, 0);
++	KUNIT_EXPECT_FALSE(test, enabled);
++	KUNIT_EXPECT_EQ(test, buf[0], 0x5a);
 +}
++
+ static struct kunit_case dm_audio_test_cases[] = {
+ 	/* amdgpu_dm_audio_init */
+ 	KUNIT_CASE(dm_test_audio_init_disabled),
+@@ -593,6 +709,9 @@ static struct kunit_case dm_audio_test_cases[] = {
+ 	KUNIT_CASE(dm_test_eld_notify_no_component),
+ 	KUNIT_CASE(dm_test_eld_notify_null_audio_ops),
+ 	KUNIT_CASE(dm_test_eld_notify_null_callback),
++	/* amdgpu_dm_audio_component_get_eld */
++	KUNIT_CASE(dm_test_audio_component_get_eld_copies_matching_connector),
++	KUNIT_CASE(dm_test_audio_component_get_eld_no_match),
+ 	{}
+ };
+ 
 -- 
 2.53.0
 
