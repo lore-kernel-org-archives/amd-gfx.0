@@ -4,91 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88F0EC531D0
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 22:54:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47E30C531D0
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 23:36:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 136D910F24C;
-	Thu, 23 Jul 2026 22:54:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF02510F255;
+	Thu, 23 Jul 2026 23:36:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="p1g9wNIN";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pOcuRlTw";
 	dkim-atps=neutral
-Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
- [209.85.167.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4F8310F24C
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 22:54:24 +0000 (UTC)
-Received: by mail-oi1-f180.google.com with SMTP id
- 5614622812f47-4960a66d36dso280075b6e.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 15:54:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784847263; cv=none;
- d=google.com; s=arc-20260327;
- b=pzy06jO6LvxlRgrAJN1dq2HnUIdz4bDp7p2eIiLl2o9pOVS80lQl82GhP4L3Uc54eb
- vaxUYl3ztt3xEZy1dfPFwLRWbIuMzl0IUZYAC5gn9JaCd4fKCrn3aVjS0MeAN6czR6R1
- 8wZuyt8ffjAkq/4gyat7R6efEVNJ+1fFIK2xWUM8KkKjJzrQuFTDyEGwT/gqHeOYuTKV
- 8CgXMxkA7Ux/1Tw3DVP1cvoU6LitlqQiOl9mNOV3zrAJDZG9/yyUQkBgATdVEOlTl7ww
- Ktt0ugapN2yY7dfztrr/PSCbAwaUOhJ/AUIeEfhTf8o/U8H+melxLSY+PU3wtsLnRNG9
- xtcg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=eXY+V2rK9rCsJuNZNyHkN8x5ePMDDKmj1rEQdv2DayA=;
- fh=+fUc5Tu9QqCJRwFOzWVm3mt3NUC3HYnu9pWbNeQBI44=;
- b=LMQD/5Yl8ZxT6oR5RGJM0dxTK0rOrUO9okTWVNS64U9npF/NeqbMCy09h9oO8TU/7Z
- wXtdSRSZaMPEiGVL8Y6AKwdlZk6PjAeK1ES1YGWpkYtv9kD17Z0FsQbW4RyMj4zrW5qI
- rnccoG1F8fC5WVFo+kfNZvq1wwMnO9K87zNeRrHBGXqqdI/ivYOfKsx2nY5Ry7mPhmQl
- s980lZRdutaRd69u6zWjeoNan9Y9NjsGvoka/CGxfl15WTSbzYRry6K2HIAaRKDDjU1d
- 1Og9sCCGaKePcQfXU1/xA24HYOzBGK5vnkyzdS/YyLhnoVRVpa7hVuY3r3PLrnqAzcyd
- MOKg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784847263; x=1785452063; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=eXY+V2rK9rCsJuNZNyHkN8x5ePMDDKmj1rEQdv2DayA=;
- b=p1g9wNINVEQh5WmRayO49UrsxqCWXQkOh/d89LzkPsdLRp7S8bO2yxGvB8ft2XxaD3
- N7aqJes1glAbHUhvoOrMe+4/FMkSXQstU44bBxSihzQKjBmDGBhjvvpmiG+vlRLrO+oT
- x9LK+XdNMsNB6pJ3qxpfec3qtxol1TE2zPgN0YJzDPNCbxky4vWLNrdTcddp66cz04c4
- +IprpBcM/zm625DWlzH7sduoCMpbnb7+7Fg5c7ILnt1x0nB4t4s5potTJXtVMpJhq/Ts
- OFJgxg4yp3+kCKLPfKDGNCMtkjNbJI6jihREesFbdScIs0KSlpYno35EnbJTRGYVIDDt
- OqGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784847263; x=1785452063;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=eXY+V2rK9rCsJuNZNyHkN8x5ePMDDKmj1rEQdv2DayA=;
- b=TiecDDLaSTKlrUxfwCq5aD5uukRZMgePGZ7xGUf1rz4PLN55VUiSwa6uRKSThTVT6S
- IYllND+dbwfN5BIrwOtyM0l3WTWG9KwbstNSR2H8PiBxDJkHbCFR2Ri9qVWKMYVItaJC
- huxoeLdoHSlrPoAkbpyYHszaH3vprzivE9cDfn8JBdgJ0Ji54iLnAV5DSdFqBaDKlCzX
- /AgFZ4Rdaxq77gZx23UJdMsBUQAOOk9CipcB2jQxxAjjKHyNSO4ni5BpOEWQWpgH4cpH
- gOBfCpL6zAcC+fz9tCl3pDjmmQPrwpJpMOAcZUga5kt3JZr7qLptBcS2zc+7VlCZFzpS
- NgFg==
-X-Gm-Message-State: AOJu0YzAufw8bzozq85P8q8ysJXJp71tE0Y6r/YBMHVTNXA9P+KtgS/R
- umRePgc5vkO1rq8XmC79uPcAaPDh6he2/2yRT3W+7N7qsE2fdQuVWQnhDCZ8O8muSmdrNHeGaYe
- QbhKZglLhvxWBXzbDbrcL3j1x3jYgKzs=
-X-Gm-Gg: AR+sD13D3vG4Q1AGnRWwQa0QF+N2YYgoSwGDw8b8L8tH1oZTWK4xOFF2baS+LzFHm8Y
- lQnScHvHTtQhTxsIyUGEGMIgmmC784coy1dI2gsClnDBk56hLAPm0xVLd6SDmzmPrQsNUDgNGse
- kahsknuq4ZC0jnf5O6EijLieATwZxPNbyJoQvqfavL3YH/JorhBM91sO/qYe2bsxucHBS5YAMMb
- EaN0+SPq65f3sm2Gbn8MQgWlEsp1j8jNdH8WiMAEXp6sUnlPk1gu/UFC4rcCTi8FNe9C6pk60s=
-X-Received: by 2002:a05:6808:1824:b0:486:7a1b:5a9a with SMTP id
- 5614622812f47-4ab351dca54mr1746150b6e.2.1784847263625; Thu, 23 Jul 2026
- 15:54:23 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D383810F255;
+ Thu, 23 Jul 2026 23:36:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+ Cc:To:From:From:Reply-To; bh=Ek/7ha9nYx7nF4x7Mfvv+yu77d1iC2nPQYMX/1iUF6U=; b=
+ pOcuRlTw5SFhoNo9c9K4Tx0Qfc5Ucv5wCerijSzJfFqGnuwJgrGkj7+Y7Y1i1NDUIaNv+SRs0Zusw
+ UbHh3IoQgRku17Y7vtrR0KbTPKM/wIOWG5ZBV+8EJkVy/yVDx8+KP9YHpvp80HDZR3bvkVrxsLCbs
+ gu6foGM6p5RTggvWrknfInXSPQtufORrKEmCxLGGriB65fQ6XAcZLXGAUsGlUxhdGH7Db3kWDKbVu
+ HK4PtBGyHgqau+uHZhQFHcfmAb+dEymEmcNawJd1lnEjVBAG3g3GL92pLHH+LjZUo4SMEFTAmE+Nr
+ PLNa+9QjWUXt6JtzUUHklXB1wkeKOQU1yg==;
+Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
+ helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wn2xy-003eJT-Ia; Fri, 24 Jul 2026 01:36:38 +0200
+From: John Harrison <John.Harrison@Igalia.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>
+Subject: [PATCH] drm/amd/display: Fix use-after-free bugs in KUnit tests
+Date: Thu, 23 Jul 2026 16:35:48 -0700
+Message-ID: <20260723233548.580891-1-John.Harrison@Igalia.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <20260723095431.2831513-1-qiang.yu@amd.com>
-In-Reply-To: <20260723095431.2831513-1-qiang.yu@amd.com>
-From: =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>
-Date: Thu, 23 Jul 2026 18:53:46 -0400
-X-Gm-Features: AUfX_mx_pan_JTHo6eU1s0cDdyI0uaOE75pfSNCe84HzhSajQLnjuofF8jL7JUA
-Message-ID: <CAAxE2A6SC=pQ8v1BLNhK_ViUGEs24akL+sB58SmUNM3DmR0TmQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: read TRUNCATE_COORD_MODE on gfx12
-To: Qiang Yu <qiang.yu@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Qiang Yu <yuq825@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,48 +52,225 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reviewed-by: Marek Ol=C5=A1=C3=A1k <maraeo@gmail.com>
+When running the KUnit tests with memory debugging enabled, a bunch of
+use-after-free errors are hit. These are due to using KUnit managed
+memory for the test objects but then giving them over to DRM managed
+objects. The KUnit stuff is deallocated first and when the DRM side
+calls its clean up helpers, it hits memory that has been freed already.
 
+NB: There is still a use-after-free bug in the writeback tests.
+However, fixing that requires driver side changes as well as test side
+changes. Those changes are part of:
+  https://patchwork.freedesktop.org/series/152420/
 
-Marek
+Signed-off-by: John Harrison <John.Harrison@Igalia.com>
+CC: Alex Hung <alex.hung@amd.com>
+CC: Harry Wentland <harry.wentland@amd.com>
+---
+ .../tests/amdgpu_dm_connector_test.c          | 37 ++++++++++---------
+ .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c |  3 +-
+ .../amdgpu_dm/tests/amdgpu_dm_wb_test.c       |  5 ++-
+ 3 files changed, 24 insertions(+), 21 deletions(-)
 
-On Thu, Jul 23, 2026 at 5:55=E2=80=AFAM Qiang Yu <qiang.yu@amd.com> wrote:
->
-> From: Qiang Yu <Qiang.Yu@amd.com>
->
-> TA_CNTL2.TRUNCATE_COORD_MODE selects whether texture coordinate
-> truncation is D3D9/GL/Vulkan conformant. gfx11 reads it and reports it to
-> userspace via AMDGPU_IDS_FLAGS_CONFORMANT_TRUNC_COORD, but gfx12 never
-> read it, so the flag was always reported as 0 and userspace fell back to
-> the non-conformant path.
->
-> Read it in gfx_v12_0_constants_init() like gfx11 does.
->
-> Fixes: 52cb80c12e8a ("drm/amdgpu: Add gfx v12_0 ip block support (v6)")
-> Signed-off-by: Qiang Yu <Qiang.Yu@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 6 ++++++
->  1 file changed, 6 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v12_0.c
-> index b3887c5262a0..d109fa06e32a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -1827,6 +1827,12 @@ static void gfx_v12_0_constants_init(struct amdgpu=
-_device *adev)
->         gfx_v12_0_get_cu_info(adev, &adev->gfx.cu_info);
->         gfx_v12_0_get_tcc_info(adev);
->         adev->gfx.config.pa_sc_tile_steering_override =3D 0;
-> +
-> +       /* Set whether texture coordinate truncation is conformant. */
-> +       tmp =3D RREG32_SOC15(GC, 0, regTA_CNTL2);
-> +       adev->gfx.config.ta_cntl2_truncate_coord_mode =3D
-> +               REG_GET_FIELD(tmp, TA_CNTL2, TRUNCATE_COORD_MODE);
-> +
->         /* Program DB_RING_CONTROL for multiple GFX pipes
->          * Default power up value is 1.
->          * Possible values:
-> --
-> 2.43.0
->
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index 0a5d439f66c3..93a854d4fdfa 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -12,6 +12,7 @@
+ #include <drm/drm_crtc.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_kunit_helpers.h>
++#include <drm/drm_managed.h>
+ #include <drm/drm_mode_object.h>
+ #include <drm/drm_property.h>
+ #include <linux/hdmi.h>
+@@ -1449,7 +1450,7 @@ static void dm_test_funcs_reset_sets_defaults(struct kunit *test)
+ 						   DRIVER_MODESET);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+ 
+-	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	connector = drmm_kzalloc(drm, sizeof(*connector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, connector);
+ 
+ 	drmm_connector_init(drm, connector, &dm_test_connector_funcs,
+@@ -1488,7 +1489,7 @@ static void dm_test_funcs_reset_edp_abm_level(struct kunit *test)
+ 						   DRIVER_MODESET);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+ 
+-	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	connector = drmm_kzalloc(drm, sizeof(*connector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, connector);
+ 
+ 	drmm_connector_init(drm, connector, &dm_test_connector_funcs,
+@@ -1526,7 +1527,7 @@ static void dm_test_funcs_reset_edp_abm_disabled(struct kunit *test)
+ 						   DRIVER_MODESET);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+ 
+-	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	connector = drmm_kzalloc(drm, sizeof(*connector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, connector);
+ 
+ 	drmm_connector_init(drm, connector, &dm_test_connector_funcs,
+@@ -1568,7 +1569,7 @@ static void dm_test_atomic_dup_state_copies_fields(struct kunit *test)
+ 						   DRIVER_MODESET);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+ 
+-	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	connector = drmm_kzalloc(drm, sizeof(*connector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, connector);
+ 
+ 	drmm_connector_init(drm, connector, &dm_test_connector_funcs,
+@@ -2359,8 +2360,8 @@ static void setup_panel_type_fixture(struct kunit *test,
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fixture->drm);
+ 	fixture->adev = drm_to_adev(fixture->drm);
+ 
+-	fixture->aconnector = kunit_kzalloc(test, sizeof(*fixture->aconnector),
+-					    GFP_KERNEL);
++	fixture->aconnector = drmm_kzalloc(fixture->drm, sizeof(*fixture->aconnector),
++					   GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fixture->aconnector);
+ 	fixture->link = kunit_kzalloc(test, sizeof(*fixture->link), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fixture->link);
+@@ -2554,9 +2555,9 @@ static void dm_test_update_subconnector_dp_with_sink(struct kunit *test)
+ 						   DRIVER_MODESET);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+ 
+-	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	aconnector = drmm_kzalloc(drm, sizeof(*aconnector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
+-	link = kunit_kzalloc(test, sizeof(*link), GFP_KERNEL);
++	link = drmm_kzalloc(drm, sizeof(*link), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, link);
+ 
+ 	drmm_connector_init(drm, &aconnector->base, &dm_test_connector_funcs,
+@@ -2598,9 +2599,9 @@ static void dm_test_update_subconnector_dp_no_sink(struct kunit *test)
+ 						   DRIVER_MODESET);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+ 
+-	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	aconnector = drmm_kzalloc(drm, sizeof(*aconnector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
+-	link = kunit_kzalloc(test, sizeof(*link), GFP_KERNEL);
++	link = drmm_kzalloc(drm, sizeof(*link), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, link);
+ 
+ 	drmm_connector_init(drm, &aconnector->base, &dm_test_connector_funcs,
+@@ -2641,9 +2642,9 @@ static void dm_test_update_subconnector_non_dp_noop(struct kunit *test)
+ 						   DRIVER_MODESET);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+ 
+-	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	aconnector = drmm_kzalloc(drm, sizeof(*aconnector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
+-	link = kunit_kzalloc(test, sizeof(*link), GFP_KERNEL);
++	link = drmm_kzalloc(drm, sizeof(*link), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, link);
+ 
+ 	drmm_connector_init(drm, &aconnector->base, &dm_test_connector_funcs,
+@@ -2657,7 +2658,7 @@ static void dm_test_update_subconnector_non_dp_noop(struct kunit *test)
+ 
+ 	link->dpcd_caps.dongle_type = DISPLAY_DONGLE_DP_HDMI_CONVERTER;
+ 	aconnector->dc_link = link;
+-	aconnector->dc_sink = kunit_kzalloc(test, sizeof(*aconnector->dc_sink), GFP_KERNEL);
++	aconnector->dc_sink = drmm_kzalloc(drm, sizeof(*aconnector->dc_sink), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, aconnector->dc_sink);
+ 
+ 	update_subconnector_property(aconnector);
+@@ -2804,7 +2805,7 @@ static struct amdgpu_dm_connector *dm_test_add_connector(struct kunit *test,
+ {
+ 	struct amdgpu_dm_connector *aconnector;
+ 
+-	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	aconnector = drmm_kzalloc(drm, sizeof(*aconnector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
+ 
+ 	KUNIT_ASSERT_EQ(test,
+@@ -3103,7 +3104,7 @@ static struct dm_test_panel_ctx *dm_test_panel_ctx_alloc(struct kunit *test)
+ 	KUNIT_ASSERT_NOT_NULL(test, prop);
+ 	ctx->drm->mode_config.panel_type_property = prop;
+ 
+-	ctx->aconnector = kunit_kzalloc(test, sizeof(*ctx->aconnector), GFP_KERNEL);
++	ctx->aconnector = drmm_kzalloc(ctx->drm, sizeof(*ctx->aconnector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ctx->aconnector);
+ 	KUNIT_ASSERT_EQ(test,
+ 		drmm_connector_init(ctx->drm, &ctx->aconnector->base,
+@@ -3112,7 +3113,7 @@ static struct dm_test_panel_ctx *dm_test_panel_ctx_alloc(struct kunit *test)
+ 	drm_object_attach_property(&ctx->aconnector->base.base, prop,
+ 				   DRM_MODE_PANEL_TYPE_UNKNOWN);
+ 
+-	ctx->link = kunit_kzalloc(test, sizeof(*ctx->link), GFP_KERNEL);
++	ctx->link = drmm_kzalloc(ctx->drm, sizeof(*ctx->link), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ctx->link);
+ 	ctx->aconnector->dc_link = ctx->link;
+ 
+@@ -3376,14 +3377,14 @@ static struct dm_test_fill_ctx *dm_test_fill_ctx_alloc(struct kunit *test)
+ 						       DRIVER_MODESET);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->drm);
+ 
+-	ctx->aconnector = kunit_kzalloc(test, sizeof(*ctx->aconnector), GFP_KERNEL);
++	ctx->aconnector = drmm_kzalloc(ctx->drm, sizeof(*ctx->aconnector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ctx->aconnector);
+ 	KUNIT_ASSERT_EQ(test,
+ 		drmm_connector_init(ctx->drm, &ctx->aconnector->base,
+ 				    &dm_test_connector_funcs,
+ 				    DRM_MODE_CONNECTOR_DisplayPort, NULL), 0);
+ 
+-	ctx->conn_state = kunit_kzalloc(test, sizeof(*ctx->conn_state), GFP_KERNEL);
++	ctx->conn_state = drmm_kzalloc(ctx->drm, sizeof(*ctx->conn_state), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ctx->conn_state);
+ 	ctx->stream = kunit_kzalloc(test, sizeof(*ctx->stream), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, ctx->stream);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c
+index 58615cdbe854..7d5e3823b33b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c
+@@ -8,6 +8,7 @@
+ #include <kunit/test.h>
+ #include <linux/module.h>
+ #include <drm/drm_kunit_helpers.h>
++#include <drm/drm_managed.h>
+ 
+ #include "dc.h"
+ #include "core_types.h"
+@@ -127,7 +128,7 @@ struct amdgpu_dm_connector *dm_kunit_alloc_connector(struct kunit *test,
+ {
+ 	struct amdgpu_dm_connector *aconnector;
+ 
+-	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
++	aconnector = drmm_kzalloc(adev_to_drm(adev), sizeof(*aconnector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
+ 
+ 	if (adev)
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
+index b43bc244487e..3454cf371414 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
+@@ -12,6 +12,7 @@
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
+ #include <drm/drm_kunit_helpers.h>
++#include <drm/drm_managed.h>
+ #include <drm/drm_mode.h>
+ #include <drm/drm_modes.h>
+ #include <drm/drm_writeback.h>
+@@ -266,7 +267,7 @@ static void dm_test_wb_get_modes_returns_modes(struct kunit *test)
+ 						   DRIVER_MODESET | DRIVER_ATOMIC);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+ 
+-	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	connector = drmm_kzalloc(drm, sizeof(*connector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, connector);
+ 
+ 	drmm_connector_init(drm, connector, &dm_wb_test_connector_funcs,
+@@ -301,7 +302,7 @@ static void dm_test_wb_get_modes_bounded_by_max(struct kunit *test)
+ 						   DRIVER_MODESET | DRIVER_ATOMIC);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+ 
+-	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	connector = drmm_kzalloc(drm, sizeof(*connector), GFP_KERNEL);
+ 	KUNIT_ASSERT_NOT_NULL(test, connector);
+ 
+ 	drmm_connector_init(drm, connector, &dm_wb_test_connector_funcs,
+-- 
+2.43.0
+
