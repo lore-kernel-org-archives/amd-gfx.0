@@ -4,138 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DDDEC53214
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AAA75C53216
 	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3758010F2FD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 686CD10F301;
 	Fri, 24 Jul 2026 07:30:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="pdUm72BL";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="f8MFlBfK";
 	dkim-atps=neutral
-Received: from mout.web.de (mout.web.de [212.227.17.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99E7610F15B
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 16:17:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1784823423; x=1785428223; i=spasswolf@web.de;
- bh=HwpUB3HAl1qkE556UG3qifZi/H+4Sa8c5nNLKBlXqjs=;
- h=X-UI-Sender-Class:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
- References:Content-Type:MIME-Version:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=pdUm72BL0v0H1ZJ4R0MkJKdlQ9PqTCme2YDukPEjcGQNe+AYy6XPjmAjO11tqxXY
- SvLZUNtK4VR0XpS6GToVkYmSEl4VQ1Xux85EG0v2rYh1OzUfo6J8N5VdnG5E7R17U
- vvkHlLEX17mWy0PtFyWls0PeqauxNRGTU3w15VkIWz45ancnq9Oo+FFGw4Pcz+bk6
- EXmaSacA9wZTL87jdFQEKsNRdxhKfo89ZV6iKRSUmofyH1pxdLXt71EBFCd/e8bgP
- SnOjITa+yOeo7WHKhJNRtFv8MD9lz2rveg5Yl1rXZXwiAlX9rXSyJwRxeIkWZKHLo
- 0b+ml/4vYKvV5WS1lw==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1Mmymz-1xEG1w2lWx-00cu3Q; Thu, 23
- Jul 2026 18:17:03 +0200
-Message-ID: <1a0800888c2fcd42f1fcd661d8f6f50580ac2fd4.camel@web.de>
-Subject: Re: [Re] kernel panic during shutdown in v7.2-rc{3,4} and
- next-20260722 with PREEMPT_RT
-From: Bert Karwatzki <spasswolf@web.de>
-To: linux-kernel@vger.kernel.org, Rafal Ostrowski <rafal.ostrowski@amd.com>
-Cc: linux-next@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>, Thomas Gleixner	 <tglx@linutronix.de>,
- spasswolf@web.de
-Date: Thu, 23 Jul 2026 18:17:02 +0200
-In-Reply-To: <d24a136539c5931984f4855ad6596ca7aee8ebe2.camel@web.de>
-References: <20260723131001.11565-1-spasswolf@web.de>
- <d24a136539c5931984f4855ad6596ca7aee8ebe2.camel@web.de>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.56.2-10 
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF8A110F058;
+ Thu, 23 Jul 2026 10:04:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1784801058; x=1816337058;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=/k5TklTHou5l2dBOb2sTQtk7OujtNVKbrhR2IlqNeZ4=;
+ b=f8MFlBfKZy84K7ABB6MgiYi7Os/wJwwvps0L9N47wBXklxyHJZH3YjhE
+ VLIDGeYZ263p0N/V3yQDA4jsKxXDR5Kq/jQSr4foSpnu7oV4nCrE0pjEn
+ YjdlFevwcoUxFPsZaLA7x65Chcy21vhLW6K0vTsGjUl8tmZ7BL44+zXpR
+ 4ePGTR+/HIMV9/dAOXmteapzGsFK3roB/+U7tXdxzaf2YqGYI9asp0XQC
+ LrH1BQRWJQYnMQ6VuaRoXUihOkeh0EydAR/g/lLbkAh/jzd8lYEIjw/cu
+ kCLgepsCqBBUIjtMt6oUt8Lg5CbAwWKHxD2D3z9IRhUR+UROR3M6eX7V3 w==;
+X-CSE-ConnectionGUID: KATnO9dfSt+Sl2SmCoIRcA==
+X-CSE-MsgGUID: /zoggW/CRi6P8sGv9Oe+Qg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="87991833"
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="87991833"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2026 03:04:17 -0700
+X-CSE-ConnectionGUID: /jUMWDEQRdmamFTezA5kHQ==
+X-CSE-MsgGUID: JR7PUPQPQTijYEq6o8dobg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="254984847"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO fedora)
+ ([10.245.244.122])
+ by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Jul 2026 03:04:12 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
+ Tejun Heo <tj@kernel.org>,
+ =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+ cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
+ David Airlie <airlied@gmail.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v8 0/6] Add reclaim to the dmem cgroup controller
+Date: Thu, 23 Jul 2026 12:03:44 +0200
+Message-ID: <20260723100350.16895-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:S4Na7vcjSYXLHOHGNUEL1suXA/PMqXWPxM19axjxI5aEgjrdkal
- Jce7scxQK7i6v9l52cCT+XtOgdsebX5Mm221JssvL3AhxlowRh1FqACaUt+iQMUE1b95tBe
- 7gACfFiNJNzsJcRwIEAYpBF36ZK9fns6NMiwRyV0I7k+lI+dElb6TPaPxDGwqZk74BgSdNC
- 5P/hP5dgrEaaGKfM3QwvA==
-UI-OutboundReport: notjunk:1;M01:P0:fUK9O2BOY7o=;CcKrPZjyH4VplNjI0SmERGDvrCo
- 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
- bw7/eFZqhzFYg3kGBfe9m
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 24 Jul 2026 07:30:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -151,38 +82,141 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am Donnerstag, dem 23.07.2026 um 15:23 +0200 schrieb Bert Karwatzki:
-> Am Donnerstag, dem 23.07.2026 um 15:10 +0200 schrieb Bert Karwatzki:
-> > I was able to gather the panic error message from a failed shutdown vi=
-a netconsole,
-> > this time the kernel used was v7.2-rc3:
-> > #
-> > Bert Karwatzki
->=20
-> Unfortunatetly I can now reproduce these kernel panics in v7.1:
->=20
->=20
-> So now I'm going to use memtest86+ on my machine and then look at the ch=
-anges I had in
-> my userspace as the first error occured on 22.7.2026. Let's hope this do=
-es not escalate ...
->=20
-> Bert Karwatzki
+When writing a "max" limit lower than the current usage, the
+existing code silently failed. This series aims to improve
+on that by returning -EBUSY on failure and also attempt
+to synchronously reclaim device memory to push the usage
+under the new max limit to avoid the error.
 
-So I've run memtest86+ for ~2.5h (2.6 complete runs) and found no error. E=
-ven if my memory
-contained an error, if it's that hard to trigger it would not cause freque=
-nt crashes.
+Patch 1 fixes a pre-existing amdgpu_vram_mgr_init() error path
+Patch 2 introduces struct dmem_cgroup_init for extensible region
+      registration.
+Patch 3 implements and documents a reclaim callback interface
+      for the dmem controller.
+Patch 4 implements a TTM reclaim callback.
+Patches 5-6 hook up the reclaim callback to the dmem cgroup-aware
+      drivers xe and amdgpu.
 
-But I found out an exciting thing:
-I can only reproduce the crashes in v7.2-rc4 when watching the reboot via =
-netconsole,
-without netconsole no crash occurs!(This also explains why I had not seen =
-this crashes before ...)=C2=A0
-In next-20260722 the crash is reproducible without netconsole.
-So I'm going back to bisecting from v7.2-rc4 to next-20260722. Once I'm fi=
-nished with
-that I'm going to look at the "netconsole triggerred" crashes.
- Does anyone have an idea what's going on?
+v2:
+- Remove the error propagation that was in a previous series (Maarten)
+- A number of updates in patch 1. See its commit message for
+  details (Maarten)
 
-Bert Karwatzki
+v3:
+- Add patch 1 fixing a pre-existing amdgpu_vram_mgr_init() error path
+  bug where drmm_cgroup_register_region() was called before
+  INIT_LIST_HEAD() and gpu_buddy_init(), causing a kernel panic on
+  failure. (Sashiko-bot)
+- Use an rwsem to protect reclaim callback registration and region
+  unregister against concurrent reclaim invocations. (Sashiko-bot)
+- Fix ttm_resource_manager_set_dmem_region() storing an error pointer
+  in man->cg unconditionally. (Sashiko-bot)
+- Fix kernel-doc function name format for ttm_bo_evict_cgroup() and
+  ttm_resource_manager_set_dmem_region().
+
+v4:
+- Rebased on drm-tip; dropped the XE_PL_STOLEN guard in the xe patch
+  as stolen memory uses a separate TTM manager.
+
+v5:
+- Add patch 2 introducing struct dmem_cgroup_init to make the
+  dmem_cgroup_register_region() API extensible without adding positional
+  arguments in the future.
+- Use nonblock=true in reset_all_resource_limits() to avoid sleeping
+  inside rcu_read_lock() in dmemcs_offline(). (Sashiko-bot)
+- Compare usage against the truncated limit stored in cnt.max, not the
+  original u64. (Sashiko-bot)
+- Use DMEM_MAX_RECLAIM_RETRIES (16) retry budget instead of 5, matching
+  the memcg controller; only -ENOSPC (no progress) counts against the
+  budget, other errors abort immediately.
+- Handle NULL region in ttm_resource_manager_set_dmem_region() to clear
+  the reclaim callback, preventing use-after-free when the manager is
+  torn down while the dmem region outlives it. (Sashiko-bot)
+- Return 0 on any eviction progress; reserve -ENOSPC for zero progress.
+- Clear the reclaim callback in xe and amdgpu fini paths to prevent
+  use-after-free after driver unbind with open DRM file descriptors.
+  (Sashiko-bot)
+- Register xe fini devres action before drmm_cgroup_register_region()
+  so LIFO teardown runs unregister first, draining callbacks before the
+  manager is destroyed. (Sashiko-bot)
+- Switch amdgpu to explicit dmem_cgroup_unregister_region() at the top
+  of amdgpu_vram_mgr_fini() before any manager teardown, since amdgpu's
+  fini is called explicitly during driver unbind before drmm cleanup.
+  (Sashiko-bot)
+- Wrap the xe reclaim callback with drm_dev_enter()/drm_dev_exit() to
+  prevent TTM reclaim from running after driver unbind.
+
+v6:
+- Move the ops check inside down_read() in set_resource_max(), guarded
+  by region->unregistered, to close a UAF race against
+  dmem_cgroup_unregister_region(). (Sashiko-bot)
+- Fix dmem_cgroup_ops->reclaim docstring: -ENOSPC is retried up to
+  DMEM_MAX_RECLAIM_RETRIES times, not an immediate stop. (Sashiko-bot)
+- Fix mgr->cg_region never being assigned in amdgpu_vram_mgr_init(),
+  causing dmem_cgroup_unregister_region() in fini to silently no-op.
+  (Sashiko-bot)
+- Reorder amdgpu_vram_mgr_fini() to call set_used(false) and
+  evict_all() before dmem_cgroup_unregister_region(), so
+  ttm_resource_free() can uncharge via man->cg during eviction; clear
+  man->cg after unregister. (Sashiko-bot)
+
+v7:
+- Replace the per-region rw_semaphore with a static SRCU domain
+  (dmemcg_srcu). SRCU is a better fit: it avoids per-region lock
+  overhead on every reclaim call, and synchronize_srcu() at unregister
+  time is a rare, shutdown-time operation. (Maarten)
+- Trim in-function comments to focus on what rather than how.
+- Switch back to drmm_cgroup_register_region() with a drm_dev_enter/
+  exit guard in the reclaim callback (matching xe), rather than manual
+  register/unregister.  drm_dev_unplug() fires before vram_mgr_fini(),
+  so drm_dev_enter() returning false prevents any reclaim from touching
+  the manager during teardown.  This also fixes the "vram" name
+  collision on multi-GPU systems, since drmm_cgroup_register_region()
+  automatically prefixes with "drm/<pci-addr>/". (Sashiko-bot)
+
+v8:
+- Fix ttm_resource_manager_set_dmem_region() using IS_ERR_OR_NULL(),
+  which skipped the assignment for a NULL region and thus never cleared
+  man->cg. Use IS_ERR() so that a NULL region detaches the region as the
+  kernel-doc and the v5 changelog intended. (Sashiko-bot)
+- Move the amdgpu dmem cgroup region teardown back into
+  amdgpu_vram_mgr_fini() with an explicit dmem_cgroup_unregister_region()
+  after evict_all(), keeping the drm_dev_enter() guard. The v7 drmm-only
+  approach left a use-after-free on the probe-error teardown path, where
+  drm_dev_unplug() is never called so the drm_dev_enter() guard stays
+  open while drm_driver.release destroys the manager before the drmm
+  action unregisters the region. (Sashiko-bot)
+
+User-space tests are at
+https://patchwork.freedesktop.org/series/163935/
+
+Test-with: 20260428065411.4222-1-thomas.hellstrom@linux.intel.com
+
+Thomas Hellström (6):
+  drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
+  cgroup/dmem: Introduce struct dmem_cgroup_init for region
+    initialization
+  cgroup/dmem: Add reclaim callback for lowering max below current usage
+  drm/ttm: Hook up a cgroup-aware reclaim callback for the dmem
+    controller
+  drm/xe: Wire up dmem cgroup reclaim for VRAM manager
+  drm/amdgpu: Wire up dmem cgroup reclaim for VRAM manager
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |  2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 52 ++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h |  3 +
+ drivers/gpu/drm/drm_drv.c                    |  8 +-
+ drivers/gpu/drm/ttm/ttm_bo.c                 | 95 +++++++++++++++++++-
+ drivers/gpu/drm/ttm/ttm_bo_util.c            |  3 +-
+ drivers/gpu/drm/ttm/ttm_resource.c           | 52 +++++++++++
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr.c         | 53 +++++++++--
+ include/drm/drm_drv.h                        |  4 +-
+ include/drm/ttm/ttm_bo.h                     | 10 +++
+ include/drm/ttm/ttm_resource.h               |  7 ++
+ include/linux/cgroup_dmem.h                  | 38 +++++++-
+ kernel/cgroup/dmem.c                         | 90 +++++++++++++++----
+ 13 files changed, 380 insertions(+), 37 deletions(-)
+
+-- 
+2.55.0
+
