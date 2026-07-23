@@ -4,97 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 092C1C4452B
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 04:00:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE375C44524
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 04:25:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 904FB10E51F;
-	Thu, 23 Jul 2026 04:00:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E21610E05D;
+	Thu, 23 Jul 2026 04:25:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RofMY5NL";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hIkpad+Q";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010050.outbound.protection.outlook.com
- [52.101.193.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA5ED10E51F
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 04:00:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=epnhJjJwii56g4O60cBAvJkCckz5HWjXE6M2v99VRM33+8B9F8UDfEvp930UCbTIAAjqQzUvqwOSM2Ldx9GxjlsXusPJ4UY2fmkbYe13V2qCarnhVN/e6n8ECXanNv0q1ibZZej8Izz4e4SJb+JD4z9cAdCPbzAVwRrZ+lgYI5CKEtgcPor38VfjN7Z/QjXmgI2CWiYsOFEATz4SgMDVtOTHyaq3NbNB4PxBLYjYX+znci1zHjPHmIx0vtKxZRkL8RNzLJyaYXG7Cd4iO4NmxBqwl4HtGNzItn+QXfzXy7ykwOnclkTB+hKPEODePiVNvDWcWpefQ4h1bfHGqtuGuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2mWZ5JRFiGVZDm5yz2axAsMF25GhWj6oBX0diPdMGTY=;
- b=JMKUHTOniUJNiO8+UAAKwBuF+y4op5DdBTT9Fbo7EQe0W25TBdUoz4k8xwe//SmDBIv+k+00pZXFzrCgZ6QYcunlBq6hjB1wCRdI4/vYZwXUWiZg11rfKhPE/Am0GB0i++7R4uBctB2gW8etQnqgl9vsNZ+T+q4nRmylD6Mpl2Ljr1XE2O0vYLyMUXsg5fr6IQndbJ0Ea6lV6OXBb4fozI0qtaw8SvanSpjY9eAAyUP/oaz7ct6cBz+2RDWkhrN341NouhR5vxZB6STDXwCWxQBBaLsBiUPOU63tHfW6mJA6SYTPSpe1IIsAk0XaONlTUsEZmGe1ipKbDkDB/289Ew==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2mWZ5JRFiGVZDm5yz2axAsMF25GhWj6oBX0diPdMGTY=;
- b=RofMY5NLh+U1EVK3082H/oOZA6O/7hJQQkzhwMgHyEDOADVwY+33mAIrSnXbWaB+RD6+jOcwQjoV77ypQfL3TOEgxNfhwEUN0yMwYH2KrAhe+NoNVMxuzfmHw/Xuors70pEc1DhdDgZYuFw6Gv/fmU5tXqmgxC7gOD8BGRZI8Lk=
-Received: from SJ0PR13CA0141.namprd13.prod.outlook.com (2603:10b6:a03:2c6::26)
- by PH7PR12MB5879.namprd12.prod.outlook.com (2603:10b6:510:1d7::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 04:00:15 +0000
-Received: from CO1PEPF00012E83.namprd03.prod.outlook.com
- (2603:10b6:a03:2c6:cafe::3a) by SJ0PR13CA0141.outlook.office365.com
- (2603:10b6:a03:2c6::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Thu,
- 23 Jul 2026 04:00:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF00012E83.mail.protection.outlook.com (10.167.249.58) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.245.5 via Frontend Transport; Thu, 23 Jul 2026 04:00:15 +0000
-Received: from ram-Splinter.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 22 Jul
- 2026 23:00:09 -0500
-From: Kanala Ramalingeswara Reddy <Kanala.RamalingeswaraReddy@amd.com>
-To: <Alexander.Deucher@amd.com>, <Mario.Limonciello@amd.com>,
- <amd-gfx@lists.freedesktop.org>, <Pratik.Vishwakarma@amd.com>
-CC: <Kanala.RamalingeswaraReddy@amd.com>, <Veerabadhran.Gopalakrishnan@amd.com>
-Subject: [PATCH] drm/amdgpu: enable mode2 reset for SMU IP v15.0.5
-Date: Thu, 23 Jul 2026 09:29:51 +0530
-Message-ID: <20260723035951.3793144-1-Kanala.RamalingeswaraReddy@amd.com>
-X-Mailer: git-send-email 2.53.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B03710E05D;
+ Thu, 23 Jul 2026 04:25:54 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9437A600AB;
+ Thu, 23 Jul 2026 04:25:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B75171F000E9;
+ Thu, 23 Jul 2026 04:25:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1784780753;
+ bh=XOAiBQVsKE+a+mmnQ5qruWwz3JayhWyzQU7FibWfMRY=;
+ h=From:To:Cc:Subject:Date;
+ b=hIkpad+QEoEj5yIDC7JoO0ilqCJQJu/7GlUBYpWlx3/6TFH9CtJh7FY7aFKxj1m/d
+ SogHWhgNB02Ie1uGA6E9DF63oyM2PaViWdRdyda95uB7yxqT2aIgChJp6P8Xnwj6E4
+ S4oTUP/mW+0uF+Y5eTRs3dLfD45W8XChrwW7e5HtlyOOR4xyLf1+LlgfKqiB5IqzqS
+ n88SZihMAvbyL9wbE2gef8uVQoFQmgu5oFIdnvbe81/8hXdWTHvAcvm1IxZXLYKCdD
+ u7ybbYcqiQ2w2IzhCyfKvSI7wtQMbS6trxJiphYyZCE8lwNhBecg0aytzn8V+dwWU9
+ 66fbmV4gjdI8g==
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+To: alexander.deucher@amd.com
+Cc: linux-kernel@vger.kernel.org, "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+ "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Subject: [PATCH v2] drm/amd/display: use proper context for logging
+Date: Thu, 23 Jul 2026 06:25:48 +0200
+Message-ID: <20260723042548.1225691-1-jirislaby@kernel.org>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00012E83:EE_|PH7PR12MB5879:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6c9bc9ab-9bb0-4c50-e73c-08dee86ee71a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|376014|82310400026|1800799024|11063799006|10067099003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: Jy4S8R8c5++vC8AEgL69YXcOiJJw04cd5f07lsaoVFkcGg9OJcWHRC8N1ZDaTAXj5dJen25B26ktmOIfE/Lm64MEvc5Q3ky6azNfTS0Zj3FbqJmdWE2eaLuJ1Cdi0aN6AbXUtrVCal6Tq6DkD0PIDZ6d2S0L3nQ44t7kKEWDdpocjNijukSKw91CtR5oXgHrdnMUamb/wI7czcwR69v27sl0S81JsHpbH/zfWB0Ix/wrXmyIzvdZTuWDbkkuwuQKhLPCT+5vnMDgMdSdtgujtPwTMubOP/j8PlgrU3gvcq9O167E2AzFd7k4Gmk4doUn3etnLTG/Sj7/SINsvhV4DnM/qlavkm/3Hc19wnGe1ahRRmP++T8uzusNaqVnXAgaVY4YgaYxhyV36fE/7LHTla4WUd1h3rtH1+fBKpc3noh7Cp8iP14hZaynJ1OvQQeO2BSmXFnieiwzpF5xj8Cbz9bMm4RwKOIc6PAaOiiqYMqPvaTYpI5cNX94m4DDoiOWtXNEnXnuP3bIQXCWeiSRowPalGscK2bgNZXRzzj9NB+OAYTfoU5GVvrPYx6Xog5kEmXbQs8zXHX4C9cp6CgNRpGGp5Ub6Z4Mb2C0Yui/zcsyumTdtfo36P2NLJhYGhRBBmJBM0Mqmv8iCmyJGsDWF1+GkOxEm9xMHVijmkB7E2wwF+wSfrY6LMULzIbRZvxsGZao1LKZ/Is7MkA7LsumUQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(376014)(82310400026)(1800799024)(11063799006)(10067099003)(56012099006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: oyFIJPYU2RiWnC8bjFT9BeLLKAUtg0n9dGcIIGKpLfo4T9NtguUDxO6kysX804XkW0kj38I64FuUTzqlRh9LgnQpSd+VYQEwq98LLbgoHYLDX5F0zlNExdotXXH/sjtVT4XT3TeOyHqpsVbUtUWBL3NDRvq0b4V5AnQQu1NMYtb8D6+8TPK0S0g8vZOt7h0IaIG0YhjHRuEZEUoMvnh0nlYAlkbZABEfZCc39xK+bTqGraW9bItQAvFMKtkril6B7+BOcQCzUwyFgR3PlCz6QHhZ1Y+6znHlD47MqVyGTjQK6NX2Tg/V5L1LweQivdNuA5xaMaoTkhzESvoqFa5Zr/1MOAo4g/VJSElPHpyIssjLLgwqcIf+fa1bN2PoZdlAQZ38iCc4Hu2EaQmeiO7xFyHwknavbyXXNsK72ok8T8qC0UF43x5A/iqVDUV+kUN4
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 04:00:15.3195 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6c9bc9ab-9bb0-4c50-e73c-08dee86ee71a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E83.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5879
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,25 +60,171 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Set the default reset method to mode2 for SMU 15.0.5.
+The same as the rest of the code, get_ss_info_from_atombios() uses
+calc_pll_cs->ctx->logger for logging. But calc_pll_cs->ctx is
+initialized only later in calc_pll_max_vco_construct(). Therefore, any
+output using DC_LOG_SYNC() leads to a NULL pointer deference in
+get_ss_info_from_atombios().
 
-Signed-off-by: Kanala Ramalingeswara Reddy <Kanala.RamalingeswaraReddy@amd.com>
+According to Sashiko, the very same problem exists in
+dce112_get_pix_clk_dividers() and dcn3_get_pix_clk_dividers() too.
+
+To avoid accessing the NULL context, use clk_src->base.ctx->logger
+everywhere. That context in base is initialized earlier in
+dce110_clk_src_construct() and dce112_clk_src_construct(). Before
+get_ss_info_from_atombios() or Sashiko's get_pix_clk_dividers functions
+above are actually called. This is done by redefining DC_LOGGER to
+CTX->logger.
+
+Before:
+dce110_clk_src_construct() did:
+ -> sets clk_src->base.ctx = ctx;
+ -> ss_info_from_atombios_create()
+   -> get_ss_info_from_atombios()   <- uses calc_pll_cs->ctx  # BOOM
+ -> calc_pll_max_vco_construct()    <- sets calc_pll_cs->ctx
+
+After:
+dce110_clk_src_construct() does:
+ -> sets clk_src->base.ctx = ctx;
+ -> ss_info_from_atombios_create()
+   -> get_ss_info_from_atombios()   <- uses clk_src->base.ctx
+
+Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271175
+Closes: https://lore.kernel.org/all/a9ee54e6-2413-4156-9bde-d528ae3c63a3@kernel.org/
+Fixes: 1296423bf23c ("drm/amd/display: define DC_LOGGER for logger")
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org
 ---
- drivers/gpu/drm/amd/amdgpu/soc21.c | 1 +
- 1 file changed, 1 insertion(+)
+Cc: dri-devel@lists.freedesktop.org
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/soc21.c b/drivers/gpu/drm/amd/amdgpu/soc21.c
-index 713746a75d1f..1f9a9c46377a 100644
---- a/drivers/gpu/drm/amd/amdgpu/soc21.c
-+++ b/drivers/gpu/drm/amd/amdgpu/soc21.c
-@@ -407,6 +407,7 @@ soc21_asic_reset_method(struct amdgpu_device *adev)
- 	case IP_VERSION(14, 0, 4):
- 	case IP_VERSION(14, 0, 5):
- 	case IP_VERSION(15, 0, 0):
-+	case IP_VERSION(15, 0, 5):
- 	case IP_VERSION(15, 0, 9):
- 		return AMD_RESET_METHOD_MODE2;
- 	default:
+[v2] Set DC_LOGGER to CTX->logger unconditionally (Bhawanpreet).
+[v1] https://lore.kernel.org/all/20260722063210.1144266-1-jirislaby@kernel.org/
+---
+ .../drm/amd/display/dc/dce/dce_clock_source.c | 20 +++++++++----------
+ 1 file changed, 9 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+index ecb8493ec523..8e3862f6dac2 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+@@ -45,9 +45,7 @@
+ 	clk_src->base.ctx
+ 
+ #define DC_LOGGER \
+-	calc_pll_cs->ctx->logger
+-#define DC_LOGGER_INIT() \
+-	struct calc_pll_clock_source *calc_pll_cs = &clk_src->calc_pll
++	CTX->logger
+ 
+ #undef FN
+ #define FN(reg_name, field_name) \
+@@ -287,6 +285,7 @@ static bool calc_pll_dividers_in_range(
+ }
+ 
+ static uint32_t calculate_pixel_clock_pll_dividers(
++		struct dce110_clk_src *clk_src,
+ 		struct calc_pll_clock_source *calc_pll_cs,
+ 		struct pll_settings *pll_settings)
+ {
+@@ -474,7 +473,7 @@ static uint32_t dce110_get_pix_clk_dividers_helper (
+ {
+ 	uint32_t field = 0;
+ 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
+-	DC_LOGGER_INIT();
++
+ 	/* Check if reference clock is external (not pcie/xtalin)
+ 	* HW Dce80 spec:
+ 	* 00 - PCIE_REFCLK, 01 - XTALIN,    02 - GENERICA,    03 - GENERICB
+@@ -517,12 +516,14 @@ static uint32_t dce110_get_pix_clk_dividers_helper (
+ 		/*Calculate Dividers by HDMI object, no SS case or SS case */
+ 		pll_calc_error =
+ 			calculate_pixel_clock_pll_dividers(
++				        clk_src,
+ 					&clk_src->calc_pll_hdmi,
+ 					pll_settings);
+ 	else
+ 		/*Calculate Dividers by default object, no SS case or SS case */
+ 		pll_calc_error =
+ 			calculate_pixel_clock_pll_dividers(
++					clk_src,
+ 					&clk_src->calc_pll,
+ 					pll_settings);
+ 
+@@ -568,7 +569,6 @@ static uint32_t dce110_get_pix_clk_dividers(
+ {
+ 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+ 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
+-	DC_LOGGER_INIT();
+ 
+ 	if (pix_clk_params == NULL || pll_settings == NULL
+ 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
+@@ -600,7 +600,6 @@ static uint32_t dce112_get_pix_clk_dividers(
+ 		struct pll_settings *pll_settings)
+ {
+ 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+-	DC_LOGGER_INIT();
+ 
+ 	if (pix_clk_params == NULL || pll_settings == NULL
+ 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
+@@ -1442,8 +1441,6 @@ static uint32_t dcn3_get_pix_clk_dividers(
+ 	unsigned long long actual_pix_clk_100Hz = pix_clk_params ? pix_clk_params->requested_pix_clk_100hz : 0;
+ 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+ 
+-	DC_LOGGER_INIT();
+-
+ 	if (pix_clk_params == NULL || pll_settings == NULL
+ 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
+ 		DC_LOG_ERROR(
+@@ -1513,7 +1510,6 @@ static const struct clock_source_funcs dce110_clk_src_funcs = {
+ 	.get_dp_dto_frequency_100hz = get_dp_dto_frequency_100hz
+ };
+ 
+-
+ static void get_ss_info_from_atombios(
+ 		struct dce110_clk_src *clk_src,
+ 		enum as_signal_type as_signal,
+@@ -1526,7 +1522,7 @@ static void get_ss_info_from_atombios(
+ 	struct spread_spectrum_info *ss_info_cur;
+ 	struct spread_spectrum_data *ss_data_cur;
+ 	uint32_t i;
+-	DC_LOGGER_INIT();
++
+ 	if (ss_entries_num == NULL) {
+ 		DC_LOG_SYNC(
+ 			"Invalid entry !!!\n");
+@@ -1657,6 +1653,7 @@ static void ss_info_from_atombios_create(
+ }
+ 
+ static bool calc_pll_max_vco_construct(
++			struct dce110_clk_src *clk_src,
+ 			struct calc_pll_clock_source *calc_pll_cs,
+ 			struct calc_pll_clock_source_init_data *init_data)
+ {
+@@ -1808,6 +1805,7 @@ bool dce110_clk_src_construct(
+ 	ss_info_from_atombios_create(clk_src);
+ 
+ 	if (!calc_pll_max_vco_construct(
++			clk_src,
+ 			&clk_src->calc_pll,
+ 			&calc_pll_cs_init_data)) {
+ 		ASSERT_CRITICAL(false);
+@@ -1822,7 +1820,7 @@ bool dce110_clk_src_construct(
+ 
+ 
+ 	if (!calc_pll_max_vco_construct(
+-			&clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
++			clk_src, &clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
+ 		ASSERT_CRITICAL(false);
+ 		goto unexpected_failure;
+ 	}
 -- 
-2.53.0
+2.55.0
 
