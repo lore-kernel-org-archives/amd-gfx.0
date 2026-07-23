@@ -4,40 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47E30C531D0
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 23:36:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5DFBBC531D0
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 23:59:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF02510F255;
-	Thu, 23 Jul 2026 23:36:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EF2F110E36C;
+	Thu, 23 Jul 2026 23:59:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="pOcuRlTw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DMgqugg2";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D383810F255;
- Thu, 23 Jul 2026 23:36:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=Ek/7ha9nYx7nF4x7Mfvv+yu77d1iC2nPQYMX/1iUF6U=; b=
- pOcuRlTw5SFhoNo9c9K4Tx0Qfc5Ucv5wCerijSzJfFqGnuwJgrGkj7+Y7Y1i1NDUIaNv+SRs0Zusw
- UbHh3IoQgRku17Y7vtrR0KbTPKM/wIOWG5ZBV+8EJkVy/yVDx8+KP9YHpvp80HDZR3bvkVrxsLCbs
- gu6foGM6p5RTggvWrknfInXSPQtufORrKEmCxLGGriB65fQ6XAcZLXGAUsGlUxhdGH7Db3kWDKbVu
- HK4PtBGyHgqau+uHZhQFHcfmAb+dEymEmcNawJd1lnEjVBAG3g3GL92pLHH+LjZUo4SMEFTAmE+Nr
- PLNa+9QjWUXt6JtzUUHklXB1wkeKOQU1yg==;
-Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
- helo=localhost.localdomain) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wn2xy-003eJT-Ia; Fri, 24 Jul 2026 01:36:38 +0200
-From: John Harrison <John.Harrison@Igalia.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
- Alex Hung <alex.hung@amd.com>, Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH] drm/amd/display: Fix use-after-free bugs in KUnit tests
-Date: Thu, 23 Jul 2026 16:35:48 -0700
-Message-ID: <20260723233548.580891-1-John.Harrison@Igalia.com>
-X-Mailer: git-send-email 2.43.0
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010030.outbound.protection.outlook.com [52.101.201.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0321310E36C
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 23:59:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=E8hPCsvYzoS6eId/wIhvxvp4L3pM6fF6iXWs+hK0hMEpe4CFuVGtpcLM3WXlQMB/RjmCtf2iQEFT31rQ8ZA2bW85hTW2XPUKfSjO1MQQAsqpKGR4hRF+Ej4yW2m21ifj599Tn9urkBa4d6Xez8plnd3mWlS0lXF36ODEaL7yemprzWkZBF9nvvEo3XsQHeFMqb1EC1d62WhOUdvdE3iEp+maZ/nc5C+uAjZktwGqPuphVjaWqUyqjFD2T993JGI2g3jHZTlNL0sxoXIV0MDPk8JDeh/QkaQgabzH75rjTgL4P2FgJpBtjCAVbXvSXlPK9bRgCMmJUFtl+4nIn8N2WQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5n+JSRnI5wX1NkCb884a+A/1WDMJiFtZsIzJYlw1MwM=;
+ b=JOJEffXuHnZAwQVEIH+JhY6XVKD3oTwy+VrzR40zDU71Y8JSt8Iz10wt4P+hobTXSQQIlbTbVVPfvS3rDEQmEhzE+JrGkKMObTefcj1nxC/cJkBRN275lyn0ABnNawn963XvMJ5lvKgP1Ug9ySUrJoVd2L9oCU0CoNY/4BPp9zNKID+F460gfl8pS1zaPL0Q2JP+HJNGqXU1YEJDOQALXSD5AxQIRUBYA9EDXl11iS504Tt7YqPCWnQ1PkMahDA90CzDMVZsCCwOIT/nvrUCJu8Uf+gVvz2jD88u/pFvlDXTtTA7y9qHy/z6Yj5oxx887u7fOL330/UFjmG9GpIS6w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5n+JSRnI5wX1NkCb884a+A/1WDMJiFtZsIzJYlw1MwM=;
+ b=DMgqugg2U/cGMt2QSuzokAT3elGUp4ggZrdj+Dut87NAyYTtRJvODman9EJzvVz8lUOp4FzeF1W+OkTI4CRfe0O7Yj7oekjUbZh5Q84TjrTdnwDKVzSevPOytVVWuj6Wc1O5oV0UoWEK7g+Ln27W9E/ayQyvo5cWxc4Cr9sZ1Is=
+Received: from DS0PR17CA0009.namprd17.prod.outlook.com (2603:10b6:8:191::9) by
+ MN0PR12MB6032.namprd12.prod.outlook.com (2603:10b6:208:3cc::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
+ 2026 23:59:36 +0000
+Received: from DS1PEPF00017096.namprd05.prod.outlook.com
+ (2603:10b6:8:191:cafe::af) by DS0PR17CA0009.outlook.office365.com
+ (2603:10b6:8:191::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.11 via Frontend Transport; Thu,
+ 23 Jul 2026 23:59:36 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS1PEPF00017096.mail.protection.outlook.com (10.167.18.100) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 23:59:36 +0000
+Received: from sunce-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 23 Jul
+ 2026 18:59:33 -0500
+From: Ce Sun <cesun102@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <YiPeng.Chai@amd.com>, <Tao.Zhou1@amd.com>,
+ <Stanley.Yang@amd.com>, <Lijo.Lazar@amd.com>, Ce Sun <cesun102@amd.com>
+Subject: [PATCH] drm/amd/ras: eliminate gpu reset lock protection for ras ta
+ runtime command path
+Date: Fri, 24 Jul 2026 07:59:18 +0800
+Message-ID: <20260723235918.1090518-1-cesun102@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017096:EE_|MN0PR12MB6032:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7dc7747-b299-43f2-e5dc-08dee916731f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|18002099003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info: 0gcvNCy0Oyc+LMtDAOVDfe1KUwC6CIb+PZC779y0Z/RUZIgG82kMT5zqXCIC0WJ583smXO0BJpVdqiofd/2EX++jYX9WrefVS6XvLgyFDCtqxSbjdSxfLyMleTl3XSxTF26M1QXVCcD5650E58Fx5Q/uCen5kAnmAoGjVRvB6qXAtEFWpApjsBFXHv2TsQr7UkibHv9ro2YJdcixbdeWTRuB9Z7sLm8H0Vds0LIm2Ugwt4KexdEitUx8YI0B6mo4qcg0Jk9MYzMDUc8871DoexrVKYHeKwC9C+zrmNufv8+pYvcMVRV7csZ8g3W+L3jQWmSp38d0zOkCnfCvA2sz8BJ8yBeTX3Nv3QJmT2qaSxjx6PBc4zzAcnRtbjVT0bi7M25nQJQnc5fgPm046t79lCZLkWwZX9ZqjnpJQ5T4AI0bQfiIxlhFut0tMPbpBgmw6u654VgZjHK1TdraIPsT66PkfmRQiGhyYVpYgriBKzxOpHnSQ6RCGuwHsWjIx0wYifCPLtJOoBOWIb6WBzWEZgSd7qKoOORhnYtUwrvf++s9EczAlqYHtOrjgYCtyR2FQD5MNHI+GA04NG6ihIS+wXTmccobp7C+P2ab0Wa1dc1vI35I1u0Bu97t3HR9DYcoL5Ev05GnnA/sEW7GI6BwK9E5muMzhFPtflR0/sYvaUQT81Desch0bwfnEgNbmuHE
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(18002099003)(11063799006)(10067099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: P0oL9lqYtGkmfJP5T9uDuYaig0pKKGKrcLdS0mhsaAB6AqOgrTeUhwGWYnDpEbGQ1MIm1lx4E1/ZWx/YupNmnoEcqKB6gT+T/H8lscZAOPs47XZ3emKrcvZUvPRbB8XHQKCO+jVi4v7JcKlK8QKTMwaqPQAlBhKt9tcOWzZHfW+7h3zE/fm1RY3JcuvETOsk4ob1A+7K0nV2JwNY/mAqyYoEqLGZYJSfglF9mNRrpIQG5js9ZmJQKrPcip86VYMEPXL3k5qxKRVIksMFmUNtn8DqrCwA07uIlsMo6a5PaeqUcnM0rDeRGTi+lUBkd/ArkVxxOdU03YBous8YLeA2xWQBGThBTLgXSQ490HSbKNn7eIuO0BNXYESHU/00KCE5xxbawJnFteZjWq8tZFPYfnExQJoywtFceoY3XsfKheE4prKDWhz+Bnlh4vBv5hdi
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 23:59:36.2372 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7dc7747-b299-43f2-e5dc-08dee916731f
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017096.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6032
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -52,225 +109,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When running the KUnit tests with memory debugging enabled, a bunch of
-use-after-free errors are hit. These are due to using KUnit managed
-memory for the test objects but then giving them over to DRM managed
-objects. The KUnit stuff is deallocated first and when the DRM side
-calls its clean up helpers, it hits memory that has been freed already.
+When PMFW enters mode-1 state, it will not respond to incoming messages.
+Holding gpu reset lock before dispatching messages to PMFW would defer
+GPU recovery processing, cause undesirable timing skew.
 
-NB: There is still a use-after-free bug in the writeback tests.
-However, fixing that requires driver side changes as well as test side
-changes. Those changes are part of:
-  https://patchwork.freedesktop.org/series/152420/
+Remove the gpu reset lock acquire and release logic inside
+send_ras_ta_runtime_cmd, prioritize GPU recovery execution over PMFW
+message delivery to fix timing dependency problems.
 
-Signed-off-by: John Harrison <John.Harrison@Igalia.com>
-CC: Alex Hung <alex.hung@amd.com>
-CC: Harry Wentland <harry.wentland@amd.com>
+Signed-off-by: Ce Sun <cesun102@amd.com>
 ---
- .../tests/amdgpu_dm_connector_test.c          | 37 ++++++++++---------
- .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c |  3 +-
- .../amdgpu_dm/tests/amdgpu_dm_wb_test.c       |  5 ++-
- 3 files changed, 24 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/ras/rascore/ras_psp.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index 0a5d439f66c3..93a854d4fdfa 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -12,6 +12,7 @@
- #include <drm/drm_crtc.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_kunit_helpers.h>
-+#include <drm/drm_managed.h>
- #include <drm/drm_mode_object.h>
- #include <drm/drm_property.h>
- #include <linux/hdmi.h>
-@@ -1449,7 +1450,7 @@ static void dm_test_funcs_reset_sets_defaults(struct kunit *test)
- 						   DRIVER_MODESET);
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_psp.c b/drivers/gpu/drm/amd/ras/rascore/ras_psp.c
+index 358f602b167d..fbe91eb67c0e 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_psp.c
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_psp.c
+@@ -374,11 +374,6 @@ static int send_ras_ta_runtime_cmd(struct ras_core_context *ras_core,
+ 	if (!cmd_mem)
+ 		return -ENOMEM;
  
--	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
-+	connector = drmm_kzalloc(drm, sizeof(*connector), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, connector);
+-	if (!ras_core_down_trylock_gpu_reset_lock(ras_core)) {
+-		ret = -EACCES;
+-		goto out;
+-	}
+-
+ 	ras_cmd = (struct ras_ta_cmd *)cmd_mem->mem_cpu_addr;
  
- 	drmm_connector_init(drm, connector, &dm_test_connector_funcs,
-@@ -1488,7 +1489,7 @@ static void dm_test_funcs_reset_edp_abm_level(struct kunit *test)
- 						   DRIVER_MODESET);
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+ 	mutex_lock(&ta_ctx->ta_mutex);
+@@ -422,7 +417,6 @@ static int send_ras_ta_runtime_cmd(struct ras_core_context *ras_core,
  
--	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
-+	connector = drmm_kzalloc(drm, sizeof(*connector), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, connector);
- 
- 	drmm_connector_init(drm, connector, &dm_test_connector_funcs,
-@@ -1526,7 +1527,7 @@ static void dm_test_funcs_reset_edp_abm_disabled(struct kunit *test)
- 						   DRIVER_MODESET);
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
- 
--	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
-+	connector = drmm_kzalloc(drm, sizeof(*connector), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, connector);
- 
- 	drmm_connector_init(drm, connector, &dm_test_connector_funcs,
-@@ -1568,7 +1569,7 @@ static void dm_test_atomic_dup_state_copies_fields(struct kunit *test)
- 						   DRIVER_MODESET);
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
- 
--	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
-+	connector = drmm_kzalloc(drm, sizeof(*connector), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, connector);
- 
- 	drmm_connector_init(drm, connector, &dm_test_connector_funcs,
-@@ -2359,8 +2360,8 @@ static void setup_panel_type_fixture(struct kunit *test,
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fixture->drm);
- 	fixture->adev = drm_to_adev(fixture->drm);
- 
--	fixture->aconnector = kunit_kzalloc(test, sizeof(*fixture->aconnector),
--					    GFP_KERNEL);
-+	fixture->aconnector = drmm_kzalloc(fixture->drm, sizeof(*fixture->aconnector),
-+					   GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fixture->aconnector);
- 	fixture->link = kunit_kzalloc(test, sizeof(*fixture->link), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fixture->link);
-@@ -2554,9 +2555,9 @@ static void dm_test_update_subconnector_dp_with_sink(struct kunit *test)
- 						   DRIVER_MODESET);
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
- 
--	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
-+	aconnector = drmm_kzalloc(drm, sizeof(*aconnector), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
--	link = kunit_kzalloc(test, sizeof(*link), GFP_KERNEL);
-+	link = drmm_kzalloc(drm, sizeof(*link), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, link);
- 
- 	drmm_connector_init(drm, &aconnector->base, &dm_test_connector_funcs,
-@@ -2598,9 +2599,9 @@ static void dm_test_update_subconnector_dp_no_sink(struct kunit *test)
- 						   DRIVER_MODESET);
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
- 
--	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
-+	aconnector = drmm_kzalloc(drm, sizeof(*aconnector), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
--	link = kunit_kzalloc(test, sizeof(*link), GFP_KERNEL);
-+	link = drmm_kzalloc(drm, sizeof(*link), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, link);
- 
- 	drmm_connector_init(drm, &aconnector->base, &dm_test_connector_funcs,
-@@ -2641,9 +2642,9 @@ static void dm_test_update_subconnector_non_dp_noop(struct kunit *test)
- 						   DRIVER_MODESET);
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
- 
--	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
-+	aconnector = drmm_kzalloc(drm, sizeof(*aconnector), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
--	link = kunit_kzalloc(test, sizeof(*link), GFP_KERNEL);
-+	link = drmm_kzalloc(drm, sizeof(*link), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, link);
- 
- 	drmm_connector_init(drm, &aconnector->base, &dm_test_connector_funcs,
-@@ -2657,7 +2658,7 @@ static void dm_test_update_subconnector_non_dp_noop(struct kunit *test)
- 
- 	link->dpcd_caps.dongle_type = DISPLAY_DONGLE_DP_HDMI_CONVERTER;
- 	aconnector->dc_link = link;
--	aconnector->dc_sink = kunit_kzalloc(test, sizeof(*aconnector->dc_sink), GFP_KERNEL);
-+	aconnector->dc_sink = drmm_kzalloc(drm, sizeof(*aconnector->dc_sink), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, aconnector->dc_sink);
- 
- 	update_subconnector_property(aconnector);
-@@ -2804,7 +2805,7 @@ static struct amdgpu_dm_connector *dm_test_add_connector(struct kunit *test,
- {
- 	struct amdgpu_dm_connector *aconnector;
- 
--	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
-+	aconnector = drmm_kzalloc(drm, sizeof(*aconnector), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
- 
- 	KUNIT_ASSERT_EQ(test,
-@@ -3103,7 +3104,7 @@ static struct dm_test_panel_ctx *dm_test_panel_ctx_alloc(struct kunit *test)
- 	KUNIT_ASSERT_NOT_NULL(test, prop);
- 	ctx->drm->mode_config.panel_type_property = prop;
- 
--	ctx->aconnector = kunit_kzalloc(test, sizeof(*ctx->aconnector), GFP_KERNEL);
-+	ctx->aconnector = drmm_kzalloc(ctx->drm, sizeof(*ctx->aconnector), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, ctx->aconnector);
- 	KUNIT_ASSERT_EQ(test,
- 		drmm_connector_init(ctx->drm, &ctx->aconnector->base,
-@@ -3112,7 +3113,7 @@ static struct dm_test_panel_ctx *dm_test_panel_ctx_alloc(struct kunit *test)
- 	drm_object_attach_property(&ctx->aconnector->base.base, prop,
- 				   DRM_MODE_PANEL_TYPE_UNKNOWN);
- 
--	ctx->link = kunit_kzalloc(test, sizeof(*ctx->link), GFP_KERNEL);
-+	ctx->link = drmm_kzalloc(ctx->drm, sizeof(*ctx->link), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, ctx->link);
- 	ctx->aconnector->dc_link = ctx->link;
- 
-@@ -3376,14 +3377,14 @@ static struct dm_test_fill_ctx *dm_test_fill_ctx_alloc(struct kunit *test)
- 						       DRIVER_MODESET);
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->drm);
- 
--	ctx->aconnector = kunit_kzalloc(test, sizeof(*ctx->aconnector), GFP_KERNEL);
-+	ctx->aconnector = drmm_kzalloc(ctx->drm, sizeof(*ctx->aconnector), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, ctx->aconnector);
- 	KUNIT_ASSERT_EQ(test,
- 		drmm_connector_init(ctx->drm, &ctx->aconnector->base,
- 				    &dm_test_connector_funcs,
- 				    DRM_MODE_CONNECTOR_DisplayPort, NULL), 0);
- 
--	ctx->conn_state = kunit_kzalloc(test, sizeof(*ctx->conn_state), GFP_KERNEL);
-+	ctx->conn_state = drmm_kzalloc(ctx->drm, sizeof(*ctx->conn_state), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, ctx->conn_state);
- 	ctx->stream = kunit_kzalloc(test, sizeof(*ctx->stream), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, ctx->stream);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c
-index 58615cdbe854..7d5e3823b33b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c
-@@ -8,6 +8,7 @@
- #include <kunit/test.h>
- #include <linux/module.h>
- #include <drm/drm_kunit_helpers.h>
-+#include <drm/drm_managed.h>
- 
- #include "dc.h"
- #include "core_types.h"
-@@ -127,7 +128,7 @@ struct amdgpu_dm_connector *dm_kunit_alloc_connector(struct kunit *test,
- {
- 	struct amdgpu_dm_connector *aconnector;
- 
--	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
-+	aconnector = drmm_kzalloc(adev_to_drm(adev), sizeof(*aconnector), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, aconnector);
- 
- 	if (adev)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
-index b43bc244487e..3454cf371414 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
-@@ -12,6 +12,7 @@
- #include <drm/drm_fourcc.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_kunit_helpers.h>
-+#include <drm/drm_managed.h>
- #include <drm/drm_mode.h>
- #include <drm/drm_modes.h>
- #include <drm/drm_writeback.h>
-@@ -266,7 +267,7 @@ static void dm_test_wb_get_modes_returns_modes(struct kunit *test)
- 						   DRIVER_MODESET | DRIVER_ATOMIC);
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
- 
--	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
-+	connector = drmm_kzalloc(drm, sizeof(*connector), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, connector);
- 
- 	drmm_connector_init(drm, connector, &dm_wb_test_connector_funcs,
-@@ -301,7 +302,7 @@ static void dm_test_wb_get_modes_bounded_by_max(struct kunit *test)
- 						   DRIVER_MODESET | DRIVER_ATOMIC);
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
- 
--	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
-+	connector = drmm_kzalloc(drm, sizeof(*connector), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, connector);
- 
- 	drmm_connector_init(drm, connector, &dm_wb_test_connector_funcs,
+ unlock:
+ 	mutex_unlock(&ta_ctx->ta_mutex);
+-	ras_core_up_gpu_reset_lock(ras_core);
+ out:
+ 	ras_psp_put_gpu_mem(ras_core, cmd_mem);
+ 	return ret;
 -- 
-2.43.0
+2.34.1
 
