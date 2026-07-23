@@ -4,45 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16549C531D0
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 19:18:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BB216C531CC
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 19:48:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 79DAB10E5DB;
-	Thu, 23 Jul 2026 19:18:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5049010E606;
+	Thu, 23 Jul 2026 19:48:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="GAmdzf0+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qypl6ZQG";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BD0110E5DB
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 19:18:15 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EBEC5600AD;
- Thu, 23 Jul 2026 19:18:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4397F1F000E9;
- Thu, 23 Jul 2026 19:18:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784834294;
- bh=km/hZgafDxvQG+dMay7Hhcwk8CdfB98TFy88ccWShY4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=GAmdzf0+cvKE1gAmkXAWk8B+zn+Ib7HkfIwtz5PxLcatnSgMPYKyUD6QqjEIOuTiC
- kMMN65vnxEYHLJsm4Bx4k1Lujv7bPxwEwqNQB09p+WT9zkeETHVOjmpedNtaVpRXcj
- aRXEnRnMpr1ByqvBZ32k689sCEVPlguOODMetlhe/UYZInHT5UoaDXNEscTC1BLLsE
- p/xgSc6OWm3HbGtZX6qzKsfkyVuNLq7n0rHarxLNWHu2O6q1rOsdC62eGomNvpwMJz
- y1FNxqrR8j3m6scxvaHcAer3gLB0RiZtwW+zirgs7bWnXaOVak+Xg19ORPTKspdoTN
- 8VcNCWusyHEtw==
-Message-ID: <66071e47-2743-48ab-bb3c-8a8ae4ec199d@kernel.org>
-Date: Thu, 23 Jul 2026 14:18:13 -0500
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011005.outbound.protection.outlook.com [52.101.57.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D03DB10E606
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 19:48:02 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gxq35+GYOamBTW8vvlbMIHMu5rQydIlEG5WXKDVtsxnw7+aw6f9+u/EVdKAAyLDZswKZHGgOA8X9s2MQ94s8+vTODKyqw2A8BR5GdGWIByzKELl4tm0Mgrpc+CfzPJT/28PhXPHk7hSmoySpza+GmHgRuv0yRTpnXpiH3cOTTSFBSlH255gxlHmu5OHwtO2qo7JGqgBYveBM21pKQSA3/pi0+kn8fDCwJ4BAUtRJ8otlB/QujqvkROvPza8sUWFjQeGSu9CLOKYREkq68//ODQNDsjPpFYgQazl38pVg0kbUD5lLmrkNswtt92yi7filGyUdA9JoyQIJbrSwGgOc8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0fml1NVitM89eR+iKL8lAmRWVQebDN0uKHO8rO+oAT4=;
+ b=p8+SiXdNhUaiOu75+b1ldJjVE+K6/W3wzuEtpvOXhMebV2sOWS+qOnzW1Tw0XCvHZYSj6gnJuMWAGNM4AvAP1TSCbsiZb4lXLNApe5Geqw6SRguurO+wD+i78shU55joHGb9W4wMYNuKjW0p02VRAXqa1KuCizTDNh/YDhBgn+sUprMzvYhRM/nCFiIEDZJRK+sek3YRFH2KD69Wrb1o1aAeoSVY3rsqipFScQ96kfgeE3vW2r+02fQIwhr3R6BcTSIUBRmmRqEfvUSz0zINMBV+/B4cADtlDMt0iP/9GaICFfFxpapXXvQPo8/uw/mQYvlJt1pmznlPAQriKRk5PA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0fml1NVitM89eR+iKL8lAmRWVQebDN0uKHO8rO+oAT4=;
+ b=qypl6ZQGGy0Z65vm6qWjRFhQGDmzvIB4ikqHoorFcR8FLxgiMxE2Sxbeq85tibaoROW8QbX83HqEiTn0QGPLR4mTbF00uKVrqySVEPjrbAZaLMja869ghd8qFaN/OJnMr6cF/ouWlbBsEVHHpYoiwFGTkCiLzyeiQdv5c7Kie9M=
+Received: from CH5P223CA0004.NAMP223.PROD.OUTLOOK.COM (2603:10b6:610:1f3::24)
+ by BL1PR12MB5754.namprd12.prod.outlook.com (2603:10b6:208:391::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.13; Thu, 23 Jul
+ 2026 19:47:52 +0000
+Received: from CH1PEPF0000AD81.namprd04.prod.outlook.com
+ (2603:10b6:610:1f3:cafe::ae) by CH5P223CA0004.outlook.office365.com
+ (2603:10b6:610:1f3::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.11 via Frontend Transport; Thu,
+ 23 Jul 2026 19:47:51 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000AD81.mail.protection.outlook.com (10.167.244.89) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.245.5 via Frontend Transport; Thu, 23 Jul 2026 19:47:51 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 23 Jul
+ 2026 14:47:51 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 23 Jul
+ 2026 14:47:51 -0500
+Received: from [10.254.92.129] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 23 Jul 2026 14:47:50 -0500
+Message-ID: <476574f8-3bd5-4fc5-832f-e94fe1685870@amd.com>
+Date: Thu, 23 Jul 2026 15:47:50 -0400
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] drm/amd/display: Fix flip-done timeouts on mode1 reset
-Content-Language: en-US
-To: sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org
-Cc: Harry.Wentland@amd.com, alexander.deucher@amd.com, stable@vger.kernel.org
+To: Mario Limonciello <superm1@kernel.org>, <amd-gfx@lists.freedesktop.org>
+CC: <Harry.Wentland@amd.com>, <alexander.deucher@amd.com>,
+ <stable@vger.kernel.org>
 References: <20260723180159.52121-1-sunpeng.li@amd.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260723180159.52121-1-sunpeng.li@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <66071e47-2743-48ab-bb3c-8a8ae4ec199d@kernel.org>
+Content-Language: en-US
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <66071e47-2743-48ab-bb3c-8a8ae4ec199d@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD81:EE_|BL1PR12MB5754:EE_
+X-MS-Office365-Filtering-Correlation-Id: a53f07ef-4003-4a22-5f16-08dee8f3482b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|1800799024|376014|23010399003|82310400026|42112799006|11063799006|6133799003|56012099006|4143699003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: kmHXkTBCo2/SYKPaV/LhhtvbxYhl1fkyMm3QQp4RNiPjS6gdv45NqTFo5o7FwwCQ8B6Wooz9o3eP+tbTnScilEUrL9yfeq5yKIGmerowhnt6ZA2nMzz8diqik/0zaC+Sj1zVUESoiWzEN2yutQWRlXpy3/UzVnZYZxuOlFQBPMJeSixhQWnYS/QpR4dvdbfnGdw474UskSuI2aEYe08E7jPN+AzZGfNkGittt8BF8vKAT8HsBAuwdPlkd391TiVIz4GxVd/+8zcnip/NcadUuR4wuJjd6kKOPJ8i18D9j44kB6PyBdXBNoFSE+R1GHQoQmyHRpS4zn++5mlgmGENqeCPGzTSfH7O/KkIQT2zOEqCmJuUnJs3SRRBtijuJUK+5b/ceNNVgFrJezs3o54vpBut+4d9L1RS6QbqHcoatdFfepkKZo8lwfRv5+Ovb2t1Lf1AxGu+W1642kFOY5E+L5oGsIyd83jr+/TRyNFkkt8cymMJ408SIG6G1DfBh6qaTYdv5+WKlgaKKtruHkibuESZr/gy6yKf5OSMtkuRZ3bGiSTkNIpXMOq3LHw3JUFKn1JqGg1++GYMFjO1KP5pFRadsd0diXwY1qrXxxq8dCCnW1MT+YL9Xpbdh8vH8iyUDpZ4kaQQbWtGVnF3c0oqNA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(376014)(23010399003)(82310400026)(42112799006)(11063799006)(6133799003)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: EzPOtBU/WrcoFz2JMqKCmBzrz11Xs6TBnob5Z+2/ccdnhd1uaQ91RuUi2eJBNSMYrl41bsdvhHxKbjhdeulQHSTjwviWIeLZfPGYUCAKj0GMYUZ3xOhR7R+4UfniLE/Ts4DUioP1U9VzkVQWSouycoZBOr5zbxXSiJE5xVC1N/7iiB4mGovtsmQKJZyYDOK+ziHakiEAXaElIYvm8tsJszt+J8WzaSY5uKRFajkcKNg0w8eCp+MB9hErGEjJj/+0tBlRuYEMKzcRUNFwnSBE9xE6lID6HSKGvl3wfIU9jdzigso5K1q0Ili6HCtpl9D5yP1m6ELlOVmpv2RsNz3X2OWo0Cfx4/yE+9ns3bKlJoHCVNxSeKJDQ0YJeWfhgmhzskOEJ+tRkL3lAzbSsF4kFz05Jq/OD2IEMZ7foCKfjPpv98dy1aeINk14pc6HOkeu
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 19:47:51.8136 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a53f07ef-4003-4a22-5f16-08dee8f3482b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD81.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5754
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,71 +118,40 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 7/23/26 13:01, sunpeng.li@amd.com wrote:
-> From: Leo Li <sunpeng.li@amd.com>
+On 2026-07-23 15:18, Mario Limonciello wrote:
+>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+>> index 05d6915f9a6b0..079d4ccc88da6 100644
+>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+>> @@ -287,10 +287,19 @@ static inline int amdgpu_dm_crtc_set_vblank(struct drm_crtc *crtc, bool enable)
+>>        * is enabled. On DCE, vupdate is only needed in VRR mode.
+>>        */
+>>       if (amdgpu_ip_version(adev, DCE_HWIP, 0) != 0) {
+>> -        rc = amdgpu_dm_crtc_set_vupdate_irq(crtc, enable);
+>> +        if (enable) {
+>> +            rc = amdgpu_irq_get(adev, &adev->vupdate_irq, irq_type);
+>> +            drm_dbg_vbl(crtc->dev, "Get vupdate_irq ret=%d\n", rc);
+>> +        } else {
+>> +            rc = amdgpu_irq_put(adev, &adev->vupdate_irq, irq_type);
+>> +            drm_dbg_vbl(crtc->dev, "Put vupdate_irq ret=%d\n", rc);
+>> +        }
 > 
-> The vblank on/off callbacks mixed use of amdgpu_irq_get/put() and
-> amdgpu_dm_crtc_set_vupdate_irq() to enable and disable IRQs.
-> 
-> With get/put, base driver will callback into DC to disable IRQs when
-> refcount == 0. With set_vupdate_irq(), DC is called directly to disable
-> IRQs, bypassing base driver's refcount tracking.
-> 
-> During gpu reset, base driver can restore IRQs via
-> amdgpu_irq_gpu_reset_resume_helper() > amdgpu_irq_update(). So if
-> get/put() is not used (i.e. refcount == 0), then vupdate_irq will be
-> disabled.
-> 
-> This is problematic if DRM requests vblank on before amdgpu_irq_update()
-> is called: drm_vblank_on() > set_vupdate_irq() enables vupdate_irq, but
-> the refcount is still 0. gpu_reset_resume_helper() > irq_update() then
-> immediately disables it, thus leading to flip done timeouts.
-> 
-> This is made worse on DCN since VUPDATE_NO_LOCK is the only IRQ enabled.
-> Prior to 8382cd234981, a combination of GRPH_FLIP and VSTARTUP IRQs were
-> used, and they used get/put(). This explains why 8382cd234981 exposed
-> this issue.
-> 
-> Fix by using get/put() instead of set_vupdate_irq(). DCE is unchanged,
-> since it relies on unbalanced enable/disable calls based on VRR status,
-> and hence requires direct set_vupdate_irq(). Plus, it also uses
-> GRPH_FLIP and VLINE IRQs, which are properly tracked by get/put().
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 8382cd234981 ("drm/amd/display: consolidate DCN vblank/flip handling onto vupdate_no_lock")
-> Signed-off-by: Leo Li <sunpeng.li@amd.com>
-> ---
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c  | 13 +++++++++++--
->   1 file changed, 11 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> index 05d6915f9a6b0..079d4ccc88da6 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> @@ -287,10 +287,19 @@ static inline int amdgpu_dm_crtc_set_vblank(struct drm_crtc *crtc, bool enable)
->   	 * is enabled. On DCE, vupdate is only needed in VRR mode.
->   	 */
->   	if (amdgpu_ip_version(adev, DCE_HWIP, 0) != 0) {
-> -		rc = amdgpu_dm_crtc_set_vupdate_irq(crtc, enable);
-> +		if (enable) {
-> +			rc = amdgpu_irq_get(adev, &adev->vupdate_irq, irq_type);
-> +			drm_dbg_vbl(crtc->dev, "Get vupdate_irq ret=%d\n", rc);
-> +		} else {
-> +			rc = amdgpu_irq_put(adev, &adev->vupdate_irq, irq_type);
-> +			drm_dbg_vbl(crtc->dev, "Put vupdate_irq ret=%d\n", rc);
-> +		}
+> For completeness in error handling, shouldn't you pass up the return code on non-zero?  It looks like it could pass up to DRM core then.
 
-For completeness in error handling, shouldn't you pass up the return 
-code on non-zero?  It looks like it could pass up to DRM core then.
+It's not shown in the context here, but the rc is passed up later:
+https://elixir.bootlin.com/linux/v7.2-rc4/source/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c#L295
 
->   	} else if (dc_supports_vrr(dm->dc->ctx->dce_version)) {
->   		if (enable) {
-> -			/* vblank irq on -> Only need vupdate irq in vrr mode */
-> +			/* vblank irq on -> Only need vupdate irq in vrr mode
-> +			 * Not ref-counted since we need explicit enable/disable
-> +			 * for DCE VRR handling
-> +			 */
->   			if (amdgpu_dm_crtc_vrr_active(acrtc_state))
->   				rc = amdgpu_dm_crtc_set_vupdate_irq(crtc, true);
->   		} else {
+- Leo
+
+> 
+>>       } else if (dc_supports_vrr(dm->dc->ctx->dce_version)) {
+>>           if (enable) {
+>> -            /* vblank irq on -> Only need vupdate irq in vrr mode */
+>> +            /* vblank irq on -> Only need vupdate irq in vrr mode
+>> +             * Not ref-counted since we need explicit enable/disable
+>> +             * for DCE VRR handling
+>> +             */
+>>               if (amdgpu_dm_crtc_vrr_active(acrtc_state))
+>>                   rc = amdgpu_dm_crtc_set_vupdate_irq(crtc, true);
+>>           } else { 
 
