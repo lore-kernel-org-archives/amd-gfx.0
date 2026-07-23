@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9C7DC531CC
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 20:19:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AA5A5C531FC
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 20:19:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AC4110F17B;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81AFF10F1CE;
 	Thu, 23 Jul 2026 20:19:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E7iyk6rT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uJpKsfQk";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010042.outbound.protection.outlook.com [52.101.46.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 720C110F1C5
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 20:19:04 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013067.outbound.protection.outlook.com
+ [40.93.196.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 180A210F1C5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 20:19:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cx0J0jpxI3he1g+1Sbs10I6uVT2SnH4JC3dhCemPuLsxY0Mvttcf+vTc6Z2ED6m6ohm8gf06qqUAdygsEy4va/ovxt5p5DDmAQphdkbb+5M7ZNzxGz87x4kBOOyE401vja1cSNzT8laKnwkPsWQQb0ryu0Aa7h1qZMB05qi6/pCR9bjNCi+497tkXrftejbSKmeSA/VDic33p8VQXfUB+SnlxdvpBmG5NYhBugBZzSfo8Bivr7pEfX/G94IeH5y5kSSv/lC1MydgvZiBHt/Jd513LUDIs8q2HqCnXiLGSM0alGCwNDQshWgC7JtwK2YmRBi45YxV8RxRbZDX/5nIaw==
+ b=W4+kSM7zv2WvPWct5gLNI+MGQK1/f7UV5xp+5sYSTY6c4WVpUcN72CD4g4udyzq8vthLya5WHXU5Yy+Jy7uRYID96r3wFChVSKc2fL9DrHz6vZpGYjnU2VM2US25yq95Kb38CeEosMECPuatYxgNZ+KanaPtWBL+v5q1sWyfGLRGiuTz+eNC3RGnCTp10h8SL0IdYgvhgBHkAYbk2vMSvIja0ZpyXkuYpaX9i5IgbJfOCkmozeugCYZjwaaN00YJ/j3lqAnggbjRIlYJchDEdSIK7gjnawdFsYGyqobhux7iJbSW8t0lc6wWUk2V9nw65QuzTh8zOfs+aRr1mfIJLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KChiaTuQW5IWAYwJJpSgYYWKmzeU54vbn5L3Qn8XtI0=;
- b=VuSinKdZywYbeSl61fh3aQd42vsWyAngfvsWFaU8l4G54btpF1DA+H58gEk4Zdzp6JGfzreC8mwT5tqbkxjMG/9K0mNoOXdNPTY4xq3icGSPGHtcyGKV09MfcEVmRQqIK/zZUfBT1xALXXagYLWTH2oUiTCbau3WsTmsI72iy0dd2X+56+KnQoZWzh+qoPmCwHunLw4RT0FcjIxLPdigZIFm0IXDq8fud8D/H8pPT3QB0kcr5izNwx2mcW6Kcs6RKa54JZ7mk5+mUKr0BxfLvnRJFzW2j6sPuDKIR//3VARQYyCHhFietvX3+PAVi+cjdjvZGCEj/ltdqtU8dWK/4A==
+ bh=4qkGLPt/1xtZoj3tuRB86PlrXUCUAHZ/gZzD5Jnz+pI=;
+ b=xX+403l4pJgp4w1AVOep7oPfhMb7bYGmgO/RVq2H1RyaD7SDgXyLGWD9Ls3h3NGMquHiIJHHNl11vExlAJyXeipQx0GyWfu5q3wDWpWnXqJ0dXPzIL2UpVzKeUnDxnRLp9kqii8PF0zif0LDaJXrXIayeOsfV3O2VQUor279fog5GZMiJF2JnnyBDgYP5ruVhVyV9P+YavQVNNWBv658eosFdiD2NPoFvqJsR6V/pRRC8Rr6MSAMG4cmbhzbR6YAnL4OiYyHDTKZIT7e0Z58ajcMVPj2UQ57TXVLL8pkgTBiEm9MNzgkRN/N/RdiwYUTydBCZ1ML3e6ZffS08TCwjg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KChiaTuQW5IWAYwJJpSgYYWKmzeU54vbn5L3Qn8XtI0=;
- b=E7iyk6rTmGem+gLRiuSOe/kafOolCik2grypzC8mPgQfswBlEzl9L6UVm7UNW4Q1kqHXo2aFgnurKaWu4LAvCG5PSrz9k5i5hRjBhGHAmddc3PTgnwZMlQbccPi5lvms14iTCMLzeZSrKujW/sLxHuZDINnEnPsdGfnZj7dAtA0=
-Received: from MN0P223CA0001.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::19)
- by CH0PR12MB8550.namprd12.prod.outlook.com (2603:10b6:610:192::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Thu, 23 Jul
- 2026 20:18:55 +0000
+ bh=4qkGLPt/1xtZoj3tuRB86PlrXUCUAHZ/gZzD5Jnz+pI=;
+ b=uJpKsfQkkZ5fTyxeBwjyHePkl/J3DF5u169hnyAzGkPYWm5zgf804irjvK+GyMvWaJ6DUU9jVCOmSzaYQUX5Tjx0yGVwKNG8uvTMaQq7SE1fQ6q4LiK0dPcGAuokylGIPNvCXWT8FFONG0I2lSiZo9M564pzLSyCIWIi4Gr6wdk=
+Received: from MN0P223CA0009.NAMP223.PROD.OUTLOOK.COM (2603:10b6:208:52b::7)
+ by BY5PR12MB4307.namprd12.prod.outlook.com (2603:10b6:a03:20c::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
+ 2026 20:19:00 +0000
 Received: from BL02EPF00021F6D.namprd02.prod.outlook.com
- (2603:10b6:208:52b:cafe::4) by MN0P223CA0001.outlook.office365.com
- (2603:10b6:208:52b::19) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:208:52b:cafe::2) by MN0P223CA0009.outlook.office365.com
+ (2603:10b6:208:52b::7) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.11 via Frontend Transport; Thu,
- 23 Jul 2026 20:18:54 +0000
+ 23 Jul 2026 20:18:59 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,11 +51,11 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BL02EPF00021F6D.mail.protection.outlook.com (10.167.249.9) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 20:18:54 +0000
+ 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 20:18:59 +0000
 Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 23 Jul
- 2026 15:18:52 -0500
+ 2026 15:18:56 -0500
 From: Fangzhi Zuo <jerry.zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,10 +64,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 06/49] drm/amd/display: Add KUnit tests for event_callback
-Date: Thu, 23 Jul 2026 16:13:14 -0400
-Message-ID: <20260723201908.373300-7-jerry.zuo@amd.com>
+ <Chen-Yu.Chen@amd.com>, Charlene Liu <Charlene.Liu@amd.com>, Yihan Zhu
+ <yihan.zhu@amd.com>
+Subject: [PATCH 11/49] drm/amd/display: revert "convert dcn42 GPIO translation
+ to lookup tables"
+Date: Thu, 23 Jul 2026 16:13:19 -0400
+Message-ID: <20260723201908.373300-12-jerry.zuo@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260723201908.373300-1-jerry.zuo@amd.com>
 References: <20260723201908.373300-1-jerry.zuo@amd.com>
@@ -78,29 +81,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6D:EE_|CH0PR12MB8550:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1256d46b-83eb-49f5-649c-08dee8f79eab
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6D:EE_|BY5PR12MB4307:EE_
+X-MS-Office365-Filtering-Correlation-Id: 63aa313d-05f9-49c5-b91f-08dee8f7a189
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|1800799024|376014|82310400026|10067099003|11063799006|3023799007|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info: HrydNTYScNBjG/D+6doQ9dPjMT4Q8fBZO7Xq7llME8z9wsOh6eBvp6AjG+0n2f0k2oyA/VM5J9MiFDRq5pZH0LAepX+dWsyXRE8rMnLUBKFMKawVMnhxmwBvNx5BzqijYABJBWdq2SbBXjcnmtACydNVgA51FMAUfNTUMVIgWGkTNm0jIZOYYe1ZGMaQsxGicqhxoFafGSedW4d6uXQcUDPz/rZZJn6IHJmlJvriCcSLdrZJoRe/anl6b4DZKH+dLuE06x6tNdaT2OQssvmfKFVZcF0Q1cDdZrYwskiUfRIiNGX2xikRjGU9GxViogkdncmGeepo+xOzpIx+Q2NR3VZ/KVd4ngMznBpu9/ncZwQhRJobMW+qQC7ZOBaKCfE96RrdxmlXZf6M2OdINru5ZvHJA3QwOMpa8cbUsH+TsFsoJmDWOqHFbcmfIkb8t58SuQmp+Q5CriizzKcpOzL5fX/mFHcQFfYug7XBGDNbhNGFlQRPFka+x7KG/xMHql8gW25BHDl6gl8DfDOVTv1/HnuSTJsTyegFuAzkVo4+Y8lzfK/Xt4n3Z2XWhu+JeZ2o2iCSnFHn44p+UzVP/WZXPnDySw5GirbOQFDACKb3neZ50VJTr/tGUeraSx+7XsLEMSWJ32pVsRSBjH7R37w+UwjRCV9W4BXHJaE0r5+0daKwkL7Jmuc6rOtZFJlSoR0kuM0N5EDDWkIz80pv+UIPAw==
+ ARA:13230040|36860700016|376014|23010399003|1800799024|82310400026|56012099006|10067099003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: k2FwPGMyD+pMkvGQ6eYsQj+RMdrBaq6N17VYeeXVlzQTj3UiouGeCoDkgq0cws0nqZUNBX4ckSIlLJdNk2P5AzPs9Vu4tUBjKdJZ/cNVT5zcEhMw6tQ6UilRoWUAGv0WXOuiZ8cAj3++F8Ie5CxWAr1DysfCpiThUP/aixxmdlrjPjKRc6KmgIQ3SsgSsaPzfqB4JotiTUZkKQj+Sh+iONP6zr7wxoD6jat+kxB1ze/WJdxZo26u9q0N0X9Xw96tS4h5rnboN7gN0NfMtnRS8+hOdQ2pVytUJcGadPTBWMCGmu13NJLyxetXJ84oLj2AWpnK9epMmlUptRn5HuIarhA6bXz4HZYhsHvylDZtjDUE+KxtEKdT9HAuCQTSJPVSblaMioD/Cy/M2ks6oiMyZEeMbTRb2dluxLJ/jywKqJEkhGRuWca2uzxHeJ1Wd8unl/ROP5H4kSaCBW/LFB8bgwSDTg/VjMkrGyeP7h/MkONo0CfeCxPQFNzOXPKYxGDWjEq1nrhCsE1KuD6GkwBNp2bimwLQkc1oZ+4cN9hZlIRT6XLUvbtPYSQfdPGNSCtfOR1aNap6nkq7y8YUJ5et4Lv/0jmSBbWFWW+dVEL7qiHZIqg+UdGlNjnlmgiHn4GlPb+UiwPfQRXv2pno6ewYrpNcmOv5mXRI6o8cSWMvdirAFz+BcEXw2LC7qJaVDvvcUMNBMjQJTwEztLa5T9zOeg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(1800799024)(376014)(82310400026)(10067099003)(11063799006)(3023799007)(18002099003)(22082099003)(56012099006);
+ SFS:(13230040)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 2JsfY10YkL3igBKzxni5MogYprrYArffo665NY9HZ9qms8uH7Xv0AF1It86OOEsL/pdWq5QdsxyrxTUxXq8xv35jAVlTSd1Fdw0zf8aqUciVHHOGK/6Z3++DXTRUkpjWz9q6WqhmfkY/qMc2fK8j5VU0m2Yp0Vx/XPmXV4YK9TK4VIOpQZlocZMa/CGxm3g9ftCrSzGX91bUXCtBsrO5NG51G1d6f6o1fX+9Pe7TJkg2R/KGuwb+pTbgjRreQhUHowiFaLP4HycuS4sfFTUpVEk193XC6xGctCI4NknxXt7vghGKIZHSYq/QD1FghPF6Nt5Fvbn3FLQnpvKcmoCHwYxpSwnYI3bQ86BSOJELs3sOZgy5kLyL0gJPapFdentDUrdYTcyeUbzIB5DsUI1UtsOL8VcH/fVJ7Ai6tr0QoGIsmzWOw2QNNRFiolLdaVRr
+X-MS-Exchange-AntiSpam-MessageData-0: K9Lprqo9v/4oJxx9CMx8ypNNQIHqATQ72Q1Zkqc3u9cKdarADRr+u6EdGB3geDeGA48JbYVwIp8JXcXxkccex/GLt1ZbaI3+E7EqCcuWEN7VkXZrXnINUh864aRouBfEMHBzk51ZvwJd+dJncOrTkswT+EwBChxLUU05H52P3nM6htHu3SI/Y99BDidvwxtrtpU5WWMsLKEO7Ar2WPIQFlcvXm5rol5w0ZNf1Sl0PgNWtVWABQi9RCW4LafdXdBZnyNXfuvuUfmzgxrgbG2OVRVyGY9q+WXjUijJrWkgoL+wJrhfuYZN1tqpoHvpyG0Qij7txQ5Ro60SI9dxhDRoHiSSIQ1Tr2a72r7Tx9MT7uAwtKYkq9htZgrY3ewWzC3BwO4aUE9PO3xor2vYv3JsogmPFeAkJy1n2jRSG7Z90AbcUUTkImXqLT7yZBwTWB0d
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 20:18:54.9348 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1256d46b-83eb-49f5-649c-08dee8f79eab
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 20:18:59.7467 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63aa313d-05f9-49c5-b91f-08dee8f7a189
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8550
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4307
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,152 +118,399 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+From: Charlene Liu <Charlene.Liu@amd.com>
 
-Verify event_callback() cancels a pending callback_dwork and then
-runs process_output(), which re-arms property_validate_dwork, and
-that the work-queue mutex is released on return.
+[why]
+This reverts commit b536028ffbce3c3f026ba7c9b42b8f66cfb186e9.
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Reviewed-by: Yihan Zhu <yihan.zhu@amd.com>
+Signed-off-by: Charlene Liu <Charlene.Liu@amd.com>
 Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.c    |  4 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_hdcp.h    |  1 +
- .../amdgpu_dm/tests/amdgpu_dm_hdcp_test.c     | 78 +++++++++++++++++++
- 3 files changed, 82 insertions(+), 1 deletion(-)
+ .../dc/gpio/dcn42/hw_translate_dcn42.c        | 193 +++++++++++-------
+ .../dc/gpio/dcn42/hw_translate_dcn42.c.orig   | 153 ++++++++++++++
+ 2 files changed, 276 insertions(+), 70 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c.orig
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-index f786c0a85425..34f70e517dc6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.c
-@@ -384,7 +384,8 @@ void hdcp_handle_cpirq(struct hdcp_workqueue *hdcp_work, unsigned int link_index
- }
- EXPORT_IF_KUNIT(hdcp_handle_cpirq);
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c
+index 7b2c4cd42450..e7e1d9979876 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c
+@@ -39,76 +39,62 @@
+  * end *********************/
  
--static void event_callback(struct work_struct *work)
-+STATIC_IFN_KUNIT
-+void event_callback(struct work_struct *work)
+ 
+-static const struct gpio_id_offset_entry gpio_offsets[] = {
+-	/* HPD */
+-	GPIO_ENTRY(HPD0_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_1),
+-	GPIO_ENTRY(HPD1_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_2),
+-	GPIO_ENTRY(HPD2_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_3),
+-	GPIO_ENTRY(HPD3_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_4),
+-	GPIO_ENTRY(HPD4_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_5),
+-};
+-
+-
+-/* DDC */
+-static const struct gpio_ddc_offset_entry ddc_offset_map[] = {
+-	{ REG(DC_GPIO_DDC1_A), GPIO_DDC_LINE_DDC1 },
+-	{ REG(DC_GPIO_DDC2_A), GPIO_DDC_LINE_DDC2 },
+-	{ REG(DC_GPIO_DDC3_A), GPIO_DDC_LINE_DDC3 },
+-	{ REG(DC_GPIO_DDC4_A), GPIO_DDC_LINE_DDC4 },
+-	{ REG(DC_GPIO_DDC5_A), GPIO_DDC_LINE_DDC5 },
+-	{ REG(DC_GPIO_DDCVGA_A), GPIO_DDC_LINE_DDC_VGA },
+-};
+-
+-
+-static const struct gpio_pin_entry gpio_pins[] = {
+-	/* DDC */
+-	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC1,
+-		DC_GPIO_DDC1_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
+-	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC2,
+-		DC_GPIO_DDC2_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
+-	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC3,
+-		DC_GPIO_DDC3_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
+-	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC4,
+-		DC_GPIO_DDC4_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
+-	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC5,
+-		DC_GPIO_DDC5_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
+-	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC_VGA,
+-		DC_GPIO_DDCVGA_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
+-	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC1,
+-		DC_GPIO_DDC1_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
+-	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC2,
+-		DC_GPIO_DDC2_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
+-	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC3,
+-		DC_GPIO_DDC3_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
+-	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC4,
+-		DC_GPIO_DDC4_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
+-	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC5,
+-		DC_GPIO_DDC5_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
+-	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC_VGA,
+-		DC_GPIO_DDCVGA_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
+-};
+-
+-
+ static bool offset_to_id(
+ 	uint32_t offset,
+ 	uint32_t mask,
+ 	enum gpio_id *id,
+ 	uint32_t *en)
  {
- 	struct hdcp_workqueue *hdcp_work;
- 
-@@ -400,6 +401,7 @@ static void event_callback(struct work_struct *work)
- 
- 	process_output(hdcp_work);
+-	if (dal_hw_translate_gpio_ddc_offset_to_id(
+-			ddc_offset_map,
+-			ARRAY_SIZE(ddc_offset_map),
+-			offset, en))
++	(void)mask;
++	switch (offset) {
++	/* HPD */
++	case REG(HPD0_DC_HPD_INT_STATUS):
++		*id = GPIO_ID_HPD;
++		*en = GPIO_HPD_1;
+ 		return true;
+-
+-	if (dal_hw_translate_gpio_offset_to_id(
+-			gpio_offsets,
+-			ARRAY_SIZE(gpio_offsets),
+-			offset, mask, id, en))
++	case REG(HPD1_DC_HPD_INT_STATUS):
++		*id = GPIO_ID_HPD;
++		*en = GPIO_HPD_2;
+ 		return true;
+-
+-	ASSERT_CRITICAL(false);
+-	return false;
++	case REG(HPD2_DC_HPD_INT_STATUS):
++		*id = GPIO_ID_HPD;
++		*en = GPIO_HPD_3;
++		return true;
++	case REG(HPD3_DC_HPD_INT_STATUS):
++		*id = GPIO_ID_HPD;
++		*en = GPIO_HPD_4;
++		return true;
++	case REG(HPD4_DC_HPD_INT_STATUS):
++		*id = GPIO_ID_HPD;
++		*en = GPIO_HPD_5;
++		return true;
++	/* DDC */
++	/* we don't care about the GPIO_ID for DDC
++	 * in DdcHandle it will use GPIO_ID_DDC_DATA/GPIO_ID_DDC_CLOCK
++	 * directly in the create method
++	 */
++	case REG(DC_GPIO_DDC1_A):
++		*en = GPIO_DDC_LINE_DDC1;
++		return true;
++	case REG(DC_GPIO_DDC2_A):
++		*en = GPIO_DDC_LINE_DDC2;
++		return true;
++	case REG(DC_GPIO_DDC3_A):
++		*en = GPIO_DDC_LINE_DDC3;
++		return true;
++	case REG(DC_GPIO_DDC4_A):
++		*en = GPIO_DDC_LINE_DDC4;
++		return true;
++	case REG(DC_GPIO_DDC5_A):
++		*en = GPIO_DDC_LINE_DDC5;
++		return true;
++	case REG(DC_GPIO_DDCVGA_A):
++		*en = GPIO_DDC_LINE_DDC_VGA;
++		return true;
++	default:
++		ASSERT_CRITICAL(false);
++		return false;
++	}
  }
-+EXPORT_IF_KUNIT(event_callback);
  
- STATIC_IFN_KUNIT
- void event_property_update(struct work_struct *work)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
-index 69a50e081c56..4b8ba743f9d8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_hdcp.h
-@@ -114,6 +114,7 @@ void hdcp_update_display_encryption_control(struct hdcp_workqueue *hdcp_work,
- 					    unsigned int conn_index,
- 					    bool enable_encryption);
- void event_property_update(struct work_struct *work);
-+void event_callback(struct work_struct *work);
- void link_lock(struct hdcp_workqueue *work, bool lock);
- void hdcp_remove_display(struct hdcp_workqueue *hdcp_work, unsigned int link_index,
- 			 struct amdgpu_dm_connector *aconnector);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c
-index e6d03199187b..e0386030b35e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_hdcp_test.c
-@@ -501,6 +501,81 @@ static void dm_test_event_property_update_skips_null_connector(struct kunit *tes
  
- /* End of tests for event_property_update() */
- 
-+/* Tests for event_callback() */
+@@ -117,14 +103,81 @@ static bool id_to_offset(
+ 	uint32_t en,
+ 	struct gpio_pin_info *info)
+ {
+-	if (dal_hw_translate_id_to_offset(
+-			gpio_pins,
+-			ARRAY_SIZE(gpio_pins),
+-			id, en, info))
+-		return true;
+-
+-	ASSERT_CRITICAL(false);
+-	return false;
++	bool result = true;
 +
-+/**
-+ * alloc_test_workqueue_for_callback - workqueue ready for event_callback()
-+ * @test: KUnit test context for managed allocation
-+ *
-+ * Allocates a minimal hdcp_workqueue with its mutex and the three delayed
-+ * works initialised, as required by the guard(mutex), cancel_delayed_work()
-+ * and process_output() usage inside event_callback().
-+ */
-+static struct hdcp_workqueue *alloc_test_workqueue_for_callback(struct kunit *test)
++	switch (id) {
++	case GPIO_ID_DDC_DATA:
++		info->mask = DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK;
++		switch (en) {
++		case GPIO_DDC_LINE_DDC1:
++			info->offset = REG(DC_GPIO_DDC1_A);
++		break;
++		case GPIO_DDC_LINE_DDC2:
++			info->offset = REG(DC_GPIO_DDC2_A);
++		break;
++		case GPIO_DDC_LINE_DDC3:
++			info->offset = REG(DC_GPIO_DDC3_A);
++		break;
++		case GPIO_DDC_LINE_DDC4:
++			info->offset = REG(DC_GPIO_DDC4_A);
++		break;
++		case GPIO_DDC_LINE_DDC5:
++			info->offset = REG(DC_GPIO_DDC5_A);
++		break;
++		case GPIO_DDC_LINE_DDC_VGA:
++			info->offset = REG(DC_GPIO_DDCVGA_A);
++		break;
++		case GPIO_DDC_LINE_I2C_PAD:
++		default:
++			ASSERT_CRITICAL(false);
++			result = false;
++		}
++	break;
++	case GPIO_ID_DDC_CLOCK:
++		info->mask = DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK;
++		switch (en) {
++		case GPIO_DDC_LINE_DDC1:
++			info->offset = REG(DC_GPIO_DDC1_A);
++		break;
++		case GPIO_DDC_LINE_DDC2:
++			info->offset = REG(DC_GPIO_DDC2_A);
++		break;
++		case GPIO_DDC_LINE_DDC3:
++			info->offset = REG(DC_GPIO_DDC3_A);
++		break;
++		case GPIO_DDC_LINE_DDC4:
++			info->offset = REG(DC_GPIO_DDC4_A);
++		break;
++		case GPIO_DDC_LINE_DDC5:
++			info->offset = REG(DC_GPIO_DDC5_A);
++		break;
++		case GPIO_DDC_LINE_DDC_VGA:
++			info->offset = REG(DC_GPIO_DDCVGA_A);
++		break;
++		case GPIO_DDC_LINE_I2C_PAD:
++		default:
++			ASSERT_CRITICAL(false);
++			result = false;
++		}
++	break;
++	case GPIO_ID_SYNC:
++	case GPIO_ID_VIP_PAD:
++	default:
++		ASSERT_CRITICAL(false);
++		result = false;
++	}
++
++	if (result) {
++		info->offset_y = info->offset + 2;
++		info->offset_en = info->offset + 1;
++		info->offset_mask = info->offset - 1;
++
++		info->mask_y = info->mask;
++		info->mask_en = info->mask;
++		info->mask_mask = info->mask;
++	}
++
++	return result;
+ }
+ 
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c.orig b/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c.orig
+new file mode 100644
+index 000000000000..7b2c4cd42450
+--- /dev/null
++++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c.orig
+@@ -0,0 +1,153 @@
++// SPDX-License-Identifier: MIT
++//
++// Copyright 2026 Advanced Micro Devices, Inc.
++
++#include "hw_translate_dcn42.h"
++
++#include "dm_services.h"
++#include "include/gpio_types.h"
++#include "../hw_translate.h"
++
++
++#include "dcn/dcn_4_2_0_offset.h"
++#include "dcn/dcn_4_2_0_sh_mask.h"
++#include "dpcs/dpcs_4_0_0_offset.h"
++#include "dpcs/dpcs_4_0_0_sh_mask.h"
++
++#define DCN_BASE__INST0_SEG2                       0x000034C0
++
++/* begin *********************
++ * macros to expend register list macro defined in HW object header file */
++
++/* DCN */
++#define block HPD
++#define reg_num 0
++
++#undef BASE_INNER
++#define BASE_INNER(seg) DCN_BASE__INST0_SEG ## seg
++
++#define BASE(seg) BASE_INNER(seg)
++
++#undef REG
++#define REG(reg_name)\
++		(BASE(reg ## reg_name ## _BASE_IDX) + reg ## reg_name)
++#define SF_HPD(reg_name, field_name, post_fix)\
++	.field_name = reg_name ## __ ## field_name ## post_fix
++
++
++/* macros to expend register list macro defined in HW object header file
++ * end *********************/
++
++
++static const struct gpio_id_offset_entry gpio_offsets[] = {
++	/* HPD */
++	GPIO_ENTRY(HPD0_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_1),
++	GPIO_ENTRY(HPD1_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_2),
++	GPIO_ENTRY(HPD2_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_3),
++	GPIO_ENTRY(HPD3_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_4),
++	GPIO_ENTRY(HPD4_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_5),
++};
++
++
++/* DDC */
++static const struct gpio_ddc_offset_entry ddc_offset_map[] = {
++	{ REG(DC_GPIO_DDC1_A), GPIO_DDC_LINE_DDC1 },
++	{ REG(DC_GPIO_DDC2_A), GPIO_DDC_LINE_DDC2 },
++	{ REG(DC_GPIO_DDC3_A), GPIO_DDC_LINE_DDC3 },
++	{ REG(DC_GPIO_DDC4_A), GPIO_DDC_LINE_DDC4 },
++	{ REG(DC_GPIO_DDC5_A), GPIO_DDC_LINE_DDC5 },
++	{ REG(DC_GPIO_DDCVGA_A), GPIO_DDC_LINE_DDC_VGA },
++};
++
++
++static const struct gpio_pin_entry gpio_pins[] = {
++	/* DDC */
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC1,
++		DC_GPIO_DDC1_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC2,
++		DC_GPIO_DDC2_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC3,
++		DC_GPIO_DDC3_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC4,
++		DC_GPIO_DDC4_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC5,
++		DC_GPIO_DDC5_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC_VGA,
++		DC_GPIO_DDCVGA_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC1,
++		DC_GPIO_DDC1_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC2,
++		DC_GPIO_DDC2_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC3,
++		DC_GPIO_DDC3_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC4,
++		DC_GPIO_DDC4_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC5,
++		DC_GPIO_DDC5_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
++	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC_VGA,
++		DC_GPIO_DDCVGA_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
++};
++
++
++static bool offset_to_id(
++	uint32_t offset,
++	uint32_t mask,
++	enum gpio_id *id,
++	uint32_t *en)
 +{
-+	struct hdcp_workqueue *work;
++	if (dal_hw_translate_gpio_ddc_offset_to_id(
++			ddc_offset_map,
++			ARRAY_SIZE(ddc_offset_map),
++			offset, en))
++		return true;
 +
-+	work = kunit_kzalloc(test, sizeof(*work), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, work);
++	if (dal_hw_translate_gpio_offset_to_id(
++			gpio_offsets,
++			ARRAY_SIZE(gpio_offsets),
++			offset, mask, id, en))
++		return true;
 +
-+	mutex_init(&work->mutex);
-+	INIT_DELAYED_WORK(&work->callback_dwork, dummy_work_fn);
-+	INIT_DELAYED_WORK(&work->watchdog_timer_dwork, dummy_work_fn);
-+	INIT_DELAYED_WORK(&work->property_validate_dwork, dummy_work_fn);
-+
-+	return work;
++	ASSERT_CRITICAL(false);
++	return false;
 +}
 +
-+/**
-+ * dm_test_event_callback_cancels_callback_dwork - callback work is cancelled
-+ * @test: KUnit test context
-+ *
-+ * event_callback() must cancel a previously scheduled callback_dwork. With
-+ * no active hdcp display, mod_hdcp_process_event() leaves output cleared so
-+ * the callback is not requeued and callback_dwork ends up not pending.
-+ */
-+static void dm_test_event_callback_cancels_callback_dwork(struct kunit *test)
++
++static bool id_to_offset(
++	enum gpio_id id,
++	uint32_t en,
++	struct gpio_pin_info *info)
 +{
-+	struct hdcp_workqueue *work = alloc_test_workqueue_for_callback(test);
++	if (dal_hw_translate_id_to_offset(
++			gpio_pins,
++			ARRAY_SIZE(gpio_pins),
++			id, en, info))
++		return true;
 +
-+	/* Pre-schedule callback_dwork with a long delay so it won't fire. */
-+	schedule_delayed_work(&work->callback_dwork, msecs_to_jiffies(10000));
-+	KUNIT_ASSERT_TRUE(test, delayed_work_pending(&work->callback_dwork));
-+
-+	event_callback(&work->callback_dwork.work);
-+
-+	KUNIT_EXPECT_FALSE(test, delayed_work_pending(&work->callback_dwork));
-+
-+	cancel_delayed_work_sync(&work->callback_dwork);
-+	cancel_delayed_work_sync(&work->watchdog_timer_dwork);
-+	cancel_delayed_work_sync(&work->property_validate_dwork);
++	ASSERT_CRITICAL(false);
++	return false;
 +}
 +
-+/**
-+ * dm_test_event_callback_schedules_property_validate - process_output() runs
-+ * @test: KUnit test context
++
++/* function table */
++static const struct hw_translate_funcs funcs = {
++	.offset_to_id = offset_to_id,
++	.id_to_offset = id_to_offset,
++};
++
++
++/*
++ * dal_hw_translate_dcn42_init
 + *
-+ * event_callback() finishes by calling process_output(), which always
-+ * enqueues property_validate_dwork with delay=0. Verifying it is pending
-+ * proves event_callback() reached process_output() and released the mutex.
++ * @brief
++ * Initialize Hw translate function pointers.
++ *
++ * @param
++ * struct hw_translate *tr - [out] struct of function pointers
++ *
 + */
-+static void dm_test_event_callback_schedules_property_validate(struct kunit *test)
++void dal_hw_translate_dcn42_init(struct hw_translate *tr)
 +{
-+	struct hdcp_workqueue *work = alloc_test_workqueue_for_callback(test);
-+
-+	event_callback(&work->callback_dwork.work);
-+
-+	KUNIT_EXPECT_TRUE(test, work_pending(&work->property_validate_dwork.work));
-+	/* Mutex must be released after the guard scope exits. */
-+	KUNIT_EXPECT_FALSE(test, mutex_is_locked(&work->mutex));
-+
-+	cancel_delayed_work_sync(&work->callback_dwork);
-+	cancel_delayed_work_sync(&work->watchdog_timer_dwork);
-+	cancel_delayed_work_sync(&work->property_validate_dwork);
++	tr->funcs = &funcs;
 +}
 +
-+/* End of tests for event_callback() */
 +
- /* Tests for hdcp_handle_cpirq() */
- 
- /**
-@@ -977,6 +1052,9 @@ static struct kunit_case dm_hdcp_test_cases[] = {
- 	KUNIT_CASE(dm_test_process_output_watchdog_stop_and_needed_requeues),
- 	/* event_property_update() */
- 	KUNIT_CASE(dm_test_event_property_update_skips_null_connector),
-+	/* event_callback() */
-+	KUNIT_CASE(dm_test_event_callback_cancels_callback_dwork),
-+	KUNIT_CASE(dm_test_event_callback_schedules_property_validate),
- 	/* hdcp_handle_cpirq() */
- 	KUNIT_CASE(dm_test_hdcp_handle_cpirq_schedules_work),
- 	KUNIT_CASE(dm_test_hdcp_handle_cpirq_selects_link_index),
 -- 
 2.53.0
 
