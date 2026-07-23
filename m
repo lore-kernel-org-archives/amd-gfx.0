@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BAAB1C531FC
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0205AC53209
 	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20E6810F2FB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4578410F2FE;
 	Fri, 24 Jul 2026 07:30:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="i1f9/Ya3";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="fSQMCNbt";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D73310F062;
- Thu, 23 Jul 2026 10:04:43 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 783C410F058;
+ Thu, 23 Jul 2026 10:04:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784801083; x=1816337083;
+ t=1784801068; x=1816337068;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=immw9j+wRL/8+zdMSCwNs52RN80M1OXW0UJJZfpWJvI=;
- b=i1f9/Ya38DvSOQV4AlX8B3HkKhz/UP385pBf6m5IcUBXdx7U1VXidNav
- NcINVdhlaeeqLJkAyTQWBG+9jK7OF6N7SbA31sYz3i3btkT/jiTK893sY
- Ng8rGfuJmBppxp78IyhoeWJOyGnF+1iYNGiJaVIp09faZpLET5CaNEwS9
- XJij9eKdXO32BGkGdWHK7AB/sdpY8hR8Q/ZUoq8iyg3UwtDlhcEBOYkjN
- AikjtUOwsw56ViyXPUps4Yj1Dbe0zBRYKcMRCr3aHwUaEz0eWrgrup8Pd
- 4tPP1/gPQrGB9zr1786cuUMEWMtD9IkuTLJUbJ0u6152SzHJIOGdt/z7Z w==;
-X-CSE-ConnectionGUID: XuQ1GY37RvqR3eZeYLo2+A==
-X-CSE-MsgGUID: iknltxeJRUe0IdQEbCEY9Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="87991935"
-X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="87991935"
+ bh=1pcYpkpE8wTUGzh/ZJa9ebzBIY1MUPZSxx/EPaeAW5s=;
+ b=fSQMCNbt6Ksaq5+GqbMFmrl1r7wUfbL81vYooHiZUb1cOUWWZfphBp+Q
+ 8Pn/nrkR+xTP2wyX8t9jZsyGmE83SUHcc7b8GpbllInNiEdAg5xHOUrok
+ fNceW2p4bA6hduJczdxd+n55YZsynaEGv1ehC5i1LqOgrQbJVCbgpjU60
+ VelGAqudOQUpWIf2nGUYPoI/GUhca8slQsXhKMw7hKaCQhpvUJ+SgA+1C
+ 3aFh6ArYu7m5F90JkaRvveJTswnx+MGW7KjluxqM6V5vE+YEO7QqIYuJU
+ HGoDYWp1stMbiAB7TA5sxF2P5XXxc48H39evPINviC1CtbPPFg/0poMzR A==;
+X-CSE-ConnectionGUID: uYSU9kLNRxatsM65sjHBvg==
+X-CSE-MsgGUID: h3AAH+KzQsajktyR33+zmg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="87991874"
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="87991874"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2026 03:04:42 -0700
-X-CSE-ConnectionGUID: 2BdhgGmAQVuo4mfF4WS7Cg==
-X-CSE-MsgGUID: /JZ9lmZFRXunQVIdk+Z0Uw==
+ 23 Jul 2026 03:04:28 -0700
+X-CSE-ConnectionGUID: btwOzsPMRiaZc8PcA+0j5Q==
+X-CSE-MsgGUID: SSngbzlFSsWSC/K2DSTfuA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="254984947"
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="254984888"
 Received: from conormcd-mobl2.ger.corp.intel.com (HELO fedora)
  ([10.245.244.122])
  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2026 03:04:38 -0700
+ 23 Jul 2026 03:04:23 -0700
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
@@ -59,9 +59,10 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v8 5/6] drm/xe: Wire up dmem cgroup reclaim for VRAM manager
-Date: Thu, 23 Jul 2026 12:03:49 +0200
-Message-ID: <20260723100350.16895-6-thomas.hellstrom@linux.intel.com>
+Subject: [PATCH v8 2/6] cgroup/dmem: Introduce struct dmem_cgroup_init for
+ region initialization
+Date: Thu, 23 Jul 2026 12:03:46 +0200
+Message-ID: <20260723100350.16895-3-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260723100350.16895-1-thomas.hellstrom@linux.intel.com>
 References: <20260723100350.16895-1-thomas.hellstrom@linux.intel.com>
@@ -83,114 +84,203 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Register the VRAM manager with the dmem cgroup reclaim infrastructure
-so that lowering dmem.max below current VRAM usage triggers TTM
-eviction rather than failing with -EBUSY.
+Replace the bare u64 size argument to dmem_cgroup_register_region() and
+drmm_cgroup_register_region() with a const struct dmem_cgroup_init *
+pointer. The struct currently carries only the size field, but using a
+struct makes the API extensible: future callers can supply additional
+initialization parameters without adding more positional arguments.
 
-v4:
-- Rebased on drm-tip; dropped the XE_PL_STOLEN guard as stolen memory
-  uses a separate TTM manager and never calls __xe_ttm_vram_mgr_init().
+Update all in-tree callers (amdgpu, xe) to use a compound-literal
+initializer.
 
 v5:
-- Rebased on the introduction of struct dmem_cgroup_init.
-- Register the fini drmm action before drmm_cgroup_register_region() so
-  that devres LIFO teardown runs unregister_region() first (draining any
-  in-flight reclaim callbacks via the rwsem) and xe_ttm_vram_mgr_fini()
-  second, ensuring the manager is never accessed by a reclaim callback
-  after teardown. (Sashiko-bot)
-- Wrap the reclaim callback in xe_ttm_vram_mgr_dmem_reclaim() using
-  drm_dev_enter()/drm_dev_exit() to prevent TTM reclaim from running
-  after driver unbind.
+- Commit introduced.
 
 Assisted-by: GitHub_Copilot:claude-sonnet-4.6
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/xe/xe_ttm_vram_mgr.c | 54 +++++++++++++++++++++++-----
- 1 file changed, 45 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c |  6 +++++-
+ drivers/gpu/drm/drm_drv.c                    |  8 +++++---
+ drivers/gpu/drm/xe/xe_ttm_vram_mgr.c         |  7 ++++++-
+ include/drm/drm_drv.h                        |  4 +++-
+ include/linux/cgroup_dmem.h                  | 16 +++++++++++++---
+ kernel/cgroup/dmem.c                         | 10 ++++++----
+ 6 files changed, 38 insertions(+), 13 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+index ac3f71d77140..08f05c3aed1d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
+@@ -23,6 +23,7 @@
+  */
+ 
+ #include <linux/dma-mapping.h>
++#include <linux/cgroup_dmem.h>
+ #include <drm/ttm/ttm_range_manager.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_buddy.h>
+@@ -932,7 +933,10 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
+ 	if (err)
+ 		return err;
+ 
+-	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram", adev->gmc.real_vram_size);
++	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram",
++					      &(struct dmem_cgroup_init){
++						.size = adev->gmc.real_vram_size,
++					      });
+ 	if (IS_ERR(man->cg))
+ 		return PTR_ERR(man->cg);
+ 
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index e51ed959da89..c808958a2188 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -968,17 +968,19 @@ static void drmm_cg_unregister_region(struct drm_device *dev, void *arg)
+  * drmm_cgroup_register_region - Register a region of a DRM device to cgroups
+  * @dev: device for region
+  * @region_name: Region name for registering
+- * @size: Size of region in bytes
++ * @init: Initialization parameters for the region.
+  *
+  * This decreases the ref-count of @dev by one. The device is destroyed if the
+  * ref-count drops to zero.
+  */
+-struct dmem_cgroup_region *drmm_cgroup_register_region(struct drm_device *dev, const char *region_name, u64 size)
++struct dmem_cgroup_region *
++drmm_cgroup_register_region(struct drm_device *dev, const char *region_name,
++			    const struct dmem_cgroup_init *init)
+ {
+ 	struct dmem_cgroup_region *region;
+ 	int ret;
+ 
+-	region = dmem_cgroup_register_region(size, "drm/%s/%s", dev->unique, region_name);
++	region = dmem_cgroup_register_region(init, "drm/%s/%s", dev->unique, region_name);
+ 	if (IS_ERR_OR_NULL(region))
+ 		return region;
+ 
 diff --git a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-index 308fda4248eb..b2500344cd57 100644
+index b518f7dec680..308fda4248eb 100644
 --- a/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
 +++ b/drivers/gpu/drm/xe/xe_ttm_vram_mgr.c
-@@ -276,6 +276,28 @@ static const struct ttm_resource_manager_func xe_ttm_vram_mgr_func = {
- 	.debug	= xe_ttm_vram_mgr_debug
- };
+@@ -4,6 +4,8 @@
+  * Copyright (C) 2021-2022 Red Hat
+  */
  
-+static const struct dmem_cgroup_ops xe_ttm_vram_mgr_dmem_ops;
++#include <linux/cgroup_dmem.h>
 +
-+static int xe_ttm_vram_mgr_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
-+					 u64 target_bytes, void *priv)
-+{
-+	struct ttm_resource_manager *man = priv;
-+	struct xe_device *xe = ttm_to_xe_device(man->bdev);
-+	int ret, idx;
-+
-+	if (!drm_dev_enter(&xe->drm, &idx))
-+		return -ENODEV;
-+
-+	ret = ttm_resource_manager_dmem_reclaim(pool, target_bytes, priv);
-+
-+	drm_dev_exit(idx);
-+	return ret;
-+}
-+
-+static const struct dmem_cgroup_ops xe_ttm_vram_mgr_dmem_ops = {
-+	.reclaim = xe_ttm_vram_mgr_dmem_reclaim,
-+};
-+
- static void xe_ttm_vram_mgr_fini(struct drm_device *dev, void *arg)
- {
- 	struct xe_device *xe = to_xe_device(dev);
-@@ -301,17 +323,10 @@ int __xe_ttm_vram_mgr_init(struct xe_device *xe, struct xe_ttm_vram_mgr *mgr,
- 			   u64 default_page_size)
- {
- 	struct ttm_resource_manager *man = &mgr->manager;
-+	struct dmem_cgroup_region *cg;
- 	const char *name;
+ #include <drm/drm_managed.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_buddy.h>
+@@ -303,7 +305,10 @@ int __xe_ttm_vram_mgr_init(struct xe_device *xe, struct xe_ttm_vram_mgr *mgr,
  	int err;
  
--	name = mem_type == XE_PL_VRAM0 ? "vram0" : "vram1";
--	man->cg = drmm_cgroup_register_region(&xe->drm, name,
--					      &(struct dmem_cgroup_init){
--						.size = size,
--					      });
--	if (IS_ERR(man->cg))
--		return PTR_ERR(man->cg);
--
- 	man->func = &xe_ttm_vram_mgr_func;
- 	mgr->mem_type = mem_type;
- 	err = drmm_mutex_init(&xe->drm, &mgr->lock);
-@@ -330,7 +345,28 @@ int __xe_ttm_vram_mgr_init(struct xe_device *xe, struct xe_ttm_vram_mgr *mgr,
- 	ttm_set_driver_manager(&xe->ttm, mem_type, &mgr->manager);
- 	ttm_resource_manager_set_used(&mgr->manager, true);
- 
--	return drmm_add_action_or_reset(&xe->drm, xe_ttm_vram_mgr_fini, mgr);
-+	/*
-+	 * Register the fini action before the cgroup region so that devres
-+	 * LIFO teardown runs unregister_region first (draining any in-flight
-+	 * reclaim callbacks) and the manager fini second.
-+	 */
-+	err = drmm_add_action_or_reset(&xe->drm, xe_ttm_vram_mgr_fini, mgr);
-+	if (err)
-+		return err;
-+
-+	name = mem_type == XE_PL_VRAM0 ? "vram0" : "vram1";
-+	cg = drmm_cgroup_register_region(&xe->drm, name,
-+					 &(struct dmem_cgroup_init){
+ 	name = mem_type == XE_PL_VRAM0 ? "vram0" : "vram1";
+-	man->cg = drmm_cgroup_register_region(&xe->drm, name, size);
++	man->cg = drmm_cgroup_register_region(&xe->drm, name,
++					      &(struct dmem_cgroup_init){
 +						.size = size,
-+						.ops = &xe_ttm_vram_mgr_dmem_ops,
-+						.reclaim_priv = man,
-+					 });
-+	if (IS_ERR(cg))
-+		return PTR_ERR(cg);
-+
-+	ttm_resource_manager_set_dmem_region(man, cg);
-+
-+	return 0;
- }
++					      });
+ 	if (IS_ERR(man->cg))
+ 		return PTR_ERR(man->cg);
+ 
+diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
+index e09559495c5b..b23830494ed4 100644
+--- a/include/drm/drm_drv.h
++++ b/include/drm/drm_drv.h
+@@ -34,6 +34,7 @@
+ 
+ #include <drm/drm_device.h>
+ 
++struct dmem_cgroup_init;
+ struct dmem_cgroup_region;
+ struct drm_fb_helper;
+ struct drm_fb_helper_surface_size;
+@@ -433,7 +434,8 @@ void *__devm_drm_dev_alloc(struct device *parent,
+ 
+ struct dmem_cgroup_region *
+ drmm_cgroup_register_region(struct drm_device *dev,
+-			    const char *region_name, u64 size);
++			    const char *region_name,
++			    const struct dmem_cgroup_init *init);
  
  /**
+  * devm_drm_dev_alloc - Resource managed allocation of a &drm_device instance
+diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
+index dd4869f1d736..d9eab8a2c1ee 100644
+--- a/include/linux/cgroup_dmem.h
++++ b/include/linux/cgroup_dmem.h
+@@ -14,8 +14,18 @@ struct dmem_cgroup_pool_state;
+ /* Opaque definition of a cgroup region, used internally */
+ struct dmem_cgroup_region;
+ 
++/**
++ * struct dmem_cgroup_init - Initialization parameters for a dmem cgroup region.
++ * @size: Size of the region in bytes.
++ */
++struct dmem_cgroup_init {
++	u64 size;
++};
++
+ #if IS_ENABLED(CONFIG_CGROUP_DMEM)
+-struct dmem_cgroup_region *dmem_cgroup_register_region(u64 size, const char *name_fmt, ...) __printf(2,3);
++struct dmem_cgroup_region *
++dmem_cgroup_register_region(const struct dmem_cgroup_init *init,
++			    const char *name_fmt, ...) __printf(2, 3);
+ void dmem_cgroup_unregister_region(struct dmem_cgroup_region *region);
+ int dmem_cgroup_try_charge(struct dmem_cgroup_region *region, u64 size,
+ 			   struct dmem_cgroup_pool_state **ret_pool,
+@@ -27,8 +37,8 @@ bool dmem_cgroup_state_evict_valuable(struct dmem_cgroup_pool_state *limit_pool,
+ 
+ void dmem_cgroup_pool_state_put(struct dmem_cgroup_pool_state *pool);
+ #else
+-static inline __printf(2,3) struct dmem_cgroup_region *
+-dmem_cgroup_register_region(u64 size, const char *name_fmt, ...)
++static inline __printf(2, 3) struct dmem_cgroup_region *
++dmem_cgroup_register_region(const struct dmem_cgroup_init *init, const char *name_fmt, ...)
+ {
+ 	return NULL;
+ }
+diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+index 39930c59cb76..eb46e99b7366 100644
+--- a/kernel/cgroup/dmem.c
++++ b/kernel/cgroup/dmem.c
+@@ -502,7 +502,7 @@ EXPORT_SYMBOL_GPL(dmem_cgroup_unregister_region);
+ 
+ /**
+  * dmem_cgroup_register_region() - Register a regions for dev cgroup.
+- * @size: Size of region to register, in bytes.
++ * @init: Initialization parameters for the region.
+  * @fmt: Region parameters to register
+  *
+  * This function registers a node in the dmem cgroup with the
+@@ -511,13 +511,15 @@ EXPORT_SYMBOL_GPL(dmem_cgroup_unregister_region);
+  *
+  * Return: NULL or a struct on success, PTR_ERR on failure.
+  */
+-struct dmem_cgroup_region *dmem_cgroup_register_region(u64 size, const char *fmt, ...)
++struct dmem_cgroup_region *
++dmem_cgroup_register_region(const struct dmem_cgroup_init *init,
++			    const char *fmt, ...)
+ {
+ 	struct dmem_cgroup_region *ret;
+ 	char *region_name;
+ 	va_list ap;
+ 
+-	if (!size)
++	if (!init || !init->size)
+ 		return NULL;
+ 
+ 	va_start(ap, fmt);
+@@ -534,7 +536,7 @@ struct dmem_cgroup_region *dmem_cgroup_register_region(u64 size, const char *fmt
+ 
+ 	INIT_LIST_HEAD(&ret->pools);
+ 	ret->name = region_name;
+-	ret->size = size;
++	ret->size = init->size;
+ 	kref_init(&ret->ref);
+ 
+ 	spin_lock(&dmemcg_lock);
 -- 
 2.55.0
 
