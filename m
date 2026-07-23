@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 030ADC531FA
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66C4DC531F9
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8ADD910F2F8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C3F6210F2FA;
 	Fri, 24 Jul 2026 07:30:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="aBG2ZUce";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="DC19dvsJ";
 	dkim-atps=neutral
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 49AF410F05D;
- Thu, 23 Jul 2026 10:04:48 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EC8410F05D;
+ Thu, 23 Jul 2026 10:04:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1784801088; x=1816337088;
+ t=1784801073; x=1816337073;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=6XV+TYjbHbxeu/gbWXCTEltxt54qZbHDSHfKubeIWxU=;
- b=aBG2ZUcewFHEsAUm0KZQQFY0e2f4kGe8wtQFU+t8uM8mV5dYmJk1xNIh
- EicyC3XhhMJLXrpbfeWBnP9kl+DttBSSeGDD8x0Q5qJg0+LZjBwk2JITO
- /SNAIZMFChvwVtunpzrCXHj1I1YP947Ghw6Xm2hPNMZhKPuwovRCEqPNt
- wMWAa99KLZKiZvJS0Bpdfd7jo8ULDwkp43oh4ox8Q4dpjYMqyA7myVmUv
- 7TeSUoDnDgEE2d30BrRrjbGGMkYzmrkqvPUr4fBYMNtb8LGvLZxwu4V46
- Ed9BkjF+TOUI4Oj1LxuqiPVyjGu6Ug3J66Fo/iziqGjRH3Jt+1Fzml9X7 Q==;
-X-CSE-ConnectionGUID: W2Rpd0p6Q86rQe68SUo/iQ==
-X-CSE-MsgGUID: wqNOR8Z/QuWca0DG1oL4fw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="87991950"
-X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="87991950"
+ bh=KnSrCD8IkGCp8afrGM3RBa3MGrE/Ni9eFzcNP/IHqL8=;
+ b=DC19dvsJ8DENvkeTFJrWiF+YCIJiT191/rwjRN87pZF6RtlF8YydOgP1
+ bWClHx/+sG52+BnbY1YgPK6FB6naR9alaYtva8Z4AcSRQPMA9QL8Xo1oR
+ duj5Tz9R1PSmcbKHJsWN1I2qFqghLdUBo4m4oPmTi7KDucA+ubq28pPuD
+ wKWCRTjRPgCa1V9mqGSANzGTgim9sh78hKqyZu5cgwFICx7B4oUzQUEFy
+ XvZ/wndkjL2aHghYXdHgr9o4HB8XLm+7pq6nEKX+83LCEZs8nEh0K/4Zc
+ hzNh8VHu8XXlW4F5My6M+dvSNWfB5sNbGVYMDJ13nlMomp+lLYDmo5dna Q==;
+X-CSE-ConnectionGUID: XvhEJopSRv68e0+360Oljg==
+X-CSE-MsgGUID: ja2w8xn9Q2yvU1wo1SI+UQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11854"; a="87991892"
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="87991892"
 Received: from fmviesa007.fm.intel.com ([10.60.135.147])
  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2026 03:04:47 -0700
-X-CSE-ConnectionGUID: mdznlXyOQYy6I39AlxNwTw==
-X-CSE-MsgGUID: SieKGp3kRY6Ws+PNs+jM9w==
+ 23 Jul 2026 03:04:33 -0700
+X-CSE-ConnectionGUID: nM+DxGegRDuGDTLkQ5TggA==
+X-CSE-MsgGUID: rVusS6PcQfidXIrc6PRlnQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="254985029"
+X-IronPort-AV: E=Sophos;i="6.25,180,1779174000"; d="scan'208";a="254984910"
 Received: from conormcd-mobl2.ger.corp.intel.com (HELO fedora)
  ([10.245.244.122])
  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 23 Jul 2026 03:04:43 -0700
+ 23 Jul 2026 03:04:28 -0700
 From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
 To: intel-xe@lists.freedesktop.org
 Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Natalie Vock <natalie.vock@gmx.de>, Johannes Weiner <hannes@cmpxchg.org>,
  Tejun Heo <tj@kernel.org>,
  =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
  cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
  Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
+ Matthew Auld <matthew.auld@intel.com>, Maxime Ripard <mripard@kernel.org>,
  Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
  David Airlie <airlied@gmail.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -60,10 +59,10 @@ Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  Rodrigo Vivi <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v8 6/6] drm/amdgpu: Wire up dmem cgroup reclaim for VRAM
- manager
-Date: Thu, 23 Jul 2026 12:03:50 +0200
-Message-ID: <20260723100350.16895-7-thomas.hellstrom@linux.intel.com>
+Subject: [PATCH v8 3/6] cgroup/dmem: Add reclaim callback for lowering max
+ below current usage
+Date: Thu, 23 Jul 2026 12:03:47 +0200
+Message-ID: <20260723100350.16895-4-thomas.hellstrom@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260723100350.16895-1-thomas.hellstrom@linux.intel.com>
 References: <20260723100350.16895-1-thomas.hellstrom@linux.intel.com>
@@ -85,200 +84,271 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Register the VRAM manager with the dmem cgroup reclaim infrastructure
-so that lowering dmem.max below current VRAM usage triggers TTM
-eviction rather than failing with -EBUSY.
+Add an optional reclaim callback to struct dmem_cgroup_region. When
+dmem.max is set below the current usage of a cgroup pool, the new limit
+is applied immediately (so that concurrent allocations are throttled
+while reclaim is in progress) and then the driver is asked to evict
+memory to bring usage back below the limit.
 
-Guard place->flags in amdgpu_ttm_bo_eviction_valuable() against NULL,
-as the TTM reclaim path passes a NULL place in cgroup drain mode.
+Reclaim is attempted up to a bounded number of times. No error is
+returned to userspace if usage remains above the limit after reclaim,
+and a pending signal will abort the reclaim loop early. This matches
+the behavior of memory.max in the memory cgroup controller.
 
-Use drmm_cgroup_register_region() so that the region is automatically
-unregistered at DRM device release, after drm_dev_unplug() has already
-made drm_dev_enter() return false.  The drm_dev_enter/exit guard in the
-reclaim callback ensures no reclaim work touches the TTM manager after
-driver unbind, closing the window between vram_mgr_fini() (called from
-drm_driver.release) and the drmm cleanup that unregisters the region.
+Also honor O_NONBLOCK so that if that flag is set during the
+max value write, no reclaim is initiated. The idea is to avoid
+charging the reclaim cost to the writer of the max value.
+
+v2:
+- Write max before reclaim is attempted (Maarten)
+- Let signals abort the reclaim without error (Maarten)
+- If a new max value is written with the O_NONBLOCK flag,
+  reclaim is not attempted (Maarten)
+- Extract region from the pool parameter rather than
+  passing it explicitly to set_resource_xxx().
 
 v3:
-- Rebased on fix for uninitialized list and buddy allocator on the
-  drmm_cgroup_register_region() error path.
+- Use an rw_semaphore (unregister_sem) to protect reclaim callbacks
+  against concurrent region unregistration: readers (reclaim) hold the
+  read side; dmem_cgroup_unregister_region() takes the write side to
+  drain in-flight callbacks before returning. (Sashiko-bot)
 
 v5:
 - Rebased on the introduction of struct dmem_cgroup_init.
-- Clear the reclaim callback in amdgpu_vram_mgr_fini() to prevent
-  use-after-free if cgroup reclaim is triggered after driver unbind
-  while userspace holds an open DRM file descriptor. (Sashiko-bot)
-- Switch from drmm_cgroup_register_region() to the raw
-  dmem_cgroup_register_region() and store the region in
-  amdgpu_vram_mgr.cg_region. Call dmem_cgroup_unregister_region()
-  in amdgpu_vram_mgr_fini() after ttm_resource_manager_evict_all()
-  to drain in-flight reclaim callbacks, and clear man->cg afterwards.
-  This is required because amdgpu's vram manager fini is called
-  explicitly during driver unbind, which may precede the DRM device
-  release and thus precede any drmm-based cleanup. (Sashiko-bot)
+- Use nonblock=true in reset_all_resource_limits() to avoid sleeping
+  inside rcu_read_lock() in dmemcs_offline(). (Sashiko-bot)
+- Compare usage against the truncated limit value stored in cnt.max,
+  not the original u64. (Sashiko-bot)
+- Use a DMEM_MAX_RECLAIM_RETRIES (16) retry budget instead of 5, matching
+  the memcg controller's MAX_RECLAIM_RETRIES. Only -ENOSPC (no progress)
+  counts against the retry budget; other errors terminate the loop
+  immediately.
 
 v6:
-- Fix mgr->cg_region never being assigned, so
-  dmem_cgroup_unregister_region() in fini silently no-ops on NULL
-  and leaks the region. (Sashiko-bot)
-- Reorder fini to call set_used(false) and evict_all() before
-  dmem_cgroup_unregister_region(), so ttm_resource_free() can
-  uncharge via man->cg during eviction; clear man->cg after
-  unregister. (Sashiko-bot)
+- Fix dmem_cgroup_ops->reclaim docstring: -ENOSPC does not stop reclaim
+  immediately but is retried up to DMEM_MAX_RECLAIM_RETRIES times; only
+  other negative errors terminate the loop. (Sashiko-bot)
 
 v7:
-- Move dmem_cgroup_unregister_region() before the early return on
-  evict_all() failure; not doing so leaves a dangling reclaim callback
-  pointing to the partially-torn-down VRAM manager, causing a
-  use-after-free when the cgroup later triggers reclaim. (Sashiko-bot)
-- Switch back to drmm_cgroup_register_region() with a drm_dev_enter/
-  exit guard in the reclaim callback (matching xe), rather than manual
-  register/unregister.  drm_dev_unplug() fires before vram_mgr_fini(),
-  so drm_dev_enter() returning false prevents any reclaim from touching
-  the manager during teardown.  This also fixes the "vram" name
-  collision on multi-GPU systems, since drmm_cgroup_register_region()
-  automatically prefixes with "drm/<pci-addr>/". (Sashiko-bot)
-
-v8:
-- Move the dmem cgroup region teardown back into
-  amdgpu_vram_mgr_fini(): register the region with
-  dmem_cgroup_register_region() (keeping the "drm/<unique>/vram"
-  prefix), store it in amdgpu_vram_mgr.cg_region, and unregister it
-  explicitly after ttm_resource_manager_evict_all(). The v7
-  drmm-only approach left a use-after-free on the probe-error
-  teardown path: drm_dev_unplug() is not called there, so the
-  drm_dev_enter() guard stays open while drm_driver.release destroys
-  the manager before the drmm action unregisters the region. The
-  explicit unregister drains in-flight reclaim on every teardown
-  path; the drm_dev_enter() guard is kept as defense against reclaim
-  after unplug. (Sashiko-bot)
+- Replace the per-region rw_semaphore with a static SRCU domain
+  (dmemcg_srcu). SRCU is a better fit than rwsem for this use: it
+  avoids the per-region lock overhead on every reclaim call, and
+  synchronize_srcu() at unregister time is a rare operation. (Maarten)
+- Trim in-function comments to focus on what rather than how.
 
 Assisted-by: GitHub_Copilot:claude-sonnet-4.6
 Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 51 ++++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h |  3 ++
- 3 files changed, 50 insertions(+), 6 deletions(-)
+ include/linux/cgroup_dmem.h | 22 ++++++++++
+ kernel/cgroup/dmem.c        | 80 +++++++++++++++++++++++++++++++------
+ 2 files changed, 90 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 7920675af1d1..b46b1d19349e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1507,7 +1507,7 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
- 	dma_resv_for_each_fence(&resv_cursor, bo->base.resv,
- 				DMA_RESV_USAGE_BOOKKEEP, f) {
- 		if (amdkfd_fence_check_mm(f, current->mm) &&
--		    !(place->flags & TTM_PL_FLAG_CONTIGUOUS))
-+		    !(place && (place->flags & TTM_PL_FLAG_CONTIGUOUS)))
- 			return false;
- 	}
+diff --git a/include/linux/cgroup_dmem.h b/include/linux/cgroup_dmem.h
+index d9eab8a2c1ee..8664321fa9f7 100644
+--- a/include/linux/cgroup_dmem.h
++++ b/include/linux/cgroup_dmem.h
+@@ -14,12 +14,34 @@ struct dmem_cgroup_pool_state;
+ /* Opaque definition of a cgroup region, used internally */
+ struct dmem_cgroup_region;
  
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-index 08f05c3aed1d..8c62f4681d65 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-@@ -906,6 +906,28 @@ static const struct ttm_resource_manager_func amdgpu_vram_mgr_func = {
- 	.debug	= amdgpu_vram_mgr_debug
- };
- 
-+static const struct dmem_cgroup_ops amdgpu_vram_mgr_dmem_ops;
-+
-+static int amdgpu_vram_mgr_dmem_reclaim(struct dmem_cgroup_pool_state *pool,
-+					u64 target_bytes, void *priv)
-+{
-+	struct ttm_resource_manager *man = priv;
-+	struct amdgpu_device *adev = amdgpu_ttm_adev(man->bdev);
-+	int ret, idx;
-+
-+	if (!drm_dev_enter(adev_to_drm(adev), &idx))
-+		return -ENODEV;
-+
-+	ret = ttm_resource_manager_dmem_reclaim(pool, target_bytes, priv);
-+
-+	drm_dev_exit(idx);
-+	return ret;
-+}
-+
-+static const struct dmem_cgroup_ops amdgpu_vram_mgr_dmem_ops = {
-+	.reclaim = amdgpu_vram_mgr_dmem_reclaim,
++/**
++ * struct dmem_cgroup_ops - Operations for a dmem cgroup region.
++ * @reclaim: Optional callback invoked when dmem.max is set below the current
++ *           usage of a pool. The driver should attempt to free at least
++ *           @target_bytes from @pool. May be called multiple times if usage
++ *           remains above the limit after returning.
++ *
++ *           Return: 0 if some progress was made (even if less than
++ *           @target_bytes was freed), -ENOSPC if no progress could be made
++ *           (the caller will retry up to a bounded number of times), or
++ *           another negative error code if a fatal error occurred (stops
++ *           further reclaim attempts immediately).
++ */
++struct dmem_cgroup_ops {
++	int (*reclaim)(struct dmem_cgroup_pool_state *pool,
++		       u64 target_bytes, void *priv);
 +};
 +
  /**
-  * amdgpu_vram_mgr_init - init VRAM manager and DRM MM
-  *
-@@ -917,6 +939,7 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_vram_mgr *mgr = &adev->mman.vram_mgr;
- 	struct ttm_resource_manager *man = &mgr->manager;
-+	struct dmem_cgroup_region *cg;
- 	int err;
- 
- 	ttm_resource_manager_init(man, &adev->mman.bdev,
-@@ -933,12 +956,17 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev)
- 	if (err)
- 		return err;
- 
--	man->cg = drmm_cgroup_register_region(adev_to_drm(adev), "vram",
--					      &(struct dmem_cgroup_init){
-+	cg = dmem_cgroup_register_region(&(struct dmem_cgroup_init){
- 						.size = adev->gmc.real_vram_size,
--					      });
--	if (IS_ERR(man->cg))
--		return PTR_ERR(man->cg);
-+						.ops = &amdgpu_vram_mgr_dmem_ops,
-+						.reclaim_priv = man,
-+					 },
-+					 "drm/%s/vram", adev_to_drm(adev)->unique);
-+	if (IS_ERR(cg))
-+		return PTR_ERR(cg);
-+
-+	mgr->cg_region = cg;
-+	ttm_resource_manager_set_dmem_region(man, cg);
- 
- 	ttm_set_driver_manager(&adev->mman.bdev, TTM_PL_VRAM, &mgr->manager);
- 	ttm_resource_manager_set_used(man, true);
-@@ -963,6 +991,19 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev)
- 	ttm_resource_manager_set_used(man, false);
- 
- 	ret = ttm_resource_manager_evict_all(&adev->mman.bdev, man);
-+
-+	/*
-+	 * Unregister the dmem cgroup region regardless of the evict_all()
-+	 * result and before any further teardown.  This drains in-flight
-+	 * reclaim callbacks and blocks new ones, so no reclaim can reference
-+	 * the manager once we start freeing it.  It must run after evict_all()
-+	 * so that ttm_resource_free() can still uncharge via man->cg during
-+	 * eviction.  Clear man->cg afterwards.
-+	 */
-+	dmem_cgroup_unregister_region(mgr->cg_region);
-+	mgr->cg_region = NULL;
-+	ttm_resource_manager_set_dmem_region(man, NULL);
-+
- 	if (ret)
- 		return;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-index 429a21a2e9b2..e581cbf52fcb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h
-@@ -26,6 +26,8 @@
- 
- #include <linux/gpu_buddy.h>
- 
-+struct dmem_cgroup_region;
-+
- struct amdgpu_vram_mgr {
- 	struct ttm_resource_manager manager;
- 	struct gpu_buddy mm;
-@@ -36,6 +38,7 @@ struct amdgpu_vram_mgr {
- 	atomic64_t vis_usage;
- 	u64 default_page_size;
- 	struct list_head allocated_vres_list;
-+	struct dmem_cgroup_region *cg_region;
+  * struct dmem_cgroup_init - Initialization parameters for a dmem cgroup region.
+  * @size: Size of the region in bytes.
++ * @ops: Optional operations for this region. May be NULL.
++ * @reclaim_priv: Opaque pointer passed to @ops->reclaim. May be NULL.
+  */
+ struct dmem_cgroup_init {
+ 	u64 size;
++	const struct dmem_cgroup_ops *ops;
++	void *reclaim_priv;
  };
  
- struct amdgpu_vres_task {
+ #if IS_ENABLED(CONFIG_CGROUP_DMEM)
+diff --git a/kernel/cgroup/dmem.c b/kernel/cgroup/dmem.c
+index eb46e99b7366..7e427895f23e 100644
+--- a/kernel/cgroup/dmem.c
++++ b/kernel/cgroup/dmem.c
+@@ -17,6 +17,13 @@
+ #include <linux/refcount.h>
+ #include <linux/rculist.h>
+ #include <linux/slab.h>
++#include <linux/srcu.h>
++
++/* Maximum reclaim attempts before giving up when lowering dmem.max. */
++#define DMEM_MAX_RECLAIM_RETRIES 16
++
++/* SRCU domain serialising reclaim callbacks against region unregistration. */
++DEFINE_STATIC_SRCU(dmemcg_srcu);
+ 
+ struct dmem_cgroup_region {
+ 	/**
+@@ -48,9 +55,18 @@ struct dmem_cgroup_region {
+ 
+ 	/**
+ 	 * @unregistered: Whether the region is unregistered by its caller.
+-	 * No new pools should be added to the region afterwards.
++	 * No new pools should be added to the region afterwards, and no new
++	 * reclaim callbacks should be invoked.
+ 	 */
+ 	bool unregistered;
++
++	/**
++	 * @ops: Optional driver operations for this region.
++	 */
++	const struct dmem_cgroup_ops *ops;
++
++	/** @reclaim_priv: Private data passed to @ops->reclaim. */
++	void *reclaim_priv;
+ };
+ 
+ struct dmemcg_state {
+@@ -145,21 +161,52 @@ static void free_cg_pool(struct dmem_cgroup_pool_state *pool)
+ }
+ 
+ static void
+-set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val)
++set_resource_min(struct dmem_cgroup_pool_state *pool, u64 val, bool nonblock)
+ {
+ 	page_counter_set_min(&pool->cnt, val);
+ }
+ 
+ static void
+-set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val)
++set_resource_low(struct dmem_cgroup_pool_state *pool, u64 val, bool nonblock)
+ {
+ 	page_counter_set_low(&pool->cnt, val);
+ }
+ 
+ static void
+-set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val)
++set_resource_max(struct dmem_cgroup_pool_state *pool, u64 val, bool nonblock)
+ {
+-	page_counter_set_max(&pool->cnt, val);
++	struct dmem_cgroup_region *region = pool->region;
++	unsigned long limit = (unsigned long)val;
++
++	/* Apply the new limit immediately so concurrent allocations are throttled. */
++	xchg(&pool->cnt.max, limit);
++
++	if (nonblock)
++		return;
++
++	int srcu_idx = srcu_read_lock(&dmemcg_srcu);
++
++	if (!READ_ONCE(region->unregistered) && region->ops && region->ops->reclaim) {
++		for (int retries = DMEM_MAX_RECLAIM_RETRIES; ; ) {
++			u64 usage = page_counter_read(&pool->cnt);
++			int ret;
++
++			if (usage <= limit)
++				break;
++
++			if (signal_pending(current))
++				break;
++
++			ret = region->ops->reclaim(pool, usage - limit, region->reclaim_priv);
++
++			/* -ENOSPC means no progress; other errors are fatal. */
++			if (ret && (ret != -ENOSPC || !retries--))
++				break;
++
++			cond_resched();
++		}
++	}
++	srcu_read_unlock(&dmemcg_srcu, srcu_idx);
+ }
+ 
+ static u64 get_resource_low(struct dmem_cgroup_pool_state *pool)
+@@ -189,9 +236,10 @@ static u64 get_resource_peak(struct dmem_cgroup_pool_state *pool)
+ 
+ static void reset_all_resource_limits(struct dmem_cgroup_pool_state *rpool)
+ {
+-	set_resource_min(rpool, 0);
+-	set_resource_low(rpool, 0);
+-	set_resource_max(rpool, PAGE_COUNTER_MAX);
++	set_resource_min(rpool, 0, false);
++	set_resource_low(rpool, 0, false);
++	/* nonblock: raising to max makes reclaim a no-op; sleeping is forbidden here. */
++	set_resource_max(rpool, PAGE_COUNTER_MAX, true);
+ }
+ 
+ static void dmemcs_offline(struct cgroup_subsys_state *css)
+@@ -468,7 +516,10 @@ static void dmemcg_free_region(struct kref *ref)
+  * dmem_cgroup_unregister_region() - Unregister a previously registered region.
+  * @region: The region to unregister.
+  *
+- * This function undoes dmem_cgroup_register_region.
++ * This function undoes dmem_cgroup_register_region.  It drains any
++ * in-flight reclaim callbacks before returning, so the caller may safely
++ * free the resources pointed to by the @reclaim_priv that was passed at
++ * registration time.
+  */
+ void dmem_cgroup_unregister_region(struct dmem_cgroup_region *region)
+ {
+@@ -493,9 +544,11 @@ void dmem_cgroup_unregister_region(struct dmem_cgroup_region *region)
+ 	 * no new pools should be added to the dead region
+ 	 * by get_cg_pool_unlocked.
+ 	 */
+-	region->unregistered = true;
++	WRITE_ONCE(region->unregistered, true);
+ 	spin_unlock(&dmemcg_lock);
+ 
++	synchronize_srcu(&dmemcg_srcu);
++
+ 	kref_put(&region->ref, dmemcg_free_region);
+ }
+ EXPORT_SYMBOL_GPL(dmem_cgroup_unregister_region);
+@@ -537,6 +590,8 @@ dmem_cgroup_register_region(const struct dmem_cgroup_init *init,
+ 	INIT_LIST_HEAD(&ret->pools);
+ 	ret->name = region_name;
+ 	ret->size = init->size;
++	ret->ops = init->ops;
++	ret->reclaim_priv = init->reclaim_priv;
+ 	kref_init(&ret->ref);
+ 
+ 	spin_lock(&dmemcg_lock);
+@@ -733,11 +788,12 @@ static int dmemcg_parse_limit(char *options, u64 *new_limit)
+ 
+ static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
+ 				 char *buf, size_t nbytes, loff_t off,
+-				 void (*apply)(struct dmem_cgroup_pool_state *, u64))
++				 void (*apply)(struct dmem_cgroup_pool_state *, u64, bool))
+ {
+ 	struct dmemcg_state *dmemcs = css_to_dmemcs(of_css(of));
+ 	struct dmem_cgroup_pool_state *pool;
+ 	struct dmem_cgroup_region *region;
++	bool nonblock = of->file->f_flags & O_NONBLOCK;
+ 	char *region_name;
+ 	u64 new_limit;
+ 	int err;
+@@ -763,7 +819,7 @@ static ssize_t dmemcg_limit_write(struct kernfs_open_file *of,
+ 		goto out_put;
+ 	}
+ 
+-	apply(pool, new_limit);
++	apply(pool, new_limit, nonblock);
+ 	dmemcg_pool_put(pool);
+ 
+ out_put:
 -- 
 2.55.0
 
