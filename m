@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1059FC531D0
-	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 20:19:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59F46C531D0
+	for <amd-gfx@archiver.kernel.org>; Thu, 23 Jul 2026 20:19:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 908C210F1EC;
-	Thu, 23 Jul 2026 20:19:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F1A5D10F1E9;
+	Thu, 23 Jul 2026 20:19:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZlwmxVeH";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E+Odhw3U";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013034.outbound.protection.outlook.com
- [40.93.201.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 99D0D10F1EA
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 20:19:43 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010043.outbound.protection.outlook.com [52.101.46.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 879B410F1EB
+ for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 20:19:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qu01opQr8LbrZ17MGtzcS3YNbPyuFBV7RUq/12Axlhl7zfQ4hfbepj6huSsRBjOGDqtiPLrALa/Zsib8OrlUCepgdevgHmnEy0IqsEbEvea4FhEqeuR2zEP7q3a8nJp125/soKxf1KnPdFRkT3V/KcOuRGNAVMmJ9SmtkDpmJ8RsIcEmKwammQBoF/n/G22sZG/0nYEiSMSg8oLwRFi+AXchNIgDpn7Jlt6zuAYMwqIJqZw5wsAXnlEyd/MG0bXxe6dvPGvgAxn77FPIMyPI7jXyOEFvmfi1YQSNjJmRlDjgL5qqgTWOrS3zmSOquTOi2IbIF4TrfIQrmcoW9sdeiA==
+ b=kvsWiAiXqxNYCNg8ZEmeRl+mc5Vz+uf/ho8hc4hOPHtSUfOjK8vzERjm7I6L9NUMB8p9iPfW8RWnIeUJpvzzKjkCknzT9GxTp+XIFhyR+/K8DHTrY955aPj5I3PdHUxy+Co9CbHOQnpkzn51hYxmEWXB3qVVSHGthNE8TXY0ZVEs0ke2BllKQxvFo4LosIXDVHoPzDSK05kTq6GfPUD9NJ7M6xqC8DwnUS5ah/0ghjcvQhUGlko2nwoDwz81CAaeawyfO07R4IjyAgjjJmPqDP4O0yZToYC0tcH2scorWj5464CSOq+lfYR1z3ucBUNrlqgWmHIkrOrqgwrp0JM+HA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MBDXnCyprJNX41Igpoo13Z9zJFXxNt3FqFIbK7OsNIM=;
- b=c897xBpaKxAt3p4EdmDsl90igZZcxFZi8aGLUBzNvZX1Ffe9ac7rvJN3TThufc5poUzyyPBYkvy1jpqFLxuqQMM6ViT/+3mEHk+7u01JL6AHuuzFbUUdHVvH0Z4M4GBniiMxsT0YguM+yj52tbvZna369zesxa+HwH2oGZvo/yBg/1aW/fKc5UgKASEDFqldYkpdviTkqbt0gpBZM50liPPlmt0c9nhcwWlY7/NLDz2kmN702t7YtTknxL0CjXJKNBOBeGCdWFcCsLr9oG8dizMNafch7b6Wx2qk7LW9CP7uH6s1um02kLFWZ/ZDgYGe1sQtUlIGEB+s/88maEccxg==
+ bh=9qelEqDI/YOLQZBKR2rhQq/hR9UaZkF6+KDANPO2I4o=;
+ b=n237QcFotx5tGI7tk1tQI2XhiFeQauFVLL/Qo8S403eCBz+vYGZCW/jmYSru8IWmu7Q9DA+RLYvawTB5zY0rW2vXNRkWMT7H5TZ/dGJ0NqFHpIL73L9X8ww9KLPLp9glt2Sc3oduo6AGBkwGnhDh0ZnXI2h+8MnVN1A7HZJja4mYQ/qfEev5RcRbhUmvQ860zcGPOGpAL27pe/FV3Hcmsp+1IiupC1Rlxf4CWek0dgCrIylZiiNuL12KBZ2/ZYa+oZzK+HfkcKBFkXQpCzwv3t0Y6tIxtotqUr8eadhY93S8ApDF8Q6JdbAZJZnKG9IClaOo6M/e8IkJ3JZkSCJgWg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MBDXnCyprJNX41Igpoo13Z9zJFXxNt3FqFIbK7OsNIM=;
- b=ZlwmxVeH0OkoVXqNyk1/GkuxmX4lXS4yaBfIegTmzwwOjbVjcW03BddHCiyM2FM8touiiifK4k8lEhlUkKE184QvDu8PxLxHyMTKkhengyp4ODwPrONsvo3wi5UTSUYnbOJOLK9fz6bgrN5EW9a5wvEoVWeyAqO5SHOaFcRZoZ8=
-Received: from BN1PR12CA0022.namprd12.prod.outlook.com (2603:10b6:408:e1::27)
- by IA0PR12MB9009.namprd12.prod.outlook.com (2603:10b6:208:48f::15)
+ bh=9qelEqDI/YOLQZBKR2rhQq/hR9UaZkF6+KDANPO2I4o=;
+ b=E+Odhw3U7rCX3XKpvto71nVoFyfoUuTGgzJT+Q7v477S59WbEKiCYF0LCmmiq1a+K7cAd+gUJ7iNtkwMl6JO55zfr3p+kd7mNSkfBvtnTYujCefSO01tx7z46LE8n++bC7Wn5hItiksQa/3DIk+LNSUum0vhSOfDkpo/c9xe7Rc=
+Received: from BL1PR13CA0368.namprd13.prod.outlook.com (2603:10b6:208:2c0::13)
+ by IA0PR12MB7775.namprd12.prod.outlook.com (2603:10b6:208:431::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Thu, 23 Jul
- 2026 20:19:35 +0000
-Received: from BL02EPF00021F69.namprd02.prod.outlook.com
- (2603:10b6:408:e1:cafe::52) by BN1PR12CA0022.outlook.office365.com
- (2603:10b6:408:e1::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.11 via Frontend Transport; Thu,
- 23 Jul 2026 20:19:35 +0000
+ 2026 20:19:41 +0000
+Received: from BL02EPF00021F6A.namprd02.prod.outlook.com
+ (2603:10b6:208:2c0:cafe::5b) by BL1PR13CA0368.outlook.office365.com
+ (2603:10b6:208:2c0::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.10 via Frontend Transport; Thu,
+ 23 Jul 2026 20:19:41 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,9 +48,9 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF00021F69.mail.protection.outlook.com (10.167.249.5) with Microsoft
+ BL02EPF00021F6A.mail.protection.outlook.com (10.167.249.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 20:19:35 +0000
+ 15.21.270.5 via Frontend Transport; Thu, 23 Jul 2026 20:19:41 +0000
 Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 23 Jul
@@ -64,12 +63,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Nicholas Carbones <Nicholas.Carbones@amd.com>,
- Michael Strauss <michael.strauss@amd.com>
-Subject: [PATCH 37/49] drm/amd/display: Reintroduce "convert dcn42 GPIO
- translation to lookup tables"
-Date: Thu, 23 Jul 2026 16:13:45 -0400
-Message-ID: <20260723201908.373300-38-jerry.zuo@amd.com>
+ <Chen-Yu.Chen@amd.com>
+Subject: [PATCH 38/49] drm/amd/display: Prune per-tile Timing from Apple
+ Studio Display Primary Tile
+Date: Thu, 23 Jul 2026 16:13:46 -0400
+Message-ID: <20260723201908.373300-39-jerry.zuo@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260723201908.373300-1-jerry.zuo@amd.com>
 References: <20260723201908.373300-1-jerry.zuo@amd.com>
@@ -81,29 +79,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F69:EE_|IA0PR12MB9009:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e6430d1-9ccc-4dd8-3b10-08dee8f7b6bb
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6A:EE_|IA0PR12MB7775:EE_
+X-MS-Office365-Filtering-Correlation-Id: 615a131d-9283-4b68-50d7-08dee8f7ba76
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700016|1800799024|23010399003|11063799006|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 7gwlAl9Ke7dwh9Ba6GZYp9INskf0EQqYeHItm09XjxtdzXzn+12L4gPWZMCOAdO/BbqEmW69mSBXZx7AFTO4OYA3FMQcpJOLezmrgIAMVbNkQCNEYR06YR53X1khRdgAniToQqd3qKp54lHWE9lEEIx6D6Ikv7lmIKUTUOGe+r0mQD7HBYzBXcFBHmJofneeVnRpN7OwBPSVvaD5XjX6KiAObpQDKJpTPHjsc7XqvhGjHykYkG6z4YQcVKxUMAYjaDWk8l7K/LYyi62k0Te6cdSOF+HZhMElGZAEpe1fWmJdwpIsqkjD3W9YGYOVAYAp0e+A74L7CMbAzNz2aUsXx4aWwr+G34TwGyyEzHz2/1rm43YqpwI4FO5C2/eud0XTr3cOn637aGSSxCLyX1AbHao7mZM1S4JdFi0VT2yn/5SYuRW/ZZriIqZeTOfyU6H/vlYM8D0z3qTESHfq9IoAPFuU9a3EBWPmloUvJulAEE2Km+gM2EBMAiZOHHYMZl/wg0c/3AluGqZbWaYrVOrlvdmNoFszHqTaz1HfwmK9JSh4ykHxkh1L2pGrJ/DELKBo4H7LKSgA71sCxrysW3rbnsL+lwdYWBpo3et+QrZIAfn+qjNv49Rot29dLE1iYRPYPkr83blfq7Y3txvRDf9fqP3r7bCp5cHiLNCGuziKWj08rDF18iP+gozny3F+BdfTL1VQN1+nlRN1lmUNUuZgtA==
+ ARA:13230040|376014|82310400026|23010399003|36860700016|1800799024|18002099003|22082099003|56012099006|11063799006|5023799004|10067099003;
+X-Microsoft-Antispam-Message-Info: yP9ZKpN2ueUqwIscbrFnEJw/35Dbr+7wfyZvc++nThk72oewymEkf++HC1HNnoo4UU9KLCN7epCoTeDCtsTDmwpiYjyNIkCDUq3DPcZ1+i9LFadAeboYOH5qpSrCJITvEtEcgUxfEqmfUNUT3lpHGCZh4fn6JgbV2ghTZoDn6tW7RqD1Hzzlk0BzSRqqN3aqDKJ7Lrd0y1INnRNVXT0i7IXgCsLMPInAfmCioViNM3DplNc6YejkxGZa3i+RyD+3RCxGzsC/MrCEjZ0UpFWxJEz+m2bYSBrBg+n6YdBmN47b9RynZLUU64FqhLHtiKeeN3HoYFSTDaxxbzVK/ynV+hVsPwEQVj0ds/tM3FzvUoniYMBORcdmhGUpa2m+0WHrr7SHC6SwN5qN7nAzQgYIaemxpAJcm/udc9PenzogVWCg2sFo27K7qraG9Kw1Mg5T4agbBgLt6ead6p44NGjCoF7nch+uA+CH/PshI2f33BIL3kSQQ09HvKPIvSDh30YugkbK5Yef74KjvO+K07FVGy/JOatxrLP5+laeoCGKV/nhBJswA0Nhd40wGFyvkOaCuWdrMQ1o59jpFk7ftXxaM2b9Pn0Us4WhrbkItTRHthvA/jq3/VCEOQOhZSTDUraOoX+NvBy6MUqFmsDm19rAXQryzsaAzVE9yLVx7qR0bMeCRhr2kqwYe4pg6ndG5fL/xI9PAxXsv/ytBi0Kjxg1Mg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);
+ SFS:(13230040)(376014)(82310400026)(23010399003)(36860700016)(1800799024)(18002099003)(22082099003)(56012099006)(11063799006)(5023799004)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: u5TR+tQgnjdxTQnWbzl1TlSH/vYZHtUlIhQMGjSkYMQdA/k+sHNjVKTFGOlo6m68noZDEQID5aIJnhT8G8OFBsHMBk5hCe2en50iMuCA4zMJ0jLeUUJKhmFAt7N4d39m/0qhUjsAFTuBWYhEH2Lim2xq/f1vGUNFpTfIMcHR1rxELcHU7R9rqL5HEbPgoxkEIHABwiJlvS6p774nLxRHJCpwzGJFxGxbZX/eIjWHqJgk3R7GKg7wltPioYcYCAfngs97c6FuRbsdg4EZ8zR1bazUJIGZd/emHvdAANuOGt80xPAF/4KhwGN+KCJUFIHHivQG2L53f3f/kfUv+XA0FJzbFXqSkIk0nDJdMKd3b1YInTtWbTdEbCXAN8MzMT0pBezw87n4ykZV6ZUe4Q/t9+xgXRkf4CRShDkd8JA7SXgJsRyM2PIY0oSrr7oCshpX
+X-MS-Exchange-AntiSpam-MessageData-0: wVDayuGfqZLyMHBBfwWs1+0RNErDucCQZ1WSmfpVUxzfLYE0wTUD1bX3xCko/DQsndjBnqliUh0uah4/3SEvjBp1BUCT9V8pLAhQq5ICoRAINS7o6zmOT9M1OZKyMMQTlu22Mfl2UP46slD3pusbdM7f+DSVt9BQQ9zg1Nk8EvNuasuG3yk6UnQFv6LTQrvfban3AsS9nc4eHU019syh002RvmLakR673mCwUiQL1ch1gYuuEYxxTet0F/hTY5sf2Lzl9Dxpovz18AOcDohZySyWfcvNJphWPSw7IFciD2KnHJBlDd6vyyBVk2R8Fq03nlaqzw4+gj9Q6BtuQ657C+Smsl0rStbfZlPKhaRpDJWcrPzRQ4fVN3o0Hec2rkcqo+C1hjysnQvUCvfpuEvN3NXL56kT1vzTMimK7YQY1JwloyPLYxbYC0vvkmkwIBFZ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 20:19:35.3049 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e6430d1-9ccc-4dd8-3b10-08dee8f7b6bb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jul 2026 20:19:41.5624 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 615a131d-9283-4b68-50d7-08dee8f7ba76
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F69.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6A.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9009
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7775
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,457 +116,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Nicholas Carbones <Nicholas.Carbones@amd.com>
+[why]
+The Apple Studio Display primary tile advertises both the full 5120x2880
+mode and the per-tile 2560x2880 timing. With the secondary tile already
+hidden from userspace, the stray 2560x2880 mode on the primary connector
+can still be picked by compositors, defeating the single 5K stream goal.
 
-This reverts commit c371d98717539f687e6d96a63c74a7beb764c138.
+[how]
+Prune the per-tile timing from the primary connector during get_modes:
+when the sink carries the disable_second_tile quirk and the connector is
+the primary tile (tile_h_loc == 0 && tile_v_loc == 0), drop any probed
+mode matching the advertised tile size (tile_h_size x tile_v_size) so
+userspace only sees the full 5120x2880 mode.
 
-Reviewed-by: Michael Strauss <michael.strauss@amd.com>
-Signed-off-by: Nicholas Carbones <Nicholas.Carbones@amd.com>
+Fixes: 22ea891606 ("drm/amd/display: hide Apple Studio Display secondary tile")
+Reviewed-by: Wayne Lin <wayne.lin@amd.com>
 Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 ---
- .../dc/gpio/dcn42/hw_translate_dcn42.c        | 193 +++++++-----------
- .../dc/gpio/dcn42/hw_translate_dcn42.c.orig   | 193 +++++++++++-------
- 2 files changed, 193 insertions(+), 193 deletions(-)
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   | 43 +++++++++++++++++++
+ 1 file changed, 43 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c b/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c
-index e7e1d9979876..7b2c4cd42450 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c
-@@ -39,62 +39,76 @@
-  * end *********************/
- 
- 
-+static const struct gpio_id_offset_entry gpio_offsets[] = {
-+	/* HPD */
-+	GPIO_ENTRY(HPD0_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_1),
-+	GPIO_ENTRY(HPD1_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_2),
-+	GPIO_ENTRY(HPD2_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_3),
-+	GPIO_ENTRY(HPD3_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_4),
-+	GPIO_ENTRY(HPD4_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_5),
-+};
-+
-+
-+/* DDC */
-+static const struct gpio_ddc_offset_entry ddc_offset_map[] = {
-+	{ REG(DC_GPIO_DDC1_A), GPIO_DDC_LINE_DDC1 },
-+	{ REG(DC_GPIO_DDC2_A), GPIO_DDC_LINE_DDC2 },
-+	{ REG(DC_GPIO_DDC3_A), GPIO_DDC_LINE_DDC3 },
-+	{ REG(DC_GPIO_DDC4_A), GPIO_DDC_LINE_DDC4 },
-+	{ REG(DC_GPIO_DDC5_A), GPIO_DDC_LINE_DDC5 },
-+	{ REG(DC_GPIO_DDCVGA_A), GPIO_DDC_LINE_DDC_VGA },
-+};
-+
-+
-+static const struct gpio_pin_entry gpio_pins[] = {
-+	/* DDC */
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC1,
-+		DC_GPIO_DDC1_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC2,
-+		DC_GPIO_DDC2_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC3,
-+		DC_GPIO_DDC3_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC4,
-+		DC_GPIO_DDC4_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC5,
-+		DC_GPIO_DDC5_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC_VGA,
-+		DC_GPIO_DDCVGA_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC1,
-+		DC_GPIO_DDC1_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC2,
-+		DC_GPIO_DDC2_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC3,
-+		DC_GPIO_DDC3_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC4,
-+		DC_GPIO_DDC4_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC5,
-+		DC_GPIO_DDC5_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
-+	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC_VGA,
-+		DC_GPIO_DDCVGA_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
-+};
-+
-+
- static bool offset_to_id(
- 	uint32_t offset,
- 	uint32_t mask,
- 	enum gpio_id *id,
- 	uint32_t *en)
- {
--	(void)mask;
--	switch (offset) {
--	/* HPD */
--	case REG(HPD0_DC_HPD_INT_STATUS):
--		*id = GPIO_ID_HPD;
--		*en = GPIO_HPD_1;
--		return true;
--	case REG(HPD1_DC_HPD_INT_STATUS):
--		*id = GPIO_ID_HPD;
--		*en = GPIO_HPD_2;
-+	if (dal_hw_translate_gpio_ddc_offset_to_id(
-+			ddc_offset_map,
-+			ARRAY_SIZE(ddc_offset_map),
-+			offset, en))
- 		return true;
--	case REG(HPD2_DC_HPD_INT_STATUS):
--		*id = GPIO_ID_HPD;
--		*en = GPIO_HPD_3;
--		return true;
--	case REG(HPD3_DC_HPD_INT_STATUS):
--		*id = GPIO_ID_HPD;
--		*en = GPIO_HPD_4;
--		return true;
--	case REG(HPD4_DC_HPD_INT_STATUS):
--		*id = GPIO_ID_HPD;
--		*en = GPIO_HPD_5;
--		return true;
--	/* DDC */
--	/* we don't care about the GPIO_ID for DDC
--	 * in DdcHandle it will use GPIO_ID_DDC_DATA/GPIO_ID_DDC_CLOCK
--	 * directly in the create method
--	 */
--	case REG(DC_GPIO_DDC1_A):
--		*en = GPIO_DDC_LINE_DDC1;
--		return true;
--	case REG(DC_GPIO_DDC2_A):
--		*en = GPIO_DDC_LINE_DDC2;
--		return true;
--	case REG(DC_GPIO_DDC3_A):
--		*en = GPIO_DDC_LINE_DDC3;
--		return true;
--	case REG(DC_GPIO_DDC4_A):
--		*en = GPIO_DDC_LINE_DDC4;
--		return true;
--	case REG(DC_GPIO_DDC5_A):
--		*en = GPIO_DDC_LINE_DDC5;
--		return true;
--	case REG(DC_GPIO_DDCVGA_A):
--		*en = GPIO_DDC_LINE_DDC_VGA;
-+
-+	if (dal_hw_translate_gpio_offset_to_id(
-+			gpio_offsets,
-+			ARRAY_SIZE(gpio_offsets),
-+			offset, mask, id, en))
- 		return true;
--	default:
--		ASSERT_CRITICAL(false);
--		return false;
--	}
-+
-+	ASSERT_CRITICAL(false);
-+	return false;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 135107c73971..a8f089d4fb72 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -2751,6 +2751,47 @@ void amdgpu_set_panel_orientation(struct drm_connector *connector)
+ 						       native_mode->vdisplay);
  }
  
- 
-@@ -103,81 +117,14 @@ static bool id_to_offset(
- 	uint32_t en,
- 	struct gpio_pin_info *info)
- {
--	bool result = true;
--
--	switch (id) {
--	case GPIO_ID_DDC_DATA:
--		info->mask = DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK;
--		switch (en) {
--		case GPIO_DDC_LINE_DDC1:
--			info->offset = REG(DC_GPIO_DDC1_A);
--		break;
--		case GPIO_DDC_LINE_DDC2:
--			info->offset = REG(DC_GPIO_DDC2_A);
--		break;
--		case GPIO_DDC_LINE_DDC3:
--			info->offset = REG(DC_GPIO_DDC3_A);
--		break;
--		case GPIO_DDC_LINE_DDC4:
--			info->offset = REG(DC_GPIO_DDC4_A);
--		break;
--		case GPIO_DDC_LINE_DDC5:
--			info->offset = REG(DC_GPIO_DDC5_A);
--		break;
--		case GPIO_DDC_LINE_DDC_VGA:
--			info->offset = REG(DC_GPIO_DDCVGA_A);
--		break;
--		case GPIO_DDC_LINE_I2C_PAD:
--		default:
--			ASSERT_CRITICAL(false);
--			result = false;
--		}
--	break;
--	case GPIO_ID_DDC_CLOCK:
--		info->mask = DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK;
--		switch (en) {
--		case GPIO_DDC_LINE_DDC1:
--			info->offset = REG(DC_GPIO_DDC1_A);
--		break;
--		case GPIO_DDC_LINE_DDC2:
--			info->offset = REG(DC_GPIO_DDC2_A);
--		break;
--		case GPIO_DDC_LINE_DDC3:
--			info->offset = REG(DC_GPIO_DDC3_A);
--		break;
--		case GPIO_DDC_LINE_DDC4:
--			info->offset = REG(DC_GPIO_DDC4_A);
--		break;
--		case GPIO_DDC_LINE_DDC5:
--			info->offset = REG(DC_GPIO_DDC5_A);
--		break;
--		case GPIO_DDC_LINE_DDC_VGA:
--			info->offset = REG(DC_GPIO_DDCVGA_A);
--		break;
--		case GPIO_DDC_LINE_I2C_PAD:
--		default:
--			ASSERT_CRITICAL(false);
--			result = false;
--		}
--	break;
--	case GPIO_ID_SYNC:
--	case GPIO_ID_VIP_PAD:
--	default:
--		ASSERT_CRITICAL(false);
--		result = false;
--	}
--
--	if (result) {
--		info->offset_y = info->offset + 2;
--		info->offset_en = info->offset + 1;
--		info->offset_mask = info->offset - 1;
--
--		info->mask_y = info->mask;
--		info->mask_en = info->mask;
--		info->mask_mask = info->mask;
--	}
--
--	return result;
-+	if (dal_hw_translate_id_to_offset(
-+			gpio_pins,
-+			ARRAY_SIZE(gpio_pins),
-+			id, en, info))
-+		return true;
++/*
++ * The Apple Studio Display primary tile advertises both the full 5120x2880
++ * mode and the per-tile 2560x2880 timing. As the secondary tile is hidden from
++ * userspace (see amdgpu_dm_hide_secondary_tile_from_userspace()), drop the
++ * per-tile timing from the primary connector so compositors only pick the full
++ * 5K mode.
++ */
++static void amdgpu_dm_prune_primary_tile_modes(struct drm_connector *connector)
++{
++	struct amdgpu_dm_connector *aconnector = to_amdgpu_dm_connector(connector);
++	struct drm_display_mode *mode, *t;
 +
-+	ASSERT_CRITICAL(false);
-+	return false;
- }
- 
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c.orig b/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c.orig
-index 7b2c4cd42450..e7e1d9979876 100644
---- a/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c.orig
-+++ b/drivers/gpu/drm/amd/display/dc/gpio/dcn42/hw_translate_dcn42.c.orig
-@@ -39,76 +39,62 @@
-  * end *********************/
- 
- 
--static const struct gpio_id_offset_entry gpio_offsets[] = {
--	/* HPD */
--	GPIO_ENTRY(HPD0_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_1),
--	GPIO_ENTRY(HPD1_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_2),
--	GPIO_ENTRY(HPD2_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_3),
--	GPIO_ENTRY(HPD3_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_4),
--	GPIO_ENTRY(HPD4_DC_HPD_INT_STATUS, GPIO_ID_HPD, GPIO_HPD_5),
--};
--
--
--/* DDC */
--static const struct gpio_ddc_offset_entry ddc_offset_map[] = {
--	{ REG(DC_GPIO_DDC1_A), GPIO_DDC_LINE_DDC1 },
--	{ REG(DC_GPIO_DDC2_A), GPIO_DDC_LINE_DDC2 },
--	{ REG(DC_GPIO_DDC3_A), GPIO_DDC_LINE_DDC3 },
--	{ REG(DC_GPIO_DDC4_A), GPIO_DDC_LINE_DDC4 },
--	{ REG(DC_GPIO_DDC5_A), GPIO_DDC_LINE_DDC5 },
--	{ REG(DC_GPIO_DDCVGA_A), GPIO_DDC_LINE_DDC_VGA },
--};
--
--
--static const struct gpio_pin_entry gpio_pins[] = {
--	/* DDC */
--	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC1,
--		DC_GPIO_DDC1_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
--	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC2,
--		DC_GPIO_DDC2_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
--	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC3,
--		DC_GPIO_DDC3_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
--	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC4,
--		DC_GPIO_DDC4_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
--	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC5,
--		DC_GPIO_DDC5_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
--	GPIO_PIN_ENTRY(GPIO_ID_DDC_DATA, GPIO_DDC_LINE_DDC_VGA,
--		DC_GPIO_DDCVGA_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK),
--	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC1,
--		DC_GPIO_DDC1_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
--	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC2,
--		DC_GPIO_DDC2_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
--	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC3,
--		DC_GPIO_DDC3_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
--	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC4,
--		DC_GPIO_DDC4_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
--	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC5,
--		DC_GPIO_DDC5_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
--	GPIO_PIN_ENTRY(GPIO_ID_DDC_CLOCK, GPIO_DDC_LINE_DDC_VGA,
--		DC_GPIO_DDCVGA_A, DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK),
--};
--
--
- static bool offset_to_id(
- 	uint32_t offset,
- 	uint32_t mask,
- 	enum gpio_id *id,
- 	uint32_t *en)
- {
--	if (dal_hw_translate_gpio_ddc_offset_to_id(
--			ddc_offset_map,
--			ARRAY_SIZE(ddc_offset_map),
--			offset, en))
-+	(void)mask;
-+	switch (offset) {
-+	/* HPD */
-+	case REG(HPD0_DC_HPD_INT_STATUS):
-+		*id = GPIO_ID_HPD;
-+		*en = GPIO_HPD_1;
- 		return true;
--
--	if (dal_hw_translate_gpio_offset_to_id(
--			gpio_offsets,
--			ARRAY_SIZE(gpio_offsets),
--			offset, mask, id, en))
-+	case REG(HPD1_DC_HPD_INT_STATUS):
-+		*id = GPIO_ID_HPD;
-+		*en = GPIO_HPD_2;
- 		return true;
--
--	ASSERT_CRITICAL(false);
--	return false;
-+	case REG(HPD2_DC_HPD_INT_STATUS):
-+		*id = GPIO_ID_HPD;
-+		*en = GPIO_HPD_3;
-+		return true;
-+	case REG(HPD3_DC_HPD_INT_STATUS):
-+		*id = GPIO_ID_HPD;
-+		*en = GPIO_HPD_4;
-+		return true;
-+	case REG(HPD4_DC_HPD_INT_STATUS):
-+		*id = GPIO_ID_HPD;
-+		*en = GPIO_HPD_5;
-+		return true;
-+	/* DDC */
-+	/* we don't care about the GPIO_ID for DDC
-+	 * in DdcHandle it will use GPIO_ID_DDC_DATA/GPIO_ID_DDC_CLOCK
-+	 * directly in the create method
-+	 */
-+	case REG(DC_GPIO_DDC1_A):
-+		*en = GPIO_DDC_LINE_DDC1;
-+		return true;
-+	case REG(DC_GPIO_DDC2_A):
-+		*en = GPIO_DDC_LINE_DDC2;
-+		return true;
-+	case REG(DC_GPIO_DDC3_A):
-+		*en = GPIO_DDC_LINE_DDC3;
-+		return true;
-+	case REG(DC_GPIO_DDC4_A):
-+		*en = GPIO_DDC_LINE_DDC4;
-+		return true;
-+	case REG(DC_GPIO_DDC5_A):
-+		*en = GPIO_DDC_LINE_DDC5;
-+		return true;
-+	case REG(DC_GPIO_DDCVGA_A):
-+		*en = GPIO_DDC_LINE_DDC_VGA;
-+		return true;
-+	default:
-+		ASSERT_CRITICAL(false);
-+		return false;
++	if (!aconnector->dc_sink)
++		return;
++
++	if (!aconnector->dc_sink->edid_caps.panel_patch.disable_second_tile)
++		return;
++
++	if (!connector->has_tile)
++		return;
++
++	/* Only prune the per-tile timing from the primary tile. */
++	if (connector->tile_h_loc || connector->tile_v_loc)
++		return;
++
++	list_for_each_entry_safe(mode, t, &connector->probed_modes, head) {
++		if (mode->hdisplay != connector->tile_h_size ||
++		    mode->vdisplay != connector->tile_v_size)
++			continue;
++
++		drm_dbg_kms(connector->dev,
++			    "[CONNECTOR:%d:%s] pruning per-tile %dx%d timing from primary Apple Studio Display tile\n",
++			    connector->base.id, connector->name,
++			    mode->hdisplay, mode->vdisplay);
++
++		list_del(&mode->head);
++		drm_mode_destroy(connector->dev, mode);
++		aconnector->num_modes--;
 +	}
- }
- 
- 
-@@ -117,14 +103,81 @@ static bool id_to_offset(
- 	uint32_t en,
- 	struct gpio_pin_info *info)
++}
++
+ STATIC_IFN_KUNIT void amdgpu_dm_connector_ddc_get_modes(struct drm_connector *connector,
+ 					      const struct drm_edid *drm_edid)
  {
--	if (dal_hw_translate_id_to_offset(
--			gpio_pins,
--			ARRAY_SIZE(gpio_pins),
--			id, en, info))
--		return true;
--
--	ASSERT_CRITICAL(false);
--	return false;
-+	bool result = true;
-+
-+	switch (id) {
-+	case GPIO_ID_DDC_DATA:
-+		info->mask = DC_GPIO_DDC1_A__DC_GPIO_DDC1DATA_A_MASK;
-+		switch (en) {
-+		case GPIO_DDC_LINE_DDC1:
-+			info->offset = REG(DC_GPIO_DDC1_A);
-+		break;
-+		case GPIO_DDC_LINE_DDC2:
-+			info->offset = REG(DC_GPIO_DDC2_A);
-+		break;
-+		case GPIO_DDC_LINE_DDC3:
-+			info->offset = REG(DC_GPIO_DDC3_A);
-+		break;
-+		case GPIO_DDC_LINE_DDC4:
-+			info->offset = REG(DC_GPIO_DDC4_A);
-+		break;
-+		case GPIO_DDC_LINE_DDC5:
-+			info->offset = REG(DC_GPIO_DDC5_A);
-+		break;
-+		case GPIO_DDC_LINE_DDC_VGA:
-+			info->offset = REG(DC_GPIO_DDCVGA_A);
-+		break;
-+		case GPIO_DDC_LINE_I2C_PAD:
-+		default:
-+			ASSERT_CRITICAL(false);
-+			result = false;
-+		}
-+	break;
-+	case GPIO_ID_DDC_CLOCK:
-+		info->mask = DC_GPIO_DDC1_A__DC_GPIO_DDC1CLK_A_MASK;
-+		switch (en) {
-+		case GPIO_DDC_LINE_DDC1:
-+			info->offset = REG(DC_GPIO_DDC1_A);
-+		break;
-+		case GPIO_DDC_LINE_DDC2:
-+			info->offset = REG(DC_GPIO_DDC2_A);
-+		break;
-+		case GPIO_DDC_LINE_DDC3:
-+			info->offset = REG(DC_GPIO_DDC3_A);
-+		break;
-+		case GPIO_DDC_LINE_DDC4:
-+			info->offset = REG(DC_GPIO_DDC4_A);
-+		break;
-+		case GPIO_DDC_LINE_DDC5:
-+			info->offset = REG(DC_GPIO_DDC5_A);
-+		break;
-+		case GPIO_DDC_LINE_DDC_VGA:
-+			info->offset = REG(DC_GPIO_DDCVGA_A);
-+		break;
-+		case GPIO_DDC_LINE_I2C_PAD:
-+		default:
-+			ASSERT_CRITICAL(false);
-+			result = false;
-+		}
-+	break;
-+	case GPIO_ID_SYNC:
-+	case GPIO_ID_VIP_PAD:
-+	default:
-+		ASSERT_CRITICAL(false);
-+		result = false;
-+	}
-+
-+	if (result) {
-+		info->offset_y = info->offset + 2;
-+		info->offset_en = info->offset + 1;
-+		info->offset_mask = info->offset - 1;
-+
-+		info->mask_y = info->mask;
-+		info->mask_en = info->mask;
-+		info->mask_mask = info->mask;
-+	}
-+
-+	return result;
- }
+@@ -2763,6 +2804,8 @@ STATIC_IFN_KUNIT void amdgpu_dm_connector_ddc_get_modes(struct drm_connector *co
+ 		amdgpu_dm_connector->num_modes =
+ 				drm_edid_connector_add_modes(connector);
  
- 
++		amdgpu_dm_prune_primary_tile_modes(connector);
++
+ 		/* sorting the probed modes before calling function
+ 		 * amdgpu_dm_get_native_mode() since EDID can have
+ 		 * more than one preferred mode. The modes that are
 -- 
 2.53.0
 
