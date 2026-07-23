@@ -4,75 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B6CEC54F50
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03F2EC54EFC
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF41B10F30E;
-	Fri, 24 Jul 2026 07:30:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6390D10F300;
+	Fri, 24 Jul 2026 07:30:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="i7EHKYGh";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="gIfhaDId";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F99110E117
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 18:46:02 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-38ec1402b05so774467a91.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 11:46:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784832362; x=1785437162; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=4ythMD/8HygMBBur9HX2jCV0xO6Blk6zNXYU5eF8R0o=;
- b=i7EHKYGhO+3WN/IEAd7bTsL+OaFHgwILUIcoz8/ejDBrbf0OrFV9oi1rIaeN6ioJiz
- +9bGT4Dbc4N+XCfyOcYQaMEBVY6S3/ZjoRBUXrByFoqG0/28+D72DA9YRMbJMhk0H6kI
- JnUi1S8fqv5DeC8pPQPrQy7TyBvgQo1qQB7jQuibxcok6YdHOvvxDBGBMIPV1T8B+7En
- a1FgyV8eTZtgtUMoWElZoSohX7+YmN/40MaLd0X1lc9oqfBIniDzAvDBm38+IfljZuSs
- seulrVgYvhpxJIbTorZ1RQTrqj2IkSVU2pV97S/WEmPbavXCskfYsN5K9j5UjtREETxl
- GVnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784832362; x=1785437162;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=4ythMD/8HygMBBur9HX2jCV0xO6Blk6zNXYU5eF8R0o=;
- b=tF7DrFSqnGS0m1bjEzterviE7cVN4uBpVirahh4b8OC8OGd/DGl7RYP12FZLrXhAMs
- 8YMilKJXwj27n6IQBoEOHcendG559H9pwA5y36fHr/J4ZfxORQh+hdAuaNP/fpQcyJ19
- fYP+ATtFLDTUOrjUHghbHLiErGggr5ULQVwXxw21S1Tml6Q57v43duPquhkeU48bpocs
- IRo+bi2gRwVEgnGCieGCUmslZld3ty7xBx+/P0DlVZyC633mq3FcccALP3Vo6asnpS8Q
- e0aFFWP1EoVs9n3cUu1PUZRJPYUwkPAWorO5BvoMRgXuI8IAD+e9w6vX0irTZYGhPtgK
- THsw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rqp89RxvRw4ip58MgJ14kySjx2RI1Gju9d3D25NYsRzLPDBbJe90gsLZOvxU7yk5zR29csn0nA5@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxT5LbTSQFZcIEEx4As+Bw0Xex/8dBCbkgXWaVpuOEQbNmeq45k
- yHbRhrD03hRbR05hFm88YwGvpUFGG2h/wFKbQF4bLU1YeGrR6a7PP4SH
-X-Gm-Gg: AR+sD12NvN+NB8wvA5RyrBiX/dmeR6im83qis1W+gEmUdSRnaFnCu7PhcVRoSu3lAsd
- cYnvwUK1KyIzKSPqQm197/xNZ+tPgLv3zFOoBmthIk9bSL2+3+ZiKRtwt/orwDjc4QhZSl9NAk6
- 7YkZn5BwF6yiiE5CaQGhYOrwEgMXPzRQNzUuA8cpqtIJqlvHlK9AKkDgvByZ389RT82zxCq3AMX
- FMnvbo3fgS0ThO6fTyUe8EbD7dlVzRiCf+cZSTanprFj1mW4A2/lAjlmRTL+9PgUjbJOd0calG1
- hdREKYXPJQ+j9etGvH2ec/zR20+zIFB00PjgQXJtzvKXNc0aahffzwtZXndulKVtGVsMc9MsWSt
- O0G7ppoL8/Zf17Ii3fEhmUM9BQKeKPBjuDcI3U7oJv5LWeXWJOuOd40MNzdutq2m1XNLfoaik
-X-Received: by 2002:a17:90b:524b:b0:38e:250b:122f with SMTP id
- 98e67ed59e1d1-38ec6461d6dmr4058236a91.16.1784832361816; 
- Thu, 23 Jul 2026 11:46:01 -0700 (PDT)
-Received: from ubuntu.. ([110.9.142.4]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-38f03af8a45sm308155a91.10.2026.07.23.11.45.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Jul 2026 11:46:01 -0700 (PDT)
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-To: Julia.Lawall@inria.fr, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: cocci@inria.fr, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 03/36] drm/radeon: remove conditional return with no effect
-Date: Fri, 24 Jul 2026 03:45:05 +0900
-Message-ID: <20260723184538.3888637-4-ekffu200098@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260723184538.3888637-1-ekffu200098@gmail.com>
-References: <20260723184538.3888637-1-ekffu200098@gmail.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D78310E5EF;
+ Thu, 23 Jul 2026 19:43:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Date:Subject:Cc:To:From:From:Reply-To;
+ bh=UZZZIyK2AovRwfjZ0N/6ajWt/Sn0YJbtCsW3Hgfz5Kw=; b=gIfhaDId735CnGCFTTUQ8s+leT
+ 5xvXWPg7+ccQvIRWTm3ssN53+7n9tuFJQbKfAcexYo6I1kKNieqCLwdOMJP2NeU+XVOuUpXxWw12E
+ 4Ks6zt/h2OFEmkYa09j84avQtsV857UXbTnyXpe5DSErVxJYwaB7whjDWHYtO6NT0ueoFr+GELAL+
+ oXGmtYCChJQ37ncFY/i32jd+hBqyd8cilMdjX9vtpoh1Tr0beKxPIyBtaPbtCtb0xiy4ZmMCQzWnl
+ 89UkSQHqJZYBSN5/On07B/481twFxmrIhIyUxLL95Eq6xQL652SAyaZa/gTEr2f/363BTQAtxiGte
+ 9CeEd32A==;
+Received: from 179-125-91-91-dinamico.pombonet.net.br ([179.125.91.91]
+ helo=quatroqueijos.lan) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wmzKm-003a1P-TJ; Thu, 23 Jul 2026 21:43:57 +0200
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: igt-dev@lists.freedesktop.org
+Cc: siqueira@igalia.com, Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+Subject: [PATCH i-g-t v5 2/7] tests/cgroup_dmem: add dmem cgroup controller
+ test
+Date: Thu, 23 Jul 2026 16:43:08 -0300
+Message-ID: <20260723194313.2748143-3-cascardo@igalia.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260723194313.2748143-1-cascardo@igalia.com>
+References: <20260723194313.2748143-1-cascardo@igalia.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 24 Jul 2026 07:30:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -89,113 +67,136 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Both branches of the check return the same value, so the check has
-no effect. Remove it and return the value directly.
+From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-This is the result of running the Coccinelle script from
-scripts/coccinelle/misc/cond_return_no_effect.cocci.
+Add a test that exercises the cgroup v2 dmem controller interface using
+the new igt_cgroup library.
 
-Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+The test uses igt_simple_main and:
+  - Skips if no dmem regions are registered (no cgroup v2 or no
+   dmem-capable device).
+  - Creates a sub-cgroup and moves the test process into it.
+  - Enumerates all registered device memory regions and prints their
+   capacity, system-wide current usage, per-cgroup current usage, and
+   configured min, low and max limits.
+  - Destroys the cgroup on completion.
+
+Assisted-by: GitHub Copilot:claude-sonnet-4.6
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/gpu/drm/radeon/ci_dpm.c |  6 +-----
- drivers/gpu/drm/radeon/kv_dpm.c | 30 ++++++++++--------------------
- drivers/gpu/drm/radeon/si_dpm.c | 14 ++------------
- 3 files changed, 13 insertions(+), 37 deletions(-)
+ tests/cgroup_dmem.c | 92 +++++++++++++++++++++++++++++++++++++++++++++
+ tests/meson.build   |  1 +
+ 2 files changed, 93 insertions(+)
+ create mode 100644 tests/cgroup_dmem.c
 
-diff --git a/drivers/gpu/drm/radeon/ci_dpm.c b/drivers/gpu/drm/radeon/ci_dpm.c
-index 703848fac189..11707f5aaa6b 100644
---- a/drivers/gpu/drm/radeon/ci_dpm.c
-+++ b/drivers/gpu/drm/radeon/ci_dpm.c
-@@ -5244,11 +5244,7 @@ static int ci_set_temperature_range(struct radeon_device *rdev)
- 	ret = ci_thermal_set_temperature_range(rdev, R600_TEMP_RANGE_MIN, R600_TEMP_RANGE_MAX);
- 	if (ret)
- 		return ret;
--	ret = ci_thermal_enable_alert(rdev, true);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return ci_thermal_enable_alert(rdev, true);
- }
- 
- int ci_dpm_late_enable(struct radeon_device *rdev)
-diff --git a/drivers/gpu/drm/radeon/kv_dpm.c b/drivers/gpu/drm/radeon/kv_dpm.c
-index 1693b36fc52d..fc5252ff2a26 100644
---- a/drivers/gpu/drm/radeon/kv_dpm.c
-+++ b/drivers/gpu/drm/radeon/kv_dpm.c
-@@ -843,16 +843,11 @@ static int kv_populate_samu_table(struct radeon_device *rdev)
- 	if (ret)
- 		return ret;
- 
--	ret = kv_copy_bytes_to_smc(rdev,
--				   pi->dpm_table_start +
--				   offsetof(SMU7_Fusion_DpmTable, SamuLevel),
--				   (u8 *)&pi->samu_level,
--				   sizeof(SMU7_Fusion_ExtClkLevel) * SMU7_MAX_LEVELS_SAMU,
--				   pi->sram_end);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return kv_copy_bytes_to_smc(rdev,
-+				    pi->dpm_table_start + offsetof(SMU7_Fusion_DpmTable, SamuLevel),
-+				    (u8 *)&pi->samu_level,
-+				    sizeof(SMU7_Fusion_ExtClkLevel) * SMU7_MAX_LEVELS_SAMU,
-+				    pi->sram_end);
- }
- 
- 
-@@ -902,16 +897,11 @@ static int kv_populate_acp_table(struct radeon_device *rdev)
- 	if (ret)
- 		return ret;
- 
--	ret = kv_copy_bytes_to_smc(rdev,
--				   pi->dpm_table_start +
--				   offsetof(SMU7_Fusion_DpmTable, AcpLevel),
--				   (u8 *)&pi->acp_level,
--				   sizeof(SMU7_Fusion_ExtClkLevel) * SMU7_MAX_LEVELS_ACP,
--				   pi->sram_end);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return kv_copy_bytes_to_smc(rdev,
-+				    pi->dpm_table_start + offsetof(SMU7_Fusion_DpmTable, AcpLevel),
-+				    (u8 *)&pi->acp_level,
-+				    sizeof(SMU7_Fusion_ExtClkLevel) * SMU7_MAX_LEVELS_ACP,
-+				    pi->sram_end);
- }
- 
- static void kv_calculate_dfs_bypass_settings(struct radeon_device *rdev)
-diff --git a/drivers/gpu/drm/radeon/si_dpm.c b/drivers/gpu/drm/radeon/si_dpm.c
-index 4b10715f951c..4323f86000ac 100644
---- a/drivers/gpu/drm/radeon/si_dpm.c
-+++ b/drivers/gpu/drm/radeon/si_dpm.c
-@@ -6418,22 +6418,12 @@ static int si_set_temperature_range(struct radeon_device *rdev)
- 	ret = si_thermal_set_temperature_range(rdev, R600_TEMP_RANGE_MIN, R600_TEMP_RANGE_MAX);
- 	if (ret)
- 		return ret;
--	ret = si_thermal_enable_alert(rdev, true);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return si_thermal_enable_alert(rdev, true);
- }
- 
- int si_dpm_late_enable(struct radeon_device *rdev)
- {
--	int ret;
--
--	ret = si_set_temperature_range(rdev);
--	if (ret)
--		return ret;
--
--	return ret;
-+	return si_set_temperature_range(rdev);
- }
- 
- void si_dpm_disable(struct radeon_device *rdev)
+diff --git a/tests/cgroup_dmem.c b/tests/cgroup_dmem.c
+new file mode 100644
+index 000000000000..442c965f9bbf
+--- /dev/null
++++ b/tests/cgroup_dmem.c
+@@ -0,0 +1,92 @@
++// SPDX-License-Identifier: MIT
++/*
++ * Copyright © 2025 Intel Corporation
++ */
++
++/**
++ * TEST: cgroup dmem
++ * Description: Exercises the cgroup v2 dmem controller interface.  Creates a
++ *              cgroup, moves the process into it, enumerates all dmem regions,
++ *              prints their capacity, system-wide current usage, per-cgroup
++ *              current usage and configured limits, then destroys the cgroup.
++ * Category: Core
++ * Mega feature: General Core features
++ * Sub-category: uapi
++ * Functionality: cgroup
++ * Feature: dmem
++ * Test category: uapi
++ */
++
++#include <inttypes.h>
++
++#include "igt.h"
++#include "igt_cgroup.h"
++
++IGT_TEST_DESCRIPTION("Exercises the cgroup v2 dmem controller interface.");
++
++static void fmt_bytes(uint64_t v, char *buf, size_t len)
++{
++	if (v == IGT_CGROUP_DMEM_MAX)
++		snprintf(buf, len, "max");
++	else
++		snprintf(buf, len, "%" PRIu64, v);
++}
++
++int igt_simple_main()
++{
++	struct igt_cgroup *cg;
++	const char *region;
++	char **regions;
++	uint64_t capacity, sys_current, cg_current, min, low, max;
++	char cap_s[32], sys_s[32], cg_s[32];
++	char min_s[32], low_s[32], max_s[32];
++	int i;
++
++	igt_require_f(igt_cgroup_dmem_available(),
++		      "No dmem regions found; is cgroup v2 with the "
++		      "dmem controller available?\n");
++
++	cg = igt_cgroup_new("igt-cgroup-dmem-test");
++	igt_assert_f(cg, "Failed to create cgroup\n");
++
++	igt_cgroup_move_current(cg);
++
++	regions = igt_cgroup_dmem_regions();
++	igt_assert_f(regions, "Failed to enumerate dmem regions\n");
++
++	igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
++		 "region", "capacity", "system-current",
++		 "cgroup-current", "min", "low", "max");
++	igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
++		 "------", "--------", "--------------",
++		 "--------------", "---", "---", "---");
++
++	for (i = 0; regions[i]; i++) {
++		region = regions[i];
++
++		igt_cgroup_dmem_get_capacity(region, &capacity);
++		fmt_bytes(capacity, cap_s, sizeof(cap_s));
++
++		igt_cgroup_dmem_get_system_current(region, &sys_current);
++		fmt_bytes(sys_current, sys_s, sizeof(sys_s));
++
++		igt_cgroup_dmem_get_current(cg, region, &cg_current);
++		fmt_bytes(cg_current, cg_s, sizeof(cg_s));
++
++		igt_cgroup_dmem_get_min(cg, region, &min);
++		fmt_bytes(min, min_s, sizeof(min_s));
++
++		igt_cgroup_dmem_get_low(cg, region, &low);
++		fmt_bytes(low, low_s, sizeof(low_s));
++
++		igt_cgroup_dmem_get_max(cg, region, &max);
++		fmt_bytes(max, max_s, sizeof(max_s));
++
++		igt_info("%-40s %16s %16s %16s %16s %16s %16s\n",
++			 region, cap_s, sys_s, cg_s,
++			 min_s, low_s, max_s);
++	}
++
++	igt_cgroup_dmem_regions_free(regions);
++	igt_cgroup_free(cg);
++}
+diff --git a/tests/meson.build b/tests/meson.build
+index 9c266569df25..880f6f5410ba 100644
+--- a/tests/meson.build
++++ b/tests/meson.build
+@@ -1,4 +1,5 @@
+ test_progs = [
++	'cgroup_dmem',
+ 	'core_auth',
+ 	'core_debugfs',
+ 	'core_getclient',
 -- 
-2.43.0
+2.47.3
 
