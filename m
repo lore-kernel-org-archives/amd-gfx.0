@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94352C53200
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA155C531C9
 	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 16:18:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7F8A910F421;
-	Fri, 24 Jul 2026 16:18:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8691910E38B;
+	Fri, 24 Jul 2026 16:18:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cAPuhvZ9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="klE9K1BR";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010056.outbound.protection.outlook.com [52.101.201.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C37DD10E059;
- Fri, 24 Jul 2026 16:18:00 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010042.outbound.protection.outlook.com [52.101.61.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 580A510F43E;
+ Fri, 24 Jul 2026 16:18:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HdVS0VjRhlSCzO6IzwdBle5rHkgknw73E3KcjNRO/HkmoYUoYr4oVvKceqtxpSmnc48V5oZC7Nj2UlW+cr72VsJ+Vg3YvQDaGOqgJJv1DiUDHTk2MHgOROeotVdWQih3awhA4jZqsiTOnmFVh60WvBjc9uObfWNZXUb0XrmwjgYO4bKCjdM5jOEX0irTi/2HXcdoA/n5KGczWQ8f0xnX03gT/re5+gpkLbb/c+HoNadiD1CJjpsE6fFeA1UC/s0+UnNtRmwSWF3D0ELD5/6z6zK2xi3bFdRRx9HWN9/nb98gTvCmHEuJSX83YKLNRJ2sz/0prWdll+qfYy7rbGVl0A==
+ b=tJOWg99AujY4uafLFio3iiysMw7pdd7JiJaj2ic1o+/0sAODnny/vU056WL0quBESIRx9+ZhM+S+fjE6CIJNcxaB4qjeR7bqIp2SUbdbNNjIqpwnFrPNiYdW8DR+1JwOVV2lXg9YmwiZtmqsSUqz98gaBIPjPfSMvHiQJd1UQ5G6+nsSfuhFaixZvfPRNB8IQrV8umTUxB6oU2e+cB6s22LB9zTFGylSfGjrSokhdFZ8rv8UFyV7Bq3BuEewlgG/5GBcQMYUNq5gwiw/GWViUJBTk404hlcmL7l4bJFhzX/EgT6LNu63cZ8WgPCwy9J+cSAutpSrNWeV8dHS1F7e9w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=jHu/J/2qm9eCemmAzvy/GI8yQp0cMupQkmhYrjmLGIM=;
- b=bAKtmLwnZMuCX7Mpwztyxwen7FpyQ7uVJEablml0sUO+dS30PcUitE3ddKXkZR63Ts2zSm1E5uqPxznmMeWU7jegFSlGnJs3qfWpIL+MwmIfTdsg+fVuhv/mMOgWFWORCB97lLsJpPazw6A+mgrFNmbEXJasr8cImK5+JeNQ55u3XhDeXNo5m8remUFy5DAqQYqjbDkL7OaB22DhkaUZI6uT+A2FtPell0TzR/+JZBkRZrAVXCtwr/p3hmvdnOqUVQ67hMocHeMz9grhi6RzQCVFPUnvKtVjix8tuALN/D6IkxTcxgxuXSOyhPRv+HjtjLonjviBnjBlpSc2FtpyNg==
+ bh=fOkrdwfAxpUds4dhmlOglxRoPmYwAavJG+Kb5a6ABmg=;
+ b=Rz17V1+aGFZTF4qyVivORNEZz4RNG/mIo5sgXA7GVBuZ2nnAp/iuW4W9UIzSuYwD7K7b9RACZRuujS62G872l/aGwDTewDFpbxIph3CElEgmMDsKmDRRonBAZEyFWgKtXcg3MrA4oCTmlhLEucPhp3WKkCiC+KBR7JAowElRAXYY3eITarbIeK0FC2cWFw1PdMpF6DYcU+5LUQBZh5zEsv0FUT23GEydKox6u85A8Zk9UBPSGNS65GwJRUL3kfGp0z1i1fvoZT2UE8RlEPvv6ns6zzsyXSTOE4CUq4e2CzhtAx5s8W6FDZb3brqdp8x2qysVgRsS+hgg5Da8mdlsSg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=jHu/J/2qm9eCemmAzvy/GI8yQp0cMupQkmhYrjmLGIM=;
- b=cAPuhvZ9XiIvFRiBW1/kEwoSL/AygEPlgrPJW/JdK94lAVvfUunGWprBaQWWfj2TXYdyXdjfWwRX3B/kYLApb8XAYu0DaE1lLmFE+QGXjwvhV/Rvf/Mk7zG1gQ/6lRpQutKy8yZYWryk3y7YapPDpP8jYFtdli2UGLfZ7+rDmto=
-Received: from PH2PEPF0000385A.namprd17.prod.outlook.com (2603:10b6:518:1::7c)
- by PH7PR12MB7965.namprd12.prod.outlook.com (2603:10b6:510:270::8)
+ bh=fOkrdwfAxpUds4dhmlOglxRoPmYwAavJG+Kb5a6ABmg=;
+ b=klE9K1BRkWLnMmqq9A5ARVdD3v6/fsikOZFOFBLKx+xkzmBn8nNreLU3K114+uN5RsO8u8Eq6Y3Ak5j2/Ekgv8nSI29kaMyG8oeyWQGoRiDFuU6LSF4nOYdJxoEwZz7mECz+dzEZMbe3kReRP1jTdx9CwZ0CdGbKtbebokXx6Jc=
+Received: from SN7PR04CA0031.namprd04.prod.outlook.com (2603:10b6:806:120::6)
+ by IA1PR12MB6018.namprd12.prod.outlook.com (2603:10b6:208:3d6::6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Fri, 24 Jul
- 2026 16:17:54 +0000
-Received: from SN1PEPF000397AF.namprd05.prod.outlook.com
- (2a01:111:f403:f90d::1) by PH2PEPF0000385A.outlook.office365.com
- (2603:1036:903:48::3) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.12; Fri, 24 Jul
+ 2026 16:17:58 +0000
+Received: from SN1PEPF000397B5.namprd05.prod.outlook.com
+ (2603:10b6:806:120:cafe::29) by SN7PR04CA0031.outlook.office365.com
+ (2603:10b6:806:120::6) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.12 via Frontend Transport; Fri,
- 24 Jul 2026 16:17:54 +0000
+ 24 Jul 2026 16:17:57 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF000397AF.mail.protection.outlook.com (10.167.248.53) with Microsoft
+ SN1PEPF000397B5.mail.protection.outlook.com (10.167.248.59) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Fri, 24 Jul 2026 16:17:53 +0000
+ 15.21.270.5 via Frontend Transport; Fri, 24 Jul 2026 16:17:56 +0000
 Received: from MKMALEXHUAN01.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 24 Jul
- 2026 11:17:52 -0500
+ 2026 11:17:54 -0500
 From: Alex Huang <Alex.Huang2@amd.com>
 To: <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
  <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
@@ -63,9 +63,10 @@ To: <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
  <superm1@kernel.org>, <alex.hung@amd.com>
 CC: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>,
  <linux-kernel@vger.kernel.org>, Alex Huang <Alex.Huang2@amd.com>
-Subject: [PATCH v2 1/4] drm/edid: Parse AMD VSDB for FreeSync refresh range
-Date: Fri, 24 Jul 2026 12:17:10 -0400
-Message-ID: <20260724161713.119382-2-Alex.Huang2@amd.com>
+Subject: [PATCH v2 2/4] drm/amd/display: Use HDMI FreeSync range from common
+ EDID parser
+Date: Fri, 24 Jul 2026 12:17:11 -0400
+Message-ID: <20260724161713.119382-3-Alex.Huang2@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260724161713.119382-1-Alex.Huang2@amd.com>
 References: <20260724161713.119382-1-Alex.Huang2@amd.com>
@@ -77,29 +78,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397AF:EE_|PH7PR12MB7965:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9360d785-aa16-40fb-a49c-08dee99f1d61
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B5:EE_|IA1PR12MB6018:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5894a264-b468-40f6-2d5d-08dee99f1f63
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|82310400026|376014|23010399003|7416014|22082099003|18002099003|10067099003|11063799006|56012099006|921020;
-X-Microsoft-Antispam-Message-Info: luCMbg0hPKmdskQFj2/yFoVKizSlacYU7nz60wwEQVhqSJ5MMVQx7z3weUtHcNsZuh3VNuFKtF3sE7xJ+zSK1Z9h8J0TK/zV+S00J1YZDfOisjYkHWjQ0QHnja7JdFWk3lnnqsJhSBDntDdcnvLBNdSUL2OCzFrotkc/iZ54toyW+BT6pOE+OqD0ISptQh+rDdi25QUR0QKi9oMrpY/8yuWKx1fnT83y51v7TVjVjraDwEYoqsXH65LLiDH9Fp05VVFuB09iITxIrvGepaQwtcdKINPF9PqTy8BEtjolknfMtawpyeadNbHOHcl88dsbis4w4TepITY8vtY/4Poj/FBqrGuWlvmzc/SH/LDiikFv6Y9+HWVqu6C9KD8vDDQHXeOMq2s2gFK6LHLBEhCnAq5v80wDJp9nt0luZ3DDtR64Bo0CHxkIAGavkclRmIo2+fA5xaPaoPh2EtacpaZ3rQD0ko7QLvSD3AY6anVmk+t89uWPfpVhYUkLvaWS6hKFBMP5BYFS+LYTF9SBRF3WR07Gtt7u+BEKa3TQr0z//ZpOFQPpAjyMCTu1z1dy/eWcCx/oaKr4v+XqXzs0XbKpkcZ5PRK44ZJbVun1LK5qVrADsihVYaFF5jAq1D/h5QFUGbdH7cSyHhuFjRlb7gm25ly8+nJrD3KtZc147tcd5Ua/6LlT3BajXQkL61/P4Rd0NbWYv/synzQ6OaLxMlT35KNOlj6F/PJyjPRnah1BnIoEi6Uj12iXlb8d0vuxxnYt
+ ARA:13230040|376014|82310400026|1800799024|23010399003|36860700016|7416014|921020|6133799003|18002099003|22082099003|3023799007|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: zCIVAf74m9YhX0iEEv4LZ9yQgWeDbDxUENe4vJ0XMyFIounOya7yZex68CqNqxjQRv0sI7b9sChcL9i6OBWx547i299DUpY0OjtPyxv0R4ndh06kOOLIKkyx2qjb+MqPjrytB1DoNSV4/VqQ+DBnQ25sbmFll1/TzzOj3fLkqXeiX5SlNEuT6YU58fC9Qyra0GGT/pCR/Hh2Q88nPl9XLKzBKPzy6z6FaEbb6qtgytwcr6rhbwcGVlM17bMAG+AquYN2nGRpsUgYyq2/yx4jL5F3pUgOTT/ASqNba3ncGh1tiAqsjDW+sLMk/e5fcFCC/ESQzsUqETez9cfpgJOypRnH8ax9WPXsvoMB5lQD7Eg45XiRYgmJFET0dTgAJPtV/Qvzj/5T4cpOoaw7yE+eXoQJprRuTa4GZQvjVi/9XihUj1d03qW2GObDK+jwAzuXgStVrGTkdnZE10UgazK7mqNZepHIWDt66Cqupao5sVledoNCs3Z7uwXkv7FZC52ffuYl+MPqBR1dvdCm7SDJsax7D2BThJmP7XTIooqTTQ/TiQNZ4AiyNsEmmEIcraM2nFct28GK5WEbk0rODXjvdBvjRBd/W31rDnDndJkjcgK3ck/UtW+WJy5MnfeLTaRfku9qiQeVvFcvQpFhhG08cbZ1ZmEXqvvXQUm2oPA1TPmtE/kdBL6RS96GdjMMPKxQggd29ijkSCBOTxxgqndDNxqW9kHzDuBvP32sJLhCX4ILThUpBO2NMIauRY4/yQGB
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(23010399003)(7416014)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006)(921020);
+ SFS:(13230040)(376014)(82310400026)(1800799024)(23010399003)(36860700016)(7416014)(921020)(6133799003)(18002099003)(22082099003)(3023799007)(11063799006)(56012099006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: AV6BhI79prS0m1ja80przKie1lZRVpO6wAcNRd89MkdOvazjFGU3D3w4p7MeB4JbQVsNYWM9RFvO5/RLG5M2iG7sOvQejDSO9teQ04IHdptY2semNoaNhAjiDHMhrBbViK53m5J0kCBkl8e9/1WPosZFON+Rc1aa9B4rbEhJWop8V5L8bFbt0KH8rkPKGAvWak6bEslGvwnKDs3MhhFPYFfLmjnm/Q6rJZdLUIiR1bGHsBTMGnvPIBufo91YcD7jQ2+iY6hmDGcGEeqMKO85s1+QEGu7AXhKk3W5s7uXnvTr27j+nS2kvI5UI7iaMZo6Ib6NputRAnYE+UrVf2qO1zyok0LFo01qHhzlHHplmMmjQVQPL5YVnSoerdigcXAaTuBjtPL0HjK5suOy5Tc6qXIjJnzPATTJEFwjMQCm1h1nTjNHIOOk+8dbFGkrYPkA
+X-MS-Exchange-AntiSpam-MessageData-0: MEuruwC7EN/MYbqYo+32SQQdFG93HVedd14xTIPfX82WHC/RyxDN0gIANmHFg4FaBW4gHaDzkgqvMYVxWihlsb9khEufQI++YfF9ZdP9gvD5RP+yMi2WZZoHviUVfXUIMu4S+ZeV7cisTHQUpcCKPv8EIMNCLRqCByJZF6LG+xq0NUoRm6t6jgOWQJ9mJ4C9zrL9GcQNUJMMqCPe1t8e3ewwDxI6sw4zYHOikX+Z56+1ZMrf7i0li76m7dMs5gVJMejjE+KYkXO0m7KYBLn+wq/H6xMbkKwC/s7gVnik+pSWOBKWJsCbTrCJmqerEWAVZcwHkiY46RnKebxY1cuLZEjeVtoFhl9xNs6t0FlNBRMSJDdZjbz3KkLGbw1BO+WOJBp9MM/jT2aJ3dfO/yaYjbTmN3vbxeZvVeE+1/n+ebPWE9eZrKvUNy1Sa8+8MpJb
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 16:17:53.4548 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9360d785-aa16-40fb-a49c-08dee99f1d61
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 16:17:56.8226 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5894a264-b468-40f6-2d5d-08dee99f1f63
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397AF.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B5.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7965
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6018
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,257 +115,240 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Commit 118362a96286 ("drm/edid: Parse AMD Vendor-Specific Data Block")
-added parsing of the AMD VSDB, but only for version 3 and only for the
-replay/panel-type/luminance fields. Monitors that only advertise
-FreeSync through a v1 or v2 AMD VSDB therefore get no variable refresh
-rate range from the common EDID parser.
+HDMI FreeSync on amdgpu is detected using the AMD VSDB parser in the
+DMUB firmware, now that the common DRM EDID parser can do the same, use
+the common parser.
 
-Restructure drm_parse_amd_vsdb() and implement parsing for the FreeSync
-refresh range fields provided in the AMD VSDB.
+Extend get_amd_vsdb() to copy the relevant flags and data now being
+extracted from the AMD VSDB. Additionally, parse_hdmi_amd_vsdb() and the
+parse_edid_cea() firmware helpers now have no callers; remove them.
 
 Signed-off-by: Alex Huang <Alex.Huang2@amd.com>
 ---
- drivers/gpu/drm/drm_edid.c  | 141 ++++++++++++++++++++++++++++--------
- include/drm/drm_connector.h |  22 +++++-
- 2 files changed, 133 insertions(+), 30 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 178 +-----------------
+ 1 file changed, 8 insertions(+), 170 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index df3c25bac761..2abe85b76d33 100644
---- a/drivers/gpu/drm/drm_edid.c
-+++ b/drivers/gpu/drm/drm_edid.c
-@@ -101,20 +101,42 @@ enum drm_edid_internal_quirk {
- #define MICROSOFT_IEEE_OUI	0xca125c
- #define AMD_IEEE_OUI        0x00001A
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 9c564cd5edee..fd9bb205c8f0 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -36,7 +36,6 @@
+ #include "dc/inc/hw/dmcu.h"
+ #include "dc/inc/hw/abm.h"
+ #include "dc/dc_dmub_srv.h"
+-#include "dc/dc_edid_parser.h"
+ #include "dc/dc_stat.h"
+ #include "dc/dc_state.h"
+ #include "amdgpu_dm_trace.h"
+@@ -13632,139 +13631,6 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
+ 	return ret;
+ }
  
-+#define AMD_VSDB_V1_PAYLOAD_LEN 8
-+#define AMD_VSDB_V2_PAYLOAD_LEN 13
- #define AMD_VSDB_V3_PAYLOAD_MIN_LEN 15
--#define AMD_VSDB_V3_PAYLOAD_MAX_LEN 20
-+#define AMD_VSDB_V3_PAYLOAD_MAX_LEN 21
- 
--struct amd_vsdb_v3_payload {
-+#define AMD_VSDB_V3_MAX_VFREQ_EXT2_LEN 21
-+
-+struct amd_vsdb_common_payload {
- 	u8 oui[3];
- 	u8 version;
-+} __packed;
-+
-+struct amd_vsdb_v1_payload {
-+	struct amd_vsdb_common_payload common;
- 	u8 feature_caps;
--	u8 rsvd0[3];
-+	u8 min_vfreq;
-+	u8 max_vfreq;
-+	u8 freesync_vcp_code;
-+} __packed;
-+
-+struct amd_vsdb_v2_payload {
-+	struct amd_vsdb_v1_payload v1;
- 	u8 cs_eotf_support;
- 	u8 lum1_max;
- 	u8 lum1_min;
- 	u8 lum2_max;
- 	u8 lum2_min;
--	u8 rsvd1[2];
-+} __packed;
-+
-+struct amd_vsdb_v3_payload {
-+	struct amd_vsdb_v2_payload v2;
-+	u8 max_vfreq_ext_low;
-+	/*
-+	 * byte 14: bits 0-1 extend MSB of max refresh rate
-+	 */
-+	u8 max_vfreq_ext_high;
- 	/*
- 	 * Bytes beyond AMD_VSDB_V3_PAYLOAD_MIN_LEN are optional; a
- 	 * monitor may provide a payload as short as 15 bytes.  Always
-@@ -123,6 +145,12 @@ struct amd_vsdb_v3_payload {
- 	u8 extra[AMD_VSDB_V3_PAYLOAD_MAX_LEN - AMD_VSDB_V3_PAYLOAD_MIN_LEN];
- } __packed;
- 
-+static const u8 amd_vsdb_min_len[] = {
-+	[1] = AMD_VSDB_V1_PAYLOAD_LEN,
-+	[2] = AMD_VSDB_V2_PAYLOAD_LEN,
-+	[3] = AMD_VSDB_V3_PAYLOAD_MIN_LEN,
-+};
-+
- struct detailed_mode_closure {
- 	struct drm_connector *connector;
- 	const struct drm_edid *drm_edid;
-@@ -5231,7 +5259,7 @@ static bool cea_db_is_microsoft_vsdb(const struct cea_db *db)
- static bool cea_db_is_amd_vsdb(const struct cea_db *db)
+-static bool dm_edid_parser_send_cea(struct amdgpu_display_manager *dm,
+-		unsigned int offset,
+-		unsigned int total_length,
+-		u8 *data,
+-		unsigned int length,
+-		struct amdgpu_hdmi_vsdb_info *vsdb)
+-{
+-	bool res;
+-	union dmub_rb_cmd cmd;
+-	struct dmub_cmd_send_edid_cea *input;
+-	struct dmub_cmd_edid_cea_output *output;
+-
+-	if (length > DMUB_EDID_CEA_DATA_CHUNK_BYTES)
+-		return false;
+-
+-	memset(&cmd, 0, sizeof(cmd));
+-
+-	input = &cmd.edid_cea.data.input;
+-
+-	cmd.edid_cea.header.type = DMUB_CMD__EDID_CEA;
+-	cmd.edid_cea.header.sub_type = 0;
+-	cmd.edid_cea.header.payload_bytes =
+-		sizeof(cmd.edid_cea) - sizeof(cmd.edid_cea.header);
+-	input->offset = offset;
+-	input->length = length;
+-	input->cea_total_length = total_length;
+-	memcpy(input->payload, data, length);
+-
+-	res = dc_wake_and_execute_dmub_cmd(dm->dc->ctx, &cmd, DM_DMUB_WAIT_TYPE_WAIT_WITH_REPLY);
+-	if (!res) {
+-		drm_err(adev_to_drm(dm->adev), "EDID CEA parser failed\n");
+-		return false;
+-	}
+-
+-	output = &cmd.edid_cea.data.output;
+-
+-	if (output->type == DMUB_CMD__EDID_CEA_ACK) {
+-		if (!output->ack.success) {
+-			drm_err(adev_to_drm(dm->adev), "EDID CEA ack failed at offset %d\n",
+-					output->ack.offset);
+-		}
+-	} else if (output->type == DMUB_CMD__EDID_CEA_AMD_VSDB) {
+-		if (!output->amd_vsdb.vsdb_found)
+-			return false;
+-
+-		vsdb->freesync_supported = output->amd_vsdb.freesync_supported;
+-		vsdb->amd_vsdb_version = output->amd_vsdb.amd_vsdb_version;
+-		vsdb->min_refresh_rate_hz = output->amd_vsdb.min_frame_rate;
+-		vsdb->max_refresh_rate_hz = output->amd_vsdb.max_frame_rate;
+-		vsdb->freesync_mccs_vcp_code = output->amd_vsdb.freesync_mccs_vcp_code;
+-	} else {
+-		drm_warn(adev_to_drm(dm->adev), "Unknown EDID CEA parser results\n");
+-		return false;
+-	}
+-
+-	return true;
+-}
+-
+-static bool parse_edid_cea_dmcu(struct amdgpu_display_manager *dm,
+-		u8 *edid_ext, int len,
+-		struct amdgpu_hdmi_vsdb_info *vsdb_info)
+-{
+-	int i;
+-
+-	/* send extension block to DMCU for parsing */
+-	for (i = 0; i < len; i += 8) {
+-		bool res;
+-		int offset;
+-
+-		/* send 8 bytes a time */
+-		if (!dc_edid_parser_send_cea(dm->dc, i, len, &edid_ext[i], 8))
+-			return false;
+-
+-		if (i+8 == len) {
+-			/* EDID block sent completed, expect result */
+-			int version, min_rate, max_rate;
+-
+-			res = dc_edid_parser_recv_amd_vsdb(dm->dc, &version, &min_rate, &max_rate);
+-			if (res) {
+-				/* amd vsdb found */
+-				vsdb_info->freesync_supported = 1;
+-				vsdb_info->amd_vsdb_version = version;
+-				vsdb_info->min_refresh_rate_hz = min_rate;
+-				vsdb_info->max_refresh_rate_hz = max_rate;
+-				/* Not enabled on DMCU*/
+-				vsdb_info->freesync_mccs_vcp_code = 0;
+-				return true;
+-			}
+-			/* not amd vsdb */
+-			return false;
+-		}
+-
+-		/* check for ack*/
+-		res = dc_edid_parser_recv_cea_ack(dm->dc, &offset);
+-		if (!res)
+-			return false;
+-	}
+-
+-	return false;
+-}
+-
+-static bool parse_edid_cea_dmub(struct amdgpu_display_manager *dm,
+-		u8 *edid_ext, int len,
+-		struct amdgpu_hdmi_vsdb_info *vsdb_info)
+-{
+-	int i;
+-
+-	/* send extension block to DMCU for parsing */
+-	for (i = 0; i < len; i += 8) {
+-		/* send 8 bytes a time */
+-		if (!dm_edid_parser_send_cea(dm, i, len, &edid_ext[i], 8, vsdb_info))
+-			return false;
+-	}
+-
+-	return vsdb_info->freesync_supported;
+-}
+-
+-static bool parse_edid_cea(struct amdgpu_dm_connector *aconnector,
+-		u8 *edid_ext, int len,
+-		struct amdgpu_hdmi_vsdb_info *vsdb_info)
+-{
+-	struct amdgpu_device *adev = drm_to_adev(aconnector->base.dev);
+-	bool ret;
+-
+-	mutex_lock(&adev->dm.dc_lock);
+-	if (adev->dm.dmub_srv)
+-		ret = parse_edid_cea_dmub(&adev->dm, edid_ext, len, vsdb_info);
+-	else
+-		ret = parse_edid_cea_dmcu(&adev->dm, edid_ext, len, vsdb_info);
+-	mutex_unlock(&adev->dm.dc_lock);
+-	return ret;
+-}
+-
+ static void parse_edid_displayid_vrr(struct drm_connector *connector,
+ 				     const struct edid *edid)
  {
- 	return cea_db_is_vendor(db, AMD_IEEE_OUI) &&
--		cea_db_payload_len(db) >= AMD_VSDB_V3_PAYLOAD_MIN_LEN &&
-+		cea_db_payload_len(db) >= AMD_VSDB_V1_PAYLOAD_LEN &&
- 		cea_db_payload_len(db) <= AMD_VSDB_V3_PAYLOAD_MAX_LEN;
+@@ -13815,42 +13681,14 @@ static int get_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+ 
+ 	vsdb_info->replay_mode = connector->display_info.amd_vsdb.replay_mode;
+ 	vsdb_info->amd_vsdb_version = connector->display_info.amd_vsdb.version;
++	vsdb_info->freesync_supported = connector->display_info.amd_vsdb.freesync_supported;
++	vsdb_info->min_refresh_rate_hz = connector->display_info.amd_vsdb.min_frame_rate;
++	vsdb_info->max_refresh_rate_hz = connector->display_info.amd_vsdb.max_frame_rate;
++	vsdb_info->freesync_mccs_vcp_code = connector->display_info.amd_vsdb.freesync_vcp_code;
+ 
+ 	return connector->display_info.amd_vsdb.version != 0;
  }
  
-@@ -6431,43 +6459,98 @@ static void drm_parse_microsoft_vsdb(struct drm_connector *connector,
- 		    connector->base.id, connector->name, version, db[5]);
- }
- 
-+static void drm_parse_amd_vsdb_common(struct drm_display_info *info,
-+				  const struct amd_vsdb_common_payload *data)
-+{
-+	info->amd_vsdb.version = data->version;
-+}
-+
-+static void drm_parse_amd_vsdb_v1(struct drm_display_info *info,
-+				  const struct amd_vsdb_v1_payload *data)
-+{
-+	info->amd_vsdb.freesync_supported = data->feature_caps & 0x1;
-+	info->amd_vsdb.min_frame_rate = data->min_vfreq;
-+	info->amd_vsdb.max_frame_rate = data->max_vfreq;
-+	info->amd_vsdb.freesync_vcp_code = data->freesync_vcp_code;
-+
-+	drm_parse_amd_vsdb_common(info, &data->common);
-+}
-+
-+static void drm_parse_amd_vsdb_v2(struct drm_display_info *info,
-+				  const struct amd_vsdb_v2_payload *data)
-+{
-+	info->amd_vsdb.luminance_range1.max_luminance = data->lum1_max;
-+	info->amd_vsdb.luminance_range1.min_luminance = data->lum1_min;
-+	info->amd_vsdb.luminance_range2.max_luminance = data->lum2_max;
-+	info->amd_vsdb.luminance_range2.min_luminance = data->lum2_min;
-+
-+	drm_parse_amd_vsdb_v1(info, &data->v1);
-+}
-+
-+static void drm_parse_amd_vsdb_v3(struct drm_display_info *info,
-+				  const struct amd_vsdb_v3_payload *data,
-+				  int payload_len)
-+{
-+	u16 max_frame_rate;
-+
-+	info->amd_vsdb.replay_mode = data->v2.v1.feature_caps & 0x40;
-+	info->amd_vsdb.panel_type = (data->v2.cs_eotf_support & 0xC0) >> 6;
-+
-+	drm_parse_amd_vsdb_v2(info, &data->v2);
-+
-+	/* vfreq is provided in a different set of fields for v3. */
-+	max_frame_rate = data->max_vfreq_ext_low |
-+			 (data->max_vfreq_ext_high & 0x3) << 8;
-+
-+	/*
-+	 * The AMD VSDB v3 payload length is variable (15..21 bytes).
-+	 * All fields through max_vfreq_ext_high (byte 14) are always
-+	 * present, but data->extra[] (bytes 15+) may not be, so any access
-+	 * to extra[] must be guarded with a runtime length check to
-+	 * avoid out-of-bounds reads on shorter (but spec-valid) payloads.
-+	 */
-+	if (payload_len >= AMD_VSDB_V3_MAX_VFREQ_EXT2_LEN)
-+		max_frame_rate |= (data->extra[5] & 0x3) << 10;
-+
-+	info->amd_vsdb.max_frame_rate = max_frame_rate;
-+}
-+
- static void drm_parse_amd_vsdb(struct drm_connector *connector,
- 			       const struct cea_db *db)
- {
- 	struct drm_display_info *info = &connector->display_info;
- 	const u8 *data = cea_db_data(db);
--	const struct amd_vsdb_v3_payload *p;
-+	int payload_len = cea_db_payload_len(db);
-+	u8 version;
- 
--	p = (const struct amd_vsdb_v3_payload *)data;
-+	version = ((const struct amd_vsdb_common_payload *)data)->version;
- 
--	if (p->version != 0x03) {
-+	if (version < 1 || version > 3) {
- 		drm_dbg_kms(connector->dev,
- 			    "[CONNECTOR:%d:%s] Unsupported AMD VSDB version %u\n",
--			    connector->base.id, connector->name, p->version);
-+			    connector->base.id, connector->name, version);
- 		return;
- 	}
- 
--	info->amd_vsdb.version = p->version;
--	info->amd_vsdb.replay_mode = p->feature_caps & 0x40;
--	info->amd_vsdb.panel_type = (p->cs_eotf_support & 0xC0) >> 6;
--	info->amd_vsdb.luminance_range1.max_luminance = p->lum1_max;
--	info->amd_vsdb.luminance_range1.min_luminance = p->lum1_min;
--	info->amd_vsdb.luminance_range2.max_luminance = p->lum2_max;
--	info->amd_vsdb.luminance_range2.min_luminance = p->lum2_min;
-+	if (payload_len < amd_vsdb_min_len[version]) {
-+		drm_dbg_kms(connector->dev,
-+			    "[CONNECTOR:%d:%s] AMD VSDB v%u payload too short (%d bytes)\n",
-+			    connector->base.id, connector->name, version, payload_len);
-+		return;
-+	}
- 
--	/*
--	 * The AMD VSDB v3 payload length is variable (15..20 bytes).
--	 * All fields through p->rsvd1 (byte 14) are always present,
--	 * but p->extra[] (bytes 15+) may not be.  Any future access to
--	 * extra[] must be guarded with a runtime length check to avoid
--	 * out-of-bounds reads on shorter (but spec-valid) payloads.
--	 * For example:
--	 *
--	 *   int len = cea_db_payload_len(db);
--	 *
--	 *   if (len > AMD_VSDB_V3_PAYLOAD_MIN_LEN)
--	 *       info->amd_vsdb.foo = p->extra[0];
--	 */
-+	switch (version) {
-+	case 3:
-+		drm_parse_amd_vsdb_v3(info, (const struct amd_vsdb_v3_payload *)data,
-+				      payload_len);
-+		break;
-+	case 2:
-+		drm_parse_amd_vsdb_v2(info, (const struct amd_vsdb_v2_payload *)data);
-+		break;
-+	case 1:
-+		drm_parse_amd_vsdb_v1(info, (const struct amd_vsdb_v1_payload *)data);
-+		break;
-+	}
- }
- 
- static void drm_parse_cea_ext(struct drm_connector *connector,
-diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 5f5ca023cd65..0914a2bd8ef1 100644
---- a/include/drm/drm_connector.h
-+++ b/include/drm/drm_connector.h
-@@ -697,7 +697,7 @@ enum drm_bus_flags {
-  * struct drm_amd_vsdb_info - AMD-specific VSDB information
+-static int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+-			       const struct edid *edid,
+-			       struct amdgpu_hdmi_vsdb_info *vsdb_info)
+-{
+-	u8 *edid_ext = NULL;
+-	int i;
+-	bool valid_vsdb_found = false;
+-
+-	/*----- drm_find_cea_extension() -----*/
+-	/* No EDID or EDID extensions */
+-	if (edid == NULL || edid->extensions == 0)
+-		return -ENODEV;
+-
+-	/* Find CEA extension */
+-	for (i = 0; i < edid->extensions; i++) {
+-		edid_ext = (uint8_t *)edid + EDID_LENGTH * (i + 1);
+-		if (edid_ext[0] == CEA_EXT)
+-			break;
+-	}
+-
+-	if (i == edid->extensions)
+-		return -ENODEV;
+-
+-	/*----- cea_db_offsets() -----*/
+-	if (edid_ext[0] != CEA_EXT)
+-		return -ENODEV;
+-
+-	valid_vsdb_found = parse_edid_cea(aconnector, edid_ext, EDID_LENGTH, vsdb_info);
+-
+-	return valid_vsdb_found ? i : -ENODEV;
+-}
+-
+ /**
+  * amdgpu_dm_update_freesync_caps - Update Freesync capabilities
   *
-  * This structure holds information parsed from the AMD Vendor-Specific Data
-- * Block (VSDB) version 3.
-+ * Block (VSDB) versions 1 to 3.
-  */
- struct drm_amd_vsdb_info {
- 	/**
-@@ -705,6 +705,26 @@ struct drm_amd_vsdb_info {
- 	 */
- 	u8 version;
+@@ -13932,8 +13770,8 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 		}
  
-+	/**
-+	 * @freesync_supported: FreeSync (variable refresh rate) supported by panel
-+	 */
-+	bool freesync_supported;
-+
-+	/**
-+	 * @min_frame_rate: FreeSync minimum refresh rate in Hz
-+	 */
-+	u16 min_frame_rate;
-+
-+	/**
-+	 * @max_frame_rate: FreeSync maximum refresh rate in Hz
-+	 */
-+	u16 max_frame_rate;
-+
-+	/**
-+	 * @freesync_vcp_code: MCCS VCP code for FreeSync
-+	 */
-+	u8 freesync_vcp_code;
-+
- 	/**
- 	 * @replay_mode: Panel Replay supported
- 	 */
+ 	} else if (drm_edid && sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A) {
+-		i = parse_hdmi_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
+-		if (i >= 0) {
++		i = get_amd_vsdb(amdgpu_dm_connector, &vsdb_info);
++		if (i) {
+ 			amdgpu_dm_connector->vsdb_info = vsdb_info;
+ 			sink->edid_caps.freesync_vcp_code = vsdb_info.freesync_mccs_vcp_code;
+ 
+@@ -13953,8 +13791,8 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 		as_type = dm_get_adaptive_sync_support_type(amdgpu_dm_connector->dc_link);
+ 
+ 	if (as_type == FREESYNC_TYPE_PCON_IN_WHITELIST) {
+-		i = parse_hdmi_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
+-		if (i >= 0) {
++		i = get_amd_vsdb(amdgpu_dm_connector, &vsdb_info);
++		if (i) {
+ 			amdgpu_dm_connector->vsdb_info = vsdb_info;
+ 			sink->edid_caps.freesync_vcp_code = vsdb_info.freesync_mccs_vcp_code;
+ 
 -- 
 2.34.1
 
