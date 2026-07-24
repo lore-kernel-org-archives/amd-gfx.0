@@ -4,74 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75A9DC5321C
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 00:23:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F8C1C54F4C
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 00:23:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E7BE810E251;
-	Mon, 27 Jul 2026 00:23:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C0A910E252;
+	Mon, 27 Jul 2026 00:23:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dN0bWrDM";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="DM9IjqJU";
 	dkim-atps=neutral
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
- [209.85.128.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61B3110E072
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jul 2026 18:07:50 +0000 (UTC)
-Received: by mail-wm1-f46.google.com with SMTP id
- 5b1f17b1804b1-493b966dd74so5010375e9.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jul 2026 11:07:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784916469; x=1785521269; darn=lists.freedesktop.org;
- h=subject:from:cc:to:content-language:user-agent:mime-version:date
- :message-id:content-type:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=s87tuSaybc7Tx/AOhk/Zot7/9otXE0zqSCjkVZeHwIQ=;
- b=dN0bWrDMchEMl1FhLc/9riTKFjEJnECXMcbqXy1DJORv8SuGyqn5aMl+bUa7XGhF9O
- f3a4+jaa7OCsUB5IWQ6kl8bIWVj/E9l2HUvAmCqhJhIACzui3RSmRGheLiFlGYx+v/Sj
- qvaH6HVXlk2aaE2R0234Jf5mbxesioPN/kKIiouyzUolgLe7AgYxX4c2GvEd1Q7+65Pd
- cQGhx2No4XbccIRNmKoi9bb5uMObsO3kxn4tgz5mRhwVoolUHODnfhiRwqLJd46iJBUe
- AMwmkDCx3hYNp2nwY5OnTe6CnHnzaUjGOKdl46jnI2ujZo8IF8HuVcJfkpjaModn/Yy7
- R8Wg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784916469; x=1785521269;
- h=subject:from:cc:to:content-language:user-agent:mime-version:date
- :message-id:content-type:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=s87tuSaybc7Tx/AOhk/Zot7/9otXE0zqSCjkVZeHwIQ=;
- b=blHu9egB6+sVUIP8ef99bDu9wjFmdLBwbeNMKSAfKcN8mV3rkFMII17EVdEP+fimYA
- 1GUzridxB09eQqcLuEqRt4NZWReySIzw0t5+s8nwkmvRSmoJ/s8Jxu247aXoMv17674/
- KRuVVFRyHrlhgqpGNdTXPb8bByU8Odz2Lu/+/hM59EViD10ZxTukVgxuQ0uGhqpxj/zs
- HhkCAgGt7SPhFoSrop13FnFQJ6K8B+XwsHDjAaDhKNIvENsk/V7LTlH5wT7RiTgeXxjd
- AURBqRLtwR3+hgV3EjLoaOf2uAp7zNymcZdX2FsSNfq08BgjKtcI1ctciG6kYk22z6aO
- LXbA==
-X-Gm-Message-State: AOJu0YwWRvhGiOOke9skrNK+62iFUfiSD4KrlVxWvoaH7zHQIT/CcZEP
- UKPKGvRgIZtUjYGTiXBye8LnLLZYiKyhDHcFr0920sDB7Cxnwq1iV1zi5H7LEhqgRAk=
-X-Gm-Gg: AR+sD13r8CmBbrsBRvFf6XHnURbbnIPKeIyTYs0Gd25GqpdFaWDFv+ny4HJFGcmpI+d
- r9YhMlkJFEFPXvAj1dJ3uQ5KPKbvn4tatOzG/7jXhSJgjC6Hw5azz1sRKj2G+CNrchzyYBgwNng
- 0KI/8JT0mIno81b9KVEZcoCeAIZgKNv74mimPQRM2IAgYb1XvXON4oUkF8FRVmcqRrVVaP81qmQ
- mQfO8YTecB3nXE19dWlMTfc8L/tgxBj1LnASr7QZQZjKM4C8FdTRPqqCg0JLu9mrAeFeB8hdX85
- VdCLi4FVDtMp7vWez2th2kFtpMzgyPxdIKxhKLA+k0mUK7sVlTgh1PWgc6TtJtH5TvsFQR58Lbo
- 3A/wPzu5uXlr/RlyQW/ATIEK43W5ynnL0lf3wHhPEmAuPgakjXL5GaULiOCQuMu3FmqmHwbh8rn
- /b6onqK6uRJNob
-X-Received: by 2002:a05:600c:524f:b0:495:4cb6:71c3 with SMTP id
- 5b1f17b1804b1-49573d291d2mr98006425e9.39.1784916468463; 
- Fri, 24 Jul 2026 11:07:48 -0700 (PDT)
-Received: from [192.168.1.26] ([88.97.178.205])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-496b49a6e17sm7207895e9.13.2026.07.24.11.07.46
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 24 Jul 2026 11:07:46 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------h6CQ7SgtopYp2vlAXn0Dto5t"
-Message-ID: <b911abf7-40df-445a-9c3a-403903c94920@gmail.com>
-Date: Fri, 24 Jul 2026 19:07:45 +0100
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D3AF10F38C;
+ Fri, 24 Jul 2026 12:09:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1784894957; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=XytxdjCGX9EVUPtKHF9e+bqP8A0cCXkZpjpzzRG0dGjvUYRYcAh6Y28Aq0zdwe+8AdS0x2LLhgchFvco13lZXmzHRS1P311dnA5e7UXs7dXA0MgXm1/tA6glovCBav/JXtd1SH6LVt1sIIOsu4z+/L++ZRAMXpwvZ6Y9a5hq7Og=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1784894957;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=DeEZcBVEsWInovxiw4dTOa5TRdK+0FTpKBalsMipvug=; 
+ b=JnD439G1G5v2NpSXVTamKPt4m956jX/SiSkVFQJyR8L+/Tzfcz085c8FPQDIm1O9UU0rkWqmeYYp/9INnwOJJg9koEjGsYp+o3hKrvNRRHQQP9jIuiTFBONMiQ50KaKCTWw3+QtroSfWuKweTO9haNeRIBLOFveMfJT9agHj8Xs=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
+ dmarc=pass header.from=<adrian.larumbe@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784894957; 
+ s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
+ h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
+ bh=DeEZcBVEsWInovxiw4dTOa5TRdK+0FTpKBalsMipvug=;
+ b=DM9IjqJUPkdiUu8sGP59ecg8r/tMoNO5Ucrjlfp4CnQV0i6E7tPp3MHZHIK06Xf+
+ EyXUTV8YPyUEvAZ8TTPMKZdAi/yeV5ewIIepEP577y2UoMRbsytnA4WAQYtOppnR8oO
+ 8MACe4aWiJ5XesjgWMqpy/fAHasX7/jXdqs3/ukY=
+Received: by mx.zohomail.com with SMTPS id 1784894955910533.5313550215117;
+ Fri, 24 Jul 2026 05:09:15 -0700 (PDT)
+From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+Date: Fri, 24 Jul 2026 13:08:58 +0100
+Subject: [PATCH] drm/gem: Move pages_to_sg helper into drm_gem.c
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org
-From: Bernardo <bernardomagri21@gmail.com>
-Subject: [bug report] amdgpu/TTM: NULL/UAF deref in ttm_resource_manager_next
- during hibernation swapout (ttm_device_prepare_hibernation) on
- Phoenix APU
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260724-get_pages-v1-1-b10e5d65628e@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDcyMT3fTUkviCxPTUYt1Uo1RLw2RT49TERGMloPqCotS0zAqwWdGxEH5
+ xaVJWanIJyACl2loAZ6PVx20AAAA=
+X-Change-ID: 20260724-get_pages-e2e91c53eaa3
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Russell King <linux+etnaviv@armlinux.org.uk>, 
+ Christian Gmeiner <christian.gmeiner@gmail.com>, 
+ Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
+ Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, 
+ Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Zack Rusin <zack.rusin@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, etnaviv@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org, 
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=17563;
+ i=adrian.larumbe@collabora.com; h=from:subject:message-id;
+ bh=3PVL60uLcRI4yvDQx1IrwymmB1TFYT1vk37fGhTxmlE=;
+ b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqY1XgrrsDazA78XCqv4Hkn/ujXzt2KDrdKQQnM
+ HDXI/outcGJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCamNV4AAKCRAOJn5M7lND
+ PRlEC/4otGAiqlGdJW1PM79TRx/wgUCZsSgcgrihNvGOYUqY7R9iKNivSpxEvj7LI/vuWtkk1Sc
+ zz5Fl15Hx81JDA5QrDvVIaw6+h2UxR/395AaKIu6dxEVD/nUAljE+CGzvKXvbg1ef5mcl5xwkEU
+ NG8Zife//57e2Cxx3jlm8K05OHWpAxmvpgK/+TnbbjGN0S2sU0mKLKkOI/IjpKDtXbRawqmkP8f
+ ig5FFku9ryqj7iISJIc0IHOFkwlK6amszLd0X/XZqc5HCl3rWVGWNYBC0brOGcyxZ6Cz+vBACkw
+ Fxxqt5KEzITsrBK+ame24r5yCJ36qiVAuHoy1Yrw9GO3H4xt/8zM7lCwOdCUkFmyErXSPHmjSQr
+ 4uEDJziN3dnZkl+tTIHkGxbVzjQZgTaLF8XDZFaFpMCUz+aIyb3LpPY7hirfcwSnFl7UoaiynXg
+ nXS0x8DIJ3+QDNXhi7eYtwSDPtiuv6RTaJlr8oBkoACoTgxRbv8Q+ZCgyvm91ZdVCDtDk=
+X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
+ fpr=324030E8C005175DF93707A40E267E4CEE53433D
 X-Mailman-Approved-At: Mon, 27 Jul 2026 00:23:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,279 +118,457 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------h6CQ7SgtopYp2vlAXn0Dto5t
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+None of the semantics of the function tell of it being a PRIME-exclusive
+entry point. In fact, most drivers seem to be using it to translate a list
+of pages into an sg table that can be used for GPU mapping later on, rather
+than just for sharing an object's pages with another driver.
 
-Dear maintainers,
+Move it across files and rename accordingly.
 
-Please find the bug report below. Thanks!
+Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+---
+drm_prime_pages_to_sg() has no real dependency on PRIME/dma-buf interfaces.
+It is a generic helper that converts a page array into a scatter/gather
+table via dma_map_sg_attrs. Nothing in its implementation touches struct
+dma_buf or import/export logic.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  6 ++---
+ drivers/gpu/drm/drm_gem.c                   | 35 ++++++++++++++++++++++++++
+ drivers/gpu/drm/drm_gem_shmem_helper.c      |  2 +-
+ drivers/gpu/drm/drm_prime.c                 | 38 -----------------------------
+ drivers/gpu/drm/etnaviv/etnaviv_gem.c       |  3 +--
+ drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c |  3 ++-
+ drivers/gpu/drm/loongson/lsdc_gem.c         |  3 +--
+ drivers/gpu/drm/msm/msm_gem.c               |  2 +-
+ drivers/gpu/drm/msm/msm_gem_prime.c         |  2 +-
+ drivers/gpu/drm/nouveau/nouveau_prime.c     |  4 +--
+ drivers/gpu/drm/panthor/panthor_gem.c       |  6 ++---
+ drivers/gpu/drm/radeon/radeon_prime.c       |  5 ++--
+ drivers/gpu/drm/rockchip/rockchip_drm_gem.c |  6 ++---
+ drivers/gpu/drm/tegra/gem.c                 |  4 +--
+ drivers/gpu/drm/vmwgfx/vmwgfx_gem.c         |  4 +--
+ drivers/gpu/drm/xe/xe_dma_buf.c             |  6 ++---
+ drivers/gpu/drm/xen/xen_drm_front_gem.c     |  2 +-
+ include/drm/drm_gem.h                       |  5 +++-
+ include/drm/drm_prime.h                     |  2 --
+ 19 files changed, 68 insertions(+), 70 deletions(-)
 
-Cheers,
-BM
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+index b33c300e26e2..c9a98aec7eb6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+@@ -203,9 +203,9 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
+ 
+ 	switch (bo->tbo.resource->mem_type) {
+ 	case TTM_PL_TT:
+-		sgt = drm_prime_pages_to_sg(obj->dev,
+-					    bo->tbo.ttm->pages,
+-					    bo->tbo.ttm->num_pages);
++		sgt = drm_pages_to_sg(obj->dev,
++				      bo->tbo.ttm->pages,
++				      bo->tbo.ttm->num_pages);
+ 		if (IS_ERR(sgt))
+ 			return sgt;
+ 
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index 018df97d590d..22c8a3b5f667 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -780,6 +780,41 @@ void drm_gem_put_pages(struct drm_gem_object *obj, struct page **pages,
+ }
+ EXPORT_SYMBOL(drm_gem_put_pages);
+ 
++/**
++ * drm_pages_to_sg - converts a page array into an sg list
++ * @dev: DRM device
++ * @pages: pointer to the array of page pointers to convert
++ * @nr_pages: length of the page vector
++ *
++ * This helper creates an sg table object from a set of pages.
++ * This is useful for implementing &drm_gem_object_funcs.get_sg_table.
++ */
++struct sg_table *drm_pages_to_sg(struct drm_device *dev,
++				 struct page **pages, unsigned int nr_pages)
++{
++	struct sg_table *sg;
++	size_t max_segment = 0;
++	int err;
++
++	sg = kmalloc_obj(struct sg_table);
++	if (!sg)
++		return ERR_PTR(-ENOMEM);
++
++	if (dev)
++		max_segment = dma_max_mapping_size(drm_dev_dma_dev(dev));
++	if (max_segment == 0)
++		max_segment = UINT_MAX;
++	err = sg_alloc_table_from_pages_segment(sg, pages, nr_pages, 0,
++						(unsigned long)nr_pages << PAGE_SHIFT,
++						max_segment, GFP_KERNEL);
++	if (err) {
++		kfree(sg);
++		sg = ERR_PTR(err);
++	}
++	return sg;
++}
++EXPORT_SYMBOL(drm_pages_to_sg);
++
+ static int objects_lookup(struct drm_file *filp, u32 *handle, int count,
+ 			  struct drm_gem_object **objs)
+ {
+diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+index 22ec52e2ffb8..144d088a477f 100644
+--- a/drivers/gpu/drm/drm_gem_shmem_helper.c
++++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+@@ -825,7 +825,7 @@ struct sg_table *drm_gem_shmem_get_sg_table(struct drm_gem_shmem_object *shmem)
+ 
+ 	drm_WARN_ON(obj->dev, drm_gem_is_imported(obj));
+ 
+-	return drm_prime_pages_to_sg(obj->dev, shmem->pages, obj->size >> PAGE_SHIFT);
++	return drm_pages_to_sg(obj->dev, shmem->pages, obj->size >> PAGE_SHIFT);
+ }
+ EXPORT_SYMBOL_GPL(drm_gem_shmem_get_sg_table);
+ 
+diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+index 9b44c78cd77f..54539a8929c1 100644
+--- a/drivers/gpu/drm/drm_prime.c
++++ b/drivers/gpu/drm/drm_prime.c
+@@ -835,44 +835,6 @@ static const struct dma_buf_ops drm_gem_prime_dmabuf_ops =  {
+ 	.vunmap = drm_gem_dmabuf_vunmap,
+ };
+ 
+-/**
+- * drm_prime_pages_to_sg - converts a page array into an sg list
+- * @dev: DRM device
+- * @pages: pointer to the array of page pointers to convert
+- * @nr_pages: length of the page vector
+- *
+- * This helper creates an sg table object from a set of pages
+- * the driver is responsible for mapping the pages into the
+- * importers address space for use with dma_buf itself.
+- *
+- * This is useful for implementing &drm_gem_object_funcs.get_sg_table.
+- */
+-struct sg_table *drm_prime_pages_to_sg(struct drm_device *dev,
+-				       struct page **pages, unsigned int nr_pages)
+-{
+-	struct sg_table *sg;
+-	size_t max_segment = 0;
+-	int err;
+-
+-	sg = kmalloc_obj(struct sg_table);
+-	if (!sg)
+-		return ERR_PTR(-ENOMEM);
+-
+-	if (dev)
+-		max_segment = dma_max_mapping_size(drm_dev_dma_dev(dev));
+-	if (max_segment == 0)
+-		max_segment = UINT_MAX;
+-	err = sg_alloc_table_from_pages_segment(sg, pages, nr_pages, 0,
+-						(unsigned long)nr_pages << PAGE_SHIFT,
+-						max_segment, GFP_KERNEL);
+-	if (err) {
+-		kfree(sg);
+-		sg = ERR_PTR(err);
+-	}
+-	return sg;
+-}
+-EXPORT_SYMBOL(drm_prime_pages_to_sg);
+-
+ /**
+  * drm_prime_get_contiguous_size - returns the contiguous size of the buffer
+  * @sgt: sg_table describing the buffer to check
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
+index b0436a1e103f..a8e8614f8210 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
+@@ -3,7 +3,6 @@
+  * Copyright (C) 2015-2018 Etnaviv Project
+  */
+ 
+-#include <drm/drm_prime.h>
+ #include <drm/drm_print.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/shmem_fs.h>
+@@ -104,7 +103,7 @@ struct page **etnaviv_gem_get_pages(struct etnaviv_gem_object *etnaviv_obj)
+ 		unsigned int npages = etnaviv_obj->base.size >> PAGE_SHIFT;
+ 		struct sg_table *sgt;
+ 
+-		sgt = drm_prime_pages_to_sg(dev, etnaviv_obj->pages, npages);
++		sgt = drm_pages_to_sg(dev, etnaviv_obj->pages, npages);
+ 		if (IS_ERR(sgt)) {
+ 			dev_err(dev->dev, "failed to allocate sgt: %ld\n",
+ 				PTR_ERR(sgt));
+diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+index 6757ae6ec304..f44484325ddb 100644
+--- a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
++++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+@@ -3,6 +3,7 @@
+  * Copyright (C) 2014-2018 Etnaviv Project
+  */
+ 
++#include <drm/drm_gem.h>
+ #include <drm/drm_prime.h>
+ #include <linux/dma-buf.h>
+ #include <linux/module.h>
+@@ -22,7 +23,7 @@ struct sg_table *etnaviv_gem_prime_get_sg_table(struct drm_gem_object *obj)
+ 	if (WARN_ON(!etnaviv_obj->pages))  /* should have already pinned! */
+ 		return ERR_PTR(-EINVAL);
+ 
+-	return drm_prime_pages_to_sg(obj->dev, etnaviv_obj->pages, npages);
++	return drm_pages_to_sg(obj->dev, etnaviv_obj->pages, npages);
+ }
+ 
+ int etnaviv_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map)
+diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c b/drivers/gpu/drm/loongson/lsdc_gem.c
+index 2fb03487c983..37160228244c 100644
+--- a/drivers/gpu/drm/loongson/lsdc_gem.c
++++ b/drivers/gpu/drm/loongson/lsdc_gem.c
+@@ -9,7 +9,6 @@
+ #include <drm/drm_dumb_buffers.h>
+ #include <drm/drm_file.h>
+ #include <drm/drm_gem.h>
+-#include <drm/drm_prime.h>
+ #include <drm/drm_print.h>
+ 
+ #include "lsdc_drv.h"
+@@ -51,7 +50,7 @@ static struct sg_table *lsdc_gem_prime_get_sg_table(struct drm_gem_object *obj)
+ 		return ERR_PTR(-ENOMEM);
+ 	}
+ 
+-	return drm_prime_pages_to_sg(obj->dev, tt->pages, tt->num_pages);
++	return drm_pages_to_sg(obj->dev, tt->pages, tt->num_pages);
+ }
+ 
+ static void lsdc_gem_object_free(struct drm_gem_object *obj)
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index efd3d3c9a449..7e3418290c22 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -207,7 +207,7 @@ static struct page **get_pages(struct drm_gem_object *obj)
+ 
+ 		msm_obj->pages = p;
+ 
+-		msm_obj->sgt = drm_prime_pages_to_sg(obj->dev, p, npages);
++		msm_obj->sgt = drm_pages_to_sg(obj->dev, p, npages);
+ 		if (IS_ERR(msm_obj->sgt)) {
+ 			void *ptr = ERR_CAST(msm_obj->sgt);
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
+index 036d34c674d9..d25393a9e549 100644
+--- a/drivers/gpu/drm/msm/msm_gem_prime.c
++++ b/drivers/gpu/drm/msm/msm_gem_prime.c
+@@ -23,7 +23,7 @@ struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj)
+ 	if (WARN_ON(!msm_obj->pages))  /* should have already pinned! */
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	return drm_prime_pages_to_sg(obj->dev, msm_obj->pages, npages);
++	return drm_pages_to_sg(obj->dev, msm_obj->pages, npages);
+ }
+ 
+ int msm_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map)
+diff --git a/drivers/gpu/drm/nouveau/nouveau_prime.c b/drivers/gpu/drm/nouveau/nouveau_prime.c
+index caab60fc62f6..b95f2f07df74 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_prime.c
++++ b/drivers/gpu/drm/nouveau/nouveau_prime.c
+@@ -32,8 +32,8 @@ struct sg_table *nouveau_gem_prime_get_sg_table(struct drm_gem_object *obj)
+ {
+ 	struct nouveau_bo *nvbo = nouveau_gem_object(obj);
+ 
+-	return drm_prime_pages_to_sg(obj->dev, nvbo->bo.ttm->pages,
+-				     nvbo->bo.ttm->num_pages);
++	return drm_pages_to_sg(obj->dev, nvbo->bo.ttm->pages,
++			       nvbo->bo.ttm->num_pages);
+ }
+ 
+ struct drm_gem_object *nouveau_gem_prime_import_sg_table(struct drm_device *dev,
+diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+index 9855df738194..ec530d254fa4 100644
+--- a/drivers/gpu/drm/panthor/panthor_gem.c
++++ b/drivers/gpu/drm/panthor/panthor_gem.c
+@@ -321,8 +321,8 @@ panthor_gem_dev_map_get_sgt_locked(struct panthor_gem_object *bo)
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
+-	sgt = drm_prime_pages_to_sg(bo->base.dev, bo->backing.pages,
+-				    bo->base.size >> PAGE_SHIFT);
++	sgt = drm_pages_to_sg(bo->base.dev, bo->backing.pages,
++			      bo->base.size >> PAGE_SHIFT);
+ 	if (IS_ERR(sgt))
+ 		return sgt;
+ 
+@@ -702,7 +702,7 @@ static struct sg_table *panthor_gem_get_sg_table(struct drm_gem_object *obj)
+ 	drm_WARN_ON_ONCE(obj->dev, !bo->backing.pages);
+ 	drm_WARN_ON_ONCE(obj->dev, !refcount_read(&bo->backing.pin_count));
+ 
+-	return drm_prime_pages_to_sg(obj->dev, bo->backing.pages, obj->size >> PAGE_SHIFT);
++	return drm_pages_to_sg(obj->dev, bo->backing.pages, obj->size >> PAGE_SHIFT);
+ }
+ 
+ static int panthor_gem_vmap_locked(struct drm_gem_object *obj,
+diff --git a/drivers/gpu/drm/radeon/radeon_prime.c b/drivers/gpu/drm/radeon/radeon_prime.c
+index a77881f035e7..4cfc4282a59c 100644
+--- a/drivers/gpu/drm/radeon/radeon_prime.c
++++ b/drivers/gpu/drm/radeon/radeon_prime.c
+@@ -26,6 +26,7 @@
+ 
+ #include <linux/dma-buf.h>
+ 
++#include <drm/drm_gem.h>
+ #include <drm/drm_prime.h>
+ #include <drm/radeon_drm.h>
+ 
+@@ -38,8 +39,8 @@ struct sg_table *radeon_gem_prime_get_sg_table(struct drm_gem_object *obj)
+ {
+ 	struct radeon_bo *bo = gem_to_radeon_bo(obj);
+ 
+-	return drm_prime_pages_to_sg(obj->dev, bo->tbo.ttm->pages,
+-				     bo->tbo.ttm->num_pages);
++	return drm_pages_to_sg(obj->dev, bo->tbo.ttm->pages,
++			       bo->tbo.ttm->num_pages);
+ }
+ 
+ struct drm_gem_object *radeon_gem_prime_import_sg_table(struct drm_device *dev,
+diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
+index b188539dca0b..7897da0becf4 100644
+--- a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
++++ b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
+@@ -89,8 +89,8 @@ static int rockchip_gem_get_pages(struct rockchip_gem_object *rk_obj)
+ 
+ 	rk_obj->num_pages = rk_obj->base.size >> PAGE_SHIFT;
+ 
+-	rk_obj->sgt = drm_prime_pages_to_sg(rk_obj->base.dev,
+-					    rk_obj->pages, rk_obj->num_pages);
++	rk_obj->sgt = drm_pages_to_sg(rk_obj->base.dev,
++				      rk_obj->pages, rk_obj->num_pages);
+ 	if (IS_ERR(rk_obj->sgt)) {
+ 		ret = PTR_ERR(rk_obj->sgt);
+ 		goto err_put_pages;
+@@ -432,7 +432,7 @@ struct sg_table *rockchip_gem_prime_get_sg_table(struct drm_gem_object *obj)
+ 	int ret;
+ 
+ 	if (rk_obj->pages)
+-		return drm_prime_pages_to_sg(obj->dev, rk_obj->pages, rk_obj->num_pages);
++		return drm_pages_to_sg(obj->dev, rk_obj->pages, rk_obj->num_pages);
+ 
+ 	sgt = kzalloc_obj(*sgt);
+ 	if (!sgt)
+diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
+index 436394e04812..701af672b4e5 100644
+--- a/drivers/gpu/drm/tegra/gem.c
++++ b/drivers/gpu/drm/tegra/gem.c
+@@ -17,7 +17,7 @@
+ 
+ #include <drm/drm_drv.h>
+ #include <drm/drm_dumb_buffers.h>
+-#include <drm/drm_prime.h>
++#include <drm/drm_gem.h>
+ 
+ #include "drm.h"
+ #include "gem.h"
+@@ -352,7 +352,7 @@ static int tegra_bo_get_pages(struct drm_device *drm, struct tegra_bo *bo)
+ 
+ 	bo->num_pages = bo->gem.size >> PAGE_SHIFT;
+ 
+-	bo->sgt = drm_prime_pages_to_sg(bo->gem.dev, bo->pages, bo->num_pages);
++	bo->sgt = drm_pages_to_sg(bo->gem.dev, bo->pages, bo->num_pages);
+ 	if (IS_ERR(bo->sgt)) {
+ 		err = PTR_ERR(bo->sgt);
+ 		goto put_pages;
+diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+index 39f8c46550c2..c9e7f2e3668c 100644
+--- a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
++++ b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+@@ -28,7 +28,7 @@
+ #include "vmwgfx_bo.h"
+ #include "vmwgfx_drv.h"
+ 
+-#include "drm/drm_prime.h"
++#include "drm/drm_gem.h"
+ #include "drm/drm_gem_ttm_helper.h"
+ 
+ #include <linux/debugfs.h>
+@@ -76,7 +76,7 @@ static struct sg_table *vmw_gem_object_get_sg_table(struct drm_gem_object *obj)
+ 	if (vmw_tt->vsgt.sgt)
+ 		return vmw_tt->vsgt.sgt;
+ 
+-	return drm_prime_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages, vmw_tt->dma_ttm.num_pages);
++	return drm_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages, vmw_tt->dma_ttm.num_pages);
+ }
+ 
+ static int vmw_gem_vmap(struct drm_gem_object *obj, struct iosys_map *map)
+diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c b/drivers/gpu/drm/xe/xe_dma_buf.c
+index 8a920e58245c..f0fe80706b79 100644
+--- a/drivers/gpu/drm/xe/xe_dma_buf.c
++++ b/drivers/gpu/drm/xe/xe_dma_buf.c
+@@ -118,9 +118,9 @@ static struct sg_table *xe_dma_buf_map(struct dma_buf_attachment *attach,
+ 
+ 	switch (bo->ttm.resource->mem_type) {
+ 	case XE_PL_TT:
+-		sgt = drm_prime_pages_to_sg(obj->dev,
+-					    bo->ttm.ttm->pages,
+-					    obj->size >> PAGE_SHIFT);
++		sgt = drm_pages_to_sg(obj->dev,
++				      bo->ttm.ttm->pages,
++				      obj->size >> PAGE_SHIFT);
+ 		if (IS_ERR(sgt))
+ 			return sgt;
+ 
+diff --git a/drivers/gpu/drm/xen/xen_drm_front_gem.c b/drivers/gpu/drm/xen/xen_drm_front_gem.c
+index eec4c1da3f9e..a4a7c7f2c91c 100644
+--- a/drivers/gpu/drm/xen/xen_drm_front_gem.c
++++ b/drivers/gpu/drm/xen/xen_drm_front_gem.c
+@@ -236,7 +236,7 @@ struct sg_table *xen_drm_front_gem_get_sg_table(struct drm_gem_object *gem_obj)
+ 	if (!xen_obj->pages)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	return drm_prime_pages_to_sg(gem_obj->dev,
++	return drm_pages_to_sg(gem_obj->dev,
+ 				     xen_obj->pages, xen_obj->num_pages);
+ }
+ 
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index 885244e375d3..7b9cc6335689 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -155,7 +155,7 @@ struct drm_gem_object_funcs {
+ 	 * here cannot be used for sg tables pointing at driver private memory
+ 	 * ranges.
+ 	 *
+-	 * See also drm_prime_pages_to_sg().
++	 * See also drm_pages_to_sg().
+ 	 */
+ 	struct sg_table *(*get_sg_table)(struct drm_gem_object *obj);
+ 
+@@ -589,6 +589,9 @@ struct page **drm_gem_get_pages(struct drm_gem_object *obj);
+ void drm_gem_put_pages(struct drm_gem_object *obj, struct page **pages,
+ 		bool dirty, bool accessed);
+ 
++struct sg_table *drm_pages_to_sg(struct drm_device *dev,
++				 struct page **pages, unsigned int nr_pages);
++
+ void drm_gem_lock(struct drm_gem_object *obj);
+ void drm_gem_unlock(struct drm_gem_object *obj);
+ 
+diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
+index f50f862f0d8b..603e16a40ae7 100644
+--- a/include/drm/drm_prime.h
++++ b/include/drm/drm_prime.h
+@@ -92,8 +92,6 @@ void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map);
+ int drm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
+ int drm_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma);
+ 
+-struct sg_table *drm_prime_pages_to_sg(struct drm_device *dev,
+-				       struct page **pages, unsigned int nr_pages);
+ struct dma_buf *drm_gem_prime_export(struct drm_gem_object *obj,
+ 				     int flags);
+ 
 
+---
+base-commit: 48dd37d1fef33fbf42f1d6887c61e242fd21d00d
+change-id: 20260724-get_pages-e2e91c53eaa3
 
-## Summary
-Intermittent kernel oops (NULL/near-NULL deref) during hibernation 
-*entry*, in the
-TTM GPU-memory eviction path invoked by amdgpu's freeze callback
-(ttm_device_prepare_hibernation -> ttm_bo_swapout -> LRU walk ->
-ttm_resource_manager_next). The oops occurs in the device-freeze phase, 
-before the
-hibernation image is written, so the next boot reports "PM: Image not 
-found (code -22)"
-and the session is lost. On my machine oops=panic is set, so it 
-escalates to a full
-panic+reboot, but the underlying event is the NULL-deref oops shown below.
+Best regards,
+--  
+Adrián Larumbe <adrian.larumbe@collabora.com>
 
-## Hardware
-- Lenovo ThinkPad T14s Gen 4 (MT 21F8CTO1WW), BIOS R2EET46W 1.27 
-(2025-09-24)
-- CPU/APU: AMD Ryzen 7 PRO 7840U (Phoenix)
-- GPU: integrated Radeon 780M, gfx_v11_0, PCI 1002:15bf (rev dd), 
-subsystem 17aa:50d8
-   - amdgpu reports "VRAM: 1024M ... (1024M used)" — UMA carve-out, no 
-discrete VRAM
-- Storage: NVMe; root on LUKS+BTRFS; hibernation to a BTRFS swapfile 
-(resume_offset set)
-
-## Kernel
-- 7.1.4 (vanilla upstream; distro build tag "#1-NixOS PREEMPT(lazy)")
-- Taint: G O. The out-of-tree modules loaded are ddcci, ddcci_backlight, 
-acpi_call,
-   v4l2loopback — none appear in the backtrace and none touch TTM; the 
-taint is unrelated.
-
-## Frequency / trigger
-Intermittent: 2 failures out of 5 hibernation attempts over 5 days (3 
-clean successes
-with "PM: hibernation: hibernation exit"). Reproduces on both `systemctl 
-hibernate` and
-systemd suspend-then-hibernate. Not correlated with a config change — 
-fails and succeeds
-on the same kernel. The intermittency is consistent with a race 
-dependent on GPU buffer
-residency at freeze time (see analysis).
-
-## Backtrace (from efi-pstore; consoles were already suspended, so this 
-is what was captured)
-PM: hibernation: hibernation entry
-...
-PM: hibernation: Allocated 12299604 kbytes in 7.45 seconds (1650.95 MB/s)
-Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
-printk: Suspending console(s) (use no_console_suspend to debug)
-BUG: kernel NULL pointer dereference, address: 0000000000000268
-#PF: supervisor read access in kernel mode
-#PF: error_code(0x0000) - not-present page
-PGD 0 P4D 0
-Oops: 0000 [#1] SMP NOPTI
-CPU: 2 UID: 0 PID: 1026678 Comm: kworker/u64:16 Tainted: G    O        
-7.1.4 #1-NixOS PREEMPT(lazy)
-Hardware name: LENOVO 21F8CTO1WW/21F8CTO1WW, BIOS R2EET46W (1.27 ) 
-09/24/2025
-Workqueue: async async_run_entry_fn
-RIP: 0010:ttm_resource_manager_next+0x94/0x200 [ttm]
-RSP: 0018:ffffd0f08294fba0 EFLAGS: 00010202
-RAX: ffffd0f08294fc40 RBX: ffff8c0846d306a0 RCX: ffffd0f08294fc40
-RDX: ffffd0f08294fc40 RSI: ffffd0f08294fc40 RDI: ffffd0f08294fc40
-RBP: ffffd0f08294fc20 R08: 0000000000000001 R09: 0000000000000000
-R10: ffff8c029c30ed90 R11: ffff8c04001c6880 R12: 0000000000000020
-R13: ffffd0f08294fc40 R14: ffffd0f08294fcc0 R15: 0000000000000260
-CR2: 0000000000000268
-Call Trace:
-  <TASK>
-  __ttm_bo_lru_cursor_next+0x60/0x300 [ttm]
-  ttm_lru_walk_for_evict+0xde/0x1d0 [ttm]
-  ttm_bo_swapout+0x5c/0x80 [ttm]
-  ttm_device_prepare_hibernation+0x71/0xb0 [ttm]
-  amdgpu_device_evict_resources+0x62/0x80 [amdgpu]
-  amdgpu_device_suspend+0x13a/0x230 [amdgpu]
-  amdgpu_pmops_freeze+0x1e/0x70 [amdgpu]
-  pci_pm_freeze+0x5b/0xe0
-  dpm_run_callback+0x51/0x180
-  device_suspend+0x1aa/0x5d0
-  async_suspend+0x21/0x30
-  async_run_entry_fn+0x34/0x150
-  process_one_work+0x199/0x390
-  worker_thread+0x177/0x2e0
-  kthread+0xe2/0x110
-  ret_from_fork+0x251/0x330
-  ret_from_fork_asm+0x1a/0x30
-  </TASK>
-Kernel panic - not syncing: Fatal exception   (because this host runs 
-with oops=panic)
-
-## Source observations (v7.1.4)
-Reading the faulting path in 7.1.4:
-- The swapout walk __ttm_bo_lru_cursor_next() 
-(drivers/gpu/drm/ttm/ttm_bo_util.c)
-   drops the lru_lock (spin_unlock at ~line 1012) and re-acquires it 
-(~line 1031). Its
-   own comment (~lines 1016-1022) notes that in that window "the 
-resource may have been
-   freed and allocated again with a different memory type." On the next 
-iteration it calls
-   ttm_resource_manager_next(&curs->res_curs) (~line 994).
-- ttm_resource_manager_next() (drivers/gpu/drm/ttm/ttm_resource.c:690) 
-has no guard on
-   cursor->man / the LRU state, whereas its sibling 
-ttm_resource_manager_first() (:673)
-   does (WARN_ON_ONCE(!man)). CR2=0x268 with what looks like a valid 
-manager in RBX
-   suggests the cursor walked into a freed/reallocated LRU entry rather 
-than a NULL
-   top-level manager — i.e. a use-after-free/TOCTOU in the lock-dropped 
-walk.
-- This tree already contains the "move swapped objects off the manager's 
-LRU list"
-   rework (ttm_resource_is_swapped(), the `unevictable` list), so that 
-earlier issue is
-   not the cause here.
-(These are just pointers for triage; I have not root-caused the exact 
-freed object.)
-
---------------h6CQ7SgtopYp2vlAXn0Dto5t
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html data-lt-installed="true">
-  <head>
-
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  </head>
-  <body style="padding-bottom: 1px;">
-    <p>Dear maintainers,</p>
-    <p>Please find the bug report below. Thanks!</p>
-    <p>Cheers,<br>
-      BM</p>
-    <p><br>
-      ## Summary<br>
-      Intermittent kernel oops (NULL/near-NULL deref) during hibernation
-      *entry*, in the<br>
-      TTM GPU-memory eviction path invoked by amdgpu's freeze callback<br>
-      (ttm_device_prepare_hibernation -&gt; ttm_bo_swapout -&gt; LRU
-      walk -&gt;<br>
-      ttm_resource_manager_next). The oops occurs in the device-freeze
-      phase, before the<br>
-      hibernation image is written, so the next boot reports "PM: Image
-      not found (code -22)"<br>
-      and the session is lost. On my machine oops=panic is set, so it
-      escalates to a full<br>
-      panic+reboot, but the underlying event is the NULL-deref oops
-      shown below.<br>
-      <br>
-      ## Hardware<br>
-      - Lenovo ThinkPad T14s Gen 4 (MT 21F8CTO1WW), BIOS R2EET46W 1.27
-      (2025-09-24)<br>
-      - CPU/APU: AMD Ryzen 7 PRO 7840U (Phoenix)<br>
-      - GPU: integrated Radeon 780M, gfx_v11_0, PCI 1002:15bf (rev dd),
-      subsystem 17aa:50d8<br>
-        - amdgpu reports "VRAM: 1024M ... (1024M used)" — UMA carve-out,
-      no discrete VRAM<br>
-      - Storage: NVMe; root on LUKS+BTRFS; hibernation to a BTRFS
-      swapfile (resume_offset set)<br>
-      <br>
-      ## Kernel<br>
-      - 7.1.4 (vanilla upstream; distro build tag "#1-NixOS
-      PREEMPT(lazy)")<br>
-      - Taint: G O. The out-of-tree modules loaded are ddcci,
-      ddcci_backlight, acpi_call,<br>
-        v4l2loopback — none appear in the backtrace and none touch TTM;
-      the taint is unrelated.<br>
-      <br>
-      ## Frequency / trigger<br>
-      Intermittent: 2 failures out of 5 hibernation attempts over 5 days
-      (3 clean successes<br>
-      with "PM: hibernation: hibernation exit"). Reproduces on both
-      `systemctl hibernate` and<br>
-      systemd suspend-then-hibernate. Not correlated with a config
-      change — fails and succeeds<br>
-      on the same kernel. The intermittency is consistent with a race
-      dependent on GPU buffer<br>
-      residency at freeze time (see analysis).<br>
-      <br>
-      ## Backtrace (from efi-pstore; consoles were already suspended, so
-      this is what was captured)<br>
-      PM: hibernation: hibernation entry<br>
-      ...<br>
-      PM: hibernation: Allocated 12299604 kbytes in 7.45 seconds
-      (1650.95 MB/s)<br>
-      Freezing remaining freezable tasks completed (elapsed 0.001
-      seconds)<br>
-      printk: Suspending console(s) (use no_console_suspend to debug)<br>
-      BUG: kernel NULL pointer dereference, address: 0000000000000268<br>
-      #PF: supervisor read access in kernel mode<br>
-      #PF: error_code(0x0000) - not-present page<br>
-      PGD 0 P4D 0<br>
-      Oops: 0000 [#1] SMP NOPTI<br>
-      CPU: 2 UID: 0 PID: 1026678 Comm: kworker/u64:16 Tainted: G       
-         O        7.1.4 #1-NixOS PREEMPT(lazy)<br>
-      Hardware name: LENOVO 21F8CTO1WW/21F8CTO1WW, BIOS R2EET46W (1.27 )
-      09/24/2025<br>
-      Workqueue: async async_run_entry_fn<br>
-      RIP: 0010:ttm_resource_manager_next+0x94/0x200 [ttm]<br>
-      RSP: 0018:ffffd0f08294fba0 EFLAGS: 00010202<br>
-      RAX: ffffd0f08294fc40 RBX: ffff8c0846d306a0 RCX: ffffd0f08294fc40<br>
-      RDX: ffffd0f08294fc40 RSI: ffffd0f08294fc40 RDI: ffffd0f08294fc40<br>
-      RBP: ffffd0f08294fc20 R08: 0000000000000001 R09: 0000000000000000<br>
-      R10: ffff8c029c30ed90 R11: ffff8c04001c6880 R12: 0000000000000020<br>
-      R13: ffffd0f08294fc40 R14: ffffd0f08294fcc0 R15: 0000000000000260<br>
-      CR2: 0000000000000268<br>
-      Call Trace:<br>
-       &lt;TASK&gt;<br>
-       __ttm_bo_lru_cursor_next+0x60/0x300 [ttm]<br>
-       ttm_lru_walk_for_evict+0xde/0x1d0 [ttm]<br>
-       ttm_bo_swapout+0x5c/0x80 [ttm]<br>
-       ttm_device_prepare_hibernation+0x71/0xb0 [ttm]<br>
-       amdgpu_device_evict_resources+0x62/0x80 [amdgpu]<br>
-       amdgpu_device_suspend+0x13a/0x230 [amdgpu]<br>
-       amdgpu_pmops_freeze+0x1e/0x70 [amdgpu]<br>
-       pci_pm_freeze+0x5b/0xe0<br>
-       dpm_run_callback+0x51/0x180<br>
-       device_suspend+0x1aa/0x5d0<br>
-       async_suspend+0x21/0x30<br>
-       async_run_entry_fn+0x34/0x150<br>
-       process_one_work+0x199/0x390<br>
-       worker_thread+0x177/0x2e0<br>
-       kthread+0xe2/0x110<br>
-       ret_from_fork+0x251/0x330<br>
-       ret_from_fork_asm+0x1a/0x30<br>
-       &lt;/TASK&gt;<br>
-      Kernel panic - not syncing: Fatal exception   (because this host
-      runs with oops=panic)<br>
-      <br>
-      ## Source observations (v7.1.4)<br>
-      Reading the faulting path in 7.1.4:<br>
-      - The swapout walk __ttm_bo_lru_cursor_next()
-      (drivers/gpu/drm/ttm/ttm_bo_util.c)<br>
-        drops the lru_lock (spin_unlock at ~line 1012) and re-acquires
-      it (~line 1031). Its<br>
-        own comment (~lines 1016-1022) notes that in that window "the
-      resource may have been<br>
-        freed and allocated again with a different memory type." On the
-      next iteration it calls<br>
-        ttm_resource_manager_next(&amp;curs-&gt;res_curs) (~line 994).<br>
-      - ttm_resource_manager_next()
-      (drivers/gpu/drm/ttm/ttm_resource.c:690) has no guard on<br>
-        cursor-&gt;man / the LRU state, whereas its sibling
-      ttm_resource_manager_first() (:673)<br>
-        does (WARN_ON_ONCE(!man)). CR2=0x268 with what looks like a
-      valid manager in RBX<br>
-        suggests the cursor walked into a freed/reallocated LRU entry
-      rather than a NULL<br>
-        top-level manager — i.e. a use-after-free/TOCTOU in the
-      lock-dropped walk.<br>
-      - This tree already contains the "move swapped objects off the
-      manager's LRU list"<br>
-        rework (ttm_resource_is_swapped(), the `unevictable` list), so
-      that earlier issue is<br>
-        not the cause here.<br>
-      (These are just pointers for triage; I have not root-caused the
-      exact freed object.)</p>
-  </body>
-  <lt-container></lt-container>
-</html>
-
---------------h6CQ7SgtopYp2vlAXn0Dto5t--
