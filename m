@@ -4,139 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3AFD7C53209
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 00:23:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 75A9DC5321C
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 00:23:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E669610E136;
-	Mon, 27 Jul 2026 00:23:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7BE810E251;
+	Mon, 27 Jul 2026 00:23:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="m4siRHce";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dN0bWrDM";
 	dkim-atps=neutral
-Received: from mout.web.de (mout.web.de [217.72.192.78])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 130F510F40C
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jul 2026 15:09:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1784905730; x=1785510530; i=spasswolf@web.de;
- bh=KTPitRg5OqG7DFkkf9hLzROQQQ+Xa9l+VnBOYd+3eIg=;
- h=X-UI-Sender-Class:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
- References:Content-Type:MIME-Version:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=m4siRHcejuOtKXjMJo9T9hD2iMJyAXri7Lbb63WRD3w+lR+b0EekwCnFmptvsZmG
- f1EmJCEyIUUiyzUfVyMHqThvE9sDvf9srLc3W1qi3uW8hRKLxhahfPt340BA+rWLf
- HqCRn06LlgW/FWtVRvogxbE1eSuNMJQGXfT9gvFQ8CT9/uJPlCuNPTRrSIQeQIwgI
- LXzNBZHfSGE0CMbns/fAspEAnDOjjQT5dlG02CrJjRML1IWVkvDI3XdFmC75pTOkV
- Hvf7vWeQODgToz/sbemXzv3dEyGl00mB/6KSfiKh070gLIcycjtOh7kOGNeKnEvQ7
- vPTR9qQkyWff49bv9A==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb106
- [213.165.67.124]) with ESMTPSA (Nemesis) id 1MTOli-1wQId41zpc-00JRWG; Fri, 24
- Jul 2026 17:08:50 +0200
-Message-ID: <3c1be47abfcc907e7c1f9696cb25a24c93415a28.camel@web.de>
-Subject: Re: [Re] kernel panic during shutdown in  next-20260722
-From: Bert Karwatzki <spasswolf@web.de>
-To: linux-kernel@vger.kernel.org, Rafal Ostrowski <rafal.ostrowski@amd.com>
-Cc: linux-next@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- Mario Limonciello <mario.limonciello@amd.com>, Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>, Thomas Gleixner	 <tglx@linutronix.de>,
- spasswolf@web.de
-Date: Fri, 24 Jul 2026 17:08:49 +0200
-In-Reply-To: <4d7c2dd588cd77d1d112da473f2a262d22051d57.camel@web.de>
-References: <20260723131001.11565-1-spasswolf@web.de>
- <d24a136539c5931984f4855ad6596ca7aee8ebe2.camel@web.de>
- <1a0800888c2fcd42f1fcd661d8f6f50580ac2fd4.camel@web.de>
- <4d7c2dd588cd77d1d112da473f2a262d22051d57.camel@web.de>
-Content-Type: text/plain; charset="UTF-8"
-User-Agent: Evolution 3.56.2-10 
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 61B3110E072
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jul 2026 18:07:50 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-493b966dd74so5010375e9.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jul 2026 11:07:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1784916469; x=1785521269; darn=lists.freedesktop.org;
+ h=subject:from:cc:to:content-language:user-agent:mime-version:date
+ :message-id:content-type:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=s87tuSaybc7Tx/AOhk/Zot7/9otXE0zqSCjkVZeHwIQ=;
+ b=dN0bWrDMchEMl1FhLc/9riTKFjEJnECXMcbqXy1DJORv8SuGyqn5aMl+bUa7XGhF9O
+ f3a4+jaa7OCsUB5IWQ6kl8bIWVj/E9l2HUvAmCqhJhIACzui3RSmRGheLiFlGYx+v/Sj
+ qvaH6HVXlk2aaE2R0234Jf5mbxesioPN/kKIiouyzUolgLe7AgYxX4c2GvEd1Q7+65Pd
+ cQGhx2No4XbccIRNmKoi9bb5uMObsO3kxn4tgz5mRhwVoolUHODnfhiRwqLJd46iJBUe
+ AMwmkDCx3hYNp2nwY5OnTe6CnHnzaUjGOKdl46jnI2ujZo8IF8HuVcJfkpjaModn/Yy7
+ R8Wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784916469; x=1785521269;
+ h=subject:from:cc:to:content-language:user-agent:mime-version:date
+ :message-id:content-type:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=s87tuSaybc7Tx/AOhk/Zot7/9otXE0zqSCjkVZeHwIQ=;
+ b=blHu9egB6+sVUIP8ef99bDu9wjFmdLBwbeNMKSAfKcN8mV3rkFMII17EVdEP+fimYA
+ 1GUzridxB09eQqcLuEqRt4NZWReySIzw0t5+s8nwkmvRSmoJ/s8Jxu247aXoMv17674/
+ KRuVVFRyHrlhgqpGNdTXPb8bByU8Odz2Lu/+/hM59EViD10ZxTukVgxuQ0uGhqpxj/zs
+ HhkCAgGt7SPhFoSrop13FnFQJ6K8B+XwsHDjAaDhKNIvENsk/V7LTlH5wT7RiTgeXxjd
+ AURBqRLtwR3+hgV3EjLoaOf2uAp7zNymcZdX2FsSNfq08BgjKtcI1ctciG6kYk22z6aO
+ LXbA==
+X-Gm-Message-State: AOJu0YwWRvhGiOOke9skrNK+62iFUfiSD4KrlVxWvoaH7zHQIT/CcZEP
+ UKPKGvRgIZtUjYGTiXBye8LnLLZYiKyhDHcFr0920sDB7Cxnwq1iV1zi5H7LEhqgRAk=
+X-Gm-Gg: AR+sD13r8CmBbrsBRvFf6XHnURbbnIPKeIyTYs0Gd25GqpdFaWDFv+ny4HJFGcmpI+d
+ r9YhMlkJFEFPXvAj1dJ3uQ5KPKbvn4tatOzG/7jXhSJgjC6Hw5azz1sRKj2G+CNrchzyYBgwNng
+ 0KI/8JT0mIno81b9KVEZcoCeAIZgKNv74mimPQRM2IAgYb1XvXON4oUkF8FRVmcqRrVVaP81qmQ
+ mQfO8YTecB3nXE19dWlMTfc8L/tgxBj1LnASr7QZQZjKM4C8FdTRPqqCg0JLu9mrAeFeB8hdX85
+ VdCLi4FVDtMp7vWez2th2kFtpMzgyPxdIKxhKLA+k0mUK7sVlTgh1PWgc6TtJtH5TvsFQR58Lbo
+ 3A/wPzu5uXlr/RlyQW/ATIEK43W5ynnL0lf3wHhPEmAuPgakjXL5GaULiOCQuMu3FmqmHwbh8rn
+ /b6onqK6uRJNob
+X-Received: by 2002:a05:600c:524f:b0:495:4cb6:71c3 with SMTP id
+ 5b1f17b1804b1-49573d291d2mr98006425e9.39.1784916468463; 
+ Fri, 24 Jul 2026 11:07:48 -0700 (PDT)
+Received: from [192.168.1.26] ([88.97.178.205])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-496b49a6e17sm7207895e9.13.2026.07.24.11.07.46
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 24 Jul 2026 11:07:46 -0700 (PDT)
+Content-Type: multipart/alternative;
+ boundary="------------h6CQ7SgtopYp2vlAXn0Dto5t"
+Message-ID: <b911abf7-40df-445a-9c3a-403903c94920@gmail.com>
+Date: Fri, 24 Jul 2026 19:07:45 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:32dZAA2tRTANj96ZVzU2y0p/gW0M6MfUirGiLeepCc9u6MCYYWH
- QpFHY6MIbNPb8MlbrIN/Stggmw4gCBkiWdOGQafpwNEZtleOX3reClBvKGmYLxRVEMEB1An
- f+1MUXgI013ioKWqaBz1nwmT6q9ehrIrpXk5RINA/w1ULnXnSQWsCI4APUmaU4lSP3xyzMb
- hI0HMgnWJkXUZ8kPWFTvg==
-UI-OutboundReport: notjunk:1;M01:P0:rNImO22Yll8=;XFazeNhHg60WIPC8J/r6pH+WFkv
- 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
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+From: Bernardo <bernardomagri21@gmail.com>
+Subject: [bug report] amdgpu/TTM: NULL/UAF deref in ttm_resource_manager_next
+ during hibernation swapout (ttm_device_prepare_hibernation) on
+ Phoenix APU
 X-Mailman-Approved-At: Mon, 27 Jul 2026 00:23:38 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -152,98 +87,279 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Am Freitag, dem 24.07.2026 um 00:51 +0200 schrieb Bert Karwatzki:
-> Am Donnerstag, dem 23.07.2026 um 18:17 +0200 schrieb Bert Karwatzki:
-> > Am Donnerstag, dem 23.07.2026 um 15:23 +0200 schrieb Bert Karwatzki:
-> > > Am Donnerstag, dem 23.07.2026 um 15:10 +0200 schrieb Bert Karwatzki:
-> > > > I was able to gather the panic error message from a failed shutdow=
-n via netconsole,
-> > > > this time the kernel used was v7.2-rc3:
-> > > > #
-> > > > Bert Karwatzki
-> > >=20
-> > > Unfortunatetly I can now reproduce these kernel panics in v7.1:
-> > >=20
-> > >=20
-> > > So now I'm going to use memtest86+ on my machine and then look at th=
-e changes I had in
-> > > my userspace as the first error occured on 22.7.2026. Let's hope thi=
-s does not escalate ...
-> > >=20
-> > > Bert Karwatzki
-> >=20
-> >=20
-> > But I found out an exciting thing:
-> > I can only reproduce the crashes in v7.2-rc4 when watching the reboot =
-via netconsole,
-> > without netconsole no crash occurs!(This also explains why I had not s=
-een this crashes before ...)=C2=A0
-> >=20
-> Actually this is not cause by netconsole, but by rebooting right after a=
- crash. Some
-> broken state seems to be preserved across reboots. Switching off the pow=
-er supply after
-> a crash or even a ~30s wait after switching off the crashed machine seem=
-s to be enough
-> to get around this.
->  Also the hang when rebooting next-20260722 also occurs when compiling w=
-ithout PREEMPT_RT.
->=20
-> Bert Karwatzki
+This is a multi-part message in MIME format.
+--------------h6CQ7SgtopYp2vlAXn0Dto5t
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-There are actually several errors here:
-1) The shutdown hang wich occurs in next-20260722+ (PREMPT_RT or not)
-This error is caused by (I'll open a separate thread for this):
+Dear maintainers,
 
-commit 13b7e6a96a005c656d38f3da51581deaf9866375
-Author: Nicolas Cavallari <nicolas.cavallari@green-communications.fr>
-Date:   Wed Jul 8 16:43:47 2026 +0200
+Please find the bug report below. Thanks!
 
-    wifi: mt76: Disable napi when removing device
-   =20
-    Unloading the mt7915e module with a MT7916 triggers multiples WARN in
-    __netif_napi_del_locked() and in page_pool_disable_direct_recycling()
-    because the driver does not disable the napi before destroying it.
-   =20
-    This is troublesome since on MT7916 it is required to unload the modul=
-e
-    and reinsert it with a different enable_6ghz parameter to change the
-    frequency.  The system generally becomes unstable after reinserting th=
-e
-    module.
-   =20
-    Fix it by disabling napi before deleting it.  Also, do not delete napi
-    on WED queues since napi is neither used nor initialized on them.
-   =20
-    Fixes: 17f1de56df05 ("mt76: add common code shared between multiple ch=
-ipsets")
-    Signed-off-by: Nicolas Cavallari <nicolas.cavallari@green-communicatio=
-ns.fr>
-    Link: https://patch.msgid.link/20260708144615.24092-1-nicolas.cavallar=
-i@green-communications.fr
-    Signed-off-by: Felix Fietkau <nbd@nbd.name>
-
-diff --git a/drivers/net/wireless/mediatek/mt76/dma.c b/drivers/net/wirele=
-ss/mediatek/mt76/dma.c
-index f8c2fe5f2f58..322041859217 100644
-=2D-- a/drivers/net/wireless/mediatek/mt76/dma.c
-+++ b/drivers/net/wireless/mediatek/mt76/dma.c
-@@ -1189,7 +1189,10 @@ void mt76_dma_cleanup(struct mt76_dev *dev)
-        mt76_for_each_q_rx(dev, i) {
-                struct mt76_queue *q =3D &dev->q_rx[i];
-=20
--               netif_napi_del(&dev->napi[i]);
-+               if (!mt76_queue_is_wed_rro(q)) {
-+                       napi_disable(&dev->napi[i]);
-+                       netif_napi_del(&dev->napi[i]);
-+               }
-                mt76_dma_rx_cleanup(dev, q);
-=20
-                page_pool_destroy(q->page_pool);
+Cheers,
+BM
 
 
-2) The "scheduling while atomic" errors which occur in v7.2-rc4 and earlie=
-r, once I figure out
-these I'll contiue here (v6.19 is free from these errors)
+## Summary
+Intermittent kernel oops (NULL/near-NULL deref) during hibernation 
+*entry*, in the
+TTM GPU-memory eviction path invoked by amdgpu's freeze callback
+(ttm_device_prepare_hibernation -> ttm_bo_swapout -> LRU walk ->
+ttm_resource_manager_next). The oops occurs in the device-freeze phase, 
+before the
+hibernation image is written, so the next boot reports "PM: Image not 
+found (code -22)"
+and the session is lost. On my machine oops=panic is set, so it 
+escalates to a full
+panic+reboot, but the underlying event is the NULL-deref oops shown below.
 
-Bert Karwatzki
+## Hardware
+- Lenovo ThinkPad T14s Gen 4 (MT 21F8CTO1WW), BIOS R2EET46W 1.27 
+(2025-09-24)
+- CPU/APU: AMD Ryzen 7 PRO 7840U (Phoenix)
+- GPU: integrated Radeon 780M, gfx_v11_0, PCI 1002:15bf (rev dd), 
+subsystem 17aa:50d8
+   - amdgpu reports "VRAM: 1024M ... (1024M used)" — UMA carve-out, no 
+discrete VRAM
+- Storage: NVMe; root on LUKS+BTRFS; hibernation to a BTRFS swapfile 
+(resume_offset set)
+
+## Kernel
+- 7.1.4 (vanilla upstream; distro build tag "#1-NixOS PREEMPT(lazy)")
+- Taint: G O. The out-of-tree modules loaded are ddcci, ddcci_backlight, 
+acpi_call,
+   v4l2loopback — none appear in the backtrace and none touch TTM; the 
+taint is unrelated.
+
+## Frequency / trigger
+Intermittent: 2 failures out of 5 hibernation attempts over 5 days (3 
+clean successes
+with "PM: hibernation: hibernation exit"). Reproduces on both `systemctl 
+hibernate` and
+systemd suspend-then-hibernate. Not correlated with a config change — 
+fails and succeeds
+on the same kernel. The intermittency is consistent with a race 
+dependent on GPU buffer
+residency at freeze time (see analysis).
+
+## Backtrace (from efi-pstore; consoles were already suspended, so this 
+is what was captured)
+PM: hibernation: hibernation entry
+...
+PM: hibernation: Allocated 12299604 kbytes in 7.45 seconds (1650.95 MB/s)
+Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
+printk: Suspending console(s) (use no_console_suspend to debug)
+BUG: kernel NULL pointer dereference, address: 0000000000000268
+#PF: supervisor read access in kernel mode
+#PF: error_code(0x0000) - not-present page
+PGD 0 P4D 0
+Oops: 0000 [#1] SMP NOPTI
+CPU: 2 UID: 0 PID: 1026678 Comm: kworker/u64:16 Tainted: G    O        
+7.1.4 #1-NixOS PREEMPT(lazy)
+Hardware name: LENOVO 21F8CTO1WW/21F8CTO1WW, BIOS R2EET46W (1.27 ) 
+09/24/2025
+Workqueue: async async_run_entry_fn
+RIP: 0010:ttm_resource_manager_next+0x94/0x200 [ttm]
+RSP: 0018:ffffd0f08294fba0 EFLAGS: 00010202
+RAX: ffffd0f08294fc40 RBX: ffff8c0846d306a0 RCX: ffffd0f08294fc40
+RDX: ffffd0f08294fc40 RSI: ffffd0f08294fc40 RDI: ffffd0f08294fc40
+RBP: ffffd0f08294fc20 R08: 0000000000000001 R09: 0000000000000000
+R10: ffff8c029c30ed90 R11: ffff8c04001c6880 R12: 0000000000000020
+R13: ffffd0f08294fc40 R14: ffffd0f08294fcc0 R15: 0000000000000260
+CR2: 0000000000000268
+Call Trace:
+  <TASK>
+  __ttm_bo_lru_cursor_next+0x60/0x300 [ttm]
+  ttm_lru_walk_for_evict+0xde/0x1d0 [ttm]
+  ttm_bo_swapout+0x5c/0x80 [ttm]
+  ttm_device_prepare_hibernation+0x71/0xb0 [ttm]
+  amdgpu_device_evict_resources+0x62/0x80 [amdgpu]
+  amdgpu_device_suspend+0x13a/0x230 [amdgpu]
+  amdgpu_pmops_freeze+0x1e/0x70 [amdgpu]
+  pci_pm_freeze+0x5b/0xe0
+  dpm_run_callback+0x51/0x180
+  device_suspend+0x1aa/0x5d0
+  async_suspend+0x21/0x30
+  async_run_entry_fn+0x34/0x150
+  process_one_work+0x199/0x390
+  worker_thread+0x177/0x2e0
+  kthread+0xe2/0x110
+  ret_from_fork+0x251/0x330
+  ret_from_fork_asm+0x1a/0x30
+  </TASK>
+Kernel panic - not syncing: Fatal exception   (because this host runs 
+with oops=panic)
+
+## Source observations (v7.1.4)
+Reading the faulting path in 7.1.4:
+- The swapout walk __ttm_bo_lru_cursor_next() 
+(drivers/gpu/drm/ttm/ttm_bo_util.c)
+   drops the lru_lock (spin_unlock at ~line 1012) and re-acquires it 
+(~line 1031). Its
+   own comment (~lines 1016-1022) notes that in that window "the 
+resource may have been
+   freed and allocated again with a different memory type." On the next 
+iteration it calls
+   ttm_resource_manager_next(&curs->res_curs) (~line 994).
+- ttm_resource_manager_next() (drivers/gpu/drm/ttm/ttm_resource.c:690) 
+has no guard on
+   cursor->man / the LRU state, whereas its sibling 
+ttm_resource_manager_first() (:673)
+   does (WARN_ON_ONCE(!man)). CR2=0x268 with what looks like a valid 
+manager in RBX
+   suggests the cursor walked into a freed/reallocated LRU entry rather 
+than a NULL
+   top-level manager — i.e. a use-after-free/TOCTOU in the lock-dropped 
+walk.
+- This tree already contains the "move swapped objects off the manager's 
+LRU list"
+   rework (ttm_resource_is_swapped(), the `unevictable` list), so that 
+earlier issue is
+   not the cause here.
+(These are just pointers for triage; I have not root-caused the exact 
+freed object.)
+
+--------------h6CQ7SgtopYp2vlAXn0Dto5t
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html>
+<html data-lt-installed="true">
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <body style="padding-bottom: 1px;">
+    <p>Dear maintainers,</p>
+    <p>Please find the bug report below. Thanks!</p>
+    <p>Cheers,<br>
+      BM</p>
+    <p><br>
+      ## Summary<br>
+      Intermittent kernel oops (NULL/near-NULL deref) during hibernation
+      *entry*, in the<br>
+      TTM GPU-memory eviction path invoked by amdgpu's freeze callback<br>
+      (ttm_device_prepare_hibernation -&gt; ttm_bo_swapout -&gt; LRU
+      walk -&gt;<br>
+      ttm_resource_manager_next). The oops occurs in the device-freeze
+      phase, before the<br>
+      hibernation image is written, so the next boot reports "PM: Image
+      not found (code -22)"<br>
+      and the session is lost. On my machine oops=panic is set, so it
+      escalates to a full<br>
+      panic+reboot, but the underlying event is the NULL-deref oops
+      shown below.<br>
+      <br>
+      ## Hardware<br>
+      - Lenovo ThinkPad T14s Gen 4 (MT 21F8CTO1WW), BIOS R2EET46W 1.27
+      (2025-09-24)<br>
+      - CPU/APU: AMD Ryzen 7 PRO 7840U (Phoenix)<br>
+      - GPU: integrated Radeon 780M, gfx_v11_0, PCI 1002:15bf (rev dd),
+      subsystem 17aa:50d8<br>
+        - amdgpu reports "VRAM: 1024M ... (1024M used)" — UMA carve-out,
+      no discrete VRAM<br>
+      - Storage: NVMe; root on LUKS+BTRFS; hibernation to a BTRFS
+      swapfile (resume_offset set)<br>
+      <br>
+      ## Kernel<br>
+      - 7.1.4 (vanilla upstream; distro build tag "#1-NixOS
+      PREEMPT(lazy)")<br>
+      - Taint: G O. The out-of-tree modules loaded are ddcci,
+      ddcci_backlight, acpi_call,<br>
+        v4l2loopback — none appear in the backtrace and none touch TTM;
+      the taint is unrelated.<br>
+      <br>
+      ## Frequency / trigger<br>
+      Intermittent: 2 failures out of 5 hibernation attempts over 5 days
+      (3 clean successes<br>
+      with "PM: hibernation: hibernation exit"). Reproduces on both
+      `systemctl hibernate` and<br>
+      systemd suspend-then-hibernate. Not correlated with a config
+      change — fails and succeeds<br>
+      on the same kernel. The intermittency is consistent with a race
+      dependent on GPU buffer<br>
+      residency at freeze time (see analysis).<br>
+      <br>
+      ## Backtrace (from efi-pstore; consoles were already suspended, so
+      this is what was captured)<br>
+      PM: hibernation: hibernation entry<br>
+      ...<br>
+      PM: hibernation: Allocated 12299604 kbytes in 7.45 seconds
+      (1650.95 MB/s)<br>
+      Freezing remaining freezable tasks completed (elapsed 0.001
+      seconds)<br>
+      printk: Suspending console(s) (use no_console_suspend to debug)<br>
+      BUG: kernel NULL pointer dereference, address: 0000000000000268<br>
+      #PF: supervisor read access in kernel mode<br>
+      #PF: error_code(0x0000) - not-present page<br>
+      PGD 0 P4D 0<br>
+      Oops: 0000 [#1] SMP NOPTI<br>
+      CPU: 2 UID: 0 PID: 1026678 Comm: kworker/u64:16 Tainted: G       
+         O        7.1.4 #1-NixOS PREEMPT(lazy)<br>
+      Hardware name: LENOVO 21F8CTO1WW/21F8CTO1WW, BIOS R2EET46W (1.27 )
+      09/24/2025<br>
+      Workqueue: async async_run_entry_fn<br>
+      RIP: 0010:ttm_resource_manager_next+0x94/0x200 [ttm]<br>
+      RSP: 0018:ffffd0f08294fba0 EFLAGS: 00010202<br>
+      RAX: ffffd0f08294fc40 RBX: ffff8c0846d306a0 RCX: ffffd0f08294fc40<br>
+      RDX: ffffd0f08294fc40 RSI: ffffd0f08294fc40 RDI: ffffd0f08294fc40<br>
+      RBP: ffffd0f08294fc20 R08: 0000000000000001 R09: 0000000000000000<br>
+      R10: ffff8c029c30ed90 R11: ffff8c04001c6880 R12: 0000000000000020<br>
+      R13: ffffd0f08294fc40 R14: ffffd0f08294fcc0 R15: 0000000000000260<br>
+      CR2: 0000000000000268<br>
+      Call Trace:<br>
+       &lt;TASK&gt;<br>
+       __ttm_bo_lru_cursor_next+0x60/0x300 [ttm]<br>
+       ttm_lru_walk_for_evict+0xde/0x1d0 [ttm]<br>
+       ttm_bo_swapout+0x5c/0x80 [ttm]<br>
+       ttm_device_prepare_hibernation+0x71/0xb0 [ttm]<br>
+       amdgpu_device_evict_resources+0x62/0x80 [amdgpu]<br>
+       amdgpu_device_suspend+0x13a/0x230 [amdgpu]<br>
+       amdgpu_pmops_freeze+0x1e/0x70 [amdgpu]<br>
+       pci_pm_freeze+0x5b/0xe0<br>
+       dpm_run_callback+0x51/0x180<br>
+       device_suspend+0x1aa/0x5d0<br>
+       async_suspend+0x21/0x30<br>
+       async_run_entry_fn+0x34/0x150<br>
+       process_one_work+0x199/0x390<br>
+       worker_thread+0x177/0x2e0<br>
+       kthread+0xe2/0x110<br>
+       ret_from_fork+0x251/0x330<br>
+       ret_from_fork_asm+0x1a/0x30<br>
+       &lt;/TASK&gt;<br>
+      Kernel panic - not syncing: Fatal exception   (because this host
+      runs with oops=panic)<br>
+      <br>
+      ## Source observations (v7.1.4)<br>
+      Reading the faulting path in 7.1.4:<br>
+      - The swapout walk __ttm_bo_lru_cursor_next()
+      (drivers/gpu/drm/ttm/ttm_bo_util.c)<br>
+        drops the lru_lock (spin_unlock at ~line 1012) and re-acquires
+      it (~line 1031). Its<br>
+        own comment (~lines 1016-1022) notes that in that window "the
+      resource may have been<br>
+        freed and allocated again with a different memory type." On the
+      next iteration it calls<br>
+        ttm_resource_manager_next(&amp;curs-&gt;res_curs) (~line 994).<br>
+      - ttm_resource_manager_next()
+      (drivers/gpu/drm/ttm/ttm_resource.c:690) has no guard on<br>
+        cursor-&gt;man / the LRU state, whereas its sibling
+      ttm_resource_manager_first() (:673)<br>
+        does (WARN_ON_ONCE(!man)). CR2=0x268 with what looks like a
+      valid manager in RBX<br>
+        suggests the cursor walked into a freed/reallocated LRU entry
+      rather than a NULL<br>
+        top-level manager — i.e. a use-after-free/TOCTOU in the
+      lock-dropped walk.<br>
+      - This tree already contains the "move swapped objects off the
+      manager's LRU list"<br>
+        rework (ttm_resource_is_swapped(), the `unevictable` list), so
+      that earlier issue is<br>
+        not the cause here.<br>
+      (These are just pointers for triage; I have not root-caused the
+      exact freed object.)</p>
+  </body>
+  <lt-container></lt-container>
+</html>
+
+--------------h6CQ7SgtopYp2vlAXn0Dto5t--
