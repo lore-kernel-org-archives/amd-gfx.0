@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4D39C531F9
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 12:00:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8642CC531C9
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 12:03:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4512110E03C;
-	Fri, 24 Jul 2026 12:00:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 053A510F388;
+	Fri, 24 Jul 2026 12:03:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Fjk4V/VK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Bw/X/LcH";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013066.outbound.protection.outlook.com
- [40.93.196.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A48E10E046
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jul 2026 12:00:16 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010000.outbound.protection.outlook.com
+ [52.101.193.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 722AE10F388
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jul 2026 12:03:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k3hiY2Sf0ANQUyRTo+YiBs2bNH7OvGzhKJ8HLosXTfHc0Sc9gFLDwKoIjIHdbywhC2Som+lKvkU0/goCszEly/Vn8yMo5ZN1syBb84t1MEXztLm+Qj9JkBr1711ZKWQxFYFi+VUPtQdHqZGgsM2AJTTyJPloYHAdIAZpmkObrf7iGQmx9QyEV07+BBREyVHxw025Zu6iPPQW+O/V/ENUll1IKamiAFGkfq1kMGsu+soolDVWl2j9WFI2ZavXavYfYQ0PbAW39aYFC9VXO9hX2lqcApsjurMXwx1FSCcmZ7r87DdcQIYIND54Ka5jPkLs3m5i/T8dA+03xjmBaC8OYA==
+ b=s1oUSZ7YFnJowXlODieiZlmPUirI+6TSx+wXQSIoCsrSPsA0Tv4MyWvLF9/YZoUZOGNptW50LBajFMxKWt10s1y98GhYZShTMuPKsOmoX2YzGNjXB1EtvtSW+BDlkdAkKrObdAUk4RKshgcUPoR0IMXS8GfQ74ibf6qGg+prnLOrfZyp+viiqlv+zwup7oOSCeQTU7VDPVSS1C4dYYZQ11ZNAsPmnTLSSmZvidpoRueKYmdqH4ElL1bb7HE6VP5R0c0azysrBysgwHGs5youhonGH4mfEbYIsHfqOg7IqzOX0LInw2XL7r93+UsQkx3Del0gy6j+mQs+daCLwXPxuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eoNowkhm3hEe7sD7afStsL3VsNmaK2qU1Vn5wc3j2b8=;
- b=mdv2SVuVlRuKy7d0zHfNNqTQ0zq0Fo79CvlWF99VWGdG2teRgA+z1BE3BMaznY1+i18Q9Ce7XBdnyYpEinJOjmlzmngYw7r48CBEYOQ0LUCmF9qbwjZX9fGv4b/Cv32C9pzlXRHu5ISMGI6KgxhI21l355rKwCumo6INma74EJoI+fWPzOrbGcl+85EpzRWR0fLPN4INFnAtY9QfUYSmqaZjoMpRKjFOKcKu8F0ZvpJw01pxeCfjWuoS4UilImpTyQ4oMJnCRkOTBXPpOrtC5iqIXlBSMY0DkR0pLJ+XSCowjERPN9EVq8Gh7M8CZQZGiBlGJLvVkxbm+iB2f2CMlw==
+ bh=H6wZzoA+WxEEkNCAlQoicc063DFWu/flfAdfIb/wilQ=;
+ b=Zl8FR1cc8d8HGIEujVsu4DB4yOzY6FKXLAZ/Cxdmv+6DnuF46KVa44Ij1j6aFPGbJA2s+4MAvXo+59IcfBGPhgf4JlF+yYyightH39n++rjzl8ktQBjS8Sr0GN83jDr8RXL1FtgLWh/Z3o5trRcEsQASeZCXxQmJ4YtymFiN3MG6asTnSIJgqjBaU80HcYnmF6a3KnuJSmTvsnRTmhPgLAqv71TNp+jL+i7w40v0A8L2lIBgmp+4qHhHN1Y/Lk8OHNLAW2apHv+EfbU8LbXpIyKX+v1uwm3M1Ft9vijjLw0baHbdbYaqXy2GXGe5uUWMNPOTCcgiVQUKiWzxJUQ7nw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eoNowkhm3hEe7sD7afStsL3VsNmaK2qU1Vn5wc3j2b8=;
- b=Fjk4V/VKRjh7Ua5pFadT55NnSYW3P1+sHOnzDOE+zeMygGc9GdcCtD/jDLnCuMWr6mk6S0O9YD0UXJJ5SK8DZtLJWqt+QQp3Iqtnmr2aXqnJ19KCEUXsEFgzbYC11a6lYV0lYGWHOntrceSjoZUgY9s/BRiJZkd1WP2FZurNP8U=
-Received: from MN0PR04CA0012.namprd04.prod.outlook.com (2603:10b6:208:52d::31)
- by SA1PR12MB8986.namprd12.prod.outlook.com (2603:10b6:806:375::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Fri, 24 Jul
- 2026 12:00:09 +0000
-Received: from MN1PEPF0000ECD8.namprd02.prod.outlook.com
- (2603:10b6:208:52d:cafe::24) by MN0PR04CA0012.outlook.office365.com
- (2603:10b6:208:52d::31) with Microsoft SMTP Server (version=TLS1_3,
+ bh=H6wZzoA+WxEEkNCAlQoicc063DFWu/flfAdfIb/wilQ=;
+ b=Bw/X/LcH4NY19Gvp2Uly/2T34Rx8sDKn378qbK9ZCdefAwPkN56tORBEevcsFNg4HZclQFArk6N9f2vdevC3BMhVzZNbjNDmQ2eMEZgdim910aLH9evgQmKu5hGTgFCXOkvV1XehqeDSP1cjO8tAoxFMxDXPajKrkLFz4+JLTsw=
+Received: from SA0PR11CA0173.namprd11.prod.outlook.com (2603:10b6:806:1bb::28)
+ by DS7PR12MB9528.namprd12.prod.outlook.com (2603:10b6:8:252::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
+ 2026 12:03:10 +0000
+Received: from SA2PEPF000015CA.namprd03.prod.outlook.com
+ (2603:10b6:806:1bb:cafe::9f) by SA0PR11CA0173.outlook.office365.com
+ (2603:10b6:806:1bb::28) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.12 via Frontend Transport; Fri,
- 24 Jul 2026 12:00:09 +0000
+ 24 Jul 2026 12:03:10 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,23 +49,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000ECD8.mail.protection.outlook.com (10.167.242.137) with Microsoft
+ SA2PEPF000015CA.mail.protection.outlook.com (10.167.241.200) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Fri, 24 Jul 2026 12:00:09 +0000
+ 15.21.270.5 via Frontend Transport; Fri, 24 Jul 2026 12:03:09 +0000
 Received: from shubhankar-X570-AORUS-ELITE.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.41; Fri, 24 Jul 2026 07:00:03 -0500
+ 15.2.2562.41; Fri, 24 Jul 2026 07:02:03 -0500
 From: Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpande@amd.com>
 To: <Alexander.Deucher@amd.com>, <Lijo.Lazar@amd.com>,
  <Christian.Koenig@amd.com>, <amd-gfx@lists.freedesktop.org>
-CC: <Veerabadhran.Gopalakrishnan@amd.com>, <Pratik.Vishwakarma@amd.com>,
- <Suresh.Guttula@amd.com>, <Kanala.RamalingeswaraReddy@amd.com>, "Shubhankar
- Milind Sardeshpande" <Shubhankar.MilindSardeshpande@amd.com>
-Subject: [PATCH V3 1/3] drm/amd/pm/smu15: add metrics table header for SMU
- v15.0.0
-Date: Fri, 24 Jul 2026 17:29:45 +0530
-Message-ID: <20260724115948.3364326-1-Shubhankar.MilindSardeshpande@amd.com>
+CC: <Veerabadhran.Gopalakrishnan@amd.com>, Shubhankar Milind Sardeshpande
+ <Shubhankar.MilindSardeshpande@amd.com>, Pratik Vishwakarma
+ <Pratik.Vishwakarma@amd.com>, Suresh Guttula <Suresh.Guttula@amd.com>,
+ "Kanala Ramalingeswara Reddy" <Kanala.RamalingeswaraReddy@amd.com>
+Subject: [PATCH V3 2/3] drm/amd/pm/smu15: switch to DRAM-based accumulator
+ metrics for SMU v15.0.0 using the newly added metrics table
+Date: Fri, 24 Jul 2026 17:31:22 +0530
+Message-ID: <20260724120139.3364357-1-Shubhankar.MilindSardeshpande@amd.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -75,29 +76,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD8:EE_|SA1PR12MB8986:EE_
-X-MS-Office365-Filtering-Correlation-Id: aaab659a-5fbc-43c9-b90d-08dee97b1c04
+X-MS-TrafficTypeDiagnostic: SA2PEPF000015CA:EE_|DS7PR12MB9528:EE_
+X-MS-Office365-Filtering-Correlation-Id: 59de3b3b-70cb-4632-d931-08dee97b87b3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|23010399003|56012099006|5023799004|11063799006|10067099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: +Rs2N7b7FeuckYiL2z3IsL6lfenVFA27ukJVfUhi3pjgt5xbDkjI8sxtQywHayYitZXC2fdTDDKJe8Vu3dyVVrIIx2vtmdg9OOz45zVBTuy86rutCMZcsDbZ2uy+gCQPugxf8DTnihAmH+jZ4sGgNW51GvruxZ0Q43h47c6WuaXurFoQd35DENMxOPK//FhUaWyNpV6DVRK2Ycb6uNPhLGGKYSHQCZpaTpV4aw/L9n14ZkFlga5oTMqMdFzwLHET2qCtPi8DQqifTHQ1bokaYVtQ0AB7/jBVmDBMKWCCUp2S5lwCUCt7SN/rfo4lF2jPczyTaY6vHPNlNDpKxGYyFbHSlPyhzmEXNHffTtWw+UU5Mkk+96p0pHhwnsC6P3Mr1FFWLrJ4k5O1Zp3HrwgmsIuVe5oJDCIRNFfnR0ziFe3uoRc+F14WMHuG37z+gNSP6zKpCagq4ICnjnBDUfJaQ3hUkQSK6UMOMZgF+tgyFmc6FCLZ0vexasgenRFTQ/GKrW10+fLH0zXIeNJ3zom4XdXQ8DvjG+DMZ+KDsB+26g5Tu8hkL6mKIFfrF66vb+92avCrIrQbe7Q1svBlgVFqiy0gmoOyQvi4frAdXN77QHdR+Du27F06htqHd75eAvThtrxbEF/XiIvexcnp0yBRp2mloyjIPG5c6WeLmFLDH0E86JJSMhg64Ay4j8xQs5YbO/QRBLJ7NdUZY/nyVLCTHA==
+ ARA:13230040|36860700016|1800799024|23010399003|82310400026|376014|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: 8PQkZszfY3r4ThbfbTLHYhzIHKnDwIq531TXjn3cBKP7edFog179PfsVhH1j5gn6qu8UHMgb2U9EosACp6Osux+jqDun7AwgZb6vS6+U9cefJy/WqxJVoiYk8qTZBmmhmzWJO1uWYS8AiAQY5/X9heNHFOEiv34sNfKVvWriXBd2Tq1suBG2rjghS92G8zhq7C7IKwCL5m62WF3+b4XIWv9RyfTsSNKxR8fF+aYcwnKmQM5bvMpf0uBgcHNyII12DnleZ+9MXJd7V41TyJ/F36H5Sp+mtYxdQCDJ+YIZvMhm+fzYsYB8ZRJjTz24LWXHq9vp8VxN5Hf48dyHfhVoolypVOZeByp+Wk+E4O1D4cfdb3vBs/WA2ULIa64g/FRhFdNVDL12/kQLKdJHjYNEdGyNgnRXwHS1fpooOZKrLn0yujdlqng+7q83KX3KBhaU07meDmHSFaDTnIKBZ3YIdOBkPhRfgYk5SsOwnJz7T1V0YyupovsvZLevbMhEOfq1Cap+R48EL16qpK0X/IPNQUiwpaGahSD514RY82JqzaNl+EucpWmAobZ3U5F09DeqHWrwd7fwHrEQelKN4UEgaG5tvf7KFQ5gPILwm57TJ3cQl2HXjEzllyUacmfIcqaZfhrqhNZr2Uc8H0T24CtwLEZC8/oKhzfJzdqXW+MAo8RCP94O4udpH0EYhtKpUVhW
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(56012099006)(5023799004)(11063799006)(10067099003)(18002099003)(3023799007);
+ SFS:(13230040)(36860700016)(1800799024)(23010399003)(82310400026)(376014)(10067099003)(11063799006)(56012099006)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: +AoayzTCOLoQTFPXGpfhiPuOKnpdiPoC7VD1Ini7mlcI+X6QR2Z3n7yWNV23iRPDAs2r3kkB80SFQBveuAXyNgo+mKkSQM854to6HueeCOF1dIwsxbX7VDCLAQOriCTKCqXYxbUIbm6Zf1Juc6zY0T5StNDR9U4gk99VYz1f7YtW8OB6CNh9z1PMCjt4spO+ts90cQk5WJNpI4jlUl1/VESgxoHJMBp+ET9s1HmTWDWnRxYVKxmBh3VtIYADchuDHTEYxAvj+aexbsaLF3hTRvTWOzGKsF0OlNCcfcMZBtMLpft+5YdgyCSynuNcgG6L7ve9aR3CD3dFDSU6Ztsp4fkxkvSwENbJ+BsMUP3c3aLhKONp+E2mmKFGVhlNLwcljOHUQTmIOPkCdLv5JOCZUl9bvUid+tBZvSC44AjFJ2+1tmvQVXVXPlp1qnjjClYG
+X-MS-Exchange-AntiSpam-MessageData-0: B7ZEthBrxKori1bpnEGfvFPJx6sKsAuAHXfYwVlMJBaBLLNmv7ObRLKWwNiNGFFfM41uq8uNcENnJ8vCh7eXrlMKXBH1bG6kn+vdz1NZ0lh3/Ad+TpRLcsjvz8victlFpZQlBvZ//Eh6RS/eQUK1Y2c/uU/CpR+GHStSEzH9TRhAg5SRBseRjIli0p05tcpK4+pj/6iSew4T8GHfaBn5Qfok2x2ep1QAI6j/1lrEFO8L0OljmZMHCEWf19MQ5+yAnGJfvzJzbXeSH5fEeO77eBY2bB2VDLUOabon+jIlFoWRygC2WbPHNx6ruuOleukYSFUca4tR2dGNIA5wPOhxnY+wHSZJuL3L7lIxLvRYyMjOet/L5RBi0A4jJKUAAYJKvW4eLtIS6U+Yc6JeVG4R98qsoAmCsnCN+B5E6jnyOdLWYv6cgPRQzubxFFFKQ1F+
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 12:00:09.3070 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aaab659a-5fbc-43c9-b90d-08dee97b1c04
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 12:03:09.9536 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 59de3b3b-70cb-4632-d931-08dee97b87b3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECD8.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF000015CA.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8986
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9528
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,254 +113,397 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add smu_v15_0_0_metrics.h defining the v0x04 metrics table structures
-(MetricsTable_IOD_t, MetricsTable_CCX_t, MetricsTable_t) exported by
-SMU firmware. These structures describe voltage, power, thermal,
-frequency, bandwidth, activity, and overclock telemetry fields used
-for PM reporting on SMU v15.0.0 APUs.
+Replace the legacy SMU table-copy metrics path with a DRAM-mapped
+accumulator-based approach for SMU v15.0.0:
 
+- Add MSG_MAP entries for GetMetricsTableVersion,
+  GetMetricsTableLogSample, and GetMetricsTableLogDramAddr messages.
+- Introduce SMU_15_0_0_MetricsInfo_t wrapping MetricsTable_t with
+  cached address, table size, and pre-computed average metrics.
+- Add smu_v15_0_0_get_metrics_table() which obtains the DRAM address
+  from the SMU, ioremaps it, and copies the metrics snapshot.
+- Add smu_v15_0_0_compute_all_metrics() to derive averaged clocks,
+  activity, power, and temperature from accumulator deltas between
+  consecutive samples.
+- Rework smu_v15_0_0_get_smu_metrics_data() to use the new
+  accumulator-diff path, replacing the per-member switch statement
+  with a single lookup into pre-computed avg_metric[].
+- Rename the old smu_v15_0_0_get_metrics_table() to
+  smu_v15_0_0_get_gpu_metrics_table(), preserving it for the
+  gpu_metrics v3.0 export path.
+- Use wrapping_sub() API to compute the difference between
+  current and previous AccumulationCounter.
+
+Signed-off-by: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>
+Signed-off-by: Suresh Guttula <Suresh.Guttula@amd.com>
+Signed-off-by: Kanala Ramalingeswara Reddy <Kanala.RamalingeswaraReddy@amd.com>
 Signed-off-by: Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpande@amd.com>
 ---
- .../swsmu/inc/pmfw_if/smu_v15_0_0_metrics.h   | 230 ++++++++++++++++++
- 1 file changed, 230 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_0_metrics.h
+ .../pm/swsmu/inc/pmfw_if/smu_v15_0_0_ppsmc.h  |   5 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h  |   3 +
+ .../drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c  | 249 +++++++++++-------
+ .../drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.h  |  11 +
+ 4 files changed, 166 insertions(+), 102 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_0_metrics.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_0_metrics.h
-new file mode 100644
-index 000000000000..19b4d84410a4
---- /dev/null
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_0_metrics.h
-@@ -0,0 +1,230 @@
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_0_ppsmc.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_0_ppsmc.h
+index bf216f83e689..9f627b5fef5b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_0_ppsmc.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_0_ppsmc.h
+@@ -100,7 +100,10 @@
+ #define PPSMC_MSG_DisableLSdma                  0x1F ///< Disable LSDMA
+ #define PPSMC_MSG_SetSoftMaxVpe                 0x20 ///<
+ #define PPSMC_MSG_SetSoftMinVpe                 0x21 ///<
+-#define PPSMC_Message_Count                     0x22 ///< Total number of PPSMC messages
++#define PPSMC_MSG_GetMetricsTableVersion        0x22
++#define PPSMC_MSG_GetMetricsTableLogSample      0x23
++#define PPSMC_MSG_GetMetricsTableLogDramAddr    0x24
++#define PPSMC_Message_Count                     0x25 ///< Total number of PPSMC messages
+ /** @}*/
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+index acf03838d49d..d6675b4ee9be 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h
+@@ -297,6 +297,9 @@
+ 	__SMU_DUMMY_MAP(GetSmartShiftStatus), \
+ 	__SMU_DUMMY_MAP(EnableLSdma), \
+ 	__SMU_DUMMY_MAP(DisableLSdma), \
++	__SMU_DUMMY_MAP(GetMetricsTableVersion), \
++	__SMU_DUMMY_MAP(GetMetricsTableLogSample), \
++	__SMU_DUMMY_MAP(GetMetricsTableLogDramAddr), \
+ 	__SMU_DUMMY_MAP(InitializeGfx), \
+ 	__SMU_DUMMY_MAP(SetSoftMaxFclk), \
+ 	__SMU_DUMMY_MAP(SetSoftMaxGl2clk), \
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
+index faa7d661f3bf..1d268a02992e 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c
+@@ -33,6 +33,8 @@
+ #include "smu_v15_0_0_pmfw.h"
+ #include "smu_cmn.h"
+ 
++#include <linux/overflow.h>
++
+ /*
+  * DO NOT use these for err/warn/info/debug messages.
+  * Use dev_err, dev_warn, dev_info and dev_dbg instead.
+@@ -119,6 +121,9 @@ static struct cmn2asic_msg_mapping smu_v15_0_0_message_map[SMU_MSG_MAX_COUNT] =
+ 	MSG_MAP(DisableLSdma,                   PPSMC_MSG_DisableLSdma,				1),
+ 	MSG_MAP(SetSoftMaxVpe,                  PPSMC_MSG_SetSoftMaxVpe,			1),
+ 	MSG_MAP(SetSoftMinVpe,                  PPSMC_MSG_SetSoftMinVpe,			1),
++	MSG_MAP(GetMetricsTableVersion,         PPSMC_MSG_GetMetricsTableVersion,		1),
++	MSG_MAP(GetMetricsTableLogSample,       PPSMC_MSG_GetMetricsTableLogSample,		1),
++	MSG_MAP(GetMetricsTableLogDramAddr,     PPSMC_MSG_GetMetricsTableLogDramAddr,	1),
+ };
+ 
+ static struct cmn2asic_mapping smu_v15_0_0_feature_mask_map[SMU_FEATURE_COUNT] = {
+@@ -173,7 +178,7 @@ static int smu_v15_0_0_init_smc_tables(struct smu_context *smu)
+ 	SMU_TABLE_INIT(tables, SMU_TABLE_SMU_METRICS, sizeof(SmuMetrics_t),
+ 		PAGE_SIZE, AMDGPU_GEM_DOMAIN_VRAM);
+ 
+-	smu_table->metrics_table = kzalloc_obj(SmuMetrics_t);
++	smu_table->metrics_table = kzalloc_obj(SMU_15_0_0_MetricsInfo_t);
+ 	if (!smu_table->metrics_table)
+ 		goto err0_out;
+ 	smu_table->metrics_time = 0;
+@@ -299,7 +304,7 @@ static int smu_v15_0_0_set_default_dpm_tables(struct smu_context *smu)
+ 				    smu_table->clocks_table, false);
+ }
+ 
+-static int smu_v15_0_0_get_metrics_table(struct smu_context *smu,
++static int smu_v15_0_0_get_gpu_metrics_table(struct smu_context *smu,
+ 							void *metrics_table,
+ 							bool bypass_cache)
+ {
+@@ -329,115 +334,157 @@ static int smu_v15_0_0_get_metrics_table(struct smu_context *smu,
+ 	return 0;
+ }
+ 
++
++static int smu_v15_0_0_get_metrics_table(struct smu_context *smu,
++					SMU_15_0_0_MetricsInfo_t *metrics_info)
++{
++	struct smu_table_context *smu_table = &smu->smu_table;
++	void __iomem *cpu_addr = NULL;
++	struct smu_msg_ctl *ctl = &smu->msg_ctl;
++	struct smu_msg_args args = {0};
++	int table_size = metrics_info->table_size;
++	uint64_t addr = metrics_info->addr;
++	int ret;
++
++	if (smu_table->metrics_time &&
++	    !time_after(jiffies, smu_table->metrics_time + msecs_to_jiffies(1)))
++		return 0;
++
++	if (addr == 0) {
++		struct smu_msg_args args = {
++			.msg = SMU_MSG_GetMetricsTableLogDramAddr,
++			.num_args = 0,
++			.num_out_args = 3,
++		};
++
++		ret = ctl->ops->send_msg(ctl, &args);
++
++		if (ret)
++			return ret;
++
++		addr = ((uint64_t)args.out_args[1] << 32) | args.out_args[0];
++		table_size = args.out_args[2];
++		metrics_info->addr = addr;
++		metrics_info->table_size = table_size;
++	}
++
++	cpu_addr = ioremap_wc(addr, table_size);
++	if (!cpu_addr)
++		return -ENOMEM;
++
++	args.msg = SMU_MSG_GetMetricsTableLogSample;
++	args.num_args = 0;
++	args.num_out_args = 0;
++
++	ret = ctl->ops->send_msg(ctl, &args);
++	if (!ret) {
++		amdgpu_hdp_invalidate(smu->adev, NULL);//best to flush before copy
++		if (table_size <= sizeof(MetricsTable_t))
++			memcpy(&metrics_info->metrics, cpu_addr, table_size);
++		else
++			memcpy(&metrics_info->metrics, cpu_addr, sizeof(MetricsTable_t));
++	}
++	iounmap(cpu_addr);
++	return ret;
++}
++
 +/*
-+ * Copyright 2025 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
++ * Accumulators monotonically increase and roll over at their type width.
++ * Use the kernel wrapping_sub() API to compute the delta so the subtraction
++ * wraps modulo 2^n (correct across a single rollover) without tripping any
++ * wrap-around sanitizers.
 + */
++static void smu_v15_0_0_compute_all_metrics(
++		SMU_15_0_0_MetricsInfo_t *prev,
++		SMU_15_0_0_MetricsInfo_t *curr)
++{
++	uint64_t counter, val;
++	MetricsTable_IOD_t *p = &prev->metrics.IOD;
++	MetricsTable_IOD_t *c = &curr->metrics.IOD;
 +
-+#ifndef __SMU_V15_0_0_METRICS_H__
-+#define __SMU_V15_0_0_METRICS_H__
++	counter = wrapping_sub(u32, c->AccumulationCounter, p->AccumulationCounter);
++	if (!counter)
++		return;
 +
-+#define METRICS_TABLE_VERSION 0x04
-+#define NUM_MAX_CORES         12
-+#define NUM_CLK_DPM_LEVELS    8
-+#define METRIC_CORE_TYPE_MAX  4
-+#define METRIC_CCX_MAX        4
++	/* Accumulator-based clock frequencies (fixed-point /1024) */
++	val = wrapping_sub(u64, c->GfxclkFreqEffAcc, p->GfxclkFreqEffAcc);
++	curr->avg_metric[METRICS_AVERAGE_GFXCLK] = (val / counter) / 1024;
 +
-+// Variable Type | Description
-+#pragma pack(push, 4)
++	val = wrapping_sub(u64, c->SocclkFreqEffAcc, p->SocclkFreqEffAcc);
++	curr->avg_metric[METRICS_AVERAGE_SOCCLK] = (val / counter) / 1024;
++
++	val = wrapping_sub(u64, c->VclkFreqEffAcc, p->VclkFreqEffAcc);
++	curr->avg_metric[METRICS_AVERAGE_VCLK] = (val / counter) / 1024;
++
++	curr->avg_metric[METRICS_AVERAGE_DCLK] = 0;
++
++	val = wrapping_sub(u64, c->MemclkFreqEffAcc, p->MemclkFreqEffAcc);
++	curr->avg_metric[METRICS_AVERAGE_UCLK] = (val / counter) / 1024;
++
++	val = wrapping_sub(u64, c->FclkFreqEffAcc, p->FclkFreqEffAcc);
++	curr->avg_metric[METRICS_AVERAGE_FCLK] = (val / counter) / 1024;
++
++	val = wrapping_sub(u64, c->NpuhclkFreqEffAcc, p->NpuhclkFreqEffAcc);
++	curr->avg_metric[METRICS_AVERAGE_NPUCLK] = (val / counter) / 1024;
++
++	/* Activity (fixed-point /1024) */
++	val = wrapping_sub(u64, c->GfxBusyAcc, p->GfxBusyAcc);
++	curr->avg_metric[METRICS_AVERAGE_GFXACTIVITY] = (val / counter) / 1024;
++
++	val = wrapping_sub(u64, c->VcnBusyAcc, p->VcnBusyAcc);
++	curr->avg_metric[METRICS_AVERAGE_VCNACTIVITY] = (val / counter) / 1024;
++
++	/* Power (fixed-point /1024) */
++	val = wrapping_sub(u64, c->ApuPowerAcc, p->ApuPowerAcc);
++	curr->avg_metric[METRICS_AVERAGE_SOCKETPOWER] = (val / counter) / 1024;
++
++	val = wrapping_sub(u64, c->SystemPowerAcc, p->SystemPowerAcc);
++	curr->avg_metric[METRICS_CURR_SOCKETPOWER] = (val / counter) / 1024;
++
++	/* Temperature */
++	val = wrapping_sub(u64, c->GFX_TempAcc, p->GFX_TempAcc);
++	curr->avg_metric[METRICS_TEMPERATURE_EDGE] = val / counter;
++
++	/* Static zero values */
++	curr->avg_metric[METRICS_VOLTAGE_VDDGFX] = 0;
++	curr->avg_metric[METRICS_VOLTAGE_VDDSOC] = 0;
++}
++
+ static int smu_v15_0_0_get_smu_metrics_data(struct smu_context *smu,
+ 					    MetricsMember_t member,
+ 					    uint32_t *value)
+ {
+ 	struct smu_table_context *smu_table = &smu->smu_table;
+ 
+-	SmuMetrics_t *metrics = (SmuMetrics_t *)smu_table->metrics_table;
+-	int ret = 0;
++	SMU_15_0_0_MetricsInfo_t *prev_metrics;
++	SMU_15_0_0_MetricsInfo_t *curr_metrics;
++	int ret;
+ 
+-	ret = smu_v15_0_0_get_metrics_table(smu, NULL, false);
+-	if (ret)
++	prev_metrics = kzalloc_obj(SMU_15_0_0_MetricsInfo_t);
++	if (!prev_metrics)
++		return -ENOMEM;
++
++	memcpy(prev_metrics, smu_table->metrics_table,
++			sizeof(SMU_15_0_0_MetricsInfo_t));
++	ret = smu_v15_0_0_get_metrics_table(smu,
++			(SMU_15_0_0_MetricsInfo_t *)smu_table->metrics_table);
++	if (ret) {
++		kfree(prev_metrics);
+ 		return ret;
++	}
+ 
+-	switch (member) {
+-	case METRICS_AVERAGE_GFXCLK:
+-		*value = metrics->GfxclkFrequency;
+-		break;
+-	case METRICS_AVERAGE_SOCCLK:
+-		*value = metrics->SocclkFrequency;
+-		break;
+-	case METRICS_AVERAGE_VCLK:
+-		*value = metrics->VclkFrequency;
+-		break;
+-	case METRICS_AVERAGE_DCLK:
+-		*value = 0;
+-		break;
+-	case METRICS_AVERAGE_UCLK:
+-		*value = metrics->MemclkFrequency;
+-		break;
+-	case METRICS_AVERAGE_FCLK:
+-		*value = metrics->FclkFrequency;
+-		break;
+-	case METRICS_AVERAGE_VPECLK:
+-		*value = metrics->VpeclkFrequency;
+-		break;
+-	case METRICS_AVERAGE_NPUCLK:
+-		*value = metrics->NpuclkFrequency;
+-		break;
+-	case METRICS_AVERAGE_GFXACTIVITY:
+-		if ((smu->smc_fw_version > 0x5d4600))
+-			*value = metrics->GfxActivity;
+-		else
+-			*value = metrics->GfxActivity / 100;
+-		break;
+-	case METRICS_AVERAGE_VCNACTIVITY:
+-		*value = metrics->VcnActivity / 100;
+-		break;
+-	case METRICS_AVERAGE_SOCKETPOWER:
+-	case METRICS_CURR_SOCKETPOWER:
+-		*value = (metrics->SocketPower / 1000 << 8) +
+-		(metrics->SocketPower % 1000 / 10);
+-		break;
+-	case METRICS_TEMPERATURE_EDGE:
+-		*value = metrics->GfxTemperature / 100 *
+-		SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+-		break;
+-	case METRICS_TEMPERATURE_HOTSPOT:
+-		*value = metrics->SocTemperature / 100 *
+-		SMU_TEMPERATURE_UNITS_PER_CENTIGRADES;
+-		break;
+-	case METRICS_THROTTLER_RESIDENCY_PROCHOT:
+-		*value = metrics->ThrottleResidency_PROCHOT;
+-		break;
+-	case METRICS_THROTTLER_RESIDENCY_SPL:
+-		*value = metrics->ThrottleResidency_SPL;
+-		break;
+-	case METRICS_THROTTLER_RESIDENCY_FPPT:
+-		*value = metrics->ThrottleResidency_FPPT;
+-		break;
+-	case METRICS_THROTTLER_RESIDENCY_SPPT:
+-		*value = metrics->ThrottleResidency_SPPT;
+-		break;
+-	case METRICS_THROTTLER_RESIDENCY_THM_SOC:
+-		*value = metrics->ThrottleResidency_THM_SOC;
+-		break;
+-	case METRICS_VOLTAGE_VDDGFX:
+-		*value = 0;
+-		break;
+-	case METRICS_VOLTAGE_VDDSOC:
+-		*value = 0;
+-		break;
+-	case METRICS_SS_APU_SHARE:
+-		/* return the percentage of APU power with respect to APU's power limit.
+-		 * percentage is reported, this isn't boost value. Smartshift power
+-		 * boost/shift is only when the percentage is more than 100.
+-		 */
+-		if (metrics->StapmOpnLimit > 0)
+-			*value = (metrics->ApuPower * 100) / metrics->StapmOpnLimit;
+-		else
+-			*value = 0;
+-		break;
+-	case METRICS_SS_DGPU_SHARE:
+-		/* return the percentage of dGPU power with respect to dGPU's power limit.
+-		 * percentage is reported, this isn't boost value. Smartshift power
+-		 * boost/shift is only when the percentage is more than 100.
+-		 */
+-		if ((metrics->dGpuPower > 0) &&
+-		    (metrics->StapmCurrentLimit > metrics->StapmOpnLimit))
+-			*value = (metrics->dGpuPower * 100) /
+-				 (metrics->StapmCurrentLimit - metrics->StapmOpnLimit);
+-		else
+-			*value = 0;
+-		break;
+-	default:
+-		*value = UINT_MAX;
+-		break;
++	curr_metrics = (SMU_15_0_0_MetricsInfo_t *)smu_table->metrics_table;
++
++	if (prev_metrics->metrics.IOD.AccumulationCounter !=
++		curr_metrics->metrics.IOD.AccumulationCounter) {
++		/* New sample: compute all accumulator-based metrics at once */
++		smu_v15_0_0_compute_all_metrics(prev_metrics, curr_metrics);
+ 	}
+ 
+-	return ret;
++	*value = curr_metrics->avg_metric[member];
++
++	kfree(prev_metrics);
++	return 0;
+ }
+ 
+ static int smu_v15_0_0_read_sensor(struct smu_context *smu,
+@@ -634,7 +681,7 @@ static ssize_t smu_v15_0_0_get_gpu_metrics(struct smu_context *smu,
+ 	SmuMetrics_t metrics;
+ 	int ret = 0;
+ 
+-	ret = smu_v15_0_0_get_metrics_table(smu, &metrics, false);
++	ret = smu_v15_0_0_get_gpu_metrics_table(smu, &metrics, false);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.h b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.h
+index 8365b9fea77e..8ee45591e9a6 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.h
+@@ -23,6 +23,17 @@
+ #ifndef __SMU_V15_0_0_PPT_H__
+ #define __SMU_V15_0_0_PPT_H__
+ 
++#include "amdgpu_smu.h"
++
++#include "pmfw_if/smu_v15_0_0_metrics.h"
++
 +typedef struct {
-+  uint32_t AccumulationCounter;
++	MetricsTable_t metrics;
++	uint32_t table_size;
++	uint64_t addr;
++	uint32_t avg_metric[METRICS_AVERAGE_NPUCLK+1];
++} SMU_15_0_0_MetricsInfo_t;
 +
-+  //SET_VOLTAGES
-+  uint64_t VDDCR_SetVoltage;                                              // Acc Float (V)
-+  uint64_t VDDCR_SOC_SetVoltage;                                          // Acc Float (V)
-+  uint64_t VDDCR_NPU_SetVoltage;                                          // Acc Float (V)
-+  uint64_t VDDCR_LP_SetVoltage;                                           // Acc Float (V)
-+  uint64_t VDDCR_GFX_SetVoltage;                                          // Acc Float (V)
-+  uint64_t VDD_MISC_SetVoltage;                                           // Acc Float (V)
-+
-+  //TELEMETRY_VOLTAGES
-+  uint64_t VDDCR_TelemetryVoltage;                                        // Acc Float (V)
-+  uint64_t VDDCR_SOC_TelemetryVoltage;                                    // Acc Float (V)
-+  uint64_t VDDCR_NPU_TelemetryVoltage;                                    // Acc Float (V)
-+  uint64_t VDDCR_LP_TelemetryVoltage;                                     // Acc Float (V)
-+  uint64_t VDDCR_GFX_TelemetryVoltage;                                    // Acc Float (V)
-+  uint64_t VDD_MISC_TelemetryVoltage;                                     // Acc Float (V)
-+
-+  //TELEMETRY_POWERS
-+  uint64_t VDDCR_TelemetryPower;                                          // Acc Float (W)
-+  uint64_t VDDCR_SOC_TelemetryPower;                                      // Acc Float (W)
-+  uint64_t VDDCR_NPU_TelemetryPower;                                      // Acc Float (W)
-+  uint64_t VDDCR_LP_TelemetryPower;                                       // Acc Float (W)
-+  uint64_t VDDCR_GFX_TelemetryPower;                                      // Acc Float (W)
-+  uint64_t VDD_MISC_TelemetryPower;                                       // Acc Float (W)
-+
-+  //THROTTLERS
-+  uint32_t fPPT_FusedLimit;                                               // Inst Float (W)
-+  uint32_t fPPT_MaxIrmLimit;                                              // Inst Float (W)
-+  uint32_t fPPT_MaxPboLimit;                                              // Inst Float (W)
-+  uint32_t fPPT_Limit;                                                    // Inst Float (W)
-+  uint64_t fPPT_ValueAcc;                                                 // Acc Int (W)
-+  uint32_t fPPT_ResidencyAcc;                                             // Acc Float
-+
-+  uint32_t sPPT_FusedLimit;                                               // Inst Float (W)
-+  uint32_t sPPT_MaxIrmLimit;                                              // Inst Float (W)
-+  uint32_t sPPT_MaxPboLimit;                                              // Inst Float (W)
-+  uint32_t sPPT_Limit;                                                    // Inst Float (W)
-+  uint64_t sPPT_ValueAcc;                                                 // Acc Int (W)
-+  uint32_t sPPT_ResidencyAcc;                                             // Acc Float
-+
-+  uint32_t SPL_FusedLimit;                                                // Inst Float (W)
-+  uint32_t SPL_MaxIrmLimit;                                               // Inst Float (W)
-+  uint32_t SPL_MaxPboLimit;                                               // Inst Float (W)
-+  uint32_t SPL_Limit;                                                     // Inst Float (W)
-+  uint64_t SPL_ValueAcc;                                                  // Acc Int (W)
-+  uint32_t SPL_ResidencyAcc;                                              // Acc Float
-+
-+  uint32_t TDC_VDDCR_FusedLimit;                                          // Inst Float (A)
-+  uint32_t TDC_VDDCR_MaxIrmLimit;                                         // Inst Float (A)
-+  uint32_t TDC_VDDCR_MaxPboLimit;                                         // Inst Float (A)
-+  uint32_t TDC_VDDCR_Limit;                                               // Inst Float (A)
-+  uint64_t TDC_VDDCR_ValueAcc;                                            // Acc Int    (A)
-+  uint32_t TDC_VDDCR_ResidencyAcc;                                        // Acc Float
-+
-+  uint32_t TDC_VDDCR_SOC_FusedLimit;                                      // Inst Float (A)
-+  uint32_t TDC_VDDCR_SOC_MaxIrmLimit;                                     // Inst Float (A)
-+  uint32_t TDC_VDDCR_SOC_MaxPboLimit;                                     // Inst Float (A)
-+  uint32_t TDC_VDDCR_SOC_Limit;                                           // Inst Float (A)
-+  uint64_t TDC_VDDCR_SOC_ValueAcc;                                        // Acc Int    (A)
-+  uint32_t TDC_VDDCR_SOC_ResidencyAcc;                                    // Acc Float
-+
-+  uint32_t TDC_VDDCR_NPU_FusedLimit;                                      // Inst Float (A)
-+  uint32_t TDC_VDDCR_NPU_MaxIrmLimit;                                     // Inst Float (A)
-+  uint32_t TDC_VDDCR_NPU_MaxPboLimit;                                     // Inst Float (A)
-+  uint32_t TDC_VDDCR_NPU_Limit;                                           // Inst Float (A)
-+  uint64_t TDC_VDDCR_NPU_ValueAcc;                                        // Acc Int    (A)
-+  uint32_t TDC_VDDCR_NPU_ResidencyAcc;                                    // Acc Float
-+
-+  uint32_t TDC_VDDCR_LP_FusedLimit;                                       // Inst Float (A)
-+  uint32_t TDC_VDDCR_LP_MaxIrmLimit;                                      // Inst Float (A)
-+  uint32_t TDC_VDDCR_LP_MaxPboLimit;                                      // Inst Float (A)
-+  uint32_t TDC_VDDCR_LP_Limit;                                            // Inst Float (A)
-+  uint64_t TDC_VDDCR_LP_ValueAcc;                                         // Acc Int    (A)
-+  uint32_t TDC_VDDCR_LP_ResidencyAcc;                                     // Acc Float
-+
-+  uint32_t TDC_VDDCR_GFX_FusedLimit;                                      // Inst Float (A)
-+  uint32_t TDC_VDDCR_GFX_MaxIrmLimit;                                     // Inst Float (A)
-+  uint32_t TDC_VDDCR_GFX_MaxPboLimit;                                     // Inst Float (A)
-+  uint32_t TDC_VDDCR_GFX_Limit;                                           // Inst Float (A)
-+  uint64_t TDC_VDDCR_GFX_ValueAcc;                                        // Acc Int    (A)
-+  uint32_t TDC_VDDCR_GFX_ResidencyAcc;                                    // Acc Float
-+
-+  uint32_t EDC_VDDCR_FusedLimit;                                          // Inst Float (A)
-+  uint32_t EDC_VDDCR_MaxIrmLimit;                                         // Inst Float (A)
-+  uint32_t EDC_VDDCR_MaxPboLimit;                                         // Inst Float (A)
-+  uint32_t EDC_VDDCR_Limit;                                               // Inst Float (A)
-+
-+  uint32_t THM_FusedLimit;                                                // Inst Float (C)
-+  uint32_t THM_Limit;                                                     // Inst Float (C)
-+  uint64_t THM_ValueAcc;                                                  // Acc Float  (C)
-+  uint32_t THM_ResidencyAcc;                                              // Acc Float
-+  uint32_t PROCHOT_ResidencyAcc;                                          // Acc Float
-+  uint64_t GFX_TempAcc;                                                   // Acc Float  (C)
-+  uint64_t SOC_TempAcc;                                                   // Acc Float  (C)
-+  uint32_t P3T_FusedLimit;                                                // Inst Float (W)
-+  uint64_t P3T_ValueAcc;                                                  // Acc Float  (W)
-+
-+  //POWER
-+  uint64_t SystemPowerAcc;                                                // Acc Float (W)
-+  uint64_t ApuPowerAcc;                                                   // Acc Float (W)
-+  uint64_t dGpuPowerAcc;                                                  // Acc Float (W)
-+  uint64_t NpuPowerAcc;                                                   // Acc Float (W)
-+
-+  //FREQUENCIES
-+  uint64_t FclkFreqEffAcc;                                                // Acc Float (MHz)
-+  uint64_t MemclkFreqEffAcc;                                              // Acc Float (MHz)
-+  uint64_t LclkFreqEffAcc;                                                // Acc Float (MHz)
-+  uint64_t GfxclkFreqEffAcc;                                              // Acc Float (MHz)
-+  uint64_t SocclkFreqEffAcc;                                              // Acc Float (MHz)
-+  uint64_t VclkFreqEffAcc;                                                // Acc Float (MHz)
-+  uint64_t VpeclkFreqEffAcc;                                              // Acc Float (MHz)
-+  uint64_t AieclkFreqEffAcc;                                              // Acc Float (MHz)
-+  uint64_t NpuhclkFreqEffAcc;                                             // Acc Float (MHz)
-+  //BANDWIDTH
-+  uint64_t DramReadBandwidth;                                             // Acc Float (GB/sec)
-+  uint64_t DramWriteBandwidth;                                            // Acc Float (GB/sec)
-+
-+  //ACTIVITY MONITORS
-+  uint64_t GfxBusyAcc;                                                    // Acc Float (%)
-+  uint64_t VcnBusyAcc;                                                    // Acc Float (%)
-+  uint64_t NpuBusyAcc[3];                                                 // Acc Float (%)
-+
-+  //STT
-+  uint32_t STT_MinLimit;                                                  // Inst Float (W)
-+  uint64_t STT_APU_HotSpotTempAcc;                                        // Acc Float (C)
-+  uint64_t STT_HS2_HotSpotTempAcc;                                        // Acc Float (C)
-+  uint32_t STT_APU_Temp_Limit;                                            // Inst Float (C)
-+  uint64_t STT_APU_SkinTempAcc;                                           // Acc Float (C)
-+
-+  //RESIDENCIES
-+  uint64_t CpuOffResidency_CCX0;                                          // Acc Float (%)
-+  uint64_t CpuOffResidency_CCX1;                                          // Acc Float (%)
-+  uint64_t CpuOffResidency_CCX2;                                          // Acc Float (%)
-+  uint64_t CpuOffResidency_CCX3;                                          // Acc Float (%)
-+
-+  //DFPSTATES
-+  uint32_t FclkFreqTable[NUM_CLK_DPM_LEVELS];                             // Inst Int (MHz)
-+  uint32_t UclkFreqTable[NUM_CLK_DPM_LEVELS];                             // Inst Int (MHz)
-+  uint32_t DdrRateTable[NUM_CLK_DPM_LEVELS];                              // Inst Int (MT/s)
-+  uint8_t  DfPstate_Source[NUM_CLK_DPM_LEVELS];                           // Inst Int
-+
-+  //SYSTEM
-+  uint8_t  GfxDisabled;                                                   // Inst Int
-+  uint8_t  spare2[3];
-+  uint32_t GfxClk_Fmax;                                                   // Inst Float (GHz)
-+  uint8_t  CClk_CoreFuseEnable[METRIC_CORE_TYPE_MAX][NUM_MAX_CORES];      // Inst Int
-+  uint8_t  CClk_CoreEnabled[METRIC_CORE_TYPE_MAX][NUM_MAX_CORES];         // Inst Int
-+  uint32_t CClk_Fmax[METRIC_CORE_TYPE_MAX][NUM_MAX_CORES];                // Inst Float (GHz)
-+
-+  //OVERCLOCK CAPABLE
-+  uint8_t CpuPreciseAndDirectOverClockingCapable;                         // Inst Int
-+  uint8_t GfxPreciseAndDirectOverClockingCapable;                         // Inst Int
-+  uint8_t PboBasicOverClockingCapable;                                    // Inst Int
-+  uint8_t PboAdvancedOverClockingCapable;                                 // Inst Int
-+  uint8_t PboNitroOverClockingCapable;                                    // Inst Int
-+  uint8_t MemoryAndFabricOverClockingCapable;                             // Inst Int
-+  uint8_t MiscOverClockingCapable;                                        // Inst Int
-+  uint8_t ExtremeColdOverclockingCapable;                                 // Inst Int
-+  uint8_t DownConfigControlCapable;                                       // Inst Int
-+  uint8_t spare0[3];
-+
-+  //OVERCLOCK STATUS
-+  uint32_t FIT_LimitScalar;                                               // Inst Float
-+  uint8_t  LN2Enabled;                                                    // Inst Int
-+  uint8_t  CpuPreciseAndDirectOcEnabled;                                  // Inst Int
-+  uint8_t  GfxPreciseAndDirectOcEnabled;                                  // Inst Int
-+  uint8_t  spare1[2];
-+  int8_t   PsmGuardband[5][5][3];                                         // Inst Int
-+  int32_t  CorePowerLimitOffset;                                          // Inst Float (W)
-+  uint32_t MaxFreqOffset[5];                                              // Inst Float (GHz)
-+
-+  uint64_t NpuTempAcc;                                                    // Acc Float (C)
-+  uint64_t DfPStateResidencyAcc[NUM_CLK_DPM_LEVELS];                      // Acc Int (%)
-+  uint32_t CClk_Fboost;                                                   // Inst Float (GHz)
-+  uint32_t spare3[5];
-+} MetricsTable_IOD_t;
-+
-+typedef struct {
-+  uint64_t Core_C0[NUM_MAX_CORES];                                        // Acc Float (%)
-+  uint64_t Core_CC6[NUM_MAX_CORES];                                       // Acc Float (%)
-+  uint64_t Core_FREQ[NUM_MAX_CORES];                                      // Acc Float (GHz)
-+  uint64_t Core_FREQEFF[NUM_MAX_CORES];                                   // Acc Float (GHz)
-+  uint64_t Core_TEMP[NUM_MAX_CORES];                                      // Acc Float (C)
-+  uint64_t Core_POWER[NUM_MAX_CORES];                                     // Acc Float (W)
-+} MetricsTable_CCX_t;
-+
-+typedef struct {
-+  MetricsTable_IOD_t IOD;
-+  MetricsTable_CCX_t CCX[METRIC_CCX_MAX];
-+} MetricsTable_t;
-+
-+#pragma pack(pop)
-+
-+#endif
+ extern void smu_v15_0_0_set_ppt_funcs(struct smu_context *smu);
+ 
+ #endif
+\ No newline at end of file
 -- 
 2.43.0
 
