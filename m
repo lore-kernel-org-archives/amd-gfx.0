@@ -4,123 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51FE7C531D0
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 01:59:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E848C531D0
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 02:28:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CC9EA10E434;
-	Fri, 24 Jul 2026 01:59:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DDFAD10E642;
+	Fri, 24 Jul 2026 02:28:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3JY2YyqP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="L624t2fN";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011041.outbound.protection.outlook.com [40.107.208.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D38810E434
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jul 2026 01:59:55 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012020.outbound.protection.outlook.com [40.107.209.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9281310E642
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jul 2026 02:28:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=B1cpc1IsHbDdTRvdPBsYQsz+Xg1lf/OPKcNQbbunOgvG+Hw6hj2UNc4lY8++JEl/t76aBoKBTN6wkb6QYaLSujwae94tSNfWtftSKxud5pkI/TWGYgCs3MCx2Ctux23VGzFsfh6fj4uEWj9jwnmi+RWUkaIXL35xZth4BDQnBAhuSPD6rhCRaygqJWTiGPj1RuPQbZEv8ly7QOOx/faeKw9NopMPWVZyGacwFlogihFR48pSYgzKl0giAv9NWRxlgcdEtceGVDr5fUfqWZbP2vsfyhJMYzhuJoJOKC0EXTq6q46cIpafam/1zToOjIP9+tKOKhP27eXvGeO9hGNsoQ==
+ b=gyM7iaO0T+yK6IWURDQQuQ9cTEedHQwW+e8LGeGbQPiuTP39qtZFnMJ2pd6fq6omJ3erN2nqh4f0XPdvmKHmsA92KhN138lumatkW9b9BBh6Ct+mxIyUhf9njKM2sfxse6YUlggAuj3v+kC6BSj1SRmvHNerAFnOdc4kiI9dtbPdNZuvvUPd4hepq56ZOD3i6r3iFsh3RB2AndiJi6OlPLclbmTKn2ILcyNCUO0aSigyq+isD/el3yNseJlTqiZGFh64ry9XWXs228MIIkZe6ORPlREIO+yMvkWdqzeeo6NnmAeJBACpccTv9i14RSW6Ar03tdmfnm4JwkV2umnVrA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mmmRM2R1u+Zu5sJ9rlZ09g0FWfnWDmhiR73a10pAmjA=;
- b=kfVp0BGD/jr/nZs3PwaX/lRu0dDBmArgNs5KFL8Ltz0CeHjJn+eS0qntRGbugq7eopCdD8SlzvY9DAtIIM+EzbAGRsavjf0rNneXfCzujvibzjJ0jf5It6qAadIoZYCtrxK0sJKOPX4wadGPt6uWU1C+ht6gQyURCo7oy1XWZ6NzPa4wwEcdU7FfFZetzqXAmOChH9VN9s3Gng3Y0dhRxb7oOBpuvXiYhlNc9gZxmk2RyyFIQfTyFacC/RnXjePGM4psLsDqFS6A7i3OT6tjyHlZuBYrJKFI7eBKI62GnB1VJi7OWLhKIBFPzHuJ+qEhpd//963w81k4vUezKBw4rQ==
+ bh=id9l3Yf7lR0UOJupbuZOGUcr5MHccOKx4GaTSOCfDdM=;
+ b=IYt4dFGdnoa7n9UuCcaBNOoko1061tpyyVvKkciSSK/Y97vaWHWipVmMbYgX5sYm0laqYKqhDjL8t2z9yS1xd7YmJngSNXVcWxyWCbgV4aQNF1uph/ky8GV4J8hV2sUHQdy/7/PhOo2w0PRs6oaUC7Ynk+HnTMfgmbyGI8PCKZ5x8vbzAExt3W2z1IOwgX8VAqvw7l1u5giWaGo7+0C3msfUOYYt92mtScAtp0fOiUXYiLK4f5gzvl3OjLtK8x7om01QAJhz70OyAS2/lr7sxkM67QY1IepHyfKK4VOJp8f0cJWQvtTEGqkxRwOBH2lnkZrKcUtEP17caZDbcN6brw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mmmRM2R1u+Zu5sJ9rlZ09g0FWfnWDmhiR73a10pAmjA=;
- b=3JY2YyqPPExfl0PFQslxdP+0E4dC137UVDUFgHcaH0WMyPPbHau4/9Xi4FOttAIcqD0U+t8LyOInRIQoK52om+4z2L3I8Gsah3Pa/5fg+mACI6Z9WwnkA6IiQFKMrh7+OrGl5hk/aNKt4s44H3LxNpWTbGedL/i1eTwvloaoh8E=
-Received: from BN9PR12MB5306.namprd12.prod.outlook.com (2603:10b6:408:103::12)
- by MN0PR12MB6223.namprd12.prod.outlook.com (2603:10b6:208:3c1::12)
+ bh=id9l3Yf7lR0UOJupbuZOGUcr5MHccOKx4GaTSOCfDdM=;
+ b=L624t2fNYDjQEHk7jhe9yXGe97Zjb9Qv1QKfyi7HJEq6i2esHZ3JdmdfL5mjcswi4xjPs7MS1urUcdkrLLSDfDWsf4atbMZR31K1+4Vyg+Hmvh0V0I58NeaU0ToYn6qwqMvkVB28egj0R3q1cUM07HbcEFqNo/HOs/GsJTGcCps=
+Received: from SJ0PR12MB6967.namprd12.prod.outlook.com (2603:10b6:a03:44b::6)
+ by SJ1PR12MB6361.namprd12.prod.outlook.com (2603:10b6:a03:455::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
- 2026 01:59:52 +0000
-Received: from BN9PR12MB5306.namprd12.prod.outlook.com
- ([fe80::9976:3768:a636:3c3d]) by BN9PR12MB5306.namprd12.prod.outlook.com
- ([fe80::9976:3768:a636:3c3d%2]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
- 01:59:52 +0000
-From: "Chai, Thomas" <YiPeng.Chai@amd.com>
-To: "Sun, Ce(Overlord)" <Ce.Sun@amd.com>, "amd-gfx@lists.freedesktop.org"
+ 2026 02:28:32 +0000
+Received: from SJ0PR12MB6967.namprd12.prod.outlook.com
+ ([fe80::9e49:aeba:9265:f46e]) by SJ0PR12MB6967.namprd12.prod.outlook.com
+ ([fe80::9e49:aeba:9265:f46e%3]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
+ 02:28:32 +0000
+From: "Sun, Ce(Overlord)" <Ce.Sun@amd.com>
+To: "Chai, Thomas" <YiPeng.Chai@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Zhou1, Tao"
- <Tao.Zhou1@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>, "Sun,
- Ce(Overlord)" <Ce.Sun@amd.com>
-Subject: RE: [PATCH 2/2] drm/amdgpu: normalize error return of RAS command
- wrapper functions
-Thread-Topic: [PATCH 2/2] drm/amdgpu: normalize error return of RAS command
- wrapper functions
-Thread-Index: AQHdGwLkuhDU9jv2iUOf79apA2RwDrZ76XXw
-Date: Fri, 24 Jul 2026 01:59:52 +0000
-Message-ID: <BN9PR12MB5306988B9D11F3E9546D81ABFCCF2@BN9PR12MB5306.namprd12.prod.outlook.com>
-References: <20260724002440.1091132-1-cesun102@amd.com>
-In-Reply-To: <20260724002440.1091132-1-cesun102@amd.com>
+ <Tao.Zhou1@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>, "Lazar, Lijo"
+ <Lijo.Lazar@amd.com>
+Subject: Re: [PATCH] drm/amd/ras: eliminate gpu reset lock protection for ras
+ ta runtime command path
+Thread-Topic: [PATCH] drm/amd/ras: eliminate gpu reset lock protection for ras
+ ta runtime command path
+Thread-Index: AQHdGv9SXUnRiw40X0uohPZ6PN6l2rZ76V4AgAAH6PM=
+Date: Fri, 24 Jul 2026 02:28:32 +0000
+Message-ID: <SJ0PR12MB6967FFFCD9A358C51B5C33769DCF2@SJ0PR12MB6967.namprd12.prod.outlook.com>
+References: <20260723235918.1090518-1-cesun102@amd.com>
+ <BN9PR12MB5306AEF4C5587B9B8F7FE989FCCF2@BN9PR12MB5306.namprd12.prod.outlook.com>
+In-Reply-To: <BN9PR12MB5306AEF4C5587B9B8F7FE989FCCF2@BN9PR12MB5306.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-24T01:57:10.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-24T02:28:31.524Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5306:EE_|MN0PR12MB6223:EE_
-x-ms-office365-filtering-correlation-id: 2341ff4c-7f0a-4935-00c4-08dee9274009
+x-ms-traffictypediagnostic: SJ0PR12MB6967:EE_|SJ1PR12MB6361:EE_
+x-ms-office365-filtering-correlation-id: 0afb8091-eb35-4fba-394a-08dee92b4173
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|11063799006|18002099003|56012099006|22082099003|6133799003|10067099003|38070700021;
-x-microsoft-antispam-message-info: fLvrVjzkW4TS9dxe6yXNuCrPIunO9WstEt0JjM9vEk0SOUGwJzWOqo+EOS5vfyJwl1YdtUkoDHgcg8mRi3XqIyp2hLtAodX/l46tJvY6Rni/lgETVx4cUyNPMcbthNLhRhHXcwom/IRVo0EkJxztf33CeT8xnkLWMIHYCmwXH8md+Y2WJ2AgO2azgL/wzjVd7HZdNPYAeoDeQ1bl7/uF90hc6txmePKofKKTr19/ExORvdMR8oHAJi+iV7LupexVVPHGQ/1b1RgcjY2iPqSnsDXJB8zVuaHhl9qCywsp7olvDLHTmH5H9Gv9ie4o/WXTfFbiI3K+qzu0E/Zvw1bizJU7+mH0XpSzOBdglITlJAqpiEd5ZA7Gu2oMq5EEGxfovzSwt+HSgXoE0NreJw+ocEF6bbFLAzY+FjMvWL09k6NTBD4ZI/L2g0CML+GcjVUh72/ILzUQLNoD/1KSywMFwyU7hYnojyXZPcao6YzdSlW4fzNjquV8NLF9gfmSm49Gn74heXXBACdDygrya4ANMsrxePRlorBtvEPCqsgfSaDo0tOJBiYbIWgQqKs5zkyGgiumS74ThaQkl1TI/WI9nQl4ZkhDXx/S8+nHPkGKS5E4yCR8rZ5KeVJzuW5Ck2+i192JvwSnO63ZKa7Tuuh1hmHBDoU5bHq0vVWDbwc31x1e8/1ncjipRFHihaD+f8A4c+jF+FuKKW086YfDHQQDgq9qRXxq0Lt9RkjZZH0TJh8=
+ ARA:13230040|376014|1800799024|366016|23010399003|11063799006|4143699003|18002099003|22082099003|56012099006|6133799003|8096899003|10067099003|38070700021;
+x-microsoft-antispam-message-info: BKzs9vBuA5iC65kCtd+60qSvBwSeDfnbUzGsCHhVfrHdp5jFtkwhJg9XpZuWHOgAdTDj5WvYJfS5XzPDXU5+d0IVkaVqIxt1oecKRAzuKp8AI54H6Pix0Eb8mHrVX2/YHbB6bbRN1GcvOX5Q70OtUrTn3TVr/fvfgh0E7/gcpt4mijWvYLiozctO41TJrZaNbjHBQV5eWisbRDKuQG0qChtEbX+XKCDlM1qyR6l2Hj6RxTIruAaqlgr6p9El7+7ICx17Ywc+OXoY1yy9pdCAdDWzoGsc7tauAWBUHzENrC/BBfZdZgqOnW9gNj7ME62Xcna2l76LmAd5YowZQ0am2XgAe98hdUdLi7aS3HT+NM8Dn0DQDbM0P3MTHFepb43BGxvKeyssbTwuMb9eHWcNfbLaKt0RPgc/EJ0hZvHmb+gMJz18jqHVv47ZLyUy1YH9SKo6UfZgD+XwWjb3Rdx43cjEACexoYjr28rwmiUmo3/9ZbosRXqwQmiljMzDvs8UmAeqX4UcqP1p0+CKdXqXvBSfAa3Q+GLDgeylHNzk+KLQ11XQ8L45kM4RnlAZ1EbKTawoLehrAP1n0X9LZsOrf0SPeZ3ajTNMLQaFSFlAbO043nsrP1WE8l9a22l/87x49icCZyEE3eXJfsjXb/5pUZB+BLlWiywBXrjQioIdySqR8H1Z9v0T//DgPT8sS8B7/Rpg6Dn5cKcmXVQUPryqy8OUD1ihOH+oXqK9mhbrfd8=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5306.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(11063799006)(18002099003)(56012099006)(22082099003)(6133799003)(10067099003)(38070700021);
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB6967.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(11063799006)(4143699003)(18002099003)(22082099003)(56012099006)(6133799003)(8096899003)(10067099003)(38070700021);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?kn7H1AnxV3JqQjIO92Pe2i4KSVRR2GJPxB2ePMJ5YvDY5ZHo9LRZG7mTn+/C?=
- =?us-ascii?Q?mbdnBGlVhy3fFH4hXVEMQQpr1A/I6KPHGc9AODhSBceNtGG00eoO/HhkqX5d?=
- =?us-ascii?Q?HAotnSCukxISMSlpcxQK2GWpDDXpbFqwy9+McWx628xTS91CbiY+UjHvXmGs?=
- =?us-ascii?Q?RMc4e6YVLOWPcEm82L4Zj2z7eYNJg3HOHGPvMTk9jCQu0Dw4kdi82ucXYLMR?=
- =?us-ascii?Q?FXey3+0CJEqOIoxSLJB6PpfHuo+424Dn0H2MUeK2tyjlCfipLhEGMubdteBV?=
- =?us-ascii?Q?wG1GKjcigfJGm/PxA9VI+d/VPSMX9vxFUMhMk7dpFH+PYBSXh8ee8vzhgzkv?=
- =?us-ascii?Q?Orah8Wm5SSqbd6CNqG5bNGvwdtbTfCW5Fhf8oE9DQJkCBmciG6l7VOXBZBT3?=
- =?us-ascii?Q?qW/A0kizhDj7TRcgvhgnDijxpkdJtheLP52G0Hpe+j0dlUulCS4448d3htVc?=
- =?us-ascii?Q?FUQ2vquHCSX4TimmIEPCF6BQnMFHhFYYenVyiCS5eaUr/amZlcuHF02F9Pmu?=
- =?us-ascii?Q?Qb7ySbvJYln7DGH0IxYUug9Bo3jn/CKNGjH4gbLRNLH47Wns0Z4oMNR5Ep9B?=
- =?us-ascii?Q?Wgoqpdtz2pyIWCSzwWWJjeDKdxIHGICLl1Kjsfald69+CXppuQotaGvxJ5kX?=
- =?us-ascii?Q?QBazdrvE40lTUiYorNs3qxgzwR24iDRRGyf8kMVNDXKKv+g4KEUFJMFhRLIi?=
- =?us-ascii?Q?Ty99o8ElxpIl+BbdvFDThFdrihc8NE2WUUs/ZPrzQ3TYa+wzu1UmNBPrhZaJ?=
- =?us-ascii?Q?IzRGmsfkyAnwRZLroqH0rApTx2NZgEi22FEpmZEd/b41YvL5E4JTbgV83plZ?=
- =?us-ascii?Q?8bLpfcg98Q6JH8YGqaUZBIGKdoYJTe3mlCWg36r0MoWuaiwuqe4BVgRZkTCw?=
- =?us-ascii?Q?ejqLtJuVReUT4h/q1Z06ln9ygMl1t6niI0znPl2UgT6PTnkYoi6LeBLnDLYT?=
- =?us-ascii?Q?XtlwSZCq4w6M9uZw9we2GFz3zerY9wBh9GKMfcq3mvBdOXsrRi/LGx5wh9bT?=
- =?us-ascii?Q?RDb+oXqTIisnLbiwBa02Lhvf2GcaO/GRb38Zhsjv/wtcDqYWM4zkJNPHPC0r?=
- =?us-ascii?Q?jxnJ6EIumjkVfXu+XBQNR0b1mxcDHLEJWc2m2KOJ7tAgnPBeSUBUgMPUy4Mi?=
- =?us-ascii?Q?y6yQWjAXW8WVk0nQoTLvCAcN+3eW3mq57AoNThsBjc5VSblliEROPAkmtuzc?=
- =?us-ascii?Q?a3kQPduD69mR17lJF3rQCDQ/Belqq5uccLp6pQaINnbzCL3yoiBqDUJVtUWk?=
- =?us-ascii?Q?ZSl6wJ05vZ6HG7cH4XetxuC7dnTaxp4VSVYrwLODs6FHveF/JYOorQk74pPD?=
- =?us-ascii?Q?ctOSiQnw5HkQq5UGzPpFwtSlPHsmJ+5aw1JPJGw67swj2V64YCZHah/ZZfQA?=
- =?us-ascii?Q?sPqv6illPVOhKZ34kJx/CkgfTSwpr/v80ntSJ1grcXTcsfpLQNSV1lpavzvD?=
- =?us-ascii?Q?++MRSzJljICYegzafn19FilrGmL3zg0i0O9JbsiqOY43wvsYFUOFS78hI2jV?=
- =?us-ascii?Q?Qw+0iexx2oeZVwnm8KinWv815vU8TwHyWtdiTRiR/M+Utl3XmjZA1ToIWRpJ?=
- =?us-ascii?Q?Qibtwl5GUSPYS47wyj/+mXBYuFDLUDiEoaEuHmMqdLnByChAxYortIpDCm0H?=
- =?us-ascii?Q?Rcr7elpNUrFyjgNZ71rystUk7T43TkAJ2vn/kALepApGppwy5+JqiPn2wGzU?=
- =?us-ascii?Q?Pi0PFkKZnClcANwPH0zTlBtU9bVgD6bEEXS/l1GCbTBgWFuU?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+x-ms-exchange-antispam-messagedata-0: =?Windows-1252?Q?jsxY1sXW1b1Ne3Ur/fdqen8xVS/O8kIZNX8dIEc5yByBz6+2WYl0/sKy?=
+ =?Windows-1252?Q?8Fydhkb0nWsu93UMmTk53ucT7iDrSrZwOGtiRt0TzpjuFYYEryaaNhqN?=
+ =?Windows-1252?Q?20o7r5wZv7k+tP0mzZsfuy0AfudSewY0sxWdNTEoKaOp9BsV/G7krvOd?=
+ =?Windows-1252?Q?Vb3FdJaG96rm/5pcDhdSOqC2yv1Zr6LR55p+ykay9UjKq/0K5wHzhEgm?=
+ =?Windows-1252?Q?wyZmTkrTk6O4LIrUUIHYOJKhMsDEQulb8bucK7mZykx1j/Kh/EYF25GD?=
+ =?Windows-1252?Q?JHiQ1S/M0Td/fgsikuqIswjQHEylxub+FlBjwuOd5t70jEP0rIzdhCaG?=
+ =?Windows-1252?Q?vzCp5btJJi4V4+y0a0wD+W3w9OemM5/h0YKF9ZEyGsjcJcK4o5aXoGI7?=
+ =?Windows-1252?Q?vFlSzWWrUFo3a0hJgjGNzH+Y3v5Jxv6hZYKeshkIOH+BBI96jpvrz2m6?=
+ =?Windows-1252?Q?Uvx0+thHuVhkU4kM0J/1m8mpfzgj2+f1Ppy36td0kEVv++C2+BdOqWOU?=
+ =?Windows-1252?Q?Vt6sZdxnX31gvUviOfbCjJiIKsHaE6VcJ0z8LqfLlK3fnnbjUWXnieZq?=
+ =?Windows-1252?Q?Ax6+U/eLaQ0L6FBhTqoNZhrTWRNZOfKwQWuueQRxuZxDnA/5fAmBH6ZP?=
+ =?Windows-1252?Q?Zwji7lKCPOsWMYTp3q4gyFfuDQDQWA2Q09/woryBwDSOkqQoUNQqhx/y?=
+ =?Windows-1252?Q?jbHOUNw3Lp3IEdCFhWHDSD2FTETuk8agzvTi3ybN0qGE9x5dKwZAqMNL?=
+ =?Windows-1252?Q?F2U82aR/An8fUgpIQdSVYulJsQRH1ao96t2QLD77oGHIfwi9UWiYl7i4?=
+ =?Windows-1252?Q?upfN4K+w+xCMgKDvxtg6/0i/eLCkAxQX8zZhDuE7XiLiQ+AXiawpVBVK?=
+ =?Windows-1252?Q?XGOwr4l8dXGJ/RWVJmF5g3SGpKrlumlEUPLesBS1FA+42rvKZDyZKDXp?=
+ =?Windows-1252?Q?tIr/N4ystjg6Ve9tuak2lgtQma6J5T6Nuzek1fNH9PL3c0M4619oJun4?=
+ =?Windows-1252?Q?rne3dcv25oLePjEY3+7og7+ykPsnQmCfq2T1UOpySeNMh4V2wrmhtOnh?=
+ =?Windows-1252?Q?AZZRV4flH3daIoqgLm7pl6bFmPN//9LWFaLW+fpNSm4DRttr6+z9k0lx?=
+ =?Windows-1252?Q?1BSMGMNqNPQJ2+0yyCmJUov7Sn1+5xmUTm5XeL0d/lvzUrfHBs9IZKsa?=
+ =?Windows-1252?Q?SkxRErgMcVSOgXHwEj0k+t/iyElMUVauZ6/M4fwCJ3uCqnfWojtsNEJw?=
+ =?Windows-1252?Q?3AmCOVlQr/80YFbLGFaqqWo1Vuvh1OWsTO9TJU1qd4dWi08mOboyOqkx?=
+ =?Windows-1252?Q?lr5UVLMwDE1eGXhSNXDjUBfj8eHhC1+Cd3MTsjqPV5yyfZzEJSkGN7qD?=
+ =?Windows-1252?Q?Fkpd+LP3CDn7P5imyVdGGhE+fPj+VvQ5HOcrpWeH8vf8KIaQiWPro0uh?=
+ =?Windows-1252?Q?0SHz6VXfwjJpaVvvUruJYKNFns0SCilEQ8NRPreqZg99I+BH5FfcsAi9?=
+ =?Windows-1252?Q?7DHrbRtenbMoNVFwYdFdZFne48EXEm+wbuCa+AZXsAvxvGHXr583uTbj?=
+ =?Windows-1252?Q?SfA5faso61vdE6k8b4cSoZ/+nYXN+f/NBcLycSTk7U2EAka3A/BIcLxf?=
+ =?Windows-1252?Q?yzQ7DXiBMN1Qh2xn6YxJLFY/5FEum5aq7MdCM+wD5+EXRQ1i407fRUY+?=
+ =?Windows-1252?Q?ds6fgowRkZl/uic4hut7W3iRsWlfWW2W0Axty5ugBgJASdit8yRKS9aN?=
+ =?Windows-1252?Q?Je3if1PwnsyDhh9tl33Q7NRHYNJHUriIJWTIGq6RbUhfacwkWRrOmOc7?=
+ =?Windows-1252?Q?Tg8IIngC73vRBvjWPPb2PA8Sf7IeQb3SxprUwMFO4a3CojXy?=
+Content-Type: multipart/alternative;
+ boundary="_000_SJ0PR12MB6967FFFCD9A358C51B5C33769DCF2SJ0PR12MB6967namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5306.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2341ff4c-7f0a-4935-00c4-08dee9274009
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jul 2026 01:59:52.0486 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6967.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0afb8091-eb35-4fba-394a-08dee92b4173
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jul 2026 02:28:32.3996 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: cPAsL+ZGpn4iBAgAEkTBdj6YzSG0SG6x4Cm+HmgzSaQZvx7vkSJ0GQBHcv7dvlodBbsrB7MM6udeT7g9WGrm1w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6223
+X-MS-Exchange-CrossTenant-userprincipalname: H+iiJohfqBGpJTVYTW4k3q57KrTidN7qfVd752SzvEJSBvJEiMJt+z2a/qRmcRiY8UttbCCULFMMOKXPPAo8Vg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6361
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,103 +138,217 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+--_000_SJ0PR12MB6967FFFCD9A358C51B5C33769DCF2SJ0PR12MB6967namp_
+Content-Type: text/plain; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
 AMD General
+
+Hi Thomas,
+
+Thanks for your comments.We cannot predict when the DPC interrupt will be t=
+riggered, so it is impossible to prevent the driver from sending messages t=
+o PMFW during DPC interrupt processing =97 this is exactly the issue we are=
+ encountering, which delays DPC recovery and causes functional anomalies. A=
+fter cross-checking the legacy RAS implementation, GPU reset lock is not re=
+quired in this code path.
+________________________________
+From: Chai, Thomas <YiPeng.Chai@amd.com>
+Sent: Friday, July 24, 2026 9:56 AM
+To: Sun, Ce(Overlord) <Ce.Sun@amd.com>; amd-gfx@lists.freedesktop.org <amd-=
+gfx@lists.freedesktop.org>
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
+ Yang, Stanley <Stanley.Yang@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>
+Subject: RE: [PATCH] drm/amd/ras: eliminate gpu reset lock protection for r=
+as ta runtime command path
+
+AMD General
+
+Cannot send command during GPU reset, which may cause a system exception.
 
 Best Regards,
 Thomas
 -----Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Ce Sun
-Sent: Friday, July 24, 2026 8:25 AM
+From: Sun, Ce(Overlord) <Ce.Sun@amd.com>
+Sent: Friday, July 24, 2026 7:59 AM
 To: amd-gfx@lists.freedesktop.org
 Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.c=
 om>; Zhou1, Tao <Tao.Zhou1@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; =
-Sun, Ce(Overlord) <Ce.Sun@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: normalize error return of RAS command wrap=
-per functions
+Lazar, Lijo <Lijo.Lazar@amd.com>; Sun, Ce(Overlord) <Ce.Sun@amd.com>
+Subject: [PATCH] drm/amd/ras: eliminate gpu reset lock protection for ras t=
+a runtime command path
 
-normalize error return of RAS command wrapper functions
+When PMFW enters mode-1 state, it will not respond to incoming messages.
+Holding gpu reset lock before dispatching messages to PMFW would defer GPU =
+recovery processing, cause undesirable timing skew.
+
+Remove the gpu reset lock acquire and release logic inside send_ras_ta_runt=
+ime_cmd, prioritize GPU recovery execution over PMFW message delivery to fi=
+x timing dependency problems.
 
 Signed-off-by: Ce Sun <cesun102@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c  | 8 ++++++--  drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ring.c | 4 ++--
- 2 files changed, 8 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/ras/rascore/ras_psp.c | 6 ------
+ 1 file changed, 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.c
-index 24fd24e8d874..600f9239306d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -1436,7 +1436,7 @@ static int amdgpu_uniras_clear_badpages_info(struct a=
-mdgpu_device *adev)
-                                &req, sizeof(req), NULL, 0);
-        if (ret) {
-                dev_err(adev->dev, "Failed to clear bad pages info, ret: %d=
-\n", ret);
--               return ret;
-+               return -EINVAL;
-        }
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_psp.c b/drivers/gpu/drm/am=
+d/ras/rascore/ras_psp.c
+index 358f602b167d..fbe91eb67c0e 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_psp.c
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_psp.c
+@@ -374,11 +374,6 @@ static int send_ras_ta_runtime_cmd(struct ras_core_con=
+text *ras_core,
+        if (!cmd_mem)
+                return -ENOMEM;
 
-        return 0;
-@@ -1457,6 +1457,10 @@ static int amdgpu_uniras_query_block_ecc(struct amdg=
-pu_device *adev,
+-       if (!ras_core_down_trylock_gpu_reset_lock(ras_core)) {
+-               ret =3D -EACCES;
+-               goto out;
+-       }
+-
+        ras_cmd =3D (struct ras_ta_cmd *)cmd_mem->mem_cpu_addr;
 
-        ret =3D amdgpu_ras_mgr_handle_ras_cmd(adev, RAS_CMD__GET_BLOCK_ECC_=
-STATUS,
-                                &req, sizeof(req), &rsp, sizeof(rsp));
-+
-+       if (ret)
-+               return -EINVAL;
-+
+        mutex_lock(&ta_ctx->ta_mutex);
+@@ -422,7 +417,6 @@ static int send_ras_ta_runtime_cmd(struct ras_core_cont=
+ext *ras_core,
 
-        if (!ret) {
-
-[Thomas]  This condition check should be no necessary.
-
-                info->ce_count =3D rsp.ce_count;
-                info->ue_count =3D rsp.ue_count;
-@@ -1536,7 +1540,7 @@ static int amdgpu_uniras_error_inject(struct amdgpu_d=
-evice *adev,
-        inject_req.method =3D info->value;
-
-        return amdgpu_ras_mgr_handle_ras_cmd(adev, RAS_CMD__INJECT_ERROR,
--                       &inject_req, sizeof(inject_req), &rsp, sizeof(rsp))=
-;
-+              &inject_req, sizeof(inject_req), &rsp, sizeof(rsp)) ? -EINVA=
-L :
-+0;
- }
-
- /* wrapper of psp_ras_trigger_error */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_ring.c
-index 0d34f0eca991..686c92e96025 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -526,7 +526,7 @@ static ssize_t amdgpu_ras_cper_debugfs_read(struct file=
- *f, char __user *buf,
-                                          snapshot_req, sizeof(struct ras_c=
-md_cper_snapshot_req),
-                                          snapshot_rsp, sizeof(struct ras_c=
-md_cper_snapshot_rsp));
-        if (r)
--               return r;
-+               return -EINVAL;
-
-        if (!snapshot_rsp->total_cper_num) {
-                if (!read_header)
-@@ -568,7 +568,7 @@ static ssize_t amdgpu_ras_cper_debugfs_read(struct file=
- *f, char __user *buf,
-                                                  record_rsp,
-                                                  sizeof(struct ras_cmd_cpe=
-r_record_rsp));
-                if (r)
--                       return r;
-+                       return -EINVAL;
-
-                if (!record_rsp->real_data_size || !record_rsp->real_cper_n=
-um)
-                        break;
+ unlock:
+        mutex_unlock(&ta_ctx->ta_mutex);
+-       ras_core_up_gpu_reset_lock(ras_core);
+ out:
+        ras_psp_put_gpu_mem(ras_core, cmd_mem);
+        return ret;
 --
 2.34.1
 
+
+--_000_SJ0PR12MB6967FFFCD9A358C51B5C33769DCF2SJ0PR12MB6967namp_
+Content-Type: text/html; charset="Windows-1252"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3DWindows-1=
+252">
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+AMD General</div>
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Hi Thomas,</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
+Thanks for your comments.We cannot predict when the DPC interrupt will be t=
+riggered, so it is impossible to prevent the driver from sending messages t=
+o PMFW during DPC interrupt processing =97 this is exactly the issue we are=
+ encountering, which delays DPC recovery
+ and causes functional anomalies. After cross-checking the legacy RAS imple=
+mentation, GPU reset lock is not required in this code path.</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Chai, Thomas &lt;YiPe=
+ng.Chai@amd.com&gt;<br>
+<b>Sent:</b> Friday, July 24, 2026 9:56 AM<br>
+<b>To:</b> Sun, Ce(Overlord) &lt;Ce.Sun@amd.com&gt;; amd-gfx@lists.freedesk=
+top.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
+<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Zhou1, Tao &lt;Tao=
+.Zhou1@amd.com&gt;; Yang, Stanley &lt;Stanley.Yang@amd.com&gt;; Lazar, Lijo=
+ &lt;Lijo.Lazar@amd.com&gt;<br>
+<b>Subject:</b> RE: [PATCH] drm/amd/ras: eliminate gpu reset lock protectio=
+n for ras ta runtime command path</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"BodyFragment"><font face=3D"Times New Roman" size=3D"3"><span=
+ style=3D"font-size:12pt;"><a name=3D"BM_BEGIN"></a>
+<div><font size=3D"2"><span style=3D"font-size:11pt;">AMD General<br>
+<br>
+Cannot send command during GPU reset, which may cause a system exception.<b=
+r>
+<br>
+Best Regards,<br>
+Thomas<br>
+-----Original Message-----<br>
+From: Sun, Ce(Overlord) &lt;Ce.Sun@amd.com&gt;<br>
+Sent: Friday, July 24, 2026 7:59 AM<br>
+To: amd-gfx@lists.freedesktop.org<br>
+Cc: Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Chai, Thomas &lt;YiPeng.C=
+hai@amd.com&gt;; Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;; Yang, Stanley &lt;St=
+anley.Yang@amd.com&gt;; Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; Sun, Ce(Ove=
+rlord) &lt;Ce.Sun@amd.com&gt;<br>
+Subject: [PATCH] drm/amd/ras: eliminate gpu reset lock protection for ras t=
+a runtime command path<br>
+<br>
+When PMFW enters mode-1 state, it will not respond to incoming messages.<br=
+>
+Holding gpu reset lock before dispatching messages to PMFW would defer GPU =
+recovery processing, cause undesirable timing skew.<br>
+<br>
+Remove the gpu reset lock acquire and release logic inside send_ras_ta_runt=
+ime_cmd, prioritize GPU recovery execution over PMFW message delivery to fi=
+x timing dependency problems.<br>
+<br>
+Signed-off-by: Ce Sun &lt;cesun102@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/ras/rascore/ras_psp.c | 6 ------<br>
+&nbsp;1 file changed, 6 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_psp.c b/drivers/gpu/drm/am=
+d/ras/rascore/ras_psp.c<br>
+index 358f602b167d..fbe91eb67c0e 100644<br>
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_psp.c<br>
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_psp.c<br>
+@@ -374,11 +374,6 @@ static int send_ras_ta_runtime_cmd(struct ras_core_con=
+text *ras_core,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!cmd_mem)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; return -ENOMEM;<br>
+<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!ras_core_down_trylock_gpu_reset_=
+lock(ras_core)) {<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; ret =3D -EACCES;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; goto out;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+-<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ras_cmd =3D (struct ras_ta_cmd *=
+)cmd_mem-&gt;mem_cpu_addr;<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;ta_ctx-&gt;ta_mu=
+tex);<br>
+@@ -422,7 +417,6 @@ static int send_ras_ta_runtime_cmd(struct ras_core_cont=
+ext *ras_core,<br>
+<br>
+&nbsp;unlock:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_unlock(&amp;ta_ctx-&gt;ta_=
+mutex);<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ras_core_up_gpu_reset_lock(ras_core);=
+<br>
+&nbsp;out:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ras_psp_put_gpu_mem(ras_core, cm=
+d_mem);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
+--<br>
+2.34.1<br>
+<br>
+</span></font></div>
+</span></font></div>
+</body>
+</html>
+
+--_000_SJ0PR12MB6967FFFCD9A358C51B5C33769DCF2SJ0PR12MB6967namp_--
