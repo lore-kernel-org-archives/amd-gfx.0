@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A45FC531D0
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 02:55:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87D7DC531D0
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 02:55:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F381610E62E;
-	Fri, 24 Jul 2026 02:55:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14A9710F27A;
+	Fri, 24 Jul 2026 02:55:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="m5C5NZGy";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="J+iyXTl7";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012028.outbound.protection.outlook.com [52.101.48.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 707EF10E62E
- for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jul 2026 02:55:42 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012013.outbound.protection.outlook.com [40.107.209.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1655510F27A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jul 2026 02:55:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O87QSeIw43PQMK11gsE3wVdpXeB2To8BcwFoPni3WOG2IV8A8kzT1gdSsI11hRGFrZ2XnfCVIUJiDMjFp+vCZcw5GtceQCmMrpPAuNsjCm44oKExfIrvQiWSxwffLSoBi2LlbafI+N9DD8NuipsyqalGQ8ef/4Yk+uWZUF/A6eh5DJZWrkEdtXze9OQXRSr/F2kihlshP82sEOIkv7WBy/AvEh4bWxjYGM6ZFsEDTADijL5BQwIw7Vccx11LC5iQWGxNWRYCOqPkiTj0eQbWg+9WgyVvpuC8zRCYX/WMPK+fj5I7l3GmsuysAGAtaYO5wElh366tzmw9/BgT/e7gAw==
+ b=psCTE27ZHGm4bTaWHI2hr8NYGjUYTNZtGSWPdRu2c/hBEjlujJQJfz+CRZtQCEKLlZ6ieLjbPut7312EZNZyKYIOCiCeXvESpgn1J1pdE6046QP9ivmP4Bz67uynDBH1BL4DZqYDOjj0r1wFoKua5nx0UxBPzcyDnE1eZXaGYllG2YYvgBChDo18ftN3mhvH0Hi1fbv1lA1UIfyNAWxtqyAQsdH54jv8XdZZnxL9lgxCrdxkU4hMFwRZoVF1Q9e4X1xbo7S7Q2tetxOQpnimP5srxHVjJHtYlrdATYhWwPHmtPCP4lTN0htkgykubld32oMXU/9xt4N+R3KBZzdtlg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qnDpjeD/zGkl7sDibCCYWmgY+Bpljm+nAsThX2/+4Ks=;
- b=QIEcECQhL987Hee+G8pdqS/Gg1you2+pD5PooSsNKLfJidY16BJJCobtnG5a8mGCwpaC2BgEY2kzQoYSe7LKFnH8SdUcX1u3ITrhmtkM41EK76WS9GF27mbYN7ssYFcXHVicJKyxREyzIS17PQpMubrPMTz/CI9zmJ3G7iSKYnwTGUYVPxUKDk6fiju+O08xuEyiwYQCFQlB58gNoW+pMgMTGTtTtY1pf4yCaRXF8q/IENgXoA0ceW9ZMAL6IS/bSmgi4Mo/sXNeAsrt3AV8SBYHco2GpRonkt1a3MFwwcgVyoYJv7nxw0w77/rK6UC2JODaEvdHi6Z5GDBNjXmP6g==
+ bh=sriTKcP5eBRIpCsErbQ+hx0nk/dEJt9cok+r7XwaFm4=;
+ b=L9JzOwB7x8RTt7xTS06P6bhFMeis2nadrU5VDokRru/b9pSuF+x2m1Kaq5ipBIadjL2SAcO9eD9j/oDio2T4FY00yvvKoC2xxv/yt17L64G/MyBLAAVKVJ89H+XjzVOuYcUkA7CsLP3SLTZdqbdtbHFZYNrY0VPOAFIplk/dTWJ5di4qXGL0LE95ZVkFcOqmdf3macLMnIhfFpbylqAh22lH9vPmmPV26mvApSpfQvTIilLKNazNEyl3WK+wvBNejZB0qzUrj4DlhbQ7URNzNuZgXoCuGart0bx8lefAU2H6yMf8pu5s6CeafMMUcVHEDa9qqu0THM+3DiOmmpeJuw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qnDpjeD/zGkl7sDibCCYWmgY+Bpljm+nAsThX2/+4Ks=;
- b=m5C5NZGy/9jUP+W4yJGeqWet4Fnjce719peVjvR0720l1/p3uVZ/oWhc9U5XffPenJm3/5baIxbrXJWqAcFwb75wRTruoDMfAbrNRReLx6W4y1Lmvw8OWcrjraFpukiXt8Do65PmNhcQGqfxvI6ZmI3njX9NOLmRxx65h5gjM60=
-Received: from MN0PR04CA0005.namprd04.prod.outlook.com (2603:10b6:208:52d::9)
- by DS7PR12MB5863.namprd12.prod.outlook.com (2603:10b6:8:7a::18) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=sriTKcP5eBRIpCsErbQ+hx0nk/dEJt9cok+r7XwaFm4=;
+ b=J+iyXTl7+l4EqGkBZG/zoqd5d3yzZsZJmSgBUvKJuO+u1TKrtipPIJXsaV8V63oTjQOttUm1bwXvlqlC++fQ7zAXW9bHuGXLRtjkFeXk5pvIn6HQubRkFaEzP6jIiSUccWVgrXlN+tRI5hwjCLQlIg3hsPubJFRLCoQek0b+dck=
+Received: from MN0PR04CA0013.namprd04.prod.outlook.com (2603:10b6:208:52d::18)
+ by PH7PR12MB7356.namprd12.prod.outlook.com (2603:10b6:510:20f::12)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
- 2026 02:55:37 +0000
+ 2026 02:55:39 +0000
 Received: from BL6PEPF00020E62.namprd04.prod.outlook.com
- (2603:10b6:208:52d:cafe::4f) by MN0PR04CA0005.outlook.office365.com
- (2603:10b6:208:52d::9) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:208:52d:cafe::78) by MN0PR04CA0013.outlook.office365.com
+ (2603:10b6:208:52d::18) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.11 via Frontend Transport; Fri,
- 24 Jul 2026 02:55:37 +0000
+ 24 Jul 2026 02:55:38 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,19 +50,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BL6PEPF00020E62.mail.protection.outlook.com (10.167.249.23) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Fri, 24 Jul 2026 02:55:37 +0000
+ 15.21.270.5 via Frontend Transport; Fri, 24 Jul 2026 02:55:38 +0000
 Received: from kevin-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 23 Jul
- 2026 21:55:35 -0500
+ 2026 21:55:37 -0500
 From: Yang Wang <kevinyang.wang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <alexander.deucher@amd.com>, <hawking.zhang@amd.com>,
  <kenneth.feng@amd.com>
-Subject: [PATCH 1/2] drm/amd/pm: fix pptable use-after-free
-Date: Fri, 24 Jul 2026 10:55:21 +0800
-Message-ID: <20260724025522.800587-1-kevinyang.wang@amd.com>
+Subject: [PATCH 2/2] drm/amd/pm: fix torn gpu metrics reads
+Date: Fri, 24 Jul 2026 10:55:22 +0800
+Message-ID: <20260724025522.800587-2-kevinyang.wang@amd.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260724025522.800587-1-kevinyang.wang@amd.com>
+References: <20260724025522.800587-1-kevinyang.wang@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -71,29 +73,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E62:EE_|DS7PR12MB5863:EE_
-X-MS-Office365-Filtering-Correlation-Id: eb587cdd-43af-4fed-c20f-08dee92f09f4
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E62:EE_|PH7PR12MB7356:EE_
+X-MS-Office365-Filtering-Correlation-Id: b77eba71-d0ee-4fef-9c65-08dee92f0acb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|1800799024|376014|82310400026|3023799007|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: Srl2FDXQH4HJF1wNaIn3G6txpz8wpbLlKifM7OyGNbSk/yIsO7Ck/wSqrZuDnvmuFig/0t69WcrQOeWxNBk0joWKGQCUcUrtW0IQpMttIlhNJ4wgWVw/yJEL/WfQsxYiYe4yPz5KTuatFWB6mMWgl8F9SXW5LI/AYZCZhUUPv1qHnUdszw+7d/Bx7TT8+47gRys2WvViLcceklATzsYtENVnVpsagB39EzLGZMViZdMjVN3qSrci950smRDIti25mmdkfFQ1Lik56aKjRPU2azgOH5xcHyCn4yjgH2PRZykmIoDGyUsSfWYfad344wIcmdytCak77njHysv3JgqtaYKniYF04RcBRIewRs64KWbj8WelRPv9M3/o56Yj7Av9YkJ6h7rO4n8Ah/umOlEqnnkrkiVIQ7r0VqXaSt/m8piFYeCZLjfaHl5Kc3f5hwwPRUmDXg97iQ2t9MCdnvanQ3n3JzMma2v8DJasHfINJx8nY9cLuOaTd1/JwDbxD/pRG96x5V+i1wsFIWX5DlpL+eELx1Dnjbjm9gNOpxkfYnLzviODXpfhvUpPWiVo3M11sAYn0YnJAfyV3MoitHDV57xBStxSei9vhraUFi6Ua5LOpgPxystka4t8OVkFse42DkcL9ek61lSIcov6saq5mNbFr5ZqHgCZYTspdSuf+1MIWwAVr+lphMqbJvVPB4kHXR1zjDRbkOeymXB56S1klw==
+ ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|11063799006|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: TOe2Dsvr19Dt7jmRv7Oax9aqJ+6o1NlHM2nMyQtTed//joML6ry8Q5hMixLj7WCKbLhLp6jERE2rkcSDlhMRqKErobW0yI+uNLsuzZmqe0jQty8KEi4FCLK55wVPBJsxy0AcLeSM70Llw2KlhOVcL1vZWmrjMs2GCCFmikTmf++HAm4KEomtCWKtBQqkFnwm27UPOqrSt01MKHPrSsrYPJetruhKcij87n/ET6s9IhU0oDl1h8tdgvBU5pYr1OuatcUflbnYNJVYQ0YthqaEBt4AqSnk1esbuafLWwQCULGLX0DYR4Nu7NMd0le63teZFi4E0CYw+JqJQxXnMHY0e3pDtdklXAgwuIoPJZ6babILuijxdvCBxU3gTtK5OxLcUwf75LjMU6iqk/qzwYTm41L/G6A2GYHrEKXi4ph5vN1J+mwRD7s68ALGdWEYxkZS3JhbXtFA/+IYNeeQXDWfAIKy+hv4PCy7P5FtYkPy5caNWov41EM7nQx7UuNPlP1FYdwk3B0AFqOmhNW70+KJR2sNSV1yOUY7HIKM2mxJhJdCWdHaWU4W7Se1GNwMnwuk95L+oBwkGhnI7tQVnbjwkcUoa9u7Qa/7/rpO/QfYZRno25n7GnjPoIpSLWyzfEYwVUWPSRW4Gb8bbIP4F+7onJp3fDnpa9P+EGp9xkY6szFpIXoC8tEqnY48uccIGdq4TXENAi4UZwsPVuUJg5zIKQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(1800799024)(376014)(82310400026)(3023799007)(10067099003)(11063799006)(56012099006)(18002099003);
+ SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: B7YZC+I1FXJfYKGVFImK2trAacYsOnxcKu2CSZSS4NLzhWpwfMBaJDRoUPkNp02QBpjdH/fyjbbmWRrUV37uFTjXEhLhWD2zntkjWqB0msTFb9Tb5aLhOqYCfpSUe2XgzUBiJ2PU8xVqe7U6m6OSUK69pfk7CnLMk+LWot6CAzHShMim07Z32IjnjSIDGDQpdJhsUY/xlmjYIJEZtQXb+mFI+uLJRXVJp00+HF7FGbEOJX28MQRqDIvdfDblsFHO5qqJ2Wh6J2pQgl4cwXvpYQzBds/B9eA/86YFCHfUOlmUlHLphYwfa11zx+O8Ouq3wacICF6l61qVNM/Kl+c8QjeZc1SwCqbpQ0qI47j09ZBmfnP84/EnvLjbSFICTYAxJQYUzq/MVXXJCk74QmsbwF/l7mTVJceSXZteVLliBlWpWZt6lVTtPdH1VHHqtyUW
+X-MS-Exchange-AntiSpam-MessageData-0: xEiTW0jBM7TFVnCxFKLeHYJdDGvlzwQ4ijMx/TxV1Kvb9BWFW5D38r8msLkE2lN86Khk2VF6LGzFef0aZubvtLPX8djAboqHFj5pU9/7//5UR6Yj9X6+QDDAO2iZMRrMyjXYEb9iXcHDHwOuRJxZv85tiCy91fuVJI61XiOqw/H+vHt46WQ5zTnY8FPJlsLAHGQ1FuTyBmRHXfnIgE2S76jwgn5sFe7Ydqss1K0eNddlUgbu3ySOYgljBnQLTZSOQotzGCirRFTiGV7yhwyY5hs1DyyoIGqK57cYdZ17HVByvkBquapIiVLxjuL4XPJF/DEdUjP9dAgW+V98W0u4WghRvRDBYNvDWspyF7cM+tVfWhzMMd/7tZm0Qc1O+bNVxmqvMeYxzvoh3waRxp6iULhZ95twfTAx1Lx9q9F3Zsk2GsNfVJLuxuPHRJNIyGz1
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 02:55:37.2529 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eb587cdd-43af-4fed-c20f-08dee92f09f4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 02:55:38.6611 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b77eba71-d0ee-4fef-9c65-08dee92f0acb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E62.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5863
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7356
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,118 +110,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_dpm_get_pp_table() returns a pointer to a driver-owned power table
+amdgpu_dpm_get_gpu_metrics() returns a pointer to the shared metrics cache
 after dropping adev->pm.mutex. The sysfs path then copies from that pointer.
-A concurrent pp_table write can replace and free the allocation during the
-copy, causing a use-after-free.
+Another reader can refresh the cache in place during the copy and return a
+snapshot containing data from two generations.
 
-Change the DPM interface to copy into caller-provided storage while the mutex
-is held. Keep the size-only query for attribute discovery without exposing
-the driver-owned pointer.
+Pass caller-provided storage through the DPM interface and copy the metrics
+while the mutex is held. This keeps the cache pointer private and makes each
+sysfs read observe one complete sample.
 
-Fixes: 1684d3ba4885 ("drm/amd/amdgpu: change pptable output format from ASCII to binary")
+Fixes: 25c933b1c4fc ("drm/amd/powerplay: add new sysfs interface for retrieving gpu metrics(V2)")
 
 Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
 ---
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c     | 14 +++++++++++---
- drivers/gpu/drm/amd/pm/amdgpu_pm.c      | 13 +++----------
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c     | 12 +++++++++---
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c      |  8 +-------
  drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h |  3 ++-
- 3 files changed, 16 insertions(+), 14 deletions(-)
+ 3 files changed, 12 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-index c09c60ad3f38..df863a451f26 100644
+index df863a451f26..8f59ea12fe0e 100644
 --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
 +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-@@ -1183,12 +1183,14 @@ int amdgpu_dpm_dispatch_task(struct amdgpu_device *adev,
+@@ -1434,17 +1434,23 @@ int amdgpu_dpm_set_power_profile_mode(struct amdgpu_device *adev,
  	return ret;
  }
  
--int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char **table)
-+int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char *table,
-+			    size_t size)
+-int amdgpu_dpm_get_gpu_metrics(struct amdgpu_device *adev, void **table)
++ssize_t amdgpu_dpm_get_gpu_metrics(struct amdgpu_device *adev, void *buf,
++				   size_t size)
  {
  	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
-+	char *pptable = NULL;
- 	int ret = 0;
+-	int ret = 0;
++	void *table;
++	ssize_t ret;
  
--	if (!table)
-+	if ((!table && size) || (table && !size))
- 		return -EINVAL;
- 
- 	if (amdgpu_sriov_vf(adev) || !pp_funcs->get_pp_table || adev->scpm_enabled)
-@@ -1196,7 +1198,13 @@ int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char **table)
+ 	if (!pp_funcs->get_gpu_metrics)
+ 		return 0;
  
  	mutex_lock(&adev->pm.mutex);
- 	ret = pp_funcs->get_pp_table(adev->powerplay.pp_handle,
--				     table);
-+				     &pptable);
-+	if (ret > 0 && !pptable) {
-+		ret = -EINVAL;
-+	} else if (ret > 0 && table) {
-+		ret = min_t(size_t, ret, size);
-+		memcpy(table, pptable, ret);
+ 	ret = pp_funcs->get_gpu_metrics(adev->powerplay.pp_handle,
+-					table);
++					&table);
++	if (ret > 0) {
++		ret = min_t(ssize_t, ret, size);
++		memcpy(buf, table, ret);
 +	}
  	mutex_unlock(&adev->pm.mutex);
  
  	return ret;
 diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-index f5a5d72b4108..d473976ddae5 100644
+index d473976ddae5..e4fc33e3c951 100644
 --- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
 +++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
-@@ -595,25 +595,19 @@ static ssize_t amdgpu_get_pp_table(struct device *dev,
+@@ -1781,7 +1781,6 @@ static ssize_t amdgpu_get_gpu_metrics(struct device *dev,
  {
  	struct drm_device *ddev = dev_get_drvdata(dev);
  	struct amdgpu_device *adev = drm_to_adev(ddev);
--	char *table = NULL;
- 	int size, ret;
+-	void *gpu_metrics;
+ 	ssize_t size = 0;
+ 	int ret;
  
- 	ret = amdgpu_pm_get_access_if_active(adev);
+@@ -1789,15 +1788,10 @@ static ssize_t amdgpu_get_gpu_metrics(struct device *dev,
  	if (ret)
  		return ret;
  
--	size = amdgpu_dpm_get_pp_table(adev, &table);
-+	size = amdgpu_dpm_get_pp_table(adev, buf, PAGE_SIZE - 1);
- 
- 	amdgpu_pm_put_access(adev);
- 
+-	size = amdgpu_dpm_get_gpu_metrics(adev, &gpu_metrics);
++	size = amdgpu_dpm_get_gpu_metrics(adev, buf, PAGE_SIZE - 1);
  	if (size <= 0)
- 		return size;
+ 		goto out;
  
 -	if (size >= PAGE_SIZE)
 -		size = PAGE_SIZE - 1;
 -
--	memcpy(buf, table, size);
+-	memcpy(buf, gpu_metrics, size);
 -
- 	return size;
- }
+ out:
+ 	amdgpu_pm_put_access(adev);
  
-@@ -2733,10 +2727,9 @@ static int default_attr_update(struct amdgpu_device *adev, struct amdgpu_device_
- 			*states = ATTR_STATE_UNSUPPORTED;
- 	} else if (DEVICE_ATTR_IS(pp_table)) {
- 		int ret;
--		char *tmp = NULL;
- 
--		ret = amdgpu_dpm_get_pp_table(adev, &tmp);
--		if (ret == -EOPNOTSUPP || !tmp)
-+		ret = amdgpu_dpm_get_pp_table(adev, NULL, 0);
-+		if (ret <= 0)
- 			*states = ATTR_STATE_UNSUPPORTED;
- 		else
- 			*states = ATTR_STATE_SUPPORTED;
 diff --git a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-index c7ea29385682..a1d1c9f5b1d4 100644
+index a1d1c9f5b1d4..8e8a052e1d53 100644
 --- a/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
 +++ b/drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h
-@@ -487,7 +487,8 @@ int amdgpu_dpm_get_pp_num_states(struct amdgpu_device *adev,
- int amdgpu_dpm_dispatch_task(struct amdgpu_device *adev,
- 			      enum amd_pp_task task_id,
- 			      enum amd_pm_state_type *user_state);
--int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char **table);
-+int amdgpu_dpm_get_pp_table(struct amdgpu_device *adev, char *table,
-+			    size_t size);
- int amdgpu_dpm_set_fine_grain_clk_vol(struct amdgpu_device *adev,
- 				      uint32_t type,
- 				      long *input,
+@@ -518,7 +518,8 @@ int amdgpu_dpm_get_power_profile_mode(struct amdgpu_device *adev,
+ 				      char *buf);
+ int amdgpu_dpm_set_power_profile_mode(struct amdgpu_device *adev,
+ 				      long *input, uint32_t size);
+-int amdgpu_dpm_get_gpu_metrics(struct amdgpu_device *adev, void **table);
++ssize_t amdgpu_dpm_get_gpu_metrics(struct amdgpu_device *adev, void *buf,
++				   size_t size);
+ ssize_t amdgpu_dpm_get_xcp_metrics(struct amdgpu_device *adev, int xcp_id,
+ 				   void *table);
+ ssize_t amdgpu_dpm_get_temp_metrics(struct amdgpu_device *adev,
 -- 
 2.47.3
 
