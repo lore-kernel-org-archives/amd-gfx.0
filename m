@@ -4,129 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 92293C53219
-	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 42D98C531FA
+	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 10:28:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6182110F322;
-	Fri, 24 Jul 2026 07:30:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C403E10E032;
+	Fri, 24 Jul 2026 10:28:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TjpbbNHw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Xdv1XU25";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2C1D110E117
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 18:45:55 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-382ef647e20so1065704a91.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 23 Jul 2026 11:45:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1784832355; x=1785437155; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=+cqQ6sQJkvsR3VtIbpEjUXStuHRs0SJj4jk7Uojzitk=;
- b=TjpbbNHwdlhaxHE/saw6j+pz6acgfEzl1OHsf1b5nkfcwBAWbygT3RSFFi1A8cwnu9
- 1TL1ZoSr0jAjbcq8p3w+M1v0r/zq+4dsNE3VixAK8WOlWxCvlRbJQv3f3AYCtf/8I96m
- /2vnpOjvFXjfl9Laa5F8zbd3TwRZNmeiAha4GpwHUrHA8m5jM4H54hqR4wZDY7S0hwrd
- ejz0TI4BarS3bzYgfdJjSiyVKkgLOMfGupJK0TrDFEv9hmayhvfe9sXzStKsw/ZyrblB
- Ii7VxIuOC8b80eH1h0dZiSRGaPTrznmrfoAaGfQ4SXRZZi1kKlle78IVtFqTH7vdzrt/
- hgoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784832355; x=1785437155;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=+cqQ6sQJkvsR3VtIbpEjUXStuHRs0SJj4jk7Uojzitk=;
- b=qvcXzoc6tLiUy31192eB9ofFFm9QwQ8TQFvd4HgoUqsXxzZ47RBa3Gb1fBIEBTfz7l
- QO0VvMlPnQAuiVr1MVikMwS4EkSJbKla560eIJ1fN+lqic4d7BS+ylGEAI1xjFSi2STt
- hv7DGNyS7sIPIIs/TfDIVdr8nDmGv/sBKbJQcLftxoyCM5lexRulnqjLxE9ivGZU8tRt
- mcbsDje79RGkHrbBqnLgPE5LW8yvpXm8xLYm2r4P+BNU+8oxSX7raLNCwV6oeYY2i/hQ
- j8vhvqAaNJm/gIpjUi6366wwWGrbMZk5CmQM/D0taU1mN3YPTBHRwh60BGbnK+jMd66i
- OtXw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpaxDvZlDCJTpmZa5+FK/2Np9G2t8Q+LZKs4ztDBJDHir3Lhb5U0diKdQ83zzd29fazf9yJyVdN@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxfoHFLRtI7H8/xPaLYrx+GjEHndTDISj8RoYqzWopjr+XMc2Ji
- pPtxjjPjRM3/s52FMoD3uiRUNMGYahTlFhUKqoqQkml7yOokxnE1pa8x
-X-Gm-Gg: AR+sD13zvWcZsVbpP45iSCrQtPi+PspsuhZiVf7brHUy8ZtvQktxaiQwr1av+aY7dPX
- P78dzU+hajUXn75NaaQ+CUt9qo5juZ1SBe9RIJwMi6PXoYBefX29+EbfmsPzPjDWHTUz5wjmqXh
- UCx89D6VQeaguR4FFVEcCdUAfXV0/YvE5zUMpkHELARKPqex+liIf/xGdXxcUaI4ZZ/sgTcxn/y
- WQEjn8qjpJIOUhUYthpgHLh4ABILF3meCVZfzGnEAiu0cA6krMehaZS3d+y0tUwSas3Z2+7nTgr
- pVWJGNiojpJurp7uh99YdfhItuG2Bzb11BE+CnqRLMVdOVZRSS2BTFTf5P9nehrNgqDPMfjVi+n
- n5kl6lgysa/lqjc5YrUGt1WEQmIs/8GsDM6vlTwuF9m+eiHfiJZEwSYya5BnQtEgITFYBFKqu
-X-Received: by 2002:a17:90b:1350:b0:36d:66d4:270e with SMTP id
- 98e67ed59e1d1-38ec6455120mr4430242a91.5.1784832354540; 
- Thu, 23 Jul 2026 11:45:54 -0700 (PDT)
-Received: from ubuntu.. ([110.9.142.4]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-38f03af8a45sm308155a91.10.2026.07.23.11.45.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Jul 2026 11:45:53 -0700 (PDT)
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-To: Julia.Lawall@inria.fr, Alex Deucher <alexander.deucher@amd.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Andrew Lunn <andrew@lunn.ch>, Andrew Morton <akpm@linux-foundation.org>,
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
- Borislav Petkov <bp@alien8.de>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- David Airlie <airlied@gmail.com>, "David S. Miller" <davem@davemloft.net>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Eric Dumazet <edumazet@google.com>, Florian Westphal <fw@strlen.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Jakub Kicinski <kuba@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Jaroslav Kysela <perex@perex.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
- Jiri Pirko <jiri@resnulli.us>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Johan Hovold <johan@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Julian Anastasov <ja@ssi.bg>, Leon Romanovsky <leon@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Linus Walleij <linusw@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Mark Brown <broonie@kernel.org>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Matthew Sakai <msakai@redhat.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maxime Ripard <mripard@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Mike Rapoport <rppt@kernel.org>,
- Miri Korenblit <miriam.rachel.korenblit@intel.com>,
- Nicolas Palix <nicolas.palix@imag.fr>,
- Pablo Neira Ayuso <pablo@netfilter.org>, Paolo Abeni <pabeni@redhat.com>,
- Ping-Ke Shih <pkshih@realtek.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sebastian Reichel <sre@kernel.org>,
- Shuah Khan <shuah@kernel.org>, Simona Vetter <simona@ffwll.ch>,
- Simon Horman <horms@verge.net.au>, Stephen Boyd <sboyd@kernel.org>,
- Steve French <sfrench@samba.org>, Takashi Iwai <tiwai@suse.com>,
- Thomas Renninger <trenn@suse.com>, Thomas Zimmermann <tzimmermann@suse.de>,
- Tony Luck <tony.luck@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>, Vinod Koul <vkoul@kernel.org>,
- Will Deacon <will@kernel.org>, Yazen Ghannam <Yazen.Ghannam@amd.com>
-Cc: cocci@inria.fr, amd-gfx@lists.freedesktop.org, dmaengine@vger.kernel.org,
- dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-wired-lan@lists.osuosl.org,
- iommu@lists.linux.dev, linux-cifs@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-edac@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linux-mm@kvack.org, linux-pm@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-rtc@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
- lvs-devel@vger.kernel.org, netdev@vger.kernel.org,
- netfilter-devel@vger.kernel.org, nouveau@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org
-Subject: [PATCH 00/36] treewide: remove conditional returns with no effect
-Date: Fri, 24 Jul 2026 03:45:02 +0900
-Message-ID: <20260723184538.3888637-1-ekffu200098@gmail.com>
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011021.outbound.protection.outlook.com [40.107.208.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1BB910E032
+ for <amd-gfx@lists.freedesktop.org>; Fri, 24 Jul 2026 10:28:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YKdj7T9XgOlZ7m2Z/rVZTtHruaB/opPPaFek8UeCpQe+dFWwPxQ/9lH0dMKmIRHda0HKjNk99KnofA5U+LMZybPdjUHfjFarlu8MAHar6PMVYuYyELvYMFKDI6UDElMznh56ixbPZ9zllka2oNG0XY8Pgorp4gA3MpyU0SyMCeA2KUI57b2ThQHw4IgRzcGvUXA1ZHIgN9/EOatpdltbp3gkgUOEV4EBSs6/0LVPj57FBrpE3WcE+nW0Rx+8DYJo1/OAUGZJo/h8YBXynN5/TN7PC9XjzGq2pEIyjMM3hzR1NO/eRBJNoeaKxWAkv23Cn4N1g/C7xvqiqQMieaKF1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eoNowkhm3hEe7sD7afStsL3VsNmaK2qU1Vn5wc3j2b8=;
+ b=pCq8lLba0l4/lGMr5MQIZ7cVrkoU155h0uDDLNNmHef4z8m9Bx4KhHwQ3cV0CnDCEHJUrN6M1460oLXA6H9gbBxT3EW281b90UwwOx2Tv9DhJ2BZai+J7aPcZqkKx3i00VVNozlntpxhLPbymaDYYbZLjBqeklRrRsbm5euuxN417F/Zxia0XHApMjD1K3Z2e8bt4HmCrex/413sQYnfi851/GWERKrYcUe0+Xpqp2crD2b/J3XZtA1jSLw2QhSbJqTnWU9/08+hUdLuXPrPUn+wA3LhONwKzOcQoM3j9+nnmEsib4lcosJT6f7GDQ3r/38DQM5bkq2vV6sa0zbebQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eoNowkhm3hEe7sD7afStsL3VsNmaK2qU1Vn5wc3j2b8=;
+ b=Xdv1XU25Yw9fo3opZzC9/hSztNoc1fJo33lhk+TD59x+DEmaBs9lFO4EH/MR2c4TwmFSQbzPdznrL0zga+VlDQRHlfURAvlQ25KKazE2932gclo+jVe9FOGyKq70KUo66CeOSY9/bY5b1RrMvzLeYgXqytClk1/aTsh8buxUxPs=
+Received: from SJ0PR05CA0164.namprd05.prod.outlook.com (2603:10b6:a03:339::19)
+ by PH7PR12MB7115.namprd12.prod.outlook.com (2603:10b6:510:1ee::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.10; Fri, 24 Jul
+ 2026 10:28:10 +0000
+Received: from SJ1PEPF000026C4.namprd04.prod.outlook.com
+ (2603:10b6:a03:339:cafe::a9) by SJ0PR05CA0164.outlook.office365.com
+ (2603:10b6:a03:339::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.5 via Frontend Transport; Fri, 24
+ Jul 2026 10:28:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000026C4.mail.protection.outlook.com (10.167.244.101) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.5 via Frontend Transport; Fri, 24 Jul 2026 10:28:09 +0000
+Received: from shubhankar-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.41; Fri, 24 Jul 2026 05:28:04 -0500
+From: Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpande@amd.com>
+To: <Alexander.Deucher@amd.com>, <Lijo.Lazar@amd.com>,
+ <Christian.Koenig@amd.com>, <amd-gfx@lists.freedesktop.org>
+CC: <Veerabadhran.Gopalakrishnan@amd.com>, <Pratik.Vsiwakarma@amd.com>,
+ <Suresh.Guttula@amd.com>, <Kanala.RamalingeswaraReddy@amd.com>, "Shubhankar
+ Milind Sardeshpande" <Shubhankar.MilindSardeshpande@amd.com>
+Subject: [PATCH V2 1/2] drm/amd/pm/smu15: add metrics table header for SMU
+ v15.0.0
+Date: Fri, 24 Jul 2026 15:57:17 +0530
+Message-ID: <20260724102734.3297015-1-Shubhankar.MilindSardeshpande@amd.com>
 X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 24 Jul 2026 07:30:26 +0000
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C4:EE_|PH7PR12MB7115:EE_
+X-MS-Office365-Filtering-Correlation-Id: 44cee51a-0b3f-437f-ab83-08dee96e41fc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|3023799007|5023799004|11063799006|18002099003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: KGh0uBS6B9jfLwo3WB3GlqJOf7m0t4CRcjCS1pdiU5KlBgHiXtno8DSLGfcnnIiqSoeMIFbrDtaN6IRm6SkhaK7qCI4I/yQU7dx9pm97JQFv8X4ZPRyvQ20Bbgc774lCPWYiCzbwbn2OTsEIEMzWtYCFpd9Xzq7a6CBrR/s/3p33o5CkiL+9PHYALaVZRmwg/R//nuyvhOl8qMT+Hmk5DwgQu8z6EhUYQi1JhY8pfRGLJvnlMgi5jzMldC46zZHG3bJlxEcV8Yw63xsEpB3hafELNV8GsdbiZrDUnFRFS8bILBLkyscl+XKz49FuuXPddDMyu3gk7gsYJKIVHQsH56s1v5xqtBjwUMQgZQHOLuh+2Ugm/TLcQJz9oGce/NXateY8+/p4Kp/76fYhEhwAk03GlrHnwgYsnaWfEG31FWwy68SSPfmk54EU3o+TMKSBHXUepzoBjR3eeDZRwpy1kbcRdRDqiCkqv4rUmAMjZyCqMmYdNSX2zS5O1CZnKhSmWWIb2lgPQV1bN1s/ZhnJ/bbbbXlL1+/hMG8E337wQE2mthuz/PJWpwQ1bgStwJamOAdr7ab5mEILwfCHITTBv0SL4Ius/UcYB5UC9abVJubCm4QmM2y4znPoBaZl7GQB5hVBeYQ+nv4ywSPsxMSwG6QSHrnX097yhSpFBoYPxpRLWa1kcahvoiFFd2TfN4+BD8hXIfBrh7nydKH7y3v0NQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(3023799007)(5023799004)(11063799006)(18002099003)(56012099006)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: zUpb4PiGrmC+ikiuMo/7JKcZq/+0EuvI7KLzOQzQ/58s4tpm9Rv5AUIuygOI+1qZaWBxR2KrYtSlVQTRHL331yRKrYRapM1DOFXsqk/Ww6mjx6DbBn/8K0c9zJ+TSpcufx4vxQrGCpZRwOtRF6j4jxD5Pjns3XVnU2HlgfGZPFNXYehD4ewUxytDx6vPqDczM6FoQ6rJS6XHxRU2RFIx20LqITsZK5KXmna9iyiof4rckesjtcxNwwROGgSnVF6XWqGaSvzUvXUfnGLsGaPj/e9/FWJP1DoXNxPI1CCAi42XnPIdhoM8DE/799MUDzbreNFNEXlRfbTJe4NtzAWn/67siZ89xCR3H3dXlDY+xs3XrScSwd+fSgs2nZ+kw33XwFcGwZX20/EI4qAo2TgkNSZbqWhC4sVwaMPGYHBTPxAedqOoSbFwmWPu6t/6Ctpj
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 10:28:09.4868 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 44cee51a-0b3f-437f-ab83-08dee96e41fc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000026C4.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7115
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -141,181 +111,254 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello,
+Add smu_v15_0_0_metrics.h defining the v0x04 metrics table structures
+(MetricsTable_IOD_t, MetricsTable_CCX_t, MetricsTable_t) exported by
+SMU firmware. These structures describe voltage, power, thermal,
+frequency, bandwidth, activity, and overclock telemetry fields used
+for PM reporting on SMU v15.0.0 APUs.
 
-While reading mm/memblock, I found a conditional return where both
-branches return the same value:
+Signed-off-by: Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpande@amd.com>
+---
+ .../swsmu/inc/pmfw_if/smu_v15_0_0_metrics.h   | 230 ++++++++++++++++++
+ 1 file changed, 230 insertions(+)
+ create mode 100644 drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_0_metrics.h
 
-	err = do_something();
-	if (err)
-		return err;
-	return err;
-
-Such code is usually a leftover from removing a statement between
-the two returns, and the tree has about a hundred of these.
-
-Patch 1 adds a Coccinelle script that matches the pattern, including
-negation and constant-comparison variants. Where a local variable is
-assigned right before the check, the assignment and the two returns
-turn into a single return of the assigned expression.
-
-Patches 2-36 are generated by the script, with hand fixes to restore
-unexpectedly removed comments and to fix the formatting checkpatch.pl
-complained about.
-
-The patches are grouped by subsystem instead of split per file. If
-you would rather split, merge or drop your part, just let me know
-and I will address it in the next version.
-
-All patches are independent and can be applied separately, but for
-everyone's convenience, it would be nice if they were merged through
-a single tree.
-
-The series is based on next-20260721.
-
-Sang-Heon Jeon (36):
-  coccinelle: misc: add cond_return_no_effect.cocci
-  drm/amd: remove conditional return with no effect
-  drm/radeon: remove conditional return with no effect
-  dpll: zl3073x: remove conditional return with no effect
-  drm/i915: remove conditional return with no effect
-  drm: remove conditional return with no effect
-  net: ethernet: remove conditional return with no effect
-  net: remove conditional return with no effect
-  net: intel: remove conditional return with no effect
-  wifi: remove conditional return with no effect
-  ipvs: remove conditional return with no effect
-  media: remove conditional return with no effect
-  ALSA: remove conditional return with no effect
-  ASoC: remove conditional return with no effect
-  iio: remove conditional return with no effect
-  Input: remove conditional return with no effect
-  clk: remove conditional return with no effect
-  crypto: drivers - remove conditional return with no effect
-  dmaengine: qcom_hidma: remove conditional return with no effect
-  stm class: remove conditional return with no effect
-  RDMA/ocrdma: remove conditional return with no effect
-  iommu/s390: remove conditional return with no effect
-  dm vdo: remove conditional return with no effect
-  pinctrl: mediatek: remove conditional return with no effect
-  platform/x86: toshiba_haps: remove conditional return with no effect
-  power: supply: pm8916_lbc: remove conditional return with no effect
-  RAS/AMD/ATL: remove conditional return with no effect
-  regulator: wm831x-isink: remove conditional return with no effect
-  rtc: pcf2127: remove conditional return with no effect
-  scsi: mpt3sas: remove conditional return with no effect
-  thermal/drivers/k3_bandgap: remove conditional return with no effect
-  USB: serial: ch341: remove conditional return with no effect
-  usb: typec: fusb302: remove conditional return with no effect
-  smb: client: remove conditional return with no effect
-  cpupower: remove conditional return with no effect
-  memblock: remove conditional return with no effect
-
- drivers/clk/clk-cs2000-cp.c                   |   6 +-
- drivers/clk/clk-lmk04832.c                    |  12 +-
- .../intel/qat/qat_common/adf_gen2_config.c    |   8 +-
- .../marvell/octeontx2/otx2_cpt_mbox_common.c  |   7 +-
- drivers/dma/qcom/hidma_ll.c                   |   6 +-
- drivers/dpll/zl3073x/dpll.c                   |   6 +-
- drivers/dpll/zl3073x/out.c                    |   8 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         |   6 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         |   6 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       |   6 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      |   6 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        |   6 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        |   6 +-
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        |   6 +-
- drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c         |   6 +-
- drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c         |   6 +-
- drivers/gpu/drm/amd/amdgpu/uvd_v7_0.c         |   6 +-
- drivers/gpu/drm/amd/amdgpu/vce_v4_0.c         |   6 +-
- drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  32 ++---
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |   6 +-
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |   6 +-
- .../gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c |   6 +-
- .../gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c   |   6 +-
- .../gpu/drm/amd/pm/swsmu/smu11/smu_v11_0.c    |  19 +--
- .../gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c  |   7 +-
- .../gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c   |   7 +-
- .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    |   6 +-
- .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0.c    |  19 +--
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |   6 +-
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  |  10 +-
- .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |   6 +-
- .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0.c    |  19 +--
- .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  |   6 +-
- .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0.c    |   9 +-
- .../drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c  |  16 +--
- drivers/gpu/drm/i915/display/intel_hdmi.c     |   7 +-
- drivers/gpu/drm/i915/gvt/gtt.c                |   8 +-
- drivers/gpu/drm/imx/ipuv3/imx-drm-core.c      |   6 +-
- drivers/gpu/drm/nouveau/dispnv50/disp.c       |  14 +-
- .../drm/panel/panel-osd-osd101t2587-53ts.c    |   7 +-
- drivers/gpu/drm/radeon/ci_dpm.c               |   6 +-
- drivers/gpu/drm/radeon/kv_dpm.c               |  30 ++---
- drivers/gpu/drm/radeon/si_dpm.c               |  14 +-
- drivers/gpu/drm/tilcdc/tilcdc_drv.c           |   6 +-
- drivers/hwtracing/stm/core.c                  |   8 +-
- drivers/iio/light/isl29028.c                  |   6 +-
- drivers/iio/light/tsl2583.c                   |  14 +-
- drivers/iio/magnetometer/ak8974.c             |   6 +-
- drivers/infiniband/hw/ocrdma/ocrdma_verbs.c   |   7 +-
- drivers/input/keyboard/pmic8xxx-keypad.c      |   8 +-
- drivers/input/mouse/synaptics_i2c.c           |   6 +-
- drivers/input/rmi4/rmi_smbus.c                |   7 +-
- drivers/iommu/s390-iommu.c                    |   8 +-
- drivers/md/dm-vdo/encodings.c                 |   8 +-
- drivers/media/i2c/mt9p031.c                   |   6 +-
- .../microchip/microchip-sama7g5-isc.c         |   7 +-
- .../media/platform/qcom/iris/iris_resources.c |   6 +-
- .../media/platform/qcom/venus/pm_helpers.c    |   7 +-
- drivers/media/platform/renesas/rcar-csi2.c    |   6 +-
- .../platform/samsung/s3c-camif/camif-core.c   |   7 +-
- drivers/media/usb/dvb-usb-v2/mxl111sf.c       |  12 +-
- drivers/media/usb/gspca/jl2005bcd.c           |   7 +-
- drivers/net/ethernet/amazon/ena/ena_netdev.c  |   6 +-
- .../ethernet/aquantia/atlantic/aq_macsec.c    |   6 +-
- .../ethernet/freescale/dpaa2/dpaa2-switch.c   |   6 +-
- drivers/net/ethernet/freescale/gianfar.c      |   6 +-
- drivers/net/ethernet/intel/i40e/i40e_main.c   |   8 +-
- drivers/net/ethernet/intel/igb/e1000_i210.c   |   6 +-
- drivers/net/ethernet/intel/igc/igc_phy.c      |   6 +-
- .../ethernet/qlogic/netxen/netxen_nic_hw.c    |   7 +-
- .../ethernet/qlogic/qlcnic/qlcnic_83xx_init.c |   6 +-
- drivers/net/ethernet/renesas/rtsn.c           |   7 +-
- drivers/net/phy/microchip_t1.c                |   6 +-
- drivers/net/pse-pd/tps23881.c                 |   6 +-
- drivers/net/wireless/ath/ath6kl/init.c        |   6 +-
- drivers/net/wireless/intel/iwlwifi/mvm/link.c |   6 +-
- .../wireless/realtek/rtlwifi/rtl8821ae/hw.c   |   7 +-
- drivers/net/wireless/realtek/rtw89/mac.c      |   6 +-
- drivers/net/wireless/realtek/rtw89/mac_be.c   |   6 +-
- .../pinctrl/mediatek/pinctrl-mtk-common-v2.c  |   6 +-
- drivers/platform/x86/toshiba_haps.c           |   6 +-
- drivers/power/supply/pm8916_lbc.c             |   8 +-
- drivers/ras/amd/atl/map.c                     |   6 +-
- drivers/regulator/wm831x-isink.c              |   6 +-
- drivers/rtc/rtc-pcf2127.c                     |   7 +-
- drivers/scsi/mpt3sas/mpt3sas_base.c           |   6 +-
- drivers/thermal/k3_bandgap.c                  |   7 +-
- drivers/usb/serial/ch341.c                    |   8 +-
- drivers/usb/typec/tcpm/fusb302.c              |  14 +-
- fs/smb/client/smb1maperror.c                  |   6 +-
- mm/memblock.c                                 |   7 +-
- net/netfilter/ipvs/ip_vs_sync.c               |   7 +-
- .../misc/cond_return_no_effect.cocci          | 121 ++++++++++++++++++
- sound/pci/echoaudio/echoaudio_dsp.c           |   6 +-
- sound/pci/echoaudio/layla24_dsp.c             |   6 +-
- sound/pci/riptide/riptide.c                   |   5 +-
- sound/soc/amd/acp/acp-mach-common.c           |  11 +-
- sound/soc/intel/atom/sst-mfld-platform-pcm.c  |   7 +-
- sound/soc/samsung/smdk_spdif.c                |   8 +-
- sound/soc/sof/intel/hda-dsp.c                 |   6 +-
- sound/usb/mixer_scarlett.c                    |  26 ++--
- tools/power/cpupower/utils/powercap-info.c    |   2 -
- 102 files changed, 295 insertions(+), 643 deletions(-)
- create mode 100644 scripts/coccinelle/misc/cond_return_no_effect.cocci
-
---
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_0_metrics.h b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_0_metrics.h
+new file mode 100644
+index 000000000000..19b4d84410a4
+--- /dev/null
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu_v15_0_0_metrics.h
+@@ -0,0 +1,230 @@
++/*
++ * Copyright 2025 Advanced Micro Devices, Inc.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining a
++ * copy of this software and associated documentation files (the "Software"),
++ * to deal in the Software without restriction, including without limitation
++ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
++ * and/or sell copies of the Software, and to permit persons to whom the
++ * Software is furnished to do so, subject to the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be included in
++ * all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
++ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
++ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
++ * OTHER DEALINGS IN THE SOFTWARE.
++ *
++ */
++
++#ifndef __SMU_V15_0_0_METRICS_H__
++#define __SMU_V15_0_0_METRICS_H__
++
++#define METRICS_TABLE_VERSION 0x04
++#define NUM_MAX_CORES         12
++#define NUM_CLK_DPM_LEVELS    8
++#define METRIC_CORE_TYPE_MAX  4
++#define METRIC_CCX_MAX        4
++
++// Variable Type | Description
++#pragma pack(push, 4)
++typedef struct {
++  uint32_t AccumulationCounter;
++
++  //SET_VOLTAGES
++  uint64_t VDDCR_SetVoltage;                                              // Acc Float (V)
++  uint64_t VDDCR_SOC_SetVoltage;                                          // Acc Float (V)
++  uint64_t VDDCR_NPU_SetVoltage;                                          // Acc Float (V)
++  uint64_t VDDCR_LP_SetVoltage;                                           // Acc Float (V)
++  uint64_t VDDCR_GFX_SetVoltage;                                          // Acc Float (V)
++  uint64_t VDD_MISC_SetVoltage;                                           // Acc Float (V)
++
++  //TELEMETRY_VOLTAGES
++  uint64_t VDDCR_TelemetryVoltage;                                        // Acc Float (V)
++  uint64_t VDDCR_SOC_TelemetryVoltage;                                    // Acc Float (V)
++  uint64_t VDDCR_NPU_TelemetryVoltage;                                    // Acc Float (V)
++  uint64_t VDDCR_LP_TelemetryVoltage;                                     // Acc Float (V)
++  uint64_t VDDCR_GFX_TelemetryVoltage;                                    // Acc Float (V)
++  uint64_t VDD_MISC_TelemetryVoltage;                                     // Acc Float (V)
++
++  //TELEMETRY_POWERS
++  uint64_t VDDCR_TelemetryPower;                                          // Acc Float (W)
++  uint64_t VDDCR_SOC_TelemetryPower;                                      // Acc Float (W)
++  uint64_t VDDCR_NPU_TelemetryPower;                                      // Acc Float (W)
++  uint64_t VDDCR_LP_TelemetryPower;                                       // Acc Float (W)
++  uint64_t VDDCR_GFX_TelemetryPower;                                      // Acc Float (W)
++  uint64_t VDD_MISC_TelemetryPower;                                       // Acc Float (W)
++
++  //THROTTLERS
++  uint32_t fPPT_FusedLimit;                                               // Inst Float (W)
++  uint32_t fPPT_MaxIrmLimit;                                              // Inst Float (W)
++  uint32_t fPPT_MaxPboLimit;                                              // Inst Float (W)
++  uint32_t fPPT_Limit;                                                    // Inst Float (W)
++  uint64_t fPPT_ValueAcc;                                                 // Acc Int (W)
++  uint32_t fPPT_ResidencyAcc;                                             // Acc Float
++
++  uint32_t sPPT_FusedLimit;                                               // Inst Float (W)
++  uint32_t sPPT_MaxIrmLimit;                                              // Inst Float (W)
++  uint32_t sPPT_MaxPboLimit;                                              // Inst Float (W)
++  uint32_t sPPT_Limit;                                                    // Inst Float (W)
++  uint64_t sPPT_ValueAcc;                                                 // Acc Int (W)
++  uint32_t sPPT_ResidencyAcc;                                             // Acc Float
++
++  uint32_t SPL_FusedLimit;                                                // Inst Float (W)
++  uint32_t SPL_MaxIrmLimit;                                               // Inst Float (W)
++  uint32_t SPL_MaxPboLimit;                                               // Inst Float (W)
++  uint32_t SPL_Limit;                                                     // Inst Float (W)
++  uint64_t SPL_ValueAcc;                                                  // Acc Int (W)
++  uint32_t SPL_ResidencyAcc;                                              // Acc Float
++
++  uint32_t TDC_VDDCR_FusedLimit;                                          // Inst Float (A)
++  uint32_t TDC_VDDCR_MaxIrmLimit;                                         // Inst Float (A)
++  uint32_t TDC_VDDCR_MaxPboLimit;                                         // Inst Float (A)
++  uint32_t TDC_VDDCR_Limit;                                               // Inst Float (A)
++  uint64_t TDC_VDDCR_ValueAcc;                                            // Acc Int    (A)
++  uint32_t TDC_VDDCR_ResidencyAcc;                                        // Acc Float
++
++  uint32_t TDC_VDDCR_SOC_FusedLimit;                                      // Inst Float (A)
++  uint32_t TDC_VDDCR_SOC_MaxIrmLimit;                                     // Inst Float (A)
++  uint32_t TDC_VDDCR_SOC_MaxPboLimit;                                     // Inst Float (A)
++  uint32_t TDC_VDDCR_SOC_Limit;                                           // Inst Float (A)
++  uint64_t TDC_VDDCR_SOC_ValueAcc;                                        // Acc Int    (A)
++  uint32_t TDC_VDDCR_SOC_ResidencyAcc;                                    // Acc Float
++
++  uint32_t TDC_VDDCR_NPU_FusedLimit;                                      // Inst Float (A)
++  uint32_t TDC_VDDCR_NPU_MaxIrmLimit;                                     // Inst Float (A)
++  uint32_t TDC_VDDCR_NPU_MaxPboLimit;                                     // Inst Float (A)
++  uint32_t TDC_VDDCR_NPU_Limit;                                           // Inst Float (A)
++  uint64_t TDC_VDDCR_NPU_ValueAcc;                                        // Acc Int    (A)
++  uint32_t TDC_VDDCR_NPU_ResidencyAcc;                                    // Acc Float
++
++  uint32_t TDC_VDDCR_LP_FusedLimit;                                       // Inst Float (A)
++  uint32_t TDC_VDDCR_LP_MaxIrmLimit;                                      // Inst Float (A)
++  uint32_t TDC_VDDCR_LP_MaxPboLimit;                                      // Inst Float (A)
++  uint32_t TDC_VDDCR_LP_Limit;                                            // Inst Float (A)
++  uint64_t TDC_VDDCR_LP_ValueAcc;                                         // Acc Int    (A)
++  uint32_t TDC_VDDCR_LP_ResidencyAcc;                                     // Acc Float
++
++  uint32_t TDC_VDDCR_GFX_FusedLimit;                                      // Inst Float (A)
++  uint32_t TDC_VDDCR_GFX_MaxIrmLimit;                                     // Inst Float (A)
++  uint32_t TDC_VDDCR_GFX_MaxPboLimit;                                     // Inst Float (A)
++  uint32_t TDC_VDDCR_GFX_Limit;                                           // Inst Float (A)
++  uint64_t TDC_VDDCR_GFX_ValueAcc;                                        // Acc Int    (A)
++  uint32_t TDC_VDDCR_GFX_ResidencyAcc;                                    // Acc Float
++
++  uint32_t EDC_VDDCR_FusedLimit;                                          // Inst Float (A)
++  uint32_t EDC_VDDCR_MaxIrmLimit;                                         // Inst Float (A)
++  uint32_t EDC_VDDCR_MaxPboLimit;                                         // Inst Float (A)
++  uint32_t EDC_VDDCR_Limit;                                               // Inst Float (A)
++
++  uint32_t THM_FusedLimit;                                                // Inst Float (C)
++  uint32_t THM_Limit;                                                     // Inst Float (C)
++  uint64_t THM_ValueAcc;                                                  // Acc Float  (C)
++  uint32_t THM_ResidencyAcc;                                              // Acc Float
++  uint32_t PROCHOT_ResidencyAcc;                                          // Acc Float
++  uint64_t GFX_TempAcc;                                                   // Acc Float  (C)
++  uint64_t SOC_TempAcc;                                                   // Acc Float  (C)
++  uint32_t P3T_FusedLimit;                                                // Inst Float (W)
++  uint64_t P3T_ValueAcc;                                                  // Acc Float  (W)
++
++  //POWER
++  uint64_t SystemPowerAcc;                                                // Acc Float (W)
++  uint64_t ApuPowerAcc;                                                   // Acc Float (W)
++  uint64_t dGpuPowerAcc;                                                  // Acc Float (W)
++  uint64_t NpuPowerAcc;                                                   // Acc Float (W)
++
++  //FREQUENCIES
++  uint64_t FclkFreqEffAcc;                                                // Acc Float (MHz)
++  uint64_t MemclkFreqEffAcc;                                              // Acc Float (MHz)
++  uint64_t LclkFreqEffAcc;                                                // Acc Float (MHz)
++  uint64_t GfxclkFreqEffAcc;                                              // Acc Float (MHz)
++  uint64_t SocclkFreqEffAcc;                                              // Acc Float (MHz)
++  uint64_t VclkFreqEffAcc;                                                // Acc Float (MHz)
++  uint64_t VpeclkFreqEffAcc;                                              // Acc Float (MHz)
++  uint64_t AieclkFreqEffAcc;                                              // Acc Float (MHz)
++  uint64_t NpuhclkFreqEffAcc;                                             // Acc Float (MHz)
++  //BANDWIDTH
++  uint64_t DramReadBandwidth;                                             // Acc Float (GB/sec)
++  uint64_t DramWriteBandwidth;                                            // Acc Float (GB/sec)
++
++  //ACTIVITY MONITORS
++  uint64_t GfxBusyAcc;                                                    // Acc Float (%)
++  uint64_t VcnBusyAcc;                                                    // Acc Float (%)
++  uint64_t NpuBusyAcc[3];                                                 // Acc Float (%)
++
++  //STT
++  uint32_t STT_MinLimit;                                                  // Inst Float (W)
++  uint64_t STT_APU_HotSpotTempAcc;                                        // Acc Float (C)
++  uint64_t STT_HS2_HotSpotTempAcc;                                        // Acc Float (C)
++  uint32_t STT_APU_Temp_Limit;                                            // Inst Float (C)
++  uint64_t STT_APU_SkinTempAcc;                                           // Acc Float (C)
++
++  //RESIDENCIES
++  uint64_t CpuOffResidency_CCX0;                                          // Acc Float (%)
++  uint64_t CpuOffResidency_CCX1;                                          // Acc Float (%)
++  uint64_t CpuOffResidency_CCX2;                                          // Acc Float (%)
++  uint64_t CpuOffResidency_CCX3;                                          // Acc Float (%)
++
++  //DFPSTATES
++  uint32_t FclkFreqTable[NUM_CLK_DPM_LEVELS];                             // Inst Int (MHz)
++  uint32_t UclkFreqTable[NUM_CLK_DPM_LEVELS];                             // Inst Int (MHz)
++  uint32_t DdrRateTable[NUM_CLK_DPM_LEVELS];                              // Inst Int (MT/s)
++  uint8_t  DfPstate_Source[NUM_CLK_DPM_LEVELS];                           // Inst Int
++
++  //SYSTEM
++  uint8_t  GfxDisabled;                                                   // Inst Int
++  uint8_t  spare2[3];
++  uint32_t GfxClk_Fmax;                                                   // Inst Float (GHz)
++  uint8_t  CClk_CoreFuseEnable[METRIC_CORE_TYPE_MAX][NUM_MAX_CORES];      // Inst Int
++  uint8_t  CClk_CoreEnabled[METRIC_CORE_TYPE_MAX][NUM_MAX_CORES];         // Inst Int
++  uint32_t CClk_Fmax[METRIC_CORE_TYPE_MAX][NUM_MAX_CORES];                // Inst Float (GHz)
++
++  //OVERCLOCK CAPABLE
++  uint8_t CpuPreciseAndDirectOverClockingCapable;                         // Inst Int
++  uint8_t GfxPreciseAndDirectOverClockingCapable;                         // Inst Int
++  uint8_t PboBasicOverClockingCapable;                                    // Inst Int
++  uint8_t PboAdvancedOverClockingCapable;                                 // Inst Int
++  uint8_t PboNitroOverClockingCapable;                                    // Inst Int
++  uint8_t MemoryAndFabricOverClockingCapable;                             // Inst Int
++  uint8_t MiscOverClockingCapable;                                        // Inst Int
++  uint8_t ExtremeColdOverclockingCapable;                                 // Inst Int
++  uint8_t DownConfigControlCapable;                                       // Inst Int
++  uint8_t spare0[3];
++
++  //OVERCLOCK STATUS
++  uint32_t FIT_LimitScalar;                                               // Inst Float
++  uint8_t  LN2Enabled;                                                    // Inst Int
++  uint8_t  CpuPreciseAndDirectOcEnabled;                                  // Inst Int
++  uint8_t  GfxPreciseAndDirectOcEnabled;                                  // Inst Int
++  uint8_t  spare1[2];
++  int8_t   PsmGuardband[5][5][3];                                         // Inst Int
++  int32_t  CorePowerLimitOffset;                                          // Inst Float (W)
++  uint32_t MaxFreqOffset[5];                                              // Inst Float (GHz)
++
++  uint64_t NpuTempAcc;                                                    // Acc Float (C)
++  uint64_t DfPStateResidencyAcc[NUM_CLK_DPM_LEVELS];                      // Acc Int (%)
++  uint32_t CClk_Fboost;                                                   // Inst Float (GHz)
++  uint32_t spare3[5];
++} MetricsTable_IOD_t;
++
++typedef struct {
++  uint64_t Core_C0[NUM_MAX_CORES];                                        // Acc Float (%)
++  uint64_t Core_CC6[NUM_MAX_CORES];                                       // Acc Float (%)
++  uint64_t Core_FREQ[NUM_MAX_CORES];                                      // Acc Float (GHz)
++  uint64_t Core_FREQEFF[NUM_MAX_CORES];                                   // Acc Float (GHz)
++  uint64_t Core_TEMP[NUM_MAX_CORES];                                      // Acc Float (C)
++  uint64_t Core_POWER[NUM_MAX_CORES];                                     // Acc Float (W)
++} MetricsTable_CCX_t;
++
++typedef struct {
++  MetricsTable_IOD_t IOD;
++  MetricsTable_CCX_t CCX[METRIC_CCX_MAX];
++} MetricsTable_t;
++
++#pragma pack(pop)
++
++#endif
+-- 
 2.43.0
 
