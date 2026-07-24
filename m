@@ -4,34 +4,34 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C93CC53215
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0D6C7C53213
 	for <amd-gfx@archiver.kernel.org>; Fri, 24 Jul 2026 07:30:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D73B10F31F;
-	Fri, 24 Jul 2026 07:30:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D6EF010F31B;
+	Fri, 24 Jul 2026 07:30:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=w_armin@gmx.de header.b="lV6NMqN3";
+	dkim=pass (2048-bit key; secure) header.d=gmx.de header.i=w_armin@gmx.de header.b="IKwMdT9p";
 	dkim-atps=neutral
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA1FA10F27C;
- Fri, 24 Jul 2026 03:00:15 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7626010E642;
+ Fri, 24 Jul 2026 02:26:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
- s=s31663417; t=1784862008; x=1785466808; i=w_armin@gmx.de;
- bh=QyWsP7Sqq/f321MW0zLkWTJO8RVqlTuampchfIxiXqE=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-Id:
- MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
+ s=s31663417; t=1784859956; x=1785464756; i=w_armin@gmx.de;
+ bh=mlNmyLlL1iW90B0H147Wg/d30JCyeRZzRozRUv+IOOA=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-Id:In-Reply-To:
+ References:MIME-Version:Content-Type:Content-Transfer-Encoding:cc:
  content-transfer-encoding:content-type:date:from:message-id:
  mime-version:reply-to:subject:to;
- b=lV6NMqN3XOQUWkCQBYa546XTWa8x8XCWzztfZyH3iwFFwFk8BtRDETG7O5tZRfvP
- aJ3eUJz1MQPLpWYQUxXHv8W78l55BVZfc6gbj0xeMT+8fSE375xPDbrNnP0Ir7BKJ
- XDnyivR6T+taosMEgMNBg4n2bm0S5J87asXTOSHC1fy+Lg4D1kPqJh6nqE4XYW9N7
- Az5o3Epxjq0tCavYT8LMpSIuO86eh/Fwp+v9Ma2DZNb56aIItkqwRMsl9WApSn7d4
- KbDMkeHv/YCIoyMhmck5Qib4RxVjzbnYFga5Q3UxE93ZDJ0A6dkf4Ld69DD7pIR9N
- 26tl7Q6QE9W0AKW49Q==
+ b=IKwMdT9pJk5j1qoFcxtePmFo820vMOFNz2hyU4Yl/ldhWC9IVd5YrrwVv+nVlUrI
+ kiG1acqRhGZiqDYevIOtqUODi9rmLr5b/xhhsgsZSavIm4cBmUgO6ejKBCraw1iD4
+ UOx9fu8iY68eGsfzPSoZcBHmzFFrUFL9Qay9V8EG/OC+BB58GzgaVsw4lr+XYGl/4
+ LYxi6GTQBk/WItSulYhvMwLPrcIB0DizNSZbbCMxAbzmlHnq7e8p3peUi+FF1w1e0
+ K1u3pS25sjjq4eHZoUxBRaVxr7lZSQYga+0m65TjJpfBEEdp3t6DrQN+FcezmN5Eh
+ eFdVLxbUY32djjNPEg==
 X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx004
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1M9o1v-1wsqlW2yoP-008ovN; Fri, 24
- Jul 2026 05:00:08 +0200
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MA7KU-1wfy3t4214-00H6B3; Fri, 24
+ Jul 2026 04:25:56 +0200
 From: Armin Wolf <W_Armin@gmx.de>
 To: hansg@kernel.org,
 	ilpo.jarvinen@linux.intel.com
@@ -46,96 +46,101 @@ Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
  tursulin@ursulin.net, intel-gfx@lists.freedesktop.org,
  matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
  intel-xe@lists.freedesktop.org
-Subject: [PATCH v3 0/3] platform/wmi: Add aarch64 support
-Date: Fri, 24 Jul 2026 04:59:56 +0200
-Message-Id: <20260724025959.142826-1-W_Armin@gmx.de>
+Subject: [PATCH v2 3/3] platform/x86: wmi-bmof: Move to generic WMI code
+Date: Fri, 24 Jul 2026 04:25:26 +0200
+Message-Id: <20260724022526.139370-4-W_Armin@gmx.de>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20260724022526.139370-1-W_Armin@gmx.de>
+References: <20260724022526.139370-1-W_Armin@gmx.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:v0vGyOFR/LNhXqmzPmSmbfTpyh8udB6Vccc5cR4hyg1ygBoCzA7
- ms67npm2ala0zpowQfPHnL1u9wuv2lR3aI3rxpIgnX50r4TcA6Vz+uWEIu9RvKzDlwwILPe
- OjAZ/eltLxgPeSOYMQc55xQ24g/QR8KmH9hYbzK5SmJqJsCLgV1pK76rJ4eUGz58Gvc88sY
- Vad84EnEwsX7pmIvlt+5g==
-UI-OutboundReport: notjunk:1;M01:P0:FyrCzEHmtTk=;/tKGSc1qtiU9Lvg78bY9/w9McK2
- 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
+X-Provags-ID: V03:K1:rea/9GZYvVTY9VQKVZnqhDzvVKz/9wxXCmGKJItDDFnjO67r62u
+ QvtZuL/Tdv8jH1WJkdKQvAFH21MG1hSWcw2GKOm6Qi00YgD5wHxb4gJZkQzfi0VC2PkzxkP
+ puFhYCWjQQf6cP4mZnSpZrZoR16qRD14d4MIN4iLPqun1er7ukQY20dR/5cyDSzB3ir2+EV
+ WdCL+dx9UnXn3DnSI+Mfg==
+UI-OutboundReport: notjunk:1;M01:P0:CwBWMzow/xg=;n/PNXhehUC4kAMNjhFH2QBhztMV
+ 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
 X-Mailman-Approved-At: Fri, 24 Jul 2026 07:30:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -151,49 +156,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The aarch64-laptops project found out that some Windows-on-Arm
-notebooks contain WMI-ACPI mapping devices (PNP0C14) that work
-exactly like on x86. Those devices however are currently not
-supported by the WMI driver core due to only supporting x86.
+Some Windows-on-Arm notebooks contain embedded Binary MOF data,
+accessible using the WMI-ACPI interface. Move the associated driver
+to the generic WMI code to make it possible to build it on arm64.
+Also rework the Kconfig help text a bit.
 
-The first patch removes this restriction and allows the WMI
-driver core to run on all architectures that support ACPI.
-The second patch updates the acpi-video driver to take advantage
-of the improved support for architectures other than x86, and
-the last patch enables the generic WMI BMOF driver to support
-aarch64 as well.
-
-All patches have been tested on a ACPI-based aarch64 VM and
-work just fine.
-
-Changes since v2:
-- fix Kconfig issue for the loongson-laptop driver
-
-Changes  since v1:
-- add additional tags
-
-Armin Wolf (3):
-  platform/wmi: Remove dependency on CONFIG_X86
-  ACPI: video: Remove CONFIG_X86 handling from nvidia_wmi_ec_supported()
-  platform/x86: wmi-bmof: Move to generic WMI code
-
+Link: https://lists.linaro.org/archives/list/aarch64-laptops@lists.linaro.=
+org/thread/U2IZENSIOOHZHGXVN7GM5HX5O3FD5KCF/
+Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Armin Wolf <W_Armin@gmx.de>
+=2D--
  MAINTAINERS                                     |  2 +-
- drivers/acpi/Kconfig                            |  2 +-
- drivers/acpi/video_detect.c                     |  8 --------
- drivers/gpu/drm/amd/amdgpu/Kconfig              |  4 +---
- drivers/gpu/drm/gma500/Kconfig                  |  1 -
- drivers/gpu/drm/i915/Kconfig                    |  1 -
- drivers/gpu/drm/radeon/Kconfig                  |  4 +---
- drivers/gpu/drm/xe/Kconfig                      |  5 ++---
- drivers/platform/loongarch/Kconfig              |  1 +
- drivers/platform/wmi/Kconfig                    | 14 +++++++++++++-
+ drivers/platform/wmi/Kconfig                    | 12 ++++++++++++
  drivers/platform/wmi/Makefile                   |  4 ++++
  drivers/platform/{x86/wmi-bmof.c =3D> wmi/bmof.c} |  0
  drivers/platform/x86/Kconfig                    | 12 ------------
  drivers/platform/x86/Makefile                   |  3 ---
- 14 files changed, 24 insertions(+), 37 deletions(-)
+ 6 files changed, 17 insertions(+), 16 deletions(-)
  rename drivers/platform/{x86/wmi-bmof.c =3D> wmi/bmof.c} (100%)
 
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3820b286f09f..bbae729a6012 100644
+=2D-- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -29106,7 +29106,7 @@ L:	platform-driver-x86@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/ABI/stable/sysfs-platform-wmi-bmof
+ F:	Documentation/wmi/devices/wmi-bmof.rst
+-F:	drivers/platform/x86/wmi-bmof.c
++F:	drivers/platform/wmi/bmof.c
+=20
+ WOLFSON MICROELECTRONICS DRIVERS
+ L:	patches@opensource.cirrus.com
+diff --git a/drivers/platform/wmi/Kconfig b/drivers/platform/wmi/Kconfig
+index 36934b5f0194..11c221a58e04 100644
+=2D-- a/drivers/platform/wmi/Kconfig
++++ b/drivers/platform/wmi/Kconfig
+@@ -34,4 +34,16 @@ config ACPI_WMI_LEGACY_DEVICE_NAMES
+=20
+ source "drivers/platform/wmi/tests/Kconfig"
+=20
++config WMI_BMOF
++	tristate "WMI embedded Binary MOF driver"
++	default ACPI_WMI
++	help
++	  Say Y here if you want to be able to read the firmware-embedded
++	  WMI Binary MOF (Managed Object Format) data. Using this requires
++	  userspace tools, see Documentation/wmi/devices/wmi-bmof.rst for
++	  details.
++
++	  To compile this driver as a module, choose M here: the module will
++	  be called wmi-bmof.
++
+ endif # ACPI_WMI
+diff --git a/drivers/platform/wmi/Makefile b/drivers/platform/wmi/Makefile
+index 2feff94a5594..ee2f27ea20d1 100644
+=2D-- a/drivers/platform/wmi/Makefile
++++ b/drivers/platform/wmi/Makefile
+@@ -9,3 +9,7 @@ obj-$(CONFIG_ACPI_WMI)	+=3D wmi.o
+=20
+ # Unit tests
+ obj-y			+=3D tests/
++
++# Binary MOF driver
++wmi-bmof-y		:=3D bmof.o
++obj-$(CONFIG_WMI_BMOF)	+=3D wmi-bmof.o
+diff --git a/drivers/platform/x86/wmi-bmof.c b/drivers/platform/wmi/bmof.c
+similarity index 100%
+rename from drivers/platform/x86/wmi-bmof.c
+rename to drivers/platform/wmi/bmof.c
+diff --git a/drivers/platform/x86/Kconfig b/drivers/platform/x86/Kconfig
+index 957034f39e4e..889979034391 100644
+=2D-- a/drivers/platform/x86/Kconfig
++++ b/drivers/platform/x86/Kconfig
+@@ -16,18 +16,6 @@ menuconfig X86_PLATFORM_DEVICES
+=20
+ if X86_PLATFORM_DEVICES
+=20
+-config WMI_BMOF
+-	tristate "WMI embedded Binary MOF driver"
+-	depends on ACPI_WMI
+-	default ACPI_WMI
+-	help
+-	  Say Y here if you want to be able to read a firmware-embedded
+-	  WMI Binary MOF (Managed Object Format) data. Using this requires
+-	  userspace tools and may be rather tedious.
+-
+-	  To compile this driver as a module, choose M here: the module will
+-	  be called wmi-bmof.
+-
+ config HUAWEI_WMI
+ 	tristate "Huawei WMI laptop extras driver"
+ 	depends on ACPI_BATTERY
+diff --git a/drivers/platform/x86/Makefile b/drivers/platform/x86/Makefile
+index 872ac3842391..94a5fe4075cb 100644
+=2D-- a/drivers/platform/x86/Makefile
++++ b/drivers/platform/x86/Makefile
+@@ -4,9 +4,6 @@
+ # x86 Platform-Specific Drivers
+ #
+=20
+-# Windows Management Interface
+-obj-$(CONFIG_WMI_BMOF)		+=3D wmi-bmof.o
+-
+ # WMI drivers
+ obj-$(CONFIG_HUAWEI_WMI)		+=3D huawei-wmi.o
+ obj-$(CONFIG_MXM_WMI)			+=3D mxm-wmi.o
 =2D-=20
 2.39.5
 
