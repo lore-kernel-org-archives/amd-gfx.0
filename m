@@ -4,88 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD420C531D0
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 16:16:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF3EEC531C9
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 16:20:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 637E510E474;
-	Mon, 27 Jul 2026 16:16:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB4D510E47B;
+	Mon, 27 Jul 2026 16:20:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="P8DhfUDG";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sn85PcyF";
 	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE0C210E474
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2026 16:16:49 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-3856d4015e0so228150a91.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2026 09:16:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785169009; cv=none;
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B856610E20B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2026 16:20:03 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-384caf7b168so302024a91.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2026 09:20:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785169203; cv=none;
  d=google.com; s=arc-20260327;
- b=XoNgNyNgbhfeqj7jL4t7xVnABotSow2jPRl+YhCawujNCTaRt1OYdWv8KVeipAXDZz
- EWtxeO3MsIbbYZtEWD0RhXStNX/aUUh7Ifk4enM3UQzwgMBC8PqelhkFOOiGWrHHa5rj
- 4Mf4C0uhKcNv/XLRwwXzbBdwXUlEC+DALWNOp3L7LI060kqgEWF2NhbeMphHvTeBQoxY
- xMuRV4mBymVR03frcUmiwN5+SEq1WxOHfGSy5e375HtmlLaJnwC26xFvjnIlkuHJAgCi
- aOHFithFZPtSsa2GHa7joFRs+gSFkbPYF7EBn1OmnDWzMDRqiFtedIcyyifMFIDnXjXv
- ZZFw==
+ b=nUbNoSQWy0uamYmLEMBOSfykI8H+f3CCbpi8r92KpHpb10I4NVcWi1X4lMNMpEyWkf
+ Nfq166YiYx6DHtPFmIn1c+ggqUvZXp/Z8HeufwWPSAXJC6yWkrZqrrDb6i+45bIrOGkh
+ Z/I9jq0l8FY0vDTx7Yy03nqkuD0GPJ8DojVmy6PFWPVN1c6bEdWLWF7shCgWivSkZMTC
+ vFzWjGF5ujlPAt6MHcIX9wqz+z9HGKiIRddYeklSSP3YuZ40DTtDBqNcT49gPXC3H0Dx
+ YmuULkM9d5dRAFFj4KWCnEbspUD1KMdrDALLwFrhDHNipNuwJNESKpnn6AWmRfnsPqww
+ AU4w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=XLKcVZtw4v4H+d2QYfNZy8/ekK4kFOJ8RM/AcAcmDVA=;
- fh=6jdE0khLQaWCKkuH0uk30oA+ZViv0FRgQb0JGyzrF2U=;
- b=caKD01DsLydfsP6lbjIiI2ohledznWql15mfk/sgtXh4KYZYpYnTVU8Ez9MaBdx67G
- yj7Gi7UtD4JNGRRE26y9AdsvK3FNRP5MMDARwohYTqj7Xh3OYAiGtWbEY/ZtkYgabvu3
- AsJ/r+PS6/F3/j9JwvTe8d+vOPn+UroOT25per353+lxGn4spRHOI3MKfm5UWx8ipHgU
- g67wH9AfNSLOv/R+MM1Q6MlQYnJOtv1scMINfQOYZft87Mog0tOE2Ft/OaEJb/q9L+A7
- rxUKIldh5jb3TUZr2ZyO+quNgeOxcF9IILFpcpiQGca+drB3hL2/tYhqz3/xR9UKMCGw
- ui5A==; darn=lists.freedesktop.org
+ bh=/ksM5PQny+NdDsJAGpJTSCPU1EsruCSQEucz5vSK3KE=;
+ fh=CxX+yxhedp3orSBPi6h74IExlXtxOU80WJTHS3LSuoo=;
+ b=cmLa0innfz9COMygYC/EopxhxN3YsQtcPnqu5MrGSao+OLj9idn9i99YieKGiMXoud
+ IZZ28/g8WkTqV4gk9FPY7PoiCf14dtb2UESLUtmyeaVmpfQ8cfVQwuKz6HpAY1EQ9LM2
+ U10VyxU5JoGmI2TZL69CpclmeAcI64b/VN9ACBxQUg44Xkng7VIQVocforW8YNrE2HZ7
+ qYMxH4wYjgv2ZYn1bJ+mzBWVy2rCGtTNw8XjAZfCmveDlDZmsNyP9EDFsREYFo7LKMc/
+ cWdemIjXUlyv3A8xIdSAZnEa7lO2rLSGrR/r9VyakxH5YtRKfMU2dzbqz9qG+j9TXhjH
+ hgqA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785169009; x=1785773809; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785169203; x=1785774003; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=XLKcVZtw4v4H+d2QYfNZy8/ekK4kFOJ8RM/AcAcmDVA=;
- b=P8DhfUDGngJ+7i2gT/RH+fT/ZyadE32iXnGr42VKDjwJ3cMukZlNh8Fbw2ZoJKAdmP
- CfzTrCcdg1NxTm2ywikO/P/fg9HU2QO8b7cygHoCFMR4BeiHx0GUbG4dNwmVsbPoICZn
- 8vYD1pbJr5Tco+dWiJzHquVs2isdBbEKdDdj77NIwdzeURRCdDnJ36JzuQ77Kfq/xOme
- nFGhTMoHBao2av7zswR+sZ/WOgF/g7u2XiBzLE4i1Qd8BzeQCdvBMbeY1cPTFeFXKr5i
- 0JLF/9OGw1SFXRXvD73p2ktIPhT20XgDdeT/dWhBI+sn7Q/nxk6vPSkJYNkzUoK9Bxb0
- aZcQ==
+ bh=/ksM5PQny+NdDsJAGpJTSCPU1EsruCSQEucz5vSK3KE=;
+ b=sn85PcyF6LVTB69GRwF4ymmSwtG+6CrJaFwiP5mu6yIEDiWSGADjDxvtswUlyEzEnR
+ VuOTvI8SoPlD7WIfNW5nSMP/QwGM7Tkz6m/+2fkmWB+jxI2tfWb6zpyK3l61J1GSGqZt
+ CicBl+0tjzrUjdPacX+5Hn09ZcPa4e6+ix7gbXPrVNHqviCrFD3016X0lRYhxnYJ8VS5
+ kBRU6BTNUATMYFpY4BU805yH6Bb8OxAhdNPOZR49eoqgNZb+NEwUqEojzya+vB9nLvye
+ d/ohP2Xs0xBWHNs8CXi++vVHx3lRcrcDO8wsgIDEHyU4kxZndJYBPAUaglhq3Pjk87dj
+ +fyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785169009; x=1785773809;
+ d=1e100.net; s=20251104; t=1785169203; x=1785774003;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=XLKcVZtw4v4H+d2QYfNZy8/ekK4kFOJ8RM/AcAcmDVA=;
- b=Qcq4gv2WrHcAd2K1A3HZlCJO/P+2SRWUiOjoLMxOleTmMANH86VXOzeIXLHjGpiUu3
- IkiZ0MZcMOJTmsl6QqcvKI789s4HhGt8Cd1L33lk99j1k9DZmBzBhfE9on7RiyT04wxk
- GwnmagQN0pZ3J3Wlo9Njd5+lMd18P5afo+TwubhAL+nOKizyfxBWOzLbWpCge7nNmYJJ
- ViqQKYccJiAAlJZBQFAwW/7TUET2GlYPfYP3OEFpq9mvwUKGrtN0HloKwLuz/YYy82Y2
- 4KpaugAMt06y/BseXjT6nJK7g3LSrFs8Xtj35bwaGVupDokvrt9q+xqlNiugqBZaudGo
- HLWA==
-X-Gm-Message-State: AOJu0YzG99rdvkAJ3Jpc+caQK6BYBsekNk62qnV2Fu6BIQMi3s8Uyfl+
- O+sKRrZ/sW8Uw9u2vkBv+xdco4jSBn/efZwPZ9LE+Ix3V4Lwq8onxLyyiIr04PGK4Lwkz8e6eif
- ltmwht0dhmMe4TqI/WbVA1yBF99xw4UYgTA==
-X-Gm-Gg: AR+sD12JjXd30iy0jhUm4Hthn4gU7vh4hiVmPm2oVu74dUqvxQuW3THhNd4uymMohYn
- fkNNt6eKXf1ezNLpqoGV4eqWzjnmy2AIzYu7zxk4nm7P49SYns/tVpfr21TDFO2rhJdQz9gJdDN
- 33+QHi2QiHB7CJ4FUkvfC9yuyPOOcgtGbFRyfzxUwtaas77sKzKXBKVsA4jJbPxj7LsngH3zZ65
- +C5ReVRYu63zKGs5X0JTdfh0QZ0UCfXV9YdcaCEXlcl8whWNgeK1Q68z9Lg6rgwgX9NRLn/B7YD
- JzUzB55j2EixkArtSQPhmu925iTfZl9b+0uxZ6/uBI028UKO
-X-Received: by 2002:a17:90b:3dc8:b0:37f:eda5:516f with SMTP id
- 98e67ed59e1d1-38f6227e724mr528147a91.0.1785169009238; Mon, 27 Jul 2026
- 09:16:49 -0700 (PDT)
+ bh=/ksM5PQny+NdDsJAGpJTSCPU1EsruCSQEucz5vSK3KE=;
+ b=AkM2Qfj2CHq+6mFaOlQpmYpDLNi37XQKxNg2ee0w9F6w2VkhoS1zzeYjUyWe9FNLD0
+ 4ndRIjTJn3KOhf2xlPYPkxF5IuzL3a+ZC4GtIAzBmtMgDmMTZBlDdmw6un8y+05Ymxhh
+ 2Ru/qOtFnZvcrvUOhkSBU/0NYg+rHloBGWdXeFGlNjBn48Y4WelX8aHOGkna511g8eqC
+ T12+Bcdgf+ZEkUWJjgNcSU1GFrf7MfTtsWIjPxDAPLjcpOlbE362ME0eEXnFXvW9cXvl
+ sw4lj50mA4v3Sws0CuoIUduWYRGd8to38YUtel1tA0OT6xgbq1yh1KBf1kjeWi/zpRWC
+ PNmw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpBhSX7Eh2tFqjYLKiUvnmhQezgRyGlWYDeOiuNti0kg8pA9poVcYeiEOgYc1QDgx2zW6pJlvsK@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yxf5O4s6Nu+CqQl6sAx65leUL/MxlquTwOM1LNDaV/QGrXcqk/p
+ mMFECGh3cXhxB6lt/JbgfBKRGo658QVNgevpS+LvrSF4yectNXBTdK/gqjg1TcHHOW+a/SDQ48M
+ stwVp8AXAbK9fHljQUsxX6/Oqvz67ETs=
+X-Gm-Gg: AR+sD11FwnkAC8G7MQ8gZieYfuDqCiV0KbmgKTLZ1bwNOzFl6CpfaaBsKnQZroDt9dJ
+ 46o2+vXj6eZJLn+MUoOV1hAxOOjZkhsdUtzHoaon5YTNIyw09jPNLx2GR5q+NeDSfMZyEN1GsAG
+ z5zH0H52weJfwnPlfhQdwWMxGYp2bN/T41WKHfhXXS93l6I2SQVgv3sQh4cc+vRCnIxgZ1YgGJD
+ +34DuOL3Ss84u5vUmhWlSQBtJtw99vGnjADA8MqQ34M06dgxlVvt84IqPXQQvjTxBxyR33rhppr
+ 1PDMn4lQbp1WceHP5wJaDWVuO92E1N66qf7saCQ+el9Q724V7ixF12v91glEtQtJGJBCAqImQxE
+ J85P+2wYHckgfS6cAb3Etm49vVjPG7As=
+X-Received: by 2002:a17:90a:c796:b0:38f:57f0:1f51 with SMTP id
+ 98e67ed59e1d1-38f57f023e2mr2547790a91.0.1785169203100; Mon, 27 Jul 2026
+ 09:20:03 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260727160126.9758-1-reiver@improbability.net>
-In-Reply-To: <20260727160126.9758-1-reiver@improbability.net>
+References: <20260723042548.1225691-1-jirislaby@kernel.org>
+ <PH8PR12MB7279B4E7FAA1899E488AB356F9C02@PH8PR12MB7279.namprd12.prod.outlook.com>
+In-Reply-To: <PH8PR12MB7279B4E7FAA1899E488AB356F9C02@PH8PR12MB7279.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 27 Jul 2026 12:16:36 -0400
-X-Gm-Features: AUfX_mwEho9ZpCGUpUhjJYnNDF3bmRVKVgCzK2f-PRffS2GJOCcMIE93AvARe68
-Message-ID: <CADnq5_P02gJeoHQ3aTrFdRAymFoYnxH_m5tf1VPWvDdmLCdxMA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Silence link_dpms I2C retimer failures
-To: Alan Swanson <reiver@improbability.net>
-Cc: amd-gfx@lists.freedesktop.org
+Date: Mon, 27 Jul 2026 12:19:50 -0400
+X-Gm-Features: AUfX_myjQVzTaejoUa5qrWpmqSUuZkXKPZhJudMXjLu_KoDlhAdYzYkpxhIhf-A
+Message-ID: <CADnq5_PK84e0Rx94=U+J8a5GHFgyqhQzDTTpiCD10CheKt+Cwg@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amd/display: use proper context for logging
+To: "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>
+Cc: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>, "Deucher,
+ Alexander" <Alexander.Deucher@amd.com>, 
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Wentland,
+ Harry" <Harry.Wentland@amd.com>, 
+ "Li, Sun peng (Leo)" <Sunpeng.Li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, 
+ "Koenig, Christian" <Christian.Koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -102,121 +115,214 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Bhawan, I assume you already committed this?
 
-On Mon, Jul 27, 2026 at 12:11=E2=80=AFPM Alan Swanson <reiver@improbability=
-.net> wrote:
+Thanks,
+
+Alex
+
+On Thu, Jul 23, 2026 at 1:10=E2=80=AFPM Lakha, Bhawanpreet
+<Bhawanpreet.Lakha@amd.com> wrote:
 >
-> Commit a4f01bf729b2 ("drm/amd/display: Refactor and fix link_dpms I2C")
-> had also changed the "Set retimer failed" messages from DC_LOG_DEBUG()
-> to DC_LOG_ERROR(). This unfortunately can create log spam.
+> looks good, thank you
 >
-> Change those back to DC_LOG_DEBUG() only.
+> Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 >
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5520
-> Signed-off-by: Alan Swanson <reiver@improbability.net>
+>
+> Bhawan
+>
+> ________________________________________
+> From: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+> Sent: July 23, 2026 12:25 AM
+> To: Deucher, Alexander <Alexander.Deucher@amd.com>
+> Cc: linux-kernel@vger.kernel.org <linux-kernel@vger.kernel.org>; Jiri Sla=
+by (SUSE) <jirislaby@kernel.org>; Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd=
+.com>; Wentland, Harry <Harry.Wentland@amd.com>; Li, Sun peng (Leo) <Sunpen=
+g.Li@amd.com>; Rodrigo Siqueira <siqueira@igalia.com>; Koenig, Christian <C=
+hristian.Koenig@amd.com>; David Airlie <airlied@gmail.com>; Simona Vetter <=
+simona@ffwll.ch>; amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.=
+org>; dri-devel@lists.freedesktop.org <dri-devel@lists.freedesktop.org>
+> Subject: [PATCH v2] drm/amd/display: use proper context for logging
+>
+> The same as the rest of the code, get_ss_info_from_atombios() uses
+> calc_pll_cs->ctx->logger for logging. But calc_pll_cs->ctx is
+> initialized only later in calc_pll_max_vco_construct(). Therefore, any
+> output using DC_LOG_SYNC() leads to a NULL pointer deference in
+> get_ss_info_from_atombios().
+>
+> According to Sashiko, the very same problem exists in
+> dce112_get_pix_clk_dividers() and dcn3_get_pix_clk_dividers() too.
+>
+> To avoid accessing the NULL context, use clk_src->base.ctx->logger
+> everywhere. That context in base is initialized earlier in
+> dce110_clk_src_construct() and dce112_clk_src_construct(). Before
+> get_ss_info_from_atombios() or Sashiko's get_pix_clk_dividers functions
+> above are actually called. This is done by redefining DC_LOGGER to
+> CTX->logger.
+>
+> Before:
+> dce110_clk_src_construct() did:
+>  -> sets clk_src->base.ctx =3D ctx;
+>  -> ss_info_from_atombios_create()
+>    -> get_ss_info_from_atombios()   <- uses calc_pll_cs->ctx  # BOOM
+>  -> calc_pll_max_vco_construct()    <- sets calc_pll_cs->ctx
+>
+> After:
+> dce110_clk_src_construct() does:
+>  -> sets clk_src->base.ctx =3D ctx;
+>  -> ss_info_from_atombios_create()
+>    -> get_ss_info_from_atombios()   <- uses clk_src->base.ctx
+>
+> Closes: https://bugzilla.suse.com/show_bug.cgi?id=3D1271175
+> Closes: https://lore.kernel.org/all/a9ee54e6-2413-4156-9bde-d528ae3c63a3@=
+kernel.org/
+> Fixes: 1296423bf23c ("drm/amd/display: define DC_LOGGER for logger")
+> Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+> Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
+> Cc: Harry Wentland <harry.wentland@amd.com>
+> Cc: Leo Li <sunpeng.li@amd.com>
+> Cc: Rodrigo Siqueira <siqueira@igalia.com>
+> Cc: Alex Deucher <alexander.deucher@amd.com>
+> Cc: "Christian K=C3=B6nig" <christian.koenig@amd.com>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: amd-gfx@lists.freedesktop.org
 > ---
->  drivers/gpu/drm/amd/display/dc/link/link_dpms.c | 16 ++++++++--------
->  1 file changed, 8 insertions(+), 8 deletions(-)
+> Cc: dri-devel@lists.freedesktop.org
 >
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gp=
-u/drm/amd/display/dc/link/link_dpms.c
-> index 335ae952ef..1f7060ed49 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
-> @@ -384,7 +384,7 @@ static bool write_i2c_retimer_vga(
+> [v2] Set DC_LOGGER to CTX->logger unconditionally (Bhawanpreet).
+> [v1] https://lore.kernel.org/all/20260722063210.1144266-1-jirislaby@kerne=
+l.org/
+> ---
+>  .../drm/amd/display/dc/dce/dce_clock_source.c | 20 +++++++++----------
+>  1 file changed, 9 insertions(+), 11 deletions(-)
 >
->         for (size_t i =3D 0; i < ARRAY_SIZE(vga_data); i++) {
->                 if (!write_i2c_retimer_offset_value(link, address, vga_da=
-ta[i][0], vga_data[i][1])) {
-> -                       DC_LOG_ERROR("Set retimer failed, vga index: %zu\=
-n", i);
-> +                       DC_LOG_DEBUG("Set retimer failed, vga index: %zu\=
-n", i);
->                         return false;
->                 }
->         }
-> @@ -405,7 +405,7 @@ static bool write_i2c_retimer_byte(
->                 return true;
+> diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c b/driv=
+ers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+> index ecb8493ec523..8e3862f6dac2 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+> @@ -45,9 +45,7 @@
+>          clk_src->base.ctx
 >
->         if (!write_i2c_retimer_offset_value(link, address, index, value))=
- {
-> -               DC_LOG_ERROR("Set retimer failed, 3g index: 0x%x, value: =
-0x%x\n", index, value);
-> +               DC_LOG_DEBUG("Set retimer failed, 3g index: 0x%x, value: =
-0x%x\n", index, value);
->                 return false;
->         }
+>  #define DC_LOGGER \
+> -       calc_pll_cs->ctx->logger
+> -#define DC_LOGGER_INIT() \
+> -       struct calc_pll_clock_source *calc_pll_cs =3D &clk_src->calc_pll
+> +       CTX->logger
 >
-> @@ -421,14 +421,14 @@ static bool write_i2c_retimer_byte(
->                         if (!link_query_ddc_data(
->                                         link->ddc, address, &offset, 1, &=
-value, 1
->                         )) {
-> -                               DC_LOG_ERROR("Set retimer failed, link_qu=
-ery_ddc_data\n");
-> +                               DC_LOG_DEBUG("Set retimer failed, link_qu=
-ery_ddc_data\n");
->                                 return false;
->                         }
->                 }
->
->                 value |=3D apply_rx_tx_change;
->                 if (!write_i2c_retimer_offset_value(link, address, offset=
-, value)) {
-> -                       DC_LOG_ERROR("Set retimer failed, 3g offset: 0x%x=
-, value: 0x%x\n", offset, value);
-> +                       DC_LOG_DEBUG("Set retimer failed, 3g offset: 0x%x=
-, value: 0x%x\n", offset, value);
->                         return false;
->                 }
->         }
-> @@ -449,7 +449,7 @@ static bool write_i2c_retimer_setting(
->                 uint8_t value =3D settings->reg_settings[i].i2c_reg_val;
->
->                 if (!write_i2c_retimer_byte(link, address, index, value))=
- {
-> -                       DC_LOG_ERROR("Set retimer failed, index: %zu\n", =
-i);
-> +                       DC_LOG_DEBUG("Set retimer failed, index: %zu\n", =
-i);
->                         return false;
->                 }
->         }
-> @@ -460,7 +460,7 @@ static bool write_i2c_retimer_setting(
->                         uint8_t value =3D settings->reg_settings_6g[i].i2=
-c_reg_val;
->
->                         if (!write_i2c_retimer_byte(link, address, index,=
- value)) {
-> -                               DC_LOG_ERROR("Set retimer failed, 6g inde=
-x: %zu\n", i);
-> +                               DC_LOG_DEBUG("Set retimer failed, 6g inde=
-x: %zu\n", i);
->                                 return false;
->                         }
->                 }
-> @@ -492,7 +492,7 @@ static bool write_i2c_default_retimer_setting(
->
->         for (size_t i =3D 0; i < ARRAY_SIZE(data); i++) {
->                 if (!write_i2c_retimer_offset_value(link, address, data[i=
-][0], data[i][1])) {
-> -                       DC_LOG_ERROR("Set default retimer failed, index: =
-%zu\n", i);
-> +                       DC_LOG_DEBUG("Set default retimer failed, index: =
-%zu\n", i);
->                         return false;
->                 }
->         }
-> @@ -524,7 +524,7 @@ static bool write_i2c_redriver_setting(
->         );
->
->         if (!success)
-> -               DC_LOG_ERROR("Set redriver failed");
-> +               DC_LOG_DEBUG("Set redriver failed");
->         return success;
+>  #undef FN
+>  #define FN(reg_name, field_name) \
+> @@ -287,6 +285,7 @@ static bool calc_pll_dividers_in_range(
 >  }
 >
-> --
-> 2.54.0
+>  static uint32_t calculate_pixel_clock_pll_dividers(
+> +               struct dce110_clk_src *clk_src,
+>                  struct calc_pll_clock_source *calc_pll_cs,
+>                  struct pll_settings *pll_settings)
+>  {
+> @@ -474,7 +473,7 @@ static uint32_t dce110_get_pix_clk_dividers_helper (
+>  {
+>          uint32_t field =3D 0;
+>          uint32_t pll_calc_error =3D MAX_PLL_CALC_ERROR;
+> -       DC_LOGGER_INIT();
+> +
+>          /* Check if reference clock is external (not pcie/xtalin)
+>          * HW Dce80 spec:
+>          * 00 - PCIE_REFCLK, 01 - XTALIN,    02 - GENERICA,    03 - GENER=
+ICB
+> @@ -517,12 +516,14 @@ static uint32_t dce110_get_pix_clk_dividers_helper =
+(
+>                  /*Calculate Dividers by HDMI object, no SS case or SS ca=
+se */
+>                  pll_calc_error =3D
+>                          calculate_pixel_clock_pll_dividers(
+> +                                       clk_src,
+>                                          &clk_src->calc_pll_hdmi,
+>                                          pll_settings);
+>          else
+>                  /*Calculate Dividers by default object, no SS case or SS=
+ case */
+>                  pll_calc_error =3D
+>                          calculate_pixel_clock_pll_dividers(
+> +                                       clk_src,
+>                                          &clk_src->calc_pll,
+>                                          pll_settings);
 >
+> @@ -568,7 +569,6 @@ static uint32_t dce110_get_pix_clk_dividers(
+>  {
+>          struct dce110_clk_src *clk_src =3D TO_DCE110_CLK_SRC(cs);
+>          uint32_t pll_calc_error =3D MAX_PLL_CALC_ERROR;
+> -       DC_LOGGER_INIT();
+>
+>          if (pix_clk_params =3D=3D NULL || pll_settings =3D=3D NULL
+>                          || pix_clk_params->requested_pix_clk_100hz =3D=
+=3D 0) {
+> @@ -600,7 +600,6 @@ static uint32_t dce112_get_pix_clk_dividers(
+>                  struct pll_settings *pll_settings)
+>  {
+>          struct dce110_clk_src *clk_src =3D TO_DCE110_CLK_SRC(cs);
+> -       DC_LOGGER_INIT();
+>
+>          if (pix_clk_params =3D=3D NULL || pll_settings =3D=3D NULL
+>                          || pix_clk_params->requested_pix_clk_100hz =3D=
+=3D 0) {
+> @@ -1442,8 +1441,6 @@ static uint32_t dcn3_get_pix_clk_dividers(
+>          unsigned long long actual_pix_clk_100Hz =3D pix_clk_params ? pix=
+_clk_params->requested_pix_clk_100hz : 0;
+>          struct dce110_clk_src *clk_src =3D TO_DCE110_CLK_SRC(cs);
+>
+> -       DC_LOGGER_INIT();
+> -
+>          if (pix_clk_params =3D=3D NULL || pll_settings =3D=3D NULL
+>                          || pix_clk_params->requested_pix_clk_100hz =3D=
+=3D 0) {
+>                  DC_LOG_ERROR(
+> @@ -1513,7 +1510,6 @@ static const struct clock_source_funcs dce110_clk_s=
+rc_funcs =3D {
+>          .get_dp_dto_frequency_100hz =3D get_dp_dto_frequency_100hz
+>  };
+>
+> -
+>  static void get_ss_info_from_atombios(
+>                  struct dce110_clk_src *clk_src,
+>                  enum as_signal_type as_signal,
+> @@ -1526,7 +1522,7 @@ static void get_ss_info_from_atombios(
+>          struct spread_spectrum_info *ss_info_cur;
+>          struct spread_spectrum_data *ss_data_cur;
+>          uint32_t i;
+> -       DC_LOGGER_INIT();
+> +
+>          if (ss_entries_num =3D=3D NULL) {
+>                  DC_LOG_SYNC(
+>                          "Invalid entry !!!\n");
+> @@ -1657,6 +1653,7 @@ static void ss_info_from_atombios_create(
+>  }
+>
+>  static bool calc_pll_max_vco_construct(
+> +                       struct dce110_clk_src *clk_src,
+>                          struct calc_pll_clock_source *calc_pll_cs,
+>                          struct calc_pll_clock_source_init_data *init_dat=
+a)
+>  {
+> @@ -1808,6 +1805,7 @@ bool dce110_clk_src_construct(
+>          ss_info_from_atombios_create(clk_src);
+>
+>          if (!calc_pll_max_vco_construct(
+> +                       clk_src,
+>                          &clk_src->calc_pll,
+>                          &calc_pll_cs_init_data)) {
+>                  ASSERT_CRITICAL(false);
+> @@ -1822,7 +1820,7 @@ bool dce110_clk_src_construct(
+>
+>
+>          if (!calc_pll_max_vco_construct(
+> -                       &clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_h=
+dmi)) {
+> +                       clk_src, &clk_src->calc_pll_hdmi, &calc_pll_cs_in=
+it_data_hdmi)) {
+>                  ASSERT_CRITICAL(false);
+>                  goto unexpected_failure;
+>          }
+> --
+> 2.55.0
