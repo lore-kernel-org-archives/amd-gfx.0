@@ -4,92 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C01F3C531C9
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 16:21:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F35BC531C9
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 16:23:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F45B10E482;
-	Mon, 27 Jul 2026 16:21:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A27A310E484;
+	Mon, 27 Jul 2026 16:23:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pzxT3UnE";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BM3TIEu/";
 	dkim-atps=neutral
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F1AC10E482
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2026 16:21:31 +0000 (UTC)
-Received: by mail-pj1-f46.google.com with SMTP id
- 98e67ed59e1d1-384422b05b5so370956a91.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2026 09:21:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785169291; cv=none;
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2167010E484
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2026 16:23:41 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-38ecc48b3deso210080a91.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2026 09:23:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785169420; cv=none;
  d=google.com; s=arc-20260327;
- b=rZGCWQrIz/aSSpz1e6szWiD4OcR8w4Y80e4BMOBsV0tmaNyNwZhImg40OrHIS97Ngv
- dvIR6ySAWlEqnga2BF4GMN7c8q+3p26sfBiNBKOj4zB/t/3qQ/ZsmJs4QtL28rCZHs5x
- zfwFNb1NnMOhCNW5AdGI1tDl2h2FXV+FYhdbXF0x6dtc/nQqpzK9jsD0uaSWrPOw8dE9
- gxQhC6JLKcDgwd15jG2wGyztHz2n1PNEXvWmHHe4S9gEm5tkWIN+Z2qMoYNLKNbzPvYb
- /HII0Dxqq14HL/obUvOuT3dyyDNYZmJCiTOQT62ZTid+m7OdBWCbBrVQGm+DrE4FMxja
- +7YQ==
+ b=LBffvARapO4JYDO8Qu/VmnkEseje6sNoGDzj5x7sXF5SfIl+ANkfsNi/R33SHuut9j
+ FdhXlwJBH8akco2DkITkZYQqPKVWb9M+uztE7UOe+6fi0aH+MaHMf5e5ebUx94rlX/WZ
+ 8W7WU6awnbLKs9wFMKTR3sPEGeIBmhwUK5GgPII5VsOtPINWcOj5r8MqjsK+63Buy6TP
+ FhZFwgUZb7wU4CdVDGxlgC0oBfoLP3I2tWvVSBYe4ByUsd1A3PHlWWbf/PNotzZo1WA9
+ twUc5Euk1t/ustKsXsg993Fh9Qz/dDa0CuEE6KBNPEWoQLh2a92pSBNudALdzgZArXEN
+ e/XQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=RkDN58d4omR2Qtqlf+m+Fnvo+P7XY6OYMuM0VGPBGVs=;
- fh=KYHpwn9GRgBbNPGRR65xHPhsk1S2YAD7hnaEg2QaKeQ=;
- b=IdtVq1tlw8CQCwK3bF6esVHoTeynDb7we+Y4aoSAZCaRotKT4Rd1pbipP0YxfFdTA0
- qZ2kEq1p754B5Iwog2+vq6hj0a6j2mfbH2KiCCEc5pn1Y92QKO4nFnU5QkYcGsVaosJs
- QBl7havRITcPlyqRqIfdnA9gYNspOAd9NDW0/IHympt8YuFehaYy0sWugcUOLfawG4c3
- +Fa2itrpI+jssyab/p9FJSiy66QlGztRl8nYyIfWWLn/XOZfc6GPN9p4ZWL+YHH4Rmn3
- Zwr+kh3NM/9FomX3/h9R6vxXQiZgaqfSQ7yEfsgV/JRMgdGpUyAvAPQHL1AAtL/2mdXW
- 1u7Q==; darn=lists.freedesktop.org
+ bh=+8fk2QTJvJSGqmmKBTq23zF4KxqUHDJhkuBClvUFFHs=;
+ fh=qt2Jeam2aBIg9cw5W5yJM5RrGsLrjwspF9kOcqFxYSY=;
+ b=K2zk4RmueUtn+S/TD+j6yjQch/vY768Zsx4f82pYsE+1/PQSoHoIwBphl90fanoZfT
+ RpQhGnkqCt3uQaR3tMuBXW058DTn6exw0xDNtUb75jIbAphIYPpM3b7me3gR3ZpuW3P0
+ rmOsykUI4VrXkHIZhem26e9KRzj7eBU+UuWIgP8xfmioMtw3CVUyEagmPP5NypdezSxg
+ soSka6e4B2igy3pgt/yk3JG9wYhUKP4ENgiLR7aD+JHSTfau3urTIUleXv4QUdc0fz1T
+ W3lhvsOg419Yuz9heqfejh1fKrhpG0GJRvqYORI1FjuM0x/ferEt5zRGWlxzHSq/+4Zu
+ 66Wg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785169291; x=1785774091; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785169420; x=1785774220; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=RkDN58d4omR2Qtqlf+m+Fnvo+P7XY6OYMuM0VGPBGVs=;
- b=pzxT3UnEHs00BHcVCq0yeCZjIg1olO8qsJqeZ67COw3QuFQ4PDiROu7N1r9UWdAt1h
- vMWGC4afeif+EDqDwUu6hfAUzgVwYKt9yb9tZtZkAI8PIzUU45SSTE9oKBb7/LRR4iEj
- Y6ytjDm6iyUmxVE9qhLhj8WAHB3THLiLHVFSZiDVXQSTuhuxGjF82+wwGHG2oUONWmsG
- /k2e4d8l5gz0KmTlzZjg4iIF/DHtelAEmXxKfuz4iBHfEj0qYJkQXEvijtjZptYpgmav
- sCO2oiaCrvfC4qVYDSb2OOJd68Z8CMA7rajo7x744GZuV0egKOwGmOb60FeFO/qbGB2v
- kSIA==
+ bh=+8fk2QTJvJSGqmmKBTq23zF4KxqUHDJhkuBClvUFFHs=;
+ b=BM3TIEu/M8aguypqg7148X0z+EoI2viuoBYyde5WduLYTDcK/s2B701VqN9j59gNb2
+ xRww+buSFs7qYCT34JWsDYXqcygOJuFQqv9i8gTfnC32p8+jUiSYdXxfhkJpGLCt1iOw
+ M/p9yMDbLaq1oUiWsGlmsOKrQWDaw+EPCIX9ZxY2NcTClqbQOTCXpeMLJskMMTbFJTTh
+ Mu+m9EpmIf0/+Dxwb4Lg0mzGwleOFkEq0lPML7tu71/uXWFm67x9smaRHTgov4o3g5Ob
+ FHmamdG8tGx/4l7JcBdtrc3KJd7skBvguFbvktlAaawppV4iwzee/m8WIDn0ruDua4so
+ zq1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785169291; x=1785774091;
+ d=1e100.net; s=20251104; t=1785169420; x=1785774220;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=RkDN58d4omR2Qtqlf+m+Fnvo+P7XY6OYMuM0VGPBGVs=;
- b=hChsqhiGBwPJkZj+C5v8DYHS9LhS7RMAmtSXI6WZBh07SqpXd8/wuJ7F6IawzuBtMI
- cWK8rmFp9O8wkL0OY3BRPsdVsJTtCgX7Igf9QwM2T0EnEaFQepf2/nITIPY+iGymJBhw
- mnkEXVUnsdpesvYqPqp62PiQvDyL+zWiMu02UqcqZj3P9O2ANWdi77UY+TItVeTmqP4y
- 445Bra1pW/YQwKk330rwbHA6Yuuzt6GHlTLKFqq/kT1ffZTGJ3fkrLTxI3bD9WsEXlvv
- vzX4nkq1jfh9YGBjN7UQyqwhjgOlLJ6DHokbLiI/OxsrnPjKBn3F1DfLdSp5pCDH8eEe
- z2BQ==
-X-Gm-Message-State: AOJu0YwgS3L6H2viLbeJ9fmpMvLlGr1DtEfO9W8f10pBkDMPJV6JvMc0
- p+W7PBvW3zHk0DVZGdbM4nGSN0Z3rUtk4L+aVupgK1LSIKUGRin94aDKSmWGGz92/AUZDczSZmG
- BY5aKqg7Aix3+4MXVrmw8+X7NTlDka9o=
-X-Gm-Gg: AR+sD131mDOYDNS0gD78BPQ8q2vfBwPYqReWcYHCecKtw7iNKP5ZGNmF4+fj23eTFB7
- t5TgOSMLl1/fG2pLVwrg9uWO8+N85Dwmi6iGMFIH9tzIr1KUf+EqtVFC7JZ+wmm6xhkutJQVXe+
- VnvYxildbD1/GR4J6x+UVWMLDEJHnn8+jvXnBP7n/IJHnKBkmQEhNyAeYbJeJoKwXGpu2p7+0bk
- p2FHesA2D/GlSUshJ7YDLgdN3ja2a4LBdiZOBTaM/0G4LEsNKMWQvu6ZZrv4GJ154Uy68LRxuU+
- WwOWwGaT/AzhXvO3VGL62vVZuRTeQjuNGmwG0BlZe0zACGhBXB0fEz3n3MTg9i28ckXAIEaIk28
- frF1MF98T5sfTR/r65k3ZKowDZEgeuge9VhL5waeAWA==
-X-Received: by 2002:a17:90a:c796:b0:38f:57f0:1f51 with SMTP id
- 98e67ed59e1d1-38f57f023e2mr2551284a91.0.1785169290862; Mon, 27 Jul 2026
- 09:21:30 -0700 (PDT)
+ bh=+8fk2QTJvJSGqmmKBTq23zF4KxqUHDJhkuBClvUFFHs=;
+ b=SPRs9lLxquHw0T9AG6DxvleopJQCx81KD2Yt7D4rJHRn8TQ406TyqeJvYFBwmcV4fg
+ DMY40IRLk0JieB3jBc0bA+yTzRpckqxZZNRQNC9H2+jN29k1Y3BqWQhKAz7RXnMqUImW
+ b2pRzg4jIZ1PM62c+x0K9kJFPtx/fDpnO592ClbhEjaFg/eVPoZlLloaAycAvITJr4yJ
+ TYuu2kaS1x/0Z2Iz8G6aNYt7edktRC11g+bLVc03DS+9OnNcyYFFG2PUK4ZATgrze2Ly
+ nhzZ1e9+tVR170KWot0J09pRsOE9HRxI37SVCyXH7LfLGSo5p/P0f0RZg8vW3hozTIZB
+ FMqw==
+X-Gm-Message-State: AOJu0YyzHXX6hf+FgSC/00WDs22x/vzQoTS3wMialg07qngcadw/le9/
+ iknID2ECeVAyDVxcHGziFQdlwNWcMKB72kfFdyl3sDhd/E5CIBM8kVhruRBi+dY/v2BVzth/2dB
+ efTQFb/5yeDc92CFVAyS5DD82I0YOYSs=
+X-Gm-Gg: AR+sD11Ezoj5DkxQhUSB1DQSVGTZRhHx5xNPPfO1lbng3t+Hb/daoclBLZ10DIx1L//
+ u7wQz2EHfOKHoDg9fQB68FVX/VE1mo3feqImmJtk2ANu6xf5/mElGdW+UYEHckDsZAd5u6EEcEh
+ pm3vN98AmjQSzrRj2UQMjid76TaStwx0wKOMljM4CDd0bmp8qmpEdJqhvB7wVuH+PQEO5oBHo7e
+ YYX3lr4sf87RmuYSfZR3MuFk+0ZeIZ5b6Hpe6mraAeJOJQAQUS9ezh8dS8h7zdflQT9Xp9H+iTD
+ OslgDwZBW05qfixSi2G0YzcbM9pwqUKoX6vPEF8ctAoE04w4uTRHDbGEVFU=
+X-Received: by 2002:a17:90b:4d91:b0:38f:57cc:6a75 with SMTP id
+ 98e67ed59e1d1-38f6288f301mr526418a91.5.1785169420216; Mon, 27 Jul 2026
+ 09:23:40 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260723095431.2831513-1-qiang.yu@amd.com>
-In-Reply-To: <20260723095431.2831513-1-qiang.yu@amd.com>
+References: <20260721140131.10797-1-dev@deq.rocks>
+In-Reply-To: <20260721140131.10797-1-dev@deq.rocks>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 27 Jul 2026 12:21:18 -0400
-X-Gm-Features: AUfX_mzD0iy-nD3qJiZAEmxAuLi95tDbKijQCT_OEtaBL-u5CQiDllIJGm6I9r8
-Message-ID: <CADnq5_OJoCZceecuKbuXuVfRL1Ke4asMq_rL9AXDLWjR8W-_aw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: read TRUNCATE_COORD_MODE on gfx12
-To: Qiang Yu <qiang.yu@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>, 
- Qiang Yu <yuq825@gmail.com>
+Date: Mon, 27 Jul 2026 12:23:27 -0400
+X-Gm-Features: AUfX_myR_tMMkc8Mp04aSGWuKAiaTBCV-XlUavhJPbNrb8ejcyIca6YbNyPETYg
+Message-ID: <CADnq5_PYT9GCRK-Yb8urua4Diknh5e+SRJOs6F4fEfPsc88gxg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: reset VI ASIC on MacBookPro15,1
+To: Andre Eikmeyer <dev@deq.rocks>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ christian.koenig@amd.com, me@freddy.us
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -106,46 +103,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 23, 2026 at 5:55=E2=80=AFAM Qiang Yu <qiang.yu@amd.com> wrote:
->
-> From: Qiang Yu <Qiang.Yu@amd.com>
->
-> TA_CNTL2.TRUNCATE_COORD_MODE selects whether texture coordinate
-> truncation is D3D9/GL/Vulkan conformant. gfx11 reads it and reports it to
-> userspace via AMDGPU_IDS_FLAGS_CONFORMANT_TRUNC_COORD, but gfx12 never
-> read it, so the flag was always reported as 0 and userspace fell back to
-> the non-conformant path.
->
-> Read it in gfx_v12_0_constants_init() like gfx11 does.
->
-> Fixes: 52cb80c12e8a ("drm/amdgpu: Add gfx v12_0 ip block support (v6)")
+Applied.  Thanks!
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-> Signed-off-by: Qiang Yu <Qiang.Yu@amd.com>
+On Thu, Jul 23, 2026 at 4:24=E2=80=AFAM Andre Eikmeyer <dev@deq.rocks> wrot=
+e:
+>
+> After S3, reloading amdgpu on MacBookPro15,1 systems with a Radeon Pro
+> 555X or 560X fails while loading the SMU firmware. The existing SMC
+> register check does not request a reset because the registers do not
+> reliably reflect the stale SMU state on these machines.
+>
+> Frederick Morlock found that forcing a VI ASIC reset allows the driver to
+> initialize again. This patch limits his workaround to the exact PCI
+> device, Apple subsystem device and revision combinations used by these
+> two GPUs, leaving other VI hardware unchanged.
+>
+> Suggested-by: Frederick Morlock <me@freddy.us>
+> Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 6 ++++++
->  1 file changed, 6 insertions(+)
+>  drivers/gpu/drm/amd/amdgpu/vi.c | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v12_0.c
-> index b3887c5262a0..d109fa06e32a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-> @@ -1827,6 +1827,12 @@ static void gfx_v12_0_constants_init(struct amdgpu=
-_device *adev)
->         gfx_v12_0_get_cu_info(adev, &adev->gfx.cu_info);
->         gfx_v12_0_get_tcc_info(adev);
->         adev->gfx.config.pa_sc_tile_steering_override =3D 0;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu=
+/vi.c
+> index a256320b92f3..320c43143e5d 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
+> @@ -1407,10 +1407,30 @@ static uint64_t vi_get_pcie_replay_count(struct a=
+mdgpu_device *adev)
+>         return (nak_r + nak_g);
+>  }
+>
+> +struct vi_reset_quirk {
+> +       u16 device;
+> +       u16 subsystem_vendor;
+> +       u16 subsystem_device;
+> +       u8 revision;
+> +};
 > +
-> +       /* Set whether texture coordinate truncation is conformant. */
-> +       tmp =3D RREG32_SOC15(GC, 0, regTA_CNTL2);
-> +       adev->gfx.config.ta_cntl2_truncate_coord_mode =3D
-> +               REG_GET_FIELD(tmp, TA_CNTL2, TRUNCATE_COORD_MODE);
+> +static const struct vi_reset_quirk vi_reset_quirks[] =3D {
+> +       { 0x67ef, PCI_VENDOR_ID_APPLE, 0x0190, 0xe3 }, /* Radeon Pro 555X=
+ */
+> +       { 0x67ef, PCI_VENDOR_ID_APPLE, 0x018f, 0xc2 }, /* Radeon Pro 560X=
+ */
+> +};
 > +
->         /* Program DB_RING_CONTROL for multiple GFX pipes
->          * Default power up value is 1.
->          * Possible values:
+>  static bool vi_need_reset_on_init(struct amdgpu_device *adev)
+>  {
+> +       unsigned int i;
+>         u32 clock_cntl, pc;
+>
+> +       for (i =3D 0; i < ARRAY_SIZE(vi_reset_quirks); i++)
+> +               if (adev->pdev->device =3D=3D vi_reset_quirks[i].device &=
+&
+> +                   adev->pdev->subsystem_vendor =3D=3D vi_reset_quirks[i=
+].subsystem_vendor &&
+> +                   adev->pdev->subsystem_device =3D=3D vi_reset_quirks[i=
+].subsystem_device &&
+> +                   adev->pdev->revision =3D=3D vi_reset_quirks[i].revisi=
+on)
+> +                       return true;
+> +
+>         if (adev->flags & AMD_IS_APU)
+>                 return false;
+>
 > --
-> 2.43.0
+> 2.55.0
 >
