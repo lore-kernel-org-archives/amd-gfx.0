@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62F9FC53209
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 19:43:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E253DC53209
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 20:17:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DCCA510E2F5;
-	Mon, 27 Jul 2026 19:43:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43FEA10E217;
+	Mon, 27 Jul 2026 20:17:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="F0tkCPyo";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WgklpZSO";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012064.outbound.protection.outlook.com [52.101.43.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 65B9510E6D9
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2026 19:43:23 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012016.outbound.protection.outlook.com [52.101.53.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 056EF10E217
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2026 20:17:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nHAh/iFMY3Yggm+1iIOeFRaSOP7ZyWtiPLGiUnXgRKU0M1d49wqS+kXq0C5lFYeY/+sLgcclad5RoFJdyBXEhyXWMpaO8mUotuhGxBdHadNkTgDExUfW0JGuGdWb/QiWuAV9CLkyWMwgy/mm5q3oPEnH8A0pIrGl9jJJV8dtHq4JnamCNYBBrHJRCvSQq6S9Wnofju/1F1as9YmUi/RSLY0OM7wyS0+Dgb43L/UtmSRa4Ic7uZvESRjdUjH525epWJs72fo9rTquR4ZpR9YEvdcC6nzBGayVawozzgbX617PLwMj5ceyi4fmR82MkjAdzt4VDA/dk4UmNLG6duEOMw==
+ b=JWNn6CqOPN7OsEdhYlxk4mbEliXT0TSc4/NFsoOdFNX2+z0IiZuamNBXfRY7n48gIK9jcAHZcuNjQacDy4N6p6Mo2Hm81H0VejpLAQETz1NRXRRo556/faoPUmpTb5CLTP50P/KxugZkGWc+KaT0mpaDDmUSj4s4F2wioTB3vccxnzVmNrd0kP513NOqihyx5ATwiQE803AI/ii9J40gV29qteOxIiEvqtT2W7IVUDFEB2O806I7T/0LFLDA7cWTM7KeJkYvnk+iH1MvPFySqNubXPuWrAF93XtbE6PYeYitzNHzPFt2a660yuy3bUha4xRtad6gHb/PbZY1vaCfSg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ta1oTadHKuLAsFlkJ2C7pQmqz3dInBrer+mJEPfl6pc=;
- b=jrxHh2Z40asLVHalpfrRHKOXpVstrXTsxWHXAIV2qb/s8q3ojydSxVTCaUCdhWZfhJNAcObE4eITBQ//a+Lmoxzg0SKaaJxy3VhJgR5hfpf14dUayJs7kg5Wkk1RIZ9dWLyl3mEYwnfZetJXYvgpixuCPXUNWZG5reemmdjdHhv8+dM8ZJjosAZep7GXIwBzxpn/0vZ8RHQGLv6ntF9lF5fPug+9y3GlpKEcpDLa/s2DoB79tJiVWRI0kE3oV+l9v5peu6hPjKy0PDniA/mFdM81x4DzYc3Wnjxz44O8Iy68qpeBspeLyhCpsAp8KlNuW9se6JR1arXmXfRQXeJAbQ==
+ bh=zWq2VQhJflAgNlh/5YDkeHMHKbPI9y+y18qiSD+Seys=;
+ b=k7CuL2U4M3G4W43hsSPlI55GJrjtTuSbsb5W5VgLWKM1mRo0jg3b4/Ntn3tvtCj427N1LK3BEWoRI0a+3GJ9VQuP5P8Gw6ziKko1YgbGEAwoxvNDyeM//2qJ54LkByF/OMQonKv7ZYZM0ANxhkIs/dlzJlD6z3EpFpQid1WIFLgeh5aLAa/Hcd4J27MPMKqUMuics9+NFnYNast13OCAvO2qD6qx5Y5AH9ijSBoe52H5wM91DGHodlJKVF61TbJ29U5fAMO4sg/6hTzwdpuy8MIzbFXMJ5htZPUH4ru3/0jkzNpJKml/NgH4ufZWlYun7FVTflnx1tV+xtAYdW1Wjw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ta1oTadHKuLAsFlkJ2C7pQmqz3dInBrer+mJEPfl6pc=;
- b=F0tkCPyozAZC1pHHg778Yx47MMy5PZFHCHTVzxM27YzjPN2iNKba3PSTnxRJysuN5i780dwhyYKIZ2lSnaC4QxokNMGnFyEOUv1s0XdaH5DEvd1fjQken6PLVgT9wPAwTG5NP+XyvETPOQjW8o05U/UF3nIu7NZVJjGUhtb4ezA=
-Received: from BN1PR13CA0022.namprd13.prod.outlook.com (2603:10b6:408:e2::27)
- by DS5PPFB8FBD73EA.namprd12.prod.outlook.com (2603:10b6:f:fc00::65e)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=zWq2VQhJflAgNlh/5YDkeHMHKbPI9y+y18qiSD+Seys=;
+ b=WgklpZSOfsmuAeV/cKqVUNF4pVv7mOzbRKwe/BOOq9Are379LKl/Y4e/p5m2txgFVJD3uH95yM0hUXGCQmsBiHenkpPsUWscnk4IJ4B0gb47n5jFk07q1eEQAaljZhn6790mTwvfBoB1TWbHA2IWQsIVe/ak27blVfqc6XIdqMM=
+Received: from SJ0PR03CA0114.namprd03.prod.outlook.com (2603:10b6:a03:333::29)
+ by BN7PPFB3F5C406F.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::6e0) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Mon, 27 Jul
- 2026 19:43:18 +0000
-Received: from BN3PEPF0000B06F.namprd21.prod.outlook.com
- (2603:10b6:408:e2:cafe::5d) by BN1PR13CA0022.outlook.office365.com
- (2603:10b6:408:e2::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.12 via Frontend Transport; Mon,
- 27 Jul 2026 19:43:17 +0000
+ 2026 20:17:30 +0000
+Received: from CO1PEPF00012E81.namprd03.prod.outlook.com
+ (2603:10b6:a03:333:cafe::6a) by SJ0PR03CA0114.outlook.office365.com
+ (2603:10b6:a03:333::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.13 via Frontend Transport; Mon,
+ 27 Jul 2026 20:17:29 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,21 +48,21 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B06F.mail.protection.outlook.com (10.167.243.74) with Microsoft
+ CO1PEPF00012E81.mail.protection.outlook.com (10.167.249.56) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.1 via Frontend Transport; Mon, 27 Jul 2026 19:43:17 +0000
-Received: from rocm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ 15.21.270.5 via Frontend Transport; Mon, 27 Jul 2026 20:17:28 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 27 Jul
- 2026 14:43:17 -0500
-From: Harkirat Gill <harkirat.gill@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Harkirat
- Gill" <harkirat.gill@amd.com>
-Subject: [PATCH] drm/amdgpu: cap GTT size to physical RAM on APUs
-Date: Mon, 27 Jul 2026 15:42:07 -0400
-Message-ID: <20260727194207.176803-1-harkirat.gill@amd.com>
-X-Mailer: git-send-email 2.43.0
+ 2026 15:17:27 -0500
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Felix.Kuehling@amd.com>,
+ <Christian.Koenig@amd.com>
+CC: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling <felix.kuehling@amd.com>
+Subject: [PATCH 1/2] drm/amdkfd: Evict SVM BOs synchronously from TTM eviction
+Date: Mon, 27 Jul 2026 16:16:51 -0400
+Message-ID: <20260727201652.765882-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -71,29 +71,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06F:EE_|DS5PPFB8FBD73EA:EE_
-X-MS-Office365-Filtering-Correlation-Id: c7e53226-c22a-4df4-9d47-08deec174e4f
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E81:EE_|BN7PPFB3F5C406F:EE_
+X-MS-Office365-Filtering-Correlation-Id: d3e0e46e-3e66-4285-4c37-08deec1c14f1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|18002099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: hrkiElz10sPQZ4IoLs8TbRGkwqLfO5JM1UIODABn08ojuvQ0VY73rjgGuNy+96l06NGlhVQj5gum1AL41FabpvJRnQxCmHbHej2Vffw3r4GIoaBzPrFvnxS3WtQKm1CevCQ/DjFmOtvIT6/1Nhcm+lrN/oEnGEwq5bXtn+eU4jZ29fb7D9XL+h4pnfHrFzA3TF77aJFwy694xGET8fejIw7dPvPrq+LceVlN8SztAzkuZf2PAHyqXtHB2Vw5QrdA81g4hgOFSBhoLNEtg/l1Lhmj9CfQe6rMeGxTKrFReLH1ej/k5AdBICQnxGsR5XH3kOUkUlUwHRZAYAp/nbY46lXg6bgv1eAEFTIV8mK5ulSe9gJi6gDaieEyIIePieeI3AyXa4Fkqhrkb7U6wpZtQEBrek+wWVlDGImrZLED3aXSD0AX0gH9Xnl2M52KmQQTZxtFcaVtwgcY634zBt04UCYGLF94dK28E2xiXZIF9Aw74zeIT2payXdmnVXXxmAMU64gBsYGstfmb8aK5Hd63Yg8lwehH9Zo3abn5JdDVjetUrzXJlou8r02eimP6SslcH3kh+VhSxcY58ZY2mKmecfQ9F8/1+0PSSTJMze0I9J+NALe3RBijiqUfJF1TaAKAuDfyMB+V5/AFfaQB/VO7fBBFH3+0l/aH32FWPMWC51TEhxuFSGQSnUPyCbzbeBMKoDeN0k/FEEDF1BQTspGpg==
+ ARA:13230040|23010399003|1800799024|82310400026|376014|36860700016|56012099006|10067099003|11063799006|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info: COWE35GkJ2QuhUT4It+WOEFHXWWMNKqgcu0OOHvTDsdOIRkQ+HGOgMcuquyuCHZLXFdk83BOdNdciUUHwSr3l0+yjKhm5/3drpNVGhf61uJio9Ow7+n3Elx4UzOxZJsiXaCnEkUWscQHGeXgMtywBGrYOZvDQOQTi0KEYIK/dEbhSOXEia+tDapk54CBmVyEb1islVrMzjr+THP7JeiWPb6gUdxqaEBNDCdD4iL6KMsHYQZKkYaPK+VxV3VtLwW6x6YtuLkWd0HUZaszxlyQRRnUijCrAC3Gr5qcYhcZL75qmG2poYhVmhSp0vEVqI+WIdEWSBqi6R1/v350TFW6C8IfHtmRIjrKUD0yQIM6BIP+Ol6dpIJqR1M6P0lW4ozcb0TLAGTeKsTzsHm2LpzRLCr1WvORVp4MXEtipJeub5q1nxD/sU/zV+5fH8caLcKsfX9VbOKEQNOoOTiSSMN1+YTzD5MgqRIFtvx/za0s6YCZYwTzxayQH1VfKjwZ3viZ1dq0GUyEZ8J4FNkD+juk/rnUzHZ9aC0TmvFDCheBxF0wG2Y8fVbHHedBHs0cmoqF1wCBCl1vm2PSyl7E+uO6y36Rajie9ABkcITIgCAdhXUOh+/ktpoe3MCL++caiTILBs9lVGrUqT71btxV0lT3h0Dw1uWbuoxy3ROmmptFe1pMj1ap+OjmYIgtCLFbufDetD998y31evbHu/OcGw4D+w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(18002099003)(56012099006)(11063799006)(10067099003);
+ SFS:(13230040)(23010399003)(1800799024)(82310400026)(376014)(36860700016)(56012099006)(10067099003)(11063799006)(6133799003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: TQJQREbY6IeA1PVnWcSAdDlDZu/SKyarCRHxMALglilEVoNUpjbrb9LvUh2EeHfz3GnY/JezsDQ2ZBguhlVCerEyCyWwREwoAnJtB4fDM6Z/BQvonr556vppD0QjubIAeewh6tcEG9ZtecBfFg2/CzX9TNHDsgAimMG3oUZx2yjjZvt0IPWS4BkkN7kut5MnTfzddeQElgm2XW0AkkqBPik6iL41f7Q+T6N29h9YpjkPjyxUQlEkcTE1cxYQRduulqgOSFuIm6CsCCwSJ2ex6EPin0lY05Ah/R8gLQCd7VJ7j1dcvNjQhNDrkdNAp0YsWoXGUHeBtuENsndAYagkreqJUGzNeH9OXFgkfS9ony8onY4yiKbfcUBuJ6Q8i2iPVT1MOkVQuX1qpIm41cT3kqSvF2UNyNXToEx8H21FQah8bOfOc2onfLUJbgzgfYpM
+X-MS-Exchange-AntiSpam-MessageData-0: kbQu9Vw6oHq+9OFaciJojB2/RtkXFCtYBgRDJa3+YXMtg7eXSkuOB/KQ9clevYMr4g/zGl9MJapzjMr7cnRwOGNC0RnC2p50tA1j4pCrcxz2cAkpII8bpFzyfC8Io806imFFtmqbuuuF1El4QzpGu2b0GVx1oxSRbtp1SwLUbRThmvWV8fZFMQBBDEoFTkd4u3SuBDOOdoKiAfWySFCTon0Qpw+mfQRBaVjw6esjL9uFDrvgTfOv6IMoA+UW8nMQtcYDIJxORO+7SYwlVMzkd9ItYFo6MxL/c16xvWZbZY2tH9Thu0GUv81e/BliFQ1Fq0AAoH95Nbj3ES2qZWhooKIb4ZOXFHyGNSGYlJSk82rUIe5qIaG0n/9em7CnSphN/wkyxZMwHWwrIUi7ZC0/GuB1gPtcfi1n7JTXjRqrqOjYBUqWv4qdk3Ds3YGCA/us
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 19:43:17.5001 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c7e53226-c22a-4df4-9d47-08deec174e4f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 20:17:28.6430 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3e0e46e-3e66-4285-4c37-08deec1c14f1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B06F.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E81.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFB8FBD73EA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPFB3F5C406F
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,56 +108,339 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On APUs, the GTT pool is backed by system RAM, but its size is not bound
-to the non-carveout memory that actually backs it. A user can end up
-with GTT + VRAM exceeding total physical memory through the following
-sequence:
+svm_range_evict_svm_bo_worker() migrated an SVM BO's pages back to system
+memory from a work item that took mmap_read_lock. When an mmap writer was
+pending, that read lock blocked behind the writer while the thread
+allocating a new migration VRAM BO waited on this BO's eviction fence - a
+circular wait that hung the SVM workers.
 
- - Have a large non-carveout memory space (~128GB) and accordingly set a
-   large GTT (~100GB) via the ttm module parameter.
- - Lower the non-carveout memory space in BIOS by increasing the UMA
-   Frame Buffer Size (VRAM) to 64GB.
- - The previously set GTT value (~100GB) persists, even though the new
-   non-carveout space (64GB) can no longer back it.
+Evict the SVM BO synchronously from the TTM eviction path
+(amdgpu_ttm_bo_eviction_valuable) instead of deferring to a work item.
+The BO is already reserved and the lock order is mmap_lock -> BO
+reservation, so only trylock the owning process's mmap lock; on
+contention return -EBUSY so TTM skips this BO. This removes the eviction
+work item and the enable_signaling path, so no worker can block on
+mmap_read_lock.
 
-This leads to a case where kernel reports GTT (100GB) + VRAM (64GB)
-despite the sum being greater than total physical memory (128GB).
+The SVM BO uses AMDGPU_GEM_CREATE_DISCARDABLE, so ttm_bo_evict takes the
+pipeline_gutting path and skips allocating a system memory placement.
+That would be wasted work, since svm_migrate_vram_to_ram allocates the
+system pages and copies the data back itself.
 
-Cap the GTT size to totalram_pages() on APUs. totalram_pages() already
-excludes the VRAM carveout, so the resulting GTT can never exceed the
-system RAM that actually backs it.
+Eviction now migrates ranges directly, so it must serialize with the
+owning process: it trylocks migrate_mutex under svm_bo->list_lock before
+unlinking the range, and svm_range_free() unlinks the range then waits on
+migrate_mutex, so a concurrent eviction cannot free a range under it.
 
-Signed-off-by: Harkirat Gill <harkirat.gill@amd.com>
-Assisted-by: Claude:claude-opus-4
+Drop the mm reference with mmput_async so exit_mmap() does not run under
+the BO reservation.
+
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c    | 22 +++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  1 +
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |  3 -
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 16 ++++
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c          | 88 ++++++++++++-------
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h          | 10 +--
+ 6 files changed, 100 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index 7920675af..da89d19dd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -2173,6 +2173,18 @@ int amdgpu_ttm_init(struct amdgpu_device *adev)
- 		gtt_size = configured_size;
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index 121282dd30c1..be764b6802b5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -39,6 +39,7 @@
+ #if IS_ENABLED(CONFIG_HSA_AMD)
+ #include "kfd_priv.h"
+ #endif
++#include "kfd_svm.h"
  
-+	/* Cap GTT so that it does not exceed total physical RAM. */
-+	if (adev->flags & AMD_IS_APU) {
-+		u64 phys_ram = (u64)totalram_pages() << PAGE_SHIFT;
+ /* Total memory size in system memory and all GPU VRAM. Used to
+  * estimate worst case amount of memory to reserve for page tables
+@@ -972,3 +973,24 @@ int amdgpu_amdkfd_reset_mes_queue(struct amdgpu_device *adev,
+ 	return kgd2kfd_reset_mes_queue(adev->kfd.dev, node_id, queue_type,
+ 				       pipe, queue, db);
+ }
 +
-+		if (gtt_size > phys_ram) {
-+			gtt_size = phys_ram;
-+			dev_info(adev->dev,
-+				 "Capping GTT to %uM to not exceed available system memory\n",
-+				 (unsigned int)(gtt_size / (1024 * 1024)));
++int amdgpu_amdkfd_evict_svm_bo(struct amdgpu_bo *bo)
++{
++	struct dma_resv_iter cursor;
++	struct dma_fence *fence;
++	int r = 0;
++
++	dma_resv_iter_begin(&cursor, bo->tbo.base.resv, DMA_RESV_USAGE_BOOKKEEP);
++	dma_resv_for_each_fence_unlocked(&cursor, fence) {
++		struct amdgpu_amdkfd_fence *f = to_amdgpu_amdkfd_fence(fence);
++
++		if (f && f->svm_bo) {
++			r = svm_range_evict_svm_bo(f->svm_bo);
++			if (r)
++				break;
 +		}
 +	}
++	dma_resv_iter_end(&cursor);
 +
- 	/* Initialize GTT memory pool */
- 	r = amdgpu_gtt_mgr_init(adev, gtt_size);
- 	if (r) {
-
-base-commit: ea97ab2759506d9a818ffed1009bde01062b4091
++	return r;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index 338412a750ed..b4840ee36f2b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -286,6 +286,7 @@ int amdgpu_amdkfd_reset_mes_queue(struct amdgpu_device *adev,
+ 				  int queue_type,
+ 				  int pipe, int queue,
+ 				  unsigned int db);
++int amdgpu_amdkfd_evict_svm_bo(struct amdgpu_bo *bo);
+ 
+ /* Read user wptr from a specified user address space with page fault
+  * disabled. The memory must be pinned and mapped to the hardware when
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
+index b0299d861903..553d26c2744e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c
+@@ -135,9 +135,6 @@ static bool amdkfd_fence_enable_signaling(struct dma_fence *f)
+ 	if (!fence->svm_bo) {
+ 		if (!kgd2kfd_schedule_evict_and_restore_process(fence->mm, fence->context_id, f))
+ 			return true;
+-	} else {
+-		if (!svm_range_schedule_evict_svm_bo(fence))
+-			return true;
+ 	}
+ 	return false;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+index 03c1e5e3580c..746290216aae 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+@@ -1488,6 +1488,7 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ 					    const struct ttm_place *place)
+ {
+ 	struct dma_resv_iter resv_cursor;
++	struct amdgpu_bo *abo;
+ 	struct dma_fence *f;
+ 
+ 	if (!amdgpu_bo_is_amdgpu_bo(bo))
+@@ -1497,6 +1498,21 @@ static bool amdgpu_ttm_bo_eviction_valuable(struct ttm_buffer_object *bo,
+ 	if (bo->resource->mem_type == TTM_PL_SYSTEM)
+ 		return true;
+ 
++	abo = ttm_to_amdgpu_bo(bo);
++	if (abo->flags & AMDGPU_GEM_CREATE_DISCARDABLE) {
++		/*
++		 * SVM BOs are migrated to system memory synchronously in this
++		 * TTM eviction context. The migration needs the owning
++		 * process's mmap lock, but the normal lock order is
++		 * mmap_lock -> BO reservation and the BO is already reserved
++		 * here. svm_range_evict_svm_bo() only trylocks the mmap lock;
++		 * if the eviction fails for any reason, we return false so TTM
++		 * skips this BO instead of risking a deadlock.
++		 */
++		if (amdgpu_amdkfd_evict_svm_bo(abo) < 0)
++			return false;
++	}
++
+ 	if (bo->type == ttm_bo_type_kernel &&
+ 	    !amdgpu_vm_evictable(ttm_to_amdgpu_bo(bo)))
+ 		return false;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 30ad10bbd47e..4c6700c6e88d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -69,7 +69,6 @@ struct criu_svm_metadata {
+ 	struct kfd_criu_svm_range_priv_data data;
+ };
+ 
+-static void svm_range_evict_svm_bo_worker(struct work_struct *work);
+ static bool
+ svm_range_cpu_invalidate_pagetables(struct mmu_interval_notifier *mni,
+ 				    const struct mmu_notifier_range *range,
+@@ -97,7 +96,7 @@ static void svm_range_unlink(struct svm_range *prange)
+ 
+ 	if (prange->svm_bo) {
+ 		spin_lock(&prange->svm_bo->list_lock);
+-		list_del(&prange->svm_bo_list);
++		list_del_init(&prange->svm_bo_list);
+ 		spin_unlock(&prange->svm_bo->list_lock);
+ 	}
+ 
+@@ -286,6 +285,17 @@ static void svm_range_free(struct svm_range *prange, bool do_unmap)
+ 	pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx]\n", prange->svms, prange,
+ 		 prange->start, prange->last);
+ 
++	/* Unlink from range_list; no-op if already unlinked. */
++	if (prange->svm_bo) {
++		spin_lock(&prange->svm_bo->list_lock);
++		list_del_init(&prange->svm_bo_list);
++		spin_unlock(&prange->svm_bo->list_lock);
++	}
++
++	/* Wait for any in-flight eviction of this range to finish. */
++	mutex_lock(&prange->migrate_mutex);
++	mutex_unlock(&prange->migrate_mutex);
++
+ 	svm_range_vram_node_free(prange);
+ 	if (do_unmap)
+ 		svm_range_dma_unmap(prange);
+@@ -588,7 +598,6 @@ svm_range_vram_node_new(struct kfd_node *node, struct svm_range *prange,
+ 					   mm,
+ 					   svm_bo, p->context_id);
+ 	mmput(mm);
+-	INIT_WORK(&svm_bo->eviction_work, svm_range_evict_svm_bo_worker);
+ 	svm_bo->evicting = 0;
+ 	memset(&bp, 0, sizeof(bp));
+ 	bp.size = prange->npages * PAGE_SIZE;
+@@ -3631,39 +3640,36 @@ svm_range_trigger_migration(struct mm_struct *mm, struct svm_range *prange,
+ 	return 0;
+ }
+ 
+-int svm_range_schedule_evict_svm_bo(struct amdgpu_amdkfd_fence *fence)
+-{
+-	/* Dereferencing fence->svm_bo is safe here because the fence hasn't
+-	 * signaled yet and we're under the protection of the fence->lock.
+-	 * After the fence is signaled in svm_range_bo_release, we cannot get
+-	 * here any more.
+-	 *
+-	 * Reference is dropped in svm_range_evict_svm_bo_worker.
+-	 */
+-	if (svm_bo_ref_unless_zero(fence->svm_bo)) {
+-		WRITE_ONCE(fence->svm_bo->evicting, 1);
+-		schedule_work(&fence->svm_bo->eviction_work);
+-	}
+-
+-	return 0;
+-}
+-
+-static void svm_range_evict_svm_bo_worker(struct work_struct *work)
++int svm_range_evict_svm_bo(struct svm_range_bo *svm_bo)
+ {
+-	struct svm_range_bo *svm_bo;
+ 	struct mm_struct *mm;
+ 	int r = 0;
+ 
+-	svm_bo = container_of(work, struct svm_range_bo, eviction_work);
++	if (!svm_bo_ref_unless_zero(svm_bo))
++		return 0;
+ 
+-	if (mmget_not_zero(svm_bo->eviction_fence->mm)) {
+-		mm = svm_bo->eviction_fence->mm;
+-	} else {
++	if (!mmget_not_zero(svm_bo->eviction_fence->mm)) {
+ 		svm_range_bo_unref(svm_bo);
+-		return;
++		return 0;
+ 	}
++	mm = svm_bo->eviction_fence->mm;
++
++	/*
++	 * Called with the BO reserved; lock order is mmap_lock -> BO
++	 * reservation. Only trylock mmap to invert that order safely: a
++	 * trylock never blocks, so it cannot deadlock against the reservation
++	 * and lockdep records no reverse dependency. On contention return
++	 * -EBUSY so TTM skips this BO.
++	 */
++	if (!mmap_read_trylock(mm)) {
++		pr_debug("skip eviction, contended to take mmap_read lock\n");
++		mmput_async(mm);
++		svm_range_bo_unref(svm_bo);
++		return -EBUSY;
++	}
++
++	WRITE_ONCE(svm_bo->evicting, 1);
+ 
+-	mmap_read_lock(mm);
+ 	spin_lock(&svm_bo->list_lock);
+ 	while (!list_empty(&svm_bo->range_list) && !r) {
+ 		struct svm_range *prange =
+@@ -3671,13 +3677,24 @@ static void svm_range_evict_svm_bo_worker(struct work_struct *work)
+ 						struct svm_range, svm_bo_list);
+ 		int retries = 3;
+ 
++		/*
++		 * Trylock migrate_mutex under list_lock, before unlinking the
++		 * range, so svm_range_free() cannot free it under us. On
++		 * contention the owner is migrating this range; skip the BO.
++		 */
++		if (!mutex_trylock(&prange->migrate_mutex)) {
++			pr_debug("skip eviction, contended migrate_mutex\n");
++			/* Clear evicting so the BO keeps being reused. */
++			WRITE_ONCE(svm_bo->evicting, 0);
++			r = -EBUSY;
++			break;
++		}
+ 		list_del_init(&prange->svm_bo_list);
+ 		spin_unlock(&svm_bo->list_lock);
+ 
+ 		pr_debug("svms 0x%p [0x%lx 0x%lx]\n", prange->svms,
+ 			 prange->start, prange->last);
+ 
+-		mutex_lock(&prange->migrate_mutex);
+ 		do {
+ 			/* migrate all vram pages in this prange to sys ram
+ 			 * after that prange->actual_loc should be zero
+@@ -3701,15 +3718,24 @@ static void svm_range_evict_svm_bo_worker(struct work_struct *work)
+ 	}
+ 	spin_unlock(&svm_bo->list_lock);
+ 	mmap_read_unlock(mm);
+-	mmput(mm);
++	/* Defer mmput: exit_mmap() must not run under the BO reservation. */
++	mmput_async(mm);
+ 
+-	dma_fence_signal(&svm_bo->eviction_fence->base);
++	/*
++	 * Only signal the eviction fence once the ranges have been processed.
++	 * On -EBUSY we bailed out without migrating; leave the BO in VRAM and
++	 * let TTM retry later.
++	 */
++	if (r != -EBUSY)
++		dma_fence_signal(&svm_bo->eviction_fence->base);
+ 
+ 	/* This is the last reference to svm_bo, after svm_range_vram_node_free
+ 	 * has been called in svm_migrate_vram_to_ram
+ 	 */
+ 	WARN_ONCE(!r && kref_read(&svm_bo->kref) != 1, "This was not the last reference\n");
+ 	svm_range_bo_unref(svm_bo);
++
++	return r;
+ }
+ 
+ static int
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+index a63dfc95b602..4232c47422e6 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
+@@ -44,7 +44,6 @@ struct svm_range_bo {
+ 	struct list_head		range_list; /* all svm ranges shared this bo */
+ 	spinlock_t			list_lock;
+ 	struct amdgpu_amdkfd_fence	*eviction_fence;
+-	struct work_struct		eviction_work;
+ 	uint32_t			evicting;
+ 	struct work_struct		release_work;
+ 	struct kfd_node			*node;
+@@ -175,7 +174,8 @@ void svm_range_vram_node_free(struct svm_range *prange);
+ int svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 			    uint32_t vmid, uint32_t node_id, uint64_t addr, uint64_t ts,
+ 			    bool write_fault);
+-int svm_range_schedule_evict_svm_bo(struct amdgpu_amdkfd_fence *fence);
++int svm_range_evict_svm_bo(struct svm_range_bo *svm_bo);
++
+ void svm_range_add_list_work(struct svm_range_list *svms,
+ 			     struct svm_range *prange, struct mm_struct *mm,
+ 			     enum svm_work_list_ops op);
+@@ -229,11 +229,9 @@ static inline int svm_range_restore_pages(struct amdgpu_device *adev,
+ 	return -EFAULT;
+ }
+ 
+-static inline int svm_range_schedule_evict_svm_bo(
+-		struct amdgpu_amdkfd_fence *fence)
++static inline int svm_range_evict_svm_bo(struct svm_range_bo *svm_bo)
+ {
+-	WARN_ONCE(1, "SVM eviction fence triggered, but SVM is disabled");
+-	return -EINVAL;
++	return 0;
+ }
+ 
+ static inline void svm_range_get_info(struct kfd_process *p,
 -- 
-2.43.0
+2.50.1
 
