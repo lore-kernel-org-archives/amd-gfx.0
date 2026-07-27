@@ -4,126 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2527EC531D0
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 18:32:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 72348C531D0
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 19:40:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 94DEB10E4BF;
-	Mon, 27 Jul 2026 18:32:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E276710E283;
+	Mon, 27 Jul 2026 19:40:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eMVPkMXU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QjeqXcY9";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010033.outbound.protection.outlook.com
- [40.93.198.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4991510E4BF
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2026 18:32:26 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012044.outbound.protection.outlook.com
+ [40.107.200.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BEE810E283
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2026 19:40:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Wa99dgeJfgzx1fv2not/+fLBGFpr0cIxIcR/mIKtJQ1XeREnmBCDBv4DXelIHvA0tUmW2smK22SFQPOpiFy6X9ponbYG52WfFkk7UeElyFHqNeuyyEbjRiMtRHk+cLMQIYL6T8lF1MdgrDidn9ebMEhwMfjId1bLWXsK5OaGtidZhWatXQ7lw9VZ6RuIAlL+/NboVhVW/p8NE/0hVh1jEWl6c2fuCOLMA9f7OwRRnGoEyb5VewcxbDEcI7+ee4YM38V0RpJNuvnbGfPpesYNMYTtLOxNxCys/n680GV5yWaVF1hgTAg31zJlymTMsrR2bOxSgAZ4qcl0g06nHbuQ3w==
+ b=Utl+VQ/i7cbKxO3AdHGvDaYaathDO1GuG8QX6DpDGNyBBXMMm2CjmxL2qSL9wgjdxnggV8NurK6GfTJkiXoTo7ngicQJ+bjnz1GWebXGjToLEI2JvzwQwXjBtIMAozOsjqV+0HR3oOxEAPn+sddDRUpOiswZBFZ+7t8th2knBeqH7tQcx9AB15Rys/qTaHemtNpx2Maer5CM0eInq8s6RWaOsut2cJJwgMY/aQoXlRnCjMnhr/R7vhoiju+NJw2BwnlzidvuoK4w8bBPqZjqkLSqttJrz2X/WT0afULxzJ/2MMsSMhI6uDnEnjCrZwE/la/0vbWT7JPcUz/qJ+DJDQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XwLDEMm8g5Kqz+YoELa0fXGDqL4/M9QkTNGMRixpV0I=;
- b=iYwiPp8PbxM1opl3+bxGtjXSuySx2m5NdJ2KTS8R7BvtYC9weInlv9Rbj2iRJ7DbQYNi8KhgfSrKjFqkHmLSZoFbsha1It5gzoDqIbUULGHix1Hx2UcjVOsUKdVCXGdCaPEpUom1rCsPPp/RdYQPgBog4j6Wfm2i42n6Rvi7L8ohcahlbwdiTMJB45TyxFwCA6b+keyEfG+VU7NbWXO4IXVXEbIqHCzmsxRrsBUqKnGHRXg+bbd5rO3SqKFMAObmaS5L1g6mKHSMnnETO8qq7eGxg6dmyhH9a/j3C/HsfMUPUDqyv4WbKC1d8Rw7VWal3aD+Iqth8WgAfcyukUEVRw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=L3R4vaP1c2AqhiVJ0YPHg7A687RQ76Lnq/I2iXJFaoo=;
+ b=eWnDBwLpEF8ZG1419L/e13x3Gf2CC5x3fe0RMYIyUhbhFq2FeSBWaoADEH9Dd+FLXS3o5ONKxA0XI1b0cduF6Q7A6VpBMa0CBBrhBH03dS7ba43uqzNci2kaS3rLRzntEu0j6SbLovpj9yQwodrE95+niN8dLW/zn+J5jkN0ghfD5+tVoDhtzq3EN7OYrfjKNuvg/oDN56Lf0S4AnqhoEo1M8jt+oAYkQjrjTXAUQO3unrkJoL6vAE4iicK5pcQ0NGmLebNJN62/rTXZ264dMTBkgHoomE1Zz3LbGFvb7gTJ4KiRD56aafEiqo0ul3EKa+dh+aiMb0dyPZ8OzLNX/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XwLDEMm8g5Kqz+YoELa0fXGDqL4/M9QkTNGMRixpV0I=;
- b=eMVPkMXUe+11F6R9Cd0K5OajwlpCrq8xPN9fzUoo/bwjNj4i40zOOTUWixwhttSPJi7vz2g4d2pN5GNjP5+nMAYrpzwVHIg0KWka0h1X+WDKYYgSQA4k4iOlXESbpZX/KfvvVrgLjHEnB4s0jE6fRNLf41d2hP8Y2nYvrKkB++A=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com (2603:10b6:5:390::14)
- by PH8PR12MB6722.namprd12.prod.outlook.com (2603:10b6:510:1cd::20) with
+ bh=L3R4vaP1c2AqhiVJ0YPHg7A687RQ76Lnq/I2iXJFaoo=;
+ b=QjeqXcY9YnDDy896gZK6FcCaC2m/LbBWWjmdvypuvi96sYhxw5gHdy8sJdePouZE+rFBy0rAcrkDv/5UGeFFv2lgKI0R6jlbFtuPZzeV07ZB0/yh0Jc0a4t4P98KhIIzJBaItbWNiep2c8xs3JdIFdf8GzeHFs06ZwQjkqPA/Wk=
+Received: from MN2PR06CA0027.namprd06.prod.outlook.com (2603:10b6:208:23d::32)
+ by DS0PR12MB6608.namprd12.prod.outlook.com (2603:10b6:8:d0::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.12; Mon, 27 Jul
- 2026 18:32:22 +0000
-Received: from DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::8218:248d:58ec:8c81]) by DM4PR12MB5149.namprd12.prod.outlook.com
- ([fe80::8218:248d:58ec:8c81%6]) with mapi id 15.21.0245.012; Mon, 27 Jul 2026
- 18:32:22 +0000
-Content-Type: multipart/alternative;
- boundary="------------0qMSi3Htu0fgRc5b4O4Kvzcg"
-Message-ID: <30fd1fdb-0a90-4fdf-8d58-967a3da89594@amd.com>
-Date: Mon, 27 Jul 2026 14:32:21 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] drm/amdkfd: Drain retry faults before SVM range
- no-access unmap
-To: "Kuehling, Felix" <felix.kuehling@amd.com>,
- Philip Yang <Philip.Yang@amd.com>, amd-gfx@lists.freedesktop.org,
- Harish.Kasiviswanathan@amd.com, Amir.Shetaia@amd.com, Kent.Russell@amd.com
-References: <20260616211652.1962285-1-Philip.Yang@amd.com>
- <20260616211652.1962285-3-Philip.Yang@amd.com>
- <ff4f2a99-17c0-4538-bdb2-512e7f51f62c@amd.com>
-Content-Language: en-US
-From: Philip Yang <yangp@amd.com>
-In-Reply-To: <ff4f2a99-17c0-4538-bdb2-512e7f51f62c@amd.com>
-X-ClientProxiedBy: YT4PR01CA0269.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:109::25) To DM4PR12MB5149.namprd12.prod.outlook.com
- (2603:10b6:5:390::14)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Mon, 27 Jul
+ 2026 19:39:58 +0000
+Received: from BN3PEPF0000B06D.namprd21.prod.outlook.com
+ (2603:10b6:208:23d:cafe::80) by MN2PR06CA0027.outlook.office365.com
+ (2603:10b6:208:23d::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.13 via Frontend Transport; Mon,
+ 27 Jul 2026 19:39:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF0000B06D.mail.protection.outlook.com (10.167.243.72) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.1 via Frontend Transport; Mon, 27 Jul 2026 19:39:56 +0000
+Received: from Philip-Dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 27 Jul
+ 2026 14:39:55 -0500
+From: Philip Yang <Philip.Yang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <Felix.Kuehling@amd.com>,
+ <Harish.Kasiviswanathan@amd.com>, <Amir.Shetaia@amd.com>,
+ <Kent.Russell@amd.com>
+CC: Philip Yang <Philip.Yang@amd.com>
+Subject: [PATCH v2 0/2] drm/amdkfd: Unmap SVM range from GPU set to no-access
+Date: Mon, 27 Jul 2026 15:39:28 -0400
+Message-ID: <20260727193930.612490-1-Philip.Yang@amd.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5149:EE_|PH8PR12MB6722:EE_
-X-MS-Office365-Filtering-Correlation-Id: 960ea9e6-9a19-434f-8aff-08deec0d65e5
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06D:EE_|DS0PR12MB6608:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72f87f89-15f4-4b79-ba15-08deec16d646
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|366016|4143699003|11063799006|10067099003|56012099006|18002099003|22082099003|8096899003;
-X-Microsoft-Antispam-Message-Info: fCnLJJFd4OKOBx1h1eRDO91lD+jyOXpAH07R1+Jpc/i+E7x6H36OQ5aIRHsg2uxFQdHOhnQIRVPimYDFpOQo0QMzaCfKTyrSRTqWrgTP0X1HC5Ymg3gq/dCVB5Pd9DJRSYxioSlCx1BoGdBB9+j1bgE8/ER/APwdqeJRCrwprSpRJWMIPtrkdadl5KyLwkFbvuc0WZeV+PMh/EALux0wmim4BM19nDdGc5bx/OPBvibRLR2tavbMZCDySNbdFIZ+u/yrHkgriF9gu2k/ZjgATK6pIA3CIHBy/QMdb46D8mTR6xvwZbDanheg6Y71QDE64w4KpAAuzQkMx8RsLPhXXoz45nwPz9Xrmgf+pkaTFBjanUrIEEh8WKmoOEVG6nKCss7WBSFCIXy8NRhfE6yhpO/48xBRWDIded6JYuaTT2QVgvTg3y+Xx7AH4mrz5OA8tqX7kVxr1fbu63fNj+fUT8OufKYlpFMRlQw3g4ueKoVmC9bxJHd7H9vviP8QBtUBA4ty6OceDQ9Z76pPV39MR6oCodr1bafFUM6Zzq+1E9lOhByxkmVtUelWy6FssQkb/eH66Nk4SW77wSv4gT3aW38Jl830Bn7RqdW7ak1TYCX5VMGZIX/2/JQ54Nyx98Rq0dtYpdAMKtq8KiJxxBe8HhlmzvEkzEFG97OmPj+hijE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5149.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(4143699003)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003)(8096899003);
+ ARA:13230040|82310400026|36860700016|23010399003|1800799024|376014|10067099003|18002099003|11063799006|5023799004|56012099006;
+X-Microsoft-Antispam-Message-Info: 3gT5J/vC4kZpntsyjSPkQTZNtQ0z+O44f4iSI6GYbBLB0b1nIkmTfeyaFKQ2totrqqgZAtcOivtPc0hUGTVdi4hvTInldAI3QpQI6qtVoSmSyVMTkGwDCaD0/EjWbm1MifzQdfoReIDIviOHG67MfD7GNigex6ZMkh2Pz866vsKNWdAvZ+G0vZlxVOBEpk8f2VP/AOP6T+1EFmuV5dfpMKCJ8ZD6SAObrLwiNRvUzYCHn2PUN14pFQs1LlsEgjcufww5CWeYT0DXaaRXe9ynQjn6N3IA2B7rIZVBFSPOHe8bgqsQvisGdvOO9cNazszxrquR5Lw0NMXLE1EsS6krlO5Ltm0OhJyqCTksICtRYfR6SEGnUGG2xmqvrMNwredYRN5SfJu8SF/vAV6eaz53Q3Hb+8nrkBtvw3ByA6mvju1Izlr+e0b3PdI6UxiN6Ni+5b9wV++FUB6wpDrg7NNkmPx/+CqjRPe66EkHxquHJeIYO05gW6pBRMaSU3e71EjneYEXxyhYe4FdaPfOvjKGiBz5ry/1KDqtKRrco0W4nip85UujqxXXsYL0Y0rZLslLEkzTvN/+oIKc4P7DmQEZraIdlofVvby3ANq8WfI+ZV6k76PCB0ZyApoOvumAd2+/gaz1AQYMLLBpeO22yD97MNl5vXPYhY5OrvNw8KEVdGWZbj7tnn+uSA8LOcQAAKr863g2X470PH0L4qvuTkZZ/g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(23010399003)(1800799024)(376014)(10067099003)(18002099003)(11063799006)(5023799004)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UEMwYzZPTFdzbFdSamZFaWZTOWZudEIzTFZUV1NGQUFreE5HNStLZkVzSDRP?=
- =?utf-8?B?dEcxNEZFRTJRSDNLVWU4S3VmV0wxQ3FHOE1YbHBESU12MEtqWmZqVGF4MHho?=
- =?utf-8?B?SllnR3VsdkhmeDJ5UFp1K0JQaHpoN0NjTlJuTkE0QXE1Mlc5MXRmS3BYNEtC?=
- =?utf-8?B?QUhTbkNBd3Z2WkNDSGJ6YWRybVkxcWhMMjlDRDdNaElLZjU5WmJjMklNRTNJ?=
- =?utf-8?B?YXAvc1NhbFZtUTZJQm0xR0xmWWZHMTluU2ZiOTc0VHIxNVNmcDBkZHpIRHcv?=
- =?utf-8?B?amxqU0l3THNOOE5WOGJrRktYLzZsZ2ZZa21yb0h4WmpkMHcxNjFqc25zQnFq?=
- =?utf-8?B?SHN5dzVaK21sS0VxZ0dqTTkxdlBIN25ZOXJPeWcwNzdRaE00UjZDcDdCc3Yr?=
- =?utf-8?B?dDN1R2ZPRUZIYVdxSFFwY0ttUkhmNE5vMlFGaFFlb2VVbDRhRlJDOEQ3ZmU5?=
- =?utf-8?B?R3luRHl1ZTVFNkpKSEQ5cWQvZkN4ZUxvVjRGL0FVWGhLT3gwanJ5U1dLU2wy?=
- =?utf-8?B?NFA5MFp1Q2pWQVpORjFVMnV0YlVzRTk3MXlzdmJWZWtNc3hSR3dMRDJnY2xv?=
- =?utf-8?B?Z3pYdnRWbURDUzQvLzBQRkZWdlpwR0UxRXJjWDNhKzlDSXVWTkFFclJ6bWRz?=
- =?utf-8?B?Rm9zc29UR2l5aDU0TllmUytCWERYN0ZCM3JycGpjSVdSWUdwSHBNKzdxVjBw?=
- =?utf-8?B?bDN4dEttZ3ZQdHhSQ3IyMzYzOThVaFJoTnp4Q2pHSm5ZbjNOWnE0VndUcVZj?=
- =?utf-8?B?eGkzVEtEaDVpNkRWQjBmWXdvbGtiTlZkS3RoL0hTZ1llYjNHTEdDMXBwcHFw?=
- =?utf-8?B?NTgzVktxclVMNXFhNlpmUzMxMXJtR1pwVmNlMmkwclBmV2duMWhQWWk5dlNN?=
- =?utf-8?B?ZjdwZWdMWmNTc1dLUTllQS9HTkhhNHVKQklFS0NsN2p2MHBpdE5UYnVqSktP?=
- =?utf-8?B?aWJzWDdybENxbjY3Uk1zell6UUdyM2phbXJZUHVic2VBOEs5bXkyOGNmbnBX?=
- =?utf-8?B?RkFEd0lxOTI3MkZ6b0R5b3VJaFIyZmNacnBHVy84U3VsMGNBSjdrMElwVHRv?=
- =?utf-8?B?SXk1VXlQNlFjY0VqUy9HQ3B2MXhMdlRLb3VDaGxPYkhGQUtWR3NnSUtHdUJv?=
- =?utf-8?B?eVRiOVVUb3loOXBoN3pFLy9PTTNNTkhvUUcweHJjWGptTklPZEhRN2pTcEVG?=
- =?utf-8?B?NldYNHpGVjJBbUlISVI0S21tVytVRjljYnlteFRLM3JReWhaQlA0OStVWUp0?=
- =?utf-8?B?alhya3JmSHEvTnlLa3RYbEkvRjBKY1FHU1BRUmtURFJpeUE5WHRkZnc4eTJH?=
- =?utf-8?B?LzBRQWdhUWFXR3V5QnFKeEFPaUYyendwRG5FK0xoQnQydDAwb1RtL0lQK2tR?=
- =?utf-8?B?UE9GeEtIODM1dkI3Z3hFbG8xR283WjZKVFU1anRnY1o4aTcyQTgwY3l5Z0Jk?=
- =?utf-8?B?MnpHNWh0V3I0NnBkUWNBSm83ZmlMM2NyQ2xFSUl6ajAxTk1QTFltS0VOM0p6?=
- =?utf-8?B?UUxMaURQZHp4VE1aRGlHS1ZXWWZHak13SlI4SjdQZmZRSmx5bUN4dGdrVkE1?=
- =?utf-8?B?TTJZNmM2VXg2KzBqWnRNTWhvYmRETEp0Rkd6eFVseVZjN1plVnZHNGc0TXVo?=
- =?utf-8?B?Yy8wTEl2L09yK091b3g3OWJGN3VXY3hOQ0J3d2N6ZS9GTkFtSTZ3NFJQckgr?=
- =?utf-8?B?b3lLZ0ZGNVBVSXdXVEdhNmxsc2dSOFJ0N1NINnFTcGx6YUt2b3MzeDBCVkJu?=
- =?utf-8?B?eGRpM04xNWZDSlpxOVoyc2txOW5URkpCMlFXdys4eWV4aHEwd2NUYnhTdGdp?=
- =?utf-8?B?VFhvbFNEcWpyVzhaelY0Z1VvT0t5OEZMZjk3U2JEaW5EQk90VlJ3Q3Y5cWpo?=
- =?utf-8?B?K0lOMWNGSjNNOEZDUFRCTFh0V0V1Z3d3OHBnNWxmanRMNUpUaEhCekFyTlFk?=
- =?utf-8?B?alFJaHVTTXN4M0hFdVhCeDBvcnJ1eWlPSXEvQzMyZmpXUU5LcXZHcG1CSGFY?=
- =?utf-8?B?SzN4RjhONFp0U0JzTEExR1NXTzQvc2YwWGNIZW9sbkMwUGdIWTNva0E2Sy94?=
- =?utf-8?B?ejdWWHNoRXJ3MHNuTEZ6TzIyTWFOWDBNK09RN09Ha2NTRHppby9sM2t2REdq?=
- =?utf-8?B?RzQ5MzBVa3ZzNENNYzl4OGh2NlZobGFBSW16aHNhYTRNNXd1QnQ1Q1cydVVD?=
- =?utf-8?B?cTM2eFZTcVIrbUlXVGtkUmpROC9RaURDUnFpbXRBUWJ5NnBmRXBkRkNNVXhI?=
- =?utf-8?B?K1NCYlU5Um9Pbml1dmR1Nnl4NzQyUzNjMCtUaC9IYzRDZEFuRmFMUW5KTnJx?=
- =?utf-8?Q?jRfHULCukDXGm3ML5s?=
+X-MS-Exchange-AntiSpam-MessageData-0: YRib7TpVO844XVmk63H9JIs/3doTHw4n9DPh91s7tcTxCbK8KMTD6Lq6kzsmnYpjAFyM2SYIxW5t219FOysQA8E1O9u8N05U60xlVwmUpMDlmR3IcgAvZ+L3Mx7vpMREHhmdltA+r9oNqJTb6+/hHoj+TU302yQRx8LBSLMKderczCAPyugtHD181GKsSaM8HHJmsT4YW6iAV4Ag/EoDgdToyIV5hSIvNa8w6t3ltfv2jsugPSi1O1j7zTyqtP2rW6IjlLlGj19hXwferqlwUH8u7IFY618sIKbSQDaK1sB0+Mf5w0vI0IwL5TNE2+Ulp7dzG/FRAh6ZNAKBR/iUI7W0ZgJUH1BuxX+/tart0AuaLN8xThfl+8lyGv/YCJPJmxc7G9akI4+EnM8vv6AQYSQ6jUMNYbmWsjbN6BSUnBF+Q91Vbt7ka/Q4lmx/Zrio
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 960ea9e6-9a19-434f-8aff-08deec0d65e5
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5149.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 18:32:22.3541 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 19:39:56.1155 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72f87f89-15f4-4b79-ba15-08deec16d646
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CzyaQV9iwav9r9+7rra+pvuYAT2pChYvthIBXW7q/ejVdyxJTvVDqawxoAGHOtTl
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6722
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B06D.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6608
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,625 +110,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------0qMSi3Htu0fgRc5b4O4Kvzcg
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Setting KFD_IOCTL_SVM_ATTR_NO_ACCESS on a GPU used to do nothing: the
+range stayed mapped, so the MMU notifier kept evicting GPU queues on CPU
+page faults even though the app wanted no access from that GPU.
 
+Patch 1 adds a helper to update the fault checkpoint timestamp and makes
+the timestamp atomic so the page fault handler can read it locklessly.
 
+Patch 2 unmaps the range from each GPU set to no-access. Once no GPU maps
+the range, the MMU notifier skips queue eviction. It bumps the checkpoint
+timestamp so retry faults queued before the unmap are dropped.
 
-On 2026-06-17 13:04, Kuehling, Felix wrote:
->
-> On 2026-06-16 17:16, Philip Yang wrote:
->> When svm_range_needs_unmap() unmaps a range, retry faults queued in the
->> soft IH ring before set_attr no-access was called must be dropped, since
->> those faults arrived before the app chose to revoke GPU access and 
->> should
->> not re-map the range.
->>
->> Extract and add helper svm_range_update_checkpoint_timestamp() from
->> svm_range_unmap_from_cpu() so both callers share the same logic.
->>
->> Change checkpoint_ts in svm_range_list from uint64_t to atomic64_t so
->> svm_range_restore_pages() can read it safely from the page fault handler
->> without holding the svms lock.
->>
->> Signed-off-by: Philip Yang <Philip.Yang@amd.com>
->> Acked-by: Kent Russell <kent.russell@amd.com>
->
-> Looks good in general. Two small suggestions inline.
->
->
->> ---
->>   drivers/gpu/drm/amd/amdkfd/kfd_priv.h |  2 +-
->>   drivers/gpu/drm/amd/amdkfd/kfd_svm.c  | 85 +++++++++++++++------------
->>   2 files changed, 50 insertions(+), 37 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h 
->> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> index f00c522fba74..d3dcc3b8d546 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
->> @@ -893,7 +893,7 @@ struct svm_range_list {
->>       DECLARE_BITMAP(bitmap_supported, MAX_GPU_INSTANCE);
->>       struct task_struct        *faulting_task;
->>       /* check point ts decides if page fault recovery need be 
->> dropped */
->> -    uint64_t            checkpoint_ts[MAX_GPU_INSTANCE];
->> +    atomic64_t            checkpoint_ts[MAX_GPU_INSTANCE];
->>         /* Default granularity to use in buffer migration
->>        * and restoration of backing memory while handling
->> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c 
->> b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->> index e039b6f2942f..acaa364244d0 100644
->> --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
->> @@ -759,6 +759,48 @@ svm_range_check_attr(struct kfd_process *p,
->>       return 0;
->>   }
->>   +static void svm_range_update_checkpoint_timestamp(struct 
->> kfd_process *p)
->> +{
->> +    struct svm_range_list *svms;
->> +    int i;
->> +
->> +    svms = &p->svms;
->> +
->> +    /* calculate time stamps that are used to decide which page 
->> faults need be
->> +     * dropped or handled before unmap pages from gpu vm
->> +     */
->> +    for_each_set_bit(i, svms->bitmap_supported, p->n_pdds) {
->> +        struct kfd_process_device *pdd;
->> +        struct amdgpu_device *adev;
->> +        struct amdgpu_ih_ring *ih;
->> +        uint32_t checkpoint_wptr;
->> +
->> +        pdd = p->pdds[i];
->> +        if (!pdd)
->> +            continue;
->> +
->> +        adev = pdd->dev->adev;
->> +
->> +        /* Check and drain ih1 ring if cam not available */
->> +        if (!adev->irq.retry_cam_enabled && adev->irq.ih1.ring_size) {
->> +            ih = &adev->irq.ih1;
->> +            checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
->> +            if (ih->rptr != checkpoint_wptr) {
->> +                atomic64_set(&svms->checkpoint_ts[i],
->> +                    amdgpu_ih_decode_iv_ts(adev, ih, 
->> checkpoint_wptr, -1));
->> +                continue;
->> +            }
->> +        }
->> +
->> +        /* check if dev->irq.ih_soft is not empty */
->> +        ih = &adev->irq.ih_soft;
->> +        checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
->> +        if (ih->rptr != checkpoint_wptr)
->> +            atomic64_set(&svms->checkpoint_ts[i],
->> +                     amdgpu_ih_decode_iv_ts(adev, ih, 
->> checkpoint_wptr, -1));
->> +    }
->> +}
->> +
->>   static void
->>   svm_range_apply_attrs(struct kfd_process *p, struct svm_range *prange,
->>                 uint32_t nattr, struct kfd_ioctl_svm_attribute *attrs,
->> @@ -784,6 +826,8 @@ svm_range_apply_attrs(struct kfd_process *p, 
->> struct svm_range *prange,
->>               gpuidx = kfd_process_gpuidx_from_gpuid(p,
->>                                      attrs[i].value);
->>               if (attrs[i].type == KFD_IOCTL_SVM_ATTR_NO_ACCESS) {
->> +                svm_range_update_checkpoint_timestamp(p);
->> +
->
-> I think we should only do this if we're actually unmapping something. 
-> So maybe move this into svm_range_needs_unmap.
-yes, then this patch only extract and add helper function 
-svm_range_update_checkpoint_timestamp, move this patch as the first patch.
->
->
->> bitmap_clear(prange->bitmap_access, gpuidx, 1);
->>                   bitmap_clear(prange->bitmap_aip, gpuidx, 1);
->>                   bitmap_set(prange->bitmap_needs_unmap, gpuidx, 1);
->
-> And maybe make "bitmap_needs_unmap" conditional on whether it's 
-> currently mapped. (in the previous patch).
-add check if (test_bit(gpuidx, prange->bitmap_mapped)) condition in the 
-previous patch.
+Philip Yang (2):
+  drm/amdkfd: Add helper svm_range_update_checkpoint_timestamp
+  drm/amdkfd: Unmap svm range from GPU set to no-access
 
-Will send v2 patch series.
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h  |   2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c |   5 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c   | 190 +++++++++++++++----------
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.h   |   7 +-
+ 4 files changed, 125 insertions(+), 79 deletions(-)
 
-Regards,
-Philip
->
-> Regards,
->   Felix
->
->
->> @@ -2560,7 +2604,6 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, 
->> struct svm_range *prange,
->>       struct kfd_process *p;
->>       unsigned long s, l;
->>       bool unmap_parent;
->> -    uint32_t i;
->>         if (atomic_read(&prange->queue_refcount)) {
->>           int r;
->> @@ -2580,38 +2623,7 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, 
->> struct svm_range *prange,
->>       pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx] [0x%lx 0x%lx]\n", 
->> svms,
->>            prange, prange->start, prange->last, start, last);
->>   -    /* calculate time stamps that are used to decide which page 
->> faults need be
->> -     * dropped or handled before unmap pages from gpu vm
->> -     */
->> -    for_each_set_bit(i, svms->bitmap_supported, p->n_pdds) {
->> -        struct kfd_process_device *pdd;
->> -        struct amdgpu_device *adev;
->> -        struct amdgpu_ih_ring *ih;
->> -        uint32_t checkpoint_wptr;
->> -
->> -        pdd = p->pdds[i];
->> -        if (!pdd)
->> -            continue;
->> -
->> -        adev = pdd->dev->adev;
->> -
->> -        /* Check and drain ih1 ring if cam not available */
->> -        if (!adev->irq.retry_cam_enabled && adev->irq.ih1.ring_size) {
->> -            ih = &adev->irq.ih1;
->> -            checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
->> -            if (ih->rptr != checkpoint_wptr) {
->> -                svms->checkpoint_ts[i] =
->> -                    amdgpu_ih_decode_iv_ts(adev, ih, 
->> checkpoint_wptr, -1);
->> -                continue;
->> -            }
->> -        }
->> -
->> -        /* check if dev->irq.ih_soft is not empty */
->> -        ih = &adev->irq.ih_soft;
->> -        checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
->> -        if (ih->rptr != checkpoint_wptr)
->> -            svms->checkpoint_ts[i] = amdgpu_ih_decode_iv_ts(adev, 
->> ih, checkpoint_wptr, -1);
->> -    }
->> +    svm_range_update_checkpoint_timestamp(p);
->>         unmap_parent = start <= prange->start && last >= prange->last;
->>   @@ -3121,8 +3133,9 @@ svm_range_restore_pages(struct amdgpu_device 
->> *adev, unsigned int pasid,
->>       mutex_lock(&svms->lock);
->>         /* check if this page fault time stamp is before 
->> svms->checkpoint_ts */
->> -    if (svms->checkpoint_ts[gpuidx] != 0) {
->> -        if (amdgpu_ih_ts_after_or_equal(ts, 
->> svms->checkpoint_ts[gpuidx])) {
->> +    if (atomic64_read(&svms->checkpoint_ts[gpuidx]) != 0) {
->> +        if (amdgpu_ih_ts_after_or_equal(ts,
->> + atomic64_read(&svms->checkpoint_ts[gpuidx]))) {
->>               pr_debug("draining retry fault, drop fault 0x%llx\n", 
->> addr);
->>               if (write_locked)
->>                   mmap_write_downgrade(mm);
->> @@ -3132,7 +3145,7 @@ svm_range_restore_pages(struct amdgpu_device 
->> *adev, unsigned int pasid,
->>               /* ts is after svms->checkpoint_ts now, reset 
->> svms->checkpoint_ts
->>                * to zero to avoid following ts wrap around give wrong 
->> comparing
->>                */
->> -            svms->checkpoint_ts[gpuidx] = 0;
->> +            atomic64_set(&svms->checkpoint_ts[gpuidx], 0);
->>           }
->>       }
+-- 
+2.50.1
 
---------------0qMSi3Htu0fgRc5b4O4Kvzcg
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body text="#000000" bgcolor="#FFFFFF">
-    <br>
-    <br>
-    <div class="moz-cite-prefix">On 2026-06-17 13:04, Kuehling, Felix
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:ff4f2a99-17c0-4538-bdb2-512e7f51f62c@amd.com">
-      <br>
-      On 2026-06-16 17:16, Philip Yang wrote:
-      <br>
-      <blockquote type="cite">When svm_range_needs_unmap() unmaps a
-        range, retry faults queued in the
-        <br>
-        soft IH ring before set_attr no-access was called must be
-        dropped, since
-        <br>
-        those faults arrived before the app chose to revoke GPU access
-        and should
-        <br>
-        not re-map the range.
-        <br>
-        <br>
-        Extract and add helper svm_range_update_checkpoint_timestamp()
-        from
-        <br>
-        svm_range_unmap_from_cpu() so both callers share the same logic.
-        <br>
-        <br>
-        Change checkpoint_ts in svm_range_list from uint64_t to
-        atomic64_t so
-        <br>
-        svm_range_restore_pages() can read it safely from the page fault
-        handler
-        <br>
-        without holding the svms lock.
-        <br>
-        <br>
-        Signed-off-by: Philip Yang <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>
-        <br>
-        Acked-by: Kent Russell <a class="moz-txt-link-rfc2396E" href="mailto:kent.russell@amd.com">&lt;kent.russell@amd.com&gt;</a>
-        <br>
-      </blockquote>
-      <br>
-      Looks good in general. Two small suggestions inline.
-      <br>
-      <br>
-      <br>
-      <blockquote type="cite">---
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_priv.h |&nbsp; 2 +-
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_svm.c&nbsp; | 85
-        +++++++++++++++------------
-        <br>
-        &nbsp; 2 files changed, 50 insertions(+), 37 deletions(-)
-        <br>
-        <br>
-        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-        b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-        <br>
-        index f00c522fba74..d3dcc3b8d546 100644
-        <br>
-        --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-        <br>
-        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-        <br>
-        @@ -893,7 +893,7 @@ struct svm_range_list {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DECLARE_BITMAP(bitmap_supported, MAX_GPU_INSTANCE);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct task_struct&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *faulting_task;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* check point ts decides if page fault recovery need be
-        dropped */
-        <br>
-        -&nbsp;&nbsp;&nbsp; uint64_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; checkpoint_ts[MAX_GPU_INSTANCE];
-        <br>
-        +&nbsp;&nbsp;&nbsp; atomic64_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; checkpoint_ts[MAX_GPU_INSTANCE];
-        <br>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Default granularity to use in buffer migration
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * and restoration of backing memory while handling
-        <br>
-        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-        b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-        <br>
-        index e039b6f2942f..acaa364244d0 100644
-        <br>
-        --- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-        <br>
-        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-        <br>
-        @@ -759,6 +759,48 @@ svm_range_check_attr(struct kfd_process *p,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;
-        <br>
-        &nbsp; }
-        <br>
-        &nbsp; +static void svm_range_update_checkpoint_timestamp(struct
-        kfd_process *p)
-        <br>
-        +{
-        <br>
-        +&nbsp;&nbsp;&nbsp; struct svm_range_list *svms;
-        <br>
-        +&nbsp;&nbsp;&nbsp; int i;
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; svms = &amp;p-&gt;svms;
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp; /* calculate time stamps that are used to decide which page
-        faults need be
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp; * dropped or handled before unmap pages from gpu vm
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp; */
-        <br>
-        +&nbsp;&nbsp;&nbsp; for_each_set_bit(i, svms-&gt;bitmap_supported,
-        p-&gt;n_pdds) {
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process_device *pdd;
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev;
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ih_ring *ih;
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t checkpoint_wptr;
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdd = p-&gt;pdds[i];
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!pdd)
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev = pdd-&gt;dev-&gt;adev;
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Check and drain ih1 ring if cam not available */
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;irq.retry_cam_enabled &amp;&amp;
-        adev-&gt;irq.ih1.ring_size) {
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ih = &amp;adev-&gt;irq.ih1;
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ih-&gt;rptr != checkpoint_wptr) {
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic64_set(&amp;svms-&gt;checkpoint_ts[i],
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ih_decode_iv_ts(adev, ih,
-        checkpoint_wptr, -1));
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* check if dev-&gt;irq.ih_soft is not empty */
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ih = &amp;adev-&gt;irq.ih_soft;
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ih-&gt;rptr != checkpoint_wptr)
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic64_set(&amp;svms-&gt;checkpoint_ts[i],
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ih_decode_iv_ts(adev, ih,
-        checkpoint_wptr, -1));
-        <br>
-        +&nbsp;&nbsp;&nbsp; }
-        <br>
-        +}
-        <br>
-        +
-        <br>
-        &nbsp; static void
-        <br>
-        &nbsp; svm_range_apply_attrs(struct kfd_process *p, struct svm_range
-        *prange,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t nattr, struct kfd_ioctl_svm_attribute
-        *attrs,
-        <br>
-        @@ -784,6 +826,8 @@ svm_range_apply_attrs(struct kfd_process *p,
-        struct svm_range *prange,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gpuidx = kfd_process_gpuidx_from_gpuid(p,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attrs[i].value);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (attrs[i].type == KFD_IOCTL_SVM_ATTR_NO_ACCESS)
-        {
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svm_range_update_checkpoint_timestamp(p);
-        <br>
-        +
-        <br>
-      </blockquote>
-      <br>
-      I think we should only do this if we're actually unmapping
-      something. So maybe move this into svm_range_needs_unmap.&nbsp;<br>
-    </blockquote>
-    yes, then this patch only extract and add helper function
-    svm_range_update_checkpoint_timestamp, move this patch as the first
-    patch.
-    <blockquote type="cite" cite="mid:ff4f2a99-17c0-4538-bdb2-512e7f51f62c@amd.com"><br>
-      <br>
-      <blockquote type="cite">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        bitmap_clear(prange-&gt;bitmap_access, gpuidx, 1);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bitmap_clear(prange-&gt;bitmap_aip, gpuidx,
-        1);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bitmap_set(prange-&gt;bitmap_needs_unmap,
-        gpuidx, 1);
-        <br>
-      </blockquote>
-      <br>
-      And maybe make &quot;bitmap_needs_unmap&quot; conditional on whether it's
-      currently mapped. (in the previous patch).&nbsp;<br>
-    </blockquote>
-    add check if (test_bit(gpuidx, prange-&gt;bitmap_mapped)) condition
-    in the previous patch.<br>
-    <br>
-    Will send v2 patch series.<br>
-    <br>
-    Regards,<br>
-    Philip
-    <blockquote type="cite" cite="mid:ff4f2a99-17c0-4538-bdb2-512e7f51f62c@amd.com"><br>
-      Regards,
-      <br>
-      &nbsp; Felix
-      <br>
-      <br>
-      <br>
-      <blockquote type="cite">@@ -2560,7 +2604,6 @@
-        svm_range_unmap_from_cpu(struct mm_struct *mm, struct svm_range
-        *prange,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process *p;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long s, l;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool unmap_parent;
-        <br>
-        -&nbsp;&nbsp;&nbsp; uint32_t i;
-        <br>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (atomic_read(&amp;prange-&gt;queue_refcount)) {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int r;
-        <br>
-        @@ -2580,38 +2623,7 @@ svm_range_unmap_from_cpu(struct mm_struct
-        *mm, struct svm_range *prange,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;svms 0x%p prange 0x%p [0x%lx 0x%lx] [0x%lx
-        0x%lx]\n&quot;, svms,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; prange, prange-&gt;start, prange-&gt;last, start,
-        last);
-        <br>
-        &nbsp; -&nbsp;&nbsp;&nbsp; /* calculate time stamps that are used to decide which
-        page faults need be
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp; * dropped or handled before unmap pages from gpu vm
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp; */
-        <br>
-        -&nbsp;&nbsp;&nbsp; for_each_set_bit(i, svms-&gt;bitmap_supported,
-        p-&gt;n_pdds) {
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process_device *pdd;
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev;
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ih_ring *ih;
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t checkpoint_wptr;
-        <br>
-        -
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdd = p-&gt;pdds[i];
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!pdd)
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;
-        <br>
-        -
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev = pdd-&gt;dev-&gt;adev;
-        <br>
-        -
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Check and drain ih1 ring if cam not available */
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;irq.retry_cam_enabled &amp;&amp;
-        adev-&gt;irq.ih1.ring_size) {
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ih = &amp;adev-&gt;irq.ih1;
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ih-&gt;rptr != checkpoint_wptr) {
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svms-&gt;checkpoint_ts[i] =
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ih_decode_iv_ts(adev, ih,
-        checkpoint_wptr, -1);
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        -
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* check if dev-&gt;irq.ih_soft is not empty */
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ih = &amp;adev-&gt;irq.ih_soft;
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ih-&gt;rptr != checkpoint_wptr)
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svms-&gt;checkpoint_ts[i] =
-        amdgpu_ih_decode_iv_ts(adev, ih, checkpoint_wptr, -1);
-        <br>
-        -&nbsp;&nbsp;&nbsp; }
-        <br>
-        +&nbsp;&nbsp;&nbsp; svm_range_update_checkpoint_timestamp(p);
-        <br>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unmap_parent = start &lt;= prange-&gt;start &amp;&amp;
-        last &gt;= prange-&gt;last;
-        <br>
-        &nbsp; @@ -3121,8 +3133,9 @@ svm_range_restore_pages(struct
-        amdgpu_device *adev, unsigned int pasid,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock(&amp;svms-&gt;lock);
-        <br>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* check if this page fault time stamp is before
-        svms-&gt;checkpoint_ts */
-        <br>
-        -&nbsp;&nbsp;&nbsp; if (svms-&gt;checkpoint_ts[gpuidx] != 0) {
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_ih_ts_after_or_equal(ts,&nbsp;
-        svms-&gt;checkpoint_ts[gpuidx])) {
-        <br>
-        +&nbsp;&nbsp;&nbsp; if (atomic64_read(&amp;svms-&gt;checkpoint_ts[gpuidx]) !=
-        0) {
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_ih_ts_after_or_equal(ts,
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        atomic64_read(&amp;svms-&gt;checkpoint_ts[gpuidx]))) {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot;draining retry fault, drop fault
-        0x%llx\n&quot;, addr);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (write_locked)
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mmap_write_downgrade(mm);
-        <br>
-        @@ -3132,7 +3145,7 @@ svm_range_restore_pages(struct
-        amdgpu_device *adev, unsigned int pasid,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* ts is after svms-&gt;checkpoint_ts now, reset
-        svms-&gt;checkpoint_ts
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * to zero to avoid following ts wrap around give
-        wrong comparing
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; svms-&gt;checkpoint_ts[gpuidx] = 0;
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; atomic64_set(&amp;svms-&gt;checkpoint_ts[gpuidx],
-        0);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
-        <br>
-        &nbsp; </blockquote>
-    </blockquote>
-    <br>
-  </body>
-</html>
-
---------------0qMSi3Htu0fgRc5b4O4Kvzcg--
