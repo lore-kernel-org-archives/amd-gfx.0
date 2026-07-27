@@ -4,89 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F35BC531C9
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 16:23:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88CA0C531D0
+	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 16:46:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A27A310E484;
-	Mon, 27 Jul 2026 16:23:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 600E310E690;
+	Mon, 27 Jul 2026 16:46:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="BM3TIEu/";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VnJTbcQE";
 	dkim-atps=neutral
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2167010E484
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2026 16:23:41 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-38ecc48b3deso210080a91.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2026 09:23:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785169420; cv=none;
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CFB6710E4AE
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2026 16:46:42 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id
+ 98e67ed59e1d1-381f03d7be0so194335a91.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2026 09:46:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785170802; cv=none;
  d=google.com; s=arc-20260327;
- b=LBffvARapO4JYDO8Qu/VmnkEseje6sNoGDzj5x7sXF5SfIl+ANkfsNi/R33SHuut9j
- FdhXlwJBH8akco2DkITkZYQqPKVWb9M+uztE7UOe+6fi0aH+MaHMf5e5ebUx94rlX/WZ
- 8W7WU6awnbLKs9wFMKTR3sPEGeIBmhwUK5GgPII5VsOtPINWcOj5r8MqjsK+63Buy6TP
- FhZFwgUZb7wU4CdVDGxlgC0oBfoLP3I2tWvVSBYe4ByUsd1A3PHlWWbf/PNotzZo1WA9
- twUc5Euk1t/ustKsXsg993Fh9Qz/dDa0CuEE6KBNPEWoQLh2a92pSBNudALdzgZArXEN
- e/XQ==
+ b=T3JTIGzXuxiw6NXSnb9jMWdOgu5tMEURDiukT0yMMh4SgXaMdcgK9Nhz9+9aMlpA5S
+ facAvb3emUYArcsdvSWRAhceWqzEXVZ3DJy9oYAaia/nqQAtzX0eukpMiKgnazxX8IV2
+ RoRSIsbXk3djafparhpdGYlrRmAb1R033chSOpko4Q5brYRDsqmbHhxbMv0yk64cb495
+ z4yEH3ac3m1P93b7Y8CyB5xn6FrlH9+1Q0baUZeKbPubRaPKO6oIqydiMxIwsVgjC716
+ 0creaTMwp0JgU1ZtV14wsfa3VNEezf1BRrXwQJOaMg+fLnaG7RZbfBdJEneTNwj6MpT0
+ MEeA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=+8fk2QTJvJSGqmmKBTq23zF4KxqUHDJhkuBClvUFFHs=;
- fh=qt2Jeam2aBIg9cw5W5yJM5RrGsLrjwspF9kOcqFxYSY=;
- b=K2zk4RmueUtn+S/TD+j6yjQch/vY768Zsx4f82pYsE+1/PQSoHoIwBphl90fanoZfT
- RpQhGnkqCt3uQaR3tMuBXW058DTn6exw0xDNtUb75jIbAphIYPpM3b7me3gR3ZpuW3P0
- rmOsykUI4VrXkHIZhem26e9KRzj7eBU+UuWIgP8xfmioMtw3CVUyEagmPP5NypdezSxg
- soSka6e4B2igy3pgt/yk3JG9wYhUKP4ENgiLR7aD+JHSTfau3urTIUleXv4QUdc0fz1T
- W3lhvsOg419Yuz9heqfejh1fKrhpG0GJRvqYORI1FjuM0x/ferEt5zRGWlxzHSq/+4Zu
- 66Wg==; darn=lists.freedesktop.org
+ bh=ZYf/rihhYlrBAKYiCrpMlaiVI/+cGiqgdriA9fSdZao=;
+ fh=JbttwQGCaUU8Mv6Akh7HOm/ylmrkrZuzwp5T2PwY8Zw=;
+ b=ej/LNi0pCD536aqpL9lHvDuBS1yMlGgMx+inp5EY8ESn+nBl7BtIJCYKJip117vZJy
+ DvR0TSnI+Vkh5/WVTR8cCfzscIa/6waFdfbBe7tbd/yKDmF0VYuBejt/CVYMFkNSKYu3
+ zRMSc6YMmdO6SGMudkh00azo2l7ZLnOGB+c3WNrTSBn8fZkUqZiqvYOruLoNq8dAWLDy
+ H/iBdBa84hKSNSTUYifKjg39IN1fdcEo5tOSTHydjuQZJi/+WP52r45eAJu0l2ZXNMVc
+ QHsnuE0jFmRcmhJMeYtKsu461YkFwK2cv4vL0COG9DyP7/vI4ouLyxYMxNstj8IVx3KG
+ IOXQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785169420; x=1785774220; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785170802; x=1785775602; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=+8fk2QTJvJSGqmmKBTq23zF4KxqUHDJhkuBClvUFFHs=;
- b=BM3TIEu/M8aguypqg7148X0z+EoI2viuoBYyde5WduLYTDcK/s2B701VqN9j59gNb2
- xRww+buSFs7qYCT34JWsDYXqcygOJuFQqv9i8gTfnC32p8+jUiSYdXxfhkJpGLCt1iOw
- M/p9yMDbLaq1oUiWsGlmsOKrQWDaw+EPCIX9ZxY2NcTClqbQOTCXpeMLJskMMTbFJTTh
- Mu+m9EpmIf0/+Dxwb4Lg0mzGwleOFkEq0lPML7tu71/uXWFm67x9smaRHTgov4o3g5Ob
- FHmamdG8tGx/4l7JcBdtrc3KJd7skBvguFbvktlAaawppV4iwzee/m8WIDn0ruDua4so
- zq1w==
+ bh=ZYf/rihhYlrBAKYiCrpMlaiVI/+cGiqgdriA9fSdZao=;
+ b=VnJTbcQEf6X8UxXL0p8s85FpkEyHhVNH3YFAL5SQfJ+h63vSt/3drr0KzfVoUxW0Zz
+ VSLzKreHH77L9bANr6/5VlUwKFA+cAi0238QI04MRSTBaVkeFa+mUaRv/yjgDP0w9Jcj
+ PPZS9uyODYz2DLbBd2Pl8n7T8fCrNHnUT99pDjN/TX1s4jsjsIu5gdAZi33D7VJFMdQB
+ 7JbuWJJkInE5pLPhFvecoBEVh4gHNi2WEF+7rrt37FJwVTwU32szcDXb78O3IHli2NfA
+ rLZGv4v+Wn5vs9nWDtGspFcccpj0k1E/343XLWVpEXQOf/jxyog73idRMRbkwjAyukMo
+ 5Prw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785169420; x=1785774220;
+ d=1e100.net; s=20251104; t=1785170802; x=1785775602;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=+8fk2QTJvJSGqmmKBTq23zF4KxqUHDJhkuBClvUFFHs=;
- b=SPRs9lLxquHw0T9AG6DxvleopJQCx81KD2Yt7D4rJHRn8TQ406TyqeJvYFBwmcV4fg
- DMY40IRLk0JieB3jBc0bA+yTzRpckqxZZNRQNC9H2+jN29k1Y3BqWQhKAz7RXnMqUImW
- b2pRzg4jIZ1PM62c+x0K9kJFPtx/fDpnO592ClbhEjaFg/eVPoZlLloaAycAvITJr4yJ
- TYuu2kaS1x/0Z2Iz8G6aNYt7edktRC11g+bLVc03DS+9OnNcyYFFG2PUK4ZATgrze2Ly
- nhzZ1e9+tVR170KWot0J09pRsOE9HRxI37SVCyXH7LfLGSo5p/P0f0RZg8vW3hozTIZB
- FMqw==
-X-Gm-Message-State: AOJu0YyzHXX6hf+FgSC/00WDs22x/vzQoTS3wMialg07qngcadw/le9/
- iknID2ECeVAyDVxcHGziFQdlwNWcMKB72kfFdyl3sDhd/E5CIBM8kVhruRBi+dY/v2BVzth/2dB
- efTQFb/5yeDc92CFVAyS5DD82I0YOYSs=
-X-Gm-Gg: AR+sD11Ezoj5DkxQhUSB1DQSVGTZRhHx5xNPPfO1lbng3t+Hb/daoclBLZ10DIx1L//
- u7wQz2EHfOKHoDg9fQB68FVX/VE1mo3feqImmJtk2ANu6xf5/mElGdW+UYEHckDsZAd5u6EEcEh
- pm3vN98AmjQSzrRj2UQMjid76TaStwx0wKOMljM4CDd0bmp8qmpEdJqhvB7wVuH+PQEO5oBHo7e
- YYX3lr4sf87RmuYSfZR3MuFk+0ZeIZ5b6Hpe6mraAeJOJQAQUS9ezh8dS8h7zdflQT9Xp9H+iTD
- OslgDwZBW05qfixSi2G0YzcbM9pwqUKoX6vPEF8ctAoE04w4uTRHDbGEVFU=
-X-Received: by 2002:a17:90b:4d91:b0:38f:57cc:6a75 with SMTP id
- 98e67ed59e1d1-38f6288f301mr526418a91.5.1785169420216; Mon, 27 Jul 2026
- 09:23:40 -0700 (PDT)
+ bh=ZYf/rihhYlrBAKYiCrpMlaiVI/+cGiqgdriA9fSdZao=;
+ b=abSk+SE8XV3kI9N6SQlJsT0RMzGoDjjdgzTmF0xUmkapuOLiF8ULi24iXhRlwKthof
+ 8aqyo6con1gQqul5suKEBzsEMvtVuWYmPw1UNodfi9UEKHlyJuQLXlzGQGXnF2BDl5q0
+ jrQ9IQ2DMydEik/Sg9KjgYep2bDGOk86ZXil9BwC6tf9IiC0iPfVt3gV89f7oLLhju6F
+ 9A1X7rx7Ix0rBoL6LbICDAu0xEoKjzoY4FV6d8pZ2UDL6BtAbyDfvwBVd1lQYm2h/Ria
+ y67bIJSQZFDl0VfkWMS6cgNM7opbNI4Nh6kufcN/Y6DBDTPfX7qKjnNJ/rdoYSrVrcBh
+ Q67w==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpRHxtXnVIPcpt+y9vrd6PAvRK0XTYSJta4w5aHxK7fkC2AKkoKOi4o+gMW9dSC4Lb0e58/nXDM@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz/LmrmNmNIjQDP1UewUDLxMFjFJuqyXP6xOAOJH3B3vx7srD6G
+ Nno5JmJAGKRlvALh2koKfEkeMuq+8NAhJX2yHQQECG06Pn0bbS9boMGkifauQwzGXXicCjIAL9d
+ qY2Q3VxsDe+/Vj+QDcDWVFrubJSbQe4k=
+X-Gm-Gg: AR+sD135ST1MvmElM38Uq8ndobl1OtPCZ2UmAb5KOdYsA3IWgt3apkDBYIy8BMPyfnZ
+ +BNtjyO6NDjHuvHWZ3RS180ZhBVqIAnbYFLLcS/eaw0+JAK1ja4uTpYsvPqh7sR4rncOSdoZbzD
+ vGExuYKp8lf7fiMWoj7HgLQmY8FvdgcijHdhgX32MhDkS/MUP8Z5v0M8YkI9uHvB/NqoLGB+Hak
+ LzQbq5cJNmv0SSYBwck5TQ1CPjvOwN1vUnF42mBe2zVV+TEwCVt2PTt3mqUvRmePXdWsLt8k2je
+ k9eBKkThiQmMj4KokCvRd9hFOHqwaLcFqRnmCAWfBuIfJdNj386poaZBACwZ61cueFzV1BKVOAs
+ vuiQTwMx6K/JSQrRI+tCME45G0y0X02A=
+X-Received: by 2002:a17:90b:2c87:b0:380:9cd1:d985 with SMTP id
+ 98e67ed59e1d1-38f628a2013mr619020a91.6.1785170802281; Mon, 27 Jul 2026
+ 09:46:42 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260721140131.10797-1-dev@deq.rocks>
-In-Reply-To: <20260721140131.10797-1-dev@deq.rocks>
+References: <20260429171644.8406-2-u.kleine-koenig@baylibre.com>
+ <aimWvtBTQvd7O2F0@monoceros> <al4HlJxVqCDae5yL@monoceros>
+In-Reply-To: <al4HlJxVqCDae5yL@monoceros>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 27 Jul 2026 12:23:27 -0400
-X-Gm-Features: AUfX_myR_tMMkc8Mp04aSGWuKAiaTBCV-XlUavhJPbNrb8ejcyIca6YbNyPETYg
-Message-ID: <CADnq5_PYT9GCRK-Yb8urua4Diknh5e+SRJOs6F4fEfPsc88gxg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: reset VI ASIC on MacBookPro15,1
-To: Andre Eikmeyer <dev@deq.rocks>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- christian.koenig@amd.com, me@freddy.us
+Date: Mon, 27 Jul 2026 12:46:30 -0400
+X-Gm-Features: AUfX_mxH9LpbVN3XQked1-UcBEsMG3vSzn_JrwmOJW3uHzU_2audivCCcr6wjdA
+Message-ID: <CADnq5_PtuGS_FXJJB6kh_xVUPFDXznLQbKuAGZN+choXhPTH9w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Consistently define pci_device_ids using
+ named initializers
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Markus Schneider-Pargmann <msp@baylibre.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -103,70 +111,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Applied.  Thanks.
 
-On Thu, Jul 23, 2026 at 4:24=E2=80=AFAM Andre Eikmeyer <dev@deq.rocks> wrot=
-e:
+Alex
+
+On Mon, Jul 20, 2026 at 7:44=E2=80=AFAM Uwe Kleine-K=C3=B6nig (The Capable =
+Hub)
+<u.kleine-koenig@baylibre.com> wrote:
 >
-> After S3, reloading amdgpu on MacBookPro15,1 systems with a Radeon Pro
-> 555X or 560X fails while loading the SMU firmware. The existing SMC
-> register check does not request a reset because the registers do not
-> reliably reflect the stale SMU state on these machines.
+> Hello,
 >
-> Frederick Morlock found that forcing a VI ASIC reset allows the driver to
-> initialize again. This patch limits his workaround to the exact PCI
-> device, Apple subsystem device and revision combinations used by these
-> two GPUs, leaving other VI hardware unchanged.
+> On Wed, Jun 10, 2026 at 06:55:09PM +0200, Uwe Kleine-K=C3=B6nig (The Capa=
+ble Hub) wrote:
+> > On Wed, Apr 29, 2026 at 07:16:44PM +0200, Uwe Kleine-K=C3=B6nig (The Ca=
+pable Hub) wrote:
+> > > ... and PCI device helpers.
+> > >
+> > > The struct pci_device_id array of supported device was initialized
+> > > by list expressions. This isn't easily readable if you're not into PC=
+I.
+> > >
+> > > Use PCI_DEVICE* helper macros and named initializers which is more
+> > > explicit and thus easier to parse. Also skip explicit assignments of =
+0
+> > > (which the compiler then takes care of).
+> > >
+> > > The secret plan is to make struct pci_device_id::driver_data an
+> > > anonymous union (similar to
+> > > https://lore.kernel.org/all/cover.1776579304.git.u.kleine-koenig@bayl=
+ibre.com/)
+> > > and that requires named initializers. But it's also a nice cleanup on
+> > > its own.
+> > >
+> > > This change doesn't introduce changes to the compiled pci_device_id
+> > > array. Tested on x86 and arm64.
+> > >
+> > > Signed-off-by: Uwe Kleine-K=C3=B6nig (The Capable Hub) <u.kleine-koen=
+ig@baylibre.com>
+> >
+> > Gentil ping! I'd like to work on changing pci_device_id, but that
+> > requires that this patch hits mainline first ...
 >
-> Suggested-by: Frederick Morlock <me@freddy.us>
-> Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
-> ---
->  drivers/gpu/drm/amd/amdgpu/vi.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
+> Would it help to resend? Did I fail to Cc: someone to get this patch
+> into some tracking?
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vi.c b/drivers/gpu/drm/amd/amdgpu=
-/vi.c
-> index a256320b92f3..320c43143e5d 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vi.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vi.c
-> @@ -1407,10 +1407,30 @@ static uint64_t vi_get_pcie_replay_count(struct a=
-mdgpu_device *adev)
->         return (nak_r + nak_g);
->  }
->
-> +struct vi_reset_quirk {
-> +       u16 device;
-> +       u16 subsystem_vendor;
-> +       u16 subsystem_device;
-> +       u8 revision;
-> +};
-> +
-> +static const struct vi_reset_quirk vi_reset_quirks[] =3D {
-> +       { 0x67ef, PCI_VENDOR_ID_APPLE, 0x0190, 0xe3 }, /* Radeon Pro 555X=
- */
-> +       { 0x67ef, PCI_VENDOR_ID_APPLE, 0x018f, 0xc2 }, /* Radeon Pro 560X=
- */
-> +};
-> +
->  static bool vi_need_reset_on_init(struct amdgpu_device *adev)
->  {
-> +       unsigned int i;
->         u32 clock_cntl, pc;
->
-> +       for (i =3D 0; i < ARRAY_SIZE(vi_reset_quirks); i++)
-> +               if (adev->pdev->device =3D=3D vi_reset_quirks[i].device &=
-&
-> +                   adev->pdev->subsystem_vendor =3D=3D vi_reset_quirks[i=
-].subsystem_vendor &&
-> +                   adev->pdev->subsystem_device =3D=3D vi_reset_quirks[i=
-].subsystem_device &&
-> +                   adev->pdev->revision =3D=3D vi_reset_quirks[i].revisi=
-on)
-> +                       return true;
-> +
->         if (adev->flags & AMD_IS_APU)
->                 return false;
->
-> --
-> 2.55.0
->
+> Best regards
+> Uwe
