@@ -4,47 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 481B1C53219
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 13:32:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD346C54F4C
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 13:35:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C6CB10E579;
-	Tue, 28 Jul 2026 13:32:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B5D610E904;
+	Tue, 28 Jul 2026 13:35:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HtARyEwI";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QSZGkACz";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011022.outbound.protection.outlook.com [52.101.57.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D461910E579
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 13:32:38 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012067.outbound.protection.outlook.com [40.107.209.67])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B18B10E904
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 13:35:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pMmcK38Tfjcm38sh8BWelJVNoSKjSKqzK8w/WC45Gj5JsoQK8I+anVcnIiXBnWztJESoUJl+blGuwHPPwgJMo/DMPs8GCAEOCv7SjauUj4lv6Ceo6c6s0r2pAgPUhZscdDx4Tfu4UPNw9al+9zeCT58/5vSK6tXsiUJkakC7A7hohMMFsICmcw/VIokKTNoSlc8ErHSiSEdg7VknQWLBuVGo47hEvA9nNzp87rhwFT0N0Mbf4/lNjNo00AID4XJzhMVTs+9fiay7cC7NjFkcTufmddfrkoxubnVX3vKiGmyVwHm8LwGMidumnmizGhZ6gLCBgjGH/jgjbOoj5NNEZg==
+ b=F9H9NePhCCVkC6n6SdqWTvYPgPUk6CW/NgAqqahWvZVZcCwUySxGuOk3JKaXL17xcI25UqoTUCjbE+pqs82/B/ccxhifPtgKOgpnUlxXVzqXyjd7Wiz24J5Yd4Ajb74tdwOvESmHBZeSfyGqf6WnDLZpZmwNMPk46P2ibuy07nZEyJgxsS9n0w0OuX22lkXaE/B+0ARQksH8VPmyo5dPtdV9KOYdek9xc4uATW6olyzEIzb818UEctcj8DVX+4IxrE2Kf2TlUwEW5kr6Ymacw3IB3KDthrsoEsRh8ZMjTo+D+ZpufFR/q1MHAMZFaM+k/OfttPxs7c6HV93JK1RJVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s2xOvY8Q8luAHncDENNfcY1E1N9e/DY/0bykb/rxN6c=;
- b=PZsm1khBbYw88RknjAAMeFEGeIJvjW95GTkGG9w1gFXTyjBZH0tcG1H1iY8S1tvE1kP1HCa09VuFYUFvqrQzZ10hUF67b1+mRdNfkScnkOMDq1tWJEMvjtBtu36hBzZ1FOdKqA2AV6ft2tEWYaiWWij3unRDadogYQ2RzTaaVvF0+DO4Cngz4gPOOHTObqSPxYUrtMvNK+0IhM030gcdZA1A/pAuSE2IrZKUuzqhQ2g3+6Bd3+chxyN2ZbteDpe82sXlTJFnfFL9QN4myGZSeCHUlsCsKGv2gy90HIJscFPR5N2DibWTIa0YYpdq+xL7ry7ljA5qdXnOgLQmEhy7gA==
+ bh=GFMLoR531h8Vi+T/5bgOSIJuBrTPEh/G4nZIPHnGgao=;
+ b=GkLZmThx3m/n6SukSBXL015EwrjYp3WKvQQ/ytA5OMCVHaYQrTJVtfBJR5H3F+RO5jc/d6wYJ0qQ1RNLYrYfsXYGQ6CLIyW4Zh16iSQaypt/+8hAB5uaIUgzlczw/6VQ7+fFzHbuNNDP/nGWMheDh3PPAxkzDRjeIkeSi1pxFnv54xDrp5rL6qZonu7HZMnorAVVrXKvhonVx9rwpWwuHS6yNS9/kqtwtpeug9if3j5LYVHFuLuGKek1Ij9zOAktGXE/MJmEXiXLPZiqq9ocb3vTDLEtGJL6TmUskSxFmDioeTDIktqpmXLkVEhljPD4EkJKnp5leANc/O3mokM+yg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s2xOvY8Q8luAHncDENNfcY1E1N9e/DY/0bykb/rxN6c=;
- b=HtARyEwIvhwIvQKX5innp+FRj820HGIwgG41qTXtBPjsWfqNAh0VKkQaWhLxx7a/dNwyE3BCYpg31e8lI939lUfQpQmkyHrKDklvpWtYVrl0peTOjla7JARcLIFxu2sc3+frSASOz7QCle0jayYLfiuQvV0nyRrjt79ktmID0dI=
+ bh=GFMLoR531h8Vi+T/5bgOSIJuBrTPEh/G4nZIPHnGgao=;
+ b=QSZGkACz5WSuTeU3B6mtYs86Cc+gwb9ocqL10y6tEy4YLCwtDNmp4ShesZrduc4onSteRHr3tiL7ZVYxilYFm8hYDne4RNwn7SLqK1VGWXcEUM/zcLVzEfKW9NZ6kUdpHchwvKKK15oRR/X8sbhhXXVEmr0gVAgUmyeFkPoz3ao=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SJ2PR12MB7800.namprd12.prod.outlook.com (2603:10b6:a03:4c1::18)
- by DSSPR12MB999214.namprd12.prod.outlook.com (2603:10b6:8:378::7)
+ by CY5PR12MB6407.namprd12.prod.outlook.com (2603:10b6:930:3c::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Tue, 28 Jul
- 2026 13:32:35 +0000
+ 2026 13:35:27 +0000
 Received: from SJ2PR12MB7800.namprd12.prod.outlook.com
  ([fe80::fc35:3b7c:16dd:a5cc]) by SJ2PR12MB7800.namprd12.prod.outlook.com
  ([fe80::fc35:3b7c:16dd:a5cc%6]) with mapi id 15.21.0270.009; Tue, 28 Jul 2026
- 13:32:35 +0000
-Message-ID: <4009684d-a24a-4cd5-9244-d92110b33ed5@amd.com>
-Date: Tue, 28 Jul 2026 19:02:29 +0530
+ 13:35:27 +0000
+Message-ID: <3e87aa14-3087-4c7e-9290-4fcac84a1beb@amd.com>
+Date: Tue, 28 Jul 2026 19:05:22 +0530
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH] drm/amdgpu: Add trace events for pid register/deregister
+From: "Khatri, Sunil" <sukhatri@amd.com>
 To: "Francis, David" <David.Francis@amd.com>,
  "Khatri, Sunil" <Sunil.Khatri@amd.com>,
  "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
@@ -52,77 +53,77 @@ Cc: "Liu, Shuzhou (Bill)" <Shuzhou.Liu@amd.com>
 References: <20260724132100.1337346-1-David.Francis@amd.com>
  <13e91e3b-d134-4175-9a21-19ddb0b01b62@amd.com>
  <SA1PR12MB8144502B9A0E12CEBA235AB7EFCB2@SA1PR12MB8144.namprd12.prod.outlook.com>
+ <4009684d-a24a-4cd5-9244-d92110b33ed5@amd.com>
 Content-Language: en-US
-From: "Khatri, Sunil" <sukhatri@amd.com>
-In-Reply-To: <SA1PR12MB8144502B9A0E12CEBA235AB7EFCB2@SA1PR12MB8144.namprd12.prod.outlook.com>
+In-Reply-To: <4009684d-a24a-4cd5-9244-d92110b33ed5@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5P287CA0325.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:222::17) To SJ2PR12MB7800.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MA5PR01CA0098.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1a8::10) To SJ2PR12MB7800.namprd12.prod.outlook.com
  (2603:10b6:a03:4c1::18)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB7800:EE_|DSSPR12MB999214:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8387ce01-1d22-4b94-31ca-08deecacaf1a
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB7800:EE_|CY5PR12MB6407:EE_
+X-MS-Office365-Filtering-Correlation-Id: 33171857-f610-4b48-0ec0-08deecad15c6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|23010399003|1800799024|56012099006|10067099003|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: X1ALrYF23pJ6hcjSNZAFJs0GzZ/iqz0N3tqjC6JIeUEp2gHggC00g4/EVaFQM9IQqUBdu5za28vGnWUeffDKIDRigOcN9+t8FXCbyDBFNICJH17ULVWGiL5ydPR8/ojIu+uMHga/+hMCt6l15b2Esv8CNUT4NMBatMPzWTnYNaTOg3qmAdNdc16rWRTZHdaGlJmSV0l2rQls3cOtwX6Da6Pg+mwQkrQHkPqkP18bU/ZTJyQH/9qaT6bqDWGXUfYvGKrcmyXq/OEaKfyvoJCiMO8cqqqIji1nq11XtYmlG/Ui2SrXA48kTIgBTNSnRF2oZcsLi3ms2tMa6riJAwSDoxU8b4Cfoo0vYdf+52ggdZUODXk3Zj1oXHPV1wqY6hK5RG4EY4CZfYT04C6OX2FBNVz3eTYNi3Oh73a3w2+HL8dgRhqO5JfVTxeNcrOcrkT0gx2WHah6G/0PJVwciumo63+7DrDDBkKXKRduJZONk70kK55pAKWehdIdWkTipxkU98abRhDr2PGixwC+Wp1l5MNbAwADG18FsX7Qx71NE0FKQQv8SfGmMU60wDy6xmabh/1ElUfLlCq2WfRxa8tIrq/amoP5Zm+aTNxLpQUq0RAK3lULOzrNKqiS+iMyx2rVXs4Aud8l21T8OtaArNXLzzBdpWGWN3NDYftE9lojgOk=
+ ARA:13230040|376014|23010399003|366016|1800799024|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 7dZMB6gOC5zaN7J/E4bt8Tm2jCuOy0g0Tx1XA9hfkY6FMxPZW0dHWBfI0+TX46eyI3jx0rWDSYWDO00ohpZLUlMsfgAL2Jb82/kh7zyy4753mWFBIivLEsXpYwiLX1CXosSrH+RDcUk9LNUqpb8sI7e3i3y+WgmlmTEsjCtpYziUe6F6gDVUtJ6YRe1scXC/H7SkLmNc8jGkamtkezmGcOQjIPXFDAw1/uWq4P9bDLpX95PaGxbDN8U8eW3pEuTdu2vLC80xlxCyYnDAeUvdmAhsgbEoEVfaPUCsoEoKQ67/tPcIp2fD1DX+yuwU2jXwSqsFlh9tlYvVJMpb/QUCF9K4kxMxlQpZxRS4DOS2I/O+lSrIFSn7D8c9Cl87WBT5BMoK5A+9dqZ4XiU4rC8UsAXz2X7MKziVcNKGrnc/hepidT78ShwGVKx+KHrGUvw3x9/7rlGQVu5NSyN2gnM2XPCFWlsv7i66EqpDmYtXZGVqc0N7o6knZrtMPLeCK1GdYEWfftKYXf5HNiZOhEDrW1L80wbNvv4VRWHY7M4O0n7rmlf7TNzS6WX1O7MoqUZY1P/bE63lXGx4qS7XyzSLcBUILqEllO1vHwOxSZpTZ3uqPuoZ7PUpNgGCy6y7tQg/U0YA4wS83zBH83PLBT9wh8s/o/k+eSNTJiJgDJEHdpM=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SJ2PR12MB7800.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(56012099006)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003);
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eDhTTUNFOGhGT1p1UTJPVlJLZW52RjBKNFRnanZ1cnF5YW05MlVyMGR0WTdx?=
- =?utf-8?B?MzRNaXZ4bUNmWnZQdm5SOXRYRUtmVU43bmVSMmd2RExqZmllNWlLZnppWHJ0?=
- =?utf-8?B?OXRPeW5hV1Q1M2x3eStCVFRMSjlGQytGYStQYUZ0OHRHQTRzTHdtSVlvZ2pW?=
- =?utf-8?B?a2s1TUl4VGxzSE1xNjJhdElHWis3dFQ4MCtqakh2MEQ5Y2VGZVNvWGgrbWNj?=
- =?utf-8?B?NUhRZXNYM3djdDlOYUwraFpIY2I4ZHowUWwzY2NLMFVxb2ZuQUo2MmF3UDVn?=
- =?utf-8?B?bEkwSEpZbFY5RENoVHUwemhIMVNKK01mcXBiWmtwQ1RZNTR0MVBZZDdwa1lw?=
- =?utf-8?B?MjdTZTFtY3dQZFM2Y1V2VUMrUndpK25qSS9JRzg1OENhSmlEL0lHMm8yZkhi?=
- =?utf-8?B?aW1OK0Y3bGZKYXU3WXdpbG8zcXBUTmpQcG05N0d2S1JFNFB0VWpZTGZQUVBG?=
- =?utf-8?B?SzBuZWdEY3hKY0IxTjlmcmpxSDEzNFpoQTZXd0FKRkFTN1Z1ZWRuUXA4L3cx?=
- =?utf-8?B?VUNlUDQrbmFuK2xiZ3dGL0VFTFlISEtXam5MYldEOWR1Uyt1V3RnKzArcjh4?=
- =?utf-8?B?TDY0OXVsd1pLKzhxSFZYWnBaeUphOGxMSXJmeFE4VDcrdU1GWi9wRzFqMkQ1?=
- =?utf-8?B?R2FJaFNhTXNDL0IrNWVnVy9lSnluc3BFZHJ3ZmZCRzdLLzlrMzlUMFd6OUFx?=
- =?utf-8?B?MWtKM2lEb2ZJaFk4dTBSRnhibXM2Z1pZRTVMbDBseUcwR1E4WXkrekVHQlVn?=
- =?utf-8?B?b3hLQ0p2aUpYUjdiMm14d3FvU2wwT2ExQmNUVGJxSmI3NE41MHhPMmZYb3I0?=
- =?utf-8?B?YWFVZXdPckNPUDlFSk8yaTMrZTdPOVhzNm1aaXBPSWUzNy85YUVBYXJpZVN1?=
- =?utf-8?B?VG9Ld1dKQWFOZ2hWb3NmWHNlSTI2YlllSjhZY21lcytmOHQ4dU9zS0JtR1Uw?=
- =?utf-8?B?YUViN01KR1lqVG9CZzNrRGVuSncvWWhRNEtmd3pkV1pjUHJETEg1MzUvenRL?=
- =?utf-8?B?eHVCaVlZZVlZczhJVjVlZmV5Q1lqZVluY204RVZON2JSOVdReTArTzJIVEVH?=
- =?utf-8?B?Z2d6REQ0M2hlU2p3YUVjTjJQU0ZPYjhzTXZaUlM5cGhYK3hHejV3dUNla3Mr?=
- =?utf-8?B?UHoweUdMSFl4SmFmQ0xhSXJPQkdhV1pZeUFTVFNKRVRwVEgrUTVVNVFuZGZQ?=
- =?utf-8?B?UGlSc0NtZC9DMFBwNVBxcFVnT3ZGUnVKRENpSjhwWUxQL1RvZFNjZE13WDB0?=
- =?utf-8?B?YnBLSGNCNjBhRFZXK1BtejREREhua0lhWWt6RDRJblJxQThFRC81L0N5RDE0?=
- =?utf-8?B?c2NsaFdVNC83Y0prK2oyek1vOXFDT3Z1UUNkSExKUUhjbFp5UW1SRnFPdXJn?=
- =?utf-8?B?dXh3Q0RibTV4SGJsYmVxcWRLTDhZYzlCZ1BranU5aWZlZGswVkJ2Q3MxSXlM?=
- =?utf-8?B?TGcxc29JZkpVa25kaDZPZXBHODM2RXVaQVoxdjk5NmsydEtUckk1YVlRSFdk?=
- =?utf-8?B?MmEreCtsd1dlTnNScmlBVmJtdVdmcTRSeGMvdDFJLzZDMmE0SnZPbzgrcWZ1?=
- =?utf-8?B?NE40SC83Yld4ZGNrQUd2Mnlyek1iQTQyNEZkaUlacHhlL1gvODI0dStXcFJp?=
- =?utf-8?B?U2dJaFRtMkZ6UmpSSzU3ZTFNSnllOE9INUNEWEgzNFdocVpYKzUrQXhrUVpT?=
- =?utf-8?B?djhPbFh6NWJKdEN0QXZEN1hPTnliODRCNW40ZS9ydTBEblVxbHNFWGh0VGRp?=
- =?utf-8?B?VURvRjhVQlZJR2Y2YzdwbENwalJRQmU1SzMxb244V1l3T05zWWp3Z0Z6VTlh?=
- =?utf-8?B?a0hZNExJOTBZbklzcDBRazB3OWNHaG9nNk9nMW14dE1VTS9DNzVWVCtUK1dk?=
- =?utf-8?B?MXhkcTlZQ0ZQUU5hVm1xRVVtRWo5RXFycWx5OFJIUHNyT3A0bmw4VzFYMFpL?=
- =?utf-8?B?dnhZY2RUQ3JmNlFhRGxvT1pYeUpieVRXMTBGckdKN1ZPNUpEaFdMTmpiNitQ?=
- =?utf-8?B?YzNpTVVQc3p0WlJIYm81UVY0Q0FPOHpwTDdXRmROYjl2ZThQRGVqUHVGSFVC?=
- =?utf-8?B?bkxwZ0tJbk5OWmJZUkFHVUFSR0xuTkZYdUwya1RzYmpjeElNcXlZL2pjNHJ6?=
- =?utf-8?B?Ky9XTFdWdkt2QVNldWFVYk0xZUdPRm5YUllvQms2NzFTRy92VUhaWlN4alo4?=
- =?utf-8?B?OGhSckh1VkFJVVNhWGlEZW1oRGp3djUxRUhSWENDbmpBVjRiU0RqVzdCazI0?=
- =?utf-8?B?MkxvZ0dBaVZ2R2pZZzdOdjhBQVQ2c0ZwRmhkOG1aV1JvYjBJWnE0T2UwZXY5?=
- =?utf-8?B?WUJ2dUJNRzB2NzRTakhoMG9oKzJVbEdoL1BHeFpvdFY5dzFkWEtsQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SGthY251Snh1OHdjRGRkaFNKVEw4dnBXSUJYVFVJMEFOMEIvd2ZwZ05wN2xL?=
+ =?utf-8?B?WkJQYmJLSU41bXF5OEtkSmxrU3o4UDEyYjFOZ0JFOXBDYlFrWmU3Y1pVczJt?=
+ =?utf-8?B?cGRLNDRxRm12NFlOUTZsVVdDTGZwRTBYckx4MnhIWTY1Y2IxSDBSZFJTZ3Z0?=
+ =?utf-8?B?dVV4T2doWU9HVkw4Z2xJTTh0dEo3TlI2VWdHWFNDMFFyLzM4akFqNmpVcVpi?=
+ =?utf-8?B?RmhXNy8vZTVFSXdWUXAxbk43TzE3ZmFodTBXTmtKZCtya01ZNkcvejM1bU11?=
+ =?utf-8?B?N1dyQ2dTYXdFVHRqZGVDYk5DMU5aOXUvaVRtRmsvODV0M3BsWXFMNUZ4SDZo?=
+ =?utf-8?B?V25BZGhudzRvcll2dlR2L3NDbG56Z0R1ME1zR0JQWThJc2N2b0xjcnhJZHln?=
+ =?utf-8?B?SUpneW4vN2xod0RBbFJJVmcwWjlwWU1CVGVXd3NPMEZpR1JsZlU1aTFnc3JV?=
+ =?utf-8?B?ek5UWjR5MlVTbklmdlRZM1FSNFp1WjJ6c3NLaDc0V0ZFM1RBTlI1dGdyYnRM?=
+ =?utf-8?B?Q2tUdVFoYXlNbHJwL21STzljK0k3U0hmZ0lxaldqN054a1hwZ3liQTY4NElU?=
+ =?utf-8?B?czRaRGVpR293Tm9IOGdoWElVOGQyN0RKQ1gwVVBqN3U4TUF5cVIycXlyd1Ju?=
+ =?utf-8?B?TUhNRVpYWHlKVXBrQ1p3NUFsKzBKSEg0alhWYkN3TXRXTm5iOFZxdnNBTkM1?=
+ =?utf-8?B?bnRyeDVheTB5V1l5Y3VOdUhMMHA1cEpqQVpPalpCUzNkNk1lRkRRS3hZTDN1?=
+ =?utf-8?B?cXdkZVVZWjBKMTNqV2pVKzFvQTZsNVFmUUM1WXFyL3RvZnNRN0xkek0xNkRw?=
+ =?utf-8?B?cHVoTExla2NCVzVjdE5BMThYL3BTWUxkaHBRLzhhREFaY09iSjk3RldsaHhH?=
+ =?utf-8?B?ZnFJcmJQcUJnN0FtVjRqa0h0WW1XUFpmOWJvSWNhbm50U21lL1VGNmN6TUpE?=
+ =?utf-8?B?M1lGMSt4ZUxhbDMzQWFycXVZcFFTcG0zK2R4NjdkNEE2cFBkSTErN0o4aDNM?=
+ =?utf-8?B?MHo0T2RkTnd6SFBQY2FhN1YrNWdJTk5VVzFNSGI4UUZ4RnlpNFIvZ0I5dURF?=
+ =?utf-8?B?QysxaDhFTUlMSnhsMlYxNUJTb2N6Z2M4YmpNcFlSd3hzbk9VY2lDZlJvZDdE?=
+ =?utf-8?B?V1E0MDJIdkoySXo3VCtRNHI4Q1N6TjlCbXhyRXRxSXRtQkR4Y3ZRY2JMUkt3?=
+ =?utf-8?B?YS8yRUlqWnJQYnFQaU1GdXBKK1FaMVg5cmZvakd0dmtnclFqU1dQNER1Nm9Z?=
+ =?utf-8?B?anRHSDdzRW5CaGtJZVBCUzlncmNFVUdzTURUN3NBeTVtRzNPS1VaTlg4RENj?=
+ =?utf-8?B?SU5GbERXbEFHZ2JwV0E5RVI4dkxTRnZwZWEyUjVCc1paZkZIc2YvZEIyQVdX?=
+ =?utf-8?B?ZnhQUHpPUmxVZzF5TFY3em1xckxQNXVhOWh6SHFmY3g4dmo0ckt1cmNhZUoz?=
+ =?utf-8?B?WUFjc0ZLaHR1VHlTWEF3ZjJoeXhhLzY0SG1qZ2V4WWkxd1ZZQzJlWU1ncEtZ?=
+ =?utf-8?B?bVlBUGk5aDVjN2d1TDZ1NEcvQUplK2c3SmcxV25vSjQwQkxmQlhzZWpnYXR4?=
+ =?utf-8?B?cU9TZDREUGZRdXVyWTE2bDVuM1BtamhHcmk3VDJaV0E4Q2JkWFR6dElUK2pO?=
+ =?utf-8?B?c2N3OENoOXFoWHhFYjA2cjlvYytNa3VwUGdmRHZvcE5CdVRmQUpIdVE5Qzh2?=
+ =?utf-8?B?RFBDVHA5Wlo0S3Z6RWd0ZVNyM0VQcEdHQjZ0R3k1SzNwZFVvbXA5aTNZUEts?=
+ =?utf-8?B?eG5TVkw0ZUl2Y0JnNEM1OEFiQVR5dEVDOHAwRmg2MXRrcEhGU1dJbW4wNW5R?=
+ =?utf-8?B?ZTVtM29lMHpYNFV2TFhOc0NXODV0emhXeWV5SlREK1FCMkx0bmUyQVRLWW9o?=
+ =?utf-8?B?SUhWL0NrMG5PaE03clptWk43V2lrdGNrcGVlK2pHRHpFWmthR0tYcTYra0Va?=
+ =?utf-8?B?UTU0OXVDeDgxUGVhNFdTNmxYUEFXRXFQSkhyQ2R4WGR1NlN4OE15b2VlTWpE?=
+ =?utf-8?B?U2JNZlE4VGEwWVQwbTFjOURacWxVV0laQ0NocUdUOTQvcDRmWm4xM05xbzlJ?=
+ =?utf-8?B?a0Z3QlZWSEJkazdQZlV2UG8weElTeUd3Q3U5Qyt3d05oYzRqMllibnpoS1J6?=
+ =?utf-8?B?UjY3a3NXM3pCcllXNm1wNnAydDlSK3lRY1Z5Qi9kdXo1eEhBa1phR1FSZ1Ns?=
+ =?utf-8?B?VVVjWitKTURCemxGWEp2clNmOWtXQWY1bzJGamE5bkF3YVk1eXhOMlpudTRn?=
+ =?utf-8?B?dnZXRElqc3cybmxVaFBqdVNtMm1ZVURBWjhQazY5ZUc3eVJsb0hKay9YUmwr?=
+ =?utf-8?B?VW1EcDJXZUFSK2RTbml0VE5JQk9EcEl5UE41UGQ5OFVJa0dvUk1YUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8387ce01-1d22-4b94-31ca-08deecacaf1a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 33171857-f610-4b48-0ec0-08deecad15c6
 X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB7800.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 13:32:35.3072 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 13:35:27.5047 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: D1fgByCUBbtqpGWqmdwOioxXqcYXzZmNIXhME/0Xi/IaBivbxVC9AJrJXM09mHLce3oiGrOiI1B2AJxvySQoiQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSSPR12MB999214
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3kE0sWNh9hFxU+9PaK9uHGzQEGG5iX844ENMruv27TfK56L124B+/5DF0LJHVazVACe5rlGbYN1RXKUzjVIvSA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6407
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,105 +139,121 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 28-07-2026 06:45 pm, Francis, David wrote:
->> This function is called from many places and will not match when a
->> process start and similarly for stop. Better find a unique function,
->> also this will be called for KGD and KFD processes too.
-> This function is called when the last ref to an task_info is put.
-> Many places in the code temporarily acquire references to a task_info
-> but only amdgpu_vm holds the long-term reference, acquired in
-> amdgpu_vm_create_task_info and relased in amdgpu_vm_fini.
+On 28-07-2026 07:02 pm, Khatri, Sunil wrote:
 >
-> Tying the trace to the lifetime of task_info also guarantees that
-> there will be exactly one such trace for each task_info, matching
-> the register trace semantics
+> On 28-07-2026 06:45 pm, Francis, David wrote:
+>>> This function is called from many places and will not match when a
+>>> process start and similarly for stop. Better find a unique function,
+>>> also this will be called for KGD and KFD processes too.
+>> This function is called when the last ref to an task_info is put.
+>> Many places in the code temporarily acquire references to a task_info
+>> but only amdgpu_vm holds the long-term reference, acquired in
+>> amdgpu_vm_create_task_info and relased in amdgpu_vm_fini.
+>>
+>> Tying the trace to the lifetime of task_info also guarantees that
+>> there will be exactly one such trace for each task_info, matching
+>> the register trace semantics
+>
+> For begining, amdgpu_vm_init sounds like a better choice
 
-For begining, amdgpu_vm_init sounds like a better choice
-for ending, amdgpu_vm_destroy_task_info is correct.
+Anywhere After line , r = amdgpu_vm_create_task_info(vm);
 
 Regards
 Sunil Khatri
 
->
-> David Francis
->
->
-> ________________________________________
-> From: Khatri, Sunil <Sunil.Khatri@amd.com>
-> Sent: Tuesday, July 28, 2026 8:26 AM
-> To: Francis, David; amd-gfx@lists.freedesktop.org
-> Cc: Liu, Shuzhou (Bill); Khatri, Sunil
-> Subject: Re: [PATCH] drm/amdgpu: Add trace events for pid register/deregister
->
->
-> On 24-07-2026 06:51 pm, David Francis wrote:
->> Some debugging applications need to track when a process starts
->> or stops using the amdgpu driver. For those processes, add ftrace
->> events that track when a amdgpu_vm task info is changed or destroyed.
->>
->> Signed-off-by: David Francis <David.Francis@amd.com>
->> ---
->>    drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 17 +++++++++++++++++
->>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  7 +++++++
->>    2 files changed, 24 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
->> index 5324030a13f5..c79604b9dda1 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
->> @@ -732,6 +732,23 @@ TRACE_EVENT(amdgpu_userq_state_changed,
->>                      __entry->client_id, __entry->queue_type, __entry->doorbell_index, __entry->to)
->>    );
->>
->> +TRACE_EVENT(amdgpu_register_pid,
->> +     TP_PROTO(uint32_t pid),
->> +     TP_ARGS(pid),
->> +     TP_STRUCT__entry(__field(uint32_t, pid)),
->> +     TP_fast_assign(__entry->pid = pid;),
->> +     TP_printk("amdgpu register pid %d",
->> +               __entry->pid)
->> +);
->> +TRACE_EVENT(amdgpu_deregister_pid,
->> +     TP_PROTO(uint32_t pid),
->> +     TP_ARGS(pid),
->> +     TP_STRUCT__entry(__field(uint32_t, pid)),
->> +     TP_fast_assign(__entry->pid = pid;),
->> +     TP_printk("amdgpu deregister pid %d",
->> +               __entry->pid)
->> +);
->> +
->>    #undef AMDGPU_JOB_GET_TIMELINE_NAME
->>    #endif
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> index aac8ace9d7a6..8d31a61e8c26 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
->> @@ -2457,6 +2457,9 @@ static void amdgpu_vm_destroy_task_info(struct kref *kref)
->>    {
->>        struct amdgpu_task_info *ti = container_of(kref, struct amdgpu_task_info, refcount);
->>
->> +     if (ti->task.pid)
->> +             trace_amdgpu_deregister_pid(ti->task.pid);
->> +
->>        kfree(ti);
->>    }
->>
->> @@ -2543,6 +2546,10 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
-> This function is called from many places and will not match when a
-> process start and similarly for stop. Better find a unique function,
-> also this will be called for KGD and KFD processes too.
-> Chose a better function to add the trace although trace in itself is fine.
+> for ending, amdgpu_vm_destroy_task_info is correct.
 >
 > Regards
 > Sunil Khatri
->>        if (vm->task_info->task.pid == current->pid)
->>                return;
+>
 >>
->> +     if (vm->task_info->task.pid)
->> +             trace_amdgpu_deregister_pid(vm->task_info->task.pid);
->> +     trace_amdgpu_register_pid(current->pid);
->> +
->>        vm->task_info->task.pid = current->pid;
->>        get_task_comm(vm->task_info->task.comm, current);
+>> David Francis
 >>
+>>
+>> ________________________________________
+>> From: Khatri, Sunil <Sunil.Khatri@amd.com>
+>> Sent: Tuesday, July 28, 2026 8:26 AM
+>> To: Francis, David; amd-gfx@lists.freedesktop.org
+>> Cc: Liu, Shuzhou (Bill); Khatri, Sunil
+>> Subject: Re: [PATCH] drm/amdgpu: Add trace events for pid 
+>> register/deregister
+>>
+>>
+>> On 24-07-2026 06:51 pm, David Francis wrote:
+>>> Some debugging applications need to track when a process starts
+>>> or stops using the amdgpu driver. For those processes, add ftrace
+>>> events that track when a amdgpu_vm task info is changed or destroyed.
+>>>
+>>> Signed-off-by: David Francis <David.Francis@amd.com>
+>>> ---
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 17 +++++++++++++++++
+>>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  7 +++++++
+>>>    2 files changed, 24 insertions(+)
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+>>> index 5324030a13f5..c79604b9dda1 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+>>> @@ -732,6 +732,23 @@ TRACE_EVENT(amdgpu_userq_state_changed,
+>>>                      __entry->client_id, __entry->queue_type, 
+>>> __entry->doorbell_index, __entry->to)
+>>>    );
+>>>
+>>> +TRACE_EVENT(amdgpu_register_pid,
+>>> +     TP_PROTO(uint32_t pid),
+>>> +     TP_ARGS(pid),
+>>> +     TP_STRUCT__entry(__field(uint32_t, pid)),
+>>> +     TP_fast_assign(__entry->pid = pid;),
+>>> +     TP_printk("amdgpu register pid %d",
+>>> +               __entry->pid)
+>>> +);
+>>> +TRACE_EVENT(amdgpu_deregister_pid,
+>>> +     TP_PROTO(uint32_t pid),
+>>> +     TP_ARGS(pid),
+>>> +     TP_STRUCT__entry(__field(uint32_t, pid)),
+>>> +     TP_fast_assign(__entry->pid = pid;),
+>>> +     TP_printk("amdgpu deregister pid %d",
+>>> +               __entry->pid)
+>>> +);
+>>> +
+>>>    #undef AMDGPU_JOB_GET_TIMELINE_NAME
+>>>    #endif
+>>>
+>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c 
+>>> b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> index aac8ace9d7a6..8d31a61e8c26 100644
+>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>>> @@ -2457,6 +2457,9 @@ static void amdgpu_vm_destroy_task_info(struct 
+>>> kref *kref)
+>>>    {
+>>>        struct amdgpu_task_info *ti = container_of(kref, struct 
+>>> amdgpu_task_info, refcount);
+>>>
+>>> +     if (ti->task.pid)
+>>> +             trace_amdgpu_deregister_pid(ti->task.pid);
+>>> +
+>>>        kfree(ti);
+>>>    }
+>>>
+>>> @@ -2543,6 +2546,10 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm 
+>>> *vm)
+>> This function is called from many places and will not match when a
+>> process start and similarly for stop. Better find a unique function,
+>> also this will be called for KGD and KFD processes too.
+>> Chose a better function to add the trace although trace in itself is 
+>> fine.
+>>
+>> Regards
+>> Sunil Khatri
+>>>        if (vm->task_info->task.pid == current->pid)
+>>>                return;
+>>>
+>>> +     if (vm->task_info->task.pid)
+>>> + trace_amdgpu_deregister_pid(vm->task_info->task.pid);
+>>> +     trace_amdgpu_register_pid(current->pid);
+>>> +
+>>>        vm->task_info->task.pid = current->pid;
+>>>        get_task_comm(vm->task_info->task.comm, current);
+>>>
