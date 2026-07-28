@@ -4,61 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCB4AC54F51
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 13:16:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 03988C54FD2
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 13:16:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D94010EC28;
-	Wed, 29 Jul 2026 13:16:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C5C810EC1D;
+	Wed, 29 Jul 2026 13:16:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="ENLkoEsd";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="G1GUsFu7";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42D1D10E028;
- Wed, 29 Jul 2026 09:19:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785316798; x=1816852798;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=C7rb8FTFsoinrzscbdqtrV/V6OCDZtEVNoPJOahNsS8=;
- b=ENLkoEsdCf52AYaACuzy71vZWV7xqSMVRc3iYzk5BDKDvBGlOXMcgx3a
- cQJqhllOzpiv4aqnssKc0GvqEY8vSyMyZ8a5w/wCMXPjQRvZYT27yDfUC
- uuUo9kyUXg4GsCwDeiHO8hDd1d4viXaPK9fN2vB/CEF+0fsMb20Xt9F7J
- L2cPAY9KsQbwO9xr53B77UR9idlYXCwVMw1gX0/g7ET2/S/Ujc2ZqDQMU
- tekQX9qsEYzDDedRjf2fhZaFyzydTCfrEux8zHvchrLCCIDyBlP8Zgp2s
- bHKZrTjkQUQTDakyS7xvx6WOxemLPDF0e4OilOondt92Btxwro5PUINiJ A==;
-X-CSE-ConnectionGUID: vb7fclDYRcuF8cZlf8NIBw==
-X-CSE-MsgGUID: /a9iT4tGQpqTWYGjzr56zQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="89805352"
-X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; d="scan'208";a="89805352"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2026 02:19:58 -0700
-X-CSE-ConnectionGUID: TKBtRxmlTO+Iv9gpfz4SIQ==
-X-CSE-MsgGUID: Y3BKb6LfSjmCCFaXDdQItw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; d="scan'208";a="260020085"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO intel.com)
- ([10.245.245.23])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2026 02:19:54 -0700
-From: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Simona Vetter <simona@ffwll.ch>,
- Joel Fernandes <joelagnelf@nvidia.com>, David Airlie <airlied@gmail.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: [PATCH RESEND 2/2] gpu/tests: Add a dedicated .kunitconfig
-Date: Wed, 29 Jul 2026 11:18:17 +0200
-Message-ID: <20260729091816.27860-4-krzysztof.niemiec@intel.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260729091816.27860-2-krzysztof.niemiec@intel.com>
-References: <20260729091816.27860-2-krzysztof.niemiec@intel.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51A8510E366
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 18:16:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=H7KesrSOy2zbVR1p7ltMlJUXDVscXUX/ya7vqI1dzrU=; b=G1GUsFu7SyEWGmR0L4N5pzUZRf
+ 6usW/kIzfMwdSqvKvUaH5KB8wF8/vxOfj06DM35HtdDDWSeYTgj6vkBwvkDQN1FlzxiVpFc4wdpse
+ rkpB13wZNWTkPdWYrEQ9lBHEnaX3jkrC31guyJw7R8WfHOSHMWVR2/P8EzCpcvnNL1dkff6u4tvkP
+ gxpxTzu9F4Dvtp0vP0Tuj/sDW8ONy4FFK5nD8LBwpKQK+aaMRAnMItF9Lxqt27yklfP0c6DmWkNmj
+ VI7dPmwzIwveNOIFelrmccHH73WMjp6lhaifRMMc3+9dk5l1o2OVABTLmaf19rG9AQ1B7TUsJUz6N
+ 8wisqAsA==;
+Received: from [179.118.190.213] (helo=[192.168.15.100])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1womLm-0076me-5Q; Tue, 28 Jul 2026 20:16:22 +0200
+Message-ID: <7ad49dd9-1c05-453e-9bb1-e80542f1a1b8@igalia.com>
+Date: Tue, 28 Jul 2026 15:16:20 -0300
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdgpu: Update message IDs to PMFW to correctly
+ gather GFXOFF residency logs
+To: Fares Soliman <Fares.Soliman@amd.com>
+Cc: Richardqi.Liang@amd.com, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com
+References: <20260713132624.1173426-1-Fares.Soliman@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Andr=C3=A9_Almeida?= <andrealmeid@igalia.com>
+In-Reply-To: <20260713132624.1173426-1-Fares.Soliman@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 29 Jul 2026 13:16:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -75,25 +59,21 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add a dedicated .kunitconfig for running the GPU buddy allocator tests.
+Em 13/07/2026 10:26, Fares Soliman escreveu:
+> Updates PPSMC_MSGs and set/get functions for gathering GFXOFF logs
+> on Van Gogh. Logs are now gathered live rather than starting then
+> stopping logging and reading an average value afterwards. This is
+> in accordance to changes made in PMFW.
+> 
+> In regards to messageID 0x52, the old interface uses a start/stop
+> parameter, and the new one doesn't. The firmware is checked to
+> determine which method to use.
+> 
+> v2: added firmware guard to new interface, old interface kept as
+> fallback
+> 
+> Signed-off-by: Fares Soliman <Fares.Soliman@amd.com>
+Tested-by: André Almeida <andrealmeid@igalia.com> (on Steam Deck)
 
-Signed-off-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Reviewed-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
-Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
-Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
----
- drivers/gpu/tests/.kunitconfig | 2 ++
- 1 file changed, 2 insertions(+)
- create mode 100644 drivers/gpu/tests/.kunitconfig
-
-diff --git a/drivers/gpu/tests/.kunitconfig b/drivers/gpu/tests/.kunitconfig
-new file mode 100644
-index 000000000000..fd611b3dfe09
---- /dev/null
-+++ b/drivers/gpu/tests/.kunitconfig
-@@ -0,0 +1,2 @@
-+CONFIG_KUNIT=y
-+CONFIG_GPU_BUDDY_KUNIT_TEST=y
--- 
-2.45.2
-
+Thanks!
+	André
