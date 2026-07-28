@@ -4,114 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B4CDC5321C
-	for <amd-gfx@archiver.kernel.org>; Mon, 27 Jul 2026 22:56:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 24CACC53209
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 00:52:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65F0910E4F0;
-	Mon, 27 Jul 2026 22:56:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A04E610E307;
+	Tue, 28 Jul 2026 00:52:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="iwaG5uRX";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="DgbG3aoz";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DD81010E09A;
- Mon, 27 Jul 2026 22:56:04 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3854F40426;
- Mon, 27 Jul 2026 22:56:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04CDB1F000E9;
- Mon, 27 Jul 2026 22:55:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785192964;
- bh=QggSvxtNQ67iS+XUwqrDlrH2xraHrxGb+vgcG7y0WsY=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date;
- b=iwaG5uRX32rTgcSQn1oI8cDhvVdBgF7xNVMcmwA5nB2roQEpjWkBM9/elDUKMWR+e
- A0p9zb+3tSs36tELwjTyibEs5znVgnOoeBgaUwvlk+h9jnbCN1e+v9elShDExZRawl
- S9FIBGMRZSowIq2RtsqIUQJ/GKy2epEJEkS13zWkXc/uH+dFvxm4jWJtqykilYp8FZ
- n/dZuVVGnI4Oh8Jv/TOV8zbNHWDjAXhVQbUPhHErbAZOrGNAAwjAULYVaj3h2kBbW9
- ED2feS2pNPbAGb5xCgo1ctL4J3aD2Ir+AJmF+Wa3lGIyvJ/mNC9waIoSbc3rE33Rm4
- vgzkKLQuteGUQ==
-From: Mark Brown <broonie@kernel.org>
-To: Julia.Lawall@inria.fr, Alex Deucher <alexander.deucher@amd.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Andrew Lunn <andrew@lunn.ch>, Andrew Morton <akpm@linux-foundation.org>, 
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>, 
- Borislav Petkov <bp@alien8.de>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- David Airlie <airlied@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Eric Dumazet <edumazet@google.com>, Florian Westphal <fw@strlen.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Jakub Kicinski <kuba@kernel.org>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, Jaroslav Kysela <perex@perex.cz>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Jiri Pirko <jiri@resnulli.us>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Johan Hovold <johan@kernel.org>, 
- Jonathan Cameron <jic23@kernel.org>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Julian Anastasov <ja@ssi.bg>, Leon Romanovsky <leon@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Linus Walleij <linusw@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- "Martin K. Petersen" <martin.petersen@oracle.com>, 
- Matthew Sakai <msakai@redhat.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Maxime Ripard <mripard@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Mike Rapoport <rppt@kernel.org>, 
- Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
- Nicolas Palix <nicolas.palix@imag.fr>, 
- Pablo Neira Ayuso <pablo@netfilter.org>, Paolo Abeni <pabeni@redhat.com>, 
- Ping-Ke Shih <pkshih@realtek.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sebastian Reichel <sre@kernel.org>, 
- Shuah Khan <shuah@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Simon Horman <horms@verge.net.au>, Stephen Boyd <sboyd@kernel.org>, 
- Steve French <sfrench@samba.org>, Takashi Iwai <tiwai@suse.com>, 
- Thomas Renninger <trenn@suse.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Tony Luck <tony.luck@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
- Vadim Fedorenko <vadim.fedorenko@linux.dev>, Vinod Koul <vkoul@kernel.org>, 
- Will Deacon <will@kernel.org>, Yazen Ghannam <Yazen.Ghannam@amd.com>, 
- Sang-Heon Jeon <ekffu200098@gmail.com>
-Cc: cocci@inria.fr, amd-gfx@lists.freedesktop.org, 
- dmaengine@vger.kernel.org, dm-devel@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev, 
- linux-cifs@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-crypto@vger.kernel.org, linux-edac@vger.kernel.org, 
- linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org, 
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linux-mm@kvack.org, linux-pm@vger.kernel.org, 
- linux-rdma@vger.kernel.org, linux-rtc@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-sound@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-wireless@vger.kernel.org, lvs-devel@vger.kernel.org, 
- netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, 
- nouveau@lists.freedesktop.org, platform-driver-x86@vger.kernel.org
-In-Reply-To: <20260723184538.3888637-1-ekffu200098@gmail.com>
-References: <20260723184538.3888637-1-ekffu200098@gmail.com>
-Subject: Re: (subset) [PATCH 00/36] treewide: remove conditional returns
- with no effect
-Message-Id: <178515520105.50339.6347304746485042237.b4-ty@b4>
-Date: Mon, 27 Jul 2026 13:26:41 +0100
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
+ [209.85.167.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D421110E307
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 00:51:58 +0000 (UTC)
+Received: by mail-lf1-f44.google.com with SMTP id
+ 2adb3069b0e04-5aeba09900bso2168692e87.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 27 Jul 2026 17:51:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785199917; x=1785804717; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=YyiWxM0l+pV+N+P60T/IcxD0yZfdk4dsxpPoSCJ6HvA=;
+ b=DgbG3aozMdLOMX3AFw9LBr/AVv5jJeYu6BnpO89xtgu4C8vlCTGykJk3qzTzEpM4Yb
+ QBFVKYnaJA13Lvs7rznSAsWjnDj+eDF/THF8w/xoDrodszNx+heT6U4+Sy1FgZfBIAYz
+ dSDbAA2vd5dLcpbdquZfP/xHsf8FbyshSpuASTV4MIYTI1NlbbXQk2Nosh/QKC0tzoMF
+ YGD7m6s8czbOYAb9SLwP+cgHF/xdIUdANvLu7iyqxFkF/L1uE0WfrPu/YbLQwC55oIp7
+ /mx8M2a6pNQUp7NMhFCHuX2Uzf321Z7oIXtGTyPvEaNhlyx4GYTgLOgSwD+/1CuDOQAb
+ dJRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785199917; x=1785804717;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=YyiWxM0l+pV+N+P60T/IcxD0yZfdk4dsxpPoSCJ6HvA=;
+ b=tDtC3jyO16Yh4yXUW3Epd5O9g5NkvJxg47e8igN8Wzy1ZRJOcgqk3CsqNsv0kBDfKH
+ HCG8r9ZGhbSiVs1EP9P/IIZWL2zLaciU3fHozPKJoAtkMmUQ9kVBbFiMQNXqAVDWOwUO
+ 5yGmacmVkAGOecykDwEi0KAuBUmpFZOe/+ym4T6i5PIVSl6D7vzHJsFX70fda8To9yqT
+ pfPlnrYy+XvR2xjpiE43+JFYPDLfh/2Rd3PTZECyS2Zl8BeaEyMkjROtTSnDTw1BKYbM
+ MYpzvqvq53q7FrvrUEjik3/Fd5+dnbzZMZqvS9g0wCJSTCkZ7gtew7/g4QvfnThF2DqM
+ IulA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrOZZD5v1Lz4/jFfAOFXJe1D3C0a4FfdJkZD5QQNr05UaO19CHiwpi1ywqNuRuPeWlLIrxZaisV@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxAIFbQ0Hyjobb6DlShO8MasJqoWG8YESr7r4qCWh/aF2mR4OZg
+ RTDdSNC+SfGYfqukDqfBh1ZIHbdWjVLU8mP4hJktDJxVdvbZOBNoKyb1
+X-Gm-Gg: AR+sD13epKPXtx1aCjEyK1Nfd5lt+zTtZDRWbqmj77ELni37raCx5wDxYpwX5tJum7U
+ sLL9uI2WbJy0qHxoO6AJfNLxcfMJeelW9sZTeM9XzS1evsqonhIj54/dm0Gx/tvHevvZwKNuIMZ
+ 0WRyO0kA/+uBk+4nvJd30VttnT/dzlKdwWAnQCUr1NLGKpsS8XdezbhvD+7zM7qSVgJUk9P2LbZ
+ 317hcWIIPnixUFjKou1eR5D5WEo8w+LZC+KK79hAiPvas66gjOK+t9rzKLpKQkeuiFIBbCdz54r
+ jYt0uYmpEyhaVciH05vJwKWioZMYLX64tcm3BbrZjwpFp3KSAAIleJJcQEI9sjgsXA/i/O9YTmJ
+ UyA9D2DHV/5171wQSHSAd7yWaxf3ljGZTS3nJhufEQS2BGYI2Njc5CR122A06+3zJZaBfc74JRQ
+ /6OciHpGgLXY977mC7hlg3
+X-Received: by 2002:a05:6512:3407:b0:5b0:197b:9811 with SMTP id
+ 2adb3069b0e04-5b2d023bef9mr31905e87.53.1785199916589; 
+ Mon, 27 Jul 2026 17:51:56 -0700 (PDT)
+Received: from primary-ws.local ([188.234.148.119])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5b2be077c14sm1758822e87.1.2026.07.27.17.51.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 27 Jul 2026 17:51:55 -0700 (PDT)
+Message-ID: <ef1bc3d070c4156f1811c0c4a567ec98ac8fadaf.camel@gmail.com>
+Subject: Re: [PATCH] drm/amd/display: fix usage of DC_FPU_{BEGIN,END} with
+ PREEMPT_RT
+From: "mikhail.v.gavrilov@gmail.com" <mikhail.v.gavrilov@gmail.com>
+To: Bert Karwatzki <spasswolf@web.de>, linux-kernel@vger.kernel.org
+Cc: linux-next@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+ amd-gfx@lists.freedesktop.org, "# = v7 . 1" <stable@vger.kernel.org>, Alex
+ Deucher <alexander.deucher@amd.com>, Rafal Ostrowski
+ <rafal.ostrowski@amd.com>, Mario Limonciello	 <mario.limonciello@amd.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,  Thomas Gleixner
+ <tglx@linutronix.de>
+Date: Tue, 28 Jul 2026 05:51:53 +0500
+In-Reply-To: <20260727105059.75716-1-spasswolf@web.de>
+References: <20260727105059.75716-1-spasswolf@web.de>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.61.1 (3.61.1-3.fc45) 
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1395; i=broonie@kernel.org;
- h=from:subject:message-id; bh=oEgoEtojyQ9PC8g7uhG7viM9B7fGAJubrsCe9lk5/YY=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqZ+HxlIWhtS7M/+/D/kSsIotZNE7ycdvTNKMa6
- lyMcsUy1YGJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCamfh8QAKCRAk1otyXVSH
- 0NGoB/9aZSWKSSxB+DoiO9o+r0R7LvQ0b9P0b+u/ow+7Ti4Va043c7UzGI2RzCGdUpf18XgLn6f
- SgEv95GzlB+upqVsxmPG9VHhXWw4Ho9J4p/hSGXTDgAS8ErF8GjIkiAzWtWwlF1NwqBzKdr1HBU
- 4bzLooMHmkm+sRhw0K+K8vYxKzoIVIF4rw3OtvuVpbcnMjoni4zgFcLTc5cd+g7gZ+ms/PpNPge
- 1bCGwvXOdpSE1Sx0RqUVVFnzDZUByQ/Qgq4t95aAwkznICTyGzRGtCagn7hNdby/Adb/VqLQiGG
- EXfGwi5kgCay4GMGfP+CcNTcNXARRSisUOfJQUCdGh8to0xz
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -126,43 +95,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 24 Jul 2026 03:45:02 +0900, Sang-Heon Jeon wrote:
-> treewide: remove conditional returns with no effect
-> 
-> Hello,
-> 
-> While reading mm/memblock, I found a conditional return where both
-> branches return the same value:
-> 
-> [...]
+On Mon, 2026-07-27 at 12:50 +0200, Bert Karwatzki wrote:
+> On PREEMPT_RT kernels kvzalloc_obj() can sleep because spin_lock is
+> converted to rt_mutex. dc_create_plane_state() can be called while
+> inside an FPU-guarded region, resuling in "scheduling while atomic"
+> errors on PREEMPT_RT kernels.
+> =C2=A0Fix this by calling kvzalloc_obj() with
+> DC_RUN_WITH_PREEMPTION_ENABLED().
+> Also fix the error path in dc_create_stream_for_sink().
+>=20
+> Fixes: 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC
+> - Part 1")
+> Link:
+> https://lore.kernel.org/lkml/20260723123449.6494-1-spasswolf@web.de/
+>=20
+> Signed-off-by: Bert Karwatzki <spasswolf@web.de>
+> ---
+> =C2=A0drivers/gpu/drm/amd/display/dc/core/dc_stream.c=C2=A0 | 5 +++--
+> =C2=A0drivers/gpu/drm/amd/display/dc/core/dc_surface.c | 4 ++--
+> =C2=A02 files changed, 5 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> index dbc12640b01c..4ac835777b58 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> @@ -233,8 +233,9 @@ struct dc_stream_state
+> *dc_create_stream_for_sink(
+> =C2=A0
+> =C2=A0fail:
+> =C2=A0	if (stream) {
+> -		kfree(stream->update_scratch);
+> -		kfree(stream);
+> +		if (stream->update_scratch)
+> +			DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream-
+> >update_scratch));
+> +		DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream));
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	return NULL;
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+> b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+> index 88e825a6582c..d5c6427796b6 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+> @@ -85,8 +85,8 @@ uint8_t=C2=A0 dc_plane_get_pipe_mask(struct dc_state
+> *dc_state, const struct dc_plane
+> =C2=A0
+> *********************************************************************
+> *********/
+> =C2=A0struct dc_plane_state *dc_create_plane_state(const struct dc *dc)
+> =C2=A0{
+> -	struct dc_plane_state *plane_state =3D
+> kvzalloc_obj(*plane_state,
+> -							=C2=A0
+> GFP_ATOMIC);
+> +	struct dc_plane_state *plane_state;
+> +	DC_RUN_WITH_PREEMPTION_ENABLED(plane_state =3D
+> kvzalloc_obj(*plane_state, GFP_ATOMIC));
+> =C2=A0
+> =C2=A0	if (NULL =3D=3D plane_state)
+> =C2=A0		return NULL;
 
-Applied to
+Hi Bert,
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.3
+You may not be aware that the same allocation is already wrapped once,
+at the dcn32 call site:
 
-Thanks!
+  183182235f6d ("drm/amd/display: Wrap DCN32 phantom-plane allocation
+in DC_RUN_WITH_PREEMPTION_ENABLED")
 
-[14/36] ASoC: remove conditional return with no effect
-        https://git.kernel.org/broonie/misc/c/ca9b51f41c9d
-[28/36] regulator: wm831x-isink: remove conditional return with no effect
-        https://git.kernel.org/broonie/misc/c/9396a1d9e142
+That one only covers the dcn32 DML1 path, while your trace goes through
+dcn401_validate_bandwidth() and dml21 - so wrapping the call site could
+never have caught your case.  Which is a good argument for guarding the
+allocation in the callee, as you do: dc_create_plane_state() is reached
+from every DCN and both DML generations.
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+On dcn32 the two wraps now nest.  That is harmless, because
+DC_RUN_WITH_PREEMPTION_ENABLED() is conditional on dc_is_fp_enabled():
+once the outer instance has left the FPU region, the inner one expands
+to a plain call.  But it does make the dcn32 wrap redundant, and I
+think it should be dropped in a follow-up now that the allocation is
+guarded in the callee.
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+One thing that may be worth adjusting in the commit message: this is
+not only a PREEMPT_RT problem.  183182235f6d was needed on a plain non-
+RT x86 kernel. There DC_FP_START() takes fpregs_lock(), which disables
+local softirqs, and dc_plane_state is around 335 KiB, so kvzalloc_obj()
+falls through to the vmalloc path and hits BUG_ON(in_interrupt()).  So
+on RT any allocation inside the FPU region is illegal, while on non-RT
+it is specifically the large ones - two failure modes, one root cause.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+About the FPU register question raised by the review bot: as far as I
+can see it applies to every existing user of
+DC_RUN_WITH_PREEMPTION_ENABLED(), 183182235f6d included, so it looks
+like a property of the macro rather than something your patch
+introduces.  An answer from AMD on that would be useful either way.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+I have dcn32 hardware here (RX 7900 XTX) and can test the patch on
+non-RT if that helps.
 
+--=20
 Thanks,
-Mark
-
+Mikhail
