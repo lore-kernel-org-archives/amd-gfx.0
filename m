@@ -4,53 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA53FC53219
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 15:02:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99839C54F55
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 15:11:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64D0710E370;
-	Tue, 28 Jul 2026 15:02:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EB04110E827;
+	Tue, 28 Jul 2026 15:11:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="Iaawrjfe";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="BoTR8gPP";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B1DB10E370;
- Tue, 28 Jul 2026 15:02:35 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785250949; cv=none; 
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE9D110E713;
+ Tue, 28 Jul 2026 15:11:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785251477; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=Q95XdY2UHdmYZbfIguYg9D9xQ1Nhf8BsoPGtCp3ELSA0zzN7jEkFu9SBULawhO7UII55UqdeVxPphVXUrCkvSdRpL3pB3wxQh/wgdfgg993FAV8n2KaGJJt0bCQe1kTiapL1vzUZ3qcYvdTo/X5ajhwNzxt5/9+N6hdc6nY6q/w=
+ b=NHGlV6NtX30BatGWgnjkodTfwQRV/LAVCcIibCVTiTE9BEBBcc19C5W9I9ZJdZtHe+5LgB32eefI8ZodKtaomPVLtNNDwQEcfgnM2yCozEhvJ/OghxgFBzyVwzNB3zWYg6VgZ4v33GMdViS39VyrStMTM0HWCNMvCzgcDeZzRlc=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785250949;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=w5OKCFz4xACTqMiYz/3AiS4nv6PH8jSjABL1eiPo65E=; 
- b=BTmQLbJDqOOh4HC0Ih71dSEvFpNrZi8Kk9RUKlujsVjgw2ColvMGh8srmbr+8iL43Q2Ui2jn8wxdk6Wq+AC+LAWvcOvd0hwd9X7sDhMXy+BLIdW1/FYZ4axQ6gmo16PaIuDhnCt3dppv2b+vmwVDCoKOVjPUJpO2CeKUxmYqd+0=
+ s=zohoarc; t=1785251477;
+ h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
+ bh=jYkK6lXlHec/yo2Mdvqq9xeIg01QvKzH13q6ig5pKx4=; 
+ b=dcu5Hx0jWK9jQMnNCW6w9ylpjpwcnc18/mosvR+n49Bot35JFJCjaBufxkoGcybFHRsXRp2Y+iYRmVp58WeWLKRqWcv7MIdyD2xkpXLsPAyAyhzy2mQ62/BD39bV1iaeCRGNLSZcOa8QHKKHEP4X1zyn3TjaGsKJ+bCbo0K1G5s=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=robert.mader@collabora.com;
  dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785250949; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785251477; 
  s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=w5OKCFz4xACTqMiYz/3AiS4nv6PH8jSjABL1eiPo65E=;
- b=IaawrjfeeG4IVUM8byihVSOdn2CY6ks1i9hgbBn5ZabbAerp6USkvh8f6bmW/21E
- 9kcGslRp3BSIeFHlDjkTcfDYOlAytTpFAuFy+6m5p8LAHPrBJfHiw0rze76qLdxPhJ1
- yowe5NnnT9PiSJGrrnDARSe6kPuVJI84kY5DSeNo=
-Received: by mx.zohomail.com with SMTPS id 1785250948162154.79481830348425;
- Tue, 28 Jul 2026 08:02:28 -0700 (PDT)
-Message-ID: <64bdc6c8-41e7-4c7f-aa8e-ceb05128d987@collabora.com>
-Date: Tue, 28 Jul 2026 17:02:24 +0200
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
+ bh=jYkK6lXlHec/yo2Mdvqq9xeIg01QvKzH13q6ig5pKx4=;
+ b=BoTR8gPP5ewR9qzxZC3QDv8KECH4AO1982m8Pu7kFC3wkkO/U4x2lvRrhNe5ivps
+ 6pnImB8u/HUtJ+L4B2gGDg86sSiwj9sdpykvNExFk+gu/yoVm4ygB/rzvERErUwvx3Q
+ 6bRH+flLjUfnYHhswjwUPJUvxxaD54R364+1/7Fg=
+Received: by mx.zohomail.com with SMTPS id 178525147659829.065885387314438;
+ Tue, 28 Jul 2026 08:11:16 -0700 (PDT)
+Message-ID: <81c2e5ef-0fbb-451d-a1cb-8c1d96ffd656@collabora.com>
+Date: Tue, 28 Jul 2026 17:11:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/11] drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
+Subject: Re: [PATCH v4 02/11] drm/vkms: Fix limited-range YCbCr to RGB
+ conversion scaling
 To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org
-Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Melissa Wen <mwen@igalia.com>
 References: <20260722134607.136293-1-harry.wentland@amd.com>
- <20260722134607.136293-2-harry.wentland@amd.com>
+ <20260722134607.136293-3-harry.wentland@amd.com>
 Content-Language: en-US, de-DE
 From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <20260722134607.136293-2-harry.wentland@amd.com>
+In-Reply-To: <20260722134607.136293-3-harry.wentland@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -70,466 +69,210 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Hi,
 
 On 22.07.26 15:45, Harry Wentland wrote:
-> From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> The limited-/studio-range YCbCr to RGB conversion matrices were generated
+> with colour.matrix_YCbCr(is_legal=True, bits=8), which normalises the
+> narrow range by 2^bits (256 for 8-bit) rather than by the full-range
+> maximum 2^bits - 1 (255). As a result the luma scale was 256/219 and the
+> chroma scale 256/224 instead of the correct 255/219 and 255/224.
+
+I'm a bit embarrassed that the Weston CI didn't catch this - looks like 
+our "fuzzy" ranges [1] are a bit too high :/
+
+I verified that with this patch the corresponding tests (testing all six 
+combinations) still succeed. The reasoning also makes total sense to me 
+- but I didn't check the values yet.
+
+Thus for now:
+
+Tested-by: Robert Mader <robert.mader@collabora.com>
+
+1: 
+https://gitlab.freedesktop.org/wayland/weston/-/blob/0bb1ce3bd3a6ba1867b52ea0916bb864e26f7300/tests/harness/weston-test-client-helper.c#L2240
+
 >
-> Introduce DRM_COLOROP_FIXED_MATRIX, a new colorop type representing a
-> hardware that performs a fixed matrix operation.
+> This over-scales every limited-range conversion by a factor of 256/255,
+> producing an error of up to ~3/255 (8-bit) and causing IGT tests that
+> compare software-computed surfaces against VKMS-processed ones to fail.
 >
-> Unlike CTM-based colorops, this block does not expose programmable
-> coefficients. Instead, userspace selects one of the predefined
-> hardware modes via a new FIXED_MATRIX_TYPE enum property. Supported modes
-> include common YCbCr->RGB and RGB709->RGB2020 conversions.
+> Recompute the three limited-range matrices from first principles rather
+> than relying on colour's is_legal scaling:
 >
-> v4:
->   - Add limited-range YCbCr-RGB conversion matrix enums (Robert)
->   - Document matrix values (Pekka)
->   - Clarify RGB709 to RGB2020 is a full-range matrix (Pekka)
->   - Fix confusing "CSC preset" doc (Pekka)
+>   1. Start from the standard ITU-R YCbCr -> RGB relations for the luma
+>      weights Kr, Kb (Kg = 1 - Kr - Kb) of each encoding (BT.601, BT.709
+>      and BT.2020 non-constant luminance). These are the same relations
+>      that produce the existing full-range matrices.
+>   2. Expand the studio input range to full range relative to a full-range
+>      maximum of 2^n - 1: the luma coefficient by 255/(235 - 16) and the
+>      chroma coefficients by 255/(240 - 16). This matches the DRM UAPI
+>      definition and IGT's igt_ycbcr_to_rgb_matrix().
+>   3. Convert each coefficient to S31.32 fixed point (round(coeff * 2^32)).
 >
-> v2:
->   - Naming changes (Pekka)
+> The full-range matrices (is_legal=False) are unaffected as they use exact
+> 1.0/2.0 scaling.
 >
-> v3:
->   - Fix NC matrix enum name and string (Melissa)
->   - Rebase
+> Update the limited-range reference values in the vkms-format KUnit test
+> accordingly: the expected YCbCr inputs now use the studio-range encoding
+> consistent with the corrected matrices (8-bit value v placed at v * 257,
+> i.e. relative to a full-range maximum of 255).
 >
-> Co-developed-by: Harry Wentland <harry.wentland@amd.com>
-> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> Fixes: fe22d21e9342 ("drm/vkms: Add YUV support")
+> Assisted-by: Copilot:claude-opus-4.8
 > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> Reviewed-by: Melissa Wen <mwen@igalia.com>
-> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-> Reviewed-by: Robert Mader <robert.mader@collabora.com>
 > ---
->   drivers/gpu/drm/drm_atomic.c      |   4 +
->   drivers/gpu/drm/drm_atomic_uapi.c |   7 ++
->   drivers/gpu/drm/drm_colorop.c     | 109 ++++++++++++++++++++
->   include/drm/drm_colorop.h         | 159 ++++++++++++++++++++++++++++++
->   include/uapi/drm/drm_mode.h       |  12 +++
->   5 files changed, 291 insertions(+)
+>   drivers/gpu/drm/vkms/tests/vkms_format_test.c | 36 ++++++------
+>   drivers/gpu/drm/vkms/vkms_formats.c           | 55 +++++++++++++------
+>   2 files changed, 55 insertions(+), 36 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-> index e5c8ef06caed..45df6376f408 100644
-> --- a/drivers/gpu/drm/drm_atomic.c
-> +++ b/drivers/gpu/drm/drm_atomic.c
-> @@ -925,6 +925,10 @@ static void drm_atomic_colorop_print_state(struct drm_printer *p,
->   				  drm_get_colorop_lut3d_interpolation_name(state->lut3d_interpolation));
->   		drm_printf_indent(p, 1, "data blob id=%d\n", state->data ? state->data->base.id : 0);
->   		break;
-> +	case DRM_COLOROP_FIXED_MATRIX:
-> +		drm_printf_indent(p, 1, "fixed_matrix_type=%s\n",
-> +				  drm_get_colorop_fixed_matrix_type_name(state->fixed_matrix_type));
-> +		break;
->   	default:
->   		break;
->   	}
-> diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-> index 1050dddadb17..d52504d823bc 100644
-> --- a/drivers/gpu/drm/drm_atomic_uapi.c
-> +++ b/drivers/gpu/drm/drm_atomic_uapi.c
-> @@ -786,6 +786,11 @@ static int drm_atomic_colorop_set_property(struct drm_colorop *colorop,
->   		return drm_atomic_color_set_data_property(colorop, state,
->   							  property, val,
->   							  replaced);
-> +	} else if (property == colorop->fixed_matrix_type_property) {
-> +		if (state->fixed_matrix_type != val) {
-> +			state->fixed_matrix_type = val;
-> +			*replaced = true;
-> +		}
->   	} else {
->   		drm_dbg_atomic(colorop->dev,
->   			       "[COLOROP:%d:%d] unknown property [PROP:%d:%s]\n",
-> @@ -818,6 +823,8 @@ drm_atomic_colorop_get_property(struct drm_colorop *colorop,
->   		*val = state->lut3d_interpolation;
->   	else if (property == colorop->data_property)
->   		*val = (state->data) ? state->data->base.id : 0;
-> +	else if (property == colorop->fixed_matrix_type_property)
-> +		*val = state->fixed_matrix_type;
->   	else
->   		return -EINVAL;
->   
-> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-> index 682fcc651525..e7ccf7d053b8 100644
-> --- a/drivers/gpu/drm/drm_colorop.c
-> +++ b/drivers/gpu/drm/drm_colorop.c
-> @@ -68,6 +68,7 @@ static const struct drm_prop_enum_list drm_colorop_type_enum_list[] = {
->   	{ DRM_COLOROP_CTM_3X4, "3x4 Matrix"},
->   	{ DRM_COLOROP_MULTIPLIER, "Multiplier"},
->   	{ DRM_COLOROP_3D_LUT, "3D LUT"},
-> +	{ DRM_COLOROP_FIXED_MATRIX, "Fixed Matrix"},
+> diff --git a/drivers/gpu/drm/vkms/tests/vkms_format_test.c b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
+> index a7788fbc45dc..789c59d07ffb 100644
+> --- a/drivers/gpu/drm/vkms/tests/vkms_format_test.c
+> +++ b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
+> @@ -101,12 +101,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
+>   		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
+>   		.n_colors = 6,
+>   		.colors = {
+> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
+> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
+> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
+> -			{ "red",   { 0x517b, 0x5a34, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
+> -			{ "green", { 0x908e, 0x35cc, 0x2237 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
+> -			{ "blue",  { 0x28f7, 0xf000, 0x6dc9 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
+> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
+> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
+> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
+> +			{ "red",   { 0x51cd, 0x5a8e, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
+> +			{ "green", { 0x911e, 0x3602, 0x2259 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
+> +			{ "blue",  { 0x2920, 0xf0f0, 0x6e37 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
+>   		}
+>   	},
+>   	/*
+> @@ -151,12 +151,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
+>   		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
+>   		.n_colors = 6,
+>   		.colors = {
+> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
+> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
+> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
+> -			{ "red",   { 0x3e8f, 0x6656, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
+> -			{ "green", { 0xaca1, 0x29aa, 0x1a45 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
+> -			{ "blue",  { 0x1fd0, 0xf000, 0x75bb }, { 0xffff, 0x0000, 0x0000, 0xffff }},
+> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
+> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
+> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
+> +			{ "red",   { 0x3ece, 0x66bc, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
+> +			{ "green", { 0xad4e, 0x29d4, 0x1a5f }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
+> +			{ "blue",  { 0x1ff0, 0xf0f0, 0x7631 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
+>   		}
+>   	},
+>   	/*
+> @@ -201,12 +201,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
+>   		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
+>   		.n_colors = 6,
+>   		.colors = {
+> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
+> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
+> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
+> -			{ "red",   { 0x4988, 0x60b9, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
+> -			{ "green", { 0xa47b, 0x2f47, 0x1902 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
+> -			{ "blue",  { 0x1cfd, 0xf000, 0x76fe }, { 0xffff, 0x0000, 0x0000, 0xffff }},
+> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
+> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
+> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
+> +			{ "red",   { 0x49d2, 0x611a, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
+> +			{ "green", { 0xa520, 0x2f76, 0x191b }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
+> +			{ "blue",  { 0x1d1a, 0xf0f0, 0x7775 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
+>   		}
+>   	},
+>   };
+> diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
+> index dfb8e13cba87..4d5fcaeb82c5 100644
+> --- a/drivers/gpu/drm/vkms/vkms_formats.c
+> +++ b/drivers/gpu/drm/vkms/vkms_formats.c
+> @@ -788,15 +788,36 @@ static const struct conversion_matrix yuv_bt601_full = {
 >   };
 >   
->   static const char * const colorop_curve_1d_type_names[] = {
-> @@ -90,6 +91,17 @@ static const struct drm_prop_enum_list drm_colorop_lut3d_interpolation_list[] =
->   	{ DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL, "Tetrahedral" },
->   };
->   
-> +static const char * const colorop_fixed_matrix_type_names[] = {
-> +	[DRM_COLOROP_FM_YCBCR601_FULL_RGB] = "YCbCr 601 Full to RGB",
-> +	[DRM_COLOROP_FM_YCBCR601_LIMITED_RGB] = "YCbCr 601 Limited to RGB",
-> +	[DRM_COLOROP_FM_YCBCR709_FULL_RGB] = "YCbCr 709 Full to RGB",
-> +	[DRM_COLOROP_FM_YCBCR709_LIMITED_RGB] = "YCbCr 709 Limited to RGB",
-> +	[DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB] = "YCbCr 2020 NC Full to RGB",
-> +	[DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB] = "YCbCr 2020 NC Limited to RGB",
-> +	[DRM_COLOROP_FM_YCBCR_LIMITED_FULL] = "YCbCr limited to full",
-> +	[DRM_COLOROP_FM_RGB709_RGB2020] = "RGB709 to RGB2020",
-
-I'm still a bit unsure how useful the later two values are, especially 
-as they are not implemented in this series - IMO they should be left out 
-and be part of the corresponding Intel series.
-
-Anyway, still R-B
-
-> +};
-> +
->   /* Init Helpers */
->   
->   static int drm_plane_colorop_init(struct drm_device *dev, struct drm_colorop *colorop,
-> @@ -453,6 +465,80 @@ int drm_plane_colorop_3dlut_init(struct drm_device *dev, struct drm_colorop *col
->   }
->   EXPORT_SYMBOL(drm_plane_colorop_3dlut_init);
->   
-> +/**
-> + * drm_plane_colorop_fixed_matrix_init - Initialize a DRM_COLOROP_FIXED_MATRIX
+>   /*
+> - * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.601"],
+> - *                                  is_legal = True,
+> - *                                  bits = 8) * 2**32).astype(int)
+> + * BT.601 limited-/studio-range YCbCr to full-range RGB.
 > + *
-> + * @dev: DRM device
-> + * @colorop: The drm_colorop object to initialize
-> + * @plane: The associated drm_plane
-> + * @funcs: control functions for the new colorop
-> + * @supported_fm: A bitfield of supported drm_colorop_fixed_matrix_type enum values,
-> + *               created using BIT(fixed_matrix_type) and combined with the OR '|'
-> + *               operator.
-> + * @flags: bitmask of misc, see DRM_COLOROP_FLAG_* defines.
-> + * @return zero on success, -E value on failure
-> + */
-> +int drm_plane_colorop_fixed_matrix_init(struct drm_device *dev, struct drm_colorop *colorop,
-> +					struct drm_plane *plane,
-> +					const struct drm_colorop_funcs *funcs,
-> +					u64 supported_fm, uint32_t flags)
-> +{
-> +	struct drm_prop_enum_list enum_list[DRM_COLOROP_FM_COUNT];
-> +	int i, len;
-> +	struct drm_property *prop;
-> +	int ret;
-> +
-> +	if (!supported_fm) {
-> +		drm_err(dev,
-> +			"No supported FM type op for new Fixed Matrix colorop on [PLANE:%d:%s]\n",
-> +			plane->base.id, plane->name);
-> +		return -EINVAL;
-> +	}
-> +
-> +	if ((supported_fm & -BIT(DRM_COLOROP_FM_COUNT)) != 0) {
-> +		drm_err(dev, "Unknown Fixed Matrix provided on [PLANE:%d:%s]\n",
-> +			plane->base.id, plane->name);
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret = drm_plane_colorop_init(dev, colorop, plane, funcs, DRM_COLOROP_FIXED_MATRIX, flags);
-> +	if (ret)
-> +		return ret;
-> +
-> +	len = 0;
-> +	for (i = 0; i < DRM_COLOROP_FM_COUNT; i++) {
-> +		if ((supported_fm & BIT(i)) == 0)
-> +			continue;
-> +
-> +		enum_list[len].type = i;
-> +		enum_list[len].name = colorop_fixed_matrix_type_names[i];
-> +		len++;
-> +	}
-> +
-> +	if (WARN_ON(len <= 0))
-> +		return -EINVAL;
-> +
-> +	prop = drm_property_create_enum(dev, DRM_MODE_PROP_ATOMIC, "FIXED_MATRIX_TYPE",
-> +					enum_list, len);
-> +
-> +	if (!prop)
-> +		return -ENOMEM;
-> +
-> +	colorop->fixed_matrix_type_property = prop;
-> +	/*
-> +	 * Default to the first supported CSC mode as provided by the driver.
-> +	 * Intuitively this should be something that keeps the colorop in pixel bypass
-> +	 * mode but that is already handled via the standard colorop bypass
-> +	 * property.
-> +	 */
-> +	drm_object_attach_property(&colorop->base, colorop->fixed_matrix_type_property,
-> +				   enum_list[0].type);
-> +	drm_colorop_reset(colorop);
-> +
-> +	return 0;
-> +}
-> +EXPORT_SYMBOL(drm_plane_colorop_fixed_matrix_init);
-> +
->   static void __drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop,
->   							struct drm_colorop_state *state)
->   {
-> @@ -533,6 +619,13 @@ static void __drm_colorop_state_init(struct drm_colorop_state *colorop_state,
->   							   &val))
->   			colorop_state->lut3d_interpolation = val;
->   	}
-> +
-> +	if (colorop->fixed_matrix_type_property) {
-> +		if (!drm_object_property_get_default_value(&colorop->base,
-> +							   colorop->fixed_matrix_type_property,
-> +							   &val))
-> +			colorop_state->fixed_matrix_type = val;
-> +	}
->   }
->   
->   /**
-> @@ -596,6 +689,7 @@ static const char * const colorop_type_name[] = {
->   	[DRM_COLOROP_CTM_3X4] = "3x4 Matrix",
->   	[DRM_COLOROP_MULTIPLIER] = "Multiplier",
->   	[DRM_COLOROP_3D_LUT] = "3D LUT",
-> +	[DRM_COLOROP_FIXED_MATRIX] = "Fixed Matrix",
->   };
->   
->   static const char * const colorop_lu3d_interpolation_name[] = {
-> @@ -652,6 +746,21 @@ const char *drm_get_colorop_lut3d_interpolation_name(enum drm_colorop_lut3d_inte
->   	return colorop_lu3d_interpolation_name[type];
->   }
->   
-> +/**
-> + * drm_get_colorop_fixed_matrix_type_name: return a string for fixed matrix type
-> + * @type: fixed matrix type to compute name of
+> + * The coefficients are derived as follows:
 > + *
-> + * In contrast to the other drm_get_*_name functions this one here returns a
-> + * const pointer and hence is threadsafe.
-> + */
-> +const char *drm_get_colorop_fixed_matrix_type_name(enum drm_colorop_fixed_matrix_type type)
-> +{
-> +	if (WARN_ON(type >= ARRAY_SIZE(colorop_fixed_matrix_type_names)))
-> +		return "unknown";
-> +
-> +	return colorop_fixed_matrix_type_names[type];
-> +}
-> +
->   /**
->    * drm_colorop_set_next_property - sets the next pointer
->    * @colorop: drm colorop
-> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-> index 224fae40ed2b..92eb6463c39f 100644
-> --- a/include/drm/drm_colorop.h
-> +++ b/include/drm/drm_colorop.h
-> @@ -134,6 +134,146 @@ enum drm_colorop_curve_1d_type {
->   	DRM_COLOROP_1D_CURVE_COUNT
->   };
->   
-> +/**
-> + * enum drm_colorop_fixed_matrix_type - type of Fixed Matrix
+> + *  1. Take the standard ITU-R YCbCr -> RGB relations for luma weights
+> + *     Kr, Kb (Kg = 1 - Kr - Kb), with Y in [0, 1] and Cb, Cr in
+> + *     [-0.5, 0.5]. For BT.601 Kr = 0.299 and Kb = 0.114:
 > + *
-> + * Describes a Fixed Matrix operation to be applied by the DRM_COLOROP_FIXED_MATRIX
-> + */
-> +enum drm_colorop_fixed_matrix_type {
-> +	/**
-> +	 * @DRM_COLOROP_FM_YCBCR601_FULL_RGB:
-> +	 *
-> +	 * enum string "YCbCr 601 Full to RGB"
-> +	 *
-> +	 * Converts full-range YCbCr into full-range RGB using the BT.601
-> +	 * coefficients. Y is normalized to [0, 1] and Cb, Cr are centered
-> +	 * at 0 (the nominal 0.5 offset removed) before the matrix::
-> +	 *
-> +	 *   | R |   | 1.0   0.000000   1.402000 |   | Y  |
-> +	 *   | G | = | 1.0  -0.344136  -0.714136 | x | Cb |
-> +	 *   | B |   | 1.0   1.772000   0.000000 |   | Cr |
-> +	 */
-> +	DRM_COLOROP_FM_YCBCR601_FULL_RGB,
-> +
-> +	/**
-> +	 * @DRM_COLOROP_FM_YCBCR601_LIMITED_RGB:
-> +	 *
-> +	 * enum string "YCbCr 601 Limited to RGB"
-> +	 *
-> +	 * Converts limited- (narrow-) range YCbCr into full-range RGB using
-> +	 * the BT.601 coefficients. Before the matrix Y is offset by 16/255
-> +	 * and Cb, Cr are centered at 0, following the studio-range
-> +	 * convention of ITU-R BT.601::
-> +	 *
-> +	 *   | R |   | 1.164384   0.000000   1.596027 |   | Y - 16/255 |
-> +	 *   | G | = | 1.164384  -0.391762  -0.812968 | x | Cb         |
-> +	 *   | B |   | 1.164384   2.017232   0.000000 |   | Cr         |
-> +	 */
-> +	DRM_COLOROP_FM_YCBCR601_LIMITED_RGB,
-> +
-> +	/**
-> +	 * @DRM_COLOROP_FM_YCBCR709_FULL_RGB:
-> +	 *
-> +	 * enum string "YCbCr 709 Full to RGB"
-> +	 *
-> +	 * Converts full-range YCbCr into full-range RGB using the BT.709
-> +	 * coefficients. Y is normalized to [0, 1] and Cb, Cr are centered
-> +	 * at 0 (the nominal 0.5 offset removed) before the matrix::
-> +	 *
-> +	 *   | R |   | 1.0   0.000000   1.574800 |   | Y  |
-> +	 *   | G | = | 1.0  -0.187324  -0.468124 | x | Cb |
-> +	 *   | B |   | 1.0   1.855600   0.000000 |   | Cr |
-> +	 */
-> +	DRM_COLOROP_FM_YCBCR709_FULL_RGB,
-> +
-> +	/**
-> +	 * @DRM_COLOROP_FM_YCBCR709_LIMITED_RGB:
-> +	 *
-> +	 * enum string "YCbCr 709 Limited to RGB"
-> +	 *
-> +	 * Converts limited- (narrow-) range YCbCr into full-range RGB using
-> +	 * the BT.709 coefficients. Before the matrix Y is offset by 16/255
-> +	 * and Cb, Cr are centered at 0, following the studio-range
-> +	 * convention of ITU-R BT.709::
-> +	 *
-> +	 *   | R |   | 1.164384   0.000000   1.792741 |   | Y - 16/255 |
-> +	 *   | G | = | 1.164384  -0.213249  -0.532909 | x | Cb         |
-> +	 *   | B |   | 1.164384   2.112402   0.000000 |   | Cr         |
-> +	 */
-> +	DRM_COLOROP_FM_YCBCR709_LIMITED_RGB,
-> +
-> +	/**
-> +	 * @DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB:
-> +	 *
-> +	 * enum string "YCbCr 2020 NC Full to RGB"
-> +	 *
-> +	 * Converts full-range YCbCr into full-range RGB using the BT.2020
-> +	 * non-constant luminance coefficients. Y is normalized to [0, 1]
-> +	 * and Cb, Cr are centered at 0 (the nominal 0.5 offset removed)
-> +	 * before the matrix::
-> +	 *
-> +	 *   | R |   | 1.0   0.000000   1.474600 |   | Y  |
-> +	 *   | G | = | 1.0  -0.164553  -0.571353 | x | Cb |
-> +	 *   | B |   | 1.0   1.881400   0.000000 |   | Cr |
-> +	 */
-> +	DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB,
-> +
-> +	/**
-> +	 * @DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB:
-> +	 *
-> +	 * enum string "YCbCr 2020 NC Limited to RGB"
-> +	 *
-> +	 * Converts limited- (narrow-) range YCbCr into full-range RGB using
-> +	 * the BT.2020 non-constant luminance coefficients. Before the matrix
-> +	 * Y is offset by 16/255 and Cb, Cr are centered at 0, following the
-> +	 * studio-range convention of ITU-R BT.2020::
-> +	 *
-> +	 *   | R |   | 1.164384   0.000000   1.678674 |   | Y - 16/255 |
-> +	 *   | G | = | 1.164384  -0.187326  -0.650424 | x | Cb         |
-> +	 *   | B |   | 1.164384   2.141772   0.000000 |   | Cr         |
-> +	 */
-> +	DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB,
-> +
-> +	/**
-> +	 * @DRM_COLOROP_FM_YCBCR_LIMITED_FULL:
-> +	 *
-> +	 * enum string "YCbCr limited to full"
-> +	 *
-> +	 * Converts limited- (narrow-) range YCbCr into full-range YCbCr.
-> +	 * Though not strictly a matrix operation it can be represented as
-> +	 * one. Luma is expanded by 255/219 and chroma by 255/224, keeping
-> +	 * the black level (16/255) and chroma neutral point (0.5) fixed::
-> +	 *
-> +	 *   | Y'      |   | 1.164384  0.000000  0.000000 |   | Y - 16/255 |
-> +	 *   | Cb'-0.5 | = | 0.000000  1.138393  0.000000 | x | Cb - 0.5   |
-> +	 *   | Cr'-0.5 |   | 0.000000  0.000000  1.138393 |   | Cr - 0.5   |
-> +	 */
-> +	DRM_COLOROP_FM_YCBCR_LIMITED_FULL,
-> +
-> +	/**
-> +	 * @DRM_COLOROP_FM_RGB709_RGB2020:
-> +	 *
-> +	 * enum string "RGB709 to RGB2020"
-> +	 *
-> +	 * Selects the matrix that converts full-range RGB with BT.709
-> +	 * primaries to full-range RGB with BT.2020 primaries. The
-> +	 * coefficients match the RGB-to-RGB conversion defined in
-> +	 * ITU-R BT.2087::
-> +	 *
-> +	 *   | R2020 |   | 0.6274  0.3293  0.0433 |   | R709 |
-> +	 *   | G2020 | = | 0.0691  0.9195  0.0114 | x | G709 |
-> +	 *   | B2020 |   | 0.0164  0.0880  0.8956 |   | B709 |
-> +	 */
-> +	DRM_COLOROP_FM_RGB709_RGB2020,
-> +
-> +	/**
-> +	 * @DRM_COLOROP_FM_COUNT:
-> +	 *
-> +	 * enum value denoting the size of the enum
-> +	 */
-> +	DRM_COLOROP_FM_COUNT
-> +};
-> +
->   /**
->    * struct drm_colorop_state - mutable colorop state
+> + *       R = Y                                + 2 * (1 - Kr)          * Cr
+> + *       G = Y - 2 * (1 - Kb) * Kb / Kg * Cb - 2 * (1 - Kr) * Kr / Kg * Cr
+> + *       B = Y + 2 * (1 - Kb)          * Cb
+> + *
+> + *     These are exactly the yuv_bt601_full coefficients above.
+> + *
+> + *  2. Expand the studio input range to full range, relative to a
+> + *     full-range maximum of 2^n - 1 (255 for 8-bit): the luma
+> + *     coefficient is scaled by 255/(235 - 16) and the chroma
+> + *     coefficients by 255/(240 - 16). This matches the DRM UAPI
+> + *     definition and IGT's igt_ycbcr_to_rgb_matrix(). Note this differs
+> + *     from colour.matrix_YCbCr(is_legal=True), which normalises by 2^n
+> + *     and is thus off by a factor of 256/255.
+> + *
+> + *  3. Convert each coefficient to S31.32 fixed point, i.e.
+> + *     round(coeff * 2^32).
 >    */
-> @@ -197,6 +337,13 @@ struct drm_colorop_state {
->   	 */
->   	enum drm_colorop_lut3d_interpolation_type lut3d_interpolation;
->   
-> +	/**
-> +	 * @fixed_matrix_type:
-> +	 *
-> +	 * Type of Fixed Matrix operation.
-> +	 */
-> +	enum drm_colorop_fixed_matrix_type fixed_matrix_type;
-> +
->   	/** @state: backpointer to global drm_atomic_commit */
->   	struct drm_atomic_commit *state;
+>   static const struct conversion_matrix yuv_bt601_limited = {
+>   	.matrix = {
+> -		{ 5020601039, 0,           6881764740 },
+> -		{ 5020601039, -1689204679, -3505362278 },
+> -		{ 5020601039, 8697922339,  0 },
+> +		{ 5000989317, 0,           6854882848 },
+> +		{ 5000989317, -1682606224, -3491669458 },
+> +		{ 5000989317, 8663946082,  0 },
+>   	},
+>   	.y_offset = 16,
 >   };
-> @@ -366,6 +513,13 @@ struct drm_colorop {
->   	 */
->   	struct drm_property *data_property;
->   
-> +	/**
-> +	 * @fixed_matrix_type_property:
-> +	 *
-> +	 * Sub-type for DRM_COLOROP_FIXED_MATRIX type.
-> +	 */
-> +	struct drm_property *fixed_matrix_type_property;
-> +
->   	/**
->   	 * @next_property:
->   	 *
-> @@ -422,6 +576,10 @@ int drm_plane_colorop_3dlut_init(struct drm_device *dev, struct drm_colorop *col
->   				 uint32_t lut_size,
->   				 enum drm_colorop_lut3d_interpolation_type interpolation,
->   				 uint32_t flags);
-> +int drm_plane_colorop_fixed_matrix_init(struct drm_device *dev, struct drm_colorop *colorop,
-> +					struct drm_plane *plane,
-> +					const struct drm_colorop_funcs *funcs,
-> +					u64 supported_fm, uint32_t flags);
->   
->   struct drm_colorop_state *
->   drm_atomic_helper_colorop_create_state(struct drm_colorop *colorop);
-> @@ -480,6 +638,7 @@ drm_get_colorop_lut1d_interpolation_name(enum drm_colorop_lut1d_interpolation_ty
->   
->   const char *
->   drm_get_colorop_lut3d_interpolation_name(enum drm_colorop_lut3d_interpolation_type type);
-> +const char *drm_get_colorop_fixed_matrix_type_name(enum drm_colorop_fixed_matrix_type type);
->   
->   void drm_colorop_set_next_property(struct drm_colorop *colorop, struct drm_colorop *next);
->   
-> diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-> index bd435effdcee..ed1a660a3dfd 100644
-> --- a/include/uapi/drm/drm_mode.h
-> +++ b/include/uapi/drm/drm_mode.h
-> @@ -955,6 +955,18 @@ enum drm_colorop_type {
->   	 *         color = lut3d[index]
->   	 */
->   	DRM_COLOROP_3D_LUT,
-> +
-> +	/**
-> +	 * @DRM_COLOROP_FIXED_MATRIX:
-> +	 *
-> +	 * enum string "Fixed Matrix"
-> +	 *
-> +	 * A Colorop block that performs a pre-defined matrix operation selected
-> +	 * via the FIXED_MATRIX_TYPE enum property. The driver advertises the supported
-> +	 * operations through this property.
-> +	 */
-> +	DRM_COLOROP_FIXED_MATRIX,
-> +
+> @@ -816,15 +837,14 @@ static const struct conversion_matrix yuv_bt709_full = {
 >   };
 >   
->   /**
+>   /*
+> - * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.709"],
+> - *                                  is_legal = True,
+> - *                                  bits = 8) * 2**32).astype(int)
+> + * BT.709 limited-range YCbCr to full-range RGB (Kr = 0.2126, Kb = 0.0722).
+> + * Derived as described for yuv_bt601_limited.
+>    */
+>   static const struct conversion_matrix yuv_bt709_limited = {
+>   	.matrix = {
+> -		{ 5020601039, 0,          7729959424 },
+> -		{ 5020601039, -919487572, -2297803934 },
+> -		{ 5020601039, 9108275786, 0 },
+> +		{ 5000989317, 0,          7699764272 },
+> +		{ 5000989317, -915895824, -2288828138 },
+> +		{ 5000989317, 9072696586, 0 },
+>   	},
+>   	.y_offset = 16,
+>   };
+> @@ -844,15 +864,14 @@ static const struct conversion_matrix yuv_bt2020_full = {
+>   };
+>   
+>   /*
+> - * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.2020"],
+> - *                                  is_legal = True,
+> - *                                  bits = 8) * 2**32).astype(int)
+> + * BT.2020 non-constant-luminance limited-range YCbCr to full-range RGB
+> + * (Kr = 0.2627, Kb = 0.0593). Derived as described for yuv_bt601_limited.
+>    */
+>   static const struct conversion_matrix yuv_bt2020_limited = {
+>   	.matrix = {
+> -		{ 5020601039, 0,          7238124312 },
+> -		{ 5020601039, -807714626, -2804506279 },
+> -		{ 5020601039, 9234915964, 0 },
+> +		{ 5000989317, 0,          7209850391 },
+> +		{ 5000989317, -804559491, -2793551177 },
+> +		{ 5000989317, 9198842076, 0 },
+>   	},
+>   	.y_offset = 16,
+>   };
 
 -- 
 Robert Mader
