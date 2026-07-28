@@ -4,93 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF3A2C54F4C
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 13:16:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 481B1C53219
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 13:32:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 425BC10E59C;
-	Tue, 28 Jul 2026 13:16:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C6CB10E579;
+	Tue, 28 Jul 2026 13:32:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="FCJ2pPG9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HtARyEwI";
 	dkim-atps=neutral
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com
- [209.85.217.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B415210E8F6
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 13:16:14 +0000 (UTC)
-Received: by mail-vs1-f45.google.com with SMTP id
- ada2fe7eead31-744e7be8b80so125140137.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 06:16:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785244573; cv=none;
- d=google.com; s=arc-20260327;
- b=XUuumbBzXFT25u7aGK5VxUOiQsuYZlT6hpUtKXm1sX25arhcrEacdBsS/VQmiK4Mys
- JZfSseCzFv2sTLqMRhUbFh5qo0LXPXnnB4z2wxLMBWRDdxl9t7bUVHf8WDoAAMB7kdMT
- MPmWeevmASbB37X7HqTIsTogRqnRaqyu7jDAuhwuWadZT5PqZetVS303EOQyKgA8BgSd
- yjYUJE4SBe/Bb2FB7v6IkqMDM8UD+vYc0Pi4Dt0fmRo3FU9Iigqwb+wmsKSNVXudc486
- NSZEPG8iQVQy92IZD+1vF2EFzOe09Rr51DWi5631VZph0VKywl7piPMnF1X++y1tfdAn
- YRnA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=N+wMACBSaEfqBTHaUE/2bmCOeGWhvGf/4mtYL4kGMBE=;
- fh=fwfR7/OPrelDGfJo9L5x1lERobsU+ZxufwPwPqpoevI=;
- b=ncN1E5LjmfkvkC43pKWjGSrsHYau82k3YRKyVr2gw/yEumt3+3xP2J1EXRs7BSgIAj
- DAtXSYNUbHXbWo1UyPJ1XbmClgqGcinoT48zP3IatLf3Z7oHcVtZqUho0X+2D/9xoP5u
- fTuaG4U2V5dBE5ivFy2lURiiXF4NE3+4QWvJG3vLfATbP5kqzDugFeNKdpjH9Nt8Zur+
- 1DCp94d6nY4st0X9ikBzovWX6GbnmIZIn+mT9ZTa64vUEAus1Z4P0okWAFk/GxaR73dc
- VXsXIlyMoraEcVF59V6Pi2QV8CYaugGHAhHxP5Ouw8jL54SKd+SbJ/33ac7bGpECIu19
- jEAQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785244573; x=1785849373; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=N+wMACBSaEfqBTHaUE/2bmCOeGWhvGf/4mtYL4kGMBE=;
- b=FCJ2pPG9uQuSz5Xpo/TxomniNAxgyfidXv67fuwk+V4EzSQ1+L1WsWttfczyfTJZyp
- t7E4PqPljzioxRrVY4wcFGKmhb3y44U10YQ2JTEgQhNI2Pti4LVxzAWzmeZkjOsLz77R
- z/9fx9fW+rLP1A1z3Ay5T580Z/rQ4qskeVuAxQhnhPLbh4ohgt5wbZSaWaGDeROGQH0M
- cynnTq8SrjxcwfxZAPmJ4ByX1qhXT/173zPYH8HUJk2Qd6aIVMy7oHQLeRGhJMT7Urkt
- Zwctu4HN8LIFvT2RMDjAI6IbcEmU5F0mi5piL5Y7xSrl1MubiMZo8oKkEt2fF3CcyHYt
- BuVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785244573; x=1785849373;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=N+wMACBSaEfqBTHaUE/2bmCOeGWhvGf/4mtYL4kGMBE=;
- b=YB08Qe50xNYPbRx2P0ga27ZVSvjIeLP3sCQysReRitae3Cd1IFFJ92B2yOxm4KZ7MX
- X8NGtQnMGt0lYVx9qQnggPCMEvNeSxOJ5c89VO/kPFIp7tyapig93WgJH64w1afdE2wK
- IPgejOXumsEp4Dvnf/+vSKtYAoN4qbfyBZtvcCr/uCDU5rsH33N1ihmDHP3fzveBOV7/
- kB3qSubpE6SCTXkbjDg+2lte6oudSErElE1/rlm93XqIcWbipM0rheU7rNRGamezgZ/j
- ejLBO9xghoHTwYCfExA6awxCdxyPih6NmUTVA5Z/i4XOY7fvqkRWEjyBJ3mGlh1Hcezn
- zhLw==
-X-Gm-Message-State: AOJu0Yw3VK+57BZV9TT/pQDwp8cgFd3CS2+izC+ERRrq7Duj81CX4yZF
- m73WpdUhoAKwiwgzjOJcHiii/0wIHa4s8AURn1nocDWs1hzFOFwpBCmfRHrlDiKCKS7JhV1oeI1
- VnOcxCWHl9oYu+luy8LGKtWWWfdIWsT8=
-X-Gm-Gg: AR+sD12FASMpIsUiLaxkop2YogK3k8vy9Jw8j1gBSXc4wyiRfjNpb1h+5Cj/cJBvWfI
- JD4rcvp6PTVVDxonm+LKoEHYerczTRvpzKh6nwxvD9xmTX2WAqL+omgUCDCc+h4vkAWeoFmzc+X
- 0zVDzqjvlK2w9V1HyoneCohl4BJbs9RlLpna4AIAo2SCb5a/P64VKjW/wwIl7pFaI43/PpO2Mq+
- 30RCg3+Bg4UltJj+tms4RF8f9eM/IjyDnSZZIjDIOTSXM8fxuexZPdJEP21lx5SjpP2OvY2DAa5
- +j8OFEdLyOCdPV4yDR/vA06hVRlGfOC7Rc/QHX4QASxRX2E9UYjxrP0cDqSlsDkHdzFFGnHNLX8
- 7Q7lbGdFJc4bvms6kTUUtxPc0sxWlCgA=
-X-Received: by 2002:a05:6102:4405:b0:745:17b0:10cc with SMTP id
- ada2fe7eead31-754a1eaa48fmr376392137.4.1785244573368; Tue, 28 Jul 2026
- 06:16:13 -0700 (PDT)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011022.outbound.protection.outlook.com [52.101.57.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D461910E579
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 13:32:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pMmcK38Tfjcm38sh8BWelJVNoSKjSKqzK8w/WC45Gj5JsoQK8I+anVcnIiXBnWztJESoUJl+blGuwHPPwgJMo/DMPs8GCAEOCv7SjauUj4lv6Ceo6c6s0r2pAgPUhZscdDx4Tfu4UPNw9al+9zeCT58/5vSK6tXsiUJkakC7A7hohMMFsICmcw/VIokKTNoSlc8ErHSiSEdg7VknQWLBuVGo47hEvA9nNzp87rhwFT0N0Mbf4/lNjNo00AID4XJzhMVTs+9fiay7cC7NjFkcTufmddfrkoxubnVX3vKiGmyVwHm8LwGMidumnmizGhZ6gLCBgjGH/jgjbOoj5NNEZg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s2xOvY8Q8luAHncDENNfcY1E1N9e/DY/0bykb/rxN6c=;
+ b=PZsm1khBbYw88RknjAAMeFEGeIJvjW95GTkGG9w1gFXTyjBZH0tcG1H1iY8S1tvE1kP1HCa09VuFYUFvqrQzZ10hUF67b1+mRdNfkScnkOMDq1tWJEMvjtBtu36hBzZ1FOdKqA2AV6ft2tEWYaiWWij3unRDadogYQ2RzTaaVvF0+DO4Cngz4gPOOHTObqSPxYUrtMvNK+0IhM030gcdZA1A/pAuSE2IrZKUuzqhQ2g3+6Bd3+chxyN2ZbteDpe82sXlTJFnfFL9QN4myGZSeCHUlsCsKGv2gy90HIJscFPR5N2DibWTIa0YYpdq+xL7ry7ljA5qdXnOgLQmEhy7gA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s2xOvY8Q8luAHncDENNfcY1E1N9e/DY/0bykb/rxN6c=;
+ b=HtARyEwIvhwIvQKX5innp+FRj820HGIwgG41qTXtBPjsWfqNAh0VKkQaWhLxx7a/dNwyE3BCYpg31e8lI939lUfQpQmkyHrKDklvpWtYVrl0peTOjla7JARcLIFxu2sc3+frSASOz7QCle0jayYLfiuQvV0nyRrjt79ktmID0dI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ2PR12MB7800.namprd12.prod.outlook.com (2603:10b6:a03:4c1::18)
+ by DSSPR12MB999214.namprd12.prod.outlook.com (2603:10b6:8:378::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Tue, 28 Jul
+ 2026 13:32:35 +0000
+Received: from SJ2PR12MB7800.namprd12.prod.outlook.com
+ ([fe80::fc35:3b7c:16dd:a5cc]) by SJ2PR12MB7800.namprd12.prod.outlook.com
+ ([fe80::fc35:3b7c:16dd:a5cc%6]) with mapi id 15.21.0270.009; Tue, 28 Jul 2026
+ 13:32:35 +0000
+Message-ID: <4009684d-a24a-4cd5-9244-d92110b33ed5@amd.com>
+Date: Tue, 28 Jul 2026 19:02:29 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Add trace events for pid register/deregister
+To: "Francis, David" <David.Francis@amd.com>,
+ "Khatri, Sunil" <Sunil.Khatri@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Liu, Shuzhou (Bill)" <Shuzhou.Liu@amd.com>
+References: <20260724132100.1337346-1-David.Francis@amd.com>
+ <13e91e3b-d134-4175-9a21-19ddb0b01b62@amd.com>
+ <SA1PR12MB8144502B9A0E12CEBA235AB7EFCB2@SA1PR12MB8144.namprd12.prod.outlook.com>
+Content-Language: en-US
+From: "Khatri, Sunil" <sukhatri@amd.com>
+In-Reply-To: <SA1PR12MB8144502B9A0E12CEBA235AB7EFCB2@SA1PR12MB8144.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0325.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:222::17) To SJ2PR12MB7800.namprd12.prod.outlook.com
+ (2603:10b6:a03:4c1::18)
 MIME-Version: 1.0
-References: <b911abf7-40df-445a-9c3a-403903c94920@gmail.com>
-In-Reply-To: <b911abf7-40df-445a-9c3a-403903c94920@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 28 Jul 2026 09:16:00 -0400
-X-Gm-Features: AUfX_mxJa_OE17OOC67gJOUfJ46TGvI7WafpRxJWHPSNgBPo2DXy-Aa6Mrj5ax0
-Message-ID: <CADnq5_NW=5LFi6Rf9HYg1zgu5B6wEerQs9ErMD_y3m3GWvGS3Q@mail.gmail.com>
-Subject: Re: [bug report] amdgpu/TTM: NULL/UAF deref in
- ttm_resource_manager_next
- during hibernation swapout (ttm_device_prepare_hibernation) on Phoenix APU
-To: Bernardo <bernardomagri21@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB7800:EE_|DSSPR12MB999214:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8387ce01-1d22-4b94-31ca-08deecacaf1a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|366016|23010399003|1800799024|56012099006|10067099003|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: X1ALrYF23pJ6hcjSNZAFJs0GzZ/iqz0N3tqjC6JIeUEp2gHggC00g4/EVaFQM9IQqUBdu5za28vGnWUeffDKIDRigOcN9+t8FXCbyDBFNICJH17ULVWGiL5ydPR8/ojIu+uMHga/+hMCt6l15b2Esv8CNUT4NMBatMPzWTnYNaTOg3qmAdNdc16rWRTZHdaGlJmSV0l2rQls3cOtwX6Da6Pg+mwQkrQHkPqkP18bU/ZTJyQH/9qaT6bqDWGXUfYvGKrcmyXq/OEaKfyvoJCiMO8cqqqIji1nq11XtYmlG/Ui2SrXA48kTIgBTNSnRF2oZcsLi3ms2tMa6riJAwSDoxU8b4Cfoo0vYdf+52ggdZUODXk3Zj1oXHPV1wqY6hK5RG4EY4CZfYT04C6OX2FBNVz3eTYNi3Oh73a3w2+HL8dgRhqO5JfVTxeNcrOcrkT0gx2WHah6G/0PJVwciumo63+7DrDDBkKXKRduJZONk70kK55pAKWehdIdWkTipxkU98abRhDr2PGixwC+Wp1l5MNbAwADG18FsX7Qx71NE0FKQQv8SfGmMU60wDy6xmabh/1ElUfLlCq2WfRxa8tIrq/amoP5Zm+aTNxLpQUq0RAK3lULOzrNKqiS+iMyx2rVXs4Aud8l21T8OtaArNXLzzBdpWGWN3NDYftE9lojgOk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB7800.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(56012099006)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eDhTTUNFOGhGT1p1UTJPVlJLZW52RjBKNFRnanZ1cnF5YW05MlVyMGR0WTdx?=
+ =?utf-8?B?MzRNaXZ4bUNmWnZQdm5SOXRYRUtmVU43bmVSMmd2RExqZmllNWlLZnppWHJ0?=
+ =?utf-8?B?OXRPeW5hV1Q1M2x3eStCVFRMSjlGQytGYStQYUZ0OHRHQTRzTHdtSVlvZ2pW?=
+ =?utf-8?B?a2s1TUl4VGxzSE1xNjJhdElHWis3dFQ4MCtqakh2MEQ5Y2VGZVNvWGgrbWNj?=
+ =?utf-8?B?NUhRZXNYM3djdDlOYUwraFpIY2I4ZHowUWwzY2NLMFVxb2ZuQUo2MmF3UDVn?=
+ =?utf-8?B?bEkwSEpZbFY5RENoVHUwemhIMVNKK01mcXBiWmtwQ1RZNTR0MVBZZDdwa1lw?=
+ =?utf-8?B?MjdTZTFtY3dQZFM2Y1V2VUMrUndpK25qSS9JRzg1OENhSmlEL0lHMm8yZkhi?=
+ =?utf-8?B?aW1OK0Y3bGZKYXU3WXdpbG8zcXBUTmpQcG05N0d2S1JFNFB0VWpZTGZQUVBG?=
+ =?utf-8?B?SzBuZWdEY3hKY0IxTjlmcmpxSDEzNFpoQTZXd0FKRkFTN1Z1ZWRuUXA4L3cx?=
+ =?utf-8?B?VUNlUDQrbmFuK2xiZ3dGL0VFTFlISEtXam5MYldEOWR1Uyt1V3RnKzArcjh4?=
+ =?utf-8?B?TDY0OXVsd1pLKzhxSFZYWnBaeUphOGxMSXJmeFE4VDcrdU1GWi9wRzFqMkQ1?=
+ =?utf-8?B?R2FJaFNhTXNDL0IrNWVnVy9lSnluc3BFZHJ3ZmZCRzdLLzlrMzlUMFd6OUFx?=
+ =?utf-8?B?MWtKM2lEb2ZJaFk4dTBSRnhibXM2Z1pZRTVMbDBseUcwR1E4WXkrekVHQlVn?=
+ =?utf-8?B?b3hLQ0p2aUpYUjdiMm14d3FvU2wwT2ExQmNUVGJxSmI3NE41MHhPMmZYb3I0?=
+ =?utf-8?B?YWFVZXdPckNPUDlFSk8yaTMrZTdPOVhzNm1aaXBPSWUzNy85YUVBYXJpZVN1?=
+ =?utf-8?B?VG9Ld1dKQWFOZ2hWb3NmWHNlSTI2YlllSjhZY21lcytmOHQ4dU9zS0JtR1Uw?=
+ =?utf-8?B?YUViN01KR1lqVG9CZzNrRGVuSncvWWhRNEtmd3pkV1pjUHJETEg1MzUvenRL?=
+ =?utf-8?B?eHVCaVlZZVlZczhJVjVlZmV5Q1lqZVluY204RVZON2JSOVdReTArTzJIVEVH?=
+ =?utf-8?B?Z2d6REQ0M2hlU2p3YUVjTjJQU0ZPYjhzTXZaUlM5cGhYK3hHejV3dUNla3Mr?=
+ =?utf-8?B?UHoweUdMSFl4SmFmQ0xhSXJPQkdhV1pZeUFTVFNKRVRwVEgrUTVVNVFuZGZQ?=
+ =?utf-8?B?UGlSc0NtZC9DMFBwNVBxcFVnT3ZGUnVKRENpSjhwWUxQL1RvZFNjZE13WDB0?=
+ =?utf-8?B?YnBLSGNCNjBhRFZXK1BtejREREhua0lhWWt6RDRJblJxQThFRC81L0N5RDE0?=
+ =?utf-8?B?c2NsaFdVNC83Y0prK2oyek1vOXFDT3Z1UUNkSExKUUhjbFp5UW1SRnFPdXJn?=
+ =?utf-8?B?dXh3Q0RibTV4SGJsYmVxcWRLTDhZYzlCZ1BranU5aWZlZGswVkJ2Q3MxSXlM?=
+ =?utf-8?B?TGcxc29JZkpVa25kaDZPZXBHODM2RXVaQVoxdjk5NmsydEtUckk1YVlRSFdk?=
+ =?utf-8?B?MmEreCtsd1dlTnNScmlBVmJtdVdmcTRSeGMvdDFJLzZDMmE0SnZPbzgrcWZ1?=
+ =?utf-8?B?NE40SC83Yld4ZGNrQUd2Mnlyek1iQTQyNEZkaUlacHhlL1gvODI0dStXcFJp?=
+ =?utf-8?B?U2dJaFRtMkZ6UmpSSzU3ZTFNSnllOE9INUNEWEgzNFdocVpYKzUrQXhrUVpT?=
+ =?utf-8?B?djhPbFh6NWJKdEN0QXZEN1hPTnliODRCNW40ZS9ydTBEblVxbHNFWGh0VGRp?=
+ =?utf-8?B?VURvRjhVQlZJR2Y2YzdwbENwalJRQmU1SzMxb244V1l3T05zWWp3Z0Z6VTlh?=
+ =?utf-8?B?a0hZNExJOTBZbklzcDBRazB3OWNHaG9nNk9nMW14dE1VTS9DNzVWVCtUK1dk?=
+ =?utf-8?B?MXhkcTlZQ0ZQUU5hVm1xRVVtRWo5RXFycWx5OFJIUHNyT3A0bmw4VzFYMFpL?=
+ =?utf-8?B?dnhZY2RUQ3JmNlFhRGxvT1pYeUpieVRXMTBGckdKN1ZPNUpEaFdMTmpiNitQ?=
+ =?utf-8?B?YzNpTVVQc3p0WlJIYm81UVY0Q0FPOHpwTDdXRmROYjl2ZThQRGVqUHVGSFVC?=
+ =?utf-8?B?bkxwZ0tJbk5OWmJZUkFHVUFSR0xuTkZYdUwya1RzYmpjeElNcXlZL2pjNHJ6?=
+ =?utf-8?B?Ky9XTFdWdkt2QVNldWFVYk0xZUdPRm5YUllvQms2NzFTRy92VUhaWlN4alo4?=
+ =?utf-8?B?OGhSckh1VkFJVVNhWGlEZW1oRGp3djUxRUhSWENDbmpBVjRiU0RqVzdCazI0?=
+ =?utf-8?B?MkxvZ0dBaVZ2R2pZZzdOdjhBQVQ2c0ZwRmhkOG1aV1JvYjBJWnE0T2UwZXY5?=
+ =?utf-8?B?WUJ2dUJNRzB2NzRTakhoMG9oKzJVbEdoL1BHeFpvdFY5dzFkWEtsQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8387ce01-1d22-4b94-31ca-08deecacaf1a
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB7800.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 13:32:35.3072 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: D1fgByCUBbtqpGWqmdwOioxXqcYXzZmNIXhME/0Xi/IaBivbxVC9AJrJXM09mHLce3oiGrOiI1B2AJxvySQoiQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSSPR12MB999214
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,140 +137,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sun, Jul 26, 2026 at 8:32=E2=80=AFPM Bernardo <bernardomagri21@gmail.com=
-> wrote:
->
-> Dear maintainers,
->
-> Please find the bug report below. Thanks!
->
-> Cheers,
-> BM
->
->
-> ## Summary
-> Intermittent kernel oops (NULL/near-NULL deref) during hibernation *entry=
-*, in the
-> TTM GPU-memory eviction path invoked by amdgpu's freeze callback
-> (ttm_device_prepare_hibernation -> ttm_bo_swapout -> LRU walk ->
-> ttm_resource_manager_next). The oops occurs in the device-freeze phase, b=
-efore the
-> hibernation image is written, so the next boot reports "PM: Image not fou=
-nd (code -22)"
-> and the session is lost. On my machine oops=3Dpanic is set, so it escalat=
-es to a full
-> panic+reboot, but the underlying event is the NULL-deref oops shown below=
-.
 
-I think you are seeing this issue:
-https://gitlab.freedesktop.org/drm/amd/-/work_items/5387
-Please follow that ticket for the latest.
+On 28-07-2026 06:45 pm, Francis, David wrote:
+>> This function is called from many places and will not match when a
+>> process start and similarly for stop. Better find a unique function,
+>> also this will be called for KGD and KFD processes too.
+> This function is called when the last ref to an task_info is put.
+> Many places in the code temporarily acquire references to a task_info
+> but only amdgpu_vm holds the long-term reference, acquired in
+> amdgpu_vm_create_task_info and relased in amdgpu_vm_fini.
+>
+> Tying the trace to the lifetime of task_info also guarantees that
+> there will be exactly one such trace for each task_info, matching
+> the register trace semantics
 
-Alex
+For begining, amdgpu_vm_init sounds like a better choice
+for ending, amdgpu_vm_destroy_task_info is correct.
+
+Regards
+Sunil Khatri
 
 >
-> ## Hardware
-> - Lenovo ThinkPad T14s Gen 4 (MT 21F8CTO1WW), BIOS R2EET46W 1.27 (2025-09=
--24)
-> - CPU/APU: AMD Ryzen 7 PRO 7840U (Phoenix)
-> - GPU: integrated Radeon 780M, gfx_v11_0, PCI 1002:15bf (rev dd), subsyst=
-em 17aa:50d8
->   - amdgpu reports "VRAM: 1024M ... (1024M used)" =E2=80=94 UMA carve-out=
-, no discrete VRAM
-> - Storage: NVMe; root on LUKS+BTRFS; hibernation to a BTRFS swapfile (res=
-ume_offset set)
+> David Francis
 >
-> ## Kernel
-> - 7.1.4 (vanilla upstream; distro build tag "#1-NixOS PREEMPT(lazy)")
-> - Taint: G O. The out-of-tree modules loaded are ddcci, ddcci_backlight, =
-acpi_call,
->   v4l2loopback =E2=80=94 none appear in the backtrace and none touch TTM;=
- the taint is unrelated.
 >
-> ## Frequency / trigger
-> Intermittent: 2 failures out of 5 hibernation attempts over 5 days (3 cle=
-an successes
-> with "PM: hibernation: hibernation exit"). Reproduces on both `systemctl =
-hibernate` and
-> systemd suspend-then-hibernate. Not correlated with a config change =E2=
-=80=94 fails and succeeds
-> on the same kernel. The intermittency is consistent with a race dependent=
- on GPU buffer
-> residency at freeze time (see analysis).
+> ________________________________________
+> From: Khatri, Sunil <Sunil.Khatri@amd.com>
+> Sent: Tuesday, July 28, 2026 8:26 AM
+> To: Francis, David; amd-gfx@lists.freedesktop.org
+> Cc: Liu, Shuzhou (Bill); Khatri, Sunil
+> Subject: Re: [PATCH] drm/amdgpu: Add trace events for pid register/deregister
 >
-> ## Backtrace (from efi-pstore; consoles were already suspended, so this i=
-s what was captured)
-> PM: hibernation: hibernation entry
-> ...
-> PM: hibernation: Allocated 12299604 kbytes in 7.45 seconds (1650.95 MB/s)
-> Freezing remaining freezable tasks completed (elapsed 0.001 seconds)
-> printk: Suspending console(s) (use no_console_suspend to debug)
-> BUG: kernel NULL pointer dereference, address: 0000000000000268
-> #PF: supervisor read access in kernel mode
-> #PF: error_code(0x0000) - not-present page
-> PGD 0 P4D 0
-> Oops: 0000 [#1] SMP NOPTI
-> CPU: 2 UID: 0 PID: 1026678 Comm: kworker/u64:16 Tainted: G           O   =
-     7.1.4 #1-NixOS PREEMPT(lazy)
-> Hardware name: LENOVO 21F8CTO1WW/21F8CTO1WW, BIOS R2EET46W (1.27 ) 09/24/=
-2025
-> Workqueue: async async_run_entry_fn
-> RIP: 0010:ttm_resource_manager_next+0x94/0x200 [ttm]
-> RSP: 0018:ffffd0f08294fba0 EFLAGS: 00010202
-> RAX: ffffd0f08294fc40 RBX: ffff8c0846d306a0 RCX: ffffd0f08294fc40
-> RDX: ffffd0f08294fc40 RSI: ffffd0f08294fc40 RDI: ffffd0f08294fc40
-> RBP: ffffd0f08294fc20 R08: 0000000000000001 R09: 0000000000000000
-> R10: ffff8c029c30ed90 R11: ffff8c04001c6880 R12: 0000000000000020
-> R13: ffffd0f08294fc40 R14: ffffd0f08294fcc0 R15: 0000000000000260
-> CR2: 0000000000000268
-> Call Trace:
->  <TASK>
->  __ttm_bo_lru_cursor_next+0x60/0x300 [ttm]
->  ttm_lru_walk_for_evict+0xde/0x1d0 [ttm]
->  ttm_bo_swapout+0x5c/0x80 [ttm]
->  ttm_device_prepare_hibernation+0x71/0xb0 [ttm]
->  amdgpu_device_evict_resources+0x62/0x80 [amdgpu]
->  amdgpu_device_suspend+0x13a/0x230 [amdgpu]
->  amdgpu_pmops_freeze+0x1e/0x70 [amdgpu]
->  pci_pm_freeze+0x5b/0xe0
->  dpm_run_callback+0x51/0x180
->  device_suspend+0x1aa/0x5d0
->  async_suspend+0x21/0x30
->  async_run_entry_fn+0x34/0x150
->  process_one_work+0x199/0x390
->  worker_thread+0x177/0x2e0
->  kthread+0xe2/0x110
->  ret_from_fork+0x251/0x330
->  ret_from_fork_asm+0x1a/0x30
->  </TASK>
-> Kernel panic - not syncing: Fatal exception   (because this host runs wit=
-h oops=3Dpanic)
 >
-> ## Source observations (v7.1.4)
-> Reading the faulting path in 7.1.4:
-> - The swapout walk __ttm_bo_lru_cursor_next() (drivers/gpu/drm/ttm/ttm_bo=
-_util.c)
->   drops the lru_lock (spin_unlock at ~line 1012) and re-acquires it (~lin=
-e 1031). Its
->   own comment (~lines 1016-1022) notes that in that window "the resource =
-may have been
->   freed and allocated again with a different memory type." On the next it=
-eration it calls
->   ttm_resource_manager_next(&curs->res_curs) (~line 994).
-> - ttm_resource_manager_next() (drivers/gpu/drm/ttm/ttm_resource.c:690) ha=
-s no guard on
->   cursor->man / the LRU state, whereas its sibling ttm_resource_manager_f=
-irst() (:673)
->   does (WARN_ON_ONCE(!man)). CR2=3D0x268 with what looks like a valid man=
-ager in RBX
->   suggests the cursor walked into a freed/reallocated LRU entry rather th=
-an a NULL
->   top-level manager =E2=80=94 i.e. a use-after-free/TOCTOU in the lock-dr=
-opped walk.
-> - This tree already contains the "move swapped objects off the manager's =
-LRU list"
->   rework (ttm_resource_is_swapped(), the `unevictable` list), so that ear=
-lier issue is
->   not the cause here.
-> (These are just pointers for triage; I have not root-caused the exact fre=
-ed object.)
+> On 24-07-2026 06:51 pm, David Francis wrote:
+>> Some debugging applications need to track when a process starts
+>> or stops using the amdgpu driver. For those processes, add ftrace
+>> events that track when a amdgpu_vm task info is changed or destroyed.
+>>
+>> Signed-off-by: David Francis <David.Francis@amd.com>
+>> ---
+>>    drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h | 17 +++++++++++++++++
+>>    drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  7 +++++++
+>>    2 files changed, 24 insertions(+)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+>> index 5324030a13f5..c79604b9dda1 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h
+>> @@ -732,6 +732,23 @@ TRACE_EVENT(amdgpu_userq_state_changed,
+>>                      __entry->client_id, __entry->queue_type, __entry->doorbell_index, __entry->to)
+>>    );
+>>
+>> +TRACE_EVENT(amdgpu_register_pid,
+>> +     TP_PROTO(uint32_t pid),
+>> +     TP_ARGS(pid),
+>> +     TP_STRUCT__entry(__field(uint32_t, pid)),
+>> +     TP_fast_assign(__entry->pid = pid;),
+>> +     TP_printk("amdgpu register pid %d",
+>> +               __entry->pid)
+>> +);
+>> +TRACE_EVENT(amdgpu_deregister_pid,
+>> +     TP_PROTO(uint32_t pid),
+>> +     TP_ARGS(pid),
+>> +     TP_STRUCT__entry(__field(uint32_t, pid)),
+>> +     TP_fast_assign(__entry->pid = pid;),
+>> +     TP_printk("amdgpu deregister pid %d",
+>> +               __entry->pid)
+>> +);
+>> +
+>>    #undef AMDGPU_JOB_GET_TIMELINE_NAME
+>>    #endif
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> index aac8ace9d7a6..8d31a61e8c26 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+>> @@ -2457,6 +2457,9 @@ static void amdgpu_vm_destroy_task_info(struct kref *kref)
+>>    {
+>>        struct amdgpu_task_info *ti = container_of(kref, struct amdgpu_task_info, refcount);
+>>
+>> +     if (ti->task.pid)
+>> +             trace_amdgpu_deregister_pid(ti->task.pid);
+>> +
+>>        kfree(ti);
+>>    }
+>>
+>> @@ -2543,6 +2546,10 @@ void amdgpu_vm_set_task_info(struct amdgpu_vm *vm)
+> This function is called from many places and will not match when a
+> process start and similarly for stop. Better find a unique function,
+> also this will be called for KGD and KFD processes too.
+> Chose a better function to add the trace although trace in itself is fine.
+>
+> Regards
+> Sunil Khatri
+>>        if (vm->task_info->task.pid == current->pid)
+>>                return;
+>>
+>> +     if (vm->task_info->task.pid)
+>> +             trace_amdgpu_deregister_pid(vm->task_info->task.pid);
+>> +     trace_amdgpu_register_pid(current->pid);
+>> +
+>>        vm->task_info->task.pid = current->pid;
+>>        get_task_comm(vm->task_info->task.comm, current);
+>>
