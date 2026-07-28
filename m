@@ -4,58 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97E4DC54FD1
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 13:16:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F9B4C53200
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 13:16:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 19F1A10EC2B;
-	Wed, 29 Jul 2026 13:16:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29E5310EC2D;
+	Wed, 29 Jul 2026 13:16:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="JPkT91Sj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VIc3ShEx";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23E5110E42D;
- Tue, 28 Jul 2026 10:30:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
- Subject:Cc:To:From:Date:From:Reply-To;
- bh=TALPIU4YyXMuYB6eUTevqI4rH4Gmsh+4e7cVmh8hE6E=; b=JPkT91SjZX7eVTsl2VV9wOOc+Y
- K9xYz3fEgZnTcUv22+AFFVnOyH4Gj6vgLo2u3R/PxTIMh8af/q+OpAotyABmErbND/Rd6TG9yjQMn
- 6iMWstPCxr8+57vw6y9VahjraVXB32OXpVUvjQJtUV3Ac7tcEVYs1spM+ka031W74sO30oNGfA+zJ
- zmjiP1mshu89iOcw1cNTOXWB3+B3MTZIGaAxqDJZfAfQCIqrNNE65afJQ94uEO426iOCRyboxqiPf
- mYvTuIGIzREM5Ca9ygQ23VygkhQ7i1paD/B599AJFLGgeVxGWIGwYJFjjut7jVojTtJFAa0JFexFG
- +XSs8COA==;
-Received: from 179-125-64-236-dinamico.pombonet.net.br ([179.125.64.236]
- helo=quatroqueijos.cascardo.eti.br)
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wof4z-006wmg-6P; Tue, 28 Jul 2026 12:30:33 +0200
-Date: Tue, 28 Jul 2026 07:30:23 -0300
-From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-To: Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-Cc: intel-xe@lists.freedesktop.org, Natalie Vock <natalie.vock@gmx.de>,
- Johannes Weiner <hannes@cmpxchg.org>, Tejun Heo <tj@kernel.org>,
- Michal =?iso-8859-1?Q?Koutn=FD?= <mkoutny@suse.com>,
- cgroups@vger.kernel.org, Huang Rui <ray.huang@amd.com>,
- Matthew Brost <matthew.brost@intel.com>,
- Matthew Auld <matthew.auld@intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Simona Vetter <simona@ffwll.ch>, David Airlie <airlied@gmail.com>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 0/6] Add reclaim to the dmem cgroup controller
-Message-ID: <amiEvz13Br2AB2B7@quatroqueijos.cascardo.eti.br>
-References: <20260725100036.2372-1-thomas.hellstrom@linux.intel.com>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260725100036.2372-1-thomas.hellstrom@linux.intel.com>
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
+ [209.85.221.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 47C3910E613
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 23:58:02 +0000 (UTC)
+Received: by mail-wr1-f42.google.com with SMTP id
+ ffacd0b85a97d-47f752b3423so225050f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 16:58:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785283081; x=1785887881; darn=lists.freedesktop.org;
+ h=in-reply-to:references:from:subject:cc:to:message-id:date
+ :content-type:content-transfer-encoding:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=bOUbbFg/a14VH9bvxbiGt1NTV24v6cj7Q7Pwvkj6HI8=;
+ b=VIc3ShExTrEwY7BrTfP9bEyimdwaP0LBRnEEE3oPnJNuzjxCQMso6Q0GS/2Oq2qSDU
+ 7Ej1/FUOJzxcYIgNoidQRsb51QxbihMUDK5FwYg880Llvep45Vwc/vTHUG/KqW4xmQRI
+ jvG9+ksvJUoWBxsvl+aNZT5LMz/Rmm6IxzcNmgwrb/BrjX46QQcNJp0hY3so4TyRpwdM
+ ppsDH/3JndMlmxVsiRME0f7T/9yrLsrVan58pazsdK04qkdXu1pLrltqLtzCtPL1Ty/S
+ lP6gthuh9fw+Nqh+tqyiVdj1efw9LRhm0WfmyuXuiIeb3xvPp1vvWjZTta4/GPxgElYd
+ dHMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785283081; x=1785887881;
+ h=in-reply-to:references:from:subject:cc:to:message-id:date
+ :content-type:content-transfer-encoding:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=bOUbbFg/a14VH9bvxbiGt1NTV24v6cj7Q7Pwvkj6HI8=;
+ b=CrEoMmRzuSLHNcZSm6ZC2zD6irgFMR9cRe6sxIFPmF+AP5vPJ17qTw3e5LgmUl7e3b
+ XfOohHAil2cMjDi09PEzv4UGRZSefuF8cye663Z4RvM0g1q8im69+CBm7TzmJwnedNrx
+ NjGVH/gLCSbHRniRSRHK/AYrgOfT4EIXWN6B18brPL53frIlFQC7O/aFXU5FPd5Crr8O
+ XqchJG8sKwKQ7kBQ/x5BBXWRejUvmZFacO4OchXu8zmj6OKzv+SPWrIzeqbyWG7RpPSN
+ zn44gu4HuCw8/5x2uga9rK04n0aLOviFadqAayqfUVQAI9+f8EF7cHAsJqPTLNVADrAb
+ nqgg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rpl1rZe+4KhHvIHv7gPkTOBpzsd6l3GLY9LfIU6onMVpVu2Paul6n73EjLZ8YTi+yc3WGNGbCDT@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyM+1bkJQL9dDTHslCjG1tI95TbXjzHIab3yKEsc2ZJ5sjkMGml
+ X9V7WLa2cMV+6Q7JbOkmLDBEy1exGhuo0Xud0cjRcc1OARJDzUMPrBlG
+X-Gm-Gg: AR+sD11qkl5zqxFZF+XMGuyc/1HXVvKC75wf7CAkNGKxpK3yPlS0IY6W4Lbyng3lpz4
+ 05uTo2uRvoCqJ2nm7Qgn/kqh+ipw7O94RBanxGdY5GsfmiGF2XJJ/embZ7OWjp1Y0c345E/LXGu
+ 7WyL5t4z+OYwHpNe87WldF0ggXiBOlcWQT0nlrPkFswMFuCBBy54sulFQLpd/yP/uXbUpEgKMVp
+ vFiyJtVvZKY2t66mKhDUZAMHLxhORnphhS8sIaCPTBBBo830dSy7YIDs7Joj7zSqxzQoX1Ze+cz
+ HUo5BQi7Myc85uOvclKVeTAUCPZxDPzCESdt7QxMXj3OfflDNB1Ifd+loXQVCO/V5nT1OWKPO9l
+ CL63515gxkfJXbk933qGAHBg+y6LMTxd7hkd7YQNnbK9YjcIWfiecdJtLnj96kKnxR3JWptcDxS
+ /7YMHZqcf7dpqVN6prqHP81j9La2flXGu6tCXPA8cm3/1y99voBT8VstDW+OxsFCvd
+X-Received: by 2002:a05:6000:4285:b0:46d:9871:1a44 with SMTP id
+ ffacd0b85a97d-47fb1f13c2cmr4979291f8f.32.1785283080521; 
+ Tue, 28 Jul 2026 16:58:00 -0700 (PDT)
+Received: from localhost ([193.30.163.202]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-47fb6b0f039sm3079471f8f.18.2026.07.28.16.57.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 28 Jul 2026 16:58:00 -0700 (PDT)
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 29 Jul 2026 01:57:59 +0200
+Message-Id: <DKAM18ABX9IX.2G6Q8UZZHXZJ1@gmail.com>
+To: "Fangzhi Zuo" <jerry.zuo@amd.com>, <timo.proemer04@gmail.com>
+Cc: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH v2 2/2] drm/amd/display: Use drm_edid_block_count()
+ instead of raw extensions
+From: =?utf-8?q?Timo_Pr=C3=B6mer?= <timo.proemer04@gmail.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260713193237.2639-1-timo.proemer04@gmail.com>
+ <20260713193237.2639-3-timo.proemer04@gmail.com>
+ <20260713194945.2AFE11F00A3A@smtp.kernel.org>
+ <20260727213305.810014-1-jerry.zuo@amd.com>
+In-Reply-To: <20260727213305.810014-1-jerry.zuo@amd.com>
 X-Mailman-Approved-At: Wed, 29 Jul 2026 13:16:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,153 +93,17 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Jul 25, 2026 at 12:00:30PM +0200, Thomas Hellström wrote:
-> When writing a "max" limit lower than the current usage, the
-> existing code silently failed. This series aims to improve
-> on that by returning -EBUSY on failure and also attempt
-> to synchronously reclaim device memory to push the usage
-> under the new max limit to avoid the error.
-> 
-> Patch 1 fixes a pre-existing amdgpu_vram_mgr_init() error path
-> Patch 2 introduces struct dmem_cgroup_init for extensible region
->       registration.
-> Patch 3 implements and documents a reclaim callback interface
->       for the dmem controller.
-> Patch 4 implements a TTM reclaim callback.
-> Patches 5-6 hook up the reclaim callback to the dmem cgroup-aware
->       drivers xe and amdgpu.
-> 
-> v2:
-> - Remove the error propagation that was in a previous series (Maarten)
-> - A number of updates in patch 1. See its commit message for
->   details (Maarten)
-> 
-> v3:
-> - Add patch 1 fixing a pre-existing amdgpu_vram_mgr_init() error path
->   bug where drmm_cgroup_register_region() was called before
->   INIT_LIST_HEAD() and gpu_buddy_init(), causing a kernel panic on
->   failure. (Sashiko-bot)
-> - Use an rwsem to protect reclaim callback registration and region
->   unregister against concurrent reclaim invocations. (Sashiko-bot)
-> - Fix ttm_resource_manager_set_dmem_region() storing an error pointer
->   in man->cg unconditionally. (Sashiko-bot)
-> - Fix kernel-doc function name format for ttm_bo_evict_cgroup() and
->   ttm_resource_manager_set_dmem_region().
-> 
-> v4:
-> - Rebased on drm-tip; dropped the XE_PL_STOLEN guard in the xe patch
->   as stolen memory uses a separate TTM manager.
-> 
-> v5:
-> - Add patch 2 introducing struct dmem_cgroup_init to make the
->   dmem_cgroup_register_region() API extensible without adding positional
->   arguments in the future.
-> - Use nonblock=true in reset_all_resource_limits() to avoid sleeping
->   inside rcu_read_lock() in dmemcs_offline(). (Sashiko-bot)
-> - Compare usage against the truncated limit stored in cnt.max, not the
->   original u64. (Sashiko-bot)
-> - Use DMEM_MAX_RECLAIM_RETRIES (16) retry budget instead of 5, matching
->   the memcg controller; only -ENOSPC (no progress) counts against the
->   budget, other errors abort immediately.
-> - Handle NULL region in ttm_resource_manager_set_dmem_region() to clear
->   the reclaim callback, preventing use-after-free when the manager is
->   torn down while the dmem region outlives it. (Sashiko-bot)
-> - Return 0 on any eviction progress; reserve -ENOSPC for zero progress.
-> - Clear the reclaim callback in xe and amdgpu fini paths to prevent
->   use-after-free after driver unbind with open DRM file descriptors.
->   (Sashiko-bot)
-> - Register xe fini devres action before drmm_cgroup_register_region()
->   so LIFO teardown runs unregister first, draining callbacks before the
->   manager is destroyed. (Sashiko-bot)
-> - Switch amdgpu to explicit dmem_cgroup_unregister_region() at the top
->   of amdgpu_vram_mgr_fini() before any manager teardown, since amdgpu's
->   fini is called explicitly during driver unbind before drmm cleanup.
->   (Sashiko-bot)
-> - Wrap the xe reclaim callback with drm_dev_enter()/drm_dev_exit() to
->   prevent TTM reclaim from running after driver unbind.
-> 
-> v6:
-> - Move the ops check inside down_read() in set_resource_max(), guarded
->   by region->unregistered, to close a UAF race against
->   dmem_cgroup_unregister_region(). (Sashiko-bot)
-> - Fix dmem_cgroup_ops->reclaim docstring: -ENOSPC is retried up to
->   DMEM_MAX_RECLAIM_RETRIES times, not an immediate stop. (Sashiko-bot)
-> - Fix mgr->cg_region never being assigned in amdgpu_vram_mgr_init(),
->   causing dmem_cgroup_unregister_region() in fini to silently no-op.
->   (Sashiko-bot)
-> - Reorder amdgpu_vram_mgr_fini() to call set_used(false) and
->   evict_all() before dmem_cgroup_unregister_region(), so
->   ttm_resource_free() can uncharge via man->cg during eviction; clear
->   man->cg after unregister. (Sashiko-bot)
-> 
-> v7:
-> - Replace the per-region rw_semaphore with a static SRCU domain
->   (dmemcg_srcu). SRCU is a better fit: it avoids per-region lock
->   overhead on every reclaim call, and synchronize_srcu() at unregister
->   time is a rare, shutdown-time operation. (Maarten)
-> - Trim in-function comments to focus on what rather than how.
-> - Switch back to drmm_cgroup_register_region() with a drm_dev_enter/
->   exit guard in the reclaim callback (matching xe), rather than manual
->   register/unregister.  drm_dev_unplug() fires before vram_mgr_fini(),
->   so drm_dev_enter() returning false prevents any reclaim from touching
->   the manager during teardown.  This also fixes the "vram" name
->   collision on multi-GPU systems, since drmm_cgroup_register_region()
->   automatically prefixes with "drm/<pci-addr>/". (Sashiko-bot)
-> 
-> v8:
-> - Fix ttm_resource_manager_set_dmem_region() using IS_ERR_OR_NULL(),
->   which skipped the assignment for a NULL region and thus never cleared
->   man->cg. Use IS_ERR() so that a NULL region detaches the region as the
->   kernel-doc and the v5 changelog intended. (Sashiko-bot)
-> - Move the amdgpu dmem cgroup region teardown back into
->   amdgpu_vram_mgr_fini() with an explicit dmem_cgroup_unregister_region()
->   after evict_all(), keeping the drm_dev_enter() guard. The v7 drmm-only
->   approach left a use-after-free on the probe-error teardown path, where
->   drm_dev_unplug() is never called so the drm_dev_enter() guard stays
->   open while drm_driver.release destroys the manager before the drmm
->   action unregisters the region. (Sashiko-bot)
-> 
-> v9:
-> - Init / fini race fixes. (Sashiko-bot, Thomas)
-> - Drop a misleading comment. (Maarten)
-> - Acquire runtime PM before reclaim. (Sashiko-bot) 
-> 
-> User-space tests are at
-> https://patchwork.freedesktop.org/series/163935/
-> 
+Hi Jerry,
 
-I used https://gitlab.freedesktop.org/cascardo/igt-gpu-tools/-/commits/dmem_max?ref_type=heads,
-on top of my v5 to test this version.
+Thank you for the response.
 
-Tested-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+I see that the patch you referenced was already released with rc4.
+I tested my use case with that release and the EDID is read correctly now,
+so I believe my patch can be dropped.
 
-> Test-with: 20260428065411.4222-1-thomas.hellstrom@linux.intel.com
-> 
-> Thomas Hellström (6):
->   drm/amdgpu: Fix init ordering in amdgpu_vram_mgr_init()
->   cgroup/dmem: Introduce struct dmem_cgroup_init for region
->     initialization
->   cgroup/dmem: Add reclaim callback for lowering max below current usage
->   drm/ttm: Hook up a cgroup-aware reclaim callback for the dmem
->     controller
->   drm/xe: Wire up dmem cgroup reclaim for VRAM manager
->   drm/amdgpu: Wire up dmem cgroup reclaim for VRAM manager
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c      |  2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 65 +++++++++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.h |  3 +
->  drivers/gpu/drm/drm_drv.c                    |  8 +-
->  drivers/gpu/drm/ttm/ttm_bo.c                 | 94 +++++++++++++++++++-
->  drivers/gpu/drm/ttm/ttm_bo_util.c            |  3 +-
->  drivers/gpu/drm/ttm/ttm_resource.c           | 54 ++++++++++-
->  drivers/gpu/drm/xe/xe_ttm_vram_mgr.c         | 71 +++++++++++++--
->  include/drm/drm_drv.h                        |  4 +-
->  include/drm/ttm/ttm_bo.h                     | 10 +++
->  include/drm/ttm/ttm_resource.h               |  7 ++
->  include/linux/cgroup_dmem.h                  | 38 +++++++-
->  kernel/cgroup/dmem.c                         | 90 +++++++++++++++----
->  13 files changed, 408 insertions(+), 41 deletions(-)
-> 
-> -- 
-> 2.55.0
-> 
+This is my very first interaction with the kernel process,
+so I am sure the released patch handles things
+much better than my attempt anyway!
+
+Thank you for your time,
+Timo
