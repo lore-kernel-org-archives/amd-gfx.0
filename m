@@ -4,46 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C0C7C53219
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 18:39:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20A67C53219
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 18:50:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24EC910E9C1;
-	Tue, 28 Jul 2026 18:39:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B44A310E4D9;
+	Tue, 28 Jul 2026 18:50:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="BAT5X/Xr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fc+5UOTc";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C592B10E9C1
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 18:39:57 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B46AB60AA4;
- Tue, 28 Jul 2026 18:39:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C59C1F000E9;
- Tue, 28 Jul 2026 18:39:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785263996;
- bh=oHsUxFoiyHVcRJtbSPescE2hFg4RdUF+1muhOwuzSDM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=BAT5X/XrQ3zdVQxjRgZj5fZH6tLLc2uAS2xS/u3LyBAInOb5ftFHQJgWf9HMNiy9n
- obRlNajmspIciaqEOAPUCIqz0sxXbPUQX/XvyO7D/Zp1Hvwjg4pHGA6OinmfpKfjwR
- X77v+fPjgnKazTfieVzcYU5EkeVYd/ARBL29W0SyX5qlS5P/te+s0cMElQuBpV7fmI
- AZngnFrQD8mN7lqFcgScMN6jy/mAOpGBmfyR9t2Ri6vs4DZ00/SHtVkwtMYatpXrhh
- yPWaF9Kup5uoqilv0IjrctURYPBK993dIO4ChHikrvSwQZ+jnyEFursWaLlfYTPRUx
- lWQDMGFwCkfMw==
-Message-ID: <c446e576-6fa6-4546-aa53-04b07c746f5e@kernel.org>
-Date: Tue, 28 Jul 2026 13:39:55 -0500
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B6E4F10E4D9
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 18:50:21 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-37f9e2642deso569a91.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 11:50:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785264621; cv=none;
+ d=google.com; s=arc-20260327;
+ b=VfdOe4bd7ptWyy3pOxc30z0kCzFDvXpMrcDXqwzYU2TGuI/cZUuBsDUkw6ZpSoCRea
+ fgxpdrZqkERShig3YZeUa6IIBwzha1uEdI8I60ejffNEujXUHNNAu7uMMHCAFx3U/k/9
+ 0TvGKbbBb8g5Jfa8fSIwRkNNd9CpQbI4KcOi2Nj9PvBr1qKhyOUMF4yr49iDTmWeO8rW
+ kKqPlG2vRgSqFOouMAuxFzpBhIpwlzCqjiQ04h4kt1GY+gbABFxUaZOWgz+zZP7nentR
+ PGnxeQMvbxDPIwN+diFKAMo6SoQwRaUX9jzQYsGdGpaNC7z322HWlfBnYNl4FDuvO7ph
+ 2veA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=vgHV+tnNQZWPxWIdaMgAR7tVyl17SlWcyRKQThG2SRE=;
+ fh=wJtYjAenXUV+YGAVpzXzpZvFnIFKWwzGZvrNsGCfJ4s=;
+ b=eana8AtxOEivOF4Zp3sQP3TxPTewX6Y6yw2P2Ycz9H48qkwdAfV/UMNPDZLIDDxV/+
+ eAUt5LbeUMnI+6j19OnDzTEDT4k8OQmWHEq1f+k2SxklgxEs2v+BH7t8sLNJQhWNBUeA
+ e3SuScap0P0iv6PDmTb5h8Wi5sxCr9BMk+9JB9hmC4ivC1eePn1fNRe48Dfh0CAW5qNL
+ WLZB0WhMlXyTfppzR3xYxUfZk0IVmqfUbK8Ov7xlWpBN18LjM2IXtkb5+9O4MnE3L1E3
+ EQfuQTMRbpQS5IhdjTaGj2Pj+DxMUwh23pjf3OWyaMVJpMzEX3thRwMjOsX+YWBrHG8b
+ x3Aw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785264621; x=1785869421; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=vgHV+tnNQZWPxWIdaMgAR7tVyl17SlWcyRKQThG2SRE=;
+ b=fc+5UOTc0jUyoIS80a50poHnzPkIpvZcpdu8bb0bjwaIHv4ZoYEUL2uKhTjPyUJnlm
+ u6BV+lDSLL6rTZu8gwSRbKf2aUPejlUMTR7UtkoYgfQCYBu/1T6qGw5utyvsSVclJE4l
+ QUNFdYnPn/am1dNCd3TiuAMff3cXiG46lyLMbvVdq9Jk3EOMJ4igXQ/SUVVON2w7CCCD
+ jYw7z6xZhY6NA96OGpwkz1RK0TpqhhQ+VqGDDOx7e4WNTA+huBdmDBrniHggY8ao1V2E
+ k5pdyRYGmU2rXt1i5Wd3Qizv7FkhQT76Q9aMmowLZOpq66B99tCp0uOA8EpFlxlxE2z4
+ R5qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785264621; x=1785869421;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=vgHV+tnNQZWPxWIdaMgAR7tVyl17SlWcyRKQThG2SRE=;
+ b=Bg5l+858DfOfgb7dg11p/3Wof0jlHBqms44buyLXM0j9ZtM5RWg+sSU/Ad1gjeWHpq
+ SesmXUAIMhEW2teDjM3+O0aDXR/Ao6bUlCCa3Hx/REwvHFhJslf7ZY1JcPLDfomTstQa
+ u4QJTT41Z/LhLfd7S1DMq7+f1UzR8L0NoQpX5iEeAzhoDiHYJr3yA4urJHyE7jfPEGOX
+ l6BK7RFvDiu6x7VwOQdZWbXZeIT1qSEzSgaMUcjghC+Y/XBcLmhFP+Y5MAci5megBqsg
+ qUBfhwBs6RE55Kssh397rQu1hWFHx1LJv8Uur4nzJTrYqGY5nzgEVij9S8OM7wdWN0BS
+ 77sQ==
+X-Gm-Message-State: AOJu0Yz2eWSqWGf9pF3PovUPS2k/F1Qw7qNDtlNzANB34+VR9Lk6HIwQ
+ f66Nr4X82LtufKOUmiT39vELynVvOqXbfXLf4cR6SE6QFtC5PMB11IwFdc/VM8r46vPNB+dfYM6
+ 2QVKO79FKu/qie+P0cZAVzRnogwaG3IE=
+X-Gm-Gg: AR+sD11EvGhSkVkyUhClbbT8+PcBG/KVYhzE7nnkbMPJLQTcSrFHQdCXEIKbHSLKb2h
+ QOEopL2xZUBASSBiafWOczGVnm++UvvyxDhbKUM25XkSVTAC/cLMroNtu4a5k/BakGqViVonKX9
+ u9vjZli5R/dql6L2DUUxiYyjTBNdT6lD3XaGLYSL7oWL80v0a2K56F6EW0Waarb4+30oQK9C04g
+ xj++yM48QPHYSdDb5DWvBqA1gKZnBn7KEhB64yCNBzHhOVXp4j3EHIGga4g46ZGyLYiMDLQUhKp
+ +tt+IyiZvoHNUbhr2ybw7rHI3l7l32bqLL2OiALohXgOVf+tQF1VVd5PppcZwIQyZquJFP2P2Aq
+ pSg6jtJKBO5KnxiG/OQsd95o5K9R5GL4=
+X-Received: by 2002:a17:90b:2b8b:b0:38e:480b:99a5 with SMTP id
+ 98e67ed59e1d1-38f6a2579a2mr3166693a91.2.1785264621154; Tue, 28 Jul 2026
+ 11:50:21 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Exit idle optimizations before
- programming
-Content-Language: en-US
-To: sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org
-Cc: Harry.Wentland@amd.com, alexander.deucher@amd.com, stable@vger.kernel.org
-References: <20260728170550.40908-1-sunpeng.li@amd.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260728170550.40908-1-sunpeng.li@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260728181608.10541-1-andrew.martin@amd.com>
+In-Reply-To: <20260728181608.10541-1-andrew.martin@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 28 Jul 2026 14:50:09 -0400
+X-Gm-Features: AUfX_mx6OpYt53tgWnQHB6anKIyJ4_rfo4Ww9z-qipxcxPywDAmNSdsDBASy3rU
+Message-ID: <CADnq5_NCuSjcREYmLCm5Lnk4NQ4W1oDZy_9Cbh9JUUn_oOY8Qg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: zero SDMA mid-command save state before
+ restoring user queues
+To: Andrew Martin <andrew.martin@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+ Andrew Martin <andmarti@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,163 +105,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On Tue, Jul 28, 2026 at 2:33=E2=80=AFPM Andrew Martin <andrew.martin@amd.co=
+m> wrote:
+>
+> From: Andrew Martin <andmarti@amd.com>
+>
+> Applies to gfx10 (RDNA2) and gfx11 (RDNA3).
+>
+> The SDMA firmware's saved mid-command state for a preempted COPY_LINEAR
+> (sdmax_rlcx_midcmd_data0 =3D source byte offset) has been observed to
+> overshoot the packet's byte count on gfx10.3 (Navi21, XNACK off) after
+> rapid quiesce/resume cycles driven by userptr/SVM eviction. On
+> MAP_QUEUES the engine resumes the copy at src+offset past the buffer:
+> an unmapped VA turns into a UTCL2 'Page not present' fault, a mapped
+> one into silent data corruption.
+>
+> The silent corruption variant produces no dmesg output and is only
+> detectable through application-level data integrity checks (checksums,
+> validation). This makes diagnosis extremely difficult as there is no
+> kernel-level indication of the failure.
+>
+> Zero the mid-command save area before remapping so the pending packet
+> re-executes from its packet boundary (idempotent for COPY/GCR/FENCE).
+> Workaround for field crashes of ROCm workloads on RDNA2/RDNA3.
+>
+> Signed-off-by: Andrew Martin <andmarti@amd.com>
 
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5475
+If you are going to go this way, you should just apply the patches
+attached to that ticket already since they are basically the same
+fixes.  That said, It's not clear to me that this is a proper fix.
+Clearing the state may prevent the issue, but it may also leave the
+sdma copy in question incomplete.  We need to work with the FW teams
+to understand why this is happening.
 
-On 7/28/26 12:02, sunpeng.li@amd.com wrote:
-> From: Leo Li <sunpeng.li@amd.com>
-> 
-> [Why]
-> 
-> We need to exit PSR/IPS before programming. Before calling DC for
-> programming in amdgpu_dm_commit_planes(), there's a
-> vblank_control_workqueue flush. This waits for IPS and PSR exit. (See
-> drm_vblank_on/off() > amdgpu_dm_crtc_set_vblank() --queue_work()->
-> amdgpu_dm_crtc_vblank_control_worker())
-> 
-> Prior to the tagged "Fixes:" change, drm_vblank_get() was called before
-> the workqueue flush. This ordering ensures that PSR exit occurred before
-> programming. After the "Fixes:" change, drm_vblank_get() is called after
-> the workqueue flush, leading to programming while idle optimizations are
-> still active. This can lead to incorrect flip_pending detection used by
-> vblank event delivery.
-> 
-> [How]
-> 
-> Split the vblank_get() component of `dm_arm_vblank_event()` into
-> `dm_arm_vblank_event_pre_programming()`, which is called before
-> programming. Call it before the vblank_control_workqueue flush.
-> 
-> Includes a drive-by cleanup of prepare_flip_isr(): the only caller is
-> dm_arm_vblank_event() and it's simple enough to roll-in.
-> 
-> Signed-off-by: Leo Li <sunpeng.li@amd.com>
-> Fixes: 48ab86360af1 ("drm/amd/display: check GRPH_FLIP status before sending event")
-> Cc: stable@vger.kernel.org
-> Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/4141#note_3583205
-> Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5527
-> Assisted-by: Codex:gpt-5.6-sol
-> Assisted-by: Claude:opus-5
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Alex
+
+> Assisted-by: Claude:Sonnet 4-5
 > ---
-> Rebased patch for applying on 7.2-rc5:
-> https://gitlab.freedesktop.org/leoli/linux-asdn/-/commit/f05db644126540f1d237f846cc0512088551eb73
-> 
-> Thanks,
-> Leo
-> 
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 79 +++++++++++--------
->   1 file changed, 47 insertions(+), 32 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index df6b59fb8d0d4..784587697bac8 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3576,25 +3576,6 @@ static void remove_stream(struct amdgpu_device *adev,
->   	acrtc->enabled = false;
->   }
->   
-> -static void prepare_flip_isr(struct amdgpu_crtc *acrtc)
-> -{
-> -
-> -	assert_spin_locked(&acrtc->base.dev->event_lock);
-> -	WARN_ON(acrtc->event);
-> -
-> -	acrtc->event = acrtc->base.state->event;
-> -
-> -	/* Set the flip status */
-> -	acrtc->pflip_status = AMDGPU_FLIP_SUBMITTED;
-> -
-> -	/* Mark this event as consumed */
-> -	acrtc->base.state->event = NULL;
-> -
-> -	drm_dbg_state(acrtc->base.dev,
-> -		      "crtc:%d, pflip_stat:AMDGPU_FLIP_SUBMITTED\n",
-> -		      acrtc->crtc_id);
-> -}
-> -
->   static void amdgpu_dm_commit_cursors(struct drm_atomic_commit *state)
->   {
->   	struct drm_plane *plane;
-> @@ -3740,17 +3721,48 @@ static void dm_arm_vblank_event(struct amdgpu_crtc *acrtc,
->   		return;
->   
->   	if (pflip_update) {
-> -		drm_crtc_vblank_get(&acrtc->base);
->   		WARN_ON(acrtc->pflip_status != AMDGPU_FLIP_NONE);
-> -		/* Arm flip completion handling and event delivery after programming. */
-> -		prepare_flip_isr(acrtc);
-> +		WARN_ON(acrtc->event);
-> +
-> +		acrtc->pflip_status = AMDGPU_FLIP_SUBMITTED;
-> +		acrtc->event = acrtc->base.state->event;
-> +		acrtc->base.state->event = NULL;
-> +
-> +		drm_dbg_state(acrtc->base.dev,
-> +			      "crtc:%d, pflip_stat:AMDGPU_FLIP_SUBMITTED\n",
-> +			      acrtc->crtc_id);
->   	} else if (cursor_update) {
-> -		drm_crtc_vblank_get(&acrtc->base);
->   		acrtc->event = acrtc->base.state->event;
->   		acrtc->base.state->event = NULL;
->   	}
->   }
->   
-> +/**
-> + * dm_arm_vblank_event_pre_programming - Prepare for programming
-> + * @acrtc: The amdgpu CRTC to prepare
-> + * @acrtc_state: The new CRTC state
-> + * @pflip_update: Whether a page flip is being programmed
-> + * @cursor_update: Whether a cursor update is being programmed
-> + *
-> + * Grab a reference on the vblank counter if a page flip or cursor update is to
-> + * be programmed. Do this before programming so the HW is not in any
-> + * idle-optimized state (such as PSR).
+>  .../drm/amd/amdkfd/kfd_device_queue_manager.c | 37 ++++++++++++++++++-
+>  1 file changed, 36 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
+ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 51ee9c39104b..1507d371f741 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -40,6 +40,8 @@
+>  #include "amdgpu_ring.h"
+>  #include "amdgpu_mes.h"
+>  #include "kfd_debug.h"
+> +#include "v10_structs.h"
+> +#include "v11_structs.h"
+>
+>  /* Size of the per-pipe EOP queue */
+>  #define CIK_HPD_EOP_BYTES_LOG2 11
+> @@ -1447,6 +1449,37 @@ static int restore_process_queues_nocpsch(struct d=
+evice_queue_manager *dqm,
+>         return ret;
+>  }
+>
+> +/*
+> + * Zero SDMA mid-command state before MAP_QUEUES. Firmware bug: preempte=
+d
+> + * COPY_LINEAR can resume at corrupted offset past buffer (silent corrup=
+tion
+> + * or VM fault). Re-executing from packet start is idempotent and safe.
 > + */
-> +static void dm_arm_vblank_event_pre_programming(
-> +	struct amdgpu_crtc *acrtc,
-> +	struct dm_crtc_state *acrtc_state,
-> +	bool pflip_update,
-> +	bool cursor_update)
+> +static void clamp_sdma_midcmd_state(struct device_queue_manager *dqm,
+> +                                   struct qcm_process_device *qpd)
 > +{
-> +	assert_spin_locked(&acrtc->base.dev->event_lock);
+> +       struct queue *q;
+> +       uint32_t gc_ver =3D KFD_GC_VERSION(dqm->dev);
 > +
-> +	if (!acrtc->base.state->event || acrtc_state->active_planes == 0)
-> +		return;
+> +       if (gc_ver < IP_VERSION(10, 1, 1) || gc_ver >=3D IP_VERSION(12, 0=
+, 0))
+> +               return;
 > +
-> +	if (pflip_update || cursor_update)
-> +		drm_crtc_vblank_get(&acrtc->base);
+> +       list_for_each_entry(q, &qpd->queues_list, list) {
+> +               if ((q->properties.type !=3D KFD_QUEUE_TYPE_SDMA &&
+> +                    q->properties.type !=3D KFD_QUEUE_TYPE_SDMA_XGMI) ||=
+ !q->mqd)
+> +                       continue;
+> +
+> +               if (gc_ver < IP_VERSION(11, 0, 0)) {
+> +                       struct v10_sdma_mqd *m =3D q->mqd;
+> +
+> +                       memset(&m->sdmax_rlcx_midcmd_data0, 0, 10 * sizeo=
+f(uint32_t));
+> +               } else {
+> +                       struct v11_sdma_mqd *m =3D q->mqd;
+> +
+> +                       memset(&m->sdmax_rlcx_midcmd_data0, 0, 12 * sizeo=
+f(uint32_t));
+> +               }
+> +       }
 > +}
 > +
->   static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
->   				    struct drm_device *dev,
->   				    struct amdgpu_display_manager *dm,
-> @@ -4013,16 +4025,19 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
->   		}
->   	}
->   
-> -	/*
-> -	 * DCE depends on a combination of GRPH_FLIP, VLINE0, and VUPDATE for
-> -	 * event delivery. Only GRPH_FLIP handler can send pflip events, and it
-> -	 * only fires if HW latched to the flip. Maintain legacy behavior by
-> -	 * arming event before programming.
-> -	 */
-> -	if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) == 0) {
-> -		scoped_guard(spinlock_irqsave, &pcrtc->dev->event_lock) {
-> +	scoped_guard(spinlock_irqsave, &pcrtc->dev->event_lock) {
-> +		dm_arm_vblank_event_pre_programming(acrtc_attach, acrtc_state,
-> +						    pflip_present,
-> +						    cursor_update);
-> +		/*
-> +		 * DCE depends on a combination of GRPH_FLIP, VLINE0, and
-> +		 * VUPDATE for event delivery. Only GRPH_FLIP handler can send
-> +		 * pflip events, and it only fires if HW latched to the flip.
-> +		 * Maintain legacy behavior by arming event before programming.
-> +		 */
-> +		if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) == 0) {
->   			dm_arm_vblank_event(acrtc_attach, acrtc_state,
-> -					pflip_present, cursor_update);
-> +					    pflip_present, cursor_update);
->   		}
->   	}
->   
-
+>  static int restore_process_queues_cpsch(struct device_queue_manager *dqm=
+,
+>                                         struct qcm_process_device *qpd)
+>  {
+> @@ -1498,9 +1531,11 @@ static int restore_process_queues_cpsch(struct dev=
+ice_queue_manager *dqm,
+>                         }
+>                 }
+>         }
+> -       if (!dqm->dev->kfd->shared_resources.enable_mes)
+> +       if (!dqm->dev->kfd->shared_resources.enable_mes) {
+> +               clamp_sdma_midcmd_state(dqm, qpd);
+>                 retval =3D execute_queues_cpsch(dqm,
+>                                               KFD_UNMAP_QUEUES_FILTER_DYN=
+AMIC_QUEUES, 0, USE_DEFAULT_GRACE_PERIOD);
+> +       }
+>         eviction_duration =3D get_jiffies_64() - pdd->last_evict_timestam=
+p;
+>         atomic64_add(eviction_duration, &pdd->evict_duration_counter);
+>  vm_not_acquired:
+> --
+> 2.43.0
+>
