@@ -4,55 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B5C31C54F4D
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 16:04:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3341BC53219
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 17:06:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D96F10E713;
-	Tue, 28 Jul 2026 16:04:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BED8410E967;
+	Tue, 28 Jul 2026 17:06:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="RVKh4/87";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="q3ud8b8p";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6848710E6BC;
- Tue, 28 Jul 2026 16:04:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785254661; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=fCDXW+xN27AwVDADSVJXlgrNdoCsTkPMyAC9P+zNRHe+EC6oClhMfBOzXCP/uULWl0wTAC3u6ZsE2AMvfMPjzYu0E0hCtuWK9kZtompw4/S8lV8zN6denNNtRDRiVgAoVtB4wRd9hcgmF/3d8TqHdZ6eeztcaBVPgGodjk2kc/U=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785254661;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=g2ZNPfP3HNApN5J6GdDW8YjdQ0sYn+p9DH8T7XAMWkA=; 
- b=KOZzSFuV9xkjZDsCdxswAYl+MDtihcdzv/CAEMemYYuNQmbmvlDc1z0m6TX+8T/p1Rg98w8lpnoTZM3bMh0VOw1zNmOIyYMRyRqdzTeG9/w/S8YWJ+E4RDFpA5jUdK9z8AxSqqp+p6NHyetbjjoOwfV5dALGtD/i4bqefUaBe3A=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785254661; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=g2ZNPfP3HNApN5J6GdDW8YjdQ0sYn+p9DH8T7XAMWkA=;
- b=RVKh4/875GX5RPKRF1DAyLryqAiXrckk+E/U0o7iVU2DzXEsvFWYowxghd2py6wY
- 1C78Dy+DdVsBM2oYCOJdzKyxToio7O5sSPnEJ7zS+nDvBPNdTHMh2Sb9uYV56thqg1b
- BZ7L3Mp2klATDE4z4rtxbWEQsdKltCOaP91/nmWU=
-Received: by mx.zohomail.com with SMTPS id 1785254659532630.9169189760559;
- Tue, 28 Jul 2026 09:04:19 -0700 (PDT)
-Message-ID: <bc61b46f-8833-4785-bb1b-7832011caf07@collabora.com>
-Date: Tue, 28 Jul 2026 18:04:16 +0200
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011006.outbound.protection.outlook.com [52.101.57.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 195D910E967
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 17:06:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tRGHB0JCR9p4mMJp3m7OGLOnJo54wpQCgtS05mCo9DxY5yQYwgMxhWcAaK2KNNtlp0Iwzs2pG6rb6yuKnhZ11vIsmN/2Y7gksc7/LCt8fq/0/zqMrBdoIJikYeBRq9zxoW75xiUEjDQxK/V7kOyyf6Z+7O2DPYApApLjUbA5jFc6FOqZHXqg7LWpG8orJjVqDKJlidsUAVlHuNExZiFKAjp25J/JpWmCSjVPQdS4omED4y268gJrgAWZeT9W0v57vDqPv8KBsGQH2EIJug4mum2nOhE99Kx849ZNaKEuLf9X4nXWyhjAVWUjxA//9IBJhAc3rDZ8u7E2q4fkFSkVGA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xaW5T01rISEAYxwrFfv4X4ENhGnLbHAUTdmfgTfyS1I=;
+ b=QPThfn0LX4WAKNmGHyX1oUQS/hY3Gapq1dMxAEBVyi0VRa/IqNKbh7/fiZMMWZFBQ/JR0QbS5OjMlFU7kPWRC5H26tbGr7Q/GVjtgiumR+BqXGhqvesMBfXqow3pwdU96qW2wzrQjcG1+Vh/Ykq/1rdkzdoPPNlbQUq1Vc+Xs3e67N68V/ADZ7UrbTCL45NHZHBjsqjffJnje6Bn2wGkodc2bkx+t36qMHwpesujnK/Gse9xJCyxDwF0tpofjAw/k1IWf6XB1bdbEx3r6ln2Jr0prBMEBPaKZ53cFJtGRFZKwtsy6aK1SK+LmKnjbtbtu+sxeL4WIypJuOQrq9u/Sg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xaW5T01rISEAYxwrFfv4X4ENhGnLbHAUTdmfgTfyS1I=;
+ b=q3ud8b8pNsXyzwr9zm5052iigLx9B3B4owQnsscM1hWkP4e4uNocVIQpFHwWsjhmFYWXi7Dxc/3e+U64BujyLKTA1uTUpzASW2TCiTBIYr9yEGlSzfGX4flxiGVCh0wybTSPq/qPPHoKHvyBN3oB3pninvF7tsoLxyfXvnhKoPA=
+Received: from CH2PR12CA0008.namprd12.prod.outlook.com (2603:10b6:610:57::18)
+ by LV2PR12MB5894.namprd12.prod.outlook.com (2603:10b6:408:174::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Tue, 28 Jul
+ 2026 17:06:17 +0000
+Received: from CH1PEPF0000AD7F.namprd04.prod.outlook.com
+ (2603:10b6:610:57:cafe::53) by CH2PR12CA0008.outlook.office365.com
+ (2603:10b6:610:57::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12 via Frontend
+ Transport; Tue, 28 Jul 2026 17:06:17 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000AD7F.mail.protection.outlook.com (10.167.244.88) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.5 via Frontend Transport; Tue, 28 Jul 2026 17:06:16 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 28 Jul
+ 2026 12:06:16 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 28 Jul
+ 2026 12:06:16 -0500
+Received: from flamewok (10.180.168.240) by satlexmb07.amd.com (10.181.42.216)
+ with Microsoft SMTP Server id 15.2.2562.41 via Frontend Transport;
+ Tue, 28 Jul 2026 12:06:15 -0500
+From: <sunpeng.li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Harry.Wentland@amd.com>, <mario.limonciello@amd.com>,
+ <alexander.deucher@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ <stable@vger.kernel.org>
+Subject: [PATCH] drm/amd/display: Exit idle optimizations before programming
+Date: Tue, 28 Jul 2026 13:02:47 -0400
+Message-ID: <20260728170550.40908-1-sunpeng.li@amd.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 11/11] drm/amd/display: Force GAMCOR for subsampled
- surfaces with PQ/Gamma22/HLG
-To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Cc: stable@vger.kernel.org
-References: <20260722134607.136293-1-harry.wentland@amd.com>
- <20260722134607.136293-12-harry.wentland@amd.com>
-Content-Language: en-US, de-DE
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <20260722134607.136293-12-harry.wentland@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7F:EE_|LV2PR12MB5894:EE_
+X-MS-Office365-Filtering-Correlation-Id: de0ab328-157e-4bd5-9fb0-08deecca8975
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|82310400026|36860700016|23010399003|11063799006|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: m19teAwrK9JoYO00WDbe8j+Ki+PfVflqGWYhdBS/DOWDe/NEX4lcLWWAvGhTz+U52F9eT+GUDeYG2OH386uKH4CBYwXVCoLkSxlKQZxZDoFwbhc0op1t1HIHPd2rj1boNdoplggqiO1KcHrMw+w3OJcwt5xLAmPwUhv9GagMET5LWJr2xqJ2qBeo8uJh4+GrGLMJfYrAaxcSaaHiUcWoYOAVbB4ook88S8HhVmb+BEtYd6rwEuemZ+hom27uG/6TdVIZMMXuDzDB4fdTmIJvsJReY8OgtZ9uWIjmDng3vPtjwZz2tyJbZjq/spdCrOVz9koPVknpH5dUYVuDzXrYXY2VA3XslRy3BWaxka6ffIsvbdAr+erG/F/tyaCGJjA7/udoZSZgZovLi8vgwz8rcZDNFHTgmFbaqld3yEGltq6FsciiLqFXr3a8yxy+kAxWAzHybOIt9t/iA6oCL1PQXZUzr+CrpiVZvFLqH4YWAeuDYBFIxuXrqoUwwjJkcA6BVWjKZeVpkv9OkcED759LgmTqwbsXtN4HNKdd89oruwUk9Fvv6Y5wJrIubc4cY62afzqaosS5ZmyhJ694M04e/xk1+OnkGTOrJyFT069xE7bYj/idthe2e9+9X8pijTpJQTJXtLl7r2UqGhinD4O5Gw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(23010399003)(11063799006)(56012099006)(10067099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: nl9+L7R5onSYswlS5wp1twz7ms9Ri6ONCSpMkG+0drB6k93eukNhRGdLaxAkMkIY3OiGdKReFh2nRsla8qkbsA30Iv3eRWnYcgod1X/zDLYfhCL1GFaYsAdURhhitwwYsY4g2zl5xgWmc8IW5xFvjlvqhYiGSnkXmIzyMsxwmdiXXM0glrhkNpp5+a4/wKIVENK785Aui/kgBGo/7w0EFJj4i0BpdJy9IBzA7oDWJCnDXx3My70HVmxKqAsFyndXRc55eNjU3TeDnySK5/fw0ujUureOdIA62KcVc4VJODOQ1Xu79ee1gvapcTbFwjOhv3udzjxCq+uJXNfrFIjZUF1fC52Jk3pvUTzVy54FAXXQZFxbHFf8S808MwkwwujT8dcXZBsGxyjyvO/kKBjnx0pE4ZSKR9wnSnK/PZ6spG2Z5HqyvGDqjll+ME6Axdro
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 17:06:16.6388 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: de0ab328-157e-4bd5-9fb0-08deecca8975
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5894
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,53 +113,161 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Tested-by: Robert Mader <robert.mader@collabora.com>
+From: Leo Li <sunpeng.li@amd.com>
 
-On 22.07.26 15:46, Harry Wentland wrote:
-> The ROM early-return checks for PQ, Gamma 2.2, and HLG in
-> mod_color_calculate_degamma_params() do not consider the map_user_ramp
-> parameter. When map_user_ramp is true (indicating a subsampled surface
-> that requires post-scaler degamma via GAMCOR), the function still takes
-> the ROM path, programming PRE_DEGAM instead.
->
-> For subsampled formats the chroma channels must be upsampled by the
-> scaler before degamma is applied. PRE_DEGAM sits before the scaler in
-> the pipeline (CNVC domain), while GAMCOR sits after it (CM domain).
-> Using the ROM for subsampled surfaces means degamma is applied to
-> subsampled chroma before upsampling, producing incorrect results.
->
-> Fix by gating the dcn_arch ROM capability checks on !map_user_ramp,
-> forcing PQ/Gamma22/HLG through the GAMCOR LUT path when the surface
-> is subsampled.
->
-> Fixes: a8bf71649088 ("drm/amd/display: Internal refactoring to abstract color caps")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Copilot:claude-opus-4.6
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> ---
->   drivers/gpu/drm/amd/display/modules/color/color_gamma.c | 3 ++-
->   1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-> index 03d88e78165d..5786ef5787ac 100644
-> --- a/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-> +++ b/drivers/gpu/drm/amd/display/modules/color/color_gamma.c
-> @@ -1696,7 +1696,8 @@ bool mod_color_calculate_degamma_params(struct dc_color_caps *dc_caps,
->   			return true;
->   
->   		if (dc_caps != NULL &&
-> -			dc_caps->dpp.dcn_arch == 1) {
-> +			dc_caps->dpp.dcn_arch == 1 &&
-> +			!map_user_ramp) {
->   
->   			if (input_tf->tf == TRANSFER_FUNCTION_PQ &&
->   					dc_caps->dpp.dgam_rom_caps.pq == 1)
+[Why]
 
+We need to exit PSR/IPS before programming. Before calling DC for
+programming in amdgpu_dm_commit_planes(), there's a
+vblank_control_workqueue flush. This waits for IPS and PSR exit. (See
+drm_vblank_on/off() > amdgpu_dm_crtc_set_vblank() --queue_work()->
+amdgpu_dm_crtc_vblank_control_worker())
+
+Prior to the tagged "Fixes:" change, drm_vblank_get() was called before
+the workqueue flush. This ordering ensures that PSR exit occurred before
+programming. After the "Fixes:" change, drm_vblank_get() is called after
+the workqueue flush, leading to programming while idle optimizations are
+still active. This can lead to incorrect flip_pending detection used by
+vblank event delivery.
+
+[How]
+
+Split the vblank_get() component of `dm_arm_vblank_event()` into
+`dm_arm_vblank_event_pre_programming()`, which is called before
+programming. Call it before the vblank_control_workqueue flush.
+
+Includes a drive-by cleanup of prepare_flip_isr(): the only caller is
+dm_arm_vblank_event() and it's simple enough to roll-in.
+
+Signed-off-by: Leo Li <sunpeng.li@amd.com>
+Fixes: 48ab86360af1 ("drm/amd/display: check GRPH_FLIP status before sending event")
+Cc: stable@vger.kernel.org
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/4141#note_3583205
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5527
+Assisted-by: Codex:gpt-5.6-sol
+Assisted-by: Claude:opus-5
+---
+Rebased patch for applying on 7.2-rc5:
+https://gitlab.freedesktop.org/leoli/linux-asdn/-/commit/f05db644126540f1d237f846cc0512088551eb73
+
+Thanks,
+Leo
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 79 +++++++++++--------
+ 1 file changed, 47 insertions(+), 32 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index df6b59fb8d0d4..784587697bac8 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -3576,25 +3576,6 @@ static void remove_stream(struct amdgpu_device *adev,
+ 	acrtc->enabled = false;
+ }
+ 
+-static void prepare_flip_isr(struct amdgpu_crtc *acrtc)
+-{
+-
+-	assert_spin_locked(&acrtc->base.dev->event_lock);
+-	WARN_ON(acrtc->event);
+-
+-	acrtc->event = acrtc->base.state->event;
+-
+-	/* Set the flip status */
+-	acrtc->pflip_status = AMDGPU_FLIP_SUBMITTED;
+-
+-	/* Mark this event as consumed */
+-	acrtc->base.state->event = NULL;
+-
+-	drm_dbg_state(acrtc->base.dev,
+-		      "crtc:%d, pflip_stat:AMDGPU_FLIP_SUBMITTED\n",
+-		      acrtc->crtc_id);
+-}
+-
+ static void amdgpu_dm_commit_cursors(struct drm_atomic_commit *state)
+ {
+ 	struct drm_plane *plane;
+@@ -3740,17 +3721,48 @@ static void dm_arm_vblank_event(struct amdgpu_crtc *acrtc,
+ 		return;
+ 
+ 	if (pflip_update) {
+-		drm_crtc_vblank_get(&acrtc->base);
+ 		WARN_ON(acrtc->pflip_status != AMDGPU_FLIP_NONE);
+-		/* Arm flip completion handling and event delivery after programming. */
+-		prepare_flip_isr(acrtc);
++		WARN_ON(acrtc->event);
++
++		acrtc->pflip_status = AMDGPU_FLIP_SUBMITTED;
++		acrtc->event = acrtc->base.state->event;
++		acrtc->base.state->event = NULL;
++
++		drm_dbg_state(acrtc->base.dev,
++			      "crtc:%d, pflip_stat:AMDGPU_FLIP_SUBMITTED\n",
++			      acrtc->crtc_id);
+ 	} else if (cursor_update) {
+-		drm_crtc_vblank_get(&acrtc->base);
+ 		acrtc->event = acrtc->base.state->event;
+ 		acrtc->base.state->event = NULL;
+ 	}
+ }
+ 
++/**
++ * dm_arm_vblank_event_pre_programming - Prepare for programming
++ * @acrtc: The amdgpu CRTC to prepare
++ * @acrtc_state: The new CRTC state
++ * @pflip_update: Whether a page flip is being programmed
++ * @cursor_update: Whether a cursor update is being programmed
++ *
++ * Grab a reference on the vblank counter if a page flip or cursor update is to
++ * be programmed. Do this before programming so the HW is not in any
++ * idle-optimized state (such as PSR).
++ */
++static void dm_arm_vblank_event_pre_programming(
++	struct amdgpu_crtc *acrtc,
++	struct dm_crtc_state *acrtc_state,
++	bool pflip_update,
++	bool cursor_update)
++{
++	assert_spin_locked(&acrtc->base.dev->event_lock);
++
++	if (!acrtc->base.state->event || acrtc_state->active_planes == 0)
++		return;
++
++	if (pflip_update || cursor_update)
++		drm_crtc_vblank_get(&acrtc->base);
++}
++
+ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 				    struct drm_device *dev,
+ 				    struct amdgpu_display_manager *dm,
+@@ -4013,16 +4025,19 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ 		}
+ 	}
+ 
+-	/*
+-	 * DCE depends on a combination of GRPH_FLIP, VLINE0, and VUPDATE for
+-	 * event delivery. Only GRPH_FLIP handler can send pflip events, and it
+-	 * only fires if HW latched to the flip. Maintain legacy behavior by
+-	 * arming event before programming.
+-	 */
+-	if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) == 0) {
+-		scoped_guard(spinlock_irqsave, &pcrtc->dev->event_lock) {
++	scoped_guard(spinlock_irqsave, &pcrtc->dev->event_lock) {
++		dm_arm_vblank_event_pre_programming(acrtc_attach, acrtc_state,
++						    pflip_present,
++						    cursor_update);
++		/*
++		 * DCE depends on a combination of GRPH_FLIP, VLINE0, and
++		 * VUPDATE for event delivery. Only GRPH_FLIP handler can send
++		 * pflip events, and it only fires if HW latched to the flip.
++		 * Maintain legacy behavior by arming event before programming.
++		 */
++		if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) == 0) {
+ 			dm_arm_vblank_event(acrtc_attach, acrtc_state,
+-					pflip_present, cursor_update);
++					    pflip_present, cursor_update);
+ 		}
+ 	}
+ 
 -- 
-Robert Mader
-Consultant Software Developer
-
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
+2.54.0
 
