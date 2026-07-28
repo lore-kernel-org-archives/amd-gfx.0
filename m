@@ -4,121 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 40985C53219
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 14:19:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8304BC53219
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 14:35:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B1B9810E1F8;
-	Tue, 28 Jul 2026 14:19:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13E7110E581;
+	Tue, 28 Jul 2026 14:35:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="szHAVNX/";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="SQe+uOOk";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011034.outbound.protection.outlook.com
- [40.93.194.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 967E810E1F8
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 14:19:42 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qk5COiI+ASUhrJPQpBJ0h0oI50fM/YU0q9GwifbmZ5yTIF9HeVBjeMtvmlvxjW5j8V6HBQ12MI6RMQfYLPG+koLUiUzkJdVSJJo6GdZOnziuqHP6ftJyhEhDKtluM6LRvaLsFtT3KW3g9yhbTLmOtAEHvc6b03/rdqXPuSlojnEzLDHoXNnJSvttBpxLIuB3LvH0fBR8YGdjC1TSXWuoUMuydDRVa3rEV+evy1Z0jAhhaQneqpfugIkaB4+Q6o/YhvOn59Iu05o6J6KRj0PAAF8xDp0Vgr4wL3uL3FEYooCrhVfSEFx/JeWScHVfxy4f+pH874rtkOfbqLZf4XsoLg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9usIh009PEkMlNuxJ7jCXrqNRzaRWR3J6yMOL3ANcYk=;
- b=qcUKLj5mnJD/qQRh7wm8cpNJvAISjqQh8rM/w7lXOCAtkWbSv3+Cha4bXVtUPjlaKj269fgZy8ZVSDiidZRU2TtUdy1D+HseO3Vchn+8T/9cA3TKU7JouTXuu8SxYYEC1YXRBdizxOqh0KHBOtvjaOP7LXtrSNDtFmrBXFVT7wY3caQIwmUXzIg/cigo5zi61oePmsly1BZG8LWBsRodNlZmGDe532LimWhCfNRtcVCWZ2OK10lc1H+LgIonULId9qBrQLT7LS1BcDLNVj2D8FzBdb39Mata5G1k59Y9EuluBagKnQpK93YkrA4kQmTkCH+7lo5DMo5Q4AZUHaW4UA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9usIh009PEkMlNuxJ7jCXrqNRzaRWR3J6yMOL3ANcYk=;
- b=szHAVNX/eV0uVrl9FuNyLCr+OcEiocgwebd8oozqHw2eTks8mtDK9nUNM+7khWYQyumQ+jQHQtHCf4ThbfdNpwumT61G8ifkETFr4031kLMjcobahZsX9V0VujUQsIKjH3n+FmiKLj3QqxkDxxB6RJBRPYxwC2/BmbwIgo30ues=
-Received: from SA1PR12MB8144.namprd12.prod.outlook.com (2603:10b6:806:337::15)
- by PH7PR12MB7844.namprd12.prod.outlook.com (2603:10b6:510:27b::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Tue, 28 Jul
- 2026 14:19:39 +0000
-Received: from SA1PR12MB8144.namprd12.prod.outlook.com
- ([fe80::56ac:f44f:8336:d7ec]) by SA1PR12MB8144.namprd12.prod.outlook.com
- ([fe80::56ac:f44f:8336:d7ec%4]) with mapi id 15.21.0270.009; Tue, 28 Jul 2026
- 14:19:38 +0000
-From: "Francis, David" <David.Francis@amd.com>
-To: "Zhang, Yifan" <Yifan1.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Yuan, Perry" <Perry.Yuan@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: skip BOs being torn down during GTT recovery
-Thread-Topic: [PATCH] drm/amdgpu: skip BOs being torn down during GTT recovery
-Thread-Index: AQHdHlOf8JBnNVuroU6VPEICpsA3m7aC+rdX
-Date: Tue, 28 Jul 2026 14:19:38 +0000
-Message-ID: <SA1PR12MB8144177D04E0C78EE82BFEDDEFCB2@SA1PR12MB8144.namprd12.prod.outlook.com>
-References: <20260728054000.443371-1-yifan1.zhang@amd.com>
-In-Reply-To: <20260728054000.443371-1-yifan1.zhang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-28T14:19:38.463Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR12MB8144:EE_|PH7PR12MB7844:EE_
-x-ms-office365-filtering-correlation-id: d1735fba-d5d3-402c-10e9-08deecb34253
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|366016|23010399003|1800799024|38070700021|6133799003|10067099003|18002099003|22082099003|56012099006|11063799006;
-x-microsoft-antispam-message-info: HSmyYlxXPmMRaOmyK8bdDHI9XFEFlsz3ui9BjR8jU2+rj99tMxqTb81UFnI9HgbqUdopNkdKHuwc/yl2YQ6nRzqvQD0fGyQNlV4UbmuFwXJOPRMkZ79psbxt217qP+SbwRPwXx8XotDcd93qHhDH/ZkDBpDFLqpLOde9m6syeyjVoJ+MMLvkrkkJ8uJnhKSUETjJmspKpDG3fMToyKGYI3Nr3aY7Iw5nKN8qmCpifMYS9tDBVpDnef0cwl3o9uJcFek5rSTvLtxQyeSjGpSwe1NopvXr/nFtarpsOV2eE5x0nUBqgWSrmWeev9eT9k/3CfcMmGQMOW7f/S2aKjh1M190lPJrxezUnhg90LfszGKjDvH38T2xCWqOAdZpty/1wDpC1AClIh3wKxgMJBPXorqBWaoQEs1a60REKf45+QFyvoakbPToYRMy6Gsv4D2ruwWcm/aRX/tYQsgRRrpVcBiz3K6J3+LXf+dQVS32XkFk6cUPXmex7SdJ4iZX3MSd5IyqKmwjD39jtr03F1/TPyYEZMTe8AcGfZS3iVaX/C6P8NML23kBlP6nLvMgpLJcTnlH0YcADKcLQozgcT5rJEONt9596DtQsgV80ZF86Ve2MdqWftJ4IRqHhcORwniKCpdxrai76oDaDi3mxdtWSkaQgeihXSsO7ZIKM/0LckEGENNSPVBYp8S3F2DNhnaIwvxwV1UmmNBDGLQJ+pZWa221LKz0pvVCeS8yXn77Gc8=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB8144.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(38070700021)(6133799003)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?LBhPGJkh5MOZMsj797Xo3bhGt9/wjKhqQLrkxEuWY6ch7BZi0GBA5j5Wcf/Z?=
- =?us-ascii?Q?c4Bdg1y+WX/CqG6HaNQ4xvCfwO4+RVZc7Vw3SDfITTF39J0z40cQR49I2KId?=
- =?us-ascii?Q?qhngdqMCHff9lTkGA/Dmkwixt1YBeEMcCxGK1dfP2LbV28DnJkqHFTTxomoc?=
- =?us-ascii?Q?oYmVj6FdS9rQkSYaCHJY57u16++cdyT7CjVLZAvYZDK0MoVjOzkcDZHPDx+D?=
- =?us-ascii?Q?4i2d8IzyvB8IHPVhNXDsihLvn0wp4QgnAGZRXWEJKTwcL9puh2Paji/VY6a3?=
- =?us-ascii?Q?mQ/lTmAyDM5BqbXzP5x0V0TWh4udSVMsmHX0LHEClK8E2r/B1Bc6MA3tfkfU?=
- =?us-ascii?Q?+kKuA3FonWDuzQWEWRsmp5nLXBUCSiSld83KnZsN+G+wq26qi9K03E0A4Kae?=
- =?us-ascii?Q?/+kXK6/pLxrUHO7X9VV4gkkrpXdKwLsr3+d8lweXwtsAXYIPZGr9ttfO7DaB?=
- =?us-ascii?Q?L7PH2rfAvoS0G1AjhBlQ1bOiMDYto+DErbB/tzUbfGWgnPunVwgUrFs88WKl?=
- =?us-ascii?Q?kLX9fnC0H9PzHDKFa+o4J+SoJIDMI7lQAU6BTOErbGxdmXAYICUtA0lDXL+n?=
- =?us-ascii?Q?7gXHGp+aaBRbB7b/A6uoYIG8MfNXwK3eOLqFqfg88pS2JYWCWdgIQXegK//C?=
- =?us-ascii?Q?t5omIFHv7KrxTArxQuqynUPgtxTsTkzMaMA9Y+hrHgmsebo2FcYVq+xeBhqK?=
- =?us-ascii?Q?LqNXM0/2T7VHApBBOxOf8JxRzx8facki9TodELsWPFhFDUF0qztntKNpPDG1?=
- =?us-ascii?Q?bH63Mqf8Rhx9PcuREyeFtjPt0+mcPfzFoQGggMNvj2Wps9JMSGa1p/lvMpzC?=
- =?us-ascii?Q?4GnjbIWmAyGAjGi4c2bldQa6COD1167WQ06BWBCJp/JindUc6xysN9egyv9l?=
- =?us-ascii?Q?Ifz3bWdZHFwGMFiuBrqFgt7SXOLIC20BXYggkk2QSQkbRfOhAsJPBe9YHZG1?=
- =?us-ascii?Q?tUyQNm5dVQXxctwQv7Junp+rHHzRgBhMZhStU3dfexKEwe2LugnyAjUvFKh8?=
- =?us-ascii?Q?hBCdRFqWTrKN3pAkbbu0g/5qPzqZ3lT/ec+C7R9QT5UAsfQEUV/LBfPsLhaz?=
- =?us-ascii?Q?sDvZXeyC9OBooG43gfCOVZytIyeIM8kkgB20xoXAFJG0kb+Ov2Dug7pPzJwm?=
- =?us-ascii?Q?ehhSxc8HXVTczueLI/wXOnc0NI9m5UJeCS8+nl5CHWl1UxrxgmuuFhwnHpOQ?=
- =?us-ascii?Q?luXD/E/of4/3p5gwrj2c3LZKfroLoAV+tF6qsj8H4Um79udO9Wgm8/rW3Y1n?=
- =?us-ascii?Q?UBITRt4s4IYJLyC7BQqk4oDOH3CPCC+C1jv6UfFBClIT2Ls0Nik23Efma9pw?=
- =?us-ascii?Q?djbphq/n6nSWLg9M/Xc2jTK7JCEkN/lCHdwa/4OrvjVZreTqT60T28Tmkwsl?=
- =?us-ascii?Q?6iXTQ7XeP+ueNIKjLWGHB7NtxJ8rUKQNfHc6ny/MkpW088soS0AgX86jNr7s?=
- =?us-ascii?Q?Vkstjv9TCXtQVh90TRH+bHvmXfSOP0G4eYXLcmtMsS5g5r7e+7D6zFvPSuaL?=
- =?us-ascii?Q?5027dhWCT6rJRgpOWqED0wVwGiED7zWUCYb05qo7nx/lr2uf+8Pz/qG8ArBi?=
- =?us-ascii?Q?n/IX//j8o695M81loBb4bQ2pVJoyYLJ0+NfNyVcKwt7s5kS+ipGa9EgoFibi?=
- =?us-ascii?Q?EGw1Asmleo+vNWAMJ67PW1xTgOAEQqyQo1ayY/tmBEqQhAh2q5PprNOlttbh?=
- =?us-ascii?Q?CH61CwiUvOm3NEWHZOGDkGF9k+oRQmsbiaLJRmxfUgL9KdoD?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 2222210E581
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 14:35:03 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 94A3D175D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 07:34:58 -0700 (PDT)
+Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
+ 53B7B3F66F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 07:35:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1785249302; bh=Inv7KrlemkdgK5E3nHXTAHNRQzVGjk/0dJV4TgUWtLg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=SQe+uOOkk06kK8NLMc6HbGRofOBpvQoEX8bXWyZESzmV29CqJED+Av5+d2GVYQ/uF
+ RynYLqG4BcpnbjG7QuRBkLUmfruQQSHpoAVucdwtmihU2E9+0rRAyB0AfYvtgt7aRQ
+ ULdyYenpAW4Ll0Q8gFyL8b/QdxzI413WD7xHoSHA=
+Date: Tue, 28 Jul 2026 15:34:00 +0100
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>,
+ Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,
+ Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Sandy Huang <hjc@rock-chips.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
+ Andy Yan <andy.yan@rock-chips.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Zack Rusin <zack.rusin@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, etnaviv@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+Subject: Re: [PATCH] drm/gem: Move pages_to_sg helper into drm_gem.c
+Message-ID: <ami92JFN-yU_22xX@e142607>
+References: <20260724-get_pages-v1-1-b10e5d65628e@collabora.com>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB8144.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1735fba-d5d3-402c-10e9-08deecb34253
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jul 2026 14:19:38.8931 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: WJaaXPlMrC7W6fdF7mm6F6P4TK8WjD8EIvbPGSFVtTHmTVmCHJMmAC4WHncPSd7b
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7844
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260724-get_pages-v1-1-b10e5d65628e@collabora.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,209 +92,476 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Design seems reasonable, some minor comments:
+On Fri, Jul 24, 2026 at 01:08:58PM +0100, Adrián Larumbe wrote:
+> None of the semantics of the function tell of it being a PRIME-exclusive
+> entry point. In fact, most drivers seem to be using it to translate a list
+> of pages into an sg table that can be used for GPU mapping later on, rather
+> than just for sharing an object's pages with another driver.
+> 
+> Move it across files and rename accordingly.
+> 
+> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> ---
+> drm_prime_pages_to_sg() has no real dependency on PRIME/dma-buf interfaces.
+> It is a generic helper that converts a page array into a scatter/gather
+> table via dma_map_sg_attrs. Nothing in its implementation touches struct
+> dma_buf or import/export logic.
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  6 ++---
+>  drivers/gpu/drm/drm_gem.c                   | 35 ++++++++++++++++++++++++++
+>  drivers/gpu/drm/drm_gem_shmem_helper.c      |  2 +-
+>  drivers/gpu/drm/drm_prime.c                 | 38 -----------------------------
+>  drivers/gpu/drm/etnaviv/etnaviv_gem.c       |  3 +--
+>  drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c |  3 ++-
+>  drivers/gpu/drm/loongson/lsdc_gem.c         |  3 +--
+>  drivers/gpu/drm/msm/msm_gem.c               |  2 +-
+>  drivers/gpu/drm/msm/msm_gem_prime.c         |  2 +-
+>  drivers/gpu/drm/nouveau/nouveau_prime.c     |  4 +--
+>  drivers/gpu/drm/panthor/panthor_gem.c       |  6 ++---
 
-> kernel: amdgpu 0000:a3:00.0: GPU reset succeeded, trying to resume
-> kernel: BUG: kernel NULL pointer dereference, address: 0000000000000000
-> kernel: #PF: supervisor read access in kernel mode
-> kernel: #PF: error_code(0x0000) - not-present page
-> kernel: PGD 62256dd067 P4D 0
-Could this be summarized instead of having the entire kernel dump in the co=
-mmit
-message?
+For Panthor and the general rename:
 
-> +#define GART_ENTRY_BO_COLOR            0
-> #define GART_ENTRY_WITHOUT_BO_COLOR     1
-> +#define GART_ENTRY_BO_TEARDOWN_COLOR   2
-These names are confusing - a GART entry can have three colors
-- color, without color, and teardown color. Could these names
-be made more descriptive - especially the first one?
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-________________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Yifan Zh=
-ang <yifan1.zhang@amd.com>
-Sent: Tuesday, July 28, 2026 1:40 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander; Koenig, Christian; Yuan, Perry; Zhang, Yifan
-Subject: [PATCH] drm/amdgpu: skip BOs being torn down during GTT recovery
+Best regards,
+Liviu
 
-A GPU reset can race with BO teardown after the BO's GTT resource has
-been marked for deletion but before its drm_mm node is removed. In this
-window, amdgpu_gtt_mgr_recover() can treat the node as a live BO and try
-to restore its GART mapping while its TT backing is being destroyed.
+>  drivers/gpu/drm/radeon/radeon_prime.c       |  5 ++--
+>  drivers/gpu/drm/rockchip/rockchip_drm_gem.c |  6 ++---
+>  drivers/gpu/drm/tegra/gem.c                 |  4 +--
+>  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c         |  4 +--
+>  drivers/gpu/drm/xe/xe_dma_buf.c             |  6 ++---
+>  drivers/gpu/drm/xen/xen_drm_front_gem.c     |  2 +-
+>  include/drm/drm_gem.h                       |  5 +++-
+>  include/drm/drm_prime.h                     |  2 --
+>  19 files changed, 68 insertions(+), 70 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> index b33c300e26e2..c9a98aec7eb6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> @@ -203,9 +203,9 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
+>  
+>  	switch (bo->tbo.resource->mem_type) {
+>  	case TTM_PL_TT:
+> -		sgt = drm_prime_pages_to_sg(obj->dev,
+> -					    bo->tbo.ttm->pages,
+> -					    bo->tbo.ttm->num_pages);
+> +		sgt = drm_pages_to_sg(obj->dev,
+> +				      bo->tbo.ttm->pages,
+> +				      bo->tbo.ttm->num_pages);
+>  		if (IS_ERR(sgt))
+>  			return sgt;
+>  
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index 018df97d590d..22c8a3b5f667 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -780,6 +780,41 @@ void drm_gem_put_pages(struct drm_gem_object *obj, struct page **pages,
+>  }
+>  EXPORT_SYMBOL(drm_gem_put_pages);
+>  
+> +/**
+> + * drm_pages_to_sg - converts a page array into an sg list
+> + * @dev: DRM device
+> + * @pages: pointer to the array of page pointers to convert
+> + * @nr_pages: length of the page vector
+> + *
+> + * This helper creates an sg table object from a set of pages.
+> + * This is useful for implementing &drm_gem_object_funcs.get_sg_table.
+> + */
+> +struct sg_table *drm_pages_to_sg(struct drm_device *dev,
+> +				 struct page **pages, unsigned int nr_pages)
+> +{
+> +	struct sg_table *sg;
+> +	size_t max_segment = 0;
+> +	int err;
+> +
+> +	sg = kmalloc_obj(struct sg_table);
+> +	if (!sg)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	if (dev)
+> +		max_segment = dma_max_mapping_size(drm_dev_dma_dev(dev));
+> +	if (max_segment == 0)
+> +		max_segment = UINT_MAX;
+> +	err = sg_alloc_table_from_pages_segment(sg, pages, nr_pages, 0,
+> +						(unsigned long)nr_pages << PAGE_SHIFT,
+> +						max_segment, GFP_KERNEL);
+> +	if (err) {
+> +		kfree(sg);
+> +		sg = ERR_PTR(err);
+> +	}
+> +	return sg;
+> +}
+> +EXPORT_SYMBOL(drm_pages_to_sg);
+> +
+>  static int objects_lookup(struct drm_file *filp, u32 *handle, int count,
+>  			  struct drm_gem_object **objs)
+>  {
+> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> index 22ec52e2ffb8..144d088a477f 100644
+> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> @@ -825,7 +825,7 @@ struct sg_table *drm_gem_shmem_get_sg_table(struct drm_gem_shmem_object *shmem)
+>  
+>  	drm_WARN_ON(obj->dev, drm_gem_is_imported(obj));
+>  
+> -	return drm_prime_pages_to_sg(obj->dev, shmem->pages, obj->size >> PAGE_SHIFT);
+> +	return drm_pages_to_sg(obj->dev, shmem->pages, obj->size >> PAGE_SHIFT);
+>  }
+>  EXPORT_SYMBOL_GPL(drm_gem_shmem_get_sg_table);
+>  
+> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+> index 9b44c78cd77f..54539a8929c1 100644
+> --- a/drivers/gpu/drm/drm_prime.c
+> +++ b/drivers/gpu/drm/drm_prime.c
+> @@ -835,44 +835,6 @@ static const struct dma_buf_ops drm_gem_prime_dmabuf_ops =  {
+>  	.vunmap = drm_gem_dmabuf_vunmap,
+>  };
+>  
+> -/**
+> - * drm_prime_pages_to_sg - converts a page array into an sg list
+> - * @dev: DRM device
+> - * @pages: pointer to the array of page pointers to convert
+> - * @nr_pages: length of the page vector
+> - *
+> - * This helper creates an sg table object from a set of pages
+> - * the driver is responsible for mapping the pages into the
+> - * importers address space for use with dma_buf itself.
+> - *
+> - * This is useful for implementing &drm_gem_object_funcs.get_sg_table.
+> - */
+> -struct sg_table *drm_prime_pages_to_sg(struct drm_device *dev,
+> -				       struct page **pages, unsigned int nr_pages)
+> -{
+> -	struct sg_table *sg;
+> -	size_t max_segment = 0;
+> -	int err;
+> -
+> -	sg = kmalloc_obj(struct sg_table);
+> -	if (!sg)
+> -		return ERR_PTR(-ENOMEM);
+> -
+> -	if (dev)
+> -		max_segment = dma_max_mapping_size(drm_dev_dma_dev(dev));
+> -	if (max_segment == 0)
+> -		max_segment = UINT_MAX;
+> -	err = sg_alloc_table_from_pages_segment(sg, pages, nr_pages, 0,
+> -						(unsigned long)nr_pages << PAGE_SHIFT,
+> -						max_segment, GFP_KERNEL);
+> -	if (err) {
+> -		kfree(sg);
+> -		sg = ERR_PTR(err);
+> -	}
+> -	return sg;
+> -}
+> -EXPORT_SYMBOL(drm_prime_pages_to_sg);
+> -
+>  /**
+>   * drm_prime_get_contiguous_size - returns the contiguous size of the buffer
+>   * @sgt: sg_table describing the buffer to check
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
+> index b0436a1e103f..a8e8614f8210 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
+> @@ -3,7 +3,6 @@
+>   * Copyright (C) 2015-2018 Etnaviv Project
+>   */
+>  
+> -#include <drm/drm_prime.h>
+>  #include <drm/drm_print.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/shmem_fs.h>
+> @@ -104,7 +103,7 @@ struct page **etnaviv_gem_get_pages(struct etnaviv_gem_object *etnaviv_obj)
+>  		unsigned int npages = etnaviv_obj->base.size >> PAGE_SHIFT;
+>  		struct sg_table *sgt;
+>  
+> -		sgt = drm_prime_pages_to_sg(dev, etnaviv_obj->pages, npages);
+> +		sgt = drm_pages_to_sg(dev, etnaviv_obj->pages, npages);
+>  		if (IS_ERR(sgt)) {
+>  			dev_err(dev->dev, "failed to allocate sgt: %ld\n",
+>  				PTR_ERR(sgt));
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+> index 6757ae6ec304..f44484325ddb 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+> @@ -3,6 +3,7 @@
+>   * Copyright (C) 2014-2018 Etnaviv Project
+>   */
+>  
+> +#include <drm/drm_gem.h>
+>  #include <drm/drm_prime.h>
+>  #include <linux/dma-buf.h>
+>  #include <linux/module.h>
+> @@ -22,7 +23,7 @@ struct sg_table *etnaviv_gem_prime_get_sg_table(struct drm_gem_object *obj)
+>  	if (WARN_ON(!etnaviv_obj->pages))  /* should have already pinned! */
+>  		return ERR_PTR(-EINVAL);
+>  
+> -	return drm_prime_pages_to_sg(obj->dev, etnaviv_obj->pages, npages);
+> +	return drm_pages_to_sg(obj->dev, etnaviv_obj->pages, npages);
+>  }
+>  
+>  int etnaviv_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map)
+> diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c b/drivers/gpu/drm/loongson/lsdc_gem.c
+> index 2fb03487c983..37160228244c 100644
+> --- a/drivers/gpu/drm/loongson/lsdc_gem.c
+> +++ b/drivers/gpu/drm/loongson/lsdc_gem.c
+> @@ -9,7 +9,6 @@
+>  #include <drm/drm_dumb_buffers.h>
+>  #include <drm/drm_file.h>
+>  #include <drm/drm_gem.h>
+> -#include <drm/drm_prime.h>
+>  #include <drm/drm_print.h>
+>  
+>  #include "lsdc_drv.h"
+> @@ -51,7 +50,7 @@ static struct sg_table *lsdc_gem_prime_get_sg_table(struct drm_gem_object *obj)
+>  		return ERR_PTR(-ENOMEM);
+>  	}
+>  
+> -	return drm_prime_pages_to_sg(obj->dev, tt->pages, tt->num_pages);
+> +	return drm_pages_to_sg(obj->dev, tt->pages, tt->num_pages);
+>  }
+>  
+>  static void lsdc_gem_object_free(struct drm_gem_object *obj)
+> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+> index efd3d3c9a449..7e3418290c22 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.c
+> +++ b/drivers/gpu/drm/msm/msm_gem.c
+> @@ -207,7 +207,7 @@ static struct page **get_pages(struct drm_gem_object *obj)
+>  
+>  		msm_obj->pages = p;
+>  
+> -		msm_obj->sgt = drm_prime_pages_to_sg(obj->dev, p, npages);
+> +		msm_obj->sgt = drm_pages_to_sg(obj->dev, p, npages);
+>  		if (IS_ERR(msm_obj->sgt)) {
+>  			void *ptr = ERR_CAST(msm_obj->sgt);
+>  
+> diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
+> index 036d34c674d9..d25393a9e549 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_prime.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_prime.c
+> @@ -23,7 +23,7 @@ struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj)
+>  	if (WARN_ON(!msm_obj->pages))  /* should have already pinned! */
+>  		return ERR_PTR(-ENOMEM);
+>  
+> -	return drm_prime_pages_to_sg(obj->dev, msm_obj->pages, npages);
+> +	return drm_pages_to_sg(obj->dev, msm_obj->pages, npages);
+>  }
+>  
+>  int msm_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map)
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_prime.c b/drivers/gpu/drm/nouveau/nouveau_prime.c
+> index caab60fc62f6..b95f2f07df74 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_prime.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_prime.c
+> @@ -32,8 +32,8 @@ struct sg_table *nouveau_gem_prime_get_sg_table(struct drm_gem_object *obj)
+>  {
+>  	struct nouveau_bo *nvbo = nouveau_gem_object(obj);
+>  
+> -	return drm_prime_pages_to_sg(obj->dev, nvbo->bo.ttm->pages,
+> -				     nvbo->bo.ttm->num_pages);
+> +	return drm_pages_to_sg(obj->dev, nvbo->bo.ttm->pages,
+> +			       nvbo->bo.ttm->num_pages);
+>  }
+>  
+>  struct drm_gem_object *nouveau_gem_prime_import_sg_table(struct drm_device *dev,
+> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+> index 9855df738194..ec530d254fa4 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gem.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
+> @@ -321,8 +321,8 @@ panthor_gem_dev_map_get_sgt_locked(struct panthor_gem_object *bo)
+>  	if (ret)
+>  		return ERR_PTR(ret);
+>  
+> -	sgt = drm_prime_pages_to_sg(bo->base.dev, bo->backing.pages,
+> -				    bo->base.size >> PAGE_SHIFT);
+> +	sgt = drm_pages_to_sg(bo->base.dev, bo->backing.pages,
+> +			      bo->base.size >> PAGE_SHIFT);
+>  	if (IS_ERR(sgt))
+>  		return sgt;
+>  
+> @@ -702,7 +702,7 @@ static struct sg_table *panthor_gem_get_sg_table(struct drm_gem_object *obj)
+>  	drm_WARN_ON_ONCE(obj->dev, !bo->backing.pages);
+>  	drm_WARN_ON_ONCE(obj->dev, !refcount_read(&bo->backing.pin_count));
+>  
+> -	return drm_prime_pages_to_sg(obj->dev, bo->backing.pages, obj->size >> PAGE_SHIFT);
+> +	return drm_pages_to_sg(obj->dev, bo->backing.pages, obj->size >> PAGE_SHIFT);
+>  }
+>  
+>  static int panthor_gem_vmap_locked(struct drm_gem_object *obj,
+> diff --git a/drivers/gpu/drm/radeon/radeon_prime.c b/drivers/gpu/drm/radeon/radeon_prime.c
+> index a77881f035e7..4cfc4282a59c 100644
+> --- a/drivers/gpu/drm/radeon/radeon_prime.c
+> +++ b/drivers/gpu/drm/radeon/radeon_prime.c
+> @@ -26,6 +26,7 @@
+>  
+>  #include <linux/dma-buf.h>
+>  
+> +#include <drm/drm_gem.h>
+>  #include <drm/drm_prime.h>
+>  #include <drm/radeon_drm.h>
+>  
+> @@ -38,8 +39,8 @@ struct sg_table *radeon_gem_prime_get_sg_table(struct drm_gem_object *obj)
+>  {
+>  	struct radeon_bo *bo = gem_to_radeon_bo(obj);
+>  
+> -	return drm_prime_pages_to_sg(obj->dev, bo->tbo.ttm->pages,
+> -				     bo->tbo.ttm->num_pages);
+> +	return drm_pages_to_sg(obj->dev, bo->tbo.ttm->pages,
+> +			       bo->tbo.ttm->num_pages);
+>  }
+>  
+>  struct drm_gem_object *radeon_gem_prime_import_sg_table(struct drm_device *dev,
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
+> index b188539dca0b..7897da0becf4 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
+> @@ -89,8 +89,8 @@ static int rockchip_gem_get_pages(struct rockchip_gem_object *rk_obj)
+>  
+>  	rk_obj->num_pages = rk_obj->base.size >> PAGE_SHIFT;
+>  
+> -	rk_obj->sgt = drm_prime_pages_to_sg(rk_obj->base.dev,
+> -					    rk_obj->pages, rk_obj->num_pages);
+> +	rk_obj->sgt = drm_pages_to_sg(rk_obj->base.dev,
+> +				      rk_obj->pages, rk_obj->num_pages);
+>  	if (IS_ERR(rk_obj->sgt)) {
+>  		ret = PTR_ERR(rk_obj->sgt);
+>  		goto err_put_pages;
+> @@ -432,7 +432,7 @@ struct sg_table *rockchip_gem_prime_get_sg_table(struct drm_gem_object *obj)
+>  	int ret;
+>  
+>  	if (rk_obj->pages)
+> -		return drm_prime_pages_to_sg(obj->dev, rk_obj->pages, rk_obj->num_pages);
+> +		return drm_pages_to_sg(obj->dev, rk_obj->pages, rk_obj->num_pages);
+>  
+>  	sgt = kzalloc_obj(*sgt);
+>  	if (!sgt)
+> diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
+> index 436394e04812..701af672b4e5 100644
+> --- a/drivers/gpu/drm/tegra/gem.c
+> +++ b/drivers/gpu/drm/tegra/gem.c
+> @@ -17,7 +17,7 @@
+>  
+>  #include <drm/drm_drv.h>
+>  #include <drm/drm_dumb_buffers.h>
+> -#include <drm/drm_prime.h>
+> +#include <drm/drm_gem.h>
+>  
+>  #include "drm.h"
+>  #include "gem.h"
+> @@ -352,7 +352,7 @@ static int tegra_bo_get_pages(struct drm_device *drm, struct tegra_bo *bo)
+>  
+>  	bo->num_pages = bo->gem.size >> PAGE_SHIFT;
+>  
+> -	bo->sgt = drm_prime_pages_to_sg(bo->gem.dev, bo->pages, bo->num_pages);
+> +	bo->sgt = drm_pages_to_sg(bo->gem.dev, bo->pages, bo->num_pages);
+>  	if (IS_ERR(bo->sgt)) {
+>  		err = PTR_ERR(bo->sgt);
+>  		goto put_pages;
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+> index 39f8c46550c2..c9e7f2e3668c 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+> @@ -28,7 +28,7 @@
+>  #include "vmwgfx_bo.h"
+>  #include "vmwgfx_drv.h"
+>  
+> -#include "drm/drm_prime.h"
+> +#include "drm/drm_gem.h"
+>  #include "drm/drm_gem_ttm_helper.h"
+>  
+>  #include <linux/debugfs.h>
+> @@ -76,7 +76,7 @@ static struct sg_table *vmw_gem_object_get_sg_table(struct drm_gem_object *obj)
+>  	if (vmw_tt->vsgt.sgt)
+>  		return vmw_tt->vsgt.sgt;
+>  
+> -	return drm_prime_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages, vmw_tt->dma_ttm.num_pages);
+> +	return drm_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages, vmw_tt->dma_ttm.num_pages);
+>  }
+>  
+>  static int vmw_gem_vmap(struct drm_gem_object *obj, struct iosys_map *map)
+> diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c b/drivers/gpu/drm/xe/xe_dma_buf.c
+> index 8a920e58245c..f0fe80706b79 100644
+> --- a/drivers/gpu/drm/xe/xe_dma_buf.c
+> +++ b/drivers/gpu/drm/xe/xe_dma_buf.c
+> @@ -118,9 +118,9 @@ static struct sg_table *xe_dma_buf_map(struct dma_buf_attachment *attach,
+>  
+>  	switch (bo->ttm.resource->mem_type) {
+>  	case XE_PL_TT:
+> -		sgt = drm_prime_pages_to_sg(obj->dev,
+> -					    bo->ttm.ttm->pages,
+> -					    obj->size >> PAGE_SHIFT);
+> +		sgt = drm_pages_to_sg(obj->dev,
+> +				      bo->ttm.ttm->pages,
+> +				      obj->size >> PAGE_SHIFT);
+>  		if (IS_ERR(sgt))
+>  			return sgt;
+>  
+> diff --git a/drivers/gpu/drm/xen/xen_drm_front_gem.c b/drivers/gpu/drm/xen/xen_drm_front_gem.c
+> index eec4c1da3f9e..a4a7c7f2c91c 100644
+> --- a/drivers/gpu/drm/xen/xen_drm_front_gem.c
+> +++ b/drivers/gpu/drm/xen/xen_drm_front_gem.c
+> @@ -236,7 +236,7 @@ struct sg_table *xen_drm_front_gem_get_sg_table(struct drm_gem_object *gem_obj)
+>  	if (!xen_obj->pages)
+>  		return ERR_PTR(-ENOMEM);
+>  
+> -	return drm_prime_pages_to_sg(gem_obj->dev,
+> +	return drm_pages_to_sg(gem_obj->dev,
+>  				     xen_obj->pages, xen_obj->num_pages);
+>  }
+>  
+> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+> index 885244e375d3..7b9cc6335689 100644
+> --- a/include/drm/drm_gem.h
+> +++ b/include/drm/drm_gem.h
+> @@ -155,7 +155,7 @@ struct drm_gem_object_funcs {
+>  	 * here cannot be used for sg tables pointing at driver private memory
+>  	 * ranges.
+>  	 *
+> -	 * See also drm_prime_pages_to_sg().
+> +	 * See also drm_pages_to_sg().
+>  	 */
+>  	struct sg_table *(*get_sg_table)(struct drm_gem_object *obj);
+>  
+> @@ -589,6 +589,9 @@ struct page **drm_gem_get_pages(struct drm_gem_object *obj);
+>  void drm_gem_put_pages(struct drm_gem_object *obj, struct page **pages,
+>  		bool dirty, bool accessed);
+>  
+> +struct sg_table *drm_pages_to_sg(struct drm_device *dev,
+> +				 struct page **pages, unsigned int nr_pages);
+> +
+>  void drm_gem_lock(struct drm_gem_object *obj);
+>  void drm_gem_unlock(struct drm_gem_object *obj);
+>  
+> diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
+> index f50f862f0d8b..603e16a40ae7 100644
+> --- a/include/drm/drm_prime.h
+> +++ b/include/drm/drm_prime.h
+> @@ -92,8 +92,6 @@ void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map);
+>  int drm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
+>  int drm_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma);
+>  
+> -struct sg_table *drm_prime_pages_to_sg(struct drm_device *dev,
+> -				       struct page **pages, unsigned int nr_pages);
+>  struct dma_buf *drm_gem_prime_export(struct drm_gem_object *obj,
+>  				     int flags);
+>  
+> 
+> ---
+> base-commit: 48dd37d1fef33fbf42f1d6887c61e242fd21d00d
+> change-id: 20260724-get_pages-e2e91c53eaa3
+> 
+> Best regards,
+> --  
+> Adrián Larumbe <adrian.larumbe@collabora.com>
+> 
 
-Mark the GTT node with a dedicated teardown color from
-amdgpu_bo_delete_mem_notify(). During recovery, process only nodes
-colored as live BOs, leaving both teardown nodes and nodes without BOs
-untouched.
-
-This prevents reset recovery from accessing a BO whose backing storage
-is no longer valid.
-
-kernel: amdgpu 0000:a3:00.0: GPU reset succeeded, trying to resume
-kernel: BUG: kernel NULL pointer dereference, address: 0000000000000000
-kernel: #PF: supervisor read access in kernel mode
-kernel: #PF: error_code(0x0000) - not-present page
-kernel: PGD 62256dd067 P4D 0
-kernel: Oops: Oops: 0000 [#1] SMP NOPTI
-kernel: CPU: 378 UID: 0 PID: 3775143 Comm: kworker/u1536:4 Tainted: G      =
-  W  OE       6.17.0-35-generic #35~24.04.1-Ubuntu PREEMPT(voluntary)
-kernel: Tainted: [W]=3DWARN, [O]=3DOOT_MODULE, [E]=3DUNSIGNED_MODULE
-kernel: Hardware name: Supermicro AS -4125GS-TNRT/H13DSG-O-CPU, BIOS 3.8a 1=
-1/01/2025
-kernel: Workqueue: amdgpu-reset-dev amdgpu_debugfs_reset_work [amdgpu]
-kernel: RIP: 0010:amdgpu_gart_map+0x60/0xc0 [amdgpu]
-kernel: Code: 71 98 c3 48 89 45 d0 31 c0 c7 45 cc 00 00 00 00 e8 25 4b 9e c=
-1 84 c0 74 39 48 89 d8 48 c1 e8 0c 89 c3 45 85 e4 74 23 41 01 c4 <49> 8b 0e=
- 4c 8b 45 c0 89 da 4c 89 fe 4c 89 ef 83 c3 01 49 83 c6 08
-kernel: RSP: 0018:ff4f7e3af8a1fb18 EFLAGS: 00010206
-kernel: RAX: 00000000000002b6 RBX: 00000000000002b6 RCX: 0000000000000000
-kernel: RDX: 0000000000000001 RSI: 0000000000000000 RDI: 0000000000000000
-kernel: RBP: ff4f7e3af8a1fb58 R08: 80c0000000000073 R09: ff4f7e4ad6b00000
-kernel: R10: 0000000000000000 R11: 0000000000000000 R12: 00000000000002b7
-kernel: R13: ff2209225a000000 R14: 0000000000000000 R15: ff4f7e4ad6b00000
-kernel: FS:  0000000000000000(0000) GS:ff22098108562000(0000) knlGS:0000000=
-000000000
-kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-kernel: CR2: 0000000000000000 CR3: 00000064b7011002 CR4: 0000000000f71ef0
-kernel: PKRU: 55555554
-kernel: Call Trace:
-kernel:  <TASK>
-kernel:  amdgpu_gart_bind+0x1a/0x50 [amdgpu]
-kernel:  amdgpu_ttm_gart_bind+0xd8/0xe0 [amdgpu]
-kernel:  amdgpu_ttm_recover_gart+0x5f/0x80 [amdgpu]
-kernel:  amdgpu_gtt_mgr_recover+0x43/0x70 [amdgpu]
-kernel:  gmc_v12_0_hw_init+0x46/0x160 [amdgpu]
-kernel:  gmc_v12_0_resume+0x14/0x40 [amdgpu]
-kernel:  amdgpu_ip_block_resume+0x24/0x80 [amdgpu]
-kernel:  amdgpu_device_ip_resume_phase1+0xce/0x180 [amdgpu]
-kernel:  amdgpu_device_reinit_after_reset+0x13d/0x340 [amdgpu]
-kernel:  amdgpu_do_asic_reset.part.0+0x56/0x1b0 [amdgpu]
-kernel:  amdgpu_device_asic_reset+0x426/0x640 [amdgpu]
-kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
-kernel:  amdgpu_device_gpu_recover+0x260/0x410 [amdgpu]
-kernel:  amdgpu_debugfs_reset_work+0x68/0x90 [amdgpu]
-kernel:  process_one_work+0x18e/0x3e0
-kernel:  worker_thread+0x2e3/0x420
-kernel:  ? _raw_spin_lock_irqsave+0xe/0x20
-kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
-kernel:  ? __pfx_worker_thread+0x10/0x10
-kernel:  kthread+0x10a/0x230
-kernel:  ? __pfx_kthread+0x10/0x10
-kernel:  ret_from_fork+0x121/0x140
-kernel:  ? __pfx_kthread+0x10/0x10
-kernel:  ret_from_fork_asm+0x1a/0x30
-kernel:  </TASK>
-
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c | 36 +++++++++++++++++++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |  1 +
- 3 files changed, 36 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/=
-amd/amdgpu/amdgpu_gtt_mgr.c
-index 0ea32561c4bc..1f9063b30526 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-@@ -26,7 +26,9 @@
-
- #include "amdgpu.h"
-
-+#define GART_ENTRY_BO_COLOR            0
- #define GART_ENTRY_WITHOUT_BO_COLOR    1
-+#define GART_ENTRY_BO_TEARDOWN_COLOR   2
-
- static inline struct amdgpu_gtt_mgr *
- to_gtt_mgr(struct ttm_resource_manager *man)
-@@ -102,6 +104,35 @@ bool amdgpu_gtt_mgr_has_gart_addr(struct ttm_resource =
-*res)
-        return drm_mm_node_allocated(&node->mm_nodes[0]);
- }
-
-+/**
-+ * amdgpu_gtt_mgr_mark_bo_teardown - exclude a BO from GART recovery
-+ *
-+ * @tbo: TTM BO whose TT backing is about to be destroyed
-+ *
-+ * Keep the GART range allocated until the resource is freed, but prevent
-+ * reset recovery from using the BO after TT teardown has started.
-+ */
-+void amdgpu_gtt_mgr_mark_bo_teardown(struct ttm_buffer_object *tbo)
-+{
-+       struct amdgpu_device *adev =3D amdgpu_ttm_adev(tbo->bdev);
-+       struct ttm_resource *res =3D tbo->resource;
-+       struct ttm_range_mgr_node *node;
-+       struct amdgpu_gtt_mgr *mgr;
-+
-+       dma_resv_assert_held(tbo->base.resv);
-+
-+       if (!res || res->mem_type !=3D TTM_PL_TT)
-+               return;
-+
-+       node =3D to_ttm_range_mgr_node(res);
-+       mgr =3D &adev->mman.gtt_mgr;
-+
-+       spin_lock(&mgr->lock);
-+       if (drm_mm_node_allocated(&node->mm_nodes[0]))
-+               node->mm_nodes[0].color =3D GART_ENTRY_BO_TEARDOWN_COLOR;
-+       spin_unlock(&mgr->lock);
-+}
-+
- /**
-  * amdgpu_gtt_mgr_new - allocate a new node
-  *
-@@ -137,7 +168,8 @@ static int amdgpu_gtt_mgr_new(struct ttm_resource_manag=
-er *man,
-                spin_lock(&mgr->lock);
-                r =3D drm_mm_insert_node_in_range(&mgr->mm, &node->mm_nodes=
-[0],
-                                                num_pages, tbo->page_alignm=
-ent,
--                                               0, place->fpfn, place->lpfn=
-,
-+                                               GART_ENTRY_BO_COLOR,
-+                                               place->fpfn, place->lpfn,
-                                                DRM_MM_INSERT_BEST);
-                spin_unlock(&mgr->lock);
-                if (unlikely(r))
-@@ -248,7 +280,7 @@ void amdgpu_gtt_mgr_recover(struct amdgpu_gtt_mgr *mgr)
-        adev =3D container_of(mgr, typeof(*adev), mman.gtt_mgr);
-        spin_lock(&mgr->lock);
-        drm_mm_for_each_node(mm_node, &mgr->mm) {
--               if (mm_node->color =3D=3D GART_ENTRY_WITHOUT_BO_COLOR)
-+               if (mm_node->color !=3D GART_ENTRY_BO_COLOR)
-                        continue;
-
-                node =3D container_of(mm_node, typeof(*node), mm_nodes[0]);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ttm.c
-index 5fe29e4972d8..6fa8301b8ddc 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -1676,6 +1676,7 @@ static int amdgpu_ttm_access_memory(struct ttm_buffer=
-_object *bo,
- static void
- amdgpu_bo_delete_mem_notify(struct ttm_buffer_object *bo)
- {
-+       amdgpu_gtt_mgr_mark_bo_teardown(bo);
-        amdgpu_bo_move_notify(bo, false, NULL);
- }
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ttm.h
-index ff9e2e346609..af1e7fcc7175 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -145,6 +145,7 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev);
- void amdgpu_vram_mgr_fini(struct amdgpu_device *adev);
-
- bool amdgpu_gtt_mgr_has_gart_addr(struct ttm_resource *mem);
-+void amdgpu_gtt_mgr_mark_bo_teardown(struct ttm_buffer_object *tbo);
- void amdgpu_gtt_mgr_recover(struct amdgpu_gtt_mgr *mgr);
-
- int amdgpu_gtt_mgr_alloc_entries(struct amdgpu_gtt_mgr *mgr,
---
-2.43.0
-
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
