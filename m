@@ -4,80 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8304BC53219
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 14:35:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id AFF14C54F4D
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 14:59:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13E7110E581;
-	Tue, 28 Jul 2026 14:35:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A62710E59D;
+	Tue, 28 Jul 2026 14:59:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=arm.com header.i=@arm.com header.b="SQe+uOOk";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="T4YEBMAo";
 	dkim-atps=neutral
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 2222210E581
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 14:35:03 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 94A3D175D
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 07:34:58 -0700 (PDT)
-Received: from [10.2.11.34] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id
- 53B7B3F66F
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 07:35:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1785249302; bh=Inv7KrlemkdgK5E3nHXTAHNRQzVGjk/0dJV4TgUWtLg=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SQe+uOOkk06kK8NLMc6HbGRofOBpvQoEX8bXWyZESzmV29CqJED+Av5+d2GVYQ/uF
- RynYLqG4BcpnbjG7QuRBkLUmfruQQSHpoAVucdwtmihU2E9+0rRAyB0AfYvtgt7aRQ
- ULdyYenpAW4Ll0Q8gFyL8b/QdxzI413WD7xHoSHA=
-Date: Tue, 28 Jul 2026 15:34:00 +0100
-From: Liviu Dudau <liviu.dudau@arm.com>
-To: =?utf-8?Q?Adri=C3=A1n?= Larumbe <adrian.larumbe@collabora.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>,
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,
- Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Sandy Huang <hjc@rock-chips.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
- Andy Yan <andy.yan@rock-chips.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Zack Rusin <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Matthew Brost <matthew.brost@intel.com>,
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, etnaviv@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Subject: Re: [PATCH] drm/gem: Move pages_to_sg helper into drm_gem.c
-Message-ID: <ami92JFN-yU_22xX@e142607>
-References: <20260724-get_pages-v1-1-b10e5d65628e@collabora.com>
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2489110E370;
+ Tue, 28 Jul 2026 14:58:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785250722; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=HyPjuzjOGdwZAvh4eIZk/JNxVJnJY4Ya+VzNWWtLVVXd6FuMqIOTf71+3VppKVcY75W5e1U2s8tvHLoEGrRQW+O4xBL9m8GepBkhIJl0JUJOahihl9emejDDOnMIHcCIJX+vtoq7WIPIJdBhNv+pMs/NddTZBer5WscLu73BzZQ=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1785250722;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=gC4i7X4CmHIIuftNwOx9ifBAd2gEOQsI+nmDy/9AcC4=; 
+ b=IOfKCph1cpiT94spwQ1N9PTdmUl11/xERrKkttx2Aofj2XsWBTy984emaLT4N7Gh8hBJeuuWNaKNKWTd3DcTV8cRahiJ8/NRiHv0U7q/LQQIxOUeVyfmRV/m6K/gCjtfBBctGv2bj8o2lDhgo82vba0G9tYEQw/sV5gkJjD++aY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785250722; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=gC4i7X4CmHIIuftNwOx9ifBAd2gEOQsI+nmDy/9AcC4=;
+ b=T4YEBMAoCktUMewUigaHEmVVRPFcirus0NicsQWva35oDEZiOuOV3mfV7N8V8Xj5
+ A6TWzykicby3vHovegBT8wHuwMd2P0o4B/+1eUV9u+Isd3RCwFaGcusF2X537PG+o4g
+ wiZfsmtAXjAJWLUv5dILc1qasGRb2FzdBHZXWMog=
+Received: by mx.zohomail.com with SMTPS id 1785250721359723.288310307518;
+ Tue, 28 Jul 2026 07:58:41 -0700 (PDT)
+Message-ID: <1aba7601-ba07-407d-8bc8-5a28a49b78f0@collabora.com>
+Date: Tue, 28 Jul 2026 16:58:35 +0200
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260724-get_pages-v1-1-b10e5d65628e@collabora.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 00/11] YUV conversion colorop with amdgpu and VKMS
+To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+Cc: Alex Hung <alex.hung@amd.com>, Daniel Stone <daniels@collabora.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>
+References: <20260722134607.136293-1-harry.wentland@amd.com>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <20260722134607.136293-1-harry.wentland@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,476 +69,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Jul 24, 2026 at 01:08:58PM +0100, Adrián Larumbe wrote:
-> None of the semantics of the function tell of it being a PRIME-exclusive
-> entry point. In fact, most drivers seem to be using it to translate a list
-> of pages into an sg table that can be used for GPU mapping later on, rather
-> than just for sharing an object's pages with another driver.
-> 
-> Move it across files and rename accordingly.
-> 
-> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-> ---
-> drm_prime_pages_to_sg() has no real dependency on PRIME/dma-buf interfaces.
-> It is a generic helper that converts a page array into a scatter/gather
-> table via dma_map_sg_attrs. Nothing in its implementation touches struct
-> dma_buf or import/export logic.
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  6 ++---
->  drivers/gpu/drm/drm_gem.c                   | 35 ++++++++++++++++++++++++++
->  drivers/gpu/drm/drm_gem_shmem_helper.c      |  2 +-
->  drivers/gpu/drm/drm_prime.c                 | 38 -----------------------------
->  drivers/gpu/drm/etnaviv/etnaviv_gem.c       |  3 +--
->  drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c |  3 ++-
->  drivers/gpu/drm/loongson/lsdc_gem.c         |  3 +--
->  drivers/gpu/drm/msm/msm_gem.c               |  2 +-
->  drivers/gpu/drm/msm/msm_gem_prime.c         |  2 +-
->  drivers/gpu/drm/nouveau/nouveau_prime.c     |  4 +--
->  drivers/gpu/drm/panthor/panthor_gem.c       |  6 ++---
+Hi Harry,
 
-For Panthor and the general rename:
-
-Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+thanks a lot for the series. I have a experimental Weston MR which tests 
+the new color-op with VKMS at [1] - both as pure replacement for the 
+legacy properties as well as in combination with a complete 
+color-pipelines for pre- and post-blending (using a kernel branch [2] 
+based on Melissas branch [3] for AMD post-blending). From all I tried it 
+seems to work great - the API is works beautifully and the test checks 
+for visual compatibility with the legacy properties, the Weston internal 
+shaders as well as Mesas shaders. In conclusion I'd love to see the 
+series land (soon).
 
 Best regards,
-Liviu
 
->  drivers/gpu/drm/radeon/radeon_prime.c       |  5 ++--
->  drivers/gpu/drm/rockchip/rockchip_drm_gem.c |  6 ++---
->  drivers/gpu/drm/tegra/gem.c                 |  4 +--
->  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c         |  4 +--
->  drivers/gpu/drm/xe/xe_dma_buf.c             |  6 ++---
->  drivers/gpu/drm/xen/xen_drm_front_gem.c     |  2 +-
->  include/drm/drm_gem.h                       |  5 +++-
->  include/drm/drm_prime.h                     |  2 --
->  19 files changed, 68 insertions(+), 70 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> index b33c300e26e2..c9a98aec7eb6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> @@ -203,9 +203,9 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
->  
->  	switch (bo->tbo.resource->mem_type) {
->  	case TTM_PL_TT:
-> -		sgt = drm_prime_pages_to_sg(obj->dev,
-> -					    bo->tbo.ttm->pages,
-> -					    bo->tbo.ttm->num_pages);
-> +		sgt = drm_pages_to_sg(obj->dev,
-> +				      bo->tbo.ttm->pages,
-> +				      bo->tbo.ttm->num_pages);
->  		if (IS_ERR(sgt))
->  			return sgt;
->  
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index 018df97d590d..22c8a3b5f667 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -780,6 +780,41 @@ void drm_gem_put_pages(struct drm_gem_object *obj, struct page **pages,
->  }
->  EXPORT_SYMBOL(drm_gem_put_pages);
->  
-> +/**
-> + * drm_pages_to_sg - converts a page array into an sg list
-> + * @dev: DRM device
-> + * @pages: pointer to the array of page pointers to convert
-> + * @nr_pages: length of the page vector
-> + *
-> + * This helper creates an sg table object from a set of pages.
-> + * This is useful for implementing &drm_gem_object_funcs.get_sg_table.
-> + */
-> +struct sg_table *drm_pages_to_sg(struct drm_device *dev,
-> +				 struct page **pages, unsigned int nr_pages)
-> +{
-> +	struct sg_table *sg;
-> +	size_t max_segment = 0;
-> +	int err;
-> +
-> +	sg = kmalloc_obj(struct sg_table);
-> +	if (!sg)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	if (dev)
-> +		max_segment = dma_max_mapping_size(drm_dev_dma_dev(dev));
-> +	if (max_segment == 0)
-> +		max_segment = UINT_MAX;
-> +	err = sg_alloc_table_from_pages_segment(sg, pages, nr_pages, 0,
-> +						(unsigned long)nr_pages << PAGE_SHIFT,
-> +						max_segment, GFP_KERNEL);
-> +	if (err) {
-> +		kfree(sg);
-> +		sg = ERR_PTR(err);
-> +	}
-> +	return sg;
-> +}
-> +EXPORT_SYMBOL(drm_pages_to_sg);
-> +
->  static int objects_lookup(struct drm_file *filp, u32 *handle, int count,
->  			  struct drm_gem_object **objs)
->  {
-> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> index 22ec52e2ffb8..144d088a477f 100644
-> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> @@ -825,7 +825,7 @@ struct sg_table *drm_gem_shmem_get_sg_table(struct drm_gem_shmem_object *shmem)
->  
->  	drm_WARN_ON(obj->dev, drm_gem_is_imported(obj));
->  
-> -	return drm_prime_pages_to_sg(obj->dev, shmem->pages, obj->size >> PAGE_SHIFT);
-> +	return drm_pages_to_sg(obj->dev, shmem->pages, obj->size >> PAGE_SHIFT);
->  }
->  EXPORT_SYMBOL_GPL(drm_gem_shmem_get_sg_table);
->  
-> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-> index 9b44c78cd77f..54539a8929c1 100644
-> --- a/drivers/gpu/drm/drm_prime.c
-> +++ b/drivers/gpu/drm/drm_prime.c
-> @@ -835,44 +835,6 @@ static const struct dma_buf_ops drm_gem_prime_dmabuf_ops =  {
->  	.vunmap = drm_gem_dmabuf_vunmap,
->  };
->  
-> -/**
-> - * drm_prime_pages_to_sg - converts a page array into an sg list
-> - * @dev: DRM device
-> - * @pages: pointer to the array of page pointers to convert
-> - * @nr_pages: length of the page vector
-> - *
-> - * This helper creates an sg table object from a set of pages
-> - * the driver is responsible for mapping the pages into the
-> - * importers address space for use with dma_buf itself.
-> - *
-> - * This is useful for implementing &drm_gem_object_funcs.get_sg_table.
-> - */
-> -struct sg_table *drm_prime_pages_to_sg(struct drm_device *dev,
-> -				       struct page **pages, unsigned int nr_pages)
-> -{
-> -	struct sg_table *sg;
-> -	size_t max_segment = 0;
-> -	int err;
-> -
-> -	sg = kmalloc_obj(struct sg_table);
-> -	if (!sg)
-> -		return ERR_PTR(-ENOMEM);
-> -
-> -	if (dev)
-> -		max_segment = dma_max_mapping_size(drm_dev_dma_dev(dev));
-> -	if (max_segment == 0)
-> -		max_segment = UINT_MAX;
-> -	err = sg_alloc_table_from_pages_segment(sg, pages, nr_pages, 0,
-> -						(unsigned long)nr_pages << PAGE_SHIFT,
-> -						max_segment, GFP_KERNEL);
-> -	if (err) {
-> -		kfree(sg);
-> -		sg = ERR_PTR(err);
-> -	}
-> -	return sg;
-> -}
-> -EXPORT_SYMBOL(drm_prime_pages_to_sg);
-> -
->  /**
->   * drm_prime_get_contiguous_size - returns the contiguous size of the buffer
->   * @sgt: sg_table describing the buffer to check
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-> index b0436a1e103f..a8e8614f8210 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-> @@ -3,7 +3,6 @@
->   * Copyright (C) 2015-2018 Etnaviv Project
->   */
->  
-> -#include <drm/drm_prime.h>
->  #include <drm/drm_print.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/shmem_fs.h>
-> @@ -104,7 +103,7 @@ struct page **etnaviv_gem_get_pages(struct etnaviv_gem_object *etnaviv_obj)
->  		unsigned int npages = etnaviv_obj->base.size >> PAGE_SHIFT;
->  		struct sg_table *sgt;
->  
-> -		sgt = drm_prime_pages_to_sg(dev, etnaviv_obj->pages, npages);
-> +		sgt = drm_pages_to_sg(dev, etnaviv_obj->pages, npages);
->  		if (IS_ERR(sgt)) {
->  			dev_err(dev->dev, "failed to allocate sgt: %ld\n",
->  				PTR_ERR(sgt));
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-> index 6757ae6ec304..f44484325ddb 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-> @@ -3,6 +3,7 @@
->   * Copyright (C) 2014-2018 Etnaviv Project
->   */
->  
-> +#include <drm/drm_gem.h>
->  #include <drm/drm_prime.h>
->  #include <linux/dma-buf.h>
->  #include <linux/module.h>
-> @@ -22,7 +23,7 @@ struct sg_table *etnaviv_gem_prime_get_sg_table(struct drm_gem_object *obj)
->  	if (WARN_ON(!etnaviv_obj->pages))  /* should have already pinned! */
->  		return ERR_PTR(-EINVAL);
->  
-> -	return drm_prime_pages_to_sg(obj->dev, etnaviv_obj->pages, npages);
-> +	return drm_pages_to_sg(obj->dev, etnaviv_obj->pages, npages);
->  }
->  
->  int etnaviv_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map)
-> diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c b/drivers/gpu/drm/loongson/lsdc_gem.c
-> index 2fb03487c983..37160228244c 100644
-> --- a/drivers/gpu/drm/loongson/lsdc_gem.c
-> +++ b/drivers/gpu/drm/loongson/lsdc_gem.c
-> @@ -9,7 +9,6 @@
->  #include <drm/drm_dumb_buffers.h>
->  #include <drm/drm_file.h>
->  #include <drm/drm_gem.h>
-> -#include <drm/drm_prime.h>
->  #include <drm/drm_print.h>
->  
->  #include "lsdc_drv.h"
-> @@ -51,7 +50,7 @@ static struct sg_table *lsdc_gem_prime_get_sg_table(struct drm_gem_object *obj)
->  		return ERR_PTR(-ENOMEM);
->  	}
->  
-> -	return drm_prime_pages_to_sg(obj->dev, tt->pages, tt->num_pages);
-> +	return drm_pages_to_sg(obj->dev, tt->pages, tt->num_pages);
->  }
->  
->  static void lsdc_gem_object_free(struct drm_gem_object *obj)
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-> index efd3d3c9a449..7e3418290c22 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -207,7 +207,7 @@ static struct page **get_pages(struct drm_gem_object *obj)
->  
->  		msm_obj->pages = p;
->  
-> -		msm_obj->sgt = drm_prime_pages_to_sg(obj->dev, p, npages);
-> +		msm_obj->sgt = drm_pages_to_sg(obj->dev, p, npages);
->  		if (IS_ERR(msm_obj->sgt)) {
->  			void *ptr = ERR_CAST(msm_obj->sgt);
->  
-> diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
-> index 036d34c674d9..d25393a9e549 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_prime.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_prime.c
-> @@ -23,7 +23,7 @@ struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj)
->  	if (WARN_ON(!msm_obj->pages))  /* should have already pinned! */
->  		return ERR_PTR(-ENOMEM);
->  
-> -	return drm_prime_pages_to_sg(obj->dev, msm_obj->pages, npages);
-> +	return drm_pages_to_sg(obj->dev, msm_obj->pages, npages);
->  }
->  
->  int msm_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map)
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_prime.c b/drivers/gpu/drm/nouveau/nouveau_prime.c
-> index caab60fc62f6..b95f2f07df74 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_prime.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_prime.c
-> @@ -32,8 +32,8 @@ struct sg_table *nouveau_gem_prime_get_sg_table(struct drm_gem_object *obj)
->  {
->  	struct nouveau_bo *nvbo = nouveau_gem_object(obj);
->  
-> -	return drm_prime_pages_to_sg(obj->dev, nvbo->bo.ttm->pages,
-> -				     nvbo->bo.ttm->num_pages);
-> +	return drm_pages_to_sg(obj->dev, nvbo->bo.ttm->pages,
-> +			       nvbo->bo.ttm->num_pages);
->  }
->  
->  struct drm_gem_object *nouveau_gem_prime_import_sg_table(struct drm_device *dev,
-> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-> index 9855df738194..ec530d254fa4 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gem.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
-> @@ -321,8 +321,8 @@ panthor_gem_dev_map_get_sgt_locked(struct panthor_gem_object *bo)
->  	if (ret)
->  		return ERR_PTR(ret);
->  
-> -	sgt = drm_prime_pages_to_sg(bo->base.dev, bo->backing.pages,
-> -				    bo->base.size >> PAGE_SHIFT);
-> +	sgt = drm_pages_to_sg(bo->base.dev, bo->backing.pages,
-> +			      bo->base.size >> PAGE_SHIFT);
->  	if (IS_ERR(sgt))
->  		return sgt;
->  
-> @@ -702,7 +702,7 @@ static struct sg_table *panthor_gem_get_sg_table(struct drm_gem_object *obj)
->  	drm_WARN_ON_ONCE(obj->dev, !bo->backing.pages);
->  	drm_WARN_ON_ONCE(obj->dev, !refcount_read(&bo->backing.pin_count));
->  
-> -	return drm_prime_pages_to_sg(obj->dev, bo->backing.pages, obj->size >> PAGE_SHIFT);
-> +	return drm_pages_to_sg(obj->dev, bo->backing.pages, obj->size >> PAGE_SHIFT);
->  }
->  
->  static int panthor_gem_vmap_locked(struct drm_gem_object *obj,
-> diff --git a/drivers/gpu/drm/radeon/radeon_prime.c b/drivers/gpu/drm/radeon/radeon_prime.c
-> index a77881f035e7..4cfc4282a59c 100644
-> --- a/drivers/gpu/drm/radeon/radeon_prime.c
-> +++ b/drivers/gpu/drm/radeon/radeon_prime.c
-> @@ -26,6 +26,7 @@
->  
->  #include <linux/dma-buf.h>
->  
-> +#include <drm/drm_gem.h>
->  #include <drm/drm_prime.h>
->  #include <drm/radeon_drm.h>
->  
-> @@ -38,8 +39,8 @@ struct sg_table *radeon_gem_prime_get_sg_table(struct drm_gem_object *obj)
->  {
->  	struct radeon_bo *bo = gem_to_radeon_bo(obj);
->  
-> -	return drm_prime_pages_to_sg(obj->dev, bo->tbo.ttm->pages,
-> -				     bo->tbo.ttm->num_pages);
-> +	return drm_pages_to_sg(obj->dev, bo->tbo.ttm->pages,
-> +			       bo->tbo.ttm->num_pages);
->  }
->  
->  struct drm_gem_object *radeon_gem_prime_import_sg_table(struct drm_device *dev,
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> index b188539dca0b..7897da0becf4 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> @@ -89,8 +89,8 @@ static int rockchip_gem_get_pages(struct rockchip_gem_object *rk_obj)
->  
->  	rk_obj->num_pages = rk_obj->base.size >> PAGE_SHIFT;
->  
-> -	rk_obj->sgt = drm_prime_pages_to_sg(rk_obj->base.dev,
-> -					    rk_obj->pages, rk_obj->num_pages);
-> +	rk_obj->sgt = drm_pages_to_sg(rk_obj->base.dev,
-> +				      rk_obj->pages, rk_obj->num_pages);
->  	if (IS_ERR(rk_obj->sgt)) {
->  		ret = PTR_ERR(rk_obj->sgt);
->  		goto err_put_pages;
-> @@ -432,7 +432,7 @@ struct sg_table *rockchip_gem_prime_get_sg_table(struct drm_gem_object *obj)
->  	int ret;
->  
->  	if (rk_obj->pages)
-> -		return drm_prime_pages_to_sg(obj->dev, rk_obj->pages, rk_obj->num_pages);
-> +		return drm_pages_to_sg(obj->dev, rk_obj->pages, rk_obj->num_pages);
->  
->  	sgt = kzalloc_obj(*sgt);
->  	if (!sgt)
-> diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
-> index 436394e04812..701af672b4e5 100644
-> --- a/drivers/gpu/drm/tegra/gem.c
-> +++ b/drivers/gpu/drm/tegra/gem.c
-> @@ -17,7 +17,7 @@
->  
->  #include <drm/drm_drv.h>
->  #include <drm/drm_dumb_buffers.h>
-> -#include <drm/drm_prime.h>
-> +#include <drm/drm_gem.h>
->  
->  #include "drm.h"
->  #include "gem.h"
-> @@ -352,7 +352,7 @@ static int tegra_bo_get_pages(struct drm_device *drm, struct tegra_bo *bo)
->  
->  	bo->num_pages = bo->gem.size >> PAGE_SHIFT;
->  
-> -	bo->sgt = drm_prime_pages_to_sg(bo->gem.dev, bo->pages, bo->num_pages);
-> +	bo->sgt = drm_pages_to_sg(bo->gem.dev, bo->pages, bo->num_pages);
->  	if (IS_ERR(bo->sgt)) {
->  		err = PTR_ERR(bo->sgt);
->  		goto put_pages;
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-> index 39f8c46550c2..c9e7f2e3668c 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-> @@ -28,7 +28,7 @@
->  #include "vmwgfx_bo.h"
->  #include "vmwgfx_drv.h"
->  
-> -#include "drm/drm_prime.h"
-> +#include "drm/drm_gem.h"
->  #include "drm/drm_gem_ttm_helper.h"
->  
->  #include <linux/debugfs.h>
-> @@ -76,7 +76,7 @@ static struct sg_table *vmw_gem_object_get_sg_table(struct drm_gem_object *obj)
->  	if (vmw_tt->vsgt.sgt)
->  		return vmw_tt->vsgt.sgt;
->  
-> -	return drm_prime_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages, vmw_tt->dma_ttm.num_pages);
-> +	return drm_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages, vmw_tt->dma_ttm.num_pages);
->  }
->  
->  static int vmw_gem_vmap(struct drm_gem_object *obj, struct iosys_map *map)
-> diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c b/drivers/gpu/drm/xe/xe_dma_buf.c
-> index 8a920e58245c..f0fe80706b79 100644
-> --- a/drivers/gpu/drm/xe/xe_dma_buf.c
-> +++ b/drivers/gpu/drm/xe/xe_dma_buf.c
-> @@ -118,9 +118,9 @@ static struct sg_table *xe_dma_buf_map(struct dma_buf_attachment *attach,
->  
->  	switch (bo->ttm.resource->mem_type) {
->  	case XE_PL_TT:
-> -		sgt = drm_prime_pages_to_sg(obj->dev,
-> -					    bo->ttm.ttm->pages,
-> -					    obj->size >> PAGE_SHIFT);
-> +		sgt = drm_pages_to_sg(obj->dev,
-> +				      bo->ttm.ttm->pages,
-> +				      obj->size >> PAGE_SHIFT);
->  		if (IS_ERR(sgt))
->  			return sgt;
->  
-> diff --git a/drivers/gpu/drm/xen/xen_drm_front_gem.c b/drivers/gpu/drm/xen/xen_drm_front_gem.c
-> index eec4c1da3f9e..a4a7c7f2c91c 100644
-> --- a/drivers/gpu/drm/xen/xen_drm_front_gem.c
-> +++ b/drivers/gpu/drm/xen/xen_drm_front_gem.c
-> @@ -236,7 +236,7 @@ struct sg_table *xen_drm_front_gem_get_sg_table(struct drm_gem_object *gem_obj)
->  	if (!xen_obj->pages)
->  		return ERR_PTR(-ENOMEM);
->  
-> -	return drm_prime_pages_to_sg(gem_obj->dev,
-> +	return drm_pages_to_sg(gem_obj->dev,
->  				     xen_obj->pages, xen_obj->num_pages);
->  }
->  
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index 885244e375d3..7b9cc6335689 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -155,7 +155,7 @@ struct drm_gem_object_funcs {
->  	 * here cannot be used for sg tables pointing at driver private memory
->  	 * ranges.
->  	 *
-> -	 * See also drm_prime_pages_to_sg().
-> +	 * See also drm_pages_to_sg().
->  	 */
->  	struct sg_table *(*get_sg_table)(struct drm_gem_object *obj);
->  
-> @@ -589,6 +589,9 @@ struct page **drm_gem_get_pages(struct drm_gem_object *obj);
->  void drm_gem_put_pages(struct drm_gem_object *obj, struct page **pages,
->  		bool dirty, bool accessed);
->  
-> +struct sg_table *drm_pages_to_sg(struct drm_device *dev,
-> +				 struct page **pages, unsigned int nr_pages);
-> +
->  void drm_gem_lock(struct drm_gem_object *obj);
->  void drm_gem_unlock(struct drm_gem_object *obj);
->  
-> diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
-> index f50f862f0d8b..603e16a40ae7 100644
-> --- a/include/drm/drm_prime.h
-> +++ b/include/drm/drm_prime.h
-> @@ -92,8 +92,6 @@ void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map);
->  int drm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
->  int drm_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma);
->  
-> -struct sg_table *drm_prime_pages_to_sg(struct drm_device *dev,
-> -				       struct page **pages, unsigned int nr_pages);
->  struct dma_buf *drm_gem_prime_export(struct drm_gem_object *obj,
->  				     int flags);
->  
-> 
-> ---
-> base-commit: 48dd37d1fef33fbf42f1d6887c61e242fd21d00d
-> change-id: 20260724-get_pages-e2e91c53eaa3
-> 
-> Best regards,
-> --  
-> Adrián Larumbe <adrian.larumbe@collabora.com>
-> 
+Robert
 
+
+1: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2157
+
+2: 
+https://gitlab.com/rmader/linux/-/commits/gamescope_pipeline_w_colorop-2026-07-28
+
+3: 
+https://gitlab.freedesktop.org/mwen/drm-misc/-/commits/gamescope_pipeline_w_colorop
+
+On 22.07.26 15:45, Harry Wentland wrote:
+> When we merged the drm_plane color pipeline API the major gap
+> that existed was the lack of a YUV to RGB conversion colorop.
+> We deprecated any legacy drm_plane color properties, which
+> means that the COLOR_RANGE and COLOR_ENCODING properties can't
+> be used with the COLOR_PIPELINE property on a drm_plane. In
+> practice this means that we can't use a COLOR_PIPELINE on
+> YCbCr encoded framebuffers.
+>
+> This patchset expands on the Fixed Matrix colorop proposed by Chaitanya
+> and adds limited range variants of the YCbCr to RGB conversions.
+>
+> His full patchset can be found at
+> https://patchwork.freedesktop.org/patch/709860
+>
+> This code has been tested with IGT and an experimental KWin branch.
+>
+> IGT branch:
+> https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/yuv-fm-colorop
+>
+> KWin branch used for testing:
+> https://invent.kde.org/hwentlan/kwin/-/tree/yuv-fm-colorop
+>
+> The kernel branch containing these changes, based on drm-misc-next
+> can be found at:
+> https://gitlab.freedesktop.org/hwentland/linux/-/tree/yuv-fm-colorop
+>
+> Further background on this work can be found at:
+> https://hwentland.github.io/2026/03/10/plane-color-pipeline-csc-3d-lut-kwin.html
+>
+> v4:
+>   - Specify matrix entries in docs (Pekka)
+>   - Squash limited-range enums into "Add FM" patch (Robert)
+>   - Don't reject RGB planes with fixed matrix in VKMS as
+>     we don't want or need to make a colorop dependent on
+>     the framebuffer's pixel format. (Robert)
+>   - Fix conversion matrices in VKMS and implement kunit
+>     tests (discovered while documenting the matrices)
+>
+> v3:
+> - base on Chaitanya's updated patch and rename code accordingly
+>    to Fixed_Matrix instead of CSC Fixed-Function
+>
+> v2:
+> - use Chaitanya's CSC_FF block for named matrices
+>
+> Cc: Alex Hung <alex.hung@amd.com>
+> Cc: Daniel Stone <daniels@collabora.com>
+> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> Cc: Uma Shankar <uma.shankar@intel.com>
+> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
+> Cc: Melissa Wen <mwen@igalia.com>
+> Cc: Simon Ser <contact@emersion.fr>
+> Cc: Robert Mader <robert.mader@collabora.com>
+>
+> Chaitanya Kumar Borah (1):
+>    drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
+>
+> Harry Wentland (10):
+>    drm/vkms: Fix limited-range YCbCr to RGB conversion scaling
+>    drm/vkms: Add KUnit test for YCbCr to RGB conversion matrices
+>    drm/vkms: Add fixed matrix colorop to color pipeline
+>    drm/vkms: Add atomic check and matrix handling for fixed matrix
+>      colorop
+>    drm/amd/display: Add fixed matrix colorop to color pipeline
+>    drm/amd/display: Implement fixed matrix colorop color space mapping
+>    drm/amd/display: Use GAMCOR for first TF if YUV conversion is needed
+>    drm/amd/display: Check actual state during commit_tail
+>    drm/amd/display: Set color_space to plane_infos
+>    drm/amd/display: Force GAMCOR for subsampled surfaces with
+>      PQ/Gamma22/HLG
+>
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  14 +-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  85 +++++++++-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  27 ++-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |   1 +
+>   .../amd/display/modules/color/color_gamma.c   |   3 +-
+>   drivers/gpu/drm/drm_atomic.c                  |   4 +
+>   drivers/gpu/drm/drm_atomic_uapi.c             |   7 +
+>   drivers/gpu/drm/drm_colorop.c                 | 109 ++++++++++++
+>   drivers/gpu/drm/vkms/tests/vkms_format_test.c | 160 +++++++++++++++---
+>   drivers/gpu/drm/vkms/vkms_colorop.c           |  66 +++++---
+>   drivers/gpu/drm/vkms/vkms_composer.c          |   6 +
+>   drivers/gpu/drm/vkms/vkms_formats.c           |  64 +++++--
+>   drivers/gpu/drm/vkms/vkms_formats.h           |   2 +-
+>   drivers/gpu/drm/vkms/vkms_plane.c             |  55 +++++-
+>   include/drm/drm_colorop.h                     | 159 +++++++++++++++++
+>   include/uapi/drm/drm_mode.h                   |  12 ++
+>   16 files changed, 706 insertions(+), 68 deletions(-)
+>
+> --
+> 2.55.0
+>
 -- 
-====================
-| I would like to |
-| fix the world,  |
-| but they're not |
-| giving me the   |
- \ source code!  /
-  ---------------
-    ¯\_(ツ)_/¯
+Robert Mader
+Consultant Software Developer
+
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
+
