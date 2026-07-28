@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99839C54F55
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 15:11:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1F1CFC54F4C
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 15:17:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB04110E827;
-	Tue, 28 Jul 2026 15:11:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B04D610E95D;
+	Tue, 28 Jul 2026 15:17:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="BoTR8gPP";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="Tyv1jQvY";
 	dkim-atps=neutral
 Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
  [136.143.188.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EE9D110E713;
- Tue, 28 Jul 2026 15:11:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785251477; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8303010E95D;
+ Tue, 28 Jul 2026 15:17:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1785251859; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=NHGlV6NtX30BatGWgnjkodTfwQRV/LAVCcIibCVTiTE9BEBBcc19C5W9I9ZJdZtHe+5LgB32eefI8ZodKtaomPVLtNNDwQEcfgnM2yCozEhvJ/OghxgFBzyVwzNB3zWYg6VgZ4v33GMdViS39VyrStMTM0HWCNMvCzgcDeZzRlc=
+ b=OY+xcp1qPjdaWbDgiEqtg8Rm8DRVYbGIOzGYHwmAm5Cb9qsqVqh/dgzlWS24dSSD1HVtjeJPOCcVQKo1kpxr1R6uOOGZYHfTJNip752NERBpzGpD4XYwuRcDBKu3Qv1evBckS4k4+WJ7ywvcQfaMex/8M7m/esED6P8xD11V6y8=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785251477;
+ s=zohoarc; t=1785251859;
  h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
- bh=jYkK6lXlHec/yo2Mdvqq9xeIg01QvKzH13q6ig5pKx4=; 
- b=dcu5Hx0jWK9jQMnNCW6w9ylpjpwcnc18/mosvR+n49Bot35JFJCjaBufxkoGcybFHRsXRp2Y+iYRmVp58WeWLKRqWcv7MIdyD2xkpXLsPAyAyhzy2mQ62/BD39bV1iaeCRGNLSZcOa8QHKKHEP4X1zyn3TjaGsKJ+bCbo0K1G5s=
+ bh=/3245s+WIJM5WfX9Sovv9ivArZH82MVlC2lkJGR8Wjk=; 
+ b=mb0s4ooPYw7mVLWeWn1I1GBIGPs9Tfaww468Xsc7UAr1+5EDjaOXSf3IhIjCLXtz24g7m3NgyZ7UHvZ/j6HZPX/N8sDRG1h/nUhrteu7GPtMg1JVidlMsTdhxaA2OzcGMopRCwYs0ad7SluAw4ShspgFC1pMj8zWEXZIltBCbq8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=robert.mader@collabora.com;
  dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785251477; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785251859; 
  s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
  h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
- bh=jYkK6lXlHec/yo2Mdvqq9xeIg01QvKzH13q6ig5pKx4=;
- b=BoTR8gPP5ewR9qzxZC3QDv8KECH4AO1982m8Pu7kFC3wkkO/U4x2lvRrhNe5ivps
- 6pnImB8u/HUtJ+L4B2gGDg86sSiwj9sdpykvNExFk+gu/yoVm4ygB/rzvERErUwvx3Q
- 6bRH+flLjUfnYHhswjwUPJUvxxaD54R364+1/7Fg=
-Received: by mx.zohomail.com with SMTPS id 178525147659829.065885387314438;
- Tue, 28 Jul 2026 08:11:16 -0700 (PDT)
-Message-ID: <81c2e5ef-0fbb-451d-a1cb-8c1d96ffd656@collabora.com>
-Date: Tue, 28 Jul 2026 17:11:14 +0200
+ bh=/3245s+WIJM5WfX9Sovv9ivArZH82MVlC2lkJGR8Wjk=;
+ b=Tyv1jQvYo8Uql8P4q7qYEvPYW3sw+Ih+lroFgOlA3MN+phNOev3IWOUCrWnBpBOG
+ 87pyvTcpcXL5dKDaoUQ6r2XZTeYBApTwcW/SeirLEjkqpry6gzGOGvH4KMrvHbxjGT+
+ i8fdtlAEqfMO+HPGBy7EruztwTQlSjliYk9D1Pb8=
+Received: by mx.zohomail.com with SMTPS id 1785251856894116.72725239123395;
+ Tue, 28 Jul 2026 08:17:36 -0700 (PDT)
+Message-ID: <f24753a9-43c6-455d-b6b3-20b7fd406fbc@collabora.com>
+Date: Tue, 28 Jul 2026 17:17:34 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/11] drm/vkms: Fix limited-range YCbCr to RGB
- conversion scaling
+Subject: Re: [PATCH v4 03/11] drm/vkms: Add KUnit test for YCbCr to RGB
+ conversion matrices
 To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
  amd-gfx@lists.freedesktop.org
 References: <20260722134607.136293-1-harry.wentland@amd.com>
- <20260722134607.136293-3-harry.wentland@amd.com>
+ <20260722134607.136293-4-harry.wentland@amd.com>
 Content-Language: en-US, de-DE
 From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <20260722134607.136293-3-harry.wentland@amd.com>
+In-Reply-To: <20260722134607.136293-4-harry.wentland@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -66,213 +66,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+TBH this test feels a bit redundant to me, given that it just repeats 
+the exact values, which again just get memcpy'd. I suggest to drop it.
 
 On 22.07.26 15:45, Harry Wentland wrote:
-> The limited-/studio-range YCbCr to RGB conversion matrices were generated
-> with colour.matrix_YCbCr(is_legal=True, bits=8), which normalises the
-> narrow range by 2^bits (256 for 8-bit) rather than by the full-range
-> maximum 2^bits - 1 (255). As a result the luma scale was 256/219 and the
-> chroma scale 256/224 instead of the correct 255/219 and 255/224.
-
-I'm a bit embarrassed that the Weston CI didn't catch this - looks like 
-our "fuzzy" ranges [1] are a bit too high :/
-
-I verified that with this patch the corresponding tests (testing all six 
-combinations) still succeed. The reasoning also makes total sense to me 
-- but I didn't check the values yet.
-
-Thus for now:
-
-Tested-by: Robert Mader <robert.mader@collabora.com>
-
-1: 
-https://gitlab.freedesktop.org/wayland/weston/-/blob/0bb1ce3bd3a6ba1867b52ea0916bb864e26f7300/tests/harness/weston-test-client-helper.c#L2240
-
+> The existing yuv_u16_to_argb_u16 test performs a full RGB->YCbCr->RGB
+> round trip with a tolerance of 0x1ff. That tolerance is required because
+> fully saturated primaries clamp their chroma at encode time and cannot
+> round-trip exactly, but it also makes the test unable to detect small
+> scaling errors in the conversion matrices (such as using a 2^n instead
+> of a 2^n - 1 full-range maximum for limited range, an error of ~129 at
+> gray - below the tolerance).
 >
-> This over-scales every limited-range conversion by a factor of 256/255,
-> producing an error of up to ~3/255 (8-bit) and causing IGT tests that
-> compare software-computed surfaces against VKMS-processed ones to fail.
+> Add a parameterised test that checks the exact S31.32 fixed-point
+> coefficients and luma offset returned by
+> get_conversion_matrix_to_argb_u16() for each encoding and range against
+> reference values. This directly pins the matrices and catches
+> sub-tolerance regressions that the round-trip test cannot.
 >
-> Recompute the three limited-range matrices from first principles rather
-> than relying on colour's is_legal scaling:
->
->   1. Start from the standard ITU-R YCbCr -> RGB relations for the luma
->      weights Kr, Kb (Kg = 1 - Kr - Kb) of each encoding (BT.601, BT.709
->      and BT.2020 non-constant luminance). These are the same relations
->      that produce the existing full-range matrices.
->   2. Expand the studio input range to full range relative to a full-range
->      maximum of 2^n - 1: the luma coefficient by 255/(235 - 16) and the
->      chroma coefficients by 255/(240 - 16). This matches the DRM UAPI
->      definition and IGT's igt_ycbcr_to_rgb_matrix().
->   3. Convert each coefficient to S31.32 fixed point (round(coeff * 2^32)).
->
-> The full-range matrices (is_legal=False) are unaffected as they use exact
-> 1.0/2.0 scaling.
->
-> Update the limited-range reference values in the vkms-format KUnit test
-> accordingly: the expected YCbCr inputs now use the studio-range encoding
-> consistent with the corrected matrices (8-bit value v placed at v * 257,
-> i.e. relative to a full-range maximum of 255).
->
-> Fixes: fe22d21e9342 ("drm/vkms: Add YUV support")
 > Assisted-by: Copilot:claude-opus-4.8
 > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 > ---
->   drivers/gpu/drm/vkms/tests/vkms_format_test.c | 36 ++++++------
->   drivers/gpu/drm/vkms/vkms_formats.c           | 55 +++++++++++++------
->   2 files changed, 55 insertions(+), 36 deletions(-)
+>   drivers/gpu/drm/vkms/tests/vkms_format_test.c | 122 ++++++++++++++++++
+>   1 file changed, 122 insertions(+)
 >
 > diff --git a/drivers/gpu/drm/vkms/tests/vkms_format_test.c b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-> index a7788fbc45dc..789c59d07ffb 100644
+> index 789c59d07ffb..e746b18bf37b 100644
 > --- a/drivers/gpu/drm/vkms/tests/vkms_format_test.c
 > +++ b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-> @@ -101,12 +101,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
->   		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
->   		.n_colors = 6,
->   		.colors = {
-> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-> -			{ "red",   { 0x517b, 0x5a34, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-> -			{ "green", { 0x908e, 0x35cc, 0x2237 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-> -			{ "blue",  { 0x28f7, 0xf000, 0x6dc9 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
-> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-> +			{ "red",   { 0x51cd, 0x5a8e, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-> +			{ "green", { 0x911e, 0x3602, 0x2259 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-> +			{ "blue",  { 0x2920, 0xf0f0, 0x6e37 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
->   		}
->   	},
->   	/*
-> @@ -151,12 +151,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
->   		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
->   		.n_colors = 6,
->   		.colors = {
-> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-> -			{ "red",   { 0x3e8f, 0x6656, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-> -			{ "green", { 0xaca1, 0x29aa, 0x1a45 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-> -			{ "blue",  { 0x1fd0, 0xf000, 0x75bb }, { 0xffff, 0x0000, 0x0000, 0xffff }},
-> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-> +			{ "red",   { 0x3ece, 0x66bc, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-> +			{ "green", { 0xad4e, 0x29d4, 0x1a5f }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-> +			{ "blue",  { 0x1ff0, 0xf0f0, 0x7631 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
->   		}
->   	},
->   	/*
-> @@ -201,12 +201,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
->   		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
->   		.n_colors = 6,
->   		.colors = {
-> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-> -			{ "red",   { 0x4988, 0x60b9, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-> -			{ "green", { 0xa47b, 0x2f47, 0x1902 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-> -			{ "blue",  { 0x1cfd, 0xf000, 0x76fe }, { 0xffff, 0x0000, 0x0000, 0xffff }},
-> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-> +			{ "red",   { 0x49d2, 0x611a, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-> +			{ "green", { 0xa520, 0x2f76, 0x191b }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-> +			{ "blue",  { 0x1d1a, 0xf0f0, 0x7775 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
->   		}
->   	},
->   };
-> diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
-> index dfb8e13cba87..4d5fcaeb82c5 100644
-> --- a/drivers/gpu/drm/vkms/vkms_formats.c
-> +++ b/drivers/gpu/drm/vkms/vkms_formats.c
-> @@ -788,15 +788,36 @@ static const struct conversion_matrix yuv_bt601_full = {
+> @@ -263,8 +263,130 @@ KUNIT_ARRAY_PARAM(yuv_u16_to_argb_u16, yuv_u16_to_argb_u16_cases,
+>   		  vkms_format_test_yuv_u16_to_argb_u16_case_desc
+>   );
+>   
+> +/*
+> + * struct conversion_matrix_case - Reference matrix to test the YUV to RGB
+> + * conversion matrices returned by get_conversion_matrix_to_argb_u16()
+> + *
+> + * @encoding: Encoding of the conversion matrix under test
+> + * @range: Range of the conversion matrix under test
+> + * @expected: Expected S31.32 fixed-point matrix and luma offset
+> + *
+> + * The limited-range coefficients use the studio-range scaling mandated by the
+> + * DRM UAPI and IGT's igt_ycbcr_to_rgb_matrix(): the narrow range is expanded
+> + * relative to a full-range maximum of 2^n - 1 (255 for 8-bit), i.e. luma by
+> + * 255/(235 - 16) and chroma by 255/(240 - 128). Generating them with the
+> + * common 2^n normalisation (as colour.matrix_YCbCr(is_legal=True) does) is off
+> + * by a factor of 256/255. See the DRM_COLOROP_FM_YCBCR*_LIMITED_RGB
+> + * documentation in <drm/drm_colorop.h>.
+> + */
+> +struct conversion_matrix_case {
+> +	enum drm_color_encoding encoding;
+> +	enum drm_color_range range;
+> +	struct conversion_matrix expected;
+> +};
+> +
+> +static struct conversion_matrix_case conversion_matrix_cases[] = {
+> +	{
+> +		.encoding = DRM_COLOR_YCBCR_BT601,
+> +		.range = DRM_COLOR_YCBCR_FULL_RANGE,
+> +		.expected = { .matrix = {
+> +			{ 4294967296, 0,           6021544149 },
+> +			{ 4294967296, -1478054095, -3067191994 },
+> +			{ 4294967296, 7610682049,  0 },
+> +		}, .y_offset = 0 },
+> +	},
+> +	{
+> +		.encoding = DRM_COLOR_YCBCR_BT601,
+> +		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
+> +		.expected = { .matrix = {
+> +			{ 5000989317, 0,           6854882848 },
+> +			{ 5000989317, -1682606224, -3491669458 },
+> +			{ 5000989317, 8663946082,  0 },
+> +		}, .y_offset = 16 },
+> +	},
+> +	{
+> +		.encoding = DRM_COLOR_YCBCR_BT709,
+> +		.range = DRM_COLOR_YCBCR_FULL_RANGE,
+> +		.expected = { .matrix = {
+> +			{ 4294967296, 0,          6763714498 },
+> +			{ 4294967296, -804551626, -2010578443 },
+> +			{ 4294967296, 7969741314, 0 },
+> +		}, .y_offset = 0 },
+> +	},
+> +	{
+> +		.encoding = DRM_COLOR_YCBCR_BT709,
+> +		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
+> +		.expected = { .matrix = {
+> +			{ 5000989317, 0,          7699764272 },
+> +			{ 5000989317, -915895824, -2288828138 },
+> +			{ 5000989317, 9072696586, 0 },
+> +		}, .y_offset = 16 },
+> +	},
+> +	{
+> +		.encoding = DRM_COLOR_YCBCR_BT2020,
+> +		.range = DRM_COLOR_YCBCR_FULL_RANGE,
+> +		.expected = { .matrix = {
+> +			{ 4294967296, 0,          6333358775 },
+> +			{ 4294967296, -706750298, -2453942994 },
+> +			{ 4294967296, 8080551471, 0 },
+> +		}, .y_offset = 0 },
+> +	},
+> +	{
+> +		.encoding = DRM_COLOR_YCBCR_BT2020,
+> +		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
+> +		.expected = { .matrix = {
+> +			{ 5000989317, 0,          7209850391 },
+> +			{ 5000989317, -804559491, -2793551177 },
+> +			{ 5000989317, 9198842076, 0 },
+> +		}, .y_offset = 16 },
+> +	},
+> +};
+> +
+> +/*
+> + * vkms_format_test_conversion_matrix - Verify the YUV to RGB conversion matrices
+> + *
+> + * This test checks that get_conversion_matrix_to_argb_u16() returns the exact
+> + * fixed-point coefficients expected for each encoding and range. Unlike the
+> + * round-trip test above, it is sensitive to small (sub-tolerance) scaling
+> + * errors such as using a 2^n instead of a 2^n - 1 full-range maximum for the
+> + * limited-range matrices.
+> + */
+> +static void vkms_format_test_conversion_matrix(struct kunit *test)
+> +{
+> +	const struct conversion_matrix_case *param = test->param_value;
+> +	struct conversion_matrix matrix;
+> +
+> +	get_conversion_matrix_to_argb_u16(DRM_FORMAT_NV12, param->encoding,
+> +					  param->range, false, &matrix);
+> +
+> +	for (size_t i = 0; i < 3; i++) {
+> +		for (size_t j = 0; j < 3; j++) {
+> +			KUNIT_EXPECT_EQ_MSG(test, matrix.matrix[i][j],
+> +					    param->expected.matrix[i][j],
+> +					    "matrix[%zu][%zu] mismatch for %s - %s",
+> +					    i, j,
+> +					    drm_get_color_encoding_name(param->encoding),
+> +					    drm_get_color_range_name(param->range));
+> +		}
+> +	}
+> +
+> +	KUNIT_EXPECT_EQ(test, matrix.y_offset, param->expected.y_offset);
+> +}
+> +
+> +static void vkms_format_test_conversion_matrix_case_desc(struct conversion_matrix_case *t,
+> +							 char *desc)
+> +{
+> +	snprintf(desc, KUNIT_PARAM_DESC_SIZE, "%s - %s",
+> +		 drm_get_color_encoding_name(t->encoding), drm_get_color_range_name(t->range));
+> +}
+> +
+> +KUNIT_ARRAY_PARAM(conversion_matrix, conversion_matrix_cases,
+> +		  vkms_format_test_conversion_matrix_case_desc
+> +);
+> +
+>   static struct kunit_case vkms_format_test_cases[] = {
+>   	KUNIT_CASE_PARAM(vkms_format_test_yuv_u16_to_argb_u16, yuv_u16_to_argb_u16_gen_params),
+> +	KUNIT_CASE_PARAM(vkms_format_test_conversion_matrix, conversion_matrix_gen_params),
+>   	{}
 >   };
 >   
->   /*
-> - * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.601"],
-> - *                                  is_legal = True,
-> - *                                  bits = 8) * 2**32).astype(int)
-> + * BT.601 limited-/studio-range YCbCr to full-range RGB.
-> + *
-> + * The coefficients are derived as follows:
-> + *
-> + *  1. Take the standard ITU-R YCbCr -> RGB relations for luma weights
-> + *     Kr, Kb (Kg = 1 - Kr - Kb), with Y in [0, 1] and Cb, Cr in
-> + *     [-0.5, 0.5]. For BT.601 Kr = 0.299 and Kb = 0.114:
-> + *
-> + *       R = Y                                + 2 * (1 - Kr)          * Cr
-> + *       G = Y - 2 * (1 - Kb) * Kb / Kg * Cb - 2 * (1 - Kr) * Kr / Kg * Cr
-> + *       B = Y + 2 * (1 - Kb)          * Cb
-> + *
-> + *     These are exactly the yuv_bt601_full coefficients above.
-> + *
-> + *  2. Expand the studio input range to full range, relative to a
-> + *     full-range maximum of 2^n - 1 (255 for 8-bit): the luma
-> + *     coefficient is scaled by 255/(235 - 16) and the chroma
-> + *     coefficients by 255/(240 - 16). This matches the DRM UAPI
-> + *     definition and IGT's igt_ycbcr_to_rgb_matrix(). Note this differs
-> + *     from colour.matrix_YCbCr(is_legal=True), which normalises by 2^n
-> + *     and is thus off by a factor of 256/255.
-> + *
-> + *  3. Convert each coefficient to S31.32 fixed point, i.e.
-> + *     round(coeff * 2^32).
->    */
->   static const struct conversion_matrix yuv_bt601_limited = {
->   	.matrix = {
-> -		{ 5020601039, 0,           6881764740 },
-> -		{ 5020601039, -1689204679, -3505362278 },
-> -		{ 5020601039, 8697922339,  0 },
-> +		{ 5000989317, 0,           6854882848 },
-> +		{ 5000989317, -1682606224, -3491669458 },
-> +		{ 5000989317, 8663946082,  0 },
->   	},
->   	.y_offset = 16,
->   };
-> @@ -816,15 +837,14 @@ static const struct conversion_matrix yuv_bt709_full = {
->   };
->   
->   /*
-> - * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.709"],
-> - *                                  is_legal = True,
-> - *                                  bits = 8) * 2**32).astype(int)
-> + * BT.709 limited-range YCbCr to full-range RGB (Kr = 0.2126, Kb = 0.0722).
-> + * Derived as described for yuv_bt601_limited.
->    */
->   static const struct conversion_matrix yuv_bt709_limited = {
->   	.matrix = {
-> -		{ 5020601039, 0,          7729959424 },
-> -		{ 5020601039, -919487572, -2297803934 },
-> -		{ 5020601039, 9108275786, 0 },
-> +		{ 5000989317, 0,          7699764272 },
-> +		{ 5000989317, -915895824, -2288828138 },
-> +		{ 5000989317, 9072696586, 0 },
->   	},
->   	.y_offset = 16,
->   };
-> @@ -844,15 +864,14 @@ static const struct conversion_matrix yuv_bt2020_full = {
->   };
->   
->   /*
-> - * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.2020"],
-> - *                                  is_legal = True,
-> - *                                  bits = 8) * 2**32).astype(int)
-> + * BT.2020 non-constant-luminance limited-range YCbCr to full-range RGB
-> + * (Kr = 0.2627, Kb = 0.0593). Derived as described for yuv_bt601_limited.
->    */
->   static const struct conversion_matrix yuv_bt2020_limited = {
->   	.matrix = {
-> -		{ 5020601039, 0,          7238124312 },
-> -		{ 5020601039, -807714626, -2804506279 },
-> -		{ 5020601039, 9234915964, 0 },
-> +		{ 5000989317, 0,          7209850391 },
-> +		{ 5000989317, -804559491, -2793551177 },
-> +		{ 5000989317, 9198842076, 0 },
->   	},
->   	.y_offset = 16,
->   };
 
 -- 
 Robert Mader
