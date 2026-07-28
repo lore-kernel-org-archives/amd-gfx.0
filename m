@@ -4,43 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A28B0C54F52
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 13:16:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5FEAC54F51
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 13:16:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3056910EC2E;
-	Wed, 29 Jul 2026 13:16:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D73E10EC36;
+	Wed, 29 Jul 2026 13:16:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="r6+5siZr";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rsyKqCtK";
 	dkim-atps=neutral
-Received: from out-180.mta0.migadu.com (out-180.mta0.migadu.com
- [91.218.175.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 22CDF10EAAC
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 06:42:29 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1785306886;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=71o7pgYmf0sE5JSVHPewVuh8Wj9lSn+Qrfh4RCsQpnU=;
- b=r6+5siZrco9mh5LYKP6lyHhjH1mEOZbW+B2Eom2MWU59Bz4HgSxwmf4SqZBSJPliZZZNvT
- aRpAobb5XsvhsBvNvmRVQ3pJuTYinEJw5/s19ydnfgTOfr2tvwVc05sH5NQyydwhtAO/WN
- c9WE+ivsr9LvpY4KQTWArxR1L4FqhH4=
-From: Matthew Schwartz <matthew.schwartz@linux.dev>
-To: stable@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
- mario.limonciello@amd.com, Harry Wentland <harry.wentland@amd.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>
-Subject: [PATCH 6.12.y/6.18.y/7.1.y] drm/amd/display: Fix DTB DTO updates
- breaking live pixel rate sources
-Date: Tue, 28 Jul 2026 23:33:40 -0700
-Message-ID: <20260729063340.9287-1-matthew.schwartz@linux.dev>
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
+ [209.85.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DEA810E5C1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 23:47:26 +0000 (UTC)
+Received: by mail-wm1-f54.google.com with SMTP id
+ 5b1f17b1804b1-494049206c6so256885e9.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 16:47:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785282445; x=1785887245; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=I0sepYElNWpFKOjgjeV3qn5PVGIr7EC4aWTxpcIRLkc=;
+ b=rsyKqCtKuutrmZAHJsHlg5XnCVqH75FvECxefavw5vtOyKQj7AVFCPxR7kMNB/WSeS
+ Po5WzAy59ckUf/BpEnnK9eYOwVfrgLrD9DWckSwO4HGK2KHeV2QvT708maDSKQgkgNon
+ 8bRMN3cT2orIUMkJRAPoLc59WKsYgUUlSVMlGeFDn4lkoQ/prjcFubnwYocjn/ouhMMz
+ d1y+7TcYjvbuxnj3Xr0qd9jof0LG3XSRNm2b8yiZQZjRfDHh9OD/8jyo5ecZlp6hul1b
+ NMpUwmRmnzYZttfwVhP3InFVcLab+85wtIWxUykFJdTFhn86cqW0DayyId4A1M7DEgwR
+ Wnsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785282445; x=1785887245;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=I0sepYElNWpFKOjgjeV3qn5PVGIr7EC4aWTxpcIRLkc=;
+ b=N9HgZrtckWMHiZ6Ah1aVPj1bN5EmgAPe4V4LHnuWnmxF0fjyZLpC7irzCpF8Ge3KDY
+ R8dKRHAT8vhDK/aQvDj+lDxw/ru7JFRNFLDmr07ho2HHmBaygUJ9TfTh0dVdEzyX0FiH
+ fjf5x4miQuiegYIza9gcmrehxyImnLaUOYAhXntEmLxgBsIjUdDONVTgLoBMyvKsvDyX
+ /1OUjy/6u5p6r48mZqVdD95WrjFDTFnvVLDdACN1B11GbXqNQmoAb/HkwL2iIV9zG63o
+ zEtf7uzEFt4A1nQz/CXq2AirBN9tka5ZDAcZSB8PZ06AOMcMsYPxJpk+h7SYJBTeot9l
+ DWbQ==
+X-Gm-Message-State: AOJu0Yw/ADz8oPW/YJm/GPtpQ4/BzzFtay0v21WLMGubU7hA3R0ZfUbp
+ 6M2qPLjQWEuR60GiPsXo8QR0qE1TG8mWnVVVXMhIFY/xRvPH/XOUljKsG80YFaYAc84=
+X-Gm-Gg: AR+sD10/zJLb8CfTtD936ktPGho145Q0tdzN0MAjA276rc3jxfb7Z0zIx6NbazMlmwz
+ XDAy0r2DV21BV2VvzZ1XCpY+KrEhZ2AJINfiJ+z5Ipb3Y2Av501v/16d5iLO4CZSoh/oSDLOjEV
+ BiLar5LJZC+nx41c6NwpyDYtBZCJFBewrWGC3xabq9rI3kTxkLgctYeRGMFVM5ndJZ07TL8QocM
+ rVo1KkxTlHwSdfTmd1J37//0ed/upypI8j4yMC6/1TRMUEJSDfOdrm5X9yzHuHgtJKfpOnny1+I
+ h599E3jIbJpwcnFaO7kRhsVcuMDGqPwF5W/fLdu4Vr5Z0/H5sSLwKINmgdRNhcgbzZ45WxmlFpM
+ P9CNoR21X8U7y4LvTWy/u6o4a8i/aC2SghRkiVZ6t02ehRl39dc2FshWj0fYsJ9VRKk4NOqskZJ
+ RfaYhtrHbbbSFb3jvqx5Lz6+Qn+syB8W/j31bES5A994KsWiTLiRhY286JexzJFZnRqgRxO1Y=
+X-Received: by 2002:a05:600c:1d19:b0:495:4505:dad0 with SMTP id
+ 5b1f17b1804b1-496c641546bmr34409585e9.2.1785282444813; 
+ Tue, 28 Jul 2026 16:47:24 -0700 (PDT)
+Received: from zephyrus-teodor ([92.84.22.76])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-496c45b1c76sm108157275e9.6.2026.07.28.16.47.23
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 28 Jul 2026 16:47:24 -0700 (PDT)
+From: Teodor Bostan <teobsn@gmail.com>
+To: amd-gfx@lists.freedesktop.org, kenneth.feng@amd.com,
+ alexander.deucher@amd.com
+Cc: christian.koenig@amd.com, mario.limonciello@amd.com,
+ dri-devel@lists.freedesktop.org, Teodor Bostan <teobsn@gmail.com>
+Subject: [PATCH] drm/amd/pm: Add PPTable power limit quirk for ASUS G14 GA402R
+Date: Wed, 29 Jul 2026 02:46:26 +0300
+Message-ID: <20260728234626.86008-1-teobsn@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Wed, 29 Jul 2026 13:16:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -56,103 +85,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Harry Wentland <harry.wentland@amd.com>
+ASUS ROG Zephyrus G14 (2022) GA402RJ and GA402RK laptops use custom AC
+power limits of 100W (RX 6700S) and 105W (RX 6800S). On resume from
+suspend, the SMU firmware resets to the reference vBIOS default of 80W,
+hard-capping GPU performance.
 
-commit 76a2db58e95e328007043f54ac3c7336ccbee440 upstream.
+Override SocketPowerLimitAc in sienna_cichlid_patch_pptable_quirk for
+these subsystem IDs so the driver restores the platform's intended AC
+power limit when reloading PPTable during boot and resume.
 
-dcn32_update_clocks_update_dtb_dto() and its dcn35 counterpart reprogram
-the DTB DTO of every timing generator in the context whenever the DTBCLK
-reference changes, passing a zeroed pixel rate and never setting
-is_hdmi. Both dccg set_dtbclk_dto() implementations treat a zero pixel
-rate as a disable request. On dcn32 that branch drives PIPE_DTO_SRC_SEL
-to the DP DTO source, so a timing generator actively scanning out an
-HDMI stream has its pixel rate source re-muxed out from under the live
-raster and the OTG stops on the spot. On dcn35 it clears
-DTBCLK_DTO_ENABLE and restores DTBCLK_Pn clock gating, which does the
-same to a live 128b/132b stream.
-
-Two displays where only one runs a 128b/132b link hit this reliably.
-is_dtbclk_required() holds the DTBCLK reference high while both are
-active, and the moment the 128b/132b stream is torn down (compositor
-switch, display disable, hot-unplug) the next safe_to_lower pass drops
-the reference to the lowest DPM level and the DTO walk freezes the
-surviving screen. On Navi31 the DAL mailbox then goes deaf on the
-DISPCLK hard-min that follows the walk in dcn32_update_clocks(),
-stranding both SMU mailboxes until reboot.
-
-Set is_hdmi for HDMI and DVI signals so the disable path leaves the
-pixel rate source selection on the HDMI path, and pass the real pixel
-rate for 128b/132b streams so a reference change rescales their DTO
-instead of disabling it.
-
-Fixes: 128c1ca0303f ("drm/amd/display: Update DTBCLK for DCN32")
-Fixes: 8774029f76b9 ("drm/amd/display: Add DCN35 CLK_MGR")
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-Reviewed-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-[ mschwartz: dcn32 and dcn35 clk_mgr hunks only. The rest is HDMI FRL
-  enablement, absent before 7.2, so the FRL conditions and the
-  req_audio_dtbclk_khz assignment they guard are dropped and the
-  FRL-centric changelog is rewritten. Added the pipe_ctx->stream check
-  the new dereferences need. ]
-Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+Signed-off-by: Teodor Bostan <teobsn@gmail.com>
 ---
-6.6.y needs the dcn32 hunk alone and is sent alongside this one. Tested
-on Navi31 with a DisplayPort UHBR monitor and an HDMI TV.
+ .../gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-index 084994c650c4..285689d7ecc4 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-@@ -276,13 +276,20 @@ static void dcn32_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr,
- 		struct dtbclk_dto_params dto_params = {0};
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+index cef628752..10d330edb 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
+@@ -479,6 +479,7 @@ static int sienna_cichlid_patch_pptable_quirk(struct smu_context *smu)
+ 	struct amdgpu_device *adev = smu->adev;
+ 	uint32_t *board_reserved;
+ 	uint16_t *freq_table_gfx;
++	uint16_t *power_limit;
+ 	uint32_t i;
  
- 		/* use mask to program DTO once per tg */
--		if (pipe_ctx->stream_res.tg &&
-+		if (pipe_ctx->stream && pipe_ctx->stream_res.tg &&
- 				!(tg_mask & (1 << pipe_ctx->stream_res.tg->inst))) {
- 			tg_mask |= (1 << pipe_ctx->stream_res.tg->inst);
- 
- 			dto_params.otg_inst = pipe_ctx->stream_res.tg->inst;
- 			dto_params.ref_dtbclk_khz = ref_dtbclk_khz;
- 
-+			if (dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(pipe_ctx))
-+				dto_params.pixclk_khz = pipe_ctx->stream->timing.pix_clk_100hz / 10;
-+
-+			if (dc_is_hdmi_signal(pipe_ctx->stream->signal) ||
-+					dc_is_dvi_signal(pipe_ctx->stream->signal))
-+				dto_params.is_hdmi = true;
-+
- 			dccg->funcs->set_dtbclk_dto(clk_mgr->dccg, &dto_params);
- 			//dccg->funcs->set_audio_dtbclk_dto(clk_mgr->dccg, &dto_params);
+ 	/* Fix some OEM SKU specific stability issues */
+@@ -501,6 +502,18 @@ static int sienna_cichlid_patch_pptable_quirk(struct smu_context *smu)
  		}
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-index bb1ac12a2b09..d154383a3961 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-@@ -264,13 +264,20 @@ static void dcn35_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr,
- 		struct dtbclk_dto_params dto_params = {0};
+ 	}
  
- 		/* use mask to program DTO once per tg */
--		if (pipe_ctx->stream_res.tg &&
-+		if (pipe_ctx->stream && pipe_ctx->stream_res.tg &&
- 				!(tg_mask & (1 << pipe_ctx->stream_res.tg->inst))) {
- 			tg_mask |= (1 << pipe_ctx->stream_res.tg->inst);
- 
- 			dto_params.otg_inst = pipe_ctx->stream_res.tg->inst;
- 			dto_params.ref_dtbclk_khz = ref_dtbclk_khz;
- 
-+			if (dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(pipe_ctx))
-+				dto_params.pixclk_khz = pipe_ctx->stream->timing.pix_clk_100hz / 10;
++	/* Fix some OEM SKU specific power limit issues */
++	if ((adev->pdev->device == 0x73EF) &&
++	    (adev->pdev->subsystem_vendor == 0x1043)) {
++		if (adev->pdev->subsystem_device == 0x1DEC) {
++			GET_PPTABLE_MEMBER(SocketPowerLimitAc, &power_limit);
++			power_limit[PPT_THROTTLER_PPT0] = 100;
++		} else if (adev->pdev->subsystem_device == 0x1DCC) {
++			GET_PPTABLE_MEMBER(SocketPowerLimitAc, &power_limit);
++			power_limit[PPT_THROTTLER_PPT0] = 105;
++		}
++	}
 +
-+			if (dc_is_hdmi_signal(pipe_ctx->stream->signal) ||
-+					dc_is_dvi_signal(pipe_ctx->stream->signal))
-+				dto_params.is_hdmi = true;
-+
- 			dccg->funcs->set_dtbclk_dto(clk_mgr->dccg, &dto_params);
- 			//dccg->funcs->set_audio_dtbclk_dto(clk_mgr->dccg, &dto_params);
- 		}
+ 	return 0;
+ }
+ 
 -- 
-2.50.1
+2.55.0
 
