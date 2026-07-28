@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3341BC53219
-	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 17:06:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABA79C53219
+	for <amd-gfx@archiver.kernel.org>; Tue, 28 Jul 2026 18:16:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BED8410E967;
-	Tue, 28 Jul 2026 17:06:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E2CA10E366;
+	Tue, 28 Jul 2026 18:16:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="q3ud8b8p";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BDf2dGX8";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011006.outbound.protection.outlook.com [52.101.57.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 195D910E967
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 17:06:20 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010064.outbound.protection.outlook.com [52.101.201.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 583CA10E9AD
+ for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 18:16:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tRGHB0JCR9p4mMJp3m7OGLOnJo54wpQCgtS05mCo9DxY5yQYwgMxhWcAaK2KNNtlp0Iwzs2pG6rb6yuKnhZ11vIsmN/2Y7gksc7/LCt8fq/0/zqMrBdoIJikYeBRq9zxoW75xiUEjDQxK/V7kOyyf6Z+7O2DPYApApLjUbA5jFc6FOqZHXqg7LWpG8orJjVqDKJlidsUAVlHuNExZiFKAjp25J/JpWmCSjVPQdS4omED4y268gJrgAWZeT9W0v57vDqPv8KBsGQH2EIJug4mum2nOhE99Kx849ZNaKEuLf9X4nXWyhjAVWUjxA//9IBJhAc3rDZ8u7E2q4fkFSkVGA==
+ b=c54uoxW1SHimcF5n6FfnwacAPx6svlM4EUZryJrB8PW2/ubePKYhvas/y9d8ud3OPHitdoX282780CWOK/krGUsxKQrvyXyGIOt/KIFif1ZgUQPu8NaKVm8jP01nLeGnSOayuF76BLPeEvFwfcM8lGkq61Lz8HSASWP5OYG4HREkItY6Q9pZ7lekNUtSMySXE6R20zXyf85f0idkE7p/8AKkVG28AXGH3m8Ge1JiqJ7zUrmqOVNAqG4iCc2CB0anlIQa34mELZMnV6oyLgK5FcTEzoWRvg0t8pVFWRAqyen1MytDtrODoMCp46YamCTloznWvwuI4qTJ6s880KsodA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xaW5T01rISEAYxwrFfv4X4ENhGnLbHAUTdmfgTfyS1I=;
- b=QPThfn0LX4WAKNmGHyX1oUQS/hY3Gapq1dMxAEBVyi0VRa/IqNKbh7/fiZMMWZFBQ/JR0QbS5OjMlFU7kPWRC5H26tbGr7Q/GVjtgiumR+BqXGhqvesMBfXqow3pwdU96qW2wzrQjcG1+Vh/Ykq/1rdkzdoPPNlbQUq1Vc+Xs3e67N68V/ADZ7UrbTCL45NHZHBjsqjffJnje6Bn2wGkodc2bkx+t36qMHwpesujnK/Gse9xJCyxDwF0tpofjAw/k1IWf6XB1bdbEx3r6ln2Jr0prBMEBPaKZ53cFJtGRFZKwtsy6aK1SK+LmKnjbtbtu+sxeL4WIypJuOQrq9u/Sg==
+ bh=ut/ORMjYNNOTid15NHbf4FyIneFlbVpQ+QbaEF0V5Ko=;
+ b=GRUgAePjiPzmGSe5pBDLr2QeARcGdSKtoWydrdaMOC60wj7sz+vibniguzyQXJs+MjTzPv2yeykTRPIKvDkttd55AASUyE4Fzj+B1TUpTI4x6WjwsYCYQ4Jm+1ehE4QJK4eVClFyQZ08z9NL/xGgs3nlq4PiJTs9iSsc9WtHGHObEJ46R3TU98Bw6sIvhSg2mC/Enc0Jb57BenoZtxmeupXB+rQli+mw4l/ZklodhBtzOkAWCnHB3gzAG4t7c+YE4NuAOzuAv+LgGismGS1lXh7arO1E8EiQWRO3MJRdhYt0wTl6W50jj+kICUk3od3R5W5Cfcqa8/7A2C0JdEXfxA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xaW5T01rISEAYxwrFfv4X4ENhGnLbHAUTdmfgTfyS1I=;
- b=q3ud8b8pNsXyzwr9zm5052iigLx9B3B4owQnsscM1hWkP4e4uNocVIQpFHwWsjhmFYWXi7Dxc/3e+U64BujyLKTA1uTUpzASW2TCiTBIYr9yEGlSzfGX4flxiGVCh0wybTSPq/qPPHoKHvyBN3oB3pninvF7tsoLxyfXvnhKoPA=
-Received: from CH2PR12CA0008.namprd12.prod.outlook.com (2603:10b6:610:57::18)
- by LV2PR12MB5894.namprd12.prod.outlook.com (2603:10b6:408:174::14)
+ bh=ut/ORMjYNNOTid15NHbf4FyIneFlbVpQ+QbaEF0V5Ko=;
+ b=BDf2dGX8uhlMoTSmBnbgadikG6xbu7gN5PS2je7XDWiLu8clr17YYIiBkvVd5/xitdQLqK94w9biv/k/ysP5OJwwzzKNIIryh7oi/HQzy/iGDiFHkSTIWarF8z2yIc/oms4o6AScRN3drnkFHv3p16gug3zmVvxt7Sl9MZJLatU=
+Received: from CH0P221CA0020.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11c::21)
+ by MW6PR12MB8898.namprd12.prod.outlook.com (2603:10b6:303:246::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Tue, 28 Jul
- 2026 17:06:17 +0000
-Received: from CH1PEPF0000AD7F.namprd04.prod.outlook.com
- (2603:10b6:610:57:cafe::53) by CH2PR12CA0008.outlook.office365.com
- (2603:10b6:610:57::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12 via Frontend
- Transport; Tue, 28 Jul 2026 17:06:17 +0000
+ 2026 18:16:23 +0000
+Received: from DS3PEPF000099DE.namprd04.prod.outlook.com
+ (2603:10b6:610:11c:cafe::42) by CH0P221CA0020.outlook.office365.com
+ (2603:10b6:610:11c::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.12 via Frontend Transport; Tue,
+ 28 Jul 2026 18:16:23 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,57 +48,52 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000AD7F.mail.protection.outlook.com (10.167.244.88) with Microsoft
+ DS3PEPF000099DE.mail.protection.outlook.com (10.167.17.200) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Tue, 28 Jul 2026 17:06:16 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 28 Jul
- 2026 12:06:16 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 28 Jul
- 2026 12:06:16 -0500
-Received: from flamewok (10.180.168.240) by satlexmb07.amd.com (10.181.42.216)
- with Microsoft SMTP Server id 15.2.2562.41 via Frontend Transport;
- Tue, 28 Jul 2026 12:06:15 -0500
-From: <sunpeng.li@amd.com>
+ 15.21.270.5 via Frontend Transport; Tue, 28 Jul 2026 18:16:22 +0000
+Received: from amartin-dev-ubuntu.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.41; Tue, 28 Jul 2026 13:16:22 -0500
+From: Andrew Martin <andrew.martin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: <Harry.Wentland@amd.com>, <mario.limonciello@amd.com>,
- <alexander.deucher@amd.com>, Leo Li <sunpeng.li@amd.com>,
- <stable@vger.kernel.org>
-Subject: [PATCH] drm/amd/display: Exit idle optimizations before programming
-Date: Tue, 28 Jul 2026 13:02:47 -0400
-Message-ID: <20260728170550.40908-1-sunpeng.li@amd.com>
-X-Mailer: git-send-email 2.54.0
+CC: <alexander.deucher@amd.com>, Andrew Martin <andmarti@amd.com>
+Subject: [PATCH] drm/amdkfd: zero SDMA mid-command save state before restoring
+ user queues
+Date: Tue, 28 Jul 2026 14:16:08 -0400
+Message-ID: <20260728181608.10541-1-andrew.martin@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7F:EE_|LV2PR12MB5894:EE_
-X-MS-Office365-Filtering-Correlation-Id: de0ab328-157e-4bd5-9fb0-08deecca8975
+X-MS-TrafficTypeDiagnostic: DS3PEPF000099DE:EE_|MW6PR12MB8898:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7010e587-f3a8-4735-d9b8-08deecd4547a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700016|23010399003|11063799006|56012099006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: m19teAwrK9JoYO00WDbe8j+Ki+PfVflqGWYhdBS/DOWDe/NEX4lcLWWAvGhTz+U52F9eT+GUDeYG2OH386uKH4CBYwXVCoLkSxlKQZxZDoFwbhc0op1t1HIHPd2rj1boNdoplggqiO1KcHrMw+w3OJcwt5xLAmPwUhv9GagMET5LWJr2xqJ2qBeo8uJh4+GrGLMJfYrAaxcSaaHiUcWoYOAVbB4ook88S8HhVmb+BEtYd6rwEuemZ+hom27uG/6TdVIZMMXuDzDB4fdTmIJvsJReY8OgtZ9uWIjmDng3vPtjwZz2tyJbZjq/spdCrOVz9koPVknpH5dUYVuDzXrYXY2VA3XslRy3BWaxka6ffIsvbdAr+erG/F/tyaCGJjA7/udoZSZgZovLi8vgwz8rcZDNFHTgmFbaqld3yEGltq6FsciiLqFXr3a8yxy+kAxWAzHybOIt9t/iA6oCL1PQXZUzr+CrpiVZvFLqH4YWAeuDYBFIxuXrqoUwwjJkcA6BVWjKZeVpkv9OkcED759LgmTqwbsXtN4HNKdd89oruwUk9Fvv6Y5wJrIubc4cY62afzqaosS5ZmyhJ694M04e/xk1+OnkGTOrJyFT069xE7bYj/idthe2e9+9X8pijTpJQTJXtLl7r2UqGhinD4O5Gw==
+ ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|6133799003|18002099003|11063799006|10067099003|56012099006|3023799007;
+X-Microsoft-Antispam-Message-Info: imT9k4ezn7PqhfodreycskH4WTA9XCmrL8q6Cp1D0cHO1PEKUsAH4sexZp9yUChQrkjMUfNCMG3Mla2vDGG71L+sQkwsXkJWGJfzlN8GUXZInZiWYM4pyIQ/RSJQPL0VCrf+giJRPjLeG3k/SiTL2+yXLRvynfECV+6wcH04IhwU8rG4GJfR0ebHdsQdPZrkHbe/301QC7C0dKDIARTLG/i4iuS1FZA4EVOoycpB4oJO1PEa7XZf/gIYN8CW7OTJz0d9mjyc2FMSJHab24N9iyIaQ6C4ZiWXTjDug+EEkASkeDGgXVAWBcayso7ufRIP55zxsNAAsg+OnIHDl3DL2faewYe380T+tIvPcDisngLVTf4V5UzHpw1j18n4fgvdSKbkbeoF8dcGpbzDbHE6dSNVzotbFauaOwE46kWbZybB8XVrpJsURfxmPagbkrLcnK4JWHtAvixXozJY03fqu3FpX1lOoydhda5QYKCNJvbbLSNoB7BDOGTon+7w6bRUapXiwR3/qAdsmK5P3HNj5MZwCnnMwC0tO9KvvISk+W/1Scid/Pg4HQ2TixvKij2G7ebOxhBdGQA/4QODtINsN9HF7UUfZbpObGRWqjWtrkPBGkV6Gvim3DFctbhr8pK76JgPA0KxVwUFwGioT/gq/oyUMq96zuubngL+pY7Yp7d9bkCCoFimI6pNb48mhWv0Fh36CNiHgwTUAXYnFHNQyw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(23010399003)(11063799006)(56012099006)(10067099003)(18002099003);
+ SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(6133799003)(18002099003)(11063799006)(10067099003)(56012099006)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: nl9+L7R5onSYswlS5wp1twz7ms9Ri6ONCSpMkG+0drB6k93eukNhRGdLaxAkMkIY3OiGdKReFh2nRsla8qkbsA30Iv3eRWnYcgod1X/zDLYfhCL1GFaYsAdURhhitwwYsY4g2zl5xgWmc8IW5xFvjlvqhYiGSnkXmIzyMsxwmdiXXM0glrhkNpp5+a4/wKIVENK785Aui/kgBGo/7w0EFJj4i0BpdJy9IBzA7oDWJCnDXx3My70HVmxKqAsFyndXRc55eNjU3TeDnySK5/fw0ujUureOdIA62KcVc4VJODOQ1Xu79ee1gvapcTbFwjOhv3udzjxCq+uJXNfrFIjZUF1fC52Jk3pvUTzVy54FAXXQZFxbHFf8S808MwkwwujT8dcXZBsGxyjyvO/kKBjnx0pE4ZSKR9wnSnK/PZ6spG2Z5HqyvGDqjll+ME6Axdro
+X-MS-Exchange-AntiSpam-MessageData-0: AYTN/11Eyb/pCbt9jFa5rPNf0w1qa1gTdH2Ov/ZdgA7EQ7p+X1K/r659mUYVDH/23jottdLAXNtaNTp71UrSkTFYF+MewvUNWFx52WA86OtDKyOJyjSDpLFLLDOw3rwuAB4cMjRYxWXwe3Cq7aTYkkjSGjuj11sJwbuSAzK3nMmps5DT7bPdQ5KkOLBvsGGFQjpUNbn22aazbnmiqeBVG17XBKUn+7pCf6fHl4Mg1Nyx5YicND5NFLTSVm6DDGcZ1cXgRKw2sa6TW17kbLY2n/UpH7DCWv1aEqmQyQC3mzG8maSxnbCMOut1Ei8XInLVARNCpVhwKugjjeE3DJWudU4Vv0NsjNop7AmdznODHyrlfuWwGd44AYrx7d4LsOQlD1XDf/BZfw3MCiFbL+Abu8Qn6uN2ykUwIF1zsGaQmGYmXTCXkN2wrvUK8WI6grwM
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 17:06:16.6388 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: de0ab328-157e-4bd5-9fb0-08deecca8975
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 18:16:22.6959 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7010e587-f3a8-4735-d9b8-08deecd4547a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DS3PEPF000099DE.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5894
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8898
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,161 +108,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Leo Li <sunpeng.li@amd.com>
+From: Andrew Martin <andmarti@amd.com>
 
-[Why]
+Applies to gfx10 (RDNA2) and gfx11 (RDNA3).
 
-We need to exit PSR/IPS before programming. Before calling DC for
-programming in amdgpu_dm_commit_planes(), there's a
-vblank_control_workqueue flush. This waits for IPS and PSR exit. (See
-drm_vblank_on/off() > amdgpu_dm_crtc_set_vblank() --queue_work()->
-amdgpu_dm_crtc_vblank_control_worker())
+The SDMA firmware's saved mid-command state for a preempted COPY_LINEAR
+(sdmax_rlcx_midcmd_data0 = source byte offset) has been observed to
+overshoot the packet's byte count on gfx10.3 (Navi21, XNACK off) after
+rapid quiesce/resume cycles driven by userptr/SVM eviction. On
+MAP_QUEUES the engine resumes the copy at src+offset past the buffer:
+an unmapped VA turns into a UTCL2 'Page not present' fault, a mapped
+one into silent data corruption.
 
-Prior to the tagged "Fixes:" change, drm_vblank_get() was called before
-the workqueue flush. This ordering ensures that PSR exit occurred before
-programming. After the "Fixes:" change, drm_vblank_get() is called after
-the workqueue flush, leading to programming while idle optimizations are
-still active. This can lead to incorrect flip_pending detection used by
-vblank event delivery.
+The silent corruption variant produces no dmesg output and is only
+detectable through application-level data integrity checks (checksums,
+validation). This makes diagnosis extremely difficult as there is no
+kernel-level indication of the failure.
 
-[How]
+Zero the mid-command save area before remapping so the pending packet
+re-executes from its packet boundary (idempotent for COPY/GCR/FENCE).
+Workaround for field crashes of ROCm workloads on RDNA2/RDNA3.
 
-Split the vblank_get() component of `dm_arm_vblank_event()` into
-`dm_arm_vblank_event_pre_programming()`, which is called before
-programming. Call it before the vblank_control_workqueue flush.
-
-Includes a drive-by cleanup of prepare_flip_isr(): the only caller is
-dm_arm_vblank_event() and it's simple enough to roll-in.
-
-Signed-off-by: Leo Li <sunpeng.li@amd.com>
-Fixes: 48ab86360af1 ("drm/amd/display: check GRPH_FLIP status before sending event")
-Cc: stable@vger.kernel.org
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/4141#note_3583205
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5527
-Assisted-by: Codex:gpt-5.6-sol
-Assisted-by: Claude:opus-5
+Signed-off-by: Andrew Martin <andmarti@amd.com>
+Assisted-by: Claude:Sonnet 4-5
 ---
-Rebased patch for applying on 7.2-rc5:
-https://gitlab.freedesktop.org/leoli/linux-asdn/-/commit/f05db644126540f1d237f846cc0512088551eb73
+ .../drm/amd/amdkfd/kfd_device_queue_manager.c | 37 ++++++++++++++++++-
+ 1 file changed, 36 insertions(+), 1 deletion(-)
 
-Thanks,
-Leo
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 79 +++++++++++--------
- 1 file changed, 47 insertions(+), 32 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index df6b59fb8d0d4..784587697bac8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3576,25 +3576,6 @@ static void remove_stream(struct amdgpu_device *adev,
- 	acrtc->enabled = false;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 51ee9c39104b..1507d371f741 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -40,6 +40,8 @@
+ #include "amdgpu_ring.h"
+ #include "amdgpu_mes.h"
+ #include "kfd_debug.h"
++#include "v10_structs.h"
++#include "v11_structs.h"
+ 
+ /* Size of the per-pipe EOP queue */
+ #define CIK_HPD_EOP_BYTES_LOG2 11
+@@ -1447,6 +1449,37 @@ static int restore_process_queues_nocpsch(struct device_queue_manager *dqm,
+ 	return ret;
  }
  
--static void prepare_flip_isr(struct amdgpu_crtc *acrtc)
--{
--
--	assert_spin_locked(&acrtc->base.dev->event_lock);
--	WARN_ON(acrtc->event);
--
--	acrtc->event = acrtc->base.state->event;
--
--	/* Set the flip status */
--	acrtc->pflip_status = AMDGPU_FLIP_SUBMITTED;
--
--	/* Mark this event as consumed */
--	acrtc->base.state->event = NULL;
--
--	drm_dbg_state(acrtc->base.dev,
--		      "crtc:%d, pflip_stat:AMDGPU_FLIP_SUBMITTED\n",
--		      acrtc->crtc_id);
--}
--
- static void amdgpu_dm_commit_cursors(struct drm_atomic_commit *state)
- {
- 	struct drm_plane *plane;
-@@ -3740,17 +3721,48 @@ static void dm_arm_vblank_event(struct amdgpu_crtc *acrtc,
- 		return;
- 
- 	if (pflip_update) {
--		drm_crtc_vblank_get(&acrtc->base);
- 		WARN_ON(acrtc->pflip_status != AMDGPU_FLIP_NONE);
--		/* Arm flip completion handling and event delivery after programming. */
--		prepare_flip_isr(acrtc);
-+		WARN_ON(acrtc->event);
-+
-+		acrtc->pflip_status = AMDGPU_FLIP_SUBMITTED;
-+		acrtc->event = acrtc->base.state->event;
-+		acrtc->base.state->event = NULL;
-+
-+		drm_dbg_state(acrtc->base.dev,
-+			      "crtc:%d, pflip_stat:AMDGPU_FLIP_SUBMITTED\n",
-+			      acrtc->crtc_id);
- 	} else if (cursor_update) {
--		drm_crtc_vblank_get(&acrtc->base);
- 		acrtc->event = acrtc->base.state->event;
- 		acrtc->base.state->event = NULL;
- 	}
- }
- 
-+/**
-+ * dm_arm_vblank_event_pre_programming - Prepare for programming
-+ * @acrtc: The amdgpu CRTC to prepare
-+ * @acrtc_state: The new CRTC state
-+ * @pflip_update: Whether a page flip is being programmed
-+ * @cursor_update: Whether a cursor update is being programmed
-+ *
-+ * Grab a reference on the vblank counter if a page flip or cursor update is to
-+ * be programmed. Do this before programming so the HW is not in any
-+ * idle-optimized state (such as PSR).
++/*
++ * Zero SDMA mid-command state before MAP_QUEUES. Firmware bug: preempted
++ * COPY_LINEAR can resume at corrupted offset past buffer (silent corruption
++ * or VM fault). Re-executing from packet start is idempotent and safe.
 + */
-+static void dm_arm_vblank_event_pre_programming(
-+	struct amdgpu_crtc *acrtc,
-+	struct dm_crtc_state *acrtc_state,
-+	bool pflip_update,
-+	bool cursor_update)
++static void clamp_sdma_midcmd_state(struct device_queue_manager *dqm,
++				    struct qcm_process_device *qpd)
 +{
-+	assert_spin_locked(&acrtc->base.dev->event_lock);
++	struct queue *q;
++	uint32_t gc_ver = KFD_GC_VERSION(dqm->dev);
 +
-+	if (!acrtc->base.state->event || acrtc_state->active_planes == 0)
++	if (gc_ver < IP_VERSION(10, 1, 1) || gc_ver >= IP_VERSION(12, 0, 0))
 +		return;
 +
-+	if (pflip_update || cursor_update)
-+		drm_crtc_vblank_get(&acrtc->base);
++	list_for_each_entry(q, &qpd->queues_list, list) {
++		if ((q->properties.type != KFD_QUEUE_TYPE_SDMA &&
++		     q->properties.type != KFD_QUEUE_TYPE_SDMA_XGMI) || !q->mqd)
++			continue;
++
++		if (gc_ver < IP_VERSION(11, 0, 0)) {
++			struct v10_sdma_mqd *m = q->mqd;
++
++			memset(&m->sdmax_rlcx_midcmd_data0, 0, 10 * sizeof(uint32_t));
++		} else {
++			struct v11_sdma_mqd *m = q->mqd;
++
++			memset(&m->sdmax_rlcx_midcmd_data0, 0, 12 * sizeof(uint32_t));
++		}
++	}
 +}
 +
- static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 				    struct drm_device *dev,
- 				    struct amdgpu_display_manager *dm,
-@@ -4013,16 +4025,19 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
+ 					struct qcm_process_device *qpd)
+ {
+@@ -1498,9 +1531,11 @@ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
+ 			}
  		}
  	}
- 
--	/*
--	 * DCE depends on a combination of GRPH_FLIP, VLINE0, and VUPDATE for
--	 * event delivery. Only GRPH_FLIP handler can send pflip events, and it
--	 * only fires if HW latched to the flip. Maintain legacy behavior by
--	 * arming event before programming.
--	 */
--	if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) == 0) {
--		scoped_guard(spinlock_irqsave, &pcrtc->dev->event_lock) {
-+	scoped_guard(spinlock_irqsave, &pcrtc->dev->event_lock) {
-+		dm_arm_vblank_event_pre_programming(acrtc_attach, acrtc_state,
-+						    pflip_present,
-+						    cursor_update);
-+		/*
-+		 * DCE depends on a combination of GRPH_FLIP, VLINE0, and
-+		 * VUPDATE for event delivery. Only GRPH_FLIP handler can send
-+		 * pflip events, and it only fires if HW latched to the flip.
-+		 * Maintain legacy behavior by arming event before programming.
-+		 */
-+		if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) == 0) {
- 			dm_arm_vblank_event(acrtc_attach, acrtc_state,
--					pflip_present, cursor_update);
-+					    pflip_present, cursor_update);
- 		}
- 	}
- 
+-	if (!dqm->dev->kfd->shared_resources.enable_mes)
++	if (!dqm->dev->kfd->shared_resources.enable_mes) {
++		clamp_sdma_midcmd_state(dqm, qpd);
+ 		retval = execute_queues_cpsch(dqm,
+ 					      KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0, USE_DEFAULT_GRACE_PERIOD);
++	}
+ 	eviction_duration = get_jiffies_64() - pdd->last_evict_timestamp;
+ 	atomic64_add(eviction_duration, &pdd->evict_duration_counter);
+ vm_not_acquired:
 -- 
-2.54.0
+2.43.0
 
