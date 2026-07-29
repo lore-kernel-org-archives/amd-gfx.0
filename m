@@ -4,91 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AD4EC53200
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 13:54:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1BFEC53200
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 14:02:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF01A10EC44;
-	Wed, 29 Jul 2026 13:54:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EFFC10EC45;
+	Wed, 29 Jul 2026 14:02:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A086UZCN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JEUhCpqg";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3219A10EC44
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 13:54:55 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-381f03d7be0so64798a91.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 06:54:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785333295; cv=none;
+Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
+ [209.85.167.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24F5710EC45
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 14:01:59 +0000 (UTC)
+Received: by mail-oi1-f172.google.com with SMTP id
+ 5614622812f47-4a453848173so31024b6e.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 07:01:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785333718; cv=none;
  d=google.com; s=arc-20260327;
- b=H1BsDCFzj9d3uUnViVgx9QplQkcieU4mQv/kqyByJLWQ0HojSkDP9546ejDIgJOmSd
- 9odWT2LS8VaCaDpUs6DFg4l/MC7SYDdGlAhk9aAC9di7Lbd/bj8MaQuKwn2ZnEIEaFz3
- ZJiamcy0yWdlz3W7Y9k3hYkIfEyimevc6gw2+iELJZuojv1baUQh/omWAqArWtSKsD4b
- hpDIzQfF2SLs/yx89ajGbM7vVEgi8xLZPZr4v3zp0YFy6zKMJ5oy7HFRQ92PLpc4wAL2
- j6d4HAJP+ANbyYCz2E9RaTEezyz+mi3F23kqhIx1jBv07rIeKN49qQ2rxq814VTAjO/x
- jo8g==
+ b=mWgTKAkmosc81CEPUnFgGjwiIP8+zD2mCMxhFrF7QTCN+I96eZ9WElPTZ+4QqFicbY
+ xd31Ym0QXju2fmZuFzCYYbX+Q3Xd3KvfV4iMms5tfMrDqHkEVKqjrOHOqrpyLIkNXZDY
+ /MkNJXDM/XYCsOBp/SwkIT07/jWjqjynemGXCPexUEj4CgQ8V1uOuIE4ZvIkf5n39+xE
+ bdVrCwtdG6dCe9JS1nvco/RRttp5gOg12P6Xt1ssA5L3oPIMe5eHriI/Rfrby/VaECYM
+ IJ0h5cvfpsJaK0nwfDrn40Ky1uyvaxjgJJeTPhnUyaCc5PlmVUfLkmF/XTw3zC5nlXwU
+ ANLQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=Z/ROWV4Wzd8Aj3AfNKWRT+3zvBReqegFc07fRQnkPOI=;
- fh=0tB5q1u2Hcms08iwOECvTnTawWFAXkdeddoWFM8HgFY=;
- b=lzpYrNFna1wOHCOP1Fi+yMMx142QsGQeKoyeLmhvRUkKG9BpHJ/iHCdAHCp+lLI1lt
- EPTGA+5Ml0l+RwOroFHNrkqBcVdwrgN7cRcbAIo33C+Lp+F1L122hq59SnMUg2WlG5+E
- LqROYwqdEl6sp7RAScByL1dxWuXGnillh5j2KXYfFjE+CnH+nLXRdG60h4vWpSKkoBrW
- Efuj18/fs4rqHuJdUEO8FqWPjqYmNM/5t10OillqcIInKxfmRm38qSdgKPDHAWrhcsdK
- ZzUK1IRDhU2t9h2jbPhyxDrwlfBmzl7SfNTtyX5oB8EmjQUfhKR6u18BFJV23MoUr37+
- sHpA==; darn=lists.freedesktop.org
+ bh=zI4CONeLAqVV0cC30nGZPveCd3tYM+ZX1deEevEnvbc=;
+ fh=pVXkSRI4iWxMX2nwzh6GHNF3uSMfA8RBUzqfkxIWt8U=;
+ b=Cqhf7t5m4hePFhESCdxuYGefyI1vVLWK0i9zzyG3zmvR9Be6LzP58hkU3SxqYGgSHu
+ DHzSBdcz7x0Zz7H2eL8FEuuRe20KsErJwmE/ZicLdbV4lxcAsHWQd7C3xdZRtrax009D
+ P1Ohu3TG6e1xQr1jh0t1MliOt4mkLDHLldmOM0drBvjU6ejAxhQtA77lOon2mHs4co37
+ k8EgpxrjerA4nXOujctnoKBgajP9XAsygHTe/12pB5oK3OHbF0FM6zo5/7mDziwDkRhm
+ oTaZUzGbS4LQUq2JOA6gxpGEwgcKmtljTmgVx4zZwKkbhyKl48Ky7tzFlBXZOACzyt+j
+ fh9A==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785333295; x=1785938095; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785333718; x=1785938518; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=Z/ROWV4Wzd8Aj3AfNKWRT+3zvBReqegFc07fRQnkPOI=;
- b=A086UZCNEqMeGE4EO2DhWtP/rgG3nyQGUR3dhkMy1UXx2+EkVxEw6dlWA2ZCl2ZZ3A
- eVJQ4+oAsFF3cmOrRtrIhlk1ZNDEtOmvBohY09PkE+HORoED0mFbsXXxoho7hwK0Ir3n
- FLF+uySrleGFibZ/0ErwTe8a+mxTbMdgSxYYA0Ma9pUQ3ow5YqtUka37m8HQ871s3tya
- IPEW4wm+7a+D0A0g/rCRs86kDVTqyWdiUf/U2im4wJmKdO/zRwMmALQlt68m8cErGNJy
- Fgvusk1Sq1Njjal9HEF/aAcbmDDHm97Okgu6mt5Z5Zrt8NDaEnI8+z0TDc8NBI8VsC3X
- Y2bw==
+ bh=zI4CONeLAqVV0cC30nGZPveCd3tYM+ZX1deEevEnvbc=;
+ b=JEUhCpqgpc6tQZPNs7D5le9D5QBHxLCXEH8LeuzXGRG4azZ1GxHooQ5eBBvba/Eqou
+ ZX753QQR5NS/tMxnVPkNxJgnJJ0AerEl0UuHGRVEH79bNG680XJfsntXluJBYpSEQgqC
+ 2P6rIJE4Lirm6k6ZgPEux2BZmes0NkD/TsDap1b+i8jIvYAd3z7t55HmXOmiekw6Jsrl
+ xyohQ1tO9AJy6ndAjWK4aTS6siAODP5pnly3+n77G9zpLgNsPSnncDgaZsEEcph+oYmO
+ nKZcP58Yv99OQcFT+WFJhaKMw37+vF7MBcYn4pZORkIph2GZwoouo+PiEghVN5DBhefZ
+ a0RA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785333295; x=1785938095;
+ d=1e100.net; s=20251104; t=1785333718; x=1785938518;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Z/ROWV4Wzd8Aj3AfNKWRT+3zvBReqegFc07fRQnkPOI=;
- b=m/lZyTb6PgsvL8Zak+l4fsMGz0O3iYfQO2XVHlK5L2viS9QXiQL6dIxKqQGPJvXeF4
- 9XnYbYUtWnWWACOlZRVob8ytuHYIhuv1JHMLT7sStmde0sJGZDvYKto0ZcS3x+VUrCPl
- yWr/FD3FGyrP2AYbWh5WuzaDqpFKmAa7JrBeCb+HzQXmW/qpqoD4CNaNdHzhJwIx6gbB
- NVd2N0ov34HWgStwpu+AzedgglRDxlpieCatPRc3Lz9TisZJ63XgFkxEruP9b6z6dD7K
- RCYtIWwzrHFdm7CdFipsf1LWuhIakc+bYTk6sQ2mvSXzgn3cwPnj0UF0/ABp6ovgHnc4
- BcCg==
-X-Gm-Message-State: AOJu0YxuC3EOfCTvNRcOnqEWA5p7l/yVjpd5W/rkCIsAM13MgAtpwIsS
- PvrcBXqFGPjeC41DERJyJ00byvDh7SdWoTmBtPqRvQ6LaqTcq70zBsFD9jl2z2exB1B2ayy0uFe
- H0t1qci0U33rjNlYiRiNq2Kq4o7at/rty/Q==
-X-Gm-Gg: AR+sD12nZ+mjKIGJYwMfkLQBeT7G50MTFtNsuVbVYL9XUeRBVGmnWfOGAbFu5y4kToX
- fFqPBaE1AbXrpp+sHbnXuJEBE93nK5IrESOJ4ub39/85IhnCneDDityGuCMMPjFMb/YDbgOuf4z
- fvYhGPAX3KohydhNaFB5H7jHKZyQeljVZj+88YVe8JBtOsMmci/rkrrw4wXepsaF6XR91rOCfnS
- 9jmnElFY8sEm00pvY9QmXlbiOr/Sgi8fG/gwq+57P+E/mIuEO0B5QmdwsDLXqcZVwsYdUijPGdU
- d8gNCvetA+w50Que9BZXrZF8vBICQcAmLSR1DXdXCjWrrI4n4DnNo9gjA25Zvct7Tbtn77fnYQI
- 5MTndR9YA/IgYN5vzWgcMjMuvGrEM+wo=
-X-Received: by 2002:a17:90b:280e:b0:38e:ab3f:2c99 with SMTP id
- 98e67ed59e1d1-38f6a321a61mr6429012a91.2.1785333294535; Wed, 29 Jul 2026
- 06:54:54 -0700 (PDT)
+ bh=zI4CONeLAqVV0cC30nGZPveCd3tYM+ZX1deEevEnvbc=;
+ b=NlRoTLrtPJ9CXYOYfhdxRgRIQ6MSQTxVrNjrLFqNBSJ4wDhpiB1kotfyjQQnDbu9cK
+ CtmhjHY1NK4g19JTQwmJO6B+uywiPQPiDHX5UiGRiX1+uvJoy63xoQVw1fv8je3ML5xW
+ D1uLPiKXyuljVVKRYxeQ0RBitL0DNytor6ac6xVxzBbitjMTx/dNjB6Q2LZjMx9p+6k3
+ qajeoXUvpOCPLsqsLHLOrRjTMp1t4zKgZ9uFSMnyaz6bMPuKFOu/qvdKrifEyXOLk65b
+ 3nuny8yWCcHeDGGTq56BRmiQWqgTgPKeCQgYryYk0Cj7lK/ruuSlIxvK4aqv6ssECLQH
+ 8WXQ==
+X-Gm-Message-State: AOJu0Yw5+C4Sw28kfwtfqKVtGjyIo0NA5ST3iMv+k0tBtNz3XvA4CVeJ
+ ySHa8C3IiTXOd4MYOs9Htwt5JpDaoRhFzhkhiLQ3UOUqS4m+s50+jrYRPNUjBduNKYEZG68IGmA
+ IFQ4pQPr759ndqHNOdp3PdE4SgkTDv50=
+X-Gm-Gg: AR+sD11lyQEnlCOj1pvgujWlFYlIenMM090DbZFpUnzrYSflceuXoBblFcazJTiVq7Z
+ S/NjbzS2AwT4dTZlo6tfKPEW5ioeQV0Ux/vnQaziI3iNi8kP5o/Y/ci8WkZC45QJUX9ps9SmPWF
+ ggEfHiY8vliAlXHGG0IdWxP1drm+Yq70dFLWj8aEdI6A1dXtNLia8aGHU/B60QLumQf/RTRYPBl
+ NJyniiCobWAac87Ah5OgzAzrsil4FHU0jkFG96HqjAP+FjtFJ+kbFMZdDvrTgX8Yi/H/QaHxTj6
+ b0AOuYkw0yNqL4kIlmKUeqhscVg8EnqHLO65j2F4jxCFOKnwS9XGZ6YNlQ9XtYYg
+X-Received: by 2002:a05:6808:30a8:b0:4a4:866:c2c0 with SMTP id
+ 5614622812f47-4ad5bc0c5acmr3830826b6e.4.1785333717971; Wed, 29 Jul 2026
+ 07:01:57 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260729120118.1659135-1-lijo.lazar@amd.com>
- <20260729120118.1659135-2-lijo.lazar@amd.com>
-In-Reply-To: <20260729120118.1659135-2-lijo.lazar@amd.com>
+References: <20260729085838.1338931-1-Jesse.Zhang@amd.com>
+ <20260729085838.1338931-3-Jesse.Zhang@amd.com>
+In-Reply-To: <20260729085838.1338931-3-Jesse.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 29 Jul 2026 09:54:41 -0400
-X-Gm-Features: AUfX_mw9aOyZz6n0jxtlNfMG8A8FNYm9GIOP3rOtVNWP7jEN69k36fRiH1gFitQ
-Message-ID: <CADnq5_P4K8pGoZncuAx2U1CoEhSFmUbv_wUaR0pSWMkR59BkFg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amdgpu: Allocate coredump ring buffers per ring
-To: Lijo Lazar <lijo.lazar@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
- Alexander.Deucher@amd.com, pierre-eric.pelloux-prayer@amd.com
+Date: Wed, 29 Jul 2026 10:01:46 -0400
+X-Gm-Features: AUfX_mzy98y83GTj_48oRSGLPA9U5MxzKi6uWj_r7sy76hG35vcXb60QHz3ykWM
+Message-ID: <CADnq5_O_KqeS=Uh9LdER2Esv6OeWHXM2GT0=-nOKG5U-v-n5Yw@mail.gmail.com>
+Subject: Re: [PATCH 3/3] drm/amdgpu: fix JPEG v5.3.0 queue reset failure in
+ DPG mode
+To: Jesse Zhang <Jesse.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian Koenig <christian.koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -106,202 +106,69 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Wed, Jul 29, 2026 at 8:38=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
-te:
+On Wed, Jul 29, 2026 at 5:08=E2=80=AFAM Jesse Zhang <Jesse.Zhang@amd.com> w=
+rote:
 >
-> Allocate each ring buffer separately. A single allocation summing all
-> ring sizes can exceed the page allocator's MAX_ORDER limit and fail;
-> per-ring buffers stay small enough to satisfy. The existing allocation
-> style doesn't capture any ring data if the huge allocation fails.
-> Splitting into multiple allocations helps to capture as much data as
-> possible for the core dump.
+> Like jpeg_v5_0_0, in DPG mode the ring reset path only clears the
+> JPEG_PG_MODE bit and never resets a hung JRBC, so the post-reset ring tes=
+t
+> times out and the driver falls back to a full MODE1 reset.
 >
-> A failed ring is left with a NULL buffer and skipped when formatting.
+> Temporarily force the static power-gating path during the reset so the
+> stop/start sequence power-cycles the JPEG block (JMI soft reset + power
+> off/on), matching the jpeg_v4_0 reset.
 >
-> Fixes: eea85914d15b ("drm/amdgpu: save ring content before resetting the =
-device")
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-> Assisted-by: Claude Code
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 > ---
->  .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 50 ++++++++++---------
->  .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h  |  3 +-
->  2 files changed, 27 insertions(+), 26 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c | 21 +++++++++++++++++----
+>  1 file changed, 17 insertions(+), 4 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> index 4dfea36997d4..87e15e39eb30 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> @@ -343,7 +343,7 @@ amdgpu_devcoredump_format(char *buffer, size_t count,=
- struct amdgpu_coredump_inf
->         struct amdgpu_ip_block *ip_block;
->         struct amdgpu_ring *ring;
->         int ver, i, j;
-> -       u32 ring_idx, off;
-> +       u32 ring_idx;
->         bool sizing_pass;
->
->         sizing_pass =3D buffer =3D=3D NULL;
-> @@ -443,7 +443,6 @@ amdgpu_devcoredump_format(char *buffer, size_t count,=
- struct amdgpu_coredump_inf
->                 for (i =3D 0; i < coredump->num_rings; i++) {
->                         ring_idx =3D coredump->rings[i].ring_index;
->                         ring =3D coredump->adev->rings[ring_idx];
-> -                       off =3D coredump->rings[i].offset;
->
->                         drm_printf(&p, "ring name: %s\n", ring->name);
->                         drm_printf(&p, "Rptr: 0x%llx Wptr: 0x%llx RB mask=
-: %x\n",
-> @@ -452,12 +451,18 @@ amdgpu_devcoredump_format(char *buffer, size_t coun=
-t, struct amdgpu_coredump_inf
->                                    ring->buf_mask);
->                         drm_printf(&p, "Ring size in dwords: %d\n",
->                                 ring->ring_size / 4);
-> +
-> +                       if (!coredump->rings[i].ring_dw) {
-> +                               drm_printf(&p, "Ring contents unavailable=
-\n");
-> +                               continue;
-> +                       }
-> +
->                         drm_printf(&p, "Ring contents\n");
->                         drm_printf(&p, "Offset \t Value\n");
->
->                         for (j =3D 0; j < ring->ring_size; j +=3D 4)
->                                 drm_printf(&p, "0x%x \t 0x%x\n", j,
-> -                                          coredump->rings_dw[off + j / 4=
-]);
-> +                                          coredump->rings[i].ring_dw[j /=
- 4]);
->                 }
->         }
->
-> @@ -498,10 +503,12 @@ amdgpu_devcoredump_read(char *buffer, loff_t offset=
-, size_t count,
->  static void amdgpu_devcoredump_free(void *data)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c b/drivers/gpu/drm/a=
+md/amdgpu/jpeg_v5_3_0.c
+> index 68152b2ce015..c929d6f83bac 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
+> @@ -637,15 +637,28 @@ static int jpeg_v5_3_0_ring_reset(struct amdgpu_rin=
+g *ring,
+>                                   unsigned int vmid,
+>                                   struct amdgpu_fence *timedout_fence)
 >  {
->         struct amdgpu_coredump_info *coredump =3D data;
-> +       u32 i;
+> +       struct amdgpu_device *adev =3D ring->adev;
+> +       u32 pg_flags =3D adev->pg_flags;
+>         int r;
 >
->         kvfree(coredump->formatted);
-> +       for (i =3D 0; i < coredump->num_rings; i++)
-> +               kvfree(coredump->rings[i].ring_dw);
->         kvfree(coredump->rings);
-> -       kvfree(coredump->rings_dw);
->         kvfree(data);
+>         amdgpu_ring_reset_helper_begin(ring, timedout_fence);
+> -       r =3D jpeg_v5_3_0_stop(ring->adev);
+> -       if (r)
+> -               return r;
+> -       r =3D jpeg_v5_3_0_start(ring->adev);
+> +
+> +       /*
+> +        * The DPG stop path only clears the JPEG_PG_MODE bit and never r=
+esets a
+> +        * hung JRBC, so the post-reset ring test times out and the drive=
+r falls
+> +        * back to a full MODE1 reset. Temporarily force the static power=
+-gating
+> +        * path so the stop/start sequence actually power-cycles the JPEG=
+ block
+> +        * (JMI soft reset + static power off/on), matching the working j=
+peg_v4_0
+> +        * reset.
+> +        */
+> +       adev->pg_flags &=3D ~AMD_PG_SUPPORT_JPEG_DPG;
+> +       r =3D jpeg_v5_3_0_stop(adev);
+> +       if (!r)
+> +               r =3D jpeg_v5_3_0_start(adev);
+> +       adev->pg_flags =3D pg_flags;
+>         if (r)
+>                 return r;
+> +
+>         return amdgpu_ring_reset_helper_end(ring, timedout_fence);
 >  }
 >
-> @@ -543,9 +550,9 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool=
- skip_vram_check,
->         struct amdgpu_coredump_info *coredump;
->         size_t size =3D sizeof(*coredump);
->         struct drm_sched_job *s_job;
-> -       u64 total_ring_size, ring_count;
-> +       u64 ring_count;
->         struct amdgpu_ring *ring;
-> -       int i, off, idx;
-> +       int i, idx;
->
->         /* No need to generate a new coredump if there's one in progress =
-already. */
->         if (work_busy(&adev->coredump_work))
-> @@ -585,7 +592,6 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool=
- skip_vram_check,
->
->         /* Dump ring content if memory allocation succeeds. */
->         ring_count =3D 0;
-> -       total_ring_size =3D 0;
->         for (i =3D 0; i < adev->num_rings; i++) {
->                 ring =3D adev->rings[i];
->
-> @@ -594,38 +600,34 @@ void amdgpu_coredump(struct amdgpu_device *adev, bo=
-ol skip_vram_check,
->                     coredump->ring !=3D ring)
->                         continue;
->
-> -               total_ring_size +=3D ring->ring_size;
->                 ring_count++;
->         }
-> -       if (ring_count) {
-> -               coredump->rings_dw =3D kvzalloc(total_ring_size, GFP_NOWA=
-IT);
-> +       if (ring_count)
->                 coredump->rings =3D kvcalloc(ring_count,
->                                            sizeof(struct amdgpu_coredump_=
-ring),
->                                            GFP_NOWAIT);
-> -       }
-> -       if (coredump->rings && coredump->rings_dw) {
-> -               for (i =3D 0, off =3D 0, idx =3D 0; i < adev->num_rings &=
-& idx < ring_count; i++) {
-> +       if (coredump->rings) {
-> +               for (i =3D 0, idx =3D 0; i < adev->num_rings && idx < rin=
-g_count; i++) {
-> +                       struct amdgpu_coredump_ring *cdump_ring;
-> +
->                         ring =3D adev->rings[i];
->
->                         if (atomic_read(&ring->fence_drv.last_seq) =3D=3D=
- ring->fence_drv.sync_seq &&
->                             coredump->ring !=3D ring)
->                                 continue;
->
-> -                       coredump->rings[idx].ring_index =3D ring->idx;
-> -                       coredump->rings[idx].rptr =3D amdgpu_ring_get_rpt=
-r(ring);
-> -                       coredump->rings[idx].wptr =3D amdgpu_ring_get_wpt=
-r(ring);
-> -                       coredump->rings[idx].offset =3D off;
-> +                       cdump_ring =3D &coredump->rings[idx];
-> +
-> +                       cdump_ring->ring_dw =3D kvzalloc(ring->ring_size,=
- GFP_NOWAIT);
-> +                       if (cdump_ring->ring_dw)
-> +                               memcpy(cdump_ring->ring_dw, ring->ring, r=
-ing->ring_size);
->
-> -                       memcpy(&coredump->rings_dw[off], ring->ring, ring=
-->ring_size);
-> -                       off +=3D ring->ring_size / 4;
-> +                       cdump_ring->ring_index =3D ring->idx;
-> +                       cdump_ring->rptr =3D amdgpu_ring_get_rptr(ring);
-> +                       cdump_ring->wptr =3D amdgpu_ring_get_wptr(ring);
->                         idx++;
->                 }
->                 coredump->num_rings =3D idx;
-> -       } else {
-> -               kvfree(coredump->rings_dw);
-> -               kvfree(coredump->rings);
-> -               coredump->rings_dw =3D NULL;
-> -               coredump->rings =3D NULL;
->         }
->
->         coredump->adev =3D adev;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h b/drivers/g=
-pu/drm/amd/amdgpu/amdgpu_dev_coredump.h
-> index 63f27337c09a..cb874d8c3394 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
-> @@ -34,8 +34,8 @@
->  struct amdgpu_coredump_ring {
->         u64                             rptr;
->         u64                             wptr;
-> +       u32                             *ring_dw;
->         u32                             ring_index;
-> -       u32                             offset;
->  };
->
->  struct amdgpu_coredump_ib_info {
-> @@ -53,7 +53,6 @@ struct amdgpu_coredump_info {
->         struct amdgpu_ring              *ring;
->
->         struct amdgpu_coredump_ring     *rings;
-> -       u32                             *rings_dw;
->         u32                             num_rings;
->
->         /* Readable form of coredevdump, generate once to speed up
 > --
 > 2.49.0
 >
