@@ -4,70 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5FEAC54F51
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B1261C53200
 	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 13:16:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3D73E10EC36;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C15310EC35;
 	Wed, 29 Jul 2026 13:16:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rsyKqCtK";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="D7h1/Zuk";
 	dkim-atps=neutral
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com
- [209.85.128.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8DEA810E5C1
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 23:47:26 +0000 (UTC)
-Received: by mail-wm1-f54.google.com with SMTP id
- 5b1f17b1804b1-494049206c6so256885e9.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 28 Jul 2026 16:47:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785282445; x=1785887245; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=I0sepYElNWpFKOjgjeV3qn5PVGIr7EC4aWTxpcIRLkc=;
- b=rsyKqCtKuutrmZAHJsHlg5XnCVqH75FvECxefavw5vtOyKQj7AVFCPxR7kMNB/WSeS
- Po5WzAy59ckUf/BpEnnK9eYOwVfrgLrD9DWckSwO4HGK2KHeV2QvT708maDSKQgkgNon
- 8bRMN3cT2orIUMkJRAPoLc59WKsYgUUlSVMlGeFDn4lkoQ/prjcFubnwYocjn/ouhMMz
- d1y+7TcYjvbuxnj3Xr0qd9jof0LG3XSRNm2b8yiZQZjRfDHh9OD/8jyo5ecZlp6hul1b
- NMpUwmRmnzYZttfwVhP3InFVcLab+85wtIWxUykFJdTFhn86cqW0DayyId4A1M7DEgwR
- Wnsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785282445; x=1785887245;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=I0sepYElNWpFKOjgjeV3qn5PVGIr7EC4aWTxpcIRLkc=;
- b=N9HgZrtckWMHiZ6Ah1aVPj1bN5EmgAPe4V4LHnuWnmxF0fjyZLpC7irzCpF8Ge3KDY
- R8dKRHAT8vhDK/aQvDj+lDxw/ru7JFRNFLDmr07ho2HHmBaygUJ9TfTh0dVdEzyX0FiH
- fjf5x4miQuiegYIza9gcmrehxyImnLaUOYAhXntEmLxgBsIjUdDONVTgLoBMyvKsvDyX
- /1OUjy/6u5p6r48mZqVdD95WrjFDTFnvVLDdACN1B11GbXqNQmoAb/HkwL2iIV9zG63o
- zEtf7uzEFt4A1nQz/CXq2AirBN9tka5ZDAcZSB8PZ06AOMcMsYPxJpk+h7SYJBTeot9l
- DWbQ==
-X-Gm-Message-State: AOJu0Yw/ADz8oPW/YJm/GPtpQ4/BzzFtay0v21WLMGubU7hA3R0ZfUbp
- 6M2qPLjQWEuR60GiPsXo8QR0qE1TG8mWnVVVXMhIFY/xRvPH/XOUljKsG80YFaYAc84=
-X-Gm-Gg: AR+sD10/zJLb8CfTtD936ktPGho145Q0tdzN0MAjA276rc3jxfb7Z0zIx6NbazMlmwz
- XDAy0r2DV21BV2VvzZ1XCpY+KrEhZ2AJINfiJ+z5Ipb3Y2Av501v/16d5iLO4CZSoh/oSDLOjEV
- BiLar5LJZC+nx41c6NwpyDYtBZCJFBewrWGC3xabq9rI3kTxkLgctYeRGMFVM5ndJZ07TL8QocM
- rVo1KkxTlHwSdfTmd1J37//0ed/upypI8j4yMC6/1TRMUEJSDfOdrm5X9yzHuHgtJKfpOnny1+I
- h599E3jIbJpwcnFaO7kRhsVcuMDGqPwF5W/fLdu4Vr5Z0/H5sSLwKINmgdRNhcgbzZ45WxmlFpM
- P9CNoR21X8U7y4LvTWy/u6o4a8i/aC2SghRkiVZ6t02ehRl39dc2FshWj0fYsJ9VRKk4NOqskZJ
- RfaYhtrHbbbSFb3jvqx5Lz6+Qn+syB8W/j31bES5A994KsWiTLiRhY286JexzJFZnRqgRxO1Y=
-X-Received: by 2002:a05:600c:1d19:b0:495:4505:dad0 with SMTP id
- 5b1f17b1804b1-496c641546bmr34409585e9.2.1785282444813; 
- Tue, 28 Jul 2026 16:47:24 -0700 (PDT)
-Received: from zephyrus-teodor ([92.84.22.76])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-496c45b1c76sm108157275e9.6.2026.07.28.16.47.23
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jul 2026 16:47:24 -0700 (PDT)
-From: Teodor Bostan <teobsn@gmail.com>
-To: amd-gfx@lists.freedesktop.org, kenneth.feng@amd.com,
- alexander.deucher@amd.com
-Cc: christian.koenig@amd.com, mario.limonciello@amd.com,
- dri-devel@lists.freedesktop.org, Teodor Bostan <teobsn@gmail.com>
-Subject: [PATCH] drm/amd/pm: Add PPTable power limit quirk for ASUS G14 GA402R
-Date: Wed, 29 Jul 2026 02:46:26 +0300
-Message-ID: <20260728234626.86008-1-teobsn@gmail.com>
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48F2C10E028;
+ Wed, 29 Jul 2026 09:19:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1785316790; x=1816852790;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=toMW/9OUIf9k0TwN0uyibzC5riBhEZXIPdpiDl7iafk=;
+ b=D7h1/ZukdYbx+Y0euSRafGXJKTLYBf4LwsIIB15Zm5TKLiX42ADYn4pV
+ OEY0By7j6S6lIiY3pYgDOKyE/1yywn4d95EJHEqZ2bWzX3og4YV+7ejEe
+ OLecQFhx9skGJq2+Sph3u9Db9At4o+DHt9unrrqZtOFmPjwCzGrW2nim/
+ JmYs1Qqyd4iLBk6IlXXieabKJuP7s9aOzaoPiryp7sytNe5KwQuXBUHWK
+ MJ0xCr6Kwp6OeBaTll0HjKOj2mRt9L5IX4FVzrsidzOkmbOfYijNcQu9w
+ 2dtUWLyeLxhTjXhR7v2PTQ9g12s9zCvCVLTBEKUprLDX2MH8HdmEJbB1l A==;
+X-CSE-ConnectionGUID: y8nuudlvSn6AdKp+/tNdpw==
+X-CSE-MsgGUID: LHiPWkUXQLmgRuAao8m/3g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="89805344"
+X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; d="scan'208";a="89805344"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jul 2026 02:19:50 -0700
+X-CSE-ConnectionGUID: v6ro+plQSU2nCNys1LS+6g==
+X-CSE-MsgGUID: l9gmuZSuRAm+GZYlJwuGsA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; d="scan'208";a="260020051"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO intel.com)
+ ([10.245.245.23])
+ by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Jul 2026 02:19:46 -0700
+From: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+To: dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, Simona Vetter <simona@ffwll.ch>,
+ Joel Fernandes <joelagnelf@nvidia.com>, David Airlie <airlied@gmail.com>,
+ Krzysztof Karas <krzysztof.karas@intel.com>,
+ Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Andi Shyti <andi.shyti@linux.intel.com>,
+ Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Subject: [PATCH RESEND 1/2] gpu: Fix dependencies in
+ CONFIG_GPU_BUDDY_KUNIT_TEST
+Date: Wed, 29 Jul 2026 11:18:16 +0200
+Message-ID: <20260729091816.27860-3-krzysztof.niemiec@intel.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260729091816.27860-2-krzysztof.niemiec@intel.com>
+References: <20260729091816.27860-2-krzysztof.niemiec@intel.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 29 Jul 2026 13:16:19 +0000
@@ -85,51 +76,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ASUS ROG Zephyrus G14 (2022) GA402RJ and GA402RK laptops use custom AC
-power limits of 100W (RX 6700S) and 105W (RX 6800S). On resume from
-suspend, the SMU firmware resets to the reference vBIOS default of 80W,
-hard-capping GPU performance.
+CONFIG_GPU_BUDDY is currently not selectable by the user, mirroring
+how CONFIG_DRM_BUDDY does it - the idea is for a driver that makes use
+of it to include a "select GPU_BUDDY" line in its kconfig.
+CONFIG_DRM_BUDDY is also selected when building with
+CONFIG_DRM_KUNIT_TEST, as it can be thought of as building a mock
+"driver" running the tests, that makes use of the buddy functionality.
 
-Override SocketPowerLimitAc in sienna_cichlid_patch_pptable_quirk for
-these subsystem IDs so the driver restores the platform's intended AC
-power limit when reloading PPTable during boot and resume.
+CONFIG_GPU_BUDDY_KUNIT_TEST doesn't follow that logic, requiring
+GPU_BUDDY to be selected already instead of selecting it itself. This
+requires building the test kernel with another driver that uses
+DRM_BUDDY, as this is currently the only kconfig option that selects
+GPU_BUDDY. That shouldn't be required to run unit tests for a module
+now completely independent from DRM, let alone any specific driver.
 
-Signed-off-by: Teodor Bostan <teobsn@gmail.com>
+Fix the dependency declaration in CONFIG_GPU_BUDDY_KUNIT_TEST to make it
+work as intended, mirroring the setup in CONFIG_DRM_KUNIT_TEST.
+
+Signed-off-by: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
+Reviewed-by: Sebastian Brzezinka <sebastian.brzezinka@intel.com>
+Reviewed-by: Andi Shyti <andi.shyti@linux.intel.com>
+Reviewed-by: Krzysztof Karas <krzysztof.karas@intel.com>
 ---
- .../gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/gpu/Kconfig | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-index cef628752..10d330edb 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c
-@@ -479,6 +479,7 @@ static int sienna_cichlid_patch_pptable_quirk(struct smu_context *smu)
- 	struct amdgpu_device *adev = smu->adev;
- 	uint32_t *board_reserved;
- 	uint16_t *freq_table_gfx;
-+	uint16_t *power_limit;
- 	uint32_t i;
+diff --git a/drivers/gpu/Kconfig b/drivers/gpu/Kconfig
+index ebb2ad4b7ea0..3bcf08260d73 100644
+--- a/drivers/gpu/Kconfig
++++ b/drivers/gpu/Kconfig
+@@ -7,7 +7,8 @@ config GPU_BUDDY
  
- 	/* Fix some OEM SKU specific stability issues */
-@@ -501,6 +502,18 @@ static int sienna_cichlid_patch_pptable_quirk(struct smu_context *smu)
- 		}
- 	}
- 
-+	/* Fix some OEM SKU specific power limit issues */
-+	if ((adev->pdev->device == 0x73EF) &&
-+	    (adev->pdev->subsystem_vendor == 0x1043)) {
-+		if (adev->pdev->subsystem_device == 0x1DEC) {
-+			GET_PPTABLE_MEMBER(SocketPowerLimitAc, &power_limit);
-+			power_limit[PPT_THROTTLER_PPT0] = 100;
-+		} else if (adev->pdev->subsystem_device == 0x1DCC) {
-+			GET_PPTABLE_MEMBER(SocketPowerLimitAc, &power_limit);
-+			power_limit[PPT_THROTTLER_PPT0] = 105;
-+		}
-+	}
-+
- 	return 0;
- }
- 
+ config GPU_BUDDY_KUNIT_TEST
+        tristate "KUnit tests for GPU buddy allocator" if !KUNIT_ALL_TESTS
+-       depends on GPU_BUDDY && KUNIT
++       depends on KUNIT
++       select GPU_BUDDY
+        default KUNIT_ALL_TESTS
+        help
+          KUnit tests for the GPU buddy allocator.
 -- 
-2.55.0
+2.45.2
 
