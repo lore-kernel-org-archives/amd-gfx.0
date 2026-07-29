@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69BACC53219
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 16:36:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFE71C53219
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 17:40:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 010C310E05E;
-	Wed, 29 Jul 2026 16:36:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4050110ED3D;
+	Wed, 29 Jul 2026 17:40:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0QUti92D";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BbyuQrSX";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012047.outbound.protection.outlook.com [40.107.209.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AABAB10E05E
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 16:36:17 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010044.outbound.protection.outlook.com [52.101.201.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8C6D10ED3C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 17:40:17 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OPIctGGL+9eiVFndQZvb1h5WT4P3pJbH/XxdTM9J4W9mpgimghFwNaZB1tZgwDhGkLWrXiUBAf6yxofTNsJxa97DPGOSkHVXbeMVjSWblJ4yxfBJ3yOCCq5sMvvnvAQyI3pQxEaectFeykzMHdeFjZQ666/Ixsn2pTGSDDYvArFfLU4fdRjkgnSbgmdWZg1xhhfKvlQIvO7aocNFogqcG2o4gp0vEhc9I4TbUUMsi+/FeU//090nlsjjWMmfcZjj1Y/xYknog2C+qPwp3xZnudbXCmXuZ5Goos011fnn5Dy3CJtnTjKYowbCwaqq3AY85Hm9gGmHipg+FdfO1H8IzA==
+ b=Keek5bzjxa5kERRpyruox1G/qAxOtbMXUWgS25pXyxzZvSHJWtso6TEhTF9Ahg2HvVd/9q5C7vTeZriFcLGC28CDRvyIa7e5SmbViUYojEV9Nxu8j6FTHeb3fpZd7BI9lKPl4KnT7kRHMAaSqkjPzD490Bkg9Bp+LIXImTk2+BbRlZ97gcBR+PKjKAZoRy7inPoLi3DjJPMr3IgFwP0DXy37lh6zQdhAB9VcQaWZHC/AncdB8VHn+1TfobCemccKTFVz76/akbz7yXIJxlLrsBRqWpUuKL1tq7tZqI5RjgXTuv3g0uKYv0zg9njDsCUzMKjCu9177oc2oKT7vuUxaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7RfH0IzvurleZa8+B/HFcWaU6UJn8T+h1tqkUoy6RBI=;
- b=tSM898Ip7XqQJkS66bpv3L9Rnerf8O4iwBtVQ2GrAxqsyYpulEVsSMYXlvPlKRFJNKiEf8PJ/yowmBEIzEguL8TQ3/tXD0zH7oXa+y7FKMjHzdsrvvKcA833e2PtToHG374ItsmqspsBHng4zA+ZPPtlDMcjbU0xDecGXCTkP1FSHPU4E/c1s5ZIdsu+zZ/Rh9yZO3TJ/Vt/Nnk3T2ATR93ECbOr2b7GVq2+to7/0tCMYQlDrMD54xuCpHnrdcm0yf0joFsQZonPaz+MnRF+Rte63kN53IT9n0LLh3rYVRV6Wx2I7enAN+qmSD5jvzdbVQirHKcpYK8PjynW9CHG+g==
+ bh=Pqm/PMN2mGOsaYGF6DppM/ctw1Jf65FYoVxUCf/1g5w=;
+ b=h5ge3co8mgy2/WGUUu8PApf9yhI/XTc717czQfgpT1FRbV6AOig3HzN0In7fkMOjRCnxlGNgnKxL1uKDvLzBMP3HDrpsXMtgJZxUDrR4IU46zXtdjcb6WZxRUzYOS8VSmTqJklRhMMOLWxwhRk562AcILl2djlNgSYOcRZV9GFgbzF56XECOqj4QtW8w+AjvlRaYl/8uIVzv7ZxSBZOILMEO0LJkAIHEm/Eewlj7ejboy8EHgJTKem9zo/fIrNzvRq5ibt2E6eoanFEOrNGB6Iu/Up4+0hiezvNp6+TSk9uFZE2S0P1RDQrPrU3A9RnP9eweox+RfPEuuPzhjVQGEw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7RfH0IzvurleZa8+B/HFcWaU6UJn8T+h1tqkUoy6RBI=;
- b=0QUti92DoMLPHANmRCENONxTSq3gQpUfP2Yj3tGYvi84fhKERstb8wvc5Q1vXDQxggYEvi/rUKeOGSYs+duHdP2SPkXB+6ZCxBYUIiQG4PzsQG1HJnoYJ26TseblZHnpGJ6DFnw/3ZE8JSniHN8okinwIhfpIKkyjoH4TwY9LMQ=
-Received: from BY1P220CA0018.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:5c3::8)
- by PH8PR12MB7279.namprd12.prod.outlook.com (2603:10b6:510:221::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Wed, 29 Jul
- 2026 16:36:09 +0000
-Received: from SJ1PEPF00001CE4.namprd03.prod.outlook.com
- (2603:10b6:a03:5c3:cafe::6e) by BY1P220CA0018.outlook.office365.com
- (2603:10b6:a03:5c3::8) with Microsoft SMTP Server (version=TLS1_3,
+ bh=Pqm/PMN2mGOsaYGF6DppM/ctw1Jf65FYoVxUCf/1g5w=;
+ b=BbyuQrSXbu6gzlNNv1Zw8nYCb1JgHEV9B9cgsDCrHBuVrKTOS2insl5KG6WDbZj3tg25//duDz1zzbTDThIKavRWp17aJNa1Q0SbxlMFvnhlVi6A8LwZx09ETZddovR1b4EJdbajmPrzgbOLYIDDmlm7A6gZ9QcxE8nxUOFAZDI=
+Received: from MW4PR03CA0095.namprd03.prod.outlook.com (2603:10b6:303:b7::10)
+ by MW4PR12MB7016.namprd12.prod.outlook.com (2603:10b6:303:218::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Wed, 29 Jul
+ 2026 17:40:09 +0000
+Received: from SJ5PEPF000001F1.namprd05.prod.outlook.com
+ (2603:10b6:303:b7:cafe::8) by MW4PR03CA0095.outlook.office365.com
+ (2603:10b6:303:b7::10) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.13 via Frontend Transport; Wed,
- 29 Jul 2026 16:36:08 +0000
+ 29 Jul 2026 17:40:08 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,55 +48,56 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00001CE4.mail.protection.outlook.com (10.167.242.20) with Microsoft
+ SJ5PEPF000001F1.mail.protection.outlook.com (10.167.242.69) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Wed, 29 Jul 2026 16:36:08 +0000
-Received: from Philip-Dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ 15.21.270.5 via Frontend Transport; Wed, 29 Jul 2026 17:40:08 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 29 Jul
- 2026 11:36:07 -0500
-From: Philip Yang <Philip.Yang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Felix.Kuehling@amd.com>,
- <Harish.Kasiviswanathan@amd.com>, <Amir.Shetaia@amd.com>,
- <Kent.Russell@amd.com>
-CC: Philip Yang <Philip.Yang@amd.com>
-Subject: [PATCH v3 2/2] drm/amdkfd: Unmap svm range from GPU set to no-access
-Date: Wed, 29 Jul 2026 12:35:38 -0400
-Message-ID: <20260729163538.229530-3-Philip.Yang@amd.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260729163538.229530-1-Philip.Yang@amd.com>
-References: <20260729163538.229530-1-Philip.Yang@amd.com>
+ 2026 12:40:08 -0500
+Received: from flamewok (10.180.168.240) by satlexmb08.amd.com (10.181.42.217)
+ with Microsoft SMTP Server id 15.2.2562.41 via Frontend Transport;
+ Wed, 29 Jul 2026 12:40:07 -0500
+From: <sunpeng.li@amd.com>
+To: <stable@vger.kernel.org>
+CC: <amd-gfx@lists.freedesktop.org>, Leo Li <sunpeng.li@amd.com>, "Mario
+ Limonciello (AMD)" <superm1@kernel.org>, Alex Deucher
+ <alexander.deucher@amd.com>
+Subject: [PATCH 7.1.y] drm/amd/display: check GRPH_FLIP status before sending
+ event
+Date: Wed, 29 Jul 2026 13:37:43 -0400
+Message-ID: <20260729173742.950965-2-sunpeng.li@amd.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <2026072935-grimace-sample-2f95@gregkh>
+References: <2026072935-grimace-sample-2f95@gregkh>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE4:EE_|PH8PR12MB7279:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4ea2e071-20a2-4e71-4bd2-08deed8f7e1c
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001F1:EE_|MW4PR12MB7016:EE_
+X-MS-Office365-Filtering-Correlation-Id: b476781a-0a6f-4d3f-a362-08deed986f10
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|376014|23010399003|36860700016|10067099003|6133799003|5023799004|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: r8XAlA2lpN362GVRLjGkJkRtJGZ7Zwo+8nkATNJS2MFc6IU48+VyhEk3kJULQK8m0tIHhq/VtbW7G4XP4ypleePLr5Gqxc61gJNHpNJH9SRD3TNAKIgDZEfXGLR9BzEi+a62mQt1apDzGDesi9iP+4xAFwFcn+GTi+zl+3trVprXzpBYtIbfBGBtnhAmh5mu50lSeoIZBHaeYHa7PoN0ReyfgaTXIjhgIQ85qZ1zKYZK2+hJ6A4ZNNxYX2SMh3Z0bbsqpVnBVE/5DO2BCT0AxPHzpM3Bqkno/zb3wgmliASBbBbgiKN0zn2jA27pU6FB3d8+z0YAsiI1B3HgHkwGEhRe6itgpH7dzMA3oFt7knCV7PcLSJLNXgJFgzOPIMiuGvEVKbz7XHtYjg6UPHV5x6jHO74bdricl7RNs/dUkqVJM8FeDT3TvtXnC0f/Vl6gx+LCqtQBt90Gk6WVaiRNqsl4DCs4ZRBmj7U7VnY37G363QoDEkP3fFYr9sXknHiCGuglekTB6pCx8y2eD+FbMZX2HR1xzibelRbATcC8c3EA5SkOC0OdARNvBoQ6jFt2e0TqHyfCED0KLiqbnrGaCnzymmkFB2IZj1pTIHf2Ons3+pDF3o6P/TMG8NxzSS31MKvfxcALhKETd37jFkQ+aoJiAC5e9gAIoCeL/hqXKiGP56I9wUc2FM/FEuA6fbojGUp9Xtz8f/udZqyWxUMWOA==
+ ARA:13230040|36860700016|376014|82310400026|23010399003|1800799024|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: RCUivkZl2tUPBmIOGIPTCq2E5D3KhtiXxpQi5kfZ5Z+8kNIsfgHGaT2darmDFUSGlWpHOfn5X+S6/My0lVdA2mTwTiuqW9WMJHjlZIoSdO2EwxLLdWfcJnikZL9D+3MoKXeTLN+lHC47hUgRpvCaru0b2oLclRuGMmDiT9PLAjmJ7Xq++J/VdSFgO/h3RTa38LLlETqfiY5y2dAK+yg9+zs2zo+egyjukP5S8ljVSGUahbJU1AL7rZpDqTV7DpxswFpnjlWIIac3gdihYYunK2QHdD8EC4ChhWY34ZuWRor72duZ67ZM2KiDJXJqO0sL4EYjYTpP6vSGv/mgKdeJupU/0+NAF3+SehATbcIx+CMxSD/AB9mYza/ot+RzJ6q8176oRq2GnkdR0AcsJfUCxLoTOnHfe9uVVJ4kQoJ01ILU0smOKvrbVBcP/dKVwPEuTbcqMtlx4GJnmpmlyo97f7GUo8zXupsH708kWLpzeV96HOceRaccP38RT3IpbBp3Fuh0xq8zB3gRBTNGqEr4pRPY/pzk5cRzM8/5fva29CTEtMueTvD/DpYVzLi5qlgwZtxhUrXobXsAcqy9ZbKV7L44rFIm9AEXeKr7YrCT/MSQJmIYFV/+546g5ZE1I0JEfZx9RBBInf65gi3HIzxbow==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(376014)(23010399003)(36860700016)(10067099003)(6133799003)(5023799004)(56012099006)(11063799006)(22082099003)(18002099003);
+ SFS:(13230040)(36860700016)(376014)(82310400026)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: N726DNaJtPnhbmp9xVNKy3Woxl40B/rmFdkOBZZMwnldDhyzn6IzS1OBbhpsBkDOBYjrbBhoQV3c+UCc4wzv2hqYS70kouLus6tUBVbbpfxmFyKEqlDKO58hXTHlPaWQTJxkGYTOMonBuGQwLECij/BuI7hruVcpZlN03QQYErk0C31ZoevdwKZ8RF+5/w7ykNLe1jE2v+DY31kq28y3SaokBW9DYV9J6rF95Cb7fB+xXrfXx7GSFZN3T8xHSOBJd4wh8mHoiaPPncla5Ua8PLzCkesYKsLrGO+yQcktoBAFr1TYh9UCxKsLr0AcgOFzfujNNeU2cMj7XvVcS6o3MqDDmoCiv7gxGOTSeR+vSrSXulJ9aM4v9+lEfPCr5I7+ZXbEtpHsbvDUeHzkTsVh11LoBtCHwXB7tNM+oPsU4uKGWcbNKG3HdjdLcraHdAm8
+X-MS-Exchange-AntiSpam-MessageData-0: ELMDhVXI49YYpyTi3KojCI44BSwawy+CSAAAk8gnCu8+MyubzxBhTlh1bNe9LiGL6ZfIyeFp9YGjZ6fbB4KHcTFEKgYqk4Pd/e4QAVxX3FDVRB9ZS8XaVWP9gMWVt4yFFJewTalv0AUWkVrp+5ErypzAIRAzSP8VMhopQauQGxMACyfLAPI2/IfHSYOUICgaq+seZtMTE1h9XgaSL387/eCgiVQWzNWVX5LS/3F8ORCBCWOcsCfwX/iMrgCY9TICdTPj0fxRybDW3fC0YP9+HpotbTr8JhqjV55fFPPR8CY4Yj6y4tbTf8cue2LdgjpDofabWkUSbPciDZkzoj/gEuq+pN+x1rJ2ZyR0mpn78grXsyz4JEjaLMrUXZ1jMgmLEut3pAIfRlXKbofgA+Uwuz5mWSNrtKPjLxC1eGtug5kjDM5K3lb7QDJ8jeYQUSu3
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 16:36:08.3662 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4ea2e071-20a2-4e71-4bd2-08deed8f7e1c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 17:40:08.6575 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b476781a-0a6f-4d3f-a362-08deed986f10
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE4.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001F1.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7279
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7016
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,358 +112,392 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When KFD_IOCTL_SVM_ATTR_NO_ACCESS is applied to a GPU that has an SVM
-range mapped, unmap the range from that GPU. Once no GPU maps the range,
-the MMU notifier can skip queue eviction on CPU page faults.
+From: Leo Li <sunpeng.li@amd.com>
 
-Replace the mapped_to_gpu boolean with bitmap_mapped to track which
-GPUs currently have the range mapped. Set bits in svm_range_map_to_gpus()
-and clear them in svm_range_unmap_from_gpus(). This is separate from
-bitmap_access/bitmap_aip which track user-requested attributes and must
-not be used to determine mapping state.
+[Why]
 
-Add bitmap_needs_unmap to svm_range, set for each GPU given no-access.
-Add svm_range_needs_unmap() to unmap the range from those GPUs when the
-app sets the no-access attribute.
+After unifying DCN interrupt sources under VUPDATE_NO_LOCK, we have two
+remaining issues to clean up:
 
-Bump the checkpoint timestamp on unmap so retry faults queued before the
-no-access unmap are dropped instead of restoring the mapping.
+1. On DCN, flip completion is now delivered from VUPDATE_NO_LOCK
+   (dm_crtc_high_irq_handler) instead of GRPH_PFLIP. But VUPDATE_NO_LOCK
+   fires every frame, regardless of whether a flip has latched.
 
-v4:
- - Rename and set prange->mapping_done to false if validate and map not
-   complete successfully (Felix)
-v3:
- - Correct error handling, support app retry update mapping (Felix)
+2. There is a window during commit where a flip is armed (pflip_status =
+   SUBMITTED) but not yet programmed into HW. If the VUPDATE_NO_LOCK
+   fires in that window, its handler would deliver a flip event to
+   userspace before HW has latched to it. If userspace then renders to
+   what it believes is now the back buffer (but HW is still latched to
+   it!), it will cause display corruption. This issue seemed to have
+   been introduced by:
+   commit 1159898a88db ("drm/amd/display: Handle commit plane with no FB.")
+   Enabling replay or psr extended the duration of this window, and
+   hence made corruption more likely to be observed.
+
+[How]
+
+* Move acrtc->event/pflip_status arming to after
+  update_planes_and_stream_adapter() has programmed the flip into HW.
+  This closes the window where pflip_status is SUBMITTED but the flip is
+  not yet programmed.
+
+* Add dc_get_flip_pending_on_otg(), which reads the HUBP flip-pending
+  status straight from HW for the pipe(s) bound to an OTG instance. It
+  is keyed only by otg_inst and does not take or mutate a
+  dc_plane_state, so it is safe to call from the OTG interrupt handler
+  without racing a concurrent commit that may be modifying plane state.
+
+* Optimistically query for flip-pending after programming, in the event
+  that HW latched to the new fb between programming start and arming
+  event. If it latched, send the vblank event immediately, rather than
+  wait for the next vblank IRQ.
+
+* In the VUPDATE_NO_LOCK handler, only deliver flip completion once
+  dc_get_flip_pending_on_otg() reports the flip is no longer pending.
+  Otherwise leave the flip armed and retry on the next vupdate.
+
+* For DCE, maintain the existing behavior of arming flips before
+  programming, and relying on GRPH_FLIP to fire at HW latch.
+
 v2:
- - Add bitmap_mapped to not break get_attr (Felix)
+* Drop flip_programmed completion object, instead move
+  event/pflip_status arming after programming.
+* For DCN, optimistically query for flip pending immediately after
+  programming, and if it latched, send event right away.
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+v3:
+* Fix event timestamps on optimistic flip latch detection, where it's
+  possible for it to run *before* the vupdate IRQ updates the timestamp.
+* Add more docstrings for DCN vblank handling.
+* Clean up if conditions in dm_arm_vblank_event().
+* Code style cleanup on braces surrounding multi-line statements.
+
+Fixes: 9b47278cec98 ("drm/amd/display: temp w/a for dGPU to enter idle optimizations")
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/3787
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/4141
+Assisted-by: Copilot:claude-opus-4.8
+Tested-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Signed-off-by: Leo Li <sunpeng.li@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit f64a9be5653689ff43e148cd8a6483077488c8e5)
+Cc: stable@vger.kernel.org # 8382cd234981: drm/amd/display: consolidate DCN vblank/flip handling onto vupdate_no_lock
+Cc: stable@vger.kernel.org
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c |   5 +-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c   | 106 ++++++++++++++++---------
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h   |   7 +-
- 3 files changed, 76 insertions(+), 42 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 191 ++++++++++++++----
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  45 +++++
+ drivers/gpu/drm/amd/display/dc/dc.h           |   1 +
+ 3 files changed, 197 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-index b249e7d1af48..25954c2c2d91 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-@@ -112,12 +112,11 @@ static int kfd_queue_buffer_svm_get(struct kfd_process_device *pdd, u64 addr, u6
- 		if (!prange)
- 			break;
- 
--		if (!prange->mapped_to_gpu)
--			break;
--
- 		r = kfd_process_gpuid_from_node(p, pdd->dev, &gpuid, &gpuidx);
- 		if (r < 0)
- 			break;
-+		if (!test_bit(gpuidx, prange->bitmap_mapped))
-+			break;
- 		if (!test_bit(gpuidx, prange->bitmap_access) &&
- 		    !test_bit(gpuidx, prange->bitmap_aip))
- 			break;
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-index 34de59f0432d..8822d2d197b3 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
-@@ -837,6 +837,8 @@ svm_range_apply_attrs(struct kfd_process *p, struct svm_range *prange,
- 			if (attrs[i].type == KFD_IOCTL_SVM_ATTR_NO_ACCESS) {
- 				bitmap_clear(prange->bitmap_access, gpuidx, 1);
- 				bitmap_clear(prange->bitmap_aip, gpuidx, 1);
-+				if (test_bit(gpuidx, prange->bitmap_mapped))
-+					bitmap_set(prange->bitmap_needs_unmap, gpuidx, 1);
- 			} else if (attrs[i].type == KFD_IOCTL_SVM_ATTR_ACCESS) {
- 				bitmap_set(prange->bitmap_access, gpuidx, 1);
- 				bitmap_clear(prange->bitmap_aip, gpuidx, 1);
-@@ -1127,9 +1129,10 @@ svm_range_split_adjust(struct svm_range *new, struct svm_range *old,
- 	new->prefetch_loc = old->prefetch_loc;
- 	new->actual_loc = old->actual_loc;
- 	new->granularity = old->granularity;
--	new->mapped_to_gpu = old->mapped_to_gpu;
-+	new->mapping_done = old->mapping_done;
- 	bitmap_copy(new->bitmap_access, old->bitmap_access, MAX_GPU_INSTANCE);
- 	bitmap_copy(new->bitmap_aip, old->bitmap_aip, MAX_GPU_INSTANCE);
-+	bitmap_copy(new->bitmap_mapped, old->bitmap_mapped, MAX_GPU_INSTANCE);
- 	atomic_set(&new->queue_refcount, atomic_read(&old->queue_refcount));
- 
- 	return 0;
-@@ -1430,7 +1433,8 @@ svm_range_unmap_from_gpu(struct amdgpu_device *adev, struct amdgpu_vm *vm,
- 
- static int
- svm_range_unmap_from_gpus(struct svm_range *prange, unsigned long start,
--			  unsigned long last, uint32_t trigger)
-+			  unsigned long last, unsigned long *bitmap_unmap,
-+			  uint32_t trigger)
- {
- 	struct kfd_process_device *pdd;
- 	struct dma_fence *fence = NULL;
-@@ -1438,21 +1442,15 @@ svm_range_unmap_from_gpus(struct svm_range *prange, unsigned long start,
- 	uint32_t gpuidx;
- 	int r = 0;
- 
--	if (!prange->mapped_to_gpu) {
--		pr_debug("prange 0x%p [0x%lx 0x%lx] not mapped to GPU\n",
--			 prange, prange->start, prange->last);
--		return 0;
--	}
--
--	if (prange->start == start && prange->last == last) {
--		pr_debug("unmap svms 0x%p prange 0x%p\n", prange->svms, prange);
--		prange->mapped_to_gpu = false;
--	}
--
- 	p = container_of(prange->svms, struct kfd_process, svms);
- 
--	for_each_or_bit(gpuidx, prange->bitmap_access, prange->bitmap_aip, MAX_GPU_INSTANCE) {
--		pr_debug("unmap from gpu idx 0x%x\n", gpuidx);
-+	for_each_set_bit(gpuidx, bitmap_unmap, MAX_GPU_INSTANCE) {
-+		if (prange->start == start && prange->last == last) {
-+			pr_debug("unmap svms 0x%p prange 0x%p from gpu_idx 0x%x\n",
-+				 prange->svms, prange, gpuidx);
-+			clear_bit(gpuidx, prange->bitmap_mapped);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 6bb976ae28e1e..33709f9a7c6bc 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -677,13 +677,30 @@ static void dm_crtc_high_irq_handler(struct amdgpu_device *adev,
+ 	 * Deliver pageflip completion events (DCN only).
+ 	 *
+ 	 * Since GRPH_PFLIP is not used, VUPDATE_NO_LOCK is the flip latch
+-	 * point. Deliver any pending pageflip completion event from here.
++	 * point. Deliver any pending pageflip completion event from here,
++	 * once HW has consumed the new address (the OTG no longer reports a
++	 * pending flip).
+ 	 *
+-	 * NOTE: This can deliver an event for a flip that was armed but not yet
+-	 * programmed into HW; that race is closed in a follow-up change by
+-	 * checking the programmed flip status.
++	 * Also handle the case here where there aren't any active planes and
++	 * DCN HUBP may be clock-gated, so the flip-pending status may be
++	 * undefined.
+ 	 */
+-	if (is_dcn && acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED) {
++	if (is_dcn && acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED &&
++	    acrtc->event) {
++
++		if (!dc_get_flip_pending_on_otg(adev->dm.dc, acrtc->otg_inst)) {
++			drm_crtc_send_vblank_event(&acrtc->base, acrtc->event);
++			acrtc->event = NULL;
++			drm_crtc_vblank_put(&acrtc->base);
++			acrtc->pflip_status = AMDGPU_FLIP_NONE;
 +		}
++		/*
++		 * If the flip is still pending, leave it armed and
++		 * retry on the next vupdate.
++		 */
++	} else if (is_dcn && acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED &&
++		   acrtc->dm_irq_params.active_planes == 0) {
 +
- 		pdd = kfd_process_device_from_gpuidx(p, gpuidx);
- 		if (!pdd) {
- 			pr_debug("failed to find device idx %d\n", gpuidx);
-@@ -1605,6 +1603,8 @@ svm_range_map_to_gpus(struct svm_range *prange, unsigned long offset,
- 			continue;
- 		}
- 
-+		set_bit(gpuidx, prange->bitmap_mapped);
-+
- 		r = svm_range_map_to_gpu(pdd, prange, offset, npages, readonly,
- 					 prange->dma_addr[gpuidx],
- 					 bo_adev, wait ? &fence : NULL,
-@@ -1750,7 +1750,9 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 		bitmap_zero(ctx->bitmap, MAX_GPU_INSTANCE);
- 		bitmap_set(ctx->bitmap, gpuidx, 1);
- 	} else if (ctx->process->xnack_enabled) {
--		bitmap_copy(ctx->bitmap, prange->bitmap_aip, MAX_GPU_INSTANCE);
-+		/* Update mapping on already mapped or access in place GPU */
-+		bitmap_or(ctx->bitmap, prange->bitmap_mapped, prange->bitmap_aip,
-+			  MAX_GPU_INSTANCE);
- 
- 		/* If prefetch range to GPU, or GPU retry fault migrate range to
- 		 * GPU, which has ACCESS attribute to the range, create mapping
-@@ -1770,14 +1772,12 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 		}
- 
- 		/*
--		 * If prange is already mapped or with always mapped flag,
--		 * update mapping on GPUs with ACCESS attribute
-+		 * If prange with always mapped flag, update mapping on GPUs with
-+		 * ACCESS attribute
- 		 */
--		if (bitmap_empty(ctx->bitmap, MAX_GPU_INSTANCE)) {
--			if (prange->mapped_to_gpu ||
--			    prange->flags & KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)
--				bitmap_copy(ctx->bitmap, prange->bitmap_access, MAX_GPU_INSTANCE);
--		}
-+		if (prange->flags & KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)
-+			bitmap_or(ctx->bitmap, ctx->bitmap, prange->bitmap_access,
-+				  MAX_GPU_INSTANCE);
- 	} else {
- 		bitmap_or(ctx->bitmap, prange->bitmap_access,
- 			  prange->bitmap_aip, MAX_GPU_INSTANCE);
-@@ -1843,6 +1843,7 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 				e = min(end, prange->last);
- 				if (e >= s)
- 					r = svm_range_unmap_from_gpus(prange, s, e,
-+						       prange->bitmap_mapped,
- 						       KFD_SVM_UNMAP_TRIGGER_UNMAP_FROM_CPU);
- 				svm_range_unlock(prange);
- 				/* If unmap returns non-zero, we'll bail on the next for loop
-@@ -1905,7 +1906,9 @@ static int svm_range_validate_and_map(struct mm_struct *mm,
- 		}
- 
- 		if (!r && next == end)
--			prange->mapped_to_gpu = true;
-+			prange->mapping_done = true;
-+		else
-+			prange->mapping_done = false;
- 
- 		svm_range_unlock(prange);
- 
-@@ -2075,10 +2078,10 @@ svm_range_evict(struct svm_range *prange, struct mm_struct *mm,
- 	if (!p->xnack_enabled ||
- 	    (prange->flags & KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)) {
- 		int evicted_ranges;
--		bool mapped = prange->mapped_to_gpu;
-+		bool mapped = !bitmap_empty(prange->bitmap_mapped, MAX_GPU_INSTANCE);
- 
- 		list_for_each_entry(pchild, &prange->child_list, child_list) {
--			if (!pchild->mapped_to_gpu)
-+			if (bitmap_empty(pchild->bitmap_mapped, MAX_GPU_INSTANCE))
- 				continue;
- 			mapped = true;
- 			mutex_lock_nested(&pchild->lock, 1);
-@@ -2127,13 +2130,14 @@ svm_range_evict(struct svm_range *prange, struct mm_struct *mm,
- 			s = max(start, pchild->start);
- 			l = min(last, pchild->last);
- 			if (l >= s)
--				svm_range_unmap_from_gpus(pchild, s, l, trigger);
-+				svm_range_unmap_from_gpus(pchild, s, l, prange->bitmap_mapped,
-+							  trigger);
- 			mutex_unlock(&pchild->lock);
- 		}
- 		s = max(start, prange->start);
- 		l = min(last, prange->last);
- 		if (l >= s)
--			svm_range_unmap_from_gpus(prange, s, l, trigger);
-+			svm_range_unmap_from_gpus(prange, s, l, prange->bitmap_mapped, trigger);
+ 		if (acrtc->event) {
+ 			drm_crtc_send_vblank_event(&acrtc->base, acrtc->event);
+ 			acrtc->event = NULL;
+@@ -9984,6 +10001,28 @@ static void amdgpu_dm_enable_self_refresh(struct amdgpu_crtc *acrtc_attach,
  	}
- 
- 	return r;
-@@ -2163,10 +2167,11 @@ static struct svm_range *svm_range_clone(struct svm_range *old)
- 	new->prefetch_loc = old->prefetch_loc;
- 	new->actual_loc = old->actual_loc;
- 	new->granularity = old->granularity;
--	new->mapped_to_gpu = old->mapped_to_gpu;
-+	new->mapping_done = old->mapping_done;
- 	new->vram_pages = old->vram_pages;
- 	bitmap_copy(new->bitmap_access, old->bitmap_access, MAX_GPU_INSTANCE);
- 	bitmap_copy(new->bitmap_aip, old->bitmap_aip, MAX_GPU_INSTANCE);
-+	bitmap_copy(new->bitmap_mapped, old->bitmap_mapped, MAX_GPU_INSTANCE);
- 	atomic_set(&new->queue_refcount, atomic_read(&old->queue_refcount));
- 
- 	return new;
-@@ -2286,7 +2291,7 @@ svm_range_add(struct kfd_process *p, uint64_t start, uint64_t size,
- 		next_start = min(node->last, last) + 1;
- 
- 		if (svm_range_is_same_attrs(p, prange, nattr, attrs) &&
--		    prange->mapped_to_gpu) {
-+		    prange->mapping_done) {
- 			/* nothing to do */
- 		} else if (node->start < start || node->last > last) {
- 			/* node intersects the update range and its attributes
-@@ -2635,14 +2640,14 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, struct svm_range *prange,
- 		s = max(start, pchild->start);
- 		l = min(last, pchild->last);
- 		if (l >= s)
--			svm_range_unmap_from_gpus(pchild, s, l, trigger);
-+			svm_range_unmap_from_gpus(pchild, s, l, prange->bitmap_mapped, trigger);
- 		svm_range_unmap_split(prange, pchild, start, last);
- 		mutex_unlock(&pchild->lock);
- 	}
- 	s = max(start, prange->start);
- 	l = min(last, prange->last);
- 	if (l >= s)
--		svm_range_unmap_from_gpus(prange, s, l, trigger);
-+		svm_range_unmap_from_gpus(prange, s, l, prange->bitmap_mapped, trigger);
- 	svm_range_unmap_split(prange, prange, start, last);
- 
- 	if (unmap_parent)
-@@ -3751,6 +3756,25 @@ int svm_range_evict_svm_bo(struct svm_range_bo *svm_bo)
- 	return r;
  }
  
-+static bool svm_range_needs_unmap(struct kfd_process *p, struct svm_range *prange)
++static void dm_arm_vblank_event(struct amdgpu_crtc *acrtc,
++				struct dm_crtc_state *acrtc_state,
++				bool pflip_update,
++				bool cursor_update)
 +{
-+	if (bitmap_empty(prange->bitmap_needs_unmap, MAX_GPU_INSTANCE))
-+		return false;
++	assert_spin_locked(&acrtc->base.dev->event_lock);
 +
-+	pr_debug("prange 0x%p no access set for [0x%lx 0x%lx]\n",
-+		 prange, prange->start, prange->last);
++	if (!acrtc->base.state->event || acrtc_state->active_planes == 0)
++		return;
 +
-+	svm_range_update_checkpoint_timestamp(p);
-+
-+	svm_range_unmap_from_gpus(prange, prange->start,
-+				  prange->last, prange->bitmap_needs_unmap,
-+				  KFD_SVM_UNMAP_TRIGGER_UNMAP_FROM_CPU);
-+
-+	bitmap_clear(prange->bitmap_needs_unmap, 0, MAX_GPU_INSTANCE);
-+
-+	return bitmap_empty(prange->bitmap_mapped, MAX_GPU_INSTANCE);
++	if (pflip_update) {
++		drm_crtc_vblank_get(&acrtc->base);
++		WARN_ON(acrtc->pflip_status != AMDGPU_FLIP_NONE);
++		/* Arm flip completion handling and event delivery after programming. */
++		prepare_flip_isr(acrtc);
++	} else if (cursor_update) {
++		drm_crtc_vblank_get(&acrtc->base);
++		acrtc->event = acrtc->base.state->event;
++		acrtc->base.state->event = NULL;
++	}
 +}
 +
- static int
- svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
- 		   uint64_t start, uint64_t size, uint32_t nattr,
-@@ -3806,10 +3830,10 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
- 		svm_range_add_to_svms(prange);
- 		svm_range_add_notifier_locked(mm, prange);
- 	}
--	list_for_each_entry(prange, &update_list, update_list) {
-+
-+	list_for_each_entry(prange, &update_list, update_list)
- 		svm_range_apply_attrs(p, prange, nattr, attrs, &update_mapping);
--		/* TODO: unmap ranges from GPU that lost access */
--	}
-+
- 	update_mapping |= !p->xnack_enabled && !list_empty(&remap_list);
- 
- 	list_for_each_entry_safe(prange, next, &remove_list, update_list) {
-@@ -3830,6 +3854,9 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
- 	list_for_each_entry(prange, &update_list, update_list) {
- 		bool migrated;
- 
-+		if (svm_range_needs_unmap(p, prange))
-+			continue;
-+
- 		mutex_lock(&prange->migrate_mutex);
- 
- 		r = svm_range_trigger_migration(mm, prange, &migrated);
-@@ -3838,7 +3865,7 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
- 
- 		if (migrated && (!p->xnack_enabled ||
- 		    (prange->flags & KFD_IOCTL_SVM_FLAG_GPU_ALWAYS_MAPPED)) &&
--		    prange->mapped_to_gpu) {
-+		    !bitmap_empty(prange->bitmap_mapped, MAX_GPU_INSTANCE)) {
- 			pr_debug("restore_work will update mappings of GPUs\n");
- 			mutex_unlock(&prange->migrate_mutex);
- 			continue;
-@@ -3849,7 +3876,8 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
- 			continue;
+ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 				    struct drm_device *dev,
+ 				    struct amdgpu_display_manager *dm,
+@@ -10007,6 +10046,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 	bool cursor_update = false;
+ 	bool pflip_present = false;
+ 	bool immediate_flip = false;
++	bool flip_latched_during_prog = false;
+ 	bool dirty_rects_changed = false;
+ 	bool updated_planes_and_streams = false;
+ 	struct {
+@@ -10243,39 +10283,24 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 			usleep_range(1000, 1100);
  		}
  
--		flush_tlb = !migrated && update_mapping && prange->mapped_to_gpu;
-+		flush_tlb = !migrated && update_mapping &&
-+			    !bitmap_empty(prange->bitmap_mapped, MAX_GPU_INSTANCE);
- 
- 		r = svm_range_validate_and_map(mm, prange->start, prange->last, prange,
- 					       MAX_GPU_INSTANCE, true, true, flush_tlb);
-@@ -3863,11 +3891,13 @@ svm_range_set_attr(struct kfd_process *p, struct mm_struct *mm,
+-		/**
+-		 * Prepare the flip event for the pageflip interrupt to handle.
+-		 *
+-		 * This only works in the case where we've already turned on the
+-		 * appropriate hardware blocks (eg. HUBP) so in the transition case
+-		 * from 0 -> n planes we have to skip a hardware generated event
+-		 * and rely on sending it from software.
+-		 */
+-		if (acrtc_attach->base.state->event &&
+-		    acrtc_state->active_planes > 0) {
+-			drm_crtc_vblank_get(pcrtc);
+-
+-			spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
+-
+-			WARN_ON(acrtc_attach->pflip_status != AMDGPU_FLIP_NONE);
+-			prepare_flip_isr(acrtc_attach);
+-
+-			spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
+-		}
+-
+ 		if (acrtc_state->stream) {
+ 			if (acrtc_state->freesync_vrr_info_changed)
+ 				bundle->stream_update.vrr_infopacket =
+ 					&acrtc_state->stream->vrr_infopacket;
+ 		}
+-	} else if (cursor_update && acrtc_state->active_planes > 0) {
+-		spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
+-		if (acrtc_attach->base.state->event) {
+-			drm_crtc_vblank_get(pcrtc);
+-			acrtc_attach->event = acrtc_attach->base.state->event;
+-			acrtc_attach->base.state->event = NULL;
++	}
++
++	/*
++	 * DCE depends on a combination of GRPH_FLIP, VLINE0, and VUPDATE for
++	 * event delivery. Only GRPH_FLIP handler can send pflip events, and it
++	 * only fires if HW latched to the flip. Maintain legacy behavior by
++	 * arming event before programming.
++	 */
++	if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) == 0) {
++		scoped_guard(spinlock_irqsave, &pcrtc->dev->event_lock) {
++			dm_arm_vblank_event(acrtc_attach, acrtc_state,
++					pflip_present, cursor_update);
+ 		}
+-		spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
  	}
  
- 	list_for_each_entry(prange, &remap_list, update_list) {
-+		flush_tlb = !bitmap_empty(prange->bitmap_mapped, MAX_GPU_INSTANCE);
+ 	/* Update the planes if changed or disable if we don't have any. */
+@@ -10377,17 +10402,103 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 		amdgpu_dm_commit_cursors(state);
+ 
+ 	/*
+-	 * On DCN, flip completion is normally delivered from VUPDATE_NO_LOCK.
+-	 * However, an immediate (tearing / async) flip is latched by HW right
+-	 * away and does not wait for the next vupdate, so deliver its
+-	 * completion event here after programming.
++	 * DCN specific vblank handling
++	 * ============================
++	 *
++	 * With the event_lock held, arm the vblank event, and determine whether
++	 * deliver it immediately, or in VUPDATE_NO_LOCK IRQ (i.e. HW latch
++	 * point) handler. Do this *after* programming so that the IRQ handler
++	 * will not deliver the event before HW laches onto the programmed
++	 * values:
++	 *
++	 *     Commit thread      IRQ handler                       HW
++	 *     -----------------------------------------------------------------
++	 *     arm_vblank_event()
++	 *                                                          vupdate()
++	 *                        vupdate_handler()
++	 *                          cook_timestamp()
++	 *                          # prev flip already latched,
++	 *                          # so flip_latched == true.
++	 *                          if event_armed && flip_latched:
++	 *                            send_vblank_event()
++	 *                            # sent before latch, **BAD!**
++	 *     hw_program()
++	 *                                                          vupdate()
++	 *                                                          **latch**
++	 *
++	 * There's a consequence of arming after: it's possible for HW to latch
++	 * between start of HW programming and acrtc->event/pflip_status arming.
++	 * When this happens, the IRQ handler will send the event on the next
++	 * immediate latch point, even though HW has already latched. This is
++	 * handled by optimistically checking for HW latch after programming,
++	 * and if latched, send the event immediately:
+ 	 *
+-	 * On DCE, GRPH_PFLIP already fires immediately for immediate flips, so
+-	 * this is DCN-only.
++	 *     Commit thread             IRQ handler                HW
++	 *     -----------------------------------------------------------------
++	 *     hw_program()
++	 *                                                          vupdate()
++	 *                                                          **latch**
++	 *                               vupdate_handler()
++	 *                                 cook_timestamp()
++	 *                                 # event_armed == false
++	 *                                 # **no event sent!**
++	 *     arm_vblank_event()
++	 *     if flip_latched:
++	 *       **send_vblank_event()**
++	 *       disarm_vblank_event()
++	 *
++	 * The IRQ handler is expected to cook the timestamp, but we need to
++	 * cook the timestamp before optimistic sending as well. That's because
++	 * the following sequence is possible:
++	 *
++	 *     Commit thread              IRQ handler              HW
++	 *     -----------------------------------------------------------------
++	 *     hw_program()
++	 *     arm_vblank_event()
++	 *                                                         vupdate()
++	 *                                                         **latch**
++	 *     if flip_latched:
++	 *       # Need cook before send!
++	 *       **cook_timestamp()**
++	 *       send_vblank_event()
++	 *       disarm_vblank_event()
++	 *                                vupdate_handler()
++	 *                                  cook_timestamp()
++	 *                                  # event_armed == false
++	 *                                  # no event sent!
++	 *
++	 * Cooking twice is OK, since DRM scanout accurate timestamps report A)
++	 * the previous vactive start if currently in vactive, or B) the next
++	 * vactive start if currently in vblank (see &get_vblank_counter). 'A)'
++	 * is what we want for the optimistic send, and for 'B)', we'll cook a
++	 * timestamp no later than the next IRQ handler run.
++	 *
++	 * The more correct fix is to wrap programming and arming with the
++	 * event_lock and thus serializing it with the IRQ handler. However,
++	 * there are various sleep-waits within
++	 * update_planes_and_stream_adapter() that makes spin locking illegal.
++	 * And on full updates, it can take 1-2 frame-times to return (see
++	 * commit_planes_for_stream).
++	 *
++	 * On DCE, GRPH_PFLIP IRQ is used and takes care of this.
+ 	 */
+-	if (immediate_flip && amdgpu_ip_version(dm->adev, DCE_HWIP, 0) != 0) {
++	if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) != 0) {
+ 		spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
+-		if (acrtc_attach->pflip_status == AMDGPU_FLIP_SUBMITTED &&
 +
- 		pr_debug("Remapping prange 0x%p [0x%lx 0x%lx]\n",
- 			 prange, prange->start, prange->last);
- 		mutex_lock(&prange->migrate_mutex);
- 		r = svm_range_validate_and_map(mm,  prange->start, prange->last, prange,
--					       MAX_GPU_INSTANCE, true, true, prange->mapped_to_gpu);
-+					       MAX_GPU_INSTANCE, true, true, flush_tlb);
- 		if (r)
- 			pr_debug("failed %d on remap svm range\n", r);
- 		mutex_unlock(&prange->migrate_mutex);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-index 4232c47422e6..2fced72b3930 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.h
-@@ -99,6 +99,9 @@ struct svm_work_list_item {
-  * @child_list: list header for split ranges which are not added to svms yet
-  * @bitmap_access: index bitmap of GPUs which can access the range
-  * @bitmap_aip: index bitmap of GPUs which can access the range in place
-+ * @bitmap_needs_unmap: index bitmap of GPUs which currently set NO_ACCESS
-+ * @bitmap_mapped: index bitmap of GPUs which currently have the range mapped
-+ * @mapping_done: true if range_validate_and_map complete successfully
-  *
-  * Data structure for virtual memory range shared by CPU and GPUs, it can be
-  * allocated from system memory ram or device vram, and migrate from ram to vram
-@@ -134,7 +137,9 @@ struct svm_range {
- 	struct list_head		child_list;
- 	DECLARE_BITMAP(bitmap_access, MAX_GPU_INSTANCE);
- 	DECLARE_BITMAP(bitmap_aip, MAX_GPU_INSTANCE);
--	bool				mapped_to_gpu;
-+	DECLARE_BITMAP(bitmap_needs_unmap, MAX_GPU_INSTANCE);
-+	DECLARE_BITMAP(bitmap_mapped, MAX_GPU_INSTANCE);
-+	bool				mapping_done;
- 	atomic_t			queue_refcount;
- };
++		if (updated_planes_and_streams) {
++			flip_latched_during_prog =
++				!dc_get_flip_pending_on_otg(dm->dc, acrtc_attach->otg_inst);
++		}
++
++		dm_arm_vblank_event(acrtc_attach, acrtc_state,
++				    pflip_present, cursor_update);
++
++		/*
++		 * Deliver the event immediately on immediate flip, or on a
++		 * update that has already latched.
++		 */
++		if ((immediate_flip || flip_latched_during_prog) &&
++		    acrtc_attach->pflip_status == AMDGPU_FLIP_SUBMITTED &&
+ 		    acrtc_attach->event) {
+ 			drm_crtc_accurate_vblank_count(&acrtc_attach->base);
+ 			drm_crtc_send_vblank_event(&acrtc_attach->base,
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 5f2c62fcba9bf..452a3ad0d7265 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -5628,6 +5628,51 @@ void dc_interrupt_ack(struct dc *dc, enum dc_irq_source src)
+ 	dal_irq_service_ack(dc->res_pool->irqs, src);
+ }
+ 
++/*
++ * dc_get_flip_pending_on_otg() - Check if a GRPH_FLIP is still pending on OTG
++ *
++ * @dc: display core context @otg_inst: OTG instance to query
++ *
++ * Reads the HUBP flip-pending status for the pipe(s) bound to @otg_inst,
++ * returning true if any of them has not yet latched its programmed surface
++ * address.
++ *
++ * Unlike dc_plane_get_status(), this does not take or mutate a dc_plane_state,
++ * so it is safe to call from interrupt context without racing a concurrent
++ * commit that may be updating plane state.
++ *
++ * Return: true if a flip is still pending on the OTG, false otherwise.
++ */
++bool dc_get_flip_pending_on_otg(struct dc *dc, int otg_inst)
++{
++	bool flip_pending = false;
++	int i;
++
++	if (!dc || !dc->current_state)
++		return false;
++
++	dc_exit_ips_for_hw_access(dc);
++
++	for (i = 0; i < dc->res_pool->pipe_count; i++) {
++		struct pipe_ctx *pipe_ctx = &dc->current_state->res_ctx.pipe_ctx[i];
++		struct hubp *hubp = pipe_ctx->plane_res.hubp;
++
++		if (!pipe_ctx->plane_state || !pipe_ctx->stream_res.tg)
++			continue;
++
++		if (pipe_ctx->stream_res.tg->inst != otg_inst)
++			continue;
++
++		if (hubp && hubp->funcs->hubp_is_flip_pending &&
++		    hubp->funcs->hubp_is_flip_pending(hubp)) {
++			flip_pending = true;
++			break;
++		}
++	}
++
++	return flip_pending;
++}
++
+ void dc_power_down_on_boot(struct dc *dc)
+ {
+ 	if (dc->ctx->dce_environment != DCE_ENV_VIRTUAL_HW &&
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 55152f12af48b..2c45e74cab873 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -2736,6 +2736,7 @@ enum dc_irq_source dc_interrupt_to_irq_source(
+ 		uint32_t ext_id);
+ bool dc_interrupt_set(struct dc *dc, enum dc_irq_source src, bool enable);
+ void dc_interrupt_ack(struct dc *dc, enum dc_irq_source src);
++bool dc_get_flip_pending_on_otg(struct dc *dc, int otg_inst);
+ enum dc_irq_source dc_get_hpd_irq_source_at_index(
+ 		struct dc *dc, uint32_t link_index);
  
 -- 
-2.50.1
+2.54.0
 
