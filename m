@@ -4,59 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05AB4C54F52
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A23BC54FCD
 	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 13:16:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 802B810EC37;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8746410EC38;
 	Wed, 29 Jul 2026 13:16:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="OjPvzaHU";
+	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="cCVqlwkT";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D228610E641;
- Wed, 29 Jul 2026 09:19:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785316783; x=1816852783;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=77NJ54WFhAKFaHyjMcDAOikQzZ+okj3GveCYQGKejmU=;
- b=OjPvzaHUpPs3Molpmlk2aJCzA+e1qIWOyT1HWDcq4lPjs84ECQk0Amd/
- 9G3LOtu+2gdBPgaKNbd+jUWoI8xdAvX6kMZ94hmiAAd2B6OI+kisPdF2o
- Gz1tt/z6AIC3bfWse3a3aLbZFVO98GTuCoPMUAa7u62llVbUuNGOiZY9A
- JpeXIrq9uoW2COwJIIRPQP0BesFpnagQl648369nX5TmH1AkRrWiq20KL
- 8suZKFoV75TsU3V+UetT1DQhY7w1FZFjbx/RaynTZRXPIRP63hKRB7TXn
- DD7yMunqGnFGz3NUwijp6AtKBIJGLMu4bOdJlHonkiJubfQGHG6859fkz w==;
-X-CSE-ConnectionGUID: OBhDGlq7TWC0/DE+wwC7FQ==
-X-CSE-MsgGUID: JLhw6CzITfSAK1L5LUcBOQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="89805333"
-X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; d="scan'208";a="89805333"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
- by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2026 02:19:42 -0700
-X-CSE-ConnectionGUID: Mt4FrOdHT66oV7BVDhk9Jw==
-X-CSE-MsgGUID: edocE6KJSjO4B6uVIr3Mnw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; d="scan'208";a="260020027"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO intel.com)
- ([10.245.245.23])
- by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Jul 2026 02:19:39 -0700
-From: Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-To: dri-devel@lists.freedesktop.org
-Cc: intel-gfx@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, Simona Vetter <simona@ffwll.ch>,
- Joel Fernandes <joelagnelf@nvidia.com>, David Airlie <airlied@gmail.com>,
- Krzysztof Karas <krzysztof.karas@intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>,
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Andi Shyti <andi.shyti@linux.intel.com>,
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: [PATCH RESEND 0/2] GPU buddy allocator test fixes
-Date: Wed, 29 Jul 2026 11:18:15 +0200
-Message-ID: <20260729091816.27860-2-krzysztof.niemiec@intel.com>
-X-Mailer: git-send-email 2.55.0
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B14910EB68
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 10:29:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1785320991; bh=5aonJwU7NUvO+HaO8712QjB1i2KpssPyPphCGk0Bn4U=;
+ h=From:To:Cc:Subject:Date;
+ b=cCVqlwkThLBIvHhQktRuCQQgTvwdw38PBZjKQIZpcndDDIYL1Tj8EM51KrXXA++CT
+ 5zgvHEpmBD53oN1tjDckeFyz8bXDeQMSlBzuy4VHhI8/JiWrQhF0oaOCPaA+cHXBgu
+ 9iZ5cl3A4MmR1Iojy5bE6M5Vj9vPgmZ2wFXu8jEs=
+Received: from localhost.localdomain ([116.128.244.169])
+ by newxmesmtplogicsvrszb51-0.qq.com (NewEsmtp) with SMTP
+ id 69DBAAB1; Wed, 29 Jul 2026 18:26:29 +0800
+X-QQ-mid: xmsmtpt1785320789typpnxj14
+Message-ID: <tencent_BB2A7CAE632BA0AC08D9296E78A15786200A@qq.com>
+X-QQ-XMAILINFO: MFkgsonL4eTuQmqQgWWwTzVIvBycrCHbnpGQ/JqJnWA9/Et7jX4EYP6jITPcP/
+ 8FoGL7//AbBbxF+Yq4k636+GLeSstIt/krsXfr/+krPuIptwGQUPyb4AoMTZYbhd8JVNpl4n0cYb
+ zNKo/y4giLA9mM8ICQpEDD3nkLAdESsa2aAl0nlPV6AozZHEjuuVZ7bM5tmtoUEzuUnTruyUPJOw
+ /3TZA1DRdMOZJRAr+1H1AW+AHgnxUmafn5IFEJvP5QxYSnyhB2X8sO5upOP1A09ZyGvmlNoE1/jV
+ 2W+HmO7fqWnd2QEJ69Og2DcwnV4YX/aOwBNlpc+oxtsfZw9u5jAbswKe010XdI69n+IAgmoluCSS
+ iY6zFhu6t+UX21p86UuDXjrPDg5FPslvhftLoyo2B9uKRATugFLCg79N/dnf6frxmaqxcWZO+Szb
+ jK6PgNYmJb190DKi4pgFqfZF+MulY5ToE+u9UFT7GL8x/RUKDueC5BH489P9BdxyQ34MUqQP6QOy
+ +pYjO8Ev79TYPg2y6Lx6uYDKoxsUIQMt7/Wa7XeXtSNX6XktE6NHQIlPt48x4LAfXwo4hSl/8xDA
+ C4UFpU2qWypmhrzyZLhFPYQoengJEhTCVU9VGVQ5FYXFmZ8VqdeHWTTiQc1YR6BgFm6u+ZuHGar2
+ wyaSJ2qzPI4I72aamda4IhDQLKDD4k7W4oJ0RtWCRkB/p4HtKhFfLDzDjq0AMRm7+MYcVJ/X2L+5
+ Nv7g70WA8DDhfXTxywPAq7AK9PUw6Rkrx9c3kAqU/aJs2eF13kRuNU3I8K6V27OVxNSTesCxFvtp
+ wNwC5r+uh776h08SlLFJs4cnZJSsDTc/EATJ/7XUJqHCKp8U5QI5RIF7bRhhXg3DNBmtkQM4KEfG
+ TnL9rHfVvKCnzaa4FRXiYXI75V0TWl2ovIS4ywi1oLLmFA0BW0d91axkaxrNk7mRbYK/qip4k+mH
+ QlslNw0bUuN1SOYDI9qvuy4eY0VnMH5qYFWM04KmZUYokBjC32R7OiB0L/V3zNNztWsUxUnErw1y
+ 6UIyH2pTMFXYc65oIvx34XBKfXh/E=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: 2564278112@qq.com
+To: alexander.deucher@amd.com
+Cc: christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, 2564278112@qq.com,
+ Wang Jiang <jiangwang@kylinos.cn>
+Subject: [PATCH] drm/radeon: restore hardware polling in fence_is_signaled to
+ fix performance regression
+Date: Wed, 29 Jul 2026 18:26:26 +0800
+X-OQ-MSGID: <20260729102626.634363-1-2564278112@qq.com>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Wed, 29 Jul 2026 13:16:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -73,20 +71,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This series introduces small fixes to the GPU buddy allocator test
-configuration. The direct purpose of these changes is to fix running the
-KUnit tests via kunittool, or running the tests on systems not building
-any DRM drivers.
+From: Wang Jiang <jiangwang@kylinos.cn>
 
-Krzysztof Niemiec (2):
-  gpu: Fix dependencies in CONFIG_GPU_BUDDY_KUNIT_TEST
-  gpu/tests: Add a dedicated .kunitconfig
+Commit 9eb00b5f5697b ("drm/radeon: delete radeon_fence_process in
+is_signaled, no deadlock") removed the hardware polling from
+radeon_fence_is_signaled() to fix a self-deadlock caused by
+wake_up_all(&rdev->fence_queue) being called with the fence queue
+lock held.
 
- drivers/gpu/Kconfig            | 3 ++-
- drivers/gpu/tests/.kunitconfig | 2 ++
- 2 files changed, 4 insertions(+), 1 deletion(-)
- create mode 100644 drivers/gpu/tests/.kunitconfig
+However, removing the polling entirely causes significant performance
+regression (e.g. glxgears FPS drop) because the fence signaled check
+becomes purely passive — it only reads the cached last_seq without
+probing the GPU, so completed GPU work is not detected in time,
+causing unnecessary CPU stalls in sync-heavy workloads.
 
+Fix this by calling radeon_fence_activity() directly instead of
+radeon_fence_process(). radeon_fence_activity() reads the hardware
+fence counter and updates last_seq via atomic ops without calling
+wake_up_all(), thus avoiding the deadlock while restoring timely
+fence detection.
+
+Fixes: 9eb00b5f5697b ("drm/radeon: delete radeon_fence_process in is_signaled, no deadlock")
+Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
+---
+ drivers/gpu/drm/radeon/radeon_fence.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_fence.c b/drivers/gpu/drm/radeon/radeon_fence.c
+index 02a40e4750c7..299865569252 100644
+--- a/drivers/gpu/drm/radeon/radeon_fence.c
++++ b/drivers/gpu/drm/radeon/radeon_fence.c
+@@ -360,6 +360,13 @@ static bool radeon_fence_is_signaled(struct dma_fence *f)
+ 	if (atomic64_read(&rdev->fence_drv[ring].last_seq) >= seq)
+ 		return true;
+ 
++	if (down_read_trylock(&rdev->exclusive_lock)) {
++		radeon_fence_activity(rdev, ring);
++		up_read(&rdev->exclusive_lock);
++
++		if (atomic64_read(&rdev->fence_drv[ring].last_seq) >= seq)
++			return true;
++	}
+ 	return false;
+ }
+ 
 -- 
-2.45.2
+2.25.1
 
