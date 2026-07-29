@@ -4,122 +4,142 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 268CFC54F51
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 12:03:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81211C53200
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 13:16:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A35B810EBBD;
-	Wed, 29 Jul 2026 12:03:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2260810EC25;
+	Wed, 29 Jul 2026 13:16:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qw0r4gso";
+	dkim=pass (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="RA5OEsBM";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010062.outbound.protection.outlook.com [52.101.201.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CB80810EBBD
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 12:03:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VE+JqLfnycw35xOjr1dk2aIRWTgmtOiqAlS4uFxMpydHaYo1tnNR5QIraPuwKpqOsgXBWSgBS1F/waeTo9X50Ohb7oeaK/VIFVKjTlReYbgVDszBO5tYsiRTZ5rPetTa7VBWsNBKIhtbOaOWGg79wYu8JUJaxVW6oxEy3DXBZ8jnz4mZenfJsk02elBxWQoONgfrD2rjyXp9da1+k8ICtIveoe0J8ppehKMcOyAI1Vzg+e/SKf3QPFNKcI4m7JMye3jbhd0wwTiRE03dmKwHK9KmpPa2eaXHsvgp7NPmZKs3QFBSlGIjG/D9VGlgs4JF7wzumwsArF4InpDWBNSOqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oJShawaYkSQH0qOl9uSmeIEmz8p5QEYUHj2b/E41doA=;
- b=yDm33Y3+ND4pEI+Tii5Ti+/g2I6hMClDWiYDWRMmaP2qhgK5FqTq8B1MlYF12g4LYgqnup7v4P5SnqibMHHa11Cuh/yeliJjBoHYUAgeNgwx8rMUiW/JIyKBDRCT5tYz62L1da7ruOH27vfHk4CdIgARB9eKhVUtUfot3P7RHM3a8XDX9ahPS3q/J7MN1q8mYLrARNNNqXLV1NKnk6Jn3mzAFwc2u3GO7JA5+khMt+D5mThmsh0HJt0cr+O6zNFYCfQmlMnV087ATa7tBJaaN4TV95d20kEokdH1u/0CGU5l1ZcrSyg4+kvngZWZkIXX2Gttc2NpdIjj9czllgPbFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oJShawaYkSQH0qOl9uSmeIEmz8p5QEYUHj2b/E41doA=;
- b=Qw0r4gsovTg/DprK5zH5GMfN0/MNtrWLvcvC9IpoBmctOqoGEsVcGKLzCNJL9l6fNQGjKCkWdhDq3VrvQxokcyBl5+vvRVJjEbrj66b3z5Mtrz3P+pHKkjhe0ePDexq7HG4LYqh7sV3nj/t5zZLYImztLEqw9uIShyV16taGWw0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by SAWPR12MB999117.namprd12.prod.outlook.com (2603:10b6:806:4e3::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Wed, 29 Jul
- 2026 12:03:02 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0270.012; Wed, 29 Jul 2026
- 12:03:02 +0000
-Message-ID: <91060727-86e9-4794-b031-9325bdf1163a@amd.com>
-Date: Wed, 29 Jul 2026 17:32:56 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Use virtual alloc during coredump
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Hawking.Zhang@amd.com, Alexander.Deucher@amd.com,
- pierre-eric.pelloux-prayer@amd.com
-References: <20260729075018.1547054-1-lijo.lazar@amd.com>
-Content-Language: en-US
-In-Reply-To: <20260729075018.1547054-1-lijo.lazar@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0143.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1b9::6) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
+Received: from mout.web.de (mout.web.de [212.227.17.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FE0E10EBC9
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 12:35:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1785328535; x=1785933335; i=spasswolf@web.de;
+ bh=La3/EjeeiT/yepazPQRXS2mJezdgg47OaAIINry03EI=;
+ h=X-UI-Sender-Class:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+ References:Content-Type:MIME-Version:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=RA5OEsBMjjakoUO2uOurYWER9JhYdmoguDS+MIWC+7penyzYmgGxHYxdUaWforxH
+ N/xlSAzFyvgQjH4V1yWSchXBbePdlE2QXrDoITq+SUTS1bzgMp8Do5g8eN3RUeh/t
+ qBgW8O/0mWadg/R6XFVuAUWDuuI+k1EFzfTNcGjugrFe77SqIz0z/3UqOOIgYk+h6
+ p0SmwgL4Rlt2g5NnxdCWrWPIRdEN6yL7GdbyoYYWTf+J05WL1bg7H7gEKlphoSnvq
+ cFSdoXInceoihnka9AGJ37ufmH00LxVhrx/G0Dg32aCOWpHALfdG3S4o5rqBPPPr4
+ 9HR2KhiKoicNu35nJw==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb106
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1MrwsB-1xKUa21Jxd-00aYy9; Wed, 29
+ Jul 2026 14:35:35 +0200
+Message-ID: <1ead313022bc62dce1f42af9f855727eb9074443.camel@web.de>
+Subject: Re: [PATCH] drm/amd/display: fix usage of DC_FPU_{BEGIN,END} with
+ PREEMPT_RT
+From: Bert Karwatzki <spasswolf@web.de>
+To: "mikhail.v.gavrilov@gmail.com" <mikhail.v.gavrilov@gmail.com>, 
+ linux-kernel@vger.kernel.org
+Cc: linux-next@vger.kernel.org, linux-rt-devel@lists.linux.dev, 
+ amd-gfx@lists.freedesktop.org, "# = v7 . 1" <stable@vger.kernel.org>, Alex
+ Deucher <alexander.deucher@amd.com>, Rafal Ostrowski
+ <rafal.ostrowski@amd.com>, Mario Limonciello	 <mario.limonciello@amd.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,  Thomas Gleixner
+ <tglx@linutronix.de>, spasswolf@web.de
+Date: Wed, 29 Jul 2026 14:35:34 +0200
+In-Reply-To: <ef1bc3d070c4156f1811c0c4a567ec98ac8fadaf.camel@gmail.com>
+References: <20260727105059.75716-1-spasswolf@web.de>
+ <ef1bc3d070c4156f1811c0c4a567ec98ac8fadaf.camel@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+User-Agent: Evolution 3.56.2-10 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SAWPR12MB999117:EE_
-X-MS-Office365-Filtering-Correlation-Id: 19a4c093-4ab7-4e64-5417-08deed69574d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|6133799003|56012099006|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: C9PUD/Mn+XEFdu3u7qfadxTDxywjEgmEXXPhOyE8CfVK+CpH8CSJPJcVloNr6Q9KS98OtYdPA1ynzXPsaawZtPZCOuNeQNkmxlSHZIsI/FmjAIr9CHtJtJUz9rIXPbqnTo5iOHq2wkoA2vnIlO7Orw5DQFs277iWBvCwSxDX8l7s5pnKpBNgRxneMJgU4Cbk6jBwROTnYrwOffocuUsVTgZ0mcKhE/46PmdGtN50ApxkLSxCSjob+ffwndPv+xEH7bZlmIa7K31pbbvOuxnyZvgRsatADxQq0fESjjdeqm9fUn7Nz9WLOOox0riLNUH1EmQ5WRmxcJst92f4SpNPmG6lH34TCo0dYTkSR0t+dw7MNDgky3c1UHKSV2mHwyR5Z23OePeDDu5sGYWY5YGeN/dzocwSSnVylRBjFrBtNyUVHNfx2FirOqVwJAGW/NDfDJ24Q+BaSNyvzitePewJ0bEJZn/3WQiXNB11nqwlF7HudtyBu0QBoZ8cwtYs2r3g+msgTl5sen2DYS6QeqGhy/GZHfwFGTjmOIQ/wJ93i7dyuXtuPB8Ycpsfkjc46rRYHj56YRnAuNeFnHDoEeOAWrp39Hk7LO5jzJg06nKUaCUHmhoK7SrDF8dZ1dFFxjXDojtQrvNuIa82d5fd5gcddpA+RSeOBGWTdCruO+VhwjE=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(6133799003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?blNNWEk5eHl3a1k2VThzOWZvQ25TTjExRXZyZFhrR3EvdXI3d2hvd1RqMC9k?=
- =?utf-8?B?VmFHWW41ZmExYlRhbUZic0lyRW5OT3I1SERnTlh0d2lIc24weHBwOUJ0VWJG?=
- =?utf-8?B?U1NjeTVodms4YmVnUzN2azdRTDI2RWFqeFE5dlgzQmM5dWgyb0RkeFU0SXlU?=
- =?utf-8?B?cUI2K2wrVTI4TFg3TDBXS0s0YWNySGcxbjJzbnJuVWU2TjNqZTVzbFptb292?=
- =?utf-8?B?RUtqc2pxNlZ3VWF0UGx5VnEvais2TzBqbDViemFHNTdHZTVaZW42WFJtT1Zx?=
- =?utf-8?B?d2grakw1MllmVmJCLzIycVRLTHYvLzNmRWtDNGp3eDZhT0R2NVZleXc5endp?=
- =?utf-8?B?aTdJdTRRR08yV3U3Ri9qZEVwQ3RIL0FWOUZRRmhKRWh4U1M2b1ZWYWpvbkc2?=
- =?utf-8?B?NnNVblM5cVZtV0p6SjhRR0kwd1FJOXBhMUtnekRaUzY4KzJTYjBNTTZYK1lt?=
- =?utf-8?B?dzVabWg3S0FVZjlmVGh5bUEvTTZkZUpyMkRuM0pSNE5KdXdNYWNNSjkvdXdL?=
- =?utf-8?B?MzIvWDlDM1hDdDFBYzFjUExrcG5jL2FZNDRHMzUwUjI3dldZM0tGVEZwQW9y?=
- =?utf-8?B?VFYxZ21aRTgwS3dKWldvdTdaY3JvQWpoRUNnK0dXTlBTd2RZQTZJOVh0cWxw?=
- =?utf-8?B?bXNjZVdlU25ZenZWdFVIL01Oc21DN3hKekUzNnJ3V01HT1V2VXNJbE4vUE1s?=
- =?utf-8?B?b2V3WlNJMTlRRGNGSTFwN0t1blBWbnM1V0t2OGdoMXl1ODZhaEFjbTRaOUVN?=
- =?utf-8?B?S2pkc0xYSWh0YVlTeFNJV0JRS09aQU9FT3BOWWlqWGluNUtoY0paOFB5REFL?=
- =?utf-8?B?cUF1U1RzYmVHa0xUU1QrMFNiOTdNTkhQb0x4dERVSzJUV1IxWTRrZUVhOTJr?=
- =?utf-8?B?R3UwR3hsdEdCL3dXRlkyWlhuLzN5NFpOK1h5dlBTS1RYaXlWRnFwQm1DNmVH?=
- =?utf-8?B?Skd3cXUrc29NS3lGZzd3aWl3NERnNHNIcmlJQWd2ZGUxVllZN0RpSUVRTDZF?=
- =?utf-8?B?cWhOMWJiWllSQXdkUXp3czhKYkpyaGtCbVRyUHVRQ053SFFMRm5uY3JHZVI3?=
- =?utf-8?B?cFRnOXExR285MDVleHh0MTVseXdKcTlINXE5RjFHL2hQU0ZNMVZraVFCVTln?=
- =?utf-8?B?bHFGdEYzNjdRNEJHMmU3UXlsa2hwSlQ2c2RuMEFaOHVzZ2lqRmxEN3dTUU44?=
- =?utf-8?B?U0lBU3NZbXJqREJvR1liN1pzUnJwNXlpeldEV1RyclJoTTBKWkhXTXNGS1lO?=
- =?utf-8?B?R1FUd1BKSG5ZbXVReU9JeDJnSUxFdlJvMytFZ044ZDJhQlNkNW9ZelVOdDNO?=
- =?utf-8?B?dTNDOTUrT1BmbWtFbVpuQ2pLeEMvRmhkeDYrRElWL25wVWFTSCt4dzBGbGZq?=
- =?utf-8?B?OCtRZDRaY1ZaVzVhbGhpQ2FXelgyUnp6cDBsMlc4YTl5d2NlMUd1emVCZXQ1?=
- =?utf-8?B?UlBubkxUVDA0elF5WXpJdWxIUG9tYjlsSXRFNklsdnlaaURGZk11WHEwbDJB?=
- =?utf-8?B?VW01YVpFUzhTRXhEYUcxWDZlcmV0VVVnREpKMEhJMWxKanY5ODZpMDFVdjRD?=
- =?utf-8?B?WlM5VTRQTE9KZWNoYURzN200ZXRqMklxSFBUM3g3cjVNbnV6RWFqK0M1dlNL?=
- =?utf-8?B?NUQ0Sk9pdDFvM0tQcEVtdG9oYlFmdFhad3YxdnZQbERDcm51OGVSbzZTNFhZ?=
- =?utf-8?B?dHp1QjIyaGdBb1RyTng0SytDKzRML3RTVURUTUxYdTU0M1lJclFPNzBWeStn?=
- =?utf-8?B?Q09wMmdDaU9wZE5NOUFDeW9aYURNdWZuRHRTMHpKZVUyY1Z2Nm13VlNtWTBo?=
- =?utf-8?B?Q3E1dmR0V1owMnRxTENTZVFsK3dOcFhLOFBGQzlId1pWakxiaUp4ak5iZ2JG?=
- =?utf-8?B?dWNHMEZWZi9ZYWo2NEZXeFhNME5YL0tQY0V2d2xpaGZxNTc0dHRKOHVXcnAw?=
- =?utf-8?B?c2pLU2NWN01zT2pxeTNFUzRLczZMTEpabk0xdko1S01iTC91MWd2WkhrOEt4?=
- =?utf-8?B?ckJmVi9sWDJDRjhmUHRhNGJ1ZzBoSytnOFVRZ0NPcGlQckhhUEtjSmpKWmNV?=
- =?utf-8?B?UWVWWjJnQVdKRzdyWW1DVTlFSlhrb1BGcDZnUmNyYTkxMXV5cDdoSkh2ZmY4?=
- =?utf-8?B?UGZIQTNnU3o2WmRlZVFDZFUwNE0rdWRRekxUYUljdTdsNkhOZGR5NUpPTFpl?=
- =?utf-8?B?djdMU0l4SWJnVnd4RDlXdGhGWUFTWUYxYTRSVVBVd2oxR25VTXdRMlU0elFN?=
- =?utf-8?B?ckJ3OHBnYnBuc2l6c1B0Yy9KanFCcmdZNmNKdTc1cEppZEY4M25xR3NZZTA0?=
- =?utf-8?B?a2hFWVFXcldNSTBoKzY0blFaR3lYMUVhOVNWOFU0SHg0aE81WjZTdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 19a4c093-4ab7-4e64-5417-08deed69574d
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 12:03:02.6623 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eDxuF5n1xmYYyARE5gluSIUcQaFkGTZUzUFwpp/lDkkCG/zJZsUAUNIaMZAkop3I
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999117
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:CKQk8lnl5lxRRlCkQJXPwtG/tj0XCbkh4W2VXTvOn/cPlF9gVNI
+ lAZX8fw2b44gQaHg2hWKMa0573QZUIqeJoZ5WBRELIp61AG0OooRCtI8SpcqbIfFiCBM3ad
+ jv7OVrcqyNbJQyvOzkjsLunXULmYJMznw5mLA6c+oSDQOGrh2KKDclGmh/2iars8UkGTG/X
+ qVa3qSAuv6R7KvoDzZpew==
+UI-OutboundReport: notjunk:1;M01:P0:lBrE20jatY4=;mXE3W5iZh1Lpkwr6pi69WNWw6Iq
+ 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
+X-Mailman-Approved-At: Wed, 29 Jul 2026 13:16:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,58 +154,138 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Am Dienstag, dem 28.07.2026 um 05:51 +0500 schrieb mikhail.v.gavrilov@gmai=
+l.com:
+> On Mon, 2026-07-27 at 12:50 +0200, Bert Karwatzki wrote:
+> > On PREEMPT_RT kernels kvzalloc_obj() can sleep because spin_lock is
+> > converted to rt_mutex. dc_create_plane_state() can be called while
+> > inside an FPU-guarded region, resuling in "scheduling while atomic"
+> > errors on PREEMPT_RT kernels.
+> > =C2=A0Fix this by calling kvzalloc_obj() with
+> > DC_RUN_WITH_PREEMPTION_ENABLED().
+> > Also fix the error path in dc_create_stream_for_sink().
+> >=20
+> > Fixes: 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC
+> > - Part 1")
+> > Link:
+> > https://lore.kernel.org/lkml/20260723123449.6494-1-spasswolf@web.de/
+> >=20
+> > Signed-off-by: Bert Karwatzki <spasswolf@web.de>
+> > ---
+> > =C2=A0drivers/gpu/drm/amd/display/dc/core/dc_stream.c=C2=A0 | 5 +++--
+> > =C2=A0drivers/gpu/drm/amd/display/dc/core/dc_surface.c | 4 ++--
+> > =C2=A02 files changed, 5 insertions(+), 4 deletions(-)
+> >=20
+> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> > b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> > index dbc12640b01c..4ac835777b58 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> > @@ -233,8 +233,9 @@ struct dc_stream_state
+> > *dc_create_stream_for_sink(
+> > =C2=A0
+> > =C2=A0fail:
+> > =C2=A0	if (stream) {
+> > -		kfree(stream->update_scratch);
+> > -		kfree(stream);
+> > +		if (stream->update_scratch)
+> > +			DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream-
+> > > update_scratch));
+> > +		DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream));
+> > =C2=A0	}
+> > =C2=A0
+> > =C2=A0	return NULL;
+> > diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+> > b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+> > index 88e825a6582c..d5c6427796b6 100644
+> > --- a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+> > +++ b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+> > @@ -85,8 +85,8 @@ uint8_t=C2=A0 dc_plane_get_pipe_mask(struct dc_state
+> > *dc_state, const struct dc_plane
+> > =C2=A0
+> > *********************************************************************
+> > *********/
+> > =C2=A0struct dc_plane_state *dc_create_plane_state(const struct dc *dc=
+)
+> > =C2=A0{
+> > -	struct dc_plane_state *plane_state =3D
+> > kvzalloc_obj(*plane_state,
+> > -							=C2=A0
+> > GFP_ATOMIC);
+> > +	struct dc_plane_state *plane_state;
+> > +	DC_RUN_WITH_PREEMPTION_ENABLED(plane_state =3D
+> > kvzalloc_obj(*plane_state, GFP_ATOMIC));
+> > =C2=A0
+> > =C2=A0	if (NULL =3D=3D plane_state)
+> > =C2=A0		return NULL;
+>=20
+> Hi Bert,
+>=20
+> You may not be aware that the same allocation is already wrapped once,
+> at the dcn32 call site:
+>=20
+>   183182235f6d ("drm/amd/display: Wrap DCN32 phantom-plane allocation
+> in DC_RUN_WITH_PREEMPTION_ENABLED")
+>=20
+> That one only covers the dcn32 DML1 path, while your trace goes through
+> dcn401_validate_bandwidth() and dml21 - so wrapping the call site could
+> never have caught your case.  Which is a good argument for guarding the
+> allocation in the callee, as you do: dc_create_plane_state() is reached
+> from every DCN and both DML generations.
 
-Please ignore this. This is a followup patch to
-"drm/amdgpu: Use virtual alloc during coredump".
+I did try a different approach, using DC_RUN_WITH_PREEMPTION_ENABLED furth=
+er
+upward in the calltrace (This would have the slight benefit of more code
+running with preemption enabled). This does not work because dml21_utils.c=
+ is compiled
+as a _LINUX_FPU_COMPILATION_UNIT, so DC_RUN_WITH_PREEMPTION_ENABLED does n=
+othing.
+(see drivers/gpu/drm/amd/display/amdgpu_dm/dc_fpu.h)
 
-Have sent both together for better context.
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_utils.c b/d=
+rivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_utils.c
+index 835fece1d46a..8c92deded8cd 100644
+=2D-- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_utils.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_utils.c
+@@ -286,7 +286,8 @@ static struct dc_plane_state *dml21_add_phantom_plane(=
+struct dml2_context *dml_c
+        (void)plane_programming;
+        struct dc_plane_state *phantom_plane;
+=20
+-       phantom_plane =3D dml_ctx->config.svp_pstate.callbacks.create_phan=
+tom_plane(dc, context, main_plane);
++       DC_RUN_WITH_PREEMPTION_ENABLED(phantom_plane
++                       =3D dml_ctx->config.svp_pstate.callbacks.create_ph=
+antom_plane(dc, context, main_plane));
+        if (!phantom_plane)
+                return NULL;
+=20
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_mall_phantom.c b/d=
+rivers/gpu/drm/amd/display/dc/dml2_0/dml2_mall_phantom.c
+index 4543a60a0683..464bab9fc13b 100644
+=2D-- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_mall_phantom.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_mall_phantom.c
+@@ -769,10 +769,11 @@ static void enable_phantom_plane(struct dml2_context=
+ *ctx,
+                if (curr_pipe->top_pipe && curr_pipe->top_pipe->plane_stat=
+e =3D=3D curr_pipe->plane_state) {
+                        phantom_plane =3D prev_phantom_plane;
+                } else {
+-                       phantom_plane =3D ctx->config.svp_pstate.callbacks=
+.create_phantom_plane(
++                       DC_RUN_WITH_PREEMPTION_ENABLED(phantom_plane =3D
++                                       ctx->config.svp_pstate.callbacks.c=
+reate_phantom_plane(
+                                        ctx->config.svp_pstate.callbacks.d=
+c,
+                                        state,
+-                                       curr_pipe->plane_state);
++                                       curr_pipe->plane_state));
+                        if (!phantom_plane)
+                                return;
+                }
 
-Thanks,
-Lijo
 
-On 29-Jul-26 1:20 PM, Lijo Lazar wrote:
-> The number of rings with outstanding fences can be large, requiring a
-> bigger allocation. Such allocations don't need to be physically
-> contiguous, so use kvzalloc/kvcalloc which fall back to vmalloc when
-> contiguous memory isn't available. This also matches the existing
-> kvfree used to free these allocations.
-> 
-> Also guard the allocation with ring_count to avoid passing 0 size to
-> allocation routines.
-> 
-> Fixes: eea85914d15b ("drm/amdgpu: save ring content before resetting the device")
-> 
-> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c | 10 +++++++---
->   1 file changed, 7 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> index 39b2a4c0e011..4dfea36997d4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-> @@ -554,7 +554,7 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
->   	if (job && job->pasid)
->   		size += sizeof(struct amdgpu_coredump_ib_info) * job->num_ibs;
->   
-> -	coredump = kzalloc(size, GFP_NOWAIT);
-> +	coredump = kvzalloc(size, GFP_NOWAIT);
->   	if (!coredump)
->   		return;
->   
-> @@ -597,8 +597,12 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
->   		total_ring_size += ring->ring_size;
->   		ring_count++;
->   	}
-> -	coredump->rings_dw = kzalloc(total_ring_size, GFP_NOWAIT);
-> -	coredump->rings = kcalloc(ring_count, sizeof(struct amdgpu_coredump_ring), GFP_NOWAIT);
-> +	if (ring_count) {
-> +		coredump->rings_dw = kvzalloc(total_ring_size, GFP_NOWAIT);
-> +		coredump->rings = kvcalloc(ring_count,
-> +					   sizeof(struct amdgpu_coredump_ring),
-> +					   GFP_NOWAIT);
-> +	}
->   	if (coredump->rings && coredump->rings_dw) {
->   		for (i = 0, off = 0, idx = 0; i < adev->num_rings && idx < ring_count; i++) {
->   			ring = adev->rings[i];
 
+
+Bert Karwatzki
