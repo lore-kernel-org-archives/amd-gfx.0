@@ -4,93 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1BFEC53200
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 14:02:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 38CC1C54F51
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 14:14:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EFFC10EC45;
-	Wed, 29 Jul 2026 14:02:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA9A110E04A;
+	Wed, 29 Jul 2026 14:14:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JEUhCpqg";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="M/XfVnD3";
 	dkim-atps=neutral
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
- [209.85.167.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24F5710EC45
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 14:01:59 +0000 (UTC)
-Received: by mail-oi1-f172.google.com with SMTP id
- 5614622812f47-4a453848173so31024b6e.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 07:01:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785333718; cv=none;
- d=google.com; s=arc-20260327;
- b=mWgTKAkmosc81CEPUnFgGjwiIP8+zD2mCMxhFrF7QTCN+I96eZ9WElPTZ+4QqFicbY
- xd31Ym0QXju2fmZuFzCYYbX+Q3Xd3KvfV4iMms5tfMrDqHkEVKqjrOHOqrpyLIkNXZDY
- /MkNJXDM/XYCsOBp/SwkIT07/jWjqjynemGXCPexUEj4CgQ8V1uOuIE4ZvIkf5n39+xE
- bdVrCwtdG6dCe9JS1nvco/RRttp5gOg12P6Xt1ssA5L3oPIMe5eHriI/Rfrby/VaECYM
- IJ0h5cvfpsJaK0nwfDrn40Ky1uyvaxjgJJeTPhnUyaCc5PlmVUfLkmF/XTw3zC5nlXwU
- ANLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=zI4CONeLAqVV0cC30nGZPveCd3tYM+ZX1deEevEnvbc=;
- fh=pVXkSRI4iWxMX2nwzh6GHNF3uSMfA8RBUzqfkxIWt8U=;
- b=Cqhf7t5m4hePFhESCdxuYGefyI1vVLWK0i9zzyG3zmvR9Be6LzP58hkU3SxqYGgSHu
- DHzSBdcz7x0Zz7H2eL8FEuuRe20KsErJwmE/ZicLdbV4lxcAsHWQd7C3xdZRtrax009D
- P1Ohu3TG6e1xQr1jh0t1MliOt4mkLDHLldmOM0drBvjU6ejAxhQtA77lOon2mHs4co37
- k8EgpxrjerA4nXOujctnoKBgajP9XAsygHTe/12pB5oK3OHbF0FM6zo5/7mDziwDkRhm
- oTaZUzGbS4LQUq2JOA6gxpGEwgcKmtljTmgVx4zZwKkbhyKl48Ky7tzFlBXZOACzyt+j
- fh9A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785333718; x=1785938518; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=zI4CONeLAqVV0cC30nGZPveCd3tYM+ZX1deEevEnvbc=;
- b=JEUhCpqgpc6tQZPNs7D5le9D5QBHxLCXEH8LeuzXGRG4azZ1GxHooQ5eBBvba/Eqou
- ZX753QQR5NS/tMxnVPkNxJgnJJ0AerEl0UuHGRVEH79bNG680XJfsntXluJBYpSEQgqC
- 2P6rIJE4Lirm6k6ZgPEux2BZmes0NkD/TsDap1b+i8jIvYAd3z7t55HmXOmiekw6Jsrl
- xyohQ1tO9AJy6ndAjWK4aTS6siAODP5pnly3+n77G9zpLgNsPSnncDgaZsEEcph+oYmO
- nKZcP58Yv99OQcFT+WFJhaKMw37+vF7MBcYn4pZORkIph2GZwoouo+PiEghVN5DBhefZ
- a0RA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785333718; x=1785938518;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=zI4CONeLAqVV0cC30nGZPveCd3tYM+ZX1deEevEnvbc=;
- b=NlRoTLrtPJ9CXYOYfhdxRgRIQ6MSQTxVrNjrLFqNBSJ4wDhpiB1kotfyjQQnDbu9cK
- CtmhjHY1NK4g19JTQwmJO6B+uywiPQPiDHX5UiGRiX1+uvJoy63xoQVw1fv8je3ML5xW
- D1uLPiKXyuljVVKRYxeQ0RBitL0DNytor6ac6xVxzBbitjMTx/dNjB6Q2LZjMx9p+6k3
- qajeoXUvpOCPLsqsLHLOrRjTMp1t4zKgZ9uFSMnyaz6bMPuKFOu/qvdKrifEyXOLk65b
- 3nuny8yWCcHeDGGTq56BRmiQWqgTgPKeCQgYryYk0Cj7lK/ruuSlIxvK4aqv6ssECLQH
- 8WXQ==
-X-Gm-Message-State: AOJu0Yw5+C4Sw28kfwtfqKVtGjyIo0NA5ST3iMv+k0tBtNz3XvA4CVeJ
- ySHa8C3IiTXOd4MYOs9Htwt5JpDaoRhFzhkhiLQ3UOUqS4m+s50+jrYRPNUjBduNKYEZG68IGmA
- IFQ4pQPr759ndqHNOdp3PdE4SgkTDv50=
-X-Gm-Gg: AR+sD11lyQEnlCOj1pvgujWlFYlIenMM090DbZFpUnzrYSflceuXoBblFcazJTiVq7Z
- S/NjbzS2AwT4dTZlo6tfKPEW5ioeQV0Ux/vnQaziI3iNi8kP5o/Y/ci8WkZC45QJUX9ps9SmPWF
- ggEfHiY8vliAlXHGG0IdWxP1drm+Yq70dFLWj8aEdI6A1dXtNLia8aGHU/B60QLumQf/RTRYPBl
- NJyniiCobWAac87Ah5OgzAzrsil4FHU0jkFG96HqjAP+FjtFJ+kbFMZdDvrTgX8Yi/H/QaHxTj6
- b0AOuYkw0yNqL4kIlmKUeqhscVg8EnqHLO65j2F4jxCFOKnwS9XGZ6YNlQ9XtYYg
-X-Received: by 2002:a05:6808:30a8:b0:4a4:866:c2c0 with SMTP id
- 5614622812f47-4ad5bc0c5acmr3830826b6e.4.1785333717971; Wed, 29 Jul 2026
- 07:01:57 -0700 (PDT)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D2F110E04A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 14:14:21 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 37B8B600AE;
+ Wed, 29 Jul 2026 14:14:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33B181F000E9;
+ Wed, 29 Jul 2026 14:14:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785334459;
+ bh=0F+zpxofLxtVV+OjP4itNNepXhZtUu3R1LifAT35OqM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=M/XfVnD3+4jsMpDSwOyyDYgJPMVh3aW5EewJgE3N5ZUSkCIIPLpPMEMXMh3yb+kMb
+ ILzvQzjUejAbQ9LririwvZGQmmy9b0nQ0GEr97F+WHuxP6jXlXfDqVKYt+r6E70QIj
+ 3553vYQ0aAzIHgZ23ox0D2uC/cIlFp3jPqxSnZ1nnXxeMm3lp6GEEVguZr4VuSD/fx
+ CfO/p3wdSQENcejsPjBgyNp8nLBp5rNSAYEi1i9IeW8QvEBbQnILrfv5gZx+rBC8lC
+ oMhZPkoS+BlTyANFRkHTOf8HkjFOdvG9HaUJvnaG9SNb0tYflIXptfgDBhUnvCPSE+
+ GZmvK6Syg5o+Q==
+Message-ID: <de67b20a-3895-41c5-8f3c-4b5c4315a949@kernel.org>
+Date: Wed, 29 Jul 2026 09:14:18 -0500
 MIME-Version: 1.0
-References: <20260729085838.1338931-1-Jesse.Zhang@amd.com>
- <20260729085838.1338931-3-Jesse.Zhang@amd.com>
-In-Reply-To: <20260729085838.1338931-3-Jesse.Zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 29 Jul 2026 10:01:46 -0400
-X-Gm-Features: AUfX_mzy98y83GTj_48oRSGLPA9U5MxzKi6uWj_r7sy76hG35vcXb60QHz3ykWM
-Message-ID: <CADnq5_O_KqeS=Uh9LdER2Esv6OeWHXM2GT0=-nOKG5U-v-n5Yw@mail.gmail.com>
-Subject: Re: [PATCH 3/3] drm/amdgpu: fix JPEG v5.3.0 queue reset failure in
- DPG mode
-To: Jesse Zhang <Jesse.Zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.6.y] drm/amd/display: Fix dcn32 DTB DTO update breaking
+ live pixel rate sources
+Content-Language: en-US
+To: Matthew Schwartz <matthew.schwartz@linux.dev>, stable@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
+ Harry Wentland <harry.wentland@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+References: <20260729063452.9411-1-matthew.schwartz@linux.dev>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260729063452.9411-1-matthew.schwartz@linux.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,70 +61,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Series is:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-On Wed, Jul 29, 2026 at 5:08=E2=80=AFAM Jesse Zhang <Jesse.Zhang@amd.com> w=
-rote:
->
-> Like jpeg_v5_0_0, in DPG mode the ring reset path only clears the
-> JPEG_PG_MODE bit and never resets a hung JRBC, so the post-reset ring tes=
-t
-> times out and the driver falls back to a full MODE1 reset.
->
-> Temporarily force the static power-gating path during the reset so the
-> stop/start sequence power-cycles the JPEG block (JMI soft reset + power
-> off/on), matching the jpeg_v4_0 reset.
->
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+
+On 7/29/26 01:34, Matthew Schwartz wrote:
+> From: Harry Wentland <harry.wentland@amd.com>
+> 
+> commit 76a2db58e95e328007043f54ac3c7336ccbee440 upstream.
+> 
+> dcn32_update_clocks_update_dtb_dto() reprograms the DTB DTO of every
+> timing generator in the context whenever the DTBCLK reference changes,
+> passing a zeroed pixel rate and never setting is_hdmi.
+> dccg32_set_dtbclk_dto() treats a zero pixel rate as a disable request,
+> and that branch drives PIPE_DTO_SRC_SEL to the DP DTO source. A timing
+> generator actively scanning out an HDMI stream therefore has its pixel
+> rate source re-muxed out from under the live raster, and the OTG stops
+> on the spot.
+> 
+> Two displays where only one runs a 128b/132b link hit this reliably.
+> is_dtbclk_required() holds the DTBCLK reference high while both are
+> active, and the moment the 128b/132b stream is torn down (compositor
+> switch, display disable, hot-unplug) the next safe_to_lower pass drops
+> the reference to the lowest DPM level and the DTO walk freezes the
+> surviving screen. On Navi31 the DAL mailbox then goes deaf on the
+> DISPCLK hard-min that follows the walk in dcn32_update_clocks(),
+> stranding both SMU mailboxes until reboot.
+> 
+> Set is_hdmi for HDMI and DVI signals so the disable path leaves the
+> pixel rate source selection on the HDMI path, and pass the real pixel
+> rate for 128b/132b streams so a reference change rescales their DTO
+> instead of disabling it.
+> 
+> Fixes: 128c1ca0303f ("drm/amd/display: Update DTBCLK for DCN32")
+> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+> Reviewed-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+> Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> [ mschwartz: dcn32 clk_mgr hunk only, as 6.6.y predates the dcn35
+>    clk_mgr. The rest is HDMI FRL enablement, absent before 7.2, so the
+>    FRL conditions and the req_audio_dtbclk_khz assignment they guard are
+>    dropped and the FRL-centric changelog is rewritten. Added the
+>    pipe_ctx->stream check the new dereferences need. ]
+> Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
 > ---
->  drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c | 21 +++++++++++++++++----
->  1 file changed, 17 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c b/drivers/gpu/drm/a=
-md/amdgpu/jpeg_v5_3_0.c
-> index 68152b2ce015..c929d6f83bac 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c
-> @@ -637,15 +637,28 @@ static int jpeg_v5_3_0_ring_reset(struct amdgpu_rin=
-g *ring,
->                                   unsigned int vmid,
->                                   struct amdgpu_fence *timedout_fence)
->  {
-> +       struct amdgpu_device *adev =3D ring->adev;
-> +       u32 pg_flags =3D adev->pg_flags;
->         int r;
->
->         amdgpu_ring_reset_helper_begin(ring, timedout_fence);
-> -       r =3D jpeg_v5_3_0_stop(ring->adev);
-> -       if (r)
-> -               return r;
-> -       r =3D jpeg_v5_3_0_start(ring->adev);
+> 6.6.y predates the dcn35 clk_mgr, so only the dcn32 hunk applies. The
+> 6.12.y, 6.18.y and 7.1.y equivalent is sent alongside this one. Tested
+> on Navi31 with a DisplayPort UHBR monitor and an HDMI TV.
+Backport makes sense to me, thanks.
+
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+> index 084994c650c4..285689d7ecc4 100644
+> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+> @@ -276,13 +276,20 @@ static void dcn32_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr,
+>   		struct dtbclk_dto_params dto_params = {0};
+>   
+>   		/* use mask to program DTO once per tg */
+> -		if (pipe_ctx->stream_res.tg &&
+> +		if (pipe_ctx->stream && pipe_ctx->stream_res.tg &&
+>   				!(tg_mask & (1 << pipe_ctx->stream_res.tg->inst))) {
+>   			tg_mask |= (1 << pipe_ctx->stream_res.tg->inst);
+>   
+>   			dto_params.otg_inst = pipe_ctx->stream_res.tg->inst;
+>   			dto_params.ref_dtbclk_khz = ref_dtbclk_khz;
+>   
+> +			if (dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(pipe_ctx))
+> +				dto_params.pixclk_khz = pipe_ctx->stream->timing.pix_clk_100hz / 10;
 > +
-> +       /*
-> +        * The DPG stop path only clears the JPEG_PG_MODE bit and never r=
-esets a
-> +        * hung JRBC, so the post-reset ring test times out and the drive=
-r falls
-> +        * back to a full MODE1 reset. Temporarily force the static power=
--gating
-> +        * path so the stop/start sequence actually power-cycles the JPEG=
- block
-> +        * (JMI soft reset + static power off/on), matching the working j=
-peg_v4_0
-> +        * reset.
-> +        */
-> +       adev->pg_flags &=3D ~AMD_PG_SUPPORT_JPEG_DPG;
-> +       r =3D jpeg_v5_3_0_stop(adev);
-> +       if (!r)
-> +               r =3D jpeg_v5_3_0_start(adev);
-> +       adev->pg_flags =3D pg_flags;
->         if (r)
->                 return r;
+> +			if (dc_is_hdmi_signal(pipe_ctx->stream->signal) ||
+> +					dc_is_dvi_signal(pipe_ctx->stream->signal))
+> +				dto_params.is_hdmi = true;
 > +
->         return amdgpu_ring_reset_helper_end(ring, timedout_fence);
->  }
->
-> --
-> 2.49.0
->
+>   			dccg->funcs->set_dtbclk_dto(clk_mgr->dccg, &dto_params);
+>   			//dccg->funcs->set_audio_dtbclk_dto(clk_mgr->dccg, &dto_params);
+>   		}
+
