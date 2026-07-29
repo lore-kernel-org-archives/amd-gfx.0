@@ -4,87 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A0D68C54F51
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 13:44:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AD4EC53200
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 13:54:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BCA510E04D;
-	Wed, 29 Jul 2026 13:44:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF01A10EC44;
+	Wed, 29 Jul 2026 13:54:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e0ogzEVj";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A086UZCN";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE6A810E04D
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 13:44:22 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-384c94c9423so82876a91.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 06:44:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785332662; cv=none;
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3219A10EC44
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 13:54:55 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-381f03d7be0so64798a91.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 06:54:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785333295; cv=none;
  d=google.com; s=arc-20260327;
- b=HahwBq7jzihIAoxrhM6CVBFsKpTxX6s0onGtltXhR7CourkqRsD642xSxC/BRplkGQ
- mTY1Ows8s0hRRJ5zJ5Im8IkpaDsKnlirCsucZBqXPfmou39godvCxaWmKvpeHSYDvWAf
- 5ujStS6b8sGV3jZKVJbnWVvHaJTr6nniedKK/om70JSYyVAmVBewFphLv1JcxZ6DQ8IT
- CQ7MeAIpGsKWW8utrViXZCn0z+gDv6587f8nFP+5P6hMhL8iawCLROo7TKiRJsvmR6Ql
- Usl5wCg130XB2oYPqm2bAny0WTF2eX/EjFDPIYgmZiB+5oHyybVGnkBVfY5nWeQtJjF7
- yYHA==
+ b=H1BsDCFzj9d3uUnViVgx9QplQkcieU4mQv/kqyByJLWQ0HojSkDP9546ejDIgJOmSd
+ 9odWT2LS8VaCaDpUs6DFg4l/MC7SYDdGlAhk9aAC9di7Lbd/bj8MaQuKwn2ZnEIEaFz3
+ ZJiamcy0yWdlz3W7Y9k3hYkIfEyimevc6gw2+iELJZuojv1baUQh/omWAqArWtSKsD4b
+ hpDIzQfF2SLs/yx89ajGbM7vVEgi8xLZPZr4v3zp0YFy6zKMJ5oy7HFRQ92PLpc4wAL2
+ j6d4HAJP+ANbyYCz2E9RaTEezyz+mi3F23kqhIx1jBv07rIeKN49qQ2rxq814VTAjO/x
+ jo8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=+ZAFHXWnaEE/as0BxhGvLJkairDQx49eW/sPX88v4uQ=;
+ bh=Z/ROWV4Wzd8Aj3AfNKWRT+3zvBReqegFc07fRQnkPOI=;
  fh=0tB5q1u2Hcms08iwOECvTnTawWFAXkdeddoWFM8HgFY=;
- b=OMXbyRqFn8GHWZhLPUcIn6hTCpCCDaVdsalayzBiInxapWJ0yZjsZg4Lkyfu68NHKn
- IGa3OQiBtzdkfwbL2LZUefLP1b65d8LVckkofiSCniwb6a9DUV3Jo6IHysE6B1idIONj
- NaaBzR7uDgq6vRtKewIuUCfspT/54BLABvzYWbBl8ZxwyHkAwmRA5n5C5NE4Q8jctalb
- pMGHhY58GvINb/wL53tDMnD8CP8TVZspNSgFTrzePg2r6Z+ulki8ccv7a1VKueQ1s3ca
- 4TiG/iHr2MfSGa8+HVfCKw6Wm9cr23vdaPRveYrmm7E0n2rfVQYolR0LGHSS59s+cy71
- 6EHw==; darn=lists.freedesktop.org
+ b=lzpYrNFna1wOHCOP1Fi+yMMx142QsGQeKoyeLmhvRUkKG9BpHJ/iHCdAHCp+lLI1lt
+ EPTGA+5Ml0l+RwOroFHNrkqBcVdwrgN7cRcbAIo33C+Lp+F1L122hq59SnMUg2WlG5+E
+ LqROYwqdEl6sp7RAScByL1dxWuXGnillh5j2KXYfFjE+CnH+nLXRdG60h4vWpSKkoBrW
+ Efuj18/fs4rqHuJdUEO8FqWPjqYmNM/5t10OillqcIInKxfmRm38qSdgKPDHAWrhcsdK
+ ZzUK1IRDhU2t9h2jbPhyxDrwlfBmzl7SfNTtyX5oB8EmjQUfhKR6u18BFJV23MoUr37+
+ sHpA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785332662; x=1785937462; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785333295; x=1785938095; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=+ZAFHXWnaEE/as0BxhGvLJkairDQx49eW/sPX88v4uQ=;
- b=e0ogzEVjb1oq4W0DmeftGCD8m3xTKa1b/hHb6IZwYY1NzOL8Jx3PEkQzlxqdew4mhI
- JRPFmrnVxTRuugqwYQJq1cO0gaXBW4ChKrjOd4L+N8u70i2g6JkETQrCLuqvJDWYs1Hx
- Ij6KmM42hqR7ORUerWLFmf5ZrwHWS4MDEm8mWdD6K2+Rx6mSxQKjPvzk9aK6BYUPu6kM
- eu7KPG9u9353odzIuEqOsvSc69Chqk+pyXSPOxy/SmP5mB7FAaaTxXtPHXvWRZmaO+f3
- NC9s2QrKx5NzkERblL7GJlcY0mZQlLXqx81CQp3CeiEA3olqYZlXEh5vWJhBrbqKYuLs
- /iKg==
+ bh=Z/ROWV4Wzd8Aj3AfNKWRT+3zvBReqegFc07fRQnkPOI=;
+ b=A086UZCNEqMeGE4EO2DhWtP/rgG3nyQGUR3dhkMy1UXx2+EkVxEw6dlWA2ZCl2ZZ3A
+ eVJQ4+oAsFF3cmOrRtrIhlk1ZNDEtOmvBohY09PkE+HORoED0mFbsXXxoho7hwK0Ir3n
+ FLF+uySrleGFibZ/0ErwTe8a+mxTbMdgSxYYA0Ma9pUQ3ow5YqtUka37m8HQ871s3tya
+ IPEW4wm+7a+D0A0g/rCRs86kDVTqyWdiUf/U2im4wJmKdO/zRwMmALQlt68m8cErGNJy
+ Fgvusk1Sq1Njjal9HEF/aAcbmDDHm97Okgu6mt5Z5Zrt8NDaEnI8+z0TDc8NBI8VsC3X
+ Y2bw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785332662; x=1785937462;
+ d=1e100.net; s=20251104; t=1785333295; x=1785938095;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=+ZAFHXWnaEE/as0BxhGvLJkairDQx49eW/sPX88v4uQ=;
- b=LNRJG7dA8gwkO5AMYqcPGGxURZUzuzVNJLx30PL6kl5Rn+F70OKVlnTF6Zkyeh3X9K
- pxeOttmwuDbJbkHxjHe/w0JOwXu3ZpQpCrxr2Mj+wFIqeyHLKx4TLXxgbj0EWmlssYzo
- gxKa74OMEMBm83Tj3mh7ezGd6+89W9ZlXSFXUG91wLAvNzNO8UJx0NdNYgaiLWz5Ms98
- R2ZUC6vOzErE4mxngUo2cRKz1ttwtFKmpCTJI34TuM9E6dQ6Qp5Dre6ADSWwyB3oOc9J
- s1XaAMlI1B+jDyPhwrfIeTkKcFFMEsA3e63fI6OHJktWLxiM81vr1wqXrnZa8BVkUcD2
- KsRg==
-X-Gm-Message-State: AOJu0YwsZ3uiruMVPtDddY8Z4P9hiHHtGVC8f6JEFeeiUwnjH/gdr7cu
- pnMcE5H5EH7n2Qig0r5xImiHiaf3zgV33GMhO9sFKami6sS/TH2ReXqt1coLMytiAHAmomvvXUn
- zMlmCiprVVMjnanqA0p5nirOTU/2SXdc=
-X-Gm-Gg: AR+sD10DeoOIdDARRmXmtEBeFIEEztI+tmS6YNV2oKtQSEl0rtFjdLXoOAw0s//8keZ
- AEo8OYib/qT/NbOwVOKBHd9yF3RDZjWb8npBXku00unQDGquvevAL+NIIs4OIDnGsh30HQvoxbQ
- 7A/iJhJq/k/zqPg7dN7Pvu3xZnA7bJBvM01rOUsEQ/SfFebKbaii/2l5A8liLEaC6KAVJTzacwn
- z6i34s6YY7z66TvqOa85tsU+g8JqS31zhRcJi5pqVSLRJ5dg6N6l1O8IQCR8XKdQcRNKCDVp0Oq
- ZJwiVnqobY89OYghV0aHOEsnAvPraS8tegygAuERJDoMuFrjOci8JssM3x5l86HMebm8b+k7/1i
- GDF8JiCAb53MCYJ4OmD0Z60YByIzr18c=
-X-Received: by 2002:a17:90b:2b8b:b0:38e:480b:99a5 with SMTP id
- 98e67ed59e1d1-38f6a2579a2mr6569045a91.2.1785332662139; Wed, 29 Jul 2026
- 06:44:22 -0700 (PDT)
+ bh=Z/ROWV4Wzd8Aj3AfNKWRT+3zvBReqegFc07fRQnkPOI=;
+ b=m/lZyTb6PgsvL8Zak+l4fsMGz0O3iYfQO2XVHlK5L2viS9QXiQL6dIxKqQGPJvXeF4
+ 9XnYbYUtWnWWACOlZRVob8ytuHYIhuv1JHMLT7sStmde0sJGZDvYKto0ZcS3x+VUrCPl
+ yWr/FD3FGyrP2AYbWh5WuzaDqpFKmAa7JrBeCb+HzQXmW/qpqoD4CNaNdHzhJwIx6gbB
+ NVd2N0ov34HWgStwpu+AzedgglRDxlpieCatPRc3Lz9TisZJ63XgFkxEruP9b6z6dD7K
+ RCYtIWwzrHFdm7CdFipsf1LWuhIakc+bYTk6sQ2mvSXzgn3cwPnj0UF0/ABp6ovgHnc4
+ BcCg==
+X-Gm-Message-State: AOJu0YxuC3EOfCTvNRcOnqEWA5p7l/yVjpd5W/rkCIsAM13MgAtpwIsS
+ PvrcBXqFGPjeC41DERJyJ00byvDh7SdWoTmBtPqRvQ6LaqTcq70zBsFD9jl2z2exB1B2ayy0uFe
+ H0t1qci0U33rjNlYiRiNq2Kq4o7at/rty/Q==
+X-Gm-Gg: AR+sD12nZ+mjKIGJYwMfkLQBeT7G50MTFtNsuVbVYL9XUeRBVGmnWfOGAbFu5y4kToX
+ fFqPBaE1AbXrpp+sHbnXuJEBE93nK5IrESOJ4ub39/85IhnCneDDityGuCMMPjFMb/YDbgOuf4z
+ fvYhGPAX3KohydhNaFB5H7jHKZyQeljVZj+88YVe8JBtOsMmci/rkrrw4wXepsaF6XR91rOCfnS
+ 9jmnElFY8sEm00pvY9QmXlbiOr/Sgi8fG/gwq+57P+E/mIuEO0B5QmdwsDLXqcZVwsYdUijPGdU
+ d8gNCvetA+w50Que9BZXrZF8vBICQcAmLSR1DXdXCjWrrI4n4DnNo9gjA25Zvct7Tbtn77fnYQI
+ 5MTndR9YA/IgYN5vzWgcMjMuvGrEM+wo=
+X-Received: by 2002:a17:90b:280e:b0:38e:ab3f:2c99 with SMTP id
+ 98e67ed59e1d1-38f6a321a61mr6429012a91.2.1785333294535; Wed, 29 Jul 2026
+ 06:54:54 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260729112452.1644707-1-lijo.lazar@amd.com>
-In-Reply-To: <20260729112452.1644707-1-lijo.lazar@amd.com>
+References: <20260729120118.1659135-1-lijo.lazar@amd.com>
+ <20260729120118.1659135-2-lijo.lazar@amd.com>
+In-Reply-To: <20260729120118.1659135-2-lijo.lazar@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 29 Jul 2026 09:44:10 -0400
-X-Gm-Features: AUfX_mwqzcG-UNMjCdPdgdlCUHi0HpGLQHOdIjJLvAf6bYSU-pIhwGa-ZP60g9c
-Message-ID: <CADnq5_PsLg1UhxAO2bJdKJNUpbXqkhD_UrK7CsUfPem+oPYhhA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Allocate coredump ring buffers per ring
+Date: Wed, 29 Jul 2026 09:54:41 -0400
+X-Gm-Features: AUfX_mw9aOyZz6n0jxtlNfMG8A8FNYm9GIOP3rOtVNWP7jEN69k36fRiH1gFitQ
+Message-ID: <CADnq5_P4K8pGoZncuAx2U1CoEhSFmUbv_wUaR0pSWMkR59BkFg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] drm/amdgpu: Allocate coredump ring buffers per ring
 To: Lijo Lazar <lijo.lazar@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
  Alexander.Deucher@amd.com, pierre-eric.pelloux-prayer@amd.com
@@ -104,7 +105,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Jul 29, 2026 at 7:43=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+On Wed, Jul 29, 2026 at 8:38=E2=80=AFAM Lijo Lazar <lijo.lazar@amd.com> wro=
 te:
 >
 > Allocate each ring buffer separately. A single allocation summing all
@@ -120,9 +124,6 @@ te:
 device")
 > Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 > Assisted-by: Claude Code
-
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
 > ---
 >  .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 50 ++++++++++---------
 >  .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h  |  3 +-
