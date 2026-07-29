@@ -4,98 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B128CC53200
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 12:02:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 268CFC54F51
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 12:03:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 31C2410EBBB;
-	Wed, 29 Jul 2026 12:02:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A35B810EBBD;
+	Wed, 29 Jul 2026 12:03:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mu89A3Xk";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Qw0r4gso";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010045.outbound.protection.outlook.com [52.101.85.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 40B6A10EBBB
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 12:02:20 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010062.outbound.protection.outlook.com [52.101.201.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB80810EBBD
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 12:03:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HZ3YSthkFJHh5UUfVlx+dV6C7NN0C5DfpR4pKXlzog5njaemVy+d2WOq4jto/i2Iexu4eOUEusoyrObKK27T1B0NsXIL5R9BYQq0UiWNXCurSxlZTviYgTmsh4euswviCmdwYA9cPQqweFEyeC7t2HDoHcc3PEx49I7wvuc5zhOeIZ0cs5p/Jcm+hXLt5sbcahhL6siTl6ykDA3Z6C4oNoU1jqCiq0fCUsclbj9CGiO0AtmNeuejzAEb94AIW0ODwZY85fEVKl4oeCrjKwgMx80Dt5+FDEwnhq1lKo+/LJFjwh/u5u2YFsZKkDqIZNMFh065rbJ7dQ6tKXX90ycyDA==
+ b=VE+JqLfnycw35xOjr1dk2aIRWTgmtOiqAlS4uFxMpydHaYo1tnNR5QIraPuwKpqOsgXBWSgBS1F/waeTo9X50Ohb7oeaK/VIFVKjTlReYbgVDszBO5tYsiRTZ5rPetTa7VBWsNBKIhtbOaOWGg79wYu8JUJaxVW6oxEy3DXBZ8jnz4mZenfJsk02elBxWQoONgfrD2rjyXp9da1+k8ICtIveoe0J8ppehKMcOyAI1Vzg+e/SKf3QPFNKcI4m7JMye3jbhd0wwTiRE03dmKwHK9KmpPa2eaXHsvgp7NPmZKs3QFBSlGIjG/D9VGlgs4JF7wzumwsArF4InpDWBNSOqQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PqV1s+0TUT04+54hBnaaYzYP/Lyn17aVgmAu8uvMbXU=;
- b=c1+7o7zw1kMtJne0Rfu8zHpqK8a52BevftpWeVvNXjfQPw5pJ5l9TuFbc6hdZXk8odU39n5AM3wYzmWtjCN/XFePNaL0c8XPJNADI3rmfwNO+KCzxyV1Iqf08tLQBbdCXx0H/8lTEJ/litwpyYZUjpt+stGkRW6sWVKnjv8RFnagNy6DsUh4KROyOKwgB/3T8G6XcggMBP9mqbGia0nU1utB+m9jHO8wYQoxQ78tnz+4/09kJ0tCQWWQreNZ07rk+gzVfP8aDCkG5q4YpBUEnfKOwNRU/yzWWstoCcqPFcUtEaiAMD9tr8bRtbKVb6QAqgF1TE6idtAKyaEsk5hPvQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=oJShawaYkSQH0qOl9uSmeIEmz8p5QEYUHj2b/E41doA=;
+ b=yDm33Y3+ND4pEI+Tii5Ti+/g2I6hMClDWiYDWRMmaP2qhgK5FqTq8B1MlYF12g4LYgqnup7v4P5SnqibMHHa11Cuh/yeliJjBoHYUAgeNgwx8rMUiW/JIyKBDRCT5tYz62L1da7ruOH27vfHk4CdIgARB9eKhVUtUfot3P7RHM3a8XDX9ahPS3q/J7MN1q8mYLrARNNNqXLV1NKnk6Jn3mzAFwc2u3GO7JA5+khMt+D5mThmsh0HJt0cr+O6zNFYCfQmlMnV087ATa7tBJaaN4TV95d20kEokdH1u/0CGU5l1ZcrSyg4+kvngZWZkIXX2Gttc2NpdIjj9czllgPbFg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PqV1s+0TUT04+54hBnaaYzYP/Lyn17aVgmAu8uvMbXU=;
- b=mu89A3Xk/63L0EUbg26V7ScuYbj1LmQWpbzQTO+PADISW7R8rJ39EstLho+dlniWji5IkwWzbw09YTDAFMvsXLXYCgqTrdv/74IrBIhib6kIt8cOcdXOjRqYbJarSHNfTA29p42m6Yzr9x6cft40qBYhbf1uJ2FSd1MQIxjmlnE=
-Received: from BN9PR03CA0558.namprd03.prod.outlook.com (2603:10b6:408:138::23)
- by SAVPR12MB999169.namprd12.prod.outlook.com (2603:10b6:806:4e5::20)
+ bh=oJShawaYkSQH0qOl9uSmeIEmz8p5QEYUHj2b/E41doA=;
+ b=Qw0r4gsovTg/DprK5zH5GMfN0/MNtrWLvcvC9IpoBmctOqoGEsVcGKLzCNJL9l6fNQGjKCkWdhDq3VrvQxokcyBl5+vvRVJjEbrj66b3z5Mtrz3P+pHKkjhe0ePDexq7HG4LYqh7sV3nj/t5zZLYImztLEqw9uIShyV16taGWw0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by SAWPR12MB999117.namprd12.prod.outlook.com (2603:10b6:806:4e3::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.13; Wed, 29 Jul
- 2026 12:02:15 +0000
-Received: from BN2PEPF0000449D.namprd02.prod.outlook.com
- (2603:10b6:408:138:cafe::86) by BN9PR03CA0558.outlook.office365.com
- (2603:10b6:408:138::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.12 via Frontend Transport; Wed,
- 29 Jul 2026 12:02:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF0000449D.mail.protection.outlook.com (10.167.243.148) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Wed, 29 Jul 2026 12:02:14 +0000
-Received: from mlse-blrlinux-ll.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 29 Jul
- 2026 07:02:04 -0500
-From: Lijo Lazar <lijo.lazar@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Hawking.Zhang@amd.com>, <Alexander.Deucher@amd.com>,
- <pierre-eric.pelloux-prayer@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: Allocate coredump ring buffers per ring
-Date: Wed, 29 Jul 2026 17:31:18 +0530
-Message-ID: <20260729120118.1659135-2-lijo.lazar@amd.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20260729120118.1659135-1-lijo.lazar@amd.com>
-References: <20260729120118.1659135-1-lijo.lazar@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Wed, 29 Jul
+ 2026 12:03:02 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0270.012; Wed, 29 Jul 2026
+ 12:03:02 +0000
+Message-ID: <91060727-86e9-4794-b031-9325bdf1163a@amd.com>
+Date: Wed, 29 Jul 2026 17:32:56 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: Use virtual alloc during coredump
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Hawking.Zhang@amd.com, Alexander.Deucher@amd.com,
+ pierre-eric.pelloux-prayer@amd.com
+References: <20260729075018.1547054-1-lijo.lazar@amd.com>
+Content-Language: en-US
+In-Reply-To: <20260729075018.1547054-1-lijo.lazar@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0143.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b9::6) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000449D:EE_|SAVPR12MB999169:EE_
-X-MS-Office365-Filtering-Correlation-Id: ac4b1f60-6cc5-4659-7aac-08deed693ad1
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SAWPR12MB999117:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19a4c093-4ab7-4e64-5417-08deed69574d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|82310400026|376014|36860700016|1800799024|6133799003|22082099003|18002099003|3023799007|56012099006|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info: YQhVQk4y0ARnSvOel4fRzcAOdJM3GAmYH8+czJExD2yiXfy7mLO8Bml9FhMkRC9y06EezuRv/zNwbt4Cxx9fND8aHQtCr+QB0timbBodMzoY8llhft+hd0b95HtQk9m6js9CyZPfze7sOOevwX9wWVzXTDOrgLernGt1be/zUPASe8BFXts1vQbHRkhrFzzEDcUchQeJARBPAB0o7ZUUYl3KlEM5SgdZcZ3zZcY23UZIZnHry4oS2b2hxkp267JVPLh6mjtX8tl8icxpey9Ne0+g3lRusWk7DPgYWDkBqZx73DJBhFG2IHnviCQy7n/loaPrgHxHRX3dr1Ws5dsKDwoObMYuZxHL2QrdqX85qP0a7km/t6TcyNTx2fnhSrtFSv4i0nUeknnx0Ucgz+sz3CzIZssriZJO7a2xVl+XDH/4n4RR5PG2lqwKV9XBBORCXX8O7Kc5NNADvq/Yp9+pFIKX0Myg4aI543WaW2FEfItwsslIHcZPoZC/UWD4Qq27lWqGu08io1v7CMAJF6O4aCCDJ5mkaBxWZ/tbYC6ZnVChJoNVFsb6dl8i/8LpAT/sIA29eFe6ey6wgmVlDzEPzPr9fWgxvncVXk+nfONzdPvTWFwQvkf4R3M7eOzPYfsIzXxuh3rJtHOmYl2Q6FsDGeArJDHOIIVkhQzr6awgAjX89hC4zV8ZwTF+e9yXMgew2XT73FCfbbBjuhHsnIVbyw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(82310400026)(376014)(36860700016)(1800799024)(6133799003)(22082099003)(18002099003)(3023799007)(56012099006)(10067099003)(11063799006);
+ ARA:13230040|366016|23010399003|376014|1800799024|6133799003|56012099006|11063799006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: C9PUD/Mn+XEFdu3u7qfadxTDxywjEgmEXXPhOyE8CfVK+CpH8CSJPJcVloNr6Q9KS98OtYdPA1ynzXPsaawZtPZCOuNeQNkmxlSHZIsI/FmjAIr9CHtJtJUz9rIXPbqnTo5iOHq2wkoA2vnIlO7Orw5DQFs277iWBvCwSxDX8l7s5pnKpBNgRxneMJgU4Cbk6jBwROTnYrwOffocuUsVTgZ0mcKhE/46PmdGtN50ApxkLSxCSjob+ffwndPv+xEH7bZlmIa7K31pbbvOuxnyZvgRsatADxQq0fESjjdeqm9fUn7Nz9WLOOox0riLNUH1EmQ5WRmxcJst92f4SpNPmG6lH34TCo0dYTkSR0t+dw7MNDgky3c1UHKSV2mHwyR5Z23OePeDDu5sGYWY5YGeN/dzocwSSnVylRBjFrBtNyUVHNfx2FirOqVwJAGW/NDfDJ24Q+BaSNyvzitePewJ0bEJZn/3WQiXNB11nqwlF7HudtyBu0QBoZ8cwtYs2r3g+msgTl5sen2DYS6QeqGhy/GZHfwFGTjmOIQ/wJ93i7dyuXtuPB8Ycpsfkjc46rRYHj56YRnAuNeFnHDoEeOAWrp39Hk7LO5jzJg06nKUaCUHmhoK7SrDF8dZ1dFFxjXDojtQrvNuIa82d5fd5gcddpA+RSeOBGWTdCruO+VhwjE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(6133799003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 0rgAHPdIFZCMupsmK6V8pZRRCCrybVFL/Vb1c4qkVZXmiLeaKuhv+PI+FKuaeR0jeS14cB4oBctYhZA+MnJXS+7vMktRxHrx8W1rI36oazS+gX8gBwqs0kOy/0yuqqaLbeIPYO8x0oGuVosmV0u6odjhWpLp3KAzb+Uko7wUOSstLjs3J8oduKhKsbzm6B415/a0MMLsHVXrPaDcaMHAL4OmYJB61dsMJf54014gWMgoPmnCkBHxYnfElXVUQ66grKx0Ep9kphg2F9UMUG1Q7JTvlDREk7yG5NaqpiHdxNm9OvCtunS7i/rWxVZ2ZXNobiChNqCCS8YE9VgbzcqYjwhBQpEQlmaJfKEh5WgZE+C23YMy1bVGUjuUXRdrYJq3tkQLGrgRQuL43v/hChAq5XlXCOnX/ukzZLHJBGu5zaC6vLANWmkF2pNAHTyQ4LqB
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?blNNWEk5eHl3a1k2VThzOWZvQ25TTjExRXZyZFhrR3EvdXI3d2hvd1RqMC9k?=
+ =?utf-8?B?VmFHWW41ZmExYlRhbUZic0lyRW5OT3I1SERnTlh0d2lIc24weHBwOUJ0VWJG?=
+ =?utf-8?B?U1NjeTVodms4YmVnUzN2azdRTDI2RWFqeFE5dlgzQmM5dWgyb0RkeFU0SXlU?=
+ =?utf-8?B?cUI2K2wrVTI4TFg3TDBXS0s0YWNySGcxbjJzbnJuVWU2TjNqZTVzbFptb292?=
+ =?utf-8?B?RUtqc2pxNlZ3VWF0UGx5VnEvais2TzBqbDViemFHNTdHZTVaZW42WFJtT1Zx?=
+ =?utf-8?B?d2grakw1MllmVmJCLzIycVRLTHYvLzNmRWtDNGp3eDZhT0R2NVZleXc5endp?=
+ =?utf-8?B?aTdJdTRRR08yV3U3Ri9qZEVwQ3RIL0FWOUZRRmhKRWh4U1M2b1ZWYWpvbkc2?=
+ =?utf-8?B?NnNVblM5cVZtV0p6SjhRR0kwd1FJOXBhMUtnekRaUzY4KzJTYjBNTTZYK1lt?=
+ =?utf-8?B?dzVabWg3S0FVZjlmVGh5bUEvTTZkZUpyMkRuM0pSNE5KdXdNYWNNSjkvdXdL?=
+ =?utf-8?B?MzIvWDlDM1hDdDFBYzFjUExrcG5jL2FZNDRHMzUwUjI3dldZM0tGVEZwQW9y?=
+ =?utf-8?B?VFYxZ21aRTgwS3dKWldvdTdaY3JvQWpoRUNnK0dXTlBTd2RZQTZJOVh0cWxw?=
+ =?utf-8?B?bXNjZVdlU25ZenZWdFVIL01Oc21DN3hKekUzNnJ3V01HT1V2VXNJbE4vUE1s?=
+ =?utf-8?B?b2V3WlNJMTlRRGNGSTFwN0t1blBWbnM1V0t2OGdoMXl1ODZhaEFjbTRaOUVN?=
+ =?utf-8?B?S2pkc0xYSWh0YVlTeFNJV0JRS09aQU9FT3BOWWlqWGluNUtoY0paOFB5REFL?=
+ =?utf-8?B?cUF1U1RzYmVHa0xUU1QrMFNiOTdNTkhQb0x4dERVSzJUV1IxWTRrZUVhOTJr?=
+ =?utf-8?B?R3UwR3hsdEdCL3dXRlkyWlhuLzN5NFpOK1h5dlBTS1RYaXlWRnFwQm1DNmVH?=
+ =?utf-8?B?Skd3cXUrc29NS3lGZzd3aWl3NERnNHNIcmlJQWd2ZGUxVllZN0RpSUVRTDZF?=
+ =?utf-8?B?cWhOMWJiWllSQXdkUXp3czhKYkpyaGtCbVRyUHVRQ053SFFMRm5uY3JHZVI3?=
+ =?utf-8?B?cFRnOXExR285MDVleHh0MTVseXdKcTlINXE5RjFHL2hQU0ZNMVZraVFCVTln?=
+ =?utf-8?B?bHFGdEYzNjdRNEJHMmU3UXlsa2hwSlQ2c2RuMEFaOHVzZ2lqRmxEN3dTUU44?=
+ =?utf-8?B?U0lBU3NZbXJqREJvR1liN1pzUnJwNXlpeldEV1RyclJoTTBKWkhXTXNGS1lO?=
+ =?utf-8?B?R1FUd1BKSG5ZbXVReU9JeDJnSUxFdlJvMytFZ044ZDJhQlNkNW9ZelVOdDNO?=
+ =?utf-8?B?dTNDOTUrT1BmbWtFbVpuQ2pLeEMvRmhkeDYrRElWL25wVWFTSCt4dzBGbGZq?=
+ =?utf-8?B?OCtRZDRaY1ZaVzVhbGhpQ2FXelgyUnp6cDBsMlc4YTl5d2NlMUd1emVCZXQ1?=
+ =?utf-8?B?UlBubkxUVDA0elF5WXpJdWxIUG9tYjlsSXRFNklsdnlaaURGZk11WHEwbDJB?=
+ =?utf-8?B?VW01YVpFUzhTRXhEYUcxWDZlcmV0VVVnREpKMEhJMWxKanY5ODZpMDFVdjRD?=
+ =?utf-8?B?WlM5VTRQTE9KZWNoYURzN200ZXRqMklxSFBUM3g3cjVNbnV6RWFqK0M1dlNL?=
+ =?utf-8?B?NUQ0Sk9pdDFvM0tQcEVtdG9oYlFmdFhad3YxdnZQbERDcm51OGVSbzZTNFhZ?=
+ =?utf-8?B?dHp1QjIyaGdBb1RyTng0SytDKzRML3RTVURUTUxYdTU0M1lJclFPNzBWeStn?=
+ =?utf-8?B?Q09wMmdDaU9wZE5NOUFDeW9aYURNdWZuRHRTMHpKZVUyY1Z2Nm13VlNtWTBo?=
+ =?utf-8?B?Q3E1dmR0V1owMnRxTENTZVFsK3dOcFhLOFBGQzlId1pWakxiaUp4ak5iZ2JG?=
+ =?utf-8?B?dWNHMEZWZi9ZYWo2NEZXeFhNME5YL0tQY0V2d2xpaGZxNTc0dHRKOHVXcnAw?=
+ =?utf-8?B?c2pLU2NWN01zT2pxeTNFUzRLczZMTEpabk0xdko1S01iTC91MWd2WkhrOEt4?=
+ =?utf-8?B?ckJmVi9sWDJDRjhmUHRhNGJ1ZzBoSytnOFVRZ0NPcGlQckhhUEtjSmpKWmNV?=
+ =?utf-8?B?UWVWWjJnQVdKRzdyWW1DVTlFSlhrb1BGcDZnUmNyYTkxMXV5cDdoSkh2ZmY4?=
+ =?utf-8?B?UGZIQTNnU3o2WmRlZVFDZFUwNE0rdWRRekxUYUljdTdsNkhOZGR5NUpPTFpl?=
+ =?utf-8?B?djdMU0l4SWJnVnd4RDlXdGhGWUFTWUYxYTRSVVBVd2oxR25VTXdRMlU0elFN?=
+ =?utf-8?B?ckJ3OHBnYnBuc2l6c1B0Yy9KanFCcmdZNmNKdTc1cEppZEY4M25xR3NZZTA0?=
+ =?utf-8?B?a2hFWVFXcldNSTBoKzY0blFaR3lYMUVhOVNWOFU0SHg0aE81WjZTdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 12:02:14.6456 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ac4b1f60-6cc5-4659-7aac-08deed693ad1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19a4c093-4ab7-4e64-5417-08deed69574d
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 12:03:02.6623 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000449D.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAVPR12MB999169
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: eDxuF5n1xmYYyARE5gluSIUcQaFkGTZUzUFwpp/lDkkCG/zJZsUAUNIaMZAkop3I
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999117
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,172 +134,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Allocate each ring buffer separately. A single allocation summing all
-ring sizes can exceed the page allocator's MAX_ORDER limit and fail;
-per-ring buffers stay small enough to satisfy. The existing allocation
-style doesn't capture any ring data if the huge allocation fails.
-Splitting into multiple allocations helps to capture as much data as
-possible for the core dump.
 
-A failed ring is left with a NULL buffer and skipped when formatting.
+Please ignore this. This is a followup patch to
+"drm/amdgpu: Use virtual alloc during coredump".
 
-Fixes: eea85914d15b ("drm/amdgpu: save ring content before resetting the device")
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
-Assisted-by: Claude Code
----
- .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c  | 50 ++++++++++---------
- .../gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h  |  3 +-
- 2 files changed, 27 insertions(+), 26 deletions(-)
+Have sent both together for better context.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-index 4dfea36997d4..87e15e39eb30 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-@@ -343,7 +343,7 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 	struct amdgpu_ip_block *ip_block;
- 	struct amdgpu_ring *ring;
- 	int ver, i, j;
--	u32 ring_idx, off;
-+	u32 ring_idx;
- 	bool sizing_pass;
- 
- 	sizing_pass = buffer == NULL;
-@@ -443,7 +443,6 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 		for (i = 0; i < coredump->num_rings; i++) {
- 			ring_idx = coredump->rings[i].ring_index;
- 			ring = coredump->adev->rings[ring_idx];
--			off = coredump->rings[i].offset;
- 
- 			drm_printf(&p, "ring name: %s\n", ring->name);
- 			drm_printf(&p, "Rptr: 0x%llx Wptr: 0x%llx RB mask: %x\n",
-@@ -452,12 +451,18 @@ amdgpu_devcoredump_format(char *buffer, size_t count, struct amdgpu_coredump_inf
- 				   ring->buf_mask);
- 			drm_printf(&p, "Ring size in dwords: %d\n",
- 				ring->ring_size / 4);
-+
-+			if (!coredump->rings[i].ring_dw) {
-+				drm_printf(&p, "Ring contents unavailable\n");
-+				continue;
-+			}
-+
- 			drm_printf(&p, "Ring contents\n");
- 			drm_printf(&p, "Offset \t Value\n");
- 
- 			for (j = 0; j < ring->ring_size; j += 4)
- 				drm_printf(&p, "0x%x \t 0x%x\n", j,
--					   coredump->rings_dw[off + j / 4]);
-+					   coredump->rings[i].ring_dw[j / 4]);
- 		}
- 	}
- 
-@@ -498,10 +503,12 @@ amdgpu_devcoredump_read(char *buffer, loff_t offset, size_t count,
- static void amdgpu_devcoredump_free(void *data)
- {
- 	struct amdgpu_coredump_info *coredump = data;
-+	u32 i;
- 
- 	kvfree(coredump->formatted);
-+	for (i = 0; i < coredump->num_rings; i++)
-+		kvfree(coredump->rings[i].ring_dw);
- 	kvfree(coredump->rings);
--	kvfree(coredump->rings_dw);
- 	kvfree(data);
- }
- 
-@@ -543,9 +550,9 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
- 	struct amdgpu_coredump_info *coredump;
- 	size_t size = sizeof(*coredump);
- 	struct drm_sched_job *s_job;
--	u64 total_ring_size, ring_count;
-+	u64 ring_count;
- 	struct amdgpu_ring *ring;
--	int i, off, idx;
-+	int i, idx;
- 
- 	/* No need to generate a new coredump if there's one in progress already. */
- 	if (work_busy(&adev->coredump_work))
-@@ -585,7 +592,6 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
- 
- 	/* Dump ring content if memory allocation succeeds. */
- 	ring_count = 0;
--	total_ring_size = 0;
- 	for (i = 0; i < adev->num_rings; i++) {
- 		ring = adev->rings[i];
- 
-@@ -594,38 +600,34 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
- 		    coredump->ring != ring)
- 			continue;
- 
--		total_ring_size += ring->ring_size;
- 		ring_count++;
- 	}
--	if (ring_count) {
--		coredump->rings_dw = kvzalloc(total_ring_size, GFP_NOWAIT);
-+	if (ring_count)
- 		coredump->rings = kvcalloc(ring_count,
- 					   sizeof(struct amdgpu_coredump_ring),
- 					   GFP_NOWAIT);
--	}
--	if (coredump->rings && coredump->rings_dw) {
--		for (i = 0, off = 0, idx = 0; i < adev->num_rings && idx < ring_count; i++) {
-+	if (coredump->rings) {
-+		for (i = 0, idx = 0; i < adev->num_rings && idx < ring_count; i++) {
-+			struct amdgpu_coredump_ring *cdump_ring;
-+
- 			ring = adev->rings[i];
- 
- 			if (atomic_read(&ring->fence_drv.last_seq) == ring->fence_drv.sync_seq &&
- 			    coredump->ring != ring)
- 				continue;
- 
--			coredump->rings[idx].ring_index = ring->idx;
--			coredump->rings[idx].rptr = amdgpu_ring_get_rptr(ring);
--			coredump->rings[idx].wptr = amdgpu_ring_get_wptr(ring);
--			coredump->rings[idx].offset = off;
-+			cdump_ring = &coredump->rings[idx];
-+
-+			cdump_ring->ring_dw = kvzalloc(ring->ring_size, GFP_NOWAIT);
-+			if (cdump_ring->ring_dw)
-+				memcpy(cdump_ring->ring_dw, ring->ring, ring->ring_size);
- 
--			memcpy(&coredump->rings_dw[off], ring->ring, ring->ring_size);
--			off += ring->ring_size / 4;
-+			cdump_ring->ring_index = ring->idx;
-+			cdump_ring->rptr = amdgpu_ring_get_rptr(ring);
-+			cdump_ring->wptr = amdgpu_ring_get_wptr(ring);
- 			idx++;
- 		}
- 		coredump->num_rings = idx;
--	} else {
--		kvfree(coredump->rings_dw);
--		kvfree(coredump->rings);
--		coredump->rings_dw = NULL;
--		coredump->rings = NULL;
- 	}
- 
- 	coredump->adev = adev;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
-index 63f27337c09a..cb874d8c3394 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.h
-@@ -34,8 +34,8 @@
- struct amdgpu_coredump_ring {
- 	u64				rptr;
- 	u64				wptr;
-+	u32				*ring_dw;
- 	u32				ring_index;
--	u32				offset;
- };
- 
- struct amdgpu_coredump_ib_info {
-@@ -53,7 +53,6 @@ struct amdgpu_coredump_info {
- 	struct amdgpu_ring              *ring;
- 
- 	struct amdgpu_coredump_ring	*rings;
--	u32				*rings_dw;
- 	u32				num_rings;
- 
- 	/* Readable form of coredevdump, generate once to speed up
--- 
-2.49.0
+Thanks,
+Lijo
+
+On 29-Jul-26 1:20 PM, Lijo Lazar wrote:
+> The number of rings with outstanding fences can be large, requiring a
+> bigger allocation. Such allocations don't need to be physically
+> contiguous, so use kvzalloc/kvcalloc which fall back to vmalloc when
+> contiguous memory isn't available. This also matches the existing
+> kvfree used to free these allocations.
+> 
+> Also guard the allocation with ring_count to avoid passing 0 size to
+> allocation routines.
+> 
+> Fixes: eea85914d15b ("drm/amdgpu: save ring content before resetting the device")
+> 
+> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c | 10 +++++++---
+>   1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> index 39b2a4c0e011..4dfea36997d4 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
+> @@ -554,7 +554,7 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
+>   	if (job && job->pasid)
+>   		size += sizeof(struct amdgpu_coredump_ib_info) * job->num_ibs;
+>   
+> -	coredump = kzalloc(size, GFP_NOWAIT);
+> +	coredump = kvzalloc(size, GFP_NOWAIT);
+>   	if (!coredump)
+>   		return;
+>   
+> @@ -597,8 +597,12 @@ void amdgpu_coredump(struct amdgpu_device *adev, bool skip_vram_check,
+>   		total_ring_size += ring->ring_size;
+>   		ring_count++;
+>   	}
+> -	coredump->rings_dw = kzalloc(total_ring_size, GFP_NOWAIT);
+> -	coredump->rings = kcalloc(ring_count, sizeof(struct amdgpu_coredump_ring), GFP_NOWAIT);
+> +	if (ring_count) {
+> +		coredump->rings_dw = kvzalloc(total_ring_size, GFP_NOWAIT);
+> +		coredump->rings = kvcalloc(ring_count,
+> +					   sizeof(struct amdgpu_coredump_ring),
+> +					   GFP_NOWAIT);
+> +	}
+>   	if (coredump->rings && coredump->rings_dw) {
+>   		for (i = 0, off = 0, idx = 0; i < adev->num_rings && idx < ring_count; i++) {
+>   			ring = adev->rings[i];
 
