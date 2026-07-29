@@ -4,78 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B56EC54FD4
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 21:24:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8BF1C54FD4
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 21:24:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2B33910E2A8;
-	Wed, 29 Jul 2026 21:24:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 528C710E2DE;
+	Wed, 29 Jul 2026 21:24:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JJvquUi7";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="gK9XdN17";
 	dkim-atps=neutral
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62D2410E2A8
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 21:24:08 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-c160420289bso201897366b.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 14:24:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785360247; x=1785965047; darn=lists.freedesktop.org;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=sf3H+4s5e61yMb1ZbckowAcmT9DvP4lBN4F8AKsli7M=;
- b=JJvquUi7OURxaSSh5pUJ2psaAM1AMn6cfE/6xT/nPNumX3ywPMlMAi5nYl8hmP1Ni+
- FFLHci6zVfPmyezbauQ0H0xLjS/8YruRvAPJNd8EP9hFFZzBUZ4A1VxvAsIUctIyBTky
- AfzrPKgYorS5srcuF9XvTM62Ah4+a4dNMmg9msw1F64sQB/dnQaBvAA5JcXbzXtxbnWX
- 6WMpPF/jJcp/q6Cd/sbGYHNfam5GTXjw1uQHXtqrCmWDDtFx1+iWsrPCVvV+z2ArqMkh
- +hztRtd2U8CJdmx7ftUNbUQyVScNzoVOYcb9KG0JMyq+0ijdK3PWzULcGpO+sObwAW03
- LGdQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785360247; x=1785965047;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=sf3H+4s5e61yMb1ZbckowAcmT9DvP4lBN4F8AKsli7M=;
- b=rQ8NAZb6E14YSoHhJ1Dt92ruNbpyQ6dVOXkyPjK/2302cTuOgV+id7vr8ubL5dwTVz
- RvocyVZ8EIJAhA16OsjsDDTPOaYHPx9dGVeDSjFDMS0MOehUnkLuOrnKBvEco/EBD/2w
- iQtsMRrmi/rG27uqqUxvr/8fn//3ercKbL55dWmMs22U0OmVXXBPqsxyejrk1Jedig2Z
- BtwGTZ749tjbKXOz3G/1v7v3KLnup9HJizzG/GQRro6/pCoLwVe9NwvFGeFJ8shlmPSh
- I/1e614lH0s5r+qNi7tRlvDhPbBdVr34uvSepGpHgkIU1rYpKGUiYJA3Fih6pJH26elV
- sBZg==
-X-Gm-Message-State: AOJu0YyuSWj18Waq6Sy9Xb8DLkwsUdV2skPRzi+Jz8qPy3m7eF7PGPOY
- KNUDmBw1QsU5m3ewQmxtqclQ33VYvQGAwUPJtdH83AKDRPvzPewNMyPpR+1BTw==
-X-Gm-Gg: AR+sD11yKUiLfCZ8iB4I1qxwzfEqj+UfgWfROwhAMQX3LKv5bv3EXJkHcz2m5TrF7i8
- Ce/NHBnZ4BhmcardU+U4iGPh9ePp1uTpA9jEL0s7g3NhUZ7rbKWQlIos6c77l+Fjj+ysoVN0BU+
- EURH/aNcop0S5CrEXIB5pLQjaWPG6Nv0DkT4mk2PhZmS6+8SfbvI+mvbLe9M3YDplGVXSJzKpv1
- /o1QiOB3PDGwbv2IAgJw7cKpGJUdNDufA20jP6daFcXz9uTFdRdXGLPwlbZyKoSTJrjZD1XMrfp
- KDzRH5AkKW47mP5FVIyVHvepTpLHBwJMCjfzf9IhzDbwgkXbGIrqS5kiF27OI/dQ0Bg8Ibd0KMz
- TH7g6Ap+Q0o22UG1J+x64NsQEv4XNgiulBu/sjdu0ppeRheBZpq51iY9nfighpyfJduAECMkrWu
- yn1xbSbZyahdzPHT1bilbEUmEi7lctxXttHFV+ZsGpQUjL8VAjdXWg5CWP/FgvmNiJLrCGJPsj8
- LXlmzIpnYdZu7Mv2pkywD4hebSEuiItjDQKpmnZc4CRhhjNpEm8Wbq/reJx3SQZe9c=
-X-Received: by 2002:a17:907:3cd4:b0:c1f:9800:1811 with SMTP id
- a640c23a62f3a-c1fa57b4ab6mr5304666b.63.1785360246368; 
- Wed, 29 Jul 2026 14:24:06 -0700 (PDT)
-Received: from timur-max.localnet
- (20014C4E24CEAA0068208F73129E1A79.dsl.pool.telekom.hu.
- [2001:4c4e:24ce:aa00:6820:8f73:129e:1a79])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c1f83fb11c8sm155589666b.52.2026.07.29.14.24.03
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 29 Jul 2026 14:24:04 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: Miles Margetts <milesmargetts@live.com>
-Subject: Re: RX 7900 XTX (GFX11/Navi31): "Illegal opcode in command stream"
- gfx ring timeout, worked around by amdgpu.user_queue=0
-Date: Wed, 29 Jul 2026 23:24:02 +0200
-Message-ID: <W-Y1ZJ98T7SE9aJ4q2i6Gg@gmail.com>
-In-Reply-To: <PH8PR20MB519310C4CA59E83241D0C6CED2E72@PH8PR20MB5193.namprd20.prod.outlook.com>
-References: <PH8PR20MB519310C4CA59E83241D0C6CED2E72@PH8PR20MB5193.namprd20.prod.outlook.com>
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B45610E2DE;
+ Wed, 29 Jul 2026 21:24:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=NlAIwGtgFUDthsMkLBSqC+8ZDzTAilxZLPSzL/QwiWo=; b=gK9XdN17Px8Z/dBviZlyjLF5+Y
+ RQcq6YgGXjJc5VmYpqFspaDEhofquOG5ABMZ8U3kjPjjNv2kcvvDdiLK+WRtS/pgXhHIfjnyoPDzo
+ u9HSTu1P0ZE3H1cognIR6ogGSYmK9uIscbdFafFDhbs8KJjrATFuSqZCrE0pldWJi+5sUDMn3Omv1
+ RM87+WHYlSy5NUtZ/EAEsFoNO49HcpFBc0ZDrmnOlEBTGdJz1Qo4BeagMnkojtfYfCCGepj/23hHS
+ cIaiFooQ7dDqbLLORSRUVDKAUFs0rYTf7t0yJ/akwLiQZnLUs8wSnYDGn6itdOGxyH/oeQlASDWUu
+ 4jfS07TQ==;
+Received: from c-73-157-168-91.hsd1.or.comcast.net ([73.157.168.91]
+ helo=[192.168.1.133]) by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wpBlE-007gTv-6P; Wed, 29 Jul 2026 23:24:20 +0200
+Message-ID: <9143dbcd-84ff-4210-9c8a-8054e5dc6bf9@Igalia.com>
+Date: Wed, 29 Jul 2026 14:24:14 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Fix use-after-free bugs in KUnit tests
+To: Alex Hung <alex.hung@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
+ Harry Wentland <harry.wentland@amd.com>
+References: <20260723233548.580891-1-John.Harrison@Igalia.com>
+ <b43b52a3-9577-4e39-94db-75fd7f62c3ad@amd.com>
+ <0dcfdc1a-cae8-403b-acff-01cc65bb0846@Igalia.com>
+ <37d52d4e-7f4c-4467-83b5-99ccf6f73558@amd.com>
+Content-Language: en-GB
+From: John Harrison <John.Harrison@Igalia.com>
+In-Reply-To: <37d52d4e-7f4c-4467-83b5-99ccf6f73558@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,118 +60,341 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026. j=C3=BAnius 14., vas=C3=A1rnap 16:11:11 k=C3=B6z=C3=A9p-eur=C3=B3p=
-ai ny=C3=A1ri id=C5=91 Miles Margetts=20
-wrote:
-> Hello,
->=20
-> I'd like to report a reproducible GFX11 GPU hang on an RX 7900 XTX,
-> along with a workaround that seems to point at the user-mode queue path.
-> I'm not submitting a patch, just flagging it in case it's useful and
-> asking whether a devcoredump would help narrow it down.
->=20
-> System:
-> - GPU: AMD Radeon RX 7900 XTX, Sapphire NITRO+ (board 11322-01-40G),
-> Navi 31 / GFX11 (PCI 1002:744c)
-> - Secondary: Raphael iGPU (1002:164e), not used for display
-> - CPU: AMD Ryzen 7 7800X3D
-> - Kernel: 7.0.11 (CachyOS, Arch-based)
-> - Mesa / RADV: 26.1.2 (vulkan-radeon)
-> - Session: KDE Plasma 6 on Wayland. The failing client is Xwayland: the
-> affected app is the native Linux build of Baldur's Gate 3, which runs as
-> an X11 client under Xwayland.
-> - GPU tuning via LACT: Overdrive enabled, core clock capped at 2600 MHz,
-> voltage offset -20mV, framerate capped at 71. NOTE: these were unchanged
-> across both the crashing and non-crashing states, so they are not the
-> variable (details below).
->=20
-> Symptom:
-> Intermittent full GPU hang during gameplay. The gfx ring times out
-> immediately after an "Illegal opcode in command stream", the ring and
-> MES resets fail, and a MODE1 reset recovers the GPU but loses VRAM and
-> wedges the display, requiring a reboot. Representative dmesg:
->=20
-> amdgpu 0000:03:00.0: [drm] AMDGPU device coredump file has been created
-> amdgpu 0000:03:00.0: ring gfx_0.0.0 timeout, signaled seq=3D38937911,
-> emitted seq=3D38937913
-> amdgpu 0000:03:00.0: Process Xwayland pid 1063 thread Xwayland:cs0 pid 10=
-71
-> amdgpu 0000:03:00.0: Starting gfx_0.0.0 ring reset
-> [drm:gfx_v11_0_bad_op_irq [amdgpu]] *ERROR* Illegal opcode in command str=
-eam
-> amdgpu 0000:03:00.0: MES failed to respond to msg=3DRESET
-> amdgpu 0000:03:00.0: failed to reset legacy queue
-> amdgpu 0000:03:00.0: reset via MES failed and try pipe reset -110
-> amdgpu 0000:03:00.0: The CPFW hasn't support pipe reset yet.
-> amdgpu 0000:03:00.0: Ring gfx_0.0.0 reset failed
-> amdgpu 0000:03:00.0: GPU reset begin!. Source: 1
-> amdgpu 0000:03:00.0: MODE1 reset
-> amdgpu 0000:03:00.0: GPU reset succeeded, trying to resume
-> amdgpu 0000:03:00.0: VRAM is lost due to GPU reset!
-> amdgpu 0000:03:00.0: GPU reset(1) succeeded!
-> amdgpu 0000:03:00.0: [drm] device wedged, but recovered through reset
->=20
-> Reproduction:
-> - Occurs only in Baldur's Gate 3 (native Linux build) when playing
-> multiplayer as the CLIENT.
+On 7/24/26 14:36, Alex Hung wrote:
+> On 7/24/26 15:09, John Harrison wrote:
+>> On 7/24/26 12:37, Alex Hung wrote:
+>>> Reviewed-by: Alex Hung <alex.hung@amd.com>
+>>>
+>>> With two comments:
+>>> 1. There is a minor conflicts on include
+>>> 2. The following code seems to have the same patterns (passing to 
+>>> drmm_* functions). Do they need to be changed too?
+>> None of those functions exist in my tree. Which might also explain 
+>> the include conflict. I'm using drm-tip fetched the same day I posted 
+>> the patch. Should I be basing the patch on a different tree?
+>
+> My bad. My local branch contains additional patches.
+>
+> I will create a patch for this four additional changes. Thanks for 
+> pointing this out.
+Can this patch be merged? It would be good to get the existing issues fixed.
 
-Can you please write how to reproduce this?
+Thanks,
+John.
 
-> - Stable in single-player and as the multiplayer HOST, with identical
-> settings in the same session.
-> - Onset varies from a few minutes to longer stretches of client play.
->=20
-> Things tried:
-> - RADV_DEBUG=3Dnongg: no effect, so it does not appear to be NGG-related.
-
-You cannot disable NGG on the 7900 XTX because it only has the NGG pipeline=
-=20
-and no longer has the legacy geometry pipeline. So RADV_DEBUG=3Dnongg doesn=
-'t do=20
-anything on this GPU.
-
-> - The undervolt/clock settings are not the trigger: the system is stable
-> as host and in single-player with the exact same tuning, and -20mV is a
-> mild offset.
-
-Overclock / undervolt related instability is usually non-deterministic, so =
-I=20
-would feel more confident in this finding if you could reproduce it with=20
-overdrive disable and putting the GPU in "profile_standard" mode.
-
-> Workaround that appears to resolve it:
-> - Booting with amdgpu.user_queue=3D0 (disabling GFX11 user-mode queues).
-> Since applying it, client sessions that previously hard-froze have been
-> stable.
-
-RADV does not support user queues yet, so this is not doing anything for th=
-e=20
-game. Are you running anything else on your system that may be using user=20
-queues?
-
->=20
-> This seems to point at the GFX11 user-queue path (queue evict/restore /
-> MES queue handling) rather than RADV shader codegen, but I have not
-> root-caused why the malformed packet is emitted.
-
-As far as I know the "Illegal opcode in command stream" refers to packets i=
-n=20
-the command stream and not shader instructions. So this doesn't have anythi=
-ng=20
-to do with shader code gen.
-
-> I can provide a GPU devcoredump from a future occurrence (I have a
-> capture hook in place to copy it out before the ~5 minute expiry) if
-> that would be helpful, and I'm happy to test patches or gather
-> additional data.
-
-I recommend you to open an issue here:
-https://gitlab.freedesktop.org/drm/amd/-/work_items
-Please give me a link to the issue you've created and let's continue the=20
-conversation there.
-
-Thanks & best regards,
-Timur
-
-
+>
+>>
+>> John.
+>>
+>>
+>>>
+>>>
+>>> --- drivers/gpu/drm/amd/display/amdgpu_dm/tests/ 
+>>> amdgpu_dm_connector_test.c
+>>> +++ drivers/gpu/drm/amd/display/amdgpu_dm/tests/ 
+>>> amdgpu_dm_connector_test.c
+>>> @@ -3645,7 +3645,7 @@ static struct dm_test_stream_ctx 
+>>> *dm_test_stream_ctx_alloc(struct kunit *test)
+>>> DRIVER_MODESET);
+>>>         KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->drm);
+>>>
+>>> -       ctx->aconnector = kunit_kzalloc(test, sizeof(*ctx- 
+>>> >aconnector), GFP_KERNEL);
+>>> +       ctx->aconnector = drmm_kzalloc(ctx->drm, sizeof(*ctx- 
+>>> >aconnector), GFP_KERNEL);
+>>>         KUNIT_ASSERT_NOT_NULL(test, ctx->aconnector);
+>>>         KUNIT_ASSERT_EQ(test,
+>>>                 drmm_connector_init(ctx->drm, &ctx->aconnector->base,
+>>> @@ -3903,7 +3903,7 @@ static void 
+>>> dm_test_poll_dac_load_returns_cached(struct kunit *test)
+>>>         KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+>>>         adev = drm_to_adev(drm);
+>>>
+>>> -       aconnector = kunit_kzalloc(test, sizeof(*aconnector), 
+>>> GFP_KERNEL);
+>>> +       aconnector = drmm_kzalloc(drm, sizeof(*aconnector), 
+>>> GFP_KERNEL);
+>>>         KUNIT_ASSERT_NOT_NULL(test, aconnector);
+>>>         KUNIT_ASSERT_EQ(test,
+>>>                 drmm_connector_init(drm, &aconnector->base,
+>>> @@ -3950,7 +3950,7 @@ static struct amdgpu_dm_connector 
+>>> *dm_test_reg_connector(struct kunit *test)
+>>> DRIVER_MODESET);
+>>>         KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+>>>
+>>> -       aconnector = kunit_kzalloc(test, sizeof(*aconnector), 
+>>> GFP_KERNEL);
+>>> +       aconnector = drmm_kzalloc(drm, sizeof(*aconnector), 
+>>> GFP_KERNEL);
+>>>         KUNIT_ASSERT_NOT_NULL(test, aconnector);
+>>>         KUNIT_ASSERT_EQ(test,
+>>>                 drmm_connector_init(drm, &aconnector->base,
+>>> @@ -4405,7 +4405,7 @@ dm_test_modes_ctx_alloc(struct kunit *test, 
+>>> int connector_type)
+>>>         ctx->drm = dm_test_alloc_drm(test);
+>>>         ctx->aconnector = dm_test_add_connector(test, ctx->drm, 
+>>> connector_type);
+>>>
+>>> -       ctx->aenc = kunit_kzalloc(test, sizeof(*ctx->aenc), 
+>>> GFP_KERNEL);
+>>> +       ctx->aenc = drmm_kzalloc(ctx->drm, sizeof(*ctx->aenc), 
+>>> GFP_KERNEL);
+>>>         KUNIT_ASSERT_NOT_NULL(test, ctx->aenc);
+>>>         KUNIT_ASSERT_EQ(test,
+>>>                         drmm_encoder_init(ctx->drm, 
+>>> &ctx->aenc->base, NULL,
+>>>
+>>>
+>>> On 7/23/26 17:35, John Harrison wrote:
+>>>> When running the KUnit tests with memory debugging enabled, a bunch of
+>>>> use-after-free errors are hit. These are due to using KUnit managed
+>>>> memory for the test objects but then giving them over to DRM managed
+>>>> objects. The KUnit stuff is deallocated first and when the DRM side
+>>>> calls its clean up helpers, it hits memory that has been freed 
+>>>> already.
+>>>>
+>>>> NB: There is still a use-after-free bug in the writeback tests.
+>>>> However, fixing that requires driver side changes as well as test side
+>>>> changes. Those changes are part of:
+>>>>    https://patchwork.freedesktop.org/series/152420/
+>>>>
+>>>> Signed-off-by: John Harrison <John.Harrison@Igalia.com>
+>>>> CC: Alex Hung <alex.hung@amd.com>
+>>>> CC: Harry Wentland <harry.wentland@amd.com>
+>>>> ---
+>>>>   .../tests/amdgpu_dm_connector_test.c          | 37 
+>>>> ++++++++++---------
+>>>>   .../amdgpu_dm/tests/amdgpu_dm_kunit_helpers.c |  3 +-
+>>>>   .../amdgpu_dm/tests/amdgpu_dm_wb_test.c       |  5 ++-
+>>>>   3 files changed, 24 insertions(+), 21 deletions(-)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/ 
+>>>> amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/ 
+>>>> tests/amdgpu_dm_connector_test.c
+>>>> index 0a5d439f66c3..93a854d4fdfa 100644
+>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/ 
+>>>> amdgpu_dm_connector_test.c
+>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/ 
+>>>> amdgpu_dm_connector_test.c
+>>>> @@ -12,6 +12,7 @@
+>>>>   #include <drm/drm_crtc.h>
+>>>>   #include <drm/drm_edid.h>
+>>>>   #include <drm/drm_kunit_helpers.h>
+>>>> +#include <drm/drm_managed.h>
+>>>>   #include <drm/drm_mode_object.h>
+>>>>   #include <drm/drm_property.h>
+>>>>   #include <linux/hdmi.h>
+>>>> @@ -1449,7 +1450,7 @@ static void 
+>>>> dm_test_funcs_reset_sets_defaults(struct kunit *test)
+>>>>                              DRIVER_MODESET);
+>>>>       KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+>>>>   -    connector = kunit_kzalloc(test, sizeof(*connector), 
+>>>> GFP_KERNEL);
+>>>> +    connector = drmm_kzalloc(drm, sizeof(*connector), GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, connector);
+>>>>         drmm_connector_init(drm, connector, &dm_test_connector_funcs,
+>>>> @@ -1488,7 +1489,7 @@ static void 
+>>>> dm_test_funcs_reset_edp_abm_level(struct kunit *test)
+>>>>                              DRIVER_MODESET);
+>>>>       KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+>>>>   -    connector = kunit_kzalloc(test, sizeof(*connector), 
+>>>> GFP_KERNEL);
+>>>> +    connector = drmm_kzalloc(drm, sizeof(*connector), GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, connector);
+>>>>         drmm_connector_init(drm, connector, &dm_test_connector_funcs,
+>>>> @@ -1526,7 +1527,7 @@ static void 
+>>>> dm_test_funcs_reset_edp_abm_disabled(struct kunit *test)
+>>>>                              DRIVER_MODESET);
+>>>>       KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+>>>>   -    connector = kunit_kzalloc(test, sizeof(*connector), 
+>>>> GFP_KERNEL);
+>>>> +    connector = drmm_kzalloc(drm, sizeof(*connector), GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, connector);
+>>>>         drmm_connector_init(drm, connector, &dm_test_connector_funcs,
+>>>> @@ -1568,7 +1569,7 @@ static void 
+>>>> dm_test_atomic_dup_state_copies_fields(struct kunit *test)
+>>>>                              DRIVER_MODESET);
+>>>>       KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+>>>>   -    connector = kunit_kzalloc(test, sizeof(*connector), 
+>>>> GFP_KERNEL);
+>>>> +    connector = drmm_kzalloc(drm, sizeof(*connector), GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, connector);
+>>>>         drmm_connector_init(drm, connector, &dm_test_connector_funcs,
+>>>> @@ -2359,8 +2360,8 @@ static void setup_panel_type_fixture(struct 
+>>>> kunit *test,
+>>>>       KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fixture->drm);
+>>>>       fixture->adev = drm_to_adev(fixture->drm);
+>>>>   -    fixture->aconnector = kunit_kzalloc(test, sizeof(*fixture- 
+>>>> >aconnector),
+>>>> -                        GFP_KERNEL);
+>>>> +    fixture->aconnector = drmm_kzalloc(fixture->drm, 
+>>>> sizeof(*fixture->aconnector),
+>>>> +                       GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fixture->aconnector);
+>>>>       fixture->link = kunit_kzalloc(test, sizeof(*fixture->link), 
+>>>> GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fixture->link);
+>>>> @@ -2554,9 +2555,9 @@ static void 
+>>>> dm_test_update_subconnector_dp_with_sink(struct kunit *test)
+>>>>                              DRIVER_MODESET);
+>>>>       KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+>>>>   -    aconnector = kunit_kzalloc(test, sizeof(*aconnector), 
+>>>> GFP_KERNEL);
+>>>> +    aconnector = drmm_kzalloc(drm, sizeof(*aconnector), GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, aconnector);
+>>>> -    link = kunit_kzalloc(test, sizeof(*link), GFP_KERNEL);
+>>>> +    link = drmm_kzalloc(drm, sizeof(*link), GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, link);
+>>>>         drmm_connector_init(drm, &aconnector->base, 
+>>>> &dm_test_connector_funcs,
+>>>> @@ -2598,9 +2599,9 @@ static void 
+>>>> dm_test_update_subconnector_dp_no_sink(struct kunit *test)
+>>>>                              DRIVER_MODESET);
+>>>>       KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+>>>>   -    aconnector = kunit_kzalloc(test, sizeof(*aconnector), 
+>>>> GFP_KERNEL);
+>>>> +    aconnector = drmm_kzalloc(drm, sizeof(*aconnector), GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, aconnector);
+>>>> -    link = kunit_kzalloc(test, sizeof(*link), GFP_KERNEL);
+>>>> +    link = drmm_kzalloc(drm, sizeof(*link), GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, link);
+>>>>         drmm_connector_init(drm, &aconnector->base, 
+>>>> &dm_test_connector_funcs,
+>>>> @@ -2641,9 +2642,9 @@ static void 
+>>>> dm_test_update_subconnector_non_dp_noop(struct kunit *test)
+>>>>                              DRIVER_MODESET);
+>>>>       KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+>>>>   -    aconnector = kunit_kzalloc(test, sizeof(*aconnector), 
+>>>> GFP_KERNEL);
+>>>> +    aconnector = drmm_kzalloc(drm, sizeof(*aconnector), GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, aconnector);
+>>>> -    link = kunit_kzalloc(test, sizeof(*link), GFP_KERNEL);
+>>>> +    link = drmm_kzalloc(drm, sizeof(*link), GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, link);
+>>>>         drmm_connector_init(drm, &aconnector->base, 
+>>>> &dm_test_connector_funcs,
+>>>> @@ -2657,7 +2658,7 @@ static void 
+>>>> dm_test_update_subconnector_non_dp_noop(struct kunit *test)
+>>>>         link->dpcd_caps.dongle_type = 
+>>>> DISPLAY_DONGLE_DP_HDMI_CONVERTER;
+>>>>       aconnector->dc_link = link;
+>>>> -    aconnector->dc_sink = kunit_kzalloc(test, sizeof(*aconnector- 
+>>>> >dc_sink), GFP_KERNEL);
+>>>> +    aconnector->dc_sink = drmm_kzalloc(drm, sizeof(*aconnector- 
+>>>> >dc_sink), GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, aconnector->dc_sink);
+>>>>         update_subconnector_property(aconnector);
+>>>> @@ -2804,7 +2805,7 @@ static struct amdgpu_dm_connector 
+>>>> *dm_test_add_connector(struct kunit *test,
+>>>>   {
+>>>>       struct amdgpu_dm_connector *aconnector;
+>>>>   -    aconnector = kunit_kzalloc(test, sizeof(*aconnector), 
+>>>> GFP_KERNEL);
+>>>> +    aconnector = drmm_kzalloc(drm, sizeof(*aconnector), GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, aconnector);
+>>>>         KUNIT_ASSERT_EQ(test,
+>>>> @@ -3103,7 +3104,7 @@ static struct dm_test_panel_ctx 
+>>>> *dm_test_panel_ctx_alloc(struct kunit *test)
+>>>>       KUNIT_ASSERT_NOT_NULL(test, prop);
+>>>>       ctx->drm->mode_config.panel_type_property = prop;
+>>>>   -    ctx->aconnector = kunit_kzalloc(test, sizeof(*ctx- 
+>>>> >aconnector), GFP_KERNEL);
+>>>> +    ctx->aconnector = drmm_kzalloc(ctx->drm, sizeof(*ctx- 
+>>>> >aconnector), GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, ctx->aconnector);
+>>>>       KUNIT_ASSERT_EQ(test,
+>>>>           drmm_connector_init(ctx->drm, &ctx->aconnector->base,
+>>>> @@ -3112,7 +3113,7 @@ static struct dm_test_panel_ctx 
+>>>> *dm_test_panel_ctx_alloc(struct kunit *test)
+>>>> drm_object_attach_property(&ctx->aconnector->base.base, prop,
+>>>>                      DRM_MODE_PANEL_TYPE_UNKNOWN);
+>>>>   -    ctx->link = kunit_kzalloc(test, sizeof(*ctx->link), 
+>>>> GFP_KERNEL);
+>>>> +    ctx->link = drmm_kzalloc(ctx->drm, sizeof(*ctx->link), 
+>>>> GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, ctx->link);
+>>>>       ctx->aconnector->dc_link = ctx->link;
+>>>>   @@ -3376,14 +3377,14 @@ static struct dm_test_fill_ctx 
+>>>> *dm_test_fill_ctx_alloc(struct kunit *test)
+>>>>                                  DRIVER_MODESET);
+>>>>       KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->drm);
+>>>>   -    ctx->aconnector = kunit_kzalloc(test, sizeof(*ctx- 
+>>>> >aconnector), GFP_KERNEL);
+>>>> +    ctx->aconnector = drmm_kzalloc(ctx->drm, sizeof(*ctx- 
+>>>> >aconnector), GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, ctx->aconnector);
+>>>>       KUNIT_ASSERT_EQ(test,
+>>>>           drmm_connector_init(ctx->drm, &ctx->aconnector->base,
+>>>>                       &dm_test_connector_funcs,
+>>>>                       DRM_MODE_CONNECTOR_DisplayPort, NULL), 0);
+>>>>   -    ctx->conn_state = kunit_kzalloc(test, sizeof(*ctx- 
+>>>> >conn_state), GFP_KERNEL);
+>>>> +    ctx->conn_state = drmm_kzalloc(ctx->drm, sizeof(*ctx- 
+>>>> >conn_state), GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, ctx->conn_state);
+>>>>       ctx->stream = kunit_kzalloc(test, sizeof(*ctx->stream), 
+>>>> GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, ctx->stream);
+>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/ 
+>>>> amdgpu_dm_kunit_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/ 
+>>>> tests/amdgpu_dm_kunit_helpers.c
+>>>> index 58615cdbe854..7d5e3823b33b 100644
+>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/ 
+>>>> amdgpu_dm_kunit_helpers.c
+>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/ 
+>>>> amdgpu_dm_kunit_helpers.c
+>>>> @@ -8,6 +8,7 @@
+>>>>   #include <kunit/test.h>
+>>>>   #include <linux/module.h>
+>>>>   #include <drm/drm_kunit_helpers.h>
+>>>> +#include <drm/drm_managed.h>
+>>>>     #include "dc.h"
+>>>>   #include "core_types.h"
+>>>> @@ -127,7 +128,7 @@ struct amdgpu_dm_connector 
+>>>> *dm_kunit_alloc_connector(struct kunit *test,
+>>>>   {
+>>>>       struct amdgpu_dm_connector *aconnector;
+>>>>   -    aconnector = kunit_kzalloc(test, sizeof(*aconnector), 
+>>>> GFP_KERNEL);
+>>>> +    aconnector = drmm_kzalloc(adev_to_drm(adev), 
+>>>> sizeof(*aconnector), GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, aconnector);
+>>>>         if (adev)
+>>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/ 
+>>>> amdgpu_dm_wb_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/ 
+>>>> amdgpu_dm_wb_test.c
+>>>> index b43bc244487e..3454cf371414 100644
+>>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
+>>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_wb_test.c
+>>>> @@ -12,6 +12,7 @@
+>>>>   #include <drm/drm_fourcc.h>
+>>>>   #include <drm/drm_framebuffer.h>
+>>>>   #include <drm/drm_kunit_helpers.h>
+>>>> +#include <drm/drm_managed.h>
+>>>>   #include <drm/drm_mode.h>
+>>>>   #include <drm/drm_modes.h>
+>>>>   #include <drm/drm_writeback.h>
+>>>> @@ -266,7 +267,7 @@ static void 
+>>>> dm_test_wb_get_modes_returns_modes(struct kunit *test)
+>>>>                              DRIVER_MODESET | DRIVER_ATOMIC);
+>>>>       KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+>>>>   -    connector = kunit_kzalloc(test, sizeof(*connector), 
+>>>> GFP_KERNEL);
+>>>> +    connector = drmm_kzalloc(drm, sizeof(*connector), GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, connector);
+>>>>         drmm_connector_init(drm, connector, 
+>>>> &dm_wb_test_connector_funcs,
+>>>> @@ -301,7 +302,7 @@ static void 
+>>>> dm_test_wb_get_modes_bounded_by_max(struct kunit *test)
+>>>>                              DRIVER_MODESET | DRIVER_ATOMIC);
+>>>>       KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
+>>>>   -    connector = kunit_kzalloc(test, sizeof(*connector), 
+>>>> GFP_KERNEL);
+>>>> +    connector = drmm_kzalloc(drm, sizeof(*connector), GFP_KERNEL);
+>>>>       KUNIT_ASSERT_NOT_NULL(test, connector);
+>>>>         drmm_connector_init(drm, connector, 
+>>>> &dm_wb_test_connector_funcs,
+>>>
+>>
+>
 
