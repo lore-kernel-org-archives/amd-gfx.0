@@ -4,101 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E87DCC53219
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 17:58:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF157C53219
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 18:22:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 77C3A10ED40;
-	Wed, 29 Jul 2026 17:58:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5020210E058;
+	Wed, 29 Jul 2026 18:22:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Yq5Y9J25";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HZAJXEYX";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010051.outbound.protection.outlook.com
- [52.101.193.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 505B010ED40
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 17:58:38 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011059.outbound.protection.outlook.com [52.101.57.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EE67A10E058;
+ Wed, 29 Jul 2026 18:22:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BeMVzbyFExLcjKze2HU6zmqC2Yx7UhOhpnOh4AL5+YGxgn4otRi70hqg2f66HjjR8FPpEyql1CduzTntzNDpDRfnBlyGDP7Ece0AvsN/STqmLZ7qdm4fTI6OzSE1OfTZ+iRE1TATrT0LhSC/S4UOUNfh7pstj3sP/GVp3V6K+xc8A1VvqokPuxX6sgca2Vx4QM2yDU3KF9hxr6QvULR0tkbsrmG8F/UYdVmkCjXXaC3//7OGMJCCfJnRFfGtqIdW8S6sQrW2JPAoLFpy1ksA9aVElyo8M2OU1t/c8n3HSh227xx//CdyYV2lyvrDglT0amb3/Mc91ZZ2GaNBTCgqqg==
+ b=UpxYcpG9g2Ed6lfwmoErYk+NpophzYvSDN9VUq64CS1mRDlyAHB+hosOc5vhXJpYKU5kqlB0IP4J5SIu8H0J3z0H5LmHiJEgydf7gFSpy7sAu/a/Xvbvt8QFm9QmZSTtXqsIhtrFwkVUBAOZcsJntmYGzFkMTYeJ7MlmYr/0xhTsthkg9Fnk6UyGYLTUKPRt722yE/Jo1N7caa4iXSx9NNVFQ7shntuWlsoDygWEQP3T50YCTFZtCHDxJsPp8XFhiGrXO2km5nqqIJMJuWGqyQoq1P9OCrAI6jLlTv9Wy9IGTLk9UMMktV8wp8KSxmId0V5sHupNQG+dgfNyeBMhTw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BqRVPu7GHV9W7yQN5Un+CliZes9f9G5g811aKnMmqbo=;
- b=J+QugBiDGST9KEywqLsedJiYrJdjyEBrP9XdSwXqkxXVSW1OoIOVrA1TJX9O9jIgf7Z3CszYepqbxwCDAQQVjOidpyGIufGlc58J1Ljt3jkSrBIWtRMr7FHIdkrSHe+Q34uGPznKvvcCEckwGnVNI6rEXFRNTnu8FmuknkIVOmL7ErvKeZGQeIv2SgGNn6vlFx5fqcTj5drnfmhBx0pSfQd3tyfzI/bDF74ut+B2JpoxGl3aVAskPyRolL8xtE9oo2Og43JTEb9ccO4/Z6MelHEDgR96V3efmJxpsTmr41O5bAJGJ6cHXqm+s+ee29Hdz7qGUPCBet2YurRfGkaLDw==
+ bh=VbzQ+i/OyA1WDkyEULV72u6L9+lZdWhQ++rwURjv50w=;
+ b=YzSWfc6VyeofVqX7zRVn49+hOVFVpf+SyzOINLAbjGIOvBFSnRhc1zdEA4ND6Mn91T7h4tswZl0J4SZEQJyEaGpBtyTUS47DSiqVc8ken1O7sfb4PjYfn8UlpCK/AA5ib0YXCV78jI5IzcQR0yTHUxmD1HaQnez8OoGvFGaThYzMkBjX4uNIq7FL6x0RheVUOA+4Zhz2BI4vxE1MelHHSDnL5CCkf/0vposx/0yVVp3FZdYFYzebTD/F4crvp3wwmCeqYc09iYRD2RlXgqSAb4aT7rUrHtIsvcDdo740ribNqk0dtTrcB7dpu3QnfRdJkUTqGwAwP4xMqJpN4IxbWw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BqRVPu7GHV9W7yQN5Un+CliZes9f9G5g811aKnMmqbo=;
- b=Yq5Y9J25UuA4osqeqh+eksf6dN87jzcQnn/eOBfdK/kMKvDw0rGeM3RtcC8u+9NFB8wQeQ5fEZQ5RbaOfK+fWdi6JB3vr6GnVaB3beZHRXICWyK3WOiKEHYE230pZzvi7827A0/cYEgFq+slNWtca5HrkntiSaH2G8HneqQk6RE=
-Received: from MN2PR08CA0004.namprd08.prod.outlook.com (2603:10b6:208:239::9)
- by DSVPR12MB999125.namprd12.prod.outlook.com (2603:10b6:8:38a::8)
+ bh=VbzQ+i/OyA1WDkyEULV72u6L9+lZdWhQ++rwURjv50w=;
+ b=HZAJXEYXZ9xtNlkFN1noSosnf8HQ9WJkFnITW4K6hUSyxbBaxgTflUvCxA+2AlSetOxR6Qs0GaB2jymH5BPZfFjT1L54AgxuiXRDvl0qMTjM8PtTsBr0FuCWS4SVX9Ir5BSfEBZcQDGjAPwZvwzJ1S1n1pctMzMGDQPwt94f/4Y=
+Received: from BL1PR13CA0325.namprd13.prod.outlook.com (2603:10b6:208:2c1::30)
+ by SA1PR12MB8599.namprd12.prod.outlook.com (2603:10b6:806:254::7)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Wed, 29 Jul
- 2026 17:58:32 +0000
-Received: from BN2PEPF00004FC1.namprd04.prod.outlook.com
- (2603:10b6:208:239:cafe::80) by MN2PR08CA0004.outlook.office365.com
- (2603:10b6:208:239::9) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 18:22:22 +0000
+Received: from BN3PEPF0000B074.namprd04.prod.outlook.com
+ (2603:10b6:208:2c1:cafe::7e) by BL1PR13CA0325.outlook.office365.com
+ (2603:10b6:208:2c1::30) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.12 via Frontend Transport; Wed,
- 29 Jul 2026 17:58:32 +0000
+ 29 Jul 2026 18:22:21 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FC1.mail.protection.outlook.com (10.167.243.187) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN3PEPF0000B074.mail.protection.outlook.com (10.167.243.119) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Wed, 29 Jul 2026 17:58:32 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.270.5 via Frontend Transport; Wed, 29 Jul 2026 18:22:21 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 29 Jul
- 2026 12:58:32 -0500
-Received: from flamewok (10.180.168.240) by satlexmb07.amd.com (10.181.42.216)
- with Microsoft SMTP Server id 15.2.2562.41 via Frontend Transport;
- Wed, 29 Jul 2026 12:58:31 -0500
-From: <sunpeng.li@amd.com>
-To: <stable@vger.kernel.org>
-CC: <amd-gfx@lists.freedesktop.org>, Leo Li <sunpeng.li@amd.com>, "Mario
- Limonciello (AMD)" <superm1@kernel.org>, Alex Deucher
- <alexander.deucher@amd.com>
-Subject: [PATCH 6.18.y] drm/amd/display: check GRPH_FLIP status before sending
- event
-Date: Wed, 29 Jul 2026 13:57:48 -0400
-Message-ID: <20260729175748.981393-1-sunpeng.li@amd.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <2026072937-lyrics-aflutter-e7ab@gregkh>
-References: <2026072937-lyrics-aflutter-e7ab@gregkh>
+ 2026 13:22:19 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Wed, 29 Jul 2026 13:22:18 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <airlied@gmail.com>, <simona.vetter@ffwll.ch>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [pull] amdgpu, amdkfd drm-fixes-7.2
+Date: Wed, 29 Jul 2026 14:22:09 -0400
+Message-ID: <20260729182209.4072227-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FC1:EE_|DSVPR12MB999125:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d0bb6de-ec8b-4af1-c675-08deed9b00ff
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B074:EE_|SA1PR12MB8599:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb56d863-6c59-44e7-8474-08deed9e5472
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|10067099003|56012099006|11063799006|18002099003|22082099003|13003099007;
-X-Microsoft-Antispam-Message-Info: r7M5MgkrkJjRxtqT6yk8v5u4thorxVtj4PATM9n92U/AKT63juc/uUC8vm2gY6+uv1QCn6XdhUvYijf8avgpCY705oh0PiOx0K8jEkz76kyEHuMLM0oSsK2rklfgFLXyP0h0yS8MjE6lWLMj1cOTWf0z3UNNMEb6OPveeg2yLscpnewtu2UXZylm7f8KjLx/mF1LXAqsiic9eE8a/SciLNjCP/NvUl/VDFlJsypRU2Kj61gnxDAJpo8JX0NDiOwM7Q/Fz9GY3zkZpgj0HnPNGMNKEORvUn5e9i6BJJsVSHHvtyu5103PFZWUmTTPavSM1zT4H+IIm45LN6h9eEpr7uftdKngQY6NLAJZuBjLbh48WJj5sYpnRK0Vj94UpcsuMWng7G0jfIIihkdJ5qcSSS9REWW4J0uVTh2ZJbZVsCt+KQEAH59Ml7pUzamRzFetjdJ1YCin01oD25zAC7B0LxoB+/03FzG/2+n4WXpcE+VqvEha5nvCC5gsnep94ZSuC8gbPR5FMgYkcVH3GYcIEpLc1QXkteMHohYBLGyyq1o061mppu/07AN2NOXg5ALSbuTwjkGMlSn8d151Sxu59RYzTIjlBTZFoz1DYthpeGfPtVOqCrtfrbxxbAciMvY8WrF6hgbOJ4+cuEjaX0bFGg==
+ ARA:13230040|1800799024|82310400026|376014|23010399003|36860700016|13003099007|11063799006|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: X5IGiIOQP7mBTkR0gYYnhc8pEIQiQbHY3g9HaL/JjJR4/7wr7PHFZwY1o5rp3ExhsH9/3WTOjmVoMUZKxjgpFXzHKQEltcWVFr44hcZHKKuOvD9yZwnxA/ruJEq7SUITEBiSL08v3hDxnFviTQgHJjkuNMCtloR5VLC9uMigqeCBVwXIcuUA1C2FPLXEbZ0kP2fJXQkquRSbngNC11SCKvH2ymc4f0UbbIsQdrQg27GDxeXfjep8h4eI7oCFRlVD/Fd4xMlwu1Aau0x0jht3W0MaXDJ+wBf/FW8wXyRNiaw9+u0vvn0q3z86YK/UCzjzEvHUpx1emAXS1IzRWUJSO6mXQN1zgHVA0HcRBIk8OUEfSu2iv5J5VfDmUPvEH4mle4l1m90NBpDmspju1Lujb7PjlDQHmu6natzyKc3Idc+Zy0UeYlugYXfwQDcS2e7y4XbPsJ0cVTvfTMHPkehxzLpxIKgLFSr+hulODKNkqIDkKpfdtvD8Z1Zu7yOOkDAUj0g9YsoAiq/mMm2mWFmQHjp5cKuU5HL7tWr58JYxyhZw+hZ2pTuncSvWNZUKSJBPMB8lRkGPGZXWGSYp+YKiMk7SOcY1tOo80+bWzKWfUxG10Z9lMmDdvlxW2J/RQa3yKe7Nq1F/Tbxgsoqu/64YPg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003)(13003099007);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(23010399003)(36860700016)(13003099007)(11063799006)(56012099006)(10067099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ZOX1DHbJAmbTggRFOcOfsDWpidPkRpqXzdOO+r0EczLkStF4BytuLnOQhJhegKke6CF/JX5aCTaYbIhKeRc26rnEqSBk66BVxsj19uVgq/TqMacDGaym8GfJCp9JIhqzrrh2GO2kq5U//UcGJ3lOzNQuKKf7YcAp3VD7eijyuQ+f1TWxVR/XBB3vzvWyLdJbAz/8HbW8zkx0m/mMUbFFcifhLx3Q99jv7tXSNez9a2SGUU70ftQiJck5PXAk1hcxNU63wHaSDlaNq29YJK93cL7dbdMefGRl8xRJnzlx6YVxmaaPQDEPLoQCyhgDkO0Lky420FAsqqodtXpJ74Bjts5xEmuuK0fsqtONteVa/Gfiyx8U78jt6AvN0ElMLU8/yKAxUVVjJqxoffN8mEhfZH8HLKLSHP+/9WStaZ0zjkOOQe3eOS+X9IkjCAt6THJ+
+X-MS-Exchange-AntiSpam-MessageData-0: VkMukNj02EnDbb9w9GlQbhGSuZoBzyFouKhR1CvyA0BXq3RAk4MLRO9BKOLKUfj7D/tHXmSAYSksMO+KQi4bQNezWyxKGL7EWfPIU8HcjQ0ohuaWZWzN6z+iwnri4wkxr8doKoN3/ybpuZkOckiIrPiYLw5Z/zH2ZjGAq+AW4w5T4Wsunhd1fbVF3SzaIX+0yMRaN7Ngk05LoOa/1QKWJzBcw3Ax2TJQRnJshCKMj7QQ3k828cWOkeem0108UF/qZsv855sLOxRaZx9Aziwwoi0WIee3h9yOc2QhiN2m/DnhJ9Ntr+ViPJEvcB+jBCTo9k2FEewUGTyywqF8yYYDffIDOvZczN2kcx+KNclA8+dpi2LsU77JOmim9gESpRKxw2XkC2VI9lPl2/4f2OcnhsVU6uTdUBVNrWK64jb94bqMeYInk4SHdHiQHLwqpNZ4
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 17:58:32.5255 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d0bb6de-ec8b-4af1-c675-08deed9b00ff
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 18:22:21.0163 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb56d863-6c59-44e7-8474-08deed9e5472
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FC1.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B074.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999125
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8599
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,392 +108,180 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Leo Li <sunpeng.li@amd.com>
+Hi Dave, Simona,
 
-[Why]
+Fixes for 7.2.
 
-After unifying DCN interrupt sources under VUPDATE_NO_LOCK, we have two
-remaining issues to clean up:
+The following changes since commit f5098b6bae761e346ebcd9da7f95622c04733cff:
 
-1. On DCN, flip completion is now delivered from VUPDATE_NO_LOCK
-   (dm_crtc_high_irq_handler) instead of GRPH_PFLIP. But VUPDATE_NO_LOCK
-   fires every frame, regardless of whether a flip has latched.
+  Linux 7.2-rc5 (2026-07-26 14:45:48 -0700)
 
-2. There is a window during commit where a flip is armed (pflip_status =
-   SUBMITTED) but not yet programmed into HW. If the VUPDATE_NO_LOCK
-   fires in that window, its handler would deliver a flip event to
-   userspace before HW has latched to it. If userspace then renders to
-   what it believes is now the back buffer (but HW is still latched to
-   it!), it will cause display corruption. This issue seemed to have
-   been introduced by:
-   commit 1159898a88db ("drm/amd/display: Handle commit plane with no FB.")
-   Enabling replay or psr extended the duration of this window, and
-   hence made corruption more likely to be observed.
+are available in the Git repository at:
 
-[How]
+  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-7.2-2026-07-29
 
-* Move acrtc->event/pflip_status arming to after
-  update_planes_and_stream_adapter() has programmed the flip into HW.
-  This closes the window where pflip_status is SUBMITTED but the flip is
-  not yet programmed.
+for you to fetch changes up to 114b42507b6a23d9d24e24e4ef165233332c64d4:
 
-* Add dc_get_flip_pending_on_otg(), which reads the HUBP flip-pending
-  status straight from HW for the pipe(s) bound to an OTG instance. It
-  is keyed only by otg_inst and does not take or mutate a
-  dc_plane_state, so it is safe to call from the OTG interrupt handler
-  without racing a concurrent commit that may be modifying plane state.
+  drm/amd/display: use proper context for logging (2026-07-28 20:01:24 -0400)
 
-* Optimistically query for flip-pending after programming, in the event
-  that HW latched to the new fb between programming start and arming
-  event. If it latched, send the vblank event immediately, rather than
-  wait for the next vblank IRQ.
+----------------------------------------------------------------
+amd-drm-fixes-7.2-2026-07-29:
 
-* In the VUPDATE_NO_LOCK handler, only deliver flip completion once
-  dc_get_flip_pending_on_otg() reports the flip is no longer pending.
-  Otherwise leave the flip armed and retry on the next vupdate.
+amdgpu:
+- VCN 5.3 fix
+- UserQ fixes
+- GEM close optimization
+- HDMI AV mute fix
+- UML build fixes
+- GFXOFF residency metrics fixes
+- SMU 15 fixes
+- debug_vm fix
+- PSP 15 fixes
+- NBIO 7.11.5 fix
+- pptable use after free fix
+- gpu metrics fetch fix
+- DC viewport fix
+- DML2.1 fix
+- i2c retimer spam fix
+- UMD profile pstate fix
+- Power metrics format cleanup
+- GTT size fix on APUs
+- DC context logging fix
 
-* For DCE, maintain the existing behavior of arming flips before
-  programming, and relying on GRPH_FLIP to fire at HW latch.
+amdkfd:
+- Various bounds checking fixes
+- Mutex locking fix
 
-v2:
-* Drop flip_programmed completion object, instead move
-  event/pflip_status arming after programming.
-* For DCN, optimistically query for flip pending immediately after
-  programming, and if it latched, send event right away.
+----------------------------------------------------------------
+Alan Swanson (1):
+      drm/amd/display: Silence link_dpms I2C retimer failures
 
-v3:
-* Fix event timestamps on optimistic flip latch detection, where it's
-  possible for it to run *before* the vupdate IRQ updates the timestamp.
-* Add more docstrings for DCN vblank handling.
-* Clean up if conditions in dm_arm_vblank_event().
-* Code style cleanup on braces surrounding multi-line statements.
+Alex Deucher (1):
+      drm/amd/display: check if dml21_add_phantom_plane() is successful
 
-Fixes: 9b47278cec98 ("drm/amd/display: temp w/a for dGPU to enter idle optimizations")
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/3787
-Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/4141
-Assisted-by: Copilot:claude-opus-4.8
-Tested-by: Mario Limonciello (AMD) <superm1@kernel.org>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-Signed-off-by: Leo Li <sunpeng.li@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit f64a9be5653689ff43e148cd8a6483077488c8e5)
-Cc: stable@vger.kernel.org # 8382cd234981: drm/amd/display: consolidate DCN vblank/flip handling onto vupdate_no_lock
-Cc: stable@vger.kernel.org
----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 191 ++++++++++++++----
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  45 +++++
- drivers/gpu/drm/amd/display/dc/dc.h           |   1 +
- 3 files changed, 197 insertions(+), 40 deletions(-)
+Alex Hung (2):
+      drm/amdgpu: Fix __rcu fence pointer accesses
+      drm/amdgpu: Pack nested ucode_info struct
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 565ff3fef7853..4227dbe207893 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -676,13 +676,30 @@ static void dm_crtc_high_irq_handler(struct amdgpu_device *adev,
- 	 * Deliver pageflip completion events (DCN only).
- 	 *
- 	 * Since GRPH_PFLIP is not used, VUPDATE_NO_LOCK is the flip latch
--	 * point. Deliver any pending pageflip completion event from here.
-+	 * point. Deliver any pending pageflip completion event from here,
-+	 * once HW has consumed the new address (the OTG no longer reports a
-+	 * pending flip).
- 	 *
--	 * NOTE: This can deliver an event for a flip that was armed but not yet
--	 * programmed into HW; that race is closed in a follow-up change by
--	 * checking the programmed flip status.
-+	 * Also handle the case here where there aren't any active planes and
-+	 * DCN HUBP may be clock-gated, so the flip-pending status may be
-+	 * undefined.
- 	 */
--	if (is_dcn && acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED) {
-+	if (is_dcn && acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED &&
-+	    acrtc->event) {
-+
-+		if (!dc_get_flip_pending_on_otg(adev->dm.dc, acrtc->otg_inst)) {
-+			drm_crtc_send_vblank_event(&acrtc->base, acrtc->event);
-+			acrtc->event = NULL;
-+			drm_crtc_vblank_put(&acrtc->base);
-+			acrtc->pflip_status = AMDGPU_FLIP_NONE;
-+		}
-+		/*
-+		 * If the flip is still pending, leave it armed and
-+		 * retry on the next vupdate.
-+		 */
-+	} else if (is_dcn && acrtc->pflip_status == AMDGPU_FLIP_SUBMITTED &&
-+		   acrtc->dm_irq_params.active_planes == 0) {
-+
- 		if (acrtc->event) {
- 			drm_crtc_send_vblank_event(&acrtc->base, acrtc->event);
- 			acrtc->event = NULL;
-@@ -9658,6 +9675,28 @@ static void amdgpu_dm_enable_self_refresh(struct amdgpu_crtc *acrtc_attach,
- 	}
- }
- 
-+static void dm_arm_vblank_event(struct amdgpu_crtc *acrtc,
-+				struct dm_crtc_state *acrtc_state,
-+				bool pflip_update,
-+				bool cursor_update)
-+{
-+	assert_spin_locked(&acrtc->base.dev->event_lock);
-+
-+	if (!acrtc->base.state->event || acrtc_state->active_planes == 0)
-+		return;
-+
-+	if (pflip_update) {
-+		drm_crtc_vblank_get(&acrtc->base);
-+		WARN_ON(acrtc->pflip_status != AMDGPU_FLIP_NONE);
-+		/* Arm flip completion handling and event delivery after programming. */
-+		prepare_flip_isr(acrtc);
-+	} else if (cursor_update) {
-+		drm_crtc_vblank_get(&acrtc->base);
-+		acrtc->event = acrtc->base.state->event;
-+		acrtc->base.state->event = NULL;
-+	}
-+}
-+
- static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 				    struct drm_device *dev,
- 				    struct amdgpu_display_manager *dm,
-@@ -9681,6 +9720,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 	bool cursor_update = false;
- 	bool pflip_present = false;
- 	bool immediate_flip = false;
-+	bool flip_latched_during_prog = false;
- 	bool dirty_rects_changed = false;
- 	bool updated_planes_and_streams = false;
- 	struct {
-@@ -9916,39 +9956,24 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 			usleep_range(1000, 1100);
- 		}
- 
--		/**
--		 * Prepare the flip event for the pageflip interrupt to handle.
--		 *
--		 * This only works in the case where we've already turned on the
--		 * appropriate hardware blocks (eg. HUBP) so in the transition case
--		 * from 0 -> n planes we have to skip a hardware generated event
--		 * and rely on sending it from software.
--		 */
--		if (acrtc_attach->base.state->event &&
--		    acrtc_state->active_planes > 0) {
--			drm_crtc_vblank_get(pcrtc);
--
--			spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
--
--			WARN_ON(acrtc_attach->pflip_status != AMDGPU_FLIP_NONE);
--			prepare_flip_isr(acrtc_attach);
--
--			spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
--		}
--
- 		if (acrtc_state->stream) {
- 			if (acrtc_state->freesync_vrr_info_changed)
- 				bundle->stream_update.vrr_infopacket =
- 					&acrtc_state->stream->vrr_infopacket;
- 		}
--	} else if (cursor_update && acrtc_state->active_planes > 0) {
--		spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
--		if (acrtc_attach->base.state->event) {
--			drm_crtc_vblank_get(pcrtc);
--			acrtc_attach->event = acrtc_attach->base.state->event;
--			acrtc_attach->base.state->event = NULL;
-+	}
-+
-+	/*
-+	 * DCE depends on a combination of GRPH_FLIP, VLINE0, and VUPDATE for
-+	 * event delivery. Only GRPH_FLIP handler can send pflip events, and it
-+	 * only fires if HW latched to the flip. Maintain legacy behavior by
-+	 * arming event before programming.
-+	 */
-+	if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) == 0) {
-+		scoped_guard(spinlock_irqsave, &pcrtc->dev->event_lock) {
-+			dm_arm_vblank_event(acrtc_attach, acrtc_state,
-+					pflip_present, cursor_update);
- 		}
--		spin_unlock_irqrestore(&pcrtc->dev->event_lock, flags);
- 	}
- 
- 	/* Update the planes if changed or disable if we don't have any. */
-@@ -10050,17 +10075,103 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
- 		amdgpu_dm_commit_cursors(state);
- 
- 	/*
--	 * On DCN, flip completion is normally delivered from VUPDATE_NO_LOCK.
--	 * However, an immediate (tearing / async) flip is latched by HW right
--	 * away and does not wait for the next vupdate, so deliver its
--	 * completion event here after programming.
-+	 * DCN specific vblank handling
-+	 * ============================
-+	 *
-+	 * With the event_lock held, arm the vblank event, and determine whether
-+	 * deliver it immediately, or in VUPDATE_NO_LOCK IRQ (i.e. HW latch
-+	 * point) handler. Do this *after* programming so that the IRQ handler
-+	 * will not deliver the event before HW laches onto the programmed
-+	 * values:
-+	 *
-+	 *     Commit thread      IRQ handler                       HW
-+	 *     -----------------------------------------------------------------
-+	 *     arm_vblank_event()
-+	 *                                                          vupdate()
-+	 *                        vupdate_handler()
-+	 *                          cook_timestamp()
-+	 *                          # prev flip already latched,
-+	 *                          # so flip_latched == true.
-+	 *                          if event_armed && flip_latched:
-+	 *                            send_vblank_event()
-+	 *                            # sent before latch, **BAD!**
-+	 *     hw_program()
-+	 *                                                          vupdate()
-+	 *                                                          **latch**
-+	 *
-+	 * There's a consequence of arming after: it's possible for HW to latch
-+	 * between start of HW programming and acrtc->event/pflip_status arming.
-+	 * When this happens, the IRQ handler will send the event on the next
-+	 * immediate latch point, even though HW has already latched. This is
-+	 * handled by optimistically checking for HW latch after programming,
-+	 * and if latched, send the event immediately:
- 	 *
--	 * On DCE, GRPH_PFLIP already fires immediately for immediate flips, so
--	 * this is DCN-only.
-+	 *     Commit thread             IRQ handler                HW
-+	 *     -----------------------------------------------------------------
-+	 *     hw_program()
-+	 *                                                          vupdate()
-+	 *                                                          **latch**
-+	 *                               vupdate_handler()
-+	 *                                 cook_timestamp()
-+	 *                                 # event_armed == false
-+	 *                                 # **no event sent!**
-+	 *     arm_vblank_event()
-+	 *     if flip_latched:
-+	 *       **send_vblank_event()**
-+	 *       disarm_vblank_event()
-+	 *
-+	 * The IRQ handler is expected to cook the timestamp, but we need to
-+	 * cook the timestamp before optimistic sending as well. That's because
-+	 * the following sequence is possible:
-+	 *
-+	 *     Commit thread              IRQ handler              HW
-+	 *     -----------------------------------------------------------------
-+	 *     hw_program()
-+	 *     arm_vblank_event()
-+	 *                                                         vupdate()
-+	 *                                                         **latch**
-+	 *     if flip_latched:
-+	 *       # Need cook before send!
-+	 *       **cook_timestamp()**
-+	 *       send_vblank_event()
-+	 *       disarm_vblank_event()
-+	 *                                vupdate_handler()
-+	 *                                  cook_timestamp()
-+	 *                                  # event_armed == false
-+	 *                                  # no event sent!
-+	 *
-+	 * Cooking twice is OK, since DRM scanout accurate timestamps report A)
-+	 * the previous vactive start if currently in vactive, or B) the next
-+	 * vactive start if currently in vblank (see &get_vblank_counter). 'A)'
-+	 * is what we want for the optimistic send, and for 'B)', we'll cook a
-+	 * timestamp no later than the next IRQ handler run.
-+	 *
-+	 * The more correct fix is to wrap programming and arming with the
-+	 * event_lock and thus serializing it with the IRQ handler. However,
-+	 * there are various sleep-waits within
-+	 * update_planes_and_stream_adapter() that makes spin locking illegal.
-+	 * And on full updates, it can take 1-2 frame-times to return (see
-+	 * commit_planes_for_stream).
-+	 *
-+	 * On DCE, GRPH_PFLIP IRQ is used and takes care of this.
- 	 */
--	if (immediate_flip && amdgpu_ip_version(dm->adev, DCE_HWIP, 0) != 0) {
-+	if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) != 0) {
- 		spin_lock_irqsave(&pcrtc->dev->event_lock, flags);
--		if (acrtc_attach->pflip_status == AMDGPU_FLIP_SUBMITTED &&
-+
-+		if (updated_planes_and_streams) {
-+			flip_latched_during_prog =
-+				!dc_get_flip_pending_on_otg(dm->dc, acrtc_attach->otg_inst);
-+		}
-+
-+		dm_arm_vblank_event(acrtc_attach, acrtc_state,
-+				    pflip_present, cursor_update);
-+
-+		/*
-+		 * Deliver the event immediately on immediate flip, or on a
-+		 * update that has already latched.
-+		 */
-+		if ((immediate_flip || flip_latched_during_prog) &&
-+		    acrtc_attach->pflip_status == AMDGPU_FLIP_SUBMITTED &&
- 		    acrtc_attach->event) {
- 			drm_crtc_accurate_vblank_count(&acrtc_attach->base);
- 			drm_crtc_send_vblank_event(&acrtc_attach->base,
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 0347174173f34..927837249479f 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -5427,6 +5427,51 @@ void dc_interrupt_ack(struct dc *dc, enum dc_irq_source src)
- 	dal_irq_service_ack(dc->res_pool->irqs, src);
- }
- 
-+/*
-+ * dc_get_flip_pending_on_otg() - Check if a GRPH_FLIP is still pending on OTG
-+ *
-+ * @dc: display core context @otg_inst: OTG instance to query
-+ *
-+ * Reads the HUBP flip-pending status for the pipe(s) bound to @otg_inst,
-+ * returning true if any of them has not yet latched its programmed surface
-+ * address.
-+ *
-+ * Unlike dc_plane_get_status(), this does not take or mutate a dc_plane_state,
-+ * so it is safe to call from interrupt context without racing a concurrent
-+ * commit that may be updating plane state.
-+ *
-+ * Return: true if a flip is still pending on the OTG, false otherwise.
-+ */
-+bool dc_get_flip_pending_on_otg(struct dc *dc, int otg_inst)
-+{
-+	bool flip_pending = false;
-+	int i;
-+
-+	if (!dc || !dc->current_state)
-+		return false;
-+
-+	dc_exit_ips_for_hw_access(dc);
-+
-+	for (i = 0; i < dc->res_pool->pipe_count; i++) {
-+		struct pipe_ctx *pipe_ctx = &dc->current_state->res_ctx.pipe_ctx[i];
-+		struct hubp *hubp = pipe_ctx->plane_res.hubp;
-+
-+		if (!pipe_ctx->plane_state || !pipe_ctx->stream_res.tg)
-+			continue;
-+
-+		if (pipe_ctx->stream_res.tg->inst != otg_inst)
-+			continue;
-+
-+		if (hubp && hubp->funcs->hubp_is_flip_pending &&
-+		    hubp->funcs->hubp_is_flip_pending(hubp)) {
-+			flip_pending = true;
-+			break;
-+		}
-+	}
-+
-+	return flip_pending;
-+}
-+
- void dc_power_down_on_boot(struct dc *dc)
- {
- 	if (dc->ctx->dce_environment != DCE_ENV_VIRTUAL_HW &&
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 98f0b6b3c2136..390f948dad393 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -2611,6 +2611,7 @@ enum dc_irq_source dc_interrupt_to_irq_source(
- 		uint32_t ext_id);
- bool dc_interrupt_set(struct dc *dc, enum dc_irq_source src, bool enable);
- void dc_interrupt_ack(struct dc *dc, enum dc_irq_source src);
-+bool dc_get_flip_pending_on_otg(struct dc *dc, int otg_inst);
- enum dc_irq_source dc_get_hpd_irq_source_at_index(
- 		struct dc *dc, uint32_t link_index);
- 
--- 
-2.54.0
+Bob Zhou (1):
+      drm/amdgpu: skip clearing empty freed VM list on GEM close
 
+Candice Li (1):
+      drm/amdgpu: restore UMD profile pstate after runtime resume
+
+David Francis (1):
+      drm/amdkfd: Handle invalid event type in CRIU event restore
+
+Fares Soliman (1):
+      drm/amdgpu: Update message IDs to PMFW to correctly gather GFXOFF residency logs
+
+Gang Ba (1):
+      drm/amdkfd: Fix missing authorization check in KFD_IOC_DBG_TRAP_DISABLE
+
+George Zhang (1):
+      drm/amd/display: Fix divide-by-zero in calculate_mcache_setting on zero viewport
+
+Harkirat Gill (1):
+      drm/amdgpu: cap GTT size to physical RAM on APUs
+
+Jiri Slaby (SUSE) (1):
+      drm/amd/display: use proper context for logging
+
+Kanala Ramalingeswara Reddy (2):
+      drm/amdgpu: Update driver if header for SMU V15.0.5
+      drm/amdgpu: enable mode2 reset for SMU IP v15.0.5
+
+Pierre-Eric Pelloux-Prayer (1):
+      drm/amdgpu: move debug_vm handling to amdgpu_cs_parser_fini
+
+Ray Wu (2):
+      drm/amd/display: Increase HDMI AV mute wait from 2 to 3 frames
+      drm/amd/display: Add AV mute wait frames to dce110_set_avmute
+
+Shubhankar Milind Sardeshpande (2):
+      drm/amdgpu: Enable support for PSP 15_0_5
+      drm/amdgpu: Fix NBIO 7.11.5 offsets
+
+Sunil Khatri (1):
+      drm/amdgpu: dont pin wptr bo instead use eviction fence
+
+Suresh Guttula (1):
+      drm/amdgpu : update mmhub eco sec lvl for vcn5_3
+
+Vladimir Marioukhine (1):
+      drm/amdkfd: fix QID bit leak in pqm_create_queue()
+
+William Palacek (3):
+      drm/amdkfd: Add bounds check for CRAT subtype length
+      drm/amdkfd: fix uint32_t overflow in EOP ring buffer size alignment
+      drm/amdkfd: hold event_mutex while checkpointing CRIU events
+
+Yang Wang (3):
+      drm/amd/pm: fix pptable use-after-free
+      drm/amd/pm: fix torn gpu metrics reads
+      drm/amd/pm: use milliwatts for GPU power sensors
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c   |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c             |  30 +--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c        |  13 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  15 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c            |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c            |  32 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h            |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c            |  12 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  19 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgv_sriovmsg.h        |   2 +-
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c           |  24 +++
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c         |  17 +-
+ drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c           | 146 +++++++-------
+ drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h            |   1 +
+ drivers/gpu/drm/amd/amdgpu/psp_v15_0.c             |  93 +++++++--
+ drivers/gpu/drm/amd/amdgpu/soc21.c                 |   1 +
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c            |  26 +++
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |  10 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c              |   9 +
+ drivers/gpu/drm/amd/amdkfd/kfd_events.c            |  23 ++-
+ .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c |   2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_queue.c             |   2 +-
+ .../gpu/drm/amd/display/dc/dce/dce_clock_source.c  |  20 +-
+ .../drm/amd/display/dc/dml2_0/dml21/dml21_utils.c  |  15 +-
+ .../dml21/src/dml2_core/dml2_core_dcn4_calcs.c     |  31 ++-
+ .../drm/amd/display/dc/hwss/dce110/dce110_hwseq.c  |  21 +-
+ .../drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c    |  16 +-
+ drivers/gpu/drm/amd/display/dc/link/link_dpms.c    |  16 +-
+ drivers/gpu/drm/amd/include/kgd_pp_interface.h     |   6 +-
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c                |  26 ++-
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c                 |  29 +--
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h            |   6 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c    |   4 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega10_hwmgr.c  |   4 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega12_hwmgr.c  |   2 +-
+ .../gpu/drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c  |   5 +-
+ drivers/gpu/drm/amd/pm/powerplay/inc/hwmgr.h       |   5 +
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h      |   2 +-
+ .../pm/swsmu/inc/pmfw_if/smu15_driver_if_v15_0_0.h |  38 ++++
+ .../drm/amd/pm/swsmu/inc/pmfw_if/smu_v11_5_ppsmc.h |   6 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_types.h       |   4 +-
+ drivers/gpu/drm/amd/pm/swsmu/inc/smu_v15_0.h       |   2 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/arcturus_ppt.c  |   2 +-
+ .../drm/amd/pm/swsmu/smu11/cyan_skillfish_ppt.c    |   6 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/navi10_ppt.c    |   8 +-
+ .../drm/amd/pm/swsmu/smu11/sienna_cichlid_ppt.c    |   7 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c   |  59 ++++--
+ drivers/gpu/drm/amd/pm/swsmu/smu12/renoir_ppt.c    |   5 +-
+ drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c |   3 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c   |   2 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_12_ppt.c  |   3 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_4_ppt.c   |   4 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_5_ppt.c   |   2 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c   |   3 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c   |   2 +-
+ .../gpu/drm/amd/pm/swsmu/smu13/yellow_carp_ppt.c   |   2 +-
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c   |   3 +-
+ .../gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c   |   2 +-
+ .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_0_ppt.c   | 223 ++++++++++++++++++++-
+ .../gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c   |   3 +-
+ 63 files changed, 825 insertions(+), 261 deletions(-)
