@@ -4,58 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58881C54F52
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 13:16:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1149BC53200
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 13:16:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A73CD10EC27;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 111F010EC20;
 	Wed, 29 Jul 2026 13:16:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=foxmail.com header.i=@foxmail.com header.b="cRbXyVXM";
+	dkim=pass (1024-bit key; unprotected) header.d=linux.dev header.i=@linux.dev header.b="NDS3ATay";
 	dkim-atps=neutral
-X-Greylist: delayed 367 seconds by postgrey-1.36 at gabe;
- Wed, 29 Jul 2026 12:12:23 UTC
-Received: from out203-205-221-190.mail.qq.com (out203-205-221-190.mail.qq.com
- [203.205.221.190])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FC7410EBC7
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 12:12:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
- s=s201512; t=1785327141;
- bh=RssypwWPTP6ju5Iml0HqeXAZICTu+SICE/p2vzp2Zls=;
- h=From:To:Subject:Date;
- b=cRbXyVXMOjqaN0luNkpMP6Mr8MJPDZKeaN8lE1a2rQcpTF4bUcSlZPf6Xi09pgzPS
- i+JYvtkreNw6VRzkQdUyG/EsZwu2Jis4m7YI00K+uSlTv7f0Wz8yDDSStiZWqpgst3
- 1Ilz/Eg1+c12Q2/Nzuw81oBpDwvynnkaJbomaVbE=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-XMAILINFO: ML14FDrYvfMHDSEED7zRKLQnUTPkih66xl30uI72I00kmKwT9Zo6Iq7WleL1oP
- dz4tDjZ7nn05Yb7I26iTfQ/9VYSSvQlJe9cTUUHNNhpiaAGAG64pdwDcoJfehOD8NacL51NE9n4rg
- vnyO1bcPGm+XoEwxZMuxFaeTGmvIywaIg4sU0NuDZ4r/XO9cnAGF7d3Vl+WPExHHI2Zm30BdnG39D
- etmgjFWZHrrIOLyz5Z4MrWlE4BGuRvCDrpFEOWuIilrZoiTZWuKTe0h6OaU6m8eSBuOgLgekz5i9d
- /LQj05Rfmk6/fDN/bBw9NQSHKy4lyH3fX4zm/KBE2W7PK3WxQhy+ttGSs827gBu0ioz4FwgRzn1JP
- 889KowxARaZuHzkTi9X3HERu4PSq8rzlq+iMVqeh05Zs5HmyPwtx+0wiFl3t4k5iN8/PVgzuDH3Ej
- lcS8/h3gnbtecZvBwFaZW52tqM1qF3oGrGElZETnya3H1JfA7QB8J345tQn6al8ZZ7tFgB98p6EEW
- tji6hwgCDX6U3xWnrkC8DX1TBeMzcSOsEBJxpcWeZokMMM/pd/0R7R9WMxDL3FbsE37MzCZBK8RmL
- UcApFzeM95cynUEcL5C2QMvB0PETzI4/LEZw6fvxXYzTjeDC3F3SJQlXcdAHMUJh6frjJWrVE98Sc
- AWHO3X8jUNAikWetGFhpuF7DwYtrvEeu9tHeCD5bxrPuZhuVL1Pt0zZt5wL4Th11hAXGfjk4XRLhX
- xdpKfU+Xcu3PgFwEZmH4t682GjZRmaiHQbgjEVasocsCv6RpLUQmlsaXf/GezQrKhBX41isyyFbHc
- L8FJQo+MsMSrUv6NOFZKdCp4mXd0tC5/bLXaDBZgS7lKos7+JyyVsd0EWFC+c679duItMIJv1wnUC
- BpCWuX1LQD5+6m3SaFWoVh3pLP8ysrfPRXJePUExVRVD9wNxiEaj1TRRXQyyoUQlxp3bKJzA/Lt0R
- Fxag7ec3tP2puRBf/xOJy9s3N2DSw7KkjsD6TdpihYm30gLthXP5K12OSOQTh59SijVUs1s6GMka0
- 09X+pD8E/cNHN8Dejv2kW/hkf9m+Ca3H8Ah1rt1mysYIz6y0=
-From: "=?utf-8?B?5Y+M6ICz?=" <shuanger_nie@foxmail.com>
-To: "=?utf-8?B?YW1kLWdmeA==?=" <amd-gfx@lists.freedesktop.org>
-Subject: [BUG] amdgpu: shutdown hangs on Lenovo ThinkPad X13 Gen 4 (Phoenix1)
- without amdgpu.dcdebugmask=0x10
-Mime-Version: 1.0
-Content-Type: multipart/alternative;
- boundary="----=_NextPart_6A69EC73_45AF1180_4859CE66"
-Content-Transfer-Encoding: 8Bit
-Date: Wed, 29 Jul 2026 20:05:07 +0800
-X-Priority: 3
-Message-ID: <tencent_9A2D24A797BFA088081528895021EC053B0A@qq.com>
-X-QQ-MIME: TCMime 1.0 by Tencent
-X-Mailer: QQMail 2.x
-X-QQ-Mailer: QQMail 2.x
-X-QQ-mid: xmsezc15-0t1785326707tzu6sxn5w
+X-Greylist: delayed 448 seconds by postgrey-1.36 at gabe;
+ Wed, 29 Jul 2026 06:42:19 UTC
+Received: from out-180.mta0.migadu.com (out-180.mta0.migadu.com
+ [91.218.175.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85A9510EAAC
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 06:42:19 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1785306929;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding;
+ bh=DdWQssPSqZdb7sOqrtH8PFNHfBVcOEVomAVniJbTXFA=;
+ b=NDS3ATay3NArX+C9XVtjs+zulQTkR/nSL/prFpVnqcnfWptgMP+PlH9dYONExj7xqD9Pug
+ 2iqgE79Ofng74bunbLFc80FUErj1BEqCPaKdXZv8ho9kthzM3lsg8mPPjCLhQ3gOiHiVTu
+ KvaxTMkefXFS9xYCFsJOqjYG9ORaSiY=
+From: Matthew Schwartz <matthew.schwartz@linux.dev>
+To: stable@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
+ mario.limonciello@amd.com, Harry Wentland <harry.wentland@amd.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>
+Subject: [PATCH 6.6.y] drm/amd/display: Fix dcn32 DTB DTO update breaking live
+ pixel rate sources
+Date: Tue, 28 Jul 2026 23:34:52 -0700
+Message-ID: <20260729063452.9411-1-matthew.schwartz@linux.dev>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Wed, 29 Jul 2026 13:16:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,138 +58,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
+From: Harry Wentland <harry.wentland@amd.com>
 
-------=_NextPart_6A69EC73_45AF1180_4859CE66
-Content-Type: text/plain;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
+commit 76a2db58e95e328007043f54ac3c7336ccbee440 upstream.
 
-SGksDQoNClN5c3RlbSBpbmZvcm1hdGlvbjoNCiZuYnNwOyAtIE1vZGVsOiBMZW5vdm8gVGhp
-bmtQYWQgWDEzIEdlbiA0ICgyMUozU0lUTTE4KQ0KJm5ic3A7IC0gQklPUzogUjI5RVQ2NVcg
-KDEuMzkpDQombmJzcDsgLSBLZXJuZWw6IDcuMC4wLTI4LWdlbmVyaWMgKFVidW50dSAyNC4w
-NCkNCiZuYnNwOyAtIEdQVTogQU1EL0FUSSBQaG9lbml4MSBbMTAwMjoxNWJmXSAocmV2IGRl
-KSDigJQgUmFkZW9uIDc4ME0NCg0KDQpDdXJyZW50IHdvcmthcm91bmQ6DQombmJzcDsgS2Vy
-bmVsIHBhcmFtZXRlciBhbWRncHUuZGNkZWJ1Z21hc2s9MHgxMCBpcyByZXF1aXJlZCBmb3Ig
-Y2xlYW4gc2h1dGRvd24uDQombmJzcDsgV2l0aG91dCBpdCwgdGhlIHN5c3RlbSBnb2VzIHRo
-cm91Z2ggdGhlIGZ1bGwgc2h1dGRvd24gc2VxdWVuY2UNCiZuYnNwOyAocG93ZXJvZmYudGFy
-Z2V0IHJlYWNoZWQsIGZpbGVzeXN0ZW1zIHN5bmNlZCwgU0lHVEVSTSBzZW50KSwgYnV0IHRo
-ZW4NCiZuYnNwOyBwbV9wb3dlcl9vZmYoKSBoYW5ncyDigJQgc2NyZWVuIGdvZXMgYmxhY2sg
-YnV0IHBvd2VyIHN0YXlzIG9uIGluZGVmaW5pdGVseS4NCiZuYnNwOyBXaXRoIGFtZGdwdS5k
-Y2RlYnVnbWFzaz0weDEwIChEQ19EQkdfTUFTS19EQyBiaXQgNCksIHNodXRkb3duIHdvcmtz
-DQombmJzcDsgbm9ybWFsbHkuDQoNCg0KJm5ic3A7IFNpbWlsYXJseSwgcmVib290IGFsc28g
-aGFuZ3Mgd2l0aCB0aGUgZGVmYXVsdCBFRkkgcmVzZXQgbWV0aG9kIGFuZA0KJm5ic3A7IHJl
-cXVpcmVzIHJlYm9vdD1rYmQgYXMgYSB3b3JrYXJvdW5kLg0KDQoNCktlcm5lbCBjb21tYW5k
-IGxpbmUgd2l0aG91dCB3b3JrYXJvdW5kIChzaHV0ZG93biBoYW5ncyk6DQombmJzcDsgYWNw
-aT1mb3JjZSBub19jb25zb2xlX3N1c3BlbmQgaWdub3JlX2xvZ2xldmVsDQoNCg0KS2VybmVs
-IGNvbW1hbmQgbGluZSB3aXRoIHdvcmthcm91bmQgKHNodXRkb3duIHdvcmtzKToNCiZuYnNw
-OyBhY3BpPWZvcmNlIG5vX2NvbnNvbGVfc3VzcGVuZCBpZ25vcmVfbG9nbGV2ZWwgYW1kZ3B1
-LmRjZGVidWdtYXNrPTB4MTANCg0KDQpUaGUgaXNzdWUgaXMgMTAwJSByZXByb2R1Y2libGUg
-4oCUIGV2ZXJ5IHNodXRkb3duIHdpdGhvdXQgdGhlIGRlYnVnIG1hc2sNCmhhbmdzLiBBIERN
-SSBxdWlyayBmb3IgdGhpcyBtb2RlbCB3b3VsZCBiZSBhcHByZWNpYXRlZCBzbyB0aGUgbWFz
-ayBpcw0KYXBwbGllZCBhdXRvbWF0aWNhbGx5Lg0KDQoNCkxldCBtZSBrbm93IGlmIHlvdSBu
-ZWVkIGFueSBhZGRpdGlvbmFsIGRlYnVnIGluZm9ybWF0aW9uLg0KDQoNClRoYW5rcywNCm5p
-ZQ==
+dcn32_update_clocks_update_dtb_dto() reprograms the DTB DTO of every
+timing generator in the context whenever the DTBCLK reference changes,
+passing a zeroed pixel rate and never setting is_hdmi.
+dccg32_set_dtbclk_dto() treats a zero pixel rate as a disable request,
+and that branch drives PIPE_DTO_SRC_SEL to the DP DTO source. A timing
+generator actively scanning out an HDMI stream therefore has its pixel
+rate source re-muxed out from under the live raster, and the OTG stops
+on the spot.
 
-------=_NextPart_6A69EC73_45AF1180_4859CE66
-Content-Type: text/html;
-	charset="utf-8"
-Content-Transfer-Encoding: base64
+Two displays where only one runs a 128b/132b link hit this reliably.
+is_dtbclk_required() holds the DTBCLK reference high while both are
+active, and the moment the 128b/132b stream is torn down (compositor
+switch, display disable, hot-unplug) the next safe_to_lower pass drops
+the reference to the lowest DPM level and the DTO walk freezes the
+surviving screen. On Navi31 the DAL mailbox then goes deaf on the
+DISPCLK hard-min that follows the walk in dcn32_update_clocks(),
+stranding both SMU mailboxes until reboot.
 
-PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZv
-bnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7
-Ij5IaSw8L3NwYW4+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5
-c3RlbS11aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhl
-aWdodDogMS40MzsiPjxiciAgLz48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogLWFw
-cGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwg
-MCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQzOyI+U3lzdGVtIGluZm9ybWF0aW9uOjwvZGl2Pjxk
-aXYgc3R5bGU9ImZvbnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQt
-c2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij4m
-bmJzcDsgLSBNb2RlbDogTGVub3ZvIFRoaW5rUGFkIFgxMyBHZW4gNCAoMjFKM1NJVE0xOCk8
-L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVp
-OyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAx
-LjQzOyI+Jm5ic3A7IC0gQklPUzogUjI5RVQ2NVcgKDEuMzkpPC9kaXY+PGRpdiBzdHlsZT0i
-Zm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9udC1zaXplOiAxNHB4
-OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhlaWdodDogMS40MzsiPiZuYnNwOyAtIEtl
-cm5lbDogNy4wLjAtMjgtZ2VuZXJpYyAoVWJ1bnR1IDI0LjA0KTwvZGl2PjxkaXYgc3R5bGU9
-ImZvbnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQtc2l6ZTogMTRw
-eDsgY29sb3I6IHJnYigwLCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij4mbmJzcDsgLSBH
-UFU6IEFNRC9BVEkgUGhvZW5peDEgWzEwMDI6MTViZl0gKHJldiBkZSkg4oCUIFJhZGVvbiA3
-ODBNPC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3Rl
-bS11aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhlaWdo
-dDogMS40MzsiPjxiciAgLz48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogLWFwcGxl
-LXN5c3RlbSwgc3lzdGVtLXVpOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwg
-MCk7IGxpbmUtaGVpZ2h0OiAxLjQzOyI+Q3VycmVudCB3b3JrYXJvdW5kOjwvZGl2PjxkaXYg
-c3R5bGU9ImZvbnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQtc2l6
-ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij4mbmJz
-cDsgS2VybmVsIHBhcmFtZXRlciBhbWRncHUuZGNkZWJ1Z21hc2s9MHgxMCBpcyByZXF1aXJl
-ZCBmb3IgY2xlYW4gc2h1dGRvd24uPC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1h
-cHBsZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAs
-IDAsIDApOyBsaW5lLWhlaWdodDogMS40MzsiPiZuYnNwOyBXaXRob3V0IGl0LCB0aGUgc3lz
-dGVtIGdvZXMgdGhyb3VnaCB0aGUgZnVsbCBzaHV0ZG93biBzZXF1ZW5jZTwvZGl2PjxkaXYg
-c3R5bGU9ImZvbnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQtc2l6
-ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij4mbmJz
-cDsgKHBvd2Vyb2ZmLnRhcmdldCByZWFjaGVkLCBmaWxlc3lzdGVtcyBzeW5jZWQsIFNJR1RF
-Uk0gc2VudCksIGJ1dCB0aGVuPC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBs
-ZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAs
-IDApOyBsaW5lLWhlaWdodDogMS40MzsiPiZuYnNwOyBwbV9wb3dlcl9vZmYoKSBoYW5ncyDi
-gJQgc2NyZWVuIGdvZXMgYmxhY2sgYnV0IHBvd2VyIHN0YXlzIG9uIGluZGVmaW5pdGVseS48
-L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVp
-OyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAx
-LjQzOyI+Jm5ic3A7IFdpdGggYW1kZ3B1LmRjZGVidWdtYXNrPTB4MTAgKERDX0RCR19NQVNL
-X0RDIGJpdCA0KSwgc2h1dGRvd24gd29ya3M8L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWls
-eTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiBy
-Z2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQzOyI+Jm5ic3A7IG5vcm1hbGx5LjwvZGl2
-PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZv
-bnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7
-Ij48YnIgIC8+PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0s
-IHN5c3RlbS11aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5l
-LWhlaWdodDogMS40MzsiPiZuYnNwOyBTaW1pbGFybHksIHJlYm9vdCBhbHNvIGhhbmdzIHdp
-dGggdGhlIGRlZmF1bHQgRUZJIHJlc2V0IG1ldGhvZCBhbmQ8L2Rpdj48ZGl2IHN0eWxlPSJm
-b250LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBmb250LXNpemU6IDE0cHg7
-IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQzOyI+Jm5ic3A7IHJlcXVp
-cmVzIHJlYm9vdD1rYmQgYXMgYSB3b3JrYXJvdW5kLjwvZGl2PjxkaXYgc3R5bGU9ImZvbnQt
-ZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQtc2l6ZTogMTRweDsgY29s
-b3I6IHJnYigwLCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij48YnIgIC8+PC9kaXY+PGRp
-diBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9udC1z
-aXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhlaWdodDogMS40MzsiPktl
-cm5lbCBjb21tYW5kIGxpbmUgd2l0aG91dCB3b3JrYXJvdW5kIChzaHV0ZG93biBoYW5ncyk6
-PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3RlbS11
-aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhlaWdodDog
-MS40MzsiPiZuYnNwOyBhY3BpPWZvcmNlIG5vX2NvbnNvbGVfc3VzcGVuZCBpZ25vcmVfbG9n
-bGV2ZWw8L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lz
-dGVtLXVpOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVp
-Z2h0OiAxLjQzOyI+PGJyICAvPjwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiAtYXBw
-bGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAw
-LCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij5LZXJuZWwgY29tbWFuZCBsaW5lIHdpdGggd29y
-a2Fyb3VuZCAoc2h1dGRvd24gd29ya3MpOjwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5
-OiAtYXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJn
-YigwLCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij4mbmJzcDsgYWNwaT1mb3JjZSBub19j
-b25zb2xlX3N1c3BlbmQgaWdub3JlX2xvZ2xldmVsIGFtZGdwdS5kY2RlYnVnbWFzaz0weDEw
-PC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3RlbS11
-aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhlaWdodDog
-MS40MzsiPjxiciAgLz48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogLWFwcGxlLXN5
-c3RlbSwgc3lzdGVtLXVpOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7
-IGxpbmUtaGVpZ2h0OiAxLjQzOyI+VGhlIGlzc3VlIGlzIDEwMCUgcmVwcm9kdWNpYmxlIOKA
-lCBldmVyeSBzaHV0ZG93biB3aXRob3V0IHRoZSBkZWJ1ZyBtYXNrPC9kaXY+PGRpdiBzdHls
-ZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9udC1zaXplOiAx
-NHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhlaWdodDogMS40MzsiPmhhbmdzLiBB
-IERNSSBxdWlyayBmb3IgdGhpcyBtb2RlbCB3b3VsZCBiZSBhcHByZWNpYXRlZCBzbyB0aGUg
-bWFzayBpczwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBz
-eXN0ZW0tdWk7IGZvbnQtc2l6ZTogMTRweDsgY29sb3I6IHJnYigwLCAwLCAwKTsgbGluZS1o
-ZWlnaHQ6IDEuNDM7Ij5hcHBsaWVkIGF1dG9tYXRpY2FsbHkuPC9kaXY+PGRpdiBzdHlsZT0i
-Zm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5c3RlbS11aTsgZm9udC1zaXplOiAxNHB4
-OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhlaWdodDogMS40MzsiPjxiciAgLz48L2Rp
-dj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogLWFwcGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBm
-b250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwgMCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQz
-OyI+TGV0IG1lIGtub3cgaWYgeW91IG5lZWQgYW55IGFkZGl0aW9uYWwgZGVidWcgaW5mb3Jt
-YXRpb24uPC9kaXY+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IC1hcHBsZS1zeXN0ZW0sIHN5
-c3RlbS11aTsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiKDAsIDAsIDApOyBsaW5lLWhl
-aWdodDogMS40MzsiPjxiciAgLz48L2Rpdj48ZGl2IHN0eWxlPSJmb250LWZhbWlseTogLWFw
-cGxlLXN5c3RlbSwgc3lzdGVtLXVpOyBmb250LXNpemU6IDE0cHg7IGNvbG9yOiByZ2IoMCwg
-MCwgMCk7IGxpbmUtaGVpZ2h0OiAxLjQzOyI+VGhhbmtzLDwvZGl2PjxkaXYgc3R5bGU9ImZv
-bnQtZmFtaWx5OiAtYXBwbGUtc3lzdGVtLCBzeXN0ZW0tdWk7IGZvbnQtc2l6ZTogMTRweDsg
-Y29sb3I6IHJnYigwLCAwLCAwKTsgbGluZS1oZWlnaHQ6IDEuNDM7Ij5uaWU8L2Rpdj4=
+Set is_hdmi for HDMI and DVI signals so the disable path leaves the
+pixel rate source selection on the HDMI path, and pass the real pixel
+rate for 128b/132b streams so a reference change rescales their DTO
+instead of disabling it.
 
-------=_NextPart_6A69EC73_45AF1180_4859CE66--
+Fixes: 128c1ca0303f ("drm/amd/display: Update DTBCLK for DCN32")
+Signed-off-by: Harry Wentland <harry.wentland@amd.com>
+Reviewed-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+[ mschwartz: dcn32 clk_mgr hunk only, as 6.6.y predates the dcn35
+  clk_mgr. The rest is HDMI FRL enablement, absent before 7.2, so the
+  FRL conditions and the req_audio_dtbclk_khz assignment they guard are
+  dropped and the FRL-centric changelog is rewritten. Added the
+  pipe_ctx->stream check the new dereferences need. ]
+Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+---
+6.6.y predates the dcn35 clk_mgr, so only the dcn32 hunk applies. The
+6.12.y, 6.18.y and 7.1.y equivalent is sent alongside this one. Tested
+on Navi31 with a DisplayPort UHBR monitor and an HDMI TV.
+
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+index 084994c650c4..285689d7ecc4 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
+@@ -276,13 +276,20 @@ static void dcn32_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr,
+ 		struct dtbclk_dto_params dto_params = {0};
+ 
+ 		/* use mask to program DTO once per tg */
+-		if (pipe_ctx->stream_res.tg &&
++		if (pipe_ctx->stream && pipe_ctx->stream_res.tg &&
+ 				!(tg_mask & (1 << pipe_ctx->stream_res.tg->inst))) {
+ 			tg_mask |= (1 << pipe_ctx->stream_res.tg->inst);
+ 
+ 			dto_params.otg_inst = pipe_ctx->stream_res.tg->inst;
+ 			dto_params.ref_dtbclk_khz = ref_dtbclk_khz;
+ 
++			if (dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(pipe_ctx))
++				dto_params.pixclk_khz = pipe_ctx->stream->timing.pix_clk_100hz / 10;
++
++			if (dc_is_hdmi_signal(pipe_ctx->stream->signal) ||
++					dc_is_dvi_signal(pipe_ctx->stream->signal))
++				dto_params.is_hdmi = true;
++
+ 			dccg->funcs->set_dtbclk_dto(clk_mgr->dccg, &dto_params);
+ 			//dccg->funcs->set_audio_dtbclk_dto(clk_mgr->dccg, &dto_params);
+ 		}
+-- 
+2.50.1
 
