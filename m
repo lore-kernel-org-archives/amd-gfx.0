@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0C3B2C54F51
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 16:36:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D7A6C53219
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 16:36:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D79D10E050;
-	Wed, 29 Jul 2026 16:36:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AC4B210E059;
+	Wed, 29 Jul 2026 16:36:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eVlwRgDv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FiFXM2xM";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011023.outbound.protection.outlook.com [40.107.208.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74EE510E050
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 16:36:06 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011039.outbound.protection.outlook.com
+ [40.93.194.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 677F310E059
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 16:36:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VuiTm1aViLNEnfAvfRWSMQYsG0OEes6y5RvsVKpXDykB9o0KHBVQREDsHKHMKoVxq2MNkpGomHIlPYG+ipZb9/TfcwTnXFJCJZdYkNu6S1tFjSZstx4wWE49xVPIkI1PDLgOk/yp1iKNieGwTVKKJLRze0jlYPD4AZilhwH8l02Xhl+iQpyfIvIjOgP+JpBt2iT6/OATF9W/80/6VQZkkzMOxDL4L2ZD3Qey7MCvbryC+R3mW0YdokL2pxjikDxbFfl/Rd/9OhjwI4ivttITq1xSkryAAKwSPd93rgL8WOpJKbjibuiJ1oWz4xiJMgSnWbwDiZIJbMj5CnMuhVr7ww==
+ b=sHr6YNF64kat77Ooc/CmuJeltZJogRwhSd/AYFN/jB6Lk9muilkK55jjS5QHrB1sY0qiWpeMuzZxNC3JX0XWc55vY10rfLrkMGVYr1Cs9BP3p3xkVRfQZihBLaYbHY1+qIJosc6oQ5pubDzWvFwos1PO0zpM5Elvksk+DeXaeIctqbQaDKIZBNUjnB/e1o3Tt4yLSqvpOqgnNwcBbhBF/lqnACzkElpsJHDhBeE0o6XdVuvrBQplylBPl6bIER8YC8/dpddn+cBLgE+Oe8Z3YBmMBuAv0Z+1NWi8/ZYR7fly3vgbXvgtUwh112S/uZ9ZFNr7r9xjvDvrjvIt3HN37A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FNa8d5SBp6Vd4V1QxxHnZOyAoK6u5WSFT4Md9sTVpqM=;
- b=LfUuuNVkAGFPBvTL/nFUZnrHFHl57fa+CpVN29+6xS1Uo/R7Fxn4HzdF+/0fCKeDVzqWxvBilaRieBCaWeaFQLJE44ypNNkUc+Lrfj0PKq+E1A4O4yO5Vha7JKPu0c4zSHG5c/kEoW3QpcWXs43i6Tg8ojvpOmI3gwzCLD3mLeqI+TVE1hjJDvX9gUxqJ908PiDfCeHt4LHkWJhNpY3IVpfZh5DX5IJdEaTRSiS7bMCLv/PbG6wAZ79c9XkAJ1Kw1XG6EA0cb2GkZtRohnfTxnGC8B43TDoA0LfMFmaFkOyFK6x5fDcZWlQQ8mprhogB0X4+r6Thy/DHAE+W9nJptQ==
+ bh=PsvY3J5Ba+UqLG7esYVfaH09Z/octH77lgEBJRVjhSI=;
+ b=iCi6jSjfgcFk4kzmTCzllbJ3gdvZFgmjU8UD5keLZaIUwDEyiOLJxjZavNxiTv7TehpRr6O6Oc/ZhvX9Ts3qLXGs1YzRuVv/tsK9ZiJS0SHtg/RTEI7knkHQU7L09AaUgaAvpFIQ3J12A/7PIweXTXDwEXy1p3Od82L+FwvBKvDzLx+BbdvPP+yfvFvwfgV2Qax+oF/B7pjcm/a8SdVLvQSXVR6fcxMpNt8b7//96qlPMn5gx03nevDJ4VaHbzcFPvebhVXDgq4Jg8yaKF/dRDvbl4J/hK6tlaAvGhn+4Qkrh4H8BThRgi2sC0OPAyOBd+P5Rx+0lhhRXANWgXTLOA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FNa8d5SBp6Vd4V1QxxHnZOyAoK6u5WSFT4Md9sTVpqM=;
- b=eVlwRgDvONUy9QK1RJZqxcbH4N7/vpXVBaalvGZNsdzcDVYVfuSUozlDKAbKFXfnLQg04Ewzc4KZM+jpbiyZK46/8R8fsUOORogT1dPKDqJaZCLeE42W7mSdjuMrbKb+VNWhhnvfbjuHmfh1XWlbK4p9RZtMws0YdPwszBSmhm0=
-Received: from SJ2P221CA0014.NAMP221.PROD.OUTLOOK.COM (2603:10b6:a03:5db::9)
- by CH8PR12MB9743.namprd12.prod.outlook.com (2603:10b6:610:27a::8) with
+ bh=PsvY3J5Ba+UqLG7esYVfaH09Z/octH77lgEBJRVjhSI=;
+ b=FiFXM2xMP4M0dFKkNez/8H8uSYfdGFO0t4pHh/E+twm5K8g5nZGhNzckwpHn0f2NhudyaITfwlYpN/WdVoVogBRMUvvLtlI6gZz6wlm6ssn5ZJw53IGVFb3EwWJBnEo+X/afaMDbOUn7IPxPrAR/UOtTcuDsEnTXsctUGjt8iNY=
+Received: from BY1P220CA0024.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:5c3::9)
+ by PH7PR12MB9127.namprd12.prod.outlook.com (2603:10b6:510:2f6::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Wed, 29 Jul
- 2026 16:36:00 +0000
-Received: from SJ1PEPF00001CE9.namprd03.prod.outlook.com
- (2603:10b6:a03:5db:cafe::8d) by SJ2P221CA0014.outlook.office365.com
- (2603:10b6:a03:5db::9) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 16:36:05 +0000
+Received: from SJ1PEPF00001CE5.namprd03.prod.outlook.com
+ (2603:10b6:a03:5c3:cafe::97) by BY1P220CA0024.outlook.office365.com
+ (2603:10b6:a03:5c3::9) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.13 via Frontend Transport; Wed,
- 29 Jul 2026 16:36:00 +0000
+ 29 Jul 2026 16:36:05 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,22 +49,25 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00001CE9.mail.protection.outlook.com (10.167.242.25) with Microsoft
+ SJ1PEPF00001CE5.mail.protection.outlook.com (10.167.242.21) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.5 via Frontend Transport; Wed, 29 Jul 2026 16:36:00 +0000
+ 15.21.270.5 via Frontend Transport; Wed, 29 Jul 2026 16:36:04 +0000
 Received: from Philip-Dev.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 29 Jul
- 2026 11:35:57 -0500
+ 2026 11:36:03 -0500
 From: Philip Yang <Philip.Yang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <Felix.Kuehling@amd.com>,
  <Harish.Kasiviswanathan@amd.com>, <Amir.Shetaia@amd.com>,
  <Kent.Russell@amd.com>
-CC: Philip Yang <Philip.Yang@amd.com>
-Subject: [PATCH v3 0/2] drm/amdkfd: Unmap SVM range from GPU set to no-access
-Date: Wed, 29 Jul 2026 12:35:36 -0400
-Message-ID: <20260729163538.229530-1-Philip.Yang@amd.com>
+CC: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling <felix.kuehling@amd.com>
+Subject: [PATCH v3 1/2] drm/amdkfd: Add helper
+ svm_range_update_checkpoint_timestamp
+Date: Wed, 29 Jul 2026 12:35:37 -0400
+Message-ID: <20260729163538.229530-2-Philip.Yang@amd.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260729163538.229530-1-Philip.Yang@amd.com>
+References: <20260729163538.229530-1-Philip.Yang@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -72,29 +76,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE9:EE_|CH8PR12MB9743:EE_
-X-MS-Office365-Filtering-Correlation-Id: 18e85fc8-68fa-4b17-dc29-08deed8f7939
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE5:EE_|PH7PR12MB9127:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4291dbe2-513e-4d1b-bd8d-08deed8f7c0a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|23010399003|376014|82310400026|11063799006|56012099006|5023799004|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: OiqOlBLnHHCFF+zbgBoRHmnCh4GiowSsXrNBOEjA8kxGgJMVntWeK16ajCZCwpWHXhLzuuX0ho6u2piF2mIe/wckk5bAsmAx4qytnF0ZfABlTt5O9CgF/UppnikZed1z5gu/jZlKdV9X9MIedKcYhO8m7D0h7oCTf+s9Mv9mUy/h78JbYaAwXetW3F14Vg5mNrvwNyj7xqM25qwcvvUgsYau/kntjwtEEXBnFz2YXcSgmfwrrxZoPcBTsVQ/odjMcolon4p7ud0LSUd5gk18OhHoGgIyaT0MKhr3IV4+I7SJuCmkiD/aq3vBX5IkzrS+TgzMBkXH90IHHujd536Vudn03uz0/hKobhdFTy55pQSMJ98QID83DSNDdZGD2g5CIwjJcAgQU7OnvO8R8RDABoUFq/Zij253gpMvtHfELJh9NSQmtI/XCBhGaCV75S7glsiTybojB5mGngTs575OeCVHr9HCqY6WKIH9cBAfxv0bw4LoHtXxozWWYpjl8Brace5Z8wXbyeOsSqeouGIgWQsNA8CAptIbPBly6w59qoDnfcd1vOZGOprgQV/ca5xMQP9XgiE8wtSy+cOwzN460zAKh8yrgCT4H67itnOA5vcvtB4BVpYETFHWVhno1csI+nOSAl80LCI68q/0jkvXNI26AuXw3Elg5d4iHMLMVRoTSFar49u1Qu0VWlXAexmaz25hSVHU1gJW7ohHW7j6UQ==
+ ARA:13230040|1800799024|36860700016|23010399003|82310400026|376014|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: cdzF1d4PAS4q9Qw2iVjVRLD2e5Pvs2yjWXldvNOmRKqhMNBo1MPldTRAxlC6OEfI8Da/4ifxUaIyV4w/JshcvjVt1AQcijdidlmdmv+WGhEGd0eirghl9y0rsu2SoOWp8+o8GzL9IluN/K7yS2rc38hsES+5E4W0GutJGcwMgWlHUCmAwUwjB0kM3plXHFCmFGa9GvZwFu5qgnU8iQ9BeSdA+iMA7JvJJfKm6lavrgG9ieLa+2BdkjSZQV/ihg6QnxcUkffMieq0z6LcQi85pbGYYrXXHiw/PoyRgKebG1N1ukrlIVC3O3tcnjF4TzENA6YiglstYDFKnJBBs2DxrMAw6ZoX9goX43mC0LqDyh4/uYOuiyGhH7DvJ03Cgp8f15a4AAmjIj0PNoFNOH5nJYhE46tVHKNUOim8dZJOmv/f951lmJlg27gwDIiQ4riYHWMQLm7U4g3pBK/gXfM1xvY42ohtZpfyDj6b0imeSBca79ZzKwSh2QgxC8Iele0PDyLhszzf4b6XbXUELzfbOUvIX/KUHXDGJ5RNQwmxgARNrREsNPcasNmzn/U5+x148WZyxSrnpkdPfpxcYKgpgskKRYi3Ck7KskNniwNOHbenrTOrmfpH9Nd9Q660lrabAPSEB4NTp9Ouo2T6GjXG0ZHy+rjh+wosMmV8SqZXL6uZRvvfBZlmHTECrKvsQyTM7cNzRQXoypXLeT+GcZckFw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(23010399003)(376014)(82310400026)(11063799006)(56012099006)(5023799004)(10067099003)(18002099003);
+ SFS:(13230040)(1800799024)(36860700016)(23010399003)(82310400026)(376014)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: GZxJ+o3OQHji0dl73abNIwAs2Dxb+fbvmhEX9y9Vk001QKwogxFtdabV2B3oDdLyPu6ZugQ88JeakJZO8GQauDqFTnikln8TO9BLSerxV8k438yEhE6gBCLGcyB8LLc35e5VYPnBekh32i8MEAGAjXho+HgtUplRuEcl5md0TBdYK6Y1jebR65GwiZmoIBuJ1ygsyh9YW+wz7emm4kjXywym/5OcRdkZMTczgKPYk8s6Ho4QuqxlQK7UM5gPdSRiwqtXTk5QoLImz7zFIqUoyg2m/JiMnMZs4L42/grL4axBAFgDiAbcVenVo8nu8+JSROO8GVPNSKOYgtvrlOzlAeGz8bdEqX0R0FAmE+zFj4un080hGyPxAiFAyliGly5wrYUZe/6M5TwXWoiaiiWng314p3sB+QZ2VKlnmeKz0sopNazWSU0RWbHAGd95mxrZ
+X-MS-Exchange-AntiSpam-MessageData-0: TLnDpqaewlD2h75YuQ2FTcPxr9hhBsQbTgNIA8E+AphZkYJU6W9M3PlZUriNxvIg3H4egQRjK2H6c34KnzvSvyHB7pPWYTA5cW8zX7/s8DGh/27f3mq3SMRrmeUS+FPRWbzXxxLSqubgfLgbLaWweieES5Ex/otJqXQ2KkNJ9k/e0J6xKkLrHF3EbPagfUBBS3HV2va0z4xtpGzPui6REBxL9ThnhPRe69qm6GdCkUw6FA0CA2f1mv9YWtOU8GLw6H72xa7w3xEuNH4w69DbCXR8Vb/xJNzom4vQEgTrtb1ejUqeGpFtQ9v/PwllHxpnAGdxnefQ7Ta8xuS1FnOSmIr7KQiuFu9M5/ZDMppG6vuMzT6E0xcArmtZPjH0UqL0wx+E4FHWYhR/WPTDqvWtajNPm1z4EKhKPze9JYmOdk1hcWo3YTBX2KEnc7g7cl57
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 16:36:00.1791 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18e85fc8-68fa-4b17-dc29-08deed8f7939
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 16:36:04.9101 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4291dbe2-513e-4d1b-bd8d-08deed8f7c0a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE9.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE5.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR12MB9743
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9127
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,31 +113,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Setting KFD_IOCTL_SVM_ATTR_NO_ACCESS on a GPU used to do nothing: the
-range stayed mapped, so the MMU notifier kept evicting GPU queues on CPU
-page faults even though the app wanted no access from that GPU.
+Extract svm_range_update_checkpoint_timestamp() from
+svm_range_unmap_from_cpu(). The next patch calls it when the app sets
+the no-access attribute.
 
-Patch 1 adds a helper to update the fault checkpoint timestamp and makes
-the timestamp atomic so the page fault handler can read it locklessly.
+Change checkpoint_ts in svm_range_list from uint64_t to atomic64_t so
+svm_range_restore_pages() can read it from the page fault handler
+without holding the svms lock.
 
-Patch 2 unmaps the range from each GPU set to no-access. Once no GPU maps
-the range, the MMU notifier skips queue eviction. It bumps the checkpoint
-timestamp so retry faults queued before the unmap are dropped.
+No functional change, preparation for the next patch.
 
-v3:
- - Patch 1: fix checkpoint_ts atomic double-read race
- - Patch 2: move checkpoint timestamp update into svm_range_needs_unmap
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c  | 85 +++++++++++++++------------
+ 2 files changed, 50 insertions(+), 37 deletions(-)
 
-Philip Yang (2):
-  drm/amdkfd: Add helper svm_range_update_checkpoint_timestamp
-  drm/amdkfd: Unmap svm range from GPU set to no-access
-
- drivers/gpu/drm/amd/amdkfd/kfd_priv.h  |   2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c |   5 +-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c   | 191 +++++++++++++++----------
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h   |   7 +-
- 4 files changed, 126 insertions(+), 79 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+index 88191a4c1657..bcb929002839 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -895,7 +895,7 @@ struct svm_range_list {
+ 	DECLARE_BITMAP(bitmap_supported, MAX_GPU_INSTANCE);
+ 	struct task_struct		*faulting_task;
+ 	/* check point ts decides if page fault recovery need be dropped */
+-	uint64_t			checkpoint_ts[MAX_GPU_INSTANCE];
++	atomic64_t			checkpoint_ts[MAX_GPU_INSTANCE];
+ 
+ 	/* Default granularity to use in buffer migration
+ 	 * and restoration of backing memory while handling
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 4c6700c6e88d..34de59f0432d 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -768,6 +768,48 @@ svm_range_check_attr(struct kfd_process *p,
+ 	return 0;
+ }
+ 
++static void svm_range_update_checkpoint_timestamp(struct kfd_process *p)
++{
++	struct svm_range_list *svms;
++	int i;
++
++	svms = &p->svms;
++
++	/* calculate time stamps that are used to decide which page faults need be
++	 * dropped or handled before unmap pages from gpu vm
++	 */
++	for_each_set_bit(i, svms->bitmap_supported, p->n_pdds) {
++		struct kfd_process_device *pdd;
++		struct amdgpu_device *adev;
++		struct amdgpu_ih_ring *ih;
++		uint32_t checkpoint_wptr;
++
++		pdd = p->pdds[i];
++		if (!pdd)
++			continue;
++
++		adev = pdd->dev->adev;
++
++		/* Check and drain ih1 ring if cam not available */
++		if (!adev->irq.retry_cam_enabled && adev->irq.ih1.ring_size) {
++			ih = &adev->irq.ih1;
++			checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
++			if (ih->rptr != checkpoint_wptr) {
++				atomic64_set(&svms->checkpoint_ts[i],
++					amdgpu_ih_decode_iv_ts(adev, ih, checkpoint_wptr, -1));
++				continue;
++			}
++		}
++
++		/* check if dev->irq.ih_soft is not empty */
++		ih = &adev->irq.ih_soft;
++		checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
++		if (ih->rptr != checkpoint_wptr)
++			atomic64_set(&svms->checkpoint_ts[i],
++				     amdgpu_ih_decode_iv_ts(adev, ih, checkpoint_wptr, -1));
++	}
++}
++
+ static void
+ svm_range_apply_attrs(struct kfd_process *p, struct svm_range *prange,
+ 		      uint32_t nattr, struct kfd_ioctl_svm_attribute *attrs,
+@@ -2565,7 +2607,6 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, struct svm_range *prange,
+ 	struct kfd_process *p;
+ 	unsigned long s, l;
+ 	bool unmap_parent;
+-	uint32_t i;
+ 
+ 	if (atomic_read(&prange->queue_refcount)) {
+ 		int r;
+@@ -2585,38 +2626,7 @@ svm_range_unmap_from_cpu(struct mm_struct *mm, struct svm_range *prange,
+ 	pr_debug("svms 0x%p prange 0x%p [0x%lx 0x%lx] [0x%lx 0x%lx]\n", svms,
+ 		 prange, prange->start, prange->last, start, last);
+ 
+-	/* calculate time stamps that are used to decide which page faults need be
+-	 * dropped or handled before unmap pages from gpu vm
+-	 */
+-	for_each_set_bit(i, svms->bitmap_supported, p->n_pdds) {
+-		struct kfd_process_device *pdd;
+-		struct amdgpu_device *adev;
+-		struct amdgpu_ih_ring *ih;
+-		uint32_t checkpoint_wptr;
+-
+-		pdd = p->pdds[i];
+-		if (!pdd)
+-			continue;
+-
+-		adev = pdd->dev->adev;
+-
+-		/* Check and drain ih1 ring if cam not available */
+-		if (!adev->irq.retry_cam_enabled && adev->irq.ih1.ring_size) {
+-			ih = &adev->irq.ih1;
+-			checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
+-			if (ih->rptr != checkpoint_wptr) {
+-				svms->checkpoint_ts[i] =
+-					amdgpu_ih_decode_iv_ts(adev, ih, checkpoint_wptr, -1);
+-				continue;
+-			}
+-		}
+-
+-		/* check if dev->irq.ih_soft is not empty */
+-		ih = &adev->irq.ih_soft;
+-		checkpoint_wptr = amdgpu_ih_get_wptr(adev, ih);
+-		if (ih->rptr != checkpoint_wptr)
+-			svms->checkpoint_ts[i] = amdgpu_ih_decode_iv_ts(adev, ih, checkpoint_wptr, -1);
+-	}
++	svm_range_update_checkpoint_timestamp(p);
+ 
+ 	unmap_parent = start <= prange->start && last >= prange->last;
+ 
+@@ -3063,6 +3073,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 	struct svm_range *prange;
+ 	struct kfd_process *p;
+ 	ktime_t timestamp = ktime_get_boottime();
++	uint64_t checkpoint_ts;
+ 	struct kfd_node *node;
+ 	int32_t best_loc;
+ 	int32_t gpuid, gpuidx = MAX_GPU_INSTANCE;
+@@ -3125,9 +3136,11 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ retry_write_locked:
+ 	mutex_lock(&svms->lock);
+ 
++	checkpoint_ts = atomic64_read(&svms->checkpoint_ts[gpuidx]);
++
+ 	/* check if this page fault time stamp is before svms->checkpoint_ts */
+-	if (svms->checkpoint_ts[gpuidx] != 0) {
+-		if (amdgpu_ih_ts_after_or_equal(ts,  svms->checkpoint_ts[gpuidx])) {
++	if (checkpoint_ts) {
++		if (amdgpu_ih_ts_after_or_equal(ts, checkpoint_ts)) {
+ 			pr_debug("draining retry fault, drop fault 0x%llx\n", addr);
+ 			if (write_locked)
+ 				mmap_write_downgrade(mm);
+@@ -3137,7 +3150,7 @@ svm_range_restore_pages(struct amdgpu_device *adev, unsigned int pasid,
+ 			/* ts is after svms->checkpoint_ts now, reset svms->checkpoint_ts
+ 			 * to zero to avoid following ts wrap around give wrong comparing
+ 			 */
+-			svms->checkpoint_ts[gpuidx] = 0;
++			atomic64_set(&svms->checkpoint_ts[gpuidx], 0);
+ 		}
+ 	}
+ 
 -- 
 2.50.1
 
