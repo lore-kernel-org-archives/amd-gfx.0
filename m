@@ -4,49 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C3EFC53200
-	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 14:14:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D289C54F51
+	for <amd-gfx@archiver.kernel.org>; Wed, 29 Jul 2026 14:27:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D925410EC47;
-	Wed, 29 Jul 2026 14:14:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00A4A10E05F;
+	Wed, 29 Jul 2026 14:27:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="B/IlDJcV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="g5IYgvSk";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E257410EC47
- for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 14:14:23 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8B64B40865;
- Wed, 29 Jul 2026 14:14:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABC191F000E9;
- Wed, 29 Jul 2026 14:14:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785334463;
- bh=EU7QMKEh3IUbMm1OcAYjUxRJXH5xnpo8Drd1+P2rQ7M=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=B/IlDJcVTBvDjhNnqs1su9WtBsvxLD2VodNHFIlKva1yOX+wcOzUcV85Uy8Nj/cb5
- DVDZQAJl1GEsb54Opv+637wFRnLVH2h+FYjWdFwurY2qPZBPIH/v4DfT28Q9F1Bmdx
- Fyv6ksh5rIRZUVCmc33LoORfMGUgBo61y1nD9XhtYvoSLb/iBUieCu9ZCptKg8LDXU
- rH4CUYAyjdR9O2ydYcybW4EY/Ku0SRhl4E3IvT4QVH6M9JtIsng2NdbhSzOJz6O8zu
- n9a8cO6svzYjFW4DLFNNQDK0ASqLMbwSN0DLmHYxwigrPyAM+R7fTYC5DcSNd2t1ao
- xg6dFlI0lj+Zw==
-Message-ID: <9d8947db-1da7-4d1a-b18a-7b6299f1412e@kernel.org>
-Date: Wed, 29 Jul 2026 09:14:22 -0500
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B410510E045
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 14:27:08 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-38ecc48b3deso82561a91.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 29 Jul 2026 07:27:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785335228; cv=none;
+ d=google.com; s=arc-20260327;
+ b=JFuEpzbQzjrkJkGnXcKryO1jW6mObLC6ZEuKLnwdbCjYD0TaYZUUQ04p+JBz846RUy
+ TV1lYqDWUrKayn/xZbbsaWCiilD+7ydR9Gjyx6M3yaWkmNctaBJPagqgkcPeZHhGjNKy
+ xxZMXV5LWwYiLNN8tMVGOm7zK7b3bD+J8AmVTjo82SG62BajCKg5xU3k0i/WjujLWIhh
+ K9Tuu/HzIKZyI4eT7GVu36FZ0xtD1wMlhyMF6K9164mbF0JjsrqrdGJrBEwOfwqkBDxk
+ djhP8OCGH7xtnOBrpQEaBLLqHff4gby1FRWymuuAWfaMS+U5ex7JH+2hF2eswuwODT/o
+ 79+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=WcAoRHX5Lz4yZq7liK5NCNwwh2h8iVDwMsz9J02CXj8=;
+ fh=7nSKmVcD0y4DlHdPz+fiXhGvmjebEI8HJ0nCbhKQCzg=;
+ b=h+g3f4Ra028Jr7WIZOnlWo5fHhH/0VCOSxI+Z+24/TZEGQixKt/2rDQ02ZXTHjyKuK
+ 7JSv/L8jyJ4E4gARGg2/GeKtzQ7bRXYiY7f91uFKRku9ig+zuEJFyQvdkA9o84oWtNkk
+ TNrrrWXTcoTmVDCC5WsW298P5sfnzPSUOw28btTySMYdqOHZACkYOa2rJLUlR3oRMCXV
+ YoMlKQ5Col96EKFfclpuq08HFRQzSyWA6jSRiGQrEBR7FfR6lU3PbnbDp/ZVnBFGAqQZ
+ 3jIpYH1qNOBDZ2/l0Tvr7bej5u+N/QgDwcWyUP7AXh1PmLNoaZ936dFVJm2gADqA/Xsq
+ jftg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785335228; x=1785940028; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=WcAoRHX5Lz4yZq7liK5NCNwwh2h8iVDwMsz9J02CXj8=;
+ b=g5IYgvSkD048zGmDe9uu8d/5fql6q6Yc3qWi3Oyqgymnbybgu9cfA8N6ahFoHK3pgx
+ fN4WgLIkNpRCDHiHw5Wx1EChrCA74GYatdsUPJbgIlqqCmfkVnEL5M9ZCb5uSADmITJL
+ gs0J37s2FHD4JYKwFPJ1ytP1Kp84ssm3P1R4pmxBQ95qVg92SAnuLPCZgFiOyIAHf+z/
+ Ys9nrKoDmLbqyWjMTkeCtuX5cf/wWGAxBXfQ7ZWUYYni2lYztPHvLshsGUD/RfXS8fQ7
+ FfDORhoERyd2KQKft7WPNRTifLkqaLqEPUdV2Is6LLuhX0S81Q5W6IirTQFtsEm5Bhe3
+ G0+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785335228; x=1785940028;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=WcAoRHX5Lz4yZq7liK5NCNwwh2h8iVDwMsz9J02CXj8=;
+ b=Y2m+hOU51rjOswlSZQ9i0MTg0O+/Ebw2BsmEuQ20mofp9qiswx5E566v7WyoKPi+5Q
+ gjRF5YPjLrKIw5qVKoEDRnLfUJ2h7ZGVOF0/dwU2glg/NKc48gxccRRuVQX5H3z8iYNU
+ PF+Nu8Kw6vANoJQdGRKqLMoS2Q6Qo/Hu+wEgd5ATrl9ZOi5E4OspQG6bi46q7+vJInCF
+ r1TUQvQtGlHUVVlgaec1dz5FkxwlKqFuZquPWeypyEo4ygDGmqnp7EJUqTOEvwZSbu6r
+ BYDmAzl4IRu621PetnM0PsaAbGYhcN6Cs5BXiCWj0H/BiG8ih6EybvZl2tDWVPgePsZ2
+ r8Ow==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoGXSvSDbF21C0oUN27oLYVBxKHO7VDf2PCQG/kL4f3NOvuaTcAarIOSVE0HoF3vOfH57EwfXFl@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YycV0C13vhSYhST6R64TxtioBR20FdvVca1ih+vXBNWnzMm1oz2
+ gzU5I4GJlpVhluLA677EbzdEknxGi+bw2eu39Fzi5bdlOR/rb2lOptieKZ8sFiQEmwD4cM3DTZY
+ WbDCk9lZs+8aCuvGkjZcf91igO7SnQXzHvQ==
+X-Gm-Gg: AR+sD10HIfSZ6hOU6OfwmWizVU8nTq0HZ+P7sX6/PXKmDwAaKAd7p20dOA6jXPhHwXK
+ BUZpXlz5shWn4RrXnY2mx9TwCUwMIOfePJxtaAUcBYaG9Ps4h6JGtzKPTCSm13sZ8bevp0L0w39
+ ZQj2i3W8/oIe22yy6XsH3geJiMGhkypVrs5kDmQ5XO1VzimOHzRPMpHloUnToDCMhmNCj5r4l4O
+ WQHHuRpMITCwsxIV4hcnFenTrA9uhRqFWRW8h/u7c66NrMO/tDq32wEl6QkRS52H+dpoiNbS0eS
+ gRTrUucPUofGaPB+bWlHY7NkYshCNrRkVAhB/Bjgcf3mi6mYlleu+bmuPTXOdE0OajLYws+KIzq
+ IJO6ojgja9bHdH/EqKg253K1FG0a70Nw=
+X-Received: by 2002:a17:90b:4490:b0:38e:91a8:fb85 with SMTP id
+ 98e67ed59e1d1-38f6a45bf0cmr6253567a91.3.1785335228022; Wed, 29 Jul 2026
+ 07:27:08 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12.y/6.18.y/7.1.y] drm/amd/display: Fix DTB DTO updates
- breaking live pixel rate sources
-Content-Language: en-US
-To: Matthew Schwartz <matthew.schwartz@linux.dev>, stable@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org, sunpeng.li@amd.com,
- Harry Wentland <harry.wentland@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Dan Wheeler <daniel.wheeler@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-References: <20260729063340.9287-1-matthew.schwartz@linux.dev>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260729063340.9287-1-matthew.schwartz@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260728072643.5F3A71F000E9@smtp.kernel.org>
+ <20260728222436.8393-1-ulissespaixao@usp.br>
+In-Reply-To: <20260728222436.8393-1-ulissespaixao@usp.br>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 29 Jul 2026 10:26:56 -0400
+X-Gm-Features: AUfX_mwXxZxCxY7eR9kHoro_h9YENs2g0VuYvfSP8z2iZ5T2d6LtZNBRvcx7K-0
+Message-ID: <CADnq5_PEZTzk4KXDE05LjidaobzGRLDWK1mDxwBBVvVwu1s4qQ@mail.gmail.com>
+Subject: Re: [PATCH v6] drm/amd/amdgpu: remove duplicated code in gfx_v11 and
+ gfx_v12
+To: Ulisses Paixao <ulissespaixao@usp.br>
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, Felipe Sousa <felipesousa@usp.br>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,107 +109,286 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Applied.  Thanks!
 
-
-On 7/29/26 01:33, Matthew Schwartz wrote:
-> From: Harry Wentland <harry.wentland@amd.com>
-> 
-> commit 76a2db58e95e328007043f54ac3c7336ccbee440 upstream.
-> 
-> dcn32_update_clocks_update_dtb_dto() and its dcn35 counterpart reprogram
-> the DTB DTO of every timing generator in the context whenever the DTBCLK
-> reference changes, passing a zeroed pixel rate and never setting
-> is_hdmi. Both dccg set_dtbclk_dto() implementations treat a zero pixel
-> rate as a disable request. On dcn32 that branch drives PIPE_DTO_SRC_SEL
-> to the DP DTO source, so a timing generator actively scanning out an
-> HDMI stream has its pixel rate source re-muxed out from under the live
-> raster and the OTG stops on the spot. On dcn35 it clears
-> DTBCLK_DTO_ENABLE and restores DTBCLK_Pn clock gating, which does the
-> same to a live 128b/132b stream.
-> 
-> Two displays where only one runs a 128b/132b link hit this reliably.
-> is_dtbclk_required() holds the DTBCLK reference high while both are
-> active, and the moment the 128b/132b stream is torn down (compositor
-> switch, display disable, hot-unplug) the next safe_to_lower pass drops
-> the reference to the lowest DPM level and the DTO walk freezes the
-> surviving screen. On Navi31 the DAL mailbox then goes deaf on the
-> DISPCLK hard-min that follows the walk in dcn32_update_clocks(),
-> stranding both SMU mailboxes until reboot.
-> 
-> Set is_hdmi for HDMI and DVI signals so the disable path leaves the
-> pixel rate source selection on the HDMI path, and pass the real pixel
-> rate for 128b/132b streams so a reference change rescales their DTO
-> instead of disabling it.
-> 
-> Fixes: 128c1ca0303f ("drm/amd/display: Update DTBCLK for DCN32")
-> Fixes: 8774029f76b9 ("drm/amd/display: Add DCN35 CLK_MGR")
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> Reviewed-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
-> Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> [ mschwartz: dcn32 and dcn35 clk_mgr hunks only. The rest is HDMI FRL
->    enablement, absent before 7.2, so the FRL conditions and the
->    req_audio_dtbclk_khz assignment they guard are dropped and the
->    FRL-centric changelog is rewritten. Added the pipe_ctx->stream check
->    the new dereferences need. ]
-> Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+On Wed, Jul 29, 2026 at 9:49=E2=80=AFAM Ulisses Paixao <ulissespaixao@usp.b=
+r> wrote:
+>
+> The functions gfx_v11_0_handle_priv_fault and
+> gfx_v12_0_handle_priv_fault share the same logic for searching and
+> triggering a scheduler fault on a ring. This patch moves the shared
+> ring-searching logic to a common function, amdgpu_gfx_handle_priv_fault,
+> in amdgpu_gfx.c. The hardware-specific decoding of ring IDs remains in
+> the version-specific files to maintain proper architectural separation.
+>
+> Signed-off-by: Ulisses Paixao <ulissespaixao@usp.br>
+> Co-developed-by: Felipe Sousa <felipesousa@usp.br>
+> Signed-off-by: Felipe Sousa <felipesousa@usp.br>
+> Reviewed-by: Christian K=C3=B6nig <christian.koenig@amd.com>
 > ---
-> 6.6.y needs the dcn32 hunk alone and is sent alongside this one. Tested
-> on Navi31 with a DisplayPort UHBR monitor and an HDMI TV.
-Backport makes sense to me, thanks.
-
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-> index 084994c650c4..285689d7ecc4 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn32/dcn32_clk_mgr.c
-> @@ -276,13 +276,20 @@ static void dcn32_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr,
->   		struct dtbclk_dto_params dto_params = {0};
->   
->   		/* use mask to program DTO once per tg */
-> -		if (pipe_ctx->stream_res.tg &&
-> +		if (pipe_ctx->stream && pipe_ctx->stream_res.tg &&
->   				!(tg_mask & (1 << pipe_ctx->stream_res.tg->inst))) {
->   			tg_mask |= (1 << pipe_ctx->stream_res.tg->inst);
->   
->   			dto_params.otg_inst = pipe_ctx->stream_res.tg->inst;
->   			dto_params.ref_dtbclk_khz = ref_dtbclk_khz;
->   
-> +			if (dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(pipe_ctx))
-> +				dto_params.pixclk_khz = pipe_ctx->stream->timing.pix_clk_100hz / 10;
+> v6:
+> Updated code with latest changes from amd-staging-drm-next.
+>
+> v5:
+> Return early on adv->gfx.disable_kq check.
+>
+> v4:
+> Restore the adev->gfx.disable_kq check to prevent falsely triggering
+> scheduler faults on idle kernel rings when MES is managing user queues.
+>
+> v3:
+> Return early if the ring is found in the gfx rings loop.
+>
+> v2:
+> Keep the HW-specific decoding in gfx_v11_0.c and gfx_v12_0.c.
+> Remove the redundant check for adev->gfx.disable_kq.
+> Simplify the search loop in amdgpu_gfx_handle_priv_fault to iterate over
+> all gfx and compute rings without a switch statement.
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c | 53 +++++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |  3 ++
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  | 49 +++--------------------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  | 50 +++--------------------
+>  4 files changed, 66 insertions(+), 89 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.c
+> index 9d3b40c38..9ff0829ac 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> @@ -34,6 +34,7 @@
+>  #include "amdgpu_xcp.h"
+>  #include "amdgpu_xgmi.h"
+>  #include "amdgpu_mes.h"
+> +#include "amdgpu_userq.h"
+>  #include "mes_userqueue.h"
+>  #include "nvd.h"
+>
+> @@ -855,6 +856,58 @@ int amdgpu_gfx_enable_kgq(struct amdgpu_device *adev=
+, int xcc_id)
+>         return r;
+>  }
+>
+> +/**
+> + * amdgpu_gfx_handle_priv_fault - Handle privileged instruction fault
+> + *
+> + * @adev: amdgpu_device pointer
+> + * @entry: interrupt vector entry containing fault information
+> + * @me_id: micro-engine ID of the faulty ring
+> + * @pipe_id: pipe ID of the faulty ring
+> + * @queue_id: queue ID of the faulty ring
+> + *
+> + * This function handles privileged instruction faults by identifying
+> + * the faulty ring (gfx or compute) and triggering a scheduler fault
+> + */
+> +void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
+> +                                       struct amdgpu_iv_entry *entry,
+> +                                       u8 me_id, u8 pipe_id, u8 queue_id=
+)
+> +{
+> +       struct amdgpu_ring *ring;
+> +       int i;
 > +
-> +			if (dc_is_hdmi_signal(pipe_ctx->stream->signal) ||
-> +					dc_is_dvi_signal(pipe_ctx->stream->signal))
-> +				dto_params.is_hdmi = true;
+> +       /*
+> +        * Try KQ first by ring_id (HW slot is authoritative). The
+> +        * KMD compute_hqd_mask contract guarantees KCQ and user queues
+> +        * never share a HW slot.
+> +        */
+> +       if (!adev->gfx.disable_kq) {
+> +               for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
+> +                       ring =3D &adev->gfx.gfx_ring[i];
+> +                       if (ring->me =3D=3D me_id && ring->pipe =3D=3D pi=
+pe_id &&
+> +                           ring->queue =3D=3D queue_id) {
+> +                               drm_sched_fault(&ring->sched);
+> +                               return;
+> +                       }
+> +               }
 > +
->   			dccg->funcs->set_dtbclk_dto(clk_mgr->dccg, &dto_params);
->   			//dccg->funcs->set_audio_dtbclk_dto(clk_mgr->dccg, &dto_params);
->   		}
-> diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-> index bb1ac12a2b09..d154383a3961 100644
-> --- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-> +++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn35/dcn35_clk_mgr.c
-> @@ -264,13 +264,20 @@ static void dcn35_update_clocks_update_dtb_dto(struct clk_mgr_internal *clk_mgr,
->   		struct dtbclk_dto_params dto_params = {0};
->   
->   		/* use mask to program DTO once per tg */
-> -		if (pipe_ctx->stream_res.tg &&
-> +		if (pipe_ctx->stream && pipe_ctx->stream_res.tg &&
->   				!(tg_mask & (1 << pipe_ctx->stream_res.tg->inst))) {
->   			tg_mask |= (1 << pipe_ctx->stream_res.tg->inst);
->   
->   			dto_params.otg_inst = pipe_ctx->stream_res.tg->inst;
->   			dto_params.ref_dtbclk_khz = ref_dtbclk_khz;
->   
-> +			if (dccg->ctx->dc->link_srv->dp_is_128b_132b_signal(pipe_ctx))
-> +				dto_params.pixclk_khz = pipe_ctx->stream->timing.pix_clk_100hz / 10;
+> +               for (i =3D 0; i < adev->gfx.num_compute_rings; i++) {
+> +                       ring =3D &adev->gfx.compute_ring[i];
+> +                       if (ring->me =3D=3D me_id && ring->pipe =3D=3D pi=
+pe_id &&
+> +                           ring->queue =3D=3D queue_id) {
+> +                               drm_sched_fault(&ring->sched);
+> +                               return;
+> +                       }
+> +               }
+> +       }
 > +
-> +			if (dc_is_hdmi_signal(pipe_ctx->stream->signal) ||
-> +					dc_is_dvi_signal(pipe_ctx->stream->signal))
-> +				dto_params.is_hdmi = true;
+> +       u32 doorbell_offset =3D entry->src_data[0] & AMDGPU_CTXID0_DOORBE=
+LL_ID_MASK;
 > +
->   			dccg->funcs->set_dtbclk_dto(clk_mgr->dccg, &dto_params);
->   			//dccg->funcs->set_audio_dtbclk_dto(clk_mgr->dccg, &dto_params);
->   		}
-
+> +       /* No KQ matched: HW slot is a MES-scheduled user queue. */
+> +       if (adev->enable_mes && doorbell_offset)
+> +               amdgpu_userq_process_reset_irq(adev, entry->pasid,
+> +                                              doorbell_offset);
+> +}
+> +
+>  static void amdgpu_gfx_do_off_ctrl(struct amdgpu_device *adev, bool enab=
+le,
+>                                    bool no_delay)
+>  {
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_gfx.h
+> index aefd4f03b..c15f45a73 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+> @@ -620,6 +620,9 @@ bool amdgpu_gfx_is_high_priority_graphics_queue(struc=
+t amdgpu_device *adev,
+>                                                 struct amdgpu_ring *ring)=
+;
+>  bool amdgpu_gfx_is_me_queue_enabled(struct amdgpu_device *adev, int me,
+>                                     int pipe, int queue);
+> +void amdgpu_gfx_handle_priv_fault(struct amdgpu_device *adev,
+> +                                       struct amdgpu_iv_entry *entry,
+> +                                       u8 me_id, u8 pipe_id, u8 queue_id=
+);
+>  void amdgpu_gfx_off_ctrl(struct amdgpu_device *adev, bool enable);
+>  void amdgpu_gfx_off_ctrl_immediate(struct amdgpu_device *adev, bool enab=
+le);
+>  int amdgpu_get_gfx_off_status(struct amdgpu_device *adev, uint32_t *valu=
+e);
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v11_0.c
+> index 0cbbdc369..489e0c97e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+> @@ -6710,52 +6710,13 @@ static int gfx_v11_0_set_priv_inst_fault_state(st=
+ruct amdgpu_device *adev,
+>  static void gfx_v11_0_handle_priv_fault(struct amdgpu_device *adev,
+>                                         struct amdgpu_iv_entry *entry)
+>  {
+> -       u32 doorbell_offset =3D entry->src_data[0] & AMDGPU_CTXID0_DOORBE=
+LL_ID_MASK;
+> +       u8 me_id, pipe_id, queue_id;
+>
+> -       /*
+> -        * Try KQ first by ring_id (HW slot is authoritative). The
+> -        * KMD compute_hqd_mask contract guarantees KCQ and user queues
+> -        * never share a HW slot.
+> -        */
+> -       if (!adev->gfx.disable_kq) {
+> -               u8 me_id =3D (entry->ring_id & 0x0c) >> 2;
+> -               u8 pipe_id =3D (entry->ring_id & 0x03) >> 0;
+> -               u8 queue_id =3D (entry->ring_id & 0x70) >> 4;
+> -               struct amdgpu_ring *ring;
+> -               int i;
+> -
+> -               switch (me_id) {
+> -               case 0:
+> -                       for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
+> -                               ring =3D &adev->gfx.gfx_ring[i];
+> -                               if (ring->me =3D=3D me_id && ring->pipe =
+=3D=3D pipe_id &&
+> -                                   ring->queue =3D=3D queue_id) {
+> -                                       drm_sched_fault(&ring->sched);
+> -                                       return;
+> -                               }
+> -                       }
+> -                       break;
+> -               case 1:
+> -               case 2:
+> -                       for (i =3D 0; i < adev->gfx.num_compute_rings; i+=
++) {
+> -                               ring =3D &adev->gfx.compute_ring[i];
+> -                               if (ring->me =3D=3D me_id && ring->pipe =
+=3D=3D pipe_id &&
+> -                                   ring->queue =3D=3D queue_id) {
+> -                                       drm_sched_fault(&ring->sched);
+> -                                       return;
+> -                               }
+> -                       }
+> -                       break;
+> -               default:
+> -                       BUG();
+> -                       break;
+> -               }
+> -       }
+> +       me_id =3D (entry->ring_id & 0x0c) >> 2;
+> +       pipe_id =3D (entry->ring_id & 0x03) >> 0;
+> +       queue_id =3D (entry->ring_id & 0x70) >> 4;
+>
+> -       /* No KQ matched: HW slot is a MES-scheduled user queue. */
+> -       if (adev->enable_mes && doorbell_offset)
+> -               amdgpu_userq_process_reset_irq(adev, entry->pasid,
+> -                                              doorbell_offset);
+> +       amdgpu_gfx_handle_priv_fault(adev, entry, me_id, pipe_id, queue_i=
+d);
+>  }
+>
+>  static int gfx_v11_0_priv_reg_irq(struct amdgpu_device *adev,
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd=
+/amdgpu/gfx_v12_0.c
+> index b3887c526..32cd9ad66 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+> @@ -5041,53 +5041,13 @@ static int gfx_v12_0_set_priv_inst_fault_state(st=
+ruct amdgpu_device *adev,
+>  static void gfx_v12_0_handle_priv_fault(struct amdgpu_device *adev,
+>                                         struct amdgpu_iv_entry *entry)
+>  {
+> -       u32 doorbell_offset =3D entry->src_data[0] & AMDGPU_CTXID0_DOORBE=
+LL_ID_MASK;
+> +       u8 me_id, pipe_id, queue_id;
+>
+> -       /*
+> -        * Try KQ first by ring_id; UQ as fallback. KCQ and UQ never shar=
+e
+> -        * a HW slot (compute_hqd_mask contract).
+> -        */
+> -       if (!adev->gfx.disable_kq) {
+> -               u8 me_id, pipe_id, queue_id;
+> -               struct amdgpu_ring *ring;
+> -               int i;
+> -
+> -               me_id =3D (entry->ring_id & 0x0c) >> 2;
+> -               pipe_id =3D (entry->ring_id & 0x03) >> 0;
+> -               queue_id =3D (entry->ring_id & 0x70) >> 4;
+> -
+> -               switch (me_id) {
+> -               case 0:
+> -                       for (i =3D 0; i < adev->gfx.num_gfx_rings; i++) {
+> -                               ring =3D &adev->gfx.gfx_ring[i];
+> -                               if (ring->me =3D=3D me_id && ring->pipe =
+=3D=3D pipe_id &&
+> -                                   ring->queue =3D=3D queue_id) {
+> -                                       drm_sched_fault(&ring->sched);
+> -                                       return;
+> -                               }
+> -                       }
+> -                       break;
+> -               case 1:
+> -               case 2:
+> -                       for (i =3D 0; i < adev->gfx.num_compute_rings; i+=
++) {
+> -                               ring =3D &adev->gfx.compute_ring[i];
+> -                               if (ring->me =3D=3D me_id && ring->pipe =
+=3D=3D pipe_id &&
+> -                                   ring->queue =3D=3D queue_id) {
+> -                                       drm_sched_fault(&ring->sched);
+> -                                       return;
+> -                               }
+> -                       }
+> -                       break;
+> -               default:
+> -                       BUG();
+> -                       break;
+> -               }
+> -       }
+> +       me_id =3D (entry->ring_id & 0x0c) >> 2;
+> +       pipe_id =3D (entry->ring_id & 0x03) >> 0;
+> +       queue_id =3D (entry->ring_id & 0x70) >> 4;
+>
+> -       /* No KQ matched: HW slot is a MES-scheduled user queue. */
+> -       if (adev->enable_mes && doorbell_offset)
+> -               amdgpu_userq_process_reset_irq(adev, entry->pasid,
+> -                                              doorbell_offset);
+> +       amdgpu_gfx_handle_priv_fault(adev, entry, me_id, pipe_id, queue_i=
+d);
+>  }
+>
+>  static int gfx_v12_0_priv_reg_irq(struct amdgpu_device *adev,
+> --
+> 2.34.1
+>
