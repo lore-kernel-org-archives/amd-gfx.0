@@ -4,125 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 60443C5516F
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 20:27:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD6E4C5516E
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 20:27:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C449910F07B;
-	Thu, 30 Jul 2026 20:27:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C3F010F079;
+	Thu, 30 Jul 2026 20:27:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Upad/GYs";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="B2XIwWq+";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010034.outbound.protection.outlook.com [52.101.201.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CC8610F070;
- Thu, 30 Jul 2026 20:27:35 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011030.outbound.protection.outlook.com [52.101.62.30])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 713EB10F07A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 20:27:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yQJuHLoTEgw8ucefFLYI3LCKlullHoq/OfZNzwfNYgluR2jVpK1JO/nu7W8onJMJPWDoJobqwkTkNdLvtD+9X7U/39ckjPivVVEUynOzgxRoVnXUoGTN/T+vcDs8imeUeay+U7s9oLHhRN9zskTFHjJgUweKGAxc42+JutvhIVXlwxCypvEeRKKdsUaIDhH9PupRXQSzoqbPuDab6v/6XqhCH1N2cdZ7vET4l3de4udlaELtZ4/QvKngV4fjVjoBMoeoYu1hNfycvGSW0yU4pl3jTLy68RlNbGaQWneMsgO6jvAk2wj/eJGT1smKyFbZzkv0gzPs/QMvdwM7W2e9ww==
+ b=KfyujaO3YnbmFt+2lQWwK/UG4r+nnpzSpTdWl+oh/JEPUy11mzlJsVO00upb5DHGUU41bbS/oc97p7fqpiKfAmL+6tPHD+d4vpgIjXwyvgF+h4fGHsQpI00o36YhcRgNQ9xrZMVQ16o1CnVpXDifZOFRGhwjULhJdOBB/cOjjMB3JABQaleHRxn0YkmITOhvIm8EqSqmgfplkmqgGFSuzM5wN2AD+PcjkA6rtDozKMVUlyJGI4Ece9KM6pUvd1q47iEvTuQW/Df1dIgidQXlNDdWtrxMn1eGS2il95My5uvSM3tvuoy1c6/2IdMc0Cy5b/4n3oHpmrdQY1UsiucDUA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=z1VaTQs/PGhXFYtG0JcWJQfc+KlOQLccDCKYtPdgkaY=;
- b=XU6UQWn9XuC4jdXqKXt1VeJccqMqf+lzB0C5qA3kC3aCW0oyEOURiaJrxea4NCjtQzJOz0zFgmG9d5P8yufsY+sg83T/fQrfGo/ZMjPpVOEx+1QitVkGdYSSoqBZTNY4js33SnnghXtgtiqluGUvsfUChCU9fuR/NXAtSlbVpcwCl6l9353SPcmbYLuTPoptKVcVSe0ehoQCm9xmDgYn4L0Hlr5XI5WuO7/IQycBwZJk3nhHVKCoQ2EISo6iNO7ZzlPTzRjIf3qi+p3UTBOe9v1apZwl6JK5XtCmKnz4CQQSPt9pGaPrxUnD8kV54uRYcU0mPr1A72IWcGZweHGjXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=KW7D2gDpXzEWhdGkkjVkpN6g689m/+puhO2r4LUhjgk=;
+ b=C8ref7Ic0EtwpooYOqfelnwBtxJj5f4i4IXBbV8Am9z8GCSUtixKhVn9zwUDKhphXuZQ8CIWbN26lRaD0FAEKW31nSXpOcCZYBQRvWJMAq7fLL3cQWQ96beL3aEkWwKz2ndfNvstIyq0LBQTCYSsmLiA9AbVXI7sXo2v2qTTHsAg9MZqTMvOohwrqCBoAqso1XdeYnvycvgTJsMwkjHG71hR5SwuLch5aZpKkYiyXmrZ83DsVInWBKcIxRXl353hXcTr9v+APzxIPRZ0HkqBikZ33sJ5n7l1Q0zhd1Rxu76dp6gLhqP/oPp6vPDUlr64p30S/TNjtLrRwpxzLSrs8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=z1VaTQs/PGhXFYtG0JcWJQfc+KlOQLccDCKYtPdgkaY=;
- b=Upad/GYs0l6cONiC7PPTlSbY9tJIFeqGX+ZetICCiaBEikgYe8m00c6poLu9KeIwazsKovMH2hQTuTOQFVSs97ESBS6uzfl7d5/2JoNUFP7EBMqit9noh/b+Lf3qPhBYQQOQMsI75anF+Y/mE9wJqfxlTqvolkJHmZnGHQeBvmM=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
- by IA0PR12MB7721.namprd12.prod.outlook.com (2603:10b6:208:433::20)
+ bh=KW7D2gDpXzEWhdGkkjVkpN6g689m/+puhO2r4LUhjgk=;
+ b=B2XIwWq+EQhFJ1pkWsLtdLAWFApLcoeBPwRV1m2RFr2LlgczjNmmkDQFQ4DqgO6qp3PLR1Fw8tWC4o6pjIih3PG5Td9z7NSTdadK6eJgwX/uFo8FsEpdDAVHOyl/MJKkORkPzoo84lrgORAlbjRuJBf4m3f+L0Pz+WsYrsEdLFg=
+Received: from SJ0PR13CA0195.namprd13.prod.outlook.com (2603:10b6:a03:2c3::20)
+ by PH7PR12MB8054.namprd12.prod.outlook.com (2603:10b6:510:27f::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Thu, 30 Jul
- 2026 20:27:31 +0000
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0270.012; Thu, 30 Jul 2026
- 20:27:31 +0000
-Message-ID: <fea5b938-24ec-4e62-9c7b-e0afbca83c0e@amd.com>
-Date: Thu, 30 Jul 2026 16:27:27 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/11] drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
-To: Pekka Paalanen <pekka.paalanen@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Melissa Wen <mwen@igalia.com>, Robert Mader <robert.mader@collabora.com>
-References: <20260722134607.136293-1-harry.wentland@amd.com>
- <20260722134607.136293-2-harry.wentland@amd.com>
- <20260730135911.4e52408e@fluorite>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20260730135911.4e52408e@fluorite>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQBPR0101CA0237.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:66::32) To SJ0PR12MB7007.namprd12.prod.outlook.com
- (2603:10b6:a03:486::8)
+ 2026 20:27:42 +0000
+Received: from SJ5PEPF000001E9.namprd05.prod.outlook.com
+ (2603:10b6:a03:2c3:cafe::15) by SJ0PR13CA0195.outlook.office365.com
+ (2603:10b6:a03:2c3::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.8 via Frontend Transport; Thu, 30
+ Jul 2026 20:27:42 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001E9.mail.protection.outlook.com (10.167.242.197) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.8 via Frontend Transport; Thu, 30 Jul 2026 20:27:41 +0000
+Received: from bokun-linux (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 30 Jul
+ 2026 15:27:41 -0500
+From: Bokun Zhang <Bokun.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Bokun Zhang <Bokun.Zhang@amd.com>
+Subject: [PATCH 2/2] drm/amdgpu: Add JPEG v5.0.2 SRIOV code path
+Date: Thu, 30 Jul 2026 20:27:31 +0000
+Message-ID: <20260730202731.265870-1-Bokun.Zhang@amd.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|IA0PR12MB7721:EE_
-X-MS-Office365-Filtering-Correlation-Id: daf48056-849e-405a-1e29-08deee78fb49
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001E9:EE_|PH7PR12MB8054:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0ab98aed-cc6e-4553-394f-08deee7901ac
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|366016|1800799024|6133799003|10067099003|5023799004|4143699003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: OaKBWuycdvB7K0LCOtykvziR7UsY0eV2h8CKV7ubflOyvM54jNpaloETL4mnojDA76M/ssOX0suN9QFkyPP5KzOvuCYDB/Cyrsej1KEDW0gQtqlKNC/rZ9RTNVt4/P6BbpGtsJiRoRWbAbBne0PbkyjRaDOSmdNde/awy+Yt2Hypv/QjCgw8zlBY5i3zPOOHd710qfO3eaV6iKV+b9LdA6hnRYeC8A16x2Lj8wCmODWB09+I08Qw5V/TlI9gEvoWPiY1v60wNsH+WIndMVl0JL0b1PZwTdTSiv4uQWoxfiY3pHLj8nCtP4VXTCtqQjeWWIm3mwFRzLirAFXnYJ5WMos1iPb+UtnK2IqzsM8uUbhohJNN/oQLLM5/wmWPfX+Q/0LpcLmREuPRhdg5Y1qAGmon71h5O+TfoWkpwYoHAlWHa6kGMb3EXLndZBqR7UCgO5cvrdCM414TDWCX4HbpQq0QEUJa9SLDFG1HioHbSc5IVIcDNIgAFm5KwgCmevabB8ISG0BGBj1INRebUqyFNIXafigcauyh+eIHzCLkWDR7t1IwTq6eWlh4crfxktKru7u9aPZGNvAroIkoObDqpa6qyV5wJ9xnHG8drKHDkuolF84rLKGsss2xetVO5kQn6O1PhuopnFBNq/CDrda1fKFUOpau+Fmu+fcA+LoJdHY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(6133799003)(10067099003)(5023799004)(4143699003)(56012099006)(11063799006)(18002099003)(22082099003);
+ ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|56012099006|10067099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: zaK494ycObf1BoMne+VVAGg0Yy7UVuNhgkxrbal8jnFhlLNKVX1eDZLzrhxBPyZfC0XLW7l4uLPl3zG6/YbkrRWl/Ntdj072XdqO901ojo+XZebzZwseVlZEZ7t5lM2NPf/1G2wXI+Ax4QXejmFNZ7Rpp6/xCDYKori11sK/nNjJElicAJCikJ4Wvum4XQgREDkoE3qoYiCFgoz/VM0fs7UM3aT9LRvfQE76eLFR4rbTjU+QVxb6oJy1vKvpesJjLD+mXGzckJBsEDyX+exbme74Ahmd3xhhEdgQkHh/qPirsnYPvr1JJWXst0B73CCy4NNK9VrtqFonrzkebuvupX6xR2Apm12vXA6/v+BoQUtrJSVDjKlwGeuyBLOaSoNK2xx0pdOpO/F09vSYSPdcb3Bo88uEwhuZIxJSbB7BaRtho2N9QCdEMwLH8nBGjIC50EvYexghdMSw+zNRSqhoC6IBMzDi1lko6cOKLp5XYJggJtF8y7yedubndIwfI6c6pahSYsSAVAkGi5oouKp2buk9509xtoqSXDJ10+FBfGigi8eKHjHP4ty0lG6rqC4Yi+907yDhkvt/Qf3MjjMxEFol9vJIiOhu1p1Nuqe8lXZKgBIxU4kTSCc55NoYJXNT9DlZEUYvI8zy4upHR9xnisWtfSsqWFYYd4yxbjqhpCPwpjuhRD1l6sORn/3sXVL1
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(56012099006)(10067099003)(18002099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QmJaNG5Yb2l2bzNNQVRYdzRFMG9VZGNBWmo3ZlBIWG8yYXRYb1dESzNDRmJT?=
- =?utf-8?B?VFBHZTV6R3BQQXMzb3BhbGFEY2lLdThtQ2JUR216OHY2NmNKSkxXWVJjTlVn?=
- =?utf-8?B?T2JMZ3NmUE1vNnRodkxteVR3enpaaUc3ZVRiVTk3WkEvUU02YkxPVVFxUEEy?=
- =?utf-8?B?dCt6R2NPR1pjS0diOTJHbkFjZHl0Vzlpc3lqMEpjbUlSam9sVkpTdjBYUllk?=
- =?utf-8?B?VDZRdE9FZDhMcXJFZkdscTE2bXpoZ2pDbUUvc2JIUEVUek55citqZzBUK3lX?=
- =?utf-8?B?Qzc0bVhpMy9XZjc0U29jOFNLd3F0OFlsTEt1Q1dqR1gwRU5ScFo5dEkrYnNU?=
- =?utf-8?B?RTNiUFVoVE1tb1JNRG1sV2RQWEpXWkdkc1RMb1kyTC95Z05YbW1jTW9KTUJP?=
- =?utf-8?B?WGRvMExtZmxLV25Ha05UTkUvK214QVZhNlRNOFBtZFltTmxlM2h1czlramdq?=
- =?utf-8?B?TllCTTNOU2d0MU1DVkhaZGRxR290VUoxa01HREFzU01vbklFakx0WXNZd3Y0?=
- =?utf-8?B?TC9idHhTNVYzYnNWZE1xSitZUFY0ZFpoNHhPV3pHYXFlZm1xaVRnN3ZEZmRu?=
- =?utf-8?B?SVM1ejVKNDFjQVFxR25XUnBQZWZqNGd6VDJyeWlINmU0MldudjBUb1BWdG0z?=
- =?utf-8?B?blU1UDNQZm1aME5kbzhHUFprT2Q3akpqbFpmUGtnVDlpdS9mYXZqSktGZWZF?=
- =?utf-8?B?RXVrRUtDMkZnSFU4dEZUVkcrbC9iS3NUUEk1SUgwTlBBTkdEdzd4SWluY0g5?=
- =?utf-8?B?V241RXZydGx4YmtQbEsxYVJWdzdHaDZCc1hZOGI2TDFnNTAzL09GMW9OZlhU?=
- =?utf-8?B?RnE1ZWRFdEtZZXFyV21vOG1IRStUWGpUckxoVmVpS0xBUDh4REZuTGVkNUFS?=
- =?utf-8?B?OXVVZUxqcGp5cDFINWZIUEtGRWJxZ1Y5SDVWL284QmhoODl5MFNSaWxzVlpy?=
- =?utf-8?B?Ulg3UVZTZ0hUTHdEa3dMSEtraUVINWYvMG1CcEpwdmF2aUVXQWIzaU9PcStM?=
- =?utf-8?B?Q3M4a1grZlpEZThyUFJLNSs1WGJmZm1YSU1ZV1RmNC9xQis1Q3VxRGxDYld5?=
- =?utf-8?B?RHp0Z2gwc2pNUlNlVkk5RXZUUWJ6ODk2K2JWc2FyZCtCMExSaW5GQ3o1RFBu?=
- =?utf-8?B?L3NRdURLUmp2eHoyLzExUzc3MzVpbURZNjh5QWVFaS80V09lM0ZTYWI0V2Z6?=
- =?utf-8?B?czhPR1JHclNwUVJKdVYxdlJiOTZkelNsMGovTVdSOG9xSjlYNWNxb0YvN1pI?=
- =?utf-8?B?QllGZUlZdzZTUUh5ZXk5Y2FOVjRkRURsY2taYml1L2t2M09JMW82eUNOMjAy?=
- =?utf-8?B?dGFWVVNyaklkNUpnN0Y2bzZOZXlzOHh4R2FKQW41Ti9tYzZPMXQ1YmxoU3d3?=
- =?utf-8?B?UHRpM1RyRlVZUDllWHdVRTZZV0NGRjczRHZRU3pUa2FkNm1nY2cvZ3lMdFll?=
- =?utf-8?B?MUZrcWdHVTU4bHNQSWZXMXMzb3lCVnozQ0w0cGJLYThLNllyYUxndHhDbjFT?=
- =?utf-8?B?VHk2YmhSSU5Jc3FBTkY3NWFuOSs3TkdpOHZIek9mZDIvQzVkUHJIRlZleE1a?=
- =?utf-8?B?QW5MbWpYN2NmUXJ0NTR2b0lvb2VJY0lVVTdRdVFUYW4vWjlQeEs3eThFaytM?=
- =?utf-8?B?UkVWVTAvWGhnZkpIeUZVWjlXenVwQ04xMVJkdXBWTFV5NW1lZkFEMVVKS0Ez?=
- =?utf-8?B?QmdmZEoxWVAraUIxSWdjaWExL1hCS2trZ1g5cHBTR3BXd0p6NUJHM1NoUDBR?=
- =?utf-8?B?YTBORCt0UHVnZ0ZUVDhiMVIxaTBrSGdOcG5LM0dhSUF1Zkt3SHdzbUUzM3J3?=
- =?utf-8?B?MVZvR292YXozb0YrZWRzczJTVjVuR1Q4ZTkxSTdjR0NuOGEzci8vUFlZazlE?=
- =?utf-8?B?ZDB5blZGRlJRTGlQMU1ieFV0cUVzQTF4MEhBbU9NK29HdmhMN1RWT2lkanp0?=
- =?utf-8?B?UG9CMnMvUU9DM1pkSUhHSDlNTWFjZFVtbTN1blBzbTFqcHVjNVhIcFkrNE00?=
- =?utf-8?B?OVhvVDdkY29xSlFITlAwZzhSZk1FS0VSV0FTaXY4Q0NXOVhRVVBPUGhWalg5?=
- =?utf-8?B?azV2Q3pBeWlUOFQ2Q21id0Q4cWZoV211cWhYVVgreng1SGtKVlNmYUU3U3hs?=
- =?utf-8?B?SkJoVHMrN1lCMnFkZWxsVnF5VHFFNWovN2w5eUtPV0ZKeWhJSEptdkk3ck0x?=
- =?utf-8?B?b2xWZFZOTWdvQVNmOFc0THljYU1yeVJIRU90bWJPSG9RTk9tRGVqenVHOHlw?=
- =?utf-8?B?dFA1dW91Nnh6K201RGNyL0ZZQmZ1cXJad1NTSVdxYXBLa2Q4RlI0RDQzY0lC?=
- =?utf-8?B?NlJHdE53ZkpkUXlzdExTcVk5cFpQb2ZIVlBXRkMrbkgzUXk3MVd2dz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: 519fdAMs3HVAzv4j6Z3edQd1Vag6gYXSnJ1LAYVlDVcOvYGywNcR55uEmnFDdsJte6Hi0aqsUrAuhGRfmk9V1i0SiEQ7mvpZrURFTw5mCmjm9K4tCYX3hTEisggopp9TlZYi55Wpwzd7rIh+l/YKQf1OTPpIlT+MySCQ1jCAH3cIFbUVhLOy9+UVH2L7NW2kVAbLw8izN2w0JWH2emzwpqzZ/863k1zaPgkhq/FYDjOkAhpRCEEVedXMqw3NeAyhXcY0vV4B0PbFqArXiI/Z5iSLaO9l6dmaYmhr+6hE64EGHkw0Ww+zHKaQrRv04gOqW7y0CnrUeFdQ5tzJfPNn/rJI0LjU76cjOom/53f0oJcXQnC1bYcHn1S+6poWWrzaRmlPbL85Il4PaHVl2iTaKzu03mlH76NpxaARELoOIAe8mrgmMTcD3FOjnpPwvSvD
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: daf48056-849e-405a-1e29-08deee78fb49
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 20:27:31.3858 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 20:27:41.8440 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ab98aed-cc6e-4553-394f-08deee7901ac
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uJTRfgWHuYnNOgMNtbmQNFQwMQrQFGrrJzy5CC2uB3nFLLDQyt4lZ68ReG6qn3ThSlxDGKlk8VTr+cC7Mhryqg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7721
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001E9.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB8054
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,264 +107,227 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+- Add JPEG v5.0.2 SRIOV code path
+- Add JPEG MMSCH init table transfer
+- Skip unsupported actions such as power gating
+  and per queue reset for SRIOV VF.
 
+Signed-off-by: Bokun Zhang <Bokun.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c | 156 ++++++++++++++++++++++-
+ 1 file changed, 152 insertions(+), 4 deletions(-)
 
-On 2026-07-30 06:59, Pekka Paalanen wrote:
-> On Wed, 22 Jul 2026 09:45:57 -0400
-> Harry Wentland <harry.wentland@amd.com> wrote:
-> 
->> From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
->>
->> Introduce DRM_COLOROP_FIXED_MATRIX, a new colorop type representing a
->> hardware that performs a fixed matrix operation.
->>
->> Unlike CTM-based colorops, this block does not expose programmable
->> coefficients. Instead, userspace selects one of the predefined
->> hardware modes via a new FIXED_MATRIX_TYPE enum property. Supported modes
->> include common YCbCr->RGB and RGB709->RGB2020 conversions.
->>
->> v4:
->>  - Add limited-range YCbCr-RGB conversion matrix enums (Robert)
->>  - Document matrix values (Pekka)
->>  - Clarify RGB709 to RGB2020 is a full-range matrix (Pekka)
->>  - Fix confusing "CSC preset" doc (Pekka)
->>
->> v2:
->>  - Naming changes (Pekka)
->>
->> v3:
->>  - Fix NC matrix enum name and string (Melissa)
->>  - Rebase
->>
->> Co-developed-by: Harry Wentland <harry.wentland@amd.com>
->> Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
->> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
->> Reviewed-by: Melissa Wen <mwen@igalia.com>
->> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->> Reviewed-by: Robert Mader <robert.mader@collabora.com>
->> ---
->>  drivers/gpu/drm/drm_atomic.c      |   4 +
->>  drivers/gpu/drm/drm_atomic_uapi.c |   7 ++
->>  drivers/gpu/drm/drm_colorop.c     | 109 ++++++++++++++++++++
->>  include/drm/drm_colorop.h         | 159 ++++++++++++++++++++++++++++++
->>  include/uapi/drm/drm_mode.h       |  12 +++
->>  5 files changed, 291 insertions(+)
-> 
->> diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
->> index 682fcc651525..e7ccf7d053b8 100644
->> --- a/drivers/gpu/drm/drm_colorop.c
->> +++ b/drivers/gpu/drm/drm_colorop.c
->> @@ -68,6 +68,7 @@ static const struct drm_prop_enum_list drm_colorop_type_enum_list[] = {
->>  	{ DRM_COLOROP_CTM_3X4, "3x4 Matrix"},
->>  	{ DRM_COLOROP_MULTIPLIER, "Multiplier"},
->>  	{ DRM_COLOROP_3D_LUT, "3D LUT"},
->> +	{ DRM_COLOROP_FIXED_MATRIX, "Fixed Matrix"},
->>  };
->>  
->>  static const char * const colorop_curve_1d_type_names[] = {
->> @@ -90,6 +91,17 @@ static const struct drm_prop_enum_list drm_colorop_lut3d_interpolation_list[] =
->>  	{ DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL, "Tetrahedral" },
->>  };
->>  
->> +static const char * const colorop_fixed_matrix_type_names[] = {
->> +	[DRM_COLOROP_FM_YCBCR601_FULL_RGB] = "YCbCr 601 Full to RGB",
->> +	[DRM_COLOROP_FM_YCBCR601_LIMITED_RGB] = "YCbCr 601 Limited to RGB",
->> +	[DRM_COLOROP_FM_YCBCR709_FULL_RGB] = "YCbCr 709 Full to RGB",
->> +	[DRM_COLOROP_FM_YCBCR709_LIMITED_RGB] = "YCbCr 709 Limited to RGB",
->> +	[DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB] = "YCbCr 2020 NC Full to RGB",
->> +	[DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB] = "YCbCr 2020 NC Limited to RGB",
->> +	[DRM_COLOROP_FM_YCBCR_LIMITED_FULL] = "YCbCr limited to full",
->> +	[DRM_COLOROP_FM_RGB709_RGB2020] = "RGB709 to RGB2020",
->> +};
-> 
-> 
->> diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
->> index 224fae40ed2b..92eb6463c39f 100644
->> --- a/include/drm/drm_colorop.h
->> +++ b/include/drm/drm_colorop.h
->> @@ -134,6 +134,146 @@ enum drm_colorop_curve_1d_type {
->>  	DRM_COLOROP_1D_CURVE_COUNT
->>  };
->>  
->> +/**
->> + * enum drm_colorop_fixed_matrix_type - type of Fixed Matrix
->> + *
->> + * Describes a Fixed Matrix operation to be applied by the DRM_COLOROP_FIXED_MATRIX
->> + */
->> +enum drm_colorop_fixed_matrix_type {
->> +	/**
->> +	 * @DRM_COLOROP_FM_YCBCR601_FULL_RGB:
->> +	 *
->> +	 * enum string "YCbCr 601 Full to RGB"
->> +	 *
->> +	 * Converts full-range YCbCr into full-range RGB using the BT.601
->> +	 * coefficients. Y is normalized to [0, 1] and Cb, Cr are centered
->> +	 * at 0 (the nominal 0.5 offset removed) before the matrix::
->> +	 *
->> +	 *   | R |   | 1.0   0.000000   1.402000 |   | Y  |
->> +	 *   | G | = | 1.0  -0.344136  -0.714136 | x | Cb |
->> +	 *   | B |   | 1.0   1.772000   0.000000 |   | Cr |
->> +	 */
->> +	DRM_COLOROP_FM_YCBCR601_FULL_RGB,
->> +
->> +	/**
->> +	 * @DRM_COLOROP_FM_YCBCR601_LIMITED_RGB:
->> +	 *
->> +	 * enum string "YCbCr 601 Limited to RGB"
->> +	 *
->> +	 * Converts limited- (narrow-) range YCbCr into full-range RGB using
->> +	 * the BT.601 coefficients. Before the matrix Y is offset by 16/255
->> +	 * and Cb, Cr are centered at 0, following the studio-range
->> +	 * convention of ITU-R BT.601::
->> +	 *
->> +	 *   | R |   | 1.164384   0.000000   1.596027 |   | Y - 16/255 |
->> +	 *   | G | = | 1.164384  -0.391762  -0.812968 | x | Cb         |
->> +	 *   | B |   | 1.164384   2.017232   0.000000 |   | Cr         |
->> +	 */
->> +	DRM_COLOROP_FM_YCBCR601_LIMITED_RGB,
->> +
->> +	/**
->> +	 * @DRM_COLOROP_FM_YCBCR709_FULL_RGB:
->> +	 *
->> +	 * enum string "YCbCr 709 Full to RGB"
->> +	 *
->> +	 * Converts full-range YCbCr into full-range RGB using the BT.709
->> +	 * coefficients. Y is normalized to [0, 1] and Cb, Cr are centered
->> +	 * at 0 (the nominal 0.5 offset removed) before the matrix::
->> +	 *
->> +	 *   | R |   | 1.0   0.000000   1.574800 |   | Y  |
->> +	 *   | G | = | 1.0  -0.187324  -0.468124 | x | Cb |
->> +	 *   | B |   | 1.0   1.855600   0.000000 |   | Cr |
->> +	 */
->> +	DRM_COLOROP_FM_YCBCR709_FULL_RGB,
->> +
->> +	/**
->> +	 * @DRM_COLOROP_FM_YCBCR709_LIMITED_RGB:
->> +	 *
->> +	 * enum string "YCbCr 709 Limited to RGB"
->> +	 *
->> +	 * Converts limited- (narrow-) range YCbCr into full-range RGB using
->> +	 * the BT.709 coefficients. Before the matrix Y is offset by 16/255
->> +	 * and Cb, Cr are centered at 0, following the studio-range
->> +	 * convention of ITU-R BT.709::
->> +	 *
->> +	 *   | R |   | 1.164384   0.000000   1.792741 |   | Y - 16/255 |
->> +	 *   | G | = | 1.164384  -0.213249  -0.532909 | x | Cb         |
->> +	 *   | B |   | 1.164384   2.112402   0.000000 |   | Cr         |
->> +	 */
->> +	DRM_COLOROP_FM_YCBCR709_LIMITED_RGB,
->> +
->> +	/**
->> +	 * @DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB:
->> +	 *
->> +	 * enum string "YCbCr 2020 NC Full to RGB"
->> +	 *
->> +	 * Converts full-range YCbCr into full-range RGB using the BT.2020
->> +	 * non-constant luminance coefficients. Y is normalized to [0, 1]
->> +	 * and Cb, Cr are centered at 0 (the nominal 0.5 offset removed)
->> +	 * before the matrix::
->> +	 *
->> +	 *   | R |   | 1.0   0.000000   1.474600 |   | Y  |
->> +	 *   | G | = | 1.0  -0.164553  -0.571353 | x | Cb |
->> +	 *   | B |   | 1.0   1.881400   0.000000 |   | Cr |
->> +	 */
->> +	DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB,
->> +
->> +	/**
->> +	 * @DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB:
->> +	 *
->> +	 * enum string "YCbCr 2020 NC Limited to RGB"
->> +	 *
->> +	 * Converts limited- (narrow-) range YCbCr into full-range RGB using
->> +	 * the BT.2020 non-constant luminance coefficients. Before the matrix
->> +	 * Y is offset by 16/255 and Cb, Cr are centered at 0, following the
->> +	 * studio-range convention of ITU-R BT.2020::
->> +	 *
->> +	 *   | R |   | 1.164384   0.000000   1.678674 |   | Y - 16/255 |
->> +	 *   | G | = | 1.164384  -0.187326  -0.650424 | x | Cb         |
->> +	 *   | B |   | 1.164384   2.141772   0.000000 |   | Cr         |
->> +	 */
->> +	DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB,
->> +
->> +	/**
->> +	 * @DRM_COLOROP_FM_YCBCR_LIMITED_FULL:
->> +	 *
->> +	 * enum string "YCbCr limited to full"
->> +	 *
->> +	 * Converts limited- (narrow-) range YCbCr into full-range YCbCr.
->> +	 * Though not strictly a matrix operation it can be represented as
->> +	 * one. Luma is expanded by 255/219 and chroma by 255/224, keeping
->> +	 * the black level (16/255) and chroma neutral point (0.5) fixed::
->> +	 *
->> +	 *   | Y'      |   | 1.164384  0.000000  0.000000 |   | Y - 16/255 |
->> +	 *   | Cb'-0.5 | = | 0.000000  1.138393  0.000000 | x | Cb - 0.5   |
->> +	 *   | Cr'-0.5 |   | 0.000000  0.000000  1.138393 |   | Cr - 0.5   |
->> +	 */
-> 
-> Hi Harry,
-> 
-> the prime notation (Y') is often used to signify an electrical domain
-> while in the same context stimulus variables without prime signify an
-> optical domain. Using both forms here might cause some confusion.
-> Instead of an equals sign, maybe you could use an arrow to avoid having
-> to rename all YCbCr variables? (e.g. x ← x + 1)
-> 
-> About the chroma offset for both ranges on all coefficients; it depends
-> on the number of bits per channel B such that
-> 
-> 	N = 1 << B
-> 	offset = (N / 2) / (N - 1)
-> 
-> I assume the drivers and hardware get this right, but I feel a little
-> uncomfortable letting this approximation into the documentation since,
-> strictly speaking, it's incorrect.
-> 
-
-I'm dropping DRM_COLOROP_FM_YCBCR_LIMITED_FULL and DRM_COLOROP_FM_RGB709_RGB2020
-from v5 because we don't have any good non-IGT usermode testing these currently,
-to my knowledge.
-
-Chaitanya, I expect you'll re-add them for your Intel series. Make sure to take
-Pekka's comments into account then. Would like to see how these fit into any
-compositor implementation.
-
-Harry
-
-> 
->> +	DRM_COLOROP_FM_YCBCR_LIMITED_FULL,
->> +
->> +	/**
->> +	 * @DRM_COLOROP_FM_RGB709_RGB2020:
->> +	 *
->> +	 * enum string "RGB709 to RGB2020"
->> +	 *
->> +	 * Selects the matrix that converts full-range RGB with BT.709
->> +	 * primaries to full-range RGB with BT.2020 primaries. The
->> +	 * coefficients match the RGB-to-RGB conversion defined in
->> +	 * ITU-R BT.2087::
->> +	 *
->> +	 *   | R2020 |   | 0.6274  0.3293  0.0433 |   | R709 |
->> +	 *   | G2020 | = | 0.0691  0.9195  0.0114 | x | G709 |
->> +	 *   | B2020 |   | 0.0164  0.0880  0.8956 |   | B709 |
->> +	 */
->> +	DRM_COLOROP_FM_RGB709_RGB2020,
->> +
->> +	/**
->> +	 * @DRM_COLOROP_FM_COUNT:
->> +	 *
->> +	 * enum value denoting the size of the enum
->> +	 */
->> +	DRM_COLOROP_FM_COUNT
->> +};
-> 
-> I have verified all the matrices listed above.
-> 
-> I would prefer to see the notational issues addressed, but with or
-> without:
-> 
-> Reviewed-by: Pekka Paalanen <pekka.paalanen@collabora.com>
-> 
-> 
-> Thanks,
-> pq
+diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
+index 1c7f13e1cd75..e9df11a5dd26 100644
+--- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
++++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
+@@ -34,6 +34,7 @@
+ #include "vcn/vcn_5_0_0_sh_mask.h"
+ #include "ivsrcid/vcn/irqsrcs_vcn_5_0.h"
+ 
++static int jpeg_v5_0_2_start_sriov(struct amdgpu_device *adev);
+ static void jpeg_v5_0_2_set_dec_ring_funcs(struct amdgpu_device *adev);
+ static void jpeg_v5_0_2_set_irq_funcs(struct amdgpu_device *adev);
+ static int jpeg_v5_0_2_set_powergating_state(struct amdgpu_ip_block *ip_block,
+@@ -164,9 +165,15 @@ static int jpeg_v5_0_2_sw_init(struct amdgpu_ip_block *ip_block)
+ 			ring = &adev->jpeg.inst[i].ring_dec[j];
+ 			ring->use_doorbell = true;
+ 			ring->vm_hub = AMDGPU_MMHUB0(adev->jpeg.inst[i].aid_id);
+-			ring->doorbell_index =
+-				(adev->doorbell_index.vcn.vcn_ring0_1 << 1) +
+-				1 + j + 11 * jpeg_inst;
++			if (amdgpu_sriov_vf(adev)) {
++				ring->doorbell_index =
++					(adev->doorbell_index.vcn.vcn_ring0_1 << 1) +
++					2 + j + 32 * jpeg_inst;
++			} else {
++				ring->doorbell_index =
++					(adev->doorbell_index.vcn.vcn_ring0_1 << 1) +
++					1 + j + 11 * jpeg_inst;
++			}
+ 			sprintf(ring->name, "jpeg_dec_%d.%d", i, j);
+ 			r = amdgpu_ring_init(adev, ring, 512, &adev->jpeg.inst->irq, 0,
+ 					     AMDGPU_RING_PRIO_DEFAULT, NULL);
+@@ -187,7 +194,8 @@ static int jpeg_v5_0_2_sw_init(struct amdgpu_ip_block *ip_block)
+ 
+ 	adev->jpeg.supported_reset =
+ 		amdgpu_get_soft_full_reset_mask(&adev->jpeg.inst[0].ring_dec[0]);
+-	adev->jpeg.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
++	if (!amdgpu_sriov_vf(adev))
++		adev->jpeg.supported_reset |= AMDGPU_RESET_TYPE_PER_QUEUE;
+ 	r = amdgpu_jpeg_sysfs_reset_mask_init(adev);
+ 
+ 	return r;
+@@ -228,6 +236,23 @@ static int jpeg_v5_0_2_hw_init(struct amdgpu_ip_block *ip_block)
+ 	struct amdgpu_ring *ring;
+ 	int i, j, r, jpeg_inst, tmp;
+ 
++	if (amdgpu_sriov_vf(adev)) {
++		r = jpeg_v5_0_2_start_sriov(adev);
++		if (r)
++			return r;
++
++		for (i = 0; i < adev->jpeg.num_jpeg_inst; ++i) {
++			for (j = 0; j < adev->jpeg.num_jpeg_rings; ++j) {
++				ring = &adev->jpeg.inst[i].ring_dec[j];
++				ring->wptr = 0;
++				ring->wptr_old = 0;
++				jpeg_v5_0_2_dec_ring_set_wptr(ring);
++				ring->sched.ready = true;
++			}
++		}
++		return 0;
++	}
++
+ 	if (RREG32_SOC15(VCN, GET_INST(VCN, 0), regVCN_RRMT_CNTL) & 0x100)
+ 		adev->jpeg.caps |= AMDGPU_JPEG_CAPS(RRMT_ENABLED);
+ 
+@@ -276,8 +301,10 @@ static int jpeg_v5_0_2_hw_fini(struct amdgpu_ip_block *ip_block)
+ 
+ 	cancel_delayed_work_sync(&adev->jpeg.idle_work);
+ 
++	if (!amdgpu_sriov_vf(adev)) {
+ 		if (adev->jpeg.cur_state != AMD_PG_STATE_GATE)
+ 			ret = jpeg_v5_0_2_set_powergating_state(ip_block, AMD_PG_STATE_GATE);
++	}
+ 
+ 	return ret;
+ }
+@@ -407,6 +434,122 @@ static void jpeg_v5_0_2_init_jrbc(struct amdgpu_ring *ring)
+ 					 reg_offset);
+ }
+ 
++/**
++ * jpeg_v5_0_2_start_sriov - start JPEG block under SRIOV env
++ */
++static int jpeg_v5_0_2_start_sriov(struct amdgpu_device *adev)
++{
++	struct amdgpu_ring *ring;
++	uint64_t ctx_addr;
++	uint32_t param, resp, expected;
++	uint32_t tmp, timeout;
++
++	struct amdgpu_mm_table *table = &adev->virt.mm_table;
++	uint32_t *table_loc;
++	uint32_t table_size;
++	uint32_t size, size_dw, item_offset;
++	uint32_t init_status;
++	int i, j, jpeg_inst;
++
++	struct mmsch_v5_0_cmd_direct_write
++		direct_wt = { {0} };
++	struct mmsch_v5_0_cmd_end end = { {0} };
++	struct mmsch_v5_0_init_header header;
++
++	direct_wt.cmd_header.command_type =
++		MMSCH_COMMAND__DIRECT_REG_WRITE;
++	end.cmd_header.command_type =
++		MMSCH_COMMAND__END;
++
++	for (i = 0; i < adev->jpeg.num_jpeg_inst; i++) {
++		jpeg_inst = GET_INST(JPEG, i);
++
++		memset(&header, 0, sizeof(struct mmsch_v5_0_init_header));
++		header.version = MMSCH_VERSION;
++		header.total_size = sizeof(struct mmsch_v5_0_init_header) >> 2;
++
++		table_loc = (uint32_t *)table->cpu_addr;
++		table_loc += header.total_size;
++
++		item_offset = header.total_size;
++
++		for (j = 0; j < adev->jpeg.num_jpeg_rings; j++) {
++			ring = &adev->jpeg.inst[i].ring_dec[j];
++			table_size = 0;
++
++			tmp = SOC15_REG_OFFSET(JPEG, 0, regUVD_LMI_JRBC_RB_64BIT_BAR_LOW);
++			MMSCH_V5_0_INSERT_DIRECT_WT(tmp, lower_32_bits(ring->gpu_addr));
++			tmp = SOC15_REG_OFFSET(JPEG, 0, regUVD_LMI_JRBC_RB_64BIT_BAR_HIGH);
++			MMSCH_V5_0_INSERT_DIRECT_WT(tmp, upper_32_bits(ring->gpu_addr));
++			tmp = SOC15_REG_OFFSET(JPEG, 0, regUVD_JRBC_RB_SIZE);
++			MMSCH_V5_0_INSERT_DIRECT_WT(tmp, ring->ring_size / 4);
++
++			if (j < 5) {
++				header.mjpegdec0[j].table_offset = item_offset;
++				header.mjpegdec0[j].init_status = 0;
++				header.mjpegdec0[j].table_size = table_size;
++			} else {
++				header.mjpegdec1[j - 5].table_offset = item_offset;
++				header.mjpegdec1[j - 5].init_status = 0;
++				header.mjpegdec1[j - 5].table_size = table_size;
++			}
++			header.total_size += table_size;
++			item_offset += table_size;
++		}
++
++		MMSCH_V5_0_INSERT_END();
++
++		/* send init table to MMSCH */
++		size = sizeof(struct mmsch_v5_0_init_header);
++		table_loc = (uint32_t *)table->cpu_addr;
++		memcpy((void *)table_loc, &header, size);
++
++		ctx_addr = table->gpu_addr;
++		WREG32_SOC15(VCN, jpeg_inst, regMMSCH_VF_CTX_ADDR_LO, lower_32_bits(ctx_addr));
++		WREG32_SOC15(VCN, jpeg_inst, regMMSCH_VF_CTX_ADDR_HI, upper_32_bits(ctx_addr));
++
++		tmp = RREG32_SOC15(VCN, jpeg_inst, regMMSCH_VF_VMID);
++		tmp &= ~MMSCH_VF_VMID__VF_CTX_VMID_MASK;
++		tmp |= (0 << MMSCH_VF_VMID__VF_CTX_VMID__SHIFT);
++		WREG32_SOC15(VCN, jpeg_inst, regMMSCH_VF_VMID, tmp);
++
++		size = header.total_size;
++		WREG32_SOC15(VCN, jpeg_inst, regMMSCH_VF_CTX_SIZE, size);
++
++		WREG32_SOC15(VCN, jpeg_inst, regMMSCH_VF_MAILBOX_RESP, 0);
++
++		param = 0x00000001;
++		WREG32_SOC15(VCN, jpeg_inst, regMMSCH_VF_MAILBOX_HOST, param);
++		tmp = 0;
++		timeout = amdgpu_emu_mode ? 1000000 : 1000;
++		resp = 0;
++		expected = MMSCH_VF_MAILBOX_RESP__OK;
++		init_status =
++			((struct mmsch_v5_0_init_header *)(table_loc))->mjpegdec0[i].init_status;
++		while (resp != expected) {
++			resp = RREG32_SOC15(VCN, jpeg_inst, regMMSCH_VF_MAILBOX_RESP);
++
++			if (resp != 0)
++				break;
++			udelay(10);
++			tmp = tmp + 10;
++			if (tmp >= timeout) {
++				DRM_ERROR("failed to init MMSCH. TIME-OUT after %d usec"\
++					" waiting for regMMSCH_VF_MAILBOX_RESP "\
++					"(expected=0x%08x, readback=0x%08x)\n",
++					tmp, expected, resp);
++				return -EBUSY;
++			}
++		}
++		if (resp != expected && resp != MMSCH_VF_MAILBOX_RESP__INCOMPLETE &&
++				init_status != MMSCH_VF_ENGINE_STATUS__PASS)
++			DRM_ERROR("MMSCH init status is incorrect! readback=0x%08x, header init status for jpeg: %x\n",
++					resp, init_status);
++
++	}
++	return 0;
++}
++
+ /**
+  * jpeg_v5_0_2_start - start JPEG block
+  *
+@@ -566,6 +709,11 @@ static int jpeg_v5_0_2_set_powergating_state(struct amdgpu_ip_block *ip_block,
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 	int ret;
+ 
++	if (amdgpu_sriov_vf(adev)) {
++		adev->jpeg.cur_state = AMD_PG_STATE_UNGATE;
++		return 0;
++	}
++
+ 	if (state == adev->jpeg.cur_state)
+ 		return 0;
+ 
+-- 
+2.51.0
 
