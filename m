@@ -4,99 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AA99C55162
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 17:27:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 867DAC5516F
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 18:41:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E019B10F006;
-	Thu, 30 Jul 2026 17:27:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CC79A10F03E;
+	Thu, 30 Jul 2026 18:41:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Si825cfm";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="n6XCFUYW";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010010.outbound.protection.outlook.com [52.101.85.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE38510F006
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 17:27:56 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011024.outbound.protection.outlook.com [40.107.208.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D90B110F03E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 18:41:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R0Ip0tnqsfmJswOXUzyepwGY67QDl4hZPWytPEKNzbpIDZfuQXwc4ADqnU01O5NPu/q/uGsBNmY87hnfmxCa8RuFIrN126feyGL5//VVQNgclKik25mz5g9dFfOgmYzhHJ486bYMZOvCGrF9gZjopsTkjFH4SU9MBk/cFsKXBT0bYx7Awtis+YXarqvpNey3naQ+/hcqsfTAYgOQUsuL9c9mJbOhr3ifSsS7ggFt2www29o8vMq00GLBweNLqJButdDoNMtLtvOFdkQJuNThp1n2JtbOnsydjYZBpb5o/+B4erb6Lwch7EOUfP4Hz0ZTegEwEefxFh0E3nF30FKv8A==
+ b=f0BP06dLjFhXr+jGkl00jAAzqvvcN5jkZf8pFj+oRgfW1JfiRc71cGXRyEncmlexaKe9XTy4flypQjJh8FiY5L5PKMTgezVMDIQ/5HqOXr02M4pnP7WsrjxmphQlRjPSJdPWhqX7uMXX+ws8f8cB/4Ayhm9woeohsPIstisEp5lDdTO+zZ9/ihODbt2eJHTi44cqIejnYA5hUvUoWyCWJF+zw1WpennHfx1/YHbUoy9Px4MbGky//VP3fAr3bTKnf4SQgF6sjAKFAtnFiidr41jkW+m5TwmMj/QBU+ptyaCwpWoIm0lsNF9mzdyeMfLF9xvXaYISgppD9XVB6cVhWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EB64A9TR1XQhneyaPmU1bM6UpppZw9JP+GiQwKD0+Ws=;
- b=P4Q23fxCtFzNTf2HKOAE14C/vve2ZcbGXKba+ISJ171wBFzPO9+3RLyUZKM5hH0hzrLschvu76T+HoDhlkQBmdiUgVt3nncRt7X3thNCinZmDWMgTT85URxYRSVmmDX2Z2re7IvCn5nco6MDtivmK2u0IlUef15dm7TIANvpd1pxS4q21Sadb9SPysXaRGnh/tChl+N3d4bq266n2qoNfvIz52DRA2noz4O8U34oHCbUHLqi+6wyyBcKqlwPZUFZHu14/rCSJD6FMUNEvi6NJoCpgQnix0sCO/FaZfJx6Yr4AJQBjlnKmvezN2aRB5lgppofh8nPzeSNjAETvSvdTg==
+ bh=L+dXSNCVHlIIGs+SJicqwP1DROfXSQemUaceyGzbCUs=;
+ b=ZvcrvNe5gGNTBtNdcOC4LrdG+VlyjmW2PHpcDNEJlsAUkjbIL1wvbfs8DPrGkFZPbKc7G6gOYGngMNef2Z5L98bfvAv2ZcV/3Scj4R7Cf1oT21griZo1YfXPIAljzawqsyPPiqPQKIMZ1ADKuMEZd0673It7ZRZ92nsMfIdtGiX2tHEN1+2ooNvRljBbXxaCT7rHGXUW4rtVETzdxhuy3w5oSmA3OV+K5S6ZnQCaA8mkT0Jq6Y+u4mkChnVMpZXcPBU6nCoDbhNWFcR3IICvbBhzdg4UE68VNt/L5JspkEKlJQGlfsnEKfyCzNxqorxVGADh8l8x2R7RzCJAvROkRw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=EB64A9TR1XQhneyaPmU1bM6UpppZw9JP+GiQwKD0+Ws=;
- b=Si825cfmjgTlAlNQelfPCyDRSOp389gR1OH7uAg9YsAZKJMelp+uDiM/7b2LHtUbAqe7KFlsfKUttndiOxkQL/x0K2MPYRVNkT1r+9g99YuYWbZmGSLDwbAfxPYmq6RFnJz0UrX/Hk+uugAfbHf8YNWnw1Mc5S1EA+Rdzw9ofl0=
-Received: from BL1PR13CA0068.namprd13.prod.outlook.com (2603:10b6:208:2b8::13)
- by DS2PR12MB9711.namprd12.prod.outlook.com (2603:10b6:8:275::11) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=L+dXSNCVHlIIGs+SJicqwP1DROfXSQemUaceyGzbCUs=;
+ b=n6XCFUYW/HM+LWtlqnJ5CBxxSGJZSxCfsFhFpATZUuf13HfxPrAFPJLgSyuytYY9+anZy4KeD8p/Phddu/pFrJqZErK/1EOt5idc38Cb6zGm+x8lFb9dec13PXcKfJVQHFI9sjwfXUxJauUtOw4bUYo45VJ5sxeRBVczTYrLOwI=
+Received: from BN8PR04CA0042.namprd04.prod.outlook.com (2603:10b6:408:d4::16)
+ by CY5PR12MB6429.namprd12.prod.outlook.com (2603:10b6:930:3b::16)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Thu, 30 Jul
- 2026 17:27:53 +0000
-Received: from BN3PEPF0000B36F.namprd21.prod.outlook.com
- (2603:10b6:208:2b8:cafe::80) by BL1PR13CA0068.outlook.office365.com
- (2603:10b6:208:2b8::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.9 via Frontend Transport; Thu, 30
- Jul 2026 17:27:53 +0000
+ 2026 18:41:47 +0000
+Received: from BN2PEPF000044A9.namprd04.prod.outlook.com
+ (2603:10b6:408:d4:cafe::79) by BN8PR04CA0042.outlook.office365.com
+ (2603:10b6:408:d4::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.14 via Frontend Transport; Thu,
+ 30 Jul 2026 18:41:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BN3PEPF0000B36F.mail.protection.outlook.com (10.167.243.166) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF000044A9.mail.protection.outlook.com (10.167.243.103) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.1 via Frontend Transport; Thu, 30 Jul 2026 17:27:52 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.292.8 via Frontend Transport; Thu, 30 Jul 2026 18:41:46 +0000
+Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 30 Jul
- 2026 12:27:48 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 30 Jul
- 2026 12:27:47 -0500
-Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Thu, 30 Jul 2026 12:27:47 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>, Sonny Jiang <sonny.jiang@amd.com>
-Subject: [PATCH] drm/amdgpu/gmc12.1: implement tlb inv semaphore
-Date: Thu, 30 Jul 2026 13:27:40 -0400
-Message-ID: <20260730172740.1268133-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.55.0
+ 2026 13:41:45 -0500
+From: Fangzhi Zuo <jerry.zuo@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <nicolas.frattaroli@collabora.com>,
+ <krzk@kernel.org>
+CC: Fangzhi Zuo <jerry.zuo@amd.com>
+Subject: [PATCH] drm/amd/display: Simplify hdmi_automation debugfs with
+ debugfs_create_bool
+Date: Thu, 30 Jul 2026 14:41:03 -0400
+Message-ID: <20260730184103.916125-1-jerry.zuo@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36F:EE_|DS2PR12MB9711:EE_
-X-MS-Office365-Filtering-Correlation-Id: bfcac931-e132-4865-07ba-08deee5fe2d2
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044A9:EE_|CY5PR12MB6429:EE_
+X-MS-Office365-Filtering-Correlation-Id: ed835704-23a6-472c-cfa2-08deee6a359b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|23010399003|82310400026|1800799024|6133799003|56012099006|11063799006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 573uqh/FRaCTkqkfTOFODcZRE8ToJcCwTauxPjiXPTMgpzr6mrCGhnm2EEE3qUcY5ax5+k3ttDgQGfCr28BM+HR913JmCxqTWH5P1HA1QApTf3M+JheBOPi6Acl3ZzxtJgLgLcq5I7oRRp+J/dRJ76SV+5LYeZQDDu74YpFipfXlzQ01YfxCr9eOZQ9julxjUhv0+tSbIawafsSlqZI4EdPKzO/M2u376EY09MvWuudJYG9ACQVPTP/R+G+yYJZ8ieh/szDxB6fCAnWoKB/hz9ynEpavjqtR8fzw5afZwJrld2trYoY40S2YYeYWrwxyqWbd6sJqqpVu7tVhyiYC+AIIfV06Xc3jdEw3ZotfwSf6Dx23RzEQGm1zHxXOPV0nrIzOllCA6sx3UhgVfWeP9LlcRptA9GMtaNJmRFeonFez3R+YlgVur7vIUs+rF8fzAxkW+apE0Cg0nv+1oC0RNmvxXD9y5TZmE7y86NYsVTzEV02wYh1ROzaE376aIzZDLQcl2VaLpvnihbdkhyp1gHTC9ZHrk+Fap66FkA31KLBLoC00jwf3c261h7dTkJbIMQbWDK33j4sWNw9I77sARICrMBZAZ8VdwwRb7FxijVv/PVkWDfQpNnklcKY6Az8OZBnWgCNgUJ6rZAQ742iE5/RhP1ZK+X7GxDTcjSBXsCvfjjmPFSlGxv2yhqW5ILw69Z4ZK6PIZkjU7CpfJHORmg==
+ ARA:13230040|1800799024|82310400026|23010399003|36860700016|376014|10067099003|11063799006|6133799003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: Gwchk6zq8nEzb3ZAeCp4FUSKNSiUa4ux1uj8y1s+8tG5dKxKDUmEq9q4aCfrm4EaRrqVeyULAByitGnlgpRT4A9wo3JCEOPaiEHMdJBy0Et9h7g126gvcN5Tc2WbBg8Gdg19gDdbAGNkJb+yA4o8rDhMGBbLpDZ4/iX7VoI/KN9O9hkErGRLmFduJjId7swpJUw/ktDkomWo950wRtVGjt5lgsssTvy262jKtQQxGaM9XGmGOoIdZ78WG3BX5bAgmu8TrJqaNhekDkzf3oPjwEi13HeIYGal+NgcmP125RG6L1AcO4uIXS0X0Pj6dOx46OFqDQhtOEcKqOIu8w1/2YQX6pwgNuobPfMmEcxXDqYP1YrVJt/mJ3Fbphv6U3E8RHXAvYP/2mxuZE0bJABGDbvgwfqLrR64Zlv9lT0vjvj85pZAewhvNaZqrLSQ2zTSWAGYSfS01VswXIW6WD7S5bIZMhxbK/iEztePHSejiZmKeP4xrWSNDwW2G5kbIf/y9q5yvMLY5TRkLsQMu2Rq7cH486hPk3f7ciz8OagFaruBM3OgHUK0WxE9gbh2YX89OfICnUcWesqR+Jx++O8uThst7Po6LU2feFFIgIJT8U1FO11ZswLFJ2ZKUa40aLO3Gl5GEIK3TCo1eQ+QyObxl/QLvmVTfkrfmmdfBXeSIWn7fj8Y0LzUyT+GtunN8Luv0KD949VTLl9GBJQQrRpFlg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(23010399003)(82310400026)(1800799024)(6133799003)(56012099006)(11063799006)(10067099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(23010399003)(36860700016)(376014)(10067099003)(11063799006)(6133799003)(56012099006)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 4dYyGTIZyHo6gPQe8gt7OLqZWcQfKnFq6IuchjDTggtbKLIyVvjBU+p/AmliRw/IczizXvU3sYyvycg0eYbpGaDyvwAriMh67YVT0j/oQHO3W1acSWvTpoUo8+M4Z4JL7V+7ygw1s2e93Ez1dOK89/ae3d9sFcv/jj7u8Nu7kDM4CCJ8qkCl3IES0cUAIZTFlqNVQCvJWeZbJFlPp20OW01PerMiIhT42duS6yytjKb+Y7EoGVoi8w61F0I5M+LSQoHCW1DhkySMBwbFsf7jelDWcm7fuTc1JDNbjO8MLVdYOn3JX8uglT8wwCmofxht94ekduDFNiqbUqcb528RDjTu5xT48HFPLEflu49wGBs2Zcn1uNpSOjE3MCQIW2bGwnWW/GHO1vvGLaZfQ+zMs9jaVNQ3zyI1HsRdDXl2SHQ8VQrnEsjfuzT6XEmruMTT
+X-MS-Exchange-AntiSpam-MessageData-0: onDYV0/DOF1ozM6aSG+NUfGTt6NfxwwP2zHMBjOgmbuYJE+orWxe7tANHzfg6EIvgYRNAKtfdzapV6Gs4H0q0SaZUqfJ7SdP794yNUJKnKmgXozFe+cwsq78w/PWR8rdGGyP3aZ5qUReoBZDX8tlQ9tzoNzb2YbBklUQTsu7Ba8Qp7K40kgcWUcQtvQQjv5/W2+sLoPOB22+parpoyE8Rh2zsZ268o1HIX0lzO4wUdJzc9wrnn2i9Gst+HaZO1wY1N9hUSRQ3UKXwSHKwImK6vlHgDoHmYP1HS+L4z8NyLSukwR7W27R8pbdGEAAMR8e8zX3EbglF4hVbzLQ0QYFUcRCxrGDLQftTFaqM74yPADklfEYqnDOmuhaCo/3+1LQ2DBgrB7x7TDuwXVnP8qetQTh3dPYkc00rtIdKSZDbByH0of5UpDMpkzAVr8lAjo3
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 17:27:52.7468 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bfcac931-e132-4865-07ba-08deee5fe2d2
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 18:41:46.4344 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed835704-23a6-472c-cfa2-08deee6a359b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36F.namprd21.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044A9.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9711
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6429
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,106 +109,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Needed to properly lock the interface before using it.
+Follow-up fix for commit 442b2e9dc9e9 ("drm/amd/display: Add Support for
+HDMI Compliance Automation"), whose hdmi_automation debugfs entry
+hand-rolled the boolean parsing (scratch buffer,
+parse_write_buffer_into_params(), a switch and kfree) that the debugfs
+core already provides.
 
-Cc: Sonny Jiang <sonny.jiang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+hdmi_comp_auto is a plain bool, so bind it directly with
+debugfs_create_bool() and drop the custom write handler, its
+file_operations and the hdmi_debugfs_entries[] row.
+
+Fixes: 442b2e9dc9e9 ("drm/amd/display: Add Support for HDMI Compliance Automation")
+Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c | 46 ++++++++++++++++++++++++++
- 1 file changed, 46 insertions(+)
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 69 +------------------
+ 1 file changed, 3 insertions(+), 66 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
-index 855cd29cbffaa..bdf6788b85b58 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
-@@ -267,9 +267,24 @@ static bool gmc_v12_1_get_vmid_pasid_mapping_info(struct amdgpu_device *adev,
-  * by the amdgpu vm/hsa code.
-  */
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index 830cf8da06b4..45249bebe9fb 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -2981,64 +2981,6 @@ static ssize_t hdmi_cec_state_write(struct file *f, const char __user *buf,
+ 	return size;
+ }
  
-+/**
-+ * gmc_v12_1_use_invalidate_semaphore - judge whether to use semaphore
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @vmhub: vmhub type
-+ *
-+ */
-+static bool gmc_v12_1_use_invalidate_semaphore(struct amdgpu_device *adev,
-+				       uint32_t vmhub)
-+{
-+	return ((!AMDGPU_IS_GFXHUB(vmhub)) &&
-+		(!amdgpu_sriov_vf(adev)));
-+}
+-/**
+- * hdmi_automation_enable - Enable/Disable HDMI automation feature
+- * @f: file structure.
+- * @buf: userspace buffer. set to '1' to enable; '0' to disable automation feature.
+- * @size: size of buffer from userpsace.
+- * @pos: unused.
+- *
+- * Return size on success, error code on failure
+- */
+-static ssize_t hdmi_automation_enable(struct file *f, const char __user *buf,
+-	size_t size, loff_t *pos)
+-{
+-	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
+-	char *wr_buf = NULL;
+-	const uint32_t wr_buf_size = 40;
+-	int max_param_num = 1;
+-	uint8_t param_nums = 0;
+-	long param[2];
+-	bool hdmi_comp_auto;
+-
+-	if (size == 0)
+-		return -EINVAL;
+-
+-	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
+-	if (!wr_buf)
+-		return -ENOSPC;
+-
+-	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+-					   (long *)param, buf,
+-					   max_param_num,
+-					   &param_nums)) {
+-		kfree(wr_buf);
+-		return -EINVAL;
+-	}
+-
+-	if (param_nums <= 0) {
+-		kfree(wr_buf);
+-		DRM_DEBUG_DRIVER("user data not be read\n");
+-		return -EINVAL;
+-	}
+-
+-	switch (param[0]) {
+-	case 0:
+-		hdmi_comp_auto = false;
+-		break;
+-	case 1:
+-	default:
+-		hdmi_comp_auto = true;
+-		break;
+-	}
+-
+-	/* Persist setting across sink re-detection/hotplug. */
+-	aconnector->hdmi_comp_auto = hdmi_comp_auto;
+-
+-	kfree(wr_buf);
+-	return size;
+-}
+-
+ DEFINE_SHOW_ATTRIBUTE(dp_dsc_fec_support);
+ DEFINE_SHOW_ATTRIBUTE(dmub_fw_state);
+ DEFINE_SHOW_ATTRIBUTE(dmub_tracebuffer);
+@@ -3156,12 +3098,6 @@ static const struct file_operations dp_mst_link_settings_debugfs_fops = {
+ 	.llseek = default_llseek
+ };
+ 
+-static const struct file_operations hdmi_automation_debugfs_fops = {
+-	.owner = THIS_MODULE,
+-	.write = hdmi_automation_enable,
+-	.llseek = default_llseek
+-};
+-
+ static const struct {
+ 	char *name;
+ 	const struct file_operations *fops;
+@@ -3194,8 +3130,7 @@ static const struct {
+ 	const struct file_operations *fops;
+ } hdmi_debugfs_entries[] = {
+ 		{"hdcp_sink_capability", &hdcp_sink_capability_fops},
+-		{"hdmi_cec_state", &hdmi_cec_state_fops},
+-		{"hdmi_automation", &hdmi_automation_debugfs_fops}
++		{"hdmi_cec_state", &hdmi_cec_state_fops}
+ };
+ 
+ /*
+@@ -3908,6 +3843,8 @@ void connector_debugfs_init(struct amdgpu_dm_connector *connector)
+ 					    0644, dir, connector,
+ 					    hdmi_debugfs_entries[i].fops);
+ 		}
 +
- static void gmc_v12_1_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
- 				   unsigned int vmhub, uint32_t flush_type)
- {
-+	bool use_semaphore = gmc_v12_1_use_invalidate_semaphore(adev, vmhub);
- 	struct amdgpu_vmhub *hub = &adev->vmhub[vmhub];
- 	u32 inv_req = hub->vmhub_funcs->get_invalidate_req(vmid, flush_type);
- 	u32 tmp;
-@@ -283,6 +298,19 @@ static void gmc_v12_1_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
- 
- 	spin_lock(&adev->gmc.invalidate_lock);
- 
-+	if (use_semaphore) {
-+		for (i = 0; i < adev->usec_timeout; i++) {
-+			/* a read return value of 1 means semaphore acuqire */
-+			tmp = RREG32_RLC_NO_KIQ(hub->vm_inv_eng0_sem + hub->eng_distance * eng, hub_ip);
-+			if (tmp & 0x1)
-+				break;
-+			udelay(1);
-+		}
-+
-+		if (i >= adev->usec_timeout)
-+			DRM_ERROR("Timeout waiting for sem acquire in VM flush!\n");
-+	}
-+
- 	WREG32_RLC_NO_KIQ(hub->vm_inv_eng0_req + hub->eng_distance * eng, inv_req, hub_ip);
- 
- 	/* Wait for ACK with a delay.*/
-@@ -296,6 +324,9 @@ static void gmc_v12_1_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
- 		udelay(1);
++		debugfs_create_bool("hdmi_automation", 0644, dir, &connector->hdmi_comp_auto);
  	}
- 
-+	if (use_semaphore)
-+		WREG32_RLC_NO_KIQ(hub->vm_inv_eng0_sem + hub->eng_distance * eng, 0, hub_ip);
-+
- 	/* Issue additional private vm invalidation to MMHUB */
- 	if (!AMDGPU_IS_GFXHUB(vmhub) &&
- 	    (hub->vm_l2_bank_select_reserved_cid2) &&
-@@ -431,10 +462,17 @@ static void gmc_v12_1_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
- static uint64_t gmc_v12_1_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
- 					     unsigned vmid, uint64_t pd_addr)
- {
-+	bool use_semaphore = gmc_v12_1_use_invalidate_semaphore(ring->adev, ring->vm_hub);
- 	struct amdgpu_vmhub *hub = &ring->adev->vmhub[ring->vm_hub];
- 	uint32_t req = hub->vmhub_funcs->get_invalidate_req(vmid, 0);
- 	unsigned eng = ring->vm_inv_eng;
- 
-+	if (use_semaphore)
-+		/* a read return value of 1 means semaphore acuqire */
-+		amdgpu_ring_emit_reg_wait(ring,
-+					  hub->vm_inv_eng0_sem +
-+					  hub->eng_distance * eng, 0x1, 0x1);
-+
- 	amdgpu_ring_emit_wreg(ring, hub->ctx0_ptb_addr_lo32 +
- 			      (hub->ctx_addr_distance * vmid),
- 			      lower_32_bits(pd_addr));
-@@ -449,6 +487,14 @@ static uint64_t gmc_v12_1_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
- 					    hub->eng_distance * eng,
- 					    req, 1 << vmid);
- 
-+	if (use_semaphore)
-+		/*
-+		 * add semaphore release after invalidation,
-+		 * write with 0 means semaphore release
-+		 */
-+		amdgpu_ring_emit_wreg(ring, hub->vm_inv_eng0_sem +
-+				      hub->eng_distance * eng, 0);
-+
- 	return pd_addr;
  }
  
 -- 
-2.55.0
+2.53.0
 
