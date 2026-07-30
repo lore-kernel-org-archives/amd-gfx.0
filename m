@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 227B8C54FDF
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 08:35:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 801BBC54FD2
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 08:35:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 843FF10EE2B;
-	Thu, 30 Jul 2026 08:35:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 95A8F10EE30;
+	Thu, 30 Jul 2026 08:35:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xRLUZ3Yb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="v1ASJk0J";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013019.outbound.protection.outlook.com
- [40.93.201.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C395F10EE2B
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 08:35:34 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011023.outbound.protection.outlook.com [52.101.57.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8DC9310EE2B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 08:35:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mm0P7cfqcGWN7YPL/VXqQCVmQqK+TOfz5r7FJhMiUnVsx+mryYhzUFaKkKwXvfjw8uQRb4hPAwRPSlz06yZZ1Q0wfK4tY61ZIYt9iNqHjSlTLBqCXGLC/YjZb65hn0iUjjdtyoYCNrExm++ZkyAcVY41B6oiIsU1ECHJyC8hbJlo6V6Hxj6S4GQ25L8rGCNdsoHcLwuiFY7zssnvWVkg5ZhoA7e7hzcbtkJv9JjJ9V5BPV4pdZpWzDtR8gDSMR2q4rz4P0Z4jpXE/Nw2r4kitmUQjQSjEUAN9TzSAwtGPQRVg9qwinBaXL5htgyqqPknAyGbJFiLudP6KM92uTDzKQ==
+ b=rorBxANfrfXn0UiJuThD9d0js3y0VYRJJGVlF9MC2H/VtVqop5HxVItG/iqfGm+KiDWgoTqezXXoKKY2GUXfTarxA9BFU/SCtmQEuGwOpctyf9EVutPPUwik1EjZ9lTRiD4/i1JMxMFd4TVHwSYT9WJpBEpk0X4k+NB1COSEDvKkFrwj9SJfeJ/D+tjvNhkK8BjFyT9gWDqus4XcZG/9zQDLqkKvG8tI9yprZEuX5QGf31TaxyoHphIsyIvEbBYhxxxaCej+rl7pyoj3UY+en7hTDgDCCjkR6ULrahFsXHPlGHoQtXYNjRuUJNrIMfgxMcUuT1p13lv6EhxBVlv7Jw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=y6DiSyPUIDJW6appWC+L19SCZBIYSk7IEr/e1heoHG4=;
- b=uCZIK6li2do+TKasT3SzhhUvRNTMjQhwW0xB7BIh/y3Qt8qFRDyolAGpSFwXEGL1TV4/WUuNvzP7Ibu3UiIgXnwuiuApos+md7GbFC3bDLhNGe9gDJnCVNQf168vfwHv4xP0/u2yvhpr98fSd7aFKb8aAbXTGrwoD0zCV3pKRpt/RUeEm1oyEDPURzJjK8UOt2MKiGkIJNim1Rr0uTRa+GE0HCGzllJR8SOi/chyLlXrXpJFB2VcFtB8v4awYiRT+M2GLfTmUAGPr4kYir9hVDAdxUjSyWJFe4D40GZACJyuBEvOYsouVkXJREb+EzOn4QNbKycsk3ZS33u1CcRVUA==
+ bh=h55+afR0xt6EY4Qd8mftKJcrtSGzovmCKpSOyXjd5KI=;
+ b=PJ9YJUNlSKYBelYdmGJ0e4+bdjdA5MXSp1RU9ozFo9qPFPEN0FZVFMftbV9g2TXakOYdx0QmyIcSDjNHF1UFxFmdMqCVRAm24jL72WhQRQQbsV8I0a45ow01jPVvIOYgKqv2Atu2MCtaa8N2UgQe3vFugpjPm+g4qgFjbd/twx07yKlduY61eUw8A1RCdytyt9YMom5X8IWhNrvqw5FLi8xYtUWCaa4c8oCCuB1W3YX7aHuhKxp0P5lbHKMUoDBQlqq1ezq/xRbvg8cUr/Kdib3Eiq0VxK3pYwPOsjQ9hAjQlOCpniGVZoJvq7dzUhYBcj7LF+9QMvcFgPOIAQpuQw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=y6DiSyPUIDJW6appWC+L19SCZBIYSk7IEr/e1heoHG4=;
- b=xRLUZ3Ybt5W9kkoaNKr5LGzTVcRoYAj4d+I3txT2NHEM2+UGWe8rwxtWdxXki8bp4uMPy9H8k5wUob2rimLJs1A8R3jrryAGTNSwBmjWx46zsAEYH40m1LXNtXWgxmZ878veSU5fl2LkT3hNb++CThw9jS7YMveYIIMbH6Hzk60=
-Received: from PH8PR07CA0002.namprd07.prod.outlook.com (2603:10b6:510:2cd::9)
- by CH1PPF73CDB1C12.namprd12.prod.outlook.com
- (2603:10b6:61f:fc00::615) with Microsoft SMTP Server (version=TLS1_2,
+ bh=h55+afR0xt6EY4Qd8mftKJcrtSGzovmCKpSOyXjd5KI=;
+ b=v1ASJk0J0puduEDAnq8cN15J3/K2cBxV0j/FYNMbjkHYbLu7IfoyrJruj815YXiaSDAph3sIT2ZZJnVlvmz25lpyrnkQ7eALSH5ac0BKWt0TEDWHL7BJt9GF3Y1GxX2yoVJa1VSpxjNnbwY2jAwCdAElqDu5p9fi7Pp1jk5o4SQ=
+Received: from PH7P223CA0029.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:338::30)
+ by SAWPR12MB999268.namprd12.prod.outlook.com (2603:10b6:806:55d::16)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.13; Thu, 30 Jul
  2026 08:35:29 +0000
-Received: from MW1PEPF0001615A.namprd21.prod.outlook.com
- (2603:10b6:510:2cd:cafe::26) by PH8PR07CA0002.outlook.office365.com
- (2603:10b6:510:2cd::9) with Microsoft SMTP Server (version=TLS1_3,
+Received: from MW1PEPF00016159.namprd21.prod.outlook.com
+ (2603:10b6:510:338:cafe::67) by PH7P223CA0029.outlook.office365.com
+ (2603:10b6:510:338::30) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.14 via Frontend Transport; Thu,
- 30 Jul 2026 08:35:26 +0000
+ 30 Jul 2026 08:35:29 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,21 +48,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- MW1PEPF0001615A.mail.protection.outlook.com (10.167.249.85) with Microsoft
+ MW1PEPF00016159.mail.protection.outlook.com (10.167.249.84) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.1 via Frontend Transport; Thu, 30 Jul 2026 08:35:26 +0000
+ 15.21.292.1 via Frontend Transport; Thu, 30 Jul 2026 08:35:28 +0000
 Received: from amd-03.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 30 Jul
- 2026 03:35:24 -0500
+ 2026 03:35:26 -0500
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Candice.Li@amd.com>,
  <Stanley.Yang@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>
-Subject: [PATCH 1/2] drm/amd/ras: rename rascore directory to core
-Date: Thu, 30 Jul 2026 16:34:34 +0800
-Message-ID: <20260730083435.540592-1-YiPeng.Chai@amd.com>
+Subject: [PATCH 2/2] drm/amd/ras: rename core ras_* files and update include
+ guards
+Date: Thu, 30 Jul 2026 16:34:35 +0800
+Message-ID: <20260730083435.540592-2-YiPeng.Chai@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260730083435.540592-1-YiPeng.Chai@amd.com>
+References: <20260730083435.540592-1-YiPeng.Chai@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -72,29 +74,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW1PEPF0001615A:EE_|CH1PPF73CDB1C12:EE_
-X-MS-Office365-Filtering-Correlation-Id: d798e4aa-3c47-47ce-5c44-08deee158177
+X-MS-TrafficTypeDiagnostic: MW1PEPF00016159:EE_|SAWPR12MB999268:EE_
+X-MS-Office365-Filtering-Correlation-Id: 46ca0308-7a83-4077-ad28-08deee1582b9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|23010399003|1800799024|82310400026|56012099006|11063799006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: uSrG3Bx6p+TxyTU7oIjQUfe2ulYan9mW9JJs2/rxT9+89FFnhuqekJyTu93wvhzFDTe65OgFVrKAVVu1NxB1+ZpnLqUuQBAwGVuoOMjXd6uon3RxrvloSv87kpQ51+QyxhZCjGWbqkQuoyVZgaWYehW8kjkTyPla7Z2SUNIkxhCxkGj/xfumDcbrlH7QuY9H4JUe96HWLAMG6ZicsZFDQz1uF4gxIelok9phQEfn+uU6k7trkMg2/ztQ5H4+D+8Gvk1EQHOPu3lIy6nxud/ux/fIjXucT1gTb1K623gg4QrhYT1Tdx2WtINlHcSY3hyVahn6TqxBOj0anzKOfO9mxDBm89jva+/EjScPKwgRaMCzRGSCW2FqVKu5MHLrPfQRMwu/MEsR2oSbykA0tlVRYQjEJIOsmwxD3vrFCfmtyMTbhq12uSApbCjuuERTCOpCgzehwwc+uhYexkfLqv0zFDzzqW8qYCWzUJdttJMc1YqQiAxFC1yN5lwBWr9ILYXxyCZc8kgx4YQNPv+Nq6jvFwNfVwWaceBPRArEMbFIfvQ8Rk8rXppmxbcIG1txLLhIHuKH3muLQvkzCxKQLKyVbkSaVOtuPhoqBgI3SoCPMU72uWKjkkkP4FUG0YZTU5asI5KrPoOV77hLCrPYA92aRPvyYwOrOamqXauDFp3wgOa8Yi/kVNH699znzXQ2TKGZY+vRnWQNzxItGUHeBaFaQQ==
+ ARA:13230040|36860700016|376014|23010399003|82310400026|1800799024|6133799003|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: +la5AgvsqIS3M0zhomhNGWH3BALHY3qTN/l3Ps1QysB1KJr16+Zvg5DXWFx0spmYYrKNFLcNABxP3OUlH/i4commLIArY5hwvccN89uUk+9VLrbtGJDNBk1VxpNx4FY7Tn7HpVL+1Bdn4IxkfV1B14gLkrq5GGipTs0FVunQH0P+pENVxui2+Aehtfwzpmt9g9PtjsJGUjrHHV3ongVcCgaDn5uwlX3wpp/0tjBFLYpmwwr1P8e7WINeNR8IzJlMh7q4IaPemUyixkxPrQdeMmiO12sI4FGrY6miSsMU56Mppv/1aEZpyqnwE+iEFsT/VUBfRRe1qHXMcmO0hCYs5u8GMVGwmqYn14/8Ss0q3TkkW0Tf00Lbf1DLcR2X0ouj9IGedMtaqDXZrsNlhoy3Ec9oEHQ4fseNE6vO8eKwmnDVaObfDzH/CQzVOZonysruKTENPATAY+lwT+mv/pZKamT8LQ5tjkDfIu8LsR7ha8qJEajGOKrKm/WtT50cO8hYJpJMNMd+U25tfCI0WTLID58kdszH+fKZqaOiSyqtdr/TYXBoCcYsqlnuGEK2HhWIBURUqQOaXPcG2DPgmO4nnzmSBjeXTld4/tU3wZ6j2uY8WNvEM4IFXjIn12p2Dvq4g5g55HGJ3bSOioNYB9EkDYSqVWFSRqEtRR6jCIV5UD6wpNnWslHf1E+dn7oqDGiJYlnMyYD8e7CNMWBqLO5M9w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(23010399003)(1800799024)(82310400026)(56012099006)(11063799006)(10067099003)(18002099003);
+ SFS:(13230040)(36860700016)(376014)(23010399003)(82310400026)(1800799024)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Syykr1Aclx4Zimrpfp9TSnO8Dl0MMB99c6MBU16zDTh6Q9qECwVzM4elTYuBcpncvVuL6xTVmfj3Wk48ZbaYQOzeujAS/p0aCO95i/ZbR96t3YXStPHD0OFn7ENetN3XhArcqaoG6HW5L7f9W+EYDfXl+cwn8FuOoyyOy65uNO26SIIEpJNZMCdxNP2OLu70pAY5PBSHfJEf9yflefKeTMEsSttGGwcHOXSB3Is/rlkxc5doVmNyoqcXJRWL2I8TodazSlUYQApdC9OX/rXVa7p6nWmeoP8NxhuGDzoYWYHVr5JTg7mHsmA+nqNzAz57xep3q8fsy4WZzrqc/76VBQEyJO+yZBnt3xMYHbDtKvgfZ8UH7cpTRnUZQh+gLXz+cXHUwUkuE+p+BMZ6pmcCIdwItKAuBM0g38yhqesR3sZXkKepnyiaAkoVWx7vJfFH
+X-MS-Exchange-AntiSpam-MessageData-0: cj5Iyd9m21IAKRIL7LYuP5yBYCg9kXmD6dq4zsPai2a9L3QxgYnQipozjGTGg5wx2bP68LbSVG1fN5OfJjAraqA2XzdyCtQPnFTfiJNowN5fF+D6otD1ggp3V4e1zhxA4QZqUjEMJD8SbkXkVy6YA00p+arAj4DY0Aa3TEPWxhT4MwfsfkKWFmb/RSLIu/as2Pg7PTkQxqCv563rKPxy3qCNF6bidnI/8sShaZopIPXODUFQdGcWPesnP3x7ItL9CKBdwWlIdGg7vZ/2kmjqdDz3XEvM22dM9nxhFBzW8N4Y2r1GJMQZNEpzdjFe0nKEsmq1fqJRqLiKo9QupU99fdutxlJPeV5C8kyrL8tb6nRtiCoWGyxbIbMQHwLDJvPLDsO94Osw/C29nzfN4ai93TbFiaGjBV4Q9ExMiwp+vsJJGzmFKia+NicZLRTRUqBh
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 08:35:26.5907 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d798e4aa-3c47-47ce-5c44-08deee158177
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 08:35:28.7284 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 46ca0308-7a83-4077-ad28-08deee1582b9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MW1PEPF0001615A.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MW1PEPF00016159.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF73CDB1C12
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999268
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,293 +111,506 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Rename the RAS core directory from rascore to core and update
-build-path references accordingly.
+Rename selected RAS core source and header filenames to drop
+redundant ras_ prefixes in file names only.
 
-The change is mechanical and done with git rename semantics so
-history tracking is preserved.
+Update related build object names, header include references, and
+include guard macros in renamed headers.
+
+Function/type prefixes and runtime behavior are unchanged.
 
 No functional change intended.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 ---
- drivers/gpu/drm/amd/ras/Makefile                            | 4 ++--
- drivers/gpu/drm/amd/ras/{rascore => core}/Makefile          | 2 +-
- drivers/gpu/drm/amd/ras/{rascore => core}/ras.h             | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_aca.c         | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_aca.h         | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_aca_v1_0.c    | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_aca_v1_0.h    | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_cmd.c         | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_cmd.h         | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_core.c        | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_core_status.h | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_cper.c        | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_cper.h        | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_eeprom.c      | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_eeprom.h      | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_eeprom_fw.c   | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_eeprom_fw.h   | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_gfx.c         | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_gfx.h         | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_gfx_v9_0.c    | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_gfx_v9_0.h    | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_log_ring.c    | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_log_ring.h    | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_mp1.c         | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_mp1.h         | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_mp1_v13_0.c   | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_mp1_v13_0.h   | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_nbio.c        | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_nbio.h        | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_nbio_v7_9.c   | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_nbio_v7_9.h   | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_process.c     | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_process.h     | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_psp.c         | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_psp.h         | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_psp_v13_0.c   | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_psp_v13_0.h   | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_ta_if.h       | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_umc.c         | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_umc.h         | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_umc_v12_0.c   | 0
- drivers/gpu/drm/amd/ras/{rascore => core}/ras_umc_v12_0.h   | 0
- 42 files changed, 3 insertions(+), 3 deletions(-)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/Makefile (95%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_aca.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_aca.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_aca_v1_0.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_aca_v1_0.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_cmd.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_cmd.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_core.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_core_status.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_cper.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_cper.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_eeprom.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_eeprom.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_eeprom_fw.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_eeprom_fw.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_gfx.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_gfx.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_gfx_v9_0.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_gfx_v9_0.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_log_ring.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_log_ring.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_mp1.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_mp1.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_mp1_v13_0.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_mp1_v13_0.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_nbio.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_nbio.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_nbio_v7_9.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_nbio_v7_9.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_process.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_process.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_psp.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_psp.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_psp_v13_0.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_psp_v13_0.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_ta_if.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_umc.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_umc.h (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_umc_v12_0.c (100%)
- rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_umc_v12_0.h (100%)
+ drivers/gpu/drm/amd/ras/core/Makefile              | 14 +++++++-------
+ drivers/gpu/drm/amd/ras/core/{ras_aca.c => aca.c}  |  4 ++--
+ drivers/gpu/drm/amd/ras/core/{ras_aca.h => aca.h}  |  4 ++--
+ .../amd/ras/core/{ras_aca_v1_0.c => aca_v1_0.c}    |  6 +++---
+ .../amd/ras/core/{ras_aca_v1_0.h => aca_v1_0.h}    |  4 ++--
+ drivers/gpu/drm/amd/ras/core/{ras_cmd.c => cmd.c}  |  2 +-
+ drivers/gpu/drm/amd/ras/core/{ras_cmd.h => cmd.h}  |  8 ++++----
+ .../gpu/drm/amd/ras/core/{ras_core.c => core.c}    |  2 +-
+ .../ras/core/{ras_core_status.h => core_status.h}  |  4 ++--
+ .../drm/amd/ras/core/{ras_eeprom.c => eeprom.c}    |  2 +-
+ .../drm/amd/ras/core/{ras_eeprom.h => eeprom.h}    |  4 ++--
+ .../amd/ras/core/{ras_eeprom_fw.c => eeprom_fw.c}  |  0
+ .../amd/ras/core/{ras_eeprom_fw.h => eeprom_fw.h}  |  4 ++--
+ .../amd/ras/core/{ras_log_ring.c => log_ring.c}    |  4 ++--
+ .../amd/ras/core/{ras_log_ring.h => log_ring.h}    |  6 +++---
+ drivers/gpu/drm/amd/ras/core/ras.h                 | 12 ++++++------
+ drivers/gpu/drm/amd/ras/core/ras_cper.c            |  4 ++--
+ drivers/gpu/drm/amd/ras/core/ras_gfx.c             |  2 +-
+ drivers/gpu/drm/amd/ras/core/ras_gfx_v9_0.c        |  2 +-
+ drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.c       |  2 +-
+ drivers/gpu/drm/amd/ras/core/ras_psp.c             |  2 +-
+ drivers/gpu/drm/amd/ras/core/ras_psp.h             |  2 +-
+ drivers/gpu/drm/amd/ras/core/ras_umc.h             |  4 ++--
+ drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c       |  2 +-
+ .../gpu/drm/amd/ras/core/{ras_ta_if.h => ta_if.h}  |  4 ++--
+ .../drm/amd/ras/ras_mgr/amdgpu_ras_eeprom_i2c.c    |  2 +-
+ 26 files changed, 53 insertions(+), 53 deletions(-)
+ rename drivers/gpu/drm/amd/ras/core/{ras_aca.c => aca.c} (99%)
+ rename drivers/gpu/drm/amd/ras/core/{ras_aca.h => aca.h} (98%)
+ rename drivers/gpu/drm/amd/ras/core/{ras_aca_v1_0.c => aca_v1_0.c} (99%)
+ rename drivers/gpu/drm/amd/ras/core/{ras_aca_v1_0.h => aca_v1_0.h} (98%)
+ rename drivers/gpu/drm/amd/ras/core/{ras_cmd.c => cmd.c} (99%)
+ rename drivers/gpu/drm/amd/ras/core/{ras_cmd.h => cmd.h} (99%)
+ rename drivers/gpu/drm/amd/ras/core/{ras_core.c => core.c} (99%)
+ rename drivers/gpu/drm/amd/ras/core/{ras_core_status.h => core_status.h} (96%)
+ rename drivers/gpu/drm/amd/ras/core/{ras_eeprom.c => eeprom.c} (99%)
+ rename drivers/gpu/drm/amd/ras/core/{ras_eeprom.h => eeprom.h} (99%)
+ rename drivers/gpu/drm/amd/ras/core/{ras_eeprom_fw.c => eeprom_fw.c} (100%)
+ rename drivers/gpu/drm/amd/ras/core/{ras_eeprom_fw.h => eeprom_fw.h} (98%)
+ rename drivers/gpu/drm/amd/ras/core/{ras_log_ring.c => log_ring.c} (99%)
+ rename drivers/gpu/drm/amd/ras/core/{ras_log_ring.h => log_ring.h} (97%)
+ rename drivers/gpu/drm/amd/ras/core/{ras_ta_if.h => ta_if.h} (99%)
 
-diff --git a/drivers/gpu/drm/amd/ras/Makefile b/drivers/gpu/drm/amd/ras/Makefile
-index bbdaba811d34..803e250d1666 100644
---- a/drivers/gpu/drm/amd/ras/Makefile
-+++ b/drivers/gpu/drm/amd/ras/Makefile
-@@ -23,10 +23,10 @@ ifeq ($(AMD_GPU_RAS_MGR),)
- 	AMD_GPU_RAS_MGR := ras_mgr
- endif
- 
--subdir-ccflags-y += -I$(AMD_GPU_RAS_FULL_PATH)/rascore
-+subdir-ccflags-y += -I$(AMD_GPU_RAS_FULL_PATH)/core
- subdir-ccflags-y += -I$(AMD_GPU_RAS_FULL_PATH)/$(AMD_GPU_RAS_MGR)
- 
--RAS_LIBS = $(AMD_GPU_RAS_MGR) rascore
-+RAS_LIBS = $(AMD_GPU_RAS_MGR) core
- 
- AMD_RAS = $(addsuffix /Makefile, $(addprefix $(AMD_GPU_RAS_FULL_PATH)/,$(RAS_LIBS)))
- 
-diff --git a/drivers/gpu/drm/amd/ras/rascore/Makefile b/drivers/gpu/drm/amd/ras/core/Makefile
-similarity index 95%
-rename from drivers/gpu/drm/amd/ras/rascore/Makefile
-rename to drivers/gpu/drm/amd/ras/core/Makefile
-index 06b265ec1cde..454f83f62930 100644
---- a/drivers/gpu/drm/amd/ras/rascore/Makefile
+diff --git a/drivers/gpu/drm/amd/ras/core/Makefile b/drivers/gpu/drm/amd/ras/core/Makefile
+index 454f83f62930..5b4cd6a3d358 100644
+--- a/drivers/gpu/drm/amd/ras/core/Makefile
 +++ b/drivers/gpu/drm/amd/ras/core/Makefile
-@@ -40,6 +40,6 @@ RAS_CORE_FILES = ras_core.o \
- 			ras_eeprom_fw.o
+@@ -19,25 +19,25 @@
+ # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ # OTHER DEALINGS IN THE SOFTWARE.
+ #
+-RAS_CORE_FILES = ras_core.o \
++RAS_CORE_FILES = core.o \
+ 			ras_mp1.o \
+ 			ras_mp1_v13_0.o \
+-			ras_aca.o  \
+-			ras_aca_v1_0.o \
+-			ras_eeprom.o \
++			aca.o  \
++			aca_v1_0.o \
++			eeprom.o \
+ 			ras_umc.o \
+ 			ras_umc_v12_0.o \
+-			ras_cmd.o \
++			cmd.o \
+ 			ras_gfx.o \
+ 			ras_gfx_v9_0.o \
+ 			ras_process.o \
+ 			ras_nbio.o \
+ 			ras_nbio_v7_9.o \
+-			ras_log_ring.o \
++			log_ring.o \
+ 			ras_cper.o \
+ 			ras_psp.o \
+ 			ras_psp_v13_0.o \
+-			ras_eeprom_fw.o
++			eeprom_fw.o
  
  
--RAS_CORE = $(addprefix $(AMD_GPU_RAS_PATH)/rascore/,$(RAS_CORE_FILES))
-+RAS_CORE = $(addprefix $(AMD_GPU_RAS_PATH)/core/,$(RAS_CORE_FILES))
+ RAS_CORE = $(addprefix $(AMD_GPU_RAS_PATH)/core/,$(RAS_CORE_FILES))
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_aca.c b/drivers/gpu/drm/amd/ras/core/aca.c
+similarity index 99%
+rename from drivers/gpu/drm/amd/ras/core/ras_aca.c
+rename to drivers/gpu/drm/amd/ras/core/aca.c
+index 6f57b5d09cd3..fa7cb3277578 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_aca.c
++++ b/drivers/gpu/drm/amd/ras/core/aca.c
+@@ -22,8 +22,8 @@
+  *
+  */
+ #include "ras.h"
+-#include "ras_aca.h"
+-#include "ras_aca_v1_0.h"
++#include "aca.h"
++#include "aca_v1_0.h"
+ #include "ras_mp1_v13_0.h"
  
- AMD_GPU_RAS_FILES += $(RAS_CORE)
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras.h b/drivers/gpu/drm/amd/ras/core/ras.h
+ #define ACA_MARK_FATAL_FLAG    0x100
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_aca.h b/drivers/gpu/drm/amd/ras/core/aca.h
+similarity index 98%
+rename from drivers/gpu/drm/amd/ras/core/ras_aca.h
+rename to drivers/gpu/drm/amd/ras/core/aca.h
+index f61b02a5f0fc..3c1e691cd2ee 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_aca.h
++++ b/drivers/gpu/drm/amd/ras/core/aca.h
+@@ -22,8 +22,8 @@
+  *
+  */
+ 
+-#ifndef __RAS_ACA_H__
+-#define __RAS_ACA_H__
++#ifndef __ACA_H__
++#define __ACA_H__
+ #include "ras.h"
+ 
+ #define MAX_SOCKET_NUM_PER_HIVE 8
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_aca_v1_0.c b/drivers/gpu/drm/amd/ras/core/aca_v1_0.c
+similarity index 99%
+rename from drivers/gpu/drm/amd/ras/core/ras_aca_v1_0.c
+rename to drivers/gpu/drm/amd/ras/core/aca_v1_0.c
+index 288fad0862a2..a8b413270de3 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_aca_v1_0.c
++++ b/drivers/gpu/drm/amd/ras/core/aca_v1_0.c
+@@ -22,9 +22,9 @@
+  *
+  */
+ #include "ras.h"
+-#include "ras_aca.h"
+-#include "ras_core_status.h"
+-#include "ras_aca_v1_0.h"
++#include "aca.h"
++#include "core_status.h"
++#include "aca_v1_0.h"
+ 
+ struct ras_aca_hwip {
+ 	int hwid;
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_aca_v1_0.h b/drivers/gpu/drm/amd/ras/core/aca_v1_0.h
+similarity index 98%
+rename from drivers/gpu/drm/amd/ras/core/ras_aca_v1_0.h
+rename to drivers/gpu/drm/amd/ras/core/aca_v1_0.h
+index 40e5d94b037f..f18bdf043b62 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_aca_v1_0.h
++++ b/drivers/gpu/drm/amd/ras/core/aca_v1_0.h
+@@ -22,8 +22,8 @@
+  *
+  */
+ 
+-#ifndef __RAS_ACA_V1_0_H__
+-#define __RAS_ACA_V1_0_H__
++#ifndef __ACA_V1_0_H__
++#define __ACA_V1_0_H__
+ #include "ras.h"
+ 
+ #define ACA__REG__FIELD(x, h, l)		  (((x) & GENMASK_ULL(h, l)) >> l)
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_cmd.c b/drivers/gpu/drm/amd/ras/core/cmd.c
+similarity index 99%
+rename from drivers/gpu/drm/amd/ras/core/ras_cmd.c
+rename to drivers/gpu/drm/amd/ras/core/cmd.c
+index abd004eee95e..6c37dc519eed 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_cmd.c
++++ b/drivers/gpu/drm/amd/ras/core/cmd.c
+@@ -22,7 +22,7 @@
+  *
+  */
+ #include "ras.h"
+-#include "ras_cmd.h"
++#include "cmd.h"
+ 
+ #define RAS_CMD_MAJOR_VERSION 6
+ #define RAS_CMD_MINOR_VERSION 0
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_cmd.h b/drivers/gpu/drm/amd/ras/core/cmd.h
+similarity index 99%
+rename from drivers/gpu/drm/amd/ras/core/ras_cmd.h
+rename to drivers/gpu/drm/amd/ras/core/cmd.h
+index c376e074e15d..e3b39866455d 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_cmd.h
++++ b/drivers/gpu/drm/amd/ras/core/cmd.h
+@@ -22,11 +22,11 @@
+  *
+  */
+ 
+-#ifndef __RAS_CMD_H__
+-#define __RAS_CMD_H__
++#ifndef __CMD_H__
++#define __CMD_H__
+ #include "ras.h"
+-#include "ras_eeprom.h"
+-#include "ras_log_ring.h"
++#include "eeprom.h"
++#include "log_ring.h"
+ #include "ras_cper.h"
+ 
+ #define RAS_CMD_MAX_IN_SIZE 256
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_core.c b/drivers/gpu/drm/amd/ras/core/core.c
+similarity index 99%
+rename from drivers/gpu/drm/amd/ras/core/ras_core.c
+rename to drivers/gpu/drm/amd/ras/core/core.c
+index 75e8216fae8a..0e19cf41bc26 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_core.c
++++ b/drivers/gpu/drm/amd/ras/core/core.c
+@@ -22,7 +22,7 @@
+  *
+  */
+ #include "ras.h"
+-#include "ras_core_status.h"
++#include "core_status.h"
+ 
+ #define RAS_SEQNO_FIFO_SIZE (128 * sizeof(uint64_t))
+ 
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_core_status.h b/drivers/gpu/drm/amd/ras/core/core_status.h
+similarity index 96%
+rename from drivers/gpu/drm/amd/ras/core/ras_core_status.h
+rename to drivers/gpu/drm/amd/ras/core/core_status.h
+index 144fbe4ceb9a..f91e185fad5c 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_core_status.h
++++ b/drivers/gpu/drm/amd/ras/core/core_status.h
+@@ -22,8 +22,8 @@
+  *
+  */
+ 
+-#ifndef __RAS_CORE_STATUS_H__
+-#define __RAS_CORE_STATUS_H__
++#ifndef __CORE_STATUS_H__
++#define __CORE_STATUS_H__
+ 
+ #define RAS_CORE_OK                       0
+ #define RAS_CORE_NOT_SUPPORTED            248
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_eeprom.c b/drivers/gpu/drm/amd/ras/core/eeprom.c
+similarity index 99%
+rename from drivers/gpu/drm/amd/ras/core/ras_eeprom.c
+rename to drivers/gpu/drm/amd/ras/core/eeprom.c
+index 3b1883a04179..7afaac81f37a 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_eeprom.c
++++ b/drivers/gpu/drm/amd/ras/core/eeprom.c
+@@ -22,7 +22,7 @@
+  *
+  */
+ 
+-#include "ras_eeprom.h"
++#include "eeprom.h"
+ #include "ras.h"
+ 
+ /* These are memory addresses as would be seen by one or more EEPROM
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_eeprom.h b/drivers/gpu/drm/amd/ras/core/eeprom.h
+similarity index 99%
+rename from drivers/gpu/drm/amd/ras/core/ras_eeprom.h
+rename to drivers/gpu/drm/amd/ras/core/eeprom.h
+index 5c3e92f710b4..32bd1526bc55 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_eeprom.h
++++ b/drivers/gpu/drm/amd/ras/core/eeprom.h
+@@ -22,8 +22,8 @@
+  *
+  */
+ 
+-#ifndef __RAS_EEPROM_H__
+-#define __RAS_EEPROM_H__
++#ifndef __EEPROM_H__
++#define __EEPROM_H__
+ #include "ras_sys.h"
+ 
+ #define RAS_TABLE_VER_V1           0x00010000
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_eeprom_fw.c b/drivers/gpu/drm/amd/ras/core/eeprom_fw.c
 similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras.h
-rename to drivers/gpu/drm/amd/ras/core/ras.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_aca.c b/drivers/gpu/drm/amd/ras/core/ras_aca.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_aca.c
-rename to drivers/gpu/drm/amd/ras/core/ras_aca.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_aca.h b/drivers/gpu/drm/amd/ras/core/ras_aca.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_aca.h
-rename to drivers/gpu/drm/amd/ras/core/ras_aca.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c b/drivers/gpu/drm/amd/ras/core/ras_aca_v1_0.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c
-rename to drivers/gpu/drm/amd/ras/core/ras_aca_v1_0.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.h b/drivers/gpu/drm/amd/ras/core/ras_aca_v1_0.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.h
-rename to drivers/gpu/drm/amd/ras/core/ras_aca_v1_0.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_cmd.c b/drivers/gpu/drm/amd/ras/core/ras_cmd.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_cmd.c
-rename to drivers/gpu/drm/amd/ras/core/ras_cmd.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_cmd.h b/drivers/gpu/drm/amd/ras/core/ras_cmd.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_cmd.h
-rename to drivers/gpu/drm/amd/ras/core/ras_cmd.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_core.c b/drivers/gpu/drm/amd/ras/core/ras_core.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_core.c
-rename to drivers/gpu/drm/amd/ras/core/ras_core.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_core_status.h b/drivers/gpu/drm/amd/ras/core/ras_core_status.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_core_status.h
-rename to drivers/gpu/drm/amd/ras/core/ras_core_status.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_cper.c b/drivers/gpu/drm/amd/ras/core/ras_cper.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_cper.c
-rename to drivers/gpu/drm/amd/ras/core/ras_cper.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_cper.h b/drivers/gpu/drm/amd/ras/core/ras_cper.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_cper.h
-rename to drivers/gpu/drm/amd/ras/core/ras_cper.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c b/drivers/gpu/drm/amd/ras/core/ras_eeprom.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c
-rename to drivers/gpu/drm/amd/ras/core/ras_eeprom.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.h b/drivers/gpu/drm/amd/ras/core/ras_eeprom.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_eeprom.h
-rename to drivers/gpu/drm/amd/ras/core/ras_eeprom.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c b/drivers/gpu/drm/amd/ras/core/ras_eeprom_fw.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c
-rename to drivers/gpu/drm/amd/ras/core/ras_eeprom_fw.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.h b/drivers/gpu/drm/amd/ras/core/ras_eeprom_fw.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.h
-rename to drivers/gpu/drm/amd/ras/core/ras_eeprom_fw.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_gfx.c b/drivers/gpu/drm/amd/ras/core/ras_gfx.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_gfx.c
-rename to drivers/gpu/drm/amd/ras/core/ras_gfx.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_gfx.h b/drivers/gpu/drm/amd/ras/core/ras_gfx.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_gfx.h
-rename to drivers/gpu/drm/amd/ras/core/ras_gfx.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_gfx_v9_0.c b/drivers/gpu/drm/amd/ras/core/ras_gfx_v9_0.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_gfx_v9_0.c
-rename to drivers/gpu/drm/amd/ras/core/ras_gfx_v9_0.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_gfx_v9_0.h b/drivers/gpu/drm/amd/ras/core/ras_gfx_v9_0.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_gfx_v9_0.h
-rename to drivers/gpu/drm/amd/ras/core/ras_gfx_v9_0.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_log_ring.c b/drivers/gpu/drm/amd/ras/core/ras_log_ring.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_log_ring.c
-rename to drivers/gpu/drm/amd/ras/core/ras_log_ring.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_log_ring.h b/drivers/gpu/drm/amd/ras/core/ras_log_ring.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_log_ring.h
-rename to drivers/gpu/drm/amd/ras/core/ras_log_ring.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_mp1.c b/drivers/gpu/drm/amd/ras/core/ras_mp1.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_mp1.c
-rename to drivers/gpu/drm/amd/ras/core/ras_mp1.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_mp1.h b/drivers/gpu/drm/amd/ras/core/ras_mp1.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_mp1.h
-rename to drivers/gpu/drm/amd/ras/core/ras_mp1.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_mp1_v13_0.c b/drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_mp1_v13_0.c
-rename to drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_mp1_v13_0.h b/drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_mp1_v13_0.h
-rename to drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_nbio.c b/drivers/gpu/drm/amd/ras/core/ras_nbio.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_nbio.c
-rename to drivers/gpu/drm/amd/ras/core/ras_nbio.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_nbio.h b/drivers/gpu/drm/amd/ras/core/ras_nbio.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_nbio.h
-rename to drivers/gpu/drm/amd/ras/core/ras_nbio.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_nbio_v7_9.c b/drivers/gpu/drm/amd/ras/core/ras_nbio_v7_9.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_nbio_v7_9.c
-rename to drivers/gpu/drm/amd/ras/core/ras_nbio_v7_9.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_nbio_v7_9.h b/drivers/gpu/drm/amd/ras/core/ras_nbio_v7_9.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_nbio_v7_9.h
-rename to drivers/gpu/drm/amd/ras/core/ras_nbio_v7_9.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_process.c b/drivers/gpu/drm/amd/ras/core/ras_process.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_process.c
-rename to drivers/gpu/drm/amd/ras/core/ras_process.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_process.h b/drivers/gpu/drm/amd/ras/core/ras_process.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_process.h
-rename to drivers/gpu/drm/amd/ras/core/ras_process.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_psp.c b/drivers/gpu/drm/amd/ras/core/ras_psp.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_psp.c
-rename to drivers/gpu/drm/amd/ras/core/ras_psp.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_psp.h b/drivers/gpu/drm/amd/ras/core/ras_psp.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_psp.h
-rename to drivers/gpu/drm/amd/ras/core/ras_psp.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_psp_v13_0.c b/drivers/gpu/drm/amd/ras/core/ras_psp_v13_0.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_psp_v13_0.c
-rename to drivers/gpu/drm/amd/ras/core/ras_psp_v13_0.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_psp_v13_0.h b/drivers/gpu/drm/amd/ras/core/ras_psp_v13_0.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_psp_v13_0.h
-rename to drivers/gpu/drm/amd/ras/core/ras_psp_v13_0.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_ta_if.h b/drivers/gpu/drm/amd/ras/core/ras_ta_if.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_ta_if.h
-rename to drivers/gpu/drm/amd/ras/core/ras_ta_if.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c b/drivers/gpu/drm/amd/ras/core/ras_umc.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_umc.c
-rename to drivers/gpu/drm/amd/ras/core/ras_umc.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.h b/drivers/gpu/drm/amd/ras/core/ras_umc.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_umc.h
-rename to drivers/gpu/drm/amd/ras/core/ras_umc.h
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.c b/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.c
-rename to drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.h b/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.h
-similarity index 100%
-rename from drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.h
-rename to drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.h
+rename from drivers/gpu/drm/amd/ras/core/ras_eeprom_fw.c
+rename to drivers/gpu/drm/amd/ras/core/eeprom_fw.c
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_eeprom_fw.h b/drivers/gpu/drm/amd/ras/core/eeprom_fw.h
+similarity index 98%
+rename from drivers/gpu/drm/amd/ras/core/ras_eeprom_fw.h
+rename to drivers/gpu/drm/amd/ras/core/eeprom_fw.h
+index 762345be075c..803d3ccdaddb 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_eeprom_fw.h
++++ b/drivers/gpu/drm/amd/ras/core/eeprom_fw.h
+@@ -21,8 +21,8 @@
+  * OTHER DEALINGS IN THE SOFTWARE.
+  *
+  */
+-#ifndef __RAS_EEPROM_FW_H__
+-#define __RAS_EEPROM_FW_H__
++#ifndef __EEPROM_FW_H__
++#define __EEPROM_FW_H__
+ 
+ struct ras_fw_eeprom_control {
+ 	uint32_t version;
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_log_ring.c b/drivers/gpu/drm/amd/ras/core/log_ring.c
+similarity index 99%
+rename from drivers/gpu/drm/amd/ras/core/ras_log_ring.c
+rename to drivers/gpu/drm/amd/ras/core/log_ring.c
+index c37343db39df..175c8b357144 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_log_ring.c
++++ b/drivers/gpu/drm/amd/ras/core/log_ring.c
+@@ -22,8 +22,8 @@
+  *
+  */
+ #include "ras.h"
+-#include "ras_core_status.h"
+-#include "ras_log_ring.h"
++#include "core_status.h"
++#include "log_ring.h"
+ 
+ #define RAS_LOG_MAX_QUERY_SIZE   0xC000
+ #define RAS_LOG_MEM_TEMP_SIZE    0x200
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_log_ring.h b/drivers/gpu/drm/amd/ras/core/log_ring.h
+similarity index 97%
+rename from drivers/gpu/drm/amd/ras/core/ras_log_ring.h
+rename to drivers/gpu/drm/amd/ras/core/log_ring.h
+index cb66beaa9f43..a1ef2f24130c 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_log_ring.h
++++ b/drivers/gpu/drm/amd/ras/core/log_ring.h
+@@ -21,9 +21,9 @@
+  * OTHER DEALINGS IN THE SOFTWARE.
+  *
+  */
+-#ifndef __RAS_LOG_RING_H__
+-#define __RAS_LOG_RING_H__
+-#include "ras_aca.h"
++#ifndef __LOG_RING_H__
++#define __LOG_RING_H__
++#include "aca.h"
+ 
+ #define MAX_RECORD_PER_BATCH 32
+ 
+diff --git a/drivers/gpu/drm/amd/ras/core/ras.h b/drivers/gpu/drm/amd/ras/core/ras.h
+index 8c3d603ba801..b4e40d7cc0e0 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras.h
++++ b/drivers/gpu/drm/amd/ras/core/ras.h
+@@ -26,17 +26,17 @@
+ #define __RAS_H__
+ #include "ras_sys.h"
+ #include "ras_umc.h"
+-#include "ras_aca.h"
+-#include "ras_eeprom.h"
+-#include "ras_core_status.h"
++#include "aca.h"
++#include "eeprom.h"
++#include "core_status.h"
+ #include "ras_process.h"
+ #include "ras_gfx.h"
+-#include "ras_cmd.h"
++#include "cmd.h"
+ #include "ras_nbio.h"
+ #include "ras_mp1.h"
+ #include "ras_psp.h"
+-#include "ras_log_ring.h"
+-#include "ras_eeprom_fw.h"
++#include "log_ring.h"
++#include "eeprom_fw.h"
+ 
+ #define RAS_HW_ERR		"[Hardware Error]: "
+ 
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_cper.c b/drivers/gpu/drm/amd/ras/core/ras_cper.c
+index 6e93a13bbc4c..4ffac4289dbd 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_cper.c
++++ b/drivers/gpu/drm/amd/ras/core/ras_cper.c
+@@ -22,8 +22,8 @@
+  *
+  */
+ #include "ras.h"
+-#include "ras_core_status.h"
+-#include "ras_log_ring.h"
++#include "core_status.h"
++#include "log_ring.h"
+ #include "ras_cper.h"
+ 
+ static const struct ras_cper_guid MCE	= CPER_NOTIFY__MCE;
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_gfx.c b/drivers/gpu/drm/amd/ras/core/ras_gfx.c
+index f5ce28777705..2efe18cbbe5b 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_gfx.c
++++ b/drivers/gpu/drm/amd/ras/core/ras_gfx.c
+@@ -25,7 +25,7 @@
+ #include "ras.h"
+ #include "ras_gfx_v9_0.h"
+ #include "ras_gfx.h"
+-#include "ras_core_status.h"
++#include "core_status.h"
+ 
+ static const struct ras_gfx_ip_func *ras_gfx_get_ip_funcs(
+ 				struct ras_core_context *ras_core, uint32_t ip_version)
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_gfx_v9_0.c b/drivers/gpu/drm/amd/ras/core/ras_gfx_v9_0.c
+index 6213d3f125be..6fb3ec1d102d 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/ras/core/ras_gfx_v9_0.c
+@@ -23,7 +23,7 @@
+  */
+ #include "ras.h"
+ #include "ras_gfx_v9_0.h"
+-#include "ras_core_status.h"
++#include "core_status.h"
+ 
+ enum ta_gfx_v9_subblock {
+ 	/*CPC*/
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.c b/drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.c
+index 1fcfc1995ad3..b9db91859e5d 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.c
++++ b/drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.c
+@@ -23,7 +23,7 @@
+  */
+ #include "ras.h"
+ #include "ras_mp1.h"
+-#include "ras_core_status.h"
++#include "core_status.h"
+ #include "ras_mp1_v13_0.h"
+ 
+ #define RAS_MP1_MSG_QueryValidMcaCount                0x36
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_psp.c b/drivers/gpu/drm/amd/ras/core/ras_psp.c
+index 35264c119bbb..9bf20201649f 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_psp.c
++++ b/drivers/gpu/drm/amd/ras/core/ras_psp.c
+@@ -22,7 +22,7 @@
+  *
+  */
+ #include "ras.h"
+-#include "ras_ta_if.h"
++#include "ta_if.h"
+ #include "ras_psp.h"
+ #include "ras_psp_v13_0.h"
+ 
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_psp.h b/drivers/gpu/drm/amd/ras/core/ras_psp.h
+index 347f5334c3f3..c899d0ac74cc 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_psp.h
++++ b/drivers/gpu/drm/amd/ras/core/ras_psp.h
+@@ -24,7 +24,7 @@
+ #ifndef __RAS_PSP_H__
+ #define __RAS_PSP_H__
+ #include "ras.h"
+-#include "ras_ta_if.h"
++#include "ta_if.h"
+ 
+ struct ras_core_context;
+ struct ras_ta_trigger_error_input;
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_umc.h b/drivers/gpu/drm/amd/ras/core/ras_umc.h
+index 3d902b0d663a..bf14036a4aaa 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_umc.h
++++ b/drivers/gpu/drm/amd/ras/core/ras_umc.h
+@@ -25,8 +25,8 @@
+ #ifndef __RAS_UMC_H__
+ #define __RAS_UMC_H__
+ #include "ras.h"
+-#include "ras_eeprom.h"
+-#include "ras_cmd.h"
++#include "eeprom.h"
++#include "cmd.h"
+ 
+ #define UMC_VRAM_TYPE_UNKNOWN 0
+ #define UMC_VRAM_TYPE_GDDR1   1
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c b/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c
+index 6bf30dee8d17..c7cf925a8345 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c
++++ b/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c
+@@ -23,7 +23,7 @@
+  */
+ #include "ras.h"
+ #include "ras_umc.h"
+-#include "ras_core_status.h"
++#include "core_status.h"
+ #include "ras_umc_v12_0.h"
+ 
+ #define NumDieInterleaved 4
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_ta_if.h b/drivers/gpu/drm/amd/ras/core/ta_if.h
+similarity index 99%
+rename from drivers/gpu/drm/amd/ras/core/ras_ta_if.h
+rename to drivers/gpu/drm/amd/ras/core/ta_if.h
+index e910a75b3022..6b05c82679c0 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_ta_if.h
++++ b/drivers/gpu/drm/amd/ras/core/ta_if.h
+@@ -22,8 +22,8 @@
+  *
+  */
+ 
+-#ifndef _RAS_TA_IF_H
+-#define _RAS_TA_IF_H
++#ifndef _TA_IF_H
++#define _TA_IF_H
+ #include "ras.h"
+ 
+ #define RAS_TA_HOST_IF_VER	0
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_eeprom_i2c.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_eeprom_i2c.c
+index 9c6d0024210d..aa97b58c9422 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_eeprom_i2c.c
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_eeprom_i2c.c
+@@ -26,7 +26,7 @@
+ #include "amdgpu_ras_eeprom.h"
+ #include "amdgpu_ras_mgr.h"
+ #include "amdgpu_ras_eeprom_i2c.h"
+-#include "ras_eeprom.h"
++#include "eeprom.h"
+ 
+ /* These are memory addresses as would be seen by one or more EEPROM
+  * chips strung on the I2C bus, usually by manipulating pins 1-3 of a
 -- 
 2.43.0
 
