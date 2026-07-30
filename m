@@ -4,88 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF299C55160
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 13:20:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5434EC55160
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 13:23:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7C78210E162;
-	Thu, 30 Jul 2026 13:20:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E710910E165;
+	Thu, 30 Jul 2026 13:23:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hDa3lpCC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="em5bw9y1";
 	dkim-atps=neutral
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D5F0610E162
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 13:20:55 +0000 (UTC)
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-ca132e9c54aso215344a12.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 06:20:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785417655; cv=none;
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
+ [209.85.216.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 784D710E165
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 13:23:11 +0000 (UTC)
+Received: by mail-pj1-f43.google.com with SMTP id
+ 98e67ed59e1d1-3856d4015e0so187198a91.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 06:23:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785417791; cv=none;
  d=google.com; s=arc-20260327;
- b=XlGE35FT5XFIi0oLi+/xivVwMC8MlzIOgLBWWQAtRGcklWhXbaF5ZLZ2LS8Tf8qsLR
- 1N/BtZRd0iYAeqLEM3c7cN9Sh6sVmfoJ5vbnG+9+xeLNzzuQjpMgtUUG8LQmDQHtb3pU
- vok9MH1ycFSeD7g6TUw5Ps/KAW/ietkBXwXKSZXDsI9ODjNbE9UNDQZqRDS18yO1n2Qc
- Mx589aFnONMiWhgI3B/MnFJnFlO3IOwVCZZAxdJ7rdFdZU/btdDLraRFRnp/vAILCFu0
- aU9dGI0FlKDhj7kgw3UvjEiAGNN+1viZ8r+oBKm0xnT92jig50LXyZxhaiFdwWBjhYh0
- iE2A==
+ b=CJTHaFemDT+78zP9NJ664zvrVuYXhtdNtuo6uKoMvp4SbLK0ePzlIBzIPxTFp6PycO
+ REU1RQybW9S80583ocIm49Ob0nZhRfu46u7RvXrmzDpDq0bjFKD36fns1XlK0aX6eRBj
+ +jWQh482s9m1yTS8Fke/D7stDOZH/Je1kX3UYVrJ4kapcioQuQEvAFEg1w/LcVVTLnZ8
+ AWDLhYWAYYGXAR2ZgMG7gw0GNg3L/6Jnd7J+YEfhUP4QHjJzHOehjg5wwTmU9yoPhD6U
+ 5mpCMnDr6AViX0iNfzj5s4Q8IHHVJYV2bDtHJQ+9CXUaeYv4kWNiaI7ZpU/08rdDTL50
+ pfWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=HhvKEa8+6nWIt5N5ax2MBvzLq/3sd0/Q0PkMqSm8Z/o=;
+ bh=eiO9AlycSvB7reIypDwr+RKc2EG5upEokIqWQ0C5TEE=;
  fh=AajwJS1JdmeCA/R2a2iHSEDl9rLQk6bWvk/8uoWqlmM=;
- b=f9iD7rOnNcGEF/cEUMlYHIMipg6CT5F1wAVbbLH9ZHQ3eElziNhkQkujVva/c+Q9yn
- purOLz19UO7L1F0kCGYwSYUoH1feDeFm4kbReDseFtnWvP/1ueEsRQJquLbuUx0uWp69
- lDRWQKteX0K6zqkMulpxYcERPTNnV7ExEHaueMZswOYpnjT3sr7ZSnd3a9lfD52Pqt9u
- jfrxuGH/4sng9i4lWmgDwSyo+sf0xjvGHMu0ixw7XDdPaxU89ga9C8MgFSCWqGnsXHe5
- Pu5EOl43hmT7Ghnswz6uTurkzepY9+doq0hQwZ/7v+0pK/6ET7T09uLOIbDs6F570fGw
- H8Dg==; darn=lists.freedesktop.org
+ b=g8pjqZe2D16fHuSHB32OgHYaTfopaMIfLRKzLqWVz3+60a4mSyyqz03NzQJMjckaEI
+ 6ir11XU5yl/uYVphYWDMw2aWV8xm2UQG6mcDF3H0X4y/i2BEJtwnchGArq03KEUy2wiS
+ 5FvyTG2uyOj5Vvh0Vhz+mzsrROlxtubB0VuV9dtW33DpCBM+48b1Q5lub0tJcBx6lQqN
+ iIPn+vlJg6iROweq3+IJiTbhx0a8pTn/URCMlYq7f+vRCXrnsr36teq7QY2FOqdkK6ra
+ fXWXVkMNw21XREs2JlhKYCGsqmVdkNcy5aR2iMLYmKJ7KCr+zEvogtzHxu06B4kF5FJM
+ ukSw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785417655; x=1786022455; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785417791; x=1786022591; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=HhvKEa8+6nWIt5N5ax2MBvzLq/3sd0/Q0PkMqSm8Z/o=;
- b=hDa3lpCCuJgFzyGmARO6m6h/ojIVhoeAu8NFHqYN8ve2Z5TV896j84T0O1hIZdxqav
- nHxbKpIwLHKMEsNVAs0u3+7RChvQ+VKdJs4HM5nitOeKxQnOhFsw5tSk77ydCPoT+GFg
- SAsRBfZf2BlWkXS/1PBOU8VYGuVdXswYJm6aN4l4O4+Y7UOkctQXMr6ahd2dpmdAmsvm
- ukfbl8RECpo6MGnhFTWWYDoiCuxDe/MZHe0yTHWkBf8V5MhoGZ1Oif45AAXcEZ5CUCID
- AJx9NQmhE93JQ+vokvirHoQK8Cw+WX7MG/DGex1HHt0lIyjJGbxjPjP86Q4DW2McKILq
- +pDw==
+ bh=eiO9AlycSvB7reIypDwr+RKc2EG5upEokIqWQ0C5TEE=;
+ b=em5bw9y14Aw0pDbvXJXjgqbExHFT2WHROnU2ZFERR0upHIeJOmzp6QU9cRkLhpH0Wk
+ mNGVIsDoP7nUyEbCBdANJjFjz9DxkSPKw0eHCR4ucbjx+dN/0o1TkIOd0+FvFnCC+tJh
+ 7frlmvG9km+LksE9PemGDQaNJo8ZpDydBTtVVrXcoPYKQAuf1GLPksTsmEG88QHEkQ+X
+ CrhcvlqoqG025CEXfvIZ2xvf5269vNFikfzYLDp8L4qoOxYmA7iRM5KC3qR7h7BMp5rr
+ kTsQCW36DNf7/2OCAmkV1H7/1W4rfl9Q6pP+dGvxkNiLdD01T/jRMm4T3wTgW8XQMuze
+ rN1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785417655; x=1786022455;
+ d=1e100.net; s=20251104; t=1785417791; x=1786022591;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=HhvKEa8+6nWIt5N5ax2MBvzLq/3sd0/Q0PkMqSm8Z/o=;
- b=fL+hJf30dTVgsF3s3V5fgAJPR7SJPzqnC97t5sJLMFIt5Em10FtDTarj8XG9ZBACK3
- 6Zf0cu0i4ORY6f44D1esHD7Ce+bQlYhNPALEaPbSC/ta5LCjkRPW0mR6fGLUplDqmrvW
- XTDGxzS9JK6veLykfdwoIu/IzuI2GzT9eIVlMAtb8LLSqlhiqPPyysJeaamRQ/CNrY4C
- XfROI5WbijbMm2phHx3kOV0pFAP2tYXmE/437iUOtagGJJVFQCohJOQrwqnaNqEn8Zvi
- nwmFR7ySGW7Y2iyGfFoUh6opMMTgDCplApN48yFi63FkB/yiNNPOTgm0YoT3iwj27Fxo
- uzmQ==
-X-Gm-Message-State: AOJu0Yxys8c6Xod/Ri08gk4SeIXs5J+t7FYB2fQ/kvei/5vok4I1a3oB
- o3EMINVZbb/LiqGF0SeiwA2nG5Y/eyIMyFzuAZna4TSg+7Pop96n7DU2HLSJCNp/Kjomjv0xwMu
- jec9JvB74nBU1fPU/bSTKs/QTV1oKZ28=
-X-Gm-Gg: AR+sD10DqlRDTu/aKyOdPp4PlpfhuWDiiCjZEZhqyrimeeVraHDsTTRw+7iJhxM/dF9
- seJcBHICEVPdIpzckPEOSmJL4wecjdIA+MqSbX3A8sM4IYfOaIb2A5mb9eW9hBR+qy/C619L+FQ
- 7NTRhFy2CJAy1I/HuvhqTf5lpQpla6RXKWll5d79yR20SETDQBDr6QxCq/W53zPVhMGPHglS/rK
- rOPOjFJkzk3rK1t596pGMq90AHkdMwcclLbXqVNJkTwydo7WtiQMn1QLLmhdkNoCyHWlYWJDIC5
- KV2x3IgB7yzDIvmlJZvbJWObkneS4ztOr0Cg4wrlz7iJmxglTxZ4WOaGAqML4EjqYAEQo7zna/K
- RLEcBno2rBPGJonSPUpS9wh1FpN1YwoUObBuNywGIrA==
-X-Received: by 2002:a17:90b:5866:b0:38e:c140:2a0b with SMTP id
- 98e67ed59e1d1-38fa80cad74mr25740a91.3.1785417655192; Thu, 30 Jul 2026
- 06:20:55 -0700 (PDT)
+ bh=eiO9AlycSvB7reIypDwr+RKc2EG5upEokIqWQ0C5TEE=;
+ b=BDme77HRWSElv5v2EhxFFqPd6rXtuYhrHHZ0hxOkC08Lr6o6aS7ovNIbfbwtDtvd1W
+ 3A5ckeR2451U1guLIx398+t2Zk6CgBAmtPEtZxMmwUXCHFlZjenfViosNBA5a6KRmvQ0
+ HQWOvxo1MDJYRILE5rty2lEKYEQGnWieBJscHJe+o/cauMM9HmWK+5lKAF6TwBgbUWCp
+ 3I6BCUGUjsStDALDO1qYKA1JbU5Ozjq9jPOrCYJayepDsng1He0UubDpVMatwMxe7mJo
+ aDSeBa9syJ2/vKeK/re6Zt6l0Xo2QTw6My+lS/vIIopf2toCej1os00MxgA6ypvp6BhS
+ RMlg==
+X-Gm-Message-State: AOJu0Yx4VlRCNFV/MlQWbGFETjvSjyiWWofLQwuOev2nRSoXsxSXeY/r
+ W+WfYJ91l4TnZDCQLNiQ4bODjsS4Zy33dJ41yYCEipmRl0PfFwMWJIcbFHa0IqOlqeyRaDF+Rs0
+ sJ01esc1JlNCb094Jf+vXDdJ5cxE446g=
+X-Gm-Gg: AR+sD10Zj8DoSq67BQrUruWKtDojDG1EyAveD0QFq5BnPcbfNmQhxLN0Ws/c2eTnuuR
+ nylR4hrHg2Qj3BPtEGlzMEDqLCFWnKSlBOxXrOphtOcDSfyCyaENHJLNMnEn9rM/NH+SHLU+bxM
+ 5xkXN3ow3WTURxosko/ABoIdtbjQTNA+09F15CznKYNUk+J+Rb+DKcLoVychko+D1njzSdixn4T
+ +KutBkf+v7WlOpk0UNZSQJuRI2c3BHCVR+JBZ9jtDJOtjZ8gWqo5g7bptbdN8ykUS4w1MPe2kui
+ ZsMntZtAPsiRC6B5hRfCQKDXYJHeksU8Gv9xuuuJ8WsBfhT0mT2B1n0yZhKY30VAhad9+RXGR2P
+ 7NrBjvBj7FcC55TwQ8bwoKI13I8+sAXQ=
+X-Received: by 2002:a17:90b:4487:b0:38e:ab3f:2c99 with SMTP id
+ 98e67ed59e1d1-38fa8094a00mr48536a91.2.1785417790828; Thu, 30 Jul 2026
+ 06:23:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260730094011.3466352-1-candice.li@amd.com>
-In-Reply-To: <20260730094011.3466352-1-candice.li@amd.com>
+References: <20260730124723.3500677-1-candice.li@amd.com>
+In-Reply-To: <20260730124723.3500677-1-candice.li@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 30 Jul 2026 09:20:43 -0400
-X-Gm-Features: AUfX_mz6UJXCPhIGOc7eMlQV7UaEptlRzY3-GKNuuZHKf6WRza4oBLh3PgoAelE
-Message-ID: <CADnq5_N07acyyUs23y9EJser=xzOX4u=g4OVwH+fp882cm1wvQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: reject oversized IBs on rings with 20-bit
- size fields
+Date: Thu, 30 Jul 2026 09:22:57 -0400
+X-Gm-Features: AUfX_mxjqhO7Yo4eSxQXrrLOCeUJ011UT9ZJHVHEMQNJm5CTkxhkOayWRsiOaYM
+Message-ID: <CADnq5_PNpG_1_Le=qpSsf-AccFdn_P+r2Sn_YTgBBt2Do_e-ug@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: fix userq VA validation for sub-page buffers
 To: Candice Li <candice.li@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, 
  Alexander Deucher <alexander.deucher@amd.com>
@@ -105,103 +104,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Jul 30, 2026 at 6:08=E2=80=AFAM Candice Li <candice.li@amd.com> wro=
+On Thu, Jul 30, 2026 at 8:58=E2=80=AFAM Candice Li <candice.li@amd.com> wro=
 te:
 >
-> PM4 INDIRECT_BUFFER control words encode IB size in 20 bits.  On GFX
-> rings amdgpu_cs_p2_ib() passed user-supplied ib_bytes through to
-> ib->length_dw without a limit, and ring_emit_ib() ORed length_dw
-> directly into the control dword.
-
-As a follow on patch, it would be good to mask the length_dw in the
-gfx emit_ib() functions as well just to be safe.
-
+> amdgpu_userq_input_va_validate() converts expected_size to page count
+> with a plain right shift. For expected_size smaller than one GPU page,
+> the computed size becomes 0 and the range check is effectively bypassed.
 >
-> Reject IB submissions whose length exceeds the hardware maximum in
-> amdgpu_cs_p2_ib(), but only for rings whose emit_ib packet format
-> documents a 20-bit size field (GFX, compute and SDMA).
+> This allows sub-page userq buffers (e.g. EOP/CSA) to pass validation
+> as long as the start VA is mapped, without verifying the full span.
+>
+> Fix it by rejecting zero expected_size, checking overflow when
+> computing end address, and deriving page span from [start_addr,
+> end_addr] inclusive.
 >
 > Signed-off-by: Candice Li <candice.li@amd.com>
+
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 26 +++++++++++++++++++++++++-
->  1 file changed, 25 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 25 +++++++++++++++--------
+>  1 file changed, 16 insertions(+), 9 deletions(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_cs.c
-> index afc1c631d55aa6..0d06b6d166c576 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -42,6 +42,25 @@
->  #include "amdgpu_ras.h"
->  #include "amdgpu_hmm.h"
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_userq.c
+> index 3fe10d6af7575d..652599f0899024 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -25,6 +25,7 @@
+>  #include <drm/drm_auth.h>
+>  #include <drm/drm_exec.h>
+>  #include <linux/pm_runtime.h>
+> +#include <linux/overflow.h>
+>  #include <drm/drm_drv.h>
 >
-> +/*
-> + * Maximum IB length (dwords) for rings whose emit_ib packet format
-> + * documents a 20-bit size field, e.g. GFX PM4 INDIRECT_BUFFER ([19:0])
-> + * and SDMA indirect packets.
-> + */
-> +#define AMDGPU_IB_PACKET_SIZE_MAX_DW   0xFFFFF
-
-#define AMDGPU_GFX_SDMA_IB_PACKET_SIZE_MAX_DW   0xFFFFF
-#define AMDGPU_MM_IB_PACKET_SIZE_MAX_DW   0x7FFFF0
-
-> +
-> +static bool amdgpu_cs_ib_has_packet_length_limit(enum amdgpu_ring_type t=
-ype)
-> +{
-
-I would make this function return the max IB size is DWs.
-
-> +       switch (type) {
-> +       case AMDGPU_RING_TYPE_GFX:
-> +       case AMDGPU_RING_TYPE_COMPUTE:
-> +       case AMDGPU_RING_TYPE_SDMA:
-
-I suspect VPE also should be covered by this case since it's based on SDMA.
-
-return AMDGPU_GFX_SDMA_IB_PACKET_SIZE_MAX_DW here.
-
-> +               return true;
-> +       default:
-
-and
-
-return AMDGPU_MM_IB_PACKET_SIZE_MAX_DW here.
-
-> +               return false;
-> +       }
-> +}
-> +
->  static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p,
->                                  struct amdgpu_device *adev,
->                                  struct drm_file *filp,
-> @@ -340,7 +359,6 @@ static int amdgpu_cs_p2_ib(struct amdgpu_cs_parser *p=
-,
+>  #include "amdgpu.h"
+> @@ -238,24 +239,30 @@ int amdgpu_userq_input_va_validate(struct amdgpu_de=
+vice *adev,
+>  {
+>         struct amdgpu_bo_va_mapping *va_map;
+>         struct amdgpu_vm *vm =3D queue->vm;
+> -       u64 user_addr;
+> -       u64 size;
+> +       u64 start_addr;
+> +       u64 end_addr;
+> +       u64 start_page;
 >
->         job =3D p->jobs[r];
->         ring =3D amdgpu_job_ring(job);
-> -       ib =3D &job->ibs[job->num_ibs++];
+>         /* Caller must hold vm->root.bo reservation */
+>         dma_resv_assert_held(queue->vm->root.bo->tbo.base.resv);
 >
->         /* submissions to kernel queues are disabled */
->         if (ring->no_user_submission)
-> @@ -369,6 +387,12 @@ static int amdgpu_cs_p2_ib(struct amdgpu_cs_parser *=
-p,
->                         return -EINVAL;
->         }
->
-> +       if (amdgpu_cs_ib_has_packet_length_limit(ring->funcs->type) &&
-> +           chunk_ib->ib_bytes / 4 > AMDGPU_IB_PACKET_SIZE_MAX_DW)
-
-Then check the max size returned by the above function here.
-
-Alex
-
+> -       user_addr =3D (addr & AMDGPU_GMC_HOLE_MASK) >> AMDGPU_GPU_PAGE_SH=
+IFT;
+> -       size =3D expected_size >> AMDGPU_GPU_PAGE_SHIFT;
+> +       if (!expected_size)
 > +               return -EINVAL;
 > +
-> +       ib =3D &job->ibs[job->num_ibs++];
+> +       start_addr =3D addr & AMDGPU_GMC_HOLE_MASK;
+> +       if (check_add_overflow(start_addr, expected_size - 1, &end_addr))
+> +               return -EINVAL;
 > +
->         if (chunk_ib->flags & AMDGPU_IB_FLAG_PREAMBLE)
->                 job->preamble_status |=3D AMDGPU_PREAMBLE_IB_PRESENT;
+> +       start_page =3D start_addr >> AMDGPU_GPU_PAGE_SHIFT;
+>
+> -       va_map =3D amdgpu_vm_bo_lookup_mapping(vm, user_addr);
+> +       va_map =3D amdgpu_vm_bo_lookup_mapping(vm, start_page);
+>         if (!va_map)
+>                 return -EINVAL;
+>
+> -       /* Only validate the userq whether resident in the VM mapping ran=
+ge */
+> -       if (user_addr >=3D va_map->start  &&
+> -           va_map->last - user_addr + 1 >=3D size) {
+> +       /* Lookup guarantees start_page is mapped; ensure full span is co=
+vered. */
+> +       if ((end_addr >> AMDGPU_GPU_PAGE_SHIFT) <=3D va_map->last) {
+>                 va_map->bo_va->userq_va_mapped =3D true;
+> -               *va_out =3D user_addr;
+> +               *va_out =3D start_page;
+>                 return 0;
+>         }
 >
 > --
 > 2.25.1
