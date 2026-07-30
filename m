@@ -4,100 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ABC17C55165
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 15:00:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A25E7C55164
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 15:08:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B387E10EF77;
-	Thu, 30 Jul 2026 15:00:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 316CA10E5DA;
+	Thu, 30 Jul 2026 15:08:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZPt55iuv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NGCBrdyP";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010036.outbound.protection.outlook.com [52.101.56.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC2DD10E191;
- Thu, 30 Jul 2026 15:00:37 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012062.outbound.protection.outlook.com
+ [40.93.195.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E94E10E692
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 15:08:10 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=d+OqsohDOUOJNmvfgkzbZItontM5rolFGOHG6kN6/BzgKKnqxlldU137dTUe2Ft/smt6F12Tf1LdCqurZcgYSXDnsyynCTbKyp0DxoQ2xYyOfV4GJ9mpQLXWNrz/2uhDMB/fwEzVlFqJwwscPWqY0uxeee9Or1xodoshj2jNKq/rImjne8TGQPvC63qjjDY64ak6BDXHuBatbNzMWbwsntxeSQpCCbxM3hxahlc4mwjsFxXUdW0TyhkJ36ONrcyr9FptY59a6DnVZOwQeSZux9bz1Jc5pPv88tMcWbV6I1cmpw6f/Zh3Sz8lTuFDtusoAG8Y7S/qkg/Wh3aITWFarw==
+ b=wfo3SbiiLTwtzjikMtm0cAsZfR0FWqm5gzsqV2bfv2huqHTbUMjzjbTaZ/HTtoomMkLdeqXOPrvZvEaDWsRefWttdNJahL7jR6a/W3WjXF4R3iy/vBLDsmtF3eC2zasgIrOY1dxbtlmc8IwupnCqSa9PGCQFrVwAa3rIcZjhWLd3XNTjZ8239R6tbZ4Rqj/6AoVvN2APz4Cg26ywZhnAFA7xSKV6S3a2dr0FxXof6710oIVEu/jTqKCp83MQcMM1Njuau1F8QrHcZg2S73s1t7m5JWFNTdTop1/E+ofP3K/vcTncV4AdnyGnWji//kLFu1XE8gViXNW43WmGjlcxjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=efAIAEBmxoDDjozZCxTk5HlbhQ8EvEnUrOEcGPwS1JE=;
- b=ixZmQszkilAcR3zz7kiyDxJ6MHsKgna4XHwYEop6IjJPzTsDWOZincQPlPGkUurVmENwMqfXcT4UPHDEknNLVb7HxWIx7NYhsrBT/NOdmLz2f6PXA4XNz0xJhggiit+TUZJnF2ODXh/yfPCeR8AVYPX9b5P9G45GCdIZ3/14Vcf51Gjn5ilNvsJrG+iOGlP+us4ci6qBzw2vrcZftX8ZdAgLRCls1ZIS9X5MQSKWq1e3Iv71uUlJFCn9I8fNYIr8pVts5DQMz9C+RxjtsehlYsn9I/hbccOMkL8GyzHXs6CeFaKuVbsM5laDPXuNQQYiV5yZvBqbRWnqJ3NbS2LtdQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=qI40RJqfZlcX+67K5tY/OCWiMB7I/I0FRiVZNUiSuEM=;
+ b=RhW+pFDIuDuWL5eVNfviSNHiCDvmsvHqNUbcOfMIX6wX3Unx6Kf/0hVGRA88PGDf9D6vU7muZVVLUmpQGGzpOLxc4oJNFNG5DJTFv1MxUWN0UmCEP2tXjCXAFP2PMPx/7zbE5j0IKfZv6e0jc4a7hcubVUvKJ5CsVdPuZ/ag+sla5rK1lm9V+PbUKIyo+emqnX8REGW9HaaFQ5Laq79yO0kPaOQl3VqofCaX2pvbV3lnxjP+g6iZqVTDyjH4WYk2KYjQ6mqFLD8YGeJPXXgHs1YyvMfZ7TYkg6vtaAPujbWxzLbpjJFNMGwMCJ+IP+vjOIvvVUIgikNEIHLMGmR/Vg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=efAIAEBmxoDDjozZCxTk5HlbhQ8EvEnUrOEcGPwS1JE=;
- b=ZPt55iuvcrle8iQlEPXpZP6q86qjri3fXMnSXQE+fWpkcPr3dfUm3sQGiayNRqobnHHADsa1HKplh2TjpEqeERL6xogZGq3+stUs0Y+cndMebtOxIb+sXSWmpUrkNBb2C/sTjDNIx7aVtVmAe5AJ52uq8xlDy5088SMnq3y3huo=
-Received: from PH7P221CA0038.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:33c::7)
- by MN0PR12MB5954.namprd12.prod.outlook.com (2603:10b6:208:37d::15) with
+ bh=qI40RJqfZlcX+67K5tY/OCWiMB7I/I0FRiVZNUiSuEM=;
+ b=NGCBrdyP8OTuHWxM+y7OD9MtMdEl/e0dFFb2yE+0re4QkKoT0OKd08LIUmh4GKit9RXc39d2x0+NRC57Zl7TvZbgg6Pp5DVTBKATe9gPjP96Q5vfKd8PZv2lla69C6zTMgwc/e0ffz/SRX6IZ7O7B5r2K6VaN9uRv4/UdK2ZWdo=
+Received: from LV2PR12MB5773.namprd12.prod.outlook.com (2603:10b6:408:17b::14)
+ by DM6PR12MB4204.namprd12.prod.outlook.com (2603:10b6:5:212::23) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Thu, 30 Jul
- 2026 15:00:26 +0000
-Received: from SJ1PEPF000023D3.namprd21.prod.outlook.com
- (2603:10b6:510:33c:cafe::51) by PH7P221CA0038.outlook.office365.com
- (2603:10b6:510:33c::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.15 via Frontend Transport; Thu,
- 30 Jul 2026 15:00:26 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000023D3.mail.protection.outlook.com (10.167.244.68) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.1 via Frontend Transport; Thu, 30 Jul 2026 15:00:26 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 30 Jul
- 2026 10:00:25 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 30 Jul
- 2026 08:00:25 -0700
-Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Thu, 30 Jul 2026 10:00:25 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu drm-fixes-7.2
-Date: Thu, 30 Jul 2026 11:00:18 -0400
-Message-ID: <20260730150018.801791-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.55.0
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D3:EE_|MN0PR12MB5954:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4442734f-2a89-4609-2ebc-08deee4b49d1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700016|23010399003|18002099003|13003099007|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: U+ZhISzv63Udg+LZ9qUauiBD2oggPK2arEapgTqR9nzq4znRcaIvuQ2FQNlXmoPi0INkcvkGN/qgHwwRVri3jsJpULHmHHBD09cPDjiOyj7IGJbK6Gs5piilN49B5KZef/BvbiJlsckMNKjnmBPul5Dbl7KiUqUOiJSTVT/98wEMB3fLz6DX5+phgAICwWLjHiBmr48YeTTJRWUzK9Qc9BHUvWANFTq3nqJ8Rm7N5wOTaoKVuNhUQaEYFlYPRcCEhqIvNeUFyrWKSNw+reo8blmB94QaH5/JlSbjJ9tjkKtEiB/9ImMmHNtCd0dIxMz25rHPkLJkiOOBOpaVPtA7gIeeFoEL1/kaZ4JmU1DjOhjYqyq/rB2DqgWINlxCETXhhdM2YosQHem8O9mWEHR20F9KUXjUJ1yX99gm81+ofblzTQ1tE8SduiOzIzfPIXyQcgPkMVwEcVYIaU9ptWoe4C1eAW85uWO40p8UM1WJuMhC7NSm/F630nrBhp5beyWMe5VTvy2Nee3b3Qf21y3v50uKf08fnOUWjcJ9+XOXzOYGlxuTRDgosjVUjk6pN4vP/AtJFAg6PV5/UejxbYh2d6LHghKugOg2WcWbuFCX+e+4jI2thCiKei+VMvixZ4WAHfZIJawlcRrqhg5wYFzdZw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(23010399003)(18002099003)(13003099007)(56012099006)(11063799006)(10067099003);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.14; Thu, 30 Jul
+ 2026 15:08:06 +0000
+Received: from LV2PR12MB5773.namprd12.prod.outlook.com
+ ([fe80::4db3:5df8:c24a:a064]) by LV2PR12MB5773.namprd12.prod.outlook.com
+ ([fe80::4db3:5df8:c24a:a064%6]) with mapi id 15.21.0245.012; Thu, 30 Jul 2026
+ 15:08:06 +0000
+From: "Dong, Ruijing" <Ruijing.Dong@amd.com>
+To: "Rosca, David" <David.Rosca@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Rosca, David" <David.Rosca@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: Drop UVD buffer size checks in
+ amdgpu_uvd_ring_parse_cs
+Thread-Topic: [PATCH] drm/amdgpu: Drop UVD buffer size checks in
+ amdgpu_uvd_ring_parse_cs
+Thread-Index: AQHdH/PpzCiFhA/MHECRtPit/LoucbaGKmlQ
+Date: Thu, 30 Jul 2026 15:08:06 +0000
+Message-ID: <LV2PR12MB57731B32A18E81145641BA9D95C92@LV2PR12MB5773.namprd12.prod.outlook.com>
+References: <20260730071930.5613-2-david.rosca@amd.com>
+In-Reply-To: <20260730071930.5613-2-david.rosca@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-30T15:07:37.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LV2PR12MB5773:EE_|DM6PR12MB4204:EE_
+x-ms-office365-filtering-correlation-id: 7c37dc76-c7cc-44b6-b15a-08deee4c5c41
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|376014|22082099003|18002099003|56012099006|11063799006|38070700021|10067099003;
+x-microsoft-antispam-message-info: b+64YPYDR27JDo/l3jShWmYCMtfgeHEbxNTr32FYKwrXSA3v0/bLaLigb2UthxrOzTwhAda7VShOrDZ39TI3ZS0kv8j0m2qDVHrtB7UPrky6Z5pJi238oYNpYTXjxpXKW3xHAWj+GODTTQ8kymBLvwcca9l+RZ+7YBxjYMGN+pOJ8E9UyvgTEZeyGrmRTXqtqIxrTXG5sKCmHajQSquXgWhEUAcx/RFuFFcw2/xbp8ydpXM8zDvQHc67D27ft3r2LQqXEBhWSds6pSLiOvBwW8RVXgXHX6kuyp8tnlUIwafd7vY1Ha3t7qQHa3QQj99xaN3T9TxmiohUewuvjYm1HzZwP7KLBLx+fQOG4AEtTXIHof2uU5MUcIZ7xsMqdoa9mFKrV+bja5csrcrqItoWEM04U1A61Kf/JB2CEAouLsRkNkyG9+s4Vfv5LYjN6oGQ6LFHnIc6JVXt/xsnUO3JmBQ9ljydMcF8ugf40KbmPlr05/JiYRmw+1ymqJjOXBrZ6HortiDzyPlLuW7q9YFuaZ1MTsoPwgOWUiSV7FRsQR0Fdc5f88uh/LLVgBRiH9xhB0Rdoh33hf7zDvHoxheRSq7U81kXYbkfQ6LyfJWY1pv6ZNOZt8mz/5qa2QLXh0BVVFQYCrqS2rD2fBrN2vUqczHllIXu6WYTnYZSixy7OR07FAl0GfjLgT45fkFCukC9Ghx8V0Z4IfZo+sIZGq0vUxBWnSVhkIabEp3KPlbuRJM=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:LV2PR12MB5773.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(22082099003)(18002099003)(56012099006)(11063799006)(38070700021)(10067099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: AMU6/cZgtZraLb/K+wX+BMz0OOJzzikeXSvjo0c+t8/7EqCtc8BfnkY/AlcVB/1QGDWpOZ1MA9CSa6qrljW64GQnFrVNbwxXkjJ72AjzVnZHPhoz7GPSZaYjQeB9pVUi0zBfQ3VT3eR74dx+YXcS5Vjt5okowIQgcvlJ9PvAcqOBZKhg11I8YY5XzCiRbDVDztWkmlNFAbgF3kYl5ACqVdgEeXCIah0daj9BB+OvnbNRyHxIRqit/KH+r9cM3TLmgi32TlYpG+TNskAYDMRbE0DkTRPlJFto2ZgCSOUbOKfzUh2DlGs2LIZLMLmwZQV8n3rE07cpni0vh52SFq0fE6x10wgeX9yP+BlDqVsXP+7+ygBFDtzaZc1xAF2Gqnu1aaTh9OZBlFYaApLhvk0nYj+kr9TGxnPyHGWeJQG0tXsjTJyw4IIQAqB1SWlHNgT9
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?u1C+UW7CxzMLfn618/44mBi2RRoBqLT8hPGxpe+OjmC93ptwq88TFwXWTSj0?=
+ =?us-ascii?Q?FvT/xoDX5h3pRFv3dBl/RxMY6AHqPu6cjvEUpl5pN0t79x7OgFFsSdMCYO+i?=
+ =?us-ascii?Q?qBqpE/tozgCcvV8S3DBGKPWeIOFZccZH8XFHKsW31OBgOibRjL6y+LmlkELy?=
+ =?us-ascii?Q?4/R2TuRhZLKg4MMcGqYOlzz9SCTjXVlf939xuu0zO9JqSqw06/V/d4KwkbWS?=
+ =?us-ascii?Q?rDsUuwxaKWWflANzb292pqc+Ap/MRcfcxd2vAlU3rQRnDvlFvsJh2xGZhrmX?=
+ =?us-ascii?Q?3qqzlkzy8EIiKqlCeC/X4XLmM36SLpv7yjRwKvfZqZnjDGnvNZXFhTDaWgX4?=
+ =?us-ascii?Q?LBfUUHX5nhOdKo3Hr3Z6cgzpvOsGmJ66BK4lLLaLvNz/lzHEBKMkUhSSzax0?=
+ =?us-ascii?Q?3F05kKCelUEmUeEyQobzNBPNCQaO9VEzhb9htS5AJb3f28hcrmf2Al1xESHn?=
+ =?us-ascii?Q?z7zz+4mUugpv6DGbHkVZCdBJXFsyFCtpmDSKK2ge/gKKFDs8pctBkXK+FKFz?=
+ =?us-ascii?Q?YePOsXVnl2UfnIx6EzsZIlB2wSCK1YKuFcdTNNu73xPmOEhFquTA6fOwxZn9?=
+ =?us-ascii?Q?HT3T/I/ljiNgaXV3zw0UzZzjrehlyqdLHwo6JW9UdaCL4tUx1QRCuPAM8Zqa?=
+ =?us-ascii?Q?sApMIOt/klzIROTQYQmgilgzQBY3kdljLD1XYnd4b61WrZea0nJFjn6lJh2B?=
+ =?us-ascii?Q?HcfkIDx/8zJgKxKuWsl8aC1k0bDOnmxs4QcITXyg9eAm6Dyvsef9d69VGytg?=
+ =?us-ascii?Q?wbVRUxbu7VLgLYtvUS0qaRNcLevuQOiPUT3BLh5MXY3+tEN5V1E9JIygU+G7?=
+ =?us-ascii?Q?INxZHw+vDTVrKBxxMDGVURWubb1ao4LKh6AzhsMTZ/j8zs46BJC+nVAdLU+K?=
+ =?us-ascii?Q?ScLM+HZ2532BsZZHZTv69s6ITWKjSXqgsTMK9Is0VyyQbcIad5r4sqRdqiu4?=
+ =?us-ascii?Q?rLT/oVIm+FcoJ5phEYrsdCE2JMqJLR7pCcVwiCrODULdpj3tl/m9x9NbuPIl?=
+ =?us-ascii?Q?iAPxt/0WmerQfovAGpDfqIHBo9N7YCGKVj1aYECsTkzXzyrcaoFC6U71cqOe?=
+ =?us-ascii?Q?YCAyDI58/MJIrUG2Y8PRWJz+AtBN+YEMmAvrFOCNXaOJBWSDtrqZLQwVwjdc?=
+ =?us-ascii?Q?/MW+dzcSoxk2wTb5kiePVRJx9teGWGzbzAGnPHJQR6IegmS5UP1VX3EL3JrN?=
+ =?us-ascii?Q?GUHhLl9d4gYtp4cpKsVfBQQaHNr5HO6fyfT0480KAVtYxWy30qtjxqgbssmq?=
+ =?us-ascii?Q?308U3Op7JsHdKYyQQftnUpNJHx0Qv8+hzTLWyK72JXXwDamyr/BWW4G6p62J?=
+ =?us-ascii?Q?DpsJ7IN4jOXKtFwL1SItgQkBQLSF8xcrB2B+3zrWDFFySRwwXKO8GhGuj1WW?=
+ =?us-ascii?Q?BEEhvqz+/nAUf3/zx6zhXbl8tZmdZhTtANrjaVK/987ZKjJ/L10MegfGMwUj?=
+ =?us-ascii?Q?pk7sKJ2nDo/7FSULHM7qSK4dHmAUoX/LzwGP+amOnWhlX17lymxOWC9ocQue?=
+ =?us-ascii?Q?6flr1NYiIHPQ190UkyylivepVIBk1zVfRx7tLSfPp4nFmq+pOfWOWYFN5e1V?=
+ =?us-ascii?Q?C8RGEmMiBlkSfxJEemo5jfB6jqnyXNGYzlJgbkTBynm15qJS6SeMjoI7AU64?=
+ =?us-ascii?Q?npG8wq7JR+17eKT38NBtBg4bfvQk47jeoJpzTl0RPYJh7kyEQzUJWKB9ZjWt?=
+ =?us-ascii?Q?uumOcEIVxVBD0ko9nBwJJ/pdde65f9QfIz+ca4D9ZV3hJ9LZ?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 15:00:26.0796 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4442734f-2a89-4609-2ebc-08deee4b49d1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D3.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB5954
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LV2PR12MB5773.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7c37dc76-c7cc-44b6-b15a-08deee4c5c41
+X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jul 2026 15:08:06.4877 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: X+7bd/pb0DJqhgCb1A2e9jgXIKj4GqSldLiEDjsvkwgY0TTXBnQjIc3I/UT728jx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4204
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,36 +134,338 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+AMD General
 
-Two more small fixes for 7.2 on top of yesterday's PR.
+Reviewed-by: Ruijing Dong <ruijing.dong@amd.com>
 
-The following changes since commit 114b42507b6a23d9d24e24e4ef165233332c64d4:
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of David Ro=
+sca
+Sent: Thursday, July 30, 2026 3:20 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Rosca, David <David.Rosca@amd.com>
+Subject: [PATCH] drm/amdgpu: Drop UVD buffer size checks in amdgpu_uvd_ring=
+_parse_cs
 
-  drm/amd/display: use proper context for logging (2026-07-28 20:01:24 -0400)
+This isn't doing anything useful. For H264/H265 DPB size it also incorrectl=
+y forces lower bound on number of reference frames, but UVD FW only needs a=
+s many slots as the decoded stream actually uses.
 
-are available in the Git repository at:
+Signed-off-by: David Rosca <david.rosca@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 239 +-----------------------
+ 1 file changed, 4 insertions(+), 235 deletions(-)
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-fixes-7.2-2026-07-30
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_uvd.c
+index e8b0c62f72be..f410a16a4f53 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+@@ -103,9 +103,6 @@ struct amdgpu_uvd_cs_ctx {
 
-for you to fetch changes up to 8419331e64d92a8de5fc4feef0e305f201fb8b33:
+        /* does the IB has a msg command */
+        bool has_msg_cmd;
+-
+-       /* minimum buffer sizes */
+-       unsigned int *buf_sizes;
+ };
 
-  drm/amd/display: Exit idle optimizations before programming (2026-07-29 18:21:24 -0400)
+ #ifdef CONFIG_DRM_AMDGPU_SI
+@@ -629,209 +626,6 @@ static int amdgpu_uvd_cs_pass1(struct amdgpu_uvd_cs_c=
+tx *ctx)
+        return r;
+ }
 
-----------------------------------------------------------------
-amd-drm-fixes-7.2-2026-07-30:
+-/**
+- * amdgpu_uvd_cs_msg_decode - handle UVD decode message
+- *
+- * @adev: amdgpu_device pointer
+- * @msg: pointer to message structure
+- * @buf_sizes: placeholder to put the different buffer lengths
+- *
+- * Peek into the decode message and calculate the necessary buffer sizes.
+- */
+-static int amdgpu_uvd_cs_msg_decode(struct amdgpu_device *adev, uint32_t *=
+msg,
+-       unsigned int buf_sizes[])
+-{
+-       unsigned int stream_type =3D msg[4];
+-       unsigned int width =3D msg[6];
+-       unsigned int height =3D msg[7];
+-       unsigned int dpb_size =3D msg[9];
+-       unsigned int pitch =3D msg[28];
+-       unsigned int level =3D msg[57];
+-
+-       unsigned int width_in_mb =3D width / 16;
+-       unsigned int height_in_mb =3D ALIGN(height / 16, 2);
+-       unsigned int fs_in_mb =3D width_in_mb * height_in_mb;
+-
+-       unsigned int image_size, tmp, min_dpb_size, num_dpb_buffer;
+-       unsigned int min_ctx_size =3D ~0;
+-
+-       /* Reject invalid dimensions to prevent division by zero */
+-       if (width < 16 || height < 16) {
+-               dev_WARN_ONCE(adev->dev, 1,
+-                             "Invalid UVD decoding dimensions (%dx%d)!\n",
+-                             width, height);
+-               return -EINVAL;
+-       }
+-
+-       image_size =3D width * height;
+-       image_size +=3D image_size / 2;
+-       image_size =3D ALIGN(image_size, 1024);
+-
+-       switch (stream_type) {
+-       case 0: /* H264 */
+-               switch (level) {
+-               case 30:
+-                       num_dpb_buffer =3D 8100 / fs_in_mb;
+-                       break;
+-               case 31:
+-                       num_dpb_buffer =3D 18000 / fs_in_mb;
+-                       break;
+-               case 32:
+-                       num_dpb_buffer =3D 20480 / fs_in_mb;
+-                       break;
+-               case 41:
+-                       num_dpb_buffer =3D 32768 / fs_in_mb;
+-                       break;
+-               case 42:
+-                       num_dpb_buffer =3D 34816 / fs_in_mb;
+-                       break;
+-               case 50:
+-                       num_dpb_buffer =3D 110400 / fs_in_mb;
+-                       break;
+-               case 51:
+-                       num_dpb_buffer =3D 184320 / fs_in_mb;
+-                       break;
+-               default:
+-                       num_dpb_buffer =3D 184320 / fs_in_mb;
+-                       break;
+-               }
+-               num_dpb_buffer++;
+-               if (num_dpb_buffer > 17)
+-                       num_dpb_buffer =3D 17;
+-
+-               /* reference picture buffer */
+-               min_dpb_size =3D image_size * num_dpb_buffer;
+-
+-               /* macroblock context buffer */
+-               min_dpb_size +=3D width_in_mb * height_in_mb * num_dpb_buff=
+er * 192;
+-
+-               /* IT surface buffer */
+-               min_dpb_size +=3D width_in_mb * height_in_mb * 32;
+-               break;
+-
+-       case 1: /* VC1 */
+-
+-               /* reference picture buffer */
+-               min_dpb_size =3D image_size * 3;
+-
+-               /* CONTEXT_BUFFER */
+-               min_dpb_size +=3D width_in_mb * height_in_mb * 128;
+-
+-               /* IT surface buffer */
+-               min_dpb_size +=3D width_in_mb * 64;
+-
+-               /* DB surface buffer */
+-               min_dpb_size +=3D width_in_mb * 128;
+-
+-               /* BP */
+-               tmp =3D max(width_in_mb, height_in_mb);
+-               min_dpb_size +=3D ALIGN(tmp * 7 * 16, 64);
+-               break;
+-
+-       case 3: /* MPEG2 */
+-
+-               /* reference picture buffer */
+-               min_dpb_size =3D image_size * 3;
+-               break;
+-
+-       case 4: /* MPEG4 */
+-
+-               /* reference picture buffer */
+-               min_dpb_size =3D image_size * 3;
+-
+-               /* CM */
+-               min_dpb_size +=3D width_in_mb * height_in_mb * 64;
+-
+-               /* IT surface buffer */
+-               min_dpb_size +=3D ALIGN(width_in_mb * height_in_mb * 32, 64=
+);
+-               break;
+-
+-       case 7: /* H264 Perf */
+-               switch (level) {
+-               case 30:
+-                       num_dpb_buffer =3D 8100 / fs_in_mb;
+-                       break;
+-               case 31:
+-                       num_dpb_buffer =3D 18000 / fs_in_mb;
+-                       break;
+-               case 32:
+-                       num_dpb_buffer =3D 20480 / fs_in_mb;
+-                       break;
+-               case 41:
+-                       num_dpb_buffer =3D 32768 / fs_in_mb;
+-                       break;
+-               case 42:
+-                       num_dpb_buffer =3D 34816 / fs_in_mb;
+-                       break;
+-               case 50:
+-                       num_dpb_buffer =3D 110400 / fs_in_mb;
+-                       break;
+-               case 51:
+-                       num_dpb_buffer =3D 184320 / fs_in_mb;
+-                       break;
+-               default:
+-                       num_dpb_buffer =3D 184320 / fs_in_mb;
+-                       break;
+-               }
+-               num_dpb_buffer++;
+-               if (num_dpb_buffer > 17)
+-                       num_dpb_buffer =3D 17;
+-
+-               /* reference picture buffer */
+-               min_dpb_size =3D image_size * num_dpb_buffer;
+-
+-               if (!adev->uvd.use_ctx_buf) {
+-                       /* macroblock context buffer */
+-                       min_dpb_size +=3D
+-                               width_in_mb * height_in_mb * num_dpb_buffer=
+ * 192;
+-
+-                       /* IT surface buffer */
+-                       min_dpb_size +=3D width_in_mb * height_in_mb * 32;
+-               } else {
+-                       /* macroblock context buffer */
+-                       min_ctx_size =3D
+-                               width_in_mb * height_in_mb * num_dpb_buffer=
+ * 192;
+-               }
+-               break;
+-
+-       case 8: /* MJPEG */
+-               min_dpb_size =3D 0;
+-               break;
+-
+-       case 16: /* H265 */
+-               image_size =3D (ALIGN(width, 16) * ALIGN(height, 16) * 3) /=
+ 2;
+-               image_size =3D ALIGN(image_size, 256);
+-
+-               num_dpb_buffer =3D (le32_to_cpu(msg[59]) & 0xff) + 2;
+-               min_dpb_size =3D image_size * num_dpb_buffer;
+-               min_ctx_size =3D ((width + 255) / 16) * ((height + 255) / 1=
+6)
+-                                          * 16 * num_dpb_buffer + 52 * 102=
+4;
+-               break;
+-
+-       default:
+-               DRM_ERROR("UVD codec not handled %d!\n", stream_type);
+-               return -EINVAL;
+-       }
+-
+-       if (width > pitch) {
+-               DRM_ERROR("Invalid UVD decoding target pitch!\n");
+-               return -EINVAL;
+-       }
+-
+-       if (dpb_size < min_dpb_size) {
+-               DRM_ERROR("Invalid dpb_size in UVD message (%d / %d)!\n",
+-                         dpb_size, min_dpb_size);
+-               return -EINVAL;
+-       }
+-
+-       buf_sizes[0x1] =3D dpb_size;
+-       buf_sizes[0x2] =3D image_size;
+-       buf_sizes[0x4] =3D min_ctx_size;
+-       /* store image width to adjust nb memory pstate */
+-       adev->uvd.decode_image_width =3D width;
+-       return 0;
+-}
+-
+ /**
+  * amdgpu_uvd_cs_msg - handle UVD message
+  *
+@@ -875,7 +669,7 @@ static int amdgpu_uvd_cs_msg(struct amdgpu_uvd_cs_ctx *=
+ctx,
 
-amdgpu:
-- PM sysfs fix for APUs
-- Follow on pageflip timeout fix
+        switch (msg_type) {
+        case 0:
+-               /* it's a create msg, calc image size (width * height) */
++               /* it's a create msg */
+                amdgpu_bo_kunmap(bo);
 
-----------------------------------------------------------------
-Leo Li (1):
-      drm/amd/display: Exit idle optimizations before programming
+                /* try to alloc a new handle */
+@@ -896,11 +690,9 @@ static int amdgpu_uvd_cs_msg(struct amdgpu_uvd_cs_ctx =
+*ctx,
+                return -ENOSPC;
 
-Yang Wang (1):
-      drm/amd/pm: hide pp_table sysfs on APUs
+        case 1:
+-               /* it's a decode msg, calc buffer sizes */
+-               r =3D amdgpu_uvd_cs_msg_decode(adev, msg, ctx->buf_sizes);
++               /* it's a decode msg */
++               adev->uvd.decode_image_width =3D msg[6];
+                amdgpu_bo_kunmap(bo);
+-               if (r)
+-                       return r;
 
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 78 +++++++++++++----------
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c               | 13 +++-
- 2 files changed, 57 insertions(+), 34 deletions(-)
+                /* validate the handle */
+                for (i =3D 0; i < adev->uvd.max_handles; ++i) { @@ -965,22 =
++757,7 @@ static int amdgpu_uvd_cs_pass2(struct amdgpu_uvd_cs_ctx *ctx)
+        amdgpu_ib_set_value(ctx->ib, ctx->data1, upper_32_bits(start));
+
+        cmd =3D amdgpu_ib_get_value(ctx->ib, ctx->idx) >> 1;
+-       if (cmd < 0x4) {
+-               if ((end - start) < ctx->buf_sizes[cmd]) {
+-                       DRM_ERROR("buffer (%d) to small (%d / %d)!\n", cmd,
+-                                 (unsigned int)(end - start),
+-                                 ctx->buf_sizes[cmd]);
+-                       return -EINVAL;
+-               }
+-
+-       } else if (cmd =3D=3D 0x206) {
+-               if ((end - start) < ctx->buf_sizes[4]) {
+-                       DRM_ERROR("buffer (%d) to small (%d / %d)!\n", cmd,
+-                                         (unsigned int)(end - start),
+-                                         ctx->buf_sizes[4]);
+-                       return -EINVAL;
+-               }
+-       } else if ((cmd !=3D 0x100) && (cmd !=3D 0x204)) {
++       if ((cmd >=3D 0x4) && (cmd !=3D 0x100) && (cmd !=3D 0x204) && (cmd =
+!=3D
++0x206)) {
+                DRM_ERROR("invalid UVD command %X!\n", cmd);
+                return -EINVAL;
+        }
+@@ -1109,13 +886,6 @@ int amdgpu_uvd_ring_parse_cs(struct amdgpu_cs_parser =
+*parser,
+                             struct amdgpu_ib *ib)
+ {
+        struct amdgpu_uvd_cs_ctx ctx =3D {};
+-       unsigned int buf_sizes[] =3D {
+-               [0x00000000]    =3D       2048,
+-               [0x00000001]    =3D       0xFFFFFFFF,
+-               [0x00000002]    =3D       0xFFFFFFFF,
+-               [0x00000003]    =3D       2048,
+-               [0x00000004]    =3D       0xFFFFFFFF,
+-       };
+        int r;
+
+        job->vm =3D NULL;
+@@ -1127,7 +897,6 @@ int amdgpu_uvd_ring_parse_cs(struct amdgpu_cs_parser *=
+parser,
+        }
+
+        ctx.parser =3D parser;
+-       ctx.buf_sizes =3D buf_sizes;
+        ctx.ib =3D ib;
+
+        /* first round only required on chips without UVD 64 bit address su=
+pport */
+--
+2.43.0
+
