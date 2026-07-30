@@ -4,85 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54FE3C5516D
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 06:58:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13979C55171
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 06:58:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B217610F189;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2D6E10F18A;
 	Fri, 31 Jul 2026 06:58:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D3OGIGjx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="H+UnfM7G";
 	dkim-atps=neutral
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com
- [74.125.224.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 92E7610EF1A
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 13:52:26 +0000 (UTC)
-Received: by mail-yx1-f46.google.com with SMTP id
- 956f58d0204a3-6651abddd5bso257460d50.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 06:52:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785419545; cv=none;
- d=google.com; s=arc-20260327;
- b=coLZ2LQtyOUp7EJluGg8yY79QapAeWq6l8VRPn0M4iF9rW7gjXRt/zTnF5XfW7L8Mh
- /aZRnvYD1+VUVcDw9pO/A/7CUKAxrI77FB2AttcSWjVEZzUZxR1DeURyCshnhJ/HuoL1
- FLeFSPouGe8zcPjuXiMc0nTi+c6LxuaRBMAeq/ugBkjWmNlbkOGmVLKsBT4WkeY3B/Iu
- KzTmXM9Xu5xsMpDc+a0uaVjiFt61SgjzqhrZE00VVn+xsJ5HXPq2PgOFGIFpTisXx64a
- 84OksApg5t7nMvA33BU53OEFyUkawcjCECRzyzjBB65IVcTHTY9KbvmqFJ1h/jbu6CMA
- 33rw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=k+QTaNRAeyAIgXPM6mVW8ocsbG6VlzRzT4YbG+xZn/8=;
- fh=hs9oynQb3YjZT40omR8IZyt+l0QN8nu4Bye5abBVWug=;
- b=bZJNYqfEVFtQTJGOKUUr/Dd0UEIS0Hs3QLneVKe7sNj4C+RPF5Dwj0oWLjsjJXY3+z
- xFPoAw7kDHJ66/adh1N0aRQw6CRf7p4EYwMCjtjxLBULNckCrbJ/OQVZuWXpOPbiCFpQ
- jv+1M5oI5z/ppz9VqQv/CL/ROmmlikQyYjOPLtCwcybREJkvOovpSn+Yi4RGr7xZrN4a
- gTEStuFY0xiUAxqeweUnOZ53Q5+uhQ7H7r6LhW39EHTHyH+RP3Cuov9scnjVop4KNgZX
- 2014lj30bQawzbyoHZWK9N1CXcyqSvRY/e3KH7GaMxaO74KnAgk0CPyFQwdCgbbnbsVy
- OpAQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
+ [209.85.218.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 88F9110EFBD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 15:36:16 +0000 (UTC)
+Received: by mail-ej1-f47.google.com with SMTP id
+ a640c23a62f3a-c1c24ec9525so389937566b.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 08:36:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785419545; x=1786024345; darn=lists.freedesktop.org;
- h=content-type:to:subject:message-id:date:from:mime-version:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=k+QTaNRAeyAIgXPM6mVW8ocsbG6VlzRzT4YbG+xZn/8=;
- b=D3OGIGjx58eILccY9j+K8o7a6faMqA3u9QnhSIeegojsjGvjq3tJFt7qWAg8tYD9XL
- niL8UdkyrYl9CW9EjdPNl6gOPSaXqT+OS0Ei58BFFAiy66VZqdlCOD+SAaJHaJ7Nhciw
- A5RWglHmAknBDdhUxJI3chBHeSNc2mgTvNl7m4l4vIz3mFsTLza6sZopsIOCvvw3a58l
- A80OpnidGMTkTNUhOETzOVuGzgh0Run+vnpdMiJ9I0H7hCcFWF/nRPgZcsf+AP3GJzmE
- 42vFImhMUN2RdkfFdya/f92Jbbq6ObhLtNrI4KGcmCE/4wlDG+KGhlYHipo3x+wzsRkc
- 6Bgg==
+ d=gmail.com; s=20251104; t=1785425775; x=1786030575; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=p3SOhHIxVhGF41c8QPWamnwAmuGY/uvO36Ylk3s7hbw=;
+ b=H+UnfM7Gmd7uTPLIVQZF73t+9qbUl900+tb1fc7r1dbIqgCicslyXuBg37X20ZWm5a
+ DnClRz90lZbeCDBSQf5H+VTuWFdKHPNBUrspxwGaexyv7whfrGW8EQUJNlFst7T2J9+D
+ 4nbnkFO8auyJ7ZqKrJQ8cybKtsQHGfKFa2ecFbY3+lxCeayHOTB41/2wopYoVKaCV8na
+ 42zoDoIKwio5J0VsPeg7kpIP9tISpLa4wG+t8qhZN+SOk2DaCMmtq9+pF2sW6RpvfHUs
+ xyGWxmx1K8q2wfnD0k3xWG74/d/8NDM09bJ9eMeImfBcofvzzqsLoV8LEZfeJFYEJ3Cs
+ k1EA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785419545; x=1786024345;
- h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=k+QTaNRAeyAIgXPM6mVW8ocsbG6VlzRzT4YbG+xZn/8=;
- b=kuDhrn+sLInx2cncBqCY6VDZMBFg3SSTLvn3n2i+FdthHA7WZmF2jQNUVNEyCzBY5l
- 6Jb/ioggD2HbfTxzYLfz2CNwpejFmEVcLzJ1LuJubgCGGbjMJSIyTxhEM2KXhBZ2hRcl
- A+i9aDBPFyjw1MhvvGEJ8gwzXVXtgiof/XDcPdi53Ec0tLiMXVak8rVqONkGu64cRii8
- 31N8DwD2lL/FRSXI3VCY+AvRehjfCP7Xsi+VO5J49OwxHtHylIZ09cZRjI63XcRuV9IT
- wfNbMNaGEu8Opl1rX+bM5AmML2BtHLtZiTWrNTamJiV1Mv5mNdh4eYDiC1GYzaibXdAK
- iQ2g==
-X-Gm-Message-State: AOJu0YyIY7u9onBUxsUwbuot7+mIXhX2CbTZEaVIDbnsz0ECWP8YH3YE
- oNQKQ3WtJyEDtBdDWJHWp/vXvcdlBMFAjSAho8DlQLTm9asmv92vd03EeWseLznkZ0XF1UmGt/K
- bSvPvG0lF2Km7kbOAirAD0uABA9CS4LMuFJdv
-X-Gm-Gg: AR+sD13GSLHy1/95pBOx3oR/Wuw7soGhNjSgGpawkYYJuSdvLfiTVAZxCowTCDpkWpo
- HSytySmHx6efjQXbzyUOGWf7yDpHMODz2QbzTvCRU+reJkGraLrGbTDOOtcibd6W0iRQej4M9Ki
- 7bBozxg/uIJWmnmdZEwuwZcHOtiWTpXJXbKrqoCsbgtzpx+hUymNZnfCSU1dB9eHKAIk1EZcKL+
- rtNAqh09sbGbXGfL+kAP/mUausUcZuvZvNoPbgmkXI+S2s6J+1hhkwr6Uf91SDR5266Hv/nIdBe
- tOUIL90r4JDSg2bdaFyYHFb5ru40xg4AHcaUGYEy1wwNMg8kKIG2aJM1Z6Ha+IQK7kp8AfKDEq+
- 8jsVZj7QxHrsX
-X-Received: by 2002:a05:690e:144d:b0:668:430b:a928 with SMTP id
- 956f58d0204a3-6693a0f5afdmr471039d50.0.1785419545192; Thu, 30 Jul 2026
- 06:52:25 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1785425775; x=1786030575;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=p3SOhHIxVhGF41c8QPWamnwAmuGY/uvO36Ylk3s7hbw=;
+ b=B3N0+3dzPEoO/nvrn8buMzuWCTsycPydZeDwz6yHEXVV180/b6w1laH/q1hTTlCMhG
+ heqXYKXf9DH8ZEeKPXeo3m39wmk0kBc1moW3jVgpbTsF6FaWjf7jW9rNDg436rsGbiLX
+ j4yg3YNNf2f6s/5lVJkJ22bRZJeWK8VKqQlE7yzVZzshpRfqQYZUqRDT0ncFowHCGNEB
+ Bo2VQZoqOzx/9Y9JxaBpEjPG+n7GIQ8GFL6sYhSaU8KilTe/1P/lac52wYuaqOeG3e+7
+ VHbbnWXAqxQmoyFcIWEgpUKgVoudTs3reIk/wYFJ75L6rmXkD4O4mploEFDeBDFPlJDG
+ YKBQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrSeBxUd01ctBBdB0oZ62faTh9mJjlOaOg3/f2L7c9USmXsrxpjMB2GZ/sLTTW0ufFVg2duxQh6@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YytbECzo7UGhQsn4AExKdk5gFm/TF3c2DbAIQi9+kfcur1iwI1N
+ 25ImkbA0e3uIlxzgdkSHzq5ebx2DXTvkQyfU5GzWnw36IC/IwvtuWiMm
+X-Gm-Gg: AR+sD13IzZSIS83G9guv3emUfdyJjVJNYwk7lVZD3h0V1KjE+iq/XF60Hs8wzahMjRW
+ kW/a179SSePz7ymrYX4/NrT03UEgrA62hln/M3iRx+Ifgp1CBSRyDPbvvz2Ax3w4Mdu4mT32GXm
+ wBdWgpTdgHd7V/NGa5Exn3Nih4aha9pXuCeao85C1cLmq5n2G/o8ootkN+qLymH0t20FEjBTkHb
+ PJ0hfPmo/Ngo7XnjQBhXf9k2OqZoM/5eUL0AWnHVSnQ6W2J/YCi8uMGsXKeFNWZ/8uSySLR1DXO
+ DYaK3xZg5dV8+urD5Qie7JY1wp0abGmdqLoTYVNYvW6cKfUM39BqjoxBZ338r7CV32hxo3RHCcF
+ 3y6lp774JWIWwSpSn2ZUFSI2vvr8zxKH5pHwlhV7oZTdGvOW5UYwHhHfYIUETa9e8lWvdpt6uzR
+ /1siRtkFqig3IjhJscYz+qUISLeytQGbISdF7NuiyXVysV+yj+Lw1a+JNB+cN1yMPmemiZrXXiD
+ IV/tHkdnTQgrba/eCmNZ4SF0W3Tds80BOh4mWIL3Dtj62Dfq7x5
+X-Received: by 2002:a17:907:d10:b0:c12:959a:1477 with SMTP id
+ a640c23a62f3a-c1fa57076cemr160900866b.40.1785425759630; 
+ Thu, 30 Jul 2026 08:35:59 -0700 (PDT)
+Received: from misharu.home
+ (2a02-a463-a071-0-ee66-8497-94b5-6e78.fixed6.kpn.net.
+ [2a02:a463:a071:0:ee66:8497:94b5:6e78])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c1fa8b762dasm84986366b.38.2026.07.30.08.35.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Jul 2026 08:35:59 -0700 (PDT)
+From: Hari Mishal <harimishal1@gmail.com>
+To: Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Hari Mishal <harimishal1@gmail.com>
+Subject: [PATCH] drm/amdkfd: reject alloc_memory_of_gpu with wrapping
+ va_addr/mmap_offset
+Date: Thu, 30 Jul 2026 17:35:55 +0200
+Message-ID: <20260730153555.15176-1-harimishal1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-From: Daniel Lima <danieldelimafrancisco5504@gmail.com>
-Date: Thu, 30 Jul 2026 10:52:13 -0300
-X-Gm-Features: AUfX_mwU_Ibu24frHy1tsCUi-9Ss9OcIV36IXmlPEPzmbiUoKO9hh1W9qOhs3MQ
-Message-ID: <CALnZc=SfhdmF_YzAcG5A7=NfgTVUB6Mc2FFY-jkZ2sXWjPPj+g@mail.gmail.com>
-Subject: AMD BC-250 (Cyan Skillfish, gfx1013): can the VCN 2.0.3 power domain
- be brought up?
-To: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 31 Jul 2026 06:58:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,68 +95,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Subject: AMD BC-250 (Cyan Skillfish, gfx1013): can the VCN 2.0.3 power
-domain be brought up?
+kfd_ioctl_alloc_memory_of_gpu() computes the SVM overlap-check range as
+[va_addr, va_addr + size - 1] (and likewise for mmap_offset) and passes
+it to interval_tree_iter_first() with no check that the addition can
+overflow u64. With va_addr near U64_MAX, the end wraps below start,
+interval_tree_iter_first() sees an inverted range and returns NULL, and
+the overlap check is silently skipped. /dev/kfd is unprivileged, and
+va_addr/size/mmap_offset are plain fields in the ioctl argument struct
+supplied directly by the calling process, so this is reachable by any
+local user with a single crafted ioctl call.
 
-Hi,
+Reject the ioctl when either va_addr+size or mmap_offset+size overflows,
+using check_add_overflow().
 
-I'm working with an AMD BC-250 (ASRock mining blade, PCI 1002:13FE, Cyan
-Skillfish / gfx1013, GC 10.1.3) on Fedora 44 with the stock 6.19.10 kernel.
-Hardware video decode is unavailable, and I would like to ask whether that is a
-firmware limitation or just an untested configuration.
+Signed-off-by: Hari Mishal <harimishal1@gmail.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-The short version: in amdgpu_discovery_set_mm_ip_blocks(), UVD_HWIP
-IP_VERSION(2, 0, 3) has an explicitly empty case, so neither vcn_v2_0_ip_block
-nor jpeg_v2_0_ip_block is ever registered. Is that intentional because the
-SMU 11.8 PMFW has no VCN power management, or is it simply that this ASIC was
-never validated for video?
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 309510e23315..12954d65503c 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1089,10 +1089,15 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
+ 	long err;
+ 	uint64_t offset = args->mmap_offset;
+ 	uint32_t flags = args->flags;
++	u64 end;
+ 
+ 	if (args->size == 0)
+ 		return -EINVAL;
+ 
++	if (check_add_overflow(args->va_addr, args->size, &end) ||
++	    check_add_overflow(args->mmap_offset, args->size, &end))
++		return -EINVAL;
++
+ 	if (p->context_id != KFD_CONTEXT_ID_PRIMARY && (flags & KFD_IOC_ALLOC_MEM_FLAGS_USERPTR)) {
+ 		pr_debug("USERPTR is not supported on non-primary kfd_process\n");
+ 
+-- 
+2.43.0
 
-What I measured, in case it is useful:
-
-- The IP discovery table does report the block.
-  /sys/class/drm/card1/device/ip_discovery/die/0/12/0/ gives
-  major.minor.rev = 2.0.3, harvest = 0x0, base_addr = 0x00007800. The
-  HARVEST_INFO table in the discovery binary is empty.
-
-- The whole UVD register aperture is unreadable. Through debugfs amdgpu_regs,
-  both segments return 0xFFFFFFFF: mmCC_UVD_HARVESTING, mmUVD_POWER_STATUS,
-  mmUVD_PGFSM_CONFIG, mmUVD_PGFSM_STATUS, mmUVD_STATUS, and the JPEG registers
-  in the 0x7800 segment. mmGRBM_STATUS through the same read path returns
-  0x00003028, so the access method itself is fine.
-
-- Writing the value that vcn_v2_0_disable_static_power_gating() would write
-  with pg_flags == 0 (0x00055555 to mmUVD_PGFSM_CONFIG) is accepted but has no
-  effect; PGFSM_STATUS stays 0xFFFFFFFF. The PGFSM itself therefore appears to
-  sit inside the unpowered domain.
-
-- nv_common_early_init() sets cg_flags = 0 and pg_flags = 0 for GC 10.1.3, and
-  cyan_skillfish_ppt_funcs implements no .dpm_set_vcn_enable, so nothing ever
-  requests a VCN power-up. smu_v11_8_ppsmc.h has no VCN-related message, and
-  smu_v11_8_pmfw.h has no VCN feature bit; the clock level fields cover
-  LCLK / MP0CLK / FCLK / SOCCLK / DCEFCLK only.
-
-- From the platform firmware (AGESA!V9 RBNBDK-BL5 46.1.2.220426): the PMFW is
-  PSP directory entry type 0x08 / 0x12, version 0.58.7.1, and it contains the
-  string "AMD BC-250", so it looks board-specific. I could not find any VCN,
-  UVD or JPEG reference anywhere in the UEFI image.
-
-My questions:
-
-1. Is IP_VERSION(2, 0, 3) deliberately unhandled because the PMFW on this SOC
-   cannot power up the VCN domain?
-
-2. If a power-up path does exist -- an SMU message, or something the ABL /
-   AGESA is expected to do -- could you point at it? I am happy to test
-   patches.
-
-3. Could the block be disabled in a way the harvest table would not reflect?
-
-I am not asking for support on an unsupported product. A factual answer either
-way would help: the community documentation for this board currently attributes
-the missing decode to a signed-firmware restriction, which does not match what
-I see -- the VCN 2.x ucode is present in linux-firmware and this ASIC uses
-AMDGPU_FW_LOAD_DIRECT -- and I would rather correct that than let people keep
-chasing it.
-
-Thanks for any pointer,
-Daniel
