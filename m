@@ -4,136 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E02A9C531D0
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 07:28:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 227B8C54FDF
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 08:35:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 718D810EE01;
-	Thu, 30 Jul 2026 07:28:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 843FF10EE2B;
+	Thu, 30 Jul 2026 08:35:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XTasoA9S";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xRLUZ3Yb";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011060.outbound.protection.outlook.com
- [40.93.194.60])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C9AC10EE02;
- Thu, 30 Jul 2026 07:28:10 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013019.outbound.protection.outlook.com
+ [40.93.201.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C395F10EE2B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 08:35:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nHc81hAb57PEA5woWml+M2K1n0LMz7fVgSHFO0wlM3dashO54VxLwh1kqIwqboAjiI3myaQJIbAYeuNCRvdsh3g8CXqeSHrfQbYI+7qs1eoYuDa5lcfsHpmX9sikLaCtF9iPTSNjtoiStsAVzJ4L1tjpxFImKOtibhzQqAepjUGOjJJOm6Qwmix/4JtntpxYV9v1YkaAcSO3eK2rgsghJpByR8puwpQGETdj36xgz1A243MsP8sK96fGL1fgEw6X85Upp40uJWSqjKVSszrYJvgSljcbqCL94HKjbc5HMdA5x7Vf455J3ffquHi1dNo1ESwtrMYnADMw34E0v96E6w==
+ b=mm0P7cfqcGWN7YPL/VXqQCVmQqK+TOfz5r7FJhMiUnVsx+mryYhzUFaKkKwXvfjw8uQRb4hPAwRPSlz06yZZ1Q0wfK4tY61ZIYt9iNqHjSlTLBqCXGLC/YjZb65hn0iUjjdtyoYCNrExm++ZkyAcVY41B6oiIsU1ECHJyC8hbJlo6V6Hxj6S4GQ25L8rGCNdsoHcLwuiFY7zssnvWVkg5ZhoA7e7hzcbtkJv9JjJ9V5BPV4pdZpWzDtR8gDSMR2q4rz4P0Z4jpXE/Nw2r4kitmUQjQSjEUAN9TzSAwtGPQRVg9qwinBaXL5htgyqqPknAyGbJFiLudP6KM92uTDzKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GZt3o4e7fs/MTid31LKC9sDA9xhJIk/d/qyq0j4J9pM=;
- b=GrYr24LjZqQu1cCpt2veA+0olBYRFV9J8Q2mKQjb3Npn5jne8GgkGMObXunmgFHo0+dPapwtpm9tRlMr3S6Rwlq0aPm0hjlP3kLBIQ0MW3gxv67wCD4/4VYfQttbRbZLMjkLRmIYXHh7PM3GwIJyIqHH09TJCg5t48YQdWSpgCmNiTl6j+/brXdBQ+Smxcfp8QHd3hs9VJITDZJ6/kD0JLYqsskPcgkHH/Z25zsX507Gh8zhCHPNe4TjT/lOn3ykLfK6okympqiHSys+lGEjorO6Q1hgK60pmwGH2JfB6LN0xuncU79F17ZYj4VX5PcUDO+BNxCvkD/MLAt0C/avbw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=y6DiSyPUIDJW6appWC+L19SCZBIYSk7IEr/e1heoHG4=;
+ b=uCZIK6li2do+TKasT3SzhhUvRNTMjQhwW0xB7BIh/y3Qt8qFRDyolAGpSFwXEGL1TV4/WUuNvzP7Ibu3UiIgXnwuiuApos+md7GbFC3bDLhNGe9gDJnCVNQf168vfwHv4xP0/u2yvhpr98fSd7aFKb8aAbXTGrwoD0zCV3pKRpt/RUeEm1oyEDPURzJjK8UOt2MKiGkIJNim1Rr0uTRa+GE0HCGzllJR8SOi/chyLlXrXpJFB2VcFtB8v4awYiRT+M2GLfTmUAGPr4kYir9hVDAdxUjSyWJFe4D40GZACJyuBEvOYsouVkXJREb+EzOn4QNbKycsk3ZS33u1CcRVUA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GZt3o4e7fs/MTid31LKC9sDA9xhJIk/d/qyq0j4J9pM=;
- b=XTasoA9S6HsnuPhJONZEFxVZMcB5WulxgOw6bIVPUW/sq8pISK7kXYWQBnCLVdWQC4YQpRSXrlmcKc6Gm9RWMFeQPKDEk9wVapUMkJqnVNePJMM90xaXzWvm28M09W2ydX26qk8cOPYMDwW9uYA/BYMsEC99mHKROwuVbPyjlpA=
-Received: from BN9PR12MB5211.namprd12.prod.outlook.com (2603:10b6:408:11c::24)
- by PH7PR12MB6417.namprd12.prod.outlook.com (2603:10b6:510:1ff::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Thu, 30 Jul
- 2026 07:28:06 +0000
-Received: from BN9PR12MB5211.namprd12.prod.outlook.com
- ([fe80::1bae:ee6:d7f4:b85a]) by BN9PR12MB5211.namprd12.prod.outlook.com
- ([fe80::1bae:ee6:d7f4:b85a%5]) with mapi id 15.21.0270.012; Thu, 30 Jul 2026
- 07:28:06 +0000
-From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
-To: Alex Deucher <alexdeucher@gmail.com>, Teodor Bostan <teobsn@gmail.com>
-CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Feng,
- Kenneth" <Kenneth.Feng@amd.com>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Subject: RE: [PATCH] drm/amd/pm: Add PPTable power limit quirk for ASUS G14
- GA402R
-Thread-Topic: [PATCH] drm/amd/pm: Add PPTable power limit quirk for ASUS G14
- GA402R
-Thread-Index: AQHdH1yAkSK5Yj+QvUO0we9fHkDvR7aEfHaAgAEjnXA=
-Date: Thu, 30 Jul 2026 07:28:05 +0000
-Message-ID: <BN9PR12MB52114DA65D11E67D0A6A246B82C92@BN9PR12MB5211.namprd12.prod.outlook.com>
-References: <20260728234626.86008-1-teobsn@gmail.com>
- <CADnq5_NEU98wff+MiLObBByUUMNkkz7XLZ9MUnGNr1e0B+EKvQ@mail.gmail.com>
-In-Reply-To: <CADnq5_NEU98wff+MiLObBByUUMNkkz7XLZ9MUnGNr1e0B+EKvQ@mail.gmail.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-30T06:48:16.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5211:EE_|PH7PR12MB6417:EE_
-x-ms-office365-filtering-correlation-id: edea75fe-0a64-49b5-f926-08deee0c18f7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|38070700021|11063799006|4143699003|56012099006|10067099003|22082099003|3023799007|18002099003;
-x-microsoft-antispam-message-info: 7MAtFNyphyp+2tVjrJ22zyePHJq9zLU5rEUQHz9j1VJGAGI6PvtRmy1RfcbElKnCwI0+20Et5WOKTYiER1JLhGTwIasZm68VFwoYkrVWTjWVjeQ+lmoCjUKWZtCFwjF0NIEu/2/RKSMTAGYCzK0opkD6kq9Y22t/Zq+Olu0ZNZ23HTcD/eDPJEwzAuxaX5YJD7NRUFdxsv3egjDY6VNjePfLZyeWTFDcg9Qly131WvlEIfsHOkko3Ey2U+2MiFNqTBQTNZ0VL8PYi9egt0xyDSiVabQlmXe26Xzn0zIKJJDX5B4GEmY8pp96Lmz9OCQFybjW+pJzLgxxLZ/CwtTjUqLxvoghgOpJrbAOTPpojqVEYB40WesBFLkVpAZTrUBHM5oCH9Qti5hQniSZKHivKbtwhAJB5x/FnIzIUMJjukCy1+WLr56944jg/pI3AilILbislq7FBp7BFvbAPrR5aqj4fqatbz+R5tZ9LijnkgMITwwbr1mVTUKnIG1qOmTKsTiYvIP1lUMBTvAitPfv4/EEMGbYL4rDDPdCKL9grY24s9ofm98M4ShaUmN/p1sTDpIKicX1QYoCRMUHq3Ybl3cayty8LhgUdIqMgq/5fSpsxv500EaU5JuRoqRqqaLdsLvr0j9+OTcheethlRSNuH6cstmKfF/xww6nvrngtjnKHqWiz+RcnliIZlWAmKQXN9lJW48W4qIwFYncNYphWQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5211.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(38070700021)(11063799006)(4143699003)(56012099006)(10067099003)(22082099003)(3023799007)(18002099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?UzNPdzVqR2ZDZlBHV1IrR2ZsZThqWE1QNHFjVkxYQnBWVytPeDc3dWx5TEpz?=
- =?utf-8?B?Rk5OaUd0emRieFNqNmFnNmZMbkpQNVM5WCthVElsQmcxUG1nZnIrWmhTNmQ4?=
- =?utf-8?B?YUluZXd3V3ZuVnhsTzdQTlBGcTgrZVNmTytlMmZVSU9XOUlCTjZZZGdrWFdQ?=
- =?utf-8?B?VGt6azRzODZ5VGNNeVd4ck8yL2ZZSlAxc3J0MzlZSGRpMVltejlVSU1pZk1Z?=
- =?utf-8?B?VVFhU01lVEFoODgrRTVxZHZOS2hyNm5vY1kwSXVXUDdDdFhBY3hYZUxxNGlL?=
- =?utf-8?B?bGRlVGJ2b3pOTnpyUFVVLzBLNi93T05xRnNWNFRQMTdLM1BtODdCR01zV1Vz?=
- =?utf-8?B?TkhjcGtIZUsyQTVoRTB1Z0pTWHJxcUdCSzdqSGQvd1ArblNwUHR1ODlWQnZZ?=
- =?utf-8?B?R2k0c25McEhndisxTDBEa2xERzFZOHRERUNsSnFoTm9hamo4R3dJZVZ4R1U5?=
- =?utf-8?B?cTVZSW1NSlpxT01Ua01kdGZIeGJ5VVQyQytqeVM3Nlk5a1ZxTGRPQWYvZCtF?=
- =?utf-8?B?dHpDL1VyWnBNWFpxL1RBUDMyMmxPS1RHWDhsL1E2aGUwL3RRYjNveGlscXph?=
- =?utf-8?B?VFVNcVplaXd1ZUFpRCsxVEx1VmgvWnFYMlRkQ1BuQVh4MW9wajZUSEt4SUdW?=
- =?utf-8?B?UG11YjJiMXgwaFE1aTFMNUdXQlZrOUNudm9PbUpYMXBnaEFKUGlZNXVFK2l4?=
- =?utf-8?B?QlptclRjMXpwR0ltTFNlTWZneUhvVEVpd3VRZ0huUE9UaXAvQmVnT1BROGQy?=
- =?utf-8?B?M1FuZXh0c3FnaVRjTllOa2pXUitEVXdobm1IeVpxazMzdmF5UHBmZHR5QkNF?=
- =?utf-8?B?VklpN0lxLzJZSGxZcGlyL0lldE04RDBOWmZSQ29LZ1FXSmRTRXFBNUxDblAx?=
- =?utf-8?B?TDVzcnpUY1o2dHJsU0IzMXNmOVJqNzlvZHFHcFllS1p0b0lWNkdzbHpPMnFn?=
- =?utf-8?B?QmY5WXJjbnRaRkFRdWdtOGxlME1ya3BlVnAwMkZMZmRDcGhubm9IcXRkSFFO?=
- =?utf-8?B?RzIwdm85ZTlrckJkMzJCYW5jWU5aZEQ3SW5mZ2hrN2xKcXFWaUdEVjNUVytz?=
- =?utf-8?B?WkN4NG1HZlZKM3o3S2Fjb1Z1a2dRZ3QvU0YwYnRVTzljV1IxSzE0VXZ1NE5k?=
- =?utf-8?B?dzNzcVBGeW53MnE2eEZDTFd5WktxNXpkWjE0eFkwYndaSDRBUnZjZzdVWCsz?=
- =?utf-8?B?Q21BSk1OT1ZqUE5xOW9jcTNpYUdCS3VKelZQWWRWTUVmZGtHRGdjVE11MmM5?=
- =?utf-8?B?QWdBUTdrOFhsampIdi81NWxISVR6WEh5dTBhdHZXbHp4Vng1cHFoZU1qQW5F?=
- =?utf-8?B?TS8yWk1LMU0vWVM2cEN1cDdkY2RtZmJnRUFvbVhQRDh5Ni9wUmNiYWZYdmhY?=
- =?utf-8?B?R0dFci90N1ZFK3hGQktZQUYrRm1TVWR0cWhPRDF1US9ZMWROdTZ4R2hwZktL?=
- =?utf-8?B?RlY1WTNBcTl3MThETDJieWQwb2MzNHNjaXRNNVRkQmM3elBDR1BHMUVJWHZ4?=
- =?utf-8?B?SWwxZmpWTnZZYmhrMnVBT1VBMUJlRzZyWGFEd3J2RWMyR2tnK1VWS3dzdEUv?=
- =?utf-8?B?N1JUb0w1U1hMaFFJUGlxVXYzOHVZN2RIblREVFFtUVFrZVd1eWhYN0hjT2or?=
- =?utf-8?B?WklCWGJrWEEyRzhPZ01za1FXOXljUUk5cVF3TTJDSXVDMmdhWDlsd012L1Vo?=
- =?utf-8?B?MElPcldoc0FDYnZybjR5TFhHazB4ZGR0Q2ZQc3pobE5HZk9qeVFFS0hZWER5?=
- =?utf-8?B?c1ZINzVnTHpseFJCTEJ0M1J3RUlVblo1YjFTN2xiQ1N2ejZKNmFwSzlxUUxM?=
- =?utf-8?B?eVZia09uWFk0VFNvZWp1dTRPSzJ1S0tlSERhdnM1KytRcGIxZkRVT01zK3pz?=
- =?utf-8?B?OFJEUlA3Uk42T0xIYlVMcXQrdkJiL3dvQytxZnhNZ3RsS1NGN3NORkNNa2cw?=
- =?utf-8?B?dEtzUXJ6SHlTMnVTckFkWEJuQjNnMUcyNzQwa1kvNzJzMFpkVEpVeWhNNHZL?=
- =?utf-8?B?ZHhFdmt0OXFKQkZEbTFjSjVNaTJhME1QQ2c0SDVWMWJSME1Kc1dvRmJGQ3hQ?=
- =?utf-8?B?Q0tLTjdpSVB0cmppdjhUWjZacEpCa3NMWGtHUGhxWHpCb3Bmb256bnZVMWds?=
- =?utf-8?B?R3Y4eG9XcE9jQjhxMS9sMXMrVWtJS0x0QjBIWjZ1WDBjcUl4NnlnUGdGSjdL?=
- =?utf-8?B?bGNJVk9qNXRENDB0NllHbTZtSFN6V1pLSkpTOUd2dmJnZUxzSVF2Sjg1Tkg3?=
- =?utf-8?B?Y2JuWVorQU1qdm5yV01ZaXcyVjJIUTdEcWh2bUEwZ0d1cWlERkd4Ny9CNnVh?=
- =?utf-8?Q?+e3DGNSwcgSE1In8Ur?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+ bh=y6DiSyPUIDJW6appWC+L19SCZBIYSk7IEr/e1heoHG4=;
+ b=xRLUZ3Ybt5W9kkoaNKr5LGzTVcRoYAj4d+I3txT2NHEM2+UGWe8rwxtWdxXki8bp4uMPy9H8k5wUob2rimLJs1A8R3jrryAGTNSwBmjWx46zsAEYH40m1LXNtXWgxmZ878veSU5fl2LkT3hNb++CThw9jS7YMveYIIMbH6Hzk60=
+Received: from PH8PR07CA0002.namprd07.prod.outlook.com (2603:10b6:510:2cd::9)
+ by CH1PPF73CDB1C12.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::615) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.13; Thu, 30 Jul
+ 2026 08:35:29 +0000
+Received: from MW1PEPF0001615A.namprd21.prod.outlook.com
+ (2603:10b6:510:2cd:cafe::26) by PH8PR07CA0002.outlook.office365.com
+ (2603:10b6:510:2cd::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.14 via Frontend Transport; Thu,
+ 30 Jul 2026 08:35:26 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MW1PEPF0001615A.mail.protection.outlook.com (10.167.249.85) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.1 via Frontend Transport; Thu, 30 Jul 2026 08:35:26 +0000
+Received: from amd-03.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 30 Jul
+ 2026 03:35:24 -0500
+From: YiPeng Chai <YiPeng.Chai@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Hawking.Zhang@amd.com>, <Tao.Zhou1@amd.com>, <Candice.Li@amd.com>,
+ <Stanley.Yang@amd.com>, YiPeng Chai <YiPeng.Chai@amd.com>
+Subject: [PATCH 1/2] drm/amd/ras: rename rascore directory to core
+Date: Thu, 30 Jul 2026 16:34:34 +0800
+Message-ID: <20260730083435.540592-1-YiPeng.Chai@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW1PEPF0001615A:EE_|CH1PPF73CDB1C12:EE_
+X-MS-Office365-Filtering-Correlation-Id: d798e4aa-3c47-47ce-5c44-08deee158177
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|36860700016|23010399003|1800799024|82310400026|56012099006|11063799006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: uSrG3Bx6p+TxyTU7oIjQUfe2ulYan9mW9JJs2/rxT9+89FFnhuqekJyTu93wvhzFDTe65OgFVrKAVVu1NxB1+ZpnLqUuQBAwGVuoOMjXd6uon3RxrvloSv87kpQ51+QyxhZCjGWbqkQuoyVZgaWYehW8kjkTyPla7Z2SUNIkxhCxkGj/xfumDcbrlH7QuY9H4JUe96HWLAMG6ZicsZFDQz1uF4gxIelok9phQEfn+uU6k7trkMg2/ztQ5H4+D+8Gvk1EQHOPu3lIy6nxud/ux/fIjXucT1gTb1K623gg4QrhYT1Tdx2WtINlHcSY3hyVahn6TqxBOj0anzKOfO9mxDBm89jva+/EjScPKwgRaMCzRGSCW2FqVKu5MHLrPfQRMwu/MEsR2oSbykA0tlVRYQjEJIOsmwxD3vrFCfmtyMTbhq12uSApbCjuuERTCOpCgzehwwc+uhYexkfLqv0zFDzzqW8qYCWzUJdttJMc1YqQiAxFC1yN5lwBWr9ILYXxyCZc8kgx4YQNPv+Nq6jvFwNfVwWaceBPRArEMbFIfvQ8Rk8rXppmxbcIG1txLLhIHuKH3muLQvkzCxKQLKyVbkSaVOtuPhoqBgI3SoCPMU72uWKjkkkP4FUG0YZTU5asI5KrPoOV77hLCrPYA92aRPvyYwOrOamqXauDFp3wgOa8Yi/kVNH699znzXQ2TKGZY+vRnWQNzxItGUHeBaFaQQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(36860700016)(23010399003)(1800799024)(82310400026)(56012099006)(11063799006)(10067099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: Syykr1Aclx4Zimrpfp9TSnO8Dl0MMB99c6MBU16zDTh6Q9qECwVzM4elTYuBcpncvVuL6xTVmfj3Wk48ZbaYQOzeujAS/p0aCO95i/ZbR96t3YXStPHD0OFn7ENetN3XhArcqaoG6HW5L7f9W+EYDfXl+cwn8FuOoyyOy65uNO26SIIEpJNZMCdxNP2OLu70pAY5PBSHfJEf9yflefKeTMEsSttGGwcHOXSB3Is/rlkxc5doVmNyoqcXJRWL2I8TodazSlUYQApdC9OX/rXVa7p6nWmeoP8NxhuGDzoYWYHVr5JTg7mHsmA+nqNzAz57xep3q8fsy4WZzrqc/76VBQEyJO+yZBnt3xMYHbDtKvgfZ8UH7cpTRnUZQh+gLXz+cXHUwUkuE+p+BMZ6pmcCIdwItKAuBM0g38yhqesR3sZXkKepnyiaAkoVWx7vJfFH
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5211.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: edea75fe-0a64-49b5-f926-08deee0c18f7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 30 Jul 2026 07:28:05.8950 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OM4o/u0jCiAnAzQHUFl2IE6t5Sa5/kpDdrnxXN28Jj7SGmOs6TFRMrvqFg4RA4fd
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6417
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 08:35:26.5907 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d798e4aa-3c47-47ce-5c44-08deee158177
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MW1PEPF0001615A.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF73CDB1C12
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,60 +109,293 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QU1EIEdlbmVyYWwNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBBbGV4
-IERldWNoZXIgPGFsZXhkZXVjaGVyQGdtYWlsLmNvbT4NCj4gU2VudDogV2VkbmVzZGF5LCBKdWx5
-IDI5LCAyMDI2IDIxOjI1DQo+IFRvOiBUZW9kb3IgQm9zdGFuIDx0ZW9ic25AZ21haWwuY29tPjsg
-V2FuZywgWWFuZyhLZXZpbikNCj4gPEtldmluWWFuZy5XYW5nQGFtZC5jb20+DQo+IENjOiBhbWQt
-Z2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZzsgRmVuZywgS2VubmV0aCA8S2VubmV0aC5GZW5nQGFt
-ZC5jb20+Ow0KPiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+
-OyBLb2VuaWcsIENocmlzdGlhbg0KPiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPjsgTGltb25j
-aWVsbG8sIE1hcmlvIDxNYXJpby5MaW1vbmNpZWxsb0BhbWQuY29tPjsNCj4gZHJpLWRldmVsQGxp
-c3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBTdWJqZWN0OiBSZTogW1BBVENIXSBkcm0vYW1kL3BtOiBB
-ZGQgUFBUYWJsZSBwb3dlciBsaW1pdCBxdWlyayBmb3IgQVNVUyBHMTQNCj4gR0E0MDJSDQo+DQo+
-ICsgS2V2aW4NCj4NCj4gT24gV2VkLCBKdWwgMjksIDIwMjYgYXQgOToyM+KAr0FNIFRlb2RvciBC
-b3N0YW4gPHRlb2JzbkBnbWFpbC5jb20+IHdyb3RlOg0KPiA+DQo+ID4gQVNVUyBST0cgWmVwaHly
-dXMgRzE0ICgyMDIyKSBHQTQwMlJKIGFuZCBHQTQwMlJLIGxhcHRvcHMgdXNlIGN1c3RvbQ0KPiBB
-Qw0KPiA+IHBvd2VyIGxpbWl0cyBvZiAxMDBXIChSWCA2NzAwUykgYW5kIDEwNVcgKFJYIDY4MDBT
-KS4gT24gcmVzdW1lIGZyb20NCj4gPiBzdXNwZW5kLCB0aGUgU01VIGZpcm13YXJlIHJlc2V0cyB0
-byB0aGUgcmVmZXJlbmNlIHZCSU9TIGRlZmF1bHQgb2YNCj4gPiA4MFcsIGhhcmQtY2FwcGluZyBH
-UFUgcGVyZm9ybWFuY2UuDQo+ID4NCj4gPiBPdmVycmlkZSBTb2NrZXRQb3dlckxpbWl0QWMgaW4g
-c2llbm5hX2NpY2hsaWRfcGF0Y2hfcHB0YWJsZV9xdWlyayBmb3INCj4gPiB0aGVzZSBzdWJzeXN0
-ZW0gSURzIHNvIHRoZSBkcml2ZXIgcmVzdG9yZXMgdGhlIHBsYXRmb3JtJ3MgaW50ZW5kZWQgQUMN
-Cj4gPiBwb3dlciBsaW1pdCB3aGVuIHJlbG9hZGluZyBQUFRhYmxlIGR1cmluZyBib290IGFuZCBy
-ZXN1bWUuDQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBUZW9kb3IgQm9zdGFuIDx0ZW9ic25AZ21h
-aWwuY29tPg0KPiA+IC0tLQ0KPiA+ICAuLi4vZ3B1L2RybS9hbWQvcG0vc3dzbXUvc211MTEvc2ll
-bm5hX2NpY2hsaWRfcHB0LmMgfCAxMw0KPiA+ICsrKysrKysrKysrKysNCj4gPiAgMSBmaWxlIGNo
-YW5nZWQsIDEzIGluc2VydGlvbnMoKykNCj4gPg0KPiA+IGRpZmYgLS1naXQgYS9kcml2ZXJzL2dw
-dS9kcm0vYW1kL3BtL3N3c211L3NtdTExL3NpZW5uYV9jaWNobGlkX3BwdC5jDQo+ID4gYi9kcml2
-ZXJzL2dwdS9kcm0vYW1kL3BtL3N3c211L3NtdTExL3NpZW5uYV9jaWNobGlkX3BwdC5jDQo+ID4g
-aW5kZXggY2VmNjI4NzUyLi4xMGQzMzBlZGIgMTAwNjQ0DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUv
-ZHJtL2FtZC9wbS9zd3NtdS9zbXUxMS9zaWVubmFfY2ljaGxpZF9wcHQuYw0KPiA+ICsrKyBiL2Ry
-aXZlcnMvZ3B1L2RybS9hbWQvcG0vc3dzbXUvc211MTEvc2llbm5hX2NpY2hsaWRfcHB0LmMNCj4g
-PiBAQCAtNDc5LDYgKzQ3OSw3IEBAIHN0YXRpYyBpbnQgc2llbm5hX2NpY2hsaWRfcGF0Y2hfcHB0
-YWJsZV9xdWlyayhzdHJ1Y3QNCj4gc211X2NvbnRleHQgKnNtdSkNCj4gPiAgICAgICAgIHN0cnVj
-dCBhbWRncHVfZGV2aWNlICphZGV2ID0gc211LT5hZGV2Ow0KPiA+ICAgICAgICAgdWludDMyX3Qg
-KmJvYXJkX3Jlc2VydmVkOw0KPiA+ICAgICAgICAgdWludDE2X3QgKmZyZXFfdGFibGVfZ2Z4Ow0K
-PiA+ICsgICAgICAgdWludDE2X3QgKnBvd2VyX2xpbWl0Ow0KPiA+ICAgICAgICAgdWludDMyX3Qg
-aTsNCj4gPg0KPiA+ICAgICAgICAgLyogRml4IHNvbWUgT0VNIFNLVSBzcGVjaWZpYyBzdGFiaWxp
-dHkgaXNzdWVzICovIEBAIC01MDEsNg0KPiA+ICs1MDIsMTggQEAgc3RhdGljIGludCBzaWVubmFf
-Y2ljaGxpZF9wYXRjaF9wcHRhYmxlX3F1aXJrKHN0cnVjdCBzbXVfY29udGV4dA0KPiAqc211KQ0K
-PiA+ICAgICAgICAgICAgICAgICB9DQo+ID4gICAgICAgICB9DQo+ID4NCj4gPiArICAgICAgIC8q
-IEZpeCBzb21lIE9FTSBTS1Ugc3BlY2lmaWMgcG93ZXIgbGltaXQgaXNzdWVzICovDQo+ID4gKyAg
-ICAgICBpZiAoKGFkZXYtPnBkZXYtPmRldmljZSA9PSAweDczRUYpICYmDQo+ID4gKyAgICAgICAg
-ICAgKGFkZXYtPnBkZXYtPnN1YnN5c3RlbV92ZW5kb3IgPT0gMHgxMDQzKSkgew0KPiA+ICsgICAg
-ICAgICAgICAgICBpZiAoYWRldi0+cGRldi0+c3Vic3lzdGVtX2RldmljZSA9PSAweDFERUMpIHsN
-Cj4gPiArICAgICAgICAgICAgICAgICAgICAgICBHRVRfUFBUQUJMRV9NRU1CRVIoU29ja2V0UG93
-ZXJMaW1pdEFjLCAmcG93ZXJfbGltaXQpOw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgIHBv
-d2VyX2xpbWl0W1BQVF9USFJPVFRMRVJfUFBUMF0gPSAxMDA7DQo+ID4gKyAgICAgICAgICAgICAg
-IH0gZWxzZSBpZiAoYWRldi0+cGRldi0+c3Vic3lzdGVtX2RldmljZSA9PSAweDFEQ0MpIHsNCj4g
-PiArICAgICAgICAgICAgICAgICAgICAgICBHRVRfUFBUQUJMRV9NRU1CRVIoU29ja2V0UG93ZXJM
-aW1pdEFjLCAmcG93ZXJfbGltaXQpOw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgIHBvd2Vy
-X2xpbWl0W1BQVF9USFJPVFRMRVJfUFBUMF0gPSAxMDU7DQo+ID4gKyAgICAgICAgICAgICAgIH0N
-Cj4gPiArICAgICAgIH0NCg0KQWhhLCBJIGJlbGlldmUgdGhpcyBpcyBub3Qgcm9vdCBjYXVzZSBh
-bmQgdGhlIGFtZGdwdSBkcml2ZXIgc2hvdWxkIGF2b2lkIGFkZGluZyB0aGVzZSBoYXJkY29kZSB2
-YWx1ZSBmb3Igc3BlY2lmaWMgZGV2aWNlLg0KYW5kIHRoZSBhbWRncHUga2VybmVsIGRyaXZlciBy
-ZXN0b3JlcyBwb3dlciBsaW1pdCBzZXR0aW5ncyBhZnRlciBzeXN0ZW0gcmVzdW1lIGluIHNtdV9s
-YXRlX2luaXQoKSBzdGFnZS4NCkkgd2lsbCBjaGVjayBhbmQgcmV2aWV3IHRoaXMgc2VxdWVuY2Uu
-DQoNCkZ5aS4gc211X3Jlc3RvcmVfZHBtX3VzZXJfcHJvZmlsZSgpLg0KDQpCZXN0IHJlZ2FyZHMs
-DQpLZXZpbg0KDQo+ID4gKw0KPiA+ICAgICAgICAgcmV0dXJuIDA7DQo+ID4gIH0NCj4gPg0KPiA+
-IC0tDQo+ID4gMi41NS4wDQo+ID4NCg==
+Rename the RAS core directory from rascore to core and update
+build-path references accordingly.
+
+The change is mechanical and done with git rename semantics so
+history tracking is preserved.
+
+No functional change intended.
+
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+---
+ drivers/gpu/drm/amd/ras/Makefile                            | 4 ++--
+ drivers/gpu/drm/amd/ras/{rascore => core}/Makefile          | 2 +-
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras.h             | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_aca.c         | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_aca.h         | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_aca_v1_0.c    | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_aca_v1_0.h    | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_cmd.c         | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_cmd.h         | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_core.c        | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_core_status.h | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_cper.c        | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_cper.h        | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_eeprom.c      | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_eeprom.h      | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_eeprom_fw.c   | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_eeprom_fw.h   | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_gfx.c         | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_gfx.h         | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_gfx_v9_0.c    | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_gfx_v9_0.h    | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_log_ring.c    | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_log_ring.h    | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_mp1.c         | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_mp1.h         | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_mp1_v13_0.c   | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_mp1_v13_0.h   | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_nbio.c        | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_nbio.h        | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_nbio_v7_9.c   | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_nbio_v7_9.h   | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_process.c     | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_process.h     | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_psp.c         | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_psp.h         | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_psp_v13_0.c   | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_psp_v13_0.h   | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_ta_if.h       | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_umc.c         | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_umc.h         | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_umc_v12_0.c   | 0
+ drivers/gpu/drm/amd/ras/{rascore => core}/ras_umc_v12_0.h   | 0
+ 42 files changed, 3 insertions(+), 3 deletions(-)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/Makefile (95%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_aca.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_aca.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_aca_v1_0.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_aca_v1_0.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_cmd.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_cmd.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_core.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_core_status.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_cper.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_cper.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_eeprom.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_eeprom.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_eeprom_fw.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_eeprom_fw.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_gfx.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_gfx.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_gfx_v9_0.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_gfx_v9_0.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_log_ring.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_log_ring.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_mp1.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_mp1.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_mp1_v13_0.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_mp1_v13_0.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_nbio.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_nbio.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_nbio_v7_9.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_nbio_v7_9.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_process.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_process.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_psp.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_psp.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_psp_v13_0.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_psp_v13_0.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_ta_if.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_umc.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_umc.h (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_umc_v12_0.c (100%)
+ rename drivers/gpu/drm/amd/ras/{rascore => core}/ras_umc_v12_0.h (100%)
+
+diff --git a/drivers/gpu/drm/amd/ras/Makefile b/drivers/gpu/drm/amd/ras/Makefile
+index bbdaba811d34..803e250d1666 100644
+--- a/drivers/gpu/drm/amd/ras/Makefile
++++ b/drivers/gpu/drm/amd/ras/Makefile
+@@ -23,10 +23,10 @@ ifeq ($(AMD_GPU_RAS_MGR),)
+ 	AMD_GPU_RAS_MGR := ras_mgr
+ endif
+ 
+-subdir-ccflags-y += -I$(AMD_GPU_RAS_FULL_PATH)/rascore
++subdir-ccflags-y += -I$(AMD_GPU_RAS_FULL_PATH)/core
+ subdir-ccflags-y += -I$(AMD_GPU_RAS_FULL_PATH)/$(AMD_GPU_RAS_MGR)
+ 
+-RAS_LIBS = $(AMD_GPU_RAS_MGR) rascore
++RAS_LIBS = $(AMD_GPU_RAS_MGR) core
+ 
+ AMD_RAS = $(addsuffix /Makefile, $(addprefix $(AMD_GPU_RAS_FULL_PATH)/,$(RAS_LIBS)))
+ 
+diff --git a/drivers/gpu/drm/amd/ras/rascore/Makefile b/drivers/gpu/drm/amd/ras/core/Makefile
+similarity index 95%
+rename from drivers/gpu/drm/amd/ras/rascore/Makefile
+rename to drivers/gpu/drm/amd/ras/core/Makefile
+index 06b265ec1cde..454f83f62930 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/Makefile
++++ b/drivers/gpu/drm/amd/ras/core/Makefile
+@@ -40,6 +40,6 @@ RAS_CORE_FILES = ras_core.o \
+ 			ras_eeprom_fw.o
+ 
+ 
+-RAS_CORE = $(addprefix $(AMD_GPU_RAS_PATH)/rascore/,$(RAS_CORE_FILES))
++RAS_CORE = $(addprefix $(AMD_GPU_RAS_PATH)/core/,$(RAS_CORE_FILES))
+ 
+ AMD_GPU_RAS_FILES += $(RAS_CORE)
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras.h b/drivers/gpu/drm/amd/ras/core/ras.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras.h
+rename to drivers/gpu/drm/amd/ras/core/ras.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_aca.c b/drivers/gpu/drm/amd/ras/core/ras_aca.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_aca.c
+rename to drivers/gpu/drm/amd/ras/core/ras_aca.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_aca.h b/drivers/gpu/drm/amd/ras/core/ras_aca.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_aca.h
+rename to drivers/gpu/drm/amd/ras/core/ras_aca.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c b/drivers/gpu/drm/amd/ras/core/ras_aca_v1_0.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.c
+rename to drivers/gpu/drm/amd/ras/core/ras_aca_v1_0.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.h b/drivers/gpu/drm/amd/ras/core/ras_aca_v1_0.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_aca_v1_0.h
+rename to drivers/gpu/drm/amd/ras/core/ras_aca_v1_0.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_cmd.c b/drivers/gpu/drm/amd/ras/core/ras_cmd.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_cmd.c
+rename to drivers/gpu/drm/amd/ras/core/ras_cmd.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_cmd.h b/drivers/gpu/drm/amd/ras/core/ras_cmd.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_cmd.h
+rename to drivers/gpu/drm/amd/ras/core/ras_cmd.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_core.c b/drivers/gpu/drm/amd/ras/core/ras_core.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_core.c
+rename to drivers/gpu/drm/amd/ras/core/ras_core.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_core_status.h b/drivers/gpu/drm/amd/ras/core/ras_core_status.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_core_status.h
+rename to drivers/gpu/drm/amd/ras/core/ras_core_status.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_cper.c b/drivers/gpu/drm/amd/ras/core/ras_cper.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_cper.c
+rename to drivers/gpu/drm/amd/ras/core/ras_cper.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_cper.h b/drivers/gpu/drm/amd/ras/core/ras_cper.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_cper.h
+rename to drivers/gpu/drm/amd/ras/core/ras_cper.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c b/drivers/gpu/drm/amd/ras/core/ras_eeprom.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_eeprom.c
+rename to drivers/gpu/drm/amd/ras/core/ras_eeprom.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom.h b/drivers/gpu/drm/amd/ras/core/ras_eeprom.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_eeprom.h
+rename to drivers/gpu/drm/amd/ras/core/ras_eeprom.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c b/drivers/gpu/drm/amd/ras/core/ras_eeprom_fw.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.c
+rename to drivers/gpu/drm/amd/ras/core/ras_eeprom_fw.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.h b/drivers/gpu/drm/amd/ras/core/ras_eeprom_fw.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_eeprom_fw.h
+rename to drivers/gpu/drm/amd/ras/core/ras_eeprom_fw.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_gfx.c b/drivers/gpu/drm/amd/ras/core/ras_gfx.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_gfx.c
+rename to drivers/gpu/drm/amd/ras/core/ras_gfx.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_gfx.h b/drivers/gpu/drm/amd/ras/core/ras_gfx.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_gfx.h
+rename to drivers/gpu/drm/amd/ras/core/ras_gfx.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_gfx_v9_0.c b/drivers/gpu/drm/amd/ras/core/ras_gfx_v9_0.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_gfx_v9_0.c
+rename to drivers/gpu/drm/amd/ras/core/ras_gfx_v9_0.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_gfx_v9_0.h b/drivers/gpu/drm/amd/ras/core/ras_gfx_v9_0.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_gfx_v9_0.h
+rename to drivers/gpu/drm/amd/ras/core/ras_gfx_v9_0.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_log_ring.c b/drivers/gpu/drm/amd/ras/core/ras_log_ring.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_log_ring.c
+rename to drivers/gpu/drm/amd/ras/core/ras_log_ring.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_log_ring.h b/drivers/gpu/drm/amd/ras/core/ras_log_ring.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_log_ring.h
+rename to drivers/gpu/drm/amd/ras/core/ras_log_ring.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_mp1.c b/drivers/gpu/drm/amd/ras/core/ras_mp1.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_mp1.c
+rename to drivers/gpu/drm/amd/ras/core/ras_mp1.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_mp1.h b/drivers/gpu/drm/amd/ras/core/ras_mp1.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_mp1.h
+rename to drivers/gpu/drm/amd/ras/core/ras_mp1.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_mp1_v13_0.c b/drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_mp1_v13_0.c
+rename to drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_mp1_v13_0.h b/drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_mp1_v13_0.h
+rename to drivers/gpu/drm/amd/ras/core/ras_mp1_v13_0.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_nbio.c b/drivers/gpu/drm/amd/ras/core/ras_nbio.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_nbio.c
+rename to drivers/gpu/drm/amd/ras/core/ras_nbio.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_nbio.h b/drivers/gpu/drm/amd/ras/core/ras_nbio.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_nbio.h
+rename to drivers/gpu/drm/amd/ras/core/ras_nbio.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_nbio_v7_9.c b/drivers/gpu/drm/amd/ras/core/ras_nbio_v7_9.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_nbio_v7_9.c
+rename to drivers/gpu/drm/amd/ras/core/ras_nbio_v7_9.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_nbio_v7_9.h b/drivers/gpu/drm/amd/ras/core/ras_nbio_v7_9.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_nbio_v7_9.h
+rename to drivers/gpu/drm/amd/ras/core/ras_nbio_v7_9.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_process.c b/drivers/gpu/drm/amd/ras/core/ras_process.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_process.c
+rename to drivers/gpu/drm/amd/ras/core/ras_process.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_process.h b/drivers/gpu/drm/amd/ras/core/ras_process.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_process.h
+rename to drivers/gpu/drm/amd/ras/core/ras_process.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_psp.c b/drivers/gpu/drm/amd/ras/core/ras_psp.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_psp.c
+rename to drivers/gpu/drm/amd/ras/core/ras_psp.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_psp.h b/drivers/gpu/drm/amd/ras/core/ras_psp.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_psp.h
+rename to drivers/gpu/drm/amd/ras/core/ras_psp.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_psp_v13_0.c b/drivers/gpu/drm/amd/ras/core/ras_psp_v13_0.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_psp_v13_0.c
+rename to drivers/gpu/drm/amd/ras/core/ras_psp_v13_0.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_psp_v13_0.h b/drivers/gpu/drm/amd/ras/core/ras_psp_v13_0.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_psp_v13_0.h
+rename to drivers/gpu/drm/amd/ras/core/ras_psp_v13_0.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_ta_if.h b/drivers/gpu/drm/amd/ras/core/ras_ta_if.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_ta_if.h
+rename to drivers/gpu/drm/amd/ras/core/ras_ta_if.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c b/drivers/gpu/drm/amd/ras/core/ras_umc.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_umc.c
+rename to drivers/gpu/drm/amd/ras/core/ras_umc.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.h b/drivers/gpu/drm/amd/ras/core/ras_umc.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_umc.h
+rename to drivers/gpu/drm/amd/ras/core/ras_umc.h
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.c b/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.c
+rename to drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.h b/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.h
+similarity index 100%
+rename from drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.h
+rename to drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.h
+-- 
+2.43.0
+
