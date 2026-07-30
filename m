@@ -4,50 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7B71C55167
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 06:58:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54FE3C5516D
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 06:58:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7456410E1D9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B217610F189;
 	Fri, 31 Jul 2026 06:58:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="C2POOnM8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D3OGIGjx";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A288210E188;
- Thu, 30 Jul 2026 14:19:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785421169;
- bh=BgfAaDd26gAkAQdIuzsDElsPf9coqqD0xTgf7bmTpgk=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=C2POOnM87w7XVp+Y16YrhDGvbVKTEuF2XDu4ts3oXO0rNfPHB9NyJJIbyboVE0di7
- D/SnUvkY6/pLVvhOu1oTziYq08TO2NvEGT5uw12ROSo1dxN90vgmLe89tKt3iFUAdh
- Wwuh/loyfzt02LAaPwahJtHOLK1GneikGH3+P5OG/CDET7JJZu7OMq3DsrHXQl34ZZ
- LPrCbv4a6evSBqww9nwhxBKTGDFix6HL4IDx26wfeSrHdaoD30rXVCcpRfVH42s7Rz
- Uv8XS5VZ5EuUqLebL/e2AXPxWr1Hi9fWrrPho4DMd8z5/UM9re7eWQmjuBa5EePP5e
- HOAS0sDvj1tHg==
-Received: from fluorite (unknown [100.64.0.208])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested) (Authenticated sender: pq)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 1E7F817E0667;
- Thu, 30 Jul 2026 16:19:29 +0200 (CEST)
-Date: Thu, 30 Jul 2026 17:19:21 +0300
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: Robert Mader <robert.mader@collabora.com>
-Cc: Harry Wentland <harry.wentland@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: Re: [PATCH v4 03/11] drm/vkms: Add KUnit test for YCbCr to RGB
- conversion matrices
-Message-ID: <20260730171921.4e819e13@fluorite>
-In-Reply-To: <f24753a9-43c6-455d-b6b3-20b7fd406fbc@collabora.com>
-References: <20260722134607.136293-1-harry.wentland@amd.com>
- <20260722134607.136293-4-harry.wentland@amd.com>
- <f24753a9-43c6-455d-b6b3-20b7fd406fbc@collabora.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com
+ [74.125.224.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 92E7610EF1A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 13:52:26 +0000 (UTC)
+Received: by mail-yx1-f46.google.com with SMTP id
+ 956f58d0204a3-6651abddd5bso257460d50.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 06:52:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785419545; cv=none;
+ d=google.com; s=arc-20260327;
+ b=coLZ2LQtyOUp7EJluGg8yY79QapAeWq6l8VRPn0M4iF9rW7gjXRt/zTnF5XfW7L8Mh
+ /aZRnvYD1+VUVcDw9pO/A/7CUKAxrI77FB2AttcSWjVEZzUZxR1DeURyCshnhJ/HuoL1
+ FLeFSPouGe8zcPjuXiMc0nTi+c6LxuaRBMAeq/ugBkjWmNlbkOGmVLKsBT4WkeY3B/Iu
+ KzTmXM9Xu5xsMpDc+a0uaVjiFt61SgjzqhrZE00VVn+xsJ5HXPq2PgOFGIFpTisXx64a
+ 84OksApg5t7nMvA33BU53OEFyUkawcjCECRzyzjBB65IVcTHTY9KbvmqFJ1h/jbu6CMA
+ 33rw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=k+QTaNRAeyAIgXPM6mVW8ocsbG6VlzRzT4YbG+xZn/8=;
+ fh=hs9oynQb3YjZT40omR8IZyt+l0QN8nu4Bye5abBVWug=;
+ b=bZJNYqfEVFtQTJGOKUUr/Dd0UEIS0Hs3QLneVKe7sNj4C+RPF5Dwj0oWLjsjJXY3+z
+ xFPoAw7kDHJ66/adh1N0aRQw6CRf7p4EYwMCjtjxLBULNckCrbJ/OQVZuWXpOPbiCFpQ
+ jv+1M5oI5z/ppz9VqQv/CL/ROmmlikQyYjOPLtCwcybREJkvOovpSn+Yi4RGr7xZrN4a
+ gTEStuFY0xiUAxqeweUnOZ53Q5+uhQ7H7r6LhW39EHTHyH+RP3Cuov9scnjVop4KNgZX
+ 2014lj30bQawzbyoHZWK9N1CXcyqSvRY/e3KH7GaMxaO74KnAgk0CPyFQwdCgbbnbsVy
+ OpAQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785419545; x=1786024345; darn=lists.freedesktop.org;
+ h=content-type:to:subject:message-id:date:from:mime-version:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=k+QTaNRAeyAIgXPM6mVW8ocsbG6VlzRzT4YbG+xZn/8=;
+ b=D3OGIGjx58eILccY9j+K8o7a6faMqA3u9QnhSIeegojsjGvjq3tJFt7qWAg8tYD9XL
+ niL8UdkyrYl9CW9EjdPNl6gOPSaXqT+OS0Ei58BFFAiy66VZqdlCOD+SAaJHaJ7Nhciw
+ A5RWglHmAknBDdhUxJI3chBHeSNc2mgTvNl7m4l4vIz3mFsTLza6sZopsIOCvvw3a58l
+ A80OpnidGMTkTNUhOETzOVuGzgh0Run+vnpdMiJ9I0H7hCcFWF/nRPgZcsf+AP3GJzmE
+ 42vFImhMUN2RdkfFdya/f92Jbbq6ObhLtNrI4KGcmCE/4wlDG+KGhlYHipo3x+wzsRkc
+ 6Bgg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785419545; x=1786024345;
+ h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=k+QTaNRAeyAIgXPM6mVW8ocsbG6VlzRzT4YbG+xZn/8=;
+ b=kuDhrn+sLInx2cncBqCY6VDZMBFg3SSTLvn3n2i+FdthHA7WZmF2jQNUVNEyCzBY5l
+ 6Jb/ioggD2HbfTxzYLfz2CNwpejFmEVcLzJ1LuJubgCGGbjMJSIyTxhEM2KXhBZ2hRcl
+ A+i9aDBPFyjw1MhvvGEJ8gwzXVXtgiof/XDcPdi53Ec0tLiMXVak8rVqONkGu64cRii8
+ 31N8DwD2lL/FRSXI3VCY+AvRehjfCP7Xsi+VO5J49OwxHtHylIZ09cZRjI63XcRuV9IT
+ wfNbMNaGEu8Opl1rX+bM5AmML2BtHLtZiTWrNTamJiV1Mv5mNdh4eYDiC1GYzaibXdAK
+ iQ2g==
+X-Gm-Message-State: AOJu0YyIY7u9onBUxsUwbuot7+mIXhX2CbTZEaVIDbnsz0ECWP8YH3YE
+ oNQKQ3WtJyEDtBdDWJHWp/vXvcdlBMFAjSAho8DlQLTm9asmv92vd03EeWseLznkZ0XF1UmGt/K
+ bSvPvG0lF2Km7kbOAirAD0uABA9CS4LMuFJdv
+X-Gm-Gg: AR+sD13GSLHy1/95pBOx3oR/Wuw7soGhNjSgGpawkYYJuSdvLfiTVAZxCowTCDpkWpo
+ HSytySmHx6efjQXbzyUOGWf7yDpHMODz2QbzTvCRU+reJkGraLrGbTDOOtcibd6W0iRQej4M9Ki
+ 7bBozxg/uIJWmnmdZEwuwZcHOtiWTpXJXbKrqoCsbgtzpx+hUymNZnfCSU1dB9eHKAIk1EZcKL+
+ rtNAqh09sbGbXGfL+kAP/mUausUcZuvZvNoPbgmkXI+S2s6J+1hhkwr6Uf91SDR5266Hv/nIdBe
+ tOUIL90r4JDSg2bdaFyYHFb5ru40xg4AHcaUGYEy1wwNMg8kKIG2aJM1Z6Ha+IQK7kp8AfKDEq+
+ 8jsVZj7QxHrsX
+X-Received: by 2002:a05:690e:144d:b0:668:430b:a928 with SMTP id
+ 956f58d0204a3-6693a0f5afdmr471039d50.0.1785419545192; Thu, 30 Jul 2026
+ 06:52:25 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/wAydaIrR0Nq385chbk1Jt+c";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+From: Daniel Lima <danieldelimafrancisco5504@gmail.com>
+Date: Thu, 30 Jul 2026 10:52:13 -0300
+X-Gm-Features: AUfX_mwU_Ibu24frHy1tsCUi-9Ss9OcIV36IXmlPEPzmbiUoKO9hh1W9qOhs3MQ
+Message-ID: <CALnZc=SfhdmF_YzAcG5A7=NfgTVUB6Mc2FFY-jkZ2sXWjPPj+g@mail.gmail.com>
+Subject: AMD BC-250 (Cyan Skillfish, gfx1013): can the VCN 2.0.3 power domain
+ be brought up?
+To: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Fri, 31 Jul 2026 06:58:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,232 +98,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/wAydaIrR0Nq385chbk1Jt+c
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+Subject: AMD BC-250 (Cyan Skillfish, gfx1013): can the VCN 2.0.3 power
+domain be brought up?
 
-On Tue, 28 Jul 2026 17:17:34 +0200
-Robert Mader <robert.mader@collabora.com> wrote:
+Hi,
 
-> TBH this test feels a bit redundant to me, given that it just repeats=20
-> the exact values, which again just get memcpy'd. I suggest to drop it.
+I'm working with an AMD BC-250 (ASRock mining blade, PCI 1002:13FE, Cyan
+Skillfish / gfx1013, GC 10.1.3) on Fedora 44 with the stock 6.19.10 kernel.
+Hardware video decode is unavailable, and I would like to ask whether that is a
+firmware limitation or just an untested configuration.
 
-I agree.
+The short version: in amdgpu_discovery_set_mm_ip_blocks(), UVD_HWIP
+IP_VERSION(2, 0, 3) has an explicitly empty case, so neither vcn_v2_0_ip_block
+nor jpeg_v2_0_ip_block is ever registered. Is that intentional because the
+SMU 11.8 PMFW has no VCN power management, or is it simply that this ASIC was
+never validated for video?
 
-If these reference matrices were produced by completely different means
-instead of being checked in as "binaries", e.g. by floating-point
-calculations from first principles at test time, they might have some
-use.
+What I measured, in case it is useful:
 
-What would actually be useful is to record the script used to produce
-these "binary" numbers in the first place. It's much easier to review
-such a script, than try to come up with one's own in order to check if
-the "binary" numbers are correct (like I did when reviewing these
-patches).
+- The IP discovery table does report the block.
+  /sys/class/drm/card1/device/ip_discovery/die/0/12/0/ gives
+  major.minor.rev = 2.0.3, harvest = 0x0, base_addr = 0x00007800. The
+  HARVEST_INFO table in the discovery binary is empty.
 
-I've been wondering, what is the source code - the preferential format
-for modification - the numbers recorded here, or the scripts producing
-them.
+- The whole UVD register aperture is unreadable. Through debugfs amdgpu_regs,
+  both segments return 0xFFFFFFFF: mmCC_UVD_HARVESTING, mmUVD_POWER_STATUS,
+  mmUVD_PGFSM_CONFIG, mmUVD_PGFSM_STATUS, mmUVD_STATUS, and the JPEG registers
+  in the 0x7800 segment. mmGRBM_STATUS through the same read path returns
+  0x00003028, so the access method itself is fine.
 
+- Writing the value that vcn_v2_0_disable_static_power_gating() would write
+  with pg_flags == 0 (0x00055555 to mmUVD_PGFSM_CONFIG) is accepted but has no
+  effect; PGFSM_STATUS stays 0xFFFFFFFF. The PGFSM itself therefore appears to
+  sit inside the unpowered domain.
 
-Thanks,
-pq
+- nv_common_early_init() sets cg_flags = 0 and pg_flags = 0 for GC 10.1.3, and
+  cyan_skillfish_ppt_funcs implements no .dpm_set_vcn_enable, so nothing ever
+  requests a VCN power-up. smu_v11_8_ppsmc.h has no VCN-related message, and
+  smu_v11_8_pmfw.h has no VCN feature bit; the clock level fields cover
+  LCLK / MP0CLK / FCLK / SOCCLK / DCEFCLK only.
 
-> On 22.07.26 15:45, Harry Wentland wrote:
-> > The existing yuv_u16_to_argb_u16 test performs a full RGB->YCbCr->RGB
-> > round trip with a tolerance of 0x1ff. That tolerance is required because
-> > fully saturated primaries clamp their chroma at encode time and cannot
-> > round-trip exactly, but it also makes the test unable to detect small
-> > scaling errors in the conversion matrices (such as using a 2^n instead
-> > of a 2^n - 1 full-range maximum for limited range, an error of ~129 at
-> > gray - below the tolerance).
-> >
-> > Add a parameterised test that checks the exact S31.32 fixed-point
-> > coefficients and luma offset returned by
-> > get_conversion_matrix_to_argb_u16() for each encoding and range against
-> > reference values. This directly pins the matrices and catches
-> > sub-tolerance regressions that the round-trip test cannot.
-> >
-> > Assisted-by: Copilot:claude-opus-4.8
-> > Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> > ---
-> >   drivers/gpu/drm/vkms/tests/vkms_format_test.c | 122 ++++++++++++++++++
-> >   1 file changed, 122 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/vkms/tests/vkms_format_test.c b/drivers/gp=
-u/drm/vkms/tests/vkms_format_test.c
-> > index 789c59d07ffb..e746b18bf37b 100644
-> > --- a/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-> > +++ b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-> > @@ -263,8 +263,130 @@ KUNIT_ARRAY_PARAM(yuv_u16_to_argb_u16, yuv_u16_to=
-_argb_u16_cases,
-> >   		  vkms_format_test_yuv_u16_to_argb_u16_case_desc
-> >   );
-> >  =20
-> > +/*
-> > + * struct conversion_matrix_case - Reference matrix to test the YUV to=
- RGB
-> > + * conversion matrices returned by get_conversion_matrix_to_argb_u16()
-> > + *
-> > + * @encoding: Encoding of the conversion matrix under test
-> > + * @range: Range of the conversion matrix under test
-> > + * @expected: Expected S31.32 fixed-point matrix and luma offset
-> > + *
-> > + * The limited-range coefficients use the studio-range scaling mandate=
-d by the
-> > + * DRM UAPI and IGT's igt_ycbcr_to_rgb_matrix(): the narrow range is e=
-xpanded
-> > + * relative to a full-range maximum of 2^n - 1 (255 for 8-bit), i.e. l=
-uma by
-> > + * 255/(235 - 16) and chroma by 255/(240 - 128). Generating them with =
-the
-> > + * common 2^n normalisation (as colour.matrix_YCbCr(is_legal=3DTrue) d=
-oes) is off
-> > + * by a factor of 256/255. See the DRM_COLOROP_FM_YCBCR*_LIMITED_RGB
-> > + * documentation in <drm/drm_colorop.h>.
-> > + */
-> > +struct conversion_matrix_case {
-> > +	enum drm_color_encoding encoding;
-> > +	enum drm_color_range range;
-> > +	struct conversion_matrix expected;
-> > +};
-> > +
-> > +static struct conversion_matrix_case conversion_matrix_cases[] =3D {
-> > +	{
-> > +		.encoding =3D DRM_COLOR_YCBCR_BT601,
-> > +		.range =3D DRM_COLOR_YCBCR_FULL_RANGE,
-> > +		.expected =3D { .matrix =3D {
-> > +			{ 4294967296, 0,           6021544149 },
-> > +			{ 4294967296, -1478054095, -3067191994 },
-> > +			{ 4294967296, 7610682049,  0 },
-> > +		}, .y_offset =3D 0 },
-> > +	},
-> > +	{
-> > +		.encoding =3D DRM_COLOR_YCBCR_BT601,
-> > +		.range =3D DRM_COLOR_YCBCR_LIMITED_RANGE,
-> > +		.expected =3D { .matrix =3D {
-> > +			{ 5000989317, 0,           6854882848 },
-> > +			{ 5000989317, -1682606224, -3491669458 },
-> > +			{ 5000989317, 8663946082,  0 },
-> > +		}, .y_offset =3D 16 },
-> > +	},
-> > +	{
-> > +		.encoding =3D DRM_COLOR_YCBCR_BT709,
-> > +		.range =3D DRM_COLOR_YCBCR_FULL_RANGE,
-> > +		.expected =3D { .matrix =3D {
-> > +			{ 4294967296, 0,          6763714498 },
-> > +			{ 4294967296, -804551626, -2010578443 },
-> > +			{ 4294967296, 7969741314, 0 },
-> > +		}, .y_offset =3D 0 },
-> > +	},
-> > +	{
-> > +		.encoding =3D DRM_COLOR_YCBCR_BT709,
-> > +		.range =3D DRM_COLOR_YCBCR_LIMITED_RANGE,
-> > +		.expected =3D { .matrix =3D {
-> > +			{ 5000989317, 0,          7699764272 },
-> > +			{ 5000989317, -915895824, -2288828138 },
-> > +			{ 5000989317, 9072696586, 0 },
-> > +		}, .y_offset =3D 16 },
-> > +	},
-> > +	{
-> > +		.encoding =3D DRM_COLOR_YCBCR_BT2020,
-> > +		.range =3D DRM_COLOR_YCBCR_FULL_RANGE,
-> > +		.expected =3D { .matrix =3D {
-> > +			{ 4294967296, 0,          6333358775 },
-> > +			{ 4294967296, -706750298, -2453942994 },
-> > +			{ 4294967296, 8080551471, 0 },
-> > +		}, .y_offset =3D 0 },
-> > +	},
-> > +	{
-> > +		.encoding =3D DRM_COLOR_YCBCR_BT2020,
-> > +		.range =3D DRM_COLOR_YCBCR_LIMITED_RANGE,
-> > +		.expected =3D { .matrix =3D {
-> > +			{ 5000989317, 0,          7209850391 },
-> > +			{ 5000989317, -804559491, -2793551177 },
-> > +			{ 5000989317, 9198842076, 0 },
-> > +		}, .y_offset =3D 16 },
-> > +	},
-> > +};
-> > +
-> > +/*
-> > + * vkms_format_test_conversion_matrix - Verify the YUV to RGB conversi=
-on matrices
-> > + *
-> > + * This test checks that get_conversion_matrix_to_argb_u16() returns t=
-he exact
-> > + * fixed-point coefficients expected for each encoding and range. Unli=
-ke the
-> > + * round-trip test above, it is sensitive to small (sub-tolerance) sca=
-ling
-> > + * errors such as using a 2^n instead of a 2^n - 1 full-range maximum =
-for the
-> > + * limited-range matrices.
-> > + */
-> > +static void vkms_format_test_conversion_matrix(struct kunit *test)
-> > +{
-> > +	const struct conversion_matrix_case *param =3D test->param_value;
-> > +	struct conversion_matrix matrix;
-> > +
-> > +	get_conversion_matrix_to_argb_u16(DRM_FORMAT_NV12, param->encoding,
-> > +					  param->range, false, &matrix);
-> > +
-> > +	for (size_t i =3D 0; i < 3; i++) {
-> > +		for (size_t j =3D 0; j < 3; j++) {
-> > +			KUNIT_EXPECT_EQ_MSG(test, matrix.matrix[i][j],
-> > +					    param->expected.matrix[i][j],
-> > +					    "matrix[%zu][%zu] mismatch for %s - %s",
-> > +					    i, j,
-> > +					    drm_get_color_encoding_name(param->encoding),
-> > +					    drm_get_color_range_name(param->range));
-> > +		}
-> > +	}
-> > +
-> > +	KUNIT_EXPECT_EQ(test, matrix.y_offset, param->expected.y_offset);
-> > +}
-> > +
-> > +static void vkms_format_test_conversion_matrix_case_desc(struct conver=
-sion_matrix_case *t,
-> > +							 char *desc)
-> > +{
-> > +	snprintf(desc, KUNIT_PARAM_DESC_SIZE, "%s - %s",
-> > +		 drm_get_color_encoding_name(t->encoding), drm_get_color_range_name(=
-t->range));
-> > +}
-> > +
-> > +KUNIT_ARRAY_PARAM(conversion_matrix, conversion_matrix_cases,
-> > +		  vkms_format_test_conversion_matrix_case_desc
-> > +);
-> > +
-> >   static struct kunit_case vkms_format_test_cases[] =3D {
-> >   	KUNIT_CASE_PARAM(vkms_format_test_yuv_u16_to_argb_u16, yuv_u16_to_ar=
-gb_u16_gen_params),
-> > +	KUNIT_CASE_PARAM(vkms_format_test_conversion_matrix, conversion_matri=
-x_gen_params),
-> >   	{}
-> >   };
-> >    =20
->=20
+- From the platform firmware (AGESA!V9 RBNBDK-BL5 46.1.2.220426): the PMFW is
+  PSP directory entry type 0x08 / 0x12, version 0.58.7.1, and it contains the
+  string "AMD BC-250", so it looks board-specific. I could not find any VCN,
+  UVD or JPEG reference anywhere in the UEFI image.
 
+My questions:
 
---Sig_/wAydaIrR0Nq385chbk1Jt+c
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
+1. Is IP_VERSION(2, 0, 3) deliberately unhandled because the PMFW on this SOC
+   cannot power up the VCN domain?
 
------BEGIN PGP SIGNATURE-----
+2. If a power-up path does exist -- an SMU message, or something the ABL /
+   AGESA is expected to do -- could you point at it? I am happy to test
+   patches.
 
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmprXWkACgkQI1/ltBGq
-qqc7Mg/8DdZA/pOTPkn1DRW+0rZPqwD/HstAx9RPevCLAt1M9PS+fU5jQou6xiIS
-PpQlk008K2ui4z30bXpbkVoctIL7hfym6H9HosrDxroplPtC8EegytfV7QFIRoXb
-rq34LTRMu1QTfNWzEZweLz31MZRwBsgdWN664Yu8n1kdd5EFoKwUbajbjiTvzdj8
-E4fsPu7g8ri7zoe+DvvVpLDxp8UOvAhmyEZsfeImAVXpWsgCpS9l/ZH5hJ+NJuKs
-L7sVWwCBst8Om2CfxfPfDriTpGa2h6G2r4rjnmDMmSbKzQ648qglpr2//YOScc0r
-JqcW49uogBU5y6CN8niTFTJsuEpPsL8FDjT8HqnC54RSNGMQRuWQ8b1ujbZ+rNY9
-Y6WF5COKuHDUfz0pt6bHcgqNpF9LgkRRZXdvDcx3X21DQAKnUVj3ZdniWgqCwjcn
-0TnXYUmGMZhwAXzC6EC4cKx2BX4Mlfwx/k5g7+rF/T151rkEp1tTfMe2Wh4iF5Iu
-xwqQLgFMJMaI1zydddDNhlQjwSAuTz4ciQOKq7C6j4tgApbvalS/p9ac6aBaNu1b
-5MnHzGGfr6XSuPUIXr9pdVTZVI25fbWpNdqVMzpsi7FTSC35DynqUmYhEMYxjX8F
-sX7MDM3bshMa+xtNIsbg+x1MfoEXWarLaDZidWmmQSiJsVcv7zs=
-=hwGa
------END PGP SIGNATURE-----
+3. Could the block be disabled in a way the harvest table would not reflect?
 
---Sig_/wAydaIrR0Nq385chbk1Jt+c--
+I am not asking for support on an unsupported product. A factual answer either
+way would help: the community documentation for this board currently attributes
+the missing decode to a signed-firmware restriction, which does not match what
+I see -- the VCN 2.x ucode is present in linux-firmware and this ASIC uses
+AMDGPU_FW_LOAD_DIRECT -- and I would rather correct that than let people keep
+chasing it.
+
+Thanks for any pointer,
+Daniel
