@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D84E4C55162
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 17:03:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E49AEC55162
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 17:03:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E92C10E1A3;
-	Thu, 30 Jul 2026 17:03:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 70EF010E1AD;
+	Thu, 30 Jul 2026 17:03:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EwKw30MJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nAR/7LAI";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011039.outbound.protection.outlook.com [52.101.57.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3251C10E1A3
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 17:03:09 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010050.outbound.protection.outlook.com [52.101.61.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DF2B10E1AD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 17:03:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gSX3n+dPHwos+Fz5bV2eQIzHuMZ/EDnGjjHAqZlHjVkwVkvLT7WsmsbsMYNtGfVVukd+b4nk6Uir+Nw59QRuMW0oDxJYUqvCKAcuxg8fIEgDBppcbYnnqpsLh3Ty0K6iDXYy2tqdw/jkGBJDooeH3x/yBdveePwIKCx30FWjIKLL63wqmGHLhOYIavcpBzOkqBCJ0ExzLOOEX5eqHSiyT+qvFuwuxhF5Wav3ad2IyUa1zNYFZqKzIoJBfjA6wF3IaX3bNw4vI3k631b9U8l+hzyR/ar/y7y0Q2njg1mNL1Wbf5TU/Vcf18no1Wa1sJlDvQnzTBRnF9KbhHb+q0Xlqw==
+ b=Df9nn2+M0csT8D3Ktp9ynThiJrZVR3vhxBQLuYeGFX1hCJVKWUGH/yvd5/XheELokBHD2ZWLM95TPC2jdTGAmWyH9Yv7A1oBK9PeAe5pLvrW6I0zQkPF49sXpXpyRw3joppMdxkC4yMSOSoIb8GtDdud0ddBMQEBYWpa+40H7WNc76VyBwjxLEYxPjLOe3S/lIoF4sYyZuMxE4RuHI+eCDna2A9FzarNzKSaNQ0Owt0jqZPyTKglhbOZAKZLuFmMGu+4NBQc9j9tScQFJeMgLaJYBoY5mvQ9TgGLMM16tqvO7NYHrAVUDcZwq26pnNm3NyD43tS2UC4o1emj0wLxgw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Cp4veNivOTMMBwbIe/RL4saqFudD1ml4OG6Zbi+hBOo=;
- b=dclp14hA5NeaMaQ1oFmMtY+ELcogLlCdMy371pDsO1gRBj1uUvBBVVPObj8I24hd5N+zyZAsED8rcf7mKh52BqnV0mS6q80dm94PuQA6dvnWFLB2dqBZP9RQfDC8wVuLsUsRlBn4Rit+Abp/Y50694gAznVag67bS7TSvUFqk0xDKii06ERS3zI7w61o7PjjP1k/JX2/MAB5S1/BSdJwR/pYKQlgSWMQVqtf66Yyi2LFYYZ5i9rNfSnZK7B8pu2xigj7Q06b1whPd42Wg8HnTBZBFpObvyJ+hWtqUjlUd9D0TD+uYsnnTUtowh/vRhAECZXlvV14aVHXJIRoAAyCXQ==
+ bh=h2vCME8dBNzm2RO5qEJlkYdLE5K+z6/5Yen/nvqlrMQ=;
+ b=NdxvjWQub2HNn55dbyCCJwJCDJVzapZL3MopUAoYOVBNSRtBmOHbTd4wci9hRpVenDPsGGysfXM4cRUt9Gosm/KUA+lakPG97/hVW2pL21VNiBWK6fnISSCwtvyLXvgp/U/w3FxFXkd4nc4hpQ/NVYPnh2+H5wdfBsszq6rkoj2opHCiXShTl78VmM2l8cbzJaw4T7z7sx+jqYRBNCUbEZ/sZbzN4X2qYkiOCdU6GWHIfO3bwDslD7qjNpQjqCqlRbWkf5lIQ3t4lNo3xHoD/WqIKchcX34ixBVp34bhu1d/tJrJVEmUj/q/TBWi402cOwcyP87NR+wat3I1wv3oEg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cp4veNivOTMMBwbIe/RL4saqFudD1ml4OG6Zbi+hBOo=;
- b=EwKw30MJBCRU3a8rSAx3dsrpuEJJzLMjgdr+UCKGZlvRsXZY5iVn+vZIEDyN4djgFPCIu5qSizr49PmhXeBIrD1Bw7htTo2hQn2mlg9OxT8mcMjm1wEB6Sd06401fyXR8arm3OcrH3+P21d9P/9fa9Aqb2yLOxDJT9ENMo4gRbY=
-Received: from MW4PR04CA0287.namprd04.prod.outlook.com (2603:10b6:303:89::22)
- by MW6PR12MB8897.namprd12.prod.outlook.com (2603:10b6:303:24a::19)
+ bh=h2vCME8dBNzm2RO5qEJlkYdLE5K+z6/5Yen/nvqlrMQ=;
+ b=nAR/7LAIEHsr+px6193ahrSLTG68AJHPNmOB9qY21uKLBMJZwguFbdGDO3ILUwcajs61DmTR7Gv2ZPEnt8EM1KuwHV7+YM4KOuditsKnDbL4Y4Ce6Gim/wn5+J1yzkkniGKbmUhW13oYc0hHuH0gxokZU+yChABrAuhfSy8dVus=
+Received: from SJ0PR03CA0120.namprd03.prod.outlook.com (2603:10b6:a03:333::35)
+ by IA1PR12MB6283.namprd12.prod.outlook.com (2603:10b6:208:3e5::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Thu, 30 Jul
- 2026 17:03:02 +0000
-Received: from CO1PEPF00012E64.namprd05.prod.outlook.com
- (2603:10b6:303:89:cafe::b) by MW4PR04CA0287.outlook.office365.com
- (2603:10b6:303:89::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.14 via Frontend Transport; Thu,
- 30 Jul 2026 17:03:02 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Thu, 30 Jul
+ 2026 17:03:06 +0000
+Received: from CO1PEPF00012E62.namprd05.prod.outlook.com
+ (2603:10b6:a03:333:cafe::7c) by SJ0PR03CA0120.outlook.office365.com
+ (2603:10b6:a03:333::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.12 via Frontend Transport; Thu,
+ 30 Jul 2026 17:03:06 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,19 +48,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF00012E64.mail.protection.outlook.com (10.167.249.73) with Microsoft
+ CO1PEPF00012E62.mail.protection.outlook.com (10.167.249.71) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Thu, 30 Jul 2026 17:03:02 +0000
+ 15.21.292.8 via Frontend Transport; Thu, 30 Jul 2026 17:03:06 +0000
 Received: from work.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 30 Jul
- 2026 12:03:01 -0500
+ 2026 12:03:05 -0500
 From: David Rosca <david.rosca@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: David Rosca <david.rosca@amd.com>
-Subject: [PATCH 3/4] drm/amdgpu: Fix UVD decode image min size calculation
-Date: Thu, 30 Jul 2026 19:02:30 +0200
-Message-ID: <20260730170230.11930-4-david.rosca@amd.com>
+Subject: [PATCH 4/4] drm/amdgpu: Fix UVD min buffer sizes
+Date: Thu, 30 Jul 2026 19:02:31 +0200
+Message-ID: <20260730170230.11930-5-david.rosca@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260730170230.11930-2-david.rosca@amd.com>
 References: <20260730170230.11930-2-david.rosca@amd.com>
@@ -72,29 +72,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00012E64:EE_|MW6PR12MB8897:EE_
-X-MS-Office365-Filtering-Correlation-Id: c0149781-bbc0-4138-dbda-08deee5c6a51
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E62:EE_|IA1PR12MB6283:EE_
+X-MS-Office365-Filtering-Correlation-Id: b5986f34-e8b9-4fde-bf81-08deee5c6cfb
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700016|23010399003|376014|22082099003|18002099003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: tyYusWQpOeuK0mni3bXPa5BtQC+cYZ6QASWlzyGO+zVXTXail7ceyI+f+OBRi3gMgym7s/3pgzhFlEmaLZGaodIfRQHPSZsQbN586PU0UKGNfnRaHPMq7wuyLbOw6a02g04tJRKcFZQfRwoVVcDVcnBaq762TwhPqElhd4S5GlxBe9A8TODsWLPCEy4YL9Le0F7BEdRynPuQlEbeHu2HJyHDgnfAtyF3mmFd3Qqyooq0LMbWepZpy75ZTQ18IG5rGxJETI5BowHslZFN51Z9CSjinMuu5lTh66lCZBDIHMu++6QR6q3kXhpsvCeGTEbOWNaENzIY5JMQ2E22kJAEkS8RDw2YYQJgXag6y7TFAjT0PEFe5LDPTdXF+4HZudkseo2Km4kFbApKbotLFpUs08KBt2FpRDy/ZWIPwgvqJ//gCN5LZ1VJ8sx4b+shLVqOtiVnJWNbRVHL2r0346y2IWYk7tIzxkmY14q2Xxy6UcXEMSw8ZdyztLxfsUaGO83OTKxyFZbvUlyz6AUwTejnuq6p+uwN48scksuWGQeFP/yX+SgEVAFYMtrACJKYED1eu/OMmNkGYycIGX4yRLNrivAbpDkYkUpNkKkEV5zAUR/DD+/YJGW6ke3zq+CJ4bR9OjOXUcOSVSzr6L3aRdDa7pKa5lg1CRw4mVfdSwVnIJ8IXTu4zPpVVOfh3gzbMPd2+ebPNoGd86TA/CNzEFURFQ==
+ ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|56012099006|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 1gv5/QY/5lyBXlJVTm3S8/oIHO11XUV0nf98AXmRjclwHkT/h0tJRzL3kip6wXloKgoeS+wJWeK6Mpraw3RcBodaRtW32jCLsXG3OAPqrDIK4h6eLj96Qo7r70mLgnhrCCf/V5tdWGUPydJlbwLGkjnXfpmNqWJHsWYgfL2K/CfHQ2go7eZ/6goxXRpJD59Qk42tw0mMPFcaFYcDuKqM7mN+eDCbLf7ZHb+4HTZr4GaZwKEl5312gXgTJT/UEEAj3vI6jFxECkJjXXYbhOFDLI+JvfVEEIInaJdiwtoRneNtEwokt6uNalbWyVfb42jov2qOWsgXNAUrUcWWMz4TRKSh44xY0hZ2CVLdza7dWd+K49jKvEnFZq4l7Ia/P/HSwTESChoj+o3IzmEVPad68n/5ZZj7boyMHdLGN8zCTFIDhKHswKSUV9J0g9UlG1UOGQUVTlxbgaCiSP5cir4yUg4/WIPayny3F9/Bc/13B2VeMbvfflNEmZmCFA/mLKoGkOfLWvdLz33J1rTc+6AogQlBuYR7P7kM3dyIdC2dEzv0MgzXsc/TLRuD5kpOiU9SZnsQp2zznqUlyNqtoE/4RYVXLS19jtCBRGgBCsENWU7jTKiltNRP0Nt4LihV1q58WYRUdYx4MZl2IDrvhd0SmTTnWQl++hM6lAZhdVnh5oc+NwRQjmMIiceaELb/MplS/ipBhFj5QxG06STBfXgv3w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700016)(23010399003)(376014)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003);
+ SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: dUSXnD/Udv7xzviKpnCvHQRZmpgsjZzYTRFzJj3Ly/ZorvSydYNhpbH6F2KZZqd9gapa3gRH+mMXNnDqykgNI/Ff2/n7J4y3auvmZ8iu6G/rBe8t0MqoXedm0de8HVtE98cWxCjnzFE4Ij6fudSSeiytp9cwcCZ33FPD1QVRoL/jTWrq926SojSyi0MjAk7rxFX8eguHFRRJ2xXo7h4Xy78hZs2ok6ZxyQt7hTE8IlEdmQk3qntTdhGhVLvyJJVITLG1kTVofWjeFKx2pRelNfhbvL7m7U0UtmM3Cs0l4nvWHHPWG7IQWCDetW0nlyEEXtjV4+GiARKt8WzzEcyTaJX8KLyekWqy9IENQlw9nHO8OtODHT2RFAXP5FTg9i7Un7Ql4UEJjWs4TB0hHgnegLjm2TSsfCJEuvCy3Ea5rJ6F/TR3MDixutOXKHygQe2p
+X-MS-Exchange-AntiSpam-MessageData-0: j/thwgSfIqYSwQr1F31ZScQbRwH9scanmUlevcMDwafEWXRpYx2AxEUW3CADKJwfYJjekgv7wpUwTvasdX+Gm/sLrnrYbZt8wGImC8oZC9HDX0S//WDvcc3oWi/7hw0ZfelXntf2fK5k9VyfYd5FbswonYyNVOiX0FLbuLrek9UP5E8xarV2K0AnCBn97VWALpsLjjLywctPiMUTyXsfPhM1jT5Ye2K35ztLllX0gkfsBZU86VnVt6OfuAEFN/6bfI5+Zvk3rM/uYwkaInVLG9TLme0x2oDCX85GFHBecbHSUisftacLM5UhILnyRYQVWTYbLP9QrSglY6f4ssKFhN5kk4yq8dis82NPodNuT7nrMnmQPdXAF5xhXlevf5p249u5TxEse53x5wg/B7moltiUx+TH4+yeDzZY89qCa9Ffy49a5UPo1c2OaBo7jhXP
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 17:03:02.0237 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c0149781-bbc0-4138-dbda-08deee5c6a51
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 17:03:06.5233 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b5986f34-e8b9-4fde-bf81-08deee5c6cfb
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E64.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E62.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8897
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6283
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,36 +109,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This needs to use pitch instead of width. Also reject pitch
-over 4096 to avoid overflow.
+Use correct size for message buffer = sizeof(struct ruvd_msg).
+Add ITSCALING_TABLE_BUFFER size.
 
 Signed-off-by: David Rosca <david.rosca@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-index fa899e321f48..947a6cd45881 100644
+index 947a6cd45881..e2d0f23d48aa 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
-@@ -759,7 +759,7 @@ static int amdgpu_uvd_cs_msg_decode(struct amdgpu_device *adev, uint32_t *msg,
+@@ -918,15 +918,16 @@ static int amdgpu_uvd_cs_pass2(struct amdgpu_uvd_cs_ctx *ctx)
+ 				  ctx->buf_sizes[cmd]);
+ 			return -EINVAL;
+ 		}
++	} else if (cmd == 0x204 || cmd == 0x206) {
++		unsigned int min_size = ctx->buf_sizes[cmd == 0x204 ? 5 : 4];
+ 
+-	} else if (cmd == 0x206) {
+-		if ((end - start) < ctx->buf_sizes[4]) {
++		if ((end - start) < min_size) {
+ 			DRM_ERROR("buffer (%d) to small (%d / %d)!\n", cmd,
+ 					  (unsigned int)(end - start),
+-					  ctx->buf_sizes[4]);
++					  min_size);
+ 			return -EINVAL;
+ 		}
+-	} else if ((cmd != 0x100) && (cmd != 0x204)) {
++	} else if ((cmd != 0x100)) {
+ 		DRM_ERROR("invalid UVD command %X!\n", cmd);
  		return -EINVAL;
  	}
+@@ -1056,11 +1057,12 @@ int amdgpu_uvd_ring_parse_cs(struct amdgpu_cs_parser *parser,
+ {
+ 	struct amdgpu_uvd_cs_ctx ctx = {};
+ 	unsigned int buf_sizes[] = {
+-		[0x00000000]	=	2048,
++		[0x00000000]	=	3556,
+ 		[0x00000001]	=	0xFFFFFFFF,
+ 		[0x00000002]	=	0xFFFFFFFF,
+ 		[0x00000003]	=	2048,
+ 		[0x00000004]	=	0xFFFFFFFF,
++		[0x00000005]	=	992,
+ 	};
+ 	int r;
  
--	if (width > pitch) {
-+	if (width > pitch || pitch > 4096) {
- 		DRM_ERROR("Invalid UVD decoding target pitch!\n");
- 		return -EINVAL;
- 	}
-@@ -771,7 +771,7 @@ static int amdgpu_uvd_cs_msg_decode(struct amdgpu_device *adev, uint32_t *msg,
- 	}
- 
- 	buf_sizes[0x1] = dpb_size;
--	buf_sizes[0x2] = image_size;
-+	buf_sizes[0x2] = (pitch * height) * 3 / 2;
- 	buf_sizes[0x4] = min_ctx_size;
- 	/* store image width to adjust nb memory pstate */
- 	adev->uvd.decode_image_width = width;
 -- 
 2.43.0
 
