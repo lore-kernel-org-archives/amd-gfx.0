@@ -4,45 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E34B6C54FCD
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 02:40:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C4793C55160
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 02:40:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6519210E069;
-	Thu, 30 Jul 2026 02:40:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6787B10E0A4;
+	Thu, 30 Jul 2026 02:40:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="CyTd5g5O";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nsYGd9Wg";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95BC810E069
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 02:40:42 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 894C010E0A4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 02:40:54 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C7277600B0;
- Thu, 30 Jul 2026 02:40:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C98011F00A3E;
- Thu, 30 Jul 2026 02:40:40 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0827B600B1;
+ Thu, 30 Jul 2026 02:40:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30A51F000E9;
+ Thu, 30 Jul 2026 02:40:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1785379241;
- bh=kzshhQShEALfUgm8OY0PEu/4IHG++/qw5QpmzIBc4ho=;
+ s=k20260515; t=1785379253;
+ bh=RyTEnv63di/ZnQ4fhrUnlRJJkfnhOs7V4O2VKHjPxrI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=CyTd5g5Oa+bQXq/o2jQ0KJXZZDrFWK/jtpuqbHIM0K/4+tTX4bvxfuE9vMOoZ2f/H
- i72xGjDCbtcblzNY0PZb3kE+e1S/KNtuP1SanM1KDI0OMFbH0qouWvSsv3FoOFfzlg
- Gz6YpaxtK/oJcsZm85oUKbriuAuPeJNNZwq3oSSxCryVZnHP9yBOhmNCs2jZWT3+Ys
- p1RT9EAA3KjIUoOHUvMKHUlNHuNCPOjKXp/vld0bFHFL6hHvun9Vw1ZY9Z2O6BKgtg
- mahvc2KdQXR2hbNdMnZJSq6xW4Dt53jyoeewQqoqdr7P+O36/fJmwVu7Fo4VKDCbUw
- DDO0l5Sr6Wgvg==
+ b=nsYGd9WgE51TM77R4ABu6+pF2/ZAW8i7nU6Yf2v+5pDxEBQTB+AVukdHIyxNYaC4G
+ scxsvywfgC5vsZE533bHXPT/tElR+BpMVGMgQOlpQu+l4+lO2TQFdkxAHOlg/0B7RH
+ RX/uobQqi/i2mYlkD1E/f0h3Gr1sj9GHMBP+gf3OHKTJH1OHCsWfxyJI7xL8DZia14
+ dRWpWA6zadcJzpdsdVACBbmb9EXmdzrwRK3BR3tnkbSg7d4CzT5zoSbkTNRgJMk7SX
+ oRQ66k8pgh/MPVD/Ku97mLhIQcdwT67l6ed5TBrcMwi95Lj1DichTVu93NLb/mqS/S
+ ZdfzVzrjI9oaw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>, amd-gfx@lists.freedesktop.org,
- Leo Li <sunpeng.li@amd.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>
-Subject: Re: [PATCH 7.1.y] drm/amd/display: check GRPH_FLIP status before
- sending event
-Date: Wed, 29 Jul 2026 22:40:06 -0400
-Message-ID: <20260729223316.stable-0010@kernel.org>
+ sunpeng.li@amd.com, mario.limonciello@amd.com,
+ Harry Wentland <harry.wentland@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ Dan Wheeler <daniel.wheeler@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>
+Subject: Re: [PATCH 6.12.y/6.18.y/7.1.y] drm/amd/display: Fix DTB DTO updates
+ breaking live pixel rate sources
+Date: Wed, 29 Jul 2026 22:40:19 -0400
+Message-ID: <20260729223316.stable-0026@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260729173742.950965-2-sunpeng.li@amd.com>
-References: <20260729173742.950965-2-sunpeng.li@amd.com>
+In-Reply-To: <20260729063340.9287-1-matthew.schwartz@linux.dev>
+References: <20260729063340.9287-1-matthew.schwartz@linux.dev>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -59,18 +61,10 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-> [PATCH 7.1.y] drm/amd/display: check GRPH_FLIP status before sending event
+> [PATCH 6.12.y/6.18.y/7.1.y] drm/amd/display: Fix DTB DTO updates breaking live pixel rate sources
+> [PATCH 6.6.y] drm/amd/display: Fix dcn32 DTB DTO update breaking live pixel rate sources
 
-Thanks for the backports, but I'm going to hold both of these for now.
-
-There are two unmerged Fixes: patches against 48ab86360af1 ("drm/amd/display:
-check GRPH_FLIP status before sending event") on the list, and I can
-reproduce a flip_done/login freeze on DCN 3.1.5 with 7.2-rc4, plus there is
-your own Cc: stable follow-up on top.
-
-Could you confirm which set you want stable to carry before I queue any of
-it?  Once the follow-ups land in mainline I'm happy to take the whole thing
-together for 7.1 and 6.18.
+Queued for 6.6, 6.12, 6.18 and 7.1, thanks.
 
 -- 
 Thanks,
