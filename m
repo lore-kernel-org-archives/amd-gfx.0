@@ -4,48 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 43BB1C55167
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1C67C5516D
 	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 06:58:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CED4510F18C;
-	Fri, 31 Jul 2026 06:58:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C65210F191;
+	Fri, 31 Jul 2026 06:58:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=collabora.com header.i=@collabora.com header.b="iFueEaqm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ULcVlqnY";
 	dkim-atps=neutral
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4EB6F10E183;
- Thu, 30 Jul 2026 13:46:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1785419187;
- bh=4IBXNq5NwJ48Az6LLeXpjTN9Rv+uLcUZyeUUQipg3+s=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=iFueEaqmw0qeA0yIZ+RL3sZG59DGZEywHIqwMpQLicLtTjovQYgaGFv8CPe+8r2TI
- rGtAQTV0BWE8h1z6asUeFOOxnPr2CujvmvL891+VTBy5INPEREjgdJ+OlukhTV6qzW
- WBZwxYmLLijoxNUym0rCbbBnNcxJ5ZpR19watyXa4uC4eOGWVi58FX3+TKT88rVNhS
- VXrMYo4gOBFQxMGaCsQXvGUJ9o4UEdwtvkJhQw1lqheonDummWDHpI6YCxQtrTSq9N
- MtZv4p3GyzWh8U4NmGNpEbXCHbSjgRpQynlzD/5JYqiNqwdQBsxlzGBVCpvT4BDeKX
- 81n+DWpPf0i8A==
-Received: from fluorite (unknown [100.64.0.208])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
- SHA256) (No client certificate requested) (Authenticated sender: pq)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id B745617E001F;
- Thu, 30 Jul 2026 15:46:27 +0200 (CEST)
-Date: Thu, 30 Jul 2026 16:46:15 +0300
-From: Pekka Paalanen <pekka.paalanen@collabora.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-Subject: Re: [PATCH v4 02/11] drm/vkms: Fix limited-range YCbCr to RGB
- conversion scaling
-Message-ID: <20260730164615.2d3e8021@fluorite>
-In-Reply-To: <20260722134607.136293-3-harry.wentland@amd.com>
-References: <20260722134607.136293-1-harry.wentland@amd.com>
- <20260722134607.136293-3-harry.wentland@amd.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED60210E141
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 17:00:19 +0000 (UTC)
+Received: by mail-ed1-f46.google.com with SMTP id
+ 4fb4d7f45d1cf-6a0794669a6so98003a12.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 10:00:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785430818; x=1786035618; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=8afrmJvJNjiQFgHKILdFDrH8vU7XVuTipqlZKwZMuTE=;
+ b=ULcVlqnY1ZfVdyAHx3AlZim9liTHxYfV1mMmbaFhHG5jSiHNImrUEAXY8IAFzMr6/g
+ 9829vzJgZp4/T5EtB/wKDSwQ1xt6dv1R5JrvrIbd+6F6l6K/jr7Q8f4g9kxNPsB93S36
+ lmOSrCSSIv2GOxtw6V1sLsHzw93UXLIlK3oyiJj6jyb5afk7jKNq82CMkuMm2TQNgR30
+ tDswyG8FBVVeiebrSsJl+2kzpNN7ggjfFcBP7rpI82Auv59ziO+sSVrMhhgtlaX+oTv9
+ z7Suc8srqPTPfZY05LpEfYYlibiDihGAy7OcrMzXzcLLRxenRmJjmk5baa2O2VVX3ucn
+ eulw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785430818; x=1786035618;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=8afrmJvJNjiQFgHKILdFDrH8vU7XVuTipqlZKwZMuTE=;
+ b=G63EcwSexmLn9MlBw0m7+axWm2sezcmOpwa589IGfYduwU0PWkEul3Nf1IXOa1zE38
+ DtEg4f+Y4HIalZLX91xNBiXb47K+r3sy4eDpWvm43MG/lmX31MhyqCkfroDl9Iq8rMVy
+ YXS1WVtF57Pwpd+Uz8BkdFJgB0v3FrPP6KrvyQEdLSAdFkz6Fn4UqvvdOYiEnGFm7wDJ
+ Qlpuz+OKHPuYAO4qekR0rPZUsTpgP25O40OqxPTty+1R4WOHUIoY0z2OOem4R/ZVVjUt
+ 23tiR9Y9/ine8z3Kd51t/oVFMXTNKEl5AZSFsilxJkPYdi+MOnOZm2Kt2zGtrBDI2QFk
+ h56A==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rq03I24+2okLxHj56xDMYdTqEoO+fMJ95DghkW/x/sKQ9KY8ySAm3OanOMTHf5MG+EPuu2FwosN@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxOKkoHoSPl2b3vvlralf6URRB2dCxC5P8c4DQ0l6UHyf74JytC
+ X7EggqgtStPdINwry5m7InaXZL14v5fm5MdKvf8jcEAgeRza0esHcm+H
+X-Gm-Gg: AR+sD12BR+P3uwgtUSIqeFBZ9+sipiLPJGTv8KMH8bNEe+OWPDtkwTeKdpy8S3FzVgc
+ XWaWIiaVPQg4zqJvWTiZrUIwP+evka+1+n588NnBE4IVjLLiXhM3hDSOyFrl9EVG9OJTni799vI
+ kWuuhDixrgb7H9k5MshdORqSIRKh3wxYnkKcQ3LfNYlXjnSg1e38+LA4lmC8ZBvlb7rAY15kXr9
+ GSFVCzHbAtf9V1seu1FMqdTSBgb3qBgMWpMWOm/N/AtWvOsCLeaiThsVgZDylrjS1E06N9ULqse
+ GDsJYuJnBDkOZ8lfoJBKSB3WLe3prDVcv36hpoB6syMgAzXLh8+q9XTJV+/0Hhz0WVvfRSACqA5
+ Vok/lcBmDEHZbknHQHWRPLE6hAlyYjseihBnfdxWZu6Tt4NqdJkLE6rJxPAE0+kbIoHvtCQS4NJ
+ KXnjnFJZ2rImYLN4HXBK2lLmiHbufvgyyV0XsFDBGe8bpVk8TuLK5Fx33thA7aQ6G1ZmQ8fI0zI
+ DmVAPKMVavAdOvNuzffU1C2Y56rX7VhmNnspU4K+ZUJL74J/xx+
+X-Received: by 2002:a17:907:3e84:b0:c16:66dc:3abe with SMTP id
+ a640c23a62f3a-c1fa54e8f31mr174712266b.28.1785430817965; 
+ Thu, 30 Jul 2026 10:00:17 -0700 (PDT)
+Received: from misharu.home
+ (2a02-a463-a071-0-ee66-8497-94b5-6e78.fixed6.kpn.net.
+ [2a02:a463:a071:0:ee66:8497:94b5:6e78])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c1fa851d4b7sm93725366b.4.2026.07.30.10.00.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Jul 2026 10:00:17 -0700 (PDT)
+From: Hari Mishal <harimishal1@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Lijo Lazar <lijo.lazar@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Mario Limonciello <superm1@kernel.org>, Tao Zhou <tao.zhou1@amd.com>,
+ Kees Cook <kees@kernel.org>, Candice Li <candice.li@amd.com>,
+ Jammy Zhou <Jammy.Zhou@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Hari Mishal <harimishal1@gmail.com>
+Subject: [PATCH] drm/amdgpu: bound ATOM bytecode cursor within the VBIOS image
+Date: Thu, 30 Jul 2026 19:00:11 +0200
+Message-ID: <20260730170011.28915-1-harimishal1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="Sig_/2kjh6tkifo.pBieHcFX.WUy";
- protocol="application/pgp-signature"; micalg=pgp-sha256
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 31 Jul 2026 06:58:24 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,299 +96,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---Sig_/2kjh6tkifo.pBieHcFX.WUy
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
+The ATOM interpreter executes bytecode straight out of the VBIOS
+image and multiple cursor-mutation paths are not bounded against the
+image size:
 
-On Wed, 22 Jul 2026 09:45:58 -0400
-Harry Wentland <harry.wentland@amd.com> wrote:
+ - the main opcode fetch loop follows jump/skip targets anywhere
+   (jump targets are u16 offsets that can point past a small image),
+ - atom_op_switch scans for ATOM_CASE_END with no limit; a table that
+   omits the marker walks off the allocated BIOS copy,
+ - atom_op_processds advances the cursor by an unchecked u16 taken
+   from the table itself,
+ - the command-table base offset from the master table is used
+   unchecked before its header fields are read.
 
-> The limited-/studio-range YCbCr to RGB conversion matrices were generated
-> with colour.matrix_YCbCr(is_legal=3DTrue, bits=3D8), which normalises the
-> narrow range by 2^bits (256 for 8-bit) rather than by the full-range
-> maximum 2^bits - 1 (255). As a result the luma scale was 256/219 and the
-> chroma scale 256/224 instead of the correct 255/219 and 255/224.
+On a malformed/malicious VBIOS image, these reads could run past the
+kmalloc'd BIOS buffer and the out-of-bounds bytes get interpreted as
+further opcodes/operands.
 
-Hi Harry,
+atom_context::bios_size and the corresponding amdgpu_atom_parse()
+parameter already exist in this tree; this uses that existing
+infrastructure to bound the four sites above. atom_index_iio() is
+already bounds-checked separately and is not touched here.
 
-this is an interesting find. For the previous patch "drm/colorop: Add
-DRM_COLOROP_FIXED_MATRIX" I verified that the matrices match
-colour.matrix_YCbCr(), but this here seems to say all the
-limited range cases are wrong? That patch would need the numbers
-corrected too.
+Assisted-by: gkh_clanker:t1000
+Signed-off-by: Hari Mishal <harimishal1@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/atom.c | 29 +++++++++++++++++++++++++++--
+ 1 file changed, 27 insertions(+), 2 deletions(-)
 
->=20
-> This over-scales every limited-range conversion by a factor of 256/255,
-> producing an error of up to ~3/255 (8-bit) and causing IGT tests that
-> compare software-computed surfaces against VKMS-processed ones to fail.
->=20
-> Recompute the three limited-range matrices from first principles rather
-> than relying on colour's is_legal scaling:
->=20
->  1. Start from the standard ITU-R YCbCr -> RGB relations for the luma
->     weights Kr, Kb (Kg =3D 1 - Kr - Kb) of each encoding (BT.601, BT.709
->     and BT.2020 non-constant luminance). These are the same relations
->     that produce the existing full-range matrices.
->  2. Expand the studio input range to full range relative to a full-range
->     maximum of 2^n - 1: the luma coefficient by 255/(235 - 16) and the
->     chroma coefficients by 255/(240 - 16). This matches the DRM UAPI
->     definition and IGT's igt_ycbcr_to_rgb_matrix().
->  3. Convert each coefficient to S31.32 fixed point (round(coeff * 2^32)).
+diff --git a/drivers/gpu/drm/amd/amdgpu/atom.c b/drivers/gpu/drm/amd/amdgpu/atom.c
+index e0e585f280e2..56c8a17edea1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/atom.c
++++ b/drivers/gpu/drm/amd/amdgpu/atom.c
+@@ -1032,8 +1032,12 @@ static void atom_op_switch(atom_exec_context *ctx, int *ptr, int arg)
+ 	uint32_t src, val, target;
+ 	SDEBUG("   switch: ");
+ 	src = atom_get_src(ctx, attr, ptr);
+-	while (U16(*ptr) != ATOM_CASE_END)
++	while ((uint32_t)*ptr + 2 <= ctx->ctx->bios_size &&
++	       U16(*ptr) != ATOM_CASE_END)
+ 		if (U8(*ptr) == ATOM_CASE_MAGIC) {
++			/* magic byte + immediate (up to 4) + 2-byte target */
++			if ((uint32_t)*ptr + 7 > ctx->ctx->bios_size)
++				break;
+ 			(*ptr)++;
+ 			SDEBUG("   case: ");
+ 			val =
+@@ -1087,7 +1091,14 @@ static void atom_op_debug(atom_exec_context *ctx, int *ptr, int arg)
+ 
+ static void atom_op_processds(atom_exec_context *ctx, int *ptr, int arg)
+ {
+-	uint16_t val = U16(*ptr);
++	u16 val;
++
++	/* the skip count is bytecode-supplied; validate before reading it */
++	if ((uint32_t)*ptr + 2 > ctx->ctx->bios_size) {
++		ctx->abort = true;
++		return;
++	}
++	val = U16(*ptr);
+ 	(*ptr) += val + 2;
+ 	SDEBUG("PROCESSDS output: 0x%02X\n", val);
+ }
+@@ -1237,6 +1248,13 @@ static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index,
+ 	if (!base)
+ 		return -EINVAL;
+ 
++	/* the table offset itself comes from the VBIOS master table */
++	if ((uint32_t)base + ATOM_CT_CODE_PTR >= ctx->bios_size) {
++		DRM_ERROR("atombios command table %d offset 0x%x outside VBIOS image\n",
++			  index, base);
++		return -EINVAL;
++	}
++
+ 	if (ctx->execute_depth >= ATOM_EXECUTE_MAX_DEPTH) {
+ 		DRM_ERROR("atombios command table nesting exceeded limit (%u)\n",
+ 			  ATOM_EXECUTE_MAX_DEPTH);
+@@ -1273,6 +1291,13 @@ static int amdgpu_atom_execute_table_locked(struct atom_context *ctx, int index,
+ 
+ 	debug_depth++;
+ 	while (1) {
++		/* jump/skip targets are bytecode-supplied; stay inside the image */
++		if ((uint32_t)ptr >= ctx->bios_size) {
++			DRM_ERROR("atombios cursor 0x%x outside VBIOS image (table %04X)\n",
++				  ptr, base);
++			ret = -EINVAL;
++			goto free;
++		}
+ 		op = CU8(ptr++);
+ 		if (op < ATOM_OP_NAMES_CNT)
+ 			SDEBUG("%s @ 0x%04X\n", atom_op_names[op], ptr - 1);
+-- 
+2.43.0
 
-I verified the new matrix values assuming that
-colour.matrix_YCbCr(K=3Dcolour.WEIGHTS_YCBCR["ITU-R BT.709"],
-is_legal=3DFalse) is correct, and the same with 601 and 2020.
-
->=20
-> The full-range matrices (is_legal=3DFalse) are unaffected as they use exa=
-ct
-> 1.0/2.0 scaling.
-
-A what scaling now?
-
-> Update the limited-range reference values in the vkms-format KUnit test
-> accordingly: the expected YCbCr inputs now use the studio-range encoding
-> consistent with the corrected matrices (8-bit value v placed at v * 257,
-> i.e. relative to a full-range maximum of 255).
-
-H.273 describes how to expand the values to any bit size. It maintains
-full precision rather than scales up 8-bit values. The results are
-different than recorded in this patch.
-
-
-Thanks,
-pq
-
-> Fixes: fe22d21e9342 ("drm/vkms: Add YUV support")
-> Assisted-by: Copilot:claude-opus-4.8
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> ---
->  drivers/gpu/drm/vkms/tests/vkms_format_test.c | 36 ++++++------
->  drivers/gpu/drm/vkms/vkms_formats.c           | 55 +++++++++++++------
->  2 files changed, 55 insertions(+), 36 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/vkms/tests/vkms_format_test.c b/drivers/gpu/=
-drm/vkms/tests/vkms_format_test.c
-> index a7788fbc45dc..789c59d07ffb 100644
-> --- a/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-> +++ b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-> @@ -101,12 +101,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_a=
-rgb_u16_cases[] =3D {
->  		.range =3D DRM_COLOR_YCBCR_LIMITED_RANGE,
->  		.n_colors =3D 6,
->  		.colors =3D {
-> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xff=
-ff }},
-> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x80=
-80 }},
-> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x00=
-00 }},
-> -			{ "red",   { 0x517b, 0x5a34, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x00=
-00 }},
-> -			{ "green", { 0x908e, 0x35cc, 0x2237 }, { 0xffff, 0x0000, 0xffff, 0x00=
-00 }},
-> -			{ "blue",  { 0x28f7, 0xf000, 0x6dc9 }, { 0xffff, 0x0000, 0x0000, 0xff=
-ff }},
-> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xff=
-ff }},
-> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x80=
-80 }},
-> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x00=
-00 }},
-> +			{ "red",   { 0x51cd, 0x5a8e, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x00=
-00 }},
-> +			{ "green", { 0x911e, 0x3602, 0x2259 }, { 0xffff, 0x0000, 0xffff, 0x00=
-00 }},
-> +			{ "blue",  { 0x2920, 0xf0f0, 0x6e37 }, { 0xffff, 0x0000, 0x0000, 0xff=
-ff }},
->  		}
->  	},
->  	/*
-> @@ -151,12 +151,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_a=
-rgb_u16_cases[] =3D {
->  		.range =3D DRM_COLOR_YCBCR_LIMITED_RANGE,
->  		.n_colors =3D 6,
->  		.colors =3D {
-> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xff=
-ff }},
-> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x80=
-80 }},
-> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x00=
-00 }},
-> -			{ "red",   { 0x3e8f, 0x6656, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x00=
-00 }},
-> -			{ "green", { 0xaca1, 0x29aa, 0x1a45 }, { 0xffff, 0x0000, 0xffff, 0x00=
-00 }},
-> -			{ "blue",  { 0x1fd0, 0xf000, 0x75bb }, { 0xffff, 0x0000, 0x0000, 0xff=
-ff }},
-> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xff=
-ff }},
-> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x80=
-80 }},
-> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x00=
-00 }},
-> +			{ "red",   { 0x3ece, 0x66bc, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x00=
-00 }},
-> +			{ "green", { 0xad4e, 0x29d4, 0x1a5f }, { 0xffff, 0x0000, 0xffff, 0x00=
-00 }},
-> +			{ "blue",  { 0x1ff0, 0xf0f0, 0x7631 }, { 0xffff, 0x0000, 0x0000, 0xff=
-ff }},
->  		}
->  	},
->  	/*
-> @@ -201,12 +201,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_a=
-rgb_u16_cases[] =3D {
->  		.range =3D DRM_COLOR_YCBCR_LIMITED_RANGE,
->  		.n_colors =3D 6,
->  		.colors =3D {
-> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xff=
-ff }},
-> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x80=
-80 }},
-> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x00=
-00 }},
-> -			{ "red",   { 0x4988, 0x60b9, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x00=
-00 }},
-> -			{ "green", { 0xa47b, 0x2f47, 0x1902 }, { 0xffff, 0x0000, 0xffff, 0x00=
-00 }},
-> -			{ "blue",  { 0x1cfd, 0xf000, 0x76fe }, { 0xffff, 0x0000, 0x0000, 0xff=
-ff }},
-> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xff=
-ff }},
-> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x80=
-80 }},
-> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x00=
-00 }},
-> +			{ "red",   { 0x49d2, 0x611a, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x00=
-00 }},
-> +			{ "green", { 0xa520, 0x2f76, 0x191b }, { 0xffff, 0x0000, 0xffff, 0x00=
-00 }},
-> +			{ "blue",  { 0x1d1a, 0xf0f0, 0x7775 }, { 0xffff, 0x0000, 0x0000, 0xff=
-ff }},
->  		}
->  	},
->  };
-> diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/v=
-kms_formats.c
-> index dfb8e13cba87..4d5fcaeb82c5 100644
-> --- a/drivers/gpu/drm/vkms/vkms_formats.c
-> +++ b/drivers/gpu/drm/vkms/vkms_formats.c
-> @@ -788,15 +788,36 @@ static const struct conversion_matrix yuv_bt601_ful=
-l =3D {
->  };
-> =20
->  /*
-> - * numpy.around(colour.matrix_YCbCr(K=3Dcolour.WEIGHTS_YCBCR["ITU-R BT.6=
-01"],
-> - *                                  is_legal =3D True,
-> - *                                  bits =3D 8) * 2**32).astype(int)
-> + * BT.601 limited-/studio-range YCbCr to full-range RGB.
-> + *
-> + * The coefficients are derived as follows:
-> + *
-> + *  1. Take the standard ITU-R YCbCr -> RGB relations for luma weights
-> + *     Kr, Kb (Kg =3D 1 - Kr - Kb), with Y in [0, 1] and Cb, Cr in
-> + *     [-0.5, 0.5]. For BT.601 Kr =3D 0.299 and Kb =3D 0.114:
-> + *
-> + *       R =3D Y                                + 2 * (1 - Kr)          =
-* Cr
-> + *       G =3D Y - 2 * (1 - Kb) * Kb / Kg * Cb - 2 * (1 - Kr) * Kr / Kg =
-* Cr
-> + *       B =3D Y + 2 * (1 - Kb)          * Cb
-> + *
-> + *     These are exactly the yuv_bt601_full coefficients above.
-> + *
-> + *  2. Expand the studio input range to full range, relative to a
-> + *     full-range maximum of 2^n - 1 (255 for 8-bit): the luma
-> + *     coefficient is scaled by 255/(235 - 16) and the chroma
-> + *     coefficients by 255/(240 - 16). This matches the DRM UAPI
-> + *     definition and IGT's igt_ycbcr_to_rgb_matrix(). Note this differs
-> + *     from colour.matrix_YCbCr(is_legal=3DTrue), which normalises by 2^n
-> + *     and is thus off by a factor of 256/255.
-> + *
-> + *  3. Convert each coefficient to S31.32 fixed point, i.e.
-> + *     round(coeff * 2^32).
->   */
->  static const struct conversion_matrix yuv_bt601_limited =3D {
->  	.matrix =3D {
-> -		{ 5020601039, 0,           6881764740 },
-> -		{ 5020601039, -1689204679, -3505362278 },
-> -		{ 5020601039, 8697922339,  0 },
-> +		{ 5000989317, 0,           6854882848 },
-> +		{ 5000989317, -1682606224, -3491669458 },
-> +		{ 5000989317, 8663946082,  0 },
->  	},
->  	.y_offset =3D 16,
->  };
-> @@ -816,15 +837,14 @@ static const struct conversion_matrix yuv_bt709_ful=
-l =3D {
->  };
-> =20
->  /*
-> - * numpy.around(colour.matrix_YCbCr(K=3Dcolour.WEIGHTS_YCBCR["ITU-R BT.7=
-09"],
-> - *                                  is_legal =3D True,
-> - *                                  bits =3D 8) * 2**32).astype(int)
-> + * BT.709 limited-range YCbCr to full-range RGB (Kr =3D 0.2126, Kb =3D 0=
-.0722).
-> + * Derived as described for yuv_bt601_limited.
->   */
->  static const struct conversion_matrix yuv_bt709_limited =3D {
->  	.matrix =3D {
-> -		{ 5020601039, 0,          7729959424 },
-> -		{ 5020601039, -919487572, -2297803934 },
-> -		{ 5020601039, 9108275786, 0 },
-> +		{ 5000989317, 0,          7699764272 },
-> +		{ 5000989317, -915895824, -2288828138 },
-> +		{ 5000989317, 9072696586, 0 },
->  	},
->  	.y_offset =3D 16,
->  };
-> @@ -844,15 +864,14 @@ static const struct conversion_matrix yuv_bt2020_fu=
-ll =3D {
->  };
-> =20
->  /*
-> - * numpy.around(colour.matrix_YCbCr(K=3Dcolour.WEIGHTS_YCBCR["ITU-R BT.2=
-020"],
-> - *                                  is_legal =3D True,
-> - *                                  bits =3D 8) * 2**32).astype(int)
-> + * BT.2020 non-constant-luminance limited-range YCbCr to full-range RGB
-> + * (Kr =3D 0.2627, Kb =3D 0.0593). Derived as described for yuv_bt601_li=
-mited.
->   */
->  static const struct conversion_matrix yuv_bt2020_limited =3D {
->  	.matrix =3D {
-> -		{ 5020601039, 0,          7238124312 },
-> -		{ 5020601039, -807714626, -2804506279 },
-> -		{ 5020601039, 9234915964, 0 },
-> +		{ 5000989317, 0,          7209850391 },
-> +		{ 5000989317, -804559491, -2793551177 },
-> +		{ 5000989317, 9198842076, 0 },
->  	},
->  	.y_offset =3D 16,
->  };
-
-
---Sig_/2kjh6tkifo.pBieHcFX.WUy
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEJQjwWQChkWOYOIONI1/ltBGqqqcFAmprVacACgkQI1/ltBGq
-qqcNUBAApnSjVG3QbmAjHfx61TK+cYqeMIh0xlqPp16kW8MOs1eULVReT+H6Hfu4
-BPQqhKfzY46wrRZlIaHjWEIdcb7mqKTAkOR7e558c44wXWFZ1vNf91VO2xpj2whu
-2zwXhsjQxJkVkrnLKeHRHcYn1GOLBn/g2Y5i1XxEjmRQpDUgX1jUuBqz/7PuSqKS
-I9aMBsf7ZZ8m4m4BNM/xn3PYBimU1CMZhiV2oO+aJg3HWh4X1S5PVfOde8irznAw
-fiCl1lM9sw5IuMI5VD0ellSKzGAyFNTEn83ASaDIJPKoQ29RFBupttFCMn5d5Ye5
-JtKAv63qat1G0TTCBMPMwyiiUfRxVfOfhilgQgz2VgBIEAP6BWKh+RdrA6gx2pOt
-7HN+6epTUz1o2BSuAwL9oig/AX6OzSdAZQ5JCdRl3YoittCuj7CMg6uMFi8xQvBG
-SsE/++hkZcXZfmEahnm3hcPbXu9l2N8oqKS83mB3U/Q2061Li80wvMqNoTdKQvrX
-Txg73WmTIzDPAeBnQU4dkXW4ctd8pkFuWJcUd8OcaB6CTCKTtjVoDYBjmSpOpi3w
-LXBU+N3a0HrWmEVr6cpoj8kf6eXFaPhcSsirKdUoq6i4NdVpTY1DWJFeOQZu8XaR
-wfmDF2HK1M6cw9tMhUOe+5skU3jH9kLXrbkpvOp+TieZjawyzTs=
-=Gn9E
------END PGP SIGNATURE-----
-
---Sig_/2kjh6tkifo.pBieHcFX.WUy--
