@@ -4,98 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4269C55164
-	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 17:17:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AA99C55162
+	for <amd-gfx@archiver.kernel.org>; Thu, 30 Jul 2026 17:27:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AC0510F011;
-	Thu, 30 Jul 2026 17:17:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E019B10F006;
+	Thu, 30 Jul 2026 17:27:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zZ4g3AbB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Si825cfm";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012070.outbound.protection.outlook.com
- [40.93.195.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFD0A10F010
- for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 17:17:43 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010010.outbound.protection.outlook.com [52.101.85.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE38510F006
+ for <amd-gfx@lists.freedesktop.org>; Thu, 30 Jul 2026 17:27:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kfo4M2XAxQ8MMLwtEgN3iDfFdPN5LmYsEtU0QGHwbEeLtJLgeoaIFGUvl4LJfBXtlfTMGBnlXrzBC1nfHtVZkjje53pisN18k17AvWk3ZHiJi0PwJt/a1RzzR6+RbOqlvxPnQ6KE/c5Q4XjcBCFH9bAUhr3EfRleJNE7dMZX06/ZSUz+JeJ6yrVuMTlNf7s5wWKvRajYlawWD2JQAOGKH6wmMiqNygl+Fb9tdr7B1mVNHsKiG3YlP2XjjGsblmP5vxLSmgmZKXt+zmliWCKhxJ4DH9zTLEvLvIVwvc9l6/YO28+3gUlPkdHtoxwkEX5CAMSxK0joezfZPKl9ZW05eA==
+ b=R0Ip0tnqsfmJswOXUzyepwGY67QDl4hZPWytPEKNzbpIDZfuQXwc4ADqnU01O5NPu/q/uGsBNmY87hnfmxCa8RuFIrN126feyGL5//VVQNgclKik25mz5g9dFfOgmYzhHJ486bYMZOvCGrF9gZjopsTkjFH4SU9MBk/cFsKXBT0bYx7Awtis+YXarqvpNey3naQ+/hcqsfTAYgOQUsuL9c9mJbOhr3ifSsS7ggFt2www29o8vMq00GLBweNLqJButdDoNMtLtvOFdkQJuNThp1n2JtbOnsydjYZBpb5o/+B4erb6Lwch7EOUfP4Hz0ZTegEwEefxFh0E3nF30FKv8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Kejghn4P5nKKuwXr8S+xy3yxAQ33yale2RAbu2gQHGo=;
- b=pBarBMCHWmveHjs5TXRpBLkp0k9si828/6TdOWazn9gWYZ0R6CySYEtHqzV1Vcg2IoI719oDdUFIu+7GaKQ5sBTlDrFHTFYD9FV5rIovEMmoLMVMhS+91hLiHT4IzJdSE0U7hnZujcZgcKk1Dqg6kCrmgqljwltHVa6/Gd/9AcsZq1cDWO0TedvKY2+j2FTBas1dOE51H5UeWcjBBAPGMU5HfScoChRG/2NrdsGh5MSeSJ2C5GXWdtYyda1XUiXmzWzuoXXW6a2X9uYdCrzjkwrSwepFr5YRS8yiKsx79DocFvtsg6xRKAB1DXY2Iauk5GcWosaZ+Lge5ur4FM/zKA==
+ bh=EB64A9TR1XQhneyaPmU1bM6UpppZw9JP+GiQwKD0+Ws=;
+ b=P4Q23fxCtFzNTf2HKOAE14C/vve2ZcbGXKba+ISJ171wBFzPO9+3RLyUZKM5hH0hzrLschvu76T+HoDhlkQBmdiUgVt3nncRt7X3thNCinZmDWMgTT85URxYRSVmmDX2Z2re7IvCn5nco6MDtivmK2u0IlUef15dm7TIANvpd1pxS4q21Sadb9SPysXaRGnh/tChl+N3d4bq266n2qoNfvIz52DRA2noz4O8U34oHCbUHLqi+6wyyBcKqlwPZUFZHu14/rCSJD6FMUNEvi6NJoCpgQnix0sCO/FaZfJx6Yr4AJQBjlnKmvezN2aRB5lgppofh8nPzeSNjAETvSvdTg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Kejghn4P5nKKuwXr8S+xy3yxAQ33yale2RAbu2gQHGo=;
- b=zZ4g3AbBWgDuHsKGgsQvNKz7v9ty9YJ38fTcABpJEdMf/HTHRG18H6R2qUOXBSl2jbNFPfM64ukPn3mJJZiAoCQf+E+C5YGq2ZJkCwpsmO6852ldmKI59ORF56A6fYLcBe/H+ZK9pKKEH4BwkhLJ2WRCEBb1UemD25/OO1tWbNA=
-Received: from BN9PR03CA0220.namprd03.prod.outlook.com (2603:10b6:408:f8::15)
- by DS0PR12MB8454.namprd12.prod.outlook.com (2603:10b6:8:15e::10) with
+ bh=EB64A9TR1XQhneyaPmU1bM6UpppZw9JP+GiQwKD0+Ws=;
+ b=Si825cfmjgTlAlNQelfPCyDRSOp389gR1OH7uAg9YsAZKJMelp+uDiM/7b2LHtUbAqe7KFlsfKUttndiOxkQL/x0K2MPYRVNkT1r+9g99YuYWbZmGSLDwbAfxPYmq6RFnJz0UrX/Hk+uugAfbHf8YNWnw1Mc5S1EA+Rdzw9ofl0=
+Received: from BL1PR13CA0068.namprd13.prod.outlook.com (2603:10b6:208:2b8::13)
+ by DS2PR12MB9711.namprd12.prod.outlook.com (2603:10b6:8:275::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.14; Thu, 30 Jul
- 2026 17:17:34 +0000
-Received: from BN3PEPF0000B071.namprd04.prod.outlook.com
- (2603:10b6:408:f8:cafe::39) by BN9PR03CA0220.outlook.office365.com
- (2603:10b6:408:f8::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.13 via Frontend Transport; Thu,
- 30 Jul 2026 17:17:33 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Thu, 30 Jul
+ 2026 17:27:53 +0000
+Received: from BN3PEPF0000B36F.namprd21.prod.outlook.com
+ (2603:10b6:208:2b8:cafe::80) by BL1PR13CA0068.outlook.office365.com
+ (2603:10b6:208:2b8::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.9 via Frontend Transport; Thu, 30
+ Jul 2026 17:27:53 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B071.mail.protection.outlook.com (10.167.243.116) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN3PEPF0000B36F.mail.protection.outlook.com (10.167.243.166) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Thu, 30 Jul 2026 17:17:33 +0000
-Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.292.1 via Frontend Transport; Thu, 30 Jul 2026 17:27:52 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 30 Jul
- 2026 12:17:32 -0500
-From: Fangzhi Zuo <jerry.zuo@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <harry.wentland@amd.com>
-CC: Fangzhi Zuo <jerry.zuo@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>
-Subject: [PATCH 3/4] drm/amd/display: Add HDMI 2.1 VRR support from HF-VSDB
-Date: Thu, 30 Jul 2026 13:17:53 -0400
-Message-ID: <20260730171754.704049-3-jerry.zuo@amd.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260730171754.704049-1-jerry.zuo@amd.com>
-References: <20260730171754.704049-1-jerry.zuo@amd.com>
+ 2026 12:27:48 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 30 Jul
+ 2026 12:27:47 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Thu, 30 Jul 2026 12:27:47 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Alex Deucher <alexander.deucher@amd.com>, Sonny Jiang <sonny.jiang@amd.com>
+Subject: [PATCH] drm/amdgpu/gmc12.1: implement tlb inv semaphore
+Date: Thu, 30 Jul 2026 13:27:40 -0400
+Message-ID: <20260730172740.1268133-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B071:EE_|DS0PR12MB8454:EE_
-X-MS-Office365-Filtering-Correlation-Id: 63747c0b-feb7-4df7-7b50-08deee5e71e8
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36F:EE_|DS2PR12MB9711:EE_
+X-MS-Office365-Filtering-Correlation-Id: bfcac931-e132-4865-07ba-08deee5fe2d2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|23010399003|1800799024|82310400026|6133799003|11063799006|5023799004|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: nDLYZPAxdI+KdjtlWAzKyWn73mwDVUlRiUCTYiZcGVHYMlKzzmlzb0cWw+K748Fnv4swrgEG6Z8U+P4+r2sq6CRN74sNnalXLu9AB4uX/K8vcLJoIfSda7AsXvhOVBRDbYloLL7iuLLtlSC7+qZI3wwnBOOz5nqTdo1S5Ws1mgUKaNB0saL0QMlheX9nPj3+6cpK438mItkd+V6a4R8NIHuN6FDn3etjIqVy8Y6TpHpagCtPdvD9EwXVUPbh4wJAMI8xcUf1dyHXyqn7cDvEiCuNQTU6mRF5FdZmtpzrnV6Fgk5IUL1EUzsaqVSqofYjtXRayz/P61IcZXQq6Md9NDPwROPTOxQy66fb8UniJuy846kLwtInHyZz8i6sBXXMDUarRRjETv4gnbb9pb+dKByNfgHYXbb+zfPgO7iv5IVocJH2nUu7VPzKpG1qPJ8bcACsVhrX+rUprEsUGMGJ3LapnzozafM2e+iP2fVsmJ8BCuS+iiJUI4a0xxbNYNmdToR7Y39CQeqCaYuZXT08WnWnR4KSlm3mpcskQTig0+gZDvFO+BUFgwT4FGidyve961PIUlW7dFSwI03GL3FupJkEqbAdafTmQx98QbeEq7SmzYGC0+L+1+iogNtPTzgRKzQyYmgLm7zIq9R3GEVBQ5sbG/h21KXRcl7jaF+Qp2xPJ85qpQj3hm9Fs0erY02jgofNRBfnCgaRJxquPbaXww==
+ ARA:13230040|36860700016|376014|23010399003|82310400026|1800799024|6133799003|56012099006|11063799006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 573uqh/FRaCTkqkfTOFODcZRE8ToJcCwTauxPjiXPTMgpzr6mrCGhnm2EEE3qUcY5ax5+k3ttDgQGfCr28BM+HR913JmCxqTWH5P1HA1QApTf3M+JheBOPi6Acl3ZzxtJgLgLcq5I7oRRp+J/dRJ76SV+5LYeZQDDu74YpFipfXlzQ01YfxCr9eOZQ9julxjUhv0+tSbIawafsSlqZI4EdPKzO/M2u376EY09MvWuudJYG9ACQVPTP/R+G+yYJZ8ieh/szDxB6fCAnWoKB/hz9ynEpavjqtR8fzw5afZwJrld2trYoY40S2YYeYWrwxyqWbd6sJqqpVu7tVhyiYC+AIIfV06Xc3jdEw3ZotfwSf6Dx23RzEQGm1zHxXOPV0nrIzOllCA6sx3UhgVfWeP9LlcRptA9GMtaNJmRFeonFez3R+YlgVur7vIUs+rF8fzAxkW+apE0Cg0nv+1oC0RNmvxXD9y5TZmE7y86NYsVTzEV02wYh1ROzaE376aIzZDLQcl2VaLpvnihbdkhyp1gHTC9ZHrk+Fap66FkA31KLBLoC00jwf3c261h7dTkJbIMQbWDK33j4sWNw9I77sARICrMBZAZ8VdwwRb7FxijVv/PVkWDfQpNnklcKY6Az8OZBnWgCNgUJ6rZAQ742iE5/RhP1ZK+X7GxDTcjSBXsCvfjjmPFSlGxv2yhqW5ILw69Z4ZK6PIZkjU7CpfJHORmg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(23010399003)(1800799024)(82310400026)(6133799003)(11063799006)(5023799004)(56012099006)(10067099003)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(23010399003)(82310400026)(1800799024)(6133799003)(56012099006)(11063799006)(10067099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: UDkT8RNdl+XT7PSOLdbW4Wg/PIrv0Bi4masFepVd9DKHDQsb20TCV/YCQviyJP8DgHxSIiDTUyO+4reFa9xkPftYyeu6jzYT+AkfUda26MYl/Bxqnpk61ZTbOSO3f3HO9fQLMAndmIoZLX+NirOvnKiIF94SqM7GdAXuvmHNwBlvsCpkLamHWkvtiqt1U2MIWvRMvjyUiKOXYMyoZRgXyxaIRFOlCnZhDmzy/G3o6UmcDRnf+n/c/WbCr4UzvTQOIV7NuD13pYaEwnyj57Q9K0W6IHBPuGa8hTu5v4W3+iII1ljEYe+PPCWfgD12d39oP34fxS0Vzt1LLyeb9ip9h3aDsjuIedDgSTtj2UH/BUgwmOribVEyryNFt0qMfAeU3gcood8dEDh2YrwTk80xt4NsPEcVeGkO3mNcDzcASuVo+Ns797DrF+rg5JXGEX8X
+X-MS-Exchange-AntiSpam-MessageData-0: 4dYyGTIZyHo6gPQe8gt7OLqZWcQfKnFq6IuchjDTggtbKLIyVvjBU+p/AmliRw/IczizXvU3sYyvycg0eYbpGaDyvwAriMh67YVT0j/oQHO3W1acSWvTpoUo8+M4Z4JL7V+7ygw1s2e93Ez1dOK89/ae3d9sFcv/jj7u8Nu7kDM4CCJ8qkCl3IES0cUAIZTFlqNVQCvJWeZbJFlPp20OW01PerMiIhT42duS6yytjKb+Y7EoGVoi8w61F0I5M+LSQoHCW1DhkySMBwbFsf7jelDWcm7fuTc1JDNbjO8MLVdYOn3JX8uglT8wwCmofxht94ekduDFNiqbUqcb528RDjTu5xT48HFPLEflu49wGBs2Zcn1uNpSOjE3MCQIW2bGwnWW/GHO1vvGLaZfQ+zMs9jaVNQ3zyI1HsRdDXl2SHQ8VQrnEsjfuzT6XEmruMTT
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 17:17:33.8171 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 63747c0b-feb7-4df7-7b50-08deee5e71e8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 17:27:52.7468 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bfcac931-e132-4865-07ba-08deee5fe2d2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B071.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36F.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8454
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9711
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,140 +111,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-why:
-HDMI 2.1 sinks advertise their VRR range in the HDMI Forum VSDB
-(HF-VSDB), but amdgpu derived FreeSync capability only from the AMD
-VSDB. Sinks that expose just the HDMI Forum VRR capability (e.g. HDMI
-compliance EDIDs) were therefore reported as not VRR capable.
+Needed to properly lock the interface before using it.
 
-how:
-- In amdgpu_dm_update_freesync_caps(), when the AMD VSDB does not
-  provide a valid FreeSync range, fall back to the HDMI 2.1 VRR range
-  parsed by DRM core from the HF-VSDB
-  (connector->display_info.hdmi.vrr_cap). VRRMAX = 0 means "up to the
-  Base Refresh Rate"; when the EDID provides no monitor range maximum
-  either, fall back to the Base Refresh Rate (the highest refresh-rate
-  mode of the preferred timing) so a valid VRR range is still reported
-  to userspace.
-- Add VRR debug logging along the FreeSync capability and config paths.
-
-Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Cc: Sonny Jiang <sonny.jiang@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 +++
- .../display/amdgpu_dm/amdgpu_dm_connector.c   | 67 +++++++++++++++++++
- 2 files changed, 75 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c | 46 ++++++++++++++++++++++++++
+ 1 file changed, 46 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index ccf882a22a57..223b562f7005 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -5781,6 +5781,14 @@ STATIC_IFN_KUNIT void get_freesync_config_for_crtc(
- 	}
- out:
- 	new_crtc_state->freesync_config = config;
-+
-+	drm_dbg_driver(new_con_state->base.connector->dev,
-+		       "VRR: cfg vrr_enabled=%d vrr_supported=%d fs_capable=%d vrefresh=%d min=%d max=%d state=%d\n",
-+		       new_crtc_state->base.vrr_enabled,
-+		       new_crtc_state->vrr_supported,
-+		       new_con_state->freesync_capable, vrefresh,
-+		       aconnector->min_vfreq, aconnector->max_vfreq,
-+		       config.state);
- }
- EXPORT_IF_KUNIT(get_freesync_config_for_crtc);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
+index 855cd29cbffaa..bdf6788b85b58 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
+@@ -267,9 +267,24 @@ static bool gmc_v12_1_get_vmid_pasid_mapping_info(struct amdgpu_device *adev,
+  * by the amdgpu vm/hsa code.
+  */
  
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 2deb5abae264..ebead39939a6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -3605,6 +3605,15 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 	if (!adev->dm.freesync_module || !dc_supports_vrr(sink->ctx->dce_version))
- 		goto update;
++/**
++ * gmc_v12_1_use_invalidate_semaphore - judge whether to use semaphore
++ *
++ * @adev: amdgpu_device pointer
++ * @vmhub: vmhub type
++ *
++ */
++static bool gmc_v12_1_use_invalidate_semaphore(struct amdgpu_device *adev,
++				       uint32_t vmhub)
++{
++	return ((!AMDGPU_IS_GFXHUB(vmhub)) &&
++		(!amdgpu_sriov_vf(adev)));
++}
++
+ static void gmc_v12_1_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
+ 				   unsigned int vmhub, uint32_t flush_type)
+ {
++	bool use_semaphore = gmc_v12_1_use_invalidate_semaphore(adev, vmhub);
+ 	struct amdgpu_vmhub *hub = &adev->vmhub[vmhub];
+ 	u32 inv_req = hub->vmhub_funcs->get_invalidate_req(vmid, flush_type);
+ 	u32 tmp;
+@@ -283,6 +298,19 @@ static void gmc_v12_1_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
  
-+	drm_dbg_driver(adev_to_drm(adev),
-+		       "VRR: enter signal=%d hdmi_vrr=%d mrange[%d-%d] hdmi.vrr_cap[sup=%d min=%d max=%d]\n",
-+		       sink->sink_signal, connector->display_info.hdmi.vrr_cap.supported,
-+		       connector->display_info.monitor_range.min_vfreq,
-+		       connector->display_info.monitor_range.max_vfreq,
-+		       connector->display_info.hdmi.vrr_cap.supported,
-+		       connector->display_info.hdmi.vrr_cap.vrr_min,
-+		       connector->display_info.hdmi.vrr_cap.vrr_max);
-+
- 	/* FIXME: Get rid of drm_edid_raw() */
- 	edid = drm_edid_raw(drm_edid);
+ 	spin_lock(&adev->gmc.invalidate_lock);
  
-@@ -3649,6 +3658,59 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 				connector->display_info.monitor_range.max_vfreq = vsdb_info.max_refresh_rate_hz;
- 			}
- 		}
-+
-+		drm_dbg_driver(adev_to_drm(adev),
-+			       "VRR: amd_vsdb i=%d fs_sup=%d min=%d max=%d fs_capable=%d\n",
-+			       i, vsdb_info.freesync_supported,
-+			       vsdb_info.min_refresh_rate_hz,
-+			       vsdb_info.max_refresh_rate_hz, freesync_capable);
-+
-+		/*
-+		 * If AMD VSDB didn't provide a valid FreeSync range, fall back to
-+		 * the HDMI 2.1 VRR capability parsed from the HF-VSDB.
-+		 */
-+		if (!freesync_capable && connector->display_info.hdmi.vrr_cap.supported) {
-+			struct drm_hdmi_vrr_cap *vrr_cap =
-+				&connector->display_info.hdmi.vrr_cap;
-+
-+			drm_dbg_driver(adev_to_drm(adev),
-+				       "VRR: HF-VSDB fallback: hdmi_vrr=1 vrr_cap[sup=%d min=%d max=%d] mrange_max=%d\n",
-+				       vrr_cap->supported, vrr_cap->vrr_min, vrr_cap->vrr_max,
-+				       connector->display_info.monitor_range.max_vfreq);
-+
-+			if (vrr_cap->supported && vrr_cap->vrr_min > 0) {
-+				amdgpu_dm_connector->min_vfreq = vrr_cap->vrr_min;
-+				amdgpu_dm_connector->max_vfreq = vrr_cap->vrr_max ?
-+					vrr_cap->vrr_max :
-+					connector->display_info.monitor_range.max_vfreq;
-+
-+				/*
-+				 * VRRMAX = 0 in the HF-VSDB means "up to the Base
-+				 * Refresh Rate". If the EDID also did not provide a
-+				 * monitor range max, fall back to the Base Refresh
-+				 * Rate (the highest refresh rate of the preferred
-+				 * timing) so a valid VRR range is still reported to
-+				 * userspace.
-+				 */
-+				if (!amdgpu_dm_connector->max_vfreq) {
-+					struct drm_display_mode *brr_mode =
-+						amdgpu_dm_get_highest_refresh_rate_mode(amdgpu_dm_connector, true);
-+
-+					if (brr_mode)
-+						amdgpu_dm_connector->max_vfreq =
-+							drm_mode_vrefresh(brr_mode);
-+				}
-+
-+				if (amdgpu_dm_connector->max_vfreq -
-+				    amdgpu_dm_connector->min_vfreq > 10)
-+					freesync_capable = true;
-+
-+				connector->display_info.monitor_range.min_vfreq =
-+					amdgpu_dm_connector->min_vfreq;
-+				connector->display_info.monitor_range.max_vfreq =
-+					amdgpu_dm_connector->max_vfreq;
-+			}
++	if (use_semaphore) {
++		for (i = 0; i < adev->usec_timeout; i++) {
++			/* a read return value of 1 means semaphore acuqire */
++			tmp = RREG32_RLC_NO_KIQ(hub->vm_inv_eng0_sem + hub->eng_distance * eng, hub_ip);
++			if (tmp & 0x1)
++				break;
++			udelay(1);
 +		}
++
++		if (i >= adev->usec_timeout)
++			DRM_ERROR("Timeout waiting for sem acquire in VM flush!\n");
++	}
++
+ 	WREG32_RLC_NO_KIQ(hub->vm_inv_eng0_req + hub->eng_distance * eng, inv_req, hub_ip);
+ 
+ 	/* Wait for ACK with a delay.*/
+@@ -296,6 +324,9 @@ static void gmc_v12_1_flush_vm_hub(struct amdgpu_device *adev, uint32_t vmid,
+ 		udelay(1);
  	}
  
- 	if (amdgpu_dm_connector->dc_link)
-@@ -3692,6 +3754,11 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 	if (dm_con_state)
- 		dm_con_state->freesync_capable = freesync_capable;
- 
-+	drm_dbg_driver(adev_to_drm(adev),
-+		       "VRR: caps result: freesync_capable=%d min_vfreq=%d max_vfreq=%d\n",
-+		       freesync_capable, amdgpu_dm_connector->min_vfreq,
-+		       amdgpu_dm_connector->max_vfreq);
++	if (use_semaphore)
++		WREG32_RLC_NO_KIQ(hub->vm_inv_eng0_sem + hub->eng_distance * eng, 0, hub_ip);
 +
- 	if (connector->state && amdgpu_dm_connector->dc_link && !freesync_capable &&
- 	    amdgpu_dm_connector->dc_link->replay_settings.config.replay_supported) {
- 		amdgpu_dm_connector->dc_link->replay_settings.config.replay_supported = false;
+ 	/* Issue additional private vm invalidation to MMHUB */
+ 	if (!AMDGPU_IS_GFXHUB(vmhub) &&
+ 	    (hub->vm_l2_bank_select_reserved_cid2) &&
+@@ -431,10 +462,17 @@ static void gmc_v12_1_flush_gpu_tlb_pasid(struct amdgpu_device *adev,
+ static uint64_t gmc_v12_1_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
+ 					     unsigned vmid, uint64_t pd_addr)
+ {
++	bool use_semaphore = gmc_v12_1_use_invalidate_semaphore(ring->adev, ring->vm_hub);
+ 	struct amdgpu_vmhub *hub = &ring->adev->vmhub[ring->vm_hub];
+ 	uint32_t req = hub->vmhub_funcs->get_invalidate_req(vmid, 0);
+ 	unsigned eng = ring->vm_inv_eng;
+ 
++	if (use_semaphore)
++		/* a read return value of 1 means semaphore acuqire */
++		amdgpu_ring_emit_reg_wait(ring,
++					  hub->vm_inv_eng0_sem +
++					  hub->eng_distance * eng, 0x1, 0x1);
++
+ 	amdgpu_ring_emit_wreg(ring, hub->ctx0_ptb_addr_lo32 +
+ 			      (hub->ctx_addr_distance * vmid),
+ 			      lower_32_bits(pd_addr));
+@@ -449,6 +487,14 @@ static uint64_t gmc_v12_1_emit_flush_gpu_tlb(struct amdgpu_ring *ring,
+ 					    hub->eng_distance * eng,
+ 					    req, 1 << vmid);
+ 
++	if (use_semaphore)
++		/*
++		 * add semaphore release after invalidation,
++		 * write with 0 means semaphore release
++		 */
++		amdgpu_ring_emit_wreg(ring, hub->vm_inv_eng0_sem +
++				      hub->eng_distance * eng, 0);
++
+ 	return pd_addr;
+ }
+ 
 -- 
-2.53.0
+2.55.0
 
