@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E2D26C55173
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 21:16:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 503A2C55174
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 21:16:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73C9E10F3FB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C7C1710F402;
 	Fri, 31 Jul 2026 21:16:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="So7hvK6K";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WUSSEJII";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010029.outbound.protection.outlook.com
- [40.93.198.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BF4E10F402
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 21:16:03 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013056.outbound.protection.outlook.com
+ [40.93.201.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03E2410F3FB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 21:16:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TgKYzeaNwkbzO+fx8BfJJ4yPwJIVwStAfEIjL0RgKxDfLLkDtyoYTszRE1cFhx9mAlquwdBLeJZseMRqopSJhPd7d/7iRNTK6lLwUst2AVvrqzHKS/Eprt7Yv83ZDQfq55Bo2t40kfE+jreQ+dg3WkWa5Zjbyyulg7U+X5VegLfH01BubMiSbVqjgDO5l4vvQsERTvyUoWdYqfAGwLp47W5j9gFxp6ZMBEFVL7x+fqsUaDgK/X/otkpqxI3kk05+LNHQQeZEzyKetmllg9+StrYPHIwZmPN7J+1z/bXQvUgyAA9DYqRe5US+cU7NwGgprRIhknYukIOXjoWU4pvm6A==
+ b=iyuf8u6MoubMdQMxxwbDp63UYHjvZct2GoRAChIhEKjlfVknKqzsIph2LSGCNPSccbLfzIKbDjc5AcnisdpVXHr5qvWLH6C283ZGws5zGNVfToAzmLSyq0XP9HUvsEw2i/0rxyLy/yYXA235Du0woSkjNpPbDVAZjZvKKy1a4g9gmMliVhqbt43xb4A63kCMTOi05GBHhndXH00DQXDMx4TQ4oPhwKvE6dhBvWPNfdbCZnw4LwBc9wAumAeesEY7OAYOiBP+hdFqQqp4N0aTcluxRm78n84BGeuUCtGbreDnekRZ+ZCX9HJQobDoksyYPV9YGYu6mpXw9zD5Vgg66g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=emOutDCgvWtB4X9JDkhlCOGUeyNq7W9aG3zL8hDmTh0=;
- b=XVl0F33tt16crkbCdD4hI87GDBR/ZaDK+9BiUYl5dYLVj19mOTsj+B3Aov/+naBR55pF350jbRDXZUfLU04fxjaqOln88jYBT8/M1iJbxUTnuW88GveTCv6k2FEa3QPsMpUaiVi141mXnVLu0zobEr1LYcJ1g5rVAeKTqyw9VV8AM/Bp/iwNrDlI6DHBinG0OPKyO78/nKhT0KOIk40eaKwfquo5RA/resD96RsJRBT1QSibMCmTDX77omAEMRmjYXLs7wcba6Ds5K7awy5Z/OhykDx33VQ3p6GJ0nWmEXguJD+QnZDpIrESQZURYWF7AW3QSqV/yQcx/mxe15C8nw==
+ bh=f+AD3Q0HKS01S2PX4JzS2kM51bmkV3a2zA2H77kxH0o=;
+ b=m3PLBf2HeEeCluC3KrKjgWyZPaJW+C2z77aOaja9FuBTjt2vdeox8C0SkVwygUjQ8s2JzVp4CPkBH4/glGsQIwugvNPsSxKl8zbegKb4CyyCCFHqy5bHOSl9J4h39bNV790fr7tNo+TUitq3UrW22r0AaFxnKUg7LFjbSLQ/vvKVlZda8hh8XgTPtqcGoDx0R1qqMz0xw3b0EmUI5AImS2Tzp8WkWJDnXX7SvCZzg8KO9A2M5OwbIh/Pyn6qNmaL04aEkf//K3uhnDDWzXUJ0g/HYqDDrocuK0zBNwudPulAq3Pqlpfl0+x0UbLpex/I1K3Veb7LOiwCo/kbiYbYAQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=emOutDCgvWtB4X9JDkhlCOGUeyNq7W9aG3zL8hDmTh0=;
- b=So7hvK6K5UIA8I0usBY5jXL9c6c7zxoc3tqaQEGfTEskyqpDM6OGDe3zocH+dZhytUufx0BWw5HGet7e/wbSJnZaN3NiwCfHtHPiMR+l3Det9OXe6aOIR7/sslDxEWbjvjlCohE3AnuXJVUWcklBM/lBDMgRHsNKiFqw/6yFcEM=
-Received: from CH0PR07CA0019.namprd07.prod.outlook.com (2603:10b6:610:32::24)
- by SA1PR12MB8724.namprd12.prod.outlook.com (2603:10b6:806:38b::9)
+ bh=f+AD3Q0HKS01S2PX4JzS2kM51bmkV3a2zA2H77kxH0o=;
+ b=WUSSEJIIH7HOqq9WG1f4TrvM75siLY6WnABVx1FRccuCdu+0T+a4Tstw0+6BimW1UJC6YC46StnBQuKHAiOBNk3iSC1xSF8MPrx0cn+5m4X1rjsQDhjcDFZyXuEGsq2BiVVL8QW2Ht8el1B/cjFsxeuPxoCIqELsCuZqb9gphcY=
+Received: from CH0PR07CA0022.namprd07.prod.outlook.com (2603:10b6:610:32::27)
+ by CH3PR12MB7571.namprd12.prod.outlook.com (2603:10b6:610:147::9)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Fri, 31 Jul
- 2026 21:15:56 +0000
-Received: from CH2PEPF0000013F.namprd02.prod.outlook.com
- (2603:10b6:610:32:cafe::49) by CH0PR07CA0019.outlook.office365.com
- (2603:10b6:610:32::24) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 21:15:58 +0000
+Received: from CH2PEPF00000140.namprd02.prod.outlook.com
+ (2603:10b6:610:32:cafe::70) by CH0PR07CA0022.outlook.office365.com
+ (2603:10b6:610:32::27) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.15 via Frontend Transport; Fri,
- 31 Jul 2026 21:15:56 +0000
+ 31 Jul 2026 21:15:58 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,16 +49,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF0000013F.mail.protection.outlook.com (10.167.244.71) with Microsoft
+ CH2PEPF00000140.mail.protection.outlook.com (10.167.244.72) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 21:15:56 +0000
+ 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 21:15:58 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
- 2026 16:15:56 -0500
+ 2026 16:15:58 -0500
 Received: from roman-vdev.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 31 Jul 2026 16:15:55 -0500
+ Transport; Fri, 31 Jul 2026 16:15:57 -0500
 From: <Roman.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -67,42 +67,42 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 28/41] drm/amd/display: Cover crtc vblank restore
- replay-supported path
-Date: Fri, 31 Jul 2026 17:12:49 -0400
-Message-ID: <20260731211302.3040343-29-Roman.Li@amd.com>
+ <Chen-Yu.Chen@amd.com>, Iswara Nagulendran <Iswara.Nagulendran@amd.com>,
+ Anthony Koo <anthony.koo@amd.com>
+Subject: [PATCH 30/41] drm/amd/display: Fix ABM over VABC
+Date: Fri, 31 Jul 2026 17:12:51 -0400
+Message-ID: <20260731211302.3040343-31-Roman.Li@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260731211302.3040343-1-Roman.Li@amd.com>
 References: <20260731211302.3040343-1-Roman.Li@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000013F:EE_|SA1PR12MB8724:EE_
-X-MS-Office365-Filtering-Correlation-Id: 608a0b1f-e17f-40af-88b2-08deef48e96c
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000140:EE_|CH3PR12MB7571:EE_
+X-MS-Office365-Filtering-Correlation-Id: d5039d2d-07d7-4144-d801-08deef48ea92
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|23010399003|11063799006|22082099003|18002099003|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: LFaoycgOWr3GLxQhxf9+l0D1ImnIyZg1Vb4FgLG6l/XXoed2xyPSJtUyAvMrNYXm+1poJ68Hc3R+Jp9kfizAmHUzbBh8mOODrnO5Dd+5lAXpHJuZVMIErnWZUeb4CYzKDop+T4dhaywKcTBwvQehpNI6xfaW+A++JmmK/AjU5ojwCa5RsGmNzm6qvlMlTHEG6MCM06Kd9osTid/m51tt0FvH/cvbgduTWqtEJxCxEKCqFDgWgaUmmA/U2f5WTSuBZ4EVFnF4xP9i1xbxZ66ckRt+7efV9vXXtGF/o1XTE2DthbUg+I4j6hLOAsNi61nwgoej9T0kRDFvo+57ONdX+8F0GUGfKw+Z1PYqtxsaDPgIxyz/3dNs20s4tAjPhRIynO3gi4E955iBbVIMcJWYSTOwQqI0JM12GXKUU0kW/MA98D0lf44NJ65DGIUwU+KrscB9xuta/DIGRs76wWWzDj/IpAaycuJF2dwsAzPZcQ5r3jKUf3wNFVA+L3RyvTS4QrsBFGliyQ0ta/655Y28ZusRWTha+auZ4UeXq8R3ZeplcpP+1rzBhBt4FjKmU9UZ4JVc2J4Uhlqhiw0agO4NT+J0zHRaQ9ccBYSRmT1LtJ4qU9H1PH/CKKk6cCJnzirEHGGCerGEQLzyoLl+sVW1taYPUUFMlHTg6EAfihtNCGhC+E+HIvdQe7VAIh3nrJr2mP/SrMZaF9Ggfd+qMQ85GA==
+ ARA:13230040|376014|36860700016|82310400026|1800799024|23010399003|6133799003|11063799006|18002099003|22082099003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: 9pMv95Nkfo7xxJBL8TVp2WnA4Mo+THrm6PdngrGJCjtnA96KUnlQC+4fcrFfdSRbry+pASqyHnxodvsN9K2TVDWedS6qtdPol6EY9B4BVe+kd0eCv0JLqkwzjnlHMqDHff25uF4TuM84kcNP7SYG0P19FSPTbCeAAISOnIQDyC091MY+VKgOrPCuNmxPxXu+1/kGLmx/zb5W1x40XN0mMqA3nlhqlUts7dh3KDtehaxnAX4MB9jOT60vSdPT5lE9BUn06FLx3LTP5/0OSh8GOmiiuvnKn/rgqd5uf2Mdpklb8lWaoTBmRmEpfkG7xXWINxoQVcW0wvfLP0lUzQfO6jG3uuEpdwLquC4KD9/WJUdWXr9S8y87fdC9cGSd7ODO80JP92R4DqGbfQRCCgUuMPhRWo9Is48Zttw7LswTb5108Hk61rO5T2QfW9c+QRqhmubx+Z0etgtshZ089VlRz+yPctSqieXVxIvwu+Z1Ynd7iM2LujdAlIFNtNQcioUMRWWQfpzm1Pr+jhGsa/O+7rsXuX4SOrXm/cWoreAB4IAV73jguji/dG8O1RfwwyUzJ5XrBVNFq03QC20Ndf73RaV4Tl8EsvSaILQ0P8fcG6kCKJLjTrhJr774I+KZznzlkqtkcPSxbv6JxGUim7sUEp41Hu6d4Qwm2+BSZK1DO62kILbKAOsrRKLAIKgDClta73Zp+/kT2jaG8wLT6e7k4A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(11063799006)(22082099003)(18002099003)(56012099006)(10067099003);
+ SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(6133799003)(11063799006)(18002099003)(22082099003)(56012099006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 9CF63Ua5CKJkMNv8OPoO9owA9WEsiYAKLJmqMDDJpnm8JfrQnHekcoWdQDr/M97ebzmXRJSKZoue7JIEJ9q9IVMekSPrLxJ8KRH9XbJkxCNmT/4LS0oJ8WRVBN25vx597CQexMu630dKTv250miGFY+PhJubXn084EJwPrre9cCs/lk0dI4QW+GhRndK4ovfv49jOvO5V2UkD4xG9HL0lcHx7B3wDUiM3W4anSy5tAIx+1xCII7xOjWAGSffcUbh83Jv5oXQKzwxWaTzil99PEHrJXqD1eR3xhEQtSIts8hk/2VB3iyC8F+0ai97658pWy/IXbPWfZQBmP/pZs1RVaL9TSgttjL1KS9Xt05uR2ZStlCZax2wasDeJxzcn9JsUs3iGlJXpftk6YUFkYwsJdLbCefsRy8FCRLVPwpbs98UFTGZPN7gg9h3YsWznugr
+X-MS-Exchange-AntiSpam-MessageData-0: RobO0A2YsA/lH83v23mhw352SB06L/RkdNmk4y6rp75a+KsF6RJBPnlz/ElB9UPF2kigOuGFfUfIUppvfa7v3Wfd9jr/syDT2wGOnFDnd3aUzk2nXUkLz/LFcKvs77zFSQYejcpRXpTLOURbmduNlgIUv4lgHoDABR7geONMtVzXLyoPT1iLp3iiyfawLo2n9rBFHjBg3rKpKBw7T25k7jt8UVa5Lm0Zan42Y0e2EANo8nKNa147edhqDwdYRO+GNIpbpVk5q7y/aCy+trANx5GDiqmzF1wCOyth2+PEQf1ep8aPyI+lg0GrzCVK3qmCLIfip2tqBbs1T6bIMrnRgkW9UEn0yLXOPVzBxwKy2ZdrKcUWev+0G5DJN+KDlyCPKh5ziaojw2s1mjzOLePU/6UD7aiA877iz/VOtFiiLPewWcKxxGHkdAqoTyBxkgWz
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 21:15:56.5540 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 608a0b1f-e17f-40af-88b2-08deef48e96c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 21:15:58.4810 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d5039d2d-07d7-4144-d801-08deef48ea92
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000140.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8724
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7571
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,95 +117,348 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+From: Iswara Nagulendran <Iswara.Nagulendran@amd.com>
 
-Add dm_test_crtc_enable_vblank_ips_restore_replay to cover the
-pr->config.replay_supported side of the sr_supported OR in
-amdgpu_dm_crtc_set_vblank().
+[Why]
+ABM does not take effect when brightness
+is below twenty percent on VABC LCD panels.
 
-The existing IPS restore test establishes self-refresh support via the PSR
-version. This test instead marks the PSR version unsupported and sets
-replay_supported, forcing the sr_supported computation to fall through to
-the replay branch while still calling drm_crtc_vblank_restore().
+[How]
+Create new VESA aux path for brightness
+translation functions. When VESA aux enabled
+use zero-anchored linear interpolation to
+translate instead of the legacy min max
+backlight mapping.
 
-Assisted-by: Copilot:Claude-Opus-4.8
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Reviewed-by: Anthony Koo <anthony.koo@amd.com>
+Signed-off-by: Iswara Nagulendran <Iswara.Nagulendran@amd.com>
 Signed-off-by: Roman Li <roman.li@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_crtc_test.c     | 52 +++++++++++++++++++
- 1 file changed, 52 insertions(+)
+ .../drm/amd/display/modules/power/power_abm.c | 215 ++++++++++++++++--
+ .../amd/display/modules/power/power_helpers.h |   9 +
+ 2 files changed, 210 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-index b64660064902..805c171564c8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-@@ -1172,6 +1172,57 @@ static void dm_test_crtc_enable_vblank_ips_restore(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, amdgpu_dm_crtc_enable_vblank(&acrtc->base), 0);
+diff --git a/drivers/gpu/drm/amd/display/modules/power/power_abm.c b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
+index b26ceaba940d..5e86889eaa84 100644
+--- a/drivers/gpu/drm/amd/display/modules/power/power_abm.c
++++ b/drivers/gpu/drm/amd/display/modules/power/power_abm.c
+@@ -245,29 +245,80 @@ struct iram_table_v_2_2 {
+ #define MOD_POWER_TO_CORE(mod_power)\
+ 		container_of(mod_power, struct core_power, mod_public)
+ 
++/* Maximum brightness expressed in millipercent (100% * 1000). */
++#define BACKLIGHT_MILLIPERCENT_MAX (100 * 1000)
++
+ static uint16_t backlight_8_to_16(unsigned int backlight_8bit)
+ {
+ 	return (uint16_t)(backlight_8bit * 0x101);
  }
  
-+/**
-+ * dm_test_crtc_enable_vblank_ips_restore_replay - Test IPS restore via replay support
-+ * @test: The KUnit test context
-+ *
-+ * Same as dm_test_crtc_enable_vblank_ips_restore() but self-refresh support is
-+ * established through replay rather than PSR: the PSR version is unsupported, so
-+ * the sr_supported computation must fall through to pr->config.replay_supported.
-+ * The enable path still calls drm_crtc_vblank_restore() and completes.
++/* Caches the link's backlight control type on the panel's backlight
++ * properties so the brightness translation helpers can pick the correct
++ * mapping.
 + */
-+static void dm_test_crtc_enable_vblank_ips_restore_replay(struct kunit *test)
++void mod_power_set_backlight_control_type(struct core_power *core_power,
++		unsigned int inst, enum backlight_control_type backlight_control_type)
 +{
-+	struct dm_crtc_state *acrtc_state;
-+	struct drm_vblank_crtc *vblank;
-+	struct amdgpu_device *adev;
-+	struct amdgpu_crtc *acrtc;
-+	struct dc_link *link;
++	if (core_power == NULL)
++		return;
 +
-+	/* DCE_VERSION_8_0 supports VRR -> the vupdate-irq branch is walked. */
-+	acrtc = dm_test_crtc_setup_enable(test, &adev, DCE_VERSION_8_0);
-+
-+	/* OTG unassigned -> amdgpu_dm_crtc_set_vupdate_irq() returns 0 early. */
-+	acrtc->otg_inst = -1;
-+	acrtc_state = to_dm_crtc_state(acrtc->base.state);
-+	acrtc_state->freesync_config.state = VRR_STATE_ACTIVE_VARIABLE;
-+
-+	/* Non-NULL get_vblank_timestamp keeps drm_crtc_vblank_restore() quiet. */
-+	acrtc->base.funcs = &dm_test_crtc_funcs;
-+
-+	/* IPS enabled and not fully disabled -> first restore condition holds. */
-+	adev->dm.dc->caps.ips_support = true;
-+	adev->dm.dc->config.disable_ips = DMUB_IPS_ENABLE;
-+
-+	/*
-+	 * PSR unsupported but replay supported -> sr_supported is driven by the
-+	 * pr->config.replay_supported side of the OR.
-+	 */
-+	link = acrtc_state->stream->link;
-+	link->psr_settings.psr_version = DC_PSR_VERSION_UNSUPPORTED;
-+	link->replay_settings.config.replay_supported = true;
-+
-+	/* Immediate vblank disable is the last condition gating the restore. */
-+	vblank = drm_crtc_vblank_crtc(&acrtc->base);
-+	vblank->config.disable_immediate = true;
-+
-+	adev->irq.installed = true;
-+	dm_test_crtc_arm_irq_src(test, &adev->crtc_irq, 1);
-+	dm_test_crtc_arm_irq_src(test, &adev->pageflip_irq, 1);
-+
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_crtc_enable_vblank(&acrtc->base), 0);
++	core_power->bl_prop[inst].backlight_control_type = backlight_control_type;
 +}
 +
- /* Tests for amdgpu_dm_crtc_update_crtc_active_planes() */
++/* Returns true when the panel uses the VESA AUX backlight control path, which
++ * requires zero-anchored linear brightness interpolation.
++ */
++static bool is_vesa_abc(struct core_power *core_power, unsigned int inst)
++{
++	if (core_power == NULL)
++		return false;
++
++	return core_power->bl_prop[inst].backlight_control_type ==
++			BACKLIGHT_CONTROL_VESA_AUX;
++}
++
++/* Legacy millipercent→millinit conversion: scales linearly between
++ * [0%, 100%] → [min_brightness_millinits, max_brightness_millinits].
++ */
++static unsigned int backlight_millipercent_to_millinit_legacy(
++		struct core_power *core_power, unsigned int millipercent, unsigned int inst)
++{
++	if (core_power == NULL)
++		return 0;
++
++	return (unsigned int)div_u64((unsigned long long)millipercent *
++			core_power->bl_prop[inst].nits_range,
++			100000) +
++			core_power->bl_prop[inst].min_brightness_millinits;
++}
++
++/* Converts millipercent to millinit.
++ * For VESA AUX brightness control, uses simple linear interpolation with
++ * 0% = 0 nits and 100% = max_brightness_millinits.
++ * Otherwise, falls back to the legacy min→max nits range mapping.
++ */
+ unsigned int backlight_millipercent_to_millinit(
+ 		struct core_power *core_power, unsigned int millipercent, unsigned int inst)
+ {
+-	unsigned int millinit = 0;
+-	unsigned long long numerator = 0;
++	if (!is_vesa_abc(core_power, inst))
++		return backlight_millipercent_to_millinit_legacy(core_power, millipercent, inst);
  
- /**
-@@ -1814,6 +1865,7 @@ static struct kunit_case amdgpu_dm_crtc_tests[] = {
- 	KUNIT_CASE(dm_test_crtc_enable_vblank_in_reset),
- 	KUNIT_CASE(dm_test_crtc_enable_vblank_queues_work),
- 	KUNIT_CASE(dm_test_crtc_enable_vblank_ips_restore),
-+	KUNIT_CASE(dm_test_crtc_enable_vblank_ips_restore_replay),
- 	/* amdgpu_dm_crtc_update_crtc_active_planes */
- 	KUNIT_CASE(dm_test_crtc_update_active_planes_no_stream),
- 	/* amdgpu_dm_crtc_count_crtc_active_planes */
+ 	if (core_power == NULL)
+ 		return 0;
+ 
+-	numerator = ((unsigned long long)millipercent) *
+-				core_power->bl_prop[inst].nits_range;
+-	millinit = ((unsigned int)div_u64(numerator, 100000)) +
+-			core_power->bl_prop[inst].min_brightness_millinits;
++	if (millipercent >= BACKLIGHT_MILLIPERCENT_MAX)
++		return core_power->bl_prop[inst].max_brightness_millinits;
+ 
+-	return millinit;
++	return (unsigned int)div_u64((unsigned long long)millipercent *
++			core_power->bl_prop[inst].max_brightness_millinits,
++			BACKLIGHT_MILLIPERCENT_MAX);
+ }
+ 
+-static unsigned int backlight_millinit_to_millipercent(
++/* Legacy millinit→millipercent conversion: scales linearly between
++ * [min_brightness_millinits, max_brightness_millinits] → [0%, 100%].
++ */
++static unsigned int backlight_millinit_to_millipercent_legacy(
+ 		struct core_power *core_power, unsigned int millinit, unsigned int inst)
+ {
+ 	unsigned int millipercent = 0;
+@@ -280,7 +331,7 @@ static unsigned int backlight_millinit_to_millipercent(
+ 		return 0;
+ 
+ 	if (millinit >= core_power->bl_prop[inst].max_brightness_millinits)
+-		return (100 * 1000);
++		return BACKLIGHT_MILLIPERCENT_MAX;
+ 
+ 	numerator = (((unsigned long long)millinit) -
+ 			core_power->bl_prop[inst].min_brightness_millinits) * 100000;
+@@ -290,7 +341,31 @@ static unsigned int backlight_millinit_to_millipercent(
+ 	return millipercent;
+ }
+ 
+-static unsigned int backlight_pwm_to_millipercent(
++/* Converts millinit to millipercent.
++ * For VESA AUX brightness control, uses simple linear interpolation with
++ * 0 nits = 0% and max_brightness_millinits = 100%.
++ * Otherwise, falls back to the legacy min→max nits range mapping.
++ */
++static unsigned int backlight_millinit_to_millipercent(
++		struct core_power *core_power, unsigned int millinit, unsigned int inst)
++{
++	if (!is_vesa_abc(core_power, inst))
++		return backlight_millinit_to_millipercent_legacy(core_power, millinit, inst);
++
++	if (core_power == NULL)
++		return 0;
++
++	if (core_power->bl_prop[inst].max_brightness_millinits == 0)
++		return 0;
++
++	if (millinit >= core_power->bl_prop[inst].max_brightness_millinits)
++		return BACKLIGHT_MILLIPERCENT_MAX;
++
++	return (unsigned int)div_u64((unsigned long long)millinit * 100000,
++			core_power->bl_prop[inst].max_brightness_millinits);
++}
++
++static unsigned int backlight_pwm_to_millipercent_legacy(
+ 		struct core_power *core_power, unsigned int pwm, unsigned int inst)
+ {
+ 	unsigned int millipercent = 0;
+@@ -362,12 +437,37 @@ static unsigned int backlight_pwm_to_millipercent(
+ 	}
+ 
+ 	/* No interpolation, just take closest index */
+-	millipercent = 1000 * 100 * mid / max_index;
++	millipercent = BACKLIGHT_MILLIPERCENT_MAX * mid / max_index;
+ 
+ 	return millipercent;
+ }
+ 
+-static unsigned int backlight_pwm_to_millinit(
++/* Converts PWM to millipercent.
++ * For VESA AUX brightness control, uses simple linear interpolation with
++ * 0 PWM = 0% and max_backlight_pwm = 100%.
++ * Otherwise, falls back to the legacy LUT based mapping.
++ */
++static unsigned int backlight_pwm_to_millipercent(
++		struct core_power *core_power, unsigned int pwm, unsigned int inst)
++{
++	if (!is_vesa_abc(core_power, inst))
++		return backlight_pwm_to_millipercent_legacy(core_power, pwm, inst);
++
++	if (core_power == NULL)
++		return 0;
++
++	if (core_power->bl_prop[inst].max_backlight_pwm == 0)
++		return 0;
++
++	if (pwm >= core_power->bl_prop[inst].max_backlight_pwm)
++		return BACKLIGHT_MILLIPERCENT_MAX;
++
++	return (unsigned int)div_u64((unsigned long long)pwm *
++			BACKLIGHT_MILLIPERCENT_MAX,
++			core_power->bl_prop[inst].max_backlight_pwm);
++}
++
++static unsigned int backlight_pwm_to_millinit_legacy(
+ 		struct core_power *core_power, unsigned int pwm, unsigned int inst)
+ {
+ 	unsigned int millinit = 0;
+@@ -394,7 +494,32 @@ static unsigned int backlight_pwm_to_millinit(
+ 	return millinit;
+ }
+ 
+-unsigned int backlight_millipercent_to_pwm(
++/* Converts PWM to millinit.
++ * For VESA AUX brightness control, uses simple linear interpolation with
++ * 0 PWM = 0 nits and max_backlight_pwm = max_brightness_millinits.
++ * Otherwise, falls back to the legacy min→max nits range mapping.
++ */
++static unsigned int backlight_pwm_to_millinit(
++		struct core_power *core_power, unsigned int pwm, unsigned int inst)
++{
++	if (!is_vesa_abc(core_power, inst))
++		return backlight_pwm_to_millinit_legacy(core_power, pwm, inst);
++
++	if (core_power == NULL)
++		return 0;
++
++	if (core_power->bl_prop[inst].max_backlight_pwm == 0)
++		return 0;
++
++	if (pwm >= core_power->bl_prop[inst].max_backlight_pwm)
++		return core_power->bl_prop[inst].max_brightness_millinits;
++
++	return (unsigned int)div_u64((unsigned long long)pwm *
++			core_power->bl_prop[inst].max_brightness_millinits,
++			core_power->bl_prop[inst].max_backlight_pwm);
++}
++
++static unsigned int backlight_millipercent_to_pwm_legacy(
+ 		struct core_power *core_power, unsigned int millipercent, unsigned int inst)
+ {
+ 	unsigned int pwm = (unsigned int)-1;
+@@ -431,7 +556,32 @@ unsigned int backlight_millipercent_to_pwm(
+ 	return pwm;
+ }
+ 
+-static unsigned int backlight_millinit_to_pwm(
++/* Converts millipercent to PWM.
++ * For VESA AUX brightness control, uses simple linear interpolation with
++ * 0% = 0 PWM and 100% = max_backlight_pwm.
++ * Otherwise, falls back to the legacy LUT based mapping.
++ */
++unsigned int backlight_millipercent_to_pwm(
++		struct core_power *core_power, unsigned int millipercent, unsigned int inst)
++{
++	if (!is_vesa_abc(core_power, inst))
++		return backlight_millipercent_to_pwm_legacy(core_power, millipercent, inst);
++
++	if (core_power == NULL)
++		return 0;
++
++	if (millipercent >= BACKLIGHT_MILLIPERCENT_MAX)
++		return core_power->bl_prop[inst].max_backlight_pwm;
++
++	return (unsigned int)div_u64((unsigned long long)millipercent *
++			core_power->bl_prop[inst].max_backlight_pwm,
++			BACKLIGHT_MILLIPERCENT_MAX);
++}
++
++/* Legacy millinit→PWM conversion: scales linearly between
++ * [min_brightness_millinits, max_brightness_millinits] → [min_backlight_pwm, max_backlight_pwm].
++ */
++static unsigned int backlight_millinit_to_pwm_legacy(
+ 		struct core_power *core_power, unsigned int millinit, unsigned int inst)
+ {
+ 	unsigned int pwm = 0;
+@@ -460,6 +610,35 @@ static unsigned int backlight_millinit_to_pwm(
+ 	return pwm;
+ }
+ 
++/* Converts millinit to PWM.
++ * For VESA AUX brightness control, uses simple linear interpolation with
++ * 0 nits = 0 PWM and max_brightness_millinits = max_backlight_pwm.
++ * Otherwise, falls back to the legacy min→max nits range mapping.
++ */
++static unsigned int backlight_millinit_to_pwm(
++		struct core_power *core_power, unsigned int millinit, unsigned int inst)
++{
++	if (!is_vesa_abc(core_power, inst))
++		return backlight_millinit_to_pwm_legacy(core_power, millinit, inst);
++
++	if (core_power == NULL)
++		return 0;
++
++	if (core_power->bl_prop[inst].max_brightness_millinits == 0)
++		return 0;
++
++	if (millinit >= core_power->bl_prop[inst].max_brightness_millinits)
++		return core_power->bl_prop[inst].max_backlight_pwm;
++
++	/* millinit is bounded by max_brightness_millinits (up to ~10^7 for ~10000 nits).
++	 * max_backlight_pwm is a 32-bit value.
++	 * Worst-case product (~10^7 × UINT_MAX ≈ 4×10^16) fits within unsigned long long.
++	 */
++	return (unsigned int)div_u64((unsigned long long)millinit *
++			core_power->bl_prop[inst].max_backlight_pwm,
++			core_power->bl_prop[inst].max_brightness_millinits);
++}
++
+ static bool validate_ext_backlight_caps(
+ 		struct dm_acpi_atif_backlight_caps *ext_backlight_caps)
+ {
+@@ -716,6 +895,14 @@ void mod_power_update_backlight_on_mode_change(
+ {
+     struct set_backlight_level_params backlight_level_params = { 0 };
+ 
++		/* Cache the panel's backlight control type once at mode-change/init
++		 * time. It is a stable per-panel property (decided in the OS shim
++		 * from panel type + DPCD caps), so the brightness translation
++		 * helpers can read it without it being passed on every call.
++		 */
++		mod_power_set_backlight_control_type(core_power, panel_inst,
++				link->backlight_control_type);
++
+ 		if ((link->dpcd_sink_ext_caps.bits.hdr_aux_backlight_control == 1 ||
+ 			link->dpcd_sink_ext_caps.bits.sdr_aux_backlight_control == 1) &&
+ 			link->backlight_control_type == BACKLIGHT_CONTROL_AMD_AUX)
+diff --git a/drivers/gpu/drm/amd/display/modules/power/power_helpers.h b/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
+index 548c8ff6ddb4..68679fa10946 100644
+--- a/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
++++ b/drivers/gpu/drm/amd/display/modules/power/power_helpers.h
+@@ -102,6 +102,13 @@ struct pwr_backlight_properties {
+ 	unsigned int max_brightness_millinits;
+ 	unsigned int nits_range;
+ 
++	/* Backlight control type of the associated link. Cached here so the
++	 * brightness translation helpers can select the correct mapping
++	 * (legacy vs. VESA AUX zero-anchored) without threading the type
++	 * through every call.
++	 */
++	enum backlight_control_type backlight_control_type;
++
+ 	bool backlight_caps_valid;
+ 	bool use_custom_backlight_caps;
+ 	unsigned int custom_backlight_caps_config_no;
+@@ -190,6 +197,8 @@ void reset_replay_dsync_error_count(struct dc_link *link);
+ void change_replay_to_psr(struct dc_link *link);
+ void change_psr_to_replay(struct dc_link *link);
+ void initialize_backlight_caps(struct core_power *core_power, unsigned int inst);
++void mod_power_set_backlight_control_type(struct core_power *core_power,
++		unsigned int inst, enum backlight_control_type backlight_control_type);
+ unsigned int backlight_millipercent_to_pwm(
+ 		struct core_power *core_power, unsigned int millipercent, unsigned int inst);
+ unsigned int backlight_millipercent_to_millinit(
 -- 
 2.34.1
 
