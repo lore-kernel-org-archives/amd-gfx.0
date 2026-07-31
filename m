@@ -4,124 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77EFEC55173
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 19:55:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B359C55173
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 19:57:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D86D910E22E;
-	Fri, 31 Jul 2026 19:55:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 22FFC10E257;
+	Fri, 31 Jul 2026 19:57:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Vaj5E+Qc";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XtH08axK";
 	dkim-atps=neutral
 Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011056.outbound.protection.outlook.com [52.101.62.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3454210E22E
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 19:55:11 +0000 (UTC)
+ (mail-centralusazon11011041.outbound.protection.outlook.com [52.101.62.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B76EB10E257
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 19:57:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SbvIbasWTrK3yeuaDM8cBzX0rlxDMhzbl7+lsCLR5jXgTkJtTriHhytgi5LL+6LU/s9jBElUPUDP24l5DMsj4uujjYqv1dhbojBhCR68DOD6MmXRrHKrVNhjl0O3kFYEoltBP9yxd5fl1D8tnG9OKhuXloZ7N0Bb1/+wRpG8qTQz8aaDYsEzssJgzXGQW7Y8HeifeL0wHiJmU1ohbYR2sF2GELuY0YeFWMvugNdumjqsgHefolOZDRbsdmjCppUCizfiHHqXhZbCyKYxMYZ9gGAYjIXE2MXzes2VByND4ChPFV1LFFuAeXgdNMIcpsyLVJYnSACeDyGWzG6Z1Sb1kg==
+ b=q09yewgaIXusTV78MdrzST02cYhZjXxFCYyeyIuCAy7XoqdbxwPTAQF9copRh4w486ztjzA/fy1zUTKVMHr4uasfDBu0sLos/QPTFRoq7tv738z5gPn18FNPCb39ewv6YJswE42dtaJbsr90UBKS66I90wnJJnBXZEmR1MpqPmHuGnFNWMrJjmUlnAdcIA+fzmg6IIh7UtmKZsLzksvF33GQKA5Z3FuJOV6dclIaKlVTprmaHj0Vkdg5OFPN2VTENIgF0ushbQ/UTlQi0VUKMe6vZeCqDlc284QNChsf8Fzu8yU84tkzV7OygvktN+2rIEqmMXu4BmVHkruw4O2sKQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cmCLpCvG0xocre2Kdy9eTZuCvk5wfdZH+pXukgMbJjA=;
- b=T2OAQdyYe2oMDoUzY0oJRIt9ngPODod6M6bkOlpD1DVmDYesFDqgmsQOW6yqs9p6KoAVmkk9BNgRrzOmJQBXEq/kh1O65o54UNC4YbMow91Q+ZhX5zAZl89HfxBJQ5Y3QWCSOOX2JCYEfWzsIAe973Wn3sFCoPvam7bVKCBsYBVwTULw7dvgXS3PKd49ImV2qIWNbm/UK+6mwc9FbRu28NiOgnx+x1xKrogpSiadNKvlXtR6gLGDkNJVQcOQI6liJQ7AxtKUqZ1w7OwoQkO4y6LAJcp9QyRwEmK/B/Zs27rks535wsFuschbbiUlZNY1txybmk88n9hHgcxVxV+C1w==
+ bh=BlmJyfz7GHuxoDqajCHnIF1K6bxy1Xgitpx7xxfeyOQ=;
+ b=sIetZqyY6tZ7T2K2srE3NRuX0fwmhTGV9RD4vr1FBFvK4BrG69b2J/+uYtS1366CEwtnplVChNACr9Jgs9JC4FAhCBejvgTXZyLO7E7G/BBzqQNySJTYOExy2c+IZMhUv/FxjRoulzfqK6U+lcUbJMrHfbM8tvcYJPMWMoJxN86TQBXKnKry/B8Yd4VJZEQ7YyteQlI+arWpzaxhu5HtMdriGEwz7JbdKmmzaJOznhpgMInzotdBJ4wE+J43OCqLMrkIn+JtVRx3qjL+7Zw81zB/9JgD3GEkRDD08TlwvqczkKuu0aaVqV7IboLcFrixMQzXscaGlD+EvqiPP135Ug==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cmCLpCvG0xocre2Kdy9eTZuCvk5wfdZH+pXukgMbJjA=;
- b=Vaj5E+QcSnFnNpKrJ3f/KevyM9EPfhAOADk/arh7IbQ7jfcn7C7eo6oNGHGPEYsqco7cKZnaMNiwXkbU6OonRjkumnveYVOnOqmY1CZy/wpbcn7KWCh6ctS6faBTiItuKeL6PUmJO2ci74Dj9R8tO4ADLravOkpttiHISjonShY=
+ bh=BlmJyfz7GHuxoDqajCHnIF1K6bxy1Xgitpx7xxfeyOQ=;
+ b=XtH08axKzxzQYC7iDiUtqmtUlyvoCqWhs8jrYHA1aKycMUay8jy1uQhICYWhpixBJvg185ZTwayzSTxXyX+QI+uF6gycInKCULNHXGpGfpZmgMl2QzjaasdgjXMduDXhDH7A+PwjxXTtc+HpyLzIMnuudcuh1q2mJbj7E0Le1as=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
- by LV8PR12MB9082.namprd12.prod.outlook.com (2603:10b6:408:180::15)
+ by DSWPR12MB999130.namprd12.prod.outlook.com (2603:10b6:8:36d::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Fri, 31 Jul
- 2026 19:55:07 +0000
+ 2026 19:57:16 +0000
 Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
  ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
  ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0270.012; Fri, 31 Jul 2026
- 19:55:06 +0000
-Message-ID: <b04842fb-cf3c-4681-9a03-6bce7d58d2fb@amd.com>
-Date: Fri, 31 Jul 2026 15:55:03 -0400
+ 19:57:16 +0000
+Message-ID: <d31806cc-f102-4507-b905-cc57e06987b4@amd.com>
+Date: Fri, 31 Jul 2026 15:57:12 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] drm/edid: parse HDMI 2.1 gaming (ALLM/VRR)
- capabilities from HF-VSDB
+Subject: Re: [PATCH 3/4] drm/amd/display: Add HDMI 2.1 VRR support from HF-VSDB
 To: Fangzhi Zuo <jerry.zuo@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: =?UTF-8?Q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>,
- Bernhard Berger <bernhard.berger@gmail.com>
 References: <20260730171754.704049-1-jerry.zuo@amd.com>
- <20260730171754.704049-2-jerry.zuo@amd.com>
+ <20260730171754.704049-3-jerry.zuo@amd.com>
 Content-Language: en-US
 From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20260730171754.704049-2-jerry.zuo@amd.com>
+In-Reply-To: <20260730171754.704049-3-jerry.zuo@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YQZPR01CA0011.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::26) To SJ0PR12MB7007.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQZPR01CA0022.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:85::6) To SJ0PR12MB7007.namprd12.prod.outlook.com
  (2603:10b6:a03:486::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|LV8PR12MB9082:EE_
-X-MS-Office365-Filtering-Correlation-Id: a27579ba-33ef-4d77-2e68-08deef3d9ea1
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|DSWPR12MB999130:EE_
+X-MS-Office365-Filtering-Correlation-Id: 407b13a7-0c0b-43c8-3283-08deef3debb4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|1800799024|23010399003|6133799003|56012099006|5023799004|11063799006|4143699003|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: WvCoTxiu9Ubrlftiz447pUwVdxyuVkgvS34/c9vpw6jSeR7svY2Bhq3pzPI8GY24dyABIGApSf+qa7o4UoP9PJjuI+C7WIhcSeEFbf43OryNEXdr81ZC3qgeH2DZpZgm8+kFkXTrs72+Jnfap9P/O/odBamy/C7ET2rYZbUWRqUsYFd0J+wivynhec3XbGS6LfbCD+xpjODMRdgIkW7Nxat72eWhjLrjxH743TFKi1ILQNlfL0Y063avtT0U44fJZMHSZcLQxUj/1JYppafL8Zh6VmWqJcFzeuw69YEOhPxxuje+xbbbQJPzqu1r7tDVpOj0zQd6r9bVJ1vkKgucnOANr1SUMaffAPuNtNInulBdrtbEGgr9LW5HcXCGrgU+UUgAE3cSw77LYi2Njh7/O7IMvlnSCqec3q0WtHs1g09FCLSzLTnEOPxyJkHtu2ZnwfrENK1IwjHk8GSmaXqJIgYAiHMakhruEO3tK66NUj+ACZeuJAUTqHBtM28cvtxLbd5gStL5XnTRXsx21kuTI6+oAR4GNeIA9zUQYOCxqle5j+/gCbpfexip02F0av7jRB7jxvJPuJghCV2aEriFTu+gQSPMbPE3sW1LhxBKjsu0uVzLgQkJXV7rvno+aGYKGHXtgRIhlVthYjF5bVlB0L88FDcsB95ESTXzb39x+3A=
+ ARA:13230040|366016|376014|1800799024|23010399003|56012099006|4143699003|5023799004|11063799006|10067099003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: suv5O/hZm6sk3POq4lQCCvhTbMWWxiThIonA0xL9isOlp2J9KcxT/pTusMERPN+/9+4gmw9EY2HuXcbID8QV3HOa60aLx7qGKRPQMO7X/MVFFGZxieEa9RC5nOu7XyD73tTJEt4KsxIqN2InJrh+Y8QNtZF7tLbcGyagYa71Os3xKZ5OKKVfCkFEOfJ5EaLgwxQ45YPrQj0p08JIqj+haZv114dQvV2Owm1X1m3U80bTTYyV56lGULER/NgHTmSOFiZrZq6Fm/1wB2iYtuxagqIb92GSZQEX04x5RcsV28cXzNzP8OTk5e+XqCvpTAAmab9yx3VHs5eUcwNcWXQVtFuyW+6jkKtQYUBDNFZg0REPaJDm1v5DoIWF7tNRKsRX+QNJm3pxONY7Jtp9koE4Y6s/PSJbsYf5S6WWsEuVosJBn9PE6oeK9Qd0mqNPVv6TJ2pSHZnAuD8vy4o+p47Xpc+Mybeu1i0mxCKw+Si89S4j7NXHZPoxt1PTixt1S9RD6wMvb5Pqai23Z7H2Txi8ZspAoUEsk/5VhD1i2lFqF72yJ/ocv78QzYGdcPVBQTi74rBBogTAdRye+zlDUZnAvunBLqqdpvxhav4DFm4VrsatEvyvXLDYwDSEjpYioO6IiIb1cg0Y+A9n7MTcqL6zz1zg9xBtqBAmoOuY/sYyzts=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(6133799003)(56012099006)(5023799004)(11063799006)(4143699003)(10067099003)(18002099003)(22082099003);
+ SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(56012099006)(4143699003)(5023799004)(11063799006)(10067099003)(6133799003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NmFtMmtjQmVRM215T1ZKcS9jZVVONWluTExmS0x1Mm8zWDdjWWZsY0JXbkkw?=
- =?utf-8?B?N2N1OFU4eE5Ec0VtTXJxZGRFRXlmZFg0SWJCUjl4Z3NRaWIrSnNNU3JxRTB2?=
- =?utf-8?B?N3Jkd3p6d0hpcFNKWDREMm41L01SdGJya0d1NzR6SlIwOVpqdnhYa3llSDVo?=
- =?utf-8?B?eVdpSmJrcWJ1UGtpd2Q4M1FwbHZRdkgyWXFScSs0NGN1RHNEbGpGWVQ0VUxu?=
- =?utf-8?B?Q3ZSZDFKS3dQZEJEL1ZlaDBZK0V5UmFWemVlYXhoMjcwa2ozSEpwemVSS3RG?=
- =?utf-8?B?VVMyQmphL0dIenRuMlF5NGkyZTFBUVNiWXBsc3ArUldWQjJTaEJHcXVtbnd1?=
- =?utf-8?B?Wk5EVUlIL1Jkd2xVY0UycXg3bTRDcnZvZWgrTmwrVW9RaTJKNXJFY2c0NGMz?=
- =?utf-8?B?b2FiY3hwbGJ4cUd3WFc3aWp6Vm12U1psRHljVXB2Z1ltQU91MHJYOE10cElj?=
- =?utf-8?B?OGVSUG9SRkFFZjhYTUNaUnpjYkVsWDI2REQ2Y0Q5STh2Q0Y5MnBQVk5PQ1U5?=
- =?utf-8?B?TDFTM25KUCt0NitYQThPYVc2RXFXK0FkVmdqbDhIM1hwSjVKd3YzQWFOK2VE?=
- =?utf-8?B?Y3grZGJrRDhtaWxRZEg0OWR2YlZhWmU4Z0xGdk9xZ2tQSGcxMVRJU1VqZnFB?=
- =?utf-8?B?UEhGSUNUVzdjcnNmRmRHdnl1TmdZTE1XeFVET3hEdkUydHFnWk5WaUVZa1hD?=
- =?utf-8?B?OVlwYUw3aVYzaC9MeS9FSGJxTEJoQzF6WlNJQWdCRDViTVV1VkdHUVkxVTF0?=
- =?utf-8?B?NFRYdkpjWjNjbGRtVm9PR2JISWFDd0VxYkoyb0FSb2dJNmtZZDhvWWZVdlpL?=
- =?utf-8?B?WW9KNDMwTEM2bGxhbTRBTzBUSEp1NlhudzdhZnRZanJDa09DWnhVWVhhcjVs?=
- =?utf-8?B?YU0xTWthNWJwUU45L2FCTUdFeUZiYUhLb3kzelBqL0NSencydU95QVo2dVBk?=
- =?utf-8?B?bmJPVUZnK1FPNDNRbzNuSzFZczIvZUJpK3NzcFR3WUl5QkFvU1VSaUFLMFQz?=
- =?utf-8?B?MjJOanYveEVNdXRhdy9EZnhXVlVuYUMxZ0FBMlczMCtzNDNTWjlZaUFia3Rt?=
- =?utf-8?B?UDA4dndjc3VLZ3gxRGZXblJDcG5WMDJiZlFCSXFVbVlWdmRWUWs3aUNobU0y?=
- =?utf-8?B?dHJBQlBHbHkxRTdoRUdIYXlQVjVBSUlPbk9neTlNTTA3NVpydTJ4OHlybnBw?=
- =?utf-8?B?bUYvYVUzN2s1NERPZ3dEdTRDOWxOOGRINjJwNk5GcTFKS3RORmdJdjFnYUZw?=
- =?utf-8?B?MW54K1g0UGhXVTNLUDUwRUVlaFlOMFpHNjlVYytpSzVSQUtQdnUxY2lMUXU4?=
- =?utf-8?B?SFU5RnpoWjVpZHRSWlhaSEw1a2ZVUXFxZ0poc0IzM0VvMXhua2pRQlBBQklU?=
- =?utf-8?B?Z1FEN2x0MU5HdkVkWkxBWE50d1J0aXpZWWhING5xYjN2L2JKNjlEVHVNQmFn?=
- =?utf-8?B?dUM5cmsrM2pWemlpNkRtNkFMcllHak5rQlBhQWVvak9VL28wVUhwK0IwTGsw?=
- =?utf-8?B?ejZ3UHFsRk11aWE1cndZRmdpcFp1d2l6d2VQdzBjQzRNVW4yTzJiTGw3TFgz?=
- =?utf-8?B?SlIxZVhCOC9NWmg5T0NHcnlzTzM1L3lab1J6WCsxcnRkeGdFTFZnS015YzZa?=
- =?utf-8?B?Tk51SkpkWWZQems0NUI1clRIblEySnRacWdqMjQ3Q3BSUDUzVlIveUJqUmZR?=
- =?utf-8?B?NTlSMTI5djZRS0YyeVFVbzN0REJvN1lYK1AyN1B0TXR5M3IyeFhpZC9INmI2?=
- =?utf-8?B?VWdNWThtQjZlc3hmTEJmdGtiSitQYmt6VGx6NDIvNTdMMDcrVnFrSTlhclN3?=
- =?utf-8?B?bzN6VjdUaVJkM2Yvc3VVT3RyWmtURUZMYXY2TXR1RDV4dk5JY1Z2V0orbEx3?=
- =?utf-8?B?UDZ4TmVQZDVDLzZqVHltaFcxWXJvOUowZ2RGSVZPc0JuUkM3c2FOS3czMS9Z?=
- =?utf-8?B?NS9vMUF0bkcvS3ZuYWtkOGJEVVBDK1N3b2VLUXRIMlFWQ2dtNlVGUW8vTDF5?=
- =?utf-8?B?OTlGSFJROUQ0V3plRWNiYnIvcTdUMkg2aUwxaU0rQjllN2I2QW1qb1Y4eFBo?=
- =?utf-8?B?RkR3b2p5a2ltajNFaGxseVRkbHFIT1kzd1FEL0g5YmFOZlRHYVdJeWQvUHZw?=
- =?utf-8?B?VFcrOWM2VzAwaXM3bDdld3VhVkVrMmhUNXVSdTAwZFdZUlpEaktoSEtmbkZU?=
- =?utf-8?B?OWVCWExSN3Rhb2FQNlNrZXNFa2xIQThJVWhyQ2I3U3BpMWt5NW9CWktNZWJy?=
- =?utf-8?B?V28zMEk5eHY4TlJBVnRoS0E5M0Q3eGtoYzl1b2NLMS9KM2YwZ1RSL1hTcFdG?=
- =?utf-8?B?dzg0L2s1OEFJMm9xVEV6aDhwWC9kbFFzNStOWEFxMXZqUGRvOXYvdz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UEVJZVlnMEpjTGhpSG1sNVNJSlRadFdhZ0VsT0d1UUp5dEdDb0pzTnZWQUtF?=
+ =?utf-8?B?UVFMMmJ3THI2bE9jMDlUVGlGNGlmcFBvRUZtZ3luWkVUbG9HV1lXTkFuNzJC?=
+ =?utf-8?B?VUNiVDkwQWthcDJoeTZQaWl4NjdTQXpJREk4aDdtN09pUEc4aW5SZUxIMG9O?=
+ =?utf-8?B?WDhPNE9WT3FnMHdMWWpnMThyczh4V0NBRFBkMHN3ZSs4V3hSUGQvSStqaTcr?=
+ =?utf-8?B?RnJXYTJKbHF6UmVMSmVDRDM0Z3g5UEM3Q3l5UG1uVGQzN3FaSzU3cGRDNnJJ?=
+ =?utf-8?B?OHlUbU4vSHNwcnVIdTEzcmFCcGJBTlJpNlRQM1BrU3VnVk1GdWlnOVF6M0hG?=
+ =?utf-8?B?UEU0Lys2QTE3dXFKVFRIcXpWWUVMUDVPdzF0NFVRYUJsS3ZtNVhaUnJlUXVI?=
+ =?utf-8?B?NkNxaWp5cVY0ZkU2MkZWV2lodG1rWUg1dFJDcnZQU1dVdGpxK3UyWTk3VEJE?=
+ =?utf-8?B?YnhIckVremJpTkhWcHBaeHp5MFNySDFGNURraExReFlEbUNpelNVK1VkVGUy?=
+ =?utf-8?B?dlZSY0xMbXJSblRqVWZxTUpvc09NMUdQbXZMWVVQSW1ySXBvQzA5cGhZakdE?=
+ =?utf-8?B?cEVNV0w4eTgwd05qcm1MRGpIVnMwa25qeStsS0F6Q0NyQURVSHVSRVc0RGRx?=
+ =?utf-8?B?clFsTkVLYU5vajhWYzA3SzlBN09xejJTSW00TzNMNkxmQUp5NGc4dHhBN2kx?=
+ =?utf-8?B?N0F6OS93NU40OXVRdk8zZ3lIVDlDb3hoWGtzQ2RzdGRCNHczMUs1Nk1wNG5w?=
+ =?utf-8?B?bmtVTiswRzFPeUNMWVNPT3pITjBNcnhlMFArVEJJbi8rU3pvKy9GK2t4VVJw?=
+ =?utf-8?B?ZlByTGJQc0FuNHlYZlFWbnpjRzZvOWtXUk8yTmF3WHRNZHVqcG5FKzdrWWhR?=
+ =?utf-8?B?cExpeXFtc2I5aFJXQTU1bjVIVko1aWJWRkw4cE4yMDE2a3dRejVlN1NvQ2Yr?=
+ =?utf-8?B?QzJ1a3FkTi9FQ2daWWIrNkZ4QnlGVlA4VEVScmh3bzUzM1RYNytXNytSZDRG?=
+ =?utf-8?B?dFFQYTFINlJoL0tGL3hEbkVJYVlCS2htUzZUVFhvNjJjd21zUmdOd2lBOFd2?=
+ =?utf-8?B?QkxsWDdIaHFHeWlzUlNJNU5YaTI0SkRwSG9rd0lXMFN3TG5ZUzU1QktBWC9S?=
+ =?utf-8?B?ZlV1MFBBc2czUmc2QjA1TkxjeVdEVmZmYUJvRUhvNmx1d2g1QXRRRUpDdTFS?=
+ =?utf-8?B?MW9LdEFDMENEY1BmRDV5MGl4OEpPK2JQcklQeTdwMENhWnpNdDZoU1JlYU9D?=
+ =?utf-8?B?RlJmdzRJbVZUZjdINk1LU2dzN1d0U0oySlc1RHhhZU1Zamg4NndQMVNqZGlO?=
+ =?utf-8?B?SW8rTzBlTno5Qlp5dktoWTM2aHRqblRGNzVxK1RyN25LY2l1d1kyK2RNSWk0?=
+ =?utf-8?B?cHhoUUp0VVQyUU9jamoxSFRSYmtKbEFnb0hSN3M0Z2c1VlAvSVROdTluQUtJ?=
+ =?utf-8?B?S055Y0puT2thN2dBdDBmWWl5VThxTjV2Ry9uSE1mbVZYZUhIbzJ0N1RiS1hM?=
+ =?utf-8?B?ZWxrU1VncVk3dU9HZ0RYTTVKd29qZTZhdXF5VFJCbHo0aEczZmJYaXFXcU50?=
+ =?utf-8?B?Rlppamg2bzdIc3lGQThJNE5PS1pzWUk1R2RPa1VzU1FnMTRJYVU0RGwwWFk3?=
+ =?utf-8?B?LzhTczVWS1dHWTIrWmN3dGJtUittRzk1TmlPUjB0TlZvdjVmWUNYTGtXYkVn?=
+ =?utf-8?B?WnZueEdCTWowWmlGOVdmT29nSXcwSkF3NXZuOFBXNEpCdGhrWGFZdXkyYktn?=
+ =?utf-8?B?NWlhTFk0RVg3OGlMSW5xQUtXTGM3UUR3UUFuWU1vTUNGcUozMzlpT0gxbEtN?=
+ =?utf-8?B?aHo5N2Vzb004UkZrRjNOTHByQTNwN3gvdmhxZ2pqMkRubkM2ajQ0cXlrK05K?=
+ =?utf-8?B?aVgwYk5URis2QS9FM0hTV0IrZDRYcno1RGNzWWFyMVVMeEIxNkQvQWVUbnhk?=
+ =?utf-8?B?SklsSktrT2ZhOEsyRmUwK1VFdHRDUU5lb3E3TWN1b3BGWE1lWFZlc0xkSmFH?=
+ =?utf-8?B?cUFpUmxxbVRQZ2xhQW03S2VxS1pqL2dlSHZxWGlPV05SQ2dIU1lQZ2xBUis2?=
+ =?utf-8?B?VkVJNEhOTGlzb0hQUDhwWFgwYk40bGtyN2IwL0NSSThOdFpydjZyZ0szUVBZ?=
+ =?utf-8?B?eEpHNmE1SlE5c0pLbi9Md1NOdEJJUW5ndFc5SXV0Y3BzNjFNV2RkeDQ0RWVH?=
+ =?utf-8?B?MWF3TElYYlVhTjVVRVdidHRVMVkvejVzOFN4QmtYb25Nd281VkhRcVlzQTQ3?=
+ =?utf-8?B?amVRR0dCOHJMQ0FZeXZLL3E0STUzci92c3ZwLzd3U2cxSlE5SUVKOHFDSERX?=
+ =?utf-8?B?RFBYM0dqeXVDb0s4S3lZTXFhMWhGZ0NRaWJGYldiMjFONUt6eHY1QT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a27579ba-33ef-4d77-2e68-08deef3d9ea1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 407b13a7-0c0b-43c8-3283-08deef3debb4
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 19:55:06.8343 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 19:57:16.0977 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: m5WEdRfwceMxZWHW0chwfCIyF/OFIk+gKldq8W8Av1Hcifr90KpDhFukDCoHg4EUSoiajjQCB7WESaAF5a/SFA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9082
+X-MS-Exchange-CrossTenant-UserPrincipalName: nVUq3FnVEysdPONDhNw0PhvkLcvvtWWH9IwsotnW52AkoHWzL3oPB2DDKAjs2BTRiTtnX7baCA+QQ4IrA4grYw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR12MB999130
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,175 +133,149 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a core DRM patch and needs to be sent to dri-devel in
-addition to amd-gfx.
+
 
 On 2026-07-30 13:17, Fangzhi Zuo wrote:
-> From: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
+> why:
+> HDMI 2.1 sinks advertise their VRR range in the HDMI Forum VSDB
+> (HF-VSDB), but amdgpu derived FreeSync capability only from the AMD
+> VSDB. Sinks that expose just the HDMI Forum VRR capability (e.g. HDMI
+> compliance EDIDs) were therefore reported as not VRR capable.
 > 
-> Parse the HDMI 2.1 gaming-related capabilities advertised in the HDMI
-> Forum VSDB (HF-VSDB) and expose them through struct drm_hdmi_info so
-> drivers can consume them.
-> 
-> Add struct drm_hdmi_vrr_cap describing the sink's VRR capabilities: Fast
-> VActive (Quick Frame Transport), Negative M VRR, Cinema VRR, MDelta, and
-> the VRRmin/VRRmax range, together with a "supported" flag derived from
-> that range. Add the fapa_start_location and allm (Auto Low Latency Mode)
-> flags to struct drm_hdmi_info.
-> 
-> drm_parse_hdmi_gaming_info() reads byte 8 of the HF-VSDB for the
-> FAPA/ALLM/FVA/CNMVRR/CinemaVRR/MDelta flags and bytes 9-10 for
-> VRRmin/VRRmax. Per HDMI 2.1, VRR is considered supported when VRRmin is
-> within 1-48 and VRRmax is either 0 (maximum based on the video mode) or
->> = 100. It is invoked from drm_parse_hdmi_forum_scds(), and the parsed
-> values are logged for debugging.
+> how:
+> - In amdgpu_dm_update_freesync_caps(), when the AMD VSDB does not
+>   provide a valid FreeSync range, fall back to the HDMI 2.1 VRR range
+>   parsed by DRM core from the HF-VSDB
+>   (connector->display_info.hdmi.vrr_cap). VRRMAX = 0 means "up to the
+>   Base Refresh Rate"; when the EDID provides no monitor range maximum
+>   either, fall back to the Base Refresh Rate (the highest refresh-rate
+>   mode of the preferred timing) so a valid VRR range is still reported
+>   to userspace.
+> - Add VRR debug logging along the FreeSync capability and config paths.
 > 
 > Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
-> Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
-> Tested-by: Bernhard Berger <bernhard.berger@gmail.com>
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 +++
+>  .../display/amdgpu_dm/amdgpu_dm_connector.c   | 67 +++++++++++++++++++
+>  2 files changed, 75 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index ccf882a22a57..223b562f7005 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -5781,6 +5781,14 @@ STATIC_IFN_KUNIT void get_freesync_config_for_crtc(
+>  	}
+>  out:
+>  	new_crtc_state->freesync_config = config;
+> +
+> +	drm_dbg_driver(new_con_state->base.connector->dev,
+> +		       "VRR: cfg vrr_enabled=%d vrr_supported=%d fs_capable=%d vrefresh=%d min=%d max=%d state=%d\n",
+> +		       new_crtc_state->base.vrr_enabled,
+> +		       new_crtc_state->vrr_supported,
+> +		       new_con_state->freesync_capable, vrefresh,
+> +		       aconnector->min_vfreq, aconnector->max_vfreq,
+> +		       config.state);
+>  }
+>  EXPORT_IF_KUNIT(get_freesync_config_for_crtc);
+>  
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index 2deb5abae264..ebead39939a6 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -3605,6 +3605,15 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+>  	if (!adev->dm.freesync_module || !dc_supports_vrr(sink->ctx->dce_version))
+>  		goto update;
+>  
+> +	drm_dbg_driver(adev_to_drm(adev),
+> +		       "VRR: enter signal=%d hdmi_vrr=%d mrange[%d-%d] hdmi.vrr_cap[sup=%d min=%d max=%d]\n",
+> +		       sink->sink_signal, connector->display_info.hdmi.vrr_cap.supported,
+> +		       connector->display_info.monitor_range.min_vfreq,
+> +		       connector->display_info.monitor_range.max_vfreq,
+> +		       connector->display_info.hdmi.vrr_cap.supported,
+> +		       connector->display_info.hdmi.vrr_cap.vrr_min,
+> +		       connector->display_info.hdmi.vrr_cap.vrr_max);
+> +
+>  	/* FIXME: Get rid of drm_edid_raw() */
+>  	edid = drm_edid_raw(drm_edid);
+>  
+> @@ -3649,6 +3658,59 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+>  				connector->display_info.monitor_range.max_vfreq = vsdb_info.max_refresh_rate_hz;
+>  			}
+>  		}
+> +
+> +		drm_dbg_driver(adev_to_drm(adev),
+> +			       "VRR: amd_vsdb i=%d fs_sup=%d min=%d max=%d fs_capable=%d\n",
+> +			       i, vsdb_info.freesync_supported,
+> +			       vsdb_info.min_refresh_rate_hz,
+> +			       vsdb_info.max_refresh_rate_hz, freesync_capable);
+> +
+> +		/*
+> +		 * If AMD VSDB didn't provide a valid FreeSync range, fall back to
+> +		 * the HDMI 2.1 VRR capability parsed from the HF-VSDB.
+> +		 */
+> +		if (!freesync_capable && connector->display_info.hdmi.vrr_cap.supported) {
+> +			struct drm_hdmi_vrr_cap *vrr_cap =
+> +				&connector->display_info.hdmi.vrr_cap;
+> +
+> +			drm_dbg_driver(adev_to_drm(adev),
+> +				       "VRR: HF-VSDB fallback: hdmi_vrr=1 vrr_cap[sup=%d min=%d max=%d] mrange_max=%d\n",
+> +				       vrr_cap->supported, vrr_cap->vrr_min, vrr_cap->vrr_max,
+> +				       connector->display_info.monitor_range.max_vfreq);
+> +
+> +			if (vrr_cap->supported && vrr_cap->vrr_min > 0) {
+> +				amdgpu_dm_connector->min_vfreq = vrr_cap->vrr_min;
+> +				amdgpu_dm_connector->max_vfreq = vrr_cap->vrr_max ?
+> +					vrr_cap->vrr_max :
+> +					connector->display_info.monitor_range.max_vfreq;
+> +
+> +				/*
+> +				 * VRRMAX = 0 in the HF-VSDB means "up to the Base
+> +				 * Refresh Rate". If the EDID also did not provide a
+> +				 * monitor range max, fall back to the Base Refresh
+> +				 * Rate (the highest refresh rate of the preferred
+> +				 * timing) so a valid VRR range is still reported to
+> +				 * userspace.
+> +				 */
+> +				if (!amdgpu_dm_connector->max_vfreq) {
+> +					struct drm_display_mode *brr_mode =
 
-I didn't look at the HDMI spec myself, so can't vouch for the
-correctness of the parser, but everything looks sane to me.
+Should this be `vrr_mode`?
 
+With that fixed this is
 Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
 Harry
 
-> ---
->  drivers/gpu/drm/drm_edid.c  | 42 +++++++++++++++++++++++++++++++++
->  include/drm/drm_connector.h | 47 +++++++++++++++++++++++++++++++++++++
->  2 files changed, 89 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-> index a9d480981c8f..7f810b08a091 100644
-> --- a/drivers/gpu/drm/drm_edid.c
-> +++ b/drivers/gpu/drm/drm_edid.c
-> @@ -6182,6 +6182,33 @@ static void drm_parse_ycbcr420_deep_color_info(struct drm_connector *connector,
->  	hdmi->y420_dc_modes = dc_mask;
->  }
+> +						amdgpu_dm_get_highest_refresh_rate_mode(amdgpu_dm_connector, true);
+> +
+> +					if (brr_mode)
+> +						amdgpu_dm_connector->max_vfreq =
+> +							drm_mode_vrefresh(brr_mode);
+> +				}
+> +
+> +				if (amdgpu_dm_connector->max_vfreq -
+> +				    amdgpu_dm_connector->min_vfreq > 10)
+> +					freesync_capable = true;
+> +
+> +				connector->display_info.monitor_range.min_vfreq =
+> +					amdgpu_dm_connector->min_vfreq;
+> +				connector->display_info.monitor_range.max_vfreq =
+> +					amdgpu_dm_connector->max_vfreq;
+> +			}
+> +		}
+>  	}
 >  
-> +static void drm_parse_hdmi_gaming_info(struct drm_hdmi_info *hdmi, const u8 *db)
-> +{
-> +	struct drm_hdmi_vrr_cap *vrr = &hdmi->vrr_cap;
-> +
-> +	if (cea_db_payload_len(db) < 8)
-> +		return;
-> +
-> +	hdmi->fapa_start_location = db[8] & DRM_EDID_FAPA_START_LOCATION;
-> +	hdmi->allm = db[8] & DRM_EDID_ALLM;
-> +	vrr->fva = db[8] & DRM_EDID_FVA;
-> +	vrr->cnmvrr = db[8] & DRM_EDID_CNMVRR;
-> +	vrr->cinema_vrr = db[8] & DRM_EDID_CINEMA_VRR;
-> +	vrr->mdelta = db[8] & DRM_EDID_MDELTA;
-> +
-> +	if (cea_db_payload_len(db) < 9)
-> +		return;
-> +
-> +	vrr->vrr_min = db[9] & DRM_EDID_VRR_MIN_MASK;
-> +	vrr->supported = (vrr->vrr_min > 0 && vrr->vrr_min <= 48);
-> +
-> +	if (cea_db_payload_len(db) < 10)
-> +		return;
-> +
-> +	vrr->vrr_max = (db[9] & DRM_EDID_VRR_MAX_UPPER_MASK) << 2 | db[10];
-> +	vrr->supported &= (vrr->vrr_max == 0 || vrr->vrr_max >= 100);
-> +}
-> +
->  static void drm_parse_dsc_info(struct drm_hdmi_dsc_cap *hdmi_dsc,
->  			       const u8 *hf_scds)
->  {
-> @@ -6308,6 +6335,8 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
+>  	if (amdgpu_dm_connector->dc_link)
+> @@ -3692,6 +3754,11 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+>  	if (dm_con_state)
+>  		dm_con_state->freesync_capable = freesync_capable;
 >  
->  	drm_parse_ycbcr420_deep_color_info(connector, hf_scds);
->  
-> +	drm_parse_hdmi_gaming_info(&connector->display_info.hdmi, hf_scds);
+> +	drm_dbg_driver(adev_to_drm(adev),
+> +		       "VRR: caps result: freesync_capable=%d min_vfreq=%d max_vfreq=%d\n",
+> +		       freesync_capable, amdgpu_dm_connector->min_vfreq,
+> +		       amdgpu_dm_connector->max_vfreq);
 > +
->  	if (cea_db_payload_len(hf_scds) >= 11 && hf_scds[11]) {
->  		drm_parse_dsc_info(hdmi_dsc, hf_scds);
->  		dsc_support = true;
-> @@ -6317,6 +6346,19 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
->  		    "[CONNECTOR:%d:%s] HF-VSDB: max TMDS clock: %d KHz, HDMI 2.1 support: %s, DSC 1.2 support: %s\n",
->  		    connector->base.id, connector->name,
->  		    max_tmds_clock, str_yes_no(max_frl_rate), str_yes_no(dsc_support));
-> +	drm_dbg_kms(connector->dev,
-> +		    "[CONNECTOR:%d:%s] FAPA in blanking: %s, ALLM support: %s, Fast Vactive support: %s\n",
-> +		    connector->base.id, connector->name, str_yes_no(hdmi->fapa_start_location),
-> +		    str_yes_no(hdmi->allm), str_yes_no(hdmi->vrr_cap.fva));
-> +	drm_dbg_kms(connector->dev,
-> +		    "[CONNECTOR:%d:%s] Negative M VRR support: %s, CinemaVRR support: %s, Mdelta: %d\n",
-> +		    connector->base.id, connector->name, str_yes_no(hdmi->vrr_cap.cnmvrr),
-> +		    str_yes_no(hdmi->vrr_cap.cinema_vrr), hdmi->vrr_cap.mdelta);
-> +	drm_dbg_kms(connector->dev,
-> +		    "[CONNECTOR:%d:%s] VRRmin: %u, VRRmax: %u, VRR supported: %s\n",
-> +		    connector->base.id, connector->name, hdmi->vrr_cap.vrr_min,
-> +		    hdmi->vrr_cap.vrr_max, str_yes_no(hdmi->vrr_cap.supported));
-> +
->  }
->  
->  static void drm_parse_hdmi_deep_color_info(struct drm_connector *connector,
-> diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-> index 745cd917fe40..61ea6e866ea0 100644
-> --- a/include/drm/drm_connector.h
-> +++ b/include/drm/drm_connector.h
-> @@ -254,6 +254,44 @@ struct drm_scdc {
->  	struct drm_scrambling scrambling;
->  };
->  
-> +/**
-> + * struct drm_hdmi_vrr_cap - Information about VRR capabilities of a HDMI sink
-> + *
-> + * Describes the VRR support provided by HDMI 2.1 sink. The information is
-> + * fetched fom additional HFVSDB blocks defined for HDMI 2.1.
-> + */
-> +struct drm_hdmi_vrr_cap {
-> +	/** @fva: flag for Fast VActive (Quick Frame Transport) support */
-> +	bool fva;
-> +
-> +	/** @mcnmvrr: flag for Negative M VRR support */
-> +	bool cnmvrr;
-> +
-> +	/** @mcinema_vrr: flag for Cinema VRR support */
-> +	bool cinema_vrr;
-> +
-> +	/** @mdelta: flag for limited frame-to-frame compensation support */
-> +	bool mdelta;
-> +
-> +	/**
-> +	 * @vrr_min : minimum supported variable refresh rate in Hz.
-> +	 * Valid values only inide 1 - 48 range
-> +	 */
-> +	u16 vrr_min;
-> +
-> +	/**
-> +	 * @vrr_max : maximum supported variable refresh rate in Hz (optional).
-> +	 * Valid values are either 0 (max based on video mode) or >= 100
-> +	 */
-> +	u16 vrr_max;
-> +
-> +	/**
-> +	 * @supported: flag for vrr support based on checking for VRRmin and
-> +	 * VRRmax values having correct values.
-> +	 */
-> +	bool supported;
-> +};
-> +
->  /**
->   * struct drm_hdmi_dsc_cap - DSC capabilities of HDMI sink
->   *
-> @@ -330,6 +368,15 @@ struct drm_hdmi_info {
->  	/** @max_lanes: supported by sink */
->  	u8 max_lanes;
->  
-> +	/** @fapa_start_location: flag for the FAPA in blanking support */
-> +	bool fapa_start_location;
-> +
-> +	/** @allm: flag for Auto Low Latency Mode support by sink */
-> +	bool allm;
-> +
-> +	/** @vrr_cap: VRR capabilities of the sink */
-> +	struct drm_hdmi_vrr_cap vrr_cap;
-> +
->  	/** @dsc_cap: DSC capabilities of the sink */
->  	struct drm_hdmi_dsc_cap dsc_cap;
->  };
+>  	if (connector->state && amdgpu_dm_connector->dc_link && !freesync_capable &&
+>  	    amdgpu_dm_connector->dc_link->replay_settings.config.replay_supported) {
+>  		amdgpu_dm_connector->dc_link->replay_settings.config.replay_supported = false;
 
