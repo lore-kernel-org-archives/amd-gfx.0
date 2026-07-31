@@ -4,60 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65B3FC55172
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B257AC55173
 	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 21:16:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05E3610F403;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 345A010F40B;
 	Fri, 31 Jul 2026 21:16:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wMzNJD/A";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vRs1P+gU";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012036.outbound.protection.outlook.com [52.101.53.36])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72C2110F40C
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 21:16:15 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010046.outbound.protection.outlook.com [52.101.85.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A9BCD10F40F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 21:15:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nYZT0BvmjGbpUB/41Nq3qAv+Yn+kQrpScydLJqiR772rGetnO99eKoy9TniriErCl5n5xwwFIOzf3d/StkSEDrKG1OvlLxS/9G5R7q72PWA56cRXFhq2dUdJUXPFj7ix/iDiGK61w2OC/7ax+Xgj86G1cmO6cEZGrowTMuC2QwFElXeya/6nhA6NiXtetTeNteJa691ZWPx+FKwiF21hTRNclO27NXVEUGtK15X84fJqhwNMRrvsb60RW92XoOTkMmxGyCjXDT0RKDBxqdr+e2jj8gP/DoVGBuhCOllwVPFuNBriUVI26CNfbzuUrL8Iqp7SSz14d+GVzcjB/YqQww==
+ b=crlUGcoYy9Sm5JBADjgNv6f7uXZnsBtcrDad6UIzgggKlja0Z2qjlASg8hX+JrZUctg3LzTckO1OBQN5DppRFvGNxyaAkzndqaHcIsomviZE5SEe98EMtjy4GWip6DGr8U8WN/J1bNJkfEkCBGj/+jNSRElHaW+ZEWzD8tna/ICMsIGxTt+id9qqy3ZDg5A/r8Hk87R3rO+2CB1sFwtZOAZlfS7TzHbL77elAtWYW/jdH9gYoA+Y6IAnF3UQ49eoi9CehUXnZlBSckLhda6fz6JQq7oQtGDTbEhEIma1/dE21dz+sfynWXH2jpddyGtlSA0bdhtjehNMb9bpUDoKEQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zVJJqBDw+cnmZzG1Q9PYLGG4+TXT9EiJ4uMy2ou+77Y=;
- b=yTFjYnXJSGRpk0/f3jAHj7GIFpPAaEDs8n7WLW4VP7aJ5/PZ3tGmWrAfGnLug1eUbW3/XQTxX+gNnC/1t9MlTVxF0JW3Cds0mgCB+78jhp7wy6Lo7gt4Jd3IAEPKIJUNHOcVSES9Ot8c5lGskrbpnNY8OMkgFG/st02TnbRQGoSxmAb3oyNbXFzFYv+57pbstPvrGb+fD8rLYI3EaoN4flV5As7FrYsf9I4tp47StvUywpYBEY42aNr5BW31oUmQViD8BoJOfHL6qJuYEpGP5ZJgreB1KTHuozVgYy1hVDmfBMlrU+0wDUQq8SdebGuOBmoS96JW2EepclMiH+cU2A==
+ bh=g2Mmby34rDxvYQuJFhwwyxz2X9St3TJpzaEu1DnmWRI=;
+ b=bLYEDKjnGGsbvul/xv/P0xVuLGiZHQ6dl/vdAnXa/5+4z638Nz8OumdOiSaA5Ttyc50vUR0sAKtJqAyFZ3OoOz5Hjw8MH0F8TbGRhN8iNbHAadSDl600bJY0RcSlvSxM6NPOQ+f9E3JsRwrE+Kvnn2cDgg7FquX8FvuPX/Aj/flZINr5YfeQpTDemHqnUYe8HjdsFV4PcafR7BrDzVlbbTua8OHqoVvYRepajXY7Wqu7hFpQ2bmJYFbEA7YBXe+sqf+lta09pXM3GrS+dr6Zg9MMsqqH8lJTqpRyV7lAhxstjRMqjhMcumFO/Nveyydw1AcPyZ47lB61HEFO2QD8QQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zVJJqBDw+cnmZzG1Q9PYLGG4+TXT9EiJ4uMy2ou+77Y=;
- b=wMzNJD/ASKx6WNd24v5rCAjHiN8M58fjlGQAO5QfM7Bb/aBI0/xOUKt/QLtVv1W5lJBRoyfKELwIu0RdLnSkeK5XwA6y/9iNc7qlAIT63avYIMeWnKQRX0MI198XoJ/7fbmsV11k8ftugIcPHIGbX5xTKjGE7FyzhwjhY3M3dkM=
-Received: from BLAPR03CA0160.namprd03.prod.outlook.com (2603:10b6:208:32f::25)
- by IA1PR12MB7518.namprd12.prod.outlook.com (2603:10b6:208:419::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
- 2026 21:16:11 +0000
-Received: from BL02EPF00021F6F.namprd02.prod.outlook.com
- (2603:10b6:208:32f:cafe::11) by BLAPR03CA0160.outlook.office365.com
- (2603:10b6:208:32f::25) with Microsoft SMTP Server (version=TLS1_3,
+ bh=g2Mmby34rDxvYQuJFhwwyxz2X9St3TJpzaEu1DnmWRI=;
+ b=vRs1P+gUdYBVzUMoHq13maUM7MzKb8En3NAd9Ka0b5GFNtgsiZBqgw+ZFpDWHIp9EpOnWaDf8pZC61lafBA9urpIm1OodCK/oJEWgn2VD5HUc0/5DdCKuAWMmmdvtzNatZ8ZM2JDSPzHLBCwZr1q7W8345putckUq6BWOZZbNpA=
+Received: from CH0PR07CA0013.namprd07.prod.outlook.com (2603:10b6:610:32::18)
+ by DM4PR12MB6012.namprd12.prod.outlook.com (2603:10b6:8:6c::5) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.16; Fri, 31 Jul 2026 21:15:47 +0000
+Received: from CH2PEPF00000140.namprd02.prod.outlook.com
+ (2603:10b6:610:32:cafe::60) by CH0PR07CA0013.outlook.office365.com
+ (2603:10b6:610:32::18) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.16 via Frontend Transport; Fri,
- 31 Jul 2026 21:16:11 +0000
+ 31 Jul 2026 21:15:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF00021F6F.mail.protection.outlook.com (10.167.249.11) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH2PEPF00000140.mail.protection.outlook.com (10.167.244.72) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 21:16:11 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 21:15:46 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
- 2026 16:16:06 -0500
+ 2026 16:15:46 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
+ 2026 16:15:46 -0500
 Received: from roman-vdev.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 31 Jul 2026 16:16:00 -0500
+ Transport; Fri, 31 Jul 2026 16:15:45 -0500
 From: <Roman.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,11 +70,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Wayne Lin <Wayne.Lin@amd.com>
-Subject: [PATCH 33/41] drm/amd/display: Add missing OTG_CRC1_SELECT mask for
- DCN3.2
-Date: Fri, 31 Jul 2026 17:12:54 -0400
-Message-ID: <20260731211302.3040343-34-Roman.Li@amd.com>
+ <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Subject: [PATCH 18/41] drm/amd/display: Add KUnit test for crtc vblank event
+ completion
+Date: Fri, 31 Jul 2026 17:12:39 -0400
+Message-ID: <20260731211302.3040343-19-Roman.Li@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260731211302.3040343-1-Roman.Li@amd.com>
 References: <20260731211302.3040343-1-Roman.Li@amd.com>
@@ -79,29 +83,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6F:EE_|IA1PR12MB7518:EE_
-X-MS-Office365-Filtering-Correlation-Id: e6578597-ee17-418e-39eb-08deef48f296
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000140:EE_|DM4PR12MB6012:EE_
+X-MS-Office365-Filtering-Correlation-Id: 65710769-cade-4402-de36-08deef48e3ae
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|6133799003|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: Hw2Dy5runcfODz1TsbyRWEkHM69dMJP2h0PKcWnJElex0t1MnO7zoh8Jm2ywXgOnlXrRTb4LtutxpIGhQyBlV+VcXjoLBuBQUiwGvs8P3kta7Aj7yo+mdvZttYxZgrklpiN2JrJcCFZRxT+HabIY63Doinzvq6kwbvT1Poz6AvkSSwYep5lS0YvveSAZ0EeRmJAkcLhOZU0OPljSfjOVYXIImM0RokXxZs1/qLxqstXQRFmz/lXvD/TRE2TOmIt6FbfOrxKc4Gvm6cAQLtxwfffgzz/UDHlc+EPEXhkmvVNw8E3N1EhT8TjBZzblAWiggILyB/QrdwnUzltTWQtOEugW7yJF1VclvPIwAPhZossOZvqK93nXWVheS0IFV67ywck4g7/FPmCveGfM6P3VYDk/xYjITA5w0vqOcGAowX/trDnlYCRNO2A1dV/r/T/OL+0+Hbi6Poq4qbyruo2OvyOoo7cSrdlldGtJ40tWfnLNIXiRwnuPklaJUuS1tXwn33WuOHvR+raGpK2UA24JvFxElNO1kVkoJktaL1qDmAiLXI4j0/2KKB77J54nCTyCiT1GYiHVkyZK+N5lKApfjYZIF/P5r+U2gaOitDn67PkDUexbnTDvxnThneTSAWdSvLVdTzVTy9JBTsc0gCxmCHDL8Z/G1sonnbLxoLQqYVrCr8rhDL97Dc7H0c8GhBUT57r+zWODUynIwM1PzBeHQA==
+ ARA:13230040|82310400026|376014|1800799024|23010399003|36860700016|11063799006|56012099006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: UPe85BUs5Z8Wo/Jyoj4SzkvKpLO1XcYOO1xr62lNFAJQ9XnaGL5uoHDa04KvRhQ0ozQUfxVUTW6HtWUMQxzZ6TEgEO3Xyj0b5ghzWAIgE/VeA6cF6U4Ary+H7UOKGs3eOIALQKpqM91o29/6pdpC2DtHbIIIeZotD3s41nmEdxrfdNt47385QJFDQT6kyzbOlWT8c8w7c5BIp/RVjyXcXiqXDq/q081yLbg7UUkbPQo0+N9j/lcOp4zo8FxTasAcqUVrTs1C3Y5NkcGbeOJ/3xHPamf/Rj4sPKlADNVh2KRwbzIANHFPpp35ggyvqZr+Li6waZnJrV0NV0hBRUzTIItOEPvbTsQ1SJnuMHGnyVy07xYRnxlZGwiIRBRUtca8n4MzNz9NMZt9MrHeNoZC/zMUVwAXp+hUoMJyydHFk3KgICnEBKG6gJ4a91I6wsBvTqscuQIavVs0TKafGAcLQpvIk+MbKoJNzWT4X7aH1U3mJzBtfNryPUKRjRBjwp6nIXGkyEJFjOJiyz79MNYMpFn/Ja37QO7M3OOA+M4c7gpT6oPGlkNKjvU9rmRN+eCynmaSV2AKC9LKgmcPa0x3GtKCKhBK8Kf0TFXzWZY2Y2ehOnNuzWUom3+zNLm1Dsx226wkrg1wZtfwZVMF0fVUfOQeAuT0siE3NaURjkqnr8XVKZ87bVuMpKk7M6L8lwiaGNfzHWgYQQWCEVBm11AbRw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(6133799003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(23010399003)(36860700016)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: BnUpHx4PIkRvU0kdJ2qGEIJ3QmgfN1EJWu7LpTrh+4bHxLRLPa4A3zxsDL3cD8YX1oKp8G0eT8DFHcQAiHZxwiOBa45s3JI6hnLj2hwZi4+xa/3dgyF48Ss10iI2Mt2OtoWb/et/gjVLiwPL3jI/U1mkzxBmeDvstGG4nLgSnFo6eOYiI29XO5nA9D00mordXGS0hPmjRWM+xZ/eVsHhOFNQZgTRvoHvvtNpGeyM2OCE1dM6u4pb7fIH79viJqXd9fgMvnm87pe70meC99ylTDLwwbOhaFhpfLsVXCQRcmkbiAY2b7uJ2IFtzJR/MclT1D7AphW0Ar21v7oED+Qc1ZtPc/V/Xp5W+88AagoPylCvwn2pSUiXeZUG1zgMuKX0jLN3YgA4Koi111M59sypjp0LbknVskIe9zuLEEQvOVOhcoJp7oe053wlbG2KwDrO
+X-MS-Exchange-AntiSpam-MessageData-0: gfxHQZSNr+4Bk2aE/8Jq/hAzjBqFHtxu27kUTR8MauU8cwt7v0lc5iiZdScfv5sNk0ScXFs7XUnZU+g/qyAIa7lTOJM3iXaEd+YkmzEgZf6D+QD4OZltMuk7LPnkUZB3fh//B3qxcDCqh/NoIAzCXYdDiQZLVJHRf5yZSPTCMjKkQuW00rD2mKRoC3gkRKc51REqe2rRB42XH6NnHWGf6IktPphrMR1BcnHrZZqn5+cj91U97E3s7+1BzC0LKmVWm8ctjOFtjOmtJNc0x3vvCX4jOguA4PzsS8cpcMZDkAMoH68++q8c4SHpLMZ5+/tH2C1V099w/q3sWAytA+Bj+rzcINCkqctgYeZyjs+YKFYS5I8hVLfwf+M6wSetKwfSW5hgOsruRK2jbnzpyIW2Q7VU+vNMunyM+meieWFZbMRos56PY1gSVkLPFwHu9/vp
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 21:16:11.9372 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e6578597-ee17-418e-39eb-08deef48f296
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 21:15:46.9220 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65710769-cade-4402-de36-08deef48e3ae
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6F.namprd02.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000140.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7518
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6012
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,37 +120,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Wayne Lin <Wayne.Lin@amd.com>
+From: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 
-[Why]
-Configuring CRC engine 1 via optc35_configure_crc() triggers
-ASSERT(mask != 0) in dc_helper.c when programming OTG_CRC1_SELECT.
-The DCN3.2 OPTC mask list inherited from dcn32 is missing this field,
-so ROI[1] CRC cannot be enabled in DisplayCRC mode on DCN3.5/3.51.
+Add dm_test_crtc_handle_vblank_completes_cursor_only to cover the
+previously untested branch in amdgpu_dm_crtc_handle_vblank() where a
+pending event with pflip_status != AMDGPU_FLIP_SUBMITTED (a cursor-only
+commit) is signalled: the vblank event is sent, the vblank reference is
+dropped, and acrtc->event is cleared.
 
-[How]
-Add OTG_CRC1_SELECT to OPTC_COMMON_MASK_SH_LIST_DCN3_2, matching the
-existing dcn10 definition so REG_UPDATE can program CRC engine 1.
-
-Reviewed-by: ChiaHsuan (Tom) Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Wayne Lin <Wayne.Lin@amd.com>
+Assisted-by: Copilot:Claude-Opus-4.8
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Roman Li <roman.li@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h | 1 +
- 1 file changed, 1 insertion(+)
+ .../amdgpu_dm/tests/amdgpu_dm_crtc_test.c     | 45 +++++++++++++++++++
+ 1 file changed, 45 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h
-index ead92ad78a23..7df1ed1102d6 100644
---- a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h
-+++ b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h
-@@ -132,6 +132,7 @@
- 	SF(OTG0_OTG_GSL_CONTROL, OTG_GSL_CHECK_ALL_FIELDS, mask_sh),\
- 	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_CONT_EN, mask_sh),\
- 	SF(OTG0_OTG_CRC_CNTL, OTG_CRC0_SELECT, mask_sh),\
-+	SF(OTG0_OTG_CRC_CNTL, OTG_CRC1_SELECT, mask_sh),\
- 	SF(OTG0_OTG_CRC_CNTL, OTG_CRC_EN, mask_sh),\
- 	SF(OTG0_OTG_CRC0_DATA_RG, CRC0_R_CR, mask_sh),\
- 	SF(OTG0_OTG_CRC0_DATA_RG, CRC0_G_Y, mask_sh),\
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
+index 9948d1780454..6bc4f932c839 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
+@@ -971,6 +971,50 @@ static void dm_test_crtc_handle_vblank_skips_when_flip_submitted(struct kunit *t
+ 	KUNIT_EXPECT_PTR_EQ(test, acrtc->event, event);
+ }
+ 
++/**
++ * dm_test_crtc_handle_vblank_completes_cursor_only - Test event sent on vblank
++ * @test: The KUnit test context
++ *
++ * A pending event whose flip is not AMDGPU_FLIP_SUBMITTED (a cursor-only commit)
++ * must be signalled on vblank: the vblank event is sent, the vblank reference is
++ * dropped and acrtc->event is cleared.
++ */
++static void dm_test_crtc_handle_vblank_completes_cursor_only(struct kunit *test)
++{
++	struct drm_pending_vblank_event *event;
++	struct amdgpu_device *adev;
++	struct amdgpu_crtc *acrtc;
++
++	adev = dm_kunit_alloc_adev(test);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
++
++	KUNIT_ASSERT_EQ(test, drm_vblank_init(&adev->ddev, 1), 0);
++
++	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acrtc);
++
++	/* drm_crtc_send_vblank_event() consumes (kfree()s) the event. */
++	event = kzalloc_obj(*event, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, event);
++
++	acrtc->base.dev = &adev->ddev;
++	acrtc->event = event;
++	acrtc->pflip_status = AMDGPU_FLIP_NONE;
++
++	/*
++	 * Take a vblank reference so the handler's drm_crtc_vblank_put() does not
++	 * underflow. Mark vblank enabled so the get succeeds without a hardware
++	 * enable hook.
++	 */
++	adev->ddev.vblank[0].enabled = true;
++	KUNIT_ASSERT_EQ(test, drm_crtc_vblank_get(&acrtc->base), 0);
++
++	amdgpu_dm_crtc_handle_vblank(acrtc);
++
++	/* Cursor-only commit: event was signalled and cleared. */
++	KUNIT_EXPECT_NULL(test, acrtc->event);
++}
++
+ /**
+  * dm_test_vblank_control_worker_setup - Build a vblank_control_work for the worker
+  * @test: The KUnit test context
+@@ -1168,6 +1212,7 @@ static struct kunit_case amdgpu_dm_crtc_tests[] = {
+ 	/* amdgpu_dm_crtc_handle_vblank */
+ 	KUNIT_CASE(dm_test_crtc_handle_vblank_no_event),
+ 	KUNIT_CASE(dm_test_crtc_handle_vblank_skips_when_flip_submitted),
++	KUNIT_CASE(dm_test_crtc_handle_vblank_completes_cursor_only),
+ 	/* amdgpu_dm_crtc_vblank_control_worker */
+ 	KUNIT_CASE(dm_test_vblank_control_worker_enable_increments),
+ 	KUNIT_CASE(dm_test_vblank_control_worker_disable_decrements),
 -- 
 2.34.1
 
