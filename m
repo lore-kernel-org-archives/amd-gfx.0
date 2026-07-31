@@ -4,71 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB143C55167
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 17:35:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9DA79C55173
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 18:15:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6EF1110F365;
-	Fri, 31 Jul 2026 17:35:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3759410F36A;
+	Fri, 31 Jul 2026 18:15:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="vAlVSGaG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="s4x2BDks";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 306C410F365
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 17:35:00 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 0E4C542444;
- Fri, 31 Jul 2026 17:35:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D60EEC2BCB9;
- Fri, 31 Jul 2026 17:34:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1785519299;
- bh=BKS53CPa4ZWJrD1kCC8MyHrwZ7pCF0u4ee7NVEiRwo8=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=vAlVSGaGh3oyeIogGnyNKlhkiDCvf28sXs0lKe3KhOnnN4kaabv1iv7WRVf4uVU3t
- QJqIbTG1S8DPG9FHAfP2ngkUdbCcjIzE8OqC6hbabSaDtO7FV5UU63bmjgGrCz7iRP
- T+cTkb9aiJmTloVvDNmBSdd8ICkFSciyFlAvLWAGlUyGajrUAINc+WiQ2nQ/SIoaUu
- 3fzJDWxUr+MH7RBeb4rcPTcs6YPq/UGgM5ozoqaKItHTIc3x8KTCoUXDBSrfavwlKQ
- EctMoG51LnDLX4WJbl+VGlQBfh3WQ19eRH/iNvJp2LUO39y7ONJ3TrejR/YpEEuck/
- 2DupO+P5Xobcg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id B3043C5516D;
- Fri, 31 Jul 2026 17:34:59 +0000 (UTC)
-From: Liz Fong-Jones via B4 Relay <devnull+lizf.honeycomb.io@kernel.org>
-Date: Fri, 31 Jul 2026 10:34:59 -0700
-Subject: [PATCH v3] PCI: Fix BAR resize for devices on a root bus
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011039.outbound.protection.outlook.com [52.101.52.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 68B8510F36A;
+ Fri, 31 Jul 2026 18:15:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ah30fQ+ZD19fzRJA41u5goDycreWcsv7EvehvxaD6hmaQs2U2KfoyUyVaibfGt9AsU2uhyjFAA0L++HxFBtxd6KcRTdok/JE5jmlkmCbTM5uJ0UcLmMqgqbtJeKKRYvCk2PDbgmAydT28PXPRIOyyqTqWpK/VQYB/G8ek1CYJX/tlrgiEFIyKxSSkQZPqwhMpIR5ooLu7fat3CYI8q4HE5pEU4zksGE/3cO7bJMdoj21wj0oqiYc/MaFsB/F1hgv3BC546tHcUOkdzLfYhHA8ObfkEDZhDIVCwZGvM6j47+7TBae78ruJY3Yfuy5Ado8Qz4quUsHhT//o6VVIr6bjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ST89sTCcEX4Wo+hRSxnQs7YGiiN3cYbf+MVWGvpsQxQ=;
+ b=BVg3wnhETyPyZJXqU8Nf0ZJ6F2kVXTbqbDX8H//zYHDVt4NQFnX7hwc5cecUEChl5/GQDyz8DZs74f0F15mj+q1CHu1C1n61G/GfCgHISlP1ZHV5Sl928zA5gNYjy2MoEYbby1kPgQnNwaP5Zfi2GHdZAz6FVJXGa5HBg54PMDsDD/EgOFLhuGl5n/U0K8I3YkX1YQOtUhrwwd7AppxyM1iR3+nZG87Ipq9xAPxqpaNpFe6iLAoCotVhS/nLsCK0yCRkTVfr8vs2QLQTrW/CVGM8lRMug0jdkU3oMKklQTgwXHalBDRnc2XFxWLOlcQqZdqVPLEYIe9dN1IE9rSKsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ST89sTCcEX4Wo+hRSxnQs7YGiiN3cYbf+MVWGvpsQxQ=;
+ b=s4x2BDkso2U6Bl9TnSTosPcfXubxnU2lbUd2aORwORq0Bp/wk2OdpKy/ZYm7t+sAuNqlp8oMXB/2RWjwBurBw2r7s3lnVreiZ9DelBbqVHoTcAle9+PCn9zos2QkKTG5JoppaY2su7PJkIYQ56QMlvKiuZUHdHxrHPE+8iSf/hU=
+Received: from BLAPR03CA0057.namprd03.prod.outlook.com (2603:10b6:208:32d::32)
+ by IA0PR12MB7529.namprd12.prod.outlook.com (2603:10b6:208:431::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Fri, 31 Jul
+ 2026 18:15:25 +0000
+Received: from BL02EPF0001A0FD.namprd03.prod.outlook.com
+ (2603:10b6:208:32d:cafe::79) by BLAPR03CA0057.outlook.office365.com
+ (2603:10b6:208:32d::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.15 via Frontend Transport; Fri,
+ 31 Jul 2026 18:15:25 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF0001A0FD.mail.protection.outlook.com (10.167.242.104) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 18:15:25 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
+ 2026 13:15:24 -0500
+Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
+ Transport; Fri, 31 Jul 2026 13:15:23 -0500
+From: Harry Wentland <harry.wentland@amd.com>
+To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Daniel Stone <daniels@collabora.com>, Chaitanya Kumar Borah
+ <chaitanya.kumar.borah@intel.com>, Uma Shankar <uma.shankar@intel.com>,
+ "Louis Chauvet" <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>, Robert Mader <robert.mader@collabora.com>
+Subject: [PATCH v5 00/10] YUV conversion colorop with amdgpu and VKMS
+Date: Fri, 31 Jul 2026 14:15:11 -0400
+Message-ID: <20260731181521.681990-1-harry.wentland@amd.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260731-pci-rebar-root-bus-v3-1-6732e233fc99@honeycomb.io>
-X-B4-Tracking: v=1; b=H4sIAMLcbGoC/22NywrCMBQFf6VkbSRJra2u/A9xkceNvYJNSdpgK
- f13k4og0uXAOTMzCeARAjkXM/EQMaDrEpS7guhWdnegaBITwcSR1exAe43Ug5KeeucGqsZAbcl
- FaYEzq2uSjr0Hi69Ver19OIzqAXrIprxoMQzOT2s18rz7BqqtQOSU06oytmZaGdM0l9Z1MGn3V
- Ht0JDei+LFwsWkRySK5OnFWy0YY/WdZluUNzJa3zQ8BAAA=
-X-Change-ID: 20260704-pci-rebar-root-bus-f3123fe10fc7
-To: Bjorn Helgaas <bhelgaas@google.com>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
- regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org, 
- Jon Nettleton <jon@solid-run.com>, Jon Nettleton <jon.nettleton@gmail.com>, 
- Jacob Martin <jacob.martin@canonical.com>, stable@vger.kernel.org, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Liz Fong-Jones <lizf@honeycomb.io>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7820; i=lizf@honeycomb.io;
- s=gpg; h=from:subject:message-id;
- bh=tiZwX1JmLLUsHZJG3LbO1qum0siFMUGL+nup0ZLj+Xw=;
- b=owEBbQGS/pANAwAKAaXO1OOXra/CAcsmYgBqbNzDr8ep/jGlcuUqZtPyGYoV8lNXGhJJ6o6p5
- bJDuK58YKCJATMEAAEKAB0WIQSfW1LPQ0gyJmoTHwelztTjl62vwgUCamzcwwAKCRClztTjl62v
- wm2fCACzplb0URlP9O9SZoCrIJkNf+9dSN1UVWBNLkWHJhJiPfy+RhKryzBpkUnrnk+eGGVy/6v
- SJpSGdPtUUaZkf8OlGv6Upb5GItiyRwctbn6mPjyd/kmB+YaxXMAxBGttiELGn7g2BkJM7cTSYv
- QXvKemb1VVqrkV+wm8ZAshy8lM8URpPLTw77PlJKmU7H0woyQsW8TpzJOcl4Fu0kiZAnHrs8JDW
- evEFcyFrPbyMF7UhgcueWYhecqwm1c6WKxHtPorw5MfJDo2xM98cdF5RmdcoCuzk/i7DOo6Xw4R
- oVKeg0a7T+kxTBFRa8b3vTEk6b+xBa0W/D4pI2C9E2/Kn/9m
-X-Developer-Key: i=lizf@honeycomb.io; a=openpgp;
- fpr=1F7714D7EC3441D2CECC24606A3F8B00FBDDD2A4
-X-Endpoint-Received: by B4 Relay for lizf@honeycomb.io/gpg with auth_id=854
-X-Original-From: Liz Fong-Jones <lizf@honeycomb.io>
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FD:EE_|IA0PR12MB7529:EE_
+X-MS-Office365-Filtering-Correlation-Id: 433f72ce-62f1-420e-950d-08deef2fb18b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|376014|82310400026|1800799024|23010399003|13003099007|3023799007|11063799006|6133799003|10067099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: 5R/X2QDioAYKtW5nYqoBL/0x8tYXcucuA3HBxVGaXCaCvmJWgrI7zGIZ7S5IvI3eSTyOt12iM5Zwrk8GX2Q0xxVCwTYldY0yQUIbrJojDPlCnlIPmzqPX59QG46sXgCNo9ER8abi6f8mzryYyX2xYRqmtM/fq1pDLVTsWtiUdQ9xsflkCBUKwgp/Jjc/zHoqz+zQxqKt8tcFN6ej8/vKPtNWk3t2dtoo6+IrYc8xcwryxJ4edtQRNaK799sOZorjDyzqB083dWQE6ie2gdx/qw5eai9kAvWNxInH5uffovlZ1HJytPJU1upm7uPHfHNWxXHtYaXyVttGJXtvl8hPO3nfmQwRX3/3H/OUJ8vOE+0VtkxMdwkAh4OCC5l/4JpZuHcrxHCHqqXBDMh4JO3BgXZsZ2wBtzQUKDZ10B1X3AJsXZJ2s/cRH8a5U+7F+CGFxajjCy/CVkFDwEKmBjn9bMHPDSS11MuJWvgNWBLnV3eNECc+Z9FaNkiRyflB7VAhPRvVYhJlOmbd2Rh56bYES2RgmpdqdKnsPq++1O8/5sMuhhMJsvlS8F2JpiO+balPOWxNEi9Rj8LaTJgxJ8J0PeEuTT8hMyqV/XPGm8zOR85TRqU51P3wQA69Qo1g5ZXhnMlA4jchatdyhGgJQUHgfg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(23010399003)(13003099007)(3023799007)(11063799006)(6133799003)(10067099003)(18002099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: G6webRhrJy3UqlO+FEBfWzaJxjXFUUlTP19C3xUgkuf2f0Fu8nGezd0LcYMnpgrhhLIKGoXxx3Bd6xsW61Ii3LOv+HYttd0azLMTHE1saWsufUcTRi80VgPii1pU5vOiJWoFn+6fvWar1PbE9DJw7mWL9fiJZr5rhJsgae+Z2pNpkDM3T2JZomoeRWof9I1lDRtKNkfdC1DpsQPD2JfF9/NyOaKaYXp3diQ3W++IZJy5LMelGlweEPNOciyJ+eANy1ZWatw6Rqh307l7z2f882ra6zl5392+RA0n8VFPJWlUV31s6VitX3UIZrhUmBReKjtC+3Z3xwSD2S8+9tglIBoN/a3DQwo35zmaNBIOjt+DtpVp/moG7C5sHtbizjo68f6oKn1qUKP0K28bQSkLYJs1SMk15/O7mRoXARLugEqeJpXSsveCFIl4eTqL+dx0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 18:15:25.3965 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 433f72ce-62f1-420e-950d-08deef2fb18b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FD.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7529
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,187 +108,110 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: lizf@honeycomb.io
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Liz Fong-Jones <lizf@honeycomb.io>
+When we merged the drm_plane color pipeline API the major gap
+that existed was the lack of a YUV to RGB conversion colorop.
+We deprecated any legacy drm_plane color properties, which
+means that the COLOR_RANGE and COLOR_ENCODING properties can't
+be used with the COLOR_PIPELINE property on a drm_plane. In
+practice this means that we can't use a COLOR_PIPELINE on
+YCbCr encoded framebuffers.
 
-pci_do_resource_release_and_resize() releases the device BARs that
-share a bridge window with the BAR being resized, but when the device
-sits directly on a root bus (pdev->bus->self == NULL) it then skips
-resource assignment entirely and returns success, leaving the BARs it
-just released unassigned (IORESOURCE_UNSET).
+This patchset expands on the Fixed Matrix colorop proposed by Chaitanya
+and adds limited range variants of the YCbCr to RGB conversions.
 
-Skipping pbus_reassign_bridge_resources() is correct in that case --
-there is no bridge window to adjust -- but the device BARs still have
-to be reassigned. Before the BAR release was consolidated into the PCI
-core, this case worked for amdgpu because the driver released the BARs
-itself and then called pci_assign_unassigned_bus_resources()
-unconditionally after the resize, which assigns unassigned device BARs
-also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
-side BAR release before resize") removed that call, so nothing assigns
-the released BARs anymore.
+His full patchset can be found at
+https://patchwork.freedesktop.org/patch/709860
 
-This breaks amdgpu completely on the SolidRun HoneyComb LX2K (NXP
-LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
-on the root bus of its segment (there is no root port device, so
-pdev->bus->self is NULL):
+This code has been tested with IGT and an experimental KWin branch.
 
-  amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
-  amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
-  amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
-  amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
-  amdgpu 0004:01:00.0: Fatal error during GPU init
+All patches are now reviewed and tested. We have a Weston and
+KWin implementation. IGT patches are missing one review. I
+deem these patches ready to merge once the last IGT patch review
+comes in.
 
-No error is logged because the resize path reports success; amdgpu
-then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
+IGT branch:
+https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/yuv-fm-colorop
 
-Assign the released BARs directly from the root bus windows when there
-is no upstream bridge. On failure, roll back through the existing
-restore path exactly as in the bridged case.
+KWin branch used for testing:
+https://invent.kde.org/hwentlan/kwin/-/tree/yuv-fm-colorop
 
-The root bus path also had a locking bug that any fix here necessarily
-touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
-matching down_read() (as does the "goto restore" taken when
-pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
-before the BAR release loop so every path through the function holds
-it exactly once.
+The kernel branch containing these changes, based on drm-misc-next
+can be found at:
+https://gitlab.freedesktop.org/hwentland/linux/-/tree/yuv-fm-colorop
 
-Use pci_upstream_bridge() rather than testing pdev->bus->self
-directly to decide whether the device has an upstream bridge. The two
-are usually equivalent, but pci_is_root_bus() -- which
-pci_upstream_bridge() uses internally -- documents that "virtual"
-buses added for SR-IOV via virtfn_add_bus() also have bus->self ==
-NULL without being root buses. pci_do_resource_release_and_resize()
-is reachable for VF BAR resizes (see the pci_resource_is_iov() checks
-elsewhere in this file and in rebar.c), so testing bus->self directly
-could misroute a VF resize into the root-bus assignment path added
-above. Nothing about the bug being fixed here involves a VF; this is
-purely for correctness on that path.
+Further background on this work can be found at:
+https://hwentland.github.io/2026/03/10/plane-color-pipeline-csc-3d-lut-kwin.html
 
-Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
-Cc: stable@vger.kernel.org
-Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
-Assisted-by: Claude:claude-fable-5 checkpatch
-Assisted-by: Claude:claude-sonnet-5
-Reviewed-by: Krzysztof Wilczyński <kwilczynski@kernel.org>
-Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
----
-#regzbot introduced: 337b1b566db0
+v5:
+ - Drop new VKMS kunit tests for conversion matrices
+ - Added script to show how VKMS kunit test values are computed (Pekka)
+ - Removed fixed-matrix enums for "YCbCr limtied to full" and
+   "RGB709 to RGB2020" as they're currently unused by userspace (Robert)
 
-Observed at runtime on Ubuntu's linux-hwe-7.0 (7.0.0-14, broken) vs
-linux-hwe-6.17 (working), but nothing here is distro-specific: Ubuntu
-carries this code unmodified, and the affected function is identical
-to current mainline. By source inspection the regression window is
-v6.18 (old code paths) to v6.19 (consolidation). Workaround for
-affected users: amdgpu.rebar=0.
+v4:
+ - Specify matrix entries in docs (Pekka)
+ - Squash limited-range enums into "Add FM" patch (Robert)
+ - Don't reject RGB planes with fixed matrix in VKMS as
+   we don't want or need to make a colorop dependent on
+   the framebuffer's pixel format. (Robert)
+ - Fix conversion matrices in VKMS and implement kunit
+   tests (discovered while documenting the matrices)
 
-On the topology question raised in review: this is physical hardware,
-not a virtualized guest, running the UEFI/ACPI firmware variant of
-this board (SolidRun also ships a U-Boot/devicetree variant of the
-same hardware). Deferring to Jon Nettleton (CC'd, SolidRun) on the
-exact root complex wiring; see the hardware manual's block diagram:
-https://dev.solid-run.com/nxp/lx2160a/com-som/lx2160a-com-hardware-user-manual#block-diagram
----
-Changes in v3:
-- Add Reviewed-by from Krzysztof Wilczyński, received on v2.
-- Use pci_upstream_bridge() instead of testing pdev->bus->self
-  directly, per Bjorn Helgaas's review: bus->self == NULL doesn't
-  necessarily mean a root bus (SR-IOV virtfn_add_bus() buses are the
-  same), and this function is reachable for VF BAR resizes elsewhere
-  in this file. Doesn't affect the bug being fixed here (not a VF)
-  but is more correct in general. Reviewed-by kept from v2 -- this is
-  a narrow, mechanical change to a path this device doesn't exercise,
-  not a substantive rework of what was reviewed.
-- Rebase onto current mainline.
-- Add Jacob Martin to Cc: he independently triaged and accepted the
-  corresponding Ubuntu report (LP: #2159596) on the Canonical kernel
-  team, so he has direct interest in this landing.
-- Move Ilpo Järvinen to To: for final review, per Bjorn.
-- Link to v2: https://patch.msgid.link/20260712-pci-rebar-root-bus-v2-1-a1b9107a82dc@honeycomb.io
+v3:
+- base on Chaitanya's updated patch and rename code accordingly
+  to Fixed_Matrix instead of CSC Fixed-Function
 
-Changes in v2:
-- Add Assisted-by tags (missing from v1; required per
-  Documentation/process/coding-assistants.rst)
-- Add Link: to the corresponding Ubuntu bug report
-- Drop the "# v6.19+" annotation on Cc: stable; unnecessary noise
-  given the Fixes: tag already lets the stable team derive applicable
-  versions (per stable-kernel-rules.rst)
-- Link to v1: https://patch.msgid.link/20260705-pci-rebar-root-bus-v1-1-55df70cbdd88@honeycomb.io
+v2:
+- use Chaitanya's CSC_FF block for named matrices
 
-To: Bjorn Helgaas <bhelgaas@google.com>
-To: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Cc: linux-pci@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: regressions@lists.linux.dev
-Cc: amd-gfx@lists.freedesktop.org
-Cc: Jon Nettleton <jon@solid-run.com>
-Cc: Jon Nettleton <jon.nettleton@gmail.com>
-Cc: Jacob Martin <jacob.martin@canonical.com>
----
- drivers/pci/setup-bus.c | 26 ++++++++++++++++++++------
- 1 file changed, 20 insertions(+), 6 deletions(-)
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Daniel Stone <daniels@collabora.com>
+Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+Cc: Uma Shankar <uma.shankar@intel.com>
+Cc: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Melissa Wen <mwen@igalia.com>
+Cc: Simon Ser <contact@emersion.fr>
+Cc: Robert Mader <robert.mader@collabora.com>
 
-diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-index c0a949f2c9956..d50f3d57a7791 100644
---- a/drivers/pci/setup-bus.c
-+++ b/drivers/pci/setup-bus.c
-@@ -2380,6 +2380,7 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
- 	struct resource *res = pci_resource_n(pdev, resno);
- 	struct pci_dev_resource *dev_res;
- 	struct pci_bus *bus = pdev->bus;
-+	struct pci_dev *bridge = pci_upstream_bridge(pdev);
- 	struct resource *b_win, *r;
- 	LIST_HEAD(saved);
- 	unsigned int i;
-@@ -2397,6 +2398,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
- 	if (ret)
- 		return ret;
- 
-+	down_read(&pci_bus_sem);
-+
- 	pci_dev_for_each_resource(pdev, r, i) {
- 		if (i >= PCI_BRIDGE_RESOURCES)
- 			break;
-@@ -2415,13 +2418,24 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
- 
- 	pci_resize_resource_set_size(pdev, resno, size);
- 
--	if (!bus->self)
--		goto out;
-+	if (bridge) {
-+		ret = pbus_reassign_bridge_resources(bus, res, &saved);
-+		if (ret)
-+			goto restore;
-+	} else {
-+		/*
-+		 * A device on a root bus has no bridge windows to adjust.
-+		 * Assign the BARs released above directly from the root bus
-+		 * windows.
-+		 */
-+		list_for_each_entry(dev_res, &saved, list) {
-+			i = pci_resource_num(pdev, dev_res->res);
- 
--	down_read(&pci_bus_sem);
--	ret = pbus_reassign_bridge_resources(bus, res, &saved);
--	if (ret)
--		goto restore;
-+			ret = pci_assign_resource(pdev, i);
-+			if (ret)
-+				goto restore;
-+		}
-+	}
- 
- out:
- 	up_read(&pci_bus_sem);
+Chaitanya Kumar Borah (1):
+  drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
 
----
-base-commit: 8ba098e6b6ff0db8edf28528d1552be261af30d4
-change-id: 20260704-pci-rebar-root-bus-f3123fe10fc7
+Harry Wentland (9):
+  drm/vkms: Fix limited-range YCbCr to RGB conversion scaling
+  drm/vkms: Add fixed matrix colorop to color pipeline
+  drm/vkms: Add atomic check and matrix handling for fixed matrix
+    colorop
+  drm/amd/display: Add fixed matrix colorop to color pipeline
+  drm/amd/display: Implement fixed matrix colorop color space mapping
+  drm/amd/display: Use GAMCOR for first TF if YUV conversion is needed
+  drm/amd/display: Check actual state during commit_tail
+  drm/amd/display: Set color_space to plane_infos
+  drm/amd/display: Force GAMCOR for subsampled surfaces with
+    PQ/Gamma22/HLG
 
-Best regards,
---  
-Liz Fong-Jones <lizf@honeycomb.io>
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  14 +-
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  85 +++++++++++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  27 +++-
+ .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |   1 +
+ .../amd/display/modules/color/color_gamma.c   |   3 +-
+ drivers/gpu/drm/drm_atomic.c                  |   4 +
+ drivers/gpu/drm/drm_atomic_uapi.c             |   7 +
+ drivers/gpu/drm/drm_colorop.c                 | 107 +++++++++++++++
+ .../gpu/drm/vkms/tests/gen_yuv_conversion.py  |  87 ++++++++++++
+ drivers/gpu/drm/vkms/tests/vkms_format_test.c |  40 +++---
+ drivers/gpu/drm/vkms/vkms_colorop.c           |  66 ++++++---
+ drivers/gpu/drm/vkms/vkms_composer.c          |   6 +
+ drivers/gpu/drm/vkms/vkms_formats.c           |  64 ++++++---
+ drivers/gpu/drm/vkms/vkms_formats.h           |   2 +-
+ drivers/gpu/drm/vkms/vkms_plane.c             |  55 +++++++-
+ include/drm/drm_colorop.h                     | 127 ++++++++++++++++++
+ include/uapi/drm/drm_mode.h                   |  12 ++
+ 17 files changed, 639 insertions(+), 68 deletions(-)
+ create mode 100755 drivers/gpu/drm/vkms/tests/gen_yuv_conversion.py
 
+--
+2.55.0
 
