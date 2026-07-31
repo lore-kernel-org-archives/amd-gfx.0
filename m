@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 455F1C55178
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B010FC55176
 	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 18:15:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 745B610F3A2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5009B10F3A0;
 	Fri, 31 Jul 2026 18:15:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="q7MC66EE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TvN6MyQv";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011028.outbound.protection.outlook.com
- [40.93.194.28])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7287D10F399;
- Fri, 31 Jul 2026 18:15:40 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011045.outbound.protection.outlook.com [52.101.52.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F3C9910F393;
+ Fri, 31 Jul 2026 18:15:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X/1uPnfUpOS2yJYy6hImdLefreRhwOlNijRldq0Hu0jtaUxYRBbjkvoog3GaTGkShUsA1obtFbYtOCA8ob4fCE4FDBmr0/yzO/3LGY+8xvBIQxtd/LfMjArZVd4rehRBybDA0ZraMcfPnvAwvfibBfCmYyLJkBzfDnoufwu4vDGRTbHTjuGS0ohCIwEm2NkdOy/WSDY1VT+2jwLT9D4EUvrJHUghchvBpf/+JO7X90EcrYQptAg6XXPerIfZ+pchtv9nWhPypGdlVLUe7g+hOKzX7p7Sp1YQYn0FUAjIh0TP9uEsPG15YTOP3HgoD7fWI47qcnlxndjb0+kgOkGgVw==
+ b=nl+rkSI8DXRxZSkLWmg5vEs4JC9jHQ/MubHfSilyxEq0yvdbjr8IkQUsl+V1BWj7ROYJlUdoge6v0wsiqG6daRYMckVKTAiE4tsA3qaUMFATIdpekVj9eoqOAceWyuPr2Hxpk0flZHcRTgreEVAwi3926/ZkMxNyabDUo3EETQ5b+d26fP0rWDopaYA/EXwSYVbpyJd2rU2mDyOYwOAAs88XoE0xYgwNWux7+Yd1nU3qs2pyOoXSVSxNIWUrc9Kx1FfZDNwKPOVDlAFZpClMQ1EzRf1uxy0Ad1TRuyG9QEOVegiX3lNBMTuQzsWnwUl3znL5Sfd0LzVR8VObmG+xzw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ejmLiuUXvY3fKjtZUKV4jxXyr9WDl9S2gZUz2Han30U=;
- b=w7h/+tybFIrFDjbN4X807M8bLQtijHkzyS3lwxhcc5s86qAh5RWemP+O1boQZ5iBElyPj3vTmuRtTdefOweq4Nq/Eda+NObQNEpg1r+BZUH8iOI1osp5ehDI/K6wLfCMLxkvZXdX+Y43hZWQ0rAZCp/QoOG4fMdzXQm9/RTG83RHMSJUYIzLvMB/Ch+X26IPcEqXOMUo8uBVTV+wYkHKb4KE1US37gKSx0pwulJ1icc6QRcvxwlVzSU7rKSkC+Mt9Bj5NczailAw8VAhewAx+CIvNT+foi5z+XMGeBYW17oWpDe1ppaoAQjFS2loIg8oEkzGAkLgPogYz96GL6MIhA==
+ bh=+UbZpQtoCuqn20ETZtcQHdAGAcmUnWZk8cadO6gFU9Q=;
+ b=gDcNFz1s14B0Bg5fkbjgRkbRS8QlP1R2+ReKCZAhePyWXQq9tXaqkkNL+YAJVnqNfWB/0Bprk6ma8t0TST+gIxcbhTLhP/yzEPVH+uw0MMlRdx62+o7ZuAgWgoJNssTxw+V+H5NewTbswC1zmy8oEy+gGsCFrDdODWTAM52CWGd0XUY+pujYh40DCnIMQMfxhDahbRX119lLZeR0iG6+g7f6Yra5naTJUDUH4N1XZPEelqsUr/JweIxwOvkxaNkp85q3UTzKNg3CFIXz2yCMNTS0uZ2YnHoQonAnDNJi5XuI6pDzZwK/nYdCz46pJB/4vSG65GJsTZUcv+3u/AcZkw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ejmLiuUXvY3fKjtZUKV4jxXyr9WDl9S2gZUz2Han30U=;
- b=q7MC66EEox+BBaBSJqexg+roX7GnHo7c+PNce4x6J+nM4fE4a/fOU+b9lPkTDIrk5kyli2SCVMPQEkV1pmi2pUcK+ASHJXa399fVbRN8iGca6pQfBkbzSLTr7ZRuDITiZV6p170ZqXqBmeGA3Vh1qG/7Pr9SjQtvBT862951hp8=
-Received: from BLAPR03CA0052.namprd03.prod.outlook.com (2603:10b6:208:32d::27)
- by BL1PR12MB5995.namprd12.prod.outlook.com (2603:10b6:208:39b::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Fri, 31 Jul
- 2026 18:15:34 +0000
+ bh=+UbZpQtoCuqn20ETZtcQHdAGAcmUnWZk8cadO6gFU9Q=;
+ b=TvN6MyQvBjILUoXtz+A56l+TPhY7+dvP9t5J8r4svT83d+eT8uvp2QzbhO4YzeuBEnMT7py5L4MeUE5d/0uz9ua17m9f2p6d5JvApgkxbXKO9ejiP+/ECp+FW8LuZc2M1URL4XRkp/JJF91AtfFYC6Zhnhl1oRMIOHn4kQhNhx8=
+Received: from BLAPR03CA0043.namprd03.prod.outlook.com (2603:10b6:208:32d::18)
+ by SJ5PPF0AEDE5C3D.namprd12.prod.outlook.com
+ (2603:10b6:a0f:fc02::989) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
+ 2026 18:15:31 +0000
 Received: from BL02EPF0001A0FD.namprd03.prod.outlook.com
- (2603:10b6:208:32d:cafe::92) by BLAPR03CA0052.outlook.office365.com
- (2603:10b6:208:32d::27) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:208:32d:cafe::73) by BLAPR03CA0043.outlook.office365.com
+ (2603:10b6:208:32d::18) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.15 via Frontend Transport; Fri,
- 31 Jul 2026 18:15:32 +0000
+ 31 Jul 2026 18:15:31 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,26 +50,26 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BL02EPF0001A0FD.mail.protection.outlook.com (10.167.242.104) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 18:15:32 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 18:15:30 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
- 2026 13:15:32 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 13:15:30 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
- 2026 13:15:32 -0500
+ 2026 11:15:30 -0700
 Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 31 Jul 2026 13:15:31 -0500
+ Transport; Fri, 31 Jul 2026 13:15:29 -0500
 From: Harry Wentland <harry.wentland@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>,
  Robert Mader <robert.mader@collabora.com>
-Subject: [PATCH v5 08/10] drm/amd/display: Check actual state during
- commit_tail
-Date: Fri, 31 Jul 2026 14:15:19 -0400
-Message-ID: <20260731181521.681990-9-harry.wentland@amd.com>
+Subject: [PATCH v5 06/10] drm/amd/display: Implement fixed matrix colorop
+ color space mapping
+Date: Fri, 31 Jul 2026 14:15:17 -0400
+Message-ID: <20260731181521.681990-7-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260731181521.681990-1-harry.wentland@amd.com>
 References: <20260731181521.681990-1-harry.wentland@amd.com>
@@ -79,29 +78,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FD:EE_|BL1PR12MB5995:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8078a34f-378d-4d12-8981-08deef2fb5e8
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FD:EE_|SJ5PPF0AEDE5C3D:EE_
+X-MS-Office365-Filtering-Correlation-Id: d660be9f-62db-4e34-e24d-08deef2fb4e0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|23010399003|1800799024|82310400026|56012099006|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 2OgCZZI/7N1ot2TzBwGug4lmTd2spcT34gjT3a8etlLhZRCdAjlBiaWjnER7Ks0vpONiWuQFtkGYohQOnHP6wJ3ziJEc6EYtj3//T2dHKZmGzpWGXWxIes64Q0Ijs6jDzqOwFNkR9mXCZUijIfZcmIWTLQ6nC7HNJMUNIoOWvJfxBM9/20I/eH6aSSJO/u+DuDijb8xsywNn2zoZaIlJh1YhUdKZa/qWAoWJfwFklwC6iEQerNesvBvl0WZaY3n5S8KCCqIBpuLE75EDU25B77bCyE6Q252mmgb1+GG7wdPuTn1+8CHCoCLzWo9mb1mwZUsrv1vaNa2yyugq4B7+eATIuUil0ayxsyIySfT0Lb/tvAldHPzas2dpDMHW988lDO0UdTTxgaL4IdrLtghbLZQvv2DTor7F8tj3OKhKhdQPTOVG3Dql91FP667VJJh1zPc5FcfPv+H9BZsJx15OxQ3smgaiUHJK8JEdrWou47pHlYCxD/mSJY/b8vxJKBXGD928Ix6mSptkE4JEO3Y+preqNQmmfymWMQrFuFIX+rNqXchJArkS2w2o9pMOYEUUQOjs+/fHMAXi6EkFEh1BRXBJaaeIuhJHwXCtuIa/bZeOGPw+GHFqpbm7BJb2TlS4VBSH9AspjYU4UN7pLT6Q7kp6DGTQRDBRHNCYnkf/eboY3EN4rxWnOPEGq67oBDvYCmIXD986kO7iayKPvxB7pw==
+ ARA:13230040|1800799024|82310400026|376014|23010399003|36860700016|11063799006|56012099006|22082099003|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info: PDa6Kk7hyns3pXm9UmqATBexCZVwl4g1ETiET9gEbO6APNuUGN/+fcajnhRgRyahglDw/rUzvZ5rSZa4eaNUDy0kSJ1rjbdN9fZnjiQgAgxevMtrU0pezH+eKxOL2yBEFmE7vkop5WmmdG2nbExHYFByjjGiwwjDCG05oaivmue3ZMXhgQtSee6DDpKADnhjGPRH2Yr5jm+NRq6FQqGlGjkEFZRXU91JHlreYMjTRLgBwan3mp7aRvmCZDkXZUqDrQJvWa015BGwftTifCkBLfcdxr/lhrSNvNOD6mL72AKOkI2I9PD2ydjvP42n62gesjsWRH9EivQQo/3TT/yAZvRLE1fMzHBPvOeifnX+apd+Tj3B++wqpe/OUMUKJNhW0jwCVwOBOC+GR2kXmVMUSjzeVtLynVuWcQ8UB988lh+Q01uKDTQLUfzeCBQhc+E5yEvrbXFuG8pCdSqut83wNuL9zZT9q3lVvoW8URx+ktn3762YpZp3CriwTRmHK3fBQLx5si0uX+S5o8ZP2Jv7KDXFPo3vqCa4PJde6Emgt2VDLkOTkTPt+0FBohyvOY4Ev9MY6TuyspaVVkJe8y1UAciHu6vQR8cxbUP32iSMz/pzH6PFbRBVTIRCiIOcTKCo0XPeB4TQhGAX1ySgdhS4kyjs/rIVg5durDx9OQWoK45xySIv6hIXLMH0XLjH8bv25Nb+Gte7j4ou/CHddt+S8Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
+ SFS:(13230040)(1800799024)(82310400026)(376014)(23010399003)(36860700016)(11063799006)(56012099006)(22082099003)(18002099003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: rPe81bvp6ple+F5jSrmThEfEFBYrLfqenVS/f0sMluXz85hvRA96G2HQ6yU9MD9YC6i9mphA6otB7pBwAdsgroWn3ymp6GNFAqWi55IJLcZ56JZCNayoLvA93khB0uzGAB/gtIDMLp4eZdpZHEcsiaJod2xnWoqRz4TSUuWxUnOZQbPya8ln2vA+tHi5Yb/FVkgnksWT/SlIwJALgeL70DlhIy6vx6LWZaROr4lTEswypHMFOXp4Fp7euoEL0M2xerkd9tfKkVNiJdQ2fmoKKFr/pdNOOqjQEJLI5ZIIQPHSRBZo3jbfjdhrqSkpIqTsulQTg3T8RqpaNkZ9JD0ABdebYC5YC2JJ3sG2PkdkfIat8TANs7l+1LFT5vvB8lpQSYWsgQLa3lH4HVzy+JdK9oE+E5i57LSu3R7+/WJO8o9Q2l5B+RYFo8Wuw9KiKgz3
+X-MS-Exchange-AntiSpam-MessageData-0: 70zbfR/wBIpoG4UiDH9G57w0VQ6n5LRQJwY5ZyAYBpk9yicrRH6B0kClnvHxJbRjzfQ8LbNbu2k3XJbKrln2i48mBVu7Dc4SEL1XQ4XEI3moMLhu4Jmr8GjudbOkDRoDqmrMOrm31BCdrjXMWdUq1yuXk6UgcPmxYYqxWAeXDa0rQYv4Cvm8ifIgHrf87ePnAKhWiZLT8VZpBxwbb2duNNpSCpyNFAzxmjNnrwN0IWS4ioeYXWAxI0q1QAXYa4mtn2zIi/YZ762px817P1R77tAVh3w2QOd6gxOHw6w2vt94jb7WgFCMJkfizZ4oI/N1VpIefeWpSOTmWzysuer83Rv96c7H4dnY8LWrsqPuD2loaw4lqaU+xcBHNuDX1uY12CJaqwLTmQqhpOYDPCAXxQ0Mv1mPlJpxSNNfYtF2YDBQspMgCs8409mf3kFTS/n7
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 18:15:32.7165 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8078a34f-378d-4d12-8981-08deef2fb5e8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 18:15:30.9877 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d660be9f-62db-4e34-e24d-08deef2fb4e0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FD.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5995
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF0AEDE5C3D
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,86 +115,120 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Previously we checked the plane_state->state's plane_color_pipeline
-client config when determining whether fill_plane_color_attributes
-should run, i.e., whether we had a plane color pipeline and should
-use that code for handling fixed matrix properties, or whether we
-should look at legacy plane encoding and range.
+Add __set_dm_plane_colorop_fixed_matrix() which maps the fixed matrix
+type enum to the appropriate dc_color_space for DC programming:
 
-The problem is that we also call this during commit_tail, during
-which plane_state doesn't have the state backpointer. This meant
-that during commit_tail we'd look at the legacy plane COLOR_RANGE
-and COLOR_ENCODING values and overwrite what we pulled from the
-fixed matrix colorop in atomic_check previously.
+  YCBCR601_FULL_RGB     -> COLOR_SPACE_YCBCR601
+  YCBCR601_LIMITED_RGB  -> COLOR_SPACE_YCBCR601_LIMITED
+  YCBCR709_FULL_RGB     -> COLOR_SPACE_YCBCR709
+  YCBCR709_LIMITED_RGB  -> COLOR_SPACE_YCBCR709_LIMITED
+  YCBCR2020_FULL_RGB_NC -> COLOR_SPACE_2020_YCBCR_FULL
+  YCBCR2020_LIMITED_RGB_NC -> COLOR_SPACE_2020_YCBCR_LIMITED
 
-Instead pass the drm_atomic_state in explicitly and check that.
+When the fixed matrix is bypassed, color_space is set to
+COLOR_SPACE_UNKNOWN.
 
-Assisted-by:Claude:claude-sonnet-4.5
+Update amdgpu_dm_plane_set_colorop_properties() to process the
+fixed matrix colorop first (before DEGAM), matching the new pipeline
+order.
+
+Assisted-by: Claude:claude-opus-4.6
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 Reviewed-by: Alex Hung <alex.hung@amd.com>
 Tested-by: Robert Mader <robert.mader@collabora.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 68 ++++++++++++++++++-
+ 1 file changed, 67 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 67b825cbb88f..b7d815997753 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -2984,7 +2984,8 @@ STATIC_IFN_KUNIT bool modereset_required(struct drm_crtc_state *crtc_state)
- EXPORT_IF_KUNIT(modereset_required);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index 357c7c5c85cf..62791077ceef 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -1545,6 +1545,61 @@ __set_colorop_in_tf_1d_curve(struct dc_plane_state *dc_plane_state,
+ }
+ EXPORT_IF_KUNIT(__set_colorop_in_tf_1d_curve);
  
- STATIC_IFN_KUNIT int
--fill_plane_color_attributes(const struct drm_plane_state *plane_state,
-+fill_plane_color_attributes(struct drm_atomic_commit *state,
-+			    const struct drm_plane_state *plane_state,
- 			    const enum surface_pixel_format format,
- 			    enum dc_color_space *color_space)
- {
-@@ -2993,7 +2994,7 @@ fill_plane_color_attributes(const struct drm_plane_state *plane_state,
- 	*color_space = COLOR_SPACE_SRGB;
- 
- 	/* Ignore properties when DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE is set */
--	if (plane_state->state && plane_state->state->plane_color_pipeline)
-+	if (state && state->plane_color_pipeline)
- 		return 0;
- 
- 	/* DRM color properties only affect non-RGB formats. */
-@@ -3034,6 +3035,7 @@ EXPORT_IF_KUNIT(fill_plane_color_attributes);
- 
++static int
++__set_dm_plane_colorop_fixed_matrix(struct drm_plane_state *plane_state,
++				    struct dc_plane_state *dc_plane_state,
++				    struct drm_colorop *colorop)
++{
++	struct drm_colorop *old_colorop;
++	struct drm_colorop_state *colorop_state = NULL, *new_colorop_state;
++	struct drm_atomic_commit *state = plane_state->state;
++	int i = 0;
++
++	old_colorop = colorop;
++
++	for_each_new_colorop_in_state(state, colorop, new_colorop_state, i) {
++		if (new_colorop_state->colorop == old_colorop) {
++			colorop_state = new_colorop_state;
++			break;
++		}
++	}
++
++	if (!colorop_state)
++		return -EINVAL;
++
++	if (colorop_state->bypass) {
++		dc_plane_state->color_space = COLOR_SPACE_SRGB;
++		return 0;
++	}
++
++	switch (colorop_state->fixed_matrix_type) {
++	case DRM_COLOROP_FM_YCBCR601_FULL_RGB:
++		dc_plane_state->color_space = COLOR_SPACE_YCBCR601;
++		break;
++	case DRM_COLOROP_FM_YCBCR601_LIMITED_RGB:
++		dc_plane_state->color_space = COLOR_SPACE_YCBCR601_LIMITED;
++		break;
++	case DRM_COLOROP_FM_YCBCR709_FULL_RGB:
++		dc_plane_state->color_space = COLOR_SPACE_YCBCR709;
++		break;
++	case DRM_COLOROP_FM_YCBCR709_LIMITED_RGB:
++		dc_plane_state->color_space = COLOR_SPACE_YCBCR709_LIMITED;
++		break;
++	case DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB:
++		dc_plane_state->color_space = COLOR_SPACE_2020_YCBCR_FULL;
++		break;
++	case DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB:
++		dc_plane_state->color_space = COLOR_SPACE_2020_YCBCR_LIMITED;
++		break;
++	default:
++		return -EINVAL;
++	}
++
++	dc_plane_state->update_bits.full_update = 1;
++
++	return 0;
++}
++
  static int
- fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
-+			    struct drm_atomic_commit *state,
- 			    const struct drm_plane_state *plane_state,
- 			    const u64 tiling_flags,
- 			    struct dc_plane_info *plane_info,
-@@ -3127,7 +3129,7 @@ fill_dc_plane_info_and_addr(struct amdgpu_device *adev,
+ __set_dm_plane_colorop_degamma(struct drm_plane_state *plane_state,
+ 			       struct dc_plane_state *dc_plane_state,
+@@ -1946,10 +2001,21 @@ amdgpu_dm_plane_set_colorop_properties(struct drm_plane_state *plane_state,
+ 	bool has_3dlut = adev->dm.dc->caps.color.dpp.hw_3d_lut || adev->dm.dc->caps.color.mpc.preblend;
+ 	int ret;
  
- 	plane_info->layer_index = plane_state->normalized_zpos;
+-	/* 1D Curve - DEGAM TF */
++	/* Fixed Matrix (YUV to RGB) */
+ 	if (!colorop)
+ 		return -EINVAL;
  
--	ret = fill_plane_color_attributes(plane_state, plane_info->format,
-+	ret = fill_plane_color_attributes(state, plane_state, plane_info->format,
- 					  &plane_info->color_space);
++	ret = __set_dm_plane_colorop_fixed_matrix(plane_state, dc_plane_state, colorop);
++	if (ret)
++		return ret;
++
++	/* 1D Curve - DEGAM TF */
++	colorop = colorop->next;
++	if (!colorop) {
++		drm_dbg(dev, "no degamma colorop found\n");
++		return -EINVAL;
++	}
++
+ 	ret = __set_dm_plane_colorop_degamma(plane_state, dc_plane_state, colorop);
  	if (ret)
  		return ret;
-@@ -3168,7 +3170,7 @@ static int fill_dc_plane_attributes(struct amdgpu_device *adev,
- 	dc_plane_state->clip_rect = scaling_info.clip_rect;
- 	dc_plane_state->scaling_quality = scaling_info.scaling_quality;
- 
--	ret = fill_dc_plane_info_and_addr(adev, plane_state,
-+	ret = fill_dc_plane_info_and_addr(adev, plane_state->state, plane_state,
- 					  afb->tiling_flags,
- 					  &plane_info,
- 					  &dc_plane_state->address,
-@@ -4226,7 +4228,7 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 		}
- 
- 		fill_dc_plane_info_and_addr(
--			dm->adev, new_plane_state,
-+			dm->adev, state, new_plane_state,
- 			afb->tiling_flags,
- 			&bundle->plane_infos[planes_count],
- 			&bundle->flip_addrs[planes_count].address,
 -- 
 2.55.0
 
