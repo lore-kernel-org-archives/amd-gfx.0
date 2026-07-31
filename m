@@ -4,64 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4AA7C55172
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 21:15:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B7DAAC55173
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 21:15:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5609A10F421;
-	Fri, 31 Jul 2026 21:15:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49ABE10F3FD;
+	Fri, 31 Jul 2026 21:15:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZvDTfSXf";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Olo9BLzF";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010071.outbound.protection.outlook.com [52.101.85.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 23C9510E24B
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 21:15:54 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010041.outbound.protection.outlook.com
+ [40.93.198.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3E9A810F40F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 21:15:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sdetQxPZLZcV3ZjHdGYFn7KlavZwOIADZ7vkGtimGs0McwXp87erg6IobWOCdqHCi7SE6KeJIK565fgZmYeEcI3FDZcK5bl4riYqigO12SXj1KMQwGMAlUl9KXnHzPgWgz5MiYnKI4fYI20ku/vqgV6ZGPBKXBKzG1gzbXlfCYD0l7+9fxzkL/gCueVZ8IxYv8fJEAN2m0+LeTZF8jNaZ5rzmLTiRdzKECD3FS1PS4o1iKeA6NU8IWi+WBFkPJhRyNybO1pbCiYLBK4nC0+zYDebbHDY+B9b/ly3suRxyIVpzbvGkvOhuZpE39pRyYdPF+o1lxW18NQPvcB2a2h8ow==
+ b=mQl2qvyWx1t9l6zHhDiQs95/8imV/VDCkXFCxeReqizeEqVg2pxbRutc+FeM687BGxZ3kUcOjgdV/IG3l+FwsYfzqkwqtKqJDxWoQjWFMgyL/oUJxBnFsvhAnE0/ScPhAgOr6yMzIZZL4g4RB79mV2ODpFPv5L1Zo3CU1VwDK3YFNZnsQeYUxwYzXHm1Ge2/jn52zfUtjqZevqNirGNmA63qXL7rBubNtY6huqJgIQMlHNVOzvFlf5iBRrSshKKhl1+8C0YkiKWveullUX9fqaLhieVnUl3SMiJ/HMnrhciLXB8iG5oESFwRrvmQYLd+uQd+R5E+KbMp3enzcnjnjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wymVz7Pcm0elJi1pGReyO1JE/AF+M7u0MNARrp4XDhQ=;
- b=BJjWy8h2N/RFWpv3oMbUAQbPPa7v3a3fujhnqZeNVsB53Fyoq9G5YpZo5mBtyY4hnaoT4E4SPU913oldmrl/Eg6uEKoo7DBP36j5xhHp9OlkfR2KmilgW1gNWoNYghNJ2+FpsE8BeSWNbCOLJbDcnliY71lYEhbm5vVLsHxOy9HzrrvuLhLWPBe4kRO6DlqXdE1UZe/Cu+1WxgQNk0mw0Sq4vHEHn5zA1E+I/DuDzbbOScJsXInOPVBQbogc5oii4x/z1rZa+tOmPVDSJrBDbekS6FAOj16juNCXGV/27sNN9nbReYwFJ4JctPrgWw8z1Xufvw4zS6ST99Z4bBRBJg==
+ bh=gNQlhA9JCFpmQ1mi7PlULEz9mt47FfSyNVdO2krneLg=;
+ b=WlZyRbfU0t4wamFGns55h0LDAYW0AIxOTyjZsi0kWi/K5pNirx1J7EsB0/KS9pVZYQTEQhuRSpvKcJ261jKAHRA40evrZHT8J/cOsq977H1N00WCfGHcroy+jA27mWQjy9efC9bW6En3fxobKXxl0krCYu9mGU2B0ePznowt0LFe3EOAjPFB0Qu7GHRqbRWNitnQWKORMoZxbcDy/QRBRSSn2M6VANMphYzGRgvXZcMW0xPnzHV3xDcsuBfqIACU442askzT01RzaI0islig5RfebpL+HX2Pv2bGn5B478MlXnUhTIjQq6bU6PQ0AoV9NjTIPOfr76JHbJQr8fHImg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wymVz7Pcm0elJi1pGReyO1JE/AF+M7u0MNARrp4XDhQ=;
- b=ZvDTfSXfOCwIwKz8VsDgeDgax9cDxiY08CyTKoJq2YSZxaSeIPjcKRFAkwEQhBGMAD4izT3dy6DjBBFpJj0HHVXX43ZbtuLGoaYn/X1LolTeMwdh76z4bBwlxpVnFanyjFL9t3+GbK9RPBY/5h8FU8nyyXKxpFSNF4UqFPU1xzg=
-Received: from CH0PR07CA0011.namprd07.prod.outlook.com (2603:10b6:610:32::16)
- by IA0PR12MB7554.namprd12.prod.outlook.com (2603:10b6:208:43e::19)
+ bh=gNQlhA9JCFpmQ1mi7PlULEz9mt47FfSyNVdO2krneLg=;
+ b=Olo9BLzFIjYdJmonQSTBzRmcwuk/a4ImTozYIxKlmrGIUb+oZtYmmUFAYpR5zZgxpx2zO13lrjjjLHgJBvJQx+51kmv8/jiBk2PtUnGW9ch3XaUR5LQUzGU10PaZ8BfjNUS72vtWAilviRxpXFZG3/YGi94ntu981nvjqf7gMOA=
+Received: from BN9PR03CA0146.namprd03.prod.outlook.com (2603:10b6:408:fe::31)
+ by CY5PR12MB6573.namprd12.prod.outlook.com (2603:10b6:930:43::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
- 2026 21:15:46 +0000
-Received: from CH2PEPF00000140.namprd02.prod.outlook.com
- (2603:10b6:610:32:cafe::76) by CH0PR07CA0011.outlook.office365.com
- (2603:10b6:610:32::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.16 via Frontend Transport; Fri,
- 31 Jul 2026 21:15:46 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Fri, 31 Jul
+ 2026 21:15:48 +0000
+Received: from BL02EPF00021F6B.namprd02.prod.outlook.com
+ (2603:10b6:408:fe:cafe::2b) by BN9PR03CA0146.outlook.office365.com
+ (2603:10b6:408:fe::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.13 via Frontend Transport; Fri,
+ 31 Jul 2026 21:15:47 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF00000140.mail.protection.outlook.com (10.167.244.72) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF00021F6B.mail.protection.outlook.com (10.167.249.7) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 21:15:46 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 21:15:47 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
- 2026 16:15:45 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 16:15:47 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
- 2026 14:15:45 -0700
+ 2026 16:15:47 -0500
 Received: from roman-vdev.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 31 Jul 2026 16:15:44 -0500
+ Transport; Fri, 31 Jul 2026 16:15:46 -0500
 From: <Roman.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -71,9 +72,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 17/41] drm/amd/display: Add active plane count tests for crtc
-Date: Fri, 31 Jul 2026 17:12:38 -0400
-Message-ID: <20260731211302.3040343-18-Roman.Li@amd.com>
+Subject: [PATCH 19/41] drm/amd/display: Add KUnit tests for crtc
+ set_vupdate_irq
+Date: Fri, 31 Jul 2026 17:12:40 -0400
+Message-ID: <20260731211302.3040343-20-Roman.Li@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260731211302.3040343-1-Roman.Li@amd.com>
 References: <20260731211302.3040343-1-Roman.Li@amd.com>
@@ -82,29 +84,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000140:EE_|IA0PR12MB7554:EE_
-X-MS-Office365-Filtering-Correlation-Id: 26fadb47-226c-42a4-ec37-08deef48e33f
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6B:EE_|CY5PR12MB6573:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7c168a4-e1bb-44ae-dc42-08deef48e43d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|23010399003|6133799003|11063799006|22082099003|18002099003|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: FUQtL50GyqnyCu2I1HNsCkEEwanJQJS9PdtWBIdWMg9hzqMN0n7oSjLeLMTCQApyroTJ7Mt20ExK0o0ThHjLXPZexhBfZEL4Oe2qc4i7yj5lJ4VLqiXUxROg9OaQWFkDivhxTMpFb00OgEvVc7sc51ctQ5KZ4gfk8OEEvtRcaeIRltPKq7ZzCdLiPtf2a8aTAjyjlYtBdD6E0aFFxRXfKjirXmspLTUyk1bJHVHgrCe01Iehs2F89dlMwD7uDPNHiZa+gBc0mblKa6DyPi3Xz88OIu2keAOxidzyas/8fpO6J8lAsy0CpCo7dA0cvJSu/joZdxBSITFcRAlS+4jJZAcmJxh4eNCkCnnI2dvccA07DfWoh/+3YdHIl1Vy+JnUtpWucUS5uENux6/v0zOR1tkMDxj3tka7TDgdHFxWD+PHy7J6pbX7RwP8BGQW8FdRszRtC0TrZNA5y/RRs9sbCqDAf9j221zjIXm+gG0miaZIX8e1Qp4S5EZGbkglyFDKJJc/KRFmXnADwa4C/NxVxO7q0yhFZUhJ17/ufGmNzwPi+Zhua1OrpJaWXm/AKaRaZc0hitwWyMBDRIXHojHcADK2qeTx4HqrBbitO7g1oaT8y6d/oc7Y3RECnHVOO9rFijE/eTS1QSUate0EKsqrU1DgQ9OcbKDRs7L+mf6FgzxB0hmH3yE8aZLcQu0L/gAUoNQk2DyyL7tA8ya7JFWRAQ==
+ ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|56012099006|11063799006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: NeeKsU6dDjhkQNbGN7WtxNQ6j0m6PwzgB5gjf+dniL9UHdj1g9loPKPb6WPHKgD27uIFPzxlpIQrm7Kw2xyVycTKob2UhiYyyAc0BIrZKbtxUQh44rrK6CahFPd7kej7HgW8Qm9UOPZrpYH056+C/ISsMRqFEKzp9EsW6pFN3HEXTPpmey92UhPWMdZic4K9QUIjT8muZIdfZvkNLUpKdWJTMZBRlklhL5v9r3SX6+J4/MH+OUR0xw0LPMXPO2HL1/6ZEdk/8VpPsuwfPp0LMUwNU5i+sEq5qDLBhwOTV4iwHcb+fvzfhVKJrPVIgGWW5EKk1huAYFkNVCVTmyYhYve1//fYGwHtE/ufbq7AovQRIlx3d7CF1JkA+vBVDeiMClLNPC8htKAyakW7JYElUce+8C4UabHhdUeDthZzA9d2WsUydQD6Mg4dsGfjMPhx+XnOPvDAdaWkINQzHx9/D2yrv3Xd/KjRep1jc0r3+YwKtIfcLxeR5xBaULHOZOh5u0ydbdGU0itCfN1JYWDqRUp//dQOlx8xkvzoyad7wGOfFbNjpu7RP92LwIq6wlIHXDuL9fLMViNuBBS75i4XqEP2Dlc1ltr2DbHctCWtxXZU0Ai66AdTzh5A0FyvIUcgHXrmquhZHhKvbNscB+jYQCL5c0Wp6rn86uSe4yzwo+S7xGhtgnq3sXLikQ5pBCYIxNl8w1yU/TFBOVDw6d6zYQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(23010399003)(6133799003)(11063799006)(22082099003)(18002099003)(56012099006)(10067099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Uvmp58xLjzWvM9ScRoxPZy0f2mU9AEqukTZNFgeK2dYdSOh2qyQsiXQe7FUAduLY2+DLQ4Remr6+Z1lMYmclw/O/56mg1aK4F5Wybzg/1qBUVHsgdbBg6akMu3L/SWTL82Rd0bjUuCIfkeIVE+vAhnLdxEqmxnCUbCwbAGdkOz8HyveReVbpVF5nQxrxDgnmeqwIF8xSktw80xeBv2USZXd7L5VprpL7JyUNB61UpxMH7JuXC8AFxJb8MqbRGzedAV7x2sXnawXyxZLWHcLprk9z6rgPHgWeu6e1knVC86GOLQnziTOcOWURihH0Qn0GNWG+k+C7gUpM86F3iZDxL3DG6fsIYb/yx8/vxqAcrs7A4LAa+o/zmx9WRP8cZjIjcWnT9vMAfgnI53k7y7kHo62ouzvrnOGdLwh8XzKMdlCDxtxCnr+ObxwpK3zdayjT
+X-MS-Exchange-AntiSpam-MessageData-0: n3km73A1LkJ8yH5pfnT8tJkplbE5edd/IhS+4yxKPhjUjP6Ahx6+7m5Sfrg95ISzwHHZnmhv1OdmRQAqspITz/2+5nIkH//WmQLF212rd4QO01jdkvgFM6rlIbbBkiqMBV8h/n7HQfCw8FAT0/VwOKEA9JH4OhqEEsCL/EXLj6b+mt50tEmG2m00kJavXbmobmsXiOxwfd2l/9m0tAQ1bc6fqaSbD5bgS/z2xZmSdykkon1RX7y0zoa+njYpQRPT8roFT4sbEtofWuZIxt2/PLF8FdJ1qcD2GOwWMHMmNqvIfI6hl55oNBv3yNlwtWqh4E53NaD/gcs52A7Nj8fW9CXeGSDAB27x1ZHxUb2C7DacpmKSzqNDvgPAEjZ6tZQjjAh6qWs60AdBcRJNgkDYRJ09LjusqIQ1+xzQK5uo0NhuROrC1NxEX5CgY9SN3aG2
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 21:15:46.1942 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 26fadb47-226c-42a4-ec37-08deef48e33f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 21:15:47.8686 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7c168a4-e1bb-44ae-dc42-08deef48e43d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000140.namprd02.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6B.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7554
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6573
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,187 +123,144 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 
-Expose amdgpu_dm_crtc_count_crtc_active_planes() for KUnit and add tests
-covering the empty plane list and the mixed case exercising the mask
-filter, cursor skip, missing plane state, and framebuffer presence
-branches.
+Add dm_test_crtc_set_vupdate_irq_dc_busy and
+dm_test_crtc_set_vupdate_irq_enable to cover the previously untested
+paths in amdgpu_dm_crtc_set_vupdate_irq() where an OTG instance is
+assigned: dc_interrupt_set() failing (returns -EBUSY) and succeeding
+via a mock IRQ service (returns 0 for enable and disable).
 
 Assisted-by: Copilot:Claude-Opus-4.8
 Reviewed-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Roman Li <roman.li@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |   3 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.h    |   1 +
- .../amdgpu_dm/tests/amdgpu_dm_crtc_test.c     | 115 ++++++++++++++++++
- 3 files changed, 118 insertions(+), 1 deletion(-)
+ .../amdgpu_dm/tests/amdgpu_dm_crtc_test.c     | 99 +++++++++++++++++++
+ 1 file changed, 99 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index fd816be907c4..82a30097072e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -587,7 +587,7 @@ static void amdgpu_dm_crtc_helper_disable(struct drm_crtc *crtc)
- {
- }
- 
--static int amdgpu_dm_crtc_count_crtc_active_planes(struct drm_crtc_state *new_crtc_state)
-+STATIC_IFN_KUNIT int amdgpu_dm_crtc_count_crtc_active_planes(struct drm_crtc_state *new_crtc_state)
- {
- 	struct drm_atomic_commit *state = new_crtc_state->state;
- 	struct drm_plane *plane;
-@@ -618,6 +618,7 @@ static int amdgpu_dm_crtc_count_crtc_active_planes(struct drm_crtc_state *new_cr
- 
- 	return num_active;
- }
-+EXPORT_IF_KUNIT(amdgpu_dm_crtc_count_crtc_active_planes);
- 
- STATIC_IFN_KUNIT void amdgpu_dm_crtc_update_crtc_active_planes(struct drm_crtc *crtc,
- 						     struct drm_crtc_state *new_crtc_state)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
-index d1e2cb4efc54..93c6d0d8d7fd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
-@@ -50,6 +50,7 @@ void amdgpu_dm_crtc_destroy_state(struct drm_crtc *crtc,
- 				  struct drm_crtc_state *state);
- struct drm_crtc_state *amdgpu_dm_crtc_duplicate_state(struct drm_crtc *crtc);
- void amdgpu_dm_crtc_reset_state(struct drm_crtc *crtc);
-+int amdgpu_dm_crtc_count_crtc_active_planes(struct drm_crtc_state *new_crtc_state);
- void amdgpu_dm_crtc_update_crtc_active_planes(struct drm_crtc *crtc,
- 					      struct drm_crtc_state *new_crtc_state);
- void amdgpu_dm_crtc_vblank_control_worker(struct work_struct *work);
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-index f5d9424171e8..9948d1780454 100644
+index 6bc4f932c839..db98e42c561b 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-@@ -706,6 +706,118 @@ static void dm_test_crtc_update_active_planes_no_stream(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, dm_state->active_planes, 0);
+@@ -12,6 +12,8 @@
+ #include <drm/drm_vblank.h>
+ 
+ #include "dc.h"
++#include "inc/core_types.h"
++#include "irq/irq_service.h"
+ #include "amdgpu.h"
+ #include "amdgpu_mode.h"
+ #include "amdgpu_dm.h"
+@@ -430,6 +432,101 @@ static void dm_test_crtc_set_vupdate_irq_no_otg(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, amdgpu_dm_crtc_set_vupdate_irq(&acrtc->base, false), 0);
  }
  
-+/* Tests for amdgpu_dm_crtc_count_crtc_active_planes() */
-+
-+static void dm_test_add_plane(struct drm_device *dev, struct drm_plane *plane,
-+			      unsigned int index, enum drm_plane_type type)
-+{
-+	INIT_LIST_HEAD(&plane->head);
-+	plane->index = index;
-+	plane->type = type;
-+	list_add_tail(&plane->head, &dev->mode_config.plane_list);
-+}
-+
 +/**
-+ * dm_test_count_crtc_active_planes_none - Test empty plane list counts zero
++ * dm_test_crtc_set_vupdate_irq_dc_busy - Test vupdate irq when DC rejects request
 + * @test: The KUnit test context
 + *
-+ * With no planes attached to the CRTC the active plane count must be zero.
++ * With an OTG instance assigned but no DC attached, dc_interrupt_set() returns
++ * false and the function must report the request as busy (-EBUSY).
 + */
-+static void dm_test_count_crtc_active_planes_none(struct kunit *test)
++static void dm_test_crtc_set_vupdate_irq_dc_busy(struct kunit *test)
 +{
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_atomic_commit *state;
-+	struct drm_device *dev;
++	struct amdgpu_crtc *acrtc;
++	struct amdgpu_device *adev;
 +
-+	dev = dm_kunit_alloc_drm_with_connector_list(test);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+	INIT_LIST_HEAD(&dev->mode_config.plane_list);
++	adev = dm_kunit_alloc_adev(test);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
 +
-+	state = kunit_kzalloc(test, sizeof(*state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+	state->dev = dev;
++	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acrtc);
 +
-+	crtc_state = kunit_kzalloc(test, sizeof(*crtc_state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc_state);
-+	crtc_state->state = state;
-+	crtc_state->plane_mask = 0;
++	acrtc->base.dev = &adev->ddev;
++	acrtc->otg_inst = 0;
 +
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_crtc_count_crtc_active_planes(crtc_state), 0);
++	/* adev->dm.dc is NULL, so dc_interrupt_set() returns false. */
++	KUNIT_EXPECT_EQ(test,
++			amdgpu_dm_crtc_set_vupdate_irq(&acrtc->base, true), -EBUSY);
 +}
++
++/* Per-source funcs let dc_interrupt_set() succeed without register access. */
++static bool dm_test_vupdate_irq_src_set(struct irq_service *irq_service,
++					const struct irq_source_info *info,
++					bool enable)
++{
++	return true;
++}
++
++static bool dm_test_vupdate_irq_src_ack(struct irq_service *irq_service,
++					const struct irq_source_info *info)
++{
++	return true;
++}
++
++static struct irq_source_info_funcs dm_test_vupdate_irq_src_funcs = {
++	.set = dm_test_vupdate_irq_src_set,
++	.ack = dm_test_vupdate_irq_src_ack,
++};
 +
 +/**
-+ * dm_test_count_crtc_active_planes_mixed - Test counting across all plane cases
++ * dm_test_crtc_set_vupdate_irq_enable - Test vupdate irq enable/disable success
 + * @test: The KUnit test context
 + *
-+ * Exercises every branch of the counting loop: a plane excluded by the mask,
-+ * a cursor plane (skipped), a masked plane with no new state (counted), a
-+ * masked plane with a framebuffer (counted) and a masked plane without a
-+ * framebuffer (not counted). Only two planes should be reported active.
++ * With an OTG instance assigned and a DC whose IRQ service accepts the request,
++ * enabling and disabling the vupdate IRQ must both succeed (return 0).
 + */
-+static void dm_test_count_crtc_active_planes_mixed(struct kunit *test)
++static void dm_test_crtc_set_vupdate_irq_enable(struct kunit *test)
 +{
-+	struct drm_plane *plane_no_state;
-+	struct drm_plane *plane_cursor;
-+	struct drm_plane *plane_with_fb;
-+	struct drm_plane *plane_no_fb;
-+	struct drm_plane *plane_excluded;
-+	struct drm_plane_state *ps_fb;
-+	struct drm_plane_state *ps_no_fb;
-+	struct drm_crtc_state *crtc_state;
-+	struct drm_atomic_commit *state;
-+	struct drm_framebuffer *fb;
-+	struct drm_device *dev;
++	struct irq_source_info *info;
++	struct resource_pool *res_pool;
++	struct irq_service *irqs;
++	struct amdgpu_crtc *acrtc;
++	struct amdgpu_device *adev;
++	struct dc *dc;
++	int i;
 +
-+	dev = dm_kunit_alloc_drm_with_connector_list(test);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+	INIT_LIST_HEAD(&dev->mode_config.plane_list);
++	adev = dm_kunit_alloc_adev(test);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
 +
-+	plane_no_state = kunit_kzalloc(test, sizeof(*plane_no_state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, plane_no_state);
-+	plane_cursor = kunit_kzalloc(test, sizeof(*plane_cursor), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, plane_cursor);
-+	plane_with_fb = kunit_kzalloc(test, sizeof(*plane_with_fb), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, plane_with_fb);
-+	plane_no_fb = kunit_kzalloc(test, sizeof(*plane_no_fb), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, plane_no_fb);
-+	plane_excluded = kunit_kzalloc(test, sizeof(*plane_excluded), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, plane_excluded);
++	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acrtc);
 +
-+	dm_test_add_plane(dev, plane_no_state, 0, DRM_PLANE_TYPE_PRIMARY);
-+	dm_test_add_plane(dev, plane_cursor, 1, DRM_PLANE_TYPE_CURSOR);
-+	dm_test_add_plane(dev, plane_with_fb, 2, DRM_PLANE_TYPE_PRIMARY);
-+	dm_test_add_plane(dev, plane_no_fb, 3, DRM_PLANE_TYPE_PRIMARY);
-+	dm_test_add_plane(dev, plane_excluded, 4, DRM_PLANE_TYPE_PRIMARY);
++	dc = dm_kunit_alloc_dc_with_ctx(test);
++	res_pool = kunit_kzalloc(test, sizeof(*res_pool), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, res_pool);
++	irqs = kunit_kzalloc(test, sizeof(*irqs), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, irqs);
 +
-+	fb = kunit_kzalloc(test, sizeof(*fb), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, fb);
-+	ps_fb = kunit_kzalloc(test, sizeof(*ps_fb), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ps_fb);
-+	ps_fb->fb = fb;
-+	ps_no_fb = kunit_kzalloc(test, sizeof(*ps_no_fb), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ps_no_fb);
-+	ps_no_fb->fb = NULL;
++	/* Populate the per-source info table so dc_interrupt_set() succeeds. */
++	info = kunit_kzalloc(test, sizeof(*info) * DAL_IRQ_SOURCES_NUMBER,
++			     GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, info);
++	for (i = 0; i < DAL_IRQ_SOURCES_NUMBER; i++)
++		info[i].funcs = &dm_test_vupdate_irq_src_funcs;
 +
-+	state = kunit_kzalloc(test, sizeof(*state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
-+	state->dev = dev;
-+	state->planes = kunit_kzalloc(test, sizeof(*state->planes) * 5, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state->planes);
-+	state->planes[0].new_state = NULL;
-+	state->planes[1].new_state = ps_fb;
-+	state->planes[2].new_state = ps_fb;
-+	state->planes[3].new_state = ps_no_fb;
-+	state->planes[4].new_state = ps_fb;
++	irqs->info = info;
++	res_pool->irqs = irqs;
++	dc->res_pool = res_pool;
++	adev->dm.dc = dc;
 +
-+	crtc_state = kunit_kzalloc(test, sizeof(*crtc_state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc_state);
-+	crtc_state->state = state;
-+	/* Exclude plane index 4 from the CRTC. */
-+	crtc_state->plane_mask = BIT(0) | BIT(1) | BIT(2) | BIT(3);
++	acrtc->base.dev = &adev->ddev;
++	acrtc->otg_inst = 0;
 +
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_crtc_count_crtc_active_planes(crtc_state), 2);
++	KUNIT_EXPECT_EQ(test,
++			amdgpu_dm_crtc_set_vupdate_irq(&acrtc->base, true), 0);
++	KUNIT_EXPECT_EQ(test,
++			amdgpu_dm_crtc_set_vupdate_irq(&acrtc->base, false), 0);
 +}
 +
- /* Tests for amdgpu_dm_crtc_duplicate_state() */
+ /* Tests for idle_create_workqueue() */
  
  /**
-@@ -1044,6 +1156,9 @@ static struct kunit_case amdgpu_dm_crtc_tests[] = {
- 	KUNIT_CASE(dm_test_crtc_enable_vblank_rejects_unconfigured),
- 	/* amdgpu_dm_crtc_update_crtc_active_planes */
- 	KUNIT_CASE(dm_test_crtc_update_active_planes_no_stream),
-+	/* amdgpu_dm_crtc_count_crtc_active_planes */
-+	KUNIT_CASE(dm_test_count_crtc_active_planes_none),
-+	KUNIT_CASE(dm_test_count_crtc_active_planes_mixed),
- 	/* amdgpu_dm_crtc_duplicate_state */
- 	KUNIT_CASE(dm_test_crtc_duplicate_state_copies_fields),
- 	/* amdgpu_dm_crtc_reset_state */
+@@ -1187,6 +1284,8 @@ static struct kunit_case amdgpu_dm_crtc_tests[] = {
+ 	KUNIT_CASE(dm_test_crtc_helper_mode_fixup_returns_true),
+ 	/* amdgpu_dm_crtc_set_vupdate_irq */
+ 	KUNIT_CASE(dm_test_crtc_set_vupdate_irq_no_otg),
++	KUNIT_CASE(dm_test_crtc_set_vupdate_irq_dc_busy),
++	KUNIT_CASE(dm_test_crtc_set_vupdate_irq_enable),
+ 	/* idle_create_workqueue */
+ 	KUNIT_CASE(dm_test_idle_create_workqueue),
+ 	/* amdgpu_dm_idle_worker */
 -- 
 2.34.1
 
