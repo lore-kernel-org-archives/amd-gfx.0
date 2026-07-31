@@ -4,97 +4,47 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5929C5516F
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 15:33:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8087AC5516F
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 16:24:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3523B10F2E4;
-	Fri, 31 Jul 2026 15:33:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 205BF10F342;
+	Fri, 31 Jul 2026 16:24:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qpkAk9x/";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dptk9Q8/";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013014.outbound.protection.outlook.com
- [40.93.201.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C64F410F2E4;
- Fri, 31 Jul 2026 15:33:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gsJk/BIqss8QXJz96Uj/nnBKEC2smRYm/ksF2Xst7OVuoBu9rDzHOs1ndJOv5eR07E3GTCys5MztwTfyTAE/YT+Tm2t+ugqCJiOVptDNFW/iYyD+5t9OZ/VU9GEiWOhevpJ1GKJCNvPPvs3X+BmwTFVLekNHIFtaIzPXyMESNSsybGEqr8WU6Owo0KDM80aBbmoMt6OE613ZFaG0krkDjJLrJHVpEUSf4y5EWhKPuLysPPqbR/sgAScDVBOfI0u1UZ87YryebXcEt7gvpiVzeBAdzGskz4OG3FejFZ4t/BppohCPFl70Bbu7SwieBwSFkov13b19X1zBAURchhnT7g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zn0SSeHjjjiZ0GmDYqLc7cooK9W2DPzbHlOiRCNrpKQ=;
- b=pUN55HcaxnfJuApHcyc1wftD7W2aQoL+t3W/Z78tSlCoZVY9JosVJ2GQLepYRVy63/zuRcgPZ2AI2vn3FkELT5RhAnfWTNt9VkVVLhl5xeUNXCLWoFmeVUAvRXUj0kPNbulUxw9wnd03Kr2ZDGsn3Wcbi/YU39QVLKemK7XFBR6x+/HpMJ/q5gZGn7IsnURfND83O18U5PsACtOPxmH/lo8DKZCvkYb14zVhnO2esJGedugo92qbNSKzC3DOpW5mOOXkzjsgT0QBMGTBxUBUAVU4gniDcrS+Mi9nb9jp2su104Ri6uh2t62jQKpxSL6ll4TicgDpwt8eHKPlMHQE1g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zn0SSeHjjjiZ0GmDYqLc7cooK9W2DPzbHlOiRCNrpKQ=;
- b=qpkAk9x/FM5FjnEuv8qdI5YFJ4QsZtBBLTZHQvmPrZ9gxFKiugwoTg3/T4rmGfoqKNx6OqjkZoaDO6POjK6OGnMsEQ+/MTJzQbPtNefeuI1eTK7d+AyA/RK2TfDJVqhGcMw3UaOqmNfs5qpMydCoqSDJiCtpmi+5DlGrPBFINhE=
-Received: from CY5P220CA0005.NAMP220.PROD.OUTLOOK.COM (2603:10b6:930:ed::13)
- by SAWPR12MB999316.namprd12.prod.outlook.com (2603:10b6:806:55f::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Fri, 31 Jul
- 2026 15:33:02 +0000
-Received: from CY4PEPF0000EE33.namprd05.prod.outlook.com
- (2603:10b6:930:ed:cafe::44) by CY5P220CA0005.outlook.office365.com
- (2603:10b6:930:ed::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.16 via Frontend Transport; Fri,
- 31 Jul 2026 15:33:02 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY4PEPF0000EE33.mail.protection.outlook.com (10.167.242.39) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 15:33:01 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
- 2026 10:33:00 -0500
-Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 31 Jul 2026 10:33:00 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu, amdkfd drm-next-7.3
-Date: Fri, 31 Jul 2026 11:32:53 -0400
-Message-ID: <20260731153253.1393962-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.55.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9ED8210F342
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 16:24:27 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 1037460A7B;
+ Fri, 31 Jul 2026 16:24:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84FFE1F00ACF;
+ Fri, 31 Jul 2026 16:24:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1785515065;
+ bh=y1YM1FtXEXTem+Rp2vWEYmY6TR2drUxiW8KEqcpWJqQ=;
+ h=Date:From:To:Cc:Subject:In-Reply-To;
+ b=dptk9Q8/V7jZUR2QsFwSRGzaaqmmDzkq7swlrDVs/bbqmKW5Vimm5mmi5wzoPN9AV
+ /eeDWNAqUj9FAPZYxhehbk5XcNKpZbk5LW9A6ieKtUaxslcg0FEKUWE1eq5yvsXSeV
+ MxHsPs8Qvempbe5kZaqpQSQA9I0wHQz6Hgz8cT/Wo63wqk97eDW89spNIFlkcsKbPt
+ wX+A6sDl6JvyzUjg/7dUWZPOxduyP+B6Zzu7GECggJeDiq+CPD99Yx3oKaAItD9X4e
+ aKnDfUU3+Pmkk5ho9GJa8wv/Sw88jFCo/5DLeGWHf0AG8Lezp2qOpMmtMgrphjhZo3
+ oJK1DmDqH3qVQ==
+Date: Fri, 31 Jul 2026 11:24:24 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: lizf@honeycomb.io,
+ Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, Jon Nettleton <jon@solid-run.com>,
+ Jon Nettleton <jon.nettleton@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2] PCI: Fix BAR resize for devices on a root bus
+Message-ID: <20260731162424.GA1571989@bhelgaas>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE33:EE_|SAWPR12MB999316:EE_
-X-MS-Office365-Filtering-Correlation-Id: 832aece5-1914-4cc3-e699-08deef1901da
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|13003099007|56012099006|11063799006|6133799003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: dqbPANmZdUrnGvYrDM9PrfvWe6kpDMNLsqU8+UHa/qbxXNchtKvnm/tEcbISwmOX6WwZCQxtcd/GdsQNERL1OjraZrAfitJpb4S8QpFylLYD4C21pJ7nLxuKMrBmn32mFUv+7aqAw/fKWVk3BBC7RlY0D7SQTWsSc+ULCkgB36MeJsz2BwSLlQ4b0nnIuYXGtPKaHDJXMXI31vTMcjyEsaslsLSxDYbFcBfTTHdu8CIcIBeMvpm0K+iaSWrc0g7SWD2i7Wd1frEIqWCleiz8UnyOkPaTauki7Vy5NDa+lakmNb6zre9jA35/udGbdoQpm4KcAeihYK9nmS24sXlTaoYnAyg6YmzpqbXQHcIeV0pzYKVLpEvIv37EAK6RVNBAPXBDHC/PHf/7fLDN8Qea5TwMzFA7YdEhANV3lJ1plF9JrcNjbcaeZG3ek9YNVgos7Q6UG2j5at5pf3orFXpSniJurtf0DPLwgVROFMGdsByUDDtN2T8F0Toy4scOfilgWKVGXu1IkvEivqryArEHWc2w15uRtgJm/XvzXNDR+3HF9p8NNmNH6ZH2Gy7V0vAEliyL1qVQhAnTzXwy7sx2OqwKln9rwiT9DoMNadIn7zyeuaVsfSbxOo8EfImvzlQ3T4Et4TSie6gZkEwrEQ/zHQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(13003099007)(56012099006)(11063799006)(6133799003)(10067099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Pyn+W3gEHR4q3v8ClVkPhwwxmJXw1C031AbKpCnppIChvrweZXGiS4e8oYT43G6lQHX+0OJP2gywl7pY3mjYXyAyDYgtMSt+Ip6dA3MCdz+XX26c6bFiGKiqdRGy84r2C1R6uNFHConvUToAR77hC8WXUbQoo10wbLO7BHTqiVZj6OiGaEr7F5dWlshTF9iLPFBTP/+IsmF7n5DIDSxHjxTQuAbyQUOXd0ztR/4AtG0vigcUotJUSJi6B+alDQverpI8XRP3rvyt9+2Rp+C9KueR2B7hjq8zuxTIYmg461WWzSPvMf3HxQ+TiEH/yGDgCP6yjpr4YBdBnGyz0rQcdr+xXny5UTFvofc4XDkkHpm77UeWnSfHJm2S0BxpKLAgKW8gMwhApUc3ECYHi82Dudk4dpawo0WzwfqE43J+iAqwDBqoukjIDjOBjv8fEkFs
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 15:33:01.6651 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 832aece5-1914-4cc3-e699-08deef1901da
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE33.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999316
+In-Reply-To: <20260712-pci-rebar-root-bus-v2-1-a1b9107a82dc@honeycomb.io>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,74 +59,150 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+[cc->to: Ilpo, I think we need your review/ack for this]
 
-While I was doing the follow up fixes for 7.2, I thought I'd do a last
-few updates for 7.3.
+On Sun, Jul 12, 2026 at 02:49:43PM -0700, Liz Fong-Jones via B4 Relay wrote:
+> From: Liz Fong-Jones <lizf@honeycomb.io>
+> 
+> pci_do_resource_release_and_resize() releases the device BARs that
+> share a bridge window with the BAR being resized, but when the device
+> sits directly on a root bus (pdev->bus->self == NULL) it then skips
+> resource assignment entirely and returns success, leaving the BARs it
+> just released unassigned (IORESOURCE_UNSET).
+> 
+> Skipping pbus_reassign_bridge_resources() is correct in that case --
+> there is no bridge window to adjust -- but the device BARs still have
+> to be reassigned. Before the BAR release was consolidated into the PCI
+> core, this case worked for amdgpu because the driver released the BARs
+> itself and then called pci_assign_unassigned_bus_resources()
+> unconditionally after the resize, which assigns unassigned device BARs
+> also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
+> side BAR release before resize") removed that call, so nothing assigns
+> the released BARs anymore.
+> 
+> This breaks amdgpu completely on the SolidRun HoneyComb LX2 (NXP
+> LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
+> on the root bus of its segment (there is no root port device, so
+> pdev->bus->self is NULL):
 
-The following changes since commit 6f16fcbb0c46a87e3d9685407e906573d60104b0:
+Maybe this is a tangent, but I'm curious about this topology.  Is this
+running as a virtualized guest?  At the hardware level, a PCIe
+endpoint must have a Root Port somewhere, even if it isn't visible to
+the OS (as is often the case in virtualized guests).
 
-  drm/amd/display: use proper context for logging (2026-07-28 19:17:34 -0400)
+>   amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
+>   amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
+>   amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
+>   amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
+>   amdgpu 0004:01:00.0: Fatal error during GPU init
+> 
+> No error is logged because the resize path reports success; amdgpu
+> then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
+> 
+> Assign the released BARs directly from the root bus windows when there
+> is no upstream bridge. On failure, roll back through the existing
+> restore path exactly as in the bridged case.
+> 
+> The root bus path also had a locking bug that any fix here necessarily
+> touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
+> matching down_read() (as does the "goto restore" taken when
+> pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
+> before the BAR release loop so every path through the function holds
+> it exactly once.
+> 
+> Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
+> Cc: stable@vger.kernel.org
+> Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
+> Assisted-by: Claude:claude-fable-5 checkpatch
+> Assisted-by: Claude:claude-sonnet-5
+> Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
+> ---
+> #regzbot introduced: 337b1b566db0
+> 
+> Observed at runtime on Ubuntu's linux-hwe-7.0 (7.0.0-14, broken) vs
+> linux-hwe-6.17 (working), but nothing here is distro-specific: Ubuntu
+> carries this code unmodified, and the affected function is identical
+> to current mainline. By source inspection the regression window is
+> v6.18 (old code paths) to v6.19 (consolidation). Workaround for
+> affected users: amdgpu.rebar=0.
+> ---
+> Changes in v2:
+> - Add Assisted-by tags (missing from v1; required per
+>   Documentation/process/coding-assistants.rst)
+> - Add Link: to the corresponding Ubuntu bug report
+> - Drop the "# v6.19+" annotation on Cc: stable; unnecessary noise
+>   given the Fixes: tag already lets the stable team derive applicable
+>   versions (per stable-kernel-rules.rst)
+> - Link to v1: https://patch.msgid.link/20260705-pci-rebar-root-bus-v1-1-55df70cbdd88@honeycomb.io
+> 
+> To: Bjorn Helgaas <bhelgaas@google.com>
+> Cc: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+> Cc: linux-pci@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: regressions@lists.linux.dev
+> Cc: amd-gfx@lists.freedesktop.org
+> Cc: Jon Nettleton <jon@solid-run.com>
+> Cc: Jon Nettleton <jon.nettleton@gmail.com>
+> ---
+>  drivers/pci/setup-bus.c | 25 +++++++++++++++++++------
+>  1 file changed, 19 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+> index c0a949f2c995..9db1951f6e5c 100644
+> --- a/drivers/pci/setup-bus.c
+> +++ b/drivers/pci/setup-bus.c
+> @@ -2397,6 +2397,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+>  	if (ret)
+>  		return ret;
+>  
+> +	down_read(&pci_bus_sem);
+> +
+>  	pci_dev_for_each_resource(pdev, r, i) {
+>  		if (i >= PCI_BRIDGE_RESOURCES)
+>  			break;
+> @@ -2415,13 +2417,24 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+>  
+>  	pci_resize_resource_set_size(pdev, resno, size);
+>  
+> -	if (!bus->self)
+> -		goto out;
+> +	if (bus->self) {
 
-are available in the Git repository at:
+I think pci_upstream_bridge() would be better here.  Not that this
+device will be a VF (where pci_upstream_bridge() makes a difference),
+but just to be a little more generic.
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-7.3-2026-07-31
-
-for you to fetch changes up to 9243cf4777fc780157602603caa52c285908f26a:
-
-  drm/amd/amdgpu: remove duplicated code in gfx_v11 and gfx_v12 (2026-07-29 17:56:28 -0400)
-
-----------------------------------------------------------------
-amd-drm-next-7.3-2026-07-31:
-
-amdgpu:
-- PM sysfs fix for APUs
-- DC pageflip timeout fixes
-- New GFX7 soft reset implementation
-- Misc code cleanup
-
-amdkfd:
-- Remove svm_bo eviction fence
-
-----------------------------------------------------------------
-Leo Li (1):
-      drm/amd/display: Exit idle optimizations before programming
-
-Philip Yang (1):
-      drm/amdkfd: Remove svm_bo eviction fence
-
-Timur Kristóf (9):
-      drm/amdgpu/gfx7: Make amdgpu_gfx_mqd_sw_init() usable on GFX7
-      drm/amdgpu/gfx7: Refactor MQD initialization and finalization
-      drm/amdgpu/gfx7: Return error code when compute ring tests fail
-      drm/amdgpu/gfx7: Return error code when failing to start GFX ring
-      drm/amdgpu/gfx7: Fixup emitting SWITCH_BUFFER packets
-      drm/amdgpu/gfx7: Clean up gfx ring during reset
-      drm/amdgpu/gfx7: Use COND_EXEC
-      drm/amdgpu/gfx7: Fixup IP block soft reset
-      drm/amdgpu/gfx7: Enable IP block soft reset as a GPU recovery method
-
-Ulisses Paixao (1):
-      drm/amd/amdgpu: remove duplicated code in gfx_v11 and gfx_v12
-
-Yang Wang (1):
-      drm/amd/pm: hide pp_table sysfs on APUs
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c        |  21 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h        |   3 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_fence.c  |  15 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c           |  58 +++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h           |   3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c        |   4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c           |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c            |   7 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c            |  48 +---
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c            |  49 +---
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c             | 331 ++++++++++++----------
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c          |   4 +-
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c              | 109 +++----
- drivers/gpu/drm/amd/amdkfd/kfd_svm.h              |  13 +-
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  78 ++---
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c               |  13 +-
- 17 files changed, 374 insertions(+), 392 deletions(-)
+> +		ret = pbus_reassign_bridge_resources(bus, res, &saved);
+> +		if (ret)
+> +			goto restore;
+> +	} else {
+> +		/*
+> +		 * A device on a root bus has no bridge windows to adjust.
+> +		 * Assign the BARs released above directly from the root bus
+> +		 * windows.
+> +		 */
+> +		list_for_each_entry(dev_res, &saved, list) {
+> +			i = pci_resource_num(pdev, dev_res->res);
+>  
+> -	down_read(&pci_bus_sem);
+> -	ret = pbus_reassign_bridge_resources(bus, res, &saved);
+> -	if (ret)
+> -		goto restore;
+> +			ret = pci_assign_resource(pdev, i);
+> +			if (ret)
+> +				goto restore;
+> +		}
+> +	}
+>  
+>  out:
+>  	up_read(&pci_bus_sem);
+> 
+> ---
+> base-commit: 7404ce51637231382873d0b55edabc2f3b841a9d
+> change-id: 20260704-pci-rebar-root-bus-f3123fe10fc7
+> 
+> Best regards,
+> --  
+> Liz Fong-Jones <lizf@honeycomb.io>
+> 
+> 
