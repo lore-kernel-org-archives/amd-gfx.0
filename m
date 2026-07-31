@@ -4,118 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63E16C5516D
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 13:06:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93625C5516D
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 13:39:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D2E8C10E21A;
-	Fri, 31 Jul 2026 13:06:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3781010E231;
+	Fri, 31 Jul 2026 13:39:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FPiL+S0W";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bkI8q2a6";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012033.outbound.protection.outlook.com [52.101.53.33])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 57B4510E21A
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 13:06:34 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LDUP+iAB/vhtbtkmlke2sRs/8paFoiKf5aSAtK7NyjXNlFJ04J2E6V1ptkr9KfDxhANReRVOqFaabiqoJi6dhchh7nrpk+Uwn3QuXCGJ05MgpQSYVZmI8XyuOJlmvmUGDs0E0T40QNGtr2SQI1ZjHEqpPsZmPgzho7V0vV3qjXTpR6jhQw4BJkhXoyycgDsrlcIPRSLvHKBy2rt5gKB7XjF6JR5boJFsxAHsy4WrevYOIlIantz/NtyOE/rSJCfChAHHc8cDbS7za1BayCcREbTuRRdRG2LyxeNyeVNaZZsUIfhRpJL4ATkNo5Ku3konhVRq7Qfn0n0FAyShTWpLEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1xXNpZnvlIeFYUyFkjgbYVCzHoOztpGxncMZCtB0gq0=;
- b=dPjN/BKV/LB8C1kXB81LSxnvB7BGnNjXUz8IcozrmODEU934Ee5ASiirNcVmpTUJwQToKOkFqGUchxhxxuMCqAtGEJn9VXr/xxuWbDzUpso+mUy4yrj7iIzPlB+vCsbhL7Sq5DzB7fFuVgjMxQojNh/AbMBWGCIzR/KIs++dOota91gBmI53shVSuFkPCnZ2txXH8qH/le8VvN4ttioyOfdzvGm9vaF4SvnMKbCCpMLfRndOTpY49SbiTjryLSx2EnAvAN1qxRAj/y+p9Sk5jJiE4X5GaurtVba7e0qa6ADBoOBwVktucmYvJWDkINWOMoFOpBqiGVh2gpMbMfE3JA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1xXNpZnvlIeFYUyFkjgbYVCzHoOztpGxncMZCtB0gq0=;
- b=FPiL+S0W7EnskUeDyKfE6g9XOfZwkF/L21B0u+Js56JqfGfJFwY18wIaKCF5WSgiqG1GpFpZfl7uGdw2cVTyPqTPhFa3YLrahnJGwvgohMzaDRKpwnE062hLf3kf69R8Ts67yEkYM0NZZKRxnGdLX5ZRkctBUbKW4JkMuFKDX3k=
-Received: from CY8PR12MB9035.namprd12.prod.outlook.com (2603:10b6:930:77::11)
- by DS0PR12MB999265.namprd12.prod.outlook.com (2603:10b6:8:432::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Fri, 31 Jul
- 2026 13:06:31 +0000
-Received: from CY8PR12MB9035.namprd12.prod.outlook.com
- ([fe80::dd3f:35ac:ef0a:723f]) by CY8PR12MB9035.namprd12.prod.outlook.com
- ([fe80::dd3f:35ac:ef0a:723f%4]) with mapi id 15.21.0270.015; Fri, 31 Jul 2026
- 13:06:31 +0000
-From: "Min, Frank" <Frank.Min@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
- Hawking" <Hawking.Zhang@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>
-Subject: [PATCH] drm/amdgpu: simplify cper ring fini condition
-Thread-Topic: [PATCH] drm/amdgpu: simplify cper ring fini condition
-Thread-Index: AQHdIM7bYktibrTJmUK1inbRGl5Ea7aHmCcw
-Date: Fri, 31 Jul 2026 13:06:31 +0000
-Message-ID: <CY8PR12MB9035FE1E766825D7FADD11D2E9C82@CY8PR12MB9035.namprd12.prod.outlook.com>
-References: <20260731092705.995916-1-Frank.Min@amd.com>
-In-Reply-To: <20260731092705.995916-1-Frank.Min@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-31T13:02:47.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB9035:EE_|DS0PR12MB999265:EE_
-x-ms-office365-filtering-correlation-id: 16a05edc-56da-42d7-2f3a-08deef048a6a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|23010399003|1800799024|11063799006|22082099003|18002099003|56012099006|10067099003|38070700021;
-x-microsoft-antispam-message-info: KMkdMIN5x9Lnm6Er6SNZFQhtoCR+ra8BTx4CVby+FVVekkcVvowgIQpDkS11jTF1Shib9Ehj2unojLurjrniNmVD1/Bqi+fndkQTvPOmMQicPvy5HQ3qSsjUamN4t0vR/wQ6sX3/T+7qxDG1dZ8QPmi9cO3hxjp/xaz53zVQYpS3dUR+2JtKWcNY6n7vm1k5WNcK4njBxsZM8SqAQgEd6v1Vg4RnnWf58A6lHyRqHKlSNgpBUvD8bD2d455fDT1tRreDAtf6lmAVuyryQAJnIHrDR7YhXFHGSXT7ndnZcawkvHdCO9K6z6iuqC4kKv1LEuMmbyITVgcKBUJse2sgm5wH5IpIi9L9Z0A+ZWXPOuOGIVxmJxa7Z6RVYQwGNQSdScPf/0APSpIjkbP4GpLArDnoCS68OKhNICt3w6G/nBx7N8pDkvlUA2XiLeMmmvOsDFy/61I253lGua4mNzeUawfqAw+oTOJsWa/IzgJb5MHHqMWA1WmIVA2N5rPOy7yVbti2mwJ6novkJHBNZOMym3sce4jiuWG+SK7Wd74WpcojK8SPonDOgRemhxmalJk8r7qKK8Tlf35KwBJTpA75rFkCv5lXgGB9hMVpDRXrPtcRHoWuOLPRlZjOulMLzIbqprTJ+8hqK4kDg1Rb74x6Mg+bYA3/xGoc9fY73g2TyWzCxcu6nayvTCMf1UUTtIiUkU39sh6OOjBAo7ZV7ZJd+y+78uTLKmysufGauy5I8Ak=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY8PR12MB9035.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(22082099003)(18002099003)(56012099006)(10067099003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ktuy2rIDtKpE9rL6vDLqXredCJQ1Y6CkkCUJzTYmojp993f1c+AtUAdQgO3A?=
- =?us-ascii?Q?2/eKOrElNaWv4QX7lTxBF8ai58hF1gBTh3gs6P3g5I8ARAMncJ2MvQ1FhuT7?=
- =?us-ascii?Q?bhIDMXnZObvwWKxjfrQHkAUgn0g7H+alz3alhOC2OcyAlrrdSMDZ/NzgjBvs?=
- =?us-ascii?Q?IRxipT6zyRRzhp+PHagUHHFmH+4BACzSGgMH/pbdjdYe5gmJKDM/ft9D/119?=
- =?us-ascii?Q?duQeCpiUxts5G/VG2NQEuo1ZVf6znAWZ6EYIrqFlNdHdjMgxbovSZrUXvj3e?=
- =?us-ascii?Q?MZri/XcIvzb+6Q/92hdZyNJjbML9VkyAFn9OLSlZYbeVdACa/qcaV3nObVLX?=
- =?us-ascii?Q?FbYTGT0E0HG/vF8N1ZaWf//3VDF7KmAcIdu+KWVHgP7InzdH5nl9TNt1f8Dz?=
- =?us-ascii?Q?YdrRjle0sjRQxL/Qg05tGMdilkshFoOgA6eDFy+bcsn8mQaoq93inW4MgOlR?=
- =?us-ascii?Q?G841HP0gqwD58CLK7vFkL/3ynt3t14kw+pPzK6HukRUMWMtTaJhMES8a76h2?=
- =?us-ascii?Q?TqVmhZFqZ+OeVwPPkRjCOskj2Etw98H2QMZlRS8/0zN04FF9wkjPhCm+Er1I?=
- =?us-ascii?Q?5HbHa3AH2lC0OAnfaNZf4T0umUBh0gXQwDSg78cTbgmoKvT2F3+G+drmwnTh?=
- =?us-ascii?Q?lmCS9ZqxwNnwz4pdnL71+L+AclBvrFn1+4/rg5gj5pCmZYOta1zU2Sz9o/38?=
- =?us-ascii?Q?7HkfiBtvkNqy89dx1evcYkDDQUUNQzfSZ1Jr8bivX+omxd05tmACe/lnCsDF?=
- =?us-ascii?Q?0y/IyLfM/gSNQvr5UEHdq/aKhkUha/n/VnyqxY1WH5hkdIcF0zhN55XjJWpo?=
- =?us-ascii?Q?YGcdOw7thLxlIXXAWB3A9wdvm0QNCTGENVnnJQreVAOcagX1rLa33M3/6rTB?=
- =?us-ascii?Q?dGrbzVc9hJ1ghAIrqX6Od7BBck7N8bgdH1CER3EltCAKUO7v4lgeUwKgfjX8?=
- =?us-ascii?Q?HMAqZvC5M03Vnn8F2rsETFAkmjm/d3wrFSPZ2NXQnEec41SFh8ELhW1VpdfH?=
- =?us-ascii?Q?I5aj5Ha6l0yxrOFBvn932W1eZlVTdsuio70ocZgULZTSbjxuYhH3b4AIsmAF?=
- =?us-ascii?Q?77sRI8Ljo24dhC8u1UyGSWa3jz5faSGmE8znMJZepL5ld2NnGvz7PMdOsIWx?=
- =?us-ascii?Q?JyC7zA0MFZO8mkgt/726qNvUT4/UQBZyKqhmrlMXs2i8qeVHsUo1VOw76RBn?=
- =?us-ascii?Q?0g+vSU9lZTq4+v5dmf26vkXb+BwnbAnzjXb4svpGTHASTtIWuprvF4nsSaSS?=
- =?us-ascii?Q?+C1PrKnIbPmuM1J2alX+K5h/KfDC7I84/VOmKh1Pm514kOi/iuQYe/eBeARR?=
- =?us-ascii?Q?ev6dvPPL25XmQhPqmoE0N5ACyPQ4o/A04fUB/i8g/S2k9AL4ZmlXls0u7vUQ?=
- =?us-ascii?Q?15Meawg9vt28OzLuACofC81dpIK9JvoMFPmf0z98rufCoJxpi3GS4P0c+3R/?=
- =?us-ascii?Q?m485DnTqnoEoF0Rf/pgTMRY/IDI8v0Bmm7Nxo/qq7ZGIGjBn8kDBMyaJfTde?=
- =?us-ascii?Q?TtyJ4ClJnZ+u+VacyS/DcmEOlm/Bc25ByGhDzj1wrqLggtCO9p99GANqllTC?=
- =?us-ascii?Q?4kmE8oQJYcGJydDhIge89mDRRBfMp/R48v03AAne6gBSc3mBwFwJoXNbVZXt?=
- =?us-ascii?Q?+qJO543bmZAEVgAog5cstXwSlY/7RFAf0H1+ppXZYnqT+DAQStyhElYlk/Mw?=
- =?us-ascii?Q?o8LGdiBPwleCe1cL2iC0RW7zIUA=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9248B10E231
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 13:39:41 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-38f57e312ecso42457a91.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 06:39:41 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785505181; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Q7F46xu3rOTVp9kjdPg12PrC/tCuJmllhVOxJepgs89Jm5oX/Q+JJtZFQCLxh702yj
+ e14SeSKubj9U0g/Sz8eAc77H07mmMFWbvXf8kR12X84OB5zLtYzzyW3jE5+N3IS6Wxn+
+ JwRKKE7Umh6qoosuvgz7polB+KcYJL0JmUuhVcrW5MTgGJ2YJE01V4CoBUi8Z6i9wY7/
+ q9Ha7bD5VSeTCFCJoneyZbXkgWLLRs+hBmwRC+QyyACIU7ddDpPuezbRnRYfmYi1nkCS
+ +xHtDW9xTytNQ7tEhFnfIcg7cRy8TfZW9PCBD1Wqu8jWt+C1U6j0evYFxluuBqff3zED
+ A4lQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=TE8h4vlxg7OnBh9xVOPP4e3C9QZP4TbijcEa3l1QY8Y=;
+ fh=69op35mcA0SdNnKgF8pionUbLtHO6bYfQO5eW7XhsGI=;
+ b=GIB10+Z7NgS/VNDP9o1Mlxj2DeQ0Tuh3eeLOcpBQhMJENDakqjxuzShZWeijgDgMFF
+ nT8YstZaXqpEkr15b+6mk+C+OM41c21aSjmgeCZDxLpkPXcUWRWLOIG8+7KphmPXmMPC
+ H1aVLaBz/3PJ+qZP6ffNCKTL4MlLMQv1w3+PYvWH0ilhkL7DmMVv5c72IvKPuUNoheX2
+ CiMS0Iugeo17D/B+UKGYH6nAXa/Z1reDV3+vSrGkDHz2YYALX0segMKC162HMvWj/1pT
+ CXgwIczRwjyz1/9rJbzyhHlhe/+cvPNsSFD2dOjERQBVK2R2q7f2obOC6m0KuQaWKsy/
+ Qrdg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785505181; x=1786109981; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=TE8h4vlxg7OnBh9xVOPP4e3C9QZP4TbijcEa3l1QY8Y=;
+ b=bkI8q2a6VWSdowkB2s1fhcwfBpWNrPmyiMhu0zTLOzUjmMl28TjW6v3HMOOx6M1jai
+ 4UvmBgHgNcWDylRujCom28o4m6z/FMpsbVjKF4LxBBUskAOc++g+A5AA5S99lJKAO7CS
+ 9EMPrsDpmtcUQmmgwrEzJi+C7RDfsZa8aPtN1uv8+YaA6lsigp26v0RpDN3peagBN3j8
+ FnSF7wfLvrUlsTxaTH/g9wTQTKIfes6qcDTGy4mFH7z5+7pDAEEo5Ku6YuV7gx/JkusB
+ oeo7kHpDXUdhvRVfkNXVlfO8yHrKSn02n03meymNW6XXC7wARe6uXOMvkCDgcmFFLxjC
+ xt2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785505181; x=1786109981;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=TE8h4vlxg7OnBh9xVOPP4e3C9QZP4TbijcEa3l1QY8Y=;
+ b=gbpF+RUGm9gcCZacIn8lRKuHGlEYm/wgZLsh09diAO73ZybX7doVEqTttGKFs7u1mE
+ 2Iir+2+kvYqqKYLJzpmoRK8T0gzPCAavObNuIFfo3YjeMWsUZ1hagD4LlW+/1anRVFAm
+ J6u07rDbfhJm154cXFTgKcF4cN+ygzA25J2vNpBipQB8XzA9wKi73manhYcUHfgqg/gL
+ bhdfNVaB3PWSbRiIV6pMV7/4a/7/MkbPlyOGER6nzX3O8ckiJDaCSFTgKD2nJQQHu5Xg
+ qUgRLvpB2nX/Mm+ybv9P7mNpKOl36NoxIGd3ym1T3N0b30suncLBt8OU5fEH0pgJAroJ
+ CoJw==
+X-Gm-Message-State: AOJu0Ywo/l9AuurNPXUeUEMY2+PCUEhgzYFdFyLvdQmkYSFWaU5iWDiP
+ 930KKhv2fcK3t35aK2BvhFh5072K1NaT5LnwaeCkv3l3ej0xHFDBsCrQDu8/2tdyqORED3eDwCY
+ 1Rjucljfh+dD7vwgi+XzFa/3tTBsq8WW6Pg==
+X-Gm-Gg: AR+sD10SB8dYkEkehBGfGBSYrc2LnT6/j/xRkHNIE1e4rKl1pJ0cVd1WsU3k6DB8y0+
+ dosuijSaVktQzwAa5sZAmzQ3z8IhvDcbGCdx/UB78CYiCSg5YAd0QgGFYMGllWa4qfz68kQ2P4/
+ 2d26yG0cn8OuKC3xH0H11EYCdQBxFXNuHwXbQO4b/pO5mxFOBM88H/MHeLV+gFCyt+oXS+B+pwR
+ 6wllHipz0ZMXZP3k5+akcm+p/XsvL8PUQJ+byCTOoIjbCx8WCZHWZlm0NVlm128VmZTbs5AzUBE
+ EQYyGCAkCXNk+Ivm/hpHxHE5I6HNN9krDoRp3zqj3sDhMIgmmjjQQpW2nDMb7e6vuRx070b/u4B
+ zjqvaTqOSasot7my9k0cT9eyWA3cqWWcelae4adSpfOc=
+X-Received: by 2002:a17:90b:388e:b0:36d:b30b:14ed with SMTP id
+ 98e67ed59e1d1-38fbb692438mr295395a91.2.1785505180916; Fri, 31 Jul 2026
+ 06:39:40 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB9035.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 16a05edc-56da-42d7-2f3a-08deef048a6a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jul 2026 13:06:31.3764 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: XmpvJ5GI+4+sNXpopz9V0WR6ZFwvB+OYHUs4uZvcZoCy1fv/Fq3vd8AmsXK006BN
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999265
+References: <CALnZc=SfhdmF_YzAcG5A7=NfgTVUB6Mc2FFY-jkZ2sXWjPPj+g@mail.gmail.com>
+In-Reply-To: <CALnZc=SfhdmF_YzAcG5A7=NfgTVUB6Mc2FFY-jkZ2sXWjPPj+g@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 31 Jul 2026 09:39:28 -0400
+X-Gm-Features: AUfX_mz7oWrJB5xRxD-HNTVZEgygN2WN4AsNgYcsx9yp58JmzsuvMI-uvOkpp7I
+Message-ID: <CADnq5_MPmP2DDEvxSSrgFhiHv2-hHbsudW7GVfsyhrWUkALhEQ@mail.gmail.com>
+Subject: Re: AMD BC-250 (Cyan Skillfish, gfx1013): can the VCN 2.0.3 power
+ domain be brought up?
+To: Daniel Lima <danieldelimafrancisco5504@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,32 +104,107 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
+On Fri, Jul 31, 2026 at 8:58=E2=80=AFAM Daniel Lima
+<danieldelimafrancisco5504@gmail.com> wrote:
+>
+> Subject: AMD BC-250 (Cyan Skillfish, gfx1013): can the VCN 2.0.3 power
+> domain be brought up?
+>
+> Hi,
+>
+> I'm working with an AMD BC-250 (ASRock mining blade, PCI 1002:13FE, Cyan
+> Skillfish / gfx1013, GC 10.1.3) on Fedora 44 with the stock 6.19.10 kerne=
+l.
+> Hardware video decode is unavailable, and I would like to ask whether tha=
+t is a
+> firmware limitation or just an untested configuration.
+>
+> The short version: in amdgpu_discovery_set_mm_ip_blocks(), UVD_HWIP
+> IP_VERSION(2, 0, 3) has an explicitly empty case, so neither vcn_v2_0_ip_=
+block
+> nor jpeg_v2_0_ip_block is ever registered. Is that intentional because th=
+e
+> SMU 11.8 PMFW has no VCN power management, or is it simply that this ASIC=
+ was
+> never validated for video?
+>
+> What I measured, in case it is useful:
+>
+> - The IP discovery table does report the block.
+>   /sys/class/drm/card1/device/ip_discovery/die/0/12/0/ gives
+>   major.minor.rev =3D 2.0.3, harvest =3D 0x0, base_addr =3D 0x00007800. T=
+he
+>   HARVEST_INFO table in the discovery binary is empty.
+>
+> - The whole UVD register aperture is unreadable. Through debugfs amdgpu_r=
+egs,
+>   both segments return 0xFFFFFFFF: mmCC_UVD_HARVESTING, mmUVD_POWER_STATU=
+S,
+>   mmUVD_PGFSM_CONFIG, mmUVD_PGFSM_STATUS, mmUVD_STATUS, and the JPEG regi=
+sters
+>   in the 0x7800 segment. mmGRBM_STATUS through the same read path returns
+>   0x00003028, so the access method itself is fine.
+>
+> - Writing the value that vcn_v2_0_disable_static_power_gating() would wri=
+te
+>   with pg_flags =3D=3D 0 (0x00055555 to mmUVD_PGFSM_CONFIG) is accepted b=
+ut has no
+>   effect; PGFSM_STATUS stays 0xFFFFFFFF. The PGFSM itself therefore appea=
+rs to
+>   sit inside the unpowered domain.
+>
+> - nv_common_early_init() sets cg_flags =3D 0 and pg_flags =3D 0 for GC 10=
+.1.3, and
+>   cyan_skillfish_ppt_funcs implements no .dpm_set_vcn_enable, so nothing =
+ever
+>   requests a VCN power-up. smu_v11_8_ppsmc.h has no VCN-related message, =
+and
+>   smu_v11_8_pmfw.h has no VCN feature bit; the clock level fields cover
+>   LCLK / MP0CLK / FCLK / SOCCLK / DCEFCLK only.
+>
+> - From the platform firmware (AGESA!V9 RBNBDK-BL5 46.1.2.220426): the PMF=
+W is
+>   PSP directory entry type 0x08 / 0x12, version 0.58.7.1, and it contains=
+ the
+>   string "AMD BC-250", so it looks board-specific. I could not find any V=
+CN,
+>   UVD or JPEG reference anywhere in the UEFI image.
+>
+> My questions:
+>
+> 1. Is IP_VERSION(2, 0, 3) deliberately unhandled because the PMFW on this=
+ SOC
+>    cannot power up the VCN domain?
+>
+> 2. If a power-up path does exist -- an SMU message, or something the ABL =
+/
+>    AGESA is expected to do -- could you point at it? I am happy to test
+>    patches.
+>
+> 3. Could the block be disabled in a way the harvest table would not refle=
+ct?
+>
+> I am not asking for support on an unsupported product. A factual answer e=
+ither
+> way would help: the community documentation for this board currently attr=
+ibutes
+> the missing decode to a signed-firmware restriction, which does not match=
+ what
+> I see -- the VCN 2.x ucode is present in linux-firmware and this ASIC use=
+s
+> AMDGPU_FW_LOAD_DIRECT -- and I would rather correct that than let people =
+keep
+> chasing it.
+>
 
-From: Frank Min <Frank.Min@amd.com>
+VCN was not part of the product definition for BC-250.  While the die
+may have the IP, it's possible there were manufacturing defects on it
+on particular chips.  Some may work, some may not.  Beyond that, like
+you said, I'm not sure any support was added to the PMFW or the vbios
+for this part because it wasn't part of the product definition.
+Without that, I don't think there is a way to power it up.
+Additionally, even if it were valid on a particular chip, there is no
+firmware for it.  BC-250 requires signed firmwares and uses the
+standard PSP firmware loading mechanism.
 
-To avoid cper ring init and fini with different condition and causing kerne=
-l memory leak.
-
-Signed-off-by: Frank Min <Frank.Min@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_cper.c
-index d5e59c24d907d..e94862f90cc7c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-@@ -612,7 +612,7 @@ int amdgpu_cper_init(struct amdgpu_device *adev)
-
- int amdgpu_cper_fini(struct amdgpu_device *adev)  {
--       if (!amdgpu_aca_is_enabled(adev) && !amdgpu_sriov_ras_cper_en(adev)=
-)
-+       if (!adev->cper.enabled)
-                return 0;
-
-        adev->cper.enabled =3D false;
---
-2.43.0
-
+Alex
