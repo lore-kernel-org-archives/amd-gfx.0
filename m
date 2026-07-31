@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DD230C55178
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 21:16:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9305FC55174
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 21:16:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 440F310F406;
-	Fri, 31 Jul 2026 21:16:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A38F010F41A;
+	Fri, 31 Jul 2026 21:16:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aP+23Jw/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="S+qffJfT";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010062.outbound.protection.outlook.com
- [40.93.198.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D56AD10E24B
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 21:15:57 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010029.outbound.protection.outlook.com [52.101.201.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96DC610F403
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 21:15:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bu4YCp8t6gbTRUEvqF0Edc5fg7ChU/stq3pVN/hgjmLkDf5ettopMvRhQnK6h3c6xx0Pa8GtlkPnjoxP1gyrwSMwnvuXYdauTyr4jHe/O1nqcs+pDXOC0yrLOYw4tCaYznzzXS1Ug7uKu7f8vt8EVAv9/QRSFVkvKtCGFjwA7ID8qvir4i7nZSlf+5qrcN658ru0SiHzsLoIHBbvUQi3fZxqpK/TgAr5HGNUdM1uFBQZsFujBQ432JkbUWSMGnnzc3hXkCcbv6C8AuqAJ/xvAJIn+CUXzbs5fe3RXTNrNwUD0uwdRePA00aEvqszEmcu9lNwAm69rPN56V3qXlzonQ==
+ b=bvC/o++5xAKkxWVFdD25ifGN5xj+YgktQ9F4er7IHB7XGyXt18YMNWVioWtxHoOzlQ1iypU4a0o5hYTHcvas2qEHomFqyiYhA9VGbvEmYuO4Zb/ZBwbTT57hM0SbhSwSAgbUz5pPnZHs2C6ZZ0WnPiQeyGYtKDAMJjNrZdpr0rIzBgdRe9/KGcEY0wU/IJ/31nM0Uw1HUj1g2/Lc+D70aSCp0iFUFsbHzWTiYrVIVa8vY0EPl/2507P3oGpb6izgAKdKpILlUuuUKkReefT4VJQqJi1KSNjeK/MahQQjq3I0OEWrhm3vxJrBJSdWNQ9LQESPsgVWLa9eVX/RHDaB0A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xzg4YaLGjApRSyyuv8iU2K6/sJ1/jNipkwj7QoVYv28=;
- b=VxBCQ6/apGmi6oPOjpjvJPS1dPrxH6WY0AOdRvsZk9nL2X5/arr7G1cfaybgqkqNBpowVdvZcYKNpaCKyi9E9ebNAoKLks2JUS6e4faDVr0AUo5rccL2lqmfjR21f+ocTCWG4tQMy+KBm/JlJDWsmgcsCqBKcFGvtDg/tC8zrqtHQnSih19fkco7O1IVzmsIEvEbO4vGI3CW5OHYMCRALF6YzlzV56Ww1s57pB7qR7IQOxtJjwCD4FaJuUZMCZAPRb2vapp6rxbWUT8p/wn3UmW4tKGdNKNFeIhwBKPfHAGBWCezi00722SCTTFkZrEnmYsqZRau6t6T3adtzaCQQA==
+ bh=Xi89bz5+lYEsWq1lSk1ciYVQhGtHQiQJ5Hw4T/Q9KY8=;
+ b=AwAT8pj1bb3cU3MiYQb3eFgPUZwi4hD6pFt/p53SsslKmolE8OG2/P6INVc4D7m2cV2DNqkiJCOIx5y1GvQIBXtE4P3WECBM7mz0YpHnH7mxHtAyAiyFGsVg9QTB8FWXR/0+CGW0yrv65MpP3diILiTddNGnEuXfnXEZJKULnbIxTTIxQtDCL/xdGZ9lA548JmvQHIFa7PgXcPod0U/BgNbU0G97ztsd4oLlYVVmUhuqs0+A47L+v5yS12+MVmywwhmIhfJDbBVp1TOfJvj1JGI0hdG54EJBW7alXCbo2XIh76dZQtdaCk8DxUYDf0cjhXVV/ODvc0HmUMnQ0Yd1WA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xzg4YaLGjApRSyyuv8iU2K6/sJ1/jNipkwj7QoVYv28=;
- b=aP+23Jw/YhMoVYw91+3lkBE8FbFxuhhOCWuF6Mx7CmFaK2kkB7N3gKREWOgHLzOjShNra+gegzXmCkR3aU1mGKlJ3EOO6af/qRY+hJ9lOdtzPWRPwqiVXXUT/x6XwM1UoRUac5e++TE8XOcRjIIMP+zvcmlt9QyHenBg1FYLb5E=
-Received: from MN0P222CA0005.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:531::8)
- by MN6PR12MB8470.namprd12.prod.outlook.com (2603:10b6:208:46d::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
- 2026 21:15:53 +0000
+ bh=Xi89bz5+lYEsWq1lSk1ciYVQhGtHQiQJ5Hw4T/Q9KY8=;
+ b=S+qffJfTfLd9CLOBqIZIP31C92Bb5YF+0VMVtuJzTNFPS7D50HvmLVoty4Vs+3wZ0VA3CTQDUZA6Nxsamg0lKYnQ655SHLpdIv6dEI/r/TSaVx2+syast0uwkC+UZmYD+FZaunnKhrTUthWn95AVOuDY4sbcTwewBxuz+gx0xaI=
+Received: from MN0P222CA0008.NAMP222.PROD.OUTLOOK.COM (2603:10b6:208:531::12)
+ by SAVPR12MB999122.namprd12.prod.outlook.com (2603:10b6:806:4e7::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Fri, 31 Jul
+ 2026 21:15:50 +0000
 Received: from BL02EPF00021F6A.namprd02.prod.outlook.com
- (2603:10b6:208:531:cafe::1d) by MN0P222CA0005.outlook.office365.com
- (2603:10b6:208:531::8) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:208:531:cafe::2b) by MN0P222CA0008.outlook.office365.com
+ (2603:10b6:208:531::12) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.16 via Frontend Transport; Fri,
- 31 Jul 2026 21:15:51 +0000
+ 31 Jul 2026 21:15:50 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BL02EPF00021F6A.mail.protection.outlook.com (10.167.249.6) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 21:15:51 +0000
+ 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 21:15:50 +0000
 Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
- 2026 16:15:51 -0500
+ 2026 16:15:49 -0500
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
- 2026 16:15:51 -0500
+ 2026 16:15:49 -0500
 Received: from roman-vdev.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 31 Jul 2026 16:15:50 -0500
+ Transport; Fri, 31 Jul 2026 16:15:48 -0500
 From: <Roman.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -72,10 +71,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>
-Subject: [PATCH 23/41] drm/amd/display: Align connector KUnit tests with
- stream validation refactor
-Date: Fri, 31 Jul 2026 17:12:44 -0400
-Message-ID: <20260731211302.3040343-24-Roman.Li@amd.com>
+Subject: [PATCH 21/41] drm/amd/display: Refactor stream validation
+Date: Fri, 31 Jul 2026 17:12:42 -0400
+Message-ID: <20260731211302.3040343-22-Roman.Li@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260731211302.3040343-1-Roman.Li@amd.com>
 References: <20260731211302.3040343-1-Roman.Li@amd.com>
@@ -84,29 +82,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF00021F6A:EE_|MN6PR12MB8470:EE_
-X-MS-Office365-Filtering-Correlation-Id: 07072e21-b428-41b0-3c29-08deef48e691
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6A:EE_|SAVPR12MB999122:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85eb4aa4-ef71-4717-520c-08deef48e591
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|11063799006|56012099006|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: vrrYVkVTx+7CZIxqJlxIacDoN//u6QeVSeYfm/UxC+LCYBTrfkernwkF5leG55ShNu70KoiHS5MzTI8vlXJ7wemacNbr7xqG/dpoaAVQUTGi/u2hv8TnaPp+DT2kf/EBNDzpc+teZCHqUBG/QNOlpFQokAAM5gKu+/pz/St+AXiNWSYJ8gwnAr/jMe6tleB/2clfY6BKLMW3OSe2Wp8i8+AcCt1btvZ42i+auptHXng+rOGtuGYuVUIO37CePM1U9Jw2ozjDGm8RkojNVZPrpk5kiDMjS8WzUMozzrwfTHwRLYlU/2CRCzUV/4nA1KRM+ZcUzoorjEdhD27MnQUzQVfrF+w7KE9yIPGZhbr6pb+nEwFIiNbzLTOyTCa5zLLrmQmME23rKPXy8u1OYO1WIr8nEnRpVSm/Y1bpxnt/Wgj2hoSjXEmMhvl2Z2uxmw+a6jH3aKHDBT7JzDR6XssheevWN99NABYuyCP+XafD5dKQ4nDeNbSHirwMqvJM3ueENr+lmvpUwnH4e0GznzdjOD4q4iqCuvuPRqoF5yh0HUXD1JQb9YBoWzW6ZEmnBKCjJyKq6dVEE2kaOcNn9nNiVK5JsOYlpnqIxyveU4ca6c1/AvOtDXjOnbfK0h8ckAAJfyz2/iRO5GnkCGFWnqm+ZI8y0cDovuaLwQhcjokBLRLjdKhOtnJUiBiJGpqvmTGKyDFf/duDoD70UvJzVUhfFA==
+ ARA:13230040|82310400026|1800799024|23010399003|36860700016|376014|22082099003|18002099003|5023799004|11063799006|56012099006|3023799007|10067099003|6133799003;
+X-Microsoft-Antispam-Message-Info: 0DZL5bclbHjB51DWGtPJ510GfOKtz0QoFvVMwHR2ITz1bTGjEICMPeNAkdBmfEAXbv6LoMlGRJ7IBFpTnh5204baJMsJYir/vhfbptlliU+59GF8aF3m/LRuqiiAyiyVdXtD8Y5lCgkDCk2qTO/qXMFEXGGqkNILZCaOlncqA5TMsExKW1fU5+yHY1BDqW3Xf0GaIJ6CQiUIsW8IoTtgX6jDw3rgEAlAzGDCJ3v1bm8D5kchtU1fY0BcBfegUHwsuQi/X39GnEd/Sx+hBslpm6G9fHFzlfCkRVSMhy5GqKJneehHK92axbZ8YPp9+WfiseUsTmG0Uc+NiZ6Ox5JMLCAl8cDEOAx27T27hMh+2pj003ddfVyrWz0Qxodf0PuOg3kW5UH8cJ5PpJv4sgB2yiokmD3tS2l0gKklD/UesbkiyOkakDbZktrB8M1u3rXZrCN9pRd1KOSP1CByMTslLG6j5NI/Liq8eDi8lRUux2yt85m8f0jebNrh5SvhgWMUkiyV/+M+Y4aqSRr4c20JMx4IUzQUKm3WMFMQDHPMM5HQNXsdW0If1kMF6EmKISVyUJvP1hOXnmh4sJisAN23Y+794nd6fEBOOm0OQKgIcbAoijxeLRwG0RVkxpco7/bTmkf8zoUkuMr+Rrb/Q8r/yId4Yw3YEKhrT5Bz2vPQZqeXEY94QNv0iyeV0MTVjL9e/fzYE4dzWyC7aF3hEFMCnQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(3023799007);
+ SFS:(13230040)(82310400026)(1800799024)(23010399003)(36860700016)(376014)(22082099003)(18002099003)(5023799004)(11063799006)(56012099006)(3023799007)(10067099003)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: bwuqnnbjYmIY4wxGsH9p6kFGN7AlcRFcDUdxxt/EypM7sbpNIGfVQwQl6foyNlFeNlYK3RSGmlmybhSMMSrsiSXOu3CcThceW98KUksggofQotXAQ5FushfE+i7lwMtXPTGq3wrAIRz3qiM7wEsevPe1u74W3beqOxyK4IUPxBOQ9TI6cYkIRXcAuZnn+WTcsIy/yO+5Vw0FwitHu/fd+wVMN+pAZUM2TFxYcDff6oR8bd9q2JZs2ASdrp5abmFny9gaLhYDPcV/YBo/lwHKfqZ1wKvqZbq4lo//GltEPupv1xiWp9ZFKJhlRGMhVJ1Q5gw4hrMpBbsD/hiU1/RraDi/fRsTwWr2cmr5hWymyKh8FfcHqxNWe3Wir29SFDpi1kU0XieGVgkTv83p23jUGrP8MjWt7hV3T9cts7yhaF+hiNJAkv+5ZGcg3Sq8HFJr
+X-MS-Exchange-AntiSpam-MessageData-0: IO+4Ip8hEqX2ahEQwa569ArmHJ3ZVeJ3U+phFHAqsqd2TXtRjuM4B6UVEnOUx3YPkWIDlhLjbZ6Zs6z0CX8YrxYCaX4JipDfwlHZt024b4fyN/GW/ziYmNdiN96zt5kXZJg+8fQONUbR+ok6ZSh6H4GQ5b+W05eKsWOwKwovNqeyyomdBr3tu/kgG9L1cOo0pL7j8OEntdrl5PrVfr7kSzN4T1/tbMpws1BzmdG8IIlJB3wJukEJj2uj9Hrgj3t3MinzZvGKwQL/LlblI+lf7XC5xFIpD3rhc4W6T9aNWxNHnZhKi1WqPAoEsTthZge0JXRekz1W8278NfXQqDNtbbbG7Rtg2SzR/izHb8f8PwXd1EwzzGOHhS+awRylCTZldyV7ABXjcgJwntB3Vd9e9Es1hpTJ0h7aJNZgyMOO9Kb43/mpljUTUsG9Lw5rQ3aZ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 21:15:51.7702 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07072e21-b428-41b0-3c29-08deef48e691
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 21:15:50.0922 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85eb4aa4-ef71-4717-520c-08deef48e591
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6A.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR12MB8470
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAVPR12MB999122
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,296 +121,421 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Ivan Lipski <ivan.lipski@amd.com>
 
-[Why&How]
-Update the amdgpu_dm_connector KUnit tests for the new
-fill_stream_properties_from_drm_display_mode() and create_stream_for_sink()
-signatures, which now take an explicit pixel encoding and an is_hdmi_ep
-flag instead of deriving the encoding from connector state.
+[Why]
+amdgpu_dm_create_validate_stream_for_sink() drove its RGB -> YUV422 ->
+YUV420 chroma fallback by recursing and toggling the shared
+aconnector->force_yuv420_output / force_yuv422_output fields, resetting
+them after each recursive call. Those fields have no locking and the
+function runs concurrently on the same connector from two paths: the
+connector probe worker (->mode_valid) and a compositor's atomic check
+(dm_update_crtc_state). When both run at once, one thread can clear the
+override just before the other tests its exit condition, so the exit is
+missed and validation loops indefinitely, hanging the modeset path.
 
-- Pass PIXEL_ENCODING_RGB / is_hdmi_ep=false to all existing call sites.
-- Add cases verifying the caller-selected encoding is applied verbatim
-  (YCbCr420/422/444), replacing the old display-info-derived behaviour.
-- Add cases covering the is_hdmi_ep TMDS colour-depth clamp: depth is
-  reduced when over the sink limit on an HDMI endpoint and left untouched
-  otherwise.
+[How]
+- Replace the recursion with an explicit loop over the chroma encodings
+  wrapping the existing bpc walk.
+- Carry the encoding/bpc selection on the stack, passed by value into
+  create_stream_for_sink() / fill_stream_properties_from_drm_display_mode(),
+  instead of mutating shared connector state.
+- Derive the supported encodings and bit depths into bitmaps and drive
+  validation from them, gating each candidate on the sink's advertised
+  capability so unsupported encodings are never retried.
+- Move encoding selection entirely to the caller and pass the chosen
+  dc_pixel_encoding into fill_stream_properties_from_drm_display_mode().
 
 Assisted-by: Copilot:claude-opus-4.8
 Reviewed-by: Jerry Zuo <jerry.zuo@amd.com>
 Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 Signed-off-by: Roman Li <roman.li@amd.com>
 ---
- .../tests/amdgpu_dm_connector_test.c          | 155 ++++++++++++++++--
- 1 file changed, 141 insertions(+), 14 deletions(-)
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   | 280 ++++++++++++------
+ .../display/amdgpu_dm/amdgpu_dm_connector.h   |   8 +-
+ 2 files changed, 189 insertions(+), 99 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index 1a8f02c78c4d..1658d4d5997a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -3416,7 +3416,8 @@ static void dm_test_fill_stream_borders_zeroed(struct kunit *test)
- 	timing->v_border_bottom = 8;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index e637db2723c1..825c3408763c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -855,7 +855,9 @@ STATIC_IFN_KUNIT void fill_stream_properties_from_drm_display_mode(
+ 	const struct drm_connector *connector,
+ 	const struct drm_connector_state *connector_state,
+ 	const struct dc_stream_state *old_stream,
+-	int requested_bpc)
++	int requested_bpc,
++	enum dc_pixel_encoding requested_encoding,
++	bool is_hdmi_ep)
+ {
+ 	struct dc_crtc_timing *timing_out = &stream->timing;
+ 	const struct drm_display_info *info = &connector->display_info;
+@@ -874,26 +876,14 @@ STATIC_IFN_KUNIT void fill_stream_properties_from_drm_display_mode(
+ 	timing_out->h_border_right = 0;
+ 	timing_out->v_border_top = 0;
+ 	timing_out->v_border_bottom = 0;
+-	/* TODO: un-hardcode */
+-	if (drm_mode_is_420_only(info, mode_in) ||
+-	    (aconnector &&
+-	     (aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR420 ||
+-	      aconnector->force_yuv420_output) &&
+-	     drm_mode_is_420_also(info, mode_in)))
+-		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+-	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
+-			&& aconnector
+-			&& (aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR422
+-			|| aconnector->force_yuv422_output))
+-		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR422;
+-	else if ((connector->display_info.color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444))
+-			&& (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
+-			    stream->signal == SIGNAL_TYPE_HDMI_FRL)
+-			&& aconnector
+-			&& aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR444)
+-		timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR444;
+-	else
+-		timing_out->pixel_encoding = PIXEL_ENCODING_RGB;
++
++	/*
++	 * The pixel encoding to use is decided entirely by the caller (see
++	 * amdgpu_dm_create_validate_stream_for_sink()), which enumerates only
++	 * the encodings the sink actually advertises. This helper must not
++	 * second-guess that choice; it simply applies it.
++	 */
++	timing_out->pixel_encoding = requested_encoding;
  
- 	fill_stream_properties_from_drm_display_mode(ctx->stream, ctx->mode,
--		&ctx->aconnector->base, ctx->conn_state, NULL, 8);
-+		&ctx->aconnector->base, ctx->conn_state, NULL, 8,
-+		PIXEL_ENCODING_RGB, false);
+ 	timing_out->timing_3d_format = TIMING_3D_FORMAT_NONE;
+ 	timing_out->display_color_depth = amdgpu_dm_convert_color_depth_from_display_info(
+@@ -959,14 +949,15 @@ STATIC_IFN_KUNIT void fill_stream_properties_from_drm_display_mode(
  
- 	KUNIT_EXPECT_EQ(test, (int)timing->h_border_left, 0);
- 	KUNIT_EXPECT_EQ(test, (int)timing->h_border_right, 0);
-@@ -3437,7 +3438,8 @@ static void dm_test_fill_stream_rgb_defaults(struct kunit *test)
- 	struct dc_crtc_timing *timing = &ctx->stream->timing;
+ 	stream->out_transfer_func.type = TF_TYPE_PREDEFINED;
+ 	stream->out_transfer_func.tf = TRANSFER_FUNCTION_SRGB;
+-	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A) {
+-		if (!adjust_colour_depth_from_display_info(timing_out, info) &&
+-		    drm_mode_is_420_also(info, mode_in) &&
+-		    timing_out->pixel_encoding != PIXEL_ENCODING_YCBCR420) {
+-			timing_out->pixel_encoding = PIXEL_ENCODING_YCBCR420;
+-			adjust_colour_depth_from_display_info(timing_out, info);
+-		}
+-	}
++
++	/* Clamp the HDMI colour depth to what the sink's max TMDS clock
++	 * allows. The pixel encoding is fixed by the caller and must not be
++	 * changed here: the caller already enumerates YCbCr420 as its own
++	 * candidate, so silently switching to it would hide an enumeration
++	 * bug and produce a stream the caller never asked to validate.
++	 */
++	if (is_hdmi_ep)
++		adjust_colour_depth_from_display_info(timing_out, info);
  
- 	fill_stream_properties_from_drm_display_mode(ctx->stream, ctx->mode,
--		&ctx->aconnector->base, ctx->conn_state, NULL, 8);
-+		&ctx->aconnector->base, ctx->conn_state, NULL, 8,
-+		PIXEL_ENCODING_RGB, false);
+ 	stream->output_color_space = amdgpu_dm_get_output_color_space(timing_out, connector_state);
+ 	stream->content_type = get_output_content_type(connector_state);
+@@ -1433,7 +1424,9 @@ create_stream_for_sink(struct drm_connector *connector,
+ 		       const struct drm_display_mode *drm_mode,
+ 		       const struct dm_connector_state *dm_state,
+ 		       const struct dc_stream_state *old_stream,
+-		       int requested_bpc)
++		       int requested_bpc,
++		       enum dc_pixel_encoding requested_encoding,
++		       bool is_hdmi_ep)
+ {
+ 	struct drm_device *dev = connector->dev;
+ 	struct amdgpu_dm_connector *aconnector = NULL;
+@@ -1544,11 +1537,11 @@ create_stream_for_sink(struct drm_connector *connector,
+ 	if (!scale || mode_refresh != preferred_refresh)
+ 		fill_stream_properties_from_drm_display_mode(
+ 			stream, &mode, connector, con_state, NULL,
+-			requested_bpc);
++			requested_bpc, requested_encoding, is_hdmi_ep);
+ 	else
+ 		fill_stream_properties_from_drm_display_mode(
+ 			stream, &mode, connector, con_state, old_stream,
+-			requested_bpc);
++			requested_bpc, requested_encoding, is_hdmi_ep);
  
- 	KUNIT_EXPECT_EQ(test, (int)timing->pixel_encoding, (int)PIXEL_ENCODING_RGB);
- 	KUNIT_EXPECT_EQ(test, (int)timing->timing_3d_format,
-@@ -3463,7 +3465,8 @@ static void dm_test_fill_stream_sync_polarity_positive(struct kunit *test)
- 	ctx->mode->flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC;
+ 	/* The rest isn't needed for writeback connectors */
+ 	if (!aconnector)
+@@ -2221,13 +2214,31 @@ amdgpu_dm_create_validate_stream_for_sink(struct drm_connector *connector,
+ 					  const struct dm_connector_state *dm_state,
+ 					  const struct dc_stream_state *old_stream)
+ {
++	/*
++	 * Ordered lists of the encodings and bit depths we are willing to
++	 * validate, best quality/bandwidth first. The per-sink masks built
++	 * below gate which of these entries are actually attempted.
++	 */
++	static const enum dc_pixel_encoding encoding_order[] = {
++		PIXEL_ENCODING_YCBCR444,
++		PIXEL_ENCODING_RGB,
++		PIXEL_ENCODING_YCBCR422,
++		PIXEL_ENCODING_YCBCR420,
++	};
++	static const u8 bpc_order[] = { 16, 12, 10, 8, 6 };
++
+ 	struct amdgpu_dm_connector *aconnector = NULL;
+ 	struct amdgpu_device *adev = drm_to_adev(connector->dev);
+-	struct dc_stream_state *stream;
++	const struct drm_display_info *info = &connector->display_info;
++	struct dc_stream_state *stream = NULL;
+ 	const struct drm_connector_state *drm_state = dm_state ? &dm_state->base : NULL;
+ 	int requested_bpc = drm_state ? drm_state->max_requested_bpc : 8;
+ 	enum dc_status dc_result = DC_OK;
+-	uint8_t bpc_limit = 6;
++	enum signal_type signal = SIGNAL_TYPE_NONE;
++	u32 encoding_mask = 0;
++	u32 bpc_mask = 0;
++	bool is_hdmi_ep = false;
++	unsigned int i, j;
  
- 	fill_stream_properties_from_drm_display_mode(ctx->stream, ctx->mode,
--		&ctx->aconnector->base, ctx->conn_state, NULL, 8);
-+		&ctx->aconnector->base, ctx->conn_state, NULL, 8,
-+		PIXEL_ENCODING_RGB, false);
+ 	if (!dm_state)
+ 		return NULL;
+@@ -2235,87 +2246,162 @@ amdgpu_dm_create_validate_stream_for_sink(struct drm_connector *connector,
+ 	if (connector->connector_type != DRM_MODE_CONNECTOR_WRITEBACK)
+ 		aconnector = to_amdgpu_dm_connector(connector);
  
- 	KUNIT_EXPECT_EQ(test, (int)timing->flags.HSYNC_POSITIVE_POLARITY, 1);
- 	KUNIT_EXPECT_EQ(test, (int)timing->flags.VSYNC_POSITIVE_POLARITY, 1);
-@@ -3482,7 +3485,8 @@ static void dm_test_fill_stream_sync_polarity_negative(struct kunit *test)
- 	ctx->mode->flags = 0;
+-	if (aconnector &&
+-	    (aconnector->dc_link->connector_signal == SIGNAL_TYPE_HDMI_TYPE_A ||
+-	     aconnector->dc_link->connector_signal == SIGNAL_TYPE_HDMI_FRL ||
+-	     aconnector->dc_link->dpcd_caps.dongle_type == DISPLAY_DONGLE_DP_HDMI_CONVERTER))
+-		bpc_limit = 8;
+-
+-	do {
+-		drm_dbg_kms(connector->dev, "Trying with %d bpc\n", requested_bpc);
+-		stream = create_stream_for_sink(connector, drm_mode,
+-						dm_state, old_stream,
+-						requested_bpc);
+-		if (stream == NULL) {
++	/*
++	 * Writeback connectors have no sink EDID to enumerate against. They
++	 * only ever use RGB at the requested depth, so build and validate a
++	 * single stream directly and return it (dc_validate_stream() is not
++	 * meaningful for the writeback path).
++	 */
++	if (!aconnector) {
++		stream = create_stream_for_sink(connector, drm_mode, dm_state,
++						old_stream, requested_bpc,
++						PIXEL_ENCODING_RGB, is_hdmi_ep);
++		if (!stream)
+ 			drm_err(adev_to_drm(adev), "Failed to create stream for sink!\n");
+-			break;
+-		}
++		return stream;
++	}
  
- 	fill_stream_properties_from_drm_display_mode(ctx->stream, ctx->mode,
--		&ctx->aconnector->base, ctx->conn_state, NULL, 8);
-+		&ctx->aconnector->base, ctx->conn_state, NULL, 8,
-+		PIXEL_ENCODING_RGB, false);
+-		dc_result = dc_validate_stream(adev->dm.dc, stream);
++	signal = aconnector->dc_link->connector_signal;
  
- 	KUNIT_EXPECT_EQ(test, (int)timing->flags.HSYNC_POSITIVE_POLARITY, 0);
- 	KUNIT_EXPECT_EQ(test, (int)timing->flags.VSYNC_POSITIVE_POLARITY, 0);
-@@ -3511,7 +3515,8 @@ static void dm_test_fill_stream_inherits_old_stream(struct kunit *test)
- 	ctx->mode->flags = DRM_MODE_FLAG_PHSYNC | DRM_MODE_FLAG_PVSYNC;
+-		if (!aconnector) /* writeback connector */
+-			return stream;
++	/*
++	 * Determine whether this is a native HDMI sink or a DP->HDMI dongle.
++	 * Since we check for it a few times below, cache the result.
++	 */
++	is_hdmi_ep = (signal == SIGNAL_TYPE_HDMI_TYPE_A ||
++		     signal == SIGNAL_TYPE_HDMI_FRL 	||
++		     aconnector->dc_link->dpcd_caps.dongle_type ==
++			     DISPLAY_DONGLE_DP_HDMI_CONVERTER);
++
++	/*
++	 * Build the set of pixel encodings this sink advertises, so we only
++	 * ever validate combinations the display can actually accept. Ordered
++	 * best-first: RGB / YCbCr444 (full bandwidth) -> YCbCr422 -> YCbCr420.
++	 *
++	 *  - RGB is the mandatory baseline and always available.
++	 *  - YCbCr444 is only meaningful for native HDMI sinks.
++	 *  - A 420-only mode collapses the mask to YCbCr420 alone.
++	 *  - The debugfs force_yuv420_output / force_yuv422_output overrides
++	 *    pin the encoding to a single value when set. An explicit YCbCr420
++	 *    force is honoured even on modes the sink only lists as RGB/4:4:4
++	 *    capable (drm_mode_is_420_also() clear), as required for HDMI
++	 *    compliance testing; dc_validate_stream() still rejects anything
++	 *    the link genuinely cannot carry. The YCbCr422 force stays gated on
++	 *    the sink's advertised caps.
++	 */
++	if (drm_mode_is_420_only(info, drm_mode) ||
++	    aconnector->force_yuv420_output) {
++		encoding_mask = BIT(PIXEL_ENCODING_YCBCR420);
++	} else if (aconnector->force_yuv422_output &&
++		   (info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))) {
++		encoding_mask = BIT(PIXEL_ENCODING_YCBCR422);
++	} else {
++		encoding_mask = BIT(PIXEL_ENCODING_RGB);
++
++		if ((info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444)) &&
++		    is_hdmi_ep)
++			encoding_mask |= BIT(PIXEL_ENCODING_YCBCR444);
++
++		if (info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))
++			encoding_mask |= BIT(PIXEL_ENCODING_YCBCR422);
++
++		if (drm_mode_is_420_also(info, drm_mode))
++			encoding_mask |= BIT(PIXEL_ENCODING_YCBCR420);
++	}
++
++	/*
++	 * Build the set of bit depths to try, high-to-low. Start from the
++	 * atomic-requested cap and clear anything the sink cannot do:
++	 *
++	 *  - Never exceed the requested bpc.
++	 *  - HDMI/FRL and DP->HDMI dongles have no defined 6 bpc mode.
++	 *  - Any depth above the EDID-reported bpc is dropped.
++	 *
++	 * amdgpu_dm_convert_color_depth_from_display_info() applies the final
++	 * per-encoding cap (e.g. YCbCr420 deep-colour limits) when the stream
++	 * is built, so this mask only needs the coarse sink limits.
++	 */
++	for (j = 0; j < ARRAY_SIZE(bpc_order); j++) {
++		u8 bpc = bpc_order[j];
++
++		if (requested_bpc > 0 && bpc > requested_bpc)
++			continue;
++
++		if (bpc == 6 && is_hdmi_ep)
++			continue;
++
++		if (info->bpc && bpc > info->bpc)
++			continue;
++
++		bpc_mask |= BIT(bpc);
++	}
++
++	/*
++	 * Enumerate the supported (encoding, bpc) combinations in priority
++	 * order and return the first that validates. Because the masks only
++	 * contain sink-supported entries, this is generic across connector
++	 * types and needs no encoding-specific fallback afterwards.
++	 *
++	 * The selection lives entirely on the stack and is passed by value to
++	 * create_stream_for_sink(); no shared connector state is mutated. This
++	 * matters because this helper runs concurrently from the connector
++	 * probe worker (->mode_valid) and from a compositor's atomic check on
++	 * the same connector.
++	 */
++	for (i = 0; i < ARRAY_SIZE(encoding_order); i++) {
++		enum dc_pixel_encoding enc = encoding_order[i];
++
++		if (!(encoding_mask & BIT(enc)))
++			continue;
++
++		for (j = 0; j < ARRAY_SIZE(bpc_order); j++) {
++			u8 bpc = bpc_order[j];
  
- 	fill_stream_properties_from_drm_display_mode(ctx->stream, ctx->mode,
--		&ctx->aconnector->base, ctx->conn_state, old_stream, 8);
-+		&ctx->aconnector->base, ctx->conn_state, old_stream, 8,
-+		PIXEL_ENCODING_RGB, false);
+-		if (dc_result == DC_OK && stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST)
+-			dc_result = dm_dp_mst_is_port_support_mode(aconnector, stream);
++			if (!(bpc_mask & BIT(bpc)))
++				continue;
  
- 	KUNIT_EXPECT_EQ(test, (int)timing->vic, 16);
- 	KUNIT_EXPECT_EQ(test, (int)timing->flags.HSYNC_POSITIVE_POLARITY, 1);
-@@ -3541,7 +3546,8 @@ static void dm_test_fill_stream_timing_from_crtc(struct kunit *test)
- 	ctx->mode->crtc_clock = 148500;
+-		if (dc_result == DC_OK)
+-			dc_result = dm_validate_stream_and_context(adev->dm.dc, stream);
++			drm_dbg_kms(connector->dev,
++				    "Trying %s with %d bpc (encoding_mask=0x%x bpc_mask=0x%x requested_bpc=%d drm max_bpc)\n",
++				    dc_pixel_encoding_to_str(enc), bpc,
++				    encoding_mask, bpc_mask, requested_bpc);
  
- 	fill_stream_properties_from_drm_display_mode(ctx->stream, ctx->mode,
--		&ctx->aconnector->base, ctx->conn_state, NULL, 8);
-+		&ctx->aconnector->base, ctx->conn_state, NULL, 8,
-+		PIXEL_ENCODING_RGB, false);
+-		if (dc_result != DC_OK) {
+-			drm_dbg_kms(connector->dev, "Pruned mode %d x %d (clk %d) %s %s -- %s\n",
++			stream = create_stream_for_sink(connector, drm_mode,
++							dm_state, old_stream,
++							bpc, enc, is_hdmi_ep);
++			if (stream == NULL) {
++				drm_err(adev_to_drm(adev), "Failed to create stream for sink!\n");
++				return NULL;
++			}
++
++			dc_result = dc_validate_stream(adev->dm.dc, stream);
++
++			if (dc_result == DC_OK &&
++			    stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST)
++				dc_result = dm_dp_mst_is_port_support_mode(aconnector, stream);
++
++			if (dc_result == DC_OK)
++				dc_result = dm_validate_stream_and_context(adev->dm.dc, stream);
++
++			if (dc_result == DC_OK)
++				return stream;
++
++			drm_dbg_kms(connector->dev, "Pruned mode %d x %d (refresh rate %d) %s %s -- %s\n",
+ 				      drm_mode->hdisplay,
+ 				      drm_mode->vdisplay,
+-				      drm_mode->clock,
++				      drm_mode_vrefresh(drm_mode),
+ 				      dc_pixel_encoding_to_str(stream->timing.pixel_encoding),
+ 				      dc_color_depth_to_str(stream->timing.display_color_depth),
+ 				      dc_status_to_str(dc_result));
  
- 	KUNIT_EXPECT_EQ(test, (int)timing->h_addressable, 1920);
- 	KUNIT_EXPECT_EQ(test, (int)timing->h_total, 2200);
-@@ -3568,7 +3574,8 @@ static void dm_test_fill_stream_color_depth_requested_bpc(struct kunit *test)
- 	ctx->aconnector->base.display_info.bpc = 12;
+ 			dc_stream_release(stream);
+ 			stream = NULL;
+-			requested_bpc -= 2; /* lower bpc to retry validation */
+ 		}
++	}
  
- 	fill_stream_properties_from_drm_display_mode(ctx->stream, ctx->mode,
--		&ctx->aconnector->base, ctx->conn_state, NULL, 10);
-+		&ctx->aconnector->base, ctx->conn_state, NULL, 10,
-+		PIXEL_ENCODING_RGB, false);
- 
- 	KUNIT_EXPECT_EQ(test, (int)timing->display_color_depth,
- 			(int)COLOR_DEPTH_101010);
-@@ -3585,7 +3592,8 @@ static void dm_test_fill_stream_content_type(struct kunit *test)
- 	ctx->conn_state->content_type = DRM_MODE_CONTENT_TYPE_GRAPHICS;
- 
- 	fill_stream_properties_from_drm_display_mode(ctx->stream, ctx->mode,
--		&ctx->aconnector->base, ctx->conn_state, NULL, 8);
-+		&ctx->aconnector->base, ctx->conn_state, NULL, 8,
-+		PIXEL_ENCODING_RGB, false);
- 
- 	KUNIT_EXPECT_EQ(test, (int)ctx->stream->content_type,
- 			(int)DISPLAY_CONTENT_TYPE_GRAPHICS);
-@@ -3603,12 +3611,121 @@ static void dm_test_fill_stream_aspect_ratio(struct kunit *test)
- 	ctx->mode->picture_aspect_ratio = HDMI_PICTURE_ASPECT_16_9;
- 
- 	fill_stream_properties_from_drm_display_mode(ctx->stream, ctx->mode,
--		&ctx->aconnector->base, ctx->conn_state, NULL, 8);
-+		&ctx->aconnector->base, ctx->conn_state, NULL, 8,
-+		PIXEL_ENCODING_RGB, false);
- 
- 	KUNIT_EXPECT_EQ(test, (int)timing->aspect_ratio,
- 			(int)ASPECT_RATIO_16_9);
+-	} while (stream == NULL && requested_bpc >= bpc_limit);
+-
+-	switch (dc_result) {
+ 	/*
+-	 * If we failed to validate DP bandwidth stream with the requested RGB color depth,
+-	 * we try to fallback and configure in order:
+-	 * YUV422 (8bpc, 6bpc)
+-	 * YUV420 (8bpc, 6bpc)
++	 * Every sink-supported combination was exhausted without validating;
++	 * the mode is genuinely unsupported on this link.
+ 	 */
+-	case DC_FAIL_ENC_VALIDATE:
+-	case DC_EXCEED_DONGLE_CAP:
+-	case DC_NO_DP_LINK_BANDWIDTH:
+-		/* recursively entered twice and already tried both YUV422 and YUV420 */
+-		if (aconnector->force_yuv422_output && aconnector->force_yuv420_output)
+-			break;
+-		/* first failure; try YUV422 */
+-		if (!aconnector->force_yuv422_output) {
+-			drm_dbg_kms(connector->dev, "%s:%d Validation failed with %d, retrying w/ YUV422\n",
+-				    __func__, __LINE__, dc_result);
+-			aconnector->force_yuv422_output = true;
+-		/* recursively entered and YUV422 failed, try YUV420 */
+-		} else if (!aconnector->force_yuv420_output) {
+-			drm_dbg_kms(connector->dev, "%s:%d Validation failed with %d, retrying w/ YUV420\n",
+-				    __func__, __LINE__, dc_result);
+-			aconnector->force_yuv420_output = true;
+-		}
+-		stream = amdgpu_dm_create_validate_stream_for_sink(connector, drm_mode,
+-							 dm_state, old_stream);
+-		aconnector->force_yuv422_output = false;
+-		aconnector->force_yuv420_output = false;
+-		break;
+-	case DC_OK:
+-		break;
+-	default:
+-		drm_dbg_kms(connector->dev, "%s:%d Unhandled validation failure %d\n",
+-			    __func__, __LINE__, dc_result);
+-		break;
+-	}
+-
+-	return stream;
++	return NULL;
  }
+ EXPORT_IF_KUNIT(amdgpu_dm_create_validate_stream_for_sink);
  
-+/**
-+ * dm_test_fill_stream_encoding_from_caller_ycbcr420 - Test caller-selected 420
-+ * @test: The KUnit test context
-+ *
-+ * The helper no longer derives the pixel encoding from the display info; it
-+ * applies whatever the caller selected. Passing YCbCr420 must be honoured even
-+ * though the DisplayPort sink advertises no YCbCr color formats.
-+ */
-+static void dm_test_fill_stream_encoding_from_caller_ycbcr420(struct kunit *test)
-+{
-+	struct dm_test_fill_ctx *ctx = dm_test_fill_ctx_alloc(test);
-+	struct dc_crtc_timing *timing = &ctx->stream->timing;
-+
-+	fill_stream_properties_from_drm_display_mode(ctx->stream, ctx->mode,
-+		&ctx->aconnector->base, ctx->conn_state, NULL, 8,
-+		PIXEL_ENCODING_YCBCR420, false);
-+
-+	KUNIT_EXPECT_EQ(test, (int)timing->pixel_encoding,
-+			(int)PIXEL_ENCODING_YCBCR420);
-+}
-+
-+/**
-+ * dm_test_fill_stream_encoding_from_caller_ycbcr422 - Test caller-selected 422
-+ * @test: The KUnit test context
-+ *
-+ * A caller-selected YCbCr422 encoding is applied verbatim.
-+ */
-+static void dm_test_fill_stream_encoding_from_caller_ycbcr422(struct kunit *test)
-+{
-+	struct dm_test_fill_ctx *ctx = dm_test_fill_ctx_alloc(test);
-+	struct dc_crtc_timing *timing = &ctx->stream->timing;
-+
-+	fill_stream_properties_from_drm_display_mode(ctx->stream, ctx->mode,
-+		&ctx->aconnector->base, ctx->conn_state, NULL, 8,
-+		PIXEL_ENCODING_YCBCR422, false);
-+
-+	KUNIT_EXPECT_EQ(test, (int)timing->pixel_encoding,
-+			(int)PIXEL_ENCODING_YCBCR422);
-+}
-+
-+/**
-+ * dm_test_fill_stream_encoding_from_caller_ycbcr444 - Test caller-selected 444
-+ * @test: The KUnit test context
-+ *
-+ * A caller-selected YCbCr444 encoding is applied verbatim.
-+ */
-+static void dm_test_fill_stream_encoding_from_caller_ycbcr444(struct kunit *test)
-+{
-+	struct dm_test_fill_ctx *ctx = dm_test_fill_ctx_alloc(test);
-+	struct dc_crtc_timing *timing = &ctx->stream->timing;
-+
-+	fill_stream_properties_from_drm_display_mode(ctx->stream, ctx->mode,
-+		&ctx->aconnector->base, ctx->conn_state, NULL, 8,
-+		PIXEL_ENCODING_YCBCR444, false);
-+
-+	KUNIT_EXPECT_EQ(test, (int)timing->pixel_encoding,
-+			(int)PIXEL_ENCODING_YCBCR444);
-+}
-+
-+/**
-+ * dm_test_fill_stream_hdmi_ep_clamps_depth - Test HDMI TMDS depth clamp applied
-+ * @test: The KUnit test context
-+ *
-+ * With is_hdmi_ep set the colour depth is clamped to what the sink's max TMDS
-+ * clock allows: a 10bpc request that exceeds the limit is reduced to 8bpc.
-+ */
-+static void dm_test_fill_stream_hdmi_ep_clamps_depth(struct kunit *test)
-+{
-+	struct dm_test_fill_ctx *ctx = dm_test_fill_ctx_alloc(test);
-+	struct dc_crtc_timing *timing = &ctx->stream->timing;
-+
-+	ctx->aconnector->base.display_info.bpc = 10;
-+	/* 10bpc RGB needs 185625 KHz, over the sink's 160 MHz TMDS limit. */
-+	ctx->aconnector->base.display_info.max_tmds_clock = 160000;
-+	ctx->mode->crtc_clock = 148500;
-+
-+	fill_stream_properties_from_drm_display_mode(ctx->stream, ctx->mode,
-+		&ctx->aconnector->base, ctx->conn_state, NULL, 10,
-+		PIXEL_ENCODING_RGB, true);
-+
-+	KUNIT_EXPECT_EQ(test, (int)timing->display_color_depth,
-+			(int)COLOR_DEPTH_888);
-+}
-+
-+/**
-+ * dm_test_fill_stream_non_hdmi_ep_keeps_depth - Test no TMDS clamp off HDMI
-+ * @test: The KUnit test context
-+ *
-+ * With is_hdmi_ep clear the TMDS clamp is skipped, so the same over-limit
-+ * 10bpc request is left untouched. The clamp is HDMI-specific.
-+ */
-+static void dm_test_fill_stream_non_hdmi_ep_keeps_depth(struct kunit *test)
-+{
-+	struct dm_test_fill_ctx *ctx = dm_test_fill_ctx_alloc(test);
-+	struct dc_crtc_timing *timing = &ctx->stream->timing;
-+
-+	ctx->aconnector->base.display_info.bpc = 10;
-+	ctx->aconnector->base.display_info.max_tmds_clock = 160000;
-+	ctx->mode->crtc_clock = 148500;
-+
-+	fill_stream_properties_from_drm_display_mode(ctx->stream, ctx->mode,
-+		&ctx->aconnector->base, ctx->conn_state, NULL, 10,
-+		PIXEL_ENCODING_RGB, false);
-+
-+	KUNIT_EXPECT_EQ(test, (int)timing->display_color_depth,
-+			(int)COLOR_DEPTH_101010);
-+}
-+
- /* Tests for create_stream_for_sink() */
- 
- /*
-@@ -3687,7 +3804,8 @@ static void dm_test_create_stream_fake_sink_success(struct kunit *test)
- 	struct dc_stream_state *stream;
- 
- 	stream = create_stream_for_sink(&ctx->aconnector->base, ctx->mode,
--					ctx->dm_state, NULL, 8);
-+					ctx->dm_state, NULL, 8,
-+					PIXEL_ENCODING_RGB, false);
- 
- 	KUNIT_ASSERT_NOT_NULL(test, stream);
- 	dc_stream_release(stream);
-@@ -3703,7 +3821,8 @@ static void dm_test_create_stream_sets_dm_context(struct kunit *test)
- 	struct dc_stream_state *stream;
- 
- 	stream = create_stream_for_sink(&ctx->aconnector->base, ctx->mode,
--					ctx->dm_state, NULL, 8);
-+					ctx->dm_state, NULL, 8,
-+					PIXEL_ENCODING_RGB, false);
- 
- 	KUNIT_ASSERT_NOT_NULL(test, stream);
- 	KUNIT_EXPECT_PTR_EQ(test, stream->dm_stream_context, ctx->aconnector);
-@@ -3720,7 +3839,8 @@ static void dm_test_create_stream_virtual_signal(struct kunit *test)
- 	struct dc_stream_state *stream;
- 
- 	stream = create_stream_for_sink(&ctx->aconnector->base, ctx->mode,
--					ctx->dm_state, NULL, 8);
-+					ctx->dm_state, NULL, 8,
-+					PIXEL_ENCODING_RGB, false);
- 
- 	KUNIT_ASSERT_NOT_NULL(test, stream);
- 	KUNIT_EXPECT_EQ(test, (int)stream->signal, (int)SIGNAL_TYPE_VIRTUAL);
-@@ -3739,7 +3859,8 @@ static void dm_test_create_stream_scaling_src(struct kunit *test)
- 	struct dc_stream_state *stream;
- 
- 	stream = create_stream_for_sink(&ctx->aconnector->base, ctx->mode,
--					ctx->dm_state, NULL, 8);
-+					ctx->dm_state, NULL, 8,
-+					PIXEL_ENCODING_RGB, false);
- 
- 	KUNIT_ASSERT_NOT_NULL(test, stream);
- 	KUNIT_EXPECT_EQ(test, (int)stream->src.width, 1920);
-@@ -3770,7 +3891,8 @@ static void dm_test_create_stream_existing_sink(struct kunit *test)
- 	ctx->aconnector->dc_sink = sink;
- 
- 	stream = create_stream_for_sink(&ctx->aconnector->base, ctx->mode,
--					ctx->dm_state, NULL, 8);
-+					ctx->dm_state, NULL, 8,
-+					PIXEL_ENCODING_RGB, false);
- 
- 	KUNIT_ASSERT_NOT_NULL(test, stream);
- 	KUNIT_EXPECT_PTR_EQ(test, stream->sink, sink);
-@@ -5456,6 +5578,11 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
- 	KUNIT_CASE(dm_test_fill_stream_color_depth_requested_bpc),
- 	KUNIT_CASE(dm_test_fill_stream_content_type),
- 	KUNIT_CASE(dm_test_fill_stream_aspect_ratio),
-+	KUNIT_CASE(dm_test_fill_stream_encoding_from_caller_ycbcr420),
-+	KUNIT_CASE(dm_test_fill_stream_encoding_from_caller_ycbcr422),
-+	KUNIT_CASE(dm_test_fill_stream_encoding_from_caller_ycbcr444),
-+	KUNIT_CASE(dm_test_fill_stream_hdmi_ep_clamps_depth),
-+	KUNIT_CASE(dm_test_fill_stream_non_hdmi_ep_keeps_depth),
- 	/* create_stream_for_sink */
- 	KUNIT_CASE(dm_test_create_stream_fake_sink_success),
- 	KUNIT_CASE(dm_test_create_stream_sets_dm_context),
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+index 13c54229d72c..4e9eb3ff2c90 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+@@ -189,13 +189,17 @@ void fill_stream_properties_from_drm_display_mode(
+ 	const struct drm_connector *connector,
+ 	const struct drm_connector_state *connector_state,
+ 	const struct dc_stream_state *old_stream,
+-	int requested_bpc);
++	int requested_bpc,
++	enum dc_pixel_encoding requested_encoding,
++	bool is_hdmi_ep);
+ struct dc_stream_state *
+ create_stream_for_sink(struct drm_connector *connector,
+ 		       const struct drm_display_mode *drm_mode,
+ 		       const struct dm_connector_state *dm_state,
+ 		       const struct dc_stream_state *old_stream,
+-		       int requested_bpc);
++		       int requested_bpc,
++		       enum dc_pixel_encoding requested_encoding,
++		       bool is_hdmi_ep);
+ enum drm_connector_status
+ amdgpu_dm_connector_poll(struct amdgpu_dm_connector *aconnector, bool force);
+ enum drm_connector_status
 -- 
 2.34.1
 
