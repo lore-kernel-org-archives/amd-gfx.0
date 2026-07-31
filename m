@@ -4,121 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B359C55173
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 19:57:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CF33C55173
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 20:11:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22FFC10E257;
-	Fri, 31 Jul 2026 19:57:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D736E10E25C;
+	Fri, 31 Jul 2026 20:11:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XtH08axK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Nbd0sPSP";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011041.outbound.protection.outlook.com [52.101.62.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B76EB10E257
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 19:57:19 +0000 (UTC)
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011064.outbound.protection.outlook.com [40.107.208.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E64410E25C
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 20:11:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q09yewgaIXusTV78MdrzST02cYhZjXxFCYyeyIuCAy7XoqdbxwPTAQF9copRh4w486ztjzA/fy1zUTKVMHr4uasfDBu0sLos/QPTFRoq7tv738z5gPn18FNPCb39ewv6YJswE42dtaJbsr90UBKS66I90wnJJnBXZEmR1MpqPmHuGnFNWMrJjmUlnAdcIA+fzmg6IIh7UtmKZsLzksvF33GQKA5Z3FuJOV6dclIaKlVTprmaHj0Vkdg5OFPN2VTENIgF0ushbQ/UTlQi0VUKMe6vZeCqDlc284QNChsf8Fzu8yU84tkzV7OygvktN+2rIEqmMXu4BmVHkruw4O2sKQ==
+ b=ujClNbIENTJwRNGEo2OdzlWzHbRDuSgh+qmmIIp4lxnBD92g7oQhlos4AKgCD9+CiZs+YC6eQMxZWcvy8IZC9jSt4H4ni1hPWcBG47SrOF5tugSZu0Z35OCIWTqtumbcUgXWwnhR8PnvVPO17BdP00SwhVKlHavz/I+WWLGjD+W8EFY7XnNZ9sAeFR8OejEdzhXBmqBCksKQ3TTtBe1MXHxWvdb5jjyLnh7jwc5pD5Bz+pAeaU5XPoBOQ1fvUFRwdKbMvrL/1/QuXQhlXXHEi/Q+iCNPUxwfIhjHqXLrnDoHW0I0OVYWS5DSnVqkSYW4rWwwTYUPws9dQ54zfXwXVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BlmJyfz7GHuxoDqajCHnIF1K6bxy1Xgitpx7xxfeyOQ=;
- b=sIetZqyY6tZ7T2K2srE3NRuX0fwmhTGV9RD4vr1FBFvK4BrG69b2J/+uYtS1366CEwtnplVChNACr9Jgs9JC4FAhCBejvgTXZyLO7E7G/BBzqQNySJTYOExy2c+IZMhUv/FxjRoulzfqK6U+lcUbJMrHfbM8tvcYJPMWMoJxN86TQBXKnKry/B8Yd4VJZEQ7YyteQlI+arWpzaxhu5HtMdriGEwz7JbdKmmzaJOznhpgMInzotdBJ4wE+J43OCqLMrkIn+JtVRx3qjL+7Zw81zB/9JgD3GEkRDD08TlwvqczkKuu0aaVqV7IboLcFrixMQzXscaGlD+EvqiPP135Ug==
+ bh=9bf5FOowmvLDPQGxH4JoqhlDGkxdjlhngPVTtbauvGU=;
+ b=vJaAHAWJaSwg5NVYnvhOGrj4ZXkKYniDukCgw0TSIWM2wPzyGsG9U3xyW6FkJb10M4WgY/27f1+yvX0HXZ98RFb1FMDoBes9Lluwz7LZOB2dHIS9p85CQ14vFXY/7H4KQ3OrwaUtQ5V62JXUV3XcqCCXcjnTmxPsaX8CGEAtjsartxomr7a7/Fn2uLFuPIeJKmQTprUv1F8Z/M8jDNeRub84qLm7AM3mHvyy7hq4jZk44duqGYpvjyBmKBe+DvL3cvHSW02r+mql3XzzG7PR14Ax1DEU9kfWrfzu2brSq5S5OIfcdYmXtvnM5uBHAB+I2x2hhQBIDWdm2fmFk7JvYw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BlmJyfz7GHuxoDqajCHnIF1K6bxy1Xgitpx7xxfeyOQ=;
- b=XtH08axKzxzQYC7iDiUtqmtUlyvoCqWhs8jrYHA1aKycMUay8jy1uQhICYWhpixBJvg185ZTwayzSTxXyX+QI+uF6gycInKCULNHXGpGfpZmgMl2QzjaasdgjXMduDXhDH7A+PwjxXTtc+HpyLzIMnuudcuh1q2mJbj7E0Le1as=
+ bh=9bf5FOowmvLDPQGxH4JoqhlDGkxdjlhngPVTtbauvGU=;
+ b=Nbd0sPSP/u1O2x1UFs/CB1tM36BTYShMr3tA8UVMZTS4qSRVDcqcJjZE9MnTbzjaugkGbXC3Uzyksa5bXABYZUORjYJrs+Tqp2CIiKkQ5MJvaF14Uc38L/ZIhMjqFtYNOZa8nB6sruDLgGDbqFgFb5qtfNw1rAKGLtNWQ/FsMKQ=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
- by DSWPR12MB999130.namprd12.prod.outlook.com (2603:10b6:8:36d::16)
+ by PH7PR12MB6396.namprd12.prod.outlook.com (2603:10b6:510:1fc::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Fri, 31 Jul
- 2026 19:57:16 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
+ 2026 20:11:28 +0000
 Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
  ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
  ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0270.012; Fri, 31 Jul 2026
- 19:57:16 +0000
-Message-ID: <d31806cc-f102-4507-b905-cc57e06987b4@amd.com>
-Date: Fri, 31 Jul 2026 15:57:12 -0400
+ 20:11:28 +0000
+Message-ID: <dba8b2f0-ab2c-48a7-b842-4ffdc7d467e9@amd.com>
+Date: Fri, 31 Jul 2026 16:11:25 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] drm/amd/display: Add HDMI 2.1 VRR support from HF-VSDB
+Subject: Re: [PATCH 4/4] drm/amd/display: Add HDMI ALLM support
 To: Fangzhi Zuo <jerry.zuo@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20260730171754.704049-1-jerry.zuo@amd.com>
- <20260730171754.704049-3-jerry.zuo@amd.com>
+ <20260730171754.704049-4-jerry.zuo@amd.com>
 Content-Language: en-US
 From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20260730171754.704049-3-jerry.zuo@amd.com>
+In-Reply-To: <20260730171754.704049-4-jerry.zuo@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0022.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::6) To SJ0PR12MB7007.namprd12.prod.outlook.com
+X-ClientProxiedBy: YQZPR01CA0018.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:85::11) To SJ0PR12MB7007.namprd12.prod.outlook.com
  (2603:10b6:a03:486::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|DSWPR12MB999130:EE_
-X-MS-Office365-Filtering-Correlation-Id: 407b13a7-0c0b-43c8-3283-08deef3debb4
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|PH7PR12MB6396:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7b2078e7-3bc3-4fad-2288-08deef3fe7a6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|56012099006|4143699003|5023799004|11063799006|10067099003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: suv5O/hZm6sk3POq4lQCCvhTbMWWxiThIonA0xL9isOlp2J9KcxT/pTusMERPN+/9+4gmw9EY2HuXcbID8QV3HOa60aLx7qGKRPQMO7X/MVFFGZxieEa9RC5nOu7XyD73tTJEt4KsxIqN2InJrh+Y8QNtZF7tLbcGyagYa71Os3xKZ5OKKVfCkFEOfJ5EaLgwxQ45YPrQj0p08JIqj+haZv114dQvV2Owm1X1m3U80bTTYyV56lGULER/NgHTmSOFiZrZq6Fm/1wB2iYtuxagqIb92GSZQEX04x5RcsV28cXzNzP8OTk5e+XqCvpTAAmab9yx3VHs5eUcwNcWXQVtFuyW+6jkKtQYUBDNFZg0REPaJDm1v5DoIWF7tNRKsRX+QNJm3pxONY7Jtp9koE4Y6s/PSJbsYf5S6WWsEuVosJBn9PE6oeK9Qd0mqNPVv6TJ2pSHZnAuD8vy4o+p47Xpc+Mybeu1i0mxCKw+Si89S4j7NXHZPoxt1PTixt1S9RD6wMvb5Pqai23Z7H2Txi8ZspAoUEsk/5VhD1i2lFqF72yJ/ocv78QzYGdcPVBQTi74rBBogTAdRye+zlDUZnAvunBLqqdpvxhav4DFm4VrsatEvyvXLDYwDSEjpYioO6IiIb1cg0Y+A9n7MTcqL6zz1zg9xBtqBAmoOuY/sYyzts=
+ ARA:13230040|1800799024|376014|366016|23010399003|4143699003|11063799006|5023799004|56012099006|22082099003|18092099006|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info: xUEmgneFquSiMeb6zv/kGvTlfK4FdPPP3QqQ9cnu/AvtenW7el30xF2Rcoiyzjkho+XGOrR4Z3Js6EdcQ0VYmNPn5H9jHISjy+xN6ptqnc7jCtGlrn7fqbOusqcr2pEqNvvK8s2LVexPZruXBykRN5acE7Gm2OubPPBRU/wkGL6IPp6za4ShU0otgyIWUnAV0eXHD2KsHZegpCN6IB6LnbGU0Gm9/j0yJ3Z5X402FOMZmHKXZBzmHOrrqS9NfxCFr3e8afjrS96MzUjEs6FjiL/+3BQJpXtLS07f5Zi1cL4xWNwY6zJc6RTYDYB+84cqUO7bXzHf1y7EBuKIM0/qgzHm6/HMbY2jbr3RN8+OS5Dso0E2Db4CET6/Z31cCrOlvdNXBflFfElDxGwo6IuYdshXSrN4L9buUsIQ0si548ZahhL6w9lTfZuF5Y4qaPk0JNqHM5CnwDsczGZQpsS89yxa2TZh9E3ZzOJhcYBYD/HambIHOiRlNtjtsy5syaCEVWnKRazBg5/DGrxsoCGHh89hQixLmkb85/HF8LPeOHRU0sCFVkF7NmOapxWuSfXE+cz6VqqrygpNVH3zIOAGPohANhxJjmy2BXstTfTiysqvhpbsTZ7+3IOALqzSPAZ5qr6Un9DTiCLEs1x0+aXDFS6Xkfvbp8Lsu4TBoaWFo7g=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(56012099006)(4143699003)(5023799004)(11063799006)(10067099003)(6133799003)(22082099003)(18002099003);
+ SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(4143699003)(11063799006)(5023799004)(56012099006)(22082099003)(18092099006)(18002099003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?UEVJZVlnMEpjTGhpSG1sNVNJSlRadFdhZ0VsT0d1UUp5dEdDb0pzTnZWQUtF?=
- =?utf-8?B?UVFMMmJ3THI2bE9jMDlUVGlGNGlmcFBvRUZtZ3luWkVUbG9HV1lXTkFuNzJC?=
- =?utf-8?B?VUNiVDkwQWthcDJoeTZQaWl4NjdTQXpJREk4aDdtN09pUEc4aW5SZUxIMG9O?=
- =?utf-8?B?WDhPNE9WT3FnMHdMWWpnMThyczh4V0NBRFBkMHN3ZSs4V3hSUGQvSStqaTcr?=
- =?utf-8?B?RnJXYTJKbHF6UmVMSmVDRDM0Z3g5UEM3Q3l5UG1uVGQzN3FaSzU3cGRDNnJJ?=
- =?utf-8?B?OHlUbU4vSHNwcnVIdTEzcmFCcGJBTlJpNlRQM1BrU3VnVk1GdWlnOVF6M0hG?=
- =?utf-8?B?UEU0Lys2QTE3dXFKVFRIcXpWWUVMUDVPdzF0NFVRYUJsS3ZtNVhaUnJlUXVI?=
- =?utf-8?B?NkNxaWp5cVY0ZkU2MkZWV2lodG1rWUg1dFJDcnZQU1dVdGpxK3UyWTk3VEJE?=
- =?utf-8?B?YnhIckVremJpTkhWcHBaeHp5MFNySDFGNURraExReFlEbUNpelNVK1VkVGUy?=
- =?utf-8?B?dlZSY0xMbXJSblRqVWZxTUpvc09NMUdQbXZMWVVQSW1ySXBvQzA5cGhZakdE?=
- =?utf-8?B?cEVNV0w4eTgwd05qcm1MRGpIVnMwa25qeStsS0F6Q0NyQURVSHVSRVc0RGRx?=
- =?utf-8?B?clFsTkVLYU5vajhWYzA3SzlBN09xejJTSW00TzNMNkxmQUp5NGc4dHhBN2kx?=
- =?utf-8?B?N0F6OS93NU40OXVRdk8zZ3lIVDlDb3hoWGtzQ2RzdGRCNHczMUs1Nk1wNG5w?=
- =?utf-8?B?bmtVTiswRzFPeUNMWVNPT3pITjBNcnhlMFArVEJJbi8rU3pvKy9GK2t4VVJw?=
- =?utf-8?B?ZlByTGJQc0FuNHlYZlFWbnpjRzZvOWtXUk8yTmF3WHRNZHVqcG5FKzdrWWhR?=
- =?utf-8?B?cExpeXFtc2I5aFJXQTU1bjVIVko1aWJWRkw4cE4yMDE2a3dRejVlN1NvQ2Yr?=
- =?utf-8?B?QzJ1a3FkTi9FQ2daWWIrNkZ4QnlGVlA4VEVScmh3bzUzM1RYNytXNytSZDRG?=
- =?utf-8?B?dFFQYTFINlJoL0tGL3hEbkVJYVlCS2htUzZUVFhvNjJjd21zUmdOd2lBOFd2?=
- =?utf-8?B?QkxsWDdIaHFHeWlzUlNJNU5YaTI0SkRwSG9rd0lXMFN3TG5ZUzU1QktBWC9S?=
- =?utf-8?B?ZlV1MFBBc2czUmc2QjA1TkxjeVdEVmZmYUJvRUhvNmx1d2g1QXRRRUpDdTFS?=
- =?utf-8?B?MW9LdEFDMENEY1BmRDV5MGl4OEpPK2JQcklQeTdwMENhWnpNdDZoU1JlYU9D?=
- =?utf-8?B?RlJmdzRJbVZUZjdINk1LU2dzN1d0U0oySlc1RHhhZU1Zamg4NndQMVNqZGlO?=
- =?utf-8?B?SW8rTzBlTno5Qlp5dktoWTM2aHRqblRGNzVxK1RyN25LY2l1d1kyK2RNSWk0?=
- =?utf-8?B?cHhoUUp0VVQyUU9jamoxSFRSYmtKbEFnb0hSN3M0Z2c1VlAvSVROdTluQUtJ?=
- =?utf-8?B?S055Y0puT2thN2dBdDBmWWl5VThxTjV2Ry9uSE1mbVZYZUhIbzJ0N1RiS1hM?=
- =?utf-8?B?ZWxrU1VncVk3dU9HZ0RYTTVKd29qZTZhdXF5VFJCbHo0aEczZmJYaXFXcU50?=
- =?utf-8?B?Rlppamg2bzdIc3lGQThJNE5PS1pzWUk1R2RPa1VzU1FnMTRJYVU0RGwwWFk3?=
- =?utf-8?B?LzhTczVWS1dHWTIrWmN3dGJtUittRzk1TmlPUjB0TlZvdjVmWUNYTGtXYkVn?=
- =?utf-8?B?WnZueEdCTWowWmlGOVdmT29nSXcwSkF3NXZuOFBXNEpCdGhrWGFZdXkyYktn?=
- =?utf-8?B?NWlhTFk0RVg3OGlMSW5xQUtXTGM3UUR3UUFuWU1vTUNGcUozMzlpT0gxbEtN?=
- =?utf-8?B?aHo5N2Vzb004UkZrRjNOTHByQTNwN3gvdmhxZ2pqMkRubkM2ajQ0cXlrK05K?=
- =?utf-8?B?aVgwYk5URis2QS9FM0hTV0IrZDRYcno1RGNzWWFyMVVMeEIxNkQvQWVUbnhk?=
- =?utf-8?B?SklsSktrT2ZhOEsyRmUwK1VFdHRDUU5lb3E3TWN1b3BGWE1lWFZlc0xkSmFH?=
- =?utf-8?B?cUFpUmxxbVRQZ2xhQW03S2VxS1pqL2dlSHZxWGlPV05SQ2dIU1lQZ2xBUis2?=
- =?utf-8?B?VkVJNEhOTGlzb0hQUDhwWFgwYk40bGtyN2IwL0NSSThOdFpydjZyZ0szUVBZ?=
- =?utf-8?B?eEpHNmE1SlE5c0pLbi9Md1NOdEJJUW5ndFc5SXV0Y3BzNjFNV2RkeDQ0RWVH?=
- =?utf-8?B?MWF3TElYYlVhTjVVRVdidHRVMVkvejVzOFN4QmtYb25Nd281VkhRcVlzQTQ3?=
- =?utf-8?B?amVRR0dCOHJMQ0FZeXZLL3E0STUzci92c3ZwLzd3U2cxSlE5SUVKOHFDSERX?=
- =?utf-8?B?RFBYM0dqeXVDb0s4S3lZTXFhMWhGZ0NRaWJGYldiMjFONUt6eHY1QT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R09PYXdjSEVMMnFaQUsvR05VWWlLUi82cGlLQTBZODd3R201c2VsZlpNSlFS?=
+ =?utf-8?B?Z05scE1mK1JGOGM2b2t5VHN4dUs5UnBIcW9iLzk2UEdNZ3J4UVNWZXpFcC9S?=
+ =?utf-8?B?QzVadWMrcFAzSDNJZDVLM1l0TWZvWTIwY2lJUE80OWZLM3NGS2JNSk5oRjVD?=
+ =?utf-8?B?RVdObHFzWnZiSXQ0dmpMYkwvTEsrZEJNeHcybnFLMjh5eUJzQ05GSHk4NVJ4?=
+ =?utf-8?B?ZlJjR1BGcXBlb2ZqUHM0cmt1YU5KUG1Hd3pDNFZyOEJRUEhobmRqRG81aTUr?=
+ =?utf-8?B?dzhNVUtteXRCbmEzb201ZlV4bHBrVnVaTkhGd3Vrc3F1cytSRFM0eHNBMXNU?=
+ =?utf-8?B?ckdmRVUycnkrNnhPNnRxZzcrcXdlUnVlRENEb3o0NWw3bUdFQzhPcTkvc2xr?=
+ =?utf-8?B?TGlwRmQwNEkxS1dwL1RMOXVmLzV1NFVLb09nb0RJei84dUNQV0s0Z2F5cXdp?=
+ =?utf-8?B?dWRvdUwxdCtmSmFiV0RqazN4MGlKM0Vyc3dYeld0R0Z2aHExODlJY0lkQ1pS?=
+ =?utf-8?B?WE95QTNqU2xxdi9vZlFCQzNBeSt2N3dhRVZNZEQ2L2Q0MzFlNVBheC92Snp4?=
+ =?utf-8?B?L3g1OXlTOUZkbi9KQjlYY01yZkI1SUhjdzhnR1pIVEhyYWNTaFRMcmVzdFo2?=
+ =?utf-8?B?UzYyY3Y1TFprZTl5ei9DVWJRZ3hzQ3NzeFR3TDZEcXJBMkc1S2g4M3JDMkFD?=
+ =?utf-8?B?Y0pwaEc4YUkzM0tSd2hMR0tFczdhdmJsRjJuT3hlekpDaVNRblpqUkFzUTJC?=
+ =?utf-8?B?SFhxMnVTN3VUbWhtM0pwQVVITkZkSGQydk5kN0wwRjRUb0NmUy9BcERQRmZM?=
+ =?utf-8?B?YXBTWjF2aXJwNTFYMzBNMTBmYVZVejFVTkpmdWs2bmlPcTdqYmVWKzZuc3BT?=
+ =?utf-8?B?QTJPaVBpR2pvVVc1Q3dJQkpXczlCY2dseTRVQXZrVXYzbHJNZWR5MDdsK0Vj?=
+ =?utf-8?B?bTYvUW03RzdwUTQwR0FYd2FsTnEzSGlIMXhONDFnVDg0Z3lKYUY2WUdTYXVw?=
+ =?utf-8?B?M0lKMHVodEx4MVRJc0ZQc3l6UUFNa0VvaGp1US8xMXdodllicTkxb3krTE9T?=
+ =?utf-8?B?THd3cXFHOEN0SnBOQ3pBbGdOMTQ5cWF4Y01xdGt0RzRkeHBOUlNkN21pT00x?=
+ =?utf-8?B?RkVWU25aL2lxbWsrZDFPRlduNjdwNDBOekRmcHp4aFYzcVFQcS95ck11a21p?=
+ =?utf-8?B?VlQzNFpJajNvclBUV0pRVmNRbG10U3RqYXRJalNqL0labWZ2RXovT2VYZWxn?=
+ =?utf-8?B?c1B5NUhFODdXSDg3TUQwanJRcDl1UGdReDBoaE94ZkQzUElzSHk4VEFQdDBn?=
+ =?utf-8?B?Z2pUcGl6UDRJUGN6VTdydDRkczF1eTNGZWxONy95ZjhjVzgveHlUMXBhK1Vo?=
+ =?utf-8?B?ZXpqWUt2amVKYTBvSjJ1MG9URndZMUtyNjViOC9PcGJxTjNzUUVMREpqa0pD?=
+ =?utf-8?B?YUVNTUVnbUNTTmNEZy95ZmwzSnVaNVNjZE5JbUg1a3AvbEN5NVJNZ2duMDV0?=
+ =?utf-8?B?eVZCelY2eVgwUkY0anFWUXFtREUrVXcvRE1QTDlacWNxUFRVZi8yZG0wajAv?=
+ =?utf-8?B?bFN4ejRMVjhVeTh4U0c1K0NIV29HSW5oVVVNZTd4NTkvNXdDdDcvbGxuTTNW?=
+ =?utf-8?B?RDd5VDZlZklxbGtaekRZSUNHM0VpWE1RaWM2eEZrM3N6M1k0NDdKQkJwVFlE?=
+ =?utf-8?B?NWxKcWFHdjhUVmd2RWtXYk1KRjRKT3FzZW93My8rRm0rOUIvT0JmOFdDbWFn?=
+ =?utf-8?B?SU11cVZlRytPWk9zWVA0SXc3VTNVb000R2dRS3Zsdis3MmlkWHhOYUVqZ3po?=
+ =?utf-8?B?TEJVeFhKMjFseVovMGdEa3pXZ1hiMHM0OEQ5bGZhWmhxRmtOd3dwamhmTHR1?=
+ =?utf-8?B?akNwSkNacHpPWWtxNTBxYmR0L2N2dFhBdHhtYXZwV1pmR0ZyZ3BPRHdobU0z?=
+ =?utf-8?B?TFMyNkxpYlFub0lsM0IzajZEclZYRXc1QXJMZ3llSmdBS083SHJqR2dCazU4?=
+ =?utf-8?B?UTl3bnlBL2tycmhjL3NDUlRkUTExTlFibHlIeXhVL2VBNFFhaGFFVjB4TW5o?=
+ =?utf-8?B?a214UnVOaFN1dDZVM2pIdTg1VnpRN1FOMzZ5UUtpNSszWTQ3c0EvMHZMZVhL?=
+ =?utf-8?B?RUd3V2RpSmg5ZVlQcTdVZUpObEVuUzlIS2ZoTzg1S29FUlV4UG83MTZyekZF?=
+ =?utf-8?B?QlNwclFOWk5IVGRLSnJhbTVSUkdWN0ppa2lCMDhESWRxZ1k5Vld2YlRsMmsy?=
+ =?utf-8?B?NWFsL0M0YkJkV0lSdUUyM1FDZUFabmNONG5GU3dQeTlYb3Jtbll4U1d5YmZN?=
+ =?utf-8?B?RTc0aU1WekF4dHJTaFZtUVg5c2wyUkwyOWlpeHM4a0JGTFBkTUR1QT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 407b13a7-0c0b-43c8-3283-08deef3debb4
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7b2078e7-3bc3-4fad-2288-08deef3fe7a6
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 19:57:16.0977 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 20:11:28.3338 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nVUq3FnVEysdPONDhNw0PhvkLcvvtWWH9IwsotnW52AkoHWzL3oPB2DDKAjs2BTRiTtnX7baCA+QQ4IrA4grYw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR12MB999130
+X-MS-Exchange-CrossTenant-UserPrincipalName: YfXOuyj0NgV7vYdsq0CMIwS60DU15HfiBLAcD2+Hj6UwGzfjJUHHV6GYDzvA3nt09JX0RFXkGFWGiKRGoaH3tA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6396
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,145 +137,155 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 2026-07-30 13:17, Fangzhi Zuo wrote:
 > why:
-> HDMI 2.1 sinks advertise their VRR range in the HDMI Forum VSDB
-> (HF-VSDB), but amdgpu derived FreeSync capability only from the AMD
-> VSDB. Sinks that expose just the HDMI Forum VRR capability (e.g. HDMI
-> compliance EDIDs) were therefore reported as not VRR capable.
+> HDMI 2.1 Auto Low-Latency Mode (ALLM) lets a Source request the Sink's
+> low-latency mode through the HF-VSIF. amdgpu never set ALLM_Mode in the
+> HF-VSIF, so ALLM was never signalled to the sink.
 > 
 > how:
-> - In amdgpu_dm_update_freesync_caps(), when the AMD VSDB does not
->   provide a valid FreeSync range, fall back to the HDMI 2.1 VRR range
->   parsed by DRM core from the HF-VSDB
->   (connector->display_info.hdmi.vrr_cap). VRRMAX = 0 means "up to the
->   Base Refresh Rate"; when the EDID provides no monitor range maximum
->   either, fall back to the Base Refresh Rate (the highest refresh-rate
->   mode of the preferred timing) so a valid VRR range is still reported
->   to userspace.
-> - Add VRR debug logging along the FreeSync capability and config paths.
+> - Add an allm capability flag to struct dc_edid_caps and populate it in
+>   dm_helpers_parse_edid_caps() from the HF-VSDB ALLM bit parsed by DRM
+>   core (connector->display_info.hdmi.allm).
+> - In create_stream_for_sink(), build the HF-VSIF with ALLM_Mode set when
+>   the sink advertises ALLM and the content type is Game (content-type =
+>   Game is how userspace requests low-latency mode, HDMI GCTS HF1-56).
+> - In update_freesync_state_on_stream(), also set ALLM_Mode when
+>   Gaming-VRR is active (VRR_EN=1, HDMI GCTS HF1-58 step 8.3.1), and push
+>   the updated HF-VSIF (vsp_infopacket) as a stream update.
 > 
 > Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
 > ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 +++
->  .../display/amdgpu_dm/amdgpu_dm_connector.c   | 67 +++++++++++++++++++
->  2 files changed, 75 insertions(+)
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 35 ++++++++++++++++++-
+>  .../display/amdgpu_dm/amdgpu_dm_connector.c   | 18 ++++++++--
+>  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  5 ++-
+>  drivers/gpu/drm/amd/display/dc/dc_types.h     |  3 ++
+>  4 files changed, 57 insertions(+), 4 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index ccf882a22a57..223b562f7005 100644
+> index 223b562f7005..fc3005ecc681 100644
 > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -5781,6 +5781,14 @@ STATIC_IFN_KUNIT void get_freesync_config_for_crtc(
->  	}
->  out:
->  	new_crtc_state->freesync_config = config;
-> +
-> +	drm_dbg_driver(new_con_state->base.connector->dev,
-> +		       "VRR: cfg vrr_enabled=%d vrr_supported=%d fs_capable=%d vrefresh=%d min=%d max=%d state=%d\n",
-> +		       new_crtc_state->base.vrr_enabled,
-> +		       new_crtc_state->vrr_supported,
-> +		       new_con_state->freesync_capable, vrefresh,
-> +		       aconnector->min_vfreq, aconnector->max_vfreq,
-> +		       config.state);
->  }
->  EXPORT_IF_KUNIT(get_freesync_config_for_crtc);
+> @@ -3895,6 +3895,36 @@ static void update_freesync_state_on_stream(
+>  	new_stream->vrr_infopacket = vrr_infopacket;
+>  	new_stream->allow_freesync = mod_freesync_get_freesync_enabled(&vrr_params);
 >  
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> index 2deb5abae264..ebead39939a6 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> @@ -3605,6 +3605,15 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
->  	if (!adev->dm.freesync_module || !dc_supports_vrr(sink->ctx->dce_version))
->  		goto update;
->  
-> +	drm_dbg_driver(adev_to_drm(adev),
-> +		       "VRR: enter signal=%d hdmi_vrr=%d mrange[%d-%d] hdmi.vrr_cap[sup=%d min=%d max=%d]\n",
-> +		       sink->sink_signal, connector->display_info.hdmi.vrr_cap.supported,
-> +		       connector->display_info.monitor_range.min_vfreq,
-> +		       connector->display_info.monitor_range.max_vfreq,
-> +		       connector->display_info.hdmi.vrr_cap.supported,
-> +		       connector->display_info.hdmi.vrr_cap.vrr_min,
-> +		       connector->display_info.hdmi.vrr_cap.vrr_max);
-> +
->  	/* FIXME: Get rid of drm_edid_raw() */
->  	edid = drm_edid_raw(drm_edid);
->  
-> @@ -3649,6 +3658,59 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
->  				connector->display_info.monitor_range.max_vfreq = vsdb_info.max_refresh_rate_hz;
->  			}
->  		}
-> +
-> +		drm_dbg_driver(adev_to_drm(adev),
-> +			       "VRR: amd_vsdb i=%d fs_sup=%d min=%d max=%d fs_capable=%d\n",
-> +			       i, vsdb_info.freesync_supported,
-> +			       vsdb_info.min_refresh_rate_hz,
-> +			       vsdb_info.max_refresh_rate_hz, freesync_capable);
-> +
-> +		/*
-> +		 * If AMD VSDB didn't provide a valid FreeSync range, fall back to
-> +		 * the HDMI 2.1 VRR capability parsed from the HF-VSDB.
-> +		 */
-> +		if (!freesync_capable && connector->display_info.hdmi.vrr_cap.supported) {
-> +			struct drm_hdmi_vrr_cap *vrr_cap =
-> +				&connector->display_info.hdmi.vrr_cap;
-> +
-> +			drm_dbg_driver(adev_to_drm(adev),
-> +				       "VRR: HF-VSDB fallback: hdmi_vrr=1 vrr_cap[sup=%d min=%d max=%d] mrange_max=%d\n",
-> +				       vrr_cap->supported, vrr_cap->vrr_min, vrr_cap->vrr_max,
-> +				       connector->display_info.monitor_range.max_vfreq);
-> +
-> +			if (vrr_cap->supported && vrr_cap->vrr_min > 0) {
-> +				amdgpu_dm_connector->min_vfreq = vrr_cap->vrr_min;
-> +				amdgpu_dm_connector->max_vfreq = vrr_cap->vrr_max ?
-> +					vrr_cap->vrr_max :
-> +					connector->display_info.monitor_range.max_vfreq;
-> +
-> +				/*
-> +				 * VRRMAX = 0 in the HF-VSDB means "up to the Base
-> +				 * Refresh Rate". If the EDID also did not provide a
-> +				 * monitor range max, fall back to the Base Refresh
-> +				 * Rate (the highest refresh rate of the preferred
-> +				 * timing) so a valid VRR range is still reported to
-> +				 * userspace.
-> +				 */
-> +				if (!amdgpu_dm_connector->max_vfreq) {
-> +					struct drm_display_mode *brr_mode =
+> +	/*
+> +	 * HDMI ALLM: transmit the HF-VSIF with ALLM_Mode=1 when the sink
+> +	 * advertises ALLM in the SCDS and either the content type is Game
+> +	 * (HF1-56) or Gaming-VRR is active (VRR_EN=1, HF1-58 step 8.3.1).
+> +	 * HDMI 2.1 7.6.6.
+> +	 */
+> +	if (new_stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
+> +	    new_stream->signal == SIGNAL_TYPE_HDMI_FRL) {
+> +		struct dc_info_packet vsp_infopacket = {0};
+> +		bool allm = new_stream->sink->edid_caps.allm &&
 
-Should this be `vrr_mode`?
+We have an `aconn` in this function above, so we can simply get the allm
+bit from the connector:
 
-With that fixed this is
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+		bool sink_allm = aconn && aconn->base.display_info.hdmi.allm;
+		bool allm = sink_allm &&
+			(new_stream->content_type == DISPLAY_CONTENT_TYPE_GAME ||
+			 vrr_params.state == VRR_STATE_ACTIVE_VARIABLE ||
+			 vrr_params.state == VRR_STATE_ACTIVE_FIXED);
+
+Then we don't need to add a new allm bool to edid_caps.
 
 Harry
 
-> +						amdgpu_dm_get_highest_refresh_rate_mode(amdgpu_dm_connector, true);
+> +			(new_stream->content_type == DISPLAY_CONTENT_TYPE_GAME ||
+> +			 vrr_params.state == VRR_STATE_ACTIVE_VARIABLE ||
+> +			 vrr_params.state == VRR_STATE_ACTIVE_FIXED);
+> +		bool allm_changed;
 > +
-> +					if (brr_mode)
-> +						amdgpu_dm_connector->max_vfreq =
-> +							drm_mode_vrefresh(brr_mode);
-> +				}
+> +		mod_build_hf_vsif_infopacket(new_stream, &vsp_infopacket, allm, allm);
 > +
-> +				if (amdgpu_dm_connector->max_vfreq -
-> +				    amdgpu_dm_connector->min_vfreq > 10)
-> +					freesync_capable = true;
+> +		allm_changed = memcmp(&new_stream->vsp_infopacket, &vsp_infopacket,
+> +				      sizeof(vsp_infopacket)) != 0;
+> +		new_crtc_state->freesync_vrr_info_changed |= allm_changed;
+> +		new_stream->vsp_infopacket = vsp_infopacket;
 > +
-> +				connector->display_info.monitor_range.min_vfreq =
-> +					amdgpu_dm_connector->min_vfreq;
-> +				connector->display_info.monitor_range.max_vfreq =
-> +					amdgpu_dm_connector->max_vfreq;
+> +		if (allm_changed)
+> +			drm_dbg_driver(adev_to_drm(adev),
+> +				       "ALLM: flip on crtc=%u: sink_allm=%d content_type=%d vrr_state=%d -> ALLM_Mode=%d\n",
+> +				    new_crtc_state->base.crtc->base.id,
+> +				    new_stream->sink->edid_caps.allm,
+> +				    new_stream->content_type, vrr_params.state, allm);
+> +	}
+> +
+>  	if (new_crtc_state->freesync_vrr_info_changed)
+>  		drm_dbg_kms(adev_to_drm(adev), "VRR packet update: crtc=%u enabled=%d state=%d",
+>  			      new_crtc_state->base.crtc->base.id,
+> @@ -4429,9 +4459,12 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+>  		}
+>  
+>  		if (acrtc_state->stream) {
+> -			if (acrtc_state->freesync_vrr_info_changed)
+> +			if (acrtc_state->freesync_vrr_info_changed) {
+>  				bundle->stream_update.vrr_infopacket =
+>  					&acrtc_state->stream->vrr_infopacket;
+> +				bundle->stream_update.vsp_infopacket =
+> +					&acrtc_state->stream->vsp_infopacket;
 > +			}
-> +		}
+>  		}
 >  	}
 >  
->  	if (amdgpu_dm_connector->dc_link)
-> @@ -3692,6 +3754,11 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
->  	if (dm_con_state)
->  		dm_con_state->freesync_capable = freesync_capable;
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index ebead39939a6..430f1628ced0 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -1511,8 +1511,22 @@ create_stream_for_sink(struct drm_connector *connector,
+>  	update_stream_signal(stream, sink);
 >  
-> +	drm_dbg_driver(adev_to_drm(adev),
-> +		       "VRR: caps result: freesync_capable=%d min_vfreq=%d max_vfreq=%d\n",
-> +		       freesync_capable, amdgpu_dm_connector->min_vfreq,
-> +		       amdgpu_dm_connector->max_vfreq);
+>  	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
+> -	    stream->signal == SIGNAL_TYPE_HDMI_FRL)
+> -		mod_build_hf_vsif_infopacket(stream, &stream->vsp_infopacket, false, false);
+> +	    stream->signal == SIGNAL_TYPE_HDMI_FRL) {
+> +		/*
+> +		 * Enable HDMI ALLM (Auto Low-Latency Mode) when the sink
+> +		 * advertises ALLM in the SCDS and the content type is Game.
+> +		 * Setting content-type = Game is how userspace requests the
+> +		 * Sink's low-latency mode (HDMI GCTS HF1-56).
+> +		 */
+> +		bool allm = sink->edid_caps.allm &&
+> +			stream->content_type == DISPLAY_CONTENT_TYPE_GAME;
 > +
->  	if (connector->state && amdgpu_dm_connector->dc_link && !freesync_capable &&
->  	    amdgpu_dm_connector->dc_link->replay_settings.config.replay_supported) {
->  		amdgpu_dm_connector->dc_link->replay_settings.config.replay_supported = false;
+> +		drm_dbg_driver(dev,
+> +			       "ALLM: set mode: sink_allm=%d content_type=%d -> ALLM_Mode=%d\n",
+> +			    sink->edid_caps.allm, stream->content_type, allm);
+> +
+> +		mod_build_hf_vsif_infopacket(stream, &stream->vsp_infopacket, allm, allm);
+> +	}
+>  
+>  	if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT ||
+>  	    stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST ||
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> index 42f5673acb4d..e69ce0a1b4b4 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+> @@ -197,7 +197,10 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+>  				  edid_caps->display_name,
+>  				  AUDIO_INFO_DISPLAY_NAME_SIZE_IN_CHARS);
+>  
+> -	edid_caps->edid_hdmi = connector->display_info.is_hdmi;
+> +	if (connector->display_info.is_hdmi) {
+> +		edid_caps->edid_hdmi = true;
+> +		edid_caps->allm = connector->display_info.hdmi.allm;
+> +	}
+>  
+>  	if (edid_caps->edid_hdmi) {
+>  		populate_hdmi_info_from_connector(link->dc->config.enable_frl, &connector->display_info.hdmi, edid_caps);
+> diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
+> index 3edeb94fba23..ae409cc59ae4 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dc_types.h
+> +++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
+> @@ -226,6 +226,9 @@ struct dc_edid_caps {
+>  	/*HDMI 2.0 caps*/
+>  	bool lte_340mcsc_scramble;
+>  
+> +	/* HDMI 2.1 caps */
+> +	bool allm;
+> +
+>  	bool edid_hdmi;
+>  	bool hdr_supported;
+>  	bool rr_capable;
 
