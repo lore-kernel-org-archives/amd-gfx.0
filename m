@@ -4,58 +4,118 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2846CC55167
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 10:01:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63E16C5516D
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 13:06:36 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 932A810E206;
-	Fri, 31 Jul 2026 10:01:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D2E8C10E21A;
+	Fri, 31 Jul 2026 13:06:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="VS+EQSCi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FPiL+S0W";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 937E610E206;
- Fri, 31 Jul 2026 10:01:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1785492108; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=YtK4SnNW+GkQaFMYDwo4eraCdHpXcdfYAcaQLaQjVYsgjVGQvNTkHOmtEpZU1ByXbt+2s39JZoxADaBpJfiSxa+YtYtAG65IIL99sS+JhZNPb/2LtpnfHk4oqKqXBRQlsOBBRShR7wFsuMUOUF8nLNb/b6BrZccpQ0bOPT9dBiU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1785492108;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=aX3ioftb5URgdC+2oX+YAzmF6ueujo93Y7omJwgvTQ4=; 
- b=ap6LJjsGF50/C96Fd4bYjwzPPXF1XVC2oTUbDeUTI9EeE/+8Nq69PqnjMVcPXc/ZiKuAGi596S0OyG8WjtwMNjzwLYhnuKMhK+RRipvHwMRjdwwsYMAmI3ad/bUBFCGMpmmX+wdL2kHBvZVXrT3jgIOLcjZwoZP3eD28OJKfLBw=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785492108; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Content-Type:Message-ID:Date:Date:MIME-Version:From:From:Subject:Subject:To:To:Cc:Cc:In-Reply-To:Message-Id:Reply-To;
- bh=aX3ioftb5URgdC+2oX+YAzmF6ueujo93Y7omJwgvTQ4=;
- b=VS+EQSCivT+vXm/k9AD1yq6RyDyt4yG4dZUto0uqtjgX7gx7+kh8ICvJLued2a+6
- mOqW6mooi1iu8WAzrjxOKm9/OoqS6JDWvuuhbRjuDZBNcr+aKaRUJxw0VXxOy3n93XR
- VI9TIzY3J7eu1oBhrSyIXwZZDBdmcdgvHNIcWEuQ=
-Received: by mx.zohomail.com with SMTPS id 1785492106641402.244287356614;
- Fri, 31 Jul 2026 03:01:46 -0700 (PDT)
-Content-Type: multipart/alternative;
- boundary="------------v5HAvdRonGnF2LpgNUlV3vv1"
-Message-ID: <70f4aff6-3f2d-43a4-b80a-26d7d2aed669@collabora.com>
-Date: Fri, 31 Jul 2026 12:01:42 +0200
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012033.outbound.protection.outlook.com [52.101.53.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 57B4510E21A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 13:06:34 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LDUP+iAB/vhtbtkmlke2sRs/8paFoiKf5aSAtK7NyjXNlFJ04J2E6V1ptkr9KfDxhANReRVOqFaabiqoJi6dhchh7nrpk+Uwn3QuXCGJ05MgpQSYVZmI8XyuOJlmvmUGDs0E0T40QNGtr2SQI1ZjHEqpPsZmPgzho7V0vV3qjXTpR6jhQw4BJkhXoyycgDsrlcIPRSLvHKBy2rt5gKB7XjF6JR5boJFsxAHsy4WrevYOIlIantz/NtyOE/rSJCfChAHHc8cDbS7za1BayCcREbTuRRdRG2LyxeNyeVNaZZsUIfhRpJL4ATkNo5Ku3konhVRq7Qfn0n0FAyShTWpLEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1xXNpZnvlIeFYUyFkjgbYVCzHoOztpGxncMZCtB0gq0=;
+ b=dPjN/BKV/LB8C1kXB81LSxnvB7BGnNjXUz8IcozrmODEU934Ee5ASiirNcVmpTUJwQToKOkFqGUchxhxxuMCqAtGEJn9VXr/xxuWbDzUpso+mUy4yrj7iIzPlB+vCsbhL7Sq5DzB7fFuVgjMxQojNh/AbMBWGCIzR/KIs++dOota91gBmI53shVSuFkPCnZ2txXH8qH/le8VvN4ttioyOfdzvGm9vaF4SvnMKbCCpMLfRndOTpY49SbiTjryLSx2EnAvAN1qxRAj/y+p9Sk5jJiE4X5GaurtVba7e0qa6ADBoOBwVktucmYvJWDkINWOMoFOpBqiGVh2gpMbMfE3JA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1xXNpZnvlIeFYUyFkjgbYVCzHoOztpGxncMZCtB0gq0=;
+ b=FPiL+S0W7EnskUeDyKfE6g9XOfZwkF/L21B0u+Js56JqfGfJFwY18wIaKCF5WSgiqG1GpFpZfl7uGdw2cVTyPqTPhFa3YLrahnJGwvgohMzaDRKpwnE062hLf3kf69R8Ts67yEkYM0NZZKRxnGdLX5ZRkctBUbKW4JkMuFKDX3k=
+Received: from CY8PR12MB9035.namprd12.prod.outlook.com (2603:10b6:930:77::11)
+ by DS0PR12MB999265.namprd12.prod.outlook.com (2603:10b6:8:432::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Fri, 31 Jul
+ 2026 13:06:31 +0000
+Received: from CY8PR12MB9035.namprd12.prod.outlook.com
+ ([fe80::dd3f:35ac:ef0a:723f]) by CY8PR12MB9035.namprd12.prod.outlook.com
+ ([fe80::dd3f:35ac:ef0a:723f%4]) with mapi id 15.21.0270.015; Fri, 31 Jul 2026
+ 13:06:31 +0000
+From: "Min, Frank" <Frank.Min@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
+ Hawking" <Hawking.Zhang@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>
+Subject: [PATCH] drm/amdgpu: simplify cper ring fini condition
+Thread-Topic: [PATCH] drm/amdgpu: simplify cper ring fini condition
+Thread-Index: AQHdIM7bYktibrTJmUK1inbRGl5Ea7aHmCcw
+Date: Fri, 31 Jul 2026 13:06:31 +0000
+Message-ID: <CY8PR12MB9035FE1E766825D7FADD11D2E9C82@CY8PR12MB9035.namprd12.prod.outlook.com>
+References: <20260731092705.995916-1-Frank.Min@amd.com>
+In-Reply-To: <20260731092705.995916-1-Frank.Min@amd.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-07-31T13:02:47.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR12MB9035:EE_|DS0PR12MB999265:EE_
+x-ms-office365-filtering-correlation-id: 16a05edc-56da-42d7-2f3a-08deef048a6a
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|376014|23010399003|1800799024|11063799006|22082099003|18002099003|56012099006|10067099003|38070700021;
+x-microsoft-antispam-message-info: KMkdMIN5x9Lnm6Er6SNZFQhtoCR+ra8BTx4CVby+FVVekkcVvowgIQpDkS11jTF1Shib9Ehj2unojLurjrniNmVD1/Bqi+fndkQTvPOmMQicPvy5HQ3qSsjUamN4t0vR/wQ6sX3/T+7qxDG1dZ8QPmi9cO3hxjp/xaz53zVQYpS3dUR+2JtKWcNY6n7vm1k5WNcK4njBxsZM8SqAQgEd6v1Vg4RnnWf58A6lHyRqHKlSNgpBUvD8bD2d455fDT1tRreDAtf6lmAVuyryQAJnIHrDR7YhXFHGSXT7ndnZcawkvHdCO9K6z6iuqC4kKv1LEuMmbyITVgcKBUJse2sgm5wH5IpIi9L9Z0A+ZWXPOuOGIVxmJxa7Z6RVYQwGNQSdScPf/0APSpIjkbP4GpLArDnoCS68OKhNICt3w6G/nBx7N8pDkvlUA2XiLeMmmvOsDFy/61I253lGua4mNzeUawfqAw+oTOJsWa/IzgJb5MHHqMWA1WmIVA2N5rPOy7yVbti2mwJ6novkJHBNZOMym3sce4jiuWG+SK7Wd74WpcojK8SPonDOgRemhxmalJk8r7qKK8Tlf35KwBJTpA75rFkCv5lXgGB9hMVpDRXrPtcRHoWuOLPRlZjOulMLzIbqprTJ+8hqK4kDg1Rb74x6Mg+bYA3/xGoc9fY73g2TyWzCxcu6nayvTCMf1UUTtIiUkU39sh6OOjBAo7ZV7ZJd+y+78uTLKmysufGauy5I8Ak=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB9035.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(11063799006)(22082099003)(18002099003)(56012099006)(10067099003)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ktuy2rIDtKpE9rL6vDLqXredCJQ1Y6CkkCUJzTYmojp993f1c+AtUAdQgO3A?=
+ =?us-ascii?Q?2/eKOrElNaWv4QX7lTxBF8ai58hF1gBTh3gs6P3g5I8ARAMncJ2MvQ1FhuT7?=
+ =?us-ascii?Q?bhIDMXnZObvwWKxjfrQHkAUgn0g7H+alz3alhOC2OcyAlrrdSMDZ/NzgjBvs?=
+ =?us-ascii?Q?IRxipT6zyRRzhp+PHagUHHFmH+4BACzSGgMH/pbdjdYe5gmJKDM/ft9D/119?=
+ =?us-ascii?Q?duQeCpiUxts5G/VG2NQEuo1ZVf6znAWZ6EYIrqFlNdHdjMgxbovSZrUXvj3e?=
+ =?us-ascii?Q?MZri/XcIvzb+6Q/92hdZyNJjbML9VkyAFn9OLSlZYbeVdACa/qcaV3nObVLX?=
+ =?us-ascii?Q?FbYTGT0E0HG/vF8N1ZaWf//3VDF7KmAcIdu+KWVHgP7InzdH5nl9TNt1f8Dz?=
+ =?us-ascii?Q?YdrRjle0sjRQxL/Qg05tGMdilkshFoOgA6eDFy+bcsn8mQaoq93inW4MgOlR?=
+ =?us-ascii?Q?G841HP0gqwD58CLK7vFkL/3ynt3t14kw+pPzK6HukRUMWMtTaJhMES8a76h2?=
+ =?us-ascii?Q?TqVmhZFqZ+OeVwPPkRjCOskj2Etw98H2QMZlRS8/0zN04FF9wkjPhCm+Er1I?=
+ =?us-ascii?Q?5HbHa3AH2lC0OAnfaNZf4T0umUBh0gXQwDSg78cTbgmoKvT2F3+G+drmwnTh?=
+ =?us-ascii?Q?lmCS9ZqxwNnwz4pdnL71+L+AclBvrFn1+4/rg5gj5pCmZYOta1zU2Sz9o/38?=
+ =?us-ascii?Q?7HkfiBtvkNqy89dx1evcYkDDQUUNQzfSZ1Jr8bivX+omxd05tmACe/lnCsDF?=
+ =?us-ascii?Q?0y/IyLfM/gSNQvr5UEHdq/aKhkUha/n/VnyqxY1WH5hkdIcF0zhN55XjJWpo?=
+ =?us-ascii?Q?YGcdOw7thLxlIXXAWB3A9wdvm0QNCTGENVnnJQreVAOcagX1rLa33M3/6rTB?=
+ =?us-ascii?Q?dGrbzVc9hJ1ghAIrqX6Od7BBck7N8bgdH1CER3EltCAKUO7v4lgeUwKgfjX8?=
+ =?us-ascii?Q?HMAqZvC5M03Vnn8F2rsETFAkmjm/d3wrFSPZ2NXQnEec41SFh8ELhW1VpdfH?=
+ =?us-ascii?Q?I5aj5Ha6l0yxrOFBvn932W1eZlVTdsuio70ocZgULZTSbjxuYhH3b4AIsmAF?=
+ =?us-ascii?Q?77sRI8Ljo24dhC8u1UyGSWa3jz5faSGmE8znMJZepL5ld2NnGvz7PMdOsIWx?=
+ =?us-ascii?Q?JyC7zA0MFZO8mkgt/726qNvUT4/UQBZyKqhmrlMXs2i8qeVHsUo1VOw76RBn?=
+ =?us-ascii?Q?0g+vSU9lZTq4+v5dmf26vkXb+BwnbAnzjXb4svpGTHASTtIWuprvF4nsSaSS?=
+ =?us-ascii?Q?+C1PrKnIbPmuM1J2alX+K5h/KfDC7I84/VOmKh1Pm514kOi/iuQYe/eBeARR?=
+ =?us-ascii?Q?ev6dvPPL25XmQhPqmoE0N5ACyPQ4o/A04fUB/i8g/S2k9AL4ZmlXls0u7vUQ?=
+ =?us-ascii?Q?15Meawg9vt28OzLuACofC81dpIK9JvoMFPmf0z98rufCoJxpi3GS4P0c+3R/?=
+ =?us-ascii?Q?m485DnTqnoEoF0Rf/pgTMRY/IDI8v0Bmm7Nxo/qq7ZGIGjBn8kDBMyaJfTde?=
+ =?us-ascii?Q?TtyJ4ClJnZ+u+VacyS/DcmEOlm/Bc25ByGhDzj1wrqLggtCO9p99GANqllTC?=
+ =?us-ascii?Q?4kmE8oQJYcGJydDhIge89mDRRBfMp/R48v03AAne6gBSc3mBwFwJoXNbVZXt?=
+ =?us-ascii?Q?+qJO543bmZAEVgAog5cstXwSlY/7RFAf0H1+ppXZYnqT+DAQStyhElYlk/Mw?=
+ =?us-ascii?Q?o8LGdiBPwleCe1cL2iC0RW7zIUA=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Robert Mader <robert.mader@collabora.com>
-Subject: Re: [PATCH v4 01/11] drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
-To: Pekka Paalanen <pekka.paalanen@collabora.com>,
- "Borah, Chaitanya Kumar" <chaitanya.kumar.borah@intel.com>
-Cc: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org, Melissa Wen <mwen@igalia.com>
-References: <20260722134607.136293-1-harry.wentland@amd.com>
- <20260722134607.136293-2-harry.wentland@amd.com>
- <64bdc6c8-41e7-4c7f-aa8e-ceb05128d987@collabora.com>
- <8aaeb5b2-2706-415a-8662-40f863270dac@intel.com>
- <20260730172758.0c65485f@fluorite>
-Content-Language: en-US, de-DE
-In-Reply-To: <20260730172758.0c65485f@fluorite>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB9035.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 16a05edc-56da-42d7-2f3a-08deef048a6a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Jul 2026 13:06:31.3764 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: XmpvJ5GI+4+sNXpopz9V0WR6ZFwvB+OYHUs4uZvcZoCy1fv/Fq3vd8AmsXK006BN
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999265
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,371 +130,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a multi-part message in MIME format.
---------------v5HAvdRonGnF2LpgNUlV3vv1
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+AMD General
 
-Hi Chaitanya, thanks for the explanation and sorry for the delayed 
-answer! I needed to think about it for a bit and would like to propose 
-an idea now, see below.
+From: Frank Min <Frank.Min@amd.com>
 
-On 30.07.26 16:27, Pekka Paalanen wrote:
->>>> ...
->>>> Limited to RGB",
->>>> +    [DRM_COLOROP_FM_YCBCR_LIMITED_FULL] = "YCbCr limited to full",
->>>> +    [DRM_COLOROP_FM_RGB709_RGB2020] = "RGB709 to RGB2020",
->>> I'm still a bit unsure how useful the later two values are,
->> You can see them being used in [1] and tested by [2]. We split out the
->> "YCbCr limited to full" block because some Intel planes have a 1DLUT
->> between it and the "YCbCr XXX Full to RGB" block. This keeps the color
->> pipeline consistent with the actual HW.
-> Hi Chaitanya,
->
-> it would be nice for VKMS to be able to have such a color
-> pipeline only. Then userspace authors can test it.
->
-> That gives me the idea, that perhaps there should be a library of color
-> pipelines for VKMS that replicates actual hardware pipelines. Maybe it
-> would be in the kernel, or maybe it would be in some userspace project
-> if VKMS pipelines can be crafted through configfs or something else.
->
->> Based on your experience implementing the colorop in weston, do you
->> foresee any challenges in supporting limited-range framebuffers using
->> the "YCbCr Limited-to-Full" fixed matrix block?
-> I cannot imagine a big problem, but it is yet another configuration
-> that userspace must be explicitly prepared for.
+To avoid cper ring init and fini with different condition and causing kerne=
+l memory leak.
 
-I agree with Pekka - it shouldn't be hard to implement, especially if it 
-can be tested on VKMS, but I'm worried that:
+Signed-off-by: Frank Min <Frank.Min@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-1. It could end up resulting in some "Intel-only" code that most Wayland 
-compositors would need to carry around.
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_cper.c
+index d5e59c24d907d..e94862f90cc7c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
+@@ -612,7 +612,7 @@ int amdgpu_cper_init(struct amdgpu_device *adev)
 
-2. While having an additional 1D curve is great, IIUC it wouldn't be 
-needed/used by Weston and similar compositors for now.
+ int amdgpu_cper_fini(struct amdgpu_device *adev)  {
+-       if (!amdgpu_aca_is_enabled(adev) && !amdgpu_sriov_ras_cper_en(adev)=
+)
++       if (!adev->cper.enabled)
+                return 0;
 
-3. It would complicate the use of a cross-vendor helper for the legacy 
-properties (for clients not setting 
-DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE) as discussed in 
-https://lore.kernel.org/dri-devel/d42d5750-f3c5-4e2b-baa3-514b87e59e86@linux.intel.com/
+        adev->cper.enabled =3D false;
+--
+2.43.0
 
-
-IIUC there should be a simple solution for that, though, and I'd like to 
-ask if you think it would work for you: the Intel driver could just 
-expose two pipelines: a "complex" one with "YCbCr Limited-to-Full" in 
-the first fixed-matrix color-op and the additional 1D lut - and a 
-"simple" one with a single fixed-matrix also support the "Limited to 
-RGB" values. The later would waste the 1D lut in favor of compatibility 
-with clients not supporting "YCbCr Limited-to-Full".
-
-To be fully clear what I mean: IIUC right now the drm_info output of you 
-pipeline looks *roughly* like this:
-
-            └───"COLOR_PIPELINE" (atomic): enum {Bypass, Color Pipeline 1} = Bypass
-                 ├───Bypass
-                 └───Color Pipeline 1
-                     ├───Color Operation 1
-                     │   └───Properties
-                     │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                     │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                     │       ├───"NEXT" (atomic, immutable): object colorop = 2
-                     │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 709 Full to RGB, YCbCr 2020 NC Full to RGB, YCbCr limited to full, RGB709 to RGB2020} = YCbCr 601 Full to RGB
-                     ├───Color Operation 2
-                     │   └───Properties
-                     │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                     │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                     │       ├───"NEXT" (atomic, immutable): object colorop = 3
-                     │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                     ├───Color Operation 3
-                     │   └───Properties
-                     │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                     │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                     │       ├───"NEXT" (atomic, immutable): object colorop = 4
-                     │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 709 Full to RGB, YCbCr 2020 NC Full to RGB, YCbCr limited to full, RGB709 to RGB2020} = YCbCr 601 Full to RGB
-                     ├───Color Operation 4
-                     │   └───Properties
-                     │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                     │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                     │       ├───"NEXT" (atomic, immutable): object colorop = 5
-                     │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                    ...
-
-While I think it should look like this:
-
-            └───"COLOR_PIPELINE" (atomic): enum {Bypass, Color Pipeline 1, Color Pipeline 2} = Bypass
-                 ├───Bypass
-                 ├───Color Pipeline 1
-                 │   ├───Color Operation 11
-                 │   │   └───Properties
-                 │   │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                 │   │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                 │   │       ├───"NEXT" (atomic, immutable): object colorop = 12
-                 │   │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 709 Full to RGB, YCbCr 2020 NC Full to RGB, YCbCr limited to full, RGB709 to RGB2020} = YCbCr 601 Full to RGB
-                 │   ├───Color Operation 12
-                 │   │   └───Properties
-                 │   │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                 │   │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                 │   │       ├───"NEXT" (atomic, immutable): object colorop = 13
-                 │   │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                 │   ├───Color Operation 13
-                 │   │   └───Properties
-                 │   │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                 │   │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                 │   │       ├───"NEXT" (atomic, immutable): object colorop = 14
-                 │   │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 709 Full to RGB, YCbCr 2020 NC Full to RGB, YCbCr limited to full, RGB709 to RGB2020} = YCbCr 601 Full to RGB
-                 │   ├───Color Operation 14
-                 │   │   └───Properties
-                 │   │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                 │   │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                 │   │       ├───"NEXT" (atomic, immutable): object colorop = 15
-                 │   │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                    ...
-                 └───Color Pipeline 2
-                     ├───Color Operation 21
-                     │   └───Properties
-                     │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                     │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                     │       ├───"NEXT" (atomic, immutable): object colorop = 22
-                     │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 601 Limited to RGB, YCbCr 709 Full to RGB, YCbCr 709 Limited to RGB, YCbCr 2020 NC Full to RGB, YCbCr 2020 NC Limited to RGB} = YCbCr 601 Full to RGB
-                     ├───Color Operation 22
-                     │   └───Properties
-                     │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                     │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                     │       ├───"NEXT" (atomic, immutable): object colorop = 23
-                     │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                    ...
-
-This should allow us to have the best from both worlds - maximum 
-flexibility for users wanting the additional 1D lut, as well as simple 
-clients just needed a drop-in replacement for the legacy properties.
-
-Please let me know if that make sense and you think that would be 
-possible (especially if I made wrong assumptions here).
-
-> Thanks,
-> pq
->
->
->> As for the "RGB709 to RGB2020" block, I can see it being useful for
->> converting SDR Rec.709 content into the Rec.2020 color space before
->> blending it with an HDR plane.
-
-I see, thanks. At least for Weston I think it's unlikely that we will 
-use that for now - the current plan is to blend in linear space and then 
-use the post-blending / CRTC pipeline convert to the output color space. 
-But AFAIK that's not in any way implied by Wayland, so other compositors 
-may well take different approaches and use this matrix.
-
-My request to drop it from the series was purely about landing it 
-together with the corresponding implementation - like Harry just 
-announced for v5 in 
-https://lore.kernel.org/dri-devel/fea5b938-24ec-4e62-9c7b-e0afbca83c0e@amd.com/ 
-- i.e. I don't have any reservations against the matrix/enum.
-
-Best regards,
-
-Robert
-
--- 
-Robert Mader
-Consultant Software Developer
-
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
-
---------------v5HAvdRonGnF2LpgNUlV3vv1
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  </head>
-  <body>
-    <p>Hi Chaitanya, thanks for the explanation and sorry for the
-      delayed answer! I needed to think about it for a bit and would
-      like to propose an idea now, see below.</p>
-    <div class="moz-cite-prefix">On 30.07.26 16:27, Pekka Paalanen
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20260730172758.0c65485f@fluorite">
-      <blockquote type="cite">
-        <blockquote type="cite">
-          <blockquote type="cite">
-            <pre wrap="" class="moz-quote-pre">...
-Limited to RGB",
-+    [DRM_COLOROP_FM_YCBCR_LIMITED_FULL] = "YCbCr limited to full",
-+    [DRM_COLOROP_FM_RGB709_RGB2020] = "RGB709 to RGB2020",  
-</pre>
-          </blockquote>
-          <pre wrap="" class="moz-quote-pre">I'm still a bit unsure how useful the later two values are,  
-</pre>
-        </blockquote>
-        <pre wrap="" class="moz-quote-pre">You can see them being used in [1] and tested by [2]. We split out the 
-"YCbCr limited to full" block because some Intel planes have a 1DLUT 
-between it and the "YCbCr XXX Full to RGB" block. This keeps the color 
-pipeline consistent with the actual HW.
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">Hi Chaitanya,
-
-it would be nice for VKMS to be able to have such a color
-pipeline only. Then userspace authors can test it.
-
-That gives me the idea, that perhaps there should be a library of color
-pipelines for VKMS that replicates actual hardware pipelines. Maybe it
-would be in the kernel, or maybe it would be in some userspace project
-if VKMS pipelines can be crafted through configfs or something else.
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">Based on your experience implementing the colorop in weston, do you 
-foresee any challenges in supporting limited-range framebuffers using 
-the "YCbCr Limited-to-Full" fixed matrix block?
-</pre>
-      </blockquote>
-      <pre wrap="" class="moz-quote-pre">I cannot imagine a big problem, but it is yet another configuration
-that userspace must be explicitly prepared for.</pre>
-    </blockquote>
-    <p> I agree with Pekka - it shouldn't be hard to implement,
-      especially if it can be tested on VKMS, but I'm worried that:</p>
-    <p>1. It could end up resulting in some "Intel-only" code that most
-      Wayland compositors would need to carry around.</p>
-    <p>2. While having an additional 1D curve is great, IIUC it wouldn't
-      be needed/used by Weston and similar compositors for now.</p>
-    <p>3. It would complicate the use of a cross-vendor helper for the
-      legacy properties (for clients not setting 
-      DRM_CLIENT_CAP_PLANE_COLOR_PIPELINE) as discussed in
-<a class="moz-txt-link-freetext" href="https://lore.kernel.org/dri-devel/d42d5750-f3c5-4e2b-baa3-514b87e59e86@linux.intel.com/">https://lore.kernel.org/dri-devel/d42d5750-f3c5-4e2b-baa3-514b87e59e86@linux.intel.com/</a></p>
-    <p><br>
-    </p>
-    <p>IIUC there should be a simple solution for that, though, and I'd
-      like to ask if you think it would work for you: the Intel driver
-      could just expose two pipelines: a "complex" one with "YCbCr
-      Limited-to-Full" in the first fixed-matrix color-op and the
-      additional 1D lut - and a "simple" one with a single fixed-matrix
-      also support the "Limited to RGB" values. The later would waste
-      the 1D lut in favor of compatibility with clients not supporting
-      "YCbCr Limited-to-Full".</p>
-    <p>To be fully clear what I mean: IIUC right now the drm_info output
-      of you pipeline looks *roughly* like this:</p>
-    <pre>           └───"COLOR_PIPELINE" (atomic): enum {Bypass, Color Pipeline 1} = Bypass
-                ├───Bypass
-                └───Color Pipeline 1
-                    ├───Color Operation 1
-                    │   └───Properties
-                    │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                    │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                    │       ├───"NEXT" (atomic, immutable): object colorop = 2
-                    │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 709 Full to RGB, YCbCr 2020 NC Full to RGB, YCbCr limited to full, RGB709 to RGB2020} = YCbCr 601 Full to RGB
-                    ├───Color Operation 2
-                    │   └───Properties
-                    │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                    │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                    │       ├───"NEXT" (atomic, immutable): object colorop = 3
-                    │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                    ├───Color Operation 3
-                    │   └───Properties
-                    │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                    │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                    │       ├───"NEXT" (atomic, immutable): object colorop = 4
-                    │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 709 Full to RGB, YCbCr 2020 NC Full to RGB, YCbCr limited to full, RGB709 to RGB2020} = YCbCr 601 Full to RGB
-                    ├───Color Operation 4
-                    │   └───Properties
-                    │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                    │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                    │       ├───"NEXT" (atomic, immutable): object colorop = 5
-                    │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                   ...
-</pre>
-    <p>While I think it should look like this:</p>
-    <pre>           └───"COLOR_PIPELINE" (atomic): enum {Bypass, Color Pipeline 1, Color Pipeline 2} = Bypass
-                ├───Bypass
-                ├───Color Pipeline 1
-                │   ├───Color Operation 11
-                │   │   └───Properties
-                │   │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                │   │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                │   │       ├───"NEXT" (atomic, immutable): object colorop = 12
-                │   │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 709 Full to RGB, YCbCr 2020 NC Full to RGB, YCbCr limited to full, RGB709 to RGB2020} = YCbCr 601 Full to RGB
-                │   ├───Color Operation 12
-                │   │   └───Properties
-                │   │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                │   │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                │   │       ├───"NEXT" (atomic, immutable): object colorop = 13
-                │   │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                │   ├───Color Operation 13
-                │   │   └───Properties
-                │   │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                │   │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                │   │       ├───"NEXT" (atomic, immutable): object colorop = 14
-                │   │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 709 Full to RGB, YCbCr 2020 NC Full to RGB, YCbCr limited to full, RGB709 to RGB2020} = YCbCr 601 Full to RGB
-                │   ├───Color Operation 14
-                │   │   └───Properties
-                │   │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                │   │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                │   │       ├───"NEXT" (atomic, immutable): object colorop = 15
-                │   │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                   ...
-                └───Color Pipeline 2
-                    ├───Color Operation 21
-                    │   └───Properties
-                    │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = Fixed Matrix
-                    │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                    │       ├───"NEXT" (atomic, immutable): object colorop = 22
-                    │       └───"FIXED_MATRIX_TYPE" (atomic): enum {YCbCr 601 Full to RGB, YCbCr 601 Limited to RGB, YCbCr 709 Full to RGB, YCbCr 709 Limited to RGB, YCbCr 2020 NC Full to RGB, YCbCr 2020 NC Limited to RGB} = YCbCr 601 Full to RGB
-                    ├───Color Operation 22
-                    │   └───Properties
-                    │       ├───"TYPE" (immutable): enum {1D Curve, 1D LUT, 3x4 Matrix, Multiplier, 3D LUT, Fixed Matrix} = 1D Curve
-                    │       ├───"BYPASS" (atomic): range [0, 1] = 1
-                    │       ├───"NEXT" (atomic, immutable): object colorop = 23
-                    │       └───"CURVE_1D_TYPE" (atomic): enum {sRGB EOTF, sRGB Inverse EOTF, Gamma 2.2, Gamma 2.2 Inverse, Gamma 2.4, Gamma 2.4 Inverse} = sRGB EOTF]
-                   ...
-
-</pre>
-    <p>This should allow us to have the best from both worlds - maximum
-      flexibility for users wanting the additional 1D lut, as well as
-      simple clients just needed a drop-in replacement for the legacy
-      properties.</p>
-    <p>Please let me know if that make sense and you think that would be
-      possible (especially if I made wrong assumptions here).</p>
-    <blockquote type="cite" cite="mid:20260730172758.0c65485f@fluorite">
-      <pre wrap="" class="moz-quote-pre">Thanks,
-pq
-
-
-</pre>
-      <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">As for the "RGB709 to RGB2020" block, I can see it being useful for 
-converting SDR Rec.709 content into the Rec.2020 color space before 
-blending it with an HDR plane.</pre>
-      </blockquote>
-    </blockquote>
-    <p>I see, thanks. At least for Weston I think it's unlikely that we
-      will use that for now - the current plan is to blend in linear
-      space and then use the post-blending / CRTC pipeline convert to
-      the output color space. But AFAIK that's not in any way implied by
-      Wayland, so other compositors may well take different approaches
-      and use this matrix.</p>
-    <p>My request to drop it from the series was purely about landing it
-      together with the corresponding implementation - like Harry just
-      announced for v5 in
-      <a class="moz-txt-link-freetext"
-href="https://lore.kernel.org/dri-devel/fea5b938-24ec-4e62-9c7b-e0afbca83c0e@amd.com/">https://lore.kernel.org/dri-devel/fea5b938-24ec-4e62-9c7b-e0afbca83c0e@amd.com/</a>
-      - i.e. I don't have any reservations against the matrix/enum.</p>
-    <p>Best regards,</p>
-    <p>Robert</p>
-    <pre class="moz-signature" cols="72">-- 
-Robert Mader
-Consultant Software Developer 
-
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England &amp; Wales, no. 5513718</pre>
-  </body>
-</html>
-
---------------v5HAvdRonGnF2LpgNUlV3vv1--
