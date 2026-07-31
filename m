@@ -4,121 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CF33C55173
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 20:11:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29432C55174
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 20:14:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D736E10E25C;
-	Fri, 31 Jul 2026 20:11:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A61FF10E238;
+	Fri, 31 Jul 2026 20:14:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Nbd0sPSP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VTlEhqQ+";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011064.outbound.protection.outlook.com [40.107.208.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4E64410E25C
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 20:11:35 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010012.outbound.protection.outlook.com
+ [40.93.198.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CEEA10E238
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 20:14:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ujClNbIENTJwRNGEo2OdzlWzHbRDuSgh+qmmIIp4lxnBD92g7oQhlos4AKgCD9+CiZs+YC6eQMxZWcvy8IZC9jSt4H4ni1hPWcBG47SrOF5tugSZu0Z35OCIWTqtumbcUgXWwnhR8PnvVPO17BdP00SwhVKlHavz/I+WWLGjD+W8EFY7XnNZ9sAeFR8OejEdzhXBmqBCksKQ3TTtBe1MXHxWvdb5jjyLnh7jwc5pD5Bz+pAeaU5XPoBOQ1fvUFRwdKbMvrL/1/QuXQhlXXHEi/Q+iCNPUxwfIhjHqXLrnDoHW0I0OVYWS5DSnVqkSYW4rWwwTYUPws9dQ54zfXwXVg==
+ b=metGJ6szRUZwHkzolAl72ukbsPs6+op4jNHEKSNwy1We+LCYQvQmQRPUjnCSZTVOubIsm57XA4hVP09q8aOuWhMGtXWky5feEQwer00VqNL0c4Ra/nUgcPdQ0g0fpWazGNxLdcRPtSeUZKrtF3bt3iC05f3uycWGcEG+s9n5BnMUpJMEktTGOzdDbBv81043NumPOMeM8R5TSrHz/HsXmVlx7DTTZnoRUwKPBHXai6ekChQnXRpTR+Q6fL4Y9XsiatHYk9Iwc5AR1oPneRHmG3/8MzFzncJmKtfRp7sLm64UC7NDRlDSjXHneVsBTHjCZUqe5FPhXApDxwyB3UJFJQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9bf5FOowmvLDPQGxH4JoqhlDGkxdjlhngPVTtbauvGU=;
- b=vJaAHAWJaSwg5NVYnvhOGrj4ZXkKYniDukCgw0TSIWM2wPzyGsG9U3xyW6FkJb10M4WgY/27f1+yvX0HXZ98RFb1FMDoBes9Lluwz7LZOB2dHIS9p85CQ14vFXY/7H4KQ3OrwaUtQ5V62JXUV3XcqCCXcjnTmxPsaX8CGEAtjsartxomr7a7/Fn2uLFuPIeJKmQTprUv1F8Z/M8jDNeRub84qLm7AM3mHvyy7hq4jZk44duqGYpvjyBmKBe+DvL3cvHSW02r+mql3XzzG7PR14Ax1DEU9kfWrfzu2brSq5S5OIfcdYmXtvnM5uBHAB+I2x2hhQBIDWdm2fmFk7JvYw==
+ bh=/dlnZkU2jI2VFID4UQl2w7bRTVtS/q5JzjK4bq1Gpec=;
+ b=qJ/XuVqjE/tZ2Kkl6UZOtca4m+wmXrw/DQbBNDAROvTogfWOD/H47LhEn42tiNtaO1oUJo/+r/ZyvUx2HeYqt3b0NPzfsLZJFiTCqrZnBZ/cgvBNthOTJCssygFSrTvmB8IbqFsZsbJv/qQ3TUkXl300o/htxHovW3ZkgP1YSj+EcEBUn2LDdsNkXHet3m4lwlTPeaWuIK83oglGO4bVS9CNIf1ypWtoAy5InhGjrOuOGcISWG8zuKs6IOSfGikP/3aiE+FeOkdEAveHC7zfCyEYbCs4lE+bceJC6hiPNef5VNPt8nX/MnBx+QlOd53JmFw294KyhsUEig4Rv6o1Ew==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9bf5FOowmvLDPQGxH4JoqhlDGkxdjlhngPVTtbauvGU=;
- b=Nbd0sPSP/u1O2x1UFs/CB1tM36BTYShMr3tA8UVMZTS4qSRVDcqcJjZE9MnTbzjaugkGbXC3Uzyksa5bXABYZUORjYJrs+Tqp2CIiKkQ5MJvaF14Uc38L/ZIhMjqFtYNOZa8nB6sruDLgGDbqFgFb5qtfNw1rAKGLtNWQ/FsMKQ=
+ bh=/dlnZkU2jI2VFID4UQl2w7bRTVtS/q5JzjK4bq1Gpec=;
+ b=VTlEhqQ+in1ESnmYc3gdJQQ78/YhTVtYD6ZRs68a3rt5cnxDNgAVIpZ03Uuw9jZg7umUqi33dhFmRcHZQs8WD2/e68eAdwVNmq03V0+wkJRtdIiKIiCn4OzSwKk93vXVZxNcTMMLR48nHwHxf5YCVSfiLNyBJfZ0BIeovPDzLu4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
- by PH7PR12MB6396.namprd12.prod.outlook.com (2603:10b6:510:1fc::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
- 2026 20:11:28 +0000
+ by CH2PR12MB4261.namprd12.prod.outlook.com (2603:10b6:610:a9::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Fri, 31 Jul
+ 2026 20:14:52 +0000
 Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
  ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
  ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0270.012; Fri, 31 Jul 2026
- 20:11:28 +0000
-Message-ID: <dba8b2f0-ab2c-48a7-b842-4ffdc7d467e9@amd.com>
-Date: Fri, 31 Jul 2026 16:11:25 -0400
+ 20:14:52 +0000
+Message-ID: <fe4e0dba-e1c4-4e9e-bf56-3a2f83129659@amd.com>
+Date: Fri, 31 Jul 2026 16:14:47 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] drm/amd/display: Add HDMI ALLM support
-To: Fangzhi Zuo <jerry.zuo@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20260730171754.704049-1-jerry.zuo@amd.com>
- <20260730171754.704049-4-jerry.zuo@amd.com>
+Subject: Re: [PATCH] drm/amd/display: Simplify hdmi_automation debugfs with
+ debugfs_create_bool
+To: Fangzhi Zuo <jerry.zuo@amd.com>, amd-gfx@lists.freedesktop.org,
+ nicolas.frattaroli@collabora.com, krzk@kernel.org
+References: <20260730184103.916125-1-jerry.zuo@amd.com>
 Content-Language: en-US
 From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <20260730171754.704049-4-jerry.zuo@amd.com>
+In-Reply-To: <20260730184103.916125-1-jerry.zuo@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YQZPR01CA0018.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:85::11) To SJ0PR12MB7007.namprd12.prod.outlook.com
+X-ClientProxiedBy: YQZPR01CA0007.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:85::25) To SJ0PR12MB7007.namprd12.prod.outlook.com
  (2603:10b6:a03:486::8)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|PH7PR12MB6396:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7b2078e7-3bc3-4fad-2288-08deef3fe7a6
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|CH2PR12MB4261:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1e9c9525-b2a5-4db3-2305-08deef40610f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|4143699003|11063799006|5023799004|56012099006|22082099003|18092099006|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info: xUEmgneFquSiMeb6zv/kGvTlfK4FdPPP3QqQ9cnu/AvtenW7el30xF2Rcoiyzjkho+XGOrR4Z3Js6EdcQ0VYmNPn5H9jHISjy+xN6ptqnc7jCtGlrn7fqbOusqcr2pEqNvvK8s2LVexPZruXBykRN5acE7Gm2OubPPBRU/wkGL6IPp6za4ShU0otgyIWUnAV0eXHD2KsHZegpCN6IB6LnbGU0Gm9/j0yJ3Z5X402FOMZmHKXZBzmHOrrqS9NfxCFr3e8afjrS96MzUjEs6FjiL/+3BQJpXtLS07f5Zi1cL4xWNwY6zJc6RTYDYB+84cqUO7bXzHf1y7EBuKIM0/qgzHm6/HMbY2jbr3RN8+OS5Dso0E2Db4CET6/Z31cCrOlvdNXBflFfElDxGwo6IuYdshXSrN4L9buUsIQ0si548ZahhL6w9lTfZuF5Y4qaPk0JNqHM5CnwDsczGZQpsS89yxa2TZh9E3ZzOJhcYBYD/HambIHOiRlNtjtsy5syaCEVWnKRazBg5/DGrxsoCGHh89hQixLmkb85/HF8LPeOHRU0sCFVkF7NmOapxWuSfXE+cz6VqqrygpNVH3zIOAGPohANhxJjmy2BXstTfTiysqvhpbsTZ7+3IOALqzSPAZ5qr6Un9DTiCLEs1x0+aXDFS6Xkfvbp8Lsu4TBoaWFo7g=
+ ARA:13230040|376014|1800799024|23010399003|366016|11063799006|56012099006|10067099003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 00kLZsSSGc8fR4s7tuyKDso2QTDzwJXcNsH+taQd7ljyue6ae9H5hSnriCWOY6YEVO2CPJadZCBURNoBmhk9/v/pxrymDleQrBeoomZexv7kwBDPpLUoSUpr2LBHMcgO/LwN5wQDopZgKHMbL/sc9NVPl3YVQz3jI8U+wKDP7sRv0HUdYTH4alnLYAH6s1YT9xhpQ2PZq13HpPwYrYdzCRaM8VcqXYlBuI9uqI2hy03slXpCaxOHRCyEmQhj72cV/GWAbu44hAmTUZWCk1rnE6hl3eYEU0g23ijFl5S6yYVvAGjTPRdgWzhqtZQ19d7wn6z3L0ucuSUe3AXiFc2te38h7lxz0s7QBqod1HBpChOsc1V82pHcLr3NYzhcLyXMKM/thZtVMlYAFCilOfy7u59/Zj69VY6/90xZbzfspE1RWaMO8bTGTaTXxOGRYmSjJF2p4g8HVq5jLn3gEXyjYHSSDUH1sp3vN3puxQGStcpeQ/U+hoTw5WhVqu9MbX1WWcdPDvWRqyD6VCK+cLrAFR06+AOzXeDA5NI1LifpLU0jHP7BCq0QiTw0FMLNUNdY4PLMd0QEXYVyB4XgMA+AtEmOAdYi18AD+osgyCmn2FyYvDT45cDGMxZidF/lasrC3T2VIF/XECc32bXQGdXaIOPe0JSSvjYJ9x8jz+/uZs8=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(4143699003)(11063799006)(5023799004)(56012099006)(22082099003)(18092099006)(18002099003)(10067099003);
+ SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(11063799006)(56012099006)(10067099003)(6133799003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R09PYXdjSEVMMnFaQUsvR05VWWlLUi82cGlLQTBZODd3R201c2VsZlpNSlFS?=
- =?utf-8?B?Z05scE1mK1JGOGM2b2t5VHN4dUs5UnBIcW9iLzk2UEdNZ3J4UVNWZXpFcC9S?=
- =?utf-8?B?QzVadWMrcFAzSDNJZDVLM1l0TWZvWTIwY2lJUE80OWZLM3NGS2JNSk5oRjVD?=
- =?utf-8?B?RVdObHFzWnZiSXQ0dmpMYkwvTEsrZEJNeHcybnFLMjh5eUJzQ05GSHk4NVJ4?=
- =?utf-8?B?ZlJjR1BGcXBlb2ZqUHM0cmt1YU5KUG1Hd3pDNFZyOEJRUEhobmRqRG81aTUr?=
- =?utf-8?B?dzhNVUtteXRCbmEzb201ZlV4bHBrVnVaTkhGd3Vrc3F1cytSRFM0eHNBMXNU?=
- =?utf-8?B?ckdmRVUycnkrNnhPNnRxZzcrcXdlUnVlRENEb3o0NWw3bUdFQzhPcTkvc2xr?=
- =?utf-8?B?TGlwRmQwNEkxS1dwL1RMOXVmLzV1NFVLb09nb0RJei84dUNQV0s0Z2F5cXdp?=
- =?utf-8?B?dWRvdUwxdCtmSmFiV0RqazN4MGlKM0Vyc3dYeld0R0Z2aHExODlJY0lkQ1pS?=
- =?utf-8?B?WE95QTNqU2xxdi9vZlFCQzNBeSt2N3dhRVZNZEQ2L2Q0MzFlNVBheC92Snp4?=
- =?utf-8?B?L3g1OXlTOUZkbi9KQjlYY01yZkI1SUhjdzhnR1pIVEhyYWNTaFRMcmVzdFo2?=
- =?utf-8?B?UzYyY3Y1TFprZTl5ei9DVWJRZ3hzQ3NzeFR3TDZEcXJBMkc1S2g4M3JDMkFD?=
- =?utf-8?B?Y0pwaEc4YUkzM0tSd2hMR0tFczdhdmJsRjJuT3hlekpDaVNRblpqUkFzUTJC?=
- =?utf-8?B?SFhxMnVTN3VUbWhtM0pwQVVITkZkSGQydk5kN0wwRjRUb0NmUy9BcERQRmZM?=
- =?utf-8?B?YXBTWjF2aXJwNTFYMzBNMTBmYVZVejFVTkpmdWs2bmlPcTdqYmVWKzZuc3BT?=
- =?utf-8?B?QTJPaVBpR2pvVVc1Q3dJQkpXczlCY2dseTRVQXZrVXYzbHJNZWR5MDdsK0Vj?=
- =?utf-8?B?bTYvUW03RzdwUTQwR0FYd2FsTnEzSGlIMXhONDFnVDg0Z3lKYUY2WUdTYXVw?=
- =?utf-8?B?M0lKMHVodEx4MVRJc0ZQc3l6UUFNa0VvaGp1US8xMXdodllicTkxb3krTE9T?=
- =?utf-8?B?THd3cXFHOEN0SnBOQ3pBbGdOMTQ5cWF4Y01xdGt0RzRkeHBOUlNkN21pT00x?=
- =?utf-8?B?RkVWU25aL2lxbWsrZDFPRlduNjdwNDBOekRmcHp4aFYzcVFQcS95ck11a21p?=
- =?utf-8?B?VlQzNFpJajNvclBUV0pRVmNRbG10U3RqYXRJalNqL0labWZ2RXovT2VYZWxn?=
- =?utf-8?B?c1B5NUhFODdXSDg3TUQwanJRcDl1UGdReDBoaE94ZkQzUElzSHk4VEFQdDBn?=
- =?utf-8?B?Z2pUcGl6UDRJUGN6VTdydDRkczF1eTNGZWxONy95ZjhjVzgveHlUMXBhK1Vo?=
- =?utf-8?B?ZXpqWUt2amVKYTBvSjJ1MG9URndZMUtyNjViOC9PcGJxTjNzUUVMREpqa0pD?=
- =?utf-8?B?YUVNTUVnbUNTTmNEZy95ZmwzSnVaNVNjZE5JbUg1a3AvbEN5NVJNZ2duMDV0?=
- =?utf-8?B?eVZCelY2eVgwUkY0anFWUXFtREUrVXcvRE1QTDlacWNxUFRVZi8yZG0wajAv?=
- =?utf-8?B?bFN4ejRMVjhVeTh4U0c1K0NIV29HSW5oVVVNZTd4NTkvNXdDdDcvbGxuTTNW?=
- =?utf-8?B?RDd5VDZlZklxbGtaekRZSUNHM0VpWE1RaWM2eEZrM3N6M1k0NDdKQkJwVFlE?=
- =?utf-8?B?NWxKcWFHdjhUVmd2RWtXYk1KRjRKT3FzZW93My8rRm0rOUIvT0JmOFdDbWFn?=
- =?utf-8?B?SU11cVZlRytPWk9zWVA0SXc3VTNVb000R2dRS3Zsdis3MmlkWHhOYUVqZ3po?=
- =?utf-8?B?TEJVeFhKMjFseVovMGdEa3pXZ1hiMHM0OEQ5bGZhWmhxRmtOd3dwamhmTHR1?=
- =?utf-8?B?akNwSkNacHpPWWtxNTBxYmR0L2N2dFhBdHhtYXZwV1pmR0ZyZ3BPRHdobU0z?=
- =?utf-8?B?TFMyNkxpYlFub0lsM0IzajZEclZYRXc1QXJMZ3llSmdBS083SHJqR2dCazU4?=
- =?utf-8?B?UTl3bnlBL2tycmhjL3NDUlRkUTExTlFibHlIeXhVL2VBNFFhaGFFVjB4TW5o?=
- =?utf-8?B?a214UnVOaFN1dDZVM2pIdTg1VnpRN1FOMzZ5UUtpNSszWTQ3c0EvMHZMZVhL?=
- =?utf-8?B?RUd3V2RpSmg5ZVlQcTdVZUpObEVuUzlIS2ZoTzg1S29FUlV4UG83MTZyekZF?=
- =?utf-8?B?QlNwclFOWk5IVGRLSnJhbTVSUkdWN0ppa2lCMDhESWRxZ1k5Vld2YlRsMmsy?=
- =?utf-8?B?NWFsL0M0YkJkV0lSdUUyM1FDZUFabmNONG5GU3dQeTlYb3Jtbll4U1d5YmZN?=
- =?utf-8?B?RTc0aU1WekF4dHJTaFZtUVg5c2wyUkwyOWlpeHM4a0JGTFBkTUR1QT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZHd5SkhrMnRBZnc0STZIdUVKckpmQS9EYy82Y3h3eXdUREFteXhyNWdTWkJ0?=
+ =?utf-8?B?ZkQ4SWFhMHhQbE9TL1RyWnMyZzVnOFZ4Nmx6QWhCZG16OGJzWENsbTcvdExR?=
+ =?utf-8?B?Wm1jSi9BdDFNMC8xdmFlUWpQcVYvU0NtZWhKaGJmdmIyNkt4RjI5aTBJS2dl?=
+ =?utf-8?B?eFpOdWo1Zzh1cktyTEVpRVM4VVNER3JtRFZnYmovRnRQeURhZ1NLbHNEdUI1?=
+ =?utf-8?B?VStlTzJuNXZhY0lOZjFPdnp5VTlNeUo5YXN6WjNzWEcraENFMnU4MXBoZkRy?=
+ =?utf-8?B?c2ZOTngyQVNDUlRHcmVzSVN0ZW9wOG85TkpuSjFKS29KY3JlNjFicHh4N2pt?=
+ =?utf-8?B?WXpIbkU5akhlV3IvNkZUZjRGak91MTVoTnBoVlBGdUJBN2FHaTQ2UEpZSW8x?=
+ =?utf-8?B?UTB0bG5hNG5yNk5qRXV0VzRKYkxndlN3RWprSUZadDJOaFo3cCszaDNmNVFs?=
+ =?utf-8?B?Rm8wN2tXaW1USDFDTUFuUEVxbmdSZERYWlA2d1FMRlFER1lmOWFlUkxScFBt?=
+ =?utf-8?B?NUxTdHhMdkpMNUR3aXc2NTAwem82ZndJcnpaRWVLWXlHM1JkN2ZyalJXalF3?=
+ =?utf-8?B?TW5DZlhUdk1ZSjBwTVJMVkl5MExKOWE2S3ZXV1Z0MWJmNG5QVHQ3b2h6U2xM?=
+ =?utf-8?B?THV2Q2YwU1VVN3grSjVmWjVaQjlEc1d6bXlia3JuN1h5NkNzbDV5ME8zby94?=
+ =?utf-8?B?d2RyRDRkeS9UZFZZZ2dWZGljaklBSUxCUzd5K2MxbXdSVjhqamNOaHhVdGFx?=
+ =?utf-8?B?eGVvQnlOM3JWc2tUUlQ5ZnZoQzFoL2xsSTlXOEJnRkZBUWsvZnVEVXFvYmJr?=
+ =?utf-8?B?OUxPNkN0emtwSCtQNXJxRjc3UHNyYTNNMWhhQVJLLzQ4Rlpsekp4VmQ4NWJM?=
+ =?utf-8?B?WVhrR2ZXU2tncWZxT2ZVekRBM1JhVCtnZktxOWpmWWJUK1FaT09rQldsTjJW?=
+ =?utf-8?B?V2hZL0Q1U1Ivd3FjWG1aQXFOUFVUUXg4bEtDckRGWHVIMzgva2ZvREVEbnlZ?=
+ =?utf-8?B?L1hURzFEZHVPMlRIVGVJTE5TQzYvT2duSXpwdm1GYmZhSnZwaUZPbG1FaHli?=
+ =?utf-8?B?K3JCVXpaNHNaaDlHSjhsdjNtTHJKOEpjc1BtakE1OUlyaFpzaTkzNXV4YURN?=
+ =?utf-8?B?aXRoUUx6TStWTk5xbnpXMklwdDZVVGVnSnI2WXA5a2xiVzdnOGJXYlhpZnhM?=
+ =?utf-8?B?ajV5aVpHNk0vS3BVVHE0cDduWHVWSExwMVgxdVRGSldDWkNOYS8wZWRKbEF4?=
+ =?utf-8?B?djl6a3ozNnh1amNsN25JOGVZVFg1bExTa2hpRXduWVJvbXhOaWRYRGIyY1p5?=
+ =?utf-8?B?ci9WNUl6WEM0YUxMbVdlOEttMUtNVFFibXBEUXBQaFdodStFb1ZnVndFVm91?=
+ =?utf-8?B?TGd0L3NZUDhkcFNNbmhxb3BleVkvanhFWWVSK0lWTnVvbENybzM3aGhyUGMx?=
+ =?utf-8?B?bFAvbFVpZFVneEE0WTRFTEQxbGduYWlxNUFaQldPa1JMalBNTmtqV0VQd2o5?=
+ =?utf-8?B?TFhXdUl0VGhKYjZUS2dNUkFCMXJSV2xocTZpbEhxdFhPOHBiL1pGK2N1ZjNM?=
+ =?utf-8?B?SjVmWk1TUXZJRUs3UFN0YVFJMHRxcFN0bW5ZVDZQNlZDR0lCc04vMUlkY3ht?=
+ =?utf-8?B?YlVhYmZyV0dEWk1mVGwrU3B5dkQrQy9iQTFZRFd1YnhjWDhGWGsySVpIRGFw?=
+ =?utf-8?B?VW00c0ttd2hZQUNGT0hBZUNxcjFjRlBYUHZObjBYQzM4OHFNR2ZCQ2liM1hk?=
+ =?utf-8?B?K1ZHeHd5WTBsUjUvYzljUVRTZkRXNnhXaXI1S2RIcVRuSjd0Q2VQcmFNLzZ5?=
+ =?utf-8?B?K2gzdmRLUVBQbGhGMml2azZpWkJvZlROZ0ZsVDZvYTUrTDMzYWZtU01YaVNk?=
+ =?utf-8?B?TEp3SG5KeHNQLzc2VkNTSCtremx5NERUcEFmU1NBUVFQTGZXTmlETUFZYkNu?=
+ =?utf-8?B?eDJ6VFVMM1BsaENVaGREN2MyOWQ3NU1ldk9jQWVZVCs3STdaRkd2TXMrbTdw?=
+ =?utf-8?B?Ym1SWGNtRStoNWpwZTQvZzhaZ0lLcGIvbFZ3Z1RINXA4TXJ5N0FVNkUyNWJP?=
+ =?utf-8?B?Q1pCaVdxYkY5ZFNaUEh2U2pSdHlnMC9KSzdkS2EycVVLTWx6OFhnZlVOeGo3?=
+ =?utf-8?B?VDY0a2J1OEtCTCswWFZoajFmUkpaaGtCUlJsRHNvNHd1N1FhVGRUUFNmZW9B?=
+ =?utf-8?B?bWhWV0FsZGdiQldaTEFVS0RSSnhrTDJHWEptZEtvOEtlMElickwzTXhDRmdW?=
+ =?utf-8?B?SGw2VzhyTWdNcE51MXE4KzdubGJNMjRyLzhIVWR3b05UNjBvWFNPYnpGa0ty?=
+ =?utf-8?B?OXpUVHBGb09sRVovQWhWUlArOEc4aUtPUlZsZHA0N3pHYmJ1SjJNUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b2078e7-3bc3-4fad-2288-08deef3fe7a6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e9c9525-b2a5-4db3-2305-08deef40610f
 X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 20:11:28.3338 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 20:14:52.0979 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YfXOuyj0NgV7vYdsq0CMIwS60DU15HfiBLAcD2+Hj6UwGzfjJUHHV6GYDzvA3nt09JX0RFXkGFWGiKRGoaH3tA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6396
+X-MS-Exchange-CrossTenant-UserPrincipalName: GJyTHhuvJ/lgtuPNQ2q5Wr0wJrkOLzZOQOCSWuOU76L2DZ01CuT6cVnnwBiXajje1ZRSF0STTIeyImqHX5LP0A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4261
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,157 +137,127 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
 
-On 2026-07-30 13:17, Fangzhi Zuo wrote:
-> why:
-> HDMI 2.1 Auto Low-Latency Mode (ALLM) lets a Source request the Sink's
-> low-latency mode through the HF-VSIF. amdgpu never set ALLM_Mode in the
-> HF-VSIF, so ALLM was never signalled to the sink.
+On 2026-07-30 14:41, Fangzhi Zuo wrote:
+> Follow-up fix for commit 442b2e9dc9e9 ("drm/amd/display: Add Support for
+> HDMI Compliance Automation"), whose hdmi_automation debugfs entry
+> hand-rolled the boolean parsing (scratch buffer,
+> parse_write_buffer_into_params(), a switch and kfree) that the debugfs
+> core already provides.
 > 
-> how:
-> - Add an allm capability flag to struct dc_edid_caps and populate it in
->   dm_helpers_parse_edid_caps() from the HF-VSDB ALLM bit parsed by DRM
->   core (connector->display_info.hdmi.allm).
-> - In create_stream_for_sink(), build the HF-VSIF with ALLM_Mode set when
->   the sink advertises ALLM and the content type is Game (content-type =
->   Game is how userspace requests low-latency mode, HDMI GCTS HF1-56).
-> - In update_freesync_state_on_stream(), also set ALLM_Mode when
->   Gaming-VRR is active (VRR_EN=1, HDMI GCTS HF1-58 step 8.3.1), and push
->   the updated HF-VSIF (vsp_infopacket) as a stream update.
+> hdmi_comp_auto is a plain bool, so bind it directly with
+> debugfs_create_bool() and drop the custom write handler, its
+> file_operations and the hdmi_debugfs_entries[] row.
 > 
-> Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 35 ++++++++++++++++++-
->  .../display/amdgpu_dm/amdgpu_dm_connector.c   | 18 ++++++++--
->  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c |  5 ++-
->  drivers/gpu/drm/amd/display/dc/dc_types.h     |  3 ++
->  4 files changed, 57 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 223b562f7005..fc3005ecc681 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -3895,6 +3895,36 @@ static void update_freesync_state_on_stream(
->  	new_stream->vrr_infopacket = vrr_infopacket;
->  	new_stream->allow_freesync = mod_freesync_get_freesync_enabled(&vrr_params);
->  
-> +	/*
-> +	 * HDMI ALLM: transmit the HF-VSIF with ALLM_Mode=1 when the sink
-> +	 * advertises ALLM in the SCDS and either the content type is Game
-> +	 * (HF1-56) or Gaming-VRR is active (VRR_EN=1, HF1-58 step 8.3.1).
-> +	 * HDMI 2.1 7.6.6.
-> +	 */
-> +	if (new_stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
-> +	    new_stream->signal == SIGNAL_TYPE_HDMI_FRL) {
-> +		struct dc_info_packet vsp_infopacket = {0};
-> +		bool allm = new_stream->sink->edid_caps.allm &&
+> Fixes: 442b2e9dc9e9 ("drm/amd/display: Add Support for HDMI Compliance Automation")
+> Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 
-We have an `aconn` in this function above, so we can simply get the allm
-bit from the connector:
-
-		bool sink_allm = aconn && aconn->base.display_info.hdmi.allm;
-		bool allm = sink_allm &&
-			(new_stream->content_type == DISPLAY_CONTENT_TYPE_GAME ||
-			 vrr_params.state == VRR_STATE_ACTIVE_VARIABLE ||
-			 vrr_params.state == VRR_STATE_ACTIVE_FIXED);
-
-Then we don't need to add a new allm bool to edid_caps.
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 
 Harry
 
-> +			(new_stream->content_type == DISPLAY_CONTENT_TYPE_GAME ||
-> +			 vrr_params.state == VRR_STATE_ACTIVE_VARIABLE ||
-> +			 vrr_params.state == VRR_STATE_ACTIVE_FIXED);
-> +		bool allm_changed;
-> +
-> +		mod_build_hf_vsif_infopacket(new_stream, &vsp_infopacket, allm, allm);
-> +
-> +		allm_changed = memcmp(&new_stream->vsp_infopacket, &vsp_infopacket,
-> +				      sizeof(vsp_infopacket)) != 0;
-> +		new_crtc_state->freesync_vrr_info_changed |= allm_changed;
-> +		new_stream->vsp_infopacket = vsp_infopacket;
-> +
-> +		if (allm_changed)
-> +			drm_dbg_driver(adev_to_drm(adev),
-> +				       "ALLM: flip on crtc=%u: sink_allm=%d content_type=%d vrr_state=%d -> ALLM_Mode=%d\n",
-> +				    new_crtc_state->base.crtc->base.id,
-> +				    new_stream->sink->edid_caps.allm,
-> +				    new_stream->content_type, vrr_params.state, allm);
-> +	}
-> +
->  	if (new_crtc_state->freesync_vrr_info_changed)
->  		drm_dbg_kms(adev_to_drm(adev), "VRR packet update: crtc=%u enabled=%d state=%d",
->  			      new_crtc_state->base.crtc->base.id,
-> @@ -4429,9 +4459,12 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
->  		}
+> ---
+>  .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 69 +------------------
+>  1 file changed, 3 insertions(+), 66 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> index 830cf8da06b4..45249bebe9fb 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+> @@ -2981,64 +2981,6 @@ static ssize_t hdmi_cec_state_write(struct file *f, const char __user *buf,
+>  	return size;
+>  }
 >  
->  		if (acrtc_state->stream) {
-> -			if (acrtc_state->freesync_vrr_info_changed)
-> +			if (acrtc_state->freesync_vrr_info_changed) {
->  				bundle->stream_update.vrr_infopacket =
->  					&acrtc_state->stream->vrr_infopacket;
-> +				bundle->stream_update.vsp_infopacket =
-> +					&acrtc_state->stream->vsp_infopacket;
-> +			}
+> -/**
+> - * hdmi_automation_enable - Enable/Disable HDMI automation feature
+> - * @f: file structure.
+> - * @buf: userspace buffer. set to '1' to enable; '0' to disable automation feature.
+> - * @size: size of buffer from userpsace.
+> - * @pos: unused.
+> - *
+> - * Return size on success, error code on failure
+> - */
+> -static ssize_t hdmi_automation_enable(struct file *f, const char __user *buf,
+> -	size_t size, loff_t *pos)
+> -{
+> -	struct amdgpu_dm_connector *aconnector = file_inode(f)->i_private;
+> -	char *wr_buf = NULL;
+> -	const uint32_t wr_buf_size = 40;
+> -	int max_param_num = 1;
+> -	uint8_t param_nums = 0;
+> -	long param[2];
+> -	bool hdmi_comp_auto;
+> -
+> -	if (size == 0)
+> -		return -EINVAL;
+> -
+> -	wr_buf = kcalloc(wr_buf_size, sizeof(char), GFP_KERNEL);
+> -	if (!wr_buf)
+> -		return -ENOSPC;
+> -
+> -	if (parse_write_buffer_into_params(wr_buf, wr_buf_size,
+> -					   (long *)param, buf,
+> -					   max_param_num,
+> -					   &param_nums)) {
+> -		kfree(wr_buf);
+> -		return -EINVAL;
+> -	}
+> -
+> -	if (param_nums <= 0) {
+> -		kfree(wr_buf);
+> -		DRM_DEBUG_DRIVER("user data not be read\n");
+> -		return -EINVAL;
+> -	}
+> -
+> -	switch (param[0]) {
+> -	case 0:
+> -		hdmi_comp_auto = false;
+> -		break;
+> -	case 1:
+> -	default:
+> -		hdmi_comp_auto = true;
+> -		break;
+> -	}
+> -
+> -	/* Persist setting across sink re-detection/hotplug. */
+> -	aconnector->hdmi_comp_auto = hdmi_comp_auto;
+> -
+> -	kfree(wr_buf);
+> -	return size;
+> -}
+> -
+>  DEFINE_SHOW_ATTRIBUTE(dp_dsc_fec_support);
+>  DEFINE_SHOW_ATTRIBUTE(dmub_fw_state);
+>  DEFINE_SHOW_ATTRIBUTE(dmub_tracebuffer);
+> @@ -3156,12 +3098,6 @@ static const struct file_operations dp_mst_link_settings_debugfs_fops = {
+>  	.llseek = default_llseek
+>  };
+>  
+> -static const struct file_operations hdmi_automation_debugfs_fops = {
+> -	.owner = THIS_MODULE,
+> -	.write = hdmi_automation_enable,
+> -	.llseek = default_llseek
+> -};
+> -
+>  static const struct {
+>  	char *name;
+>  	const struct file_operations *fops;
+> @@ -3194,8 +3130,7 @@ static const struct {
+>  	const struct file_operations *fops;
+>  } hdmi_debugfs_entries[] = {
+>  		{"hdcp_sink_capability", &hdcp_sink_capability_fops},
+> -		{"hdmi_cec_state", &hdmi_cec_state_fops},
+> -		{"hdmi_automation", &hdmi_automation_debugfs_fops}
+> +		{"hdmi_cec_state", &hdmi_cec_state_fops}
+>  };
+>  
+>  /*
+> @@ -3908,6 +3843,8 @@ void connector_debugfs_init(struct amdgpu_dm_connector *connector)
+>  					    0644, dir, connector,
+>  					    hdmi_debugfs_entries[i].fops);
 >  		}
+> +
+> +		debugfs_create_bool("hdmi_automation", 0644, dir, &connector->hdmi_comp_auto);
 >  	}
+>  }
 >  
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> index ebead39939a6..430f1628ced0 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-> @@ -1511,8 +1511,22 @@ create_stream_for_sink(struct drm_connector *connector,
->  	update_stream_signal(stream, sink);
->  
->  	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
-> -	    stream->signal == SIGNAL_TYPE_HDMI_FRL)
-> -		mod_build_hf_vsif_infopacket(stream, &stream->vsp_infopacket, false, false);
-> +	    stream->signal == SIGNAL_TYPE_HDMI_FRL) {
-> +		/*
-> +		 * Enable HDMI ALLM (Auto Low-Latency Mode) when the sink
-> +		 * advertises ALLM in the SCDS and the content type is Game.
-> +		 * Setting content-type = Game is how userspace requests the
-> +		 * Sink's low-latency mode (HDMI GCTS HF1-56).
-> +		 */
-> +		bool allm = sink->edid_caps.allm &&
-> +			stream->content_type == DISPLAY_CONTENT_TYPE_GAME;
-> +
-> +		drm_dbg_driver(dev,
-> +			       "ALLM: set mode: sink_allm=%d content_type=%d -> ALLM_Mode=%d\n",
-> +			    sink->edid_caps.allm, stream->content_type, allm);
-> +
-> +		mod_build_hf_vsif_infopacket(stream, &stream->vsp_infopacket, allm, allm);
-> +	}
->  
->  	if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT ||
->  	    stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST ||
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index 42f5673acb4d..e69ce0a1b4b4 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -197,7 +197,10 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
->  				  edid_caps->display_name,
->  				  AUDIO_INFO_DISPLAY_NAME_SIZE_IN_CHARS);
->  
-> -	edid_caps->edid_hdmi = connector->display_info.is_hdmi;
-> +	if (connector->display_info.is_hdmi) {
-> +		edid_caps->edid_hdmi = true;
-> +		edid_caps->allm = connector->display_info.hdmi.allm;
-> +	}
->  
->  	if (edid_caps->edid_hdmi) {
->  		populate_hdmi_info_from_connector(link->dc->config.enable_frl, &connector->display_info.hdmi, edid_caps);
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc_types.h b/drivers/gpu/drm/amd/display/dc/dc_types.h
-> index 3edeb94fba23..ae409cc59ae4 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc_types.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc_types.h
-> @@ -226,6 +226,9 @@ struct dc_edid_caps {
->  	/*HDMI 2.0 caps*/
->  	bool lte_340mcsc_scramble;
->  
-> +	/* HDMI 2.1 caps */
-> +	bool allm;
-> +
->  	bool edid_hdmi;
->  	bool hdr_supported;
->  	bool rr_capable;
 
