@@ -4,42 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66460C55177
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 21:15:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 56CCCC55173
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 21:15:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E55BC10F3F1;
-	Fri, 31 Jul 2026 21:15:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D053E10F3F3;
+	Fri, 31 Jul 2026 21:15:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0qeR/e8c";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Rzhfgv1d";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010016.outbound.protection.outlook.com
- [52.101.193.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC8B810F402
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 21:15:45 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012040.outbound.protection.outlook.com [52.101.53.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 89FB010F3F1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 21:15:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DrFSy4SRYnU9j8XGw81QwO/rGibhISJ5wbRJ148UBm4CiY2Hi4dkjQsfdEu+rLp6LVVnjOpDYJx+ePO8NfcgMNIej3wK93aZ/FJlIzScTiwwgh9G91CdrVUxWGlR0uoQGRS8WBFYNhOv/0q8Zm/NXdOnBi9eV+SfQxahsk7Bh6CR44m5OvhEX5XUxlxyC3O1lOxhbXrAmYkd8TAS0wgnhwqiLx2LQHTZ1d7yWw+Yp/s9KAIolB0TZlAZcdftWX8lpb2enOudW1QyK2ANhOtlDGGccgztZDelJnI+PouIKlOyVWozKGY7rsOpnFin5j7geIpuFLi/yMbwelLMHgZuVA==
+ b=h90y/LkKpSyh7c/K91yuQSG8lY+n+V9eKxCogCTyCEMCA3UJs06XQiBR7LAh/euD/QfvIJmFy9v+IlN52OCjwXCH74hFp/k0rnpdit7YBFSBKPrqqD7ky4ktQKgGlSHMDmeiWGtM52sJihk/r+yKcYDaCEmuhlY4qH9v2rmnhXWJuW/mZhdtrtCOu8lO6I15zZutsmEORqgIC5aJOgfhH5RTO/69qZ0/kz1Ck+PTqUj2WiTQbd3vbMz2ElDag2UD6mr9g4PKS3O9d0ZZ8fHKX3LvQ0cuCvwLQ6Ev1jIp4L9CIeKy5+iSJIBiPhdLH/QSmoOa2p2Zj46dENMJyWQoOg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BiM1QbqeBRbZu3Oi2Fq/6Ad7hb/kMXiKcnktjB2gs2E=;
- b=LdPBR4R83MUZOALITs55Dlw6ALxH4y+SLsJSXPrevWzLCJjOChFrNFVfcWLxmtcgKtXJmweBZb8/weIeIi+1rEXYmC3ubdKywDWajzR7FJju0fMQLhseY/xBaQoBxtsuQ3nTwuXrdUWqHL0wd7qmfFWm5YRrXQKEim41AP/4JCORcaX6BSjxa6Xd9bEoEWjLr8TnE/ysTc+ftjyp4XXyPWMs1VyNjaey6mLw9YkvM49NW4fvhymVFG3jtmrcsMLV8tk2MMU9sPuoP47G07yvqyRih0SxnyETHxkEFiKHPmL+8Gubv53M/wu37sQgoBe56nXlP9nbkOXXFQMH1xSjVQ==
+ bh=fx7Mi/imHVpI7lMie0UkozaeXw7ribUd9NsoRnyjpyY=;
+ b=wsZkJEwmSCnFBHB6Fnkw65xvGWEVVhOSBe1DA4JNmUppzSLeOdejsor10EdrVPgGGQ7OU9cNdLojZ5HQfFo9Pod32fUJeDz+u8viJCr61HzpIqAAA1AOaA/NWntZX0QeJ8REkiI4x0kUvEYqvL8JkC3xI9d4bvD2bKkmHM46zPbGsQxOwI0xETaLXJOd5qd79insNSv2lrtxI20aQdhIpBTYyCFhErZumdJSgN/QVLtbwzegu5dnxuJ79YbOa0a7BkKN+0a1lKmfB8OW6P7jUmaeH+eZO+nAMbpnwImqkRmo57F7fo2zJ/1r+fkZfR2gz46RjnIEWl1LOaRCEWjFBg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BiM1QbqeBRbZu3Oi2Fq/6Ad7hb/kMXiKcnktjB2gs2E=;
- b=0qeR/e8cI27g71tRbMLx54ggf5VcF26LSotDdCcPnuujdxTeSU9wIOMYZYpqHS5m0x1xUruQGny98zVgCOw7QqWBIDrlYLyheXYeiHO3AlbPZ/7jXaiOBYGaQfWv3AopZ4B3LJjHrV02UGHLUXjTJiqws6uQRd1ejCV2tvXJJIc=
-Received: from CH0PR03CA0222.namprd03.prod.outlook.com (2603:10b6:610:e7::17)
- by CY8PR12MB7585.namprd12.prod.outlook.com (2603:10b6:930:98::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.12; Fri, 31 Jul
+ bh=fx7Mi/imHVpI7lMie0UkozaeXw7ribUd9NsoRnyjpyY=;
+ b=Rzhfgv1dLDDhtPUfMt5iQtCqCN/5c5wbe3BNdqQh1jnt2f1IQE6xnb3chZ1JRiM9wU1KIntRcR00DkALgrfWyJ95DAPZskcTMkAduHogb3vtHSZtxewx2wW0B2kj0VoktvLhaVAg4SJnZxAclaAurPzzFbOrexYBX+drYnf66QM=
+Received: from BLAPR03CA0176.namprd03.prod.outlook.com (2603:10b6:208:32f::26)
+ by MW4PR12MB7000.namprd12.prod.outlook.com (2603:10b6:303:208::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Fri, 31 Jul
  2026 21:15:40 +0000
-Received: from CH2PEPF0000013C.namprd02.prod.outlook.com
- (2603:10b6:610:e7:cafe::8f) by CH0PR03CA0222.outlook.office365.com
- (2603:10b6:610:e7::17) with Microsoft SMTP Server (version=TLS1_3,
+Received: from BL02EPF00021F6F.namprd02.prod.outlook.com
+ (2603:10b6:208:32f:cafe::80) by BLAPR03CA0176.outlook.office365.com
+ (2603:10b6:208:32f::26) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.16 via Frontend Transport; Fri,
  31 Jul 2026 21:15:40 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -47,22 +46,22 @@ X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF0000013C.mail.protection.outlook.com (10.167.244.73) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF00021F6F.mail.protection.outlook.com (10.167.249.11) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 21:15:40 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 21:15:39 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
- 2026 16:15:40 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 16:15:39 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
- 2026 14:15:39 -0700
+ 2026 16:15:39 -0500
 Received: from roman-vdev.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 31 Jul 2026 16:15:39 -0500
+ Transport; Fri, 31 Jul 2026 16:15:38 -0500
 From: <Roman.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -71,11 +70,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>
-Subject: [PATCH 11/41] drm/amd/display: Gate HDMI FRL status polling on active
- FRL link rate
-Date: Fri, 31 Jul 2026 17:12:32 -0400
-Message-ID: <20260731211302.3040343-12-Roman.Li@amd.com>
+ <Chen-Yu.Chen@amd.com>, Harry VanZyllDeJong <hvanzyll@amd.com>, Anthony Koo
+ <anthony.koo@amd.com>
+Subject: [PATCH 10/41] drm/amd/display: Update VRR info packet to support
+ 12-bit refresh rates
+Date: Fri, 31 Jul 2026 17:12:31 -0400
+Message-ID: <20260731211302.3040343-11-Roman.Li@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260731211302.3040343-1-Roman.Li@amd.com>
 References: <20260731211302.3040343-1-Roman.Li@amd.com>
@@ -84,29 +84,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000013C:EE_|CY8PR12MB7585:EE_
-X-MS-Office365-Filtering-Correlation-Id: f318c103-76ab-49c1-7a45-08deef48dfd0
+X-MS-TrafficTypeDiagnostic: BL02EPF00021F6F:EE_|MW4PR12MB7000:EE_
+X-MS-Office365-Filtering-Correlation-Id: 224516dc-7a2c-4132-b6f0-08deef48df47
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700016|1800799024|23010399003|56012099006|11063799006|22082099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info: EYcopNHxnTnYE/6Reib19ZwCklbrdtgo1oWpFJ/7IWu6XdSI/LBbM1b/jiUo0xvCM6sotNapSJ+VwNDsVE1oMxmdY6/89bcmd5AumglMFBtv7d6QYjQyXB2+G8yAhE8euFuSABSoLYIhGrM1wNiQxNkkxKJIvfaAJValbVqlJMJPrtgpP0Tb9FQE6Kxag7Ai37ZqfQ7hrTveDCJJyl4WO9t3OpE0KhCHrcsiZMAD7XwlotRofGDYkB4JmDrYLffKV1zLTHKK5XxDKTHJ4b6vZG9BymqIk6M/EzFsc/pVMB0W+CZ6qJoES2Uj9URd6PCLdgkhZ/AlxOB7uTC6uK44BeZ2f0/Xa7oKdSoj2KTj69pydyy0OtHBQHK2zfWtFOj9XlMF5nQvuu6ZUm5P3xUxGVlpRDHebDzg+PGFy816FmouJATqo8G6NcA83TdmdO4d43IoiO4SNcDyrXgR0lLPhtwSra7DQrMVhcD+pZb/CunqBDkWneIubp8Rhv5IWGPXUod6onuU5O/sCieuDabX+o8YAO9iJDCbMf9TaRWPLulwpliofhc8Q+auubE+V0BklXVarQwHBTtFBWUj6EMUCSz2Xs4msCbm0NawRQ+wUWl/uLUNY2R27Xrp6P2hsj5+VbiCP2CIAzev4ViXoTubfgA1Op5Wzn6fHE2P+xdM5eo9nFVKEqxJ0h7o6CQU0IGWLYjIwf8nakkm1mqZd22R2Q==
+ ARA:13230040|82310400026|36860700016|23010399003|1800799024|376014|3023799007|11063799006|22082099003|18002099003|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: BUj4MP3P6HlKszxZKx0Ho3sch80OkLMhJ65HjOhV2IrOcLVTmflNlpbkPZp4b6i1LQ4q5+F7T1MDM2LTiUOufOyehaMEh6bJsx1B0whAsxnmsq2p7VeL/8FkhgAg8uqkSB7bgUdbfmJHLedtwV3gKGXQ4N2iUkbLA2tkXDBYa4anfu2tbSNl1cyhyFZtbnKAw6b9jdmdgp58kTHnfBR+kRKu0kuG9rfMFyS7PpY6e+7REWPspDeuKM+qKUCtkQbEysVN81Y9mTl5uRfUOs6VFV5jYlLBBh3g9HYazgxwzQAfEFcO7jjPhNQlmNUFyRKvrDGm5V7jqVXkvZoqS4xvi0lpQIOZB7Me7I38R2Ll+x6seWED7Pa2JNX8+wO4omjFmIR22i3wif+NlpC40VqlSLlD63U83946Z2maJJhfuJUk4f08CYWQ67OeHi62z/uuA7AxTcbUUGvXxlLDNKrPrrtbLnn4IG5rrxKKBdicgUQaoKTfhOr8l8iP7IXUTyQpTM5Iim0H35KTHgfYjapaSYkC5Mdxidu5vIANOfS+3ObC+d8401Epr+TR79a9cpV96TCKgBymmZo+LOYLsD6bkQPGGFV0z67knv4jIjDK8mPP9UXjo06SY55HBRoxufQlywqAPG8KqSKngSx+vMAv0G9w1EgYKhMusoJk85apv2io8erS43ChXQ2OY5kPsIv9E8IItChanucctfCaqM3QvQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(56012099006)(11063799006)(22082099003)(18002099003)(10067099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(23010399003)(1800799024)(376014)(3023799007)(11063799006)(22082099003)(18002099003)(56012099006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: v0jsAzmA2WZk2gQVmesDOq49Y5uDMtqJxi8gQQrXP+SGWMHmX1szyOU5qIOnUXItIRCtyZNDeb0cL+Q7BQSK9Nj1CtCBjpFhl8YaG5QNwe/owyUOJHvEfdrjDTYD34KV6oPV8hdJ5wfHD9iZSt5O0jiryhO9KtW7MVtcaShUtbaQgHJjXWJnw8OJmpNU23BQUeUSwk7hW/BTDvjZYCq2xx3WJvqcUPLr/J83LEvTr/y73uOjw3L1sbt/gE2CncJ25fQ945hTqPywzR4V/MjgVVAxEK3+VCcADcRQSF9chNFvKnXZQPzzWwpcAupVn7BXHxfGhtBwfrVnMslMsB4XpPi5Ndk0sAUWMfSjqplIYzWlbAt5lXGjavgcDLXV9hEd9I1hu8er/oVXDv2+brbcZEmNLeJtGgIlOL7XkbUjSq95IjM12HyxaOVBMTTt9gIF
+X-MS-Exchange-AntiSpam-MessageData-0: LQndK616rnnvnWNeVHUvTXsDaQpgimI//R8U55Fr1Dj6NDStHtEx2ZoZxm1Ab1m394L3dQZ4QzIpx5zOFeiRFZCfjfytt5Gc0aDFwpeHoiEoJ89fu2jMY1pkDI6yGGIq/WT3Ehco97mwWnMlQpKwDr6Z2QNX72SIcEB3ucK3Uxu0jF8fZWRCKkwn6oKzvkxtjjQvyrbvKiKGAkRNG23PxUnSPiAtvABdYtjRYfa6MfTMiXwGtqXlGN35irta1uA8XZraXUIAUjKb2fFdl3z7G4w12+D27Rg9kBGhIwqElQE/cJHnXPwBTe6bpvgW86hITggKnuIryN0ERIipB73sgjCgpC9a2in65XR0IrrwbmZ7TOfzYOTzWZTFrFSYSYYQsJdMPGPBww7qA2y5MJfpREkqTQdFzP8oaFIccSLRaDMACWLCbJHvY+Azn+9ZssyI
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 21:15:40.4295 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f318c103-76ab-49c1-7a45-08deef48dfd0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 21:15:39.5456 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 224516dc-7a2c-4132-b6f0-08deef48df47
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013C.namprd02.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF00021F6F.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7585
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,41 +121,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Fangzhi Zuo <jerry.zuo@amd.com>
+From: Harry VanZyllDeJong <hvanzyll@amd.com>
 
 [Why]
-hdmi_frl_status_polling_work() skipped any link whose connector_signal
-was not SIGNAL_TYPE_HDMI_FRL. connector_signal is not reliably set to
-SIGNAL_TYPE_HDMI_FRL while a link is actually running FRL, so links that
-were operating in FRL mode were skipped and their status flags never got
-polled, missing link-retrain events.
+VRR info packet previously only supported up to 10-bit refresh rate values
+limiting the range of FreeSync minimum and maximum refresh rates that
+could be encoded.
 
 [How]
-Use frl_link_settings.frl_link_rate to decide whether a link is running
-FRL. A non-zero rate means FRL is active, so only links with a zero rate
-are skipped. This ensures every link actually operating in FRL mode is
-polled for status changes.
+Expanded the bit masking in PB11/PB12 from 2 to 4 bits to capture bits
+11:8 of the minimum and maximum FreeSync refresh rates, enabling the VRR
+info packet to encode 12-bit refresh rate values.
 
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
+Reviewed-by: Anthony Koo <anthony.koo@amd.com>
+Signed-off-by: Harry VanZyllDeJong <hvanzyll@amd.com>
 Signed-off-by: Roman Li <roman.li@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/modules/freesync/freesync.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index a8f089d4fb72..e637db2723c1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -3009,7 +3009,7 @@ static void hdmi_frl_status_polling_work(struct work_struct *work)
- 		if (!dc_is_hdmi_signal(dc_link->connector_signal))
- 			continue;
+diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+index f3b41087678b..4bd060e30799 100644
+--- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
++++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
+@@ -684,11 +684,11 @@ static void build_vrr_infopacket_data_v3(const struct mod_vrr_params *vrr,
+ 	/* PB8 = FreeSync Maximum refresh rate (Hz) */
+ 	infopacket->sb[8] = max_refresh & 0xFF;
  
--		if (dc_link->connector_signal != SIGNAL_TYPE_HDMI_FRL)
-+		if (dc_link->frl_link_settings.frl_link_rate == 0)
- 			continue;
+-	/* PB11 : MSB FreeSync Minimum refresh rate [Hz] - bits 9:8 */
+-	infopacket->sb[11] = (min_programmed >> 8) & 0x03;
++	/* PB11 : MSB FreeSync Minimum refresh rate [Hz] - bits 11:8 */
++	infopacket->sb[11] = (min_programmed >> 8) & 0x0F;
  
- 		link_update = dc_link_frl_poll_status_flag(dc_link);
+-	/* PB12 : MSB FreeSync Maximum refresh rate [Hz] - bits 9:8 */
+-	infopacket->sb[12] = (max_refresh >> 8) & 0x03;
++	/* PB12 : MSB FreeSync Maximum refresh rate [Hz] - bits 11:8 */
++	infopacket->sb[12] = (max_refresh >> 8) & 0x0F;
+ 
+ 	/* PB16 : Reserved bits 7:1, FixedRate bit 0 */
+ 	infopacket->sb[16] = (vrr->state == VRR_STATE_ACTIVE_FIXED) ? 1 : 0;
 -- 
 2.34.1
 
