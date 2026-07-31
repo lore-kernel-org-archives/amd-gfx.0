@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7DCBC55173
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 21:16:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FC78C55172
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 21:16:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3AECE10F416;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6BF610F42D;
 	Fri, 31 Jul 2026 21:16:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GhBamGuD";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Vbp6GfSq";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012065.outbound.protection.outlook.com [52.101.53.65])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DD2B10F3FB
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 21:16:00 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012021.outbound.protection.outlook.com [52.101.48.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DF5D10F40E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 21:16:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LqkzDUkDSq/zrdTvHa3TGI+nPVGjslXPR0BlpISTk0kvU0b1gn/otoeAkSslzEosbt0RIIQBOr7cWOz/I5kJRvd/qGrIHz6ET3OkGkvG9Wmf0lBDqG5/0lY0cZWoKxMeqLhoWA+oVksrOV38ykubDHx/AedkckrtPmt5/7wo8TnkJjLJVjYt0EDYS0XpviRWVxxHPIzgs4KWitRpisuxSi2HRvWMcwsGlfVwP9qU5vb/96XapPqxPKtJkmok3CuMCDQK70yc1AbkaeG9wYkxhLgfRdISXrD/Hq4xw+POm7IuiUzdL1HWsAliqf5F+4aHB8mdkGMWFqzpxbJfLuot1g==
+ b=sUEyNgw5DVPxaMi6xhnvgQIMrwjzwGKkScOxKSYl/OidmCqfZNSSr2PEe2iJ0jJbRgoF87Rx461oDK7e4lmgWMJndGuWtN2iTOAgKvlTAoKhCDVFnQelMzAZYGCHx9x1KAPS9ZfoZENmYV7y2aupBIiU2t/GP+B/srWUg5DKzn1mhGMVxppvEooaZhVezAD9qYZTt54WPYPalUuRMdtAKUrTBF4iECDp6LilhHooTvH7IjZbHIDYjMIfB/xGC3TTIqYAQDLf0AlcDiGm+UnsaswZn1a1mBglD2sLw8QdJJommRXoXQLdYwjU7w5BCPmHw+RnbWHR5g+j7PrT62SCrg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mX3siSgqNdlhVV8TE/TPLxg+nO4SAquzFdwWnGwGs0k=;
- b=mfEee4A5VMvnwHpbG5wrJJMDepY4Pa+NyKQrHA/Deqqpo2arClgJQKWZWBKhmvC1+3igFLv0e4k6yVabjmRVZxFU6g5vxd/RQ9idr8IAAKYCSJaX2mpsjfo1dcZpQ1tSo1SMNRlukYUmBikT6w9pNvFgbHkOY116rKXYxt57B++5ocbX9zYKNKUpHFDgBsQCwO4vhpN6SsCjw4Yzkh5SZ1fL/N4HufHDAiu6lTf44zqxIaADyeGefc1JTNoM/2cZbMj1Akf1cnOpVUelx0WWXjsi7FZAI44aJ5XIYRVM5fg0lpoWQcNJ31BnKARGOPX+asYw+VuQX6HjmX1BZ0Uylg==
+ bh=vpgnt9+n0AlzqOpFbat8AwiXAawBuJk6/EIJGoX4miQ=;
+ b=t0pfE80cj2kYArA/MbvdMugoyj69wo3bbBJFleYSmH2dtYhE098d1uiXHT87VlUDJ0t8hrMEKV9Kw/Nr7V46haRn/Gjo4NX5ZBBFl21ASg5w8npsJQ46bOYflrKq8HBT0KxouEwnkGg3I193l6S+6hbdyWtn2yGZ7C1qI9rTHry7YX8UvCKayxqCAquIxsBb+eEOpS7IyfXSIdcB+6BpVChR0MJbEVk/c9jAP4J482ePUw/siqYY/WwuANiGIdFkWyTmnB0ni5iPQpXSwVmy/t5Ql4sOKZgwfDHf1XyQGjLTbanODlqysh2xIwMtVqBr8VPHilqXvl3TFHfwXKL8FA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mX3siSgqNdlhVV8TE/TPLxg+nO4SAquzFdwWnGwGs0k=;
- b=GhBamGuDIkwiF+O3NIskA19+7jxIZqwbww1+2hCOKe1tdpb+9CcDJlS6QD60iUW14K94xc/0dV/X8na/YNT3ljyAZvbbVjZS9SoBREXghRJUKyadOfKyHWhd92JkOSgRo2CuL/SFUzD3a12F7cL9kimuQ0S1w0lpqSnpbrVNJKE=
-Received: from CH0PR07CA0026.namprd07.prod.outlook.com (2603:10b6:610:32::31)
- by SA1PR12MB8142.namprd12.prod.outlook.com (2603:10b6:806:334::5)
+ bh=vpgnt9+n0AlzqOpFbat8AwiXAawBuJk6/EIJGoX4miQ=;
+ b=Vbp6GfSqyMEAsJ/mYg5fTrKVUCb/Y+6QTFN0utQPEkOHNTL3xto2TQ5GB/4nuqoOCaN9Hk1c5qWc4WH1olthTGcVait4URPPpSTnu1ruwCE0ykyBHpp+002aHKoc2I+iCGb5XKkw3ZBI66KmdLiFKYUcQV298Cxo/6+q8zOkS6o=
+Received: from CH0PR07CA0006.namprd07.prod.outlook.com (2603:10b6:610:32::11)
+ by MW3PR12MB4492.namprd12.prod.outlook.com (2603:10b6:303:57::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
- 2026 21:15:53 +0000
-Received: from CH2PEPF00000140.namprd02.prod.outlook.com
- (2603:10b6:610:32:cafe::ad) by CH0PR07CA0026.outlook.office365.com
- (2603:10b6:610:32::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.15 via Frontend Transport; Fri,
- 31 Jul 2026 21:15:53 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Fri, 31 Jul
+ 2026 21:16:20 +0000
+Received: from CH2PEPF0000013F.namprd02.prod.outlook.com
+ (2603:10b6:610:32:cafe::80) by CH0PR07CA0006.outlook.office365.com
+ (2603:10b6:610:32::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.16 via Frontend Transport; Fri,
+ 31 Jul 2026 21:16:20 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF00000140.mail.protection.outlook.com (10.167.244.72) with Microsoft
+ CH2PEPF0000013F.mail.protection.outlook.com (10.167.244.71) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 21:15:53 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 21:16:20 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
- 2026 16:15:50 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 16:16:20 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
- 2026 16:15:50 -0500
+ 2026 14:16:20 -0700
 Received: from roman-vdev.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 31 Jul 2026 16:15:49 -0500
+ Transport; Fri, 31 Jul 2026 16:16:19 -0500
 From: <Roman.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -70,11 +70,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>
-Subject: [PATCH 22/41] drm/amd/display: Unify force_yuv debugfs into
- force_yuv_pixel_format
-Date: Fri, 31 Jul 2026 17:12:43 -0400
-Message-ID: <20260731211302.3040343-23-Roman.Li@amd.com>
+ <Chen-Yu.Chen@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>, Dillon Varone
+ <dillon.varone@amd.com>
+Subject: [PATCH 37/41] drm/amd/display: Update BW bounding box unconditionally
+ for DCN6
+Date: Fri, 31 Jul 2026 17:12:58 -0400
+Message-ID: <20260731211302.3040343-38-Roman.Li@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260731211302.3040343-1-Roman.Li@amd.com>
 References: <20260731211302.3040343-1-Roman.Li@amd.com>
@@ -83,29 +84,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000140:EE_|SA1PR12MB8142:EE_
-X-MS-Office365-Filtering-Correlation-Id: 700a6ee3-bc56-4858-29f4-08deef48e7c7
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000013F:EE_|MW3PR12MB4492:EE_
+X-MS-Office365-Filtering-Correlation-Id: 631391cd-6801-471c-ebdd-08deef48f7c9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|23010399003|1800799024|6133799003|56012099006|11063799006|10067099003|5023799004|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Uoua5HJM8cjDBtwY17HqZ8wpo3CAPO0RFyhD2RU2O1Y+1FLrcT2V7PmiLDBvYFYngb01QhwRzubDz1rJm+4AfRT53LeRNH3tMDRfuanumFStXXhbMVuk6h/c9Tpr3OrfMlbERF4Nt6DTFpf0Y8wJ1m8urme278QXaXkvbMaPT3ehtrjSqsKdQu2QSNHNqDl/7bdMmMnAXQzNKAvwmltgSOIy9vYjADLiofrbDnG1IqpbJHDFiwpjzKVzMPSooKNiXd5D91NZV0krq2nxLeWDRGRV+P75dxDkPj0mgNqtg+pJEoyuiZO1r4cAtZjo1cmo8ceTlH9NHyaRNtQgNQFuLgqbZRGja0Wlqh3/1ltvjYFT5uTAR0WNl8iqEio1ec1r7UYsYUgfc+6x5g0IFBVwkASTZKUXBqGaptGSDKJxURS0DrremNw0e0eXv2PIFxnLB+UzZALgm5HVvRmk/2Iu/XZQ1OkshbCQOV6ldA/wSaBiLEJpMMl8TcLz0UgONQ/poKguWM2JJN+5VyTs8C44QXgBq/vTubk6pcKbuXoONzTDdB+ynj7C8/11doN6m+i98gnzPO1P3FmyxOWp0eJ7NO1naTaVDjjfbMq/U5Jp/Rw4kSZooFBTLlCQlVchTjgsHzqBfS8M7DBvp+llOILBuqRfrFppZpyIgGuMjP6o31y/FWCiePwQoW2d8FwX1/mr
+ ARA:13230040|82310400026|36860700016|376014|1800799024|23010399003|11063799006|56012099006|22082099003|18002099003|10067099003;
+X-Microsoft-Antispam-Message-Info: L5oUQ0vW/6Kuw2av+hfPou5pgeyTbLjRg+UQPdrQy4k3fOsOj37cBGXspz1WPiZUnKS6YpAAgsYGeoWy7kQqsGve7vSUESOq9eacSj+uigLxNBHLf3rFysoRD7YP4WUPmG2ePXu6GcuSQLorboJNF6yEOgWnulRnd58JzQqLV8bWGEz/GHPBqLtg0LOo4LRw9V3sFzlAJokzofyA+2/4iwSqDhegFbuyaJrOcFJQRs23G7f6w1pHZCyKKjZIbIy6YDMEjSXxvxwAeDXASjZ79BRoRgsaDf8+R1Opl04F+a4C27AGuFdTEl19fPu8xVa2Euvv33C7D+2cHMNjo14w8DBAHVmgn4aa6Zhrx59yp5mlmApLHrmwbTkYYVSnrY/OrqmT1CI3QQB6W6ZK5BXoEz672Y0paW8mITPnlUmI3OxuiZZDCc1wSRPmoZmMJH9HZEKgu8oVJOCKlUjE1Tx57EC4ZG9kxTgMpx+rbGwIRI/VbV89pf5rugRaJbDAGnW0yydLvEqMQuElSAotif+CM2VqJ5hXk5rU83K5R1r3aza0ccnoKAQilR/nNpykJkrRupR9iwEdtU3kYINGPkIdArUaCsjkjvsViskK9GIKIlT32I8G0ld7o731kE1sgI4e8GVVi9tuSmnG4jwk3kkYo2m0LHCq46OuXDV1KbQREhwviFcw8l8KemjBp4ujqSuqEvLQVZU//mABa20PhVJKfg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(23010399003)(1800799024)(6133799003)(56012099006)(11063799006)(10067099003)(5023799004)(3023799007)(18002099003)(22082099003);
+ SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(23010399003)(11063799006)(56012099006)(22082099003)(18002099003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: bH3azPoiHi7h8XQG6on1cTOYFTvjGl1tr0AE7P4Z2L8R+br2FUnA4J1A3bfunP8CMX8Pg7UcswKyFMujcJvRggxh2yCHfejoahiTHcmpDiHFQJSsLWIpYs2pY5lSWGrb+ATGsAu5j0a4MBYCOz+zGHvJ/KBZITS/JvPVj684kOLBb8EkGV1pF3/sRgu+2ZH6G/bxzg3mVU/uk683qpDhh2e3Vpx6zcl+yQBRMJzr3V3UHg3Blnp8S/tFcL+SMs7iYgxlL90bKdGFq4mKVIPhDpNM9FQMbQYRg1wyH1vTNtsHBNGDAlgK/vM+5klrhWnNEWuRQnd5gUr38snGsJlzeXyIlJ/vgsHh0YOvVK8LMCG/g7V38hkIS7iBAoQE/Rs9e+sFG3u8cwCkM1nIqyiTOafT2jnS3MwKt1WxibH/nq6AuvszopYyF//VGmlIOhaR
+X-MS-Exchange-AntiSpam-MessageData-0: DvXOjsNdKUgZ+B1dNGnlNemycqbUZiu2iL9Y35QMuBCrAp90lUYhHsMbN2Rhvp9kiVOgVHycyapVCyde+l4EHC3iLt0VKXUfofGFlYuB+MFPsabif/ugBY2NRzrxrOXITWQJRhWWbjbhikTCzrk8hqVAVVs9n4YaWZJHjSRu+1kw26rc1v4Q7uAsIIlVeYH0TEzAput5D97e5BGHmLxuyJcFx1SrrWDi9LsVRPuAk2t6qVv2rgu08FJL6KTtczhdC2LNh0Kc01q307+qTLXNC4vk1s8QrEs/fHg+ZFefPoXevOUoVdRfATSKnAX4tGzmEj+dTkGufJIUyi0e1xU2lxQ5yeYzb2ETxWIN5nENlBLOgL5oP7B44B/EURR37pCWcFO+kV9hTxSfzRQFUfh7Xtx1/b7NJ36kCSwJL/nXNXFn0ldGKXhMXFy2OJrIit46
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 21:15:53.7913 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 700a6ee3-bc56-4858-29f4-08deef48e7c7
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 21:16:20.6536 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 631391cd-6801-471c-ebdd-08deef48f7c9
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000140.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013F.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8142
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4492
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,189 +121,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ivan Lipski <ivan.lipski@amd.com>
+From: Alvin Lee <Alvin.Lee2@amd.com>
 
-[Why]
-The connector exposed a single force_yuv420_output boolean debugfs and
-carried force_yuv420_output / force_yuv422_output boolean fields to force a
-chroma encoding. This cannot express "force RGB" or "force YCbCr444", and
-diverges from the upstream amdgpu_dm which uses a single
-force_yuv_pixel_format field keyed on enum dc_pixel_encoding.
+[Description]
+DCN6 needs to update BW bounding box in hw init in order to propagate
+the Alt-Ch aperture info into DML. In this case update unconditionally
+on dcn6 HW init.
 
-[How]
-- Replace the two boolean fields with a single uint8_t
-  force_yuv_pixel_format holding an enum dc_pixel_encoding value
-  (PIXEL_ENCODING_UNDEFINED == no override).
-- Replace the force_yuv420_output boolean debugfs with a read/write
-  force_yuv_pixel_format file that takes the encoding directly
-  (1=RGB, 2=YCbCr422, 3=YCbCr444, 4=YCbCr420), validated against
-  PIXEL_ENCODING_COUNT.
-- Convert the existing readers/writers in amdgpu_dm_connector.c to the
-  new field, preserving current behaviour.
-- Add YCbCr444 force support now that the field can express it.
-
-Assisted-by: Copilot:claude-opus-4.8
-Reviewed-by: Jerry Zuo <jerry.zuo@amd.com>
-Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
 Signed-off-by: Roman Li <roman.li@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 -
- .../display/amdgpu_dm/amdgpu_dm_connector.c   | 23 +++++---
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 57 +++++++------------
- 3 files changed, 34 insertions(+), 48 deletions(-)
+ drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 1ddf5bc88a03..3524931451c8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -857,8 +857,6 @@ struct amdgpu_dm_connector {
- 	struct mutex hpd_lock;
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c
+index 05239e2f086f..72c2d3ca52f6 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c
+@@ -548,7 +548,6 @@ void dcn60_init_hw(struct dc *dc)
+ 	unsigned int edp_num;
+ 	uint32_t backlight = MAX_BACKLIGHT_LEVEL;
+ 	uint32_t user_level = MAX_BACKLIGHT_LEVEL;
+-	int current_dchub_ref_freq = 0;
  
- 	bool fake_enable;
--	bool force_yuv420_output;
--	bool force_yuv422_output;
- 	uint8_t force_yuv_pixel_format;
- 	struct dsc_preferred_settings dsc_settings;
- 	struct psr_caps psr_caps;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 825c3408763c..4304520d2484 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -147,7 +147,7 @@ STATIC_IFN_KUNIT int dm_encoder_helper_atomic_check(struct drm_encoder *encoder,
- 		int max_bpc = conn_state->max_requested_bpc;
+ 	if (dc->clk_mgr && dc->clk_mgr->funcs && dc->clk_mgr->funcs->init_clocks) {
+ 		dc->clk_mgr->funcs->init_clocks(dc->clk_mgr);
+@@ -589,8 +588,6 @@ void dcn60_init_hw(struct dc *dc)
+ 				dc->ctx->dc_bios->fw_info.pll_info.crystal_frequency,
+ 				&res_pool->ref_clocks.dccg_ref_clock_inKhz);
  
- 		is_y420 = drm_mode_is_420_also(&connector->display_info, adjusted_mode) &&
--			  aconnector->force_yuv420_output;
-+			  aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR420;
- 		color_depth = amdgpu_dm_convert_color_depth_from_display_info(connector,
- 								    is_y420,
- 								    max_bpc);
-@@ -2280,20 +2280,25 @@ amdgpu_dm_create_validate_stream_for_sink(struct drm_connector *connector,
- 	 *  - RGB is the mandatory baseline and always available.
- 	 *  - YCbCr444 is only meaningful for native HDMI sinks.
- 	 *  - A 420-only mode collapses the mask to YCbCr420 alone.
--	 *  - The debugfs force_yuv420_output / force_yuv422_output overrides
--	 *    pin the encoding to a single value when set. An explicit YCbCr420
--	 *    force is honoured even on modes the sink only lists as RGB/4:4:4
--	 *    capable (drm_mode_is_420_also() clear), as required for HDMI
--	 *    compliance testing; dc_validate_stream() still rejects anything
--	 *    the link genuinely cannot carry. The YCbCr422 force stays gated on
-+	 *  - The debugfs force_yuv_pixel_format override pins the encoding to a
-+	 *    single dc_pixel_encoding when set (PIXEL_ENCODING_UNDEFINED means
-+	 *    "no override"). An explicit YCbCr420 force is honoured even on
-+	 *    modes the sink only lists as RGB/4:4:4 capable
-+	 *    (drm_mode_is_420_also() clear), as required for HDMI compliance
-+	 *    testing; dc_validate_stream() still rejects anything the link
-+	 *    genuinely cannot carry. The YCbCr422/YCbCr444 forces stay gated on
- 	 *    the sink's advertised caps.
- 	 */
- 	if (drm_mode_is_420_only(info, drm_mode) ||
--	    aconnector->force_yuv420_output) {
-+	    aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR420) {
- 		encoding_mask = BIT(PIXEL_ENCODING_YCBCR420);
--	} else if (aconnector->force_yuv422_output &&
-+	} else if (aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR422 &&
- 		   (info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))) {
- 		encoding_mask = BIT(PIXEL_ENCODING_YCBCR422);
-+	} else if (aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR444 &&
-+		   (info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444)) &&
-+		   is_hdmi_ep) {
-+		encoding_mask = BIT(PIXEL_ENCODING_YCBCR444);
- 	} else {
- 		encoding_mask = BIT(PIXEL_ENCODING_RGB);
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index 830cf8da06b4..c4b2fc690fd7 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -3199,57 +3199,42 @@ static const struct {
- };
- 
- /*
-- * Force YUV420 output if available from the given mode
-+ * Force a specific pixel encoding for the given connector, overriding the
-+ * encoding that stream validation would otherwise pick. The value is an
-+ * enum dc_pixel_encoding:
-+ *
-+ *   0 - PIXEL_ENCODING_UNDEFINED (no override, default)
-+ *   1 - PIXEL_ENCODING_RGB
-+ *   2 - PIXEL_ENCODING_YCBCR422
-+ *   3 - PIXEL_ENCODING_YCBCR444
-+ *   4 - PIXEL_ENCODING_YCBCR420
-  */
--static int force_yuv420_output_set(void *data, u64 val)
-+static int force_yuv_pixel_format_set(void *data, u64 val)
- {
- 	struct amdgpu_dm_connector *connector = data;
- 
--	connector->force_yuv420_output = (bool)val;
--	connector->force_yuv_pixel_format = PIXEL_ENCODING_YCBCR420;
-+	if (val >= PIXEL_ENCODING_COUNT)
-+		return -EINVAL;
-+
-+	connector->force_yuv_pixel_format = (uint8_t)val;
- 
- 	return 0;
- }
- 
- /*
-- * Check if YUV420 is forced when available from the given mode
-+ * Read back the pixel encoding currently forced on the given connector.
-  */
--static int force_yuv420_output_get(void *data, u64 *val)
-+static int force_yuv_pixel_format_get(void *data, u64 *val)
- {
- 	struct amdgpu_dm_connector *connector = data;
- 
--	*val = connector->force_yuv420_output;
-+	*val = connector->force_yuv_pixel_format;
- 
- 	return 0;
- }
- 
--DEFINE_DEBUGFS_ATTRIBUTE(force_yuv420_output_fops, force_yuv420_output_get,
--			 force_yuv420_output_set, "%llu\n");
+-			current_dchub_ref_freq = res_pool->ref_clocks.dchub_ref_clock_inKhz / 1000;
 -
--static int force_yuv422_output_set(void *data, u64 val)
--{
--      struct amdgpu_dm_connector *connector = data;
--
--      connector->force_yuv422_output = (bool)val;
--      connector->force_yuv_pixel_format = PIXEL_ENCODING_YCBCR422;
--
--      return 0;
--}
--
--DEFINE_DEBUGFS_ATTRIBUTE(force_yuv422_output_fops, NULL,
--                       force_yuv422_output_set, "%llu\n");
--
--static int force_yuv444_output_set(void *data, u64 val)
--{
--      struct amdgpu_dm_connector *connector = data;
--
--      connector->force_yuv_pixel_format = PIXEL_ENCODING_YCBCR444;
--
--      return 0;
--}
--
--DEFINE_DEBUGFS_ATTRIBUTE(force_yuv444_output_fops, NULL,
--                       force_yuv444_output_set, "%llu\n");
-+DEFINE_DEBUGFS_ATTRIBUTE(force_yuv_pixel_format_fops, force_yuv_pixel_format_get,
-+			 force_yuv_pixel_format_set, "%llu\n");
- 
- /*
-  *  Read Replay state
-@@ -3699,9 +3684,7 @@ static const struct {
- 	char *name;
- 	const struct file_operations *fops;
- } connector_debugfs_entries[] = {
--		{"force_yuv420_output", &force_yuv420_output_fops},
--		{"force_yuv422_output", &force_yuv422_output_fops},
--		{"force_yuv444_output", &force_yuv444_output_fops},
-+		{"force_yuv_pixel_format", &force_yuv_pixel_format_fops},
- 		{"trigger_hotplug", &trigger_hotplug_debugfs_fops},
- 		{"internal_display", &internal_display_fops},
- 		{"odm_combine_segments", &odm_combine_segments_fops}
+ 			(res_pool->hubbub->funcs->get_dchub_ref_freq)(res_pool->hubbub,
+ 				res_pool->ref_clocks.dccg_ref_clock_inKhz,
+ 				&res_pool->ref_clocks.dchub_ref_clock_inKhz);
+@@ -764,9 +761,8 @@ void dcn60_init_hw(struct dc *dc)
+ 		dc->caps.dmub_caps.fams_ver = dc->ctx->dmub_srv->dmub->feature_caps.fw_assisted_mclk_switch_ver;
+ 		dc->debug.fams2_config.bits.enable &=
+ 			dc->caps.dmub_caps.fams_ver == dc->debug.fams_version.ver; // sw & fw fams versions must match for support
+-		if ((!dc->debug.fams2_config.bits.enable && dc->res_pool->funcs->update_bw_bounding_box)
+-			|| res_pool->ref_clocks.dchub_ref_clock_inKhz / 1000 != current_dchub_ref_freq) {
+-			/* update bounding box if FAMS2 disabled, or if dchub clk has changed */
++		if (dc->res_pool->funcs->update_bw_bounding_box) {
++			/* For DCN6 re-update unconditionally to propagate Alt-Ch address info into DML */
+ 			if (dc->clk_mgr)
+ 				dc->res_pool->funcs->update_bw_bounding_box(dc, dc->clk_mgr->bw_params);
+ 		}
 -- 
 2.34.1
 
