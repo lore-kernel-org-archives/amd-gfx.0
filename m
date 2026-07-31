@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A8BBC55174
-	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 21:16:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7DCBC55173
+	for <amd-gfx@archiver.kernel.org>; Fri, 31 Jul 2026 21:16:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AAE0C10F404;
-	Fri, 31 Jul 2026 21:16:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3AECE10F416;
+	Fri, 31 Jul 2026 21:16:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="H06PO+tq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GhBamGuD";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013007.outbound.protection.outlook.com
- [40.93.196.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B58310F40F
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 21:16:02 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012065.outbound.protection.outlook.com [52.101.53.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DD2B10F3FB
+ for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 21:16:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pNKT/g6o87IfNXSneyEssVQocDcup0U7F7vpud5mDj+B3xvkWHyy3rZLix+UrYWfAR1ZOPzXb0bAhk7AVFtaphNH+/x1DtO6Q9/toCNx0FhHdWqXYbxjCg5g3CNSa0h5oKVOpJGiTW+tX3+cIgtpGf0mYxqpWlE+KaRnvKkFVc1iXGJh8XEZmg7vls3nn40axMVpzlQROCnOkm+o/TP5RszYAzRDZDZWAEbX+UPbMH1bxSndLHELhxHuN5/xAqZsmm4VMk6Me+b2WgputW+5kBpyRPAH1y7w8G/CBDQhD69eJ0HnKkCOPbvCNVZMuRQB/rfkDEOFMXz7lg6T1CAsew==
+ b=LqkzDUkDSq/zrdTvHa3TGI+nPVGjslXPR0BlpISTk0kvU0b1gn/otoeAkSslzEosbt0RIIQBOr7cWOz/I5kJRvd/qGrIHz6ET3OkGkvG9Wmf0lBDqG5/0lY0cZWoKxMeqLhoWA+oVksrOV38ykubDHx/AedkckrtPmt5/7wo8TnkJjLJVjYt0EDYS0XpviRWVxxHPIzgs4KWitRpisuxSi2HRvWMcwsGlfVwP9qU5vb/96XapPqxPKtJkmok3CuMCDQK70yc1AbkaeG9wYkxhLgfRdISXrD/Hq4xw+POm7IuiUzdL1HWsAliqf5F+4aHB8mdkGMWFqzpxbJfLuot1g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7oPt2/TIbOTXuUWU1aB7Mk/mwpg0HBjAlw+v8JLm9gA=;
- b=f13tJbnIG4k5ZixXMzxfQVNUkDIoZMs2oHFaPTeICP+oVgVZSb2FfeKgZK4YawscFD5fwGsv6/IdWzMlKybOwwX1tVGAaAYERtUNp2EzHmQvM/SKHxDdntdkBPLDdal/kxrVTY55JOoa4bBV0LxPOZFH4sK+bcpXzFWW1A4GIor+3GqSuJsMy1z8gqmluBK6M0jSAgkk30YQqdqpOFS4OGHO0ujZ0UBfxAQ+07WHv4oO7I1ddLcXYBNt7PaTSssqe6iju8I+lzUYoHmgjzUUvSmLvi/8QHlvpUO7wRBytIXomgxf4EuofTmeyMH3+ec08VGu4f2UMokLl0flrs99nA==
+ bh=mX3siSgqNdlhVV8TE/TPLxg+nO4SAquzFdwWnGwGs0k=;
+ b=mfEee4A5VMvnwHpbG5wrJJMDepY4Pa+NyKQrHA/Deqqpo2arClgJQKWZWBKhmvC1+3igFLv0e4k6yVabjmRVZxFU6g5vxd/RQ9idr8IAAKYCSJaX2mpsjfo1dcZpQ1tSo1SMNRlukYUmBikT6w9pNvFgbHkOY116rKXYxt57B++5ocbX9zYKNKUpHFDgBsQCwO4vhpN6SsCjw4Yzkh5SZ1fL/N4HufHDAiu6lTf44zqxIaADyeGefc1JTNoM/2cZbMj1Akf1cnOpVUelx0WWXjsi7FZAI44aJ5XIYRVM5fg0lpoWQcNJ31BnKARGOPX+asYw+VuQX6HjmX1BZ0Uylg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7oPt2/TIbOTXuUWU1aB7Mk/mwpg0HBjAlw+v8JLm9gA=;
- b=H06PO+tqFHi5KW87XpxTGgu/ZHgk9Nsgafo5Udo82GCEe7ob0ddw+6Rlkkx6E6vlF4YPH68MrthR/05KLIQE3MUfpSM6MpUBpuY97NUOgZJ0sTzZg0IBavndL6mGVCnFAptYPZbF+u4r/YTq2sU/rDzWFi3P9H7ErMmBNC+Ta4o=
-Received: from CH0PR07CA0015.namprd07.prod.outlook.com (2603:10b6:610:32::20)
- by DS0PR12MB6462.namprd12.prod.outlook.com (2603:10b6:8:c6::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Fri, 31 Jul
- 2026 21:15:54 +0000
+ bh=mX3siSgqNdlhVV8TE/TPLxg+nO4SAquzFdwWnGwGs0k=;
+ b=GhBamGuDIkwiF+O3NIskA19+7jxIZqwbww1+2hCOKe1tdpb+9CcDJlS6QD60iUW14K94xc/0dV/X8na/YNT3ljyAZvbbVjZS9SoBREXghRJUKyadOfKyHWhd92JkOSgRo2CuL/SFUzD3a12F7cL9kimuQ0S1w0lpqSnpbrVNJKE=
+Received: from CH0PR07CA0026.namprd07.prod.outlook.com (2603:10b6:610:32::31)
+ by SA1PR12MB8142.namprd12.prod.outlook.com (2603:10b6:806:334::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.15; Fri, 31 Jul
+ 2026 21:15:53 +0000
 Received: from CH2PEPF00000140.namprd02.prod.outlook.com
- (2603:10b6:610:32:cafe::32) by CH0PR07CA0015.outlook.office365.com
- (2603:10b6:610:32::20) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:610:32:cafe::ad) by CH0PR07CA0026.outlook.office365.com
+ (2603:10b6:610:32::31) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.15 via Frontend Transport; Fri,
- 31 Jul 2026 21:15:54 +0000
+ 31 Jul 2026 21:15:53 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,14 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  CH2PEPF00000140.mail.protection.outlook.com (10.167.244.72) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 21:15:54 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ 15.21.292.8 via Frontend Transport; Fri, 31 Jul 2026 21:15:53 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
- 2026 16:15:53 -0500
+ 2026 16:15:50 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 31 Jul
+ 2026 16:15:50 -0500
 Received: from roman-vdev.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Fri, 31 Jul 2026 16:15:52 -0500
+ Transport; Fri, 31 Jul 2026 16:15:49 -0500
 From: <Roman.Li@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -67,10 +70,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 25/41] drm/amd/display: Add KUnit tests for crtc set_vblank
-Date: Fri, 31 Jul 2026 17:12:46 -0400
-Message-ID: <20260731211302.3040343-26-Roman.Li@amd.com>
+ <Chen-Yu.Chen@amd.com>
+Subject: [PATCH 22/41] drm/amd/display: Unify force_yuv debugfs into
+ force_yuv_pixel_format
+Date: Fri, 31 Jul 2026 17:12:43 -0400
+Message-ID: <20260731211302.3040343-23-Roman.Li@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260731211302.3040343-1-Roman.Li@amd.com>
 References: <20260731211302.3040343-1-Roman.Li@amd.com>
@@ -79,29 +83,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000140:EE_|DS0PR12MB6462:EE_
-X-MS-Office365-Filtering-Correlation-Id: a9492cc6-b83e-4b0f-bfce-08deef48e850
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000140:EE_|SA1PR12MB8142:EE_
+X-MS-Office365-Filtering-Correlation-Id: 700a6ee3-bc56-4858-29f4-08deef48e7c7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|22082099003|18002099003|5023799004|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: Fskc4eo7olquEGpbhk6KWmnjmdmT6caRaFRY7eIbzX24PyZHgZFEp4JFcxh/pu7DfLawSflFlhOYjYoXtoP4tVPWR3F0fvijEULiwgzgNwaOMdgdPtuW1jMbjs2g8NDABk2cT1kIQ2pyoiZha5pXfMBgCbr1CfMuGziQiqCdECOmAwRKGMLKptW4RxbwrVM+BhBaKiMe65ywyL5RUDKPM2C6xy+6hxj6f6Pa2Emy2psii7oszRK7jIplWTKCKv5Cr2+rh1Snsz603HR9OwcCi9mUUSJZSGHcgX3c7XR89mJOAOTTauDwp2vcIPq1rQj/GGHEfQ9GS/4fVwuOeWK/SU2/+ocUB+jjgKzI4ev2+zyzDYX6VdGlR2zHUCHWod79ce+xQlNsO45cSGz0A8J5WqN7o3e3uNNboryjwUNqC/r02Egs43wwYwKYi3YB0v/XYdBoZLbVh1a1NfgoC86XyovMfRXzFUc6wls9/tyLNf7kjlV1ntZj4utNUy9wYXJVu4tpyu0frcjCECyXEkL1FwxAieFzmC9yDFCFLmpvQQvvq692/GHl2i0RijZGGg7YLuEpuvwQfk3hcyBAjcnvaxpofhxM/6W6QRhQsftfq1/xX7JletQ8w4ZuXU3vXECaOjhNSeDotBMenweCKHV6dPvvYBLjdS7TMifhRHonW4zgwkIVQo/g9IVeH2iNgSgn3AmHWhsDqnKzH00Rj0wJBA==
+ ARA:13230040|376014|36860700016|82310400026|23010399003|1800799024|6133799003|56012099006|11063799006|10067099003|5023799004|3023799007|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: Uoua5HJM8cjDBtwY17HqZ8wpo3CAPO0RFyhD2RU2O1Y+1FLrcT2V7PmiLDBvYFYngb01QhwRzubDz1rJm+4AfRT53LeRNH3tMDRfuanumFStXXhbMVuk6h/c9Tpr3OrfMlbERF4Nt6DTFpf0Y8wJ1m8urme278QXaXkvbMaPT3ehtrjSqsKdQu2QSNHNqDl/7bdMmMnAXQzNKAvwmltgSOIy9vYjADLiofrbDnG1IqpbJHDFiwpjzKVzMPSooKNiXd5D91NZV0krq2nxLeWDRGRV+P75dxDkPj0mgNqtg+pJEoyuiZO1r4cAtZjo1cmo8ceTlH9NHyaRNtQgNQFuLgqbZRGja0Wlqh3/1ltvjYFT5uTAR0WNl8iqEio1ec1r7UYsYUgfc+6x5g0IFBVwkASTZKUXBqGaptGSDKJxURS0DrremNw0e0eXv2PIFxnLB+UzZALgm5HVvRmk/2Iu/XZQ1OkshbCQOV6ldA/wSaBiLEJpMMl8TcLz0UgONQ/poKguWM2JJN+5VyTs8C44QXgBq/vTubk6pcKbuXoONzTDdB+ynj7C8/11doN6m+i98gnzPO1P3FmyxOWp0eJ7NO1naTaVDjjfbMq/U5Jp/Rw4kSZooFBTLlCQlVchTjgsHzqBfS8M7DBvp+llOILBuqRfrFppZpyIgGuMjP6o31y/FWCiePwQoW2d8FwX1/mr
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(22082099003)(18002099003)(5023799004)(10067099003)(11063799006)(56012099006);
+ SFS:(13230040)(376014)(36860700016)(82310400026)(23010399003)(1800799024)(6133799003)(56012099006)(11063799006)(10067099003)(5023799004)(3023799007)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 7kY30SVE95zb79tmeOtoVnFYrHsyLjq9kVVK5PLA4T/cCJl0/wZXpvrrZdQ1cdaLf5OTwz9JgZdPTsJlNe++kPHH7Cqggoy8kXLQPOrOTXNJmkDdv9akfaQFCykVP1dsxrqPNw0HyjJ5wwk9PbWzxR+xJAApVkJLiZaOVE1RgzEnYPM5cSAGQ/tP9oo+70vkRHiZMm51AkTsOsxxlL4GINDdfTBFM8G9AqYJ2WwyZRVSS0BGYoAYEOMdxyjq42V4Tiiwl2LUaIrsIsAXw1R0WL+GCe23OHwMmJQTvkuM0bqqzSXfxcevDkrzTk0jSM+KZIIDVBPvXaLBGPUxSsHMubklg/tTEjkxODETE/eJmZhOcstL4iJUCQshvzOq6pIR/EVnpSWpxcHujSwTFHr7ibZXjS25o0bdfXYpOTO5JBxZa9GqYIY12qVLTSXgY9ZM
+X-MS-Exchange-AntiSpam-MessageData-0: bH3azPoiHi7h8XQG6on1cTOYFTvjGl1tr0AE7P4Z2L8R+br2FUnA4J1A3bfunP8CMX8Pg7UcswKyFMujcJvRggxh2yCHfejoahiTHcmpDiHFQJSsLWIpYs2pY5lSWGrb+ATGsAu5j0a4MBYCOz+zGHvJ/KBZITS/JvPVj684kOLBb8EkGV1pF3/sRgu+2ZH6G/bxzg3mVU/uk683qpDhh2e3Vpx6zcl+yQBRMJzr3V3UHg3Blnp8S/tFcL+SMs7iYgxlL90bKdGFq4mKVIPhDpNM9FQMbQYRg1wyH1vTNtsHBNGDAlgK/vM+5klrhWnNEWuRQnd5gUr38snGsJlzeXyIlJ/vgsHh0YOvVK8LMCG/g7V38hkIS7iBAoQE/Rs9e+sFG3u8cwCkM1nIqyiTOafT2jnS3MwKt1WxibH/nq6AuvszopYyF//VGmlIOhaR
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 21:15:54.6903 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a9492cc6-b83e-4b0f-bfce-08deef48e850
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Jul 2026 21:15:53.7913 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 700a6ee3-bc56-4858-29f4-08deef48e7c7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000140.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6462
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8142
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,355 +120,189 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+From: Ivan Lipski <ivan.lipski@amd.com>
 
-Add coverage for the amdgpu_dm_crtc_set_vblank() paths reached through
-amdgpu_dm_crtc_enable_vblank() and amdgpu_dm_crtc_disable_vblank():
+[Why]
+The connector exposed a single force_yuv420_output boolean debugfs and
+carried force_yuv420_output / force_yuv422_output boolean fields to force a
+chroma encoding. This cannot express "force RGB" or "force YCbCr444", and
+diverges from the upstream amdgpu_dm which uses a single
+force_yuv_pixel_format field keyed on enum dc_pixel_encoding.
 
-- dm_test_crtc_enable_vblank_full_path: VRR-active enable that walks the
-  vupdate-irq branch and acquires the crtc/pageflip IRQ references.
-- dm_test_crtc_enable_vblank_vupdate_busy: vupdate IRQ rejection aborts
-  the enable with -EBUSY.
-- dm_test_crtc_enable_vblank_crtc_irq_error: crtc IRQ acquire failure
-  aborts the enable with -ENOENT.
-- dm_test_crtc_enable_vblank_in_reset: an in-progress GPU reset returns
-  early before the vblank workqueue branch.
-- dm_test_crtc_disable_vblank_vrr: the VRR disable path turns the vupdate
-  IRQ off and releases both IRQ references.
+[How]
+- Replace the two boolean fields with a single uint8_t
+  force_yuv_pixel_format holding an enum dc_pixel_encoding value
+  (PIXEL_ENCODING_UNDEFINED == no override).
+- Replace the force_yuv420_output boolean debugfs with a read/write
+  force_yuv_pixel_format file that takes the encoding directly
+  (1=RGB, 2=YCbCr422, 3=YCbCr444, 4=YCbCr420), validated against
+  PIXEL_ENCODING_COUNT.
+- Convert the existing readers/writers in amdgpu_dm_connector.c to the
+  new field, preserving current behaviour.
+- Add YCbCr444 force support now that the field can express it.
 
-Add shared IRQ-source stubs and setup helpers so amdgpu_irq_get()/put()
-succeed without hardware access.
-
-Assisted-by: Copilot:Claude-Opus-4.8
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Assisted-by: Copilot:claude-opus-4.8
+Reviewed-by: Jerry Zuo <jerry.zuo@amd.com>
+Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 Signed-off-by: Roman Li <roman.li@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_crtc_test.c     | 283 ++++++++++++++++++
- 1 file changed, 283 insertions(+)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 -
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   | 23 +++++---
+ .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 57 +++++++------------
+ 3 files changed, 34 insertions(+), 48 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-index fa4986153eda..753150943fba 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-@@ -477,6 +477,19 @@ static struct irq_source_info_funcs dm_test_vupdate_irq_src_funcs = {
- 	.ack = dm_test_vupdate_irq_src_ack,
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+index 1ddf5bc88a03..3524931451c8 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
+@@ -857,8 +857,6 @@ struct amdgpu_dm_connector {
+ 	struct mutex hpd_lock;
+ 
+ 	bool fake_enable;
+-	bool force_yuv420_output;
+-	bool force_yuv422_output;
+ 	uint8_t force_yuv_pixel_format;
+ 	struct dsc_preferred_settings dsc_settings;
+ 	struct psr_caps psr_caps;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index 825c3408763c..4304520d2484 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -147,7 +147,7 @@ STATIC_IFN_KUNIT int dm_encoder_helper_atomic_check(struct drm_encoder *encoder,
+ 		int max_bpc = conn_state->max_requested_bpc;
+ 
+ 		is_y420 = drm_mode_is_420_also(&connector->display_info, adjusted_mode) &&
+-			  aconnector->force_yuv420_output;
++			  aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR420;
+ 		color_depth = amdgpu_dm_convert_color_depth_from_display_info(connector,
+ 								    is_y420,
+ 								    max_bpc);
+@@ -2280,20 +2280,25 @@ amdgpu_dm_create_validate_stream_for_sink(struct drm_connector *connector,
+ 	 *  - RGB is the mandatory baseline and always available.
+ 	 *  - YCbCr444 is only meaningful for native HDMI sinks.
+ 	 *  - A 420-only mode collapses the mask to YCbCr420 alone.
+-	 *  - The debugfs force_yuv420_output / force_yuv422_output overrides
+-	 *    pin the encoding to a single value when set. An explicit YCbCr420
+-	 *    force is honoured even on modes the sink only lists as RGB/4:4:4
+-	 *    capable (drm_mode_is_420_also() clear), as required for HDMI
+-	 *    compliance testing; dc_validate_stream() still rejects anything
+-	 *    the link genuinely cannot carry. The YCbCr422 force stays gated on
++	 *  - The debugfs force_yuv_pixel_format override pins the encoding to a
++	 *    single dc_pixel_encoding when set (PIXEL_ENCODING_UNDEFINED means
++	 *    "no override"). An explicit YCbCr420 force is honoured even on
++	 *    modes the sink only lists as RGB/4:4:4 capable
++	 *    (drm_mode_is_420_also() clear), as required for HDMI compliance
++	 *    testing; dc_validate_stream() still rejects anything the link
++	 *    genuinely cannot carry. The YCbCr422/YCbCr444 forces stay gated on
+ 	 *    the sink's advertised caps.
+ 	 */
+ 	if (drm_mode_is_420_only(info, drm_mode) ||
+-	    aconnector->force_yuv420_output) {
++	    aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR420) {
+ 		encoding_mask = BIT(PIXEL_ENCODING_YCBCR420);
+-	} else if (aconnector->force_yuv422_output &&
++	} else if (aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR422 &&
+ 		   (info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422))) {
+ 		encoding_mask = BIT(PIXEL_ENCODING_YCBCR422);
++	} else if (aconnector->force_yuv_pixel_format == PIXEL_ENCODING_YCBCR444 &&
++		   (info->color_formats & BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444)) &&
++		   is_hdmi_ep) {
++		encoding_mask = BIT(PIXEL_ENCODING_YCBCR444);
+ 	} else {
+ 		encoding_mask = BIT(PIXEL_ENCODING_RGB);
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index 830cf8da06b4..c4b2fc690fd7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -3199,57 +3199,42 @@ static const struct {
  };
  
-+/* A .set that fails so dc_interrupt_set() reports the source as busy. */
-+static bool dm_test_vupdate_irq_src_set_busy(struct irq_service *irq_service,
-+					     const struct irq_source_info *info,
-+					     bool enable)
-+{
-+	return false;
-+}
+ /*
+- * Force YUV420 output if available from the given mode
++ * Force a specific pixel encoding for the given connector, overriding the
++ * encoding that stream validation would otherwise pick. The value is an
++ * enum dc_pixel_encoding:
++ *
++ *   0 - PIXEL_ENCODING_UNDEFINED (no override, default)
++ *   1 - PIXEL_ENCODING_RGB
++ *   2 - PIXEL_ENCODING_YCBCR422
++ *   3 - PIXEL_ENCODING_YCBCR444
++ *   4 - PIXEL_ENCODING_YCBCR420
+  */
+-static int force_yuv420_output_set(void *data, u64 val)
++static int force_yuv_pixel_format_set(void *data, u64 val)
+ {
+ 	struct amdgpu_dm_connector *connector = data;
+ 
+-	connector->force_yuv420_output = (bool)val;
+-	connector->force_yuv_pixel_format = PIXEL_ENCODING_YCBCR420;
++	if (val >= PIXEL_ENCODING_COUNT)
++		return -EINVAL;
 +
-+static struct irq_source_info_funcs dm_test_vupdate_irq_src_busy_funcs = {
-+	.set = dm_test_vupdate_irq_src_set_busy,
-+	.ack = dm_test_vupdate_irq_src_ack,
-+};
-+
- /**
-  * dm_test_crtc_set_vupdate_irq_enable - Test vupdate irq enable/disable success
-  * @test: The KUnit test context
-@@ -832,6 +845,224 @@ static void dm_test_crtc_enable_vblank_rejects_unconfigured(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, amdgpu_dm_crtc_enable_vblank(&acrtc->base), -EINVAL);
++	connector->force_yuv_pixel_format = (uint8_t)val;
+ 
+ 	return 0;
  }
  
-+/* Stub IRQ source .set so amdgpu_irq_get()/put() pass their funcs->set check. */
-+static int dm_test_crtc_irq_src_set(struct amdgpu_device *adev,
-+				    struct amdgpu_irq_src *source,
-+				    unsigned int type,
-+				    enum amdgpu_interrupt_state state)
-+{
-+	return 0;
-+}
-+
-+static const struct amdgpu_irq_src_funcs dm_test_crtc_irq_src_funcs = {
-+	.set = dm_test_crtc_irq_src_set,
-+};
-+
-+/*
-+ * dm_test_crtc_arm_irq_src - Prime an IRQ source so get()/put() short-circuit.
-+ * @test: The KUnit test context
-+ * @src: The amdgpu IRQ source to arm
-+ * @count: Initial per-type reference count
-+ *
-+ * Seeds enabled_types[AMDGPU_CRTC_IRQ_VBLANK1] with @count and installs a
-+ * non-NULL funcs->set so amdgpu_irq_get()/amdgpu_irq_put() adjust the refcount
-+ * without ever reaching amdgpu_irq_update() (which would touch hardware).
-+ */
-+static void dm_test_crtc_arm_irq_src(struct kunit *test,
-+				     struct amdgpu_irq_src *src, int count)
-+{
-+	atomic_t *enabled;
-+
-+	enabled = kunit_kzalloc(test, sizeof(*enabled), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, enabled);
-+
-+	atomic_set(enabled, count);
-+	src->num_types = 1;
-+	src->enabled_types = enabled;
-+	src->funcs = &dm_test_crtc_irq_src_funcs;
-+}
-+
-+/*
-+ * dm_test_crtc_setup_enable - Build an adev/CRTC primed for the vblank enable path.
-+ * @test: The KUnit test context
-+ * @adev_out: Receives the allocated device
-+ * @dce_version: DCE version stamped on the DC (controls dc_supports_vrr())
-+ *
-+ * Returns a CRTC whose enable path can run to completion: a configured
-+ * (enabled) CRTC with crtc_id 0, an initialized single-pipe vblank array, a DC
-+ * with @dce_version, a non-reset reset_domain and a dm_crtc_state carrying a
-+ * stream+link. IPS support stays disabled so drm_crtc_vblank_restore() is
-+ * skipped, and the IRQ subsystem is left uninstalled for callers to arm.
-+ */
-+static struct amdgpu_crtc *
-+dm_test_crtc_setup_enable(struct kunit *test, struct amdgpu_device **adev_out,
-+			  enum dce_version dce_version)
-+{
-+	struct amdgpu_reset_domain *reset_domain;
-+	struct dc_stream_state *stream;
-+	struct dm_crtc_state *dm_state;
-+	struct amdgpu_device *adev;
-+	struct amdgpu_crtc *acrtc;
-+	struct dc_link *link;
-+
-+	adev = dm_kunit_alloc_adev(test);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+
-+	KUNIT_ASSERT_EQ(test, drm_vblank_init(&adev->ddev, 1), 0);
-+
-+	adev->dm.dc = dm_kunit_alloc_dc_with_ctx(test);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev->dm.dc);
-+	adev->dm.dc->ctx->dce_version = dce_version;
-+
-+	/* crtc_id 0 maps to a valid IRQ type only when a CRTC is registered. */
-+	adev->mode_info.num_crtc = 1;
-+
-+	reset_domain = kunit_kzalloc(test, sizeof(*reset_domain), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, reset_domain);
-+	adev->reset_domain = reset_domain;
-+
-+	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acrtc);
-+	acrtc->base.dev = &adev->ddev;
-+	acrtc->base.enabled = true;
-+	acrtc->crtc_id = 0;
-+
-+	link = dm_kunit_alloc_link(test);
-+	stream = dm_kunit_alloc_stream(test, link);
-+
-+	dm_state = kunit_kzalloc(test, sizeof(*dm_state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dm_state);
-+	dm_state->stream = stream;
-+	acrtc->base.state = &dm_state->base;
-+
-+	*adev_out = adev;
-+	return acrtc;
-+}
-+
-+/**
-+ * dm_test_crtc_enable_vblank_full_path - Test the enable path runs to completion
-+ * @test: The KUnit test context
-+ *
-+ * With a configured CRTC on a VRR-capable DC and both crtc/pageflip IRQ sources
-+ * armed, the enable path walks the vupdate-irq branch (VRR active, OTG
-+ * unassigned so it returns early), acquires both IRQ references and completes
-+ * with no vblank workqueue queued.
-+ */
-+static void dm_test_crtc_enable_vblank_full_path(struct kunit *test)
-+{
-+	struct dm_crtc_state *acrtc_state;
-+	struct amdgpu_device *adev;
-+	struct amdgpu_crtc *acrtc;
-+
-+	/* DCE_VERSION_8_0 supports VRR -> the vupdate-irq branch is walked. */
-+	acrtc = dm_test_crtc_setup_enable(test, &adev, DCE_VERSION_8_0);
-+
-+	/* OTG unassigned -> amdgpu_dm_crtc_set_vupdate_irq() returns 0 early. */
-+	acrtc->otg_inst = -1;
-+	/* VRR active so the enable path takes the vupdate-irq branch. */
-+	acrtc_state = to_dm_crtc_state(acrtc->base.state);
-+	acrtc_state->freesync_config.state = VRR_STATE_ACTIVE_VARIABLE;
-+
-+	adev->irq.installed = true;
-+	dm_test_crtc_arm_irq_src(test, &adev->crtc_irq, 1);
-+	dm_test_crtc_arm_irq_src(test, &adev->pageflip_irq, 1);
-+
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_crtc_enable_vblank(&acrtc->base), 0);
-+}
-+
-+/**
-+ * dm_test_crtc_enable_vblank_vupdate_busy - Test vupdate failure aborts enable
-+ * @test: The KUnit test context
-+ *
-+ * When VRR is active and the DC rejects the vupdate IRQ request, the enable
-+ * path must propagate the error (-EBUSY) before touching the crtc/pageflip
-+ * IRQs.
-+ */
-+static void dm_test_crtc_enable_vblank_vupdate_busy(struct kunit *test)
-+{
-+	struct irq_source_info *info;
-+	struct resource_pool *res_pool;
-+	struct dm_crtc_state *acrtc_state;
-+	struct irq_service *irqs;
-+	struct amdgpu_device *adev;
-+	struct amdgpu_crtc *acrtc;
-+	int i;
-+
-+	acrtc = dm_test_crtc_setup_enable(test, &adev, DCE_VERSION_8_0);
-+
-+	/* OTG assigned and VRR active so set_vupdate_irq() calls into DC. */
-+	acrtc->otg_inst = 0;
-+	acrtc_state = to_dm_crtc_state(acrtc->base.state);
-+	acrtc_state->freesync_config.state = VRR_STATE_ACTIVE_VARIABLE;
-+
-+	res_pool = kunit_kzalloc(test, sizeof(*res_pool), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, res_pool);
-+	irqs = kunit_kzalloc(test, sizeof(*irqs), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, irqs);
-+
-+	/* Per-source .set fails so dc_interrupt_set() reports the source busy. */
-+	info = kunit_kzalloc(test, sizeof(*info) * DAL_IRQ_SOURCES_NUMBER,
-+			     GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, info);
-+	for (i = 0; i < DAL_IRQ_SOURCES_NUMBER; i++)
-+		info[i].funcs = &dm_test_vupdate_irq_src_busy_funcs;
-+
-+	irqs->info = info;
-+	res_pool->irqs = irqs;
-+	adev->dm.dc->res_pool = res_pool;
-+
-+	KUNIT_EXPECT_EQ(test,
-+			amdgpu_dm_crtc_enable_vblank(&acrtc->base), -EBUSY);
-+}
-+
-+/**
-+ * dm_test_crtc_enable_vblank_crtc_irq_error - Test crtc IRQ failure aborts enable
-+ * @test: The KUnit test context
-+ *
-+ * On a non-VRR DC the vupdate-irq branch is skipped. With the IRQ subsystem
-+ * uninstalled, amdgpu_irq_get() on the crtc IRQ returns -ENOENT and the enable
-+ * path must propagate it before touching the pageflip IRQ.
-+ */
-+static void dm_test_crtc_enable_vblank_crtc_irq_error(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+	struct amdgpu_crtc *acrtc;
-+
-+	/* DCE_VERSION_6_0 has no VRR, so the vupdate-irq branch is skipped. */
-+	acrtc = dm_test_crtc_setup_enable(test, &adev, DCE_VERSION_6_0);
-+
-+	/* IRQ subsystem not installed -> amdgpu_irq_get() returns -ENOENT. */
-+	adev->irq.installed = false;
-+
-+	KUNIT_EXPECT_EQ(test,
-+			amdgpu_dm_crtc_enable_vblank(&acrtc->base), -ENOENT);
-+}
-+
-+/**
-+ * dm_test_crtc_enable_vblank_in_reset - Test enable returns early during GPU reset
-+ * @test: The KUnit test context
-+ *
-+ * After acquiring the IRQ references, an in-progress GPU reset must short the
-+ * enable path so it returns 0 without queuing any vblank control work.
-+ */
-+static void dm_test_crtc_enable_vblank_in_reset(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+	struct amdgpu_crtc *acrtc;
-+
-+	/* DCE_VERSION_6_0 has no VRR, so the vupdate-irq branch is skipped. */
-+	acrtc = dm_test_crtc_setup_enable(test, &adev, DCE_VERSION_6_0);
-+
-+	adev->irq.installed = true;
-+	dm_test_crtc_arm_irq_src(test, &adev->crtc_irq, 1);
-+	dm_test_crtc_arm_irq_src(test, &adev->pageflip_irq, 1);
-+
-+	/* Mid-reset: return 0 before the vblank workqueue branch is reached. */
-+	atomic_set(&adev->reset_domain->in_gpu_reset, 1);
-+
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_crtc_enable_vblank(&acrtc->base), 0);
-+}
-+
- /* Tests for amdgpu_dm_crtc_update_crtc_active_planes() */
+ /*
+- * Check if YUV420 is forced when available from the given mode
++ * Read back the pixel encoding currently forced on the given connector.
+  */
+-static int force_yuv420_output_get(void *data, u64 *val)
++static int force_yuv_pixel_format_get(void *data, u64 *val)
+ {
+ 	struct amdgpu_dm_connector *connector = data;
  
- /**
-@@ -1307,6 +1538,53 @@ static void dm_test_crtc_disable_vblank_no_irq_installed(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, adev->dm.active_vblank_irq_count, 0);
+-	*val = connector->force_yuv420_output;
++	*val = connector->force_yuv_pixel_format;
+ 
+ 	return 0;
  }
  
-+/**
-+ * dm_test_crtc_disable_vblank_vrr - Test disable path releases IRQs on a VRR DC
-+ * @test: The KUnit test context
-+ *
-+ * On a VRR-capable DC the disable path turns the vupdate IRQ off (OTG
-+ * unassigned so it returns early), releases the armed crtc and pageflip IRQ
-+ * references and completes without queuing vblank control work.
-+ */
-+static void dm_test_crtc_disable_vblank_vrr(struct kunit *test)
-+{
-+	struct amdgpu_reset_domain *reset_domain;
-+	struct amdgpu_device *adev;
-+	struct amdgpu_crtc *acrtc;
-+
-+	adev = dm_kunit_alloc_adev(test);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
-+
-+	adev->dm.dc = dm_kunit_alloc_dc_with_ctx(test);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev->dm.dc);
-+	/* DCE_VERSION_8_0 supports VRR -> the vupdate-irq branch is walked. */
-+	adev->dm.dc->ctx->dce_version = DCE_VERSION_8_0;
-+
-+	adev->mode_info.num_crtc = 1;
-+	adev->irq.installed = true;
-+
-+	reset_domain = kunit_kzalloc(test, sizeof(*reset_domain), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, reset_domain);
-+	adev->reset_domain = reset_domain;
-+
-+	/* Seed with 2 so amdgpu_irq_put() drops to a non-zero refcount. */
-+	dm_test_crtc_arm_irq_src(test, &adev->crtc_irq, 2);
-+	dm_test_crtc_arm_irq_src(test, &adev->pageflip_irq, 2);
-+
-+	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acrtc);
-+	acrtc->base.dev = &adev->ddev;
-+	acrtc->crtc_id = 0;
-+	/* OTG unassigned -> amdgpu_dm_crtc_set_vupdate_irq() returns 0 early. */
-+	acrtc->otg_inst = -1;
-+
-+	amdgpu_dm_crtc_disable_vblank(&acrtc->base);
-+
-+	/* Both IRQ references were released without underflow. */
-+	KUNIT_EXPECT_EQ(test, atomic_read(&adev->crtc_irq.enabled_types[0]), 1);
-+	KUNIT_EXPECT_EQ(test, atomic_read(&adev->pageflip_irq.enabled_types[0]), 1);
-+}
-+
- static struct kunit_case amdgpu_dm_crtc_tests[] = {
- 	/* amdgpu_dm_crtc_modeset_required */
- 	KUNIT_CASE(dm_test_crtc_modeset_required_active_mode_changed),
-@@ -1352,6 +1630,10 @@ static struct kunit_case amdgpu_dm_crtc_tests[] = {
- 	KUNIT_CASE(dm_test_crtc_set_static_screen_optimze_psr_su_skips),
- 	/* amdgpu_dm_crtc_enable_vblank */
- 	KUNIT_CASE(dm_test_crtc_enable_vblank_rejects_unconfigured),
-+	KUNIT_CASE(dm_test_crtc_enable_vblank_full_path),
-+	KUNIT_CASE(dm_test_crtc_enable_vblank_vupdate_busy),
-+	KUNIT_CASE(dm_test_crtc_enable_vblank_crtc_irq_error),
-+	KUNIT_CASE(dm_test_crtc_enable_vblank_in_reset),
- 	/* amdgpu_dm_crtc_update_crtc_active_planes */
- 	KUNIT_CASE(dm_test_crtc_update_active_planes_no_stream),
- 	/* amdgpu_dm_crtc_count_crtc_active_planes */
-@@ -1373,6 +1655,7 @@ static struct kunit_case amdgpu_dm_crtc_tests[] = {
- 	KUNIT_CASE(dm_test_vblank_control_worker_disable_clamps_zero),
- 	/* amdgpu_dm_crtc_disable_vblank */
- 	KUNIT_CASE(dm_test_crtc_disable_vblank_no_irq_installed),
-+	KUNIT_CASE(dm_test_crtc_disable_vblank_vrr),
- 	{}
- };
+-DEFINE_DEBUGFS_ATTRIBUTE(force_yuv420_output_fops, force_yuv420_output_get,
+-			 force_yuv420_output_set, "%llu\n");
+-
+-static int force_yuv422_output_set(void *data, u64 val)
+-{
+-      struct amdgpu_dm_connector *connector = data;
+-
+-      connector->force_yuv422_output = (bool)val;
+-      connector->force_yuv_pixel_format = PIXEL_ENCODING_YCBCR422;
+-
+-      return 0;
+-}
+-
+-DEFINE_DEBUGFS_ATTRIBUTE(force_yuv422_output_fops, NULL,
+-                       force_yuv422_output_set, "%llu\n");
+-
+-static int force_yuv444_output_set(void *data, u64 val)
+-{
+-      struct amdgpu_dm_connector *connector = data;
+-
+-      connector->force_yuv_pixel_format = PIXEL_ENCODING_YCBCR444;
+-
+-      return 0;
+-}
+-
+-DEFINE_DEBUGFS_ATTRIBUTE(force_yuv444_output_fops, NULL,
+-                       force_yuv444_output_set, "%llu\n");
++DEFINE_DEBUGFS_ATTRIBUTE(force_yuv_pixel_format_fops, force_yuv_pixel_format_get,
++			 force_yuv_pixel_format_set, "%llu\n");
  
+ /*
+  *  Read Replay state
+@@ -3699,9 +3684,7 @@ static const struct {
+ 	char *name;
+ 	const struct file_operations *fops;
+ } connector_debugfs_entries[] = {
+-		{"force_yuv420_output", &force_yuv420_output_fops},
+-		{"force_yuv422_output", &force_yuv422_output_fops},
+-		{"force_yuv444_output", &force_yuv444_output_fops},
++		{"force_yuv_pixel_format", &force_yuv_pixel_format_fops},
+ 		{"trigger_hotplug", &trigger_hotplug_debugfs_fops},
+ 		{"internal_display", &internal_display_fops},
+ 		{"odm_combine_segments", &odm_combine_segments_fops}
 -- 
 2.34.1
 
