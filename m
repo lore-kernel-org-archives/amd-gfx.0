@@ -4,134 +4,144 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A927AC5516F
-	for <amd-gfx@archiver.kernel.org>; Sat,  1 Aug 2026 01:41:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 968C9C54FCD
+	for <amd-gfx@archiver.kernel.org>; Sat,  1 Aug 2026 07:58:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 184D510E255;
-	Sat,  1 Aug 2026 01:41:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1872E10E2B3;
+	Sat,  1 Aug 2026 07:58:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KukwHiPb";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="mb0l7tDa";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010040.outbound.protection.outlook.com
- [40.93.198.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5222D10E255
- for <amd-gfx@lists.freedesktop.org>; Sat,  1 Aug 2026 01:41:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aIHkJ42cmg7UyZqfPRqQu7lKbG2oF6ERmdbs9hwTGB+sUGpcYTh4kXwfRTa6xmuob4RdNmQ9y8yIyDGOx15ij4zbsywCFJ1ntaHQAttQVjzhH7SyE/pnM/oW1r4CgIc/vDHQtk5FIPdvxPu31W+RFNEXPE0V6YG2HGGRT3KQDRg6oMRT7S5gDxSir0UHJ6fY6dcmpzre+Mt4P2rzNS6xqc95g/fTaBk3gPjYgR+4C4WL5b5+SK6yMwOmOHe3a7W5fsWpcb+HuV8qS8PyXg+0PA7cwgHTccwme8v3CPvt6BlLDmzvowDfcz1ckSZcNL3DcdV2EJ/QKp/q/QksL2phRA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=op6ITws8szveLUNBYJthZsEnaiB6E8JamnDeJ4S+KDo=;
- b=d1bmBA7V+NsI1OR6dKTF1CH1xjkfYEQbXGT1qD1ACHYvKSnt4NtU51uzFl1Si3R+xZ3rn9g76C4sEZlO6gzJGQM2v4WdiemtN/J2UjKuMG2lpSCfyk98d/XLlBtzf6iCOx/sxzVTvM91O0AcxhWQ+qSS61yYNsO1d4omichl48h8V+tboCattFiHADcbcyJ1h7cWqUFxLY/tWFMQMSTE26zwIz51GoKLnJFmOGoOqK0yIq3zk+ixT74ODVCHKRo1XmWv6ZJnoxbp4uIKbeyR3682FMwoUrrZMgUliDd/K8BiQmKmv6RXQi7hJkDX3vpqd0vnDKklFeaHyiKspQ7b0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=op6ITws8szveLUNBYJthZsEnaiB6E8JamnDeJ4S+KDo=;
- b=KukwHiPbBa2cpLsr493Y4TV14pnfvIFLj603zrnp33D3AbBJqgelPY5j1W2kcV9MPaXt2kz3lisUPVNPSs9t4JFW8EjMvsemzzthM5xGQwREdQFZnwNhT2ZgpKT2zQDuK1IBG+6Mpaq+OEgInkjqzHaXhxTiISP1K5O9Pt9Mg1o=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
- by SN7PR12MB7299.namprd12.prod.outlook.com (2603:10b6:806:2af::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.16; Sat, 1 Aug
- 2026 01:41:16 +0000
-Received: from DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
- ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0270.015; Sat, 1 Aug 2026
- 01:41:15 +0000
-Message-ID: <68c132d8-bcae-4e61-ace3-2b9242aeb8c7@amd.com>
-Date: Fri, 31 Jul 2026 19:41:12 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/5] drm/amd/display: use a separate helper to
- translate degamma curves
-To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, harry.wentland@amd.com,
- simona@ffwll.ch, siqueira@igalia.com, sunpeng.li@amd.com
-Cc: Krunoslav Kovac <Krunoslav.Kovac@amd.com>,
- "Dr . David Alan Gilbert" <linux@treblig.org>,
- Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
- Aurabindo Pillai <Aurabindo.Pillai@amd.com>,
- Matthew Schwartz <matthew.schwartz@linux.dev>, pekka.paalanen@collabora.com,
- Xaver Hugl <xaver.hugl@kde.org>, robert.mader@posteo.de,
- amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com
-References: <20260623160112.1636801-1-mwen@igalia.com>
- <20260623160112.1636801-4-mwen@igalia.com>
- <6a705b70-dc0d-42de-a18d-cbc1a4698f71@amd.com>
- <690771f2-d540-4e8f-a450-6a1f00b8df9a@igalia.com>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <690771f2-d540-4e8f-a450-6a1f00b8df9a@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MW4PR04CA0371.namprd04.prod.outlook.com
- (2603:10b6:303:81::16) To DM4PR12MB8476.namprd12.prod.outlook.com
- (2603:10b6:8:17e::15)
+Received: from mout.web.de (mout.web.de [212.227.17.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E0B0A10E1F6
+ for <amd-gfx@lists.freedesktop.org>; Sat,  1 Aug 2026 07:17:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1785568645; x=1786173445; i=spasswolf@web.de;
+ bh=mDESK30vhMZ1vtLk7G/1vm3QQOvJ9Wm1zUcVRIeD1Q0=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+ References:MIME-Version:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=mb0l7tDanHCHInBw2rivfDx6zeRLDXhSiibI9e5tEQPImF8qodPnfkHCB/NwguhM
+ SsmWJdnDVlKZbRXG343bCeuRhys1aChUB/8puKue0tbcNBSfvAFfE3jboSVzxhNlz
+ FkW7nAsuDiGBYO8YuCmyC5t9fmWEXwc4l5mM+rNoLztuIqMqrGNAY3xD9IoauG65A
+ Hjv7ZjZFv/++k/sy1+9WP4z8owIeL5F43lo4Vx1wjfIfpjIgCfuI6HDmRZhSHjAPu
+ EICqpeLUvvXeOSCS99Li7i0SO+MGmyjs/PmHSklvHw7rqvLZh58UFGHOjCAL7Yg4F
+ LJS2lhZrFcGWO/K3Qw==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1N5lnF-1x1HJO2iUN-00tjDA; Sat, 01
+ Aug 2026 09:17:25 +0200
+From: Bert Karwatzki <spasswolf@web.de>
+To: linux-kernel@vger.kernel.org
+Cc: Bert Karwatzki <spasswolf@web.de>, linux-next@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ "# = v7 . 1" <stable@vger.kernel.org>,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rafal Ostrowski <rafal.ostrowski@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Thomas Gleixner <tglx@linutronix.de>
+Subject: [PATCH] drm/amd/display: fix usage of DC_FPU_{BEGIN,
+ END} with PREEMPT_RT
+Date: Sat,  1 Aug 2026 09:17:23 +0200
+Message-ID: <20260801071724.12998-1-spasswolf@web.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <df5f0d9bb8f11d098f086bd2ace5aa0cef4c77d7.camel@web.de>
+References: 
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|SN7PR12MB7299:EE_
-X-MS-Office365-Filtering-Correlation-Id: 40399ca4-9469-4cb7-ed16-08deef6df9ac
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|7416014|23010399003|22082099003|18002099003|4143699003|11063799006|3023799007|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: M4psCZhtGHVCy0oS9VsQ6VthMeWfXLmphXO1XXmPhpdwT8niPbOo8wERbYWEETj1PsGpX5CU38s/913YJAxvWYimdDBHmNJFNXB+qCzTwwM1deD2NSN++oStA2tbYJTb72oq8UPxFajWfi4lyHIcRzzQ7t60lM1hNyBVduBWqmGpNet2DEJ0QL79rfWR6lMMEuqQESlHnT1FO+4fR2gpznZ14ck6URLpCV/wIrcCGa/vWWMzsRuc/OCtIV358VCJomE7qSdKKe928UB8nAfbFy03lTNnfHXdRKli02xFnVFKOA1M69daUSYTPpPtvUdpqIw4EdRC6VZYmDIEee7Z94ZlHWGjjMFnhMbXPRTki/k48u0ijuGPdFJt9+R62if2hx4JyegjT4fKvNRNK9AhXmjBTvcAhiiyIGPwFLll+KoL+9BXpSBlwTp//TpWC5ooJOcnFNrnzeFWE7ZvddSh81jweX5Hb7rsqDq+HjE5374ccLWL7ZUqbuRMSGH4J42u6n/VyUd38uybL54kAIzP59X68XbH57QqdkXTSrz1aX+OBi91qZfUMC1KLYQ+obc0Si0ujAL9KKxHqoq4lLePoZ/+yyUXCYphhqiQXJP4ix2ak5pvzHor6dU8ay9bZ+MJ/iFVLJUMTjOi61uC9FpPqwwgrR8AFoRP9a2Fdp+WCMA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(22082099003)(18002099003)(4143699003)(11063799006)(3023799007)(10067099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QWdPK1ErUk1DYnhBZnVDcjZFUERic3dDMWNud2dRMUd6THBRemxEeTFYaEk4?=
- =?utf-8?B?eHR6ekxpWDMyaFZVVUp4a2xzd2NOcnM4ajkyNTBFbmhoZ1l0TzlqK2s3UHFW?=
- =?utf-8?B?WXczeUI3aTlnQVhpdEpJUXJEejB4eUlBSis0QzREMFVGSVg4TFpsdEFGNzU0?=
- =?utf-8?B?dlZidk50ZHVuajZyRVlLaXVQZGdnVVNNdk9yd290ak1Bb3RXQmI0L3dWZGdW?=
- =?utf-8?B?OGlJbVJ5UlBNZHVhYzNiMHhsOFhXN2pjNG1oOGRyM0J1V0lsazc4MlNtakhL?=
- =?utf-8?B?WW5VNDNSREp0WEV3U3k4NnNQc2FoNGRmeTg1RWNUeWI5WXlEbHVuNmUzMXVU?=
- =?utf-8?B?Z25DcXZhQ1lhWTNkSnl0UjhWMmlYbnhHMU83czBhakZYbVE4MHBJUkNSOHFR?=
- =?utf-8?B?enp4aE41dGZnTHZodUhKNDlxQURBMHgybTEya3NOdWxKbzRKQXhPdmZYRjBM?=
- =?utf-8?B?LzdOTWRtRmpwUkt5bkxFZUdhN24vRHlFK3RXNzBDVHNjWklCRzFnVWpCTFRm?=
- =?utf-8?B?OE5jVUU4TldYZTFuZkJWYzZaRWZUK2NTM2VyZEFIU1lUQkFQRlVmWGd3dGJC?=
- =?utf-8?B?bG15Rk90a2xSd291bE5Ib0VaSXN5SnYxWHBIbU5IUys0VzZKQnZSZ3dZRWlO?=
- =?utf-8?B?KzJOU2Z4Ky9nWmVMY280MXdaTzN4VEUrbnQ2N0ZLRis2K2lCSnZPdkdLMzMw?=
- =?utf-8?B?QlZFV2ljQnBvMlo4NU9sUzVreVp2SGVDcWNZWEpweHZjUmxrbXp1ZHltUjJU?=
- =?utf-8?B?K3ZTaHEvUXpoaGlnTjJMUFdMZVF2N2JabVZSNUd6WEdOTDZQTlJsRFN5ZWFU?=
- =?utf-8?B?QVBDaWFaNXQ3akdVMXBBOEpBTDg3c29pRklzR3dlT2MrV05obUV4aXdvaFdt?=
- =?utf-8?B?VCtxRmVObnMxN01LbXB0S3c0OGhnYjVYbW9SVFk0YytkYUJkcmNuTnRUbTVu?=
- =?utf-8?B?SzdGS3VIMFltcUU4am5VaURVR3RpcHd6blJ0ZWJsQjZ1UUcxTnZxbzVtUGtn?=
- =?utf-8?B?MGJybXdxTGk5UmdDcnhVa2Z1WDIrbGxxdHRpQkwxVDl4cDJoVmNqbkt5ZlQr?=
- =?utf-8?B?cVdMWjZYWFZGODRoVHovM3pMSW8waXZmKzZDUE40SHlnZjc1NUE0NHpQTTRK?=
- =?utf-8?B?N0tYNlVXTFh4bytnaElhSXQ2bU43WVNCbTlwNVpSVS83cUp2enNZOFloSTFz?=
- =?utf-8?B?SldFaXJXdjBlYU1idEpEaGtLKzlqVVdsY0ZYLzhWRmM4T1dhMGZtcFpYaEtt?=
- =?utf-8?B?MGhVeHR5bExKMmVtY2pPcW1zMUd0S3htVWNrd0xYUW5yTlFETXZZendFQXhy?=
- =?utf-8?B?QnVtM0o5eTVnV3FwL1FwOGNtVmtWQXE2Qmd5UVdhNmxWb1M0bGhiUHFGRUZZ?=
- =?utf-8?B?UGJKSnp6Z2VpL0dSTE5XeGxHTXdCRE1tdklzb01BTGxxR3hUQ2RPMW9jRklm?=
- =?utf-8?B?Y1lRNzdDclcyYy8xbXZRVXcwb2ZrODZsdGc5UUJJM2VFQWZNSytQQlgySXVG?=
- =?utf-8?B?MjVJTzFBWTBHWnRZY2FoWkc0OGw3R1BCVldxYWRrb2xOZktFOEIzalNGbk40?=
- =?utf-8?B?Ti82V2lRQXl4TWh0TTY0SUxMbFZtaVJiK1NXUkNoRXBTOG80Ky9lb0x6aVJU?=
- =?utf-8?B?cFh2N0F2U1pzWkEzVUVUaFRYT1BTdnhtMWtMNkZ2KzBhQkJ1a1NrTXV6QUNY?=
- =?utf-8?B?R3NSM3BYQ3pBSXNMNE94dlhQU0xtS2VnRTRsQWh0bll1N3NsSFdJelVXQUR3?=
- =?utf-8?B?NzlYWHhsVENFM0d2VS96SEMrbHl5Z1FBSE5wSkJiWTFPNG9EWlVxaDhzbUp2?=
- =?utf-8?B?cHRGNmlDRllTL1FadU81R0h3bGtWT0pTb1c1aW9wbnJMR09TNHVNR3NQbG9n?=
- =?utf-8?B?MEFjYkg1dzhWL25xWDZzUGpMSEM4aEU3Nys1MFZVdFQ5QzNOWEcvWU5TcEJj?=
- =?utf-8?B?YytjcWNmMFZVcXR5dkVvY21jMUU4RkpaQmlWemRKQ280eitTZ3BSWEl1VFFH?=
- =?utf-8?B?eWNKdUl4alpSSzhXckRlb3ZWU2xiZHdrVXN3aENZSEoxMTNsTlJLaVRlSHU4?=
- =?utf-8?B?VkJOMjhSSWlMZ092TTltQmowU1ZRRUpVeGZuZWU5RmxlSnJzVlVRZXFmdTBO?=
- =?utf-8?B?cGxqSkhnWTlqcnRaOWhIcDNEanIyeEpYY3pGbDd6cWNYRWVkNUwzM2UwZlFK?=
- =?utf-8?B?VFVBbThOdFpHcmNRbEtLRXd3VXF1YU9KNVhLb1RvYUxnNHNjMmVIanBSZ3Ft?=
- =?utf-8?B?VnQzamYwRDZRK0gzSGd4cytGVi9sSzBrcUd5ZWhTS3ZLWE1Wcm0wNllVV1dC?=
- =?utf-8?Q?Yys2gsfqHFyumNCLVG?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 40399ca4-9469-4cb7-ed16-08deef6df9ac
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Aug 2026 01:41:15.4382 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: csX2D7PMPYOF76BznfKiswANs/oaX161GnurNtzrvEquiSDv9lgpa0iBh82ov0fm7olokTurcc/jAZsO9S4ZSA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7299
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:ditpzoXzGB5zYgnpShJq2bwKn3Qgi8DeDTbXOrOKUwzcOFcpqlT
+ TDKv6KagqjCtxAO+WNy7Bp63ZWYj7thUhZioeuG9iedDV9uxWiXcYxfvjY0YdiYJckGjJgg
+ KGs4rS6lWxYkcS5CMh/q5DIHIzvnfXbm7+sHdzOHWEx4SCFOGaQf4zKOHNlP8neEMuiXtfH
+ FMlzHS+Z8DetCxSXJHVjg==
+UI-OutboundReport: notjunk:1;M01:P0:D0cSLtkLGcc=;MrLD1GAdr9jDr8IMQ25v35Dzlum
+ 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
+ QMIzOwk+cDtmdTBzifUFgtvgfdrtBEvhEFD0s=
+X-Mailman-Approved-At: Sat, 01 Aug 2026 07:58:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,212 +156,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On PREEMPT_RT kernels kvzalloc_obj() can sleep because spin_lock is
+converted to rt_mutex. dc_create_plane_state() can be called while
+inside an FPU-guarded region, resuling in "scheduling while atomic"
+errors on PREEMPT_RT kernels.
+ Fix this by calling kvzalloc_obj() with DC_RUN_WITH_PREEMPTION_ENABLED().
+Also fix the error path in dc_create_stream_for_sink().
+
+Fixes: 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC - Pa=
+rt 1")
+Link: https://lore.kernel.org/lkml/20260723123449.6494-1-spasswolf@web.de/
+
+Signed-off-by: Bert Karwatzki <spasswolf@web.de>
+=2D--
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c  | 2 +-
+ drivers/gpu/drm/amd/display/dc/core/dc_surface.c | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu=
+/drm/amd/display/dc/core/dc_stream.c
+index cdcf140bc1bb..accad9e20e88 100644
+=2D-- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+@@ -229,7 +229,7 @@ struct dc_stream_state *dc_create_stream_for_sink(
+=20
+ fail:
+ 	if (stream)
+-		kfree(stream);
++		DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream));
+=20
+ 	return NULL;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c b/drivers/gp=
+u/drm/amd/display/dc/core/dc_surface.c
+index 88e825a6582c..d5c6427796b6 100644
+=2D-- a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+@@ -85,8 +85,8 @@ uint8_t  dc_plane_get_pipe_mask(struct dc_state *dc_stat=
+e, const struct dc_plane
+  ************************************************************************=
+******/
+ struct dc_plane_state *dc_create_plane_state(const struct dc *dc)
+ {
+-	struct dc_plane_state *plane_state =3D kvzalloc_obj(*plane_state,
+-							  GFP_ATOMIC);
++	struct dc_plane_state *plane_state;
++	DC_RUN_WITH_PREEMPTION_ENABLED(plane_state =3D kvzalloc_obj(*plane_state=
+, GFP_ATOMIC));
+=20
+ 	if (NULL =3D=3D plane_state)
+ 		return NULL;
+=2D-=20
+2.53.0
 
 
-On 7/23/26 07:29, Melissa Wen wrote:
-> 
-> 
-> On 22/07/2026 20:27, Alex Hung wrote:
->>
->>
->> On 6/23/26 09:58, Melissa Wen wrote:
->>> In newer DCN families, there is no hw predefined curves for shaper,
->>> blend and regamma. When userspace sets pre-defined curves for these
->>> blocks, the driver uses AMD color module to program predefined curve as
->>> LUT. However, it was using the same LUT segmentation for EOTF and
->>> inverse EOTF by using the same color management helper. This is causing
->>> banding on blend when PQ predefined curve is set. Besides that, degamma
->>> predefined HW curve cannot be used with subsampled 4:2:0/4:2:2 formats
->>> as it affects the linearity of color space in which HW scaler operates.
->>>
->>> To mitigate banding when using the blend block and better support
->>> subsampled format on degamma, use different translation helpers when
->>> linearizing and delinearizing.
->>>
->>> Tested-by: Matthew Schwartz <matthew.schwartz@linux.dev>
->>> Reviewed-by: Harry Wentland <harry.wentland@amd.com>
->>> Signed-off-by: Melissa Wen <mwen@igalia.com>
->>> ---
->>>   .../gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c   | 11 ++++-------
->>>   1 file changed, 4 insertions(+), 7 deletions(-)
->>>
->>> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c 
->>> b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
->>> index 1340f673ec3b..c2ea25927765 100644
->>> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
->>> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn32/dcn32_hwseq.c
->>> @@ -493,11 +493,9 @@ bool dcn32_set_mcm_luts(
->>>       if (plane_state->cm.blend_func.type == TF_TYPE_HWPWL)
->>>           lut_params = &plane_state->cm.blend_func.pwl;
->>>       else if (plane_state->cm.blend_func.type == 
->>> TF_TYPE_DISTRIBUTED_POINTS) {
->>> -        result = cm3_helper_translate_curve_to_hw_format(
->>> -            plane_state->ctx,
->>> +        result = cm3_helper_translate_curve_to_degamma_hw_format(
->>>               &plane_state->cm.blend_func,
->>> -            &dpp_base->regamma_params,
->>> -            false);
->>> +            &dpp_base->regamma_params);
->>>           if (!result)
->>>               return result;
->>
->> The above change broke two IGT's kms_colorop subtests (tested on 
->> DCN3.5) as below
-> 
-> Hi Alex,
-> 
-> Thanks for pointing it out.
-> I tested with DCN301 (all tests pass) and DCN321 (same failures).
-> I'm a bit curious about this difference, probably some differences in 
-> precision, etc. I'll leave that out.
->>
->> =====================================
->> Starting subtest: plane-XR30-XR30-srgb_inv_eotf_lut-srgb_eotf_lut
->> i 2569 j 0 shift 10 mask 3ff comp1 3bf comp2 3ff, pixel1 3bfeffbf 
->> pixel2 3fffffff
->> [79.216137] (kms_colorop:10824) CRITICAL: Test assertion failure 
->> function colorop_plane_test, file ../tests/kms_colorop.c:281:
->> [79.216143] (kms_colorop:10824) CRITICAL: Failed assertion: 
->> compare_with_bracket(&sw_transform_fb, output_fb)
->> [79.216165] (kms_colorop:10824) CRITICAL: Last errno: 38, Function not 
->> implemented
->> Stack trace: not implemented
->> Subtest plane-XR30-XR30-srgb_inv_eotf_lut-srgb_eotf_lut failed.
->>
->> Starting subtest: plane-XR30-XR30-gamma_2_2-gamma_2_2_inv-gamma_2_2
->> i 15390 j 0 shift 10 mask 3ff comp1 398 comp2 3b8, pixel1 398e6398 
->> pixel2 3b8ee3b8
->> [81.747233] (kms_colorop:10824) CRITICAL: Test assertion failure 
->> function colorop_plane_test, file ../tests/kms_colorop.c:281:
->> [81.747239] (kms_colorop:10824) CRITICAL: Failed assertion: 
->> compare_with_bracket(&sw_transform_fb, output_fb)
->> [81.747256] (kms_colorop:10824) CRITICAL: Last errno: 38, Function not 
->> implemented
->> Stack trace: not implemented
->> Subtest plane-XR30-XR30-gamma_2_2-gamma_2_2_inv-gamma_2_2 failed.
->> =====================================
->>
->> The root cause is from color delta increases, as also confirmed by the 
->> following IGT POC change:
->>
->> --- tests/kms_colorop.c
->> +++ tests/kms_colorop.c
->> @@ -182,7 +182,7 @@ static bool compare_with_bracket(igt_fb_t *in, 
->> igt_fb_t *out)
->>                 return igt_cmp_fb_pixels(in, out, 1, 1);
->>
->>         if (is_amdgpu_device(in->fd))
->> -               return igt_cmp_fb_pixels(in, out, 13, 13);
->> +               return igt_cmp_fb_pixels(in, out, 70, 13);
->>
->>
->> Is there any concerns on reverting above changes (or this patch)?
->>
->> Note: I am looking for early feedback because I have not yet tested on 
->> other DCN hardware.
-> 
-> Reverting this patch is not ideal because it addresses an issue on HDR 
-> Ori game on gamescope with external HDR monitor for DCN301, DCN321 and 
-> also DCN35 (IIRC Matt has verified the issue and this series in this hw 
-> version).
-> 
-> I think the possible solution is making 
-> cm3_helper_translate_curve_to_degamma_hw_format() take the same segment 
-> distribution for PQ/SRGB to any pre-defined TF or LUT.
-> Something like removing the if/else clause in dcn30_cm_common and 
-> applying PQ/SRGB distribution to all cases, as below:
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c b/ 
-> drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
-> index 66fe7f313ea3..1b4ce77fdd91 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
-> +++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
-> @@ -332,6 +332,7 @@ bool cm3_helper_translate_curve_to_degamma_hw_format(
->          int32_t region_start, region_end;
->          int32_t i;
->          uint32_t j, k, seg_distr[MAX_REGIONS_NUMBER], increment, 
-> start_index, hw_points;
-> +       const uint8_t SEG_COUNT = 9;  // 9 segments, segments are from 
-> 2^-9 to 0
-> 
->          if (output_tf == NULL || lut_params == NULL || output_tf->type 
-> == TF_TYPE_BYPASS)
->                  return false;
-> @@ -343,31 +344,12 @@ bool cm3_helper_translate_curve_to_degamma_hw_format(
->          memset(lut_params, 0, sizeof(struct pwl_params));
->          memset(seg_distr, 0, sizeof(seg_distr));
-> 
-> -       if (output_tf->tf == TRANSFER_FUNCTION_PQ ||
-> -           output_tf->tf == TRANSFER_FUNCTION_SRGB) {
-> -               /* 9 segments
-> -                * segments are from 2^-9 to 0
-> -                */
-> -               const uint8_t SEG_COUNT = 9;
-> -               seg_distr[0] = 0; // Since we only have one point in 
-> darkest region
-> -               for (k = 1; k < SEG_COUNT; k++)
-> -                       seg_distr[k] = k - 1; // 2^(k-1) points per 
-> region; halves as k decreases
-> +       seg_distr[0] = 0; // Since we only have one point in darkest region
-> +       for (k = 1; k < SEG_COUNT; k++)
-> +               seg_distr[k] = k - 1; // 2^(k-1) points per region; 
-> halves as k decreases
-> 
-> -               region_start = -SEG_COUNT;
-> -               region_end = 0;
-> -       } else {
-> -               /* 12 segments
-> -                * segments are from 2^-12 to 2^0
-> -                * There are less than 256 points, for optimization
-> -                */
-> -               const uint8_t SEG_COUNT = 12;
-> -
-> -               for (i = 0; i < SEG_COUNT; i++)
-> -                       seg_distr[i] = 4;
-> -
-> -               region_start = -SEG_COUNT;
-> -               region_end = 0;
-> -       }
-> +       region_start = -SEG_COUNT;
-> +       region_end = 0;
-> 
->          for (i = region_end - region_start; i < MAX_REGIONS_NUMBER ; i++)
->                  seg_distr[i] = -1;
-> 
-> I'll check if there is any side effect on gamescope with this change 
-> ASAP, but I don't think so.
-> 
-> WDYT?
+Rebased to next-20260729+. In these version the allocation of
+update_scratch has been removed from dc_create_stream_for_sink().
 
-I tested above on
-  - DCN35 - issue fiexed
-  - DCN401 - no issue and no regression.
-
-Does it pass DCN321 that you mentioned abouve?
-
-DCN301 doesn't use cm3_helper_translate_curve_to_degamma_hw_format() so 
-it wasn't affected.
-
-The changes look good to me, but let's ask @Wentland, Harry for review too.
-
-> 
-> Melissa
-> 
->>
->>
->>> @@ -554,9 +552,8 @@ bool dcn32_set_input_transfer_func(struct dc *dc,
->>>       if (plane_state->in_transfer_func.type == TF_TYPE_HWPWL)
->>>           params = &plane_state->in_transfer_func.pwl;
->>>       else if (plane_state->in_transfer_func.type == 
->>> TF_TYPE_DISTRIBUTED_POINTS &&
->>> - cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
->>> - &plane_state->in_transfer_func,
->>> -                            &dpp_base->degamma_params, false))
->>> + cm3_helper_translate_curve_to_degamma_hw_format(&plane_state- 
->>> >in_transfer_func,
->>> + &dpp_base->degamma_params))
->>>           params = &dpp_base->degamma_params;
->>>         dpp_base->funcs->dpp_program_gamcor_lut(dpp_base, params);
->>
-> 
-
+Bert Karwatzki
