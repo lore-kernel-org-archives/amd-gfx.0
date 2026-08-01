@@ -4,94 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 840ECC55178
-	for <amd-gfx@archiver.kernel.org>; Sat,  1 Aug 2026 07:58:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F21E7C55174
+	for <amd-gfx@archiver.kernel.org>; Sat,  1 Aug 2026 07:58:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E082010E2D4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2820810E2BE;
 	Sat,  1 Aug 2026 07:58:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=honeycomb.io header.i=@honeycomb.io header.b="OSHbqfcq";
+	dkim=pass (2048-bit key; unprotected) header.d=honeycomb.io header.i=@honeycomb.io header.b="PDVRuyYe";
 	dkim-atps=neutral
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com
- [209.85.128.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7AF6110F365
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 17:15:17 +0000 (UTC)
-Received: by mail-yw1-f177.google.com with SMTP id
- 00721157ae682-81e86df8987so17655027b3.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 31 Jul 2026 10:15:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785518116; cv=none;
- d=google.com; s=arc-20260327;
- b=Xoz40tGAoEszfdyqrudjWwslL3+aHqv1yvxCujHv5gjGzhq6C6j9AC2cLPl2ShxOPU
- aktLA5JKAgSJAi02F1bz5Ong16TO8i0i0gR1M+S7y+Qu8KSDtJBIHLN384CINQf1fWSZ
- EX5psYVZ/E7BEJq1chYRJjjds9cbKffImJBmn99UtrFiaBe6MQSsU3/pxEoCtz0NTHu9
- E6A4Hz5Sj9OxWSBlfo23O9OzMx7w+dGSDjjKHSU82ZrywEatRKmXVkezus5pnvNyATOy
- OI7i1O3eBahnF/5tz+2dXsoscqNlVoblJ8wsxqnQ/cvr7sKspaqktQZ34sgVa2N+xXCM
- 0NCg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=Aake1qi/bZ5WIaHH6w2ZSfnBLuGhxW6qZvF7nCkmXUI=;
- fh=SXM6ArW+O8k1KSPHuygJDgpKKeku3XSxUyFL94mXfdc=;
- b=E/BB5BojyeS54Zx30Kk8J32pL3DfMIQFPzTOApMcbQuKohlvNppJWlHzMWNjsnzG+L
- +CRUri7FFHit7azlbYLJyysvK+KuTpOZRwMtvRrNbyeYq7g8cLbyKXoPcAkgZ7s9X/VV
- Mn+zH6HmAIi/Io7LwJ+9a+rVwE2vrmpyakee2/jJQu9qSlNQ/ZAzkn32uLdpiozJUerH
- J6Ipd5WMA9dtptSMbaSBIlhM4is0GMIkcLZR9BiMhyhvF3V6D688BS5ygjFgZy39fNyc
- bmojY3uk2lfQ0iSlxkotV3eXH3Lc4qt+NDkSyo+l1Hilg2nj4gQX3iTaQR7/HtAF/IcL
- v6uA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=honeycomb.io; s=google; t=1785518116; x=1786122916;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Aake1qi/bZ5WIaHH6w2ZSfnBLuGhxW6qZvF7nCkmXUI=;
- b=OSHbqfcq73NxvgFFfUYLUBQJ8pAFCtoBCLZ5F2W68fsWp3vsvoJiOSQkUG/hHc5Ed2
- jZ7O1k4IS5q9k4NPUwy1d9onVkeChTBamBOLVhuVLURLwtG+Ipdspg43twQjBkKo5qCG
- WN9MK8ur57iS72tXaoaTE63Bd3sMkBWPYajAo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785518116; x=1786122916;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=Aake1qi/bZ5WIaHH6w2ZSfnBLuGhxW6qZvF7nCkmXUI=;
- b=X3NgiFLNEAKFcC9egmC6SMR3taodVeTMews2xZyQhIo8uv3xINWKpeoGpE+RlVwGxq
- tCQc6V//zP/CsP5iF/wY9G1CbSrwitCRcK8RimfbvHxVxXAOs6YWWA/+HJ5bZKeSWTkx
- Hv9j362hBVodAeRsLARoaAEv4I+BDXO20ZilmQqGIzskdNveTOB2ll6vaeGMkQHvfoAD
- z0dFuB4b7xpim/Dwn5TnkYF1TWAZ6x+xgNIqPfKycYW/rcQm+asW6Yp+LJ3s+/BZ9GSW
- LaDW5lfV4JM/Im6/NFC/tzC2ro44y7I0BcUgn8THZTM1GypxdgxEhlMdwVQWQDCMoLU6
- +Ofw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq/o3zTo0JDs+Cnc9hC9P7EciO/g2rjFDZPLyecBKeg8isZ+OzsCPEv6qcosyIDAd0op8DlIL6Y@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yy2CpSHgvgL+VgjZfqNEXBWeiHSCyz35GLmGhbu35eANVtCujNr
- Gm8F8BxVnkNnV6QYWC9UBG1xNy91khh998RgUH+2iuBedm/F57agxeaGCivSbdLZLmFP0Ho2d8j
- 0ncNm/NJ+jkyIuFf3EesxvhUqGyzePefGgQ++ETzf+Q==
-X-Gm-Gg: AR+sD129M+BQxWKCAL16r67ftnZU1VqB1IbPil62whlMAWV+XUCTAGxXIiuVVDdxt1i
- Bfk4uR7YHkmTG7NtETlO9O+Um3Sew6zoSgj3oJRrClNgen5yoRLKikSLJ4K/dAlyOr13fH8WVoQ
- q1OwT2sVgU1/sxhc8shs3eQAbKfV2ul/na36kNWWfReOmNW26NUilVOEmq86CmyQmDA3Zinr0jD
- aLEMR9U5Dthqs5arSOeIOQlWHn7XvcfGjNSOkvnF0+FYusmBbsrd+dpd+ib5vnLvDjnyBFQ1FBe
- UlcW5q9mdjJr0LIkCFpy7K6NL10q5lJrW/UXyH2f++dCEGSRTrXSWDx7YfeAbfwz/I5ycWxjYrU
- 6W3qu89NEkWSH1KppUgb4LLWo0BBCxhXIiQr85rwuKJcgoog1d3V57M/a7EkxYvQ5NfAPjXpIPD
- NmDlUSWOIxb9o781k+NFA=
-X-Received: by 2002:a05:690c:6d0a:b0:7d1:dd7b:b71f with SMTP id
- 00721157ae682-81fd4bc10f8mr8771407b3.29.1785518115791; Fri, 31 Jul 2026
- 10:15:15 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260712-pci-rebar-root-bus-v2-1-a1b9107a82dc@honeycomb.io>
- <20260731162424.GA1571989@bhelgaas>
-In-Reply-To: <20260731162424.GA1571989@bhelgaas>
+X-Greylist: delayed 320 seconds by postgrey-1.36 at gabe;
+ Sat, 01 Aug 2026 00:49:06 UTC
+Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io
+ [149.72.141.136])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 77BB210E252
+ for <amd-gfx@lists.freedesktop.org>; Sat,  1 Aug 2026 00:49:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
+ h=from:subject:date:in-reply-to:references:mime-version:to:cc:
+ content-transfer-encoding:content-type:cc:content-type:date:from:subject:to;
+ s=s1; t=1785545025;
+ bh=4SwiOz+P6AlBXRHcbsCHn1Zsa4G7NoAJXzm3uhDPdUA=;
+ b=PDVRuyYent1tun5KWBF3vbAWgrwHjbnCcxSpnfdtJkTNrWuN0b3imKY0cA3aQ1JB28ku
+ 4EoMxHhlnKg2vn6sOXJ7RnBit8j8GYrhuHbM85dW2OmH0rotouGWs3f+gPPYA36CdFbnQX
+ M5s6TEB0rWOdaHf/Xf2VodDUomlGqcPx/mI8roterZzJFZemeawBjkWFqmk7V1bIMe8dqk
+ xzcstw/KwQh4W7Fl8rukesRyIYngoo5DEVFytN40yyaeIJfnX0Zw5qutkKew7OKZP8ylqC
+ rcB+5htrvrZ1Td9oKUU81iwyXSnas8vGPRjhE1j+te8ewAeqSy7F7p+DQfxSapeA==
+Received: by recvd-d665d4899-9s8c2 with SMTP id
+ recvd-d665d4899-9s8c2-1-6A6D4141-20
+ 2026-08-01 00:43:45.526568514 +0000 UTC m=+280227.423264102
+Received: from daisy.dens.ffj.family (unknown) by geopod-ismtpd-20 (SG)
+ with ESMTP id pSmtPvnkSPWTzLuzNDcNbQ
+ Sat, 01 Aug 2026 00:43:45.325 +0000 (UTC)
 From: Liz Fong-Jones <lizf@honeycomb.io>
-Date: Fri, 31 Jul 2026 10:15:04 -0700
-X-Gm-Features: AUfX_mwL8h0dOFHBQ7ifqDGY32Df8ndWfkpFsKv8FxpZdkkti4vzPoYPyfrKVVk
-Message-ID: <CAC0H+B-p5MT4M03MMkbxr_dLjsuThkxPv3--Ciant0i2MvvqDw@mail.gmail.com>
-Subject: Re: [PATCH v2] PCI: Fix BAR resize for devices on a root bus
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, linux-pci@vger.kernel.org, 
- linux-kernel@vger.kernel.org, regressions@lists.linux.dev, 
- amd-gfx@lists.freedesktop.org, Jon Nettleton <jon@solid-run.com>, 
- Jon Nettleton <jon.nettleton@gmail.com>, stable@vger.kernel.org
-Content-Type: multipart/alternative; boundary="00000000000008377a0657eb5512"
+Subject: Re: [PATCH v3] PCI: Fix BAR resize for devices on a root bus
+Date: Sat, 01 Aug 2026 00:43:45 +0000 (UTC)
+Message-ID: <20260801004343.9113-1-lizf@honeycomb.io>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CABhMZUX+8tjN1Hz=tf6bm+K7BV4r=1RxctiN6W_UPz9+yxG+Qg@mail.gmail.com>
+References: <CABhMZUX+8tjN1Hz=tf6bm+K7BV4r=1RxctiN6W_UPz9+yxG+Qg@mail.gmail.com>
+MIME-Version: 1.0
+X-SG-EID: =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
+ =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmea+EGMmQ+7m8?=
+ =?us-ascii?Q?q1YMDv9WRF2I0+Tf2E1B7irUgU3SAaJXuuqFSwt?=
+ =?us-ascii?Q?Y4hB2Sh=2FFbMouJJVRl=2FYE7eebbo9KYuy5q50Mog?=
+ =?us-ascii?Q?jyZfpNpf3gIyzQyucwiAAhm8DhfPoUzb4Y3+juO?=
+ =?us-ascii?Q?zJvqmIruH95FiPmqfthWZOJMRfhcryDp7X+EJSH?= =?us-ascii?Q?PJSo?=
+To: bjorn.helgaas@gmail.com
+Cc: amd-gfx@lists.freedesktop.org, bhelgaas@google.com, bjorn@helgaas.com,
+ helgaas@kernel.org, ilpo.jarvinen@linux.intel.com, jacob.martin@canonical.com, 
+ jon.nettleton@gmail.com, jon@solid-run.com, linux-kernel@vger.kernel.org,
+ linux-pci@vger.kernel.org, lizf@honeycomb.io, regressions@lists.linux.dev,
+ stable@vger.kernel.org
+X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
 X-Mailman-Approved-At: Sat, 01 Aug 2026 07:58:44 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -107,97 +72,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---00000000000008377a0657eb5512
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+> I guess this must be the drivers/pci/controller/mobiveil/pcie-layerscape-gen4.c
+> driver.
 
->
-> Maybe this is a tangent, but I'm curious about this topology.  Is this
-> running as a virtualized guest?  At the hardware level, a PCIe
-> endpoint must have a Root Port somewhere, even if it isn't visible to
-> the OS (as is often the case in virtualized guests).
->
-Defer to Jon on what the actual hardware configuration is, but this is
-physical hardware, no virtualisation, running as the UEFI rather than U-Boo=
-t
-(devicetree) variant. See:
-https://dev.solid-run.com/nxp/lx2160a/com-som/lx2160a
--com-hardware-user-manual#block-diagram
+Close, but not in this configuration -- that driver binds on the
+U-Boot/devicetree variant of this platform. This machine runs the
+UEFI/ACPI firmware variant (EDK II), where each PCIe controller is
+exposed as a plain PNP0A08 host bridge with standard ECAM (MCFG OEM
+"NXP LX2160", 2 entries, one per segment), so it goes through the
+generic ACPI ECAM path with no controller-specific driver and no MCFG
+quirk.
 
-> @@ -2415,13 +2417,24 @@ int pci_do_resource_release_and_resize(struct
-> pci_dev *pdev, int resno, int size
-> >
-> >       pci_resize_resource_set_size(pdev, resno, size);
-> >
-> > -     if (!bus->self)
-> > -             goto out;
-> > +     if (bus->self) {
->
-> I think pci_upstream_bridge() would be better here.  Not that this
-> device will be a VF (where pci_upstream_bridge() makes a difference),
-> but just to be a little more generic.
->
-I'll have a look at this and publish a v3 if appropriate.
+> so the GPU is on bus 01, which isn't a nice round bus number like
+> root buses usually are.  The typical thing would be a root port on
+> bus 00 with a secondary bus 01, and amdgpu being on that bus 01.
 
+The firmware genuinely declares the root bus as 01: the host bridge
+_CRS bus range is [bus 01-ff], there is no bus 00 in the segment at
+all, and no root port device is visible anywhere -- the endpoint is
+enumerated directly on the root bus. Both segments follow the same
+pattern (NVMe on 0002:01:00.0, GPU on 0004:01:00.0). I'll defer to Jon
+(CC'd) on why the firmware hides the root port, but the OS-visible
+topology is unambiguous.
 
-Liz
----
-=F0=9F=90=9D=F0=9F=8D=AF=F0=9F=90=9D Liz Fong-Jones, MACS (Snr) CP, Technic=
-al Fellow =F0=9F=8D=AF=F0=9F=90=9D=F0=9F=8D=AF
-honeycomb.io - The observability platform for teams who manage software
-that matters.
-lizthegrey.com // linkedin.com/in/efong // bsky.app/profile/lizthegrey.com
+> Can you share a dmesg log?
 
---00000000000008377a0657eb5512
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Relevant excerpt below; happy to send the full log off-list or attach
+to the Launchpad bug. Note this boot is running with the
+amdgpu.rebar=0 workaround on a 7.0.0-28 distro kernel, so amdgpu
+initializes successfully (on the native 256MB BAR) -- the host bridge
+and topology enumeration is identical on the boots that fail.
 
-<div dir=3D"ltr"><div dir=3D"ltr"><div class=3D"gmail_quote"><blockquote cl=
-ass=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid=
- rgb(204,204,204);padding-left:1ex">Maybe this is a tangent, but I&#39;m cu=
-rious about this topology.=C2=A0 Is this<br>
-running as a virtualized guest?=C2=A0 At the hardware level, a PCIe<br>
-endpoint must have a Root Port somewhere, even if it isn&#39;t visible to<b=
-r>
-the OS (as is often the case in virtualized guests).<br></blockquote><div>D=
-efer to Jon on what the actual hardware configuration is, but this is</div>=
-<div>physical hardware, no virtualisation, running as the UEFI rather than =
-U-Boot</div><div><span style=3D"background-color:transparent">(de</span><sp=
-an style=3D"background-color:transparent">vicetree) variant. See:</span></d=
-iv><div><span style=3D"background-color:transparent"><a href=3D"https://dev=
-.solid-run.com/nxp/lx2160a/com-som/lx2160a">https://dev.solid-run.com/nxp/l=
-x2160a/com-som/lx2160a</a></span><span style=3D"background-color:transparen=
-t">-com-hardware-user-manual#block-diagram</span></div><div><br></div><bloc=
-kquote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:=
-1px solid rgb(204,204,204);padding-left:1ex">&gt; @@ -2415,13 +2417,24 @@ i=
-nt pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int =
-size<br>
-&gt;=C2=A0 <br>
-&gt;=C2=A0 =C2=A0 =C2=A0 =C2=A0pci_resize_resource_set_size(pdev, resno, si=
-ze);<br>
-&gt;=C2=A0 <br>
-&gt; -=C2=A0 =C2=A0 =C2=A0if (!bus-&gt;self)<br>
-&gt; -=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0goto out;<br>
-&gt; +=C2=A0 =C2=A0 =C2=A0if (bus-&gt;self) {<br>
-<br>
-I think pci_upstream_bridge() would be better here.=C2=A0 Not that this<br>
-device will be a VF (where pci_upstream_bridge() makes a difference),<br>
-but just to be a little more generic.<br></blockquote><div>I&#39;ll have a =
-look at this and publish a v3 if appropriate.</div><div><br></div><div><br>=
-</div><div>Liz<br>---</div><div>=F0=9F=90=9D=F0=9F=8D=AF=F0=9F=90=9D=C2=A0L=
-iz Fong-Jones, MACS (Snr) CP, Technical Fellow=C2=A0=F0=9F=8D=AF=F0=9F=90=
-=9D=F0=9F=8D=AF</div><div><a href=3D"http://honeycomb.io/" target=3D"_blank=
-">honeycomb.io</a>=C2=A0- The observability platform for teams who manage s=
-oftware that matters.<br></div><div><a href=3D"http://lizthegrey.com/" styl=
-e=3D"background-color:transparent" target=3D"_blank">lizthegrey.com</a><spa=
-n style=3D"background-color:transparent">=C2=A0</span><span style=3D"backgr=
-ound-color:transparent">//</span><span style=3D"background-color:transparen=
-t">=C2=A0</span><a href=3D"http://linkedin.com/in/efong" style=3D"backgroun=
-d-color:transparent" target=3D"_blank">linkedin.com/in/efong</a><span style=
-=3D"background-color:transparent">=C2=A0//</span><span style=3D"background-=
-color:transparent">=C2=A0</span><a href=3D"http://bsky.app/profile/lizthegr=
-ey.com" style=3D"background-color:transparent" target=3D"_blank">bsky.app/p=
-rofile/lizthegrey.com</a></div></div></div>
-</div>
-
---00000000000008377a0657eb5512--
+  ACPI: MCFG 0x00000000EBE28E98 00004C (v01 NXP    LX2160   000000FF INTL 20151124)
+  ...
+  ACPI: MCFG table detected, 2 entries
+  ...
+  ACPI: PCI Root Bridge [PCI0] (domain 0002 [bus 01-ff])
+  acpi PNP0A08:00: _OSC: OS supports [ExtendedConfig ASPM ClockPM Segments MSI EDR HPX-Type3]
+  acpi PNP0A08:00: _OSC: OS now controls [PCIeHotplug SHPCHotplug PME AER PCIeCapability LTR DPC]
+  acpi PNP0A08:00: ECAM area [mem 0x9000100000-0x900fffffff] reserved by PNP0C02:00
+  acpi PNP0A08:00: ECAM at [mem 0x9000100000-0x900fffffff] for [bus 01-ff]
+  PCI host bridge to bus 0002:01
+  pci_bus 0002:01: root bus resource [mem 0x9040000000-0x90ffffffff window] (bus address [0x40000000-0xffffffff])
+  pci_bus 0002:01: root bus resource [mem 0x9400000000-0x97ffffffff window]
+  pci_bus 0002:01: root bus resource [io  0x0000-0xffff window]
+  pci_bus 0002:01: root bus resource [bus 01-ff]
+  pci 0002:01:00.0: [144d:a808] type 00 class 0x010802 PCIe Endpoint
+  pci 0002:01:00.0: BAR 0 [mem 0x9400000000-0x9400003fff 64bit]
+  pci 0002:01:00.0: BAR 0 [mem 0x9400000000-0x9400003fff 64bit]: assigned
+  ACPI: PCI Root Bridge [PCI1] (domain 0004 [bus 01-ff])
+  acpi PNP0A08:01: _OSC: OS supports [ExtendedConfig ASPM ClockPM Segments MSI EDR HPX-Type3]
+  acpi PNP0A08:01: _OSC: OS now controls [PCIeHotplug SHPCHotplug PME AER PCIeCapability LTR DPC]
+  acpi PNP0A08:01: ECAM area [mem 0xa000100000-0xa00fffffff] reserved by PNP0C02:00
+  acpi PNP0A08:01: ECAM at [mem 0xa000100000-0xa00fffffff] for [bus 01-ff]
+  PCI host bridge to bus 0004:01
+  pci_bus 0004:01: root bus resource [mem 0xa040000000-0xa0ffffffff window] (bus address [0x40000000-0xffffffff])
+  pci_bus 0004:01: root bus resource [mem 0xa400000000-0xa7ffffffff window]
+  pci_bus 0004:01: root bus resource [io  0x10000-0x1ffff window] (bus address [0x0000-0xffff])
+  pci_bus 0004:01: root bus resource [bus 01-ff]
+  pci 0004:01:00.0: [1002:6981] type 00 class 0x030000 PCIe Legacy Endpoint
+  pci 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]
+  pci 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]
+  pci 0004:01:00.0: BAR 4 [io  0x10000-0x100ff]
+  pci 0004:01:00.0: BAR 5 [mem 0xa046000000-0xa04603ffff]
+  pci 0004:01:00.0: ROM [mem 0xa0fffe0000-0xa0ffffffff pref]
+  pci 0004:01:00.1: [1002:aae0] type 00 class 0x040300 PCIe Legacy Endpoint
+  pci 0004:01:00.1: BAR 0 [mem 0xa410200000-0xa410203fff 64bit]
+  pci 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: assigned
+  pci 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: assigned
+  pci 0004:01:00.0: BAR 5 [mem 0xa040000000-0xa04003ffff]: assigned
+  pci 0004:01:00.0: ROM [mem 0xa040040000-0xa04005ffff pref]: assigned
+  pci 0004:01:00.1: BAR 0 [mem 0xa410200000-0xa410203fff 64bit]: assigned
+  pci 0004:01:00.0: BAR 4 [io  0x10000-0x100ff]: assigned
+  pci_bus 0004:01: resource 4 [mem 0xa040000000-0xa0ffffffff window]
+  pci_bus 0004:01: resource 5 [mem 0xa400000000-0xa7ffffffff window]
+  pci_bus 0004:01: resource 6 [io  0x10000-0x1ffff window]
