@@ -4,100 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A3389C55172
-	for <amd-gfx@archiver.kernel.org>; Sat,  1 Aug 2026 10:17:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EA707C55171
+	for <amd-gfx@archiver.kernel.org>; Sun,  2 Aug 2026 14:35:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E057010E2FE;
-	Sat,  1 Aug 2026 10:17:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D80F10E425;
+	Sun,  2 Aug 2026 14:35:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PLiR0l+o";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PpjQ1vRe";
 	dkim-atps=neutral
-Received: from mail-ot1-f41.google.com (mail-ot1-f41.google.com
- [209.85.210.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A579410E2FE
- for <amd-gfx@lists.freedesktop.org>; Sat,  1 Aug 2026 10:17:17 +0000 (UTC)
-Received: by mail-ot1-f41.google.com with SMTP id
- 46e09a7af769-7e6b554044fso1604352a34.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 01 Aug 2026 03:17:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785579437; cv=none;
- d=google.com; s=arc-20260327;
- b=E2wWnfFNtKGwwTu0vtpxB684JYd+TJtGXCjDD2mC5VoLocsKDwTm9X5YW0cKao2Qt0
- mofPVLRqPgkpYO0oaAyG27ytknmUcEMIL7f7iJjFmL4uUVqQrRAvw9pFdfiJgijDnqvj
- GBtNYCANrm7F+i+7vaHyr9Ifp8CR5SnlxI8+5hAK4m6dJY8/Vfin8fXafcR/NJ/xQzCo
- XBQmsFPYCXxLgQFChBCJcJMCaRJWOsj4ms4l9lYHpT6dEQfsBLqUVHggPWrLxCeUXzhZ
- 2pU/HhMpnz8w7qSzbid/7EjJowBAfZpLS1rNlN4OsaGsuW7AokQuMhXzQEkjoDwstRj5
- jxtA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=6SVVCVf5N1O+YrNArJsl/K5UcjWXbA/FoyoLNaVP5k8=;
- fh=GwzrV6RZiHe1SwXwgk+oTgA//qFk4T1UC2oLgq5M3Nw=;
- b=MK6epW23h2XCPPXrzs44YANgVPJJilfhopJiCh5cteCnzLwrimdxCwFDIWGHrg2v+W
- K5y+xp8nffYhGKX2dgJDbHvWr//4HM3iHXNxAIUYmaqtnG6oFCLeGKI88F3yB1D4DFht
- URdnfvrPz/tkHqJpT/7uHDgQ5EwUdpNA1FRMax+XNjezg3ZH9l7CUUTJQFmXkJuXvov9
- VYOCp3SSlQXufLb0Q8CJupyZi5dLHe/pevyOS5DlmUKUYo3fUo95TuqU70ASYp1F/19L
- x030mTLsxRTYi6RampVGRd4MXdMJ1IVw57O5vLjwZjX7gwPufDUyshHqq7wbYtKL860B
- xDbA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com
+ [209.85.210.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8280710E419
+ for <amd-gfx@lists.freedesktop.org>; Sun,  2 Aug 2026 14:35:32 +0000 (UTC)
+Received: by mail-ot1-f46.google.com with SMTP id
+ 46e09a7af769-7eb42a2f5feso1274071a34.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 02 Aug 2026 07:35:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785579437; x=1786184237; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=6SVVCVf5N1O+YrNArJsl/K5UcjWXbA/FoyoLNaVP5k8=;
- b=PLiR0l+oTjCWRnKb/zXLuWxoWFCsp14sQX6MaJ1DHqk0i8GpKTj5Qao34LU9ZUwMwp
- tx3zx0bq5/ZBruBQkXI2RswpAgxRbqce04i1nFspk8wne8fscNwvxtNkiSsPd8ljo04+
- dmSSG6qS8K5JNS8AcrGEVPblJyxzFAb5Bty+kslx+uvdvEasqyPdq0jVUx/b9pt5pPgO
- Ege7Lf3RM2kMc+2WwJ5X9qhWSYYYS841sHPZpStGc4JwVtTZDA5TQ6e0XlQVZSqKWDdD
- iQy8V9c45wY7PLKVgRi7OWx6esja4UnQ+qb7YmZ1HJZk52haZ24kQrkT8WY5empf0xf/
- yuDA==
+ d=gmail.com; s=20251104; t=1785681331; x=1786286131; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Io4qfNiJxrvTXDG74iRNZw9/a8wNffmXNJvx5MlsNa4=;
+ b=PpjQ1vReN3b4Sx4uk268jM2tWa4D0nhQv4mzddRryXNsMRr6kbf9952fxQsvZSUB4B
+ 1DB7vrEy4CwjOaLCoSq8izDkQmipCjcdAkGKtaui1MvriW7wO2R/RpBD/i5vx6MATQu0
+ Ya7kgUBUOAIZQwYej2dGH/dcdfF1LsrDyx2Haj90WsqRa9SsPZKKQ6nwgHkDlqjwKGAL
+ 3l7+Tl/7k7sW/Ym8E4BWhC9ZG9HpvM7qCBxwdwpsQyTaMW02kDcWCSqpSB9RemZ0A+jz
+ yOHGV3spLQn+2t9SI8UsXvcv8bplkOCKg1foQ30XOw4i4t5Va4DlgIpg79XIEyeam9VQ
+ VgGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785579437; x=1786184237;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=6SVVCVf5N1O+YrNArJsl/K5UcjWXbA/FoyoLNaVP5k8=;
- b=pBesA7uLquQ1wHJ8/fFcQjAIhMj5cXRDxft8ic0zOezx/jBA+zzoGlLYXr+0slx/p4
- U3imi0H2mN7pMFhEcBqnP09CVb3DzhMmjLvwt+ypbADZIeW8cv0REUENdqcxaT97+Fgv
- qVouji0JQC0CdYwMOEZePYJ534gGJXJ4tWTXEz/C0QfBMTcEayd0OJNIZd3PANXDuVNs
- /NhhPw3yw/n2jQiUtW655owHzbJ0z2HY4STRVTrJeUG0gd5MMOtA8LXgSvkGm2FTvjuZ
- BlvaC5z4hQFIwxvQpHq2bWfUsbXC3dweBvaY+he26e/u03P2DWYPG/yPNTPdlVkaC3kZ
- 1REQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rrn02nuzF8AaeGe0409+ae9TmpmwSFZ7CJzplc4tR8zuO55pa+GtJXLksp5ZKsSPAApKt0rUUrZ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxj7zGlGY/S3uasq1IpMAnIx1NXuNFYiKIX0mq4fCRxbYMLg8L7
- o/n6ntIl7+/79uwn2M8vOEFOGyW5ZasUdPhzxyRynSIEoFPNS04ekfRIWqea8ZuDTQPq0+J6ljR
- OW3rwolF3MGHdF/LT6zlJrHXeTAO23cs=
-X-Gm-Gg: AR+sD12cog4jdYfQp0bxvAGAE8+qvXAuBViYtvsycr4LzoHfPNpFsUdLj41998kDh8s
- Z/QWeQG8dVAydWTTgKpGxb7YBhXO6vN1WyMFa6xPuj2zhWzMaa2/461moZwEbMvGbVp4UeMy2qi
- IxuSiAYJuGMhIuzOnmwtAHHM8y7oSPz0HvyClWhfACMbSomDh5yfMuSUMG6pSAmqxeSy0kjsnd0
- hHGr9SzZex7LTc4LES8wSUimzrS41jcIFRTl9vrtdCr1PWt6xYps++u2x+nriPpDhICaOczGSh+
- mWZVWYKuYBc1rY3owbyiWW1N+4IglLcDoxrcH2sNVKftEw==
-X-Received: by 2002:a05:6830:64c8:b0:7d9:7201:1acf with SMTP id
- 46e09a7af769-7f196d407e0mr6475364a34.5.1785579436652; Sat, 01 Aug 2026
- 03:17:16 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1785681331; x=1786286131;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Io4qfNiJxrvTXDG74iRNZw9/a8wNffmXNJvx5MlsNa4=;
+ b=N9ghfK4Nw3x+jV2UZpt1ui1SsefHEAiATesb6ATeZ1uCPyIp35c57Hbpb/estmUO7r
+ wWe3hQz5x0f/2fe06CO8tIv42c7tUdW7i621eTZSW7sQ+mVM3ySi+9EWGlabIJSrx86l
+ Yk8W3eMN8q4siyGwhfHh//MF5vyBYWm+DDD+E6CeDBBco5mB1b7zwjEoqGGG28FbqoHe
+ 2fWD0ppegw382qCeOkBJ/fLUzlF6VunwXJb+XLTZ+oLvUzdjKNS5i6eqPESR5Y2L2Huj
+ dMEg6cFFmrAmyjbPA9TiqCrCit575+oeng/qRXCedkEKgUjVsjCvCbkkqzDSbcnxwUAJ
+ fQCg==
+X-Gm-Message-State: AOJu0YyzJN7YpPByYI7bq8P7zgbme5sKN78vDIKpr9hCUqrAKqpraQ30
+ 8L5XPkUx8RTLx4dn4uTkxpHbBUpcgox2zjwwu0lLxCswxL26XsGS9h1BtjudCoK4+Ck=
+X-Gm-Gg: AR+sD10Bp8M/T+RWyJSYhkpa0IdRFsOUyPkj2SIRyNtGBw74SE1rhX5h4lodIFvVcZ9
+ FZkRcIEFI4OmBjpQtQqibDlIZ9MVrIv1Sk1d+5YsGfJWqym3TG6jM5Q6ac9qLRxzBg5qxujDef0
+ 5ExNqQ2m0kUwihAhEZJR5MgMisTVn9b0FzBZMzuHdiP5aBn9iVHSaoBkNcvt0nMB7783cRVEmZv
+ xybg9GMtCqrCBO6Ljr9/p+2OGEyF6HlcXWtihLY74N74qbGHBcq5xvHRpWpI2NLytw/Lk38vXLf
+ swr6rTDvy5nkALY0sqvdJtHQoMii/BAi9xDUNrIg5Ncd/5/+oghLWfzpjN9E5Uv3ffv4niLqBTK
+ nXKt3ozVKkOaRQ+/LbCSFTKQB414qgwku5qBq7AE6JTRxggizypwR82wAcFm1p5r7PrETMcq8fD
+ cKkK6j5qBkpeaAnhPKY6QZIUMOphuMgFBTwRRFWVp+ubaPS2inVFGPtVETbx27LW8lTPN52J2Hx
+ wC+u6ENDY6b0I9DkpzxGbZaQGEzZj6PQfK5k9DLKmoj
+X-Received: by 2002:a05:6808:17aa:b0:487:530f:5754 with SMTP id
+ 5614622812f47-4af5e2f59b4mr12709212b6e.20.1785681331520; 
+ Sun, 02 Aug 2026 07:35:31 -0700 (PDT)
+Received: from natebox2.jabitha.com (46-110-104-162.wmnscoaa.metronetinc.net.
+ [46.110.104.162]) by smtp.gmail.com with ESMTPSA id
+ 5614622812f47-4af58e9551dsm4778877b6e.11.2026.08.02.07.35.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 02 Aug 2026 07:35:31 -0700 (PDT)
+From: Nathan Lucas <nlucasgit@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, joshua@froggi.es, mwen@igalia.com,
+ leorize+oss@disroot.org, alex.hung@amd.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH 1/2] drm/amd/display: fix BT.2020 YCbCr limited output CSC
+ matrix
+Date: Sun,  2 Aug 2026 08:35:23 -0600
+Message-ID: <2fcc52cc1a86d6e9e393e72f6038ae42ccf1930d.1785616749.git.nlucasgit@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1785616749.git.nlucasgit@gmail.com>
+References: <cover.1785616749.git.nlucasgit@gmail.com>
 MIME-Version: 1.0
-References: <df5f0d9bb8f11d098f086bd2ace5aa0cef4c77d7.camel@web.de>
- <20260801071724.12998-1-spasswolf@web.de>
-In-Reply-To: <20260801071724.12998-1-spasswolf@web.de>
-From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
-Date: Sat, 1 Aug 2026 15:17:04 +0500
-X-Gm-Features: AUfX_mySPDS1tX6sBksLt_ubqUTn6yupd7v5vPVdQi51p4TGShRSsHENrQ2zzec
-Message-ID: <CABXGCsMFa25HyOdcSX8QR8_=58=uJT+HMVhyus=rOFHBML25=w@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: fix usage of DC_FPU_{BEGIN,
- END} with PREEMPT_RT
-To: Bert Karwatzki <spasswolf@web.de>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org, 
- linux-rt-devel@lists.linux.dev, amd-gfx@lists.freedesktop.org, 
- "# = v7 . 1" <stable@vger.kernel.org>, Alex Deucher <alexander.deucher@amd.com>,
- Rafal Ostrowski <rafal.ostrowski@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Thomas Gleixner <tglx@linutronix.de>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,116 +90,126 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Sat, Aug 1, 2026 at 12:17=E2=80=AFPM Bert Karwatzki <spasswolf@web.de> w=
-rote:
->
-> On PREEMPT_RT kernels kvzalloc_obj() can sleep because spin_lock is
-> converted to rt_mutex. dc_create_plane_state() can be called while
-> inside an FPU-guarded region, resuling in "scheduling while atomic"
-> errors on PREEMPT_RT kernels.
->  Fix this by calling kvzalloc_obj() with DC_RUN_WITH_PREEMPTION_ENABLED()=
-.
-> Also fix the error path in dc_create_stream_for_sink().
->
-> Fixes: 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC - P=
-art 1")
-> Link: https://lore.kernel.org/lkml/20260723123449.6494-1-spasswolf@web.de=
-/
->
-> Signed-off-by: Bert Karwatzki <spasswolf@web.de>
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_stream.c  | 2 +-
->  drivers/gpu/drm/amd/display/dc/core/dc_surface.c | 4 ++--
->  2 files changed, 3 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gp=
-u/drm/amd/display/dc/core/dc_stream.c
-> index cdcf140bc1bb..accad9e20e88 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> @@ -229,7 +229,7 @@ struct dc_stream_state *dc_create_stream_for_sink(
->
->  fail:
->         if (stream)
-> -               kfree(stream);
-> +               DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream));
->
->         return NULL;
->  }
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c b/drivers/g=
-pu/drm/amd/display/dc/core/dc_surface.c
-> index 88e825a6582c..d5c6427796b6 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-> @@ -85,8 +85,8 @@ uint8_t  dc_plane_get_pipe_mask(struct dc_state *dc_sta=
-te, const struct dc_plane
->   ***********************************************************************=
-*******/
->  struct dc_plane_state *dc_create_plane_state(const struct dc *dc)
->  {
-> -       struct dc_plane_state *plane_state =3D kvzalloc_obj(*plane_state,
-> -                                                         GFP_ATOMIC);
-> +       struct dc_plane_state *plane_state;
-> +       DC_RUN_WITH_PREEMPTION_ENABLED(plane_state =3D kvzalloc_obj(*plan=
-e_state, GFP_ATOMIC));
+COLOR_SPACE_YCBCR2020_TYPE, which is selected for
+COLOR_SPACE_2020_YCBCR_LIMITED color_space, has coefficients that are
+incorrect for limited-range output. Its luma and chroma scaling is
+full-range so output is too bright and colors are incorrect.
 
+COLOR_SPACE_YCBCR2020_TYPE is closer to a full-range conversion matrix with
+incorrect luma offset, so correct the luma offset for full-range and rename
+it to COLOR_SPACE_YCBCR2020_FULL_TYPE.
 
-This hunk breaks the build when CONFIG_DRM_AMD_DC_FP=3Dn.
+Add COLOR_SPACE_YCBCR2020_LIMITED_TYPE with correct scaling and range for
+limited-range output.
 
-dc_surface.c gets DC_RUN_WITH_PREEMPTION_ENABLED only indirectly, via
-dc.h -> dc_types.h -> os_types.h, and there the include is guarded:
+Fix related functions so COLOR_SPACE_YCBCR2020_LIMITED_TYPE and
+COLOR_SPACE_YCBCR2020_FULL_TYPE are correctly selected based on
+dc_color_space.
 
-#if defined(CONFIG_DRM_AMD_DC_FP)
-#include "amdgpu_dm/dc_fpu.h"
-#endif
+Derivation of both matrices follows ITU-T H.273:
 
-With DC_FP=3Dn nothing defines the macro in that file.  dc_stream.c is not
-affected because it includes dc_fpu.h directly.
+Table 4, MatrixCoefficients 9, BT.2020-NCL weights:
+KR = 0.2627, KB = 0.0593, KG = 1 - KR - KB = 0.6780.
 
-This is not only exotic architectures: DRM_AMD_DC has
+Equations 45-47 in matrix form:
+            [  KR             KG             KB            0 ]
+M2020_NCL = [ -KR/(2(1-KB))  -KG/(2(1-KB))   1/2           0 ]
+            [  1/2           -KG/(2(1-KR))  -KB/(2(1-KR))  0 ]
+            [  0              0              0             1 ]
 
-select DRM_AMD_DC_FP if ARCH_HAS_KERNEL_FPU_SUPPORT && \
-!(CC_IS_CLANG && (ARM64 || LOONGARCH || RISCV))
+Limited and Full transforms based on equations 30-32 and 36-38 with bit
+depth 10, normalized by 1023:
 
-so an arm64 clang build is enough.  On amd-staging-drm-next with your
-patch applied:
+            [ 876/1023   0         0         64/1023  ]
+MLimited  = [ 0          896/1023  0         512/1023 ]
+            [ 0          0         896/1023  512/1023 ]
+            [ 0          0         0         1        ]
 
-  $ make LLVM=3D1 ARCH=3Darm64 allmodconfig
-  $ make LLVM=3D1 ARCH=3Darm64 drivers/gpu/drm/amd/amdgpu/
-  dc_surface.c:89:2: error: call to undeclared function
-    'DC_RUN_WITH_PREEMPTION_ENABLED'; ISO C99 and later do not support
-    implicit function declarations [-Wimplicit-function-declaration]
-     89 |  DC_RUN_WITH_PREEMPTION_ENABLED(plane_state =3D
-kvzalloc_obj(*plane_state, GFP_ATOMIC));
+            [ 1023/1023  0         0         0        ]
+    MFull = [ 0          1023/1023 0         512/1023 ]
+            [ 0          0         1023/1023 512/1023 ]
+            [ 0          0         0         1        ]
 
-A plain x86_64 build (DC_FP=3Dy) is clean, which is presumably why it did
-not show up for you.
+M2020_NCL_Limited = MLimited x M2020_NCL
+M2020_NCL_Full    = MFull x M2020_NCL
 
-Adding
+The upper three rows of M2020_NCL_* are stored in CR, Y, CB order. Each
+M2020_NCL_* value is stored as Round(value * 8192) in its 16-bit
+two's-complement representation.
 
-#include "dc_fpu.h"
+Fixes: 973a9c810c78 ("drm/amd/display: Fix COLOR_SPACE_YCBCR2020_TYPE matrix")
+Assisted-by: OpenAI-Codex:GPT-5.6-Sol
+Signed-off-by: Nathan Lucas <nlucasgit@gmail.com>
+---
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c | 31 ++++++++++++-------
+ 1 file changed, 20 insertions(+), 11 deletions(-)
 
-to dc_surface.c fixes it, and matches what dc_stream.c already does.
-Please do not copy the local fallback that sits below that include in
-dc_stream.c:
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+index 11411fa94665..e686815f9a0e 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+@@ -59,7 +59,8 @@ enum dc_color_space_type {
+ 	COLOR_SPACE_RGB_LIMITED_TYPE,
+ 	COLOR_SPACE_YCBCR601_TYPE,
+ 	COLOR_SPACE_YCBCR709_TYPE,
+-	COLOR_SPACE_YCBCR2020_TYPE,
++	COLOR_SPACE_YCBCR2020_LIMITED_TYPE,
++	COLOR_SPACE_YCBCR2020_FULL_TYPE,
+ 	COLOR_SPACE_YCBCR601_LIMITED_TYPE,
+ 	COLOR_SPACE_YCBCR709_LIMITED_TYPE,
+ 	COLOR_SPACE_YCBCR709_BLACK_TYPE,
+@@ -111,9 +112,15 @@ static const struct out_csc_color_matrix_type output_csc_matrix[] = {
+ 		{ 0xE00, 0xF349, 0xFEB7, 0x1000,
+ 		  0x6CE, 0x16E3, 0x24F,  0x200,
+ 		  0xFCCB, 0xF535, 0xE00, 0x1000} },
+-	{ COLOR_SPACE_YCBCR2020_TYPE,
++	/* Corrected. Not included in the TODO above. */
++	{ COLOR_SPACE_YCBCR2020_LIMITED_TYPE,
++		{ 0x0E04, 0xF31D, 0xFEDF, 0x1004,
++		  0x0733, 0x1294, 0x01A0, 0x0201,
++		  0xFC16, 0xF5E6, 0x0E04, 0x1004} },
++	/* Corrected. Not included in the TODO above. */
++	{ COLOR_SPACE_YCBCR2020_FULL_TYPE,
+ 		{ 0x1000, 0xF149, 0xFEB7, 0x1004,
+-		  0x0868, 0x15B2, 0x01E6, 0x201,
++		  0x0868, 0x15B2, 0x01E6, 0,
+ 		  0xFB88, 0xF478, 0x1000, 0x1004} },
+ 	{ COLOR_SPACE_YCBCR709_BLACK_TYPE,
+ 		{ 0x0000, 0x0000, 0x0000, 0x1000,
+@@ -180,14 +187,14 @@ static bool is_ycbcr709_type(
+ 	return ret;
+ }
+ 
+-static bool is_ycbcr2020_type(
+-	enum dc_color_space color_space)
++static bool is_ycbcr2020_limited_type(enum dc_color_space color_space)
+ {
+-	bool ret = false;
++	return color_space == COLOR_SPACE_2020_YCBCR_LIMITED;
++}
+ 
+-	if (color_space == COLOR_SPACE_2020_YCBCR_LIMITED || color_space == COLOR_SPACE_2020_YCBCR_FULL)
+-		ret = true;
+-	return ret;
++static bool is_ycbcr2020_full_type(enum dc_color_space color_space)
++{
++	return color_space == COLOR_SPACE_2020_YCBCR_FULL;
+ }
+ 
+ static bool is_ycbcr709_limited_type(
+@@ -216,8 +223,10 @@ static enum dc_color_space_type get_color_space_type(enum dc_color_space color_s
+ 		type = COLOR_SPACE_YCBCR601_LIMITED_TYPE;
+ 	else if (is_ycbcr709_limited_type(color_space))
+ 		type = COLOR_SPACE_YCBCR709_LIMITED_TYPE;
+-	else if (is_ycbcr2020_type(color_space))
+-		type = COLOR_SPACE_YCBCR2020_TYPE;
++	else if (is_ycbcr2020_limited_type(color_space))
++		type = COLOR_SPACE_YCBCR2020_LIMITED_TYPE;
++	else if (is_ycbcr2020_full_type(color_space))
++		type = COLOR_SPACE_YCBCR2020_FULL_TYPE;
+ 	else if (color_space == COLOR_SPACE_YCBCR709)
+ 		type = COLOR_SPACE_YCBCR709_BLACK_TYPE;
+ 	else if (color_space == COLOR_SPACE_YCBCR709_BLACK)
+-- 
+2.55.0
 
-#if !defined(DC_RUN_WITH_PREEMPTION_ENABLED)
-#define DC_RUN_WITH_PREEMPTION_ENABLED(code) code
-#endif
-
-It is dead code there - dc_fpu.h defines the macro in every branch - and
-in a new file it would compile cleanly while quietly doing nothing.
-
-One unrelated note: you kept Cc: stable # v7.1, but this version is
-rebased onto next-20260729, where the update_scratch allocation is gone
-from dc_create_stream_for_sink().  It does not apply to current mainline
-either, so older trees will need a separate backport - worth saying so
-in the commit message.
-
-With the include added I can give this a Tested-by on dcn32 (RX 7900
-XTX), which exercises the DML1 phantom-plane path rather than the dml21
-one you hit.
-
---=20
-Best Regards,
-Mikhail Gavrilov.
