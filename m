@@ -4,76 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8035EC55177
-	for <amd-gfx@archiver.kernel.org>; Sun,  2 Aug 2026 14:35:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 044A6C55180
+	for <amd-gfx@archiver.kernel.org>; Sun,  2 Aug 2026 14:35:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5FC6510E427;
-	Sun,  2 Aug 2026 14:35:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5477D10E41D;
+	Sun,  2 Aug 2026 14:35:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RK2s/yHK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Qpka5rku";
 	dkim-atps=neutral
-Received: from mail-oi1-f171.google.com (mail-oi1-f171.google.com
- [209.85.167.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61FFC10E425
- for <amd-gfx@lists.freedesktop.org>; Sun,  2 Aug 2026 14:35:33 +0000 (UTC)
-Received: by mail-oi1-f171.google.com with SMTP id
- 5614622812f47-4a45b3f0becso1473048b6e.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 02 Aug 2026 07:35:33 -0700 (PDT)
+Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com
+ [209.85.160.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA86A10E41D
+ for <amd-gfx@lists.freedesktop.org>; Sun,  2 Aug 2026 14:35:34 +0000 (UTC)
+Received: by mail-oa1-f54.google.com with SMTP id
+ 586e51a60fabf-44856d185bcso2999429fac.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 02 Aug 2026 07:35:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785681332; x=1786286132; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=R9/ZBBWwxbo/L0scHa1+0PKeDSXAJU8I4FcEXNAE4v4=;
- b=RK2s/yHKmxL6X5usBd9XCco13JM4FzrQxtH0vH+im0nVvGo9EIf0wLYuoNUm+9igrz
- PB0oi4m0gVWCMNR/aNhwDvEyys8AJ5Rh+aBHVkSp36arO+WWgrpdMOO/VsPVLL5hnThU
- gYYy/w6V+K/ya8DYIKIR2LPhq7mkeau7JmCJATAVDtC3+ae01TqbtXowuUTZ4t5zIMZr
- 1S/a98c/9V9Xs10DM5fRVqDFv98/BEO8ERDU4Q/NpQhEitL9IwWvi6NKS6DHid38uHOQ
- 3ciSb6yG1qx7KWNDf0w/5B+a9193JK6+sVx0wvdxjJrjjHwry23G3UqFI+URVBjtJPG6
- Q6fg==
+ d=gmail.com; s=20251104; t=1785681334; x=1786286134; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=OBwqQBQZ7gr9qfD8QTCGZXfSKgrXALeSbfMpkftaqF8=;
+ b=Qpka5rkuFtAQhU5rRnZbc7kg7mspeG5kvtGRw9pKkY4d70eDZZjS859qwqxjFcTBbB
+ MEakdWPXulndLW7ylxBjGSAawEihG1jNCHrFD7kiCiQfzMAYxCNgkLD6LGs4gBohIUME
+ 6S0qNUJwDy1vY9LW99257H6JFO0W7F2TcWE1Qt56ZR4VVBBsTwPv8vd4tYu1rQSPbCqt
+ Li9wW+pvjgd0B+KQuYLFUHkXTCr35pJXShfNyfeqmQ24glPPzZSi3z6ZYt5h87I0Aa7y
+ bsc8ha0YVyytwRFE5hLy4Rua0XVi9v45LVpP6Rn15J00ZYk4iwvT/hqtdY+4g6grv9/4
+ cNfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785681332; x=1786286132;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=R9/ZBBWwxbo/L0scHa1+0PKeDSXAJU8I4FcEXNAE4v4=;
- b=bLuqoCOLMDheQXhXKe56JZV8uJsFGRn2TPfsfweloMiA1Ejl//UtOKz3/a+Lxj7e5u
- 3OFjhbxjpb8Uu1sCIcUq9qVBlOCBF22VcJRQv9tBUcJgcVVe7R+uGq4FA7qVSHA7khKz
- q0eJY6tMoe2/ysU3nefA2NNlhn3iejfeBUgmd4MpLT3n6f0levnFnV7eBnPQckQtsRTY
- jtNiI+rRh5Q8CLantMcIQoqycG0KmyV1gO0K1uN/5qrUfbYu+LULjWNbZryID7xgQTb/
- kGbfMjNyBhHKZvLXU6pwThKVs330t9zToLaXn5D96X7oyPflwqSBcWUKpBBOkhLpGIHj
- YCRQ==
-X-Gm-Message-State: AOJu0YyFh9aunFCYsnenzyarcsB1ksYhNFCzGUWeyVY/y0DCy6CHkz6R
- uK4dPpo+888pAYodJt2pozaJB1YOc0CPMxNH/mefvryTqFoBETQRFhlP5GVaTBffsWU=
-X-Gm-Gg: AR+sD10OdsH8J10grvj/2o7kXG9g4ChT42Barfqdlq2R/O2z8mBkKAL/msXOm8rqpFk
- Y6Ypsl/Ktybcivd7d8/MStWG5NynSFheJJxUDRAHoRsi973yFqD8dH8DGjkd/SKbTi05XQZiSfW
- WOen8fajOGPL5QmbK3K5Voh/raAX/HNdrJHo7VN/6cmuZMZL2JF9QbRLK482IK6j+t01Q3nnzwh
- J1vEG9AkTjmYy36I14SzZL5ByL1PuZ4Ml4fPHLpAMJf7ygdxnZJGNKP7B+eBFkVUMgqVu3ybSlG
- ToE+kN3CrsvnibGQBcVEjEjvxL6ncwEljoSrHNUxm0htvDuAw1kL6ld6pOAHyhxDTvkVpK8O+H4
- yvI4SkhvmkXsBwylpqYYmB1l5RN8S2h0AeqvXaPa6FoPDG3yuPrDsWIlePcoajjexc2JtlrMfx0
- zdjJs66OxG68KqBExgAMS+dhOIebJrjMXMSLyQi4IYRG0gIJeZtYgkHBsKemLRJdPQXH/Hm8PMS
- LKF5Nh/BDWBdfKDXohfBPzUIlYJoK0L0aYYaa0HwbvI
-X-Received: by 2002:a05:6808:bcd:b0:497:8f1:df07 with SMTP id
- 5614622812f47-4af5e0583c4mr12361035b6e.7.1785681332450; 
- Sun, 02 Aug 2026 07:35:32 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1785681334; x=1786286134;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=OBwqQBQZ7gr9qfD8QTCGZXfSKgrXALeSbfMpkftaqF8=;
+ b=X38ji0bEKPddzGGSCSVWYn8ZiJ3Qp9U/UCEotzUwcUVjVPY5XPRYNWbSuE8DaY3d1B
+ nAryLIhqhruvqXmYzttlFvDKEd6ckTmrQ4mVUbIGSZ5O7UbHmWXvbFOKGrRj9OngGryw
+ JbYpKQiDNwVM6avHxijUFIdg0jRCPMOidDbr2QhoTfW7ReNMmYyL3yplCGKAUekAkb/t
+ lJQ/AM0tHUn2pnNGHzMDrDAqfhuyhkVliCfhm24cR8/RU3PKR5haXb4hmvwhyprG6AC0
+ NBU08/rFAi/sp0b1S/Dt31LOLxnbsSV/COtWlleTcMp48haKMYKGF8BP2rCEli35j5oM
+ XH6g==
+X-Gm-Message-State: AOJu0YwrG6kgO6abHW9BnMYvtU1iKsYvRAQno3ZtECfL1Rfoq+/X3mzW
+ GcNMEzepucHRLqORitPXwljj9PPrujMzKzpH2oU47KiT0J0zqnyWPoNUqcLVqmQYWpc=
+X-Gm-Gg: AR+sD11ip9X3ErR4sG9vm1uBK5m2o5UmOQZZc3RHHKdOgPQCkzZo0FTJ7qoWsgQiSis
+ hdO98Nk3avT+rc9uOJdDKR2qMluz2SavqHcjw8vqxqcHs64yjNQ2B5VRzh5x5/Ncwm20+qtAKS5
+ p8UqncWL1GrCa84KJMvnlfY3kkgFPe1BD3lP7oBcmj2oz3HKqH//kxqkPdu/wqr6IcxMhr8CHTX
+ 88eJUficx32nVb3r2p1qtXDpS+iHm8x86gAF0JAqFLYifkW/3U/DmmgHTbCOBJfSS+ekvvnsW6S
+ GOGUaftfNMZaVHUy2WMB+GitjcikDnL0HXVeYY65eWMxPK73jyxViZV4JNM2pU3kkOOBzNxLZxT
+ u/diRkLb1PQQ3LjwgiM1vbd5u2i4sL8nRKNoSngcL2Y6M1oYLbpCPFsVXzNOIG52z5TNw07+HFS
+ RSs2TFyKrfsMWwnEqH6atwtLybkZXYhbFyNGdhWCQ4+NJ4nWqac+ULM/uMirNOnparAYMiFPTV8
+ C3JvWfSREh82xQCkBDkawvfP/qn+HTM28LlR8q+TJYb
+X-Received: by 2002:a05:6808:14c1:b0:4a3:58a6:8a57 with SMTP id
+ 5614622812f47-4af5e3a5f51mr11753697b6e.20.1785681330605; 
+ Sun, 02 Aug 2026 07:35:30 -0700 (PDT)
 Received: from natebox2.jabitha.com (46-110-104-162.wmnscoaa.metronetinc.net.
  [46.110.104.162]) by smtp.gmail.com with ESMTPSA id
- 5614622812f47-4af58e9551dsm4778877b6e.11.2026.08.02.07.35.31
+ 5614622812f47-4af58e9551dsm4778877b6e.11.2026.08.02.07.35.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 02 Aug 2026 07:35:32 -0700 (PDT)
+ Sun, 02 Aug 2026 07:35:30 -0700 (PDT)
 From: Nathan Lucas <nlucasgit@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
  alexander.deucher@amd.com, joshua@froggi.es, mwen@igalia.com,
  leorize+oss@disroot.org, alex.hung@amd.com,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] drm/amd/display: fix BT.2020 YCbCr output CSC matrices
- for DCE
-Date: Sun,  2 Aug 2026 08:35:24 -0600
-Message-ID: <15b28cafab1b55f3e4cad9bb542847d22e776bda.1785616749.git.nlucasgit@gmail.com>
+Subject: [PATCH 0/2] drm/amd/display: fix BT.2020 YCbCr output CSC matrices
+Date: Sun,  2 Aug 2026 08:35:22 -0600
+Message-ID: <cover.1785616749.git.nlucasgit@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1785616749.git.nlucasgit@gmail.com>
-References: <cover.1785616749.git.nlucasgit@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -90,63 +86,95 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The commit cited by the Fixes tag added separate limited and full-range
-BT.2020 YCbCr entries to the DCE output CSC tables, but populated both
-entries with the same matrix copied from the common DC table. That
-matrix combined full-range scaling with limited-range luma offset and was
-incorrect for both limited and full-range output.
+This patch series fixes COLOR_SPACE_YCBCR2020_TYPE in dc_hw_sequencer.c
+which is used for COLOR_SPACE_2020_YCBCR_LIMITED output but does not have
+correct luma and chroma scaling for that output range, and fixes its
+copies in dce_transform.c and dce110_opp_csc_v.c.
 
-Replace the coefficients in both entries in the DCE paths with those from
-the new COLOR_SPACE_YCBCR2020_LIMITED_TYPE
-and COLOR_SPACE_YCBCR2020_FULL_TYPE entries in the preceding commit
-("drm/amd/display: fix BT.2020 YCbCr limited output CSC matrix").
+It looks like this matrix was originally added in commit 40df2f809e8f
+("drm/amd/display: color space ycbcr709 support") as a raw BT.2020-NCL RGB
+to YCbCr conversion matrix that had not yet been prepared for unsigned
+limited or full-range quantization.  Commit 973a9c810c78
+("drm/amd/display: Fix COLOR_SPACE_YCBCR2020_TYPE matrix") applied offsets
+for unsigned limited-range quantization but did not fix the luma and chroma
+scales which are still full range.  Because of this, output on a calibrated
+display is too bright with incorrect color, although it still looks roughly
+correct at low luminance in my testing.
 
-Fixes: 51e6668ab4ba ("drm/amd/display: add missing CSC entries for BT.2020 for DCE IPs")
-Assisted-by: OpenAI-Codex:GPT-5.6-Sol
-Signed-off-by: Nathan Lucas <nlucasgit@gmail.com>
----
- drivers/gpu/drm/amd/display/dc/dce/dce_transform.c       | 7 ++++---
- drivers/gpu/drm/amd/display/dc/dce110/dce110_opp_csc_v.c | 7 ++++---
- 2 files changed, 8 insertions(+), 6 deletions(-)
+Later, in commit 51e6668ab4ba
+("drm/amd/display: add missing CSC entries for BT.2020 for DCE IPs"), the
+incorrect COLOR_SPACE_YCBCR2020_TYPE matrix coefficients were duplicated to
+DCE COLOR_SPACE_2020_YCBCR_LIMITED and COLOR_SPACE_2020_YCBCR_FULL, so
+those matrices are also currently incorrect.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c b/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
-index 864491bfd7f7..83f819890020 100644
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_transform.c
-@@ -115,10 +115,11 @@ static const struct out_csc_color_matrix global_color_matrix[] = {
- 	{ 0x2000, 0, 0, 0, 0, 0x2000, 0, 0, 0, 0, 0x2000, 0} },
- { COLOR_SPACE_2020_RGB_LIMITEDRANGE,
- 	{ 0x1B67, 0, 0, 0x201, 0, 0x1B67, 0, 0x201, 0, 0, 0x1B67, 0x201} },
--{ COLOR_SPACE_2020_YCBCR_LIMITED, { 0x1000, 0xF149, 0xFEB7, 0x1004, 0x0868,
--	0x15B2, 0x01E6, 0x201, 0xFB88, 0xF478, 0x1000, 0x1004} },
-+/* COLOR_SPACE_2020_YCBCR_* values corrected. Not included in the TODO above. */
-+{ COLOR_SPACE_2020_YCBCR_LIMITED, { 0x0E04, 0xF31D, 0xFEDF, 0x1004, 0x0733,
-+	0x1294, 0x01A0, 0x201, 0xFC16, 0xF5E6, 0x0E04, 0x1004} },
- { COLOR_SPACE_2020_YCBCR_FULL, { 0x1000, 0xF149, 0xFEB7, 0x1004, 0x0868, 0x15B2,
--	0x01E6, 0x201, 0xFB88, 0xF478, 0x1000, 0x1004} }
-+	0x01E6, 0, 0xFB88, 0xF478, 0x1000, 0x1004} }
- };
- 
- static bool setup_scaling_configuration(
-diff --git a/drivers/gpu/drm/amd/display/dc/dce110/dce110_opp_csc_v.c b/drivers/gpu/drm/amd/display/dc/dce110/dce110_opp_csc_v.c
-index 1ed018aaa4bb..f5f8cd2d47a5 100644
---- a/drivers/gpu/drm/amd/display/dc/dce110/dce110_opp_csc_v.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce110/dce110_opp_csc_v.c
-@@ -93,10 +93,11 @@ static const struct out_csc_color_matrix global_color_matrix[] = {
- 	{ 0x2000, 0, 0, 0, 0, 0x2000, 0, 0, 0, 0, 0x2000, 0} },
- { COLOR_SPACE_2020_RGB_LIMITEDRANGE,
- 	{ 0x1B67, 0, 0, 0x201, 0, 0x1B67, 0, 0x201, 0, 0, 0x1B67, 0x201} },
--{ COLOR_SPACE_2020_YCBCR_LIMITED, { 0x1000, 0xF149, 0xFEB7, 0x1004, 0x0868,
--	0x15B2, 0x01E6, 0x201, 0xFB88, 0xF478, 0x1000, 0x1004} },
-+/* COLOR_SPACE_2020_YCBCR_* values corrected. Not included in the TODO above. */
-+{ COLOR_SPACE_2020_YCBCR_LIMITED, { 0x0E04, 0xF31D, 0xFEDF, 0x1004, 0x0733,
-+	0x1294, 0x01A0, 0x201, 0xFC16, 0xF5E6, 0x0E04, 0x1004} },
- { COLOR_SPACE_2020_YCBCR_FULL, { 0x1000, 0xF149, 0xFEB7, 0x1004, 0x0868, 0x15B2,
--	0x01E6, 0x201, 0xFB88, 0xF478, 0x1000, 0x1004} }
-+	0x01E6, 0, 0xFB88, 0xF478, 0x1000, 0x1004} }
- };
- 
- enum csc_color_mode {
+The first patch adds separate matrices for full and limited-range.  The
+derivation is in the commit message.  The second patch replaces the copied
+matrix coefficients in dce_transform.c and dce110_opp_csc_v.c with the new
+ones.
+
+For testing I have only been able to check the limited-range DCN path on a
+9070 XT with a patched kernel.  amdgpu_dm_get_output_color_space does not
+currently have a path to select COLOR_SPACE_2020_YCBCR_FULL although the
+enum value exists.  Also, I cannot test the DCE paths as I do not have the
+hardware to do so.
+
+I ran into this issue measuring PQ test patterns through mpv with the
+following command line:
+
+mpv \
+  --no-config \
+  --vo=gpu-next \
+  --gpu-context=displayvk \
+  --gpu-api=vulkan \
+  --vulkan-display-plane=3 \
+  --vulkan-display-mode=22 \
+  --target-trc=pq \
+  --target-prim=bt.2020 \
+  --target-colorspace-hint-mode=source \
+  --target-colorspace-hint=yes \
+  --tone-mapping=clip \
+  --hdr-compute-peak=no \
+  [pattern file]
+
+Free test patterns:
+https://diversifiedvideosolutions.com/hdr-10.html
+
+Below is a table of values I measured on a Samsung S95H (US model) with a
+Calibrite Display Pro HL meter.
+
+Three sets of meter readings below:
+Unpatched - Unpatched Fedora 44 kernel 7.1.4-200.fc44.x86_64
+Patched   - The patches in these e-mails applied to Fedora 44 kernel
+            7.1.4-200.fc44.x86_64
+NVS/Kodi  - NVIDIA Shield Pro with Kodi
+
+ 5% HDR10/PQ
+ Test Pattern        Meter Readings (nits)
+==============   ==============================
+PQ%       Nits   Unpatched   Patched   NVS/Kodi
+15        1.01        1.63      1.01     1.02
+25        5.24        9.68      5.46     5.12
+35       18.78       40        20.5     21.2
+45       56.55      128        62.0     62.1
+55      148.03      369       155      155
+65      384.71     1106       403      401
+75      973.13     2681*     1030     1025
+
+* This is at the peak capability for this TV.
+
+PQ brightness overtracks a bit in Patched and NVS/Kodi, but that is likely
+due to the TV's default calibration or my meter since the readings are so
+similar.  Unpatched stands out as being way too bright.
+
+Nathan Lucas (2):
+  drm/amd/display: fix BT.2020 YCbCr limited output CSC matrix
+  drm/amd/display: fix BT.2020 YCbCr output CSC matrices for DCE
+
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c | 31 ++++++++++++-------
+ .../drm/amd/display/dc/dce/dce_transform.c    |  7 +++--
+ .../amd/display/dc/dce110/dce110_opp_csc_v.c  |  7 +++--
+ 3 files changed, 28 insertions(+), 17 deletions(-)
+
 -- 
 2.55.0
 
