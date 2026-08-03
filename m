@@ -4,93 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54B27C55182
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 14:00:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E8ADC55182
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 14:07:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E567B10E66D;
-	Mon,  3 Aug 2026 14:00:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB0F810E046;
+	Mon,  3 Aug 2026 14:07:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VvCEKFG+";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fFGMTpQm";
 	dkim-atps=neutral
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F48010E66D
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2026 13:59:59 +0000 (UTC)
-Received: by mail-pf1-f174.google.com with SMTP id
- d2e1a72fcca58-84a32ff53fcso288106b3a.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Aug 2026 06:59:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785765598; cv=none;
- d=google.com; s=arc-20260327;
- b=ggYfSMBP0WdK61F6pn//M9AYLNCm34yfWAoEkNIdjutacsS0es6UGZ77ASHvStMDqC
- bISmwW4usJny5hnj5AJEh3S/CPYcGzqMqhVQBLTKCZ0pidkoflbFo3uRUD9Ufg7cnpoE
- MtFh2w3yVbBiI/vLVx1+IKG2ETmM77ZkfHf9UOP9UPuH4EfNq+elT3ejkdfXUbR8PX76
- 1RSf+oFkPPt6ARlnti4FCKtwGbSUEBCOVdj+1WU7y565JhXX9TDJdRKWB/YRVuKh4cyd
- BPKyOHKJNnU1X1sC5zHTpT7qcaSlWY2pJTHJDq9Fpk9bGfW6OsbxpHSmyU6xWtOcRDhI
- nzlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=/NcaeFQwLQ3IoKK3UiewV1tehK0mYSuHgA/av2aKAO0=;
- fh=AajwJS1JdmeCA/R2a2iHSEDl9rLQk6bWvk/8uoWqlmM=;
- b=mbkeRaCJ+uOaxQbucnVKDUC6/j7a3UkBgnq8cEPUxakTIr1LUz5z4slhpbqsnRplpy
- IGUGx3Yj8oOu0GecKBMO1/UE3fDNitmGSMpQqIOTvPppvrPZDEICX+WllUaOLGmdkhja
- h3VgZd06cz/5nYnQLkmFx5ps26OreSGL4Dkc9mkPrdu8mCWku8pGjPXyV9zQc37UxOMA
- RnP20FzdEnMbDKkthrtkQP8kOGUmGQot2B1cBeFtP/fKHu9Y7AlVV+01OXKxAGxXFofQ
- SI2NJcaU6/UJ75WbIpjbnbz7gxlJjAjRTP8xyNH+HH+wlGeT0Q3lnFsSGD0M/ViwDkBd
- wxxA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785765598; x=1786370398; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=/NcaeFQwLQ3IoKK3UiewV1tehK0mYSuHgA/av2aKAO0=;
- b=VvCEKFG+3Q6ZzspyedIsXwjsaKGYcY4eAveBFkPqAiPF/b9gc5ylLMbvFrvT4T3LnQ
- UcPVErl+7NyhXeJ4Vyh60LFNuduLGQ8caDPlPwynpB1zETSr37MJwQQx0nTF+7AOpNZi
- /Z/5bTcFkPSB68CBT9a6frufG5C4BXqQLQoK8eELyDgLnsk+npOdOctb6RZeznvs+RtU
- Nb2Ffa4xGdF3NPkab7XuPsIdLaaAvdq8B39UzHJTlLc12abdkflCP5rAP+qyP+bXwB0l
- oWGJbLfwt+vygaIihytMMxrGt8QMcD7hzC2NNtaJro1BiRRO5AKl7/PspPasaqkOs4IE
- HlDQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785765598; x=1786370398;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=/NcaeFQwLQ3IoKK3UiewV1tehK0mYSuHgA/av2aKAO0=;
- b=aTwKS5TJud1uLqJmjkFnTHvG7m9TmtO9fL08d0Pv4T1WdGxeX3jrBFMgwoSmnn7Cp1
- XlUCYUvpULTSSN5YztqLJR1SCscHZzdo9oMFOmBmGTPtzop/3CR811ANs3WZBufXGnUK
- ZaWe2/TcUE/RjKlSWfT/T1auVKxQGczBisooUubNlG3sOgcOsohA3iSCtvlJz5saXmdf
- +NDF1wCT+WvnuRLhprMijuFVOYsNQ2DAb3cHv3CmjG+rRgqTiwaD1+W/mpL23YhQx4bL
- jTt+bJy4vIlrDszd9fBhiQoTK2wyAPsbhz6dICacVTIQgi8FU85iJrqFj8+zAdbEOhhf
- jFow==
-X-Gm-Message-State: AOJu0YxYUooDQKa49Lk6JOAWn/EImKhUt8+YI5bQVuV8s3tVn9ARTyqP
- JLVfZDrI6ELfUPOUA20ZX71ssbsnKb/sUubn6eY2qVnZGowpebLsNHITIWuH2fl1nmr/OZWnxCI
- pbjxiv7g7HP+V4qYb7HCig3qMRhUtqeGxEQ==
-X-Gm-Gg: AR+sD12I2nnb8HpinP+0q0V6SIX9gs6EaAUwjbKh6BQdNCUukdB3ifXY3pELV28uL2a
- gHnmEOEvxATPsjv68mUe6gEFmDKdDVFDyMvQqbh4uCLZqAheryWH+mp+uPtRQLNsQd6psEsgee2
- 1DtjziVpp5QoFkAd5ysBMapk+uAfnUmqb4fcrQztYuVlt764V1fW5WUuWq5uzjll6oEQQB0YGum
- /lsaj3k6K23LRRlE+vjSEi1dofHb6qXosxmWPmXMrtTX4KiDF8MPZxZ8Rgbs6FWgTGoYY/nw15d
- 2PHS7ma/WNPt2jTtk9lpHNXM3YQqMbGW4fhRcFmQBHwN+0mXvZhxfOZdGZApeLgr9oHvYdjGJxm
- lGYXOq+gFruTZv58qtxQdPcSJ6Zqbx+A=
-X-Received: by 2002:a17:90b:3cce:b0:381:bcfb:e710 with SMTP id
- 98e67ed59e1d1-38fbc58f3a6mr12366061a91.3.1785765598566; Mon, 03 Aug 2026
- 06:59:58 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260803102416.3776005-1-candice.li@amd.com>
-In-Reply-To: <20260803102416.3776005-1-candice.li@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 3 Aug 2026 09:59:46 -0400
-X-Gm-Features: AUfX_mxQxoSMecsNdOSkziOYYo7p36lc06tZbt4y3VDU333h2zU2LaM4XzatxTk
-Message-ID: <CADnq5_ONAK8PdFjTE85A6kCNTJ96bOiybMek_GgPKBL=yqHqVg@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu: reject oversized IBs with per-ring packet
- limits
-To: Candice Li <candice.li@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, 
- Alexander Deucher <alexander.deucher@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012000.outbound.protection.outlook.com [52.101.48.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ADD7110E046
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2026 14:07:10 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=I5JSgMIcqofrIg+Bpf3acQmR8RAaEmAYFGbriXHXgteY2q44CicndyRhlONrbO5oZJXaYmuzgK5xq0My89nXaPXTeTV4ztDdVPULn/1Qh4ugO1Ak48xV6W8OqnhNCPj7q/Z3LWDR/TCUe0GIOZ0RKYbUF8CCtDj/5NSrXBOEziz1Ajsei+jxbPQBcxD7Wt/bCks3TzBIlpLxdRkFfJuhAExP+CBrKoqcgPACnTPRi1aHw18eZ5ATVKAwtaB5eHKtYEze+8bp25RM0dL2A/+qCEQBUz0iVVpXXUz10ikcSYyvlrH2TbbcCbnRUoH5Vpojnq+BxgDFsMANtkUtyQzXYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=LNkTeQt9cF8+LF7HxgEvhWMw7Jwt1SoaBA/bgmsUFAE=;
+ b=FnYwGpK3DF6trZKxFhnzh7iSnCAg3wQh79mPZnncHYKsL1b0MhRfMUqpz5H+bLJz/CRwBaq1sDeSfvyWFPIPIVBZmvxu2jw4sURR/zk+AR0G09VqqtFV+N9rfotcLpSUFls6gmifrLIKFqyn1qf+f92ajjY6N0au75s6vhVJp3hw1X3ch3OofgdVU9bSu7RQBseYcmPi9M8q2h+RyYGxgcHseGj6u0G3PBq57CJcT0psRJeyvf43ioLplGrk5yYKlRhm7qlbuui+ajv5uz6TcxZwQCxZ5DuF5TxQirnNbqrP3bcotjMxJKEXjRjeHiiwXTyHjua5J4u+b3kBZ/mMaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LNkTeQt9cF8+LF7HxgEvhWMw7Jwt1SoaBA/bgmsUFAE=;
+ b=fFGMTpQmD9FTNOuizcrBN7DwCSPSq3LIF/ygci5YqNc0RDa2DmTlZNJpgr488DHtipu9cstou/XdYOHdKlOlnuqrWN97COn40wwBotMnpb7IJ/1+5yOKcd6O8lPBcnyTpz8DUdvcTCJSqMgfMeHntW8kMG2mYllE0T6qwzWYa3I=
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
+ BL3PR12MB9052.namprd12.prod.outlook.com (2603:10b6:208:3bb::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Mon, 3 Aug
+ 2026 14:07:07 +0000
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::ab84:617d:61a9:3727]) by DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::ab84:617d:61a9:3727%3]) with mapi id 15.21.0270.017; Mon, 3 Aug 2026
+ 14:07:07 +0000
+From: "Liang, Prike" <Prike.Liang@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "Chen, Michael" <Michael.Chen@amd.com>, "Liu,
+ Shaoyun" <Shaoyun.Liu@amd.com>
+Subject: RE: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue
+Thread-Topic: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue
+Thread-Index: AQHdH8hzQdA6V0UvE0Ox2HMImbZFT7aMYxVQ
+Date: Mon, 3 Aug 2026 14:07:07 +0000
+Message-ID: <DS7PR12MB600539B792A32BC346F23EFCFBD52@DS7PR12MB6005.namprd12.prod.outlook.com>
+References: <20260730020911.234193-1-Prike.Liang@amd.com>
+ <20260730020911.234193-2-Prike.Liang@amd.com>
+In-Reply-To: <20260730020911.234193-2-Prike.Liang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-03T14:06:48.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|BL3PR12MB9052:EE_
+x-ms-office365-filtering-correlation-id: 63e943e5-89ba-48f5-a668-08def16880c7
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|376014|4143699003|56012099006|10067099003|11063799006|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info: E5HkHwoMRNvQFaAfwaf2RwA5RNH5VTFjWhdr/5Wb2/dZTtaUbsE81aJyePRwuEDW3EQTreqWcxS95r7eR6mJqI2pcmCkCAtXUK7jyRxPQIl7NtV9nbL8btPZEZiqBjeqWioJk57bx6Jsw4AlSYcBQpeV6vpBsVvrQkysvQulteY87dgXZHwltKnFFuK5pHVISRNlQVfOEsFpAemJiKU6Tik5SC0s8Rkl30+Dh4f6R6BDFxJ+E808/BvT6F5aC+ynQCvSPn1cEaedztiegcVdXNmxr822XwsUXMK74r/n0fLETCWH/N7DktTN+Xo8do1hTNnMw0x8w3qioQ2EiXI+OSjsXTugvW5W7ru7lGLedMxasfVWOgYGHPDBKdp1z3WZ+Q3RQEX6JE3DJ+AL3vZtxrm2kDh/aX3dbVXYQfxcZG4qAc3BWUEST1vYYxzstMPWD33zvh3qt2VaCqlDufB7Z7IXdLyFw0ElhkkuDbocRJ75fc1enZGM+dBjl1jX9qcxb2fZ7wrMDZr6+3XBJeBgXE6E6C9rHbx0Us8A3TjNHJ7iTNOTPjvrTHXtibTOOmmpCgrJJ2eODUSv9lvlvoCO9rjqKZOQAByXMOwn8+OxT3h6SUAmHlFJv0XpGwxhXNVoZQbP+gdI6en8ps0KI8ZUBD0vyT+XMXS9akF9P7DxBw9jGuNuykj5zNb3O5j1j9WoGEAGqOAU/9t234S+mRKSc3XDksa00He5DRsB1xxHGLs=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(4143699003)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?up0zgk+Ds2gxaZLeOMc0+bv0Qi2P5M0a6q00KiHhlQExhfaW8vulCFwa15VS?=
+ =?us-ascii?Q?hcmBAu01+SDCEkFWNnhnkX9oHRzQgbPUAuFlsrG8vfZ8IIrcwlrXgVDRBQf6?=
+ =?us-ascii?Q?G0htpCKJ77i5hT5bl3Em98dksjgoIKPnFJ80A6bJJWHVmwgsrQLkfgIkIZFz?=
+ =?us-ascii?Q?F5BArr3iLu9sK4PtGSSKyUgdY6rP8MBY91+QXo33xZl5jXtgu/awAp7uRbcm?=
+ =?us-ascii?Q?GxgKpheX9iGu95K0kkmFhh4FhPkCep+plDdirWwnvau+rM6bh2RjSbUz2Aj6?=
+ =?us-ascii?Q?g8uPWJlvkagV9MtCxhvMgj/A953WKDLpivvqFpRx3psps+XCemWoFUR/BsDy?=
+ =?us-ascii?Q?bnSGMgb8Lu6erL/q/L8gfE4hRVmZcWb2CUvZRkj1PqDHXYsrzSKEyApvd3ky?=
+ =?us-ascii?Q?PNSos+0Wwi3cdiNLLnoOjuZW2YmEjuoYu7ucfGqgx5ypLrB0KucC5j10YwXm?=
+ =?us-ascii?Q?EUGp3QdVTHoj9s1JUaObgaFm9cu02X2WNFuUrLnfh+t3cB3SSx5a0wbM0Ims?=
+ =?us-ascii?Q?R+iyD0SP+OMqZ5RJArayMJYnsYryuQJhcpxuY6I5q4Pg5DJtBxjd1vRpFsdJ?=
+ =?us-ascii?Q?z3uYc2e4avxp7HONyW5JgrfEnxSWEuzLLXPNGyQ1kTXY0VYpSyoKs/wqdT6K?=
+ =?us-ascii?Q?OHMpKKNx/ZCbZYSQm+m8kOVDjjRn3p/svMLNewlcRuOh1n15CTKibVLHNkUY?=
+ =?us-ascii?Q?cFowvfmuG5rEtKajDQa0wT+jlyNF7xKOlx/kEV572eyzSdeIy7IjSZkCiSQr?=
+ =?us-ascii?Q?h9iGRyJSou+DtXuO52YuRwcwevfj6d6SDEocS0YtUtWLH6cZRfjD3yqYQ4eh?=
+ =?us-ascii?Q?GJKyTdPQGVCHp9kwBXAtZ/+dH1vfv36ukz7gw2+jzuGyCzga095x+tXC5aZt?=
+ =?us-ascii?Q?DrIZfD8DtXYzz9hEmWolgkNZ65H7DlrtDCVThXsQXxc90uSmOTAL6umFRQAX?=
+ =?us-ascii?Q?j8zf/vsCyz10pv41J4MEMg+3Zaecav18sDJ+ZSv4kAgTJbVcvd0SXWUmDbpY?=
+ =?us-ascii?Q?7yEa2Mx72ROZP3shYh1WP9Ay5IcGUxhp0zo/C/TKvkqEwJBkfNlyKKPl8Djf?=
+ =?us-ascii?Q?WAG1+u8eMRG+BxoFTz/Qc3dJ34vbsz7GzspI0+8PkoDj3TD4NSxBv/T0JHYK?=
+ =?us-ascii?Q?dAK0eB2ceu4UurYbBF8trTjXXoyW8cSXyfJVeung5dvFy+IKbcrCDbd7276z?=
+ =?us-ascii?Q?Qvz60WuzQAZNNtH3IUqmxkW5bS8LEKvwWMWZNigmTlC8HOlOXcPhQL4CXWvC?=
+ =?us-ascii?Q?MTk1ZCBVG2LFQ6e8VtxIHsXh1MOb70vVhoDmbBnMyp5grdk3HnJB50G+teb3?=
+ =?us-ascii?Q?AdhCJkn4u09MfaHlJ++/lXOKnOk5KMJ3JfeLDFv8vojbfigedcAQK57Xlp2c?=
+ =?us-ascii?Q?3Dv14LUjXJDSEVb+lLB6WGN80T+rR/yMsjF3r+ZIdDDlGTIrEMxwmw43IyvT?=
+ =?us-ascii?Q?JdfTRMNNGhM7LmaS8QT1HHF9slGfGw0xXxwm+/JZ08iA5gt5WOkeus23tYrn?=
+ =?us-ascii?Q?djlL8r3RW40+ho4+wJadORSvPVZ7YMDfAxzUC5tgrqINeyJhclId0GSWKOho?=
+ =?us-ascii?Q?2IvA1WL9fESDsQjZ//FvhfrLiwBRHFJz89P2wePibW2sZnlMPvu2pomJT/bX?=
+ =?us-ascii?Q?dAu2K+uznbZHt7zGQRYPaQvjR9lJASqX7m+hB8CRZr6rmxiCI4t4nYxvDRtb?=
+ =?us-ascii?Q?Om01pWIMZWX7h8Tj65xDqF+LtG0MN7fJobiuLPDIeqKWCRro?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 63e943e5-89ba-48f5-a668-08def16880c7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Aug 2026 14:07:07.2590 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: EyAIQuwvKFG59Q1ja9eR5dZ1MrxN6hW+FpaZxVZL6+4kNBsvCaoPjBLbn98GQ7bo
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB9052
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,84 +133,170 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 3, 2026 at 6:33=E2=80=AFAM Candice Li <candice.li@amd.com> wrot=
-e:
->
-> On GFX rings, amdgpu_cs_p2_ib() passed user-supplied ib_bytes through
-> to ib->length_dw without a limit, while ring_emit_ib() encodes length
-> into packet fields. Oversized values can corrupt adjacent control bits
-> and destabilize command submission.
->
-> Add a per-ring IB packet size limit helper and reject command
-> submissions exceeding the corresponding dword limit before IB
-> allocation. Use the documented 20-bit limit for GFX/compute/SDMA/VPE,
-> and apply the MM fallback limit for other ring types.
->
-> Signed-off-by: Candice Li <candice.li@amd.com>
+AMD General
 
-Would be good to also enforce the ib length mask in the packet
-functions as well as a follow up patch series.  This patch is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Ping..
 
+Regards,
+      Prike
+
+> -----Original Message-----
+> From: Liang, Prike <Prike.Liang@amd.com>
+> Sent: Thursday, July 30, 2026 10:09 AM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> <Christian.Koenig@amd.com>; Chen, Michael <Michael.Chen@amd.com>; Liu,
+> Shaoyun <Shaoyun.Liu@amd.com>; Liang, Prike <Prike.Liang@amd.com>
+> Subject: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue
+>
+> Enabled RS64mem for KFD queues by integrating process and gang context in=
+dex
+> allocation in the per KFD device process and queue creation.
+>
+> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 27 +++++++++++++++++++++++++-
->  1 file changed, 26 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |  3 +++
+>  drivers/gpu/drm/amd/amdkfd/kfd_priv.h                  |  3 +++
+>  drivers/gpu/drm/amd/amdkfd/kfd_process.c               |  5 ++++-
+>  drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 10 ++++++++++
+>  4 files changed, 20 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
-/amdgpu/amdgpu_cs.c
-> index afc1c631d55aa6..617f53f135f353 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -42,6 +42,26 @@
->  #include "amdgpu_ras.h"
->  #include "amdgpu_hmm.h"
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 51ee9c39104b..ea9d87450eae 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -226,8 +226,10 @@ static int add_queue_mes(struct device_queue_manager
+> *dqm, struct queue *q,
+>       /* MES unit for quantum is 100ns */
+>       queue_input.process_quantum =3D KFD_MES_PROCESS_QUANTUM;  /*
+> Equivalent to 10ms. */
+>       queue_input.process_context_addr =3D pdd->proc_ctx_gpu_addr;
+> +     queue_input.process_context_array_index =3D pdd->proc_ctx_array_ind=
+ex;
+>       queue_input.gang_quantum =3D KFD_MES_GANG_QUANTUM; /* Equivalent
+> to 1ms */
+>       queue_input.gang_context_addr =3D q->gang_ctx_gpu_addr;
+> +     queue_input.gang_context_array_index =3D q->gang_ctx_array_index;
+>       queue_input.inprocess_gang_priority =3D q->properties.priority;
+>       queue_input.gang_global_priority_level =3D
 >
-> +/*
-> + * Maximum IB length (dwords) for rings whose emit_ib packet format
-> + * documents a 20-bit size field.
-> + */
-> +#define AMDGPU_GFX_SDMA_IB_PACKET_SIZE_MAX_DW  0xFFFFF
-> +#define AMDGPU_MM_IB_PACKET_SIZE_MAX_DW        0x7FFFF0
+>       AMDGPU_MES_PRIORITY_LEVEL_NORMAL;
+> @@ -303,6 +305,7 @@ static int remove_queue_mes_on_reset_option(struct
+> device_queue_manager *dqm, st
+>       queue_input.queue_type =3D convert_to_amdgpu_ring_type(q-
+> >properties.type);
+>       queue_input.remove_queue_after_reset =3D flush_mes_queue;
+>       queue_input.xcc_id =3D ffs(dqm->dev->xcc_mask) - 1;
+> +     queue_input.gang_context_array_index =3D q->gang_ctx_array_index;
+>
+>       amdgpu_mes_lock(&adev->mes);
+>       r =3D adev->mes.funcs->remove_hw_queue(&adev->mes, &queue_input); d=
+iff -
+> -git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> index 88191a4c1657..3b89bcc625b3 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+> @@ -635,6 +635,7 @@ struct queue {
+>       void *gang_ctx_bo;
+>       uint64_t gang_ctx_gpu_addr;
+>       void *gang_ctx_cpu_ptr;
+> +     uint32_t gang_ctx_array_index;
+>
+>       struct amdgpu_bo *wptr_bo_gart;
+>  };
+> @@ -871,6 +872,8 @@ struct kfd_process_device {
+>       uint64_t proc_ctx_gpu_addr;
+>       void *proc_ctx_cpu_ptr;
+>
+> +     uint32_t proc_ctx_array_index;
 > +
-> +static u32 amdgpu_cs_ib_packet_size_max_dw(enum amdgpu_ring_type type)
-> +{
-> +       switch (type) {
-> +       case AMDGPU_RING_TYPE_GFX:
-> +       case AMDGPU_RING_TYPE_COMPUTE:
-> +       case AMDGPU_RING_TYPE_SDMA:
-> +       case AMDGPU_RING_TYPE_VPE:
-> +               return AMDGPU_GFX_SDMA_IB_PACKET_SIZE_MAX_DW;
-> +       default:
-> +               return AMDGPU_MM_IB_PACKET_SIZE_MAX_DW;
-> +       }
-> +}
-> +
->  static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p,
->                                  struct amdgpu_device *adev,
->                                  struct drm_file *filp,
-> @@ -340,7 +360,6 @@ static int amdgpu_cs_p2_ib(struct amdgpu_cs_parser *p=
+>       /* Tracks queue reset status */
+>       bool has_reset_queue;
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> index eb508fe3ded7..0a7c1900da95 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+> @@ -1215,9 +1215,12 @@ static void kfd_process_destroy_pdds(struct
+> kfd_process *p)
+>               kfd_free_process_doorbells(pdd->dev->kfd, pdd);
+>
+>               if (pdd->dev->kfd->shared_resources.enable_mes &&
+> -                     pdd->proc_ctx_cpu_ptr)
+> +                     pdd->proc_ctx_cpu_ptr) {
+> +                     amdgpu_mes_free_proc_ctx_index(&pdd->dev->adev->mes=
 ,
+> +                                                    pdd->proc_ctx_array_=
+index);
+>                       amdgpu_amdkfd_free_kernel_mem(pdd->dev->adev,
+>                                                  &pdd->proc_ctx_bo);
+> +             }
+>               /*
+>                * before destroying pdd, make sure to report availability
+>                * for auto suspend
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> index 8054e4fe0381..72913b5c8338 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+> @@ -210,6 +210,7 @@ static void pqm_clean_queue_resource(struct
+> process_queue_manager *pqm,
+>       }
 >
->         job =3D p->jobs[r];
->         ring =3D amdgpu_job_ring(job);
-> -       ib =3D &job->ibs[job->num_ibs++];
+>       if (dev->kfd->shared_resources.enable_mes) {
+> +             amdgpu_mes_free_gang_ctx_index(&dev->adev->mes,
+> +pqn->q->gang_ctx_array_index);
+>               amdgpu_amdkfd_free_kernel_mem(dev->adev, &pqn->q-
+> >gang_ctx_bo);
+>               amdgpu_amdkfd_free_kernel_mem(dev->adev, (void **)&pqn->q-
+> >wptr_bo_gart);
+>       }
+> @@ -282,6 +283,9 @@ static int init_user_queue(struct process_queue_manag=
+er
+> *pqm,
+>                       goto cleanup;
+>               }
+>               memset((*q)->gang_ctx_cpu_ptr, 0,
+> AMDGPU_MES_GANG_CTX_SIZE);
+> +             /* Bind one MES gang context slot per queue (gang). */
+> +             amdgpu_mes_alloc_gang_ctx_index(&dev->adev->mes,
+> +                                             &(*q)->gang_ctx_array_index=
+);
 >
->         /* submissions to kernel queues are disabled */
->         if (ring->no_user_submission)
-> @@ -369,6 +388,12 @@ static int amdgpu_cs_p2_ib(struct amdgpu_cs_parser *=
-p,
->                         return -EINVAL;
->         }
+>               /* Starting with GFX11, wptr BOs must be mapped to GART for=
+ MES
+> to determine work
+>                * on unmapped queues for usermode queue oversubscription (=
+no
+> aggregated doorbell) @@ -304,6 +308,7 @@ static int init_user_queue(struc=
+t
+> process_queue_manager *pqm,
+>       return 0;
 >
-> +       if (chunk_ib->ib_bytes / 4 >
-> +           amdgpu_cs_ib_packet_size_max_dw(ring->funcs->type))
-> +               return -EINVAL;
-> +
-> +       ib =3D &job->ibs[job->num_ibs++];
-> +
->         if (chunk_ib->flags & AMDGPU_IB_FLAG_PREAMBLE)
->                 job->preamble_status |=3D AMDGPU_PREAMBLE_IB_PRESENT;
+>  free_gang_ctx_bo:
+> +     amdgpu_mes_free_gang_ctx_index(&dev->adev->mes,
+> +(*q)->gang_ctx_array_index);
+>       amdgpu_amdkfd_free_kernel_mem(dev->adev, &(*q)->gang_ctx_bo);
+>  cleanup:
+>       uninit_queue(*q);
+> @@ -386,6 +391,11 @@ int pqm_create_queue(struct process_queue_manager
+> *pqm,
+>                       goto err_allocate_pqn;
+>               }
+>               memset(pdd->proc_ctx_cpu_ptr, 0,
+> AMDGPU_MES_PROC_CTX_SIZE);
+> +             /* Bind one MES process context slot to the whole process
+> +              * (per device); every queue of this process reuses it.
+> +              */
+> +             amdgpu_mes_alloc_proc_ctx_index(&dev->adev->mes,
+> +                                             &pdd->proc_ctx_array_index)=
+;
+>       }
 >
+>       pqn =3D kzalloc_obj(*pqn);
 > --
-> 2.50.1
->
+> 2.34.1
+
