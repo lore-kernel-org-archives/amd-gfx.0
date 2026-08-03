@@ -4,84 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9CE1C5518F
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 07:18:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48C0CC55172
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 07:18:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C15010E8A2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D527A10E89E;
 	Tue,  4 Aug 2026 07:18:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="JcFVzeYY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="UewXnZrO";
 	dkim-atps=neutral
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3B8C10E703
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2026 15:25:57 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-47fe45db360so109672f8f.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Aug 2026 08:25:57 -0700 (PDT)
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com
+ [209.85.208.173])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 06C7310E78E
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2026 19:14:07 +0000 (UTC)
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-39c74722e27so3234001fa.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 03 Aug 2026 12:14:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785784445; cv=none;
+ d=google.com; s=arc-20260327;
+ b=ld5gUr8DOV13bZmWSDwZmloDZTV10C2JtnzNpk8ATtCSO0j6niMILNBUPxJfk+Uigf
+ 4syAOhjORMtGZ3RL8VuZHHf+3/psOa5FE5UcxauC9Rt6thacDSUBc+V+1V9DGmYXYIzy
+ YC2olEIHjBgwRRVrcY9EioSPjeCbi96q0lQppedybG6rKfGfs6R+iWoYudsKmzNc7/u5
+ wPJ4Ji0DuarfZzlo+OglMPMQYCu/WQYdDxpcK7rXsVd8ZEmN+PPKdWJkZsomR0ORAV38
+ PsAyPlSw81bJyhiKH9GB/Tpkk4s22BLxnpOuzxo2YdzgBeGDkDD5Kb9pcbHhiZFCmNST
+ koqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=tpsxoydy4sCKczsgkcPQalcJBeSRT7RdjZ9uW8qiINo=;
+ fh=PEERZuh4Yetnp4UITlV9U2qacneb7tIeTgg3afsQkx4=;
+ b=XdlE30s0ohCcRsGChC78WMiFqBJpJffIOu6cegS+2zJE35Qf9vwqwbvfCGAuGtp8wF
+ OYWxvTHqBPnSMWv/wfbHa4T5U37LtvTy1R0Ie/flcrGxvmLOecYs6dPsBj3uolzjm81z
+ 5QyGV0slBlysvtdUgICqwCD56g5Cis5fplI5vhzFbrK/cPVil1KrU6AvVhZtVS9qyJD6
+ 4LbIbgEBKTNdXn1FTSMXINIRlw1+5gCdMipFTldrrZ3AAykM4DwmIyRUExbhsPj12IEl
+ S1D1NxhP7CSMHLRyrmxy/SHRKxR64IkGDXg/58KXG+hu37S9gVfQvPIN4AI383hxFzqO
+ G2Cw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785770756; x=1786375556; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=9LoyqYzYJ0Nb5xInecrCvJNeUVfm0JCLfhe5/5aWpTE=;
- b=JcFVzeYYMezuM1/WVlh0hs57+HiFxsWB6mLR3X/08fk63m3DanXNmAwBOpjeeaNkvG
- LCookTF874h84LMmHXLx7glwzG2WEZEM/x37wpoJ9Vl/IEJjTJ89fjgWXOJ/8cD/33fj
- tD18P4Dlz0A03A0XBPDXloaDxqItN1H72IhpUbmzRptDC5o9U2xzJv+Qw6ZNt2ft69dV
- 1WYbX+CBLuVqBt1CIFtp7skALtWUC9X2DOYKdsl25u5rFQFYxIjvVDXN5JjCkqblOMLA
- 3ueIB6R4jf7c9lkF7m7nAvZTMX6CVEx9UdEhjcQTWHEWBjeVXdXPNidcbkbhpe2mo62y
- Tgxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785770756; x=1786375556;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ d=gmail.com; s=20251104; t=1785784445; x=1786389245; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=9LoyqYzYJ0Nb5xInecrCvJNeUVfm0JCLfhe5/5aWpTE=;
- b=LyqzEb69Cm4HHh9zYL8WFPpHmKjcTpR5+caW+WSwc/+085q2Lb8q1Znx7XAUCWRgkP
- DpXyqiDqE0j98StF2wcqhwi7VFayClDH/FwfjLF/oJyOm+cktQitU8HSFx60G7DdhBla
- UVYdknI5nmzV8Vs9UdeqjukHQO0B7GU/RuJdYgceLdftcZ3KbcQeDnHBoZJBp9xSnzDE
- 8fPQPQ/KPHZKUETNcKlU0MiObTV+XhNsdPNq3u6+AjbA8Tsyt29QYju2EPb1HcxPTq4f
- 8WIP861K2eO0ZGPXr3D00Fj54JHY99Njwb5OauYmRsUCxGxHIAufub4pe56VrjemxZZG
- QXMw==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rpz074FnvovESSG8aSS0SeaMVdSPCfiHUDWQ5XA0Bt1wd52k9mWQz8fot9sNBofehVdy0auJUdT@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwDBrSvQcIVPMtyKOhuRoXBMUgAhOYLAvEmXYR9eKrXks2o4lRk
- YexDHV3r63A2kNo4sL1clE0xb0Zh1eo7FUc6JKxtMteVs+hqxqLe8azJ
-X-Gm-Gg: AR+sD10VihvpYXY/9yzdcufPxEeASBI0z6I2+7ekR0O33BTXruI2r7eonHOfMI/oTAC
- 2+gbG5aEu10aZlCRQZKuRd+pBHLgSEVmanjOSdoydvN2Ikzq0+B8Kd0sQoh/SLsHLrHY+u5vhkE
- 1D5QZDL7rNB1ckKwWGuHG1E9sa/kBb5AT/89bVqiOwLguq6TPkVT/+2gtp79HnoRcC9+q4JZ50t
- qd6+RouB0//UNURRm112G4k8kI1NlQ3yDJkaPWUzcKd154RpagKHl5T7G7Sew5prWAjjkpBenhe
- Ma3qbxOUBHnUziSVyWIymYQwtTU4vo8B4GATRrnOwilZkqW5jOzwn4RQUiCP5pKTJ9jvYkk7Tim
- /zc1rnlpmmDnAlHVXvVcIfqdi1YXk+3+VlEpn3Ifra0uhWtOPI7nKelM7m+wrLNIimd8BBz06DJ
- 0u4pecft8XZu4YTfaM6T9xzAT1e7ONGqEF+82ipuAyWdqE/kdtqMy5gUgc+VtK8HUoROp4x/aby
- QuZn/1fgoItbdrs09hOclfy0HOpjytMLIn1Ynph4rPRYkV+uqCyybjqOwu5dORYlgSU2oFcKl7s
- Ro8=
-X-Received: by 2002:adf:e197:0:b0:47f:6c7e:b32d with SMTP id
- ffacd0b85a97d-47fd72a0d89mr15322739f8f.1.1785770756108; 
- Mon, 03 Aug 2026 08:25:56 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME
- (20014C4E1B85F300A5CC0DBDABDC4661.dsl.pool.telekom.hu.
- [2001:4c4e:1b85:f300:a5cc:dbd:abdc:4661])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-47fd41e2abbsm34461507f8f.9.2026.08.03.08.25.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Aug 2026 08:25:55 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: nlucasgit@gmail.com
-Cc: Igor Paunovic <royalnet026@gmail.com>, amd-gfx@lists.freedesktop.org,
- harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, joshua@froggi.es, mwen@igalia.com,
- leorize+oss@disroot.org, alex.hung@amd.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] drm/amd/display: fix BT.2020 YCbCr output CSC
- matrices for DCE
-Date: Mon,  3 Aug 2026 17:25:33 +0200
-Message-ID: <20260803152533.9008-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <15b28cafab1b55f3e4cad9bb542847d22e776bda.1785616749.git.nlucasgit@gmail.com>
-References: <15b28cafab1b55f3e4cad9bb542847d22e776bda.1785616749.git.nlucasgit@gmail.com>
+ bh=tpsxoydy4sCKczsgkcPQalcJBeSRT7RdjZ9uW8qiINo=;
+ b=UewXnZrOqiV26foEIEfzyNwtfDNs9wR7eOVyyud3MWaBuGH3bHeq1agPZHqSDxV8PG
+ ydevgGhYPpW9Rsqim28/S867Qww4ofy3uM6WTmkiSu9C2juAn+lgXxpNMNw6bYGZl9A5
+ YjSKUgJ4Ft4lJ29Xw/rL8+I0JnPdba7c9UeiAquzg8aKEEFwBuBBZ9m8jldiiD2Bh4l1
+ MNfHL1mpE9WtTxhceCFoagnqVqQPAcgIUWkx0XHtkr2+jHnVL1RcCmkwWjVnwPUiKXOP
+ oW63AyDZ63lGfak6Yvnv34h2u4xbbatRIcpt0w3elxSA6vCQJgOmCdYXGTVe9J7RzFkE
+ jsWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785784445; x=1786389245;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=tpsxoydy4sCKczsgkcPQalcJBeSRT7RdjZ9uW8qiINo=;
+ b=AQ1Tgxtxf3vrVu76dK76URkfoXzhhJCy4FeftRi51aNSMq3nXJW8eiKr4DbWri8ai0
+ 8AN0yk66peoew/SDzQcm3dwvbgon0+pyf04tKSmb8q446uO+NTxeX0ZGkmbqIUl8RUHu
+ IMHAqH3m5iKAT/wKiE5B/Py12xVP0PqfN7GCM1Rz2attwghwNGsmjXdAcHhZPUWUSbrf
+ W87287Wrh2KJsozbLFSpVlKyDRErkBQF5mhhSG1HqL2H3NknW0RZBjDcKtKzXI7GklVy
+ NuAO6c+RyVYiyYmDmE70F3s5Oo/jMIXhkt9hltqxX3SJnzAgYFWT+sr2BIAT5n1oFHi8
+ Ur8Q==
+X-Gm-Message-State: AOJu0Yyk5gXiZyd4kJfCPy0OVXsb+yiWYHmh/rmYrjphRuozP/NemyRK
+ BFrqJgYyBC9vdwGHi8T4BZNZuAEXjrLHzSdIYZzRNEG/BFQRV/8YBO47EFZ+DK5lfL7wkIi4cU4
+ b0CWXcc7hFQheeeRKXISPEiCI244aB67sDQzX
+X-Gm-Gg: AR+sD13KOzqC7HLX+hftXYhIFpu71fIpY0QQTm83HPhRN3smCwinDG6daeq+LGGVvBg
+ YekXLk3Ayw3RfJyXA7Z3tCA32X1pZ6TSV7AfTAF2w4HF9XSV5e3EY3ALqlyQW/o2jd+EmH5EA4H
+ HYIAuqewT49PlvbaKPLRJbabZ/EdIOrT8/ZmIScgCK4GseegzKLa3fcRNMWnlkLKYKxWDqRnUZh
+ 728SeLAXcLwjoFmxIHqDT3iQrHXbbQJCyCH1H1EJ8p0ZbQbihkgZ1wg72ZnQ9SsrArbkEpljPFr
+ SE5HdvC8t0b7DmZl5xXfIdAp54plxHda45dN23tL2ZwGnzZW3xldAWm+SQ==
+X-Received: by 2002:a2e:a99f:0:b0:39c:7425:59ac with SMTP id
+ 38308e7fff4ca-39fae8e32d3mr1205701fa.18.1785784444785; Mon, 03 Aug 2026
+ 12:14:04 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Travis B <tbangs89@gmail.com>
+Date: Mon, 3 Aug 2026 15:13:52 -0400
+X-Gm-Features: AUfX_mwJ64exxyG8S2Nv1oZR4rlgtMEnODZDYSPlNzyH-cm_WjVLN22NFrHqRLE
+Message-ID: <CAHSgyMMBq9zbcAgiFz75vM0_oJRi+YkKap2W9=L_Na6Yu39zNA@mail.gmail.com>
+Subject: [PATCH] drm/amd: Disable DP audio spread spectrum for Cyan Skillfish
+To: amd-gfx@lists.freedesktop.org
+Cc: "alexander.deucher@amd.com" <alexander.deucher@amd.com>,
+ harry.wentland@amd.com, "sunpeng.li@amd.com" <sunpeng.li@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Tue, 04 Aug 2026 07:18:42 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -97,45 +98,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Nathan,
+From: Travis K. Bangs <tbangs89@gmail.com>
 
-I hit exactly this on a DCE 11.2 part, so here is a data point for the
-path you could not test.
+The VBIOS for Cyan Skillfish devices (DCN201) indicates there is
+DisplayPort ref clock spread spectrum downspread, so the audio clock
+is corrected for it.
 
-Setup: XFX RX 580 8GB (Polaris10, DCE 11.2) as an external GPU on an
-Orange Pi 5 Plus (RK3588, arm64) over PCIe Gen3 x4, driving a Sony 65"
-HDR10 TV at 3840x2160@60 with HDR enabled under KWin/Wayland. The sink
-lists 3840x2160@60 only in its YCbCr 4:2:0 video data block and caps
-TMDS at 300 MHz, so the stream comes out as PIXEL_ENCODING_YCBCR420
-(confirmed in hardware: FMT_CONTROL = 0x002a0000, FMT_PIXEL_ENCODING = 2),
-and with the compositor setting Colorspace=BT2020_RGB the output color
-space ends up COLOR_SPACE_2020_YCBCR_LIMITED.
+However, the clock source in this hardware does not seem to actually be
+running with a clock downspread, so DisplayPort audio desyncs with video
+after several minutes.
 
-My tree predates 51e6668ab4ba, so global_color_matrix[] had no BT.2020
-row at all. That is worth recording as its own failure mode: with no
-matching entry, dce110_opp_set_csc_default() programs no matrix and
-configure_graphics_mode() leaves OUTPUT_CSC_GRPH_MODE at 0, so the
-output CSC stays bypassed and plain RGB is fed to the 4:2:0 formatter
-while the AVI infoframe declares YCbCr 4:2:0 with BT.2020 colorimetry.
-The sink then applies a BT.2020 YCbCr to RGB matrix to RGB data: luma
-lands on green, Cb/Cr sit near mid scale, and the picture is washed out
-with a heavy green cast. SDR on the same link was fine, since it stays
-on the BT.709 entry.
+Ignore dprefclk SS downspread on CYAN_SKILLFISH2 asic.
 
-Applying 51e6668ab4ba plus this series on top of 7.0 fixes it: colors
-are correct on that TV in HDR, across a reboot, with no amdgpu errors in
-the log. As a cross-check, the same desktop on a second monitor driven
-by a completely different pipeline (the SoC's own display controller)
-now matches it.
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5429
+Signed-off-by: Travis K. Bangs <tbangs89@gmail.com>
 
-I also booted 51e6668ab4ba without this series on the same setup and
-could not tell the two apart by eye. That is not a counter-argument to
-the fix, just a note on sensitivity: the compositor maps SDR content to
-around 350 nits, so nothing gets near the top of the PQ range where the
-full-range luma scaling would clip, and the residual difference stays
-below what this TV's processing reveals.
+---
+Submitting this patch as requested by Alex Deucher.
 
-Tested-by: Igor Paunovic <royalnet026@gmail.com>
+The system with this problem is the ASRock BC-250, which to my knowledge
+is the only GPU which uses DCN 201, so this should not affect anything
+else. I have tested this patch on my system.
 
-Thanks,
-Igor
+Some relevant register reads:
+dprefclk is set based on the value of register CLK4_CLK2_CURRENT_CNT
+which reads as 6000.
+
+Without this patch DCCG_AUDIO_DTO1_MODULE gets set to 598874.
+With this patch DCCG_AUDIO_DTO1_MODULE gets set to 600000 and audio
+stays in sync.
+
+I am in contact with about a dozen other BC-250 users who have also used
+this patch and reported that it solved their desync.
+
+There might be a deeper underlying bug here but I think it takes AMD
+insider knowledge to fully understand what is happening. I am glad to
+provide further info or do further testing if needed.
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 1820547b1dde..941c1a312824 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -2189,6 +2189,11 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+         init_data.flags.unify_link_enc_assignment = true;
+         init_data.flags.usb4_bw_alloc_support = true;
+     }
++
++    /* DCN201 audio desyncs using DP SS */
++    if (adev->apu_flags & AMD_APU_IS_CYAN_SKILLFISH2)
++        init_data.flags.ignore_dpref_ss = true;
++
+     retrieve_dmi_info(&adev->dm);
+     if (adev->dm.edp0_on_dp1_quirk)
+         init_data.flags.support_edp0_on_dp1 = true;
