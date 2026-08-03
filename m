@@ -4,96 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 685A2C55182
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 13:22:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3E95C55182
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 13:23:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 024CA10E653;
-	Mon,  3 Aug 2026 13:22:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C9BE10E20F;
+	Mon,  3 Aug 2026 13:23:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Nn5D+TjY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="EiAwPUeY";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2204710E653
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2026 13:22:52 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-38f0f3c8da5so390229a91.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Aug 2026 06:22:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785763371; cv=none;
- d=google.com; s=arc-20260327;
- b=Cyc1910JL3WgXUQmmvRW1s7Q5MPdp0FX9Yw0utDjHXq/LZ51zbThEToI+hs6ZDTNBI
- BYkwbjvEJtbsBFT7I75xTVbJAQ+q10KwqDH2PxRs2g+frkGqpF+w4I9BhjNJDg2jg6fH
- 0UlTh1WWeaCaNLg7eRwBZzUE6rlHxfSb43bKab4eyJ4u+FVxBYgzmC4sI3glntzPvamu
- NbKSiGB4Gr/kcB2+0I53adYv6XGt1eKNoG/i2RmOTwQh/qLONpx5gX3e7dJwsw5k0Y11
- qgGp3PHJJ2EFJ1oNqcepGRpuW1g57sok47qTOK5PY8srtc3+nCQdM6AOmB/PDhO8Bv1y
- FO5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=cLH4iGXx87g4Ud6V0lJ2Xd2StrulAU/UfSqpGTWeSuA=;
- fh=W4urHV6Jxzgzzxw2YDhJT/SpG6V6wMzjpVvif4ofd8U=;
- b=UIOt2yiK7NihUVuDfeFa+nD7SyWv110ozDZvnzEXyPZTVFkb5xtTID18K4kW1z4yGf
- 1xYqeDvF5Iau4mlgQy7ivUODh5wV+i/LSbkRx4jYUnm4iXjqHMv2dYLvmVmlITU53Uhg
- hzQjft8JidOkeWev67lxWjWGulImxMnQpIacvgDGA0Zxs8vK9TvQ7Rd5rgW4Udz4S0VA
- db1xdiKEQEMK71IgYVwf5ue6dBYEs9FH1DhSEh3zs2vaaEft8OlUCj3N8pHxoUIYiH89
- mYDr2kzFO1nJ5f9g4JWp1HltyYpw6qbwIT3MqH4SkmhL6N/u/JS57Eg/hxBrkY2BrRxb
- GRKQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com
+ [209.85.218.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B9DE110E20F
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2026 13:23:13 +0000 (UTC)
+Received: by mail-ej1-f48.google.com with SMTP id
+ a640c23a62f3a-c1670dad7a8so478466566b.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 03 Aug 2026 06:23:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785763371; x=1786368171; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=cLH4iGXx87g4Ud6V0lJ2Xd2StrulAU/UfSqpGTWeSuA=;
- b=Nn5D+TjYcjqd4Qh3bwBzRjCrBSy5L3WubLUBFXB5cswmVY1w9PxElR5yQQWH14Dlt6
- HjrJfmjIoTcEXMKEaxUgky4jQcIN4DMptVVod/BO3Ntm6yrai1b8Kjeq/f0sh4EFuTMt
- /jCxqpOWd6NyQqnTtdxrRKeyzgvHW7PKTZKP+gWax1KcqpVDhw5MPhwxjTol+qk2Bq17
- 0Zk2uvsMPVb1h88Z2/jbheBa7yifixvN8TtQwJpvMyX5S3pJolZfm8MUOGSmZZJ4Phx3
- H9GnrriTw8wlCH9Z7+D+VYGbVTnVLdoV6o/yOJa4lg/9+mhebN1rtN7sZrm3q9dVhHvh
- 1GUw==
+ d=gmail.com; s=20251104; t=1785763392; x=1786368192; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=rxvWOvmkmZu7Ipo1QVN2Np0h8jvNvmJlLTftfkaxD/o=;
+ b=EiAwPUeYH9kI3zo9c58CIsXOURMfynpxAEUvAGDBgh7ZH9AAuEOiPNOokXs0D61D4D
+ 7oiJwZ8mG2zqRW02WNfMQFufx2RnljujeCK8ycmsCE5u1UOrZ6pm40vtNHAIwFaNaNuv
+ AYvh5BKApRGy5QlgYajqmVNVAi+N5tFDV/5j6L27PEAGZgaf7fzXeH4jEu2LJFugcBPi
+ B/qQyGmvabu+USisTadlqPJaMaeoAEYjfjoetPdt8dQBaFQlG/A1RvOd6nMGU1QPBa2t
+ M32wlLlpgM9T1rsNFkVIa4ZGlKtuU07jT2W0gByT+YMF2pU9SnqOHcbc7qZGZNhPCOtT
+ qiKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785763371; x=1786368171;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=cLH4iGXx87g4Ud6V0lJ2Xd2StrulAU/UfSqpGTWeSuA=;
- b=rIdvA0qytJPrHXxa1whBxz5iRZB7NRSSx5GcaclGNomP7YZjPkHRvM8Ic+Lo79MmdG
- PmKq7VzBV+Bvok+G67ZACy+amQgs2WBP5LIKvqYbgE0EWcDZMgTUkJPmnH7Wrr4Hsks9
- F9da5OB9M8kz6KKA7nqBdQ5wD47byhme3WJJbKVWQyYuD6Ly7+8ttngm/viXdMtqwTSp
- MgDXBvXy+yEyrMuknHWF4lYpoW1u8AXCZDGAgg0mdWpDBj4/uOO6RAoO+Sq1vL3kuKV8
- 1tI8ig6PgSka37DM5qyq3oZS5Ex9wWtxl7jidngL7QjYFGjkcksmFGJaRp4WccSzK/RM
- Syjg==
-X-Gm-Message-State: AOJu0YxJ4xHYmK6w6pihZCH9Rw294ys5x4JdZEF6QKtFZYGYwVGtmFn+
- XITLS31zcXQtWq07nehvzX2tpzR9aeu3mFLuOfALRSqbgYnmcDpXSqZy4NLFRlsrAC8RiB0dGzT
- 3Llm22UefDTEjpJAbZfIByHVYyR8TU7SK6w==
-X-Gm-Gg: AR+sD13GeIzrG1ChB1Rj3+cwECZnmUXBuw+Y1NuFKxw4L/IP3Bfh4sn10adCy3szh55
- PpHGy942WRNDqJJ6ICRP/uqeH3qZxeNR3aDFhQnyQr85yBgQl/7acFUBHcSiH/QbrmlKc9V/2vd
- 4HhTepBmL2GBacToVVjMtpLJMitupDYbjIBJjqfoXgNnTlURCXHshDYYLOeKtsKRLsR9O69FkDz
- LIlwssYVry85iYEVkw9FXM0rVdbI4GnM8S3+Z9JKkRYy8QGFlbC+bWdeg4h07CeBaoKobN2EtfH
- w2pgZmjmnrZ2JXKJXI9CQhg7ZdKUBAhlUntquUom1EVfJigi3nUfYDyeUusWLN01aGwryvy9Agb
- 1OIT0vTOYB3P7PSOyUBicn/T4LMrwe/Y=
-X-Received: by 2002:a17:90a:e7cf:b0:37f:eda5:516f with SMTP id
- 98e67ed59e1d1-38fbc0c3541mr12090316a91.0.1785763371308; Mon, 03 Aug 2026
- 06:22:51 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1785763392; x=1786368192;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=rxvWOvmkmZu7Ipo1QVN2Np0h8jvNvmJlLTftfkaxD/o=;
+ b=YXJhmjBsemaSYwR592RWRbnKPbjGaJEI3lHC08ZvvzMbIhUpmWv+qOEkiQ083loVfS
+ S5NBXis4QgcxAYctDyw148hXpT0v3iofUU3FMC9sbiB9D0khprDzDzRPpGXes0Pz704s
+ OtDbotsgZUa+IXN23cjmEPgcDcjo53iWwxvzrDUOt2+3JKQs8tjfz63u3lnNHV6mFjuB
+ 1KOXKLalGUkymLwIIdWCb8snII3T91jUrHnFM/UjlcEQLNURgp47yPhwZTLjZHfqmhVO
+ TWtq1lQQaxiVuTX0aKzVnKgtCa5KePxbdPVMvfokE0sMoLsr7coHcZpLxAp99zQLXJnH
+ JEbw==
+X-Gm-Message-State: AOJu0YxjyOplaKGDPefpzitzSRs0Let6D9/65ubn4k/sP/nu15ne2O5j
+ bTRouacMMBiyDrpe+P9C0dVuTr2Fu7RPCQFXiUy6Syt5Bip/UmJ79CQBCpQH9OVo
+X-Gm-Gg: AR+sD12ixLRoPUWky2BWQfqgeNKr1VyOO+OleZRkHA+0ErCVMetOD7c8BErYeP9mCsN
+ NbEXqFfSbfIT4aLyRlfGzyUvOTMapZ6QPE3hPVveBdN0ejxuMnvlXDrihpLFMKpMG9ZT588Sowk
+ 3WmKu1WooTkbVHkFdRZXDm82NpsXNE+3LOuYKQDHeE+1PQBq1TFBqNooZ2swAIqGkU5WyqcuFQM
+ 8laNgoyE8Nqvw3nHRmnn2PIexoh0xISTXenpb3pdYpGLjlH67u4YehynmzpnmWykYR/xP8ziYzh
+ muaTRGOM4haKNQ6nGMYAIH0OyYdo+APJ6rOeWVjFYAb5Dzg7qB+LbZOJs2MUw+eFYVTyFY1z7Df
+ HtAdVsKaTrLaB/iR4H7G6XvK8qOTJvl7XSjYCBrMjsNk9mwk1LGm72k71VCFZXf+hGCR3JMuXoh
+ NkG5rkQGiuFjI3BKDcJtReUYlmoPjCVI6lv3Tm5UoB03FhwWA1nxnLKO3/xfa0siDdWNj6Q7Rmw
+ RMi1Ac+6SeRXWVNd0ZF89VvviIoIHC1wfqRjRmGww==
+X-Received: by 2002:a17:907:d85d:b0:c1c:2007:298e with SMTP id
+ a640c23a62f3a-c1fe81e7085mr707677966b.24.1785763391832; 
+ Mon, 03 Aug 2026 06:23:11 -0700 (PDT)
+Received: from Timur-Hyperion.home (5401D2B5.dsl.pool.telekom.hu.
+ [84.1.210.181]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c1fd445432dsm549201266b.41.2026.08.03.06.23.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 03 Aug 2026 06:23:11 -0700 (PDT)
+From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Tvrtko Ursulin <tursulin@ursulin.net>, Natalie Vock <nat@pixelcluster.dev>
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
+Subject: [PATCH 00/10] drm/amdgpu/gfx6: Use GFX IP block soft reset on GFX6
+ (v2)
+Date: Mon,  3 Aug 2026 15:22:59 +0200
+Message-ID: <20260803132309.36326-1-timur.kristof@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-References: <20260715063128.581232-1-Prike.Liang@amd.com>
- <DS7PR12MB6005701083F93C0330D4F4C0FBC02@DS7PR12MB6005.namprd12.prod.outlook.com>
- <PH7PR12MB60005AAE1676A52D0A72A0C4FBD52@PH7PR12MB6000.namprd12.prod.outlook.com>
-In-Reply-To: <PH7PR12MB60005AAE1676A52D0A72A0C4FBD52@PH7PR12MB6000.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 3 Aug 2026 09:22:39 -0400
-X-Gm-Features: AUfX_mwGLCKkV2Ylsgyqxcm2s7tSAH9DkrdpT4yTOblBCuMcTuyBsKKJCqBM6q0
-Message-ID: <CADnq5_MeA+koAWeUF1L5WnLCeB-c=W2n0nnLzY3fpguOQprGgw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Remove separate guilty compute userq reset
-To: "Liang, Prike" <Prike.Liang@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,114 +87,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 3, 2026 at 5:25=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com> w=
-rote:
->
-> AMD General
->
-> As for the hung userq, it should be identified by the MES reset API with =
-the hang_detect_only setting. However, it is unlikely to miss detecting the=
- invalid opcode hang case, especially given that the userq invalid opcode I=
-GT test has not been implemented yet.
->
-> Hi @Liu, Shaoyun, are you aware of any known userq hang scenarios that ca=
-nnot be identified by MES API hang_detect_only? If not, could you please he=
-lp review the following patch, which unifies the userq reset path for hung =
-queues?
->
+Fix up various things in the GFX6 code to prepare it
+to work with IP block soft reset. The main challenge
+was figuring out how to properly initialize the
+compute queues so that they work well after a reset,
+as well as realizing that on GFX6 the compute queues
+also have a PFP (as opposed to GFX7+ where PFP is
+a graphics only thing). There are also other minor
+fixes.
 
-We added it in the first place to deal with those cases.  There can be
-queues which are not hung, but will never complete and hence never
-signal their fence.  E.g., you can have a queue that is waiting on a
-memory location that MES can preempt, but due to a bug elsewhere that
-memory location will never change so the fence will never signal.
+Implement GFX6 IP block soft reset: just reset everything
+in the GFX IP block (instead of taking a guess at which
+parts need to be reset) to make it consistent, and
+also handle clock and power gating to make sure not to
+degrade GPU functionality after a GFX IP block soft reset.
 
-Alex
+This improves current user experience on all GFX6 chips:
 
-> Regards,
->       Prike
->
-> > -----Original Message-----
-> > From: Liang, Prike
-> > Sent: Thursday, July 23, 2026 2:38 PM
-> > To: amd-gfx@lists.freedesktop.org; Zhang, Jesse(Jie) <Jesse.Zhang@amd.c=
-om>
-> > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> > <Christian.Koenig@amd.com>
-> > Subject: RE: [PATCH 1/2] drm/amdgpu: Remove separate guilty compute use=
-rq
-> > reset
-> >
-> > I checked each different userq hang cases, and the guilty userq can be =
-identified by
-> > the MES firmware and report correctly.  @Zhang, Jesse(Jie) could you fu=
-rther check
-> > as well at you side?
-> >
-> > If there're some hang queues miss identified by MES firmware, then the =
-correct thing
-> > is to further debug from MES firmware side rather than have such strang=
-e reset
-> > sequence and this reset workaround should be cleaned sooner or later.
-> >
-> >
-> > Regards,
-> >       Prike
-> >
-> > > -----Original Message-----
-> > > From: Liang, Prike <Prike.Liang@amd.com>
-> > > Sent: Wednesday, July 15, 2026 2:31 PM
-> > > To: amd-gfx@lists.freedesktop.org
-> > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> > > <Christian.Koenig@amd.com>; Liang, Prike <Prike.Liang@amd.com>
-> > > Subject: [PATCH 1/2] drm/amdgpu: Remove separate guilty compute userq
-> > > reset
-> > >
-> > > amdgpu_mes_detect_and_reset_hung_queues() already detects the guilty
-> > > compute user queue and resets it through mes_userq_reset_queue(). The
-> > > additional reset via
-> > > mes_userq_reset() is unnecessary, so remove it to unify the compute u=
-serq reset.
-> > >
-> > > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> > > ---
-> > >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 5 -----
-> > >  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 2 --
-> > >  2 files changed, 7 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > > index 1e275c2e7dd3..4f2d5ff2f7be 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > > @@ -2315,11 +2315,6 @@ int amdgpu_gfx_reset_mes_compute(struct
-> > > amdgpu_device *adev,
-> > >             deferred_end[n_deferred].fence =3D guilty_fence;
-> > >             n_deferred++;
-> > >     }
-> > > -   if (uq) {
-> > > -           r =3D mes_userq_reset(uq);
-> > > -           if (r)
-> > > -                   goto out;
-> > > -   }
-> > >     for (i =3D 0; i < num_hung; i++) {
-> > >             struct amdgpu_ring *hr =3D NULL;
-> > >             struct amdgpu_fence *hf =3D NULL;
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > > b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > > index b6bfa3974839..fab21d4275f3 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > > @@ -226,8 +226,6 @@ int mes_userq_reset_queue(struct amdgpu_device
-> > > *adev,
-> > >
-> > >     xa_for_each(&adev->userq_doorbell_xa, uq_id, uq) {
-> > >             if (uq->queue_type =3D=3D queue_type) {
-> > > -                   if (uq =3D=3D guilty_uq)
-> > > -                           continue;
-> > >                     if (uq->doorbell_index =3D=3D db) {
-> > >                             uq->state =3D AMDGPU_USERQ_STATE_HUNG;
-> > >                             if (use_mmio)
-> > > --
-> > > 2.34.1
->
+On GFX6 dGPUs, the current GPU recovery method
+always clears the contents of VRAM, which means that
+a buggy (hanging) app can crash the whole graphical
+session, which is less than ideal.
+
+Using GFX IP block soft reset means that we can now
+move on from GFX hangs on dGPUs without crashing the
+whole system.
+
+Tested on the following chips:
+
+Tahiti (FirePro W9000, Radeon HD 7870 XT)
+Cape Verde (Radeon R7 450)
+Pitcairn (Radeon R9 270X)
+Oland (Radeon 430)
+
+Changes from v1 to v2:
+
+* Add more explanation to various patches
+* Drop patch that enables some IRQs
+* Drop VM flush changes (will be submitted separately)
+
+Timur Kristóf (10):
+  drm/amdgpu/gfx6: Fixup emit_cntxcntl()
+  drm/amdgpu/gfx6: Fixup emitting SWITCH_BUFFER packets
+  drm/amdgpu/gfx6: Use PFP on the compute queues too
+  drm/amdgpu/gfx6: Initialize compute rings before CP start
+  drm/amdgpu/gfx6: Clean up rings during reset
+  drm/amdgpu/gfx6: Execute CLEAR_STATE when initializing compute rings
+  drm/amdgpu/gfx6: Adjust how harvested TCCs are set up
+  drm/amdgpu/gfx6: Use COND_EXEC
+  drm/amdgpu/gfx6: Add IP block soft reset implementation
+  drm/amdgpu/gfx6: Enable IP block soft reset as a GPU recovery method
+
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c         | 374 +++++++++++++-----
+ .../include/asic_reg/gca/gfx_6_0_sh_mask.h    |  32 +-
+ 2 files changed, 295 insertions(+), 111 deletions(-)
+
+-- 
+2.55.0
+
