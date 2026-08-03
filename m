@@ -4,99 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4AD8C55162
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 03:38:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1BDAC5516F
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 06:30:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CBCF10E505;
-	Mon,  3 Aug 2026 03:38:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC6C110E170;
+	Mon,  3 Aug 2026 06:30:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZeG3STph";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rcYy7Ddq";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010018.outbound.protection.outlook.com
- [52.101.193.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9240010E504
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2026 03:38:26 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010025.outbound.protection.outlook.com [52.101.46.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5506510E170
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2026 06:30:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AAQxplSUl4TuyWYjeSgox5/th+U8mIVrlTA5jHRBpfa7IVR/SRRxVEqZdUH9kZ61SZXdnhQO2YKfQDDOavbr++sr8mXPfg45RU/ySkjdHrbprx9c8q0n1sOTQelOZ5a6mUwR4KXaghfDNeJKubZthjJlLvijsrADzA0bddLEmWupNyKmLSRDoCIKcmpwsWDBcHQSZXY27z+qc2znpsPCWSdKPzuXAY8aQsN304s8rxLC/Q1vi01TdKKavUk4NBBywxfsI+QWGAojyVLDIDfrEcSH8tl1UCn59sZ1DFuCCHnCkWgkK8DLoh+ngdZbQH5o7JoFuJ9TIcXXEGL89PNpSg==
+ b=CpYYxXES/dmXcjWglyHfPIMcuARQ6ghrUlEmAwlND3ghsBCwpwLDQG7vGEIVVHXP/fqonvMd/PpqAvhGGL+xpEhzBrcA0K7zZkrvvS6/g9V6vOaZi+vxib5lTY9ve2LnP1nasF6XDvS1hmv6BiSonpxvBfyUZ90yUIDWzB5yoAexkFU+3O2EX/1Rao/MCU92zYeimEkH9Yhi15hLM76s3QETKPwJ4cVFm8wIqrPOcX1wfhMbnXORU/SytTyN4eqDb8h3sIi0cmqdfZoaEBSveotQqUw/AcDAvxn8dVO6pIAe3x8Vp9+jwdiSFGjB5QFF+GEyE24Km9rkQUImL7+Sdw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rexoyMyDe6X25Fv/Zsnjj4g7lL8LTtNrEOXnEuS0tc8=;
- b=zIQISzFVqnRQ/z3z6TS9a2hL0Ezlg+1bAhmOrdq53NMg9c5daCHJdRojgX/mImNB8EBr7c914jN2Z8Z1poaJPSoZRLJPuCvMuREHNltcKeGuRYxSTLsTd6F5o/Vm1GENZsR7hip8CD2ZE77pGsggAJYU1Sm46XIE7glexuoT/LLpc7PDVRfHk67Rk5ScKAZUTxY0FJX7EMqDKgz5TL65xmWORDe0o54JdxIWygtIbCVK8Qrj5m1LSNp9kkdsBDiu+QNRg6+xk6wWLJnsqghXrzJWkAf1RUsmPMbBof4ozDBB7re6l/KHJBXSmQDTzfDn/8vgMRIAsvWVG9D1A8J3HQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=GiyHRivcR3aKZaBFOGc6JxYdw3xPqkVoYnoIDDN/O+Y=;
+ b=sMPFBegOy9+CueiLH/wKPFDSe2ToGNikallD8FuS3ch3aa0TSpEwDvKx3ejSJDN+afeZik1SW/LNgX2mSKxwOiINrrWAUo+RmB2n+z7Znho6rv9415CWO0/qaeYKaFrX9/4l+2lb2Eac2rqQndOr+z2xXy8kmqsGzHp8faou9nhEbNv6hJiX3SPwGGmCRR+sPsp4FCGtUW2FjerTkBqacZ0xDteVieT9ffzg6+lxBRwHeSWRpLCOpVKRCfG+O3nLFrVfDmJI0zII5wWviQhnH+vT0VHy7GP9i0hD2Dk8gpXYDDh8NGJZWCjDCSoL41LSCUD33dSl0lLUiADnn1ZzHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rexoyMyDe6X25Fv/Zsnjj4g7lL8LTtNrEOXnEuS0tc8=;
- b=ZeG3STph6pTbVPeEqU5bLHQggoK8OtpCc87ZhlX/LyblC+QsLrfytrbUxDqgqHdwdbsPExjAqrE/ssO2ELiueXQj5ru/5QPx8csm4EMPjr6mmGF2Wr2HB/Wz2pMk99FGe9zGzXqHBbQY0BiN8mkKYWSgzMT2qzfDtPeHWXxtTWE=
-Received: from BN0PR04CA0015.namprd04.prod.outlook.com (2603:10b6:408:ee::20)
- by IA0PR12MB8328.namprd12.prod.outlook.com (2603:10b6:208:3dd::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Mon, 3 Aug
- 2026 03:38:20 +0000
-Received: from BN3PEPF0000B077.namprd04.prod.outlook.com
- (2603:10b6:408:ee:cafe::93) by BN0PR04CA0015.outlook.office365.com
- (2603:10b6:408:ee::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.18 via Frontend Transport; Mon, 3
- Aug 2026 03:38:20 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B077.mail.protection.outlook.com (10.167.243.122) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Mon, 3 Aug 2026 03:38:19 +0000
-Received: from tao-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Sun, 2 Aug
- 2026 22:38:18 -0500
-From: Tao Zhou <tao.zhou1@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Tao Zhou <tao.zhou1@amd.com>
-Subject: [PATCH 3/3] drm/amd/ras: Handle the lack of mca address case for
- uniras
-Date: Mon, 3 Aug 2026 11:38:06 +0800
-Message-ID: <20260803033806.2881888-3-tao.zhou1@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260803033806.2881888-1-tao.zhou1@amd.com>
+ bh=GiyHRivcR3aKZaBFOGc6JxYdw3xPqkVoYnoIDDN/O+Y=;
+ b=rcYy7DdqGosjlTlGDbhzDeDGM1ZyHnkcgFjfJzuKCgHHCEIJCLekNiFlw0fGEZr5mGh/md4vpZ9ivgc5pVdrlRTbNMwsZWaS4QtCHc0gBEEvvmqQwjI6Qi4NkmjnCmwYEc+LkpjLl/Nl4yV29l6y10TOa8Mrb5AuH4IwyphphSI=
+Received: from EAYPR12MB999158.namprd12.prod.outlook.com
+ (2603:10b6:303:2c1::15) by CH1PPF711010B62.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::614) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Mon, 3 Aug
+ 2026 06:30:15 +0000
+Received: from EAYPR12MB999158.namprd12.prod.outlook.com
+ ([fe80::c52f:2856:964e:a4b2]) by EAYPR12MB999158.namprd12.prod.outlook.com
+ ([fe80::c52f:2856:964e:a4b2%4]) with mapi id 15.21.0270.015; Mon, 3 Aug 2026
+ 06:30:15 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+Subject: RE: [PATCH 1/3] drm/amd/ras: move some umc v12 specific functions to
+ ras_umc.c
+Thread-Topic: [PATCH 1/3] drm/amd/ras: move some umc v12 specific functions to
+ ras_umc.c
+Thread-Index: AQHdIvmPflSluqf9/EuouyT1Ml1ZybaL3QsQ
+Date: Mon, 3 Aug 2026 06:30:15 +0000
+Message-ID: <EAYPR12MB99915806398B5BE3A4D52761B6FCD52@EAYPR12MB999158.namprd12.prod.outlook.com>
 References: <20260803033806.2881888-1-tao.zhou1@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B077:EE_|IA0PR12MB8328:EE_
-X-MS-Office365-Filtering-Correlation-Id: af8fd283-1edc-48c5-ab17-08def110a998
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|3023799007|56012099006|10067099003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: X0uCRTjx9Tu1RgMk09fpZQOrMhX2znRSIy9gX4X34CoVK1cM2k0+fuZKP5hykJlg0ww0/jndV/i6osxvF2RNQYfB8zkRlUl+XvG7aIEAWkY/IeHNjJ0eUvDV0zgJoEnSmcMl09vt3ECjvSyRV4sDvJLtGLLCY670EYE44mk1rL0HV5gKUtbl/dKp2jpdnM8R+anB+K0ZnN8VPGdmYQ8hWSSjEpa5iF9YXwhWVqe1TYAkaRSqSLBR+2T8jf0NmPtZkics9j4zNgh+2p3z6WPyIMzGS7aFnreE4la2ZeXgYSOj8hI+tjzQIjkxG3SJ6qx2vhOXBBOUxIkVsb0JLAxe5nXrhPImeCjdRNPi4FqdvNUZLvffaNU0iz26gWcBtg64K264HvXdopCYCY6vVJLjh5Mg2KPzDvdfauUvWGJwWzbAefQkWGxXHf5brmyxMJcfLgAPpobhaHH1eVf8qyodWdJFTbINBvSo+JVb2vDznaNo3IRP/HfwLEcz2RiWZJh9+CbZZJSLlOiyaPqjNeORU+KqigIH/9ye2suvcLmH881FMJfgXbeJMQ8FPuE3P5BiigFp0Nh+O6og4sy6/i1v5DU+lcojzdTnJmmLw3tJ0Vy8KYeTiBvNOsivUs0WQGlKbawGeUdy4srChZImbQwlnW4OXZx3s14xZOT9Xav71geRPISt/LKgJ2ajG5qCKm3Yq0iHCrH4tE0sM5OtMRk95w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(3023799007)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003);
+In-Reply-To: <20260803033806.2881888-1-tao.zhou1@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-03T06:29:55.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: EAYPR12MB999158:EE_|CH1PPF711010B62:EE_
+x-ms-office365-filtering-correlation-id: 52c46ee6-7c75-4bfa-b3fe-08def128ae3e
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|23010399003|376014|1800799024|38070700021|6133799003|56012099006|11063799006|10067099003|22082099003|18002099003;
+x-microsoft-antispam-message-info: 5cGgXu88ij8gsudV6DQKDhN1DW+DiWFRx+MsCc0+te4rdY8MN0u8UyiTW0Cu66LmTvC6v5CBJJsM7e7EvGVd3cRougy4l7Zkyj8EMYLQfNp0ZqXNravNhR6jJA4a5ZnkTm3yYjdpyfcHbLd0fOWqZPwXrgzgIN4/uWhcEhywrL1dgppKc15wAffwkwZc1g3Ea014lb7CLcczK5IJ2imkmkyeIDZrvt5fzZ/LN5rlXJjLqPuen1ByG1nOmFo70ncRWslOuCBUXoa5Hf1F9osii78Wk9Ol/g3teJ7aA/Dh0Pi8zFv0uZ0yBeRj7A0jbsh2v+gQ7/yMA/JYRYRsF1Cv0QEeswl3aV58G1fx9tEq11X/RlvleRxxoa2MdSL0QwNReDWyoEPFg+c1blFHim2BwT1X1LeN9QQ+qYqy9shy14pfEpyvvDn47CRElUyLw6v0NW3xkf5nPEphQzeM5lyeSIp1urIRsnIIVkUpEHrAIv8bsV98UvK8OyBWbDSQqLMPCGSATNEzophDEIoj6VtQ87ITIp7BGLKsNt6tysn+x01HXRqBuuKut5hkLIDJmFJef8xGOA/1IFb0zAPzHsruY0NIt7PCQOSYzd9y4cQqDIMb1nQhKoRJ2GL+fIVYbmjYaDdn880eAw12at51BeNBua91695STZyUJeCdSg9uV8LsAhTesRz8o13WCiycLmW4NElGWSX5gTGw4T/kCXDHUpAMV/mVbfORFXWCAVJgmj8=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:EAYPR12MB999158.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(38070700021)(6133799003)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 0sIzSwTrrEjbXNhXKfbiFZIHFOgEaMO3xUhgAEgrrK6oDertBxPPyWnB1T+w4no1jTW/BHfm6iBAeWWz2XJa+4RbcXQd1zRC4J3oRPMHwOq2I9JDKzvwpqh/K9LENNQO7AA2+0OwFk1aaqfsPNY69xnX4V+v0ZfP2GYHLkC+oeWPO/cGbd7tbRwYDNJk3YaLl/8EEIpVjkwZl73Jyu7tG+1zUlwelZ6HfHqFDzFg5QhGWGdFXL9GF5EH/dOHt9H2AWtTFFkL9h4s6o01I0xC9qj4drQ1yALSJRBabg5IGKDB09AyzgtqbQPxQJRblQ1QR3IoiRe4O28PKe8sFZUwTxeA2V4+7ScuBIhJqQPz4Y7J08GyksrnusVKWVTLeu+zdECAQa53RejKexUmhoLlbahE7XLH39pRw4L8ZZPF0NtJwtFQ2OGpaSOmY5xopOII
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?XG8dyn0B7KjwVgjjr5wTlh5pmze0cXxTiyZZ3oYjVMbLz3RANRYU4bAKfhHB?=
+ =?us-ascii?Q?DS9mnRMMLYZ0AfsMxODlyKOzt6EW8np3Bh6srjHqdikOunXjzLvth41kWq3e?=
+ =?us-ascii?Q?nYK6i+6nKAh7bebA5Cmg8Ysdacx4crx9nG886MoKfzVzIWanfzyP/xhEp2/F?=
+ =?us-ascii?Q?PFoHlvLzIM5xKHrKbUs0eocD9if8bVyxJNI1v6cKNOtIvil58oTPOyTCCZID?=
+ =?us-ascii?Q?UpmQF67dD556zxVCRw4+MsPJMRleAbzlaTAikw6AjYEV7o7lvzY9tTWKY9h7?=
+ =?us-ascii?Q?BNcUHuO8voK4lJrC7OoaZeuXn2untOHA4ysZMxm+HEysliS0Nlvdn1XfJMg+?=
+ =?us-ascii?Q?MHXQ1QGegWiCDsdjMpqsFHxEZ3Oaqy3yM7ARiCwM/eGuevntjufEZVZSCbvI?=
+ =?us-ascii?Q?kndXSdO5wZn5+tz0xQ7Iqjn+yqRRk9t8S+jKKHvEEu5BzTeY8YuL4jVWU0DJ?=
+ =?us-ascii?Q?PuIT006UhB5MmuRla/CISVPURQTOe3ksoKgig9yo65vNPNCOjNg4IpwgdO/U?=
+ =?us-ascii?Q?OEqo7YjuZio6YLpkTtu7P9c+/rn0aGMlRtBFIUhwfYVeShsG35A8GzyjWor7?=
+ =?us-ascii?Q?RSyilS63z4nWMul8drPPkbTvjXZYeMqasLVRlp9FE+If+MH+INO6hndzaslJ?=
+ =?us-ascii?Q?sXUWLolsWo7Taz7X4fD3R49HK1Hs3zAsGg3ZyZW8kLQBuv6TwiHVtNdQekD1?=
+ =?us-ascii?Q?+SU8kDL/JGtA3NKP++X503el8OhxWOvggxlPV+EnKhZ26KPyw1l13PLQOrgw?=
+ =?us-ascii?Q?d1laUJFboiyFYezeKR7SrDn/xsY6ri3Z6gfRKYertC4uhcWfSHG7G1jyw3kr?=
+ =?us-ascii?Q?AxXtBgAT2h4VdOQKnCb9x/JPQ34Va/4CykouYbtNMHPr3UmfcgfmrLoxh8yh?=
+ =?us-ascii?Q?aChgrpnnZSwthMTZBBUmlhR67CEGTzee5UyhAJbaeAZFOmPCovel/gSwERGI?=
+ =?us-ascii?Q?DMMdM99xKQgg/9tffP/WCIshhJumbLc6oenldHs8wROM7pUgX29n158VeSRx?=
+ =?us-ascii?Q?wykhAnAMFvYmwCviVLcBvI++1hFduPWllZwzvCodZ+cE1VC5lHYHER9Zd4Tf?=
+ =?us-ascii?Q?ZlzvEte6K9pSLrlPX/ROdSojIUXGn78TBOLtbQ4Bw0ykEJR92+MV9TTdulDK?=
+ =?us-ascii?Q?eki9L99AYqfD59pH+vuJ9Ss4nomTaRLZbLNDnlZXKn+AWJ7AqCcFfuTBpv3y?=
+ =?us-ascii?Q?gc5QRtop7oGUV6HHdPeW0TeiyOv4Ii7fCJ/DGzBGDFN6inetiShT3xI6Bo5+?=
+ =?us-ascii?Q?1LCPm1ckyC68ODs79nj9CZaKrzoTqIvUFieBjpUxQktuyctQPq4vTXnht3AK?=
+ =?us-ascii?Q?k3hiRtXPFzgb3ILF1pH5NOspezuGux6hgNRjpPtQuBoOaRCNi5qs8PCCl13T?=
+ =?us-ascii?Q?kZwMkqBiQOc7LvZrgGtiUU1o9ElHYl6syTijDYIg6rlykVJUmB8H6fVtps70?=
+ =?us-ascii?Q?1mRG3d3VNvcmcdKWTe1T/Lngidxi0WLn7dGGzSGJeLBDy768MmYUQAJalYZb?=
+ =?us-ascii?Q?Q1bY3lqXBB1n1o43MddtLKnTtM7r6oftLOow00WTvCwvGAbdJSro2jXoa20H?=
+ =?us-ascii?Q?4gY4oelB31ThGoU4Eoru58a9MJT0DLjxW7oS2JrWDocNqAMDqkvz/4883Rwj?=
+ =?us-ascii?Q?bS9SsPQUrcQ9IYPD+lzjHQaNeJKHlod62dmOAXROwg5Ry5XvBye/8TZCxlV5?=
+ =?us-ascii?Q?lOA1oRwGuUNYuJTG2zYqBz7BwmtGxerbB5AJFDxoc7DPQEqJ?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 03:38:19.9882 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: af8fd283-1edc-48c5-ab17-08def110a998
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B077.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8328
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: EAYPR12MB999158.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 52c46ee6-7c75-4bfa-b3fe-08def128ae3e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Aug 2026 06:30:15.7427 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: TfNNPHu+7OAh+6htXTq8VKMfy0mn1YgPUIBQsihXcJRPSlgoUqcPndB3s4pxmuVZhmXhNec9mXUWVp/FMKa70g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF711010B62
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,85 +133,444 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-For specific old eeprom data, mca address is not stored, get mca
-address from physical address(pa) and then convert it into pa in
-current nps mode.
+AMD General
+
+Series is
+
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+
+Regards,
+Hawking
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tao Zhou
+Sent: Monday, August 3, 2026 11:38 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
+Subject: [PATCH 1/3] drm/amd/ras: move some umc v12 specific functions to r=
+as_umc.c
+
+So we can reuse these functions across different ASICs.
 
 Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
 ---
- drivers/gpu/drm/amd/ras/rascore/ras_umc.c | 38 +++++++++++++++++++++--
- 1 file changed, 36 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/ras/rascore/ras_umc.c     | 101 +++++++++++++--
+ drivers/gpu/drm/amd/ras/rascore/ras_umc.h     |  13 +-
+ .../gpu/drm/amd/ras/rascore/ras_umc_v12_0.c   | 118 +++---------------
+ 3 files changed, 119 insertions(+), 113 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
-index becbf8d2d09e..c3cd1e84468b 100644
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c b/drivers/gpu/drm/am=
+d/ras/rascore/ras_umc.c
+index f59f0b6cad06..b8e3a92ab174 100644
 --- a/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
 +++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc.c
-@@ -323,6 +323,31 @@ int ras_umc_ma2pa(struct ras_core_context *ras_core,
- 	return ret;
+@@ -82,7 +82,7 @@ static const struct ras_umc_ip_func *ras_umc_get_ip_func(
+        return NULL;
  }
- 
-+static int ras_umc_pa2ma(struct ras_core_context *ras_core, uint64_t pa,
-+		uint64_t *mca, uint32_t nps)
+
+-int ras_umc_psp_convert_ma_to_pa(struct ras_core_context *ras_core,
++int ras_umc_psp_ma2pa(struct ras_core_context *ras_core,
+                struct umc_mca_addr *in, struct umc_phy_addr *out,
+                uint32_t nps)
+ {
+@@ -307,6 +307,83 @@ int ras_umc_log_bad_bank(struct ras_core_context *ras_=
+core, struct ras_bank_ecc
+        return ret;
+ }
+
++int ras_umc_ma2pa(struct ras_core_context *ras_core,
++       struct umc_mca_addr *addr_in, struct umc_phy_addr *addr_out,
++       uint32_t nps)
 +{
-+	struct ras_ta_query_address_input addr_in;
-+	struct ras_ta_query_address_output addr_out;
-+	int ret;
++       struct ras_umc *ras_umc =3D &ras_core->ras_umc;
++       int ret;
 +
-+	if (!ras_psp_check_supported_cmd(ras_core, RAS_TA_CMD_ID__QUERY_ADDRESS))
-+		return -EOPNOTSUPP;
++       if (ras_psp_check_supported_cmd(ras_core, RAS_TA_CMD_ID__QUERY_ADDR=
+ESS))
++               ret =3D ras_umc_psp_ma2pa(ras_core, addr_in, addr_out, nps)=
+;
++       else
++               ret =3D ras_umc->ip_func->ma2pa(ras_core, addr_in,
++                               addr_out, nps);
 +
-+	/* nps: the pa belongs to */
-+	addr_in.pa.pa = pa | ((uint64_t)nps << 58);
-+	addr_in.addr_type = RAS_TA_PA_TO_MCA;
-+	ret = ras_psp_query_address(ras_core, &addr_in, &addr_out);
-+	if (ret) {
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Failed to query RAS MCA address for 0x%llx", pa);
-+
-+		return ret;
-+	}
-+
-+	*mca = addr_out.ma.err_addr;
-+	return 0;
++       return ret;
 +}
 +
- static int __eeprom_rec2nps_addr(struct ras_core_context *ras_core,
- 	struct eeprom_umc_record *record, uint64_t *pa,
- 	uint32_t nps, uint32_t die_id)
-@@ -389,6 +414,7 @@ static int ras_umc_eeprom_rec2nps_rec(struct ras_core_context *ras_core,
- 	save_nps = EEPROM_RECORD_UMC_NPS_MODE(record);
- 	/* eeprom v2 has no stored nps, always convert if the flag is set */
- 	ch_idx_v2 = record->retired_row_pfn & UMC_CHANNEL_IDX_V2;
-+	record->cur_nps = nps;
- 
- 	if (save_nps || ch_idx_v2) {
- 		if ((nps == save_nps) && !ras_fw_eeprom_supported(ras_core)) {
-@@ -400,6 +426,16 @@ static int ras_umc_eeprom_rec2nps_rec(struct ras_core_context *ras_core,
- 				record->cur_nps_retired_row_pfn = RAS_ADDR_TO_PFN(pa);
- 		}
- 	} else {
-+		/* for specific old eeprom data, mca address is not stored,
-+		 * calc it from pa
-+		 */
-+		if (record->address == 0) {
-+			ret = ras_umc_pa2ma(ras_core, record->retired_row_pfn,
-+					&(record->address), UMC_MEMORY_PARTITION_MODE_NPS1);
-+			if (ret)
-+				return ret;
-+		}
++static int ras_umc_eeprom_rec2nps_addr(struct ras_core_context *ras_core,
++       struct eeprom_umc_record *record, uint64_t *pa, uint32_t nps) {
++       struct device_system_info dev_info =3D {0};
++       struct umc_mca_addr addr_in;
++       struct umc_phy_addr addr_out;
++       int ret;
 +
- 		/* old eeprom data format, the scope of channel index is
- 		 * limited to umc instance
- 		 */
-@@ -407,8 +443,6 @@ static int ras_umc_eeprom_rec2nps_rec(struct ras_core_context *ras_core,
- 			return -EOPNOTSUPP;
- 	}
- 
--	record->cur_nps = nps;
--
- 	return ret;
++       memset(&addr_in, 0, sizeof(addr_in));
++       memset(&addr_out, 0, sizeof(addr_out));
++
++       ras_core_get_device_system_info(ras_core, &dev_info);
++
++       addr_in.err_addr =3D record->address;
++       addr_in.ch_inst =3D record->mem_channel;
++       addr_in.umc_inst =3D record->mcumc_id;
++       addr_in.node_inst =3D UMC_INV_AID_NODE;
++       addr_in.socket_id =3D dev_info.socket_id;
++
++       ret =3D ras_umc_ma2pa(ras_core, &addr_in, &addr_out, nps);
++       if (ret)
++               return ret;
++
++       *pa =3D ras_core->ras_umc.ip_func->nps_pa_to_row_pa(ras_core,
++addr_out.pa, nps, false);
++
++       return 0;
++}
++
++static int ras_umc_eeprom_rec2nps_rec(struct ras_core_context *ras_core,
++       struct eeprom_umc_record *record, uint32_t nps) {
++       uint64_t ch_idx_v2, pa =3D 0;
++       uint32_t save_nps;
++       int ret =3D 0;
++
++       save_nps =3D EEPROM_RECORD_UMC_NPS_MODE(record);
++       /* eeprom v2 has no stored nps, always convert if the flag is set *=
+/
++       ch_idx_v2 =3D record->retired_row_pfn & UMC_CHANNEL_IDX_V2;
++
++       if (save_nps || ch_idx_v2) {
++               if ((nps =3D=3D save_nps) && !ras_fw_eeprom_supported(ras_c=
+ore)) {
++                       record->cur_nps_retired_row_pfn =3D
++                               EEPROM_RECORD_UMC_ADDR_PFN(record);
++               } else {
++                       ret =3D ras_umc_eeprom_rec2nps_addr(ras_core, recor=
+d, &pa, nps);
++                       if (!ret)
++                               record->cur_nps_retired_row_pfn =3D RAS_ADD=
+R_TO_PFN(pa);
++               }
++       } else {
++               /* old eeprom data format, the scope of channel index is
++                * limited to umc instance
++                */
++               /* TODO */
++               ret =3D -EOPNOTSUPP;
++       }
++
++       record->cur_nps =3D nps;
++
++       return ret;
++}
++
+ static int ras_umc_get_new_records(struct ras_core_context *ras_core,
+                        struct eeprom_umc_record *records, u32 num)  { @@ -=
+343,12 +420,11 @@ static bool ras_umc_check_retired_record(struct ras_core_=
+context *ras_core,
+
+        if (from_eeprom) {
+                nps =3D ras_umc->umc_err_data.umc_nps_mode;
+-               if (ras_umc->ip_func && ras_umc->ip_func->eeprom_record_to_=
+nps_record) {
+-                       ret =3D ras_umc->ip_func->eeprom_record_to_nps_reco=
+rd(ras_core, record, nps);
+-                       if (ret)
+-                               RAS_DEV_WARN_RATELIMITED(ras_core->dev,
+-                                       "Failed to adjust eeprom record, re=
+t:%d", ret);
+-               }
++               ret =3D ras_umc_eeprom_rec2nps_rec(ras_core, record, nps);
++               if (ret)
++                       RAS_DEV_WARN_RATELIMITED(ras_core->dev,
++                               "Failed to adjust eeprom record, ret:%d", r=
+et);
++
+                return false;
+        }
+
+@@ -805,3 +881,14 @@ int ras_umc_translate_soc_pa_and_bank(struct ras_core_=
+context *ras_core,
+
+        return ret;
  }
- 
--- 
++
++bool ras_umc_bit_wise_xor(uint32_t val) {
++       bool result =3D 0;
++       int i;
++
++       for (i =3D 0; i < 32; i++)
++               result =3D result ^ ((val >> i) & 0x1);
++
++       return result;
++}
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc.h b/drivers/gpu/drm/am=
+d/ras/rascore/ras_umc.h
+index 3d902b0d663a..9d32ac344316 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_umc.h
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc.h
+@@ -119,8 +119,6 @@ struct umc_bank_addr {  struct ras_umc_ip_func {
+        int (*bank_to_eeprom_record)(struct ras_core_context *ras_core,
+                        struct ras_bank_ecc *bank, struct eeprom_umc_record=
+ *record);
+-       int (*eeprom_record_to_nps_record)(struct ras_core_context *ras_cor=
+e,
+-                       struct eeprom_umc_record *record, uint32_t nps);
+        int (*eeprom_record_to_nps_pages)(struct ras_core_context *ras_core=
+,
+                        struct eeprom_umc_record *record, uint32_t nps,
+                        uint64_t *pfns, uint32_t num);
+@@ -130,6 +128,11 @@ struct ras_umc_ip_func {
+                        uint64_t soc_pa, struct umc_bank_addr *bank_addr);
+        void (*mca_ipid_parse)(struct ras_core_context *ras_core, uint64_t =
+ipid,
+                        uint32_t *did, uint32_t *ch, uint32_t *umc_inst, ui=
+nt32_t *sid);
++       int (*ma2pa)(struct ras_core_context *ras_core,
++               struct umc_mca_addr *addr_in, struct umc_phy_addr *addr_out=
+,
++               uint32_t nps);
++       uint64_t (*nps_pa_to_row_pa)(struct ras_core_context *ras_core,
++               uint64_t pa, enum umc_memory_partition_mode nps, bool zero_=
+pfn_ok);
+ };
+
+ struct eeprom_store_record {
+@@ -184,7 +187,7 @@ int ras_umc_sw_init(struct ras_core_context *ras);  int=
+ ras_umc_sw_fini(struct ras_core_context *ras);  int ras_umc_hw_init(struct=
+ ras_core_context *ras);  int ras_umc_hw_fini(struct ras_core_context *ras)=
+; -int ras_umc_psp_convert_ma_to_pa(struct ras_core_context *ras_core,
++int ras_umc_psp_ma2pa(struct ras_core_context *ras_core,
+                struct umc_mca_addr *in, struct umc_phy_addr *out,
+                uint32_t nps);
+ int ras_umc_handle_bad_pages(struct ras_core_context *ras_core, void *data=
+); @@ -207,4 +210,8 @@ int ras_umc_translate_soc_pa_and_bank(struct ras_cor=
+e_context *ras_core,  int ras_umc_convert_record_to_nps_pages(struct ras_co=
+re_context *ras_core,
+                struct eeprom_umc_record *record, uint32_t nps,
+                uint64_t *page_pfn, uint32_t max_pages);
++bool ras_umc_bit_wise_xor(uint32_t val); int ras_umc_ma2pa(struct
++ras_core_context *ras_core,
++       struct umc_mca_addr *addr_in, struct umc_phy_addr *addr_out,
++       uint32_t nps);
+ #endif
+diff --git a/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.c b/drivers/gpu/=
+drm/amd/ras/rascore/ras_umc_v12_0.c
+index 6bf30dee8d17..73eb1dba16ec 100644
+--- a/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.c
++++ b/drivers/gpu/drm/amd/ras/rascore/ras_umc_v12_0.c
+@@ -48,17 +48,6 @@ static const uint32_t umc_v12_0_ma2na_mapping[] =3D {
+        24, 7,  29, 30,
+ };
+
+-static bool umc_v12_0_bit_wise_xor(uint32_t val) -{
+-       bool result =3D 0;
+-       int i;
+-
+-       for (i =3D 0; i < 32; i++)
+-               result =3D result ^ ((val >> i) & 0x1);
+-
+-       return result;
+-}
+-
+ static void __get_nps_pa_flip_bits(struct ras_core_context *ras_core,
+                        enum umc_memory_partition_mode nps,
+                        struct umc_flip_bits *flip_bits)
+@@ -159,7 +148,7 @@ static void __get_nps_pa_flip_bits(struct ras_core_cont=
+ext *ras_core,
+        }
+ }
+
+-static uint64_t  convert_nps_pa_to_row_pa(struct ras_core_context *ras_cor=
+e,
++static uint64_t  umc_v12_0_nps_pa_to_row_pa(struct ras_core_context
++*ras_core,
+                uint64_t pa, enum umc_memory_partition_mode nps, bool zero_=
+pfn_ok)  {
+        struct umc_flip_bits flip_bits =3D {0};
+@@ -193,7 +182,7 @@ static int lookup_bad_pages_in_a_row(struct ras_core_co=
+ntext *ras_core,
+
+        __get_nps_pa_flip_bits(ras_core, nps, &flip_bits);
+
+-       row_pa =3D convert_nps_pa_to_row_pa(ras_core, retired_addr, nps, tr=
+ue);
++       row_pa =3D umc_v12_0_nps_pa_to_row_pa(ras_core, retired_addr, nps,
++true);
+
+        err_addr =3D record->address;
+        /* get column bit 0 and 1 in mca address */ @@ -240,7 +229,7 @@ sta=
+tic int lookup_bad_pages_in_a_row(struct ras_core_context *ras_core,
+        return idx;
+ }
+
+-static int umc_v12_convert_ma_to_pa(struct ras_core_context *ras_core,
++static int umc_v12_ma2pa(struct ras_core_context *ras_core,
+                        struct umc_mca_addr *addr_in, struct umc_phy_addr *=
+addr_out,
+                        uint32_t nps)
+ {
+@@ -277,20 +266,20 @@ static int umc_v12_convert_ma_to_pa(struct ras_core_c=
+ontext *ras_core,
+        /* apply bank hash algorithm */
+        bank0 =3D
+                bank_hash0 ^ (UMC_V12_0_XOR_EN0 &
+-               (umc_v12_0_bit_wise_xor(col & UMC_V12_0_COL_XOR0) ^
+-               (umc_v12_0_bit_wise_xor(row & UMC_V12_0_ROW_XOR0))));
++               (ras_umc_bit_wise_xor(col & UMC_V12_0_COL_XOR0) ^
++               (ras_umc_bit_wise_xor(row & UMC_V12_0_ROW_XOR0))));
+        bank1 =3D
+                bank_hash1 ^ (UMC_V12_0_XOR_EN1 &
+-               (umc_v12_0_bit_wise_xor(col & UMC_V12_0_COL_XOR1) ^
+-               (umc_v12_0_bit_wise_xor(row & UMC_V12_0_ROW_XOR1))));
++               (ras_umc_bit_wise_xor(col & UMC_V12_0_COL_XOR1) ^
++               (ras_umc_bit_wise_xor(row & UMC_V12_0_ROW_XOR1))));
+        bank2 =3D
+                bank_hash2 ^ (UMC_V12_0_XOR_EN2 &
+-               (umc_v12_0_bit_wise_xor(col & UMC_V12_0_COL_XOR2) ^
+-               (umc_v12_0_bit_wise_xor(row & UMC_V12_0_ROW_XOR2))));
++               (ras_umc_bit_wise_xor(col & UMC_V12_0_COL_XOR2) ^
++               (ras_umc_bit_wise_xor(row & UMC_V12_0_ROW_XOR2))));
+        bank3 =3D
+                bank_hash3 ^ (UMC_V12_0_XOR_EN3 &
+-               (umc_v12_0_bit_wise_xor(col & UMC_V12_0_COL_XOR3) ^
+-               (umc_v12_0_bit_wise_xor(row & UMC_V12_0_ROW_XOR3))));
++               (ras_umc_bit_wise_xor(col & UMC_V12_0_COL_XOR3) ^
++               (ras_umc_bit_wise_xor(row & UMC_V12_0_ROW_XOR3))));
+
+        bank =3D bank0 | (bank1 << 1) | (bank2 << 2) | (bank3 << 3);
+        err_addr &=3D ~0x3c0ULL;
+@@ -360,22 +349,6 @@ static int umc_v12_convert_ma_to_pa(struct ras_core_co=
+ntext *ras_core,
+        return 0;
+ }
+
+-static int convert_ma_to_pa(struct ras_core_context *ras_core,
+-                       struct umc_mca_addr *addr_in, struct umc_phy_addr *=
+addr_out,
+-                       uint32_t nps)
+-{
+-       int ret;
+-
+-       if (ras_psp_check_supported_cmd(ras_core, RAS_TA_CMD_ID__QUERY_ADDR=
+ESS))
+-               ret =3D ras_umc_psp_convert_ma_to_pa(ras_core,
+-                               addr_in, addr_out, nps);
+-       else
+-               ret =3D umc_v12_convert_ma_to_pa(ras_core,
+-                               addr_in, addr_out, nps);
+-
+-       return ret;
+-}
+-
+ static int convert_bank_to_nps_addr(struct ras_core_context *ras_core,
+                        struct ras_bank_ecc *bank, struct umc_phy_addr *pa_=
+addr, uint32_t nps)  { @@ -392,10 +365,10 @@ static int convert_bank_to_nps=
+_addr(struct ras_core_context *ras_core,
+        addr_in.node_inst =3D ACA_IPID_2_DIE_ID(bank->ipid);
+        addr_in.socket_id =3D ACA_IPID_2_SOCKET_ID(bank->ipid);
+
+-       ret =3D convert_ma_to_pa(ras_core, &addr_in, &addr_out, nps);
++       ret =3D ras_umc_ma2pa(ras_core, &addr_in, &addr_out, nps);
+        if (!ret) {
+                pa_addr->pa =3D
+-                       convert_nps_pa_to_row_pa(ras_core, addr_out.pa, nps=
+, false);
++                       umc_v12_0_nps_pa_to_row_pa(ras_core, addr_out.pa, n=
+ps, false);
+                pa_addr->channel_idx =3D addr_out.channel_idx;
+                pa_addr->bank =3D addr_out.bank;
+        }
+@@ -429,68 +402,6 @@ static int umc_v12_0_bank_to_eeprom_record(struct ras_=
+core_context *ras_core,
+        return 0;
+ }
+
+-static int convert_eeprom_record_to_nps_addr(struct ras_core_context *ras_=
+core,
+-                       struct eeprom_umc_record *record, uint64_t *pa, uin=
+t32_t nps)
+-{
+-       struct device_system_info dev_info =3D {0};
+-       struct umc_mca_addr addr_in;
+-       struct umc_phy_addr addr_out;
+-       int ret;
+-
+-       memset(&addr_in, 0, sizeof(addr_in));
+-       memset(&addr_out, 0, sizeof(addr_out));
+-
+-       ras_core_get_device_system_info(ras_core, &dev_info);
+-
+-       addr_in.err_addr =3D record->address;
+-       addr_in.ch_inst =3D record->mem_channel;
+-       addr_in.umc_inst =3D record->mcumc_id;
+-       addr_in.node_inst =3D UMC_INV_AID_NODE;
+-       addr_in.socket_id =3D dev_info.socket_id;
+-
+-       ret =3D convert_ma_to_pa(ras_core, &addr_in, &addr_out, nps);
+-       if (ret)
+-               return ret;
+-
+-       *pa =3D convert_nps_pa_to_row_pa(ras_core, addr_out.pa, nps, false)=
+;
+-
+-       return 0;
+-}
+-
+-static int umc_v12_0_eeprom_record_to_nps_record(struct ras_core_context *=
+ras_core,
+-                               struct eeprom_umc_record *record, uint32_t =
+nps)
+-{
+-       uint64_t ch_idx_v2, pa =3D 0;
+-       uint32_t save_nps;
+-       int ret =3D 0;
+-
+-       save_nps =3D EEPROM_RECORD_UMC_NPS_MODE(record);
+-       /* eeprom v2 has no stored nps, always convert if the flag is set *=
+/
+-       ch_idx_v2 =3D record->retired_row_pfn & UMC_CHANNEL_IDX_V2;
+-
+-       if (save_nps || ch_idx_v2) {
+-               if ((nps =3D=3D save_nps) && !ras_fw_eeprom_supported(ras_c=
+ore)) {
+-                       record->cur_nps_retired_row_pfn =3D
+-                               EEPROM_RECORD_UMC_ADDR_PFN(record);
+-               } else {
+-                       ret =3D convert_eeprom_record_to_nps_addr(ras_core,
+-                               record, &pa, nps);
+-                       if (!ret)
+-                               record->cur_nps_retired_row_pfn =3D RAS_ADD=
+R_TO_PFN(pa);
+-               }
+-       } else {
+-               /* old eeprom data format, the scope of channel index is
+-                * limited to umc instance
+-                */
+-               /* TODO */
+-               ret =3D -EOPNOTSUPP;
+-       }
+-
+-       record->cur_nps =3D nps;
+-
+-       return ret;
+-}
+-
+ static int umc_v12_0_eeprom_record_to_nps_pages(struct ras_core_context *r=
+as_core,
+                        struct eeprom_umc_record *record, uint32_t nps,
+                        uint64_t *pfns, uint32_t num)
+@@ -580,10 +491,11 @@ static void umc_v12_0_mca_ipid_parse(struct ras_core_=
+context *ras_core, uint64_t
+
+ const struct ras_umc_ip_func ras_umc_func_v12_0 =3D {
+        .bank_to_eeprom_record =3D umc_v12_0_bank_to_eeprom_record,
+-       .eeprom_record_to_nps_record =3D umc_v12_0_eeprom_record_to_nps_rec=
+ord,
+        .eeprom_record_to_nps_pages =3D umc_v12_0_eeprom_record_to_nps_page=
+s,
+        .bank_to_soc_pa =3D umc_12_0_bank_to_soc_pa,
+        .soc_pa_to_bank =3D umc_12_0_soc_pa_to_bank,
+        .mca_ipid_parse =3D umc_v12_0_mca_ipid_parse,
++       .ma2pa =3D umc_v12_ma2pa,
++       .nps_pa_to_row_pa =3D umc_v12_0_nps_pa_to_row_pa,
+ };
+
+--
 2.34.1
 
