@@ -4,72 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E61DC55182
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4C76C5518F
 	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 13:23:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A706B10E6D4;
-	Mon,  3 Aug 2026 13:23:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 125E210E6D8;
+	Mon,  3 Aug 2026 13:23:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eaBHB7o9";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PnV+YvIn";
 	dkim-atps=neutral
 Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
  [209.85.218.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D852010E6A6
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2026 13:23:16 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0E3A310E6D4
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2026 13:23:18 +0000 (UTC)
 Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-c167bda216fso510342866b.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Aug 2026 06:23:16 -0700 (PDT)
+ a640c23a62f3a-c15ba3a2b4bso402631266b.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 03 Aug 2026 06:23:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785763395; x=1786368195; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785763396; x=1786368196; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=pRmVNz8ZKQ5POJD2bip8iNxE5+bsrIXqbUSCTu5Xm+g=;
- b=eaBHB7o9kamU1bexDZK6/JAeiq7xxZAYpLceJAD0o+KkAJrN4NvR/EAN0TJVGaQcth
- Xky86zcwxDaM493oj+cG/asayEg55kKzsHOed5vwdl2PFTGx7u1xoawThHS8+cxafYTD
- vUv2f7OnGBoaf3nZTDLLR3mVNOUSmtuacUKEfAums3YXKvv1UXPBzgzW8urZAu8KCYN0
- xQxdC4WSfS/VwRPxHiu84gdSTA95Nn5aV3/sIiufNtAEdelkOiemN6sCLFFZZsCgUH/Y
- 6pjopc0yIGsKNUwQm/yHNVFEyLpyYvVKdt8AqE/Ijvr++9yG+ib0qtOqex6BDkWw4TUi
- lVsw==
+ bh=i0MGPPfjdDPR1lDATkMK/jYma9MEWaFiaZOP4VdIHsA=;
+ b=PnV+YvInnUaAAHgGN/c2ZWBX0PDu9gotIOA1PIKNC+m3thl6NE2pwdim8YJooMHLV+
+ IMrhrrqarwT/9VVMm2OQbkmUJ8pmXYcebPc0V2K44g1UVIeAYAQhn6mpGfUfr8lFKScs
+ 7wHdGOc7mehNJOJQ+LioSP53pJKwdaZFKqpCDD8IA8la3+CNl0Mi5PhRDVuxWqwig69h
+ ASvE+WxJ9AIOs3yRcnwSFvveo64xcfxYiZat0z2FJL23ZWgm0lPchyhGduTZx2m0L3Yq
+ kvtN14pW0UsXhBm116M1SsuPxUk/PbiBU6X+b/NP0ccAlj2UhrG8WVCr6PiA3s/KwlJE
+ sWrw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785763395; x=1786368195;
+ d=1e100.net; s=20251104; t=1785763396; x=1786368196;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=pRmVNz8ZKQ5POJD2bip8iNxE5+bsrIXqbUSCTu5Xm+g=;
- b=k9h9nZ0r+5uE+53ndu7/Dqc2qr0cMe2XEGu6XT7JcAhjCmgYlFjLNQ2TGKMoz7Lvx4
- /J5Q8qUcc9UPgIomUXnoxeml8LklaQHxb0+uREAvlHxJ3WqMZebO1zdttJAPwv4NODBr
- JcFHXLrefXPk0L9ZbmcmJT14p333s3S4wqo5+K4Z4Jn2/ZLjXkDOU2LcP8fYo5hZQspV
- sW20zSTFmDSuUF4UYs3lyD5fcOE4TLMPd9Tmj6peKKG43Yod3u0SbjK1VCw0+Gqg11Tl
- 1BNe6cqGtvOvczyB7Kw5IH+EvRajp6Nn9Rn81umeDjyu4jZ9Tt6FUOyd47ehLK8GutBI
- CUng==
-X-Gm-Message-State: AOJu0Yzd5jV86nPp5zU3Ekw0aKWindcLComV+6gMd49+6OHzPNbTqmL8
- eSQkjtleUTn/D+gNSCGhb8kmGM1vhvoYUjjASovAmbbkL3zRBCCFLUuFsHIJ5FgM
-X-Gm-Gg: AR+sD10ozYcLKJ2kUWV4kseCm8ivGwV59513GYFjshXuVCY8lqjZcXhxpdlJPMVtgft
- 8NLQqwH14CE+6VLe/B38WQ/tsB/uUZGXOKHCMcnNXJeVXAazPrOp2dmFRWy+46exrfwPycxG0ep
- Yip1H49EDMYJJnjCSZXq/tCzpHWTh0ZtdxKc+KBBjIvx1O2iOJH8cfLbOBxUGAkBqA14tkaonCE
- Zn5SVHADg+AK8o8quJzsx0/O3mk6ej2LzgDHc1BBjMm8KK/PAY5owkkgGwc1at7LsGfBTaCh64a
- YXUDPvyleot3zX6uuLIZkwd2YO5Go5isDmc4hQwpZhoEcRdjg81/ZVDAtZ0+4J0JAz4Y1kTdLNx
- Yv3W7jEw+AXcd7WygDapmiVn9HJEsa8lGvwzWEwcZbfSLNiU4pLe1DknLa2JD9L+4DNzRXyNvAJ
- DWhH/YF/HYwe1ZrpmJAHVBL8As4qNbwlYNK61iZQsiJptx8C6T5HTfC3Xge6SDVzjDDn/IcL627
- DnunofNa6Z+I1/pFUPNMou0jzjcGwo=
-X-Received: by 2002:a17:907:ea8c:b0:c16:75cc:33a9 with SMTP id
- a640c23a62f3a-c1fe81de492mr832470966b.20.1785763395154; 
- Mon, 03 Aug 2026 06:23:15 -0700 (PDT)
+ bh=i0MGPPfjdDPR1lDATkMK/jYma9MEWaFiaZOP4VdIHsA=;
+ b=NgJ0htojRPANOWpNTGjt28V67yFE5gmrnHxhRT1f8/TFDgxii3ZqUuk7TPc72Ufzzj
+ 8tK5RXM0IFCzs6zEgLYT3ETkCxQsyMNt7d681O81tKJ+eE6Pu+OWtiWjpXrg9EcskXgQ
+ ek2ydNyOvJa0MT5VYznOPLGSgddhNhVIPd+4irktmmoCkX3dWnoTRYXk8G1y1gj7gNXj
+ c+WOu7yx+zDHrzUNLgZtxzyZroMzlCViL/Pcugf/oK8DcwSzwnIv/bpmaObV90rpVtxD
+ hQtQ4S6HObpKHIL/6U6kIkxRwwtN11328kOzYz1rJ6PvHHxhXrIbPbePqX4XiLE2b/Le
+ ph/A==
+X-Gm-Message-State: AOJu0YxfOyY43db5QQ271O4q4aleo41POnafh+VVX6M7gwqpmuFkJdtv
+ focKLOlVvtHgnU+bSezVl6PLEZqCgaKa/J+N8ypTtY2I0Yj31HCgMz6FSZJzwMna
+X-Gm-Gg: AR+sD13l4VhNvKSEOqMU4BOOHJnaiPQsCoNDLhw+hRYcJ5cJ/+CLDkjRWMSkzo0z49u
+ Reu8GrO3XbykuZs3f4nwsrgCDUf9Jd08tKKlVZmQhY28XrJHM2ywkJxO3tlGcfOuGHNm1afAv/h
+ HCcSDMnCImVQy8+l8fuDpZ9697eDM/xsM6RAK8L5lW82i/51an0CF1bzplBErpN5mLcEFp9Pj0R
+ a9IHLqMGQmfQnRfof3KX69TYT8xqWlHqEkWEtCbJM4XyjnJCZQPuSQPz22Tx5oahtsIXobiAxYN
+ S+z103ykaccH4So6NcvUwLtuaLVa0eeuTxTlPRm0L7IHuY6GGYhtpgz87Glc4JtzcuQXalIlEU8
+ o3eBznde6jnykKXQgwTJFIVq+YeaglNjnvD+JUX4pseF1VfQskC0IiCtV6fhNoqcoT42pk+YIAH
+ +LyL369tfJ87Z9O9PqKhvM4HQoecj3Ala8AUttVnSkiaLlkYJ+rIaNHa0uU4UQ7j57vy3OMP67+
+ 9QP+LLUPlXjho+t0Jc1HsLXhGNaYiQ=
+X-Received: by 2002:a17:907:d08:b0:c20:1c9c:b36f with SMTP id
+ a640c23a62f3a-c201c9cbabcmr136456966b.8.1785763396179; 
+ Mon, 03 Aug 2026 06:23:16 -0700 (PDT)
 Received: from Timur-Hyperion.home (5401D2B5.dsl.pool.telekom.hu.
  [84.1.210.181]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c1fd445432dsm549201266b.41.2026.08.03.06.23.14
+ a640c23a62f3a-c1fd445432dsm549201266b.41.2026.08.03.06.23.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Aug 2026 06:23:14 -0700 (PDT)
+ Mon, 03 Aug 2026 06:23:15 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Tvrtko Ursulin <tursulin@ursulin.net>, Natalie Vock <nat@pixelcluster.dev>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 03/10] drm/amdgpu/gfx6: Use PFP on the compute queues too
-Date: Mon,  3 Aug 2026 15:23:02 +0200
-Message-ID: <20260803132309.36326-4-timur.kristof@gmail.com>
+Subject: [PATCH 04/10] drm/amdgpu/gfx6: Initialize compute rings before CP
+ start
+Date: Mon,  3 Aug 2026 15:23:03 +0200
+Message-ID: <20260803132309.36326-5-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260803132309.36326-1-timur.kristof@gmail.com>
 References: <20260803132309.36326-1-timur.kristof@gmail.com>
@@ -90,72 +91,202 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On GFX6, the compute rings use the same CP path as
-the graphics ring. The only difference is that they
-don't support draw commands. (As opposed to GFX7 and
-newer which have a separate command parser that is
-called MEC for compute queues.)
+In GFX6 GPUs, compute takes the same CP path as graphics.
+CP ME command parser executes packets for each ring buffer:
+RB0 supports graphics, RB1 and RB2 are compute only.
+Initialize all three rings before calling gfx_v6_0_cp_gfx_start()
+to make sure they are all in a sane state before execution starts.
 
-This means that we have to take into consideration
-that the PFP also exists on compute queues on GFX6:
+Previously, the two compute-only rings were initialized after
+the ME had been already started, which could cause the ME to
+start executing the ring contents before the rings could be
+properly initialized. This happens to work when the HW is first
+initialized, but not during an IP block reset where we want
+to reinitialize the compute rings before starting the ME
+to prevent it from executing garbage from these rings.
 
-Use PFP for register writes on both graphics and
-compute queues.
-
-In the pipeline sync, use the PFP to wait for the
-previous fence (and not the ME) to prevent the PFP
-from starting to execute the next submission while
-the ME is still in the previous submission.
-
-After a VM flush, emit PFP_SYNC_ME on compute
-queues as well.
-
-Fixes: 2cd46ad22383 ("drm/amdgpu: add graphic pipeline implementation for si v8")
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 134 ++++++++++++++------------
+ 1 file changed, 70 insertions(+), 64 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-index b84d05e7f09e..9b18ddcd597b 100644
+index 9b18ddcd597b..cd8a34d87c6d 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-@@ -2346,7 +2346,7 @@ static int gfx_v6_0_cp_resume(struct amdgpu_device *adev)
+@@ -2129,12 +2129,24 @@ static int gfx_v6_0_cp_gfx_start(struct amdgpu_device *adev)
+ 	return 0;
+ }
  
- static void gfx_v6_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
++/**
++ * gfx_v6_0_cp_gfx_resume() - Initialize CP rings
++ *
++ * @adev: amdgpu_device pointer
++ *
++ * In GFX6 GPUs, compute takes the same CP path as graphics.
++ * CP ME command parser executes packets for each ring buffer:
++ * RB0 supports graphics, RB1 and RB2 are compute only.
++ * Initialize all three rings before calling gfx_v6_0_cp_gfx_start()
++ * to make sure they are all in a sane state before execution starts.
++ */
+ static int gfx_v6_0_cp_gfx_resume(struct amdgpu_device *adev)
  {
--	int usepfp = (ring->funcs->type == AMDGPU_RING_TYPE_GFX);
-+	int usepfp = 1;
- 	uint32_t seq = ring->fence_drv.sync_seq;
- 	uint64_t addr = ring->fence_drv.gpu_addr;
+ 	struct amdgpu_ring *ring;
+ 	u32 tmp;
+ 	u32 rb_bufsz;
+ 	int r;
++	int i;
+ 	u64 rptr_addr;
  
-@@ -2364,7 +2364,7 @@ static void gfx_v6_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
- static void gfx_v6_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
- 					unsigned vmid, uint64_t pd_addr)
+ 	WREG32(mmCP_SEM_WAIT_TIMER, 0x0);
+@@ -2174,12 +2186,69 @@ static int gfx_v6_0_cp_gfx_resume(struct amdgpu_device *adev)
+ 
+ 	WREG32(mmCP_RB0_BASE, ring->gpu_addr >> 8);
+ 
++	/* ring 1  - compute only */
++	if (adev->gfx.num_compute_rings >= 1) {
++		ring = &adev->gfx.compute_ring[0];
++
++		rb_bufsz = order_base_2(ring->ring_size / 8);
++		tmp = (order_base_2(AMDGPU_GPU_PAGE_SIZE / 8) << 8) | rb_bufsz;
++#ifdef __BIG_ENDIAN
++		tmp |= BUF_SWAP_32BIT;
++#endif
++		WREG32(mmCP_RB1_CNTL, tmp);
++
++		WREG32(mmCP_RB1_CNTL, tmp | CP_RB1_CNTL__RB_RPTR_WR_ENA_MASK);
++		ring->wptr = 0;
++		WREG32(mmCP_RB1_WPTR, ring->wptr);
++
++		rptr_addr = ring->rptr_gpu_addr;
++		WREG32(mmCP_RB1_RPTR_ADDR, lower_32_bits(rptr_addr));
++		WREG32(mmCP_RB1_RPTR_ADDR_HI, upper_32_bits(rptr_addr) & 0xFF);
++
++		mdelay(1);
++		WREG32(mmCP_RB1_CNTL, tmp);
++		WREG32(mmCP_RB1_BASE, ring->gpu_addr >> 8);
++	}
++
++	/* ring 2 - compute only */
++	if (adev->gfx.num_compute_rings >= 2) {
++		ring = &adev->gfx.compute_ring[1];
++
++		rb_bufsz = order_base_2(ring->ring_size / 8);
++		tmp = (order_base_2(AMDGPU_GPU_PAGE_SIZE / 8) << 8) | rb_bufsz;
++#ifdef __BIG_ENDIAN
++		tmp |= BUF_SWAP_32BIT;
++#endif
++		WREG32(mmCP_RB2_CNTL, tmp);
++
++		WREG32(mmCP_RB2_CNTL, tmp | CP_RB2_CNTL__RB_RPTR_WR_ENA_MASK);
++		ring->wptr = 0;
++		WREG32(mmCP_RB2_WPTR, ring->wptr);
++		rptr_addr = ring->rptr_gpu_addr;
++		WREG32(mmCP_RB2_RPTR_ADDR, lower_32_bits(rptr_addr));
++		WREG32(mmCP_RB2_RPTR_ADDR_HI, upper_32_bits(rptr_addr) & 0xFF);
++
++		mdelay(1);
++		WREG32(mmCP_RB2_CNTL, tmp);
++		WREG32(mmCP_RB2_BASE, ring->gpu_addr >> 8);
++	}
++
+ 	/* start the rings */
+ 	gfx_v6_0_cp_gfx_start(adev);
+-	r = amdgpu_ring_test_helper(ring);
++
++	/* Wait for the initial packets to finish, run gfx ring test */
++	r = amdgpu_ring_test_helper(&adev->gfx.gfx_ring[0]);
+ 	if (r)
+ 		return r;
+ 
++	for (i = 0; i < adev->gfx.num_compute_rings; i++) {
++		ring = &adev->gfx.compute_ring[i];
++
++		r = amdgpu_ring_test_helper(ring);
++		if (r)
++			return r;
++	}
++
+ 	return 0;
+ }
+ 
+@@ -2224,66 +2293,6 @@ static void gfx_v6_0_ring_set_wptr_compute(struct amdgpu_ring *ring)
+ 
+ }
+ 
+-static int gfx_v6_0_cp_compute_resume(struct amdgpu_device *adev)
+-{
+-	struct amdgpu_ring *ring;
+-	u32 tmp;
+-	u32 rb_bufsz;
+-	int i, r;
+-	u64 rptr_addr;
+-
+-	/* ring1  - compute only */
+-	/* Set ring buffer size */
+-
+-	ring = &adev->gfx.compute_ring[0];
+-	rb_bufsz = order_base_2(ring->ring_size / 8);
+-	tmp = (order_base_2(AMDGPU_GPU_PAGE_SIZE/8) << 8) | rb_bufsz;
+-#ifdef __BIG_ENDIAN
+-	tmp |= BUF_SWAP_32BIT;
+-#endif
+-	WREG32(mmCP_RB1_CNTL, tmp);
+-
+-	WREG32(mmCP_RB1_CNTL, tmp | CP_RB1_CNTL__RB_RPTR_WR_ENA_MASK);
+-	ring->wptr = 0;
+-	WREG32(mmCP_RB1_WPTR, ring->wptr);
+-
+-	rptr_addr = ring->rptr_gpu_addr;
+-	WREG32(mmCP_RB1_RPTR_ADDR, lower_32_bits(rptr_addr));
+-	WREG32(mmCP_RB1_RPTR_ADDR_HI, upper_32_bits(rptr_addr) & 0xFF);
+-
+-	mdelay(1);
+-	WREG32(mmCP_RB1_CNTL, tmp);
+-	WREG32(mmCP_RB1_BASE, ring->gpu_addr >> 8);
+-
+-	ring = &adev->gfx.compute_ring[1];
+-	rb_bufsz = order_base_2(ring->ring_size / 8);
+-	tmp = (order_base_2(AMDGPU_GPU_PAGE_SIZE/8) << 8) | rb_bufsz;
+-#ifdef __BIG_ENDIAN
+-	tmp |= BUF_SWAP_32BIT;
+-#endif
+-	WREG32(mmCP_RB2_CNTL, tmp);
+-
+-	WREG32(mmCP_RB2_CNTL, tmp | CP_RB2_CNTL__RB_RPTR_WR_ENA_MASK);
+-	ring->wptr = 0;
+-	WREG32(mmCP_RB2_WPTR, ring->wptr);
+-	rptr_addr = ring->rptr_gpu_addr;
+-	WREG32(mmCP_RB2_RPTR_ADDR, lower_32_bits(rptr_addr));
+-	WREG32(mmCP_RB2_RPTR_ADDR_HI, upper_32_bits(rptr_addr) & 0xFF);
+-
+-	mdelay(1);
+-	WREG32(mmCP_RB2_CNTL, tmp);
+-	WREG32(mmCP_RB2_BASE, ring->gpu_addr >> 8);
+-
+-
+-	for (i = 0; i < 2; i++) {
+-		r = amdgpu_ring_test_helper(&adev->gfx.compute_ring[i]);
+-		if (r)
+-			return r;
+-	}
+-
+-	return 0;
+-}
+-
+ static void gfx_v6_0_cp_enable(struct amdgpu_device *adev, bool enable)
  {
--	int usepfp = (ring->funcs->type == AMDGPU_RING_TYPE_GFX);
-+	int usepfp = 1;
+ 	gfx_v6_0_cp_gfx_enable(adev, enable);
+@@ -2333,9 +2342,6 @@ static int gfx_v6_0_cp_resume(struct amdgpu_device *adev)
+ 		return r;
  
- 	amdgpu_gmc_emit_flush_gpu_tlb(ring, vmid, pd_addr);
+ 	r = gfx_v6_0_cp_gfx_resume(adev);
+-	if (r)
+-		return r;
+-	r = gfx_v6_0_cp_compute_resume(adev);
+ 	if (r)
+ 		return r;
  
-@@ -2388,7 +2388,7 @@ static void gfx_v6_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
- static void gfx_v6_0_ring_emit_wreg(struct amdgpu_ring *ring,
- 				    uint32_t reg, uint32_t val)
- {
--	int usepfp = (ring->funcs->type == AMDGPU_RING_TYPE_GFX);
-+	int usepfp = 1;
- 
- 	amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
- 	amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(usepfp) |
-@@ -3554,7 +3554,7 @@ static const struct amdgpu_ring_funcs gfx_v6_0_ring_funcs_compute = {
- 	.emit_frame_size =
- 		5 + 5 + /* hdp flush / invalidate */
- 		7 + /* gfx_v6_0_ring_emit_pipeline_sync */
--		SI_FLUSH_GPU_TLB_NUM_WREG * 5 + 7 + /* gfx_v6_0_ring_emit_vm_flush */
-+		SI_FLUSH_GPU_TLB_NUM_WREG * 5 + 7 + 2 + /* gfx_v6_0_ring_emit_vm_flush */
- 		14 + 14 + 14 + /* gfx_v6_0_ring_emit_fence x3 for user fence, vm fence */
- 		3 * 2 + /* gfx_v6_0_ring_emit_sb x3 (from amdgpu_vm_flush, amdgpu_ib_schedule) */
- 		5, /* SURFACE_SYNC */
 -- 
 2.55.0
 
