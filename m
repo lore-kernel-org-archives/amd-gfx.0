@@ -4,123 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6820FC55182
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 20:19:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8E68C55196
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 20:30:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF5C910E06A;
-	Mon,  3 Aug 2026 20:19:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5284D10E085;
+	Mon,  3 Aug 2026 20:30:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IdgGGFDd";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yyCIHnZ6";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010006.outbound.protection.outlook.com [52.101.56.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16C0E10E06A
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2026 20:19:37 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010068.outbound.protection.outlook.com [52.101.85.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B5F9610E085
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2026 20:30:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ACYLEn1js02JSqsuI0KLZsHuG247WU0rkcorqS7Fi+i58KOj9GjSjsASxQY/HCMTSzXp7CgKUQbICvRMnqkvDA9t/fOs6YnMKwBuuIDOIzx8UVWmRnmost66Xk0A3GnyE8cp+hLq9v/U5PkOVgEp/Lb1ave68bml4eHEahER2GRR8c3cBNWTD30s6x3CcXtyP3A7ARAI8ALQsNZP1AP/4QrVb5uH0vZyDotdxmp6jqutfMQosXdBv9D69NtWMwesLdfzRELHx0wGAP8YTQdBVJSD7Ca09RcuqGytdOEFg6OeE3fdoQX/FAAYzKnDyibRBqdrRe3fc8vg7bVJWhvimA==
+ b=TCEVH8H/ltl5vmG9+UdVnx39kFiGaZh4d2UgY8kZyRdjsbyZtvHTwaJMXmIfL466HfwBMmuuXY539ciy/2weALQBKN/SCC1euwZbe0Tz7tiFtu2b8DvWUHttsg+eMITzrMdK9FciEFQ5KMF28CFbV+Icn3XTUZsTeg4tcTljczOM1sFiI4AG6n9ptrj9iGbu3RG0SgHH7NEevLSj1BTxgONeo7iaEx+r6shZf/ORO+eu2rn17d0nbz7quNtqKzzEwqQt+fxm4M6tZhCtR9VWMbwCvKQ8A4CgffywxLhHeYbacrbVOq6EUYwoKgpJ/mbnxMowjmUx9qzzS2DKfgUzvw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WVcQffT1cg6lk5Vmesf/hwyve8eUP1ssJDpQ0umvAoM=;
- b=MCfwkOE2igb59c+EJOcQmMmZaFW4Z93CnsUooEUMwR9QoNNsHdB1T/S1digh7TMyEfgqULTZcKTeGi3z5Y1Hjq4C81iuguiTXnI4rTvosT/rdH7HVPwgcGbEzrB42KufqFF1BjLp+3pCgVE1vSt+dX1c/AQ6w0Kh9BBwvCu+cDMRMkGewuJIwP5o7BU2nOYINcTihSZDeNk027HdOdX2sbv10vZzIwA4xJrcfKddX9yo24L8H4MEmjgcxlhLEp6KoaMSSGVUj+zSg4qHUy8jvVgTeiaAkfwHY8EIvFUSNO8yxIOt5RBeqExiqQVlXD6evb9hXtp00rBIaRNJS8S2Ew==
+ bh=CoNdfQHdGmKmwC8FHTlZ7SY8etJeoUyT+pKCKAj1tPo=;
+ b=yZXrRam2M3+HQeZHUBbWM8AleOTmn2QN5D0omu5xceGeHqe61p0Rtbh5iEEtHt9lIRB+gtMDGngXQl3sOaszZ2trRF58zPu2o+8C6R8wPoumIB558A01HheVb2WteRMBoRRKG01ohOJAJsFRv3Vj+4j9flAd2e5u0QE2b5ZcAxYQ6qB4yEtB81hCMPMeJ9j8Y/CoF7kUk+3oPMv5uzCnEgmAlHmixmuyhOFwB1MtpJpyxLsaxdkIjPHTDD1GghZXtGr543bbA76r5WYKZUSAOZ6B7ulkMaAMq5jl1kxm/cYNoZzw+y9pHSNfh70NmmDEFriDYWB4QaX37kfY59St8A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WVcQffT1cg6lk5Vmesf/hwyve8eUP1ssJDpQ0umvAoM=;
- b=IdgGGFDdiGAf03cW5fblVZE/GMkDmfkhjKKgRVD3LO7+2ptayyQ+c1Zwuga5FWPFQ4lbZuiMEHPrXZsjmdB6uhhsysk5NpCNxzVK90t2M0+DKoJQxpdcAwZUHJu0UgbycLLBPUsdm54+SRyZwGBiA6yI5Jm+pAkStupCBXQJnPs=
+ bh=CoNdfQHdGmKmwC8FHTlZ7SY8etJeoUyT+pKCKAj1tPo=;
+ b=yyCIHnZ6Ppd+nSLoe+0OKqYaxOGv1YwdMKoDT1MxCPgw8SdAzjNsqMCgQoWuIeWx1EeP3hMHcLJ/V8Wia12Lp6qdrDQEmcJqALWtPdn1jonHyrO1WgOQiecZWQA5Hwiu/hmI7p/TdoBLcwKVneIP9+1mOLXNbzYy0Aqb6S8SmHI=
 Received: from DM6PR12MB3611.namprd12.prod.outlook.com (2603:10b6:5:3c::17) by
- SN7PR12MB7273.namprd12.prod.outlook.com (2603:10b6:806:2ac::21) with
+ PH0PR12MB8824.namprd12.prod.outlook.com (2603:10b6:510:26f::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Mon, 3 Aug
- 2026 20:19:31 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Mon, 3 Aug
+ 2026 20:30:33 +0000
 Received: from DM6PR12MB3611.namprd12.prod.outlook.com
  ([fe80::7861:6815:8b7d:bd0b]) by DM6PR12MB3611.namprd12.prod.outlook.com
  ([fe80::7861:6815:8b7d:bd0b%4]) with mapi id 15.21.0270.016; Mon, 3 Aug 2026
- 20:19:31 +0000
+ 20:30:32 +0000
 From: "Chen, Michael" <Michael.Chen@amd.com>
 To: "Liang, Prike" <Prike.Liang@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
  <Christian.Koenig@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
-Subject: Re: [PATCH v2 1/2] drm/amdgpu/mes: refactor the
- amdgpu_mes_alloc/free_proc|gang()
-Thread-Topic: [PATCH v2 1/2] drm/amdgpu/mes: refactor the
- amdgpu_mes_alloc/free_proc|gang()
-Thread-Index: AQHdH8hz8uDzaGafd0KOxFrK5DdUmraMyA2a
-Date: Mon, 3 Aug 2026 20:19:31 +0000
-Message-ID: <DM6PR12MB3611478BA8E7766040313BBB94D52@DM6PR12MB3611.namprd12.prod.outlook.com>
+Subject: Re: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue
+Thread-Topic: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue
+Thread-Index: AQHdH8h0cy0vMxJ0skewm8RkvHhctraMzaqg
+Date: Mon, 3 Aug 2026 20:30:32 +0000
+Message-ID: <DM6PR12MB3611DD14C882B3CBAA936FE194D52@DM6PR12MB3611.namprd12.prod.outlook.com>
 References: <20260730020911.234193-1-Prike.Liang@amd.com>
-In-Reply-To: <20260730020911.234193-1-Prike.Liang@amd.com>
+ <20260730020911.234193-2-Prike.Liang@amd.com>
+In-Reply-To: <20260730020911.234193-2-Prike.Liang@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-03T20:19:28.184Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-03T20:30:29.730Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
  General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB3611:EE_|SN7PR12MB7273:EE_
-x-ms-office365-filtering-correlation-id: e19c31ff-7098-4d2d-06b8-08def19c86e1
+x-ms-traffictypediagnostic: DM6PR12MB3611:EE_|PH0PR12MB8824:EE_
+x-ms-office365-filtering-correlation-id: 49742485-9ab7-481d-a5ff-08def19e1131
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|18002099003|22082099003|11063799006|8096899003|38070700021|10067099003|56012099006;
-x-microsoft-antispam-message-info: 1hZTXZrU/69lwp8FlInol42b6jFHOJUDxw+Fn87OR2obzgWExjhFA03wYSypzfeC7+Dw4WQNzOPy9OC66xmd8V323dMq7cRVGr9zTHUYel1W1O8LOR8eDtNNTBn0ksQnK2xBbAZBDMcXEorZ5U0JVUM78cxJsyjBUtNa3dTvMEixZpVpKwP9eLEzOkJLZw7iCQabQlCzkWX85alCAMouZGvqkuWe8LXIDX2ILtTaTVoHAWKfcUijAb9zM+m+ql6O2hxhQF/g61KrsHw/isVyaPXTuzq74jBmy5DCJ8TPjWU+p43EnNiQLBvhiDvD2ji3mOXytDaDviejxoR6YJcxpcboz+4EPe6mjtDa9bbiIv+mUBMylOEMHcmQPAUXXXqHBJAlCGO5WThuUtRiQHwNLI2oaLGD+ldMdOLjLwgSls1yfD36tTzCuHExyhLzog2U029R4j7R1S7vvGJSvaseuKlyBbkw5burxgMCvOjjD1XrmAFOz7wBs0pZJc5KdQo2IovFwMpFrRSjo8hrN0OG71h3KMHgHtTXB5lyoDkj7maDCIcixX1n5tWexUcWI10r2NHjFbpdJ8rEXHmJiJaMQ/asjKDPdOS7uLLaEOKKjfK4Kq2RSi8H/t8jishuFICB6oWwxKO3RzNwPcTuO4PmtDSOHD/xwWXicXf2GnXBuzbItU2QmAphQ8lOsCNBO2WUHFV8858QGxZpqHmiOL5bYt57RJCN9kKK9Qs/Tr1lkVg=
+ ARA:13230040|376014|23010399003|1800799024|366016|38070700021|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003|8096899003;
+x-microsoft-antispam-message-info: AnWjny9aGzoqENE3x43ofFgXvZMX8+CJWRhHJ6tDHEz7WRlJnbY+sMkU2nT3I5fGKW2LaTo+vHT1S+LquPSd46YQCJv0/qV6IIw0i+dCBNcqDIo7OjzZKDQtV/c3Uxcjhsj9PLHjOvanMf/7vseELf2u580dCsncIpb8t8DO+/SdJxpFd67qhj1M3QofGZ/OfpuHnN+hf7woObwmBQpghGeDfDTj1KbczVo+GpVh3p0IOmfnUy/V0/MFbL7NznNS0sFqNhoWrR+yMlHomKpswzpva3MFZ7SCW1SHK0yNhwSsIgEbA3e+VbCjobQiyrS3F0PrV2aQxXjCdFbHwBp4suPYiO/pEHqwhSADqRKVmuJ6u6ESNLXaqeTdoQZ4zVP9UkXSD2vCLinCADruXqmXAUMkrWbAgiM0cF4v4xAjcnCbPUZB9WNuCbGyOvyuRzAr/esQmELETi3V6T6KBDV9tW7AvpzoxkR+3wglm8/C5otgbXc2lbc/RjrL6XVVAtj7a/2uYxHLXpVS+uyhxerWV10hwJmqwMdAs4u56EAeKl0c9yodNO6fZhoPO7wEesctRSKnb5dWXfuzPM4JBgjycArKXoF66+gTvmC7K2PkW/prqNiFzlymIfoSeeUiKXGzYdloH0TDPdcyb1QLRfnrCnEOHtbe1VCsfTd5jykkh8uvrftSyjuy09RT3px1XIut5BSzgUDGgQjRNXzvSsRnBDLXKRucT0vHtm9ZdpZI9yE=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM6PR12MB3611.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(18002099003)(22082099003)(11063799006)(8096899003)(38070700021)(10067099003)(56012099006);
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(38070700021)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003)(8096899003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?0LQS/0Plbr+8GtQen3MuXrylWWYbQEq/vm8Qo5xQHkZBLK593pcBA/RSxG?=
- =?iso-8859-1?Q?Iu6ewpzbjVwEH1HWfVE9sZQd1c7b2Me2LnVgsd+90v23LhMXgIpzWOZscv?=
- =?iso-8859-1?Q?MvOkZbPdI1HV5s0UbPpUuoP3yiSJLBI7ZOyYg5+/Q4A2hMgoNwyqZm79W0?=
- =?iso-8859-1?Q?J6z3n2dNNkKeluYDJfY89On719zWVbBdL4aIkZla6h/b6WZIDeUfM4syWA?=
- =?iso-8859-1?Q?kZ6tVyxlYydDQyR1KCQDlUw3YEpSzEkXV1cyW1kDzdup/vEZ8UOcEouzJ1?=
- =?iso-8859-1?Q?xkVRslz6ID2lP8nXFo5gvFgTpVPTJthKWqlxlz8I0CtpVHfFojrWT+LpxP?=
- =?iso-8859-1?Q?w5Rogi0mdZ9Wx4jksNIs8r7loaSkTlHtLtYZAjr2HEPqA35DNvCXZJsGfF?=
- =?iso-8859-1?Q?FHOYYZM46eg8HJ+5L55qbrTW6bg9f1f0Oj9bxco6H3bYF8YkuB2QB0uCdc?=
- =?iso-8859-1?Q?RiNlHjwcwThFUgF7aQ4oswxYTKcwKLgB0wFXxmPWtzJfChZ+QTMayStYL3?=
- =?iso-8859-1?Q?dK3Hatqz3MRFSSULMGGecCC415m8ceZ0G2HpdHdq9BMEtQYfA1GlSDdYSi?=
- =?iso-8859-1?Q?RBhdACYiPbyTh6gHL+V6AEG0RHRO6PPROMqSAAENMIiIO/ldegP7epi0m9?=
- =?iso-8859-1?Q?XTWnHrqejGIdyDpX7jp2fQd7ORUHLG6V9N9vBhUBeoFzZRs9Xf4WrRqkTw?=
- =?iso-8859-1?Q?AEn7/JRjmbrKsEl7SxqU8Vq6gdvifyvDrp5IwZy3thS3pFaIlVeAV7GT38?=
- =?iso-8859-1?Q?FVYkY49T31zVcnU0zVncXLLYgZdw5R4c2/WWnye2uVFKqt/WI9kdzTu50Y?=
- =?iso-8859-1?Q?LyFjiH1scl3lq0jcKpBF0a/pGqmeFrKYvO3TRXdEp9osGfYC+kpeYMczFt?=
- =?iso-8859-1?Q?pkYa+r1KonENF8UrT2GiL8SNmpW9/EEUVlHoqf7Fc+OgA47GaA4IC7Tugm?=
- =?iso-8859-1?Q?x/9Tw3TNtmyHAKK/cN3mbDnKHPGn6LzFkAVA3phs5Lb5Ft6+M7dQFMu/8a?=
- =?iso-8859-1?Q?j5j+52WAyrlu6N97Tr8xSQNsD18CJjHFzjtjMWtDJDcBN7WeMckKk+XUGs?=
- =?iso-8859-1?Q?qI2ecdtXhjqq/6y28MvLd6Zoz18UYZOwhGULpeCqnM4SiOVWUV/+sEcfKb?=
- =?iso-8859-1?Q?NwuHNfBXP2mVe8HZ4AESu/Uzzx2cR/sOOW1YwaYzfVOwUGFQvrlDXbtjOx?=
- =?iso-8859-1?Q?roAHoYNWHA7YLuVATax/FDpwVjvNIGMB+TD5YC7PRXH5K+d71Bvwm2h0X1?=
- =?iso-8859-1?Q?fyh5Sn6Cxn2Y8u00Ay+KegbPdQcicf9jFBrZSDq5Dnp64hpVN/zCHwD/FO?=
- =?iso-8859-1?Q?myYXmHPq0aZkXaA/JSfwNoItinx9RJVrrb8Ctfj4kgg6q+p0L1PkDaZAeK?=
- =?iso-8859-1?Q?31YiZ/KncIlV0tvUuHsGDMqVPz7jjJdTRLpiC22x/ZXtMOibnYKD+AJj1w?=
- =?iso-8859-1?Q?a0a9AMfsKR20lmGsI6N9yVZTGgZlbj+wBm/cQqtkPLxlhjNlEckfeXIZtH?=
- =?iso-8859-1?Q?8YEADqL2QUUwFp/KRRnkXw+9MNpbr6AsmcNmEkDuqBepsbSY66wPcCpi+0?=
- =?iso-8859-1?Q?HxP94bSr9fSkSOC5iQsZhdzsGLGAkfJp7U5QE818jPyWYwIagCvyNyddGj?=
- =?iso-8859-1?Q?hD4C6v/AidizbeJ7vxKXkhVMjm3i72iP2ieTiY6LVvmcci030hHO+tS9oC?=
- =?iso-8859-1?Q?9rQaSx4mDkxcVqaBqwND+bbrbImEjriYfHQupA8kzew+UVlkqCTFWC3VYY?=
- =?iso-8859-1?Q?akOwP8s5vrvJd80J3hBQNlVOP+rg4ye2YRpumsc8Anuy4k?=
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?xByZTP/DXep0g0izaqU/4YjGWByxu4XUWeFsXdU0Bx4v6Ei21IQePIlRxl?=
+ =?iso-8859-1?Q?fUHl6Wpam7/HgPSOsCjUTnBAMxIJRGZK7W4Qu3fgObUXVFAp+IFxEEpHJk?=
+ =?iso-8859-1?Q?6r82kknRdNlEeGxQMlKjyE9K2bIIeLTqG4vwJYRg4drWim9TiHZ4nAtbRt?=
+ =?iso-8859-1?Q?lLtvBfO00BKW5DerVBfOFt+qLEeNQp7zClcJnzegAoCXFFGCTx+JF2qG+t?=
+ =?iso-8859-1?Q?gRxoiPcM9fYM4Ie1EvgCbmm4veIMZS05+H44uQt6JZN0YSVcmV+aga9G4r?=
+ =?iso-8859-1?Q?FzOvmslM2c9m+chjoCzWLk+4eq2r9V4Ol3PVblxQg7wZwlpg8RlHk+Hb9H?=
+ =?iso-8859-1?Q?yCVUdxqI+DHBynn5ZmN5BP+W/NQD0FYlLH8deDKfrhL+lYgpO+Mh+tVr9N?=
+ =?iso-8859-1?Q?YrigKDg2mA38FNzJedBJWgelMnnoS3Sk0+ZFX3NZ9VlTDIXdrbtsUArdRd?=
+ =?iso-8859-1?Q?+RcfDkCqGWyD2/yUeIEhCBZ3MywqUdBpZFWNWPE8Z4rODtZIX43mB52fW2?=
+ =?iso-8859-1?Q?/BrRf9DfT14K/4ZsiG6z4Ujq1MeTr9tPLJ8CAnXmJ61KGgugvhD8WuF6BC?=
+ =?iso-8859-1?Q?/VvgUNX7XpJCHvRjUkTUJT6CAtwO+QE8UB9SZ+KoKK0yLWtBHsfQ3Pn53H?=
+ =?iso-8859-1?Q?JQomCRNz4wk0EJLa1d85WDS8zwHnUah6/uTnFGPk4o9e5kKUa7IE6crW7T?=
+ =?iso-8859-1?Q?U1yx12rvfcCo8RS3Ayu7MCMi0TL8fCXPVkbFFGxQDhZiApr0ANw49RK/d+?=
+ =?iso-8859-1?Q?Bdrc8uSY3qkN6ZLn9elOKne2kKJJCWAu9Z0F9n1iQUGeO7WwRvdF3Dpxix?=
+ =?iso-8859-1?Q?BAftC92a1fxQiK4bBh6J3cRBA/sSbAWblfNQSPFn/5ZbLBmETgGv6ihxXc?=
+ =?iso-8859-1?Q?ADEmmnk0s8mA5FTCb/6LTj2XOeB7F9KysFCyZnNmx61jhmVu1BI7zoAUVW?=
+ =?iso-8859-1?Q?PcWlEMMyZoP6sHgxOBTptyx1BQCNTaYZAMsCDU6cB2prdtOORH8P+AHwTc?=
+ =?iso-8859-1?Q?PJ8f5q0RCD+5hgWmFShfqDMF+e8sQWXUYDdW++5a+2AmFKJQqQFQeOFLmo?=
+ =?iso-8859-1?Q?orQmJekGs8Jfwn4QCaNsGifRRawaWjogx/NQI+rAt/TSNMc7rB3WQ90U/9?=
+ =?iso-8859-1?Q?IHpDULaXyKshzptr6FHLpTIr1E0+oZvSRzyF65Gujtexqv2Xwt+VQuSKS6?=
+ =?iso-8859-1?Q?cz9g6Qk1bEXjorZFWWQyWkb2JUH1YXVsT8FJq3M80LJuDEWPHBZ+A8aRRn?=
+ =?iso-8859-1?Q?mYcojeIafIkDulcmUpfj+7tkKu6NQcZVrFH95yu6meZQCrw1NJDkl+rs8V?=
+ =?iso-8859-1?Q?YjvBgek6zi/xwgYPm4+tj6i73dLpvbXEeuGn9gQbnZAQOBn3Vx3me17Sug?=
+ =?iso-8859-1?Q?zWqfXTIMj4lRMe7XZ02DkqDfTbPdTSvPvPE92OuhivGJkCqz3gDlI9EkUv?=
+ =?iso-8859-1?Q?1iJVzRyAe8/NCovEcXZbvLPS7PjqT2Supkb6apIgAu298GR84c3HQz5zcy?=
+ =?iso-8859-1?Q?QFu23YVMvNqN5ZH5E9RTYttvf+mrtZ4n0g8CniINUJ38orhvYa0XaqEsZv?=
+ =?iso-8859-1?Q?Sr7pbhN2xbJBRFhYhozMpW5ZAiKAImXV7oP+x3V/+ztTqa3KUwFD6+uoCX?=
+ =?iso-8859-1?Q?BIV8RSr1tvbhQIae8U08MWXbVMkigPNCquqwaH3hheJkTQlkSfylwhh0J3?=
+ =?iso-8859-1?Q?gm0fZmzxBKDSwVwZu7nWx/EnWOynnvjdCbAyN9k4b6l5NYlARWYw3+xefy?=
+ =?iso-8859-1?Q?bemH0/QyPMBKCLI/Q43TYvh4iVsZ6BTbXsdnKtDbptKnDd?=
 Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB3611478BA8E7766040313BBB94D52DM6PR12MB3611namp_"
+ boundary="_000_DM6PR12MB3611DD14C882B3CBAA936FE194D52DM6PR12MB3611namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3611.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e19c31ff-7098-4d2d-06b8-08def19c86e1
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Aug 2026 20:19:31.2690 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49742485-9ab7-481d-a5ff-08def19e1131
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Aug 2026 20:30:32.8380 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: WLH/U7X+69yIlXrkvgRuCwWiWi2gQz8SW1sNkHDlw9bSZp7eNrrttYsSlRqacgWrWwpWbNqfwDwLV2QLXJGasw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7273
+X-MS-Exchange-CrossTenant-userprincipalname: GO/RyCFDVHt58fEccPwrXhrb//oc0QQyYj2Vrg/jiDnT2YPjQS7wsdz6BjrfKUt/7OXBqpiZGHjAipcyGyyYww==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8824
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,7 +134,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB3611478BA8E7766040313BBB94D52DM6PR12MB3611namp_
+--_000_DM6PR12MB3611DD14C882B3CBAA936FE194D52DM6PR12MB3611namp_
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -150,275 +149,166 @@ To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
 Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
 stian.Koenig@amd.com>; Chen, Michael <Michael.Chen@amd.com>; Liu, Shaoyun <=
 Shaoyun.Liu@amd.com>; Liang, Prike <Prike.Liang@amd.com>
-Subject: [PATCH v2 1/2] drm/amdgpu/mes: refactor the amdgpu_mes_alloc/free_=
-proc|gang()
+Subject: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue
 
-- Unify amdgpu_mes_alloc/free_proc|gang_ctx_index to provide
-  centralized RS64mem bitmap management for both KGD and KFD.
-- Retrieve the bitmap bit for userq contex index based on a
-  per process granularity.
+Enabled RS64mem for KFD queues by integrating
+process and gang context index allocation in
+the per KFD device process and queue creation.
 
 Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c    | 28 +++++++++++-----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h    |  8 +++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c  |  6 +++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h  |  3 ++-
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 20 ++++++++++------
- 5 files changed, 39 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |  3 +++
+ drivers/gpu/drm/amd/amdkfd/kfd_priv.h                  |  3 +++
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c               |  5 ++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 10 ++++++++++
+ 4 files changed, 20 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_mes.c
-index 9af7c97af5be..e3862095ff99 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -1040,13 +1040,13 @@ int amdgpu_mes_rs64mem_setup_bitmaps(struct amdgpu_=
-mes *mes)
-  * amdgpu_mes_alloc_proc_ctx_index - allocate a process context slot
-  *
-  * @mes: MES instance
-- * @queue: Usermode queue receiving the allocated process context index
-+ * @index: the allocated process context index
-  *
-  * Returns 0 on success, -ENOSPC if all slots are used, or
-  * -EOPNOTSUPP if RS64 local memory is unavailable.
-  */
- int amdgpu_mes_alloc_proc_ctx_index(struct amdgpu_mes *mes,
--                                   struct amdgpu_usermode_queue *queue)
-+                                   uint32_t *index)
- {
-         unsigned long bit;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driver=
+s/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 51ee9c39104b..ea9d87450eae 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -226,8 +226,10 @@ static int add_queue_mes(struct device_queue_manager *=
+dqm, struct queue *q,
+         /* MES unit for quantum is 100ns */
+         queue_input.process_quantum =3D KFD_MES_PROCESS_QUANTUM;  /* Equiv=
+alent to 10ms. */
+         queue_input.process_context_addr =3D pdd->proc_ctx_gpu_addr;
++       queue_input.process_context_array_index =3D pdd->proc_ctx_array_ind=
+ex;
+         queue_input.gang_quantum =3D KFD_MES_GANG_QUANTUM; /* Equivalent t=
+o 1ms */
+         queue_input.gang_context_addr =3D q->gang_ctx_gpu_addr;
++       queue_input.gang_context_array_index =3D q->gang_ctx_array_index;
+         queue_input.inprocess_gang_priority =3D q->properties.priority;
+         queue_input.gang_global_priority_level =3D
+                                         AMDGPU_MES_PRIORITY_LEVEL_NORMAL;
+@@ -303,6 +305,7 @@ static int remove_queue_mes_on_reset_option(struct devi=
+ce_queue_manager *dqm, st
+         queue_input.queue_type =3D convert_to_amdgpu_ring_type(q->properti=
+es.type);
+         queue_input.remove_queue_after_reset =3D flush_mes_queue;
+         queue_input.xcc_id =3D ffs(dqm->dev->xcc_mask) - 1;
++       queue_input.gang_context_array_index =3D q->gang_ctx_array_index;
 
-@@ -1061,7 +1061,7 @@ int amdgpu_mes_alloc_proc_ctx_index(struct amdgpu_mes=
- *mes,
-                 return -ENOSPC;
-         }
-         set_bit(bit, mes->proc_ctx_bitmap);
--       queue->proc_ctx_array_index =3D (uint32_t)bit;
-+       *index =3D (uint32_t)bit;
-         amdgpu_mes_unlock(mes);
-
-         return 0;
-@@ -1071,18 +1071,18 @@ int amdgpu_mes_alloc_proc_ctx_index(struct amdgpu_m=
-es *mes,
-   * amdgpu_mes_free_proc_ctx_index - free a process context slot
-   *
-   * @mes: MES instance
--  * @queue: Usermode queue whose process context index is released
-+  * @index: process context index is released
-   */
- void amdgpu_mes_free_proc_ctx_index(struct amdgpu_mes *mes,
--                                   struct amdgpu_usermode_queue *queue)
-+                                   uint32_t index)
- {
-         if (!mes->use_rs64mem || !mes->proc_ctx_bitmap)
-                 return;
--       if (queue->proc_ctx_array_index >=3D mes->proc_ctx_array_size)
-+       if (index >=3D mes->proc_ctx_array_size)
-                 return;
-
-         amdgpu_mes_lock(mes);
--       clear_bit(queue->proc_ctx_array_index, mes->proc_ctx_bitmap);
-+       clear_bit(index, mes->proc_ctx_bitmap);
-         amdgpu_mes_unlock(mes);
- }
-
-@@ -1090,13 +1090,13 @@ void amdgpu_mes_free_proc_ctx_index(struct amdgpu_m=
-es *mes,
-   * amdgpu_mes_alloc_gang_ctx_index - allocate a gang context slot
-   *
-   * @mes: MES instance
--  * @queue: Usermode queue receiving the allocated gang context index
-+  * @queue: the allocated gang context index
-
-The parameter is "index", not "queue".
-
-   *
-   * Returns 0 on success, -ENOSPC if all slots are used, or
-   * -EOPNOTSUPP if RS64 local memory is unavailable.
-   */
- int amdgpu_mes_alloc_gang_ctx_index(struct amdgpu_mes *mes,
--                                   struct amdgpu_usermode_queue *queue)
-+                                   uint32_t *index)
- {
-         unsigned long bit;
-
-@@ -1111,7 +1111,7 @@ int amdgpu_mes_alloc_gang_ctx_index(struct amdgpu_mes=
- *mes,
-                 return -ENOSPC;
-         }
-         set_bit(bit, mes->gang_ctx_bitmap);
--       queue->gang_ctx_array_index =3D bit;
-+       *index =3D bit;
-         amdgpu_mes_unlock(mes);
-
-         return 0;
-@@ -1121,18 +1121,18 @@ int amdgpu_mes_alloc_gang_ctx_index(struct amdgpu_m=
-es *mes,
-   * amdgpu_mes_free_gang_ctx_index - free a gang context slot
-   *
-   * @mes: MES instance
--  * @queue: Usermode queue whose gang context index is released
-+  * @queue: gang context index is released
-
-The parameter is "index", not "queue".
-
-   */
- void amdgpu_mes_free_gang_ctx_index(struct amdgpu_mes *mes,
--                                   struct amdgpu_usermode_queue *queue)
-+                                   uint32_t index)
- {
-         if (!mes->use_rs64mem || !mes->gang_ctx_bitmap)
-                 return;
--       if (queue->gang_ctx_array_index >=3D mes->gang_ctx_array_size)
-+       if (index >=3D mes->gang_ctx_array_size)
-                 return;
-
-         amdgpu_mes_lock(mes);
--       clear_bit(queue->gang_ctx_array_index, mes->gang_ctx_bitmap);
-+       clear_bit(index, mes->gang_ctx_bitmap);
-         amdgpu_mes_unlock(mes);
- }
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_mes.h
-index c67db2d6e122..977c057dcce8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-@@ -636,11 +636,11 @@ int amdgpu_mes_rs64mem_init(struct amdgpu_mes *mes);
- void amdgpu_mes_rs64mem_fini(struct amdgpu_mes *mes);
- int amdgpu_mes_rs64mem_setup_bitmaps(struct amdgpu_mes *mes);
- int amdgpu_mes_alloc_proc_ctx_index(struct amdgpu_mes *mes,
--                                   struct amdgpu_usermode_queue *queue);
-+                                   uint32_t *index);
- void amdgpu_mes_free_proc_ctx_index(struct amdgpu_mes *mes,
--                                   struct amdgpu_usermode_queue *queue);
-+                                   uint32_t index);
- int amdgpu_mes_alloc_gang_ctx_index(struct amdgpu_mes *mes,
--                                   struct amdgpu_usermode_queue *queue);
-+                                   uint32_t *index);
- void amdgpu_mes_free_gang_ctx_index(struct amdgpu_mes *mes,
--                                   struct amdgpu_usermode_queue *queue);
-+                                   uint32_t index);
- #endif /* __AMDGPU_MES_H__ */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_userq.c
-index a1f19888dc55..0e9657f2dbe7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -1249,6 +1249,7 @@ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *us=
-erq_mgr, struct drm_file *f
-         xa_init_flags(&userq_mgr->userq_xa, XA_FLAGS_ALLOC);
-         userq_mgr->adev =3D adev;
-         userq_mgr->file =3D file_priv;
-+       userq_mgr->proc_ctx_allocated =3D false;
-         mutex_init(&userq_mgr->proc_ctx_lock);
-
-         INIT_DELAYED_WORK(&userq_mgr->resume_work, amdgpu_userq_restore_wo=
-rker);
-@@ -1277,6 +1278,7 @@ void amdgpu_userq_mgr_cancel_resume(struct amdgpu_use=
-rq_mgr *userq_mgr)
-
- void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr)
- {
-+       struct amdgpu_mes *mes =3D &userq_mgr->adev->mes;
-         struct amdgpu_usermode_queue *queue;
-         unsigned long queue_id =3D 0;
-
-@@ -1303,6 +1305,10 @@ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *=
-userq_mgr)
-          */
-         cancel_work_sync(&userq_mgr->reset_work);
-
-+       if (userq_mgr->proc_ctx_allocated) {
-+               amdgpu_mes_free_proc_ctx_index(mes, userq_mgr->proc_ctx_arr=
-ay_index);
-+               userq_mgr->proc_ctx_allocated =3D false;
-+       }
-         amdgpu_bo_free_kernel(&userq_mgr->proc_ctx_obj.obj,
-                               &userq_mgr->proc_ctx_obj.gpu_addr,
-                               &userq_mgr->proc_ctx_obj.cpu_ptr);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_userq.h
-index 8333bab537d4..6412a7f7b6ef 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-@@ -101,7 +101,6 @@ struct amdgpu_usermode_queue {
-                 u64 va_array[6];
-         } userq_vas;
-
--       uint32_t        proc_ctx_array_index;
-         uint32_t        gang_ctx_array_index;
- };
-
-@@ -133,6 +132,8 @@ struct amdgpu_userq_mgr {
-         struct mutex                    proc_ctx_lock;
-         struct amdgpu_userq_obj         proc_ctx_obj;
-
-+       bool                            proc_ctx_allocated;
-+       uint32_t                        proc_ctx_array_index;
-         /**
-          * @reset_work:
-          *
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/a=
-md/amdgpu/mes_userqueue.c
-index a914198a4d62..1fd72f18e9a8 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-@@ -143,10 +143,18 @@ static int mes_userq_map(struct amdgpu_usermode_queue=
- *queue)
-         queue_input.doorbell_offset =3D userq_props->doorbell_index;
-         queue_input.page_table_base_addr =3D amdgpu_gmc_pd_addr(queue->vm-=
->root.bo);
-         queue_input.wptr_mc_addr =3D queue->wptr_obj.gpu_addr;
-+
-         if (mes->use_rs64mem) {
--               amdgpu_mes_alloc_proc_ctx_index(mes, queue);
--               queue_input.process_context_array_index =3D queue->proc_ctx=
-_array_index;
--               amdgpu_mes_alloc_gang_ctx_index(mes, queue);
-+                if (!uq_mgr->proc_ctx_allocated) {
-+                       r =3D amdgpu_mes_alloc_proc_ctx_index(mes, &uq_mgr-=
->proc_ctx_array_index);
-+                       if (r) {
-+                               DRM_ERROR("Failed to allocate userq process=
- index err:%d\n", r);
-+                               return r;
-+                       }
-+                       uq_mgr->proc_ctx_allocated =3D true;
-+               }
-+               amdgpu_mes_alloc_gang_ctx_index(mes, &queue->gang_ctx_array=
-_index);
-
-Need to check the return code, and handle error (e.g. running out of gang c=
-tx index).
-
-+               queue_input.process_context_array_index =3D uq_mgr->proc_ct=
-x_array_index;
-                 queue_input.gang_context_array_index =3D queue->gang_ctx_a=
-rray_index;
-         }
-         amdgpu_mes_lock(&adev->mes);
-@@ -179,10 +187,8 @@ static int mes_userq_unmap(struct amdgpu_usermode_queu=
-e *queue)
          amdgpu_mes_lock(&adev->mes);
          r =3D adev->mes.funcs->remove_hw_queue(&adev->mes, &queue_input);
-         amdgpu_mes_unlock(&adev->mes);
--       if (mes->use_rs64mem) {
--               amdgpu_mes_free_proc_ctx_index(mes, queue);
--               amdgpu_mes_free_gang_ctx_index(mes, queue);
--       }
-+       if (mes->use_rs64mem)
-+               amdgpu_mes_free_gang_ctx_index(mes, queue->gang_ctx_array_i=
-ndex);
-         if (r)
-                 DRM_ERROR("Failed to unmap queue in HW, err (%d)\n", r);
-         return r;
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/am=
+dkfd/kfd_priv.h
+index 88191a4c1657..3b89bcc625b3 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
+@@ -635,6 +635,7 @@ struct queue {
+         void *gang_ctx_bo;
+         uint64_t gang_ctx_gpu_addr;
+         void *gang_ctx_cpu_ptr;
++       uint32_t gang_ctx_array_index;
+
+         struct amdgpu_bo *wptr_bo_gart;
+ };
+@@ -871,6 +872,8 @@ struct kfd_process_device {
+         uint64_t proc_ctx_gpu_addr;
+         void *proc_ctx_cpu_ptr;
+
++       uint32_t proc_ctx_array_index;
++
+         /* Tracks queue reset status */
+         bool has_reset_queue;
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_process.c
+index eb508fe3ded7..0a7c1900da95 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1215,9 +1215,12 @@ static void kfd_process_destroy_pdds(struct kfd_proc=
+ess *p)
+                 kfd_free_process_doorbells(pdd->dev->kfd, pdd);
+
+                 if (pdd->dev->kfd->shared_resources.enable_mes &&
+-                       pdd->proc_ctx_cpu_ptr)
++                       pdd->proc_ctx_cpu_ptr) {
++                       amdgpu_mes_free_proc_ctx_index(&pdd->dev->adev->mes=
+,
++                                                      pdd->proc_ctx_array_=
+index);
+                         amdgpu_amdkfd_free_kernel_mem(pdd->dev->adev,
+                                                    &pdd->proc_ctx_bo);
++               }
+                 /*
+                  * before destroying pdd, make sure to report availability
+                  * for auto suspend
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drive=
+rs/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+index 8054e4fe0381..72913b5c8338 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
+@@ -210,6 +210,7 @@ static void pqm_clean_queue_resource(struct process_que=
+ue_manager *pqm,
+         }
+
+         if (dev->kfd->shared_resources.enable_mes) {
++               amdgpu_mes_free_gang_ctx_index(&dev->adev->mes, pqn->q->gan=
+g_ctx_array_index);
+                 amdgpu_amdkfd_free_kernel_mem(dev->adev, &pqn->q->gang_ctx=
+_bo);
+                 amdgpu_amdkfd_free_kernel_mem(dev->adev, (void **)&pqn->q-=
+>wptr_bo_gart);
+         }
+@@ -282,6 +283,9 @@ static int init_user_queue(struct process_queue_manager=
+ *pqm,
+                         goto cleanup;
+                 }
+                 memset((*q)->gang_ctx_cpu_ptr, 0, AMDGPU_MES_GANG_CTX_SIZE=
+);
++               /* Bind one MES gang context slot per queue (gang). */
++               amdgpu_mes_alloc_gang_ctx_index(&dev->adev->mes,
++                                               &(*q)->gang_ctx_array_index=
+);
+
+
+  1.
+Should check "mes->use_rs64mem" as you do in patch #1?
+  2.
+Check return error code (in oversubscription case, it may run out of index)
+
+
+                 /* Starting with GFX11, wptr BOs must be mapped to GART fo=
+r MES to determine work
+                  * on unmapped queues for usermode queue oversubscription =
+(no aggregated doorbell)
+@@ -304,6 +308,7 @@ static int init_user_queue(struct process_queue_manager=
+ *pqm,
+         return 0;
+
+ free_gang_ctx_bo:
++       amdgpu_mes_free_gang_ctx_index(&dev->adev->mes, (*q)->gang_ctx_arra=
+y_index);
+         amdgpu_amdkfd_free_kernel_mem(dev->adev, &(*q)->gang_ctx_bo);
+ cleanup:
+         uninit_queue(*q);
+@@ -386,6 +391,11 @@ int pqm_create_queue(struct process_queue_manager *pqm=
+,
+                         goto err_allocate_pqn;
+                 }
+                 memset(pdd->proc_ctx_cpu_ptr, 0, AMDGPU_MES_PROC_CTX_SIZE)=
+;
++               /* Bind one MES process context slot to the whole process
++                * (per device); every queue of this process reuses it.
++                */
++               amdgpu_mes_alloc_proc_ctx_index(&dev->adev->mes,
++                                               &pdd->proc_ctx_array_index)=
+;
+
+Same comment as above.
+
+         }
+
+         pqn =3D kzalloc_obj(*pqn);
 --
 2.34.1
 
 
---_000_DM6PR12MB3611478BA8E7766040313BBB94D52DM6PR12MB3611namp_
+--_000_DM6PR12MB3611DD14C882B3CBAA936FE194D52DM6PR12MB3611namp_
 Content-Type: text/html; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
@@ -430,8 +320,9 @@ Content-Transfer-Encoding: quoted-printable
 ttom:0;} </style>
 </head>
 <body dir=3D"ltr">
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: rgb(0, 0, 0);">
 <div>
 <div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
 ; margin-left: 5pt; font-size: 10pt;">
@@ -456,421 +347,287 @@ gt;<br>
 ristian &lt;Christian.Koenig@amd.com&gt;; Chen, Michael &lt;Michael.Chen@am=
 d.com&gt;; Liu, Shaoyun &lt;Shaoyun.Liu@amd.com&gt;; Liang, Prike &lt;Prike=
 .Liang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH v2 1/2] drm/amdgpu/mes: refactor the amdgpu_mes_allo=
-c/free_proc|gang()</div>
+<b>Subject:</b> [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue</di=
+v>
 <div style=3D"direction: ltr;">&nbsp;</div>
 </div>
-<div style=3D"font-size: 11pt;">- Unify amdgpu_mes_alloc/free_proc|gang_ctx=
-_index to provide<br>
-&nbsp; centralized RS64mem bitmap management for both KGD and KFD.<br>
-- Retrieve the bitmap bit for userq contex index based on a<br>
-&nbsp; per process granularity.<br>
+<div style=3D"font-size: 11pt;">Enabled RS64mem for KFD queues by integrati=
+ng<br>
+process and gang context index allocation in<br>
+the per KFD device process and queue creation.<br>
 <br>
 Signed-off-by: Prike Liang &lt;Prike.Liang@amd.com&gt;<br>
 ---<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c&nbsp;&nbsp;&nbsp; | 28 ++++++=
-+++++-----------<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h&nbsp;&nbsp;&nbsp; |&nbsp; 8 +=
-++----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c&nbsp; |&nbsp; 6 +++++<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h&nbsp; |&nbsp; 3 ++-<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 20 ++++++++++------<br>
-&nbsp;5 files changed, 39 insertions(+), 26 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_mes.c<br>
-index 9af7c97af5be..e3862095ff99 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c<br>
-@@ -1040,13 +1040,13 @@ int amdgpu_mes_rs64mem_setup_bitmaps(struct amdgpu_=
-mes *mes)<br>
-&nbsp; * amdgpu_mes_alloc_proc_ctx_index - allocate a process context slot<=
-br>
-&nbsp; *<br>
-&nbsp; * @mes: MES instance<br>
-- * @queue: Usermode queue receiving the allocated process context index<br=
->
-+ * @index: the allocated process context index<br>
-&nbsp; *<br>
-&nbsp; * Returns 0 on success, -ENOSPC if all slots are used, or<br>
-&nbsp; * -EOPNOTSUPP if RS64 local memory is unavailable.<br>
-&nbsp; */<br>
-&nbsp;int amdgpu_mes_alloc_proc_ctx_index(struct amdgpu_mes *mes,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_userm=
-ode_queue *queue)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t *index)<br=
->
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long bit;<br>
-&nbsp;<br>
-@@ -1061,7 +1061,7 @@ int amdgpu_mes_alloc_proc_ctx_index(struct amdgpu_mes=
- *mes,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -ENOSPC;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set_bit(bit, mes-&gt;proc_=
-ctx_bitmap);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue-&gt;proc_ctx_array_index =3D (u=
-int32_t)bit;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *index =3D (uint32_t)bit;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mes_unlock(mes);<br=
->
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-@@ -1071,18 +1071,18 @@ int amdgpu_mes_alloc_proc_ctx_index(struct amdgpu_m=
-es *mes,<br>
-&nbsp;&nbsp; * amdgpu_mes_free_proc_ctx_index - free a process context slot=
-<br>
-&nbsp;&nbsp; *<br>
-&nbsp;&nbsp; * @mes: MES instance<br>
--&nbsp; * @queue: Usermode queue whose process context index is released<br=
->
-+&nbsp; * @index: process context index is released<br>
-&nbsp;&nbsp; */<br>
-&nbsp;void amdgpu_mes_free_proc_ctx_index(struct amdgpu_mes *mes,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_userm=
-ode_queue *queue)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t index)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!mes-&gt;use_rs64mem |=
-| !mes-&gt;proc_ctx_bitmap)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (queue-&gt;proc_ctx_array_index &g=
-t;=3D mes-&gt;proc_ctx_array_size)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (index &gt;=3D mes-&gt;proc_ctx_ar=
-ray_size)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mes_lock(mes);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clear_bit(queue-&gt;proc_ctx_array_in=
-dex, mes-&gt;proc_ctx_bitmap);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clear_bit(index, mes-&gt;proc_ctx_bit=
-map);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mes_unlock(mes);<br=
->
-&nbsp;}<br>
-&nbsp;<br>
-@@ -1090,13 +1090,13 @@ void amdgpu_mes_free_proc_ctx_index(struct amdgpu_m=
-es *mes,<br>
-&nbsp;&nbsp; * amdgpu_mes_alloc_gang_ctx_index - allocate a gang context sl=
-ot<br>
-&nbsp;&nbsp; *<br>
-&nbsp;&nbsp; * @mes: MES instance<br>
--&nbsp; * @queue: Usermode queue receiving the allocated gang context index=
-<br>
-+&nbsp; * @queue: the allocated gang context index</div>
-<div style=3D"font-size: 11pt;"><br>
-</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">The parameter is &=
-quot;index&quot;, not &quot;queue&quot;.</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;"><br>
-&nbsp;&nbsp; *<br>
-&nbsp;&nbsp; * Returns 0 on success, -ENOSPC if all slots are used, or<br>
-&nbsp;&nbsp; * -EOPNOTSUPP if RS64 local memory is unavailable.<br>
-&nbsp;&nbsp; */<br>
-&nbsp;int amdgpu_mes_alloc_gang_ctx_index(struct amdgpu_mes *mes,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_userm=
-ode_queue *queue)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t *index)<br=
->
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long bit;<br>
-&nbsp;<br>
-@@ -1111,7 +1111,7 @@ int amdgpu_mes_alloc_gang_ctx_index(struct amdgpu_mes=
- *mes,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -ENOSPC;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; set_bit(bit, mes-&gt;gang_=
-ctx_bitmap);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue-&gt;gang_ctx_array_index =3D bi=
-t;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *index =3D bit;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mes_unlock(mes);<br=
->
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-@@ -1121,18 +1121,18 @@ int amdgpu_mes_alloc_gang_ctx_index(struct amdgpu_m=
-es *mes,<br>
-&nbsp;&nbsp; * amdgpu_mes_free_gang_ctx_index - free a gang context slot<br=
->
-&nbsp;&nbsp; *<br>
-&nbsp;&nbsp; * @mes: MES instance<br>
--&nbsp; * @queue: Usermode queue whose gang context index is released<br>
-+&nbsp; * @queue: gang context index is released</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;"><br>
-</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt; color: rgb(0, 0, 0)=
-;">The parameter is &quot;index&quot;, not &quot;queue&quot;.</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;"><br>
-&nbsp;&nbsp; */<br>
-&nbsp;void amdgpu_mes_free_gang_ctx_index(struct amdgpu_mes *mes,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_userm=
-ode_queue *queue)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t index)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!mes-&gt;use_rs64mem |=
-| !mes-&gt;gang_ctx_bitmap)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (queue-&gt;gang_ctx_array_index &g=
-t;=3D mes-&gt;gang_ctx_array_size)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (index &gt;=3D mes-&gt;gang_ctx_ar=
-ray_size)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mes_lock(mes);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clear_bit(queue-&gt;gang_ctx_array_in=
-dex, mes-&gt;gang_ctx_bitmap);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; clear_bit(index, mes-&gt;gang_ctx_bit=
-map);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mes_unlock(mes);<br=
->
-&nbsp;}<br>
-&nbsp;<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_mes.h<br>
-index c67db2d6e122..977c057dcce8 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h<br>
-@@ -636,11 +636,11 @@ int amdgpu_mes_rs64mem_init(struct amdgpu_mes *mes);<=
-br>
-&nbsp;void amdgpu_mes_rs64mem_fini(struct amdgpu_mes *mes);<br>
-&nbsp;int amdgpu_mes_rs64mem_setup_bitmaps(struct amdgpu_mes *mes);<br>
-&nbsp;int amdgpu_mes_alloc_proc_ctx_index(struct amdgpu_mes *mes,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_userm=
-ode_queue *queue);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t *index);<b=
-r>
-&nbsp;void amdgpu_mes_free_proc_ctx_index(struct amdgpu_mes *mes,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_userm=
-ode_queue *queue);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t index);<br=
->
-&nbsp;int amdgpu_mes_alloc_gang_ctx_index(struct amdgpu_mes *mes,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_userm=
-ode_queue *queue);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t *index);<b=
-r>
-&nbsp;void amdgpu_mes_free_gang_ctx_index(struct amdgpu_mes *mes,<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_userm=
-ode_queue *queue);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t index);<br=
->
-&nbsp;#endif /* __AMDGPU_MES_H__ */<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_userq.c<br>
-index a1f19888dc55..0e9657f2dbe7 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
-@@ -1249,6 +1249,7 @@ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *us=
-erq_mgr, struct drm_file *f<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; xa_init_flags(&amp;userq_m=
-gr-&gt;userq_xa, XA_FLAGS_ALLOC);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; userq_mgr-&gt;adev =3D ade=
-v;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; userq_mgr-&gt;file =3D fil=
-e_priv;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; userq_mgr-&gt;proc_ctx_allocated =3D =
-false;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;userq_mgr-=
-&gt;proc_ctx_lock);<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; INIT_DELAYED_WORK(&amp;use=
-rq_mgr-&gt;resume_work, amdgpu_userq_restore_worker);<br>
-@@ -1277,6 +1278,7 @@ void amdgpu_userq_mgr_cancel_resume(struct amdgpu_use=
-rq_mgr *userq_mgr)<br>
-&nbsp;<br>
-&nbsp;void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr)<br>
-&nbsp;{<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_mes *mes =3D &amp;userq=
-_mgr-&gt;adev-&gt;mes;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_usermode_que=
-ue *queue;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; unsigned long queue_id =3D=
- 0;<br>
-&nbsp;<br>
-@@ -1303,6 +1305,10 @@ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *=
-userq_mgr)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cancel_work_sync(&amp;user=
-q_mgr-&gt;reset_work);<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (userq_mgr-&gt;proc_ctx_allocated)=
- {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_mes_free_proc_ctx_index(mes, userq_mgr-&gt;proc_ctx_array=
-_index);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; userq_mgr-&gt;proc_ctx_allocated =3D false;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_kernel(&amp=
-;userq_mgr-&gt;proc_ctx_obj.obj,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;userq_mgr-&gt;proc_ctx_obj.gpu_addr,<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;userq_mgr-&gt;proc_ctx_obj.cpu_ptr);<br=
->
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_userq.h<br>
-index 8333bab537d4..6412a7f7b6ef 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h<br>
-@@ -101,7 +101,6 @@ struct amdgpu_usermode_queue {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; u64 va_array[6];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } userq_vas;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; proc_ctx_array_index;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp; gang_ctx_array_index;<br>
-&nbsp;};<br>
-&nbsp;<br>
-@@ -133,6 +132,8 @@ struct amdgpu_userq_mgr {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct mutex&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp; proc_ctx_lock;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_userq_obj&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; proc_ctx_obj;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; proc_ctx_allocated;<=
-br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; proc_ctx_array_index;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /**<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * @reset_work:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/a=
-md/amdgpu/mes_userqueue.c<br>
-index a914198a4d62..1fd72f18e9a8 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c<br>
-@@ -143,10 +143,18 @@ static int mes_userq_map(struct amdgpu_usermode_queue=
- *queue)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_input.doorbell_offse=
-t =3D userq_props-&gt;doorbell_index;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_input.page_table_bas=
-e_addr =3D amdgpu_gmc_pd_addr(queue-&gt;vm-&gt;root.bo);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_input.wptr_mc_addr =
-=3D queue-&gt;wptr_obj.gpu_addr;<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c&nbsp; |&nbsp; 3=
+ +++<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nb=
+sp; 3 +++<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_process.c&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp; 5 ++++-<br>
+&nbsp;drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c | 10 +++++++++=
 +<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mes-&gt;use_rs64mem) {=
+&nbsp;4 files changed, 20 insertions(+), 1 deletion(-)<br>
 <br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_mes_alloc_proc_ctx_index(mes, queue);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; queue_input.process_context_array_index =3D queue-&gt;proc_ctx_a=
-rray_index;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_mes_alloc_gang_ctx_index(mes, queue);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp; if (!uq_mgr-&gt;proc_ctx_allocated) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_mes=
-_alloc_proc_ctx_index(mes, &amp;uq_mgr-&gt;proc_ctx_array_index);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Failed to allocate userq pr=
-ocess index err:%d\n&quot;, r);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uq_mgr-&gt;proc_=
-ctx_allocated =3D true;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; }<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_mes_alloc_gang_ctx_index(mes, &amp;queue-&gt;gang_ctx_arr=
-ay_index);</div>
-<div style=3D"font-size: 11pt;"><br>
-</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">Need to check the =
-return code, and handle error (e.g. running out of gang ctx index).</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;"><br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; queue_input.process_context_array_index =3D uq_mgr-&gt;proc_ctx_=
-array_index;<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driver=
+s/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
+index 51ee9c39104b..ea9d87450eae 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
+@@ -226,8 +226,10 @@ static int add_queue_mes(struct device_queue_manager *=
+dqm, struct queue *q,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* MES unit for quantum is=
+ 100ns */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_input.process_quantu=
+m =3D KFD_MES_PROCESS_QUANTUM;&nbsp; /* Equivalent to 10ms. */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_input.process_contex=
+t_addr =3D pdd-&gt;proc_ctx_gpu_addr;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_input.process_context_array_ind=
+ex =3D pdd-&gt;proc_ctx_array_index;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_input.gang_quantum =
+=3D KFD_MES_GANG_QUANTUM; /* Equivalent to 1ms */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_input.gang_context_a=
+ddr =3D q-&gt;gang_ctx_gpu_addr;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_input.gang_context_array_index =
+=3D q-&gt;gang_ctx_array_index;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_input.inprocess_gang=
+_priority =3D q-&gt;properties.priority;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_input.gang_global_pr=
+iority_level =3D<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; queue_input.gang_context_array_index =3D queue-&gt;ga=
-ng_ctx_array_index;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mes_lock(&amp;adev-=
-&gt;mes);<br>
-@@ -179,10 +187,8 @@ static int mes_userq_unmap(struct amdgpu_usermode_queu=
-e *queue)<br>
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp; AMDGPU_MES_PRIORITY_LEVEL_NORMAL;<br>
+@@ -303,6 +305,7 @@ static int remove_queue_mes_on_reset_option(struct devi=
+ce_queue_manager *dqm, st<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_input.queue_type =3D=
+ convert_to_amdgpu_ring_type(q-&gt;properties.type);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_input.remove_queue_a=
+fter_reset =3D flush_mes_queue;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_input.xcc_id =3D ffs=
+(dqm-&gt;dev-&gt;xcc_mask) - 1;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue_input.gang_context_array_index =
+=3D q-&gt;gang_ctx_array_index;<br>
+&nbsp;<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mes_lock(&amp;adev-=
 &gt;mes);<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r =3D adev-&gt;mes.funcs-&=
 gt;remove_hw_queue(&amp;adev-&gt;mes, &amp;queue_input);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mes_unlock(&amp;ade=
-v-&gt;mes);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mes-&gt;use_rs64mem) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_mes_free_proc_ctx_index(mes, queue);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_mes_free_gang_ctx_index(mes, queue);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mes-&gt;use_rs64mem)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; amdgpu_mes_free_gang_ctx_index(mes, queue-&gt;gang_ctx_array_ind=
-ex);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/am=
+dkfd/kfd_priv.h<br>
+index 88191a4c1657..3b89bcc625b3 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
+@@ -635,6 +635,7 @@ struct queue {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *gang_ctx_bo;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t gang_ctx_gpu_addr=
+;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *gang_ctx_cpu_ptr;<br=
+>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t gang_ctx_array_index;<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *wptr_bo_=
+gart;<br>
+&nbsp;};<br>
+@@ -871,6 +872,8 @@ struct kfd_process_device {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t proc_ctx_gpu_addr=
+;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *proc_ctx_cpu_ptr;<br=
+>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t proc_ctx_array_index;<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Tracks queue reset stat=
+us */<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; bool has_reset_queue;<br>
+&nbsp;<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_process.c<br>
+index eb508fe3ded7..0a7c1900da95 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c<br>
+@@ -1215,9 +1215,12 @@ static void kfd_process_destroy_pdds(struct kfd_proc=
+ess *p)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Failed to unmap queue in HW, err (%d)=
-\n&quot;, r);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
---<br>
-2.34.1<br>
+sp;&nbsp;&nbsp;&nbsp; kfd_free_process_doorbells(pdd-&gt;dev-&gt;kfd, pdd);=
 <br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; if (pdd-&gt;dev-&gt;kfd-&gt;shared_resources.enable_m=
+es &amp;&amp;<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdd-&gt;proc_ctx=
+_cpu_ptr)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pdd-&gt;proc_ctx=
+_cpu_ptr) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mes_free_=
+proc_ctx_index(&amp;pdd-&gt;dev-&gt;adev-&gt;mes,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; pdd-&gt;proc_ctx_array_index);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgp=
+u_amdkfd_free_kernel_mem(pdd-&gt;dev-&gt;adev,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp; &amp;pdd-&gt;proc_ctx_bo);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; /*<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; * before destroying pdd, make sure to report av=
+ailability<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp; * for auto suspend<br>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drive=
+rs/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c<br>
+index 8054e4fe0381..72913b5c8338 100644<br>
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c<br>
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c<br>
+@@ -210,6 +210,7 @@ static void pqm_clean_queue_resource(struct process_que=
+ue_manager *pqm,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (dev-&gt;kfd-&gt;shared=
+_resources.enable_mes) {<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_mes_free_gang_ctx_index(&amp;dev-&gt;adev-&gt;mes, pqn-&g=
+t;q-&gt;gang_ctx_array_index);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_amdkfd_free_kernel_mem(dev-&gt;adev, &amp;pqn-=
+&gt;q-&gt;gang_ctx_bo);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; amdgpu_amdkfd_free_kernel_mem(dev-&gt;adev, (void **)=
+&amp;pqn-&gt;q-&gt;wptr_bo_gart);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+@@ -282,6 +283,9 @@ static int init_user_queue(struct process_queue_manager=
+ *pqm,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto =
+cleanup;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; memset((*q)-&gt;gang_ctx_cpu_ptr, 0, AMDGPU_MES_GANG_=
+CTX_SIZE);<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; /* Bind one MES gang context slot per queue (gang). */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_mes_alloc_gang_ctx_index(&amp;dev-&gt;adev-&gt;mes,<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;(*q)-&gt;gang_ctx=
+_array_index);<br>
+&nbsp;</div>
+<ol start=3D"1" data-editing-info=3D"{&quot;applyListStyleFromLevel&quot;:f=
+alse,&quot;orderedStyleType&quot;:1}" style=3D"margin-top: 0px; margin-bott=
+om: 0px; list-style-type: decimal;">
+<li style=3D"font-size: 11pt; margin-top: 0px; margin-bottom: 0px;">
+<div class=3D"elementToProof" role=3D"presentation" style=3D"font-family: A=
+ptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-ser=
+if; color: rgb(0, 0, 0);">
+Should check &quot;mes-&gt;use_rs64mem&quot; as you do in patch #1?</div>
+</li><li style=3D"font-size: 11pt; margin-top: 0px; margin-bottom: 0px;">
+<div class=3D"elementToProof" role=3D"presentation" style=3D"font-family: A=
+ptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-ser=
+if; color: rgb(0, 0, 0);">
+Check return error code (in oversubscription case, it may run out of index)=
+</div>
+</li></ol>
+<div style=3D"margin-top: 0px; margin-bottom: 0px; font-family: Aptos, Apto=
+s_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-s=
+ize: 11pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div style=3D"margin-top: 0px; margin-bottom: 0px; font-family: Aptos, Apto=
+s_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-s=
+ize: 11pt; color: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; /* Starting with GFX11, wptr BOs must be mapped to GART for MES to dete=
+rmine work</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; * on unmapped queues for usermode queue oversubscription (no aggr=
+egated doorbell)</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">@@ -304,6 +308,7 @=
+@ static int init_user_queue(struct process_queue_manager *pqm,</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;free_gang_ct=
+x_bo:</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">+&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp; amdgpu_mes_free_gang_ctx_index(&amp;dev-&gt;adev-&gt;me=
+s, (*q)-&gt;gang_ctx_array_index);</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_amdkfd_free_kernel_mem(dev-&gt;adev, =
+&amp;(*q)-&gt;gang_ctx_bo);</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;cleanup:</di=
+v>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uninit_queue(*q);</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">@@ -386,6 +391,11 =
+@@ int pqm_create_queue(struct process_queue_manager *pqm,</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_allocate_pqn;<=
+/div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; }</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp; memset(pdd-&gt;proc_ctx_cpu_ptr, 0, AMDGPU_MES_PROC_CTX_SIZE);</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">+&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Bind=
+ one MES process context slot to the whole process</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">+&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *=
+ (per device); every queue of this process reuses it.</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">+&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *=
+/</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">+&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
+mes_alloc_proc_ctx_index(&amp;dev-&gt;adev-&gt;mes,</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">+&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
+;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;pdd-&gt;proc_ctx_array_index);</div=
+>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;"><br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+Same comment as above.</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pqn =3D kzalloc_obj(*pqn);</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">--</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;">2.34.1</div>
+<div class=3D"elementToProof" style=3D"font-size: 11pt;"><br>
 </div>
 </body>
 </html>
 
---_000_DM6PR12MB3611478BA8E7766040313BBB94D52DM6PR12MB3611namp_--
+--_000_DM6PR12MB3611DD14C882B3CBAA936FE194D52DM6PR12MB3611namp_--
