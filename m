@@ -4,72 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A520EC55184
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 13:23:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E61DC55182
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 13:23:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38B3810E6A6;
-	Mon,  3 Aug 2026 13:23:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A706B10E6D4;
+	Mon,  3 Aug 2026 13:23:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="nzGHhaP1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eaBHB7o9";
 	dkim-atps=neutral
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
- [209.85.218.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B7FD410E6A6
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2026 13:23:15 +0000 (UTC)
-Received: by mail-ej1-f52.google.com with SMTP id
- a640c23a62f3a-c197e7e4e94so590964366b.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Aug 2026 06:23:15 -0700 (PDT)
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
+ [209.85.218.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D852010E6A6
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2026 13:23:16 +0000 (UTC)
+Received: by mail-ej1-f51.google.com with SMTP id
+ a640c23a62f3a-c167bda216fso510342866b.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 03 Aug 2026 06:23:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785763394; x=1786368194; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785763395; x=1786368195; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=j8Xp79beID4r0GyrGGAyFXfSfT7vG7GH3UzbuBQSzsw=;
- b=nzGHhaP1xpyJV53lDS7Lfj9aqgOXSh0D9poiGWexmlqEYNkYUSEGJHA2ZMmFxUOUbE
- uiRK7rOUrxY9rxmg57B1fgOcaP/3h694leyjj75PM0vLnHv8qz2ZFPnuErykfR6BJdWE
- zX9HGwZTiyrmc/ryyTSlWOQ+4NingeEC1Sofrfx41dE4STLd2DB7pEthsDKP4ZE8y6Ss
- jG0w5PukblH6I7I5obRFU4zhoSHZg6HwslOUVrXNz3r/2HfDpoovdQDurvnh9oiZKYyn
- yFKmluKw/7R9f5gRHV+xn8+3jLnaJe2UH//NHaiiWa2ZtTdPKcudBhimtoJZMWB9rE+5
- YSxQ==
+ bh=pRmVNz8ZKQ5POJD2bip8iNxE5+bsrIXqbUSCTu5Xm+g=;
+ b=eaBHB7o9kamU1bexDZK6/JAeiq7xxZAYpLceJAD0o+KkAJrN4NvR/EAN0TJVGaQcth
+ Xky86zcwxDaM493oj+cG/asayEg55kKzsHOed5vwdl2PFTGx7u1xoawThHS8+cxafYTD
+ vUv2f7OnGBoaf3nZTDLLR3mVNOUSmtuacUKEfAums3YXKvv1UXPBzgzW8urZAu8KCYN0
+ xQxdC4WSfS/VwRPxHiu84gdSTA95Nn5aV3/sIiufNtAEdelkOiemN6sCLFFZZsCgUH/Y
+ 6pjopc0yIGsKNUwQm/yHNVFEyLpyYvVKdt8AqE/Ijvr++9yG+ib0qtOqex6BDkWw4TUi
+ lVsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785763394; x=1786368194;
+ d=1e100.net; s=20251104; t=1785763395; x=1786368195;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=j8Xp79beID4r0GyrGGAyFXfSfT7vG7GH3UzbuBQSzsw=;
- b=ESiwGkyFnkeVJG3kAP9Fcg3SlrMvnEDuDWBgZh1Qxqrs0OPGoDFebua7aX7J7cxO7T
- IrGnz/E7NmbRHItbIg/P4682+uCc3fKNEkvZkpX5Ddfp1jnKc2zJXu0rFKzyIZd/GhE2
- 8AY3kwY1ri6dKzFZ295MsYf46HebFQMnWLHiL5BtmFkzFgpWY9gtdk/RxXMNe/zysAyL
- LZZFA/LlMDY1EZ8nni8Qt13nff+EKq6TNYWGDAysbUv4v2XBJpEUKCE9BIxjcWsOEgxK
- NZ0Aj0u8RuJln1g633Txrt1LuzqAjdLQjcwi9UUFDxrXM0MdEoHyKk/UVppn5yGYCazS
- OMTw==
-X-Gm-Message-State: AOJu0YyHlCOGaBzgTZMjz0g0GdDZuIrVZ+aojVPXK29XWRaSfGPS9alp
- Wv4JiNxRfufvWxceKnTw7s+VEjXqBSPAFkQrJ7MmAMs05Tsyw/gql5o+jaNLAP+J
-X-Gm-Gg: AR+sD11Rh0yy9QMOBVhKuccfcaM6iEnKEoCtQBq+4u+yCi2oObRrwjkUlRf2SyO6IV7
- PEZwDgz84ycphSQPpLrGHOWMUxDuUywuG/C+am+qh3q6/bKErxRHqFV2+yrdNAz0t5/QUhPP2Xe
- /T58SNrm18Bs4/oXWi2S4HeHJVUBH1Gg8ZeKHf/1NeRojes25LiKHnHPy1+oa0UKu9GzQu0kgCN
- 3bCMPfs+nsrJQtWAm7DV/X99Px+56pnRnFy2nPQhoSWFms/wjTGkya6WxVeSonuSjjdR9hz9HC7
- qtHJ4CivAFd5oR016DOSxQu91CiXhE0WpaFrkg1nTP07bYpA7RvTcDdVj7gRzUpeqj7PlEjGt0X
- dqxuZYeGgNEZVaFdtL6uGe28kJbk9eDWRfVc6YRnKoFGpqxOv8yoQu5NHulGhmruJNUAVnPJ2+A
- Fq87eX6R3E5Esh6l3j0vKz2qgVMlNxWe6M3Shi3amoRKKlOMfgxx/D17QSx5K7ZwZaGjRUHGuQB
- RTkQQFk4OQWY25bQTy7E3nohnp8hp4=
-X-Received: by 2002:a17:907:b048:10b0:c1f:c7f0:b433 with SMTP id
- a640c23a62f3a-c1fe7ea4c47mr544390366b.9.1785763394020; 
- Mon, 03 Aug 2026 06:23:14 -0700 (PDT)
+ bh=pRmVNz8ZKQ5POJD2bip8iNxE5+bsrIXqbUSCTu5Xm+g=;
+ b=k9h9nZ0r+5uE+53ndu7/Dqc2qr0cMe2XEGu6XT7JcAhjCmgYlFjLNQ2TGKMoz7Lvx4
+ /J5Q8qUcc9UPgIomUXnoxeml8LklaQHxb0+uREAvlHxJ3WqMZebO1zdttJAPwv4NODBr
+ JcFHXLrefXPk0L9ZbmcmJT14p333s3S4wqo5+K4Z4Jn2/ZLjXkDOU2LcP8fYo5hZQspV
+ sW20zSTFmDSuUF4UYs3lyD5fcOE4TLMPd9Tmj6peKKG43Yod3u0SbjK1VCw0+Gqg11Tl
+ 1BNe6cqGtvOvczyB7Kw5IH+EvRajp6Nn9Rn81umeDjyu4jZ9Tt6FUOyd47ehLK8GutBI
+ CUng==
+X-Gm-Message-State: AOJu0Yzd5jV86nPp5zU3Ekw0aKWindcLComV+6gMd49+6OHzPNbTqmL8
+ eSQkjtleUTn/D+gNSCGhb8kmGM1vhvoYUjjASovAmbbkL3zRBCCFLUuFsHIJ5FgM
+X-Gm-Gg: AR+sD10ozYcLKJ2kUWV4kseCm8ivGwV59513GYFjshXuVCY8lqjZcXhxpdlJPMVtgft
+ 8NLQqwH14CE+6VLe/B38WQ/tsB/uUZGXOKHCMcnNXJeVXAazPrOp2dmFRWy+46exrfwPycxG0ep
+ Yip1H49EDMYJJnjCSZXq/tCzpHWTh0ZtdxKc+KBBjIvx1O2iOJH8cfLbOBxUGAkBqA14tkaonCE
+ Zn5SVHADg+AK8o8quJzsx0/O3mk6ej2LzgDHc1BBjMm8KK/PAY5owkkgGwc1at7LsGfBTaCh64a
+ YXUDPvyleot3zX6uuLIZkwd2YO5Go5isDmc4hQwpZhoEcRdjg81/ZVDAtZ0+4J0JAz4Y1kTdLNx
+ Yv3W7jEw+AXcd7WygDapmiVn9HJEsa8lGvwzWEwcZbfSLNiU4pLe1DknLa2JD9L+4DNzRXyNvAJ
+ DWhH/YF/HYwe1ZrpmJAHVBL8As4qNbwlYNK61iZQsiJptx8C6T5HTfC3Xge6SDVzjDDn/IcL627
+ DnunofNa6Z+I1/pFUPNMou0jzjcGwo=
+X-Received: by 2002:a17:907:ea8c:b0:c16:75cc:33a9 with SMTP id
+ a640c23a62f3a-c1fe81de492mr832470966b.20.1785763395154; 
+ Mon, 03 Aug 2026 06:23:15 -0700 (PDT)
 Received: from Timur-Hyperion.home (5401D2B5.dsl.pool.telekom.hu.
  [84.1.210.181]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c1fd445432dsm549201266b.41.2026.08.03.06.23.13
+ a640c23a62f3a-c1fd445432dsm549201266b.41.2026.08.03.06.23.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 03 Aug 2026 06:23:13 -0700 (PDT)
+ Mon, 03 Aug 2026 06:23:14 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Tvrtko Ursulin <tursulin@ursulin.net>, Natalie Vock <nat@pixelcluster.dev>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 02/10] drm/amdgpu/gfx6: Fixup emitting SWITCH_BUFFER packets
-Date: Mon,  3 Aug 2026 15:23:01 +0200
-Message-ID: <20260803132309.36326-3-timur.kristof@gmail.com>
+Subject: [PATCH 03/10] drm/amdgpu/gfx6: Use PFP on the compute queues too
+Date: Mon,  3 Aug 2026 15:23:02 +0200
+Message-ID: <20260803132309.36326-4-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260803132309.36326-1-timur.kristof@gmail.com>
 References: <20260803132309.36326-1-timur.kristof@gmail.com>
@@ -90,121 +90,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Implement the emit_switch_buffer() function instead of emitting
-them duing emit_ib, emit_pipeline_sync and emit_vm_flush.
+On GFX6, the compute rings use the same CP path as
+the graphics ring. The only difference is that they
+don't support draw commands. (As opposed to GFX7 and
+newer which have a separate command parser that is
+called MEC for compute queues.)
 
-Note that it isn't necessary to emit these in both
-emit_pipeline_sync() and emit_vm_flush() because
-amdgpu_vm_flush() already calls these when calling
-either of those functions.
+This means that we have to take into consideration
+that the PFP also exists on compute queues on GFX6:
+
+Use PFP for register writes on both graphics and
+compute queues.
+
+In the pipeline sync, use the PFP to wait for the
+previous fence (and not the ME) to prevent the PFP
+from starting to execute the next submission while
+the ME is still in the previous submission.
+
+After a VM flush, emit PFP_SYNC_ME on compute
+queues as well.
 
 Fixes: 2cd46ad22383 ("drm/amdgpu: add graphic pipeline implementation for si v8")
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 38 ++++++++++-----------------
- 1 file changed, 14 insertions(+), 24 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-index 0cbaae73a0bf..b84d05e7f09e 100644
+index b84d05e7f09e..9b18ddcd597b 100644
 --- a/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
 +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c
-@@ -1927,12 +1927,6 @@ static void gfx_v6_0_ring_emit_ib(struct amdgpu_ring *ring,
- 	unsigned vmid = AMDGPU_JOB_GET_VMID(job);
- 	u32 header, control = 0;
+@@ -2346,7 +2346,7 @@ static int gfx_v6_0_cp_resume(struct amdgpu_device *adev)
  
--	/* insert SWITCH_BUFFER packet before first IB in the ring frame */
--	if (flags & AMDGPU_HAVE_CTX_SWITCH) {
--		amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER, 0));
--		amdgpu_ring_write(ring, 0);
--	}
--
- 	if (ib->flags & AMDGPU_IB_FLAG_CE)
- 		header = PACKET3(PACKET3_INDIRECT_BUFFER_CONST, 2);
- 	else
-@@ -2365,14 +2359,6 @@ static void gfx_v6_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
- 	amdgpu_ring_write(ring, seq);
- 	amdgpu_ring_write(ring, 0xffffffff);
- 	amdgpu_ring_write(ring, 4); /* poll interval */
--
--	if (usepfp) {
--		/* synce CE with ME to prevent CE fetch CEIB before context switch done */
--		amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER, 0));
--		amdgpu_ring_write(ring, 0);
--		amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER, 0));
--		amdgpu_ring_write(ring, 0);
--	}
- }
- 
- static void gfx_v6_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
-@@ -2396,12 +2382,6 @@ static void gfx_v6_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
- 		/* sync PFP to ME, otherwise we might get invalid PFP reads */
- 		amdgpu_ring_write(ring, PACKET3(PACKET3_PFP_SYNC_ME, 0));
- 		amdgpu_ring_write(ring, 0x0);
--
--		/* synce CE with ME to prevent CE fetch CEIB before context switch done */
--		amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER, 0));
--		amdgpu_ring_write(ring, 0);
--		amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER, 0));
--		amdgpu_ring_write(ring, 0);
- 	}
- }
- 
-@@ -2997,6 +2977,12 @@ static uint64_t gfx_v6_0_get_gpu_clock_counter(struct amdgpu_device *adev)
- 	return clock;
- }
- 
-+static void gfx_v6_0_ring_emit_sb(struct amdgpu_ring *ring)
-+{
-+	amdgpu_ring_write(ring, PACKET3(PACKET3_SWITCH_BUFFER, 0));
-+	amdgpu_ring_write(ring, 0);
-+}
-+
- static void gfx_v6_ring_emit_cntxcntl(struct amdgpu_ring *ring, uint32_t flags)
+ static void gfx_v6_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
  {
- 	u32 dw2 = 0x80000000; /* set load_enable otherwise this package is just NOPs */
-@@ -3539,11 +3525,12 @@ static const struct amdgpu_ring_funcs gfx_v6_0_ring_funcs_gfx = {
+-	int usepfp = (ring->funcs->type == AMDGPU_RING_TYPE_GFX);
++	int usepfp = 1;
+ 	uint32_t seq = ring->fence_drv.sync_seq;
+ 	uint64_t addr = ring->fence_drv.gpu_addr;
+ 
+@@ -2364,7 +2364,7 @@ static void gfx_v6_0_ring_emit_pipeline_sync(struct amdgpu_ring *ring)
+ static void gfx_v6_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
+ 					unsigned vmid, uint64_t pd_addr)
+ {
+-	int usepfp = (ring->funcs->type == AMDGPU_RING_TYPE_GFX);
++	int usepfp = 1;
+ 
+ 	amdgpu_gmc_emit_flush_gpu_tlb(ring, vmid, pd_addr);
+ 
+@@ -2388,7 +2388,7 @@ static void gfx_v6_0_ring_emit_vm_flush(struct amdgpu_ring *ring,
+ static void gfx_v6_0_ring_emit_wreg(struct amdgpu_ring *ring,
+ 				    uint32_t reg, uint32_t val)
+ {
+-	int usepfp = (ring->funcs->type == AMDGPU_RING_TYPE_GFX);
++	int usepfp = 1;
+ 
+ 	amdgpu_ring_write(ring, PACKET3(PACKET3_WRITE_DATA, 3));
+ 	amdgpu_ring_write(ring, (WRITE_DATA_ENGINE_SEL(usepfp) |
+@@ -3554,7 +3554,7 @@ static const struct amdgpu_ring_funcs gfx_v6_0_ring_funcs_compute = {
  	.emit_frame_size =
  		5 + 5 + /* hdp flush / invalidate */
- 		14 + 14 + 14 + /* gfx_v6_0_ring_emit_fence x3 for user fence, vm fence */
--		7 + 4 + /* gfx_v6_0_ring_emit_pipeline_sync */
--		SI_FLUSH_GPU_TLB_NUM_WREG * 5 + 7 + 6 + /* gfx_v6_0_ring_emit_vm_flush */
-+		7 + /* gfx_v6_0_ring_emit_pipeline_sync */
-+		SI_FLUSH_GPU_TLB_NUM_WREG * 5 + 7 + 2 + /* gfx_v6_0_ring_emit_vm_flush */
-+		3 * 2 + /* gfx_v6_0_ring_emit_sb x3 (from amdgpu_vm_flush, amdgpu_ib_schedule) */
- 		3 + 2 + 2 + /* gfx_v6_ring_emit_cntxcntl including VGT flush */
- 		5, /* SURFACE_SYNC */
--	.emit_ib_size = 6, /* gfx_v6_0_ring_emit_ib */
-+	.emit_ib_size = 4, /* gfx_v6_0_ring_emit_ib */
- 	.emit_ib = gfx_v6_0_ring_emit_ib,
- 	.emit_fence = gfx_v6_0_ring_emit_fence,
- 	.emit_pipeline_sync = gfx_v6_0_ring_emit_pipeline_sync,
-@@ -3551,6 +3538,7 @@ static const struct amdgpu_ring_funcs gfx_v6_0_ring_funcs_gfx = {
- 	.test_ring = gfx_v6_0_ring_test_ring,
- 	.test_ib = gfx_v6_0_ring_test_ib,
- 	.insert_nop = amdgpu_ring_insert_nop,
-+	.emit_switch_buffer = gfx_v6_0_ring_emit_sb,
- 	.emit_cntxcntl = gfx_v6_ring_emit_cntxcntl,
- 	.emit_wreg = gfx_v6_0_ring_emit_wreg,
- 	.emit_mem_sync = gfx_v6_0_emit_mem_sync,
-@@ -3568,8 +3556,9 @@ static const struct amdgpu_ring_funcs gfx_v6_0_ring_funcs_compute = {
  		7 + /* gfx_v6_0_ring_emit_pipeline_sync */
- 		SI_FLUSH_GPU_TLB_NUM_WREG * 5 + 7 + /* gfx_v6_0_ring_emit_vm_flush */
+-		SI_FLUSH_GPU_TLB_NUM_WREG * 5 + 7 + /* gfx_v6_0_ring_emit_vm_flush */
++		SI_FLUSH_GPU_TLB_NUM_WREG * 5 + 7 + 2 + /* gfx_v6_0_ring_emit_vm_flush */
  		14 + 14 + 14 + /* gfx_v6_0_ring_emit_fence x3 for user fence, vm fence */
-+		3 * 2 + /* gfx_v6_0_ring_emit_sb x3 (from amdgpu_vm_flush, amdgpu_ib_schedule) */
+ 		3 * 2 + /* gfx_v6_0_ring_emit_sb x3 (from amdgpu_vm_flush, amdgpu_ib_schedule) */
  		5, /* SURFACE_SYNC */
--	.emit_ib_size = 6, /* gfx_v6_0_ring_emit_ib */
-+	.emit_ib_size = 4, /* gfx_v6_0_ring_emit_ib */
- 	.emit_ib = gfx_v6_0_ring_emit_ib,
- 	.emit_fence = gfx_v6_0_ring_emit_fence,
- 	.emit_pipeline_sync = gfx_v6_0_ring_emit_pipeline_sync,
-@@ -3577,6 +3566,7 @@ static const struct amdgpu_ring_funcs gfx_v6_0_ring_funcs_compute = {
- 	.test_ring = gfx_v6_0_ring_test_ring,
- 	.test_ib = gfx_v6_0_ring_test_ib,
- 	.insert_nop = amdgpu_ring_insert_nop,
-+	.emit_switch_buffer = gfx_v6_0_ring_emit_sb,
- 	.emit_wreg = gfx_v6_0_ring_emit_wreg,
- 	.emit_mem_sync = gfx_v6_0_emit_mem_sync,
- };
 -- 
 2.55.0
 
