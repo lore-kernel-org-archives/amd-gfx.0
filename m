@@ -4,125 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F420DC55179
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 13:58:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54B27C55182
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 14:00:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 802B310E662;
-	Mon,  3 Aug 2026 13:58:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E567B10E66D;
+	Mon,  3 Aug 2026 14:00:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kZOTiWL8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VvCEKFG+";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010011.outbound.protection.outlook.com [52.101.46.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7EC2C10E43A;
- Mon,  3 Aug 2026 13:58:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OPKv38J+pBfmOWetfo7xpfor8b4Moz0CQoBh58jPiR8EgnV518mloCcu3AxCZwaBet3EeXtvAfGuj7MqR4CtG6m/EYs23kM71XHp/+byGDjboTm2Ak/WzELe2JPKZCwF0HHJh7XN38wSKyKJu6kWln6NUHS01kHocsqhGpk7GAgjNPa+5lK/bYCBmnmanVDe7R30HdtxnZgvOLZ2ipySEEHGlBDX9ZutV834zMN01MuAmfILK27twUcNidITvJOaU//l5Kk6amzMbbb0oCaFWodF3OT1fQbA/GAeyJuyBaxxXfUziUyT47V9wEsKcAJRqT6SSEu6jV85BsBMA9FqCQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hy+z3jcShTI1guMGkbEPhi7jQtf1zmlEvaK07/0uq/M=;
- b=w71AVm9C9JchYpMVQWLRM+chCP2s1nLGi4xVQQVtlsuqv9j2fQOP1xMRXr0DNjqifUnqGaa6OPMHtHWKZd+cZx0IVnYBQkp2u9yuEWBG+fRI+1Bg/tcS66WwgGk80Az54TVVXrUSnbg2qte7um9luc6HYQB2daY59I+QTWO3ns+35mk7U7eivV5OVFJEdJBq4vEWO/IVSvZlcWVk6V0EcZ9xgvSdzOVfQ1UDF4O1kXksTi6I8YGixc5ScCqQ2kvxoyfUV2EL7nhyUjVOBD27aCf7gal8gVpY+JF6kutEKz8aNL8RZd3coH6IBVLAf0nkojBOjjEwwHqH8dSt0Qo+zA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hy+z3jcShTI1guMGkbEPhi7jQtf1zmlEvaK07/0uq/M=;
- b=kZOTiWL85x7+RWkTJ1PFLbJa367WhTXOgWmUIFfJXL8yuw0JFB0qYeMCjp3Zn0tFSQFJEZ2iXRjDJNCwNGhCwbUZ9VzaLNj7Hsac3nFYOSNrUixmYDPPnyHmIV0mJgvXmWCgYaTZwkyyRdOOkfrgcZyVkBEV9RoY9DwI7Qch4MY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DM6PR12MB4249.namprd12.prod.outlook.com (2603:10b6:5:223::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Mon, 3 Aug
- 2026 13:58:28 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0270.017; Mon, 3 Aug 2026
- 13:58:28 +0000
-Message-ID: <2ef4fe44-1588-4e12-9ee1-98f5ad7de37a@amd.com>
-Date: Mon, 3 Aug 2026 15:58:23 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: Fix use-after-free in amdgpu_vram_mgr_fini()
- on init failure
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, Sashiko-bot <sashiko-bot@kernel.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-References: <20260722095201.658119-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260722095201.658119-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0089.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cd::18) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
+ [209.85.210.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1F48010E66D
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2026 13:59:59 +0000 (UTC)
+Received: by mail-pf1-f174.google.com with SMTP id
+ d2e1a72fcca58-84a32ff53fcso288106b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 03 Aug 2026 06:59:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785765598; cv=none;
+ d=google.com; s=arc-20260327;
+ b=ggYfSMBP0WdK61F6pn//M9AYLNCm34yfWAoEkNIdjutacsS0es6UGZ77ASHvStMDqC
+ bISmwW4usJny5hnj5AJEh3S/CPYcGzqMqhVQBLTKCZ0pidkoflbFo3uRUD9Ufg7cnpoE
+ MtFh2w3yVbBiI/vLVx1+IKG2ETmM77ZkfHf9UOP9UPuH4EfNq+elT3ejkdfXUbR8PX76
+ 1RSf+oFkPPt6ARlnti4FCKtwGbSUEBCOVdj+1WU7y565JhXX9TDJdRKWB/YRVuKh4cyd
+ BPKyOHKJNnU1X1sC5zHTpT7qcaSlWY2pJTHJDq9Fpk9bGfW6OsbxpHSmyU6xWtOcRDhI
+ nzlw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=/NcaeFQwLQ3IoKK3UiewV1tehK0mYSuHgA/av2aKAO0=;
+ fh=AajwJS1JdmeCA/R2a2iHSEDl9rLQk6bWvk/8uoWqlmM=;
+ b=mbkeRaCJ+uOaxQbucnVKDUC6/j7a3UkBgnq8cEPUxakTIr1LUz5z4slhpbqsnRplpy
+ IGUGx3Yj8oOu0GecKBMO1/UE3fDNitmGSMpQqIOTvPppvrPZDEICX+WllUaOLGmdkhja
+ h3VgZd06cz/5nYnQLkmFx5ps26OreSGL4Dkc9mkPrdu8mCWku8pGjPXyV9zQc37UxOMA
+ RnP20FzdEnMbDKkthrtkQP8kOGUmGQot2B1cBeFtP/fKHu9Y7AlVV+01OXKxAGxXFofQ
+ SI2NJcaU6/UJ75WbIpjbnbz7gxlJjAjRTP8xyNH+HH+wlGeT0Q3lnFsSGD0M/ViwDkBd
+ wxxA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785765598; x=1786370398; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=/NcaeFQwLQ3IoKK3UiewV1tehK0mYSuHgA/av2aKAO0=;
+ b=VvCEKFG+3Q6ZzspyedIsXwjsaKGYcY4eAveBFkPqAiPF/b9gc5ylLMbvFrvT4T3LnQ
+ UcPVErl+7NyhXeJ4Vyh60LFNuduLGQ8caDPlPwynpB1zETSr37MJwQQx0nTF+7AOpNZi
+ /Z/5bTcFkPSB68CBT9a6frufG5C4BXqQLQoK8eELyDgLnsk+npOdOctb6RZeznvs+RtU
+ Nb2Ffa4xGdF3NPkab7XuPsIdLaaAvdq8B39UzHJTlLc12abdkflCP5rAP+qyP+bXwB0l
+ oWGJbLfwt+vygaIihytMMxrGt8QMcD7hzC2NNtaJro1BiRRO5AKl7/PspPasaqkOs4IE
+ HlDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785765598; x=1786370398;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=/NcaeFQwLQ3IoKK3UiewV1tehK0mYSuHgA/av2aKAO0=;
+ b=aTwKS5TJud1uLqJmjkFnTHvG7m9TmtO9fL08d0Pv4T1WdGxeX3jrBFMgwoSmnn7Cp1
+ XlUCYUvpULTSSN5YztqLJR1SCscHZzdo9oMFOmBmGTPtzop/3CR811ANs3WZBufXGnUK
+ ZaWe2/TcUE/RjKlSWfT/T1auVKxQGczBisooUubNlG3sOgcOsohA3iSCtvlJz5saXmdf
+ +NDF1wCT+WvnuRLhprMijuFVOYsNQ2DAb3cHv3CmjG+rRgqTiwaD1+W/mpL23YhQx4bL
+ jTt+bJy4vIlrDszd9fBhiQoTK2wyAPsbhz6dICacVTIQgi8FU85iJrqFj8+zAdbEOhhf
+ jFow==
+X-Gm-Message-State: AOJu0YxYUooDQKa49Lk6JOAWn/EImKhUt8+YI5bQVuV8s3tVn9ARTyqP
+ JLVfZDrI6ELfUPOUA20ZX71ssbsnKb/sUubn6eY2qVnZGowpebLsNHITIWuH2fl1nmr/OZWnxCI
+ pbjxiv7g7HP+V4qYb7HCig3qMRhUtqeGxEQ==
+X-Gm-Gg: AR+sD12I2nnb8HpinP+0q0V6SIX9gs6EaAUwjbKh6BQdNCUukdB3ifXY3pELV28uL2a
+ gHnmEOEvxATPsjv68mUe6gEFmDKdDVFDyMvQqbh4uCLZqAheryWH+mp+uPtRQLNsQd6psEsgee2
+ 1DtjziVpp5QoFkAd5ysBMapk+uAfnUmqb4fcrQztYuVlt764V1fW5WUuWq5uzjll6oEQQB0YGum
+ /lsaj3k6K23LRRlE+vjSEi1dofHb6qXosxmWPmXMrtTX4KiDF8MPZxZ8Rgbs6FWgTGoYY/nw15d
+ 2PHS7ma/WNPt2jTtk9lpHNXM3YQqMbGW4fhRcFmQBHwN+0mXvZhxfOZdGZApeLgr9oHvYdjGJxm
+ lGYXOq+gFruTZv58qtxQdPcSJ6Zqbx+A=
+X-Received: by 2002:a17:90b:3cce:b0:381:bcfb:e710 with SMTP id
+ 98e67ed59e1d1-38fbc58f3a6mr12366061a91.3.1785765598566; Mon, 03 Aug 2026
+ 06:59:58 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DM6PR12MB4249:EE_
-X-MS-Office365-Filtering-Correlation-Id: 03ddcb49-a6ca-4e4f-6307-08def1674b4d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|22082099003|18002099003|5023799004|56012099006|11063799006|6133799003|10067099003;
-X-Microsoft-Antispam-Message-Info: j+YvHrSRjBCOmhDzqNNEe5AnPx1lSUJQIGLezH8UEcqdRAqMbrYTWwKENAZruMKN6mL0MximoYnvrM8neLSOLc++tq8SlxtkaN/78gNsDXzXUjcFJwBQ2cT0GyWGKrZjurgnovYaplLwjdAnB+AxG3cN3D8eCAl8yGE4dxx9Kn7HUSMPi1pmMEwc9LJ3AtD9dWT29x4o6JL4qDrFFpVXBcwPs/9WFb401nBK6g2S1aTTQ9leGEDt30wczH8osL9Ti+AutRzB3tJ5QO2NWiy6C1x+i7VuC6qkq6QCCSOSpjO7nwctjK80G9zHhX22skp/WbT0azITi9753o4ISs8SI9f6BGTkPwnEgjJ6zYKBgNS+HDKmt6x5D3bFEjOLt4YqkNKzBCcnCoUMgENSEzIP+Z2b8iBpdZv49ePlE9RulSehQVInEDOPlmOp14ALe3yeKf++FaH+D6NQecanYphYPam62IexA6ddDUdXNLd0yVhDPwh28/tVRm62oqeM6oDVSbfJ3xyg+S54eUdFIDWUbvCfx3Q052Fvh6Udo8LvLhYRnkBFolJhBSnI76XHx99R/JkTo+5/qPRyz7XaVZ1rbRO8HlBfe1wDw9OX/GYPqEM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(5023799004)(56012099006)(11063799006)(6133799003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?czhXcDB1c3NIY1l5MkF5Wklad2w5b0pBTzVnS3J4L0s0YlA0b3o1WmkwcEYy?=
- =?utf-8?B?ZjF4T1owMjA4MWxUTm5xUjZTQithSlB4K1VHbEp2OEdyQWdQc0xyMzI5dEVI?=
- =?utf-8?B?NHJYU0NoN1JOdWhVSkZCcml2VVloVGsrb1ljMDFzdUZUcTVaVVpucXJuNWla?=
- =?utf-8?B?ekNLb1ZTbXZCY2VWZnRyVFpRc0gzZnhiYjBWcVlIK1lKWjhNSVd6alRReUZO?=
- =?utf-8?B?V2l6aXE3ajcybFlFYkh6NnJ0by9SbWlsZW56NzJNMGpnek43cC84Z3B0bG8y?=
- =?utf-8?B?amZ2MjRWejc3ZE42M0JUcXpYMXBBUmplcjgwc0dyMm02Ulk0N29QQnQ3VzFu?=
- =?utf-8?B?MEJ4ODUyZ0RQQk5QRUFHS2R2ZkJYdloxV1RVQnlkYWJrejV5ZUxrSkNPWllh?=
- =?utf-8?B?azBnYTZUSjN4bDJPc29TNkU1ZUUra0NoYi9HbjE1WkMyWFVxYzN6MmZ6VjFI?=
- =?utf-8?B?QUE3RFlkWFVUVEJqdUhXdzV4MzlWL3BxcGltVjFYVnNGLzRRalhCM2Y3MDl6?=
- =?utf-8?B?M1RjVUN3Wk1WMHNEK0xoZ0JSWjVGSXRvc1NvQ2JmalY3c043MGs5aUtidUlj?=
- =?utf-8?B?OUtHZzduSERMbEttUGRWZGRGK3dDK2NKWExtbmRkNzNNeTFQb0VDWVUyTmdv?=
- =?utf-8?B?WnhsaXlMT3VPVDVpVWM3eHJjazhKaEx3MnludnBxYnJLeWhLaFI1ZzA3Q1Bu?=
- =?utf-8?B?VXlqVjg2cGVFeHA3OERYTStjeW9GalBoMFc4YkF6Um5IQWI1RlFZaTBPWGVr?=
- =?utf-8?B?Rnc1R2JIVGxyaDdKZ3FKa01BS2M0NWRFQUlFMDBnQmFUVGdQMlZaWHF0bEpL?=
- =?utf-8?B?RG8zaTYrSG5rY0J0THlCWlNCZkhMS1BBRnlIaFU3S2ppVFdmUDRqeWZCdmFR?=
- =?utf-8?B?VklrQkQ5cGVJSy9mem9jSXRYTWR5WUEyRUJvSWtjYVBhSjdBZUZ0OFZkTmpr?=
- =?utf-8?B?amJ1M0cxc25xdklUUXdtOE92bDhEUEJHRlc1MW52U1ZWWFRVcFI5a1J3Y3h0?=
- =?utf-8?B?K0FNSE1KWGFSa2NjMmFTaCtURVVHMnZ6bU1Uc09ieHRwRDhPaHMybkpsdEIr?=
- =?utf-8?B?Q2Zvbm1IeVY1bWxrQWt6QWV1Q0RvL0g1dUFJRGtNS1NZMzhvZGdwNjBvVTEr?=
- =?utf-8?B?UXoycU5CN1lyUFNFbXVlTkM5b01CdnlyaENCVHZnbUhYV1FuVXpMV3BYMzBi?=
- =?utf-8?B?b1BZdFVZdFd5bGxOeDR1RFJIa3U2SndEOUdrQ0tMWmlWN0N5TkRTV1dmck1y?=
- =?utf-8?B?Qm5aWUlTSHEzaVBHQjZrNmFoam9wRXk2M1lDcHowSDloQ3pscW1GVTZzR1h4?=
- =?utf-8?B?ZzdubEJISkxsZTZrcUJ5QWh1SmVEaVNIVGVlU0duRVlIV09vTW05eGVPRVZj?=
- =?utf-8?B?Slk2eWs0Y0hBdnp3Z2lVRFNFMFZJMjU0cTRhckFTYnFZeUdPN1dBVHZibUl3?=
- =?utf-8?B?SG1JbUpJSzRQa3l6VlNYeGFvZzNiQi9lMXFPV284cDlxeWQrOHhwTXU4TVds?=
- =?utf-8?B?QWhvMXlodktDUVdSaWlmVFpMbWo4R0lqcUl5aGw5L3puNkhibmdvZ0FCMjRK?=
- =?utf-8?B?WmhLSGJ5NE5ER2g4Z1JiYldOenFjaFJOSXVRMWZkMnNOWlRlWW1uQlhZZUVJ?=
- =?utf-8?B?Qms2WFBXaTB1b3NSa1JCazdmR3VnMjJXOXpTTXlGUG1HWUpKakwrZy9uV0I4?=
- =?utf-8?B?WFhBT1FvaytmeVJHbmxjZDNoeGhmMDcxWDFHZE0vV2pGMGQvaXJseStmbHc0?=
- =?utf-8?B?UlAwNWh0dUxzQ3dFVHpPLzFmM21DL1o0Ny9YL283K3pwSEpMMEtzNVl2L05Q?=
- =?utf-8?B?enBBb2d0NExGVTdXT1hHd2dqZW9Wb0pmeWE4K2pZZTJxRUhKa2FtOG5BcnNv?=
- =?utf-8?B?N1crRjFpTDF6Rll2UzNhU1AxVzR0RUwyWnh3NnFFQWZKVEZCeEFlcUxLNlgr?=
- =?utf-8?B?VGFHWXJCemdEVThFTGg1YWxkU25uVzlSRzVoWGM0UFNwOVBHUEcvN2pRdnVE?=
- =?utf-8?B?cjg4aS9oc0Q1anJTemdMK1NsdjRsWUVpdXRrN0lrMFBlYlRnSjdGSm5hQ3hr?=
- =?utf-8?B?MUNSRlA2Uktjc1ZWNE9zZjR6M1FKOHpqWWpEbTBpRUNmT0c0ZXpYY2JEcm4w?=
- =?utf-8?B?L0FRd2lBakR2bmJkR21oTHZkM05XSGdsUVp6YjNpUHBMMnZEMFEwSFVJaDNR?=
- =?utf-8?B?YVZoYXIzMEI1a1UzbTdJNGRza1EzeDR0Q2ZHOVNDRWRFTU5iY1NBRzU2dGMy?=
- =?utf-8?B?dElmZUNIcVpScmsyY2J2d3FmQm1jNHA2aXNVbkJWQkFpaVVrQmoweFYyQm1E?=
- =?utf-8?Q?3V015gGaWgzm2ifYqa?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03ddcb49-a6ca-4e4f-6307-08def1674b4d
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 13:58:28.3838 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HCO7V04aTNGbDR7DbjCxRGijDaFcvprJFvGfTUXVT49T6jOEsSoKuzMC87b6GWE1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4249
+References: <20260803102416.3776005-1-candice.li@amd.com>
+In-Reply-To: <20260803102416.3776005-1-candice.li@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 3 Aug 2026 09:59:46 -0400
+X-Gm-Features: AUfX_mxQxoSMecsNdOSkziOYYo7p36lc06tZbt4y3VDU333h2zU2LaM4XzatxTk
+Message-ID: <CADnq5_ONAK8PdFjTE85A6kCNTJ96bOiybMek_GgPKBL=yqHqVg@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: reject oversized IBs with per-ring packet
+ limits
+To: Candice Li <candice.li@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, 
+ Alexander Deucher <alexander.deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,65 +105,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/22/26 11:52, Arunpravin Paneer Selvam wrote:
-> adev->mman.initialized is set to true before amdgpu_vram_mgr_init() is
-> called, so any failure in amdgpu_vram_mgr_init() still leads to the full
-> teardown path amdgpu_ttm_fini() -> amdgpu_vram_mgr_fini() ->
-> gpu_buddy_fini() being run.
-> 
-> When gpu_buddy_init() fails, it frees its partial allocations but leaves
-> mgr->mm.free_trees, mgr->mm.roots and the scoreboards as dangling
-> pointers. gpu_buddy_fini() then unconditionally dereferences these
-> (iterating mm->roots, kfree(mm->free_trees[i]), mm->used_scoreboard[i]),
-> resulting in a double-free / use-after-free and a kernel panic during
-> probe error handling.
-> 
-> The manager is only marked as used as the final step of a fully
-> successful amdgpu_vram_mgr_init(), i.e. after gpu_buddy_init() has
-> succeeded, and nothing in between can fail. Use that state to guard the
-> buddy teardown so gpu_buddy_fini() is only called when the buddy
-> allocator was actually initialized.
-> 
-> Reported-by: Sashiko-bot <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260611173301.17473-1-thomas.hellstrom@linux.intel.com?part=1
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> Assisted-by: GitHub_Copilot:claude-opus-4.8
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+On Mon, Aug 3, 2026 at 6:33=E2=80=AFAM Candice Li <candice.li@amd.com> wrot=
+e:
+>
+> On GFX rings, amdgpu_cs_p2_ib() passed user-supplied ib_bytes through
+> to ib->length_dw without a limit, while ring_emit_ib() encodes length
+> into packet fields. Oversized values can corrupt adjacent control bits
+> and destabilize command submission.
+>
+> Add a per-ring IB packet size limit helper and reject command
+> submissions exceeding the corresponding dword limit before IB
+> allocation. Use the documented 20-bit limit for GFX/compute/SDMA/VPE,
+> and apply the MM fallback limit for other ring types.
+>
+> Signed-off-by: Candice Li <candice.li@amd.com>
+
+Would be good to also enforce the ib length mask in the packet
+functions as well as a follow up patch series.  This patch is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> index 2a241a5b12c42..38529a904deb6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vram_mgr.c
-> @@ -954,6 +954,9 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev)
->  	struct ttm_resource_manager *man = &mgr->manager;
->  	int ret;
->  	struct amdgpu_vram_reservation *rsv, *temp;
-> +	bool was_used;
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 27 +++++++++++++++++++++++++-
+>  1 file changed, 26 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_cs.c
+> index afc1c631d55aa6..617f53f135f353 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
+> @@ -42,6 +42,26 @@
+>  #include "amdgpu_ras.h"
+>  #include "amdgpu_hmm.h"
+>
+> +/*
+> + * Maximum IB length (dwords) for rings whose emit_ib packet format
+> + * documents a 20-bit size field.
+> + */
+> +#define AMDGPU_GFX_SDMA_IB_PACKET_SIZE_MAX_DW  0xFFFFF
+> +#define AMDGPU_MM_IB_PACKET_SIZE_MAX_DW        0x7FFFF0
 > +
-> +	was_used = ttm_resource_manager_used(man);
-
-The used flag indicates if TTM can use this allocation back end but doesn't indicates if initialization was successfully or not.
-
-So that approach here is clearly not correct.
-
-Regards,
-Christian.
-
->  
->  	ttm_resource_manager_set_used(man, false);
->  
-> @@ -969,7 +972,7 @@ void amdgpu_vram_mgr_fini(struct amdgpu_device *adev)
->  		gpu_buddy_free_list(&mgr->mm, &rsv->allocated, 0);
->  		kfree(rsv);
->  	}
-> -	if (!adev->gmc.is_app_apu)
-> +	if (!adev->gmc.is_app_apu && was_used)
->  		gpu_buddy_fini(&mgr->mm);
->  	mutex_unlock(&mgr->lock);
->  
-
+> +static u32 amdgpu_cs_ib_packet_size_max_dw(enum amdgpu_ring_type type)
+> +{
+> +       switch (type) {
+> +       case AMDGPU_RING_TYPE_GFX:
+> +       case AMDGPU_RING_TYPE_COMPUTE:
+> +       case AMDGPU_RING_TYPE_SDMA:
+> +       case AMDGPU_RING_TYPE_VPE:
+> +               return AMDGPU_GFX_SDMA_IB_PACKET_SIZE_MAX_DW;
+> +       default:
+> +               return AMDGPU_MM_IB_PACKET_SIZE_MAX_DW;
+> +       }
+> +}
+> +
+>  static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p,
+>                                  struct amdgpu_device *adev,
+>                                  struct drm_file *filp,
+> @@ -340,7 +360,6 @@ static int amdgpu_cs_p2_ib(struct amdgpu_cs_parser *p=
+,
+>
+>         job =3D p->jobs[r];
+>         ring =3D amdgpu_job_ring(job);
+> -       ib =3D &job->ibs[job->num_ibs++];
+>
+>         /* submissions to kernel queues are disabled */
+>         if (ring->no_user_submission)
+> @@ -369,6 +388,12 @@ static int amdgpu_cs_p2_ib(struct amdgpu_cs_parser *=
+p,
+>                         return -EINVAL;
+>         }
+>
+> +       if (chunk_ib->ib_bytes / 4 >
+> +           amdgpu_cs_ib_packet_size_max_dw(ring->funcs->type))
+> +               return -EINVAL;
+> +
+> +       ib =3D &job->ibs[job->num_ibs++];
+> +
+>         if (chunk_ib->flags & AMDGPU_IB_FLAG_PREAMBLE)
+>                 job->preamble_status |=3D AMDGPU_PREAMBLE_IB_PRESENT;
+>
+> --
+> 2.50.1
+>
