@@ -4,98 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 636A4C55179
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 13:40:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C5CECC55182
+	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 13:42:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E280310E044;
-	Mon,  3 Aug 2026 13:40:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 591A610E669;
+	Mon,  3 Aug 2026 13:42:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RedDQCKT";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3f7p6Am7";
 	dkim-atps=neutral
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
- [209.85.215.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CD8810E044
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2026 13:40:33 +0000 (UTC)
-Received: by mail-pg1-f180.google.com with SMTP id
- 41be03b00d2f7-cb20b0a387bso165168a12.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 03 Aug 2026 06:40:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785764433; cv=none;
- d=google.com; s=arc-20260327;
- b=oi1xWS96jPWqhcTraYjEYwJDMhOauzA9054idqRCW8XNlyFh90DMxWjt2K/9zbRmOy
- Wvu2Zy8Um/GUoiVuBpqsZ43qzv3oIu3zsPDLUkwrC0Q+2asbKs65LwloC7Soq0RdPekH
- DPpPmGJ7RpqQ+7czhn1rsAzpsZS/axJ1m8wCrEFP/XNsu58ata0R6IHacuIA04qWgIyM
- trSO5PJYgE4A0agJXG3OVc4XaL1BhIgvxjUNIuYRO0MQUtHdORu/HXNOTKNfDAGAdEho
- Z/NIsh5iE+yY07YErBxGvNvFt6fCsWOhSvXpwg3FGX/DxW6RKEMji54ujtP108CpJYmN
- QkqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=p6U8WLGDgo3LYMw79HuXCi+a8+TjTRLDYeFFihtBJ4I=;
- fh=W4urHV6Jxzgzzxw2YDhJT/SpG6V6wMzjpVvif4ofd8U=;
- b=Ck2+LegSvi4OLr9Bd6614BMTahEQmuoPnLA/NMTr2Lg3WCXMIfzXQKd+RFIglQQ0VI
- neRrUGvKswrvT8LxDtPJ/w552GmXyuL23/1tC94ixrZ9rj9ypxuIRuUxS04YmSFfV+Ug
- 86KGKo9MR8i7yzUNwJdgDl6gM6E4o9pZsV5NU4B+SLAcu+2WG9ghtt6f+rTtq0Woyz8J
- D1aCg1505KcklsW83YuOy7hh2ckKNuYDqHabhgPeLYHWcIBoY+7fAqkuqBXYBp/a+job
- mm+cVaVdi8xOvbQyHIaMz+9e1nDfj5pu+6EhNdYYhe8Ss7tYgLZj3hVvKpAMJ8wAeCmJ
- aqHA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785764433; x=1786369233; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=p6U8WLGDgo3LYMw79HuXCi+a8+TjTRLDYeFFihtBJ4I=;
- b=RedDQCKTIY10UBq54HgkzfJenJoAVYqod8rjJmKMyGwRG4Ismrp5UHXmwQki52R8qd
- OEgVClG9QUb8ZED6pYeN001vGjHzYVQfUHd1wxX3N3a6lEe8uFJEsNE9y70Q56+Wn73i
- +QdOEGUTw0+NAUiDEEzTkXIXZI/c/tCTcHLTvdEjnAGeXhIeJ5E75IShJqaRdpvoMWna
- Nns2vG8t3jCZ4P48K4dsszpduiw80DvXyAaTj7pdZbNW0yyR+bvYznt88b3mYYQQvGLu
- FzmBqaIsXI8CdYGSR8taXzohYDFTnw64DcOjSsFyCtad3CaTv2THJIBd8pzx1rNe8H+B
- 1qeQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785764433; x=1786369233;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=p6U8WLGDgo3LYMw79HuXCi+a8+TjTRLDYeFFihtBJ4I=;
- b=fbcllsuwOMYmqa3SYBJrWv/lVEZA+VADbX/SdNUn8tDvagkgVrQrhtgOtp/qmg7v7M
- AjDV3WD/WNgQgqmj5wr+hhUZyPQn4jC6rVQ90TSikQaBFpRg3GvbZV5ZBuW1ksb+lkw4
- 0MnPB1ZhrhlD3J+MsMrwYEaRLqsQA3yMIKO/EgC7/jr6OJXWXjnW7nisPX5EUPbOQHCh
- aEE+su5Zvr2Y72VIBvDvyHCUKY5F2kGZb+U617EwqY/W8ZZwrVtMlnbkOhQSE2Ev7tgp
- eXq/32OVo2P3gxEt2HuTR2ZIQoIrKd/zyD3V5zzynXA/+X0ig2MLhmBIPVdflsFw78Wy
- u7zg==
-X-Gm-Message-State: AOJu0Ywh/x2bcf9Avj1FsgbEQoX/BqDeOamXv75j31bp70rccIe4fMsC
- Umb2nho/q+zYju4XIVRSPSWfgZ1GkwPmZkXxSYjNhY7PKWJsMtqTGS/+c2m80Q3gr8wehkVaD3Q
- V4SVO/NldJWx+MWOtmpK/8+Rm+WPtSts=
-X-Gm-Gg: AR+sD12C3MuTWyka1X8z6seByid9K8BL4rdRdwaadfvXLKvq2NhBrMHDHd3v2ieSY3L
- BEIJ86GRM40m490dhMxsV/xgQ6Ce/zi+nADp5+8iKRc5PmPO8I2Q8Mfk0pX0Te5RPiGcgDTHDEa
- W9b/nnrRKsvApRNS03uwQFiWEN2dMufjPagaBltUTfulTQnxQdecF8spQ6FQOLAP8WnwRAQkzI0
- ZJgB4FwU5cvd8OuoOH3MkUPKozRA4nsauJcfUt+h30GOSmc7IBdn+1jNi+kH3ufRZNQ58lseDRx
- 5p3NDjKL+I7zEsD3UoiA9rl+DgTaL9ru57JjuBd0TLxiImpWrW4+HjfkZnxtu8GQ9ET9EiTcvRP
- yTjpNb6/FkMKdu6frJojrF7nsvK6EjpE=
-X-Received: by 2002:a17:90b:3c50:b0:381:2788:a437 with SMTP id
- 98e67ed59e1d1-38fbc3ffa28mr13227096a91.1.1785764433297; Mon, 03 Aug 2026
- 06:40:33 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260715063128.581232-1-Prike.Liang@amd.com>
- <DS7PR12MB6005701083F93C0330D4F4C0FBC02@DS7PR12MB6005.namprd12.prod.outlook.com>
- <PH7PR12MB60005AAE1676A52D0A72A0C4FBD52@PH7PR12MB6000.namprd12.prod.outlook.com>
- <CADnq5_MeA+koAWeUF1L5WnLCeB-c=W2n0nnLzY3fpguOQprGgw@mail.gmail.com>
- <DS7PR12MB6005E76101209F514B1544D9FBD52@DS7PR12MB6005.namprd12.prod.outlook.com>
-In-Reply-To: <DS7PR12MB6005E76101209F514B1544D9FBD52@DS7PR12MB6005.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 3 Aug 2026 09:40:21 -0400
-X-Gm-Features: AUfX_mzNmpEyoOb9YVFTgYR1ciVBBUVIfDPnywdzovsRsofEO9_CsI3nJJxz7nw
-Message-ID: <CADnq5_PL1ECn9BHex4czV=35+ZkTmPrpQHbVOFg_ZQK7t1HygA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Remove separate guilty compute userq reset
-To: "Liang, Prike" <Prike.Liang@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010033.outbound.protection.outlook.com [52.101.85.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAB4D10E669
+ for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2026 13:42:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Hgtby11/PjknvFXMwyshpetz/iuh6PTBnpMATwwKYeb3Wch887wackVSYaBaSlGAtDWWKtMLcxkQWkiZaOp9bL188S9m20zvvdDpdGIbXpwjmfQLqghoX9OUgfqMr0cUgXr0MNF4Ll9mes8yU3V8M3X2233bUif8J/NYujPCXk+J9Bhc8hwhZ4gN44ivBAEVazMAqfXjzbMNcFMx/FM2XFszSKNcBCkPgxhZyWl07gKcNUOy8tpM9EWJB72qH6cz4Au4v7BxrtyhBofeZYEc7//Q/MvCuOt47dm6exYo3ymsRavH2NGcNzgrwT4pI96X9vtydWUuUnzgcc28hEIC2Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=K8sU16n+VwAjCedF7DtKJ+xa9J4hpIRGFetf8OuCCk0=;
+ b=VmxKPcRvVQi3Kn5NVtjqfjNQFZ5HbJctmQIeEvA5OuFudssDIrUqo0i3z50UXgPwyz6Hdy8Npr+zTLID4tVtdbHTT5LQ2LndMIECrKiojgUxU04e3adysd8EJVZv8kYETz30e1FhdChs3qKOcL50FSpqzPx5iFEzop0UkY53Eyjiu/LmsTbce1Ffsn3GaQYwHbbeYvzYWnn4zu+DQJm+E6QQGs0ny8hzCEhenMhHbPDhJ/0EShc8Eyh8AVwn181KWyldA8YwkkTi3uGIcjN6FbqIOQ7OOZFHTOAhD7pENIBICaAMTLQjq1e+/NNXxDCbdH5psE/XMPb4eau6vlV/Kg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=K8sU16n+VwAjCedF7DtKJ+xa9J4hpIRGFetf8OuCCk0=;
+ b=3f7p6Am73pWH2Y2AJd6LyZ4BUxhOdPDiv1Yuhf09ZGYb8xxqc1UyyS++arhPj11veJceC9jdarfFAuOaA8jV11uNGTuqSacKC+M4wcUzjnZOdn3XyaKxTOWTzcbwhRUnvpOq4wk7tOZcjoNeMcyMWMjlYqncoJMK9MftaTQsYCk=
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
+ BN7PPFCEE68E7BF.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6e2)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Mon, 3 Aug
+ 2026 13:42:47 +0000
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::ab84:617d:61a9:3727]) by DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::ab84:617d:61a9:3727%3]) with mapi id 15.21.0270.017; Mon, 3 Aug 2026
+ 13:42:47 +0000
+From: "Liang, Prike" <Prike.Liang@amd.com>
+To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
+Subject: RE: [PATCH] drm/amdgpu/userq: serialize queue map against GPU reset
+Thread-Topic: [PATCH] drm/amdgpu/userq: serialize queue map against GPU reset
+Thread-Index: AQHdIyu03BEuvT2JD0GwJ/m++EcPDraMVCzg
+Date: Mon, 3 Aug 2026 13:42:47 +0000
+Message-ID: <DS7PR12MB6005938B3A515CD6A9CC504AFBD52@DS7PR12MB6005.namprd12.prod.outlook.com>
+References: <20260803093713.1904533-1-Jesse.Zhang@amd.com>
+In-Reply-To: <20260803093713.1904533-1-Jesse.Zhang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-03T13:37:41.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|BN7PPFCEE68E7BF:EE_
+x-ms-office365-filtering-correlation-id: ab05cc27-b558-46ef-3003-08def1651a81
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|376014|1800799024|366016|22082099003|18002099003|38070700021|56012099006|11063799006|10067099003;
+x-microsoft-antispam-message-info: FAk62b8pSg1LA4+Tqn7OmamhGkdGD+rAENVLFm5oC1+S6O7lSp8BQee5h2+tkxjJ98uTaLWIgu3N/reZGQEpCkGmBV2IzVBPVdamgZ1h2EbAcekRVoHE8XwhV0YExCokcsRHVbAMG4jzg1YO0E4B7VR+dDCu7citb+EEqNF5m67wxECgGzEMve5eB3WbI1j8ToJLabjAEsoXIIehSD8A//ledyt6CDFlXmSv2b4DC17/opQNF8vqmDP8rrQlyaJ3RtU3S9/ylLVUTtiXUAitcjx2bYEiepAwiRqJeROLmyN6/2tlsOFCYPzIHD0K35Hn4/n4PD9a7DomTS1q4/jkQCUNXErgZaT05hcR0WL93RMRdLBsJQWl8hCR8q3TCdIVw8m3mUqwa0wfZtAuNBUwlfDfbkNRaPrYKnbsGTQFxpkgT09jg8FTH1DNRFu4r1q7CFD2KWtj1VamIqhIOiIw/RsaN/IBP3GKYVXxNBDz6PW5dixAbYoDqvqoyEhB/VAHSFV2WGjb5q13UxJ+e+Z1Kn3no3eVXN4CFM7Ujj6ugy8lTRnDmcrvMhuZh+Bi/fTqL4ZLHnqnG+E/HRM+dusZsNjj+0/fzcmfqgKp3ZrlBNHfePa6InfpueVYqjFbvrzLHwqexfpOQz7gPKjiv5D4/sb+rVhQ5DxY6Egp2PeLtO/k9mo+7New2P3klzwGkqluFgVbCt1yixUBDh5y/uvzaClXHoNRaFEI0vdHt/fN6C4=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(22082099003)(18002099003)(38070700021)(56012099006)(11063799006)(10067099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?lOMTZIjhXZsKHxPLD4GgVJYinLeuVE93Fpa4GddlMTjHzeg0dbHp/Tiu27l4?=
+ =?us-ascii?Q?4hpQmeMcErDREo+cXNqSP2Z4X5YbUVmRR6vbviBe8frEFIZtH8FW/iIS3Asw?=
+ =?us-ascii?Q?trqLUOmNFxhxzPw86U9f1ybmHoC9SOMbd3yE0MXrvbnUTDkaSI74lml5q3r5?=
+ =?us-ascii?Q?OMgk/Eg9+lj6fnsRERsuXAGGZN6r3aOLTU3fuBHXIpRVSq0+93bnEtK1ZV8x?=
+ =?us-ascii?Q?0me9rFYGxXSQvgMwOONwZvieNmAxVxJPaajyeFAEtN54T0Ex1BXU3vZpYNIb?=
+ =?us-ascii?Q?G4iZzl/Zr1VTr6/DrME+MoZ1NuHgPpQLQXoVUZUT1TchAuSRlKvqnMarzVWO?=
+ =?us-ascii?Q?pZgZfjrupPcRT3I12SxUMNm2DdXU8mTEU9ngWrvmTW7coOnKnmLyhcb8Su6D?=
+ =?us-ascii?Q?HnVd49bgClL5PRuW6MUAC30gCJa5UV01V6RrrCTWhah2GcvSn2YEHbyCMj+i?=
+ =?us-ascii?Q?71UigOyPTMFzM8F/1CAywht8TEJsnUgtGJLxxQUqaxPEutSKS3xiey9NVjd0?=
+ =?us-ascii?Q?gJJ+E4WYTI5BqxIpLfKg0vYSdNCBP+Sa6L16Kyn6EBLfx5SnbVAl6XI/gEdl?=
+ =?us-ascii?Q?9UBCRNNf1sVdjQUbL05lSUrBxrPLOIyAaV9pvAW2ilc1MVvbpJbaaB6yeK7F?=
+ =?us-ascii?Q?yKzOMal+rMoVDO6OKTNu8g2I8RbeqXqaI+t4N5zkAXoR6J5WcqH0cGOFDC+b?=
+ =?us-ascii?Q?u8odMy+zr0PdUtHwFHWY7aG6d5+4BSqgSXu8CVX686XytWXSNht2sHL7R/Q3?=
+ =?us-ascii?Q?XsMeUsmt7VFFlK2HWRs4Xz8msQgXEQo6LCkgMzFbjuIhLnvKk4sgg1i+4KFD?=
+ =?us-ascii?Q?+Eo0VEt8LWvFUDQZNN2UdIAN6r0gUJ6Tf/y2sx9nRtPGOdhycA/tPpz9mz2i?=
+ =?us-ascii?Q?SWEbtKl2QSetwbDux1fMyu1ctd1I14XoavKry6kx2e9CoyiGkJrk9l0Knp7n?=
+ =?us-ascii?Q?QrAfttaUVzacZNruFu/Bzbeg3BsQIy70GoW0/8L5uDgLbPg+jzsK4I+lFF0u?=
+ =?us-ascii?Q?KEyRHxq7fIWQLQWEIQSwp05G6Lv35NBPCwdqzhSJyEnvOlAHySxuOQOJFf6d?=
+ =?us-ascii?Q?zfTpHNHxwKgVQuQQE9m0Sw1T8C7zYuF7SR2W6Z4eyHGOUOKG4QLTfi6RxB7n?=
+ =?us-ascii?Q?jk26Pc6NmQ9IFrBd0e4hIaT6eOmbe8+JUYdiXv9h+8nVbZtZJJgz92Qw1/6D?=
+ =?us-ascii?Q?wbaHyA7H7F4brvROMFky8KGBXyHc/VqffukVRdbciNw8bLRQbYV0EzNYui3x?=
+ =?us-ascii?Q?+8YQ+HImsF3GXXa1UDfb/IBLlDhiS8ie+qdR5GKdO3gMOc/7UfP6UiNVFJkW?=
+ =?us-ascii?Q?E9aphASXPWkVw0Uuati90BHQ5B/HV9strd5yJKbOgeml1BwuaLlYbwxPU8UF?=
+ =?us-ascii?Q?dymAWEXI4M/UGh9O53ExQ05t1GCG31RO/lcOrQV2k+9fr239tcQZcBWTeh+N?=
+ =?us-ascii?Q?iXdEXKVdm1BP36rUgnyzE48WkDZzb+d+bW/eu9sBI260XGQx7HkswgoPMm1u?=
+ =?us-ascii?Q?uYGqJAcu66TeD676Il7uPCnD35nptWFQr2wWn9T3BCYUg9MZT142vhFvsBWO?=
+ =?us-ascii?Q?FS4RoniGjkbCcafmsYiH49CXuCOHGTuk1YmBJgHEkAn1jfoLpKHM5r4z7zgQ?=
+ =?us-ascii?Q?WN+xe9i5ezFCdTOKY5f+xuPnQJ27Pe5bdxUeRBmpjQ+GWKJQY/GaC8et0v6F?=
+ =?us-ascii?Q?HQi3xx3OaRw24pmOvMVXSTuyEg9DT5hfqNC5z8MwJe9apGzj?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ab05cc27-b558-46ef-3003-08def1651a81
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Aug 2026 13:42:47.1707 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: JlZd1ENyQbX7a9+yt2de4GjD/IKaFbCTHK5ScTirJ6pd1qn1EC5hkvXERYYdCc6c
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPFCEE68E7BF
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,158 +132,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 3, 2026 at 9:36=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com> w=
-rote:
->
-> AMD General
->
-> Regards,
->       Prike
->
-> > -----Original Message-----
-> > From: Alex Deucher <alexdeucher@gmail.com>
-> > Sent: Monday, August 3, 2026 9:23 PM
-> > To: Liang, Prike <Prike.Liang@amd.com>
-> > Cc: amd-gfx@lists.freedesktop.org; Zhang, Jesse(Jie) <Jesse.Zhang@amd.c=
-om>;
-> > Liu, Shaoyun <Shaoyun.Liu@amd.com>; Deucher, Alexander
-> > <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.co=
-m>
-> > Subject: Re: [PATCH 1/2] drm/amdgpu: Remove separate guilty compute use=
-rq reset
-> >
-> > On Mon, Aug 3, 2026 at 5:25=E2=80=AFAM Liang, Prike <Prike.Liang@amd.co=
-m> wrote:
-> > >
-> > > AMD General
-> > >
-> > > As for the hung userq, it should be identified by the MES reset API w=
-ith the
-> > hang_detect_only setting. However, it is unlikely to miss detecting the=
- invalid opcode
-> > hang case, especially given that the userq invalid opcode IGT test has =
-not been
-> > implemented yet.
-> > >
-> > > Hi @Liu, Shaoyun, are you aware of any known userq hang scenarios tha=
-t cannot
-> > be identified by MES API hang_detect_only? If not, could you please hel=
-p review the
-> > following patch, which unifies the userq reset path for hung queues?
-> > >
-> >
-> > We added it in the first place to deal with those cases.  There can be =
-queues which
-> > are not hung, but will never complete and hence never signal their fenc=
-e.  E.g., you
-> > can have a queue that is waiting on a memory location that MES can pree=
-mpt, but
-> > due to a bug elsewhere that memory location will never change so the fe=
-nce will
-> > never signal.
->
-> Thank you for the input. However, for fake timeout cases such as the long=
- shader scenario, we should identify the fake hang cases by checking whethe=
-r the guilty queue appears in the hang list, or whether the queue rptr is s=
-till updating? If so, preempt the queue rather than resetting it?
->
+AMD General
 
-We have to assume that if we end up in the queue reset path that the
-queue is hung.  The fences have to signal in finite time.  If we
-preempt the queue that won't signal the fence so we'll just end up in
-the queue reset path again.  Preemption of a queue that won't make
-progress only makes sense if fences are not involved.
+We may need to ensure some other MES HW accessing without the GPU reset is =
+kicked in concurrently. I'm working on the userq eviction case and figure o=
+ut how to handle such issue in a general way.
 
-Alex
+Regards,
+      Prike
 
-> >
-> > Alex
-> >
-> > > Regards,
-> > >       Prike
-> > >
-> > > > -----Original Message-----
-> > > > From: Liang, Prike
-> > > > Sent: Thursday, July 23, 2026 2:38 PM
-> > > > To: amd-gfx@lists.freedesktop.org; Zhang, Jesse(Jie)
-> > > > <Jesse.Zhang@amd.com>
-> > > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig,
-> > > > Christian <Christian.Koenig@amd.com>
-> > > > Subject: RE: [PATCH 1/2] drm/amdgpu: Remove separate guilty compute
-> > > > userq reset
-> > > >
-> > > > I checked each different userq hang cases, and the guilty userq can
-> > > > be identified by the MES firmware and report correctly.  @Zhang,
-> > > > Jesse(Jie) could you further check as well at you side?
-> > > >
-> > > > If there're some hang queues miss identified by MES firmware, then
-> > > > the correct thing is to further debug from MES firmware side rather
-> > > > than have such strange reset sequence and this reset workaround sho=
-uld be
-> > cleaned sooner or later.
-> > > >
-> > > >
-> > > > Regards,
-> > > >       Prike
-> > > >
-> > > > > -----Original Message-----
-> > > > > From: Liang, Prike <Prike.Liang@amd.com>
-> > > > > Sent: Wednesday, July 15, 2026 2:31 PM
-> > > > > To: amd-gfx@lists.freedesktop.org
-> > > > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig,
-> > > > > Christian <Christian.Koenig@amd.com>; Liang, Prike
-> > > > > <Prike.Liang@amd.com>
-> > > > > Subject: [PATCH 1/2] drm/amdgpu: Remove separate guilty compute
-> > > > > userq reset
-> > > > >
-> > > > > amdgpu_mes_detect_and_reset_hung_queues() already detects the
-> > > > > guilty compute user queue and resets it through
-> > > > > mes_userq_reset_queue(). The additional reset via
-> > > > > mes_userq_reset() is unnecessary, so remove it to unify the compu=
-te userq
-> > reset.
-> > > > >
-> > > > > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> > > > > ---
-> > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 5 -----
-> > > > >  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 2 --
-> > > > >  2 files changed, 7 deletions(-)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > > > > index 1e275c2e7dd3..4f2d5ff2f7be 100644
-> > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > > > > @@ -2315,11 +2315,6 @@ int amdgpu_gfx_reset_mes_compute(struct
-> > > > > amdgpu_device *adev,
-> > > > >             deferred_end[n_deferred].fence =3D guilty_fence;
-> > > > >             n_deferred++;
-> > > > >     }
-> > > > > -   if (uq) {
-> > > > > -           r =3D mes_userq_reset(uq);
-> > > > > -           if (r)
-> > > > > -                   goto out;
-> > > > > -   }
-> > > > >     for (i =3D 0; i < num_hung; i++) {
-> > > > >             struct amdgpu_ring *hr =3D NULL;
-> > > > >             struct amdgpu_fence *hf =3D NULL; diff --git
-> > > > > a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > > > > b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > > > > index b6bfa3974839..fab21d4275f3 100644
-> > > > > --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > > > > +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > > > > @@ -226,8 +226,6 @@ int mes_userq_reset_queue(struct amdgpu_devic=
-e
-> > > > > *adev,
-> > > > >
-> > > > >     xa_for_each(&adev->userq_doorbell_xa, uq_id, uq) {
-> > > > >             if (uq->queue_type =3D=3D queue_type) {
-> > > > > -                   if (uq =3D=3D guilty_uq)
-> > > > > -                           continue;
-> > > > >                     if (uq->doorbell_index =3D=3D db) {
-> > > > >                             uq->state =3D AMDGPU_USERQ_STATE_HUNG=
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Jesse
+> Zhang
+> Sent: Monday, August 3, 2026 5:36 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> <Christian.Koenig@amd.com>; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>
+> Subject: [PATCH] drm/amdgpu/userq: serialize queue map against GPU reset
+>
+> Creating a user queue can race with a GPU reset. While recovery holds
+> reset_domain->sem for write, MES is unresponsive, so the ADD_QUEUE from
+> amdgpu_userq_map_helper() times out (-110) and an otherwise valid queue c=
+reate
+> fails:
+>
+>   amdgpu: MES(0) failed to respond to msg=3DADD_QUEUE
+>   [drm:mes_userq_map [amdgpu]] *ERROR* Failed to map queue in HW, err (-1=
+10)
+>   amdgpu: [drm] *ERROR* ... Failed to map Queue
+>   amdgpu: [drm] *ERROR* ... Failed to create usermode queue
+>
+> Take reset_domain->sem for read around the map so it runs only once MES i=
+s back
+> up. This mirrors amdgpu_userq_cleanup() and honors the userq_mutex ->
+> reset_domain->sem order; the reset path never takes userq_mutex, so there=
+ is no
+> deadlock.
+>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> index 652599f08990..770635ab5298 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -745,7 +745,12 @@ amdgpu_userq_create(struct drm_file *filp, union
+> drm_amdgpu_userq *args)
+>       if (!adev->userq_halt_for_enforce_isolation ||
+>           ((queue->queue_type !=3D AMDGPU_HW_IP_GFX) &&
+>            (queue->queue_type !=3D AMDGPU_HW_IP_COMPUTE))) {
+> +             /* Serialize the map against an in-progress GPU reset (MES =
+is
+> +              * unresponsive during recovery), matching amdgpu_userq_cle=
+anup().
+> +              */
+> +             down_read(&adev->reset_domain->sem);
+>               r =3D amdgpu_userq_map_helper(queue);
+> +             up_read(&adev->reset_domain->sem);
+>               if (r) {
+>                       drm_file_err(uq_mgr->file, "Failed to map Queue\n")=
 ;
-> > > > >                             if (use_mmio)
-> > > > > --
-> > > > > 2.34.1
-> > >
+>                       trace_amdgpu_userq_create_end(queue, r);
+> --
+> 2.49.0
+
