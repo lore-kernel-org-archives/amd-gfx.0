@@ -4,123 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 69D00C55822
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 16:09:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59F88C5518F
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 17:11:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F297110EB0E;
-	Tue,  4 Aug 2026 16:09:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2A7A10EB33;
+	Tue,  4 Aug 2026 17:11:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VunOPGv4";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Pky1REXU";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010012.outbound.protection.outlook.com [52.101.85.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52CC010EB0E
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2026 16:09:16 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011069.outbound.protection.outlook.com [52.101.52.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7C7F10EB33
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2026 17:11:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SfDwhbDCPdX2FeT/CxDhnZNZ6vT4HSup9AvS8SiXS5dAPaytiRTz5UuzJhyxlAba/BdiqRYBF71fv/CFDTizluyO1/SoR1YQ88Ba4+P8+B93+5LvvJHW1qS4Ow0xT2oyynRPHGq63o2w6D8mdohhm0CAKD8TyAngOU/ImdA1mnk6m3F3mTdJJdQFenH8THdTkffJpQbag0Pu3n4htQSmBnHnQycF7qs1yl9b2njYbNnYojiRFc4A9ll8D7hwJPjbavXHEjHEys2s5Sli7596rfdinHz+h6/UNdjxHCeEVakPoW3n8ckdpzNTxYGJ/DEbPZEzmaRbZvxqTrySS7iMhg==
+ b=mifb1o2qGtDmGPLcP0aTCpRXoA+lkHfVXD2bkUbRQPMF2qWabjkN7eNmPZf+6zWkMPVAdauHQBnKm65NZfGqYto6LC8PLgna2/aYiEvoBoRtSJ45J8pxOqbM/asIK7Ykbd8nC4xkGm5NLdvSm2Zm0zX0rRwvFt55Wh8kXUN5fIFAaQPXsOhq+58h+IXuKmpUzpAVF/2+HlMAVRJL3HANj3fL+MyH+XbCWCPtfdN6wfUhkn1joXBywyoqI0boEtA1z6yjxL7Shn+z6prfzPvuYWqhfNG61VRNMgP6QGZrvTHf1tSMp8l7CKpXWc590YjCVFRBBAnvP2kn8Qd/sIB/rQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a3pptKQ78i0yKCQn4UOqDyeJEz4I2tIkmzCcSq0mT2Y=;
- b=RVYQlYG7K1OCrEWgnS3ai4+5APUaf7oAYlF0t1+9iZsmtyXn9zi5OWHcheT46fdU68XrvHO3FltPuFOLzo66JulS6R095X68D/94Hrvh9YDPjUr7gsv3fBw7gMV7ovHD0m7XgymRYVKJ4K+oQb4nv7CqtLmjguzyCtt2XN2+YSDxBQbbaPcjg9kaso8LgCHI833h+BkmZq6S1sl+3eqaoorPeP2wEu4tDqOIlRDfknTFMwdI3FVnDrc2JushgsSl8b9Uy+M9jyuzYgiisFarJdjIl1+5X13p46RnQwgsFKPQoH/nDhOOBqCC6kC7/pFS6IQ7VVD31/0es/nqiUILPw==
+ bh=/vF3eh8QKo9L1QRH7yjTiNfoLnkzx4WonJcqhhZVktE=;
+ b=weNDV33/kgYvExTi7c07jEhkcf0EJ4bCGvZOMN23mYsz68x7AnHjBTY1rTLl5f/9c9a3mx8oK3ZN0zurwoTCDsc5fVbl2Hc0+azQlzrBRjcF4duroffahKl+9eMVicIJxoflgyALN1ieCkhauTOP3Cq1YbQ5NgIjeUSIWNUTxdW+7WVMAt00mnlAz48/12aAoQWfUcIUvPXotYJR6VqiISBvU8wRO9uYJU0TQkMtMf4L0xCCQGtCQG7oHQzYY08+2jSdSS0PcISFUzK0if3buUpbtCKJGcWrPtkoxeRkMVH8ldsSBMEOBCrrQJiw6QQ4fIAPfBnUIvIFXdw0Ms8LQQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a3pptKQ78i0yKCQn4UOqDyeJEz4I2tIkmzCcSq0mT2Y=;
- b=VunOPGv4GR1rE1k6cAf7PU26LpWF9fjx6dQuwVG5sXmDk2DrcP/cIG7V/kCE6j/gc9kCVaqBn78GWbetzrVCmLF5S0rNirb2GWNgyKUPLWRkh/Z0HMcbztT+v77UoV2J5kN5eeFYP01OwdL7/OKJ6xf2qQl4KkQ18aWn+w8D01Q=
-Received: from SN7PR12MB7856.namprd12.prod.outlook.com (2603:10b6:806:340::16)
- by IA1PR12MB7735.namprd12.prod.outlook.com (2603:10b6:208:421::8)
+ bh=/vF3eh8QKo9L1QRH7yjTiNfoLnkzx4WonJcqhhZVktE=;
+ b=Pky1REXUsG3XCYvwMzGV3nyUI0kTcCRhcikTi3X6zvZT6KDA0jh3y0FE95CziLKNbjN9dh+LsCS+6GFn3dZsLwONOhTaahytX3bIa0XisjXpvliiEzll83H+y7QdxhTQRZulwNwYM0vZINiyBjEQVXyWcMgk/+ilmUMt2PsiALU=
+Received: from CY8PR12MB7563.namprd12.prod.outlook.com (2603:10b6:930:96::19)
+ by IA1PR12MB8221.namprd12.prod.outlook.com (2603:10b6:208:3f0::19)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.16; Tue, 4 Aug
- 2026 16:09:12 +0000
-Received: from SN7PR12MB7856.namprd12.prod.outlook.com
- ([fe80::a3e7:285e:e0d8:24c1]) by SN7PR12MB7856.namprd12.prod.outlook.com
- ([fe80::a3e7:285e:e0d8:24c1%5]) with mapi id 15.21.0292.013; Tue, 4 Aug 2026
- 16:09:10 +0000
-From: "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
-To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "Chen, Michael" <Michael.Chen@amd.com>, "Zhang,
- Jesse(Jie)" <Jesse.Zhang@amd.com>
-Subject: RE: [PATCH v2] drm/amdgpu/mes12: fix dropped dispatches under queue
- oversubscription
-Thread-Topic: [PATCH v2] drm/amdgpu/mes12: fix dropped dispatches under queue
- oversubscription
-Thread-Index: AQHdI+KMv//LSIzo7UCtMRWd1snz9raODzxg
-Date: Tue, 4 Aug 2026 16:09:10 +0000
-Message-ID: <SN7PR12MB78563D0DF1F03F847EF8AF97F4D42@SN7PR12MB7856.namprd12.prod.outlook.com>
-References: <20260804072606.2710051-1-Jesse.Zhang@amd.com>
-In-Reply-To: <20260804072606.2710051-1-Jesse.Zhang@amd.com>
-Accept-Language: en-CA, en-US
+ 2026 17:11:02 +0000
+Received: from CY8PR12MB7563.namprd12.prod.outlook.com
+ ([fe80::5507:4e0c:e2d0:e6cd]) by CY8PR12MB7563.namprd12.prod.outlook.com
+ ([fe80::5507:4e0c:e2d0:e6cd%4]) with mapi id 15.21.0270.017; Tue, 4 Aug 2026
+ 17:11:02 +0000
+From: "Clement, Sunday" <Sunday.Clement@amd.com>
+To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+CC: "Cui, Flora" <Flora.Cui@amd.com>, "Russell, Kent" <Kent.Russell@amd.com>
+Subject: RE: [PATCH] drm/amd/dkms: Fix TOCTOU symlink race in build directory
+ creation
+Thread-Topic: [PATCH] drm/amd/dkms: Fix TOCTOU symlink race in build directory
+ creation
+Thread-Index: AQHdHtIR++Vb+ntOGUqKeFyE6WinebaOKpEg
+Date: Tue, 4 Aug 2026 17:11:02 +0000
+Message-ID: <CY8PR12MB7563A817D9504F464AA1B08A9FD42@CY8PR12MB7563.namprd12.prod.outlook.com>
+References: <20260728204513.5589-1-Sunday.Clement@amd.com>
+In-Reply-To: <20260728204513.5589-1-Sunday.Clement@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-04T16:08:35.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-04T17:10:09.0000000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
  v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SN7PR12MB7856:EE_|IA1PR12MB7735:EE_
-x-ms-office365-filtering-correlation-id: 79155e7b-6f05-455f-b4f4-08def242b82c
+x-ms-traffictypediagnostic: CY8PR12MB7563:EE_|IA1PR12MB8221:EE_
+x-ms-office365-filtering-correlation-id: 090fd77c-9c38-4e81-d6aa-08def24b5c8e
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|376014|56012099006|38070700021|11063799006|10067099003|22082099003|18002099003;
-x-microsoft-antispam-message-info: hkYZs3QcscaUtTb9t3W2s+v7WpS1JOxIoXBQckMVv+HgCOhYPAo+vrv/NmZlqADXauSzZjyuYaOWYjdpJXYcp+IO2Qk/c5z+mm0fTW4J8W93u46LyrdnKCw2Hl/ups2pIfYOaTXsI4wXGemLy8j1yXnIuOnwb6MyfUyTyEiJEgjv4w/FUx+O98fRx/jUWz+oJ1rMAoq3Cs6T1gtXOyRNpxwUE26VcnzTUTCAiPDbJyFekmJXREoSQLvoUoOyuk10ORqof/YU5j6baL95KE781ZyEenzegYA06/IrnPyhLhMY2Anh622sm9H34ihvo2bGOj31wvEgXa/7b2WfyMYFsp09lYRoR6AZ4956cfEfg1/+4/6FrnUi5C9fvpEf6yq+qXl6PjY60OayyJ5zci50hCYgvh7ZV4THU7PWG4nxBLHB2lBPQlaq3dtCs+8Sud0x+MCeT7KjzTnG+nqYOSwqe03bNxBjRIU0aKEyQDa1QyXeXgnwde0iOe7tPnC/NGblvL0rQZB75C9zOUoGHb6GTmfpKQGSJQfmt/zncDyQjw02foj0SJtg41eUuEyYM1aupNTzVGh0UlJvJ662TzUqdzoKx5udPrTx7XojkH1+0RO+wvVA4JciWo0TpGiNo1EHXSikAUi7yvH96sXOVuSeP368+r24TsfXkxVyPMCFDP0mMZ0v8zwiRBitTsLFaKWhCNj7TlL5tyQoG64M/jv0r/fnfxVDi49EAIP0RZGO0e4=
+ ARA:13230040|366016|376014|1800799024|23010399003|18002099003|22082099003|11063799006|38070700021|10067099003|56012099006;
+x-microsoft-antispam-message-info: ZB8f1IEpB5iI8AyBQR22VvfggrAWz+uvxVWDNAMlw1notJM/GutSVZa8JGY23L6+K9tKzruqb9r08q3R/44J4NRNO7Gw1S63BekEbtLAIEs8h4fSkQSjv+k2J/xaiL/YUQm+h1Mt6r9SQbl6Hvx++scPORSP1vYRMw5rd53ydeO6dEHUis0cU9ZYdLtHc/CXgixmAGkZIMbBxkr/sPdJXzLcsfeZQMl0QO9i1dfviajc/tFJQukXvcbPy2VjRxbybIJsE5pXQ/dMYfmfbHjmK/DbjA3+PdzoS1xor8k8whb62fLCBwDFytZchp6YgOoTRQsEYep6f2Z0Ycva5VkBsxLuhTgpcQ9hD1zB+q14VfU3Fzob0L48W8QL5gAAbFDGr//pC1my57ECqzUXCXTvXCwzDBnuStCR32oFqaRu1YgBwM6meVEBy8iVaNHEWDdsUTvXyljk4yABUV9aRT46esRD8PzVw1ET+kz2o9Igj+WSJVz25aY6G4gFdDxEssrSXgGX5tItepNgR51fypFkvehA7M0iuKFf2W2hLnIVz/iETlLiPcp/XwrBfYwIZbh1tBf8emWUhRdhDB7qcg0AvuFVhQhfYyqaMr6v0sqAnZZum/+lhBr7iPP58nHLjSq5Aci9IXKKllBJIvy+zkmCtGZ3UUxdDrvnOMf7opbGwTVQ8AWsUgWDat+h/iIVp1Lloh12Z49czSh8yLUelChEYg==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SN7PR12MB7856.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(56012099006)(38070700021)(11063799006)(10067099003)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:CY8PR12MB7563.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(11063799006)(38070700021)(10067099003)(56012099006);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?2mLqvIyTpVAiF51NazqgkDRZfzFljCs4goHh3Z6vumnQvgmyvYUSz7UKzPnU?=
- =?us-ascii?Q?2MgE3fTlnn0TGhjXvMUEKjXL7uEo7sxzHWoxlEMFdLWVbS9zKBNoYTfAlrRl?=
- =?us-ascii?Q?Ez8VJd/lE59Nu6rDjQR54tXhmdH6qHS6ISr214zoZicQ+HSi2mzF+7fZyH0w?=
- =?us-ascii?Q?TEcES25Py7mh4GwOxd34DZvcievPy9+O4i5cXohjZnyBtz4hhXS2Xz4hLxtc?=
- =?us-ascii?Q?Qp5ZDNm3ZolaybF+b7+0Yb99OFApadhzthuX5eW14ZSmvDMeoFMmNwVnGzma?=
- =?us-ascii?Q?G0phyrmr43iPKi53cRghizMh/Ds8qar5qjBh5NDhgaHmfEIYEgYzSdUKxgjm?=
- =?us-ascii?Q?XEMdqF7CUFLmgFSrvR5cLIaM5oLBZfZ81ySBQfbSo7QjtOCeDvfJb2Mi0KZ+?=
- =?us-ascii?Q?nh2NcXukF8p8A7b73ZQOPC6QvzUMyDogwFSDqVZDmbmn3UoteLo6/7fY8SEd?=
- =?us-ascii?Q?1kcYd8w48WRQbfCNz4HFgWBhnqXShyofPCvb5bmEhCSKgdTEAn4uDR5u783r?=
- =?us-ascii?Q?sAeTJsHaF58gUEveiE1k9NKJhaf42CYClUDFPOl1ld5T8L4VhHan75Y5BBnK?=
- =?us-ascii?Q?Ml+m/3c8rGTH3/F2ZLLgDqZjMDfNdTjVdl3ABqU1RC5hPNo1iI4N+h0iAB0e?=
- =?us-ascii?Q?TsLywdRri2/6UpqaU8VKNQxv5q1VzxIle1uq99sPY6cuHAa9D9bPh3Jn/FLt?=
- =?us-ascii?Q?+2mQa2d5VzU04IqLdPOGVDcxb8OjFZP+xkQ5DaptXIQK8rU2sHsLDwrlUDc4?=
- =?us-ascii?Q?n3+M9gLEmspn6Mqwr4oP0T41u9cCuhM8X36vpw7qhwSY36UDQ8+fVpE6SlWq?=
- =?us-ascii?Q?0bq0azt/A9wUNojZUUlhy7K5qDVLDUQBRkLdAVe/p+BerRYL1380E7m1hPfs?=
- =?us-ascii?Q?uls8os339fRimdSEnGZLPg2+iMfYhDnr+bRlyEg6R/wJg9IK0cnSzNwOlaiG?=
- =?us-ascii?Q?nvo+j7tMfkOE6t/axFZfHPayeIX6WT3jkat9ocW3gKJ0ER2Y+ARifpNWt/Qy?=
- =?us-ascii?Q?AqfqVd0unOcHbeoJbmW9rrDp5sj72EA0BaMH4cS8KuXNuxKwW7ygt0O5ViSD?=
- =?us-ascii?Q?YTzmcLPqUIGEr6vQMepP5KT3MACJ0juqU58dSv+OiqvtrVM2HmAmPxUxaWcJ?=
- =?us-ascii?Q?fJ6EeoJ2eiVnGawgkheGuwYEhZbRT2ZbfaFEIyVp0MuOTUGO7si20Iw8fD0C?=
- =?us-ascii?Q?mvsdpc3q1B9KJBrxpZV2ciEmuVw9MTT9d0hMTZinEKYgc3evbaXLOIuB8563?=
- =?us-ascii?Q?BEEuDENykY+dPFnVWYb3bjyOegZOB1lQZTOVBKP2iQPwqjzOBttYaKc6RTY7?=
- =?us-ascii?Q?OvDTm9XpFB5oMINHXigoKB7HxuVd/CaTPpDUfiCE5gx7+eYnk5MazjrBxxDL?=
- =?us-ascii?Q?Hz71ttjrKPQldvF16ID0Dpbj5Z0KV5aCAQL3DlptZsQjzBGv424jY2aIAg0L?=
- =?us-ascii?Q?cU9OGjhTZjVKEAw4ycMxNPed3FrziatXGIchqoB56Gvd43A/DV8ZjKVDNMFR?=
- =?us-ascii?Q?d7QurIaGE6dOcvbikw8kAKxGjrzTIGd5VFi4GM6Cj4zc/BmHd883K4RunVOq?=
- =?us-ascii?Q?1fEJ8Li3hcCq5jioznHVglxdvzyGt7FD8R6HAoT94WOBCr+zFhFjqZVLusJa?=
- =?us-ascii?Q?/mZ9AddgGPvObVyiaMOHmRnFnwC2JsqNk4Ma4c1bFfFJr6/AIJOBxwupc9K9?=
- =?us-ascii?Q?uqdqbD8m//MGIqyWQ3XeyI0tEXX78aWVtQ3J3HsjrKASkDbt?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?jq4vdl9CyHJG54KcbaMz37XzAu4u9TMNuKITbNW5iIP8Go8ZzOpXUYMKbjDU?=
+ =?us-ascii?Q?EOmMRjoP4LQ7+nL4TwqV3BfM0XHcgqShxHECQfUFZhUEkTZ/3ru0IEtlEfmS?=
+ =?us-ascii?Q?SllkU2vhrUJ8OnUE4B1l5AODrX1a3G57Lsi1PnzT815h0oTdBsBGszHdL+2R?=
+ =?us-ascii?Q?z11AMPkltdGay62G3EPF0virpz1WcFtsDOvb8UmmAediDf16PGDHZU/XB6JN?=
+ =?us-ascii?Q?kSH6brW0/rd2IbbnhlGR4cUzMVwq1tuoVBp10x1D9Hvxgj5Lr4OUcAAz77S7?=
+ =?us-ascii?Q?cVBXA8VPy2FFs38fhY9xqD0+vtExWLYDpq46IvIo+S6WeGQ7A2htn22nPJyq?=
+ =?us-ascii?Q?wu02x47gnI0Y9sfA2u24BI1bbxkU1tBm2FCQ0ZQ9OTAEYW0XyG2OxncjOkdV?=
+ =?us-ascii?Q?P+q3t08YD6XRRXg1ZLhfkaR8tOpoqmLrRjgL14bkegVcV53MXQCeFWLXAaNi?=
+ =?us-ascii?Q?1cfjiyF9Gs4WmXCjl/kBWC/yZoEMRfREhCgUer1gs8X3ZomWiuOtdyXcvpCO?=
+ =?us-ascii?Q?bi2dcch+W1Jjr2rvhNkk/2A0V+j8CA6AQSizj9vsLLD3GGXT/ffn+kNHUggL?=
+ =?us-ascii?Q?3eCQzhfCKzJNDWKsmUZcUnvHHCPj83IKeOECfsPirgZ3cl7C5Gj92rS0N9bn?=
+ =?us-ascii?Q?bZqEF/rUvQsda09b+uqMEMJyz4/rIPa30enw47EcB/uf9itp13xAO7pOQSTI?=
+ =?us-ascii?Q?MWpQFjl1ayAfeHY7LEsNAe6LaR9u721uLmCmztZKvL1VkwbqwjaMJS2vFGq/?=
+ =?us-ascii?Q?YUDXttQ/zEbPnxE4LCm450j24zB2+ds+XQSRRDb8EBpuvg6RSZqeMle6MApc?=
+ =?us-ascii?Q?QWmokZ8RnqWjMyhX3FA5nSxS8SnBWsNEcOEwN0E2tI44CVelw4wnfAK1tHdo?=
+ =?us-ascii?Q?wAJG9fXkRB2UbIIoqza/eC5qYVEL2VI6avjNxKaNFSSV8VXyzBzOPxZPHW9Q?=
+ =?us-ascii?Q?cjoZOnIgrLPr2OShfvEUGcWIffhQ6MADh1py851VDxPmFY0QXUL9CjrMmy9s?=
+ =?us-ascii?Q?6D4Zuc7PkSIwYAiQSrrflPzh4rn0bnfA+y8YepIjSS2dxIGlz+qgtrEsSYkL?=
+ =?us-ascii?Q?5u032nJtuxM7R/D8Phg/A0H+kUdPqeSYgBKkda6CfMe3t2McVukSM2ga+m96?=
+ =?us-ascii?Q?QuGhGKbPaDmHX31i7rJiQzO5+Yy+czdIQFYDZa0QYrPdxqhhK1qWIcD07FvR?=
+ =?us-ascii?Q?kseZxTg6FJG4ijMHYKIHwKHA3Fnyd+1a5syotau1/fhjs6hdS374Z3xP4sZL?=
+ =?us-ascii?Q?iZWV8r2lAInLbpNMN5LFh70GzxYgPfa5JX4RkZLmd3vhJIQE43B6MyKtT5NN?=
+ =?us-ascii?Q?DYQ0e1QzMa69iTJJcH27FFTFMFo1iK+IjuMis/khu+nsoKxo29lQM54EEoor?=
+ =?us-ascii?Q?Q1RU1cNlURiQYzzwbd68drq2E8z6MSqTnPaWUlhxLbWYsBbXuapQuvcAQBGh?=
+ =?us-ascii?Q?3ekPYwLM7q7L/6EkJrDdms3Rm5/7d0p6a71HfEbyMvFBpr/6HCQ/B6kI55gp?=
+ =?us-ascii?Q?aJlJb1ywqhbtNJGvOsHOiQcnC3YBzMRUA+3/P2/cphGBQ6PQls1Ede0tmTvw?=
+ =?us-ascii?Q?x/os5m4dqTT/lTyjFTl4ivn3z8mFTR86Gu3lBqEcTap0Wztf3nf1Jio3WROZ?=
+ =?us-ascii?Q?DTGSbCSJvMETWXcZz9SeJbYEMNe8bi5lBXRFJmpmy0+WjXj+bAByTV8aRij2?=
+ =?us-ascii?Q?dyE1sn1mXJ3pvf6CeDR53rD19txRGfIcGnPB/ZCVbndLIa0t?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR12MB7856.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79155e7b-6f05-455f-b4f4-08def242b82c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2026 16:09:10.4794 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7563.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 090fd77c-9c38-4e81-d6aa-08def24b5c8e
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2026 17:11:02.1997 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: X37B564+WcDg4q0blRcV4vic1NRBpuF6dLRgna92I47dPrxYPCINsta4uxfSPhRv3aFwNTqh3TxwPoxZ9ODoCA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7735
+X-MS-Exchange-CrossTenant-userprincipalname: KGh+rdpD+PgblxfDQwfpiEUZLZx+8O08IVqJrsXKhMf8n9pCJwEOUGcbYAE82UDyA6Z+lfZ3+1RgKMjGZviPgA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8221
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,88 +134,70 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 AMD General
 
-Looks good to me .
-Please add me as RB .
+ping
 
-Shaoyun.liu
-
------Original Message-----
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Jesse Zh=
-ang
-Sent: Tuesday, August 4, 2026 3:24 AM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
-stian.Koenig@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>; Chen, Michael <M=
-ichael.Chen@amd.com>; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>
-Subject: [PATCH v2] drm/amdgpu/mes12: fix dropped dispatches under queue ov=
-ersubscription
-
-On gfx12, when more queues are ready than there are HQD slots (oversubscrip=
-tion), MES keeps queues unmapped and maps a queue to an HQD on demand when =
-its doorbell rings; a queue is only refetched once its per-queue work_done =
-is cleared.
-
-Historically oversubscription was handled via the aggregated doorbell, but =
-that is a shared level-wide signal: MES cannot tell which queue rang and ne=
-ver clears a queue's work_done, so it relies on the coarse oversubscription=
- timer to rescan. gfx12 therefore drives GFX/compute through the per-queue =
-unmapped-doorbell path instead (the aggregated doorbell now only serves SDM=
-A), which can pinpoint the ringing queue and lets MES stay idle otherwise.
-
-But with unmapped-doorbell mode 1 (basic) a ring only sets a coarse level-w=
-ide ready flag and does not read the per-queue bitmap or clear the ringing =
-queue's work_done. A queue still marked done from a prior dispatch is skipp=
-ed and its new work is never fetched: the completion never signals, while q=
-ueue creation succeeds and no dmesg error is reported.
-
-Switch to mode 2 (basic+): MES reads the per-queue CP_UNMAPPED_QUEUE bitmap=
-, identifies which queue rang, and clears its work_done so it is reschedule=
-d promptly. This affects every queue MES schedules on gfx12 (KFD and DRM us=
-er queues), which share the one MES instance and this global setting.
-
-Tested on gfx1201: concurrent multi-queue dispatch that intermittently stal=
-led under mode 1 now passes on both the KFD and DRM userq paths.
-
-v2: update commit message: describe the oversubscription case, why the
-    aggregated doorbell is not used for GFX/compute on gfx12, and why
-    basic+ (not basic) is required.
-
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/mes_v12_0.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/mes_v12_0.c
-index 8d1d1bf9091c..cda83e6533cd 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_0.c
-@@ -1015,10 +1015,16 @@ static int mes_v12_0_set_hw_resources(struct amdgpu=
-_mes *mes, int pipe)
-        /*
-         * Keep oversubscribe timer for sdma . When we have unmapped doorbe=
-ll
-         * handling support, other queue will not use the oversubscribe tim=
-er.
--        * handling  mode - 0: disabled; 1: basic version; 2: basic+ versio=
-n
-+        * handling  mode - 0: disabled; 1: basic; 2: basic+; 3: basic++
-+        *
-+        * Use basic+ (2): on an unmapped-queue doorbell ring MES reads the
-+        * per-queue CP_UNMAPPED_QUEUE bitmap and clears the ringing queue'=
-s
-+        * work_done so it is rescheduled. basic (1) only sets a coarse
-+        * level-wide ready flag without clearing work_done, so a queue tha=
-t
-+        * rings after work_done was set is skipped and its work is lost.
-         */
-        mes_set_hw_res_pkt.oversubscription_timer =3D mes_rev < 0x8b ? 0 : =
-50;
--       mes_set_hw_res_pkt.unmapped_doorbell_handling =3D 1;
-+       mes_set_hw_res_pkt.unmapped_doorbell_handling =3D 2;
-
-        if (amdgpu_mes_log_enable) {
-                mes_set_hw_res_pkt.enable_mes_event_int_logging =3D 1;
---
-2.49.0
+> -----Original Message-----
+> From: Clement, Sunday <Sunday.Clement@amd.com>
+> Sent: Tuesday, July 28, 2026 4:45 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Clement, Sunday <Sunday.Clement@amd.com>; Cui, Flora
+> <Flora.Cui@amd.com>; Russell.Kent@amd.com; Clement, Sunday
+> <Sunday.Clement@amd.com>
+> Subject: [PATCH] drm/amd/dkms: Fix TOCTOU symlink race in build directory
+> creation
+>
+> The DKMS Makefile used mktemp -u to generate a temporary directory name
+> without atomically creating it, then root-privileged pre-build.sh later c=
+reated a
+> symlink at that path. A local unprivileged attacker could race to create =
+a malicious
+> symlink at the predicted path between name generation and actual use,
+> redirecting root file writes or rm -rf cleanup to arbitrary paths. This a=
+ttack recurs
+> on every DKMS rebuild during kernel updates.
+>
+> Fix by replacing mktemp -ut with mktemp -dt to atomically create the dire=
+ctory
+> with mode 0700. Update pre-build.sh to remove the directory and recreate =
+as
+> symlink.
+>
+> Signed-off-by: Sunday Clement <sunday.clement@amd.com>
+> ---
+>  drivers/gpu/drm/amd/dkms/Makefile     | 2 +-
+>  drivers/gpu/drm/amd/dkms/pre-build.sh | 4 ++++
+>  2 files changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/dkms/Makefile
+> b/drivers/gpu/drm/amd/dkms/Makefile
+> index 8112b9746c8f..02eea52ae0e7 100644
+> --- a/drivers/gpu/drm/amd/dkms/Makefile
+> +++ b/drivers/gpu/drm/amd/dkms/Makefile
+> @@ -4,7 +4,7 @@ else
+>  KERNELVER ?=3D $(shell uname -r)
+>  kernel_build_dir :=3D /lib/modules/$(KERNELVER)/build  module_src_dir :=
+=3D
+> $(CURDIR) -module_build_dir :=3D $(shell mktemp -ut amd.XXXXXXXX)
+> +module_build_dir :=3D $(shell mktemp -dt amd.XXXXXXXX)
+>  module_build_flags :=3D
+>  num_cpu_cores :=3D $(shell which nproc > /dev/null && nproc || echo "1")=
+  CC :=3D
+> gcc diff --git a/drivers/gpu/drm/amd/dkms/pre-build.sh
+> b/drivers/gpu/drm/amd/dkms/pre-build.sh
+> index 66f7177b6cf9..24f5a13ad854 100755
+> --- a/drivers/gpu/drm/amd/dkms/pre-build.sh
+> +++ b/drivers/gpu/drm/amd/dkms/pre-build.sh
+> @@ -100,6 +100,10 @@ if version_lt 6.0; then  fi
+>
+>  export KERNELVER
+> +# Security: MODULE_BUILD_DIR is now atomically created by mktemp -d
+> +(mode 0700) # to eliminate TOCTOU symlink race. We need
+> +MODULE_BUILD_DIR to be # a symlink to DKMS_TREE, so remove the directory
+> and recreate as symlink.
+> +rmdir $MODULE_BUILD_DIR
+>  ln -s $DKMS_TREE $MODULE_BUILD_DIR
+>  echo "PATH=3D$PATH" >$MODULE_BUILD_DIR/.env
+>
+> --
+> 2.43.0
 
