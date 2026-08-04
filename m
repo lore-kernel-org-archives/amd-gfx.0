@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5304BC55ABF
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 14:34:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FA17C55184
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 14:34:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EDDE010EAB7;
-	Tue,  4 Aug 2026 14:34:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6591510EABA;
+	Tue,  4 Aug 2026 14:34:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YS+lz7a6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="P7qG9ILE";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012041.outbound.protection.outlook.com [52.101.53.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C700A10E670;
- Tue,  4 Aug 2026 14:34:07 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011058.outbound.protection.outlook.com [52.101.52.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C66810EAA8;
+ Tue,  4 Aug 2026 14:34:11 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nKeD4C862kcJEN57QCrEwui3BJHEXQwCrbO4cESMJfRLvKwcWRqBGh9OpguOaj/3i3pAf8MxscuntFm8t14kf5fLgVwgTiN6d2TJe8SPSxww5ijgvCw24jEzS76hf/SiM3mtbUZq3g1ZUP3tXY305A4FKx3k6+L5BWX23B9NyL4WQ0Fz/X/KAQDuU7u8vqZk6cBW5YGGqf0pkOtcIFhE5GWkzcMtqIqdSUlTVCvHNKTJPLmaqJUNY6iZk/i1rkK2PxPByzw+ITaHKHaTRZfjF+WHMnkrK5cO3WMHj9NQROzE4ptgpqn1I4pdsLAKl3H8NiQR8GF8Y4RZCfM4gIAOxw==
+ b=XuORXSmer/BqgXPeWMOEQb5NRr/L+tJDifh41rOEggTUwMaplgzwvOZety6c69yqfPDptRrFXRBSYasDCam1zLvhFvgn1L/LQyf0Rum2GmzJKHyUwe6wNu6cPMb8NqcgvVesPjRivz9Hxop5pnslYSBxqG9i/E4bGjBEOtbeiHnuaBs2a4yvvBjwXjfQCWGPHrecBo8zaPRMeq1kLkxdPOsQKlhYZhBAcXFgGbpN+0SyeB1yHsaVSbFKzfrIQuJHqbg/fZI6mm16hgOJSKH5I3YapYbqPXb2mlLiF7NkNiN+n3Hf2Xv88SiVOs2nlJSKv5YGRvhquWuBCuGTVr9qbA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=i4j0qbqs01YGXAAhmUG0ZLeS2gx/WgH9CkjycqDiPx0=;
- b=DyCASCspQLecHmnSJvw+1/JB5uXWmK4FjvEmnqZQVSrh21S6ITM0j0oArby3YGMTyzMVzQfK8e9SICXUAqS0iXYwZwvEr4ER4pwomHSWyjwJzueKd4YsFD3MEmRoAomBqr/u6jkDmgpV28FcXRun2WOuZuELVXmI2hpA2Pslk9qJOGsMyZcPT4S7efvEdtSKE08IWJeIs4hIH7tV34LUJi9no21ExSAx6E6dewZ/CAsVDMbpzWW69a+6PJ0GZET5IrMj55hRM7VPvclvi3duAv/SXqfwtkkMm0VW6wFn2uy6kqBfipY+YRPjeqc6a0I1qf65gcBtQGT8hcQXM+TpOg==
+ bh=oUO8OwmgyXpWvA7QjDHXssixtjtHeZ0zMAYoMHWUN4A=;
+ b=FCEDhtiUVYmXRj4J5GLiJavyXwuolLBsdZEOp+AiYHL10GJm79RvRcgwfer4TwZOUR/XpPkBEuonNmG02WDIWUdSKmOE5X4BuAa2vkuDstRSHwh+gf8ZUCo4iXMIFbuOo5VRPqYhv3JX6RqLP+WMNuWD1gUBmijp7H3IRp7tUHx9yhgOgsobzcEVJorB2oJuztCjfiHpVyuM4n7qmKiO9pQTGzF0lv3OJn7KpQwWKJ8Dfqfu3qAkKEeVR3fn0yCjU7IrFXR50Ez3gKo7V43kru0uvOIyBlP65vc3kuxkOAWYf6tLeai1Vshee8e3XwPgESGTSH+/EgFOxKSJOfBwNA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=linux.intel.com smtp.mailfrom=amd.com;
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=i4j0qbqs01YGXAAhmUG0ZLeS2gx/WgH9CkjycqDiPx0=;
- b=YS+lz7a6ev/ghAkAcUanpxrGLD9xPffWNhXoE4Kl4BS/mFQWvSPzVcd0yxtBRs6zl5FhFPU89i3IBvQoR7zwBKm1sQmG86W6FEXNeWERlLmqftBJ+oj8M+dClOd06D2Uq9poTtp5F/xGuVCHuv86UL7aJE5tVAFIZ3xENHyp4fM=
-Received: from MW4PR04CA0054.namprd04.prod.outlook.com (2603:10b6:303:6a::29)
- by LV3PR12MB9412.namprd12.prod.outlook.com (2603:10b6:408:211::18)
+ bh=oUO8OwmgyXpWvA7QjDHXssixtjtHeZ0zMAYoMHWUN4A=;
+ b=P7qG9ILEdEmjCD65y4PjJBqyTnA3r7s6AX/dlR1L1M3LFGXIzMCWaZihJedF32UDZfd1lHXJrbaah2wVkIBOYsiY7psQqUj7ibGvHIFrh8mgD2rhWs6bXO07glFQCXtdhKGgy2eZoD+k0BW9m0sWKdiwyqN+fmOfi/ej0QEUzjk=
+Received: from MW3PR06CA0023.namprd06.prod.outlook.com (2603:10b6:303:2a::28)
+ by IA0PR12MB8373.namprd12.prod.outlook.com (2603:10b6:208:40d::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.15; Tue, 4 Aug
- 2026 14:34:00 +0000
-Received: from CO1PEPF000075F0.namprd03.prod.outlook.com
- (2603:10b6:303:6a:cafe::10) by MW4PR04CA0054.outlook.office365.com
- (2603:10b6:303:6a::29) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 14:34:04 +0000
+Received: from CO1PEPF000075F1.namprd03.prod.outlook.com
+ (2603:10b6:303:2a:cafe::75) by MW3PR06CA0023.outlook.office365.com
+ (2603:10b6:303:2a::28) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.16 via Frontend Transport; Tue, 4
- Aug 2026 14:34:00 +0000
+ Aug 2026 14:34:03 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +48,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000075F0.mail.protection.outlook.com (10.167.249.39) with Microsoft
+ CO1PEPF000075F1.mail.protection.outlook.com (10.167.249.40) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Tue, 4 Aug 2026 14:34:00 +0000
+ 15.21.292.8 via Frontend Transport; Tue, 4 Aug 2026 14:34:02 +0000
 Received: from MKMALEXHUAN01.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 4 Aug
- 2026 09:33:58 -0500
+ 2026 09:34:00 -0500
 From: Alex Huang <Alex.Huang2@amd.com>
 To: <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
  <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
@@ -63,10 +63,10 @@ To: <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
 CC: <superm1@kernel.org>, <dri-devel@lists.freedesktop.org>,
  <amd-gfx@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, Alex Huang
  <Alex.Huang2@amd.com>
-Subject: [PATCH v3 2/4] drm/amd/display: Use HDMI FreeSync range from common
- EDID parser
-Date: Tue, 4 Aug 2026 10:33:37 -0400
-Message-ID: <20260804143339.714548-3-Alex.Huang2@amd.com>
+Subject: [PATCH v3 4/4] drm/amd/display: Remove unused DMCU/DMUB EDID CEA
+ parser
+Date: Tue, 4 Aug 2026 10:33:39 -0400
+Message-ID: <20260804143339.714548-5-Alex.Huang2@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260804143339.714548-1-Alex.Huang2@amd.com>
 References: <20260804143339.714548-1-Alex.Huang2@amd.com>
@@ -78,29 +78,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075F0:EE_|LV3PR12MB9412:EE_
-X-MS-Office365-Filtering-Correlation-Id: 770339b8-fbd9-43e2-dd5f-08def2356c93
+X-MS-TrafficTypeDiagnostic: CO1PEPF000075F1:EE_|IA0PR12MB8373:EE_
+X-MS-Office365-Filtering-Correlation-Id: 00246030-8a17-42ac-0f0b-08def2356e21
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|82310400026|1800799024|36860700016|23010399003|22082099003|6133799003|18002099003|3023799007|56012099006|11063799006|10067099003|921020;
-X-Microsoft-Antispam-Message-Info: jh5p8XL5D4nRKq6OeDgZlO1hr+46uYbhFUX9QOzaXgXdwsusJZoe9SqDyBzbceaJKIfObS6VZ/aQrwHcjlWEgscT8X9jjes2NDHMoXWgMbV2Z9N6tjBv+ajN6+PWmZ8Pniwrf27Z3a72XZxdtbQmpjUpQCFaoYtO2VdW3phDaSn2mw5wEENaqLJGBRl8rHAD0SPSZN8pK2v8okGSIvkPAJz6qh43o27sbDljHH33WP4FFzYxqWUSj8Bofbo9RQbd6fKFJq2P8YbWBiD11zrZPdspZqWx4SpyoCYjndNK3pgWTo8XLDLxjaOg+N5ZPJHb/1iw4AHTUPQPKKWo0jskbSOWIMMCc0Vjyp/omf7r9gJb5q3qlZyam8Gf8zvlITPH3obcgxsGk6uXHMHzvE7ssr8NjsUIk+wA10cqlEZ2lGKTOMhSNbGDoIk3aCvMWME7FpltxrfU8Ug3+Cd6vQW4cL5gUM5zAOjPF1xhmYQQ0dVZ9pvZZXLKD1aVYWQT+bfDcJarrP/rsFM+XU+KcE8prc0CZ43/PyLtSw9C5nvl9T2NDWstFNZFg+ROyZMCeok1uDKMya/FYcUUXl1aEvOmgCVZelEC5bBRNeie3KNba7NhN2SwDPd1Z78rJfmIOrRwv1onh5KD2usf3XPDKHGGI51/3kUFMkRL7nqtNqLGWfFvwOBZjy+EFBUjpbRmDjkFIr10PNYonTqfd5iunnuEOP2/PqLF7gjjU2FJvNjYAueaJTqkqlSG5CcjqU4MFAvK
+ ARA:13230040|36860700016|376014|1800799024|82310400026|7416014|23010399003|10067099003|5023799004|11063799006|56012099006|3023799007|18002099003|22082099003|921020;
+X-Microsoft-Antispam-Message-Info: PR0YfnmUNW3fV31TkYirJs3oJt5RwzMQErz+4tk07wi41jk4aAM+NfextBxDDqNB4L7OcExyCbdiY4cfWyjBTuipAL+rLoECBz9hXVMkafMZXVWkVbm3mkX9s1hk2bm9swooK8NyqpR4v0MjKf3LkU5jog8AUS4PKqdw+jWeVL88h/nUvAwDHQiJAt40pPXCAhf2aTlZmTev0E6oq8n3kgOdr5wO8juYAUMwU5oo1qt+GKkyRFVFpRpOIllf3m4bCLwXPjRvayAjIeG0Glsxuo5L14W4UnrAMePNZqfijEPsmDS8KoWtUlce3yl98n3j5m5TPmPVj9VPj19qhJ6ghZnz65k3BXWuevNNfR19Zfm/es6BFYgz8Usm/nU+Qg5qkDICCEV7mdI9ig1rSJp1cTc6PspkE43c9E/8/YIXSCssCnzwepZqy/NVhW0nF6Ib4pRmYMrAJ32t0hTaJ2vUqmonHUnZqSe1pGpbuHKAhqwdsoXme4Xu2gQMOEw5lbp6dcE8owANzYfChd+okuy8dlyZMflw7rAeB51MPq1alVf4tI5uCVS/Y3U4YIOYg4UzUYkxcAK2oABnRs38r9C31S49kQXzb1dPxhRet/uHRr9DaJVQ5lW+jQ99fk89utGvRimT7tKsJSjinSPdxmVDDPppoaXYjj7aYIcV9XovbxHxQPsPgKhD2xRUHfOks7L3ThUUrcoBZ2otYOcjPo0dMyIfniuvRMzk5LZBsrvewW0HCT9tAONdIrKhphnyiJ+P
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(82310400026)(1800799024)(36860700016)(23010399003)(22082099003)(6133799003)(18002099003)(3023799007)(56012099006)(11063799006)(10067099003)(921020);
+ SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(7416014)(23010399003)(10067099003)(5023799004)(11063799006)(56012099006)(3023799007)(18002099003)(22082099003)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: jhqVY6QLsBkWhEDeskLAFCaBZV0Okn/55cUz9QDHBmI8Nj/YVv/LTtmXqa0Ezzsm9m5uo6B+1f1XfPJBatjlBB3PdXFtWLjnAIwngrcrRlnoSk2exNIoS6UozWERJOjL10DcYAWRipikKvXO77ej2g24/DuLFyrKUelRP2FFkqT5X6CwrYD53gLOlDtJ01CbsbSkNbDDSX8iqChJUnEvgsaY0w54qgH/3CETJvAOWRChjrd9naJhQIqKsC5rU/Zt0CY6MK3DTJzhFgOswUWEnj/bP5bQKzLg3PJbv2H8FMjI0dxig4BJlrJ8ujJSklSjGK5HMgWan5er4g8Sp1rv11CRCCkz+Ta4SqVl9j9ABcrwduxaRgFezhmOYbmkUCt4oHZr5qfJLxw4HoCfoJriPCTtFGNGtGX/V6J5AN8paaFybGFNtzbrl+tnuRAzG0Q0
+X-MS-Exchange-AntiSpam-MessageData-0: E10sMLo0ija/MstIleNt9kLhEgbPAfXHUaU9nFulKaLgmb1ezRvN5iQTFW8lRUeYB6F93eK7UKM02HK3Cimf4wBsTWc6HP6qvbQUVH9capvxSX+JfP3HWbPGfriqeOtzL7jz9rGCs/HK40udJ6mtk8k1Ui0C+/zQ54ae3XGS/9naRFh4Iujs3KKysHqDuSyAWhyAVumqVrM5Mz6PvW3xb3oTrd3MJbdqIndd2m9wa7AFO/gVEvsDBxYEWsS/pyqkYIXinDvG8Tyc2dn2k6MUo8UUJGKyar7Rsvkzbb6DGUqNVloJeJILm5RzuPPsB80tYW6VDijuaJ/ARtCo2hMis9p7nK0U3eqteZNdD/8kJ8kyDiNa0c/JBLvWokTL4mKMzPnq1zMtgyykFS5aFJ9P1knKt/3iWbpYcSERAtgDtDQW0qOFG0XsPGYaTDaTiB0Q
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 14:34:00.0666 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 770339b8-fbd9-43e2-dd5f-08def2356c93
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 14:34:02.6694 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00246030-8a17-42ac-0f0b-08def2356e21
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075F0.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075F1.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9412
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8373
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,241 +115,436 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-HDMI FreeSync on amdgpu is detected using the AMD VSDB parser in the
-DMUB firmware, now that the common DRM EDID parser can do the same, use
-the common parser.
+With HDMI FreeSync detection now sourced from the common DRM EDID
+parser, the DMUB parsing for AMD VSDB is no longer used.
 
-Extend get_amd_vsdb() to copy the relevant flags and data now being
-extracted from the AMD VSDB. Additionally, parse_hdmi_amd_vsdb() and the
-parse_edid_cea() firmware helpers now have no callers; remove them.
+Remove all relevant fields and files for this flow, it is no longer
+necessary to ever take firmware round-trip for this.
 
 Signed-off-by: Alex Huang <Alex.Huang2@amd.com>
 Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 178 +-----------------
- 1 file changed, 8 insertions(+), 170 deletions(-)
+ drivers/gpu/drm/amd/display/dc/Makefile       |   1 -
+ .../gpu/drm/amd/display/dc/dc_edid_parser.c   |  80 ------------
+ .../gpu/drm/amd/display/dc/dc_edid_parser.h   |  44 -------
+ drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c | 121 ------------------
+ drivers/gpu/drm/amd/display/dc/inc/hw/dmcu.h  |  10 --
+ .../gpu/drm/amd/display/dmub/inc/dmub_cmd.h   |  71 ----------
+ 6 files changed, 327 deletions(-)
+ delete mode 100644 drivers/gpu/drm/amd/display/dc/dc_edid_parser.c
+ delete mode 100644 drivers/gpu/drm/amd/display/dc/dc_edid_parser.h
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 1820547b1dde..44b8dd000f5c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -36,7 +36,6 @@
- #include "dc/inc/hw/dmcu.h"
- #include "dc/inc/hw/abm.h"
- #include "dc/dc_dmub_srv.h"
--#include "dc/dc_edid_parser.h"
- #include "dc/dc_stat.h"
- #include "dc/dc_state.h"
- #include "amdgpu_dm_trace.h"
-@@ -13647,139 +13646,6 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 	return ret;
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/Makefile b/drivers/gpu/drm/amd/display/dc/Makefile
+index 93d02956c5eb..e88a9cea8d88 100644
+--- a/drivers/gpu/drm/amd/display/dc/Makefile
++++ b/drivers/gpu/drm/amd/display/dc/Makefile
+@@ -63,7 +63,6 @@ include $(AMD_DC)
  
--static bool dm_edid_parser_send_cea(struct amdgpu_display_manager *dm,
--		unsigned int offset,
--		unsigned int total_length,
--		u8 *data,
--		unsigned int length,
--		struct amdgpu_hdmi_vsdb_info *vsdb)
+ FILES =
+ FILES += dc_dmub_srv.o
+-FILES += dc_edid_parser.o
+ FILES += dc_fused_io.o
+ FILES += dc_helper.o
+ FILES += core/dc.o
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_edid_parser.c b/drivers/gpu/drm/amd/display/dc/dc_edid_parser.c
+deleted file mode 100644
+index 0db5b49e9d5e..000000000000
+--- a/drivers/gpu/drm/amd/display/dc/dc_edid_parser.c
++++ /dev/null
+@@ -1,80 +0,0 @@
+-/*
+- * Copyright 2021 Advanced Micro Devices, Inc.
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining a
+- * copy of this software and associated documentation files (the "Software"),
+- * to deal in the Software without restriction, including without limitation
+- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+- * and/or sell copies of the Software, and to permit persons to whom the
+- * Software is furnished to do so, subject to the following conditions:
+- *
+- * The above copyright notice and this permission notice shall be included in
+- * all copies or substantial portions of the Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- * OTHER DEALINGS IN THE SOFTWARE.
+- *
+- * Authors: AMD
+- *
+- */
+-
+-#include "dce/dce_dmcu.h"
+-#include "dc_edid_parser.h"
+-
+-bool dc_edid_parser_send_cea(struct dc *dc,
+-		int offset,
+-		int total_length,
+-		uint8_t *data,
+-		int length)
 -{
--	bool res;
--	union dmub_rb_cmd cmd;
--	struct dmub_cmd_send_edid_cea *input;
--	struct dmub_cmd_edid_cea_output *output;
+-	struct dmcu *dmcu = dc->res_pool->dmcu;
 -
--	if (length > DMUB_EDID_CEA_DATA_CHUNK_BYTES)
--		return false;
--
--	memset(&cmd, 0, sizeof(cmd));
--
--	input = &cmd.edid_cea.data.input;
--
--	cmd.edid_cea.header.type = DMUB_CMD__EDID_CEA;
--	cmd.edid_cea.header.sub_type = 0;
--	cmd.edid_cea.header.payload_bytes =
--		sizeof(cmd.edid_cea) - sizeof(cmd.edid_cea.header);
--	input->offset = offset;
--	input->length = length;
--	input->cea_total_length = total_length;
--	memcpy(input->payload, data, length);
--
--	res = dc_wake_and_execute_dmub_cmd(dm->dc->ctx, &cmd, DM_DMUB_WAIT_TYPE_WAIT_WITH_REPLY);
--	if (!res) {
--		drm_err(adev_to_drm(dm->adev), "EDID CEA parser failed\n");
--		return false;
--	}
--
--	output = &cmd.edid_cea.data.output;
--
--	if (output->type == DMUB_CMD__EDID_CEA_ACK) {
--		if (!output->ack.success) {
--			drm_err(adev_to_drm(dm->adev), "EDID CEA ack failed at offset %d\n",
--					output->ack.offset);
--		}
--	} else if (output->type == DMUB_CMD__EDID_CEA_AMD_VSDB) {
--		if (!output->amd_vsdb.vsdb_found)
--			return false;
--
--		vsdb->freesync_supported = output->amd_vsdb.freesync_supported;
--		vsdb->amd_vsdb_version = output->amd_vsdb.amd_vsdb_version;
--		vsdb->min_refresh_rate_hz = output->amd_vsdb.min_frame_rate;
--		vsdb->max_refresh_rate_hz = output->amd_vsdb.max_frame_rate;
--		vsdb->freesync_mccs_vcp_code = output->amd_vsdb.freesync_mccs_vcp_code;
--	} else {
--		drm_warn(adev_to_drm(dm->adev), "Unknown EDID CEA parser results\n");
--		return false;
--	}
--
--	return true;
--}
--
--static bool parse_edid_cea_dmcu(struct amdgpu_display_manager *dm,
--		u8 *edid_ext, int len,
--		struct amdgpu_hdmi_vsdb_info *vsdb_info)
--{
--	int i;
--
--	/* send extension block to DMCU for parsing */
--	for (i = 0; i < len; i += 8) {
--		bool res;
--		int offset;
--
--		/* send 8 bytes a time */
--		if (!dc_edid_parser_send_cea(dm->dc, i, len, &edid_ext[i], 8))
--			return false;
--
--		if (i+8 == len) {
--			/* EDID block sent completed, expect result */
--			int version, min_rate, max_rate;
--
--			res = dc_edid_parser_recv_amd_vsdb(dm->dc, &version, &min_rate, &max_rate);
--			if (res) {
--				/* amd vsdb found */
--				vsdb_info->freesync_supported = 1;
--				vsdb_info->amd_vsdb_version = version;
--				vsdb_info->min_refresh_rate_hz = min_rate;
--				vsdb_info->max_refresh_rate_hz = max_rate;
--				/* Not enabled on DMCU*/
--				vsdb_info->freesync_mccs_vcp_code = 0;
--				return true;
--			}
--			/* not amd vsdb */
--			return false;
--		}
--
--		/* check for ack*/
--		res = dc_edid_parser_recv_cea_ack(dm->dc, &offset);
--		if (!res)
--			return false;
+-	if (dmcu &&
+-	    dmcu->funcs->is_dmcu_initialized(dmcu) &&
+-	    dmcu->funcs->send_edid_cea) {
+-		return dmcu->funcs->send_edid_cea(dmcu,
+-				offset,
+-				total_length,
+-				data,
+-				length);
 -	}
 -
 -	return false;
 -}
 -
--static bool parse_edid_cea_dmub(struct amdgpu_display_manager *dm,
--		u8 *edid_ext, int len,
--		struct amdgpu_hdmi_vsdb_info *vsdb_info)
+-bool dc_edid_parser_recv_cea_ack(struct dc *dc, int *offset)
 -{
--	int i;
+-	struct dmcu *dmcu = dc->res_pool->dmcu;
 -
--	/* send extension block to DMCU for parsing */
--	for (i = 0; i < len; i += 8) {
--		/* send 8 bytes a time */
--		if (!dm_edid_parser_send_cea(dm, i, len, &edid_ext[i], 8, vsdb_info))
--			return false;
+-	if (dmcu &&
+-	    dmcu->funcs->is_dmcu_initialized(dmcu) &&
+-	    dmcu->funcs->recv_edid_cea_ack) {
+-		return dmcu->funcs->recv_edid_cea_ack(dmcu, offset);
 -	}
 -
--	return vsdb_info->freesync_supported;
+-	return false;
 -}
 -
--static bool parse_edid_cea(struct amdgpu_dm_connector *aconnector,
--		u8 *edid_ext, int len,
--		struct amdgpu_hdmi_vsdb_info *vsdb_info)
+-bool dc_edid_parser_recv_amd_vsdb(struct dc *dc,
+-		int *version,
+-		int *min_frame_rate,
+-		int *max_frame_rate)
 -{
--	struct amdgpu_device *adev = drm_to_adev(aconnector->base.dev);
--	bool ret;
+-	struct dmcu *dmcu = dc->res_pool->dmcu;
 -
--	mutex_lock(&adev->dm.dc_lock);
--	if (adev->dm.dmub_srv)
--		ret = parse_edid_cea_dmub(&adev->dm, edid_ext, len, vsdb_info);
--	else
--		ret = parse_edid_cea_dmcu(&adev->dm, edid_ext, len, vsdb_info);
--	mutex_unlock(&adev->dm.dc_lock);
--	return ret;
+-	if (dmcu &&
+-	    dmcu->funcs->is_dmcu_initialized(dmcu) &&
+-	    dmcu->funcs->recv_amd_vsdb) {
+-		return dmcu->funcs->recv_amd_vsdb(dmcu,
+-				version,
+-				min_frame_rate,
+-				max_frame_rate);
+-	}
+-
+-	return false;
 -}
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_edid_parser.h b/drivers/gpu/drm/amd/display/dc/dc_edid_parser.h
+deleted file mode 100644
+index da67ec06f0a2..000000000000
+--- a/drivers/gpu/drm/amd/display/dc/dc_edid_parser.h
++++ /dev/null
+@@ -1,44 +0,0 @@
+-/*
+- * Copyright 2021 Advanced Micro Devices, Inc.
+- *
+- * Permission is hereby granted, free of charge, to any person obtaining a
+- * copy of this software and associated documentation files (the "Software"),
+- * to deal in the Software without restriction, including without limitation
+- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+- * and/or sell copies of the Software, and to permit persons to whom the
+- * Software is furnished to do so, subject to the following conditions:
+- *
+- * The above copyright notice and this permission notice shall be included in
+- * all copies or substantial portions of the Software.
+- *
+- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+- * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
+- * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+- * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+- * OTHER DEALINGS IN THE SOFTWARE.
+- *
+- * Authors: AMD
+- *
+- */
 -
- static void parse_edid_displayid_vrr(struct drm_connector *connector,
- 				     const struct edid *edid)
- {
-@@ -13830,42 +13696,14 @@ static int get_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+-#ifndef _DC_EDID_PARSER_H_
+-#define _DC_EDID_PARSER_H_
+-
+-#include "core_types.h"
+-
+-bool dc_edid_parser_send_cea(struct dc *dc,
+-		int offset,
+-		int total_length,
+-		uint8_t *data,
+-		int length);
+-
+-bool dc_edid_parser_recv_cea_ack(struct dc *dc, int *offset);
+-
+-bool dc_edid_parser_recv_amd_vsdb(struct dc *dc,
+-		int *version,
+-		int *min_frame_rate,
+-		int *max_frame_rate);
+-
+-#endif /* _DC_EDID_PARSER_H_ */
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c b/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c
+index 25ebd8a52ae4..23de1c793ec3 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_dmcu.c
+@@ -56,9 +56,6 @@
+ #define MCP_BL_SET_PWM_FRAC 0x6A  /* Enable or disable Fractional PWM */
+ #define CRC_WIN_NOTIFY 0x92
+ #define CRC_STOP_UPDATE 0x93
+-#define MCP_SEND_EDID_CEA 0xA0
+-#define EDID_CEA_CMD_ACK 1
+-#define EDID_CEA_CMD_NACK 2
+ #define MASTER_COMM_CNTL_REG__MASTER_COMM_INTERRUPT_MASK   0x00000001L
  
- 	vsdb_info->replay_mode = connector->display_info.amd_vsdb.replay_mode;
- 	vsdb_info->amd_vsdb_version = connector->display_info.amd_vsdb.version;
-+	vsdb_info->freesync_supported = connector->display_info.amd_vsdb.freesync_supported;
-+	vsdb_info->min_refresh_rate_hz = connector->display_info.amd_vsdb.min_frame_rate;
-+	vsdb_info->max_refresh_rate_hz = connector->display_info.amd_vsdb.max_frame_rate;
-+	vsdb_info->freesync_mccs_vcp_code = connector->display_info.amd_vsdb.freesync_vcp_code;
- 
- 	return connector->display_info.amd_vsdb.version != 0;
+ // PSP FW version
+@@ -812,121 +809,6 @@ static bool dcn20_unlock_phy(struct dmcu *dmcu)
+ 	return true;
  }
  
--static int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
--			       const struct edid *edid,
--			       struct amdgpu_hdmi_vsdb_info *vsdb_info)
+-static bool dcn10_send_edid_cea(struct dmcu *dmcu,
+-		int offset,
+-		int total_length,
+-		uint8_t *data,
+-		int length)
 -{
--	u8 *edid_ext = NULL;
--	int i;
--	bool valid_vsdb_found = false;
+-	struct dce_dmcu *dmcu_dce = TO_DCE_DMCU(dmcu);
+-	uint32_t header, data1, data2;
 -
--	/*----- drm_find_cea_extension() -----*/
--	/* No EDID or EDID extensions */
--	if (edid == NULL || edid->extensions == 0)
--		return -ENODEV;
+-	/* If microcontroller is not running, do nothing */
+-	if (dmcu->dmcu_state != DMCU_RUNNING)
+-		return false;
 -
--	/* Find CEA extension */
--	for (i = 0; i < edid->extensions; i++) {
--		edid_ext = (uint8_t *)edid + EDID_LENGTH * (i + 1);
--		if (edid_ext[0] == CEA_EXT)
--			break;
--	}
+-	if (length > 8 || length <= 0)
+-		return false;
 -
--	if (i == edid->extensions)
--		return -ENODEV;
+-	header = ((uint32_t)offset & 0xFFFF) << 16 | (total_length & 0xFFFF);
+-	data1 = (((uint32_t)data[0]) << 24) | (((uint32_t)data[1]) << 16) |
+-		(((uint32_t)data[2]) << 8) | ((uint32_t)data[3]);
+-	data2 = (((uint32_t)data[4]) << 24) | (((uint32_t)data[5]) << 16) |
+-		(((uint32_t)data[6]) << 8) | ((uint32_t)data[7]);
 -
--	/*----- cea_db_offsets() -----*/
--	if (edid_ext[0] != CEA_EXT)
--		return -ENODEV;
+-	/* waitDMCUReadyForCmd */
+-	REG_WAIT(MASTER_COMM_CNTL_REG, MASTER_COMM_INTERRUPT, 0, 1, 10000);
 -
--	valid_vsdb_found = parse_edid_cea(aconnector, edid_ext, EDID_LENGTH, vsdb_info);
+-	/* setDMCUParam_Cmd */
+-	REG_UPDATE(MASTER_COMM_CMD_REG, MASTER_COMM_CMD_REG_BYTE0, MCP_SEND_EDID_CEA);
 -
--	return valid_vsdb_found ? i : -ENODEV;
+-	REG_WRITE(MASTER_COMM_DATA_REG1, header);
+-	REG_WRITE(MASTER_COMM_DATA_REG2, data1);
+-	REG_WRITE(MASTER_COMM_DATA_REG3, data2);
+-
+-	/* notifyDMCUMsg */
+-	REG_UPDATE(MASTER_COMM_CNTL_REG, MASTER_COMM_INTERRUPT, 1);
+-
+-	/* waitDMCUReadyForCmd */
+-	REG_WAIT(MASTER_COMM_CNTL_REG, MASTER_COMM_INTERRUPT, 0, 1, 10000);
+-
+-	return true;
 -}
 -
+-static bool dcn10_get_scp_results(struct dmcu *dmcu,
+-		uint32_t *cmd,
+-		uint32_t *data1,
+-		uint32_t *data2,
+-		uint32_t *data3)
+-{
+-	struct dce_dmcu *dmcu_dce = TO_DCE_DMCU(dmcu);
+-
+-	/* If microcontroller is not running, do nothing */
+-	if (dmcu->dmcu_state != DMCU_RUNNING)
+-		return false;
+-
+-	*cmd = REG_READ(SLAVE_COMM_CMD_REG);
+-	*data1 =  REG_READ(SLAVE_COMM_DATA_REG1);
+-	*data2 =  REG_READ(SLAVE_COMM_DATA_REG2);
+-	*data3 =  REG_READ(SLAVE_COMM_DATA_REG3);
+-
+-	/* clear SCP interrupt */
+-	REG_UPDATE(SLAVE_COMM_CNTL_REG, SLAVE_COMM_INTERRUPT, 0);
+-
+-	return true;
+-}
+-
+-static bool dcn10_recv_amd_vsdb(struct dmcu *dmcu,
+-		int *version,
+-		int *min_frame_rate,
+-		int *max_frame_rate)
+-{
+-	uint32_t data[4];
+-	int cmd, ack, len;
+-
+-	if (!dcn10_get_scp_results(dmcu, &data[0], &data[1], &data[2], &data[3]))
+-		return false;
+-
+-	cmd = data[0] & 0x3FF;
+-	len = (data[0] >> 10) & 0x3F;
+-	ack = data[1];
+-
+-	if (cmd != MCP_SEND_EDID_CEA || ack != EDID_CEA_CMD_ACK || len != 12)
+-		return false;
+-
+-	if ((data[2] & 0xFF)) {
+-		*version = (data[2] >> 8) & 0xFF;
+-		*min_frame_rate = (data[3] >> 16) & 0xFFFF;
+-		*max_frame_rate = data[3] & 0xFFFF;
+-		return true;
+-	}
+-
+-	return false;
+-}
+-
+-static bool dcn10_recv_edid_cea_ack(struct dmcu *dmcu, int *offset)
+-{
+-	uint32_t data[4];
+-	int cmd, ack;
+-
+-	if (!dcn10_get_scp_results(dmcu,
+-				&data[0], &data[1], &data[2], &data[3]))
+-		return false;
+-
+-	cmd = data[0] & 0x3FF;
+-	ack = data[1];
+-
+-	if (cmd != MCP_SEND_EDID_CEA)
+-		return false;
+-
+-	if (ack == EDID_CEA_CMD_ACK)
+-		return true;
+-
+-	*offset = data[2]; /* nack */
+-	return false;
+-}
+-
+-
+ #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+ static void dcn10_forward_crc_window(struct dmcu *dmcu,
+ 					struct rect *rect,
+@@ -1030,9 +912,6 @@ static const struct dmcu_funcs dcn10_funcs = {
+ 	.get_psr_state = dcn10_get_dmcu_psr_state,
+ 	.set_psr_wait_loop = dcn10_psr_wait_loop,
+ 	.get_psr_wait_loop = dcn10_get_psr_wait_loop,
+-	.send_edid_cea = dcn10_send_edid_cea,
+-	.recv_amd_vsdb = dcn10_recv_amd_vsdb,
+-	.recv_edid_cea_ack = dcn10_recv_edid_cea_ack,
+ #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+ 	.forward_crc_window = dcn10_forward_crc_window,
+ 	.stop_crc_win_update = dcn10_stop_crc_win_update,
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/dmcu.h b/drivers/gpu/drm/amd/display/dc/inc/hw/dmcu.h
+index de3113ecbc77..eebfd177463d 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/dmcu.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/dmcu.h
+@@ -74,16 +74,6 @@ struct dmcu_funcs {
+ 	bool (*is_dmcu_initialized)(struct dmcu *dmcu);
+ 	bool (*lock_phy)(struct dmcu *dmcu);
+ 	bool (*unlock_phy)(struct dmcu *dmcu);
+-	bool (*send_edid_cea)(struct dmcu *dmcu,
+-			int offset,
+-			int total_length,
+-			uint8_t *data,
+-			int length);
+-	bool (*recv_amd_vsdb)(struct dmcu *dmcu,
+-			int *version,
+-			int *min_frame_rate,
+-			int *max_frame_rate);
+-	bool (*recv_edid_cea_ack)(struct dmcu *dmcu, int *offset);
+ #if defined(CONFIG_DRM_AMD_SECURE_DISPLAY)
+ 	void (*forward_crc_window)(struct dmcu *dmcu,
+ 			struct rect *rect,
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index 6f6a59a23495..ffe8192d223b 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -1891,10 +1891,6 @@ enum dmub_cmd_type {
+ 	 * Command type used for interfacing with DPIA.
+ 	 */
+ 	DMUB_CMD__DPIA = 77,
+-	/**
+-	 * Command type used for EDID CEA parsing
+-	 */
+-	DMUB_CMD__EDID_CEA = 79,
+ 	/**
+ 	 * Command type used for getting usbc cable ID
+ 	 */
+@@ -6732,69 +6728,6 @@ struct dmub_rb_cmd_transmitter_set_phy_fsm {
+ 	struct dmub_rb_cmd_transmitter_set_phy_fsm_data data; /**< payload */
+ };
+ 
+-/**
+- * Maximum number of bytes a chunk sent to DMUB for parsing
+- */
+-#define DMUB_EDID_CEA_DATA_CHUNK_BYTES 8
+-
+-/**
+- *  Represent a chunk of CEA blocks sent to DMUB for parsing
+- */
+-struct dmub_cmd_send_edid_cea {
+-	uint16_t offset;	/**< offset into the CEA block */
+-	uint8_t length;	/**< number of bytes in payload to copy as part of CEA block */
+-	uint16_t cea_total_length;  /**< total length of the CEA block */
+-	uint8_t payload[DMUB_EDID_CEA_DATA_CHUNK_BYTES]; /**< data chunk of the CEA block */
+-	uint8_t pad[3]; /**< padding and for future expansion */
+-};
+-
+-/**
+- * Result of VSDB parsing from CEA block
+- */
+-struct dmub_cmd_edid_cea_amd_vsdb {
+-	uint8_t vsdb_found;		/**< 1 if parsing has found valid AMD VSDB */
+-	uint8_t freesync_supported;	/**< 1 if Freesync is supported */
+-	uint16_t amd_vsdb_version;	/**< AMD VSDB version */
+-	uint16_t min_frame_rate;	/**< Maximum frame rate */
+-	uint16_t max_frame_rate;	/**< Minimum frame rate */
+-	uint8_t freesync_mccs_vcp_code; /**< Freesync MCCS VCP code */
+-};
+-
+-/**
+- * Result of sending a CEA chunk
+- */
+-struct dmub_cmd_edid_cea_ack {
+-	uint16_t offset;	/**< offset of the chunk into the CEA block */
+-	uint8_t success;	/**< 1 if this sending of chunk succeeded */
+-	uint8_t pad;		/**< padding and for future expansion */
+-};
+-
+-/**
+- * Specify whether the result is an ACK/NACK or the parsing has finished
+- */
+-enum dmub_cmd_edid_cea_reply_type {
+-	DMUB_CMD__EDID_CEA_AMD_VSDB	= 1, /**< VSDB parsing has finished */
+-	DMUB_CMD__EDID_CEA_ACK		= 2, /**< acknowledges the CEA sending is OK or failing */
+-};
+-
+-/**
+- * Definition of a DMUB_CMD__EDID_CEA command.
+- */
+-struct dmub_rb_cmd_edid_cea {
+-	struct dmub_cmd_header header;	/**< Command header */
+-	union dmub_cmd_edid_cea_data {
+-		struct dmub_cmd_send_edid_cea input; /**< input to send CEA chunks */
+-		struct dmub_cmd_edid_cea_output { /**< output with results */
+-			uint8_t type;	/**< dmub_cmd_edid_cea_reply_type */
+-			union {
+-				struct dmub_cmd_edid_cea_amd_vsdb amd_vsdb;
+-				struct dmub_cmd_edid_cea_ack ack;
+-			};
+-		} output;	/**< output to retrieve ACK/NACK or VSDB parsing results */
+-	} data;	/**< Command data */
+-
+-};
+-
  /**
-  * amdgpu_dm_update_freesync_caps - Update Freesync capabilities
-  *
-@@ -13947,8 +13785,8 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 		}
- 
- 	} else if (drm_edid && sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A) {
--		i = parse_hdmi_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
--		if (i >= 0) {
-+		i = get_amd_vsdb(amdgpu_dm_connector, &vsdb_info);
-+		if (i) {
- 			amdgpu_dm_connector->vsdb_info = vsdb_info;
- 			sink->edid_caps.freesync_vcp_code = vsdb_info.freesync_mccs_vcp_code;
- 
-@@ -13968,8 +13806,8 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 		as_type = dm_get_adaptive_sync_support_type(amdgpu_dm_connector->dc_link);
- 
- 	if (as_type == FREESYNC_TYPE_PCON_IN_WHITELIST) {
--		i = parse_hdmi_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
--		if (i >= 0) {
-+		i = get_amd_vsdb(amdgpu_dm_connector, &vsdb_info);
-+		if (i) {
- 			amdgpu_dm_connector->vsdb_info = vsdb_info;
- 			sink->edid_caps.freesync_vcp_code = vsdb_info.freesync_mccs_vcp_code;
- 
+  * struct dmub_cmd_cable_id_input - Defines the input of DMUB_CMD_GET_USBC_CABLE_ID command.
+  */
+@@ -7588,10 +7521,6 @@ union dmub_rb_cmd {
+ 	 * Definition of a DMUB_CMD__DPIA_SET_TPS_NOTIFICATION command.
+ 	 */
+ 	struct dmub_rb_cmd_set_tps_notification set_tps_notification;
+-	/**
+-	 * Definition of a DMUB_CMD__EDID_CEA command.
+-	 */
+-	struct dmub_rb_cmd_edid_cea edid_cea;
+ 	/**
+ 	 * Definition of a DMUB_CMD_GET_USBC_CABLE_ID command.
+ 	 */
 -- 
 2.34.1
 
