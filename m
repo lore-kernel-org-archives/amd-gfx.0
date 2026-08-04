@@ -4,122 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8E68C55196
-	for <amd-gfx@archiver.kernel.org>; Mon,  3 Aug 2026 20:30:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D50DC55182
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 01:56:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5284D10E085;
-	Mon,  3 Aug 2026 20:30:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAC2210E078;
+	Tue,  4 Aug 2026 01:56:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="yyCIHnZ6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mVj0SrRu";
 	dkim-atps=neutral
 Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010068.outbound.protection.outlook.com [52.101.85.68])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B5F9610E085
- for <amd-gfx@lists.freedesktop.org>; Mon,  3 Aug 2026 20:30:37 +0000 (UTC)
+ (mail-westusazon11010056.outbound.protection.outlook.com [52.101.85.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8393C10E078
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2026 01:56:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TCEVH8H/ltl5vmG9+UdVnx39kFiGaZh4d2UgY8kZyRdjsbyZtvHTwaJMXmIfL466HfwBMmuuXY539ciy/2weALQBKN/SCC1euwZbe0Tz7tiFtu2b8DvWUHttsg+eMITzrMdK9FciEFQ5KMF28CFbV+Icn3XTUZsTeg4tcTljczOM1sFiI4AG6n9ptrj9iGbu3RG0SgHH7NEevLSj1BTxgONeo7iaEx+r6shZf/ORO+eu2rn17d0nbz7quNtqKzzEwqQt+fxm4M6tZhCtR9VWMbwCvKQ8A4CgffywxLhHeYbacrbVOq6EUYwoKgpJ/mbnxMowjmUx9qzzS2DKfgUzvw==
+ b=giexq7OVpgZqUdcxWUI0lNyhtMMnbxyIa+vlzOIRtoeTOJwLpatH/y+Ube5nrChmz/CK2tN3/ZGQPFWn3N/xLyskGSVt7fVC5m9ekwzfqL2G+tL2e5hf/l6ttvE2zTXJlgk6aAp6MTBYjSFtWGKbwAVjb+SOGIXFslbEx9Y6zcnEYBNlClW18fXbl24ukXhDuuIC4uiL7h3kFhTJtxwylyPyPw1A9c2jgh0/jiVG8t1GZKDbytrUcgp7opUaoAzVvWFhh8436U/1Tpr7mcQVCO0ZMy+UJCosceYV/NDqfQnH+SgwPRO2e+1oo4UGH75DgyA1wNmrMBL/Kpb9UWDb9Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=CoNdfQHdGmKmwC8FHTlZ7SY8etJeoUyT+pKCKAj1tPo=;
- b=yZXrRam2M3+HQeZHUBbWM8AleOTmn2QN5D0omu5xceGeHqe61p0Rtbh5iEEtHt9lIRB+gtMDGngXQl3sOaszZ2trRF58zPu2o+8C6R8wPoumIB558A01HheVb2WteRMBoRRKG01ohOJAJsFRv3Vj+4j9flAd2e5u0QE2b5ZcAxYQ6qB4yEtB81hCMPMeJ9j8Y/CoF7kUk+3oPMv5uzCnEgmAlHmixmuyhOFwB1MtpJpyxLsaxdkIjPHTDD1GghZXtGr543bbA76r5WYKZUSAOZ6B7ulkMaAMq5jl1kxm/cYNoZzw+y9pHSNfh70NmmDEFriDYWB4QaX37kfY59St8A==
+ bh=f2TSRCfcn6qxGEd5RulqdrRijQP5/ai0iicwfBuXxfg=;
+ b=kGe6qbRiaW+o7pCCYZq70ujnn8nA1K7J/KVuQX2myyIHtU9WekAfB4z8k9af81LxKpE2XAYkdR+Dow7i2FIKRtF0mJ0CRUtC0urNyt8oEfGAv8hw45vP9YjTOuULpTWoWlgyxPgTGigVNmVCCduwY9sax07lzkiZ9qPQDEkFoTCApd3YhxMD2lxc3Tm+nZWrxisoAZfjaAzRBfTaZ1OnxsLSfWl4gggssTM34kqXta+9MUPri+8KbyOTDRSl0P1HKOoqAD0OpSf1wK3ciSZlzEHLA7AnpjIY31/yRRaHKBXByjTOTCWldp9yOUMYdyB/ctOAk/LOrZ3IFGYIhvc7Eg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=CoNdfQHdGmKmwC8FHTlZ7SY8etJeoUyT+pKCKAj1tPo=;
- b=yyCIHnZ6Ppd+nSLoe+0OKqYaxOGv1YwdMKoDT1MxCPgw8SdAzjNsqMCgQoWuIeWx1EeP3hMHcLJ/V8Wia12Lp6qdrDQEmcJqALWtPdn1jonHyrO1WgOQiecZWQA5Hwiu/hmI7p/TdoBLcwKVneIP9+1mOLXNbzYy0Aqb6S8SmHI=
-Received: from DM6PR12MB3611.namprd12.prod.outlook.com (2603:10b6:5:3c::17) by
- PH0PR12MB8824.namprd12.prod.outlook.com (2603:10b6:510:26f::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Mon, 3 Aug
- 2026 20:30:33 +0000
-Received: from DM6PR12MB3611.namprd12.prod.outlook.com
- ([fe80::7861:6815:8b7d:bd0b]) by DM6PR12MB3611.namprd12.prod.outlook.com
- ([fe80::7861:6815:8b7d:bd0b%4]) with mapi id 15.21.0270.016; Mon, 3 Aug 2026
- 20:30:32 +0000
-From: "Chen, Michael" <Michael.Chen@amd.com>
-To: "Liang, Prike" <Prike.Liang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ bh=f2TSRCfcn6qxGEd5RulqdrRijQP5/ai0iicwfBuXxfg=;
+ b=mVj0SrRuS3qwrSuaHkECEj5IpE5pO54Nr7OMvUVOl7Z+H976I5bCjJtz4nI0WeRmls2apuUxjaINipl5sosqWneJpu0krhNQN/YRt4ykgm5dV9vzUkEddHA6eff262cT4oVAFWE/OeDZmeTyBjR2XBRHw+MjW6CsTWe24B1Mklg=
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
+ DS7PR12MB5840.namprd12.prod.outlook.com (2603:10b6:8:7b::10) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.18; Tue, 4 Aug 2026 01:56:32 +0000
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::ab84:617d:61a9:3727]) by DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::ab84:617d:61a9:3727%3]) with mapi id 15.21.0270.017; Tue, 4 Aug 2026
+ 01:56:32 +0000
+From: "Liang, Prike" <Prike.Liang@amd.com>
+To: "Chen, Michael" <Michael.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
  <Christian.Koenig@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
-Subject: Re: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue
+Subject: RE: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue
 Thread-Topic: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue
-Thread-Index: AQHdH8h0cy0vMxJ0skewm8RkvHhctraMzaqg
-Date: Mon, 3 Aug 2026 20:30:32 +0000
-Message-ID: <DM6PR12MB3611DD14C882B3CBAA936FE194D52@DM6PR12MB3611.namprd12.prod.outlook.com>
+Thread-Index: AQHdH8hzQdA6V0UvE0Ox2HMImbZFT7aMzksAgABab2A=
+Date: Tue, 4 Aug 2026 01:56:32 +0000
+Message-ID: <DS7PR12MB6005C28368E95CCF629D162CFBD42@DS7PR12MB6005.namprd12.prod.outlook.com>
 References: <20260730020911.234193-1-Prike.Liang@amd.com>
  <20260730020911.234193-2-Prike.Liang@amd.com>
-In-Reply-To: <20260730020911.234193-2-Prike.Liang@amd.com>
+ <DM6PR12MB3611DD14C882B3CBAA936FE194D52@DM6PR12MB3611.namprd12.prod.outlook.com>
+In-Reply-To: <DM6PR12MB3611DD14C882B3CBAA936FE194D52@DM6PR12MB3611.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-03T20:30:29.730Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-03T20:30:29.7300000Z;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
+ General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB3611:EE_|PH0PR12MB8824:EE_
-x-ms-office365-filtering-correlation-id: 49742485-9ab7-481d-a5ff-08def19e1131
+x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|DS7PR12MB5840:EE_
+x-ms-office365-filtering-correlation-id: 972b482d-3552-40cd-a429-08def1cb9b72
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|366016|38070700021|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003|8096899003;
-x-microsoft-antispam-message-info: AnWjny9aGzoqENE3x43ofFgXvZMX8+CJWRhHJ6tDHEz7WRlJnbY+sMkU2nT3I5fGKW2LaTo+vHT1S+LquPSd46YQCJv0/qV6IIw0i+dCBNcqDIo7OjzZKDQtV/c3Uxcjhsj9PLHjOvanMf/7vseELf2u580dCsncIpb8t8DO+/SdJxpFd67qhj1M3QofGZ/OfpuHnN+hf7woObwmBQpghGeDfDTj1KbczVo+GpVh3p0IOmfnUy/V0/MFbL7NznNS0sFqNhoWrR+yMlHomKpswzpva3MFZ7SCW1SHK0yNhwSsIgEbA3e+VbCjobQiyrS3F0PrV2aQxXjCdFbHwBp4suPYiO/pEHqwhSADqRKVmuJ6u6ESNLXaqeTdoQZ4zVP9UkXSD2vCLinCADruXqmXAUMkrWbAgiM0cF4v4xAjcnCbPUZB9WNuCbGyOvyuRzAr/esQmELETi3V6T6KBDV9tW7AvpzoxkR+3wglm8/C5otgbXc2lbc/RjrL6XVVAtj7a/2uYxHLXpVS+uyhxerWV10hwJmqwMdAs4u56EAeKl0c9yodNO6fZhoPO7wEesctRSKnb5dWXfuzPM4JBgjycArKXoF66+gTvmC7K2PkW/prqNiFzlymIfoSeeUiKXGzYdloH0TDPdcyb1QLRfnrCnEOHtbe1VCsfTd5jykkh8uvrftSyjuy09RT3px1XIut5BSzgUDGgQjRNXzvSsRnBDLXKRucT0vHtm9ZdpZI9yE=
+ ARA:13230040|23010399003|376014|1800799024|366016|38070700021|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003|8096899003;
+x-microsoft-antispam-message-info: WWuIaB6KgGa11oDSe1D/x5k/AD6UyUZL75NXHMUGvDjteSdo1FODCpQwUsXnn+rIpuwD+v6LNofkrAptRSXzyTw1I7vD8IsKwH+cvd0Oa8sZEZmu7ZDqprpStMTJs+5mzneg2F4xUNwTMz0pHqmDF64jPj807aGj5LKAe1XrKQRbQQN1Kg5UKoYcwJdXOwvTf/utgEbIUe0BCpKAuX1o5tQbsG8Zmb0pVvNstKDLyGC1Gq2ybPnpvUtVo0j/pvGZXFTyWkj3Wt263ERj/JwqS4Kk2f+wtu5p3RMJNO4+yVG38xDk2zEZsyhrsep7XxvP59JCRKWRrZOrqLC/kCjeN5FDqU46zxQslkwt/QEDvyv68YIKthPMCMKilpzu34bfjjeuc4hy9uvmmhSFHACJvqxxH3Vitj+z7IUsTb8K0t8ciGggdWUiCH0H7Mw/HH1GZNO8tRxK+lt+28IBnEnqNsmzPJXhFMCdnAYnuQbjbSgOk1LnMFO2zaHt3cntU60DIUxyRpakZX6Ojk3qBKmo+vDG6vE8AGHx7bhhlcKvQEmfhYhoZpevVPVWNzG28LV/hr7yCdERToWjRdU4DvAYH6FoY5PjqhtcubrBYxI2Oz7w3hDA+TK5E6TPFf+TfpY5yPvGlhvwchKUdN2pVEjOaFLwB7F4lym5jUdcqiU1KvFui6e+2vXJCAFbI79uXsePDjmxhPXXYGCF+MxTgTh1mxPXDrtw1z7SUWVXvwpkNbM=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3611.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(38070700021)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003)(8096899003);
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(38070700021)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003)(8096899003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?xByZTP/DXep0g0izaqU/4YjGWByxu4XUWeFsXdU0Bx4v6Ei21IQePIlRxl?=
- =?iso-8859-1?Q?fUHl6Wpam7/HgPSOsCjUTnBAMxIJRGZK7W4Qu3fgObUXVFAp+IFxEEpHJk?=
- =?iso-8859-1?Q?6r82kknRdNlEeGxQMlKjyE9K2bIIeLTqG4vwJYRg4drWim9TiHZ4nAtbRt?=
- =?iso-8859-1?Q?lLtvBfO00BKW5DerVBfOFt+qLEeNQp7zClcJnzegAoCXFFGCTx+JF2qG+t?=
- =?iso-8859-1?Q?gRxoiPcM9fYM4Ie1EvgCbmm4veIMZS05+H44uQt6JZN0YSVcmV+aga9G4r?=
- =?iso-8859-1?Q?FzOvmslM2c9m+chjoCzWLk+4eq2r9V4Ol3PVblxQg7wZwlpg8RlHk+Hb9H?=
- =?iso-8859-1?Q?yCVUdxqI+DHBynn5ZmN5BP+W/NQD0FYlLH8deDKfrhL+lYgpO+Mh+tVr9N?=
- =?iso-8859-1?Q?YrigKDg2mA38FNzJedBJWgelMnnoS3Sk0+ZFX3NZ9VlTDIXdrbtsUArdRd?=
- =?iso-8859-1?Q?+RcfDkCqGWyD2/yUeIEhCBZ3MywqUdBpZFWNWPE8Z4rODtZIX43mB52fW2?=
- =?iso-8859-1?Q?/BrRf9DfT14K/4ZsiG6z4Ujq1MeTr9tPLJ8CAnXmJ61KGgugvhD8WuF6BC?=
- =?iso-8859-1?Q?/VvgUNX7XpJCHvRjUkTUJT6CAtwO+QE8UB9SZ+KoKK0yLWtBHsfQ3Pn53H?=
- =?iso-8859-1?Q?JQomCRNz4wk0EJLa1d85WDS8zwHnUah6/uTnFGPk4o9e5kKUa7IE6crW7T?=
- =?iso-8859-1?Q?U1yx12rvfcCo8RS3Ayu7MCMi0TL8fCXPVkbFFGxQDhZiApr0ANw49RK/d+?=
- =?iso-8859-1?Q?Bdrc8uSY3qkN6ZLn9elOKne2kKJJCWAu9Z0F9n1iQUGeO7WwRvdF3Dpxix?=
- =?iso-8859-1?Q?BAftC92a1fxQiK4bBh6J3cRBA/sSbAWblfNQSPFn/5ZbLBmETgGv6ihxXc?=
- =?iso-8859-1?Q?ADEmmnk0s8mA5FTCb/6LTj2XOeB7F9KysFCyZnNmx61jhmVu1BI7zoAUVW?=
- =?iso-8859-1?Q?PcWlEMMyZoP6sHgxOBTptyx1BQCNTaYZAMsCDU6cB2prdtOORH8P+AHwTc?=
- =?iso-8859-1?Q?PJ8f5q0RCD+5hgWmFShfqDMF+e8sQWXUYDdW++5a+2AmFKJQqQFQeOFLmo?=
- =?iso-8859-1?Q?orQmJekGs8Jfwn4QCaNsGifRRawaWjogx/NQI+rAt/TSNMc7rB3WQ90U/9?=
- =?iso-8859-1?Q?IHpDULaXyKshzptr6FHLpTIr1E0+oZvSRzyF65Gujtexqv2Xwt+VQuSKS6?=
- =?iso-8859-1?Q?cz9g6Qk1bEXjorZFWWQyWkb2JUH1YXVsT8FJq3M80LJuDEWPHBZ+A8aRRn?=
- =?iso-8859-1?Q?mYcojeIafIkDulcmUpfj+7tkKu6NQcZVrFH95yu6meZQCrw1NJDkl+rs8V?=
- =?iso-8859-1?Q?YjvBgek6zi/xwgYPm4+tj6i73dLpvbXEeuGn9gQbnZAQOBn3Vx3me17Sug?=
- =?iso-8859-1?Q?zWqfXTIMj4lRMe7XZ02DkqDfTbPdTSvPvPE92OuhivGJkCqz3gDlI9EkUv?=
- =?iso-8859-1?Q?1iJVzRyAe8/NCovEcXZbvLPS7PjqT2Supkb6apIgAu298GR84c3HQz5zcy?=
- =?iso-8859-1?Q?QFu23YVMvNqN5ZH5E9RTYttvf+mrtZ4n0g8CniINUJ38orhvYa0XaqEsZv?=
- =?iso-8859-1?Q?Sr7pbhN2xbJBRFhYhozMpW5ZAiKAImXV7oP+x3V/+ztTqa3KUwFD6+uoCX?=
- =?iso-8859-1?Q?BIV8RSr1tvbhQIae8U08MWXbVMkigPNCquqwaH3hheJkTQlkSfylwhh0J3?=
- =?iso-8859-1?Q?gm0fZmzxBKDSwVwZu7nWx/EnWOynnvjdCbAyN9k4b6l5NYlARWYw3+xefy?=
- =?iso-8859-1?Q?bemH0/QyPMBKCLI/Q43TYvh4iVsZ6BTbXsdnKtDbptKnDd?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wlRQGj11JakwtPpqJ1uqn+6zcn7Md9EQhnYkstcT/kuQZ6cxbsyUO7yplIU9?=
+ =?us-ascii?Q?9EYH6RQcJ0jhMljQvxqDDDzZIf038QV/VyfNny6++8JKDhqi5K4cqCCiQ8DF?=
+ =?us-ascii?Q?8RLgpDBLd8NV7QI9+FVKowPVAWdi0YsjXrrKpIEUEMBDnHSH+lZ9iiwSX1i6?=
+ =?us-ascii?Q?tn/3tPOFLcSIvj5QjkigwP8Rg/lzgFcxj4DmTh9MtLgZRCcE+cRWS7oXF4dO?=
+ =?us-ascii?Q?HM/7TdHJu0h9sZ1Jn7Pw6lgQj+msaxgqnvVad7VtBVhjB+9dvIe+xqqomCik?=
+ =?us-ascii?Q?S2u9Ut4xPbLPRmZq+W/3x3ryAvVncmkKlSGidf4CMXzchfcV58Z/6hqATDZf?=
+ =?us-ascii?Q?zU0UhvYt/hRCOuqsCvkFlVqvoSItlXl6mexmAmID/ihZQfaAoYL9kD9Gs0lQ?=
+ =?us-ascii?Q?eM/L6/7Azo7ZLAEYvqyF8rEa/Xk+2ibDDoNoWFxyQJS4dyYbrgZ8uRvfnUD5?=
+ =?us-ascii?Q?mi7ST0jSz7GsWS7wTkjvkXwlUZDCw/2Th8mo9rgduRAM34t12QcqgPgsyfN/?=
+ =?us-ascii?Q?RzrkOSAgQGEa00eh7c+PYZraCutqCTSdN6pWEezhj+dM0BgJImtpf1hfV8nG?=
+ =?us-ascii?Q?BngEzV2ws57Eh5rKDpG6+LbsoIg2kr4wiKcsFAaTfqnMaY3I5no9i5WFY2Gr?=
+ =?us-ascii?Q?NVwAD6MEK96xjcXcr97/fnNaPtDj0LG0z2AO7kFmPBK2nhMX41iuga5CwVv2?=
+ =?us-ascii?Q?aycDZJKDwdYVCSHuvazS9W+dh6fLGFNdhaTdDEMAKoMOHrmYSTH7B4Y+ODXO?=
+ =?us-ascii?Q?p973l5FbQIRAaohQ3UwX1LibTpLQc7GvfRLOUvYQbR8Zx6xXEgPBvhOhKhy7?=
+ =?us-ascii?Q?iSXNMmexRVDj4BCilEafk6bNXqTTy6+yiTFtHNJxJrkGvtxhi4w0ohgqEEOF?=
+ =?us-ascii?Q?ZpmFuE3ESHnBI0J680nRXtvM1gCWgOILQojQsCc2GaOlYxJ3DIl6vf4vC9Ev?=
+ =?us-ascii?Q?dzqI0Tp7a+vwq8tXk1oUkp/CQ9g4WYg6yTFW4HQMrO56HYUmRmSzUIL+WdAh?=
+ =?us-ascii?Q?gqE0RAFMjSEDk9Qhqa5TlmGIvA1cEEzClJ3qgWo84/tPvkk0EEM5VGmgcqV7?=
+ =?us-ascii?Q?o3inzFWEir0CAS8tVLZ9ZreiKaMAEJc9ZEfoqu/ycMGpTQa4YWKpg1R5MI4G?=
+ =?us-ascii?Q?NAOketfY85a45wEJbOhtd1Qua/ixELvFUm3/0ZzAerMCnk3DVV8WHQg9edzp?=
+ =?us-ascii?Q?tWgjdi+FsGgkrDMCW3D/VzSu/jCozPfEl9JHn43j5TtN0gPcUcZPD1olboGP?=
+ =?us-ascii?Q?NdetcfI+P03HszFLWW6QweGWIdVHil26JkdsAGeLY2e6KSmu1xf5baowpQT8?=
+ =?us-ascii?Q?m9ArfLaZxdA1tF375/ZWhMZrGDJtKiV6JGF80FyN4jXmDE2sjogbr/YFpgqV?=
+ =?us-ascii?Q?bL3pY7urYV6aRgsByw4huu5YtpZiPY5lpBJxjOoJ2Yz8NOMpdmaEdYq/h2Wm?=
+ =?us-ascii?Q?L4n3xOvzXI4dOrZnyh1wIl3q+tPrumFYDWqHeRadTDxda4zA/F5Xdf5Gs90E?=
+ =?us-ascii?Q?J9++CXx4mKzmRPnc4J1R5163ITMlbL0yGHqdlC6MezEelrkoV/ZnGGJIHf8I?=
+ =?us-ascii?Q?qLrxuomc7A4ul1ybJnVYG0uF5bW2Xlxk7AvVuh3DRtj6c1gNkXAthSeSwDpM?=
+ =?us-ascii?Q?tw47Jtui4Y1hI/Od+Z7GLin2Gte/P4x8q9gdPN5cXQ/clxYYxF5AhsLkyztN?=
+ =?us-ascii?Q?OwPuLwJpEhxgiqIjyshre/DwZuWke5sx8BrJlr+pZpwPMdV1?=
 Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB3611DD14C882B3CBAA936FE194D52DM6PR12MB3611namp_"
+ boundary="_000_DS7PR12MB6005C28368E95CCF629D162CFBD42DS7PR12MB6005namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3611.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49742485-9ab7-481d-a5ff-08def19e1131
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Aug 2026 20:30:32.8380 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 972b482d-3552-40cd-a429-08def1cb9b72
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2026 01:56:32.1460 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: GO/RyCFDVHt58fEccPwrXhrb//oc0QQyYj2Vrg/jiDnT2YPjQS7wsdz6BjrfKUt/7OXBqpiZGHjAipcyGyyYww==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8824
+X-MS-Exchange-CrossTenant-userprincipalname: JwAipjpmlNS4YHSc2EC7JZGUwO53SxEbD9C5G99qSNj6WE5PMEXWxYRXs67BcTRI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5840
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,28 +134,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB3611DD14C882B3CBAA936FE194D52DM6PR12MB3611namp_
-Content-Type: text/plain; charset="iso-8859-1"
+--_000_DS7PR12MB6005C28368E95CCF629D162CFBD42DS7PR12MB6005namp_
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 AMD General
 
 
 
-________________________________
-From: Liang, Prike <Prike.Liang@amd.com>
-Sent: Wednesday, July 29, 2026 10:09 PM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Regards,
+      Prike
+
+From: Chen, Michael <Michael.Chen@amd.com>
+Sent: Tuesday, August 4, 2026 4:31 AM
+To: Liang, Prike <Prike.Liang@amd.com>; amd-gfx@lists.freedesktop.org
 Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
-stian.Koenig@amd.com>; Chen, Michael <Michael.Chen@amd.com>; Liu, Shaoyun <=
-Shaoyun.Liu@amd.com>; Liang, Prike <Prike.Liang@amd.com>
+stian.Koenig@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>
+Subject: Re: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue
+
+AMD General
+
+
+
+________________________________
+From: Liang, Prike <Prike.Liang@amd.com<mailto:Prike.Liang@amd.com>>
+Sent: Wednesday, July 29, 2026 10:09 PM
+To: amd-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org> <am=
+d-gfx@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@=
+amd.com>>; Koenig, Christian <Christian.Koenig@amd.com<mailto:Christian.Koe=
+nig@amd.com>>; Chen, Michael <Michael.Chen@amd.com<mailto:Michael.Chen@amd.=
+com>>; Liu, Shaoyun <Shaoyun.Liu@amd.com<mailto:Shaoyun.Liu@amd.com>>; Lian=
+g, Prike <Prike.Liang@amd.com<mailto:Prike.Liang@amd.com>>
 Subject: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue
 
 Enabled RS64mem for KFD queues by integrating
 process and gang context index allocation in
 the per KFD device process and queue creation.
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+Signed-off-by: Prike Liang <Prike.Liang@amd.com<mailto:Prike.Liang@amd.com>=
+>
 ---
  drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |  3 +++
  drivers/gpu/drm/amd/amdkfd/kfd_priv.h                  |  3 +++
@@ -266,10 +284,14 @@ _bo);
 );
 
 
-  1.
-Should check "mes->use_rs64mem" as you do in patch #1?
-  2.
-Check return error code (in oversubscription case, it may run out of index)
+  1.  Should check "mes->use_rs64mem" as you do in patch #1?
+
+It doesn't have to check here, since the rs64mem support will be checked in=
+ the amdgpu_mes_alloc_gang_ctx_index() as well.
+
+
+  1.  Check return error code (in oversubscription case, it may run out of =
+index)
 
 
                  /* Starting with GFX11, wptr BOs must be mapped to GART fo=
@@ -308,55 +330,159 @@ Same comment as above.
 2.34.1
 
 
---_000_DM6PR12MB3611DD14C882B3CBAA936FE194D52DM6PR12MB3611namp_
-Content-Type: text/html; charset="iso-8859-1"
+--_000_DS7PR12MB6005C28368E95CCF629D162CFBD42DS7PR12MB6005namp_
+Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html>
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
+osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
+xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
+//www.w3.org/TR/REC-html40">
 <head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
-1">
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
+<!--[if !mso]><style>v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style><![endif]--><style><!--
+/* Font Definitions */
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:DengXian;
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Aptos;}
+@font-face
+	{font-family:"\@DengXian";
+	panose-1:2 1 6 0 3 1 1 1 1 1;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0in;
+	font-size:12.0pt;
+	font-family:"Aptos",sans-serif;}
+a:link, span.MsoHyperlink
+	{mso-style-priority:99;
+	color:#467886;
+	text-decoration:underline;}
+span.EmailStyle20
+	{mso-style-type:personal-reply;
+	font-family:"Arial",sans-serif;
+	color:windowtext;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	font-size:10.0pt;
+	mso-ligatures:none;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+/* List Definitions */
+@list l0
+	{mso-list-id:1989943214;
+	mso-list-template-ids:227286362;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+--></style><!--[if gte mso 9]><xml>
+<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
+</xml><![endif]--><!--[if gte mso 9]><xml>
+<o:shapelayout v:ext=3D"edit">
+<o:idmap v:ext=3D"edit" data=3D"1" />
+</o:shapelayout></xml><![endif]-->
 </head>
-<body dir=3D"ltr">
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
+<body lang=3D"EN-US" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
+break-word">
+<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
+t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
+AMD General<br>
+</p>
+<br>
 <div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-AMD General</div>
-<br>
+<div class=3D"WordSection1">
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;mso-ligatures:standa=
+rdcontextual">Regards,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;mso-ligatures:standa=
+rdcontextual">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Prike<o:p></o:p></span></p>
 </div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div>
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
+font-family:&quot;Calibri&quot;,sans-serif"> Chen, Michael &lt;Michael.Chen=
+@amd.com&gt;
 <br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<hr style=3D"display: inline-block; width: 98%;">
-<div id=3D"divRplyFwdMsg">
-<div style=3D"direction: ltr; font-family: Calibri, sans-serif; font-size: =
-11pt; color: rgb(0, 0, 0);">
-<b>From:</b> Liang, Prike &lt;Prike.Liang@amd.com&gt;<br>
-<b>Sent:</b> Wednesday, July 29, 2026 10:09 PM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
+<b>Sent:</b> Tuesday, August 4, 2026 4:31 AM<br>
+<b>To:</b> Liang, Prike &lt;Prike.Liang@amd.com&gt;; amd-gfx@lists.freedesk=
+top.org<br>
 <b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
-ristian &lt;Christian.Koenig@amd.com&gt;; Chen, Michael &lt;Michael.Chen@am=
-d.com&gt;; Liu, Shaoyun &lt;Shaoyun.Liu@amd.com&gt;; Liang, Prike &lt;Prike=
-.Liang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue</di=
-v>
-<div style=3D"direction: ltr;">&nbsp;</div>
+ristian &lt;Christian.Koenig@amd.com&gt;; Liu, Shaoyun &lt;Shaoyun.Liu@amd.=
+com&gt;<br>
+<b>Subject:</b> Re: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue=
+<o:p></o:p></span></p>
 </div>
-<div style=3D"font-size: 11pt;">Enabled RS64mem for KFD queues by integrati=
-ng<br>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<div style=3D"margin-left:5.0pt">
+<p class=3D"MsoNormal"><span style=3D"font-size:10.0pt;font-family:&quot;Ca=
+libri&quot;,sans-serif;color:blue">AMD General<o:p></o:p></span></p>
+</div>
+<p class=3D"MsoNormal"><span style=3D"color:black"><o:p>&nbsp;</o:p></span>=
+</p>
+<p class=3D"MsoNormal"><span style=3D"color:black"><o:p>&nbsp;</o:p></span>=
+</p>
+<p class=3D"MsoNormal"><span style=3D"color:black"><o:p>&nbsp;</o:p></span>=
+</p>
+<div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
+<hr size=3D"2" width=3D"98%" align=3D"center">
+</div>
+<div id=3D"divRplyFwdMsg">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif;color:black">From:</span></b><span style=3D"font-=
+size:11.0pt;font-family:&quot;Calibri&quot;,sans-serif;color:black"> Liang,=
+ Prike &lt;<a href=3D"mailto:Prike.Liang@amd.com">Prike.Liang@amd.com</a>&g=
+t;<br>
+<b>Sent:</b> Wednesday, July 29, 2026 10:09 PM<br>
+<b>To:</b> <a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.f=
+reedesktop.org</a> &lt;<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd=
+-gfx@lists.freedesktop.org</a>&gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
+om">Alexander.Deucher@amd.com</a>&gt;; Koenig, Christian &lt;<a href=3D"mai=
+lto:Christian.Koenig@amd.com">Christian.Koenig@amd.com</a>&gt;; Chen, Micha=
+el &lt;<a href=3D"mailto:Michael.Chen@amd.com">Michael.Chen@amd.com</a>&gt;=
+;
+ Liu, Shaoyun &lt;<a href=3D"mailto:Shaoyun.Liu@amd.com">Shaoyun.Liu@amd.co=
+m</a>&gt;; Liang, Prike &lt;<a href=3D"mailto:Prike.Liang@amd.com">Prike.Li=
+ang@amd.com</a>&gt;<br>
+<b>Subject:</b> [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue<o:p=
+></o:p></span></p>
+<p class=3D"MsoNormal">&nbsp;<o:p></o:p></p>
+</div>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">Enabled RS64mem for=
+ KFD queues by integrating<br>
 process and gang context index allocation in<br>
 the per KFD device process and queue creation.<br>
 <br>
-Signed-off-by: Prike Liang &lt;Prike.Liang@amd.com&gt;<br>
+Signed-off-by: Prike Liang &lt;<a href=3D"mailto:Prike.Liang@amd.com">Prike=
+.Liang@amd.com</a>&gt;<br>
 ---<br>
 &nbsp;drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c&nbsp; |&nbsp; 3=
  +++<br>
@@ -526,108 +652,113 @@ bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 ;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;(*q)-&gt;gang_ctx=
 _array_index);<br>
-&nbsp;</div>
-<ol start=3D"1" data-editing-info=3D"{&quot;applyListStyleFromLevel&quot;:f=
-alse,&quot;orderedStyleType&quot;:1}" style=3D"margin-top: 0px; margin-bott=
-om: 0px; list-style-type: decimal;">
-<li style=3D"font-size: 11pt; margin-top: 0px; margin-bottom: 0px;">
-<div class=3D"elementToProof" role=3D"presentation" style=3D"font-family: A=
-ptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-ser=
-if; color: rgb(0, 0, 0);">
-Should check &quot;mes-&gt;use_rs64mem&quot; as you do in patch #1?</div>
-</li><li style=3D"font-size: 11pt; margin-top: 0px; margin-bottom: 0px;">
-<div class=3D"elementToProof" role=3D"presentation" style=3D"font-family: A=
-ptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-ser=
-if; color: rgb(0, 0, 0);">
-Check return error code (in oversubscription case, it may run out of index)=
+&nbsp;<o:p></o:p></span></p>
+<div>
+<ol style=3D"margin-top:0in" start=3D"1" type=3D"1">
+<li class=3D"MsoNormal" style=3D"color:black;mso-list:l0 level1 lfo1"><span=
+ style=3D"font-size:11.0pt">Should check &quot;mes-&gt;use_rs64mem&quot; as=
+ you do in patch #1?<o:p></o:p></span></li></ol>
+<p class=3D"MsoNormal"><b><i><span style=3D"font-size:11.0pt;font-family:&q=
+uot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></i></b></p>
+<p class=3D"MsoNormal"><b><i><span style=3D"font-size:11.0pt;font-family:&q=
+uot;Arial&quot;,sans-serif">It doesn&#8217;t have to check here, since the =
+rs64mem support will be checked in the amdgpu_mes_alloc_gang_ctx_index() as=
+ well.<o:p></o:p></span></i></b></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
 </div>
-</li></ol>
-<div style=3D"margin-top: 0px; margin-bottom: 0px; font-family: Aptos, Apto=
-s_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-s=
-ize: 11pt; color: rgb(0, 0, 0);">
-<br>
+<div>
+<ol style=3D"margin-top:0in" start=3D"2" type=3D"1">
+<li class=3D"MsoNormal" style=3D"color:black;mso-list:l0 level1 lfo1"><span=
+ style=3D"font-size:11.0pt">Check return error code (in oversubscription ca=
+se, it may run out of index)<o:p></o:p></span></li></ol>
 </div>
-<div style=3D"margin-top: 0px; margin-bottom: 0px; font-family: Aptos, Apto=
-s_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-s=
-ize: 11pt; color: rgb(0, 0, 0);">
-<br>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; /* Starting with GFX11, wptr BOs must be mapped to GART for MES to deter=
+mine work<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp; * on unmapped queues for usermode queue oversubscription (no aggre=
+gated doorbell)<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">@@ -304,6 +308,7 @@=
+ static int init_user_queue(struct process_queue_manager *pqm,<o:p></o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;<o:p></o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;free_gang_ctx=
+_bo:<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">+&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp; amdgpu_mes_free_gang_ctx_index(&amp;dev-&gt;adev-&gt;mes=
+, (*q)-&gt;gang_ctx_array_index);<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_amdkfd_free_kernel_mem(dev-&gt;adev, &=
+amp;(*q)-&gt;gang_ctx_bo);<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;cleanup:<o:p>=
+</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uninit_queue(*q);<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">@@ -386,6 +391,11 @=
+@ int pqm_create_queue(struct process_queue_manager *pqm,<o:p></o:p></span>=
+</p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_allocate_pqn;<o=
+:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; }<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
+p; memset(pdd-&gt;proc_ctx_cpu_ptr, 0, AMDGPU_MES_PROC_CTX_SIZE);<o:p></o:p=
+></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">+&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Bind =
+one MES process context slot to the whole process<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">+&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * =
+(per device); every queue of this process reuses it.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">+&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */=
+<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">+&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_m=
+es_alloc_proc_ctx_index(&amp;dev-&gt;adev-&gt;mes,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">+&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;pdd-&gt;proc_ctx_array_index);<o:p><=
+/o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;color:black">Same co=
+mment as above.<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;color:black"><o:p>&n=
+bsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;<o:p></o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;&nbsp;&nbsp;&=
+nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pqn =3D kzalloc_obj(*pqn);<o:p></o:p></span><=
+/p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">--<o:p></o:p></span=
+></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">2.34.1<o:p></o:p></=
+span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt"><o:p>&nbsp;</o:p></=
+span></p>
 </div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; /* Starting with GFX11, wptr BOs must be mapped to GART for MES to dete=
-rmine work</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp; * on unmapped queues for usermode queue oversubscription (no aggr=
-egated doorbell)</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">@@ -304,6 +308,7 @=
-@ static int init_user_queue(struct process_queue_manager *pqm,</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;free_gang_ct=
-x_bo:</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">+&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp; amdgpu_mes_free_gang_ctx_index(&amp;dev-&gt;adev-&gt;me=
-s, (*q)-&gt;gang_ctx_array_index);</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_amdkfd_free_kernel_mem(dev-&gt;adev, =
-&amp;(*q)-&gt;gang_ctx_bo);</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;cleanup:</di=
-v>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uninit_queue(*q);</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">@@ -386,6 +391,11 =
-@@ int pqm_create_queue(struct process_queue_manager *pqm,</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto err_allocate_pqn;<=
-/div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; }</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; memset(pdd-&gt;proc_ctx_cpu_ptr, 0, AMDGPU_MES_PROC_CTX_SIZE);</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">+&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Bind=
- one MES process context slot to the whole process</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">+&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *=
- (per device); every queue of this process reuses it.</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">+&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *=
-/</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">+&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_=
-mes_alloc_proc_ctx_index(&amp;dev-&gt;adev-&gt;mes,</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">+&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;pdd-&gt;proc_ctx_array_index);</div=
->
-<div class=3D"elementToProof" style=3D"font-size: 11pt;"><br>
 </div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-Same comment as above.</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pqn =3D kzalloc_obj(*pqn);</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">--</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;">2.34.1</div>
-<div class=3D"elementToProof" style=3D"font-size: 11pt;"><br>
 </div>
 </body>
 </html>
 
---_000_DM6PR12MB3611DD14C882B3CBAA936FE194D52DM6PR12MB3611namp_--
+--_000_DS7PR12MB6005C28368E95CCF629D162CFBD42DS7PR12MB6005namp_--
