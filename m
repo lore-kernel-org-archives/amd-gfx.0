@@ -4,104 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 46998C55172
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 09:54:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6DACC5518F
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 09:57:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBB1B10E988;
-	Tue,  4 Aug 2026 09:54:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A8CA10E98C;
+	Tue,  4 Aug 2026 09:57:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="fMjragWm";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="t4yfRS4r";
 	dkim-atps=neutral
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
- [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA04B10E988
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2026 09:54:22 +0000 (UTC)
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6748HTEL323353; Tue, 4 Aug 2026 09:54:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
- :content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=pp1; bh=jRUOwKFn/nUxdKwgw
- AaHwv0IpuvTRhdPe8nOoe4b9zA=; b=fMjragWmHad9MV1YdgXk2z9Tjz1HPIssR
- +mS+TMoalARZ92+ACjh1wStyxvOMeO2Zoe9YF28brflDDbFNFrwRH2UQVVx8S7tO
- AS6yZLPZRhRppRINzKVl+mDuu3E+Q15Ye66fzcK1GpvSFbMakX2A11aX1lDbFHtP
- TV7Veq31XwhU/36i1Uh0IlqGMTLwmuYe5bnmf/rJZye4eSTyvLzrM/X6xni7ri7P
- zKaHW1TcsKkGtiqSKwfBWhMv1664TMY/NzN56wKQlAh2fIcRxMIP8mfpWxk73WH9
- eLSfklRhvK3t5t+yzKRvLg1qhSQNkf8Q0rgt/Ho/WdNVNafe97O5w==
-Received: from ppma22.wdc07v.mail.ibm.com
- (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs8h4w7wt-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 04 Aug 2026 09:54:19 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
- by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6749fPle013329;
- Tue, 4 Aug 2026 09:54:18 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
- by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fsugw1gbq-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 04 Aug 2026 09:54:18 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com
- [10.20.54.103])
- by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 6749sE9K41550180
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 4 Aug 2026 09:54:14 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 9485A20040;
- Tue,  4 Aug 2026 09:54:14 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 7D57B2004D;
- Tue,  4 Aug 2026 09:54:06 +0000 (GMT)
-Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.ibm.com.com (unknown
- [9.39.27.148]) by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Tue,  4 Aug 2026 09:54:05 +0000 (GMT)
-From: Donet Tom <donettom@linux.ibm.com>
-To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
- Philip Yang <yangp@amd.com>
-Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- donettom@linux.ibm.com
-Subject: [PATCH 7/7] drm/amdgpu: Add numa_node in cpu/gpu topology device
- sysfs entry
-Date: Tue,  4 Aug 2026 15:22:36 +0530
-Message-ID: <ae22ce48e0067ce29b7b3ffa49b91c9b68cd759f.1785833981.git.donettom@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1785833981.git.donettom@linux.ibm.com>
-References: <cover.1785833981.git.donettom@linux.ibm.com>
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010015.outbound.protection.outlook.com [52.101.61.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 968FE10E98C
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2026 09:57:08 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Y4hopnrNGd565rBixSNyjiw0xRn6nD3hc5vdMyQai+kTja2p2Awb1TKpczMi6r7ABRAsIO21eP3J4mLPux+GHCWX1/9MzFRAdVEp+OPpNFmBoSmPdvrVQm6Q4aOqUlh2IpkcaK5dNzDWnP1sawvuMsYL80BxBupdoP8Xc78dnAjwMxhePOmnSvY6IwIVdZo8VIHGr6zhttOB3pj8kx7TEPe8RJ9sAm8fZ5QKi8dpDPqGxOGzlso6RxI+EmrJ6N4yM2vpbVvRtvRSle9K7sPPXW4E0wOauY1IUrxbarnz+j2IPFO9WuAl1QT5WL6u7dKawwfokE5STguaWJ/tnFtDdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=x3kXaKToEIQUr2ksxkyRHP8F2SzGjtGuYlzrkLZ/jLI=;
+ b=wCRzTVr3iZ8O67UdI7yf79Iiu3n0yMxcmXM9k5/gi2Ydw1NqRaq7yqpp+3dnjnlnILStre6+zBJz+KKrO8BhDsZU4rvc5ay9lPMH7hKwUOFCkJY9kJEaXX0+XfrvfiPgdYDfeB3SukWu5FdSkdYsMXeTQFXRn9pv4AWGVxDiViFkEZwRNMLfi4yFuV1v3gRfzb5E6K4haUEVAPhSetaRr5/QFjX678wwSYiXHrt0tVGCVrTfVEAz1/tjAXZNoep0e0m/mbbvoXGoGhyDaVgP6p+HxyPWNjXKa0fv4p+8fBJlbp/1mwl0oTVsxGANt8n1aVnvlJzi4czr1MBuu9wrTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=x3kXaKToEIQUr2ksxkyRHP8F2SzGjtGuYlzrkLZ/jLI=;
+ b=t4yfRS4r3mE+3V+sxKQKuBjyU+t4mjwJAZSiLPYw/rRwmv/KGeKVfXEXbufWzEmnW0FyJmOLFF50ceF5OiBeGfpfCBu1FnLrqjjeMVV6z3uzYPTx6SCcDQyjjgZYe5zovv6Bo3WxqSqTOH6BCVf93Wp+qPZEWYz4RswKNyShru4=
+Received: from MN0P220CA0029.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:52e::9)
+ by SJ5PPF09E5F035B.namprd12.prod.outlook.com (2603:10b6:a0f:fc02::988) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.15; Tue, 4 Aug
+ 2026 09:57:03 +0000
+Received: from BN3PEPF0000B06C.namprd21.prod.outlook.com
+ (2603:10b6:208:52e:cafe::94) by MN0P220CA0029.outlook.office365.com
+ (2603:10b6:208:52e::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.15 via Frontend Transport; Tue, 4
+ Aug 2026 09:57:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF0000B06C.mail.protection.outlook.com (10.167.243.71) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.0 via Frontend Transport; Tue, 4 Aug 2026 09:57:02 +0000
+Received: from canli-build.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 4 Aug
+ 2026 04:57:01 -0500
+From: Candice Li <candice.li@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Christian Koenig <christian.koenig@amd.com>, Alexander Deucher
+ <alexander.deucher@amd.com>, Candice Li <candice.li@amd.com>
+Subject: [PATCH] drm/amdgpu: validate GEM_CREATE domain combinations
+Date: Tue, 4 Aug 2026 17:56:20 +0800
+Message-ID: <20260804095620.3899975-1-candice.li@amd.com>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDA3NyBTYWx0ZWRfXxhRdf3MUDCsS
- RNKS2xAaac/vnTWmgM7Hq8ayjbHO34dBt64GOJu1DuNHKdhgRiiTljnbPdfq5jRxOGqA76dEC6o
- hUshmjDftw78A5VKGsmpSMuCxwoxu9c=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDA3NyBTYWx0ZWRfX21Zm2cnLv5nr
- lqofmED2KvQHHrY0u9YR2hj1MnFSbc3p89KtZzaA3mIYQq6Ym6c+1Se9FM98xUareGDuvJxv5Nk
- jEjO3+dR5P6sADRhukjSrx+eCmhKH42I/+CWEM7hdS2okpOanqK44zGdl9tVkgh5J5Ojrsado0p
- qQIceQprgFOJBSLpdlTnV06wIPrQf5sMxAUz27+RrZzJLMdbxLg6obAHH9YmLEumQbpO1I6JTJT
- aZg67+a/9bTt33H4uLU29++g6pvpd/snBChWcR/wmMx+oggETZBUtBVSrb03On3ES0n5zdrhPla
- Bpsnxl4lb8Dd2B3xWD+iRZnpj0/B2uyk6X0vsUDiK2CaFuWpsqrZIgVT1CNsfIfV3IJzaOtxt1m
- //U0T3uaLkfQ5Lp0eSlLo0O/7GMzQ6lQMFXFE323pD++w43BtyxTHWYCA196pA/jVe3S+WYqZFo
- q5lHwhHYabfpTotM7DA==
-X-Authority-Analysis: v=2.4 cv=SI1ykuvH c=1 sm=1 tr=0 ts=6a71b6cc cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8 a=hYRG7ZBUrRAeTAvm9XIA:9
-X-Proofpoint-ORIG-GUID: 00IFw4AZq-THsXAuWeV86WBjHukVPvnu
-X-Proofpoint-GUID: fGl71fqhRlE7CKxhAGWFg-lm4nzNRIf0
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-04_02,2026-08-03_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 suspectscore=0 impostorscore=0 spamscore=0
- phishscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608040077
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06C:EE_|SJ5PPF09E5F035B:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0a178ce6-cd98-4f8c-a18f-08def20ebbf0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|82310400026|23010399003|36860700016|56012099006|11063799006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: QrWa35C8Hz1k/pfiytfan91iA+iI3mRqz6LqQEqZYFdHP40+csT3bncavuQE7Oj2QTXMB/VcwpGgB9DsZMrhn5i4mykHeVGP51K3hjI++VVhDQOb4iC5aRMSQHfvl6Z3swNI/CajFaus9aIKDzhN7mfWrknYGsIbN6lvCI5OF2YhYFZteIWHrgt+6LoW9EfeDTXjBQXeE+Mtct0BSduLHVkdOGAMOTDuihdveKYm9lW8QTbmS94bPEuhMVs3oBPMB4Xmmk1FMSxHm8BIrzg20NcYRqLbbc9twFsCnjR/YyV2vJkfBcB5FCySPJUa+/NsGgXomZHJvwCA5GLVc6ltKY78lYFMw6EqFFb0Q7fKZzg/tjo2pYNoIF8xBPbu6iPgYEQ7kYXrzO8cWjHhgAzebPQrSnEiIZp+/ii0pyCUwqvcR0IhDqJKNWO4XYRftkgQlWF7ufPB73IgnMoUq5ljA7nqO8ZHq8gcPqqAFq/X4WorERnZnjcNXY6a+MPDMy4geox6Gnpt7Pd9rgULFEc6UPWPoBqA6zmw6ZT+Qk/Puyt0a1LYOsWB1+QN/2IGIvAramciJ8fZJA2Kw72WMjqfYE+lr2LvNtDNyiIuZRwwNdYo9rc6397bLGckIqORvjVGA5CZoJqOj1ku7FauC6L5Slq+JT39vKT5aR/OkBYrY7RJUwkrUSYsF7mXafPq1l7PPW/vHluR8yBtwAOFNFlHkg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(23010399003)(36860700016)(56012099006)(11063799006)(10067099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: X4bk2UA81JBizsuaUBa2F7c5JRLT/Zj1gOB1ofZSVTl09Ve3pS4CrNL2OW7uX7lZUnF0zKa97phVlR46O9iP7YTKwdme+P9cP29wCeQ+gl5wW4Hg8xQWfYJdHleiETuJ1yp7hWy5btvzDSv/oYzLrIqFWs36AcTEGmBeu0NX+0sLSYGS1QcX7nDSVF1aJfPDIMSRCPLNEJ+GjsQMmY/ETv2WbmUU0SKirAB10rHzX2aBeYV1iq2kxOw7st2Kaz2tAFxgsd4U83OZfnfVMubGkTaTEfUK5Doi4uOBlGnMVM5sourT8pbPCovLheaWm0YXYbJ1vFxiT0T8iRPfGi1oMMPqAclRDHvBlFfRsXM1fFMUB5QGcLvFT6FtcnX4K9bQ7vBDmaVdhDslkKpR1aBq3st60pVZJJZXWAZv6V/uWf3pDwKzR+P6Ifks8dJhBYCW
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 09:57:02.9372 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a178ce6-cd98-4f8c-a18f-08def20ebbf0
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B06C.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF09E5F035B
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,75 +108,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Added a numa_node sysfs attribute for CPU and GPU topology devices.
-This attribute exposed the NUMA node associated with the corresponding
-topology device through the topology sysfs interface.
+AMDGPU_GEM_CREATE checked domain bits against AMDGPU_GEM_DOMAIN_MASK,
+but did not validate domain combinations. Userspace could combine
+CPU|GTT|VRAM with DOORBELL, GDS, GWS, or OA, making
+amdgpu_bo_placement_from_domain() exceed AMDGPU_BO_MAX_PLACEMENTS and
+hit BUG_ON().
 
-Signed-off-by: Donet Tom <donettom@linux.ibm.com>
+Allow combinations only within CPU/GTT/VRAM, and require non-CPU/GTT/
+VRAM domains to be specified one at a time. Return -EINVAL for invalid
+combinations in amdgpu_gem_create_ioctl().
+
+Signed-off-by: Candice Li <candice.li@amd.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_topology.c | 15 +++++++++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_topology.h |  1 +
- 2 files changed, 16 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-index d3269f0ffec3..51780bc8aabc 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.c
-@@ -418,6 +418,14 @@ static ssize_t node_show(struct kobject *kobj, struct attribute *attr,
- 		return sysfs_show_32bit_val(buffer, offs, dev->gpu_id);
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 6a0699746fbcd6..8fd0a63af4a135 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -397,6 +397,25 @@ const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
+ 	.vm_ops = &amdgpu_gem_vm_ops,
+ };
  
-+	if (strcmp(attr->name, "numa_node") == 0) {
-+		dev = container_of(attr, struct kfd_topology_device,
-+				attr_numa_node);
-+		if (dev->gpu && kfd_devcgroup_check_permission(dev->gpu))
-+			return -EPERM;
-+		return sysfs_show_32bit_val(buffer, offs, dev->numa_node);
-+	}
++static bool amdgpu_gem_domain_valid(u32 domains)
++{
++	u32 normal = AMDGPU_GEM_DOMAIN_CPU |
++		     AMDGPU_GEM_DOMAIN_GTT |
++		     AMDGPU_GEM_DOMAIN_VRAM;
++	/* Treat all non CPU/GTT/VRAM domains as special domains. */
++	u32 special = AMDGPU_GEM_DOMAIN_MASK & ~normal;
++	u32 normal_mask = domains & normal;
++	u32 special_mask = domains & special;
 +
- 	if (strcmp(attr->name, "name") == 0) {
- 		dev = container_of(attr, struct kfd_topology_device,
- 				attr_name);
-@@ -630,6 +638,7 @@ static void kfd_remove_sysfs_node_entry(struct kfd_topology_device *dev)
++	if (!special_mask)
++		return true;
++
++	if (normal_mask)
++		return false;
++
++	return !(special_mask & (special_mask - 1));
++}
++
+ /*
+  * GEM ioctls.
+  */
+@@ -421,6 +440,8 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+ 	/* reject invalid gem domains */
+ 	if (args->in.domains & ~AMDGPU_GEM_DOMAIN_MASK)
+ 		return -EINVAL;
++	if (!amdgpu_gem_domain_valid(args->in.domains))
++		return -EINVAL;
  
- 	if (dev->kobj_node) {
- 		sysfs_remove_file(dev->kobj_node, &dev->attr_gpuid);
-+		sysfs_remove_file(dev->kobj_node, &dev->attr_numa_node);
- 		sysfs_remove_file(dev->kobj_node, &dev->attr_name);
- 		sysfs_remove_file(dev->kobj_node, &dev->attr_props);
- 		kobject_del(dev->kobj_node);
-@@ -693,6 +702,9 @@ static int kfd_build_sysfs_node_entry(struct kfd_topology_device *dev,
- 	dev->attr_gpuid.name = "gpu_id";
- 	dev->attr_gpuid.mode = KFD_SYSFS_FILE_MODE;
- 	sysfs_attr_init(&dev->attr_gpuid);
-+	dev->attr_numa_node.name = "numa_node";
-+	dev->attr_numa_node.mode = KFD_SYSFS_FILE_MODE;
-+	sysfs_attr_init(&dev->attr_numa_node);
- 	dev->attr_name.name = "name";
- 	dev->attr_name.mode = KFD_SYSFS_FILE_MODE;
- 	sysfs_attr_init(&dev->attr_name);
-@@ -700,6 +712,9 @@ static int kfd_build_sysfs_node_entry(struct kfd_topology_device *dev,
- 	dev->attr_props.mode = KFD_SYSFS_FILE_MODE;
- 	sysfs_attr_init(&dev->attr_props);
- 	ret = sysfs_create_file(dev->kobj_node, &dev->attr_gpuid);
-+	if (ret < 0)
-+		return ret;
-+	ret = sysfs_create_file(dev->kobj_node, &dev->attr_numa_node);
- 	if (ret < 0)
- 		return ret;
- 	ret = sysfs_create_file(dev->kobj_node, &dev->attr_name);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
-index 312802754096..90777af8e665 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
-@@ -160,6 +160,7 @@ struct kfd_topology_device {
- 	struct kobject			*kobj_p2plink;
- 	struct kobject			*kobj_perf;
- 	struct attribute		attr_gpuid;
-+	struct attribute		attr_numa_node;
- 	struct attribute		attr_name;
- 	struct attribute		attr_props;
- 	union {
+ 	if (!amdgpu_is_tmz(adev) && (flags & AMDGPU_GEM_CREATE_ENCRYPTED)) {
+ 		DRM_NOTE_ONCE("Cannot allocate secure buffer since TMZ is disabled\n");
 -- 
-2.54.0
+2.50.1
 
