@@ -4,55 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D50DC55182
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 01:56:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E0E0C55184
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 02:41:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAC2210E078;
-	Tue,  4 Aug 2026 01:56:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0670010E0D4;
+	Tue,  4 Aug 2026 02:41:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mVj0SrRu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TSWkkXOy";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010056.outbound.protection.outlook.com [52.101.85.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8393C10E078
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2026 01:56:36 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011037.outbound.protection.outlook.com [52.101.57.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03B2710E0D4
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2026 02:41:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=giexq7OVpgZqUdcxWUI0lNyhtMMnbxyIa+vlzOIRtoeTOJwLpatH/y+Ube5nrChmz/CK2tN3/ZGQPFWn3N/xLyskGSVt7fVC5m9ekwzfqL2G+tL2e5hf/l6ttvE2zTXJlgk6aAp6MTBYjSFtWGKbwAVjb+SOGIXFslbEx9Y6zcnEYBNlClW18fXbl24ukXhDuuIC4uiL7h3kFhTJtxwylyPyPw1A9c2jgh0/jiVG8t1GZKDbytrUcgp7opUaoAzVvWFhh8436U/1Tpr7mcQVCO0ZMy+UJCosceYV/NDqfQnH+SgwPRO2e+1oo4UGH75DgyA1wNmrMBL/Kpb9UWDb9Q==
+ b=c9k5Ut1gGxb/V9hbdrjKJBg7XQvpBzygBjGLZb6FISoL8VAG4WoPKZZMWJz3t6k6bJhhwVk/dy4cexM9lxYH8FNlsIWQy2i7UMe3OydZ8CjUG5c9Lj/pj8oGqc5u95rioQCgJLhGCrRbMQeS8A9c9xg9TGknyoOwJ6xXjx52wMIS0dMYkYQIY9oByeDcSxOOawYl9AJyxmoQyve2wqgYQceLhTCXhAMOgE3Y+LoqQfvOqzBmbqtFeY90oGRXfThSlWNhwLnfXbupT91G9NeFVwSnbv5UhudyoPHhD0C8Kw4tH/s3lkFrTgUjwEXshrp42TXX/cg8U3ibL2NVcg+03g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f2TSRCfcn6qxGEd5RulqdrRijQP5/ai0iicwfBuXxfg=;
- b=kGe6qbRiaW+o7pCCYZq70ujnn8nA1K7J/KVuQX2myyIHtU9WekAfB4z8k9af81LxKpE2XAYkdR+Dow7i2FIKRtF0mJ0CRUtC0urNyt8oEfGAv8hw45vP9YjTOuULpTWoWlgyxPgTGigVNmVCCduwY9sax07lzkiZ9qPQDEkFoTCApd3YhxMD2lxc3Tm+nZWrxisoAZfjaAzRBfTaZ1OnxsLSfWl4gggssTM34kqXta+9MUPri+8KbyOTDRSl0P1HKOoqAD0OpSf1wK3ciSZlzEHLA7AnpjIY31/yRRaHKBXByjTOTCWldp9yOUMYdyB/ctOAk/LOrZ3IFGYIhvc7Eg==
+ bh=twZHMydFGDmesPcsCuv4HEN5/tssePP6ZIQGWjfZso8=;
+ b=yNt+oRVG16fxv3fw+OItYz1ZA3VILqvsy7Z4MUwNBpQnwee7tdRHm24eVV82AuDSNt9QR7yhT+y5/uwIOxZBsVzJDxiRko7J1XwP7pFdaa3HbEJbHlEcYJWFRwYlKX4K0+xWxBl7AgjbPEZhYl5XKGmu8etynjgmEDyoXc2CVXapJ9ZFwZYVi19MmEH6y/pHAUIDs9HoFqeMgLN8wqMnfa2zA4SKe7vnszx0RW54cfmo7cGFdIl4EFZuDL/yS8OzIxz2caoDqRdOeLdfQA6e/AYGa7vkxlJneqePlrhaNmSBCiTqjltSvKX1rSz1q1Z7XzBjmc9Fij3/veVOILbMPQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f2TSRCfcn6qxGEd5RulqdrRijQP5/ai0iicwfBuXxfg=;
- b=mVj0SrRuS3qwrSuaHkECEj5IpE5pO54Nr7OMvUVOl7Z+H976I5bCjJtz4nI0WeRmls2apuUxjaINipl5sosqWneJpu0krhNQN/YRt4ykgm5dV9vzUkEddHA6eff262cT4oVAFWE/OeDZmeTyBjR2XBRHw+MjW6CsTWe24B1Mklg=
+ bh=twZHMydFGDmesPcsCuv4HEN5/tssePP6ZIQGWjfZso8=;
+ b=TSWkkXOypmAQYr4LPS9TzO3xFalh0ZJCas/C72Lb2+S05SsE8ckwG5gWTYeqxI2S+t1b2b1fnw1Xf8LgtYvHla4uoZJS3tygnJddWyuEp6dlvfoO3awCtd4YYjIDU285jpdRltp2vJBqZiQGBd8yV4RyLTx5N/dUHuJuKXs7CnY=
 Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
- DS7PR12MB5840.namprd12.prod.outlook.com (2603:10b6:8:7b::10) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.270.18; Tue, 4 Aug 2026 01:56:32 +0000
+ EAYPR12MB999182.namprd12.prod.outlook.com (2603:10b6:303:2c1::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Tue, 4 Aug
+ 2026 02:41:47 +0000
 Received: from DS7PR12MB6005.namprd12.prod.outlook.com
  ([fe80::ab84:617d:61a9:3727]) by DS7PR12MB6005.namprd12.prod.outlook.com
  ([fe80::ab84:617d:61a9:3727%3]) with mapi id 15.21.0270.017; Tue, 4 Aug 2026
- 01:56:32 +0000
+ 02:41:47 +0000
 From: "Liang, Prike" <Prike.Liang@amd.com>
-To: "Chen, Michael" <Michael.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
+To: "Liang, Prike" <Prike.Liang@amd.com>, "Chen, Michael"
+ <Michael.Chen@amd.com>, "amd-gfx@lists.freedesktop.org"
  <amd-gfx@lists.freedesktop.org>
 CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
  <Christian.Koenig@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>
 Subject: RE: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue
 Thread-Topic: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue
-Thread-Index: AQHdH8hzQdA6V0UvE0Ox2HMImbZFT7aMzksAgABab2A=
-Date: Tue, 4 Aug 2026 01:56:32 +0000
-Message-ID: <DS7PR12MB6005C28368E95CCF629D162CFBD42@DS7PR12MB6005.namprd12.prod.outlook.com>
+Thread-Index: AQHdH8hzQdA6V0UvE0Ox2HMImbZFT7aMzksAgABab2CAAAxzIA==
+Date: Tue, 4 Aug 2026 02:41:47 +0000
+Message-ID: <DS7PR12MB6005F9C8036A771807066F98FBD42@DS7PR12MB6005.namprd12.prod.outlook.com>
 References: <20260730020911.234193-1-Prike.Liang@amd.com>
  <20260730020911.234193-2-Prike.Liang@amd.com>
  <DM6PR12MB3611DD14C882B3CBAA936FE194D52@DM6PR12MB3611.namprd12.prod.outlook.com>
-In-Reply-To: <DM6PR12MB3611DD14C882B3CBAA936FE194D52@DM6PR12MB3611.namprd12.prod.outlook.com>
+ <DS7PR12MB6005C28368E95CCF629D162CFBD42@DS7PR12MB6005.namprd12.prod.outlook.com>
+In-Reply-To: <DS7PR12MB6005C28368E95CCF629D162CFBD42@DS7PR12MB6005.namprd12.prod.outlook.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -66,60 +68,60 @@ msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|DS7PR12MB5840:EE_
-x-ms-office365-filtering-correlation-id: 972b482d-3552-40cd-a429-08def1cb9b72
+x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|EAYPR12MB999182:EE_
+x-ms-office365-filtering-correlation-id: 95b8990e-34bf-41b9-d859-08def1d1ee08
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|38070700021|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003|8096899003;
-x-microsoft-antispam-message-info: WWuIaB6KgGa11oDSe1D/x5k/AD6UyUZL75NXHMUGvDjteSdo1FODCpQwUsXnn+rIpuwD+v6LNofkrAptRSXzyTw1I7vD8IsKwH+cvd0Oa8sZEZmu7ZDqprpStMTJs+5mzneg2F4xUNwTMz0pHqmDF64jPj807aGj5LKAe1XrKQRbQQN1Kg5UKoYcwJdXOwvTf/utgEbIUe0BCpKAuX1o5tQbsG8Zmb0pVvNstKDLyGC1Gq2ybPnpvUtVo0j/pvGZXFTyWkj3Wt263ERj/JwqS4Kk2f+wtu5p3RMJNO4+yVG38xDk2zEZsyhrsep7XxvP59JCRKWRrZOrqLC/kCjeN5FDqU46zxQslkwt/QEDvyv68YIKthPMCMKilpzu34bfjjeuc4hy9uvmmhSFHACJvqxxH3Vitj+z7IUsTb8K0t8ciGggdWUiCH0H7Mw/HH1GZNO8tRxK+lt+28IBnEnqNsmzPJXhFMCdnAYnuQbjbSgOk1LnMFO2zaHt3cntU60DIUxyRpakZX6Ojk3qBKmo+vDG6vE8AGHx7bhhlcKvQEmfhYhoZpevVPVWNzG28LV/hr7yCdERToWjRdU4DvAYH6FoY5PjqhtcubrBYxI2Oz7w3hDA+TK5E6TPFf+TfpY5yPvGlhvwchKUdN2pVEjOaFLwB7F4lym5jUdcqiU1KvFui6e+2vXJCAFbI79uXsePDjmxhPXXYGCF+MxTgTh1mxPXDrtw1z7SUWVXvwpkNbM=
+ ARA:13230040|23010399003|1800799024|376014|366016|38070700021|4143699003|56012099006|11063799006|10067099003|8096899003|22082099003|18002099003;
+x-microsoft-antispam-message-info: mHLxxq/Am9dKw1S26dNKTjd81ztCH9kxCydlQwTZTrAjlQuDxUWFvF6fdzCIYoXBB9D58TTolwE6Z9B5t6ksEonxoowdJNPXKosY0qR18kq0I4wOwg3euh+Z/M3TbfXRw4Tx7rhPLSMPXgLlgXtjRIZXWDPjL0+3Du8+IEfQ1MMlhvqcPVpkYFrMCaa/Kgl6v/GOvzkqCKz0jcfH3wOhpCXQj3/wBeaoa6Ucln5xD0t+8G8psaEQRDN5s2fB3HNdBmGACHD4fXMYOhrRZXEFW3W9JIqSV8lwp1cTWOmgAjr7dXbL3stL5NNA7HZp8Klrviw8Zkutma2pmv7nsKgKEm+DT/Gmk1GeED+woKSBDlSKX+Sjg/LHcJXX2OYnnLCdzvyviLmWYFU5zU1laqXGTFb+3iDza9XOzDEJ4EN1Z5ttabtiswQMiswCtJzi9GM2oXW+FlqpLqaSIRX4uAYg40U5YZ2/cCTgMso8lnWuc69+dNbR/ait3gXMayvYc5a3fTy0fsyNYg9EL5NdU1vegB8220A1D7o+FYN0jJcOKdggi6jcaDBnJkGAJOX42cv/RhLQcSslcNyrJIx7y8sBgcz0XwtaQQajzBlEgv23QdYvwbAl0LGjiEBfgcXf56h6jwjygcSbbbcLFm+4aQ87z245IqL6ESzAU2v2Msf+cCyOlq4oAa+jnGNFhBCFW1ZlkJpBo85V2O1wn2PTvSoCsVf/umpoar5EB9xK2t5oTSo=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(38070700021)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003)(8096899003);
+ SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(38070700021)(4143699003)(56012099006)(11063799006)(10067099003)(8096899003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wlRQGj11JakwtPpqJ1uqn+6zcn7Md9EQhnYkstcT/kuQZ6cxbsyUO7yplIU9?=
- =?us-ascii?Q?9EYH6RQcJ0jhMljQvxqDDDzZIf038QV/VyfNny6++8JKDhqi5K4cqCCiQ8DF?=
- =?us-ascii?Q?8RLgpDBLd8NV7QI9+FVKowPVAWdi0YsjXrrKpIEUEMBDnHSH+lZ9iiwSX1i6?=
- =?us-ascii?Q?tn/3tPOFLcSIvj5QjkigwP8Rg/lzgFcxj4DmTh9MtLgZRCcE+cRWS7oXF4dO?=
- =?us-ascii?Q?HM/7TdHJu0h9sZ1Jn7Pw6lgQj+msaxgqnvVad7VtBVhjB+9dvIe+xqqomCik?=
- =?us-ascii?Q?S2u9Ut4xPbLPRmZq+W/3x3ryAvVncmkKlSGidf4CMXzchfcV58Z/6hqATDZf?=
- =?us-ascii?Q?zU0UhvYt/hRCOuqsCvkFlVqvoSItlXl6mexmAmID/ihZQfaAoYL9kD9Gs0lQ?=
- =?us-ascii?Q?eM/L6/7Azo7ZLAEYvqyF8rEa/Xk+2ibDDoNoWFxyQJS4dyYbrgZ8uRvfnUD5?=
- =?us-ascii?Q?mi7ST0jSz7GsWS7wTkjvkXwlUZDCw/2Th8mo9rgduRAM34t12QcqgPgsyfN/?=
- =?us-ascii?Q?RzrkOSAgQGEa00eh7c+PYZraCutqCTSdN6pWEezhj+dM0BgJImtpf1hfV8nG?=
- =?us-ascii?Q?BngEzV2ws57Eh5rKDpG6+LbsoIg2kr4wiKcsFAaTfqnMaY3I5no9i5WFY2Gr?=
- =?us-ascii?Q?NVwAD6MEK96xjcXcr97/fnNaPtDj0LG0z2AO7kFmPBK2nhMX41iuga5CwVv2?=
- =?us-ascii?Q?aycDZJKDwdYVCSHuvazS9W+dh6fLGFNdhaTdDEMAKoMOHrmYSTH7B4Y+ODXO?=
- =?us-ascii?Q?p973l5FbQIRAaohQ3UwX1LibTpLQc7GvfRLOUvYQbR8Zx6xXEgPBvhOhKhy7?=
- =?us-ascii?Q?iSXNMmexRVDj4BCilEafk6bNXqTTy6+yiTFtHNJxJrkGvtxhi4w0ohgqEEOF?=
- =?us-ascii?Q?ZpmFuE3ESHnBI0J680nRXtvM1gCWgOILQojQsCc2GaOlYxJ3DIl6vf4vC9Ev?=
- =?us-ascii?Q?dzqI0Tp7a+vwq8tXk1oUkp/CQ9g4WYg6yTFW4HQMrO56HYUmRmSzUIL+WdAh?=
- =?us-ascii?Q?gqE0RAFMjSEDk9Qhqa5TlmGIvA1cEEzClJ3qgWo84/tPvkk0EEM5VGmgcqV7?=
- =?us-ascii?Q?o3inzFWEir0CAS8tVLZ9ZreiKaMAEJc9ZEfoqu/ycMGpTQa4YWKpg1R5MI4G?=
- =?us-ascii?Q?NAOketfY85a45wEJbOhtd1Qua/ixELvFUm3/0ZzAerMCnk3DVV8WHQg9edzp?=
- =?us-ascii?Q?tWgjdi+FsGgkrDMCW3D/VzSu/jCozPfEl9JHn43j5TtN0gPcUcZPD1olboGP?=
- =?us-ascii?Q?NdetcfI+P03HszFLWW6QweGWIdVHil26JkdsAGeLY2e6KSmu1xf5baowpQT8?=
- =?us-ascii?Q?m9ArfLaZxdA1tF375/ZWhMZrGDJtKiV6JGF80FyN4jXmDE2sjogbr/YFpgqV?=
- =?us-ascii?Q?bL3pY7urYV6aRgsByw4huu5YtpZiPY5lpBJxjOoJ2Yz8NOMpdmaEdYq/h2Wm?=
- =?us-ascii?Q?L4n3xOvzXI4dOrZnyh1wIl3q+tPrumFYDWqHeRadTDxda4zA/F5Xdf5Gs90E?=
- =?us-ascii?Q?J9++CXx4mKzmRPnc4J1R5163ITMlbL0yGHqdlC6MezEelrkoV/ZnGGJIHf8I?=
- =?us-ascii?Q?qLrxuomc7A4ul1ybJnVYG0uF5bW2Xlxk7AvVuh3DRtj6c1gNkXAthSeSwDpM?=
- =?us-ascii?Q?tw47Jtui4Y1hI/Od+Z7GLin2Gte/P4x8q9gdPN5cXQ/clxYYxF5AhsLkyztN?=
- =?us-ascii?Q?OwPuLwJpEhxgiqIjyshre/DwZuWke5sx8BrJlr+pZpwPMdV1?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?WOEuStEj0/HcbsNFpePr4YOmrLeUXFqJS3Dq3SLidcs2YWL5k8mSwSacGy9u?=
+ =?us-ascii?Q?zt+MBVjQEEbvY2HonIoCMRVVd/mr1niJtCXPMym8ptGROUA2irSakcn6S2R5?=
+ =?us-ascii?Q?OIR5g6uK6BHugK7GZ9QDf7SinrGGw9v2Mt5sTKItK5jL5PzdU/nXPHmUAkfl?=
+ =?us-ascii?Q?v3ud+TiNkeIgaGa5/B0RBK9iWx9KfGODgTryNpnxXnAuYDxGGj0Y7jcPvJ74?=
+ =?us-ascii?Q?MQiPk77W9/PaOmma4AP6IRghwKe1VXyFJoZtANUcp/5WBteAynHQ3/NVkjdy?=
+ =?us-ascii?Q?tzAM82FwSRUgdaE+kxKqdAtK0aBtceMwR41s0oPoDmEwIaQZysr609k7QjVo?=
+ =?us-ascii?Q?tcpMnlZPqcCBXjZDURo4SkoDkvyrxi41tH/u+SAJAHQu0Ht3uM4nOSIdtdJf?=
+ =?us-ascii?Q?DN+RoQXL0pU+XteuwBvRq1siETGIIFnv3zRY9WuQYIvPh3+owLCsMnA0R1Ys?=
+ =?us-ascii?Q?OWB5qY/h8q6Uv3xo4nugVRPMgsQ8+H9uhRbRxhOCYsoMuK1se8voP0SuSSqA?=
+ =?us-ascii?Q?UgA6DmjdY3AwxWxR6ADbGRzwzzfydowSEClbPZRqjzstqUfIN0beLdCDNyIQ?=
+ =?us-ascii?Q?Z/6tshXNxXFBr1TH+AlKVpeRba7SRt+aupZXjIll2UQThkuG+O8RpyuEjEcd?=
+ =?us-ascii?Q?zxUK/O0d25W38QVXKynUCpmnAg1vZe2AQu7vsTkXjM/CjPGChVOcnuyhNexx?=
+ =?us-ascii?Q?seZLfeCs3rWeULZXi1IZIZxIPeibg240zOk+U8ekiwK1QE6uV0/OMeospFyk?=
+ =?us-ascii?Q?oftuKzDIuIoM43DFm6d4yK1z5/gpj5e42HXNkwnyR0fzEsDD5UjbIKf6Q6ZM?=
+ =?us-ascii?Q?kOrUq1ni8fqwEuAxv0KrWAxt6HkrqoxX4pjJr2N75xRl9izznnownW/QKHOR?=
+ =?us-ascii?Q?yFncHobTO3gE7QTDHJRYumPa0gJtTTe2vJNXme6XggtIHW6qzTgP41m0dfNc?=
+ =?us-ascii?Q?q4XprwrHWfNv8R3SrQsPnLYR9tD6BMTT+rxQHh45ts/Et1uL0Os2X5KqdUvw?=
+ =?us-ascii?Q?EurEAGsNp5J3km6TFhpQA4TmSYuLSflOQG/lMk+8VM8dQhSHDQgsL+qpmyDc?=
+ =?us-ascii?Q?8HUB+FJKz0HQEl5owxKNU185tMUrih35onYqN7AXNplUln6UMV3VWKYR6HWZ?=
+ =?us-ascii?Q?hdfkXLRZMx/lKzpNWrB3ruWnDoBkATWH21jqmASVtTwdeRowA4KtXdpeRSLH?=
+ =?us-ascii?Q?6/cXOCwK2MD2Dw3QZ/PfyVSZiROQigFYNfTiYsKUviQ2FnTDvZrgl48bvOGv?=
+ =?us-ascii?Q?S2qIFPVVzlEAUYzC/0PfQo3LbmSKbkWtO2x4ivpiogaE+yAkuYccat1hb1x+?=
+ =?us-ascii?Q?GRvYAgYsHZgjdCQsakZSMLfbz2Ft0FD2PLOnDgbnhbSntDgyzicbXLKqhmAV?=
+ =?us-ascii?Q?dT44NolJn3qOTyAHJIgfEihww83sWiL3nIYxCv4hftuLk+I8UjFmHYUajm5n?=
+ =?us-ascii?Q?hlgI4N2uUfD8lcUb3036BeuiwRYxgVpxKlDgK+XjLNmKMuCw79p20aN++583?=
+ =?us-ascii?Q?ZKeK6BOBeFdGaq5x51lsZ5R+ZorQih1gmc5av+Vq8fbeAXOFSJQI09EfSXe8?=
+ =?us-ascii?Q?lU0mcfYSG4KCCMiQnd0iVwTiXYjTj72Y+HTR20u8+QyZzwanFE/ZJmrpRvTD?=
+ =?us-ascii?Q?hg7JaWg5oh9e9u+JK/LUVC55Z/fTmN30q9S34aPTHFbMBKiBUA28GNmuTtp5?=
+ =?us-ascii?Q?Dsl1NGmObXARK+XqTEtXvo56hqUZk9wCVP2T74JaLgRp3ZCU?=
 Content-Type: multipart/alternative;
- boundary="_000_DS7PR12MB6005C28368E95CCF629D162CFBD42DS7PR12MB6005namp_"
+ boundary="_000_DS7PR12MB6005F9C8036A771807066F98FBD42DS7PR12MB6005namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 972b482d-3552-40cd-a429-08def1cb9b72
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2026 01:56:32.1460 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 95b8990e-34bf-41b9-d859-08def1d1ee08
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2026 02:41:47.6935 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: JwAipjpmlNS4YHSc2EC7JZGUwO53SxEbD9C5G99qSNj6WE5PMEXWxYRXs67BcTRI
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5840
+X-MS-Exchange-CrossTenant-userprincipalname: e0GPJUybI+lIVkdKSnROendkdvnv/vMoltOESXN65cC9d630AmMyOWTpHKdG92L0
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR12MB999182
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,7 +136,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DS7PR12MB6005C28368E95CCF629D162CFBD42DS7PR12MB6005namp_
+--_000_DS7PR12MB6005F9C8036A771807066F98FBD42DS7PR12MB6005namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -145,11 +147,30 @@ AMD General
 Regards,
       Prike
 
-From: Chen, Michael <Michael.Chen@amd.com>
-Sent: Tuesday, August 4, 2026 4:31 AM
-To: Liang, Prike <Prike.Liang@amd.com>; amd-gfx@lists.freedesktop.org
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Liang, P=
+rike
+Sent: Tuesday, August 4, 2026 9:57 AM
+To: Chen, Michael <Michael.Chen@amd.com>; amd-gfx@lists.freedesktop.org
 Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
 stian.Koenig@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>
+Subject: RE: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue
+
+
+AMD General
+
+
+
+Regards,
+      Prike
+
+From: Chen, Michael <Michael.Chen@amd.com<mailto:Michael.Chen@amd.com>>
+Sent: Tuesday, August 4, 2026 4:31 AM
+To: Liang, Prike <Prike.Liang@amd.com<mailto:Prike.Liang@amd.com>>; amd-gfx=
+@lists.freedesktop.org<mailto:amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com<mailto:Alexander.Deucher@=
+amd.com>>; Koenig, Christian <Christian.Koenig@amd.com<mailto:Christian.Koe=
+nig@amd.com>>; Liu, Shaoyun <Shaoyun.Liu@amd.com<mailto:Shaoyun.Liu@amd.com=
+>>
 Subject: Re: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue
 
 AMD General
@@ -288,11 +309,13 @@ _bo);
 
 It doesn't have to check here, since the rs64mem support will be checked in=
  the amdgpu_mes_alloc_gang_ctx_index() as well.
+>> Think more about it, we may still need to check the rs64mem flag at the =
+invocation place to make the case which disables the rs64mem work properly.
 
 
   1.  Check return error code (in oversubscription case, it may run out of =
 index)
-
+Yeah, we add the error handler.
 
                  /* Starting with GFX11, wptr BOs must be mapped to GART fo=
 r MES to determine work
@@ -330,7 +353,7 @@ Same comment as above.
 2.34.1
 
 
---_000_DS7PR12MB6005C28368E95CCF629D162CFBD42DS7PR12MB6005namp_
+--_000_DS7PR12MB6005F9C8036A771807066F98FBD42DS7PR12MB6005namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
@@ -371,7 +394,7 @@ a:link, span.MsoHyperlink
 	{mso-style-priority:99;
 	color:#467886;
 	text-decoration:underline;}
-span.EmailStyle20
+span.EmailStyle21
 	{mso-style-type:personal-reply;
 	font-family:"Arial",sans-serif;
 	color:windowtext;}
@@ -386,8 +409,55 @@ div.WordSection1
 	{page:WordSection1;}
 /* List Definitions */
 @list l0
+	{mso-list-id:340591622;
+	mso-list-template-ids:697357542;}
+@list l1
+	{mso-list-id:1790928994;
+	mso-list-template-ids:1693111158;}
+@list l1:level1
+	{mso-level-start-at:2;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2
 	{mso-list-id:1989943214;
 	mso-list-template-ids:227286362;}
+@list l2:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
 ol
 	{margin-bottom:0in;}
 ul
@@ -427,18 +497,54 @@ ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
 0in 0in">
 <p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
 ;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
-font-family:&quot;Calibri&quot;,sans-serif"> Chen, Michael &lt;Michael.Chen=
-@amd.com&gt;
-<br>
-<b>Sent:</b> Tuesday, August 4, 2026 4:31 AM<br>
-<b>To:</b> Liang, Prike &lt;Prike.Liang@amd.com&gt;; amd-gfx@lists.freedesk=
-top.org<br>
+font-family:&quot;Calibri&quot;,sans-serif"> amd-gfx &lt;amd-gfx-bounces@li=
+sts.freedesktop.org&gt;
+<b>On Behalf Of </b>Liang, Prike<br>
+<b>Sent:</b> Tuesday, August 4, 2026 9:57 AM<br>
+<b>To:</b> Chen, Michael &lt;Michael.Chen@amd.com&gt;; amd-gfx@lists.freede=
+sktop.org<br>
 <b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
 ristian &lt;Christian.Koenig@amd.com&gt;; Liu, Shaoyun &lt;Shaoyun.Liu@amd.=
 com&gt;<br>
-<b>Subject:</b> Re: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue=
+<b>Subject:</b> RE: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue=
 <o:p></o:p></span></p>
 </div>
+</div>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p style=3D"margin:5.0pt"><span style=3D"font-size:10.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif;color:blue">AMD General<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;mso-ligatures:standa=
+rdcontextual">Regards,<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;mso-ligatures:standa=
+rdcontextual">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;Prike<o:p></o:p></span></p>
+<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
+ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
+<div style=3D"border:none;border-left:solid blue 1.5pt;padding:0in 0in 0in =
+4.0pt">
+<div style=3D"border:none;border-top:solid #E1E1E1 1.0pt;padding:3.0pt 0in =
+0in 0in">
+<p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
+;Calibri&quot;,sans-serif">From:</span></b><span style=3D"font-size:11.0pt;=
+font-family:&quot;Calibri&quot;,sans-serif"> Chen, Michael &lt;<a href=3D"m=
+ailto:Michael.Chen@amd.com">Michael.Chen@amd.com</a>&gt;
+<br>
+<b>Sent:</b> Tuesday, August 4, 2026 4:31 AM<br>
+<b>To:</b> Liang, Prike &lt;<a href=3D"mailto:Prike.Liang@amd.com">Prike.Li=
+ang@amd.com</a>&gt;;
+<a href=3D"mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.=
+org</a><br>
+<b>Cc:</b> Deucher, Alexander &lt;<a href=3D"mailto:Alexander.Deucher@amd.c=
+om">Alexander.Deucher@amd.com</a>&gt;; Koenig, Christian &lt;<a href=3D"mai=
+lto:Christian.Koenig@amd.com">Christian.Koenig@amd.com</a>&gt;; Liu, Shaoyu=
+n &lt;<a href=3D"mailto:Shaoyun.Liu@amd.com">Shaoyun.Liu@amd.com</a>&gt;<br=
+>
+<b>Subject:</b> Re: [PATCH v2 2/2] drm/amdkfd: enable rs64mem for kfd queue=
+<o:p></o:p></span></p>
 </div>
 <p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
 <div style=3D"margin-left:5.0pt">
@@ -452,7 +558,7 @@ libri&quot;,sans-serif;color:blue">AMD General<o:p></o:p></span></p>
 <p class=3D"MsoNormal"><span style=3D"color:black"><o:p>&nbsp;</o:p></span>=
 </p>
 <div class=3D"MsoNormal" align=3D"center" style=3D"text-align:center">
-<hr size=3D"2" width=3D"98%" align=3D"center">
+<hr size=3D"1" width=3D"98%" align=3D"center">
 </div>
 <div id=3D"divRplyFwdMsg">
 <p class=3D"MsoNormal"><b><span style=3D"font-size:11.0pt;font-family:&quot=
@@ -653,9 +759,8 @@ bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
 bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;(*q)-&gt;gang_ctx=
 _array_index);<br>
 &nbsp;<o:p></o:p></span></p>
-<div>
 <ol style=3D"margin-top:0in" start=3D"1" type=3D"1">
-<li class=3D"MsoNormal" style=3D"color:black;mso-list:l0 level1 lfo1"><span=
+<li class=3D"MsoNormal" style=3D"color:black;mso-list:l2 level1 lfo3"><span=
  style=3D"font-size:11.0pt">Should check &quot;mes-&gt;use_rs64mem&quot; as=
  you do in patch #1?<o:p></o:p></span></li></ol>
 <p class=3D"MsoNormal"><b><i><span style=3D"font-size:11.0pt;font-family:&q=
@@ -664,17 +769,24 @@ uot;Arial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></i></b></p>
 uot;Arial&quot;,sans-serif">It doesn&#8217;t have to check here, since the =
 rs64mem support will be checked in the amdgpu_mes_alloc_gang_ctx_index() as=
  well.<o:p></o:p></span></i></b></p>
+<p class=3D"MsoNormal"><b><i><span style=3D"font-size:11.0pt;font-family:&q=
+uot;Arial&quot;,sans-serif">&gt;&gt; Think more about it, we may still need=
+ to check the
+</span></i></b><b><i><span style=3D"font-size:11.0pt;font-family:&quot;Aria=
+l&quot;,sans-serif">rs64mem flag at the invocation place to make the case w=
+hich disables the rs64mem work properly.</span></i></b><b><i><span style=3D=
+"font-size:11.0pt;font-family:&quot;Arial&quot;,sans-serif"><o:p></o:p></sp=
+an></i></b></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;font-family:&quot;Ar=
 ial&quot;,sans-serif"><o:p>&nbsp;</o:p></span></p>
-</div>
-<div>
 <ol style=3D"margin-top:0in" start=3D"2" type=3D"1">
-<li class=3D"MsoNormal" style=3D"color:black;mso-list:l0 level1 lfo1"><span=
+<li class=3D"MsoNormal" style=3D"color:black;mso-list:l2 level1 lfo3"><span=
  style=3D"font-size:11.0pt">Check return error code (in oversubscription ca=
 se, it may run out of index)<o:p></o:p></span></li></ol>
-</div>
-<p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;color:black"><o:p>&n=
-bsp;</o:p></span></p>
+<p class=3D"MsoNormal"><b><i><span style=3D"font-size:11.0pt">Yeah, we add =
+the error handler.
+</span></i></b><span style=3D"font-size:11.0pt;color:black"><o:p></o:p></sp=
+an></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt;color:black"><o:p>&n=
 bsp;</o:p></span></p>
 <p class=3D"MsoNormal"><span style=3D"font-size:11.0pt">&nbsp;&nbsp;&nbsp;&=
@@ -758,7 +870,8 @@ span></p>
 </div>
 </div>
 </div>
+</div>
 </body>
 </html>
 
---_000_DS7PR12MB6005C28368E95CCF629D162CFBD42DS7PR12MB6005namp_--
+--_000_DS7PR12MB6005F9C8036A771807066F98FBD42DS7PR12MB6005namp_--
