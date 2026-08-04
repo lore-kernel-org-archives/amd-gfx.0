@@ -4,48 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29354C55838
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 14:08:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F3C5C5518F
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 14:11:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5344610EA7A;
-	Tue,  4 Aug 2026 14:08:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D9BB10EA7E;
+	Tue,  4 Aug 2026 14:11:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="i9HzDcU8";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LX0zsTy0";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA23B10E65B;
- Tue,  4 Aug 2026 14:08:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=j8EwsuqnZT7WKgxoTOBU8dO+GvCq4qOuXkpo6P1D6kA=; b=
- i9HzDcU8khyuYOm6oN5Glcxf38iY256HTHXGn17eqkFHBT+unYp26TknPiKsaMAdvuzrVCDJPRhgo
- 6IU4+2A5nzSn8MqeFaGWJisaS7w95Lfn98wUu8FK4MWebcNQSVvZE9iej+vsHifDp8SE1qT02A089
- 6p0iXkh5DbwNVRn+dyQrPnoJBojINOJcHQajQrv+FhuXQPMufILutv+ooml4UQyOML6FZb+ldL9QU
- 5CY2paRFnxTaj4Y5KXs0YaCcuInCKK168pQome4MtR5f34a7Gy5G8hA8YNi7Cq1mo7+rivgsvUrXP
- aFP4SfjD+AjKLrwq8sHAO3u3sNJtqHwvKw==;
-Received: from 204.red-79-147-119.dynamicip.rima-tde.net ([79.147.119.204]
- helo=killbill.Home) by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wrFoJ-00Dr5i-M2; Tue, 04 Aug 2026 16:08:03 +0200
-From: Melissa Wen <mwen@igalia.com>
-To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- daniels@collabora.com, harry.wentland@amd.com,
- leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, pekka.paalanen@collabora.com, simona@ffwll.ch,
- siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Alex Hung <alex.hung@amd.com>, kernel-dev@igalia.com,
- Lyude Paul <lyude@redhat.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 2/3] drm/amd/display: fix missing blend-mode-prop warning
- for DCN
-Date: Tue,  4 Aug 2026 16:00:54 +0200
-Message-ID: <20260804140758.107683-3-mwen@igalia.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260804140758.107683-1-mwen@igalia.com>
-References: <20260804140758.107683-1-mwen@igalia.com>
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
+ [209.85.215.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C07AB10EA7E
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2026 14:11:19 +0000 (UTC)
+Received: by mail-pg1-f178.google.com with SMTP id
+ 41be03b00d2f7-c9b3f380006so561767a12.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 04 Aug 2026 07:11:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785852679; cv=none;
+ d=google.com; s=arc-20260327;
+ b=YlTcCO/a3aNuQKxW3l4q+WUQhXUcQjpXQK8W8X67WMDrIwu+VMFEpvzy9M7wvuePNc
+ YpPwuFoI4UKVgYCF6JDJ7YOnN7KOWRzRuAjUpwJsXuuvlnilNjjxzS4v/3Fim37hd2M/
+ cNxtmxvbpx4rQZaTOFMv7Vqd8ckSVCV9lxntmNNQL8RWqmBAWNsHj8H5h1HyVgORs26V
+ KU/0Oo9913HdRvrgaxQgHIjrtccZpZ45Gpft8BWORJuoMq+KkhtmpvV7+7HjeKvEOTqz
+ n13BQ9gkbI4XOSkTWJU1VFXIXkRr04AIyU3+VNndOOUz2tvIeHux6X8uxxeT/IUvWYgv
+ HLZw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=9573ZgFGpxY/w9OExlW8vi5rfmnaJLIY8zIRbwzaQoo=;
+ fh=a1F/lY0pz1+bbO1QiJVWcdmrA51AZqlW4BvrL/Orn9w=;
+ b=IGFKvcPDMYgzcNr3AcZBhRPEGEOCOlK72vL26cwVtXmbqXzkdOK2o+0rKEIrE+mlWn
+ na1zW9osGxyg1Jd2aDE+iMOjBNavNl8QiziGYISwEzKyK2KABjATaxx78SVy0lJB6fKP
+ x5rTw5x0hLEkCyqdtTMxuNeWdqZjzIHlAzd3RbwkCdrRGQ9zyBg5QdKIN3D5wrvfutmj
+ Sl3B/uAENUXr9b+lC4oyyB36H3EqhqtMgCFaoiFDf1xJtFAZP0aXAaOFmZbcMYN0d+fK
+ zqSeRhYLKfmCX/dV0UkadnR81yZGkT0MG6v8zlgLCq+zdu/QMm0JUfWkEe0xSv4Y0a5X
+ i5Zg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1785852679; x=1786457479; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=9573ZgFGpxY/w9OExlW8vi5rfmnaJLIY8zIRbwzaQoo=;
+ b=LX0zsTy0WI4mYRF4gxgrnyrEZ6ApYoWcFe973Y2isOFL/ovxJ40sQilJ9RzMMzcSMD
+ F45EY72jfceR6fE6eSlZTyu9pWYUxymp0KTTgupVnUO6IicwVNXpwg9NuIxwvg3ab+8o
+ QfIOdbd8En9yd5KDOu4dU9xqHhU30rDbrDHdkQzSwynweuUV81e3uJC3kuJeaMeiUM3c
+ 9CSBjO5hp+0SWnBzDvsuLupRxZdWk6XRQoDad954LuIgn8nd8VolJRxlkiTEssuDN9nv
+ h1db+12D1vTfV6BN8MUppeT9qpMs2eXA9Q2wcmtzG76EfgI675hGU1nc4w5cFIGLfAAN
+ s4TA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1785852679; x=1786457479;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=9573ZgFGpxY/w9OExlW8vi5rfmnaJLIY8zIRbwzaQoo=;
+ b=fzw50S+5/LjgJpLOrwrYGU14MtMtlnwLWs/BBYnSaU04hM7wU7MWLLVFy9XokfBPgZ
+ rLW3mDvF0RfDEwmvT40J3VR5IfhXJEi172WF1y0M+0zwe6EH5nb/kh74eKf5lJgWFiqy
+ JEdnHZORdxQr2/2PGKKsrM6yFxlN+Xzi6AQeknVxQHy3dVc8/hHMbre9rzsY+UlvJBtz
+ Eq8CRVxw5QWVEB72x1O6AmPEk7ruwiaZIU7d6yjI9IZk3llJee6ovrAlzRJ/fZI9+XcV
+ MjTOmDOqBsQNbvSJozI0nG9awr4RmI4eXTatp8mq61p76moXKGoW0PBdTQDDtQYSNqGu
+ KN4A==
+X-Gm-Message-State: AOJu0YxhCuy5UFsp13u1vcWZ/8sjiTjrXm4J7S2ZAmxJO8/BmW/S4tyN
+ vVQJPZ0GnDfimmTPlqMONpfRlVXXgV+iQgPOAEI0ljnE00T5ZT5eqlR7hYyL03Nl//jeiHQMArs
+ 8KyWRgrovgjvLY0mRazLEsCfqMMMe5IClHg==
+X-Gm-Gg: AR+sD10Zzw/P+Sr7XHq7NpINtNL13D/00Wsu/Y1KbDF8Q1ev2poIj2OgyCA5QQzmdQo
+ 2N9kixDUd9Km2TmJTXiXJyjEAEcU4FxXKLJSbwZmRiHeBJkw81rOInEVnNBuE0DQNaNNzDioxhC
+ +eAhRxRgzqA3t85Co0rywoeLZ8YusDRmrHXqiv5qJh0ke8+iD9Rmjkkm8F27+MG02dHFR+DDFRq
+ 9B0DFJOueHFCZLqB2WDHme/43pKSayCOoyczAJVqYLw9sRG7b5XYzRv140uryjUIVs8TkQfA4Vu
+ 5zdVU4hbB/1+Lqdx1UhmrGmNn6OG2y7mE6YDndkNV6trAhCpgAAOY1fcnHSacjcM0+4sF4DLV8h
+ sJLu0/IJuNOjbQIpqP5gE5q2t+z93FK85
+X-Received: by 2002:a17:90b:562e:b0:36d:b30b:14ed with SMTP id
+ 98e67ed59e1d1-38fbc4ad251mr18806626a91.2.1785852679171; Tue, 04 Aug 2026
+ 07:11:19 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAHSgyMMBq9zbcAgiFz75vM0_oJRi+YkKap2W9=L_Na6Yu39zNA@mail.gmail.com>
+In-Reply-To: <CAHSgyMMBq9zbcAgiFz75vM0_oJRi+YkKap2W9=L_Na6Yu39zNA@mail.gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 4 Aug 2026 10:11:07 -0400
+X-Gm-Features: AUfX_my77WErq2CEtzVCswTDK17LmNihNDiXts5eRxNYQvYIzGM55C749ViZ8BU
+Message-ID: <CADnq5_OL6_WQYmNev241VA1HMgSgyG6BynbZM_AtXUSDOyGiTQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd: Disable DP audio spread spectrum for Cyan
+ Skillfish
+To: Travis B <tbangs89@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, 
+ "alexander.deucher@amd.com" <alexander.deucher@amd.com>, harry.wentland@amd.com,
+ "sunpeng.li@amd.com" <sunpeng.li@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,56 +106,68 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-validate_blend_mode_for_alpha_formats() warns when a plane supports
-formats with alpha but doesn't expose the blend mode property. Fix this
-by adding the same overlay plane blend modes to primary plane, since
-they are all universal planes in DCN-generation. Cursor planes support
-ARGB8888 format and CURSOR_MODE_COLOR_PRE_MULTIPLIED_ALPHA is set by
-default (other color formats are not implemented), so only expose
-support to PREMULTI, which is the default blend mode on DRM.
+On Tue, Aug 4, 2026 at 3:28=E2=80=AFAM Travis B <tbangs89@gmail.com> wrote:
+>
+> From: Travis K. Bangs <tbangs89@gmail.com>
+>
+> The VBIOS for Cyan Skillfish devices (DCN201) indicates there is
+> DisplayPort ref clock spread spectrum downspread, so the audio clock
+> is corrected for it.
+>
+> However, the clock source in this hardware does not seem to actually be
+> running with a clock downspread, so DisplayPort audio desyncs with video
+> after several minutes.
+>
+> Ignore dprefclk SS downspread on CYAN_SKILLFISH2 asic.
+>
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5429
+> Signed-off-by: Travis K. Bangs <tbangs89@gmail.com>
 
-Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
-Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+Applied.  Thanks!
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 1b564cfe2120..a276f3730044 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1923,8 +1923,15 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
- 	if (res)
- 		return res;
- 
--	if (plane->type == DRM_PLANE_TYPE_OVERLAY &&
--	    plane_cap && plane_cap->per_pixel_alpha) {
-+	/* TODO: Check which blend modes are supported in DCE-generation
-+	 * planes, i.e. DC_PLANE_TYPE_DCE_RGB/UNDERLAY and expose blend mode
-+	 * property accordingly.
-+	 */
-+	if ((plane->type == DRM_PLANE_TYPE_OVERLAY ||
-+	     plane->type == DRM_PLANE_TYPE_PRIMARY) &&
-+	    plane_cap &&
-+	    plane_cap->type == DC_PLANE_TYPE_DCN_UNIVERSAL &&
-+	    plane_cap->per_pixel_alpha) {
- 		unsigned int blend_caps = BIT(DRM_MODE_BLEND_PIXEL_NONE) |
- 					  BIT(DRM_MODE_BLEND_PREMULTI) |
- 					  BIT(DRM_MODE_BLEND_COVERAGE);
-@@ -1933,6 +1940,13 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
- 		drm_plane_create_blend_mode_property(plane, blend_caps);
- 	}
- 
-+	/* Cursor color format is set to CURSOR_MODE_COLOR_PRE_MULTIPLIED_ALPHA
-+	 * by default, so only advertise DRM_MODE_BLEND_PREMULTI blend mode for
-+	 * this type of plane.
-+	 */
-+	if (plane->type == DRM_PLANE_TYPE_CURSOR)
-+		drm_plane_create_blend_mode_property(plane, BIT(DRM_MODE_BLEND_PREMULTI));
-+
- 	if (plane->type == DRM_PLANE_TYPE_PRIMARY) {
- 		/*
- 		 * Allow OVERLAY planes to be used as underlays by assigning an
--- 
-2.53.0
+Alex
 
+>
+> ---
+> Submitting this patch as requested by Alex Deucher.
+>
+> The system with this problem is the ASRock BC-250, which to my knowledge
+> is the only GPU which uses DCN 201, so this should not affect anything
+> else. I have tested this patch on my system.
+>
+> Some relevant register reads:
+> dprefclk is set based on the value of register CLK4_CLK2_CURRENT_CNT
+> which reads as 6000.
+>
+> Without this patch DCCG_AUDIO_DTO1_MODULE gets set to 598874.
+> With this patch DCCG_AUDIO_DTO1_MODULE gets set to 600000 and audio
+> stays in sync.
+>
+> I am in contact with about a dozen other BC-250 users who have also used
+> this patch and reported that it solved their desync.
+>
+> There might be a deeper underlying bug here but I think it takes AMD
+> insider knowledge to fully understand what is happening. I am glad to
+> provide further info or do further testing if needed.
+>
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 1820547b1dde..941c1a312824 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -2189,6 +2189,11 @@ static int amdgpu_dm_init(struct amdgpu_device *ad=
+ev)
+>          init_data.flags.unify_link_enc_assignment =3D true;
+>          init_data.flags.usb4_bw_alloc_support =3D true;
+>      }
+> +
+> +    /* DCN201 audio desyncs using DP SS */
+> +    if (adev->apu_flags & AMD_APU_IS_CYAN_SKILLFISH2)
+> +        init_data.flags.ignore_dpref_ss =3D true;
+> +
+>      retrieve_dmi_info(&adev->dm);
+>      if (adev->dm.edp0_on_dp1_quirk)
+>          init_data.flags.support_edp0_on_dp1 =3D true;
