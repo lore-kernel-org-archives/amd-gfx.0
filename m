@@ -4,42 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09EEFC55ABA
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51FE4C55822
 	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 21:04:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B35E10EBC8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B787010EBCC;
 	Tue,  4 Aug 2026 21:04:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GtvIgsWl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rERO2CAb";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012001.outbound.protection.outlook.com [52.101.48.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 627F310EBCC
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012025.outbound.protection.outlook.com
+ [40.93.195.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3FC0210EBC8
  for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2026 21:04:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BFz5RR6zpUZAvlSyrOIq0k9bIx5cPUgjslLeNil+3IupeyYTkzmUszErwc5o5uigBJ+XE8YyonLinbW5w5HyDzhz6GXoIl8gjIc9MuxlVZ61kFcMPUOSUtgdaCpRc6sNjKlwDs+J3wl6/sbXZRdiQ+YbZ1ngUUX4tq0lRS2d21RPoy05LJyAaEgVCrtBWdKtRY/unqzbfNMuIJjBroaEMxHhfWTJOxymT55TaFhwrEYscDeVdKaXgoGGiaGBkaPU/Eqx2bGRFIAXM+LbItEr6I6kkQfnkddMWcGAN58ga85TkOlO2HZ9O/dmgSRKVIL8N9NqAwb84KLV3n7uyzy9Ow==
+ b=n3J+J6OEMy1L5TZAWqdcmLNJNowP98JoKWZb6vBXzSNVsNweKa6dtKLyCYFDnfoiTQ18CAZ5mEmGva2xnnR9zbWbanr8YMe9ChLu4U4vP5LFr6JFKAXPFBmNLV8jntDp7HRFHf+fnwEEhcow3+JpE58B1L8fCZpDhq4BNcFgimngun1TDvmJo8HumTt7F4dmki5HghPNRL3OCWE4YDBRtV4RPHfqGN3Fj6Su32MGZC0K5H+7YI/J21TmGXoV2BCclNK+9rnB0lgXfHo8X8nb92rGpQdsximHMBEiDIx75T9ueTPdEwMSo14j1skE9HWV5A0U7b66KRqyRPL37Mnofg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qetnhnXWcspIWg3qJ5j3tPffOJ9RmcWq1w61vrzH5hk=;
- b=bPTI3gMy/LxfGurhqlTL0Jb57ghey5D4Ac+23Mfd1Ab1GbnkYhkdNviq9Ch9p26zksZZ6fGOJXjkFpIBmHGiCFgqm7b03RexQDjcLQdaWFx3cZO0dxNoGMprYvGpFZ6SOQJhBVYW6mad291MKU+8Ya1VH1kbL5Fhxx5WsD90kdm8wArRCC8m748S5ez1BbK7Z05yRlvwaQ9Kw7q6d2rMH7+NNQgLCuj3jYgv0tiJWyQGZ9g0OdL2zchUUuaiW/zr0MBvi4artrwqbp4fqovZmNZ1bBAj/z7gKRFG2vNV0wiLn9N43Q63MDzEN5vsdnrZCckI9m/CwMr/oUSsUpFCzw==
+ bh=BWTHwnuUaO7ajui6E7rPF8gG2/2nrmU6m2hOE121N3Y=;
+ b=YuzCPw8PIZCM3qg8eo9/QktwbL1/Hu1Or5iFp+SSB/nZ7x7UMC2V4YoaYuf76CQ6HS2+cizfqDQWejirU+K/nTxoQldALC8r1HhIdrA+Z0gvnQ3vFFzcJ5kBl3Kye5YPJVx+uxMeeD6o2kDbkBrj+HwV8Q8VoamtdWbNmtp0/T0iiXyiOqdpfmAowyJ6xf9PnN3aexkUkZhXPLyroCOVEoFJ63WfNYxHRqmkk6jAoP3lCKA2z9zsbM+HVoeOCRD6w2D8FhyMPvq13Pw767kJQyrw1a5canovuir0QvADnSOBLB8D4bLbsjBuHvr4NGrp/uXtg2lD8Rqyyn/y7ymBEw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qetnhnXWcspIWg3qJ5j3tPffOJ9RmcWq1w61vrzH5hk=;
- b=GtvIgsWl5/hlHdsdFl/q5JNFIu6DRlQbcs1xpPRZ0tnQ/Vu29xLUfwj5Kzj4+jzq+tSFeLJUN6r6M988NkbhGgz9eVW2n5aiz70fHQj3HxOj19xpPevQ5HM20XHp28ywNlO/TKD7gbFZ0/hCbnbQh2xVQjmUbnxNNoH+LudkgHI=
-Received: from SJ0PR03CA0056.namprd03.prod.outlook.com (2603:10b6:a03:33e::31)
- by PH0PR12MB8128.namprd12.prod.outlook.com (2603:10b6:510:294::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Tue, 4 Aug
- 2026 21:04:11 +0000
-Received: from SJ5PEPF000001D4.namprd05.prod.outlook.com
- (2603:10b6:a03:33e:cafe::2b) by SJ0PR03CA0056.outlook.office365.com
- (2603:10b6:a03:33e::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.16 via Frontend Transport; Tue, 4
+ bh=BWTHwnuUaO7ajui6E7rPF8gG2/2nrmU6m2hOE121N3Y=;
+ b=rERO2CAbvMz6dhDVY6b1IXeM1utHtx/cU0tkzXRBv4CUvpSwYF2eAtsuQ2h/IYP/P3PuMptTus+K2Tqdhv1c5RAdSCAidSWU4GbiZTS89ZPxpf1BytgvO/aYSF57m4tCJMl60/u8BtNvPNdBM3Od6VbPQ/Wm+De8548A4p2nQD0=
+Received: from SJ0PR05CA0166.namprd05.prod.outlook.com (2603:10b6:a03:339::21)
+ by DS7PR12MB8372.namprd12.prod.outlook.com (2603:10b6:8:eb::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.16; Tue, 4 Aug 2026 21:04:12 +0000
+Received: from SJ5PEPF000001D2.namprd05.prod.outlook.com
+ (2603:10b6:a03:339:cafe::43) by SJ0PR05CA0166.outlook.office365.com
+ (2603:10b6:a03:339::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.15 via Frontend Transport; Tue, 4
  Aug 2026 21:04:11 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
@@ -48,55 +49,58 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ5PEPF000001D4.mail.protection.outlook.com (10.167.242.56) with Microsoft
+ SJ5PEPF000001D2.mail.protection.outlook.com (10.167.242.54) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.21.292.8 via Frontend Transport; Tue, 4 Aug 2026 21:04:11 +0000
 Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 4 Aug
- 2026 16:04:10 -0500
+ 2026 16:04:11 -0500
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
  (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 4 Aug
- 2026 14:04:10 -0700
+ 2026 14:04:11 -0700
 Received: from hwentlanryzen (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
  Transport; Tue, 4 Aug 2026 16:04:10 -0500
 From: Harry Wentland <harry.wentland@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH 1/2] drm/amd/display: avoid divide-by-zero in __is_lut_linear()
-Date: Tue, 4 Aug 2026 17:04:04 -0400
-Message-ID: <20260804210405.278934-1-harry.wentland@amd.com>
+Subject: [PATCH 2/2] drm/amd/display: validate plane degamma LUT size for
+ private color prop
+Date: Tue, 4 Aug 2026 17:04:05 -0400
+Message-ID: <20260804210405.278934-2-harry.wentland@amd.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260804210405.278934-1-harry.wentland@amd.com>
+References: <20260804210405.278934-1-harry.wentland@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D4:EE_|PH0PR12MB8128:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8e50e436-7e0a-499a-380e-08def26beea3
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D2:EE_|DS7PR12MB8372:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3d5a83f2-9b25-4294-88dc-08def26beefa
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|82310400026|23010399003|36860700016|18002099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: khrQpBDtD8DVRJ6ciqU3ayd3vbn9L50GkByDU0OnBB/rLxRwvHW7/MhTD5xqvI/UN/YJUb/ZaLJi9h5b+9xfBdpCsENktUMamyJUgh8wTI+OaGEQ4sAjqhjUPvsJboYV69xt4ZHEzzTJ1Vp9PH4NsrNsBlUKPQsV6Y+Y3V8MbhISlsPrFWDJkBazyRyHcEpSLCXdmi62zpE6hvqhAO2Xpn5vOhzoqycYipqH6v0w1LpDWviUQKxE1tR1pgR95atgFX9HipY+/hZjHeTxQoPEM0hmduZd6RIMY0qCZlo3szacuFdta2uGJ4oZ/RRGvJ0VtWdi0AERiAYa8KkC/sIHnEFWVy89G2jWG1FHgSzpi1+6xI+OEkeWzbd0ceX4qq1nK0xzl/oS00Ap2+2k9/rAE2geby/3znudhTpzIzgGcxWxGAncMDl+0o82IAVnihj+eae985o+I3QHvWhZNCVKtZiZlsyKVHvPN1zBa6+/ecKv2odszDH459Z/Y+4oOsRpkBDW1z6o0oHQUICVmmLKSq5tE9JYgD9hJgcKabDMEufSNF+MiWPfJJGTZJ0gG088/lR2F5k7OfAdX9NGXSKr+2gpSMn3SV90lzg7cJv+SALae1RUK6hgibDMUVaePJOfYLJ3kjkIbe0W5quOBQTBYeKChuG6rY0rQ1FYzLbOg1uyTdJbx9irhatKZ+c6igQI
+ ARA:13230040|36860700016|23010399003|376014|82310400026|1800799024|6133799003|56012099006|10067099003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 6+mmccT/8J+RyQAS1utdJS9M1/9sJp2DwmhFQsQDz1/cSPAueKUfQOfrTua/WoJ8f1Vy4jZieZ3ehDJlpL+5v+YTv/SDoFhTWcC6f3gIRt9N/1ppVjtjFMBIv5oPSwEYkbTwHvE2GWrdFfd9SCO90Kp8uZcxkB8SnekJ0GfC/6pr+GmKz/yAcjUb9xH6qUvtzVbKXbOsen1Wi6wnVgCvZhySdzOh5b6BJTE6gnDyA5A+5up4z3WJSMai0RWoRRuIzq/VRFwbncGGXtLZ7HXdG+kgPV6f82XsDWlvqi3GlgqeENjAj0ZtJJziLhA+6oh+V+NBJ5Gc+eKa0z5Ju9vyBaQVzqNBGUvyOqLdyJZApvyX+OWUGUqU4vc7Cpy6C5K4NWmjr1x+rfBWR5t8ARAQmQV0U18RLqMO29tWJA72zikjsEADl5LL4n51s7hbmiA0lj5F/ZoeAyHyO/6o37thuc2bODNNQ5y+XcV7FfiwibwRQEYHD6PzLSovdyePuOq/7Qdb+dm+TyLMbxf8yK/3KXwvydjYLEY8OhOB2QX+2qvxGGZpwy87J+aelmXDEiDNxZICfTbX/iMj4Zy2p9S22I43SWh6e48F19HqTsnT7CNCdY60UfhLqd9JZ5T12e2+kNwo38vy0ev1Wd3L2MH0wYdN6DDHPJFnR1roaTlLpdDwHRFApdzFg902+Ki7Vdnk7v5L80EFO3+mReh3ntJk5Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(82310400026)(23010399003)(36860700016)(18002099003)(56012099006)(11063799006)(10067099003);
+ SFS:(13230040)(36860700016)(23010399003)(376014)(82310400026)(1800799024)(6133799003)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: cbAeFLudwuLjlAogGMONJ3aLGEjQa7MkTcxlzg6l/05ubLgIL/2hegl6y7OqERoTCu7KZCQaaPxxSjIWj1Ecd8XrQsvP5nLzgAWG7zT+vT4swIgYfZZ6dFpQvkqLJKU8iqnJX7ZHOmh08OkrUQSjPhyk7gLHNvL0tFxE4LXdNiYXjzWS0wpYd+9iVNUBK0mvQ7JnzADENQoAYRFrXkyDhDNQDA8mwRVmLJAqOtbu8kBalyEFlVqMwdbiF+zOUM4MdzVwvR/qkp5MT/ZMenToWEjwJ0lEV5mLDMxOVl2CszYoPsYfXp8iYPrRH+GRW0MXhGvizTIIu4qmkqGjZZ55693oYxAsStRqg/HDl4JCaf9vRNJYaXvQkuqK4Vr4bVyQJtbOCBWPuz6GloXWYrAgIH9ZhudKhS/lMq9FtfTDp1T4P9d5LXtQ8OFNI+PjADqM
+X-MS-Exchange-AntiSpam-MessageData-0: oh3j5uyLBmdEDXXa/30oI+dzy4HsDDb/j7APdzayGZaaUlwGWS1qEF7ar0jvqAepaO9gMHZyhbYoyl4m3Fp8M3+hNJCP0mZVtWWpwO4tG82rJFrQMJwSnDsyLnOZbY93o2k3HzEXJswEZJLJESZjXFmRq4DGnAYMB+7ysLfxeYYTSMMHfA4eQ5mNOBVsLqz7S9HmHiBNOteAk/Yaw1XnHMydz0aYdcWXYiY/5bU3A9UrV2PfCzMRi+5ZnCTLwBV8Bwkfm2b5fAYIB2PrXWqAcZc/+eJrlhrtU8BIckjJ6t1/bV/eJca+ADD237TP8paQQc38jIbZHgAO1OHWKyhofZJPkSgMLcDYCYYlPKAvHoVkyRLgoqOym3ynIj3cFX6AaUGVqvcPcHD1+im8q4/iC46TC4JRbcDHm5IPnJgGFp+J9hyDjyKoaixb8oblLEe9
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 21:04:11.1236 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8e50e436-7e0a-499a-380e-08def26beea3
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 21:04:11.6924 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3d5a83f2-9b25-4294-88dc-08def26beefa
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D4.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D2.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8128
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8372
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,39 +115,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-__is_lut_linear() computes the expected value of each entry with
+Unlike the CRTC degamma path, which is guarded by
+amdgpu_dm_verify_lut_sizes(), the per-plane degamma LUT size was never
+validated before use. __set_dm_plane_degamma() passed the user-supplied
+size straight into __is_lut_linear() and, for a non-linear LUT, into
+__set_input_tf() -> __drm_lut_to_dc_gamma(), the latter always iterating
+MAX_COLOR_LUT_ENTRIES entries regardless of the actual LUT size.
 
-	expected = i * MAX_DRM_LUT_VALUE / (size - 1);
+A malformed AMD_PLANE_DEGAMMA_LUT blob (e.g. a single entry) could thus
+trigger a divide-by-zero in __is_lut_linear() or an out-of-bounds read in
+__drm_lut_to_dc_gamma(). Reject any plane degamma LUT whose size does not
+match MAX_COLOR_LUT_ENTRIES, mirroring the invariant the code already
+asserts a few lines below (and which the CRTC path enforces).
 
-If it is ever called with a single-entry LUT, size - 1 is zero and the
-kernel takes a divide error (#DE). A LUT with fewer than two entries
-cannot describe a linear mapping anyway, so return false early instead
-of dividing by zero.
+The AMD_PLANE_DEGAMMA_LUT property is only exposed on builds with
+AMD_PRIVATE_COLOR defined.
 
-Fixes: 086247a4b2fb ("drm/amd/display: Use 4096 lut entries")
+Fixes: 980f8710075a ("drm/amd/display: add plane degamma TF and LUT support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 7b68c6846039..26e5c89375a5 100644
+index 26e5c89375a5..d55dc06167a8 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -471,6 +471,12 @@ bool __is_lut_linear(const struct drm_color_lut *lut, uint32_t size)
- 	uint32_t expected;
- 	int delta;
+@@ -1495,6 +1495,13 @@ __set_dm_plane_degamma(struct drm_plane_state *plane_state,
+ 	degamma_lut = __extract_blob_lut(dm_plane_state->degamma_lut,
+ 					 &degamma_size);
  
-+	/* A LUT with fewer than two entries can't be interpolated and would
-+	 * divide by zero below (size - 1); it can't be treated as linear.
-+	 */
-+	if (size < 2)
-+		return false;
++	if (degamma_lut && degamma_size != MAX_COLOR_LUT_ENTRIES) {
++		drm_dbg(plane_state->state->dev,
++			"Invalid Plane Degamma LUT size. Should be %u but got %u.\n",
++			MAX_COLOR_LUT_ENTRIES, degamma_size);
++		return -EINVAL;
++	}
 +
- 	for (i = 0; i < size; i++) {
- 		/* All color values should equal */
- 		if ((lut[i].red != lut[i].green) || (lut[i].green != lut[i].blue))
+ 	has_degamma_lut = degamma_lut &&
+ 			  !__is_lut_linear(degamma_lut, degamma_size);
+ 
 -- 
 2.55.0
 
