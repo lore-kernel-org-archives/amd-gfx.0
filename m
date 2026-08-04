@@ -4,125 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4A161C55ABA
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 22:11:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 61FA7C55822
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 22:27:30 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 899FB10E07C;
-	Tue,  4 Aug 2026 22:11:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CD2E610E128;
+	Tue,  4 Aug 2026 22:27:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Z8IfN5FY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Jb7bKoFO";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011040.outbound.protection.outlook.com [52.101.62.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51CC210E07C
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2026 22:11:11 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011056.outbound.protection.outlook.com
+ [40.93.194.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D29AE10E128
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2026 22:27:28 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TGkNPtiredMMzkfuSg2HWAQUkoFKXurtzsTePF079dI4X0b6lDdNuCuyPkwIZOo5VkAqG6DcOeuqwg1gjtJJIxPyaYmlkKOAfZDZscmDPQFI5BNASvZkQaI90GUF7/72P0Fq1p3BgHcGKL8RNQLP37zjr4RGzIJTZnUfPPI3I4E/czD57IzWy/PN+XuRDMYh51/6AEFoe2Vz2qFvh1B36jpO7WwPkN8MZ2MzyjQVts4oa2ziX98ktRs2OXcw2OR9zrKQtc0ZLF2Z+7w6kldtDMaXa0BSsL0tcH/yUC/gTghPzlaAyJAd7jxOe6IwVztrCYeKDmXOYNxVnExnTZFdyQ==
+ b=Ow0B+9oUwIzVtxooC/t4luAz34Wf2HV1z1LVCI06OBFxHjmfco+SNqGR9VMe+hKc4YiWtQPE2iSVyYU46yTGjjNo4cCZAjPXya5+pMcROYAx6STc63gDf80PH+0M6nmxjD5t6f104NckYLSEXnPQkWiu9Ya2HmxECYsoFc433Q+UaHj7EA1C8I05DrjCL6eId6xt1RrE/ygneDLbgvjaQ0/Mv0czzNz8W7uZ1qJ4VGd+0sChICbMPJQJpCknC7rY9IdwRoceyf++gBp8RrUetItCXlN5VeU812sV6+DfbUEDAPa64ea4b2Zox0vrNzVWGLBf/nG213hW7A/UHNLOBQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/8bAT9oBCgmDoawfK+RbUSzHO5jSRZ5STK54QuZPE9w=;
- b=UAF9llrAScmY3qRLoYahCplSG4aQsdQj7YROXXZeYjJICqHL3uuREIUhLfycW98FJBoWQBxblH6TC6k6o+vS+mWiII2fta+/6VKbOsfdFlVQ27YYkv46E2wr+VRFeoC5IlJVDon1zvTVloeijBhTvyqJED5wuCB8V64OpiSmnktp3zPmb4GWqkAmeB3sekA7CpuAmpwM3eldNFE4z3Rpz265O3nTd1TaYjIrgp03HnlMh1WFXBjeuwxr8UkMx5RcAApVOP4XYkB0xRZXGG8yTuQkRCK8KABEx7OeUXleWyPi+Yq2E+CeV+vEXpPcATaYLbJyg+Io2oBsT389MDFrLw==
+ bh=J8nb5Ui+gY0bhM6uTbWO9vu1Doc86WmY7OzEWDhn5oE=;
+ b=H3Kt67T6khZv0m74HGTYSu90Nku+Ye4H2jma664IDziqfSHkrR3BLOHuEywJeQFjSj5V542ndEsQrJqxLsA5GuI70PDVtyl+fOQgsMSTby4YCg2lIFMvdVvcP2jzQaGQcsKlhS6+jq+yKdaN5rQoUOrSH4G/VaJxF2crLW6RPv6L7Ax3hUxsBNZE/vpErJ8RXI5qe7GzVMTOgLihVc57zNITRL0MrcFEs8eUkf+CyGW0KgN/fRLBib7T4qgo3JAHaontRELfZnqwtoJzjtK1iZg6mWkqT5+U/wzwxKkOV9kyCma1AfFqzqsSCGDkibT61t9e6A6xzDA+E7H3g3ZOCg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/8bAT9oBCgmDoawfK+RbUSzHO5jSRZ5STK54QuZPE9w=;
- b=Z8IfN5FYqXQYKEfdHkt13HlH7lLbWHxWEcfO3T3WHpMUwMP603rLQvn/pMPjZO9b6nficdhrDOV9sVbGg3hcCAEKdlYGIY2DA3TBvdEk1OKgg7//h+UXkbED7FWpWbozP8mKRl2eduviW7mVZADpn2JVU9gIPtMBvkc3866ItcM=
+ bh=J8nb5Ui+gY0bhM6uTbWO9vu1Doc86WmY7OzEWDhn5oE=;
+ b=Jb7bKoFO43Prp4wXmeEZlK5Z+YE+auntK193pFcnt0WZl/XHs+9gk/pmrIhFqPuvpxI8ODV25iyp/jzZlS2q8Z8TOkjuNQ6Co2N2GFD83Be9T6wz8X/PtMIMrc7/cozfX5rtZTewOr781sAiq/d4GiHYMd9dDrycWRYOtpBclIg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
- (2603:10b6:f:fc00::655) by CY8PR12MB8244.namprd12.prod.outlook.com
- (2603:10b6:930:72::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.15; Tue, 4 Aug
- 2026 22:11:06 +0000
+ (2603:10b6:f:fc00::655) by MW5PR12MB5597.namprd12.prod.outlook.com
+ (2603:10b6:303:192::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.16; Tue, 4 Aug
+ 2026 22:27:22 +0000
 Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
  ([fe80::7111:7e5c:8508:7852]) by DS5PPF78FC67EBA.namprd12.prod.outlook.com
  ([fe80::7111:7e5c:8508:7852%8]) with mapi id 15.21.0270.016; Tue, 4 Aug 2026
- 22:11:06 +0000
-Message-ID: <04fff61d-2749-4f6c-be82-ba4dec9146b2@amd.com>
-Date: Tue, 4 Aug 2026 18:11:04 -0400
+ 22:27:22 +0000
+Message-ID: <16887553-76eb-4af9-8769-f77f4fb9fb68@amd.com>
+Date: Tue, 4 Aug 2026 18:27:20 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] drm/amdkfd: preserve VRAM MQD across hibernation via
- unpin/repin
-To: Shikang Fan <shikang.fan@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com, Christian.Koenig@amd.com, Philip.Yang@amd.com, 
- Mario.Limonciello@amd.com, Srinivasan.Shanmugam@amd.com,
- Tiantian.Zhang@amd.com, Victor.Zhao@amd.com, Guoqing.Zhang@amd.com
-References: <20260803100659.469806-1-shikang.fan@amd.com>
+Subject: Re: [PATCH 0/7] drm/amdgpu: Fix topology device creation and
+ proximity domain mappings for sparse and CPU-less NUMA systems
+To: Donet Tom <donettom@linux.ibm.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
+ Philip Yang <yangp@amd.com>
+Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+References: <cover.1785833981.git.donettom@linux.ibm.com>
 Content-Language: en-US
 From: Felix Kuehling <felix.kuehling@amd.com>
 Organization: AMD Inc.
-In-Reply-To: <20260803100659.469806-1-shikang.fan@amd.com>
+In-Reply-To: <cover.1785833981.git.donettom@linux.ibm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: YT3PR01CA0065.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:84::33) To DS5PPF78FC67EBA.namprd12.prod.outlook.com
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: YT4PR01CA0174.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:110::18) To DS5PPF78FC67EBA.namprd12.prod.outlook.com
  (2603:10b6:f:fc00::655)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS5PPF78FC67EBA:EE_|CY8PR12MB8244:EE_
-X-MS-Office365-Filtering-Correlation-Id: e084424c-1129-4d32-c6a2-08def2754796
+X-MS-TrafficTypeDiagnostic: DS5PPF78FC67EBA:EE_|MW5PR12MB5597:EE_
+X-MS-Office365-Filtering-Correlation-Id: be4f4a20-008a-4639-e83e-08def2778d57
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: p86gdLS6of/EhHupYYue7+ND823xzxwAiSjprptAjw7DtHj1XiariqsFPnJC+yBrXsQTk71JuuH7yc4MS6YGYANiQynEmtP7VfIAKHZNz2pTdggiSBWRJoEQY5/Vq1Lb0tG7/QeWTFgZ9RQz5A70Myuty32figqsaNZ0JUm0yB7UetpmllXviqimXSnxmsnOwuXVdgPo7yxUatnL2gLnAEmWPvq8vdwODySQRgvveCvIYqcZ4yjBB+UFGbHnjMu5nwRHfDyLwVQ249fvQDxyKxk/5Y0bgxNKLYtRMk46DFBpSxhT3vKE2zypzcfnPj7eqzcPivb6/DzbbJWJbqkzV61XzUYCbN4Tr5myOxF5sv0SfkMukQq/fFmFiXoT7LEQOykLey5Y1jRsi4DEdtQOGZd6JOuxk1gkr++16WJmxReUC32cVEuvIkQp69/mBag1CNIep/kbzXVuDHFciV8TZBIxC8pv8dPJ3ajkWNpBiSoX1gZ2v2sBH38ghxMw6qeZCzCE9qm8yVBKhpm/MNMJFHPYgSomnazGqTdvsISSifij/35el/BtfgwIXUn3/qjG5jblEzOgdb/dsofmIN9ixH8lf24GL8rkmiqjnSxOKkhU9ql0wyuySNOQVrgCZ7ejO6VbOHJvgP1ydFfP+geSj9v6TliWSB+PESB2APlpUdk=
+ ARA:13230040|366016|1800799024|23010399003|376014|56012099006|11063799006|10067099003|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: 4o2AMwJp0RmmNHx7h011Z57L4qNbRzB/i2yjGQADjDqyibNk0JUXuHZslalJmNG8VXIKsdDPp51Jfqh8GOmWUumo5LN3chJkjXCjCvohEFDWgQOTsfcn5bUWHU1/vE61eeGzw/PPJOgmSi+Bhve8dkdpkkv0GT9Mj6J9kKLW9YV5hlVaT8BBnBJT1sr4/NZaMtUBNJRTlvPm/hGy4o42mc7xkw8me6NkrHBAFFl3KtHYDNo9dXZtu/ccdFfzFYyFimUdYAWiZ7L3cNPC2GjAav8Y43GjjgDdX1ieoKBzYLblW4bXtaHZJs7vm/ffhIibhqt3mu4Ng9Gkhstg2/ucDKvO3GcNQGPTndy7ynJz7XksTrnn9OLofbhDAPD1ge72A3jU3UetSLbgTWskGvhVz2YILBJDqVf7GJNjzM46UIMrs7yXSBQ/jYn6muCxoDMvgMhCDOtlYmL8KUMoShvxiRQ9qVKcWA76AicVizJAgQuDET69Ovc5fOJJMzFbwezVSf6unqvslP0gFcBagcVNb9123L0pB31YXw0VZQIcBB7zo1M2hOodOxhanBd2TuqJCv+wpkBHjfkY551mmYPLTaoU8fg5S50aG9ug/nAg1xE6gDbCq+8i6ykki4nZpWElnzLeBzYH9deOmGsG/7PJAr/9y47PefRkEzadL6RNaow=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DS5PPF78FC67EBA.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(56012099006)(11063799006)(10067099003)(6133799003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bzhCNG45NDk3dmdrejd3UkMrM08xS3p0WWluMnJ2cjdRNVZXWnRNa01WcjVZ?=
- =?utf-8?B?WVFtaE1hMCtla0t4em1zTFFOcEFjaE44R21VQ3B2Ylp2MGZRSnBsa0U2Witq?=
- =?utf-8?B?Uk4yMzFaVTVUNGdGcUhzaVVERzVyVXN2eGErRDJ1VlNqMFRJRXhjMnV1TjFO?=
- =?utf-8?B?NjRyaXBlUlo4aVJOVnRLOVhHVkNobEVMNXNkN2ZCdHRLWHhvZUp2cXhZaEpB?=
- =?utf-8?B?SlphNUNRZHg2K3FFeUREOU5wbXM4aWI0N3hnUDJIdzVHMnVVdWhUbWNDZUo1?=
- =?utf-8?B?Q1Q1WW5FN2xENGltRG1GQTlFQ0xVUmFQMGkwZ1FZRWJvTTlVTmtEbml6UTM4?=
- =?utf-8?B?SVhtaWUzb3dJN2NJRWxUZmVlOW5IYUZ3WlJack95VTZEdks3SjR3aVJueTZo?=
- =?utf-8?B?TGJvQ3o0STRleEJyTlVrK0NqQXJvbW5WTExScFI0dkwvK0Rlc2pPUHk4R0Rz?=
- =?utf-8?B?M3FRNHlkY3lmZmtEY2VaT1RRSnBKazlFeksxcWpFQkNTdGRUMkV6RXVVUXN4?=
- =?utf-8?B?Sk9zMmRLUklaSWJ6WDU1TTVic2VwT3lMd1p6L0MwZlppZ3NkenJ1Q3NYRjNw?=
- =?utf-8?B?cGJOOTVobXA3cU5LTHVOREVZZjk5ZDlqZWE5S3g0UFNNUDJPV1lLUXlMTTRy?=
- =?utf-8?B?YjVDcVJVeDdvVGRvczFYTFM5UHBvaTczUDZMYXJrMzVLR0hpZmxjN1U1TTFI?=
- =?utf-8?B?L1laeGI0UWJTRk9FTUhLeEYwYm5FT2JtNmJoUkRIeWJZQVJML2lnNGJGbDA1?=
- =?utf-8?B?eVRIZzg1eEJzNG44UlAyMVdYYTcySXlVR0hoajd0d1RLbHVqL1pMUHBwS1E4?=
- =?utf-8?B?aFJ2c0ladXloRFJIQXB4eFAvVytZUFdFaEpKaUdteldHSGR2eUp0dXR0eFVn?=
- =?utf-8?B?UnJMWHNXRS93eG9nYzEvNlArQ3JTejhiUU05dkluRE5GMGpCTnArc0pCVGlj?=
- =?utf-8?B?eDNTaTFJMzh3aFhpMkZzN3hJU3YzNytBZGNTQ29ONzJ4RU1Ra1BHZkxhNCts?=
- =?utf-8?B?cHZNaXB4OHk2NW9MUmFQdnp5U1l0RGhFOFU2NkhydnBjN3pkQ1k0Y1M5Vk5T?=
- =?utf-8?B?SW5Tb0hIeTM0clZaYWcxdWFsSS9McTFqb2M2U0VEOGhCQVhKSmNBcXhMTytr?=
- =?utf-8?B?Nkw4REtYcVkxc3I2cDFJNmJaRHZXTjVmQUxzUzRFcFZYUERMVUFZbXFCUEp0?=
- =?utf-8?B?UlNNZ2RWNFdQOER2NCtlanhsNS9JRFVmdTBIQXRuK1VudndqMStSNDBCN25L?=
- =?utf-8?B?aW9ORGRZblJNZTI1VFlwMUx2QU53dWFuaDM4UGRqMm1VTTRtb3Uxb1FnVm83?=
- =?utf-8?B?ZHdRblZYbWtQNnN0UmE2UzFhaHl5MzN6REFpaGZYcWhPUnFQZWZLOFY3NTh6?=
- =?utf-8?B?U1U0b1lXZ3pMeWpadW5KVEhlbWsyNjRLUEw0K3pyRlZUU3dyZXZRUmtSdkRi?=
- =?utf-8?B?ekJOWGZjdVlpVEpYVW1OUVhocGFrb0d1QVVwSlRjVGZudVJMK3dnTG4wL2wz?=
- =?utf-8?B?SXdpUUxUZC9KZmVPQUIwdkVOS3IvQ1FMbmhmK1FrS0VuZ2tDaFpyRTlIWkNq?=
- =?utf-8?B?alc1U0tLa29PUDdYZG1Kd3U0OTh5UUhVWXJRVEs2dmxKd1pySm9UdHBrUDFz?=
- =?utf-8?B?aENBTzE5ZHYzR1RmcEM5RlhNTlMwOHV4MEJuajNqNWN3eDRpNFlPamh0R3Jo?=
- =?utf-8?B?bXU4eEQ0YmZGU2hXb2FJZlE4a2RxTnl4VHlWRUtraWpMRC9vdU9kOG9IN1Jm?=
- =?utf-8?B?VzZlcHU2R1JJSmJiU3dZTmU1cnlYbVVLRU1Falh3dmErSFE3OFEzTjFxNU9K?=
- =?utf-8?B?dytGbFlVMFNGQ3pUY1BpdVRTY0ZCWXppQmVQQ1pSN3dBWC93bGtkRGtGM2Mx?=
- =?utf-8?B?UDlBSzZ2d0pWc1p6cGVlVjhlQm5kd3dhZ3Fodm9hWDhPV1hyM3VPOXJidFVY?=
- =?utf-8?B?K2Q1cEt0YmpFTjViRGJPaVJvaS9CbWNuZzdQL0hNMk51Qy9LSTdGb1R0WWZs?=
- =?utf-8?B?aEd2QWVZOFMwcElFNzBSdXNFZStVcTZDWjVKb1ZWS0lYc2oxdll6STlROTgz?=
- =?utf-8?B?NkxaSDNlU3Y1d29XUitDZm9rY2kzVzMzcEt2LzZMRzU0TWZQUjVmeWw0ejBT?=
- =?utf-8?B?bXpka2p5a05PaXlWeldaK1FkZ3BHL3B5aFZEdGIxM0NYa3dzZ0orV0FWQi96?=
- =?utf-8?B?d0lDVFJqVzVNMzh3S1ZCaDlmRjdMdHZHTVJGL3ovM0daMkZGMUdFMkRrWVdI?=
- =?utf-8?B?SmlmN0dINXZEcmZWNm9KL0VqSkxkSDRqNTBZZjZha3d4TkRKNmprQVNWUk9O?=
- =?utf-8?B?RG9tQUdjbzZBTVhtOFlSZnB0WVRrRllNTCsrN0Zqd3VaTkpFNzVqQT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YUdHVW4zYzV4N1FHeit5ckhwTHJZSG1WSlU2M01JV3diYUNTSFhUNWlpeVBo?=
+ =?utf-8?B?WFdCMXlsNzdQN0E4RE9veUdRQ2t3cG1hV2x1cm94MG5YckNaelhKK1JSYzJT?=
+ =?utf-8?B?L0ZidTFuRXlrVXpPMWhUQk84Q09mZHdyOVZXNXJQc2QrTzBGRUFBTmY5NmZ3?=
+ =?utf-8?B?UzdiQ1FETG9LSW43ZVltL2dhdkFMK0N5cmtXRHFNYmhzUVRvVFltRFVBV2pF?=
+ =?utf-8?B?MFkyWlprWWJwc0tKdkc1RlZHWDZ2WllWRzcxL1hPeXk1ZUpkQ2JNM3ZSaUR1?=
+ =?utf-8?B?ZkUrbFJtVjY3N2RuRWJ5bk1mL1pUNTR2V1NMdjhpOUJpNkJ0TnpKQ3crOC9o?=
+ =?utf-8?B?cTRGYWx6aTJROEJteVhPMURtUzZSVmFTelZrSStsNm5NYUhpTXRrWm5SbjhY?=
+ =?utf-8?B?aG5pYUdGcG1FanM0NXRaUjh1c2JjTDl2WDRzWC9CYnp4YkxIc1o1RXRWaTdZ?=
+ =?utf-8?B?MllLakYxdExPN3BWT2JCU1dEbkpEOFE1dDl4bktGUlhsc3h5TFM5NzR0dlZa?=
+ =?utf-8?B?YVBPa0swUHZPYzhBbVdYZ1dxb3UrUUJkd0tRVXkyZG8reVVpTktsL09YUm5O?=
+ =?utf-8?B?QWppUGt0WDZFZStBL3o5VFozQ2tDVmlEejhGaVUyWGdENHZQQzJyaDBSdTJ4?=
+ =?utf-8?B?clJ3R1JiYVd0OFFRNFhOQ09tTlRjU2FIYWhiYU5LSGVMZnluR1pmenNGV0Yw?=
+ =?utf-8?B?TzRsOEZ4MVN6ejNMY1V6SjhHYWNPU0N0VlVXUHc5N3p2eFpSalNxUkdNYzFv?=
+ =?utf-8?B?bFlUcnJJWXhta1dMbitxZ1h2ZlQvdFRCTDhrQXhwdjg5Mi9UVVpDbHR2ZjFq?=
+ =?utf-8?B?cm5SNld6NHJKa3IzTVBka2Y2WFpUYlV1UnBhZUZhN1pVenhFVnFzS0RseFp3?=
+ =?utf-8?B?dzVSNUVUb2xBSDFFdUg3UkNzNTNjK05selBVVWZYZTJMcDFsVjlNeDVPSDgy?=
+ =?utf-8?B?bW5peWxWaTg4MlB4UEoxclc5R24zWmNxR2N0emVuL1JHSkJJS3RkWUM2cEdU?=
+ =?utf-8?B?SFNwUUErVkxvdkJtaVA1clpZVXhYa3R6UVRpWGlEYlUxZ0hFbUU3TzlNUGpM?=
+ =?utf-8?B?UE1BdUx6NTZ6SGQ4ZDhHenp2WGVKZnZYTG9NazIxMFhUUHRiQkJEY013TCtK?=
+ =?utf-8?B?UDRnRUg2Q2QxdFJJaFVxQTNEVGtmOVJ0M1VhQWhZclBuMGNETkZYYklxRyt2?=
+ =?utf-8?B?MWFQR3Uya21QQmswV2hhWUNmL1lMQTB6R01FUHk3Z2xoQVBhQkhDSEI3ZEUv?=
+ =?utf-8?B?V1cvRzNueHlMRGxtZG1ncWx2VWY1LysrT1REdDFUMEJRVy85WVptZkxWYVhv?=
+ =?utf-8?B?V1lXdDNkVjdXbU82K2J0MElLM1o5OHNURXB2bXBxdUZjakovMmppZk1LY2dX?=
+ =?utf-8?B?OTIwcTNYOERIcjdxK3krWk5qaGpUS0R4S1dGSDFVM1hqTXphWnNiRGxWK0c0?=
+ =?utf-8?B?M1lVbkZESElpVXg0dHhaWmlURWlNWEN3WkhaSGNLLzZweUtORDNWVUhXWnFq?=
+ =?utf-8?B?Unl3NEZwaWg1eXpPS3RVdnBQUDcwVVFpZ2RHL0kyNU5xZHZJci9VY2dGMFZL?=
+ =?utf-8?B?bEhtT2FMRTdxR1NuRnpnR3Yycnl4NWdERHNjVHhXYWM2R3FCUjltamt2TWl3?=
+ =?utf-8?B?N3Q4ckpjemVlV0djajkxb00xTTlIM2ZSajN4cGxUUEZlYVNTajIzMGtkcUJH?=
+ =?utf-8?B?dXMrRzdtOStFMUVZOVpZUTdrbUF6UzgrOXJ2OE9hc3FzT2F3QW1BTm1GTWdm?=
+ =?utf-8?B?cDRVemh0VWc0UEZYdDVQSkNic0lpSmNHRzIzUTMraWVCWm11UnVDR0JaSUdw?=
+ =?utf-8?B?OEc3MEVRZ2xLU2RzZXU4QVBsYnJBWjNPSHVNcnBjQ3lDQVF3RlF5NTk0SGJx?=
+ =?utf-8?B?NUpNZk9FMWE4dlZsU0FPckpOYmdiMWM1dm41dUFpY0x4SmN3SlNVeUJycUp6?=
+ =?utf-8?B?c2pMZTNGL3pXa3Z2QjFXM1ZncmNUemp3MmZGSC9Xb0tWUjhWa25ZUWd2dkx1?=
+ =?utf-8?B?eDVUYkVXbGwzNm1uWTFiejc4cDd2Ky9vaHgza3AxZFdCeGVSMjgxeVBlU1Fa?=
+ =?utf-8?B?bjhmU1FnTHg3dElXdlpGZ054K0w3SWMyZlVjQjBMVENhT3VROGNxOWYwcnMw?=
+ =?utf-8?B?bjcwTUxmK0hod2xlWmRMSzJJd2poR0NKcmtDbXBabys4QlNsc1JLM212d2E4?=
+ =?utf-8?B?NDhCOUh1UWdSdE9KbldGZFhSME42WnFNU1pJUG16M3Bab1EvSTY2TDJvS2xr?=
+ =?utf-8?B?ZUtwWVpyYUZQTDNQcXVWSi82aWdxaldjVUVuVVpyMHIyWTJrL2hETklWTTBJ?=
+ =?utf-8?B?MTJGRXprN3RWeUE2STdaSC9ycUg0VjQvdVFNWHUrenZqb1Zid01Fdz09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e084424c-1129-4d32-c6a2-08def2754796
+X-MS-Exchange-CrossTenant-Network-Message-Id: be4f4a20-008a-4639-e83e-08def2778d57
 X-MS-Exchange-CrossTenant-AuthSource: DS5PPF78FC67EBA.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 22:11:06.1822 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 22:27:22.1864 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: D0E6+SdFgBSxhXRGWu74cWu+bYr73zQis6NwdgibDI6oTHZWUwm8wCULP4Bsx6CyxYZIjt+Rpi4D9P57pkp8dg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8244
+X-MS-Exchange-CrossTenant-UserPrincipalName: HKMLS0ibkP0wzThm+8I+JIkT6wuoUjS9f+gxv9EuYkLrM4/yymb/OPI1nH0ovMk/Y8rJ/V3HYmt1hWFOuD6+vg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5597
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,352 +142,148 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026-08-03 06:06, Shikang Fan wrote:
-> On gfx9 ASICs with mqd_on_vram(), a compute queue MQD lives in a pinned
-> VRAM buffer object. Pinned BOs are skipped by the VRAM eviction done at S4
-> suspend, so the MQD contents are lost across hibernation and the first
-> submission after resume page-faults on a stale MQD.
->
-> Unpin the MQD BO at suspend so the eviction migrates it into the
-> hibernation image, and pin it back to VRAM on resume. The BO may return at
-> a different VRAM address, so refresh the kernel mapping and cached GPU
-> addresses and patch the MQD self-address via a new update_mqd_gpu_addr()
-> mqd_manager op; skip eviction with a warning if that op is not implemented.
->
-> v3: use unpin/repin instead of shadowing the MQD into a separate buffer.
->
-> v4: drop the explicit VRAM->GTT placement at evict (a bare unpin is enough
-> for the eviction pass to move the BO out of VRAM), and also repin at queue
-> destroy. KFD queue restore runs late - user processes thaw before it, and
-> under SR-IOV it is deferred until the VF regains full access - so once the
-> VM has resumed an application can destroy a queue before its MQD BO is
-> repinned, which would otherwise unpin an already-unpinned BO and touch a
-> stale q->mqd.
->
-> Signed-off-by: Shikang Fan <shikang.fan@amd.com>
-> ---
->   .../drm/amd/amdkfd/kfd_device_queue_manager.c | 123 ++++++++++++++++++
->   drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h  |   8 ++
->   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |  40 ++++++
->   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   6 +
->   4 files changed, 177 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 51ee9c39104b..5ce4d4cb423c 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -77,6 +77,7 @@ static struct queue *find_queue_by_doorbell_offset(struct device_queue_manager *
->   static void set_queue_as_reset(struct device_queue_manager *dqm, struct queue *q,
->   			       struct qcm_process_device *qpd);
->   static int reset_queues_mes(struct device_queue_manager *dqm, struct queue *q);
-> +static int dqm_repin_mqd_bo(struct device_queue_manager *dqm, struct queue *q);
->   
->   static inline
->   enum KFD_MQD_TYPE get_mqd_type_from_queue_type(enum kfd_queue_type type)
-> @@ -1048,6 +1049,11 @@ static int destroy_queue_nocpsch(struct device_queue_manager *dqm,
->   				q->properties.queue_id);
->   	}
->   
-> +	/* Repin the MQD BO if it is still evicted for hibernation, before
-> +	 * destroy_queue_nocpsch_locked() dereferences q->mqd or it is freed.
-> +	 */
-> +	dqm_repin_mqd_bo(dqm, q);
-> +
->   	dqm_lock(dqm);
->   	retval = destroy_queue_nocpsch_locked(dqm, qpd, q);
->   	if (!retval)
-> @@ -1254,6 +1260,98 @@ static int resume_single_queue(struct device_queue_manager *dqm,
->   	return 0;
->   }
->   
-> +/* Unpin the MQD BO at S4 suspend so it is evicted into the hibernation image;
-> + * dqm_repin_mqd_bo() pins it back on resume. Gated on adev->in_s4 so runtime
-> + * eviction is untouched.
-> + */
-> +static void dqm_evict_mqd_bo(struct device_queue_manager *dqm, struct queue *q)
-> +{
-> +	struct mqd_manager *mqd_mgr;
-> +	struct amdgpu_bo *bo;
-> +
-> +	if (!dqm->dev->adev->in_s4)
-> +		return;
-> +	if (!mqd_on_vram(dqm->dev->adev))
-> +		return;
-> +	if (q->properties.type != KFD_QUEUE_TYPE_COMPUTE)
-> +		return;
-> +	if (!q->mqd_mem_obj || !q->mqd_mem_obj->mem)
-> +		return;
-> +
-> +	/* Without update_mqd_gpu_addr() the MQD self-address cannot be fixed up
-> +	 * after a repin, so skip eviction (with a warning) instead of faulting.
-> +	 */
-> +	mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(q->properties.type)];
-> +	if (!mqd_mgr->update_mqd_gpu_addr) {
-> +		dev_warn_once(dqm->dev->adev->dev,
-> +			      "MQD is in VRAM but update_mqd_gpu_addr is not implemented; skipping hibernation eviction\n");
-> +		return;
-> +	}
-> +
-> +	bo = q->mqd_mem_obj->mem;
-> +	if (amdgpu_bo_reserve(bo, false))
-> +		return;
-> +
-> +	amdgpu_bo_unpin(bo);
-> +	amdgpu_bo_unreserve(bo);
-> +	q->needs_mqd_repin = true;
-> +}
-> +
-> +/* Repin the MQD BO to VRAM and refresh the cached mapping and GPU addresses.
-> + * Used both on resume and when a queue is destroyed before resume has repinned
-> + * it. A no-op unless a repin is owed (needs_mqd_repin set).
-> + */
-> +static int dqm_repin_mqd_bo(struct device_queue_manager *dqm, struct queue *q)
-> +{
-> +	struct mqd_manager *mqd_mgr;
-> +	struct amdgpu_bo *bo;
-> +	void *cpu_ptr;
-> +	int r;
-> +
-> +	if (!q->needs_mqd_repin)
-> +		return 0;
-> +	if (!q->mqd_mem_obj || !q->mqd_mem_obj->mem)
-> +		return 0;
-> +
-> +	bo = q->mqd_mem_obj->mem;
-> +	r = amdgpu_bo_reserve(bo, false);
-> +	if (r)
-> +		return r;
-> +	r = amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_VRAM);
-> +	if (r) {
-> +		amdgpu_bo_unreserve(bo);
-> +		dev_err(dqm->dev->adev->dev,
-> +			"Failed to repin MQD of queue %d to VRAM: %d\n",
-> +			q->properties.queue_id, r);
-> +		return r;
-> +	}
-> +	/* The BO may have moved; refresh the kernel mapping and gpu address. */
-> +	amdgpu_bo_kunmap(bo);
-> +	r = amdgpu_bo_kmap(bo, &cpu_ptr);
-> +	amdgpu_bo_unreserve(bo);
-> +	if (r) {
-> +		dev_err(dqm->dev->adev->dev,
-> +			"Failed to remap MQD of queue %d: %d\n",
-> +			q->properties.queue_id, r);
-> +		return r;
-> +	}
-> +
-> +	q->mqd_mem_obj->cpu_ptr = cpu_ptr;
-> +	q->mqd_mem_obj->gpu_addr = amdgpu_bo_gpu_offset(bo);
-> +	q->gart_mqd_addr = q->mqd_mem_obj->gpu_addr;
-> +	q->mqd = cpu_ptr;
-> +
-> +	mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
-> +			q->properties.type)];
-> +	if (mqd_mgr->update_mqd_gpu_addr)
-> +		mqd_mgr->update_mqd_gpu_addr(mqd_mgr, q->mqd,
-> +					     q->mqd_mem_obj,
-> +					     &q->properties);
-> +
-> +	q->needs_mqd_repin = false;
-> +	return 0;
-> +}
-> +
->   static int evict_process_queues_nocpsch(struct device_queue_manager *dqm,
->   					struct qcm_process_device *qpd)
->   {
-> @@ -1297,6 +1395,8 @@ static int evict_process_queues_nocpsch(struct device_queue_manager *dqm,
->   			 * maintain a consistent eviction state
->   			 */
->   			ret = retval;
-> +
-> +		dqm_evict_mqd_bo(dqm, q);
->   	}
->   
->   out:
-> @@ -1350,6 +1450,8 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
->   				goto out;
->   			}
->   		}
-> +
-> +		dqm_evict_mqd_bo(dqm, q);
->   	}
->   
->   	if (!dqm->dev->kfd->shared_resources.enable_mes) {
-> @@ -1429,6 +1531,10 @@ static int restore_process_queues_nocpsch(struct device_queue_manager *dqm,
->   		if (WARN_ONCE(!dqm->sched_running, "Restore when stopped\n"))
->   			continue;
->   
-> +		retval = dqm_repin_mqd_bo(dqm, q);
-> +		if (retval && !ret)
-> +			ret = retval;
-> +
->   		retval = mqd_mgr->load_mqd(mqd_mgr, q->mqd, q->pipe,
->   				       q->queue, &q->properties, mm);
->   		if (retval && !ret)
-> @@ -1489,6 +1595,13 @@ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
->   		q->properties.is_active = true;
->   		increment_queue_count(dqm, &pdd->qpd, q);
->   
-> +		retval = dqm_repin_mqd_bo(dqm, q);
-> +		if (retval) {
-> +			dev_err(dev, "Failed to repin MQD for queue %d\n",
-> +				q->properties.queue_id);
-> +			goto out;
-> +		}
-> +
->   		if (dqm->dev->kfd->shared_resources.enable_mes) {
->   			retval = add_queue_mes(dqm, q, qpd);
->   			if (retval) {
-> @@ -2760,6 +2873,8 @@ static int destroy_queue_cpsch(struct device_queue_manager *dqm,
->   				qpd->pqm->process, q->device,
->   				-1, false, NULL, 0);
->   
-> +	/* Repin the MQD BO if still evicted for hibernation, before it is freed. */
-> +	dqm_repin_mqd_bo(dqm, q);
->   	mqd_mgr->free_mqd(mqd_mgr, q->mqd, q->mqd_mem_obj);
->   
->   	return retval;
-> @@ -2827,6 +2942,12 @@ static int process_termination_nocpsch(struct device_queue_manager *dqm,
->   		q = list_first_entry(&qpd->queues_list, struct queue, list);
->   		mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
->   				q->properties.type)];
-> +		/* Repin the MQD BO before destroy_queue_nocpsch_locked()
-> +		 * dereferences q->mqd; drop the DQM lock as reserve may sleep.
-> +		 */
-> +		dqm_unlock(dqm);
-> +		dqm_repin_mqd_bo(dqm, q);
-> +		dqm_lock(dqm);
 
-You don't really need to repin before calling destroy_queue. You need it 
-before freeing the MQD. That is done a few lines below in another 
-section that already drops the DQM lock. You can just move repin into 
-that section and avoid some unnecessary churn dropping and re-taking the 
-lock repeatedly. I think it's OK to do that after 
-destroy_queue_nocpsch_locked, because that function doesn't actually 
-free the queue struct.
+On 2026-08-04 05:52, Donet Tom wrote:
+> This series fixes topology device creation and proximity domain mappings in
+> AMDKFD when a system does not provide a CRAT table and the driver generates a
+> Virtual CRAT (VCRAT).
+>
+> The current implementation assumes that CPU NUMA node IDs are contiguous and
+> that every NUMA node contains CPUs. During VCRAT generation, CPU topology
+> entries and proximity domains are created only for NUMA nodes that have CPUs.
+> GPU proximity domains are then allocated immediately after the CPU proximity
+> domains, and the GPU I/O link (proximity_domain_to) is initialized using the
+> NUMA node ID to which the GPU is attached, implicitly assuming that NUMA node
+> IDs and proximity domains have a one-to-one mapping.
+>
+> These assumptions break on systems with:
+>
+> Sparse (non-contiguous) NUMA node IDs
+> CPU-less NUMA nodes
+> CPU-less and memory-less NUMA nodes
+>
+> For example:
+>
+> available: 3 nodes (0,2-3)
+>
+> node 0: CPUs present
+> node 2: CPU-less
+> node 3: CPU-less
+>
+> In this case, the driver creates a CPU topology device only for node 0 and
+> assigns a single CPU proximity domain (0). However, the GPU VCRAT still
+> references the NUMA node ID to which the GPU is attached (for example, node 3)
+> in the proximity_domain_to field. Since no corresponding CPU proximity domain
+> exists for node 3, the parser cannot find a matching proximity domain during
+> VCRAT parsing, causing topology initialization to fail.
 
-With that fixed, the patch is
+Hi Tom,
 
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Thank you for the explanation and the patch series. I may have some gaps 
+in my understanding that I would like to clarify. In my mind, I was 
+using "proximity domain" and "NUMA node" interchangeably. You're 
+demonstrating that they are not the same thing. Is that just a different 
+way of labeling the same thing, or are NUMA nodes and proximity domains 
+fundamentally different concepts.
+
+Your code in patch 5 (kfd_proximity_domain_to_numa_node and 
+kfd_numa_node_to_proximity_domain) seems to imply that there is, in 
+fact, a 1:1 mapping, as it assumes that there is a unique translation in 
+both directions. Am I missing something?
+
+If they are just different numbering systems, do we really need to keep 
+track of both proximity domains and NUMA nodes in the KFD topology? Or 
+would it be sufficient to only track NUMA nodes, if that's what we 
+really care about in the uAPI (KFD sysfs)?
+
+Thanks,
+   Felix
 
 
->   		ret = destroy_queue_nocpsch_locked(dqm, qpd, q);
->   		if (ret)
->   			retval = ret;
-> @@ -3017,6 +3138,8 @@ static int process_termination_cpsch(struct device_queue_manager *dqm,
->   		list_del(&q->list);
->   		qpd->queue_count--;
->   		dqm_unlock(dqm);
-> +		/* Repin the MQD BO if still evicted for hibernation, before free. */
-> +		dqm_repin_mqd_bo(dqm, q);
->   		mqd_mgr->free_mqd(mqd_mgr, q->mqd, q->mqd_mem_obj);
->   		dqm_lock(dqm);
->   	}
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-> index 59eff3389d39..38b46b696243 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-> @@ -117,6 +117,14 @@ struct mqd_manager {
->   				const void *ctl_stack_src,
->   				const u32 ctl_stack_size);
->   
-> +	/* Patch the MQD's cached self GPU address after the MQD BO has moved
-> +	 * (e.g. repinned to a new VRAM location on hibernation resume). The MQD
-> +	 * contents are otherwise preserved.
-> +	 */
-> +	void	(*update_mqd_gpu_addr)(struct mqd_manager *mm, void *mqd,
-> +				       struct kfd_mem_obj *mqd_mem_obj,
-> +				       struct queue_properties *p);
-> +
->   #if defined(CONFIG_DEBUG_FS)
->   	int	(*debugfs_show_mqd)(struct seq_file *m, void *data);
->   #endif
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> index 75e5a9f67d50..b95720198e28 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> @@ -476,6 +476,20 @@ static void restore_mqd(struct mqd_manager *mm, void **mqd,
->   	qp->is_active = 0;
->   }
->   
-> +static void update_mqd_gpu_addr(struct mqd_manager *mm, void *mqd,
-> +				struct kfd_mem_obj *mqd_mem_obj,
-> +				struct queue_properties *qp)
-> +{
-> +	struct v9_mqd *m = get_mqd(mqd);
-> +	uint64_t addr = mqd_mem_obj->gpu_addr;
-> +
-> +	m->cp_mqd_base_addr_lo = lower_32_bits(addr);
-> +	m->cp_mqd_base_addr_hi = upper_32_bits(addr);
-> +
-> +	if (mqd_on_vram(mm->dev->adev))
-> +		amdgpu_device_flush_hdp(mm->dev->adev, NULL);
-> +}
-> +
->   static void init_mqd_hiq(struct mqd_manager *mm, void **mqd,
->   			struct kfd_mem_obj *mqd_mem_obj, uint64_t *gart_addr,
->   			struct queue_properties *q)
-> @@ -860,6 +874,30 @@ static void restore_mqd_v9_4_3(struct mqd_manager *mm, void **mqd,
->   	if (mqd_on_vram(mm->dev->adev))
->   		amdgpu_device_flush_hdp(mm->dev->adev, NULL);
->   }
-> +
-> +static void update_mqd_gpu_addr_v9_4_3(struct mqd_manager *mm, void *mqd,
-> +				       struct kfd_mem_obj *mqd_mem_obj,
-> +				       struct queue_properties *qp)
-> +{
-> +	struct kfd_mem_obj xcc_mqd_mem_obj;
-> +	uint64_t offset = mm->mqd_stride(mm, qp);
-> +	u32 num_xcc = NUM_XCC(mm->dev->xcc_mask);
-> +	struct v9_mqd *m;
-> +	int xcc;
-> +
-> +	memset(&xcc_mqd_mem_obj, 0x0, sizeof(struct kfd_mem_obj));
-> +
-> +	for (xcc = 0; xcc < num_xcc; xcc++) {
-> +		get_xcc_mqd(mqd_mem_obj, &xcc_mqd_mem_obj, offset * xcc);
-> +		m = get_mqd(mqd + offset * xcc);
-> +		m->cp_mqd_base_addr_lo = lower_32_bits(xcc_mqd_mem_obj.gpu_addr);
-> +		m->cp_mqd_base_addr_hi = upper_32_bits(xcc_mqd_mem_obj.gpu_addr);
-> +	}
-> +
-> +	if (mqd_on_vram(mm->dev->adev))
-> +		amdgpu_device_flush_hdp(mm->dev->adev, NULL);
-> +}
-> +
->   static int destroy_mqd_v9_4_3(struct mqd_manager *mm, void *mqd,
->   		   enum kfd_preempt_type type, unsigned int timeout,
->   		   uint32_t pipe_id, uint32_t queue_id)
-> @@ -1017,6 +1055,7 @@ struct mqd_manager *mqd_manager_init_v9(enum KFD_MQD_TYPE type,
->   			mqd->get_wave_state = get_wave_state_v9_4_3;
->   			mqd->checkpoint_mqd = checkpoint_mqd_v9_4_3;
->   			mqd->restore_mqd = restore_mqd_v9_4_3;
-> +			mqd->update_mqd_gpu_addr = update_mqd_gpu_addr_v9_4_3;
->   		} else {
->   			mqd->init_mqd = init_mqd;
->   			mqd->load_mqd = load_mqd;
-> @@ -1025,6 +1064,7 @@ struct mqd_manager *mqd_manager_init_v9(enum KFD_MQD_TYPE type,
->   			mqd->get_wave_state = get_wave_state;
->   			mqd->checkpoint_mqd = checkpoint_mqd;
->   			mqd->restore_mqd = restore_mqd;
-> +			mqd->update_mqd_gpu_addr = update_mqd_gpu_addr;
->   		}
->   		break;
->   	case KFD_MQD_TYPE_HIQ:
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index bcb929002839..0dc4f76a36d4 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -637,6 +637,12 @@ struct queue {
->   	void *gang_ctx_cpu_ptr;
->   
->   	struct amdgpu_bo *wptr_bo_gart;
-> +
-> +	/* The VRAM-resident MQD BO (mqd_on_vram()) is unpinned at S4 suspend so
-> +	 * TTM evicts it into the hibernation image, and repinned on resume. Set
-> +	 * while the BO is unpinned so the resume path knows to repin it.
-> +	 */
-> +	bool needs_mqd_repin;
->   };
->   
->   enum KFD_MQD_TYPE {
+>
+> The failure is observed as:
+>
+> amdgpu: Virtual CRAT table created for GPU
+> amdgpu: Error parsing VCRAT
+> kfd: amdgpu: Error adding device to topology
+> kfd: amdgpu: Error initializing KFD node
+>
+>
+> Since every online NUMA node is a valid topology object and can contain
+> CPUs, memory, I/O links, or any combination of these, topology devices
+> and proximity domains should be created for every online NUMA node
+> rather than only for NUMA nodes that contain CPUs.
+>
+> To address this, this series introduces a new VCRAT subtype that
+> records the mapping between the NUMA node ID and the generated VCRAT
+> proximity domain. When topology devices are created, this information
+> is stored in the corresponding topology device, allowing the driver to
+> translate a NUMA node ID into its associated proximity domain whenever
+> required.
+>
+> Returning to the previous example, the system contains three online
+> NUMA nodes, so three CPU topology devices and three proximity domains
+> are created, even though only one NUMA node contains CPUs. The NUMA
+> node ID is stored in each topology device together with its generated
+> proximity domain.
+>
+> Later, when the GPU VCRAT is generated, the driver only knows the NUMA
+> node ID to which the GPU is attached (for example, node 3). Instead of
+> assuming that the NUMA node ID is equal to the proximity domain, the
+> driver walks the existing topology devices to locate the corresponding
+> NUMA node and retrieves its generated proximity domain. In this
+> example, NUMA node 3 maps to proximity domain 2, so
+> proximity_domain_to is populated with the correct value.
+>
+> Since the GPU I/O link now references a valid proximity domain, VCRAT
+> parsing completes successfully and topology initialization proceeds
+> without errors on systems with sparse NUMA node IDs, CPU-less NUMA
+> nodes, and CPU-less/memory-less NUMA nodes.
+>
+> This series consists of the following patches:
+>
+> Patch 1 removes an unused argument from
+> kfd_create_crat_image_virtual() as a preparatory cleanup.
+>
+> Patch 2 introduces a new VCRAT NUMA affinity subtype that stores the
+> NUMA node ID and its corresponding proximity domain.
+>
+> Patch 3 populates the NUMA affinity entries during VCRAT generation
+> for every online NUMA node.
+>
+> Patch 4 parses the NUMA affinity entries from the VCRAT and stores the
+> NUMA node ID and proximity domain in the corresponding topology
+> device.
+>
+> Patch 5 fixes GPU VCRAT proximity domain mappings by translating the
+> GPU's NUMA node ID to the corresponding CPU proximity domain before
+> programming proximity_domain_to.
+>
+> Patch 6 creates proximity domains and VCRAT entries for all online
+> NUMA nodes, including CPU-less and memory-less nodes.
+>
+> Patch 7 adds a numa_node sysfs attribute for CPU and GPU topology
+> devices, exposing the associated NUMA node through the topology sysfs
+> interface.
+>
+> Please note that the changes in this series are on a best effort basis from our
+> end. Therefore, requesting the amd-gfx community (who have deeper knowledge of the
+> HW & SW stack) to kindly help with the review and provide feedback / comments on
+> these patches
+>
+> Donet Tom (7):
+>    drm/amdgpu: Remove unused argument from kfd_create_crat_image_virtual
+>    drm/amdgpu: Add VCRAT NUMA affinity entry
+>    drm/amdgpu: Populate NUMA affinity entries in VCRAT
+>    drm/amdgpu: Parse NUMA affinity entries from VCRAT
+>    drm/amdgpu: Fix VCRAT proximity domain mappings for GPU nodes
+>    drm/amdgpu: Create proximity domains and VCRAT entries for CPU-less
+>      and memory-less NUMA nodes
+>    drm/amdgpu: Add numa_node in cpu/gpu topology device sysfs entry
+>
+>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 152 +++++++++++++++-------
+>   drivers/gpu/drm/amd/amdkfd/kfd_crat.h     |  19 ++-
+>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  49 +++++--
+>   drivers/gpu/drm/amd/amdkfd/kfd_topology.h |   4 +
+>   4 files changed, 168 insertions(+), 56 deletions(-)
+>
