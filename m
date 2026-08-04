@@ -4,57 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4DA50C55172
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 09:53:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F3BD6C5518F
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 09:53:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB3AD10E67B;
-	Tue,  4 Aug 2026 09:53:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CC1610E943;
+	Tue,  4 Aug 2026 09:53:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="l3ZSVugf";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="I00lYhW3";
 	dkim-atps=neutral
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
  [148.163.156.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 541CA10E67B
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2026 09:53:38 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C94F10E943
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2026 09:53:50 +0000 (UTC)
 Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
  by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6748HZus323810; Tue, 4 Aug 2026 09:53:35 GMT
+ 6748I70D324383; Tue, 4 Aug 2026 09:53:47 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
  :content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=pp1; bh=ijTBwXmTwJGDKLgFe
- V1u7AIhm4sb10+5R1omtFPNkTI=; b=l3ZSVugf63hS3IwoOxbdRBIsSJlsuSU8S
- 7yJBeD91vx4j3NoKN/VwdJAi5eK7QkPsdpd6p9o73zZP2ffToReypcnF4kXMIN4p
- O/vAX2CJiXcX/3iYb8XF1+bzTeC2XmXUk09voHTBTNl/u2pni7pBkjZuifoBgk9M
- /Q6oc0ZkpX8fGwIZ4dDMVHbwyv9wMfzskKbIPH8Hn6dJMxeXIQuYZ6TRCrXvCEns
- mC8HbVagd2ec4WM/s4YbWaTA58YRB0pRYfGELke0obbkheXz0aN7ZR1CBX84a1BT
- i5SvXZmOwDvqNaKG8sdvkmOyyS9uIayVwedzFmdipl3p5iGpgBjzQ==
-Received: from ppma13.dal12v.mail.ibm.com
- (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs8h4w7uh-1
+ :mime-version:references:subject:to; s=pp1; bh=SqTvie5KBL8xsEaPV
+ ChS7VZ/OUVokJWTTKgai1rx34E=; b=I00lYhW3ByTrrWzcgdSIOB8toT2AyvyD0
+ 6PoOZGdoi0xauFp3FiGZ2kYACp30xPKID8Txs+GuQ0J/CYsIe66269RlbVSOpC7D
+ 9CKwI3n/Q1zuvoHiVY7B+0Ab/SjJdq8CegVvkqbWj7tY8Y+qMVv/WIJkipsbJ7ON
+ RI3c3ehQ/DRTnHj2XqM/mcp7dFL/045a8/7I61lBo8brKO5vdB185tDoBmBGWvdw
+ 1v4D/J05k6eE2zg1G9/+QCRyjrv7KQqvSfKI5CnWikfb/YpYOfqSP7C672E6PVDY
+ 2gwYT/TUdm1p0l6knOUPAUJOKliZrUaXAQEhjv3OKfsjI25Q6LBAg==
+Received: from ppma12.dal12v.mail.ibm.com
+ (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs8h4w7v1-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 04 Aug 2026 09:53:34 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
- by ppma13.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6749pwoa005638;
- Tue, 4 Aug 2026 09:53:33 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
- by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fswbg96a4-1
+ Tue, 04 Aug 2026 09:53:47 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma12.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6749fFAK001046;
+ Tue, 4 Aug 2026 09:53:45 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+ by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fsu4qhhy7-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Tue, 04 Aug 2026 09:53:33 +0000 (GMT)
+ Tue, 04 Aug 2026 09:53:45 +0000 (GMT)
 Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com
  [10.20.54.103])
- by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 6749rTAT32833808
+ by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 6749rfTl34800116
  (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 4 Aug 2026 09:53:29 GMT
+ Tue, 4 Aug 2026 09:53:41 GMT
 Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 66D7F2004B;
- Tue,  4 Aug 2026 09:53:29 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 7D3362004B;
+ Tue,  4 Aug 2026 09:53:41 +0000 (GMT)
 Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 0120220043;
- Tue,  4 Aug 2026 09:53:21 +0000 (GMT)
+ by IMSVA (Postfix) with ESMTP id 6574C20040;
+ Tue,  4 Aug 2026 09:53:33 +0000 (GMT)
 Received: from li-218185cc-29b5-11b2-a85c-9a1300ae2e6e.ibm.com.com (unknown
  [9.39.27.148]) by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
- Tue,  4 Aug 2026 09:53:20 +0000 (GMT)
+ Tue,  4 Aug 2026 09:53:32 +0000 (GMT)
 From: Donet Tom <donettom@linux.ibm.com>
 To: amd-gfx@lists.freedesktop.org, Felix Kuehling <Felix.Kuehling@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>,
@@ -65,9 +65,9 @@ Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
  Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  donettom@linux.ibm.com
-Subject: [PATCH 3/7] drm/amdgpu: Populate NUMA affinity entries in VCRAT
-Date: Tue,  4 Aug 2026 15:22:32 +0530
-Message-ID: <bec09fed7585ec07276f6bdc3ee536ece8c24879.1785833981.git.donettom@linux.ibm.com>
+Subject: [PATCH 4/7] drm/amdgpu: Parse NUMA affinity entries from VCRAT
+Date: Tue,  4 Aug 2026 15:22:33 +0530
+Message-ID: <515a19459d4059cadde46e65137aa3ca3961d94c.1785833981.git.donettom@linux.ibm.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <cover.1785833981.git.donettom@linux.ibm.com>
 References: <cover.1785833981.git.donettom@linux.ibm.com>
@@ -75,23 +75,23 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDA3NyBTYWx0ZWRfX9bxkNbpVOXdZ
- DXEC8UO0DFQiXSJH6qKTLKg7xznIutVXr7suSAFxWC6nLo+iTqbrctojDBgwOyeAioo6wu+fOFg
- FVdQeV1a9By0TPy0+LZ2yJXjZrpqIA0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDA3NyBTYWx0ZWRfXxBt0msqQI3Ck
- pSpusSvbCs0NKs7lwtzDg6cMtdbUMbMLV13SiR19cDFuNJFCiN/SIW8zWbqN2GE7kSSKHAD+Mb/
- mCxmPPcLFNvYkgxStrjrmpXSHWu/IO3hHqjRb0+kv/6WoffAZCV3AOFF6VOpofik1ewhDZDYSR/
- fh0vw1ZSwMQjeYDTN53+qJQAM27v0E8Y71FhIt4GXmQozF/5WgW979SqRr0iGEFrUeWft1OnTqc
- LcpTD1Io3lB8AvBiPhOhg4MP1zAG+3ZnK48ddOn7U6uyfrvg/O7Z6LAAJuhWQ8s5w8iTyJwlOL5
- atT5tRp4aOblc3bSfvhG/X6jfSUnOzWCxb8CwAzcjg8mMqrGoKX1xZ3J02+HRGobbDjsXw3xGku
- PKHcyyT8VXp8Ao2j5gkVr0p9QdliMS9vXw5NmNRHaltK82mxht7Ikpi1tPJTokPJbKflO5bjvOS
- dUO6H0vXB6zoC0k56Fw==
-X-Authority-Analysis: v=2.4 cv=SI1ykuvH c=1 sm=1 tr=0 ts=6a71b69e cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDA3NyBTYWx0ZWRfX/9HNabS9h5mY
+ o/DnFtme33qW1Rg1ErFzoVMIMsb4tB2lVGx6slq0wSD80qwg9RlfhR/MUGWhI2G5mcvm8gXf/r2
+ Bl3tE1/HWA34MraN2gajI/GiJpeFKfw=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDA3NyBTYWx0ZWRfX4AJhEUW4LEed
+ owBc3QCoASork+755APxE9M+9aCCuUnvBPupAaRRZynjF+rp8a91KyKvXELFKZmBTyK1JvHpQYt
+ ESW41rJRKFCXsEf/1mY2ckjkA+TtsKOo4tQQoPKtkEKIyxX58gFyT3u+Du2pX9wq29C7oyKmNIX
+ 2HTYwdKvfMHhNh9wLS5TXEDdbc9qJL19GKzwJh045Eqs+2ue0BJvv06JWtOsHy+zdgEtvcdztvE
+ yPXCa0QxdYXU13AXOeJzqmixbJ19CBMMZZmZqBJgDKt+8kWtpLs7yyprHtazmucIZdtxbrrUevz
+ KT7YYbGiRTvyAK0gK9MztD5R2jQaAhI1HRsjY3HrrQR88aooqfWj4iMox4r2uzTSC+mN/W3ZTZL
+ KbWUnbCpGoh0p9dEefG96wvOApfwLiuEW1R/PGmBdQiZBVgsxnrWBGKkUWwbzKqkGHtSJXRDaFx
+ NSs5qnFIOD25VO0l3rA==
+X-Authority-Analysis: v=2.4 cv=SI1ykuvH c=1 sm=1 tr=0 ts=6a71b6ab cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
  a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8 a=8BfPWO-Ly2JlPZ2tXaMA:9
-X-Proofpoint-ORIG-GUID: Ei45slLY97xtDV3c7LSxgjHhl5G92BjC
-X-Proofpoint-GUID: H1hT9r2livqnr67uIUjNQ8oN75-vROeH
+ a=U7nrCbtTmkRpXpFmAIza:22 a=VnNF1IyMAAAA:8 a=wAok5BmyS-ghERMTKL0A:9
+X-Proofpoint-ORIG-GUID: eLR22Uu0ALOE3mBA6jV8WMiGs9jByzq9
+X-Proofpoint-GUID: M2PzCFK4AO9mg5GQF4DXiymZv9EnSXch
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-04_02,2026-08-03_02,2025-10-01_01
@@ -115,71 +115,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Populate the new VCRAT NUMA affinity subtype with the NUMA node ID and
-the corresponding proximity domain of each NUMA node.
+Parse the NUMA affinity entries from the VCRAT and populate the
+corresponding NUMA node information in the topology device.
 
 Signed-off-by: Donet Tom <donettom@linux.ibm.com>
 ---
- drivers/gpu/drm/amd/amdkfd/kfd_crat.c | 32 +++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+ drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 23 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdkfd/kfd_topology.h |  1 +
+ 2 files changed, 24 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-index 3190a4d6acc6..5613eb69423d 100644
+index 5613eb69423d..079bce6d904d 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_crat.c
-@@ -1877,6 +1877,26 @@ static int kfd_fill_iolink_info_for_cpu(int numa_node_id, int *avail_size,
+@@ -1299,6 +1299,23 @@ static int kfd_parse_subtype_iolink(struct crat_subtype_iolink *iolink,
+ 	return 0;
  }
- #endif
  
-+static int kfd_fill_numa_info_for_cpu(int *avail_size,
-+			struct crat_subtype_numa *sub_type_hdr,
-+			int numa_node, int proximity_domain)
++static int kfd_parse_subtype_numa(struct crat_subtype_numa *numa,
++				struct list_head *device_list)
 +{
-+	*avail_size -= sizeof(struct crat_subtype_numa);
-+	if (*avail_size < 0)
-+		return -ENOMEM;
++	struct kfd_topology_device *dev;
 +
-+	memset(sub_type_hdr, 0, sizeof(struct crat_subtype_numa));
-+
-+	/* Fill in subtype header data */
-+	sub_type_hdr->type = CRAT_SUBTYPE_NUMA_AFFINITY;
-+	sub_type_hdr->length = sizeof(struct crat_subtype_numa);
-+	sub_type_hdr->flags = CRAT_SUBTYPE_FLAGS_ENABLED;
-+	sub_type_hdr->numa_node = numa_node;
-+	sub_type_hdr->proximity_domain = proximity_domain;
++	pr_debug("Found NUMA entry in CRAT table with proximity_domain=%u numa node=%u\n",
++			numa->proximity_domain, numa->numa_node);
++	list_for_each_entry(dev, device_list, list) {
++		if (numa->proximity_domain == dev->proximity_domain) {
++			dev->numa_node = numa->numa_node;
++			break;
++		}
++	}
 +
 +	return 0;
 +}
 +
- /* kfd_create_vcrat_image_cpu - Create Virtual CRAT for CPU
-  *
-  *	@pcrat_image: Fill in VCRAT for CPU
-@@ -1974,6 +1994,17 @@ static int kfd_create_vcrat_image_cpu(void *pcrat_image, size_t *size)
- 		pr_info("IO link not available for non x86 platforms\n");
- #endif
+ /* kfd_parse_subtype - parse subtypes and attach it to correct topology device
+  * present in the device_list
+  *	@sub_type_hdr - subtype section of crat_image
+@@ -1311,6 +1328,7 @@ static int kfd_parse_subtype(struct crat_subtype_generic *sub_type_hdr,
+ 	struct crat_subtype_memory *mem;
+ 	struct crat_subtype_cache *cache;
+ 	struct crat_subtype_iolink *iolink;
++	struct crat_subtype_numa *numa;
+ 	int ret = 0;
  
-+		ret = kfd_fill_numa_info_for_cpu(&avail_size,
-+				(struct crat_subtype_numa *)sub_type_hdr,
-+				numa_node_id, crat_table->num_domains);
-+		if (ret < 0)
-+			return ret;
-+		crat_table->length += sub_type_hdr->length;
-+		crat_table->total_entries++;
-+
-+		sub_type_hdr = (typeof(sub_type_hdr))((char *)sub_type_hdr +
-+				sub_type_hdr->length);
-+
- 		crat_table->num_domains++;
+ 	switch (sub_type_hdr->type) {
+@@ -1342,6 +1360,10 @@ static int kfd_parse_subtype(struct crat_subtype_generic *sub_type_hdr,
+ 		iolink = (struct crat_subtype_iolink *)sub_type_hdr;
+ 		ret = kfd_parse_subtype_iolink(iolink, device_list);
+ 		break;
++	case CRAT_SUBTYPE_NUMA_AFFINITY:
++		numa = (struct crat_subtype_numa *)sub_type_hdr;
++		ret = kfd_parse_subtype_numa(numa, device_list);
++		break;
+ 	default:
+ 		pr_warn("Unknown subtype %d in CRAT\n",
+ 				sub_type_hdr->type);
+@@ -1389,6 +1411,7 @@ int kfd_parse_crat_table(void *crat_image, struct list_head *device_list,
+ 		if (!top_dev)
+ 			break;
+ 		top_dev->proximity_domain = proximity_domain++;
++		top_dev->numa_node = -1;
  	}
  
-@@ -2436,6 +2467,7 @@ int kfd_create_crat_image_virtual(void **crat_image, int flags,
- 		dyn_size = sizeof(struct crat_header) +
- 			num_nodes * (sizeof(struct crat_subtype_computeunit) +
- 			sizeof(struct crat_subtype_memory) +
-+			sizeof(struct crat_subtype_numa) +
- 			(num_nodes - 1) * sizeof(struct crat_subtype_iolink));
- 		pcrat_image = kvmalloc(dyn_size, GFP_KERNEL);
- 		if (!pcrat_image)
+ 	if (!top_dev) {
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+index ad63ba67b577..f5e00f5df922 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_topology.h
+@@ -144,6 +144,7 @@ struct kfd_perf_properties {
+ struct kfd_topology_device {
+ 	struct list_head		list;
+ 	uint32_t			gpu_id;
++	uint32_t			numa_node;
+ 	uint32_t			proximity_domain;
+ 	struct kfd_node_properties	node_props;
+ 	struct list_head		mem_props;
 -- 
 2.54.0
 
