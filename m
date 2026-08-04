@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 251EFC55838
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 14:08:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29354C55838
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 14:08:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 86FC510E674;
-	Tue,  4 Aug 2026 14:08:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5344610EA7A;
+	Tue,  4 Aug 2026 14:08:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="aXVdVVBd";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="i9HzDcU8";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 446D610E161;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA23B10E65B;
  Tue,  4 Aug 2026 14:08:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=S7Snln9qargYCa/wKoW6CfOe3wDxf8oI2z+3a4u/coU=; b=
- aXVdVVBdQJkQK4CVBqoeQX/MM9GAPzgqMu9mxCfnR5Gue9+yUESBfi/hup0HoDle/1ndBP0w060Z4
- DzEMg02tMWlyOj3OLV+qz5lvqjY0/ee264Glz3aQ91I8C70hjdkXF4RTFbHSXGvgzjdPj5bX3tiGB
- VcUFli2UWGJv6uMxZuh8+/Y9esGo6/xkJxassdNEBoz+oRvvT947GbDySudkJSTD7/k5P4nADBvOw
- xYeVEiaDtoVZ/8k0TDX8cSX+f54RUB+e8vbzfKVcbWz028TRtNJTTiTJSyQOUBXjAfp4HRpw1O3hp
- LUidigV3MY+eQDYEZhrk/tYQSfeXFhrcxw==;
+ Cc:To:From:From:Reply-To; bh=j8EwsuqnZT7WKgxoTOBU8dO+GvCq4qOuXkpo6P1D6kA=; b=
+ i9HzDcU8khyuYOm6oN5Glcxf38iY256HTHXGn17eqkFHBT+unYp26TknPiKsaMAdvuzrVCDJPRhgo
+ 6IU4+2A5nzSn8MqeFaGWJisaS7w95Lfn98wUu8FK4MWebcNQSVvZE9iej+vsHifDp8SE1qT02A089
+ 6p0iXkh5DbwNVRn+dyQrPnoJBojINOJcHQajQrv+FhuXQPMufILutv+ooml4UQyOML6FZb+ldL9QU
+ 5CY2paRFnxTaj4Y5KXs0YaCcuInCKK168pQome4MtR5f34a7Gy5G8hA8YNi7Cq1mo7+rivgsvUrXP
+ aFP4SfjD+AjKLrwq8sHAO3u3sNJtqHwvKw==;
 Received: from 204.red-79-147-119.dynamicip.rima-tde.net ([79.147.119.204]
  helo=killbill.Home) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wrFoH-00Dr5i-Uj; Tue, 04 Aug 2026 16:08:02 +0200
+ id 1wrFoJ-00Dr5i-M2; Tue, 04 Aug 2026 16:08:03 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  daniels@collabora.com, harry.wentland@amd.com,
@@ -37,10 +37,10 @@ To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
 Cc: Alex Hung <alex.hung@amd.com>, kernel-dev@igalia.com,
  Lyude Paul <lyude@redhat.com>, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH v2 1/3] drm/atomic-state-helper: set pixel_blend_mode to prop
- default on reset
-Date: Tue,  4 Aug 2026 16:00:53 +0200
-Message-ID: <20260804140758.107683-2-mwen@igalia.com>
+Subject: [PATCH v2 2/3] drm/amd/display: fix missing blend-mode-prop warning
+ for DCN
+Date: Tue,  4 Aug 2026 16:00:54 +0200
+Message-ID: <20260804140758.107683-3-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260804140758.107683-1-mwen@igalia.com>
 References: <20260804140758.107683-1-mwen@igalia.com>
@@ -60,43 +60,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In __drm_atomic_helper_plane_state_init(), pixel_blend_mode is always
-reset to DRM_MODE_BLEND_PREMULTI. That was consistent while
-drm_plane_create_blend_mode_property() required PREMULTI in the
-supported modes, but it now falls back to COVERAGE or PIXEL_NONE when
-the driver doesn't support PREMULTI. The hardcoded default may therefore
-not be a blend mode the hardware can do, nor one the property
-advertises.
+validate_blend_mode_for_alpha_formats() warns when a plane supports
+formats with alpha but doesn't expose the blend mode property. Fix this
+by adding the same overlay plane blend modes to primary plane, since
+they are all universal planes in DCN-generation. Cursor planes support
+ARGB8888 format and CURSOR_MODE_COLOR_PRE_MULTIPLIED_ALPHA is set by
+default (other color formats are not implemented), so only expose
+support to PREMULTI, which is the default blend mode on DRM.
 
-Initialize pixel_blend_mode from the blend mode property default
-instead, keeping DRM_MODE_BLEND_PREMULTI for planes without the
-property.
-
-Fixes: 9813e158d13d ("drm/drm_blend: allow blend mode property without PREMULTI")
+Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- drivers/gpu/drm/drm_atomic_state_helper.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic_state_helper.c b/drivers/gpu/drm/drm_atomic_state_helper.c
-index d90d1d7c9cf9..a2ef272e9f27 100644
---- a/drivers/gpu/drm/drm_atomic_state_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_state_helper.c
-@@ -278,7 +278,14 @@ void __drm_atomic_helper_plane_state_init(struct drm_plane_state *plane_state,
- 	plane_state->rotation = DRM_MODE_ROTATE_0;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+index 1b564cfe2120..a276f3730044 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+@@ -1923,8 +1923,15 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+ 	if (res)
+ 		return res;
  
- 	plane_state->alpha = DRM_BLEND_ALPHA_OPAQUE;
+-	if (plane->type == DRM_PLANE_TYPE_OVERLAY &&
+-	    plane_cap && plane_cap->per_pixel_alpha) {
++	/* TODO: Check which blend modes are supported in DCE-generation
++	 * planes, i.e. DC_PLANE_TYPE_DCE_RGB/UNDERLAY and expose blend mode
++	 * property accordingly.
++	 */
++	if ((plane->type == DRM_PLANE_TYPE_OVERLAY ||
++	     plane->type == DRM_PLANE_TYPE_PRIMARY) &&
++	    plane_cap &&
++	    plane_cap->type == DC_PLANE_TYPE_DCN_UNIVERSAL &&
++	    plane_cap->per_pixel_alpha) {
+ 		unsigned int blend_caps = BIT(DRM_MODE_BLEND_PIXEL_NONE) |
+ 					  BIT(DRM_MODE_BLEND_PREMULTI) |
+ 					  BIT(DRM_MODE_BLEND_COVERAGE);
+@@ -1933,6 +1940,13 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+ 		drm_plane_create_blend_mode_property(plane, blend_caps);
+ 	}
+ 
++	/* Cursor color format is set to CURSOR_MODE_COLOR_PRE_MULTIPLIED_ALPHA
++	 * by default, so only advertise DRM_MODE_BLEND_PREMULTI blend mode for
++	 * this type of plane.
++	 */
++	if (plane->type == DRM_PLANE_TYPE_CURSOR)
++		drm_plane_create_blend_mode_property(plane, BIT(DRM_MODE_BLEND_PREMULTI));
 +
- 	plane_state->pixel_blend_mode = DRM_MODE_BLEND_PREMULTI;
-+	if (plane->blend_mode_property) {
-+		if (!drm_object_property_get_default_value(&plane->base,
-+							   plane->blend_mode_property,
-+							   &val))
-+			plane_state->pixel_blend_mode = val;
-+	}
- 
- 	if (plane->color_encoding_property) {
- 		if (!drm_object_property_get_default_value(&plane->base,
+ 	if (plane->type == DRM_PLANE_TYPE_PRIMARY) {
+ 		/*
+ 		 * Allow OVERLAY planes to be used as underlays by assigning an
 -- 
 2.53.0
 
