@@ -4,119 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93927C55822
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 19:14:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B2356C55ABA
+	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 19:14:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22F1210EB88;
-	Tue,  4 Aug 2026 19:14:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E8D510E1D8;
+	Tue,  4 Aug 2026 19:14:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EgLNh6+i";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EAWGhuDH";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012026.outbound.protection.outlook.com
- [40.93.195.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CB7910EB8D
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2026 19:14:23 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012047.outbound.protection.outlook.com [52.101.43.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D635C10EB8D
+ for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2026 19:14:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xvzEbjkxtIbWZKIDulRpN12TlByrjjOczSjuOmfnXgK6BeF7T2iVLmg48fXjHUqdPn0+IWJPXoBscTx0ifk/msF/lRnr/bvnmsD9dJOgOVPdSZH2jWM74YDKaTgEQ5lHTDDavG7EwnrKcixO8mVXdJfBR+t521D26xUvpmP3YOhpFMTHI9YGwIlhRR65YvF56uqhgJJ9FzEEx9tAQTFGMlcGVEAPxwBI8dJWz8pNMYr2BLs5SJufXUvtQtDLQ42LRarfZTdf//8J+RCyZM7TizhKyeMjblRv/Bz5cuWg6gcW+w0gaoT1oQCK7MzrpyF6L53ZPhcZp18KBmsXq57HNw==
+ b=IPILmOZNO/GKyjKQMLlDvXS540Ikqc7pU/w4LCOhOxbUOGLZYaWtwn5X+hSJMDeNhJPCFEBlUduM2fFDMr9jzo2vqTOhGA1T/gzjdE3iJTyRhDywpk5CAwlvt3Nevy/fie3XFKV2QuTS13fhAz4MYKXG7jqucBlKafttXAWQS17ijJbKEgjMwprFsgBE7R+EDlsiSTDVniWGfA/f+KlPoVQR9pi81BxrPLJ9slkA6rZEUiupMvpEVDCa2kUgIeOa2v745eecAWFIjP4ueckUQU9W3KEPAgab0jQRt0rWxnoY18YbGAlcJuzZwB5W0bg+nM8JpBtPgRzKG7kzyYcR9A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Q90eN2JMj3nIby29oM74KaCfnVjehEdTHrqYb3e6CBE=;
- b=VWeGfpk6mOT2a+ikR+ItQABvoyUQMQs8EUsKllFZ+ZtOUgeLJvXf/E0OJ8vBCGaTpOmkWHOPDe46d1tRcokM01khpQ938+u7lLBZ9PDdwOU1X+C4Ns8Sq+2TMdabMergMiY/CClghdYWNm0kTvzzKq68gspB9kpbw/DJGPLJRiDi/E5LQCVTlcyhU6xFcM8IBHvZUpwkcpKvqlK2w15FXFemmQUIPTN4RGM+lOKssuv1r369ZxNLd+Wo74Qt6KWLC422SlfSyCCcTRWU7pjIszPbUy57tAv4FyuovmtHbwwdaYYRmeqgevTQPGEYcIAe1XWrKA0ouBqojAS01ZsUsA==
+ bh=709km8RWeCnpJNMFhJO4p9uvOdXJ9Joo3jsz/yEADhk=;
+ b=G359GVzbuG1swfbvtvHRsqTBo5ppZsfI38ATq3V4cavEPBsgadBHhZRL9Bd6dgJ8L2k8vZcBCsk3m4AJriS9G2qyWZCpY0vONKggar9MzGWAUveMY/RNzfBKzT0FQpYKf2WzLJ0GAQa0NQz39u1a+KThuU2jASYOydYSqFq+Gvo0HJ9hf6+SGXgYuPvtr4dCQCKxLJPrP2JewXOy+it/imR3Ts9h+nc6wuoY/kOoH+nanzs8zm4BgXhjukEFQqhHK2wmrPlo6/ACXqdwRLYH1AtCr9Jm1BzRMAroj5RGGmdKW+19gwbFmoiTIgevIJZu1FpKMoJMOLDibsmGNgdFpg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Q90eN2JMj3nIby29oM74KaCfnVjehEdTHrqYb3e6CBE=;
- b=EgLNh6+iDxrF6BxT5vF2PisQnELgMzKC0EHGGTEzKKfEp3GAFPjfXjp4cVAMY4S4Br3XBTcygwWlzMp6IZ+udgDlhQ5STCNqsnmlsyqqsreJF3xnN5QgyzC99dWQuElqnZ/gV/VfPd0PNBeaxPadij6BjBbLOhfzfNUlTW7lkHQ=
-Received: from SA1PR12MB8600.namprd12.prod.outlook.com (2603:10b6:806:257::19)
- by PH0PR12MB999088.namprd12.prod.outlook.com (2603:10b6:510:38d::23)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.16; Tue, 4 Aug
- 2026 19:14:18 +0000
-Received: from SA1PR12MB8600.namprd12.prod.outlook.com
- ([fe80::96bd:d94:4dac:b1d0]) by SA1PR12MB8600.namprd12.prod.outlook.com
- ([fe80::96bd:d94:4dac:b1d0%5]) with mapi id 15.21.0270.016; Tue, 4 Aug 2026
- 19:14:18 +0000
-From: "Marioukhine, Vladimir" <Vladimir.Marioukhine@amd.com>
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-Subject: [PATCH] drm/amdkfd: fix NULL pointer dereference in GFX12 CRIU queue
- restore
-Thread-Topic: [PATCH] drm/amdkfd: fix NULL pointer dereference in GFX12 CRIU
- queue restore
-Thread-Index: Ad0kRS5LcXzqpLnbSDGUkR09yDpgVg==
-Date: Tue, 4 Aug 2026 19:14:18 +0000
-Message-ID: <SA1PR12MB8600E8B1821FA7D76923FC259FD42@SA1PR12MB8600.namprd12.prod.outlook.com>
+ bh=709km8RWeCnpJNMFhJO4p9uvOdXJ9Joo3jsz/yEADhk=;
+ b=EAWGhuDHMM6+r8+dj7IV9AGzPPJxOsNFuM37FRKxwbLXSoRD+IIlL6IpjWrRb2hSyRgzJwpmWaeV9BedV9gCDirx/qt7uber5XZjMMuUr3UquswggmNNhRqZiaWUiBmCX+xPU6GFy/6D5M8ZBn35NBb8yWsxcsCfQRdGwF9v/Mg=
+Received: from DM6PR12MB3611.namprd12.prod.outlook.com (2603:10b6:5:3c::17) by
+ SA3PR12MB8803.namprd12.prod.outlook.com (2603:10b6:806:317::8) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.18; Tue, 4 Aug 2026 19:14:21 +0000
+Received: from DM6PR12MB3611.namprd12.prod.outlook.com
+ ([fe80::7861:6815:8b7d:bd0b]) by DM6PR12MB3611.namprd12.prod.outlook.com
+ ([fe80::7861:6815:8b7d:bd0b%4]) with mapi id 15.21.0270.016; Tue, 4 Aug 2026
+ 19:14:21 +0000
+From: "Chen, Michael" <Michael.Chen@amd.com>
+To: "Liang, Prike" <Prike.Liang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>
+Subject: Re: [PATCH] drm/amdgpu/mes: tear down the rs64mem bitmap in sw_fini
+Thread-Topic: [PATCH] drm/amdgpu/mes: tear down the rs64mem bitmap in sw_fini
+Thread-Index: AQHdI+Xevx5wGf2WckWzpU7U0v61j7aOQwWq
+Date: Tue, 4 Aug 2026 19:14:21 +0000
+Message-ID: <DM6PR12MB361149752AE3CA5C022B41C194D42@DM6PR12MB3611.namprd12.prod.outlook.com>
+References: <20260804074952.309764-1-Prike.Liang@amd.com>
+In-Reply-To: <20260804074952.309764-1-Prike.Liang@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-04T19:11:23.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-04T19:14:16.456Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR12MB8600:EE_|PH0PR12MB999088:EE_
-x-ms-office365-filtering-correlation-id: c52d48f8-507e-4626-cc02-08def25c9508
+x-ms-traffictypediagnostic: DM6PR12MB3611:EE_|SA3PR12MB8803:EE_
+x-ms-office365-filtering-correlation-id: b8dc4a49-ceea-491a-4192-08def25c96dc
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|11063799006|10067099003|6133799003|56012099006|18002099003|8096899003|38070700021;
-x-microsoft-antispam-message-info: 9RNKNbgi51z71vi8gjnwtjjProTI8CTGbS88GVlXFXScD++XcOWOBpHDxNEAXS6iy1i1TO2TEhvZzk6CFZlOdTBHzisb7Ghy5gylsiefbNzRDvGDu+BQDHbhUB8IQjIJAPIP+zfVuZBrzU+9C03WxWEkvptktQPCPMemfkd6+PqGqwv40rEc6dGU4J8sn6aSGNQ+OAegSW20MLehoKEHrXQRD4+W+MkmmS+HH2y4V/MnjctvF3YQrd59F/GSus6VOKgul2RRP7hyK5Oqc1s1ywsnH+ECAhO+LRhP4Pv0T6oQAUIfS1qdXm0Od/m6Eu4FjYWz5oatutTBy7ho0N4Le9mAEPH6wx8j7XJDDxylwOhi3AREoMM8Dd9sqEc//FZ9rjyV+bcJShA/RBkEw0UIML9O1+tW3SNAG6vS2IfXLO6b6xcjHomVborhk//sVM8sJsC0LCNdtX6u3z3KP9Dsc/QBEo86uakvbXD1Kb0BnCl/KS0s1DppZ57+kdKED8HPRPT8kXI9B+YOGi69N0qYbnWDy8mSMYsIzDfAbn63ufgi4LWHk24Ybe+M+as7ospTez6WbhxKQXJgaDkob5cMT0EWKh9Iatd+M+eJXKE0fU5OYSI2S8V2pN2kQI1WJv6tQbxA1ZWhQ8qSHznEN59Xxqo9hJ4f0+msjMp2XRrgiUsuM3SsWhqF76ld0NTSPCMCQ0AtfQJSZPy/fHCCnUq6tKc0togE5GyHRBZb1pCL5Mo=
+ ARA:13230040|23010399003|366016|1800799024|376014|56012099006|10067099003|11063799006|5023799004|22082099003|18002099003|8096899003|38070700021;
+x-microsoft-antispam-message-info: 3qsshzrvDWKl06LZcNJqWY55pxI8s9iqcK1/PDdkWA2KC2cUV5jh/EoaTZpHBXFNVAQEjZNYGLUCvO9y4twhgdP533rvrbWAuxJ9af4VfDoQSLwRkeEABUV9FvHMPisBlyrEnFIidAxkQBMtsry6Xneh7Tb85Mu/iXQ6dB4Hluq4wdHPcsSJ7si2sJXmztTdgt1qny7LAytPBSP9GFFI152jHQjUxm9rhkHxO0JFaBQPynK2N1A+7J82e/fTp/oCLJbWs93AsIO4ec/n0kZ+0QwOJohHxuris7ZiPrjjNFgfOSNVPWOMY/ISaRyMa6gkCVGXfiamHN66jR9L7C1QJRre55fKoz1ypI3viOQMTOQW6SN93DYRnHXlI5+b1sLj44NCiJOxOF54R+9dIQt4o4BB5czZ4kT6EkTSkdN/cuGTc/btrX7OpUekxnvSmLVvwcYRZzMECdYpcRhaeq1XqDgPZKr04OfuOSjE4rvghN2CyPhW2pzodGVNGCu5IFnzD16Xhgh+rBsxGqButAnmGVBZULOnK0sdq4+FWdUnoWrvYEVK+D+ffwHNJlMEu8mnSGQzFNKvGPEd4jKFv6/64kV5GxI0v8R8/pu9++QJCXb70245puir0Umpda2zIQubOwODvAjc0q6YVdx4iX/8aIuLabjkk6q79qyCWwJooeKn5zYfT6n8dyLgWVTPn92T2MzUs2+IhSg1pisUFfBOO6tqTJhCQ70ad+8GMWVY9Ws=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB8600.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(11063799006)(10067099003)(6133799003)(56012099006)(18002099003)(8096899003)(38070700021);
+ IPV:NLI; SFV:NSPM; H:DM6PR12MB3611.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(56012099006)(10067099003)(11063799006)(5023799004)(22082099003)(18002099003)(8096899003)(38070700021);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?1sXRvH/B5esOsGOPSDcpHA5chGj8kySs7CnA39+0xjUcz7+iaCzAbm0e4I3e?=
- =?us-ascii?Q?ssqCl+2XH71G5qo4NCG3kPAXriMxAtnmg/H/RlRSMbrM5tEqbw+Bl+bMAP4n?=
- =?us-ascii?Q?D3bw3ZN7o96xOO7iAd7TKx/WjROltX5rCdjgyKfpD53ZKCpDkgBZtrwrmOhN?=
- =?us-ascii?Q?fSe5koaiEgbLkW0PxNDAzLBkcbm3WProcJbgVvGfGCEz7LcPZEXvBZjYH/Kx?=
- =?us-ascii?Q?/umZZG+9RKhZe3W5ryj3LtSUWoSpw0gJ/mXFlHcNUhRONov+SUcZu74A/JVg?=
- =?us-ascii?Q?8dTDLB59b5kp86k30m8ltk1jA/lX4xamYivDnKeWFYLMtiJg4lFNvFaxv8UC?=
- =?us-ascii?Q?CoCZnFi9T8+PGXSi7SHpaUxPV+pNGDDv3t04rs2vnv8FHw7sxLc5gCPwQufv?=
- =?us-ascii?Q?UB2VzyK5pUd7yxNHZhnDZF0IgRlqse8YipCFW93YSTi3ZIoSYNpALL8v4gSw?=
- =?us-ascii?Q?30Dq/Tp3aUqD04SlzfVEgVcTY9HIV/VKAfgQ6w8mCcrLbLt3n7smtPjyDoin?=
- =?us-ascii?Q?ISCQsjw0vuOO3BexBNUToyxzuuZoWzndXQQe6mdNnlfMszgJW9LxyXKCXk4V?=
- =?us-ascii?Q?2GwXwjYnYAtfDm26o8KPIMPI9q3E2WWFOxLzPYTMKvGTj3J8+em3Aj51k6OR?=
- =?us-ascii?Q?mwIFkffedm9k6gulfqWri0I7ryx0tmWhdFmniMFvf5YO0GZPv9DlN7ec4ZmB?=
- =?us-ascii?Q?npkWW40UTt/v1oQb7H3XZqLAL7NNnf9sE58faoGW1QCfv4q2BW8JPtplPH48?=
- =?us-ascii?Q?ndniiezO7hgPG+xOQw/Q4Xa01xhQItyvJrMyeRxBZYRvif92CiNybf1ixqQy?=
- =?us-ascii?Q?UhZa6DdbWdIdyVkc1+X3X9WpuBxLpWn5mWXS1sIjD8J0L1YBzzWDo+/p8ivO?=
- =?us-ascii?Q?MSqZviUT+EYH+nZ5TsCTiafl0E184t/7sQBcsxw3yydL7CBXOjmUcoZCm80z?=
- =?us-ascii?Q?ktWSZl6euOVb7HRN/kJ5pk3Pxfr6KlUp3zUI6x499XHUuku3kaFvqPE9ETAr?=
- =?us-ascii?Q?nZ3qmw4r+LG+1fTX1lmoi+XERAGpKrNakfXht8qcxL2FRXNt4ZYbg3swfclY?=
- =?us-ascii?Q?o0wOWus+csU3lVueyqzeRWTYph1DgmUXSAjGx3Ii7MS0OQmQVZWAovEkvNVI?=
- =?us-ascii?Q?31gQk3IlSkDHNUdr9VYAPJchdg2Hwjpd880jqUAUa1dOXb0aVOhbZScIkp1H?=
- =?us-ascii?Q?QHayF+tUhv5+XaKaKhQ/VYrh6OVZt+ASA3ktkEQFjnaZzFSEPjdqcjbDbuIp?=
- =?us-ascii?Q?COQS78g0b8ODemC7YsNJxfLPsBuU2UnlPUzuzfP8CeHrMDGZeza4S4MwWHS6?=
- =?us-ascii?Q?kmVHeH7gH7dSINm96Rtv5wgF3143j7kN1ny/6+u0ZNshSJqjoTFJo44PmxSQ?=
- =?us-ascii?Q?7IOalHhC/u5j6KxIk7ZaJdABreRMQOVSR2ob5UlGU2PTjxUZQGxb2z7wYNkI?=
- =?us-ascii?Q?BkjDHfBZQE3etph93JUL3bgJwkRMgsAWjLeuIT+TJZGHafvrJc1c1yRrfuZA?=
- =?us-ascii?Q?eNRuz3uEYQGZftgYq9jypGCG/xIzJHphUnpGhgBMJMm97YK65MggL93hnDow?=
- =?us-ascii?Q?dNpsr3NzKn/R0MSLZPGiNIQsmbSgpSA+Y6evSMj25nzG+WOrkVMR1sROLc+1?=
- =?us-ascii?Q?jnE7xcyVypOjTMXllwz4OibR6f7xPTrcS4KY2bivYp54/a7pbRzqiW4jMmlw?=
- =?us-ascii?Q?lCrrhTx61KDbBI3HEYHBDNPP3OSEtIRPpNpGajeSbHzYheSQ?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?BtXZviX6lgRXMTUVqjiZ2G8Cb294UeYrbZUiIEFIdGpLigNTJ2mU9pir4Qvu?=
+ =?us-ascii?Q?aFRGegjUvkVge87khOlBsVejPlTgPiccN6yi6QnqTZAxDJz5JMnw+9IVHb6A?=
+ =?us-ascii?Q?OxxyLB1BUQRdgBzuQrEOECOwRjLOYpmMO0xQtrndI3gJKItX77dj57xZs5jY?=
+ =?us-ascii?Q?fBgU1QQ0+xqoEfWAZcC0sCY5V85EAT5kXM99SqvkwVxuXAtZ+FgkTDfaPhTp?=
+ =?us-ascii?Q?sZu8tuCvmqVbAYn+aOIIAzOrM+F4YREzJJ0BWjK67hFiL70jbfyXrBPpnplf?=
+ =?us-ascii?Q?+ok17ktq0HFmfpI6XJ9kB5zM5tgOp1YvXzstMar9UqUiy6LZMSNGL3sb7zSL?=
+ =?us-ascii?Q?GiUCDyGR8mtltdV3xUyum57EfwfwmF9dMXJZnUadKwmexFhVbYdri7w7QSfs?=
+ =?us-ascii?Q?q3n1DP0JBMBHIv7ZyFc76l8FJzLfB5wYBHZnUePil7iGRGZ18WIRLp9ikwqU?=
+ =?us-ascii?Q?v2+vvFukx/9lw8pS8hGB/OsFByyRV8MCiCXuj8w3p3bBo1Z6+QY9FnDUaH7U?=
+ =?us-ascii?Q?glpP9tzI6YoMltf+Ha/j3KMSDtBA8Giv7fmVyjmRzD7WFW/ZJefoRbXVqE24?=
+ =?us-ascii?Q?asE3UV3QShWu3blPpOSuP4TRko5ydx/BhiDYxBOC9JqRsSmuBNiKufNnQa7y?=
+ =?us-ascii?Q?TVcCvyJa7n/WE+QU7Hti7NwHVute84zTmvh/07PvQF4xqvr9Xjf3qr5OGRXm?=
+ =?us-ascii?Q?q2QBHl9hFb+W7kqmPRTIliFHEfGkLtAnQ1BQ8Zy+medUYhVe+KBr67/7eXx+?=
+ =?us-ascii?Q?7bTGBvBNN3vqhnVjR1d3BSBs1RI7T5by372FPLX58o+3hqIBvzunYKtxiSDC?=
+ =?us-ascii?Q?ynTijRU3HvmsSdzO9jTT+a7M3GjxpSqwxoqWCBLPpY6JEq1E6gbS/pPThPpg?=
+ =?us-ascii?Q?IdUCn1oHq16AGn4xhYw2xLlfy6y2F1Chrzvre1CBM/YfiY2Ad0+sSKqWRHrA?=
+ =?us-ascii?Q?0h7axOTlfl0ca2t4KAu8GtPwlpCz+TuFOF1drOQcx84lonxPpN6uR2RqpPw4?=
+ =?us-ascii?Q?M9hDFCp0h9YGSBUAV0s8/8v0CcZ8SWfJw2q8sCG53ntbEWup83MJkA49r4Hy?=
+ =?us-ascii?Q?BkxDno7+RG7wkq5a9sKWKPjwMIQInbgr4pJ2PRZvtPqH5orvw7jchUa40woo?=
+ =?us-ascii?Q?0EEMHaOJf8nPcVxp5OfWYa4F2v2eB8QnfNSV8ustUAaL0ObU3X8jJ/TPqthw?=
+ =?us-ascii?Q?Xck/FKVCTavVlamuFeBgg5zx49f7bowFAqDvAghrzKNJeORdte9pJWdEhdym?=
+ =?us-ascii?Q?cdR5139ogyjLD9RmpXTjcfheTZsbiPVvLm3By72M/QsM5E6Hehvm4enqeHdk?=
+ =?us-ascii?Q?rHJ/71AlCGvMiwC+lAk1u4n1TgN+8O+rRDw5CiBmjV2s5Mgx7gtPORoLdN5e?=
+ =?us-ascii?Q?AdWO2QzKnH7gfvfmgyToYYtILQI1VXYJWE+guXHgtfzcat03UbjosfDXb1yj?=
+ =?us-ascii?Q?gouPRrQcgWuIIPyp3bF+++ENFcRlryUGkRXFDaj8syopgm8qusso3nmilIzm?=
+ =?us-ascii?Q?pdGT9mLfDhN8RARboyGk8tqE7HcDBCYC646UTTFGMSn0Ormn4jHEd5Ztjrbk?=
+ =?us-ascii?Q?6mjoo2FmQepCvr4PADDkEJZwh59POSngaXf0r5T54RlgPNpOwX8+cXrCiTA4?=
+ =?us-ascii?Q?oLhxQRmQ++/Wk0o0+ey2VQmsOgEqd4g5IKfbg6ULlt0jkj7p6TpBO3MklHxh?=
+ =?us-ascii?Q?wPDHzaBtNLsjZIbDU3FAA0x9jXV4aLq6uA87w2uB9QOm02c6?=
 Content-Type: multipart/alternative;
- boundary="_000_SA1PR12MB8600E8B1821FA7D76923FC259FD42SA1PR12MB8600namp_"
+ boundary="_000_DM6PR12MB361149752AE3CA5C022B41C194D42DM6PR12MB3611namp_"
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB8600.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c52d48f8-507e-4626-cc02-08def25c9508
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2026 19:14:18.4426 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3611.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b8dc4a49-ceea-491a-4192-08def25c96dc
+X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2026 19:14:21.5057 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: WcuaZi7JbtodNhtHY2tFrNrHOSqTml+pRrfYjA6DsSUYfR+Qbspe1WhCYJ+ScobqkLuFulrW37ms0lM3NyROoA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB999088
+X-MS-Exchange-CrossTenant-userprincipalname: g1iYb3IlhX8KD4s7FaAvcahdJSBusgev55Dhu0hZ0KZKoI28wLATxPVhRFuwjz0Yje/mlhvHJxv8EsHgSFN8uA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB8803
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -131,927 +132,327 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_SA1PR12MB8600E8B1821FA7D76923FC259FD42SA1PR12MB8600namp_
+--_000_DM6PR12MB361149752AE3CA5C022B41C194D42DM6PR12MB3611namp_
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
 AMD General
 
-kfd_mqd_manager_v12.c (GFX 12.0) and kfd_mqd_manager_v12_1.c (GFX 12.1)
-initialize their MQD managers without assigning restore_mqd or checkpoint_m=
-qd
-callbacks, leaving both function pointers NULL.
+Reviewed-by: Michael Chen <michael.chen@amd.com>
+________________________________
+From: Liang, Prike <Prike.Liang@amd.com>
+Sent: Tuesday, August 4, 2026 3:49 AM
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
+stian.Koenig@amd.com>; Chen, Michael <Michael.Chen@amd.com>; Liang, Prike <=
+Prike.Liang@amd.com>
+Subject: [PATCH] drm/amdgpu/mes: tear down the rs64mem bitmap in sw_fini
 
-Both create_queue_cpsch() and create_queue_nocpsch() in
-kfd_device_queue_manager.c unconditionally call mqd_mgr->restore_mqd() when
-a CRIU restore is in progress (qd !=3D NULL), with no NULL guard. On any sy=
-stem
-with a GFX 12.x GPU, a user holding CAP_CHECKPOINT_RESTORE can trigger a
-kernel NULL pointer dereference and panic the machine by issuing
-KFD_IOC_CRIU_OP_RESTORE with a crafted queue restore object.
+It's more reasonable to tear down the rs64mem bitmap software
+context at MES sw_fini phase. This also can avoid the following
+lock order issue.
 
-Fix this by:
-1. Implementing restore_mqd and checkpoint_mqd callbacks for both compute
-   and SDMA queues in kfd_mqd_manager_v12.c and kfd_mqd_manager_v12_1.c,
-   modeled after the GFX 11 implementation.
-2. Adding a NULL guard at both call sites in kfd_device_queue_manager.c
-   as a defensive measure against future regressions.
+[ 2529.150983] kworker/u64:1/3134 is trying to acquire lock:
+[ 2529.151206] ffff8aebd9a3fa10 (reservation_ww_class_mutex){+.+.}-{4:4}, a=
+t: amdgpu_bo_free_kernel+0x4e/0x130 [amdgpu]
+[ 2529.151989]
+               but task is already holding lock:
+[ 2529.152227] ffff8aebd2411648 (&reset_domain->sem){++++}-{4:4}, at: amdgp=
+u_device_lock_reset_domain+0x20/0x30 [amdgpu]
+[ 2529.153008]
+               which lock already depends on the new lock.
 
-Fixes: 48f0bdf4e38e ("drm/amdkfd: Added MQD manager files for GFX12.")
-Fixes: 01bbc4a4b947 ("drm/amdkfd: Add MQD manager for GFX 12.1.0")
-Signed-off-by: Vladimir Marioukhine <Vladimir.Marioukhine@amd.com>
+[ 2529.153342]
+               the existing dependency chain (in reverse order) is:
+[ 2529.153645]
+               -> #2 (&reset_domain->sem){++++}-{4:4}:
+[ 2529.153913]        down_read+0x4a/0x240
+[ 2529.154081]        amdgpu_userq_destroy+0xd8/0x3a0 [amdgpu]
+[ 2529.154635]        amdgpu_userq_ioctl+0x3e2/0xe30 [amdgpu]
+[ 2529.155157]        drm_ioctl_kernel+0xaf/0x110 [drm]
+[ 2529.155401]        drm_ioctl+0x290/0x510 [drm]
+[ 2529.155612]        amdgpu_drm_ioctl+0x52/0x90 [amdgpu]
+[ 2529.156068]        __x64_sys_ioctl+0xa0/0xf0
+[ 2529.156249]        x64_sys_call+0x1278/0x21c0
+[ 2529.156434]        do_syscall_64+0xbe/0x5f0
+[ 2529.156611]        entry_SYSCALL_64_after_hwframe+0x76/0x7e
+[ 2529.156842]
+               -> #1 (&userq_mgr->userq_mutex){+.+.}-{4:4}:
+[ 2529.157127]        __mutex_lock+0xb2/0x11a0
+[ 2529.157304]        mutex_lock_nested+0x1f/0x30
+[ 2529.157492]        amdgpu_userq_vm_validate_and_restore_queue+0x710/0x9b=
+0 [amdgpu]
+[ 2529.158098]        amdgpu_userq_restore_worker+0x39/0x290 [amdgpu]
+[ 2529.158646]        process_one_work+0x23e/0x6f
+               -> #0 (reservation_ww_class_mutex){+.+.}-{4:4}:
+[ 2529.159832]        __lock_acquire+0x14c4/0x2210
+[ 2529.160021]        lock_acquire+0xc6/0x310
+[ 2529.160193]        __ww_mutex_lock.constprop.0+0xd9/0x1a30
+[ 2529.160419]        ww_mutex_lock+0x40/0xb0
+[ 2529.160590]        amdgpu_bo_free_kernel+0x4e/0x130 [amdgpu]
+[ 2529.161077]        amdgpu_mes_rs64mem_fini+0x35/0x60 [amdgpu]
+[ 2529.161601]        mes_v11_0_suspend+0x2d/0x40 [amdgpu]
+[ 2529.162102]        amdgpu_ip_block_suspend+0x2b/0x70 [amdgpu]
+[ 2529.162609]        amdgpu_device_ip_suspend_phase2+0xa4/0x270 [amdgpu]
+[ 2529.163116]        amdgpu_device_pre_asic_reset+0x130/0x1f0 [amdgpu]
+[ 2529.163617]        amdgpu_device_asic_reset+0x55/0x530 [amdgpu]
+[ 2529.164101]        amdgpu_device_gpu_recover+0x1e5/0x410 [amdgpu]
+[ 2529.164592]        amdgpu_userq_mgr_reset_work+0x80/0xa0 [amdgpu]
+[ 2529.165140]        amdgpu_userq_hang_detect_work+0xbb/0x1c0 [amdgpu]
+[ 2529.165693]        process_one_work+0x23e/0x6f0
+[ 2529.165884]        worker_thread+0x1c4/0x380
+[ 2529.166065]        kthread+0x10c/0x150
+[ 2529.166226]        ret_from_fork+0x314/0x390
+[ 2529.166408]        ret_from_fork_asm+0x1a/0x30
+[ 2529.166595]
+               other info that might help us debug this:
+
+[ 2529.166917] Chain exists of:
+                 reservation_ww_class_mutex --> &userq_mgr->userq_mutex -->=
+ &reset_domain->sem
+
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 ---
-drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 10 ++++--
-drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c      | 69 ++++++++++++++++=
-+++++++++++++++++++++++
-drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c    | 69 ++++++++++++++++=
-++++++++++++++++++++++
-3 files changed, 146 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 4 ++++
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c  | 4 ----
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driver=
-s/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 51ee9c39104b..31bf479212e5 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -794,11 +794,16 @@ static int create_queue_nocpsch(struct device_queue_m=
-anager *dqm,
-                goto out_deallocate_doorbell;
-        }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_mes.c
+index 5998e05ecd79..b96f94e5169f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+@@ -308,8 +308,12 @@ void amdgpu_mes_fini(struct amdgpu_device *adev)
 
--       if (qd)
-+       if (qd) {
-+               if (!mqd_mgr->restore_mqd) {
-+                       pr_err("amdkfd: restore_mqd not implemented for thi=
-s GPU\n");
-+                       retval =3D -EINVAL;
-+                       goto out_deallocate_doorbell;
-+                }
-                mqd_mgr->restore_mqd(mqd_mgr, &q->mqd, q->mqd_mem_obj, &q->=
-gart_mqd_addr,
-                                     &q->properties, restore_mqd, restore_c=
-tl_stack,
-                                     qd->ctl_stack_size);
--       else
-+       } else
-                mqd_mgr->init_mqd(mqd_mgr, &q->mqd, q->mqd_mem_obj,
-                                        &q->gart_mqd_addr, &q->properties);
+         amdgpu_mes_doorbell_free(adev);
 
-@@ -2153,11 +2158,16 @@ static int create_queue_cpsch(struct device_queue_m=
-anager *dqm, struct queue *q,
-        q->properties.is_dbg_wa =3D qpd->pqm->process->debug_trap_enabled &=
-&
-                                  kfd_dbg_has_cwsr_workaround(q->device);
++       if (adev->mes.use_rs64mem)
++               amdgpu_mes_rs64mem_fini(&adev->mes);
++
+         ida_destroy(&adev->mes.doorbell_ida);
+         mutex_destroy(&adev->mes.mutex_hidden);
++
+ }
 
--       if (qd)
-+       if (qd) {
-+               if (!mqd_mgr->restore_mqd) {
-+                       pr_err("amdkfd: restore_mqd not implemented for thi=
-s GPU\n");
-+                       retval =3D -EINVAL;
-+                       goto out;
-+                }
-                mqd_mgr->restore_mqd(mqd_mgr, &q->mqd, q->mqd_mem_obj, &q->=
-gart_mqd_addr,
-                                     &q->properties, restore_mqd, restore_c=
-tl_stack,
-                                     qd->ctl_stack_size);
--       else
-+       } else
-                mqd_mgr->init_mqd(mqd_mgr, &q->mqd, q->mqd_mem_obj,
-                                        &q->gart_mqd_addr, &q->properties);
+ int amdgpu_mes_suspend(struct amdgpu_device *adev, u32 xcc_id)
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/mes_v11_0.c
+index 37985c37be18..31722bb10038 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -2038,10 +2038,6 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block =
+*ip_block)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c b/drivers/gpu=
-/drm/amd/amdkfd/kfd_mqd_manager_v12.c
-index 7c387fa90076..c6a8e99ad069 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c
-@@ -380,6 +380,75 @@ static int debugfs_show_mqd_sdma(struct seq_file *m, v=
-oid *data)
+ static int mes_v11_0_hw_fini(struct amdgpu_ip_block *ip_block)
+ {
+-       struct amdgpu_device *adev =3D ip_block->adev;
+-
+-       if (adev->mes.use_rs64mem)
+-               amdgpu_mes_rs64mem_fini(&adev->mes);
+         return 0;
+ }
 
-#endif
+--
+2.34.1
 
-+static void checkpoint_mqd(struct mqd_manager *mm, void *mqd,
-+                           void *mqd_dst, void *ctl_stack_dst)
-+{
-+       struct v12_compute_mqd *m;
-+
-+       m =3D get_mqd(mqd);
-+
-+       memcpy(mqd_dst, m, sizeof(struct v12_compute_mqd));
-+}
-+
-+static void restore_mqd(struct mqd_manager *mm, void **mqd,
-+                        struct kfd_mem_obj *mqd_mem_obj, uint64_t *gart_ad=
-dr,
-+                        struct queue_properties *qp, const void *mqd_src,
-+                        const void *ctl_stack_src, const u32 ctl_stack_siz=
-e)
-+{
-+       uint64_t addr;
-+       struct v12_compute_mqd *m;
-+
-+       m =3D (struct v12_compute_mqd *) mqd_mem_obj->cpu_ptr;
-+       addr =3D mqd_mem_obj->gpu_addr;
-+
-+       memcpy(m, mqd_src, sizeof(*m));
-+
-+       *mqd =3D m;
-+       if (gart_addr)
-+               *gart_addr =3D addr;
-+
-+       m->cp_hqd_pq_doorbell_control =3D
-+               qp->doorbell_off << CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_OF=
-FSET__SHIFT;
-+       pr_debug("cp_hqd_pq_doorbell_control 0x%x\n", m->cp_hqd_pq_doorbell=
-_control);
-+
-+       qp->is_active =3D 0;
-+}
-+
-+static void checkpoint_mqd_sdma(struct mqd_manager *mm, void *mqd,
-+                                void *mqd_dst, void *ctl_stack_dst)
-+{
-+       struct v12_sdma_mqd *m;
-+
-+       m =3D get_sdma_mqd(mqd);
-+
-+       memcpy(mqd_dst, m, sizeof(struct v12_sdma_mqd));
-+}
-+
-+static void restore_mqd_sdma(struct mqd_manager *mm, void **mqd,
-+                             struct kfd_mem_obj *mqd_mem_obj, uint64_t *ga=
-rt_addr,
-+                             struct queue_properties *qp,
-+                             const void *mqd_src,
-+                             const void *ctl_stack_src,
-+                             const u32 ctl_stack_size)
-+{
-+       uint64_t addr;
-+       struct v12_sdma_mqd *m;
-+
-+       m =3D (struct v12_sdma_mqd *) mqd_mem_obj->cpu_ptr;
-+       addr =3D mqd_mem_obj->gpu_addr;
-+
-+       memcpy(m, mqd_src, sizeof(*m));
-+
-+       m->sdmax_rlcx_doorbell_offset =3D
-+               qp->doorbell_off << SDMA0_QUEUE0_DOORBELL_OFFSET__OFFSET__S=
-HIFT;
-+
-+       *mqd =3D m;
-+       if (gart_addr)
-+               *gart_addr =3D addr;
-+
-+       qp->is_active =3D 0;
-+}
-+
-struct mqd_manager *mqd_manager_init_v12(enum KFD_MQD_TYPE type,
-                struct kfd_node *dev)
-{
-@@ -407,6 +476,8 @@ struct mqd_manager *mqd_manager_init_v12(enum KFD_MQD_T=
-YPE type,
-                mqd->mqd_size =3D sizeof(struct v12_compute_mqd);
-                mqd->get_wave_state =3D get_wave_state;
-                mqd->mqd_stride =3D kfd_mqd_stride;
-+               mqd->checkpoint_mqd =3D checkpoint_mqd;
-+               mqd->restore_mqd =3D restore_mqd;
-#if defined(CONFIG_DEBUG_FS)
-                mqd->debugfs_show_mqd =3D debugfs_show_mqd;
-#endif
-@@ -453,6 +524,8 @@ struct mqd_manager *mqd_manager_init_v12(enum KFD_MQD_T=
-YPE type,
-                mqd->is_occupied =3D kfd_is_occupied_sdma;
-                mqd->mqd_size =3D sizeof(struct v12_sdma_mqd);
-                mqd->mqd_stride =3D kfd_mqd_stride;
-+               mqd->checkpoint_mqd =3D checkpoint_mqd_sdma;
-+               mqd->restore_mqd =3D restore_mqd_sdma;
-#if defined(CONFIG_DEBUG_FS)
-                mqd->debugfs_show_mqd =3D debugfs_show_mqd_sdma;
-#endif
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c b/drivers/g=
-pu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
-index 431a940f91f3..7ee98ef084ea 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c
-@@ -641,6 +641,75 @@ static int debugfs_show_mqd_sdma(struct seq_file *m, v=
-oid *data)
 
-#endif
-
-+static void checkpoint_mqd_v12_1(struct mqd_manager *mm, void *mqd,
-+                                 void *mqd_dst, void *ctl_stack_dst)
-+{
-+       struct v12_1_compute_mqd *m;
-+
-+       m =3D get_mqd(mqd);
-+
-+       memcpy(mqd_dst, m, sizeof(struct v12_1_compute_mqd));
-+}
-+
-+static void restore_mqd_v12_1(struct mqd_manager *mm, void **mqd,
-+                              struct kfd_mem_obj *mqd_mem_obj, uint64_t *g=
-art_addr,
-+                              struct queue_properties *qp, const void *mqd=
-_src,
-+                              const void *ctl_stack_src, const u32 ctl_sta=
-ck_size)
-+{
-+       uint64_t addr;
-+       struct v12_1_compute_mqd *m;
-+
-+       m =3D (struct v12_1_compute_mqd *) mqd_mem_obj->cpu_ptr;
-+       addr =3D mqd_mem_obj->gpu_addr;
-+
-+       memcpy(m, mqd_src, sizeof(*m));
-+
-+       *mqd =3D m;
-+       if (gart_addr)
-+               *gart_addr =3D addr;
-+
-+       m->cp_hqd_pq_doorbell_control =3D
-+               qp->doorbell_off << CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_OF=
-FSET__SHIFT;
-+       pr_debug("cp_hqd_pq_doorbell_control 0x%x\n", m->cp_hqd_pq_doorbell=
-_control);
-+
-+       qp->is_active =3D 0;
-+}
-+
-+static void checkpoint_mqd_sdma_v12_1(struct mqd_manager *mm, void *mqd,
-+                                      void *mqd_dst, void *ctl_stack_dst)
-+{
-+       struct v12_sdma_mqd *m;
-+
-+       m =3D get_sdma_mqd(mqd);
-+
-+       memcpy(mqd_dst, m, sizeof(struct v12_sdma_mqd));
-+}
-+
-+static void restore_mqd_sdma_v12_1(struct mqd_manager *mm, void **mqd,
-+                                   struct kfd_mem_obj *mqd_mem_obj, uint64=
-_t *gart_addr,
-+                                   struct queue_properties *qp,
-+                                   const void *mqd_src,
-+                                   const void *ctl_stack_src,
-+                                   const u32 ctl_stack_size)
-+{
-+       uint64_t addr;
-+       struct v12_sdma_mqd *m;
-+
-+       m =3D (struct v12_sdma_mqd *) mqd_mem_obj->cpu_ptr;
-+       addr =3D mqd_mem_obj->gpu_addr;
-+
-+       memcpy(m, mqd_src, sizeof(*m));
-+
-+       m->sdmax_rlcx_doorbell_offset =3D
-+               qp->doorbell_off << SDMA0_QUEUE0_DOORBELL_OFFSET__OFFSET__S=
-HIFT;
-+
-+       *mqd =3D m;
-+       if (gart_addr)
-+               *gart_addr =3D addr;
-+
-+       qp->is_active =3D 0;
-+}
-+
-struct mqd_manager *mqd_manager_init_v12_1(enum KFD_MQD_TYPE type,
-                struct kfd_node *dev)
-{
-@@ -668,6 +737,8 @@ struct mqd_manager *mqd_manager_init_v12_1(enum KFD_MQD=
-_TYPE type,
-                mqd->mqd_size =3D sizeof(struct v12_1_compute_mqd);
-                mqd->get_wave_state =3D get_wave_state_v12_1;
-                mqd->mqd_stride =3D kfd_mqd_stride;
-+               mqd->checkpoint_mqd =3D checkpoint_mqd_v12_1;
-+               mqd->restore_mqd =3D restore_mqd_v12_1;
-#if defined(CONFIG_DEBUG_FS)
-                mqd->debugfs_show_mqd =3D debugfs_show_mqd;
-#endif
-@@ -714,6 +785,8 @@ struct mqd_manager *mqd_manager_init_v12_1(enum KFD_MQD=
-_TYPE type,
-                mqd->is_occupied =3D kfd_is_occupied_sdma;
-                mqd->mqd_size =3D sizeof(struct v12_sdma_mqd);
-                mqd->mqd_stride =3D kfd_mqd_stride;
-+               mqd->checkpoint_mqd =3D checkpoint_mqd_sdma_v12_1;
-+               mqd->restore_mqd =3D restore_mqd_sdma_v12_1;
-#if defined(CONFIG_DEBUG_FS)
-                mqd->debugfs_show_mqd =3D debugfs_show_mqd_sdma;
-#endif
-
---_000_SA1PR12MB8600E8B1821FA7D76923FC259FD42SA1PR12MB8600namp_
+--_000_DM6PR12MB361149752AE3CA5C022B41C194D42DM6PR12MB3611namp_
 Content-Type: text/html; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 
-<html xmlns:v=3D"urn:schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-micr=
-osoft-com:office:office" xmlns:w=3D"urn:schemas-microsoft-com:office:word" =
-xmlns:m=3D"http://schemas.microsoft.com/office/2004/12/omml" xmlns=3D"http:=
-//www.w3.org/TR/REC-html40">
+<html>
 <head>
 <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
 >
-<meta name=3D"Generator" content=3D"Microsoft Word 15 (filtered medium)">
-<style><!--
-/* Font Definitions */
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Aptos;}
-/* Style Definitions */
-p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0in;
-	font-size:12.0pt;
-	font-family:"Aptos",sans-serif;
-	mso-ligatures:standardcontextual;}
-span.EmailStyle17
-	{mso-style-type:personal-compose;
-	font-family:"Aptos",sans-serif;
-	color:windowtext;}
-.MsoChpDefault
-	{mso-style-type:export-only;}
-@page WordSection1
-	{size:8.5in 11.0in;
-	margin:1.0in 1.0in 1.0in 1.0in;}
-div.WordSection1
-	{page:WordSection1;}
---></style><!--[if gte mso 9]><xml>
-<o:shapedefaults v:ext=3D"edit" spidmax=3D"1026" />
-</xml><![endif]--><!--[if gte mso 9]><xml>
-<o:shapelayout v:ext=3D"edit">
-<o:idmap v:ext=3D"edit" data=3D"1" />
-</o:shapelayout></xml><![endif]-->
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
 </head>
-<body lang=3D"EN-US" link=3D"#467886" vlink=3D"#96607D" style=3D"word-wrap:=
-break-word">
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-AMD General<br>
-</p>
-<br>
+<body dir=3D"ltr">
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
+olor: black;">
 <div>
-<div class=3D"WordSection1">
-<p class=3D"MsoNormal">kfd_mqd_manager_v12.c (GFX 12.0) and kfd_mqd_manager=
-_v12_1.c (GFX 12.1)<o:p></o:p></p>
-<p class=3D"MsoNormal">initialize their MQD managers without assigning rest=
-ore_mqd or checkpoint_mqd<o:p></o:p></p>
-<p class=3D"MsoNormal">callbacks, leaving both function pointers NULL.<o:p>=
-</o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Both create_queue_cpsch() and create_queue_nocpsch()=
- in<o:p></o:p></p>
-<p class=3D"MsoNormal">kfd_device_queue_manager.c unconditionally call mqd_=
-mgr-&gt;restore_mqd() when<o:p></o:p></p>
-<p class=3D"MsoNormal">a CRIU restore is in progress (qd !=3D NULL), with n=
-o NULL guard. On any system<o:p></o:p></p>
-<p class=3D"MsoNormal">with a GFX 12.x GPU, a user holding CAP_CHECKPOINT_R=
-ESTORE can trigger a<o:p></o:p></p>
-<p class=3D"MsoNormal">kernel NULL pointer dereference and panic the machin=
-e by issuing<o:p></o:p></p>
-<p class=3D"MsoNormal">KFD_IOC_CRIU_OP_RESTORE with a crafted queue restore=
- object.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Fix this by:<o:p></o:p></p>
-<p class=3D"MsoNormal">1. Implementing restore_mqd and checkpoint_mqd callb=
-acks for both compute<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp; and SDMA queues in kfd_mqd_manager_v12.=
-c and kfd_mqd_manager_v12_1.c,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp; modeled after the GFX 11 implementation=
-.<o:p></o:p></p>
-<p class=3D"MsoNormal">2. Adding a NULL guard at both call sites in kfd_dev=
-ice_queue_manager.c<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp; as a defensive measure against future r=
-egressions.<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">Fixes: 48f0bdf4e38e (&quot;drm/amdkfd: Added MQD man=
-ager files for GFX12.&quot;)<o:p></o:p></p>
-<p class=3D"MsoNormal">Fixes: 01bbc4a4b947 (&quot;drm/amdkfd: Add MQD manag=
-er for GFX 12.1.0&quot;)<o:p></o:p></p>
-<p class=3D"MsoNormal">Signed-off-by: Vladimir Marioukhine &lt;Vladimir.Mar=
-ioukhine@amd.com&gt;<o:p></o:p></p>
-<p class=3D"MsoNormal">---<o:p></o:p></p>
-<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.=
-c | 10 ++++--<o:p></o:p></p>
-<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp; | 69 +++++++++++++++++++++++++++++++++++++++<o:p=
-></o:p></p>
-<p class=3D"MsoNormal">drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c&n=
-bsp;&nbsp;&nbsp; | 69 ++++++++++++++++++++++++++++++++++++++<o:p></o:p></p>
-<p class=3D"MsoNormal">3 files changed, 146 insertions(+), 2 deletions(-)<o=
-:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_q=
-ueue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<o:p>=
-</o:p></p>
-<p class=3D"MsoNormal">index 51ee9c39104b..31bf479212e5 100644<o:p></o:p></=
-p>
-<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_ma=
-nager.c<o:p></o:p></p>
-<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_ma=
-nager.c<o:p></o:p></p>
-<p class=3D"MsoNormal">@@ -794,11 +794,16 @@ static int create_queue_nocpsc=
-h(struct device_queue_manager *dqm,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out_deallocate_doorbell;<o:p></=
-o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o=
-:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (qd)<o:p></=
-o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (qd) {<o:p>=
-</o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!mqd_mgr-&gt;restore_mqd) {<o:p></o:p=
-></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; pr_err(&quot;amdkfd: restore_mqd not implemented for this GPU\n&quot=
-;);<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; retval =3D -EINVAL;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; goto out_deallocate_doorbell;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd_mgr-&gt;restore_mqd(mqd_mgr, &am=
-p;q-&gt;mqd, q-&gt;mqd_mem_obj, &amp;q-&gt;gart_mqd_addr,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; &amp;q-&gt;properties, restore_mqd, restore_ctl_stack,<o:p><=
-/o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; qd-&gt;ctl_stack_size);<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<o:p></o:p=
-></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<o:p></o=
-:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd_mgr-&gt;init_mqd(mqd_mgr, &amp;q=
--&gt;mqd, q-&gt;mqd_mem_obj,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &amp;q-&gt;gart_mqd_addr, &amp;q-&gt;prope=
-rties);<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">@@ -2153,11 +2158,16 @@ static int create_queue_cpsc=
-h(struct device_queue_manager *dqm, struct queue *q,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; q-&gt;pro=
-perties.is_dbg_wa =3D qpd-&gt;pqm-&gt;process-&gt;debug_trap_enabled &amp;&=
-amp;<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfd=
-_dbg_has_cwsr_workaround(q-&gt;device);<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (qd)<o:p></=
-o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (qd) {<o:p>=
-</o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!mqd_mgr-&gt;restore_mqd) {<o:p></o:p=
-></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; pr_err(&quot;amdkfd: restore_mqd not implemented for this GPU\n&quot=
-;);<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; retval =3D -EINVAL;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp; goto out;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd_mgr-&gt;restore_mqd(mqd_mgr, &am=
-p;q-&gt;mqd, q-&gt;mqd_mem_obj, &amp;q-&gt;gart_mqd_addr,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; &amp;q-&gt;properties, restore_mqd, restore_ctl_stack,<o:p><=
-/o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp; qd-&gt;ctl_stack_size);<o:p></o:p></p>
-<p class=3D"MsoNormal">-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; else<o:p></o:p=
-></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else<o:p></o=
-:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd_mgr-&gt;init_mqd(mqd_mgr, &amp;q=
--&gt;mqd, q-&gt;mqd_mem_obj,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&=
-nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;q-&gt;gart_mqd_addr, &amp;q-&gt;prope=
-rties);<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_mana=
-ger_v12.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12.c<o:p></o:p></p>
-<p class=3D"MsoNormal">index 7c387fa90076..c6a8e99ad069 100644<o:p></o:p></=
-p>
-<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12=
-.c<o:p></o:p></p>
-<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12=
-.c<o:p></o:p></p>
-<p class=3D"MsoNormal">@@ -380,6 +380,75 @@ static int debugfs_show_mqd_sdm=
-a(struct seq_file *m, void *data)<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">#endif<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">+static void checkpoint_mqd(struct mqd_manager *mm, =
-void *mqd,<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *mqd_dst, void *ctl_stack_dst)<o:p></o:=
-p></p>
-<p class=3D"MsoNormal">+{<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v12_com=
-pute_mqd *m;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_mqd(=
-mqd);<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(mqd_dst=
-, m, sizeof(struct v12_compute_mqd));<o:p></o:p></p>
-<p class=3D"MsoNormal">+}<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+static void restore_mqd(struct mqd_manager *mm, voi=
-d **mqd,<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; struct kfd_mem_obj *mqd_mem_obj, uint64_t *gart_addr,<o:p></o:=
-p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; struct queue_properties *qp, const void *mqd_src,<o:p></o:p></=
-p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp; const void *ctl_stack_src, const u32 ctl_stack_size)<o:p></o:p=
-></p>
-<p class=3D"MsoNormal">+{<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t addr;=
-<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v12_com=
-pute_mqd *m;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D (struct =
-v12_compute_mqd *) mqd_mem_obj-&gt;cpu_ptr;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addr =3D mqd_m=
-em_obj-&gt;gpu_addr;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(m, mqd_=
-src, sizeof(*m));<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *mqd =3D m;<o:=
-p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (gart_addr)=
-<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *gart_addr =3D addr;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;cp_hqd_p=
-q_doorbell_control =3D<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qp-&gt;doorbell_off &lt;&lt; CP_HQD_PQ_DO=
-ORBELL_CONTROL__DOORBELL_OFFSET__SHIFT;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot=
-;cp_hqd_pq_doorbell_control 0x%x\n&quot;, m-&gt;cp_hqd_pq_doorbell_control)=
-;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qp-&gt;is_acti=
-ve =3D 0;<o:p></o:p></p>
-<p class=3D"MsoNormal">+}<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+static void checkpoint_mqd_sdma(struct mqd_manager =
-*mm, void *mqd,<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *mqd_dst,=
- void *ctl_stack_dst)<o:p></o:p></p>
-<p class=3D"MsoNormal">+{<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v12_sdm=
-a_mqd *m;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_sdma=
-_mqd(mqd);<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(mqd_dst=
-, m, sizeof(struct v12_sdma_mqd));<o:p></o:p></p>
-<p class=3D"MsoNormal">+}<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+static void restore_mqd_sdma(struct mqd_manager *mm=
-, void **mqd,<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_mem_obj *mqd_mem_obj,=
- uint64_t *gart_addr,<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct queue_properties *qp,<o:p=
-></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const void *mqd_src,<o:p></o:p><=
-/p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const void *ctl_stack_src,<o:p><=
-/o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const u32 ctl_stack_size)<o:p></=
-o:p></p>
-<p class=3D"MsoNormal">+{<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t addr;=
-<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v12_sdm=
-a_mqd *m;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D (struct =
-v12_sdma_mqd *) mqd_mem_obj-&gt;cpu_ptr;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addr =3D mqd_m=
-em_obj-&gt;gpu_addr;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(m, mqd_=
-src, sizeof(*m));<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_rl=
-cx_doorbell_offset =3D<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qp-&gt;doorbell_off &lt;&lt; SDMA0_QUEUE0=
-_DOORBELL_OFFSET__OFFSET__SHIFT;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *mqd =3D m;<o:=
-p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (gart_addr)=
-<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;*gart_addr =3D addr;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qp-&gt;is_acti=
-ve =3D 0;<o:p></o:p></p>
-<p class=3D"MsoNormal">+}<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">struct mqd_manager *mqd_manager_init_v12(enum KFD_MQ=
-D_TYPE type,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_node *dev)<o:p></o:p></p>
-<p class=3D"MsoNormal">{<o:p></o:p></p>
-<p class=3D"MsoNormal">@@ -407,6 +476,8 @@ struct mqd_manager *mqd_manager_=
-init_v12(enum KFD_MQD_TYPE type,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;mqd_size =3D sizeof(struct v=
-12_compute_mqd);<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;get_wave_state =3D get_wave_=
-state;<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;mqd_stride =3D kfd_mqd_strid=
-e;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;checkpoint_mqd =3D checkpoint_mqd=
-;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;restore_mqd =3D restore_mqd;<o:p>=
-</o:p></p>
-<p class=3D"MsoNormal">#if defined(CONFIG_DEBUG_FS)<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;debugfs_show_mqd =3D debugfs=
-_show_mqd;<o:p></o:p></p>
-<p class=3D"MsoNormal">#endif<o:p></o:p></p>
-<p class=3D"MsoNormal">@@ -453,6 +524,8 @@ struct mqd_manager *mqd_manager_=
-init_v12(enum KFD_MQD_TYPE type,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;is_occupied =3D kfd_is_occup=
-ied_sdma;<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;mqd_size =3D sizeof(struct v=
-12_sdma_mqd);<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;mqd_stride =3D kfd_mqd_strid=
-e;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;checkpoint_mqd =3D checkpoint_mqd=
-_sdma;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;restore_mqd =3D restore_mqd_sdma;=
-<o:p></o:p></p>
-<p class=3D"MsoNormal">#if defined(CONFIG_DEBUG_FS)<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;debugfs_show_mqd =3D debugfs=
-_show_mqd_sdma;<o:p></o:p></p>
-<p class=3D"MsoNormal">#endif<o:p></o:p></p>
-<p class=3D"MsoNormal">diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_mana=
-ger_v12_1.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12_1.c<o:p></o:p>=
-</p>
-<p class=3D"MsoNormal">index 431a940f91f3..7ee98ef084ea 100644<o:p></o:p></=
-p>
-<p class=3D"MsoNormal">--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12=
-_1.c<o:p></o:p></p>
-<p class=3D"MsoNormal">+++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v12=
-_1.c<o:p></o:p></p>
-<p class=3D"MsoNormal">@@ -641,6 +641,75 @@ static int debugfs_show_mqd_sdm=
-a(struct seq_file *m, void *data)<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">#endif<o:p></o:p></p>
-<p class=3D"MsoNormal"><o:p>&nbsp;</o:p></p>
-<p class=3D"MsoNormal">+static void checkpoint_mqd_v12_1(struct mqd_manager=
- *mm, void *mqd,<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *mq=
-d_dst, void *ctl_stack_dst)<o:p></o:p></p>
-<p class=3D"MsoNormal">+{<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v12_1_c=
-ompute_mqd *m;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_mqd(=
-mqd);<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(mqd_dst=
-, m, sizeof(struct v12_1_compute_mqd));<o:p></o:p></p>
-<p class=3D"MsoNormal">+}<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+static void restore_mqd_v12_1(struct mqd_manager *m=
-m, void **mqd,<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_mem_obj *mqd_me=
-m_obj, uint64_t *gart_addr,<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct queue_properties *q=
-p, const void *mqd_src,<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const void *ctl_stack_src,=
- const u32 ctl_stack_size)<o:p></o:p></p>
-<p class=3D"MsoNormal">+{<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t addr;=
-<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v12_1_c=
-ompute_mqd *m;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D (struct =
-v12_1_compute_mqd *) mqd_mem_obj-&gt;cpu_ptr;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addr =3D mqd_m=
-em_obj-&gt;gpu_addr;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(m, mqd_=
-src, sizeof(*m));<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *mqd =3D m;<o:=
-p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (gart_addr)=
-<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *gart_addr =3D addr;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;cp_hqd_p=
-q_doorbell_control =3D<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qp-&gt;doorbell_off &lt;&lt; CP_HQD_PQ_DO=
-ORBELL_CONTROL__DOORBELL_OFFSET__SHIFT;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pr_debug(&quot=
-;cp_hqd_pq_doorbell_control 0x%x\n&quot;, m-&gt;cp_hqd_pq_doorbell_control)=
-;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qp-&gt;is_acti=
-ve =3D 0;<o:p></o:p></p>
-<p class=3D"MsoNormal">+}<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+static void checkpoint_mqd_sdma_v12_1(struct mqd_ma=
-nager *mm, void *mqd,<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; void *mqd_dst, void *ctl_stack_dst)<o:p></o:p></p>
-<p class=3D"MsoNormal">+{<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v12_sdm=
-a_mqd *m;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D get_sdma=
-_mqd(mqd);<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(mqd_dst=
-, m, sizeof(struct v12_sdma_mqd));<o:p></o:p></p>
-<p class=3D"MsoNormal">+}<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+static void restore_mqd_sdma_v12_1(struct mqd_manag=
-er *mm, void **mqd,<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; struct kfd_mem_obj *mqd_mem_obj, uint64_t *gart_addr,<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; struct queue_properties *qp,<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; const void *mqd_src,<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; const void *ctl_stack_src,<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp; const u32 ctl_stack_size)<o:p></o:p></p>
-<p class=3D"MsoNormal">+{<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint64_t addr;=
-<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct v12_sdm=
-a_mqd *m;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m =3D (struct =
-v12_sdma_mqd *) mqd_mem_obj-&gt;cpu_ptr;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; addr =3D mqd_m=
-em_obj-&gt;gpu_addr;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; memcpy(m, mqd_=
-src, sizeof(*m));<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;sdmax_rl=
-cx_doorbell_offset =3D<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qp-&gt;doorbell_off &lt;&lt; SDMA0_QUEUE0=
-_DOORBELL_OFFSET__OFFSET__SHIFT;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *mqd =3D m;<o:=
-p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (gart_addr)=
-<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *gart_addr =3D addr;<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qp-&gt;is_acti=
-ve =3D 0;<o:p></o:p></p>
-<p class=3D"MsoNormal">+}<o:p></o:p></p>
-<p class=3D"MsoNormal">+<o:p></o:p></p>
-<p class=3D"MsoNormal">struct mqd_manager *mqd_manager_init_v12_1(enum KFD_=
-MQD_TYPE type,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_node *dev)<o:p></o:p></p>
-<p class=3D"MsoNormal">{<o:p></o:p></p>
-<p class=3D"MsoNormal">@@ -668,6 +737,8 @@ struct mqd_manager *mqd_manager_=
-init_v12_1(enum KFD_MQD_TYPE type,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;mqd_size =3D sizeof(struct v=
-12_1_compute_mqd);<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;get_wave_state =3D get_wave_=
-state_v12_1;<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;mqd_stride =3D kfd_mqd_strid=
-e;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;checkpoint_mqd =3D checkpoint_mqd=
-_v12_1;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;restore_mqd =3D restore_mqd_v12_1=
-;<o:p></o:p></p>
-<p class=3D"MsoNormal">#if defined(CONFIG_DEBUG_FS)<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;debugfs_show_mqd =3D debugfs=
-_show_mqd;<o:p></o:p></p>
-<p class=3D"MsoNormal">#endif<o:p></o:p></p>
-<p class=3D"MsoNormal">@@ -714,6 +785,8 @@ struct mqd_manager *mqd_manager_=
-init_v12_1(enum KFD_MQD_TYPE type,<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;is_occupied =3D kfd_is_occup=
-ied_sdma;<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;mqd_size =3D sizeof(struct v=
-12_sdma_mqd);<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mqd-&gt;mqd_stride =3D kfd_mqd_strid=
-e;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;checkpoint_mqd =3D checkpoint_mqd=
-_sdma_v12_1;<o:p></o:p></p>
-<p class=3D"MsoNormal">+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;restore_mqd =3D restore_mqd_sdma_=
-v12_1;<o:p></o:p></p>
-<p class=3D"MsoNormal">#if defined(CONFIG_DEBUG_FS)<o:p></o:p></p>
-<p class=3D"MsoNormal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbs=
-p;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;debugfs_show_mqd =3D debugfs=
-_show_mqd_sdma;<o:p></o:p></p>
-<p class=3D"MsoNormal">#endif<o:p></o:p></p>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+AMD General</div>
+<br>
 </div>
+Reviewed-by: Michael Chen &lt;michael.chen@amd.com&gt;</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liang, Prike &lt;Prik=
+e.Liang@amd.com&gt;<br>
+<b>Sent:</b> Tuesday, August 4, 2026 3:49 AM<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;<br>
+<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
+ristian &lt;Christian.Koenig@amd.com&gt;; Chen, Michael &lt;Michael.Chen@am=
+d.com&gt;; Liang, Prike &lt;Prike.Liang@amd.com&gt;<br>
+<b>Subject:</b> [PATCH] drm/amdgpu/mes: tear down the rs64mem bitmap in sw_=
+fini</font>
+<div>&nbsp;</div>
 </div>
+<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
+">
+<div class=3D"PlainText">It's more reasonable to tear down the rs64mem bitm=
+ap software<br>
+context at MES sw_fini phase. This also can avoid the following<br>
+lock order issue.<br>
+<br>
+[ 2529.150983] kworker/u64:1/3134 is trying to acquire lock:<br>
+[ 2529.151206] ffff8aebd9a3fa10 (reservation_ww_class_mutex){+.+.}-{4:4}, a=
+t: amdgpu_bo_free_kernel+0x4e/0x130 [amdgpu]<br>
+[ 2529.151989]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; but task is already holding lock:<br>
+[ 2529.152227] ffff8aebd2411648 (&amp;reset_domain-&gt;sem){++++}-{4:4}, at=
+: amdgpu_device_lock_reset_domain+0x20/0x30 [amdgpu]<br>
+[ 2529.153008]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; which lock already depends on the new lock.<br>
+<br>
+[ 2529.153342]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; the existing dependency chain (in reverse order) is:<br>
+[ 2529.153645]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; -&gt; #2 (&amp;reset_domain-&gt;sem){++++}-{4:4}:<br>
+[ 2529.153913]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; down_read+0x4a/0x2=
+40<br>
+[ 2529.154081]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_userq_destr=
+oy+0xd8/0x3a0 [amdgpu]<br>
+[ 2529.154635]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_userq_ioctl=
++0x3e2/0xe30 [amdgpu]<br>
+[ 2529.155157]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_ioctl_kernel+0=
+xaf/0x110 [drm]<br>
+[ 2529.155401]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; drm_ioctl+0x290/0x=
+510 [drm]<br>
+[ 2529.155612]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_drm_ioctl+0=
+x52/0x90 [amdgpu]<br>
+[ 2529.156068]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __x64_sys_ioctl+0x=
+a0/0xf0<br>
+[ 2529.156249]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; x64_sys_call+0x127=
+8/0x21c0<br>
+[ 2529.156434]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; do_syscall_64+0xbe=
+/0x5f0<br>
+[ 2529.156611]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; entry_SYSCALL_64_a=
+fter_hwframe+0x76/0x7e<br>
+[ 2529.156842]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; -&gt; #1 (&amp;userq_mgr-&gt;userq_mutex){+.+.}-{4:4}:<br>
+[ 2529.157127]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __mutex_lock+0xb2/=
+0x11a0<br>
+[ 2529.157304]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_lock_nested+=
+0x1f/0x30<br>
+[ 2529.157492]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_userq_vm_va=
+lidate_and_restore_queue+0x710/0x9b0 [amdgpu]<br>
+[ 2529.158098]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_userq_resto=
+re_worker+0x39/0x290 [amdgpu]<br>
+[ 2529.158646]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; process_one_work+0=
+x23e/0x6f<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; -&gt; #0 (reservation_ww_class_mutex){+.+.}-{4:4}:<br>
+[ 2529.159832]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __lock_acquire+0x1=
+4c4/0x2210<br>
+[ 2529.160021]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; lock_acquire+0xc6/=
+0x310<br>
+[ 2529.160193]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; __ww_mutex_lock.co=
+nstprop.0+0xd9/0x1a30<br>
+[ 2529.160419]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ww_mutex_lock+0x40=
+/0xb0<br>
+[ 2529.160590]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_free_ker=
+nel+0x4e/0x130 [amdgpu]<br>
+[ 2529.161077]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mes_rs64mem=
+_fini+0x35/0x60 [amdgpu]<br>
+[ 2529.161601]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mes_v11_0_suspend+=
+0x2d/0x40 [amdgpu]<br>
+[ 2529.162102]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_ip_block_su=
+spend+0x2b/0x70 [amdgpu]<br>
+[ 2529.162609]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_ip_s=
+uspend_phase2+0xa4/0x270 [amdgpu]<br>
+[ 2529.163116]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_pre_=
+asic_reset+0x130/0x1f0 [amdgpu]<br>
+[ 2529.163617]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_asic=
+_reset+0x55/0x530 [amdgpu]<br>
+[ 2529.164101]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_gpu_=
+recover+0x1e5/0x410 [amdgpu]<br>
+[ 2529.164592]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_userq_mgr_r=
+eset_work+0x80/0xa0 [amdgpu]<br>
+[ 2529.165140]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_userq_hang_=
+detect_work+0xbb/0x1c0 [amdgpu]<br>
+[ 2529.165693]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; process_one_work+0=
+x23e/0x6f0<br>
+[ 2529.165884]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; worker_thread+0x1c=
+4/0x380<br>
+[ 2529.166065]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kthread+0x10c/0x15=
+0<br>
+[ 2529.166226]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret_from_fork+0x31=
+4/0x390<br>
+[ 2529.166408]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret_from_fork_asm+=
+0x1a/0x30<br>
+[ 2529.166595]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp; other info that might help us debug this:<br>
+<br>
+[ 2529.166917] Chain exists of:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; reservation_ww_class_mutex --&gt; &amp;userq_mgr-&gt;=
+userq_mutex --&gt; &amp;reset_domain-&gt;sem<br>
+<br>
+Signed-off-by: Prike Liang &lt;Prike.Liang@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c | 4 ++++<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/mes_v11_0.c&nbsp; | 4 ----<br>
+&nbsp;2 files changed, 4 insertions(+), 4 deletions(-)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_mes.c<br>
+index 5998e05ecd79..b96f94e5169f 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c<br>
+@@ -308,8 +308,12 @@ void amdgpu_mes_fini(struct amdgpu_device *adev)<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_mes_doorbell_free(a=
+dev);<br>
+&nbsp;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;mes.use_rs64mem)<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_mes_rs64mem_fini(&amp;adev-&gt;mes);<br>
++<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ida_destroy(&amp;adev-&gt;=
+mes.doorbell_ida);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_destroy(&amp;adev-&g=
+t;mes.mutex_hidden);<br>
++<br>
+&nbsp;}<br>
+&nbsp;<br>
+&nbsp;int amdgpu_mes_suspend(struct amdgpu_device *adev, u32 xcc_id)<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/a=
+mdgpu/mes_v11_0.c<br>
+index 37985c37be18..31722bb10038 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
+@@ -2038,10 +2038,6 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block =
+*ip_block)<br>
+&nbsp;<br>
+&nbsp;static int mes_v11_0_hw_fini(struct amdgpu_ip_block *ip_block)<br>
+&nbsp;{<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D ip_blo=
+ck-&gt;adev;<br>
+-<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;mes.use_rs64mem)<br>
+-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp; amdgpu_mes_rs64mem_fini(&amp;adev-&gt;mes);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
+&nbsp;}<br>
+&nbsp;<br>
+-- <br>
+2.34.1<br>
+<br>
+</div>
+</span></font></div>
 </body>
 </html>
 
---_000_SA1PR12MB8600E8B1821FA7D76923FC259FD42SA1PR12MB8600namp_--
+--_000_DM6PR12MB361149752AE3CA5C022B41C194D42DM6PR12MB3611namp_--
