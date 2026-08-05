@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F391CC55174
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 06:40:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 49A78C561E6
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 06:40:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AAAD10ECFB;
-	Wed,  5 Aug 2026 06:40:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D5EB610ECFE;
+	Wed,  5 Aug 2026 06:40:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Z3VtM/o/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FbYY0/Rj";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010050.outbound.protection.outlook.com [52.101.85.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CCF4010ECFB
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 06:40:21 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011008.outbound.protection.outlook.com [52.101.57.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 620CF10ECFE
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 06:40:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vy35igyQWeysLoSmZgAJzfB2DXYM8/ZTwuyTmIGys6vEt9B0aJKs4Ro6dv1QvEr839t3VVSmGG/RP/moOXfW+Cudzb5vz9Tp5pxTk5PzH+salfH7jf9TTxAXkDZ9hS0lVnWVkxlSuoKQ533vGJ4kuRrbGmgd90RPLTsV/a4+n6j99i4SAeoBcADcf6VFy5y8j0GG3kQ7yhi0yONlGN5iloTkbHYl6iLX7dMRsZoGu0Oxu0tXjXbVQPSreYAmJpotWoO+/fHfPLTDZVllA2WkTR0crLA0Khc22oYu3cBc/0tWWx1YhK5U5YMmXgKo5Q7gpWvh/kF6HP/UJEuUcreClg==
+ b=SOyQphET+RZO7pV3WEo6FmrAb7GObsAUp7JuIVcB56z4RDHgi9pqQjjtgAi/LYJTvEUkL3g+kmYEIfgilU42JQdwhEL9hXPPZRrsDM0U3RZcmSLhlSUxgCit2+z7waQmN/D4UEZgwZv3obQoOt7onx/z3I/nwvoMr3ImhvxFxLD+MQMt6rD9sb6TAicCycifuAh179GOM3kPEFIlSPDby6AqECrN47fTW4Zl2IIoEq1D5OtGmSjkdFMl6SjT5RLwRqslZb3iq7X95ZjdLsCc+geG6ezgOxVTC4doP2UHR1smGTYdh2APSD2ASE4RiCPZMIcyWiU+5Q6lF9b1X2dYSA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=w+X5j1rfHUCb3jrB0T7T1KJBcw513AkX5+xA+7qfFGs=;
- b=l3b7TSJyzeazRv99n10+aQjt6VFujE5lc4fAL7GZfJbKijw22Q+bSXV3XtKHle+6ZhRRll5fWP1YprxsT9/7+AhPrGl9AmR4lttHROd9M8f/BlE7V4K30K54Wn3Bgtg6b6urRwHaitfI8BY0kthR8G8NQBUHkIIsJEDZWFQmV4edlpnFCfI/4jVIMJJzCnj6qZZJn2TkdlQXzo1IZgUiwui6+J+L6JaC2IWgV4NfyfIONZ5M6pAIVUUnSMz7C/8kwztP0ZtLTKHiR/O5ll/4pSraTOjEYv9uJMprww+Qx1a6kSDFcuxu7BbMrOkPGQcR9sj9cd0op8hLEp7PmZlLWQ==
+ bh=z+7znHAiZvfDyDECuJfixB681rwEee4jX47eEansR80=;
+ b=hVmNB29hFgtoXru4WHzm4UtuOpNkBAXR+1GaUjCK6BOEIJJ62CbF63MsgGQzizERc80HpPh2bwOdvuvllS6YCHkSnyvUVyBBACY8gzqm8rE1vVRv2OYTKLqSg3Mnu7gUcXXVRpDAtLUFmt+p0CbL7MFGSB/gGXbYPfkoN34/u0sbtfScjS9AJasci9XQRaEMPyW4t/CXABVyke3do9Fc6xZc5vkt7fiE5g8T2k4eZyz/A4jwrUWxWgqYKVMfUKKHLqxpfFMHJq2lgJJKjz2Idk/I/6qjDxoeBUmO4tyndcTfiBHnWaQ/sgFWJhbyFG/GKsMxuccngbwjGwmMvMVDZA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=w+X5j1rfHUCb3jrB0T7T1KJBcw513AkX5+xA+7qfFGs=;
- b=Z3VtM/o/eiUxC/rRpZvMYb4y/Zu/0TpmhMenhHzT3cou2iJITvXXqv53WoB9Lrn51hC1N0rBTsnYybWB520Y4LdfFG2/9lc6QhhSsXMydcLAcWoocl/fg/Ywqe5++AKQLD7njT052mPKCerOBm5Se9pNt3fbABWm2uqs4DQaUoE=
-Received: from BN0PR03CA0041.namprd03.prod.outlook.com (2603:10b6:408:e7::16)
- by DM6PR12MB4107.namprd12.prod.outlook.com (2603:10b6:5:218::7) with
+ bh=z+7znHAiZvfDyDECuJfixB681rwEee4jX47eEansR80=;
+ b=FbYY0/RjsuDeuSHpRe58NimKYgyxIXrtsUGOfzHsG9SxA4vB2diqxktzGwlAWmd2lOg/uzCyJ6OiKmi8h1n/C/VsMRl50g+bUZ41e6p/TFslZbokk1XSLZOwmCNG0FuWwI9RNB6kO8cRK+lJpszhtxQpYUcJf22lZxMGFg22WMs=
+Received: from MW4P221CA0011.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::16)
+ by IA1PR12MB9738.namprd12.prod.outlook.com (2603:10b6:208:465::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.15; Wed, 5 Aug
- 2026 06:40:18 +0000
-Received: from BN3PEPF0000B078.namprd04.prod.outlook.com
- (2603:10b6:408:e7:cafe::6e) by BN0PR03CA0041.outlook.office365.com
- (2603:10b6:408:e7::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.16 via Frontend Transport; Wed, 5
- Aug 2026 06:40:17 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Wed, 5 Aug
+ 2026 06:40:20 +0000
+Received: from MWH0EPF000C6184.namprd02.prod.outlook.com
+ (2603:10b6:303:8b:cafe::23) by MW4P221CA0011.outlook.office365.com
+ (2603:10b6:303:8b::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.15 via Frontend Transport; Wed, 5
+ Aug 2026 06:40:19 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +48,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- BN3PEPF0000B078.mail.protection.outlook.com (10.167.243.123) with Microsoft
+ MWH0EPF000C6184.mail.protection.outlook.com (10.167.249.116) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Wed, 5 Aug 2026 06:40:16 +0000
+ 15.21.292.8 via Frontend Transport; Wed, 5 Aug 2026 06:40:19 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 5 Aug
- 2026 01:40:11 -0500
+ 2026 01:40:15 -0500
 Received: from tom-r5.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 5 Aug 2026 01:40:08 -0500
+ Transport; Wed, 5 Aug 2026 01:40:11 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,10 +66,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
-Subject: [PATCH 05/34] drm/amd/display: Cover crtc destroy callback
-Date: Wed, 5 Aug 2026 14:36:17 +0800
-Message-ID: <20260805063937.2145774-6-chiahsuan.chung@amd.com>
+ <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Subject: [PATCH 06/34] drm/amd/display: Add reset_state existing-state branch
+ test
+Date: Wed, 5 Aug 2026 14:36:18 +0800
+Message-ID: <20260805063937.2145774-7-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260805063937.2145774-1-chiahsuan.chung@amd.com>
 References: <20260805063937.2145774-1-chiahsuan.chung@amd.com>
@@ -78,29 +79,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B078:EE_|DM6PR12MB4107:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a5986fe-9798-4b6e-f93a-08def2bc6973
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6184:EE_|IA1PR12MB9738:EE_
+X-MS-Office365-Filtering-Correlation-Id: 75d67fd1-f914-4c4b-258a-08def2bc6b02
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700016|23010399003|22082099003|18002099003|11063799006|6133799003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: ZkUxQ5wRa0hzxzYICS3ousetP9FP+WSt5V7l/g9L3MR3vA4ahcnDbc4UhwAbelcSxSnc2qzvx5STv6IdN4d6RKg5sYFve2NMPFF0vf6DcJhudu86E/gZnjaNDsvst0+N3FlniGbV8ZveFXrBI6BKQlTli0lnD963ya041Rzm0LzLSLgwt8CI0zVtwtW1HGV6yOgV9MSFnBxC/BSuP34Ka9nU47iEZCEfGb1O+StdSxTq4HGM+1iXqvD//0f380LQtkrAj33ExHsQ7RgjlwRJ+iXaP29/Sgnr7wozLkaoPMTa+N2pQI0ZKTVjEw1LMcOLddK70otC+DxKWmGSTg03wTO8/dN9nUSSqfGtlKikadHESVxJgms8EzX/sK5EwRmHHW7/gNex1Zkqt1QsA67VB6VQ2avW9HKvWlr2s3VnNqxV6KQBZ/ywQ5uOGAR79+RZ9g8Cc2hDLGXscRbjSELz0zHGXl+Nh/fkdl6/AgTJsK1rlieH+Gv32m/zZktsG2yNJgFXx1G2ozXhjNrFr9LqkKWQbY+TyJinv/uTJQYjTxmLr1HHG3gENdxQ9mrK32ZxcDXT6HQXKlW4NpFZw1UdJ5fj3PKYtbWTKFwCWVI3Rd264jURSfaQxD8AIwtmepjQd5VRPwzjZeOqm3fLNzX9rCiG+RHwFgpkZWu2Frcyl+K6IlZnWzgOAMSoS2jWG9NQaCKa3acOJz2AAMywyU27GA==
+ ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|56012099006|11063799006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: NkivGFzfWBKXbxHliEt0r8kMsnxpiMipbaZryRop5HJfYaMoo7LkQ2glXajWi+QhNNPLZ19zHoYgx9GDVMj7PeXZCLjzYZXXv5f6bIbukmls5nRcQRhsyVJNGgcl5wEv6BeXjoQfP/MQtSHZ4Sz93dWNUgw8cl9Ex1mkOrXSOGlsmzGPWQou8MHVNxR4e9YiED4Cw6N1rzLMlCfYwswSU6JWUzfa3fEa6YfLazMqqZm00hFrhsDg5D69/Ng/AuPGxHw5ldgcBsScdC9adfNNXmRo7FvQdQ9Vvaj42bZ2KpYU9+xOo3tx2+7Wh6ekWWeMj4gBG+pgQ7WXpB7eP0NZNUcMXEHOd4/g6Ajru3B8SSqaomeHBiSz7esCCQ5nBEvWlqZ1ihdwoPFuKX0W3Dgak7YkoWwtpdmkNsh0ZA6WVwFIMU8q26s/rbt41us3pUVBCKQGkJFc5EK6xd6g6vbZEWmyh5yyspJP3FuiQHIkGRG1xb906XZF5fDetMDxiRoA8nAj/SK1W8UStlvpb/2dp/PUS+9nmO1Vzq6BdNMAuhi69NasNeY6q69aseu5I0lalENoX7XHBLlGY3IAyHgNzeoccMy54TGhgDmKCIMxAcyzrb7dJWRcfVRuniNTVzBthEAxDHt/8tP4oRpSCd3V6jHhbMKg4sPDgXevdsgAdro29aXC57mrganFJ0VYoevb6/px8KHE9AB47EDUiDKRWA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(23010399003)(22082099003)(18002099003)(11063799006)(6133799003)(10067099003)(56012099006);
+ SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(56012099006)(11063799006)(10067099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 5Mhv3wBWusUmC2rnSO5EeQv0TqVNodllb0S5GZIqNds7+SnOzMucAf++xsemYPluR2PvwWel2b0A4T0yY5mwR4RhajdvZrw4dnhrjrwpBe88msLNYcCBvbWvSc1xb13OD+fBtY/PxozK7GqAS6URW7ZsiBZWfeJ5WfuUVnkl3zzLrrl5L/d1iT2vdeN0kBwMlzTbBf0fIjXFGYb1wzhhBVWeJL/5dpRt/ns6hfxlJfGIkoq/XSaAeWhj3LRWpJjy1pYb8FSHwdqC/Or2uJaRBEjBCbsE9MEuuQF/t9HaDHNYSdj7IBw2WPL9x5kiW0z33Qcj2xyvQkeVnm4OvoO1X/7RVLrE+7nMpsMJSAn5d8t1Z5vz0ovyobalBjTcLJFMiMXdUsmeRb8FKAgzxhmBk0RZcCZ9c4fMv1fsc6x3nLMdR1hOnCGD8JOyCIdbos9W
+X-MS-Exchange-AntiSpam-MessageData-0: CKAXJnr4/x+EioNVPxfLDXdBNWH/ein8AtxXvx0HKM5Ev4gAbxJ8XwEki0eceySRsBsHTqvPqd7BdzxfugrnSfpEwWonicZw/BR/GmRCSCZm2eGrHk1ZbMavYtv3dL1o1P0X0p0MGqMendO42MCJcZnpyKkvPfdHKvs2/bab7jfZXBBv/Oit2CQDogJf4fFjb4oySB7dqh3+5ir/+0xwV8tGtMj/+d8NW+9fE8yvvL6NhnBHbOqdIEcV+oQ7E871AJd7rLGylaXEvD2wu/2Nf30vcSPoITYi/6NaG28YDMCWCCTwnjtJ/bfoOjrHrBitOgoaBAPT1gba+kJ84c744Ch12z4SR4q82EPyijUQEXWL65Dmy0rEMPE9trP9OTfg7Bt2LHGNtgpQ4HQrkzv6vOLuN/kOZl9lnZ2B8HvSxikSiZBHmZBm5ZhZZHE6MBCF
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 06:40:16.9796 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a5986fe-9798-4b6e-f93a-08def2bc6973
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 06:40:19.5566 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 75d67fd1-f914-4c4b-258a-08def2bc6b02
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B078.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6184.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4107
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9738
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,123 +116,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+From: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 
-[why]
-The amdgpu_dm_crtc_destroy() .destroy callback, which runs
-drm_crtc_cleanup() and frees the CRTC, was not exercised by the KUnit
-suite.
+why:
+amdgpu_dm_crtc_reset_state has a branch that destroys an already-installed
+crtc state before allocating a new one. Only the NULL-state branch was
+covered, leaving the state-replacement path untested.
 
-[how]
-Exposed amdgpu_dm_crtc_destroy() via STATIC_IFN_KUNIT/EXPORT_IF_KUNIT and a
-KUnit-only declaration, and added dm_test_crtc_destroy_cleans_up_and_frees
-which initializes a CRTC with a primary plane and verifies
-mode_config.num_crtc drops from 1 to 0 after destroy. Registered the case
-in amdgpu_dm_crtc_tests.
+how:
+Add dm_test_crtc_reset_state_replaces_existing, which installs a plain
+dm_crtc_state holding an extra stream reference, calls reset_state, and
+verifies the old state was destroyed (stream ref dropped) and a fresh
+non-NULL state was installed. Register the new case under the existing
+reset_state group.
 
 Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Signed-off-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.c    |  3 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_crtc.h    |  1 +
  .../amdgpu_dm/tests/amdgpu_dm_crtc_test.c     | 43 +++++++++++++++++++
- 3 files changed, 46 insertions(+), 1 deletion(-)
+ 1 file changed, 43 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index 82a30097072e..470abe9cc8f1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -459,7 +459,7 @@ STATIC_IFN_KUNIT struct drm_crtc_state *amdgpu_dm_crtc_duplicate_state(struct dr
- }
- EXPORT_IF_KUNIT(amdgpu_dm_crtc_duplicate_state);
- 
--static void amdgpu_dm_crtc_destroy(struct drm_crtc *crtc)
-+STATIC_IFN_KUNIT void amdgpu_dm_crtc_destroy(struct drm_crtc *crtc)
- {
- 	/*
- 	 * amdgpu_dm_ism_fini() is intentionally called in amdgpu_dm_fini().
-@@ -470,6 +470,7 @@ static void amdgpu_dm_crtc_destroy(struct drm_crtc *crtc)
- 	drm_crtc_cleanup(crtc);
- 	kfree(crtc);
- }
-+EXPORT_IF_KUNIT(amdgpu_dm_crtc_destroy);
- 
- STATIC_IFN_KUNIT void amdgpu_dm_crtc_reset_state(struct drm_crtc *crtc)
- {
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
-index 93c6d0d8d7fd..06bb22d4c3b7 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h
-@@ -49,6 +49,7 @@ bool amdgpu_dm_crtc_helper_mode_fixup(struct drm_crtc *crtc,
- void amdgpu_dm_crtc_destroy_state(struct drm_crtc *crtc,
- 				  struct drm_crtc_state *state);
- struct drm_crtc_state *amdgpu_dm_crtc_duplicate_state(struct drm_crtc *crtc);
-+void amdgpu_dm_crtc_destroy(struct drm_crtc *crtc);
- void amdgpu_dm_crtc_reset_state(struct drm_crtc *crtc);
- int amdgpu_dm_crtc_count_crtc_active_planes(struct drm_crtc_state *new_crtc_state);
- void amdgpu_dm_crtc_update_crtc_active_planes(struct drm_crtc *crtc,
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-index a23281a33422..1af819113168 100644
+index 1af819113168..430765dd87a3 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
-@@ -1463,6 +1463,47 @@ static void dm_test_crtc_duplicate_state_null_state_returns_null(struct kunit *t
- 	KUNIT_EXPECT_NULL(test, amdgpu_dm_crtc_duplicate_state(crtc));
+@@ -1531,6 +1531,48 @@ static void dm_test_crtc_reset_state_allocates_state(struct kunit *test)
+ 		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
  }
  
-+/* Tests for amdgpu_dm_crtc_destroy() */
-+
 +/**
-+ * dm_test_crtc_destroy_cleans_up_and_frees - Test destroy tears down the CRTC
++ * dm_test_crtc_reset_state_replaces_existing - Test reset frees the old state
 + * @test: The KUnit test context
 + *
-+ * amdgpu_dm_crtc_destroy() is the drm_crtc .destroy callback: it must run
-+ * drm_crtc_cleanup() and free the CRTC. Initialise a CRTC with a primary plane
-+ * so it is registered on the device (num_crtc == 1), then destroy it and verify
-+ * the CRTC was unregistered (num_crtc back to 0). The CRTC is a plain (unmanaged)
-+ * allocation because amdgpu_dm_crtc_destroy() kfree()s it.
++ * Resetting a CRTC that already carries a state must destroy the existing
++ * state before installing a fresh one. The old state holds a stream reference,
++ * so a successful reset drops that reference (via amdgpu_dm_crtc_destroy_state)
++ * and leaves the CRTC with a new, non-NULL state.
 + */
-+static void dm_test_crtc_destroy_cleans_up_and_frees(struct kunit *test)
++static void dm_test_crtc_reset_state_replaces_existing(struct kunit *test)
 +{
-+	struct amdgpu_device *adev;
-+	struct amdgpu_crtc *acrtc;
-+	struct drm_plane *plane;
-+	int ret;
++	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
++	struct dc_stream_state *stream;
++	struct dm_crtc_state *old;
++	struct drm_crtc *crtc;
++	struct dc_link *link;
 +
-+	adev = dm_kunit_alloc_adev(test);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
++	crtc = kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc);
++	crtc->dev = &adev->ddev;
 +
-+	plane = drm_kunit_helper_create_primary_plane(test, &adev->ddev,
-+						      NULL, NULL, NULL, 0, NULL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, plane);
++	link = dm_kunit_alloc_link(test);
++	stream = dm_kunit_alloc_stream(test, link);
++	/* Extra ref so destroying the old state drops back to the managed one. */
++	kref_get(&stream->refcount);
 +
-+	/* amdgpu_dm_crtc_destroy() kfree()s the CRTC, so use a plain alloc. */
-+	acrtc = kzalloc_obj(*acrtc, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, acrtc);
++	/* reset_state kfree()s the old state, so use a plain (unmanaged) alloc. */
++	old = kzalloc_obj(*old, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, old);
++	old->stream = stream;
++	crtc->state = &old->base;
 +
-+	ret = drm_crtc_init_with_planes(&adev->ddev, &acrtc->base, plane,
-+					NULL, &dm_test_crtc_funcs, NULL);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, adev->ddev.mode_config.num_crtc, 1);
++	amdgpu_dm_crtc_reset_state(crtc);
 +
-+	amdgpu_dm_crtc_destroy(&acrtc->base);
++	/* Old state was destroyed (stream ref dropped) and a new one installed. */
++	KUNIT_EXPECT_EQ(test, kref_read(&stream->refcount), 1);
++	KUNIT_EXPECT_NOT_NULL(test, crtc->state);
 +
-+	/* drm_crtc_cleanup() ran: the CRTC was unregistered from the device. */
-+	KUNIT_EXPECT_EQ(test, adev->ddev.mode_config.num_crtc, 0);
++	if (crtc->state)
++		amdgpu_dm_crtc_destroy_state(crtc, crtc->state);
 +}
 +
- /* Tests for amdgpu_dm_crtc_reset_state() */
+ /* Tests for amdgpu_dm_crtc_destroy_state() */
  
  /**
-@@ -1968,6 +2009,8 @@ static struct kunit_case amdgpu_dm_crtc_tests[] = {
- 	KUNIT_CASE(dm_test_crtc_duplicate_state_copies_fields),
- 	KUNIT_CASE(dm_test_crtc_duplicate_state_retains_stream),
- 	KUNIT_CASE(dm_test_crtc_duplicate_state_null_state_returns_null),
-+	/* amdgpu_dm_crtc_destroy */
-+	KUNIT_CASE(dm_test_crtc_destroy_cleans_up_and_frees),
+@@ -2013,6 +2055,7 @@ static struct kunit_case amdgpu_dm_crtc_tests[] = {
+ 	KUNIT_CASE(dm_test_crtc_destroy_cleans_up_and_frees),
  	/* amdgpu_dm_crtc_reset_state */
  	KUNIT_CASE(dm_test_crtc_reset_state_allocates_state),
++	KUNIT_CASE(dm_test_crtc_reset_state_replaces_existing),
  	/* amdgpu_dm_crtc_destroy_state */
+ 	KUNIT_CASE(dm_test_crtc_destroy_state_no_stream),
+ 	KUNIT_CASE(dm_test_crtc_destroy_state_releases_stream),
 -- 
 2.43.0
 
