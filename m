@@ -4,131 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B58AC55174
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 16:16:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F013AC55174
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 16:34:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 27F2A10E213;
-	Wed,  5 Aug 2026 16:16:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 668FA10E234;
+	Wed,  5 Aug 2026 16:34:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZHos3n8u";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2dHC9ayb";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013040.outbound.protection.outlook.com
- [40.93.201.40])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CFB0C10E208
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 16:16:14 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010026.outbound.protection.outlook.com [52.101.201.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05B9710E234
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 16:34:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EKL8fQWrIzuJvSfs5N1r1FrfwBQomWAfqOkhCSKnDdB+ddqFFdg64HNWGUZG+6XFYn7lUd5GLJg0KUtkIJko/eW/eZ5tljSy5mrz3ObU/nOpw6RqilVDvzwLRfmZDLVzYHTNU1NBXUTjJeOaFVof9lFXeepXlonWN1srhDUCEO7lcnuYAQ5Evo84WpkFu6A8tvuivQqzHKVRsRCeNvMmpvyvO1+NhbI9uvMOizD4/+j3cojvv2F4V/+yChbkRmS1Hi8DlZx+DOKHqCUnSoW9hTAD6b4un8JqGxLnXc/xEHQGzOBidL+vPvz9VGBgHz1mN1InPjCV0V3A1hACSvsRHA==
+ b=KWC9DrLCwCHnOLedaC4VksHIH++WWirHqlimnCN+GvlqwgzvM9n/Xv803wabFPodEMVwAz3eoBSAb5bXT7RWPfPuXr13NhtJVdXAUZkb6b466Oyb+bdQqvRalopaXembijx2IC2AY/MleoFhDbjHiWTFe9uSpSTCmD1rZAsqO7Njhk7tYwsSHlhIs+yLsgI31gye1gKisdGOFWRPeF10cS+jNRXE9SQdv/uClweSWH2N/tAPngYnqh7UySc3jAV528n9y/FBO2+z+5RFupEETzUr9BMppUUYTW2523sNEK7cD1Hq/4YuAJ8bS3u4JB/bN/Y7taRAZLWQBD46w22FCA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lzMvfgJWzx36W/TccZ5BlV7thi/ssTwHqUEtEejVYfI=;
- b=oyIRMeMIjLsDBO+vPIQjXIjbBBwA6hPx10mD5gT/MCB2e0lqNFubHVqRNtfhUg3oVnfEd4tkvl6I5LZ+sxn8f/ErA/fBucrJtROEydbL9ezDQLh+6uT4gf7SFJSBr8ZekNFkdeVQrsPDil0a4DFAdj/shHCPWnd0qyE5wJoE1tJGSOOp0oF8CTUypSWwja0+BAwUjh52sa4CXjFp9LIC7DjlKusjCJcx3JlW4lBUlDV6QgOSX6vvjctfocUw//qrRVM+I63ae2nWboRBiPvBHEsi6ZhQjCKHacrEFZssJvZ5pqmPIr9EMpOY9kNS8cAm2Xl3v80GaiQDqSlqRdlEuA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=+KWx52kZkMDvnMnxKXLuDLq7nlj+S40ZXaMq1EBi6+A=;
+ b=swAJHH8gg0bYyQ6jq9Gwel4Z9tAU7fB2+9nFBskAamE+qZy9cbfIyDJoMSoPQHibPghcRYoDef6mSVfURhzCczwFnI69TPnuYtBp04nWnGJR4SH7WmPByPOcHTDgtkos3/Zav4KTHaT5HXFFYpNHz5ScoerXIL/rzzbvXdVh4mFNQT6ZQtG/u7mCDVeDnXdMw0xQA9VhRFqv23FvNtq6x/XTu8q1mFXnkQDO2mmaEJrdeksK74BZxGCaSHKgCSiEC0e9HU3qttt3zhhhLPIvhqVpEDVpDQ7sh4uw79KW3t/eFzNIFaqbCnsEx4f6tmEMOBIM1HZoAXgDxD4INU9QdA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lzMvfgJWzx36W/TccZ5BlV7thi/ssTwHqUEtEejVYfI=;
- b=ZHos3n8uGJW6Croaohrs2VIWgTQhECcD/tBsOMROkQjVCSCm/llSTXVyCfpzqMWDRwzNfTguzeIkqoLVVpH4SVXCMWHv5QfEmTizfs2CE2bk3KFyyyBwy0CucCtEbsKYSrVUmDKlK4tE2K0E7ZaJm5qSEn9nRJQWGGTdB2vgB6I=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
- (2603:10b6:f:fc00::655) by DS0PR12MB6536.namprd12.prod.outlook.com
- (2603:10b6:8:d3::17) with Microsoft SMTP Server (version=TLS1_2,
+ bh=+KWx52kZkMDvnMnxKXLuDLq7nlj+S40ZXaMq1EBi6+A=;
+ b=2dHC9aybAbKKXWpTu/eTiIOM6lPwTctpoMOFr5qYKKfebngz74JtJmzawICH77EIw0MBi4W5KP73PIWNzXA8kYD823QMfCZdYsrERy9b/AShhZWm77BPW/en4yp075XP4OPuilV5IEEpYSu254LF4MvB91xkKgt+N886nceOW44=
+Received: from BN0PR04CA0208.namprd04.prod.outlook.com (2603:10b6:408:e9::33)
+ by PH7PR12MB6764.namprd12.prod.outlook.com (2603:10b6:510:1ae::8)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Wed, 5 Aug
- 2026 16:16:08 +0000
-Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
- ([fe80::7111:7e5c:8508:7852]) by DS5PPF78FC67EBA.namprd12.prod.outlook.com
- ([fe80::7111:7e5c:8508:7852%8]) with mapi id 15.21.0270.016; Wed, 5 Aug 2026
- 16:16:08 +0000
-Message-ID: <2bde809f-d2d9-4b94-88e3-f8e2ae2cc7b0@amd.com>
-Date: Wed, 5 Aug 2026 12:16:11 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/7] drm/amdgpu: Fix topology device creation and
- proximity domain mappings for sparse and CPU-less NUMA systems
-To: Donet Tom <donettom@linux.ibm.com>, amd-gfx@lists.freedesktop.org,
- Alex Deucher <alexander.deucher@amd.com>,
- Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
- Philip Yang <yangp@amd.com>
-Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-References: <cover.1785833981.git.donettom@linux.ibm.com>
- <16887553-76eb-4af9-8769-f77f4fb9fb68@amd.com>
- <b492ee69-86fa-47a2-aecc-e470568d7204@linux.ibm.com>
-Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <b492ee69-86fa-47a2-aecc-e470568d7204@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0076.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:ff::20) To DS5PPF78FC67EBA.namprd12.prod.outlook.com
- (2603:10b6:f:fc00::655)
+ 2026 16:34:02 +0000
+Received: from BL6PEPF00020E65.namprd04.prod.outlook.com
+ (2603:10b6:408:e9:cafe::35) by BN0PR04CA0208.outlook.office365.com
+ (2603:10b6:408:e9::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.19 via Frontend Transport; Wed, 5
+ Aug 2026 16:34:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF00020E65.mail.protection.outlook.com (10.167.249.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.8 via Frontend Transport; Wed, 5 Aug 2026 16:34:01 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 5 Aug
+ 2026 11:33:59 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 5 Aug
+ 2026 11:33:59 -0500
+Received: from flamewok (10.180.168.240) by satlexmb08.amd.com (10.181.42.217)
+ with Microsoft SMTP Server id 15.2.2562.41 via Frontend Transport;
+ Wed, 5 Aug 2026 11:33:58 -0500
+From: <sunpeng.li@amd.com>
+To: <stable@vger.kernel.org>
+CC: <amd-gfx@lists.freedesktop.org>, Leo Li <sunpeng.li@amd.com>, David Weber
+ <weber.aulendorf@gmail.com>, "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 7.1.y] drm/amd/display: Exit idle optimizations before
+ programming
+Date: Wed, 5 Aug 2026 12:33:14 -0400
+Message-ID: <20260805163314.214623-1-sunpeng.li@amd.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <2026080547-scoff-that-5ce1@gregkh>
+References: <2026080547-scoff-that-5ce1@gregkh>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS5PPF78FC67EBA:EE_|DS0PR12MB6536:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5b935353-0480-4f84-0233-08def30cdba4
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E65:EE_|PH7PR12MB6764:EE_
+X-MS-Office365-Filtering-Correlation-Id: 571239ac-d3b5-4999-8747-08def30f5b22
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|366016|6133799003|4143699003|10067099003|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: /mNWdKrnA3FNe+PjWECMeCGXseM+7yLuX04KBp7+bKmr3Xe0LVsGaS8K0X/FUaTgMQCuZjoAEgm4rBqSPi7+5ExqbB4rCTbQRKsF12nvhbVbxXWd9+UtVh2v4NjQ12Hq5LPgYzIniBBxZJpDDgYZV+Bvdim5vjtiOxTU5vsmQOHwK53awUvYFs41uxBAD4eJlZIg2K5J4FzkXsGwMl6uxHktWQEEBWp9cySAVLDx7pq04YCbB+wo2v1LDN0pEpyKvLCjO2K2eADoEq4UflsuN8StqH1yX8OxMe2InNH+snK42gcX2t2M1EdhhCS3rF2nGXzqLhK4zSyr8Pba+KEcnK0hpABVGO/vHgdSVRvhR5qb2wLvueiZIF/V1UnvpyTG3Pa6OsNgLqlZPM0Jdo3CHHuxwL408035LMrLLp61gxMiiykFTjLYZ56dFQYZ0rqb4/uRfPM6oFI6JLtujc6s8JSQlTTjPwbT7Y2dcovZXsu4agz+s7gFPz0MTc/nQCcaz9wUisTj9EXQjpiwzmbHF+GHNfaPD34RkbMDCrtyVz10j55BlvaEGN3gBQuVO90TZGO+wjEA6LA9HuHeLYXZh9LMKcdnh8HxL7TLj5elEwhkQXFBnWACA+X9ZIUk1OtQJcULnDTTA6iTNrC6K23VzqrNjDSo4DQLhZCAJdmM5g4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS5PPF78FC67EBA.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(6133799003)(4143699003)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006);
+ ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|18002099003|22082099003|11063799006|56012099006|13003099007|10067099003;
+X-Microsoft-Antispam-Message-Info: FQFUOGibUaoJmIfVvgERChBDNE/j11Kvgmavc8w7eAWodo2q3H9nxpwPpyigSnJD3gOLuLsh3GKgjSkd9osKh61VszcWLABh1cizsynQcuoTSBvYPiv27T4OxxsZk1ChY1S3yU3Tm0yiXrEqMFh2wG/oR0grozVOC8qxyaltj0wua69H/kJfq30bamE2MSk5DVR8BfBCynX3B/YWJ3UjaaYBLw0UrSRVEjEELRD9vvj9DVWakD/yimgeLxN3RLRDvE1QfsUcBGP3qZJ5m+HTUMBXUNJ1dIAGFlDw9JshK4HNtttayoEjyicdWLU6TAL5B7x4fZr7wvK7eBoOhJcEM1nbujM0dAto14L7oLlRFrpV/r0dNAGhlqRr7gPPQj1PA2FZ+OEtffnuJTvNVWKtz0z7zx7KsG2XihbQgioEaOO9PFJ9eBu11lnFRahxCr9Oq/2U/SF9krn0bhyx6U5vepuS0WsGgLcNh9/34T+8j3vdBSkN0xalr3ZWv9lzeKprZLKhEw2A+DbsStcbk/O+ZWNPJpsyXPZnn5+OOgLbD5JFKIIHz7HF+HwppD4W1AMgrmQXeDGn3EI4H4DpGklaYLB4w3xmm/NTrou2vCNbVPLv36qKEl779tEL8H2biP8lBL/QAt24aLurGIffY533qMkToW+9JlP9+UVk92gxobUMyITPBO0B6ce+AsA5m6PaccRLerR+RLROaWi9ADNoHQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(18002099003)(22082099003)(11063799006)(56012099006)(13003099007)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?enJZMnhlZkF5OXhnWnNaMllVSjNIbzZjREdkbWd2SEVKSGZIdWFjUnNycnZI?=
- =?utf-8?B?MFdoc3p0c1JjMjBSWGkyVmgrOWR6TDMrS1lrYVdXZjhlZ042bTVDK2xmTmc4?=
- =?utf-8?B?N0JVMVhkaHQ2RG9UWEZON3ZGV2o0a0krSkt4NEI3SWs2aHM4Z2RsOHpoSEhp?=
- =?utf-8?B?TDZKQXJORFNxNmRwTHlocFVBVFpIc2F4OFRIb05uYzNmOWUrU1NBZHVkNS91?=
- =?utf-8?B?Rk9yNHp0cHBjV0FwbUdBUmdwdEM1d0ROaXFnYjJJYVZnaGhqNGhQQ2V6Vzlk?=
- =?utf-8?B?Qkk0T2NXb2U3U0xJUUVLWHVMMy9WS21jQ05TN1E0RWUyL0pWSmcyeGg4SVRX?=
- =?utf-8?B?anNTUWxzUDJIRG16MTZMa0JDbkpJb0lWZVhmdlhaWXI2MXZXckNqRzN4NFRI?=
- =?utf-8?B?S3R6UmxqQ0Y4dm9uNUlBaFhTK0FrVkE3S2E0b0JCdThydkFLWVJia2duNFh5?=
- =?utf-8?B?R3pJWGhiNXBZUmc3RjVxTHM3STV6ZlJMSHMxMGZRRldJeEpyMVdsTHBBMU1n?=
- =?utf-8?B?WHRkS0tZR0NydGZhNHRLYWJYWnhYeGhuYjZ4NFFOQUc0TnFDOXk3VmxQL3l4?=
- =?utf-8?B?SzBiREs1L0w1WFJQLy9sM3BqTUptMFNnUDNWejdsRzF4U3dBYVFLRm0vVEwz?=
- =?utf-8?B?QlIzeDZJWDVxOXo1RUZ5c1NiQytYakVBRGJmSEdYQ3pxNW8xUVRtL09GYTN1?=
- =?utf-8?B?WFdqRlBUMWpqaEZlcFljRnhWcjYwV1lNL09uaDlqSVJhb3RoV2g1bVlMMFFZ?=
- =?utf-8?B?djEwMmdqYlhaQjRSSWl4UXNBcmxuNUxVUFErUHU4b1IzeDlORHNadWlNbGFN?=
- =?utf-8?B?ZGJHR2xMcHBXUytxVXUvU2NkdlJlUy8vME1HdmFXQnFQNnplQVAwN0didGV3?=
- =?utf-8?B?OGg5TXhmb1ZUdjFzUklrdUsrMDZZNDBtVUJ6Mm9GOGJ2bGdwRGRuWlpqRXUv?=
- =?utf-8?B?eXdiK2V2dzNtU2V1emdXeE9meUVhVy9TNHI0T1Q3dGFLMmFNR0JtMHYwOU8w?=
- =?utf-8?B?TDlRalUwR3hVMUE4ME5qT2cxRFg3cytoSmFMVnlEMGxZM3czemhRMlVGckRn?=
- =?utf-8?B?RWZlaVc4OHdOckN6c3VuQm9UdGtjTmZOUTFiTmlBbmU3Ym5hYjA1Uy9zWXFV?=
- =?utf-8?B?dWViaHYvak41ckhUYy9LejNQZEhESGZQQVdHWkRnMHR2WmRCY0U4eVdyalVH?=
- =?utf-8?B?dmY4dzlucmZHam5SWlJmSHg0MGkwSVBpM1hjR1drVHVKSWc4ZTFvK0dzSncy?=
- =?utf-8?B?YXBIekpkNzd6b2U2WGxOMUZkTEc4V05PeW1lYkZXRGVaWThIVE53cEVtMDEz?=
- =?utf-8?B?SjArVlIvaFdLVFJ0aTRjOHd2OXhYQ09aN2ZqVFdYUk1XWkRVakNyZmh1ek9P?=
- =?utf-8?B?NUV0VUFpNHk5YmE2Vk9wTXZqdm5qWjhvUXZneTRKdXFhVWFvWnhlY3lKMHhT?=
- =?utf-8?B?UTNKaS9BTTlRT053R0tUVDNmekE1NStxWmhGM1NxbVNyckRDZzhjaE50SDM1?=
- =?utf-8?B?bmIrK2RDTlRUNkRpM0dvU21wNitOWlVGK3RibSszd2NpemZHbWQyWndJMVo2?=
- =?utf-8?B?Y2pZQ0VoMmpKLytldnRMRUhKeFROTTBVdVFHRGNPWmVMOVI4RGNoK28wZW02?=
- =?utf-8?B?dUhZbnc5S0lzTk5CalhRdzVaVFZhcXFtbFVDU0hCZlE2dVA3alFMYzhvU3lP?=
- =?utf-8?B?Z21QaXdOUGZCUG9XV3ZseWRjLzVlZ1JMNjlIblF3V2RVL1YrMkR1SmdBdlVP?=
- =?utf-8?B?U2YyeG0xOGFNSkRYQ2NwSnhTMWpQdFRJL3J1VXhhaWdtcGlvb05HeXRnMEw4?=
- =?utf-8?B?WjFhUW9pQjBNWis2RFp5VStTM1NiY2RsNTRPRmU2Ry9Ra0cvY1dFalVYaHNS?=
- =?utf-8?B?NkErdm93WHFtUmp6cGFhcGdEVXRYNGhhUWNTSThFZ3VnUHo3WjN1N1pGNFRj?=
- =?utf-8?B?MWdXS2NBcHlUZ0NrMHZsczRSaWF0cURXa1dJUmJBQThHUllqMTJhNmc2MjJx?=
- =?utf-8?B?T0wyY3ROdEJIaDNsMWd5WXJwdDFDcFJZYmV6QTVvK08yM1JBcDJ6ellEUlFQ?=
- =?utf-8?B?V3BXK1daMEJ5bXhrNU5XK3pSM25naXZ4QXJmbUovbWRmUmpPREN3NndQbmx5?=
- =?utf-8?B?NHVQWGpiNmlNNXc0VXZRQUh0WUlta1p5WFBTQTgzZjhPdXdDQmRvdmVheCs0?=
- =?utf-8?B?a1hCT1h2NWNNVVo4b3gvWklrQ2k0V2ZtZ3h5UGdNMUYxN0ZGZEhONEttRUFH?=
- =?utf-8?B?Yi9ydExyUmpGMEZoMXI1OE1ZUUQ2dG1CbFYwSHhEcWpjNDFvQlo2a0EzbE1G?=
- =?utf-8?B?b0tXRlhwenk4RHZuWko4QlJrdlV1Nkh6QjBsQzJRTzFicmVEOUp1dz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: 5xeAAkntHy/XilCyoLnvo2lMpDV7G5nJndNE2yV1xD64VfgqgLV05YSjrws3RvB3v16WeVa0S/OiDUCaIByMGXZxsgoJUFmG6G2J1AuziauMBc5wn9qqQUWWwR1jeDWQzHQdZv1OzedDXEYnswJ0ra4FDcNmZmljLb5xmH+0HWqBp6plPOa1gaAh9U/AVGR1UQoJbZkPtMhFslOCXmZFhuJZyzKJwtkpfTlxSMC/b93Lq6teutI6zm8okK4CPnb8oayRd7u44VMK2EDxd11dHo3ZamN+YruaKxcJxIx7HVDol776AoE9Aqvp6aYIqUCwAyCBvRhgooUAgbcMWEfDBp01vrJpZz5VoDiaMePWq/LxWDkIuik6IZ+72IjulcX+5f0DlAuP9P8O6M+W34XRAYXNMQnarUYQaattOJL92WPPsCDo0UhucH5LyjmbFY9s
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5b935353-0480-4f84-0233-08def30cdba4
-X-MS-Exchange-CrossTenant-AuthSource: DS5PPF78FC67EBA.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 16:16:08.5933 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 16:34:01.1808 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 571239ac-d3b5-4999-8747-08def30f5b22
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4F5yzVxbHGG30ouyymy3K/Ds5iO6H9852epMz/3sxWrVWelumt7I7y/Irx9/QWq9d/4ArK4/VOEDzq02oGbJcA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6536
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E65.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6764
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -143,226 +116,162 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Leo Li <sunpeng.li@amd.com>
 
-On 2026-08-05 03:09, Donet Tom wrote:
->
-> On 8/5/26 3:57 AM, Felix Kuehling wrote:
->>
->> On 2026-08-04 05:52, Donet Tom wrote:
->>> This series fixes topology device creation and proximity domain 
->>> mappings in
->>> AMDKFD when a system does not provide a CRAT table and the driver 
->>> generates a
->>> Virtual CRAT (VCRAT).
->>>
->>> The current implementation assumes that CPU NUMA node IDs are 
->>> contiguous and
->>> that every NUMA node contains CPUs. During VCRAT generation, CPU 
->>> topology
->>> entries and proximity domains are created only for NUMA nodes that 
->>> have CPUs.
->>> GPU proximity domains are then allocated immediately after the CPU 
->>> proximity
->>> domains, and the GPU I/O link (proximity_domain_to) is initialized 
->>> using the
->>> NUMA node ID to which the GPU is attached, implicitly assuming that 
->>> NUMA node
->>> IDs and proximity domains have a one-to-one mapping.
->>>
->>> These assumptions break on systems with:
->>>
->>> Sparse (non-contiguous) NUMA node IDs
->>> CPU-less NUMA nodes
->>> CPU-less and memory-less NUMA nodes
->>>
->>> For example:
->>>
->>> available: 3 nodes (0,2-3)
->>>
->>> node 0: CPUs present
->>> node 2: CPU-less
->>> node 3: CPU-less
->>>
->>> In this case, the driver creates a CPU topology device only for node 
->>> 0 and
->>> assigns a single CPU proximity domain (0). However, the GPU VCRAT still
->>> references the NUMA node ID to which the GPU is attached (for 
->>> example, node 3)
->>> in the proximity_domain_to field. Since no corresponding CPU 
->>> proximity domain
->>> exists for node 3, the parser cannot find a matching proximity 
->>> domain during
->>> VCRAT parsing, causing topology initialization to fail.
->>
->> Hi Tom, 
->
->
-> Hi Felix,
->
->
->>
->> Thank you for the explanation and the patch series. I may have some 
->> gaps in my understanding that I would like to clarify. In my mind, I 
->> was using "proximity domain" and "NUMA node" interchangeably. You're 
->> demonstrating that they are not the same thing. Is that just a 
->> different way of labeling the same thing, or are NUMA nodes and 
->> proximity domains fundamentally different concepts.
->>
->> Your code in patch 5 (kfd_proximity_domain_to_numa_node and 
->> kfd_numa_node_to_proximity_domain) seems to imply that there is, in 
->> fact, a 1:1 mapping, as it assumes that there is a unique translation 
->> in both directions. Am I missing something?
->
->
->
-> Thanks for the comment.
->
-> IIUC, NUMA node IDs and proximity domains are different numbering 
-> schemes. We have proximity domains for both CPU and GPU devices. CPU 
-> proximity domains start from 0, and GPU proximity domains start after 
-> the last CPU proximity domain.
->
-> If the NUMA node IDs are contiguous, the CPU proximity domains happen 
-> to match the NUMA node IDs. However, if the NUMA node IDs are 
-> discontiguous, the CPU proximity domains and NUMA node IDs no longer 
-> have a one-to-one mapping.
->
->>
->> If they are just different numbering systems, do we really need to 
->> keep track of both proximity domains and NUMA nodes in the KFD 
->> topology? Or would it be sufficient to only track NUMA nodes, if 
->> that's what we really care about in the uAPI (KFD sysfs)?
->
->
->
-> Thanks for the suggestion. I also think we don't need to keep track of 
-> both the proximity domains and the NUMA node IDs in KFD. Do you think 
-> the approach below would be reasonable?
->
-> Just to make sure I understand correctly, for CPU devices the 
-> proximity domain will be the same as the NUMA node ID, and the GPU 
-> proximity domains will start after the last CPU proximity domain.
->
-> In that case, the CPU proximity domains and NUMA node IDs will always 
-> have a one-to-one mapping, and the GPU proximity domains will follow 
-> after them.
->
-> For example, if a system has three NUMA nodes and two GPUs:
->
-> NUMA node IDs:            0   2   3
-> CPU proximity domains:    0   2   3
-> GPU proximity domains:    4   5
->
-> Would it be okay to proceed with this approach?
+[Why]
 
-Yes, this looks good to me.
+We need to exit PSR/IPS before programming. Before calling DC for
+programming in amdgpu_dm_commit_planes(), there's a
+vblank_control_workqueue flush. This waits for IPS and PSR exit. (See
+drm_vblank_on/off() > amdgpu_dm_crtc_set_vblank() --queue_work()->
+amdgpu_dm_crtc_vblank_control_worker())
 
-Regards,
-   Felix
+Prior to the tagged "Fixes:" change, drm_vblank_get() was called before
+the workqueue flush. This ordering ensures that PSR exit occurred before
+programming. After the "Fixes:" change, drm_vblank_get() is called after
+the workqueue flush, leading to programming while idle optimizations are
+still active. This can lead to incorrect flip_pending detection used by
+vblank event delivery.
 
+[How]
 
->
-> I think this approach should also resolve the driver loading issue.
->
->
-> Thanks
-> Donet Tom
->
->
->>
->> Thanks,
->>   Felix
->>
->>
->>>
->>> The failure is observed as:
->>>
->>> amdgpu: Virtual CRAT table created for GPU
->>> amdgpu: Error parsing VCRAT
->>> kfd: amdgpu: Error adding device to topology
->>> kfd: amdgpu: Error initializing KFD node
->>>
->>>
->>> Since every online NUMA node is a valid topology object and can contain
->>> CPUs, memory, I/O links, or any combination of these, topology devices
->>> and proximity domains should be created for every online NUMA node
->>> rather than only for NUMA nodes that contain CPUs.
->>>
->>> To address this, this series introduces a new VCRAT subtype that
->>> records the mapping between the NUMA node ID and the generated VCRAT
->>> proximity domain. When topology devices are created, this information
->>> is stored in the corresponding topology device, allowing the driver to
->>> translate a NUMA node ID into its associated proximity domain whenever
->>> required.
->>>
->>> Returning to the previous example, the system contains three online
->>> NUMA nodes, so three CPU topology devices and three proximity domains
->>> are created, even though only one NUMA node contains CPUs. The NUMA
->>> node ID is stored in each topology device together with its generated
->>> proximity domain.
->>>
->>> Later, when the GPU VCRAT is generated, the driver only knows the NUMA
->>> node ID to which the GPU is attached (for example, node 3). Instead of
->>> assuming that the NUMA node ID is equal to the proximity domain, the
->>> driver walks the existing topology devices to locate the corresponding
->>> NUMA node and retrieves its generated proximity domain. In this
->>> example, NUMA node 3 maps to proximity domain 2, so
->>> proximity_domain_to is populated with the correct value.
->>>
->>> Since the GPU I/O link now references a valid proximity domain, VCRAT
->>> parsing completes successfully and topology initialization proceeds
->>> without errors on systems with sparse NUMA node IDs, CPU-less NUMA
->>> nodes, and CPU-less/memory-less NUMA nodes.
->>>
->>> This series consists of the following patches:
->>>
->>> Patch 1 removes an unused argument from
->>> kfd_create_crat_image_virtual() as a preparatory cleanup.
->>>
->>> Patch 2 introduces a new VCRAT NUMA affinity subtype that stores the
->>> NUMA node ID and its corresponding proximity domain.
->>>
->>> Patch 3 populates the NUMA affinity entries during VCRAT generation
->>> for every online NUMA node.
->>>
->>> Patch 4 parses the NUMA affinity entries from the VCRAT and stores the
->>> NUMA node ID and proximity domain in the corresponding topology
->>> device.
->>>
->>> Patch 5 fixes GPU VCRAT proximity domain mappings by translating the
->>> GPU's NUMA node ID to the corresponding CPU proximity domain before
->>> programming proximity_domain_to.
->>>
->>> Patch 6 creates proximity domains and VCRAT entries for all online
->>> NUMA nodes, including CPU-less and memory-less nodes.
->>>
->>> Patch 7 adds a numa_node sysfs attribute for CPU and GPU topology
->>> devices, exposing the associated NUMA node through the topology sysfs
->>> interface.
->>>
->>> Please note that the changes in this series are on a best effort 
->>> basis from our
->>> end. Therefore, requesting the amd-gfx community (who have deeper 
->>> knowledge of the
->>> HW & SW stack) to kindly help with the review and provide feedback / 
->>> comments on
->>> these patches
->>>
->>> Donet Tom (7):
->>>    drm/amdgpu: Remove unused argument from 
->>> kfd_create_crat_image_virtual
->>>    drm/amdgpu: Add VCRAT NUMA affinity entry
->>>    drm/amdgpu: Populate NUMA affinity entries in VCRAT
->>>    drm/amdgpu: Parse NUMA affinity entries from VCRAT
->>>    drm/amdgpu: Fix VCRAT proximity domain mappings for GPU nodes
->>>    drm/amdgpu: Create proximity domains and VCRAT entries for CPU-less
->>>      and memory-less NUMA nodes
->>>    drm/amdgpu: Add numa_node in cpu/gpu topology device sysfs entry
->>>
->>>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 152 
->>> +++++++++++++++-------
->>>   drivers/gpu/drm/amd/amdkfd/kfd_crat.h     |  19 ++-
->>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  49 +++++--
->>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.h |   4 +
->>>   4 files changed, 168 insertions(+), 56 deletions(-)
->>>
+Split the vblank_get() component of `dm_arm_vblank_event()` into
+`dm_arm_vblank_event_pre_programming()`, which is called before
+programming. Call it before the vblank_control_workqueue flush.
+
+Includes a drive-by cleanup of prepare_flip_isr(): the only caller is
+dm_arm_vblank_event() and it's simple enough to roll-in.
+
+v2: Fix checkpatch formatting warning on
+    drm_arm_vblank_event_pre_programming() arg alignment.
+
+Fixes: 48ab86360af1 ("drm/amd/display: check GRPH_FLIP status before sending event")
+Cc: stable@vger.kernel.org
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/4141#note_3583205
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5527
+Assisted-by: Codex:gpt-5.6-sol
+Assisted-by: Claude:opus-5
+Suggested-by: David Weber <weber.aulendorf@gmail.com>
+Signed-off-by: Leo Li <sunpeng.li@amd.com>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 05984e29520a28c27f5a2388742c957a6a87ee7a)
+(cherry picked from commit 8419331e64d92a8de5fc4feef0e305f201fb8b33)
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 78 +++++++++++--------
+ 1 file changed, 46 insertions(+), 32 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 11affddbb2650..40d82a3eeec05 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -9656,25 +9656,6 @@ static void remove_stream(struct amdgpu_device *adev,
+ 	acrtc->enabled = false;
+ }
+ 
+-static void prepare_flip_isr(struct amdgpu_crtc *acrtc)
+-{
+-
+-	assert_spin_locked(&acrtc->base.dev->event_lock);
+-	WARN_ON(acrtc->event);
+-
+-	acrtc->event = acrtc->base.state->event;
+-
+-	/* Set the flip status */
+-	acrtc->pflip_status = AMDGPU_FLIP_SUBMITTED;
+-
+-	/* Mark this event as consumed */
+-	acrtc->base.state->event = NULL;
+-
+-	drm_dbg_state(acrtc->base.dev,
+-		      "crtc:%d, pflip_stat:AMDGPU_FLIP_SUBMITTED\n",
+-		      acrtc->crtc_id);
+-}
+-
+ static void update_freesync_state_on_stream(
+ 	struct amdgpu_display_manager *dm,
+ 	struct dm_crtc_state *new_crtc_state,
+@@ -10023,17 +10004,47 @@ static void dm_arm_vblank_event(struct amdgpu_crtc *acrtc,
+ 		return;
+ 
+ 	if (pflip_update) {
+-		drm_crtc_vblank_get(&acrtc->base);
+ 		WARN_ON(acrtc->pflip_status != AMDGPU_FLIP_NONE);
+-		/* Arm flip completion handling and event delivery after programming. */
+-		prepare_flip_isr(acrtc);
++		WARN_ON(acrtc->event);
++
++		acrtc->pflip_status = AMDGPU_FLIP_SUBMITTED;
++		acrtc->event = acrtc->base.state->event;
++		acrtc->base.state->event = NULL;
++
++		drm_dbg_state(acrtc->base.dev,
++			      "crtc:%d, pflip_stat:AMDGPU_FLIP_SUBMITTED\n",
++			      acrtc->crtc_id);
+ 	} else if (cursor_update) {
+-		drm_crtc_vblank_get(&acrtc->base);
+ 		acrtc->event = acrtc->base.state->event;
+ 		acrtc->base.state->event = NULL;
+ 	}
+ }
+ 
++/**
++ * dm_arm_vblank_event_pre_programming - Prepare for programming
++ * @acrtc: The amdgpu CRTC to prepare
++ * @acrtc_state: The new CRTC state
++ * @pflip_update: Whether a page flip is being programmed
++ * @cursor_update: Whether a cursor update is being programmed
++ *
++ * Grab a reference on the vblank counter if a page flip or cursor update is to
++ * be programmed. Do this before programming so the HW is not in any
++ * idle-optimized state (such as PSR).
++ */
++static void dm_arm_vblank_event_pre_programming(struct amdgpu_crtc *acrtc,
++						struct dm_crtc_state *acrtc_state,
++						bool pflip_update,
++						bool cursor_update)
++{
++	assert_spin_locked(&acrtc->base.dev->event_lock);
++
++	if (!acrtc->base.state->event || acrtc_state->active_planes == 0)
++		return;
++
++	if (pflip_update || cursor_update)
++		drm_crtc_vblank_get(&acrtc->base);
++}
++
+ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 				    struct drm_device *dev,
+ 				    struct amdgpu_display_manager *dm,
+@@ -10301,16 +10312,19 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_state *state,
+ 		}
+ 	}
+ 
+-	/*
+-	 * DCE depends on a combination of GRPH_FLIP, VLINE0, and VUPDATE for
+-	 * event delivery. Only GRPH_FLIP handler can send pflip events, and it
+-	 * only fires if HW latched to the flip. Maintain legacy behavior by
+-	 * arming event before programming.
+-	 */
+-	if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) == 0) {
+-		scoped_guard(spinlock_irqsave, &pcrtc->dev->event_lock) {
++	scoped_guard(spinlock_irqsave, &pcrtc->dev->event_lock) {
++		dm_arm_vblank_event_pre_programming(acrtc_attach, acrtc_state,
++						    pflip_present,
++						    cursor_update);
++		/*
++		 * DCE depends on a combination of GRPH_FLIP, VLINE0, and
++		 * VUPDATE for event delivery. Only GRPH_FLIP handler can send
++		 * pflip events, and it only fires if HW latched to the flip.
++		 * Maintain legacy behavior by arming event before programming.
++		 */
++		if (amdgpu_ip_version(dm->adev, DCE_HWIP, 0) == 0) {
+ 			dm_arm_vblank_event(acrtc_attach, acrtc_state,
+-					pflip_present, cursor_update);
++					    pflip_present, cursor_update);
+ 		}
+ 	}
+ 
+-- 
+2.54.0
+
