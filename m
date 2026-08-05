@@ -4,94 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87E9EC55ABA
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 13:50:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6CF36C55ABA
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 13:53:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2CFD910EE53;
-	Wed,  5 Aug 2026 13:50:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0253C10EE76;
+	Wed,  5 Aug 2026 13:53:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qW9564sf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kT0h4V56";
 	dkim-atps=neutral
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
- [209.85.216.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 219A910EE53
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 13:50:20 +0000 (UTC)
-Received: by mail-pj1-f54.google.com with SMTP id
- 98e67ed59e1d1-38cfcb507a3so138566a91.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 05 Aug 2026 06:50:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785937820; cv=none;
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 86C2810EE76
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 13:53:16 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-3856d4015e0so124086a91.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 05 Aug 2026 06:53:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785937996; cv=none;
  d=google.com; s=arc-20260327;
- b=jbDTNxpilGbYoxBaD8k3putkbytJmICPioO3oRCIuJFN1o9VEVr0nXWxAAu6UZ+UAN
- r6bWqjgYz7u7R6pxAtfpJjnK63STaKeHFjNXdQQCefAllWsZog9R5XA7vX+t0R40gYXI
- 7iA+Y3i2c39Md4h2n3+qHNN5QXGkw5zQEJaKeFXsPdQLq6ubkYNABX6tJO6/P0Hz6tQH
- 19HQmM1phJyzAxPzjvN5hRo64LNli0OGBIOBolcwHj5iIo6xPCHrGZILUEjGVjZGEDu6
- /LvrekoTgRXNFhoy4SSUoxO0MllXHFyfiSV3iks62qGsFbJhl7mpyqRGvyA9W46+kJrE
- +3HA==
+ b=ntMOv45jSWN1djZ1HcRkV7HGOkJrgQgmI/5Qp4LJsrtnG2qKD1v0SguF1KdwTIqmFN
+ 8r/buDolOVm5VLScI9B2uecF0WX8pmbQlEaw7/j+owVHrKLt2Y7uCwc0k65q1k+zxxHU
+ L71g976vKz3AZ1MsBblOfjjV+7ChviqtJvnJejUTB+ax+8o/K14xtOst6Lf+l1lVF7hy
+ Q62g9CO79kc2wxylMCx+4qZDe0JcuA+Am1Xm8RZaD9egvFegttvlObUQRBZVV1Wvqo8e
+ Qb2+FFoeMFHLhf03TN9SWumuTFFYaKtRJx5d2E+gR3y5XWALAXBEDQy3YUgiqGduFwPF
+ jH9g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=vSQA0BsUj/4ORVqaxITdC6Co23Dtd0EUEyRHY/gNwbQ=;
- fh=4Q3X2rl3ztBeMJTRxXEgQ3SgCMA6A0RZo2JKo3J6hck=;
- b=Or/9RJqhyN+cWRCNHdC2GKH5uyWL2gWhdbZSUryLVYTgBNH60XZsQxIggW/DK1x0Gi
- Ql0OryjEe7H21YVmQ1Ki3K0JbN/8b6pnJSx1rHnObrNvHuWE+RBvIn3wGHyLSx4oZZMw
- pcJxiy3+ZzNv0kin64QpvRWhiUDjmhqdDTAt1FroE6ey2DSTQyy90lSZTWzLmmM7HOgJ
- qDhNi2FHgIB79x2sOFoGh0OmydZXIqQ3A4kL8u7xTdx2E8Q77seNsvfoHRRyaYcymlkl
- 64ArDONZoUOh6YK10ignMR3gAJtRUJgXPT014KIAVHIizNU92uGTmbor+gIqpJFsrzA4
- AaHA==; darn=lists.freedesktop.org
+ bh=xKeEQ4sSvAbPuFKg5pxuUpqaDd+tNZrB5zhY1H5pkG0=;
+ fh=r7JgPt6nnHppQG6VSLMMH1eQwH6kHmUeYriI7nSVMqw=;
+ b=EUQaZsN0F4C+DsHwBy1C72fqkS1TcwbJ915eCLnYULeKohP9vOyXAqh4zu8GLkmNHo
+ eZXG3z0mVIjV0Tl9eJY0wgyOEzQi3I14hEyXDoxV5bFPEMbK/D0awsWq9CGwulAVTDYP
+ 9llzf61aMoj5Paqf6pdae6fi8/cCZVvSu/MxTO/orI0CcoZfZA5jXTcaK1wppN3DSN7a
+ AOMg1NjAEBIBJWunnL2gMzFikhNkrjNrbJ5VxAucBPThHf8ht+ZikSPlRl72ec+rpxZz
+ YypS7qQJOEVVppCrTd19ixm12RPQ/8W8d+38QBroNefCp/z3HfmIw8Re1X5qg2EF/nJi
+ 5jUg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785937820; x=1786542620; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785937996; x=1786542796; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=vSQA0BsUj/4ORVqaxITdC6Co23Dtd0EUEyRHY/gNwbQ=;
- b=qW9564sfF8ZyXx84fxe3t8jMrgnsmh26DSHwnwcIJyaPR9ZKFbei3SWAqzCyjbtUar
- g0ULvY0JQEmtn2WaLyeYlanYa+0n/OfkqFMDvDSIWdkFR5rv6uX2bpGWytzMGz3jrW7C
- /gKZq8swPXr3BEqUP+hb7K0FJwZrB1CfHdHfPmaeiSMa91wSkgNd2ginYtTGIyXr9NgN
- eGbjQl7+lnwRvZdGIyTbQHH3kKEbG2AHhvKblmjU9nG4osfvOX0stH7l4Fwnui4QwghK
- 6UpW84iFffkJ5NNcEb0DsSwuZaaIA+Ymc30kIVlk/+DqOg/ctSWFKv1jjXNNjTzc8l17
- q5FQ==
+ bh=xKeEQ4sSvAbPuFKg5pxuUpqaDd+tNZrB5zhY1H5pkG0=;
+ b=kT0h4V567a8UzgRjSx5CF9gTfpjiR0Pmc9O7C4OYt0Ny4DiTkmV5l9koMvqjcNiXd2
+ 9invKQkflOuyoN2BX3DOTpY3Myth/J3Oypl7hk44T/US44nUQmMmOFUiNm/X5y7F6S38
+ GIx0hq+VcBvOmownhEfE0Eg+uOIGO6lP2i0FxQOx2Pt+y/VtgicualNIcmKPeWe3DOyM
+ 43V2Vt95Qhy96pYXnS0hbOz5RyqJAOCtOHOmVOWQLZesNDmkBuNnF2N0m+Tgso8VYQo1
+ SinHh8AwNSUQlN/zhZOphZNrfVXKeQU5ylaTH6sAOfDkjSUkmHjGANNTw4jseD2fi7cq
+ 42Gg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785937820; x=1786542620;
+ d=1e100.net; s=20251104; t=1785937996; x=1786542796;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=vSQA0BsUj/4ORVqaxITdC6Co23Dtd0EUEyRHY/gNwbQ=;
- b=TpFXfKn0nYRl7Tq/frMZ0uC0txHFG/pF4/+U+W5noSw2/X8WeD5lbYATFH0Jrn7zLF
- DsPJ8f3fiBbrpiMRYtna6R8LpXbchiIrjr1tDXqc/x6Mu0y12OD+vVgmWc8TcciWQzbD
- 6va6w70YMgDlVbhivUO/0KNFS6orW5iRY0FdaGGxgb/zV6ZohPj5Ii5ENi45WUGExkOd
- njpcs4x6yB5ugf5wvwS3nlhCD+8pso9oN39MQsqvbtjcZWZ7twEwbXvlDMzJyS4ygETC
- uB+CUpIJiEiT6qe3whwUW7pOtR3uiwJi7UrctqAXxfCoDiR0PNm+btJDYaX2HroZUQPG
- choA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rrxy8xSRWW6gDKGcmSD2JYkIOxDlq7is1Woo/kNHBECDtCLLxXAwGS7JaUgeW9I4E+Ha6u99HG4@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw5l69O5ZZ26fV1OlOC0Xr9gFPeFst3NAfQvcPQfcHn1QYkWIsE
- szNFKBSbXjbS3tnnBcfR+TMn8Ayqt1fnuxiz54zNww+B1z3HkEtke2dbE6XZd/TfpMkAE1/AD+k
- eOhVvO+yh6tEDBUk2upPxb3kR2041bn8=
-X-Gm-Gg: AR+sD10/f5vlAui36VNRzSqPL3DZu1nthEwMJ75wT+sgGeIZLQiZahX7v/Nl4tkxk+U
- VX87IhLHBVMFHE6wUuDMv9pbSytS/zFTyHT8skdWjONo8cNBRAHMAqPI4NhyohAkhg8UcC7y097
- RqJcVSSU6tQOqIMWaJ3xYmoUMQIA/qqXvjSjXnepxU4xaKaDnA7RxAcbj21XmyKQ2hJop6OLC6t
- KSWrKYQ4lJbCZV32iNVZlywpWprnKV5yw6mavVb8wxijG81SJOpIi8/NeqZPCeGRNGTjiz0r5rx
- IozoABHfMaOo66czxFL8Fagtoxguq4nS9XeyBg9Yb6DbpPVt4vymyE6XXaXUa3BNND1kCaq1vcb
- QKWOTCNfz2PXYO7G36C2H69fmDU47A4U=
-X-Received: by 2002:a17:90b:264b:b0:381:bcfb:e710 with SMTP id
- 98e67ed59e1d1-3903c64c81cmr4859709a91.3.1785937819475; Wed, 05 Aug 2026
- 06:50:19 -0700 (PDT)
+ bh=xKeEQ4sSvAbPuFKg5pxuUpqaDd+tNZrB5zhY1H5pkG0=;
+ b=gsorz/yDkMlza5Q6CCIn/pvNLddCIapO+7YKuTVPiwFcAg5aqiLazQz0Wk3ODFKy10
+ YwFVB8O9Ei3Z37deBAxKCqsJ/F1jF+1Zf5U+r3nZRes91SBgFfI6ZfHoBDVrGFdUOwMF
+ mD5R3t2nxCzOECLeIU5qi7R1wR/E3Kxq9BXk2p+YZndPlVyqytK8n0/0Zc1nNWUGOd+v
+ lFYADUsh36SWp5ReDzrWZOKoXfmAHWj2fryPTVCfD1bD5TIFl17Uqn3FMh+nTsoaqqdA
+ t1gWEsF+X7oXDMG2tcma3Y/NiKzqltpOmD2nkinR/q/cjzL8fdd1oQ63GpsrQSrw1U+3
+ VoEA==
+X-Gm-Message-State: AOJu0Ywm/l3WVoRqUxCLyQZLL6Hvb0/FMh9Bon8VBFpgndxbWy3bWeU9
+ rpJ2jJczq8s2umJ20zIADllfZAT3coO2DpCabrN/rtis9R2b7iaR9IEoi3es5Vrtu6viTCKubzE
+ 7Iq3BGaNbIbQN+cnHQXa3pBSNtjgVYfs=
+X-Gm-Gg: AR+sD11PpEIb3dGgqajVE6XiLE14mKs372B8t9rUTcucHQNiN7fObphR57Xf5F7HLVS
+ 0Kr0HPyqnXu5dYo5OXaLPEP5S/msi1Mjfb8LjtvTgKwvvJT9zojdPfYkwiIpwBGbH8n/FIXc3Nv
+ oV2OSrfGfvoKNtThCZAspuN/0I5dCJqjd+rFRc/Gxte83OLRIQar/bHGDIMW5Wu9aqDQE9EtPBT
+ Va/mSn+MHJjUUA3F0ovDmefJFRNgRM1MUT4uWzCK7k8nImkqslBJNzQ860M1vjiZO020OjR/qjG
+ 1yeZsfgtTtVodjB/CXHdkr2oOxiLMcP1OHdJ1p26RccsUunQu9XynQ4vZp4svaGOF7PVBJs/c3d
+ jDkugcqRkPZH43hzpskEB2uamNsCj+jw=
+X-Received: by 2002:a17:90b:5448:b0:390:3936:8760 with SMTP id
+ 98e67ed59e1d1-3903bb0cf4amr5779623a91.0.1785937995959; Wed, 05 Aug 2026
+ 06:53:15 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260803124533.19375-1-timur.kristof@gmail.com>
- <480843ff-5c4d-4e4d-bf20-8675105eb4c7@amd.com>
-In-Reply-To: <480843ff-5c4d-4e4d-bf20-8675105eb4c7@amd.com>
+References: <20260803124121.16912-1-timur.kristof@gmail.com>
+In-Reply-To: <20260803124121.16912-1-timur.kristof@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 5 Aug 2026 09:50:07 -0400
-X-Gm-Features: AUfX_mxI9pnx4ABH-nfsfg0x3xaZDJciavhBrqoQ6Xz_csoxyuz4YSqrL97ua9o
-Message-ID: <CADnq5_MUGJDoniYGTZ+Y6c++5wUjUXmCmC0-Fb8HG8-mJZpJMA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Set native cursor mode for disabled
- CRTCs again
-To: Ivan Lipski <ivlipski@amd.com>
-Cc: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>, 
- amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
+Date: Wed, 5 Aug 2026 09:53:04 -0400
+X-Gm-Features: AUfX_mziJSbH9nawGrHQaPFPQzj4kozN-HN1bAZ4PRGw9PJhzxEqi2hcVVJN6TU
+Message-ID: <CADnq5_Pud8guD5CGOK5d7cS3nPTfAaJhFGWezmuw6PpACVM_Qw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix crash in
+ hwss_set_output_transfer_func()
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
  Tvrtko Ursulin <tursulin@ursulin.net>, Natalie Vock <nat@pixelcluster.dev>, 
  Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
@@ -118,68 +114,42 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-Alex
-
-On Tue, Aug 4, 2026 at 4:43=E2=80=AFPM Ivan Lipski <ivlipski@amd.com> wrote=
-:
+On Mon, Aug 3, 2026 at 8:58=E2=80=AFAM Timur Krist=C3=B3f <timur.kristof@gm=
+ail.com> wrote:
 >
+> The pipe_ctx->plane_res.hubp pointer is NULL on all DCE
+> hardware, which causes a kernel NULL pointer dereference
+> on all Vega and older GPUs.
 >
-> On 8/3/26 08:45, Timur Krist=C3=B3f wrote:
-> > It was regressed by a refactor. Let's fix it again.
-> >
-> > Always set native cursor mode when the CRTC is disabled,
-> > to make sure it doesn't cause atomic commits to fail when
-> > they are trying to disable the CRTC.
-> Reviewed-by: Ivan Lipski <ivan.lipski@amd.com>
-> >
-> > Fixes: 151164f96a4b ("drm/amd/display: add cursor module")
-> > Cc: Alex Hung <alex.hung@amd.com>
-> > Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
-> > ---
-> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c | 9 +++++++-=
--
-> >   1 file changed, 7 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c b=
-/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c
-> > index ab50d58896ab..d565433ea06d 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c
-> > @@ -290,15 +290,20 @@ int amdgpu_dm_crtc_get_cursor_mode(struct amdgpu_=
-device *adev,
-> >       /* Overlay cursor not supported on HW before DCN
-> >        * DCN401/420 does not have the cursor-on-scaled-plane or cursor-=
-on-yuv-plane restrictions
-> >        * as previous DCN generations, so enable native mode on DCN401/4=
-20
-> > +      *
-> > +      * Always set native cursor mode when the CRTC is disabled,
-> > +      * to make sure it doesn't cause atomic commits to fail when
-> > +      * they are trying to disable the CRTC.
-> >        */
-> >       if (amdgpu_ip_version(adev, DCE_HWIP, 0) =3D=3D IP_VERSION(4, 0, =
-1) ||
-> >           amdgpu_ip_version(adev, DCE_HWIP, 0) =3D=3D IP_VERSION(4, 2, =
-0) ||
-> >   #if defined(CONFIG_DRM_AMD_DC_DCN6_0)
-> >           amdgpu_ip_version(adev, DCE_HWIP, 0) =3D=3D IP_VERSION(4, 2, =
-1) ||
-> > -         amdgpu_ip_version(adev, DCE_HWIP, 0) =3D=3D IP_VERSION(6, 0, =
-0)) {
-> > +         amdgpu_ip_version(adev, DCE_HWIP, 0) =3D=3D IP_VERSION(6, 0, =
-0) ||
-> >   #else
-> > -         amdgpu_ip_version(adev, DCE_HWIP, 0) =3D=3D IP_VERSION(4, 2, =
-1)) {
-> > +         amdgpu_ip_version(adev, DCE_HWIP, 0) =3D=3D IP_VERSION(4, 2, =
-1) ||
-> >   #endif
-> > +         !dm_crtc_state->base.enable) {
-> >               *cursor_mode =3D DM_CURSOR_NATIVE_MODE;
-> >               return 0;
-> >       }
+> Let's add a simple NULL check.
 >
+> Fixes: f879f53407f0 ("drm/amd/display: Refactor DPP_SET_OUTPUT_TRANSFER_F=
+UNC to drop pipe_ctx")
+> Signed-off-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+> Cc: Tomasz Siemek <tomasz.siemek@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/driv=
+ers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+> index 11411fa94665..5495e493b2eb 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+> @@ -1900,7 +1900,8 @@ void hwss_set_output_transfer_func(struct dc *dc, s=
+truct pipe_ctx *pipe_ctx)
+>                                 .xfm =3D pipe_ctx->plane_res.xfm,
+>                                 .dpp =3D pipe_ctx->plane_res.dpp,
+>                                 .mpc =3D dc->res_pool->mpc,
+> -                               .mpcc_id =3D pipe_ctx->plane_res.hubp->in=
+st,
+> +                               .mpcc_id =3D pipe_ctx->plane_res.hubp ?
+> +                                               pipe_ctx->plane_res.hubp-=
+>inst : 0,
+>                                 .is_top_pipe =3D resource_is_pipe_type(pi=
+pe_ctx, OPP_HEAD),
+>                                 .stream =3D pipe_ctx->stream,
+>                         }
 > --
-> Thanks,
-> Ivan Lipski
+> 2.55.0
 >
