@@ -4,100 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 770A7C55174
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 10:22:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77608C55ABA
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 11:43:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9CB110E206;
-	Wed,  5 Aug 2026 10:22:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0103310E200;
+	Wed,  5 Aug 2026 11:43:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DhOnoyDE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Hq/yAZ3n";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012023.outbound.protection.outlook.com [52.101.53.23])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3311C10E206
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 10:22:43 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011014.outbound.protection.outlook.com [52.101.62.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 356AA10EE0F;
+ Wed,  5 Aug 2026 11:43:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hQ3iVtOVGp1/7WLV0rE0Z8EMU0AqgognUKopKoT3brgTSIesLV0zDWkuFmsDx+KuaMQaoxXLPgGX7oCkrduyjxo6cUBvNq0ATSLPKT156vz1AySAqCTNpXfWuUbF6DvEoDKGydPvtJHPCVOtBtmV3yIh4DHV+Ie7if+hFxYIUIJ3CSOycPsbhfqPPnzrXLpzUgpwwBNOLdFbkP1sg3RmlIiR+JFaF3l0iT6jgxMVLTmtq012LO10sOsiiiCyNPp/uivJkoA/s0h30U3rVkLaq6BnKylSsaBjyc5YBZITFGDJ/NjMyAdEWW6KWWUY7FHT/ygViJRQ0iGkQFKXSq6SkA==
+ b=sS7zh9vTQb5PaGPYAS8+P3lIjaERzsYHlRF4mETxhqflkPf3YCA5FZ7ZVXifKTVpPVf8W+Xlssv80XCoet5uofdL30Xd0iZ4R67wSlNsDcOakZCL4xMFNFlBumU2w/DhB6GT8BUmNP3l0mMmqrqAP8yLhQ0xMuGmei3mZVqZDHksMenENvS63Zzfw7Iz9XSLDtr8K/fAOeBd5Lsr8xJr3vR1HbiNEmKChQCQA/TbFlk/Ql81vuT7WS8YKvtV4EMmDVcGWsCyw+ArCN424lb4GhRWh2MCn66KJpVh99Ejzt8gXHxa/xgNkyi5zCAWuHnNObcaW1Iv86NstvJrkMTt8g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=14RFgiW/x3RDtE5QN3Z8vSX9aFlc9vC9VTXQlLiHJlw=;
- b=ONgyoagiL61Fe/Yt34jmCSlNDRJwg5YA9ldkaKwsR/SwoXPgoQmQFsuJ+zPo3ov0p0rIm6U4Qln0S2dd3Zjhqkyfsnw1LdNHRmuRfWovWVxyxgDgJnlYGVGdBGnYL/s+8bLOlfXYeiudM0vCzTrXD6C0KZGcOuyvOKns6bxdFWRdBUMRwlYXlWblxbbqmQVhmLveghZEZjcAjBvr02jQNF4A2Vgl/8LKagFaMYrMJlJKeTLKRS02aFFRjdHPTJeQruMy9pSuXo5skG2Esp6pAPRMLYdEJchK2vveVYqU9+CqNpd/Bx3r6o9TdurGAxPfyBGyTQv9oHyyprXc0fULcQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=eFdNpUrGn5XNk9h88UdwIJdYgvbumUWpKbhgc/Kibrc=;
+ b=jiwjsWLF6SynAS59F3rHMvTLtV5jsw0SXI6QL7eBxKl84Jq/T8Q5aNLocbF7WkMRI4d8igShArIKNnU37VkNjWqh4uYWaTNhaaQDn+PH+za0DD4InxaZTvA55KXw6hZoXgrvonyQZi8jEc56bmUehSw7zmt1W3/mPYeOJvi1XeM4er0uLYK+3v9THXDvNoDx45O7gcMgSwrq5Ue/1KqsWplP4ysZat5Lb6/6T4a6cWjmEBrox2qqkX3Arvq8pQxwr9itlbm7302D44fBmP/tiGVBbKc5Y2/FWIy1+XOUsPNIzndj9vTtdudMNTAUjpXaTfjZ9/gKQxkDcx8E92Nvlw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=14RFgiW/x3RDtE5QN3Z8vSX9aFlc9vC9VTXQlLiHJlw=;
- b=DhOnoyDEcoYmf43YlmJoW0ou+/UK9b8YsLlQfrzwQOxROmu2ul4msWhhVRgM2xk6BWfUiMJXFzf97tTU2ra1/8rLSSgTWT7PIrj6zCcpiaOrLPQWC+8V5NUnyo5zvkP/vNkVBINV2VfPEwdtqdePZTeYGuRkgvpBiIJEVAgy09A=
-Received: from SJ2P221CA0010.NAMP221.PROD.OUTLOOK.COM (2603:10b6:a03:5db::19)
- by IA0PR12MB7722.namprd12.prod.outlook.com (2603:10b6:208:432::7)
+ bh=eFdNpUrGn5XNk9h88UdwIJdYgvbumUWpKbhgc/Kibrc=;
+ b=Hq/yAZ3n7EplcOcOgJ2FEZYJ3dAL+Aiq1HBEiGtTBGvQ3i/a+fKUzid4nWGemtsFdPtn1MOsLQhp6G6jBVnxhZwHZ6eYmmfiMGIuZkOQYFF7Fv5DckN//5x6CB0qup+btACLRik8ApfQRNpyhTHajKDxkYzhEG1piwC+R6il50A=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA0PR12MB7578.namprd12.prod.outlook.com (2603:10b6:208:43d::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.16; Wed, 5 Aug
- 2026 10:22:38 +0000
-Received: from BY1PEPF0001AE1D.namprd04.prod.outlook.com
- (2603:10b6:a03:5db:cafe::ad) by SJ2P221CA0010.outlook.office365.com
- (2603:10b6:a03:5db::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.20 via Frontend Transport; Wed, 5
- Aug 2026 10:22:38 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BY1PEPF0001AE1D.mail.protection.outlook.com (10.167.242.106) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Wed, 5 Aug 2026 10:22:38 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 5 Aug
- 2026 05:22:37 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 5 Aug
- 2026 05:22:37 -0500
-Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 5 Aug 2026 05:22:36 -0500
-From: Jesse Zhang <Jesse.Zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- Jesse Zhang <Jesse.Zhang@amd.com>
-Subject: [PATCH v3] drm/amdgpu: keep PRT mappings off the vm_bo state lists
-Date: Wed, 5 Aug 2026 18:22:12 +0800
-Message-ID: <20260805102230.4060525-1-Jesse.Zhang@amd.com>
-X-Mailer: git-send-email 2.49.0
-MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Wed, 5 Aug
+ 2026 11:43:12 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0270.017; Wed, 5 Aug 2026
+ 11:43:11 +0000
+Message-ID: <0ede7c4b-955e-4417-a58a-4a18a1f08790@amd.com>
+Date: Wed, 5 Aug 2026 13:43:06 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/radeon: restore hardware polling in
+ fence_is_signaled to fix performance regression
+To: 2564278112@qq.com, alexander.deucher@amd.com
+Cc: airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Wang Jiang <jiangwang@kylinos.cn>
+References: <tencent_38CA3044B54F14EC7314032134C531AFA807@qq.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <tencent_38CA3044B54F14EC7314032134C531AFA807@qq.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
+X-ClientProxiedBy: FR4P281CA0354.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f4::11) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1D:EE_|IA0PR12MB7722:EE_
-X-MS-Office365-Filtering-Correlation-Id: e043f619-6b96-46e8-5bc4-08def2db7997
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB7578:EE_
+X-MS-Office365-Filtering-Correlation-Id: d33c4d00-aeef-45d0-3fe7-08def2e6ba4a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|376014|82310400026|1800799024|56012099006|10067099003|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: qyF/DLkvYFQzci7sWBAFwi35rhoy15JZ43+6f02KH467mzpK9Yic4HJvDx3BfendkN5lff523KBc1kIbxhQtvDwZUEopkPhXPedNDf0ReWhJYDHfnya9I7Jnb3Zao4MlSRzCVx1iDtSNfOjhLQlWDsA4Sxu5ELPXUSbK+K0VZFd3ccL+AF3Kfso7Tx9DY4UGIqo0TvLm6UR40QyaatY/Mib7cASgjcIsWBIehSVNtLpLD74qJ5uMcEA7ZdJbA4zrcddpmYwXpxv9vOsAqycg7+w7RD7NP3mNMBCEnuR4D4HRzDG4mP9Ed6JK578ASul4gvg11F/D6bcGvV708s8Rs9vLmcfOkb6FvuKijpmHERJjHVYxix+XMaioBSS9vf2F7BaeU8reu1IeHoLphr/re/HOsIVGvodMg6CrZVbVRLN1mQN2hXHyyg/TW5xrj+iVglpXw9QhKGWBDpsqbequptzulsFflvI4hOYYEZ2ibuNkMVpF0XxvyI0B7tgjBpjvmRCA2/8LlqjkCMlDN3KjVU8Y2jiUt3tkwkPr+qUXtVLp/6EDKpMyWJQQxhP2VZlfurk6AxUhnnBaxGji43b+bItZeFR+lEUELHB3Ac0O+iq15K+s25jQ6QRbNBJ5hvh/iLGUAoCR5PWgp4wd5OOjzVre19gq8PQevMDYuPWTlqKOKZUeiCT9lSHljt63Zz/zUJ9NWkIr4adhokd17zcnCQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(376014)(82310400026)(1800799024)(56012099006)(10067099003)(11063799006)(18002099003);
+ ARA:13230040|366016|23010399003|1800799024|376014|18002099003|22082099003|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: GjrhMetKPMj92TISG4g0wEE2+anIE8p5BDHY6twBL1kt3HpCE0hDjJbOkoL4ZBTJXAviiPNR39/WPG3HomSNlKaScSNmi0kSTXHshaW3BiRgE7QtFN+hkPwxAyl6Y92PQFC8UpiKJf4GNftobwkRClDOeFIcNdBL34909uyJNgGYyhjqggTKPrt5jDzndWjzMD2e/Ed2Dfc2tjoEtsUwIqasp41bHF2avZEdd4nbEfHDzO+g3rXXP2KL4oRJJejfPpkgP0+yGwWmg4cZKdDZDRddiVbpar3/0IJog1fR6yN9rOhrGJKUW/IC51Id0yd9Pnd0D6bcBgBQ64yt30C9RCROtESuYMcQRedMAVdQWSjj+EuLubfYJGwrZiYGE/UfYoHJNBhtvdHc6f1onKAtxpB4WQ5u45OIWvyODF+Ss57NgTRDST1hu4PuQlb5UdNaq5garzeGs8sun4BC9CihaFhC/bbdm5DMbbwoI++ZcaNncWHrHTYPmi3/xx1C54JuCVIySUF3JVx5lIEYN38/Elkh6pUGbiH6E2xA10DderuRewxajXtgtw3x9vrTqhIOMPKH5XKI3lyBAaZR2hmsY7BwOa41fbXeQSLLkICokaoMfFNA7Q2n22G9BuTYd3doLlnYfdhb6st33HN7exh+jg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: akyUSdJD5Y9AiKD8imw6mZ7rcSN4nxqMNAgmqCzijmgoYmtpxj2WdOWmDL7bt1WC7tfQ80hHSAxcCKSvn3paKZ2Pnrnpd0O+QaYCdJ7tozAnn335OSTF3UOud7+4u0mSrsjtDttsqDuh8PjvXnVvaKbgdQozOow3ZTtp5Ow57ybyefcQwc9YbFCc6X/Mrg5vHW9QKLl5lshEiAxDn95V8ZZ+Yr7cnAw0Yqzgx/a6CIyovtQyXI5paFQ/ec+4tuJSL00DMq0H9VZH8ZtD4Wnp3lTpnhpW0/EoW11WNQrVTZBY3++sk1JH90+lR0xIZIVu5pJuU6YlyQEXSnMDYeaB23z+JyPtOwLDGr/BRAAEqvIKXzwFLC15FU2VHtyzFOI5nZBe0oK0JWTPUBU2PrDrBXolQF+qKAPNvazdZCxjG3kOJOXdj+GsxTQX3yFyHxfk
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SFNqMDFmU0x0eUJxTlEyVWNNOXUreUw3b3VBOVgrOTdxL2w4czBvTXJEZFA3?=
+ =?utf-8?B?Qys5SEU3MlZEbnUwK2VjcWd5V1BMRWdFQklOMGhsY295VzlSRDhDRmpRQVpX?=
+ =?utf-8?B?OW0wUnN4a0JxWUZaS3Q1MjdsMjM0S3l4aG5SZWxkaXF4dVlZUFN5Qm5YcGV4?=
+ =?utf-8?B?aWpUYzBNMGFwWkxMVXYyT0xqMVZnaGY4RDVTc3MxUjZwMTZmZEMrV1RuRXJp?=
+ =?utf-8?B?N1N4UUJNbnJNZHZTa29HTUFzQ2ZhQXAyY3FuQW5QK3g3NmZvcVNqS3VOeDFm?=
+ =?utf-8?B?THRSTVpPWStOWHJOTWpnZUUwWlp4blNUNElQdDVsZTR2WUZORHJEeDB6WnVL?=
+ =?utf-8?B?SGxYdHdTdTlnNE1oemNZRFRYQmVEUVJSRmNDVGRPYWhFbGRZelVEUEpkMDRl?=
+ =?utf-8?B?SERCSTRnNlU3b1JRQytyWVVvVXJoY0RPOVdIcTJvWUQ1NzVzTVdZZnovdW0z?=
+ =?utf-8?B?dHRnUGlMRFB0dndhVzJqcUZ0elk5a21VUmhUL3lFNm1IdldzbFpKdDhCZHBa?=
+ =?utf-8?B?Vk1OV3JDN2Nja3NjQ0xqeVp3Y0R1dzl3OE9XZFUzNFY0M2JHbmdYM2wxSWZI?=
+ =?utf-8?B?UnVLLzhmQzZnNUJjQWZPbjRIMXhlNWIvWjlMMVc1b1BndDBkQkhIdzNUOS9a?=
+ =?utf-8?B?K1dWY1dHbkYzTTNVYW1mTkxZT1pTZXhtaDBXYmxxUHVlVjBvVy9ZTjF1UkNl?=
+ =?utf-8?B?Z2RQdk5YNEdRU1I3WnA4TFlqN1RCMndrL252MW0rNGQwdUM1WFNLVHovcFJs?=
+ =?utf-8?B?bzYzbStmakc2eEVGZW1JTFVPUlZBNXJrbmh4d0JoVWcvdExCTnFTZGM1TjJQ?=
+ =?utf-8?B?cU1EQXd4UXI0VmUvSjZJVTRyeDk0S0RFNTVLUjdqaWZJOHUrREFTbUNGb0cw?=
+ =?utf-8?B?UUhWT2VFYWplVDRHbXJBUmNva2VHL1lqbWMzdlJpSHhEMFV4UXNVRjNmMTZQ?=
+ =?utf-8?B?Y2JZa05rSFI0R3ZzQVh3SFFlSFVrc3hRT2R2QU91V3VMMVYzVXhUUFRoUk5t?=
+ =?utf-8?B?MHIvSm1saDFtQmpERGorcFUxa2VmdVRkVmp6YVBtTUJ6UU9qb3grVG0yTU5F?=
+ =?utf-8?B?OVpvRHdNRmlSRGVLYzE2U2RRdEc4TzhSNjAraVkzNUdGTHZvc3BoWkdKb1Qv?=
+ =?utf-8?B?VFJwTk0rdERGNVFMNDZnS01yUmNWRkUzUHl2MTZkV05KVS8wWmV1a3hXaVor?=
+ =?utf-8?B?KzNlOXBaQWJIdVJxM3ZCSnkvNVFyVlNEK2svWXlxNEhKajlpcEYreXVueU5C?=
+ =?utf-8?B?ekRtUmtRMTVBRmdiY0x2WHNYbEd6TDJIL0RURXJCQTlKT2xOMFRLZFFVWHBP?=
+ =?utf-8?B?OHh3c1VwTXZxaW1ZRnlGcGtPUmVPdk5ISHN6ZWdkNU4zOW53c1hwcUEwZXR0?=
+ =?utf-8?B?U3BnaWJTZVlTMmIyL04zbFpRQXBKYUFleWVNQ3Ezam1vOHh2KzM1cXVveGZ3?=
+ =?utf-8?B?T1EyNk9JMmpRZEN6RWJSSzI2dWJQelNRODA1T2VYek5VUDZpNUp5K3p3WVFh?=
+ =?utf-8?B?MWQzdk01T3ZRc1lMa3BGaFpGL09sckZVU2hVWUdoZS9tOGQyRGpOSGVrQ01P?=
+ =?utf-8?B?TjJ1cEdBRFp5eS9TNlBBdWgzMWNxd3Q4WlY4dUFSSXBqdWF1bUtkSVk5RGFq?=
+ =?utf-8?B?YVR5WU5KaTA4b1JtUmo0Sm1qUTgxSTFXaHhSUkgzMVJEVFM5NStuVHlMNTdp?=
+ =?utf-8?B?NTJhaDFpbDJTNkJwd3hlUmV2T2ptYndvQlo3Y0J1ZUdxVFF6TlVVeWs2WUV5?=
+ =?utf-8?B?RFRBWGVBTGJac1NrTUt4UzdEODFrZDl1UHQ5ZjB4V3BZM2IyZ04yakhzSGht?=
+ =?utf-8?B?TGhEUTlsUEtPWGJydkh4UFdFUTBPdzYwMXpTTVhTdXkzbFAwbzNYR2NlRC91?=
+ =?utf-8?B?WUgrQ3JvRU1GYTFtN0JHMllxWjMwemNzVGpadmE3WmIyN0lwazRudVB5dER2?=
+ =?utf-8?B?cUUrYUx6ODEwZGRVRHdaVGdqejRpeGhJT0JVb3lGcytYYk0xMlRac0dQZ2Zz?=
+ =?utf-8?B?WXNFb0dhMFpiTFRkTVd5MlJNTk5xaTluNVlvMU1Sa1RSVFUwVm53VTFWNE5F?=
+ =?utf-8?B?eCtObktkdkNmTkhDZFJ0aW1XVW9hN1Rwc2ZvU0xpR0l6bWF3NWc1b0lNTktz?=
+ =?utf-8?B?SGZrU1FZTFFMb3ozNjdpOTBuMGFCZHNLdnJlSzNYZktpSTgzMzBoZ3J1Vk9M?=
+ =?utf-8?B?YlRGcUkza2pqWU15bFc2R0Mrd0Y0bk11TERFdFZESnBsT0ZqNmxLbmxWVDJR?=
+ =?utf-8?B?eGVhRUJCbUVLVlBkRWQ3VjQ1NE5hTW52MVp0ZTRTcWQydUVWYTVLYmthc2dz?=
+ =?utf-8?Q?26B4XOL5OWsFW7o1Sf?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 10:22:38.3654 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e043f619-6b96-46e8-5bc4-08def2db7997
+X-MS-Exchange-CrossTenant-Network-Message-Id: d33c4d00-aeef-45d0-3fe7-08def2e6ba4a
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 11:43:11.8092 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE1D.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7722
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WLhrZ0od8paSXaugyG2/8clG2VoQg59Ki7BqC74Kp5XU1rKxwWeCD95lRERKzGbh
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7578
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,103 +136,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A PRT/sparse mapping has no backing BO, so its bo_va->base.bo is NULL.
-amdgpu_vm_bo_base_init() deliberately keeps such a bo_va off the vm_bo
-state lists, but the tail of amdgpu_vm_bo_update() unconditionally called
-amdgpu_vm_bo_idle() for the !always_valid case, putting the NULL-bo PRT
-bo_va onto the individual.idle list.
 
-On a GPU reset amdgpu_vm_bo_reset_state_machine() moves individual.idle
-to individual.needs_update with moved=true, and amdgpu_vm_handle_moved()
-then dereferences bo_va->base.bo to read its reservation object,
-crashing on the NULL bo (e.g. the userq eviction restore worker running
-during a reset while a user queue is torn down):
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000158
-  RIP: 0010:amdgpu_vm_handle_moved+0x17a/0x200 [amdgpu]
-  Call Trace:
-   amdgpu_userq_vm_validate_and_restore_queue+0x2ce/0x920 [amdgpu]
-   amdgpu_userq_restore_worker+0xce/0x210 [amdgpu]
+On 7/30/26 03:56, 2564278112@qq.com wrote:
+> From: Wang Jiang <jiangwang@kylinos.cn>
+> 
+> Commit 9eb00b5f5697b ("drm/radeon: delete radeon_fence_process in
+> is_signaled, no deadlock") removed the hardware status check from
+> radeon_fence_is_signaled() to fix a self-deadlock caused by
+> wake_up_all(&rdev->fence_queue) being called with the fence queue
+> lock held.
+> 
+> However, removing the hardware poll entirely causes significant
+> performance regression (e.g. glxgears FPS drop) because the signaled
+> check becomes purely passive — it only reads the cached last_seq
+> without probing the GPU, so completed GPU work is not detected in
+> time, causing unnecessary CPU stalls in sync-heavy workloads.
+> 
+> Fix this by calling radeon_fence_read() directly in
+> radeon_fence_is_signaled() to poll the hardware fence counter
+> without updating last_seq or calling wake_up_all(). This restores
+> timely fence detection while avoiding the original deadlock, since
+> last_seq update and waiter wakeup remain solely in the interrupt
+> handler's responsibility.
+> 
+> Fixes: 9eb00b5f5697b ("drm/radeon: delete radeon_fence_process in is_signaled, no deadlock")
+> Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
+> ---
+>  drivers/gpu/drm/radeon/radeon_fence.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/radeon/radeon_fence.c b/drivers/gpu/drm/radeon/radeon_fence.c
+> index 02a40e4750c7..047ec5a1d194 100644
+> --- a/drivers/gpu/drm/radeon/radeon_fence.c
+> +++ b/drivers/gpu/drm/radeon/radeon_fence.c
+> @@ -360,6 +360,18 @@ static bool radeon_fence_is_signaled(struct dma_fence *f)
+>  	if (atomic64_read(&rdev->fence_drv[ring].last_seq) >= seq)
+>  		return true;
+>  
+> +	/*
+> +	* Poll hardware directly without updating last_seq.
+> +	* This allows immediate detection of signaled fences (performance)
+> +	* while leaving last_seq update and wake_up_all() to the interrupt
+> +	* handler, avoiding:
+> +	* 1. Deadlock from calling wake_up_all() with fence lock held
+> +	* 2. Wake event stealing by advancing last_seq without waking waiters
+> +	* 3. rw_semaphore usage in atomic/irq context (unsafe on PREEMPT_RT)
+> +	*/
+> +	if (radeon_fence_read(rdev, ring) >= (u32)seq)
+> +			return true;
+> +
 
-Skip amdgpu_vm_bo_idle() when bo is NULL so a PRT mapping never lands on
-a state list in the first place, and refresh the PRT page tables
-explicitly in the userq restore path (as the CS path already does) so
-sparse mappings survive a VRAM-lost reset. Because the PRT bo_va is off
-the state lists, its PTE update fence lands in prt_va->last_pt_update
-rather than vm->last_update, so wait on it explicitly before restarting
-the queues (mirroring how the CS path syncs that fence).
+That check is not correct, you need to take wrap around into account.
 
-v2:
- - keep the PRT bo_va off the vm_bo state lists instead of NULL-guarding
-   bo inside amdgpu_vm_handle_moved(); a PRT mapping should never be on
-   the moved list in the first place (Christian)
+Try using __dma_fence_is_later() instead.
 
-v3:
- - the PRT PTEs are updated separately, so their fence is in
-   prt_va->last_pt_update, not vm->last_update; wait on it in the userq
-   restore path before restarting queues, otherwise the queues could
-   restart before the sparse PTEs are written (Christian)
+Regards,
+Christian.
 
-Suggested-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 16 ++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  8 +++++++-
- 2 files changed, 23 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 6d3ed55e9ab4..bcfbd7213dd6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -1070,6 +1070,16 @@ amdgpu_userq_vm_validate_and_restore_queue(struct amdgpu_userq_mgr *uq_mgr)
- 	if (ret)
- 		goto unlock_all;
- 
-+	/*
-+	 * PRT/sparse mappings are kept off the vm_bo state lists, so
-+	 * amdgpu_vm_handle_moved() does not touch them. Refresh their PTEs
-+	 * explicitly here (as the CS path does) so sparse mappings survive a
-+	 * VRAM-lost reset.
-+	 */
-+	ret = amdgpu_vm_bo_update(adev, fpriv->prt_va, false);
-+	if (ret)
-+		goto unlock_all;
-+
- 	key = 0;
- 	/* Validate User Ptr BOs */
- 	list_for_each_entry(bo_va, &vm->always_valid.idle, base.vm_status) {
-@@ -1127,6 +1137,12 @@ amdgpu_userq_vm_validate_and_restore_queue(struct amdgpu_userq_mgr *uq_mgr)
- 	 */
- 	list_for_each_entry(bo_va, &vm->always_valid.idle, base.vm_status)
- 		dma_fence_wait(bo_va->last_pt_update, false);
-+	/*
-+	 * The PRT bo_va is kept off the state lists, so its PTE update fence
-+	 * lands in prt_va->last_pt_update rather than vm->last_update; wait on
-+	 * it explicitly (as the CS path syncs it) before restarting queues.
-+	 */
-+	dma_fence_wait(fpriv->prt_va->last_pt_update, false);
- 	dma_fence_wait(vm->last_update, false);
- 
- 	xa_for_each(&uq_mgr->userq_xa, tmp_key, queue) {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 4c90e88e2e30..02e2e576f154 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -1391,7 +1391,13 @@ int amdgpu_vm_bo_update(struct amdgpu_device *adev, struct amdgpu_bo_va *bo_va,
- 			amdgpu_vm_bo_evicted(&bo_va->base);
- 		else
- 			amdgpu_vm_bo_idle(&bo_va->base);
--	} else {
-+	} else if (bo) {
-+		/*
-+		 * A PRT/sparse mapping has no BO and is kept off the vm_bo
-+		 * state lists (see amdgpu_vm_bo_base_init()); putting it on the
-+		 * idle list here would let amdgpu_vm_handle_moved() dereference
-+		 * the NULL bo after a reset.
-+		 */
- 		amdgpu_vm_bo_idle(&bo_va->base);
- 	}
- 
--- 
-2.49.0
+>  	return false;
+>  }
+>  
 
