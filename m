@@ -4,45 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29B35C55ABF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A1F1AC55838
 	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 06:55:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2BADB10F0EA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B1A410F0F0;
 	Thu,  6 Aug 2026 06:55:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VbLayuLL";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="xlk+LmBT";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7D6610EE34
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 12:14:51 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E053410EE38
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 12:14:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1E1E360A79;
- Wed,  5 Aug 2026 12:14:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48FF81F000E9;
- Wed,  5 Aug 2026 12:14:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 726D74122B;
+ Wed,  5 Aug 2026 12:14:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C98A31F000E9;
+ Wed,  5 Aug 2026 12:14:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1785932090;
- bh=3F+dBVVZWb5taIf3pVSXxwjQ8OVn7StJMzqp6zW3CTY=;
+ s=korg; t=1785932068;
+ bh=dOKGGQ7t0Ucb2yAY1JdZ3YZFAnPazvQ1Gt4gRNVp0Xo=;
  h=Subject:To:Cc:From:Date;
- b=VbLayuLL3AX6HL8YRPdFTYj2cpnnme04a7VV+v9qMDu1Mc59yRSMkSdN3XZ/rMmmh
- D7iNSBAZSoGZIehxJLM/tL4+n3RX2xxvme/YvhW4+K2lDHyZXIeRE69IKhxp3V2UyJ
- mbFsPXQzzt/5C8CpN//Mb97kULsdi+eQBeeo8q5k=
+ b=xlk+LmBTiaf6QmAjqLvY2AuIYvQ8N98Tor996NYnTEZo4yCmJ3LXqyW63+oOJkbjh
+ mDg+0PH8tCpJvSFA2cTNFNLuxdLyjH5h9oD0qbt3qWCGnmGDmJ+ocM2xE+waig4JRC
+ F2/u361i+nYksHlWJcE1YQhxW4Ww52VPh8oRJb4o=
 Subject: Patch "drm/amd/display: use proper context for logging" has been
- added to the 6.18-stable tree
+ added to the 6.12-stable tree
 To: Bhawanpreet.Lakha@amd.com, airlied@gmail.com, alexander.deucher@amd.com,
  amd-gfx@lists.freedesktop.org, bhawanpreet.lakha@amd.com,
  christian.koenig@amd.com, gregkh@linuxfoundation.org, harry.wentland@amd.com,
  jirislaby@kernel.org, simona@ffwll.ch, siqueira@igalia.com, sunpeng.li@amd.com
 Cc: <stable-commits@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 05 Aug 2026 14:14:11 +0200
-Message-ID: <2026080511-blatantly-caress-962f@gregkh>
+Date: Wed, 05 Aug 2026 14:14:01 +0200
+Message-ID: <2026080501-darkness-obtain-fa5f@gregkh>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-stable: commit
 X-Patchwork-Hint: ignore 
-X-Mailman-Approved-At: Thu, 06 Aug 2026 06:55:48 +0000
+X-Mailman-Approved-At: Thu, 06 Aug 2026 06:55:47 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,12 +62,12 @@ This is a note to let you know that I've just added the patch titled
 
     drm/amd/display: use proper context for logging
 
-to the 6.18-stable tree which can be found at:
+to the 6.12-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      drm-amd-display-use-proper-context-for-logging.patch
-and it can be found in the queue-6.18 subdirectory.
+and it can be found in the queue-6.12 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
@@ -197,7 +197,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  
  	if (pix_clk_params == NULL || pll_settings == NULL
  			|| pix_clk_params->requested_pix_clk_100hz == 0) {
-@@ -1370,8 +1369,6 @@ static uint32_t dcn3_get_pix_clk_divider
+@@ -1366,8 +1365,6 @@ static uint32_t dcn3_get_pix_clk_divider
  	unsigned long long actual_pix_clk_100Hz = pix_clk_params ? pix_clk_params->requested_pix_clk_100hz : 0;
  	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
  
@@ -206,7 +206,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	if (pix_clk_params == NULL || pll_settings == NULL
  			|| pix_clk_params->requested_pix_clk_100hz == 0) {
  		DC_LOG_ERROR(
-@@ -1441,7 +1438,6 @@ static const struct clock_source_funcs d
+@@ -1437,7 +1434,6 @@ static const struct clock_source_funcs d
  	.get_pixel_clk_frequency_100hz = get_pixel_clk_frequency_100hz
  };
  
@@ -214,7 +214,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  static void get_ss_info_from_atombios(
  		struct dce110_clk_src *clk_src,
  		enum as_signal_type as_signal,
-@@ -1454,7 +1450,7 @@ static void get_ss_info_from_atombios(
+@@ -1450,7 +1446,7 @@ static void get_ss_info_from_atombios(
  	struct spread_spectrum_info *ss_info_cur;
  	struct spread_spectrum_data *ss_data_cur;
  	uint32_t i;
@@ -223,7 +223,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  	if (ss_entries_num == NULL) {
  		DC_LOG_SYNC(
  			"Invalid entry !!!\n");
-@@ -1589,6 +1585,7 @@ static void ss_info_from_atombios_create
+@@ -1585,6 +1581,7 @@ static void ss_info_from_atombios_create
  }
  
  static bool calc_pll_max_vco_construct(
@@ -231,7 +231,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  			struct calc_pll_clock_source *calc_pll_cs,
  			struct calc_pll_clock_source_init_data *init_data)
  {
-@@ -1740,6 +1737,7 @@ bool dce110_clk_src_construct(
+@@ -1736,6 +1733,7 @@ bool dce110_clk_src_construct(
  	ss_info_from_atombios_create(clk_src);
  
  	if (!calc_pll_max_vco_construct(
@@ -239,7 +239,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  			&clk_src->calc_pll,
  			&calc_pll_cs_init_data)) {
  		ASSERT_CRITICAL(false);
-@@ -1754,7 +1752,7 @@ bool dce110_clk_src_construct(
+@@ -1750,7 +1748,7 @@ bool dce110_clk_src_construct(
  
  
  	if (!calc_pll_max_vco_construct(
@@ -252,4 +252,4 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 
 Patches currently in stable-queue which might be from jirislaby@kernel.org are
 
-queue-6.18/drm-amd-display-use-proper-context-for-logging.patch
+queue-6.12/drm-amd-display-use-proper-context-for-logging.patch
