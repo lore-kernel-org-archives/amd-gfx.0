@@ -4,122 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 13B4EC55174
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 08:14:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14EBFC55174
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 08:23:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A33710E1B2;
-	Wed,  5 Aug 2026 08:14:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A2DD810E0DE;
+	Wed,  5 Aug 2026 08:23:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Z4q9+UaA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aQFZn/+f";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012050.outbound.protection.outlook.com
- [40.107.200.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 576F510E1B2
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 08:14:19 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012013.outbound.protection.outlook.com [40.107.209.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4959010E0DE
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 08:23:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IUiFlUB6+/4yb6nq6JX14FdWb42y4ykpTQT6GFTSrAnDaNEV7mDSaVoW7UEZeBRRUhfG90l2hoIwpCYcT41i2LCVvdNVr68ngHOH9dIvuvUeZmjINo5vl0PwNMNql0GwqwT9yCAaDFwW3pMGanheuDC4IOUo6WfW10XNhm2fYTUm6+DV+aBlsRTMqpp0bn59nfwGu99C+ahRZVURH/MEtnhxNgkFUHvlNw0lzxMU82gfX24qZIyggGMUBe/69YnP7McP96Piu5VtE2urtA3TijajNJOTJHCmY71sdxx8q3gak14dajJROERs+HMDNa6p1IZBunfZYORoIwAj4Ar6WA==
+ b=oEOBKsiTQn+uAaZvDzsDIr7mMQJKDZh5Kmrp7lPbVN2xdHa4Veeq+7otrfdFjZPcjpTWiIhMmm/cvpyE+TB+gKRExLFd5Xcr8U3WswlfyVvAMlUy8WeyAirytNV0ISOXCwYRp2BfR1CdbCLiegWK7/BAciP/LHhJVgpRN2GBL8WbhBI67K73PKanIHDbqItYKm+ykT8CGCwm2RTNYKXzJhHXxLIG0YptPCDmcz6m/GhuOIdcr7/6utFuvzfuQck5UgC9kPXlafxg2cbOzd3fPLjLAB3XAxDjYOXpuV6924w9oSgTVw4pEP1uvcCAbQXt69qJL19Q0pYYQ77MX9GlRQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xetjFBDSOHcWZkTfA233hz+mR7+2I3zrmANh804/L3E=;
- b=MVLYgi821cuBsxQxzfi4SUp7mnKuOppN3tsjE3EPs+JQUwHXL1d9yuxYqCOYlhlyUxt+6WaYuXOxnLm87odIdZPtSHFVlw3CfaAy0yaaYyTGdl1xz1pSkyRPdL9URdQ/q7vpNne5Qk3mVRV+3E7NUS9OXavlyQnVG0mrClVyvyJ9NnqGGTg+F41ZBv20f1G1bSgKnpnOpY6NeRiC8OTLGIW0yx9DblBgTqO2p6chf+qvqW7m1ZClODhvWGrl4XA3gs1vDwrL4xTX6H+2VMQK2NmBS0VEEBORl5S5MI+vb2AtM1GmNOZCmx68B798z/LIrDPvCermyf9mHteqgCxADQ==
+ bh=p6uH291Fahoj29ccbu2wFVOh5yrA1hZR1HIeRqRXpyY=;
+ b=J3M9syOSekU01/BKE1MUz17VBoYawKO7U1MGf4XZKY9tu4Jv1yR5C4Ue5IwVSx//2GS7BQYST45Nrw8xszCYHmokEHBWPc+HJe7emj+8FeptjeCAr5+3KQn6bpPdzfuppwyZhL9u9rrsyjBMmf/fTlAuY2f/T+46aUWySFuJt3wyJfU5hpjxg6c31aTq/pEya2wDFvI01G297FkkxP8s7sGqX28UmBQ5Odph2MuP/Dowzp/LeFzjCxFbxQUJAbDZokdQrB2M+E9WhYZ/YejeZwr/p0dUUiPj0rG8oIE+mwPSA/7J6pwrrvKkoM5YbrU7AN1JgDzMksUBRP4QwS3mrw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xetjFBDSOHcWZkTfA233hz+mR7+2I3zrmANh804/L3E=;
- b=Z4q9+UaAoN75Z/UIbY8nVRKbVgzEAuEpqGVCmJSUoEXxkhEasd8vhhc4/+rd95h0T61rP867+sYiX9Lz97r7DxufpvN095nijUdIEHFO/uAOaCMu7ffsUZpNsSs91PxeB4YI88uCwUFZWZPfDb1WleYIPDuGIgucppbAEw0/lP4=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS4PR12MB9794.namprd12.prod.outlook.com (2603:10b6:8:2a7::9) with
+ bh=p6uH291Fahoj29ccbu2wFVOh5yrA1hZR1HIeRqRXpyY=;
+ b=aQFZn/+fXaoDV3mi6PUqIK4fGwEi25kWKhprpcBTZfTT9LHqj9RInME1usoVlIC/rNc2Pr+g84u7lly5UtZ/yMn2hezG+l3IlkTmoWMj7Aej9RtByykUvuwbJZ0GUtrwCMjTajxP/dcMCJGeulx2XL43WjCi/xj6ky2O/gwfbew=
+Received: from DM4PR12MB5748.namprd12.prod.outlook.com (2603:10b6:8:5f::19) by
+ LV8PR12MB9643.namprd12.prod.outlook.com (2603:10b6:408:297::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.15; Wed, 5 Aug
- 2026 08:14:16 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0270.017; Wed, 5 Aug 2026
- 08:14:16 +0000
-Message-ID: <e0966ada-3d85-41df-897a-81287ff00ae4@amd.com>
-Date: Wed, 5 Aug 2026 10:14:12 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: skip BOs being torn down during GTT recovery
-To: Yifan Zhang <yifan1.zhang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com, Perry.Yuan@amd.com
-References: <20260728054000.443371-1-yifan1.zhang@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Wed, 5 Aug
+ 2026 08:23:47 +0000
+Received: from DM4PR12MB5748.namprd12.prod.outlook.com
+ ([fe80::6c62:e99c:480d:2729]) by DM4PR12MB5748.namprd12.prod.outlook.com
+ ([fe80::6c62:e99c:480d:2729%2]) with mapi id 15.21.0270.017; Wed, 5 Aug 2026
+ 08:23:47 +0000
+From: "Kamal, Asad" <Asad.Kamal@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Deucher, Alexander"
+ <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH 1/3] drm/amd/pm: Simplify SoC power printing in debugfs
+Thread-Topic: [PATCH 1/3] drm/amd/pm: Simplify SoC power printing in debugfs
+Thread-Index: AQHdI++xx4qTPCkW80Ck3wZiUonzaLaPH1VA
+Date: Wed, 5 Aug 2026 08:23:47 +0000
+Message-ID: <DM4PR12MB57485C416DA1361F455824AB8ED32@DM4PR12MB5748.namprd12.prod.outlook.com>
+References: <20260804085953.2947798-1-lijo.lazar@amd.com>
+In-Reply-To: <20260804085953.2947798-1-lijo.lazar@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260728054000.443371-1-yifan1.zhang@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR01CA0053.prod.exchangelabs.com (2603:10b6:208:23f::22)
- To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS4PR12MB9794:EE_
-X-MS-Office365-Filtering-Correlation-Id: bdb6f304-5ce0-42d1-d995-08def2c98a7c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|366016|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: L8vtMsk8M5gfo32xifaRenPiUV5wZgy2Sg/HOC3jtZB2UsIeEnlxmf1vC5pg0jCdOB6ecquucqifP/knFx9bf8wW+u3BoQw8cntC10KBzmhtsRIvtBNlYqQK50YkJAIbjPUrLWB3XqBRhfq2FwDqf0djQvC586b7JhWU6JHLZXpKG7R/rzabUE72pwr8fi1Rc+OT7NDKi0Vf7ec2tchTM3KQ8gXEYSXZy+Bv1zbamNcL8txW2vUWG5889e2HlufQIJg8vYS0OQW+VlTgDYvKxNo9ecKjRt1TeS8Xrh6g++TfJd0WEY3pPTRm1jdjGQZ6CJF9InHxjAW7BNUOUA7MGbKhPvkF3B3y4Qc+h2f6zqNH5ZZAfVzSAOYaQuHV000K/NE3tCf837wFR+QUHsafIp/66R5xOXIpCtXI9x2oxHKzMK4s/SR1ci58C+/ZxI2k1HnMOH+VcBz2rYgwxbl9iQl4O01AqVNhws8VX6V+dVsfD4eSO0aj5xSNLt8MnCcHBdOpSFG2YbGgUipVPqP1v/7+BwsbpNdH8stotwalcLIqpGw5ndpUOuK1nfgGZcWjkbvNxIXY6t5pzf0O0o2NHxC6lYl+ga3L/uph3ygr9qVTnRiA48+VP4tzPN3MKCd5VVqO0O6vUzyROBZn8O+VNA1Bu6qSZ2OxEkHBUn45oGA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-05T08:22:49.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5748:EE_|LV8PR12MB9643:EE_
+x-ms-office365-filtering-correlation-id: d166a9c9-9fbb-48f0-2610-08def2cadf4d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|23010399003|1800799024|376014|11063799006|10067099003|56012099006|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info: bnQlYaHcwdWgtVpGlbP0z+n8yl0EJ1QnWElogSoK8XS4gdMjf9itNyhhaPoFOtTEzUQdPh/qVDSOve4Fhf26luo/OzBUjTHiZVDNJEp53wIbQH2g+byumGgSDwGrH4ptyMPhjGvqUdVWL0xq6hyezcAMD4NFOjtGxA/V5RPy9i0uQBJCYnBBlG1kIf4Px8oIcChxTAXLq4bcQ6zGk4g3PS2xlJQ66z5/P7fpcvyn/g5TQc6cqw6Yu3TWO9zWuRiJuxL8UXNA90ejcHDL1+q84CSUH7gwYr+P1tPMkbOyGORrLPv8ZrXqAoxFum16lQMVG0lRd+nYBUyMB0lBf+gGxZJdGwqCTJiuj+OXlKMSPxZQcI+nvtZdVcQ+4vAfGNPoBrmxVslqJd58mu1+INfxHRyJ1NZgK330M2NrGwLfRyY06DybCJ0HEgg0OPG5iccu/0CpWbs7y3wJLqCdZLdZtLENDHVVDc1ecVnkZZrD826UgdzgWZ+udY0j5F70weKAH9XwysFrjBT0cnJtRzMiFypnZwL0h1+QvI0Qa8k4SyFCAD0MwFwFWQuydSj3pQLbtyEO6GlA+tob24P6+BlsipFJnIX8N28VyBwfEK+diqPW1FrM+sCBwEVlOv2LWxfr98iKZFW2bykpG5mk7cXZEk7JvhYMPir9p3QYT0h8TuvrDvRE/DDfn+FMRydqOR5Qk5bCP2SOwN+tTgrcCe6+ZSf4F63+DQBe2Oqef5jMftc=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5748.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RUNrNFFZL2pVaGtMSGg5QjU0UEFZUmgzUER4dFZOR1IwV2YvVGFVcitsNis1?=
- =?utf-8?B?N25tOWNVZkdwU0Uxa0x5VWwvc2xQYjRlOTZSeXM4bS91YmkvbUFSVDFlK2ls?=
- =?utf-8?B?cit5aDFlVURZMmU2NGdtUk9Na0RSMHlpdFpZWVArMDQyeWFmc093Yk1Zbmll?=
- =?utf-8?B?YWVScUZaZHRRVGwvOG5lM3dVZkMyZHNmT3BndmYwdURjTkorUGtDZUZodkdo?=
- =?utf-8?B?b1VtWWhKQWh6Vkk5cHBzQUtUTWNrK1hLQk4zeUozVDZIUyttckt0ZDJob0lT?=
- =?utf-8?B?MGVtMjVJQ2dXU1dDdEdoRk0yRC9CYXFYSFFQRFNncGczV0NCWWFXcmVCYW1P?=
- =?utf-8?B?Z21GTlpSdDR2SHk2NXRGNjJvcXFuZ2NhYUxhSVQ3R0ZtZGhybmpBU1VnWmNs?=
- =?utf-8?B?OW5BMXUxaE9VN25MZ3JFSW54TVVJZCtUU2w1VTZnL1F2U0VRMlk3QTR2a1E1?=
- =?utf-8?B?akRndWNBaXo4bU5JWlk4VlJRcUpmeGYyelNqWS9LalpTaERGTE9EdEhpd1Vt?=
- =?utf-8?B?TkZLY2xnTTBkZWlQVjlEZDNBelFxdUlVL2xMUVdTenZCR3JJVDdEYzBROExr?=
- =?utf-8?B?SzRBRC9zZ2tNQXRPWFdBQjN5dWEvVUlDTmtadTNYa2tNc1lwR2ptajgzcVIw?=
- =?utf-8?B?K1NadHppVWFJYWFkZVlYSGRHMjI3REFKZ0ZsT1J2L0JwNysxT3pPWlQrck84?=
- =?utf-8?B?ZUZJdy83TkpBKysxOFZMYUw1MW5YK1R5ckdOSHBsUG5JNDVFRzFjUG41N1Rj?=
- =?utf-8?B?QUdxSFlvQTFyUDZHTXIrYzcxd01rcnl2R201T0Znc083bVBwZUJjMGk1MXNY?=
- =?utf-8?B?UkhxUTJQcnpsTC9PdFNhcmgxbmd1aEd5bDAzV1pmRHRxRW5LeG5uY0h6Lzk4?=
- =?utf-8?B?SExoanllczhqMEprQ3RMbXRHRFh2WlFnaCtCWGpEcHFPZGp1VkVkKzh4ZEpD?=
- =?utf-8?B?YU5YOXZFcEc4bkFWcXduTzlhaitiTThEOWh6UjlybEI4c1JidGhjaWdxdWtN?=
- =?utf-8?B?NHJ5eDZQbWJNVkl0WTZSR2Y0b3kxdEIzeGRFWCtKYm93SE42a0xFUUVVUEZ5?=
- =?utf-8?B?NTBrWWMwbVIra1dCejIrU1gyVFEzOHUxbzFaNzhIWlFHRWFCZVlkNjlpczd4?=
- =?utf-8?B?azY3bXN3OGtQcXoxSERoVlIzaTZuQUpndzY3NGpYcEp1bEU1YXBsTFBMWXBv?=
- =?utf-8?B?azcwaXhFeWV0ZnFnT1Z6R2lOMFowT3ZGcitucWVnc0h0R2ZZajVXTHl3MUo4?=
- =?utf-8?B?UU9tWE9NVURLR3ZVbEVHdC9JZGNCMHBTakZ5S0tIZGdKUCtHbnZkZGVwUXdr?=
- =?utf-8?B?VURVKzFvL1BML0dzTDJSUjJ3cTk5eEpnNHlkL3pIT21xOGhSWlhqRE5WcVd3?=
- =?utf-8?B?eEVrbUE1cGFSYnRLYkdzU1NiNVl6QVBtRVZQdXd2VWRzWkhoOFNNR25lck1k?=
- =?utf-8?B?OXBjdUxqb1gyVUpoUzl1SHROSFJTTkd6L2w2OUhLQVRIRlJFL2g0UXFlYW5w?=
- =?utf-8?B?MjJMRTVZOFNpb2FNWEs2bTNtQ3ltbENXSE9UWXNmTUczVjlsRjZaTXVJc3NW?=
- =?utf-8?B?WkdjY0hubjJGeHRjZlRQZ2czTFhweEk4VmM0Yzd4eXMyaVFzUDZEMzBwVHcy?=
- =?utf-8?B?OXIxSXN4Q25yM1V4eENhNVczTnY0VlBRQjZvYkVheE04Y3VHUHhnSEhZbEVD?=
- =?utf-8?B?bldKRm5oY3AzalBtOXhObWpOaHplRUw5WHJKcGFyMXdDUDNnVDVqNTlSSFUw?=
- =?utf-8?B?MklQV1dUR1JMVFQ5ZDU1RURJS3hjSURjQWNEVHFRQWVyb1R3SVlqZVFBSkpM?=
- =?utf-8?B?ODdFVDU3S2NBanpMZkhaRmF4SFFjc211WEkvMlZ5eUVwaWgzUkRKUjdLOTdS?=
- =?utf-8?B?VzNsTlQyVXR0bHUzY2tCMnhGcjh1eEt6NzhoOGZTblNsR3dYOUZVUUt3L0dH?=
- =?utf-8?B?aUxsNjlWVks4ZG5ncjVnWFpyVDUyQ1MySCtsNm9WSFl4WGI1QjNTdGtBaVBW?=
- =?utf-8?B?bCsxZk5VSEllTDFKQjRXNXJsc0dvN3pwTkhrT0hiQkxWWkF6Zi9seml1eFZZ?=
- =?utf-8?B?N0Znbk9EeTRxSFRXd2c0ZkxaSlVVWGR2Q1FxN0VxTXljOWMrQ1RPZHhRYkdh?=
- =?utf-8?B?YWdVRHRPQ3NxZUh0dmZUeHRzc0dxN2FNTC9iWXlLanJrSWYzMi84Z055bHdh?=
- =?utf-8?B?M1l1WWJpM1Q1eVd0YzlqVkpWdC9qcm12eEZqaU1tTm9UR0c4aTNUQ3B0cGdE?=
- =?utf-8?B?dmNJczZKNURST1VaYVhFbXdkTjhpa1VNaU1VZEJSeUcySllteklTRHB3bjNz?=
- =?utf-8?Q?588ZZvGMqRgn6iO8ue?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?db+utax39DO4ewJcO2grK2vq7ggQ2KxZe79StSg787xcAhFy2P7VeaTVwUPs?=
+ =?us-ascii?Q?neFpmuznAFTSYvMwu3wWM0FdbL7PvxZV6hg97WBi9N4VCee/Ndv3G2m4eCWN?=
+ =?us-ascii?Q?4PhqUXIw5cQhJPS8pjAvM/UH0xUFnjfaIohwxYM7tF1ZB0yEkdOxMrSgXYiG?=
+ =?us-ascii?Q?1niQauwsVuxf0c/BjKRHIgYPtqzs04SIubDw6Mf6iKkTDYxkogGhKZQFvvaS?=
+ =?us-ascii?Q?N/+3y0JpQTrqBELfhYoYagiA1YUiuDc/w4YFZikZMuxADfB1CRc/pulXpdbL?=
+ =?us-ascii?Q?Twpm1OCCIa+htz1PckcUkn8Ux0MCBNoyKwVfSZ7MooLOiYjlmM1ZjQIk1rqF?=
+ =?us-ascii?Q?TwgLo3KREpMTz58LzitcCa4aTvFmAbT1xEOmFu+q/bwrBKq5ppt2KZKicrs1?=
+ =?us-ascii?Q?vR0eknAh8Hnvx1N3N6UsrLq1iqIMs4a/FbpoqS5g7H/qStMDhPelMfTQWYHE?=
+ =?us-ascii?Q?5AZInIK4ZH7yvFphkUTsPJ/qKyH0t6yUK+YSdfikDeTEJ2JW/i7jzK4nMaWz?=
+ =?us-ascii?Q?HQpvWCntnqEhi0hKXVTehDCVaPo32ZF5ebfG1zhc4JIiR4C3k6ySIaLmvBii?=
+ =?us-ascii?Q?oRENZy4Ui5JhJl0OdMbKXQ45GjT4Fj0SvqMJdnIYfHZobgSo+ccYL4t7IZQz?=
+ =?us-ascii?Q?vht1prV77g9WvZVqrlKwml+Jca3G0JU/kmyu+Xg+0g/37+m0inia9ew2WLTI?=
+ =?us-ascii?Q?KjZO0VoWVOYMPavzAPM2vP6TeDaKCduk2su9BAhx1IetAWeI8uUQt1EAMHme?=
+ =?us-ascii?Q?XlSp4Ann9Crt67xPi75r+pneIr7J1ah/3aa65KHj8kMMUKVKqiz8yty9eosk?=
+ =?us-ascii?Q?Luj7mO9hZ5lySiq81AU17fFQtQr+Fb9pc8+adzFOsQ2jimte/bw5HnmIWmI0?=
+ =?us-ascii?Q?y2V/1el6ekcikpvbO3ezbN95wcRTbYp8snU+O18rCoxJQM5aOJf3Jnu119Dn?=
+ =?us-ascii?Q?lK2aqilS5NGw5DNiVT6oOV9VTNzRyb04yeI2q50wHomGKg22TBpeDvMg+/Ev?=
+ =?us-ascii?Q?g1BVOcPkzMjXUG39p5hMg9dN9VFLcqGEOlnBUbwyTZIbMgrYkO9ap+EVrv0a?=
+ =?us-ascii?Q?C2qbNrw2uR+YUrVmT1QJbiH1Y2DsAYqdXwOCutqADmMaZBGGVX7IAjJYEyKW?=
+ =?us-ascii?Q?AQrZsqFVibHj6p4xpdptcUJ2Jc6AovnLu6nO7XBzLhHJNIIo+5cUwepWFIeo?=
+ =?us-ascii?Q?7n2XrrZ0FY7k+dqhipIf4GN20nOOEGm/wwE8ChaoklzRZ38dCNJDyU0BA0AT?=
+ =?us-ascii?Q?r1nyHVzq7usjxbeU4YpQMiNE+5VBXyvmZdne312R3Hjy2tnLEP5O7uePqx/0?=
+ =?us-ascii?Q?DRvFTWQu47h/BE5OjlP6P4u6rGdUBlqPtTK/JxIi4jqo4Mg13xzfuJswbpn1?=
+ =?us-ascii?Q?DHUk9bw6R6YBRNX7JOgXUl5QQnTFD4k30IBaeczouxkRa6ZYHLvH+TMwKtDf?=
+ =?us-ascii?Q?1zdNoeq9/vcypnl+8byOYoVo4AD6ADe2VWvz6womJt07YvJKcp8yzWEGHlyW?=
+ =?us-ascii?Q?ZNnhgroxx1GicFnCIMo1Em14io+j4QcpKy0kiMiVBnVgYPGaiTpDfM2DTRh0?=
+ =?us-ascii?Q?mGyf0o1sbO6ZyNG0q+bQjdy4w4FM+GrTPbRxgKilihAR0DxlD6VtLMbEJ9l4?=
+ =?us-ascii?Q?/v0rq+pa4fqWcrpSXw7KmzpuZzZveA8SrQ018Pp8WzFM1UUr/yaJ/nOSii7B?=
+ =?us-ascii?Q?2nBZI1LiJHDM8lTB7aL6qB8e+v793Cd/s/+m4l3xmBh2IAix?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bdb6f304-5ce0-42d1-d995-08def2c98a7c
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 08:14:16.1039 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qYLnH0MAXJ0MpOeVGTpivyXmlVrt4HJexoaUD0AfvSytkjlQDRH7E2rpqhrxy4Mb
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9794
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5748.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d166a9c9-9fbb-48f0-2610-08def2cadf4d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Aug 2026 08:23:47.6321 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jwImY8U2k90V5QCfwfLPXkIV0YaSKPnxhJRB7Tl2kgo7+OiKRMYWtKv1Hz1qbWfzVaJUyVUINDgDLNXRf4MDXA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9643
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,180 +132,111 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/28/26 07:40, Yifan Zhang wrote:
-> A GPU reset can race with BO teardown after the BO's GTT resource has
-> been marked for deletion but before its drm_mm node is removed. In this
-> window, amdgpu_gtt_mgr_recover() can treat the node as a live BO and try
-> to restore its GART mapping while its TT backing is being destroyed.
-> 
-> Mark the GTT node with a dedicated teardown color from
-> amdgpu_bo_delete_mem_notify(). During recovery, process only nodes
-> colored as live BOs, leaving both teardown nodes and nodes without BOs
-> untouched.
-> 
-> This prevents reset recovery from accessing a BO whose backing storage
-> is no longer valid.
-> 
-> kernel: amdgpu 0000:a3:00.0: GPU reset succeeded, trying to resume
-> kernel: BUG: kernel NULL pointer dereference, address: 0000000000000000
-> kernel: #PF: supervisor read access in kernel mode
-> kernel: #PF: error_code(0x0000) - not-present page
-> kernel: PGD 62256dd067 P4D 0
-> kernel: Oops: Oops: 0000 [#1] SMP NOPTI
-> kernel: CPU: 378 UID: 0 PID: 3775143 Comm: kworker/u1536:4 Tainted: G        W  OE       6.17.0-35-generic #35~24.04.1-Ubuntu PREEMPT(voluntary)
-> kernel: Tainted: [W]=WARN, [O]=OOT_MODULE, [E]=UNSIGNED_MODULE
-> kernel: Hardware name: Supermicro AS -4125GS-TNRT/H13DSG-O-CPU, BIOS 3.8a 11/01/2025
-> kernel: Workqueue: amdgpu-reset-dev amdgpu_debugfs_reset_work [amdgpu]
-> kernel: RIP: 0010:amdgpu_gart_map+0x60/0xc0 [amdgpu]
-> kernel: Code: 71 98 c3 48 89 45 d0 31 c0 c7 45 cc 00 00 00 00 e8 25 4b 9e c1 84 c0 74 39 48 89 d8 48 c1 e8 0c 89 c3 45 85 e4 74 23 41 01 c4 <49> 8b 0e 4c 8b 45 c0 89 da 4c 89 fe 4c 89 ef 83 c3 01 49 83 c6 08
-> kernel: RSP: 0018:ff4f7e3af8a1fb18 EFLAGS: 00010206
-> kernel: RAX: 00000000000002b6 RBX: 00000000000002b6 RCX: 0000000000000000
-> kernel: RDX: 0000000000000001 RSI: 0000000000000000 RDI: 0000000000000000
-> kernel: RBP: ff4f7e3af8a1fb58 R08: 80c0000000000073 R09: ff4f7e4ad6b00000
-> kernel: R10: 0000000000000000 R11: 0000000000000000 R12: 00000000000002b7
-> kernel: R13: ff2209225a000000 R14: 0000000000000000 R15: ff4f7e4ad6b00000
-> kernel: FS:  0000000000000000(0000) GS:ff22098108562000(0000) knlGS:0000000000000000
-> kernel: CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-> kernel: CR2: 0000000000000000 CR3: 00000064b7011002 CR4: 0000000000f71ef0
-> kernel: PKRU: 55555554
-> kernel: Call Trace:
-> kernel:  <TASK>
-> kernel:  amdgpu_gart_bind+0x1a/0x50 [amdgpu]
-> kernel:  amdgpu_ttm_gart_bind+0xd8/0xe0 [amdgpu]
-> kernel:  amdgpu_ttm_recover_gart+0x5f/0x80 [amdgpu]
-> kernel:  amdgpu_gtt_mgr_recover+0x43/0x70 [amdgpu]
-> kernel:  gmc_v12_0_hw_init+0x46/0x160 [amdgpu]
-> kernel:  gmc_v12_0_resume+0x14/0x40 [amdgpu]
-> kernel:  amdgpu_ip_block_resume+0x24/0x80 [amdgpu]
-> kernel:  amdgpu_device_ip_resume_phase1+0xce/0x180 [amdgpu]
-> kernel:  amdgpu_device_reinit_after_reset+0x13d/0x340 [amdgpu]
-> kernel:  amdgpu_do_asic_reset.part.0+0x56/0x1b0 [amdgpu]
-> kernel:  amdgpu_device_asic_reset+0x426/0x640 [amdgpu]
-> kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
-> kernel:  amdgpu_device_gpu_recover+0x260/0x410 [amdgpu]
-> kernel:  amdgpu_debugfs_reset_work+0x68/0x90 [amdgpu]
-> kernel:  process_one_work+0x18e/0x3e0
-> kernel:  worker_thread+0x2e3/0x420
-> kernel:  ? _raw_spin_lock_irqsave+0xe/0x20
-> kernel:  ? srso_alias_return_thunk+0x5/0xfbef5
-> kernel:  ? __pfx_worker_thread+0x10/0x10
-> kernel:  kthread+0x10a/0x230
-> kernel:  ? __pfx_kthread+0x10/0x10
-> kernel:  ret_from_fork+0x121/0x140
-> kernel:  ? __pfx_kthread+0x10/0x10
-> kernel:  ret_from_fork_asm+0x1a/0x30
-> kernel:  </TASK>
+AMD General
 
-Please drop the full backtrace from the commit message, that is superflous.
+Series is
 
-> 
-> Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c | 36 +++++++++++++++++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c     |  1 +
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h     |  1 +
->  3 files changed, 36 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> index 0ea32561c4bc..1f9063b30526 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gtt_mgr.c
-> @@ -26,7 +26,9 @@
->  
->  #include "amdgpu.h"
->  
-> +#define GART_ENTRY_BO_COLOR		0
->  #define GART_ENTRY_WITHOUT_BO_COLOR	1
-> +#define GART_ENTRY_BO_TEARDOWN_COLOR	2
+Reviewed-by: Asad Kamal <asad.kamal@amd.com>
 
-We don't need a separate color for this.
+Thanks & Regards
+Asad
 
->  
->  static inline struct amdgpu_gtt_mgr *
->  to_gtt_mgr(struct ttm_resource_manager *man)
-> @@ -102,6 +104,35 @@ bool amdgpu_gtt_mgr_has_gart_addr(struct ttm_resource *res)
->  	return drm_mm_node_allocated(&node->mm_nodes[0]);
->  }
->  
-> +/**
-> + * amdgpu_gtt_mgr_mark_bo_teardown - exclude a BO from GART recovery
-> + *
-> + * @tbo: TTM BO whose TT backing is about to be destroyed
-> + *
-> + * Keep the GART range allocated until the resource is freed, but prevent
-> + * reset recovery from using the BO after TT teardown has started.
-> + */
-> +void amdgpu_gtt_mgr_mark_bo_teardown(struct ttm_buffer_object *tbo)
-> +{
-> +	struct amdgpu_device *adev = amdgpu_ttm_adev(tbo->bdev);
-> +	struct ttm_resource *res = tbo->resource;
-> +	struct ttm_range_mgr_node *node;
-> +	struct amdgpu_gtt_mgr *mgr;
-> +
-> +	dma_resv_assert_held(tbo->base.resv);
-> +
-> +	if (!res || res->mem_type != TTM_PL_TT)
-> +		return;
+-----Original Message-----
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Tuesday, August 4, 2026 2:30 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander <Alexander.D=
+eucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>
+Subject: [PATCH 1/3] drm/amd/pm: Simplify SoC power printing in debugfs
 
-That check should be outside of the function in amdgpu_ttm.c
+Convert SoC power directly from milliwatts using MILLIWATT_PER_WATT and rem=
+ove redundant variables.
 
-Regards,
-Christian.
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+---
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 27 ++++++++++++---------------
+ 1 file changed, 12 insertions(+), 15 deletions(-)
 
-> +
-> +	node = to_ttm_range_mgr_node(res);
-> +	mgr = &adev->mman.gtt_mgr;
-> +
-> +	spin_lock(&mgr->lock);
-> +	if (drm_mm_node_allocated(&node->mm_nodes[0]))
-> +		node->mm_nodes[0].color = GART_ENTRY_BO_TEARDOWN_COLOR;
-> +	spin_unlock(&mgr->lock);
-> +}
-> +
->  /**
->   * amdgpu_gtt_mgr_new - allocate a new node
->   *
-> @@ -137,7 +168,8 @@ static int amdgpu_gtt_mgr_new(struct ttm_resource_manager *man,
->  		spin_lock(&mgr->lock);
->  		r = drm_mm_insert_node_in_range(&mgr->mm, &node->mm_nodes[0],
->  						num_pages, tbo->page_alignment,
-> -						0, place->fpfn, place->lpfn,
-> +						GART_ENTRY_BO_COLOR,
-> +						place->fpfn, place->lpfn,
->  						DRM_MM_INSERT_BEST);
->  		spin_unlock(&mgr->lock);
->  		if (unlikely(r))
-> @@ -248,7 +280,7 @@ void amdgpu_gtt_mgr_recover(struct amdgpu_gtt_mgr *mgr)
->  	adev = container_of(mgr, typeof(*adev), mman.gtt_mgr);
->  	spin_lock(&mgr->lock);
->  	drm_mm_for_each_node(mm_node, &mgr->mm) {
-> -		if (mm_node->color == GART_ENTRY_WITHOUT_BO_COLOR)
-> +		if (mm_node->color != GART_ENTRY_BO_COLOR)
->  			continue;
->  
->  		node = container_of(mm_node, typeof(*node), mm_nodes[0]);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> index 5fe29e4972d8..6fa8301b8ddc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -1676,6 +1676,7 @@ static int amdgpu_ttm_access_memory(struct ttm_buffer_object *bo,
->  static void
->  amdgpu_bo_delete_mem_notify(struct ttm_buffer_object *bo)
->  {
-> +	amdgpu_gtt_mgr_mark_bo_teardown(bo);
->  	amdgpu_bo_move_notify(bo, false, NULL);
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> index ff9e2e346609..af1e7fcc7175 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-> @@ -145,6 +145,7 @@ int amdgpu_vram_mgr_init(struct amdgpu_device *adev);
->  void amdgpu_vram_mgr_fini(struct amdgpu_device *adev);
->  
->  bool amdgpu_gtt_mgr_has_gart_addr(struct ttm_resource *mem);
-> +void amdgpu_gtt_mgr_mark_bo_teardown(struct ttm_buffer_object *tbo);
->  void amdgpu_gtt_mgr_recover(struct amdgpu_gtt_mgr *mgr);
->  
->  int amdgpu_gtt_mgr_alloc_entries(struct amdgpu_gtt_mgr *mgr,
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/am=
+dgpu_pm.c
+index 15b2923d5378..c0e677328af5 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -34,6 +34,7 @@
+ #include <linux/nospec.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/string_choices.h>
++#include <linux/units.h>
+ #include <asm/processor.h>
+
+ #define MAX_NUM_OF_FEATURES_PER_SUBSET         8
+@@ -4876,9 +4877,8 @@ static int amdgpu_debugfs_pm_info_pp(struct seq_file =
+*m, struct amdgpu_device *a  {
+        uint32_t mp1_ver =3D amdgpu_ip_version(adev, MP1_HWIP, 0);
+        uint32_t gc_ver =3D amdgpu_ip_version(adev, GC_HWIP, 0);
+-       uint32_t value, mwatt, centiwatt;
+        uint64_t value64 =3D 0;
+-       uint32_t query =3D 0;
++       uint32_t value;
+        int size;
+
+        /* GPU Clocks */
+@@ -4899,25 +4899,22 @@ static int amdgpu_debugfs_pm_info_pp(struct seq_fil=
+e *m, struct amdgpu_device *a
+                seq_printf(m, "\t%u mV (VDDGFX)\n", value);
+        if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_VDDNB, (void *)&=
+value, &size))
+                seq_printf(m, "\t%u mV (VDDNB)\n", value);
+-       size =3D sizeof(uint32_t);
+-       if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_AVG_POWER, (=
+void *)&query, &size)) {
+-               mwatt =3D query;
+-               centiwatt =3D DIV_ROUND_CLOSEST(mwatt, 10);
++       if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_AVG_POWER,
++(void *)&value, &size)) {
+                if (adev->flags & AMD_IS_APU)
+-                       seq_printf(m, "\t%u.%02u W (average SoC including C=
+PU)\n", centiwatt / 100, centiwatt % 100);
++                       seq_printf(m, "\t%u.%02u W (average SoC including C=
+PU)\n",
++                                  (u32)(value / MILLIWATT_PER_WATT), (u32)=
+(value %
++MILLIWATT_PER_WATT) / 10);
+                else
+-                       seq_printf(m, "\t%u.%02u W (average SoC)\n", centiw=
+att / 100, centiwatt % 100);
++                       seq_printf(m, "\t%u.%02u W (average SoC)\n",
++                                  (u32)(value / MILLIWATT_PER_WATT), (u32)=
+(value %
++MILLIWATT_PER_WATT) / 10);
+        }
+-       size =3D sizeof(uint32_t);
+-       if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_INPUT_POWER,=
+ (void *)&query, &size)) {
+-               mwatt =3D query;
+-               centiwatt =3D DIV_ROUND_CLOSEST(mwatt, 10);
++       if (!amdgpu_dpm_read_sensor(adev, AMDGPU_PP_SENSOR_GPU_INPUT_POWER,
++(void *)&value, &size)) {
+                if (adev->flags & AMD_IS_APU)
+-                       seq_printf(m, "\t%u.%02u W (current SoC including C=
+PU)\n", centiwatt / 100, centiwatt % 100);
++                       seq_printf(m, "\t%u.%02u W (current SoC including C=
+PU)\n",
++                                  (u32)(value / MILLIWATT_PER_WATT), (u32)=
+(value %
++MILLIWATT_PER_WATT) / 10);
+                else
+-                       seq_printf(m, "\t%u.%02u W (current SoC)\n", centiw=
+att / 100, centiwatt % 100);
++                       seq_printf(m, "\t%u.%02u W (current SoC)\n",
++                                  (u32)(value / MILLIWATT_PER_WATT), (u32)=
+(value %
++MILLIWATT_PER_WATT) / 10);
+        }
+-       size =3D sizeof(value);
+        seq_printf(m, "\n");
+
+        /* GPU Temp */
+--
+2.49.0
 
