@@ -4,133 +4,110 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEF00C55ABA
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 16:44:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 062D9C55ABA
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 17:12:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 69F1A10EF4B;
-	Wed,  5 Aug 2026 16:44:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8008110E235;
+	Wed,  5 Aug 2026 17:12:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="W0kPTfRP";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="HLNTccUy";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010004.outbound.protection.outlook.com
- [52.101.193.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A80A10EF4B
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 16:44:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aORkYzUHunV3d9cJyqtu8aL8oYxhatGzvGCKELgkTtsbIbbd5itU5nWwEtliG6bEIb870J8SYxarxcRfTtjahFPG8yBb1weW/W11z3EKUmBAyozio025yhmzaiCEeWXe7gVCvtP6SjggpR06zi8x2pUkSTmsZOH7U983xNnB+JCnRTGcQzFSjGQQcbnUQbgE87Dx8/MCwArJvibeZfGadUJuqdKOgExCyTq93LdKUdwLgFlSy4AkH8S9+LC5ecUKBwN/vI+hcxoYI5Q+mT4UahrFV4uP1hrbJ7jMyIqfbOf2dYUP6j3cVQ9iN56UHEF805nF77xBYm2NzXwFikYwlQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aKBYc9q1Q6jUFGMWvRUhDchnE0+H/XgLcrfWlyrtbPA=;
- b=PTVBX7xdQJx2qFdrX3M8Pm4Jmp2Lyqgvp5HG7Aj7KyLnzEORfCQBCQ5lYIxENRSIOrudF8ja+uGhU8EnC4HLZWliOuhxiIuFViX5d4Ij/Ir7S66qdz7YlZ6Tr01xmdvvZTgERSVSBGvMhMss2408ooASmQBQr+NmTa0UujKiaDOqqvS4Nc4+2HCU/yTSspNTCjQncki2S/IQWQb5Lu0EyTx2F4QPVxJqyZmGf5P+QD15cqHrt+0sLFHzESCQL3A0j/Bx0atvFB0Szw7BZKe33o9Pd4XQfr0UEcmeKh28IQGX1m2Iyf4Pruobo+iEOQuZajV8VP4WItI9YiBbN8wFEA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aKBYc9q1Q6jUFGMWvRUhDchnE0+H/XgLcrfWlyrtbPA=;
- b=W0kPTfRPoNDxrbO14TgTSp2Sgkr13I7mWjWVd2nfyXUw5qvtAL2npnCRAbYkcr7Wd/Ch5wZ3yPM2Uy6e91pVCvCLKonZj6eN2dSaLGZfHoPWC2maY2Lkyd2GiPP0fb7vdm2AmcJRP2Uu4Tiwxk8HLDeRTLkCoiskneNDiAStMow=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
- (2603:10b6:f:fc00::655) by SJ2PR12MB8738.namprd12.prod.outlook.com
- (2603:10b6:a03:548::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Wed, 5 Aug
- 2026 16:44:45 +0000
-Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
- ([fe80::7111:7e5c:8508:7852]) by DS5PPF78FC67EBA.namprd12.prod.outlook.com
- ([fe80::7111:7e5c:8508:7852%8]) with mapi id 15.21.0270.016; Wed, 5 Aug 2026
- 16:44:45 +0000
-Content-Type: multipart/alternative;
- boundary="------------HTfyGF8YPjaPD6lglKbbnLPE"
-Message-ID: <3c6d00a0-6eb3-40f1-be8d-941bbd486fea@amd.com>
-Date: Wed, 5 Aug 2026 12:44:48 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4] drm/amdkfd: preserve VRAM MQD across hibernation via
- unpin/repin
-To: "Fan, Shikang" <Shikang.Fan@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>,
- "Yang, Philip" <Philip.Yang@amd.com>,
- "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>,
- "Zhang, Tiantian (Celine)" <Tiantian.Zhang@amd.com>,
- "Zhao, Victor" <Victor.Zhao@amd.com>,
- "Zhang, GuoQing (Sam)" <GuoQing.Zhang@amd.com>
-References: <20260803100659.469806-1-shikang.fan@amd.com>
- <04fff61d-2749-4f6c-be82-ba4dec9146b2@amd.com>
- <SA1PR12MB73430C264CAE719BA49B61EDEBD32@SA1PR12MB7343.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: "Kuehling, Felix" <felix.kuehling@amd.com>
-In-Reply-To: <SA1PR12MB73430C264CAE719BA49B61EDEBD32@SA1PR12MB7343.namprd12.prod.outlook.com>
-X-ClientProxiedBy: YQZPR01CA0031.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:c01:86::29) To DS5PPF78FC67EBA.namprd12.prod.outlook.com
- (2603:10b6:f:fc00::655)
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9088C10E235
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 17:12:49 +0000 (UTC)
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 675Fm6Qj059205; Wed, 5 Aug 2026 17:12:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=qdCBI7
+ yFVClcT9+SpmOko2ASuuVq7hOvq5FRIJnRsMg=; b=HLNTccUy8ZJ5+Y3nHxDSvX
+ /bBLrPLRlkiihHDf7CMnVO7SdgKbCN0ToAbQcVhu3vdKeStiKFco3fscSsJST5by
+ iXklvT9qRFsRY1zrCL58Pr7WjV8cbJteypxdSaWILXD7OMvaYul+S2digWMOejDV
+ t37harQbbiN2zDzwS6CfaVOM7Blq8abVDAQy/KPHXBSaWnLgiExMbBKZZd2SKmbC
+ oKD74S1GXjN8ePNpivJQb5n5WL83Yuze1D88hrifxBnx4H1e1cx0Iqmy5Nqy7SnO
+ Ygik4iPjY2Ful2ai+aWC+dL+LjQGrZ/GNvLJti/sCt8xWKNlqSeljjIRAYELCFVw
+ ==
+Received: from ppma11.dal12v.mail.ibm.com
+ (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs8a446n7-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 05 Aug 2026 17:12:46 +0000 (GMT)
+Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
+ by ppma11.dal12v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 675HBGMH020435;
+ Wed, 5 Aug 2026 17:12:45 GMT
+Received: from smtprelay04.wdc07v.mail.ibm.com ([172.16.1.71])
+ by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4fswtyq99q-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 05 Aug 2026 17:12:45 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com
+ [10.39.53.229])
+ by smtprelay04.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 675HCiEu33292804
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 5 Aug 2026 17:12:44 GMT
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 82D3F58059;
+ Wed,  5 Aug 2026 17:12:44 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id AD74D58058;
+ Wed,  5 Aug 2026 17:12:39 +0000 (GMT)
+Received: from [9.39.27.13] (unknown [9.39.27.13])
+ by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Wed,  5 Aug 2026 17:12:39 +0000 (GMT)
+Message-ID: <bf960896-88b0-4c61-92e7-9e2dbcc09123@linux.ibm.com>
+Date: Wed, 5 Aug 2026 22:42:37 +0530
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS5PPF78FC67EBA:EE_|SJ2PR12MB8738:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6e1c04fb-a9f6-4534-8690-08def310db1e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|366016|1800799024|10067099003|11063799006|56012099006|4143699003|18002099003|22082099003|8096899003;
-X-Microsoft-Antispam-Message-Info: /LjIp6ktVeUYzZG2S2QYHIjNbFMcqR7D6r2efSK3A0tAjkJ6mOfN6OTHe85v4mX/emIEP1YmGqLTrLNkowWdMciiAvG4SBxEZIjFfbDSsjqnFuOLS00b2291+/88BXnJaI+aHaEpncwbxXgd2CnKwVVXLGrwQro0KBh1+uSZNqiXJP4sK1PVEVU/lmvFM3uvApc4HUQbdbzgo/Ds7vSeuXfymrlNV0dgJsapmT48PJ9MHTyEk3jJnogQzgJxDzHZJFA6J0gF+Vs3ea574mUErLw3FpzqGEoQSrGN1KRGWY9uTDlZxWJ92PjWAYU/km0RQWESwfTaYbx9Uvtmi8JPFtN7oe37qrfLuFwGkGZfk1QJOjbdQfXWHSnT0WWApe90ytj+xD31JIeyc77Lre+e6d/JH35ykNSY4YY8l3pY/AhjZi9TtDhJAyswgx+KaY2JTY7UGWH7Nkti3zl+iSt8oz/Rpki1XMfzP4vEI+fVckXI+w5hDGU9lh6WmI80jwy/+k4dBJuHSyYrTDF9xFAb3e17PgslwhVSrYWQNIzszLIBD4rL2Rnb9BTXm7GWRV0Q5RnG+f0iuiHXiepXOz9C6vmUo05A7NFevM4BqgRUMK4fQlF9/irRlELD0xS9R8W5H+1EpcB7JLzHGBKYGHmrxnnkJl0nZyZCV7eupGGUqGU=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS5PPF78FC67EBA.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003)(8096899003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZndFN0ZZK2U5cHluM0I5VXBZRWV3ME5hUHpVajR3UkZCQUMrRm5qSDNEc1R3?=
- =?utf-8?B?TmE5TXIvNUhaMjk3eHQ1V0o5S095Q1U1R0lIQ1UxS0dERWR2cGxLL09QRGxD?=
- =?utf-8?B?TXlVc3JiZWxoYnM4YThVMXlwNlZleDErTGlJK0RpNTFRbEprelFITG1nRzMy?=
- =?utf-8?B?UUZpQmpNbTFNR2k1N3hIbGFXL1dzdUNWNlpvQlNhTk1HNEtCdmFLMWxQYldn?=
- =?utf-8?B?S1RQMmZrNVZxdDdlRGgwdVM0YVJDMjFtQ0pabGxXaU5iOVdxc2lleUNydjJU?=
- =?utf-8?B?TFd6RE9ScldIbzRCWmx2NkNLN2ttNm9JQm56Q1dyNnptVDgvNERudjl1cnFU?=
- =?utf-8?B?aFlkUVNOWlYyZlBNeS9LYWFGbExlU29XTk03YldwdERuSm83UGVEUi83ajlm?=
- =?utf-8?B?ZGVHb1RiOXpPMzJRZkdRTWFBV0ZUbS9FZU0yeW9QbGtHbHFEOUE1WU1yeDdG?=
- =?utf-8?B?Z21tR1QvUlZaQ1g5dldQVzR0aWFVc2k1aGdKaWR0eWZNR3JBQy9TZ3hpSkh3?=
- =?utf-8?B?QVB4RXdzd291WE9FWW5ldGZaOFY0ZG5PZktWcFo5eEh3ZVlCc25SZHd3U0RY?=
- =?utf-8?B?VElwZTZHcS9IdjdSVm03QTF6MFcwTXZZMU1XczFoSmlYazNjRDRmQStTQjZO?=
- =?utf-8?B?S2JldWpCb0N2V2pmSFI3V0hveUxxanJDRisvcU5QTXIydUhJM2JzUFdqNTdr?=
- =?utf-8?B?OXVUbS9rM3poNlRkbytrR1IraG5LTE1uMFpLcVhtYzNKYWtBbEllSGJMYnRa?=
- =?utf-8?B?NEQ4cjdHVXc4UWVGcWtUZG81TTFMRFFSeUIvMk15SlNXeTh1d3pTckdoQ2c4?=
- =?utf-8?B?QXdCcjhVQnJDN1Y1VnFaandIZ0lHdy9hVlBhbS80MGRYRzBpdS80anBTdTVP?=
- =?utf-8?B?MEsySVdzK0ZsRVRzQUV6bFgzSzA4Y1drNkFERWxHQWVKUFRzRXo4akVrQmZx?=
- =?utf-8?B?amIwdXgvRmlJa2FhdXNUWUo0dmhUcWxTTXBxQW1xVitzRVRQeHJCS2dvUXhO?=
- =?utf-8?B?NHpXNmZrbkFXQ3JOOWhDL0drckhaKy91OUIwL0QvUDJlV3A4am9aUjhHVmFE?=
- =?utf-8?B?MUlNZEFsQ1JzWXBNaS9vNC9JRnY3eTNaM2pXUXNUUGZMK2JRc1FyOVljakxp?=
- =?utf-8?B?Zk1yanBiaC9NNWNocDlQMGVHWGFrSEtrL1BvT3NVZElLTkl3K1U5a05vb3Yx?=
- =?utf-8?B?TDJiSGZYeEhuRDNjREJJTjA5VFhvdWFYaXhYQWsxenpBb3c2YTEzSHlScXdh?=
- =?utf-8?B?azdick56a0lqbCtkdWkzNTAweGUzS3BKaFNCZGxjeENXWlJuRDUwWG5yWDlE?=
- =?utf-8?B?ZENSZWoxT1dsMDlwWjYrNzBSRUxPYjNCd21wUTA0RDA4Q1NzcDhaK3UzV1FF?=
- =?utf-8?B?U1lGZjFXbm43YlZpS3BlRVdiTEwrS2wvWGg5TmdEOG55N2JJNFFRVmV3ZVFM?=
- =?utf-8?B?VDdHK2o2b0tzb0V5VVdMWFpEbHlmM3ZIWGl3OFF6RGRMZEVCSXpuT3g4Y0hE?=
- =?utf-8?B?T1RiREozd0hPTzAwQXRMbVJ1aEVjcVprbG1YenpRZ0cyQnpyQTFuSEd5YVg4?=
- =?utf-8?B?Z1ZOYk9ZaEdXV3h2SjB4RmpqNEluNFZ5T2NZajNwVUZGRUU4UkE4MjlYUU10?=
- =?utf-8?B?WElYdnBoU3BhRFFMWUNsVkNXUFNsL3VVaVRZSitjZStzTStMZ1BYOTFKNzg3?=
- =?utf-8?B?ZE9rQ25GTzRHa203TXdkQnBTanRtN1d1TXJ6dmJGS3pIMHRjMHJDQ1hSR3dY?=
- =?utf-8?B?UldIRE44NW1Uc2lTd0JqSDlkalFWQWRQa001VkdaT0hPVnA4bFkzUzAzNWRH?=
- =?utf-8?B?WVQzYy9sM0ZPV2tEcTZrSkE0ak1YVVJZb1lBWDhDZ2VZbWNnelpvU1RaQlAv?=
- =?utf-8?B?MmdnUVpEN3RpVlpxNktxV2lPTFlSZGZRTXZRUS9rcm1RTThQNG84OWp4QXg3?=
- =?utf-8?B?NGNhd1IrSHZTSzFzUUFMZlVVdldib1FXZ09NWlBDSitFUWd2TWNoZHlYM1BH?=
- =?utf-8?B?clBuVlpweHVxOXNNN2dKM3J4aTM2Z2pWQ3VkUUhRcy9yNTZDN2NkYlppMVBj?=
- =?utf-8?B?VXduWlQ4cHhSb0dzTmVrUktuS0k2K1I3aG5scTRGS1NxcHpOSitpNHdCL3FZ?=
- =?utf-8?B?ekZNcjNBNFNyZmhld25tTVUxY3Q0cjFlaFJoVmEyRXYxOFJXd2RUalZVSjVH?=
- =?utf-8?B?SytxV1Myc1d1WmNwbHBnYVgwbm83UjJjUTV0dzZOdXU0UnlwbUdJNk4rUnQ2?=
- =?utf-8?B?YzZkb0ZKaG15K0F3bFNYNHl1WDNYZHU4SlN1MEg0bGtNSkE2SW5CYWUyTWhO?=
- =?utf-8?B?TjdRajdxL1pwaDdENGFXc083eTJLZFFaTG5lMlhUNitiRk15aXhlUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6e1c04fb-a9f6-4534-8690-08def310db1e
-X-MS-Exchange-CrossTenant-AuthSource: DS5PPF78FC67EBA.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 16:44:45.6502 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6yTHLL1lvvcp9chsvcD4nxAhOF94cejyN0Jc+YOc4nrovFm9BRdraBLo6wslUBIpBe2M10GhMzBFO06yFuklGQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8738
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/7] drm/amdgpu: Fix topology device creation and
+ proximity domain mappings for sparse and CPU-less NUMA systems
+To: "Kuehling, Felix" <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
+ Philip Yang <yangp@amd.com>
+Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+References: <cover.1785833981.git.donettom@linux.ibm.com>
+ <16887553-76eb-4af9-8769-f77f4fb9fb68@amd.com>
+ <b492ee69-86fa-47a2-aecc-e470568d7204@linux.ibm.com>
+ <2bde809f-d2d9-4b94-88e3-f8e2ae2cc7b0@amd.com>
+Content-Language: en-US
+From: Donet Tom <donettom@linux.ibm.com>
+In-Reply-To: <2bde809f-d2d9-4b94-88e3-f8e2ae2cc7b0@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=E6P9Y6dl c=1 sm=1 tr=0 ts=6a736f0e cx=c_pps
+ a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=daJAG3_is4Lc0EEiQxwA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: _lhuUDYQgG1SYfX_hhdUcEPeIQgspxA9
+X-Proofpoint-GUID: mqQyGbI-YGfxyewbpIE3LMvNgQjYQ0S9
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA1MDEzNyBTYWx0ZWRfX6XT84Hzu8IH/
+ 1rrlFZgwYz8Iv96WccibpYVWY85nyoeiW5s5QQUZzlf2ePT0D3rNQdW/aCRjdmdVxP+UyqTTv0l
+ 91ZFzF572q+R+VIZwLFWJ7x3ls9m2y8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA1MDEzNyBTYWx0ZWRfX2uKvD5Rspg1E
+ zooFvfLqhG1/jmmnKcCBM6uCiYaPo7p+Bz2ATUz5qVUn6RCilIOkrBMDqf3J3PpZmgvmtsTNP6V
+ 784GX5KkA/Gzj6v9a8Y/Qb37v4FKXvEGL9FSN2FN4cLdV7aCElZn8VKK650xIAXLpMGwd5iccmw
+ Oq6dL7HbgOQzMajAhfHyhIm/qVKCfH0Itc2BG16zv3pcKoXlBYsDk4ocDOApoU9zuEf5+vswora
+ YoZl6sXBi5VtvfcCrjGNml77b2WcNR+pFbTmgorjwEcYQ8xRRyX3fh9DS68DbsEu4SF5X7G1WO+
+ OjXa+kCb7cGf7Ustk5KBKI5SXlUpfeQIbqJP3+Llb6Yn78PeZLR9Qg114iSYZAfuGPEthbsqYjR
+ yJKltb7cB3YU+Srv6DoWNyuoIkcqJLgEaEfKFpynj/KFI0Z694qIy4RfNKsIVybQ/vU5Kj6bneV
+ Uckve1CO6bXfYkBki3w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_05,2026-08-04_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
+ suspectscore=0 adultscore=0 spamscore=0 malwarescore=0 impostorscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608050137
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,1006 +122,238 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------HTfyGF8YPjaPD6lglKbbnLPE
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 2026-08-04 23:52, Fan, Shikang wrote:
-> AMD General
+On 8/5/26 9:46 PM, Kuehling, Felix wrote:
 >
-> destroy_queue_nocpsch_locked() calls mqd_mgr->destroy_mqd(mqd_mgr, 
-> q->mqd, ...), and on gfx9.4.3 destroy_mqd_v9_4_3() reads the MQD 
-> through that pointer  (m->cp_mqd_stride_size) — whose kernel mapping 
-> is stale until the repin re-kmaps it. That's why I decided to call 
-> repin before destroy_queue.
+> On 2026-08-05 03:09, Donet Tom wrote:
+>>
+>> On 8/5/26 3:57 AM, Felix Kuehling wrote:
+>>>
+>>> On 2026-08-04 05:52, Donet Tom wrote:
+>>>> This series fixes topology device creation and proximity domain 
+>>>> mappings in
+>>>> AMDKFD when a system does not provide a CRAT table and the driver 
+>>>> generates a
+>>>> Virtual CRAT (VCRAT).
+>>>>
+>>>> The current implementation assumes that CPU NUMA node IDs are 
+>>>> contiguous and
+>>>> that every NUMA node contains CPUs. During VCRAT generation, CPU 
+>>>> topology
+>>>> entries and proximity domains are created only for NUMA nodes that 
+>>>> have CPUs.
+>>>> GPU proximity domains are then allocated immediately after the CPU 
+>>>> proximity
+>>>> domains, and the GPU I/O link (proximity_domain_to) is initialized 
+>>>> using the
+>>>> NUMA node ID to which the GPU is attached, implicitly assuming that 
+>>>> NUMA node
+>>>> IDs and proximity domains have a one-to-one mapping.
+>>>>
+>>>> These assumptions break on systems with:
+>>>>
+>>>> Sparse (non-contiguous) NUMA node IDs
+>>>> CPU-less NUMA nodes
+>>>> CPU-less and memory-less NUMA nodes
+>>>>
+>>>> For example:
+>>>>
+>>>> available: 3 nodes (0,2-3)
+>>>>
+>>>> node 0: CPUs present
+>>>> node 2: CPU-less
+>>>> node 3: CPU-less
+>>>>
+>>>> In this case, the driver creates a CPU topology device only for 
+>>>> node 0 and
+>>>> assigns a single CPU proximity domain (0). However, the GPU VCRAT 
+>>>> still
+>>>> references the NUMA node ID to which the GPU is attached (for 
+>>>> example, node 3)
+>>>> in the proximity_domain_to field. Since no corresponding CPU 
+>>>> proximity domain
+>>>> exists for node 3, the parser cannot find a matching proximity 
+>>>> domain during
+>>>> VCRAT parsing, causing topology initialization to fail.
+>>>
+>>> Hi Tom, 
+>>
+>>
+>> Hi Felix,
+>>
+>>
+>>>
+>>> Thank you for the explanation and the patch series. I may have some 
+>>> gaps in my understanding that I would like to clarify. In my mind, I 
+>>> was using "proximity domain" and "NUMA node" interchangeably. You're 
+>>> demonstrating that they are not the same thing. Is that just a 
+>>> different way of labeling the same thing, or are NUMA nodes and 
+>>> proximity domains fundamentally different concepts.
+>>>
+>>> Your code in patch 5 (kfd_proximity_domain_to_numa_node and 
+>>> kfd_numa_node_to_proximity_domain) seems to imply that there is, in 
+>>> fact, a 1:1 mapping, as it assumes that there is a unique 
+>>> translation in both directions. Am I missing something?
+>>
+>>
+>>
+>> Thanks for the comment.
+>>
+>> IIUC, NUMA node IDs and proximity domains are different numbering 
+>> schemes. We have proximity domains for both CPU and GPU devices. CPU 
+>> proximity domains start from 0, and GPU proximity domains start after 
+>> the last CPU proximity domain.
+>>
+>> If the NUMA node IDs are contiguous, the CPU proximity domains happen 
+>> to match the NUMA node IDs. However, if the NUMA node IDs are 
+>> discontiguous, the CPU proximity domains and NUMA node IDs no longer 
+>> have a one-to-one mapping.
+>>
+>>>
+>>> If they are just different numbering systems, do we really need to 
+>>> keep track of both proximity domains and NUMA nodes in the KFD 
+>>> topology? Or would it be sufficient to only track NUMA nodes, if 
+>>> that's what we really care about in the uAPI (KFD sysfs)?
+>>
+>>
+>>
+>> Thanks for the suggestion. I also think we don't need to keep track 
+>> of both the proximity domains and the NUMA node IDs in KFD. Do you 
+>> think the approach below would be reasonable?
+>>
+>> Just to make sure I understand correctly, for CPU devices the 
+>> proximity domain will be the same as the NUMA node ID, and the GPU 
+>> proximity domains will start after the last CPU proximity domain.
+>>
+>> In that case, the CPU proximity domains and NUMA node IDs will always 
+>> have a one-to-one mapping, and the GPU proximity domains will follow 
+>> after them.
+>>
+>> For example, if a system has three NUMA nodes and two GPUs:
+>>
+>> NUMA node IDs:            0   2   3
+>> CPU proximity domains:    0   2   3
+>> GPU proximity domains:    4   5
+>>
+>> Would it be okay to proceed with this approach?
+>
+> Yes, this looks good to me.
 
-OK, that doesn't just affect GFX 9.4.3. kgd_gfx_v9_hqd_destroy accesses 
-the CPU pointer of the MQD for all GFX9 version. You're right, that's 
-only valid while the BO is pinned. It would be safer to set q->mqd = 
-NULL in dqm_evict_mqd_bo to catch any accidental access while the BO is 
-evicted.
 
-And maybe we can simplify this. The nocpsch mode is not supported in 
-production. It only exists for debugging or triaging HWS problems. It 
-doesn't support CWSR, so it's especially useless for virtualization. We 
-can simply avoid the whole unpinning and repinning dance in nocpsch mode 
-(dqm->sched_policy == KFD_SCHED_POLICY_NO_HWS).
+Thanks, Felix. I'll implement this approach and post a new version.
 
-Regards,
-   Felix
+Thanks,
+Donet Tom
 
 
 >
 > Regards,
-> Shikang
->
-> ------------------------------------------------------------------------
-> *From:* Kuehling, Felix <Felix.Kuehling@amd.com>
-> *Sent:* Wednesday, August 5, 2026 6:11 AM
-> *To:* Fan, Shikang <Shikang.Fan@amd.com>; 
-> amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-> *Cc:* Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, 
-> Christian <Christian.Koenig@amd.com>; Yang, Philip 
-> <Philip.Yang@amd.com>; Limonciello, Mario <Mario.Limonciello@amd.com>; 
-> SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>; Zhang, Tiantian 
-> (Celine) <Tiantian.Zhang@amd.com>; Zhao, Victor <Victor.Zhao@amd.com>; 
-> Zhang, GuoQing (Sam) <GuoQing.Zhang@amd.com>
-> *Subject:* Re: [PATCH v4] drm/amdkfd: preserve VRAM MQD across 
-> hibernation via unpin/repin
->
-> On 2026-08-03 06:06, Shikang Fan wrote:
-> > On gfx9 ASICs with mqd_on_vram(), a compute queue MQD lives in a pinned
-> > VRAM buffer object. Pinned BOs are skipped by the VRAM eviction done 
-> at S4
-> > suspend, so the MQD contents are lost across hibernation and the first
-> > submission after resume page-faults on a stale MQD.
-> >
-> > Unpin the MQD BO at suspend so the eviction migrates it into the
-> > hibernation image, and pin it back to VRAM on resume. The BO may 
-> return at
-> > a different VRAM address, so refresh the kernel mapping and cached GPU
-> > addresses and patch the MQD self-address via a new update_mqd_gpu_addr()
-> > mqd_manager op; skip eviction with a warning if that op is not 
-> implemented.
-> >
-> > v3: use unpin/repin instead of shadowing the MQD into a separate buffer.
-> >
-> > v4: drop the explicit VRAM->GTT placement at evict (a bare unpin is 
-> enough
-> > for the eviction pass to move the BO out of VRAM), and also repin at 
-> queue
-> > destroy. KFD queue restore runs late - user processes thaw before 
-> it, and
-> > under SR-IOV it is deferred until the VF regains full access - so 
-> once the
-> > VM has resumed an application can destroy a queue before its MQD BO is
-> > repinned, which would otherwise unpin an already-unpinned BO and touch a
-> > stale q->mqd.
-> >
-> > Signed-off-by: Shikang Fan <shikang.fan@amd.com>
-> > ---
-> >   .../drm/amd/amdkfd/kfd_device_queue_manager.c | 123 ++++++++++++++++++
-> >   drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h  |   8 ++
-> >   .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |  40 ++++++
-> >   drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   6 +
-> >   4 files changed, 177 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c 
-> b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> > index 51ee9c39104b..5ce4d4cb423c 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> > @@ -77,6 +77,7 @@ static struct queue 
-> *find_queue_by_doorbell_offset(struct device_queue_manager *
-> >   static void set_queue_as_reset(struct device_queue_manager *dqm, 
-> struct queue *q,
-> >                               struct qcm_process_device *qpd);
-> >   static int reset_queues_mes(struct device_queue_manager *dqm, 
-> struct queue *q);
-> > +static int dqm_repin_mqd_bo(struct device_queue_manager *dqm, 
-> struct queue *q);
-> >
-> >   static inline
-> >   enum KFD_MQD_TYPE get_mqd_type_from_queue_type(enum kfd_queue_type 
-> type)
-> > @@ -1048,6 +1049,11 @@ static int destroy_queue_nocpsch(struct 
-> device_queue_manager *dqm,
-> >                                q->properties.queue_id);
-> >        }
-> >
-> > +     /* Repin the MQD BO if it is still evicted for hibernation, before
-> > +      * destroy_queue_nocpsch_locked() dereferences q->mqd or it is 
-> freed.
-> > +      */
-> > +     dqm_repin_mqd_bo(dqm, q);
-> > +
-> >        dqm_lock(dqm);
-> >        retval = destroy_queue_nocpsch_locked(dqm, qpd, q);
-> >        if (!retval)
-> > @@ -1254,6 +1260,98 @@ static int resume_single_queue(struct 
-> device_queue_manager *dqm,
-> >        return 0;
-> >   }
-> >
-> > +/* Unpin the MQD BO at S4 suspend so it is evicted into the 
-> hibernation image;
-> > + * dqm_repin_mqd_bo() pins it back on resume. Gated on adev->in_s4 
-> so runtime
-> > + * eviction is untouched.
-> > + */
-> > +static void dqm_evict_mqd_bo(struct device_queue_manager *dqm, 
-> struct queue *q)
-> > +{
-> > +     struct mqd_manager *mqd_mgr;
-> > +     struct amdgpu_bo *bo;
-> > +
-> > +     if (!dqm->dev->adev->in_s4)
-> > +             return;
-> > +     if (!mqd_on_vram(dqm->dev->adev))
-> > +             return;
-> > +     if (q->properties.type != KFD_QUEUE_TYPE_COMPUTE)
-> > +             return;
-> > +     if (!q->mqd_mem_obj || !q->mqd_mem_obj->mem)
-> > +             return;
-> > +
-> > +     /* Without update_mqd_gpu_addr() the MQD self-address cannot 
-> be fixed up
-> > +      * after a repin, so skip eviction (with a warning) instead of 
-> faulting.
-> > +      */
-> > +     mqd_mgr = 
-> dqm->mqd_mgrs[get_mqd_type_from_queue_type(q->properties.type)];
-> > +     if (!mqd_mgr->update_mqd_gpu_addr) {
-> > +             dev_warn_once(dqm->dev->adev->dev,
-> > +                           "MQD is in VRAM but update_mqd_gpu_addr 
-> is not implemented; skipping hibernation eviction\n");
-> > +             return;
-> > +     }
-> > +
-> > +     bo = q->mqd_mem_obj->mem;
-> > +     if (amdgpu_bo_reserve(bo, false))
-> > +             return;
-> > +
-> > +     amdgpu_bo_unpin(bo);
-> > +     amdgpu_bo_unreserve(bo);
-> > +     q->needs_mqd_repin = true;
-> > +}
-> > +
-> > +/* Repin the MQD BO to VRAM and refresh the cached mapping and GPU 
-> addresses.
-> > + * Used both on resume and when a queue is destroyed before resume 
-> has repinned
-> > + * it. A no-op unless a repin is owed (needs_mqd_repin set).
-> > + */
-> > +static int dqm_repin_mqd_bo(struct device_queue_manager *dqm, 
-> struct queue *q)
-> > +{
-> > +     struct mqd_manager *mqd_mgr;
-> > +     struct amdgpu_bo *bo;
-> > +     void *cpu_ptr;
-> > +     int r;
-> > +
-> > +     if (!q->needs_mqd_repin)
-> > +             return 0;
-> > +     if (!q->mqd_mem_obj || !q->mqd_mem_obj->mem)
-> > +             return 0;
-> > +
-> > +     bo = q->mqd_mem_obj->mem;
-> > +     r = amdgpu_bo_reserve(bo, false);
-> > +     if (r)
-> > +             return r;
-> > +     r = amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_VRAM);
-> > +     if (r) {
-> > +             amdgpu_bo_unreserve(bo);
-> > +             dev_err(dqm->dev->adev->dev,
-> > +                     "Failed to repin MQD of queue %d to VRAM: %d\n",
-> > +                     q->properties.queue_id, r);
-> > +             return r;
-> > +     }
-> > +     /* The BO may have moved; refresh the kernel mapping and gpu 
-> address. */
-> > +     amdgpu_bo_kunmap(bo);
-> > +     r = amdgpu_bo_kmap(bo, &cpu_ptr);
-> > +     amdgpu_bo_unreserve(bo);
-> > +     if (r) {
-> > +             dev_err(dqm->dev->adev->dev,
-> > +                     "Failed to remap MQD of queue %d: %d\n",
-> > +                     q->properties.queue_id, r);
-> > +             return r;
-> > +     }
-> > +
-> > +     q->mqd_mem_obj->cpu_ptr = cpu_ptr;
-> > +     q->mqd_mem_obj->gpu_addr = amdgpu_bo_gpu_offset(bo);
-> > +     q->gart_mqd_addr = q->mqd_mem_obj->gpu_addr;
-> > +     q->mqd = cpu_ptr;
-> > +
-> > +     mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
-> > +                     q->properties.type)];
-> > +     if (mqd_mgr->update_mqd_gpu_addr)
-> > +             mqd_mgr->update_mqd_gpu_addr(mqd_mgr, q->mqd,
-> > + q->mqd_mem_obj,
-> > + &q->properties);
-> > +
-> > +     q->needs_mqd_repin = false;
-> > +     return 0;
-> > +}
-> > +
-> >   static int evict_process_queues_nocpsch(struct 
-> device_queue_manager *dqm,
-> >                                        struct qcm_process_device *qpd)
-> >   {
-> > @@ -1297,6 +1395,8 @@ static int evict_process_queues_nocpsch(struct 
-> device_queue_manager *dqm,
-> >                         * maintain a consistent eviction state
-> >                         */
-> >                        ret = retval;
-> > +
-> > +             dqm_evict_mqd_bo(dqm, q);
-> >        }
-> >
-> >   out:
-> > @@ -1350,6 +1450,8 @@ static int evict_process_queues_cpsch(struct 
-> device_queue_manager *dqm,
-> >                                goto out;
-> >                        }
-> >                }
-> > +
-> > +             dqm_evict_mqd_bo(dqm, q);
-> >        }
-> >
-> >        if (!dqm->dev->kfd->shared_resources.enable_mes) {
-> > @@ -1429,6 +1531,10 @@ static int 
-> restore_process_queues_nocpsch(struct device_queue_manager *dqm,
-> >                if (WARN_ONCE(!dqm->sched_running, "Restore when 
-> stopped\n"))
-> >                        continue;
-> >
-> > +             retval = dqm_repin_mqd_bo(dqm, q);
-> > +             if (retval && !ret)
-> > +                     ret = retval;
-> > +
-> >                retval = mqd_mgr->load_mqd(mqd_mgr, q->mqd, q->pipe,
-> >                                       q->queue, &q->properties, mm);
-> >                if (retval && !ret)
-> > @@ -1489,6 +1595,13 @@ static int 
-> restore_process_queues_cpsch(struct device_queue_manager *dqm,
-> >                q->properties.is_active = true;
-> >                increment_queue_count(dqm, &pdd->qpd, q);
-> >
-> > +             retval = dqm_repin_mqd_bo(dqm, q);
-> > +             if (retval) {
-> > +                     dev_err(dev, "Failed to repin MQD for queue %d\n",
-> > +                             q->properties.queue_id);
-> > +                     goto out;
-> > +             }
-> > +
-> >                if (dqm->dev->kfd->shared_resources.enable_mes) {
-> >                        retval = add_queue_mes(dqm, q, qpd);
-> >                        if (retval) {
-> > @@ -2760,6 +2873,8 @@ static int destroy_queue_cpsch(struct 
-> device_queue_manager *dqm,
-> >                                qpd->pqm->process, q->device,
-> >                                -1, false, NULL, 0);
-> >
-> > +     /* Repin the MQD BO if still evicted for hibernation, before 
-> it is freed. */
-> > +     dqm_repin_mqd_bo(dqm, q);
-> >        mqd_mgr->free_mqd(mqd_mgr, q->mqd, q->mqd_mem_obj);
-> >
-> >        return retval;
-> > @@ -2827,6 +2942,12 @@ static int process_termination_nocpsch(struct 
-> device_queue_manager *dqm,
-> >                q = list_first_entry(&qpd->queues_list, struct queue, 
-> list);
-> >                mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
-> >                                q->properties.type)];
-> > +             /* Repin the MQD BO before destroy_queue_nocpsch_locked()
-> > +              * dereferences q->mqd; drop the DQM lock as reserve 
-> may sleep.
-> > +              */
-> > +             dqm_unlock(dqm);
-> > +             dqm_repin_mqd_bo(dqm, q);
-> > +             dqm_lock(dqm);
->
-> You don't really need to repin before calling destroy_queue. You need it
-> before freeing the MQD. That is done a few lines below in another
-> section that already drops the DQM lock. You can just move repin into
-> that section and avoid some unnecessary churn dropping and re-taking the
-> lock repeatedly. I think it's OK to do that after
-> destroy_queue_nocpsch_locked, because that function doesn't actually
-> free the queue struct.
->
-> With that fixed, the patch is
->
-> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+>   Felix
 >
 >
-> >                ret = destroy_queue_nocpsch_locked(dqm, qpd, q);
-> >                if (ret)
-> >                        retval = ret;
-> > @@ -3017,6 +3138,8 @@ static int process_termination_cpsch(struct 
-> device_queue_manager *dqm,
-> >                list_del(&q->list);
-> >                qpd->queue_count--;
-> >                dqm_unlock(dqm);
-> > +             /* Repin the MQD BO if still evicted for hibernation, 
-> before free. */
-> > +             dqm_repin_mqd_bo(dqm, q);
-> >                mqd_mgr->free_mqd(mqd_mgr, q->mqd, q->mqd_mem_obj);
-> >                dqm_lock(dqm);
-> >        }
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h 
-> b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-> > index 59eff3389d39..38b46b696243 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-> > @@ -117,6 +117,14 @@ struct mqd_manager {
-> >                                const void *ctl_stack_src,
-> >                                const u32 ctl_stack_size);
-> >
-> > +     /* Patch the MQD's cached self GPU address after the MQD BO 
-> has moved
-> > +      * (e.g. repinned to a new VRAM location on hibernation 
-> resume). The MQD
-> > +      * contents are otherwise preserved.
-> > +      */
-> > +     void    (*update_mqd_gpu_addr)(struct mqd_manager *mm, void *mqd,
-> > +                                    struct kfd_mem_obj *mqd_mem_obj,
-> > +                                    struct queue_properties *p);
-> > +
-> >   #if defined(CONFIG_DEBUG_FS)
-> >        int     (*debugfs_show_mqd)(struct seq_file *m, void *data);
-> >   #endif
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c 
-> b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> > index 75e5a9f67d50..b95720198e28 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> > @@ -476,6 +476,20 @@ static void restore_mqd(struct mqd_manager *mm, 
-> void **mqd,
-> >        qp->is_active = 0;
-> >   }
-> >
-> > +static void update_mqd_gpu_addr(struct mqd_manager *mm, void *mqd,
-> > +                             struct kfd_mem_obj *mqd_mem_obj,
-> > +                             struct queue_properties *qp)
-> > +{
-> > +     struct v9_mqd *m = get_mqd(mqd);
-> > +     uint64_t addr = mqd_mem_obj->gpu_addr;
-> > +
-> > +     m->cp_mqd_base_addr_lo = lower_32_bits(addr);
-> > +     m->cp_mqd_base_addr_hi = upper_32_bits(addr);
-> > +
-> > +     if (mqd_on_vram(mm->dev->adev))
-> > +             amdgpu_device_flush_hdp(mm->dev->adev, NULL);
-> > +}
-> > +
-> >   static void init_mqd_hiq(struct mqd_manager *mm, void **mqd,
-> >                        struct kfd_mem_obj *mqd_mem_obj, uint64_t 
-> *gart_addr,
-> >                        struct queue_properties *q)
-> > @@ -860,6 +874,30 @@ static void restore_mqd_v9_4_3(struct 
-> mqd_manager *mm, void **mqd,
-> >        if (mqd_on_vram(mm->dev->adev))
-> >                amdgpu_device_flush_hdp(mm->dev->adev, NULL);
-> >   }
-> > +
-> > +static void update_mqd_gpu_addr_v9_4_3(struct mqd_manager *mm, void 
-> *mqd,
-> > +                                    struct kfd_mem_obj *mqd_mem_obj,
-> > +                                    struct queue_properties *qp)
-> > +{
-> > +     struct kfd_mem_obj xcc_mqd_mem_obj;
-> > +     uint64_t offset = mm->mqd_stride(mm, qp);
-> > +     u32 num_xcc = NUM_XCC(mm->dev->xcc_mask);
-> > +     struct v9_mqd *m;
-> > +     int xcc;
-> > +
-> > +     memset(&xcc_mqd_mem_obj, 0x0, sizeof(struct kfd_mem_obj));
-> > +
-> > +     for (xcc = 0; xcc < num_xcc; xcc++) {
-> > +             get_xcc_mqd(mqd_mem_obj, &xcc_mqd_mem_obj, offset * xcc);
-> > +             m = get_mqd(mqd + offset * xcc);
-> > +             m->cp_mqd_base_addr_lo = 
-> lower_32_bits(xcc_mqd_mem_obj.gpu_addr);
-> > +             m->cp_mqd_base_addr_hi = 
-> upper_32_bits(xcc_mqd_mem_obj.gpu_addr);
-> > +     }
-> > +
-> > +     if (mqd_on_vram(mm->dev->adev))
-> > +             amdgpu_device_flush_hdp(mm->dev->adev, NULL);
-> > +}
-> > +
-> >   static int destroy_mqd_v9_4_3(struct mqd_manager *mm, void *mqd,
-> >                   enum kfd_preempt_type type, unsigned int timeout,
-> >                   uint32_t pipe_id, uint32_t queue_id)
-> > @@ -1017,6 +1055,7 @@ struct mqd_manager *mqd_manager_init_v9(enum 
-> KFD_MQD_TYPE type,
-> >                        mqd->get_wave_state = get_wave_state_v9_4_3;
-> >                        mqd->checkpoint_mqd = checkpoint_mqd_v9_4_3;
-> >                        mqd->restore_mqd = restore_mqd_v9_4_3;
-> > +                     mqd->update_mqd_gpu_addr = 
-> update_mqd_gpu_addr_v9_4_3;
-> >                } else {
-> >                        mqd->init_mqd = init_mqd;
-> >                        mqd->load_mqd = load_mqd;
-> > @@ -1025,6 +1064,7 @@ struct mqd_manager *mqd_manager_init_v9(enum 
-> KFD_MQD_TYPE type,
-> >                        mqd->get_wave_state = get_wave_state;
-> >                        mqd->checkpoint_mqd = checkpoint_mqd;
-> >                        mqd->restore_mqd = restore_mqd;
-> > +                     mqd->update_mqd_gpu_addr = update_mqd_gpu_addr;
-> >                }
-> >                break;
-> >        case KFD_MQD_TYPE_HIQ:
-> > diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h 
-> b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> > index bcb929002839..0dc4f76a36d4 100644
-> > --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> > +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> > @@ -637,6 +637,12 @@ struct queue {
-> >        void *gang_ctx_cpu_ptr;
-> >
-> >        struct amdgpu_bo *wptr_bo_gart;
-> > +
-> > +     /* The VRAM-resident MQD BO (mqd_on_vram()) is unpinned at S4 
-> suspend so
-> > +      * TTM evicts it into the hibernation image, and repinned on 
-> resume. Set
-> > +      * while the BO is unpinned so the resume path knows to repin it.
-> > +      */
-> > +     bool needs_mqd_repin;
-> >   };
-> >
-> >   enum KFD_MQD_TYPE {
---------------HTfyGF8YPjaPD6lglKbbnLPE
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <div class="moz-cite-prefix">On 2026-08-04 23:52, Fan, Shikang
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:SA1PR12MB73430C264CAE719BA49B61EDEBD32@SA1PR12MB7343.namprd12.prod.outlook.com">
-      
-      <style type="text/css" style="display:none;">@scope { P {margin-top:0;margin-bottom:0;} }</style>
-      <div>
-        <div style="font-family: Calibri; text-align: left; margin-left: 5pt; font-size: 10pt;">
-          AMD General</div>
-        <br>
-      </div>
-      <div class="elementToProof" style="font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt;">
-        destroy_queue_nocpsch_locked() calls
-        mqd_mgr-&gt;destroy_mqd(mqd_mgr, q-&gt;mqd, ...), and on
-        gfx9.4.3 destroy_mqd_v9_4_3() reads the MQD through that pointer
-        &nbsp;(m-&gt;cp_mqd_stride_size) — whose kernel mapping is stale
-        until the repin re-kmaps it. That's why I decided to call repin
-        before destroy_queue.</div>
-    </blockquote>
-    <p>OK, that doesn't just affect GFX 9.4.3. kgd_gfx_v9_hqd_destroy
-      accesses the CPU pointer of the MQD for all GFX9 version. You're
-      right, that's only valid while the BO is pinned. It would be safer
-      to set q-&gt;mqd = NULL in dqm_evict_mqd_bo to catch any
-      accidental access while the BO is evicted.</p>
-    <p>And maybe we can simplify this. The nocpsch mode is not supported
-      in production. It only exists for debugging or triaging HWS
-      problems. It doesn't support CWSR, so it's especially useless for
-      virtualization. We can simply avoid the whole unpinning and
-      repinning dance in nocpsch mode (dqm-&gt;sched_policy ==
-      KFD_SCHED_POLICY_NO_HWS).</p>
-    <p>Regards,<br>
-      &nbsp; Felix</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:SA1PR12MB73430C264CAE719BA49B61EDEBD32@SA1PR12MB7343.namprd12.prod.outlook.com">
-      <div class="elementToProof" style="font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt;">
-        <br>
-      </div>
-      <div class="elementToProof" style="font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt;">
-        Regards,</div>
-      <div class="elementToProof" style="font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt;">
-        Shikang</div>
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif; font-size: 12pt;">
-        <br>
-      </div>
-      <hr style="display: inline-block; width: 98%;">
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif; font-size: 12pt;">
-        <b>From:</b> Kuehling, Felix <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a><br>
-        <b>Sent:</b> Wednesday, August 5, 2026 6:11 AM<br>
-        <b>To:</b> Fan, Shikang <a class="moz-txt-link-rfc2396E" href="mailto:Shikang.Fan@amd.com">&lt;Shikang.Fan@amd.com&gt;</a>;
-        <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>
-        <a class="moz-txt-link-rfc2396E" href="mailto:amd-gfx@lists.freedesktop.org">&lt;amd-gfx@lists.freedesktop.org&gt;</a><br>
-        <b>Cc:</b> Deucher, Alexander <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>;
-        Koenig, Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>; Yang, Philip
-        <a class="moz-txt-link-rfc2396E" href="mailto:Philip.Yang@amd.com">&lt;Philip.Yang@amd.com&gt;</a>; Limonciello, Mario
-        <a class="moz-txt-link-rfc2396E" href="mailto:Mario.Limonciello@amd.com">&lt;Mario.Limonciello@amd.com&gt;</a>; SHANMUGAM, SRINIVASAN
-        <a class="moz-txt-link-rfc2396E" href="mailto:SRINIVASAN.SHANMUGAM@amd.com">&lt;SRINIVASAN.SHANMUGAM@amd.com&gt;</a>; Zhang, Tiantian (Celine)
-        <a class="moz-txt-link-rfc2396E" href="mailto:Tiantian.Zhang@amd.com">&lt;Tiantian.Zhang@amd.com&gt;</a>; Zhao, Victor
-        <a class="moz-txt-link-rfc2396E" href="mailto:Victor.Zhao@amd.com">&lt;Victor.Zhao@amd.com&gt;</a>; Zhang, GuoQing (Sam)
-        <a class="moz-txt-link-rfc2396E" href="mailto:GuoQing.Zhang@amd.com">&lt;GuoQing.Zhang@amd.com&gt;</a><br>
-        <b>Subject:</b> Re: [PATCH v4] drm/amdkfd: preserve VRAM MQD
-        across hibernation via unpin/repin
-      </div>
-      <div style="font-family: Calibri, Arial, Helvetica, sans-serif; font-size: 12pt;">
-        <br>
-      </div>
-      <div style="font-size: 11pt;">On 2026-08-03 06:06, Shikang Fan
-        wrote:<br>
-        &gt; On gfx9 ASICs with mqd_on_vram(), a compute queue MQD lives
-        in a pinned<br>
-        &gt; VRAM buffer object. Pinned BOs are skipped by the VRAM
-        eviction done at S4<br>
-        &gt; suspend, so the MQD contents are lost across hibernation
-        and the first<br>
-        &gt; submission after resume page-faults on a stale MQD.<br>
-        &gt;<br>
-        &gt; Unpin the MQD BO at suspend so the eviction migrates it
-        into the<br>
-        &gt; hibernation image, and pin it back to VRAM on resume. The
-        BO may return at<br>
-        &gt; a different VRAM address, so refresh the kernel mapping and
-        cached GPU<br>
-        &gt; addresses and patch the MQD self-address via a new
-        update_mqd_gpu_addr()<br>
-        &gt; mqd_manager op; skip eviction with a warning if that op is
-        not implemented.<br>
-        &gt;<br>
-        &gt; v3: use unpin/repin instead of shadowing the MQD into a
-        separate buffer.<br>
-        &gt;<br>
-        &gt; v4: drop the explicit VRAM-&gt;GTT placement at evict (a
-        bare unpin is enough<br>
-        &gt; for the eviction pass to move the BO out of VRAM), and also
-        repin at queue<br>
-        &gt; destroy. KFD queue restore runs late - user processes thaw
-        before it, and<br>
-        &gt; under SR-IOV it is deferred until the VF regains full
-        access - so once the<br>
-        &gt; VM has resumed an application can destroy a queue before
-        its MQD BO is<br>
-        &gt; repinned, which would otherwise unpin an already-unpinned
-        BO and touch a<br>
-        &gt; stale q-&gt;mqd.<br>
-        &gt;<br>
-        &gt; Signed-off-by: Shikang Fan <a class="moz-txt-link-rfc2396E" href="mailto:shikang.fan@amd.com">&lt;shikang.fan@amd.com&gt;</a><br>
-        &gt; ---<br>
-        &gt;&nbsp;&nbsp; .../drm/amd/amdkfd/kfd_device_queue_manager.c | 123
-        ++++++++++++++++++<br>
-        &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h&nbsp; |&nbsp;&nbsp; 8 ++<br>
-        &gt;&nbsp;&nbsp; .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c&nbsp;&nbsp; |&nbsp; 40
-        ++++++<br>
-        &gt;&nbsp;&nbsp; drivers/gpu/drm/amd/amdkfd/kfd_priv.h&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |&nbsp;&nbsp; 6 +<br>
-        &gt;&nbsp;&nbsp; 4 files changed, 177 insertions(+)<br>
-        &gt;<br>
-        &gt; diff --git
-        a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-        b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
-        &gt; index 51ee9c39104b..5ce4d4cb423c 100644<br>
-        &gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
-        &gt; +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c<br>
-        &gt; @@ -77,6 +77,7 @@ static struct queue
-        *find_queue_by_doorbell_offset(struct device_queue_manager *<br>
-        &gt;&nbsp;&nbsp; static void set_queue_as_reset(struct
-        device_queue_manager *dqm, struct queue *q,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct qcm_process_device
-        *qpd);<br>
-        &gt;&nbsp;&nbsp; static int reset_queues_mes(struct device_queue_manager
-        *dqm, struct queue *q);<br>
-        &gt; +static int dqm_repin_mqd_bo(struct device_queue_manager
-        *dqm, struct queue *q);<br>
-        &gt;&nbsp;&nbsp;<br>
-        &gt;&nbsp;&nbsp; static inline<br>
-        &gt;&nbsp;&nbsp; enum KFD_MQD_TYPE get_mqd_type_from_queue_type(enum
-        kfd_queue_type type)<br>
-        &gt; @@ -1048,6 +1049,11 @@ static int
-        destroy_queue_nocpsch(struct device_queue_manager *dqm,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; q-&gt;properties.queue_id);<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-        &gt;&nbsp;&nbsp;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; /* Repin the MQD BO if it is still evicted for
-        hibernation, before<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * destroy_queue_nocpsch_locked() dereferences
-        q-&gt;mqd or it is freed.<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; dqm_repin_mqd_bo(dqm, q);<br>
-        &gt; +<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dqm_lock(dqm);<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retval = destroy_queue_nocpsch_locked(dqm, qpd, q);<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!retval)<br>
-        &gt; @@ -1254,6 +1260,98 @@ static int
-        resume_single_queue(struct device_queue_manager *dqm,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-        &gt;&nbsp;&nbsp; }<br>
-        &gt;&nbsp;&nbsp;<br>
-        &gt; +/* Unpin the MQD BO at S4 suspend so it is evicted into
-        the hibernation image;<br>
-        &gt; + * dqm_repin_mqd_bo() pins it back on resume. Gated on
-        adev-&gt;in_s4 so runtime<br>
-        &gt; + * eviction is untouched.<br>
-        &gt; + */<br>
-        &gt; +static void dqm_evict_mqd_bo(struct device_queue_manager
-        *dqm, struct queue *q)<br>
-        &gt; +{<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct mqd_manager *mqd_mgr;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *bo;<br>
-        &gt; +<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (!dqm-&gt;dev-&gt;adev-&gt;in_s4)<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (!mqd_on_vram(dqm-&gt;dev-&gt;adev))<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (q-&gt;properties.type != KFD_QUEUE_TYPE_COMPUTE)<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (!q-&gt;mqd_mem_obj || !q-&gt;mqd_mem_obj-&gt;mem)<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
-        &gt; +<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; /* Without update_mqd_gpu_addr() the MQD self-address
-        cannot be fixed up<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * after a repin, so skip eviction (with a warning)
-        instead of faulting.<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; mqd_mgr =
-        dqm-&gt;mqd_mgrs[get_mqd_type_from_queue_type(q-&gt;properties.type)];<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (!mqd_mgr-&gt;update_mqd_gpu_addr) {<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_warn_once(dqm-&gt;dev-&gt;adev-&gt;dev,<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;MQD is in VRAM but
-        update_mqd_gpu_addr is not implemented; skipping hibernation
-        eviction\n&quot;);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-        &gt; +<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; bo = q-&gt;mqd_mem_obj-&gt;mem;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (amdgpu_bo_reserve(bo, false))<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return;<br>
-        &gt; +<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unpin(bo);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unreserve(bo);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; q-&gt;needs_mqd_repin = true;<br>
-        &gt; +}<br>
-        &gt; +<br>
-        &gt; +/* Repin the MQD BO to VRAM and refresh the cached mapping
-        and GPU addresses.<br>
-        &gt; + * Used both on resume and when a queue is destroyed
-        before resume has repinned<br>
-        &gt; + * it. A no-op unless a repin is owed (needs_mqd_repin
-        set).<br>
-        &gt; + */<br>
-        &gt; +static int dqm_repin_mqd_bo(struct device_queue_manager
-        *dqm, struct queue *q)<br>
-        &gt; +{<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct mqd_manager *mqd_mgr;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *bo;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; void *cpu_ptr;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; int r;<br>
-        &gt; +<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (!q-&gt;needs_mqd_repin)<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (!q-&gt;mqd_mem_obj || !q-&gt;mqd_mem_obj-&gt;mem)<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-        &gt; +<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; bo = q-&gt;mqd_mem_obj-&gt;mem;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; r = amdgpu_bo_reserve(bo, false);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (r)<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; r = amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_VRAM);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unreserve(bo);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(dqm-&gt;dev-&gt;adev-&gt;dev,<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Failed to repin MQD of queue %d to
-        VRAM: %d\n&quot;,<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; q-&gt;properties.queue_id, r);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; /* The BO may have moved; refresh the kernel mapping
-        and gpu address. */<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_kunmap(bo);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; r = amdgpu_bo_kmap(bo, &amp;cpu_ptr);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_bo_unreserve(bo);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (r) {<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(dqm-&gt;dev-&gt;adev-&gt;dev,<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Failed to remap MQD of queue %d:
-        %d\n&quot;,<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; q-&gt;properties.queue_id, r);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-        &gt; +<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; q-&gt;mqd_mem_obj-&gt;cpu_ptr = cpu_ptr;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; q-&gt;mqd_mem_obj-&gt;gpu_addr =
-        amdgpu_bo_gpu_offset(bo);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; q-&gt;gart_mqd_addr = q-&gt;mqd_mem_obj-&gt;gpu_addr;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; q-&gt;mqd = cpu_ptr;<br>
-        &gt; +<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; mqd_mgr =
-        dqm-&gt;mqd_mgrs[get_mqd_type_from_queue_type(<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; q-&gt;properties.type)];<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (mqd_mgr-&gt;update_mqd_gpu_addr)<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd_mgr-&gt;update_mqd_gpu_addr(mqd_mgr,
-        q-&gt;mqd,<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        q-&gt;mqd_mem_obj,<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &amp;q-&gt;properties);<br>
-        &gt; +<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; q-&gt;needs_mqd_repin = false;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-        &gt; +}<br>
-        &gt; +<br>
-        &gt;&nbsp;&nbsp; static int evict_process_queues_nocpsch(struct
-        device_queue_manager *dqm,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct
-        qcm_process_device *qpd)<br>
-        &gt;&nbsp;&nbsp; {<br>
-        &gt; @@ -1297,6 +1395,8 @@ static int
-        evict_process_queues_nocpsch(struct device_queue_manager *dqm,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * maintain a consistent eviction
-        state<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret = retval;<br>
-        &gt; +<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dqm_evict_mqd_bo(dqm, q);<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-        &gt;&nbsp;&nbsp;<br>
-        &gt;&nbsp;&nbsp; out:<br>
-        &gt; @@ -1350,6 +1450,8 @@ static int
-        evict_process_queues_cpsch(struct device_queue_manager *dqm,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out;<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-        &gt; +<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dqm_evict_mqd_bo(dqm, q);<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-        &gt;&nbsp;&nbsp;<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
-        (!dqm-&gt;dev-&gt;kfd-&gt;shared_resources.enable_mes) {<br>
-        &gt; @@ -1429,6 +1531,10 @@ static int
-        restore_process_queues_nocpsch(struct device_queue_manager *dqm,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (WARN_ONCE(!dqm-&gt;sched_running,
-        &quot;Restore when stopped\n&quot;))<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<br>
-        &gt;&nbsp;&nbsp;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retval = dqm_repin_mqd_bo(dqm, q);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (retval &amp;&amp; !ret)<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret = retval;<br>
-        &gt; +<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retval = mqd_mgr-&gt;load_mqd(mqd_mgr,
-        q-&gt;mqd, q-&gt;pipe,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; q-&gt;queue,
-        &amp;q-&gt;properties, mm);<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (retval &amp;&amp; !ret)<br>
-        &gt; @@ -1489,6 +1595,13 @@ static int
-        restore_process_queues_cpsch(struct device_queue_manager *dqm,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; q-&gt;properties.is_active = true;<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; increment_queue_count(dqm, &amp;pdd-&gt;qpd,
-        q);<br>
-        &gt;&nbsp;&nbsp;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retval = dqm_repin_mqd_bo(dqm, q);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (retval) {<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_err(dev, &quot;Failed to repin MQD for
-        queue %d\n&quot;,<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; q-&gt;properties.queue_id);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; goto out;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-        &gt; +<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if
-        (dqm-&gt;dev-&gt;kfd-&gt;shared_resources.enable_mes) {<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retval = add_queue_mes(dqm, q, qpd);<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (retval) {<br>
-        &gt; @@ -2760,6 +2873,8 @@ static int destroy_queue_cpsch(struct
-        device_queue_manager *dqm,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qpd-&gt;pqm-&gt;process,
-        q-&gt;device,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -1, false, NULL, 0);<br>
-        &gt;&nbsp;&nbsp;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; /* Repin the MQD BO if still evicted for hibernation,
-        before it is freed. */<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; dqm_repin_mqd_bo(dqm, q);<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd_mgr-&gt;free_mqd(mqd_mgr, q-&gt;mqd,
-        q-&gt;mqd_mem_obj);<br>
-        &gt;&nbsp;&nbsp;<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return retval;<br>
-        &gt; @@ -2827,6 +2942,12 @@ static int
-        process_termination_nocpsch(struct device_queue_manager *dqm,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; q =
-        list_first_entry(&amp;qpd-&gt;queues_list, struct queue, list);<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd_mgr =
-        dqm-&gt;mqd_mgrs[get_mqd_type_from_queue_type(<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; q-&gt;properties.type)];<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Repin the MQD BO before
-        destroy_queue_nocpsch_locked()<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * dereferences q-&gt;mqd; drop the DQM lock
-        as reserve may sleep.<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dqm_unlock(dqm);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dqm_repin_mqd_bo(dqm, q);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dqm_lock(dqm);<br>
-        <br>
-        You don't really need to repin before calling destroy_queue. You
-        need it<br>
-        before freeing the MQD. That is done a few lines below in
-        another<br>
-        section that already drops the DQM lock. You can just move repin
-        into<br>
-        that section and avoid some unnecessary churn dropping and
-        re-taking the<br>
-        lock repeatedly. I think it's OK to do that after<br>
-        destroy_queue_nocpsch_locked, because that function doesn't
-        actually<br>
-        free the queue struct.<br>
-        <br>
-        With that fixed, the patch is<br>
-        <br>
-        Reviewed-by: Felix Kuehling <a class="moz-txt-link-rfc2396E" href="mailto:felix.kuehling@amd.com">&lt;felix.kuehling@amd.com&gt;</a><br>
-        <br>
-        <br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret = destroy_queue_nocpsch_locked(dqm, qpd,
-        q);<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ret)<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retval = ret;<br>
-        &gt; @@ -3017,6 +3138,8 @@ static int
-        process_termination_cpsch(struct device_queue_manager *dqm,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; list_del(&amp;q-&gt;list);<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qpd-&gt;queue_count--;<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dqm_unlock(dqm);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /* Repin the MQD BO if still evicted for
-        hibernation, before free. */<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dqm_repin_mqd_bo(dqm, q);<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd_mgr-&gt;free_mqd(mqd_mgr, q-&gt;mqd,
-        q-&gt;mqd_mem_obj);<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dqm_lock(dqm);<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-        &gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-        b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h<br>
-        &gt; index 59eff3389d39..38b46b696243 100644<br>
-        &gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h<br>
-        &gt; +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h<br>
-        &gt; @@ -117,6 +117,14 @@ struct mqd_manager {<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const void *ctl_stack_src,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; const u32 ctl_stack_size);<br>
-        &gt;&nbsp;&nbsp;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; /* Patch the MQD's cached self GPU address after the
-        MQD BO has moved<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * (e.g. repinned to a new VRAM location on
-        hibernation resume). The MQD<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * contents are otherwise preserved.<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; void&nbsp;&nbsp;&nbsp; (*update_mqd_gpu_addr)(struct mqd_manager
-        *mm, void *mqd,<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_mem_obj
-        *mqd_mem_obj,<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct
-        queue_properties *p);<br>
-        &gt; +<br>
-        &gt;&nbsp;&nbsp; #if defined(CONFIG_DEBUG_FS)<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int&nbsp;&nbsp;&nbsp;&nbsp; (*debugfs_show_mqd)(struct seq_file *m, void
-        *data);<br>
-        &gt;&nbsp;&nbsp; #endif<br>
-        &gt; diff --git
-        a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-        b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c<br>
-        &gt; index 75e5a9f67d50..b95720198e28 100644<br>
-        &gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c<br>
-        &gt; +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c<br>
-        &gt; @@ -476,6 +476,20 @@ static void restore_mqd(struct
-        mqd_manager *mm, void **mqd,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; qp-&gt;is_active = 0;<br>
-        &gt;&nbsp;&nbsp; }<br>
-        &gt;&nbsp;&nbsp;<br>
-        &gt; +static void update_mqd_gpu_addr(struct mqd_manager *mm,
-        void *mqd,<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_mem_obj
-        *mqd_mem_obj,<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct queue_properties *qp)<br>
-        &gt; +{<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct v9_mqd *m = get_mqd(mqd);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; uint64_t addr = mqd_mem_obj-&gt;gpu_addr;<br>
-        &gt; +<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;cp_mqd_base_addr_lo = lower_32_bits(addr);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;cp_mqd_base_addr_hi = upper_32_bits(addr);<br>
-        &gt; +<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (mqd_on_vram(mm-&gt;dev-&gt;adev))<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_flush_hdp(mm-&gt;dev-&gt;adev,
-        NULL);<br>
-        &gt; +}<br>
-        &gt; +<br>
-        &gt;&nbsp;&nbsp; static void init_mqd_hiq(struct mqd_manager *mm, void
-        **mqd,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_mem_obj *mqd_mem_obj,
-        uint64_t *gart_addr,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct queue_properties *q)<br>
-        &gt; @@ -860,6 +874,30 @@ static void restore_mqd_v9_4_3(struct
-        mqd_manager *mm, void **mqd,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (mqd_on_vram(mm-&gt;dev-&gt;adev))<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_flush_hdp(mm-&gt;dev-&gt;adev,
-        NULL);<br>
-        &gt;&nbsp;&nbsp; }<br>
-        &gt; +<br>
-        &gt; +static void update_mqd_gpu_addr_v9_4_3(struct mqd_manager
-        *mm, void *mqd,<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_mem_obj
-        *mqd_mem_obj,<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct
-        queue_properties *qp)<br>
-        &gt; +{<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_mem_obj xcc_mqd_mem_obj;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; uint64_t offset = mm-&gt;mqd_stride(mm, qp);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; u32 num_xcc = NUM_XCC(mm-&gt;dev-&gt;xcc_mask);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; struct v9_mqd *m;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; int xcc;<br>
-        &gt; +<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; memset(&amp;xcc_mqd_mem_obj, 0x0, sizeof(struct
-        kfd_mem_obj));<br>
-        &gt; +<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; for (xcc = 0; xcc &lt; num_xcc; xcc++) {<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; get_xcc_mqd(mqd_mem_obj,
-        &amp;xcc_mqd_mem_obj, offset * xcc);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m = get_mqd(mqd + offset * xcc);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;cp_mqd_base_addr_lo =
-        lower_32_bits(xcc_mqd_mem_obj.gpu_addr);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; m-&gt;cp_mqd_base_addr_hi =
-        upper_32_bits(xcc_mqd_mem_obj.gpu_addr);<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-        &gt; +<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (mqd_on_vram(mm-&gt;dev-&gt;adev))<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_device_flush_hdp(mm-&gt;dev-&gt;adev,
-        NULL);<br>
-        &gt; +}<br>
-        &gt; +<br>
-        &gt;&nbsp;&nbsp; static int destroy_mqd_v9_4_3(struct mqd_manager *mm,
-        void *mqd,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; enum kfd_preempt_type type, unsigned int
-        timeout,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t pipe_id, uint32_t queue_id)<br>
-        &gt; @@ -1017,6 +1055,7 @@ struct mqd_manager
-        *mqd_manager_init_v9(enum KFD_MQD_TYPE type,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;get_wave_state =
-        get_wave_state_v9_4_3;<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;checkpoint_mqd =
-        checkpoint_mqd_v9_4_3;<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;restore_mqd =
-        restore_mqd_v9_4_3;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;update_mqd_gpu_addr =
-        update_mqd_gpu_addr_v9_4_3;<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;init_mqd = init_mqd;<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;load_mqd = load_mqd;<br>
-        &gt; @@ -1025,6 +1064,7 @@ struct mqd_manager
-        *mqd_manager_init_v9(enum KFD_MQD_TYPE type,<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;get_wave_state =
-        get_wave_state;<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;checkpoint_mqd =
-        checkpoint_mqd;<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;restore_mqd = restore_mqd;<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mqd-&gt;update_mqd_gpu_addr =
-        update_mqd_gpu_addr;<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; case KFD_MQD_TYPE_HIQ:<br>
-        &gt; diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-        b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
-        &gt; index bcb929002839..0dc4f76a36d4 100644<br>
-        &gt; --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
-        &gt; +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h<br>
-        &gt; @@ -637,6 +637,12 @@ struct queue {<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; void *gang_ctx_cpu_ptr;<br>
-        &gt;&nbsp;&nbsp;<br>
-        &gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_bo *wptr_bo_gart;<br>
-        &gt; +<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; /* The VRAM-resident MQD BO (mqd_on_vram()) is
-        unpinned at S4 suspend so<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * TTM evicts it into the hibernation image, and
-        repinned on resume. Set<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * while the BO is unpinned so the resume path knows
-        to repin it.<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-        &gt; +&nbsp;&nbsp;&nbsp;&nbsp; bool needs_mqd_repin;<br>
-        &gt;&nbsp;&nbsp; };<br>
-        &gt;&nbsp;&nbsp;<br>
-        &gt;&nbsp;&nbsp; enum KFD_MQD_TYPE {<br>
-      </div>
-    </blockquote>
-  </body>
-</html>
-
---------------HTfyGF8YPjaPD6lglKbbnLPE--
+>>
+>> I think this approach should also resolve the driver loading issue.
+>>
+>>
+>> Thanks
+>> Donet Tom
+>>
+>>
+>>>
+>>> Thanks,
+>>>   Felix
+>>>
+>>>
+>>>>
+>>>> The failure is observed as:
+>>>>
+>>>> amdgpu: Virtual CRAT table created for GPU
+>>>> amdgpu: Error parsing VCRAT
+>>>> kfd: amdgpu: Error adding device to topology
+>>>> kfd: amdgpu: Error initializing KFD node
+>>>>
+>>>>
+>>>> Since every online NUMA node is a valid topology object and can 
+>>>> contain
+>>>> CPUs, memory, I/O links, or any combination of these, topology devices
+>>>> and proximity domains should be created for every online NUMA node
+>>>> rather than only for NUMA nodes that contain CPUs.
+>>>>
+>>>> To address this, this series introduces a new VCRAT subtype that
+>>>> records the mapping between the NUMA node ID and the generated VCRAT
+>>>> proximity domain. When topology devices are created, this information
+>>>> is stored in the corresponding topology device, allowing the driver to
+>>>> translate a NUMA node ID into its associated proximity domain whenever
+>>>> required.
+>>>>
+>>>> Returning to the previous example, the system contains three online
+>>>> NUMA nodes, so three CPU topology devices and three proximity domains
+>>>> are created, even though only one NUMA node contains CPUs. The NUMA
+>>>> node ID is stored in each topology device together with its generated
+>>>> proximity domain.
+>>>>
+>>>> Later, when the GPU VCRAT is generated, the driver only knows the NUMA
+>>>> node ID to which the GPU is attached (for example, node 3). Instead of
+>>>> assuming that the NUMA node ID is equal to the proximity domain, the
+>>>> driver walks the existing topology devices to locate the corresponding
+>>>> NUMA node and retrieves its generated proximity domain. In this
+>>>> example, NUMA node 3 maps to proximity domain 2, so
+>>>> proximity_domain_to is populated with the correct value.
+>>>>
+>>>> Since the GPU I/O link now references a valid proximity domain, VCRAT
+>>>> parsing completes successfully and topology initialization proceeds
+>>>> without errors on systems with sparse NUMA node IDs, CPU-less NUMA
+>>>> nodes, and CPU-less/memory-less NUMA nodes.
+>>>>
+>>>> This series consists of the following patches:
+>>>>
+>>>> Patch 1 removes an unused argument from
+>>>> kfd_create_crat_image_virtual() as a preparatory cleanup.
+>>>>
+>>>> Patch 2 introduces a new VCRAT NUMA affinity subtype that stores the
+>>>> NUMA node ID and its corresponding proximity domain.
+>>>>
+>>>> Patch 3 populates the NUMA affinity entries during VCRAT generation
+>>>> for every online NUMA node.
+>>>>
+>>>> Patch 4 parses the NUMA affinity entries from the VCRAT and stores the
+>>>> NUMA node ID and proximity domain in the corresponding topology
+>>>> device.
+>>>>
+>>>> Patch 5 fixes GPU VCRAT proximity domain mappings by translating the
+>>>> GPU's NUMA node ID to the corresponding CPU proximity domain before
+>>>> programming proximity_domain_to.
+>>>>
+>>>> Patch 6 creates proximity domains and VCRAT entries for all online
+>>>> NUMA nodes, including CPU-less and memory-less nodes.
+>>>>
+>>>> Patch 7 adds a numa_node sysfs attribute for CPU and GPU topology
+>>>> devices, exposing the associated NUMA node through the topology sysfs
+>>>> interface.
+>>>>
+>>>> Please note that the changes in this series are on a best effort 
+>>>> basis from our
+>>>> end. Therefore, requesting the amd-gfx community (who have deeper 
+>>>> knowledge of the
+>>>> HW & SW stack) to kindly help with the review and provide feedback 
+>>>> / comments on
+>>>> these patches
+>>>>
+>>>> Donet Tom (7):
+>>>>    drm/amdgpu: Remove unused argument from 
+>>>> kfd_create_crat_image_virtual
+>>>>    drm/amdgpu: Add VCRAT NUMA affinity entry
+>>>>    drm/amdgpu: Populate NUMA affinity entries in VCRAT
+>>>>    drm/amdgpu: Parse NUMA affinity entries from VCRAT
+>>>>    drm/amdgpu: Fix VCRAT proximity domain mappings for GPU nodes
+>>>>    drm/amdgpu: Create proximity domains and VCRAT entries for CPU-less
+>>>>      and memory-less NUMA nodes
+>>>>    drm/amdgpu: Add numa_node in cpu/gpu topology device sysfs entry
+>>>>
+>>>>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 152 
+>>>> +++++++++++++++-------
+>>>>   drivers/gpu/drm/amd/amdkfd/kfd_crat.h     |  19 ++-
+>>>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  49 +++++--
+>>>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.h |   4 +
+>>>>   4 files changed, 168 insertions(+), 56 deletions(-)
+>>>>
