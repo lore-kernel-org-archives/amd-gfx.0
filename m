@@ -4,108 +4,107 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32E76C55822
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 06:42:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCD54C55174
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 07:09:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C704410ED1B;
-	Wed,  5 Aug 2026 06:42:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6197510E18B;
+	Wed,  5 Aug 2026 07:09:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NgMiT59S";
+	dkim=pass (2048-bit key; unprotected) header.d=ibm.com header.i=@ibm.com header.b="jkFlDnbo";
 	dkim-atps=neutral
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010052.outbound.protection.outlook.com [52.101.85.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C888810ED1B
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 06:42:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JSSYkUbQglyGn9wgdwH0ujpVd3CHK2rdwkkoTP96hZevRvd/hM+dq+YsWZuypLTUgleiV70d0K7iUJf4dPXdy6NI2s8sGxleZDRwq+x9nknX+JP3e8XrnhEn3EPfrpzvEHYkRnhiOTlpFbUpC5TFDMn4AjLQtmA4LvEDVH3D0H/NxlEhBJlkuUyO0o/PRThh6/UrPp4/pt/jYfhX4XYlVn6uVjb4wx6oTKpPNmQMa4VB1R+N8BcZFIM2Mf8u9e6ulXy95neLlqsWqpHdfxs/k9bYuknL6Menhw9Ys/jIUQu6Q2VPA8Aw9PFLSHc0dTi4myBETossfWKHlHhk0yvnVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Dds5kQbHEPh5PoXvMvU//MELh01TLOdA4+gd++DaAJE=;
- b=CVVIBUP3APm0uaBGerEjzoT67Qust4CzYcAT/roIGbY6VP9ZgzF3gjQ5wtmIp2WJniHZBGxfvLN8jXOEsb/wzf4Q9zQ4HX7hDBtrEh08Ws67+cEdRK8YQvKKELaRnud1zppTTbdzlTH93cqHhOfE+lpOxlFJ+n+/jgN+incUILJaTfioKbcuWu/Uo08YyW898dx/rUm3B/RlOyjDqVcVvXZX2U8HVxl1lkUriIY8R+OwlN9CwMU8N7tn2TLGN//b1Q0dKtlsPd42Wx/2WBAroMBeI0w+dMAdKTxigtJWBoADwATKUuYKUTwwaprNKIj0quq1CQZ4KbKsi+3cYeMrtg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Dds5kQbHEPh5PoXvMvU//MELh01TLOdA4+gd++DaAJE=;
- b=NgMiT59SlZ8yKDBtoqSbQzBpGfKFnepdRg+2vEOGRI3CuV8E6gvnK/JPLAyqfQvY5hTWmrDmgy7QS56jQrH6ayHxxnqJDLG+kWTt8MNKjUtiNnFYX6zyoSV9buxUsVyVHMm9A9+BIbX0Bm9Q2E5cbxLf685L4/+ZBnlox2GEEME=
-Received: from SJ0PR03CA0240.namprd03.prod.outlook.com (2603:10b6:a03:39f::35)
- by DS7PR12MB6214.namprd12.prod.outlook.com (2603:10b6:8:96::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Wed, 5 Aug
- 2026 06:42:30 +0000
-Received: from MWH0EPF000C6185.namprd02.prod.outlook.com
- (2603:10b6:a03:39f:cafe::4b) by SJ0PR03CA0240.outlook.office365.com
- (2603:10b6:a03:39f::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.16 via Frontend Transport; Wed, 5
- Aug 2026 06:42:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MWH0EPF000C6185.mail.protection.outlook.com (10.167.249.117) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Wed, 5 Aug 2026 06:42:29 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 5 Aug
- 2026 01:42:07 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 5 Aug
- 2026 01:42:07 -0500
-Received: from tom-r5.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 5 Aug 2026 01:42:04 -0500
-From: Tom Chung <chiahsuan.chung@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
- Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
- <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Rafal Ostrowski <rafal.ostrowski@amd.com>, Alvin Lee
- <alvin.lee2@amd.com>
-Subject: [PATCH 33/34] drm/amd/display: Unify fast update classification paths
-Date: Wed, 5 Aug 2026 14:36:45 +0800
-Message-ID: <20260805063937.2145774-34-chiahsuan.chung@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260805063937.2145774-1-chiahsuan.chung@amd.com>
-References: <20260805063937.2145774-1-chiahsuan.chung@amd.com>
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com
+ [148.163.156.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8B1510E18B
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 07:09:12 +0000 (UTC)
+Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6755lrpM1121593; Wed, 5 Aug 2026 07:09:10 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=pp1; bh=E6yqhM
+ q95z12A8fG/qNL9uUuMW3Vk7mHQHd80DlIhZg=; b=jkFlDnbo4rBpshnXg+yOdP
+ LlMyNjz+eTQ64k2GQ3c+tCpmbFLW1iEK0gWWhNpeWURe9IclPfPFOPOe9uJd4Uh7
+ 0RCs7+H+HkcqcH73umQgZp/1G6bE1u017Q0ZRGMWmXdt4zIeYmQKxmJjDedmTBMr
+ EdzxiSEX/sU/2mW70VWHiIe0THXZuNQtLAROXpjDvUmZKLfVgbLStU+zWD3yvL6n
+ XUWZOmXbtHZ7O0j2P3dTqpwx7DsjGZHRWaOy941DvdISuY3ugsGsGxvRXlqrYcKp
+ TH5D2dI7qrgvfiZErk3kgiaUmC7QGGFmUvw4etv7yG+KQSVxhcqNvR1XHfeJiSdw
+ ==
+Received: from ppma22.wdc07v.mail.ibm.com
+ (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4fs8fqsqn4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 05 Aug 2026 07:09:09 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+ by ppma22.wdc07v.mail.ibm.com (8.18.1.7/8.18.1.7) with ESMTP id 6756uG00013367;
+ Wed, 5 Aug 2026 07:09:08 GMT
+Received: from smtprelay06.wdc07v.mail.ibm.com ([172.16.1.73])
+ by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4fsugw5k4j-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Wed, 05 Aug 2026 07:09:08 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (smtpav02.wdc07v.mail.ibm.com
+ [10.39.53.229])
+ by smtprelay06.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 675798cK25952846
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Wed, 5 Aug 2026 07:09:08 GMT
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 00C5D5805C;
+ Wed,  5 Aug 2026 07:09:08 +0000 (GMT)
+Received: from smtpav02.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 2B79B58058;
+ Wed,  5 Aug 2026 07:09:02 +0000 (GMT)
+Received: from [9.39.27.13] (unknown [9.39.27.13])
+ by smtpav02.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+ Wed,  5 Aug 2026 07:09:01 +0000 (GMT)
+Message-ID: <b492ee69-86fa-47a2-aecc-e470568d7204@linux.ibm.com>
+Date: Wed, 5 Aug 2026 12:39:00 +0530
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/7] drm/amdgpu: Fix topology device creation and
+ proximity domain mappings for sparse and CPU-less NUMA systems
+To: Felix Kuehling <felix.kuehling@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Alex Deucher <alexdeucher@gmail.com>, christian.koenig@amd.com,
+ Philip Yang <yangp@amd.com>
+Cc: David.YatSin@amd.com, Kent.Russell@amd.com,
+ Ritesh Harjani <ritesh.list@gmail.com>,
+ Vaidyanathan Srinivasan <svaidy@linux.ibm.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+References: <cover.1785833981.git.donettom@linux.ibm.com>
+ <16887553-76eb-4af9-8769-f77f4fb9fb68@amd.com>
+Content-Language: en-US
+From: Donet Tom <donettom@linux.ibm.com>
+In-Reply-To: <16887553-76eb-4af9-8769-f77f4fb9fb68@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C6185:EE_|DS7PR12MB6214:EE_
-X-MS-Office365-Filtering-Correlation-Id: c80339d6-f3cb-427c-2ba1-08def2bcb892
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|18002099003|22082099003|20052099010|11063799006|3023799007|6133799003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: 3oodllyTN12xWjfwdf45PRK2QzdDh1NGm1nFVyJ8Us3X2Bjy80PLeWfZgjIQ7Iyr9qSfJk4HmfrstkED+OOo1rQvgGsNNLx3/jbj9Kh3ZmgINxx7P568nlSvxfBgR4vT6fRexT+H9CoyqYEf77xxJDveQ7Q8d9KhBcHZ5fIg9p4cS4MTgudlA0BliVhLcYVN4fvE9VUQFHUwsOr+bMRRptFbu/uEqcDVIJ+oA1roDtEEGiI13uzEHYSMIdB7NzsOOYZKVARrnNxHEQUi+yRuWoSjM7Mxx3VtVqywPyXg4n3ah+DYe/XAuIc0ultzpn9oQ/2P7M60V/Y213akqf4+J0g/FVdvYlBSnY+v0TmZyhoawF6NZyt+Ot6fiqR4T2gXYqypw9rgrEDlPVDzEHq5FOcvkGPxMBgJhUlyl2fHpru9BVsAlKe2w12e35rfgs97OE3ffHk8Rs+1MyFZtQKbKqGMpHGBmwSA3PVo5MqsKlz8gP6rq8Mz0540OqIVTYqQM/vf75zsJIxEOR7xjDWnqjKFz50Ip54oBSX2iHN03561kGqJ9pnoUrb5GnMeQ3aCgq/RUSpacgqy4BOladqmAZkd+QVpLnqEre6RZP9nyLuak6HrWJ52aRroBtHNKaI1ArqoLdS00A1tmnNAH0d6oZa9m696b+oKuuvmI7vZrcv0Hc5uLgMJjLlVT9XFC7YcnIrv+TRpq44zHnhP89z3Zg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(18002099003)(22082099003)(20052099010)(11063799006)(3023799007)(6133799003)(10067099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 2V+HqvqsDtuSV+zQDNiy3SMvknMJQgj/GSVdQ0WN1lZZAl2Pqph+if5X2CjTzziV2Yiz8G1zmuNDxAZLStUIaUQSI2kgSdSFBRtamR57TwSA6b8yU3BawEU8Pmsl6kVVidliEaA0S/wLi0iOStrvWfK5y0y/ElB8IgZC+9R2WK2UT7Kiz7ILNcx0HB5t2fwWxT9GTmSR4+uhLoJsmxtESNdKAkjhMaNJH6/pTlRU3whkBAs8L5Sq3oUL7sECR+vVeDeUtIeLqgaJX462ripvQ/4uKpTR0bW+7n4pBGMOTFfcjZAnQYyKjwKAyr4eB3BHPez2I5mrCUNnw3YmxhAmCgh4JdyKyCqqAYECFh0gL5+web9Kll/ELUWf5x0GOlyxzVZ6iITiETmnPNgaQeOhgTyrnlWDOGaXepFqCF4jMz/zwrhzxbL2cBoVxrehzN8U
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 06:42:29.6212 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c80339d6-f3cb-427c-2ba1-08def2bcb892
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C6185.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6214
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: gxUMxn2JHpi5_e0p8poEpRWPDlM1Rtvy
+X-Proofpoint-ORIG-GUID: QuhAJU1CqkepCczL2RHrKIhiaQggTT_Y
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA1MDA1MSBTYWx0ZWRfX9ajfHQrue4p4
+ bWDgaYIxefi3JzmIW2MOJ/F+5hx2SsxXAibpBN4vqR5EUqNv1VTWEFfURSBeuAZWN+B0UsEqH3n
+ JZZz6XKhbf6GX+/k+XpIzU5nef7ukrU=
+X-Authority-Analysis: v=2.4 cv=K8cS2SWI c=1 sm=1 tr=0 ts=6a72e196 cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=R2rFYNHruCV6a9sfYR0A:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA1MDA1MSBTYWx0ZWRfXxz5qzn/1cLPx
+ LIENAxQoUnNNZwdFxN8pC/afGOQu2nsL54T86swFgCIzmITjkB6qB/0pojnHtyl0loAXw4Ub+Vo
+ HsqTKGszq3SYU5cqSKIafhlsSrND0ySvSmFrKb3MVSSs03lbnTSs/RGWJMnj1auSgudh4m6vNlZ
+ EmB9DC2wZZJjODwo8nVGejwVKi6PUw6OkNvLPRzq6FRqFMnG9SbMnPTqDmn9Rfd+U7cD+vJUBV2
+ UrPi6TATuFPICNrqs4M5OhqkbCB4jGf67+mvo79jaC6XPdzfDcj/bFi7Aj9WUZxBBbm4zrdiZSX
+ FHYBFcWL/EFjoMyxfHym5zVYVw+/wZXoIT0eagQj0e1DPuu55DoO2uu3jyNTawGQuuKRxo3IyXr
+ 4LHD3a2TJY4I9FhW3Xi0AsZrsVLCUzYiTL/v8kgnnLl/7msSOzGWLznDk4ufEGxvm5kwGugBYYG
+ NXl1U0XSBRX4kZRzbBA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_02,2026-08-04_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501
+ lowpriorityscore=0 malwarescore=0 phishscore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608050051
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,663 +119,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Rafal Ostrowski <rafal.ostrowski@amd.com>
 
-[Why]
-The dc_fast_update intermediate struct created code duplication and
-complexity with multiple classification paths (populate_fast_updates,
-fast_nonaddr_updates_exist, full_update_required). This refactoring
-simplifies the update classification system by consolidating to a
-single path.
+On 8/5/26 3:57 AM, Felix Kuehling wrote:
+>
+> On 2026-08-04 05:52, Donet Tom wrote:
+>> This series fixes topology device creation and proximity domain 
+>> mappings in
+>> AMDKFD when a system does not provide a CRAT table and the driver 
+>> generates a
+>> Virtual CRAT (VCRAT).
+>>
+>> The current implementation assumes that CPU NUMA node IDs are 
+>> contiguous and
+>> that every NUMA node contains CPUs. During VCRAT generation, CPU 
+>> topology
+>> entries and proximity domains are created only for NUMA nodes that 
+>> have CPUs.
+>> GPU proximity domains are then allocated immediately after the CPU 
+>> proximity
+>> domains, and the GPU I/O link (proximity_domain_to) is initialized 
+>> using the
+>> NUMA node ID to which the GPU is attached, implicitly assuming that 
+>> NUMA node
+>> IDs and proximity domains have a one-to-one mapping.
+>>
+>> These assumptions break on systems with:
+>>
+>> Sparse (non-contiguous) NUMA node IDs
+>> CPU-less NUMA nodes
+>> CPU-less and memory-less NUMA nodes
+>>
+>> For example:
+>>
+>> available: 3 nodes (0,2-3)
+>>
+>> node 0: CPUs present
+>> node 2: CPU-less
+>> node 3: CPU-less
+>>
+>> In this case, the driver creates a CPU topology device only for node 
+>> 0 and
+>> assigns a single CPU proximity domain (0). However, the GPU VCRAT still
+>> references the NUMA node ID to which the GPU is attached (for 
+>> example, node 3)
+>> in the proximity_domain_to field. Since no corresponding CPU 
+>> proximity domain
+>> exists for node 3, the parser cannot find a matching proximity domain 
+>> during
+>> VCRAT parsing, causing topology initialization to fail.
+>
+> Hi Tom, 
 
-[How]
-Remove entire dc_fast_update struct and associated helper functions:
-- populate_fast_updates
-- fast_nonaddr_updates_exist
-- full_update_required
 
-Refactor check_update_surfaces_for_stream as the
-single classification path with explicit handling for func_shaper,
-lut3d_func, cursor_csc_color_matrix_change, and
-scaler_sharpener_update. Add reserved bitfields to
-surface_update_flags and stream_update_flags unions for completeness
-guards. Extract dc_check_address_only_update and
-dc_check_update_surfaces_for_stream as public.
-Add comprehensive test coverage with parameterized tests
-for all FAST flags, update classification tests
-for MED/FULL paths, and completeness guard tests.
+Hi Felix,
 
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Signed-off-by: Rafal Ostrowski <rafal.ostrowski@amd.com>
-Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
----
- drivers/gpu/drm/amd/display/dc/core/dc.c      | 246 ++----------------
- drivers/gpu/drm/amd/display/dc/dc.h           |  31 ---
- drivers/gpu/drm/amd/display/dc/dc_stream.h    |   3 +
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   |  17 +-
- .../amd/display/dc/hwss/dcn35/dcn35_hwseq.h   |   2 +-
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |  12 +-
- .../amd/display/dc/hwss/dcn401/dcn401_hwseq.h |   2 +-
- .../amd/display/dc/hwss/dcn42/dcn42_hwseq.c   |  13 +-
- .../amd/display/dc/hwss/dcn42/dcn42_hwseq.h   |   2 +-
- .../drm/amd/display/dc/hwss/hw_sequencer.h    |   2 +-
- 10 files changed, 58 insertions(+), 272 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 68f228014305..f0f9f6e8de06 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -2273,6 +2273,7 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
- 	struct dc_stream_state *dc_streams[MAX_STREAMS] = {0};
- 	struct dc_state *old_state;
- 	bool subvp_prev_use = false;
-+	bool dmub_locked = false;
- 
- 	dc_z10_restore(dc);
- 	dc_allow_idle_optimizations(dc, false);
-@@ -2324,7 +2325,7 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
- 	if (dc->hwss.subvp_pipe_control_lock)
- 		dc->hwss.subvp_pipe_control_lock(dc, context, true, true, NULL, subvp_prev_use);
- 	if (dc->hwss.dmub_hw_control_lock)
--		dc->hwss.dmub_hw_control_lock(dc, context, true);
-+		dmub_locked = dc->hwss.dmub_hw_control_lock(dc, context, true);
- 
- 	if (dc->hwss.update_dsc_pg)
- 		dc->hwss.update_dsc_pg(dc, context, false);
-@@ -2400,7 +2401,7 @@ static enum dc_status dc_commit_state_no_check(struct dc *dc, struct dc_state *c
- 		dc->hwss.commit_subvp_config(dc, context);
- 	if (dc->hwss.subvp_pipe_control_lock)
- 		dc->hwss.subvp_pipe_control_lock(dc, context, false, true, NULL, subvp_prev_use);
--	if (dc->hwss.dmub_hw_control_lock)
-+	if (dc->hwss.dmub_hw_control_lock && dmub_locked)
- 		dc->hwss.dmub_hw_control_lock(dc, context, false);
- 
- 	for (i = 0; i < context->stream_count; i++) {
-@@ -3178,8 +3179,10 @@ static struct dc_update_descriptor check_update_surfaces_for_stream(
- 				stream_update->vrr_active_variable || stream_update->vrr_active_fixed))
- 			su_flags->bits.fams_changed = 1;
- 
--		if (stream_update->scaler_sharpener_update)
-+		if (stream_update->scaler_sharpener_update) {
- 			su_flags->bits.scaler_sharpener = 1;
-+			elevate_update_type(&overall_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_STREAM);
-+		}
- 
- 		if (stream_update->sharpening_required)
- 			su_flags->bits.sharpening_required = 1;
-@@ -3244,6 +3247,16 @@ static struct dc_update_descriptor check_update_surfaces_for_stream(
- 			su_flags->bits.cursor_pos = 1;
- 			elevate_update_type(&overall_type, UPDATE_TYPE_FAST, LOCK_DESCRIPTOR_STREAM);
- 		}
-+
-+		if (stream_update->func_shaper) {
-+			su_flags->bits.func_shaper = 1;
-+			elevate_update_type(&overall_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_STREAM);
-+		}
-+
-+		if (stream_update->lut3d_func) {
-+			su_flags->bits.lut3d_func = 1;
-+			elevate_update_type(&overall_type, UPDATE_TYPE_FULL, LOCK_DESCRIPTOR_STREAM);
-+		}
- 	}
- 
- 	for (int i = 0 ; i < surface_count; i++) {
-@@ -4872,6 +4885,7 @@ static void commit_planes_for_stream(struct dc *dc,
- 	bool should_lock_all_pipes = (update_type != UPDATE_TYPE_FAST);
- 	bool subvp_prev_use = false;
- 	bool subvp_curr_use = false;
-+	bool dmub_locked = false;
- 	uint8_t current_stream_mask = 0;
- 
- 	if (should_lock_all_pipes)
-@@ -4979,7 +4993,7 @@ static void commit_planes_for_stream(struct dc *dc,
- 			dc->hwss.subvp_pipe_control_lock(dc, context, true, should_lock_all_pipes, NULL, subvp_prev_use);
- 
- 		if (dc->hwss.dmub_hw_control_lock)
--			dc->hwss.dmub_hw_control_lock(dc, context, true);
-+			dmub_locked = dc->hwss.dmub_hw_control_lock(dc, context, true);
- 
- 		dc->hwss.interdependent_update_lock(dc, context, true);
- 	} else {
-@@ -4987,7 +5001,7 @@ static void commit_planes_for_stream(struct dc *dc,
- 			dc->hwss.subvp_pipe_control_lock(dc, context, true, should_lock_all_pipes, top_pipe_to_program, subvp_prev_use);
- 
- 		if (dc->hwss.dmub_hw_control_lock)
--			dc->hwss.dmub_hw_control_lock(dc, context, true);
-+			dmub_locked = dc->hwss.dmub_hw_control_lock(dc, context, true);
- 
- 		/* Lock the top pipe while updating plane addrs, since freesync requires
- 		 *  plane addr update event triggers to be synchronized.
-@@ -5030,7 +5044,7 @@ static void commit_planes_for_stream(struct dc *dc,
- 			dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes,
- 							 NULL, subvp_prev_use);
- 
--		if (dc->hwss.dmub_hw_control_lock)
-+		if (dc->hwss.dmub_hw_control_lock && dmub_locked)
- 			dc->hwss.dmub_hw_control_lock(dc, context, false);
- 		return;
- 	}
-@@ -5266,12 +5280,12 @@ static void commit_planes_for_stream(struct dc *dc,
- 	if (should_lock_all_pipes && dc->hwss.interdependent_update_lock) {
- 		if (dc->hwss.subvp_pipe_control_lock)
- 			dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, NULL, subvp_prev_use);
--		if (dc->hwss.dmub_hw_control_lock)
-+		if (dc->hwss.dmub_hw_control_lock && dmub_locked)
- 			dc->hwss.dmub_hw_control_lock(dc, context, false);
- 	} else {
- 		if (dc->hwss.subvp_pipe_control_lock)
- 			dc->hwss.subvp_pipe_control_lock(dc, context, false, should_lock_all_pipes, top_pipe_to_program, subvp_prev_use);
--		if (dc->hwss.dmub_hw_control_lock)
-+		if (dc->hwss.dmub_hw_control_lock && dmub_locked)
- 			dc->hwss.dmub_hw_control_lock(dc, context, false);
- 	}
- 
-@@ -5730,127 +5744,6 @@ static bool commit_minimal_transition_state(struct dc *dc,
- 	return true;
- }
- 
--void populate_fast_updates(struct dc_fast_update *fast_update,
--		struct dc_surface_update *srf_updates,
--		int surface_count,
--		struct dc_stream_update *stream_update)
--{
--	int i = 0;
--
--	if (stream_update) {
--		fast_update[0].out_transfer_func = stream_update->out_transfer_func;
--		fast_update[0].output_csc_transform = stream_update->output_csc_transform;
--		fast_update[0].cursor_attributes = stream_update->cursor_attributes;
--		fast_update[0].cursor_position = stream_update->cursor_position;
--		fast_update[0].periodic_interrupt = stream_update->periodic_interrupt;
--		fast_update[0].dither_option = stream_update->dither_option;
--		fast_update[0].gamut_remap = stream_update->gamut_remap;
--		fast_update[0].vrr_infopacket = stream_update->vrr_infopacket;
--		fast_update[0].vsc_infopacket = stream_update->vsc_infopacket;
--		fast_update[0].vsp_infopacket = stream_update->vsp_infopacket;
--		fast_update[0].hfvsif_infopacket = stream_update->hfvsif_infopacket;
--		fast_update[0].vtem_infopacket = stream_update->vtem_infopacket;
--		fast_update[0].adaptive_sync_infopacket = stream_update->adaptive_sync_infopacket;
--		fast_update[0].avi_infopacket = stream_update->avi_infopacket;
--		fast_update[0].hdr_static_metadata = stream_update->hdr_static_metadata;
--	} else {
--		fast_update[0].out_transfer_func = NULL;
--		fast_update[0].output_csc_transform = NULL;
--		fast_update[0].cursor_attributes = NULL;
--		fast_update[0].cursor_position = NULL;
--		fast_update[0].periodic_interrupt = NULL;
--		fast_update[0].dither_option = NULL;
--		fast_update[0].gamut_remap = NULL;
--		fast_update[0].vrr_infopacket = NULL;
--		fast_update[0].vsc_infopacket = NULL;
--		fast_update[0].vsp_infopacket = NULL;
--		fast_update[0].hfvsif_infopacket = NULL;
--		fast_update[0].vtem_infopacket = NULL;
--		fast_update[0].adaptive_sync_infopacket = NULL;
--		fast_update[0].avi_infopacket = NULL;
--		fast_update[0].hdr_static_metadata = NULL;
--	}
--
--	for (i = 0; i < surface_count; i++) {
--		fast_update[i].flip_addr = srf_updates[i].flip_addr;
--		fast_update[i].gamma = srf_updates[i].gamma;
--		fast_update[i].gamut_remap_matrix = srf_updates[i].gamut_remap_matrix;
--		fast_update[i].input_csc_color_matrix = srf_updates[i].input_csc_color_matrix;
--		fast_update[i].coeff_reduction_factor = srf_updates[i].coeff_reduction_factor;
--		fast_update[i].cursor_csc_color_matrix = srf_updates[i].cursor_csc_color_matrix;
--		fast_update[i].cm_hist_control = srf_updates[i].cm_hist_control;
--	}
--}
--
--static bool fast_updates_exist(const struct dc_fast_update *fast_update, int surface_count)
--{
--	int i;
--
--	if (fast_update[0].out_transfer_func ||
--		fast_update[0].output_csc_transform ||
--		fast_update[0].cursor_attributes ||
--		fast_update[0].cursor_position ||
--		fast_update[0].periodic_interrupt ||
--		fast_update[0].dither_option ||
--		fast_update[0].gamut_remap ||
--		fast_update[0].vrr_infopacket ||
--		fast_update[0].vsc_infopacket ||
--		fast_update[0].vsp_infopacket ||
--		fast_update[0].hfvsif_infopacket ||
--		fast_update[0].vtem_infopacket ||
--		fast_update[0].adaptive_sync_infopacket ||
--		fast_update[0].avi_infopacket ||
--		fast_update[0].hdr_static_metadata)
--		return true;
--
--	for (i = 0; i < surface_count; i++) {
--		if (fast_update[i].flip_addr ||
--				fast_update[i].gamma ||
--				fast_update[i].gamut_remap_matrix ||
--				fast_update[i].input_csc_color_matrix ||
--				fast_update[i].cursor_csc_color_matrix ||
--				fast_update[i].cm_hist_control ||
--				fast_update[i].coeff_reduction_factor)
--			return true;
--	}
--
--	return false;
--}
--
--bool fast_nonaddr_updates_exist(struct dc_fast_update *fast_update, int surface_count)
--{
--	int i;
--
--	if (fast_update[0].out_transfer_func ||
--		fast_update[0].output_csc_transform ||
--		fast_update[0].gamut_remap ||
--		fast_update[0].cursor_attributes ||
--		fast_update[0].cursor_position ||
--		fast_update[0].periodic_interrupt ||
--		fast_update[0].dither_option ||
--		fast_update[0].vrr_infopacket ||
--		fast_update[0].vsc_infopacket ||
--		fast_update[0].vsp_infopacket ||
--		fast_update[0].hfvsif_infopacket ||
--		fast_update[0].vtem_infopacket ||
--		fast_update[0].adaptive_sync_infopacket ||
--		fast_update[0].avi_infopacket ||
--		fast_update[0].hdr_static_metadata)
--		return true;
--
--	for (i = 0; i < surface_count; i++) {
--		if (fast_update[i].input_csc_color_matrix ||
--				fast_update[i].gamma ||
--				fast_update[i].gamut_remap_matrix ||
--				fast_update[i].coeff_reduction_factor ||
--				fast_update[i].cm_hist_control ||
--				fast_update[i].cursor_csc_color_matrix)
--			return true;
--	}
--
--	return false;
--}
--
- static bool full_update_required_weak(
- 		const struct dc *dc,
- 		const struct dc_surface_update *srf_updates,
-@@ -5879,67 +5772,6 @@ static bool full_update_required_weak(
- 	return false;
- }
- 
--static bool full_update_required(
--		const struct dc *dc,
--		const struct dc_surface_update *srf_updates,
--		int surface_count,
--		const struct dc_stream_update *stream_update,
--		const struct dc_stream_state *stream)
--{
--	if (full_update_required_weak(dc, srf_updates, surface_count, stream_update, stream))
--		return true;
--
--	for (int i = 0; i < surface_count; i++) {
--		if (srf_updates &&
--				(srf_updates[i].plane_info ||
--				srf_updates[i].scaling_info ||
--				(srf_updates[i].hdr_mult.value &&
--				srf_updates[i].hdr_mult.value != srf_updates->surface->hdr_mult.value) ||
--				(srf_updates[i].sdr_white_level_nits &&
--				srf_updates[i].sdr_white_level_nits != srf_updates->surface->sdr_white_level_nits) ||
--				srf_updates[i].in_transfer_func ||
--				srf_updates[i].surface->force_full_update ||
--				(srf_updates[i].flip_addr &&
--				srf_updates[i].flip_addr->address.tmz_surface != srf_updates[i].surface->address.tmz_surface)))
--			return true;
--	}
--
--	if (stream_update &&
--			(((stream_update->src.height != 0 && stream_update->src.width != 0) ||
--			(stream_update->dst.height != 0 && stream_update->dst.width != 0) ||
--			stream_update->integer_scaling_update) ||
--			stream_update->abm_level ||
--			stream_update->dpms_off ||
--			stream_update->allow_freesync ||
--			stream_update->vrr_active_variable ||
--			stream_update->vrr_active_fixed ||
--			stream_update->output_color_space ||
--			stream_update->wb_update ||
--			stream_update->dsc_config ||
--			stream_update->mst_bw_update ||
--			stream_update->func_shaper ||
--			stream_update->lut3d_func ||
--			stream_update->pending_test_pattern ||
--			stream_update->crtc_timing_adjust ||
--			stream_update->scaler_sharpener_update ||
--			stream_update->hw_cursor_req))
--		return true;
--
--	return false;
--}
--
--static bool fast_update_only(
--		const struct dc *dc,
--		const struct dc_fast_update *fast_update,
--		const struct dc_surface_update *srf_updates,
--		int surface_count,
--		const struct dc_stream_update *stream_update,
--		const struct dc_stream_state *stream)
--{
--	return fast_updates_exist(fast_update, surface_count)
--			&& !full_update_required(dc, srf_updates, surface_count, stream_update, stream);
--}
--
- static bool update_planes_and_stream_v2(struct dc *dc,
- 		struct dc_surface_update *srf_updates, int surface_count,
- 		struct dc_stream_state *stream,
-@@ -5947,7 +5779,6 @@ static bool update_planes_and_stream_v2(struct dc *dc,
- {
- 	struct dc_state *context;
- 	enum dc_update_type update_type;
--	struct dc_fast_update fast_update[MAX_SURFACES] = {0};
- 
- 	/* In cases where MPO and split or ODM are used transitions can
- 	 * cause underflow. Apply stream configuration with minimal pipe
-@@ -5955,11 +5786,7 @@ static bool update_planes_and_stream_v2(struct dc *dc,
- 	 */
- 	bool force_minimal_pipe_splitting = 0;
- 	bool is_plane_addition = 0;
--	bool is_fast_update_only;
- 
--	populate_fast_updates(fast_update, srf_updates, surface_count, stream_update);
--	is_fast_update_only = fast_update_only(dc, fast_update, srf_updates,
--			surface_count, stream_update, stream);
- 	force_minimal_pipe_splitting = could_mpcc_tree_change_for_active_pipes(
- 			dc,
- 			stream,
-@@ -5997,7 +5824,7 @@ static bool update_planes_and_stream_v2(struct dc *dc,
- 		commit_minimal_transition_state_in_dc_update(dc, context, stream,
- 				srf_updates, surface_count);
- 
--	if (is_fast_update_only && !dc->check_config.enable_legacy_fast_update) {
-+	if (update_type == UPDATE_TYPE_FAST && !dc->check_config.enable_legacy_fast_update) {
- 		commit_planes_for_stream_fast(dc,
- 				srf_updates,
- 				surface_count,
-@@ -6033,13 +5860,8 @@ static void commit_planes_and_stream_update_on_current_context(struct dc *dc,
- 		struct dc_stream_update *stream_update,
- 		enum dc_update_type update_type)
- {
--	struct dc_fast_update fast_update[MAX_SURFACES] = {0};
--
- 	ASSERT(update_type < UPDATE_TYPE_FULL);
--	populate_fast_updates(fast_update, srf_updates, surface_count,
--			stream_update);
--	if (fast_update_only(dc, fast_update, srf_updates, surface_count,
--			stream_update, stream) &&
-+	if (update_type == UPDATE_TYPE_FAST &&
- 			!dc->check_config.enable_legacy_fast_update)
- 		commit_planes_for_stream_fast(dc,
- 				srf_updates,
-@@ -8235,23 +8057,6 @@ static bool update_planes_and_stream_prepare_v3(
- 	ASSERT(scratch->flow == UPDATE_V3_FLOW_INVALID);
- 	dc_exit_ips_for_hw_access(scratch->dc);
- 
--	/* HWSS path determination needs to be done prior to updating the surface and stream states. */
--	struct dc_fast_update fast_update[MAX_SURFACES] = { 0 };
--
--	populate_fast_updates(fast_update,
--			      scratch->surface_updates,
--			      scratch->surface_count,
--			      scratch->stream_update);
--
--	const bool is_hwss_fast_path_only =
--		fast_update_only(scratch->dc,
--				 fast_update,
--				 scratch->surface_updates,
--				 scratch->surface_count,
--				 scratch->stream_update,
--				 scratch->stream) &&
--		!scratch->dc->check_config.enable_legacy_fast_update;
--
- 	if (!update_planes_and_stream_state(
- 			scratch->dc,
- 			scratch->surface_updates,
-@@ -8267,7 +8072,8 @@ static bool update_planes_and_stream_prepare_v3(
- 	if (scratch->new_context == scratch->dc->current_state) {
- 		ASSERT(scratch->update_type < UPDATE_TYPE_FULL);
- 
--		scratch->flow = is_hwss_fast_path_only
-+		scratch->flow = (scratch->update_type == UPDATE_TYPE_FAST &&
-+				!scratch->dc->check_config.enable_legacy_fast_update)
- 				? UPDATE_V3_FLOW_NO_NEW_CONTEXT_CONTEXT_FAST
- 				: UPDATE_V3_FLOW_NO_NEW_CONTEXT_CONTEXT_FULL;
- 		return true;
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index 34d4ede12e79..71d3604b020c 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -2089,32 +2089,6 @@ struct dc_scaling_info {
- 	struct scaling_taps scaling_quality;
- };
- 
--struct dc_fast_update {
--	const struct dc_flip_addrs *flip_addr;
--	const struct dc_gamma *gamma;
--	const struct colorspace_transform *gamut_remap_matrix;
--	const struct dc_csc_transform *input_csc_color_matrix;
--	const struct fixed31_32 *coeff_reduction_factor;
--	struct dc_transfer_func *out_transfer_func;
--	struct dc_csc_transform *output_csc_transform;
--	const struct dc_csc_transform *cursor_csc_color_matrix;
--	struct cm_hist_control *cm_hist_control;
--	/* stream-level fast updates */
--	const struct colorspace_transform *gamut_remap;
--	const struct dc_cursor_attributes *cursor_attributes;
--	const struct dc_cursor_position *cursor_position;
--	const struct periodic_interrupt_config *periodic_interrupt;
--	const enum dc_dither_option *dither_option;
--	struct dc_info_packet *vrr_infopacket;
--	struct dc_info_packet *vsc_infopacket;
--	struct dc_info_packet *vsp_infopacket;
--	struct dc_info_packet *hfvsif_infopacket;
--	struct dc_info_packet *vtem_infopacket;
--	struct dc_info_packet *adaptive_sync_infopacket;
--	struct dc_info_packet *avi_infopacket;
--	struct dc_info_packet *hdr_static_metadata;
--};
--
- struct dc_surface_update {
- 	struct dc_plane_state *surface;
- 
-@@ -2418,11 +2392,6 @@ bool dc_resource_is_dsc_encoding_supported(const struct dc *dc);
- void get_audio_check(struct audio_info *aud_modes,
- 	struct audio_check *aud_chk);
- 
--bool fast_nonaddr_updates_exist(struct dc_fast_update *fast_update, int surface_count);
--void populate_fast_updates(struct dc_fast_update *fast_update,
--		struct dc_surface_update *srf_updates,
--		int surface_count,
--		struct dc_stream_update *stream_update);
- /*
-  * Set up streams and links associated to drive sinks
-  * The streams parameter is an absolute set of all active streams.
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_stream.h b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-index 934ae381e730..e0b2224f043a 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_stream.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_stream.h
-@@ -123,6 +123,9 @@ union stream_update_flags {
- 		uint32_t info_frame : 1;
- 		uint32_t dmdata : 1;
- 		uint32_t dither : 1;
-+		uint32_t func_shaper : 1;
-+		uint32_t lut3d_func : 1;
-+		uint32_t reserved : 11; /* adjust when adding new flags */
- 	} bits;
- 
- 	uint32_t raw;
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-index 09b59466ae7a..29f7c6d49bf0 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.c
-@@ -1836,27 +1836,30 @@ void dcn35_disable_link_output(struct dc_link *link,
- 	dc->link_srv->dp_trace_source_sequence(link, DPCD_SOURCE_SEQ_AFTER_DISABLE_LINK_PHY);
- }
- 
--void dcn35_dmub_hw_control_lock(struct dc *dc, struct dc_state *context, bool lock)
-+bool dcn35_dmub_hw_control_lock(struct dc *dc, struct dc_state *context, bool lock)
- {
--	/* use always for now */
- 	union dmub_inbox0_cmd_lock_hw hw_lock_cmd = { 0 };
- 
- 	if (!dc->ctx || !dc->ctx->dmub_srv)
--		return;
-+		return false;
- 
- 	/* if not support inbox0 lock, would not use inbox0 lock mechanism  */
- 	if (!dc->ctx->dmub_srv->dmub->meta_info.feature_bits.bits.inbox0_lock_support)
--		return;
-+		return false;
- 
--	if (!dc_dmub_srv_is_cursor_offload_enabled(dc) &&
--		!dmub_hw_lock_mgr_does_context_require_lock(dc, context))
--		return;
-+	if (lock) {
-+		if (!dc_dmub_srv_is_cursor_offload_enabled(dc) &&
-+			!dmub_hw_lock_mgr_does_context_require_lock(dc, context))
-+			return false;
-+	}
- 
- 	hw_lock_cmd.bits.command_code = DMUB_INBOX0_CMD__HW_LOCK;
- 	hw_lock_cmd.bits.hw_lock_client = HW_LOCK_CLIENT_DRIVER;
- 	hw_lock_cmd.bits.lock = lock;
- 	hw_lock_cmd.bits.should_release = !lock;
- 	dmub_hw_lock_mgr_inbox0_cmd(dc->ctx->dmub_srv, hw_lock_cmd);
-+
-+	return true;
- }
- 
- void dcn35_dmub_hw_control_lock_fast(union block_sequence_params *params)
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h
-index e402e30f755d..761922e2dade 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn35/dcn35_hwseq.h
-@@ -115,7 +115,7 @@ void dcn35_program_cursor_offload_now(struct dc *dc, const struct pipe_ctx *pipe
- void dcn35_disable_link_output(struct dc_link *link,
- 		const struct link_resource *link_res,
- 		enum signal_type signal);
--void dcn35_dmub_hw_control_lock(struct dc *dc, struct dc_state *context, bool lock);
-+bool dcn35_dmub_hw_control_lock(struct dc *dc, struct dc_state *context, bool lock);
- void dcn35_dmub_hw_control_lock_fast(union block_sequence_params *params);
- 
- #endif /* __DC_HWSS_DCN35_H__ */
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-index f20a7b99d20c..8982ef773832 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
-@@ -1567,25 +1567,27 @@ void dcn401_optimize_bandwidth_sequence(struct dc *dc,
- 				dc->clk_mgr, context, true, seq_state);
- }
- 
--void dcn401_dmub_hw_control_lock(struct dc *dc,
-+bool dcn401_dmub_hw_control_lock(struct dc *dc,
- 		struct dc_state *context,
- 		bool lock)
- {
- 	(void)context;
--	/* use always for now */
- 	union dmub_inbox0_cmd_lock_hw hw_lock_cmd = { 0 };
- 
- 	if (!dc->ctx || !dc->ctx->dmub_srv)
--		return;
-+		return false;
- 
--	if (!dc->debug.fams2_config.bits.enable && !dc_dmub_srv_is_cursor_offload_enabled(dc))
--		return;
-+	if (lock) {
-+		if (!dc->debug.fams2_config.bits.enable && !dc_dmub_srv_is_cursor_offload_enabled(dc))
-+			return false;
-+	}
- 
- 	hw_lock_cmd.bits.command_code = DMUB_INBOX0_CMD__HW_LOCK;
- 	hw_lock_cmd.bits.hw_lock_client = HW_LOCK_CLIENT_DRIVER;
- 	hw_lock_cmd.bits.lock = lock;
- 	hw_lock_cmd.bits.should_release = !lock;
- 	dmub_hw_lock_mgr_inbox0_cmd(dc->ctx->dmub_srv, hw_lock_cmd);
-+	return true;
- }
- 
- void dcn401_dmub_hw_control_lock_fast(union block_sequence_params *params)
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
-index 69c7dc73a29a..6d5770c5e377 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.h
-@@ -77,7 +77,7 @@ void dcn401_optimize_bandwidth_sequence(struct dc *dc,
- 		struct dc_state *context,
- 		struct block_sequence_state *seq_state);
- 
--void dcn401_dmub_hw_control_lock(struct dc *dc,
-+bool dcn401_dmub_hw_control_lock(struct dc *dc,
- 		struct dc_state *context,
- 		bool lock);
- void dcn401_fams2_update_config(struct dc *dc, struct dc_state *context, bool enable);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
-index 13580d9f9303..8582b123c7fe 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.c
-@@ -1091,25 +1091,28 @@ void dcn42_setup_stereo(struct pipe_ctx *pipe_ctx, struct dc *dc)
- 
- 	return;
- }
--void dcn42_dmub_hw_control_lock(struct dc *dc, struct dc_state *context, bool lock)
-+bool dcn42_dmub_hw_control_lock(struct dc *dc, struct dc_state *context, bool lock)
- {
- 
- 	union dmub_inbox0_cmd_lock_hw hw_lock_cmd = { 0 };
- 
- 	if (!dc->ctx || !dc->ctx->dmub_srv)
--		return;
-+		return false;
- 
- 	/* Use helper to check PSR/Replay for all streams in context */
- 
--	if (!dc->debug.fams2_config.bits.enable && !dc_dmub_srv_is_cursor_offload_enabled(dc)
--		&& !dmub_hw_lock_mgr_does_context_require_lock(dc, context))
--		return;
-+	if (lock) {
-+		if (!dc->debug.fams2_config.bits.enable && !dc_dmub_srv_is_cursor_offload_enabled(dc)
-+			&& !dmub_hw_lock_mgr_does_context_require_lock(dc, context))
-+			return false;
-+	}
- 
- 	hw_lock_cmd.bits.command_code = DMUB_INBOX0_CMD__HW_LOCK;
- 	hw_lock_cmd.bits.hw_lock_client = HW_LOCK_CLIENT_DRIVER;
- 	hw_lock_cmd.bits.lock = lock;
- 	hw_lock_cmd.bits.should_release = !lock;
- 	dmub_hw_lock_mgr_inbox0_cmd(dc->ctx->dmub_srv, hw_lock_cmd);
-+	return true;
- }
- 
- void dcn42_dmub_hw_control_lock_fast(union block_sequence_params *params)
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.h
-index c4cfeed45b19..cf8766f032ac 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn42/dcn42_hwseq.h
-@@ -40,7 +40,7 @@ void dcn42_hw_block_power_up(struct dc *dc,
- 		struct pg_block_update *update_state);
- void dcn42_root_clock_control(struct dc *dc,
- 		struct pg_block_update *update_state, bool power_on);
--void dcn42_dmub_hw_control_lock(struct dc *dc, struct dc_state *context, bool lock);
-+bool dcn42_dmub_hw_control_lock(struct dc *dc, struct dc_state *context, bool lock);
- void dcn42_dmub_hw_control_lock_fast(union block_sequence_params *params);
- void dcn42_setup_stereo(struct pipe_ctx *pipe_ctx, struct dc *dc);
- void dcn42_power_down_on_boot(struct dc *dc);
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-index cdf2562a9a40..c739b3ab716b 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-@@ -1654,7 +1654,7 @@ struct hw_sequencer_funcs {
- 			const struct dc_state *new_ctx);
- 	void (*wait_for_dcc_meta_propagation)(const struct dc *dc,
- 		const struct pipe_ctx *top_pipe_to_program);
--	void (*dmub_hw_control_lock)(struct dc *dc,
-+	bool (*dmub_hw_control_lock)(struct dc *dc,
- 			struct dc_state *context,
- 			bool lock);
- 	void (*fams2_update_config)(struct dc *dc,
--- 
-2.43.0
+>
+> Thank you for the explanation and the patch series. I may have some 
+> gaps in my understanding that I would like to clarify. In my mind, I 
+> was using "proximity domain" and "NUMA node" interchangeably. You're 
+> demonstrating that they are not the same thing. Is that just a 
+> different way of labeling the same thing, or are NUMA nodes and 
+> proximity domains fundamentally different concepts.
+>
+> Your code in patch 5 (kfd_proximity_domain_to_numa_node and 
+> kfd_numa_node_to_proximity_domain) seems to imply that there is, in 
+> fact, a 1:1 mapping, as it assumes that there is a unique translation 
+> in both directions. Am I missing something?
 
+
+
+Thanks for the comment.
+
+IIUC, NUMA node IDs and proximity domains are different numbering 
+schemes. We have proximity domains for both CPU and GPU devices. CPU 
+proximity domains start from 0, and GPU proximity domains start after 
+the last CPU proximity domain.
+
+If the NUMA node IDs are contiguous, the CPU proximity domains happen to 
+match the NUMA node IDs. However, if the NUMA node IDs are 
+discontiguous, the CPU proximity domains and NUMA node IDs no longer 
+have a one-to-one mapping.
+
+>
+> If they are just different numbering systems, do we really need to 
+> keep track of both proximity domains and NUMA nodes in the KFD 
+> topology? Or would it be sufficient to only track NUMA nodes, if 
+> that's what we really care about in the uAPI (KFD sysfs)?
+
+
+
+Thanks for the suggestion. I also think we don't need to keep track of 
+both the proximity domains and the NUMA node IDs in KFD. Do you think 
+the approach below would be reasonable?
+
+Just to make sure I understand correctly, for CPU devices the proximity 
+domain will be the same as the NUMA node ID, and the GPU proximity 
+domains will start after the last CPU proximity domain.
+
+In that case, the CPU proximity domains and NUMA node IDs will always 
+have a one-to-one mapping, and the GPU proximity domains will follow 
+after them.
+
+For example, if a system has three NUMA nodes and two GPUs:
+
+NUMA node IDs:            0   2   3
+CPU proximity domains:    0   2   3
+GPU proximity domains:    4   5
+
+Would it be okay to proceed with this approach?
+
+I think this approach should also resolve the driver loading issue.
+
+
+Thanks
+Donet Tom
+
+
+>
+> Thanks,
+>   Felix
+>
+>
+>>
+>> The failure is observed as:
+>>
+>> amdgpu: Virtual CRAT table created for GPU
+>> amdgpu: Error parsing VCRAT
+>> kfd: amdgpu: Error adding device to topology
+>> kfd: amdgpu: Error initializing KFD node
+>>
+>>
+>> Since every online NUMA node is a valid topology object and can contain
+>> CPUs, memory, I/O links, or any combination of these, topology devices
+>> and proximity domains should be created for every online NUMA node
+>> rather than only for NUMA nodes that contain CPUs.
+>>
+>> To address this, this series introduces a new VCRAT subtype that
+>> records the mapping between the NUMA node ID and the generated VCRAT
+>> proximity domain. When topology devices are created, this information
+>> is stored in the corresponding topology device, allowing the driver to
+>> translate a NUMA node ID into its associated proximity domain whenever
+>> required.
+>>
+>> Returning to the previous example, the system contains three online
+>> NUMA nodes, so three CPU topology devices and three proximity domains
+>> are created, even though only one NUMA node contains CPUs. The NUMA
+>> node ID is stored in each topology device together with its generated
+>> proximity domain.
+>>
+>> Later, when the GPU VCRAT is generated, the driver only knows the NUMA
+>> node ID to which the GPU is attached (for example, node 3). Instead of
+>> assuming that the NUMA node ID is equal to the proximity domain, the
+>> driver walks the existing topology devices to locate the corresponding
+>> NUMA node and retrieves its generated proximity domain. In this
+>> example, NUMA node 3 maps to proximity domain 2, so
+>> proximity_domain_to is populated with the correct value.
+>>
+>> Since the GPU I/O link now references a valid proximity domain, VCRAT
+>> parsing completes successfully and topology initialization proceeds
+>> without errors on systems with sparse NUMA node IDs, CPU-less NUMA
+>> nodes, and CPU-less/memory-less NUMA nodes.
+>>
+>> This series consists of the following patches:
+>>
+>> Patch 1 removes an unused argument from
+>> kfd_create_crat_image_virtual() as a preparatory cleanup.
+>>
+>> Patch 2 introduces a new VCRAT NUMA affinity subtype that stores the
+>> NUMA node ID and its corresponding proximity domain.
+>>
+>> Patch 3 populates the NUMA affinity entries during VCRAT generation
+>> for every online NUMA node.
+>>
+>> Patch 4 parses the NUMA affinity entries from the VCRAT and stores the
+>> NUMA node ID and proximity domain in the corresponding topology
+>> device.
+>>
+>> Patch 5 fixes GPU VCRAT proximity domain mappings by translating the
+>> GPU's NUMA node ID to the corresponding CPU proximity domain before
+>> programming proximity_domain_to.
+>>
+>> Patch 6 creates proximity domains and VCRAT entries for all online
+>> NUMA nodes, including CPU-less and memory-less nodes.
+>>
+>> Patch 7 adds a numa_node sysfs attribute for CPU and GPU topology
+>> devices, exposing the associated NUMA node through the topology sysfs
+>> interface.
+>>
+>> Please note that the changes in this series are on a best effort 
+>> basis from our
+>> end. Therefore, requesting the amd-gfx community (who have deeper 
+>> knowledge of the
+>> HW & SW stack) to kindly help with the review and provide feedback / 
+>> comments on
+>> these patches
+>>
+>> Donet Tom (7):
+>>    drm/amdgpu: Remove unused argument from kfd_create_crat_image_virtual
+>>    drm/amdgpu: Add VCRAT NUMA affinity entry
+>>    drm/amdgpu: Populate NUMA affinity entries in VCRAT
+>>    drm/amdgpu: Parse NUMA affinity entries from VCRAT
+>>    drm/amdgpu: Fix VCRAT proximity domain mappings for GPU nodes
+>>    drm/amdgpu: Create proximity domains and VCRAT entries for CPU-less
+>>      and memory-less NUMA nodes
+>>    drm/amdgpu: Add numa_node in cpu/gpu topology device sysfs entry
+>>
+>>   drivers/gpu/drm/amd/amdkfd/kfd_crat.c     | 152 +++++++++++++++-------
+>>   drivers/gpu/drm/amd/amdkfd/kfd_crat.h     |  19 ++-
+>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.c |  49 +++++--
+>>   drivers/gpu/drm/amd/amdkfd/kfd_topology.h |   4 +
+>>   4 files changed, 168 insertions(+), 56 deletions(-)
+>>
