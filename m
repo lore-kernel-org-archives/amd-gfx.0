@@ -4,95 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2A5FCC56203
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 13:55:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B66A0C55174
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 13:57:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2CFC10EE9C;
-	Wed,  5 Aug 2026 13:55:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D78310EE8A;
+	Wed,  5 Aug 2026 13:57:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="I4yu93y3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="iUYEuSm8";
 	dkim-atps=neutral
-Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com
- [209.85.160.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0C4410EE8A
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 13:55:40 +0000 (UTC)
-Received: by mail-oa1-f53.google.com with SMTP id
- 586e51a60fabf-455ca262ccbso570719fac.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 05 Aug 2026 06:55:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785938140; cv=none;
- d=google.com; s=arc-20260327;
- b=kNQWpoU1x8RiOQY3/MBTUzKyEyjZwfLgw3MJSV0nWXw8fMu6EBC/U5REVOKNiOmUdf
- jgpgZlslYiAJ/OW0NO6ZSRS1WaRWDI8medMhPGwy0KUOxA6eOgZ88R0ES2gB9x6BkeQH
- FnWcp01SRw30HzP15h7Uvtgfw2awMKIpqjpfXms2NgkSS6mfTs9JL8LyCZq/TkNXJ8Vw
- YUGSVC1FkHZyZ/nelRRmYQHbYItkafdKOOPLHKFhfBcDW7qC4X1CjrbvMdKOEdIlg7Gj
- 6bU/IpgzjhFfW0RWupDHbeSBmncTijawvZkpVuaH+2VDbfLieoD0L5WocmSPoqARfbhn
- UKpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=0T5/BwMbKCVTLYDKO3fObDhqOfeGegG11SJ0r26Jq64=;
- fh=OPX5SiPgHillB4skeawk+lrCV51RyRu2NyxE420j7So=;
- b=CdCYrOwEf8FGVCCLBRSHjro3z7od6cMBYWHOoDBp66KpyOkt0sYbQXcrp0/+DUYq8C
- v7y3y1brs0soTVsfShVaaw7ajqrmCeAR2SKKsypY9NStdopSXhzKDjND1rn0YFIh1taL
- hHFOTSe/9CT9guxB496fimfUf76d+Oq0gOsS+BWDaNkxybo6mmcegRhR7aA6EaZdeYWP
- r3lNJ52Iole2QllctspllA6xIhjw4Hdqb6xcqOKbutuMY3ikDCZLxpxSGXZAm7TuxDsw
- ahinuYXQyEEkSw4oRvegaAqrFMT8gZTBgTvuC2SAqbITwqQicyp9Uu1djmCyf+2czgmj
- mqyw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785938140; x=1786542940; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=0T5/BwMbKCVTLYDKO3fObDhqOfeGegG11SJ0r26Jq64=;
- b=I4yu93y3/JKLqwoM8ILW8cNJmy4ZEX7zll+x/Kz/lkJtEjmKkFaebMEsrb/JCZzWvx
- PHYus5PW8rdnwZCcbWFuSCxJMGb5aHtY05s+rD7kWRB6S0Cp/zx/09rJ/AkpJYhpc20T
- fi3c43hh/6nqA37uoke5B2i8icfpTpH+H5ofd35Yo5SwKz/zkzcn8GVOUYD3vl99iOIq
- 6CRyNNm7G5oNCVEj6dnKT+Jhs/tDaIMKvSo64aEc3Wo/8ba7fvRo6x/rupcblIcTi/kA
- HwLQmWBcwH96+K45wDuWMRu8uwkurprMBC7kvM/VQ386JA3cNBT0ku++MjcKlPcVkadb
- v5QQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785938140; x=1786542940;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=0T5/BwMbKCVTLYDKO3fObDhqOfeGegG11SJ0r26Jq64=;
- b=H49m2dMTmm0YWAAV2Aprh++3dtHkQBdv2jfQmjQe9XT0QBWgFi5QFOKx3hWFD0XlNj
- rNccH4OCTCR5EMu1Kg0Ywxd+n94XOwgFR0wXUylhXLu/Mq2j2aH5W3ZNi8fUMaQMJe5V
- 928OkcN13nAwN1+X1hvPvpGXNmhgey2xE0P7JfdFWcq0WUCnPe+X237jgIW6xap3mjWY
- fsWRD46leddIuiQ5iV1SCBoi+gMHu5rBtbmZMZmLXqyUWDS5eqV3Bon27wCs7bTagdpv
- NRivLTzcErIki/1X6MQdZN0dXZGDX9bXDy1plTjb/51/oNqxEGrXGojJQidxsBfzDLH0
- RtEg==
-X-Gm-Message-State: AOJu0Yw7k30kOrIdXPrnlucaQQ6QlLPVhxYg69Xp5v0LtZbMfOdTVxd/
- +W5oyzEOejNmoVJcK6TsSC5y2kaH4Q8KnKXRalHL6oXK1uDEPzpDSnZhSkSAQ6nRMHLWPgXHeU2
- W/Z8u11sDZvDU0jiSMzpcbqFAWDLnCvI=
-X-Gm-Gg: AR+sD10Y/exjb/FPCCyZcbyteY1F8ix4DqAR+ULrlH4HnMwH+sZUoJSnfFRk9oXJyXl
- ESEB0oRKBpW0bS0TYevYM1hptkKJ33QyTegydsOq86zvyiI0hUd43+YcWURrYfzDQC4do1aO+68
- ogGMbVRpY/dGrMHLvPUYS7KpyXaDm3ib1QIsJlv8z4uh4YR+Xhh+zmj6IYfsoWp/bJei9ZzfMG0
- XrIZtw8slCLlBH+3npk4kNb3e9O6bCJGOLpCOA0GAP9QvdSUB1nPO8RSoQqgo3gbCtUaqrAj8zq
- NX3K03EwY/g307g4f3tOkH/2EHIiAgN1smqaEfJ7dO7B7Q==
-X-Received: by 2002:a05:6870:c145:b0:448:7ecd:583c with SMTP id
- 586e51a60fabf-4599ef66e57mr3421197fac.17.1785938139558; Wed, 05 Aug 2026
- 06:55:39 -0700 (PDT)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012029.outbound.protection.outlook.com [52.101.53.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FA3310EE79
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 13:57:05 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Uq9oS/EUbhFndbrDfif1K/lTU5FbYlXyDb4hRaqOa3mvFy/dmsm/XbvxoL0vjl/VF4U5qdeWlC862qQ9Ix1NNyM2zkCmmj9ZFNQ4Jmri8BgFFYOK8Sainu2PMpwVbDvo0lf7KNvlXO3JXa573xYrUjxsFQP6r5Mg9eOUq5oM06bfbiAE0OiQMzWyQZbBvDXu8CbQzwvh/+5S7kmV7Vj1JRwLgVYKKVv/6fw/ILmvuFVkwMNGlE/QrosgLRiv4Vdxm12XddZi9sSM3vIWgki6/pDVO6S32ft9s0BaR88zt7iGRb636CFR+50muZiCx0iY6AltmpfzPAWa6yxQGjlDrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=zgu2oQDaAT1rcJ4C8cs9azCeiInd/lk/l4Kkk35/cH0=;
+ b=GIJMHUem4q8omM/HgZgRvYI8SzGM/mnxBnFP8Owc/vD/VWxHheTNEmVi5/PmcnqjrjE+PTiV1Nb6JpAGPHopOffmSxIbQX+r+7a67OsMfOavegfHUr8cVIZRe5evoWXjSJralHCQu4A/tEZlxqO52w7pwLHkph8jkKyoTKY9cy+pTM7GhkSh/QN3cqitmjuoMK9GOVTIT5xUsUusyrFmPiTSW7ceGaUII86R1GmUnGBnabCcXJsc5yx6m4M45/xOCEh3LdntlGj6WUSGxgEu8HmmPcUuHH9rRbnJTTfCtcKwgU8ZZfKaY+LUbw5dYf6STJPxTBGvXl9exc0a6NIZeQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=zgu2oQDaAT1rcJ4C8cs9azCeiInd/lk/l4Kkk35/cH0=;
+ b=iUYEuSm8k3EmOEC6slE3F4XIwf1AjoCbHa54bODailBitY8sqDLzmlLNZfwMJMu9n7qZ1Q3dstYCxCf9iEOemN/oYJptVKnyNQljLp0n7TTLd/p178laq/fpaLP8USZOVp+O6b1iw4uzQ85t+w2Tanuz4KVhSSYENRsncYz9LGE=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ5PPF0529573EF.namprd12.prod.outlook.com
+ (2603:10b6:a0f:fc02::987) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.16; Wed, 5 Aug
+ 2026 13:57:01 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0270.017; Wed, 5 Aug 2026
+ 13:57:00 +0000
+Message-ID: <88de25f9-826f-4de2-8c36-0d5b21d733b7@amd.com>
+Date: Wed, 5 Aug 2026 15:56:57 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: validate GEM_CREATE domain combinations
+To: Candice Li <candice.li@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Alexander Deucher <alexander.deucher@amd.com>
+References: <20260804095620.3899975-1-candice.li@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260804095620.3899975-1-candice.li@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0025.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:14::12) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-References: <15b28cafab1b55f3e4cad9bb542847d22e776bda.1785616749.git.nlucasgit@gmail.com>
- <20260803152533.9008-1-royalnet026@gmail.com>
-In-Reply-To: <20260803152533.9008-1-royalnet026@gmail.com>
-From: Nathan Lucas <nlucasgit@gmail.com>
-Date: Wed, 5 Aug 2026 07:55:28 -0600
-X-Gm-Features: AUfX_mzExbPGJJsBny-YZnnSr1GCs-6bfdue8MaTV1Rrsd66Jj3Gf72et43uSvY
-Message-ID: <CACNCB+=APzutjqirzBCfkt-t5QRMOnr9j3pWT0RxEOkH3mkEug@mail.gmail.com>
-Subject: Re: [PATCH 2/2] drm/amd/display: fix BT.2020 YCbCr output CSC
- matrices for DCE
-To: Igor Paunovic <royalnet026@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, harry.wentland@amd.com, sunpeng.li@amd.com, 
- siqueira@igalia.com, alexander.deucher@amd.com, joshua@froggi.es, 
- mwen@igalia.com, leorize+oss@disroot.org, alex.hung@amd.com, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ5PPF0529573EF:EE_
+X-MS-Office365-Filtering-Correlation-Id: 06880163-f9e3-4733-759c-08def2f96c0a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|1800799024|376014|11063799006|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: yXIT6EfNoen5/a/GF5OqC74Q6XxvO7PaT19TkeTjcLpSj1cOUhW/YWmwJveo37GTo2g7T7NnLSooR0MDxJpsT15J1p8B/35EFut4Gtm5h2FB+niQTxOwGH30PIkXUyKcFXyjI8obEeSt8bZJClR4zNHBcMHfG7JdCq6AWjwzPm4Hzy0Ekef5S14fhCO30CdAYh4FA2pw7VSG/yHUcuURxwDXOvq4p3C3DHFFsWU0DZV/FN1epZfdTHsXn5yRmmPPs21rXv8nOavXVvDeutK/3djDGRLpOiGQCvShN13gZuXaAGVnSCOPy0dmiq2QGMTXUEQHy/Xjskt4JAXg+7iaaxmterMYjx4Tfa9JpjkPqGYMUtthPvVncvng5NtnOTpcOvxAT66cgS8/bodRjdG/mU/PbUWg0KCH6I1uk8TmwrGLbg/3NTtRycecALhH/zMOjGV3YJMMD/p/VbCnOMxilAJM1w7Sa/kW0Ixb4QMSyXfx5UmRIpxqm1gBFtlHnMH6mlTvVgufmK1fl5uwwqDYm590uipBuW51Tr4iy3YWWpSiARHojHBZ/sivNuDaeQAphaxdTcvv0mzvINk3BEcyOwwO2QTXlfmZYXuKOAi/hbpIvDoVtOoyIDml/n/Zk7mrEVj8vKnprvp6M/P/glrra97LiJ+aVRVkg07ktFuF4aw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bnFFQ25MT3F3MytGVHBzZnhCY0R0N2hYN3dLRVk2dzljd3kvTjVtVW5CK0d2?=
+ =?utf-8?B?YjlBWTVaYmpJQ1RybEliVUgxaEF1bDdZOUVSWTJsbXdTdDR0QkFFWHc3aWVp?=
+ =?utf-8?B?OHBCVXR0RURLVVJ6dVVNeHdLd2pBbUhnblh5Rm9KWG9UOWV6azVHV0V3UEMr?=
+ =?utf-8?B?MERMOW15b0hXeWJaRlFXMVllYTdNUHc1MEkwOUNhcUhEaGVlS0ltR3Nhem1L?=
+ =?utf-8?B?L01aTmpkSkd5YkE4V1o5WVlGaHErbHVjYjVMWDF4S2tZaUJoU1BMVGRMRWNV?=
+ =?utf-8?B?Q0xOVUpIc1FJVmV5eXdkM1ZCSFlVTkZBSUs4Z3Bid1JScDdDeE9rbnV4a0VU?=
+ =?utf-8?B?VVhPekY0eDVqWGNtOC9SUitQUUx0eWpCSnVaYU90dXYvdG04QkpIaWtGNURI?=
+ =?utf-8?B?Tk1za3prUDNrNHAweHdiMmdlRkdQeFhsZ1ZBb1NrUUpqam05bENzOHd5eVpD?=
+ =?utf-8?B?VEhzUWV2cEJ1VWJ1T25KL1VtR1dscFVUZTc2OCsxQWJOQ09jVzhYSGRsTGRm?=
+ =?utf-8?B?UGcyVUk0U2k3L1g2RGQ3UzkxT2UzTXJGT05jK2ZjdHl6T1RnSC9DRVExakhx?=
+ =?utf-8?B?Ykc0KzBrYzl2UnNYSThZVTdyRFliRTZ0bWlackN5MjFSV3JERkU5NlFFdmQ5?=
+ =?utf-8?B?TzZuaVVmbHhDNCtYWnlYcGx3c0IwK0Z3aFBVajBoSTIrSC9LM1U5azJsaG81?=
+ =?utf-8?B?UEpSN3VocFZKbUlYRW1ON3VsZCtnUkhrSG1BK0JXUFJSeVBNdXh1dmV1YnlR?=
+ =?utf-8?B?cWE0S1BQb3hXczVYaGU0ZU01akNwY05BWTBYT2xsOHRJdEFUR0hlRUlUR0Rv?=
+ =?utf-8?B?L2VKV2V6UUtRZllYTFA2bkZEOWdlaXFZdU9VKzRuMkxRM1VEVGxLZkJ6MERO?=
+ =?utf-8?B?aW5WOW1oVEZGWElxMUNBYTBXN0RGbE9vdkE0d1BIQW9ZU1VSZHprOGdGQ28y?=
+ =?utf-8?B?WFIyRlNqZmxPb3YwdmtaN2IzWC9yTndxMnRzZVZOTUZzUmp3ejJ5N2I1UWxK?=
+ =?utf-8?B?WVovMllsNlRnQVUyMkdoL1hONnhpUjlFbnRFTkJIUXJYWmFXYi9hRmR0dVpO?=
+ =?utf-8?B?REluQXpTU2hraVRVb3hSOURhN1lnOWZGWUhOZzRtdzlmSFJzSUh5S2FSSTRu?=
+ =?utf-8?B?V2s5bnNtZXpwa1Q5TEp1UENIZTZoZzZ3RTcrbHpGeWRTR3RidVBKbjg0bS8x?=
+ =?utf-8?B?N29FNHBOTVZFaGRTNlhYQ1VJeHNteHk0clJqcFB6TFp4QTFIcnJ5c0FEdHVk?=
+ =?utf-8?B?N3Z3d1JHNCtUNFRVYUtzSTl6RWQ3bjY2a21wS3MxYVVCNGJEWEZ4Z3lxNUs2?=
+ =?utf-8?B?NzBhR1l4VHlHajc0djZibXB5bjFZSEREWUNnZWd5cGg2VG02MkNhQ2ZBTFVP?=
+ =?utf-8?B?TTAwcTNhN1lEUUc1ZEFvbmpQTFRyL2w5b1E0dGJjVHlKRWVQcjA0R2pvTUpL?=
+ =?utf-8?B?OFVSWGRGWlk2VHdrSTh0Y2lPMWlmSVZ0VjlvQS9QRzdLdmF4MWZ6ZkhNMks4?=
+ =?utf-8?B?U3k3NDRDTDFnUHcvdlNVOEZMRXJUT3IrMWVOMWtzNXRHLzgrRXFUdGtHMUNX?=
+ =?utf-8?B?YjZtOXZRZlc3Ukt1VzgxZjJpazgyNmdOOEo0U2lXSjJCamZJTmRwS2FGQjBO?=
+ =?utf-8?B?OXJLcXo4ankyeEdmSUdKVFJiSUV3cThTQld4UDN2aEhuQ0pLb1ozbitlR0Jv?=
+ =?utf-8?B?ZEV6T0J5c1hzQnk5d2x2NkJvcTJDRmM3dkp6WUNWc3VEN1QvNUYvT0t5MG5p?=
+ =?utf-8?B?TVRRblNlajhLVDgwalJyRXlIZnBFRWxhYWVZb0Y5SXd2OUtCVkhsYWxMbmFG?=
+ =?utf-8?B?TGNWWVB0SWtQRzRGQlFZWGdHdEhDQXgrcUM2VmJ4eTdtS1l4cUhYM2VrcmRL?=
+ =?utf-8?B?bk1KV20rNjJORThYVldzSW4za2Fzb1V2WGZvOC96Q3pQTktmZzlrVFp3SVQ3?=
+ =?utf-8?B?NTBKKzZBZHdhVUxZbmZvcVpIU21zMFd5L1V2SG5scUhTeW53bkM4N3V1S3FO?=
+ =?utf-8?B?U2dJUktNRWl4a3dMbGRzSnhDVmsyWUFlMWFYWVJTZGRVb0FVWWlISEdlNEZT?=
+ =?utf-8?B?ZjJUaWFDR0dlU1E3SG5pN095Q3FRWmI3L1BJMTh5UEJ2SGJvR0t0VkI3ZSsr?=
+ =?utf-8?B?eFYxVUd5dUYwNDNiUFNRV0IzOXlsVU5sdDM4MExZUDBHUlM4ay9zcDV4Q0Y2?=
+ =?utf-8?B?VTJlb2RlWHlKT3Rqd1U3d09xQmhSUG14QkJYZXhxc0kwMWdzWXJRYUFtNndB?=
+ =?utf-8?B?Z2t0b0JmZ0xTWW5BRHFxRGFKMnh0aHpmMHpZMW1rajY0SEM1cjhoS2Ntc3Yx?=
+ =?utf-8?Q?toWYap0Hd1vixVPM88?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 06880163-f9e3-4733-759c-08def2f96c0a
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 13:57:00.8684 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: o8Smfipf7E0HGbLg6rggEumKUVbEl1fXeqZaAxW4Q/Ww0q+rr+vOvCXg7vqDHwWL
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF0529573EF
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,58 +133,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Igor,
 
-Thank you for taking the time to test the patches.  Your RX 580 should hit
-the new limited-range matrix in dce_transform.c which I was not able to
-directly test.
 
-Thanks again,
-Nathan
+On 8/4/26 11:56, Candice Li wrote:
+> AMDGPU_GEM_CREATE checked domain bits against AMDGPU_GEM_DOMAIN_MASK,
+> but did not validate domain combinations. Userspace could combine
+> CPU|GTT|VRAM with DOORBELL, GDS, GWS, or OA, making
+> amdgpu_bo_placement_from_domain() exceed AMDGPU_BO_MAX_PLACEMENTS and
+> hit BUG_ON().
+> 
+> Allow combinations only within CPU/GTT/VRAM, and require non-CPU/GTT/
+> VRAM domains to be specified one at a time. Return -EINVAL for invalid
+> combinations in amdgpu_gem_create_ioctl().
+> 
+> Signed-off-by: Candice Li <candice.li@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 21 +++++++++++++++++++++
+>  1 file changed, 21 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> index 6a0699746fbcd6..8fd0a63af4a135 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+> @@ -397,6 +397,25 @@ const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
+>  	.vm_ops = &amdgpu_gem_vm_ops,
+>  };
+>  
+> +static bool amdgpu_gem_domain_valid(u32 domains)
 
-On Mon, Aug 3, 2026 at 9:25=E2=80=AFAM Igor Paunovic <royalnet026@gmail.com=
-> wrote:
->
-> Hi Nathan,
->
-> I hit exactly this on a DCE 11.2 part, so here is a data point for the
-> path you could not test.
->
-> Setup: XFX RX 580 8GB (Polaris10, DCE 11.2) as an external GPU on an
-> Orange Pi 5 Plus (RK3588, arm64) over PCIe Gen3 x4, driving a Sony 65"
-> HDR10 TV at 3840x2160@60 with HDR enabled under KWin/Wayland. The sink
-> lists 3840x2160@60 only in its YCbCr 4:2:0 video data block and caps
-> TMDS at 300 MHz, so the stream comes out as PIXEL_ENCODING_YCBCR420
-> (confirmed in hardware: FMT_CONTROL =3D 0x002a0000, FMT_PIXEL_ENCODING =
-=3D 2),
-> and with the compositor setting Colorspace=3DBT2020_RGB the output color
-> space ends up COLOR_SPACE_2020_YCBCR_LIMITED.
->
-> My tree predates 51e6668ab4ba, so global_color_matrix[] had no BT.2020
-> row at all. That is worth recording as its own failure mode: with no
-> matching entry, dce110_opp_set_csc_default() programs no matrix and
-> configure_graphics_mode() leaves OUTPUT_CSC_GRPH_MODE at 0, so the
-> output CSC stays bypassed and plain RGB is fed to the 4:2:0 formatter
-> while the AVI infoframe declares YCbCr 4:2:0 with BT.2020 colorimetry.
-> The sink then applies a BT.2020 YCbCr to RGB matrix to RGB data: luma
-> lands on green, Cb/Cr sit near mid scale, and the picture is washed out
-> with a heavy green cast. SDR on the same link was fine, since it stays
-> on the BT.709 entry.
->
-> Applying 51e6668ab4ba plus this series on top of 7.0 fixes it: colors
-> are correct on that TV in HDR, across a reboot, with no amdgpu errors in
-> the log. As a cross-check, the same desktop on a second monitor driven
-> by a completely different pipeline (the SoC's own display controller)
-> now matches it.
->
-> I also booted 51e6668ab4ba without this series on the same setup and
-> could not tell the two apart by eye. That is not a counter-argument to
-> the fix, just a note on sensitivity: the compositor maps SDR content to
-> around 350 nits, so nothing gets near the top of the PQ range where the
-> full-range luma scaling would clip, and the residual difference stays
-> below what this TV's processing reveals.
->
-> Tested-by: Igor Paunovic <royalnet026@gmail.com>
->
-> Thanks,
-> Igor
+Name that amdgpu_gem_are_domains_valid(), apart from that looks good to me.
+
+Regards,
+Christian.
+
+> +{
+> +	u32 normal = AMDGPU_GEM_DOMAIN_CPU |
+> +		     AMDGPU_GEM_DOMAIN_GTT |
+> +		     AMDGPU_GEM_DOMAIN_VRAM;
+> +	/* Treat all non CPU/GTT/VRAM domains as special domains. */
+> +	u32 special = AMDGPU_GEM_DOMAIN_MASK & ~normal;
+> +	u32 normal_mask = domains & normal;
+> +	u32 special_mask = domains & special;
+> +
+> +	if (!special_mask)
+> +		return true;
+> +
+> +	if (normal_mask)
+> +		return false;
+> +
+> +	return !(special_mask & (special_mask - 1));
+> +}
+> +
+>  /*
+>   * GEM ioctls.
+>   */
+> @@ -421,6 +440,8 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
+>  	/* reject invalid gem domains */
+>  	if (args->in.domains & ~AMDGPU_GEM_DOMAIN_MASK)
+>  		return -EINVAL;
+> +	if (!amdgpu_gem_domain_valid(args->in.domains))
+> +		return -EINVAL;
+>  
+>  	if (!amdgpu_is_tmz(adev) && (flags & AMDGPU_GEM_CREATE_ENCRYPTED)) {
+>  		DRM_NOTE_ONCE("Cannot allocate secure buffer since TMZ is disabled\n");
+
