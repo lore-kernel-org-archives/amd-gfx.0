@@ -4,101 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3574DC55838
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 01:24:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0BC7C55838
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 02:50:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8199210EC54;
-	Wed,  5 Aug 2026 01:24:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6837610E12E;
+	Wed,  5 Aug 2026 02:50:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QZkszQLY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OPbVn74Y";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011027.outbound.protection.outlook.com [52.101.62.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A0A010EC54;
- Wed,  5 Aug 2026 01:24:16 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010039.outbound.protection.outlook.com [52.101.56.39])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7EBD510E12E
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 02:50:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mEeWFHHLIufGSAJBLtHFMbh78jlW8kIIlKlX2DaMJJdKPEeUTHQo3dqLarXNJKFq939tdr37bCQ4iVfWowiXeeOTSRGkSTvN5BM/8DNFB5fHDnngboFW0RE+4yoKNvDydcDeTKTP8vzgHFHgT/UP9HVPx6/cwqN8mb4sOmGcZeZu8va++ZVnqKhrOPpK15ydEDk8VtqMQ3eU5l1yhWAi5xD2s8Imh36XhVWj3FgYG6BP5epX6c1CSwImugQOA0/sg47inifwfHEqiK4iDb3i8Nfi92vDtfrXdTtl4XY0iQAY+8RTCey9Mn0W8Whma9PupO38ya2T5C6pAI4LJ2j2tw==
+ b=GFSElwBIRN2soPF/cE1bUKU31FYkyewsti7M1NC8xXg2MlJnYDZwJmDeBGXGGeOg0gQ2G/VcT1XUh5YTkXyTBXe0u+AV5QRM3g1TcndaVELMOM/zUG9wvy/AkMPoiRcFAoG8tdCRUkhB5Gz0b3HJp6wQiiWRxfGVq/ind6sm60V6e1gMxGXYjpL9CLb4Itk0S9bIqfFPfr6hKdzWI7TI+QBpWHy7gLI/0VsqThTGIQtbEAILiEdutIM8PMhUvlVhpGVBD6kReJYKguguLYofibNcKdKIgOr/nUhGJVINko2BtDhYTigAemQIG4L6AhbhriYjHRDfy4gLSa/e6oVdYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rt3Fufm9mXBBk0vZcM0lt+6s3Qx/ZYcta9b9uxxOs5M=;
- b=N9MoO2azCvyy1glBSOMaaPpUttOI/qL14vRwp15pOnlJJSJJjJXGYJFuKF8sOYkLSbCiu/+KSWRCZJHw7F8HLbyP7g+IaHU740eXxpeWgo73SafwT6wnTZktDDdHeceZ4PipNzI8ycWkPZGyPj8A6RmZ1f8dM5sHIJm2pLpvZQ216934oI47C4gxbAazL0mU58wW9+S6KUkXDtC52+4BqC4GeozMafg3JNYGKYiDJ9fWWsF+dGsV+IcVev7SOwFU1Rc8EE7ByUqW/IV69IC52PKIa5FldH84oEr7hvoz020hTCC9gWIsg5Ic74WFFlTRNTCfbztnwigPN64W8Ise/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=yxgi9sfeyD/ig2txFG/lTLi1TFqihEh+SlpAz+bPkiA=;
+ b=XeXxt0H46sEbIDzqBwikHuBNb+6sI8W659lQOztj8NWKACoZ6+bH7YaZYQoQe+osQO/SKyl3K3PuD/AcOWGNqCMvd5Wcdcqt1vERkfP1M+YKCgmaKS6otkXrPrO+3IKl4PqimeraQZRhQZzl11sR3uvu888KDVpOuPEgzs/uxTA0bAh5eFAd1+P5NqlaImMrTqGkMbBCPTDw20kWdyGOPLzMfG52OSs/FKJNtNfqGT66PQp6Q7mq1iuc5OWIvMrIag3qsyN8rHDVVJx44y61/87fmFf+lGa0iB/cVo20TdOwqeV9K2pWTzRaAITrF21ZKiL3alnJ09eel9CH7o5GTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rt3Fufm9mXBBk0vZcM0lt+6s3Qx/ZYcta9b9uxxOs5M=;
- b=QZkszQLYdxioI5wobkmT2sWTrAb10EYpEGIWKGtIBrZBOYOWqeyf8DiPJ+v33gLYn6JxYcJO86KmtCBSFD6+HmPKA/uzRKbks61yyzXBNxKAdplgAQ+BIUnl/UbJRYbWk+tfbH9sZT1ZhwAW2jaxUQORkX5743tjYgqW5VRNDbo=
-Received: from BY3PR05CA0015.namprd05.prod.outlook.com (2603:10b6:a03:254::20)
- by SJ2PR12MB8954.namprd12.prod.outlook.com (2603:10b6:a03:541::7)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=yxgi9sfeyD/ig2txFG/lTLi1TFqihEh+SlpAz+bPkiA=;
+ b=OPbVn74YnYiCX945iStDJ8UlBRBcKuyNGJVxnGgJgt3vvnLV+J4JfGYn7QIP6M4/KflHTD4P8cG/L2HBNq16B6uNqXu9VR5RLPwGPX53vk4TUXqrr4piYTce8nki8XjpYnksawoqk1HKfuegQIJHdufJs54zoDOAUJSO3aaqlCM=
+Received: from EAYPR12MB999158.namprd12.prod.outlook.com
+ (2603:10b6:303:2c1::15) by SJ1PR12MB6147.namprd12.prod.outlook.com
+ (2603:10b6:a03:45a::22) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.15; Wed, 5 Aug
- 2026 01:24:07 +0000
-Received: from SJ1PEPF00001CE9.namprd03.prod.outlook.com
- (2603:10b6:a03:254:cafe::a8) by BY3PR05CA0015.outlook.office365.com
- (2603:10b6:a03:254::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.16 via Frontend Transport; Wed, 5
- Aug 2026 01:24:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00001CE9.mail.protection.outlook.com (10.167.242.25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Wed, 5 Aug 2026 01:24:06 +0000
-Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 4 Aug
- 2026 20:24:02 -0500
-From: Honglei Huang <honghuan@amd.com>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- "Alex Deucher" <alexander.deucher@amd.com>
-CC: Ray Huang <Ray.Huang@amd.com>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>, Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Tomasz Siemek
- <tomasz.siemek@amd.com>, Wayne Lin <wayne.lin@amd.com>, Alvin Lee
- <alvin.lee2@amd.com>, Honglei Huang <honghuan@amd.com>
-Subject: [PATCH] drm/amd/display: avoid NULL hubp deref when filling mpcc_id
- on DCE
-Date: Wed, 5 Aug 2026 09:23:50 +0800
-Message-ID: <20260805012350.1458583-1-honghuan@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE9:EE_|SJ2PR12MB8954:EE_
-X-MS-Office365-Filtering-Correlation-Id: a1d8c80d-1190-4607-7342-08def2903e5d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700016|23010399003|18002099003|11063799006|3023799007|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: /rnZcyYHOCKeq/YKL1YDjrqX3AnlhVEZVKTeK5KqTrNOubjSPe/oQ0NFcNF4CjCO3Y2In5ltZv8ovE4e3kws47ewSCch2xeS15DrXk4PO3tdHk+BHXvbz6Nyzr1YEFDUjc+N9wEFyE0ITNmVgu/NaCo2k8zvdLqmdZYgS6zZwBq/Ot6d15mEuQf1V7Ap9CdD6GM1I/SjofHp9ltjfi4NSDUrur06/I9BJ541YaueGSUYokTWhFpTTIt/m9uJzguSiDhHfUuY313YsOqTrR/dNmdmLTMGWt3fpzOW7p7mdEK+4UYGLpAE8KGtkXJrlM0tYCKeKbYbwTf5FDSOe89t8WjjEJzfu5/Vt/wPVo0M+pnJHY1wbKZlyh/t2VZuh5jxelcHgAuRVjM5Bgvk7mFNmdkh/gU3d9ke7GU7giCf5t19+SlurPtHKISuzGoZ9TeoLXyBzLhVJVhlBCjbW9efpM8PINl6Ymd0HeEI2pV9Fpi0TFF96i7KgKDK+iLBN2h2NGcwL4Msri0XLUhbeOpIQpMXP6uMONXG9VaU/8ljLPrEr7MXSuANbPCMbZrSshqFUXQXXmw3dl4smHmkZfWS9FJ5cEspr7p3v2WvgAvS84FzORxH4j2F/uM1erJh8OCwr4jiN7FYKJG6Y90dmuCMSUY0Vr8gbHm6xdr21KlpzpISVaE7XFpNedxhpWL1lJAHD1/NYrlySL49O15sQWWr6A==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(23010399003)(18002099003)(11063799006)(3023799007)(10067099003)(56012099006);
+ 2026 02:50:33 +0000
+Received: from EAYPR12MB999158.namprd12.prod.outlook.com
+ ([fe80::c52f:2856:964e:a4b2]) by EAYPR12MB999158.namprd12.prod.outlook.com
+ ([fe80::c52f:2856:964e:a4b2%4]) with mapi id 15.21.0292.013; Wed, 5 Aug 2026
+ 02:50:32 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>, 
+ "Chai, Thomas" <YiPeng.Chai@amd.com>
+Subject: RE: [PATCH v2] drm/amd/ras: track debug mode for query mode
+Thread-Topic: [PATCH v2] drm/amd/ras: track debug mode for query mode
+Thread-Index: AQHdJCJVPNRYP+jf7k6TwGe9jJK+QraOwf4Q
+Date: Wed, 5 Aug 2026 02:50:32 +0000
+Message-ID: <EAYPR12MB999158496DF9E413074240A824FCD32@EAYPR12MB999158.namprd12.prod.outlook.com>
+References: <20260804150202.1132488-1-xiang.liu@amd.com>
+In-Reply-To: <20260804150202.1132488-1-xiang.liu@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-05T02:50:10.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: EAYPR12MB999158:EE_|SJ1PR12MB6147:EE_
+x-ms-office365-filtering-correlation-id: 4316645b-c778-4050-62cf-08def29c5169
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|23010399003|18092099006|22082099003|18002099003|11063799006|56012099006|10086099003|38070700021|10067099003;
+x-microsoft-antispam-message-info: /aPN+KRt9ZhR+T5Bwapyde3EFI1AMDblrHONRPzKLS9PvTPrVRN8Z06EorVqpWNeZ/4VnLgaErDO1xqDEHngGX5SWWBSmypz9iJPlZ/SqsRbUQ6+9COB0+I9uHZq2nL1c1s4AS56YWAhtB8REoO2Wy6fB7DXDdr0/3F9DoGukZKDMZ5UxcLgeO2zFqz6Bpt9IdFWYUHQ7Vak6BldBFS+m+B/9fbi7Z4uFLYoOE8cQ4Jg8SMh+f4aI/z2WuxyLw7elAC3LpTUbOWUa4ZtbSVu16tlGi6ffYGIPYCXub/u7+SiArwgrRMcZtqAQzQeAEw9bNiNS6azhzoibOn+rfSnd/ckD+CJGZURDMnyODP6+u8qJZDZD5b842rcjSm/evnf9tYQ9c++JL9+KfYjAt6CBGsCm8Ig6w2y2nRc1XEhFj32vtHD5IjoyZoKKUloA7eXWVzmsUzOcx0VAQ9TpIwPe3gmGNsNjiH/dKygphGsRrEr5ukhBFuicCjwCzRGUYMXQ5onr1Y1Ty3rXgpvOBQCXP30gZn0ume84fz/P/JyzoTbQktpunZQ16EeSurJMiHjmfuN7ckc6uW5EDPySAKBsLu1yUOByWISHDg3Lafs8uJzuWx8YmlqFbVD9iey6NUO1yq3J8DZlGa1xQmZrTvHeGyCYAEkCCeW4VC6j489KEZyVb6l4vDvClh8GmXej6NcAxC+hnYiKtxpFOYFDkgkCOcMjvtXb+ADSx/8A9DjEP4=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:EAYPR12MB999158.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18092099006)(22082099003)(18002099003)(11063799006)(56012099006)(10086099003)(38070700021)(10067099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: O8/IfvI2XsyyjnB7fFnsQCmgETJZTLuSKs7V3S8Bct6j6eBO3ecBlKZrK7Ms0IJCHqGaIMyYy3WTPOBV1T4i8E3cqdFV6nde0+FTVNwkNWko9tS4NMzIchkUvHJ7EukSYIv2QN0NolB94+UTUaoytqiVqCXlGjn/jsklmA6W6eNkZ73QGmFBlY8+CSPycgeSVtAVYn/vTW+KvXe2KrJfwG7cmmIXLrPtfjg59Plk82KsZg2BpZNTUM5c0CD6raNGrK+hKyCMJULsWsjxiOplh93Z6Lkr3gWoy6XFvV8kw7Pzm6b/ApVsPhB5IbEpZeVCcfEe8VgFruYU2Rf1uSKeuw9aEAF+1LrzODuecqaF+7FUOCqXxIQ8X2UsdqPeONay4Rb3lEwG4xsZaeOp9U03vosnHx1ngQCjUPoKPNZdNAJLKoxKJXi6GyHWqApT+V7/
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?F8DFWNzI/2NX721vR57cHfVukIQZ35U9MpyzRzmy7xmBSMhXFFqgfWElyjy3?=
+ =?us-ascii?Q?HL0IzmgnlEILpP3nbQJT9wkjUNCzvKmq3C7W3x5oW9aoCUJWWVBbEqFTljfp?=
+ =?us-ascii?Q?sznJnyMrLs9JVQtadVP0pcs01/4ArW8Kjm4gnRhI3GBXeIuvGQdDBRDCqOBD?=
+ =?us-ascii?Q?Q5HLni6j2weloggj0dpbJwcBs8XPZ7Xth0nD3u6/1jiRH+zdctjvpSCk012T?=
+ =?us-ascii?Q?XVX2yXh6/AmP0KIjtn5n8Nsu+1m1hQHwtkmOPIS+nGFqpiM/ZNSPnTUU4/Nc?=
+ =?us-ascii?Q?pcicW6gSAxNiGObDA+0BFUBWRcISgCjKydUtJHhD7Mxirz41NuJ7TrWmxUyq?=
+ =?us-ascii?Q?AYvoNbF1UBjW0KvR/K65MiQLVNVoRwfZuh+4crpuHWDQk4m7mrV+9LGcKW4M?=
+ =?us-ascii?Q?zBnQLPcJ3AIym9teaxYc0y75bkQ5pqa2kJqOBwD8YX2zJaIKDaBippAof4KW?=
+ =?us-ascii?Q?Mnriy1bzZVW3NkLXyrGC+gPUB7bGae07fBiP4lcptnQ7VqmScG8yzll5FDS6?=
+ =?us-ascii?Q?oC3hAbAglOq1H2S/CqqoD11Td3KVBrWViK0mFam7xA/+2lEXW2+uvbybPStc?=
+ =?us-ascii?Q?XHM7CHqpKq0OSjzp2QBRxP9L7LvPlNEwvb0zb7KhCUC+z6OhkmUz2oph8rpE?=
+ =?us-ascii?Q?7YPS8C/P4k+WTk8zvCYsqQ2UnmJC3dBQdnqL4sSFmUt4toam9MBZfCOwgO8U?=
+ =?us-ascii?Q?2HhLRoDO7vi56JwxC/n/4F76TGy0TAsKbdj9czjXo8MZKqYKOxF3tawb7giv?=
+ =?us-ascii?Q?ZaL+WsZ0+tRd2wL3krXwIFvUKKPgUDpvlHXiBD7ct2w1FA8gkWnoOanvITKw?=
+ =?us-ascii?Q?JNuz605gzgtV9XXmbDbjRKmwZTvPwhy/EBK4bycz0Z04znOexzYCoAPp+TTl?=
+ =?us-ascii?Q?w6w5gKta8uzFgydsNLRQIb0Ul0pV0ysBJ055GNsdlrQhWVH/ItKbfwkgpEZu?=
+ =?us-ascii?Q?KdDlBJyPG2nfzuZZ/KymmlqlOzNPRgAmKWSRbbRdJY+dRNAodCOQmY72Qcbs?=
+ =?us-ascii?Q?EwxKFiPa0adD5iF7f8JKqC9ARt7hOukuGtDUHb8fNUM9MG9K0IWPgRUhb93g?=
+ =?us-ascii?Q?EpzmrWm0twnXjFwojDgXGdNOiLZTHR3ik4D0nLqlNtWyGeJMA+blDAo1TG3P?=
+ =?us-ascii?Q?1hpTcMqJr3K5Z5y8CHY6Z7552VoPbUdWivKc3XMUC3qjwPJrAlUl1IrFS9MU?=
+ =?us-ascii?Q?p2hSHThzUg14uFrWvy0cNRI+sF4xzgicrjHkUEKRvEHs+UPXzrTZQD3iQvMk?=
+ =?us-ascii?Q?SIhDVD/VzoHEpeOCHhsNb4HIUy4UbxNMlNd+zBCLZYkXim1/9Wa615dp12NS?=
+ =?us-ascii?Q?Ss5mE1nz2kJ2KWtoLfbjnwb2mA7d25gK40B+zWFzWnZzHYfYmrIhzeWVoOPA?=
+ =?us-ascii?Q?SCy5kV/dEdCOltxOJBUwu9kSlvcYaz/3XIR9v6xJt5spB0l5DbyBnr15Zgy4?=
+ =?us-ascii?Q?vHKDbrLHm9D9PmBamoimJwLOJKdG4uIix/3MUCZAmwVgenLdFY1pZpBk+4g0?=
+ =?us-ascii?Q?s0IRjQ1Un7HjGyeml7phimbBqSVtHje7s/eAMxjzlkDGjXaDWXGj9uh1sL1G?=
+ =?us-ascii?Q?+UApmbkG1kJ0YrN/Okh26o5A9GVmJpYPcC7xczxhv0iToRJ1IvE6Wtulr576?=
+ =?us-ascii?Q?aiKTU+hLlDtILRAIOppttTuBqtSrLRGWE9OEHYFlzrRec6crRkMeIl9zZ/wp?=
+ =?us-ascii?Q?JwwnSU2RGmPggNTl+BWTA7ulrq20SSV1EhISUJJCVM0hKlaJ?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 01:24:06.7444 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a1d8c80d-1190-4607-7342-08def2903e5d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE9.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8954
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: EAYPR12MB999158.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4316645b-c778-4050-62cf-08def29c5169
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Aug 2026 02:50:32.7338 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Bz6BmT/j+wgnNxzYGfhtBipFuMhl1QiX3PtpdTR9dfxqYmVqMTwL0WvOvvd88ZPAGAkuFj1qCyUQVCLzEJt0CQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6147
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,144 +132,123 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-HUBP only exists on DCN. On ASICs that use DCE, such as Vega20, the display
-pipe never owns a HUBP, so pipe_ctx->plane_res.hubp stays NULL.
+AMD General
 
-The block sequence rework now fills mpcc_id inside the generic helpers in
-dc_hw_sequencer.c by reading pipe_ctx->plane_res.hubp->inst. On a DCE ASIC
-that read follows the NULL pointer and faults at offset 0x88, where the
-inst field sits in struct hubp, and the box dies on the first modeset:
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000088
-  #PF: supervisor read access in kernel mode
-  Oops: 0000 [#1] SMP NOPTI
-  CPU: 14 UID: 0 PID: 531 Comm: plymouthd Not tainted 7.1.0 #70
-  RIP: 0010:hwss_set_output_transfer_func+0x69/0xc0 [amdgpu]
-  Call Trace:
-   dce110_program_front_end_for_pipe+0x4d7/0x5c0 [amdgpu]
-   dce110_apply_ctx_for_surface+0xf1/0x270 [amdgpu]
-   commit_planes_for_stream+0xba1/0x1c80 [amdgpu]
-   update_planes_and_stream_v2+0x297/0x6f0 [amdgpu]
-   dc_update_state_prepare+0x6f/0x1c0 [amdgpu]
-   dc_update_state+0x41/0x60 [amdgpu]
-   dc_update_planes_and_stream+0x43/0x70 [amdgpu]
-   amdgpu_dm_atomic_commit_tail+0x1a6f/0x4120 [amdgpu]
-   commit_tail+0xc5/0x1a0
-   drm_atomic_helper_commit+0x137/0x160
-   drm_atomic_commit+0xaf/0xf0
-   drm_client_modeset_commit_atomic+0x1ec/0x230
-   drm_client_modeset_commit_locked+0x5b/0x170
-   drm_client_modeset_commit+0x27/0x50
-   __drm_fb_helper_restore_fbdev_mode_unlocked+0xe8/0x110
-   drm_fbdev_client_restore+0x12/0x20
-   drm_client_dev_restore+0xbb/0x100
+Regards,
+Hawking
+-----Original Message-----
+From: Liu, Xiang(Dean) <Xiang.Liu@amd.com>
+Sent: Tuesday, August 4, 2026 11:02 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
+ Yang, Stanley <Stanley.Yang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>; =
+Liu, Xiang(Dean) <Xiang.Liu@amd.com>
+Subject: [PATCH v2] drm/amd/ras: track debug mode for query mode
 
-DCE never uses mpcc_id, so 0 is a fine value when there is no HUBP. Add a
-small helper that returns the HUBP instance, or 0 when it is missing, and
-use it for every mpcc_id assignment. DCN is unchanged since HUBP is always
-there.
+The RAS manager uses the rascore debug mode setting to control whether MCA =
+data is read directly or collected through PMFW MCA polling and ClearMcaOnR=
+ead. Track that debug mode state in ras_mgr so amdgpu_ras_get_error_query_m=
+ode() can classify queries as direct or firmware-backed.
 
-Fixes: f879f53407f0 ("drm/amd/display: Refactor DPP_SET_OUTPUT_TRANSFER_FUNC to drop pipe_ctx")
-Fixes: 9403e15b2ab1 ("drm/amd/display: Refactor DPP_PROGRAM_GAMUT_REMAP to drop pipe_ctx param")
-Cc: Tomasz Siemek <tomasz.siemek@amd.com>
-Cc: Wayne Lin <wayne.lin@amd.com>
-Cc: Alvin Lee <alvin.lee2@amd.com>
-Signed-off-by: Honglei Huang <honghuan@amd.com>
+Limit the PMFW polling wait in recovery to firmware-backed MODE1 fatal reco=
+very so other reset paths, such as MODE2, do not pay the delay unnecessaril=
+y.
+
+Signed-off-by: Xiang Liu <xiang.liu@amd.com>
 ---
- .../drm/amd/display/dc/core/dc_hw_sequencer.c | 26 +++++++++++++------
- 1 file changed, 18 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c         |  7 ++++++-
+ .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c    | 17 ++++++++++++++++-
+ .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h    |  2 ++
+ 3 files changed, 24 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index 11411fa946..7676aa4485 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -729,6 +729,16 @@ void get_fams2_visual_confirm_color(
- 	}
- }
- 
-+/*
-+ * Return the MPCC instance for a pipe. On DCN it matches the HUBP instance.
-+ * DCE has no HUBP and ignores mpcc_id, so return 0 there instead of chasing a
-+ * NULL pointer.
-+ */
-+static int hwss_pipe_mpcc_id(const struct pipe_ctx *pipe_ctx)
-+{
-+	return pipe_ctx->plane_res.hubp ? pipe_ctx->plane_res.hubp->inst : 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index d247d0ad063f..8ef427b91b72 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2756,7 +2756,8 @@ static void amdgpu_ras_do_recovery(struct work_struct=
+ *work)
+                }
+
+                if (amdgpu_ras_get_error_query_mode(adev, &error_query_mode=
+)) {
+-                       if (error_query_mode =3D=3D AMDGPU_RAS_FIRMWARE_ERR=
+OR_QUERY) {
++                       if (error_query_mode =3D=3D AMDGPU_RAS_FIRMWARE_ERR=
+OR_QUERY &&
++                           (ras->gpu_reset_flags & AMDGPU_RAS_GPU_RESET_MO=
+DE1_RESET)) {
+                                /* wait 500ms to ensure pmfw polling mca ba=
+nk info done */
+                                msleep(500);
+                        }
+@@ -4430,6 +4431,10 @@ bool amdgpu_ras_get_error_query_mode(struct amdgpu_d=
+evice *adev,
+
+        if (amdgpu_sriov_vf(adev)) {
+                *error_query_mode =3D AMDGPU_RAS_VIRT_ERROR_COUNT_QUERY;
++       } else if (amdgpu_uniras_enabled(adev)) {
++               *error_query_mode =3D amdgpu_ras_mgr_get_debug_mode(adev) ?
++                       AMDGPU_RAS_DIRECT_ERROR_QUERY :
++                       AMDGPU_RAS_FIRMWARE_ERROR_QUERY;
+        } else {
+                *error_query_mode =3D AMDGPU_RAS_DIRECT_ERROR_QUERY;
+        }
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu=
+/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+index ea95e0f93d1c..61faa1b2d4f0 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+@@ -798,9 +798,24 @@ int amdgpu_ras_mgr_lookup_bad_pages_in_a_row(struct am=
+dgpu_device *adev,  int amdgpu_ras_mgr_set_debug_mode(struct amdgpu_device =
+*adev, bool enable)  {
+        struct amdgpu_ras_mgr *ras_mgr =3D amdgpu_ras_mgr_get_context(adev)=
+;
++       int ret;
+
+        if (!ras_mgr || !ras_mgr->ras_core || !ras_mgr->ras_is_ready)
+                return false;
+
+-       return ras_core_set_debug_mode(ras_mgr->ras_core, enable);
++       ret =3D ras_core_set_debug_mode(ras_mgr->ras_core, enable);
++       if (!ret)
++               ras_mgr->is_debug_mode =3D enable;
++
++       return ret;
 +}
 +
- void hwss_build_fast_sequence(struct dc *dc,
- 		struct dc_dmub_cmd *dc_dmub_cmd,
- 		unsigned int dmub_cmd_count,
-@@ -1073,7 +1083,7 @@ void hwss_build_fast_sequence(struct dc *dc,
- 					params->dpp = current_mpc_pipe->plane_res.dpp;
- 					params->mpc = dc->res_pool->mpc;
- 					params->xfm = current_mpc_pipe->plane_res.xfm;
--					params->mpcc_id = current_mpc_pipe->plane_res.hubp->inst;
-+					params->mpcc_id = hwss_pipe_mpcc_id(current_mpc_pipe);
- 					params->plane = current_mpc_pipe->plane_state;
- 					params->stream = current_mpc_pipe->stream;
- 					params->is_top_pipe = current_mpc_pipe->top_pipe == NULL;
-@@ -1118,7 +1128,7 @@ void hwss_build_fast_sequence(struct dc *dc,
- 				otf_params->dpp = current_mpc_pipe->plane_res.dpp;
- 				otf_params->xfm = current_mpc_pipe->plane_res.xfm;
- 				otf_params->mpc = dc->res_pool->mpc;
--				otf_params->mpcc_id = current_mpc_pipe->plane_res.hubp->inst;
-+				otf_params->mpcc_id = hwss_pipe_mpcc_id(current_mpc_pipe);
- 				otf_params->is_top_pipe = resource_is_pipe_type(current_mpc_pipe, OPP_HEAD);
- 				otf_params->stream = current_mpc_pipe->stream;
- 				block_sequence[*num_steps].func = DPP_SET_OUTPUT_TRANSFER_FUNC;
-@@ -1128,13 +1138,13 @@ void hwss_build_fast_sequence(struct dc *dc,
- 				dc->hwss.update_visual_confirm_color) {
- 				block_sequence[*num_steps].params.update_visual_confirm_params.dc = dc;
- 				block_sequence[*num_steps].params.update_visual_confirm_params.pipe_ctx = current_mpc_pipe;
--				block_sequence[*num_steps].params.update_visual_confirm_params.mpcc_id = current_mpc_pipe->plane_res.hubp->inst;
-+				block_sequence[*num_steps].params.update_visual_confirm_params.mpcc_id = hwss_pipe_mpcc_id(current_mpc_pipe);
- 				block_sequence[*num_steps].func = MPC_UPDATE_VISUAL_CONFIRM;
- 				(*num_steps)++;
- 			}
- 			if (current_mpc_pipe->stream->update_flags.bits.out_csc) {
- 				block_sequence[*num_steps].params.power_on_mpc_mem_pwr_params.mpc = dc->res_pool->mpc;
--				block_sequence[*num_steps].params.power_on_mpc_mem_pwr_params.mpcc_id = current_mpc_pipe->plane_res.hubp->inst;
-+				block_sequence[*num_steps].params.power_on_mpc_mem_pwr_params.mpcc_id = hwss_pipe_mpcc_id(current_mpc_pipe);
- 				block_sequence[*num_steps].params.power_on_mpc_mem_pwr_params.power_on = true;
- 				block_sequence[*num_steps].func = MPC_POWER_ON_MPC_MEM_PWR;
- 				(*num_steps)++;
-@@ -1837,7 +1847,7 @@ void hwss_add_dpp_program_gamut_remap(struct block_sequence_state *seq_state,
- 		params->xfm = pipe_ctx->plane_res.xfm;
- 		params->dpp = pipe_ctx->plane_res.dpp;
- 		params->mpc = pipe_ctx->stream->ctx->dc->res_pool->mpc;
--		params->mpcc_id = pipe_ctx->plane_res.hubp->inst;
-+		params->mpcc_id = hwss_pipe_mpcc_id(pipe_ctx);
- 		params->plane = pipe_ctx->plane_state;
- 		params->stream = pipe_ctx->stream;
- 		params->is_top_pipe = pipe_ctx->top_pipe == NULL;
-@@ -1883,7 +1893,7 @@ void hwss_add_dpp_set_output_transfer_func(struct block_sequence_state *seq_stat
- 			.xfm = pipe_ctx->plane_res.xfm,
- 			.dpp = pipe_ctx->plane_res.dpp,
- 			.mpc = dc->res_pool->mpc,
--			.mpcc_id = pipe_ctx->plane_res.hubp->inst,
-+			.mpcc_id = hwss_pipe_mpcc_id(pipe_ctx),
- 			.is_top_pipe = resource_is_pipe_type(pipe_ctx, OPP_HEAD),
- 			.stream = pipe_ctx->stream,
- 		};
-@@ -1900,7 +1910,7 @@ void hwss_set_output_transfer_func(struct dc *dc, struct pipe_ctx *pipe_ctx)
- 				.xfm = pipe_ctx->plane_res.xfm,
- 				.dpp = pipe_ctx->plane_res.dpp,
- 				.mpc = dc->res_pool->mpc,
--				.mpcc_id = pipe_ctx->plane_res.hubp->inst,
-+				.mpcc_id = hwss_pipe_mpcc_id(pipe_ctx),
- 				.is_top_pipe = resource_is_pipe_type(pipe_ctx, OPP_HEAD),
- 				.stream = pipe_ctx->stream,
- 			}
-@@ -3840,7 +3850,7 @@ void hwss_program_gamut_remap(struct pipe_ctx *pipe_ctx)
- 			.xfm = pipe_ctx->plane_res.xfm,
- 			.dpp = pipe_ctx->plane_res.dpp,
- 			.mpc = dc->res_pool->mpc,
--			.mpcc_id = pipe_ctx->plane_res.hubp->inst,
-+			.mpcc_id = hwss_pipe_mpcc_id(pipe_ctx),
- 			.stream = pipe_ctx->stream,
- 			.plane = pipe_ctx->plane_state,
- 			.is_top_pipe = pipe_ctx->top_pipe == NULL,
--- 
++bool amdgpu_ras_mgr_get_debug_mode(struct amdgpu_device *adev) {
++       struct amdgpu_ras_mgr *ras_mgr =3D amdgpu_ras_mgr_get_context(adev)=
+;
++
++       if (!ras_mgr || !ras_mgr->ras_core || !ras_mgr->ras_is_ready)
++               return true;
++
++       return ras_mgr->is_debug_mode;
+ }
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h b/drivers/gpu=
+/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
+index a20bb8fdce87..b81fd88fca71 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
+@@ -53,6 +53,7 @@ struct amdgpu_ras_mgr {
+        void *virt_ras_cmd;
+        uint64_t last_poison_consumption_seqno;
+        bool ras_is_ready;
++       bool is_debug_mode;
+
+        bool is_paused;
+        struct completion ras_event_done;
+@@ -86,4 +87,5 @@ int amdgpu_ras_mgr_resume_after_reset(struct amdgpu_devic=
+e *adev);  int amdgpu_ras_mgr_lookup_bad_pages_in_a_row(struct amdgpu_devic=
+e *adev,
+                uint64_t addr, uint64_t *nps_page_addr, uint32_t max_page_c=
+ount);  int amdgpu_ras_mgr_set_debug_mode(struct amdgpu_device *adev, bool =
+enable);
++bool amdgpu_ras_mgr_get_debug_mode(struct amdgpu_device *adev);
+ #endif
+--
 2.34.1
 
