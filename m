@@ -4,64 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB0A2C55174
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4CA7C55822
 	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 06:40:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6041C10ECF7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73F9E10ECFA;
 	Wed,  5 Aug 2026 06:40:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CEDZsKi7";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Z8erz4xh";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011017.outbound.protection.outlook.com [52.101.52.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DD2010ECFA
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 06:40:18 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010051.outbound.protection.outlook.com
+ [40.93.198.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2298210ECF7
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 06:40:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XGaoRoVa0U/4TibetauRtkcaqI2EdvggXT/r+CbbFvDdw9JQ4j/PIqsKM33wkTahQvxAr426/INtiaX6HJq/Lt4Z51O0iWkvmAdm2xJ3YW4/ufcg1+tZowbw5JehMPrhLdDBkX7zEjyW6f5QiU0Yl+vnAoWmBztGHJ8HGaIAc4IwOCmBcA3Hjwb3h1iQ8Epf5aebmFuqs7pGv0YOhbbm0c4DzLvMfO8yJEXp6yC6U77uDpRKw7xqtdy6wWibmgNe74X0e1gpVM/o1miC4PfQKwCH5DwAteZkxk9dhUiQMOVpO5zlq96dIVHeCCGLOCyeQyvmJ/HiGubAHuVrL877+A==
+ b=iOiWFbG0SeGnx7OaT9F8lwWb+suKWJN5xZoj0GRnLxrUBi7voGARg4FyxmL4vVM5Wdmt2zyqQSBy5c8lGaAqrM/koYqiPUWOReRckG9aIUxagu9NeG3EKgaZdv4/ci/3/vQr07qzXSLOui/tMQ+kbZpbEJB1s3oyfAyz/c76Ar0RO0GnVIXAbm8NX/PYuOeJJ/7YY0IkHn3FB+tt79/1t4ctOwTr2npmsH18QSDYce4cbPRXyAx483i7F5icym1srg7WDGlz2rP23Qniy9+XfV/fKoDgV8aFnAobKFpo4K8fZjVPQYbpOV9iTggT2NtGmd787M8zI8KH3284+tamsw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A6wSvSUbltN1f8L3HXFrC/wUnstw5nR1l1x+7kPayoE=;
- b=sjG0+eVynTzPeJIMYmmdHZBSgZAVhqLVIMiMlAi7W778UW9betwEDM4keAtWZ0GfIvactVdlL9dG0r+gK6nmFlMokEISiLSjSGagQleipYSdSi+EIV/Cqcj0D8JQ9agOW7gi6vUYPFAtNrYnN82dV8+3wu0nwlc0K2ow866LNxVeDALictX3vkHOZp3AzQEU2ILUd4JcKOi3XxCN/igyccFWWh8v2rQJBvKZZAGz7MoNwAHDmz4ZsCrE67lcAog0/QrzKbmvyVLVpYuVDrlHhaK2ZreXDi7gMHpVcxy5b8tkrIuvVJSLe78Er5gWjgz3Rgsl1BV5C3pLYbu/5GKsMw==
+ bh=kSE6z5zgFTPl9ZXbbXQJ2eOZXUzIuXxYSqLMgcmXdM0=;
+ b=M+gjigtx3WynCqe+lj3I6pHp41Ox2s5ecdndC7L6xAhpqKwTYEF9uSXUdbUk2NBNeA0jiJpt7xRP+M0VeFVOpgP44oqlmqNnJ/28dA340HwEF3+cmIMzogfwNtdAEo/1W8sT9U+2bP+kAHb3LrTsOXOqrzWBhRpWgIIuZdYG/Huqdyk51FCfGPmMFfygZvDxRak5GrdHElJ3u4R1JTS3yG82A1SerqoaT54eu0K7O5OsnrNY7ztEbkIdtAQO2O9IUq5oG0E/aDwua/R3BL7TQSO47fqCLxJUfiRBKlgvN4wD/Pw/kyAAV+Rgo9MSrY0EjV1gYxI9cN0zZGs1aGeJEA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=A6wSvSUbltN1f8L3HXFrC/wUnstw5nR1l1x+7kPayoE=;
- b=CEDZsKi7y1TiD0GAdqMkz4uScQ1Jvbdo1sq/uOFxpkOXkBmhrr8s2Kb36wpXoqOPe5B/rUQWFnglRWOYggDXJ0/6xzbH1aEvJ6jcgOYqz4JKsZKsteuHBXR8xAX+1RyrrwLKvaQxcROMi5Zir8PavDQeuP6xEOsjEFYxbr3+h8U=
-Received: from MN0PR05CA0023.namprd05.prod.outlook.com (2603:10b6:208:52c::14)
- by DM4PR12MB7621.namprd12.prod.outlook.com (2603:10b6:8:10a::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Wed, 5 Aug
- 2026 06:40:05 +0000
-Received: from BL02EPF0001A102.namprd05.prod.outlook.com
- (2603:10b6:208:52c:cafe::83) by MN0PR05CA0023.outlook.office365.com
- (2603:10b6:208:52c::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.16 via Frontend Transport; Wed, 5
- Aug 2026 06:40:05 +0000
+ bh=kSE6z5zgFTPl9ZXbbXQJ2eOZXUzIuXxYSqLMgcmXdM0=;
+ b=Z8erz4xh9oXw4Cczt3iricxtagdTOLfWqzCYmjiZhFFtrPokrj3Iy64yqYLWuFjT8YnRrQr+Tg5XI5pD9WQU2TPhaawYBzQYMic6tnCYVGUe4RQEdNFPVnT3YAB85XUEiaS3QVldeOWjH6AsdJa25Iyfd9AUuNnz2xKrAhIAhEs=
+Received: from MW4PR03CA0256.namprd03.prod.outlook.com (2603:10b6:303:b4::21)
+ by SA1PR12MB8946.namprd12.prod.outlook.com (2603:10b6:806:375::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Wed, 5 Aug
+ 2026 06:40:15 +0000
+Received: from MWH0EPF000C618B.namprd02.prod.outlook.com
+ (2603:10b6:303:b4:cafe::79) by MW4PR03CA0256.outlook.office365.com
+ (2603:10b6:303:b4::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.270.18 via Frontend Transport; Wed, 5
+ Aug 2026 06:40:15 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF0001A102.mail.protection.outlook.com (10.167.241.134) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MWH0EPF000C618B.mail.protection.outlook.com (10.167.249.123) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.8 via Frontend Transport; Wed, 5 Aug 2026 06:40:05 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.292.8 via Frontend Transport; Wed, 5 Aug 2026 06:40:14 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 5 Aug
- 2026 01:40:04 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 5 Aug
- 2026 01:40:04 -0500
+ 2026 01:40:07 -0500
 Received: from tom-r5.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 5 Aug 2026 01:40:00 -0500
+ Transport; Wed, 5 Aug 2026 01:40:04 -0500
 From: Tom Chung <chiahsuan.chung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -70,11 +67,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Sridevi Arvindekar <sridevi.arvindekar@amd.com>,
- Dillon Varone <dillon.varone@amd.com>
-Subject: [PATCH 03/34] drm/amd/display: Fix audio test errors
-Date: Wed, 5 Aug 2026 14:36:15 +0800
-Message-ID: <20260805063937.2145774-4-chiahsuan.chung@amd.com>
+ <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
+Subject: [PATCH 04/34] drm/amd/display: Cover crtc duplicate_state stream and
+ null guard
+Date: Wed, 5 Aug 2026 14:36:16 +0800
+Message-ID: <20260805063937.2145774-5-chiahsuan.chung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260805063937.2145774-1-chiahsuan.chung@amd.com>
 References: <20260805063937.2145774-1-chiahsuan.chung@amd.com>
@@ -83,29 +80,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A102:EE_|DM4PR12MB7621:EE_
-X-MS-Office365-Filtering-Correlation-Id: 291e5c37-b302-4246-e570-08def2bc627e
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C618B:EE_|SA1PR12MB8946:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4d10f277-2078-42fb-5ec3-08def2bc680a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|23010399003|82310400026|1800799024|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 73xSF/iFrOila+HZfon0/0km5VRR3ibaja47hMI3cCMc7aohwJ/mPNc8sUCJ6ECgQoRhPtkMllfR/Mu0Px5XA9kqHYVbBFm+V5Z0JG/Tlp8l7z4SNjwxsg8Y2UrjOt22Kpyt6Qlf0LI0YhjTl/L2CepuW0NflWn0CUd8J9grwjTMvIjzOAzsGx4siEGazGfGRER5EOtVSR16jjfzChMLVnaW5ExmvtsLX0N+jiAta/cO7b83dLcvqRjhEWJ5TrfQIq4ZsmtjzzVdPftpVBunZVerVhqVZxGnFgzLZgbHwK5D0UjOKV1K8EXC5jMEUGF04raPngBwcoCuGeT9NzPQgJuTr1wk9V2sSUHsgFDM8n6LEZq5nIMa/FJqzf9qfjBqnfW/6Ns01Ba0o5KXw08bAihpS52W450WuYYCsfyTm+2T5MhZol5ira2KlGoCUsIqJb7yrz0nljU7qV6FcUfjYYiglbO91jgpR7H3R4LDSYFEQk/8Yq8iMJmwoS2rC0PBHJUahPIWXJ0/RKmeMtZ8qE/ZzpLf5nD62U6VAkcnjsA1VtpSCV8XcGdkWYVJE5Cu3ELjJx9HrmTLiA9e6GGXA9Madm6hyFVDcw042qlzeC1lD6Ejm4ixCiEnYfFbJjJcv1AKafTilFakLamLz2qkw41aBWxwGliPwCVrMM6gcNgCOw7ldA+/aIfabxLCqe/MQaFg0DPs5tcshwOpwp9UXA==
+ ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|18002099003|22082099003|11063799006|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info: fVb4HO8duvAXV+99ODlneHVAue0yN1xgfs7+IWzEm/ytwOlq2E15m+oxL4T0IgSLhLGnpiLG8xr+QcCuU2jaWd+KJdKVe87ordv8NLx+wlxK4iQ65AMS0NRXKtWTGS8+Re9yjd2DG/iN0h4DWxpCDJqnO9SmQhf6hp79s0E6D3xYZvQxVvqNLsXEOrtpD07W4IPXD3AjryGop0vQ3oy0RDdSUcZD0BCIpBwQr6ybCnfJ132K77WBaYiUb3VnCjnoTedUXayxOinWS/+R5RhcZ5+IhmYWzenDNDUHzITSRo/VfrkqymCVd3nsZV3wRUAkhsvQSfF0CR11syBVPkb71S0rFmqN60WVskbj3/oZFQ0kBxR/2tswMsziTkSHEd93JvxJGKfaRzr8SR6Cmx5J45lhYkb1Z/LfDtalHzJKCakDZiSLqa7UPBCFLTCdastl0oasfAibeCmG1EljuLnai+aSyNyVaGctsO+ZYN36kTtzlCQbGe8J8nPmLrA3TxY4gnsv9Gyl0kA41fUKrYssZwaJhPnvD7LlvWGx22rfbdzWI48Y2V35fSVqH0T4A3KpjuaiYCxlcF6RhYVMTBeRbetPE4GmI37GPrVmrX9RAixdS+xgyVGqlI5iXk26bRx4pjXMhtLqQCHEYnegl0djI4fcNETE0XucuQ6k/rcyPLNaCrHiqaNZDwDTpZPY+KBvbDmhLoNzIPaVQD+e8HICHw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(23010399003)(82310400026)(1800799024)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(18002099003)(22082099003)(11063799006)(10067099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: j4wbvKT43HwGS3BvYXYMIMPoAOpcPLnh9fS22BMpMoN5JeCXX5u7izaKiAH+r1P7+gD5Zhzduoos9XbIuWCikDv0izN+56GCHI1bFrS/qukdF64aBUkvrCDer3tXeJLgXd+TDE560GiIDSv0dFRtR4sULZnCd7sgQPKiYhLx+j5KpXwplC82D3sDVqUsZq8yzykIAsdSHDTg2UrW6ckIuV/rq5OZ3dciXdanE6S/iV0yzXXHI/cmwC3QdbL1BuGJhqNnKR3yojpc/9ZJxSOUQ+9iPsrsG/9CTK9VNgqv6xyHmMGpjyfLN5Y2ebdF7RXV4+VYVrR/kQQ2IMNmOZ6InU0jV/9xFgsbcOvATWqLjfhs1R/req5yDjrRZ7F6I+S8QX529kRj+QDa4In8wJ/Ols7JWq+40WJYNvKy1ga6RWjE2MQgrDhFy+dfdQn3fV6y
+X-MS-Exchange-AntiSpam-MessageData-0: hvLxedbgKBpEM811J4cOWhfS5D46b95n6q3fmBy6WWNJcROm3D+Q6D0ZfXd491xxvDauFOmPu375ZOdiyaztOTSDvN04uYy7E7mREovCeNWNRYqq+THvqbrZo80NAHeqrJGkrqTUTr8VaVgkL66ZK0Mo1AafWlps2U9Jta62r7LBRZ9XU3AtOSJghFU6gE6QnmbN7Afh0ZPOQIAQ/SyNAsH4fs4rBcOTiJh4J+HnMS5cF85fDHMmQeBdvvDhALSGlzInqdZdcni0kG20G+7eyuTvwlad09+t8zTqpdtF0H95HRvZHKO3lVciS+1tjoP4CTS7nlgpr12jBD4ji3muGgRUzN7u655pZgG7xrq2M/4RHgBg/+CpXDtBKFbO4nMOh+LjHtWa42ZQzVgfK+YbTm0hP6ngpMBJhjPhLXtQRdDaBznpRs/ycvtFbl8sNpYY
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 06:40:05.3092 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 291e5c37-b302-4246-e570-08def2bc627e
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 06:40:14.5676 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4d10f277-2078-42fb-5ec3-08def2bc680a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A102.namprd05.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C618B.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7621
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8946
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,36 +117,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sridevi Arvindekar <sridevi.arvindekar@amd.com>
+From: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 
-[Why/How]
-Use appropriate audio register fields.
+[why]
+The duplicate_state stream-reference and NULL-state guard paths in
+amdgpu_dm_crtc_duplicate_state were not exercised by the KUnit suite.
 
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Sridevi Arvindekar <sridevi.arvindekar@amd.com>
+[how]
+Added dm_test_crtc_duplicate_state_retains_stream to verify the duplicated
+state keeps the stream pointer and takes an extra reference that is dropped
+on destroy, and dm_test_crtc_duplicate_state_null_state_returns_null to
+verify the WARN_ON guard returns NULL. Registered both cases in
+amdgpu_dm_crtc_tests.
+
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>
 Signed-off-by: Tom Chung <chiahsuan.chung@amd.com>
 ---
- .../gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c    | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ .../amdgpu_dm/tests/amdgpu_dm_crtc_test.c     | 61 +++++++++++++++++++
+ 1 file changed, 61 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
-index 4b7668abf4dc..1cbff128789d 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
-@@ -372,11 +372,11 @@ static const struct dcn30_hpo_frl_link_encoder_mask hpo_le_mask = {
- static struct dcn31_hpo_dp_stream_encoder_registers hpo_dp_stream_enc_regs[4];
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
+index 4dacddd23878..a23281a33422 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c
+@@ -1404,6 +1404,65 @@ static void dm_test_crtc_duplicate_state_copies_fields(struct kunit *test)
+ 	amdgpu_dm_crtc_destroy_state(crtc, dup);
+ }
  
- static const struct dcn31_hpo_dp_stream_encoder_shift hpo_dp_se_shift = {
--	DCN3_1_HPO_DP_STREAM_ENC_MASK_SH_LIST(__SHIFT)
-+	DCN4_2_HPO_DP_STREAM_ENC_MASK_SH_LIST(__SHIFT)
- };
++/**
++ * dm_test_crtc_duplicate_state_retains_stream - Test duplicate retains the stream
++ * @test: The KUnit test context
++ *
++ * When the current CRTC state carries a DC stream, duplicating the state must
++ * copy the stream pointer and take an additional reference on it. Destroying
++ * the duplicate then drops that reference back to the KUnit-managed one.
++ */
++static void dm_test_crtc_duplicate_state_retains_stream(struct kunit *test)
++{
++	struct dc_stream_state *stream;
++	struct drm_crtc *crtc;
++	struct dm_crtc_state *cur;
++	struct drm_crtc_state *dup;
++	struct dm_crtc_state *dm_dup;
++	struct dc_link *link;
++
++	crtc = kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc);
++	cur = kunit_kzalloc(test, sizeof(*cur), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, cur);
++
++	link = dm_kunit_alloc_link(test);
++	stream = dm_kunit_alloc_stream(test, link);
++
++	cur->stream = stream;
++	crtc->state = &cur->base;
++
++	dup = amdgpu_dm_crtc_duplicate_state(crtc);
++	KUNIT_ASSERT_NOT_NULL(test, dup);
++
++	dm_dup = to_dm_crtc_state(dup);
++	KUNIT_EXPECT_PTR_EQ(test, dm_dup->stream, stream);
++	/* The duplicate took a second reference on top of the managed one. */
++	KUNIT_EXPECT_EQ(test, kref_read(&stream->refcount), 2);
++
++	/* Destroying the duplicate drops back to the KUnit-managed reference. */
++	amdgpu_dm_crtc_destroy_state(crtc, dup);
++	KUNIT_EXPECT_EQ(test, kref_read(&stream->refcount), 1);
++}
++
++/**
++ * dm_test_crtc_duplicate_state_null_state_returns_null - Test guard on missing state
++ * @test: The KUnit test context
++ *
++ * Duplicating a CRTC whose current state is NULL must trip the WARN_ON guard
++ * and return NULL without allocating a new state.
++ */
++static void dm_test_crtc_duplicate_state_null_state_returns_null(struct kunit *test)
++{
++	struct drm_crtc *crtc;
++
++	crtc = kunit_kzalloc(test, sizeof(*crtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc);
++	crtc->state = NULL;
++
++	KUNIT_EXPECT_NULL(test, amdgpu_dm_crtc_duplicate_state(crtc));
++}
++
+ /* Tests for amdgpu_dm_crtc_reset_state() */
  
- static const struct dcn31_hpo_dp_stream_encoder_mask hpo_dp_se_mask = {
--	DCN3_1_HPO_DP_STREAM_ENC_MASK_SH_LIST(_MASK)
-+	DCN4_2_HPO_DP_STREAM_ENC_MASK_SH_LIST(_MASK)
- };
- 
- #define hpo_dp_link_encoder_reg_init(id)\
+ /**
+@@ -1907,6 +1966,8 @@ static struct kunit_case amdgpu_dm_crtc_tests[] = {
+ 	KUNIT_CASE(dm_test_count_crtc_active_planes_mixed),
+ 	/* amdgpu_dm_crtc_duplicate_state */
+ 	KUNIT_CASE(dm_test_crtc_duplicate_state_copies_fields),
++	KUNIT_CASE(dm_test_crtc_duplicate_state_retains_stream),
++	KUNIT_CASE(dm_test_crtc_duplicate_state_null_state_returns_null),
+ 	/* amdgpu_dm_crtc_reset_state */
+ 	KUNIT_CASE(dm_test_crtc_reset_state_allocates_state),
+ 	/* amdgpu_dm_crtc_destroy_state */
 -- 
 2.43.0
 
