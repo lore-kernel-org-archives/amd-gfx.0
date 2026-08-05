@@ -4,97 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CC779C55174
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 13:39:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEBC7C55ABA
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 13:41:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B93F10EE75;
-	Wed,  5 Aug 2026 13:39:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 77EC910E225;
+	Wed,  5 Aug 2026 13:41:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oatMD7Wf";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="A8yFF7Rk";
 	dkim-atps=neutral
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
- [209.85.210.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4535710EE72
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 13:39:24 +0000 (UTC)
-Received: by mail-pf1-f175.google.com with SMTP id
- d2e1a72fcca58-84a32ff53fcso198482b3a.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 05 Aug 2026 06:39:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785937163; cv=none;
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 07D3410E225
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 13:41:02 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-384caf7b168so166899a91.1
+ for <amd-gfx@lists.freedesktop.org>; Wed, 05 Aug 2026 06:41:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785937261; cv=none;
  d=google.com; s=arc-20260327;
- b=QFMPcG+CTSKt8oU1NMyzEAfnQpJznPm5XnYenFoFb8W/0e7HYvb4ISYh+hCLZ8AQNI
- 94fPKBWDibiacxRbPeRdrI7vD5SnM/dvDX5FkaXuXHXCBID8+MOhULe73DcGYf5o4A8J
- Pef/MJLEz0W7cf+/Ikv4Mv0AXTZM+h/UklBlJpIKv5TxfbzY68LzxU5GljwK7fZmgWbl
- pHJZx92rU3B6q6hjVoj8fapEj1j7E0L6bzORMPYFE3jPA0HIPNlnFetx3qMmPqOHMLAP
- UKW2CM7W9eE5GRC0q9HPxqHJ1nq/Y6A7l+yqR1gV/3W0uC/o1KTCHfxLpXP7bSlbJNKS
- 5iNg==
+ b=Axm9mYnbvbx00V+77y34R+xQqbCujwAQCha7M8+tWUq9C65UZqX3ggv/9XVt5p+yhc
+ JQ3gODUW79eqXSUkc2SiBiP9KdHEucUEGBvwmnu3OyVMz39MVoK9nzNHeYEuKe2FjbuU
+ lrXpmfzU3X5SXaejGFWCpxxdHyCTbk7Dd0NES0RAtWD+XxoeyEOA/IY5kWGdX821isYg
+ CJQxygnSULSeTVRjuqpExqCtwcuqaTadqySLlqLSQ6rZaqndhVc5r3zq5nwP5OX2MCh0
+ O4yNrP5re6eP+DDiVlcHERB95Rk0IhhRjTMaTwDWdtXkDHrAbcj1rtz/+SZxnpCgB35o
+ 52hg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=ECIWABTBcOqFonFT5Wh5Ai/7Qs3x8/w4E/9Ac+O/Ce8=;
- fh=y/dhdUHUwAOfgnqgRhdz/n6FGkdFSsqHDZRKWFYuo9I=;
- b=rR3UfwIobVkY/lD4XYr3ObJ9HdgUjshB5sWULRZLb+A67DEbmVU7DTs5LKfKuldiR2
- R1l8VrmWPFpqsp66zALJL8ftHc+sUUClI7p2jjpJ+DmOjWD0BepO++h2IcjxoR8eCAEm
- Uy5XIGIbbBuIY2i3fBQupltWEdj/hXH2hl5C75Ev3IJdfa81rXfxDnLT4uXixsE+rdNK
- vXrxPHLIpQ4VdsrcHnc60YwWsSHh5hmDgQ+jk94lI9UjGHAcT/StlA+ZQM+XQ8LuEJAn
- h0Z8KYxn3CkQvX8V55BD6WzPF+AQw16rZTttzgpuAr/oqSKJoKZcEwJ1AvwP0JFYWesJ
- EclA==; darn=lists.freedesktop.org
+ bh=GapiQ9StxYxVk7zeJhKlHuUvvsowJkq+WOElDe+zHKc=;
+ fh=jsbzaPJV6Idfu/aHZHBtuLdy3EnYYz6dSh2l+d/SLOk=;
+ b=ISkXfpfNEFhalkmYp4Sy/YdzpG99atvKaM0xs89lE2U9jKJls1JHxR/QmOnZ1h68nj
+ 8lKarycmRMm/XIxyyFVvtegLKOv4ZBrlWbOnk26MXCHUVFnK5Xfl/REWV3+7FthKA0XD
+ IrHXW0SPnEvgYeo1MsEVCAY9s9onQd/b8aMjPEU+gQ4JoG5z+GJrlDVmNH9k8Zn7smgM
+ 0AX3mKHSiB4QB8Erd4jZKvsHIprg1yimZTvU/e+UIvA5mpmzpz65whKC0qd6SldRMFBi
+ 3A1T4ZqK00yaw0D7FfYcSCsFi59UCu0/Tf8Gqv24y51QZ2lStWSsJU8wHksN1QgvqL/3
+ 5nXA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785937163; x=1786541963; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1785937261; x=1786542061; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=ECIWABTBcOqFonFT5Wh5Ai/7Qs3x8/w4E/9Ac+O/Ce8=;
- b=oatMD7WfUsMfXlH12sW7Y/VSAI2iOEQk8CEXj38tMicQpHn3FQJwLEQsX0E5m3cbcb
- xxYpOh+JPjWG9wK3OpxjA9IZtqeNe3ObnNPueT3oPgRTzhUrOUUAD/SNeZ5PSdrXoER/
- fcRtsw9xxOFdOsXlsDYt+ZxUnTv6FB7ciLQ38NHOxlaGEa0NFvkd4RZv/XWV68AMY9Uf
- LAYCmLxHKqsukJ7qY3l/gpPSI5Q16xI5NnIRPIS2gnckem4/u2XbjkG9s7BWzR5Evu62
- hey9bFQRMXoVgLj5pZ/MGt2Wn+SYa9pCOAg93LgTTKnh8KVk7F8o6rDNcEdKWfb1nV+g
- RgIQ==
+ bh=GapiQ9StxYxVk7zeJhKlHuUvvsowJkq+WOElDe+zHKc=;
+ b=A8yFF7RkrixdgeaNd4OC4uLUmlD7esDv2Z9A1OKtDHax8ZmXmsSHy+BFd9aSU93U8F
+ r0+2w5+gHurf+bkYXRFAPIsczh+qDhFAPE5wJ2WKsH1Vlw06JGVrfLIwBfz9Y6Pj7LfW
+ MtAMi6bJPYKDM1t0LcZs4RpLgr9tWJmkDea5P+MwBEVEA7VTqxXD0Vsr7bRdZSUcgHTt
+ s5GXUhMlDDYaS8HLGv1W1Ms8bBaJOVtT0c93b+jwQyMQlFcf+1RlH+Ga3XxpyboUp+EG
+ 0Kz1Ir0qvEe8v+8u/olQmxdK3r/88GGwyFnXQetxz8C6idCVWFOEv6FNhQWgNgxXYAp+
+ Q9eQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785937163; x=1786541963;
+ d=1e100.net; s=20251104; t=1785937261; x=1786542061;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=ECIWABTBcOqFonFT5Wh5Ai/7Qs3x8/w4E/9Ac+O/Ce8=;
- b=FLJAXxPZfMeGfB9023WAHrJg/+yKJB/b+Mz+As+pcRwVKsXRm++YOTFwVKJz1vuy6c
- Kecg2J0WnKaZ/y7C6HKkDrEUVA41OMi4csp5fFsYLzs8Bl25365y/zMiDTNovCBHeJUZ
- X3sunm0g0UBF5fuEKpyQLfTeNESWNj4Y1s9EVbk0YuZXbwY3FwqOY9xjEDso53Pb1tdz
- t6iRg32b2LVJfynmXW+mNBtEC99x7EIMMY7zvGs2EIAeWJMgaC862GIOq9o8ZwaZMcsh
- vE1+B4VFe1W8WuqXDY5h07pp2CyNv1zfwDw66JUXTsN7nXh2rO7XR4fallY+UxF2uX8O
- s4nA==
+ bh=GapiQ9StxYxVk7zeJhKlHuUvvsowJkq+WOElDe+zHKc=;
+ b=b4KrRDCLEtqueVLIRXBQQg5OrrydHZOwEmYVbZWeEvBIJVbkF19wqbz+NTJd2P6a+E
+ 94k+Ohllmy6PRKf04X1YIfHHHbPreFzpnofq+iNld62DgzkBKq/r6MOvM8VFERYFoBoo
+ 2RGyBCOjMMxr02NEy4dwWXLIAAm6UMsXDDTPHDJJfsPdCGEzL935rJ7NdXDMtTBfl0L9
+ X55YVnacg7kl/mBWbJwmSBjCmAmbmQrhU3SEkPtWcXwsS32Px6+MD0L4WYLJwZiVK2/V
+ HFQqBTLfU6Ia5zoMOGqMBGCgnOdGfFVRp5/h+h48vtXHyvemqvcRj9kV/k2sbuBJd9W1
+ dAjA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqkzI5NL/6sQK7d3LnJ3rpqE/0m/nJoJ5GLRc0+htK88bsqFfCr4smYJIbIdXJoVxZCC+m42Kzz@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yx1F6HJYOgGngtbjLhw2Z6BNIG7qq4IHmKlELxqRzg4tlh/Juzm
- RmNYrwQ11WWyy0r/8OmRLGOonaewq8JFgiEZ47nDJ4emmE0QLeYX/xgEzMUKd/OKezldeyDN5q5
- uAEtKAXDSTHA2YtjSV3uaD/0+dCTOtZs=
-X-Gm-Gg: AR+sD10Rr+cD7JnyxuhTxSW4AUOTl+gUPnrplcpW4wjjyo/T4WD+oWHTLvZpCdG0F5e
- TKdFIfrsWUuNEQQnWdqYA8/v5RZilT+U6giNTui/Pmr2OJDnN/6DtNYOLVNaMz8HgZ26o4qzvQm
- e3yxmfSMdaqsyApV1Xpg1SW3+m6+tYrGQ+mQxsddYlb+TI5hIz03QJ7gyu+LP77Q8+AXV7QW4sV
- Qq0HuMp3HQ/IDtmRrWsTF2XB3eeh9yWf6KrJKIaucEPBz9j0cp0aUQfbWxuj2zVKwFA9hmUEfAb
- J/JskX9e8f7UOaL80U7bmns4eXr7DbtVJRB75spCRg3e7LnGXdvzMHmOrHVRp2SUDWBqyWiP1+r
- Xmcq5fc9Y+YjdE5plIeaxWM0P83s1qv0=
-X-Received: by 2002:a17:90b:3803:b0:38e:55ec:e436 with SMTP id
- 98e67ed59e1d1-3903b9c95aamr5354563a91.0.1785937163422; Wed, 05 Aug 2026
- 06:39:23 -0700 (PDT)
+ AHgh+RomE1emzDpWgkTxeztszRvHAFI6SoPHHvK1Pb2Uaz2+WzhPpUUWJ4Lm1Nmi2F3CGwi66xKnSb83@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwMvZ7xJ4ff+sQsPtcyMwpOakzUL6FindJ8JVn5WMCzAl7478s5
+ V3EeSy8oKNZ3AsYJfwUT2pNbtNF/PqArSG36LLhaBYCrTww5bHcC3PIyWQRS0yWulY33uGj/b99
+ 7362t7WMeTx492s+jJIuMAsMObnpVFps=
+X-Gm-Gg: AR+sD11ilAtwd9dDWEKHaCXg/I02tVNHnhPS7v3ZRLRwvD5+APQSHqNfmiBc6vP1BOc
+ N5HfompqN5RWuM9XM3knsomwNXSYtt9MM9aqX+bmSAaF/iBRD1Fom/ZW0jKygvj+5216dMmXVr2
+ P6CSLxJy4/tOpsA5b7IPFggsqlGtAnB5+V9W2XAuXGURiU6SvARRqR0zXsKOclocyGi5tlohnvB
+ 5tlrWw71To/cmYl4UcjdPJMqzEYjAb3BOSL2AePKcuOZhKHbxcYa7U8qrb5JjEbdf6SKYVEPB6M
+ 0OOXDLB5teNXR8AD13rqnR3Foc8oTfJiyavfjOQSzJnzHyrGxF31A1HRdB+WwAlTVZ2HWNBoeKp
+ SlTIEQ/zzyWt8qLzY8LemS752T3tUlAs=
+X-Received: by 2002:a17:90b:4410:b0:38e:6d4c:14df with SMTP id
+ 98e67ed59e1d1-3903c5bff9dmr4959975a91.1.1785937261455; Wed, 05 Aug 2026
+ 06:41:01 -0700 (PDT)
 MIME-Version: 1.0
-References: <tencent_BB2A7CAE632BA0AC08D9296E78A15786200A@qq.com>
- <baa434d9-e0a9-482d-a071-42d204b82126@amd.com>
-In-Reply-To: <baa434d9-e0a9-482d-a071-42d204b82126@amd.com>
+References: <20260804125234.14043-1-dken4546@gmail.com>
+In-Reply-To: <20260804125234.14043-1-dken4546@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 5 Aug 2026 09:39:11 -0400
-X-Gm-Features: AUfX_mwCMrINTWDajJUvcp2l7VES5zI87cc7gtPBOxTJCBpr0mmv9h6RdFUpFMw
-Message-ID: <CADnq5_Ny144v_gZZWOpr+YngTEJnyc80q=NVgy=53k1g6rk-Lw@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: restore hardware polling in fence_is_signaled
- to fix performance regression
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: 2564278112@qq.com, alexander.deucher@amd.com, airlied@gmail.com, 
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- Wang Jiang <jiangwang@kylinos.cn>, Philipp Stanner <phasta@kernel.org>, 
- Danilo Krummrich <dakr@kernel.org>
+Date: Wed, 5 Aug 2026 09:40:49 -0400
+X-Gm-Features: AUfX_mxOD6243SnvlN5N56bm-RB7Vl1khc3d_eIp5-pR51TnhUKoQMUSReOW35M
+Message-ID: <CADnq5_O=3gwWFUcUpV-YBxHwQrxpxF_jQC5m+vn06f3VmPExxQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Fix typo in comment
+To: Kenji Takahashi <dken4546@gmail.com>
+Cc: alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -113,74 +107,33 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-On Wed, Aug 5, 2026 at 4:53=E2=80=AFAM Christian K=C3=B6nig <christian.koen=
-ig@amd.com> wrote:
+On Wed, Aug 5, 2026 at 3:43=E2=80=AFAM Kenji Takahashi <dken4546@gmail.com>=
+ wrote:
 >
-> On 7/29/26 12:26, 2564278112@qq.com wrote:
-> > From: Wang Jiang <jiangwang@kylinos.cn>
-> >
-> > Commit 9eb00b5f5697b ("drm/radeon: delete radeon_fence_process in
-> > is_signaled, no deadlock") removed the hardware polling from
-> > radeon_fence_is_signaled() to fix a self-deadlock caused by
-> > wake_up_all(&rdev->fence_queue) being called with the fence queue
-> > lock held.
-> >
-> > However, removing the polling entirely causes significant performance
-> > regression (e.g. glxgears FPS drop) because the fence signaled check
-> > becomes purely passive =E2=80=94 it only reads the cached last_seq with=
-out
-> > probing the GPU, so completed GPU work is not detected in time,
-> > causing unnecessary CPU stalls in sync-heavy workloads.
-> >
-> > Fix this by calling radeon_fence_activity() directly instead of
-> > radeon_fence_process(). radeon_fence_activity() reads the hardware
-> > fence counter and updates last_seq via atomic ops without calling
-> > wake_up_all(), thus avoiding the deadlock while restoring timely
-> > fence detection.
+> Fix a spelling mistake in a comment.
 >
-> Yeah I already feared that removing this in commit 9eb00b5f5697b could ca=
-use issues.
+> Signed-off-by: Kenji Takahashi <dken4546@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >
-> Adding Philip and Danilo since we recently had a discussion about the nec=
-essity of this.
-> > Fixes: 9eb00b5f5697b ("drm/radeon: delete radeon_fence_process in is_si=
-gnaled, no deadlock")
-> > Signed-off-by: Wang Jiang <jiangwang@kylinos.cn>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_queue.c
+> index b249e7d1af48..d634b91bf81d 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
+> @@ -102,7 +102,7 @@ static int kfd_queue_buffer_svm_get(struct kfd_proces=
+s_device *pdd, u64 addr, u6
+>         mutex_lock(&p->svms.lock);
 >
-> As far as I remember the radeon code the solution should work, but I don'=
-t have time to double check.
->
-> Acked-by: Christian K=C3=B6nig <christian.koenig@amd.com>
->
-> Thanks,
-> Christian.
->
-> > ---
-> >  drivers/gpu/drm/radeon/radeon_fence.c | 7 +++++++
-> >  1 file changed, 7 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/radeon/radeon_fence.c b/drivers/gpu/drm/ra=
-deon/radeon_fence.c
-> > index 02a40e4750c7..299865569252 100644
-> > --- a/drivers/gpu/drm/radeon/radeon_fence.c
-> > +++ b/drivers/gpu/drm/radeon/radeon_fence.c
-> > @@ -360,6 +360,13 @@ static bool radeon_fence_is_signaled(struct dma_fe=
-nce *f)
-> >         if (atomic64_read(&rdev->fence_drv[ring].last_seq) >=3D seq)
-> >                 return true;
-> >
-> > +       if (down_read_trylock(&rdev->exclusive_lock)) {
-> > +               radeon_fence_activity(rdev, ring);
-> > +               up_read(&rdev->exclusive_lock);
-> > +
-> > +               if (atomic64_read(&rdev->fence_drv[ring].last_seq) >=3D=
- seq)
-> > +                       return true;
-> > +       }
-> >         return false;
-> >  }
-> >
-> > --
-> > 2.25.1
-> >
+>         /*
+> -        * range may split to multiple svm pranges aligned to granularity=
+ boundaery.
+> +        * range may split to multiple svm pranges aligned to granularity=
+ boundary.
+>          */
+>         while (size) {
+>                 uint32_t gpuid, gpuidx;
+> --
+> 2.43.0
 >
