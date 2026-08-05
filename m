@@ -4,76 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF691C55838
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 06:55:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2988CC561E6
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 06:55:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41D2E10F0E7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B1F5610F0E8;
 	Thu,  6 Aug 2026 06:55:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="aBk+lrER";
+	dkim=fail reason="signature verification failed" (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2AoLCP2s";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E004410EE06
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 11:53:33 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-381b831d535so1025037a91.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 05 Aug 2026 04:53:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1785930813; x=1786535613; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=79NsO+PsfGOopFsKIDPTTb7BwTAhpxYJChhNrjYNklA=;
- b=aBk+lrERlltj7ZMLTO8mw083JbtbY50RwSWmaaI0NMECKwMn6MIlmigea7nFhaCbQe
- HK06qon6/1/Ca//PzRnEjykaQiChrx+bbzIxczaoEr0jJFiF39cCyHQUKLpTMzv2HA03
- 4FSlOkhstoxXVsYPlIja0EpKo3+knr+tbkbXNJtffEyW6S+q7VNJekTyED6CeAcs6ifk
- AiRRH9mGEvL8BGEQQ4mF+Y8bX3t5Nax6Oyy5spwgjp3OE6qQhQI9PBCsJSosT/yJKc74
- 917LazQv/E/eqOXfq0NVHvNEgITFqOEaAWMpLj2eKqfNY0iKbaXS9zt8QRiK88b1CNnn
- oghA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1785930813; x=1786535613;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=79NsO+PsfGOopFsKIDPTTb7BwTAhpxYJChhNrjYNklA=;
- b=l5vfLEiTgg9S2eaS2nZf4JL5VtwDPuamISTHRas6pulIsulJwDgo22vVUdpGnG4cZv
- 033qruMWmui2x0ivnEIPPYVJNs5Uztv4z9tN0r638bRkkGTffJnGzpjcM/ZlFH+xeJy8
- B2C7cRoh+m3iMgZchOAK3dFQyjW/H8KzNs4lKTaT6FGrUYh0oyNnbYPA/78FIc0GttaN
- 7Qi+fXxvw+eRFdmP4p3MOPXseeqak/4hfSVa5Yi+No38eJ3VtyNgVOAdRqyqU3l1jf7O
- ijTrxO0NBbo+ehDdXQfu69udLNyqpktMwW7W1VS8+PfkVB3F7BqbZ24Segqoxk2czGwF
- 4zYA==
-X-Gm-Message-State: AOJu0YycBE7ShUVwV+5GIAT5d19m17L7YYfgaLwWGvF3eFOsb+WJjoaI
- LqkrkwjSRGBjNoymjIvKIUWmG19mr7iBKqbUC22Fc0bcrlKF8kDmX8o+fJy6hYHo/yA=
-X-Gm-Gg: AR+sD10r9swFcFs85wlsXWJuamVw97rFCWGLL6OPHm+wq7ZtEp9NfBz6qDihEfDsQLZ
- KJTroVm0O6yD3l/rXIfnI/5Q44X1wVvR8djJwz8fwkdDoLBsxTvwjCoqhNztvRaP9OF1erlWomq
- f5me6W570M1UQU3hJa+SvSzGdNvIkJIL/lirWISuubQUwbt/FvQLfVxmzLam63rsKUAI5wD5Lh4
- oNatLTrAIxmOotZoRpIs3BlaibotZ1qBlkzQOq0oWS0enVM3zKIJWFxLA4RpKy86bl0PLcued5I
- 0GRGt1fKpP2vQYfSZIB8X6+PXxgxb/e/gBWrCjLReUO86f5dsvP7PWtxPDl+eiCPU8QyYy4fAdR
- VJvseRAgf5uiGt+hQPRCimeA+PjfdwA5uk+BW+SUPPACDUkyLTLyYZPhG8MaG6tyGCY4Vfvqro/
- ljOkvOxGeV8Gt/J6IPgtvx1gQ+PJJGSDfjAxADrie1sEKQ3odWQ2Dj9nJALrrBkFH7MkYmZG2fg
- ChJcZJvD+Tho+DjDP2se567
-X-Received: by 2002:a17:90a:ec86:b0:38e:bbf1:de34 with SMTP id
- 98e67ed59e1d1-3903c537a12mr6778142a91.7.1785930813335; 
- Wed, 05 Aug 2026 04:53:33 -0700 (PDT)
-Received: from localhost ([64.176.39.245]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-38febfdae56sm4667245a91.2.2026.08.05.04.53.30
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 05 Aug 2026 04:53:32 -0700 (PDT)
-From: David Weber <weber.aulendorf@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
- harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- someguy@effective-light.com, David Weber <weber.aulendorf@gmail.com>
-Subject: [RFC PATCH 5/5] drm/amd/display: add PSR recovery fault injection
-Date: Wed,  5 Aug 2026 13:52:48 +0200
-Message-ID: <f1da6bf58b5464f1b6e5b550f7e4627aed39ae64.1785929873.git.weber.aulendorf@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1785929873.git.weber.aulendorf@gmail.com>
-References: <cover.1785929873.git.weber.aulendorf@gmail.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D500610EE33
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 12:15:33 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4D4BC60A79;
+ Wed,  5 Aug 2026 12:15:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79D591F000E9;
+ Wed,  5 Aug 2026 12:15:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1785932133;
+ bh=t/nJJBVjJgwd6VxOas6Hr9YSj+TAyxxOBtd5KIHjYZ4=;
+ h=Subject:To:Cc:From:Date;
+ b=2AoLCP2sbkJT15fSUFWpItXSukIksp1X2iS/g+yuZZqivtOy3PQzqeMKkqMtNmenL
+ NplkM4Al4XAE8gmfsQmJ+L4EfXeuPdXqobZY+isJoaraWr5IJhdv8k5VfyLSdtCiLL
+ TR8eGm1vAshwu+2l3fgsOUeiBQ7WJNvD5l37Ou3Q=
+Subject: Patch "drm/amd/display: use proper context for logging" has been
+ added to the 7.1-stable tree
+To: Bhawanpreet.Lakha@amd.com, airlied@gmail.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org, bhawanpreet.lakha@amd.com,
+ christian.koenig@amd.com, gregkh@linuxfoundation.org, harry.wentland@amd.com,
+ jirislaby@kernel.org, simona@ffwll.ch, siqueira@igalia.com, sunpeng.li@amd.com
+Cc: <stable-commits@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 05 Aug 2026 14:14:22 +0200
+Message-ID: <2026080522-reformer-esquire-ecbd@gregkh>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 06 Aug 2026 06:55:47 +0000
+X-stable: commit
+X-Patchwork-Hint: ignore 
+X-Mailman-Approved-At: Thu, 06 Aug 2026 06:55:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -88,235 +57,199 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Introduce two write-only debugfs controls for testing PSR recovery.
 
-amdgpu_dm_trigger_psr_recovery directly queues the PSR recovery worker
-without first creating a display or firmware failure.  Trigger it with:
+This is a note to let you know that I've just added the patch titled
 
-  echo 1 > /sys/kernel/debug/dri/0/amdgpu_dm_trigger_psr_recovery
+    drm/amd/display: use proper context for logging
 
-amdgpu_dm_halt_dmub_for_psr_recovery selects an active PSR-enabled eDP
-stream, enters PSR, halts DMUB firmware, and requests a synchronous PSR
-exit.  The failed exit should schedule the normal PSR recovery path.
-Trigger it with:
+to the 7.1-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
-  echo 0xDEADDEAD > \
-    /sys/kernel/debug/dri/0/amdgpu_dm_halt_dmub_for_psr_recovery
+The filename of the patch is:
+     drm-amd-display-use-proper-context-for-logging.patch
+and it can be found in the queue-7.1 subdirectory.
 
-Halting DMUB is destructive until reset.  The second control therefore
-requires the existing STOP_FW response value 0xDEADDEAD as a safety
-cookie.  Both controls refuse to run when GPU recovery is disabled, no
-reset domain is available, teardown has started, or another PSR recovery
-is pending.
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: David Weber <weber.aulendorf@gmail.com>
+
+From 114b42507b6a23d9d24e24e4ef165233332c64d4 Mon Sep 17 00:00:00 2001
+From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
+Date: Thu, 23 Jul 2026 06:25:48 +0200
+Subject: drm/amd/display: use proper context for logging
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+From: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+
+commit 114b42507b6a23d9d24e24e4ef165233332c64d4 upstream.
+
+The same as the rest of the code, get_ss_info_from_atombios() uses
+calc_pll_cs->ctx->logger for logging. But calc_pll_cs->ctx is
+initialized only later in calc_pll_max_vco_construct(). Therefore, any
+output using DC_LOG_SYNC() leads to a NULL pointer deference in
+get_ss_info_from_atombios().
+
+According to Sashiko, the very same problem exists in
+dce112_get_pix_clk_dividers() and dcn3_get_pix_clk_dividers() too.
+
+To avoid accessing the NULL context, use clk_src->base.ctx->logger
+everywhere. That context in base is initialized earlier in
+dce110_clk_src_construct() and dce112_clk_src_construct(). Before
+get_ss_info_from_atombios() or Sashiko's get_pix_clk_dividers functions
+above are actually called. This is done by redefining DC_LOGGER to
+CTX->logger.
+
+Before:
+dce110_clk_src_construct() did:
+ -> sets clk_src->base.ctx = ctx;
+ -> ss_info_from_atombios_create()
+   -> get_ss_info_from_atombios()   <- uses calc_pll_cs->ctx  # BOOM
+ -> calc_pll_max_vco_construct()    <- sets calc_pll_cs->ctx
+
+After:
+dce110_clk_src_construct() does:
+ -> sets clk_src->base.ctx = ctx;
+ -> ss_info_from_atombios_create()
+   -> get_ss_info_from_atombios()   <- uses clk_src->base.ctx
+
+Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271175
+Closes: https://lore.kernel.org/all/a9ee54e6-2413-4156-9bde-d528ae3c63a3@kernel.org/
+Fixes: 1296423bf23c ("drm/amd/display: define DC_LOGGER for logger")
+Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 6f16fcbb0c46a87e3d9685407e906573d60104b0)
+Cc: stable@vger.kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 177 ++++++++++++++++++
- 1 file changed, 177 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c |   20 ++++++++----------
+ 1 file changed, 9 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-index 7db38ad3f848..a80e13b98ad7 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -29,6 +29,7 @@
- #include <media/cec-notifier.h>
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+@@ -45,9 +45,7 @@
+ 	clk_src->base.ctx
  
- #include "dc.h"
-+#include "core_types.h"
- #include "amdgpu.h"
- #include "amdgpu_dm.h"
- #include "amdgpu_dm_debugfs.h"
-@@ -4483,6 +4484,176 @@ DEFINE_DEBUGFS_ATTRIBUTE(skip_detection_link_training_fops,
- 			 skip_detection_link_training_get,
- 			 skip_detection_link_training_set, "%llu\n");
+ #define DC_LOGGER \
+-	calc_pll_cs->ctx->logger
+-#define DC_LOGGER_INIT() \
+-	struct calc_pll_clock_source *calc_pll_cs = &clk_src->calc_pll
++	CTX->logger
  
-+static int psr_recovery_test_available(struct amdgpu_device *adev)
-+{
-+	unsigned long flags;
-+	bool pending;
-+	bool stopping;
-+
-+	if (!amdgpu_device_should_recover_gpu(adev) || !adev->reset_domain)
-+		return -EOPNOTSUPP;
-+
-+	spin_lock_irqsave(&adev->dm.psr_recovery_lock, flags);
-+	pending = adev->dm.psr_recovery_pending;
-+	stopping = adev->dm.psr_recovery_stopping;
-+	spin_unlock_irqrestore(&adev->dm.psr_recovery_lock, flags);
-+
-+	if (stopping)
-+		return -ESHUTDOWN;
-+
-+	return pending ? -EBUSY : 0;
-+}
-+
-+static int trigger_psr_recovery_set(void *data, u64 val)
-+{
-+	struct amdgpu_device *adev = data;
-+	int ret;
-+
-+	if (val != 1)
-+		return -EINVAL;
-+	if (!adev->dm.dc || !adev->dm.dc->ctx)
-+		return -ENODEV;
-+	ret = psr_recovery_test_available(adev);
-+	if (ret)
-+		return ret;
-+
-+	drm_warn(adev_to_drm(adev),
-+		 "injecting a fatal PSR failure to test display recovery\n");
-+	if (!amdgpu_dm_schedule_psr_recovery(&adev->dm, NULL, NULL))
-+		return -EIO;
-+
-+	return 0;
-+}
-+
-+DEFINE_DEBUGFS_ATTRIBUTE(trigger_psr_recovery_fops, NULL,
-+			 trigger_psr_recovery_set, "%llu\n");
-+
-+static int halt_dmub_for_psr_recovery_set(void *data, u64 val)
-+{
-+	struct amdgpu_device *adev = data;
-+	struct dc *dc = adev->dm.dc;
-+	struct dc_dmub_srv *dc_dmub_srv;
-+	struct dmub_srv *dmub;
-+	struct dc_link *link = NULL;
-+	enum dmub_status status;
-+	u32 response = 0;
-+	bool allow_active;
-+	bool pending;
-+	bool programmed;
-+	unsigned long flags;
-+	int ret = 0;
-+	int i;
-+
-+	/*
-+	 * Halting DMUB is destructive until reset. Require the STOP_FW ABI
-+	 * response cookie to make an accidental write less likely.
-+	 */
-+	if (val != DMUB_GPINT__STOP_FW_RESPONSE)
-+		return -EINVAL;
-+	ret = psr_recovery_test_available(adev);
-+	if (ret)
-+		return ret;
-+	if (!dc || !dc->ctx || !dc->ctx->dmub_srv ||
-+	    !dc->res_pool || !dc->res_pool->psr)
-+		return -ENODEV;
-+
-+	dc_dmub_srv = dc->ctx->dmub_srv;
-+	dmub = dc_dmub_srv->dmub;
-+	if (!dmub)
-+		return -ENODEV;
-+
-+	mutex_lock(&adev->dm.dc_lock);
-+	if (dc->current_state) {
-+		for (i = 0; i < dc->current_state->stream_count; i++) {
-+			struct dc_stream_state *stream =
-+				dc->current_state->streams[i];
-+
-+			if (stream && stream->link &&
-+			    stream->link->connector_signal == SIGNAL_TYPE_EDP &&
-+			    stream->link->psr_settings.psr_feature_enabled) {
-+				link = stream->link;
-+				break;
-+			}
-+		}
-+	}
-+
-+	if (!link) {
-+		mutex_unlock(&adev->dm.dc_lock);
-+		return -ENODEV;
-+	}
-+	ret = psr_recovery_test_available(adev);
-+	if (ret)
-+		goto unlock;
-+
-+	if (dc_dmub_srv->idle_allowed)
-+		dc_dmub_srv_apply_idle_power_optimizations(dc, false);
-+
-+	/* Enter PSR before halting firmware so the test exercises failed exit. */
-+	link->psr_settings.psr_allow_active_valid = false;
-+	allow_active = true;
-+	programmed = dc_link_set_psr_allow_active(link, &allow_active, true,
-+						  false, NULL);
-+	if (!programmed) {
-+		drm_err(adev_to_drm(adev),
-+			"failed to enter PSR before halting DMUB\n");
-+		ret = -EIO;
-+		goto unlock;
-+	}
-+
-+	drm_warn(adev_to_drm(adev),
-+		 "halting DMUB firmware to test PSR exit recovery\n");
-+	status = dmub_srv_send_gpint_command(dmub, DMUB_GPINT__STOP_FW, 0,
-+					     100000);
-+	if (status != DMUB_STATUS_OK) {
-+		drm_err(adev_to_drm(adev),
-+			"failed to halt DMUB firmware: %d; recovering\n", status);
-+		if (!amdgpu_dm_schedule_psr_recovery(&adev->dm, NULL, NULL))
-+			drm_err(adev_to_drm(adev),
-+				"failed to schedule recovery after DMUB halt error\n");
-+		ret = -EIO;
-+		goto unlock;
-+	}
-+
-+	for (i = 0; i < 100000; i++) {
-+		status = dmub_srv_get_gpint_response(dmub, &response);
-+		if (status == DMUB_STATUS_OK &&
-+		    response == DMUB_GPINT__STOP_FW_RESPONSE)
-+			break;
-+		udelay(1);
-+	}
-+
-+	if (response != DMUB_GPINT__STOP_FW_RESPONSE)
-+		drm_warn(adev_to_drm(adev),
-+			 "DMUB halt response timed out; testing PSR exit anyway\n");
-+
-+	allow_active = false;
-+	programmed = dc_link_set_psr_allow_active(link, &allow_active, true,
-+						  false, NULL);
-+	spin_lock_irqsave(&adev->dm.psr_recovery_lock, flags);
-+	pending = adev->dm.psr_recovery_pending;
-+	spin_unlock_irqrestore(&adev->dm.psr_recovery_lock, flags);
-+	if (programmed) {
-+		drm_err(adev_to_drm(adev),
-+			"PSR exit unexpectedly succeeded after DMUB halt\n");
-+		ret = -EIO;
-+	} else if (!pending) {
-+		drm_err(adev_to_drm(adev),
-+			"PSR exit timeout did not schedule recovery\n");
-+		ret = -EIO;
-+	} else {
-+		drm_info(adev_to_drm(adev),
-+			 "PSR exit timeout scheduled recovery\n");
-+	}
-+
-+unlock:
-+	mutex_unlock(&adev->dm.dc_lock);
-+
-+	return ret;
-+}
-+
-+DEFINE_DEBUGFS_ATTRIBUTE(halt_dmub_for_psr_recovery_fops, NULL,
-+			 halt_dmub_for_psr_recovery_set, "%llu\n");
-+
- /*
-  * Dumps the DCC_EN bit for each pipe.
-  * Example usage: cat /sys/kernel/debug/dri/0/amdgpu_dm_dcc_en
-@@ -4579,6 +4750,12 @@ void dtn_debugfs_init(struct amdgpu_device *adev)
- 	debugfs_create_file_unsafe("amdgpu_dm_skip_detection_link_training", 0644, root, adev,
- 				   &skip_detection_link_training_fops);
+ #undef FN
+ #define FN(reg_name, field_name) \
+@@ -289,6 +287,7 @@ static bool calc_pll_dividers_in_range(
+ }
  
-+	debugfs_create_file_unsafe("amdgpu_dm_trigger_psr_recovery", 0200,
-+				   root, adev, &trigger_psr_recovery_fops);
-+	debugfs_create_file_unsafe("amdgpu_dm_halt_dmub_for_psr_recovery", 0200,
-+				   root, adev,
-+				   &halt_dmub_for_psr_recovery_fops);
+ static uint32_t calculate_pixel_clock_pll_dividers(
++		struct dce110_clk_src *clk_src,
+ 		struct calc_pll_clock_source *calc_pll_cs,
+ 		struct pll_settings *pll_settings)
+ {
+@@ -477,7 +476,7 @@ static uint32_t dce110_get_pix_clk_divid
+ {
+ 	uint32_t field = 0;
+ 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
+-	DC_LOGGER_INIT();
 +
- 	debugfs_create_file_unsafe("amdgpu_dm_dmub_tracebuffer", 0644, root,
- 				   adev, &dmub_tracebuffer_fops);
+ 	/* Check if reference clock is external (not pcie/xtalin)
+ 	* HW Dce80 spec:
+ 	* 00 - PCIE_REFCLK, 01 - XTALIN,    02 - GENERICA,    03 - GENERICB
+@@ -520,12 +519,14 @@ static uint32_t dce110_get_pix_clk_divid
+ 		/*Calculate Dividers by HDMI object, no SS case or SS case */
+ 		pll_calc_error =
+ 			calculate_pixel_clock_pll_dividers(
++				        clk_src,
+ 					&clk_src->calc_pll_hdmi,
+ 					pll_settings);
+ 	else
+ 		/*Calculate Dividers by default object, no SS case or SS case */
+ 		pll_calc_error =
+ 			calculate_pixel_clock_pll_dividers(
++					clk_src,
+ 					&clk_src->calc_pll,
+ 					pll_settings);
  
--- 
-2.54.0
+@@ -571,7 +572,6 @@ static uint32_t dce110_get_pix_clk_divid
+ {
+ 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+ 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
+-	DC_LOGGER_INIT();
+ 
+ 	if (pix_clk_params == NULL || pll_settings == NULL
+ 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
+@@ -603,7 +603,6 @@ static uint32_t dce112_get_pix_clk_divid
+ 		struct pll_settings *pll_settings)
+ {
+ 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+-	DC_LOGGER_INIT();
+ 
+ 	if (pix_clk_params == NULL || pll_settings == NULL
+ 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
+@@ -1372,8 +1371,6 @@ static uint32_t dcn3_get_pix_clk_divider
+ 	unsigned long long actual_pix_clk_100Hz = pix_clk_params ? pix_clk_params->requested_pix_clk_100hz : 0;
+ 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+ 
+-	DC_LOGGER_INIT();
+-
+ 	if (pix_clk_params == NULL || pll_settings == NULL
+ 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
+ 		DC_LOG_ERROR(
+@@ -1443,7 +1440,6 @@ static const struct clock_source_funcs d
+ 	.get_pixel_clk_frequency_100hz = get_pixel_clk_frequency_100hz
+ };
+ 
+-
+ static void get_ss_info_from_atombios(
+ 		struct dce110_clk_src *clk_src,
+ 		enum as_signal_type as_signal,
+@@ -1456,7 +1452,7 @@ static void get_ss_info_from_atombios(
+ 	struct spread_spectrum_info *ss_info_cur;
+ 	struct spread_spectrum_data *ss_data_cur;
+ 	uint32_t i;
+-	DC_LOGGER_INIT();
++
+ 	if (ss_entries_num == NULL) {
+ 		DC_LOG_SYNC(
+ 			"Invalid entry !!!\n");
+@@ -1587,6 +1583,7 @@ static void ss_info_from_atombios_create
+ }
+ 
+ static bool calc_pll_max_vco_construct(
++			struct dce110_clk_src *clk_src,
+ 			struct calc_pll_clock_source *calc_pll_cs,
+ 			struct calc_pll_clock_source_init_data *init_data)
+ {
+@@ -1738,6 +1735,7 @@ bool dce110_clk_src_construct(
+ 	ss_info_from_atombios_create(clk_src);
+ 
+ 	if (!calc_pll_max_vco_construct(
++			clk_src,
+ 			&clk_src->calc_pll,
+ 			&calc_pll_cs_init_data)) {
+ 		ASSERT_CRITICAL(false);
+@@ -1752,7 +1750,7 @@ bool dce110_clk_src_construct(
+ 
+ 
+ 	if (!calc_pll_max_vco_construct(
+-			&clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
++			clk_src, &clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
+ 		ASSERT_CRITICAL(false);
+ 		goto unexpected_failure;
+ 	}
 
+
+Patches currently in stable-queue which might be from jirislaby@kernel.org are
+
+queue-7.1/drm-amd-display-use-proper-context-for-logging.patch
