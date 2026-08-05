@@ -4,125 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52BECC55174
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 08:40:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 718BCC55174
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 08:42:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7AC310E1E9;
-	Wed,  5 Aug 2026 08:40:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C44F810ED7C;
+	Wed,  5 Aug 2026 08:42:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0LhupPFi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uB2azsxO";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011053.outbound.protection.outlook.com
- [40.93.194.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D958110E1E9
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 08:40:23 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012057.outbound.protection.outlook.com
+ [40.107.200.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F1AC10ED7C
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 08:42:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XEJFtR4jBTtIhD6l8m0yHeCaUAbM1uecgzMCIIRVdPkErkc39nfTZ+RwURwupVBxlNfADuAkla6W9PBIXX2G+Wv5h52GxAV/ckp9tR0ImG1zTDf4DOylNW5Io1rMIxs0yUIpUnXvHfdjj3PmboLSK8o7cFjtbRPeC4Sx++aHGaNObhBMs6sb1VQ6jhkoGtETaOKFoQulRnMjIb0gkyRaceMpa9eSuOItxJT8kVFWeOdmx5MNUEL2tbaHAHjWhlrAU5y0lS1AqDizYS9cpuCSWs9RUjkdAp7tDueiXA8jIUjXr1PLK3WCWqOZgAcOPHYAUmmmF7bkKF1eUbCkSxVFOA==
+ b=qH+uaEC59F0rXaSBT8Z+LSKXMVEiq1MthqkYakwZ3pPVmx/oudo0f8xabUenCKVZ2Rw54zBmIw2+jlCMdzxmYyIxFyTS/8RtrNN0yzNqdQyV+11LY8Z1meqB58OUNcICh9/hfD2wuPmqJ6fQ9A7t5PpXAAhYO1nH4jvmaZ9d5JT4QgI4VNENEBwXqfRP6vcSQ9JCdGBfTQruw8Weys5SlBIwb9INCGqeZwtipTqt3GRBIRKPXNROCXS9c9TukKIhvuElq07Ftke1SehS5CAUlxtQ8YZYImgmyxzwfZlbXoCN8d0+eoAAyMrfigmBPJdjN7Yw1f5lXhCX+PxXrU+oMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=plABUQFv+W5I3Be4Y2NJftua9fExTJ4TvhiktQXgEy4=;
- b=E+8rJ473FyGllVgfVTLEzZY1LeFCZZx7GdIdOy+Wr0YmoBOrpc0TqLrmqzvX8pDByREHxfiF5Id5vsWTTrJpKuQ4m9qKc4nPmvqcJ+DbJV1t+i5wH5KEH16r2QUE7CU+B+e7itbZEh8fSl1cxuSnAkcjrVXAte1BifQ3USuC1rlINPSdWL34c8NWbemlpBsqDqu3wjZTjRvvPvAuZN5uFeCoA8pMHhytzs7OgxFlJsP2yzvnb6B1M3M1vTU4Cz7Lmm75YIQJSUoCHrFLoTpMQ+lLvGuY/pqmmpTnoiB1eTiwT3/C9+LaEUc1MrPG9BW6aIoLcZ8hG6enJs/Q6odgnw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=U59nuah544pWiRErN/fvxkUeqCawJ/KCxkV9NSLtRIg=;
+ b=GTw6IKIQsxMSv/MDntrlZmZLobkiJfuR8pYCK/qxLlv2jJwohE4iHlXfOSMl5GemaPTJMNRr6JO73CwqqNxglrmKHnXpFThtWlZ9ad/XMafMsKXlOSac623eq6NT37WzSJmYs3lRmVeu2hjb+OGx2IqaJtXP4G2REnCGB25z0rL4m4KEOHY840DsggK9bz+U5QFOnwUe0Z92u8sjJffLqLNEqioCbzM4u11EmBgYuuFXISTAK1PG0HcVMkzkHQjoopRjuJO3ENjwyr9S8TAqp/N9llJOCbeCwRH3aVsebJSSgKxvG5+vlygoj7XxDHhdLrP4Zpic+vFQKNZ/7H+VuA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=plABUQFv+W5I3Be4Y2NJftua9fExTJ4TvhiktQXgEy4=;
- b=0LhupPFiBDAo8qdSvSS4rn+17qHbk9B+zXC5aMpFhEiyF21kBqDyssuORlMyY90+jqHYz1syvaYGmItfSU/Mjd/0cvDZ0uRM88lGkiw4ZyEEW5v5B/FeQY2ME1QL5SMt2FgXLEUC2CUkgl5GrKN7fNOZ8QFhsfmvLL50BeG8GvY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA1PR12MB7495.namprd12.prod.outlook.com (2603:10b6:208:419::11)
+ bh=U59nuah544pWiRErN/fvxkUeqCawJ/KCxkV9NSLtRIg=;
+ b=uB2azsxOvbYAGJiehEiU1aA6MUQFWLPcwRDKoOl24adZFJEBLVlz0yhQBwxI0boR0G83b1JtyO4YiI+MXtd4dRrF+B6r9JkTAVtqUtLVU5lg0+lncnT+TDQbfjPwWCose6e9zHce31vwrpjUfTE3i6R3SfDomDzJLsJeZy6Fx/0=
+Received: from MN2PR05CA0042.namprd05.prod.outlook.com (2603:10b6:208:236::11)
+ by BL4PR12MB9484.namprd12.prod.outlook.com (2603:10b6:208:58e::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Wed, 5 Aug
- 2026 08:40:19 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0270.017; Wed, 5 Aug 2026
- 08:40:19 +0000
-Message-ID: <23478c1c-3a1d-4438-aa66-2360c8365482@amd.com>
-Date: Wed, 5 Aug 2026 10:40:14 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/amdkfd: preserve VRAM MQD across hibernation via
- GTT eviction
-To: Shikang Fan <shikang.fan@amd.com>, amd-gfx@lists.freedesktop.org,
- Alexander.Deucher@amd.com, Felix.Kuehling@amd.com
-Cc: Philip.Yang@amd.com, Mario.Limonciello@amd.com,
- Srinivasan.Shanmugam@amd.com, Tiantian.Zhang@amd.com, Victor.Zhao@amd.com
-References: <20260729110001.46186-1-shikang.fan@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260729110001.46186-1-shikang.fan@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BLAPR05CA0002.namprd05.prod.outlook.com
- (2603:10b6:208:36e::12) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.15; Wed, 5 Aug
+ 2026 08:41:54 +0000
+Received: from MN1PEPF0000ECDB.namprd02.prod.outlook.com
+ (2603:10b6:208:236:cafe::32) by MN2PR05CA0042.outlook.office365.com
+ (2603:10b6:208:236::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.16 via Frontend Transport; Wed, 5
+ Aug 2026 08:41:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MN1PEPF0000ECDB.mail.protection.outlook.com (10.167.242.139) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.8 via Frontend Transport; Wed, 5 Aug 2026 08:41:54 +0000
+Received: from shubhankar-X570-AORUS-ELITE.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.41; Wed, 5 Aug 2026 03:41:52 -0500
+From: Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpande@amd.com>
+To: <Alexander.Deucher@amd.com>, <Pratik.Vishwakarma@amd.com>,
+ <Christian.Koenig@amd.com>, <amd-gfx@lists.freedesktop.org>
+CC: <Shubhankar.MilindSardeshpande@amd.com>,
+ <Veerabadhran.Gopalakrishnan@amd.com>
+Subject: [PATCH 1/3] Revert "drm/amdgpu: add support for NBIO IP version
+ 7.11.5"
+Date: Wed, 5 Aug 2026 14:08:26 +0530
+Message-ID: <20260805084114.1767743-1-Shubhankar.MilindSardeshpande@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA1PR12MB7495:EE_
-X-MS-Office365-Filtering-Correlation-Id: 99d16bef-8a62-49bf-ead0-08def2cd2e1d
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECDB:EE_|BL4PR12MB9484:EE_
+X-MS-Office365-Filtering-Correlation-Id: fa74fbe4-f16c-43e3-e065-08def2cd673c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|376014|1800799024|11063799006|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Nv1nHWPRLmhsoNyUFbgqiUnmouzvWsA6H6wPR+wmYtn1GsgrXwaFtwxfDs3HKm8PtYEL4bgRrbL0jl2eVN04162iEuy7QAQqwWyfpVojkIJTKTf9vxie1fWmFR6v2jiUj79uB1op2w6a3Ftx7KcY1X+TpHck4e+pnKOwKZhkdfn6jFmbPafZUKMm7qj3b9M5W1jEe5LDRpns+P0xHGwJs034V9MBpStdAQFxlAMkpNfJB8+E97qzdqunKP43OEPNKG4sOQS5z+rMMP8mOHGnhcLYoa7GDCK9zHt9i/J6QrN1GpRD4hsBEaMs+35sQVxE9cj0s1ylZNIGTNBRWLuNOmlOQXVfaep3UR9Z3prYfE+tquDs051aVPREAWawcA+BlxmKDzsUE4kF+Dby6eAPhGvkXxi3TJW7DZ8v8oo5f5xMqP5WzYuBKRl6jJM2N/cCyfDRZ2vV2j4Z7qTlJfDcTndex4rdjAPeKKUgBLvJUjl5muPB3olezBABJvBugdxNldXFoFKbfSBWw6BOFDxUmzlSj7lYFeoJ1Kfb9AUfonOcE9j0uc3D4e0uwvQLM7ozgRwefeVUaLNjCFzVCIoy63ELe7joGnM6PV2G5U5nUcM8dcyviE5vzsD6my7JOgoLcKX7b9JwwHPEeuFl+MMuvFwwkI5F5JgSs6ZjnNtWKcI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);
+ ARA:13230040|36860700016|23010399003|376014|82310400026|1800799024|56012099006|10067099003|11063799006|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: 08mu0kFMYrbqwQ+1ZELTBCqZP6cXWjuBuFfaWmHbmAIymAlz+VkaQPXTuUOuArK/6yFi8O1LKWpqto9TSK/B+ZfRCIOeS/Y9CbRfiwQJmmg4hjpRHzCUXNpKGiBvR8doYCEVnG3LXXi1/8xCWm5wbEAxy7i1opFAbLaGkCVaB+A5CuZHvNNVEhq0uSsMLkhXy+wlM/V96g0g8pPWRZGwrTZg5Vh4BF9vq2bWGfiR246AUutnsiQ0z/imw4JmV/wCrzfKrVqZP6Fd+3f5RxaHPcx+KnHrDp6jkKEU8RlKkT/g3TtT5crpSuTv6einvg8bBCdw4+dK97psWsxZIwO77KUAl3KvfRpQhbL3g7nwELkwqqNsYYNZQdcTAxWr7CIPPNL4sRAW6CFIZVskdtPWC1Jo4xqjaolnsvd2Qiv5XX3nkeimQdRwUojy2IZcnKw5h863h82O3OZvVpzO+gPOd4c1EjW5/rBweY7JqXvoKSPb8/l+HZUMbuh7CqOtCHiMCLIwKTOxyPU+rZ2Z313vKbn1LIxx+wI7ZQ1kubml5QeRDV9PCJb6AL/KDcaRpK3YjBArOu7tTbZovPBxUfJHsYOwoznrXLJfGymTxTVqpIyBqlRSz/X/ktZ0IP9gduZoAe1qt7pTJRhtlVolHRuKM8K9rdfDpKiCyiHF1BBBLVV8si9OnZ9aFd8p0kwQYSNzjnLjPjdVfiHb4/g6VMtdFA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(23010399003)(376014)(82310400026)(1800799024)(56012099006)(10067099003)(11063799006)(18002099003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MVUvZ0hwZzFjYS9rOUZVMzk2S0xvRFdxQmNwd3BHSnliMHN4VlhMTWJ2ZVFL?=
- =?utf-8?B?M0ZOeG5TU09HUzdCM3M3blFQeFIwekxWRTdiYnlpeWxuUGtzNnJnWXhTS2J2?=
- =?utf-8?B?N3I3dThQTDZNOEVMWEZSOCtuWTd4L3hDVnF4ZmhMSVoxQ3hhR0tRWk1JNnJu?=
- =?utf-8?B?bElWc2NJa3BTVVZZTU9HMWpFN3FOeFNWYVMxdi9aK3RkUlptVm5vOHBsb1ZF?=
- =?utf-8?B?WW1KRWVaV1lXQ3VVRGFhL1lxMzlOaTJmZjZrWTl1MkFNT0tBTWlBZHZyM2Fn?=
- =?utf-8?B?Y0ZPSlVVcmd5RWNxaU1RV1hRYUV5dzhGUW5qbFFOOXhmS21YYVpsM3pncEhT?=
- =?utf-8?B?N1RHWUZiWWlodnNpYm5vOHRnZlQrck1yK3pYQnRVU1orWVRZMkM1MkRQZ2dt?=
- =?utf-8?B?SWU5WEU0ckk5OXlHT0dqRm1VYmo4RTRqcFJ0OGFmcXlOTGJrL0pZRnhEN1Ft?=
- =?utf-8?B?YTZDc01iNUltRVZuNzNUMGN1WHNaUXh0MHdHQ283QUpYK3dZZlZIUTRFUmJ1?=
- =?utf-8?B?VVFGWXNTSkM3c3BSdEx6Umh1TFR1OVAzV1NxVDQwR2VmZGE2dXUxQmlqREtF?=
- =?utf-8?B?MEJXUWIwY0hkelRCekFjSFROV0RKWERlaXRCUXVVc3lqT0hiSmF0Zzdlc1Nm?=
- =?utf-8?B?dzdVWHF3K20rck9waHFWTGRPRHZYdkYrZUxFOEVBQjVmMlpkc2svZ214eEN2?=
- =?utf-8?B?TFhzbXJ6UTNqNTZMd3RqNlVwQytCK1cxc3dYemNjQzRIQ3BiOTRTbTB1bjYz?=
- =?utf-8?B?RDFiUUNFRW1sbDlIczhSVU5wUTJ3Rk5iN01lYmJhWStPdUcwdDNhNTI5cUs5?=
- =?utf-8?B?eG1QUGcrS3VYNXpXT2I5YlBlUjBDYmhOa05QcmFLdklkQTFzWUVFNit1Mm9Z?=
- =?utf-8?B?VFU1a05kZFluWmNzdU9tbi9UakRIZ3NRZmV1WkhNUjVPSHhPaHUwN0VIOGhq?=
- =?utf-8?B?WDFZZFVRR1FHd0dtSGVza0tINTBNbGszMVVaNVQwSmVtczZERHNxWmpQVkFS?=
- =?utf-8?B?QzdIa3FFTy9BaGgvb1dENXhTRUh0UVBjcWtvTUZNSytrRlRPa3dUQld1Y3hT?=
- =?utf-8?B?c0FFR3EzMWtDWk9vcjRna3p4RGc1cUpQR1ZSUUd2alVlNklYVERhaUpkbklw?=
- =?utf-8?B?MHZuTWNWS2ZUa2o2SElTRlJScDFGeWFpVEFiTHk2ZlpnZmNpbGlOTXVEbnY2?=
- =?utf-8?B?UUNxWG9jUzhlcUJxWWh2OWlEdEFHOXN6OW1YS1dtMGR3ckRCRi9RWGlnL2di?=
- =?utf-8?B?V1I1d0tydS9GYW13dVJTVnFwUllYbnFMdWpPUWJCRHFCclE0TnB3Kzdwa3Jj?=
- =?utf-8?B?U1QyaGFDMmZJVkd5MDJjWTMvc3h6cFZBZlN0ajdKOUtUcHVHdkhESEYxYUZ1?=
- =?utf-8?B?SWtvbzZNTXBUelRJUjhYd3cvYnBaazNwY1VjcGRIUDVUMUlORE02MHVqODFQ?=
- =?utf-8?B?NzVUUXpFL1RqVjJMbm14RzN5cjM5ZjZhdzRhNEYrODNuemI5WmNBcXY3N2VT?=
- =?utf-8?B?UDR6OEhjRFNITFdySkRCeGFSamlXVVNieFpMSG1rZTloQ0NKWGFoVWlrRkpz?=
- =?utf-8?B?ekdmbWtCaGgzUUZxWndMcXBzdE1wRFFUeC9la1F1bzBnY1E3OXBCZWpyT1lP?=
- =?utf-8?B?MTZWNXdKRnVaNTlwTVNCd2xLeFFDc2FqZjJpekNTTWlZL2tBZmprUmVscFdD?=
- =?utf-8?B?Yy9aVVZ2SkIrMDFSL0ZTcmVvTEFJbmZXQy9sanB5QXUzOHljbWJlS2YwbDhu?=
- =?utf-8?B?bzZxckhubEZqSEllNngxOU1UYjRJZFd0dkFtL1kwVHNlMi9WcUdLaEt6RTJY?=
- =?utf-8?B?NDdhZlVBY3htVmk1dDQ0Tlp1SENhU3l5ekkzQ29CTC9UdHEwQUtqTE1JNnpt?=
- =?utf-8?B?TE1VNEJkQVM3S01vR2RScjZFY2Mvc1E2OWFWMjliZjdwYy9MYVRxc0MvU0kv?=
- =?utf-8?B?Y3NFZStxTklGNjJ3UGh2eWZwY0o2Vm1kTE80cGM4UVU3eVk1ZjEzT1YzR2t0?=
- =?utf-8?B?WnliN0N4ckVlS1Z0NE11NXk2Wnc0MTNPcXJZaG41ZzRSWHpzSzkwT3lkTXZh?=
- =?utf-8?B?aldmaTdsV282UkJkcDNITTZwbCs2SFBIQTB2elVRWW5BWjd6SVJPMHFrT0cr?=
- =?utf-8?B?RTNNWFVVd2o0K1hNOU9TWWxjZ3BpSFZZZXNyempQOGd6RlFIODVmOFZRU2Mx?=
- =?utf-8?B?U1k1eGREMzNveWh0Vkh1UThucFJMcjYwc09iREk1aWtJODRPVlR6OHBKQk5D?=
- =?utf-8?B?eUdmZ29KYWphd0dXNGlrUjJ2c202VjJjekV6ZDBuWGRsdmoxMlI2UDAwQ016?=
- =?utf-8?Q?XR1n0SEBxZG6RbPR7r?=
+X-MS-Exchange-AntiSpam-MessageData-0: vGR8Lsi1S6F6Z90A2ELWOGvPFWQ/MfogPexpAieIMKXhGH8oIdYLp/sFQNUhwmNxk4n2JQ3WxbyMSzxyLa5XvnimnGNHksk3IJx4MpcffCX+LFRMyyJ27vwZPv5z+LBHjZ7Sycv68qAdzDfon0zsHnvWQN2HtYpgv6CkCfurCGl7IaiMw6e2Z6+4C61A/WQraae5vAB4UpSCmB7wrHdFfsCWl6VRh6OVYzy51N128SYIWKqkPBGyTiyAaUfMlS6R8owkB2wydcfySyPWhqVpB2dHmP/NY+sNw3cqdHIn95zBs6xh+HcKyeLDse8itrgNVySBSUtsO3UwHIY8iWekM6mMZnQKFHPdpM8vcE2A/DG0oCaW9phrWq4XJebZ6mga9w4lOTa7OikNI+kCEx6egmG8QpKVH/ZF0aH/+rIkxL/a93iWkk5A1uVCHeWRaeak
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99d16bef-8a62-49bf-ead0-08def2cd2e1d
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 08:40:19.0910 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 08:41:54.7010 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fa74fbe4-f16c-43e3-e065-08def2cd673c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O4jb9eY0BcyTC6ufUtLHIhB6HNuUvmPuWphKiIfA8p9ylLWQB7EULDQfV8klXeQP
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7495
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000ECDB.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9484
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,299 +111,300 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/29/26 13:00, Shikang Fan wrote:
-> On gfx942/944 and gfx9.5.0, KFD compute-queue MQDs live in a pinned VRAM
-> buffer object (mqd_on_vram()). Pinned VRAM is skipped by TTM eviction and
-> is not saved across S4 hibernation, so the MQD is garbage on resume and
-> the first submission faults (no-retry page fault, UTCL2/gfxhub0).
-> 
-> A bare unpin is not enough: amdgpu's eviction policy relocates the BO
-> within VRAM rather than to system memory, so its contents are still lost
-> when VRAM powers off. Instead, at suspend, unpin the MQD BO and move it to
-> GTT (ttm_bo_validate to GTT) while it is unpinned, so ttm_device_swapout()
-> captures it in the hibernation image. On resume, repin it to VRAM and
-> refresh the cached MQD GPU address (and kernel mapping) since the BO may
-> come back at a new location.
+This reverts commit 74ab07e3290ff38b31448af7bcf2085cadbb5e1a.
 
-That is clearly not correct. Unpinned BOs in VRAM are moved to GTT during suspend.
+Signed-off-by: Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpande@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |   1 -
+ drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c      | 153 +++++-------------
+ 2 files changed, 36 insertions(+), 118 deletions(-)
 
-What can be is that you unpin the BO to late! In which case moving it to GTT using ttm_bo_validate would be illegal or at leats very quzestionable as well.
-
-So that patch here is clearly incorrect.
-
-Regards,
-Christian.
-
-
-> 
-> Signed-off-by: Shikang Fan <shikang.fan@amd.com>
-> ---
->  .../drm/amd/amdkfd/kfd_device_queue_manager.c | 115 ++++++++++++++++++
->  drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h  |   8 ++
->  .../gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c   |  40 ++++++
->  drivers/gpu/drm/amd/amdkfd/kfd_priv.h         |   6 +
->  4 files changed, 169 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 51ee9c39104b..f4da27da0af7 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -1254,6 +1254,106 @@ static int resume_single_queue(struct device_queue_manager *dqm,
->  	return 0;
->  }
->  
-> +/* The MQD of a gfx9 compute queue lives in a pinned VRAM buffer object when
-> + * mqd_on_vram(). Pinned VRAM is skipped by TTM eviction, and a bare unpin only
-> + * lets amdgpu relocate the BO within VRAM - whose contents are lost across S4
-> + * hibernation. To have the MQD captured in the hibernation image, move the BO to
-> + * GTT (system memory) while it is unpinned so ttm_device_swapout() snapshots it,
-> + * then pin it back to VRAM on resume.
-> + *
-> + * dqm_evict_mqd_bo() runs at suspend, gated on adev->in_s4 so runtime eviction
-> + * (where the pinned VRAM MQD stays intact) is untouched.
-> + */
-> +static void dqm_evict_mqd_bo(struct device_queue_manager *dqm, struct queue *q)
-> +{
-> +	struct ttm_operation_ctx ctx = { false, false };
-> +	struct amdgpu_bo *bo;
-> +	int r;
-> +
-> +	if (!dqm->dev->adev->in_s4)
-> +		return;
-> +	if (!mqd_on_vram(dqm->dev->adev))
-> +		return;
-> +	if (q->properties.type != KFD_QUEUE_TYPE_COMPUTE)
-> +		return;
-> +	if (!q->mqd_mem_obj || !q->mqd_mem_obj->mem)
-> +		return;
-> +
-> +	bo = q->mqd_mem_obj->mem;
-> +	if (amdgpu_bo_reserve(bo, false))
-> +		return;
-> +
-> +	amdgpu_bo_unpin(bo);
-> +	amdgpu_bo_placement_from_domain(bo, AMDGPU_GEM_DOMAIN_GTT);
-> +	r = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
-> +	amdgpu_bo_unreserve(bo);
-> +	if (r) {
-> +		dev_err(dqm->dev->adev->dev,
-> +			"Failed to evict MQD of queue %d to GTT: %d\n",
-> +			q->properties.queue_id, r);
-> +		return;
-> +	}
-> +	q->needs_mqd_repin = true;
-> +}
-> +
-> +/* Repin the MQD BO to VRAM on resume. Gated on the per-queue needs_mqd_repin flag
-> + * rather than adev->in_s4, because in_s4 is cleared (PM_POST_HIBERNATION) partway
-> + * through the KFD resume sequence and is unreliable here. The BO may come back at a
-> + * new VRAM address, so refresh the cached copies (mqd_mem_obj->gpu_addr,
-> + * q->gart_mqd_addr, the kernel mapping, and the self-address inside the MQD) before
-> + * the queue is handed back to HW.
-> + */
-> +static int dqm_repin_mqd_bo(struct device_queue_manager *dqm, struct queue *q)
-> +{
-> +	struct mqd_manager *mqd_mgr;
-> +	struct amdgpu_bo *bo;
-> +	void *cpu_ptr;
-> +	int r;
-> +
-> +	if (!q->needs_mqd_repin)
-> +		return 0;
-> +	if (!q->mqd_mem_obj || !q->mqd_mem_obj->mem)
-> +		return 0;
-> +
-> +	bo = q->mqd_mem_obj->mem;
-> +	r = amdgpu_bo_reserve(bo, false);
-> +	if (r)
-> +		return r;
-> +	r = amdgpu_bo_pin(bo, AMDGPU_GEM_DOMAIN_VRAM);
-> +	if (r) {
-> +		amdgpu_bo_unreserve(bo);
-> +		dev_err(dqm->dev->adev->dev,
-> +			"Failed to repin MQD of queue %d to VRAM: %d\n",
-> +			q->properties.queue_id, r);
-> +		return r;
-> +	}
-> +	/* The BO may have moved; refresh the kernel mapping and gpu address. */
-> +	amdgpu_bo_kunmap(bo);
-> +	r = amdgpu_bo_kmap(bo, &cpu_ptr);
-> +	amdgpu_bo_unreserve(bo);
-> +	if (r) {
-> +		dev_err(dqm->dev->adev->dev,
-> +			"Failed to remap MQD of queue %d: %d\n",
-> +			q->properties.queue_id, r);
-> +		return r;
-> +	}
-> +
-> +	q->mqd_mem_obj->cpu_ptr = cpu_ptr;
-> +	q->mqd_mem_obj->gpu_addr = amdgpu_bo_gpu_offset(bo);
-> +	q->gart_mqd_addr = q->mqd_mem_obj->gpu_addr;
-> +	q->mqd = cpu_ptr;
-> +
-> +	mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
-> +			q->properties.type)];
-> +	if (mqd_mgr->update_mqd_gpu_addr)
-> +		mqd_mgr->update_mqd_gpu_addr(mqd_mgr, q->mqd,
-> +					     q->mqd_mem_obj,
-> +					     &q->properties);
-> +
-> +	q->needs_mqd_repin = false;
-> +	return 0;
-> +}
-> +
->  static int evict_process_queues_nocpsch(struct device_queue_manager *dqm,
->  					struct qcm_process_device *qpd)
->  {
-> @@ -1297,6 +1397,8 @@ static int evict_process_queues_nocpsch(struct device_queue_manager *dqm,
->  			 * maintain a consistent eviction state
->  			 */
->  			ret = retval;
-> +
-> +		dqm_evict_mqd_bo(dqm, q);
->  	}
->  
->  out:
-> @@ -1350,6 +1452,8 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
->  				goto out;
->  			}
->  		}
-> +
-> +		dqm_evict_mqd_bo(dqm, q);
->  	}
->  
->  	if (!dqm->dev->kfd->shared_resources.enable_mes) {
-> @@ -1429,6 +1533,10 @@ static int restore_process_queues_nocpsch(struct device_queue_manager *dqm,
->  		if (WARN_ONCE(!dqm->sched_running, "Restore when stopped\n"))
->  			continue;
->  
-> +		retval = dqm_repin_mqd_bo(dqm, q);
-> +		if (retval && !ret)
-> +			ret = retval;
-> +
->  		retval = mqd_mgr->load_mqd(mqd_mgr, q->mqd, q->pipe,
->  				       q->queue, &q->properties, mm);
->  		if (retval && !ret)
-> @@ -1489,6 +1597,13 @@ static int restore_process_queues_cpsch(struct device_queue_manager *dqm,
->  		q->properties.is_active = true;
->  		increment_queue_count(dqm, &pdd->qpd, q);
->  
-> +		retval = dqm_repin_mqd_bo(dqm, q);
-> +		if (retval) {
-> +			dev_err(dev, "Failed to repin MQD for queue %d\n",
-> +				q->properties.queue_id);
-> +			goto out;
-> +		}
-> +
->  		if (dqm->dev->kfd->shared_resources.enable_mes) {
->  			retval = add_queue_mes(dqm, q, qpd);
->  			if (retval) {
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-> index 59eff3389d39..38b46b696243 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager.h
-> @@ -117,6 +117,14 @@ struct mqd_manager {
->  				const void *ctl_stack_src,
->  				const u32 ctl_stack_size);
->  
-> +	/* Patch the MQD's cached self GPU address after the MQD BO has moved
-> +	 * (e.g. repinned to a new VRAM location on hibernation resume). The MQD
-> +	 * contents are otherwise preserved.
-> +	 */
-> +	void	(*update_mqd_gpu_addr)(struct mqd_manager *mm, void *mqd,
-> +				       struct kfd_mem_obj *mqd_mem_obj,
-> +				       struct queue_properties *p);
-> +
->  #if defined(CONFIG_DEBUG_FS)
->  	int	(*debugfs_show_mqd)(struct seq_file *m, void *data);
->  #endif
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> index 75e5a9f67d50..b95720198e28 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
-> @@ -476,6 +476,20 @@ static void restore_mqd(struct mqd_manager *mm, void **mqd,
->  	qp->is_active = 0;
->  }
->  
-> +static void update_mqd_gpu_addr(struct mqd_manager *mm, void *mqd,
-> +				struct kfd_mem_obj *mqd_mem_obj,
-> +				struct queue_properties *qp)
-> +{
-> +	struct v9_mqd *m = get_mqd(mqd);
-> +	uint64_t addr = mqd_mem_obj->gpu_addr;
-> +
-> +	m->cp_mqd_base_addr_lo = lower_32_bits(addr);
-> +	m->cp_mqd_base_addr_hi = upper_32_bits(addr);
-> +
-> +	if (mqd_on_vram(mm->dev->adev))
-> +		amdgpu_device_flush_hdp(mm->dev->adev, NULL);
-> +}
-> +
->  static void init_mqd_hiq(struct mqd_manager *mm, void **mqd,
->  			struct kfd_mem_obj *mqd_mem_obj, uint64_t *gart_addr,
->  			struct queue_properties *q)
-> @@ -860,6 +874,30 @@ static void restore_mqd_v9_4_3(struct mqd_manager *mm, void **mqd,
->  	if (mqd_on_vram(mm->dev->adev))
->  		amdgpu_device_flush_hdp(mm->dev->adev, NULL);
->  }
-> +
-> +static void update_mqd_gpu_addr_v9_4_3(struct mqd_manager *mm, void *mqd,
-> +				       struct kfd_mem_obj *mqd_mem_obj,
-> +				       struct queue_properties *qp)
-> +{
-> +	struct kfd_mem_obj xcc_mqd_mem_obj;
-> +	uint64_t offset = mm->mqd_stride(mm, qp);
-> +	u32 num_xcc = NUM_XCC(mm->dev->xcc_mask);
-> +	struct v9_mqd *m;
-> +	int xcc;
-> +
-> +	memset(&xcc_mqd_mem_obj, 0x0, sizeof(struct kfd_mem_obj));
-> +
-> +	for (xcc = 0; xcc < num_xcc; xcc++) {
-> +		get_xcc_mqd(mqd_mem_obj, &xcc_mqd_mem_obj, offset * xcc);
-> +		m = get_mqd(mqd + offset * xcc);
-> +		m->cp_mqd_base_addr_lo = lower_32_bits(xcc_mqd_mem_obj.gpu_addr);
-> +		m->cp_mqd_base_addr_hi = upper_32_bits(xcc_mqd_mem_obj.gpu_addr);
-> +	}
-> +
-> +	if (mqd_on_vram(mm->dev->adev))
-> +		amdgpu_device_flush_hdp(mm->dev->adev, NULL);
-> +}
-> +
->  static int destroy_mqd_v9_4_3(struct mqd_manager *mm, void *mqd,
->  		   enum kfd_preempt_type type, unsigned int timeout,
->  		   uint32_t pipe_id, uint32_t queue_id)
-> @@ -1017,6 +1055,7 @@ struct mqd_manager *mqd_manager_init_v9(enum KFD_MQD_TYPE type,
->  			mqd->get_wave_state = get_wave_state_v9_4_3;
->  			mqd->checkpoint_mqd = checkpoint_mqd_v9_4_3;
->  			mqd->restore_mqd = restore_mqd_v9_4_3;
-> +			mqd->update_mqd_gpu_addr = update_mqd_gpu_addr_v9_4_3;
->  		} else {
->  			mqd->init_mqd = init_mqd;
->  			mqd->load_mqd = load_mqd;
-> @@ -1025,6 +1064,7 @@ struct mqd_manager *mqd_manager_init_v9(enum KFD_MQD_TYPE type,
->  			mqd->get_wave_state = get_wave_state;
->  			mqd->checkpoint_mqd = checkpoint_mqd;
->  			mqd->restore_mqd = restore_mqd;
-> +			mqd->update_mqd_gpu_addr = update_mqd_gpu_addr;
->  		}
->  		break;
->  	case KFD_MQD_TYPE_HIQ:
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> index 88191a4c1657..3d0ffcc91e3b 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_priv.h
-> @@ -637,6 +637,12 @@ struct queue {
->  	void *gang_ctx_cpu_ptr;
->  
->  	struct amdgpu_bo *wptr_bo_gart;
-> +
-> +	/* The VRAM-resident MQD BO (mqd_on_vram()) is unpinned at S4 suspend so
-> +	 * TTM evicts it into the hibernation image, and repinned on resume. Set
-> +	 * while the BO is unpinned so the resume path knows to repin it.
-> +	 */
-> +	bool needs_mqd_repin;
->  };
->  
->  enum KFD_MQD_TYPE {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index a404d8aa13ee..b5a25ca2e901 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -3488,7 +3488,6 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+ 		break;
+ 	case IP_VERSION(6, 3, 1):
+ 	case IP_VERSION(7, 11, 4):
+-	case IP_VERSION(7, 11, 5):
+ 		adev->nbio.funcs = &nbif_v6_3_1_funcs;
+ 		adev->nbio.hdp_flush_reg = &nbif_v6_3_1_hdp_flush_reg;
+ 		break;
+diff --git a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
+index 000516b5845a..57b0cf817afb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/nbif_v6_3_1.c
+@@ -57,56 +57,12 @@
+ #define regRCC_STRAP0_RCC_DEV0_EPF0_STRAP0_nbif_4_10                                    0x0021
+ #define regRCC_STRAP0_RCC_DEV0_EPF0_STRAP0_nbif_4_10_BASE_IDX                           2
+ 
+-#define regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_BASE_HIGH_nbio_7_11_5                  0x8e13
+-#define regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_BASE_HIGH_nbio_7_11_5_BASE_IDX         5
+-#define regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_BASE_LOW_nbio_7_11_5                   0x8e14
+-#define regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_BASE_LOW_nbio_7_11_5_BASE_IDX          5
+-#define regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_CNTL_nbio_7_11_5                       0x8e15
+-#define regBIF_BX_PF0_DOORBELL_SELFRING_GPA_APER_CNTL_nbio_7_11_5_BASE_IDX              5
+-
+-#define regBIF_BX1_REMAP_HDP_MEM_FLUSH_CNTL_nbio_7_11_5                                 0x012d
+-#define regBIF_BX1_REMAP_HDP_MEM_FLUSH_CNTL_nbio_7_11_5_BASE_IDX                        2
+-#define regBIF_BX1_REMAP_HDP_REG_FLUSH_CNTL_nbio_7_11_5                                 0x012e
+-#define regBIF_BX1_REMAP_HDP_REG_FLUSH_CNTL_nbio_7_11_5_BASE_IDX                        2
+-
+-#define regRCC_STRAP1_RCC_DEV0_EPF0_STRAP0_nbio_7_11_5                                  0x0021
+-#define regRCC_STRAP1_RCC_DEV0_EPF0_STRAP0_nbio_7_11_5_BASE_IDX                         2
+-
+-#define regBIF_BX1_BIF_FB_EN_nbio_7_11_5                                                0x0100
+-#define regBIF_BX1_BIF_FB_EN_nbio_7_11_5_BASE_IDX                                       2
+-
+-#define regBIF_BX1_INTERRUPT_CNTL_nbio_7_11_5                                           0x00f1
+-#define regBIF_BX1_INTERRUPT_CNTL_nbio_7_11_5_BASE_IDX                                  2
+-#define regBIF_BX1_INTERRUPT_CNTL2_nbio_7_11_5                                          0x00f2
+-#define regBIF_BX1_INTERRUPT_CNTL2_nbio_7_11_5_BASE_IDX                                 2
+-
+-#define regBIF_BX_PF1_GPU_HDP_FLUSH_REQ_nbio_7_11_5                                     0x0106
+-#define regBIF_BX_PF1_GPU_HDP_FLUSH_REQ_nbio_7_11_5_BASE_IDX                            2
+-#define regBIF_BX_PF1_GPU_HDP_FLUSH_DONE_nbio_7_11_5                                    0x0107
+-#define regBIF_BX_PF1_GPU_HDP_FLUSH_DONE_nbio_7_11_5_BASE_IDX                           2
+-
+-#define regBIF_BX_PF1_HDP_MEM_COHERENCY_FLUSH_CNTL_nbio_7_11_5                          0x00f7
+-#define regBIF_BX_PF1_HDP_MEM_COHERENCY_FLUSH_CNTL_nbio_7_11_5_BASE_IDX                 2
+-
+-//BIF_BX1_BIF_FB_EN
+-#define BIF_BX1_BIF_FB_EN__FB_READ_EN__SHIFT_nbio_7_11_5                                0x0
+-#define BIF_BX1_BIF_FB_EN__FB_WRITE_EN__SHIFT_nbio_7_11_5                               0x1
+-#define BIF_BX1_BIF_FB_EN__FB_READ_EN_MASK_nbio_7_11_5                                  0x00000001L
+-#define BIF_BX1_BIF_FB_EN__FB_WRITE_EN_MASK_nbio_7_11_5                                 0x00000002L
+-
+ static void nbif_v6_3_1_remap_hdp_registers(struct amdgpu_device *adev)
+ {
+-	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 5)) {
+-		WREG32_SOC15(NBIO, 0, regBIF_BX1_REMAP_HDP_MEM_FLUSH_CNTL_nbio_7_11_5,
+-			adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL);
+-		WREG32_SOC15(NBIO, 0, regBIF_BX1_REMAP_HDP_REG_FLUSH_CNTL_nbio_7_11_5,
+-			adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_REG_FLUSH_CNTL);
+-	} else {
+-		WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_MEM_FLUSH_CNTL,
+-			adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL);
+-		WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_REG_FLUSH_CNTL,
+-			adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_REG_FLUSH_CNTL);
+-	}
++	WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_MEM_FLUSH_CNTL,
++		adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_MEM_FLUSH_CNTL);
++	WREG32_SOC15(NBIO, 0, regBIF_BX0_REMAP_HDP_REG_FLUSH_CNTL,
++		adev->rmmio_remap.reg_offset + KFD_MMIO_REMAP_HDP_REG_FLUSH_CNTL);
+ }
+ 
+ static u32 nbif_v6_3_1_get_rev_id(struct amdgpu_device *adev)
+@@ -115,8 +71,6 @@ static u32 nbif_v6_3_1_get_rev_id(struct amdgpu_device *adev)
+ 
+ 	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 4))
+ 		tmp = RREG32_SOC15(NBIO, 0, regRCC_STRAP0_RCC_DEV0_EPF0_STRAP0_nbif_4_10);
+-	else if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 5))
+-		tmp = RREG32_SOC15(NBIO, 0, regRCC_STRAP1_RCC_DEV0_EPF0_STRAP0_nbio_7_11_5);
+ 	else
+ 		tmp = RREG32_SOC15(NBIO, 0, regRCC_STRAP0_RCC_DEV0_EPF0_STRAP0);
+ 
+@@ -128,21 +82,12 @@ static u32 nbif_v6_3_1_get_rev_id(struct amdgpu_device *adev)
+ 
+ static void nbif_v6_3_1_mc_access_enable(struct amdgpu_device *adev, bool enable)
+ {
+-	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 5)) {
+-		if (enable)
+-			WREG32_SOC15(NBIO, 0, regBIF_BX1_BIF_FB_EN_nbio_7_11_5,
+-				     BIF_BX1_BIF_FB_EN__FB_READ_EN_MASK_nbio_7_11_5 |
+-				     BIF_BX1_BIF_FB_EN__FB_WRITE_EN_MASK_nbio_7_11_5);
+-		else
+-			WREG32_SOC15(NBIO, 0, regBIF_BX1_BIF_FB_EN_nbio_7_11_5, 0);
+-	} else {
+-		if (enable)
+-			WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_FB_EN,
+-				     BIF_BX0_BIF_FB_EN__FB_READ_EN_MASK |
+-				     BIF_BX0_BIF_FB_EN__FB_WRITE_EN_MASK);
+-		else
+-			WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_FB_EN, 0);
+-	}
++	if (enable)
++		WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_FB_EN,
++			     BIF_BX0_BIF_FB_EN__FB_READ_EN_MASK |
++			     BIF_BX0_BIF_FB_EN__FB_WRITE_EN_MASK);
++	else
++		WREG32_SOC15(NBIO, 0, regBIF_BX0_BIF_FB_EN, 0);
+ }
+ 
+ static u32 nbif_v6_3_1_get_memsize(struct amdgpu_device *adev)
+@@ -155,14 +100,8 @@ static void nbif_v6_3_1_sdma_doorbell_range(struct amdgpu_device *adev,
+ 					    int doorbell_index,
+ 					    int doorbell_size)
+ {
+-	u32 doorbell_range;
+ 	if (instance == 0) {
+-		if (amdgpu_ip_version(adev, NBIO_HWIP, 0) >= IP_VERSION(7, 11, 4))
+-			doorbell_range = RREG32_SOC15(NBIO, 0,
+-					regGDC_S2A0_S2A_DOORBELL_ENTRY_2_CTRL_nbif_4_10);
+-		else
+-			doorbell_range = RREG32_SOC15(NBIO, 0,
+-					regGDC_S2A0_S2A_DOORBELL_ENTRY_2_CTRL);
++		u32 doorbell_range = RREG32_SOC15(NBIO, 0, regGDC_S2A0_S2A_DOORBELL_ENTRY_2_CTRL);
+ 
+ 		if (use_doorbell) {
+ 			doorbell_range = REG_SET_FIELD(doorbell_range,
+@@ -191,10 +130,12 @@ static void nbif_v6_3_1_sdma_doorbell_range(struct amdgpu_device *adev,
+ 						       S2A_DOORBELL_PORT2_RANGE_SIZE,
+ 						       0);
+ 
+-		if (amdgpu_ip_version(adev, NBIO_HWIP, 0) >= IP_VERSION(7, 11, 4))
+-			WREG32_SOC15(NBIO, 0, regGDC_S2A0_S2A_DOORBELL_ENTRY_2_CTRL_nbif_4_10, doorbell_range);
++		if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 4))
++			WREG32_SOC15(NBIO, 0, regGDC_S2A0_S2A_DOORBELL_ENTRY_2_CTRL_nbif_4_10,
++				     doorbell_range);
+ 		else
+-			WREG32_SOC15(NBIO, 0, regGDC_S2A0_S2A_DOORBELL_ENTRY_2_CTRL, doorbell_range);
++			WREG32_SOC15(NBIO, 0, regGDC_S2A0_S2A_DOORBELL_ENTRY_2_CTRL,
++				     doorbell_range);
+ 	}
+ }
+ 
+@@ -239,15 +180,15 @@ static void nbif_v6_3_1_vcn_doorbell_range(struct amdgpu_device *adev,
+ 					       S2A_DOORBELL_PORT4_RANGE_SIZE,
+ 					       0);
+ 
+-	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) >= IP_VERSION(7, 11, 4))
+-		WREG32_SOC15(NBIO, 0,
+-				regGDC_S2A0_S2A_DOORBELL_ENTRY_4_CTRL_nbif_4_10,
+-				doorbell_range);
+-	else
++	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 4)) {
++		WREG32_SOC15(NBIO, 0, regGDC_S2A0_S2A_DOORBELL_ENTRY_4_CTRL_nbif_4_10,
++			     doorbell_range);
++	} else {
+ 		if (instance)
+ 			WREG32_SOC15(NBIO, 0, regGDC_S2A0_S2A_DOORBELL_ENTRY_5_CTRL, doorbell_range);
+ 		else
+ 			WREG32_SOC15(NBIO, 0, regGDC_S2A0_S2A_DOORBELL_ENTRY_4_CTRL, doorbell_range);
++	}
+ }
+ 
+ static void nbif_v6_3_1_vpe_doorbell_range(struct amdgpu_device *adev,
+@@ -299,7 +240,7 @@ static void nbif_v6_3_1_vpe_doorbell_range(struct amdgpu_device *adev,
+ 
+ static void nbif_v6_3_1_gc_doorbell_init(struct amdgpu_device *adev)
+ {
+-	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) >= IP_VERSION(7, 11, 4)) {
++	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 4)) {
+ 		WREG32_SOC15(NBIO, 0, regGDC_S2A0_S2A_DOORBELL_ENTRY_0_CTRL_nbif_4_10, 0x30000007);
+ 		WREG32_SOC15(NBIO, 0, regGDC_S2A0_S2A_DOORBELL_ENTRY_3_CTRL_nbif_4_10, 0x3000000d);
+ 	} else {
+@@ -341,13 +282,7 @@ nbif_v6_3_1_enable_doorbell_selfring_aperture(struct amdgpu_device *adev,
+ static void nbif_v6_3_1_ih_doorbell_range(struct amdgpu_device *adev,
+ 					  bool use_doorbell, int doorbell_index)
+ {
+-	u32 ih_doorbell_range;
+-
+-	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) >= IP_VERSION(7, 11, 4))
+-		ih_doorbell_range = RREG32_SOC15(NBIO, 0,
+-				regGDC_S2A0_S2A_DOORBELL_ENTRY_1_CTRL_nbif_4_10);
+-	else
+-		ih_doorbell_range = RREG32_SOC15(NBIO, 0, regGDC_S2A0_S2A_DOORBELL_ENTRY_1_CTRL);
++	u32 ih_doorbell_range = RREG32_SOC15(NBIO, 0, regGDC_S2A0_S2A_DOORBELL_ENTRY_1_CTRL);
+ 
+ 	if (use_doorbell) {
+ 		ih_doorbell_range = REG_SET_FIELD(ih_doorbell_range,
+@@ -376,11 +311,12 @@ static void nbif_v6_3_1_ih_doorbell_range(struct amdgpu_device *adev,
+ 						  S2A_DOORBELL_PORT1_RANGE_SIZE,
+ 						  0);
+ 
+-	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) >= IP_VERSION(7, 11, 4))
++	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 4))
+ 		WREG32_SOC15(NBIO, 0, regGDC_S2A0_S2A_DOORBELL_ENTRY_1_CTRL_nbif_4_10,
+-				ih_doorbell_range);
++			     ih_doorbell_range);
+ 	else
+-		WREG32_SOC15(NBIO, 0, regGDC_S2A0_S2A_DOORBELL_ENTRY_1_CTRL, ih_doorbell_range);
++		WREG32_SOC15(NBIO, 0, regGDC_S2A0_S2A_DOORBELL_ENTRY_1_CTRL,
++			     ih_doorbell_range);
+ }
+ 
+ static void nbif_v6_3_1_ih_control(struct amdgpu_device *adev)
+@@ -388,13 +324,9 @@ static void nbif_v6_3_1_ih_control(struct amdgpu_device *adev)
+ 	u32 interrupt_cntl;
+ 
+ 	/* setup interrupt control */
+-	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 5))
+-		WREG32_SOC15(NBIO, 0, regBIF_BX1_INTERRUPT_CNTL2_nbio_7_11_5,
+-				adev->dummy_page_addr >> 8);
+-	else
+-		WREG32_SOC15(NBIO, 0, regBIF_BX0_INTERRUPT_CNTL2, adev->dummy_page_addr >> 8);
++	WREG32_SOC15(NBIO, 0, regBIF_BX0_INTERRUPT_CNTL2, adev->dummy_page_addr >> 8);
+ 
+-	interrupt_cntl = RREG32_SOC15(NBIO, 0, regBIF_BX1_INTERRUPT_CNTL_nbio_7_11_5);
++	interrupt_cntl = RREG32_SOC15(NBIO, 0, regBIF_BX0_INTERRUPT_CNTL);
+ 	/*
+ 	 * BIF_BX0_INTERRUPT_CNTL__IH_DUMMY_RD_OVERRIDE_MASK=0 - dummy read disabled with msi, enabled without msi
+ 	 * BIF_BX0_INTERRUPT_CNTL__IH_DUMMY_RD_OVERRIDE_MASK=1 - dummy read controlled by IH_DUMMY_RD_EN
+@@ -406,10 +338,7 @@ static void nbif_v6_3_1_ih_control(struct amdgpu_device *adev)
+ 	interrupt_cntl = REG_SET_FIELD(interrupt_cntl, BIF_BX0_INTERRUPT_CNTL,
+ 				       IH_REQ_NONSNOOP_EN, 0);
+ 
+-	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 5))
+-		WREG32_SOC15(NBIO, 0, regBIF_BX1_INTERRUPT_CNTL_nbio_7_11_5, interrupt_cntl);
+-	else
+-		WREG32_SOC15(NBIO, 0, regBIF_BX0_INTERRUPT_CNTL, interrupt_cntl);
++	WREG32_SOC15(NBIO, 0, regBIF_BX0_INTERRUPT_CNTL, interrupt_cntl);
+ }
+ 
+ static void
+@@ -432,23 +361,17 @@ nbif_v6_3_1_get_clockgating_state(struct amdgpu_device *adev,
+ 
+ static u32 nbif_v6_3_1_get_hdp_flush_req_offset(struct amdgpu_device *adev)
+ {
+-	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 5))
+-		return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF1_GPU_HDP_FLUSH_REQ_nbio_7_11_5);
+-	else
+-		return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF0_GPU_HDP_FLUSH_REQ);
++	return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF0_GPU_HDP_FLUSH_REQ);
+ }
+ 
+ static u32 nbif_v6_3_1_get_hdp_flush_done_offset(struct amdgpu_device *adev)
+ {
+-	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 5))
+-		return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF1_GPU_HDP_FLUSH_DONE_nbio_7_11_5);
+-	else
+-		return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF0_GPU_HDP_FLUSH_DONE);
++	return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF0_GPU_HDP_FLUSH_DONE);
+ }
+ 
+ static u32 nbif_v6_3_1_get_pcie_index_offset(struct amdgpu_device *adev)
+ {
+-	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) >= IP_VERSION(7, 11, 4))
++	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 4))
+ 		return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX0_PCIE_INDEX);
+ 	else
+ 		return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF0_RSMU_INDEX);
+@@ -456,7 +379,7 @@ static u32 nbif_v6_3_1_get_pcie_index_offset(struct amdgpu_device *adev)
+ 
+ static u32 nbif_v6_3_1_get_pcie_data_offset(struct amdgpu_device *adev)
+ {
+-	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) >= IP_VERSION(7, 11, 4))
++	if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 4))
+ 		return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX0_PCIE_DATA);
+ 	else
+ 		return SOC15_REG_OFFSET(NBIO, 0, regBIF_BX_PF0_RSMU_DATA);
+@@ -626,12 +549,8 @@ static void nbif_v6_3_1_set_reg_remap(struct amdgpu_device *adev)
+ 		adev->rmmio_remap.reg_offset = MMIO_REG_HOLE_OFFSET;
+ 		adev->rmmio_remap.bus_addr = adev->rmmio_base + MMIO_REG_HOLE_OFFSET;
+ 	} else {
+-		if (amdgpu_ip_version(adev, NBIO_HWIP, 0) == IP_VERSION(7, 11, 5))
+-			adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
+-				regBIF_BX_PF1_HDP_MEM_COHERENCY_FLUSH_CNTL_nbio_7_11_5) << 2;
+-		else
+-			adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
+-				regBIF_BX_PF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
++		adev->rmmio_remap.reg_offset = SOC15_REG_OFFSET(NBIO, 0,
++			regBIF_BX_PF0_HDP_MEM_COHERENCY_FLUSH_CNTL) << 2;
+ 		adev->rmmio_remap.bus_addr = 0;
+ 	}
+ }
+-- 
+2.43.0
 
