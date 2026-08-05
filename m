@@ -4,123 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81E43C55822
-	for <amd-gfx@archiver.kernel.org>; Tue,  4 Aug 2026 22:41:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3574DC55838
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 01:24:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12AA710EBF8;
-	Tue,  4 Aug 2026 22:41:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8199210EC54;
+	Wed,  5 Aug 2026 01:24:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="i+tRNBcE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QZkszQLY";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010026.outbound.protection.outlook.com [52.101.46.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 240EF10EBF4
- for <amd-gfx@lists.freedesktop.org>; Tue,  4 Aug 2026 22:41:24 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011027.outbound.protection.outlook.com [52.101.62.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8A0A010EC54;
+ Wed,  5 Aug 2026 01:24:16 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=W6rhfhC1KRd+Gsr37LLljGtafH8/CUCPMOu231AUvghZTQNbCtt2psy2wRH3ffXz6bkSjQDk2ra08MYSMk6xEPGER9Z/Y5hDHCvgIHPX7lHC9wgMHA+s4Ixn9eBDX4L3edH4IkNMBDkkT2e8IL1jB5BxJyn5PdCjSjIS/1TXCMTVpsv71NPcT9/DzXipBjBKFQQ8FZSFShQ+7kK3YN2DxGhF4N7dFYibAnQjDnF8DSAqha0S7YFXf/7si8NDCjEujZdkg7oZzvfhvR0JHkV0UCy4P+blemeg72aC55IiYmENGODo/f322qN+y9TIx5WWrEDBcp0Z7N9eZJ/3g+57XQ==
+ b=mEeWFHHLIufGSAJBLtHFMbh78jlW8kIIlKlX2DaMJJdKPEeUTHQo3dqLarXNJKFq939tdr37bCQ4iVfWowiXeeOTSRGkSTvN5BM/8DNFB5fHDnngboFW0RE+4yoKNvDydcDeTKTP8vzgHFHgT/UP9HVPx6/cwqN8mb4sOmGcZeZu8va++ZVnqKhrOPpK15ydEDk8VtqMQ3eU5l1yhWAi5xD2s8Imh36XhVWj3FgYG6BP5epX6c1CSwImugQOA0/sg47inifwfHEqiK4iDb3i8Nfi92vDtfrXdTtl4XY0iQAY+8RTCey9Mn0W8Whma9PupO38ya2T5C6pAI4LJ2j2tw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ARj5anRMZ7GS9B1uCaFwjhwOpzmmq4m9WvD79wmq5aw=;
- b=TQRilJpo+eDi0LFTq7WVpr+ZdK0zdM+JEpyFnDqAt/to2m/taiLOJ200SBT+Rvz2ngoLGKZ5ytm5IrNDweXBFDV4cWjJiXF9OTbhPtMrKacUh6R5tKlpqZ+2a1gT2xuWkmirn++amSKNU82X863CMl6dtu71PRFPNxEHvN9Njs3BSgRpnMEQ7JSSrIUUsy2JzXftvU3wtWGewnP2yw9wQBeFe8Yh/6rqVmH+piVykFL6soMqDLMT+svU/+zGm16OL9leNOrDuQmEraDzDabl/XqgW3EnGAi0RjNKAWPOmB4V3BUco5F9tD3gDW3benO6fMm7r3tDk8Pwv8jW78FZvg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=rt3Fufm9mXBBk0vZcM0lt+6s3Qx/ZYcta9b9uxxOs5M=;
+ b=N9MoO2azCvyy1glBSOMaaPpUttOI/qL14vRwp15pOnlJJSJJjJXGYJFuKF8sOYkLSbCiu/+KSWRCZJHw7F8HLbyP7g+IaHU740eXxpeWgo73SafwT6wnTZktDDdHeceZ4PipNzI8ycWkPZGyPj8A6RmZ1f8dM5sHIJm2pLpvZQ216934oI47C4gxbAazL0mU58wW9+S6KUkXDtC52+4BqC4GeozMafg3JNYGKYiDJ9fWWsF+dGsV+IcVev7SOwFU1Rc8EE7ByUqW/IV69IC52PKIa5FldH84oEr7hvoz020hTCC9gWIsg5Ic74WFFlTRNTCfbztnwigPN64W8Ise/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ARj5anRMZ7GS9B1uCaFwjhwOpzmmq4m9WvD79wmq5aw=;
- b=i+tRNBcEZwdJqBGvlW/1/RvYseUKhMnZiAPb4lON9Srk4pgBinqciWrmp1YFfL1fkTapGcS1N4Xmk0kXlLPIVkokJ/bFawdJT9Fh74sayN7RCuQd1Jn4tIKgdm1yBORNsgu0lTA8QkidOkezfzUpEjvW853Dcf9/BH5wL2MIsk0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
- (2603:10b6:f:fc00::655) by DS7PR12MB8229.namprd12.prod.outlook.com
- (2603:10b6:8:ea::21) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.15; Tue, 4 Aug
- 2026 22:41:20 +0000
-Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
- ([fe80::7111:7e5c:8508:7852]) by DS5PPF78FC67EBA.namprd12.prod.outlook.com
- ([fe80::7111:7e5c:8508:7852%8]) with mapi id 15.21.0270.016; Tue, 4 Aug 2026
- 22:41:20 +0000
-Content-Type: multipart/alternative;
- boundary="------------IRrdPtyfwattjL0UmC8yENgv"
-Message-ID: <b145850c-579f-4893-804a-ca4869440834@amd.com>
-Date: Tue, 4 Aug 2026 18:41:18 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] amdkfd: fix deadlock in set_perfcount
-To: Zhu Lingshan <lingshan.zhu@amd.com>, Alexander.Deucher@amd.com,
- Christian.Koenig@amd.com, "Welton, Benjamin" <Benjamin.Welton@amd.com>
-Cc: Ray.Huang@amd.com, amd-gfx@lists.freedesktop.org
-References: <20260731095105.3529371-1-lingshan.zhu@amd.com>
-Content-Language: en-US
-From: Felix Kuehling <felix.kuehling@amd.com>
-Organization: AMD Inc.
-In-Reply-To: <20260731095105.3529371-1-lingshan.zhu@amd.com>
-X-ClientProxiedBy: YT2PR01CA0003.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:38::8) To DS5PPF78FC67EBA.namprd12.prod.outlook.com
- (2603:10b6:f:fc00::655)
+ bh=rt3Fufm9mXBBk0vZcM0lt+6s3Qx/ZYcta9b9uxxOs5M=;
+ b=QZkszQLYdxioI5wobkmT2sWTrAb10EYpEGIWKGtIBrZBOYOWqeyf8DiPJ+v33gLYn6JxYcJO86KmtCBSFD6+HmPKA/uzRKbks61yyzXBNxKAdplgAQ+BIUnl/UbJRYbWk+tfbH9sZT1ZhwAW2jaxUQORkX5743tjYgqW5VRNDbo=
+Received: from BY3PR05CA0015.namprd05.prod.outlook.com (2603:10b6:a03:254::20)
+ by SJ2PR12MB8954.namprd12.prod.outlook.com (2603:10b6:a03:541::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.15; Wed, 5 Aug
+ 2026 01:24:07 +0000
+Received: from SJ1PEPF00001CE9.namprd03.prod.outlook.com
+ (2603:10b6:a03:254:cafe::a8) by BY3PR05CA0015.outlook.office365.com
+ (2603:10b6:a03:254::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.16 via Frontend Transport; Wed, 5
+ Aug 2026 01:24:07 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF00001CE9.mail.protection.outlook.com (10.167.242.25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.8 via Frontend Transport; Wed, 5 Aug 2026 01:24:06 +0000
+Received: from honglei-remote.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Tue, 4 Aug
+ 2026 20:24:02 -0500
+From: Honglei Huang <honghuan@amd.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ "Alex Deucher" <alexander.deucher@amd.com>
+CC: Ray Huang <Ray.Huang@amd.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>, Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Tomasz Siemek
+ <tomasz.siemek@amd.com>, Wayne Lin <wayne.lin@amd.com>, Alvin Lee
+ <alvin.lee2@amd.com>, Honglei Huang <honghuan@amd.com>
+Subject: [PATCH] drm/amd/display: avoid NULL hubp deref when filling mpcc_id
+ on DCE
+Date: Wed, 5 Aug 2026 09:23:50 +0800
+Message-ID: <20260805012350.1458583-1-honghuan@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS5PPF78FC67EBA:EE_|DS7PR12MB8229:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9ee4423f-5962-44e6-8d4c-08def27980a0
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE9:EE_|SJ2PR12MB8954:EE_
+X-MS-Office365-Filtering-Correlation-Id: a1d8c80d-1190-4607-7342-08def2903e5d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|18002099003|22082099003|5023799004|11063799006|8096899003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: skQGwvnQPZT/lAXR0kk129qHYXNtVSPiNT05JJm26sBsmmSxuqNQoEFyBGhPxuGPQlIxL6BG9lxm6TX4NkCHs4hksp4QVd6kieyEKYtDpNx6SByY+XnO/qnQkrk/XCN2nGzdXAQUdJuIb9f/oA8ap0NXgPgFq2Faref9geJt8N1lNBLZnt3MuyGqzM1MNxDN48dzsyYrKRCv4/n+MykpuICFjdbCYmGpZBc1pe9XKNQLswW+Evn5aJHMGDXmNvswb8XazOqZBlhl+jI+vK6pcIyo5W4uj5bjWMAvzXXatphtZMVZlPDN69Q516hQ9ILKBOqhzN+Zv/KGCs/mQxLN8aZZr5nmDpeCYhdwD5BxJAW429vpK3HID+Box7PuKz2lE7DajRcowtTVEpIGYATO5YmJr5lAFPcaejtuvDUQYTa+Au5QOMPXP3VlmgxX1st4SPn9aaoQhql9BiSDPUEp1TG6w5lbH9AfF8Byl9MGvVR1YWzFrZqLdSCBja/2IB2mAOwOtUSw7pUuJz1DPQtQgLGAToSQ9xkm5OPD3MX5an0QqR5cGQvvjVof8dnvL8/IdR1bVFYJ5IF2fPJu7/0jZfi0noBYTuUp7LlIPymz+Q40M5hpTGy5uUCHXbDSXsJKLWpt2QQH0EhOZZaeqLGvv+ANYLrf9RAucQsTHyXJqHY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS5PPF78FC67EBA.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(5023799004)(11063799006)(8096899003)(10067099003)(56012099006);
+ ARA:13230040|376014|1800799024|82310400026|36860700016|23010399003|18002099003|11063799006|3023799007|10067099003|56012099006;
+X-Microsoft-Antispam-Message-Info: /rnZcyYHOCKeq/YKL1YDjrqX3AnlhVEZVKTeK5KqTrNOubjSPe/oQ0NFcNF4CjCO3Y2In5ltZv8ovE4e3kws47ewSCch2xeS15DrXk4PO3tdHk+BHXvbz6Nyzr1YEFDUjc+N9wEFyE0ITNmVgu/NaCo2k8zvdLqmdZYgS6zZwBq/Ot6d15mEuQf1V7Ap9CdD6GM1I/SjofHp9ltjfi4NSDUrur06/I9BJ541YaueGSUYokTWhFpTTIt/m9uJzguSiDhHfUuY313YsOqTrR/dNmdmLTMGWt3fpzOW7p7mdEK+4UYGLpAE8KGtkXJrlM0tYCKeKbYbwTf5FDSOe89t8WjjEJzfu5/Vt/wPVo0M+pnJHY1wbKZlyh/t2VZuh5jxelcHgAuRVjM5Bgvk7mFNmdkh/gU3d9ke7GU7giCf5t19+SlurPtHKISuzGoZ9TeoLXyBzLhVJVhlBCjbW9efpM8PINl6Ymd0HeEI2pV9Fpi0TFF96i7KgKDK+iLBN2h2NGcwL4Msri0XLUhbeOpIQpMXP6uMONXG9VaU/8ljLPrEr7MXSuANbPCMbZrSshqFUXQXXmw3dl4smHmkZfWS9FJ5cEspr7p3v2WvgAvS84FzORxH4j2F/uM1erJh8OCwr4jiN7FYKJG6Y90dmuCMSUY0Vr8gbHm6xdr21KlpzpISVaE7XFpNedxhpWL1lJAHD1/NYrlySL49O15sQWWr6A==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(23010399003)(18002099003)(11063799006)(3023799007)(10067099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RW8yL3NjZnlra2ZPS3AyQTZ4VGIvdEx2dVV5YmVSRDRPQXJRdU1lWG5IWHJG?=
- =?utf-8?B?SkdDOUNMdEdaZHZxK1RtbGVhZDNUbWErV3JsQk5rVzJVNDNONTdVV09SRVVj?=
- =?utf-8?B?T1NPSjJXK243SE9KeXBIZE1qSmVRNnp3WVkvVW9Bc1VUbitrVkhNUGY5cFRC?=
- =?utf-8?B?cmV4VC9qWWVYN3hwYWJuaWpla1ViT0tMRGJZckpiNW5xT3pTMFE4MXVIUCta?=
- =?utf-8?B?ZmxLQWVyak45VmlMbXozcTkydmxZRGdDOWd5RTcyc283NmNSbFNCUVpPcXQz?=
- =?utf-8?B?UnA4cDV2cEtWUGErVFNzT0daTVhoMmM1Tms2ekZTTnhnOUFwMzhDalpHc1ZO?=
- =?utf-8?B?WmFzWDREQ0IxZ3V1dllwZkxwS1p6R2llbGtkdCtTVCs3VkwxNzYrRzk5NVBw?=
- =?utf-8?B?Q3UwVkczY3R2R0lZRWIxa2JuY3FrV3Z1Y2gxQXIvbExvYTJ2QVg5UGdRNWsy?=
- =?utf-8?B?QTZwNkM4VjJlVktzS3FTSDNsNjdBNXEwcW1RR2VVaXN0U0Y3ZlQ5OXpnallr?=
- =?utf-8?B?eVhNNVJHemtueFduRFZ5TFhTK2YxWWlLQjRSaStFbVE5M09sL21HTzdnN0hQ?=
- =?utf-8?B?UERVblZvMDcrQ3J6Q3dya0xWTndvRnZhU29VYjk0OTN1ck40MVQ5ODUvMnYz?=
- =?utf-8?B?cE16cXVrZ0U2dERYU0dVMWhXaFBUVUs3R0hoeTI0RnZVVFd2QU05cXMreEFp?=
- =?utf-8?B?NzIvK2JlT3JGY3dBdEFUUFYxQ3JFTzl3VlJ2bVFwYzM4ajFHaWFDVm01dzNt?=
- =?utf-8?B?V1JWT2ZyaVFQLy94OGE4SVowSnBSMVA0ZXN3dzVmRUVQMVhkalJLZ2JmR0NQ?=
- =?utf-8?B?YkNrNHY1ZEZOb3Q5REk5QTFJamtkUE42TjlkOHoxcmtDbk1ndlJDNEFFdHVy?=
- =?utf-8?B?L3FGK1JYcCtkZzVDRytHZzNaajNnUXRMckNTZXdtcFoyZXFhekw2WHZtRldh?=
- =?utf-8?B?b0JYenM2VTJJRTFadVFIYlN0WFdGdDUyNjRCNXdndCtKUFMzWXdHN2xuWXY5?=
- =?utf-8?B?VTdsY2phTE5yUklKbnBRSWFJTno0Wmt2TlVYUTJIT3JvbGJWYWhVTld6OHRp?=
- =?utf-8?B?MENvNVBubm5LMmZkNnY5bHQ2anl5dGFvdXhOWTdFdzVlVmgwRjhPZ3FXZEs3?=
- =?utf-8?B?b2RLclZMVm81MGdqL2xPUHdGNUFkamkzUEFHeWkrMm0wNFNSMGZQYVZkbzBP?=
- =?utf-8?B?bXhjUmxSd1Qya2RNSGtkVS9VSFBjczdUcmpaWXZSTjh3OFRnU1VhWFAvazBQ?=
- =?utf-8?B?MFVnZlNwVnBwYjNhTFMzZk1JNUd6dnEyRzdpMXpnRTJKRXo1VTV6YWR3MUpq?=
- =?utf-8?B?bGd0SHpDRUM1ZzVxdlBNekVoYkE4UDdob05saVczSTFvT2orOFl0azRnMFpU?=
- =?utf-8?B?ZThHZm5yZTBtU2NLTW50UnQxL3UyOEhac08wS09IdFlQdldQWHcxakxaaGpW?=
- =?utf-8?B?czFQQS92WTZaK1pwTDY4OTAyU2pPRmk5Yjl6TTYrVHVlak9JTVZ3QVZTWGsx?=
- =?utf-8?B?cW00YjdDbWg2VmM2bUlpVnJhY1o3NmdBQUhrVVBWY1J1WG1iWG52TVhVUDFh?=
- =?utf-8?B?L1E3dzJkRlZhbjB4aDVhTUtqVHphL3YwSnEvNmUwamQyTzVoRlB5cFA5bzRy?=
- =?utf-8?B?L3lpOUJXcnI5TlFycUU0enJCT2xYcEFRemNRY2k1ODRTTlFYQlhFaldzZkdD?=
- =?utf-8?B?b3pVL3o0SXpML1VDTW5BbVBIak5BRit0ZkNvVUh6R0MrTjFHNDBjZ01vS2Jo?=
- =?utf-8?B?blllZE5TbkxoOUJPZzJuNUdhM3VFMGtIUEJvcTV1am1RL1hlbEdMdDJjaGcv?=
- =?utf-8?B?ZGdseHR0MDBHN0dKWk9UZ0Exb0dTdHFaZzN4T0FnYTd0ekJ3THZ6dUxvRGpY?=
- =?utf-8?B?WENWaUtDdGsvWVduRmpOc3lhZ01aR2NKd2dhUkM2YkdqT21uVXNub1ZSMGtr?=
- =?utf-8?B?S0xMeGpMeG1BUDZ5dnh6R2pYamkrWHpJNkpNZm9WSlcvZG1ORmNoRHp3OGp3?=
- =?utf-8?B?QmwwUGFzcVM4T1NhN1Jmc01raThYbWVRek5uYmU4dysrUlB2K1NjdDV2YjNu?=
- =?utf-8?B?aGFvcS9yYlJVQlJxeU1lLzR3cng3YStIVmlCTXFHdlNkVitKZnFjMTA1clBr?=
- =?utf-8?B?cFpna1Nna2ZabC9CN2lWWEh1RG51ZFo2OSt1NnpVVzErTXBSNWFxTDZtNkRZ?=
- =?utf-8?B?SjRWaU0rNU1ycG4xcDVxQkd5a0tBSGh6OWtTdFArbG5PbEVhcW1zOE45L3JX?=
- =?utf-8?B?V21rRWpjaHR0OUcvZ294UnJPWHVCSEtJaFYyVW9ZTUZoa0hVa0hmNGl2TVpY?=
- =?utf-8?B?K1AvZm93UE9ySElpSUhPby9pSUpTR1lSSWdDc3hxYW91WXVaQTNTUT09?=
+X-MS-Exchange-AntiSpam-MessageData-0: O8/IfvI2XsyyjnB7fFnsQCmgETJZTLuSKs7V3S8Bct6j6eBO3ecBlKZrK7Ms0IJCHqGaIMyYy3WTPOBV1T4i8E3cqdFV6nde0+FTVNwkNWko9tS4NMzIchkUvHJ7EukSYIv2QN0NolB94+UTUaoytqiVqCXlGjn/jsklmA6W6eNkZ73QGmFBlY8+CSPycgeSVtAVYn/vTW+KvXe2KrJfwG7cmmIXLrPtfjg59Plk82KsZg2BpZNTUM5c0CD6raNGrK+hKyCMJULsWsjxiOplh93Z6Lkr3gWoy6XFvV8kw7Pzm6b/ApVsPhB5IbEpZeVCcfEe8VgFruYU2Rf1uSKeuw9aEAF+1LrzODuecqaF+7FUOCqXxIQ8X2UsdqPeONay4Rb3lEwG4xsZaeOp9U03vosnHx1ngQCjUPoKPNZdNAJLKoxKJXi6GyHWqApT+V7/
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9ee4423f-5962-44e6-8d4c-08def27980a0
-X-MS-Exchange-CrossTenant-AuthSource: DS5PPF78FC67EBA.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 22:41:19.8032 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 01:24:06.7444 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1d8c80d-1190-4607-7342-08def2903e5d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FvBLockhBvnPQKfNRmso1O9cIWijzctZqmFN3Dk3Lqf4t5gczOAQ94in+SuDNobVSZsxEbqxpzxKlY+ldGswhQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8229
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE9.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8954
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,352 +113,144 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------IRrdPtyfwattjL0UmC8yENgv
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+HUBP only exists on DCN. On ASICs that use DCE, such as Vega20, the display
+pipe never owns a HUBP, so pipe_ctx->plane_res.hubp stays NULL.
 
-[+Benjamin]
+The block sequence rework now fills mpcc_id inside the generic helpers in
+dc_hw_sequencer.c by reading pipe_ctx->plane_res.hubp->inst. On a DCE ASIC
+that read follows the NULL pointer and faults at offset 0x88, where the
+inst field sits in struct hubp, and the box dies on the first modeset:
 
-On 2026-07-31 05:51, Zhu Lingshan wrote:
-> set_perfcount holds the DQM lock (dqm_lock(dqm)
-> while walking queues, but pqm_update_mqd
-> calls update_queue, which acquires the
-> same lock by dqm_lock(dqm), causing deadlocks.
->
-> This commit introduces update_queue_locked which assumes
-> the dqm lock is already held, and update_queue calls it
-> with proper lockings.
->
-> set_perfcount calls update_queue_locked instead of pqm_update_mqd,
-> therefore the deadlock is fixed.
+  BUG: kernel NULL pointer dereference, address: 0000000000000088
+  #PF: supervisor read access in kernel mode
+  Oops: 0000 [#1] SMP NOPTI
+  CPU: 14 UID: 0 PID: 531 Comm: plymouthd Not tainted 7.1.0 #70
+  RIP: 0010:hwss_set_output_transfer_func+0x69/0xc0 [amdgpu]
+  Call Trace:
+   dce110_program_front_end_for_pipe+0x4d7/0x5c0 [amdgpu]
+   dce110_apply_ctx_for_surface+0xf1/0x270 [amdgpu]
+   commit_planes_for_stream+0xba1/0x1c80 [amdgpu]
+   update_planes_and_stream_v2+0x297/0x6f0 [amdgpu]
+   dc_update_state_prepare+0x6f/0x1c0 [amdgpu]
+   dc_update_state+0x41/0x60 [amdgpu]
+   dc_update_planes_and_stream+0x43/0x70 [amdgpu]
+   amdgpu_dm_atomic_commit_tail+0x1a6f/0x4120 [amdgpu]
+   commit_tail+0xc5/0x1a0
+   drm_atomic_helper_commit+0x137/0x160
+   drm_atomic_commit+0xaf/0xf0
+   drm_client_modeset_commit_atomic+0x1ec/0x230
+   drm_client_modeset_commit_locked+0x5b/0x170
+   drm_client_modeset_commit+0x27/0x50
+   __drm_fb_helper_restore_fbdev_mode_unlocked+0xe8/0x110
+   drm_fbdev_client_restore+0x12/0x20
+   drm_client_dev_restore+0xbb/0x100
 
-I think the patch looks fine to me. I'm just wondering how this bug was 
-not noticed in developer testing of this feature. I see a very similar 
-patch already exists on the DKMS branch but somehow it's missing in 
-amd-staging-drm-next:
+DCE never uses mpcc_id, so 0 is a fine value when there is no HUBP. Add a
+small helper that returns the HUBP instance, or 0 when it is missing, and
+use it for every mpcc_id assignment. DCN is unchanged since HUBP is always
+there.
 
-commit 5cd0710732a45527b6398f8b522289f9adca708b
-Author:     Benjamin Welton<bewelton@amd.com>
-AuthorDate: Mon Jan 6 10:30:01 2025 -0800
-Commit:     Chengjun Yao<Chengjun.Yao@amd.com>
-CommitDate: Mon Jun 22 12:51:06 2026 +0800
-
-     amd/amdkfd: fix double lock aquisition in set_perfcount
-     
-     Seperates out locking from update_queue to allow updating
-     of queues by code already holding the mqd lock. Fixes a
-     hang in set_perfcount. This change was in the original
-     mailing list commit for set_perfcount but was not included
-     in gerrit.
-     
-     Fixes: b58289f0abf7 ("Add kfd_ioctl_profiler to contain profiler kernel driver changes")
-     
-     Signed-off-by: Benjamin Welton<benjamin.welton@amd.com>
-     Acked-by: Kent Russell<kent.russell@amd.com>
-
-
-Benjamin, do you know what's going on here? I think the above patch just 
-needs to be ported to amd-staging-drm-next. But then I'm wondering what 
-else is missing. Or maybe the whole feature was submitted to 
-amd-staging-drm-next by mistake.
-
-Regards,
-   Felix
-
-
->
-> Signed-off-by: Zhu Lingshan<lingshan.zhu@amd.com>
-> ---
->   .../drm/amd/amdkfd/kfd_device_queue_manager.c | 44 ++++++++++++-------
->   1 file changed, 27 insertions(+), 17 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index 51ee9c39104b..c34c5f6a5541 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -77,6 +77,9 @@ static struct queue *find_queue_by_doorbell_offset(struct device_queue_manager *
->   static void set_queue_as_reset(struct device_queue_manager *dqm, struct queue *q,
->   			       struct qcm_process_device *qpd);
->   static int reset_queues_mes(struct device_queue_manager *dqm, struct queue *q);
-> +static int update_queue_locked(struct device_queue_manager *dqm,
-> +			       struct queue *q,
-> +			       struct mqd_update_info *minfo);
->   
->   static inline
->   enum KFD_MQD_TYPE get_mqd_type_from_queue_type(enum kfd_queue_type type)
-> @@ -341,8 +344,7 @@ static void set_perfcount(struct device_queue_manager *dqm, int enable)
->   	list_for_each_entry(cur, &dqm->queues, list) {
->   		qpd = cur->qpd;
->   		list_for_each_entry(q, &qpd->queues_list, list) {
-> -			pqm_update_mqd(qpd->pqm, q->properties.queue_id,
-> -						&minfo);
-> +			update_queue_locked(dqm, q, &minfo);
->   		}
->   	}
->   	dqm_unlock(dqm);
-> @@ -1059,8 +1061,9 @@ static int destroy_queue_nocpsch(struct device_queue_manager *dqm,
->   	return retval;
->   }
->   
-> -static int update_queue(struct device_queue_manager *dqm, struct queue *q,
-> -			struct mqd_update_info *minfo)
-> +static int update_queue_locked(struct device_queue_manager *dqm,
-> +			       struct queue *q,
-> +			       struct mqd_update_info *minfo)
->   {
->   	int retval = 0;
->   	struct device *dev = dqm->dev->adev->dev;
-> @@ -1068,12 +1071,11 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
->   	struct kfd_process_device *pdd;
->   	bool prev_active = false;
->   
-> -	dqm_lock(dqm);
-> +	lockdep_assert_held(&dqm->lock_hidden);
-> +
->   	pdd = kfd_get_process_device_data(q->device, q->process);
-> -	if (!pdd) {
-> -		retval = -ENODEV;
-> -		goto out_unlock;
-> -	}
-> +	if (!pdd)
-> +		return -ENODEV;
->   	mqd_mgr = dqm->mqd_mgrs[get_mqd_type_from_queue_type(
->   			q->properties.type)];
->   
-> @@ -1089,14 +1091,12 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
->   			retval = remove_queue_mes(dqm, q, &pdd->qpd);
->   
->   		/* queue is reset so inaccessable  */
-> -		if (pdd->has_reset_queue) {
-> -			retval = -EACCES;
-> -			goto out_unlock;
-> -		}
-> +		if (pdd->has_reset_queue)
-> +			return -EACCES;
->   
->   		if (retval) {
->   			dev_err(dev, "unmap queue failed\n");
-> -			goto out_unlock;
-> +			return retval;
->   		}
->   	} else if (prev_active &&
->   		   (q->properties.type == KFD_QUEUE_TYPE_COMPUTE ||
-> @@ -1105,7 +1105,7 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
->   
->   		if (!dqm->sched_running) {
->   			WARN_ONCE(1, "Update non-HWS queue while stopped\n");
-> -			goto out_unlock;
-> +			return -EIO;
->   		}
->   
->   		retval = mqd_mgr->destroy_mqd(mqd_mgr, q->mqd,
-> @@ -1115,7 +1115,7 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
->   				KFD_UNMAP_LATENCY_MS, q->pipe, q->queue);
->   		if (retval) {
->   			dev_err(dev, "destroy mqd failed\n");
-> -			goto out_unlock;
-> +			return retval;
->   		}
->   	}
->   
-> @@ -1163,8 +1163,18 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
->   						   &q->properties, current->mm);
->   	}
->   
-> -out_unlock:
-> +	return retval;
-> +}
-> +
-> +static int update_queue(struct device_queue_manager *dqm, struct queue *q,
-> +			struct mqd_update_info *minfo)
-> +{
-> +	int retval;
-> +
-> +	dqm_lock(dqm);
-> +	retval = update_queue_locked(dqm, q, minfo);
->   	dqm_unlock(dqm);
-> +
->   	return retval;
->   }
->   
---------------IRrdPtyfwattjL0UmC8yENgv
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <p>[+Benjamin]</p>
-    <div class="moz-cite-prefix">On 2026-07-31 05:51, Zhu Lingshan
-      wrote:<br>
-    </div>
-    <blockquote type="cite" cite="mid:20260731095105.3529371-1-lingshan.zhu@amd.com">
-      <pre wrap="" class="moz-quote-pre">set_perfcount holds the DQM lock (dqm_lock(dqm)
-while walking queues, but pqm_update_mqd
-calls update_queue, which acquires the
-same lock by dqm_lock(dqm), causing deadlocks.
-
-This commit introduces update_queue_locked which assumes
-the dqm lock is already held, and update_queue calls it
-with proper lockings.
-
-set_perfcount calls update_queue_locked instead of pqm_update_mqd,
-therefore the deadlock is fixed.</pre>
-    </blockquote>
-    <p>I think the patch looks fine to me. I'm just wondering how this
-      bug was not noticed in developer testing of this feature. I see a
-      very similar patch already exists on the DKMS branch but somehow
-      it's missing in amd-staging-drm-next:</p>
-    <pre>commit 5cd0710732a45527b6398f8b522289f9adca708b
-Author:     Benjamin Welton <a class="moz-txt-link-rfc2396E" href="mailto:bewelton@amd.com">&lt;bewelton@amd.com&gt;</a>
-AuthorDate: Mon Jan 6 10:30:01 2025 -0800
-Commit:     Chengjun Yao <a class="moz-txt-link-rfc2396E" href="mailto:Chengjun.Yao@amd.com">&lt;Chengjun.Yao@amd.com&gt;</a>
-CommitDate: Mon Jun 22 12:51:06 2026 +0800
-
-    amd/amdkfd: fix double lock aquisition in set_perfcount
-    
-    Seperates out locking from update_queue to allow updating
-    of queues by code already holding the mqd lock. Fixes a
-    hang in set_perfcount. This change was in the original
-    mailing list commit for set_perfcount but was not included
-    in gerrit.
-    
-    Fixes: b58289f0abf7 (&quot;Add kfd_ioctl_profiler to contain profiler kernel driver changes&quot;)
-    
-    Signed-off-by: Benjamin Welton <a class="moz-txt-link-rfc2396E" href="mailto:benjamin.welton@amd.com">&lt;benjamin.welton@amd.com&gt;</a>
-    Acked-by: Kent Russell <a class="moz-txt-link-rfc2396E" href="mailto:kent.russell@amd.com">&lt;kent.russell@amd.com&gt;</a>
-</pre>
-    <p><br>
-    </p>
-    <p>Benjamin, do you know what's going on here? I think the above
-      patch just needs to be ported to amd-staging-drm-next. But then
-      I'm wondering what else is missing. Or maybe the whole feature was
-      submitted to amd-staging-drm-next by mistake.</p>
-    <p>Regards,<br>
-      &nbsp; Felix</p>
-    <p><br>
-    </p>
-    <blockquote type="cite" cite="mid:20260731095105.3529371-1-lingshan.zhu@amd.com">
-      <pre wrap="" class="moz-quote-pre">
-
-Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
+Fixes: f879f53407f0 ("drm/amd/display: Refactor DPP_SET_OUTPUT_TRANSFER_FUNC to drop pipe_ctx")
+Fixes: 9403e15b2ab1 ("drm/amd/display: Refactor DPP_PROGRAM_GAMUT_REMAP to drop pipe_ctx param")
+Cc: Tomasz Siemek <tomasz.siemek@amd.com>
+Cc: Wayne Lin <wayne.lin@amd.com>
+Cc: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Honglei Huang <honghuan@amd.com>
 ---
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 44 ++++++++++++-------
- 1 file changed, 27 insertions(+), 17 deletions(-)
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c | 26 +++++++++++++------
+ 1 file changed, 18 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 51ee9c39104b..c34c5f6a5541 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -77,6 +77,9 @@ static struct queue *find_queue_by_doorbell_offset(struct device_queue_manager *
- static void set_queue_as_reset(struct device_queue_manager *dqm, struct queue *q,
- 			       struct qcm_process_device *qpd);
- static int reset_queues_mes(struct device_queue_manager *dqm, struct queue *q);
-+static int update_queue_locked(struct device_queue_manager *dqm,
-+			       struct queue *q,
-+			       struct mqd_update_info *minfo);
- 
- static inline
- enum KFD_MQD_TYPE get_mqd_type_from_queue_type(enum kfd_queue_type type)
-@@ -341,8 +344,7 @@ static void set_perfcount(struct device_queue_manager *dqm, int enable)
- 	list_for_each_entry(cur, &amp;dqm-&gt;queues, list) {
- 		qpd = cur-&gt;qpd;
- 		list_for_each_entry(q, &amp;qpd-&gt;queues_list, list) {
--			pqm_update_mqd(qpd-&gt;pqm, q-&gt;properties.queue_id,
--						&amp;minfo);
-+			update_queue_locked(dqm, q, &amp;minfo);
- 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+index 11411fa946..7676aa4485 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+@@ -729,6 +729,16 @@ void get_fams2_visual_confirm_color(
  	}
- 	dqm_unlock(dqm);
-@@ -1059,8 +1061,9 @@ static int destroy_queue_nocpsch(struct device_queue_manager *dqm,
- 	return retval;
  }
  
--static int update_queue(struct device_queue_manager *dqm, struct queue *q,
--			struct mqd_update_info *minfo)
-+static int update_queue_locked(struct device_queue_manager *dqm,
-+			       struct queue *q,
-+			       struct mqd_update_info *minfo)
- {
- 	int retval = 0;
- 	struct device *dev = dqm-&gt;dev-&gt;adev-&gt;dev;
-@@ -1068,12 +1071,11 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
- 	struct kfd_process_device *pdd;
- 	bool prev_active = false;
- 
--	dqm_lock(dqm);
-+	lockdep_assert_held(&amp;dqm-&gt;lock_hidden);
-+
- 	pdd = kfd_get_process_device_data(q-&gt;device, q-&gt;process);
--	if (!pdd) {
--		retval = -ENODEV;
--		goto out_unlock;
--	}
-+	if (!pdd)
-+		return -ENODEV;
- 	mqd_mgr = dqm-&gt;mqd_mgrs[get_mqd_type_from_queue_type(
- 			q-&gt;properties.type)];
- 
-@@ -1089,14 +1091,12 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
- 			retval = remove_queue_mes(dqm, q, &amp;pdd-&gt;qpd);
- 
- 		/* queue is reset so inaccessable  */
--		if (pdd-&gt;has_reset_queue) {
--			retval = -EACCES;
--			goto out_unlock;
--		}
-+		if (pdd-&gt;has_reset_queue)
-+			return -EACCES;
- 
- 		if (retval) {
- 			dev_err(dev, &quot;unmap queue failed\n&quot;);
--			goto out_unlock;
-+			return retval;
- 		}
- 	} else if (prev_active &amp;&amp;
- 		   (q-&gt;properties.type == KFD_QUEUE_TYPE_COMPUTE ||
-@@ -1105,7 +1105,7 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
- 
- 		if (!dqm-&gt;sched_running) {
- 			WARN_ONCE(1, &quot;Update non-HWS queue while stopped\n&quot;);
--			goto out_unlock;
-+			return -EIO;
- 		}
- 
- 		retval = mqd_mgr-&gt;destroy_mqd(mqd_mgr, q-&gt;mqd,
-@@ -1115,7 +1115,7 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
- 				KFD_UNMAP_LATENCY_MS, q-&gt;pipe, q-&gt;queue);
- 		if (retval) {
- 			dev_err(dev, &quot;destroy mqd failed\n&quot;);
--			goto out_unlock;
-+			return retval;
- 		}
- 	}
- 
-@@ -1163,8 +1163,18 @@ static int update_queue(struct device_queue_manager *dqm, struct queue *q,
- 						   &amp;q-&gt;properties, current-&gt;mm);
- 	}
- 
--out_unlock:
-+	return retval;
++/*
++ * Return the MPCC instance for a pipe. On DCN it matches the HUBP instance.
++ * DCE has no HUBP and ignores mpcc_id, so return 0 there instead of chasing a
++ * NULL pointer.
++ */
++static int hwss_pipe_mpcc_id(const struct pipe_ctx *pipe_ctx)
++{
++	return pipe_ctx->plane_res.hubp ? pipe_ctx->plane_res.hubp->inst : 0;
 +}
 +
-+static int update_queue(struct device_queue_manager *dqm, struct queue *q,
-+			struct mqd_update_info *minfo)
-+{
-+	int retval;
-+
-+	dqm_lock(dqm);
-+	retval = update_queue_locked(dqm, q, minfo);
- 	dqm_unlock(dqm);
-+
- 	return retval;
- }
- 
-</pre>
-    </blockquote>
-  </body>
-</html>
+ void hwss_build_fast_sequence(struct dc *dc,
+ 		struct dc_dmub_cmd *dc_dmub_cmd,
+ 		unsigned int dmub_cmd_count,
+@@ -1073,7 +1083,7 @@ void hwss_build_fast_sequence(struct dc *dc,
+ 					params->dpp = current_mpc_pipe->plane_res.dpp;
+ 					params->mpc = dc->res_pool->mpc;
+ 					params->xfm = current_mpc_pipe->plane_res.xfm;
+-					params->mpcc_id = current_mpc_pipe->plane_res.hubp->inst;
++					params->mpcc_id = hwss_pipe_mpcc_id(current_mpc_pipe);
+ 					params->plane = current_mpc_pipe->plane_state;
+ 					params->stream = current_mpc_pipe->stream;
+ 					params->is_top_pipe = current_mpc_pipe->top_pipe == NULL;
+@@ -1118,7 +1128,7 @@ void hwss_build_fast_sequence(struct dc *dc,
+ 				otf_params->dpp = current_mpc_pipe->plane_res.dpp;
+ 				otf_params->xfm = current_mpc_pipe->plane_res.xfm;
+ 				otf_params->mpc = dc->res_pool->mpc;
+-				otf_params->mpcc_id = current_mpc_pipe->plane_res.hubp->inst;
++				otf_params->mpcc_id = hwss_pipe_mpcc_id(current_mpc_pipe);
+ 				otf_params->is_top_pipe = resource_is_pipe_type(current_mpc_pipe, OPP_HEAD);
+ 				otf_params->stream = current_mpc_pipe->stream;
+ 				block_sequence[*num_steps].func = DPP_SET_OUTPUT_TRANSFER_FUNC;
+@@ -1128,13 +1138,13 @@ void hwss_build_fast_sequence(struct dc *dc,
+ 				dc->hwss.update_visual_confirm_color) {
+ 				block_sequence[*num_steps].params.update_visual_confirm_params.dc = dc;
+ 				block_sequence[*num_steps].params.update_visual_confirm_params.pipe_ctx = current_mpc_pipe;
+-				block_sequence[*num_steps].params.update_visual_confirm_params.mpcc_id = current_mpc_pipe->plane_res.hubp->inst;
++				block_sequence[*num_steps].params.update_visual_confirm_params.mpcc_id = hwss_pipe_mpcc_id(current_mpc_pipe);
+ 				block_sequence[*num_steps].func = MPC_UPDATE_VISUAL_CONFIRM;
+ 				(*num_steps)++;
+ 			}
+ 			if (current_mpc_pipe->stream->update_flags.bits.out_csc) {
+ 				block_sequence[*num_steps].params.power_on_mpc_mem_pwr_params.mpc = dc->res_pool->mpc;
+-				block_sequence[*num_steps].params.power_on_mpc_mem_pwr_params.mpcc_id = current_mpc_pipe->plane_res.hubp->inst;
++				block_sequence[*num_steps].params.power_on_mpc_mem_pwr_params.mpcc_id = hwss_pipe_mpcc_id(current_mpc_pipe);
+ 				block_sequence[*num_steps].params.power_on_mpc_mem_pwr_params.power_on = true;
+ 				block_sequence[*num_steps].func = MPC_POWER_ON_MPC_MEM_PWR;
+ 				(*num_steps)++;
+@@ -1837,7 +1847,7 @@ void hwss_add_dpp_program_gamut_remap(struct block_sequence_state *seq_state,
+ 		params->xfm = pipe_ctx->plane_res.xfm;
+ 		params->dpp = pipe_ctx->plane_res.dpp;
+ 		params->mpc = pipe_ctx->stream->ctx->dc->res_pool->mpc;
+-		params->mpcc_id = pipe_ctx->plane_res.hubp->inst;
++		params->mpcc_id = hwss_pipe_mpcc_id(pipe_ctx);
+ 		params->plane = pipe_ctx->plane_state;
+ 		params->stream = pipe_ctx->stream;
+ 		params->is_top_pipe = pipe_ctx->top_pipe == NULL;
+@@ -1883,7 +1893,7 @@ void hwss_add_dpp_set_output_transfer_func(struct block_sequence_state *seq_stat
+ 			.xfm = pipe_ctx->plane_res.xfm,
+ 			.dpp = pipe_ctx->plane_res.dpp,
+ 			.mpc = dc->res_pool->mpc,
+-			.mpcc_id = pipe_ctx->plane_res.hubp->inst,
++			.mpcc_id = hwss_pipe_mpcc_id(pipe_ctx),
+ 			.is_top_pipe = resource_is_pipe_type(pipe_ctx, OPP_HEAD),
+ 			.stream = pipe_ctx->stream,
+ 		};
+@@ -1900,7 +1910,7 @@ void hwss_set_output_transfer_func(struct dc *dc, struct pipe_ctx *pipe_ctx)
+ 				.xfm = pipe_ctx->plane_res.xfm,
+ 				.dpp = pipe_ctx->plane_res.dpp,
+ 				.mpc = dc->res_pool->mpc,
+-				.mpcc_id = pipe_ctx->plane_res.hubp->inst,
++				.mpcc_id = hwss_pipe_mpcc_id(pipe_ctx),
+ 				.is_top_pipe = resource_is_pipe_type(pipe_ctx, OPP_HEAD),
+ 				.stream = pipe_ctx->stream,
+ 			}
+@@ -3840,7 +3850,7 @@ void hwss_program_gamut_remap(struct pipe_ctx *pipe_ctx)
+ 			.xfm = pipe_ctx->plane_res.xfm,
+ 			.dpp = pipe_ctx->plane_res.dpp,
+ 			.mpc = dc->res_pool->mpc,
+-			.mpcc_id = pipe_ctx->plane_res.hubp->inst,
++			.mpcc_id = hwss_pipe_mpcc_id(pipe_ctx),
+ 			.stream = pipe_ctx->stream,
+ 			.plane = pipe_ctx->plane_state,
+ 			.is_top_pipe = pipe_ctx->top_pipe == NULL,
+-- 
+2.34.1
 
---------------IRrdPtyfwattjL0UmC8yENgv--
