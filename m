@@ -4,121 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 272AEC55174
-	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 13:05:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12231C55174
+	for <amd-gfx@archiver.kernel.org>; Wed,  5 Aug 2026 13:33:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9EE2810E1F9;
-	Wed,  5 Aug 2026 13:05:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D7EF10E223;
+	Wed,  5 Aug 2026 13:33:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fyB7K0Cu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SQLVhb5b";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010031.outbound.protection.outlook.com [52.101.61.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BA20310E1F9
- for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 13:05:29 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013060.outbound.protection.outlook.com
+ [40.93.201.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F72910E223
+ for <amd-gfx@lists.freedesktop.org>; Wed,  5 Aug 2026 13:33:13 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Xuos2XQQdUqfFzdCcOhS7QwNRe52vs5oVUG0YIviyHPhGqE6mb/vG6LecnIs6B0/SbeUIqCj4nGPz5WboGyzr4uF/8W0/LhMtgoMnquzoJB+67nP3JeX9NUftiSq8oZ+USaKCxpJUh8Ju6fuWKRkMxREj6+I2phCylyH2Yrpx4aF2P0jQva/Ctb2YA1y9mtN8iPM+tFEIngN23MPCxbgatc3vwx1+Dqo+oRY3KyMI4zFta/yVI9ad668S3+4oB6wzyBaZ9b783Zv7MozwB3yIrMxvzPc2iRB8aDnQ9GSHEg6sE9FdRY2oaTizILzqfQJNG5Gg4aw6jWFKDc1JgRb1Q==
+ b=ZO/0IQB7pi5iHFTVnc82BLgGp4SHmYo1/m7v4Lso5t8t5/lDA1XwtPfAgkK9J8zrEduT4o85YEPiF1dsSjDlj54TnRoIVAV9OM+TxsEH/MYFvxN3VXDhT9FKfs+KejvIvsR9n2rqs1y6lwJCIBRGPTCHJWPbLAUsa3HiiCaLbeM7uKSfw1oYEMIwGKqh2RU+ExJezoWFEJAwXmIqJi8vTexq/GHb3zSkbxN9ccPuntCzvOMarLvsLLKMbMnKVXLrokSH+Xn4TYBKjZUSDTq+cIZs55Z09JRxyZvOJkBvhc0FAWfQ10fMe8mYwPqLlmsK47jqfMrDg7VRRGwTVyxc+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sWR6K6Vo+Y4wMmhEpRWBLD6OE54/P3wDWOhB3+hVJUo=;
- b=fdsZaba5gdWnfY3O1EMQobAOoz1fXA3Ej5e2DOyeCyeU9VOXoOu6wZAHJ0/zPYHJ3E0od3cTTn0enwqmOLekQCbgyWRInf5sv1ilOioMcCuzUVvMmFEASnGQDqrnG5dQnS1RISmKEmgavoBTczYgayTEvlYnmGS16M8Fn9+iid5baQ8zIdyPBHfpLKMtDW9UCttDUG9zmWevSrNYAmqhAaXUV9hSbdFTcqX3SlGVIV/ogcyROn6c8owho+tMNYI1FrvzaycXmYIX9fucLGIh2GW1wr71XTbWFOWJrf6ZVeHu3hXh0dkXsZf7U9da20ckEuDoxjoCTyLVTpkM8nFsTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=oMahe0641l5Sn9tRP0VKjipoqun8HNc+ywkceCEZUmI=;
+ b=Us1vtgacaxvOVQuIqb2GLmxnDHWp+HWhKAfsBn+0Rd4Hy5Elxe/DGCHA/uP8yVeoc+8xA6XCMKd09/WeNMQjaqhLakZxfop+pYi2xVS4ELJxfy17vt/DB++pTDdkrNn1Ck+fmpi//DTrpGaNj95dhohDj0sZ/vFcg88k7QZ7VZiTJHXbaV1MUlFl0/D4qRbchP9HwJCghDUz7xfCm/qxDDTIo2+2f+x2OEQXGYvGDxEG+16P4qqoX591XZf7/LVnTeFh0E5cQTp+V0ccnJWZW/LZecky60kVtdsp4hS9MnOVhJC6txYS2eVCuMa10oIPo+pmcHQJKKxPoGDpRxqgNQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sWR6K6Vo+Y4wMmhEpRWBLD6OE54/P3wDWOhB3+hVJUo=;
- b=fyB7K0CuOQOWimehDu5ToI6eCcybaZ39TTrawVc6/96tKPwsZN1gjhUR9LR3wFz3BnxL3soeMVeMG99UNOskieFZU4+kq7T0J9shRYxXxBlUGxCzjN1sSu4zxCDAI7o0SUL+74ov7jbryt1uMbWn0r2MPut1aAePqLzIb7GJfog=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH0PR12MB7862.namprd12.prod.outlook.com (2603:10b6:510:26d::9)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=oMahe0641l5Sn9tRP0VKjipoqun8HNc+ywkceCEZUmI=;
+ b=SQLVhb5bPsyi4+7WhrGN4/NP6bOZ/HeJ3gd+1IXU432nAQQduhx0OmFAIf+PLESs79PnSEhT0ST0C4CCx2LQm60r1/MsuQy5Ehre54hQUgNL+NTRTkyLfRaQ1HHxE+kNN1vXyPbaI10X9vmIHg5f9wKyi9efffy5SphSXnpDSGA=
+Received: from DS7PR03CA0140.namprd03.prod.outlook.com (2603:10b6:5:3b4::25)
+ by SJ2PR12MB8784.namprd12.prod.outlook.com (2603:10b6:a03:4d0::11) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Wed, 5 Aug
- 2026 13:05:19 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0270.017; Wed, 5 Aug 2026
- 13:05:19 +0000
-Message-ID: <d7b1cee6-a98a-4f01-91b2-dc52691bf1bc@amd.com>
-Date: Wed, 5 Aug 2026 15:05:16 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu/userq: serialize queue map against GPU reset
-To: Jesse Zhang <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com, "Khatri, Sunil" <Sunil.Khatri@amd.com>
-References: <20260803093713.1904533-1-Jesse.Zhang@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260803093713.1904533-1-Jesse.Zhang@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR2P281CA0096.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9b::19) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+ 2026 13:33:03 +0000
+Received: from DS1PEPF0001709C.namprd05.prod.outlook.com
+ (2603:10b6:5:3b4:cafe::9d) by DS7PR03CA0140.outlook.office365.com
+ (2603:10b6:5:3b4::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.16 via Frontend Transport; Wed, 5
+ Aug 2026 13:33:03 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS1PEPF0001709C.mail.protection.outlook.com (10.167.18.106) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Wed, 5 Aug 2026 13:33:03 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 5 Aug
+ 2026 08:32:57 -0500
+Received: from fdavid-dev.amd.com (10.180.168.240) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 5 Aug
+ 2026 06:31:43 -0700
+From: David Francis <David.Francis@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, David Francis <David.Francis@amd.com>
+Subject: [PATCH] drm/amdkfd: Avoid integer underflow in EOP ring size
+ calculation.
+Date: Wed, 5 Aug 2026 09:31:31 -0400
+Message-ID: <20260805133131.608299-1-David.Francis@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
+ (10.181.42.218)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH0PR12MB7862:EE_
-X-MS-Office365-Filtering-Correlation-Id: 93edc64a-26a3-4f9e-08fb-08def2f23386
+X-MS-TrafficTypeDiagnostic: DS1PEPF0001709C:EE_|SJ2PR12MB8784:EE_
+X-MS-Office365-Filtering-Correlation-Id: b662bdc9-1173-4917-9fb0-08def2f61352
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|18002099003|22082099003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: 6TA0Xl4G8hAEKAFz/WEQyhpThfii9PtuT+lgto0JdyUA7wrrW/74EHWp8gKIwh7vQtmln6a6F+/AeC00veFH79YS677ECgIIH/LR49bGPruUY/EyJsG0tlQB/ulKuvghYRs50ekECz96U1H6VtYkCH/eaozSX0lZPM9DqkKQmrDQJ5N/uZgGHbsHMvzBYFzY5Iqty1pPtYO3063FGCV6aRSCWetjE6xCurTJk3NtCBUpiq8dx2NzHFyib9XKPug7ozWXQs0gj/gs+1D3cMLiolWrIHhBd4x4vUOdchmaY0XUghkAAs6kK322XhO1I36KNnUMru+UP0yjFoDp/hho3S7h6i0R2wz6GGzAR0KagIvnfG08sMXXHvWVTu067CrjR8CNoiTyw6FSOrTVmiQxVq8DG3OZe6pzTt5apOL4ur7ejGMMVVaF1zan68AnlyPLqQmr9HOQTid3YKWThFVEfRVuAmItJtRcaPpEQrto2cxQFZJobwpO0RwNBksypduWdH/QVXVVwC05uiYxP7ZCRYyeCxIG1sCAN13S5urBwL8W8TPkgp8ntHcL+CEgzWjcrXLvKvtMZqya/jJbensKlNWDDVLxu6xiYcM47sPYl6EC2Ysl/etFLC268NkxZk0knxbw3WakWIn+A1LoiABoazV9jJSmTFlyIw/TU2uIqgg=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003);
+ ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|18002099003|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: HWHyP4uI5vw5FMPqCCj9LREBHGE1PIEWOp288gRawX15RO/QMn6lsq/yqHyxNCbspe9i4TE+xHwvTD8V6HwTwCDfuBYVEFSMK1+OSu9WtnGvP83oELaCIrWzlpCCi0lP3zG2+zgPKYTj5UjX9ZTPc4iviQmWgpOcJz94E4C+9npG8kqCW/+IGPgDPL7fGpuFuPIxEzaZcX0wR8M2H4J/eu/ecmuKXsUbdkVgXMYS3WSUIUjuMONO0v/B6rHnCbjZxZdH2ewE5qLqaZmfOolUfD6PVJkGczm5+zNjuagFVFVBwIk+98Oh++uvQzeDxNlTlgYXpBaF75BJ6i7mDoU3rK02e7t56U8h2Nnoeayh1cuAwM/9wM0GhN33EPNIYlxeYJxw5hXmsb2CkeAhtaSU/6uLN/ZBsO6U9DmqAAA1S6b8VLAjEZfxFlQzD2vgZr+Xf5RwSCXGjszj7ob1UWhu++Xzd/XF2Qtlc7DuqCcGxmujXCdFu6uV5AlkV+1+j1DVvXU4EIjpJPHV2nr/5n5OcVFbkCpwxy4BmFn+CNQ6tdhG3ch7qnNmfcjPeAh5f7OxXUxJbcO1WQze0Qk8KIfwNv4tisDszg80I1nPlyG0ekm5vc2Krue8pXGTvGo2a6SCy7xTwtofgp5N8yGoI7dcAteBYOeuzZAYDoKEBtfWeJDWTSboAxZSUzBsszERMFWVYHHiwYxaRs/jQBSxb6HTIA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(18002099003)(11063799006)(56012099006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WWR3SlNkNWp3aVpXaHZmRHpERnNUNmhaeWl1bndYZ0RSSytNN2l2azAzQW5l?=
- =?utf-8?B?NzlLZXVjdllaWUZzUyszZ1hDVUVmcDFkcFYvZDRUREw4QTVxUFY2cjFTYVdU?=
- =?utf-8?B?RjdzR1lTS2xiQko3dUorb2REeUgyc1QzaVVsaVkrQkdRdjBabEY3MzU5cjc4?=
- =?utf-8?B?NVBUWk50S0ZUdXJaMFYrTjNvWW5sWXpkWFZ0Z3BRMTVRcE9USmZGdzZDcExq?=
- =?utf-8?B?bUdHLzBiUHdCUEtxNDdrRzQwZHUrWU9HTTRVWWVCTzVnTzBGY0VocDRGVnUr?=
- =?utf-8?B?ZlBWdzhsNy9JZi9iOUEzaHRPSHo1aHBISkpCYk9tVmNWOHcvUUZvRDZCdmlR?=
- =?utf-8?B?b3ZrOWtldHFLRDlwSVhPd1pTemdmK2dYRzBFUEkxRXIzT3c0eHBtSzdkSWRC?=
- =?utf-8?B?ZE9CZEFhc1BFVnJGQVVJclRQNjd3YWxWbmgxajNXSHlzdXFQRTBzbnNqSXRu?=
- =?utf-8?B?TlVaS3R4b29JSnRBUkVlWlBDS3AyT2VrbWg2WlJ1R2kzeHRRcUdZbmdvY3ha?=
- =?utf-8?B?YjBCdnVlaTkvNVVSRUxZN2lFNXhBMDkxSjdRKzYvOENCQUdwc053Mys1QXl4?=
- =?utf-8?B?eFhQa043NWhxMnJQS28wZ2Rxc1FNdFBSOCtQRGxFOUZwM2YxWEJiS3IxTlA1?=
- =?utf-8?B?NFNGMlNKQ2JZQUtQY0RjRXU0T0hXSWkzNmFHbWhKZHY2WWUyK0xldHBwRmYz?=
- =?utf-8?B?NG1qYkFWT0FRZzVOeUtsbWkyM3ZBd1FlakZpZVBUL21NZzdsUk1ZSmh4K0sr?=
- =?utf-8?B?ZlRnV00wRmVWZEo2ZTRwU1FpS3YzS1h1MlBsd1dTL2w3OFRvWnhzRDhjSlNJ?=
- =?utf-8?B?WkZTcnlkcVBXaytjTzgzS3djbjZhS2RxR1o2SEpHNzJtNlJaUEN5akd1Z0tM?=
- =?utf-8?B?bk5pTk5ueWFUc2JXbzRkRSthd0xCZTU3TlN2aS95RkN0RTN1V0RhZSt2QkxU?=
- =?utf-8?B?ZDBnd1dwSUtuRHU5cjZCMzQ2T2gyTkg3TmtBMlVqZ3lGUUVVckVBSldTYUlr?=
- =?utf-8?B?SUU0YjdqQ1hJUXBPZ0QyenpkVmZObVIxMjdTTWYzMVRZQlBZbnNYRTUvMFY1?=
- =?utf-8?B?Y0ZwVkFNUVB1Z0ZYVHptclcyaFRCUDZBMGNFWmU1MVpka3J4UmhZVkplWjYy?=
- =?utf-8?B?NHVCN0V1NHZiWDhoOUNpVXdyUGxHeXB1YlBSRWtpZGZYcTJqbW1yZ3BjMW43?=
- =?utf-8?B?Z0QxZ1JqSFQ3d05jS1c1QUs5UnlWZGJJMHc0bTgva2tqQzUyOVZibVIwVUxk?=
- =?utf-8?B?RFhDWkNOcW5pWWhHYzlPcXI1aGplSFROVFlJMGtiWjJGdFdOaTJxRGYxYzJi?=
- =?utf-8?B?UVZJNlorczBIQ3BiVFVKdWtPR01QWGtBL3RaN0hVV2xabVo0NERGc2hFTG1U?=
- =?utf-8?B?STJDY2xSMGY4RElqTDVlSHRhVEY0a2hXUHNRYzQxa2NpandvT3VqcXhhZjBG?=
- =?utf-8?B?UUpEbWRuM3Jua3hGMWJFemdXSlRJcXN3dnpmY1RrRkZ0QWt2M0hhY09QNmhF?=
- =?utf-8?B?bWIxZ1RGZ2ZiNllOQzU2UGJRTG1QUXNYMFRZd05lWHZkTzZhaTdlWmJjSTYv?=
- =?utf-8?B?L3ozclNnRXBPeERkcWp3SUsrZkx1b1JiWVc3bW1abTcyK0tDRDlWeENiUEdx?=
- =?utf-8?B?T0dYdFMveFNWZ0FOR2I2aHYvajdxaDhNaGxpZlNuQVhTQ3lneU1mMUtXZTRG?=
- =?utf-8?B?d2N4STlycXJBTndPQnBIK2d2NXVDYXpEeUlCQzR3VEdHdTZmcmpyL3FOU0tB?=
- =?utf-8?B?b1RUU09rd0hjOVFRY1k1OW16S0JmU3h3VElJRGhsN1N5d3FGYkQvOVBoa0Fs?=
- =?utf-8?B?NXkxVjlZNGdEM1pzUVZ4NUNzRzBnS0FsVkdiZzZWdFQ0NnJyUTdyeXQzM2JZ?=
- =?utf-8?B?ekRsNWhLQThvWFhVWUZ3VHhrZW1kSGh4WkNiRlJaR0xlL2VnK2FqYzZiM0VF?=
- =?utf-8?B?SlVrTGpOM3dxTjZvSW9DUWNwSEJZUzNGR1d0VXpwdWd3b3RFVEtHWVZBSlFh?=
- =?utf-8?B?Ty9uMHI2RWRYRFJVM0E1WXBFS1Nya1ZMeDBjdUliYTRBd1AwQ1N1SDZxaC81?=
- =?utf-8?B?bHYxYW85WTIxWG40N0dvSitIY3hTNllCZFlnVXpZNDc4Y09YQ2VUeVBtSlRo?=
- =?utf-8?B?OENaMWJtQTArazUzTlFCZjhOUHVIMEFHRDNTVXlmR0lpeU4vRTRpZmdIdTE1?=
- =?utf-8?B?Q01qMGZJdVc4c2dVSkprQVoxdDIxWlh1SldoRlVLWlpJaDBCdldiZWZkSklO?=
- =?utf-8?B?ek9XbzRXN3hPczFVOC9CYXpoaWZTZTIzalVTN2t2QS9uNGo1Y0dvTTd2VDRl?=
- =?utf-8?Q?6aBc4jdyq+5Cb0Gj5j?=
+X-MS-Exchange-AntiSpam-MessageData-0: WA58gnxtzYhMzds42SID9ePp5gEJrVYWcN7C9qsJ6qV4071VSnSf66wCbu70WuRWKOy9I2JzkkvvB6T2q+mxxzxZDYuZKLw7Kp9MZefJpAUA5rY0bt7MH1zx7CYHUrbfirYmRsH0mki6kXSq6CqOWC1Zzr+1p0W3yGEVTX7SX+7CeOVOCv+JSm24aKSxzsj4ByA4YNWg4hiGsyTWaW917SxOl/GsuH8n1nugToIcM50cukbKWmeWls2gXv7AQT/iNQblicsc0RuRKSrxkYNl7nTBFBBiGWqmUx1lUEDFetkY+u28gdxzVG6ol8UpAL5S5OwNI10gnmNlRmgCGD1vkrdrHWm6jULANWq9sXOGTLa7eaZiVqsTdQglxB15CEb/iVm+lib/kZG7KSisvD7oF20+ABnd5LadjRqiHC22aOX3CGTwiOTqlgjTHSqYHcV6
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 93edc64a-26a3-4f9e-08fb-08def2f23386
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 13:05:19.5419 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 13:33:03.2641 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b662bdc9-1173-4917-9fb0-08def2f61352
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QRhCNU8l4U7qMDLjCBQL1HM0Gqp5SbyUD26z5ehBNREEcF4z65cIBMjZWOYM9d1f
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7862
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF0001709C.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8784
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,52 +113,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+The low 6 bits of cp_hqd_eop_control store the base-2 logarithm
+of the EOP ring size. This was calculated as
 
+order_base_2(q->eop_ring_buffer_size / 4) - 1
 
-On 8/3/26 11:35, Jesse Zhang wrote:
-> Creating a user queue can race with a GPU reset. While recovery holds
-> reset_domain->sem for write, MES is unresponsive, so the ADD_QUEUE from
-> amdgpu_userq_map_helper() times out (-110) and an otherwise valid queue
-> create fails:
-> 
->   amdgpu: MES(0) failed to respond to msg=ADD_QUEUE
->   [drm:mes_userq_map [amdgpu]] *ERROR* Failed to map queue in HW, err (-110)
->   amdgpu: [drm] *ERROR* ... Failed to map Queue
->   amdgpu: [drm] *ERROR* ... Failed to create usermode queue
-> 
-> Take reset_domain->sem for read around the map so it runs only once MES
-> is back up. This mirrors amdgpu_userq_cleanup() and honors the
-> userq_mutex -> reset_domain->sem order; the reset path never takes
-> userq_mutex, so there is no deadlock.
-> 
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+But order_base_2 can in theory return 0, so this could underflow
+(although in practice the ring buffer size cannot be less than 4096).
 
-Acked-by: Christian König <christian.koenig@amd.com>
+Change this to
 
-Please also loop in Sunil on such patches.
+order_base_2(q->eop_ring_buffer_size / 8)
 
-Thanks,
-Christian.
+using properties of logarithms.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index 652599f08990..770635ab5298 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -745,7 +745,12 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
->  	if (!adev->userq_halt_for_enforce_isolation ||
->  	    ((queue->queue_type != AMDGPU_HW_IP_GFX) &&
->  	     (queue->queue_type != AMDGPU_HW_IP_COMPUTE))) {
-> +		/* Serialize the map against an in-progress GPU reset (MES is
-> +		 * unresponsive during recovery), matching amdgpu_userq_cleanup().
-> +		 */
-> +		down_read(&adev->reset_domain->sem);
->  		r = amdgpu_userq_map_helper(queue);
-> +		up_read(&adev->reset_domain->sem);
->  		if (r) {
->  			drm_file_err(uq_mgr->file, "Failed to map Queue\n");
->  			trace_amdgpu_userq_create_end(queue, r);
+Also add to the above comment to make the mathematics more clear.
+
+Signed-off-by: David Francis <David.Francis@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c | 6 +++++-
+ drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c | 5 ++++-
+ 2 files changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+index 75e5a9f67d50..2c0d501bf527 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_v9.c
+@@ -285,6 +285,10 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+ 		1 << CP_HQD_IB_CONTROL__IB_EXE_DISABLE__SHIFT;
+ 
+ 	/*
++	 * The lowest 6 bits of eop_control store the EOP ring size. If
++	 * their value is X, the ring size is 2^(X + 1) dwords, or
++	 * 2^(X + 3) bytes.
++	 *
+ 	 * HW does not clamp this field correctly. Maximum EOP queue size
+ 	 * is constrained by per-SE EOP done signal count, which is 8-bit.
+ 	 * Limit is 0xFF EOP entries (= 0x7F8 dwords). CP will not submit
+@@ -296,7 +300,7 @@ static void update_mqd(struct mqd_manager *mm, void *mqd,
+ 	 *
+ 	 */
+ 	m->cp_hqd_eop_control = q->eop_ring_buffer_size ?
+-		min(0xA, order_base_2(q->eop_ring_buffer_size / 4) - 1) : 0;
++		min(0xA, order_base_2(q->eop_ring_buffer_size / 8)) : 0;
+ 
+ 	m->cp_hqd_eop_base_addr_lo =
+ 			lower_32_bits(q->eop_ring_buffer_address >> 8);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+index 60b87a500698..029572548c14 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_mqd_manager_vi.c
+@@ -208,6 +208,9 @@ static void __update_mqd(struct mqd_manager *mm, void *mqd,
+ 			mtype << CP_HQD_IB_CONTROL__MTYPE__SHIFT;
+ 
+ 	/*
++	 * The lowest 6 bits of eop_control store the EOP ring size. If
++	 * their value is X, the ring size is 2^(X + 1) dwords, or
++	 * 2^(X + 3) bytes.
+ 	 * HW does not clamp this field correctly. Maximum EOP queue size
+ 	 * is constrained by per-SE EOP done signal count, which is 8-bit.
+ 	 * Limit is 0xFF EOP entries (= 0x7F8 dwords). CP will not submit
+@@ -215,7 +218,7 @@ static void __update_mqd(struct mqd_manager *mm, void *mqd,
+ 	 * is safe, giving a maximum field value of 0xA.
+ 	 */
+ 	m->cp_hqd_eop_control |= q->eop_ring_buffer_size ? min(0xA,
+-		order_base_2(q->eop_ring_buffer_size / 4) - 1) : 0;
++		order_base_2(q->eop_ring_buffer_size / 8)) : 0;
+ 	m->cp_hqd_eop_base_addr_lo =
+ 			lower_32_bits(q->eop_ring_buffer_address >> 8);
+ 	m->cp_hqd_eop_base_addr_hi =
+-- 
+2.34.1
 
