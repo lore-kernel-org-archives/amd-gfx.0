@@ -4,65 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BAACC55ABA
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 04:29:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA2F3C55ABF
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 04:45:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2E1E10E266;
-	Thu,  6 Aug 2026 04:29:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5606010F090;
+	Thu,  6 Aug 2026 04:45:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eU2U0F9G";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="nf4bEjx4";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6BB6210E266
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2026 04:29:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785990582; x=1817526582;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=7CW8Mojz4tTHJtxhvNY+//zqS7ohbSQ0PPY1CWQ9nuM=;
- b=eU2U0F9GJYZY8d8wEFlkC/8UqNst6f/8uJ8NO2A2cj2awtdv0lW5Fii2
- y/aITJaTQ1emYWn0ZYg7is+S3gl6J+voBu2Cbsa2T20zv0iaAIk10KSW+
- 4aRaU52SrH10+ynVrmKLOklQ46AMD0p8i5p49O9qwzFZ8ZhmNZNrsumPO
- Mf4sxxmHb/aKcd5ZDK9KrPIPJD3eETRWnxw4fL6WEpN4xyY0LLGEnIFHy
- Im5Lj5EX5nU/EZmhjtfWo7NFKIY9vaheKeCEW1Y1Uc6LG9+RVKbcQjxo5
- 3KwnNle2+q629LXL0ZQUQMsd615emfJNlz/OhcTm4pfNWjd5OrPb1OZlM Q==;
-X-CSE-ConnectionGUID: kjrbgnoYT7mNAj8LOHsYOQ==
-X-CSE-MsgGUID: VhFkLAKISROZpu6177k9YA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11866"; a="85700027"
-X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; d="scan'208";a="85700027"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2026 21:29:42 -0700
-X-CSE-ConnectionGUID: mLQTR0OkQ/2wCOMWalBDJQ==
-X-CSE-MsgGUID: rBVBeQQARBiEmx1VFZ4j5w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; d="scan'208";a="257693647"
-Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
- by fmviesa006.fm.intel.com with ESMTP; 05 Aug 2026 21:29:39 -0700
-Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wrpjc-00000000E8v-0vnM;
- Thu, 06 Aug 2026 04:29:36 +0000
-Date: Thu, 6 Aug 2026 12:29:05 +0800
-From: kernel test robot <lkp@intel.com>
-To: Bert Karwatzki <spasswolf@web.de>, linux-kernel@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, Bert Karwatzki <spasswolf@web.de>,
- linux-next@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- amd-gfx@lists.freedesktop.org, "# = v7 . 1" <stable@vger.kernel.org>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rafal Ostrowski <rafal.ostrowski@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Thomas Gleixner <tglx@linutronix.de>
-Subject: Re: [PATCH] drm/amd/display: fix usage of DC_FPU_{BEGIN,END} with
- PREEMPT_RT
-Message-ID: <202608061233.eufnR5Qm-lkp@intel.com>
-References: <20260801071724.12998-1-spasswolf@web.de>
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 989EB10F090;
+ Thu,  6 Aug 2026 04:45:37 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 60C8943608;
+ Thu,  6 Aug 2026 04:45:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 428D3C2BCF4;
+ Thu,  6 Aug 2026 04:45:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1785991537;
+ bh=bAaTk4jjY1AcRN0tzZgeyd0ZFfZYjo/TJnyi0hH0QLE=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=nf4bEjx4nN3npxssqVgl6MWoz34O8xTALlLFbgzYyJpkix9TTHhPPlHPeLjxq5nN+
+ ndzTTSRe9DHMmQQLEkhQ9PSjtcZnwzLHyWZb9+NCHWKCTPRwYReYdU4nQDSp2KPgR/
+ 4e9YmltygW8auCH8yMsaZKfUuIkCOP+tKH0HJTOPlbzdfQ9z+2Yj8Wz456MfuXXKwm
+ a9BQQ8a4/dg6PqtBkJJKCQJdm08AVMw+CDtIPyXjyqYsLCSCYofF4MOepzkJs85Bp/
+ ib7wBNon97cLBe/aeykvXBbP99UFBOrFa/MWvwtdmbtevbe92AFRg6oZt5tdDHQCnD
+ FMja714BA/jOw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 238FDC56205;
+ Thu,  6 Aug 2026 04:45:37 +0000 (UTC)
+From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
+Date: Thu, 06 Aug 2026 12:45:25 +0800
+Subject: [PATCH 2/3] drm/amdgpu: fix VM update overrun on non-4K page kernels
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260801071724.12998-1-spasswolf@web.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260806-amdgpu-fixes-v1-2-ce247012d4da@outlook.com>
+References: <20260806-amdgpu-fixes-v1-0-ce247012d4da@outlook.com>
+In-Reply-To: <20260806-amdgpu-fixes-v1-0-ce247012d4da@outlook.com>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jammy Zhou <Jammy.Zhou@amd.com>, Madhav Chauhan <madhav.chauhan@amd.com>, 
+ Felix Kuehling <Felix.Kuehling@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Junrui Luo <moonafterrain@outlook.com>, 
+ Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2456;
+ i=moonafterrain@outlook.com; h=from:subject:message-id;
+ bh=RZz+TFSeftgnMAQF9ZGjSUuynkvUNb8BqbEu73b+W2w=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrBLB/OLTuwuNp3tJBO+8KlctJP3i6dLA+V+8Fh8+V
+ tAbknUte2tHKQuDGBeDrJgiy/GCS98sfLfobvHZkgwzh5UJZAgDF6cAXESO4a94HfMmCXVP5a4H
+ wf17MkVZ/0x6x9x3Y6bxcWujI5HiU7czMvR/Ngl4lL7UZcnehNYtrj1bGqb/W8jw/uCje8d2el6
+ s72MHAEbVS7g=
+X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
+ fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
+X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
+ auth_id=909
+X-Original-From: Junrui Luo <moonafterrain@outlook.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,61 +75,67 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: moonafterrain@outlook.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Bert,
+From: Junrui Luo <moonafterrain@outlook.com>
 
-kernel test robot noticed the following build errors:
+The contiguity scan in amdgpu_vm_update_range() rounds num_entries up to
+count * AMDGPU_GPU_PAGES_IN_CPU_PAGE, but count is only constrained by
+the loop bound when the loop body executes. The guard
+num_entries > AMDGPU_GPU_PAGES_IN_CPU_PAGE proves that
+tmp = num_entries / AMDGPU_GPU_PAGES_IN_CPU_PAGE is at least 1, while
+the initial count of 2 needs tmp >= 2.
 
-[auto build test ERROR on next-20260804]
-[cannot apply to drm-misc/drm-misc-next linus/master v7.2-rc6 v7.2-rc5 v7.2-rc4 v7.2-rc6]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Each iteration consumes a multiple of AMDGPU_GPU_PAGES_IN_CPU_PAGE, so a
+mapping whose GPU page count is not a multiple of it eventually reaches
+an iteration where num_entries is above AMDGPU_GPU_PAGES_IN_CPU_PAGE but
+below twice that. tmp is then 1, the loop body never runs, count keeps
+its initial value, and num_entries is rounded up past what the cursor
+holds, tripping BUG_ON(size > cur->remaining) in amdgpu_res_next().
+AMDGPU_GEM_VA is DRM_RENDER_ALLOW and amdgpu_vm_verify_parameters() only
+requires map_size to be a multiple of AMDGPU_GPU_PAGE_SIZE, so an
+unprivileged caller can reach this. On 4K page hosts
+AMDGPU_GPU_PAGES_IN_CPU_PAGE is 1, tmp >= 2 always holds, and the bug is
+unreachable.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Bert-Karwatzki/drm-amd-display-fix-usage-of-DC_FPU_-BEGIN-END-with-PREEMPT_RT/20260805-170330
-base:   next-20260804
-patch link:    https://lore.kernel.org/r/20260801071724.12998-1-spasswolf%40web.de
-patch subject: [PATCH] drm/amd/display: fix usage of DC_FPU_{BEGIN,END} with PREEMPT_RT
-config: alpha-allyesconfig (https://download.01.org/0day-ci/archive/20260806/202608061233.eufnR5Qm-lkp@intel.com/config)
-compiler: alpha-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260806/202608061233.eufnR5Qm-lkp@intel.com/reproduce)
+Clamp the rounded-up value against num_entries, mirroring the min() that
+amdgpu_res_first() already applies to cur->size. A contiguous short tail
+is then mapped in full, and a non-contiguous one falls back to a single
+CPU page so the loop still makes forward progress.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608061233.eufnR5Qm-lkp@intel.com/
+Fixes: a39f2a8d7066 ("drm/amdgpu: nuke amdgpu_vm_bo_split_mapping v2")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Cc: stable@vger.kernel.org
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+---
+Found by code inspection; not tested on hardware. I have no access to a
+64K-page host with an AMD GPU, so the BUG_ON() path was not exercised at
+runtime.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-All errors (new ones prefixed by >>):
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index dc6a9d7dd0b2..365a1c4a4527 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -1193,8 +1193,9 @@ int amdgpu_vm_update_range(struct amdgpu_device *adev, struct amdgpu_vm *vm,
+ 				}
+ 				if (!contiguous)
+ 					count--;
+-				num_entries = count *
+-					AMDGPU_GPU_PAGES_IN_CPU_PAGE;
++				num_entries = min(count *
++						  AMDGPU_GPU_PAGES_IN_CPU_PAGE,
++						  num_entries);
+ 			}
+ 
+ 			if (!contiguous) {
 
-   drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_surface.c: In function 'dc_create_plane_state':
->> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_surface.c:89:9: error: implicit declaration of function 'DC_RUN_WITH_PREEMPTION_ENABLED' [-Wimplicit-function-declaration]
-      89 |         DC_RUN_WITH_PREEMPTION_ENABLED(plane_state = kvzalloc_obj(*plane_state, GFP_ATOMIC));
-         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-- 
+2.51.2
 
 
-vim +/DC_RUN_WITH_PREEMPTION_ENABLED +89 drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_surface.c
-
-    82	
-    83	/*******************************************************************************
-    84	 * Public functions
-    85	 ******************************************************************************/
-    86	struct dc_plane_state *dc_create_plane_state(const struct dc *dc)
-    87	{
-    88		struct dc_plane_state *plane_state;
-  > 89		DC_RUN_WITH_PREEMPTION_ENABLED(plane_state = kvzalloc_obj(*plane_state, GFP_ATOMIC));
-    90	
-    91		if (NULL == plane_state)
-    92			return NULL;
-    93	
-    94		kref_init(&plane_state->refcount);
-    95		dc_plane_construct(dc->ctx, plane_state);
-    96	
-    97		return plane_state;
-    98	}
-    99	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
