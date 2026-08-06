@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE4B0C5AC9E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0EFF2C5AC7A
 	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 20:54:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1D46510E3B3;
-	Thu,  6 Aug 2026 20:54:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 71EF810F2D3;
+	Thu,  6 Aug 2026 20:54:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="X8Z2reOa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mfOmvi2B";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012016.outbound.protection.outlook.com
- [40.93.195.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 032BF10F2BA;
- Thu,  6 Aug 2026 20:54:11 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012071.outbound.protection.outlook.com
+ [40.107.200.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54B9210F2B1;
+ Thu,  6 Aug 2026 20:54:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=HH0oiuFBDWHlhk5cH8j7EBAfkATQZlmR5YXRnZZtnem7sqas+S3umaK8V4zD0WAkN7cngY345xZXqexFd3gxtK1pI//ST9Px3dskmBN5cZG7CyXHteomN66qQSbiiXYDF8eENyCxF3yrWL4xKA8uviiOnp/GO8nS40DNUardpoIxWtnW+koC7LzTTq0dfF4EOHHB8iwdugi2Nkrkiot7kzViZa1iKQJlBhGh8154KbDV5RWODxALYuQ+f639BCoPAHsQhzAZWr6sRBVlEe02PqYQDJCpNUX8lhuJI0syJHGpHnu5nBi5PPR2EYLTCKH98QN+77xYHYwpFxoWgmrDKw==
+ b=pk1XZXqjEW6WDZVh2zTwJLGNcmzrExnko88mFMrqwAzJmp7ah9PlO4mhAufKSS2GYBc2iKECCjQ5x5Y6rfrkP8KfLWnyWYesdRB2c2ilBbPLdepGQ2dbzwV6R+2l0mhuJxQtHyEjOCW40YcfiMMMvROZpN9UpFUg0r/NIEalGqm4sZUOVvgrkG9i7CA6Y+MoYEXK5NaTnT24cCAbpgBz79fVVFsRhs5eEREYsHbOmz7nnz+4K9f05GL2TAMXyGKAe3gcotThbn2EptqsUT7z4RPVxpK8YStJDlug2OpOPkNK8WXTeeKQcX5nV5gWNHEk9YTviqPG2uWWQ8Lj2mqPnw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4ILy0+EoHYuFFpN7FYTL3dMq6JKL9yybL+61Si3Q6g8=;
- b=UzolSicIOKW35i0cFY7Zm3g/k0Gk5UG5u6L/wM/qMrM3xl+2i9kHuB2mIvp+s7yVETx3aNUvvjB3RuyfcHrSVtXYtHnxxSuLL8gA5Kk1tCnSR0vdDrl+7KSAW97TRbfHY6dP8guVlYLJ6hAlxUwFCqMwv8aH3doq3zikZWcHImcbrTl0mHM2kGce0sG7r/C/EI+iP6K19TsHV8zlWAMc4QOxTg+hcDFE9+9mqZL0rOtajxDoNUKrv2G2ZalBYdxoMWEFvyYbzkIgGv1yTydzO6qorPw6ct9iHrhhrK/VsNsniC65JsgCgn/Hcw2tidmkABnKZAe6O7WDErK8wr4EMQ==
+ bh=mmxsv6VURkobNCHf/M6Aia80zPpYtZRDn8LwUMKFUXg=;
+ b=bx1CMRtwar0VUoKGIb/FvQKC4/h5ZikcwNy0hvuUX/zRqj6M0aNiGGYH//wkvVGy/UkAX+gI3ZCTD/YVO5f0jFVJLqWcBvAYyjm7wJYsxniLGgNsxZnSVpM1lVnQyy2IP5Eskx1nhpERCOV+P0utoHxt8yosG0lp/ZCHiyxJNoSOYmAm269Hr755YNurfS0abubwq1HqEKf4wOxakH3QmecxkaLy6mpI4KuROS5L274a0FtTF1saSpBjb9f8EepZ1aSKqyL7rEmAw5z3e/MyJztlekw7Ifc+2GY0igU54QPhHEVHL7oojyOR3fYbWJsVPQt47oDRgSF5R4H6ir6+5w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4ILy0+EoHYuFFpN7FYTL3dMq6JKL9yybL+61Si3Q6g8=;
- b=X8Z2reOayL6/nlPYQExOY551tS4+pvMZjh1Ywv1hQf1/CeYuRreOv7JAEdRtdpzVQp3V9FCQB6hEgEx3i1KYCFot4mC7TDxIm0STWBjZ+EFWPcQBgMLSfLBH/hEONMuhpihSui8fkGAel9W4NucPRc5oHxw+WyXBVNm3Byd1fHA=
-Received: from BN8PR04CA0047.namprd04.prod.outlook.com (2603:10b6:408:d4::21)
- by SJ0PR12MB6735.namprd12.prod.outlook.com (2603:10b6:a03:479::8)
+ bh=mmxsv6VURkobNCHf/M6Aia80zPpYtZRDn8LwUMKFUXg=;
+ b=mfOmvi2BRo60/h2WOUGsV/ASV1z84RCGYgLud1f2UeCvIN/NzRbbO8jw0om/68HfA2MSkXUxw5/nkaboFFH3ExhBVT9sq//EllRtgJs//TqRY7XLXey1mL2+34Zf/hpxvnEyWoaHUqXu92WmSqecJ5nxee9MH6X4YEATwj7W4Ek=
+Received: from BN8PR04CA0066.namprd04.prod.outlook.com (2603:10b6:408:d4::40)
+ by SJ2PR12MB8064.namprd12.prod.outlook.com (2603:10b6:a03:4cc::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
- 2026 20:54:02 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.22; Thu, 6 Aug
+ 2026 20:53:59 +0000
 Received: from BN1PEPF00004686.namprd03.prod.outlook.com
- (2603:10b6:408:d4:cafe::75) by BN8PR04CA0047.outlook.office365.com
- (2603:10b6:408:d4::21) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:408:d4:cafe::38) by BN8PR04CA0066.outlook.office365.com
+ (2603:10b6:408:d4::40) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.20 via Frontend Transport; Thu, 6
- Aug 2026 20:54:02 +0000
+ Aug 2026 20:53:57 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,22 +51,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN1PEPF00004686.mail.protection.outlook.com (10.167.243.91) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Thu, 6 Aug 2026 20:54:02 +0000
+ 15.21.315.6 via Frontend Transport; Thu, 6 Aug 2026 20:53:57 +0000
 Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 6 Aug
- 2026 15:53:57 -0500
+ 2026 15:53:55 -0500
 From: Fangzhi Zuo <jerry.zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: <dri-devel@lists.freedesktop.org>, Fangzhi Zuo <jerry.zuo@amd.com>,
- Fangzhi Zuo <Jerry.Zuo@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- "Leo Li" <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>, Alex
- Deucher <alexander.deucher@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, open list <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2 4/4] drm/amd/display: Add HDMI ALLM support
-Date: Thu, 6 Aug 2026 16:54:48 -0400
-Message-ID: <20260806205449.16806-5-jerry.zuo@amd.com>
+CC: <dri-devel@lists.freedesktop.org>, Fangzhi Zuo <Jerry.Zuo@amd.com>, "Harry
+ Wentland" <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, "Rodrigo
+ Siqueira" <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, open list
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH v2 1/4] drm/amd/display: Add 2.1 FreeSync support for AMD VSDB
+ EDID Block
+Date: Thu, 6 Aug 2026 16:54:45 -0400
+Message-ID: <20260806205449.16806-2-jerry.zuo@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260806205449.16806-1-jerry.zuo@amd.com>
 References: <20260730171754.704049-1-jerry.zuo@amd.com>
@@ -79,29 +80,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00004686:EE_|SJ0PR12MB6735:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f6ca710-45ec-4788-f826-08def3fcd864
+X-MS-TrafficTypeDiagnostic: BN1PEPF00004686:EE_|SJ2PR12MB8064:EE_
+X-MS-Office365-Filtering-Correlation-Id: 84b262de-1b46-446f-ebb4-08def3fcd591
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|376014|1800799024|23010399003|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003|18092099006;
-X-Microsoft-Antispam-Message-Info: EThmwPkkAO+UYOKi/fh6pqSEZXhwj3GQX0PvX8ggBlHOYaH6+/7inGE70HhHp1YTLya4y3jUGfMNmZ2bRYyxB3D/ToGWJ3fmYfu109OAd1fxuyfoSgEOPYEccldb8dWUtCcC6HeEuHbCw4CB+DYDUCEY04sKd50EStc2CS/GbD2G6KWFhEaf2tr5mn379szlIOk2egTgL7iERlNk/iSIIncG/C/oxVUpqjXSBYgL7lmsyrlu8P9/2kryBtsWx/kQA+46nwfaScGGbam7vHIR1h/05lJn4oLWEy1IVWGrEXw6IMA4W1Y/kiPeplOC9S+rLQ4gEcaWeIxcElyj/rV9MVVvmtYi64jWbupL9yCZwLz+xbLVHQkWsI3jTLVsw2+OQWJI0t7f/8sajm9iA79zp7MRtCuKrBdPvi/ZCUr21AgZcP8IOOyylud6SJevQbKZDePPc/ixHY533xnZgAgtDyzJ5Ms7BZE3WSkFOBA/kUDSkfn4MbI6wukla4Gx9DEyERoIYmMROMv/RM4OHYWmb3xdrQJuCOWYf36bAefDLMydk3DIoAw9mLWmLt58TuvalzjIq/UM7IuxEMyxLDXnoBZlyZy+c4g7RNN7nk7PKHrLvu9UoV01p5+lbgzz8305YIjIG/STSlFjkMkuQyLYbEY1QSiSALONXGVK/W3/1r7ZfKG8XspkLftNpWKzne1Sm9kqqpTpO3sP9fy61tptqA==
+ ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|22082099003|18002099003|4143699003|11063799006|5023799004|56012099006|3023799007|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info: /auR8GcFQXmwoV8XfwKKPoTw1cQHSThwNc+UbNRh//jwuXq36Pqf4k8hQXpmjLk8NT5Sc4Zd8GbkVo9QjULwQ/oU33Rd73+RSUzM4nHiBIlmqxyyyg/YeL/X7+BX4mxurkJRk1EC8CZizLKB/Jx7DZbxepYaEXRCe+PxrGC1qBm+aI1yloa2S9KWXSd/jyxJQBUrE4mHt2U2b1Clll3qFnoG9Mz7fYdjsNhiXyjfMIgsB02JRe6a1BkEQinQvNvgtPZe0crvwMzr5ERXHLSAnounWOp3BSpoNGrkLrknM6tZz+zv3tq4FrhSFHPfVDMoSQuOYvBDECac9boYukoGb8p1i9+Wsdaj8ypJViO5UsjQ6JhJFl8Mtk1PhZe5Z9JdMaZourFOnRZvIm951SiArPcfVnOqLC9k54dUOQYdaDbR+Z5uxl3zxx0p1mCIv/MKeXLQT2QwkRZ1zx0LtGpgu9Hv7Y9PL9lt59ytBmAzqcE9Pe1z2ibCyZwFPQdvgk1kQFOF0T8EATco/3SHnvMe3VIaEo1PUFHSlaip1sAyhXUtF3JMugaJ6TWT9SfdY0lyrCGptgQ5ksOPo88+WuAQfvhkZb6NfCedDW91P6yxnvP5xATqda/44NxAEVNiLDu1M9lU/uoHrEHI84TKN6szGclerP96h24PYGA9GVmvCcUPQsRI7tXQ6PaqvtzEFG+cVtc6kzXJcDMrtqZ0apVl/A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(23010399003)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003)(18092099006);
+ SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(4143699003)(11063799006)(5023799004)(56012099006)(3023799007)(6133799003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: iUlfSVUVzhYgrkukacPCpF9PoGIuJQfgNljl5sKJlHJF+YshQ/OeQIy8eGueMED66LGwPQhNq3qU9ADRcUpSOpEsq+0a8WpIA7nzQccteylxbbmHs040APZuz8XzoPZop0WJJrH4fuyM9bn0wwG5mQiwZ6yXehPOXsxdv2987PAAJ9WPnFla4D5/eikkiP33Iyqvt8aUcivOMp2wzg6GsM2EJrZScq5DegYrxXILVM1pZj5SPLezUnJT6YRi+hbSTIwp4Ka6LwgJr+8oN1sJC0UJcyphO94XqrsXgqwZaDkRYguVHp0QcUhoFSCmrOcaFeuwg2tor+9mmJOB2ogX5nit+c8KFHO0dbWIZyto3xBUBMNGeccswm7cU95hzjMLo1X08YRGeAfcZDxWmk2KIKw59MvOPIFVp7R6mykMknrMov66xt7TT3QV6Rgybjcm
+X-MS-Exchange-AntiSpam-MessageData-0: 5bO1XrpAumGFfgtWiIHsCCOTkDYqwGHVzNAb7pX5ZaQGGGAp/i/ga95oVKwm2ABMqDy/+hVKkLrvBMD33/sWvh8n+T148Prq8FBpoLRq4AIaBBI7AuZpW+xcDkUSs6ybdHY0V/SNwDWtEDr/XSVCyoimLSG6bTZKYm8xAzFR9wcfJYbKtxK4gRuk1adsRN3InlN2B68ZR4ogCNz1Ld3+4R8JCb3iJZIbBYGBOuKMELDW6VBxIDLdeeAZw6Om3yTwiFN6wuN/BspCSoBGQgC3k+XIexbm+5upMF9cnE8jfBZB18VAURUEmzKFFylHytpQA57U+ZcZHn5sBYloE+y9yEMG1G1Gwo1IcbPHcxrUT3gYYUSwI/yfhS1AWOlgxTRh1YjuQQhyWUmb7VmZ7PssVL4Y2UhSsPft38v1DNRVKP6QQWyde6h1oFAKGpuukUfI
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 20:54:02.0541 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f6ca710-45ec-4788-f826-08def3fcd864
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 20:53:57.3046 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84b262de-1b46-446f-ebb4-08def3fcd591
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00004686.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6735
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8064
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,116 +117,218 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Fangzhi Zuo <Jerry.Zuo@amd.com>
+
 why:
-HDMI 2.1 Auto Low-Latency Mode (ALLM) lets a Source request the Sink's
-low-latency mode through the HF-VSIF. amdgpu never set ALLM_Mode in the
-HF-VSIF, so ALLM was never signalled to the sink.
+HDMI FRL sinks were not parsed for the AMD VSDB and no VTEM info packet
+was emitted for them, so 2.1 FreeSync over HDMI FRL did not work. It is
+backward-compatible with 2.0 FreeSync.
 
 how:
-- In create_stream_for_sink(), build the HF-VSIF with ALLM_Mode set when
-  the sink advertises ALLM (connector->display_info.hdmi.allm, parsed by
-  DRM core from the HF-VSDB) and the content type is Game (content-type =
-  Game is how userspace requests low-latency mode, HDMI GCTS HF1-56).
-- In update_freesync_state_on_stream(), also set ALLM_Mode when
-  Gaming-VRR is active (VRR_EN=1, HDMI GCTS HF1-58 step 8.3.1), and push
-  the updated HF-VSIF (vsp_infopacket) as a stream update.
+- Accept SIGNAL_TYPE_HDMI_FRL alongside SIGNAL_TYPE_HDMI_TYPE_A when
+  parsing the AMD VSDB in amdgpu_dm_update_freesync_caps().
+- Build and send the VTEM info packet via mod_build_infopacket_vtem()
+  when the stream signal is HDMI FRL during the freesync state update.
+- Set the VTEM Data_Set_Length to 0 when no VTEM feature is enabled.
+  build_infopacket_header_vtem() hardcodes Data_Set_Length = 4, so a VTEM
+  with Data_Set_Length = 4 would be transmitted even when no VTEM feature
+  is enabled (VRR_EN = 0 and no FVA), e.g. when the sink advertises
+  VRRMIN = 0 and vrr_capable is false. This fails HDMI GCTS HF1-58 step
+  6.2.
+  The VTEM must keep being transmitted every MTW while VRR is enabled
+  (HF1-58 steps 8.1 and 8.3), so it cannot simply be suppressed per
+  frame. Instead, follow the MLDS option in HDMI 2.1 10.10.2.4: keep
+  transmitting the VTEM but set Data_Set_Length = 0 when no feature is
+  enabled. When VRR becomes active the full Data_Set_Length = 4 payload
+  with VRR_EN = 1 is sent as before.
 
 Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  5 ++-
- .../display/amdgpu_dm/amdgpu_dm_connector.c   | 18 +++++++++--
- .../display/amdgpu_dm/amdgpu_dm_freesync.c    | 31 +++++++++++++++++++
- 3 files changed, 51 insertions(+), 3 deletions(-)
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |   4 +-
+ .../display/amdgpu_dm/amdgpu_dm_freesync.c    |   4 +
+ .../amd/display/modules/inc/mod_info_packet.h |   4 +
+ .../display/modules/info_packet/info_packet.c | 109 ++++++++++++++++++
+ 4 files changed, 120 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 567bf04979ee..ff0db0cb9880 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -4029,9 +4029,12 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
- 		}
- 
- 		if (acrtc_state->stream) {
--			if (acrtc_state->freesync_vrr_info_changed)
-+			if (acrtc_state->freesync_vrr_info_changed) {
- 				bundle->stream_update.vrr_infopacket =
- 					&acrtc_state->stream->vrr_infopacket;
-+				bundle->stream_update.vsp_infopacket =
-+					&acrtc_state->stream->vsp_infopacket;
-+			}
- 		}
- 	}
- 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index df39bc70ec6c..6cfd7526ab56 100644
+index 4304520d2484..5e7ab9158995 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -1572,8 +1572,22 @@ create_stream_for_sink(struct drm_connector *connector,
- 	update_stream_signal(stream, sink);
+@@ -3838,7 +3838,9 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 			amdgpu_dm_connector->as_type = ADAPTIVE_SYNC_TYPE_EDP;
+ 		}
  
- 	if (stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
--	    stream->signal == SIGNAL_TYPE_HDMI_FRL)
--		mod_build_hf_vsif_infopacket(stream, &stream->vsp_infopacket, false, false);
-+	    stream->signal == SIGNAL_TYPE_HDMI_FRL) {
-+		/*
-+		 * Enable HDMI ALLM (Auto Low-Latency Mode) when the sink
-+		 * advertises ALLM in the SCDS and the content type is Game.
-+		 * Setting content-type = Game is how userspace requests the
-+		 * Sink's low-latency mode (HDMI GCTS HF1-56).
-+		 */
-+		bool allm = connector->display_info.hdmi.allm &&
-+			stream->content_type == DISPLAY_CONTENT_TYPE_GAME;
-+
-+		drm_dbg_driver(dev,
-+			       "ALLM: set mode: sink_allm=%d content_type=%d -> ALLM_Mode=%d\n",
-+			    connector->display_info.hdmi.allm, stream->content_type, allm);
-+
-+		mod_build_hf_vsif_infopacket(stream, &stream->vsp_infopacket, allm, allm);
-+	}
- 
- 	if (stream->signal == SIGNAL_TYPE_DISPLAY_PORT ||
- 	    stream->signal == SIGNAL_TYPE_DISPLAY_PORT_MST ||
+-	} else if (drm_edid && sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A) {
++	} else if (drm_edid &&
++		  (sink->sink_signal == SIGNAL_TYPE_HDMI_TYPE_A ||
++		   sink->sink_signal == SIGNAL_TYPE_HDMI_FRL)) {
+ 		i = parse_hdmi_amd_vsdb(amdgpu_dm_connector, edid, &vsdb_info);
+ 		if (i >= 0) {
+ 			amdgpu_dm_connector->vsdb_info = vsdb_info;
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-index cb49184813de..c4bc6e717df9 100644
+index 7e484adb4120..1fa078cdba52 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-@@ -252,6 +252,37 @@ void amdgpu_dm_update_freesync_state_on_stream(
- 	new_stream->vrr_infopacket = vrr_infopacket;
- 	new_stream->allow_freesync = mod_freesync_get_freesync_enabled(&vrr_params);
+@@ -37,6 +37,7 @@
+ #include "amdgpu_dm_freesync.h"
+ #include "dm_helpers.h"
+ #include "modules/inc/mod_freesync.h"
++#include "modules/inc/mod_info_packet.h"
  
-+	/*
-+	 * HDMI ALLM: transmit the HF-VSIF with ALLM_Mode=1 when the sink
-+	 * advertises ALLM in the SCDS and either the content type is Game
-+	 * (HF1-56) or Gaming-VRR is active (VRR_EN=1, HF1-58 step 8.3.1).
-+	 * HDMI 2.1 7.6.6.
-+	 */
-+	if (new_stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
-+	    new_stream->signal == SIGNAL_TYPE_HDMI_FRL) {
-+		struct dc_info_packet vsp_infopacket = {0};
-+		bool sink_allm = aconn && aconn->base.display_info.hdmi.allm;
-+		bool allm = sink_allm &&
-+			(new_stream->content_type == DISPLAY_CONTENT_TYPE_GAME ||
-+			 vrr_params.state == VRR_STATE_ACTIVE_VARIABLE ||
-+			 vrr_params.state == VRR_STATE_ACTIVE_FIXED);
-+		bool allm_changed;
+ bool amdgpu_dm_is_dc_timing_adjust_needed(struct dm_crtc_state *old_state,
+ 					  struct dm_crtc_state *new_state)
+@@ -229,6 +230,9 @@ void amdgpu_dm_update_freesync_state_on_stream(
+ 		&vrr_infopacket,
+ 		pack_sdp_v1_3);
+ 
++	if (new_stream->sink->sink_signal == SIGNAL_TYPE_HDMI_FRL)
++		mod_build_infopacket_vtem(new_stream, &vrr_params, 0, &vrr_infopacket);
 +
-+		mod_build_hf_vsif_infopacket(new_stream, &vsp_infopacket, allm, allm);
+ 	new_crtc_state->freesync_vrr_info_changed |=
+ 		(memcmp(&new_crtc_state->vrr_infopacket,
+ 			&vrr_infopacket,
+diff --git a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
+index eee8206bc531..5181d889fe7f 100644
+--- a/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
++++ b/drivers/gpu/drm/amd/display/modules/inc/mod_info_packet.h
+@@ -67,6 +67,10 @@ struct AS_Df_params {
+ 	struct frame_duration_op decrease;
+ };
+ 
++void mod_build_infopacket_vtem(const struct dc_stream_state *stream,
++		const struct mod_vrr_params *vrr, int fva_factor,
++		struct dc_info_packet *infopacket);
 +
-+		allm_changed = memcmp(&new_stream->vsp_infopacket, &vsp_infopacket,
-+				      sizeof(vsp_infopacket)) != 0;
-+		new_crtc_state->freesync_vrr_info_changed |= allm_changed;
-+		new_stream->vsp_infopacket = vsp_infopacket;
+ void mod_build_adaptive_sync_infopacket(const struct dc_stream_state *stream,
+ 		enum adaptive_sync_type asType, const struct AS_Df_params *param,
+ 		struct dc_info_packet *info_packet);
+diff --git a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+index f5ac4bf32a78..e956c707ac50 100644
+--- a/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
++++ b/drivers/gpu/drm/amd/display/modules/info_packet/info_packet.c
+@@ -291,6 +291,21 @@ void set_vsc_packet_colorimetry_data(
+ 	info_packet->sb[18] = 0;
+ }
+ 
++static void setFieldWithMask(unsigned char *dest, unsigned int mask, unsigned int value)
++{
++	unsigned int shift = 0;
 +
-+		if (allm_changed)
-+			drm_dbg_driver(adev_to_drm(adev),
-+				       "ALLM: flip on crtc=%u: sink_allm=%d content_type=%d vrr_state=%d -> ALLM_Mode=%d\n",
-+				    new_crtc_state->base.crtc->base.id,
-+				    sink_allm,
-+				    new_stream->content_type, vrr_params.state, allm);
++	if (!mask || !dest)
++		return;
++
++	while (!((mask >> shift) & 1))
++		shift++;
++
++	*dest = *dest & ~mask;
++	value = value & (mask >> shift);
++	*dest = *dest | (value << shift);
++}
++
+ void mod_build_vsc_infopacket(const struct dc_stream_state *stream,
+ 		struct dc_info_packet *info_packet,
+ 		enum dc_color_space cs,
+@@ -644,6 +659,100 @@ void mod_build_hf_vsif_infopacket(const struct dc_stream_state *stream,
+ 		info_packet->valid = true;
+ }
+ 
++static void build_vtem_infopacket_data(const struct dc_stream_state *stream,
++		const struct mod_vrr_params *vrr, int fva_factor,
++		struct dc_info_packet *infopacket)
++{
++	unsigned int fieldRateInHz;
++
++	/* FVA Factor setting */
++	setFieldWithMask(&infopacket->sb[VTEM_MD0], MASK_VTEM_MD0__FVA_FACTOR_M1,
++			(fva_factor > 0)?(fva_factor-1):0);
++	/* VRR Parameters */
++	if (vrr->state == VRR_STATE_ACTIVE_VARIABLE ||
++				vrr->state == VRR_STATE_ACTIVE_FIXED) {
++		setFieldWithMask(&infopacket->sb[VTEM_MD0], MASK_VTEM_MD0__VRR_EN, 1);
++	} else {
++		setFieldWithMask(&infopacket->sb[VTEM_MD0], MASK_VTEM_MD0__VRR_EN, 0);
 +	}
 +
- 	if (new_crtc_state->freesync_vrr_info_changed)
- 		drm_dbg_kms(adev_to_drm(adev), "VRR packet update: crtc=%u enabled=%d state=%d",
- 			      new_crtc_state->base.crtc->base.id,
++	if (vrr->state == VRR_STATE_ACTIVE_FIXED)
++		setFieldWithMask(&infopacket->sb[VTEM_MD0], MASK_VTEM_MD0__M_CONST, vrr->m_const);
++
++	if (!stream->timing.vic) {
++		setFieldWithMask(&infopacket->sb[VTEM_MD1], MASK_VTEM_MD1__BASE_VFRONT,
++				stream->timing.v_front_porch);
++
++
++		/* TODO: In dal2, we check mode flags for a reduced blanking timing.
++		 * Need a way to relay that information to this function.
++		 * if("ReducedBlanking")
++		 * {
++		 *   setFieldWithMask(&infopacket->sb[VRR_VTEM_MD2], MASK__VRR_VTEM_MD2__RB, 1;
++		 * }
++		 */
++
++		fieldRateInHz = stream->timing.pix_clk_100hz * 100;
++		fieldRateInHz /= stream->timing.h_total;
++		fieldRateInHz = (fieldRateInHz + stream->timing.v_total / 2)
++						/ stream->timing.v_total;
++
++		setFieldWithMask(&infopacket->sb[VTEM_MD2],  MASK_VTEM_MD2__BASE_REFRESH_RATE_98,
++				fieldRateInHz >> 8);
++		setFieldWithMask(&infopacket->sb[VTEM_MD3], MASK_VTEM_MD3__BASE_REFRESH_RATE_07,
++				fieldRateInHz);
++
++	}
++
++	/*
++	 * When no VTEM feature is enabled (neither VRR nor FVA), signal a
++	 * zero-length data set (MLDS) by clearing Data_Set_Length. HDMI 2.1
++	 * 10.10.2.4 requires the Source to either stop transmitting the VTEM
++	 * or set Data_Set_Length = 0 when no feature is enabled; keeping the
++	 * VTEM with Data_Set_Length = 0 preserves the every-MTW cadence while
++	 * staying compliant (e.g. HDMI GCTS HF1-58 step 6.2).
++	 */
++	if (vrr->state != VRR_STATE_ACTIVE_VARIABLE &&
++	    vrr->state != VRR_STATE_ACTIVE_FIXED && fva_factor == 0)
++		setFieldWithMask(&infopacket->sb[VTEM_PB6],
++				 MASK_VTEM_PB6__DATA_SET_LENGTH_LSB, 0);
++
++	infopacket->valid = true;
++}
++
++static void build_infopacket_header_vtem(enum signal_type signal,
++		struct dc_info_packet *infopacket)
++{
++	// HEADER
++
++	// HB0, HB1, HB2 indicates PacketType VTEMPacket
++	infopacket->hb0 = 0x7F;
++	infopacket->hb1 = 0xC0;
++	infopacket->hb2 = 0x00; //sequence_index
++
++	setFieldWithMask(&infopacket->sb[VTEM_PB0], MASK_VTEM_PB0__VFR, 1);
++	setFieldWithMask(&infopacket->sb[VTEM_PB2], MASK_VTEM_PB2__ORGANIZATION_ID, 1);
++	setFieldWithMask(&infopacket->sb[VTEM_PB3], MASK_VTEM_PB3__DATA_SET_TAG_MSB, 0);
++	setFieldWithMask(&infopacket->sb[VTEM_PB4], MASK_VTEM_PB4__DATA_SET_TAG_LSB, 1);
++	setFieldWithMask(&infopacket->sb[VTEM_PB5], MASK_VTEM_PB5__DATA_SET_LENGTH_MSB, 0);
++	setFieldWithMask(&infopacket->sb[VTEM_PB6], MASK_VTEM_PB6__DATA_SET_LENGTH_LSB, 4);
++}
++
++void mod_build_infopacket_vtem(const struct dc_stream_state *stream,
++		const struct mod_vrr_params *vrr, int fva_factor,
++		struct dc_info_packet *infopacket)
++{
++	//VTEM info packet for HdmiVrr
++
++	memset(infopacket, 0, sizeof(struct dc_info_packet));
++
++	//VTEM Packet is structured differently
++	build_infopacket_header_vtem(stream->signal, infopacket);
++	build_vtem_infopacket_data(stream, vrr, fva_factor, infopacket);
++
++	infopacket->valid = true;
++}
++
+ void mod_build_adaptive_sync_infopacket(const struct dc_stream_state *stream,
+ 		enum adaptive_sync_type asType,
+ 		const struct AS_Df_params *param,
 -- 
 2.53.0
 
