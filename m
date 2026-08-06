@@ -4,54 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26C0AC55ABF
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 11:16:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44A65C56208
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 11:30:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9990810E304;
-	Thu,  6 Aug 2026 11:16:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 91A7F10E27F;
+	Thu,  6 Aug 2026 11:30:28 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BRlYD4mG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qmSOxvqm";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013011.outbound.protection.outlook.com
- [40.93.201.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D82BF10E304
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2026 11:16:46 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012049.outbound.protection.outlook.com [52.101.43.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 50FC610E27F
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2026 11:30:27 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nYjXeRLXH2gaMajyvMQUElhNPiV6+pLj8uHMh+fTagDXWGRWkwNezNhyRxAHgoxEi71C3DNrkb9UVh2TbU9xUyYavIivyD7FBvc/dcxDB0lWeDsz0MVEbtgwsLr04WQW2z9EO8LZAvECfFyz2NHxzR451llE71dPkyXoZbGJe62zI8Q4RFSFulTmfA0c3VzaUTP1neFwUeTORWqA/9XTGBIUb8IBO6jkdd1ZNRAigiAl/eK5IpcwmKeMv4hz1RKCSYInivCx+FMg+mgoDTDGvxi4YygLpbeSLbtZfkqkW+xPt3c4FvRpjPTmDX3x08QiB1kQXE0TaebBlaWDnTy+3g==
+ b=ZmFvjWl96FBahr5c6eK/LqZqtwvYltuG4vYHuA+eMgeu/bXdsyBZssnKWGHGcVwYbThySgP4IEyPNsAy7CXiTxRyyeUKX7bBm4zlhqK+4QqEq6fktjR2qWug6R4WESue1eqszkQJaPCKkr+HyUz1MV2G879CXm+D1Ja1bbXvAicnIU32RN5Yg4sJyUdmv5Nuq1KTtcW/EQAZWy29hplbmaOez5mcC7uMShyEWxNpdgPu0Oj8VLyPo8e/bcpYXo4S5niuI3X5o6ayHSJvyya35ydlO1YYJ7JY4aZ6Og7tSaDnpyfXyp+eCOvp31Mz5o7vRrSVMaoLJbWsSnAPnpqXdQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KxyOcXVuXfHdXTgdpj0nvNDkC4iC925xdQ+Djz1OwcM=;
- b=wgRKQLHqhKXVdhVVktpnXN+xlG+pcPoHVzJ2j/HncmnOMzAAslDL4Yie2x/7knzznzYkxQcqHvFt6hrl3tcAOlnbQ6lDLLJ4wCi3hc2ADaxNsVopcFljR1F0wjwg1ZGaS8w1471HyMVeTjzzHSUGj8uo2T+Kt6Pd3tOYfn2rJcNMy46QyCkxpNR0oHzOjlvvz/Y8NAUzRlpoHTPqhNFuiSEpOS9l8S0pW+moPFxRbvkPtYe4/hltflM/FlgEgi2BUs50iHjGqEuG90J/ibrHs7mG5e1LLgS5SFiuL+7D+OSgsJqRo/EPZnqUav4rdekAEESDahCG6EABcoltzow5pQ==
+ bh=5wli58sIjsEWzGy0Tkm3IpjWdv1/B1yRff8mUy7pU8g=;
+ b=KpDdWcfG11GkCGgPMqMGRrh4Gbywuc7bjBd+dzmU/+g4nNwZp18eY327Gsmu+CPhKccD2cnoVfxy/a51m+BssGfhUSQlgAq38J6JVEUSuS2mjmanl0+2aRoNW5DqT8qf4tFysQtMcA0tGm+7VbL1Mylz3xiwO69lVER65QFy7SlPCMYfWo9MDJO/CeGth8TR2AMo1Uw/UzGHnvi/ArNeZ5pN5HVJv/Pzk92p8xypNoB+zlGveTeDwHCUQq4qkhs7MOO6koqyvgYHYhAj3KDCDwnNSRiwzoxt4MvN4IUnS+LZwGmayWm7yFhjzFgolx7wnBP5WXvQxEb7rlIcEYVfBA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KxyOcXVuXfHdXTgdpj0nvNDkC4iC925xdQ+Djz1OwcM=;
- b=BRlYD4mGVT6XKvdZqJId0eV+xaGFR27prjF7O9Hubg4FyrzKlEdzZr2oAJYKr5+h68GnfHczxR1l6quNpc90BOdA6ZcVLZHYeNboQM/Z4/Lo9odc158L+hW30FxZZGjPN8nW8Ty9ZAjrQo4TJmUHXK0YtTTBeuR1o57TnUXQt20=
-Received: from MW4PR12MB6803.namprd12.prod.outlook.com (2603:10b6:303:20e::10)
- by CY5PR12MB9055.namprd12.prod.outlook.com (2603:10b6:930:35::13)
+ bh=5wli58sIjsEWzGy0Tkm3IpjWdv1/B1yRff8mUy7pU8g=;
+ b=qmSOxvqmd+83bCk9vh7B9La5wmNp+SoYhRQDUSrEaW/ahi9KWPuhrGnSCttVSe6EAHstw2gnclzjo4SxiSwugG+aCd6B22gJ2kWNA5/tks6cezIuA8592wYWXxUeueVA0q/M3oATsYYWsNS5XX6bEVodmZjZFokTkO62FNEXS1Q=
+Received: from BN9PR12MB5211.namprd12.prod.outlook.com (2603:10b6:408:11c::24)
+ by CY3PR12MB9605.namprd12.prod.outlook.com (2603:10b6:930:103::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.15; Thu, 6 Aug
- 2026 11:16:40 +0000
-Received: from MW4PR12MB6803.namprd12.prod.outlook.com
- ([fe80::c193:ef2e:260f:dcfd]) by MW4PR12MB6803.namprd12.prod.outlook.com
- ([fe80::c193:ef2e:260f:dcfd%6]) with mapi id 15.21.0292.015; Thu, 6 Aug 2026
- 11:16:40 +0000
-From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.20; Thu, 6 Aug
+ 2026 11:30:15 +0000
+Received: from BN9PR12MB5211.namprd12.prod.outlook.com
+ ([fe80::1bae:ee6:d7f4:b85a]) by BN9PR12MB5211.namprd12.prod.outlook.com
+ ([fe80::1bae:ee6:d7f4:b85a%5]) with mapi id 15.21.0292.019; Thu, 6 Aug 2026
+ 11:30:15 +0000
+From: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>
+To: "Feng, Kenneth" <Kenneth.Feng@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Kamal, Asad" <Asad.Kamal@amd.com>
 CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
  <Hawking.Zhang@amd.com>
 Subject: RE: [PATCH] drm/amdgpu: check ASPM on the dGPU host link
 Thread-Topic: [PATCH] drm/amdgpu: check ASPM on the dGPU host link
-Thread-Index: AQHdJWcQ8lslOQ07+Ee525mEwB7trLaQ3sJw
-Date: Thu, 6 Aug 2026 11:16:40 +0000
-Message-ID: <MW4PR12MB68034831F1DE57DB42EAD0C98ED22@MW4PR12MB6803.namprd12.prod.outlook.com>
+Thread-Index: AQHdJWcQfqlQJtWq1kGQERYbQb6ls7aQ300AgAADBzA=
+Date: Thu, 6 Aug 2026 11:30:15 +0000
+Message-ID: <BN9PR12MB5211DE7BDF028DF3441F97FA82D22@BN9PR12MB5211.namprd12.prod.outlook.com>
 References: <20260806054705.1580442-1-kevinyang.wang@amd.com>
-In-Reply-To: <20260806054705.1580442-1-kevinyang.wang@amd.com>
+ <MW4PR12MB68034831F1DE57DB42EAD0C98ED22@MW4PR12MB6803.namprd12.prod.outlook.com>
+In-Reply-To: <MW4PR12MB68034831F1DE57DB42EAD0C98ED22@MW4PR12MB6803.namprd12.prod.outlook.com>
 Accept-Language: en-US, zh-CN
 Content-Language: en-US
 X-MS-Has-Attach: 
@@ -65,60 +65,60 @@ msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR12MB6803:EE_|CY5PR12MB9055:EE_
-x-ms-office365-filtering-correlation-id: 1caf74d9-dead-4749-0d0f-08def3ac303f
+x-ms-traffictypediagnostic: BN9PR12MB5211:EE_|CY3PR12MB9605:EE_
+x-ms-office365-filtering-correlation-id: 885cd631-e8ff-4b20-6f44-08def3ae1621
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|376014|11063799006|56012099006|10067099003|6133799003|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info: YXxRdxbb2C539M14ibrVEr2gSkRMfKMKTKZHzR4vGGdC8GXZz1CTTa3zv3LHbXUeXYczpHmwVXuvzK3mvBz3ADnNqz48G1IrUPD4f44Uymq3rgI68DJFLczO772Jplztb74FUH4MQE4RQ8G6LoYu6FUY6CLabBUXufoHAa9yeZTwyvHEaH0+lkVjNjLP1yrYLsnoaWTraXjHYQfYhpKPtD8cIi9yZP2cfrNzdMPAtZTq/DLSiL/zK9qwdRgh2w7ZalZ9Ns76FlUNnrPZU35rw1KI8FMJCF5u22DlXv0+72V0m+UYxkk2M2bUbP1FuyxoN7/NarocyqJmcSPUrYcVhWp+l7SpO4Cy8vVQHIO7C3x6TvRPxGquPWz3ya+n/AZAlCPQ0Lm72L0do0ChiFolGOtMBdDUlSUrZMofpNi8AUMp9r059bnU8EHGe+dQh+D+LQEggr9YJKdkEytTN55zBJDiZjoU2AI1t6MrkBMOj/kU2Psls3mAiaeCwMD+TFyE0ZYP94KE2dRkq2//cwG8o4aIJ4D/uX/VL3QAbnkeBlfARSZeJSzXmNs0N88embquR7k1Ia+1ToSlSmG96DI2QubmK3y62zkBzuSCnBMoTfnGwId0biGIJFgLzCUC3wMMmyJgXkG6eGqdh5PzWxpoOHVKcmPMV4MgyI4NOxYt8J/SOJCnp2P1idaDgBwwogAXydPdorhTUN5Cy1ISjW77cuD3dE/BOV0BMj+R+tYEg2c=
+ ARA:13230040|1800799024|366016|23010399003|376014|11063799006|56012099006|4143699003|10067099003|6133799003|18002099003|22082099003|38070700021;
+x-microsoft-antispam-message-info: EX63QLT5zPGgtdZkz0/TtKlWOdeBNc25pAectrGswQzhuuNuEn804ze09P8dDsPxiU0XBeRGXtyjl/6N/CgTp7DlZ/9sQHI8C9ALQRg8gNnRCgbV2jhDIu6Ra61jO0wM9YNFn5MFhgPHMOfRBysGBxPWfP/huHhxejuqCa6O1LHFSFuil3CbTIHKb2RQUqVo6c+F6f0iC54dDLO8xSI9WZY2MPZZ3rCDD+g6Vlh0udtVzRRI4Td+J/huYGLEEMy7iElaPQ9GLYcBixXGdlPZ7jT5Hlug7L/PidUebpv/J0DzbQcyAl+BrOsk7oc9+JrX98nMXa+15uKKd/wezp7MRpBUdyXzjfvY6ucIyIIAeVGrenJ8D1DWCuYMI/+NlXD+Yh6b4Ie5VvNUsCFhmNWCj5hw07bOE1CxbvDeWhVrGQPFk+t9Uvd2reO9ETW0J5BmxjoBOR28ez2oqEgKaJZJ/I6k+0uyj10MQ/FqVps087PMkFgdQ9INyrI5UUXbI204FFAReZfZihYCTcbssGh8+VgymNCzMEDMNgTCofZPF57zGr3VAvE3dm7lmaJwu7TWdBk3O+o0cukTyKCC385xBe88TBOWYYPvneX2whgQbvqrSiLlD6w8/rv/4GhvuYgW3vG9mhdxmSlg6BhXxzr+r+rMiY3lNpVBMudYRC3fXNLNUx8fe0xt/hnoyVQNyUbmZxWztinDvVdh1kKxkRnVvkFtS5I/gepihC2b8paPx3c=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6803.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(11063799006)(56012099006)(10067099003)(6133799003)(18002099003)(22082099003)(38070700021);
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5211.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(11063799006)(56012099006)(4143699003)(10067099003)(6133799003)(18002099003)(22082099003)(38070700021);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?M5wmrAX/JzYBJyp3lYeY+kigxKT5EyXQiysIrcV+V+yFYnzh8W41lS7/lDgu?=
- =?us-ascii?Q?UZu+VK5lm9yrQBERrSnLY42Wcqhz7gJY9+cd3gi67sQVnjBxkyUdIiq4qtmH?=
- =?us-ascii?Q?heZ9MznL1fjJneQT16QkBUsVqP0Nh2C+8AAE1iKqYE6kL7U++PJpip89+4WN?=
- =?us-ascii?Q?BtArHiVHlbVj3ROKWJG7hO6Fv+mrXd/MVcvgJ856ao5oiPbWpDubxpPySlEI?=
- =?us-ascii?Q?gR/i6ovUKb8keLDvu5NjzEBwwtrgv4gP6HLZ+cAIXFauvpctEVACSXFcS271?=
- =?us-ascii?Q?x7seJruZwY3FmDMRAPquFwjb9FuYzZBbhTg/YeQB9tmGDLSRztB5h+WBM36g?=
- =?us-ascii?Q?QFx54mkhXgZ/s28D/z5vpSTmGcN6iWIruI5L2jXvEe3N4fSz5saqN1d+x4vb?=
- =?us-ascii?Q?lgRifDlUmyxTVvkzV9jmrdtYAc4R5KyrYNMYUybNDWrR7bvPz6cpHLzHo9s8?=
- =?us-ascii?Q?4M5jV7FSXb0cf3LBZ4KIliusaCLjCaP7cLw9Wo9DexRYI3hvJteRJZhezi8A?=
- =?us-ascii?Q?EGzJrWyyu+Mlsr20X5xOf6APWmtArxYx/A2jRMP74ISpmxNnm/ozACZFoU+N?=
- =?us-ascii?Q?ByCaeZ/M+S2+FiR7ij1ncukVv5v4fVoC8hLp65l7QeIPGlFs2+05NFIcVs2/?=
- =?us-ascii?Q?FvK9kjO6NokgdPjecISXEYGzovLVcccTmoHgXG2ZKzXSRC6QaxNKLOReNlFE?=
- =?us-ascii?Q?ZgJGrcTw2EMeKa6Xc4td/574M+3HxyGslo8nHO4UceumWt8QTtw1vAosMTDY?=
- =?us-ascii?Q?RbIi2tYmriguAwqR/t9rbuM/O/FDfM+iGCHC5uxH4z2ukdJHpmS3LR3Ix0Tf?=
- =?us-ascii?Q?isFRHPRcp/7N26u9sQsLh/ihN5X2Nwil7jeJfP6FUw118UUrtC0BnWXW0va0?=
- =?us-ascii?Q?2g0voQO9dffERgGylGfcsddxK3A2r3d67I040tAh3XSLJBDMZP8qd9FKj8J2?=
- =?us-ascii?Q?Zl41aVux4FJP6wLbAroYxIrBMnYfPNA4xRJgH005rtcz5xIG0GFEggCxyZOf?=
- =?us-ascii?Q?LSSxHVqF5Dyy5eD3zePAzJx9BO16s2/7FRFhlSrjRxXOoMBGzipVlFOrQS5A?=
- =?us-ascii?Q?noqReegurhPFvttKO2SBoktgcSpiC2/091ABoYqI3I5TKlaD5UFwdj5uIvtj?=
- =?us-ascii?Q?iF78eRSlcT+HvbvBuQiWEqZ8M4GFitSZzlpQpfRT8qemIdH55LSQ6wQFM6zr?=
- =?us-ascii?Q?2d/5IOZ81UQyTuwVr9zyfHGstfWtxygh9T14k0UcL64Of+LkmZRCm+YXbM9B?=
- =?us-ascii?Q?mxZMfKcfnd1tB/fqCZvcVG7EfRB/J3IdV3Bbfq8U/shumyM4gVNwDIAPY4Yv?=
- =?us-ascii?Q?g5Vaql5j9DwKoeU41RC8GbJFD9tcxpg4dpQIuWu2lKJfmWseh5cG/0oMGHE4?=
- =?us-ascii?Q?7GzQGYedMQS6aIQmZRhP6jsANhlPnc9z6moqIHQHCt3Bx/KRlk+rsJyKqSks?=
- =?us-ascii?Q?gQrnlZZO9Xz5EV9qSAxWPRge3bwOwLSOWgThzce9irMXiypKXNu0IXvGbNQT?=
- =?us-ascii?Q?L4KcpGFrBp+SMvJ+prpZs+3KvdqfKjKTIyhnJGlaqvxprxEosc90kjzl8D4C?=
- =?us-ascii?Q?NzP0d7URRlvl6UVjR3GkO1MckhuxKbZJSvFRi1wFF31MEGrIiUuHSJ1lDEbv?=
- =?us-ascii?Q?G+UYPQ9DeC+y2OD3wbw3bfMihyXmKiZbxXgsLl7A2Ou+a1J1QFq83YRXMhZ0?=
- =?us-ascii?Q?TgZ9Q93lkYSnswxSSiWmphyKuTnWsPFFLwURPphc6Geyk0a2?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?3PvdbB6CCJeecUojKmbai8HNLKZsrfjXg+11PjkbByt3A7mNXlzSFUgPA/9J?=
+ =?us-ascii?Q?rFWhxRMuavJ0b/ax+6vtPkOhhq8D+hrDadd/EZWFrR5XLX0q7+tCSWh1NWIv?=
+ =?us-ascii?Q?C+l4GhoJ+C5a5CCOjpkzmk8M/pQjAXc0+lkOhd0DhvI0WEKKliCLBtaOqXQR?=
+ =?us-ascii?Q?fOUitzgpVSrqxPTd7EYQ2eYlYg9xa/Z6qH8mMWMXrqNaYgn0M8Ky1jl4rT4Z?=
+ =?us-ascii?Q?dTx7MbDxDfYdPyeXdTWownsBt0Fy1WafjT85ttY+dEzpFflKDc3pEefEWtsR?=
+ =?us-ascii?Q?AiULcfva55Y/VPW3fEZW6lUGZmqsdhKop48gomMMT6JZ2Nam90XmOL8ySV3x?=
+ =?us-ascii?Q?YYs/LxlETTi7bsZPU4tjw2FA9AH+UZW5Z7An1kCCqUxK96CSak8SsVcd7u44?=
+ =?us-ascii?Q?Te0qf5DvxQCxKIJ+YUs3QFRFTD2eB8cl+mHcgHAxT4gI604CzaFyKqO2Yza0?=
+ =?us-ascii?Q?sHbRaKQdjsOxbBO6nhrPKSuxUFjJBlUcyPmM2pD8VcPYWcldzNOw9MnEb6Jf?=
+ =?us-ascii?Q?OXCnOafnBxuY3RRRWJmAKwFYyY/2qN8Ex66gaG5FztCgm9snjh1lbpRvukca?=
+ =?us-ascii?Q?V2b9rnqKHBSRbCrRgyoboJZ3d1eSpOVF6AygBJkghIPJ/8qRB5qU5Uzw0Msv?=
+ =?us-ascii?Q?qtskToWzfl0Urc5cD8RTEIMPq5iR4QUP+6eNnqE+U1wZp4hF1+mzG/d4QsW5?=
+ =?us-ascii?Q?zEyeI1ZImX8c86XFVV2wku2+V4Uivpje5jj1V9a0zkgA2AtUnFgoY5I/xvSD?=
+ =?us-ascii?Q?KmVyTFSkGbB2SrOW0G7bl6u26H9Zytr4eCCPmKObpiKnttOjHNx561E3zshO?=
+ =?us-ascii?Q?egUYQtpVLbT13b1Kd+LbCPhah8/FDw+YVNbY7PXhnDtgzx0TLcebRiP5Yae3?=
+ =?us-ascii?Q?LR5LNSI8bGqI/yYFrE4Y++s2/fqPfPY5+NouB3K2eLXF0+rQQTzmUwrXfToq?=
+ =?us-ascii?Q?F881sdLyC98ZR5CnTlsDwwP/ukuzxbDopsUXSnSI3A2Jhu5NKLmrrc36g2zI?=
+ =?us-ascii?Q?zyJ5v0qEye3KCh2o61jOfi1t0xmwv5+dOaj+6d+LceN1sDEib2ZirtEKzQ5v?=
+ =?us-ascii?Q?xqlanf9AVRmXVeSxSG3YD7qfcMggpP8cg4CK4BLoP+QZcWGKEYJp639U1qfn?=
+ =?us-ascii?Q?J2oMeZnF08ew/zOYUWPfT+JoGRobksIzlPPZVrTnaWhV0XE2aoThrjaazzJn?=
+ =?us-ascii?Q?xVDE4OhcoHROhdpOSEL+mATzFpcizKKCqmvSEldluKnezrwJTpEoMh+s1pO9?=
+ =?us-ascii?Q?cYhOGiwGoNmEngDG3/AZPOEEgLxjxYNns1PxsZ6wOVj9UnL1+w2dadqk+Spc?=
+ =?us-ascii?Q?gmpEZv8PkiDyjozt2riDPF4qTaTWckZ6PWTvyQpLcporMi32SOPy3fOY7Fax?=
+ =?us-ascii?Q?pvLpEdxbTjKtmdJP01JPpnkeLyF6MWCZA5kfeAQlyJoepfkd84PSiNXgfXpa?=
+ =?us-ascii?Q?9dORtivoWQx2fr/TWsvxbrkLdomiy1YEcWWTqQJ+6BlYdsJVqPisOFNmlbjZ?=
+ =?us-ascii?Q?tq7UuAEp8QnZcNckH7EuKixwTkg0T/7O6s/avCK1WcCJ7qVOhTxAQg56xXEJ?=
+ =?us-ascii?Q?/PXN3cC6S196DWU6DN6LTayikPYmSY3DIVVt8hoqEF9wY+5MW5ATfx4+b6xb?=
+ =?us-ascii?Q?KlNB6LpK9N8NKHF3tDWXS6tdbJ6la77m/Qmx52M/B+6J6fuwjPOtS2nSCohf?=
+ =?us-ascii?Q?KB/A35731/musy7rr8Rucmhz8Hf0YgNJTaNS4NGUKDptzc0l?=
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6803.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1caf74d9-dead-4749-0d0f-08def3ac303f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Aug 2026 11:16:40.2287 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5211.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 885cd631-e8ff-4b20-6f44-08def3ae1621
+X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Aug 2026 11:30:15.4188 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: VtV1jFnqKzHlBPAAynFMK7gHq+xi2KNsxaQ0aHjqSgtD0KmkraSehaoqsSkSM/zG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB9055
+X-MS-Exchange-CrossTenant-userprincipalname: g/5Xc/bIufbHf6IfpTDE9Gmrqy8+XHs8RaEow7fnU/sH0sGtiA4JAcfnUgebDwwv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9605
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,106 +135,129 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 AMD General
 
-dev_info() could flood dmesg, better to use dev_dbg().
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
+> -----Original Message-----
+> From: Feng, Kenneth <Kenneth.Feng@amd.com>
+> Sent: Thursday, August 6, 2026 7:17 PM
+> To: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>; amd-
+> gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking
+> <Hawking.Zhang@amd.com>
+> Subject: RE: [PATCH] drm/amdgpu: check ASPM on the dGPU host link
+>
+> AMD General
+>
+> dev_info() could flood dmesg, better to use dev_dbg().
+> Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 
------Original Message-----
-From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-Sent: Thursday, August 6, 2026 1:47 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
-.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
-Subject: [PATCH] drm/amdgpu: check ASPM on the dGPU host link
+Thanks, will refine it before submitting. (and Asad raised the same suggest=
+ion during our offline talk)
 
-dGPUs with an internal PCIe switch expose graphics functions below the swit=
-ch downstream port. The automatic ASPM check uses the display endpoint and =
-evaluates the internal link instead of the host link.
-
-Use the switch upstream port for the check and report the selected link.
-
-Fixes: 0ab5d711ec74 ("drm/amd: Refactor `amdgpu_aspm` to be evaluated per d=
-evice")
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 50 +++++++++++++++++++++-
- 1 file changed, 49 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_device.c
-index 2b9799033174..e68a5ddcae69 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -1344,6 +1344,31 @@ static bool amdgpu_device_aspm_support_quirk(struct =
-amdgpu_device *adev)  #endif  }
-
-+/*
-+ * Some dGPUs expose their display endpoint below an internal PCIe switch.
-+ * Use the switch upstream port to query the host-facing link.
-+ */
-+static struct pci_dev *amdgpu_device_get_aspm_pdev(struct amdgpu_device
-+*adev) {
-+       struct pci_dev *swds, *swus;
-+
-+       swds =3D pci_upstream_bridge(adev->pdev);
-+       if (!swds ||
-+           (swds->vendor !=3D PCI_VENDOR_ID_ATI &&
-+            swds->vendor !=3D PCI_VENDOR_ID_AMD) ||
-+           pci_pcie_type(swds) !=3D PCI_EXP_TYPE_DOWNSTREAM)
-+               return adev->pdev;
-+
-+       swus =3D pci_upstream_bridge(swds);
-+       if (!swus ||
-+           (swus->vendor !=3D PCI_VENDOR_ID_ATI &&
-+            swus->vendor !=3D PCI_VENDOR_ID_AMD) ||
-+           pci_pcie_type(swus) !=3D PCI_EXP_TYPE_UPSTREAM)
-+               return adev->pdev;
-+
-+       return swus;
-+}
-+
- /**
-  * amdgpu_device_should_use_aspm - check if the device should program ASPM
-  *
-@@ -1356,6 +1381,9 @@ static bool amdgpu_device_aspm_support_quirk(struct a=
-mdgpu_device *adev)
-  */
- bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)  {
-+       struct pci_dev *aspm_pdev, *parent;
-+       bool enabled;
-+
-        switch (amdgpu_aspm) {
-        case -1:
-                break;
-@@ -1370,7 +1398,27 @@ bool amdgpu_device_should_use_aspm(struct amdgpu_dev=
-ice *adev)
-                return false;
-        if (amdgpu_device_aspm_support_quirk(adev))
-                return false;
--       return pcie_aspm_enabled(adev->pdev);
-+
-+       /*
-+        * pcie_aspm_enabled() checks the link between its argument and
-+        * the immediate upstream bridge. Use SWUS for dGPUs with an
-+        * internal switch so that this is the host-facing link.
-+        */
-+       aspm_pdev =3D amdgpu_device_get_aspm_pdev(adev);
-+       parent =3D pci_upstream_bridge(aspm_pdev);
-+       if (!parent) {
-+               dev_info(adev->dev, "ASPM: no upstream PCIe link for %s\n",
-+                        pci_name(aspm_pdev));
-+               return false;
-+       }
-+
-+       enabled =3D pcie_aspm_enabled(aspm_pdev);
-+       /* Report the exact link used for the automatic ASPM decision. */
-+       dev_info(adev->dev, "ASPM: link %s <-> %s is %s\n",
-+                pci_name(parent), pci_name(aspm_pdev),
-+                enabled ? "enabled" : "disabled");
-+
-+       return enabled;
- }
-
- /* if we get transitioned to only one device, take VGA back */
---
-2.54.0
+Best Regards,
+Kevin
+>
+> -----Original Message-----
+> From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
+> Sent: Thursday, August 6, 2026 1:47 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking
+> <Hawking.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
+> Subject: [PATCH] drm/amdgpu: check ASPM on the dGPU host link
+>
+> dGPUs with an internal PCIe switch expose graphics functions below the
+> switch downstream port. The automatic ASPM check uses the display
+> endpoint and evaluates the internal link instead of the host link.
+>
+> Use the switch upstream port for the check and report the selected link.
+>
+> Fixes: 0ab5d711ec74 ("drm/amd: Refactor `amdgpu_aspm` to be evaluated
+> per device")
+> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 50
+> +++++++++++++++++++++-
+>  1 file changed, 49 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 2b9799033174..e68a5ddcae69 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -1344,6 +1344,31 @@ static bool
+> amdgpu_device_aspm_support_quirk(struct amdgpu_device *adev)  #endif  }
+>
+> +/*
+> + * Some dGPUs expose their display endpoint below an internal PCIe switc=
+h.
+> + * Use the switch upstream port to query the host-facing link.
+> + */
+> +static struct pci_dev *amdgpu_device_get_aspm_pdev(struct
+> amdgpu_device
+> +*adev) {
+> +       struct pci_dev *swds, *swus;
+> +
+> +       swds =3D pci_upstream_bridge(adev->pdev);
+> +       if (!swds ||
+> +           (swds->vendor !=3D PCI_VENDOR_ID_ATI &&
+> +            swds->vendor !=3D PCI_VENDOR_ID_AMD) ||
+> +           pci_pcie_type(swds) !=3D PCI_EXP_TYPE_DOWNSTREAM)
+> +               return adev->pdev;
+> +
+> +       swus =3D pci_upstream_bridge(swds);
+> +       if (!swus ||
+> +           (swus->vendor !=3D PCI_VENDOR_ID_ATI &&
+> +            swus->vendor !=3D PCI_VENDOR_ID_AMD) ||
+> +           pci_pcie_type(swus) !=3D PCI_EXP_TYPE_UPSTREAM)
+> +               return adev->pdev;
+> +
+> +       return swus;
+> +}
+> +
+>  /**
+>   * amdgpu_device_should_use_aspm - check if the device should program
+> ASPM
+>   *
+> @@ -1356,6 +1381,9 @@ static bool
+> amdgpu_device_aspm_support_quirk(struct amdgpu_device *adev)
+>   */
+>  bool amdgpu_device_should_use_aspm(struct amdgpu_device *adev)  {
+> +       struct pci_dev *aspm_pdev, *parent;
+> +       bool enabled;
+> +
+>         switch (amdgpu_aspm) {
+>         case -1:
+>                 break;
+> @@ -1370,7 +1398,27 @@ bool amdgpu_device_should_use_aspm(struct
+> amdgpu_device *adev)
+>                 return false;
+>         if (amdgpu_device_aspm_support_quirk(adev))
+>                 return false;
+> -       return pcie_aspm_enabled(adev->pdev);
+> +
+> +       /*
+> +        * pcie_aspm_enabled() checks the link between its argument and
+> +        * the immediate upstream bridge. Use SWUS for dGPUs with an
+> +        * internal switch so that this is the host-facing link.
+> +        */
+> +       aspm_pdev =3D amdgpu_device_get_aspm_pdev(adev);
+> +       parent =3D pci_upstream_bridge(aspm_pdev);
+> +       if (!parent) {
+> +               dev_info(adev->dev, "ASPM: no upstream PCIe link for %s\n=
+",
+> +                        pci_name(aspm_pdev));
+> +               return false;
+> +       }
+> +
+> +       enabled =3D pcie_aspm_enabled(aspm_pdev);
+> +       /* Report the exact link used for the automatic ASPM decision. */
+> +       dev_info(adev->dev, "ASPM: link %s <-> %s is %s\n",
+> +                pci_name(parent), pci_name(aspm_pdev),
+> +                enabled ? "enabled" : "disabled");
+> +
+> +       return enabled;
+>  }
+>
+>  /* if we get transitioned to only one device, take VGA back */
+> --
+> 2.54.0
+>
 
