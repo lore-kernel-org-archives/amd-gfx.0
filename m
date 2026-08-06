@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4F81EC55ABF
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 04:45:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3F6CC56208
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 04:45:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8618610F09B;
-	Thu,  6 Aug 2026 04:45:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3D62610F09D;
+	Thu,  6 Aug 2026 04:45:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="U/x0iTAs";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ILDNVWJV";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9856810F089;
- Thu,  6 Aug 2026 04:45:37 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6709010F099;
+ Thu,  6 Aug 2026 04:45:39 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 5035B435D9;
+ by tor.source.kernel.org (Postfix) with ESMTP id 9783560A64;
  Thu,  6 Aug 2026 04:45:37 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 30F8CC2BCF5;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 4AB6DC2BCFA;
  Thu,  6 Aug 2026 04:45:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1785991537;
- bh=JTWQsMVQWpqAcgi+OJObB+Qe7+AfYuU84GSs5YSeK3o=;
+ bh=qps4WXR6Y3kW2L+YWOrgrmtd3I5PsdfE4fmyegP2GcM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=U/x0iTAsLGlq0H2AAeKCP5ZySWe8sNag3kBEpXV6BEh/+Hgo8dEc1OPDc7WYNYMTO
- sW8z6TA+LA+BkQK5M39oamWrYtiXnWZIzfWh6Tsnv5M+jvpOxd3LpttFttRvp1t2tE
- 2jmwtunmEtD9P4SkWoDwi/u1nIXYzyexV2gIhlu132aLwu5+EfRNbeQpbgWruIClQS
- OGpcM1bYKaeQQzKclukUR4z9Uutqb3dW1s5NY/RdkDvmrlE9hbMwImFapnBnqgMh9O
- z/WWbWr4cMBW8lB5EopamSiRGVYyecm8bDH1rPwRFILl4KtEVSxMfR9oQmtgVPuTdr
- qRNHjOV11TqZg==
+ b=ILDNVWJVxJQfuEPhFup9jfsI2OuGe3FdYZAnlYlNMqBwpr9vVfYYBjNukX2PdB+8n
+ yfT7pnF96Xm001au9PdM9wJaRlJ+a+K4MGlP/ORn6LPkt0JIjOJ+DLnFTfFN6eFyrS
+ TW9y4bFDET4jvR1P6TI4K7NIDOdiof8f0QvPsdkCdi9fUxoPMmPEGQk0EiHSVpXpsu
+ iL/vxEWlL3/e3IWRPN1KjRlcNIWkef1Boc7kWCTdtLqSz3AtzphYpPhzd2z1ZUE8t7
+ rwlG+WqTiSJ3qzx87IYjFYF6wEkI2lS/FlwBviOXUzG4aBF/jchHkgixbx0o23bELB
+ MRm4ILU951b/g==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 11665C55838;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 37278C56208;
  Thu,  6 Aug 2026 04:45:37 +0000 (UTC)
 From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Date: Thu, 06 Aug 2026 12:45:24 +0800
-Subject: [PATCH 1/3] drm/amdgpu: disallow multiple FENCE chunks in one submit
+Date: Thu, 06 Aug 2026 12:45:26 +0800
+Subject: [PATCH 3/3] drm/amdgpu: add the BO-va mapping offset when kmapping
+ an IB
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260806-amdgpu-fixes-v1-1-ce247012d4da@outlook.com>
+Message-Id: <20260806-amdgpu-fixes-v1-3-ce247012d4da@outlook.com>
 References: <20260806-amdgpu-fixes-v1-0-ce247012d4da@outlook.com>
 In-Reply-To: <20260806-amdgpu-fixes-v1-0-ce247012d4da@outlook.com>
 To: Alex Deucher <alexander.deucher@amd.com>, 
@@ -50,15 +51,15 @@ To: Alex Deucher <alexander.deucher@amd.com>,
  Felix Kuehling <Felix.Kuehling@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Junrui Luo <moonafterrain@outlook.com>, 
- Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
+ Yuhao Jiang <danisjiang@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1617;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1861;
  i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=U1v7v3zFLG1cH7eOPY13uCvfCEVk89tQy4HVVMDjA30=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrBLB/Ihr1ifkNpY86DomM62A6+quZw2Ll7DvtuFu3
- HP70+MbCic6SlkYxLgYZMUUWY4XXPpm4btFd4vPlmSYOaxMIEMYuDgFYCJWMxgZJiQZdbx4+8gq
- ykxiptS8TfHehaEdndwHzsxKmS5hqXnzNMM/Zc3i+6+zV4kUs6p5yTEzOMZpa3lcW1L7lcWnbs6
- 5Ffu4AMMlSJ8=
+ bh=MbTPCxPC+NDqqRce7zTi4D+evqyxLQPMZapIx+qmD0Q=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrBLB/DfZi47l17h7SAeu4BEMcj9s2DaB3/PUHs7Qr
+ W735Venv+goZWEQ42KQFVNkOV5w6ZuF7xbdLT5bkmHmsDKBDGHg4hSAiSzNYfjJGLTW9nlC6BXO
+ woRQd5XGF9N/L/TaekN2tl3t8czgJm1nRoYNy5/s/vlEadqbDVUJms8cuoTL51u9k/f/yJS309L
+ u0B8uAHdPSUc=
 X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
  fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
 X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
@@ -81,45 +82,51 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Junrui Luo <moonafterrain@outlook.com>
 
-amdgpu_cs_pass1() dispatches on chunk_id once per chunk without
-rejecting repeated ids. p->uf_bo is a single-slot field, so a
-submission carrying two AMDGPU_CHUNK_ID_FENCE chunks runs
-amdgpu_cs_p1_user_fence() twice, and the second run overwrites
-p->uf_bo with a freshly referenced BO without dropping the reference
-taken by the first.
+amdgpu_cs_patch_ibs() derives the CPU-side view of a UVD/VCE/VCN
+indirect buffer from the BO returned by amdgpu_cs_find_mapping():
 
-amdgpu_cs_parser_fini() only unrefs the final p->uf_bo, so every FENCE
-chunk but the last leaks a BO reference. The leaked BO outlives handle
-close and process exit.
+    r = amdgpu_bo_kmap(aobj, (void **)&kptr);
+    kptr += va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
 
-Reject duplicate FENCE chunks the same way commit fec5f8e8c6bc
-("drm/amdgpu: disallow multiple BO_HANDLES chunks in one submit") did
-for p->bo_list.
+amdgpu_bo_kmap() returns the start of the BO, so only the displacement
+of va_start inside the mapping is added.  The page tables, however, are
+programmed from mapping->offset (see amdgpu_vm_bo_update()), which
+records the offset_in_bo the client passed to AMDGPU_GEM_VA.  The GPU
+therefore resolves va_start to BO byte
 
-Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+    m->offset + (va_start - m->start * AMDGPU_GPU_PAGE_SIZE)
+
+while the kernel inspects the byte m->offset lower.  Whenever an IB is
+submitted through a mapping created with a non-zero offset_in_bo, the
+two views disagree.
+
+Add the missing term so the kmapped pointer describes the same bytes the
+page tables do.
+
+Every other CPU-side consumer of amdgpu_cs_find_mapping() omits
+mapping->offset in the same way.
+
+Fixes: 4802ce117786 ("drm/amdgpu: fix UVD/VCE VM emulation")
 Reported-by: Yuhao Jiang <danisjiang@gmail.com>
 Assisted-by: Claude:claude-opus-5
-Cc: stable@vger.kernel.org
 Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 5445f75741b5..9c514cb01096 100644
+index 9c514cb01096..a72cee871af3 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -228,6 +228,10 @@ static int amdgpu_cs_pass1(struct amdgpu_cs_parser *p,
- 			if (size < sizeof(struct drm_amdgpu_cs_chunk_fence))
- 				goto free_partial_kdata;
+@@ -1047,7 +1047,7 @@ static int amdgpu_cs_patch_ibs(struct amdgpu_cs_parser *p,
+ 		if (r)
+ 			return r;
  
-+			/* Only a single user fence is allowed to simplify handling. */
-+			if (p->uf_bo)
-+				goto free_partial_kdata;
-+
- 			ret = amdgpu_cs_p1_user_fence(p, p->chunks[i].kdata,
- 						      &uf_offset);
- 			if (ret)
+-		kptr += va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
++		kptr += m->offset + va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
+ 
+ 		if (ring->funcs->parse_cs) {
+ 			memcpy(ib->ptr, kptr, ib->length_dw * 4);
 
 -- 
 2.51.2
