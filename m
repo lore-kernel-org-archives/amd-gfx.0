@@ -4,155 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA288C5AC7A
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 06:54:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B883C5AC82
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 06:54:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 51FC310F39A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 429A910F394;
 	Fri,  7 Aug 2026 06:54:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="nA1aUYEN";
+	dkim=pass (4096-bit key; unprotected) header.d=canonical.com header.i=@canonical.com header.b="NLLzwZ7h";
 	dkim-atps=neutral
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5A9510E37D;
- Thu,  6 Aug 2026 19:06:39 +0000 (UTC)
-Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 676Ftr4v4168306; Thu, 6 Aug 2026 19:06:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=
- corp-2025-04-25; bh=85JNUC8SyfLYyGobZYpdZmxyQGF0qjVqbjDUd/Wkets=; b=
- nA1aUYENomsR9p7hfDkQr6KalTZrWQW8NET0IkudX6kxW006ofYrtz87Qku7QfJU
- 1lbtfpVmJ42Q3AQE1tcbOw0dHj5dJSylYxq+m2+YcyLW9melEp/Zo40HFGHB54iG
- OcTwtR+niQLcarL+4OWP5kUShgYJOMrLwxEqqSkY7Lj2zjgD/sgtw+C5rg7PDGAH
- Gv3g1ppfRFvZh8DYeUX2gV+upEZO5qZ40tc03kMw1uUKshv2LOqjagJ3HbvFdCxa
- 5hBpF9vOLZ/60dXew31tSvX4uLcqli6uolj+khGTMmHGGzK/4pK/rJL+YY5xBUHb
- pPRuZrwRVaPtUZ7W/V2+uA==
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4fs8ugpqtf-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 06 Aug 2026 19:06:26 +0000 (GMT)
-Received: from pps.filterd
- (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7)
- with ESMTP id 676J0b6k024663; Thu, 6 Aug 2026 19:06:25 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 4fs78w56e3-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 06 Aug 2026 19:06:25 +0000 (GMT)
-Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 676J6LgY011247;
- Thu, 6 Aug 2026 19:06:24 GMT
-Received: from ca-mkp2.ca.oracle.com.com
- (mpeterse-ol9.allregionaliads.osdevelopmeniad.oraclevcn.com
- [100.100.251.135])
- by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
- 4fs78w56b9-3; Thu, 06 Aug 2026 19:06:24 +0000 (GMT)
-From: "Martin K. Petersen" <martin.petersen@oracle.com>
-To: Julia.Lawall@inria.fr, Alex Deucher <alexander.deucher@amd.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Andrew Lunn <andrew@lunn.ch>, Andrew Morton <akpm@linux-foundation.org>,
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
- Borislav Petkov <bp@alien8.de>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Daniel Lezcano <daniel.lezcano@kernel.org>,
- David Airlie <airlied@gmail.com>, "David S. Miller" <davem@davemloft.net>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Eric Dumazet <edumazet@google.com>, Florian Westphal <fw@strlen.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Jakub Kicinski <kuba@kernel.org>,
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Jaroslav Kysela <perex@perex.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
- Jiri Pirko <jiri@resnulli.us>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
- Johan Hovold <johan@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Julian Anastasov <ja@ssi.bg>, Leon Romanovsky <leon@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Linus Walleij <linusw@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Mark Brown <broonie@kernel.org>, Matthew Sakai <msakai@redhat.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maxime Ripard <mripard@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Mike Rapoport <rppt@kernel.org>,
- Miri Korenblit <miriam.rachel.korenblit@intel.com>,
- Nicolas Palix <nicolas.palix@imag.fr>,
- Pablo Neira Ayuso <pablo@netfilter.org>,
- Paolo Abeni <pabeni@redhat.com>, Ping-Ke Shih <pkshih@realtek.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Sebastian Reichel <sre@kernel.org>, Shuah Khan <shuah@kernel.org>,
- Simona Vetter <simona@ffwll.ch>, Simon Horman <horms@verge.net.au>,
- Stephen Boyd <sboyd@kernel.org>, Steve French <sfrench@samba.org>,
- Takashi Iwai <tiwai@suse.com>, Thomas Renninger <trenn@suse.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tony Luck <tony.luck@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Vadim Fedorenko <vadim.fedorenko@linux.dev>,
- Vinod Koul <vkoul@kernel.org>, Will Deacon <will@kernel.org>,
- Yazen Ghannam <Yazen.Ghannam@amd.com>,
- Sang-Heon Jeon <ekffu200098@gmail.com>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>, cocci@inria.fr,
- amd-gfx@lists.freedesktop.org, dmaengine@vger.kernel.org,
- dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-wired-lan@lists.osuosl.org,
- iommu@lists.linux.dev, linux-cifs@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-edac@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linux-mm@kvack.org, linux-pm@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-rtc@vger.kernel.org,
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, lvs-devel@vger.kernel.org,
- netdev@vger.kernel.org, netfilter-devel@vger.kernel.org,
- nouveau@lists.freedesktop.org, platform-driver-x86@vger.kernel.org
-Subject: Re: (subset) [PATCH 00/36] treewide: remove conditional returns with
- no effect
-Date: Thu,  6 Aug 2026 15:06:08 -0400
-Message-ID: <178589207129.336697.9870225893827541543.b4-ty@oracle.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260723184538.3888637-1-ekffu200098@gmail.com>
-References: <20260723184538.3888637-1-ekffu200098@gmail.com>
+X-Greylist: delayed 332 seconds by postgrey-1.36 at gabe;
+ Thu, 06 Aug 2026 14:39:46 UTC
+Received: from smtp-relay-internal-1.canonical.com
+ (smtp-relay-internal-1.canonical.com [185.125.188.123])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B97910E323
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2026 14:39:46 +0000 (UTC)
+Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
+ [209.85.128.198])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id A0F013F9A7
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2026 14:34:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+ s=20251003; t=1786026853;
+ bh=DfJA3Bjw1scHLEIZGaM9XvRkeKWja03nB5QNkQg2/dQ=;
+ h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+ MIME-Version;
+ b=NLLzwZ7hCGbL9Z3B5JqobvnxqcKPN5jRbrcVywVmMKsl0zGHYCDyc+TK9BQhVBfxK
+ +WHVIKGgBsBouHsVXcfyd1UUsyCA9TxzGqc1BifQt1Vn3RSshnpRDHNzeqjFJ0sCag
+ PXgE+/8F5okXOhrDgULylNio6DGpY+CreX3nY219HO09L1YETLAMYXYGA0+zK039Kk
+ YSlTIk2MNCmGqC5lAj88vPh9OE1uMxI6aR5T5LIjbcU499VM5U3hZ3i0PCCbrbWvMH
+ GWSgFE5qaLimKjyHRNkKqOqWpQPmBUrupDBgctbcPRHWvAo/Fx7O0+OyjU7UFMOvrn
+ 1vaL5k3tu9ZTKo6lJbKe8o4lnnjeFX7bgMMpBgs51q5Fr0MzBQaR21m9fhdRfESZeq
+ RkNpS5actedqdS+vZ6JL7FJbjdB3BR96qtkD3lsQ1hT1msMs2rTXheaCI1Ak3BRPjX
+ YrwLf5gGn4OoMfPrsSxFt6N68NQ7yVmVMJ4pzqrBNOiBKuM84nigNl6UwYX0WrRQXu
+ BUdsiwur7ks5wEx6LV8Ok1qdZyC1M8lQmD/aGJbnXBoXdOKkm3mQGXozZv5p04z05X
+ w1+2LrZ7b7rm8Z9rnVFrpDq66loFP6RSsIDu13caLUoeNFwyXkWY2cONUTm/K0cmhG
+ +x1YIZs/d3AVR62hCkjGQUg0=
+Received: by mail-yw1-f198.google.com with SMTP id
+ 00721157ae682-80ee3cb097eso70795877b3.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 06 Aug 2026 07:34:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786026852; x=1786631652;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=DfJA3Bjw1scHLEIZGaM9XvRkeKWja03nB5QNkQg2/dQ=;
+ b=E0qpjsIL/SudpushcL3DzO4mJsMmSy+dJcQkow/8BS+0mO16H30GgZ3nWCu0JTgqx4
+ ZO9N6D7FCzLO0FI2xLOYKOtG3SiPj6fcfuKpWSqX686DBh6i9Jwj8yI9YxIh5dRLe8gS
+ et6NOAcOa0Mashr3Ww7x+6B+cdg9jF36OR3gO0hY8PyMhqNuwmmwFen2VDhcWEM6Kca8
+ LqNDF1jl8W1WrvL2jq+kBO8FYQ/+XhNxuTIuYOjQX0z2Q7bDR4KIWlt0LFBImAgDczsJ
+ dIbscAZ4xHXKrwP2pVcH4duKa5j/g9/flTZsTQEwe9ugYt4iyxWxdK45eWARfOIMR/Cz
+ SmKw==
+X-Gm-Message-State: AOJu0Yz5S+mOTLScGIitNwC4ODF76ypwSX4OG88TFsVNm70qBcokPvgg
+ 38ciWEe2+wWQsWG5gljWgnur3oB3mhh0FOH/pXY3a/B8A5XsaRPj5VToo5T/Y2QqoxzmjkB7ogq
+ ICmzGOymK3VgRfIe7x+oyBGU601yhDH9EPke28fptnScqAb8djrxl1UvvJjxEpGVTNQSFyeFeMp
+ lOR2982oGoFqMyFuA=
+X-Gm-Gg: AR+sD13N21yA8yZe6Lk6WH4GIBuapQllPNd/aKFHV8q253AYcKeYCtB2BqsBizQXeov
+ B9nyCzx+Klepeax/MENpeA+QK/6371La6bn6+E4yAO3NKBAYlWcOyAccoTT0X6wFLiAAaFO+3iT
+ se9FiuVFOKKVe53wyBOHkY75edJijgWI6OpRlfHgjOvb0IEcZLKYG7Pfu0rbrcDPAfWg9KBUiSP
+ o2FsFAte4P9Wwe1GnI/pG7MxAUwd6vzZeOBY+N8ksX4Z5D9y41vMYgqOUdjsOZehYoh6VAziQYV
+ CYdkmYorTvngQLinFwwhz8/2hHEVnm0pfP6215MgUUTMfhs5ATJ2OuzJYvFN1xK4op1EXdANr35
+ 9ocTSfOTF4sbeXc3MqA==
+X-Received: by 2002:a05:690c:4481:b0:81e:f5ac:e40 with SMTP id
+ 00721157ae682-820224a7827mr99658447b3.20.1786026852511; 
+ Thu, 06 Aug 2026 07:34:12 -0700 (PDT)
+X-Received: by 2002:a05:690c:4481:b0:81e:f5ac:e40 with SMTP id
+ 00721157ae682-820224a7827mr99658027b3.20.1786026851978; 
+ Thu, 06 Aug 2026 07:34:11 -0700 (PDT)
+Received: from localhost ([2600:6c40:657f:4180:2a3f:d445:3d4e:f355])
+ by smtp.gmail.com with ESMTPSA id
+ 00721157ae682-820131db335sm40071407b3.3.2026.08.06.07.34.11
+ for <amd-gfx@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 06 Aug 2026 07:34:11 -0700 (PDT)
+From: mitchell.augustin@canonical.com
+To: amd-gfx@lists.freedesktop.org
+Subject: [PATCH 1/1] drm/amdgpu: Do not enter PSR if multiple displays are
+ active
+Date: Thu,  6 Aug 2026 09:34:08 -0500
+Message-ID: <20260806143408.979209-2-mitchell.augustin@canonical.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260806143408.979209-1-mitchell.augustin@canonical.com>
+References: <20260806143408.979209-1-mitchell.augustin@canonical.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-06_02,2026-08-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- spamscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0 mlxscore=0
- phishscore=0 mlxlogscore=672 suspectscore=0 classifier=spam adjust=0
- reason=mlx scancount=1 engine=8.19.0-2606160000 definitions=main-2608060149
-X-Proofpoint-ORIG-GUID: XGMDaQGIFMb57T6Q2yvPQTQQt2debxfq
-X-Authority-Analysis: v=2.4 cv=XqnK/1F9 c=1 sm=1 tr=0 ts=6a74db32 b=1 cx=c_pps
- a=e1sVV491RgrpLwSTMOnk8w==:117
- a=e1sVV491RgrpLwSTMOnk8w==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=jiCTI4zE5U7BLdzWsZGv:22 a=BqU2WV_vvsyTyxaotp0D:22 a=VwQbUJbxAAAA:8
- a=Br-j9HdbvUlrMjNZj6IA:9 a=QEXdDO2ut3YA:10 a=5yU3S35YU4bGjq-dph-N:22
- a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:13510
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDE0OSBTYWx0ZWRfX6uIK9jT+2Jev
- rYS5Xc6Wjv9hMYRtyD0NY9wioUhY1o9ts8S44XrOIykROIC2fMM+q3H5rjkub44bNgkLDQ3tnSe
- fkx9LiuU0Ioed9eVzRB8PP2qYuZIVaHGDH9Vr333gSb2ZgsHD92v
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDE0OSBTYWx0ZWRfX43FUiflrVixJ
- FNgAKsr+fsfl0ktZltC3fvW6MVFcRQRy/oySHj8nQQDMOHwfS94QLWHrXArK3j62D1c6aNzQrnl
- 2DtOuGbPQocnjuSCI1ny1WWYx/7jkkjlcfyl+lp7TEesEfkx307+KuCZo0OgIxbIwfa72MWD4em
- tn6/hMd/QXx6zH3wP5OlhrMzlp2qKgIxJlelAMfUWIkruyj4hnvKzGUkqPoF4QRZ71As9I8pV2j
- DMm/cMIaHufC6lXcsuKfUk0yiqWTx1Zr8LtQAR498eW34hEj3pAMHucta0+1CKmEnv9EN7lkU/M
- FG7jgW8yHOjl2TgueMJFzovO4heKYSqjW47oC3CHVujyZPMUqifsWdUKFoxdhd+EKhXdCEJL9b0
- LGCES5HP/CdGIqj2UaaWymZGJVFVJ4RBD/aEk7/710HO5x59Z+gVx3LZGgty2YUYCbgJE7oGTWH
- QPXliDM2eYx5QgvaSSBlrfWn/1V9lBD33lbCDCaI=
-X-Proofpoint-GUID: XGMDaQGIFMb57T6Q2yvPQTQQt2debxfq
 X-Mailman-Approved-At: Fri, 07 Aug 2026 06:54:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -168,22 +104,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, 24 Jul 2026 03:45:02 +0900, Sang-Heon Jeon wrote:
+From: Mitchell Augustin <mitchell.augustin@canonical.com>
 
-> While reading mm/memblock, I found a conditional return where both
-> branches return the same value:
-> 
-> 	err = do_something();
-> 	if (err)
-> 		return err;
-> 	return err;
-> 
-> [...]
+Issue: https://gitlab.freedesktop.org/drm/amd/-/work_items/5394
+Ubuntu BugLink: https://bugs.launchpad.net/bugs/2162904
 
-Applied to 7.3/scsi-queue, thanks!
+This commit disables panel self-refresh when more than one display is
+active to eliminate a common hang and system crash that happens
+frequently on some laptops, evidently due to race conditions between
+the DMCUB, amdgpu module, and possibly other components which are
+exacerbated when more than one display is active.
 
-[30/36] scsi: mpt3sas: remove conditional return with no effect
-        https://git.kernel.org/mkp/scsi/c/c79f9bf2d87f
+To my knowledge, a fix for the underlying failure condition is not
+available upstream, so given how disruptive this is for impacted users,
+I propose disabling this feature under this condition until it is fixed.
+The main downside of disabling PSR is that it
+will increase power consumption, but this should be barely noticeable to
+end users, since PSR will remain enabled on laptops unconnected to
+external monitors, and since laptops connected to external monitors are
+likely typically also connected to power (and thus less concerned with
+the energy savings afforded by PSR).
 
+Signed-off-by: Mitchell Augustin <mitchell.augustin@canonical.com>
+
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index 5d2715f78314..272f195b8c28 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -152,7 +152,8 @@ void amdgpu_dm_crtc_set_panel_sr_feature(
+ 		struct amdgpu_dm_connector *aconn =
+ 			(struct amdgpu_dm_connector *) stream->dm_stream_context;
+ 
+-		if (!aconn->disallow_edp_enter_psr) {
++		/* Do not enter PSR if multiple displays are active to prevent DMCUB hangs */
++		if (!aconn->disallow_edp_enter_psr && dm->dc->current_state->stream_count == 1) {
+ 			amdgpu_dm_psr_enable(stream);
+ 			if (dm->idle_workqueue &&
+ 			    (dm->dc->config.disable_ips == DMUB_IPS_ENABLE) &&
 -- 
-Martin K. Petersen
+2.43.0
+
