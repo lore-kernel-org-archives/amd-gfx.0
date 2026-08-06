@@ -4,98 +4,156 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68463C5AC7A
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 06:43:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DA288C5AC7A
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 06:54:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC0DE10E3DE;
-	Fri,  7 Aug 2026 06:43:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51FC310F39A;
+	Fri,  7 Aug 2026 06:54:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dS8ODn58";
+	dkim=pass (2048-bit key; unprotected) header.d=oracle.com header.i=@oracle.com header.b="nA1aUYEN";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010008.outbound.protection.outlook.com
- [40.93.198.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AEA1110E33A
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 06:43:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r5Imx8tVgRYgMn0l0QZ9i3wkpAfEJW6B2kVzLUPc5MpqpSroSb+3WIL8W0akPUAoed6pScWnA1EBzHHpcD2Mam5cxXxE5phGS/FZZ6C4KW0fqunmjv1ZBBWQm4l2GqduYHeWDm97ZS8dOMOZ4x+QCvdAaSkzf+YCia/mmlCnWN4H+CXmmbPZj20HsSsdhV0p/PVBeWCoINev27XHBRTfsf3C6Y6fzWvtVPk4ZZH19YTpdhtpMBfJlky3KeLDAXMvDKDldpJF9xMdVkxUNdrpCOcVmLDrL8aFyNLNyDd29gAE1ZVZ6fpZ6yWZ6cZ25GiqSlC7g823UNXODBRzxfRU8g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lMbGG+VnvUi2I3p+TwwV7znbmBB+fMHWlEXwe6h6NdM=;
- b=GhdrObCzMtBA9ge5LVMvFTicaaAGFp1qTL4CPBXJ+kt6hzf/ismRfOxWcTqcFQUFFRX8Euej8PkBDCr2FdQCCiFjxx+oe+NWSIXo3yX1aBQ28s2BY6DsuWutjcn7qiq8jk750FQcvtGawgMo2uguDzjSnDTwiwxB4EKEbhsEfdkL3umz71Vai4GduiCQn24r56g/XwJy2qrQEc8wH/mDhoMNlOVpmK+S34+4eF74NtU7rThrORmQXuLzEB6vGkyjtJrondipiDTWJmCmg2ae7mEgdUofj+Adtlotshk8w25vLzAi0WzAYyNB5uX32jpGeskKkHnRrop0HFjr5J7CFQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lMbGG+VnvUi2I3p+TwwV7znbmBB+fMHWlEXwe6h6NdM=;
- b=dS8ODn58MH5UMM7WkTE8GLhAGzAFg1/eGPYVWGpCL04UmOQ+lu0WBM+cgSNIECXcIPLJOtUUMs3t94KodSviX7htu2NpHE3bm5T6uBPgNeXwkL1tiN4h7nfU7EQ8knClqXkakg19RobvBm3BNkVI9CATpZ7MdfY8cr+wgMQRWQQ=
-Received: from SA0PR11CA0191.namprd11.prod.outlook.com (2603:10b6:806:1bc::16)
- by DM4PR12MB9736.namprd12.prod.outlook.com (2603:10b6:8:225::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.23; Fri, 7 Aug
- 2026 06:43:41 +0000
-Received: from SA2PEPF00003F66.namprd04.prod.outlook.com
- (2603:10b6:806:1bc:cafe::6) by SA0PR11CA0191.outlook.office365.com
- (2603:10b6:806:1bc::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.21 via Frontend Transport; Fri, 7
- Aug 2026 06:43:41 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF00003F66.mail.protection.outlook.com (10.167.248.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Fri, 7 Aug 2026 06:43:41 +0000
-Received: from tao-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 7 Aug
- 2026 01:43:39 -0500
-From: Tao Zhou <tao.zhou1@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Tao Zhou <tao.zhou1@amd.com>
-Subject: [PATCH 2/2] drm/amd/ras: set pa base and lfb size for uniras
-Date: Fri, 7 Aug 2026 14:43:30 +0800
-Message-ID: <20260807064330.3070081-2-tao.zhou1@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260807064330.3070081-1-tao.zhou1@amd.com>
-References: <20260807064330.3070081-1-tao.zhou1@amd.com>
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E5A9510E37D;
+ Thu,  6 Aug 2026 19:06:39 +0000 (UTC)
+Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 676Ftr4v4168306; Thu, 6 Aug 2026 19:06:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=
+ corp-2025-04-25; bh=85JNUC8SyfLYyGobZYpdZmxyQGF0qjVqbjDUd/Wkets=; b=
+ nA1aUYENomsR9p7hfDkQr6KalTZrWQW8NET0IkudX6kxW006ofYrtz87Qku7QfJU
+ 1lbtfpVmJ42Q3AQE1tcbOw0dHj5dJSylYxq+m2+YcyLW9melEp/Zo40HFGHB54iG
+ OcTwtR+niQLcarL+4OWP5kUShgYJOMrLwxEqqSkY7Lj2zjgD/sgtw+C5rg7PDGAH
+ Gv3g1ppfRFvZh8DYeUX2gV+upEZO5qZ40tc03kMw1uUKshv2LOqjagJ3HbvFdCxa
+ 5hBpF9vOLZ/60dXew31tSvX4uLcqli6uolj+khGTMmHGGzK/4pK/rJL+YY5xBUHb
+ pPRuZrwRVaPtUZ7W/V2+uA==
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4fs8ugpqtf-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 06 Aug 2026 19:06:26 +0000 (GMT)
+Received: from pps.filterd
+ (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7)
+ with ESMTP id 676J0b6k024663; Thu, 6 Aug 2026 19:06:25 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
+ 4fs78w56e3-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 06 Aug 2026 19:06:25 +0000 (GMT)
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 676J6LgY011247;
+ Thu, 6 Aug 2026 19:06:24 GMT
+Received: from ca-mkp2.ca.oracle.com.com
+ (mpeterse-ol9.allregionaliads.osdevelopmeniad.oraclevcn.com
+ [100.100.251.135])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
+ 4fs78w56b9-3; Thu, 06 Aug 2026 19:06:24 +0000 (GMT)
+From: "Martin K. Petersen" <martin.petersen@oracle.com>
+To: Julia.Lawall@inria.fr, Alex Deucher <alexander.deucher@amd.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Andrew Lunn <andrew@lunn.ch>, Andrew Morton <akpm@linux-foundation.org>,
+ Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+ Borislav Petkov <bp@alien8.de>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ David Airlie <airlied@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Eric Dumazet <edumazet@google.com>, Florian Westphal <fw@strlen.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>,
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Jakub Kicinski <kuba@kernel.org>,
+ "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Jaroslav Kysela <perex@perex.cz>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Jiri Pirko <jiri@resnulli.us>, "Joerg Roedel (AMD)" <joro@8bytes.org>,
+ Johan Hovold <johan@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Julian Anastasov <ja@ssi.bg>, Leon Romanovsky <leon@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Linus Walleij <linusw@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Mark Brown <broonie@kernel.org>, Matthew Sakai <msakai@redhat.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Mike Rapoport <rppt@kernel.org>,
+ Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+ Nicolas Palix <nicolas.palix@imag.fr>,
+ Pablo Neira Ayuso <pablo@netfilter.org>,
+ Paolo Abeni <pabeni@redhat.com>, Ping-Ke Shih <pkshih@realtek.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Sebastian Reichel <sre@kernel.org>, Shuah Khan <shuah@kernel.org>,
+ Simona Vetter <simona@ffwll.ch>, Simon Horman <horms@verge.net.au>,
+ Stephen Boyd <sboyd@kernel.org>, Steve French <sfrench@samba.org>,
+ Takashi Iwai <tiwai@suse.com>, Thomas Renninger <trenn@suse.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Tony Luck <tony.luck@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Vinod Koul <vkoul@kernel.org>, Will Deacon <will@kernel.org>,
+ Yazen Ghannam <Yazen.Ghannam@amd.com>,
+ Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: "Martin K . Petersen" <martin.petersen@oracle.com>, cocci@inria.fr,
+ amd-gfx@lists.freedesktop.org, dmaengine@vger.kernel.org,
+ dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-wired-lan@lists.osuosl.org,
+ iommu@lists.linux.dev, linux-cifs@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-edac@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-mm@kvack.org, linux-pm@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-rtc@vger.kernel.org,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-sound@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, lvs-devel@vger.kernel.org,
+ netdev@vger.kernel.org, netfilter-devel@vger.kernel.org,
+ nouveau@lists.freedesktop.org, platform-driver-x86@vger.kernel.org
+Subject: Re: (subset) [PATCH 00/36] treewide: remove conditional returns with
+ no effect
+Date: Thu,  6 Aug 2026 15:06:08 -0400
+Message-ID: <178589207129.336697.9870225893827541543.b4-ty@oracle.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260723184538.3888637-1-ekffu200098@gmail.com>
+References: <20260723184538.3888637-1-ekffu200098@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003F66:EE_|DM4PR12MB9736:EE_
-X-MS-Office365-Filtering-Correlation-Id: 20fce2a5-2b82-45ad-dd3f-08def44f37ef
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|36860700016|1800799024|82310400026|10067099003|56012099006|11063799006|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info: 28rCDwybOV4WIdfK3O+0/Q3ndfXkd0e6EGdTLWjDi8FeKaWiCdCkHjokEfgUdkUkMmXMDUsJmbzfvrlU6NTTitDoJWpJLIzoWl/BxBUYcXrb+fmb1/Y/nBpacORUD1jxeTDX4EWEONo03dlaKhBlnrsrDU0X60JD4rSyPh6mlq+hVRjkzFSLE343n2eOiTKj+AcmudkKBju+zRnoCmkfDvKgf+0yK+nFcnbY04B32NNJo2SniSSxLw6hxJ6dceAPV0l1bxw38wtzKp8t+a6HxPzvSg48iX2LGmLTQ0hGdS3Q4qP8st2C8ZbT6uruzhBz3Nrhu/jXvLcUuqCj/3V2wKZr9DYBR5MvdbZT7zdpcPDd8CVdI7iQ6V/m+JVoh25z6yGFVGsjnIDTy3Z7xQ9d/0QE6pmxsO2eHKi5edX7jczuSYAyb4ZltzwA9hb+NlxNL2Yi5AQ9CWbbIV4+x0M/Fpt5doS19RcOy7+w7FD27hI8bfTBBrAJuWZcc/h9DiauULsgJmGVBgQ8VON2jpSLSf9qKG6sQWZIBdeEp/3YrwEuqd2jsyC9wbNIm3jsyE3PqCj+3cjiVc5v+RIfC4NPXU6l9EPaEq+KDyRmtqoRvQqTie3dyKNcQ0tGJ9nF20NqzAALIXiYDiRxNFUuA05C/69UWjPfELegE0IV6SJCopsxmSaUZXhIhX0FVZN/pj0yyTmcM/bJttXaQoO6beOLQQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(36860700016)(1800799024)(82310400026)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003)(3023799007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: CyZL7guIMdCAMbd/yMf97dStvk+kQbCNFal/u0qudTLBTch8cw64YZ17oxe8Y+OCyXmtpuzII/7WITjix/bRNMGKRyS/dHzp3bY6Sf/nzYffj940Mwle8i7Zq7i2BbXtiKvNWYOy369o2h9FYAJfMpiQCXQmJFkRIf+4HsvKfDGsayptNkSvl3pMFCLpPcF9PMiSvB9L48xz9B0+DmPzQcIbtOspymsDzZgmovCga+h8+6e9+p+f4AqRtqJTX+sANwayEPV9jWtwHtW78SeNRZn0s6rpPqCZjlrp7F8733dThxLRZPFJig2r1rTGZUDxPbLk1cWlGdDE4P+RUqOu7c4snm35A7TWeorMqxwZQCswotOGoYfkvtFAy9XmfZqmA9XrSKNY/srDedPUAAB+rHTgLSnScuBWa6lPzquQ4qaAgnoiPJ/A5EWcTJIaVDUG
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2026 06:43:41.0581 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 20fce2a5-2b82-45ad-dd3f-08def44f37ef
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003F66.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB9736
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-06_02,2026-08-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ spamscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0 mlxscore=0
+ phishscore=0 mlxlogscore=672 suspectscore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2606160000 definitions=main-2608060149
+X-Proofpoint-ORIG-GUID: XGMDaQGIFMb57T6Q2yvPQTQQt2debxfq
+X-Authority-Analysis: v=2.4 cv=XqnK/1F9 c=1 sm=1 tr=0 ts=6a74db32 b=1 cx=c_pps
+ a=e1sVV491RgrpLwSTMOnk8w==:117
+ a=e1sVV491RgrpLwSTMOnk8w==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=jiCTI4zE5U7BLdzWsZGv:22 a=BqU2WV_vvsyTyxaotp0D:22 a=VwQbUJbxAAAA:8
+ a=Br-j9HdbvUlrMjNZj6IA:9 a=QEXdDO2ut3YA:10 a=5yU3S35YU4bGjq-dph-N:22
+ a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:13510
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDE0OSBTYWx0ZWRfX6uIK9jT+2Jev
+ rYS5Xc6Wjv9hMYRtyD0NY9wioUhY1o9ts8S44XrOIykROIC2fMM+q3H5rjkub44bNgkLDQ3tnSe
+ fkx9LiuU0Ioed9eVzRB8PP2qYuZIVaHGDH9Vr333gSb2ZgsHD92v
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDE0OSBTYWx0ZWRfX43FUiflrVixJ
+ FNgAKsr+fsfl0ktZltC3fvW6MVFcRQRy/oySHj8nQQDMOHwfS94QLWHrXArK3j62D1c6aNzQrnl
+ 2DtOuGbPQocnjuSCI1ny1WWYx/7jkkjlcfyl+lp7TEesEfkx307+KuCZo0OgIxbIwfa72MWD4em
+ tn6/hMd/QXx6zH3wP5OlhrMzlp2qKgIxJlelAMfUWIkruyj4hnvKzGUkqPoF4QRZ71As9I8pV2j
+ DMm/cMIaHufC6lXcsuKfUk0yiqWTx1Zr8LtQAR498eW34hEj3pAMHucta0+1CKmEnv9EN7lkU/M
+ FG7jgW8yHOjl2TgueMJFzovO4heKYSqjW47oC3CHVujyZPMUqifsWdUKFoxdhd+EKhXdCEJL9b0
+ LGCES5HP/CdGIqj2UaaWymZGJVFVJ4RBD/aEk7/710HO5x59Z+gVx3LZGgty2YUYCbgJE7oGTWH
+ QPXliDM2eYx5QgvaSSBlrfWn/1V9lBD33lbCDCaI=
+X-Proofpoint-GUID: XGMDaQGIFMb57T6Q2yvPQTQQt2debxfq
+X-Mailman-Approved-At: Fri, 07 Aug 2026 06:54:51 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,176 +168,22 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Avoid hardcode, get the parameters from amdgpu.
-For the algorithms of ras address conversion and die id calculation,
-not only pa, (pa + pa_base) is also needed.
+On Fri, 24 Jul 2026 03:45:02 +0900, Sang-Heon Jeon wrote:
 
-Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
----
- drivers/gpu/drm/amd/ras/core/ras.h            |  4 ++++
- drivers/gpu/drm/amd/ras/core/ras_umc.c        |  7 +++++--
- drivers/gpu/drm/amd/ras/core/ras_umc.h        |  7 ++++++-
- drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c  | 20 ++++++++++++-------
- drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.h  |  3 ---
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c  |  2 ++
- 6 files changed, 30 insertions(+), 13 deletions(-)
+> While reading mm/memblock, I found a conditional return where both
+> branches return the same value:
+> 
+> 	err = do_something();
+> 	if (err)
+> 		return err;
+> 	return err;
+> 
+> [...]
 
-diff --git a/drivers/gpu/drm/amd/ras/core/ras.h b/drivers/gpu/drm/amd/ras/core/ras.h
-index d61c977b07cf..e0ed6a3ce168 100644
---- a/drivers/gpu/drm/amd/ras/core/ras.h
-+++ b/drivers/gpu/drm/amd/ras/core/ras.h
-@@ -278,6 +278,10 @@ struct ras_psp_config {
- struct ras_umc_config {
- 	uint32_t umc_vram_type;
- 	uint32_t num_umc;
-+	/* socket xgmi offset, base address of umc physical address */
-+	uint64_t pa_base;
-+	/* local frame buffer size */
-+	uint64_t lfb_size;
- };
- 
- struct ras_eeprom_config {
-diff --git a/drivers/gpu/drm/amd/ras/core/ras_umc.c b/drivers/gpu/drm/amd/ras/core/ras_umc.c
-index 95a98b411fc7..2dc1c0b6ac49 100644
---- a/drivers/gpu/drm/amd/ras/core/ras_umc.c
-+++ b/drivers/gpu/drm/amd/ras/core/ras_umc.c
-@@ -411,8 +411,9 @@ static int ras_umc_eeprom_rec2nps_addr_legacy(struct ras_core_context *ras_core,
- 	 * only ever existed on NPS1 systems)
- 	 */
- 	if (ras_core->ras_umc.ip_func && ras_core->ras_umc.ip_func->get_die_id) {
--		die_id = ras_core->ras_umc.ip_func->get_die_id(record->address,
--			RAS_PFN_TO_ADDR(EEPROM_RECORD_UMC_ADDR_PFN(record)));
-+		die_id = ras_core->ras_umc.ip_func->get_die_id(ras_core,
-+				record->address,
-+				RAS_PFN_TO_ADDR(EEPROM_RECORD_UMC_ADDR_PFN(record)));
- 	} else {
- 		RAS_DEV_ERR(ras_core->dev, "get_die_id is not supported!\n");
- 		return -EOPNOTSUPP;
-@@ -855,6 +856,8 @@ int ras_umc_hw_init(struct ras_core_context *ras_core)
- 			ras_umc->umc_vram_type);
- 		return -ENODATA;
- 	}
-+	ras_umc->pa_base = ras_core->config->umc_cfg.pa_base;
-+	ras_umc->lfb_size = ras_core->config->umc_cfg.lfb_size;
- 
- 	ras_umc->umc_ip_version = ras_core->config->umc_ip_version;
- 	ras_umc->ip_func = ras_umc_get_ip_func(ras_core, ras_umc->umc_ip_version);
-diff --git a/drivers/gpu/drm/amd/ras/core/ras_umc.h b/drivers/gpu/drm/amd/ras/core/ras_umc.h
-index af76de70ddd1..13d715c8553f 100644
---- a/drivers/gpu/drm/amd/ras/core/ras_umc.h
-+++ b/drivers/gpu/drm/amd/ras/core/ras_umc.h
-@@ -139,7 +139,8 @@ struct ras_umc_ip_func {
- 		uint32_t nps);
- 	uint64_t (*nps_pa_to_row_pa)(struct ras_core_context *ras_core,
- 		uint64_t pa, enum umc_memory_partition_mode nps, bool zero_pfn_ok);
--	uint32_t (*get_die_id)(uint64_t mca_addr, uint64_t pa);
-+	uint32_t (*get_die_id)(struct ras_core_context *ras_core,
-+		uint64_t mca_addr, uint64_t pa);
- };
- 
- struct eeprom_store_record {
-@@ -168,6 +169,10 @@ struct ras_umc {
- 	u32 umc_ip_version;
- 	u32 umc_vram_type;
- 	u32 num_umc;
-+	/* socket xgmi offset, base address of umc physical address */
-+	u64 pa_base;
-+	/* local frame buffer size */
-+	u64 lfb_size;
- 	const struct ras_umc_ip_func *ip_func;
- 	struct radix_tree_root root;
- 	struct mutex  tree_lock;
-diff --git a/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c b/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c
-index ccdbc5c4bab1..4bf993325a3f 100644
---- a/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c
-+++ b/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c
-@@ -243,6 +243,8 @@ static int umc_v12_0_ma2pa(struct ras_core_context *ras_core,
- 	uint32_t socket_id = addr_in->socket_id;
- 	uint32_t channel_index;
- 	uint64_t err_addr = addr_in->err_addr;
-+	uint64_t pa_base = ras_core->ras_umc.pa_base;
-+	uint64_t lfb_size = ras_core->ras_umc.lfb_size;
- 
- 	if (node_inst != UMC_INV_AID_NODE) {
- 		if (ch_inst >= UMC_V12_0_CHANNEL_INSTANCE_NUM ||
-@@ -318,11 +320,11 @@ static int umc_v12_0_ma2pa(struct ras_core_context *ras_core,
- 		OFFSET_IN_256B_BLOCK(na);
- 
- 	/* calc channel hash based on absolute address */
--	soc_pa += socket_id * SOCKET_LFB_SIZE;
-+	soc_pa += pa_base;
- 	/* the umc channel bits are not original values, they are hashed */
- 	UMC_V12_0_SET_CHANNEL_HASH(channel_index, soc_pa);
- 	/* restore pa */
--	soc_pa -= socket_id * SOCKET_LFB_SIZE;
-+	soc_pa -= pa_base;
- 
- 	/* get some channel bits from na_nps directly and
- 	 * add nps section offset
-@@ -330,16 +332,16 @@ static int umc_v12_0_ma2pa(struct ras_core_context *ras_core,
- 	if (nps == UMC_MEMORY_PARTITION_MODE_NPS2) {
- 		soc_pa &= ~(0x1ULL << UMC_V12_0_PA_CH5_BIT);
- 		soc_pa |= ((na_nps & 0x100) << 5);
--		soc_pa += (node_inst >> 1) * (SOCKET_LFB_SIZE >> 1);
-+		soc_pa += (node_inst >> 1) * (lfb_size >> 1);
- 	} else if (nps == UMC_MEMORY_PARTITION_MODE_NPS4) {
- 		soc_pa &= ~(0x3ULL << UMC_V12_0_PA_CH4_BIT);
- 		soc_pa |= ((na_nps & 0x300) << 4);
--		soc_pa += node_inst * (SOCKET_LFB_SIZE >> 2);
-+		soc_pa += node_inst * (lfb_size >> 2);
- 	} else if (nps == UMC_MEMORY_PARTITION_MODE_NPS8) {
- 		soc_pa &= ~(0x7ULL << UMC_V12_0_PA_CH4_BIT);
- 		soc_pa |= ((na_nps & 0x700) << 4);
--		soc_pa += node_inst * (SOCKET_LFB_SIZE >> 2) +
--			(channel_index >> 4) * (SOCKET_LFB_SIZE >> 3);
-+		soc_pa += node_inst * (lfb_size >> 2) +
-+			(channel_index >> 4) * (lfb_size >> 3);
- 	}
- 
- 	addr_out->pa = soc_pa;
-@@ -496,10 +498,14 @@ static void umc_v12_0_mca_ipid_parse(struct ras_core_context *ras_core, uint64_t
-  * umc number: 16
-  * hbm type: UMC_VRAM_TYPE_HBM
-  */
--static uint32_t umc_v12_0_get_die_id(uint64_t mca_addr, uint64_t pa)
-+static uint32_t umc_v12_0_get_die_id(struct ras_core_context *ras_core,
-+		uint64_t mca_addr, uint64_t pa)
- {
- 	uint32_t die = 0;
- 
-+	/* use absolute PA */
-+	pa += ras_core->ras_umc.pa_base;
-+
- 	/* we only calculate die id for nps1 mode(save_nps == ch_idx_v2 == 0) */
- 	die += (((pa >> 12) & 0x1ULL) ^
- 			((pa >> 20) & 0x1ULL) ^
-diff --git a/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.h b/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.h
-index 268db10dc6b0..f6f7f827e06f 100644
---- a/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.h
-+++ b/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.h
-@@ -300,9 +300,6 @@
- #define UMC_V12_0_TOTAL_CHANNEL_NUM \
- 	(UMC_V12_0_AID_NUM_MAX * UMC_V12_0_UMC_INSTANCE_NUM * UMC_V12_0_CHANNEL_INSTANCE_NUM)
- 
--/* one device has 192GB HBM */
--#define SOCKET_LFB_SIZE   0x3000000000ULL
--
- extern const struct ras_umc_ip_func ras_umc_func_v12_0;
- 
- int ras_umc_get_badpage_count(struct ras_core_context *ras_core);
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-index c55288c2df9a..c58fa0ef8a80 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-@@ -285,6 +285,8 @@ static int amdgpu_ras_mgr_init_umc_config(struct amdgpu_device *adev,
- 
- 	umc_cfg->umc_vram_type = adev->gmc.vram_type;
- 	umc_cfg->num_umc = adev->gmc.num_umc;
-+	umc_cfg->lfb_size = adev->gmc.xgmi.node_segment_size;
-+	umc_cfg->pa_base = amdgpu_xgmi_get_relative_phy_addr(adev, 0x0ULL);
- 
- 	return 0;
- }
+Applied to 7.3/scsi-queue, thanks!
+
+[30/36] scsi: mpt3sas: remove conditional return with no effect
+        https://git.kernel.org/mkp/scsi/c/c79f9bf2d87f
+
 -- 
-2.34.1
-
+Martin K. Petersen
