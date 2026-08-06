@@ -4,130 +4,114 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B97AEC5AC67
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 20:20:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7B45CC5AC67
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 20:22:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 516BD10E37C;
-	Thu,  6 Aug 2026 20:20:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9104810E38F;
+	Thu,  6 Aug 2026 20:22:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RBSJkceV";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="hynVvmV1";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010055.outbound.protection.outlook.com
- [52.101.193.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 72D9B10E37C
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2026 20:20:05 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vT7yNchob9x3g9aHLkzyG1WoLNPG2AhpIotLYCWSUEhIeW3exbiwUYWUmhLs0yW6heCeqeWDb5ghV01rKX9Sw/uVQpMq2zmi73kUf5P2mayqcS+OVRb2EfNA2WPXc36yllRFVrfujNZG78oii+nW1I+3Qb4AqFyGr8OevYt4hg3JpTO7of+VXi/fa1s8JaIu/W0HsqXlhgkAG2KwAT6l7tZTfdQWpGFSwbtQv0HG4TLSeXpjO+AtAwWw7jBVYLbsmYsG8eAmYA2022GW7jsxQv3n5wjb4hBFLLNUC9dov5TJw1q0FYjW1dzj2QVjIu1BU6ESZkNzBMkY1sdeZNDfEg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R8jSRpKA3vV/MTJHtUofLpGwEwSGSNf2UJsyc+ihOUI=;
- b=gPkCORyyK6fCfXmhJmYATUtouk3eAwsCPQ3ugN/ceNoBYVBcgHx47Mxf/cw5zp3112R18Lufn/Z+NMP+XF+Lv05mGK9tv0k4nZFQP11sGYzzNNs5wclYmJoU9dD5j2zInnfxDnmvODxVsOFLCRo15x3fp8DP7mz8vhxo5pcmB++fA9OMlu2ee8nRTUHp4Fq8xlpGvGoh8g/x5gRtLz7iYjyxfZxMoOzBCDpSj2BCSCIx55oZamNZZkF3wnsy+URQ0Kw/y4q0uum7D+5jUxk0NkjmfXH7ASxiifF5iwiM3XzULfl4aMnZAenMhhIuMadtbUZ8yRDQJIGkJJX8fEPIFg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R8jSRpKA3vV/MTJHtUofLpGwEwSGSNf2UJsyc+ihOUI=;
- b=RBSJkceV6VgDPAwRtfPvxBIFvm/P7h5P+1Ln6Zpzw4xTf8IV9Z6msD/2fuGFj0gMLBLgfrDTLCMgw41kV85xEtczWgfrkPExotKEjkVAy8gmlzFTFVA8fX7nM8/EtbUTFkxcAquG5Q/HG9ljMcwgtls/LAXMpp7RJtqrvD3RdCI=
-Received: from CHXPR12MB999220.namprd12.prod.outlook.com
- (2603:10b6:610:2fd::7) by DM6PR12MB4483.namprd12.prod.outlook.com
- (2603:10b6:5:2a2::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
- 2026 20:20:02 +0000
-Received: from CHXPR12MB999220.namprd12.prod.outlook.com
- ([fe80::c13f:e49a:47dc:5c61]) by CHXPR12MB999220.namprd12.prod.outlook.com
- ([fe80::c13f:e49a:47dc:5c61%6]) with mapi id 15.21.0292.018; Thu, 6 Aug 2026
- 20:20:01 +0000
-From: "Zuo, Jerry" <Jerry.Zuo@amd.com>
-To: "Wentland, Harry" <Harry.Wentland@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Subject: RE: [PATCH 4/4] drm/amd/display: Add HDMI ALLM support
-Thread-Topic: [PATCH 4/4] drm/amd/display: Add HDMI ALLM support
-Thread-Index: AQHdIEdRfYKPNoD6/U+nBbq1mpnebLaIEPeAgAlwOoA=
-Date: Thu, 6 Aug 2026 20:20:01 +0000
-Message-ID: <CHXPR12MB999220DAFE5B7B990698B1D3D4E5D22@CHXPR12MB999220.namprd12.prod.outlook.com>
-References: <20260730171754.704049-1-jerry.zuo@amd.com>
- <20260730171754.704049-4-jerry.zuo@amd.com>
- <dba8b2f0-ab2c-48a7-b842-4ffdc7d467e9@amd.com>
-In-Reply-To: <dba8b2f0-ab2c-48a7-b842-4ffdc7d467e9@amd.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-06T20:19:25.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CHXPR12MB999220:EE_|DM6PR12MB4483:EE_
-x-ms-office365-filtering-correlation-id: 9fbee5df-76f7-41fd-9001-08def3f81859
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|18092099006|22082099003|18002099003|4143699003|56012099006|11063799006|5023799004|38070700021|10067099003;
-x-microsoft-antispam-message-info: ZdiJk8MnGSJ9hqCaMlFFQNKo9XKi0j4dR2HFIVArqn3rmHMGdxqTif/tG5UVnUXZrRql3EkfcFFzaAZinS5TmU6LsS5/SORl0wb9tGj0NAEJRoLiJakf1pxY5yr15v7lqKXr7m0bckEYfSlGM1dBedw7l4LKaJFLWmVlpfD1g41sIBmiwP0Xquyit5q9jbNJJLKTYCXICKxG4MYL3Rd7qpt8zvsjG0e3QIlNODSbPem/2069Dz7I+i43Gw54rxx8k/tUZPCn/CmkdBk9cEbHB5xue+D1VnM7lh5slcTwf4XqEONkZ9t8kZGvpERDuuMBeNpFpWwqndP1rPDUlUfZJEV4b5jxdPwNNYrkmTX/BNnWB6C/yFS3KBIMjEKb19MZh4nFxnShY/DomC1Nb5ONqWv/34I+W56oK71wD26YrrYzZz49mSzZB5rPp7LW0M87bEBB8Co5xFWCKj81HPwhnFYx6qw4YDiIjELjQp2J0AIPUY5infTROh+VylG2PLfX0BPcemF6YFg71pktWAfI9qCkXz9FSwzAvLhgXDS0np0fPPA4gNZ4CLLjgruvT94GijASjwXAJxSSXFZvlWbHwelQK7CDf8ffBYj3c2LDDBRgTgfcRRLnxOvjYu5Yl9FUwsSG5vaQMvP2AzvKrExi+sFt393TQONgXsWlWANbxaPho/PtnfLseKtgqqk9I2zB4qRkVPeIklDjhwHmXXa9Gh3BedsU/b1WO6YKj2amOM0=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CHXPR12MB999220.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18092099006)(22082099003)(18002099003)(4143699003)(56012099006)(11063799006)(5023799004)(38070700021)(10067099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?eHFpRStic2xnaDNnWmZwSC93MXgyRS9IS3NvV1NMaEcyR0I1VzNCL2RrTEJF?=
- =?utf-8?B?dTN4QUgyYjR6OE04S0RyaFpPdUg4VFJReUY5UE1NTEh2NDNrMmU3MTJiY0JC?=
- =?utf-8?B?V0FWckhibXR3K0tCTGJKVjlVSEs2UnFVMVd3dW1Kb3ZNajdqMG1BdDFvSHhn?=
- =?utf-8?B?anNDWituK3laSmJyMnRLOVpxS0U1bzliSW13TW8xamtvdkVkVGJ6YkpSbThx?=
- =?utf-8?B?UjFLS0IxN2QxT2ZMZVVJam9WMlppWlFuZVJyVUd1aHppM2NlTGd4MjByMHU5?=
- =?utf-8?B?WnNUdnpaU2hxaUlIYklUZFVCRHFUR0IyaXpQSXZzNk1kNkJrSFhrWFBYYjkv?=
- =?utf-8?B?TXJYZ25LamVHMEZJMVBkMVcvZnBXUzZvaEFFUjJJbTM4Rk0wbFFGemFXSjlB?=
- =?utf-8?B?blBNNTY4MUl5azVrUHU5MThwR2FoMEFzVWlyRkcxdnhGZjNyTkUyandBeHJp?=
- =?utf-8?B?Yi9lNDNVQUtsK1V6NWdBaG8xWnFqNW1vcXp5Vll5VGtTRkJQOFJIdk9aRFd0?=
- =?utf-8?B?R1hOcHhYV3VnMUlHZzdzbkd5YXhnUk5VZ04xcllEcXpsaGpLbkFpOFJmcE9N?=
- =?utf-8?B?OEFBdFNxbktsb2p2Zy8zOW5OUEZCdU9td2F6dWU4WkJrYTBnQUMwaDVnV1Yz?=
- =?utf-8?B?RjVLcW56b1BIYm4xMVBLTkczaEpBUVhBdGxSeXNCWDV2ZFJwR0Y1d2x2K2JF?=
- =?utf-8?B?QXVQUFFuVStGSGRCa3NXYjNDNndyUmQrMVdnQWhSbmd0Y2wzcGV1ZXBweTU5?=
- =?utf-8?B?KzMrTnowSldlb2ovVFB3YVNLc0JQdVVNQ0tUUVNaWEdlb1dnL2x5c29QTDQ0?=
- =?utf-8?B?WEQvOU53S3JYSXRlcVlsR09KSXNaK3dWdmkxcXhkTVU1cjNvampJdlZjQjlI?=
- =?utf-8?B?aFJHa1BqMkx2bHpKU2Y5cVNuWkh0dndmdEhxU3lhUEttRU13VVkyN0J2eFY3?=
- =?utf-8?B?S1VkU0Qxd0JxVSt6Y2ZCaUFiZjBENWhTZW5ZN1NXbTd5Rmx6bXdqVHlpTEpL?=
- =?utf-8?B?WUtYVmN3YjFlem94bE1iaTlNaXVnejhONm41K2lJRVRzZFBvU1Y2TDVwTGxm?=
- =?utf-8?B?ZGFQVUNEcGUvb1NBNWJvVjJjeEJUcU5HdjI2N1VyVFo4WmNsOGFiczNjZzBq?=
- =?utf-8?B?SzdONTZlV1JTYXU4OVJ4OGMyMGxHL3F6ZDdtYjl0aUNzRXFkZkV6dEpjZ3pP?=
- =?utf-8?B?dFBwME03K1B3eitBQzUvTjNMTWhFbHZqNG9ydkc4bFFsWndGd0t6QzJxS0dL?=
- =?utf-8?B?Rlh6Qk1Pbk1WUG5Xb0dkWWIzbU1FUFVkamZma1N1Y01VYnY2Szk1aGJvWU5S?=
- =?utf-8?B?N3Z4c2NodCtTeEdXNC9xTnlOKzlEcnJCMXIrazN3elYyRUpXTnFiOXdUc1pN?=
- =?utf-8?B?dVVsSnJ5cFVSaFBReGh2N2NuOU1ZQTVZQW5SbkEzNC9tOXg3WHdacnYwUzNJ?=
- =?utf-8?B?VWpSWGYyRDMxc2E4d2wvaHlTZUtJNVh2cjRsMEdMVEVZc2hpTlVadlRMVG10?=
- =?utf-8?B?c1BMUmVLZDJMdUFtbWZkMU9VbVJRdVFFLzRqVVhkM2ptSzl1ekRINjM1Szgy?=
- =?utf-8?B?T2RTYmlXclhSNjVubEZhc1ZPTUZLMnliM0hGS1Z1NGFpUTdYcVRjWTcwZjZF?=
- =?utf-8?B?SjhOT1cwNFBhM3V4Wjg1dXdBRFkxdzlvTDRoOWk5cHhJWjdLK29CZVdOSWpG?=
- =?utf-8?B?aHZQcjB4MG5hNjlFbW4vZ092T1FLNkdlWWlkRW43ZU8rQ0gycDFGOUw2U2tU?=
- =?utf-8?B?T2g5bFh1ZmZWWDUvOUtrSDlLS2pnUEw5QmhEUWoraktpN1RwZ2NPTnFoSWN4?=
- =?utf-8?B?R1c0eHlSU2JZQ3R1Qm1maTUrNHArUkd5KzlNWStqK2pGRWJuTHlsMy8xMjhI?=
- =?utf-8?B?T2JmdWFySzhMbEZadlZrN3VDakVMdXlEZTRmK2NneGM4R0h6M1pGZXFGelNt?=
- =?utf-8?B?bHRTWThWeDE1SGZEK1czTTJBeUZQU2ZUNU9WOGpwWkdidUdKRkw4WGtmRFN6?=
- =?utf-8?B?cHFOVitidXMwUm5pZjNCeWh5RVdFRTA4cVNCdXJIVE5zZ1RiQmJMc0MybHlF?=
- =?utf-8?B?aGFpbGVoV3BHQm1qdis4emE3NzAwSXFiWUZiTHNpY2ZiQVpFZ2FXZU1JeTNs?=
- =?utf-8?B?aXNmV1c4c0NUWkpLV1p4RjV6ekZ0RW1mclI3TVdmdU9MSDdqTEMycFZtbmdK?=
- =?utf-8?B?bHNCTnRoZ2F0L2pTdzFjaGlZeSt4OWg3eE9CMUNHY29HdENYRWx3M1ZEeW56?=
- =?utf-8?Q?iPX6CVtZLCxGl1u9gONzrv9R2vSLuDDIhWVic18lG8=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0232C10E386;
+ Thu,  6 Aug 2026 20:22:11 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id E83F06004E;
+ Thu,  6 Aug 2026 20:22:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1BAB1F000E9;
+ Thu,  6 Aug 2026 20:21:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786047730;
+ bh=jcHucSQGZG2mJUgxwNPfPL6Y2CV6Qk0U4YRTMIGE4LU=;
+ h=From:Subject:Date:To:Cc;
+ b=hynVvmV1NpBBoEEy0gO/z1/Pv3PFrDsPl4hf9m+UEGBSnZr6Ek6+d0acIjKSwcaBg
+ h8+GeFzduD0e91UFgdI9JzhbvN9FcGy/a9DqFg8VL/iaSIeyeh9clqw9pUWC9TY5ng
+ MTu67puVBIgFxiv+CWu+3yze3m5SIrDGzufxCnV++QAesxeVv66YeC7Qbf5Cl5C+qH
+ yJO7CcZ1Kc3GclTNFxadXFVKdd5HYgu7jDd23K5pPgJMsvGk4SG/6NkNf9VNF+bJkR
+ D0RNHDtOiNlao1Em6A4/ZjGPjmcoaKwxSyCX6J6SyhK7RIkiadq3U17T5zk37unfUF
+ myzUvJaBpBmNw==
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: [PATCH v4 00/20] mm/rmap: index MAP_PRIVATE file-backed folios by
+ anonymous pgoff
+Date: Thu, 06 Aug 2026 21:21:25 +0100
+Message-Id: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CHXPR12MB999220.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9fbee5df-76f7-41fd-9001-08def3f81859
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Aug 2026 20:20:01.8925 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: IwLi8580CNmlBukBD896EbZSJwuyYbatAamnRZqGDPxZcAtoLwSUupEefdFWt0kW
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4483
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAMbsdGoC/33OQW7DIBAF0KtErIMFGBu7q96jygImg0NimQhc0
+ iry3QNOFqkqefmlmff/nUQMDiP52N1JwOSi81MOcr8jcNLTgNQdcyaCiZYpzqmRNIIetRmRgr/
+ R5MJMr4O3lmoGwNBwaaAlGbgGtO5nxb8Ozxy/zRlhLmK5OLk4+/C7tide7gj4hKHiqhNKNrypq
+ 8HN1XiOnxcME46VD0P5fO1RW3sSp4yCFbLnDC3r5btRBiWxVj4twTYtkS1xbGSvGqVVa/9Z9bv
+ Vb1p1trBDsGhRd1z8sZZleQDfWDMMlgEAAA==
+X-Change-ID: 20260711-b4-scalable-cow-virt-pgoff-a0cc0eb14bc6
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>, 
+ Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Kees Cook <kees@kernel.org>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+ Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, 
+ Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, 
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, kvm@vger.kernel.org, 
+ linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+ syzbot@syzkaller.appspotmail.com
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=19421; i=ljs@kernel.org;
+ h=from:subject:message-id; bh=36K49AEfeagBmppZKl01/mLZsA6meHDNHWRaA8PXigM=;
+ b=owGbwMvMwCV2fu7ZrsZH9SKMp9WSGLJK3px+sEIowkzr5yH/mRMUWLckys6MWsbpFNtyW/XGp
+ EuB8vbrOkpZGMS4GGTFFFmefxHfHyQSNq/zgr8bzBxWJpAhDFycAjCROBWGv3JPav8vvbVf94j0
+ j8a2i2Gyrja/VaKOxqtcyN1+zfu+ajojw33n4suR/0MS5L/Nlrv7dLJtI7Ox+yuOvrbIl3dWJpp
+ cZwEA
+X-Developer-Key: i=ljs@kernel.org; a=openpgp;
+ fpr=E7F417BF5214569E89D04F46CF9DCD8A81E27F14
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,151 +126,389 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QU1EIEdlbmVyYWwNCg0KPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiBGcm9tOiBXZW50
-bGFuZCwgSGFycnkgPEhhcnJ5LldlbnRsYW5kQGFtZC5jb20+DQo+IFNlbnQ6IEZyaWRheSwgSnVs
-eSAzMSwgMjAyNiAxNjoxMQ0KPiBUbzogWnVvLCBKZXJyeSA8SmVycnkuWnVvQGFtZC5jb20+OyBh
-bWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KPiBTdWJqZWN0OiBSZTogW1BBVENIIDQvNF0g
-ZHJtL2FtZC9kaXNwbGF5OiBBZGQgSERNSSBBTExNIHN1cHBvcnQNCj4NCj4NCj4NCj4gT24gMjAy
-Ni0wNy0zMCAxMzoxNywgRmFuZ3poaSBadW8gd3JvdGU6DQo+ID4gd2h5Og0KPiA+IEhETUkgMi4x
-IEF1dG8gTG93LUxhdGVuY3kgTW9kZSAoQUxMTSkgbGV0cyBhIFNvdXJjZSByZXF1ZXN0IHRoZSBT
-aW5rJ3MNCj4gPiBsb3ctbGF0ZW5jeSBtb2RlIHRocm91Z2ggdGhlIEhGLVZTSUYuIGFtZGdwdSBu
-ZXZlciBzZXQgQUxMTV9Nb2RlIGluDQo+ID4gdGhlIEhGLVZTSUYsIHNvIEFMTE0gd2FzIG5ldmVy
-IHNpZ25hbGxlZCB0byB0aGUgc2luay4NCj4gPg0KPiA+IGhvdzoNCj4gPiAtIEFkZCBhbiBhbGxt
-IGNhcGFiaWxpdHkgZmxhZyB0byBzdHJ1Y3QgZGNfZWRpZF9jYXBzIGFuZCBwb3B1bGF0ZSBpdCBp
-bg0KPiA+ICAgZG1faGVscGVyc19wYXJzZV9lZGlkX2NhcHMoKSBmcm9tIHRoZSBIRi1WU0RCIEFM
-TE0gYml0IHBhcnNlZCBieQ0KPiBEUk0NCj4gPiAgIGNvcmUgKGNvbm5lY3Rvci0+ZGlzcGxheV9p
-bmZvLmhkbWkuYWxsbSkuDQo+ID4gLSBJbiBjcmVhdGVfc3RyZWFtX2Zvcl9zaW5rKCksIGJ1aWxk
-IHRoZSBIRi1WU0lGIHdpdGggQUxMTV9Nb2RlIHNldCB3aGVuDQo+ID4gICB0aGUgc2luayBhZHZl
-cnRpc2VzIEFMTE0gYW5kIHRoZSBjb250ZW50IHR5cGUgaXMgR2FtZSAoY29udGVudC10eXBlID0N
-Cj4gPiAgIEdhbWUgaXMgaG93IHVzZXJzcGFjZSByZXF1ZXN0cyBsb3ctbGF0ZW5jeSBtb2RlLCBI
-RE1JIEdDVFMgSEYxLTU2KS4NCj4gPiAtIEluIHVwZGF0ZV9mcmVlc3luY19zdGF0ZV9vbl9zdHJl
-YW0oKSwgYWxzbyBzZXQgQUxMTV9Nb2RlIHdoZW4NCj4gPiAgIEdhbWluZy1WUlIgaXMgYWN0aXZl
-IChWUlJfRU49MSwgSERNSSBHQ1RTIEhGMS01OCBzdGVwIDguMy4xKSwgYW5kIHB1c2gNCj4gPiAg
-IHRoZSB1cGRhdGVkIEhGLVZTSUYgKHZzcF9pbmZvcGFja2V0KSBhcyBhIHN0cmVhbSB1cGRhdGUu
-DQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBGYW5nemhpIFp1byA8SmVycnkuWnVvQGFtZC5jb20+
-DQo+ID4gLS0tDQo+ID4gIC4uLi9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
-ZG0uYyB8IDM1DQo+ICsrKysrKysrKysrKysrKysrKy0NCj4gPiAgLi4uL2Rpc3BsYXkvYW1kZ3B1
-X2RtL2FtZGdwdV9kbV9jb25uZWN0b3IuYyAgIHwgMTggKysrKysrKystLQ0KPiA+ICAuLi4vYW1k
-L2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbV9oZWxwZXJzLmMgfCAgNSArKy0NCj4gPiAgZHJp
-dmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjX3R5cGVzLmggICAgIHwgIDMgKysNCj4gPiAg
-NCBmaWxlcyBjaGFuZ2VkLCA1NyBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQ0KPiA+DQo+
-ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1k
-Z3B1X2RtLmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1k
-Z3B1X2RtLmMNCj4gPiBpbmRleCAyMjNiNTYyZjcwMDUuLmZjMzAwNWVjYzY4MSAxMDA2NDQNCj4g
-PiAtLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2RtL2FtZGdwdV9kbS5j
-DQo+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
-ZG0uYw0KPiA+IEBAIC0zODk1LDYgKzM4OTUsMzYgQEAgc3RhdGljIHZvaWQgdXBkYXRlX2ZyZWVz
-eW5jX3N0YXRlX29uX3N0cmVhbSgNCj4gPiAgICAgbmV3X3N0cmVhbS0+dnJyX2luZm9wYWNrZXQg
-PSB2cnJfaW5mb3BhY2tldDsNCj4gPiAgICAgbmV3X3N0cmVhbS0+YWxsb3dfZnJlZXN5bmMgPQ0K
-PiA+IG1vZF9mcmVlc3luY19nZXRfZnJlZXN5bmNfZW5hYmxlZCgmdnJyX3BhcmFtcyk7DQo+ID4N
-Cj4gPiArICAgLyoNCj4gPiArICAgICogSERNSSBBTExNOiB0cmFuc21pdCB0aGUgSEYtVlNJRiB3
-aXRoIEFMTE1fTW9kZT0xIHdoZW4gdGhlDQo+IHNpbmsNCj4gPiArICAgICogYWR2ZXJ0aXNlcyBB
-TExNIGluIHRoZSBTQ0RTIGFuZCBlaXRoZXIgdGhlIGNvbnRlbnQgdHlwZSBpcyBHYW1lDQo+ID4g
-KyAgICAqIChIRjEtNTYpIG9yIEdhbWluZy1WUlIgaXMgYWN0aXZlIChWUlJfRU49MSwgSEYxLTU4
-IHN0ZXAgOC4zLjEpLg0KPiA+ICsgICAgKiBIRE1JIDIuMSA3LjYuNi4NCj4gPiArICAgICovDQo+
-ID4gKyAgIGlmIChuZXdfc3RyZWFtLT5zaWduYWwgPT0gU0lHTkFMX1RZUEVfSERNSV9UWVBFX0Eg
-fHwNCj4gPiArICAgICAgIG5ld19zdHJlYW0tPnNpZ25hbCA9PSBTSUdOQUxfVFlQRV9IRE1JX0ZS
-TCkgew0KPiA+ICsgICAgICAgICAgIHN0cnVjdCBkY19pbmZvX3BhY2tldCB2c3BfaW5mb3BhY2tl
-dCA9IHswfTsNCj4gPiArICAgICAgICAgICBib29sIGFsbG0gPSBuZXdfc3RyZWFtLT5zaW5rLT5l
-ZGlkX2NhcHMuYWxsbSAmJg0KPg0KPiBXZSBoYXZlIGFuIGBhY29ubmAgaW4gdGhpcyBmdW5jdGlv
-biBhYm92ZSwgc28gd2UgY2FuIHNpbXBseSBnZXQgdGhlIGFsbG0gYml0DQo+IGZyb20gdGhlIGNv
-bm5lY3RvcjoNCj4NCj4gICAgICAgICAgICAgICBib29sIHNpbmtfYWxsbSA9IGFjb25uICYmIGFj
-b25uLQ0KPiA+YmFzZS5kaXNwbGF5X2luZm8uaGRtaS5hbGxtOw0KPiAgICAgICAgICAgICAgIGJv
-b2wgYWxsbSA9IHNpbmtfYWxsbSAmJg0KPiAgICAgICAgICAgICAgICAgICAgICAgKG5ld19zdHJl
-YW0tPmNvbnRlbnRfdHlwZSA9PQ0KPiBESVNQTEFZX0NPTlRFTlRfVFlQRV9HQU1FIHx8DQo+ICAg
-ICAgICAgICAgICAgICAgICAgICAgdnJyX3BhcmFtcy5zdGF0ZSA9PSBWUlJfU1RBVEVfQUNUSVZF
-X1ZBUklBQkxFIHx8DQo+ICAgICAgICAgICAgICAgICAgICAgICAgdnJyX3BhcmFtcy5zdGF0ZSA9
-PSBWUlJfU1RBVEVfQUNUSVZFX0ZJWEVEKTsNCj4NCj4gVGhlbiB3ZSBkb24ndCBuZWVkIHRvIGFk
-ZCBhIG5ldyBhbGxtIGJvb2wgdG8gZWRpZF9jYXBzLg0KPg0KPiBIYXJyeQ0KPg0KTm90ZWQuIFdp
-bGwgYmUgY2hhbmdlZCBpbiB2Mi4NCg0KPiA+ICsgICAgICAgICAgICAgICAgICAgKG5ld19zdHJl
-YW0tPmNvbnRlbnRfdHlwZSA9PQ0KPiBESVNQTEFZX0NPTlRFTlRfVFlQRV9HQU1FIHx8DQo+ID4g
-KyAgICAgICAgICAgICAgICAgICAgdnJyX3BhcmFtcy5zdGF0ZSA9PSBWUlJfU1RBVEVfQUNUSVZF
-X1ZBUklBQkxFIHx8DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgdnJyX3BhcmFtcy5zdGF0ZSA9
-PSBWUlJfU1RBVEVfQUNUSVZFX0ZJWEVEKTsNCj4gPiArICAgICAgICAgICBib29sIGFsbG1fY2hh
-bmdlZDsNCj4gPiArDQo+ID4gKyAgICAgICAgICAgbW9kX2J1aWxkX2hmX3ZzaWZfaW5mb3BhY2tl
-dChuZXdfc3RyZWFtLCAmdnNwX2luZm9wYWNrZXQsDQo+IGFsbG0sDQo+ID4gK2FsbG0pOw0KPiA+
-ICsNCj4gPiArICAgICAgICAgICBhbGxtX2NoYW5nZWQgPSBtZW1jbXAoJm5ld19zdHJlYW0tPnZz
-cF9pbmZvcGFja2V0LA0KPiAmdnNwX2luZm9wYWNrZXQsDQo+ID4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgIHNpemVvZih2c3BfaW5mb3BhY2tldCkpICE9IDA7DQo+ID4gKyAgICAg
-ICAgICAgbmV3X2NydGNfc3RhdGUtPmZyZWVzeW5jX3Zycl9pbmZvX2NoYW5nZWQgfD0NCj4gYWxs
-bV9jaGFuZ2VkOw0KPiA+ICsgICAgICAgICAgIG5ld19zdHJlYW0tPnZzcF9pbmZvcGFja2V0ID0g
-dnNwX2luZm9wYWNrZXQ7DQo+ID4gKw0KPiA+ICsgICAgICAgICAgIGlmIChhbGxtX2NoYW5nZWQp
-DQo+ID4gKyAgICAgICAgICAgICAgICAgICBkcm1fZGJnX2RyaXZlcihhZGV2X3RvX2RybShhZGV2
-KSwNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJBTExNOiBmbGlwIG9u
-IGNydGM9JXU6IHNpbmtfYWxsbT0lZA0KPiBjb250ZW50X3R5cGU9JWQgdnJyX3N0YXRlPSVkIC0+
-IEFMTE1fTW9kZT0lZFxuIiwNCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIG5l
-d19jcnRjX3N0YXRlLT5iYXNlLmNydGMtPmJhc2UuaWQsDQo+ID4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBuZXdfc3RyZWFtLT5zaW5rLT5lZGlkX2NhcHMuYWxsbSwNCj4gPiArICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIG5ld19zdHJlYW0tPmNvbnRlbnRfdHlwZSwNCj4g
-dnJyX3BhcmFtcy5zdGF0ZSwgYWxsbSk7DQo+ID4gKyAgIH0NCj4gPiArDQo+ID4gICAgIGlmIChu
-ZXdfY3J0Y19zdGF0ZS0+ZnJlZXN5bmNfdnJyX2luZm9fY2hhbmdlZCkNCj4gPiAgICAgICAgICAg
-ICBkcm1fZGJnX2ttcyhhZGV2X3RvX2RybShhZGV2KSwgIlZSUiBwYWNrZXQgdXBkYXRlOg0KPiBj
-cnRjPSV1IGVuYWJsZWQ9JWQgc3RhdGU9JWQiLA0KPiA+ICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgbmV3X2NydGNfc3RhdGUtPmJhc2UuY3J0Yy0+YmFzZS5pZCwNCj4gPiBAQCAtNDQyOSw5ICs0
-NDU5LDEyIEBAIHN0YXRpYyB2b2lkIGFtZGdwdV9kbV9jb21taXRfcGxhbmVzKHN0cnVjdA0KPiBk
-cm1fYXRvbWljX3N0YXRlICpzdGF0ZSwNCj4gPiAgICAgICAgICAgICB9DQo+ID4NCj4gPiAgICAg
-ICAgICAgICBpZiAoYWNydGNfc3RhdGUtPnN0cmVhbSkgew0KPiA+IC0gICAgICAgICAgICAgICAg
-ICAgaWYgKGFjcnRjX3N0YXRlLT5mcmVlc3luY192cnJfaW5mb19jaGFuZ2VkKQ0KPiA+ICsgICAg
-ICAgICAgICAgICAgICAgaWYgKGFjcnRjX3N0YXRlLT5mcmVlc3luY192cnJfaW5mb19jaGFuZ2Vk
-KSB7DQo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJ1bmRsZS0+c3RyZWFtX3VwZGF0
-ZS52cnJfaW5mb3BhY2tldCA9DQo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgJmFjcnRjX3N0YXRlLT5zdHJlYW0tDQo+ID52cnJfaW5mb3BhY2tldDsNCj4gPiArICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgYnVuZGxlLT5zdHJlYW1fdXBkYXRlLnZzcF9pbmZvcGFja2V0
-ID0NCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAmYWNydGNfc3RhdGUt
-PnN0cmVhbS0NCj4gPnZzcF9pbmZvcGFja2V0Ow0KPiA+ICsgICAgICAgICAgICAgICAgICAgfQ0K
-PiA+ICAgICAgICAgICAgIH0NCj4gPiAgICAgfQ0KPiA+DQo+ID4gZGlmZiAtLWdpdA0KPiA+IGEv
-ZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVfZG1fY29ubmVjdG9y
-LmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2Rt
-X2Nvbm5lY3Rvci5jDQo+ID4gaW5kZXggZWJlYWQzOTkzOWE2Li40MzBmMTYyOGNlZDAgMTAwNjQ0
-DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2FtZGdwdV9kbS9hbWRncHVf
-ZG1fY29ubmVjdG9yLmMNCj4gPiArKysNCj4gYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkv
-YW1kZ3B1X2RtL2FtZGdwdV9kbV9jb25uZWN0b3IuYw0KPiA+IEBAIC0xNTExLDggKzE1MTEsMjIg
-QEAgY3JlYXRlX3N0cmVhbV9mb3Jfc2luayhzdHJ1Y3QgZHJtX2Nvbm5lY3Rvcg0KPiAqY29ubmVj
-dG9yLA0KPiA+ICAgICB1cGRhdGVfc3RyZWFtX3NpZ25hbChzdHJlYW0sIHNpbmspOw0KPiA+DQo+
-ID4gICAgIGlmIChzdHJlYW0tPnNpZ25hbCA9PSBTSUdOQUxfVFlQRV9IRE1JX1RZUEVfQSB8fA0K
-PiA+IC0gICAgICAgc3RyZWFtLT5zaWduYWwgPT0gU0lHTkFMX1RZUEVfSERNSV9GUkwpDQo+ID4g
-LSAgICAgICAgICAgbW9kX2J1aWxkX2hmX3ZzaWZfaW5mb3BhY2tldChzdHJlYW0sICZzdHJlYW0t
-DQo+ID52c3BfaW5mb3BhY2tldCwgZmFsc2UsIGZhbHNlKTsNCj4gPiArICAgICAgIHN0cmVhbS0+
-c2lnbmFsID09IFNJR05BTF9UWVBFX0hETUlfRlJMKSB7DQo+ID4gKyAgICAgICAgICAgLyoNCj4g
-PiArICAgICAgICAgICAgKiBFbmFibGUgSERNSSBBTExNIChBdXRvIExvdy1MYXRlbmN5IE1vZGUp
-IHdoZW4gdGhlDQo+IHNpbmsNCj4gPiArICAgICAgICAgICAgKiBhZHZlcnRpc2VzIEFMTE0gaW4g
-dGhlIFNDRFMgYW5kIHRoZSBjb250ZW50IHR5cGUgaXMgR2FtZS4NCj4gPiArICAgICAgICAgICAg
-KiBTZXR0aW5nIGNvbnRlbnQtdHlwZSA9IEdhbWUgaXMgaG93IHVzZXJzcGFjZSByZXF1ZXN0cyB0
-aGUNCj4gPiArICAgICAgICAgICAgKiBTaW5rJ3MgbG93LWxhdGVuY3kgbW9kZSAoSERNSSBHQ1RT
-IEhGMS01NikuDQo+ID4gKyAgICAgICAgICAgICovDQo+ID4gKyAgICAgICAgICAgYm9vbCBhbGxt
-ID0gc2luay0+ZWRpZF9jYXBzLmFsbG0gJiYNCj4gPiArICAgICAgICAgICAgICAgICAgIHN0cmVh
-bS0+Y29udGVudF90eXBlID09DQo+IERJU1BMQVlfQ09OVEVOVF9UWVBFX0dBTUU7DQo+ID4gKw0K
-PiA+ICsgICAgICAgICAgIGRybV9kYmdfZHJpdmVyKGRldiwNCj4gPiArICAgICAgICAgICAgICAg
-ICAgICAgICAgICAiQUxMTTogc2V0IG1vZGU6IHNpbmtfYWxsbT0lZCBjb250ZW50X3R5cGU9JWQN
-Cj4gLT4gQUxMTV9Nb2RlPSVkXG4iLA0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgIHNpbmst
-PmVkaWRfY2Fwcy5hbGxtLCBzdHJlYW0tPmNvbnRlbnRfdHlwZSwgYWxsbSk7DQo+ID4gKw0KPiA+
-ICsgICAgICAgICAgIG1vZF9idWlsZF9oZl92c2lmX2luZm9wYWNrZXQoc3RyZWFtLCAmc3RyZWFt
-LQ0KPiA+dnNwX2luZm9wYWNrZXQsIGFsbG0sIGFsbG0pOw0KPiA+ICsgICB9DQo+ID4NCj4gPiAg
-ICAgaWYgKHN0cmVhbS0+c2lnbmFsID09IFNJR05BTF9UWVBFX0RJU1BMQVlfUE9SVCB8fA0KPiA+
-ICAgICAgICAgc3RyZWFtLT5zaWduYWwgPT0gU0lHTkFMX1RZUEVfRElTUExBWV9QT1JUX01TVCB8
-fCBkaWZmIC0tZ2l0DQo+ID4gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvYW1kZ3B1X2Rt
-L2FtZGdwdV9kbV9oZWxwZXJzLmMNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9h
-bWRncHVfZG0vYW1kZ3B1X2RtX2hlbHBlcnMuYw0KPiA+IGluZGV4IDQyZjU2NzNhY2I0ZC4uZTY5
-Y2UwYTFiNGI0IDEwMDY0NA0KPiA+IC0tLSBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9h
-bWRncHVfZG0vYW1kZ3B1X2RtX2hlbHBlcnMuYw0KPiA+ICsrKyBiL2RyaXZlcnMvZ3B1L2RybS9h
-bWQvZGlzcGxheS9hbWRncHVfZG0vYW1kZ3B1X2RtX2hlbHBlcnMuYw0KPiA+IEBAIC0xOTcsNyAr
-MTk3LDEwIEBAIGVudW0gZGNfZWRpZF9zdGF0dXMNCj4gZG1faGVscGVyc19wYXJzZV9lZGlkX2Nh
-cHMoDQo+ID4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZWRpZF9jYXBzLT5kaXNwbGF5
-X25hbWUsDQo+ID4NCj4gQVVESU9fSU5GT19ESVNQTEFZX05BTUVfU0laRV9JTl9DSEFSUyk7DQo+
-ID4NCj4gPiAtICAgZWRpZF9jYXBzLT5lZGlkX2hkbWkgPSBjb25uZWN0b3ItPmRpc3BsYXlfaW5m
-by5pc19oZG1pOw0KPiA+ICsgICBpZiAoY29ubmVjdG9yLT5kaXNwbGF5X2luZm8uaXNfaGRtaSkg
-ew0KPiA+ICsgICAgICAgICAgIGVkaWRfY2Fwcy0+ZWRpZF9oZG1pID0gdHJ1ZTsNCj4gPiArICAg
-ICAgICAgICBlZGlkX2NhcHMtPmFsbG0gPSBjb25uZWN0b3ItPmRpc3BsYXlfaW5mby5oZG1pLmFs
-bG07DQo+ID4gKyAgIH0NCj4gPg0KPiA+ICAgICBpZiAoZWRpZF9jYXBzLT5lZGlkX2hkbWkpIHsN
-Cj4gPiAgICAgICAgICAgICBwb3B1bGF0ZV9oZG1pX2luZm9fZnJvbV9jb25uZWN0b3IobGluay0+
-ZGMtDQo+ID5jb25maWcuZW5hYmxlX2ZybCwNCj4gPiAmY29ubmVjdG9yLT5kaXNwbGF5X2luZm8u
-aGRtaSwgZWRpZF9jYXBzKTsgZGlmZiAtLWdpdA0KPiA+IGEvZHJpdmVycy9ncHUvZHJtL2FtZC9k
-aXNwbGF5L2RjL2RjX3R5cGVzLmgNCj4gPiBiL2RyaXZlcnMvZ3B1L2RybS9hbWQvZGlzcGxheS9k
-Yy9kY190eXBlcy5oDQo+ID4gaW5kZXggM2VkZWI5NGZiYTIzLi5hZTQwOWNjNTlhZTQgMTAwNjQ0
-DQo+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9kaXNwbGF5L2RjL2RjX3R5cGVzLmgNCj4g
-PiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2Rpc3BsYXkvZGMvZGNfdHlwZXMuaA0KPiA+IEBA
-IC0yMjYsNiArMjI2LDkgQEAgc3RydWN0IGRjX2VkaWRfY2FwcyB7DQo+ID4gICAgIC8qSERNSSAy
-LjAgY2FwcyovDQo+ID4gICAgIGJvb2wgbHRlXzM0MG1jc2Nfc2NyYW1ibGU7DQo+ID4NCj4gPiAr
-ICAgLyogSERNSSAyLjEgY2FwcyAqLw0KPiA+ICsgICBib29sIGFsbG07DQo+ID4gKw0KPiA+ICAg
-ICBib29sIGVkaWRfaGRtaTsNCj4gPiAgICAgYm9vbCBoZHJfc3VwcG9ydGVkOw0KPiA+ICAgICBi
-b29sIHJyX2NhcGFibGU7DQoNCg==
+In memory management we've managed to manufacture a great deal of confusion
+around the concept of anonymous memory. We have:
+
+1. 'Pure anon' memory - anonymous VMAs whose folios are anonymous and
+   swap-backed (thus for reclaim purposes, treated as anonymous). These are
+   simple enough.
+
+2. shmem - file-backed VMAs, file-backed folios (from rmap perspective) so
+   present in the page cache and mapped by an address_space object, but
+   whose folios are also swap-backed (thus treated as anonymous for reclaim
+   purposes).
+
+3. MAP_PRIVATE-mapped /dev/zero - a strange beast whose VMAs have
+   vma->vm_file set, but which clears vma->vm_ops to satisfy
+   vma_is_anonymous(), resulting in VMAs that were mmap()'d referencing a
+   file, but are in every other sense anonymous, including the folios.
+
+4. Other MAP_PRIVATE-file backed mappings - These possess file-backed VMAs
+   and have file-backed folios until CoW'd, at which point those CoW'd
+   folios are anonymous.
+
+This series fixes issues 3 and 4.
+
+In order for us to traverse VMAs using the reverse mapping, we require two
+fields - folio->mapping and folio->index. The first tells the rmap code
+where to look for VMAs, and the second tells it at which offset the folio
+starts within the referenced object.
+
+For anonymous folios, folio->mapping points at an anon_vma object. For
+file-backed folios, it points at an address_space. And:
+
+* For file-backed folios folio->index is simply the page offset of the start
+  of the folio within the file.
+
+* For anonymous folios belonging to pure anon mappings, folio->index is
+  equal to the anonymous page offset of the folio.
+
+* For anonymous folios belonging to file-backed mappings (i.e. CoW'd folios
+  of a MAP_PRIVATE file-backed mapping), folio->index is equal to the file
+  page offset.
+
+This series establishes a new anonymous page offset property of VMAs to
+allow us to map anonymous folios at their anonymous page offset, consistent
+with pure anon.
+
+The purpose of doing so is to lay the foundations for the scalable CoW
+work. This is necessary because scalable CoW looks in the maple tree for
+the VMA located at folio->index << PAGE_SHIFT, before falling back to
+looking up tracked remaps if necessary.
+
+The MAP_PRIVATE file-backed case means that folio indices will very often
+conflict with one another and this remap tracking becomes substantially
+more contended, and of course the fast path can never be used.
+
+This also makes it possible, in future, to unshare anonymously mapped
+folios with deep fork hierarchies on remap, eliminating the need for remap
+tracking in the vast majority of cases.
+
+Similar to page offset of pure anonymous VMAs, we update the anonymous page
+offset of unfaulted file-backed VMAs on remap, but do not once
+CoW'd (i.e. vma->anon_vma is non-NULL).
+
+Overall, there is little impact on mergeability, which remains exactly the same
+for pure anonymous and shared file-backed mappings, with the only impact being
+on MAP_PRIVATE-mapped file-backed mappings, which must now match on anonymous
+page offset as well as file page offset to be merged.
+
+To fail to merge like this would require CoW'ing the mapping, then finding
+another VMA with identical file and compatible page offset to remap next
+to.
+
+This is therefore very much an edge case that should have very little
+impact (and which scalable CoW may very well address in any case).
+
+We also address the outlier case of MAP_PRIVATE-/dev/zero mappings which
+have file page offset but satisfy vma_is_anonymous() by making them truly
+anonymous.
+
+This is low-risk as for anything meaningful these mappings behave
+anonymously, but it is very beneficial to do so as we eliminate an odd
+corner case, and those are notorious for attracting subtle bugs.
+
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+---
+v4:
+- Updated tags (thanks everyone!)
+- Adjusted some prose as per David.
+- Adjusted whitespace to 2 tabs in 2/15 as per David.
+- Improved linear_page_index(), __linear_anon_page_index() to be more
+  succinct in 2/15 as per David and updated commit message to reflect it.
+- Added commit to provide vma_[flags_]is_cow_mapping() - nearly all callers
+  are calling is_cow_mapping() as is_cow_mapping(vma->vm_flags) so just
+  provide a helper to do this for them.
+- In the same commit update all is_cow_mapping() callers and remove the
+  now-unused function.
+- Change linear_anon_page_index() to assert on !CoW mapping using
+  vma_is_cow_mapping() in 2/15 as per David.
+- Updated 4/15 to output index differently depending on whether the VMA is
+  a CoW mapping or not or whether the file index differs from the anon
+  index as per Gregory.
+- Updated 6/15 to change the 'update page offset' logic in copy_vma() to
+  not be gated on CoW or VMA_SHARED_BIT as discussed with David.
+- Updated 6/15 to improve the 'faulted in anon vma' assert stuff. It was
+  very unclear so rename the variable sensibly and update the comment.
+- Added a separate commit to fix the mess that is the faulted_in_anon_vma
+  and the VM_WARN_ON_ONCE_VMA() assert in copy_vma() - make it actually
+  only update the vmap in cases where the VMA was replaced (backwards
+  remap), update the checks to reflect this in a way that's actually
+  understandable and improve the comment.
+- Updated needs_adjacent_anon_gpoff() in 9/15 to use
+  vma_flags_is_cow_mapping() as per David. Updated the comment to reflect
+  it.
+- Broke out changes to vma_address_end() into a separate patch as per David.
+- Eliminated pgoff in vma_address_end() as it adds confusion - just use
+  pgoff_end, which was what pgoff used to be (confusingly).
+- Placed more variables in vma_address_end() as constants at the start of
+  the function.
+- Dropped KSM comment in 9/15 as per David.
+- Dropped linear_folio_page_index() patch altogether as per
+  David.
+- Realised all off uffd is only anon so use linear_anon_page_index()
+  throughout there and also the huge memory case for the same reason.
+- Added a patch to make remove_migration_pmd() accept a folio instead of a
+  page.
+- Added a patch to calculate large folio index using PFN as suggested by
+  David, eliminating the need for linear page index lookup at all.
+- Added a patch to add self merge VMA userland tests.
+
+v3:
+- Renamed virtual page offset to anonymous page offset across the series as
+  per David and adjusted prose to reflect it.
+- As part of the rename, eliminated  vma_anon_pgoff_addr() and the
+  conflicting vma_[start, end]_anon_pgoff() functions by passing anon pgoff
+  to the merge logic and having that figure out which page offset to use,
+  significantly simplifying things.
+- Introduced needs_adjacent_anon_pgoff() to be really clear about what the
+  merge logic is doing.
+- Passing through the anon pgoff fixes the issue Sashiko raised with shared
+  file-backed mappings having incorrect anon pgoff (inconsequential but a
+  wrinkle nonetheless).
+- Dropped unnecessary needs_rmap_locks change in 9/15 - this checks to see
+  if rmap locks need to be taken due to the range being moved
+  backwards. Since both file-backed and anon page offset are updated on
+  such a move, it suffices to check only the former. Updated commit message
+  to reflect it.
+- Sashiko complained about a couple missing .is_anon_walk entries in
+  pvmw's - page_mapped_in_vma() and migrate_vma_collect_huge_pmd() -
+  however neither impact anything - the field is only meaningful for
+  vma_address_end() if nr_pages > 1 and neither site is impacted. Moreover,
+  neither site sets pgoff either. Update the commit message to explain
+  this.
+- Renamed is_anon_walk to pgoff_is_anon and document that pvmw->pgoff is
+  only meaningful if pvmw->nr_pages > 1.
+- Highlighted the user-visible changes to /dev/zero being true-anon in the
+  relevant commit message as per Yang.
+- Fixed a bug in the proc-self-map-files-00[1,2].c procfs selftests - the
+  code was trying to MAP_PRIVATE 'an arbitrary file' then asserts that
+  file-backed procfs entries exist, but happened to choose
+  /dev/zero. Updated to the guaranteed-available /proc/self/exe, as
+  reported by Mark.
+- Fixed an issue with drivers that intentionally mark vma->vm_ops as NULL
+  (using the legacy ->mmap callback). If they do this set dummy ops, which
+  is what they meant. The mmap_prepare case is fine as nobody does this
+  there and this will be fixed when all drivers are finally converted to
+  mmap_prepare. As reported by Sashiko.
+- Added some missed VMA selftest vma_start_[anon]_pgoff() conversions in
+  the merge test commit as per Sashiko.
+- Various small prose/comment fixups.
+https://patch.msgid.link/20260729-b4-scalable-cow-virt-pgoff-v3-0-e8ecfefea812@kernel.org
+
+v2:
+- Removed incorrect assert on always-NULL folio from 7/15, as per syzbot.
+- Updated 2/15 so linear_virt_page_index() checks for vma_is_anonymous() as
+  well to be cautious about 'special' (VDSO, VVAR, etc.) VMAs accidentally
+  being asserted when CONFIG_DEBUG_VM is set, as per Sashiko.
+- Updated commit message of 9/15 to mention the subtle change in NUMA
+  interleaving behaviour, as per Sashiko.
+- Updated 10/15 to assert virtual page offset for adjacent VMAs for various
+  VMA userland tests, as per Sashiko.
+- Updated 13/15 to remove the !vma->vm_file check altogether after
+  MAP_PRIVATE-/dev/zero is made pure anon in vma_start_virt_pgoff().
+- Updated 12/15 to check that the /dev/zero device is a character device
+  since it turns out that block and character devices have their own
+  separate major/minor device number namespaces... :) as per Sashiko.
+- Updated 12/15 to fix a bisection hazard where vma->vm_ops would be
+  overwritten by vma_dummy_vm_ops for MAP_PRIVATE-/dev/zero, as per
+  Sashiko.
+- Updated 12/15 to fix another bisection hazard (...!) due to
+  ordering of vma_set_anonymous(). Removed in 13/15.
+- Added comments to __vm_virt_pgoff[lo, hi] fields referencing
+  vma_start_virt_pgoff()'s comment to be clearer what these are as per
+  Xu Xin in 1/15.
+- Various typo fixes + cleanups in prose.
+- Updated the cover letter to point out that the MAP_PRIVATE-/dev/zero
+  issue is addressed in this series too.
+https://patch.msgid.link/20260720-b4-scalable-cow-virt-pgoff-v2-0-2d549757a76f@kernel.org
+
+v1:
+- Rebased onto mm-new.
+- Dependent series heavily reviewed and looks highly likely to land, so
+  un-RFC.
+- Added explicit check for /dev/zero and removed ability for arbitrary
+  mmap/mmap_prepare hooks to make themselves anonymous.
+- Made MAP_PRIVATE-/dev/zero mappings truly anonymous.
+- Added MAP_PRIVATE file-backed mapping merge test to selftests.
+- Added a MAP_PRIVATE-/dev/zero VMA userland test to assert that the VMA
+  really is made anonymous.
+- Added MAP_PRIVATE-/dev/zero merge tests to selftests.
+- Fixed missed virtual page index site in try_to_merge_with_ksm_page().
+- Updated folio_within_range() to use virtual page offset for anon
+  folio. This had no impact as it is only called for large folios at the
+  moment (and MAP_PRIVATE-file backed mappings can't currently be backed by
+  a large folio) but making the change now protects us for the future.
+- Fixed typos etc.
+https://patch.msgid.link/20260717-b4-scalable-cow-virt-pgoff-v1-0-cf24910ef094@kernel.org
+
+RFC:
+https://patch.msgid.link/cover.1782745153.git.ljs@kernel.org
+
+To: Andrew Morton <akpm@linux-foundation.org>
+To: David Hildenbrand <david@kernel.org>
+To: "Liam R. Howlett" <liam@infradead.org>
+To: Vlastimil Babka <vbabka@kernel.org>
+To: Mike Rapoport <rppt@kernel.org>
+To: Suren Baghdasaryan <surenb@google.com>
+To: Michal Hocko <mhocko@suse.com>
+To: Jann Horn <jannh@google.com>
+To: Pedro Falcato <pfalcato@suse.de>
+To: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+To: Jan Kara <jack@suse.cz>
+To: Miaohe Lin <linmiaohe@huawei.com>
+To: Naoya Horiguchi <nao.horiguchi@gmail.com>
+To: Rik van Riel <riel@surriel.com>
+To: Harry Yoo <harry@kernel.org>
+To: Lance Yang <lance.yang@linux.dev>
+To: Kees Cook <kees@kernel.org>
+To: Zi Yan <ziy@nvidia.com>
+To: Baolin Wang <baolin.wang@linux.alibaba.com>
+To: Nico Pache <npache@redhat.com>
+To: Ryan Roberts <ryan.roberts@arm.com>
+To: Dev Jain <dev.jain@arm.com>
+To: Barry Song <baohua@kernel.org>
+To: Usama Arif <usama.arif@linux.dev>
+To: Matthew Brost <matthew.brost@intel.com>
+To: Joshua Hahn <joshua.hahnjy@gmail.com>
+To: Rakie Kim <rakie.kim@sk.com>
+To: Byungchul Park <byungchul@sk.com>
+To: Gregory Price <gourry@gourry.net>
+To: Ying Huang <ying.huang@linux.alibaba.com>
+To: Alistair Popple <apopple@nvidia.com>
+To: Peter Xu <peterx@redhat.com>
+To: Xu Xin <xu.xin16@zte.com.cn>
+To: Chengming Zhou <chengming.zhou@linux.dev>
+To: Arnd Bergmann <arnd@arndb.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Christian Borntraeger <borntraeger@linux.ibm.com>
+To: Janosch Frank <frankja@linux.ibm.com>
+To: Claudio Imbrenda <imbrenda@linux.ibm.com>
+To: Alexander Gordeev <agordeev@linux.ibm.com>
+To: Gerald Schaefer <gerald.schaefer@linux.ibm.com>
+To: Heiko Carstens <hca@linux.ibm.com>
+To: Vasily Gorbik <gor@linux.ibm.com>
+To: Sven Schnelle <svens@linux.ibm.com>
+To: Alex Deucher <alexander.deucher@amd.com>
+To: Christian König <christian.koenig@amd.com>
+To: David Airlie <airlied@gmail.com>
+To: Simona Vetter <simona@ffwll.ch>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+To: Maxime Ripard <mripard@kernel.org>
+To: Thomas Zimmermann <tzimmermann@suse.de>
+To: Boris Brezillon <boris.brezillon@collabora.com>
+To: Steven Price <steven.price@arm.com>
+To: Liviu Dudau <liviu.dudau@arm.com>
+To: Huang Rui <ray.huang@amd.com>
+To: Matthew Auld <matthew.auld@intel.com>
+To: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+To: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: Masami Hiramatsu <mhiramat@kernel.org>
+To: Oleg Nesterov <oleg@redhat.com>
+To: Peter Zijlstra <peterz@infradead.org>
+To: Ingo Molnar <mingo@redhat.com>
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+To: Namhyung Kim <namhyung@kernel.org>
+To: Mark Rutland <mark.rutland@arm.com>
+To: Alexander Shishkin <alexander.shishkin@linux.intel.com>
+To: Jiri Olsa <jolsa@kernel.org>
+To: Ian Rogers <irogers@google.com>
+To: Adrian Hunter <adrian.hunter@intel.com>
+To: James Clark <james.clark@linaro.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+To: John Hubbard <jhubbard@nvidia.com>
+To: Muchun Song <muchun.song@linux.dev>
+To: Oscar Salvador <osalvador@suse.de>
+To: Chris Li <chrisl@kernel.org>
+To: Kairui Song <kasong@tencent.com>
+To: Kemeng Shi <shikemeng@huaweicloud.com>
+To: Nhat Pham <nphamcs@gmail.com>
+To: Baoquan He <baoquan.he@linux.dev>
+To: Youngjun Park <youngjun.park@lge.com>
+Cc: ljs@kernel.org
+Cc: linux-mm@kvack.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-fsdevel@vger.kernel.org
+Cc: linux-kselftest@vger.kernel.org
+Cc: kvm@vger.kernel.org
+Cc: linux-s390@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: linux-perf-users@vger.kernel.org
+Cc: linux-trace-kernel@vger.kernel.org
+
+---
+Lorenzo Stoakes (ARM) (20):
+      mm/vma: introduce VMA anon page offset field and add helpers
+      mm: provide vma_[flags_]is_cow_mapping() and remove is_cow_mapping()
+      mm: introduce linear_anon_page_index()
+      mm: abstract vma_address() and introduce vma_anon_address()
+      mm: update print_bad_page_map() to show anon index if appropriate
+      mm: introduce and use vma_filebacked_address()
+      mm/vma: fix self-merge check in copy_vma()
+      tools/testing/vma: add tests for copy_vma() self-merge
+      mm: propagate VMA anonymous page offset on map, remap, split + merge
+      mm/rmap: track whether the page VMA mapped pgoff is anonymous
+      mm: clean up vma_address_end()
+      mm/huge_memory: update remove_migration_pmd() to accept a folio
+      mm/migrate: calculate large folio page index using PFN
+      mm/rmap: use anon pgoff to track MAP_PRIVATE file-backed anon folios
+      tools/testing/vma: expand VMA merge tests to assert anon pgoff
+      tools/testing/selftests/mm: test anonymous page offset merge behaviour
+      mm/vma: only permit MAP_PRIVATE /dev/zero to be mapped anonymous
+      mm/vma: make MAP_PRIVATE-mapped /dev/zero mappings truly anonymous
+      tools/testing/vma: add test to assert MAP_PRIVATE-/dev/zero is anon
+      tools/testing/selftests/mm: add MAP_PRIVATE-/dev/zero merge tests
+
+ arch/s390/mm/gmap_helpers.c                        |   2 +-
+ drivers/char/mem.c                                 |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            |   4 +-
+ drivers/gpu/drm/drm_gem_shmem_helper.c             |   2 +-
+ drivers/gpu/drm/panthor/panthor_gem.c              |   2 +-
+ drivers/gpu/drm/ttm/ttm_bo_vm.c                    |   2 +-
+ drivers/gpu/drm/xe/xe_device.c                     |   2 +-
+ fs/proc/task_mmu.c                                 |   2 +-
+ include/linux/mm.h                                 |  89 +++++++++--
+ include/linux/mm_types.h                           |  12 ++
+ include/linux/pagemap.h                            |  39 ++++-
+ include/linux/rmap.h                               |   4 +-
+ include/linux/swapops.h                            |   6 +-
+ kernel/events/uprobes.c                            |   2 +-
+ mm/gup.c                                           |   2 +-
+ mm/huge_memory.c                                   |  26 ++--
+ mm/hugetlb.c                                       |   2 +-
+ mm/internal.h                                      |  89 +++++++----
+ mm/interval_tree.c                                 |   4 +-
+ mm/ksm.c                                           |   6 +-
+ mm/memory-failure.c                                |   4 +-
+ mm/memory.c                                        |  38 +++--
+ mm/mempolicy.c                                     |   2 +-
+ mm/migrate.c                                       |  21 ++-
+ mm/mremap.c                                        |   6 +-
+ mm/page_vma_mapped.c                               |   6 +-
+ mm/rmap.c                                          |  22 +--
+ mm/userfaultfd.c                                   |   4 +-
+ mm/vma.c                                           | 165 ++++++++++++++++-----
+ mm/vma.h                                           |  92 +++++++-----
+ mm/vma_exec.c                                      |   2 +-
+ mm/vma_init.c                                      |   1 +
+ mm/vma_internal.h                                  |   1 +
+ tools/testing/selftests/mm/merge.c                 | 161 ++++++++++++++++++++
+ .../selftests/proc/proc-self-map-files-001.c       |   2 +-
+ .../selftests/proc/proc-self-map-files-002.c       |   2 +-
+ tools/testing/vma/include/dup.h                    |  98 +++++++++++-
+ tools/testing/vma/shared.c                         |   3 +-
+ tools/testing/vma/tests/merge.c                    |  49 ++++--
+ tools/testing/vma/tests/mmap.c                     |  50 +++++++
+ tools/testing/vma/tests/vma.c                      |  50 ++++++-
+ tools/testing/vma/vma_internal.h                   |   1 +
+ 42 files changed, 865 insertions(+), 220 deletions(-)
+---
+base-commit: 5093dba1014c1d7f7e247fd118f0fa8f22136046
+change-id: 20260711-b4-scalable-cow-virt-pgoff-a0cc0eb14bc6
+
+Cheers,
+-- 
+Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
