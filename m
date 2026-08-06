@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A301C5AC7A
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 13:47:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47684C55ABF
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 13:47:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B7E910F1F3;
-	Thu,  6 Aug 2026 13:47:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C13110F1BA;
+	Thu,  6 Aug 2026 13:47:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="r1pLtmhS";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="F/GOzZre";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9CC8E10F1E5
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2026 13:47:24 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 723C610F1D4
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2026 13:47:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=RKWoaB8t8/dn0blGiBXYBR/NHIQaa7LRyEHPCUSKOzA=; b=r1pLtmhSY5DdY8WUJeKt0Cn/mF
- 4QQd8E05ctUaMSA6wdJ/zgL9X4H5lo+eMHuCHgFSlCe97X2/W4g9Z2Kf2ltrQcctZu7j7H0I50XJ7
- ZyCRtmdJTxZHrzyIHoWeMuZkVU5iBCV6n/3NP2HKptaLWNXItB5XLzVcJ/D42t8lLUb8wT6HM0Nfz
- CfVRjVhTp6rpeoQtYE/SrP6KNn0F16Y8eCZ4fWWxlaamfjx8Yg7b6048SqRp+FVBFxbjpeGEaZ/lq
- 5NXeeiPnOG2avTw/4XZbIGAKD9R5ANxy/Mo++z2sE6AfZPaV0lWmwfNe43ppdIpQCWpiLeULIFMB3
- epL9jvfQ==;
+ bh=bZgF/zUbmGSgUUckOnPjX2vS1bIrnGaOBx7DA1/cpfk=; b=F/GOzZreM5X9sEYqhdG8yEeeBu
+ vLKXh8fqvdzHx4OMgqCU/uDooVZe5gV0Iy5WtWqkAW65srEtfHeXUfKlQOb9lfwNvQjMCpraISTxH
+ t09PwIUKfFd+VLG/cnP6j88yji8e55dlOUVu1RcS3NBBBX6KLVoceXKqMV6VEc2s5I1fYVXKTlJYP
+ C9ABo1TFizhUgcuvFZLDVOuRUVr0PGMgt9bUlOodTxU69ONsHhaiKnDJJMlrQowHFabJj1vpkQCXn
+ IpsRVhc/REa49e0AP2E3CjVPQhz5CZfbUJFpjUtWL8H3CjDsUEFH0yZXhUW38ll5LowVjS6hvZX0T
+ GwivxV6g==;
 Received: from [83.105.121.4] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wryRO-00Ewqj-Pa; Thu, 06 Aug 2026 15:47:22 +0200
+ id 1wryRN-00EwqW-AM; Thu, 06 Aug 2026 15:47:21 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, David Francis <David.Francis@amd.com>,
@@ -37,13 +37,10 @@ Cc: kernel-dev@igalia.com, David Francis <David.Francis@amd.com>,
  Felix Kuehling <Felix.Kuehling@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH v3 2/7] drm/amdgpu: Move amdgpu_ttm_tt_is_userptr() under
- conditional compilation
-Date: Thu,  6 Aug 2026 14:47:07 +0100
-Message-ID: <20260806134712.91816-3-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v3 0/7] Tiny steps towards amdgpu checkpoint and restore
+Date: Thu,  6 Aug 2026 14:47:05 +0100
+Message-ID: <20260806134712.91816-1-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260806134712.91816-1-tvrtko.ursulin@igalia.com>
-References: <20260806134712.91816-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -61,92 +58,116 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If userptr support is not compiled in there is no point to emit an out of
-line function and respective calls which always returns false. Move the
-declaration and implementation to the the already present conditional blocks.
+I am sending this early with the main goal of getting a feel on how it will be
+received etc.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Christian König <christian.koenig@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 26 ++++++++++++-------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h |  7 ++++++-
- 2 files changed, 19 insertions(+), 14 deletions(-)
+Cover letter is written mostly for people who already know what checkpoint and
+restore is, so I will just restate the high level goal - To be able to
+checkpoint and restore purely a rendernode process (so no kfd in the picture).
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index f4cc1d8ac4c4..1dd15b556d68 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -787,6 +787,19 @@ int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
- 	return r;
- }
- 
-+/*
-+ * amdgpu_ttm_tt_is_userptr - Have the pages backing by userptr?
-+ */
-+bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm)
-+{
-+	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
-+
-+	if (gtt == NULL || !gtt->usertask)
-+		return false;
-+
-+	return true;
-+}
-+
- #endif
- 
- /*
-@@ -1394,19 +1407,6 @@ bool amdgpu_ttm_tt_affect_userptr(struct ttm_tt *ttm, unsigned long start,
- 	return true;
- }
- 
--/*
-- * amdgpu_ttm_tt_is_userptr - Have the pages backing by userptr?
-- */
--bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm)
--{
--	struct amdgpu_ttm_tt *gtt = ttm_to_amdgpu_ttm_tt(ttm);
--
--	if (gtt == NULL || !gtt->usertask)
--		return false;
--
--	return true;
--}
--
- /*
-  * amdgpu_ttm_tt_is_readonly - Is the ttm_tt object read only?
-  */
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index ff9e2e346609..a47a6eae6713 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -210,12 +210,18 @@ uint64_t amdgpu_ttm_domain_start(struct amdgpu_device *adev, uint32_t type);
- #if IS_ENABLED(CONFIG_DRM_AMDGPU_USERPTR)
- int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
- 				 struct amdgpu_hmm_range *range);
-+bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm);
- #else
- static inline int amdgpu_ttm_tt_get_user_pages(struct amdgpu_bo *bo,
- 					       struct amdgpu_hmm_range *range)
- {
- 	return -EPERM;
- }
-+
-+static inline bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm)
-+{
-+	return false;
-+}
- #endif
- 
- /**
-@@ -250,7 +256,6 @@ bool amdgpu_ttm_tt_affect_userptr(struct ttm_tt *ttm, unsigned long start,
- 				  unsigned long end, unsigned long *userptr);
- bool amdgpu_ttm_tt_userptr_invalidated(struct ttm_tt *ttm,
- 				       int *last_invalidated);
--bool amdgpu_ttm_tt_is_userptr(struct ttm_tt *ttm);
- bool amdgpu_ttm_tt_is_readonly(struct ttm_tt *ttm);
- uint64_t amdgpu_ttm_tt_pde_flags(struct ttm_tt *ttm, struct ttm_resource *mem);
- uint64_t amdgpu_ttm_tt_pte_flags(struct amdgpu_device *adev, struct ttm_tt *ttm,
+And for people not too familiar what it is, probably best to first read about it
+here: https://criu.org/Main_Page.
+
+There are three pieces of work here:
+
+1.
+This kernel series which adds new uapi to amdgpu.
+
+2.
+A new IGT test case which helped me find what doesn't work and to verify what I
+added.
+
+https://cgit.freedesktop.org/~tursulin/intel-gpu-tools/log/?h=amd-criu
+
+The IGT starts out adding some very basic tests (first commit) which are laid
+out in order of increasing complexity.
+
+Following commits then add more tests and by the end, with all these series
+combined, they all pass apart from the forking subtest. But that one I am
+leaving out of scope for now.
+
+(And to be clear, before this work, none of the tests cases can pass.)
+
+3.
+Changes to the amdgpu CRIU plugin which use the above uapi, among other changes.
+
+https://github.com/tursulin/criu/pull/new/amdgpu-render-node-rfc
+
+As a picture is worth a thousand words the best I can do is some from terminal
+pastes showing it all in action.
+
+Terminal 1:
+
+$ sudo ~/build-holo/tests/amdgpu/amd_criu --r busy-client-content
+IGT-Version: 2.3-ge37a85b91 (x86_64) (Linux: 7.1.0-rc2-cfs x86_64)
+Using IGT_SRANDOM=1779805687 for randomisation
+Opened device: /dev/dri/renderD128
+Starting subtest: busy-client-content
+Start checkpointing within 10 seconds...
+
+Now switch to terminal 2:
+
+$ sudo /usr/local/sbin/criu dump -t `pgrep amd_criu | head -1` \
+  -L /usr/local/lib/criu/ -vvv -o criu.log -j --link-remap --tcp-established \
+  --file-locks --ext-unix-sk
+
+Back to terminal 1:
+
+...
+Killed # This is normal - CRIU dump has saved and terminated the process
+
+Back to terminal 2, lets restore it:
+
+$ sudo /usr/local/sbin/criu restore  -L /usr/local/lib/criu/ -vvv \
+  -o restore.log --shell-job --link-remap --tcp-established --file-locks 
+  --ext-unix-sk
+Subtest busy-client-content: SUCCESS (10.739s)
+
+And that is it. Client which was busy looping submitting a SDMA_NOP IB was
+successfuly checkpointed and restored to completion. It both ran for the
+remainder of the indented duration and we checked buffer content was as
+expected at the end.
+
+There is definitely more to do. Play more with exported buffers, syncobjs,
+fences, buffer objects lists, but for now, as said, I am looking for some early
+feedback etc.
+
+v2:
+ * Dropped the reserved VM ID query.
+ * Made userptr address an explicit union in the bo list entry uapi.
+ * Changed copy buffer from synchronous to providing a fence to userspace.
+ * Rebased for removal of ctx->guilty.
+
+v3:
+ * Reworked for XArray context handling which landed in the meantime.
+ * Implemented feedback from Christian:
+   * Copy buffer:
+     * Use syncobj timeline instead of sync_file.
+     * Add offset and size support.
+     * Use DMA_RESV_USAGE_BOOKKEEP.
+   * Rework userptr detection and fetching of flags (new patches in series).
+
+Tvrtko Ursulin (7):
+  drm/amdgpu: Check correct field in amdgpu_ttm_tt_is_userptr()
+  drm/amdgpu: Move amdgpu_ttm_tt_is_userptr() under conditional
+    compilation
+  drm/amdgpu: Extend amdgpu_ttm_tt_get_userptr() to return flags
+  drm/amdgpu: Extend listing of buffer handles with the userptr object
+    flag
+  drm/amdgpu: Add a new ioctl for listing client contexts
+  drm/amdgpu: Add context handle renaming operation
+  drm/amdgpu: Add driver managed buffer copy
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c  | 143 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c  |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c  | 146 ++++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.h  |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c  |  46 +++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h  |  16 ++-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c |   4 +-
+ include/uapi/drm/amdgpu_drm.h            |  59 ++++++++-
+ 8 files changed, 385 insertions(+), 35 deletions(-)
+
 -- 
 2.54.0
 
