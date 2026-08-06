@@ -4,89 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1B883C5AC82
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FDA6C5AC7C
 	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 06:54:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 429A910F394;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2C82510F360;
 	Fri,  7 Aug 2026 06:54:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; unprotected) header.d=canonical.com header.i=@canonical.com header.b="NLLzwZ7h";
+	dkim=pass (4096-bit key; unprotected) header.d=canonical.com header.i=@canonical.com header.b="bn9T9XYo";
 	dkim-atps=neutral
-X-Greylist: delayed 332 seconds by postgrey-1.36 at gabe;
- Thu, 06 Aug 2026 14:39:46 UTC
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2B97910E323
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2026 14:39:46 +0000 (UTC)
-Received: from mail-yw1-f198.google.com (mail-yw1-f198.google.com
- [209.85.128.198])
+Received: from smtp-relay-internal-0.canonical.com
+ (smtp-relay-internal-0.canonical.com [185.125.188.122])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8B4CC10E31B
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2026 14:44:03 +0000 (UTC)
+Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com
+ [74.125.224.69])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id A0F013F9A7
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2026 14:34:13 +0000 (UTC)
+ by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 88A2B3FC00
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2026 14:34:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1786026853;
- bh=DfJA3Bjw1scHLEIZGaM9XvRkeKWja03nB5QNkQg2/dQ=;
- h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
- MIME-Version;
- b=NLLzwZ7hCGbL9Z3B5JqobvnxqcKPN5jRbrcVywVmMKsl0zGHYCDyc+TK9BQhVBfxK
- +WHVIKGgBsBouHsVXcfyd1UUsyCA9TxzGqc1BifQt1Vn3RSshnpRDHNzeqjFJ0sCag
- PXgE+/8F5okXOhrDgULylNio6DGpY+CreX3nY219HO09L1YETLAMYXYGA0+zK039Kk
- YSlTIk2MNCmGqC5lAj88vPh9OE1uMxI6aR5T5LIjbcU499VM5U3hZ3i0PCCbrbWvMH
- GWSgFE5qaLimKjyHRNkKqOqWpQPmBUrupDBgctbcPRHWvAo/Fx7O0+OyjU7UFMOvrn
- 1vaL5k3tu9ZTKo6lJbKe8o4lnnjeFX7bgMMpBgs51q5Fr0MzBQaR21m9fhdRfESZeq
- RkNpS5actedqdS+vZ6JL7FJbjdB3BR96qtkD3lsQ1hT1msMs2rTXheaCI1Ak3BRPjX
- YrwLf5gGn4OoMfPrsSxFt6N68NQ7yVmVMJ4pzqrBNOiBKuM84nigNl6UwYX0WrRQXu
- BUdsiwur7ks5wEx6LV8Ok1qdZyC1M8lQmD/aGJbnXBoXdOKkm3mQGXozZv5p04z05X
- w1+2LrZ7b7rm8Z9rnVFrpDq66loFP6RSsIDu13caLUoeNFwyXkWY2cONUTm/K0cmhG
- +x1YIZs/d3AVR62hCkjGQUg0=
-Received: by mail-yw1-f198.google.com with SMTP id
- 00721157ae682-80ee3cb097eso70795877b3.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 06 Aug 2026 07:34:13 -0700 (PDT)
+ s=20251003; t=1786026852;
+ bh=2yq57qGtvEjW+CJVmbXHe+PX8QI8M5GPxDPW30jbEL4=;
+ h=From:To:Subject:Date:Message-ID:MIME-Version;
+ b=bn9T9XYo2DB4u6kRS48adLV+cfmHT8wYe2/5xls/TMT4LHwgD8+Nome5bBSt1k2wf
+ 0eqowUPhSXlmLP8oPU/kAWi8OkQs0xd7W4vI2TyyFlf/yTaIqWCBzLeqdyS7bCXGZC
+ 4BhglXalUbjcqkpkxxxTv+5XQ/Kjr/mPOVOpb24tmMfAmN9xzDCFUoI2z7b15pgQb/
+ iEy+45DIEdTKzaDFaGTi02K5LOIlN7QmZyvP297Hpe0cgbd67eDX6HycEZp132ttGV
+ yLSdMleUyzpFpUr3JO0SU/3v7rovymZI/8Vip/y6lMMNmTCzETnNpeu/ZIIO6ZmW2A
+ Oq0NTQFjZUnv1wgxGoWxoLzFkg1cCZvqGoYgzVbEqsDPKP1z4F5qncPlwSgpJ4qgEO
+ zdJPZh6cbax7X0phvCiFvAxgGtgpwzIyMVTlFe6AEm2FKIB+7MyJs+/v9r0ayyni6D
+ bty0qV2yYZ7Cc6mqlkzBwCy6LhKefKLIbws4Ce48q3ngKjKLg4UlXdMlJub5F0Tf5J
+ agLuyyFoL2qVdjNkNwx+hWOMS845nEAUHYQNHc1vnXIhWgUipFZOsKj2NAvT4xidgk
+ GJZLsdPLOxReOjDFdTbn3xYrrpAKBLspZaq2LspWpKi0yG9vjp3OJRZ4bPFga5mBdQ
+ aux8iwW9G6+oeZ9HNx/R3VJo=
+Received: by mail-yx1-f69.google.com with SMTP id
+ 956f58d0204a3-66850cde3a8so5778798d50.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 06 Aug 2026 07:34:12 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786026852; x=1786631652;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=DfJA3Bjw1scHLEIZGaM9XvRkeKWja03nB5QNkQg2/dQ=;
- b=E0qpjsIL/SudpushcL3DzO4mJsMmSy+dJcQkow/8BS+0mO16H30GgZ3nWCu0JTgqx4
- ZO9N6D7FCzLO0FI2xLOYKOtG3SiPj6fcfuKpWSqX686DBh6i9Jwj8yI9YxIh5dRLe8gS
- et6NOAcOa0Mashr3Ww7x+6B+cdg9jF36OR3gO0hY8PyMhqNuwmmwFen2VDhcWEM6Kca8
- LqNDF1jl8W1WrvL2jq+kBO8FYQ/+XhNxuTIuYOjQX0z2Q7bDR4KIWlt0LFBImAgDczsJ
- dIbscAZ4xHXKrwP2pVcH4duKa5j/g9/flTZsTQEwe9ugYt4iyxWxdK45eWARfOIMR/Cz
- SmKw==
-X-Gm-Message-State: AOJu0Yz5S+mOTLScGIitNwC4ODF76ypwSX4OG88TFsVNm70qBcokPvgg
- 38ciWEe2+wWQsWG5gljWgnur3oB3mhh0FOH/pXY3a/B8A5XsaRPj5VToo5T/Y2QqoxzmjkB7ogq
- ICmzGOymK3VgRfIe7x+oyBGU601yhDH9EPke28fptnScqAb8djrxl1UvvJjxEpGVTNQSFyeFeMp
- lOR2982oGoFqMyFuA=
-X-Gm-Gg: AR+sD13N21yA8yZe6Lk6WH4GIBuapQllPNd/aKFHV8q253AYcKeYCtB2BqsBizQXeov
- B9nyCzx+Klepeax/MENpeA+QK/6371La6bn6+E4yAO3NKBAYlWcOyAccoTT0X6wFLiAAaFO+3iT
- se9FiuVFOKKVe53wyBOHkY75edJijgWI6OpRlfHgjOvb0IEcZLKYG7Pfu0rbrcDPAfWg9KBUiSP
- o2FsFAte4P9Wwe1GnI/pG7MxAUwd6vzZeOBY+N8ksX4Z5D9y41vMYgqOUdjsOZehYoh6VAziQYV
- CYdkmYorTvngQLinFwwhz8/2hHEVnm0pfP6215MgUUTMfhs5ATJ2OuzJYvFN1xK4op1EXdANr35
- 9ocTSfOTF4sbeXc3MqA==
-X-Received: by 2002:a05:690c:4481:b0:81e:f5ac:e40 with SMTP id
- 00721157ae682-820224a7827mr99658447b3.20.1786026852511; 
- Thu, 06 Aug 2026 07:34:12 -0700 (PDT)
-X-Received: by 2002:a05:690c:4481:b0:81e:f5ac:e40 with SMTP id
- 00721157ae682-820224a7827mr99658027b3.20.1786026851978; 
+ d=1e100.net; s=20251104; t=1786026851; x=1786631651;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=2yq57qGtvEjW+CJVmbXHe+PX8QI8M5GPxDPW30jbEL4=;
+ b=hQuYUYPCObmmBA9MqGZHxbKVIKO6qdNe7BKo+ATRSwjGgRjV8v+s+WWcM3rli1mTLs
+ 3LaC3j9Wen2FeAbbd4QVPvFMhroCsHEYV9OEWhKW6SS+mCY0PihzQXYiond3fUxsbpHL
+ bpyFe8KXiLXsERkaTaqDSBMUENL5wSOn6a8QAqdb6eNEwXwGdF5Kr14CfVOtvL3zlS4x
+ PIPBw7E30QonO3QeHxDLPLGrte62RcKr22W/7bfwi/Mm3x2+2mZyyZWyHR6byTsLDNZX
+ hNFq/lsIjWD/ffewVFX5TW47+m1rRpWgYLzNuzb2KrwJQ8GYzIvjZRgwNtfw+cb7lfTf
+ B5Bw==
+X-Gm-Message-State: AOJu0Yw9oJnfhf1O1XGzuTaOYlblSauBT0uZxEZIRvAvuR+7DXzHeVFj
+ FSq1xNzMo4uX3JHXmw5kX0C4rflOTXJ+RYgUWD3Xk9adk/jLP8rnnA3MwthXEhEkHLkCAkY2tk1
+ gf0aUu2v46QR6uAJUNEH1WNk0hnKNBvFv+d6zYLExb0r+6Kd/6KVazgWCwty7MUn274GaTnPh/9
+ c5scE+amm/BcXDVAQ=
+X-Gm-Gg: AR+sD13p56OQ9rHaRpdSRyN1t+AfQ2zt9DDtF4oS+ufD4uluvt6v7cvJC4YQG6iOzs4
+ oK0Vefs/BNVQBF5hW9C7Y4pMmU5T08+/XqebrWKQdXoZFdOOAvaKXEhZeYN4/VGpLbDSAGyDkm0
+ T52ZBXVXbaKaHzhi7ieI2D5wnpoLP2+9fYAJTuITp3S6iMgDPdMbqtB4WS8bzxzMile2Ch8EtUV
+ RU3pdHZ4jglVPRPoFOeTjHh2gSDrc3vDzJpQmATIqnhP9ACDG+llfBDRKzitYKrnEHMwHf3yyoz
+ TCge1J5ifC4fpzpKBrIGmEoM+fTJ6YMoPwZ2rq+lt4sKN/hGKfHsMNL7J+5NR6qmchT5gBiF9Yg
+ ammMfa2ro26LupCG6Bw==
+X-Received: by 2002:a05:690e:4394:b0:668:56aa:6d77 with SMTP id
+ 956f58d0204a3-6699a8f4c7dmr6432626d50.9.1786026851336; 
  Thu, 06 Aug 2026 07:34:11 -0700 (PDT)
+X-Received: by 2002:a05:690e:4394:b0:668:56aa:6d77 with SMTP id
+ 956f58d0204a3-6699a8f4c7dmr6432571d50.9.1786026850184; 
+ Thu, 06 Aug 2026 07:34:10 -0700 (PDT)
 Received: from localhost ([2600:6c40:657f:4180:2a3f:d445:3d4e:f355])
  by smtp.gmail.com with ESMTPSA id
- 00721157ae682-820131db335sm40071407b3.3.2026.08.06.07.34.11
+ 956f58d0204a3-66ac236a282sm529915d50.16.2026.08.06.07.34.09
  for <amd-gfx@lists.freedesktop.org>
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 06 Aug 2026 07:34:11 -0700 (PDT)
+ Thu, 06 Aug 2026 07:34:09 -0700 (PDT)
 From: mitchell.augustin@canonical.com
 To: amd-gfx@lists.freedesktop.org
-Subject: [PATCH 1/1] drm/amdgpu: Do not enter PSR if multiple displays are
+Subject: [PATCH 0/1] drm/amdgpu: Do not enter PSR if multiple displays are
  active
-Date: Thu,  6 Aug 2026 09:34:08 -0500
-Message-ID: <20260806143408.979209-2-mitchell.augustin@canonical.com>
+Date: Thu,  6 Aug 2026 09:34:07 -0500
+Message-ID: <20260806143408.979209-1-mitchell.augustin@canonical.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260806143408.979209-1-mitchell.augustin@canonical.com>
-References: <20260806143408.979209-1-mitchell.augustin@canonical.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 07 Aug 2026 06:54:51 +0000
@@ -109,42 +104,62 @@ From: Mitchell Augustin <mitchell.augustin@canonical.com>
 Issue: https://gitlab.freedesktop.org/drm/amd/-/work_items/5394
 Ubuntu BugLink: https://bugs.launchpad.net/bugs/2162904
 
-This commit disables panel self-refresh when more than one display is
-active to eliminate a common hang and system crash that happens
-frequently on some laptops, evidently due to race conditions between
-the DMCUB, amdgpu module, and possibly other components which are
-exacerbated when more than one display is active.
+I have proposed this patch for inclusion into the Ubuntu kernels.
+It is really more of a workaround than a root cause fix - but I think a
+necessary one until the underlying issue is resolved, given how
+disruptive the failure mode of this bug is for impacted users.
 
-To my knowledge, a fix for the underlying failure condition is not
-available upstream, so given how disruptive this is for impacted users,
-I propose disabling this feature under this condition until it is fixed.
-The main downside of disabling PSR is that it
-will increase power consumption, but this should be barely noticeable to
-end users, since PSR will remain enabled on laptops unconnected to
-external monitors, and since laptops connected to external monitors are
-likely typically also connected to power (and thus less concerned with
-the energy savings afforded by PSR).
+I realize that upstream amdgpu may prefer to reject this patch and
+fix the underlying issue for multimonitor users, but wanted to share
+what I am proposing here regardless.
 
-Signed-off-by: Mitchell Augustin <mitchell.augustin@canonical.com>
+[ Impact ]
 
----
+On some laptops with a dGPU and an iGPU, the DMCUB's state transition between sleep
+and wake states on the laptop's built-in panel will (at irregular but frequent
+intervals, a few times per day in my experience) cause the amdgpu driver to
+stop working correctly.
+
+This will cause varying levels of instability, eventually resulting in
+the system becoming unusable (described in more detail in the LP bug).
+
+Given the intrusiveness of this issue, my proposal is to simply disable the panel
+self-refresh feature whenever an external display is connected.
+
+[ Where problems could occur ]
+
+Since disabling panel self-refresh means that the built-in panel will always refresh
+at its standard refresh rate, users may experience decreased battery life if not
+connected to power. HOWEVER, given that we only disable it *when an external
+display is connected*, I expect that the vast majority of laptop users will
+not be meaningfully impacted. With the possible exception of people using mobile
+external monitors, I would expect most users who have an external display
+attached to typically also be connected to power.
+
+Additionally, while I have never reproduced this bug when only using my built-in
+panel (with no external monitor attached), related reports across other distros
+indicate the underlying bug might still be possible with only the built-in monitor
+- so this patch may not resolve the bug for 100% of users (but I am confident that
+it will drastically reduce if not eliminate incidence for configs like mine)
+
+[ Test Plan ]
+Install the patched kernel and do the following:
+1) sudo watch -n 0.5 cat /sys/kernel/debug/dri/0000:07:00.0/eDP-2/psr_state
+# (switch eDP-2 to your built in panel identifier). You should see it switch between
+"0" and nonzero values when no external display is connected (indicating that PSR
+is still active and switching to/from sleep state regularly). After connecting an
+external display, confirm that only 0 is shown even when builtin panel isn't drawing
+(indicating that PSR has been disabled when the second display is connected).
+2) Use your machine normally for 1-2 weeks and confirm that the bug does not reproduce.
+(It typically reproduces within 1 day, so 1-2 weeks should be a comfortable
+amount of time here.)
+
+Mitchell Augustin (1):
+  Do not enter PSR if multiple displays are active
+
  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 3 ++-
  1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-index 5d2715f78314..272f195b8c28 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-@@ -152,7 +152,8 @@ void amdgpu_dm_crtc_set_panel_sr_feature(
- 		struct amdgpu_dm_connector *aconn =
- 			(struct amdgpu_dm_connector *) stream->dm_stream_context;
- 
--		if (!aconn->disallow_edp_enter_psr) {
-+		/* Do not enter PSR if multiple displays are active to prevent DMCUB hangs */
-+		if (!aconn->disallow_edp_enter_psr && dm->dc->current_state->stream_count == 1) {
- 			amdgpu_dm_psr_enable(stream);
- 			if (dm->idle_workqueue &&
- 			    (dm->dc->config.disable_ips == DMUB_IPS_ENABLE) &&
 -- 
 2.43.0
 
