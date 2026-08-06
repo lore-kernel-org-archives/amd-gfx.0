@@ -4,52 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFC81C55838
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 03:48:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6BAACC55ABA
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 04:29:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 38E4A10E167;
-	Thu,  6 Aug 2026 03:48:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2E1E10E266;
+	Thu,  6 Aug 2026 04:29:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="HuqqpGZo";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="eU2U0F9G";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA07E10E167
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2026 03:48:20 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BB6210E266
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2026 04:29:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1785988101; x=1817524101;
+ t=1785990582; x=1817526582;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=17CY3PUmUbDY4206LrobRGj6cHDNUS+fi01DdzhC8EE=;
- b=HuqqpGZoNauZ6X8UbT2nc9HMvDRxA0Y1a7M0wYGa1tWOIsBL5sW/sWot
- P5mGJaHf1VlJ7E9uv5mBPFxs3rSBTFvNl5fDZafDT3RiimJMMNtLUJXJI
- coxDOUns1ddlQIQjrc8Xhy8nRxX9BezG+5StIVComThYvaQLwU2MkH/Qu
- TtiiP5YdpBiF/v41isLsJO3uGa+XdtKGqm7MaoFzW0ltFD8PhJ+LLd8KQ
- N85n6sTxN6E21dnoLxPwUfAgeDCit0zoR4IdPWjXJvC0nzZ+v06LQrVXV
- EFUiDSkqwfpkJndbvl/zvEYuLaQgyvRoPmKxtUxXlCpaL6nx9b5lKcLHL Q==;
-X-CSE-ConnectionGUID: 0NqP3vdhSH+kaKvZdD+tmw==
-X-CSE-MsgGUID: Vg2jRK3LTLi0uY/cTjdNvA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11866"; a="90391114"
-X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; d="scan'208";a="90391114"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Aug 2026 20:48:20 -0700
-X-CSE-ConnectionGUID: 3rUXs0JSR+2YNmvlS1AgAw==
-X-CSE-MsgGUID: /GpNXoZ9SJ2duOVMTxtToA==
+ bh=7CW8Mojz4tTHJtxhvNY+//zqS7ohbSQ0PPY1CWQ9nuM=;
+ b=eU2U0F9GJYZY8d8wEFlkC/8UqNst6f/8uJ8NO2A2cj2awtdv0lW5Fii2
+ y/aITJaTQ1emYWn0ZYg7is+S3gl6J+voBu2Cbsa2T20zv0iaAIk10KSW+
+ 4aRaU52SrH10+ynVrmKLOklQ46AMD0p8i5p49O9qwzFZ8ZhmNZNrsumPO
+ Mf4sxxmHb/aKcd5ZDK9KrPIPJD3eETRWnxw4fL6WEpN4xyY0LLGEnIFHy
+ Im5Lj5EX5nU/EZmhjtfWo7NFKIY9vaheKeCEW1Y1Uc6LG9+RVKbcQjxo5
+ 3KwnNle2+q629LXL0ZQUQMsd615emfJNlz/OhcTm4pfNWjd5OrPb1OZlM Q==;
+X-CSE-ConnectionGUID: kjrbgnoYT7mNAj8LOHsYOQ==
+X-CSE-MsgGUID: VhFkLAKISROZpu6177k9YA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11866"; a="85700027"
+X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; d="scan'208";a="85700027"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Aug 2026 21:29:42 -0700
+X-CSE-ConnectionGUID: mLQTR0OkQ/2wCOMWalBDJQ==
+X-CSE-MsgGUID: rBVBeQQARBiEmx1VFZ4j5w==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; d="scan'208";a="286649429"
+X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; d="scan'208";a="257693647"
 Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
- by fmviesa001.fm.intel.com with ESMTP; 05 Aug 2026 20:48:16 -0700
+ by fmviesa006.fm.intel.com with ESMTP; 05 Aug 2026 21:29:39 -0700
 Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wrp5a-00000000E3l-0KnC;
- Thu, 06 Aug 2026 03:48:14 +0000
-Date: Thu, 6 Aug 2026 11:47:14 +0800
+ (envelope-from <lkp@intel.com>) id 1wrpjc-00000000E8v-0vnM;
+ Thu, 06 Aug 2026 04:29:36 +0000
+Date: Thu, 6 Aug 2026 12:29:05 +0800
 From: kernel test robot <lkp@intel.com>
 To: Bert Karwatzki <spasswolf@web.de>, linux-kernel@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- Bert Karwatzki <spasswolf@web.de>, linux-next@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, amd-gfx@lists.freedesktop.org,
- "# = v7 . 1" <stable@vger.kernel.org>,
+Cc: oe-kbuild-all@lists.linux.dev, Bert Karwatzki <spasswolf@web.de>,
+ linux-next@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ amd-gfx@lists.freedesktop.org, "# = v7 . 1" <stable@vger.kernel.org>,
  Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
  Alex Deucher <alexander.deucher@amd.com>,
  Rafal Ostrowski <rafal.ostrowski@amd.com>,
@@ -58,7 +57,7 @@ Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
  Thomas Gleixner <tglx@linutronix.de>
 Subject: Re: [PATCH] drm/amd/display: fix usage of DC_FPU_{BEGIN,END} with
  PREEMPT_RT
-Message-ID: <202608061154.QtrglsMo-lkp@intel.com>
+Message-ID: <202608061233.eufnR5Qm-lkp@intel.com>
 References: <20260801071724.12998-1-spasswolf@web.de>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
@@ -92,21 +91,21 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Bert-Karwatzki/drm-amd-di
 base:   next-20260804
 patch link:    https://lore.kernel.org/r/20260801071724.12998-1-spasswolf%40web.de
 patch subject: [PATCH] drm/amd/display: fix usage of DC_FPU_{BEGIN,END} with PREEMPT_RT
-config: loongarch-defconfig (https://download.01.org/0day-ci/archive/20260806/202608061154.QtrglsMo-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project bacfe2950f8218268fcc0a8765644ea0c15f0360)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260806/202608061154.QtrglsMo-lkp@intel.com/reproduce)
+config: alpha-allyesconfig (https://download.01.org/0day-ci/archive/20260806/202608061233.eufnR5Qm-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260806/202608061233.eufnR5Qm-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608061154.QtrglsMo-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608061233.eufnR5Qm-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
->> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_surface.c:89:2: error: call to undeclared function 'DC_RUN_WITH_PREEMPTION_ENABLED'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+   drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_surface.c: In function 'dc_create_plane_state':
+>> drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_surface.c:89:9: error: implicit declaration of function 'DC_RUN_WITH_PREEMPTION_ENABLED' [-Wimplicit-function-declaration]
       89 |         DC_RUN_WITH_PREEMPTION_ENABLED(plane_state = kvzalloc_obj(*plane_state, GFP_ATOMIC));
-         |         ^
-   1 error generated.
+         |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 vim +/DC_RUN_WITH_PREEMPTION_ENABLED +89 drivers/gpu/drm/amd/amdgpu/../display/dc/core/dc_surface.c
