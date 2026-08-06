@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35840C55ABF
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7E8BFC5AC7D
 	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 13:47:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B41910F1DA;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C367C10F1DE;
 	Thu,  6 Aug 2026 13:47:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="h1sEWhx9";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Uejlkja0";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CA6E10F1D1
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2026 13:47:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 27E6F10F1D7
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2026 13:47:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=/MZFKWDgQv9dfhvF4v113RTSuhBBE1kC2uDKOJZOtVg=; b=
- h1sEWhx9Y3YVSgxupMm/SrjGsASLvOn4R8hekGzW5GPcLob9UJZJbGlNZQWJ9RlxOcvOrEzrrFi3O
- asf9iExmAIdamgAzLr4ObIT+QxM0xrFf7sLZiHbvF3uDzZ55UNVUTq9LNMf5XfUxNKNWudDKrHo+S
- HAWzWLFHgxXok6c/8ZRZAm8rCq/mSHdcO+eKqFQN9vvnQygnXN6rD50qKjZSxquUF1Ha41+TkILcs
- vqf2Zlxxp//20f62209WVpjW+4YV+A37l6cqLC/DdXQAnB/hc+E0MerM+dcLm9xNXijpUVp9YSYMD
- VwQ0VAPzmca2r1Vqd+O3Npt33D4RC3GCRw==;
+ Cc:To:From:From:Reply-To; bh=hf3trfcqkn+Cdg+LDxNv78ue2AOFcZ31q0LIlFCxDe8=; b=
+ Uejlkja0JCgcexFbKg/Vcff4QqquPyk0+8buqEjgzyuceNo60EPe8rvdhiU4efkQ5HxWvFDNgoU1T
+ YyFfAU1JL3EduuEOUIYBEsaXHQyjmc/4p3v15MV4sYZlmtJBfzfeaCtKzapKX5JXfedcqzmJ16sKq
+ kqQcCF2Sd7olshTJH1nGt+mV+6O2xjL/OVfGAIAhlX+B79EOhCg2ZAoL14nwWrtfCNuq7/dZISYlb
+ aeGQ63qPoPGiYiQxZXfXqxh20ivfnf11YSV96PjrD5E5Lv+Lniy79q66Lx0d87/4L+tk+PSpWPQiA
+ cJqfbhBZ1oaH8+wokedJeoX5S4n/kp85qg==;
 Received: from [83.105.121.4] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wryRR-00EwrK-KH; Thu, 06 Aug 2026 15:47:25 +0200
+ id 1wryRQ-00Ewr1-7W; Thu, 06 Aug 2026 15:47:24 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, David Francis <David.Francis@amd.com>,
@@ -36,9 +36,10 @@ Cc: kernel-dev@igalia.com, David Francis <David.Francis@amd.com>,
  Felix Kuehling <Felix.Kuehling@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH v3 6/7] drm/amdgpu: Add context handle renaming operation
-Date: Thu,  6 Aug 2026 14:47:11 +0100
-Message-ID: <20260806134712.91816-7-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v3 4/7] drm/amdgpu: Extend listing of buffer handles with the
+ userptr object flag
+Date: Thu,  6 Aug 2026 14:47:09 +0100
+Message-ID: <20260806134712.91816-5-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260806134712.91816-1-tvrtko.ursulin@igalia.com>
 References: <20260806134712.91816-1-tvrtko.ursulin@igalia.com>
@@ -58,92 +59,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Identical in principle to DRM_IOCTL_GEM_CHANGE_HANDLE, we need a method
-for renaming the driver specific context handles.
+Add a new flag (AMDGPU_GEM_LIST_HANDLES_FLAG_IS_USERPTR) to the
+DRM_IOCTL_AMDGPU_GEM_LIST_CONTEXTS ioctl.
 
-We add a new operation (AMDGPU_CTX_OP_CHANGE_HANDLE) to the
-DRM_IOCTL_AMDGPU_CTX ioctl.
+This is required to allow for checkpoint and restore of userptr objects.
 
-Source handle is given in the existing input handle field, while the
-destination handle needs to be passed in the existing flags field.
+The existing struct drm_amdgpu_gem_list_handles_entry is used with the
+userptr creation flags places in alloc_flags, while the alignment field
+contains the userspace address.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 41 +++++++++++++++++++++++++
- include/uapi/drm/amdgpu_drm.h           |  1 +
- 2 files changed, 42 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 21 +++++++++++++++------
+ include/uapi/drm/amdgpu_drm.h           | 14 ++++++++++----
+ 2 files changed, 25 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index 59ea6153f4a2..771c128571fe 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -517,6 +517,44 @@ static int amdgpu_ctx_free(struct amdgpu_fpriv *fpriv, uint32_t id)
- 	return ctx ? 0 : -EINVAL;
- }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index 63fb4ea66a45..fad7bbd00edd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -1204,14 +1204,23 @@ int amdgpu_gem_list_handles_ioctl(struct drm_device *dev, void *data,
  
-+static int amdgpu_ctx_change_handle(struct amdgpu_fpriv *fpriv,
-+				    uint32_t old, uint32_t id)
-+{
-+	struct amdgpu_ctx_mgr *mgr = &fpriv->ctx_mgr;
-+	XA_STATE(xas, &mgr->ctx_handles, id);
-+	struct amdgpu_ctx *ctx;
-+	int r;
+ 		bo_entry = &bo_entries[bo_index];
+ 
+-		bo_entry->size = amdgpu_bo_size(bo);
+-		bo_entry->alloc_flags = bo->flags & AMDGPU_GEM_CREATE_SETTABLE_MASK;
+-		bo_entry->preferred_domains = bo->preferred_domains;
+ 		bo_entry->gem_handle = id;
+-		bo_entry->alignment = bo->tbo.page_alignment;
++		bo_entry->size = amdgpu_bo_size(bo);
++		if (amdgpu_ttm_tt_is_userptr(bo->tbo.ttm)) {
++			u32 flags;
+ 
+-		if (bo->tbo.base.import_attach)
+-			bo_entry->flags |= AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT;
++			bo_entry->flags = AMDGPU_GEM_LIST_HANDLES_FLAG_IS_USERPTR;
++			amdgpu_ttm_tt_get_userptr(&bo->tbo, &bo_entry->userptr,
++						  &flags);
++			bo_entry->alloc_flags = flags;
++		} else {
++			bo_entry->alloc_flags = bo->flags & AMDGPU_GEM_CREATE_SETTABLE_MASK;
++			bo_entry->preferred_domains = bo->preferred_domains;
++			bo_entry->alignment = bo->tbo.page_alignment;
 +
-+	if (!old || !id || old == id)
-+		return -EINVAL;
-+
-+	do {
-+		xas_lock(&xas);
-+
-+		ctx = xa_load(&mgr->ctx_handles, old);
-+		if (!ctx) {
-+			r = -EINVAL;
-+			goto unlock;
++			if (bo->tbo.base.import_attach)
++				bo_entry->flags = AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT;
 +		}
-+
-+		if (xas_load(&xas)) {
-+			r = -EBUSY;
-+			goto unlock;
-+		}
-+
-+		xas_store(&xas, ctx);
-+		r = xas_error(&xas);
-+		if (r)
-+			goto unlock;
-+
-+		__xa_erase(&mgr->ctx_handles, old);
-+unlock:
-+		xas_unlock(&xas);
-+	} while (xas_nomem(&xas, GFP_KERNEL));
-+
-+	return r;
-+}
-+
- static int amdgpu_ctx_query(struct amdgpu_device *adev,
- 			    struct amdgpu_fpriv *fpriv, uint32_t id,
- 			    union drm_amdgpu_ctx_out *out)
-@@ -710,6 +748,9 @@ int amdgpu_ctx_ioctl(struct drm_device *dev, void *data,
- 			return -EINVAL;
- 		r = amdgpu_ctx_stable_pstate(adev, fpriv, id, true, &stable_pstate);
- 		break;
-+	case AMDGPU_CTX_OP_CHANGE_HANDLE:
-+		r = amdgpu_ctx_change_handle(fpriv, id, args->in.flags);
-+		break;
- 	default:
- 		return -EINVAL;
+ 
+ 		bo_index += 1;
  	}
 diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index 27b32eed6f3a..28cebf7a3cd6 100644
+index b32c72a662b6..9baa9a4b6b3d 100644
 --- a/include/uapi/drm/amdgpu_drm.h
 +++ b/include/uapi/drm/amdgpu_drm.h
-@@ -253,6 +253,7 @@ union drm_amdgpu_bo_list {
- #define AMDGPU_CTX_OP_QUERY_STATE2	4
- #define AMDGPU_CTX_OP_GET_STABLE_PSTATE	5
- #define AMDGPU_CTX_OP_SET_STABLE_PSTATE	6
-+#define AMDGPU_CTX_OP_CHANGE_HANDLE	7
+@@ -838,6 +838,7 @@ struct drm_amdgpu_gem_op {
+ };
  
- /* GPU reset status */
- #define AMDGPU_CTX_NO_RESET		0
+ #define AMDGPU_GEM_LIST_HANDLES_FLAG_IS_IMPORT	(1 << 0)
++#define AMDGPU_GEM_LIST_HANDLES_FLAG_IS_USERPTR	(1 << 1)
+ 
+ struct drm_amdgpu_gem_list_handles {
+ 	/* User pointer to array of drm_amdgpu_gem_bo_info_entry */
+@@ -853,7 +854,7 @@ struct drm_amdgpu_gem_list_handles_entry {
+ 	/* gem handle of buffer object */
+ 	__u32 gem_handle;
+ 
+-	/* Currently just one flag: IS_IMPORT */
++	/* AMDGPU_GEM_LIST_HANDLES_FLAG_* */
+ 	__u32 flags;
+ 
+ 	/* Size of bo */
+@@ -862,11 +863,16 @@ struct drm_amdgpu_gem_list_handles_entry {
+ 	/* Preferred domains for GEM_CREATE */
+ 	__u64 preferred_domains;
+ 
+-	/* GEM_CREATE flags for re-creation of buffer */
++	/* GEM_CREATE flags for re-creation of buffer or drm_amdgpu_gem_userptr.flags */
+ 	__u64 alloc_flags;
+ 
+-	/* physical start_addr alignment in bytes for some HW requirements */
+-	__u64 alignment;
++	union {
++		/* physical start_addr alignment in bytes for some HW requirements */
++		__u64 alignment;
++
++		/* drm_amdgpu_gem_userptr.addr for userptr objects */
++		__u64 userptr;
++	};
+ };
+ 
+ #define AMDGPU_VA_OP_MAP			1
 -- 
 2.54.0
 
