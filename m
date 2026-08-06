@@ -4,123 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D7F1C55ABF
-	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 07:45:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0B55C55838
+	for <amd-gfx@archiver.kernel.org>; Thu,  6 Aug 2026 07:47:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CD89710F0ED;
-	Thu,  6 Aug 2026 07:45:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3547510F0F9;
+	Thu,  6 Aug 2026 07:47:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5d+Jp2/z";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="L08wod/Q";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010061.outbound.protection.outlook.com [52.101.201.61])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3883C10F0ED
- for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2026 07:45:10 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010049.outbound.protection.outlook.com [52.101.46.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1820810F0F9
+ for <amd-gfx@lists.freedesktop.org>; Thu,  6 Aug 2026 07:47:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JHCBLqSbEg0umSi/TZxEKCt0xZreS0qIgi/ISeiDcIwdPKDci5dcMb723uvWReytyMDTdTiJaKZz38Wrtl8jSRM2cNIgQZSIchJg1GEEiJmWqZSkBj4jjhS0aiTZV7RZ7X0uPEVFzurmm9cYNCcMCFEJ2sWpb1IGFwVEvy1gz6zfYDSLGwOj/nIViVgZtlhJAuGl7rAEVSHY39gN4otbrxxE7cx0bryC9lXBsE996pYWGB/YPDMAVbSN4btIKpFMy4Gen1+mAJHF5Mwqhi5BO8dddixP5oPKNVFMKEowQIjxXqnyQ9uU8IFQrnrCB12ifJmcHdLJvO6UlWzd0A/gfg==
+ b=faQfCF6eWXtsv+1aVEdxOw5eOnevvDYv9HBw5qzAoQ3byIAtC4J/mIA9R7fcfqMTB2cEoqZ+gQKLlRebME5epPD4UeHlOEtjrtcEOq+tZdF0E3c6rBJz95euIUL4g+a9wU6W5CZNBO6QKBSaIV6B4IYmoLHV7P3kd2D0xmlaB2KQwC3DXKA+RO+JMCSlVSz1/uL2kECP+URGyZ1XvCH4hlWxfu8dpgIa9MU4pivaehIYVUBF8LlS/PKh+QAZcgOjoNJOyxOBaJjaxtC8zanEXFucFhSW7SpFUjL9NiCDpO5/stpdu/BF585NnpAnagh6tNZ1dbw8baXUNM2UPmSHow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=co3pPELHLXPybgIBDGUidDc86d8Fk1c+2ahR7aEKUaU=;
- b=FQiEBNQGmeevdU1Nj3CBlrmUZMru7KXoVcTtmBIsIgWvY+zUyoEKGnY971P/oKa8MGNy4CQ3tF58Qkb8PmTK+o+/raZ4uEIKTlstzcnaLW6yc5hntHtAk4yeEurom/dOrZVe8KCVl35CKAO3kh3THVH4hbdi0duMmpF8hCA8bN4geWnW7xeg5ao6CbGPHDYVMnSByLTOyZNJuOW801+436QfdJQBeh6I+RjAs5hS8IBrqyrVhRP/l8eRMvUeZdaXosnAS335OcObjGdRVchmjzrSZa85KlIfQ9RPM9n1IFBTTNDPZ80SXKRtgcIYGTyRt0HQdstS2BmQd+s38tiAtg==
+ bh=mtL4NvOSToH1A6Wixx6u3BS8XU6iyvK5IL3oGIX/jq0=;
+ b=sHKMdb96zu6nCu6Jn3nTGrI24YpOeHU7KjttAUx3LqCVKPr+fSXtUN7SN50qQxfE1cfbzv+dAauscVRnOpAD0ZoauqK8+PhLX2ZjAEz4lCgXafzXweXUWrSG5K19rIIqlTPLx8l+hdiguuZ1uGibvpbFHhCp5rDtxId5WSQYoIcqI6iTFZefVwGI1TKc/7+srS5HYoY1JOGEmvsmC0ZnTJnFCqph0CTzKLde9RjLxlLbWtQXk/unMjrPQHfKnu0yS1oYzGwJMk5u9mgszTG9WKIGujlHSrl0gsyqqZiPoihwLOHqKL3y78Wq9noOt7IpxJPALGZnYqPJu4/SdxehSQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=co3pPELHLXPybgIBDGUidDc86d8Fk1c+2ahR7aEKUaU=;
- b=5d+Jp2/z+LCh16bjYVeR+qy2svh1TFZKpk4QNFeDHFP54yu2uhK58ljAh1Y9UBckB5vjPtJCQLrlVjQc+ZjZbxrvWS5776qrOieZKPYRV82jrd7CWN5/M049VIG0rEb30/Pdd1dKkgPJJn6iM88fAE7GZGOoOieLCT0UbvTlt8o=
+ bh=mtL4NvOSToH1A6Wixx6u3BS8XU6iyvK5IL3oGIX/jq0=;
+ b=L08wod/QmHMwIIoOA7yrs+HnDoQAFjlU1UEVzK4Y+R5Fui5Sw/MZ8UejBc5vy6OpfASedVqkJ0eLxVxzm7OUh7qyuP3xjTta+ldn5fk4/a9HpWD9fMOYDFIaimgKkhpujiLUmqULzyikoSXXIxZjM4q84anXkaXNaiKKn4zplPg=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CH2PR12MB9457.namprd12.prod.outlook.com (2603:10b6:610:27c::7)
- by LV3PR12MB9213.namprd12.prod.outlook.com (2603:10b6:408:1a6::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
- 2026 07:45:06 +0000
-Received: from CH2PR12MB9457.namprd12.prod.outlook.com
- ([fe80::85a8:1df:840a:cd4c]) by CH2PR12MB9457.namprd12.prod.outlook.com
- ([fe80::85a8:1df:840a:cd4c%4]) with mapi id 15.21.0292.019; Thu, 6 Aug 2026
- 07:45:05 +0000
-Content-Type: multipart/alternative;
- boundary="------------dY0NZMvX3J0hjl8NK3PTzS91"
-Message-ID: <8987dfbe-65f5-4652-adf6-710269d85a08@amd.com>
-Date: Thu, 6 Aug 2026 15:44:59 +0800
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by DM4PR12MB5889.namprd12.prod.outlook.com (2603:10b6:8:65::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Thu, 6 Aug
+ 2026 07:47:44 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0292.018; Thu, 6 Aug 2026
+ 07:47:44 +0000
+Message-ID: <024580be-2d0c-4ceb-8155-c276c63e0d4c@amd.com>
+Date: Thu, 6 Aug 2026 13:17:37 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: ensure all userq VAs mapped before restore
-To: "Khatri, Sunil" <sukhatri@amd.com>, Alexander.Deucher@amd.com,
- Christian.Koenig@amd.com
-Cc: Ray.Huang@amd.com, amd-gfx@lists.freedesktop.org
-References: <20260723082334.606456-1-lingshan.zhu@amd.com>
- <c2a5fb47-d8b8-44c3-ab16-3538e7925fc8@amd.com>
+Subject: Re: [PATCH] drm/amd/pm: Track current PPT limit for restore
+To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Zhang, Hawking" <Hawking.Zhang@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Kamal, Asad" <Asad.Kamal@amd.com>
+References: <20260806061413.3720389-1-lijo.lazar@amd.com>
+ <BN9PR12MB52110CD725737790A39A3E8682D22@BN9PR12MB5211.namprd12.prod.outlook.com>
 Content-Language: en-US
-From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
-In-Reply-To: <c2a5fb47-d8b8-44c3-ab16-3538e7925fc8@amd.com>
-X-ClientProxiedBy: TPYP295CA0027.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:7d0:a::12) To CH2PR12MB9457.namprd12.prod.outlook.com
- (2603:10b6:610:27c::7)
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <BN9PR12MB52110CD725737790A39A3E8682D22@BN9PR12MB5211.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PN3PEPF00000186.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c04::4c) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PR12MB9457:EE_|LV3PR12MB9213:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1716b1aa-3ec4-4b2a-d484-08def38ea173
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|DM4PR12MB5889:EE_
+X-MS-Office365-Filtering-Correlation-Id: b30737e3-9e39-428d-0d63-08def38effce
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|366016|8096899003|4143699003|10067099003|22082099003|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: bAcSaHBODPavfwoT1guztGE4ifrUVepJ1FTPUlKtITQxGdFv4qbZsEDzLCp7oBxCartkuemeNQnDgzdYAoV/uoq5nfhLZMKxm4PVlOKF5tqTP5oWw9QQrtNUzde2bg+8FwUADI/6poZ7+WMHBZ4DKmeB4hQhw2ipAMooGRvKSvPN7t+ePQ2Z3+eDLBD4hC1BZqqBVeof6GUsDQm485qZG+rI9FnBdMsEN3uyK5Nm8uQXPErABs0oT6QI0gKZ7yATdZRuej6Wz3ZbttAAL1Z+klhNcH29DCgDk/avKzSqWqTuqcRQQosaoH5uZlxbJqkaM+8FMx3OO1+2GnhLIVk7Mn2Swaed5IXTHOXM3OAYspcBqskE+k0D+bJMJZo/SYkC0Pl6zAieSAwhv8Z0nshJkHj4IvfWzX0vz/l8eHQMT7FD86CuohUnpW2xpyFVSLO25T03UVi6bNG10Npx0M8S9jYIUs6oDJ7TuBzHsTVJmPCOlAg2vi5TaUFeUI+Zvw064bHLLXwwTg+sAF2rLK4q1CnH0e0F+xBwsSrsBRBY7J/JLqG5j3hnOSn8i6/dT4VlGEjPj02QwVMySxb/8WwSyWWQrbOqWynt0vbiliOXSjnjq/kZ+4htRuumBKN+1vwDp7fQsHx7N9P3B/OkMvlijKemFu2FzexJ/cxv8ge8s4I=
+ ARA:13230040|366016|23010399003|1800799024|376014|56012099006|10067099003|4143699003|11063799006|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: IovzCr1u9Cs8BAlD+ydGqWcLVf9cA2v5PN1kOnm7wjykSam5iPqqQPHtvdYA9ZfvoUbYa3KCSfw/yybTeRIqoIz2DKMXbSVDhAc3W/pdjIOfqwuRmrHQZJSRn/icVd8xumd8BJQW3/XpkOic5bxiLmy0DvIBuzKA2wbeGoZ2YlxV8LRpRnav6CPODjvk1++WwA6fMq9EfufFpNmSFSNLoFCCXineBf1a+v51cTNECuo8M5RJ8jExKbzC+ekPhI9Y3iDF4Xj7YgMQRPeaVPjhoEgU0FboHxv5J7q37+Zl1y1kvzZgXRDX7ojhzmtWNXZ9DD88wF96GvoQDF2K6rbLyhlGoeMtY4WvTbdh94UZW5GMXcwQXFaolBilUukZGEoEnWyDcII3puaVkJEABVXGTsV8h4iZ9KKUgc0vRYoGya9GEAhnivYOxZC/JcmxYlk2L1JFajb5P558dhZ48DEy7PTBN+pJXKGCgc2IbdVYfUDmQbhKg9djWQBX7vFevpfUUWsPSlwXkmf2btTS9RWgg1wJx0jgLSTEmLgJcZzZGTCGrqitIlMi8+qP2m7gfDdl6tYTx+GsmymDurrCzyYt9opq1vy8sHkQAqxuMVwRNcM6aRc1PU80urhzlbY37/bTvrmQJbMOhm8YzDClmTZWsDxbM3pG/L4Rip7rul+Ze/Y=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CH2PR12MB9457.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(8096899003)(4143699003)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006);
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(56012099006)(10067099003)(4143699003)(11063799006)(6133799003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dkJ3MW5CWmpNSCtISVBicFNDaGhTdnlmNllJdWU0SVJ0L3JGeDNOb2FlenZx?=
- =?utf-8?B?Q3RJdGt6cG93QU90aXZDQ3BHRnpBcmNvRXltalJHR3NheDZ4WUc4T1RBQWJO?=
- =?utf-8?B?V2ZGU3k0Uk9Id0NLZGR4cWxsVkNLektXblh6dHpJUi9jaXhYZTdxOG1vVWlu?=
- =?utf-8?B?d3JqaW9FVHdBQVU0NnNsVGZPMDlySWRkcXAzOVlmaStPajZ5bFg2b2x2NGI2?=
- =?utf-8?B?endBM012WlhxbmRSdnMrdXdYVnBpQjRIUmdjT2tseGo1OGJOdmJFQ29NYnRH?=
- =?utf-8?B?WHJWWlBkblZ4YVUvbE1pa3liclphMmZNOUVwV2g2MHFaVW1vNG43b0dlMlIz?=
- =?utf-8?B?aEhmYURKaGR5WXppUDdzUEtURVk1T2dra3RUK2JNSHVrM2FrbmtEd3pueWNu?=
- =?utf-8?B?b2pIYjVYM2dGTWhUU2pQcFlvRURaOE45SGRRNTNRSGFYRTJLTlEwRkFWV2M5?=
- =?utf-8?B?Yk1sclhEUXVkdUwzR0ZGazVaSk5YbDMxam0yVjFkak9jeG5pQmNCaUlSaGJ6?=
- =?utf-8?B?VlRiY1VPU1NwdDV1MzhVMnNJbXlqNnlYcHU0Q1lURUdpNXlxcWZvQWNhUVd3?=
- =?utf-8?B?Z2M3QzFXNHgyamVkU2VZd3dOV0pGTTZhemppaGUyc3JDWDkrbktXWVBvZFF1?=
- =?utf-8?B?VHZzUGkvUTA3Q3RCY2VkN0RKMDBKY2JLbENCL1JKNHViM2ZLam1TS2JURDZn?=
- =?utf-8?B?S1lTVW9VOVRUZENyenBEWS8zT2hiRVlvdjhPZE4xaXRsZENqOWgyTVRFdDNC?=
- =?utf-8?B?UWFWZjRmTVhCOTZkQkZvUFZSMUhaUnhTZ3A5QVlKVldrODNtQ25pZHluYnBo?=
- =?utf-8?B?RVhuTmllUks4OHNaZjBiREZibTVjMFEwZm5WMyswWHlZdllsUG8zaDlJRVF0?=
- =?utf-8?B?b3BWOUQzamVQSTdHeVplN0xTZlFnNVJhRDBhWnpnWXFjSzBqYUg3Y0RxRkVV?=
- =?utf-8?B?Qy9qaCtHbzkwYWZ3RnliZUFhVEh0TzFFTVJvKzV1cXpPdDAzT2Z6dUxGRzdT?=
- =?utf-8?B?ZFVad05kOG5tdXVRU3g3Yi9hZEh3STNadWRSbGY1V2RXV1pIc1UvVVp6V0FF?=
- =?utf-8?B?UEhuTDJNR0ZCck1JWjhGYkswdTVsZ3pGRVVUWWNlUm5VMFpzdEtwY1ozUWt5?=
- =?utf-8?B?ckdCM3diTDA1TWxYdE5aR2pBS3dKRms0cUFTeWMyY05jeTZiY2gyY0dSbVAz?=
- =?utf-8?B?bXllQnBHbFB6U1ZiZEJzai9jbmhub1AxbFdSSUlld3JoUG9ueDNscUpHUVgz?=
- =?utf-8?B?TTB4elZHUjNFcE9GckczYnZDQjM5Znh4cmk2ZEtrMDBmYmJoVmgvcVlXK01R?=
- =?utf-8?B?aGJjYzFGeEp6d2dHWUFQSS9aTy8zc2N0WElWb0ZSeWlQQUhBL0d6VzdMRU03?=
- =?utf-8?B?U2dOMXVEaXU4ekEzUFU4cmtnZGFzd3pNU1JtcWN5c01iWmlUTXFuVE9yck10?=
- =?utf-8?B?NlErS2cxbm0wV0ozOG5iVjdnVEQwS2tSTUZxZk5TbnlUWmNaa2ZkclBpWitp?=
- =?utf-8?B?RHlYbTBQY0swWWtEQzJETzQwKzBEWU5MUGt2Y2RETnBPalF5Nm1pTTlRTVho?=
- =?utf-8?B?V0c4dzdkbnVoY1I3Yi9nNnB5aHY5cFhnUkhWZkJQKzVrdnNFK3Erb0V2dWNC?=
- =?utf-8?B?UVRiYzZ0VkcwUThKRjNxWTF2UXAzdnNzYk9IbzlJNnMrTjlDZElSOC8rREx5?=
- =?utf-8?B?SmRPMnNrNFE1dkNpV05WclBhUUpCS0VlZzNaRXFhR0hXb0tVYnVHNmFvbG82?=
- =?utf-8?B?L2VKcit5MWg3K1c1ZVkrOGhURSt1VTNYSTE5R2syR2tHZVhLUnFTcFAxQUVS?=
- =?utf-8?B?c2NsY2FwK2hoa2dxSVg1L1RQUVNyb3ZmYWRLbTd0UjJiMFBHWC85SzBQbXRP?=
- =?utf-8?B?aDNQQTc5MzM1UEVSa0N1M3Bud3czM2hyYzY0YmZjMVhmaVRPMFdvcjNETndO?=
- =?utf-8?B?RGVGVnlzV0c1UStpempNemd4U2doN2g0QTVia1BxTzRSUWlDenlrVXFDc2ZG?=
- =?utf-8?B?VUJ4UUdhaDRuMzBLRGZvajlMd0VPN0d5SmNseTFza0ZsKy9yWmtoSTgvWk53?=
- =?utf-8?B?ekV5VjJtVU5qdFVDTVdBdkJnd1oxcFUwRXJVRmswSjJwSk5LK2lXZXlWK1l3?=
- =?utf-8?B?VTI4UGVRRFo4K2dGWlo0NmxYYTk2U2laV2ZZL0pSUGxtU1RUTENpYTZZQTcx?=
- =?utf-8?B?VWFoL1Roby93WkdJVWFEWW14UmNXYjBKcFQ5dkF2NzRjb1JlcFk2Y0NBWGRO?=
- =?utf-8?B?MnJjYVlZUWRTckNJMDhQUTVaYnIxK05BeEhHczF0ZlpWeVljYTlzdW5RZnoy?=
- =?utf-8?Q?NZo5UtQ5UR2EWiubdp?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QVFLMHRVeWMxa3ZXbkhBT1k1SC9vTUtER1FoVzcvVFlURW1hR1ExWk9WV0hJ?=
+ =?utf-8?B?dHF1RXpVL3lveDQ2cmxJc2xBbWxYMVM0MmNlNTFhQzcwZGxFN0NPaUZ6aVRo?=
+ =?utf-8?B?eEJUdzZ3enRMOWJsTzlSc1ZpLzVTZHhpbUZBM1lMMmsvWTByRFVwcXNCQ0pR?=
+ =?utf-8?B?TzlUV1pMTE5JdW8yYUhoRzRRZzMvaWxla2xxcXg3OXRYTmhZNjJlRDFkM0RS?=
+ =?utf-8?B?ZzgwclJnUzY2dzdhZjEwUXZwZVN2ZGJ1NnVmTytFdDBwaFBrV0l1ejBsdXMw?=
+ =?utf-8?B?YU55b2VZejBSSW9nUXNRcjRTOEtmdUp1YWJNaU1sc2JZK05NeXVBZ0t3TGNI?=
+ =?utf-8?B?aVI3K255bzJGNStLakpxb0hzTVlnL1M3V2F1bk54TmdqTm5Yd2orRzhSUmxi?=
+ =?utf-8?B?aFhYaWlBU0ZhYnByRDViS09GWlkyL1BDZGNlQlI3cE9NL1FKUDR5eE1WTlBT?=
+ =?utf-8?B?QlNyK3lsWTNLQVVGRW1mWGE4UGo4NWxXanhhU0pmN2NvcHZ3eGk2enFyMmJZ?=
+ =?utf-8?B?dmY1eG1wTGJqZ082NUVhb0dla2g5a1BOQ0d5eWM5enlyOHFLczBPazMyMjZB?=
+ =?utf-8?B?WGxxSlZtRi9yYnZGNEpFNkU5bnZ6eVRyMnZScTN6cmxtSkdnUTNLUmIwL2ow?=
+ =?utf-8?B?bFhFeVZLNW9pTVdNSWtvMGZWRTVmNWdLbUF4VU9nRDdXZmdobG1IbEZCcHNN?=
+ =?utf-8?B?ZEdtMVFybHFyKzg5V0puRld2NVVyc0h5bmMvanpremJxb3JEUTBpbFNjVTA5?=
+ =?utf-8?B?Mk9FTUZidDh3UDYwbC9keEJzY0gzb3BHaFNYQTlYOHNwQkZwOWY5dVorZzhN?=
+ =?utf-8?B?THpOanN0ZG5kTE5iTVl6RW8wNVV1cWQ4OFl4eEJnNUxlSExDU1FmaEk2NE5P?=
+ =?utf-8?B?dUY4OXFIMDVsNzl0U2NsU0FjRkpPRytwcU5VRmxNTE56amdWVzQ0ajNiSmVW?=
+ =?utf-8?B?eHZYUi8vUjFvbU1IVnc2QTA0bEdUSDlNTXo2dWNPa0szeTFuRldyZTVmalkw?=
+ =?utf-8?B?TDZHVTF0SC9WUWhvNk1SL1pVcGUvcFR0eThReFJlTFF2ekhNL01KaEpOWUsx?=
+ =?utf-8?B?djIzV3JkNkNUQURJVnhPWGdhdXJ5ZVpXWFNVT2JKOEJUTkZ5TTNXd2prbE5Y?=
+ =?utf-8?B?ZW5BM08yZDBwc2E5azdYb25MNGM5cDU3WUM3NnRTb3NnTVhjcU5aVURuRjY3?=
+ =?utf-8?B?ekR1SWpwZHltZlMyK3cwUzNhOTEwVDUyS25aOTMyY2VMSzVtMm15bDZOQWtX?=
+ =?utf-8?B?ZVY0NnowckQxWnhTNStaSmJtUkl2UDdJdjhGUER3TWVFNE5kSk5tUFJqa2Zs?=
+ =?utf-8?B?R3lYbkErRk5mR2o3bHpHdmg3WWFocUF6eFZBZm9TNUJnQWZ5Vng1TVF3K3Bt?=
+ =?utf-8?B?YVFod2lvL01GTnBPRHd1UDFWa2lRNDRPbDNmUUp1bVlPd1JEV3VVT3dQeC9R?=
+ =?utf-8?B?NkJDNmVjU2xUZmdrNmswa01kTi9YSmZKaWEyZXdTQzBwTloxc0V6MWlhZnJN?=
+ =?utf-8?B?NllLV0NkbE9MZHJFd3Q3dFF5T2VleFlqenBDRHR2dm81N3F0ZHlXOTJISFNr?=
+ =?utf-8?B?MDV1dnd0cnh5c3IzUGlPNmpaQmZLMzJFL1dYVXJZQ2RKL2RtQjVwbWVRY25n?=
+ =?utf-8?B?WUJYZkVkb0xub2U2Vk43WU9nUWdLYlVyYUNZaEZoRVhJQ0JYRGhiVlJUL2xa?=
+ =?utf-8?B?RzhqcEFka0RUekl3OVFkSFNNNU5JMndIdDc3dlU2eTZpRDU2NUlySDJVZlFM?=
+ =?utf-8?B?bDNzNStJNHcxTkF2cVh0SXcybmk2bVVqUlJlK0NWbWdXSDBzMGxCRE1kdHVY?=
+ =?utf-8?B?YTB1QkRiZUhFVE9jWkVoSGNlOW1USHRkWjFWSkpid1J6eE9HTFBaODJEUmk4?=
+ =?utf-8?B?RUlBaUZ0V0dmeW5oZFBLRW9qSldIc1dkWjM4QkphN0ZmMC9FczJRdFhHeEJk?=
+ =?utf-8?B?b25GZ2JOeVJGZWdJY2xFazNSZ1hhRzA1aDRzVG9mdVJhVHFDdUJ3QndwQTR0?=
+ =?utf-8?B?SGxEUjJIQmlrOElhZXhuMy9FZ21LajRPNSs0anQ5MHQ4WklpSm84eWZMaDhw?=
+ =?utf-8?B?ZmkvZng1cDhZdFozdXNGakQ4OHdiMkpUWUdqTW51OElzdGYwU3JPSTNNb29P?=
+ =?utf-8?B?dVRSRkNTbEpwQi9NVXJiYzEzSm9sL0lXNXowRzdIaVMyUW4waWg5Qm45dXpC?=
+ =?utf-8?B?TmZleG5KMkRTaFBLYTZPQlIrcStoc1FENFhweVFnTHZSSTRCL3kxQ2xhQkd5?=
+ =?utf-8?B?NnlpNFl0cEhqb2wxYW96SGNzSWZDcXFQY0N4S1BsSFN5c1lQYkJwOXBBdGhi?=
+ =?utf-8?B?S3pPdWY5bENGRllRcEVYUmdGbzlla1duUExhRndmdWpsUERzS1VJUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1716b1aa-3ec4-4b2a-d484-08def38ea173
-X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB9457.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b30737e3-9e39-428d-0d63-08def38effce
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 07:45:05.5928 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 07:47:44.0271 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FGQjK72vqsLgMVB17QZ70TUIfpenXcm4amUNkEzJkbbKc2yJK/Vp87zSjAH9Jsj42mRjBmJyeAhEQ4CELgTEkw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9213
+X-MS-Exchange-CrossTenant-UserPrincipalName: hDAE8c52BWMOtnB7WxQn1KQeSE7Zxmt1ddW1ZJG/hUwTZe7NjgI+Rsh6oR8OFI3r
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5889
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,189 +137,183 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------dY0NZMvX3J0hjl8NK3PTzS91
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-Ping Christian and Alex
 
-I may still need the maintainer's comments to merge this patch.
+On 06-Aug-26 1:03 PM, Wang, Yang(Kevin) wrote:
+> AMD General
+> 
+> I do not agree with adding a read-to-cache path for the current PPT limit.
+> 
+> The current limit is PMFW runtime state. A read of that state must remain an observation; it must not implicitly create or update driver-owned persistent policy.
+> This separation is intentional: the driver keeps immutable capabilities from the PPTable and restores only limits that it successfully programmed itself.
+> 
+> Caching a value returned by GetPptLimit would turn a potentially transient or out-of-band PMFW state into a value that the driver replays after suspend or reset.
+> 
+> There is no ownership, notification, or synchronization mechanism that makes such a cache authoritative, so it can only become stale.
+> and the existing user_dpm_profile policy *CACHE ALREADY* handles the supported driver-owned update path.
+> 
 
-Thanks
-Lingshan
+The existing path also doesn't have any synchronization with 
+out-of-band, so the same argument holds. i.e., it overwrites whatever 
+set by external source.
+> If no bug fix or feature improve, please drop this patch.
 
-On 7/23/2026 7:17 PM, Khatri, Sunil wrote:
+Driver triggers resets which could relaod the whole FW. In such cases 
+driver remains responsible for restoring the last known power limit. The 
+current method doesn't do that.
 
-> Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
->
-> On 23-07-2026 01:53 pm, Zhu Lingshan wrote:
->> amdgpu_userq_buffer_vas_mapped() checks whether all VAs
->> of a queue are mapped before restoring it.
->> So that HW won't access any invalid addresses.
+I will add a bug fix tag as the previous patch doesn't restore the 
+current limit properly.
+
+Thanks,
+Lijo
+
+> 
+> Best Regards,
+> Kevin
+> 
+>> -----Original Message-----
+>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>> Sent: Thursday, August 6, 2026 2:14 PM
+>> To: amd-gfx@lists.freedesktop.org
+>> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Deucher, Alexander
+>> <Alexander.Deucher@amd.com>; Kamal, Asad <Asad.Kamal@amd.com>;
+>> Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
+>> Subject: [PATCH] drm/amd/pm: Track current PPT limit for restore
 >>
->> Currently, this function assumes all VAs are mapped if
->> any VA of a queue has been mapped, which is wrong.
+>> Cache the applied PPT limit in the ppt limit range and refresh it on every get
+>> and set. Initialize with the default value on fresh load; a value equal to
+>> default is treated as unset.
 >>
->> This commit fixes this problem by examining all VAs of
->> a queue and reporting false if any of them is not mapped.
+>> On suspend or reset recovery, restore the cached current limit when it differs
+>> from the default, falling back to the default otherwise. This replaces the user-
+>> mask based restore, covering limits changed outside the user profile path as
+>> well.
 >>
->> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+>> Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
 >> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 16 +++++++++-------
->>   1 file changed, 9 insertions(+), 7 deletions(-)
+>>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 39 +++++++++++++----
+>> --
+>>   drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |  1 +
+>>   2 files changed, 29 insertions(+), 11 deletions(-)
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> index 3fe10d6af757..2b3cb4ec4835 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> @@ -280,22 +280,24 @@ static bool
->> amdgpu_userq_buffer_va_mapped(struct amdgpu_vm *vm, u64 addr)
->>     static bool amdgpu_userq_buffer_vas_mapped(struct
->> amdgpu_usermode_queue *queue)
->>   {
->> -    int i, r = 0;
->> +    int i;
->> +    bool mapped;
->>         for (i = 0; i < ARRAY_SIZE(queue->userq_vas.va_array); i++) {
->>           if (!queue->userq_vas.va_array[i])
->>               continue;
->> -        r += amdgpu_userq_buffer_va_mapped(queue->vm,
+>> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>> b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>> index f45cd4e31415..7edd919a7832 100644
+>> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+>> @@ -495,16 +495,11 @@ static void smu_restore_ppt_limits(struct
+>> smu_context *smu,  {
+>>        enum smu_power_src_type power_source;
+>>        struct smu_ppt_limit_range *range;
+>> -     uint32_t restore_mask;
+>>        uint32_t limit;
+>>        int i, ret;
+>>
+>>        power_source = smu->adev->pm.ac_power ?
+>>                SMU_POWER_SOURCE_AC : SMU_POWER_SOURCE_DC;
+>> -     restore_mask = smu-
+>>> user_dpm_profile.ppt_limit_user_mask[power_source] &
+>> -             smu->ppt_limits.supported_mask;
+>> -     if (!restore_mask && !restore_defaults)
+>> -             return;
+>>
+>>        smu->user_dpm_profile.flags |=
+>> SMU_DPM_USER_PROFILE_RESTORE;
+>>
+>> @@ -512,14 +507,14 @@ static void smu_restore_ppt_limits(struct
+>> smu_context *smu,
+>>                if (!(smu->ppt_limits.supported_mask & BIT(i)))
+>>                        continue;
+>>
+>> -             if (restore_mask & BIT(i)) {
+>> -                     limit = smu-
+>>> user_dpm_profile.ppt_limits[power_source][i];
+>> -             } else if (restore_defaults) {
+>> -                     range = &smu->ppt_limits.range[power_source][i];
+>> +             range = &smu->ppt_limits.range[power_source][i];
+>> +             if (range->current_value &&
+>> +                 range->current_value != range->default_value)
+>> +                     limit = range->current_value;
+>> +             else if (restore_defaults)
+>>                        limit = range->default_value;
+>> -             } else {
+>> +             else
+>>                        continue;
+>> -             }
+>>
+>>                ret = smu_set_ppt_limit(smu, i, limit);
+>>                if (ret)
+>> @@ -875,6 +870,21 @@ static int smu_early_init(struct amdgpu_ip_block
+>> *ip_block)
+>>        return smu_init_microcode(smu);
+>>   }
+>>
+>> +static void smu_init_ppt_limits_current(struct smu_context *smu) {
+>> +     struct smu_ppt_limit_range *range;
+>> +     int i, j;
 >> +
->> +        mapped = amdgpu_userq_buffer_va_mapped(queue->vm,
->>                              queue->userq_vas.va_array[i]);
->>           dev_dbg(queue->userq_mgr->adev->dev,
->>               "validate the userq mapping:%p va:%llx r:%d\n",
->> -            queue, queue->userq_vas.va_array[i], r);
->> -    }
->> +            queue, queue->userq_vas.va_array[i], mapped);
->>   -    if (r != 0)
->> -        return true;
->> +        if (!mapped)
->> +            return false;
->> +    }
->>   -    return false;
->> +    return true;
->>   }
->>     
---------------dY0NZMvX3J0hjl8NK3PTzS91
-Content-Type: text/html; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+>> +     for (i = SMU_POWER_SOURCE_AC; i < SMU_POWER_SOURCE_COUNT;
+>> i++) {
+>> +             for (j = SMU_PPT_LIMIT_PPT0; j < SMU_LIMIT_TYPE_COUNT;
+>> j++) {
+>> +                     if (!(smu->ppt_limits.supported_mask & BIT(j)))
+>> +                             continue;
+>> +                     range = &smu->ppt_limits.range[i][j];
+>> +                     range->current_value = range->default_value;
+>> +             }
+>> +     }
+>> +}
+>> +
+>>   static int smu_set_default_dpm_table(struct smu_context *smu)  {
+>>        struct amdgpu_device *adev = smu->adev; @@ -1911,6 +1921,9 @@
+>> static int smu_smc_hw_setup(struct smu_context *smu)
+>>        if (ret)
+>>                dev_err(adev->dev, "Error during wbrf init call\n");
+>>
+>> +     if (!adev->in_suspend && !amdgpu_reset_in_recovery(adev))
+>> +             smu_init_ppt_limits_current(smu);
+>> +
+>>        return ret;
+>>   }
+>>
+>> @@ -2999,6 +3012,9 @@ int smu_get_ppt_limit(void *handle,
+>>        switch (limit_level) {
+>>        case SMU_PPT_LIMIT_CURRENT:
+>>                ret = smu_get_asic_ppt_limit(smu, limit_type, limit);
+>> +             if (!ret)
+>> +                     smu-
+>>> ppt_limits.range[power_source][limit_type].current_value =
+>> +                             *limit;
+>>                break;
+>>        case SMU_PPT_LIMIT_DEFAULT:
+>>                *limit = smu-
+>>> ppt_limits.range[power_source][limit_type].default_value;
+>> @@ -3061,6 +3077,7 @@ static int smu_set_ppt_limit(void *handle, uint32_t
+>> limit_type, uint32_t limit)
+>>        ret = smu->ppt_funcs->set_ppt_limit(smu, limit_type, limit);
+>>        if (ret)
+>>                return ret;
+>> +     range->current_value = limit;
+>>        if (!(smu->user_dpm_profile.flags &
+>> SMU_DPM_USER_PROFILE_RESTORE)) {
+>>                smu-
+>>> user_dpm_profile.ppt_limits[power_source][limit_type] = limit;
+>>                smu->user_dpm_profile.ppt_limit_user_mask[power_source]
+>> |= diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+>> b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+>> index 92658eb3886d..5222b48eba25 100644
+>> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+>> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+>> @@ -229,6 +229,7 @@ enum smu_ppt_limit_level {
+>>
+>>   struct smu_ppt_limit_range {
+>>        uint32_t default_value;
+>> +     uint32_t current_value;
+>>        uint32_t min;
+>>        uint32_t max;
+>>        uint32_t od_min;
+>> --
+>> 2.49.0
+> 
 
-<!DOCTYPE html><html><head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  </head>
-  <body>
-    <pre>Ping Christian and Alex
-
-I may still need the maintainer's comments to merge this patch.
-
-Thanks
-Lingshan
-
-On 7/23/2026 7:17 PM, Khatri, Sunil wrote:
-</pre>
-    <blockquote type="cite" cite="mid:c2a5fb47-d8b8-44c3-ab16-3538e7925fc8@amd.com">Reviewed-by:
-      Sunil Khatri <a class="moz-txt-link-rfc2396E" href="mailto:sunil.khatri@amd.com">&lt;sunil.khatri@amd.com&gt;</a>
-      <br>
-      <br>
-      On 23-07-2026 01:53 pm, Zhu Lingshan wrote:
-      <br>
-      <blockquote type="cite">amdgpu_userq_buffer_vas_mapped() checks
-        whether all VAs
-        <br>
-        of a queue are mapped before restoring it.
-        <br>
-        So that HW won't access any invalid addresses.
-        <br>
-        <br>
-        Currently, this function assumes all VAs are mapped if
-        <br>
-        any VA of a queue has been mapped, which is wrong.
-        <br>
-        <br>
-        This commit fixes this problem by examining all VAs of
-        <br>
-        a queue and reporting false if any of them is not mapped.
-        <br>
-        <br>
-        Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
-        <br>
-        ---
-        <br>
-        &nbsp; drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 16
-        +++++++++-------
-        <br>
-        &nbsp; 1 file changed, 9 insertions(+), 7 deletions(-)
-        <br>
-        <br>
-        diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-        b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-        <br>
-        index 3fe10d6af757..2b3cb4ec4835 100644
-        <br>
-        --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-        <br>
-        +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-        <br>
-        @@ -280,22 +280,24 @@ static bool
-        amdgpu_userq_buffer_va_mapped(struct amdgpu_vm *vm, u64 addr)
-        <br>
-        &nbsp; &nbsp; static bool amdgpu_userq_buffer_vas_mapped(struct
-        amdgpu_usermode_queue *queue)
-        <br>
-        &nbsp; {
-        <br>
-        -&nbsp;&nbsp;&nbsp; int i, r = 0;
-        <br>
-        +&nbsp;&nbsp;&nbsp; int i;
-        <br>
-        +&nbsp;&nbsp;&nbsp; bool mapped;
-        <br>
-        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (i = 0; i &lt;
-        ARRAY_SIZE(queue-&gt;userq_vas.va_array); i++) {
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!queue-&gt;userq_vas.va_array[i])
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; r += amdgpu_userq_buffer_va_mapped(queue-&gt;vm,
-        <br>
-        +
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mapped = amdgpu_userq_buffer_va_mapped(queue-&gt;vm,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue-&gt;userq_vas.va_array[i]);
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dev_dbg(queue-&gt;userq_mgr-&gt;adev-&gt;dev,
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;validate the userq mapping:%p va:%llx r:%d\n&quot;,
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue, queue-&gt;userq_vas.va_array[i], r);
-        <br>
-        -&nbsp;&nbsp;&nbsp; }
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue, queue-&gt;userq_vas.va_array[i], mapped);
-        <br>
-        &nbsp; -&nbsp;&nbsp;&nbsp; if (r != 0)
-        <br>
-        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return true;
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!mapped)
-        <br>
-        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return false;
-        <br>
-        +&nbsp;&nbsp;&nbsp; }
-        <br>
-        &nbsp; -&nbsp;&nbsp;&nbsp; return false;
-        <br>
-        +&nbsp;&nbsp;&nbsp; return true;
-        <br>
-        &nbsp; }
-        <br>
-        &nbsp; &nbsp; </blockquote>
-    </blockquote>
-  </body>
-</html>
-
---------------dY0NZMvX3J0hjl8NK3PTzS91--
