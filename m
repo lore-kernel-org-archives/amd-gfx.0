@@ -4,122 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F4110C2A09B
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 14:28:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E8EDCC5ACC2
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 14:38:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E35010F504;
-	Fri,  7 Aug 2026 14:28:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43D4510F50C;
+	Fri,  7 Aug 2026 14:38:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="WeIZlsy3";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WUk4sCDf";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011012.outbound.protection.outlook.com [52.101.57.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 777F610F504
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 14:28:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=E5KuzXai7264QGVqFqe9m/OxS48F4npPnvlQCpvHFkd95HIMQKdjfzK/HLg2xs78E7ZGlLi2/37mWMshJnZyBPSObl1da5TshjAEXc1XhSyKEFWqikDKNk0XjI1/OFM20uNVCo+PdZW3tlZC8HbLziiSEmsgvtnFFf3ZqS1kspsHhPT5gvikfolArSaQ5hY1jOvwDeMm1cKLxd7koBt8x2alqIEd5t6ApIU0lqDwCmPiTDw2Vkau6O74v3EmuB96vNHTcumZccF04/G2MpaD6W9Y4qnlpd0thcRGfrpexn0i9W9CE4f3Xi/tGeHJ8QWPUYT78JNzYGE2VYqmDTb+Tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=quwiXGEY8YheAlDu2o610NJSN6aqcSq6cY0dqdVzVs4=;
- b=Fr8hhhy3VEzcXn2b770IHYMz1qV+DpFbXLW3fS/HR6Cghyjf9gFPLLHsK2beCSoVrQ2pQVWwmVopF9ndSvnIZZJ6kXAPC7uKxRaTmfHMlopjVmJglT30ANgg2Ja1Ffwh6xBGA2hPKXctTR+apmrkNYDZmCdS7qhSqbug+ZDZuWJZyLUB7pTtQDX5fP1EmqEJJtrdQN4Dg79ERorXNccyALzLnFKloqyadU8RzgMcp86vK4C6STcKtdrRL1XXIGT57BeUU1FLxMbiXpyEj1fbfRhcKPbFthPPZlJvpcK5Dv2iSGFXQAz4ax4wp0tWOoGus05J2BNc4ISVVriQ5ETu/Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=quwiXGEY8YheAlDu2o610NJSN6aqcSq6cY0dqdVzVs4=;
- b=WeIZlsy3dlqlDYqxtP8t9aFEwlHqhpSfbdmKH79ENRtuZUFvJGyAwHxLRWWTSVN68kg8uqX/Du8TTTnYXMM/GhhTd6IsvnzWPcOJMNTuHlSRvlVBb9/YcY0Nxb416Psye5w4FWh11PkKv56dO1iPNMOipAqpOAA5yQlxL7XWjbc=
-Received: from DM6PR12MB3611.namprd12.prod.outlook.com (2603:10b6:5:3c::17) by
- LV3PR12MB9332.namprd12.prod.outlook.com (2603:10b6:408:20f::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.24; Fri, 7 Aug
- 2026 14:28:17 +0000
-Received: from DM6PR12MB3611.namprd12.prod.outlook.com
- ([fe80::7861:6815:8b7d:bd0b]) by DM6PR12MB3611.namprd12.prod.outlook.com
- ([fe80::7861:6815:8b7d:bd0b%4]) with mapi id 15.21.0292.019; Fri, 7 Aug 2026
- 14:28:17 +0000
-From: "Chen, Michael" <Michael.Chen@amd.com>
-To: "Liang, Prike" <Prike.Liang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>
-Subject: Re: [PATCH] drm/amdgpu/mes11: disable MES RS64 process/gang context
- loading
-Thread-Topic: [PATCH] drm/amdgpu/mes11: disable MES RS64 process/gang context
- loading
-Thread-Index: AQHdJlUPmgrTKPf7cECoh5EFg5UFGraSpR4p
-Date: Fri, 7 Aug 2026 14:28:16 +0000
-Message-ID: <DM6PR12MB361198AFD6BC49B5A4C0340694D12@DM6PR12MB3611.namprd12.prod.outlook.com>
-References: <20260807101051.367233-1-Prike.Liang@amd.com>
-In-Reply-To: <20260807101051.367233-1-Prike.Liang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-07T14:28:16.087Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM6PR12MB3611:EE_|LV3PR12MB9332:EE_
-x-ms-office365-filtering-correlation-id: b7260680-3f04-434e-cf91-08def4901f42
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|23010399003|376014|1800799024|38070700021|56012099006|11063799006|10067099003|8096899003|18002099003|22082099003;
-x-microsoft-antispam-message-info: OrysgMlXJ5k0w0rzrjHhTjZ5xiIt2oFv9yjergXAm75m8XSmPg6hcQBVKFWSDx7xGjawV2a7iMlmZhwusc51eaYeavC8zMZ6aXVAToxoDfYkR1JlmteSVTaANcG8edUsi0rcNfuJB2C0W1hj1bwqIjg4cWnCYXSLz+G/8pXotN8vZEJJ93FclgHpSjlV9kLOuWUJfBC9DrL7ob3bBGeE9Dl09z6pDio8bdpgJhEDmaXs/My0b+ANOKZ6w+jW4ZVzP7rsmI4uU/pOuYyeqhk2teUKPp5Ohy0b+hIVbCr2x13dN4D78ZgQedKDBmIGnPL+FSpzo1j8UrcKo8m+4DZhM4MK+eauIQyHh4OrSyEAxlc84anNjLfvIfV0BlkSCMkm+FUBqjY57dUEMdwkii9bISdLR3+VoeVmIA6iDKoBYierfwoS1nPjsnjMEnzkzzsdc5kXvLNVpzbGjKB/Hh1yct5kpRROFD4ajJNjIxrEcpWuzAyWbdSGK8sLmKtZ38tz+RSZvuRpbjQpL1aUBfrxOEaRfqfvQ8Z4eVP2qet0ZVp//+VLapgOLV6dSL/SfX2ushF+ZZBZ8crmPT3k2tEfbKtvmO5bTSacx3DzzDw2aD2O4RTtooFV5Lkt/MG/REnweEELoS0UQbfSXWfwI3rk1mp81eqOjS9TKWXYyaxnOFt+6l/DmvTQF7hI5r9/jUaiwEbCzyaAmFNYoISUi5RK0Qfi2avySnuUMCvEr+1w6n4=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM6PR12MB3611.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(376014)(1800799024)(38070700021)(56012099006)(11063799006)(10067099003)(8096899003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?TvV/MVQB4XVBjV88MKNdPrsPifRHcrf0Z5/CEdm5naBf+XrdN+aYx3od4xjm?=
- =?us-ascii?Q?H0FEdMdWiqVIIeLdYxzve9MjfDYYkHfIXDjNXYHA+d/5T3i+0z33v2Fdkk6t?=
- =?us-ascii?Q?x3HqirPDZgWUx0w8TezJY0ZhikYls6yfmW7JplHEjWRa2Ja2tEFUhbbx7PU9?=
- =?us-ascii?Q?TJw3m2RwxXjcHwHzFbv5qUFoJRd2vNCDNYhfSXFVapHxXMYRR/74hI6LEphr?=
- =?us-ascii?Q?iKLydBFPzvW3FNb+12vIhZF9NlRgPqtcxqdeOCcJGGc6FkxkDIZUwzYw+1Bq?=
- =?us-ascii?Q?WkjJW+F/4TOW0TVIeWixFykb8LUHGdpXIQ8JD1QfeVxG1UzJ63YxRG6aPfnI?=
- =?us-ascii?Q?eWdgxd3p4h1pkR5FEsv/wqFvuG6BqmuBQieukfCgGnP8pAhvUh7H59aAI42/?=
- =?us-ascii?Q?1PPyLAk9PVTY3hi642SI0L0o/AgScQJBXG8+VhQxgtNYl1YAWwVfI8rO3dH5?=
- =?us-ascii?Q?p3WxCgwiwEnzGXWEHbMvEVXDVyJqIaj2KBBvWfqgjEuC3QO9WDg6Ju5ZWN5W?=
- =?us-ascii?Q?u0kbt/NlMcp4r6uXN4i9BZ+/UHyLIHK9d5062fexao8c2Z+jHwcjkV+kEtEv?=
- =?us-ascii?Q?AJ6sRKtaALTJV1EVodkaYiSDfPZnFEAUDenx9shiHyiwZx4B+HYewsQzsHP+?=
- =?us-ascii?Q?VlO5S71cw6ChVOWlC+qf7tVVY8a654ZIf4iAr08LpTFPgoCbO1mmtq95dhX6?=
- =?us-ascii?Q?oxCymuSVYcAEBFcd7hmBIMRd3SKdzxmkZ+RuZ1/vvJ6NeEmS5+vGOLL6uogm?=
- =?us-ascii?Q?9WT1LaIFYb4uSAU8NxlLjHR3yM6i/yOFlWfRs1kNcUhVszHv7pRA2LZLH9F7?=
- =?us-ascii?Q?xMQV3XjILT2YqGFXCIH9kpASXzy+9llb9OfkE0w/mhT87/MnT7cNHqh6irfS?=
- =?us-ascii?Q?Nl2GKElrerUeI+ga+mRFda+tTKnmrridvaCcGqi+fYycup8oUHSdm6oCZKA/?=
- =?us-ascii?Q?jDURqaLfOiQy/H6FMRVINc4c8fEljEbO0O7FoU6MkAsjN8YL7oAJuCZGY/5U?=
- =?us-ascii?Q?mnnFq6PSObGsXMNCCWiyRcaCAAbav6w/2ThjAg4N/m4f+SSl3nCDNApFTDAV?=
- =?us-ascii?Q?4elE6qxDIchTumRcsy9xqG8OGp6dJkQ7uaqHxoRIyC5aJnr+kARUN7piSW9h?=
- =?us-ascii?Q?mTdFjDSD7w0zCR610Ipxeb85hF/kyunGmfD6CgAVP6uUTDcAiWOvqTh76jRy?=
- =?us-ascii?Q?nZLhErCelkA6JHxbwgQfh0EohyrapGaaJs5sGy+lAL2kcBmG8kw36gteR5jP?=
- =?us-ascii?Q?cPtV6bwQH04e9ZSl7evqUed+RaJK5qyB4tD38+81A7SbIXHQitYov49X3gEk?=
- =?us-ascii?Q?RIddvw0x0AKaIxTBXcqFUdnlxTMI3nfyWj9DdSloa5QnhTTAeEOGkrMYHWu1?=
- =?us-ascii?Q?68WmRyCRew96wJZBPIeLuFIr89iGAzcGms3880J+iO7rd+Wth2Z+tsbJsmcr?=
- =?us-ascii?Q?gxgNnyp26C3mY7UXTypnyJTJlYl8HV5iay9LapNtOhyEFiGudx+2izqMonEO?=
- =?us-ascii?Q?Z7s8hq0mAJDPApA8yu36v11NZRvjAbtn6wQIm2aFG8ZPjR9zElstrhpkBZaC?=
- =?us-ascii?Q?rC26O+EuzRuCXgcNBMGgJDAlappGVGhIOdN2CnxqhK0FBbIdUV0RlOuuxelr?=
- =?us-ascii?Q?YzpBIoUvFsziZW3289dpDarqRQS78Wb2G8hGmKNLKnXyRB6MGGF9MG+VjyCX?=
- =?us-ascii?Q?88w31zioaUMd0MnheNzjZ5McqzkPQheuBPvbYECOrw8sYqJA?=
-Content-Type: multipart/alternative;
- boundary="_000_DM6PR12MB361198AFD6BC49B5A4C0340694D12DM6PR12MB3611namp_"
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BF1010F50C
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 14:38:05 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-384caf7b168so498408a91.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 Aug 2026 07:38:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786113485; cv=none;
+ d=google.com; s=arc-20260327;
+ b=nzbot9NXlROaOrnUtrqs+IshwmzO4WKtf2m1mnJj236FThti1gpegqsva+r11+1lT1
+ bCl0/Ea9NrT0PXLEK747utsxgZuGlurrdCXgSABnAGxlKVqyqUXITA+DPOqu95kVcsC1
+ 6BMavj5FrdABdmKiTXaMY2OsmZTrh7k+79Q+4+tlxiPqzFt6WGAkgRaqx6dZDZeA9Tts
+ cIalZg9gZZ9h/CkziGL/TjHg4KTMEhlTS9KBD7daa+ZzENPGNe48nKbmbWPeXtyb3R7G
+ 8P/wlNBupGzJrbxl7Io15jHIDYs9ddV24YU/tsLVuiT2lFYkg+DxFDE6DAMeVCbmGOEE
+ zA7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=7AnXLE+E56JyXo03cuubL4fGOZKjBewfQLzkSoI1veE=;
+ fh=W4urHV6Jxzgzzxw2YDhJT/SpG6V6wMzjpVvif4ofd8U=;
+ b=Vlm5ihnHPmr2vZoOITlY7029pE/WWerWMibyKLZZ+Z+0dzH5u+m1L45XhyZSTDs9DF
+ P9NQMT+kF5pHVCYdXiwMAEHxOkxwWJuCxK8dPKQIhVjbq8tI0oqohX6KCljGlmYjd2+q
+ yVnf+6xiWNm20bV0wrulTfOH7R0qn2CJleh1x56yJmrqewVu5pzzR17OV0Bkt3jgmyxR
+ AFxetEdS34XpwRKIXnNo9EunrmjFqOAIEp63Z4OhYb2fDnR5wMPJ6pEwUkzFBHzBB6vl
+ PSvFsnlP9XoPqmE+R1+WxKN+UsX5Bu+MtaznFAFrLEd2ujDufDNq6WMz1v4TGgO60t6L
+ NTDw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786113485; x=1786718285; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=7AnXLE+E56JyXo03cuubL4fGOZKjBewfQLzkSoI1veE=;
+ b=WUk4sCDf9x1VZIEy8W/9HnP2E4Twotx7EAnggA4RrVRt3Br0TSaJ34/2IfqGuhXiSM
+ snd4eqvIq1ningYB2wMUmGAmca3tZuYioqueUwr18GOVMThymYllHlKamDpoLoMixKE1
+ BKb+NfuIP6y/oqV1/PbiSRs8kZfox47R8CiL1A2kxqHFMZIMOEqm85CYYxkR6rACrK7d
+ 6nSmg7VdDd4ytNXouzvdeepzWwLgw39gU/xJZEzYprfP3E5AzAqMq/hhYd24RPplMWAg
+ dXrWACSPrIWJynIQC8vyPMRDSbeV+egX+APWi/Atwo0414fhN8APg3udIs1iLe/VRVKA
+ H75Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786113485; x=1786718285;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=7AnXLE+E56JyXo03cuubL4fGOZKjBewfQLzkSoI1veE=;
+ b=ghOGyJS5OLmCcRe8Qf0xqNLDK9W5GxU4sP6l5H2Jf3yywXS8fl4rK7T7/iwM46SdbB
+ ToYpQUXwJucaBe5kIyzxEC5rlhNBLknmMcpvAk0SfzOlNWdksLyM2nuTSR1c+CiKCXBs
+ C5GJQ6NkzBcYGKRbjcNMNJAnyKgN3lHZ2PJ1GDkHDd6hVw1u8KdlxyJki4urUyY3VjYe
+ PrW47dqLdFdYd+hQFuiMkdiCuFBYdlE/NRXv8clMfCEG1L4l7MDim8JwNLGY/hHeOrLt
+ Vb11cu9M4XeRyj/JStfruvUVDU5/ZGcYoN956dDJeo38x69Y12Kcm8Cc5yY7S5rvHtx6
+ pJww==
+X-Gm-Message-State: AOJu0YwSiqjsPIgvL8n6cIliA7sKFdZUjpucjEVNk1s7p2mgJDNXFJq8
+ +zIRFnuDwIoNaJMxEeeNaZS6RATDAk7qh/KtemXkEnLMUOmZArEokfCtX+IyVgx7ANiPEOO9fBY
+ Fv06dEEbc+izCgIb6e0r0Z/4a2dryy/s=
+X-Gm-Gg: AR+sD12JNG5otnBGqC9f7Pmr49O1Y3LrK09FwH4m1Fct8kMv0m6Uq7AibowVKTauUP2
+ 6gmupPMb03HRMk1rVy2Ts5NOY4LBkielaI11wYahQByvvoVC96dW9AKJV2kdIENvNDqZQFHTYpt
+ UZaaRMreVr4t+CE/pn5BFzb5IdSfeMzGsMsCaZaDQT4aKpCdqUds9jPKmHra7a4xPmXOR2E8W6/
+ 0kIeqsEvdI9Z2EtxlVoJF99V4RLTPEy7bUt8WeEOWd1FCnRV2/8TP26ivmNgpdKm5GXejANJMKQ
+ QYG7VFVESCdGLj5bi/l/lzbSi/uPD3DL8AJkyMS5ZJXPasrqpzk0GRzuUWzohik79tvAneLG/R6
+ ukFRgpTstQpwHnaznwa9fe6udFgUDHF+4JCBdzhxypg==
+X-Received: by 2002:a17:90b:4410:b0:38e:6d4c:14df with SMTP id
+ 98e67ed59e1d1-3903c5bff9dmr15541882a91.1.1786113484923; Fri, 07 Aug 2026
+ 07:38:04 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM6PR12MB3611.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7260680-3f04-434e-cf91-08def4901f42
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Aug 2026 14:28:16.9861 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2pmY0zUMoJ88t3DDTsmnPKUVzynSqiknz52UPoomavB2JFBxeOLBSEXrJfdAkOCTeXQdQSEGMuVY+xm/hqTkzg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9332
+References: <20260715063128.581232-1-Prike.Liang@amd.com>
+ <DS7PR12MB6005701083F93C0330D4F4C0FBC02@DS7PR12MB6005.namprd12.prod.outlook.com>
+ <PH7PR12MB60005AAE1676A52D0A72A0C4FBD52@PH7PR12MB6000.namprd12.prod.outlook.com>
+ <CADnq5_MeA+koAWeUF1L5WnLCeB-c=W2n0nnLzY3fpguOQprGgw@mail.gmail.com>
+ <DS7PR12MB6005E76101209F514B1544D9FBD52@DS7PR12MB6005.namprd12.prod.outlook.com>
+ <CADnq5_PL1ECn9BHex4czV=35+ZkTmPrpQHbVOFg_ZQK7t1HygA@mail.gmail.com>
+ <DS7PR12MB60058ABC1D885DF414416607FBD42@DS7PR12MB6005.namprd12.prod.outlook.com>
+ <CADnq5_ONP+D7kSJEb0B0d3q8CaJGL4PTV7jfq+=j+dd_Tj0+Ow@mail.gmail.com>
+ <PH7PR12MB600029F6BFBAD2FE80A1841DFBD12@PH7PR12MB6000.namprd12.prod.outlook.com>
+ <CADnq5_NtQF7eU0iZv5786gVPUJ+U8daOBrqP0snAUpknKogMgQ@mail.gmail.com>
+ <PH7PR12MB6000775677CD969B8AE74AB7FBD12@PH7PR12MB6000.namprd12.prod.outlook.com>
+In-Reply-To: <PH7PR12MB6000775677CD969B8AE74AB7FBD12@PH7PR12MB6000.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Fri, 7 Aug 2026 10:37:53 -0400
+X-Gm-Features: AUfX_myhqbaIYMq3O3xVjSAaPoepzLdpcR7ODnSnxCE8GGHozo7bFflZWptKVeA
+Message-ID: <CADnq5_NBuTYNc=XgJztJZCY6ZU6w4g_Cu51dmK+1AV1nFA3xiw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdgpu: Remove separate guilty compute userq reset
+To: "Liang, Prike" <Prike.Liang@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,153 +116,374 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_DM6PR12MB361198AFD6BC49B5A4C0340694D12DM6PR12MB3611namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+On Fri, Aug 7, 2026 at 10:11=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com> =
+wrote:
+>
+> AMD General
+>
+> Regards,
+>       Prike
+>
+> > -----Original Message-----
+> > From: Alex Deucher <alexdeucher@gmail.com>
+> > Sent: Friday, August 7, 2026 9:47 PM
+> > To: Liang, Prike <Prike.Liang@amd.com>
+> > Cc: amd-gfx@lists.freedesktop.org; Zhang, Jesse(Jie) <Jesse.Zhang@amd.c=
+om>;
+> > Liu, Shaoyun <Shaoyun.Liu@amd.com>; Deucher, Alexander
+> > <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.co=
+m>
+> > Subject: Re: [PATCH 1/2] drm/amdgpu: Remove separate guilty compute use=
+rq reset
+> >
+> > On Fri, Aug 7, 2026 at 9:39=E2=80=AFAM Liang, Prike <Prike.Liang@amd.co=
+m> wrote:
+> > >
+> > > AMD General
+> > >
+> > >
+> > >
+> > > Regards,
+> > >       Prike
+> > >
+> > > > -----Original Message-----
+> > > > From: Alex Deucher <alexdeucher@gmail.com>
+> > > > Sent: Tuesday, August 4, 2026 10:18 PM
+> > > > To: Liang, Prike <Prike.Liang@amd.com>
+> > > > Cc: amd-gfx@lists.freedesktop.org; Zhang, Jesse(Jie)
+> > > > <Jesse.Zhang@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>; Deucher,
+> > > > Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+> > > > <Christian.Koenig@amd.com>
+> > > > Subject: Re: [PATCH 1/2] drm/amdgpu: Remove separate guilty compute
+> > > > userq reset
+> > > >
+> > > > On Tue, Aug 4, 2026 at 4:16=E2=80=AFAM Liang, Prike <Prike.Liang@am=
+d.com> wrote:
+> > > > >
+> > > > > AMD General
+> > > > >
+> > > > > Regards,
+> > > > >       Prike
+> > > > >
+> > > > > > -----Original Message-----
+> > > > > > From: Alex Deucher <alexdeucher@gmail.com>
+> > > > > > Sent: Monday, August 3, 2026 9:40 PM
+> > > > > > To: Liang, Prike <Prike.Liang@amd.com>
+> > > > > > Cc: amd-gfx@lists.freedesktop.org; Zhang, Jesse(Jie)
+> > > > > > <Jesse.Zhang@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>;
+> > > > > > Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig,
+> > > > > > Christian <Christian.Koenig@amd.com>
+> > > > > > Subject: Re: [PATCH 1/2] drm/amdgpu: Remove separate guilty
+> > > > > > compute userq reset
+> > > > > >
+> > > > > > On Mon, Aug 3, 2026 at 9:36=E2=80=AFAM Liang, Prike <Prike.Lian=
+g@amd.com>
+> > wrote:
+> > > > > > >
+> > > > > > > AMD General
+> > > > > > >
+> > > > > > > Regards,
+> > > > > > >       Prike
+> > > > > > >
+> > > > > > > > -----Original Message-----
+> > > > > > > > From: Alex Deucher <alexdeucher@gmail.com>
+> > > > > > > > Sent: Monday, August 3, 2026 9:23 PM
+> > > > > > > > To: Liang, Prike <Prike.Liang@amd.com>
+> > > > > > > > Cc: amd-gfx@lists.freedesktop.org; Zhang, Jesse(Jie)
+> > > > > > > > <Jesse.Zhang@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>;
+> > > > > > > > Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig,
+> > > > > > > > Christian <Christian.Koenig@amd.com>
+> > > > > > > > Subject: Re: [PATCH 1/2] drm/amdgpu: Remove separate guilty
+> > > > > > > > compute userq reset
+> > > > > > > >
+> > > > > > > > On Mon, Aug 3, 2026 at 5:25=E2=80=AFAM Liang, Prike
+> > > > > > > > <Prike.Liang@amd.com>
+> > > > wrote:
+> > > > > > > > >
+> > > > > > > > > AMD General
+> > > > > > > > >
+> > > > > > > > > As for the hung userq, it should be identified by the MES
+> > > > > > > > > reset API with the
+> > > > > > > > hang_detect_only setting. However, it is unlikely to miss
+> > > > > > > > detecting the invalid opcode hang case, especially given
+> > > > > > > > that the userq invalid opcode IGT test has not been impleme=
+nted yet.
+> > > > > > > > >
+> > > > > > > > > Hi @Liu, Shaoyun, are you aware of any known userq hang
+> > > > > > > > > scenarios that cannot
+> > > > > > > > be identified by MES API hang_detect_only? If not, could yo=
+u
+> > > > > > > > please help review the following patch, which unifies the
+> > > > > > > > userq reset path for hung
+> > > > > > queues?
+> > > > > > > > >
+> > > > > > > >
+> > > > > > > > We added it in the first place to deal with those cases.
+> > > > > > > > There can be queues which are not hung, but will never
+> > > > > > > > complete and hence never signal their fence.  E.g., you can
+> > > > > > > > have a queue that is waiting on a memory location that MES
+> > > > > > > > can preempt, but due to a bug elsewhere that memory locatio=
+n
+> > > > > > > > will never change so the fence will
+> > > > never signal.
+> > > > > > >
+> > > > > > > Thank you for the input. However, for fake timeout cases such
+> > > > > > > as the long shader
+> > > > > > scenario, we should identify the fake hang cases by checking
+> > > > > > whether the guilty queue appears in the hang list, or whether
+> > > > > > the queue rptr is still updating? If so, preempt the queue rath=
+er than resetting
+> > it?
+> > > > > > >
+> > > > > >
+> > > > > > We have to assume that if we end up in the queue reset path tha=
+t
+> > > > > > the queue is
+> > > > hung.
+> > > > > > The fences have to signal in finite time.  If we preempt the
+> > > > > > queue that won't signal the fence so we'll just end up in the
+> > > > > > queue reset path again.  Preemption of a queue that won't make
+> > > > > > progress only makes sense
+> > > > if fences are not involved.
+> > > > >
+> > > > > The most cases relevant to userq fence timeout and reset worker
+> > > > > likely to be
+> > > > scheduled when a userq fence polling period expires. If a long
+> > > > running shader is detected, the driver may need to try preempting t=
+he queue
+> > within a few retry cycles.
+> > > > If the userq fence remains unsignaled after the retries are
+> > > > exhausted, the driver can either return -ETIME to userspace for
+> > > > further handling or fall back to resetting the queue directly.
+> > > > Meanwhile, If the preemption succeeds and the queue completes its
+> > > > work during the subsequent restore process, no further reset is nec=
+essary for the
+> > guilty queue?
+> > > > >
+> > > >
+> > > > If an application wants to run long running jobs they shouldn't use
+> > > > protected fences in the first place.  If they don't use protected
+> > > > fences, then it should behave like KFD queues.  If there is some
+> > > > operation that needs to happen the queues will get preempted and
+> > > > then will continue later.  DMA fences need to signal in finite time
+> > > > so we can't just keep pushing them off.  Other kernel paging operat=
+ions may
+> > depend on them signalling.
+> > >
+> > > Regarding the protected fences, do you mean the userq fence that trig=
+gers the
+> > hang detection work queue?
+> > >
+> >
+> > Yes.
+> >
+> > > If so, the current implementation calls amdgpu_userq_fence_init() at =
+fence emit
+> > time (i.e., at each queue submission), which both initializes the dma_f=
+ence structure
+> > and starts the hang detection timer for that submission. Once the timeo=
+ut expires,
+> > amdgpu_userq_hang_detect_work() fires and triggers a queue reset regard=
+less of
+> > whether the queue is actually hung or simply long-running. But there's =
+a core
+> > problem for the kernel to distinguish a hung queue from a slow one at f=
+ence emit
+> > time, since both look identical an unsignaled fence with an active queu=
+e.
+> > >
+> >
+> > That is the intended behavior. If you opt into using a dma fence, you n=
+eed to abide
+> > by its semantics.
+> >
+> > > However, we can defer that determination to the first timeout expiry =
+in
+> > amdgpu_userq_hang_detect_work(). At that point we have more information=
+ to work
+> > with:
+> > >
+> > >
+> > > Check for real hang: query rptr and rptr has not updated since the fe=
+nce was
+> > emitted, the queue is genuinely stuck (frozen waves, infinite loop). Th=
+is is a real
+> > hang, reset immediately and forcing completing the fences.
+> > > Check for forward progress: if rptr has updated but the fence is stil=
+l unsignaled, the
+> > queue is making progress, so it is long running, not hung. In this case=
+:
+> > >
+> > > Extend the timeout (reschedule hang_detect_work with a longer
+> > > interval) Track retry count if the queue still has not completed afte=
+r N extended
+> > cycles, escalate: Preempt the queue, force completing the fence and ret=
+urn -ETIME
+> > to userspace then let the application decide: resubmit, split the workl=
+oad, or drop.
+> > >
+> > > Avoid unnecessary resets: if preemption succeeds and the queue resume=
+s and
+> > completes within the extended window, cancel the reset entirely since t=
+he queue
+> > was slow, not broken.
+> > >
+> > >
+> > > Do you think this is the right way for handling long-running tasks to=
+ resolve the
+> > userq timeout issue, or does it align with your idea?
+> >
+> > If you want to run a super long running job, then you shouldn't use a d=
+ma fence in
+> > the first place.  There might be a job that takes 2 minutes or even an =
+hour to run, but
+> > you can't wait that long for a dma fence.  If you do, the kernel might =
+run out of
+> > memory and the OOM killer will start killing processes or you could dea=
+dlock.  If you
+> > want to run a long job, don't use a dma fence.  If you don't use a dma =
+fence, then the
+> > kernel can preempt the queues, do whatever memory management it needs t=
+o and
+> > then it can resume the queues.  dma fences have to signal in finite tim=
+e.
+>
+> Got it. So to skip attaching a dma_fence to a long-running submission, do=
+es this require an explicit flag from userspace at queue creation, or is th=
+ere another mechanism to identify it on the kernel side?
+>
 
-AMD General
+Userspace would simply not call the userq signal IOCTL if they want to
+run long running jobs.
 
-Reviewed-by: Michael Chen <michael.chen@amd.com>
-________________________________
-From: Liang, Prike <Prike.Liang@amd.com>
-Sent: Friday, August 7, 2026 6:10 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
-stian.Koenig@amd.com>; Chen, Michael <Michael.Chen@amd.com>; Liang, Prike <=
-Prike.Liang@amd.com>
-Subject: [PATCH] drm/amdgpu/mes11: disable MES RS64 process/gang context lo=
-ading
+Alex
 
-The MES RS64 local memory process/gang context index may be updated,
-saved, or restored improperly during queue eviction and restore cycles.
-Enabling RS64 memory for MES process/gang context loading introduces
-two known issues:
-  1. Performance regression on userq due to improper context index
-     handling during RS64 memory access.
-  2. KFDIPCTest.BasicTest failure on Navi31/32/33: the IPC buffer
-     GPU VA mapping is not correctly reflected in the restored RS64
-     process context, causing GPU page faults on the IPC shared
-     buffer address, which eventually leads to MES firmware becoming
-     unresponsive and requiring a full GPU reset to recover.
-Temporarily disable MES RS64 process/gang context loading until both
-issues are resolved.
-
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/mes_v11_0.c
-index a0b874c9ee7b..c57bcb9a98b1 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -1954,7 +1954,7 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block *=
-ip_block)
-         if (adev->mes.ring[0].sched.ready)
-                 goto out;
-
--       adev->mes.use_rs64mem =3D true;
-+       adev->mes.use_rs64mem =3D false;
-
-         if (!adev->enable_mes_kiq) {
-                 if (adev->firmware.load_type =3D=3D AMDGPU_FW_LOAD_DIRECT)=
+> Thanks,
+> Prike
+> > Alex
+> >
+> > >
+> > > Thanks,
+> > > Prike
+> > >
+> > > Avoid unnecessary resets: if preemption succeeds and the queue resume=
+s
+> > > and completes within the extended window, cancel the reset entirely =
+=E2=80=94
+> > > the queue was slow, not broken.>
+> > > > Alex
+> > > >
+> > > > > In the longer term, we may need to introduce a more robust
+> > > > > mechanism to
+> > > > distinguish slow queue cases from genuine hangs, handling them
+> > > > appropriately via extending time slice for completing the queue
+> > > > submission, userspace driven resubmission, or dropping the work
+> > > > through a queue reset. If it makes sense and right way to do, then =
+I
+> > > > will work on implementing the solution for such slow/long queue cas=
+es.
+> > > > >
+> > > > > Thanks,
+> > > > > Prike
+> > > > >
+> > > > > > Alex
+> > > > > >
+> > > > > > > >
+> > > > > > > > Alex
+> > > > > > > >
+> > > > > > > > > Regards,
+> > > > > > > > >       Prike
+> > > > > > > > >
+> > > > > > > > > > -----Original Message-----
+> > > > > > > > > > From: Liang, Prike
+> > > > > > > > > > Sent: Thursday, July 23, 2026 2:38 PM
+> > > > > > > > > > To: amd-gfx@lists.freedesktop.org; Zhang, Jesse(Jie)
+> > > > > > > > > > <Jesse.Zhang@amd.com>
+> > > > > > > > > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>;
+> > > > > > > > > > Koenig, Christian <Christian.Koenig@amd.com>
+> > > > > > > > > > Subject: RE: [PATCH 1/2] drm/amdgpu: Remove separate
+> > > > > > > > > > guilty compute userq reset
+> > > > > > > > > >
+> > > > > > > > > > I checked each different userq hang cases, and the
+> > > > > > > > > > guilty userq can be identified by the MES firmware and =
+report
+> > correctly.
+> > > > > > > > > > @Zhang,
+> > > > > > > > > > Jesse(Jie) could you further check as well at you side?
+> > > > > > > > > >
+> > > > > > > > > > If there're some hang queues miss identified by MES
+> > > > > > > > > > firmware, then the correct thing is to further debug
+> > > > > > > > > > from MES firmware side rather than have such strange
+> > > > > > > > > > reset sequence and this reset workaround should be
+> > > > > > > > cleaned sooner or later.
+> > > > > > > > > >
+> > > > > > > > > >
+> > > > > > > > > > Regards,
+> > > > > > > > > >       Prike
+> > > > > > > > > >
+> > > > > > > > > > > -----Original Message-----
+> > > > > > > > > > > From: Liang, Prike <Prike.Liang@amd.com>
+> > > > > > > > > > > Sent: Wednesday, July 15, 2026 2:31 PM
+> > > > > > > > > > > To: amd-gfx@lists.freedesktop.org
+> > > > > > > > > > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>;
+> > > > > > > > > > > Koenig, Christian <Christian.Koenig@amd.com>; Liang,
+> > > > > > > > > > > Prike <Prike.Liang@amd.com>
+> > > > > > > > > > > Subject: [PATCH 1/2] drm/amdgpu: Remove separate
+> > > > > > > > > > > guilty compute userq reset
+> > > > > > > > > > >
+> > > > > > > > > > > amdgpu_mes_detect_and_reset_hung_queues() already
+> > > > > > > > > > > detects the guilty compute user queue and resets it
+> > > > > > > > > > > through mes_userq_reset_queue(). The additional reset
+> > > > > > > > > > > via
+> > > > > > > > > > > mes_userq_reset() is unnecessary, so remove it to
+> > > > > > > > > > > unify the compute userq
+> > > > > > > > reset.
+> > > > > > > > > > >
+> > > > > > > > > > > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+> > > > > > > > > > > ---
+> > > > > > > > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 5 -----
+> > > > > > > > > > >  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 2 --
+> > > > > > > > > > >  2 files changed, 7 deletions(-)
+> > > > > > > > > > >
+> > > > > > > > > > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > > > > > > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > > > > > > > > > index 1e275c2e7dd3..4f2d5ff2f7be 100644
+> > > > > > > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > > > > > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
+> > > > > > > > > > > @@ -2315,11 +2315,6 @@ int
+> > > > > > > > > > > amdgpu_gfx_reset_mes_compute(struct
+> > > > > > > > > > > amdgpu_device *adev,
+> > > > > > > > > > >             deferred_end[n_deferred].fence =3D guilty=
+_fence;
+> > > > > > > > > > >             n_deferred++;
+> > > > > > > > > > >     }
+> > > > > > > > > > > -   if (uq) {
+> > > > > > > > > > > -           r =3D mes_userq_reset(uq);
+> > > > > > > > > > > -           if (r)
+> > > > > > > > > > > -                   goto out;
+> > > > > > > > > > > -   }
+> > > > > > > > > > >     for (i =3D 0; i < num_hung; i++) {
+> > > > > > > > > > >             struct amdgpu_ring *hr =3D NULL;
+> > > > > > > > > > >             struct amdgpu_fence *hf =3D NULL; diff --=
+git
+> > > > > > > > > > > a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> > > > > > > > > > > b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> > > > > > > > > > > index b6bfa3974839..fab21d4275f3 100644
+> > > > > > > > > > > --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> > > > > > > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+> > > > > > > > > > > @@ -226,8 +226,6 @@ int mes_userq_reset_queue(struct
+> > > > > > > > > > > amdgpu_device *adev,
+> > > > > > > > > > >
+> > > > > > > > > > >     xa_for_each(&adev->userq_doorbell_xa, uq_id, uq) =
+{
+> > > > > > > > > > >             if (uq->queue_type =3D=3D queue_type) {
+> > > > > > > > > > > -                   if (uq =3D=3D guilty_uq)
+> > > > > > > > > > > -                           continue;
+> > > > > > > > > > >                     if (uq->doorbell_index =3D=3D db)=
  {
---
-2.34.1
-
-
---_000_DM6PR12MB361198AFD6BC49B5A4C0340694D12DM6PR12MB3611namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-AMD General</div>
-<br>
-</div>
-Reviewed-by: Michael Chen &lt;michael.chen@amd.com&gt;</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Liang, Prike &lt;Prik=
-e.Liang@amd.com&gt;<br>
-<b>Sent:</b> Friday, August 7, 2026 6:10 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
-ristian &lt;Christian.Koenig@amd.com&gt;; Chen, Michael &lt;Michael.Chen@am=
-d.com&gt;; Liang, Prike &lt;Prike.Liang@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu/mes11: disable MES RS64 process/gang con=
-text loading</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">The MES RS64 local memory process/gang context ind=
-ex may be updated,<br>
-saved, or restored improperly during queue eviction and restore cycles.<br>
-Enabling RS64 memory for MES process/gang context loading introduces<br>
-two known issues:<br>
-&nbsp; 1. Performance regression on userq due to improper context index<br>
-&nbsp;&nbsp;&nbsp;&nbsp; handling during RS64 memory access.<br>
-&nbsp; 2. KFDIPCTest.BasicTest failure on Navi31/32/33: the IPC buffer<br>
-&nbsp;&nbsp;&nbsp;&nbsp; GPU VA mapping is not correctly reflected in the r=
-estored RS64<br>
-&nbsp;&nbsp;&nbsp;&nbsp; process context, causing GPU page faults on the IP=
-C shared<br>
-&nbsp;&nbsp;&nbsp;&nbsp; buffer address, which eventually leads to MES firm=
-ware becoming<br>
-&nbsp;&nbsp;&nbsp;&nbsp; unresponsive and requiring a full GPU reset to rec=
-over.<br>
-Temporarily disable MES RS64 process/gang context loading until both<br>
-issues are resolved.<br>
-<br>
-Signed-off-by: Prike Liang &lt;Prike.Liang@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 2 +-<br>
-&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/a=
-mdgpu/mes_v11_0.c<br>
-index a0b874c9ee7b..c57bcb9a98b1 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c<br>
-@@ -1954,7 +1954,7 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block *=
-ip_block)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (adev-&gt;mes.ring[0].s=
-ched.ready)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; goto out;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mes.use_rs64mem =3D true;<br=
->
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; adev-&gt;mes.use_rs64mem =3D false;<b=
-r>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!adev-&gt;enable_mes_k=
-iq) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (adev-&gt;firmware.load_type =3D=3D AMDGPU_FW_LOAD=
-_DIRECT) {<br>
--- <br>
-2.34.1<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
-
---_000_DM6PR12MB361198AFD6BC49B5A4C0340694D12DM6PR12MB3611namp_--
+> > > > > > > > > > >                             uq->state =3D AMDGPU_USER=
+Q_STATE_HUNG;
+> > > > > > > > > > >                             if (use_mmio)
+> > > > > > > > > > > --
+> > > > > > > > > > > 2.34.1
+> > > > > > > > >
