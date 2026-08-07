@@ -4,78 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77236C5B569
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97567C5B56A
 	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2478E10E6CD;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D6D510E6C1;
 	Mon, 10 Aug 2026 06:42:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="oSVpt1UN";
+	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="mO0UAWfR";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CCD210E05B
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2026 05:13:39 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-2ce98cb8165so7003845ad.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 08 Aug 2026 22:13:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786252419; x=1786857219; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=3uV1jDlXdjYzrBZ5UiAE52SxJwX6HGbMM4vfraaFeu8=;
- b=oSVpt1UNuL/L68khgH3VTwfZLNOg7XMZjQAGSnAQIaAi/brfw0OWm1NPrhO6GQb93E
- 3pWLYlVdePSe7EkdezP+nxQZvJjv2yT5TBkBiHb5CFHCkvBz65dqM1Cj7fm76Vtmbev2
- Y4vprDB27rEF59hP8naElfc7uUoJl91XvtOMKShx9EEzPstcp7lZrih0tyK2YQOMdMyg
- GZjKQlLaRMQfMjhnThNQct2ePjeqh+H1yVsfrVONZbh0fEYVl6q6CxN05KiQChTqXh5g
- pq5yQo/AA/koHkG/AsA0A41X42YtMsglV3MPqa8GA0KOJCsHB4EbnaKxDhpmtPGq9ulL
- prcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786252419; x=1786857219;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=3uV1jDlXdjYzrBZ5UiAE52SxJwX6HGbMM4vfraaFeu8=;
- b=DF7Ol/6gWvZ0vhUfaUpEH8BKG2LRy1VKgp/3s0EI+dMIhAuWayCJ8IYRNDrwTTFO4c
- /Yd1oTqqb2cIm//njOAsIkpiw5rgHZb06bOb+4AVmAB4slRbnqIEDMSGIcXZT0x21dNc
- h1GD7Ba1Qe9NjRb85rATbt4sNTzJoLZLRHZNgtVBO+F6rPLPXuI2H5Qi/vNVq9ZqcSoJ
- kLbEAuQYHs7dBSN234EHFLSPWLx6/+VLZUAyE+5kEQVxS5Sp78RLyGXYHRjpUjKSi4oy
- YyOmML0/3uD7yIoh8uI0yzA8W+SHfr7dyMdYTrgWWb8xTucbYeVzscX+1gCQ3yGk5P4p
- WSgQ==
-X-Gm-Message-State: AOJu0Yx+JwYEfixXcu/I31KlQD1rEJbZRKK4xNzTnYeoKXRH599WX21O
- +VxJ6zkFu0VAvdaEKI5/TnA909X+hwHGhBHseqZeqBeyMJDnvF8wptfo
-X-Gm-Gg: AR+sD13cmhbfNrhbSHB1ounhLQRNRAOpskClz0yf3OWkhgbJHBe6s6L6oP3B7aLJYPJ
- DxH+daGjan3KCOC6OfDzdu75eh5/e/4dJuqSAGPnTKJ1vtWec2IeSJa+NvVhH1o7cvazAVpU74N
- gVlRdRq5c17RTbjl2mPlzG+xyCOwQZAvgfjNa2RGH0xGt4i2YUxc25FYgkk9vSzRI2t9B7fWnp8
- aHAJrdRqh9NJCzPLgj7Ml4GITKyWHBee8AwArn89Z4ug93FGMDHM9GhezglrsawEMwnOXaNQyUA
- 7yXRmjiBul1a1Tk5yawp/+wgGSbawE9k7G5iBbKS/h8GP1kJ8C7AzeEBwP4n3dfOaTS5CODrmNc
- IjzsRp1pHCQxlOlDftsLslf1KUfX4mADOZDRgM2DU0K5xCcFzDWboiYxv0WgUXvwLN2LI1aO3AR
- 5tqB5V9llawVcR4WhTcZHacTmsJngXl7SMh1dh5gQIu8Qnah1RI7Qca5TSgMRn6glnJKQtwrygh
- wnoLUdijQyB
-X-Received: by 2002:a17:902:f612:b0:2d2:a982:a388 with SMTP id
- d9443c01a7336-2d2b2eb169fmr124489795ad.15.1786252418944; 
- Sat, 08 Aug 2026 22:13:38 -0700 (PDT)
-Received: from localhost.localdomain ([103.178.204.108])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-315be8a7395sm27095702eec.9.2026.08.08.22.13.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 22:13:38 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v3 5/6] drm/amdgpu/aca: Fix off-by-one buffer size parameter
- in add_aca_sysfs
-Date: Sun,  9 Aug 2026 05:11:59 +0000
-Message-ID: <20260809051200.3276-6-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260809051200.3276-1-sreekuttan2156239@gmail.com>
-References: <20260809051200.3276-1-sreekuttan2156239@gmail.com>
+Received: from mail-244104.protonmail.ch (mail-244104.protonmail.ch
+ [109.224.244.104])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0482D10E118
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 18:28:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+ s=protonmail; t=1786127266; x=1786386466;
+ bh=q4tdgJ5bQ15uNoWudEz5stteCUVUlugliOhQ72saDn4=;
+ h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+ Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+ b=mO0UAWfRmLjFYYrFgy52olWJr5A10Q+jJcQ7uoQPtexz7i3NfUwzGcShdTPrSTq7P
+ xfz4+dRsNQoAxoUjBGmYvus4QbQKl+l7k1ehWle77qSz7V/zUOYiYJMM5t7aM5O+iu
+ O6mW8BG/3fAyGac0BBJSncVuKQUDgyYcqvGsV3mSJRiRvW1lq62HdUZV1MQnBXQUsI
+ 3xD4mACBppEJ6sBBS8YPxUfDxKT9Zt3PdKSk0aVT7vettxKRjEIJrmah5vUbc/rvEf
+ dT34lD7JWir4U0fmHYt+2LuhzEYf+UjDkixd/AaS5vcjftjP5MmdXNzUhkdiomBCVv
+ wSGZWEPpF1tZQ==
+Date: Fri, 07 Aug 2026 18:27:40 +0000
+To: amd-gfx@lists.freedesktop.org
+From: Satyajit Roy <edu042sjroy@proton.me>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, Ilya.Bakoulin@amd.com,
+ dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: Fix BT2020 YCbCr limited range output CSC
+Message-ID: <20260807182724.51018-1-edu042sjroy@proton.me>
+Feedback-ID: 147615787:user:proton
+X-Pm-Message-ID: ee450151c8c5bd5973580ddd300b54931e63ea7b
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,32 +55,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-snprintf() guarantees NUL-termination within the size limit specified by
-its second argument. Passing 'sizeof(handle->attr_name) - 1'
-unnecessarily reduces the usable buffer capacity by one byte, causing
-sysfs attribute names to be truncated early.
+From: Satyajit Roy <sroy14@alum.utk.edu>
 
-Pass 'sizeof(handle->attr_name)' directly to snprintf() in add_aca_sysfs()
-to allow full use of the allocated buffer space.
+COLOR_SPACE_2020_YCBCR_LIMITED and COLOR_SPACE_2020_YCBCR_FULL
+currently select the same output CSC matrix. The matrix uses
+full-amplitude BT2020 coefficients, so the limited-range output path
+does not scale luma and chroma to their limited-range code ranges.
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+When the output is signaled as limited-range YCbCr, a sink that honors
+the quantization range expands those values again. This produces
+incorrect output levels and is particularly visible with PQ HDR.
+
+On Navi33/DCN 3.2.1 over HDMI, the AVI InfoFrame advertises limited
+range while the existing output CSC produces full-amplitude BT2020
+YCbCr values. Using the limited-range matrix restores the expected
+PQ HDR output levels.
+
+Add a separate output CSC matrix for BT2020 YCbCr limited range. Scale
+luma by 219/255 and chroma by 224/255 while retaining the appropriate
+limited-range offsets. Keep the existing matrix unchanged for full
+range.
+
+Fixes: 07bc2dcbcf40 ("drm/amd/display: Fix BT2020 YCbCr limited/full range =
+input")
+Cc: stable@vger.kernel.org
+Signed-off-by: Satyajit Roy <sroy14@alum.utk.edu>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c  | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-index 79326389d75c..4305092f134b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -682,7 +682,7 @@ static int add_aca_sysfs(struct amdgpu_device *adev, struct aca_handle *handle)
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/driver=
+s/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+index 90d754d192f1..f264bb880aee 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+@@ -61,6 +61,7 @@ enum dc_color_space_type {
+ =09COLOR_SPACE_YCBCR601_TYPE,
+ =09COLOR_SPACE_YCBCR709_TYPE,
+ =09COLOR_SPACE_YCBCR2020_TYPE,
++=09COLOR_SPACE_YCBCR2020_LIMITED_TYPE,
+ =09COLOR_SPACE_YCBCR601_LIMITED_TYPE,
+ =09COLOR_SPACE_YCBCR709_LIMITED_TYPE,
+ =09COLOR_SPACE_YCBCR709_BLACK_TYPE,
+@@ -116,6 +117,10 @@ static const struct out_csc_color_matrix_type output_c=
+sc_matrix[] =3D {
+ =09=09{ 0x1000, 0xF149, 0xFEB7, 0x1004,
+ =09=09  0x0868, 0x15B2, 0x01E6, 0x201,
+ =09=09  0xFB88, 0xF478, 0x1000, 0x1004} },
++=09{ COLOR_SPACE_YCBCR2020_LIMITED_TYPE,
++=09=09{ 0x0E0E, 0xF313, 0xFEDF, 0x1004,
++=09=09  0x0738, 0x12A2, 0x01A1, 0x0201,
++=09=09  0xFC13, 0xF5DF, 0x0E0E, 0x1004} },
+ =09{ COLOR_SPACE_YCBCR709_BLACK_TYPE,
+ =09=09{ 0x0000, 0x0000, 0x0000, 0x1000,
+ =09=09  0x0000, 0x0000, 0x0000, 0x0200,
+@@ -186,7 +191,16 @@ static bool is_ycbcr2020_type(
  {
- 	struct device_attribute *aca_attr = &handle->aca_attr;
- 
--	snprintf(handle->attr_name, sizeof(handle->attr_name) - 1, "aca_%s", handle->name);
-+	snprintf(handle->attr_name, sizeof(handle->attr_name), "aca_%s", handle->name);
- 	aca_attr->show = aca_sysfs_read;
- 	aca_attr->attr.name = handle->attr_name;
- 	aca_attr->attr.mode = S_IRUGO;
--- 
-2.54.0
+ =09bool ret =3D false;
+=20
+-=09if (color_space =3D=3D COLOR_SPACE_2020_YCBCR_LIMITED || color_space =
+=3D=3D COLOR_SPACE_2020_YCBCR_FULL)
++=09if (color_space =3D=3D COLOR_SPACE_2020_YCBCR_FULL)
++=09=09ret =3D true;
++=09return ret;
++}
++
++static bool is_ycbcr2020_limited_type(enum dc_color_space color_space)
++{
++=09bool ret =3D false;
++
++=09if (color_space =3D=3D COLOR_SPACE_2020_YCBCR_LIMITED)
+ =09=09ret =3D true;
+ =09return ret;
+ }
+@@ -217,6 +231,8 @@ static enum dc_color_space_type get_color_space_type(en=
+um dc_color_space color_s
+ =09=09type =3D COLOR_SPACE_YCBCR601_LIMITED_TYPE;
+ =09else if (is_ycbcr709_limited_type(color_space))
+ =09=09type =3D COLOR_SPACE_YCBCR709_LIMITED_TYPE;
++=09else if (is_ycbcr2020_limited_type(color_space))
++=09=09type =3D COLOR_SPACE_YCBCR2020_LIMITED_TYPE;
+ =09else if (is_ycbcr2020_type(color_space))
+ =09=09type =3D COLOR_SPACE_YCBCR2020_TYPE;
+ =09else if (color_space =3D=3D COLOR_SPACE_YCBCR709)
+--=20
+2.53.0
+
 
