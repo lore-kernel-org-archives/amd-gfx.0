@@ -4,97 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D801C5AC7A
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 10:11:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDEB2C5AC7C
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 10:39:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B6B3C10E410;
-	Fri,  7 Aug 2026 10:11:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 38CEA10F45A;
+	Fri,  7 Aug 2026 10:39:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SjLCFAZG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Q85fttSC";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010004.outbound.protection.outlook.com [52.101.61.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8AA4810E410
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 10:11:05 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010005.outbound.protection.outlook.com [52.101.85.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A442D10F45A
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 10:39:35 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=xwhrpCJS050Uus6S0ofc/R2VtMszLbbLrnAFh8ixPM9WpNN+a08LB+pe1vxs5VFyjZ0yefi7FjqqWKXfsWLXXU14aElepL7htXo/uME7y6/EVP9dSFAVz/8us9EY+HBrwCpphsWHtRCBO6zJexC3xEq/OgQVh5HghxCQitvN/JUkVfzgql6B2lP5m4n9ZGe+osJoz/4ILvJT6xtmt6Ua5mtU2wVAUa/r2UEqZUvBZcGfBB20e9C1y1lGjYcJQ+ffBxWGOwV5vU2m9nXg95eaef2rWl10pN73h0iYXdvDfgwC9G7KTr4Df3I47GUeImMMalOnryFMqttTPTPbKnlYFg==
+ b=vZ1kTA81KJrrx7oCTM8NvDBLWJIs/oBIWPU+z0MW87aQXXrtVYiPrJXUmUgNDj6TMrGc0eYOsH5f8Gd+IEmsFdGcR6CNoUS8phySa9o+LxNmg0sQMgW6gW1cPBsgD5VdhoCBONgrF7ZXsQ9jsx7dX9t76KXAyyLgKTaEozrneuJwYWgiQ2xOnUkj9ZzH/kZMgA0ZIB6wr4EfJDXXeooxM5zFyVz2TdwyBF2BzyjnienjiGSyofnoNWOeQVQFDV9UqeS6DIgHls/9v0k/QuJoVe4bjmcScGhme3aoXejvGmc/xxvzPlXinrpJ5RNPMSr3WNDHXwYEI9/0Xwbk8LKM2A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gkLQN5EaEs7vqGr4rY+DqVbIpF/eiUANPyk/qoeOZaQ=;
- b=f/0SRsEPNgdB5k80pyKuMr0yuN9kT59p9R2Rq7z/uaVhi6sfQvHuJvV3SB/0ixgTT3wsXbVJ+9qlG392wGnL5jhyA8QPeN3tXaZxyfoyHJ3YgsrxP1MUkZCT+nvBl0e9JuijkEPc0FRBVU89sE0boRC1IJN3dcexsxDR8ZMNJoTrFLAck+zWroFgJmuvPBy1RmhaNrZpdIVt33iwYJPX6SQtxrcY1lICTunLNJuyfU8lJJh8UnN8T7R/NY7/QcmxivE9jUoynAg9Yv4h/BOQ6ffxwd+Kzog/bOfstKhXxMARcdyZX0mOviIi+QJDLHboR1kpxVvzK2Of0GFMS6xtEQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=dK7+mX09J+ud1oim9Hs98Yms4lI+DX2WGBTGT8QBSwk=;
+ b=YMfn+A2gccQFw+ptHteuCQenUzBUSVtcDzf2Iew/+mt19ce6Velh3+mGHMwzTPMPgNJ/D5HAWknpIzeX58oQdf5sLmGPMwhtV1Oa/aS5Bo9u+F9XvANIaKTB0CIqo7J9kISr91y4bYeB792/liUDd65kSUhtYJCp4H+WTliI9sGWEOArajsK0U560bYdJAhov9Nhz4qLNEguLnZAEZxzi21yf7/SlT0xEFWaDGwm9E2M1loHzP/CEMvR/x2OH8v4shBwllLt599GHtEXGNqyuFYQpjBA8zTs/VEYoz4kWhsHMz3BeilFYN4ntZB7ZSC6dq/pxNJvJjcpLSfrXsUdxA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gkLQN5EaEs7vqGr4rY+DqVbIpF/eiUANPyk/qoeOZaQ=;
- b=SjLCFAZGxSczUZbW1w8mPEaduZF8SrLEM56tdjk1WyCcAmGgzIn6tY+/j5tUgzaG+s1UM+uvknecQXq0MqonXVOQDfdakauFKa0evT7wpzzlWWS/Llia7DZ8YV+JPXP/iZLZ3coSneO+Wqj2hnX+9TFWdhh4w2zTvbOasRzZDFY=
-Received: from BLAPR03CA0115.namprd03.prod.outlook.com (2603:10b6:208:32a::30)
- by BL1PR12MB5802.namprd12.prod.outlook.com (2603:10b6:208:392::16)
+ bh=dK7+mX09J+ud1oim9Hs98Yms4lI+DX2WGBTGT8QBSwk=;
+ b=Q85fttSCkhT4LnaI940e7F1UmrF7aVSA36tsXaRpkfkDch5nsKP9eoKxctUIkBvSaquF6pGlpKMBO8QiRwIxbD1GcZRmDqxJ++MmuHgn4VHBNVFTKyXa0Q7QSlU2rBR5aTLe07al3CIYAVGKRZSoqy3j8VqzaS/84IXbfxSlUPc=
+Received: from BL1PR12MB5127.namprd12.prod.outlook.com (2603:10b6:208:31b::14)
+ by BY5PR12MB4050.namprd12.prod.outlook.com (2603:10b6:a03:207::10)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.24; Fri, 7 Aug
- 2026 10:11:02 +0000
-Received: from BL6PEPF0001AB58.namprd02.prod.outlook.com
- (2603:10b6:208:32a:cafe::70) by BLAPR03CA0115.outlook.office365.com
- (2603:10b6:208:32a::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.23 via Frontend Transport; Fri, 7
- Aug 2026 10:11:02 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL6PEPF0001AB58.mail.protection.outlook.com (10.167.241.10) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Fri, 7 Aug 2026 10:11:02 +0000
-Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 7 Aug
- 2026 05:11:00 -0500
-From: Prike Liang <Prike.Liang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
- <Michael.Chen@amd.com>, Prike Liang <Prike.Liang@amd.com>
-Subject: [PATCH] drm/amdgpu/mes11: disable MES RS64 process/gang context
- loading
-Date: Fri, 7 Aug 2026 18:10:51 +0800
-Message-ID: <20260807101051.367233-1-Prike.Liang@amd.com>
-X-Mailer: git-send-email 2.34.1
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB58:EE_|BL1PR12MB5802:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd668d2a-9fe4-4814-7598-08def46c2f74
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|23010399003|36860700016|18002099003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: ksciQFdbcz0vtjm9OD91vU6uwXbDlxHAQFqQcz4afFiXBsmnH5RJp5pPVNHW33Am2YYp22xAuJrCOH2iS2U10Q2nPaM4LnMlzqXsfuQOEtvR9uFCQyoLgMFozbLgLMiJeELw/yidPbBOjMn+fqK4t2QZQeNUB/QJ9twy35BzX/ODuu8iI53jZCuNao0xDFHx7Hw5Tm78uBLnZUbCbGSKW0zfuPLHi9UNoaSlR7MwNMmqLzP6GUCrsnlZ74KGW3CUjm1mt/R5TDjrhy3FQ6jBF/WnlTUqHpw0joMGIYmIhxMhIffc2x9QcSnL+FgC61xOW/+UQOfxqwFnujmlEIngoPtY/wPhskNNWCp1DMJagRu7SM0ePhqannT9c7xwB0WmpbemEGmlW24LDwXoPGSkEyzEYv2vbgy6LXy+4+26vptb5txR1/f5TxaTMqfUfCDnFbJtsaOJ27qVZUNlL9CSoSlsPhjzRasBEScF1vNXnFNDtxpyoK8/i0ZRBytVjpsgzqUrRWRuhUPsszoSf8MPT3OG9bWwBGAm+pKA8bk/Vcl0TbCxBUVzBxYrHZJaIk56BZDQ+F/cR4UvefqgTAhLDKvQEyR4jL7rFOG2zJFznXBARv9JP8gWGIiRg2oH74Xxbptz3VjieM1vCcFzE7t8KuUmuhcMJ/E/OAgLROVvPQl5VO+ZTTKyl4PWwYXx2SEH
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(23010399003)(36860700016)(18002099003)(11063799006)(56012099006)(10067099003);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.20; Fri, 7 Aug
+ 2026 10:39:32 +0000
+Received: from BL1PR12MB5127.namprd12.prod.outlook.com
+ ([fe80::2760:8b04:f874:e077]) by BL1PR12MB5127.namprd12.prod.outlook.com
+ ([fe80::2760:8b04:f874:e077%4]) with mapi id 15.21.0292.022; Fri, 7 Aug 2026
+ 10:39:32 +0000
+From: "Zhou1, Tao" <Tao.Zhou1@amd.com>
+To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH 2/2] drm/amd/ras: set pa base and lfb size for uniras
+Thread-Topic: [PATCH 2/2] drm/amd/ras: set pa base and lfb size for uniras
+Thread-Index: AQHdJjgdHaJMgsC5A0Sr4u6ZW4A5obaSR0eAgAABfwA=
+Date: Fri, 7 Aug 2026 10:39:32 +0000
+Message-ID: <BL1PR12MB51274085C9FC2AE87BF8A4F4B0D12@BL1PR12MB5127.namprd12.prod.outlook.com>
+References: <20260807064330.3070081-1-tao.zhou1@amd.com>
+ <20260807064330.3070081-2-tao.zhou1@amd.com>
+ <EAYPR12MB99915843401615506944BE8535FCD12@EAYPR12MB999158.namprd12.prod.outlook.com>
+In-Reply-To: <EAYPR12MB99915843401615506944BE8535FCD12@EAYPR12MB999158.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-07T08:50:19.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BL1PR12MB5127:EE_|BY5PR12MB4050:EE_
+x-ms-office365-filtering-correlation-id: 5e4de435-a26f-4cca-dbc4-08def4702aff
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|23010399003|11063799006|56012099006|10067099003|3023799007|18002099003|4143699003|22082099003|38070700021;
+x-microsoft-antispam-message-info: 7PND0JO7p9kRdyJRH6rI8mIypZdXpeHiIuYi9kUD5DS67662voRbfuyjgiCTBzl/xR8waabL74UdLGAh0YJYp7CAzXoluh2PzMXF5ByycKvZSwuHB2jiOKsPygsKEkIf6iGgAVqI//dW0gUM/WE3ubSSXpWNu2uxmWExzxEr0bMttv02Z5LpqJJD6Pi4v3cvTba9+uYv+c9u7IQHDXPEJRdI5mN1/qJSFoDpKTwlllWY/bOLUjqlpl0CWox1gGjVoOVwcfqbJ7yvL7jKpzAvB8CXnZRqRSPl31L4k9HxuXNI6VvWN0YNTINPf7GMEP2ImKI0MukgS68MMAVUn5R6kkc3rkjmuODzu/le3tuZD63KUEGjClcuvxX8IMG7ni5m59UKPKAAdmjJJNHimSOhf5zzUKSLMZaMolVlsJ6f3ybTFT9XEFPq7YYF2RcDOZo0flT5eKzANDUb1jMVmxBuV0UZivEnhF3B1OfPNcTd6AHcrAPckTEixjWa7vCD3CyfpahfzWhW5YAAHKV+zESHcuFmcVmaA11B4hJDdSM+5b2MtjQuaAu7abFLqmd4EcJsUDM+7heygqmhKosmmiuwcoyRRqGzswhUGZItkrK0T97nvEuTPX3HSqT1qPXDbbldAuqwH1vjFqWJq04iT/F7T6BkGlaglLL4tU08KnElNtcb/QxnjKfJCWKzqH/5OYkaGtIZCc3Xpf6Z0CBfykPduiXSH7fXQpVJnJJBYN+kEFQ=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL1PR12MB5127.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(11063799006)(56012099006)(10067099003)(3023799007)(18002099003)(4143699003)(22082099003)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: WOGpBR9TKq5sF1bZz+Stm0n9PQbUc/E/UkMrExsRoQvNs43iKjH0cg3w5QkVim0+7agqy77v5g4ko/3Xjjf8vKcR1Os7sGkZKsNRAreEdHHoSNqyaSHxc2GJrTtqpPFbjep4MziQ3sprKQlA/v+jBY7dUTPgoph5rYcCRK2AGAnFS+Qr+ZlIamL3j8g+0GbDS6WjjGkWNrPNpz11gaQljKhlkWdqHD6ARrJW/tBWQ+zwNOuZAAOXcGw3fzeD+0tH1WRTs+KfFp35TvkTTj2lJlZi6IMN5V3aUCsUcAYH8R/jkhgbSh2Ney3qaty0Pr/ed6MNJ3QAh/iMMMEjWr149aPtCBj1Ssv6tU4rfghBz4aG5CllyHizV1Xzm31ZGg3pH9kwSf7zBAdzRb09hE91JdNlI/MClhhpoFaRMe+AoRUf7zUmWVFhYrPqEYs9GHs6
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?+Y9/ySygYS/HbIVZY8RC2+DvawIqsWgVnLBStUl2LRqhfJ7LYpiCNB0J+aYs?=
+ =?us-ascii?Q?mSqOtd8BrA36t72ExJQqasVICxyOxBFBA7idPEf747WR8hwELRxjZYiCamGh?=
+ =?us-ascii?Q?KM2MpuA5c3RwgnriHWT4SEc3trQZMBWBbAYzUlcMEOztpYmLGvzEZfliG9Lb?=
+ =?us-ascii?Q?gBiiT2ondiFRb6j98TdJeCkKktBIR/Qu7X3kSIt9kQ34NLmo/XKMypbMz9/S?=
+ =?us-ascii?Q?OgqrQYqSWOezE734cgPXx/dmxhHtwXp1NzDXgwyc/SWYYiwInIthxyaBPyKR?=
+ =?us-ascii?Q?NMd3hfbCzF3ONrVR4u3PYvwgdBYWynx1FxtpkfmVM95/fnkXPZ1LbAvq7kOe?=
+ =?us-ascii?Q?r+g7UfgI2640ys2jC/NcolOTEYXO5SOGucn0CwEcF5TKxDxOhKVDaE2hrpNQ?=
+ =?us-ascii?Q?jrkyjFMhY5zLqn8Cs6g8EjDHaACjUoxW7INcRawPQizjyFIV38KAx2LKCvqO?=
+ =?us-ascii?Q?UK9axcamRNt+6TJTTjHvAiXkipoWyIA+f0Sx5wAfAdjDs2cCCpDNmcxX+gJN?=
+ =?us-ascii?Q?1tznir7DkbABVbmb9X7FfLDPgN51q/PTJjqG+C/F8PAIQyBYmAXmzUTXrBnD?=
+ =?us-ascii?Q?zfT5D2VNHjgYRYQMIl4H56IMRR8vuMaEm0u12jeUZ4aWvn2n/DhahKlagoVs?=
+ =?us-ascii?Q?Emr7+seWayrFlMZCj6h6FS09VD5qmBAWikPj3MkZwmPjyoi7Vvu+i6c5K88t?=
+ =?us-ascii?Q?MYVZF20MO4PttoHIlQIT3psMRJg3zWfMdVcPb3r/Ht8zQKcgDfnS3oQ222BC?=
+ =?us-ascii?Q?xh/BVqvRCybK4xZHNpD8xdq4qHBomnEAZhhxTM4rr+UpStejpwp+YiqNX/8Y?=
+ =?us-ascii?Q?Fnou4yFLhJTnwR259M9d09+0mKFrFUoJ6JnVD5d8aHZacH9i0fAdr6idGO9B?=
+ =?us-ascii?Q?tsMICeumlmrejenPGrm0AezaLjm3oG3OVHfSozS8OgfwnMCkI74S7J5ecrU9?=
+ =?us-ascii?Q?j8UAIrB3txWy35mv9cVl/fK/91JHlWv5kYHxTz8TOTCIw39X9D+uV8xXvy8z?=
+ =?us-ascii?Q?ecXoh6Zndp2UE+MhfS89fZGjrjd5i8qEkz1UMKTKQW9CoGkAHKmAPzXcK932?=
+ =?us-ascii?Q?drt7R8wivj1QxC2J33KbdGfCPoRsVPNjxBKoiqEvCZyKvlS3btgoYSAwxAM0?=
+ =?us-ascii?Q?J6Hr0yQmsiXoJuJXROIaJqyO5lWFGfWu0SLjZs6/nm4eJTGnw19C5wschgq1?=
+ =?us-ascii?Q?2Ay+1kEjmtrbPvwT1YFFrYCyznHHHA3p+4QACzo/laMjl/xEdQcDnmo0qZWo?=
+ =?us-ascii?Q?2FE4C6hISXqpOJNR93oG18VSEEh51bwC7V5p6aKZ5xc6Hk9dV7rVZ1rl90Zb?=
+ =?us-ascii?Q?OXx26eWEEjQsQ0fN9iZm0g5ri1hblw5jWlgaybfA87OBmL1AfkAmKuSe2Gko?=
+ =?us-ascii?Q?eMYf/vIdUcXrMqJ29Dx2uVsIVoSUuBIAudZybYot5ix15/SF0k3XQjaWhn3a?=
+ =?us-ascii?Q?Hi6jhURSC47Nip11T2TpZ1q5WWEiL88giadGBciCzj7gGFNfLRKBjan/J3m4?=
+ =?us-ascii?Q?EbN97dgvs5HRhR3EiZx/mFbdo9370++lWIKPjG0gR4c0Eu5T2/aA7fcQV5di?=
+ =?us-ascii?Q?QU7XMz6EYHjj5pgFLMXdPVQBDTEF4VB50DoVGpt2Cv6UUoNPJW8F9kAbTtAa?=
+ =?us-ascii?Q?aFGDHEAfsFKUF9BxuI6wz5rSU7WwlffeRluig/JbvF1DI3uMqJYjqJgGhaBj?=
+ =?us-ascii?Q?QzyeqHqD0vFFPRHWKf+DDLofa0BO8+hzOpBWcXYoDokauEKK?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2026 10:11:02.2662 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd668d2a-9fe4-4814-7598-08def46c2f74
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB58.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5802
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BL1PR12MB5127.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e4de435-a26f-4cca-dbc4-08def4702aff
+X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Aug 2026 10:39:32.7831 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ikVYiIdPJTIysSgjqAQf9/wImmASw9l+NYJk68Y1Rs8fua72KdQ5YjHQAmAjvr9e
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4050
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,38 +132,236 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The MES RS64 local memory process/gang context index may be updated,
-saved, or restored improperly during queue eviction and restore cycles.
-Enabling RS64 memory for MES process/gang context loading introduces
-two known issues:
-  1. Performance regression on userq due to improper context index
-     handling during RS64 memory access.
-  2. KFDIPCTest.BasicTest failure on Navi31/32/33: the IPC buffer
-     GPU VA mapping is not correctly reflected in the restored RS64
-     process context, causing GPU page faults on the IPC shared
-     buffer address, which eventually leads to MES firmware becoming
-     unresponsive and requiring a full GPU reset to recover.
-Temporarily disable MES RS64 process/gang context loading until both
-issues are resolved.
+AMD General
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Hi Hawking,
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index a0b874c9ee7b..c57bcb9a98b1 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -1954,7 +1954,7 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block *ip_block)
- 	if (adev->mes.ring[0].sched.ready)
- 		goto out;
- 
--	adev->mes.use_rs64mem = true;
-+	adev->mes.use_rs64mem = false;
- 
- 	if (!adev->enable_mes_kiq) {
- 		if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
--- 
-2.34.1
+vram_base_offset =3D mc_fb_offset + amdgpu_xgmi_get_relative_phy_addr.
+
+Regards,
+Tao
+
+> -----Original Message-----
+> From: Zhang, Hawking <Hawking.Zhang@amd.com>
+> Sent: Friday, August 7, 2026 4:51 PM
+> To: Zhou1, Tao <Tao.Zhou1@amd.com>; amd-gfx@lists.freedesktop.org
+> Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
+> Subject: RE: [PATCH 2/2] drm/amd/ras: set pa base and lfb size for uniras
+>
+> AMD General
+>
+> +       umc_cfg->pa_base =3D amdgpu_xgmi_get_relative_phy_addr(adev,
+> + 0x0ULL);
+>
+> Can we use vram_base_offset
+>
+> Regards,
+> Hawking
+>
+> -----Original Message-----
+> From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Tao Zh=
+ou
+> Sent: Friday, August 7, 2026 2:44 PM
+> To: amd-gfx@lists.freedesktop.org
+> Cc: Zhou1, Tao <Tao.Zhou1@amd.com>
+> Subject: [PATCH 2/2] drm/amd/ras: set pa base and lfb size for uniras
+>
+> Avoid hardcode, get the parameters from amdgpu.
+> For the algorithms of ras address conversion and die id calculation, not =
+only pa, (pa
+> + pa_base) is also needed.
+>
+> Signed-off-by: Tao Zhou <tao.zhou1@amd.com>
+> ---
+>  drivers/gpu/drm/amd/ras/core/ras.h            |  4 ++++
+>  drivers/gpu/drm/amd/ras/core/ras_umc.c        |  7 +++++--
+>  drivers/gpu/drm/amd/ras/core/ras_umc.h        |  7 ++++++-
+>  drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c  | 20 ++++++++++++-------
+> drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.h  |  3 ---
+>   .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c  |  2 ++
+>  6 files changed, 30 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/ras/core/ras.h b/drivers/gpu/drm/amd/ras=
+/core/ras.h
+> index d61c977b07cf..e0ed6a3ce168 100644
+> --- a/drivers/gpu/drm/amd/ras/core/ras.h
+> +++ b/drivers/gpu/drm/amd/ras/core/ras.h
+> @@ -278,6 +278,10 @@ struct ras_psp_config {  struct ras_umc_config {
+>         uint32_t umc_vram_type;
+>         uint32_t num_umc;
+> +       /* socket xgmi offset, base address of umc physical address */
+> +       uint64_t pa_base;
+> +       /* local frame buffer size */
+> +       uint64_t lfb_size;
+>  };
+>
+>  struct ras_eeprom_config {
+> diff --git a/drivers/gpu/drm/amd/ras/core/ras_umc.c
+> b/drivers/gpu/drm/amd/ras/core/ras_umc.c
+> index 95a98b411fc7..2dc1c0b6ac49 100644
+> --- a/drivers/gpu/drm/amd/ras/core/ras_umc.c
+> +++ b/drivers/gpu/drm/amd/ras/core/ras_umc.c
+> @@ -411,8 +411,9 @@ static int ras_umc_eeprom_rec2nps_addr_legacy(struct
+> ras_core_context *ras_core,
+>          * only ever existed on NPS1 systems)
+>          */
+>         if (ras_core->ras_umc.ip_func && ras_core->ras_umc.ip_func->get_d=
+ie_id) {
+> -               die_id =3D ras_core->ras_umc.ip_func->get_die_id(record->=
+address,
+> -
+> RAS_PFN_TO_ADDR(EEPROM_RECORD_UMC_ADDR_PFN(record)));
+> +               die_id =3D ras_core->ras_umc.ip_func->get_die_id(ras_core=
+,
+> +                               record->address,
+> +
+> + RAS_PFN_TO_ADDR(EEPROM_RECORD_UMC_ADDR_PFN(record)));
+>         } else {
+>                 RAS_DEV_ERR(ras_core->dev, "get_die_id is not supported!\=
+n");
+>                 return -EOPNOTSUPP;
+> @@ -855,6 +856,8 @@ int ras_umc_hw_init(struct ras_core_context *ras_core=
+)
+>                         ras_umc->umc_vram_type);
+>                 return -ENODATA;
+>         }
+> +       ras_umc->pa_base =3D ras_core->config->umc_cfg.pa_base;
+> +       ras_umc->lfb_size =3D ras_core->config->umc_cfg.lfb_size;
+>
+>         ras_umc->umc_ip_version =3D ras_core->config->umc_ip_version;
+>         ras_umc->ip_func =3D ras_umc_get_ip_func(ras_core, ras_umc-
+> >umc_ip_version); diff --git a/drivers/gpu/drm/amd/ras/core/ras_umc.h
+> b/drivers/gpu/drm/amd/ras/core/ras_umc.h
+> index af76de70ddd1..13d715c8553f 100644
+> --- a/drivers/gpu/drm/amd/ras/core/ras_umc.h
+> +++ b/drivers/gpu/drm/amd/ras/core/ras_umc.h
+> @@ -139,7 +139,8 @@ struct ras_umc_ip_func {
+>                 uint32_t nps);
+>         uint64_t (*nps_pa_to_row_pa)(struct ras_core_context *ras_core,
+>                 uint64_t pa, enum umc_memory_partition_mode nps, bool zer=
+o_pfn_ok);
+> -       uint32_t (*get_die_id)(uint64_t mca_addr, uint64_t pa);
+> +       uint32_t (*get_die_id)(struct ras_core_context *ras_core,
+> +               uint64_t mca_addr, uint64_t pa);
+>  };
+>
+>  struct eeprom_store_record {
+> @@ -168,6 +169,10 @@ struct ras_umc {
+>         u32 umc_ip_version;
+>         u32 umc_vram_type;
+>         u32 num_umc;
+> +       /* socket xgmi offset, base address of umc physical address */
+> +       u64 pa_base;
+> +       /* local frame buffer size */
+> +       u64 lfb_size;
+>         const struct ras_umc_ip_func *ip_func;
+>         struct radix_tree_root root;
+>         struct mutex  tree_lock;
+> diff --git a/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c
+> b/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c
+> index ccdbc5c4bab1..4bf993325a3f 100644
+> --- a/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c
+> +++ b/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c
+> @@ -243,6 +243,8 @@ static int umc_v12_0_ma2pa(struct ras_core_context
+> *ras_core,
+>         uint32_t socket_id =3D addr_in->socket_id;
+>         uint32_t channel_index;
+>         uint64_t err_addr =3D addr_in->err_addr;
+> +       uint64_t pa_base =3D ras_core->ras_umc.pa_base;
+> +       uint64_t lfb_size =3D ras_core->ras_umc.lfb_size;
+>
+>         if (node_inst !=3D UMC_INV_AID_NODE) {
+>                 if (ch_inst >=3D UMC_V12_0_CHANNEL_INSTANCE_NUM || @@ -31=
+8,11
+> +320,11 @@ static int umc_v12_0_ma2pa(struct ras_core_context *ras_core,
+>                 OFFSET_IN_256B_BLOCK(na);
+>
+>         /* calc channel hash based on absolute address */
+> -       soc_pa +=3D socket_id * SOCKET_LFB_SIZE;
+> +       soc_pa +=3D pa_base;
+>         /* the umc channel bits are not original values, they are hashed =
+*/
+>         UMC_V12_0_SET_CHANNEL_HASH(channel_index, soc_pa);
+>         /* restore pa */
+> -       soc_pa -=3D socket_id * SOCKET_LFB_SIZE;
+> +       soc_pa -=3D pa_base;
+>
+>         /* get some channel bits from na_nps directly and
+>          * add nps section offset
+> @@ -330,16 +332,16 @@ static int umc_v12_0_ma2pa(struct ras_core_context
+> *ras_core,
+>         if (nps =3D=3D UMC_MEMORY_PARTITION_MODE_NPS2) {
+>                 soc_pa &=3D ~(0x1ULL << UMC_V12_0_PA_CH5_BIT);
+>                 soc_pa |=3D ((na_nps & 0x100) << 5);
+> -               soc_pa +=3D (node_inst >> 1) * (SOCKET_LFB_SIZE >> 1);
+> +               soc_pa +=3D (node_inst >> 1) * (lfb_size >> 1);
+>         } else if (nps =3D=3D UMC_MEMORY_PARTITION_MODE_NPS4) {
+>                 soc_pa &=3D ~(0x3ULL << UMC_V12_0_PA_CH4_BIT);
+>                 soc_pa |=3D ((na_nps & 0x300) << 4);
+> -               soc_pa +=3D node_inst * (SOCKET_LFB_SIZE >> 2);
+> +               soc_pa +=3D node_inst * (lfb_size >> 2);
+>         } else if (nps =3D=3D UMC_MEMORY_PARTITION_MODE_NPS8) {
+>                 soc_pa &=3D ~(0x7ULL << UMC_V12_0_PA_CH4_BIT);
+>                 soc_pa |=3D ((na_nps & 0x700) << 4);
+> -               soc_pa +=3D node_inst * (SOCKET_LFB_SIZE >> 2) +
+> -                       (channel_index >> 4) * (SOCKET_LFB_SIZE >> 3);
+> +               soc_pa +=3D node_inst * (lfb_size >> 2) +
+> +                       (channel_index >> 4) * (lfb_size >> 3);
+>         }
+>
+>         addr_out->pa =3D soc_pa;
+> @@ -496,10 +498,14 @@ static void umc_v12_0_mca_ipid_parse(struct
+> ras_core_context *ras_core, uint64_t
+>   * umc number: 16
+>   * hbm type: UMC_VRAM_TYPE_HBM
+>   */
+> -static uint32_t umc_v12_0_get_die_id(uint64_t mca_addr, uint64_t pa)
+> +static uint32_t umc_v12_0_get_die_id(struct ras_core_context *ras_core,
+> +               uint64_t mca_addr, uint64_t pa)
+>  {
+>         uint32_t die =3D 0;
+>
+> +       /* use absolute PA */
+> +       pa +=3D ras_core->ras_umc.pa_base;
+> +
+>         /* we only calculate die id for nps1 mode(save_nps =3D=3D ch_idx_=
+v2 =3D=3D 0) */
+>         die +=3D (((pa >> 12) & 0x1ULL) ^
+>                         ((pa >> 20) & 0x1ULL) ^ diff --git
+> a/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.h
+> b/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.h
+> index 268db10dc6b0..f6f7f827e06f 100644
+> --- a/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.h
+> +++ b/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.h
+> @@ -300,9 +300,6 @@
+>  #define UMC_V12_0_TOTAL_CHANNEL_NUM \
+>         (UMC_V12_0_AID_NUM_MAX * UMC_V12_0_UMC_INSTANCE_NUM *
+> UMC_V12_0_CHANNEL_INSTANCE_NUM)
+>
+> -/* one device has 192GB HBM */
+> -#define SOCKET_LFB_SIZE   0x3000000000ULL
+> -
+>  extern const struct ras_umc_ip_func ras_umc_func_v12_0;
+>
+>  int ras_umc_get_badpage_count(struct ras_core_context *ras_core); diff -=
+-git
+> a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+> b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+> index c55288c2df9a..c58fa0ef8a80 100644
+> --- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+> +++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+> @@ -285,6 +285,8 @@ static int amdgpu_ras_mgr_init_umc_config(struct
+> amdgpu_device *adev,
+>
+>         umc_cfg->umc_vram_type =3D adev->gmc.vram_type;
+>         umc_cfg->num_umc =3D adev->gmc.num_umc;
+> +       umc_cfg->lfb_size =3D adev->gmc.xgmi.node_segment_size;
+> +       umc_cfg->pa_base =3D amdgpu_xgmi_get_relative_phy_addr(adev,
+> + 0x0ULL);
+>
+>         return 0;
+>  }
+> --
+> 2.34.1
+>
 
