@@ -4,54 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C1DDC5B569
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71112C5B56C
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4071610E6A1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25B9C10E6A0;
 	Mon, 10 Aug 2026 06:42:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YBRoe7XZ";
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="NRgpytKB";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F58B10E36A
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 14:53:31 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 030C0400EE;
- Fri,  7 Aug 2026 14:53:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5972D1F000E9;
- Fri,  7 Aug 2026 14:53:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1786114410;
- bh=wpDyK+7ujQD7K+Cu16YujhwRMEbbXnRmuvHvTtVlELs=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=YBRoe7XZrVr06qfx4PSc4c4GbT02KkBUtEqrxPnc5PH8Yf1UM8/v13BwRLjglVePk
- xshGrBTqxEfh4LEAw3G/5oMFY7CcePmBkRb2p34oGN/U9GE3QJJrbmlXOAu8QgqEGX
- AZa2tmeLvtwjLBh/4/9nUuVv7RvKYFtd7bE4pzNk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
- Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
- "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
- "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
+Received: from mout.web.de (mout.web.de [212.227.15.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1743410E16A
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 12:50:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+ s=s29768273; t=1786106986; x=1786711786; i=spasswolf@web.de;
+ bh=tSeA0vG7dP5ZK/4E4tWQ6mLYfngtEb5LkZEtSDs2cbY=;
+ h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+ References:MIME-Version:Content-Transfer-Encoding:cc:
+ content-transfer-encoding:content-type:date:from:message-id:
+ mime-version:reply-to:subject:to;
+ b=NRgpytKBkVHiAiTp1UnVrOnjQNGalgR0wWSZfys8OLHqkwNL/TCd/KPq7aAnMcZq
+ Ac3zv4jyGYPOieLeDsl3wxteYm75o8RH8Gy91VKNquQz1rbTzOAc4tVuMsl6uc57i
+ txhc/YIwy3mqzeYSyNJfu6Ayo4w2FaLj2lcNKeT9OPJ9bTmrJjNJcC3YQPqppxheA
+ +n9K7dHrqLB+CY8Rs8PXyDHfHva+nvICQvvgRY5RUoifrEZpgt9eF7nJIjVwRaCC6
+ 3siprdePj+51KrvO631Y230VRF6ugSiq2AXHic80hqmVxIY35pUDcUe0C1/F4VKFA
+ cfLI7052elpiWQqM6A==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb006
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MDvDU-1wiS7B3otY-002xom; Fri, 07
+ Aug 2026 14:49:46 +0200
+From: Bert Karwatzki <spasswolf@web.de>
+To: linux-kernel@vger.kernel.org
+Cc: Bert Karwatzki <spasswolf@web.de>, linux-next@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ "# = v7 . 1" <stable@vger.kernel.org>,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org
-Subject: [PATCH 6.12 253/337] drm/amd/display: use proper context for logging
-Date: Fri,  7 Aug 2026 16:37:36 +0200
-Message-ID: <20260807143424.032381957@linuxfoundation.org>
+ Rafal Ostrowski <rafal.ostrowski@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Thomas Gleixner <tglx@linutronix.de>
+Subject: [PATCH v7.2-rc6] drm/amd/display: fix usage of DC_FPU_{BEGIN,
+ END} with PREEMPT_RT
+Date: Fri,  7 Aug 2026 14:49:42 +0200
+Message-ID: <20260807124944.154232-1-spasswolf@web.de>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260807143418.516897842@linuxfoundation.org>
-References: <20260807143418.516897842@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+In-Reply-To: <202608061233.eufnR5Qm-lkp@intel.com>
+References: 
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:02 +0000
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:KznhYzgbAE/MPME5trz6GYPIpYBU/7UjpjKqFn69FwckmEAbvtE
+ BeLFXIAxz9wb9ZaxkJJL/E0uPwMYVg8XCDnhjO0LWgO2bVM+ihGNNDLq+jwSaav69Xs0RPc
+ nWFvGNH13gJCQbS5cFd1aAurxwu2MVe/P8RIiVP9vUrMaHiK0OzWeyiuCokrq6l713Lspnf
+ fKBUk9wQWoKQcxFLaSuCQ==
+UI-OutboundReport: notjunk:1;M01:P0:Et116pc3MOA=;o0aLRbVGX1aK9GNsF97nsRjPHzb
+ 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
+X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -66,176 +157,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+On PREEMPT_RT kernels kvzalloc_obj() can sleep because spin_lock is
+converted to rt_mutex. dc_create_plane_state() can be called while
+inside an FPU-guarded region, resuling in "scheduling while atomic"
+errors on PREEMPT_RT kernels.
+ Fix this by calling kvzalloc_obj() with DC_RUN_WITH_PREEMPTION_ENABLED().
+Also fix the error path in dc_create_stream_for_sink().
 
-------------------
+Fixes: 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC - Pa=
+rt 1")
+Link: https://lore.kernel.org/lkml/20260723123449.6494-1-spasswolf@web.de/
+Signed-off-by: Bert Karwatzki <spasswolf@web.de>
+=2D--
+ drivers/gpu/drm/amd/display/dc/core/dc_stream.c  | 5 +++--
+ drivers/gpu/drm/amd/display/dc/core/dc_surface.c | 5 +++--
+ 2 files changed, 6 insertions(+), 4 deletions(-)
 
-From: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-
-commit 114b42507b6a23d9d24e24e4ef165233332c64d4 upstream.
-
-The same as the rest of the code, get_ss_info_from_atombios() uses
-calc_pll_cs->ctx->logger for logging. But calc_pll_cs->ctx is
-initialized only later in calc_pll_max_vco_construct(). Therefore, any
-output using DC_LOG_SYNC() leads to a NULL pointer deference in
-get_ss_info_from_atombios().
-
-According to Sashiko, the very same problem exists in
-dce112_get_pix_clk_dividers() and dcn3_get_pix_clk_dividers() too.
-
-To avoid accessing the NULL context, use clk_src->base.ctx->logger
-everywhere. That context in base is initialized earlier in
-dce110_clk_src_construct() and dce112_clk_src_construct(). Before
-get_ss_info_from_atombios() or Sashiko's get_pix_clk_dividers functions
-above are actually called. This is done by redefining DC_LOGGER to
-CTX->logger.
-
-Before:
-dce110_clk_src_construct() did:
- -> sets clk_src->base.ctx = ctx;
- -> ss_info_from_atombios_create()
-   -> get_ss_info_from_atombios()   <- uses calc_pll_cs->ctx  # BOOM
- -> calc_pll_max_vco_construct()    <- sets calc_pll_cs->ctx
-
-After:
-dce110_clk_src_construct() does:
- -> sets clk_src->base.ctx = ctx;
- -> ss_info_from_atombios_create()
-   -> get_ss_info_from_atombios()   <- uses clk_src->base.ctx
-
-Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271175
-Closes: https://lore.kernel.org/all/a9ee54e6-2413-4156-9bde-d528ae3c63a3@kernel.org/
-Fixes: 1296423bf23c ("drm/amd/display: define DC_LOGGER for logger")
-Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
-Cc: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: "Christian König" <christian.koenig@amd.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 6f16fcbb0c46a87e3d9685407e906573d60104b0)
-Cc: stable@vger.kernel.org
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c |   20 ++++++++----------
- 1 file changed, 9 insertions(+), 11 deletions(-)
-
---- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-+++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
-@@ -45,9 +45,7 @@
- 	clk_src->base.ctx
- 
- #define DC_LOGGER \
--	calc_pll_cs->ctx->logger
--#define DC_LOGGER_INIT() \
--	struct calc_pll_clock_source *calc_pll_cs = &clk_src->calc_pll
-+	CTX->logger
- 
- #undef FN
- #define FN(reg_name, field_name) \
-@@ -291,6 +289,7 @@ static bool calc_pll_dividers_in_range(
- }
- 
- static uint32_t calculate_pixel_clock_pll_dividers(
-+		struct dce110_clk_src *clk_src,
- 		struct calc_pll_clock_source *calc_pll_cs,
- 		struct pll_settings *pll_settings)
- {
-@@ -479,7 +478,7 @@ static uint32_t dce110_get_pix_clk_divid
- {
- 	uint32_t field = 0;
- 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
--	DC_LOGGER_INIT();
-+
- 	/* Check if reference clock is external (not pcie/xtalin)
- 	* HW Dce80 spec:
- 	* 00 - PCIE_REFCLK, 01 - XTALIN,    02 - GENERICA,    03 - GENERICB
-@@ -522,12 +521,14 @@ static uint32_t dce110_get_pix_clk_divid
- 		/*Calculate Dividers by HDMI object, no SS case or SS case */
- 		pll_calc_error =
- 			calculate_pixel_clock_pll_dividers(
-+				        clk_src,
- 					&clk_src->calc_pll_hdmi,
- 					pll_settings);
- 	else
- 		/*Calculate Dividers by default object, no SS case or SS case */
- 		pll_calc_error =
- 			calculate_pixel_clock_pll_dividers(
-+					clk_src,
- 					&clk_src->calc_pll,
- 					pll_settings);
- 
-@@ -572,7 +573,6 @@ static uint32_t dce110_get_pix_clk_divid
- {
- 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
- 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
--	DC_LOGGER_INIT();
- 
- 	if (pix_clk_params == NULL || pll_settings == NULL
- 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
-@@ -604,7 +604,6 @@ static uint32_t dce112_get_pix_clk_divid
- 		struct pll_settings *pll_settings)
- {
- 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
--	DC_LOGGER_INIT();
- 
- 	if (pix_clk_params == NULL || pll_settings == NULL
- 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
-@@ -1366,8 +1365,6 @@ static uint32_t dcn3_get_pix_clk_divider
- 	unsigned long long actual_pix_clk_100Hz = pix_clk_params ? pix_clk_params->requested_pix_clk_100hz : 0;
- 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
- 
--	DC_LOGGER_INIT();
--
- 	if (pix_clk_params == NULL || pll_settings == NULL
- 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
- 		DC_LOG_ERROR(
-@@ -1437,7 +1434,6 @@ static const struct clock_source_funcs d
- 	.get_pixel_clk_frequency_100hz = get_pixel_clk_frequency_100hz
- };
- 
--
- static void get_ss_info_from_atombios(
- 		struct dce110_clk_src *clk_src,
- 		enum as_signal_type as_signal,
-@@ -1450,7 +1446,7 @@ static void get_ss_info_from_atombios(
- 	struct spread_spectrum_info *ss_info_cur;
- 	struct spread_spectrum_data *ss_data_cur;
- 	uint32_t i;
--	DC_LOGGER_INIT();
-+
- 	if (ss_entries_num == NULL) {
- 		DC_LOG_SYNC(
- 			"Invalid entry !!!\n");
-@@ -1585,6 +1581,7 @@ static void ss_info_from_atombios_create
- }
- 
- static bool calc_pll_max_vco_construct(
-+			struct dce110_clk_src *clk_src,
- 			struct calc_pll_clock_source *calc_pll_cs,
- 			struct calc_pll_clock_source_init_data *init_data)
- {
-@@ -1736,6 +1733,7 @@ bool dce110_clk_src_construct(
- 	ss_info_from_atombios_create(clk_src);
- 
- 	if (!calc_pll_max_vco_construct(
-+			clk_src,
- 			&clk_src->calc_pll,
- 			&calc_pll_cs_init_data)) {
- 		ASSERT_CRITICAL(false);
-@@ -1750,7 +1748,7 @@ bool dce110_clk_src_construct(
- 
- 
- 	if (!calc_pll_max_vco_construct(
--			&clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
-+			clk_src, &clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
- 		ASSERT_CRITICAL(false);
- 		goto unexpected_failure;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu=
+/drm/amd/display/dc/core/dc_stream.c
+index 7666cdc78f4e..a5a304a3f802 100644
+=2D-- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+@@ -233,8 +233,9 @@ struct dc_stream_state *dc_create_stream_for_sink(
+=20
+ fail:
+ 	if (stream) {
+-		kfree(stream->update_scratch);
+-		kfree(stream);
++		if (stream->update_scratch)
++			DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream->update_scratch));
++		DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream));
  	}
+=20
+ 	return NULL;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c b/drivers/gp=
+u/drm/amd/display/dc/core/dc_surface.c
+index 72845fc788f3..04982673ffbc 100644
+=2D-- a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+@@ -33,6 +33,7 @@
+ #include "dpp.h"
+=20
+ #include "dc_plane_priv.h"
++#include "dc_fpu.h"
+=20
+ /************************************************************************=
+*******
+  * Private functions
+@@ -86,8 +87,8 @@ uint8_t  dc_plane_get_pipe_mask(struct dc_state *dc_stat=
+e, const struct dc_plane
+  ************************************************************************=
+******/
+ struct dc_plane_state *dc_create_plane_state(const struct dc *dc)
+ {
+-	struct dc_plane_state *plane_state =3D kvzalloc_obj(*plane_state,
+-							  GFP_ATOMIC);
++	struct dc_plane_state *plane_state;
++	DC_RUN_WITH_PREEMPTION_ENABLED(plane_state =3D kvzalloc_obj(*plane_state=
+, GFP_ATOMIC));
+=20
+ 	if (NULL =3D=3D plane_state)
+ 		return NULL;
+=2D-=20
+2.55.0
 
+Fix for stable with the old error handling in
+dc_create_stream_for_sink() and compile fix form arm64/clang.
 
+Bert Karwatzki
