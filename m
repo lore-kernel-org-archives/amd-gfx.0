@@ -4,79 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B936C5AE49
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3485CC5B570
 	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 948C810E6C3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D0A610E6BE;
 	Mon, 10 Aug 2026 06:42:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LJcSjUok";
+	dkim=permerror (0-bit key) header.d=kroah.com header.i=@kroah.com header.b="Sn7NB216";
+	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="BHBxlMqn";
 	dkim-atps=neutral
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 78A9E10E05B
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2026 05:13:45 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-2cfbbdfa60bso6497105ad.3
- for <amd-gfx@lists.freedesktop.org>; Sat, 08 Aug 2026 22:13:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786252425; x=1786857225; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Jxy36nydTdeDBb8ceeDdse8qoQ8B4JIq+QDkrcZSSIw=;
- b=LJcSjUokiCclrB5Xspc5rh5W9gAweGlVDZeRieIPm5F6UDSLvuuiiCtFOMZ16qKzP/
- 5ttYtrgcXIIQTg3+tH9EqRM67n2sW82bhcDK5qyvUC4DfaW2d8xBz8eOUIVWbb9oGLKc
- EwSotZQUo9EwkedMCT8OTYcYRsjOpTLoX3LT6pVLyGczHe5D5p41tQJwZoikpsVPOxrg
- PQOzRBQ+bDGeI4ZVxJWSnSEdwawCZzHm2jjt+0KGP+E/qEi20Fqx6ZV65NMnpWrdQWOt
- 4v+7/uidBfhDgEMyu1GEuqCmwZAeoqaCDG4IS5l+ByRTk3lKtIKOx95udyH+LRgK93jz
- 4h0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786252425; x=1786857225;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Jxy36nydTdeDBb8ceeDdse8qoQ8B4JIq+QDkrcZSSIw=;
- b=f3ZbBS+RvL4YhuVtquQhGuaz2+jUxcMF4eub551n8f6GVVxCS6qJCZDbh7UUmQuHjK
- 8UOj25zxSwtSH6TA7wIxVyaR2/Yb5ZlFnpCkihcNtD4wtWDkrXhSrjJetvgRqhkCVzdU
- FVL/r+Fgxe+NMB5Mj6cHAGb7JLxeuxHA2SEx/OFWaffINWrhgJ58GomeUHjOhJ3c3MGj
- +z0zIJm0QKKeZ2iuJWs6iDmn3vXNNJyDk4vvDb/eSKDFxwfC5SMsxhqcdefAivtmWXgk
- t/zNqKVBS+4vgxVRAZR9nf9d/gPGH02gofx2ozRfkIzzT2EP8Zi2DxXA79Jor8FSK/vZ
- bnhw==
-X-Gm-Message-State: AOJu0YyWdozOxbQ8/E17LohkBC1CYNt/+39jL1hDVnBdvbE+mdcUgi6k
- O7NT/nV4AUzm7ivbBIxaSgPBZQkSh9qJskWHCNSnVzCa21w/dAy54aV9
-X-Gm-Gg: AR+sD13wU5b0tX84waxw5UC13dV7qsbFW9QyPSeUJKT44mkfBw4TRjeh1BvpSFXHYm3
- s41KY2q7JdHsUfRfRzNTuVMfD3lxdq78mwf/DyL6M8TVJT6i8tyT2/2FCNNj3d8w4gAFzpC9OF5
- +GAHeGlu/OsUs9pnYeG4iWMmsdz3sMuwxsyOZ9UnzMzERzzVS/JnqvRLWGVEb+HA//b9EAbwOOQ
- ML1BmVzO7/RaBxPTJOJCrXBIXuFXZMEqN4I2BcPSaoqFUl/uVSC0lVILuuUXK3tjbBUrApqxvb1
- LZlJPzueZo8VUVtjsG4lRgaPjzp45T/UVNfdl5JL2t2BHx2gTt9plkRVg2tCQtXc2fJeCTs+vXB
- pNgzJYUx6UREtb+xAX+5wt2rAyF/8lC6tLfznI0kyXrCHCk7c71uCrHF4Rtqugb16zvVOtGXcNh
- NPleyhLtHuZwo4hC3nyCqwJItwuZXfadFt4sHcidRPNzvv/gN2kVq9NyJasEx3dDkIutdZ2OA3i
- JKbIRMSxlDf
-X-Received: by 2002:a05:6a21:69a:b0:3c8:e313:8d42 with SMTP id
- adf61e73a8af0-3cbce96f6dcmr12821608637.31.1786252424949; 
- Sat, 08 Aug 2026 22:13:44 -0700 (PDT)
-Received: from localhost.localdomain ([103.178.204.108])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-315be8a7395sm27095702eec.9.2026.08.08.22.13.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 22:13:44 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v3 6/6] drm/amdgpu/ras: Cancel delayed work before ACA
- teardown in amdgpu_ras_fini
-Date: Sun,  9 Aug 2026 05:12:00 +0000
-Message-ID: <20260809051200.3276-7-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260809051200.3276-1-sreekuttan2156239@gmail.com>
-References: <20260809051200.3276-1-sreekuttan2156239@gmail.com>
+X-Greylist: delayed 330 seconds by postgrey-1.36 at gabe;
+ Fri, 07 Aug 2026 14:06:08 UTC
+Received: from fout-b1-smtp.messagingengine.com
+ (fout-b1-smtp.messagingengine.com [202.12.124.144])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B12B10F4FA
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 14:06:08 +0000 (UTC)
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+ by mailfout.stl.internal (Postfix) with ESMTP id 59B361D000E1;
+ Fri,  7 Aug 2026 10:00:37 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-05.internal (MEProxy); Fri, 07 Aug 2026 10:00:38 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+ :cc:content-type:content-type:date:date:from:from:in-reply-to
+ :in-reply-to:message-id:mime-version:references:reply-to:subject
+ :subject:to:to; s=fm3; t=1786111237; x=1786197637; bh=DJAZw34dtz
+ rwkk0TYe0dNbIpi34f2Kh0DKaC/Xc8flc=; b=Sn7NB216OMhW5xjXF+Sb71qGvH
+ jPNsxpdxD3TFNCLKPKZP94iozweg8VVRk2oyCwqCPBtn+wRuISIgETcykpzRafin
+ 7YJ+Gd8+0x0DT/0ydUCKUkGKkQVRRsMqLzloTvoJGIZ++rmpt5y3fhkN7zSJFH0l
+ 7FpcRipNkGTrV9F6h7r2eWpUGpZc30p8IrSETTElEb/ds1mbJHpGPch9oxJsXr61
+ IK/f2Opm/z4JnarWAzjHj+lkWywKYQ0ZllpPzv7dbro7CaG2/eGzmL6kubp89eew
+ fOb2PzwasMj//L8vyh8Q7szrvovp92+y08urS12NbRk6S5l1+54KZuFJ9pGw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:content-type:date:date
+ :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+ :message-id:mime-version:references:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+ 1786111237; x=1786197637; bh=DJAZw34dtzrwkk0TYe0dNbIpi34f2Kh0DKa
+ C/Xc8flc=; b=BHBxlMqnb4dkIlK8sm4MY+WS96pcPDg1fIPRtEvNZlIVh4N7L0O
+ tIdFe/XpIGpWcCzVsY1FbMlfp9ZiDYaEOh/CevstyJz9zVuW4KDYcGC1jeoYFIbl
+ wEaq46nwkmK5wt/6Q90Dd6mSYTTSMwmPvyKkbBOIXAO+5P9N+DZ7wZS0E4s+T8CK
+ +OIN1kXIRMYI4LuczkBGryYz0DyFfc+jczto/dfFowCAgCcQVwjtY98VE/wL5fKP
+ 1EMrjrFobhnDKcUjbier3J1gZtP/Y+gi9xZvaLEZhqPOc80aUUL0Sk79TDIIUuk8
+ ZlbYEIPzFIfnRRoU5Gzddrd9VnXIyd6TDvw==
+X-ME-Sender: <xms:BOV1agoxdfglcapzl9fXIKBSPRnL_FNSnIgGcgoBeizrwexZUFEg2g>
+ <xme:BOV1amhcDxYQ90GSnfcJu8Ww69vEoJ5LPTA6pjHTa7q-zbeLKmasiLwHR2htrLINO
+ B30iJZfogAYaYZAQeAUzJPMceSb6ExVaxaqq9ZEJ2UnK54JIQI>
+X-ME-Received: <xmr:BOV1aijPR-hOX2F0C5rjpLiFrrwXOq-3Xbld9cMp6wS5GFYJ911LskiK-OLun3nQvruXCeebYxruUpfkQAXijo7Jdm9JkZPbZPvw2oyW-H0>
+X-ME-Proxy-Cause: dmFkZTE75DRO/Pukjqn4DdkcNqksdu5oMMCOWbuKrjBeOaPob5+OCoG2vNxkHcFNstSHMA
+ oWuPYXkMaLgPCZoU1o+rC5nM9rrk0Uuv3eLxmyjiGrkUIH0p0xyCTdFajpfxMT7IUZOgM6
+ idXWasNXKz4+PLdfB/Uw3I/IKQFNBmDIsBFUmOF6qtBMPT8zYbzCXI6CeerFi/IeeSIu3F
+ 35WCv2vIP5nZhml64loCsGzzsplVd8K1AebEHclA3Rq5Ax20qYTAaOkNzIerVnxmXIzehS
+ iRUe8OZ2cQVZfsXYTH45srpQ0TnPOydhwuyKacNXr9rPQwK6b/UGhPR1Fn6D3G4gsIZHHh
+ z6Zl271iIMXbm+H4Vu1k7ApGfDGFyqE9V57iH62zraPoAdnfAPshtSoH4oF7g+aLOpIHKw
+ 3q6jswCdi+fxQ0Y6v1JvhZlvE8WdX9jlr0JRyDGLCrBJafyPnI59+aHwLV2JtvC6Ec1NeF
+ wSdbqxTJCTZhD9lDqr/FBDOaVYWorJHRyFw9bHffkosHjozODxwJEErun6mRivTVzvslF/
+ gEZf1AQ1nrP8jyzzQ0BtBKmKNgzR69cgGXkYPje2T8oPUXQbss2pR5OqHrx4KFr9p8Kueh
+ 5ZofMbL2+gMWQqruF09GCBhws6N4EM+Q0qV2sQqFhZkcbpA08ZeIXjU/t9IQ
+X-ME-Proxy: <xmx:BOV1akHbQftCG-95noW6kq7GJup35lnXCKkK2x5jIwUZoUDdjWGZbw>
+ <xmx:BOV1atCVetoYaPiaeP7d-1U7cwD8ltNRw2mjyQzesBsZy99rEEmpsw>
+ <xmx:BOV1ao_vZPfWiP8XOg584c2QR79-d90L6RYAEWufFkfdCHg4gUxXlg>
+ <xmx:BOV1aog1Wf0NnJCZ4VTmp-MtA5dEZFZ6TstxEi3OZk9pahWoPqt8zQ>
+ <xmx:BeV1agfxpLxd-1iPcPjC-j_KlGtEoiO_NIcQsmi5UjdlGAPehUCxI6eB>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 7 Aug 2026 10:00:36 -0400 (EDT)
+Date: Fri, 7 Aug 2026 16:00:19 +0200
+From: Greg KH <greg@kroah.com>
+To: Bert Karwatzki <spasswolf@web.de>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ "# = v7 . 1" <stable@vger.kernel.org>,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rafal Ostrowski <rafal.ostrowski@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Thomas Gleixner <tglx@linutronix.de>
+Subject: Re: [PATCH v7.2-rc6] drm/amd/display: fix usage of
+ DC_FPU_{BEGIN,END} with PREEMPT_RT
+Message-ID: <2026080712-grandma-scrooge-9ba3@gregkh>
+References: <202608061233.eufnR5Qm-lkp@intel.com>
+ <20260807124944.154232-1-spasswolf@web.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:02 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260807124944.154232-1-spasswolf@web.de>
+X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,43 +104,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In amdgpu_ras_fini(), cancel_delayed_work_sync() is currently called
-after ACA subsystems and locks are destroyed. If the delayed work
-(ras_counte_delay_work) runs concurrently during teardown, it can
-evaluate aca_handle_is_valid() right before remove_aca_handle()
-frees the handle and destroys its mutex, resulting in a use-after-free
-and locking violation.
+On Fri, Aug 07, 2026 at 02:49:42PM +0200, Bert Karwatzki wrote:
+> On PREEMPT_RT kernels kvzalloc_obj() can sleep because spin_lock is
+> converted to rt_mutex. dc_create_plane_state() can be called while
+> inside an FPU-guarded region, resuling in "scheduling while atomic"
+> errors on PREEMPT_RT kernels.
+>  Fix this by calling kvzalloc_obj() with DC_RUN_WITH_PREEMPTION_ENABLED().
+> Also fix the error path in dc_create_stream_for_sink().
+> 
+> Fixes: 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC - Part 1")
+> Link: https://lore.kernel.org/lkml/20260723123449.6494-1-spasswolf@web.de/
+> Signed-off-by: Bert Karwatzki <spasswolf@web.de>
+> ---
+>  drivers/gpu/drm/amd/display/dc/core/dc_stream.c  | 5 +++--
+>  drivers/gpu/drm/amd/display/dc/core/dc_surface.c | 5 +++--
+>  2 files changed, 6 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> index 7666cdc78f4e..a5a304a3f802 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
+> @@ -233,8 +233,9 @@ struct dc_stream_state *dc_create_stream_for_sink(
+>  
+>  fail:
+>  	if (stream) {
+> -		kfree(stream->update_scratch);
+> -		kfree(stream);
+> +		if (stream->update_scratch)
+> +			DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream->update_scratch));
+> +		DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream));
+>  	}
+>  
+>  	return NULL;
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+> index 72845fc788f3..04982673ffbc 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
+> @@ -33,6 +33,7 @@
+>  #include "dpp.h"
+>  
+>  #include "dc_plane_priv.h"
+> +#include "dc_fpu.h"
+>  
+>  /*******************************************************************************
+>   * Private functions
+> @@ -86,8 +87,8 @@ uint8_t  dc_plane_get_pipe_mask(struct dc_state *dc_state, const struct dc_plane
+>   ******************************************************************************/
+>  struct dc_plane_state *dc_create_plane_state(const struct dc *dc)
+>  {
+> -	struct dc_plane_state *plane_state = kvzalloc_obj(*plane_state,
+> -							  GFP_ATOMIC);
+> +	struct dc_plane_state *plane_state;
+> +	DC_RUN_WITH_PREEMPTION_ENABLED(plane_state = kvzalloc_obj(*plane_state, GFP_ATOMIC));
+>  
+>  	if (NULL == plane_state)
+>  		return NULL;
+> -- 
+> 2.55.0
+> 
+> Fix for stable with the old error handling in
+> dc_create_stream_for_sink() and compile fix form arm64/clang.
+> 
+> Bert Karwatzki
+> 
 
-Move cancel_delayed_work_sync() to the beginning of amdgpu_ras_fini()
-to ensure all pending work is flushed and stopped before resource
-deallocation starts.
+<formletter>
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+This is not the correct way to submit patches for inclusion in the
+stable kernel tree.  Please read:
+    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+for how to do this properly.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 764cd4950408..118716ad0437 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -4751,6 +4751,7 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
- 	if (!adev->ras_enabled || !con)
- 		return 0;
- 
-+	cancel_delayed_work_sync(&con->ras_counte_delay_work);
- 	amdgpu_ras_critical_region_fini(adev);
- 	mutex_destroy(&con->critical_region_lock);
- 
-@@ -4785,8 +4786,6 @@ int amdgpu_ras_fini(struct amdgpu_device *adev)
- 	if (AMDGPU_RAS_GET_FEATURES(con->features))
- 		amdgpu_ras_disable_all_features(adev, 0);
- 
--	cancel_delayed_work_sync(&con->ras_counte_delay_work);
--
- 	amdgpu_ras_set_context(adev, NULL);
- 	kfree(con);
- 
--- 
-2.54.0
-
+</formletter>
