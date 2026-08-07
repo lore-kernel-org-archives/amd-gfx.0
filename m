@@ -4,79 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 29C78C5B574
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25DC4C5B560
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5614D10E6CB;
-	Mon, 10 Aug 2026 06:42:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB1A010E6C4;
+	Mon, 10 Aug 2026 06:42:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OkmW724F";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GyeTa2Zy";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C51E210E11F
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2026 14:46:45 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-383cb94f742so1009148a91.3
- for <amd-gfx@lists.freedesktop.org>; Sun, 09 Aug 2026 07:46:45 -0700 (PDT)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C78AA10F510
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 15:06:41 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-47f633e6058so2956064f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 07 Aug 2026 08:06:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786286805; x=1786891605; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=deoqn41jn4hqxaXBU0LER8gLC0cAyHmrQg56bcVPpQA=;
- b=OkmW724F0JUD82UYEoXWy7PXueY5VFVSLeBvYkewSc7MynWPupunMayesXRZBL/CmX
- J300Zk+POFnLne9XqFr8EamjN8gAfEU5mJ/Rftw72HpqH8dtjN0m74GLhcuHMrMakyDE
- i/dC+dMqa7WtpKWQVfiJMrPNZS7Vj82z8YBQu5J8qPtZ0fC4GTrLQX1OX1CoTsTfGupM
- h4YbNjNQj5qzcVfqV1/0T1KD1pLN1nUHhTcuE3JuXCusqScsVrnJBa6frYBLNubV6So+
- T6C1TCz/4lntgIAsN8vP3/Qw0xC+G/CrPhfANSMtcEoo7BkVe7GBJv31Gl+9KXZTRRsC
- oxkg==
+ d=gmail.com; s=20251104; t=1786115200; x=1786720000; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=G28kgXcfjTi7WfcubT6ss2iDfVIyc9TJDmSGXp/+TIA=;
+ b=GyeTa2Zy3Sux5cj69LNolJh+DFeMv6BXL3kMlAGEq/SC1C2WeVdlBM775fSwnrhwl2
+ vcUNksSfEzKSKxSSAPN9yptjfPyahLw7NAHK48FgImIXjDv6cDcr5OTLOwXPTNWjIPz9
+ VUoBfSrh85FcyOZsyWnq7tgmnIM0M5gXyEEaYJ5TfyJnYSo4K4la3edBvwPMyBAUVCVb
+ y/DpN8ADLzKbVyuORAB/8klGXxnj9+7ObmRj5tduoYRmZlIk/QwazN+fd2E78iolSD3b
+ +MZYonDojflur8b435720XlABoNtSvPYRDam6nG7+4VMqtxYtdSlMEbmzFSuzlcYPunR
+ Xw3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786286805; x=1786891605;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=deoqn41jn4hqxaXBU0LER8gLC0cAyHmrQg56bcVPpQA=;
- b=LjH6YUzL/z8uMVrp4Y6cx2MRjEI23MLbrhkhgL8a8oWxHYjQetNILpphHWROb4hKsC
- 1/obTyMC+ZeXlG77pab8YaymzTueG6gqfQ10MVjuClaBekh5PBI0tC9HRHy3nVpYIboS
- xBS57kY0+PF11BsKH25BCS+KvDPagRbetVsHNje5+x4sxnaOJ8X2c0+0r3yQmwPbwN/5
- jssoNwjSB6Kwl4+dwWwKVzmHZAeC6SFFQ6hdE9Enbo4vEpvdVannMuRAle25CnxDmo3b
- oDDp3KwjL8Mh3sPdIpESwYbBrrkjXblBxmVyYdRjytngijfkXHOjHkwNnDUCONRHkP7j
- bbuQ==
-X-Gm-Message-State: AOJu0YzcNXxXlmnKLUlV+9MedFt2mQLjtKoZ47Nuwb95PKptoliSHXhu
- s8o18EWxZL3v3/f87Zp22DaNnf5cRimVCOoBS5nY1gE3duHgXOiLhny1
-X-Gm-Gg: AR+sD13KJGzbLiR/fc2+3b2YNBhFJBzVPoRE9vX4ZaOau5YT63ss9WPXKSeF/kK7Ia7
- ZhDkwNpE39a96L52FxToilbR1UW3fN2G7e5viFtLcz9NXF3SlArQXLyuQ9LAmbRpjAWz/32JWXZ
- 5eLPpulCV9eyW+bizR0jFB929EYFKrQnr0SnK+h3XvhgKqk2i7G+HSdasx0LfDDw9ht5Yj9bYDV
- m+m1kh/OwsKgUphWI5gvKmIo6JvJPX5A7LBA8PhzaUXG7jE1UpPgjs5HIKbpEIoaqmbSz0v6TIz
- qqhfi6uPyEajDrxcMG7+h2fGuPcyYZ9F/ZbqFhbmhrCKNAWWAqVh238Y8VIP7p8V4FzGJmGpUYk
- 4WGUzEC58n0EyuDo+xTuxWvUEv3onTAVh1DtrWjs7Ln+f1WtPuFrSLotTqJhyO663Ekivp38Q/M
- VyxjpxyGP3OK3fKwls1uytDa9yB8ajKtRw+ZPKTIP5Tq3j6FcsaynbTid50mo5XfThf3WCk5qO6
- Sjz821NlbWujetJkGl8Cg==
-X-Received: by 2002:a17:90a:d010:b0:38d:eaec:4396 with SMTP id
- 98e67ed59e1d1-3903c58bdd2mr36617260a91.11.1786286805186; 
- Sun, 09 Aug 2026 07:46:45 -0700 (PDT)
-Received: from localhost.localdomain ([103.178.205.91])
+ d=1e100.net; s=20251104; t=1786115200; x=1786720000;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=G28kgXcfjTi7WfcubT6ss2iDfVIyc9TJDmSGXp/+TIA=;
+ b=UAWCgHBdBJgNVNyD7FTkScLmpK/MfM6/9OP3M/L6rbu9xYeIZ9o8CQQcs0IQ/BHbVN
+ qG0i8bEB5ctkguEbLLqX1q2fD9e4m3Xs3vBqj/9LWDy7P8z7W6m7vy1EWMOo7G5s59vW
+ IyTgDAI7CiNWfjMV91cy5Q0sL+Jj1iqEdLHNIsv5HDdtNVzBP9+5pMcuTZey73p1Cb5O
+ FIER0zjVn/xvcHK6s5t6djQWDgJdxf057/Seg1SPPu1AL7yMfvGeGYTvj3xrdS8yaOST
+ fZfGuw2Ni7Qe1Zrl3xlUCoMlEBAqgazYJycfosQwn49E1jWQVW5j2iEK2KFhAkOnPZl3
+ LHkg==
+X-Gm-Message-State: AOJu0Yy/AaTdsgtlMmjzm5t9vuJfsB24e7yU0lto0eMTEbv80JU9RnqY
+ w/rUdNsJls4oRFvyAHs0dqxmQ1YXCfQGdmO6OuMFc1jnZi/qRrJW6BjlbLo9Sw==
+X-Gm-Gg: AR+sD132v4tFStm441TN1jTCnk5m4HmGko9Aewpj7PsIIDXeDC66Dw6A+foI+DX+DJ0
+ q7vbXvEf1/nmgDtQGr83kJOyi29ySLqvpyDvi8xUaHTCUZW1VngD0aU6FdcJBARmE3jFhMOnKQ5
+ HWGgqaRpElVbvePHkUFdqK/70ukXaAp0h5CKF6PTN2WiL6CV97DUBGLa/x5jLbICQ2pS9RIgOIp
+ +hdLYtACROQkkQ9eA+eEo6UY50jWz27WlAL6DzZ5h47tCzHqYCwHxOf4tmPr2FD6vMF948Xt92w
+ Z5T6oNr6RUjgPK4lzMKvjMyEQvnHUiR5C9QsWhiME9Z0g0x4lE/jvAXgbQ5CCjZbSbL6eQUy98m
+ e+Ni/J8PYmaeFRjAYmbynKlrqyyAj7SsuT/B/aPzvWauNrPfElGsHquy1S54eTWGlIz4fmGQ76L
+ bqn5Z02AA4gxN1tx6m8KTiTxFz8+G8N6KmpisAqsUwHOlQNg3U+7K3ibopBzUbH+l1Dh9TPFXmj
+ lc=
+X-Received: by 2002:a05:6000:46cf:b0:475:3a97:8e2c with SMTP id
+ ffacd0b85a97d-47fec62d8b8mr28368415f8f.16.1786115199830; 
+ Fri, 07 Aug 2026 08:06:39 -0700 (PDT)
+Received: from jessie ([2a01:e0a:11a7:6110:b562:8bda:11ee:8074])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-14101b7ad29sm25911224c88.13.2026.08.09.07.46.42
+ ffacd0b85a97d-480021f8f33sm7237899f8f.27.2026.08.07.08.06.39
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Aug 2026 07:46:44 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v5 2/4] drm/amdgpu/aca: Add upper bounds check in
- aca_bank_hwip_is_matched
-Date: Sun,  9 Aug 2026 14:44:49 +0000
-Message-ID: <20260809144451.35431-3-sreekuttan2156239@gmail.com>
+ Fri, 07 Aug 2026 08:06:39 -0700 (PDT)
+From: Samuel Pitoiset <samuel.pitoiset@gmail.com>
+To: amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
+ dri-devel@lists.freedesktop.org
+Cc: Samuel Pitoiset <samuel.pitoiset@gmail.com>
+Subject: [PATCH] drm/amd/display: Fix NULL pointer dereference in
+ amdgpu_dm_crtc_set_vblank()
+Date: Fri,  7 Aug 2026 16:58:55 +0200
+Message-ID: <20260807145855.83479-1-samuel.pitoiset@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260809144451.35431-1-sreekuttan2156239@gmail.com>
-References: <20260809144451.35431-1-sreekuttan2156239@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:03 +0000
+X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,36 +86,43 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In aca_bank_hwip_is_matched(), the 'type' parameter is used directly
-as an array index into aca_hwid_mcatypes[]. The function previously
-checked whether 'type' was equal to ACA_HWIP_TYPE_UNKNOW, but did not
-validate whether 'type' was less than ACA_HWIP_TYPE_COUNT or negative.
+amdgpu_dm_crtc_set_vblank() dereferences acrtc_state->stream when
+vblank is enabled/queried from DRM_IOCTL_MODE_CRTC_GET_SEQUENCE before
+a stream is attached to it.
 
-If an invalid or out-of-bounds enum value is passed, an out-of-bounds
-memory read occurs on the aca_hwid_mcatypes array.
+BUG: kernel NULL pointer dereference, address: 0000000000000008
+RIP: amdgpu_dm_crtc_set_vblank+0x6b/0x4d0 [amdgpu]
+Call Trace:
+ drm_vblank_enable
+ drm_vblank_get
+ drm_crtc_get_sequence_ioctl
+ drm_ioctl_kernel
+ drm_ioctl
 
-Fix this by validating that 'type' is strictly greater than
-ACA_HWIP_TYPE_UNKNOW and less than ACA_HWIP_TYPE_COUNT before
-performing the array lookup.
+Reproduced by running VKCTS with WSI tests enabled on RADV.
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Guard the enable path on acrtc_state->stream being non-NULL, matching
+the existing checks in this function.
+
+Fixes: 34d66bc7ff10 ("drm/amd/display: Fix Xorg desktop unresponsive on Replay panel")
+Signed-off-by: Samuel Pitoiset <samuel.pitoiset@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 2 +-
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-index d0d473082431..c76664af9902 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -138,7 +138,7 @@ static bool aca_bank_hwip_is_matched(struct aca_bank *bank, enum aca_hwip_type t
- 	int hwid, mcatype;
- 	u64 ipid;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+index 46d85457c77b..62eac6e65334 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
+@@ -268,7 +268,7 @@ static inline int amdgpu_dm_crtc_set_vblank(struct drm_crtc *crtc, bool enable)
  
--	if (!bank || type == ACA_HWIP_TYPE_UNKNOW)
-+	if (!bank || type <= ACA_HWIP_TYPE_UNKNOW || type >= ACA_HWIP_TYPE_COUNT)
- 		return false;
+ 	irq_type = amdgpu_display_crtc_idx_to_irq_type(adev, acrtc->crtc_id);
  
- 	hwip = &aca_hwid_mcatypes[type];
+-	if (enable) {
++	if (enable && acrtc_state->stream) {
+ 		struct dc *dc = adev->dm.dc;
+ 		struct drm_vblank_crtc *vblank = drm_crtc_vblank_crtc(crtc);
+ 		struct psr_settings *psr = &acrtc_state->stream->link->psr_settings;
 -- 
 2.54.0
 
