@@ -4,124 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D907C5AC80
-	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 09:06:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D801C5AC7A
+	for <amd-gfx@archiver.kernel.org>; Fri,  7 Aug 2026 10:11:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D57A010F417;
-	Fri,  7 Aug 2026 09:06:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6B3C10E410;
+	Fri,  7 Aug 2026 10:11:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KBu1ah6X";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SjLCFAZG";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012038.outbound.protection.outlook.com
- [40.93.195.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7391310F403
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 09:06:35 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010004.outbound.protection.outlook.com [52.101.61.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AA4810E410
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 10:11:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=s3Rews2goroVt+wUNXs5UfnXqY5h4Mh0PnlooDsK6LxHP8nI9qkOlnq95QrMroJvbVJfQ91mb7caWl/LZmMqP3O0cSiHhRuYIEQ5vuzUzP9W+JTIUbililGh3XZSzMyOwVwJ9Df02/TFZRTPs/FokSZUr6ylEvFNQ1dAEu7ATl1otgkU8E1qb8iag/SXq5Rh+HiurJappmSh4t3TX83/d7OQupPft4sbIZxkRvNjoqiRGv5GGwotaRiRIdIyl7bHP0Xibhcssmitne8ZyDtxBeXzkCy1UZheZKXgM0p1kE2EviUbiGkzLNATbg/sbIXsumwjwc/FthDBrsWCSK6uJw==
+ b=xwhrpCJS050Uus6S0ofc/R2VtMszLbbLrnAFh8ixPM9WpNN+a08LB+pe1vxs5VFyjZ0yefi7FjqqWKXfsWLXXU14aElepL7htXo/uME7y6/EVP9dSFAVz/8us9EY+HBrwCpphsWHtRCBO6zJexC3xEq/OgQVh5HghxCQitvN/JUkVfzgql6B2lP5m4n9ZGe+osJoz/4ILvJT6xtmt6Ua5mtU2wVAUa/r2UEqZUvBZcGfBB20e9C1y1lGjYcJQ+ffBxWGOwV5vU2m9nXg95eaef2rWl10pN73h0iYXdvDfgwC9G7KTr4Df3I47GUeImMMalOnryFMqttTPTPbKnlYFg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=q44gMe10r+iuH7sqcpQI5uURVcG8Xc5LjpVqlBN5S/E=;
- b=sDO8sR8HbW0tBaPUjlzHLY4DLOm1rT8CjCU8NXXz9TrnyRFS41GBEWjuBvbxS/3MRGG05s39TRQS0eO9G42A/HtuN8lbUIBi8lI+3LWNLkCo1NPMt+XktpnI1lxYvTtd5VKg4to4OXK7avHmsmpIYbtCcAaOFbNrrEX0JhVvb5ECZ+XCE+OMxODPxAdVsJwliF/eE0GKdpdhE27s5dteHaPtaIRzTy3VtBBx+A4taR9F71Yz3l6NTept7XnR0NpnsgyK8hhQVAxGOWwcsKAUPebxIPSTDZuu03ox74atvuW42oyo2aUoVXxDKzQ2Vm7kSbfUoHwc8OUv6antSnxgjg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=gkLQN5EaEs7vqGr4rY+DqVbIpF/eiUANPyk/qoeOZaQ=;
+ b=f/0SRsEPNgdB5k80pyKuMr0yuN9kT59p9R2Rq7z/uaVhi6sfQvHuJvV3SB/0ixgTT3wsXbVJ+9qlG392wGnL5jhyA8QPeN3tXaZxyfoyHJ3YgsrxP1MUkZCT+nvBl0e9JuijkEPc0FRBVU89sE0boRC1IJN3dcexsxDR8ZMNJoTrFLAck+zWroFgJmuvPBy1RmhaNrZpdIVt33iwYJPX6SQtxrcY1lICTunLNJuyfU8lJJh8UnN8T7R/NY7/QcmxivE9jUoynAg9Yv4h/BOQ6ffxwd+Kzog/bOfstKhXxMARcdyZX0mOviIi+QJDLHboR1kpxVvzK2Of0GFMS6xtEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=q44gMe10r+iuH7sqcpQI5uURVcG8Xc5LjpVqlBN5S/E=;
- b=KBu1ah6XWSmphm2hr1JPf0tl4ce2Xd0bvF0Y3VLwaVD6LMmK/9UYvgZqWFCvSP+UeXu5WJ/gOTdjkp5ieVgdphQyhuFnw7e1Mrqo3uuiZvZ+vxbnMUQqNzjVjhG+zV4U2UwdefoogELf1jfzGxI+hX0ht5oxi8ba9G5TAKC1fHA=
-Received: from SJ0PR12MB6967.namprd12.prod.outlook.com (2603:10b6:a03:44b::6)
- by SN7PR12MB6715.namprd12.prod.outlook.com (2603:10b6:806:271::19)
+ bh=gkLQN5EaEs7vqGr4rY+DqVbIpF/eiUANPyk/qoeOZaQ=;
+ b=SjLCFAZGxSczUZbW1w8mPEaduZF8SrLEM56tdjk1WyCcAmGgzIn6tY+/j5tUgzaG+s1UM+uvknecQXq0MqonXVOQDfdakauFKa0evT7wpzzlWWS/Llia7DZ8YV+JPXP/iZLZ3coSneO+Wqj2hnX+9TFWdhh4w2zTvbOasRzZDFY=
+Received: from BLAPR03CA0115.namprd03.prod.outlook.com (2603:10b6:208:32a::30)
+ by BL1PR12MB5802.namprd12.prod.outlook.com (2603:10b6:208:392::16)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Fri, 7 Aug
- 2026 09:06:32 +0000
-Received: from SJ0PR12MB6967.namprd12.prod.outlook.com
- ([fe80::9e49:aeba:9265:f46e]) by SJ0PR12MB6967.namprd12.prod.outlook.com
- ([fe80::9e49:aeba:9265:f46e%3]) with mapi id 15.21.0292.019; Fri, 7 Aug 2026
- 09:06:31 +0000
-From: "Sun, Ce(Overlord)" <Ce.Sun@amd.com>
-To: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Chai, Thomas" <YiPeng.Chai@amd.com>, "Zhou1, Tao" <Tao.Zhou1@amd.com>,
- "Yang, Stanley" <Stanley.Yang@amd.com>, "Lazar, Lijo" <Lijo.Lazar@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Prevent RAS injection with lost bus caused by
- DPC
-Thread-Topic: [PATCH] drm/amdgpu: Prevent RAS injection with lost bus caused
- by DPC
-Thread-Index: AQHdJjrG3F2AzDjQ2U2cuip2eiCKxLaSPrmAgAAMhjE=
-Date: Fri, 7 Aug 2026 09:06:31 +0000
-Message-ID: <SJ0PR12MB6967A75F954EC4BD09EA40A89DD12@SJ0PR12MB6967.namprd12.prod.outlook.com>
-References: <20260807070237.1169684-1-cesun102@amd.com>
- <EAYPR12MB999158FE6597CE2D6AA590FEEFFCD12@EAYPR12MB999158.namprd12.prod.outlook.com>
-In-Reply-To: <EAYPR12MB999158FE6597CE2D6AA590FEEFFCD12@EAYPR12MB999158.namprd12.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-07T09:06:31.018Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ0PR12MB6967:EE_|SN7PR12MB6715:EE_
-x-ms-office365-filtering-correlation-id: deee0e4d-212f-4ba4-f9a3-08def4632c67
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|18002099003|22082099003|4143699003|56012099006|11063799006|3023799007|8096899003|38070700021|10067099003;
-x-microsoft-antispam-message-info: S9ZvXNJGgi70+1dyYD9/xNgu5siIFYUXTs7eg7GLnbMeF2UhZgGYJerwzGvByJ72zcYT1e7qS/lmSHeOUktxvM9HIzBNSkKzWWvS5V5+b1rjLOWKkieVWB6xidVUpEVYPxGmOBA2u/ySnzZ+YbdpkCQjTU15C8mTHzafZShWselactpgqqLUbgajkzZrN9sE3fKW6Tiq8VGUTyoQeIa4cwNuvraBGnKOcTNch+WaPTW5FHYBy0RIZtwiDtN7GTAZYN5mwb91hMrnqqfg3bpv2K9pvjzjN+MP1VO9o7Z27/pHQPUGs+pIIXbTwNZ9Za88ScKJ0VGZPZ+ywROOq1BgsvR/LuVc5m/VhxyBlz9Rg2mu8YOz6H0xWoOjNm5CnqH5uUSfCFEIdb5OTtfe7iQ0Is9N6/zYLTJyG1jBrC8q3h8oT18ti904MbGZvYIqYxcL6/aLiI/gu6l+M5xRJMYdoQUagRez+zNfdHeSsqfSZ2Kcq3efdg0zD51SMxWpR0x1749vd++eZiovJnoSYXmkr5AmXhyB7D/pzpCfIeXml1aFsR4h4kdt+dg8FZ9t6YyTX+KvAxIsieEULMfqCae/UIoeIAAyvivl4ar9D6tiCxPPi+2sW/LhnvHnjygvwBtQKmMZQ4h7WQc+fkl/EIsabYPGq8yqcNVn6qSf6MtNta5imArOJwC/cxPg6LdDd3ikzhIX7oQcOrIc6zXcIilgIc+dUm+yUZTextg50+tw8qI=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB6967.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006)(3023799007)(8096899003)(38070700021)(10067099003);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?j2EHrgEpkS4lkWUJHmc0qdaCb4RMU+6TvD9/9yO+C7xuqk4vmSuH+WLWHFFE?=
- =?us-ascii?Q?3MdoZjNKMVaHl9vx6v5wxxq33BQP/lutbMp9NRXcVBauZRd/cnL1/t/H2b1w?=
- =?us-ascii?Q?vzNyyj34ch+tbuWDkD3Cvd42pzCrneWT6BjgXj1PQWCKsgHHt0prGgkarrPk?=
- =?us-ascii?Q?yLGryO/ptclH1EcG6BUWxEo3LcneHbtirICLT2l5p7mXma75TwH7FnMc3cpa?=
- =?us-ascii?Q?JT6RtyLhNXhXr//XE3Gq6NY2GrxRTb8OQkHPhBJhtIVoe4hc9QhE/drZHZxV?=
- =?us-ascii?Q?CfbNdLO158BjlValdRbNytrs1DePRBoj2MfzjoYbzMx05wz8QQcXo0kclLNw?=
- =?us-ascii?Q?cnTKh8g+8spd6gT0U/DfraqmpOSv1Nmwp+E3LdS1r5DGYQjXQ902ToYpwHzN?=
- =?us-ascii?Q?MQ+RWdI71bybzDKMrSi+ERM3+BMJWayuWL3J9f8eoOKljCEO9esiJUhsd8nm?=
- =?us-ascii?Q?7woFwsf8FQd0BWjlImPwfQMxuGje50gxCMKgzFLH4TLpOX1nWToJshkbyyJp?=
- =?us-ascii?Q?NkV+X4Koc2ET3hbYcvIFXOPwsv9sOuAobBqQkAQCan8wFgXRQZtVATL69LQv?=
- =?us-ascii?Q?pgvh1yQ2XOkW+QAvfS0I7q+GCJHAnnMoyHwvQCuxGQoln4DYn/zopoZxvFDt?=
- =?us-ascii?Q?I1LT7siN60xsRFvNdwEAIOJPAiiJw9gYsw6Kt4w4Dmdb6fElL8R9Fan/uM7n?=
- =?us-ascii?Q?uYDkSqpiJOfvl5+p64T2cXxI1bPz0Zk4kYrw4ZC0tTrNHIlLudwMPi65kwIK?=
- =?us-ascii?Q?rl4qwKnhhgB7T16mnB0fJjABcL9nykLLyqgVnfftdKTWtvl3NDdwh5NkvBCJ?=
- =?us-ascii?Q?+fQgMFFoM3yU39UnoJb7lC6titgWkHDeJias2QJHmZJUacIes/6wFJahB7FF?=
- =?us-ascii?Q?F7lpgKhg5sJMWKjRz/llc3sB/Jp0POQEBtaxuDjhT8Q+RC4bGJgEaFLl1NQc?=
- =?us-ascii?Q?mxHmcqlDCM087gzxpJNhiUy/2cTXSHJE+OXJIVfOCC/bsa7ju6+eKTXhsyRq?=
- =?us-ascii?Q?Dv2SzIXZK3XYjtFZhZCAwoXFyOTgOsAlWqaV8m6lTJljYHTKL/JZAUr2PJhE?=
- =?us-ascii?Q?W40obLmJYZT4I3AGGlxBCMwgk+5vHl1SFxoAsiZgxCfdoAaQTcXWsakLJzaU?=
- =?us-ascii?Q?XBW2pnMJXckItqnP46BaOx0E/hPpIg2qB89H/S7D+1zd2u2G8VtgN4FsjP5y?=
- =?us-ascii?Q?wXrWRwmt36Jv5utUFvsxDo1QzLkkUFai6KXPq98yAB0pYjV0aquGfIDTAIBJ?=
- =?us-ascii?Q?PFlEFrG53zKITzS3sH/LjyNENDDlYfgOKpKOnQfDSFqlwIK3UOuz6GFcz9MJ?=
- =?us-ascii?Q?NpXR94jDbZp0XgqLvhnMhO17RlthXeD/n1bK2ZKdaKJQhmqs4n7m/tcK1i34?=
- =?us-ascii?Q?tuSQw+ENJscqlQTEa7qQdrPWNqEqvC3b53T4FneDlGNMyqqwaSGsBIH/kMES?=
- =?us-ascii?Q?86hwCX/oxtDFVQlq3TtmBRWmBiL1f7ukPeDiqqgqY88SZ+rMzalKUeeM5wGG?=
- =?us-ascii?Q?aRyTRVMHV8Ja4oCkXgyAPTquOuehSiX3hP3u28PCICoEroyvOl5QR2yMcFVP?=
- =?us-ascii?Q?u9kXkzyQe4AQq8FOpaXSDUTqJas2JPigP5N04GRwS9ajj0f8CPyUZg/um9cM?=
- =?us-ascii?Q?iHs3ixlCiyTGRt6wVlJp89WAxUCntu7gjAhrFym9wim63v4vzTGumKlcTjyO?=
- =?us-ascii?Q?svUYgRB5anX2HjrsaA870Foa3QvJOUsoe2WgrM/r8fyw9ILN?=
-Content-Type: multipart/alternative;
- boundary="_000_SJ0PR12MB6967A75F954EC4BD09EA40A89DD12SJ0PR12MB6967namp_"
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.24; Fri, 7 Aug
+ 2026 10:11:02 +0000
+Received: from BL6PEPF0001AB58.namprd02.prod.outlook.com
+ (2603:10b6:208:32a:cafe::70) by BLAPR03CA0115.outlook.office365.com
+ (2603:10b6:208:32a::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.23 via Frontend Transport; Fri, 7
+ Aug 2026 10:11:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF0001AB58.mail.protection.outlook.com (10.167.241.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Fri, 7 Aug 2026 10:11:02 +0000
+Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Fri, 7 Aug
+ 2026 05:11:00 -0500
+From: Prike Liang <Prike.Liang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
+ <Michael.Chen@amd.com>, Prike Liang <Prike.Liang@amd.com>
+Subject: [PATCH] drm/amdgpu/mes11: disable MES RS64 process/gang context
+ loading
+Date: Fri, 7 Aug 2026 18:10:51 +0800
+Message-ID: <20260807101051.367233-1-Prike.Liang@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB58:EE_|BL1PR12MB5802:EE_
+X-MS-Office365-Filtering-Correlation-Id: bd668d2a-9fe4-4814-7598-08def46c2f74
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|82310400026|376014|23010399003|36860700016|18002099003|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: ksciQFdbcz0vtjm9OD91vU6uwXbDlxHAQFqQcz4afFiXBsmnH5RJp5pPVNHW33Am2YYp22xAuJrCOH2iS2U10Q2nPaM4LnMlzqXsfuQOEtvR9uFCQyoLgMFozbLgLMiJeELw/yidPbBOjMn+fqK4t2QZQeNUB/QJ9twy35BzX/ODuu8iI53jZCuNao0xDFHx7Hw5Tm78uBLnZUbCbGSKW0zfuPLHi9UNoaSlR7MwNMmqLzP6GUCrsnlZ74KGW3CUjm1mt/R5TDjrhy3FQ6jBF/WnlTUqHpw0joMGIYmIhxMhIffc2x9QcSnL+FgC61xOW/+UQOfxqwFnujmlEIngoPtY/wPhskNNWCp1DMJagRu7SM0ePhqannT9c7xwB0WmpbemEGmlW24LDwXoPGSkEyzEYv2vbgy6LXy+4+26vptb5txR1/f5TxaTMqfUfCDnFbJtsaOJ27qVZUNlL9CSoSlsPhjzRasBEScF1vNXnFNDtxpyoK8/i0ZRBytVjpsgzqUrRWRuhUPsszoSf8MPT3OG9bWwBGAm+pKA8bk/Vcl0TbCxBUVzBxYrHZJaIk56BZDQ+F/cR4UvefqgTAhLDKvQEyR4jL7rFOG2zJFznXBARv9JP8gWGIiRg2oH74Xxbptz3VjieM1vCcFzE7t8KuUmuhcMJ/E/OAgLROVvPQl5VO+ZTTKyl4PWwYXx2SEH
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(23010399003)(36860700016)(18002099003)(11063799006)(56012099006)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: WOGpBR9TKq5sF1bZz+Stm0n9PQbUc/E/UkMrExsRoQvNs43iKjH0cg3w5QkVim0+7agqy77v5g4ko/3Xjjf8vKcR1Os7sGkZKsNRAreEdHHoSNqyaSHxc2GJrTtqpPFbjep4MziQ3sprKQlA/v+jBY7dUTPgoph5rYcCRK2AGAnFS+Qr+ZlIamL3j8g+0GbDS6WjjGkWNrPNpz11gaQljKhlkWdqHD6ARrJW/tBWQ+zwNOuZAAOXcGw3fzeD+0tH1WRTs+KfFp35TvkTTj2lJlZi6IMN5V3aUCsUcAYH8R/jkhgbSh2Ney3qaty0Pr/ed6MNJ3QAh/iMMMEjWr149aPtCBj1Ssv6tU4rfghBz4aG5CllyHizV1Xzm31ZGg3pH9kwSf7zBAdzRb09hE91JdNlI/MClhhpoFaRMe+AoRUf7zUmWVFhYrPqEYs9GHs6
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB6967.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: deee0e4d-212f-4ba4-f9a3-08def4632c67
-X-MS-Exchange-CrossTenant-originalarrivaltime: 07 Aug 2026 09:06:31.6936 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hJWrkGgWDZrm1mRNBOl1JBP2Op9zzZHEZioVEsTpNF/Pu39r2NzFNwh/wp6mnidb67RsOKiFApHAE5IyQt0b/w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6715
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Aug 2026 10:11:02.2662 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bd668d2a-9fe4-4814-7598-08def46c2f74
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB58.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5802
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,213 +109,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_SJ0PR12MB6967A75F954EC4BD09EA40A89DD12SJ0PR12MB6967namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+The MES RS64 local memory process/gang context index may be updated,
+saved, or restored improperly during queue eviction and restore cycles.
+Enabling RS64 memory for MES process/gang context loading introduces
+two known issues:
+  1. Performance regression on userq due to improper context index
+     handling during RS64 memory access.
+  2. KFDIPCTest.BasicTest failure on Navi31/32/33: the IPC buffer
+     GPU VA mapping is not correctly reflected in the restored RS64
+     process context, causing GPU page faults on the IPC shared
+     buffer address, which eventually leads to MES firmware becoming
+     unresponsive and requiring a full GPU reset to recover.
+Temporarily disable MES RS64 process/gang context loading until both
+issues are resolved.
 
-AMD General
-
-Thanks Hawking for your review. I will check if this issue can be resolved =
-from the user-space tool side.
-
-
-
-Regards,
-Ce,Sun
-________________________________
-From: Zhang, Hawking <Hawking.Zhang@amd.com>
-Sent: Friday, August 7, 2026 4:20 PM
-To: Sun, Ce(Overlord) <Ce.Sun@amd.com>; amd-gfx@lists.freedesktop.org <amd-=
-gfx@lists.freedesktop.org>
-Cc: Chai, Thomas <YiPeng.Chai@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>; Yan=
-g, Stanley <Stanley.Yang@amd.com>; Lazar, Lijo <Lijo.Lazar@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: Prevent RAS injection with lost bus caused=
- by DPC
-
-AMD General
-
-Would it make more sense to set the RAS query ready flag for the DPC event =
-as well?
-
-We should keep ras_query_ready as the single flag for all RAS sysfs and deb=
-ugfs nodes. This would help simplify the implementation in the RAS block. I=
-f the device is not available, then ras_query_ready should be set to false.
-
-Regards,
-Hawking
-
------Original Message-----
-From: Sun, Ce(Overlord) <Ce.Sun@amd.com>
-Sent: Friday, August 7, 2026 3:03 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.c=
-om>; Zhou1, Tao <Tao.Zhou1@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; =
-Lazar, Lijo <Lijo.Lazar@amd.com>; Sun, Ce(Overlord) <Ce.Sun@amd.com>
-Subject: [PATCH] drm/amdgpu: Prevent RAS injection with lost bus caused by =
-DPC
-
-When DPC events occur, the GPU bus becomes unavailable and all user-space o=
-perations should be blocked. There is a timing race where rastool may still=
- send RAS error injection commands to the driver after bus loss, which lead=
-s unexpected failures.
-
-Extend the readiness check in ras debugfs write handler by adding
-amdgpu_device_bus_status_check() to detect bus lost state. Print warning an=
-d reject injection requests to notify user-space the function is inaccessib=
-le.
-
-Signed-off-by: Ce Sun <cesun102@amd.com>
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/mes_v11_0.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.c
-index 35eb87591740..4943be034c80 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -564,7 +564,7 @@ static ssize_t amdgpu_ras_debugfs_ctrl_write(struct fil=
-e *f,
-        struct ras_debug_if data;
-        int ret =3D 0;
-
--       if (!amdgpu_ras_get_error_query_ready(adev)) {
-+       if (!amdgpu_ras_get_error_query_ready(adev) ||
-+amdgpu_device_bus_status_check(adev)) {
-                dev_warn(adev->dev, "RAS WARN: error injection "
-                                "currently inaccessible\n");
-                return size;
---
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+index a0b874c9ee7b..c57bcb9a98b1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
+@@ -1954,7 +1954,7 @@ static int mes_v11_0_hw_init(struct amdgpu_ip_block *ip_block)
+ 	if (adev->mes.ring[0].sched.ready)
+ 		goto out;
+ 
+-	adev->mes.use_rs64mem = true;
++	adev->mes.use_rs64mem = false;
+ 
+ 	if (!adev->enable_mes_kiq) {
+ 		if (adev->firmware.load_type == AMDGPU_FW_LOAD_DIRECT) {
+-- 
 2.34.1
 
-
---_000_SJ0PR12MB6967A75F954EC4BD09EA40A89DD12SJ0PR12MB6967namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-AMD General</div>
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-Thanks Hawking for your review. I will check if this issue can be resolved =
-from the user-space tool side.</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 11pt; color: rgb(0, 0, 0);">
-Regards,</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
-olor: rgb(0, 0, 0);">
-Ce,Sun</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhang, Hawking &lt;Ha=
-wking.Zhang@amd.com&gt;<br>
-<b>Sent:</b> Friday, August 7, 2026 4:20 PM<br>
-<b>To:</b> Sun, Ce(Overlord) &lt;Ce.Sun@amd.com&gt;; amd-gfx@lists.freedesk=
-top.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Chai, Thomas &lt;YiPeng.Chai@amd.com&gt;; Zhou1, Tao &lt;Tao.Zho=
-u1@amd.com&gt;; Yang, Stanley &lt;Stanley.Yang@amd.com&gt;; Lazar, Lijo &lt=
-;Lijo.Lazar@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH] drm/amdgpu: Prevent RAS injection with lost bus=
- caused by DPC</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font face=3D"Times New Roman" size=3D"3"><span=
- style=3D"font-size:12pt;"><a name=3D"BM_BEGIN"></a>
-<div><font size=3D"2"><span style=3D"font-size:11pt;">AMD General<br>
-<br>
-Would it make more sense to set the RAS query ready flag for the DPC event =
-as well?<br>
-<br>
-We should keep ras_query_ready as the single flag for all RAS sysfs and deb=
-ugfs nodes. This would help simplify the implementation in the RAS block. I=
-f the device is not available, then ras_query_ready should be set to false.=
-<br>
-<br>
-Regards,<br>
-Hawking<br>
-<br>
------Original Message-----<br>
-From: Sun, Ce(Overlord) &lt;Ce.Sun@amd.com&gt;<br>
-Sent: Friday, August 7, 2026 3:03 PM<br>
-To: amd-gfx@lists.freedesktop.org<br>
-Cc: Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Chai, Thomas &lt;YiPeng.C=
-hai@amd.com&gt;; Zhou1, Tao &lt;Tao.Zhou1@amd.com&gt;; Yang, Stanley &lt;St=
-anley.Yang@amd.com&gt;; Lazar, Lijo &lt;Lijo.Lazar@amd.com&gt;; Sun, Ce(Ove=
-rlord) &lt;Ce.Sun@amd.com&gt;<br>
-Subject: [PATCH] drm/amdgpu: Prevent RAS injection with lost bus caused by =
-DPC<br>
-<br>
-When DPC events occur, the GPU bus becomes unavailable and all user-space o=
-perations should be blocked. There is a timing race where rastool may still=
- send RAS error injection commands to the driver after bus loss, which lead=
-s unexpected failures.<br>
-<br>
-Extend the readiness check in ras debugfs write handler by adding<br>
-amdgpu_device_bus_status_check() to detect bus lost state. Print warning an=
-d reject injection requests to notify user-space the function is inaccessib=
-le.<br>
-<br>
-Signed-off-by: Ce Sun &lt;cesun102@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 2 +-<br>
-&nbsp;1 file changed, 1 insertion(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
-amdgpu/amdgpu_ras.c<br>
-index 35eb87591740..4943be034c80 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c<br>
-@@ -564,7 +564,7 @@ static ssize_t amdgpu_ras_debugfs_ctrl_write(struct fil=
-e *f,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct ras_debug_if data;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int ret =3D 0;<br>
-<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_ras_get_error_query_ready=
-(adev)) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!amdgpu_ras_get_error_query_ready=
-(adev) ||<br>
-+amdgpu_device_bus_status_check(adev)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; dev_warn(adev-&gt;dev, &quot;RAS WARN: error injection &quo=
-t;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;currently inaccessible\n&quot;);=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp; return size;<br>
---<br>
-2.34.1<br>
-<br>
-</span></font></div>
-</span></font></div>
-</body>
-</html>
-
---_000_SJ0PR12MB6967A75F954EC4BD09EA40A89DD12SJ0PR12MB6967namp_--
