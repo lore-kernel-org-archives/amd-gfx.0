@@ -4,74 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02AC8C5AC82
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C1DDC5B569
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42A0C10E6A6;
-	Mon, 10 Aug 2026 06:42:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4071610E6A1;
+	Mon, 10 Aug 2026 06:42:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VwWtPsYh";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YBRoe7XZ";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 142A510E05B
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2026 05:13:00 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-2cee9b74ee1so6906275ad.3
- for <amd-gfx@lists.freedesktop.org>; Sat, 08 Aug 2026 22:13:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786252379; x=1786857179; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=7uC67/V7nwNWq+dWDB8FGNBrrM/47Cbt+1oF506R3e8=;
- b=VwWtPsYhFAnzKWIsFEAN2NzuewdhImtqvE1yIwuvyUdmGqU0vRjzpUwnqSHBr96Y8L
- EYvL56YsOVqip6lDnb+OBf26D3+tvVRQ5lD1qsCfZQ+cDJahhPh9baw99vtyNT4qqKro
- Bo8PiU/si8rd4P+e8CsTIU0kE03LdfrCcVWpt0XYX3xuFqAkjEXGcfQe1woQEWc2YetB
- FW920oeyH1eSBJmLqRSGA3SOJ1kakqrv7PfvPr9hA5IpG1Ps3SHqQm429XNKAGmXWMnc
- gKYjprfvHuwpFBZFuRWzSrEdhb9SpeV+GtqmTMu8oAa7gBWt7X8QsLNefCJc1/brhqW/
- NzVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786252379; x=1786857179;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=7uC67/V7nwNWq+dWDB8FGNBrrM/47Cbt+1oF506R3e8=;
- b=gHqCmIlP+nrnnGPzSVC8knzYP65n70OlduIVGhaXK+3kaTcR0wVRtmlL0U1mgWJnzR
- ZYjpgzk6NCDwqn0LagBEXTlkvvO3VR4muyTKVSM+KBxs+uLG8cU7Z2jgxpjuQaUb3rn7
- BHWOCA2MJcQ0U9reBMP5WXWbrueMIgWyenSqy/JA80fII87wZYcUkPUSVFkJ7fLOEywv
- MPi8ppMWbhSYA196nBezwAweO+Sd/rsZ/lyNs3iGdwN/Q+eV5RaNS4sNAWm57jLURpAu
- r8A6P+2Zus0SMF36zCPxQNLhM5D+Pp40wvGchACha22WPl1ZsSuWo01XiepfFJKiuYB+
- eYNQ==
-X-Gm-Message-State: AOJu0YyfZjunGrqXje3pNJLjz6o0WXX6nIxI/gt6+16LUYtSrNbPt0mc
- v3cp1/ZUJBOsTTseqmddPUARpg0hGrIPaVpYqce8FlL99dajA1m3wGBd
-X-Gm-Gg: AR+sD12yflqBfqobomvK4HF9H1Pcyz+4pVjrK+G6qg0ZigBQ6U0uL9MlAhrX7KzZO2a
- pRKXvAlqU6SRIolrIx+2rc53w+cSNilmqFcK/E3Y5gqILM4yxzLE9TDHMpRvT25CvOv8N93ABjw
- ov9llPfgLVGWKsClVgrsjA0fjDV4y8Dj6RYVJuMNA1hlb6d+7nhbP9b32rVRLX3xJgKXVG9Z9Fu
- 7YkRwSry9NEAdtHayZ2yp4PQDG/PLYUkCu5zzizLK6k9n+zP5rD7N5zMQdQ5b3dRGIh8kgy64NS
- 1Aef7E+iG/Ips3wyWA+QOF36cDSmZdQZ6qQHFCdqVbeMnfnrYnXsKE2gZhjGp2fL6U4fpYAqcs2
- URk3RkahhCubvDI+5HCbv6//WRkNH6/TG8EhIdPLMy2AxTAyFyZ9LPkhsMGw1nh5tS8gydL1+0a
- dYoq/zy6DComXxvQ7c8wPXNIT/P0iv2SViRTlnZDFw7LgUhlKRqGW2VVDvUrTkQi+/V/Wvu32+m
- jA+1k96+8PPWn5/LqyjyMqx
-X-Received: by 2002:a17:903:3848:b0:2c9:c991:3bf0 with SMTP id
- d9443c01a7336-2d0ca70da11mr418477765ad.8.1786252379391; 
- Sat, 08 Aug 2026 22:12:59 -0700 (PDT)
-Received: from localhost.localdomain ([103.178.204.108])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-315be8a7395sm27095702eec.9.2026.08.08.22.12.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 22:12:58 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v3 0/6] drm/amdgpu: Robustness and safety fixes for ACA and
- RAS drivers
-Date: Sun,  9 Aug 2026 05:11:54 +0000
-Message-ID: <20260809051200.3276-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.54.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7F58B10E36A
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 14:53:31 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 030C0400EE;
+ Fri,  7 Aug 2026 14:53:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5972D1F000E9;
+ Fri,  7 Aug 2026 14:53:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1786114410;
+ bh=wpDyK+7ujQD7K+Cu16YujhwRMEbbXnRmuvHvTtVlELs=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=YBRoe7XZrVr06qfx4PSc4c4GbT02KkBUtEqrxPnc5PH8Yf1UM8/v13BwRLjglVePk
+ xshGrBTqxEfh4LEAw3G/5oMFY7CcePmBkRb2p34oGN/U9GE3QJJrbmlXOAu8QgqEGX
+ AZa2tmeLvtwjLBh/4/9nUuVv7RvKYFtd7bE4pzNk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+ "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+ "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH 6.12 253/337] drm/amd/display: use proper context for logging
+Date: Fri,  7 Aug 2026 16:37:36 +0200
+Message-ID: <20260807143424.032381957@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260807143418.516897842@linuxfoundation.org>
+References: <20260807143418.516897842@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -88,37 +66,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch series addresses several race conditions, boundary check bugs,
-logic inversions, NULL pointer checks, and buffer size parameters across
-the AMDGPU ACA (Accelerated Compute Architecture) and RAS driver
-subsystems.
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-v2 -> v3:
-  - Patch 3: Updated amdgpu_aca_get_error_data() to return 0 instead of
-    -EOPNOTSUPP for invalid handles, ensuring global RAS error queries
-    safely pass through non-ACA blocks without breaking telemetry.
-  - Patch 6: Moved cancel_delayed_work_sync() in amdgpu_ras_fini() prior to
-    ACA subsystem and lock cleanup to avoid teardown races and UAF.
+------------------
 
-v1 -> v2:
-  - Patch 3: Updated remove_aca_handle() to use list_del_init() instead
-    of list_del(), ensuring list_empty() properly evaluates removed
-    handles and avoiding potential UAF during device teardown.
+From: Jiri Slaby (SUSE) <jirislaby@kernel.org>
 
-Sreeraj S Kurup (6):
-  drm/amdgpu/aca: Fix race condition and UAF in error cache logging
-  drm/amdgpu/aca: Add upper bounds check in aca_bank_hwip_is_matched
-  drm/amdgpu/aca: Fix inverted validation logic and list cleanup
-  drm/amdgpu/aca: Add missing NULL check for banks parameter in
-    aca_banks_add_bank
-  drm/amdgpu/aca: Fix off-by-one buffer size parameter in add_aca_sysfs
-  drm/amdgpu/ras: Cancel delayed work before ACA teardown in
-    amdgpu_ras_fini
+commit 114b42507b6a23d9d24e24e4ef165233332c64d4 upstream.
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 35 ++++++++++---------------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c |  3 +--
- 2 files changed, 15 insertions(+), 23 deletions(-)
+The same as the rest of the code, get_ss_info_from_atombios() uses
+calc_pll_cs->ctx->logger for logging. But calc_pll_cs->ctx is
+initialized only later in calc_pll_max_vco_construct(). Therefore, any
+output using DC_LOG_SYNC() leads to a NULL pointer deference in
+get_ss_info_from_atombios().
 
--- 
-2.54.0
+According to Sashiko, the very same problem exists in
+dce112_get_pix_clk_dividers() and dcn3_get_pix_clk_dividers() too.
+
+To avoid accessing the NULL context, use clk_src->base.ctx->logger
+everywhere. That context in base is initialized earlier in
+dce110_clk_src_construct() and dce112_clk_src_construct(). Before
+get_ss_info_from_atombios() or Sashiko's get_pix_clk_dividers functions
+above are actually called. This is done by redefining DC_LOGGER to
+CTX->logger.
+
+Before:
+dce110_clk_src_construct() did:
+ -> sets clk_src->base.ctx = ctx;
+ -> ss_info_from_atombios_create()
+   -> get_ss_info_from_atombios()   <- uses calc_pll_cs->ctx  # BOOM
+ -> calc_pll_max_vco_construct()    <- sets calc_pll_cs->ctx
+
+After:
+dce110_clk_src_construct() does:
+ -> sets clk_src->base.ctx = ctx;
+ -> ss_info_from_atombios_create()
+   -> get_ss_info_from_atombios()   <- uses clk_src->base.ctx
+
+Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271175
+Closes: https://lore.kernel.org/all/a9ee54e6-2413-4156-9bde-d528ae3c63a3@kernel.org/
+Fixes: 1296423bf23c ("drm/amd/display: define DC_LOGGER for logger")
+Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 6f16fcbb0c46a87e3d9685407e906573d60104b0)
+Cc: stable@vger.kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c |   20 ++++++++----------
+ 1 file changed, 9 insertions(+), 11 deletions(-)
+
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+@@ -45,9 +45,7 @@
+ 	clk_src->base.ctx
+ 
+ #define DC_LOGGER \
+-	calc_pll_cs->ctx->logger
+-#define DC_LOGGER_INIT() \
+-	struct calc_pll_clock_source *calc_pll_cs = &clk_src->calc_pll
++	CTX->logger
+ 
+ #undef FN
+ #define FN(reg_name, field_name) \
+@@ -291,6 +289,7 @@ static bool calc_pll_dividers_in_range(
+ }
+ 
+ static uint32_t calculate_pixel_clock_pll_dividers(
++		struct dce110_clk_src *clk_src,
+ 		struct calc_pll_clock_source *calc_pll_cs,
+ 		struct pll_settings *pll_settings)
+ {
+@@ -479,7 +478,7 @@ static uint32_t dce110_get_pix_clk_divid
+ {
+ 	uint32_t field = 0;
+ 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
+-	DC_LOGGER_INIT();
++
+ 	/* Check if reference clock is external (not pcie/xtalin)
+ 	* HW Dce80 spec:
+ 	* 00 - PCIE_REFCLK, 01 - XTALIN,    02 - GENERICA,    03 - GENERICB
+@@ -522,12 +521,14 @@ static uint32_t dce110_get_pix_clk_divid
+ 		/*Calculate Dividers by HDMI object, no SS case or SS case */
+ 		pll_calc_error =
+ 			calculate_pixel_clock_pll_dividers(
++				        clk_src,
+ 					&clk_src->calc_pll_hdmi,
+ 					pll_settings);
+ 	else
+ 		/*Calculate Dividers by default object, no SS case or SS case */
+ 		pll_calc_error =
+ 			calculate_pixel_clock_pll_dividers(
++					clk_src,
+ 					&clk_src->calc_pll,
+ 					pll_settings);
+ 
+@@ -572,7 +573,6 @@ static uint32_t dce110_get_pix_clk_divid
+ {
+ 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+ 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
+-	DC_LOGGER_INIT();
+ 
+ 	if (pix_clk_params == NULL || pll_settings == NULL
+ 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
+@@ -604,7 +604,6 @@ static uint32_t dce112_get_pix_clk_divid
+ 		struct pll_settings *pll_settings)
+ {
+ 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+-	DC_LOGGER_INIT();
+ 
+ 	if (pix_clk_params == NULL || pll_settings == NULL
+ 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
+@@ -1366,8 +1365,6 @@ static uint32_t dcn3_get_pix_clk_divider
+ 	unsigned long long actual_pix_clk_100Hz = pix_clk_params ? pix_clk_params->requested_pix_clk_100hz : 0;
+ 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+ 
+-	DC_LOGGER_INIT();
+-
+ 	if (pix_clk_params == NULL || pll_settings == NULL
+ 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
+ 		DC_LOG_ERROR(
+@@ -1437,7 +1434,6 @@ static const struct clock_source_funcs d
+ 	.get_pixel_clk_frequency_100hz = get_pixel_clk_frequency_100hz
+ };
+ 
+-
+ static void get_ss_info_from_atombios(
+ 		struct dce110_clk_src *clk_src,
+ 		enum as_signal_type as_signal,
+@@ -1450,7 +1446,7 @@ static void get_ss_info_from_atombios(
+ 	struct spread_spectrum_info *ss_info_cur;
+ 	struct spread_spectrum_data *ss_data_cur;
+ 	uint32_t i;
+-	DC_LOGGER_INIT();
++
+ 	if (ss_entries_num == NULL) {
+ 		DC_LOG_SYNC(
+ 			"Invalid entry !!!\n");
+@@ -1585,6 +1581,7 @@ static void ss_info_from_atombios_create
+ }
+ 
+ static bool calc_pll_max_vco_construct(
++			struct dce110_clk_src *clk_src,
+ 			struct calc_pll_clock_source *calc_pll_cs,
+ 			struct calc_pll_clock_source_init_data *init_data)
+ {
+@@ -1736,6 +1733,7 @@ bool dce110_clk_src_construct(
+ 	ss_info_from_atombios_create(clk_src);
+ 
+ 	if (!calc_pll_max_vco_construct(
++			clk_src,
+ 			&clk_src->calc_pll,
+ 			&calc_pll_cs_init_data)) {
+ 		ASSERT_CRITICAL(false);
+@@ -1750,7 +1748,7 @@ bool dce110_clk_src_construct(
+ 
+ 
+ 	if (!calc_pll_max_vco_construct(
+-			&clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
++			clk_src, &clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
+ 		ASSERT_CRITICAL(false);
+ 		goto unexpected_failure;
+ 	}
+
 
