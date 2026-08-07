@@ -4,42 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97567C5B56A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D76BC5B560
 	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D6D510E6C1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B4BF10E6D0;
 	Mon, 10 Aug 2026 06:42:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="mO0UAWfR";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AeeblNLF";
 	dkim-atps=neutral
-Received: from mail-244104.protonmail.ch (mail-244104.protonmail.ch
- [109.224.244.104])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0482D10E118
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 18:28:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=protonmail; t=1786127266; x=1786386466;
- bh=q4tdgJ5bQ15uNoWudEz5stteCUVUlugliOhQ72saDn4=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=mO0UAWfRmLjFYYrFgy52olWJr5A10Q+jJcQ7uoQPtexz7i3NfUwzGcShdTPrSTq7P
- xfz4+dRsNQoAxoUjBGmYvus4QbQKl+l7k1ehWle77qSz7V/zUOYiYJMM5t7aM5O+iu
- O6mW8BG/3fAyGac0BBJSncVuKQUDgyYcqvGsV3mSJRiRvW1lq62HdUZV1MQnBXQUsI
- 3xD4mACBppEJ6sBBS8YPxUfDxKT9Zt3PdKSk0aVT7vettxKRjEIJrmah5vUbc/rvEf
- dT34lD7JWir4U0fmHYt+2LuhzEYf+UjDkixd/AaS5vcjftjP5MmdXNzUhkdiomBCVv
- wSGZWEPpF1tZQ==
-Date: Fri, 07 Aug 2026 18:27:40 +0000
-To: amd-gfx@lists.freedesktop.org
-From: Satyajit Roy <edu042sjroy@proton.me>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, Ilya.Bakoulin@amd.com,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH] drm/amd/display: Fix BT2020 YCbCr limited range output CSC
-Message-ID: <20260807182724.51018-1-edu042sjroy@proton.me>
-Feedback-ID: 147615787:user:proton
-X-Pm-Message-ID: ee450151c8c5bd5973580ddd300b54931e63ea7b
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C871B10F53E
+ for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 15:48:41 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id CBD87600B0;
+ Fri,  7 Aug 2026 15:48:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01D0B1F000E9;
+ Fri,  7 Aug 2026 15:48:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1786117720;
+ bh=cGOOA3FfrfUB0bN4mvQBLtNNnZjs1q/Fg4DmgrGkNgw=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=AeeblNLF2jaXARt3S3NR766E2sOsyuBD4DPuJ1TMd51TajIbEDcFfIiMCtLy9OaTF
+ KBrSDCrfWcqV15YkTnhv6GT4hXIWMWte66EwZsJc/ItfZL5h2bfARgwMoBHlUSskzX
+ S8Z67dnwB7F5C48AmOf++pjmaEBXRxDJJS5507QE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, patches@lists.linux.dev,
+ Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>,
+ "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+ "Lakha, Bhawanpreet" <Bhawanpreet.Lakha@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org
+Subject: [PATCH 7.1 401/438] drm/amd/display: use proper context for logging
+Date: Fri,  7 Aug 2026 16:39:57 +0200
+Message-ID: <20260807143436.510660016@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260807143428.008222056@linuxfoundation.org>
+References: <20260807143428.008222056@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -55,90 +66,176 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Satyajit Roy <sroy14@alum.utk.edu>
+7.1-stable review patch.  If anyone has any objections, please let me know.
 
-COLOR_SPACE_2020_YCBCR_LIMITED and COLOR_SPACE_2020_YCBCR_FULL
-currently select the same output CSC matrix. The matrix uses
-full-amplitude BT2020 coefficients, so the limited-range output path
-does not scale luma and chroma to their limited-range code ranges.
+------------------
 
-When the output is signaled as limited-range YCbCr, a sink that honors
-the quantization range expands those values again. This produces
-incorrect output levels and is particularly visible with PQ HDR.
+From: Jiri Slaby (SUSE) <jirislaby@kernel.org>
 
-On Navi33/DCN 3.2.1 over HDMI, the AVI InfoFrame advertises limited
-range while the existing output CSC produces full-amplitude BT2020
-YCbCr values. Using the limited-range matrix restores the expected
-PQ HDR output levels.
+commit 114b42507b6a23d9d24e24e4ef165233332c64d4 upstream.
 
-Add a separate output CSC matrix for BT2020 YCbCr limited range. Scale
-luma by 219/255 and chroma by 224/255 while retaining the appropriate
-limited-range offsets. Keep the existing matrix unchanged for full
-range.
+The same as the rest of the code, get_ss_info_from_atombios() uses
+calc_pll_cs->ctx->logger for logging. But calc_pll_cs->ctx is
+initialized only later in calc_pll_max_vco_construct(). Therefore, any
+output using DC_LOG_SYNC() leads to a NULL pointer deference in
+get_ss_info_from_atombios().
 
-Fixes: 07bc2dcbcf40 ("drm/amd/display: Fix BT2020 YCbCr limited/full range =
-input")
+According to Sashiko, the very same problem exists in
+dce112_get_pix_clk_dividers() and dcn3_get_pix_clk_dividers() too.
+
+To avoid accessing the NULL context, use clk_src->base.ctx->logger
+everywhere. That context in base is initialized earlier in
+dce110_clk_src_construct() and dce112_clk_src_construct(). Before
+get_ss_info_from_atombios() or Sashiko's get_pix_clk_dividers functions
+above are actually called. This is done by redefining DC_LOGGER to
+CTX->logger.
+
+Before:
+dce110_clk_src_construct() did:
+ -> sets clk_src->base.ctx = ctx;
+ -> ss_info_from_atombios_create()
+   -> get_ss_info_from_atombios()   <- uses calc_pll_cs->ctx  # BOOM
+ -> calc_pll_max_vco_construct()    <- sets calc_pll_cs->ctx
+
+After:
+dce110_clk_src_construct() does:
+ -> sets clk_src->base.ctx = ctx;
+ -> ss_info_from_atombios_create()
+   -> get_ss_info_from_atombios()   <- uses clk_src->base.ctx
+
+Closes: https://bugzilla.suse.com/show_bug.cgi?id=1271175
+Closes: https://lore.kernel.org/all/a9ee54e6-2413-4156-9bde-d528ae3c63a3@kernel.org/
+Fixes: 1296423bf23c ("drm/amd/display: define DC_LOGGER for logger")
+Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
+Cc: Lakha, Bhawanpreet <Bhawanpreet.Lakha@amd.com>
+Cc: Harry Wentland <harry.wentland@amd.com>
+Cc: Leo Li <sunpeng.li@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: "Christian König" <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 6f16fcbb0c46a87e3d9685407e906573d60104b0)
 Cc: stable@vger.kernel.org
-Signed-off-by: Satyajit Roy <sroy14@alum.utk.edu>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- .../drm/amd/display/dc/core/dc_hw_sequencer.c  | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c |   20 ++++++++----------
+ 1 file changed, 9 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/driver=
-s/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index 90d754d192f1..f264bb880aee 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -61,6 +61,7 @@ enum dc_color_space_type {
- =09COLOR_SPACE_YCBCR601_TYPE,
- =09COLOR_SPACE_YCBCR709_TYPE,
- =09COLOR_SPACE_YCBCR2020_TYPE,
-+=09COLOR_SPACE_YCBCR2020_LIMITED_TYPE,
- =09COLOR_SPACE_YCBCR601_LIMITED_TYPE,
- =09COLOR_SPACE_YCBCR709_LIMITED_TYPE,
- =09COLOR_SPACE_YCBCR709_BLACK_TYPE,
-@@ -116,6 +117,10 @@ static const struct out_csc_color_matrix_type output_c=
-sc_matrix[] =3D {
- =09=09{ 0x1000, 0xF149, 0xFEB7, 0x1004,
- =09=09  0x0868, 0x15B2, 0x01E6, 0x201,
- =09=09  0xFB88, 0xF478, 0x1000, 0x1004} },
-+=09{ COLOR_SPACE_YCBCR2020_LIMITED_TYPE,
-+=09=09{ 0x0E0E, 0xF313, 0xFEDF, 0x1004,
-+=09=09  0x0738, 0x12A2, 0x01A1, 0x0201,
-+=09=09  0xFC13, 0xF5DF, 0x0E0E, 0x1004} },
- =09{ COLOR_SPACE_YCBCR709_BLACK_TYPE,
- =09=09{ 0x0000, 0x0000, 0x0000, 0x1000,
- =09=09  0x0000, 0x0000, 0x0000, 0x0200,
-@@ -186,7 +191,16 @@ static bool is_ycbcr2020_type(
- {
- =09bool ret =3D false;
-=20
--=09if (color_space =3D=3D COLOR_SPACE_2020_YCBCR_LIMITED || color_space =
-=3D=3D COLOR_SPACE_2020_YCBCR_FULL)
-+=09if (color_space =3D=3D COLOR_SPACE_2020_YCBCR_FULL)
-+=09=09ret =3D true;
-+=09return ret;
-+}
-+
-+static bool is_ycbcr2020_limited_type(enum dc_color_space color_space)
-+{
-+=09bool ret =3D false;
-+
-+=09if (color_space =3D=3D COLOR_SPACE_2020_YCBCR_LIMITED)
- =09=09ret =3D true;
- =09return ret;
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_clock_source.c
+@@ -45,9 +45,7 @@
+ 	clk_src->base.ctx
+ 
+ #define DC_LOGGER \
+-	calc_pll_cs->ctx->logger
+-#define DC_LOGGER_INIT() \
+-	struct calc_pll_clock_source *calc_pll_cs = &clk_src->calc_pll
++	CTX->logger
+ 
+ #undef FN
+ #define FN(reg_name, field_name) \
+@@ -289,6 +287,7 @@ static bool calc_pll_dividers_in_range(
  }
-@@ -217,6 +231,8 @@ static enum dc_color_space_type get_color_space_type(en=
-um dc_color_space color_s
- =09=09type =3D COLOR_SPACE_YCBCR601_LIMITED_TYPE;
- =09else if (is_ycbcr709_limited_type(color_space))
- =09=09type =3D COLOR_SPACE_YCBCR709_LIMITED_TYPE;
-+=09else if (is_ycbcr2020_limited_type(color_space))
-+=09=09type =3D COLOR_SPACE_YCBCR2020_LIMITED_TYPE;
- =09else if (is_ycbcr2020_type(color_space))
- =09=09type =3D COLOR_SPACE_YCBCR2020_TYPE;
- =09else if (color_space =3D=3D COLOR_SPACE_YCBCR709)
---=20
-2.53.0
+ 
+ static uint32_t calculate_pixel_clock_pll_dividers(
++		struct dce110_clk_src *clk_src,
+ 		struct calc_pll_clock_source *calc_pll_cs,
+ 		struct pll_settings *pll_settings)
+ {
+@@ -477,7 +476,7 @@ static uint32_t dce110_get_pix_clk_divid
+ {
+ 	uint32_t field = 0;
+ 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
+-	DC_LOGGER_INIT();
++
+ 	/* Check if reference clock is external (not pcie/xtalin)
+ 	* HW Dce80 spec:
+ 	* 00 - PCIE_REFCLK, 01 - XTALIN,    02 - GENERICA,    03 - GENERICB
+@@ -520,12 +519,14 @@ static uint32_t dce110_get_pix_clk_divid
+ 		/*Calculate Dividers by HDMI object, no SS case or SS case */
+ 		pll_calc_error =
+ 			calculate_pixel_clock_pll_dividers(
++				        clk_src,
+ 					&clk_src->calc_pll_hdmi,
+ 					pll_settings);
+ 	else
+ 		/*Calculate Dividers by default object, no SS case or SS case */
+ 		pll_calc_error =
+ 			calculate_pixel_clock_pll_dividers(
++					clk_src,
+ 					&clk_src->calc_pll,
+ 					pll_settings);
+ 
+@@ -571,7 +572,6 @@ static uint32_t dce110_get_pix_clk_divid
+ {
+ 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+ 	uint32_t pll_calc_error = MAX_PLL_CALC_ERROR;
+-	DC_LOGGER_INIT();
+ 
+ 	if (pix_clk_params == NULL || pll_settings == NULL
+ 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
+@@ -603,7 +603,6 @@ static uint32_t dce112_get_pix_clk_divid
+ 		struct pll_settings *pll_settings)
+ {
+ 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+-	DC_LOGGER_INIT();
+ 
+ 	if (pix_clk_params == NULL || pll_settings == NULL
+ 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
+@@ -1372,8 +1371,6 @@ static uint32_t dcn3_get_pix_clk_divider
+ 	unsigned long long actual_pix_clk_100Hz = pix_clk_params ? pix_clk_params->requested_pix_clk_100hz : 0;
+ 	struct dce110_clk_src *clk_src = TO_DCE110_CLK_SRC(cs);
+ 
+-	DC_LOGGER_INIT();
+-
+ 	if (pix_clk_params == NULL || pll_settings == NULL
+ 			|| pix_clk_params->requested_pix_clk_100hz == 0) {
+ 		DC_LOG_ERROR(
+@@ -1443,7 +1440,6 @@ static const struct clock_source_funcs d
+ 	.get_pixel_clk_frequency_100hz = get_pixel_clk_frequency_100hz
+ };
+ 
+-
+ static void get_ss_info_from_atombios(
+ 		struct dce110_clk_src *clk_src,
+ 		enum as_signal_type as_signal,
+@@ -1456,7 +1452,7 @@ static void get_ss_info_from_atombios(
+ 	struct spread_spectrum_info *ss_info_cur;
+ 	struct spread_spectrum_data *ss_data_cur;
+ 	uint32_t i;
+-	DC_LOGGER_INIT();
++
+ 	if (ss_entries_num == NULL) {
+ 		DC_LOG_SYNC(
+ 			"Invalid entry !!!\n");
+@@ -1587,6 +1583,7 @@ static void ss_info_from_atombios_create
+ }
+ 
+ static bool calc_pll_max_vco_construct(
++			struct dce110_clk_src *clk_src,
+ 			struct calc_pll_clock_source *calc_pll_cs,
+ 			struct calc_pll_clock_source_init_data *init_data)
+ {
+@@ -1738,6 +1735,7 @@ bool dce110_clk_src_construct(
+ 	ss_info_from_atombios_create(clk_src);
+ 
+ 	if (!calc_pll_max_vco_construct(
++			clk_src,
+ 			&clk_src->calc_pll,
+ 			&calc_pll_cs_init_data)) {
+ 		ASSERT_CRITICAL(false);
+@@ -1752,7 +1750,7 @@ bool dce110_clk_src_construct(
+ 
+ 
+ 	if (!calc_pll_max_vco_construct(
+-			&clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
++			clk_src, &clk_src->calc_pll_hdmi, &calc_pll_cs_init_data_hdmi)) {
+ 		ASSERT_CRITICAL(false);
+ 		goto unexpected_failure;
+ 	}
 
 
