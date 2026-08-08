@@ -4,76 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DCFF4C5B56D
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF612C5B56B
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D39A10E6BC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 58DF710E6C0;
 	Mon, 10 Aug 2026 06:42:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ZG09p04m";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IFxOaEcR";
 	dkim-atps=neutral
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 29CCD10E161
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2026 14:47:00 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-38fdeaed181so1268191a91.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 09 Aug 2026 07:47:00 -0700 (PDT)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0762110E021
+ for <amd-gfx@lists.freedesktop.org>; Sat,  8 Aug 2026 12:11:50 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-2ce7d2adef4so6266125ad.3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 08 Aug 2026 05:11:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786286820; x=1786891620; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=TTdDEO4C2pVqpnKnvMmpty/7Skli343KUkxbaW4hUmA=;
- b=ZG09p04mXy4F6+d4ciqrsws1XEPJHrRD44OIur2v3Rj7gD6UmVg9eu1+nawfMlayyZ
- 7TE7cjHWNzC8Ff1d23kGFe4DWCrZclth6EwjTcUScoPjgPPRneOE5yWbvuXre/40d/IA
- 5W6Q2AUMvsC/ZdZJwM4FvydlYZ5Xw29Th5xv+hDPpBNcIa97P+hJ1MuAkUtdlkiMHrSV
- GLw0gvX39Zy5vfmr4e9IWlJMo4LZIOY5mMI8rdqOufr04TNQE65HwToKX77tELqa0Glz
- trxryPpUSFazMnqEPzmF00aAjZWq+FmQtel8MPifxj01nRlkAw1UrRS4io+YvrGZ1jgO
- WP+w==
+ d=gmail.com; s=20251104; t=1786191109; x=1786795909; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=qqtodrANULHy2HebqvyH0gpSUnDrF1cP92+56xd0b6c=;
+ b=IFxOaEcRABrCwxu+m9I5y17uFiTiKh6aa0dQaqgiinMoGmEMA8cFaTs3WkLzouHmHo
+ sgWtv2kVBkiwGr4YHid0mA0/+oq5+vEoWq4W9OxQ4IgMD5OQ7L555VeKuB2yiEXmDRIz
+ T7XLL6KF/nQ3r8vcIdfPW/QRmyXCHmGm50VmGGjK9Mgz9lV6qYjjuu09PUxx9aNwnnOq
+ dx7HlVBmr9jybSUtEbHJK1Ey9rQZ4EmN6E2clgb/L6mo+k5zbVf3OzMey+W6QmZghP5O
+ PZ9H6YOkAuXGcaj9AMekVLxMJL0x1IKaWIXismZEUZqSSLSntelVqgayxeoFXr8XFR28
+ ZOvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786286820; x=1786891620;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=TTdDEO4C2pVqpnKnvMmpty/7Skli343KUkxbaW4hUmA=;
- b=gzXivxBaPbKa8dB/zza+pBAWxIOmk9LCJU5fFI9WYObNXXtDe6FR8GCR2CLPC61vCI
- Oe2plle8HN0sMlR1WoNJTqCSxl1E3yS2URsKF+H3EP8TFAdUxBQg+JZSfFR7ZCf3/g9i
- qRRXRriPQb4Gn0Xnv+Y73aKhOv48FF4CwuEg1t+DZwTdvbRPoNMyd68DganSNCKsHbhl
- qh+XTwyko131RbqpiQtfkQr/Q8hX+j6Hw/CWY91ZyvirRQFWSefU1Kl0XgmzbPpftLr5
- 1l6+UsmIJ19kI9A0U+IOIsmjETfCH0j2oeLsIgle5cUQWKHcs6sThpWnGWviWcJlVA8S
- Ue7Q==
-X-Gm-Message-State: AOJu0YxPhewlNTfX1gFV2ugunjNv/L7pF5yDOxZ4yMGu9TmOGuI4lQ61
- UMlAPcAl9dV7IWbW+kFDyr67D7wCCKb+lcwTA+r4kBE8V1DhTyfI79f3
-X-Gm-Gg: AR+sD10CHggpOqV5CzfAioTuaXy5qHGgQ7sWtXv0H8BxWI2TMk6iTj1A+zX4Jjt0pcA
- 7qVI1/08+3bKy1ge82kkHNTLgpe+xlxY8Umw092oeMpaRVNUqkpP9nN8F2rs3WnqqrNwZYj7iMq
- P4XAJbQG8yay10ZgCLm2qupnCq/oDKhCZmUq9jMJ7OLqit8DXnujEF66AJ2VhcLGTrt1A42GVNh
- UkzGA/vgGed/s1BFZ+OctO2lh7WzzrWn2twoWpqRE1csnsUImYqk6m4pAelGllu/IXdwf2qgfqE
- sH3eGoq1uaB+ZLHAyZKzb6Y395rWbeMXd1KygvylvosXbVRmh30x9au8Ztkp91/qpi811FXK6uC
- g1GbVZCIC4WYU1rtbVztMhpSInBBUb7IrO8MvzBjsnHOHI/E82VjjVe6nZeX0os1ASQhI8PBu70
- TAGEgXSqhUMSw3DkcdU0Ld8T3A3K7DYnCXU6EWAeOgrWxGDHHGVSjRQb3z4ktBzn+FMQ6HkXO0B
- FVt4OckQaA=
-X-Received: by 2002:a17:90b:3889:b0:38f:57f0:1f5d with SMTP id
- 98e67ed59e1d1-3903c5c4491mr34362200a91.15.1786286819656; 
- Sun, 09 Aug 2026 07:46:59 -0700 (PDT)
-Received: from localhost.localdomain ([103.178.205.91])
+ d=1e100.net; s=20251104; t=1786191109; x=1786795909;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=qqtodrANULHy2HebqvyH0gpSUnDrF1cP92+56xd0b6c=;
+ b=cPoA3U8OMrn+NqtlDOzQhvItQp4xZpEXFwzo0e7ap+i/No1IQDWRprnJi76txeRJWs
+ izoFTXFlXtB4aKXOLlPIdr7NSDsXcuHOWT819APi/T0pe2mh08AH+CTLx1iFFZ3fzEBt
+ hlcfjYbcqOqV0ci1if3pd0zFCdSGn5DeFZp/OEQz55dtTarUqGHJTNxE1pMXuTdtbRMo
+ hcBEhGqonfQqOsHIL8OPNe5ttv1m/oD1ldjiHrSiFnMN7nMGgjy56oduhrO2xweBwEEc
+ Y/VQS4HfAuSF+iYjSO0im7WJYlCGpMDfeZPwOaJzQovS6grQkEgVP05wL+E4ogv5yP9V
+ 9KUw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqRWORwaI/ViXeF4+mFKxfbo/ajWiKR7916mCx3qZLX9B0SybBFPEY0X6ZjRh/yNLjgWDIDhn+O@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwFucxdZiidgKFWH1Cby0eK1FStc4T+f2X0jfLHPEH0tyDon7pH
+ HdkGryqzDLxcSeghbohysS0Dx4ce8LAIBmtbeNHEAHyxmcMEQlRVv0zh
+X-Gm-Gg: AR+sD123D7IAIoqqflKxltoTa1Edbvfnk+bb1yv5XoPI1Dksbxn/am27qgCayQu6xG/
+ P/ghRdqEabMIFcdtmdV17WrH4jRqqI5eN0rjdpDpmRh+R3kHMWaM+AHV6skBWAGMf46rCOsb+KF
+ Y3CF3lxRIQieDSm9AquPywtGfe1F7A1kITS/MFC/GKqZ6HOIFrxkqE24w0GFuA028393sUTAy1B
+ /nYkPSdyCf+2WRAo36WRRtpvwAJY7cem5/TItBWmHb0ehbOWA62YayIPs2X4KmeZ8ij8t1Dw/LA
+ towNYsBEhhzHHHjFHDfD+XGjewsUicglMzExK16GNC8SD7xz6+b+U0qKqgZwQ1r8lMiw/hMG+Ek
+ op2J6bwTmO9qWETYLbuufICTXP6aHpq5Dk7tdwJfMKQlWK+WNkPMrHs2rUA3AsiAetqpRzzOaJ0
+ JoS1cnH56Ms1W54JwU7b64MKpo9PhWVxzssTM1RsIzBlg=
+X-Received: by 2002:a17:903:2383:b0:2cf:4544:104b with SMTP id
+ d9443c01a7336-2d294b29144mr139478015ad.5.1786191109424; 
+ Sat, 08 Aug 2026 05:11:49 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1000::f280])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-14101b7ad29sm25911224c88.13.2026.08.09.07.46.56
+ d9443c01a7336-2d14dbedec6sm18151975ad.44.2026.08.08.05.11.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Aug 2026 07:46:59 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v5 4/4] drm/amdgpu/ras: Fix delayed work cancellation order
- during teardown
-Date: Sun,  9 Aug 2026 14:44:51 +0000
-Message-ID: <20260809144451.35431-5-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260809144451.35431-1-sreekuttan2156239@gmail.com>
-References: <20260809144451.35431-1-sreekuttan2156239@gmail.com>
+ Sat, 08 Aug 2026 05:11:48 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ "Mario Limonciello (AMD)" <superm1@kernel.org>,
+ =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Lijo Lazar <lijo.lazar@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
+ "Jesse.Zhang" <Jesse.Zhang@amd.com>, Jammy Zhou <Jammy.Zhou@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/amdgpu: fix autosuspend cleanup during removal
+Date: Sat,  8 Aug 2026 20:09:34 +0800
+Message-ID: <20260808120934.2813010-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:03 +0000
@@ -91,47 +95,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In amdgpu_ras_recovery_fini(), mutex_destroy(&con->page_rsv_lock) was
-called prior to cancel_work_sync(&con->recovery_work) and
-cancel_delayed_work_sync(&con->page_retirement_dwork).
+amdgpu_pci_probe() calls pm_runtime_use_autosuspend(), but
+amdgpu_pci_remove() does not call the matching
+pm_runtime_dont_use_autosuspend().
 
-If pending work ran during teardown, it could attempt to acquire
-page_rsv_lock after its destruction, leading to a locking violation and
-potential use-after-free.
+If the autosuspend delay is set to a negative value while autosuspend
+is enabled, the runtime PM core increments usage_count to prevent
+runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+during teardown, this reference is not dropped and usage_count remains
+unbalanced.
 
-Fix this by moving cancel_work_sync(&con->recovery_work) and
-cancel_delayed_work_sync(&con->page_retirement_dwork) before
-mutex_destroy(&con->page_rsv_lock), ensuring both work items are
-synchronously canceled while the lock remains intact.
+The documentation for pm_runtime_use_autosuspend() also notes that it
+is important to undo it with pm_runtime_dont_use_autosuspend() at
+driver exit time, unless runtime PM was initially enabled with
+devm_pm_runtime_enable().
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Add the missing pm_runtime_dont_use_autosuspend() call to the remove
+path.
+
+This issue was found by manual code inspection.
+
+Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 764cd4950408..1d6b4300d80a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -3994,15 +3994,14 @@ static int amdgpu_ras_recovery_fini(struct amdgpu_device *adev)
- 	if (con->page_retirement_thread)
- 		kthread_stop(con->page_retirement_thread);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 1aed121f4ddb..e814701bc8fd 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2548,6 +2548,7 @@ amdgpu_pci_remove(struct pci_dev *pdev)
+ 	if (adev->pm.rpm_mode != AMDGPU_RUNPM_NONE) {
+ 		pm_runtime_get_sync(dev->dev);
+ 		pm_runtime_forbid(dev->dev);
++		pm_runtime_dont_use_autosuspend(dev->dev);
+ 	}
  
-+	cancel_work_sync(&con->recovery_work);
-+	cancel_delayed_work_sync(&con->page_retirement_dwork);
-+
- 	atomic_set(&con->page_retirement_req_cnt, 0);
- 	atomic_set(&con->poison_creation_count, 0);
- 
- 	mutex_destroy(&con->page_rsv_lock);
- 
--	cancel_work_sync(&con->recovery_work);
--
--	cancel_delayed_work_sync(&con->page_retirement_dwork);
--
- 	amdgpu_ras_ecc_log_fini(&con->umc_ecc_log);
- 
- 	mutex_lock(&con->recovery_lock);
+ 	amdgpu_driver_unload_kms(dev);
 -- 
-2.54.0
+2.43.0
 
