@@ -4,78 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45FBCC5AD4E
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B4F5C5AE5D
 	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AF0CE10E6B4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C821A10E6C6;
 	Mon, 10 Aug 2026 06:42:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bnqVXVGg";
+	dkim=pass (2048-bit key; unprotected) header.d=outlook.com header.i=@outlook.com header.b="AjA7MYMF";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5215510E043
- for <amd-gfx@lists.freedesktop.org>; Sat,  8 Aug 2026 22:30:11 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-38deea72eebso663671a91.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 08 Aug 2026 15:30:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786228211; x=1786833011; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=S+lUmXf0M1/AoHp7ybgP/EVeQH1GTrMXgFQpOQU1h9c=;
- b=bnqVXVGg+FusaZvKgn35571fxVSuhPC4Fg8yCX5zJmTjikCjWDnl8lis+ecrMb080A
- CTpdzkiI1F3yD3+O64jY9ykmojT/jfDwqQFFlGERS72e/91NLZHDUhG03ypkiub4ld56
- ft5SriaWWTTrnkzQykiUtA/Ilei2C9ML61n31aAyp46kHuGArbjJJgvvQ5ZvJeepaVOs
- IrJluGAfz1quYJ5TeHlO6ttGuTLnRlodfiY0gMM0lt9JnpleIXm49ejXKPJoxinboHzD
- 7y+qenLgqv2LAq5MzCTU9rkLe6gaMpVfVRig+eO+oON5aKONQ8EBf86lkaE0MwCUGu/B
- CWmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786228211; x=1786833011;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=S+lUmXf0M1/AoHp7ybgP/EVeQH1GTrMXgFQpOQU1h9c=;
- b=fjXLDXYBabSHoJR8xWV7GOgs8ixBVg8rITiT2ehSwYtN01iBlyWgje7GKNDGPk/nru
- YU+iUrEUQqvaY6M1N+AErxcBYjeE08ReOjWGKwp9n3C/BxAW6eMmFXRboGrOGk6NY34L
- +TUSGwxTdJ8Sy8a+4IJPgO0X7NbKG/1J7XRwsjErbiUfhnEUj+iJgTRTazFOWPijFDJr
- QZZDmVyRivxl3n/BVRMwqlNYsvQ2bVz7OYrEfzgJlCw/gTrzAivssIDD3jVZe6EY/omw
- QvJDs3cq8kz1opqQdx6iGVm+uUSciESuJ/wiqfrvSt0sBbFzUCqTThXgDfAaSY9OLt3Q
- HnoA==
-X-Gm-Message-State: AOJu0Yy9YQtjAfTDih/MtyinLDVhgZFIwgTnzjlef3eHJ1l7FcGnA791
- 0+p3fIkZrG3qh4zsJ0UjBjaPZZOCzO5yVvodmhPDNGyUH5T4yX3DzQQP
-X-Gm-Gg: AR+sD13hNnPowHdrsT4aa1c10jiIalowfiAV0MtQhUzSnZyFCwc64ohbF9QXjRUSsFe
- ZTqCtbY0VBzkjNdpPkkWl6sDcAHYP7/j09pUcEWgoze3lXzkFayRivkjofHHwLSGio6TKU/hbSn
- M+9V6zYtuPJcZLZjDkAct2SQ1EKKUUgTYmqT7bWq6QclgCq4wrmucQKmHDVJHYU2QR90VnJTQvf
- 76dfRJQ2FOPhIXGMFZjHC0aoJnEIUE447bOKjp2HAUg9qUxpdL9fLrGwFxhnxxiM7c56SU82MGT
- +mCKRVcy+fcotP/WECpMMcppWuwjxyzJIns2KEBXGANLeZbr0ePx7MnB97dGALfysfnkEfl5h8E
- Pc+ppj4Vm2qGtZTVkmsnH0qdK885/2XHIsLqpFYcqqTFgi73qIev68CNMx0Tx23tvrYSSPiCWa6
- IbISUC0LPo/9NU2t+Wz3hUxNXraOuFrHQUB5SBaNqVhrHw2ZthzGghPw+yVfCk+LVAiVBcgk6fj
- T1aHwGnGJs=
-X-Received: by 2002:a05:6a20:4309:b0:3c4:48da:8102 with SMTP id
- adf61e73a8af0-3cbce930129mr10090468637.29.1786228210822; 
- Sat, 08 Aug 2026 15:30:10 -0700 (PDT)
-Received: from localhost.localdomain ([103.178.204.72])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-315beb877b4sm27463910eec.19.2026.08.08.15.30.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 15:30:10 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v2 3/5] drm/amdgpu/aca: Fix inverted validation logic and
- handle cleanup
-Date: Sat,  8 Aug 2026 22:27:40 +0000
-Message-ID: <20260808222742.2859-4-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260808222742.2859-1-sreekuttan2156239@gmail.com>
-References: <20260808222742.2859-1-sreekuttan2156239@gmail.com>
+Received: from SY8PR01CU002.outbound.protection.outlook.com
+ (mail-australiaeastazolkn19010017.outbound.protection.outlook.com
+ [52.103.72.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 83AAD10E025;
+ Sat,  8 Aug 2026 17:03:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=G/bPQMdiE32u32qpUrWkf88ewsbsphE/N9pKVqVTtTZNjhj701cS2bI0/Tci1y9acarUOJEjcpHR1ifiVNGrQbCFOA0LAqlfc7aKo5s23tNQY/V6zDm1tsu+Bd7bldAjXGhUiw3SGOYhJOWM+DR+s3m9SOGhZWaciQCuhUQi8CsTqth8Ah2gmvFh9OoLhXOno3Zeuk/Mx+pkjYT3dS0ZI6aBtLOHKJooLAzKBxmGj38ucwGsao5iJxK0+hGdnVFAC2tE8jby107PfjrVSRF1LJ802tm97EpS6PQrddYcJ380PzDQe6KEhZ4/+OixXOenWnjQ3/eb9rOw7ZFIGl2nXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5Z35ouHF+yzlIWgiTLEt95WGmRL2cioPmPXtnyox86o=;
+ b=jZN9NajTI9oXmc56dykBCqy5pyViTsJxJcUaWJJ0EI9qDBo3oGlmB10A6MUvGA3QtNPmBfhTBt/O9MiqgIhO7IVPGtrMswlLs0vjAMXO1CW4rUm2iNa8kOg0u2Swn/ovC9lWg3l24nSB3SP+DKi4zVH9Wd2WCvEIGABKT5WVJOoxgcRD3Znk9Cbas1SblCkXCoCR0lekImX28jz8oogSd8Hs0hHfQONVB7aZaysKcMpe+YU7wLrIkSXj/CLdTNLrQF/fysL1P5T0jb1+jrX9sIJaNcSi4lzlapixoVIqhriDIcleB5y2J0QtUUOr5t3Ck76EMPo3STq1B9NAViTjog==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5Z35ouHF+yzlIWgiTLEt95WGmRL2cioPmPXtnyox86o=;
+ b=AjA7MYMFajBNKtFtbNYST9BG10dsh+QUXFvMxh96rRumDuwz/O+d8sKiZrhCvFsmji4a3i+MuSef75U722L+OskH3tkiaN7EO41tdmNRv754bcVbHCxvB+N/lmxzunMvrbJY85n3FeQvqGyoZJ+jwebegly48zmxDv5LaySeZi+KHT7OzXOgDXzWrhQcmuRt+5oWDmhZI3CpGJ1vx7xeRPQa6awqg2MiyezIfTQN4+GK4CVCwJpa1x303MXWzDmL54znwwOBYOEjb1TJ72tnB5ORHuhZgrqzU5x3+k3MEK69qVfW1U+sliRiyElV+uNcHfGXgirRR+VFlPpi4X8Olw==
+Received: from SYBPR01MB7881.ausprd01.prod.outlook.com (2603:10c6:10:1b0::5)
+ by ME3PR01MB7262.ausprd01.prod.outlook.com (2603:10c6:220:136::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Sat, 8 Aug
+ 2026 17:03:33 +0000
+Received: from SYBPR01MB7881.ausprd01.prod.outlook.com
+ ([fe80::7cd2:d6e8:3fa0:5f0c]) by SYBPR01MB7881.ausprd01.prod.outlook.com
+ ([fe80::7cd2:d6e8:3fa0:5f0c%3]) with mapi id 15.21.0292.024; Sat, 8 Aug 2026
+ 17:03:33 +0000
+From: Junrui Luo <moonafterrain@outlook.com>
+To: =?utf-8?B?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>
+CC: Alex Deucher <alexander.deucher@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Jammy Zhou
+ <Jammy.Zhou@amd.com>, Madhav Chauhan <madhav.chauhan@amd.com>, Felix Kuehling
+ <Felix.Kuehling@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, Yuhao Jiang <danisjiang@gmail.com>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH 2/3] drm/amdgpu: fix VM update overrun on non-4K page
+ kernels
+Thread-Topic: [PATCH 2/3] drm/amdgpu: fix VM update overrun on non-4K page
+ kernels
+Thread-Index: AQHdJV5wKzNRhIhedk2T/sNvjgRw6baQ63AAgAN4qwA=
+Date: Sat, 8 Aug 2026 17:03:33 +0000
+Message-ID: <B5DD8C80-AB11-4D23-A602-EBEACD6EE04A@outlook.com>
+References: <20260806-amdgpu-fixes-v1-0-ce247012d4da@outlook.com>
+ <20260806-amdgpu-fixes-v1-2-ce247012d4da@outlook.com>
+ <88f614f4-5001-4cf1-ad2a-00802508a4f6@amd.com>
+In-Reply-To: <88f614f4-5001-4cf1-ad2a-00802508a4f6@amd.com>
+Accept-Language: en-US, zh-CN
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SYBPR01MB7881:EE_|ME3PR01MB7262:EE_
+x-ms-office365-filtering-correlation-id: 3058bf9c-b2a4-47d1-13b7-08def56efaad
+x-microsoft-antispam: BCL:0;
+ ARA:14566002|20031999006|21061999006|19110799012|8060799015|8062599012|31061999003|12121999013|39105399006|15080799012|24021099003|24121999003|22091999003|24071999003|4140399003|25010399006|40105399003|41105399003|2607281247196008|102099032|3412199025|440099028;
+x-microsoft-antispam-message-info: =?utf-8?B?OGFvMHl3MWErdTFLazJaQTBuZ1hySG44WnljdUQxZ1o3YWoxMUFYMHpKUHJI?=
+ =?utf-8?B?K2Z3UHhncGFKcS9SQWxuYUVKSUtVUFJLeTZWdWtVSUZOVWZ6K0Q4MXJsNG10?=
+ =?utf-8?B?eGo3Zi8vbzNFbVNMMWU2VkpvZ2pjY3VzbjRPYTA4aDNSeDZyQklueEtITTRa?=
+ =?utf-8?B?ZVQ4dGltWGFpMFdYK1AwUVBNSUkxNEpoQ3BBM01mTUZxTTNGUkFXaHd6QVRo?=
+ =?utf-8?B?dk9Fall3ZXREZmpxKzVMY2YwamNoQkZmNHZlUVpJVUxObFEyWlhXdEtBdUlt?=
+ =?utf-8?B?akhxV3JSb3lwZ3E0T2s0anIyVUh1eGdaM2V6dzFsc0FkdW1TOTFTU2ZBSllO?=
+ =?utf-8?B?aHpBRWhUSnNsU0NYUlJwWTVFd09kcVVkdk9tUUNqbXV1Y1BIT3doQnZOVEUx?=
+ =?utf-8?B?Rk8ySjlzUlFRZkpldVFEK3l6SHVrUHdSc0kxRVpUVDJsSjB3RTl3MXRwT3pK?=
+ =?utf-8?B?L2VrSHVIUytaa09sV1FlTUFPdk1rNnRGNlFkcG84aXV5TW1OdFdrbnJTSG40?=
+ =?utf-8?B?UVI4UVk3SVFkK0pxcEtqUERZN2Jtdlo2YTVNNEs4M3BJTVRZTkx2ZVpQcEpk?=
+ =?utf-8?B?RUdGSGhhS0hpTkVvaGo0NitnbFJDcTN4eW5FbjNBc3V3bFF5TXgrSjA5bVVM?=
+ =?utf-8?B?NkZHS2J5ci96Y21sb3BQajZyVjF4cXI2c2FrRWhRbm9tekdDa1habUE5SWha?=
+ =?utf-8?B?aTgranphQXloSFY3STZnVkJtM1dLVGNRZTdFWWZSWmhRcG5zL0JIUFIwbGtC?=
+ =?utf-8?B?MXVCTGhQNFAySUptRUEwNUlCWGhnVnJ6ZkJsK2xqamF4c2cxbDhxS2xEVE9H?=
+ =?utf-8?B?dko2Q3Y3eVI0RHErMm1IczlmdkY0dEtBVyszVWhZVmFlRVhha3pYZitqdDJ4?=
+ =?utf-8?B?RkNraTFJUE4yT2pmeFFlSVZhOWpjN1JMckN0Mk0vSlp1RndjNUJGSzBKUERY?=
+ =?utf-8?B?WG10ZTBBcU9qdXY1d3daa3ZENTRyaHJBSzdJQmVkV1d3QTZuOUFQSlhXSkNV?=
+ =?utf-8?B?N1ZxaWVvbkdOOUVXOWVZdFVTVVhQUTlrdGxuWS8vU2p6ckZBTE1KZGg4bHgx?=
+ =?utf-8?B?eGRlMGhyT3V3WE5HWWFOckZ1THVIVSt4dmNGd2xxcDFyRmRsUnJKYTN3Wncx?=
+ =?utf-8?B?RzN1d1RDeit3dmxvbUU0RXZvV1Z2ZHQ3VDZNSU1aektyQktwNGFQUmhoK3FW?=
+ =?utf-8?B?VjdwNDc2clFDWXNiNHpNU0s2SVFTeUpuVkM3WUlGZjdlSUVqUlNsM0ZiTXQv?=
+ =?utf-8?B?RlZTYThINVZOMGRVU0lRQ2Z0cENwSDUwS1EzM2pPVCt5cXYvUE9nSU1DY2pN?=
+ =?utf-8?B?Mk1hcVhmYSt2SXhJdlpIekt1aHFlMjlDTkFOYnN1ZlkxWW1xcktPaVdmVlJS?=
+ =?utf-8?B?VDZBSVI2dzkrNUhnODRtZlRPOXViM1pmcEFSMnJybXJodUtFcUpkUjFEUElL?=
+ =?utf-8?B?L2pJcmlWV25rU3ZoZTFpbWRwQ2lYSEFJSnMvWDFaanhNSUhkUnBTWVdHaFhx?=
+ =?utf-8?B?TlorRldXT05VbHkwazZUR0V3WTFESHk0eU4zRXo2ZEF5QmVGeE9iUVhqSGZn?=
+ =?utf-8?Q?ZrRFteMLVjmQHuzlX+7EjWrnA=3D?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?SGxyUFFjWStLYXMzdWhtU2pOL3k5WFBiWEgxWnJlaDNPQlZ2MTFUYkx1ektH?=
+ =?utf-8?B?VEJwMWR1aStQemRhdFFtSWZ1V2hqS0tSKzArRUVDS3REYUtLT1FFRkIycDZN?=
+ =?utf-8?B?cllaK0d4WGZZQ3dQR2xEUmUxOUNEQ1Q5NnZIb1ZOYUJmNWxWYnFIeTd1Sngr?=
+ =?utf-8?B?OXNSR01IUmFDRkpIYXhiY3g3SmtpdVhVbFdQN2h4bzVQcW5Ca3ZNempyVW16?=
+ =?utf-8?B?dkRnUWVsUGFlMGx1bnhGeVZKNjZhY1pSNUI4aGZKT2l3eDNxYnBzcHBxNUUw?=
+ =?utf-8?B?OFpMbE5jK090TFJIWDBUb2d0U1R4MElteUFNV3Zlbjd3Q2poOUx5RGEvMXV2?=
+ =?utf-8?B?M3BiV3k5SlJqdmZoQWZNeUgrcXVVS3JmRVlIWHhJNzdHNHdhRTVmTStuMnk3?=
+ =?utf-8?B?WkROVXdrQ3UwMTdleUdLR1UwbXRyTGo3ZGJ3cDhFVzE1YWlESmpkR3M0dTNl?=
+ =?utf-8?B?ZUV1anltYWNFOXV4YjJzWnQ0K1FHUjdJWVlUV0VuK1VDUC9iUlphTDNTRjh4?=
+ =?utf-8?B?Y2t4d2ZRWTFOQldRTCtFVEtROW1GdUZXT1dJQ1JEdjdWM0xNcS9aK0YvZU5H?=
+ =?utf-8?B?Qm54WXkyeC9IV2UzSHd0bGdkdDBUdURFa0dHdHlDcnc2MCtFVElKNGJKdWV2?=
+ =?utf-8?B?SkpzN1FSMFROSHJhSkRsYXovWmhNc3NNblN5bFFybUQ5Rk9jR2tPRkdVSjVh?=
+ =?utf-8?B?NmlGRURkUkc2WTVXRDRTYUlmTG9zTndvYkxNcGVyazE3cW5Hd3dmSm43TS81?=
+ =?utf-8?B?NmhsM0hJNjNGa3drRFhjdGRPRFEwd2dBRC9vcnVqTGNpQW5OajlTY3BnNEx1?=
+ =?utf-8?B?cGswZGs5RkVCNEM2RXNUWE9lZmFLWmZtSUhrdUtCWUYrb0N2a1FJYUdOU0V5?=
+ =?utf-8?B?clNWcnh5NDYrZ2l2SUJqcUpwamVyS1JyREp4NEp4SWE4cDI5amRwYmhpVi80?=
+ =?utf-8?B?N244bzhRUElGd095S3BlQm1QTjFmSmtNRklwN0dwZ3dRWEhwdHd5aUlXZHhY?=
+ =?utf-8?B?aWpRMW9HWHordmlpVXRWL2NHN0hRTGVTcVZkT0tUZktVTDNmZm9xWlJZUDNF?=
+ =?utf-8?B?dy96bExHZEFJQVJsUjMyWGpVZ3BkalN1Mk80REV2cmVNajVGUWc0L0xIenkr?=
+ =?utf-8?B?aUdSZ2JpeWE2WThDT013bzlXZFJIdjYrUEx2ZlgyL2xlM25YMk9rWkFQdTMv?=
+ =?utf-8?B?WkVoeldMSVVWTFRxeEdlTm1NcGp2QndxY2Vuc0tGamJCMmppY1hTQUJXNStr?=
+ =?utf-8?B?YU9DNE5lZExUeXJSUEFqN0VGU0w3aGI0QzZoRUNFVWlxcjdtUWVJQVpxMnFT?=
+ =?utf-8?B?RDllaHRMT1RQZXFhYXk2TldHSFBMV2IzdmlDQnpJZ1BXWVhBdDg4Y3M4TU1D?=
+ =?utf-8?B?UUszNTNBUmFlbkRhdHkrM0pnYmVlN2J1KzhhenArV09jNEJZL1doaHMrUmRl?=
+ =?utf-8?B?SG1GOHRMUDBxUXI0ZTY2QWs4aGNnZW8rVUZDc1BnbWRnYkhHN0g2QnhHMFVw?=
+ =?utf-8?B?Uk0yMmMvT0tkMGNwN3ZMRWc5RGY3U1ByREJtZm50VHVFZHVsTGY1NU5FZUhZ?=
+ =?utf-8?B?MGJ6V2lIWFkwNzlpTDZGSFRkQXFqbjZGQ25WT0hKZEgvMFR2b0ZIN3lSMGJn?=
+ =?utf-8?B?d09xblBPV29mT3FvallGSVFubFh2THhxWkZveGkwcVdrbnNFK1BHNHhyb3Bl?=
+ =?utf-8?B?YnlrZ3lHbnBaZ01mYStPME5rcTZLNXZhTk4vNVEwZkw5WkZmWkt6bzVzOFpv?=
+ =?utf-8?B?K2xzM05kTWxHYVZxUVJPejZqL2hUWmVXdjdVSVRqTjNYT3hhRDNYM3RlNXNo?=
+ =?utf-8?B?Sjc4MEg5WDhEa1liaWo5TG1Qam9ub0EwekNVS2VpUWVZK1hXTjlSMnZ3V3M0?=
+ =?utf-8?B?QzZ6U0xzR1hNeWs2OWRzU3daeTlBcThERjZMUXFWeGRYRUE9PQ==?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <3F418828F4FB534FBA13DFE13C818F4B@ausprd01.prod.outlook.com>
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SYBPR01MB7881.ausprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3058bf9c-b2a4-47d1-13b7-08def56efaad
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Aug 2026 17:03:33.3857 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ME3PR01MB7262
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,62 +160,14 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-aca_handle_is_valid() returned false if !list_empty(&handle->node)
-evaluated to true. Because active registered handles have non-empty
-nodes in the handle list, valid handles evaluated as invalid.
-Consequently, amdgpu_aca_get_error_data() returned -EOPNOTSUPP
-whenever aca_handle_is_valid() evaluated to true.
-
-Fix the logic in aca_handle_is_valid() to verify that the handle is
-non-NULL, contains a valid mask, and is currently registered in the
-list. Negate the check in amdgpu_aca_get_error_data() so valid
-handles are processed properly.
-
-Additionally, update remove_aca_handle() to use list_del_init()
-instead of list_del(). Standard list_del() leaves node pointers
-poisoned, which causes !list_empty() in aca_handle_is_valid() to
-evaluate to true for removed handles, leading to a potential
-use-after-free during device teardown.
-
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 9 +++------
- 1 file changed, 3 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-index c76664af9902..b4c1438a56d8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -586,10 +586,7 @@ static int __aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *h
- 
- static bool aca_handle_is_valid(struct aca_handle *handle)
- {
--	if (!handle->mask || !list_empty(&handle->node))
--		return false;
--
--	return true;
-+	return handle && handle->mask && !list_empty(&handle->node);
- }
- 
- int amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *handle,
-@@ -599,7 +596,7 @@ int amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *han
- 	if (!handle || !err_data)
- 		return -EINVAL;
- 
--	if (aca_handle_is_valid(handle))
-+	if (!aca_handle_is_valid(handle))
- 		return -EOPNOTSUPP;
- 
- 	if ((type < 0) || (!(BIT(type) & handle->mask)))
-@@ -717,7 +714,7 @@ static void remove_aca_handle(struct aca_handle *handle)
- 	struct aca_handle_manager *mgr = handle->mgr;
- 
- 	aca_fini_error_cache(handle);
--	list_del(&handle->node);
-+	list_del_init(&handle->node);
- 	mgr->nr_handles--;
- }
- 
--- 
-2.54.0
-
+T24gVGh1LCBBdWcgMDYsIDIwMjYgYXQgMDE6NTk6NTJQTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5p
+ZyB3cm90ZToNCj4gDQo+IFRoYXQgY2hlY2sgaXMgY2xlYXJseSBub3QgY29ycmVjdC4gVGhlIHBh
+Z2VzX2FkZHIgbXVzdCBiZSBmdWxseSBjb25zdW1lZCwgb3RoZXJ3aXNlIHdlIHJ1biBpbnRvIG1h
+am9yIHByb2JsZW1zIGxhdGVyIG9uLg0KDQpJcyB0aGF0IGFuIGludmFyaWFudCB0b2RheT8gIG51
+bV9lbnRyaWVzIDw9IEFNREdQVV9HUFVfUEFHRVNfSU5fQ1BVX1BBR0UNCnNraXBzIHRoZSBzY2Fu
+IGFuZCBpcyB1c2VkIGFzIGl0IGlzLCBzbyBvbiBhIDY0SyBwYWdlIGtlcm5lbCBhIDRLIG1hcHBp
+bmcNCm1hcHMgYSBzaW5nbGUgR1BVIHBhZ2UgYW5kIHBhZ2VzX2FkZHIgaXMgbm90IGNvbnN1bWVk
+IGluIHdob2xlIENQVSBwYWdlcw0KdGhlcmUgZWl0aGVyLg0KDQpTbyB3aGF0IHNob3VsZCB0aGUg
+Y29kZSBkbyBmb3IgYSBtYXBwaW5nIHdob3NlIHNpemUgaXMgbm90IGEgbXVsdGlwbGUgb2YNCkFN
+REdQVV9HUFVfUEFHRVNfSU5fQ1BVX1BBR0U/ICBDb3VsZCB5b3Ugc2tldGNoIHdoYXQgeW91IGhh
+dmUgaW4gbWluZD8NCg0KVGhhbmtzLA0KSnVucnVpIEx1bw==
