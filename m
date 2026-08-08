@@ -4,79 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A509DC5B56B
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EF81C5B56A
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76C3610E6A3;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 558DC10E6A2;
 	Mon, 10 Aug 2026 06:42:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LtITbrJ7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KCQp01r4";
 	dkim-atps=neutral
-Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
- [209.85.210.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9731410E10B
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2026 08:49:47 +0000 (UTC)
-Received: by mail-pf1-f169.google.com with SMTP id
- d2e1a72fcca58-84e0688b7e8so719684b3a.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 09 Aug 2026 01:49:47 -0700 (PDT)
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
+ [209.85.219.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 31E6610E2BB
+ for <amd-gfx@lists.freedesktop.org>; Sat,  8 Aug 2026 11:44:48 +0000 (UTC)
+Received: by mail-qv1-f54.google.com with SMTP id
+ 6a1803df08f44-8f186025973so3649186d6.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 08 Aug 2026 04:44:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786265387; x=1786870187; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=82v9sYNKKB3ALGXPfLnFRe1IYhxbaPWojRznailPiqg=;
- b=LtITbrJ7uDzMBhMHq5qSzDiSmVbZxEx/PeTs/um62OKtaT4ku0N/L/cBHKz3n4ucKB
- zShY/ewK0MaIvLW66xX5E1bAY6OQzZXentwilPq/tQLhDIxz4gzpwoRwUfzHfaHl1wtL
- RZiw5rIMt7ia32EAdMzMGEZXWxXgAHHuM+ZXXQW4A7mw/D6PO2wADx2+huukpxbq63Rx
- ClnvKCx4VtqbbLMBuODjiJgGaXIYvpg//pGiBDpqU6mX33XG9QPsOMHhsU/vftlTWBos
- VWhFY/MG9hLO04AT6agTsEAKN+y1vT5fBFotkk9MIR5t88Rf6yGAQx4328y2uong5unD
- wFgA==
+ d=gmail.com; s=20251104; t=1786189487; x=1786794287; darn=lists.freedesktop.org;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=vB93jJMP9Hxu14qFTO+Z6eHPakUva4xSZ3v1QtWPB1E=;
+ b=KCQp01r4PdFU0XrpGtM8XOdbO0cHvzGA5l4RB0MUGgS7lkR3X5FaB/4njRJ36POiLp
+ n6vYH+VEV1QAk4ZWWHA7CHxhXW9qIL4TH3rqQi80LSq/Aie/9+uV/bW4rj3kfrRzoBu4
+ Jhyb6nTFomWuHuGgb4XtVt+xtncCKEWDsLBSF3GCBOrT1CalczU0FPNy7QiW+XRSF6JS
+ 7TyfpJ/u3LVAnzl0T3R2m+81egz5P82tQH1/DnAANtbLlbSvDI/XFB4wTBi8+2Sz1wIj
+ vPlAYF0CbMOZtSoSc9wNSF8qLg0zD3473pA3wv8XWBKSwBlH8orVS5NOlJHKb/SdZQTS
+ rElA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786265387; x=1786870187;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=82v9sYNKKB3ALGXPfLnFRe1IYhxbaPWojRznailPiqg=;
- b=EN1H6Z6zAcxSNcJg6EzAEf5O0Y1q3t0xAVLhZ9KzbokE2oB1njup79V4sUnEX0QepF
- 5zfaT6iKY+hmTmMFUHc+rla6uj7gPwLFFn4dR7zXpJGelfx0mtMtZ343l5x2NGqmks/R
- UR0NnTKrE2hTQ++nB+IgC2I01BBYSvMTcdp8dtTj5v1Q7CmDRKSOL+QKIRMzuzTjiYUG
- KD7jxelovcSW09qrcCglOWdgS+02BKZ9hUfEB2AaXQnSG/1QfDG+x04SYEhJyOlTdWXH
- mNF9w4d3YfTDMtt6jwbFTkxvUjv48Slyzv5Ud1mfFh/QeIH39bl5xtrQHCPdoG/bd9wu
- doig==
-X-Gm-Message-State: AOJu0YxQZjyUsd2y8B/MpfW8rwa0itvBTeY5IbS6PHoCYYPgn93k9acS
- JEiq/24bM1U6JTWxzZI1X1VSvCH84qmcuaCZXK/Gw7xgKGnS/F9OucGs
-X-Gm-Gg: AR+sD11ZdBDUue7NXFw0TK2cYXkupbze8bLeINgJw1jEi0uwPkBahjqpMoEi/jwkgCH
- CP3iyLxEtNZJ8vt6Cz0tGkQkjLzxkB2fVIQBjNL9Ufd9T9eMzsU14YSsgTc8ngySl3jN7WjOGmQ
- nF+L/QvhguehSwfuDisS3zFYa7QPlzAfBqPbmS7SvCLBEPe3kW4ce0PjPOa9eyD67Stw0FMadpU
- 7oEg5a3Emgtg+UfJXOj7rWvW6n2rdoF6QoI6a5TBHd0m7vIdA+kpYvXro2KJe436yRRvzRCpIcU
- Y3SmT87W/kump4YYSrAR1iXHEqdl+BIxq0QGxjKpdaOF2wGsSzBM92eKn+w9CQgOgCgdbW+Z9G6
- q4lPuT+RgyZeIXqQsvvgbTG48dcvbmeC+u3w7LlTddb/k2/Rf1Al8Db9VI0j+la0LiOpLoHHQ2m
- FPh2soYllAXEqWoO0xMtI5Nqi0BexViSVccFhGzjtAQBeOPhf0AOMeAe0OOtOJkRUHYJAKc517l
- 6x/of+3/hI=
-X-Received: by 2002:a05:6a21:600f:b0:3c3:8651:b317 with SMTP id
- adf61e73a8af0-3cb85e2b72fmr40290617637.10.1786265386693; 
- Sun, 09 Aug 2026 01:49:46 -0700 (PDT)
-Received: from localhost.localdomain ([103.178.205.91])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-315be86fc7bsm28800025eec.1.2026.08.09.01.49.43
+ d=1e100.net; s=20251104; t=1786189487; x=1786794287;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=vB93jJMP9Hxu14qFTO+Z6eHPakUva4xSZ3v1QtWPB1E=;
+ b=f6Ar4G1KhkEE17T/yUkZiFFYz2SJdK+zxNtreO6oJf0VYKz9voF0+p13e33eP8bRhN
+ wg3UllirNnwVcM4/igDeH52jfLXjMyVYqg34JMJjxYnJGbCnQoVIkLei1tkKjLSuH5Z3
+ Dqbt2qfHw/oOBAcYUaOd5Iddhw8JU/8FOzXuUKEsSuJfif3g2z9+d/BHgvK1xbkOXdCY
+ Z/6EkC91sdbObRcev37N/NNyb0lSPNitaaaolzm5fC6pm94n+cXB3HFMVVe3Pbu8sHgu
+ G6dITuh90HIFfAXmlDO8P4AjmAGU2EsreHWe/kS85f9G/6tPo1CgzULHlcpfP1YCVsw7
+ sSzA==
+X-Gm-Message-State: AOJu0YwRMaRJXT4h64+b+DTiPWDKGFpZY0xKu2K3LWmqBIK6Ld3ie6Nt
+ YILNrtJ0cPedKQjhzxRwOUfb/rnNkoyEm7v2yP/+awwsXyoMhwAbvn1x
+X-Gm-Gg: AR+sD13UxRdrc3AOIWGxk/EykOfbU58uRTND1izGNwDQzHVRQ3OJyecur0hVwhrufzA
+ BxZ1qIQsiLQp0q9F9KFSolpZkuQfpnVupsXlvGfi6D4MxlDP/vEbdJcC6NJi8taA7BuGfG4PD9o
+ /dFarRSV2/BjT3eXBFSR1D9shBrDrKbf3kIfGRpSrdOgrqaPXGSvGPrrkhotqEkcgdQ3jFqbLdy
+ n1CR7OsLq7ya9EQRWOSn7CIAsYSr/BMv4WK4oJQkfvwK2M+FLwghb7smSGkqIhCEEQdyzRaKZq/
+ qsMopNdXG0ZkCVYjLKOm/qS6OEbyhC5nSGvPIyK1877B+LeFkxfh7PRt1y4vNuPvqW5LdDqS12T
+ 83py7s6PGmmYCBZ5npYWkFYNcXGHxWCQ1s9hVBkj+vKCx3JrKLLU7agStE6GEu2MMg1cS56cnIV
+ ZlKhigtJOuUSmCLCZ5lZ/YejjbpPrh1xWlCzJ2klunhQc+oPMyjHB/tA==
+X-Received: by 2002:a05:6214:2dc9:b0:8f7:3902:42b2 with SMTP id
+ 6a1803df08f44-90a3470604emr82954986d6.27.1786189486936; 
+ Sat, 08 Aug 2026 04:44:46 -0700 (PDT)
+Received: from localhost ([172.216.11.43]) by smtp.gmail.com with ESMTPSA id
+ 6a1803df08f44-908a918ecbesm29449616d6.9.2026.08.08.04.44.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Aug 2026 01:49:46 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v4 3/6] drm/amdgpu/aca: Fix inverted validation logic and list
- cleanup
-Date: Sun,  9 Aug 2026 08:47:32 +0000
-Message-ID: <20260809084735.9743-4-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
-References: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
+ Sat, 08 Aug 2026 04:44:45 -0700 (PDT)
+Date: Sat, 8 Aug 2026 14:44:38 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Subject: [bug report] drm/amd: Enable SMU 15_0_0 support
+Message-ID: <ancWphnH1Ih23J6U@stanley.mountain>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:03 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,76 +83,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-aca_handle_is_valid() returned false if !list_empty(&handle->node)
-evaluated to true. Because active registered handles have non-empty
-nodes in the handle list, valid handles evaluated as invalid.
-Consequently, amdgpu_aca_get_error_data() returned -EOPNOTSUPP
-whenever aca_handle_is_valid() evaluated to true.
+Hello Pratik Vishwakarma,
 
-Fix the logic in aca_handle_is_valid() to verify that the handle is
-non-NULL, contains a valid mask, and is currently registered in the
-list. Update amdgpu_aca_get_error_data() to check for invalid
-handles and return 0 instead of -EOPNOTSUPP so non-ACA blocks in
-global RAS queries pass through safely without breaking error
-telemetry.
+Commit c7fc0f372374 ("drm/amd: Enable SMU 15_0_0 support") from Dec
+5, 2025 (linux-next), leads to the following Smatch static checker
+warning:
 
-Additionally, modify remove_aca_handle() to unlink handle->node
-under mgr->lock using list_del_init() prior to calling
-aca_fini_error_cache(). Standard list_del() leaves node pointers
-poisoned, causing !list_empty() in aca_handle_is_valid() to evaluate
-to true for removed handles. Unlinking under lock first prevents
-concurrent list traversals from racing on node pointers and stops
-background queries from referencing destroyed error cache mutexes during
-handle teardown.
+	drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu15/smu_v15_0.c:135 smu_v15_0_load_microcode()
+	error: uninitialized symbol 'mp1_fw_flags'.
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu15/smu_v15_0.c
+    109 int smu_v15_0_load_microcode(struct smu_context *smu)
+    110 {
+    111         struct amdgpu_device *adev = smu->adev;
+    112         const uint32_t *src;
+    113         const struct smc_firmware_header_v1_0 *hdr;
+    114         uint32_t addr_start = MP1_SRAM;
+    115         uint32_t i;
+    116         uint32_t smc_fw_size;
+    117         uint32_t mp1_fw_flags;
+    118 
+    119         hdr = (const struct smc_firmware_header_v1_0 *) adev->pm.fw->data;
+    120         src = (const uint32_t *)(adev->pm.fw->data +
+    121                                  le32_to_cpu(hdr->header.ucode_array_offset_bytes));
+    122         smc_fw_size = hdr->header.ucode_size_bytes;
+    123 
+    124         for (i = 1; i < smc_fw_size/4 - 1; i++) {
+    125                 WREG32_PCIE(addr_start, src[i]);
+    126                 addr_start += 4;
+    127         }
+    128 
+    129 
+    130         for (i = 0; i < adev->usec_timeout; i++) {
+    131                 if (smu->is_apu)
+    132                         mp1_fw_flags = RREG32_PCIE(MP1_Public |
+    133                                                    (smnMP1_FIRMWARE_FLAGS & 0xffffffff));
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-index c76664af9902..c35f6be2ef77 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -586,10 +586,7 @@ static int __aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *h
- 
- static bool aca_handle_is_valid(struct aca_handle *handle)
- {
--	if (!handle->mask || !list_empty(&handle->node))
--		return false;
--
--	return true;
-+	return handle && handle->mask && !list_empty(&handle->node);
- }
- 
- int amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *handle,
-@@ -599,8 +596,8 @@ int amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *han
- 	if (!handle || !err_data)
- 		return -EINVAL;
- 
--	if (aca_handle_is_valid(handle))
--		return -EOPNOTSUPP;
-+	if (!aca_handle_is_valid(handle))
-+		return 0;
- 
- 	if ((type < 0) || (!(BIT(type) & handle->mask)))
- 		return  0;
-@@ -716,9 +713,13 @@ static void remove_aca_handle(struct aca_handle *handle)
- {
- 	struct aca_handle_manager *mgr = handle->mgr;
- 
--	aca_fini_error_cache(handle);
--	list_del(&handle->node);
-+	mutex_lock(&mgr->lock);
-+	list_del_init(&handle->node);
- 	mgr->nr_handles--;
-+	mutex_unlock(&mgr->lock);
-+	aca_fini_error_cache(handle);
-+	kfree(handle);
-+
- }
- 
- static void remove_aca_sysfs(struct aca_handle *handle)
--- 
-2.54.0
+mp1_fw_flags is uninitialized if smu->is_apu is false.
 
+    134 
+--> 135                 if ((mp1_fw_flags & MP1_CRU1_MP1_FIRMWARE_FLAGS__INTERRUPTS_ENABLED_MASK) >>
+    136                     MP1_CRU1_MP1_FIRMWARE_FLAGS__INTERRUPTS_ENABLED__SHIFT)
+    137                         break;
+    138                 udelay(1);
+    139         }
+    140 
+    141         if (i == adev->usec_timeout)
+    142                 return -ETIME;
+    143 
+    144         return 0;
+    145 }
+
+This email is a free service from the Smatch-CI project [smatch.sf.net].
+
+regards,
+dan carpenter
