@@ -4,144 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71112C5B56C
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFAF2C5B56E
 	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25B9C10E6A0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B6FDB10E1DA;
 	Mon, 10 Aug 2026 06:42:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=web.de header.i=spasswolf@web.de header.b="NRgpytKB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Il77kG1p";
 	dkim-atps=neutral
-Received: from mout.web.de (mout.web.de [212.227.15.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1743410E16A
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 12:50:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
- s=s29768273; t=1786106986; x=1786711786; i=spasswolf@web.de;
- bh=tSeA0vG7dP5ZK/4E4tWQ6mLYfngtEb5LkZEtSDs2cbY=;
- h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
- References:MIME-Version:Content-Transfer-Encoding:cc:
- content-transfer-encoding:content-type:date:from:message-id:
- mime-version:reply-to:subject:to;
- b=NRgpytKBkVHiAiTp1UnVrOnjQNGalgR0wWSZfys8OLHqkwNL/TCd/KPq7aAnMcZq
- Ac3zv4jyGYPOieLeDsl3wxteYm75o8RH8Gy91VKNquQz1rbTzOAc4tVuMsl6uc57i
- txhc/YIwy3mqzeYSyNJfu6Ayo4w2FaLj2lcNKeT9OPJ9bTmrJjNJcC3YQPqppxheA
- +n9K7dHrqLB+CY8Rs8PXyDHfHva+nvICQvvgRY5RUoifrEZpgt9eF7nJIjVwRaCC6
- 3siprdePj+51KrvO631Y230VRF6ugSiq2AXHic80hqmVxIY35pUDcUe0C1/F4VKFA
- cfLI7052elpiWQqM6A==
-X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
-Received: from client.hidden.invalid by smtp.web.de (mrweb006
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1MDvDU-1wiS7B3otY-002xom; Fri, 07
- Aug 2026 14:49:46 +0200
-From: Bert Karwatzki <spasswolf@web.de>
-To: linux-kernel@vger.kernel.org
-Cc: Bert Karwatzki <spasswolf@web.de>, linux-next@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, amd-gfx@lists.freedesktop.org,
- "# = v7 . 1" <stable@vger.kernel.org>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rafal Ostrowski <rafal.ostrowski@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Thomas Gleixner <tglx@linutronix.de>
-Subject: [PATCH v7.2-rc6] drm/amd/display: fix usage of DC_FPU_{BEGIN,
- END} with PREEMPT_RT
-Date: Fri,  7 Aug 2026 14:49:42 +0200
-Message-ID: <20260807124944.154232-1-spasswolf@web.de>
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6AA810E050
+ for <amd-gfx@lists.freedesktop.org>; Sat,  8 Aug 2026 17:11:24 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-4956869750eso3316525e9.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 08 Aug 2026 10:11:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786209083; x=1786813883; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=KCTcaBKr7T391ZbO7i/xjaiRuYVUXIrWDcah/FgQTt8=;
+ b=Il77kG1pL/FF0MK45sGL1+iA1+mxNLZpZa2aTEz7dJmurlVapa8mVmFjUWoshYR1rc
+ +vpuVSZhUfl1olw6db1SW6faqfQErsUCJRVOngU4dH6LtRek05FKRHvNdN5yk1t26Pvg
+ Ut4C+RKoiYf9VHgPiRdcpfs3P0oLHkf2cnePukTSJN7Su429JMuGl0Ow3PdA4P06KI1c
+ 1in0Qirs8lRqxhxraVDBfo3LYULdAZvvxXX06gYu9SQkVZsDt5GyhMTvnFUNUOPiK/Og
+ WsK7IldjpRxX57GBaisBOevQPNAqZWFRMYfVgb5NLLJfURaDtxG3SGQBviEyy56gZId4
+ 44EQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786209083; x=1786813883;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=KCTcaBKr7T391ZbO7i/xjaiRuYVUXIrWDcah/FgQTt8=;
+ b=UgoUi+uPIhcRrJ3Zhevj2SRvlu4qcGdxoUDe8QIgYCj629y+QUv84Y8qxgMmdJnNXt
+ gUr2SkoSR3Z+1Lkty94FGzyYshzGlMHZQWbFvKVT582dLSVC5wY9xGRWFIhgyvpQrAjs
+ b1AtAwT9Gdm+hXxwgHY815otD58hs/n4HG/0k10nXXon1hRCCsllYPuDAlgXjln7tggE
+ I7henSJ0/zYo691VtOV+/LkKafZiJqD8YxZscBbw/TT0x6mzmCnrCpwpSpcHp2ehonE8
+ vh7m05FuHwZMa6TEiqukpnKEMzH2ZBZY2scD1FjBKBHA9E2X7t+cIT5XLSMnzG+Z/1SX
+ C4ig==
+X-Gm-Message-State: AOJu0YxhGgzg/3VcBIvR/GKpV2Fs+nUHXEjzN4OkAveO0U/KzI4gm5/o
+ eif8UbsPi9ut7CLb13Igr1aqsc5L1FAE95+WBv8DspcBlMEo5em7XP4AUxvRFZRcV8A=
+X-Gm-Gg: AR+sD10AtFt2gOgFj066GZYo4cY2pPOsSzzEzHc6tsIYRBKXZm9KhygXOA+Zf7twGSG
+ 7q8TnUdv0ttCQI9gu1g5FuJatWycWXiPobsm9E/Av851JDHQuAKGTdT1DMXIW1eK5FFJNpXUL01
+ Vo8S2JY1MNvhNedzgkadVyROa1DB0uhX6sINwMQ1rKiD6mgwNEcmnuQO01GF6trh4BdxcKj2/q8
+ 6kNW8pfsi//yv2p6O5wDi/v8vT7jV1FIL3rO+G2qBul1vDAzTNz5H/JXOojOh+DPR2jtnRVPBbz
+ mysQgpORVy4Oz470tls3GyByLgF51NANwTudFGxOXPgLQ6gJXGRFA2QP1in9cv1AYvq8bWGxt5B
+ vpOv6WWkE74zzt9IAm2oQIVLeEuQZu8yyByjHVbq2gdqVKxBsmwmGSr1NHylQ8hnUrgR6hftDcu
+ PwOQyUkSi1GtPKjVAaF9ih8ZK/a5DueiFoSgP9nnzplM2ASyotTjllIPhNqss3hbg2hXDCv6tVa
+ 2WSkFaQa4e8aeZfGb/Gg2hA2oE=
+X-Received: by 2002:a7b:ca4d:0:b0:495:6134:6d61 with SMTP id
+ 5b1f17b1804b1-4994e7eb2d2mr316937665e9.19.1786209083099; 
+ Sat, 08 Aug 2026 10:11:23 -0700 (PDT)
+Received: from lars-laptop.lan ([195.63.71.208])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4995427a244sm243161115e9.10.2026.08.08.10.11.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 08 Aug 2026 10:11:22 -0700 (PDT)
+From: Lars Nieradzik <l.nieradzik@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Alex Hung <alex.hung@amd.com>,
+ Lars Nieradzik <l.nieradzik@gmail.com>
+Subject: [PATCH] drm/amd/display: fix EPERM reading amdgpu_dm_dmub_fw_state
+Date: Sat,  8 Aug 2026 19:09:26 +0200
+Message-ID: <20260808171030.93661-1-l.nieradzik@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <202608061233.eufnR5Qm-lkp@intel.com>
-References: 
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:KznhYzgbAE/MPME5trz6GYPIpYBU/7UjpjKqFn69FwckmEAbvtE
- BeLFXIAxz9wb9ZaxkJJL/E0uPwMYVg8XCDnhjO0LWgO2bVM+ihGNNDLq+jwSaav69Xs0RPc
- nWFvGNH13gJCQbS5cFd1aAurxwu2MVe/P8RIiVP9vUrMaHiK0OzWeyiuCokrq6l713Lspnf
- fKBUk9wQWoKQcxFLaSuCQ==
-UI-OutboundReport: notjunk:1;M01:P0:Et116pc3MOA=;o0aLRbVGX1aK9GNsF97nsRjPHzb
- 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
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -157,71 +87,72 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On PREEMPT_RT kernels kvzalloc_obj() can sleep because spin_lock is
-converted to rt_mutex. dc_create_plane_state() can be called while
-inside an FPU-guarded region, resuling in "scheduling while atomic"
-errors on PREEMPT_RT kernels.
- Fix this by calling kvzalloc_obj() with DC_RUN_WITH_PREEMPTION_ENABLED().
-Also fix the error path in dc_create_stream_for_sink().
+dmub_fw_state_show() returns seq_write()'s value directly. On overflow
+seq_write() returns a literal -1 rather than a meaningful error code, and
+seq_read_iter() treats any negative return from ->show() as fatal, so it
+breaks out before reaching the grow-and-retry further down the same loop:
 
-Fixes: 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC - Pa=
-rt 1")
-Link: https://lore.kernel.org/lkml/20260723123449.6494-1-spasswolf@web.de/
-Signed-off-by: Bert Karwatzki <spasswolf@web.de>
-=2D--
- drivers/gpu/drm/amd/display/dc/core/dc_stream.c  | 5 +++--
- drivers/gpu/drm/amd/display/dc/core/dc_surface.c | 5 +++--
- 2 files changed, 6 insertions(+), 4 deletions(-)
+		err = m->op->show(m, p);
+		if (err < 0)		// hard error
+			break;
+		if (unlikely(err))	// ->show() says "skip it"
+			m->count = 0;
+		if (unlikely(!m->count)) { // empty record
+			p = m->op->next(m, p, &m->index);
+			continue;
+		}
+		if (!seq_has_overflowed(m)) // got it
+			goto Fill;
+		// need a bigger buffer
+		m->op->stop(m, p);
+		kvfree(m->buf);
+		m->count = 0;
+		m->buf = seq_buf_alloc(m->size <<= 1);
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu=
-/drm/amd/display/dc/core/dc_stream.c
-index 7666cdc78f4e..a5a304a3f802 100644
-=2D-- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-@@ -233,8 +233,9 @@ struct dc_stream_state *dc_create_stream_for_sink(
-=20
- fail:
- 	if (stream) {
--		kfree(stream->update_scratch);
--		kfree(stream);
-+		if (stream->update_scratch)
-+			DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream->update_scratch));
-+		DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream));
- 	}
-=20
- 	return NULL;
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c b/drivers/gp=
-u/drm/amd/display/dc/core/dc_surface.c
-index 72845fc788f3..04982673ffbc 100644
-=2D-- a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-@@ -33,6 +33,7 @@
- #include "dpp.h"
-=20
- #include "dc_plane_priv.h"
-+#include "dc_fpu.h"
-=20
- /************************************************************************=
-*******
-  * Private functions
-@@ -86,8 +87,8 @@ uint8_t  dc_plane_get_pipe_mask(struct dc_state *dc_stat=
-e, const struct dc_plane
-  ************************************************************************=
-******/
- struct dc_plane_state *dc_create_plane_state(const struct dc *dc)
- {
--	struct dc_plane_state *plane_state =3D kvzalloc_obj(*plane_state,
--							  GFP_ATOMIC);
-+	struct dc_plane_state *plane_state;
-+	DC_RUN_WITH_PREEMPTION_ENABLED(plane_state =3D kvzalloc_obj(*plane_state=
-, GFP_ATOMIC));
-=20
- 	if (NULL =3D=3D plane_state)
- 		return NULL;
-=2D-=20
+The DMUB_WINDOW_6_FW_STATE region is much larger than the initial one-page
+seq_file buffer, so seq_write() always overflows on the first pass. The -1
+breaks the loop before seq_has_overflowed() is ever tested, and since -1 is
+-EPERM userspace sees:
+
+  # cat /sys/kernel/debug/dri/0/amdgpu_dm_dmub_fw_state
+  cat: ...: Operation not permitted
+
+That reads as a permissions problem even though the file is 0644 and
+the read is performed as root, so the file has been unusable since it
+was added.
+
+The adjacent dmub_tracebuffer_show() shows the correct pattern: it
+emits via seq_printf() and returns 0, letting seq_has_overflowed()
+drive the retry. On a Ryzen 9 8945HS (Phoenix, DCN 3.1.4) that sibling
+returns 224332 bytes from the same debugfs directory, so the growth
+loop handles output of this magnitude without difficulty.
+
+Return 0 and let the seq_file core detect the overflow.
+
+Fixes: 2364076772b1 ("drm/amd/display: Add DMUB firmware state debugfs")
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Lars Nieradzik <l.nieradzik@gmail.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+index c4b2fc690fd7..ea4cae7d140f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
+@@ -989,7 +989,9 @@ static int dmub_fw_state_show(struct seq_file *m, void *data)
+ 
+ 	state_size = fb_info->fb[DMUB_WINDOW_6_FW_STATE].size;
+ 
+-	return seq_write(m, state_base, state_size);
++	seq_write(m, state_base, state_size);
++
++	return 0;
+ }
+ 
+ /* replay_capability_show() - show eDP panel replay capability
+
+base-commit: c4f76bf5e107bcda6e496f1c4060c55af091fa79
+-- 
 2.55.0
 
-Fix for stable with the old error handling in
-dc_create_stream_for_sink() and compile fix form arm64/clang.
-
-Bert Karwatzki
