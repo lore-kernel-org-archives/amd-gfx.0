@@ -4,77 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F06D3C5B567
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45FBCC5AD4E
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7141010E6AC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AF0CE10E6B4;
 	Mon, 10 Aug 2026 06:42:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WvsUeoJ0";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="bnqVXVGg";
 	dkim-atps=neutral
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
- [209.85.221.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 37C6D10E1D1
- for <amd-gfx@lists.freedesktop.org>; Sat,  8 Aug 2026 12:19:07 +0000 (UTC)
-Received: by mail-wr1-f46.google.com with SMTP id
- ffacd0b85a97d-47f6609c657so156978f8f.2
- for <amd-gfx@lists.freedesktop.org>; Sat, 08 Aug 2026 05:19:07 -0700 (PDT)
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5215510E043
+ for <amd-gfx@lists.freedesktop.org>; Sat,  8 Aug 2026 22:30:11 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-38deea72eebso663671a91.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 08 Aug 2026 15:30:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786191545; x=1786796345; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=kFo+FAm9dOuD7sRaxc5XvG2wnDlTsCrM8DjnwJd9TPY=;
- b=WvsUeoJ0o44IBhPdHLdbsK5+tCMziEw9AUAFu8gzfzcU22TbdWZ7Zu0tBFU1f7jncC
- RaydJ2GCh2L8uzk4VzmnqoseWaSCzuHeZEG9PNCQ7mA8GAHUHfzlSuNH85ODylJL9hPT
- NTCyfnHIoqlUri3kUEPVQCI9FinZOrf+B2Xq2KY/Hr5wcpx9AoIUhBQ3cYYIlWjD35/k
- ZR9y9YtsTE15p8dtnd4scxXU5Ps//nQcwplc6jmiKjbIcprnq3QN7zLRpimpByeSDTZc
- ZSiYdO2YYpQYIhitRw2jPS0+E2/qwYi8Wa1HvJvmZZbUMMSq1ZOwUA8oJn6GaWVejh2L
- t5qg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786191545; x=1786796345;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1786228211; x=1786833011; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=kFo+FAm9dOuD7sRaxc5XvG2wnDlTsCrM8DjnwJd9TPY=;
- b=fwsmAsrUEmspai6CEQG+OP3HiptJgVIhY+ZfBrzS7nBL5hfJvxydippvJ37R+E95vr
- V5QoX4OMzldRSG2bwyHQzCt4s3OBi6XwdNEK/B3Bsn6gSMzE0EN2ox0ZpbSyWNVPPJWl
- 4+lyj2dHcNLoEbxuYwYbqIjnZAQd4bftYbPmld+2km0m6m+46j1jvKt/n2ZWZJF4ilC8
- VLouAyLmKnyLiXnEbriz0TguaS+dfpzQiR4Avy24RJ8tcbZfZV1kANEGhLggwmUuhCBG
- 25SYEmktSRsej3a9RAY6x0RA7PSKzdORmZdeTTNZOu5eLDtkF9pkUBluadT8EYGpKEhX
- 2dmg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqEM23iYEF4w8nZOaryFPW+qTwpzx48yO+MSX38V9gfW0uBgpnIxf1pKnGWKno88gpkyy/a0Kij@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yw6s90YiTOmjDrPX2/gTXiH6qzxnNI7/5ZvV+8PuWvuxAOwlPx9
- 5oIhN9jEJ3Pr4TYeq0pmSYnKtFz2YGbNdAXpG3s7OkOosKakYi9Cq5X6
-X-Gm-Gg: AR+sD11H/jOtfgVXWHgTapdwiJ4rr0M1Hp7i0hQl/1ZS5uTJRdtg9xGvh/DqmmN7gEO
- NewqKlweFmpHvfksFPE207/wpHduLOh9uNqmIjyXTuMtHOh4iTLMOhKlwQBgFbHB+PUBzENg5Cw
- uWmKNBBZEYSd5putVYwrddAeLqHLo9ZSJ43cz2WuqpofEO7hTb+lH2W0q/7vMpkyCNPxEz7IvH6
- yLeYexcp2+uX7xHcvr7Z4k/foFELIuERwSbNgRzqdjfpDLvAox8phFQOCeciHRR0V2ZtX+Ci0hE
- UzodHIOYQH8x/DGHyDDy0F3unnlZwtp195WWgU9PY0se2IU+ldqia9CegJP8VUKqaJsft/y7nm+
- 26L+N+1ErA8+/dKqRNAs/YmF0DeUnuTVicFX4aArJ+0cHkbbtTxs2+YgIloirSrNnUKOekeiuYh
- Pb4Iw6xRxQhVCSBE6v4sUb1LzZlTQpiJ5091GFquWkZKRtR14qIgWci6o7/ro5TMv0cBcfxoQTN
- FQx2nL/CHWLCArU/XmPaf3jA3rdL4xxpKU6M1IKuc8F7pcuXCfgzvzl381nAQLcf5ps+VXm326o
- EPLdGgBBG8DSkj2/ugjhkCilH9d48YA=
-X-Received: by 2002:a05:600c:470a:b0:493:f318:3bc6 with SMTP id
- 5b1f17b1804b1-4995e0df176mr112874695e9.13.1786191545414; 
- Sat, 08 Aug 2026 05:19:05 -0700 (PDT)
-Received: from localhost.localdomain
- (dynamic-077-007-004-134.77.7.pool.telefonica.de. [77.7.4.134])
+ bh=S+lUmXf0M1/AoHp7ybgP/EVeQH1GTrMXgFQpOQU1h9c=;
+ b=bnqVXVGg+FusaZvKgn35571fxVSuhPC4Fg8yCX5zJmTjikCjWDnl8lis+ecrMb080A
+ CTpdzkiI1F3yD3+O64jY9ykmojT/jfDwqQFFlGERS72e/91NLZHDUhG03ypkiub4ld56
+ ft5SriaWWTTrnkzQykiUtA/Ilei2C9ML61n31aAyp46kHuGArbjJJgvvQ5ZvJeepaVOs
+ IrJluGAfz1quYJ5TeHlO6ttGuTLnRlodfiY0gMM0lt9JnpleIXm49ejXKPJoxinboHzD
+ 7y+qenLgqv2LAq5MzCTU9rkLe6gaMpVfVRig+eO+oON5aKONQ8EBf86lkaE0MwCUGu/B
+ CWmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786228211; x=1786833011;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=S+lUmXf0M1/AoHp7ybgP/EVeQH1GTrMXgFQpOQU1h9c=;
+ b=fjXLDXYBabSHoJR8xWV7GOgs8ixBVg8rITiT2ehSwYtN01iBlyWgje7GKNDGPk/nru
+ YU+iUrEUQqvaY6M1N+AErxcBYjeE08ReOjWGKwp9n3C/BxAW6eMmFXRboGrOGk6NY34L
+ +TUSGwxTdJ8Sy8a+4IJPgO0X7NbKG/1J7XRwsjErbiUfhnEUj+iJgTRTazFOWPijFDJr
+ QZZDmVyRivxl3n/BVRMwqlNYsvQ2bVz7OYrEfzgJlCw/gTrzAivssIDD3jVZe6EY/omw
+ QvJDs3cq8kz1opqQdx6iGVm+uUSciESuJ/wiqfrvSt0sBbFzUCqTThXgDfAaSY9OLt3Q
+ HnoA==
+X-Gm-Message-State: AOJu0Yy9YQtjAfTDih/MtyinLDVhgZFIwgTnzjlef3eHJ1l7FcGnA791
+ 0+p3fIkZrG3qh4zsJ0UjBjaPZZOCzO5yVvodmhPDNGyUH5T4yX3DzQQP
+X-Gm-Gg: AR+sD13hNnPowHdrsT4aa1c10jiIalowfiAV0MtQhUzSnZyFCwc64ohbF9QXjRUSsFe
+ ZTqCtbY0VBzkjNdpPkkWl6sDcAHYP7/j09pUcEWgoze3lXzkFayRivkjofHHwLSGio6TKU/hbSn
+ M+9V6zYtuPJcZLZjDkAct2SQ1EKKUUgTYmqT7bWq6QclgCq4wrmucQKmHDVJHYU2QR90VnJTQvf
+ 76dfRJQ2FOPhIXGMFZjHC0aoJnEIUE447bOKjp2HAUg9qUxpdL9fLrGwFxhnxxiM7c56SU82MGT
+ +mCKRVcy+fcotP/WECpMMcppWuwjxyzJIns2KEBXGANLeZbr0ePx7MnB97dGALfysfnkEfl5h8E
+ Pc+ppj4Vm2qGtZTVkmsnH0qdK885/2XHIsLqpFYcqqTFgi73qIev68CNMx0Tx23tvrYSSPiCWa6
+ IbISUC0LPo/9NU2t+Wz3hUxNXraOuFrHQUB5SBaNqVhrHw2ZthzGghPw+yVfCk+LVAiVBcgk6fj
+ T1aHwGnGJs=
+X-Received: by 2002:a05:6a20:4309:b0:3c4:48da:8102 with SMTP id
+ adf61e73a8af0-3cbce930129mr10090468637.29.1786228210822; 
+ Sat, 08 Aug 2026 15:30:10 -0700 (PDT)
+Received: from localhost.localdomain ([103.178.204.72])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4995421fee8sm212371525e9.7.2026.08.08.05.19.04
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sat, 08 Aug 2026 05:19:05 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev
-Subject: [PATCH] drm/amdgpu: fix GTT manager warning message
-Date: Sat,  8 Aug 2026 14:17:45 +0200
-Message-Id: <20260808121745.72691-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+ 5a478bee46e88-315beb877b4sm27463910eec.19.2026.08.08.15.30.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 08 Aug 2026 15:30:10 -0700 (PDT)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Subject: [PATCH v2 3/5] drm/amdgpu/aca: Fix inverted validation logic and
+ handle cleanup
+Date: Sat,  8 Aug 2026 22:27:40 +0000
+Message-ID: <20260808222742.2859-4-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260808222742.2859-1-sreekuttan2156239@gmail.com>
+References: <20260808222742.2859-1-sreekuttan2156239@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:03 +0000
@@ -92,37 +91,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-WARN_ON_ONCE() takes a condition, not a message. The string literal is
-always true, so the warning still triggers but the message is never
-printed.
+aca_handle_is_valid() returned false if !list_empty(&handle->node)
+evaluated to true. Because active registered handles have non-empty
+nodes in the handle list, valid handles evaluated as invalid.
+Consequently, amdgpu_aca_get_error_data() returned -EOPNOTSUPP
+whenever aca_handle_is_valid() evaluated to true.
 
-Use WARN_ONCE(1, ...) instead to print the message and keep the
-once-only behavior.
+Fix the logic in aca_handle_is_valid() to verify that the handle is
+non-NULL, contains a valid mask, and is currently registered in the
+list. Negate the check in amdgpu_aca_get_error_data() so valid
+handles are processed properly.
 
-Found with a Coccinelle script. Clang's -Wstring-conversion also flags
-such calls but is not enabled in kernel builds.
+Additionally, update remove_aca_handle() to use list_del_init()
+instead of list_del(). Standard list_del() leaves node pointers
+poisoned, which causes !list_empty() in aca_handle_is_valid() to
+evaluate to true for removed handles, leading to a potential
+use-after-free during device teardown.
 
-Fixes: 7554886daa31 ("drm/amdgpu: Fix size validation for non-exclusive domains (v4)")
-Assisted-by: Claude:claude-fable-5 coccinelle
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index f98bfba59a2c..f2ea881d39e3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -565,7 +565,8 @@ static bool amdgpu_bo_validate_size(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+index c76664af9902..b4c1438a56d8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+@@ -586,10 +586,7 @@ static int __aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *h
  
- 	if (!man) {
- 		if (domain & AMDGPU_GEM_DOMAIN_GTT)
--			WARN_ON_ONCE("GTT domain requested but GTT mem manager uninitialized");
-+			WARN_ONCE(1,
-+				  "GTT domain requested but GTT mem manager uninitialized");
- 		return false;
- 	}
+ static bool aca_handle_is_valid(struct aca_handle *handle)
+ {
+-	if (!handle->mask || !list_empty(&handle->node))
+-		return false;
+-
+-	return true;
++	return handle && handle->mask && !list_empty(&handle->node);
+ }
+ 
+ int amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *handle,
+@@ -599,7 +596,7 @@ int amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *han
+ 	if (!handle || !err_data)
+ 		return -EINVAL;
+ 
+-	if (aca_handle_is_valid(handle))
++	if (!aca_handle_is_valid(handle))
+ 		return -EOPNOTSUPP;
+ 
+ 	if ((type < 0) || (!(BIT(type) & handle->mask)))
+@@ -717,7 +714,7 @@ static void remove_aca_handle(struct aca_handle *handle)
+ 	struct aca_handle_manager *mgr = handle->mgr;
+ 
+ 	aca_fini_error_cache(handle);
+-	list_del(&handle->node);
++	list_del_init(&handle->node);
+ 	mgr->nr_handles--;
+ }
  
 -- 
-2.39.5 (Apple Git-154)
+2.54.0
 
