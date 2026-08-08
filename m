@@ -4,108 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB752C5AC82
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9C3FC5B567
 	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BBE710E6B2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5020B10E6AD;
 	Mon, 10 Aug 2026 06:42:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (4096-bit key; unprotected) header.d=canonical.com header.i=@canonical.com header.b="LqC9riYm";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="OC/SxMU6";
 	dkim-atps=neutral
-Received: from smtp-relay-internal-1.canonical.com
- (smtp-relay-internal-1.canonical.com [185.125.188.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 448BF10E429
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 15:06:36 +0000 (UTC)
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com
- [209.85.167.197])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 762EA3F1E4
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 15:06:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
- s=20251003; t=1786115194;
- bh=s9u4Cjv5O4KdNzN7wdMwSwBgYXAgpTiTJcch3SGL7zg=;
- h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
- To:Cc:Content-Type;
- b=LqC9riYmArjEMtW1o5j5kDsfKscLWgxxcqg8O648hoHXomUS4YXwyYTtDt5/tsKj0
- p3EG6GVUOyDhalaAPnmsiw3P42o3b+6nX9zURo9adai3gzWYMMN9nv+HD0iak4iFHf
- manW5hOXsYhXE2fQe+hvs4dOA4/fxgZUe5O7/zcCGbnD08mbEcV3u7c+IrG6nCdh07
- Py7SANmyut+Ox6QyJrYIaqXX2rDNLfwqE7p1BwhQMr/IJJ6/mPnHIpbm0N0006pG6Y
- xBm5gpGmz5+8MlAWVhAUaOXmnX25R5rsrcrMc6UObrkknsGBy7kPT5pp2kqwQd1XzV
- x6UUEnnVBWIC61wTYbURbY3IDAaHHaV7VJkLSFQjq/ZKRtlvgGCT0/vT8KoIcYbuXy
- IFmeMiVw38K9b+PuJyFrvu0rPf0FLEIiin+F3/RFVQyedys2BP1wRhaBapTRmxdKdL
- gR4zD3tUeo+iUsrnC1VAfeknyITVvI4vW956rGeAwwtmt5NV297/F7mOT/+TTYf0KU
- 36f3fww3CDQ/qidtmcKsHArGnRixpOxIaNgyJbZ905mPRsc78cExqg3U5SuhZgCCiR
- RJIOQXy2lSG1kuXHMl9uuSnaZQ7wT7Z9g3HciUxEnMH+7iKGH05uAvaIVO3UlAsOsW
- a9y/E80UJcyXxW/9RAWjD9+Y=
-Received: by mail-oi1-f197.google.com with SMTP id
- 5614622812f47-4ab4dd46ddeso1682330b6e.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 07 Aug 2026 08:06:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786115193; cv=none;
- d=google.com; s=arc-20260327;
- b=p3vwIo4khiq3D/2Yc6aWKNYOWE3ldgxuNWHaPGtnqkNiy0NahYHQ7vvq9jabEOXl2m
- gNcre78NcSFUlYLdbBfJtz16xqCjhmB+Xmh1bPqHYhjUQlPuBhhaeuGvSXY3/Gk/Q3ji
- 6TBZwnsLH9TF2ISYvnX8zhFxN8VHW1yQGDojDRhizElcmcI54KBI8P0g7CsCJAxnO8Al
- mGiePM+zlHR4Kswd2djUKqLS1ZpEqg1Immb6SvsRaSo3+fzK/AhHm57qXh5+VCChEv+I
- Wl/wRLkzceDkcL/gLJGrJR2b7MZ7pZnR2dyqMXSqeVz45IV8P2ozVkIDhjJJ8VvbGWOX
- igAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version;
- bh=s9u4Cjv5O4KdNzN7wdMwSwBgYXAgpTiTJcch3SGL7zg=;
- fh=Oq5oSzOQ1XX8U7BYgdltR96ZVeXvHgTh9i0/rblw6l0=;
- b=YggxsJ958bp0cLuTX8Odf6h189nLvzCLcEmF1Ak/kw9SPqtvE64eQiwZjqqYh2NK/+
- rxYDs+ecD8QaR3w469ARi8ZBvo0fHdLsphq6+jmI+zqRlasxOTnYgFXxPdOl/JxduI8n
- cbLacHxhmxgbfKAIdBAFBEL+Nhr/3T/MagvMTo73drbqVduFNIJgknnVYjuNKKDBRn0X
- g4guKFbS+DD6YDpltDq0HvMFwJUF25LwsZK8iHeV4vV864Y2DS2NN7bwH7kxnN5hxqTT
- Jnz/gHhE3b7zvV1enLlvlFe6k+x928Mi3WMiuAs36c/FlnVXl0feSRx/F+zB4jSyMIft
- K2wg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9679E10E074
+ for <amd-gfx@lists.freedesktop.org>; Sat,  8 Aug 2026 19:41:35 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-496bb7cdf51so8435435e9.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 08 Aug 2026 12:41:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786218094; x=1786822894; darn=lists.freedesktop.org;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=gQVcGNcLq6m/6ixB9nJIXsf/NAsejBiY35GyaVjtWxw=;
+ b=OC/SxMU6eZrzbZZpxsRjYjwIIB1s88d90MJGFoSJPL2jkHrqLJIzgTQ3X2vG8pUOyp
+ 6F6d1ll1/asMQIRAK0jHDfe9MaqkdtBpS9RV5myWkDV3JsMXIeNzBY5WppFWTqg82YvE
+ 7z0khvRWlhkK3TApVPEIDejVBXYBLqvdvFcVHJ3hY2VDg/GYHEzIE6RGTBuwe9HEhkn7
+ S+qbXVdSuURtk9YRoQ54xGwtFGCCvAttHmjc//OvPdFplJkvvqJbmsGBhlo8GwCrV0MA
+ TvP6ecQTwn1QqBwwCPM+IcJNILloqKuAcWU+EJ5bkURUr/p4+qxSLJkk2xcPm/NY6te3
+ d34g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786115193; x=1786719993;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=s9u4Cjv5O4KdNzN7wdMwSwBgYXAgpTiTJcch3SGL7zg=;
- b=CDy0GtKXz6V0gX+WmJr1uFyQ/s5VzNHqrJnlIQeux51mWmj9PGcM73u3S5TaHnib3+
- 0zqhVo26QYFSTIxll/8WcHZt3L+6657uExLaTJ1y5E6s2zTzDCfq9xOHi/kbdwFQpsNQ
- CNemR1w3wgcKUdwy6VJlxmWTsLdMDXeVrUjoHVCQM3ZN13E2qIX1dLy20otRYB3OR8zU
- nxlGsi4TkSqvbI35zcZGRqnfldLoDrZoIaF71au9wn5t85s1k8sn9AySftj7W/NTHm1J
- dhgWhONgt8SxZAn2iDanrDNifsuuSxqex0rfYx8W7rz2r1vdv4fbkuoyI6unSzYZUHmS
- ovcA==
-X-Gm-Message-State: AOJu0YyIC8StbIA09XA+/wHTSYOE1bwKUemgXJCvZ6kiiZsvB3M4D44D
- GQtK33t1mKLLZwIGS/LjIz2kwRd8EBT1KeU1hm8p71O+nojHAjKSbGtGy9ydz+U3GmQAgOFQyIJ
- Aq6Yb7ceQBmqb3FDlzjAJyqodLajueNGWxxaZHl1UQksXhu/LSV4lW89qx9OYlF/UOadr2SsDtr
- gsYzP9pXCdVouOslELI/5ZJFzYC4U4K5rzoIPe+2o4E9rh37+fjQObZnEV6LjSB5q95g==
-X-Gm-Gg: AR+sD11jhanUy7UemunX0TqIHmYPIVgzblQoIXQR0v/ptXMt6FCPFEUmwKsOttQ6Doy
- qEv9ap+bnuHDLHTCpkL4xEzRl5X714Mxy56P+uS6HhotIJmTlz5+myxPF+5Wgore5QaBU1WCf6+
- 10uQtcGr9NwwiJ7rnrAGLA4m+1AQ8U30pBQcPFp2rrQkKoHSRM7Ab2ERnYqkqu4KX8XYW3Aycrs
- t/xG+0XwsDeEBYtGg==
-X-Received: by 2002:a05:6808:d46:b0:496:3a1:e44f with SMTP id
- 5614622812f47-4b1ab7aba1amr441554b6e.6.1786115193123; 
- Fri, 07 Aug 2026 08:06:33 -0700 (PDT)
-X-Received: by 2002:a05:6808:d46:b0:496:3a1:e44f with SMTP id
- 5614622812f47-4b1ab7aba1amr441519b6e.6.1786115192655; Fri, 07 Aug 2026
- 08:06:32 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1786218094; x=1786822894;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=gQVcGNcLq6m/6ixB9nJIXsf/NAsejBiY35GyaVjtWxw=;
+ b=ihgY9RNWGqNKu45qzcAFwjC5Seo0axSjY4oRKmbpO4GKdGSLjx8GuWbpqaR+Y590ok
+ yTLR6Kvn7NVwIuDitRMnAkftsoSS1uw6DZW8ogqpuAjK22I66FSdqYoUa97vMbPtWQgl
+ Hee4KmFPGnvsCKGQ+771DfYAGSr0EkWpCGDJ5oyUQMW/uqNZNlrbqPzp9RwT9NnE6fmB
+ vBvNjM5FQjzecJz21X5q9WE8+cDHTt/9cIh+JVwAnTvWGUGa6es+S7xCwazTt8jz3P/d
+ YZudBahlu/q+mIQYJPNvJ8GsTMbDoZjUZrrMfjp895IDN1Zoh7r9iRZG1ZLyQyJGQAh4
+ HCXw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rpcbkv7dv6iElcWrgyeL9EKjZ9FBF77g+NLbKvrTgd2f4raopSbeJEOhgm23iUi7THqQyJoS7Su@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxHtqYGZ846f4A7iyc5y1mYpTDQkUQj4efAGFrKjtlBza+Q7696
+ Tem+tRvKN8ydaNN55dRliNdinpN8T0NIXIcejmkZye2IfWj6DGWhwPvV
+X-Gm-Gg: AR+sD117GzmKO+qYOk9I9GltT77jLgdt2AZXcVVQbR2YcoTWpq7EjHp5B9vdEBM8Ku/
+ RzUTRQj+aKue/nA8jKTX8GT/WC8yQmeQN5GAKz2VkXkXFyhwZqvkRogEwfz0hbLcn7aLjMeZzsc
+ kRaGZVkJiPs+/7pr76MH9Zz8MmIA+c3TmPulYrM4nqcq3suhn3srmY1+yXrZCMoGqKsJCF/cSoT
+ 0cggPpqwDCwzAlH2YZdgjr2V3wxTbzh13nj8YfaMBOK5uPE7+2UaV4Xy0Jpj2ZScHfTBegO8ZPn
+ ZIgS01KStWLZVcWOKiPHlTh1xxgVMDnZWFvCi9L+y4jADZodrrTB2Kk190F0swSboueXcYOKR9g
+ lWmYx54T2qnTByVt7Z4WxMm4pEsxMD1YdAKRRWbiaSEgCpDRBp4siB0X8zT+5fiMpau7wP7PsNI
+ hGIkPpGhUOy/pxFZy0o1WyS1QZKYA7AtzFSEpO3CssjIzuADGnrUrR3x1U+u/6ncV2R5g=
+X-Received: by 2002:a05:600c:3b20:b0:499:4893:97d3 with SMTP id
+ 5b1f17b1804b1-4994e7cb8ebmr390890085e9.13.1786218093825; 
+ Sat, 08 Aug 2026 12:41:33 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-480021e7b3fsm18742073f8f.20.2026.08.08.12.41.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 08 Aug 2026 12:41:33 -0700 (PDT)
+Date: Sat, 8 Aug 2026 22:41:28 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Asad Kamal <asad.kamal@amd.com>
+Cc: Kenneth Feng <kenneth.feng@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Lijo Lazar <lijo.lazar@amd.com>, Yang Wang <kevinyang.wang@amd.com>,
+ Hawking Zhang <Hawking.Zhang@amd.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, kernel-janitors@vger.kernel.org
+Subject: [PATCH] drm/amd/pm: silence uninitialized variable warnings
+Message-ID: <aneGaKJUl_Jyu05n@stanley.mountain>
 MIME-Version: 1.0
-References: <20260806143408.979209-1-mitchell.augustin@canonical.com>
- <20260806143408.979209-2-mitchell.augustin@canonical.com>
- <30d3e377-cbf3-4ab2-b7a1-0557b6cdb690@amd.com>
-In-Reply-To: <30d3e377-cbf3-4ab2-b7a1-0557b6cdb690@amd.com>
-From: Mitchell Augustin <mitchell.augustin@canonical.com>
-Date: Fri, 7 Aug 2026 10:06:21 -0500
-X-Gm-Features: AUfX_mxZw4JfRByCTOWw05hzV7zuEqvITixMOQu_e6YUGE1ZqEPRg48frnDpsxU
-Message-ID: <CAHTA-ubuVAMn8wnrWpBvnvMd6gH-80cSygbmS5Sy-AhU+Oy0XQ@mail.gmail.com>
-Subject: Re: [PATCH 1/1] drm/amdgpu: Do not enter PSR if multiple displays are
- active
-To: Leo Li <sunpeng.li@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:02 +0000
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mailer: git-send-email haha only kidding
+X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,96 +93,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Leo,
+Smatch complains that:
 
-I am not sure - I have only personally tested the latest
-Ubuntu kernel based on 7.0.0 (7.0.0-27.27). Could you link me to the
-relevant commits / mailing list entries? I can read through them and
-will try to give it a test soon if I have time.
+    drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu15/smu_v15_0_8_ppt.c:1964
+    smu_v15_0_8_set_performance_level() error: uninitialized symbol 'ret'.
 
--Mitchell Augustin
+In this line there is an "if (ret)" condition where "ret" is either
+zero or uninitialized.  Initialize "ret" at the start of the function to
+avoid a potential uninitialized variable bug.  But also delete the
+condition since it is never true.
 
+Fixes: 422b399b09c7 ("drm/amd/pm: Add od_edit_dpm_table support")
+Signed-off-by: Dan Carpenter <error27@gmail.com>
+---
+ drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
+index 59fdd2319b66..c78e611d2a25 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
+@@ -1920,7 +1920,7 @@ static int smu_v15_0_8_set_performance_level(struct smu_context *smu,
+ 	struct smu_dpm_table *gfx_table = &dpm_context->dpm_tables.gfx_table;
+ 	struct smu_dpm_table *uclk_table = &dpm_context->dpm_tables.uclk_table;
+ 	struct smu_umd_pstate_table *pstate_table = &smu->pstate_table;
+-	int ret;
++	int ret = 0;
+ 
+ 	switch (level) {
+ 	case AMD_DPM_FORCED_LEVEL_PERF_DETERMINISM:
+@@ -1961,9 +1961,6 @@ static int smu_v15_0_8_set_performance_level(struct smu_context *smu,
+ 				SMU_DPM_TABLE_MAX(uclk_table);
+ 		}
+ 
+-		if (ret)
+-			goto out;
+-
+ 		smu_cmn_reset_custom_level(smu);
+ 
+ 		break;
+-- 
+2.53.0
 
-On Fri, Aug 7, 2026 at 9:59=E2=80=AFAM Leo Li <sunpeng.li@amd.com> wrote:
->
->
->
-> On 2026-08-06 10:34, mitchell.augustin@canonical.com wrote:
-> > [Some people who received this message don't often get email from mitch=
-ell.augustin@canonical.com. Learn why this is important at https://aka.ms/L=
-earnAboutSenderIdentification ]
-> >
-> > From: Mitchell Augustin <mitchell.augustin@canonical.com>
-> >
-> > Issue: https://gitlab.freedesktop.org/drm/amd/-/work_items/5394
-> > Ubuntu BugLink: https://bugs.launchpad.net/bugs/2162904
-> >
-> > This commit disables panel self-refresh when more than one display is
-> > active to eliminate a common hang and system crash that happens
-> > frequently on some laptops, evidently due to race conditions between
-> > the DMCUB, amdgpu module, and possibly other components which are
-> > exacerbated when more than one display is active.
-> >
-> > To my knowledge, a fix for the underlying failure condition is not
-> > available upstream, so given how disruptive this is for impacted users,
-> > I propose disabling this feature under this condition until it is fixed=
-.
-> > The main downside of disabling PSR is that it
-> > will increase power consumption, but this should be barely noticeable t=
-o
-> > end users, since PSR will remain enabled on laptops unconnected to
-> > external monitors, and since laptops connected to external monitors are
-> > likely typically also connected to power (and thus less concerned with
-> > the energy savings afforded by PSR).
-> >
-> > Signed-off-by: Mitchell Augustin <mitchell.augustin@canonical.com>
-> >
->
-> Hi Mitchell,
->
-> Do you know if this issue still occurs on 7.2-rc6? It includes a bunch of=
- fixes targeting flip-done timeout issues that involved PSR.
->
-> Thanks,
-> Leo
->
-> > ---
-> >  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 3 ++-
-> >  1 file changed, 2 insertions(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c b/d=
-rivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> > index 5d2715f78314..272f195b8c28 100644
-> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c
-> > @@ -152,7 +152,8 @@ void amdgpu_dm_crtc_set_panel_sr_feature(
-> >                 struct amdgpu_dm_connector *aconn =3D
-> >                         (struct amdgpu_dm_connector *) stream->dm_strea=
-m_context;
-> >
-> > -               if (!aconn->disallow_edp_enter_psr) {
-> > +               /* Do not enter PSR if multiple displays are active to =
-prevent DMCUB hangs */
-> > +               if (!aconn->disallow_edp_enter_psr && dm->dc->current_s=
-tate->stream_count =3D=3D 1) {
-> >                         amdgpu_dm_psr_enable(stream);
-> >                         if (dm->idle_workqueue &&
-> >                             (dm->dc->config.disable_ips =3D=3D DMUB_IPS=
-_ENABLE) &&
-> > --
-> > 2.43.0
-> >
->
-
-
---
-Mitchell Augustin
-Software Engineer / Tech Lead - Ubuntu on NVIDIA DGX
-Email:mitchell.augustin@canonical.com
-mitchellaugustin@ubuntu.com
-Location:United States of America (Central Time)
-
-
-canonical.com
-ubuntu.com
