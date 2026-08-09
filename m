@@ -4,76 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82DDFC5B572
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD510C5B571
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0014E10E6C8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 76FEE10E6BD;
 	Mon, 10 Aug 2026 06:42:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GW753bvW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z8FiYSzT";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C67410E11F
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2026 14:46:54 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-38e69bdb0fcso852651a91.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 09 Aug 2026 07:46:54 -0700 (PDT)
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7C0D10E115
+ for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2026 08:49:58 +0000 (UTC)
+Received: by mail-pg1-f174.google.com with SMTP id
+ 41be03b00d2f7-c9ef3e1337fso620915a12.2
+ for <amd-gfx@lists.freedesktop.org>; Sun, 09 Aug 2026 01:49:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786286814; x=1786891614; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786265398; x=1786870198; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=DbPrDMI/UNfpgAnDfLZbZKEr3Nfo6jVgSwQlTScmMqI=;
- b=GW753bvWm0c5Jl5CIkCusAWMTsNVKBUSgwzyw0oIByp1EXQrHEN/75C5XdhkDv4yJB
- woex/IiCjKBB0vfow6h7aFJ6/oAMZDP7EPRPblLgcm99qB8fe3+Z4P2wUgqpDHMsZ6Lb
- xsG3TcPmj5C8QaGl94zLsOJTPAtPonOWEPK4lO9KkPAWK6dANq1a1luMTq5wbJkOjyJB
- FdzMgNGTFSG7IZuIcLVEaywV7jfBqDxaIHDsRxi1kkqrsnvvtqNIvr6mZ5ofzNHJ6z0Z
- /T/lDJElxk4Y6iEKwj2VuLjQ2Las96DjjaFKWUqRidYxwjy9guncmzJz02a0oldX0T+c
- Fa/Q==
+ bh=ohuKFNYedefwgEV1kOLtJZIOQiLf64k0Qg77YlHmp8s=;
+ b=Z8FiYSzTCEovlS+3L/EvVq87R7B+nm43iAuTyX5TCujgT5FdJWC7PmrXRLmcmifbxr
+ QJq2zvIZlgBZ44qDHkLqluqJGVFIAEgxZpv2XSnnMH1EHHTn0u9+zd0TzE/V9LAWIUFr
+ h/J79rIv0+AHgRFr2V8orei5SEdDM5A3R9MtYSF2aJurloLX5c66kuCpEafItVikadXY
+ jWfJG9sgwiZ/PM7+6zn2v4+Ani+MUzTWg9vvj+d/k4jaxXZSGl7osICUGuQhqnCtLCB1
+ U3SjVV0VpHlZrFNYgab4VJ1SXKitFIz48Ay0WUNAxuay7ht1nDE3mBr+Xpae+R0zCbB4
+ 4JSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786286814; x=1786891614;
+ d=1e100.net; s=20251104; t=1786265398; x=1786870198;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=DbPrDMI/UNfpgAnDfLZbZKEr3Nfo6jVgSwQlTScmMqI=;
- b=i9WwlKDDPwYzeJouFYHhQpXsiMX9CLVsmHoGzS0h4g9B2edQ0nFVWz/CeJnoVS4tK5
- kTnLT9i/zzTYXcHKUGLalabQDQWdXKG8r34w3NIDd1pinzVGVfGZvn70AxeZGrXCjw+t
- fsvuQilBhGi259E3fkI8kh8hQXgroOjvllALT6hb4Bcb7IA2FPaqI1m5p5ltxyOlVbEB
- gXC7gA5wuBbdcAgGMkLLh4qjFdrWhn83qs5CIXvt4lGvFs/4cgFJ22hQ8DkT/OEBuTCS
- j+Y/al6PHkeQMk6dojEna5Fwjn8pTyXrZa67Eu8NXtjiCKK+ledzICV13c+gdIJ0JxJ8
- 7R6A==
-X-Gm-Message-State: AOJu0Ywr1pL9tLob9SNBJ0zKqGPqpR2JDVJht4A6M+AzpRqaM5q44yIG
- AGOdLcR4dC2y9zBFPlQrfkbBITgNqSdIsQNJHqHfSl8FgE3gdxsHukNk
-X-Gm-Gg: AR+sD12Btcek+ekp/fehTQxF/m7/YHNKf/gNwxT8DVuV575tJvmIB9Axm1FJS8vu914
- UJhqrSEm4KW6TYwSeQDBZ6z4uYlNapa2hBtz0ZwllZ4lagYZY7BztEvWLdKDH0XcVQimRv7m3ym
- phYdAl3/Q9442qFri5lu/qYiAoHDrmkbxnm0ycM3rHtfN64m+kdnUsQky92S/hh0zJVF8I1KkCi
- gmeJmy5+ATBiZMbvNAef3Egj2CNBQ4LJqsVM7pWObfVJEkxOgD2uYnwB0ZVrT4T1DzpEjMNRvFI
- tpDnqPWPM/a4Az0eJowFO30OpoA+9GidUPj4urxx2SP4Irr5Xfe5s5A9RMDANS9O65GPMqddmgy
- /XazBH//I8+sdSnm/KBp4yt4f7vo867GzhUn8Bw5/5jCwy6l5Xymieb1vEPGfNXVnwfS0YvuNgY
- uahqiCsPBv5mlF90vA0KZIWKNu6fK21h9Ity1txPIQg/VtEoZKAli8qXBPQHlI1PRwgFffxOMTu
- LSVPfpwtoc=
-X-Received: by 2002:a17:90b:4e8d:b0:381:cef1:11ac with SMTP id
- 98e67ed59e1d1-3903c58ed40mr36373724a91.10.1786286813705; 
- Sun, 09 Aug 2026 07:46:53 -0700 (PDT)
+ bh=ohuKFNYedefwgEV1kOLtJZIOQiLf64k0Qg77YlHmp8s=;
+ b=E7nI1M73c/Ed1szD+rpMNC+Cpr48N696QwUwDZYtNg8m5xrF11GL0hcguY125n6e9K
+ tuOzOq9mSs9pYGS11a1jcvEOvwqQQz+1mD7l1685mC9TQi69poMoQxs7ycEJ0DiHuE1E
+ QakgntMZU5QcHmey9fXMzSrdjFb6D7fd36MAbsAgN1eznhPMqVInQoZNGjBSPL1lTPZK
+ WzxnESa/Pxg933dqg7pG7xpqXDGYE9rIinOdi/gFSgtxEBxxqgQHEcqwZrM5xnvsMwuT
+ axNO9n4jGoj9KcgzCYw7ZulirYHvDUwEM5QOXoIv+tyNcNmop+Mg2xcFELUOz6ikpUi1
+ StmA==
+X-Gm-Message-State: AOJu0YyIwHOpwxQufAb9k9wWkwWWxgKx811YHII5+52W7KZgJMQUgySY
+ IwFFGVDvpdD0POjg1aMq154+ZgToPuItmSmHY09/1QdFSE4QcdtYUlMW
+X-Gm-Gg: AR+sD13XaffqgeTRjk93BVtSrJlLTVmmPxu11YOY+bOd8PTKRAluC+uPdiZTm7U4FiV
+ b9ocbOLa7T7ClgJzrT8iAL/UDZbhxVPNQ1HI60K9FX96++M+nauAMPnAv6MZBsNdqiOBX9Lp9OB
+ CDmkLy/gFCSqYMOmgBU3zvHyguQqSSoqtLeKt0xNOtzi8L2e7qBhorm3IdyV/yL3NkG/lfMjr47
+ lV9wlQcTAvvQmZdeityaurAQeuO/+CRUNE8o5f4F6aYw/Y7DpTsUmOogEXnz8xveVWmxw4XvB8n
+ HIRwRYnWQuvh9IbzWVO1p0YyKQ6+FCDntiC5qzysM5m7Hp5wWR/SIvC0TdZDz4anUJfuB+g2ev9
+ 4BsPof0UKSg5oZq1XL1MK+4+5bd0KZ7q4Wzg8rNRTx+8Iy6+GDUff/wElHBux8TI3mq9d0lA3Ce
+ nCYHoGb6XtU3RyeDdFuHqBZuP9IuSzOZyulHxNot82DfaewIRk57ApwlRZqa954Ku8iyJDSLtbr
+ zU0QNhHUik=
+X-Received: by 2002:a05:6a20:6f02:b0:3c4:511e:26ab with SMTP id
+ adf61e73a8af0-3cb85ded984mr46153927637.3.1786265398022; 
+ Sun, 09 Aug 2026 01:49:58 -0700 (PDT)
 Received: from localhost.localdomain ([103.178.205.91])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-14101b7ad29sm25911224c88.13.2026.08.09.07.46.50
+ 5a478bee46e88-315be86fc7bsm28800025eec.1.2026.08.09.01.49.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Aug 2026 07:46:53 -0700 (PDT)
+ Sun, 09 Aug 2026 01:49:57 -0700 (PDT)
 From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 To: alexander.deucher@amd.com,
 	christian.koenig@amd.com
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v5 3/4] drm/amdgpu/aca: Fix inverted validation logic and list
- cleanup
-Date: Sun,  9 Aug 2026 14:44:50 +0000
-Message-ID: <20260809144451.35431-4-sreekuttan2156239@gmail.com>
+Subject: [PATCH v4 5/6] drm/amdgpu/aca: Fix off-by-one buffer size parameter
+ in add_aca_sysfs
+Date: Sun,  9 Aug 2026 08:47:34 +0000
+Message-ID: <20260809084735.9743-6-sreekuttan2156239@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260809144451.35431-1-sreekuttan2156239@gmail.com>
-References: <20260809144451.35431-1-sreekuttan2156239@gmail.com>
+In-Reply-To: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
+References: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:03 +0000
@@ -91,70 +91,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-"aca_handle_is_valid()" used inverted list-membership logic. It
-returned false when "!list_empty(&handle->node)" was true, even though
-a non-empty node indicates that the handle is currently registered. As
-a result, registered handles were incorrectly considered invalid.
+snprintf() guarantees NUL-termination within the size limit specified by
+its second argument. Passing 'sizeof(handle->attr_name) - 1'
+unnecessarily reduces the usable buffer capacity by one byte, causing
+sysfs attribute names to be truncated early.
 
-Fix "aca_handle_is_valid()" to verify that the handle is non-NULL, has a
-valid mask, and is currently registered in the handle list.
-
-Update "amdgpu_aca_get_error_data()" to reject invalid handles and
-return 0 rather than "-EOPNOTSUPP". This allows global RAS queries to
-safely skip non-ACA blocks without treating an unsupported block as an
-error.
-
-Additionally, use "list_del_init()" in "remove_aca_handle()" before
-"aca_fini_error_cache()". Unlike "list_del()", which poisons the
-removed node's pointers, "list_del_init()" reinitializes the node as an
-empty list. This ensures that "aca_handle_is_valid()" recognizes the
-handle as unregistered before its error cache is destroyed.
+Pass 'sizeof(handle->attr_name)' directly to snprintf() in add_aca_sysfs()
+to allow full use of the allocated buffer space.
 
 Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 14 ++++++--------
- 1 file changed, 6 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-index c76664af9902..d48f2c4d6c84 100644
+index dcddeb381628..3da3d369a918 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -586,10 +586,7 @@ static int __aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *h
- 
- static bool aca_handle_is_valid(struct aca_handle *handle)
+@@ -682,7 +682,7 @@ static int add_aca_sysfs(struct amdgpu_device *adev, struct aca_handle *handle)
  {
--	if (!handle->mask || !list_empty(&handle->node))
--		return false;
--
--	return true;
-+	return handle && handle->mask && !list_empty(&handle->node);
- }
+ 	struct device_attribute *aca_attr = &handle->aca_attr;
  
- int amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *handle,
-@@ -599,8 +596,8 @@ int amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *han
- 	if (!handle || !err_data)
- 		return -EINVAL;
- 
--	if (aca_handle_is_valid(handle))
--		return -EOPNOTSUPP;
-+	if (!aca_handle_is_valid(handle))
-+		return 0;
- 
- 	if ((type < 0) || (!(BIT(type) & handle->mask)))
- 		return  0;
-@@ -716,9 +713,10 @@ static void remove_aca_handle(struct aca_handle *handle)
- {
- 	struct aca_handle_manager *mgr = handle->mgr;
- 
--	aca_fini_error_cache(handle);
--	list_del(&handle->node);
-+	list_del_init(&handle->node);
- 	mgr->nr_handles--;
-+	aca_fini_error_cache(handle);
-+
- }
- 
- static void remove_aca_sysfs(struct aca_handle *handle)
+-	snprintf(handle->attr_name, sizeof(handle->attr_name) - 1, "aca_%s", handle->name);
++	snprintf(handle->attr_name, sizeof(handle->attr_name), "aca_%s", handle->name);
+ 	aca_attr->show = aca_sysfs_read;
+ 	aca_attr->attr.name = handle->attr_name;
+ 	aca_attr->attr.mode = S_IRUGO;
 -- 
 2.54.0
 
