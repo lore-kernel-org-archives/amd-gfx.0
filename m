@@ -4,70 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EF81C5B56A
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02AC8C5AC82
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 558DC10E6A2;
-	Mon, 10 Aug 2026 06:42:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42A0C10E6A6;
+	Mon, 10 Aug 2026 06:42:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KCQp01r4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VwWtPsYh";
 	dkim-atps=neutral
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
- [209.85.219.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31E6610E2BB
- for <amd-gfx@lists.freedesktop.org>; Sat,  8 Aug 2026 11:44:48 +0000 (UTC)
-Received: by mail-qv1-f54.google.com with SMTP id
- 6a1803df08f44-8f186025973so3649186d6.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 08 Aug 2026 04:44:48 -0700 (PDT)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 142A510E05B
+ for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2026 05:13:00 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-2cee9b74ee1so6906275ad.3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 08 Aug 2026 22:13:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786189487; x=1786794287; darn=lists.freedesktop.org;
- h=content-disposition:content-type:mime-version:message-id:subject:cc
- :to:from:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=vB93jJMP9Hxu14qFTO+Z6eHPakUva4xSZ3v1QtWPB1E=;
- b=KCQp01r4PdFU0XrpGtM8XOdbO0cHvzGA5l4RB0MUGgS7lkR3X5FaB/4njRJ36POiLp
- n6vYH+VEV1QAk4ZWWHA7CHxhXW9qIL4TH3rqQi80LSq/Aie/9+uV/bW4rj3kfrRzoBu4
- Jhyb6nTFomWuHuGgb4XtVt+xtncCKEWDsLBSF3GCBOrT1CalczU0FPNy7QiW+XRSF6JS
- 7TyfpJ/u3LVAnzl0T3R2m+81egz5P82tQH1/DnAANtbLlbSvDI/XFB4wTBi8+2Sz1wIj
- vPlAYF0CbMOZtSoSc9wNSF8qLg0zD3473pA3wv8XWBKSwBlH8orVS5NOlJHKb/SdZQTS
- rElA==
+ d=gmail.com; s=20251104; t=1786252379; x=1786857179; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=7uC67/V7nwNWq+dWDB8FGNBrrM/47Cbt+1oF506R3e8=;
+ b=VwWtPsYhFAnzKWIsFEAN2NzuewdhImtqvE1yIwuvyUdmGqU0vRjzpUwnqSHBr96Y8L
+ EYvL56YsOVqip6lDnb+OBf26D3+tvVRQ5lD1qsCfZQ+cDJahhPh9baw99vtyNT4qqKro
+ Bo8PiU/si8rd4P+e8CsTIU0kE03LdfrCcVWpt0XYX3xuFqAkjEXGcfQe1woQEWc2YetB
+ FW920oeyH1eSBJmLqRSGA3SOJ1kakqrv7PfvPr9hA5IpG1Ps3SHqQm429XNKAGmXWMnc
+ gKYjprfvHuwpFBZFuRWzSrEdhb9SpeV+GtqmTMu8oAa7gBWt7X8QsLNefCJc1/brhqW/
+ NzVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786189487; x=1786794287;
- h=content-disposition:content-type:mime-version:message-id:subject:cc
- :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1786252379; x=1786857179;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=vB93jJMP9Hxu14qFTO+Z6eHPakUva4xSZ3v1QtWPB1E=;
- b=f6Ar4G1KhkEE17T/yUkZiFFYz2SJdK+zxNtreO6oJf0VYKz9voF0+p13e33eP8bRhN
- wg3UllirNnwVcM4/igDeH52jfLXjMyVYqg34JMJjxYnJGbCnQoVIkLei1tkKjLSuH5Z3
- Dqbt2qfHw/oOBAcYUaOd5Iddhw8JU/8FOzXuUKEsSuJfif3g2z9+d/BHgvK1xbkOXdCY
- Z/6EkC91sdbObRcev37N/NNyb0lSPNitaaaolzm5fC6pm94n+cXB3HFMVVe3Pbu8sHgu
- G6dITuh90HIFfAXmlDO8P4AjmAGU2EsreHWe/kS85f9G/6tPo1CgzULHlcpfP1YCVsw7
- sSzA==
-X-Gm-Message-State: AOJu0YwRMaRJXT4h64+b+DTiPWDKGFpZY0xKu2K3LWmqBIK6Ld3ie6Nt
- YILNrtJ0cPedKQjhzxRwOUfb/rnNkoyEm7v2yP/+awwsXyoMhwAbvn1x
-X-Gm-Gg: AR+sD13UxRdrc3AOIWGxk/EykOfbU58uRTND1izGNwDQzHVRQ3OJyecur0hVwhrufzA
- BxZ1qIQsiLQp0q9F9KFSolpZkuQfpnVupsXlvGfi6D4MxlDP/vEbdJcC6NJi8taA7BuGfG4PD9o
- /dFarRSV2/BjT3eXBFSR1D9shBrDrKbf3kIfGRpSrdOgrqaPXGSvGPrrkhotqEkcgdQ3jFqbLdy
- n1CR7OsLq7ya9EQRWOSn7CIAsYSr/BMv4WK4oJQkfvwK2M+FLwghb7smSGkqIhCEEQdyzRaKZq/
- qsMopNdXG0ZkCVYjLKOm/qS6OEbyhC5nSGvPIyK1877B+LeFkxfh7PRt1y4vNuPvqW5LdDqS12T
- 83py7s6PGmmYCBZ5npYWkFYNcXGHxWCQ1s9hVBkj+vKCx3JrKLLU7agStE6GEu2MMg1cS56cnIV
- ZlKhigtJOuUSmCLCZ5lZ/YejjbpPrh1xWlCzJ2klunhQc+oPMyjHB/tA==
-X-Received: by 2002:a05:6214:2dc9:b0:8f7:3902:42b2 with SMTP id
- 6a1803df08f44-90a3470604emr82954986d6.27.1786189486936; 
- Sat, 08 Aug 2026 04:44:46 -0700 (PDT)
-Received: from localhost ([172.216.11.43]) by smtp.gmail.com with ESMTPSA id
- 6a1803df08f44-908a918ecbesm29449616d6.9.2026.08.08.04.44.44
+ bh=7uC67/V7nwNWq+dWDB8FGNBrrM/47Cbt+1oF506R3e8=;
+ b=gHqCmIlP+nrnnGPzSVC8knzYP65n70OlduIVGhaXK+3kaTcR0wVRtmlL0U1mgWJnzR
+ ZYjpgzk6NCDwqn0LagBEXTlkvvO3VR4muyTKVSM+KBxs+uLG8cU7Z2jgxpjuQaUb3rn7
+ BHWOCA2MJcQ0U9reBMP5WXWbrueMIgWyenSqy/JA80fII87wZYcUkPUSVFkJ7fLOEywv
+ MPi8ppMWbhSYA196nBezwAweO+Sd/rsZ/lyNs3iGdwN/Q+eV5RaNS4sNAWm57jLURpAu
+ r8A6P+2Zus0SMF36zCPxQNLhM5D+Pp40wvGchACha22WPl1ZsSuWo01XiepfFJKiuYB+
+ eYNQ==
+X-Gm-Message-State: AOJu0YyfZjunGrqXje3pNJLjz6o0WXX6nIxI/gt6+16LUYtSrNbPt0mc
+ v3cp1/ZUJBOsTTseqmddPUARpg0hGrIPaVpYqce8FlL99dajA1m3wGBd
+X-Gm-Gg: AR+sD12yflqBfqobomvK4HF9H1Pcyz+4pVjrK+G6qg0ZigBQ6U0uL9MlAhrX7KzZO2a
+ pRKXvAlqU6SRIolrIx+2rc53w+cSNilmqFcK/E3Y5gqILM4yxzLE9TDHMpRvT25CvOv8N93ABjw
+ ov9llPfgLVGWKsClVgrsjA0fjDV4y8Dj6RYVJuMNA1hlb6d+7nhbP9b32rVRLX3xJgKXVG9Z9Fu
+ 7YkRwSry9NEAdtHayZ2yp4PQDG/PLYUkCu5zzizLK6k9n+zP5rD7N5zMQdQ5b3dRGIh8kgy64NS
+ 1Aef7E+iG/Ips3wyWA+QOF36cDSmZdQZ6qQHFCdqVbeMnfnrYnXsKE2gZhjGp2fL6U4fpYAqcs2
+ URk3RkahhCubvDI+5HCbv6//WRkNH6/TG8EhIdPLMy2AxTAyFyZ9LPkhsMGw1nh5tS8gydL1+0a
+ dYoq/zy6DComXxvQ7c8wPXNIT/P0iv2SViRTlnZDFw7LgUhlKRqGW2VVDvUrTkQi+/V/Wvu32+m
+ jA+1k96+8PPWn5/LqyjyMqx
+X-Received: by 2002:a17:903:3848:b0:2c9:c991:3bf0 with SMTP id
+ d9443c01a7336-2d0ca70da11mr418477765ad.8.1786252379391; 
+ Sat, 08 Aug 2026 22:12:59 -0700 (PDT)
+Received: from localhost.localdomain ([103.178.204.108])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-315be8a7395sm27095702eec.9.2026.08.08.22.12.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 04:44:45 -0700 (PDT)
-Date: Sat, 8 Aug 2026 14:44:38 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>
-Cc: amd-gfx@lists.freedesktop.org,
- "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
-Subject: [bug report] drm/amd: Enable SMU 15_0_0 support
-Message-ID: <ancWphnH1Ih23J6U@stanley.mountain>
+ Sat, 08 Aug 2026 22:12:58 -0700 (PDT)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Subject: [PATCH v3 0/6] drm/amdgpu: Robustness and safety fixes for ACA and
+ RAS drivers
+Date: Sun,  9 Aug 2026 05:11:54 +0000
+Message-ID: <20260809051200.3276-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -83,58 +88,37 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello Pratik Vishwakarma,
+This patch series addresses several race conditions, boundary check bugs,
+logic inversions, NULL pointer checks, and buffer size parameters across
+the AMDGPU ACA (Accelerated Compute Architecture) and RAS driver
+subsystems.
 
-Commit c7fc0f372374 ("drm/amd: Enable SMU 15_0_0 support") from Dec
-5, 2025 (linux-next), leads to the following Smatch static checker
-warning:
+v2 -> v3:
+  - Patch 3: Updated amdgpu_aca_get_error_data() to return 0 instead of
+    -EOPNOTSUPP for invalid handles, ensuring global RAS error queries
+    safely pass through non-ACA blocks without breaking telemetry.
+  - Patch 6: Moved cancel_delayed_work_sync() in amdgpu_ras_fini() prior to
+    ACA subsystem and lock cleanup to avoid teardown races and UAF.
 
-	drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu15/smu_v15_0.c:135 smu_v15_0_load_microcode()
-	error: uninitialized symbol 'mp1_fw_flags'.
+v1 -> v2:
+  - Patch 3: Updated remove_aca_handle() to use list_del_init() instead
+    of list_del(), ensuring list_empty() properly evaluates removed
+    handles and avoiding potential UAF during device teardown.
 
-drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu15/smu_v15_0.c
-    109 int smu_v15_0_load_microcode(struct smu_context *smu)
-    110 {
-    111         struct amdgpu_device *adev = smu->adev;
-    112         const uint32_t *src;
-    113         const struct smc_firmware_header_v1_0 *hdr;
-    114         uint32_t addr_start = MP1_SRAM;
-    115         uint32_t i;
-    116         uint32_t smc_fw_size;
-    117         uint32_t mp1_fw_flags;
-    118 
-    119         hdr = (const struct smc_firmware_header_v1_0 *) adev->pm.fw->data;
-    120         src = (const uint32_t *)(adev->pm.fw->data +
-    121                                  le32_to_cpu(hdr->header.ucode_array_offset_bytes));
-    122         smc_fw_size = hdr->header.ucode_size_bytes;
-    123 
-    124         for (i = 1; i < smc_fw_size/4 - 1; i++) {
-    125                 WREG32_PCIE(addr_start, src[i]);
-    126                 addr_start += 4;
-    127         }
-    128 
-    129 
-    130         for (i = 0; i < adev->usec_timeout; i++) {
-    131                 if (smu->is_apu)
-    132                         mp1_fw_flags = RREG32_PCIE(MP1_Public |
-    133                                                    (smnMP1_FIRMWARE_FLAGS & 0xffffffff));
+Sreeraj S Kurup (6):
+  drm/amdgpu/aca: Fix race condition and UAF in error cache logging
+  drm/amdgpu/aca: Add upper bounds check in aca_bank_hwip_is_matched
+  drm/amdgpu/aca: Fix inverted validation logic and list cleanup
+  drm/amdgpu/aca: Add missing NULL check for banks parameter in
+    aca_banks_add_bank
+  drm/amdgpu/aca: Fix off-by-one buffer size parameter in add_aca_sysfs
+  drm/amdgpu/ras: Cancel delayed work before ACA teardown in
+    amdgpu_ras_fini
 
-mp1_fw_flags is uninitialized if smu->is_apu is false.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 35 ++++++++++---------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c |  3 +--
+ 2 files changed, 15 insertions(+), 23 deletions(-)
 
-    134 
---> 135                 if ((mp1_fw_flags & MP1_CRU1_MP1_FIRMWARE_FLAGS__INTERRUPTS_ENABLED_MASK) >>
-    136                     MP1_CRU1_MP1_FIRMWARE_FLAGS__INTERRUPTS_ENABLED__SHIFT)
-    137                         break;
-    138                 udelay(1);
-    139         }
-    140 
-    141         if (i == adev->usec_timeout)
-    142                 return -ETIME;
-    143 
-    144         return 0;
-    145 }
+-- 
+2.54.0
 
-This email is a free service from the Smatch-CI project [smatch.sf.net].
-
-regards,
-dan carpenter
