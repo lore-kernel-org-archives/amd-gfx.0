@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E5EA4C5B56D
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 676B2C5AC82
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A46F010E6D2;
-	Mon, 10 Aug 2026 06:42:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5148F10E6D5;
+	Mon, 10 Aug 2026 06:42:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="AQAMmFj5";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="kh20p7jU";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2DEE10E10B
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2026 08:49:37 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-2cace91f112so8804605ad.0
- for <amd-gfx@lists.freedesktop.org>; Sun, 09 Aug 2026 01:49:37 -0700 (PDT)
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
+ [209.85.210.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CC5C410E05B
+ for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2026 05:13:30 +0000 (UTC)
+Received: by mail-pf1-f179.google.com with SMTP id
+ d2e1a72fcca58-84f38f3b36eso488392b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 08 Aug 2026 22:13:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786265377; x=1786870177; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786252410; x=1786857210; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=deoqn41jn4hqxaXBU0LER8gLC0cAyHmrQg56bcVPpQA=;
- b=AQAMmFj5pQNZsVpQum2+2NCnuMuBbYHYou2ddQaOBfONDF7h2NmYBDFNJU4NQi9U6Q
- HqPz5jf+ACDR9AxsLGt7iYD7uF7lk4AVof5/+HXDV6LZzkJuXcAfHmHYYLFVe3YLJITZ
- qVE7/BVqu5uWVq2Uw74ofIekXk5WdUEcZgnbyGu3nBAKSCDo6iUzLxnMabKzBXtgL7UA
- IYqW6T1ilFmpKdzEOhbYAGBSHbviJ29a/P+2+0QdFlK/PCkHTIhLYsvehJvyp6WWCBRi
- guBsM71m7l+NbuwfWgTnUlAseu5x5ucGrZPJyUL6LhIss8T2z1aUpmw6ZspB82wnRi/e
- sW/Q==
+ bh=C8on5LBVsYqwWr9ndoV0oVFp6EULFueLmmkrZV0DJAg=;
+ b=kh20p7jUQ5Gr/h2SCSzSPuO2TU8RlKefwLDJaEY+O8zCmFg/egQpN1Mly6sw4NGVKh
+ GM4DYu1LN92a4LUbQycg8KxICBGnxaaFiIAiB0j1CihpsHX7gzQXpHnDWM3k59lnbX2E
+ Cwf/kjW8mwnPEaG0E484i/A5/rPiP7XXSn+J3JrkMHpAm8ASOQHp4/FQVbdD44mfO311
+ de+pi8Kh14WTgiRUYFqoUI5Mi9S4jscidYTcu+m4sKwSqWGPSODQWn9Mank+d3uvo3qB
+ Ev1YbTm/9IeAzc2nniZnA5f5scKXyRnnKqJZWlYNoPb89sdAQMqpbY/EEC+ZzulNU+yE
+ fcEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786265377; x=1786870177;
+ d=1e100.net; s=20251104; t=1786252410; x=1786857210;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=deoqn41jn4hqxaXBU0LER8gLC0cAyHmrQg56bcVPpQA=;
- b=qZcn9PTH4Oh1n1pzu1mCUUVdy0oizZqrM40DQw3x82q25xM+SVKWmwJjsRtjDCQ8ib
- YDOqnylB+HL7hK5U1WGNrUDe51ddhN6+CvIvu3qYaF7HAl/LqBQeVI0/rK9JY2oPjSWL
- oLQbP5Lyz1IStr/qsOGACS9jsANuLWx1IafeOo4bcqzJk7UvqxUB8XEp24iTuIoObJyp
- iO0ShV07j0Tqe8w5dAxRyxX8Su7ze9iZr8goPKsgGYIZXIfzolB7e0r+/207AdKHcZbK
- J9vrNrmrochtrAoJ8yOqXm3TS4WHF2T5uoa3ZNC2aH1Tru9hM4n4QC+JutoltqDSw5PP
- 9Z8Q==
-X-Gm-Message-State: AOJu0YxB+06UhDAJdZPW65BAKKVXeMPQmwyF/VWNTddS0r5lXJa3DRx+
- QF9pwMsnb8XxpTufYeaaHt+8S3SOVDlVB8mg4jUBj0u3Iz4L1OozjhAY
-X-Gm-Gg: AR+sD10/QjripwbhYlUYc66FdoglisJKRQdbEUFK35mhIewKWT7YfOrpPVsEGVRsmlz
- juaLSzfLIOdUmgg/GOGKiaZD6lsQepFaiaNsCibhjj1wTMIrKvQbVUD/zjVaZMQgANwxceLJ0Ns
- Lu6tVxMm7TqTNWLc3l0HZmS3Rqb5sPuxagBIrAk+8pvZg8AGw2DeiI0CUBMDU7xztoQHWZ/43l0
- PyHDPLL04ikJwp+ekcrR5S9yFHRN82SiuOahfvTrMZbTpWsxP5HIIAtGrDWzrEg/MLhTZfwVhZe
- DuSXaFGlDNE9wkSxrAnEuQ7/aTQ3IFW8ESbgePVC12BRgXqH5YrXOgryy8/7YYuFW1MDRf/MMMz
- 6NyHszNYENcMXY6nVL4Is+VqwaemFF4zOGTz+frHdnTbIFXTsTEAX6aCTWSyBO4v5QdDOcliYQE
- JJn/2uhtNNRoV/OS9E8e8Npi1ytjwVR7LkuLdxIqf0TzjRbTFmCkZw1cooRnXf/VJDQ6rY+d1+Z
- jX8n9YpEDEv9wNmjcFVZg==
-X-Received: by 2002:a17:903:46c7:b0:2c9:b48c:fdec with SMTP id
- d9443c01a7336-2d0ca75d2admr449178665ad.12.1786265376710; 
- Sun, 09 Aug 2026 01:49:36 -0700 (PDT)
-Received: from localhost.localdomain ([103.178.205.91])
+ bh=C8on5LBVsYqwWr9ndoV0oVFp6EULFueLmmkrZV0DJAg=;
+ b=ZT53ePPl6gFYkm+8dth3bBQwCYJf76yDnsB0MYI+g8ej7cRXmEJ8zg3V2n51GGVmKv
+ IxO7rqGVshtXqlh+xmGUZtAngolx1fox6VQGwNhbQuSxPAiud+Vy23paGFZvg9UXXbm2
+ aNQmC9qzpve9On4q0Xv0sMqfIYJcbIQZBAkft0+u7DYulLklYmDMVMSaFwVLKw9R9IMO
+ OLndJsgb30yki0uXf55D3n9H49NElPFljp5QgviPCwCqKn2EYGbRppwWsXDV6Qkk6n9U
+ Rfl2aEUnkgh8fO0yduMYl9qzrAW8eCq12iioVOoKiXNV03hKNNt8Cb7lWIWaHUFiAoYX
+ xQKw==
+X-Gm-Message-State: AOJu0YylMeAUxAOmMQCIOVuqqKWssohVyCKyKQpjaFfdvTU+128LjLmi
+ E8mzZCft77k4YOpBlFLzFP4gwxgfgKT7jmAtnZR4ABNfW5jz338jigkt
+X-Gm-Gg: AR+sD12Qim7kxDFwQLqCSCQzleK9RShHMyywAU66iUfX/0PFKchQit3LlvujPoJGdaL
+ iru+UVk2XwQy6l7q8Cp4d480MLSTuE5vZAMU4ktGMmqS7b77eTZIFHVBikqW9Bn+EoyzGv3DCBk
+ w/2fH5+ZcLBnxbPy4eEmT6MCk6XxcXC9C8C3SkQy3zO90Ic276+DudITn2cgOFHlJfOzL/yclfO
+ eoLjWBMa5rCYNrWDn8Cllk9vWwD3LtGxJr9WM+Ho+POGWJIJS9gpbAMNGHVJU31a1kxqYJ8AGxY
+ vQVGU504b2lSiWt0P1QkLzWNPB0fp3cgJDUF6Y0orv7F0nDDlPEO+GQ4U5Emds1zo7hnfnUJWD+
+ pQHHfJH1CeZCk9AJjyZJbYhX2zPHxQErZPxiaTGhM/2eZlxltLVAS9JDrx/o0GGh1/zJxypPsMt
+ 8qx3FBzOcNQpOcrQEddS0M82JN3wIdCxiAeG9xNaAQh1QX2gqn8nQihsXpkHocxEQy10mjige6S
+ qZ7AyhTZMHl
+X-Received: by 2002:a05:6a21:3117:b0:3b5:489c:7bb5 with SMTP id
+ adf61e73a8af0-3cbadc97c22mr27425139637.28.1786252410244; 
+ Sat, 08 Aug 2026 22:13:30 -0700 (PDT)
+Received: from localhost.localdomain ([103.178.204.108])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-315be86fc7bsm28800025eec.1.2026.08.09.01.49.33
+ 5a478bee46e88-315be8a7395sm27095702eec.9.2026.08.08.22.13.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Aug 2026 01:49:36 -0700 (PDT)
+ Sat, 08 Aug 2026 22:13:29 -0700 (PDT)
 From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 To: alexander.deucher@amd.com,
 	christian.koenig@amd.com
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v4 2/6] drm/amdgpu/aca: Add upper bounds check in
- aca_bank_hwip_is_matched
-Date: Sun,  9 Aug 2026 08:47:31 +0000
-Message-ID: <20260809084735.9743-3-sreekuttan2156239@gmail.com>
+Subject: [PATCH v3 4/6] drm/amdgpu/aca: Add missing NULL check for banks
+ parameter in aca_banks_add_bank
+Date: Sun,  9 Aug 2026 05:11:58 +0000
+Message-ID: <20260809051200.3276-5-sreekuttan2156239@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
-References: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
+In-Reply-To: <20260809051200.3276-1-sreekuttan2156239@gmail.com>
+References: <20260809051200.3276-1-sreekuttan2156239@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:03 +0000
+X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,17 +91,13 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In aca_bank_hwip_is_matched(), the 'type' parameter is used directly
-as an array index into aca_hwid_mcatypes[]. The function previously
-checked whether 'type' was equal to ACA_HWIP_TYPE_UNKNOW, but did not
-validate whether 'type' was less than ACA_HWIP_TYPE_COUNT or negative.
+aca_banks_add_bank() verified that the 'bank' parameter was non-NULL,
+but passed 'banks' directly into list_add_tail(&node->node, &banks->list)
+and incremented 'banks->nr_banks' without validating whether 'banks' was
+NULL.
 
-If an invalid or out-of-bounds enum value is passed, an out-of-bounds
-memory read occurs on the aca_hwid_mcatypes array.
-
-Fix this by validating that 'type' is strictly greater than
-ACA_HWIP_TYPE_UNKNOW and less than ACA_HWIP_TYPE_COUNT before
-performing the array lookup.
+Add a NULL check for 'banks' to prevent a kernel NULL pointer
+dereference if an invalid pointer is passed by a caller.
 
 Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 ---
@@ -109,18 +105,18 @@ Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-index d0d473082431..c76664af9902 100644
+index 06cb3ad1ce62..79326389d75c 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -138,7 +138,7 @@ static bool aca_bank_hwip_is_matched(struct aca_bank *bank, enum aca_hwip_type t
- 	int hwid, mcatype;
- 	u64 ipid;
+@@ -49,7 +49,7 @@ static int aca_banks_add_bank(struct aca_banks *banks, struct aca_bank *bank)
+ {
+ 	struct aca_bank_node *node;
  
--	if (!bank || type == ACA_HWIP_TYPE_UNKNOW)
-+	if (!bank || type <= ACA_HWIP_TYPE_UNKNOW || type >= ACA_HWIP_TYPE_COUNT)
- 		return false;
+-	if (!bank)
++	if (!banks || !bank)
+ 		return -EINVAL;
  
- 	hwip = &aca_hwid_mcatypes[type];
+ 	node = kvzalloc_obj(*node);
 -- 
 2.54.0
 
