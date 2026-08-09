@@ -4,69 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94F06C5AC67
-	for <amd-gfx@archiver.kernel.org>; Sat,  8 Aug 2026 10:07:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BCD1C5AD4E
+	for <amd-gfx@archiver.kernel.org>; Sun,  9 Aug 2026 19:24:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BE2A110E4AA;
-	Sat,  8 Aug 2026 10:07:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D4A9010E19D;
+	Sun,  9 Aug 2026 19:24:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mNMAq61W";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="g1xTUeSg";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BDB5F10E4AA;
- Sat,  8 Aug 2026 10:07:34 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 6DFA5432A3;
- Sat,  8 Aug 2026 10:07:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4B48BC2BCB8;
- Sat,  8 Aug 2026 10:07:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1786183654;
- bh=gUPN+M1TrpJU5VvlJKMa+SHlUKRGWi0Tsmx1lfmrOIs=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=mNMAq61Wh0+uTmLj95Muan3Y/xvizHBUv4wZT+6qXfpWLBRjYP2mVe0dWoUFD9ar0
- WfUrHCYj0oUCjj26Az2K3Uf4ABGZ5+gHWTuh1eHMr8mskgkV43lwyNvhPccZSoPWz9
- 52R4bCu8TpcFJ8a1XGr6hZQuYa/Td1yei4Os4OP5ip+RsA/LkfGlvY0im4WMm2PnND
- RvJ4R4bdfaJJf+hvfSN49cwE+FRixhnTM5K7HajlCBNhOhts1hQ8zsjGcsFtm6S/A1
- fdcPAvI7zx/2JhTMrxx8fVykzlDCnBizZzEelx0LuASf0yNfHToMYa+jGgBdKAzNMO
- 96dZ4r79kHVqQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 27EEEC5AC67;
- Sat,  8 Aug 2026 10:07:34 +0000 (UTC)
-From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Date: Sat, 08 Aug 2026 18:07:26 +0800
-Subject: [PATCH v2] drm/amdgpu: add the BO-va mapping offset when kmapping
- an IB
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 16AFC10E19D;
+ Sun,  9 Aug 2026 19:24:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+ Message-Id:Date:Subject:From:From:Reply-To;
+ bh=yHtI0GTJKZWQQM48YiGVBosfJ5t3iFf0mkcvrRXiOn8=; b=g1xTUeSg51O4bUdhefKhXMn48m
+ eZ18qa9+xVNwavh1O83za4RYsnBbTQIOASFqd6Tt6pqUoXEfNsPpzHGC9dNroJIofjDNB7+zx4MSr
+ DNIyTmV22h3Z6qqKOLg3Z1DsSmTDqVNJGl31TQivtH/2BUnX/c71WCfXfxin/RBnwKrFvxUq65W4o
+ TS2gLQkwty41kO2rmEKrNKjapY9RI4aQOTv1R2zp1tkw0rzGo2vutoqtti6OhtGP9Au3rwtczllXv
+ N9pmNFkyNtOH51zQPjMaojhuSjN/mIrTKqEUZwlwliQdgcwne/KtNxmlcO1GvqlwJ5wcNuA339yGg
+ GKBtPP6Q==;
+Received: from [187.36.208.132] (helo=[10.0.0.1])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wt982-00GH3T-VN; Sun, 09 Aug 2026 21:24:15 +0200
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: [PATCH 0/6] drm: Consolidate the wait timeout conversion helpers
+Date: Sun, 09 Aug 2026 16:23:56 -0300
+Message-Id: <20260809-drm-timeout-helpers-v1-0-2de67405a145@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260808-amdgpu-fixes-v2-1-36d66398601f@outlook.com>
-X-B4-Tracking: v=1; b=H4sIAN3/dmoC/x3LQQqAIBBA0avIrBNGF2VdJVqIjjaLTJQikO6et
- Hx8foNKhanCIhoUurnymTr0IMDtNkWS7LtBox7RoJH28DFfMvBDVc7OKgwWJ1IIfcmF/tCPdXv
- fD5LIg2xeAAAA
-X-Change-ID: 20260808-amdgpu-fixes-9ca10fa07e10
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MSQqAQAwF0atI1gbaebiKuBD7qwEn0iqCeHcbl
+ 29R9ZCDChzVwUOKS5xsq0cUBtRP3TqCxXpTbOLclKZiqwsfsmA7D54w71DHWZYWCdKyqGxEvtw
+ Vg9z/tWnf9wOy1b7vZQAAAA==
+X-Change-ID: 20260809-drm-timeout-helpers-55473e4879d1
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jammy Zhou <Jammy.Zhou@amd.com>, Madhav Chauhan <madhav.chauhan@amd.com>, 
- Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
- Junrui Luo <moonafterrain@outlook.com>
+ Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>, 
+ Jani Nikula <jani.nikula@linux.intel.com>, 
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+ =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2208;
- i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=3FBj59YR9q4hNFYlTzD+oO1vogRrIbKjZwQeOYVwbY4=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrLL/j5LPXtkjmyZdbdzboX/ab4H+s35D75Blv2+7f
- ZR7uX/PlhcdpSwMYlwMsmKKLMcLLn2z8N2iu8VnSzLMHFYmkCEMXJwCMBGtGIY/fJUxaotOOr/P
- uPCvbapvhFXwb+Zllak+D1aKfQl58qVlLcN/31milS8V3qhJeh2Yz7DC8dG3f40PLiwU79W5mPx
- /8sQIJgB7+VFO
-X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
- fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
-X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
- auth_id=909
-X-Original-From: Junrui Luo <moonafterrain@outlook.com>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2350; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=MRMSakOMqZA3Q6YErOvuIuxgMa52nLU22dBKpEwYEAI=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBqeNPYgZ913Y8c2sxGuDwnLGJ4MCKfBIKu5r1/0
+ U3y0n1qt2iJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCanjT2AAKCRA/8w6Kdoj6
+ qiKQCACNdTNhaEDzYocVFmwr90TRWOA6EWci83pGWlvszT4OpAlfoJs4nqDlHePAwbIrU5GVbWT
+ frAbM3RODGBkfLM0+LVw0ImoiVuiEbczSth3GN8WZCMB2+7dzGHT/fz0LAxzoFWtHzJ91FKmkG5
+ zoF1wK2FnP+1Kx5DhaOlvii1/Q0WxsJVeUFMuhxNFYIuXKxjDG6qRc0/pnQuFArMjb5CK7p3ZVI
+ 9N2K/dEHGzLBO3vQKyo4FRK0gQ64Pxt3ZvB2+14rQzAeguv+ydx7xggV/2QZR1pysCpjZRET6NE
+ 2uue9zvwDlEQumeFg6niMM01QH7ru7UBZt1RdVK/IQVQBc3g
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,70 +78,56 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: moonafterrain@outlook.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Junrui Luo <moonafterrain@outlook.com>
+DRM wait ioctls express their timeout in one of two ways: as an absolute
+deadline in ns, or as a duration in ns. The core has a helper for the first
+form, drm_timeout_abs_to_jiffies(), which panfrost, lima, tegra, xe and
+some accel drivers use. However, there is no equivalent for the second
+form, so the drivers that take a duration convert it themselves.
 
-amdgpu_cs_patch_ibs() derives the CPU-side view of a UVD/VCE/VCN
-indirect buffer from the BO returned by amdgpu_cs_find_mapping():
+For example, i915 has a local helper to handle the relative timeout case,
+and v3d carries a copy of it. This series moves that conversion into a DRM
+helper called drm_timeout_rel_to_jiffies(), next to the absolute variant,
+and converts the drivers that were open-coding either form.
 
-    r = amdgpu_bo_kmap(aobj, (void **)&kptr);
-    kptr += va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
+This series becomes particularly relevant as the new helper will be used
+in the next version of the series "drm/vc4: Switch to DRM GPU scheduler"
+[1]. With this series, we avoid another duplication of the
+nsecs_to_jiffies_timeout() function (and thanks Tvrtko for the suggestion).
 
-amdgpu_bo_kmap() returns the start of the BO, so only the displacement
-of va_start inside the mapping is added.  The page tables, however, are
-programmed from mapping->offset (see amdgpu_vm_bo_update()), which
-records the offset_in_bo the client passed to AMDGPU_GEM_VA.  The GPU
-therefore resolves va_start to BO byte
+PATCH 1 moves drm_timeout_abs_to_jiffies() out of drm_syncobj.c and into a
+file of its own, so that both helpers live together. PATCH 2 adds a helper
+for the relative variant. Patches 3 to 6 convert amdgpu, v3d, i915 and vc4.
 
-    m->offset + (va_start - m->start * AMDGPU_GPU_PAGE_SIZE)
+Let me know your thoughts about it.
 
-while the kernel inspects the byte m->offset lower.  Whenever an IB is
-submitted through a mapping created with a non-zero offset_in_bo, the
-two views disagree.
-
-Add the missing term so the kmapped pointer describes the same bytes the
-page tables do.
-
-Every other CPU-side consumer of amdgpu_cs_find_mapping() omits
-mapping->offset in the same way.
-
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
----
-Changes in v2:
-- Drop the Fixes tag.
-- Pick up Christian's Reviewed-by.
-- Resend standalone.
-- Link to v1: https://lore.kernel.org/r/20260806-amdgpu-fixes-v1-3-ce247012d4da@outlook.com
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index 5445f75741b5..17fe6d56e020 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1043,7 +1043,7 @@ static int amdgpu_cs_patch_ibs(struct amdgpu_cs_parser *p,
- 		if (r)
- 			return r;
- 
--		kptr += va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
-+		kptr += m->offset + va_start - (m->start * AMDGPU_GPU_PAGE_SIZE);
- 
- 		if (ring->funcs->parse_cs) {
- 			memcpy(ib->ptr, kptr, ib->length_dw * 4);
-
----
-base-commit: 075b74841bd0065a3bda3440873c747938e69b68
-change-id: 20260808-amdgpu-fixes-9ca10fa07e10
+[1] https://lore.kernel.org/dri-devel/20260712-vc4-drm-scheduler-v3-0-ed6dc4defa53@igalia.com/T/
 
 Best regards,
--- 
-Junrui Luo <moonafterrain@outlook.com>
+- Maíra
 
+---
+Maíra Canal (6):
+      drm: Move drm_timeout_abs_to_jiffies() to drm_timeout.c
+      drm: Add drm_timeout_rel_to_jiffies()
+      drm/amdgpu: Use drm_timeout_abs_to_jiffies()
+      drm/v3d: Use drm_timeout_rel_to_jiffies()
+      drm/i915: Use drm_timeout_rel_to_jiffies()
+      drm/vc4: Use drm_timeout_rel_to_jiffies()
+
+ drivers/gpu/drm/Makefile                 |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c  | 16 +------
+ drivers/gpu/drm/drm_syncobj.c            | 33 --------------
+ drivers/gpu/drm/drm_timeout.c            | 76 ++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/gem/i915_gem_wait.c | 17 ++-----
+ drivers/gpu/drm/v3d/v3d_bo.c             |  3 +-
+ drivers/gpu/drm/v3d/v3d_drv.h            | 10 -----
+ drivers/gpu/drm/vc4/vc4_gem.c            |  3 +-
+ include/drm/drm_utils.h                  |  1 +
+ 9 files changed, 87 insertions(+), 73 deletions(-)
+---
+base-commit: dc2f9f7fed1a8ea5290f9f60c6310d497e85e666
+change-id: 20260809-drm-timeout-helpers-55473e4879d1
 
