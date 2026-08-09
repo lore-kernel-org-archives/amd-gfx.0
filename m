@@ -4,83 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF612C5B56B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7EE95C5B56F
 	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58DF710E6C0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E70710E6C2;
 	Mon, 10 Aug 2026 06:42:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IFxOaEcR";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VL5J7qE3";
 	dkim-atps=neutral
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0762110E021
- for <amd-gfx@lists.freedesktop.org>; Sat,  8 Aug 2026 12:11:50 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-2ce7d2adef4so6266125ad.3
- for <amd-gfx@lists.freedesktop.org>; Sat, 08 Aug 2026 05:11:50 -0700 (PDT)
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
+ [209.85.215.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9BAE10E05B
+ for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2026 05:13:21 +0000 (UTC)
+Received: by mail-pg1-f171.google.com with SMTP id
+ 41be03b00d2f7-ca766c1c9ccso441875a12.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 08 Aug 2026 22:13:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786191109; x=1786795909; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=qqtodrANULHy2HebqvyH0gpSUnDrF1cP92+56xd0b6c=;
- b=IFxOaEcRABrCwxu+m9I5y17uFiTiKh6aa0dQaqgiinMoGmEMA8cFaTs3WkLzouHmHo
- sgWtv2kVBkiwGr4YHid0mA0/+oq5+vEoWq4W9OxQ4IgMD5OQ7L555VeKuB2yiEXmDRIz
- T7XLL6KF/nQ3r8vcIdfPW/QRmyXCHmGm50VmGGjK9Mgz9lV6qYjjuu09PUxx9aNwnnOq
- dx7HlVBmr9jybSUtEbHJK1Ey9rQZ4EmN6E2clgb/L6mo+k5zbVf3OzMey+W6QmZghP5O
- PZ9H6YOkAuXGcaj9AMekVLxMJL0x1IKaWIXismZEUZqSSLSntelVqgayxeoFXr8XFR28
- ZOvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786191109; x=1786795909;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1786252401; x=1786857201; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=qqtodrANULHy2HebqvyH0gpSUnDrF1cP92+56xd0b6c=;
- b=cPoA3U8OMrn+NqtlDOzQhvItQp4xZpEXFwzo0e7ap+i/No1IQDWRprnJi76txeRJWs
- izoFTXFlXtB4aKXOLlPIdr7NSDsXcuHOWT819APi/T0pe2mh08AH+CTLx1iFFZ3fzEBt
- hlcfjYbcqOqV0ci1if3pd0zFCdSGn5DeFZp/OEQz55dtTarUqGHJTNxE1pMXuTdtbRMo
- hcBEhGqonfQqOsHIL8OPNe5ttv1m/oD1ldjiHrSiFnMN7nMGgjy56oduhrO2xweBwEEc
- Y/VQS4HfAuSF+iYjSO0im7WJYlCGpMDfeZPwOaJzQovS6grQkEgVP05wL+E4ogv5yP9V
- 9KUw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqRWORwaI/ViXeF4+mFKxfbo/ajWiKR7916mCx3qZLX9B0SybBFPEY0X6ZjRh/yNLjgWDIDhn+O@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwFucxdZiidgKFWH1Cby0eK1FStc4T+f2X0jfLHPEH0tyDon7pH
- HdkGryqzDLxcSeghbohysS0Dx4ce8LAIBmtbeNHEAHyxmcMEQlRVv0zh
-X-Gm-Gg: AR+sD123D7IAIoqqflKxltoTa1Edbvfnk+bb1yv5XoPI1Dksbxn/am27qgCayQu6xG/
- P/ghRdqEabMIFcdtmdV17WrH4jRqqI5eN0rjdpDpmRh+R3kHMWaM+AHV6skBWAGMf46rCOsb+KF
- Y3CF3lxRIQieDSm9AquPywtGfe1F7A1kITS/MFC/GKqZ6HOIFrxkqE24w0GFuA028393sUTAy1B
- /nYkPSdyCf+2WRAo36WRRtpvwAJY7cem5/TItBWmHb0ehbOWA62YayIPs2X4KmeZ8ij8t1Dw/LA
- towNYsBEhhzHHHjFHDfD+XGjewsUicglMzExK16GNC8SD7xz6+b+U0qKqgZwQ1r8lMiw/hMG+Ek
- op2J6bwTmO9qWETYLbuufICTXP6aHpq5Dk7tdwJfMKQlWK+WNkPMrHs2rUA3AsiAetqpRzzOaJ0
- JoS1cnH56Ms1W54JwU7b64MKpo9PhWVxzssTM1RsIzBlg=
-X-Received: by 2002:a17:903:2383:b0:2cf:4544:104b with SMTP id
- d9443c01a7336-2d294b29144mr139478015ad.5.1786191109424; 
- Sat, 08 Aug 2026 05:11:49 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1000::f280])
+ bh=Mqhs7Zhem08+gKWpC13qqFjQ+/RUK8tqoU89vwfPtBM=;
+ b=VL5J7qE3qxFHU6hRo12QC3WduaqsVFW1092Adb+6YaljE5Py95gMBziYJoJqo28z37
+ 4Kc92fod4vocr9Kiv7aSkKbiLAx/YewZH3703hxNlSKmweNg/ScobbxV2ZwyJ/PC6Xv/
+ 6Sm5lEZLsaMgaqldHory4vXpleo287di153HXaAoIT/KQx8jmx6k5xupGQ6frGi/ItjM
+ hzN6foZg1oeDEcTFOIThDXi44HTL3tA5KR4g0GzL8U5I+RSmceJVJWkYTfWw7LgPNN1u
+ 7dB982gr40nakYYPyVlMRnWLvNZruvPaJTRVT2eovoh/pbiIbVwN9h5HZzyplrwGuUjh
+ CWUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786252401; x=1786857201;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Mqhs7Zhem08+gKWpC13qqFjQ+/RUK8tqoU89vwfPtBM=;
+ b=AVFBZo490dN3GuaRr9X1Vzl1Rztz5KhRLFcEwfSM4uC7V2GHbJo0Mqd0wpajzzWmr1
+ KRy8qnbfyABQy7lnShaDpzKp0L6OG9RsKd75DrHaUcQA+aSGi3nPmOvmmgQ2dd95piTr
+ beO/BioDtAxR++68SB4c9ix/l1D1oL0JVZW2Z4Lva4j+ozsOewU9wy8mInQXtAv3Mnzd
+ EyvTVhXpe4n5FvKD/0CCWTH2G52eH9KGZYtpuza7lfVeuvIHx0DywapOOQtQskdDk6sP
+ PMjhWBKBVKq58ROVl0JhPszBGS4oNzES02rqIjbk7ZeDhaRKsdVgCPmnZrcHlH8UfPaj
+ 9INg==
+X-Gm-Message-State: AOJu0YwAfu4q7mJCD550bpBY6kP0Pb4DV9JejhpWTyflkIaNiNnV1YBT
+ UUX1PRBCII8RkHfz2hzRwQD2b3B4C8n3PyTz7WuDcnrsHz2lZfyR3q7K
+X-Gm-Gg: AR+sD10iG8/muQz1v73FxlEOZgvOKDnYBEXrCmr74MDg6w0xyl3zJvEIWfvNtj59QrH
+ bRk9Bn+hwtwPRGQoy8U3cgIlKRbX+BJqtzjk46SxI0a6PjOzsP6au+0Emd2UNBpxncXBBt5u40e
+ qe7gUCRfmTDdrCwxbPzPA9A0VXawi7CRv+Th4Iz30alT982wfVa5eT1qVa+v/sbVJtcKADbE3YO
+ TZuQAWG+cV0P2BBIu8OitL0GTLp7eAXdTNOUBJHngnVU39RiVwx2/IPXvMiaWDxfaeXCf1BPgv5
+ /pW7uIYcRdYWpCIbwEsY/+McEncLkqWk8Hfc2uBwx441Uz34w5HNkDb39dkwGn9gIhlUBqJ3TpH
+ wIIsv0ja6xsJJBlemWxTz9Zf0nQFLq08byUMvT5rCrkHAzWRre6MAMBICQqYEay10od60amMvWY
+ I1Oc8hBYcKfySU0u2LLnT79/nAtTD+C5h6iSsLy6WoIkM3kVmUo5RIqNDVla1g9DRqfRR5Moifd
+ TPzJ4T5+b+/OFzYKDgSh2k=
+X-Received: by 2002:a05:6a20:9e0e:b0:3c3:66c5:68cc with SMTP id
+ adf61e73a8af0-3cb85efa4f9mr43331123637.21.1786252401232; 
+ Sat, 08 Aug 2026 22:13:21 -0700 (PDT)
+Received: from localhost.localdomain ([103.178.204.108])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2d14dbedec6sm18151975ad.44.2026.08.08.05.11.44
+ 5a478bee46e88-315be8a7395sm27095702eec.9.2026.08.08.22.13.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 08 Aug 2026 05:11:48 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Lijo Lazar <lijo.lazar@amd.com>, Ivan Lipski <ivan.lipski@amd.com>,
- "Jesse.Zhang" <Jesse.Zhang@amd.com>, Jammy Zhou <Jammy.Zhou@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: fix autosuspend cleanup during removal
-Date: Sat,  8 Aug 2026 20:09:34 +0800
-Message-ID: <20260808120934.2813010-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Sat, 08 Aug 2026 22:13:20 -0700 (PDT)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Subject: [PATCH v3 3/6] drm/amdgpu/aca: Fix inverted validation logic and list
+ cleanup
+Date: Sun,  9 Aug 2026 05:11:57 +0000
+Message-ID: <20260809051200.3276-4-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260809051200.3276-1-sreekuttan2156239@gmail.com>
+References: <20260809051200.3276-1-sreekuttan2156239@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:03 +0000
+X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,45 +91,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_pci_probe() calls pm_runtime_use_autosuspend(), but
-amdgpu_pci_remove() does not call the matching
-pm_runtime_dont_use_autosuspend().
+aca_handle_is_valid() returned false if !list_empty(&handle->node)
+evaluated to true. Because active registered handles have non-empty
+nodes in the handle list, valid handles evaluated as invalid.
+Consequently, amdgpu_aca_get_error_data() returned -EOPNOTSUPP
+whenever aca_handle_is_valid() evaluated to true.
 
-If the autosuspend delay is set to a negative value while autosuspend
-is enabled, the runtime PM core increments usage_count to prevent
-runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-during teardown, this reference is not dropped and usage_count remains
-unbalanced.
+Fix the logic in aca_handle_is_valid() to verify that the handle is
+non-NULL, contains a valid mask, and is currently registered in the
+list. Update amdgpu_aca_get_error_data() to check for invalid
+handles and return 0 instead of -EOPNOTSUPP so non-ACA blocks in
+global RAS queries pass through safely without breaking error
+telemetry.
 
-The documentation for pm_runtime_use_autosuspend() also notes that it
-is important to undo it with pm_runtime_dont_use_autosuspend() at
-driver exit time, unless runtime PM was initially enabled with
-devm_pm_runtime_enable().
+Additionally, update remove_aca_handle() to use list_del_init()
+instead of list_del(). Standard list_del() leaves node pointers
+poisoned, which causes !list_empty() in aca_handle_is_valid() to
+evaluate to true for removed handles, leading to a potential
+use-after-free during device teardown.
 
-Add the missing pm_runtime_dont_use_autosuspend() call to the remove
-path.
-
-This issue was found by manual code inspection.
-
-Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 1aed121f4ddb..e814701bc8fd 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2548,6 +2548,7 @@ amdgpu_pci_remove(struct pci_dev *pdev)
- 	if (adev->pm.rpm_mode != AMDGPU_RUNPM_NONE) {
- 		pm_runtime_get_sync(dev->dev);
- 		pm_runtime_forbid(dev->dev);
-+		pm_runtime_dont_use_autosuspend(dev->dev);
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+index c76664af9902..06cb3ad1ce62 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+@@ -586,10 +586,7 @@ static int __aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *h
  
- 	amdgpu_driver_unload_kms(dev);
+ static bool aca_handle_is_valid(struct aca_handle *handle)
+ {
+-	if (!handle->mask || !list_empty(&handle->node))
+-		return false;
+-
+-	return true;
++	return handle && handle->mask && !list_empty(&handle->node);
+ }
+ 
+ int amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *handle,
+@@ -599,8 +596,8 @@ int amdgpu_aca_get_error_data(struct amdgpu_device *adev, struct aca_handle *han
+ 	if (!handle || !err_data)
+ 		return -EINVAL;
+ 
+-	if (aca_handle_is_valid(handle))
+-		return -EOPNOTSUPP;
++	if (!aca_handle_is_valid(handle))
++		return 0;
+ 
+ 	if ((type < 0) || (!(BIT(type) & handle->mask)))
+ 		return  0;
+@@ -717,7 +714,7 @@ static void remove_aca_handle(struct aca_handle *handle)
+ 	struct aca_handle_manager *mgr = handle->mgr;
+ 
+ 	aca_fini_error_cache(handle);
+-	list_del(&handle->node);
++	list_del_init(&handle->node);
+ 	mgr->nr_handles--;
+ }
+ 
 -- 
-2.43.0
+2.54.0
 
