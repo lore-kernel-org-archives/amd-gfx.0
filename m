@@ -4,76 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8F85C5B567
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05925C5AC82
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFEDC10E6D6;
-	Mon, 10 Aug 2026 06:42:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69E1810E6D9;
+	Mon, 10 Aug 2026 06:42:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PqKi0mzT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LY/ZRSiG";
 	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43E0910E10B
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2026 08:49:08 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-2cc73e322dbso8550805ad.1
- for <amd-gfx@lists.freedesktop.org>; Sun, 09 Aug 2026 01:49:08 -0700 (PDT)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3531010E11F
+ for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2026 14:46:17 +0000 (UTC)
+Received: by mail-pg1-f176.google.com with SMTP id
+ 41be03b00d2f7-c999f162c9aso578006a12.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 09 Aug 2026 07:46:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786265347; x=1786870147; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=A3BeIAtfJ2/omVu82I5VMk45uIa8CTiHrIT/44X40ds=;
- b=PqKi0mzT9RpvT/V9AP9sOZFv+LpVKzN8uZOIebDxh/KHGIGOTlYLRheWVA3Q5AyZv7
- VXLjK2NAbHY4f5Q+dahSg8/zUh26z48Cp+XDQomTQh9LXN1kjshRDwFGKHrfXfsXAMJ9
- yj/c/u2N6mrgHW5yzOi3tCEA4GT/jfHhQgjbcKsOcmDPTHuO3ldHZGN+edYYGbE+xSKA
- 9TG0ZU4w42+kQhzBjXRx0Ot1CIWYt1rD912SRAVDr3bBGm8XL16jwb6qIEocbOmUJ9nm
- SO2SMQ1c/MXB60sJ7mIDaG1UrJgcT7IeOjMRu2FkDB3ClnFrlwIaDBZl4jpvfdI8Pbej
- 4W0Q==
+ d=gmail.com; s=20251104; t=1786286777; x=1786891577; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=sLtiiUZZXVNzDzJlTEnHgJIHbIC7FJbLG16BtntNSAU=;
+ b=LY/ZRSiGl7HitrMYIRiGhdkS+bT2zY2Rc81hk2dS6cFM5uKPF+oLKzXldDmJ/L3xUc
+ 5wbrTn08WzTrfuSe1g015RSme4rTyvUBnxQpjixO+Eo5zqJKUmG4vFlv5ujXU2cY7Aub
+ fddVEBunMGkwSQ2EABpoFL6nYblkoeZZWI13qRsJNCTq5MN2lFONoJa6PTEPtE7hCEmu
+ i9mkCUGErTn731Z3oI6AOekj+SRVHlXELSPhG3M7kbyvnu1Ssj5/fQwwl5sIadlmw8Oc
+ 3hqvIwfVj5n/RTQpFF392tf1Rw/02t8xJqprwuOuvabtciHZ5UpGWvmOD4wNJWRQkNVc
+ IXdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786265347; x=1786870147;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=A3BeIAtfJ2/omVu82I5VMk45uIa8CTiHrIT/44X40ds=;
- b=aFRvASG5N3YSOk6IV5ZfiPFKmtWkYJ3N88CkKDK4YWSc10BZfb+MAQOaK0k0DbAdbD
- D9rTumvvQVsjixv8MycBu+vk/VaKJL0w5VX7JcB8db9SeuXGKZ+7KQmGxz6erN59eUlq
- xfsInQcYQ1XJy/sfi/L7IFUtdoRNyaJYwwQ8HOIn8Coj5Ll/K4CmCj5oApitr0UwmoGk
- fbkPg0WLux5rGBMBd3ncC30GKCumssgi7BJ9na/6icrMo0BM7maW4s/hghMQGzfbVkE0
- 4zd4bzxBwOe3ay8nF/+Ey+dUuL5GRV1nsM91upwsJUF62ZjZyO4lO/nivnS38t9uCpFR
- sD+A==
-X-Gm-Message-State: AOJu0YzDH05S19IWEFdZT5M/UHVbOZ1WMQO/DWts0AVTaYKDuYMjjXoM
- SGqiRiyxKUph0+NYuC9zk0XiJ8b9RgvWnMTonO7I+g23ZNFA85QMFVAY
-X-Gm-Gg: AR+sD13W50uX1hWE4OYfy27Vte5bB89mB+DDn58WbkL9bYtmNAURKhYIiD+btwwpx0+
- RnEMm5gmTJ/BjXApAPXogHUzNN4LPF5y06Ky9K1kVqfIx4ELfuPaJiqLYxx3rSfAGdcmd3kW4kS
- 8aK9/rcF+gm9t+HMPdpAddRTK9jaQPszNxiszsMVxOWBb/4X6RAsH1Ag/OuHuwhcEPart7H5zip
- Z9pClS/RMj6p7dy/wEhmHSFsBDct4ozUwI/Wzg4xZoabw41glItQmKSLUICrdEjlpOvXCJWzgga
- FvokOpC39FVd36gC/ky38TXGvXf/kdsr+3P3NM9K16sm07skH/2h9UaCVrtjyvXv2fQGq9PV5hQ
- cLdwSfaJ+19BIHNRZLrgQr84wJae5B4eIkJY1XOwdkDyCOldPQJHqtj9p3WHGW7XBkKwbzKWkm+
- 1p7nJIP5AbJxlw4r7gqRsUHZVIYbpK3bPve0seF9I1QPTdzDl3lq+A43AkcM4AO3IBovnMRAevy
- XGxpcryELI=
-X-Received: by 2002:a05:6a20:9e0e:b0:3c3:66c5:68cc with SMTP id
- adf61e73a8af0-3cb85efa4f9mr44179451637.21.1786265347177; 
- Sun, 09 Aug 2026 01:49:07 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1786286777; x=1786891577;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=sLtiiUZZXVNzDzJlTEnHgJIHbIC7FJbLG16BtntNSAU=;
+ b=Q1AywkYQnoHjWoDlxNUrJjjUbF2W3cqiBOpRIPLd9GbPT1iux8o83a9MW3j0XltMw3
+ PBbkajjXiDJPZbDjAiTSoQH57QnmyIyFhcIoq0+UP2DJIZFH4IzvWf9tRofXTFYZ1Xc+
+ bGy71qUue+zmvPZ+L3vREH1LNkYlHHEZ/zjV9oXqZ7989dTEgD0NRf4gHvybQItlWiS4
+ XCVknVaKgiovJZD9F3O7zLyTUhO1ZXYiHrIogwi1gOu679c4OyA1ee0cX7hWwt3844rg
+ E1Nw52HmX9bkP35F9tM4PXtpP8hamP1wKyqIHe1CZ3n9duWZ4a1f1VFqmXYF/9iSuk0m
+ Ix0A==
+X-Gm-Message-State: AOJu0YzOHKQiXrQqGpGw25h8/Y8N3IwIgMZrBBwcdP8rLW01mLjuDWMN
+ 3OpiestwwLokoFkVHYrHFcimbTQfpdSB2Cf766icWZZwbZZDXYgYw1gg
+X-Gm-Gg: AR+sD13epNlqQnX2lByDr9zjXHVFbxejeAmkEoAfs2lrXT3gwdDGthoBeBCPamtYFIy
+ 2CzV29B6LgJm6Rftckm1e0cq8mBCQPb1GEZW6v98u5+XpmBQWc4LgkVhm0/zT968ianw+Zn5WLl
+ ADCtcZODTpOfQ1gmx5l8Euq9jLm//Q1Gror4oAq72IcL3UDYew3E+vnXlzgEQ3RCB+J0HHukqeK
+ Gy2nUFf1sYwBbxAdfcnGmpbBmHHi+BtDY1uMDeZrGvHoYr8tSQLfkaubd3fffFlS8DqCIfeIZNS
+ bJLcxV0KJGnhacG9JMTe+9RsasDZWcK1pqy3mB9j8ehC3eqafnEeYKzN/5jDMTRx3fVb8m0PJs0
+ UexaP6sjGf5dcIhbis6aRg6LIqsC1Didt8lKtUGv8ucmpOJkXjd0Spk37ypqw2vDbFwvq+INvOd
+ RRNG67XwvGBXAzjUlxxLtb7uYfCWB+5YRJ1erYXMrnRvI/tbrl1ms73H6nMNnaYPy9vJ/9v8Gsv
+ lN+mMuK78s=
+X-Received: by 2002:a05:6a20:4309:b0:3c8:ead5:bf7b with SMTP id
+ adf61e73a8af0-3cb85ded991mr39942065637.4.1786286776550; 
+ Sun, 09 Aug 2026 07:46:16 -0700 (PDT)
 Received: from localhost.localdomain ([103.178.205.91])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-315be86fc7bsm28800025eec.1.2026.08.09.01.49.03
+ a92af1059eb24-14101b7ad29sm25911224c88.13.2026.08.09.07.46.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Aug 2026 01:49:06 -0700 (PDT)
+ Sun, 09 Aug 2026 07:46:16 -0700 (PDT)
 From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 To: alexander.deucher@amd.com,
 	christian.koenig@amd.com
 Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
  Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v4 1/6] drm/amdgpu/aca: Fix race condition and UAF in error
- cache logging
-Date: Sun,  9 Aug 2026 08:47:30 +0000
-Message-ID: <20260809084735.9743-2-sreekuttan2156239@gmail.com>
+Subject: [PATCH v5 0/4] drm/amdgpu: Robustness and safety fixes for ACA and
+ RAS drivers
+Date: Sun,  9 Aug 2026 14:44:47 +0000
+Message-ID: <20260809144451.35431-1-sreekuttan2156239@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
-References: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:03 +0000
@@ -91,84 +88,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In aca_error_cache_log_bank_error(), find_bank_error() released
-aerr->lock prior to returning bank_error. This created a time-of-check
-to time-of-use (TOCTOU) race window where a concurrent caller of
-aca_log_aca_error() could acquire aerr->lock and free the bank_error
-node via aca_bank_error_remove().
+This patch series addresses race conditions, boundary check bugs, logic
+inversions, and teardown ordering in the AMDGPU ACA (Accelerated Compute
+Architecture) and RAS driver subsystems.
 
-When execution returned to aca_error_cache_log_bank_error(),
-incrementing bank_error->count resulted in a Use-After-Free and
-potential kernel memory corruption. Additionally, bank_error->count
-was updated outside mutex lock protection.
+v4 -> v5:
+  - Dropped former Patch 4 (NULL check on banks parameter) and Patch 5
+    (snprintf buffer size adjustment) from v5.
+  - Patch 3: Dropped invalid kfree(handle) from remove_aca_handle()
+    since ACA handles can be embedded in ras_manager. Removed non-existent
+    mgr->lock references and retained list_del_init() prior to
+    aca_fini_error_cache().
+  - Patch 4 (formerly Patch 6): Retained the original work cancellation
+    order in amdgpu_ras_fini() to prevent work re-queueing, while moving
+    cancellation prior to mutex_destroy(&con->page_rsv_lock) in
+    amdgpu_ras_recovery_fini().
 
-Fix this by acquiring aerr->lock at the start of
-aca_error_cache_log_bank_error() and holding it continuously across
-lookup, creation, and counter updates, while removing redundant
-internal lock acquisitions in helper functions.
+v3 -> v4:
+  - Patch 3: Moved node unlinking prior to aca_fini_error_cache().
+  - Patch 4 (formerly Patch 6): Updated the subject and moved
+    cancel_work_sync() and cancel_delayed_work_sync() prior to
+    mutex_destroy(&con->page_rsv_lock) in amdgpu_ras_recovery_fini().
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 18 +++++++-----------
- 1 file changed, 7 insertions(+), 11 deletions(-)
+v2 -> v3:
+  - Patch 3: Updated amdgpu_aca_get_error_data() to return 0 instead
+    of -EOPNOTSUPP for invalid handles, allowing global RAS error
+    queries to safely pass through non-ACA blocks.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-index db7858fe0c3d..d0d473082431 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -237,10 +237,8 @@ static struct aca_bank_error *new_bank_error(struct aca_error *aerr, struct aca_
- 	INIT_LIST_HEAD(&bank_error->node);
- 	memcpy(&bank_error->info, info, sizeof(*info));
- 
--	mutex_lock(&aerr->lock);
- 	list_add_tail(&bank_error->node, &aerr->list);
- 	aerr->nr_errors++;
--	mutex_unlock(&aerr->lock);
- 
- 	return bank_error;
- }
-@@ -249,22 +247,16 @@ static struct aca_bank_error *find_bank_error(struct aca_error *aerr, struct aca
- {
- 	struct aca_bank_error *bank_error = NULL;
- 	struct aca_bank_info *tmp_info;
--	bool found = false;
- 
--	mutex_lock(&aerr->lock);
- 	list_for_each_entry(bank_error, &aerr->list, node) {
- 		tmp_info = &bank_error->info;
- 		if (tmp_info->socket_id == info->socket_id &&
- 		    tmp_info->die_id == info->die_id) {
--			found = true;
--			goto out_unlock;
-+			return bank_error;
- 		}
- 	}
- 
--out_unlock:
--	mutex_unlock(&aerr->lock);
--
--	return found ? bank_error : NULL;
-+	return NULL;
- }
- 
- static void aca_bank_error_remove(struct aca_error *aerr, struct aca_bank_error *bank_error)
-@@ -306,11 +298,15 @@ int aca_error_cache_log_bank_error(struct aca_handle *handle, struct aca_bank_in
- 		return 0;
- 
- 	aerr = &error_cache->errors[type];
-+	mutex_lock(&aerr->lock);
- 	bank_error = get_bank_error(aerr, info);
--	if (!bank_error)
-+	if (!bank_error) {
-+		mutex_unlock(&aerr->lock);
- 		return -ENOMEM;
-+	}
- 
- 	bank_error->count += count;
-+	mutex_unlock(&aerr->lock);
- 
- 	return 0;
- }
+v1 -> v2:
+  - Patch 3: Updated remove_aca_handle() to use list_del_init()
+    instead of list_del(), ensuring list_empty() correctly evaluates
+    removed handles.
+
+Sreeraj S Kurup (4):
+  drm/amdgpu/aca: Fix race condition and UAF in error cache logging
+  drm/amdgpu/aca: Add upper bounds check in aca_bank_hwip_is_matched
+  drm/amdgpu/aca: Fix inverted validation logic and list cleanup
+  drm/amdgpu/ras: Fix delayed work cancellation order during teardown
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 34 ++++++++++---------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c |  7 +++--
+ 2 files changed, 17 insertions(+), 24 deletions(-)
+
 -- 
 2.54.0
 
