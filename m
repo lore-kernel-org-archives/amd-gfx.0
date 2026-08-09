@@ -4,79 +4,154 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CD510C5B571
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2310AC5B56E
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 76FEE10E6BD;
-	Mon, 10 Aug 2026 06:42:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECBF010E6BA;
+	Mon, 10 Aug 2026 06:42:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Z8FiYSzT";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="UtdosKga";
 	dkim-atps=neutral
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7C0D10E115
- for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2026 08:49:58 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id
- 41be03b00d2f7-c9ef3e1337fso620915a12.2
- for <amd-gfx@lists.freedesktop.org>; Sun, 09 Aug 2026 01:49:58 -0700 (PDT)
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
+ [209.85.160.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B0E6E10E3C7
+ for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2026 00:51:22 +0000 (UTC)
+Received: by mail-qt1-f172.google.com with SMTP id
+ d75a77b69052e-51c10e86e52so134731cf.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 08 Aug 2026 17:51:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786236682; cv=none;
+ d=google.com; s=arc-20260327;
+ b=iooCOBP5Rl8Sh/2vfUO2Hka6azhS2Tz2Op8l8DbfDetGsvPEjLsWk7kosQiznSDGYq
+ eqRx8Xmy63i0XUN+Z8mNFhgOhC07Uo2HbOfure7W014N/5H1Wn+UzX1wggjG1+UFGage
+ JYIDznrrt0tt0woyNUiVWTi0HXi3AuzlcTrYrG/BGQIhRG1d3s4mdvdqtUDqALLH6tLV
+ jhAYjTI7KwEioQNhXb9on8T5g1KVvSJMna6aSM4rqdd+yICT0/hE7uB6jIxiHkzUlhPm
+ +wDbWp5qBFLVIorNstAk6JJlMNQS43ZSWkWG3fMwBb0WsfA7PI5dW1LosJsS+y4HASAs
+ /bSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=5t26LPlL2x6rRQWr8/8g+glnpY16lnjlFmjLTvMppKc=;
+ fh=HOq/M7J6tfWUlonkNkK0onvQh3ROOJ+7QlpYuu37a/8=;
+ b=Bnk52aaDqU2FVPKITDzbUWoFD7CQ0c4WnafxC0fxtBHH6Dv6dXiaI8LYL52PeprEyp
+ +sh9paTBPPI7EtDrsty3FLFd54IBFOUBfzkLcU4rS0D7o4XoBakhzBRyCfnZ5I8+NA7O
+ 1+vqZfx1pv0QEKNiPUm/bfeJjlg5crNAGcT3qXgxiPY93n4NeADn4QmpDS+W0JyYoEJA
+ g8wmCy+lCXAK42i7QazWNmvafoiuT9VmBqRRfKnTXa971o26Ey653sE6id/TfkJ+i8Qf
+ 2EpI/jGDRbF5CqN1zLZqToyeGTwmhqQ8E1KsnWaAEKYxGTlsm2lRXq1CstHGlDVlShqH
+ p/zA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786265398; x=1786870198; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ohuKFNYedefwgEV1kOLtJZIOQiLf64k0Qg77YlHmp8s=;
- b=Z8FiYSzTCEovlS+3L/EvVq87R7B+nm43iAuTyX5TCujgT5FdJWC7PmrXRLmcmifbxr
- QJq2zvIZlgBZ44qDHkLqluqJGVFIAEgxZpv2XSnnMH1EHHTn0u9+zd0TzE/V9LAWIUFr
- h/J79rIv0+AHgRFr2V8orei5SEdDM5A3R9MtYSF2aJurloLX5c66kuCpEafItVikadXY
- jWfJG9sgwiZ/PM7+6zn2v4+Ani+MUzTWg9vvj+d/k4jaxXZSGl7osICUGuQhqnCtLCB1
- U3SjVV0VpHlZrFNYgab4VJ1SXKitFIz48Ay0WUNAxuay7ht1nDE3mBr+Xpae+R0zCbB4
- 4JSg==
+ d=google.com; s=20251104; t=1786236682; x=1786841482;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=5t26LPlL2x6rRQWr8/8g+glnpY16lnjlFmjLTvMppKc=;
+ b=UtdosKgaJEa/ycrZmFSMbHmkbVI/FIeVVLnZBQfcg6LrBWg5y1Z64cqhquiShRKeCJ
+ 7URg6DzjfHjzBBREjpNdxNGOxrOckxoC/dFe0geS729KL0KoVw1kyi/bVHZSYIL60DSz
+ qRZza1vXX/MvtoihRRrVCsx3OnsE5sGfxUmaDs8Y100iwT6SEfRFx/+lLmaJ/jvvywk3
+ 448bb5Ys0uVnOdRR6YBIIlKDOZYUxLCgYKR3QMQ3aoM3bcqPqQ2S9/MGFwRi0KDLBiai
+ WYga7axH9kN/jPBKgD7qX6UmMzPBCzAKeYLjo59wxsIqvsRfkGShelt2Od6KNrjpAEYQ
+ Qqzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786265398; x=1786870198;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=ohuKFNYedefwgEV1kOLtJZIOQiLf64k0Qg77YlHmp8s=;
- b=E7nI1M73c/Ed1szD+rpMNC+Cpr48N696QwUwDZYtNg8m5xrF11GL0hcguY125n6e9K
- tuOzOq9mSs9pYGS11a1jcvEOvwqQQz+1mD7l1685mC9TQi69poMoQxs7ycEJ0DiHuE1E
- QakgntMZU5QcHmey9fXMzSrdjFb6D7fd36MAbsAgN1eznhPMqVInQoZNGjBSPL1lTPZK
- WzxnESa/Pxg933dqg7pG7xpqXDGYE9rIinOdi/gFSgtxEBxxqgQHEcqwZrM5xnvsMwuT
- axNO9n4jGoj9KcgzCYw7ZulirYHvDUwEM5QOXoIv+tyNcNmop+Mg2xcFELUOz6ikpUi1
- StmA==
-X-Gm-Message-State: AOJu0YyIwHOpwxQufAb9k9wWkwWWxgKx811YHII5+52W7KZgJMQUgySY
- IwFFGVDvpdD0POjg1aMq154+ZgToPuItmSmHY09/1QdFSE4QcdtYUlMW
-X-Gm-Gg: AR+sD13XaffqgeTRjk93BVtSrJlLTVmmPxu11YOY+bOd8PTKRAluC+uPdiZTm7U4FiV
- b9ocbOLa7T7ClgJzrT8iAL/UDZbhxVPNQ1HI60K9FX96++M+nauAMPnAv6MZBsNdqiOBX9Lp9OB
- CDmkLy/gFCSqYMOmgBU3zvHyguQqSSoqtLeKt0xNOtzi8L2e7qBhorm3IdyV/yL3NkG/lfMjr47
- lV9wlQcTAvvQmZdeityaurAQeuO/+CRUNE8o5f4F6aYw/Y7DpTsUmOogEXnz8xveVWmxw4XvB8n
- HIRwRYnWQuvh9IbzWVO1p0YyKQ6+FCDntiC5qzysM5m7Hp5wWR/SIvC0TdZDz4anUJfuB+g2ev9
- 4BsPof0UKSg5oZq1XL1MK+4+5bd0KZ7q4Wzg8rNRTx+8Iy6+GDUff/wElHBux8TI3mq9d0lA3Ce
- nCYHoGb6XtU3RyeDdFuHqBZuP9IuSzOZyulHxNot82DfaewIRk57ApwlRZqa954Ku8iyJDSLtbr
- zU0QNhHUik=
-X-Received: by 2002:a05:6a20:6f02:b0:3c4:511e:26ab with SMTP id
- adf61e73a8af0-3cb85ded984mr46153927637.3.1786265398022; 
- Sun, 09 Aug 2026 01:49:58 -0700 (PDT)
-Received: from localhost.localdomain ([103.178.205.91])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-315be86fc7bsm28800025eec.1.2026.08.09.01.49.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 09 Aug 2026 01:49:57 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
- Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH v4 5/6] drm/amdgpu/aca: Fix off-by-one buffer size parameter
- in add_aca_sysfs
-Date: Sun,  9 Aug 2026 08:47:34 +0000
-Message-ID: <20260809084735.9743-6-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
-References: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
+ d=1e100.net; s=20251104; t=1786236682; x=1786841482;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=5t26LPlL2x6rRQWr8/8g+glnpY16lnjlFmjLTvMppKc=;
+ b=JIFp/GUgrvDqgwApvSlrL03AJhZ1UVKTxPIj7lynlQnDcEa/8BuQmAcq9cUQcukb9h
+ Yn/X3nrWIx/95SpzCw0e16vlG68V8z/XY+pFM4Cxi742wJWwIP+Yn5wZ8JismLDLGJTv
+ BpvI9hdsQhkERJRvsBz0qqbMkKksnJirw9qFKCfsW7DtM6QcZsvMIVOyPDP1l1cNoK3C
+ mFsbmB2Dw+QgfeVsbb/65W+X90g+Wmzdhy7k0YpP6iN+RQf2IdGE9ppbC86fhsVZenbw
+ 7R59jpY0wv2tukMC+ptm43BizG914c4GDh8YWuVWivwF6Fr38imXsjGivvxby0Jluk9x
+ 8b4w==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqjA0S9X6FTkOoCoEfryVFTztgtNP7NVaqzLewfm1jYxhq/z1CJJ20F1+gRg0xflMxW4w8NW3k+@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzXkG/+vLyAI1NyzYeljeFX+RYKRy/iGiYl2gUOHDV9jSS20LDH
+ rA4wMGd8CHnRnb0fdvmjuKOiSfuWlGXZoQ7AynitHDTpheuz2akLMw0/cZDUWn2TPO2WhNZEbFr
+ /tCL7nlXkqA+ja93GL7wO3Aa5ZjC9gRZdafp8W0BB
+X-Gm-Gg: AR+sD13M0EtGeQsziQURDFOsQXucn7T25MNFZz6Q2PpKFHMQRgHCzwWvs139QkFVGsD
+ gPX1Q/DYI5UK9BNkoRxuMtEhAQsPklTIhako2eNg+fnsfyJwUVXQjYWSoljzeRY09DK9zDWMO56
+ X+MxnnOP8KUclQR74VzIqUvZWKuUOPIKQxe1KcOdEuqQKa+uRySDO2cjEOTUfms7V1+wPZnHBUi
+ GAZy8YGq8CfAwm//UMJJp0d59S67d69z6+wUqevBpY1rA+6q0BZJSVqZIROA1DRQTjd83Z/AasY
+ JdM/f6emtTno62hm4BMnPu7LU7tmmDCWXQV1jK6Fnk4=
+X-Received: by 2002:a05:622a:2c2:b0:517:5d71:84e5 with SMTP id
+ d75a77b69052e-52d28104052mr10844831cf.5.1786236681095; Sat, 08 Aug 2026
+ 17:51:21 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:03 +0000
+References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
+ <20260806-b4-scalable-cow-virt-pgoff-v4-1-ab318a350404@kernel.org>
+In-Reply-To: <20260806-b4-scalable-cow-virt-pgoff-v4-1-ab318a350404@kernel.org>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Sat, 8 Aug 2026 17:51:10 -0700
+X-Gm-Features: AUfX_mwrAfErRpWaGdsaXjFbVsuLxmBdhaCS8dBRSF7bNpazo-ZM1X1L3isxLV8
+Message-ID: <CAJuCfpFAA1H2pOi6EOarNtrdzLQDJyhm6QOGsfZ4SFTuM5eiLQ@mail.gmail.com>
+Subject: Re: [PATCH v4 01/20] mm/vma: introduce VMA anon page offset field and
+ add helpers
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, 
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Kees Cook <kees@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, 
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+ Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, kvm@vger.kernel.org, 
+ linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:02 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,32 +166,285 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-snprintf() guarantees NUL-termination within the size limit specified by
-its second argument. Passing 'sizeof(handle->attr_name) - 1'
-unnecessarily reduces the usable buffer capacity by one byte, causing
-sysfs attribute names to be truncated early.
+On Thu, Aug 6, 2026 at 1:22=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kernel.or=
+g> wrote:
+>
+> Establish fields in vm_area_struct to store the anonymous page offset of
+> VMAs.
+>
+> Initially, the anonymous page offset of a VMA is vma->vm_start >>
+> PAGE_SHIFT.
+>
+> When a VMA is remapped to new_address its anonymous page offset is either
+> updated to new_address >> PAGE_SHIFT if unfaulted or, if faulted, remains
+> equal to the anonymous page offset it had when first faulted.
+>
+> Currently, anonymous folios belonging to CoW'd MAP_PRIVATE-mapped
+> file-backed VMAs are tracked by their file offsets. By adding anonymous
+> offset as a property of VMAs, we can now track them by their anonymous pa=
+ge
+> offset instead.
+>
+> By tracking this, we provide the means by which to eliminate this
+> inconsistency, and more importantly lay the foundations for future work f=
+or
+> the scalable CoW anonymous rmap rework.
+>
+> This patch simply adds the fields and some simple helpers. Subsequent
+> patches will update mm code to make use of these fields correctly.
+>
+> The fields chosen are packed in the VMA such that, for 64-bit kernel
+> builds, no additional space is taken up.
+>
+> The first field is present on cacheline 0 containing key VMA fields, and
+> the second on cacheline 3, which contains file-backed reverse mapping
+> fields.
+>
+> Given the relative time spent accessing reverse mapping fields as well as
+> updating them, there shouldn't be any performance impact here from false
+> sharing.
+>
+> Update the VMA userland tests to account for this change.
+>
+> No callsites are updated yet, so no functional change intended.
+>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> Reviewed-by: Xu Xin <xu.xin16@zte.com.cn>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
+>  include/linux/mm.h              | 59 +++++++++++++++++++++++++++++++++++=
+++++++
+>  include/linux/mm_types.h        | 12 +++++++++
+>  mm/vma.h                        | 14 ++++++++++
+>  mm/vma_init.c                   |  1 +
+>  tools/testing/vma/include/dup.h | 26 ++++++++++++++++++
+>  5 files changed, 112 insertions(+)
+>
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index 87feaa5a2b78..df78847f5f07 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -4393,6 +4393,65 @@ static inline pgoff_t vma_last_pgoff(const struct =
+vm_area_struct *vma)
+>         return vma_end_pgoff(vma) - 1;
+>  }
+>
+> +/**
+> + * vma_start_anon_pgoff() - Get the anonymous page offset of the start o=
+f @vma
+> + * @vma: The VMA whose anonymous page offset is required.
+> + *
+> + * If unfaulted, then this is vma->vm_start >> PAGE_SHIFT, if faulted th=
+en the
+> + * anonymous page offset at the time of first fault.
+> + *
+> + * If the VMA is anonymous, this returns the same value as vma_start_pgo=
+ff().
+> + *
+> + * This value is used for tracking MAP_PRIVATE file-backed mappings by t=
+heir
+> + * anonymous page offset.
 
-Pass 'sizeof(handle->attr_name)' directly to snprintf() in add_aca_sysfs()
-to allow full use of the allocated buffer space.
+I assume this function should not be used with shared file-backed
+mappings, right? If so, maybe add a comment like the one you have for
+linear_anon_page_index(): "It is not valid to call this function for
+shared file-backed mappings."?
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-index dcddeb381628..3da3d369a918 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
-@@ -682,7 +682,7 @@ static int add_aca_sysfs(struct amdgpu_device *adev, struct aca_handle *handle)
- {
- 	struct device_attribute *aca_attr = &handle->aca_attr;
- 
--	snprintf(handle->attr_name, sizeof(handle->attr_name) - 1, "aca_%s", handle->name);
-+	snprintf(handle->attr_name, sizeof(handle->attr_name), "aca_%s", handle->name);
- 	aca_attr->show = aca_sysfs_read;
- 	aca_attr->attr.name = handle->attr_name;
- 	aca_attr->attr.mode = S_IRUGO;
--- 
-2.54.0
 
+> + *
+> + * Returns: The anonymous page offset of the start of @vma.
+> + */
+> +static inline pgoff_t vma_start_anon_pgoff(const struct vm_area_struct *=
+vma)
+> +{
+> +       pgoff_t pgoff =3D 0;
+> +
+> +#ifdef CONFIG_64BIT
+> +       pgoff +=3D vma->__vm_anon_pgoff_hi;
+> +       pgoff <<=3D 32;
+> +#endif
+> +       pgoff +=3D vma->__vm_anon_pgoff_lo;
+> +       return pgoff;
+> +}
+> +
+> +/**
+> + * vma_end_anon_pgoff() - Get the anonymous page offset of the exclusive=
+ end of
+> + * @vma.
+> + * @vma: The VMA whose end anonymous page offset is required.
+> + *
+> + * This returns the anonymous exclusive end page offset of @vma, which i=
+s useful
+> + * for expressing page offset ranges.
+> + *
+> + * See the description of vma_start_anon_pgoff() for a description of VM=
+A
+> + * anonymous page offsets.
+> + *
+> + * Returns: The exclusive end anonymous page offset of @vma.
+> + */
+> +static inline pgoff_t vma_end_anon_pgoff(const struct vm_area_struct *vm=
+a)
+> +{
+> +       return vma_start_anon_pgoff(vma) + vma_pages(vma);
+> +}
+> +
+> +/**
+> + * vma_last_anon_pgoff() - Get the anonymous page offset of the last pag=
+e in
+> + * @vma.
+> + * @vma: The VMA whose last anonymous page offset is required.
+> + *
+> + * See the description of vma_start_anon_pgoff() for a description of VM=
+A
+> + * anonymous page offsets.
+> + *
+> + * Returns: The last anonymous page offset of @vma.
+> + */
+> +static inline pgoff_t vma_last_anon_pgoff(const struct vm_area_struct *v=
+ma)
+> +{
+> +       return vma_end_anon_pgoff(vma) - 1;
+> +}
+> +
+>  static inline unsigned long vma_desc_size(const struct vm_area_desc *des=
+c)
+>  {
+>         return desc->end - desc->start;
+> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+> index 939b5ea8c9e0..ebf0d912be7d 100644
+> --- a/include/linux/mm_types.h
+> +++ b/include/linux/mm_types.h
+> @@ -967,6 +967,11 @@ struct vm_area_struct {
+>          */
+>         unsigned int vm_lock_seq;
+>  #endif
+> +       /*
+> +        * Low 32-bits of anonymous page offset.
+> +        * See vma_start_anon_pgoff() comment for details.
+> +        */
+> +       unsigned int __vm_anon_pgoff_lo;
+>         /*
+>          * A file's MAP_PRIVATE vma can be in both i_mmap tree and anon_v=
+ma
+>          * list, after a COW of one of the file pages.  A MAP_SHARED vma
+> @@ -1041,6 +1046,13 @@ struct vm_area_struct {
+>  #ifdef CONFIG_DEBUG_LOCK_ALLOC
+>         struct lockdep_map vmlock_dep_map;
+>  #endif
+> +#endif
+> +#ifdef CONFIG_64BIT
+> +       /*
+> +        * High 32-bits of anonymous page offset.
+> +        * See vma_start_anon_pgoff() comment for details.
+> +        */
+> +       unsigned int __vm_anon_pgoff_hi;
+>  #endif
+>         /*
+>          * For areas with an address space and backing store,
+> diff --git a/mm/vma.h b/mm/vma.h
+> index 0bc7d521e976..54ed7c744e3b 100644
+> --- a/mm/vma.h
+> +++ b/mm/vma.h
+> @@ -283,6 +283,20 @@ static inline void vma_set_pgoff(struct vm_area_stru=
+ct *vma, pgoff_t pgoff)
+>         vma->vm_pgoff =3D pgoff;
+>  }
+>
+> +static inline void __vma_set_anon_pgoff(struct vm_area_struct *vma, pgof=
+f_t pgoff)
+> +{
+> +#ifdef CONFIG_64BIT
+> +       vma->__vm_anon_pgoff_hi =3D pgoff >> 32;
+> +#endif
+> +       vma->__vm_anon_pgoff_lo =3D pgoff & GENMASK(31, 0);
+> +}
+> +
+> +static inline void vma_set_anon_pgoff(struct vm_area_struct *vma, pgoff_=
+t pgoff)
+> +{
+> +       vma_assert_can_modify(vma);
+> +       __vma_set_anon_pgoff(vma, pgoff);
+> +}
+> +
+>  static inline void vma_add_pgoff(struct vm_area_struct *vma, pgoff_t del=
+ta)
+>  {
+>         vma_assert_can_modify(vma);
+> diff --git a/mm/vma_init.c b/mm/vma_init.c
+> index 715feee283f0..baa7e82f47e3 100644
+> --- a/mm/vma_init.c
+> +++ b/mm/vma_init.c
+> @@ -51,6 +51,7 @@ static void vm_area_init_from(const struct vm_area_stru=
+ct *src,
+>         dest->vm_end =3D src->vm_end;
+>         dest->anon_vma =3D src->anon_vma;
+>         dest->vm_pgoff =3D vma_start_pgoff(src);
+> +       __vma_set_anon_pgoff(dest, vma_start_anon_pgoff(src));
+>         dest->vm_file =3D src->vm_file;
+>         dest->vm_private_data =3D src->vm_private_data;
+>         vm_flags_init(dest, src->vm_flags);
+> diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/=
+dup.h
+> index c52b23773cd2..26d9210b1e8b 100644
+> --- a/tools/testing/vma/include/dup.h
+> +++ b/tools/testing/vma/include/dup.h
+> @@ -577,6 +577,7 @@ struct vm_area_struct {
+>          */
+>         unsigned int vm_lock_seq;
+>  #endif
+> +       unsigned int __vm_anon_pgoff_lo;
+>
+>         /*
+>          * A file's MAP_PRIVATE vma can be in both i_mmap tree and anon_v=
+ma
+> @@ -612,6 +613,9 @@ struct vm_area_struct {
+>  #ifdef CONFIG_PER_VMA_LOCK
+>         /* Unstable RCU readers are allowed to read this. */
+>         refcount_t vm_refcnt;
+> +#endif
+> +#ifdef CONFIG_64BIT
+> +       unsigned int __vm_anon_pgoff_hi;
+>  #endif
+>         /*
+>          * For areas with an address space and backing store,
+> @@ -1320,6 +1324,28 @@ static inline pgoff_t vma_end_pgoff(const struct v=
+m_area_struct *vma)
+>         return vma_start_pgoff(vma) + vma_pages(vma);
+>  }
+>
+> +static inline pgoff_t vma_start_anon_pgoff(const struct vm_area_struct *=
+vma)
+> +{
+> +       pgoff_t pgoff =3D 0;
+> +
+> +#ifdef CONFIG_64BIT
+> +       pgoff +=3D vma->__vm_anon_pgoff_hi;
+> +       pgoff <<=3D 32;
+> +#endif
+> +       pgoff +=3D vma->__vm_anon_pgoff_lo;
+> +       return pgoff;
+> +}
+> +
+> +static inline pgoff_t vma_end_anon_pgoff(const struct vm_area_struct *vm=
+a)
+> +{
+> +       return vma_start_anon_pgoff(vma) + vma_pages(vma);
+> +}
+> +
+> +static inline pgoff_t vma_last_anon_pgoff(const struct vm_area_struct *v=
+ma)
+> +{
+> +       return vma_end_anon_pgoff(vma) - 1;
+> +}
+> +
+>  static inline int vfs_mmap_prepare(struct file *file, struct vm_area_des=
+c *desc)
+>  {
+>         return file->f_op->mmap_prepare(desc);
+>
+> --
+> 2.55.0
+>
