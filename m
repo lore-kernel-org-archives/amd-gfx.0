@@ -4,47 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D21D4C5AE49
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8F85C5B567
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1406910E6CA;
-	Mon, 10 Aug 2026 06:42:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CFEDC10E6D6;
+	Mon, 10 Aug 2026 06:42:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="KizvSMe6";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PqKi0mzT";
 	dkim-atps=neutral
-Received: from mail-106110.protonmail.ch (mail-106110.protonmail.ch
- [79.135.106.110])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 86D1D10E0B0
- for <amd-gfx@lists.freedesktop.org>; Sat,  8 Aug 2026 23:33:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=co6yyqyzlrcc7d26slqtp2xwqa.protonmail; t=1786232031; x=1786491231;
- bh=UeFex5hr/f3/r9BnbZHKSCTGlDzLV8Nd44sec1id9ms=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=KizvSMe6uD9nCcwE9pbisXXqwtGEBsEY49p6zabbFH6UpaSNjyt6AsU3Jgc73/74u
- I4iD3qdBVAEGqCSBD9xYYeL7iNmfAZ/wuk0YEuGd9WGeYTpkWBWz/EYSOWHzsPEXKZ
- sX1FBy4iylOZAtVtFkBZM34OzLnoGfBzw2tOWzAcqSjFpKWK/5/8faGvxhjD1kjJNb
- DdWp7vC1ws2ZmRLTM3umUhaj7Tk76q09eacrEHRhhh4UkIPqb41KkC5gmCPQ7G/Yop
- Ma9OAjs+KSfk+fFC6wJPQvwAqgLzNwrL7GjPNxgs4F65WKESq9UOBD5oolO2pOGCfP
- 6a1wGH/4TrEqw==
-Date: Sat, 08 Aug 2026 23:33:45 +0000
-To: "matthew.brost@intel.com" <matthew.brost@intel.com>,
- "dakr@kernel.org" <dakr@kernel.org>, "phasta@kernel.org" <phasta@kernel.org>,
- "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-From: Luke.Wildhardt@proton.me
-Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: [REGRESSION] drm/sched: FAIR policy causes serious performance
- degradation at max GPU load on 9070XT
-Message-ID: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
-Feedback-ID: 214028577:user:proton
-X-Pm-Message-ID: b2be153680247ee43884e865155ce540ad4365cb
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
+ [209.85.214.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43E0910E10B
+ for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2026 08:49:08 +0000 (UTC)
+Received: by mail-pl1-f175.google.com with SMTP id
+ d9443c01a7336-2cc73e322dbso8550805ad.1
+ for <amd-gfx@lists.freedesktop.org>; Sun, 09 Aug 2026 01:49:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786265347; x=1786870147; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=A3BeIAtfJ2/omVu82I5VMk45uIa8CTiHrIT/44X40ds=;
+ b=PqKi0mzT9RpvT/V9AP9sOZFv+LpVKzN8uZOIebDxh/KHGIGOTlYLRheWVA3Q5AyZv7
+ VXLjK2NAbHY4f5Q+dahSg8/zUh26z48Cp+XDQomTQh9LXN1kjshRDwFGKHrfXfsXAMJ9
+ yj/c/u2N6mrgHW5yzOi3tCEA4GT/jfHhQgjbcKsOcmDPTHuO3ldHZGN+edYYGbE+xSKA
+ 9TG0ZU4w42+kQhzBjXRx0Ot1CIWYt1rD912SRAVDr3bBGm8XL16jwb6qIEocbOmUJ9nm
+ SO2SMQ1c/MXB60sJ7mIDaG1UrJgcT7IeOjMRu2FkDB3ClnFrlwIaDBZl4jpvfdI8Pbej
+ 4W0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786265347; x=1786870147;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=A3BeIAtfJ2/omVu82I5VMk45uIa8CTiHrIT/44X40ds=;
+ b=aFRvASG5N3YSOk6IV5ZfiPFKmtWkYJ3N88CkKDK4YWSc10BZfb+MAQOaK0k0DbAdbD
+ D9rTumvvQVsjixv8MycBu+vk/VaKJL0w5VX7JcB8db9SeuXGKZ+7KQmGxz6erN59eUlq
+ xfsInQcYQ1XJy/sfi/L7IFUtdoRNyaJYwwQ8HOIn8Coj5Ll/K4CmCj5oApitr0UwmoGk
+ fbkPg0WLux5rGBMBd3ncC30GKCumssgi7BJ9na/6icrMo0BM7maW4s/hghMQGzfbVkE0
+ 4zd4bzxBwOe3ay8nF/+Ey+dUuL5GRV1nsM91upwsJUF62ZjZyO4lO/nivnS38t9uCpFR
+ sD+A==
+X-Gm-Message-State: AOJu0YzDH05S19IWEFdZT5M/UHVbOZ1WMQO/DWts0AVTaYKDuYMjjXoM
+ SGqiRiyxKUph0+NYuC9zk0XiJ8b9RgvWnMTonO7I+g23ZNFA85QMFVAY
+X-Gm-Gg: AR+sD13W50uX1hWE4OYfy27Vte5bB89mB+DDn58WbkL9bYtmNAURKhYIiD+btwwpx0+
+ RnEMm5gmTJ/BjXApAPXogHUzNN4LPF5y06Ky9K1kVqfIx4ELfuPaJiqLYxx3rSfAGdcmd3kW4kS
+ 8aK9/rcF+gm9t+HMPdpAddRTK9jaQPszNxiszsMVxOWBb/4X6RAsH1Ag/OuHuwhcEPart7H5zip
+ Z9pClS/RMj6p7dy/wEhmHSFsBDct4ozUwI/Wzg4xZoabw41glItQmKSLUICrdEjlpOvXCJWzgga
+ FvokOpC39FVd36gC/ky38TXGvXf/kdsr+3P3NM9K16sm07skH/2h9UaCVrtjyvXv2fQGq9PV5hQ
+ cLdwSfaJ+19BIHNRZLrgQr84wJae5B4eIkJY1XOwdkDyCOldPQJHqtj9p3WHGW7XBkKwbzKWkm+
+ 1p7nJIP5AbJxlw4r7gqRsUHZVIYbpK3bPve0seF9I1QPTdzDl3lq+A43AkcM4AO3IBovnMRAevy
+ XGxpcryELI=
+X-Received: by 2002:a05:6a20:9e0e:b0:3c3:66c5:68cc with SMTP id
+ adf61e73a8af0-3cb85efa4f9mr44179451637.21.1786265347177; 
+ Sun, 09 Aug 2026 01:49:07 -0700 (PDT)
+Received: from localhost.localdomain ([103.178.205.91])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-315be86fc7bsm28800025eec.1.2026.08.09.01.49.03
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 09 Aug 2026 01:49:06 -0700 (PDT)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Subject: [PATCH v4 1/6] drm/amdgpu/aca: Fix race condition and UAF in error
+ cache logging
+Date: Sun,  9 Aug 2026 08:47:30 +0000
+Message-ID: <20260809084735.9743-2-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
+References: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:02 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,96 +91,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Since the DRM scheduler default policy was switched to FAIR in 7.2, sustain=
-ed 100% GPU load in-game on my RX 9070 XT causes severe performance degrada=
-tion. In the example title running through Proton, Project Silverfish, the =
-foreground application degrades to roughly 10 fps or freezes outright while=
- audio continues, and the KDE Plasma Wayland session can lock up entirely, =
-requiring a reboot or killing the compositor to recover. The problem is not=
- limited to games. Running the game in the background + alt tabbing, then p=
-laying a YouTube video can also cause the entire desktop to freeze.=20
+In aca_error_cache_log_bank_error(), find_bank_error() released
+aerr->lock prior to returning bank_error. This created a time-of-check
+to time-of-use (TOCTOU) race window where a concurrent caller of
+aca_log_aca_error() could acquire aerr->lock and free the bank_error
+node via aca_bank_error_remove().
 
-Then, if the game starts to stutter, either alt-tabbing, or opening up a me=
-nu in game (which reduced the load on the GPU) immediately stops the stutte=
-ring.=20
+When execution returned to aca_error_cache_log_bank_error(),
+incrementing bank_error->count resulted in a Use-After-Free and
+potential kernel memory corruption. Additionally, bank_error->count
+was updated outside mutex lock protection.
 
-The issue is reliably reproducible under sustained GPU saturation, although=
- the time-to-failure varies. Increasing shadow load (which decreases in-gam=
-e frame rate) substantially shortens the time-to-failure.
+Fix this by acquiring aerr->lock at the start of
+aca_error_cache_log_bank_error() and holding it continuously across
+lookup, creation, and counter updates, while removing redundant
+internal lock acquisitions in helper functions.
 
-In game, MangoHud does not reveal any frametime discrepancy.=20
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 18 +++++++-----------
+ 1 file changed, 7 insertions(+), 11 deletions(-)
 
-Bisection / test matrix
-
-Reproducer: Project Silverfish (Proton) at settings that saturate the GPU, =
-with a second GPU client active (browser video). Other titles show the same=
- symptom under sustained load; I have not yet re-tested those specific titl=
-es against the fix.
-
-Kernel=09Result
-torvalds/master stock=09FAIR (default)=09FAIL
-same as above + reverts below=09gpu_sched.sched_policy=3D2 (FAIR)=09FAIL
-same as above + reverts below=09gpu_sched.sched_policy=3D1 (FIFO)=09PASS
-7.1.5 release=09PASS
-drm-next=09FAIR (default)=09FAIL
-
-Reverted Commits:
-
-d09339388b77 drm/sched: Remove drm_sched_init_args->num_rqs
-2833a0512b4c drm/sched: Remove drm_sched_init_args->num_rqs usage
-16e7698bc04d drm/sched: Embed run queue singleton into the scheduler
-77a6809f1dc3 drm/sched: Remove FIFO and RR and simplify to a single run que=
-ue
-45c211ddf92a drm/sched: Switch default policy to fair
-2462a0ce23b0 drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
-
-
-
-Kernel (failing):  7.2.0-rc6 (stock), also current drm-next
-Kernel (working):  7.2.0-rc6-default-revert-00006-g7e5de9b07e3d with sched_=
-policy=3D1
-                   7.1 release
-Distro:            Arch Linux
-Session:           KDE Plasma 6.7.4 / Wayland (KWin), Qt 6.11.1, KF 6.28.0
-CPU:               AMD Ryzen 9 9950X3D
-RAM:               64 GiB
-GPU:               Sapphire Pulse Radeon RX 9070 XT
-                   03:00.0 [1002:7550] rev c0, subsys Sapphire 1478
-Motherboard:       ASUS (AM5 / 800-series chipset)
-Mesa:              26.1.6-arch1.1 (RADV, driverVersion 26.1.6)
-Vulkan:            instance 1.4.357 / device 1.4.354
-
-
-
-
-On the same reverted kernel build, changing only gpu_sched.sched_policy fro=
-m 2 (FAIR) to 1 (FIFO) changes the result from reliably failing to passing =
-extended stress testing.
-
-
-
-Possible mitigation options
-
-Given that 7.2 is late in the release cycle and 77a6809f1dc3 removes FIFO/R=
-R as selectable policies, there is currently no runtime workaround for affe=
-cted systems.
-
-
-Revert 45c211ddf92a so FIFO remains the default while FAIR remains availabl=
-e for further testing.
-
-If necessary, also revert 77a6809f1dc3 and dependent changes to restore run=
-time policy selection.
-
-Alternatively, fix the underlying FAIR regression if a suitable fix can be =
-identified in time for 7.2.
-
-
-I mention the revert options because the justification for removing FIFO/RR=
- included the absence of known regressions relative to those policies. This=
- report appears to provide at least one counterexample.
-
-
-I am willing to test patches responsively and collect data if necessary. =
-=20
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+index db7858fe0c3d..d0d473082431 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c
+@@ -237,10 +237,8 @@ static struct aca_bank_error *new_bank_error(struct aca_error *aerr, struct aca_
+ 	INIT_LIST_HEAD(&bank_error->node);
+ 	memcpy(&bank_error->info, info, sizeof(*info));
+ 
+-	mutex_lock(&aerr->lock);
+ 	list_add_tail(&bank_error->node, &aerr->list);
+ 	aerr->nr_errors++;
+-	mutex_unlock(&aerr->lock);
+ 
+ 	return bank_error;
+ }
+@@ -249,22 +247,16 @@ static struct aca_bank_error *find_bank_error(struct aca_error *aerr, struct aca
+ {
+ 	struct aca_bank_error *bank_error = NULL;
+ 	struct aca_bank_info *tmp_info;
+-	bool found = false;
+ 
+-	mutex_lock(&aerr->lock);
+ 	list_for_each_entry(bank_error, &aerr->list, node) {
+ 		tmp_info = &bank_error->info;
+ 		if (tmp_info->socket_id == info->socket_id &&
+ 		    tmp_info->die_id == info->die_id) {
+-			found = true;
+-			goto out_unlock;
++			return bank_error;
+ 		}
+ 	}
+ 
+-out_unlock:
+-	mutex_unlock(&aerr->lock);
+-
+-	return found ? bank_error : NULL;
++	return NULL;
+ }
+ 
+ static void aca_bank_error_remove(struct aca_error *aerr, struct aca_bank_error *bank_error)
+@@ -306,11 +298,15 @@ int aca_error_cache_log_bank_error(struct aca_handle *handle, struct aca_bank_in
+ 		return 0;
+ 
+ 	aerr = &error_cache->errors[type];
++	mutex_lock(&aerr->lock);
+ 	bank_error = get_bank_error(aerr, info);
+-	if (!bank_error)
++	if (!bank_error) {
++		mutex_unlock(&aerr->lock);
+ 		return -ENOMEM;
++	}
+ 
+ 	bank_error->count += count;
++	mutex_unlock(&aerr->lock);
+ 
+ 	return 0;
+ }
+-- 
+2.54.0
 
