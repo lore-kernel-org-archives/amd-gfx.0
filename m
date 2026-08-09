@@ -4,91 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3485CC5B570
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:18 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7A76CC5AC82
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 06:42:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D0A610E6BE;
-	Mon, 10 Aug 2026 06:42:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 053FF10E6AB;
+	Mon, 10 Aug 2026 06:42:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=kroah.com header.i=@kroah.com header.b="Sn7NB216";
-	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="BHBxlMqn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="icJ0yLkq";
 	dkim-atps=neutral
-X-Greylist: delayed 330 seconds by postgrey-1.36 at gabe;
- Fri, 07 Aug 2026 14:06:08 UTC
-Received: from fout-b1-smtp.messagingengine.com
- (fout-b1-smtp.messagingengine.com [202.12.124.144])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B12B10F4FA
- for <amd-gfx@lists.freedesktop.org>; Fri,  7 Aug 2026 14:06:08 +0000 (UTC)
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
- by mailfout.stl.internal (Postfix) with ESMTP id 59B361D000E1;
- Fri,  7 Aug 2026 10:00:37 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
- by phl-compute-05.internal (MEProxy); Fri, 07 Aug 2026 10:00:38 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
- :cc:content-type:content-type:date:date:from:from:in-reply-to
- :in-reply-to:message-id:mime-version:references:reply-to:subject
- :subject:to:to; s=fm3; t=1786111237; x=1786197637; bh=DJAZw34dtz
- rwkk0TYe0dNbIpi34f2Kh0DKaC/Xc8flc=; b=Sn7NB216OMhW5xjXF+Sb71qGvH
- jPNsxpdxD3TFNCLKPKZP94iozweg8VVRk2oyCwqCPBtn+wRuISIgETcykpzRafin
- 7YJ+Gd8+0x0DT/0ydUCKUkGKkQVRRsMqLzloTvoJGIZ++rmpt5y3fhkN7zSJFH0l
- 7FpcRipNkGTrV9F6h7r2eWpUGpZc30p8IrSETTElEb/ds1mbJHpGPch9oxJsXr61
- IK/f2Opm/z4JnarWAzjHj+lkWywKYQ0ZllpPzv7dbro7CaG2/eGzmL6kubp89eew
- fOb2PzwasMj//L8vyh8Q7szrvovp92+y08urS12NbRk6S5l1+54KZuFJ9pGw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-type:content-type:date:date
- :feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
- :message-id:mime-version:references:reply-to:subject:subject:to
- :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
- 1786111237; x=1786197637; bh=DJAZw34dtzrwkk0TYe0dNbIpi34f2Kh0DKa
- C/Xc8flc=; b=BHBxlMqnb4dkIlK8sm4MY+WS96pcPDg1fIPRtEvNZlIVh4N7L0O
- tIdFe/XpIGpWcCzVsY1FbMlfp9ZiDYaEOh/CevstyJz9zVuW4KDYcGC1jeoYFIbl
- wEaq46nwkmK5wt/6Q90Dd6mSYTTSMwmPvyKkbBOIXAO+5P9N+DZ7wZS0E4s+T8CK
- +OIN1kXIRMYI4LuczkBGryYz0DyFfc+jczto/dfFowCAgCcQVwjtY98VE/wL5fKP
- 1EMrjrFobhnDKcUjbier3J1gZtP/Y+gi9xZvaLEZhqPOc80aUUL0Sk79TDIIUuk8
- ZlbYEIPzFIfnRRoU5Gzddrd9VnXIyd6TDvw==
-X-ME-Sender: <xms:BOV1agoxdfglcapzl9fXIKBSPRnL_FNSnIgGcgoBeizrwexZUFEg2g>
- <xme:BOV1amhcDxYQ90GSnfcJu8Ww69vEoJ5LPTA6pjHTa7q-zbeLKmasiLwHR2htrLINO
- B30iJZfogAYaYZAQeAUzJPMceSb6ExVaxaqq9ZEJ2UnK54JIQI>
-X-ME-Received: <xmr:BOV1aijPR-hOX2F0C5rjpLiFrrwXOq-3Xbld9cMp6wS5GFYJ911LskiK-OLun3nQvruXCeebYxruUpfkQAXijo7Jdm9JkZPbZPvw2oyW-H0>
-X-ME-Proxy-Cause: dmFkZTE75DRO/Pukjqn4DdkcNqksdu5oMMCOWbuKrjBeOaPob5+OCoG2vNxkHcFNstSHMA
- oWuPYXkMaLgPCZoU1o+rC5nM9rrk0Uuv3eLxmyjiGrkUIH0p0xyCTdFajpfxMT7IUZOgM6
- idXWasNXKz4+PLdfB/Uw3I/IKQFNBmDIsBFUmOF6qtBMPT8zYbzCXI6CeerFi/IeeSIu3F
- 35WCv2vIP5nZhml64loCsGzzsplVd8K1AebEHclA3Rq5Ax20qYTAaOkNzIerVnxmXIzehS
- iRUe8OZ2cQVZfsXYTH45srpQ0TnPOydhwuyKacNXr9rPQwK6b/UGhPR1Fn6D3G4gsIZHHh
- z6Zl271iIMXbm+H4Vu1k7ApGfDGFyqE9V57iH62zraPoAdnfAPshtSoH4oF7g+aLOpIHKw
- 3q6jswCdi+fxQ0Y6v1JvhZlvE8WdX9jlr0JRyDGLCrBJafyPnI59+aHwLV2JtvC6Ec1NeF
- wSdbqxTJCTZhD9lDqr/FBDOaVYWorJHRyFw9bHffkosHjozODxwJEErun6mRivTVzvslF/
- gEZf1AQ1nrP8jyzzQ0BtBKmKNgzR69cgGXkYPje2T8oPUXQbss2pR5OqHrx4KFr9p8Kueh
- 5ZofMbL2+gMWQqruF09GCBhws6N4EM+Q0qV2sQqFhZkcbpA08ZeIXjU/t9IQ
-X-ME-Proxy: <xmx:BOV1akHbQftCG-95noW6kq7GJup35lnXCKkK2x5jIwUZoUDdjWGZbw>
- <xmx:BOV1atCVetoYaPiaeP7d-1U7cwD8ltNRw2mjyQzesBsZy99rEEmpsw>
- <xmx:BOV1ao_vZPfWiP8XOg584c2QR79-d90L6RYAEWufFkfdCHg4gUxXlg>
- <xmx:BOV1aog1Wf0NnJCZ4VTmp-MtA5dEZFZ6TstxEi3OZk9pahWoPqt8zQ>
- <xmx:BeV1agfxpLxd-1iPcPjC-j_KlGtEoiO_NIcQsmi5UjdlGAPehUCxI6eB>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 7 Aug 2026 10:00:36 -0400 (EDT)
-Date: Fri, 7 Aug 2026 16:00:19 +0200
-From: Greg KH <greg@kroah.com>
-To: Bert Karwatzki <spasswolf@web.de>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, amd-gfx@lists.freedesktop.org,
- "# = v7 . 1" <stable@vger.kernel.org>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rafal Ostrowski <rafal.ostrowski@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Thomas Gleixner <tglx@linutronix.de>
-Subject: Re: [PATCH v7.2-rc6] drm/amd/display: fix usage of
- DC_FPU_{BEGIN,END} with PREEMPT_RT
-Message-ID: <2026080712-grandma-scrooge-9ba3@gregkh>
-References: <202608061233.eufnR5Qm-lkp@intel.com>
- <20260807124944.154232-1-spasswolf@web.de>
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4864810E10B
+ for <amd-gfx@lists.freedesktop.org>; Sun,  9 Aug 2026 08:49:00 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-38a0c7e841fso1248280a91.2
+ for <amd-gfx@lists.freedesktop.org>; Sun, 09 Aug 2026 01:49:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786265339; x=1786870139; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=qSsyx07rdbg9BS6CDdvM5aa6FHTdoOSpWof0piChyTs=;
+ b=icJ0yLkq6XRywZnrAA6KOci2aj0FcU7CWc1t/0745qrdQ4q0qKmKVi4/qBWz3Q+oGg
+ 7+hcr1PBJV55udWS6/cmKMwxsrFo8bYarpEXsPtmUlhsHBWeGyff7P5ALIiNDi0/8U8c
+ fag9iNCt1cFxagaBSKFEX/IZk00y25oZP2Tw50L5uzUSQAWt9HckUAAkDEj2uvWsfiwN
+ J7d7Swq8tYyUeG8kZF01MfOknVVlSUGHok20MjP67z0tksjUtvtI51HUJq3yktI5ynEq
+ yrmH8eiq/CLlQSJV2Qk1ti4CAGvFdGQIopFU5eyUzucXZ8ZTSt2i2Qchn8hsNWhLXLSE
+ 8p8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786265339; x=1786870139;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=qSsyx07rdbg9BS6CDdvM5aa6FHTdoOSpWof0piChyTs=;
+ b=j0yJ2jjwlCkCVAEbJcfjrYWdyAXSWKOKxzJ8+iH+nS9QrF+NkNdXoev+eMjszXo4fp
+ rXpuOzp0Y62tmQkD51PZbOn9LXSod63WuyusMgIOlxKN5UyMoN1bYMNgwqNLHUw+aiUj
+ RvswRAdfUzxg2px/sDwhedA6CQ25nPVvut4d0kNNhcP66fEx/DoFj/4GBL3SDGxRA1uB
+ P0GtgR+WoG77twFVB5//JkRnbSrFA8r/ymtTfMBcKZ73cYYs0bb5M21NxcB/6p+RKCDs
+ Crs/i67Re6hCGJ3iZUL3nI96sLcNJTvsq8CQH1z7naUH16xElWesHGm2N+dQpWDOn/yz
+ WytA==
+X-Gm-Message-State: AOJu0YzOFFGA1LLZxrpjX/7h9P9EpJC1Ukb/v2b0fSc5v7kMy0WY9ai4
+ jzCDetXYcxcHv4qk2IoCe1u3EjlK3nQZPU+i94qLF+Cc7b6kmF7zTpnN
+X-Gm-Gg: AR+sD11RGr5Ypv3tS3FdVhRaZcPH9s9infFETaYk/m5jLtUwglq5NaCcTvimTPwQ/CW
+ Ttnj4AOJ+L2CEY7d/1t/bP4NKXDcnzesKpvkZr5mAFaxbjv8os9FFwUbFzg9XHa1tnIpYan+JeY
+ WpmNCcB/NxuQ+P9sbj4czF3L5Aib2XULCJo0sCWAHqw2xeIhrYjFayXd01FeVrxY2tsL9rwi3HU
+ P0xT9BE7H4tJXXjPM0VOqw8yV+vV3TXvc3nBJJsu2Ng5SeHQO3cBX4iZGCTPPyhWjH+ARLTf+Cn
+ wXvo+xDC+FVlBRlLau1gYX3YxICgYd7X0ZgSSkFe65AivXOlrcchHWCS6pGtlC5+U/2vwjCj1y8
+ jPop7pn7zPAju9ZlyxQdSMUAXYSKJUlmrS1P4RdHeXwFtdyHlvsdLv3i5FTAlYUVbQWO01GMCN5
+ fBCDdkcFvoglJo4j0Ra62HuxvcMGToWHxGQtNaa+11meDOo/4TTXz6MDEk8yEZsCLLHzH1Pp3ee
+ lc7FIMmolM=
+X-Received: by 2002:a17:90b:2585:b0:38e:bbf1:de34 with SMTP id
+ 98e67ed59e1d1-39261fdab5amr18507599a91.7.1786265339360; 
+ Sun, 09 Aug 2026 01:48:59 -0700 (PDT)
+Received: from localhost.localdomain ([103.178.205.91])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-315be86fc7bsm28800025eec.1.2026.08.09.01.48.55
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 09 Aug 2026 01:48:58 -0700 (PDT)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, airlied@gmail.com, simona@ffwll.ch,
+ Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Subject: [PATCH v4 0/6] drm/amdgpu: Robustness and safety fixes for ACA and
+ RAS drivers
+Date: Sun,  9 Aug 2026 08:47:29 +0000
+Message-ID: <20260809084735.9743-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260807124944.154232-1-spasswolf@web.de>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 10 Aug 2026 06:42:03 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -104,75 +88,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 07, 2026 at 02:49:42PM +0200, Bert Karwatzki wrote:
-> On PREEMPT_RT kernels kvzalloc_obj() can sleep because spin_lock is
-> converted to rt_mutex. dc_create_plane_state() can be called while
-> inside an FPU-guarded region, resuling in "scheduling while atomic"
-> errors on PREEMPT_RT kernels.
->  Fix this by calling kvzalloc_obj() with DC_RUN_WITH_PREEMPTION_ENABLED().
-> Also fix the error path in dc_create_stream_for_sink().
-> 
-> Fixes: 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC - Part 1")
-> Link: https://lore.kernel.org/lkml/20260723123449.6494-1-spasswolf@web.de/
-> Signed-off-by: Bert Karwatzki <spasswolf@web.de>
-> ---
->  drivers/gpu/drm/amd/display/dc/core/dc_stream.c  | 5 +++--
->  drivers/gpu/drm/amd/display/dc/core/dc_surface.c | 5 +++--
->  2 files changed, 6 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> index 7666cdc78f4e..a5a304a3f802 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_stream.c
-> @@ -233,8 +233,9 @@ struct dc_stream_state *dc_create_stream_for_sink(
->  
->  fail:
->  	if (stream) {
-> -		kfree(stream->update_scratch);
-> -		kfree(stream);
-> +		if (stream->update_scratch)
-> +			DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream->update_scratch));
-> +		DC_RUN_WITH_PREEMPTION_ENABLED(kfree(stream));
->  	}
->  
->  	return NULL;
-> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-> index 72845fc788f3..04982673ffbc 100644
-> --- a/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_surface.c
-> @@ -33,6 +33,7 @@
->  #include "dpp.h"
->  
->  #include "dc_plane_priv.h"
-> +#include "dc_fpu.h"
->  
->  /*******************************************************************************
->   * Private functions
-> @@ -86,8 +87,8 @@ uint8_t  dc_plane_get_pipe_mask(struct dc_state *dc_state, const struct dc_plane
->   ******************************************************************************/
->  struct dc_plane_state *dc_create_plane_state(const struct dc *dc)
->  {
-> -	struct dc_plane_state *plane_state = kvzalloc_obj(*plane_state,
-> -							  GFP_ATOMIC);
-> +	struct dc_plane_state *plane_state;
-> +	DC_RUN_WITH_PREEMPTION_ENABLED(plane_state = kvzalloc_obj(*plane_state, GFP_ATOMIC));
->  
->  	if (NULL == plane_state)
->  		return NULL;
-> -- 
-> 2.55.0
-> 
-> Fix for stable with the old error handling in
-> dc_create_stream_for_sink() and compile fix form arm64/clang.
-> 
-> Bert Karwatzki
-> 
+This patch series addresses several race conditions, boundary check
+bugs, logic inversions, NULL pointer checks, and buffer size
+parameters across the AMDGPU ACA (Accelerated Compute Architecture)
+and RAS driver subsystems.
 
-<formletter>
+v3 -> v4:
+  - Patch 3: Wrapped list_del_init() inside mgr->lock in
+    remove_aca_handle() and moved node unlinking prior to
+    aca_fini_error_cache(). This prevents infinite loops during
+    concurrent list traversal and stops background queries from
+    referencing destroyed error cache mutexes during teardown.
+  - Patch 6: Updated subject and moved cancel_work_sync() and
+    cancel_delayed_work_sync() prior to
+    mutex_destroy(&con->page_rsv_lock) in amdgpu_ras_recovery_fini()
+    to prevent work executing after lock destruction.
 
-This is not the correct way to submit patches for inclusion in the
-stable kernel tree.  Please read:
-    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
-for how to do this properly.
+v2 -> v3:
+  - Patch 3: Updated amdgpu_aca_get_error_data() to return 0 instead
+    of -EOPNOTSUPP for invalid handles, ensuring global RAS error
+    queries safely pass through non-ACA blocks without breaking
+    telemetry.
+  - Patch 6: Moved cancel_delayed_work_sync() in amdgpu_ras_fini()
+    prior to ACA subsystem and lock cleanup to avoid teardown races
+    and UAF.
 
-</formletter>
+v1 -> v2:
+  - Patch 3: Updated remove_aca_handle() to use list_del_init()
+    instead of list_del(), ensuring list_empty() properly evaluates
+    removed handles and avoiding potential UAF during device
+    teardown.
+
+Sreeraj S Kurup (6):
+  drm/amdgpu/aca: Fix race condition and UAF in error cache logging
+  drm/amdgpu/aca: Add upper bounds check in aca_bank_hwip_is_matched
+  drm/amdgpu/aca: Fix inverted validation logic and list cleanup
+  drm/amdgpu/aca: Add missing NULL check for banks parameter in
+    aca_banks_add_bank
+  drm/amdgpu/aca: Fix off-by-one buffer size parameter in add_aca_sysfs
+  drm/amdgpu/ras: Fix delayed work cancellation order during teardown
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_aca.c | 41 ++++++++++++-------------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 11 +++----
+ 2 files changed, 24 insertions(+), 28 deletions(-)
+
+-- 
+2.54.0
+
