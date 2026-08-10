@@ -4,92 +4,155 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4A0BC5B56A
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 12:05:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D7B0BC5AC67
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 12:05:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE43710E304;
-	Tue, 11 Aug 2026 12:05:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3620F10E897;
+	Tue, 11 Aug 2026 12:05:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="UwX/Ilov";
+	dkim=pass (2048-bit key; unprotected) header.d=google.com header.i=@google.com header.b="mROkK6kK";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A152F10E1A1;
- Mon, 10 Aug 2026 22:10:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9C362600AA;
- Mon, 10 Aug 2026 22:10:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB66F1F000E9;
- Mon, 10 Aug 2026 22:10:07 +0000 (UTC)
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
+ [209.85.160.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 23A5B10E92F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 16:24:37 +0000 (UTC)
+Received: by mail-qt1-f171.google.com with SMTP id
+ d75a77b69052e-51c10e86e52so428581cf.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 09:24:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786379076; cv=none;
+ d=google.com; s=arc-20260327;
+ b=VoHkTq2N0PsHKJLS4gAffusmO7Y+8lnOoud+G3esbjZDvFJGp1VQiZhzcuWjWlTfhP
+ x3T7GFXWEmrPa93IBIsUckoBxoMjQ3kXqw8GPUpE/2uNhHmmGN9AWaYDBqohyUE9ZOYo
+ vIT+HbOITS6b6zES0tcHGbZ9sKQOTcIQsj5ZkNAEXQ3pWicUk9eU3zr3gOjBF5KqbzUA
+ 94HqALiARMiN8WB19nf4XUvb8jV1uPdM5kYcRe2/cLyGsTC3jkpmqVXJdvLrpyrDDPR7
+ SID9zPCgFImhFTYef7P32yWeJcQIjghOIuKupkUksvziTiGYRgby0aUe2pLE3BgTf1zV
+ yc1Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=JnpU+yjthofc0zpgkM1QSjOc8GqltDckB0JeUB3rUkg=;
+ fh=k7YPVyVJMm3oqenmhRZ+0mva/gcjL1hIB0kejo5dHeo=;
+ b=GSOZJi+q+nbWbM0/7bd0MG/geGQ+fvJTcHjwsSINZA6MvrFB7k0gbcGMbrcMvsa8Uh
+ XLiRhDqsHxyXWyViYxJZGQAAULmGpay5xBdBJ8mzzI9dNXR8+7TpsWATM+CUePxtJ3BC
+ KUbQlayGC059yajsmlpXwOXtJH6Nnog/sVoBEmtkx9Th+D0Lk9ON7re0gCOvvkCITxxe
+ jk2d/zJT7j2cVbqd7aSxm5qjt5VX3mIWVWYFnuw2SHA+yuNwVDqIu94ejKpd4yPerBO8
+ 85i7pB64fVZ7qR+NeEj6VNojO5jaqzahwMYq32hlz34cgPd+1Ka415oh110pMqmQ3pVO
+ G/QQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linux-foundation.org; s=korg; t=1786399810;
- bh=/hUK9nmdYQUfhG6ut1/QpR/T7D3LLI4jSc7+bBZ5Ofc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=UwX/Ilov0bIFii9m3iwtL8q7dWNlzT+Wx3UroPo9PylX7if0NcfH9JAavRDAn86dw
- JNwDAbfcVY3VRo/UBsUbAdQe6WqOiVdxquE1mb7LVSCrY0NRcx31i22SVoR5H3wZ9K
- Nroa/JyRqqFqLrw3hFrR5C55A7jEiwD4QPiMGP18=
-Date: Mon, 10 Aug 2026 15:10:07 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
- <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
- <mhocko@suse.com>, Jann Horn <jannh@google.com>, Pedro Falcato
- <pfalcato@suse.de>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan
- Kara <jack@suse.cz>, Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
- <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>, Harry Yoo
- <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, Kees Cook
- <kees@kernel.org>, Zi Yan <ziy@nvidia.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, Ryan
- Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song
- <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>, Matthew Brost
- <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim
- <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, Gregory Price
- <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, Alistair
- Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>, Xu Xin
- <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, Arnd
- Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank
- <frankja@linux.ibm.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer
- <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, Vasily
- Gorbik <gor@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Alex
- Deucher <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
- <tzimmermann@suse.de>, Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
- Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Masami Hiramatsu
- <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra
- <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de
- Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland
- <mark.rutland@arm.com>, Alexander Shishkin
- <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian
- Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, James
- Clark <james.clark@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>, John
- Hubbard <jhubbard@nvidia.com>, Muchun Song <muchun.song@linux.dev>, Oscar
- Salvador <osalvador@suse.de>, Chris Li <chrisl@kernel.org>, Kairui Song
- <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham
- <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, Youngjun Park
- <youngjun.park@lge.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kvm@vger.kernel.org, linux-s390@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 02/20] mm: provide vma_[flags_]is_cow_mapping() and
- remove is_cow_mapping()
-Message-Id: <20260810151007.c1cfbcf46d498d2f8ce566f9@linux-foundation.org>
-In-Reply-To: <ann-vS6MYT9kuXqu@lucifer>
+ d=google.com; s=20251104; t=1786379076; x=1786983876;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=JnpU+yjthofc0zpgkM1QSjOc8GqltDckB0JeUB3rUkg=;
+ b=mROkK6kK8x+h1OUf3qEAUhJDBCtlhFeVVf0JezT7wIyMJE4zsInWXn2TYKoaJ0c6CU
+ acS8ZnWhvn9z5TxEmDeCpzVnClUlWusPJwkBR94uyAuq78qRZpU3ITmO86zUOdJpOrOu
+ zFloGgtrFnC0F/qhuC2hzdoYNNCH4GSlILCP+ZW4PCszLyNhKtbjHHyRFZ2rI7k78EPN
+ smNfa69qers52gTxh6yXkTcpLxTTvvHCIDRyzZu4SJ1NlZD6N9iX26J9q7SNKEZLWhXm
+ beUn2XG0hLZoiqUKNnevjL7ZnZ9vPtw58lfinlSlajvQDkQFMKM2K70r6NyvWC8coTaL
+ UWbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786379076; x=1786983876;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=JnpU+yjthofc0zpgkM1QSjOc8GqltDckB0JeUB3rUkg=;
+ b=LJ1QnQWqiURVdgUmp/B2V6ARSylyji6L3q1dIyl0d8IC3xQ2SYN1drFeaw4yiClbmv
+ I4St1yOMb7Q65CEGGpgS73RJZEoO50DEjh/14A2vJ40tBJtwd/eln49v5f6r68PB+hQe
+ PvD/T4xnnMDesQRPhdBo3wmlwRZ/lu7+E+VcK2CrTUMUA8TnnOY57rhX/xLeaAxaHwFe
+ gj2BZ+RnuxH5641/QmouzDBFb/oiv016+C7zwNk6RpbeBuUVcboxQeC51izlpGFdQR+p
+ trPqGrRc1Uqjw7a2hXdoMjHJFD//NTFgGoJhQWJaMOqekXA+4KEueheQBBs1gFKVw67Y
+ Z4Bw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoOJpAdT9L0kXdD9RyaQ4XIjkUuP85ElUfUTd3CcC993nZcv8LrGZrDCLuS1SwjCwbEh6CQyrgs@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yz1UAXZ/vdkLuMXRMXz6yQSXw7UdmUNf2sToJ+r3xa9WUm22HpL
+ YzhNbvoBJoN3BHCXLAiyA7KBYTonOZoKPy4mXNp9Jy7Rqnbi6JAwcRjQ5Atf3pttJ1MmLQiz+Us
+ 3MV+mIdZ/1/wcQLJHzPHEHzFoyx4w6XlciTYMDU2r
+X-Gm-Gg: AR+sD10FF8//LknDhPjIqZYnWe2/ObBoycqogLnpMIzhXSOIHnntYGnE4X57E2hoMPJ
+ 2yMf0NnrwAuS2M6/f7o0rYp0IhGwUKPY6bGEHaP4d4gAVSK11bSdA9NswnzeHeGZhIsxTsG62mU
+ 4Lf+vdQeYRfMfgVrmYK67pUh5tKaCRXog/Q0wDOmdZnmbJSnL2TFAq34XPJME9aseQXGDlwEBIl
+ R8H6Ydb8op/wp1tPAHEC1oCmeO5zkmVXo5kE1avnP3Q+WcHMc+SUflIJFF8cS8uQwFCYAVTRK9e
+ 8pD2oJjmb5TWFtL2NgQOsKAUdDvqOTR2x/RycpdwTQovSWFsIr5XHw==
+X-Received: by 2002:a05:622a:2b0a:b0:519:b655:235 with SMTP id
+ d75a77b69052e-52d2810222bmr38915311cf.3.1786379075203; Mon, 10 Aug 2026
+ 09:24:35 -0700 (PDT)
+MIME-Version: 1.0
 References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
- <20260806-b4-scalable-cow-virt-pgoff-v4-2-ab318a350404@kernel.org>
- <ann-vS6MYT9kuXqu@lucifer>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+ <20260806-b4-scalable-cow-virt-pgoff-v4-1-ab318a350404@kernel.org>
+ <CAJuCfpFAA1H2pOi6EOarNtrdzLQDJyhm6QOGsfZ4SFTuM5eiLQ@mail.gmail.com>
+ <anmLnvWAyIJwjsXj@lucifer>
+In-Reply-To: <anmLnvWAyIJwjsXj@lucifer>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Mon, 10 Aug 2026 09:24:23 -0700
+X-Gm-Features: AUfX_mykce6fbL166nHsURFiLv_kMzKY9gOukzdEiVHYnjVKW8Vop-MtXqL00bE
+Message-ID: <CAJuCfpGJuf3NOuPg4+7TaWhNOv5sN7WEY2awZOpDv1VV13J-DQ@mail.gmail.com>
+Subject: Re: [PATCH v4 01/20] mm/vma: introduce VMA anon page offset field and
+ add helpers
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, 
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Kees Cook <kees@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Peter Xu <peterx@redhat.com>, Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>, 
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, 
+ Vasily Gorbik <gor@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>, 
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Masami Hiramatsu <mhiramat@kernel.org>, 
+ Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>, 
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, 
+ Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
+ James Clark <james.clark@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ John Hubbard <jhubbard@nvidia.com>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, 
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+ Baoquan He <baoquan.he@linux.dev>, Youngjun Park <youngjun.park@lge.com>,
+ linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, kvm@vger.kernel.org, 
+ linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+ linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Tue, 11 Aug 2026 12:05:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,103 +168,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 10 Aug 2026 18:59:34 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+On Mon, Aug 10, 2026 at 1:36=E2=80=AFAM Lorenzo Stoakes (ARM) <ljs@kernel.o=
+rg> wrote:
+>
+> On Sat, Aug 08, 2026 at 05:51:10PM -0700, Suren Baghdasaryan wrote:
+> > On Thu, Aug 6, 2026 at 1:22=E2=80=AFPM Lorenzo Stoakes (ARM) <ljs@kerne=
+l.org> wrote:
+> > > diff --git a/include/linux/mm.h b/include/linux/mm.h
+> > > index 87feaa5a2b78..df78847f5f07 100644
+> > > --- a/include/linux/mm.h
+> > > +++ b/include/linux/mm.h
+> > > @@ -4393,6 +4393,65 @@ static inline pgoff_t vma_last_pgoff(const str=
+uct vm_area_struct *vma)
+> > >         return vma_end_pgoff(vma) - 1;
+> > >  }
+> > >
+> > > +/**
+> > > + * vma_start_anon_pgoff() - Get the anonymous page offset of the sta=
+rt of @vma
+> > > + * @vma: The VMA whose anonymous page offset is required.
+> > > + *
+> > > + * If unfaulted, then this is vma->vm_start >> PAGE_SHIFT, if faulte=
+d then the
+> > > + * anonymous page offset at the time of first fault.
+> > > + *
+> > > + * If the VMA is anonymous, this returns the same value as vma_start=
+_pgoff().
+> > > + *
+> > > + * This value is used for tracking MAP_PRIVATE file-backed mappings =
+by their
+> > > + * anonymous page offset.
+> >
+> > I assume this function should not be used with shared file-backed
+> > mappings, right? If so, maybe add a comment like the one you have for
+> > linear_anon_page_index(): "It is not valid to call this function for
+> > shared file-backed mappings."?
+>
+> No that's not the case, it is valid to access this for any VMA though it'=
+s only
+> meaningful for MAP_PRIVATE and anonymous VMAs (though in the latter case =
+pgoff
+> =3D=3D anon pgoff).
+>
+> The code keeps the anon pgoff values consistent even for shared mappings =
+because
+> - hey - we have the field anyway and it's easiest and safest to just keep=
+ it the
+> same.
+>
+> One alternative would be to have code that checks the flags and zeroes th=
+e field
+> otherwise , but then you have problems like - early on initialisation now
+> there's an ordering requirement which can easily go wrong.
+>
+> Another alternative is to just leave it stale, but then that seems object=
+ively
+> worse and again requires branching code on update and set.
+>
+> All-in-all it's easier to keep this working the same for any type of mapp=
+ing,
+> it's just useless to do anything with the anon pgoff for a shared mapping=
+ :)
 
-> Hi Andrew - would it be possible to insert the comments added below? Trying
-> to avoid a respin if possible :)
+Makes sense. Thanks for the explanation!
 
-np, like this?
-
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: mm-provide-vma_is_cow_mapping-and-remove-is_cow_mapping-fix
-Date: Mon Aug 10 03:07:02 PM PDT 2026
-
-add comments, per Lorenzo
-
-Link: https://lore.kernel.org/ann-vS6MYT9kuXqu@lucifer
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
----
-
- include/linux/mm.h |   57 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 57 insertions(+)
-
---- a/include/linux/mm.h~mm-provide-vma_is_cow_mapping-and-remove-is_cow_mapping-fix
-+++ a/include/linux/mm.h
-@@ -2271,17 +2271,74 @@ void unpin_user_pages(struct page **page
- void unpin_user_folio(struct folio *folio, unsigned long npages);
- void unpin_folios(struct folio **folios, unsigned long nfolios);
- 
-+/**
-+ * vma_flags_is_cow_mapping() - Do these VMA flags imply a CoW mapping?
-+ * @flags: The VMA flags to check.
-+ *
-+ * Mappings which could be CoW'd (subject to Copy-On-Write faults) are
-+ * described as CoW mappings.
-+ *
-+ * All mappings backed by anonymous folios (all anonymous mappings and most
-+ * MAP_PRIVATE-file backed ranges) are CoW mappings.
-+ *
-+ * All other mappings (including all writable MAP_SHARED mappings) are
-+ * non-CoW.
-+ *
-+ * The criteria are !VMA_SHARED_BIT, VMA_MAYWRITE_BIT.
-+ *
-+ * VMA_MAYWRITE_BIT is checked instead of VMA_WRITE_BIT to account for both
-+ * future mprotect() calls which can render a read-only mapping writable, and
-+ * GUP with FOLL_FORCE (e.g. ptrace) which can CoW a read-only mapping.
-+ *
-+ * - No anonymous mapping can ever clear VMA_MAYWRITE_BIT.
-+ *
-+ * - Writes to anonymous mappings do not immediately result in CoW faults but
-+ *   may do so after the process is forked or if a read is followed by a
-+ *   write.
-+ *
-+ * - Writes to MAP_PRIVATE file-backed mappings result in CoW faults and may
-+ *   do so again after fork.
-+ *
-+ * - MAP_SHARED mappings of a file opened read-only are transformed into
-+ *   VMA_MAYSHARE_BIT, !VMA_SHARED_BIT, !VMA_MAYWRITE_BIT mappings, so remain
-+ *   non-CoW.
-+ *
-+ * - Drivers may clear VMA_MAYWRITE_BIT but do so at mmap() time and cannot
-+ *   mark themselves anonymous. Having cleared this flag it is not valid for
-+ *   them to leave the VMA_WRITE_BIT flag set.
-+ *
-+ * As a consequence, the anonymous reverse mapping only tracks CoW mappings.
-+ *
-+ * Returns: true if the flags indicate a CoW mapping, otherwise false.
-+ */
- static inline bool vma_flags_is_cow_mapping(const vma_flags_t *flags)
- {
- 	return vma_flags_test(flags, VMA_MAYWRITE_BIT) &&
- 		!vma_flags_test(flags, VMA_SHARED_BIT);
- }
- 
-+/**
-+ * vma_is_cow_mapping() - Is this VMA a CoW mapping?
-+ * @desc: The VMA to check.
-+ *
-+ * See vma_flags_is_cow_mapping() for details.
-+ *
-+ * Returns: true if the VMA is a CoW mapping, otherwise false.
-+ */
- static inline bool vma_is_cow_mapping(const struct vm_area_struct *vma)
- {
- 	return vma_flags_is_cow_mapping(&vma->flags);
- }
- 
-+/**
-+ * vma_desc_is_cow_mapping() - Is this VMA descriptor a CoW mapping?
-+ * @desc: The VMA descriptor to check.
-+ *
-+ * See vma_flags_is_cow_mapping() for details.
-+ *
-+ * Returns: true if the VMA descriptor describes a CoW mapping, otherwise
-+ * false.
-+ */
- static inline bool vma_desc_is_cow_mapping(struct vm_area_desc *desc)
- {
- 	return vma_flags_is_cow_mapping(&desc->vma_flags);
-_
-
+>
+> --
+> Cheers, Lorenzo
