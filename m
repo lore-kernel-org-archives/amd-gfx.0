@@ -4,89 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59318C5AD55
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 15:43:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 71269C5AD7B
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 15:58:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AE24010E216;
-	Mon, 10 Aug 2026 15:43:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C727A10E90E;
+	Mon, 10 Aug 2026 15:58:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ixeeF6ot";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TZeC+kS3";
 	dkim-atps=neutral
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
- [209.85.216.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8441B10E216
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 15:43:51 +0000 (UTC)
-Received: by mail-pj1-f54.google.com with SMTP id
- 98e67ed59e1d1-38115bbb83dso126743a91.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 08:43:51 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786376631; cv=none;
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com
+ [209.85.215.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 93FBB10E921
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 15:58:50 +0000 (UTC)
+Received: by mail-pg1-f178.google.com with SMTP id
+ 41be03b00d2f7-ca8a3a77daaso138472a12.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 08:58:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786377530; cv=none;
  d=google.com; s=arc-20260327;
- b=IOUrwwv+dQV+RoAhe3ZIozXQgW/cDkYB1pUe9+pb1f51anvLmyVQZJz/++9o075myp
- 7OmQBn4Np/02scoTil0+X5AKKMf47tgtzsutBPUu1wVoSc3m5dPbNpyKrzoHnb+T9YMI
- TdFsXM064bVM2ccou3b2Pux4DhTYlT6HLa0G0v/Jyma+161LUXAcKq/F4cXXoI9dB5xa
- G6GQ2X+Dd76slr2bsX1acoIKHFl+XDOZSM/GRAKun544bd7LGBdxPob/5DpvlooMI24q
- 0N0nZEIRMsaCdr4IzAGSp5QkmHJtVBprR0+oZJ1Q7DtBbrtdMCd34CC+6hpgCLZWEW6b
- UjCA==
+ b=sts5CL4CahnlcEGd5PU8VUvYmfRnp9t1I9fE50IcSJGabTB62OdlEm0Sj1+RZKVh7F
+ TZF0oOuyB6B2Os9chJAeHQl/aCqRNQMcQeJ7OHQ+hGahjCtMKs2RK5crlVqNQoN/yYHG
+ PI/wjsYRTwBWxdQTwpfQG/tl60SbpaKQrIvJ5J39K0gRwhhK4/FRz3X3PKqgt4VzU6rL
+ dD8vjdaBBrPYzs1wgeKQaGXB/jJBbeLtwrtM3Nbvn6KxILkJci2UQNgwtNks1vFoFoKi
+ gYv3IQv+Y4hRM89yCHCgIic1YGAyma2NtCRJSm4ugO0OPTz4Vqr2f4pspN4u6QqlOmPc
+ ariA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=TTKkSu33ifqU3fmWmPjN27NmycXph8MFAHBOeTvQvko=;
- fh=UXReYgOH978Q8YRGufbWWMgVMgvD+MB3VBXBHmVssj8=;
- b=mEt46O7g9/N4j2UmUxxtPXi8Sv5sfWIJ1xSA+cu7PPcVyO8tudYFBfHyQj19nUpj2k
- n/puhRz0l22pjKdz2lwpuZmM1zuj5dMAezvANttlm29ohNRHykM7N7/LXTiY5HIfgo4X
- aRGLtXyAC3SytXZszq5Jm3qcbRk0q111VjZBJj3tgsFj7rGdCQvYTBsR7WawxK8gSh+w
- RDRJxKDSOl4e7QbFgkH/pbcw0o99ZkF7VzgYHkPHE4hWtWQW/m/HVTyacsd/377tq7ze
- Ifyj3Uta4fIFYqGa2i2UitO9Qy1gK/ylREkOeUYYAyMWVxKrssRV8EeTPkMs/wYUBUlK
- eihA==; darn=lists.freedesktop.org
+ bh=U9YsY8rcR2nimCA0FSAl9uZhbzoYDRMtkxeKyVzVCa8=;
+ fh=LR5nYlp4SQ9Y5RoHOFFN8/5sCDfwuxixotjwSflQ0w0=;
+ b=r5Xe3eONv9RT08DI/tzYcn2UNpLMd1G9kp7cEkgUHMxdyGSHVcnT4fBCYwieT2YZsA
+ H8JxwXaaYrTn2rjSEKNqZTOIOA5xYowb/SJkrnRZxZnblX+6/YcZfpPBusw7fXzW8+Hu
+ 0Vjh6YPOV/x2nnVphS8oczPJIAHQHxtHCfo6f7r6AqqU7lawUYKfFi20RWMyCi82sg66
+ z3Gk1nqRfogTi1zHw3BrcUsltvXomLpeBQoUObEo+IXxL8HJw1DkBs5Teoh334nG8bkW
+ sj1w9OILFnJAjAy2g3nea1aFmfNOIjPl9RsBIAL4jIdEIfRdXLhSvtrg2glhpMfXmsTa
+ UUzw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786376631; x=1786981431; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786377530; x=1786982330; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=TTKkSu33ifqU3fmWmPjN27NmycXph8MFAHBOeTvQvko=;
- b=ixeeF6otJPQN1kVf6fwJNuvPl1sW3VjbH87P3khh88hfJJaLnPp157Vfk3P6ptU3ym
- nATv4JFE6IQJJjDiF8DQyZC+y5UF5JXFnosOg7kpg34RXTjAfelznCyBlZ8o+BtfgbO8
- C6L2iwor8vdGdzcCpVB2RWMuxGr7wyd40YD5hZyEe2yDFDwmK/Z0RVw7BFDd9eI8F0c2
- rFCi7yXjwfWmZyEfaLYdn7jgfDjX4JSaIBfQw+pKurcQxJ+2avBJAfPO+xX4x+uTKA8M
- oN4+Aqt/TjaNS4igD0HfLaraNFNnc3JuIKP0hco/puljItNxhRTk54fzAIzpZf+WjHEg
- k9cg==
+ bh=U9YsY8rcR2nimCA0FSAl9uZhbzoYDRMtkxeKyVzVCa8=;
+ b=TZeC+kS3y16O4OAYlVuAiQrJckDwzGYPWReCTyUnQ76ZbOdmUJmvxCOEmmFZluSxV/
+ bx5SgvH4JI384V+BaOnO1IutIGYQIKZvAD82QgcFbqKUoUmQOIR7n+AMHbxQ20KDS8kQ
+ 9aQbATpwQguQTpfbY0PaTLkkhDC5n2F2PoqggKsnHNP3bCBgED292qB8SOsDZxwXolTN
+ 4hGiPQbCIKcYyri0ntbNsjBz5tQlgLW+056ttawr/rPaerBGdcI3smXOY8WR1Z/6y6M8
+ RieKeKp1DiRLasCJl+HjiC/7boBBNJEgalFSji1PXlP30Y9m7zIdEUUY7u9p9G7YQ1tX
+ SsGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786376631; x=1786981431;
+ d=1e100.net; s=20251104; t=1786377530; x=1786982330;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=TTKkSu33ifqU3fmWmPjN27NmycXph8MFAHBOeTvQvko=;
- b=Ce57BCB/CqW7awRsgORk3HaEVYwiH8G8nwRY2y3o/wAIX21HF5tyTpHFZF89LHJCRz
- edhVNs3HC41HYPyhZ2tXoExrymMJ4QXeIZcN5duIOkuJ8IdnOzQfFS22h1szgN1U04hK
- YvOBbMHc/y2DJK/hm7wH3va7G9UzEDxVYRv8e6fhF1ETNB3ym9zfm10pFIFHEBPq00Zu
- a0jn5adUw8XS0uju2es/DORDPVe1xyEOWlWYqmWhAiU6Gl/4UmzWixQ8U+lCweY6i8iB
- 0bKuB3hNHLK0/U7dWAt9yBYozLBvzCB28BiCal9cSe9E+Z0eGeTUPHzcPpxMIteYMe28
- H+MA==
-X-Gm-Message-State: AOJu0YzYkxaoi57Bphu6IgbKj41kM1gAUjc2CzJRqa81qc7jrfZJD7dG
- V3UobxGuvwKS2SFc6Fsi/YcJqkhs7hgU+y36jBcgSE5vLJ03l6Fs/Tx1zqHWpuoxaLnjpJNNbqe
- cYAKiUjc8EmIqsLIimEfbwl6/sCiWtd8=
-X-Gm-Gg: AR+sD11gvzbl8HhYuz4neqJWY/Zjqz5dnsbvJOsK//xkxT7uC6KGFkKrQO1c5BAmznh
- GAJOpmD4/plh1ZkhaO3hdtyFYQ+sJCd4wsxecxlOBzObQO/qLVCnsDuc9cA1ZofG6edxZ+lH+4/
- uPFqjT9g59kMLbJmg+P1Vxh4yn39RBK3awnTT6qU4XPaWnCOLklIIE9lFqNOtHjcTyPrUeK7eMo
- OxdoeMcpgkfzcWayGTDKW+1TR5+nwOsIJyZ5mYmd28NNrbmwD7F3Uh3ZLamrKOvwyVVnnV5Q0L8
- HV5fc7iKU2DUOOBOz4y7iSYR54gyIbPaXOwOh6K97Mbc7OYWe0WFI4D+AKdS52TYVlPMAK9OHQc
- 0e6qkgUpUPkWAxseiPHg9ZBf72cHYFFI=
-X-Received: by 2002:a17:90b:3a81:b0:36d:b30b:14ed with SMTP id
- 98e67ed59e1d1-3903c6e93e6mr30104516a91.2.1786376630986; Mon, 10 Aug 2026
- 08:43:50 -0700 (PDT)
+ bh=U9YsY8rcR2nimCA0FSAl9uZhbzoYDRMtkxeKyVzVCa8=;
+ b=AO9goAQ7ac0aJXLjzhvBFPCIYdKIKwx3L/8mIxphffUSTf0r6ntMgRFs+kwLDrT/AN
+ fT+0kpj2ELdB0SBUvu5qocGN5bROAUbELT2RavLzc+6CinOmMuiSUk3ICNM8e+MSEKbl
+ 8JZOxfo7cDBARNOwxzl62QtqqaKIZVG9H34g1PJM8zQXgpfC9V0dCUDIBAstc/sZ68TG
+ qA59wuz8EJJxXk6ySGSJ/LTuv3ziInRKji+pjiiR7GLHu4JjnAYH6z+AWMPflM69ZPWN
+ xFc7iNu4ggQ8XB/32W/9vhOgPp4++f9I8gOI8SZIb9rs7YU8TN4dcwrpOvcBZinFXhSU
+ hd0g==
+X-Gm-Message-State: AOJu0Yy9Sxy5zzry1OZNmP5O3dgn3bt21bSCsPlowiCUoCp3g2HxzIdP
+ th3eF9d1EbgtVuAuI9Gb9yadhLK/iRK3bxGDvYAtdp4KrRHzrBFsfJqjyrf5X2iWa84noK98wmX
+ 1/gGINYnl998vHEesrOIeyzClPRFHK8o=
+X-Gm-Gg: AR+sD10UdmLeB5952mtKUWCzP7abHmpsbrSyqAtC9bRx05QBR9pR+lqcOtVeSgJCPTw
+ +ES+pUir6NE/BRxErBqDkX8SL0oOfqZ40I7n1BsJiDDcBfRqDPIS0RR8QEr/5Z50wdFmwpr/gZD
+ 5fmP/CuuYmwST7u6gfaoCwrqvF3BZCiK0UKKMJCoIkUs7qAKechGthgof3jPnxAl9vnJpeY4ZwC
+ yxNg0QuOs/r8y0nRvGXgJg+URn0M/MXOhMUZp9r4HRv4HlD0fcGZhYbo5XceESREPpi+STwadHm
+ yyEr6vuuvSs64hj+zIk2/lgxvyTdthYEJvCPtC1yqixc0mGWFz8K+wWRih5lL63NYOUnSl3SBYw
+ c7y1AMkVJ6KT1oJMkbNe6Yjg/4TWGT0c=
+X-Received: by 2002:a17:90b:53cf:b0:38f:57f0:1f51 with SMTP id
+ 98e67ed59e1d1-3903bb01d55mr29573434a91.0.1786377530063; Mon, 10 Aug 2026
+ 08:58:50 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260807194132.3214839-1-David.Wu3@amd.com>
-In-Reply-To: <20260807194132.3214839-1-David.Wu3@amd.com>
+References: <20260605221853.903153-1-alexander.deucher@amd.com>
+ <20260605221853.903153-2-alexander.deucher@amd.com>
+ <CADnq5_MOVBmf5Y6mPumdjiTRx-ffJROo2vsc7QmoV6pbzijNEA@mail.gmail.com>
+In-Reply-To: <CADnq5_MOVBmf5Y6mPumdjiTRx-ffJROo2vsc7QmoV6pbzijNEA@mail.gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 10 Aug 2026 11:43:39 -0400
-X-Gm-Features: AUfX_mwJ8BQCPL8xJGEQX7a4RUAVxH-42pDVQAJqTOPrAH1a0oyWzN3cYI0OvpU
-Message-ID: <CADnq5_OwHSEdJwNtzJFNM7GzTn2xosYgN4R0D_EOWDG75QpJaQ@mail.gmail.com>
-Subject: Re: [PATCH] amdgpu/vcn: vcn dec_msg integer overflow fix
-To: "David (Ming Qiang) Wu" <David.Wu3@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, leo.liu@amd.com
+Date: Mon, 10 Aug 2026 11:58:38 -0400
+X-Gm-Features: AUfX_mzJ88Zyzov4WGhabqKvsFeDIOzVfMGTdVARHgWR9M-N65cya4Gv_adiPK0
+Message-ID: <CADnq5_N8WgGpn15uBynApdkqJdnSaeOFXUyzpG8Q3_3iyHcK1w@mail.gmail.com>
+Subject: Re: [PATCH 2/3] drm/amdgpu: fix missing check in vm_flush()
+To: Alex Deucher <alexander.deucher@amd.com>, David Rosca <david.rosca@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -103,62 +105,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 7, 2026 at 4:20=E2=80=AFPM David (Ming Qiang) Wu <David.Wu3@amd=
-.com> wrote:
->
-> if supplied msg[2] in the header is too large (around
-> 0x40000000 and above), 4 times of this unsigned 32 bit value
-> will overflow and the test could pass.
->
-> Widen it with uint64_t instead. Also drop the redundant
-> first check and make the check clear that 6 dwords of
-> header plus 4 dwords of each msg cannot exceed the overall
-> packet size in dwords.
++ David
 
-Maybe cleaner to use check_mul_overflow() and just return an error in that =
-case?
+Ping?
 
-Alex
-
+On Fri, Aug 7, 2026 at 9:04=E2=80=AFAM Alex Deucher <alexdeucher@gmail.com>=
+ wrote:
 >
-> Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 2 +-
->  drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
+> Ping?
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/=
-amdgpu/vcn_v3_0.c
-> index 81bba3ec2a93..06dcf736b15a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-> @@ -1965,7 +1965,7 @@ static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser=
- *p, struct amdgpu_job *job,
->         num_buffers =3D msg[2];
+> Alex
 >
->         /* Verify that all indices fit within the claimed length. Each in=
-dex is 4 DWORDs */
-> -       if (num_buffers > len_dw || 6 + num_buffers * 4 > len_dw) {
-> +       if ((uint64_t)6 + (uint64_t)num_buffers * 4 > len_dw) {
->                 DRM_ERROR("VCN message has too many buffers!\n");
->                 r =3D -EINVAL;
->                 goto out;
-> diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/=
-amdgpu/vcn_v4_0.c
-> index 0cce78b205a8..7950a020f4e1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-> @@ -1881,7 +1881,7 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser=
- *p, struct amdgpu_job *job,
->         num_buffers =3D msg[2];
->
->         /* Verify that all indices fit within the claimed length. Each in=
-dex is 4 DWORDs */
-> -       if (num_buffers > len_dw || 6 + num_buffers * 4 > len_dw) {
-> +       if ((uint64_t)6 + (uint64_t)num_buffers * 4 > len_dw) {
->                 DRM_ERROR("VCN message has too many buffers!\n");
->                 r =3D -EINVAL;
->                 goto out;
-> --
-> 2.43.0
->
+> On Fri, Jun 5, 2026 at 6:44=E2=80=AFPM Alex Deucher <alexander.deucher@am=
+d.com> wrote:
+> >
+> > We shouldn't return early if we need to emit spm update.
+> >
+> > Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/a=
+md/amdgpu/amdgpu_vm.c
+> > index 7e0e2281719b1..13031e4b6f1d5 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> > @@ -809,7 +809,7 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, stru=
+ct amdgpu_job *job,
+> >                 &job->base.s_fence->scheduled =3D=3D isolation->spearhe=
+ad;
+> >
+> >         if (!vm_flush_needed && !gds_switch_needed && !need_pipe_sync &=
+&
+> > -           !cleaner_shader_needed)
+> > +           !cleaner_shader_needed && !spm_update_needed)
+> >                 return;
+> >
+> >         amdgpu_ring_ib_begin(ring);
+> > --
+> > 2.54.0
+> >
