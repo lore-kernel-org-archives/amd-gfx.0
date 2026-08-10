@@ -4,87 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D247C5AC82
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 11:36:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D65A0C5AD55
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 12:03:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B820D10E7D5;
-	Mon, 10 Aug 2026 11:36:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D19B910E7EF;
+	Mon, 10 Aug 2026 12:03:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="dDi3YCFA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vDMK92ge";
 	dkim-atps=neutral
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
- [209.85.160.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DCBF10E7D3
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 11:36:53 +0000 (UTC)
-Received: by mail-qt1-f178.google.com with SMTP id
- d75a77b69052e-51c0006ea8eso13106671cf.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 04:36:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=ursulin.net; s=google; t=1786361812; x=1786966612; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=SXRcPlyRBlzOQgIcCkcRdarCPll4g6nyvpn9WQFz5cU=;
- b=dDi3YCFAHpq8GRdGcaVW6GcZ5rMsR23lEx2hQd6zyIJjqvrc60Xk39UjnTCQa80K/d
- 87GV3ameELWWxES0RKlJMTEC5Nr1ofsMQP6flhKCplVz0mZLGOB0jlwMmlpLduOFxzYW
- 04wHXG7rAPDbZtm0bXgawQVAJSSXzwt89arzek5iIXxH3kgwnwhBMwbqA+0V5TseCIJm
- l0OAjbpI40/osw+Fcr1wJQhULaxTuJX94EFdW8YZhs0MLBCTjwiLhPSDBs2+WOHmHigm
- 1DlYTWWBfRnUrJCukFbz8QKp+VqIMDn9rUxmP0a2PAzlibF/zbu5Ir6NA6MgPOTWWOw/
- hogw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786361812; x=1786966612;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=SXRcPlyRBlzOQgIcCkcRdarCPll4g6nyvpn9WQFz5cU=;
- b=KTNZZNY+BGFu4egrBDIUkdKVUoRg6UsZQLKF2QdLi7LYnCelAREOs758wcvLmZFB/L
- wixxgJn+XMTAfIiLfHXwStuRbe8VP+AtKvoMzDPT9WJUZu6eQ0zxUsy55fRyy/OWAV11
- k9jiedG5bbdm8yYPbwuU8gsk9RcgFoLlNP47Ed9aPxJ1qwUip8EmU/7tw1OPP6Mv5KS4
- EaebwsbtS7Rnag3ZByrcI/d4+5Bs11GJWYkO6BVPmfWoscTxmUxjVLWan6OccCY+z1JP
- x2aGssJEfrKTZtSGyGUYvoL1Hbwh7MJMFLc0/JRzLJOAcr3zGTcniG9zxAwCWUK7fkh9
- ODAQ==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpT5eO7j0eFs775/d9xyLT71LAwOGu0VqUf3+8q70DKos07PwM7KSMnlujJXHl61e135T6rGzHc@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzKvRuFRO58nHOXhGVzdPgQW8Xozo4y5jRMsILmhVOUdSaQ0QzL
- wZaDpYqaHoofTMF2B36a8pa3LlzmQHi6EyhS7gDa/0TtZDbpQ6Ltn/D1S4CgqoACFmY=
-X-Gm-Gg: AR+sD11ZvHBC5RQBHBPRC4CEUKrIUrLuXiv6rWksYIEqFfqQJG2H7gloASU7QhNA2NO
- N1ow4c048Cr8dLYtcYagLaZHect7/hNyT0CK6MolxwevktSpXIY5gJmSF/Kmhnlw9ccaUNNYz2k
- Dod+C868ZVthJP6Ulwun7zx2PSFDmUIHCHO9yHICqPuqZ5npmNdYzkELDjvNdGOZ6gqF1R1ITZY
- W+Qf9KYILeFPuuj5t0VRIkb2CW5IrVnCXpkftgr6XKW1d/W3Il/Rnt5cs14kthszzatEFGNiUN5
- WfpxBYptk+f19cOqXuzn22Dgoa6FsktL7JConVCPhotSyPxtp7DUmIw/sa5X8Tfefk4nOP1wp3h
- FifV2LaCECZA+u4sbavHRofAUKoMa/BvnTHhvKjy8pGgMd/F3X7ZfOydQcwLbt5/jGI+6tKptR7
- CJJscs6yOAvLQyOuFie9zpBc6cEXV23rH8+A5hJ8BNwyYuwMd6BcbcFI9IkvySCC1qYvuFjmWCd
- GMh5dslbuONs5/CoDzg5Q==
-X-Received: by 2002:a05:622a:1449:b0:51c:404:af7a with SMTP id
- d75a77b69052e-52d4bc9a5aamr7898791cf.31.1786361812300; 
- Mon, 10 Aug 2026 04:36:52 -0700 (PDT)
-Received: from [192.168.0.116] ([90.249.211.112])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-52d165efd05sm69318071cf.20.2026.08.10.04.36.50
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 10 Aug 2026 04:36:51 -0700 (PDT)
-Message-ID: <1bf21e40-908d-4e66-80fd-7548a7a748c3@ursulin.net>
-Date: Mon, 10 Aug 2026 12:36:49 +0100
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012059.outbound.protection.outlook.com [52.101.53.59])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 18DE410E7E8;
+ Mon, 10 Aug 2026 12:03:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CXdwlFAtWBCf/cu8lVAwRe3ntqiKS3yuksBRCawutsemcj/pRhb0XcbYXSWD0N23V8kpEjm3V1MfAhqvkS039qvvACdtKru/tvI62P/GkvqeUGE1dwBindSWwtLeKZ8ksKbD1rnsQgTH4G5yE+0RU3TDMsvoHLmR08n4MDUyda9DwmG+Bt6ZCBIFN8DDTgrPCXcWiI993UX8w+sNeRART968zqFeaOTqvQP3KpDQ47h03XGKh6dfIou4G8EA+SluAgZhw7i6rwWM3yvUZL4sroKu37Bb4qdxOGfJahH2qqV90z0lMQ8Z2E4z6KNJhjxckjWjudSABzsIojDy0k5RVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=u/3aRSGV6LtniVGzs0AI4k/74O8Pn8blhFUduVq8wek=;
+ b=hs/A2Zfe8sdVWiqENvwy/y8DHII5ZMHQUxBBVV01sSMW/x9XL3589MJS1gvtMlaVqB9j86fpnPlsyRTkuvdG/j+e7W9e2i3L2C8dztq/TorkUJrCrptFokHN0LB2vay2VV2EzeWSulbzDwPK8Fg+/N/snF5d6I7GF/WIwAVyrBkhS9VyMM6vC+kO3bNJMq665nhDACQ7pwjxxsEsxBKuWRxnH77FMUG8N/Wj19OfdQ0RiEEEqiImkzpcKMYRhsu6McoCSBWgp8ROXucEN2JiCvOTrmMo46Nrqd0FsDssXpZqGr7o2ao8+Q8/5X60RAC3kkGAfjkOIBOeBWNW1p+gnw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=u/3aRSGV6LtniVGzs0AI4k/74O8Pn8blhFUduVq8wek=;
+ b=vDMK92ge4CdM0zSiCLF3yWWBy9BBArKZ+P+b7zCFMvzyF8ZYNYJWg6jl+3wfJo8o4Q4qsxblqBmoV/kM6k+CSXHRyniLHkcOsodoULYUpl/gr5kwztRqJdQqeianOuCdmqWEdyTfghJvcF2ttWy18BGjRb4uKpNRmEvabJYrL7A=
+Received: from BL1PR13CA0271.namprd13.prod.outlook.com (2603:10b6:208:2bc::6)
+ by CHAPR12MB999247.namprd12.prod.outlook.com (2603:10b6:610:2ff::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.21; Mon, 10 Aug
+ 2026 12:03:01 +0000
+Received: from BN2PEPF000044AC.namprd04.prod.outlook.com
+ (2603:10b6:208:2bc:cafe::5c) by BL1PR13CA0271.outlook.office365.com
+ (2603:10b6:208:2bc::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.11 via Frontend Transport; Mon,
+ 10 Aug 2026 12:03:01 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN2PEPF000044AC.mail.protection.outlook.com (10.167.243.107) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Mon, 10 Aug 2026 12:03:01 +0000
+Received: from FRAPPELLOUX01-WSLPUB.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 10 Aug 2026 07:02:59 -0500
+From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+CC: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: [PATCH v3 1/3] drm/amdgpu: don't disable ttm buffer funcs on reset
+Date: Mon, 10 Aug 2026 14:02:14 +0200
+Message-ID: <20260810120218.23000-1-pierre-eric.pelloux-prayer@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
- degradation at max GPU load on 9070XT
-To: Luke.Wildhardt@proton.me,
- "matthew.brost@intel.com" <matthew.brost@intel.com>,
- "dakr@kernel.org" <dakr@kernel.org>, "phasta@kernel.org"
- <phasta@kernel.org>,
- "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tursulin@ursulin.net>
-In-Reply-To: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF000044AC:EE_|CHAPR12MB999247:EE_
+X-MS-Office365-Filtering-Correlation-Id: c62f207f-21bf-4d14-3010-08def6d75364
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|376014|36860700016|82310400026|10067099003|11063799006|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: aPgMgxYRgvY/FIjtlCkWDXMeoamdDIjSrBZy4ZCWZNBglOkVoJN9uiMPgTWCXl8L7flNHgs9F5tkAesNvktCCwuUzp1G1IXEWrdi7A3JTynXMRwqeJrFF2yakSazUTjIHFR0b06ly2y4daMHT8v1YHxtcDyVslEd7MRpAD/240Vs5Ka6+abEIlu53e0twdv+Fzv3yVoi1T00kBshnMF0N1hLK5GgHH/h4oDP1UZiwxkyGoVb24BwZdl13rCZJOZE/Pa2XyVDXNwLW+pEpdFj72X/o6dj1KMyT5xJG5f6WJZPxFm+ZSAwkaiVSWPmYWwYduPAAJnH4nfQ5idkxmXETr3W3Nr83cvKgR4BGYxoqHFJli9AIAkctgAn99z5Y12/Q1+Qrb4eUufhZp21tq00q4/zB9So6vAM2we9tXZVCU+SUmgTxDF3rGFQG+A8qGbEp6M3bcmdkNnt/Fc1miH0fD3XO3BE0hqjR1nDy8dyByaI/APl0bM71QkbnFoahdy/sAz6RcNJ20/26BtywvVSedAvSiOTVPxgjODLSd8n/rE4uoHqfy38vu6vTH9MWfmp5R3dhTBwsuhrVkGtUDobmmzRvFgZwZfIT+hdctKAkzNz6j2iU2ky65Y52wJCS8Hhix92A3FmgUOK+4yae6oDBhy549EVNNSsByluQ0RJEh7L/8bAMaVGTAcxtcZXkJOgc3obUG+h6ckM5n5kWl9BqQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(376014)(36860700016)(82310400026)(10067099003)(11063799006)(18002099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: sUiUp0djdc8dHeQS3xcUZUnGRpmmgHtMguLZdkKALkudsEpDvATFb/KxerBeugFCQasnxD9ji60pJvP2fRcmn4HJiBxKShB2r1WNN9SKgN0vDj5MJmxYMvsWUtHUo2km/MhQq1Kpf8duc5VUw6yVsgeJ9bJuco5BkWiFRGMdZD5QO3lHlcDKnrLwO9ipgq53Do3o0SdQnvahugPhYQsv9w8u5oQOj3gL+Ivyzv3x01HywFqk8hgngDpYB3Ro0uB7Ql2rFf/CX/Pe/UUzzgc/Fjw4+VbMltaubrBWz3vfnjsHWMimyeSbM8D+ORpdhC3JV3ht/NYsp2h+CN9a6pX7yFPtZ0cx9ecY5METfADjkfYksBnK1IvlR0QrJxp4HES0IaJwPlPK/u+xTmIzpNSYxso7l/rJZVYWXt599fhBmASkd88g4er8aNlyixwxPh74
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 12:03:01.0237 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c62f207f-21bf-4d14-3010-08def6d75364
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF000044AC.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHAPR12MB999247
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,215 +111,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Access to hw is already suspended so there are no reasons to
+disable ttm buffer funcs.
 
-Hi,
+Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 2 --
+ 1 file changed, 2 deletions(-)
 
-On 09/08/2026 00:33, Luke.Wildhardt@proton.me wrote:
-> Since the DRM scheduler default policy was switched to FAIR in 7.2, sustained 100% GPU load in-game on my RX 9070 XT causes severe performance degradation. In the example title running through Proton, Project Silverfish, the foreground application degrades to roughly 10 fps or freezes outright while audio continues, and the KDE Plasma Wayland session can lock up entirely, requiring a reboot or killing the compositor to recover. The problem is not limited to games. Running the game in the background + alt tabbing, then playing a YouTube video can also cause the entire desktop to freeze.
-> 
-> Then, if the game starts to stutter, either alt-tabbing, or opening up a menu in game (which reduced the load on the GPU) immediately stops the stuttering.
-> 
-> The issue is reliably reproducible under sustained GPU saturation, although the time-to-failure varies. Increasing shadow load (which decreases in-game frame rate) substantially shortens the time-to-failure.
-> 
-> In game, MangoHud does not reveal any frametime discrepancy.
-> 
-> Bisection / test matrix
-> 
-> Reproducer: Project Silverfish (Proton) at settings that saturate the GPU, with a second GPU client active (browser video). Other titles show the same symptom under sustained load; I have not yet re-tested those specific titles against the fix.
-> 
-> Kernel	Result
-> torvalds/master stock	FAIR (default)	FAIL
-> same as above + reverts below	gpu_sched.sched_policy=2 (FAIR)	FAIL
-> same as above + reverts below	gpu_sched.sched_policy=1 (FIFO)	PASS
-> 7.1.5 release	PASS
-> drm-next	FAIR (default)	FAIL
-> 
-> Reverted Commits:
-> 
-> d09339388b77 drm/sched: Remove drm_sched_init_args->num_rqs
-> 2833a0512b4c drm/sched: Remove drm_sched_init_args->num_rqs usage
-> 16e7698bc04d drm/sched: Embed run queue singleton into the scheduler
-> 77a6809f1dc3 drm/sched: Remove FIFO and RR and simplify to a single run queue
-> 45c211ddf92a drm/sched: Switch default policy to fair
-> 2462a0ce23b0 drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
-> 
-> 
-> 
-> Kernel (failing):  7.2.0-rc6 (stock), also current drm-next
-> Kernel (working):  7.2.0-rc6-default-revert-00006-g7e5de9b07e3d with sched_policy=1
->                     7.1 release
-> Distro:            Arch Linux
-> Session:           KDE Plasma 6.7.4 / Wayland (KWin), Qt 6.11.1, KF 6.28.0
-> CPU:               AMD Ryzen 9 9950X3D
-> RAM:               64 GiB
-> GPU:               Sapphire Pulse Radeon RX 9070 XT
->                     03:00.0 [1002:7550] rev c0, subsys Sapphire 1478
-> Motherboard:       ASUS (AM5 / 800-series chipset)
-> Mesa:              26.1.6-arch1.1 (RADV, driverVersion 26.1.6)
-> Vulkan:            instance 1.4.357 / device 1.4.354
-> 
-> 
-> 
-> 
-> On the same reverted kernel build, changing only gpu_sched.sched_policy from 2 (FAIR) to 1 (FIFO) changes the result from reliably failing to passing extended stress testing.
-> 
-> 
-> 
-> Possible mitigation options
-> 
-> Given that 7.2 is late in the release cycle and 77a6809f1dc3 removes FIFO/RR as selectable policies, there is currently no runtime workaround for affected systems.
-> 
-> 
-> Revert 45c211ddf92a so FIFO remains the default while FAIR remains available for further testing.
-> 
-> If necessary, also revert 77a6809f1dc3 and dependent changes to restore runtime policy selection.
-> 
-> Alternatively, fix the underlying FAIR regression if a suitable fix can be identified in time for 7.2.
-> 
-> 
-> I mention the revert options because the justification for removing FIFO/RR included the absence of known regressions relative to those policies. This report appears to provide at least one counterexample.
-> 
-> 
-> I am willing to test patches responsively and collect data if necessary.
-
-Initially I thought it could be a missing wakeup but I couldn't spot 
-any. Then I thought about the clue that the regressed/stuck state 
-happens after some runtime, and is accelerated by the competing clients. 
-So I thought could there be an accumulating error in vruntime handling 
-somehow. The only problem I found so far is that I think the 
-min_vruntime handling has a bug where if an entity never exists the 
-run-queue it can get penalised by its' vruntime only growing, while the 
-re-joining ones get the pull ahead of it. I think the fix is to make 
-sure min_vruntime is strictly monotonic and strictly follows the last 
-popped entity. On a re-read I also think that aligns with how the CPU 
-scheduler does it.
-
-Could you please test the below diff against the tip (no reverts):
-
-diff --git a/drivers/gpu/drm/scheduler/sched_rq.c 
-b/drivers/gpu/drm/scheduler/sched_rq.c
-index 044546bcb5f8..6b40f0c44fe5 100644
---- a/drivers/gpu/drm/scheduler/sched_rq.c
-+++ b/drivers/gpu/drm/scheduler/sched_rq.c
-@@ -95,6 +95,7 @@ void drm_sched_rq_init(struct drm_sched_rq *rq)
-  	INIT_LIST_HEAD(&rq->entities);
-  	rq->rb_tree_root = RB_ROOT_CACHED;
-  	rq->head_prio = DRM_SCHED_PRIORITY_INVALID;
-+	rq->min_vruntime = 0;
-  }
-
-  /*
-@@ -117,28 +118,6 @@ static const unsigned int vruntime_shift[] = {
-  	[DRM_SCHED_PRIORITY_LOW]    = 7,
-  };
-
--static ktime_t
--drm_sched_rq_get_min_vruntime(struct drm_sched_rq *rq)
--{
--	ktime_t vruntime = 0;
--	struct rb_node *rb;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 964efec0d335..b7751dde2894 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -3162,8 +3162,6 @@ static int amdgpu_device_ip_suspend(struct amdgpu_device *adev)
+ 		amdgpu_virt_request_full_gpu(adev, false);
+ 	}
+ 
+-	amdgpu_ttm_disable_buffer_funcs(adev);
 -
--	lockdep_assert_held(&rq->lock);
--
--	rb = rb_first_cached(&rq->rb_tree_root);
--	if (rb) {
--		struct drm_sched_entity *entity =
--			rb_entry(rb, typeof(*entity), rb_tree_node);
--		struct drm_sched_entity_stats *stats = entity->stats;
--
--		spin_lock(&stats->lock);
--		vruntime = stats->vruntime;
--		spin_unlock(&stats->lock);
--	}
--
--	return vruntime;
--}
--
-  static void
-  drm_sched_entity_save_vruntime(struct drm_sched_entity *entity,
-  			       ktime_t min_vruntime)
-@@ -148,7 +127,7 @@ drm_sched_entity_save_vruntime(struct 
-drm_sched_entity *entity,
-
-  	spin_lock(&stats->lock);
-  	vruntime = stats->vruntime;
--	if (min_vruntime && vruntime > min_vruntime)
-+	if (ktime_after(vruntime, min_vruntime))
-  		vruntime = ktime_sub(vruntime, min_vruntime);
-  	else
-  		vruntime = 0;
-@@ -271,8 +250,8 @@ drm_sched_rq_add_entity(struct drm_sched_entity *entity)
-  		list_add_tail(&entity->list, &rq->entities);
-  	}
-
--	ts = drm_sched_rq_get_min_vruntime(rq);
--	ts = drm_sched_entity_restore_vruntime(entity, ts, rq->head_prio);
-+	ts = drm_sched_entity_restore_vruntime(entity, rq->min_vruntime,
-+					       rq->head_prio);
-  	drm_sched_rq_update_tree_locked(entity, rq, ts);
-
-  	spin_unlock(&rq->lock);
-@@ -318,6 +297,7 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity 
-*entity)
-  {
-  	struct drm_sched_job *next_job;
-  	struct drm_sched_rq *rq;
-+	ktime_t ts;
-
-  	/*
-  	 * Update the entity's location in the min heap according to
-@@ -326,18 +306,17 @@ void drm_sched_rq_pop_entity(struct 
-drm_sched_entity *entity)
-  	spin_lock(&entity->lock);
-  	rq = entity->rq;
-  	spin_lock(&rq->lock);
-+
-+	ts = drm_sched_entity_update_vruntime(entity);
-+	if (ktime_after(ts, rq->min_vruntime))
-+		rq->min_vruntime = ts;
-+
-  	next_job = drm_sched_entity_queue_peek(entity);
-  	if (next_job) {
--		ktime_t ts;
--
--		ts = drm_sched_entity_update_vruntime(entity);
-  		drm_sched_rq_update_tree_locked(entity, rq, ts);
-  	} else {
--		ktime_t min_vruntime;
--
-  		drm_sched_rq_remove_tree_locked(entity, rq);
--		min_vruntime = drm_sched_rq_get_min_vruntime(rq);
--		drm_sched_entity_save_vruntime(entity, min_vruntime);
-+		drm_sched_entity_save_vruntime(entity, rq->min_vruntime);
-  	}
-  	spin_unlock(&rq->lock);
-  	spin_unlock(&entity->lock);
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index 363d13fc929f..892ef474c5c1 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -252,6 +252,7 @@ struct drm_sched_entity {
-   * @entities: list of the entities to be scheduled.
-   * @rb_tree_root: root of time based priority queue of entities for 
-FIFO scheduling
-   * @head_prio: priority of the top tree element.
-+ * @min_vruntime: Minimum virtual runtime for the run-queue.
-   *
-   * Run queue is a set of entities scheduling command submissions for
-   * one specific ring. It implements the scheduling policy that selects
-@@ -263,6 +264,7 @@ struct drm_sched_rq {
-  	struct list_head		entities;
-  	struct rb_root_cached		rb_tree_root;
-  	enum drm_sched_priority		head_prio;
-+	ktime_t				min_vruntime;
-  };
-
-  /**
-
-
-
-Regards,
-
-Tvrtko
-
+ 	r = amdgpu_device_ip_suspend_phase1(adev);
+ 	if (r)
+ 		return r;
+-- 
+2.43.0
 
