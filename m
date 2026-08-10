@@ -4,90 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 27CF3C5B567
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 18:20:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18364C5B567
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 18:41:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8665310E246;
-	Mon, 10 Aug 2026 18:20:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CD2710E03D;
+	Mon, 10 Aug 2026 18:40:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jSDPtljW";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NBIVkl1c";
 	dkim-atps=neutral
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com
- [209.85.167.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11CBA10E246
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 18:20:36 +0000 (UTC)
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-5aeb59d54b1so2356884e87.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 11:20:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786386034; cv=none;
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1C1B810E03D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 18:40:58 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-392af6bda98so199578a91.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 11:40:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786387257; cv=none;
  d=google.com; s=arc-20260327;
- b=DXw4xCQFq0vezAXN2PGAjByPf7weCmWzjc6c707/WItTrifEK08klwuRaeH+WQMXnK
- XkqaPOxY0NnCdezmtiOa1N0oNA6b2cPazHjIG8ExxgzIMEZwBjJuU3bNeNa9V5MnmcqV
- Ky+fNZSBb6qqueQk6kkoHCVgxHOYXxWtD84itbxJ9FVoBTr/Ew7B7GK9AcVEicoFmeP2
- ioBrGfb5TvdXnEzlXbTaz/QdQmZdMwlU5XteKcUdE/ZLEd7N6vZ9c3YrmqmXWLEOcIxr
- vDNwlwkzR4sdcaofc2Jkl3DU9O54sJ4hwzBcwgNywgRM1VJfKkluW4DHdqvvt7hZLc3m
- +JFg==
+ b=U8i/aYtuf9HBDLUnLzvCMaf3mrXMzXTfwAdBoW1HN0avG1taJ/Joiqi5IjkRIlAk8M
+ Gl55NOVyjT2j1K44e8Cgz5lsbTxn+BZYNsmX4s5xdbC88TAsO1tK0KahEtZh32fyuGsE
+ AFDkH1fCJ+cNjfSmQxO5B+EDaH8X9J3m01TR5ksZfrSI3CO9iJyOOftp22Sa1pmSN9UK
+ KV1W1U4MAdMxnzAB2AK9MeW3Nfxww20vlmEkqIbfMbqEYoIidmJ3EhMhSP+V6ur4HX5I
+ N9yxZ4fsxoLmVORwXqqANI1dBA7ToQuMat7k4oRav5/r4koYdsrs1XZow4ibuORKlthr
+ eybg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :mime-version:dkim-signature;
- bh=GRKZQyIgAIUvIunVT9w7wqu2dy0LSt3JM4W0FMydkoM=;
- fh=rEusfiHy/+qABTCBDQ3qbHvzMiZ7gzopE44imqpQhEc=;
- b=NMCszz9dGa1/D7C+XoTQdKUuCKRH0LbtG3n5YI5UfUHYu8a6BLFilXXAqKfVI7t8jQ
- /yJiG2ZUqxhjtE69xVyI+pInnOWSRCIWO3IBWSr1GN32ednP95wOZO/MfNbfm0qUpMP+
- eF9KP9o15b2Ht46gta3JvEZljb95oDFkC0CSzRZkSEOg4Aeqmi8l60KdXbU49mc6hEoi
- sCigxy3GfB5TLfLgzxcgG6UkpPUtDw+y1zVQ5J7Djnq4skIgOgI63pL+BwZyhKHIFbFJ
- WXsV9Uw/1hTHzCzOgV+uzOZXKgG8s/+3Z4ati08iTv/PMvip6qvaPOhDeko/1Rs2Eh+J
- 4dhA==; darn=lists.freedesktop.org
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=IDnbD2UO3WyOuDehW2mkqgikhPKgQCT+Ce5Oy6rQhqo=;
+ fh=x8wVZEYxIjamc6fs33NvCM28Uk9SpeviSpmlRQ+OxZw=;
+ b=MGfOSvBGLZ3P9PU1kjDuphiR3ZZ3dmNG1R9ye3hXxHo0drywluWG8QRcL3B/2Fznus
+ 7tNbBVRz9s81eVKlaJYdXM5uQEvFxwuXibc2TMY4By7J5msus2mcEApNFNYWaNXeVR7l
+ YIHh1GhWJ5XVRQN1C5EuiDxF+HyclxmEbqRA4Ut8LulwXskeRL64+BQafe4NHv5Xff2h
+ KTSO8jP7qbO1h+cI7ace8V0MNxIey+8ipQNWG+x2mlGXhkwFffaarrVhOT5dEOWIiQIJ
+ RFsjRWdH5mLsvEhqpA3GxArZ26ffLNOSpk8hxXU7FVBOsxiSCMSXW0+efZZbM54KEA9E
+ AOhQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786386034; x=1786990834; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786387257; x=1786992057; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=GRKZQyIgAIUvIunVT9w7wqu2dy0LSt3JM4W0FMydkoM=;
- b=jSDPtljWhCBgaMBlyix8OMvu4c4ISnTDeUNVhs302g0rfmRRH36rz0aRkBgRP3jCLJ
- jON+MPEwYTvid53LPYUrrvjComS14aplVj+qD042hNz81aQGy/gfUF4cfFWeqNXwuBPC
- JC01PMeRtX0TvdqzMo6hYEYUdtKFaMK3XFAGxnfzPbrFzFbxA4zfX2XBw+0ugAmiA5y0
- aSgoTJ/vfgHBDLTtJi2XdGSp+IDDyo4iRdkM+LqJwZOBHVo7YKPWUeZrWoDZwVklxbmJ
- ABQena5edeUIiDq92Y1i9H8OwUm+y3K9A+Z8UDDvyohtan3Ye+UAh+N96PXMxhX9xzZH
- SAhg==
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=IDnbD2UO3WyOuDehW2mkqgikhPKgQCT+Ce5Oy6rQhqo=;
+ b=NBIVkl1c/QBHnIZEU8itbiFhMz9VFLtBTf0FknW6CGg5UeA5YXPaiHiuJ65nnStdu9
+ dAKj8GPv9zzPNTcHoIMI4G7Yy+juIvhlIKLiv2Yft01llMyScFru76e38AcqlmEroVUG
+ cYyT94zbKn+LUciX7KJf1KpxmtKiRpXKkJoTnFd9Wwo5zGG9iA69D1zoXaag39ATvu0q
+ 3cMg2zWkjbnnWCri7Dm61AuucLgG0nllcXjJszKKo3ytUnGNw4R0DapoWZ7ijHKov49n
+ nVKRQbQPt4DnsGohL1t+T8e0soeu5QxnkE08WB8JxZKpUnVV0fVAJuJ0/TBCeazcwP59
+ ygsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786386034; x=1786990834;
+ d=1e100.net; s=20251104; t=1786387257; x=1786992057;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=GRKZQyIgAIUvIunVT9w7wqu2dy0LSt3JM4W0FMydkoM=;
- b=hp01cOgbeQXg8uqvwwbpN78OprGV5QQvWZ5g6K0e2GayM2/x8aXqnHzuDjuFFowFwF
- vN0Zw9QksftAevriyXtGLXAPn+VIwXy1CUr7BHXLrm6jZgaZaMaGsl3GVklWdZWSO2wu
- el6XMokfE3hEIrSvFPEn3PRKBF3ietivG6Wy3a/pLH4/Hqjn0wEnSBAD4Mc6mC3t4IZ5
- P5ZDSYRixUJgERsLGo8qS8Ul7tQruFDJy2tXCp4UN2jeDMCdfYCtCDov4M4fZMd8PFMs
- Y6gmomZTQJPVJOOkZFs+G5tTg0W1nj0l1XACXmo+kGjL9hFQqa72f7jqUF6nFe3GxxJ7
- gMpw==
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=IDnbD2UO3WyOuDehW2mkqgikhPKgQCT+Ce5Oy6rQhqo=;
+ b=FUOGxcq5Fkde6uuLHcTX3wam8ezGqyA25nZUiNgyLv1ECG9Lx0XMtRLA3bi5AXacdn
+ zSjaMMhTXWWlJArHXJLsc82/AC+tvX6AfjHHN9hgTLrYyDmbIsDyWdXW0HqRGAGBz14s
+ 0/FHj6qmPDzdV+0Cr3h3QVn1q9ya3T0mN+bHdm0yDYJEitWgh1ZrpP//Bs7WHZpbQHLg
+ ED9vju+iIrdmiBs6s86kR0d9HFCPEXcgxtlcm4yXNm0jpvNQZ+vMOQmm4fzdpjpMBN0c
+ ILSJJB0Lv6E1E8P3NJ8NEWgQdXQTXA91+TSYLTAM1UWjXDtfNYe8EzgNswMp6wnMGYW1
+ jf/Q==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqJgTFpvbYVkXg0+p5cI9KotZDkERQmxXii+wH7PWpsN4nHYNButcYK63QVb3mQ92M+tH2dby4a@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzU/giGh6vSreAeDYHZgRuqRmFKxT+/6XnajAFcWnaVLwq5TsaC
- CCMOCYwQ42KOfG5CV56oHamzDy3sv1v+w5jOQSMo8pjPjInHhXuK930Dms/Zzu7A2YSsFjAEe09
- amCS7aBY75m6SMtsf3j4f/nplI9VHSXs=
-X-Gm-Gg: AR+sD12+JDaiggJkGGneWZkVe1pfXOZy5zonYC3qYiAaQpQaH8+yapa+FOqkcTMH0+t
- tVRC13gfKF7YjL/B/CW61FpSYAmYmMucGd+2Cbp6YtXF/GnOAEZg9UQXsdsqbdFaKpUUYycOQwE
- /LG1lz9292ngGxR/KeFr5+XChPKqYv5RnzakTh7/F0Yxag4AdD4N5850jIw438aEL2exv74ztBK
- 9XrRUN5fXyvv4GmcjowlZ/G4Yq2VWp8rfeR4jft9pyJp4p6kuOJS/sLDd8IDA6XyqEzIOUKg0y3
- Z3c1BnGVBCub2NK5ztMX5+TbiGtZb4eGqu8Vg7Z47uWIzApP7IsIOChhfAtZGxCXYm6hJxtkvQ=
- =
-X-Received: by 2002:a05:6512:258b:b0:5b2:b85d:4821 with SMTP id
- 2adb3069b0e04-5b30b786143mr2552860e87.51.1786386033788; Mon, 10 Aug 2026
- 11:20:33 -0700 (PDT)
+ AHgh+Rr/qaD9PvkaZKaMgEcW5rlhPKB9XspehdiuK0wNvjN1jtkmJf22vWjdBjiNgg2+3xQzVtuOeab5@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yw1bJrQ2WstYaAYEl6VSIKVyTTrQyEyO6EGahSY6a7x8ntWY8F7
+ RHkzBePQU4ysREK/5wAbCoWd42o+Zkxea+CegTAvhEA20v8XCcYgyiRBINFHYEjX+ac20TTiSqD
+ 4EaPGUAROHpsM5X/HnOsu2w38XE29eig=
+X-Gm-Gg: AR+sD12mC5CdI2Qy55FHtOZUtM9zDlvq/fi5yCB6BsJkNkbsnqaYd1TVBOHLy4/ZWea
+ 8RtsbYsreEe+TznCS/QRmoF8fXw7qH0AJN2WEJIrHDa7jNgz/INMyutDnCBsJm7BIMB87fc5CIW
+ Jik8S9Zp6S1OKFbiHujeIdlmtM27ylvr9dhA/DFrXpkrQrW0kW6kaklVF3XmquGioFYYpuOr7W3
+ Y0I+ZkGAURqxX+LNxm8UN76tK7BIfmbGrfNvVDi66TjfTFmTyw80x2Tfns1tMUxnlEzVZikjK0+
+ OKFZx1Raz/esHYFxgZYqMddKnmsFTwYpPwl92m6cCL3Q9NVnW778h9HYLCEhy0evYPpsyjnqTN4
+ +h3Y7vu/cR/Wiv1YvQugvcZh3GVdUxPg=
+X-Received: by 2002:a17:90b:5807:b0:38e:480b:99a5 with SMTP id
+ 98e67ed59e1d1-3903c5fa99emr31653029a91.2.1786387257375; Mon, 10 Aug 2026
+ 11:40:57 -0700 (PDT)
 MIME-Version: 1.0
-From: Samuel Ainsworth <skainsworth@gmail.com>
-Date: Mon, 10 Aug 2026 18:19:57 +0000
-X-Gm-Features: AUfX_mx6pXatgay6nY2-0AaEVhS7XtZZI2NnWZIjNrrj8v_2ITG5X2TNxFxYtSM
-Message-ID: <CAHYiNPZtDJ1ftQ4-uxc4mFQLRKL_dEXK4f=0FmBWOX96b4+7mw@mail.gmail.com>
-Subject: [BUG] accel/amdxdna: Phoenix hibernation restore timeout followed by
- SMU/PMF lockup
-To: dri-devel@lists.freedesktop.org
-Cc: Min Ma <mamin506@gmail.com>, lizhi.hou@amd.com,
- amd-gfx@lists.freedesktop.org, 
- platform-driver-x86@vger.kernel.org, Shyam-sundar.S-k@amd.com
+References: <20260807115712.22423-1-mwen@igalia.com>
+In-Reply-To: <20260807115712.22423-1-mwen@igalia.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 10 Aug 2026 14:40:46 -0400
+X-Gm-Features: AUfX_mxudn7S1bY6Go3YBiGO4RqcIMi4pOzDB7fnjayynPlWt6hEpFSuLHctVIU
+Message-ID: <CADnq5_OxnaEdNUpC1VQsCgensRYAgFCMeGy3uL5n6mYXqOHV-g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: use plane color_mgmt_changed to track
+ colorop changes
+To: Melissa Wen <mwen@igalia.com>
+Cc: Dave Airlie <airlied@redhat.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, sunpeng.li@amd.com,
+ siqueira@igalia.com, 
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, 
+ kernel-dev@igalia.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -104,174 +111,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hello dri-devel,
+On Fri, Aug 7, 2026 at 8:08=E2=80=AFAM Melissa Wen <mwen@igalia.com> wrote:
+>
+> This is a resubmission of d79716401a95 ("drm/amd/display: use plane
+> color_mgmt_changed to track colorop changes") whose change was reverted
+> by 0461ba9a7994 ("Merge tag 'amd-drm-next-7.3-2026-07-02' of
+> https://gitlab.freedesktop.org/agd5f/linux into drm-next") during a
+> merge conflict resolution.
+>
+> Original commit message:
+>
+> ```
+> Ensure the driver tracks changes in any colorop property of a plane
+> color pipeline by using the same mechanism of CRTC color management and
+> update plane color blocks when any colorop property changes. It fixes an
+> issue observed on gamescope settings for night mode which is done via
+> shaper/3D-LUT updates.
+> ```
+>
+> Fixes: 0461ba9a7994 ("Merge tag 'amd-drm-next-7.3-2026-07-02' of https://=
+gitlab.freedesktop.org/agd5f/linux into drm-next")
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
+>
 
-I encountered a strange hang during hibernation recently, and spent some ti=
-me
-tracking it down. What follows is the report, produced with assistance via
-Codex/GPT 5.6 Sol.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-I hope it may be helpful, and happy to provide any further info!
 
----------------------------------------------------------------------------=
------
-
-A Framework Laptop 13 with an AMD Ryzen 7040 Series/Phoenix APU intermitten=
-tly
-hangs during hibernation. In the most recent occurrence, the first failure
-visible on the kernel console was an amdxdna PCI restore timeout:
-
-  amdxdna 0000:c2:00.1: PM: dpm_run_callback(): pci_pm_restore returns -110
-  amdxdna 0000:c2:00.1: PM: failed to restore: error -110
-
-This was followed by an unresponsive amdgpu SMU, failed GPU power-gating
-operations, and a repeating AMD-PMF/ACPI AML timeout loop. The system remai=
-ned
-unresponsive and required a forced power-off.
-
-Environment
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-  Hardware: Framework Laptop 13, AMD Ryzen 7040 Series (FRANMDCP05)
-  APU/GPU:  AMD Phoenix1, PCI 1002:15bf, amdgpu
-  NPU:      AMD IPU, PCI 1022:1502, amdxdna
-  BIOS:     Framework 03.20, released 2026-06-23
-  OS:       NixOS 26.05pre-git
-  Kernel:   Linux 7.0.11
-  Sleep:    s2idle followed by hibernation after 30 minutes
-  Hibernate mode: shutdown
-  pm_async: 0
-
-The kernel was built with KASAN, lockdep, DEBUG_LIST, PM debug messages,
-no_console_suspend, and ramoops. It also contained Thomas Hellstr=C3=B6m's =
-v2
-nested-sublists TTM patch for drm/amd#5387. I have not yet reproduced this
-particular failure on an otherwise unmodified upstream kernel.
-
-Sequence
-=3D=3D=3D=3D=3D=3D=3D=3D
-
-1. systemd-suspend-then-hibernate entered s2idle.
-2. The RTC woke the system after approximately 30 minutes.
-3. s2idle resume completed successfully. amdgpu reported:
-
-     amdgpu 0000:c1:00.0: SMU is resumed successfully!
-     PM: resume of devices complete after 1356.807 msecs
-     PM: suspend exit
-
-4. systemd immediately began hibernation:
-
-     systemd-sleep: Performing sleep operation 'hibernate'...
-     PM: hibernation: hibernation entry
-     Filesystems sync: 0.041 seconds
-     Freezing user space processes
-
-5. The durable journal stops at that point because userspace and the filesy=
-stems
-   were frozen. The console subsequently showed the amdxdna restore timeout
-   quoted above.
-
-6. The following failures then appeared:
-
-     usb usb5: root hub lost power or was reset
-     usb usb6: root hub lost power or was reset
-     usb usb7: root hub lost power or was reset
-
-     amdgpu 0000:c1:00.0: SMU: No response ...
-     amdgpu 0000:c1:00.0: Failed to enable gfxoff!
-     amdgpu 0000:c1:00.0: Failed to power gate JPEG!
-     amdgpu 0000:c1:00.0: [drm] *ERROR* Dpm disable jpeg failed, ret =3D -6=
-2
-     amdgpu 0000:c1:00.0: Failed to power gate VCN instance 0!
-     amdgpu 0000:c1:00.0: [drm] *ERROR* Dpm disable vcn failed, ret =3D -62
-
-     ACPI Error: Aborting method \_SB.A010 due to previous error
-                 (AE_AML_LOOP_TIMEOUT)
-     ACPI Error: Aborting method \_SB.A032 due to previous error
-                 (AE_AML_LOOP_TIMEOUT)
-     ACPI Error: Aborting method \_SB.ALIB due to previous error
-                 (AE_AML_LOOP_TIMEOUT)
-     ACPI Error: Aborting method \_SB.APX8 due to previous error
-                 (AE_AML_LOOP_TIMEOUT)
-     ACPI Error: Aborting method \_SB.PMF.PMF8 due to previous error
-                 (AE_AML_LOOP_TIMEOUT)
-     ACPI Error: Aborting method \_SB.PMF.APMF due to previous error
-                 (AE_AML_LOOP_TIMEOUT)
-     amd-pmf AMDI0102:00: APMF method:8 call failed
-
-The ACPI/PMF group repeated approximately every 30 seconds.
-
-Frequency and controls
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-The failure is intermittent. An earlier full hibernate/resume cycle in the =
-same
-boot succeeded.
-
-A similar terminal AMD-PMF/ACPI loop previously occurred on BIOS 03.17. The
-recurrence on BIOS 03.20 shows that the current Framework firmware does not
-prevent it, although only the latest occurrence captured the preceding amdx=
-dna
-restore failure.
-
-No TTM/list-corruption report, KASAN finding, lockdep splat, or kernel pani=
-c was
-observed. Ramoops remained empty because the system was forcibly powered of=
-f
-without a panic.
-
-The known amdxdna query/autosuspend deadlock fixed in Linux 7.0-rc2 should
-already be fixed in this 7.0.11 kernel. Its documented trigger and behavior=
- also
-appear different.
-
-Current assessment
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-amdxdna is the leading isolation target because its restore timeout is the =
-first
-captured device callback failure. This does not prove that amdxdna caused t=
-he
-platform failure: it may instead be the first consumer to observe an
-already-unresponsive shared PSP/SMU or firmware path.
-
-Not yet tested:
-
-  1. pm_test=3Dfreezer
-  2. pm_test=3Ddevices with amdxdna loaded
-  3. pm_test=3Ddevices after removing amdxdna
-  4. repeated hibernation on an unmodified current kernel
-  5. amd_pmf isolation if removing amdxdna does not change the result
-
-Questions
-=3D=3D=3D=3D=3D=3D=3D=3D=3D
-
-- Is pci_pm_restore returning -ETIMEDOUT on Phoenix a known amdxdna failure=
-?
-- Which amdxdna dynamic-debug messages or tracepoints would be most useful?
-- Is removing or unbinding amdxdna before hibernation a valid isolation tes=
-t?
-- Could a failed NPU restore leave the shared firmware/SMU path in a state =
-that
-  causes the subsequent amdgpu and AMD-PMF failures?
-
-I posted a full incident report, configuration, and timeline on my personal
-NixOS config repo:
-
-  https://github.com/samuela/nixos-config/issues/4#issuecomment-5174630789
-
-Some related external reports found in the process of debugging:
-
-- Older amdxdna suspend/hibernate failure:
-  https://github.com/amd/xdna-driver/issues/18
-
-- Same later SMU/PMF failure cascade on another Framework 13 Phoenix system=
-:
-  https://community.frame.work/t/fedora-40-on-the-framework-laptop-13/47746=
-?page=3D3
-
-- Same later cascade on a different AMD platform:
-  https://marc.info/?l=3Dlinux-media&m=3D175377491609096&w=3D2
-
-Best,
-Samuel Ainsworth
+> ---
+>
+> Hey,
+>
+> I noticed this problem in the resolution of a merge conflict after
+> testing drm-misc-next on SteamDeck with KMS colorop API support and
+> verifying the issue of missing updates in nightlight-mode was back.
+>
+> Let me know what are the right steps to address it.
+>
+> Thanks,
+>
+> Melissa
+>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/=
+gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 67b825cbb88f..d0e612371c8f 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4202,7 +4202,7 @@ static void amdgpu_dm_commit_planes(struct drm_atom=
+ic_commit *state,
+>                         continue;
+>
+>                 bundle->surface_updates[planes_count].surface =3D dc_plan=
+e;
+> -               if (new_pcrtc_state->color_mgmt_changed) {
+> +               if (new_pcrtc_state->color_mgmt_changed || new_plane_stat=
+e->color_mgmt_changed) {
+>                         bundle->surface_updates[planes_count].gamma =3D &=
+dc_plane->gamma_correction;
+>                         bundle->surface_updates[planes_count].in_transfer=
+_func =3D &dc_plane->in_transfer_func;
+>                         bundle->surface_updates[planes_count].gamut_remap=
+_matrix =3D &dc_plane->gamut_remap_matrix;
+> @@ -6012,6 +6012,10 @@ static bool should_reset_plane(struct drm_atomic_c=
+ommit *state,
+>         if (new_crtc_state->color_mgmt_changed)
+>                 return true;
+>
+> +       /* Plane color pipeline or its colorop changes. */
+> +       if (new_plane_state->color_mgmt_changed)
+> +               return true;
+> +
+>         /*
+>          * On zpos change, planes need to be reordered by removing and re=
+-adding
+>          * them one by one to the dc state, in order of descending zpos.
+> --
+> 2.53.0
+>
