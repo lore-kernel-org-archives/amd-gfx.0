@@ -4,61 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1D56C5B572
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 15:49:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DF124C5B572
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 15:49:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 667D710ECA5;
-	Tue, 11 Aug 2026 15:49:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7854310EC8F;
+	Tue, 11 Aug 2026 15:49:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ModYWdLG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SzGU/1xx";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011043.outbound.protection.outlook.com
- [40.93.194.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D199810ECA6
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 15:49:28 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013023.outbound.protection.outlook.com
+ [40.93.196.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C10BD10EC8F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 15:49:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MJqfI9YgrzzctsA3g9Nz0uhAE09UqsAm99RLIr8b4pq3iwqrbpwBW32aJjMJf+XgUgA7nMHeVtSRf4mmjnmKanSiUNpw53qVXF0t2HsRhIU701P/rAxup7Ebs9DJsvIXryFIrRYZKNaYLVoBSg4Z8eUFZ/HnSe7xR8CHVJGNSrefdYQrNXkdzoGhA4o2DDvV6SlBhMXh5ioZ7mv63pYya7/VYmIBZUOTFHCl1twZd42AGyfCTjeGTMR91p5ZjjjnTREx+sznPj8EPvJre39u66oO8+7D8UHzruiovNav6xc+FVGza9TcuzONOylgBfmTmf/yL5wqEGsTjSXZs44rzg==
+ b=tUrJDZBUZfFGFZn7RqkPAjLTjoXgVjquOmzisxzE9xOw/lUgbNCE/wwJZ0yRr6eoMpJJBcAdtwvWayZZWd1KMlL8vs8mVRW9wnXHtPSpbXqVSPtUBtRzpLlUwrxntFPoDeYpBIeQVWm4oUW+OcbEpJLepg6Jwlm1p8D3/LtRa2XrBpcr03jXeejsnNKXPO0XAYL4C/pnhQMMXb2eo5esD8Oj1KPI78J/Bp8Jt6aJwL0pBuW9ZSVHRqjnphyXUMYNuPuRMefFU5RitRyX0FXBcSPkwWGrk28GerdeIEC8mfHndmz3V8lwFdDl7v2kNrCTYRTkITxp+vPKzgiFYb3+vQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TVTnv6e++CVe2RrAc1twtWiMP82nkTeTliJlY564RoA=;
- b=tExXKIdPv3tRyaMnuNM3CN+L/A4q0Nsn8t9erc9nAVEjCKDtpObDjNnxmPUEmD7yo6TSNU8fxPawas0DtwH/HjxyMbW+l43Dj+plskxXz1ktQoDB/qZbqzTeklVJ7Ii/oFk5AQYXEGmt5pchnplxrCkD0haim4yGoM2ddvsppCZs0ZBwY6biCAxHl0J1NjLnZ10prhqn2yJpsJUPvMync2WT07/BWLx3TGtvnrBofMVBCrUHoBt4dr08NXFX5QGfzqW7Lz5kPus9/ATE+FAV3rPznOWaBqOsgILi6/ZU1EIIVb6G+5fvJPI4nwZchIoIS9KIL607tUPnsQ0JPAqs2Q==
+ bh=eMudwxXbDCd0xF0SZZGjziVjDFAEsfNvCJ/Pe1w9lZQ=;
+ b=zUNpMCTSFwwCF68YCiO4INr7J3Q/g7N/e2G09U5CHZXviq46Pti2xqTLzoCQFsAOTF5kW29k5SxygsA9kKGc4gHVUiPeaYwTUYAsx2mThHPChmYs15h6PyVBKFx4/KdsAJY5V6DIaxMqNQE5cj0QwCPvl9QpZwMnz74Qh7NpA4XAtul5DjBo1he6JW7oqX2iTSZC3Ug2klEE4cW3q5wYvQOtBo8cDybSS8Xg24KFzfddotvfIW5/rAdeDOwc6BYZfkkAz+8MDpMi22wYfqDTKVVtyWXTOmkpyGOUB1KALDwbfbPGsw5VRCB0xVtZ4NLiYxTfuSgXZzhcc6W+JFvnnQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TVTnv6e++CVe2RrAc1twtWiMP82nkTeTliJlY564RoA=;
- b=ModYWdLG3ZdRCJ67pOSiEvIRtsmZ4xxOgCmmBGJvuxQqnWIhPIxJLegxAXGFIIq9DjzRqZH9d9Eimwo/mt4iet781axMPRKulj4mwgRZaMXRRvl+4FfYgYEqEz86EyBeNHeqRnhxLM61fOlMxDfhbjszyAVY92HgpoBaEw6+QZc=
-Received: from BL1PR13CA0107.namprd13.prod.outlook.com (2603:10b6:208:2b9::22)
- by LVUPR12MB999186.namprd12.prod.outlook.com (2603:10b6:408:3a3::7)
+ bh=eMudwxXbDCd0xF0SZZGjziVjDFAEsfNvCJ/Pe1w9lZQ=;
+ b=SzGU/1xxaoQEK29mUegpVEg6szmD+KkFK9dkYr0ZNP/Fg4llMh7I1ku++325HoHSiPgiAuvc2WnH54xEoa8VK4Sr0MYPbMthes2fimb+Lw0X4EEN6qdrTzWEf6rAF0DrJ9K+LGvKvTRmn28IUrWauOhv/4XCfNto/diNq1tdY2E=
+Received: from CH0PR04CA0071.namprd04.prod.outlook.com (2603:10b6:610:74::16)
+ by LV3PR12MB9265.namprd12.prod.outlook.com (2603:10b6:408:215::14)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
- 2026 15:49:23 +0000
-Received: from BN2PEPF00004FBA.namprd04.prod.outlook.com
- (2603:10b6:208:2b9:cafe::9b) by BL1PR13CA0107.outlook.office365.com
- (2603:10b6:208:2b9::22) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 15:49:33 +0000
+Received: from CH2PEPF0000013F.namprd02.prod.outlook.com
+ (2603:10b6:610:74:cafe::74) by CH0PR04CA0071.outlook.office365.com
+ (2603:10b6:610:74::16) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.12 via Frontend Transport; Tue,
- 11 Aug 2026 15:49:23 +0000
+ 11 Aug 2026 15:49:33 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FBA.mail.protection.outlook.com (10.167.243.180) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CH2PEPF0000013F.mail.protection.outlook.com (10.167.244.71) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Tue, 11 Aug 2026 15:49:23 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.315.6 via Frontend Transport; Tue, 11 Aug 2026 15:49:32 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 11 Aug
- 2026 10:49:23 -0500
+ 2026 10:49:32 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 11 Aug
+ 2026 10:49:32 -0500
 Received: from james-Birman-PHX.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via
- Frontend Transport; Tue, 11 Aug 2026 10:49:14 -0500
+ Frontend Transport; Tue, 11 Aug 2026 10:49:23 -0500
 From: James Lin <PingLei.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -67,12 +71,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Ovidiu Bunea <ovidiu.bunea@amd.com>, "Nicholas
- Kazlauskas" <nicholas.kazlauskas@amd.com>, James Lin <pinglei.lin@amd.com>
-Subject: [PATCH 08/24] drm/amd/display: Notify DMU to allow DCHVM<->rIOMMU SDP
- port disconnection for DCN42
-Date: Tue, 11 Aug 2026 05:28:42 +0800
-Message-ID: <20260810213010.1703162-9-PingLei.Lin@amd.com>
+ <Chen-Yu.Chen@amd.com>, Ovidiu Bunea <ovidiu.bunea@amd.com>, Leo Chen
+ <leo.chen@amd.com>, James Lin <pinglei.lin@amd.com>
+Subject: [PATCH 09/24] drm/amd/display: Send DPM0 clock values to DMU
+Date: Tue, 11 Aug 2026 05:28:43 +0800
+Message-ID: <20260810213010.1703162-10-PingLei.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260810213010.1703162-1-PingLei.Lin@amd.com>
 References: <20260810213010.1703162-1-PingLei.Lin@amd.com>
@@ -81,29 +84,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBA:EE_|LVUPR12MB999186:EE_
-X-MS-Office365-Filtering-Correlation-Id: f3f3947a-1d95-477e-8584-08def7c01da1
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000013F:EE_|LV3PR12MB9265:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb5e1157-8024-4654-0ae5-08def7c02339
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|23010399003|376014|30052699003|36860700016|22082099003|18002099003|10067099003|11063799006|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info: Fd4+bCybGBba4jXwqBrYBTyidMdpqSVIqYayY4mTEwCIoJ0f1CoX0zWJ0Nto6x8cU0Ne3QB437V8+LO4VNXuuQiZLNabBUsyJVhe3N+/FRm207tp5vO+z6iqiSB8vIal+ZkMKeuxK63Sw2HbkVEDVSSIY7yxs6zo4E/JBqJxZ/ryqh70i4DyXLUx7U3o/p/Vc16yhpivoFPItyEyL+rhYFvUOToezzKuxsf2dJ8nIt+qltWx5AoM1A6LoD9Dreki+qPeIG5nrnTOykfcXq22bEviHC16V0roElxaRSno+xzTCKnDnPcV+RKB8Cwl1OohYWbOA6V/0+XymqYYYrmt80uCE5rkZAGhm26x1EFd5J30QVdYYcicS1CTxjwrVx08Ed87uK1Id9UGZ36EXh4T8I6h1wYObRwKsc1neMpPAJlE7zgQlA9htJE1YzddwWv0oEESdI4CHf3yeD6+A4Mzch6mv3BRQgJ4xKK64tStnX112SMT46vAcgPNsYP5r9f5tPSQ4UxsiZf5q5LWg8tJ0/xeeFt6ybzv1Apjs5Azm9e/JQ52UQHN5t9yALZRMs6WcdeiJVTJ+bNd9mihILbWY2Fcr0OKCO+Rt8zkJrjE3yjcNYCfHFpm+eYB/yWUExMg6frLL3addM99qpo3zMxg+bn+Wr1RX+mX42mSN6uGBMSgH0uaCRdG5U/xIsLTe095UZz3COQ+ZmvxucQu4J8B0A==
+ ARA:13230040|82310400026|376014|1800799024|23010399003|36860700016|18002099003|22082099003|10067099003|5023799004|56012099006|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info: hIo7BqMILxR3pxMdzGsr0JpP6mSWOZt5BbUMcM3drrfzFxnf2nM29Vw4E4/LuQpmG3xaPCUTdNOvGZG0m1lMMTVOupNKvvtISFBVrj1koqee/52/fB86z2iC+LiyOMSSG3KpU5+tuF3K/nijTt1rJ5Vgx4BiMz/abO0nQZgxWonc4PLY/w/EyvP/1p/PBnLDQzxVJF4/HdhWxVigKhZ2qnpnvI/mTJN97tKee4pIVekw4T4SfDFaa6noQ1q6Snh+0jyfTrkJQDwTiyqSQFutSMFJaJX06OkHfcDWUqp9eb02XUMfkILO9RIQjAGQNEaBkF10uoifV6yz07ynYcwcLX69Hzu/BPrZ46Thc7p8/70AbKGFOnDcwn0vBYdBAfezAmaIV7Zlitu1WNHoEJGErFBsV2EXJTR1RZoa8OlEE8j26ZEC/3vkkxbVAtihfh3eosLl1A25q88/l+QprjIKRhNfZWpTkMkVC82jts0mL52v4iHAqeLdPRUMG1BWCoKcTgc2R/VnmG+pLkGvsSHWyZn+TLjaLxRyiocZDTXbQiEuCRtAzK4NGTgyHSLveyLDZgn/zH9E71iWxsQAH18LEDNZL2spCUPNQxhF27n/GVvSFxmWaZYQFhQhQYHYbtTJThD+NNGXGc0eJP7sHqSL2/mN2b0DLnq5mv533xI8oSJFajRL5oiZM7ooiZ09qyKb9F0OcLy6e3Y0FfYNO8yuFw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(23010399003)(376014)(30052699003)(36860700016)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006)(6133799003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(23010399003)(36860700016)(18002099003)(22082099003)(10067099003)(5023799004)(56012099006)(11063799006)(6133799003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 3jA9rbJ8e/SNi2VIi09rWMawxFGY70TnnaIMcngeFW+aWkL0/tC/9Zi2HXGIdi/YnlyC2RXztAMp22MjWHkndo8XF4XGsk922KYlnOzaPUu7kWcX35uEleroI3yIlujgblkyjFESHTOw9LGZaHHf5SfUlvNyMG0OI2CeWNVWjB6WjWVul3SMqL/mJKWEKlgwlvLXyt5+32lYOmXe5MS1ZM4MUfQNUfYrccYbzuH0Z4dvBWsit5WjZD22qcfAPx5D/9V3D/hh13x924GYIdE4DN3D8rsRkln8NgmrzOPWJICiTw2ch34cTQsOb360P7CpFoZa1NxmEaivngvwoK56ZTyImlCpOrYy54+ctN8TM7EKP59pr7goYhSHntzIA2UrhECXVyMHEwL20Wwh8zYkPYwFPSZFSzBb8bij7rbO01PhCyMKBKeFPlT8CS4sLfws
+X-MS-Exchange-AntiSpam-MessageData-0: WZJLJ23MgrDCdMqP7XJSsIJ3KxG7FrXvADlsCSM9KHMFK6yoPTY9GLEIXlx+PAHd7/+6IVsdN04DXmR4duA7Bnc6841ypgzam/LykFwjZKYtQeaEF8yf7HbcflWIHoqI0Ijwm0bmIsM5HzN8AJDV6XdNzY6f9twE8oe7TdT4ShJAm1N+nixrcG3EbCw1DiSYMm6Qayf2MEzy88hvvk5OxjEZnAN/VMj4/OMXs0BfbUtem/oJdKuKxcowWwsMATkKWJla+BsxJTOMK/KZAKlXH4bmW+dWq92lfIiss7DVvXhIdnGktZdOSmA++CN9/E18yMA82hKgkR3FF399q+XOIY7XJ0AtD2KCnQqlMvubTlxTz2iD+lkbGPBItfUAIHkEywBq8XtMpJdNmEvH1YW+8RG/x375J2p4lupKT12NK/ftR70U5ujtruXGzIXlRjQ4
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 15:49:23.5666 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f3f3947a-1d95-477e-8584-08def7c01da1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 15:49:32.9320 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb5e1157-8024-4654-0ae5-08def7c02339
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBA.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013F.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LVUPR12MB999186
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9265
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,107 +124,101 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Ovidiu Bunea <ovidiu.bunea@amd.com>
 
 [why & how]
-Allowing the DCHVM<->rIOMMU SDP port to disconnect during IPS1 cycling
-can cause extra credits
-to be released to rIOMMU. In turn, this will let the rIOMMU issue more
-outstanding table walk requests
-at once, overflowing the downstream request FIFO. This results in
-dropped/orphaned
-requests with no method of recovery. This typically manifests as an
-invalidation hang error
-in the main IOMMU.
+Z8 Retention requires clocks to be put into bypass for the PLL
+to be powered down.
 
-As a workaround, dis-allow the SDP port from disconnecting from IPS1 exit
-up until after
-powerstatus=1. This ensures that rIOMMU does not have the chance to request
-credits multiple
-times during the powerstatus 0->1 transition.
+Notify DMU of the DPM0 clock values, which is likely always going
+to be running of a bypass clock.
 
-Since x86 driver cannot access rIOMMU register space, send a command to DMU
-to do it.
-
-Reviewed-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Reviewed-by: Leo Chen <leo.chen@amd.com>
 Signed-off-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
 Signed-off-by: James Lin <pinglei.lin@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c   | 18 ++++++++++++++++++
- drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h   | 12 ++++++++++++
- .../amd/display/dc/hubbub/dcn35/dcn35_hubbub.c |  7 +++++++
- 3 files changed, 37 insertions(+)
+ .../drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c | 12 ++++++++++++
+ .../drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.h |  5 +++++
+ .../amd/display/dc/clk_mgr/dcn42b/dcn42b_clk_mgr.c   |  1 +
+ drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h      |  3 +++
+ 4 files changed, 21 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-index 01864fe816a3..4723e0974647 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.c
-@@ -2527,3 +2527,21 @@ bool dc_dmub_srv_panel_polarity_get_polarity(struct dc_dmub_srv *dc_dmub_srv, ui
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c
+index a2ecde8362a5..c62be9f25dae 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.c
+@@ -214,6 +214,7 @@ void dcn42_update_clocks(struct clk_mgr *clk_mgr_base,
+ {
+ 	union dmub_rb_cmd cmd;
+ 	struct clk_mgr_internal *clk_mgr = TO_CLK_MGR_INTERNAL(clk_mgr_base);
++	struct clk_mgr_dcn42 *clk_mgr_dcn42 = TO_CLK_MGR_DCN42(clk_mgr);
+ 	struct dc_clocks *new_clocks = &context->bw_ctx.bw.dcn.clk;
+ 	struct dc *dc = clk_mgr_base->ctx->dc;
+ 	bool update_dppclk = false;
+@@ -364,6 +365,16 @@ void dcn42_update_clocks(struct clk_mgr *clk_mgr_base,
+ 		clk_mgr_base->clks.dcfclk_deep_sleep_khz;
+ 	cmd.notify_clocks.clocks.dispclk_khz = clk_mgr_base->clks.dispclk_khz;
+ 	cmd.notify_clocks.clocks.dppclk_khz = clk_mgr_base->clks.dppclk_khz;
++	/* Communicate the minimum (DPM0) clocks and bypass ceiling so DMUB does not
++	 * assume hardcoded per-ASIC values (e.g. for Z8-Retention clock lowering).
++	 * DPM0 is the lowest populated DPM level (entries[0]); 0 when the SMU DPM
++	 * table is unavailable, in which case DMUB falls back to its own defaults.
++	 */
++	cmd.notify_clocks.clocks.dpm0_dispclk_khz =
++		clk_mgr_base->bw_params->clk_table.entries[0].dispclk_mhz * 1000;
++	cmd.notify_clocks.clocks.dpm0_dppclk_khz =
++		clk_mgr_base->bw_params->clk_table.entries[0].dppclk_mhz * 1000;
++	cmd.notify_clocks.clocks.max_bypass_clk_khz = clk_mgr_dcn42->max_bypass_clk_khz;
  
- 	return ret;
+ 	dc_wake_and_execute_dmub_cmd(dc->ctx, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
  }
-+
-+void dc_dmub_srv_hubbub_set_riommu_pctrl(const struct dc_context *ctx, uint32_t value)
-+{
-+	union dmub_rb_cmd cmd;
-+
-+	if (!(ctx->dce_version == DCN_VERSION_4_2 || ctx->dce_version == DCN_VERSION_4_2B))
-+		return;
-+
-+	memset(&cmd, 0, sizeof(cmd));
-+
-+	cmd.dc_bls_dchvm_init.header.type = DMUB_CMD__DC_BLS;
-+	cmd.dc_bls_dchvm_init.header.sub_type = DMUB_CMD__DC_BLS_DCHVM_INIT;
-+	cmd.dc_bls_dchvm_init.header.payload_bytes = sizeof(struct dmub_cmd_dc_bls_dchvm_init_data);
-+
-+	cmd.dc_bls_dchvm_init.data.riommu_pctrl_val = value;
-+
-+	dc_wake_and_execute_dmub_cmd(ctx, &cmd, DM_DMUB_WAIT_TYPE_WAIT);
-+}
-diff --git a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-index ec5387aedf46..ab026847e38b 100644
---- a/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc_dmub_srv.h
-@@ -451,4 +451,16 @@ void dc_dmub_srv_panel_polarity_reset(struct dc_dmub_srv *dc_dmub_srv, uint8_t p
-  */
- bool dc_dmub_srv_panel_polarity_get_polarity(struct dc_dmub_srv *dc_dmub_srv, uint8_t panel_inst, int32_t *polarity);
+@@ -1113,6 +1124,7 @@ void dcn42_clk_mgr_construct(
  
-+/**
-+ * dc_dmub_srv_hubbub_set_riommu_pctrl() - Program the RIOMMU PCTRL register via DMCUB.
-+ *
-+ * The RIOMMU PCTRL register (SMN address 0x16B0A100) controls the SDP port
-+ * disconnection hysteresis between rIOMMU & DCHVM. It is not accessible from
-+ * x86, so the write is offloaded to DMCUB.
-+ *
-+ * @ctx: dc context
-+ * @value: value to program into the register (e.g. 0x20)
-+ */
-+void dc_dmub_srv_hubbub_set_riommu_pctrl(const struct dc_context *ctx, uint32_t value);
-+
- #endif /* _DMUB_DC_SRV_H_ */
-diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn35/dcn35_hubbub.c b/drivers/gpu/drm/amd/display/dc/hubbub/dcn35/dcn35_hubbub.c
-index 5e5a7a74346d..53744b000f5d 100644
---- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn35/dcn35_hubbub.c
-+++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn35/dcn35_hubbub.c
-@@ -31,6 +31,7 @@
- #include "dcn35_hubbub.h"
- #include "dm_services.h"
- #include "reg_helper.h"
-+#include "dc_dmub_srv.h"
+ 	clk_mgr->base.dccg = dccg;
+ 	clk_mgr->base.dfs_bypass_disp_clk = 0;
++	clk_mgr->max_bypass_clk_khz = 0;
  
+ 	clk_mgr->base.dprefclk_ss_percentage = 0;
+ 	clk_mgr->base.dprefclk_ss_divider = 1000;
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.h b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.h
+index f90c6e2e85c2..f64c1ccee8c3 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.h
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42/dcn42_clk_mgr.h
+@@ -44,6 +44,11 @@ struct dcn42_ss_info_table {
+ struct clk_mgr_dcn42 {
+ 	struct clk_mgr_internal base;
+ 	struct dcn42_smu_watermark_set smu_wm_set;
++	/* Max dispclk/dppclk (kHz) that can run on a bypass source with the PLL
++	 * powered down. Communicated to DMUB for Z8-Retention clock lowering.
++	 * SMU does not expose this, so it is a fixed per-ASIC value set at construct.
++	 */
++	uint32_t max_bypass_clk_khz;
+ };
  
- #define CTX \
-@@ -580,7 +581,13 @@ void dcn35_dchvm_init(struct hubbub *hubbub)
+ bool dcn42_are_clock_states_equal(struct dc_clocks *a,
+diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42b/dcn42b_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42b/dcn42b_clk_mgr.c
+index 90cc2c3aabe4..3420edcf4ffb 100644
+--- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42b/dcn42b_clk_mgr.c
++++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dcn42b/dcn42b_clk_mgr.c
+@@ -618,6 +618,7 @@ void dcn42b_clk_mgr_construct(
  
- 		//Reflect the power status of DCHUBBUB
- 		REG_UPDATE(DCHVM_RIOMMU_CTRL0, HOSTVM_POWERSTATUS, 1);
-+		udelay(5);
-+	}
-+
-+	// generically re-allow the DCHVM<->rIOMMU SDP port to disconnect after powerstatus=1
-+	dc_dmub_srv_hubbub_set_riommu_pctrl(hubbub->ctx, 0x20);
+ 	clk_mgr->base.dccg = dccg;
+ 	clk_mgr->base.dfs_bypass_disp_clk = 0;
++	clk_mgr->max_bypass_clk_khz = 0;
  
-+	if (riommu_active) {
- 		//Start rIOMMU prefetching
- 		REG_UPDATE(DCHVM_RIOMMU_CTRL0, HOSTVM_PREFETCH_REQ, 1);
+ 	clk_mgr->base.dprefclk_ss_percentage = 0;
+ 	clk_mgr->base.dprefclk_ss_divider = 1000;
+diff --git a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+index c273d97ec88d..1d10fe8f1998 100644
+--- a/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
++++ b/drivers/gpu/drm/amd/display/dmub/inc/dmub_cmd.h
+@@ -3009,6 +3009,9 @@ struct dmub_clocks {
+ 	uint32_t dppclk_khz; /**< dppclk kHz */
+ 	uint32_t dcfclk_khz; /**< dcfclk kHz */
+ 	uint32_t dcfclk_deep_sleep_khz; /**< dcfclk deep sleep kHz */
++	uint32_t dpm0_dispclk_khz; /**< DPM0 (minimum) dispclk kHz from SMU DPM table, 0 if unknown */
++	uint32_t dpm0_dppclk_khz; /**< DPM0 (minimum) dppclk kHz from SMU DPM table, 0 if unknown */
++	uint32_t max_bypass_clk_khz; /**< max dispclk/dppclk achievable on a bypass source (no PLL) kHz, 0 if unknown */
+ };
  
+ /**
 -- 
 2.43.0
 
