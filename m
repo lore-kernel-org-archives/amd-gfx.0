@@ -4,99 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90BD8C5AD7B
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 15:19:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE46CC5AD55
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 15:29:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA4BE10E219;
-	Mon, 10 Aug 2026 15:19:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ED4D510E48B;
+	Mon, 10 Aug 2026 15:29:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="K5cU2qrF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XTC0cVXs";
 	dkim-atps=neutral
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
- [209.85.216.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9849610E0A9
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 15:19:19 +0000 (UTC)
-Received: by mail-pj1-f54.google.com with SMTP id
- 98e67ed59e1d1-38dd1cc8dc8so210382a91.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 08:19:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786375159; cv=none;
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
+ [209.85.216.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4C4D010E171
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 15:29:06 +0000 (UTC)
+Received: by mail-pj1-f42.google.com with SMTP id
+ 98e67ed59e1d1-383fff6e8b6so113805a91.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 08:29:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786375746; cv=none;
  d=google.com; s=arc-20260327;
- b=SYXIN0KasyvhC5HlBOdG7mOzF0NJ8UqY6qSXvR35DPnwjJlskzpDS1XpaKwLBfQE8k
- 0HjD5aFW77iUTArL0JDfOsPP1Gxw3Mc4B5EudfNVcijm5cdefyT7x9hqmVuUi2QV1v1V
- cUhWPEOTUFsnKnuJIe3WYaQwzOLcZZC1E8xF6cDvX5sq/oQg74PzDwvdNsRjEd+hhdfa
- ldKtYGVMl9Ls+IWsT+OG1Zq926OZSaQFxmnmuU4XRKXcS/FSPW2Bxa8vN1e393W/LP0S
- L+phvS7qsReDD9zXnFrdwPOM8OTjgUC43J2QKRckgiTCxjWr/ZWoaChkIFQrD4ciHBsk
- 3nCg==
+ b=d8/cOhAUeVAigmbZxZtYH+ShwaQurArmDYwp3nre69thVUw0oQUIPRXhpR3oslAjQl
+ OxtK26RDLzjXkOHoE56byTA6ET5dKnco0zRXJSlSKg5OMobREu+ddeApUL+w2TKhxVdO
+ dF5MMrUOtyy3jAIYRdhaYyt2VOAxpuMowEQ6zd8RvrGsGEN5juuFe0xim8eHcb4Je597
+ rlt10ynVDrUn+M7s6tZ+hDI1f52VITySxQxG/0xnc0tef0tNhu7zrgJQICX6MrLiRAOB
+ PCFFIr5hrUUWRQ6rZiqJSJoL5lkRAW4cJOQnETtXNxkRrM1y/d2u2048UlxTg7uw33tb
+ Pqhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=B1rzR26ClzMaYFuUSq8Lzwl7sxG7gX5jiXeOHc3Ewd4=;
- fh=lVQ7q9gvI/uf1ZVMdM8r4a1d7aK9Efkn917dRdI6HPk=;
- b=dR/4VqIuM1arH3pmw6wjeqaYCH45A8deSsi0GHGEmjxgTggSshcnrsDaCdgSbUjRBP
- A4wH+ROGxSYNFj248tvvfHUeU2Fy3h2BwOOFtRHlTrdhDSAq9Yhv4QUmw5PIrRNYNJz9
- oXrhDozWYoif2S2bOinuD2eh4cRmeSE6oTJdoR24dmTyc/1fUmBOrJYYsO0FvNsLQLuF
- Gm4uhhzuyEAu8e4sBvGBoRG8YaV9GMUoFH1KNMRLU4PSRJsdD1Wa7IljS0MAQxJn+RQu
- F23IWGWOPacZOR7swI3CdOfTWBdnLPJl6247rurWUyG3RBkJrr03d7DCyGVgkTfN9PHO
- 2T9w==; darn=lists.freedesktop.org
+ bh=zCRGU5HCA6z/GMlHy6u0KoSXvvUh0siN5DEwo60DeHc=;
+ fh=nmMcbJqe+fZD4O2GBrWQowoUZ6l9K69irbW4yTCMvc4=;
+ b=LDOYoWfRCXNDz/KAL8/5eXCS389xeMofJsJigXpE+941Xi+mMu/Jp/kuLq8nVN+N80
+ kFOztmFn3CSbZ4qpDn2wqfNJ6sfJVqSQD7y2F0oD9Sx2xatktaN+J/0WVtynqA1/kwYV
+ pI1cERTxAmsTUA0hEVmvu6rEmRA4Ftwhyp1QFrPNE20+nkfE8qIPyOw/KxGYmIW6Nf2J
+ DDL5vp9tVtdgQtz1SKEty4zwXoUb99m52iWTkb0PZl//9sb1ujcm6sreRxgdkL/6izO7
+ PfdI3Dy+ndfI2bR0OvnGt63fTQvb3EGgroyLAoVkdFLP/CKYOY/k4QPq1iBsK3tEpsWb
+ t82w==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786375159; x=1786979959; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786375746; x=1786980546; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=B1rzR26ClzMaYFuUSq8Lzwl7sxG7gX5jiXeOHc3Ewd4=;
- b=K5cU2qrFyZ1ww80toj9JWERD2lU7AMA7P05aI79IBsj8gnS4sUwoW1bAJdWZx6fM6P
- tbY424M3aMqDOum9sSD0ISYXsSrtq8GGT7T7rf9FYrRBMLe+mY7294c79Grz7ggx0FUq
- 8nzBAVbhaMj9oAlwZm0TlqF80YNh/OYD+enai5FBe9aaVo3GyS/L2Ef2LMH/gaCoMIN8
- UTDciBj2vRWKq8UHJBg9G+/J1oEFipHvQT5iILfAkYBlMHGWbX8Ei2Ebgv/9q1e6jNJN
- JAqM3D96NYIs7BlyzU7jI9oQ+Yzo5OIdJ4tYr8hgYvg6lxJ9CAt/Kd+QZhThwjkWzKDf
- w/pQ==
+ bh=zCRGU5HCA6z/GMlHy6u0KoSXvvUh0siN5DEwo60DeHc=;
+ b=XTC0cVXsdQdHDRqOr/kjnVyj/V5I7wga34snOvyNP4+0OKxYJ/KoTMTNOy6pRTS2Y1
+ R/3KvDqIbAAi1SDxa1+d4n11Vf/S2h9y0kcXJZ+1kWI2/5pw8R1Kk8tQgX8IBZt0dyhj
+ bcD7eW5uj1lM04S8GSjR/IL8/su49MHrdLv4oefZxYfDk7B8ZVH4z1IxV1qdDFJlegSF
+ v0tHc3cnk3V0KnCQce5b65ppRsAJZmsYVy6XYwRnkPG3ri1aHiUYubCGw43CC8P/1NyG
+ JTR/YKw/exVBeK2OQnq6jpfM7Oi7YCTveL9RR7qGCoRmGebMaMzJoj1HQVGSKi9SJSBp
+ Z1Cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786375159; x=1786979959;
+ d=1e100.net; s=20251104; t=1786375746; x=1786980546;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=B1rzR26ClzMaYFuUSq8Lzwl7sxG7gX5jiXeOHc3Ewd4=;
- b=CkkJycuA283zshFO30/J6+gohJ6WxnUVGAKDW07OHGuATPzDy2nXcEP/pZjlbubQx/
- K9t6EppSZL6KFJmNsqlMtohtOkERWPBH+bxxfYDDoWHlBvmw5ct0Vy1cfuzImZZssKVM
- 6EIosjSG0MJ4fqBoklVSqsZSpAzhsSykWbh0dvet8W7wq0e2o6qYJE4dmVrCvn92kV4M
- GTAV2mDbLylyICAntQgk7DNdlLoEmQ8hN3NO3f3oVy2kf14G5z1oG8Dg6rMpoqD9ZB+f
- IY4DJJvwKEc2o4EM9BMsVl36AlDBm9pE+R9EmoEMFgibjexHmd8KgezlO88yOttcAkhG
- QP/A==
+ bh=zCRGU5HCA6z/GMlHy6u0KoSXvvUh0siN5DEwo60DeHc=;
+ b=G6ohHLZ5u+iWbZllGNngX2cVhy/CQewqEerC4lA7TfXEuFKuSkLsdJAORrQoHousW8
+ MwN2oGojoQTP14QGqJe48ZgQIlqFhlBtWzlai0h71JELGplVvr9HWfPdTQglbCL624sc
+ pdxYg73a9HfM1Sgu0FbGhoTsZb49AxZkOFVEAxb6YYfm+Pn+I2wVmrVExqQyZAnK26NN
+ rxBgh3ocfCjfmLWfuFW2zgH6q2t7BtYb9eCF6uvrXKhlFHCu7auGO/9q3Ztf+Agw4WBk
+ 0bitc3SIqiLdJvQC0jX/em64mq2TW+1959KQwD71nzo90aimbC+lYxinV8xSUY0sjmJb
+ gXNA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rq3PbzM4bsqtrtk90QQUvzoceBgHDaZOH5WkT/7eVt5S5EIe3Ml3/LIgsBl+BX5y7t7j/LY2rnE@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YwUEiOz/1HfYwv1XiiOBu558jIexRtHS21hmLaWU6R/EvpW73wG
- wIoDF5GwSEnicHlhR5KmZvA88rG1ufsBsUsJOF6gMY2zYc23Li4Dj2PNZi73sjLolqy76Yh/WWV
- I1/9kLposcJOc6DmiF6cY7Wh0JnOAKy8=
-X-Gm-Gg: AR+sD13/p3iXZPoMrpe0B+kBPR0eiDPtKXrDAsy3LDarHsBHm9lnE3csspzK1TladcQ
- hMjkIyuszdGy1hXyHWhgy7B5/y1xaZ5tA9RxT9mayZrG8IbcRIJwliF7gvajFxoioTunY0UOuUn
- pY8bm+GpBPCgwNxYLjKUmWtejsQlCHefPggIBCDp+BbrRjF/VJXjGeT4Ob4MvD0JFEIOzIKcJ6V
- W1IyORNP88GzfAJd/V8w1e0j1Ae2s077eYn76/W2drm6nXn1kvXs+ceA2Aw00aQSSdjJF3Aap/M
- rY+QK5gylReiX/1BH0B/HTOv+gOBRryyB/DlGR2Nl7mB7cqzp9K+zjkwkFmVbblBCvMuTPCf2Wt
- 6Cph4G+Uvmobj95O8Z1Xtu/PP77RwrDe1BX7mbTjtDB0=
-X-Received: by 2002:a17:90b:1651:b0:38e:6a7c:abbc with SMTP id
- 98e67ed59e1d1-3903c7278f5mr30731971a91.3.1786375159041; Mon, 10 Aug 2026
- 08:19:19 -0700 (PDT)
+ AHgh+Rq4nQ6PZYGhZAZDaqrC4/kbH9OcRC2R/jVwCzVYvRpQHxpybG354fxZAdlyNatN0mHFj0qArPHy@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxO0qoWAfgTptULhijjV+7NRXrpK/Rv//RIBJsAnlTa2V79NSH2
+ DK59oAaeJ/IG9pWAXusWm9QQAFl5IYziiygR9p/KZzqjaD8LzPBg/5GEINbyTZKR9LwLlk2/OZM
+ uLdBMdAemAcrxVrpgRc5RkLDWpxLVd+s=
+X-Gm-Gg: AR+sD12LqIMlpkfT54V2BRint4nVkKXKRWNPr9OI7ab2U4WWYZgB2fBDb3fK7DSGk6k
+ giR/jNZo8wVZEGXro1EAsVc3ZIgbJwrmeb3Q/XPcTH0lAV4F6glh9JMHbO1mF3Q5RA/O1stuuKt
+ uMYe/h6qgzr8+SWMfb+w5JwJhWVmXIPWQdXJ/zt8CEDba3itrcHYg/c5R3q5iYHuv9Ny09eodb4
+ EUEziMYJ3LujSgoCkSRrDUSJ4bt9xuomqoRzomPfeYeU5La0IjsrkS/x7Oiim/JDhq27fe5eaAg
+ c6U7Y9Cyz+R5Pj+CIhf1zAhK38zIGXQF8CtwdMtspRVQiE9jqmjlu5DfpCMevMO8kxolMivzIX3
+ 4xBNZfWO/MgJoQE2v+dM3/EIp8BGPPbE=
+X-Received: by 2002:a17:90a:ec8c:b0:38e:549:9e04 with SMTP id
+ 98e67ed59e1d1-3903c5c101bmr32377324a91.1.1786375745798; Mon, 10 Aug 2026
+ 08:29:05 -0700 (PDT)
 MIME-Version: 1.0
-References: <aneGaKJUl_Jyu05n@stanley.mountain>
- <77e1ef2b-24ab-4492-bc91-08c01f012a46@amd.com>
-In-Reply-To: <77e1ef2b-24ab-4492-bc91-08c01f012a46@amd.com>
+References: <20260808135942.2880971-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260808135942.2880971-1-lgs201920130244@gmail.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 10 Aug 2026 11:19:07 -0400
-X-Gm-Features: AUfX_my-fKt5c9y2JIhF4-1Z_U26HVMXLUvLd5Y3sRxip_FQzAlVj9Rt96mRi6A
-Message-ID: <CADnq5_Mc89DZGYwXrCQ+WLYVE8RBj9vdV5TBbZbwgcuV==HeEA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: silence uninitialized variable warnings
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: Dan Carpenter <error27@gmail.com>, Asad Kamal <asad.kamal@amd.com>, 
- Kenneth Feng <kenneth.feng@amd.com>, Alex Deucher <alexander.deucher@amd.com>, 
+Date: Mon, 10 Aug 2026 11:28:53 -0400
+X-Gm-Features: AUfX_mzxEVWjyMA91yyuAHYgB82GBMnbuh99tfXeZl3LTUv9kt3twL5mx0BLoL0
+Message-ID: <CADnq5_MTp9ZJw6f0Pu52kS-sP4xrntBj4kBvZtkbmcd1LC6ewA@mail.gmail.com>
+Subject: Re: [PATCH] drm/radeon: fix autosuspend cleanup during teardown
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Yang Wang <kevinyang.wang@amd.com>, 
- Hawking Zhang <Hawking.Zhang@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- kernel-janitors@vger.kernel.org
+ Dave Airlie <airlied@redhat.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -115,65 +112,48 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 Applied.  Thanks!
 
-Alex
-
-On Mon, Aug 10, 2026 at 12:50=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> w=
-rote:
+On Sat, Aug 8, 2026 at 10:20=E2=80=AFAM Guangshuo Li <lgs201920130244@gmail=
+.com> wrote:
 >
+> radeon_driver_load_kms() calls pm_runtime_use_autosuspend() for PX
+> devices, but radeon_driver_unload_kms() does not call the matching
+> pm_runtime_dont_use_autosuspend() during teardown.
 >
+> If the autosuspend delay is set to a negative value while autosuspend
+> is enabled, the runtime PM core increments usage_count to prevent
+> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+> during teardown, this reference is not dropped.
 >
-> On 09-Aug-26 1:11 AM, Dan Carpenter wrote:
-> > Smatch complains that:
-> >
-> >      drivers/gpu/drm/amd/amdgpu/../pm/swsmu/smu15/smu_v15_0_8_ppt.c:196=
-4
-> >      smu_v15_0_8_set_performance_level() error: uninitialized symbol 'r=
-et'.
-> >
-> > In this line there is an "if (ret)" condition where "ret" is either
-> > zero or uninitialized.  Initialize "ret" at the start of the function t=
-o
-> > avoid a potential uninitialized variable bug.  But also delete the
-> > condition since it is never true.
-> >
-> > Fixes: 422b399b09c7 ("drm/amd/pm: Add od_edit_dpm_table support")
-> > Signed-off-by: Dan Carpenter <error27@gmail.com>
+> The documentation for pm_runtime_use_autosuspend() also notes that it
+> is important to undo it with pm_runtime_dont_use_autosuspend() at
+> driver exit time, unless runtime PM was initially enabled with
+> devm_pm_runtime_enable().
 >
-> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+> Add the missing pm_runtime_dont_use_autosuspend() call to the driver
+> unload path.
 >
-> Thanks,
-> Lijo
+> This issue was found by manual code inspection.
 >
-> > ---
-> >   drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c | 5 +----
-> >   1 file changed, 1 insertion(+), 4 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c b/dri=
-vers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-> > index 59fdd2319b66..c78e611d2a25 100644
-> > --- a/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-> > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c
-> > @@ -1920,7 +1920,7 @@ static int smu_v15_0_8_set_performance_level(stru=
-ct smu_context *smu,
-> >       struct smu_dpm_table *gfx_table =3D &dpm_context->dpm_tables.gfx_=
-table;
-> >       struct smu_dpm_table *uclk_table =3D &dpm_context->dpm_tables.ucl=
-k_table;
-> >       struct smu_umd_pstate_table *pstate_table =3D &smu->pstate_table;
-> > -     int ret;
-> > +     int ret =3D 0;
-> >
-> >       switch (level) {
-> >       case AMD_DPM_FORCED_LEVEL_PERF_DETERMINISM:
-> > @@ -1961,9 +1961,6 @@ static int smu_v15_0_8_set_performance_level(stru=
-ct smu_context *smu,
-> >                               SMU_DPM_TABLE_MAX(uclk_table);
-> >               }
-> >
-> > -             if (ret)
-> > -                     goto out;
-> > -
-> >               smu_cmn_reset_custom_level(smu);
-> >
-> >               break;
+> Fixes: 10ebc0bc0934 ("drm/radeon: add runtime PM support (v2)")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> ---
+>  drivers/gpu/drm/radeon/radeon_kms.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon=
+/radeon_kms.c
+> index dc43fd790a9c..4a99c09f4164 100644
+> --- a/drivers/gpu/drm/radeon/radeon_kms.c
+> +++ b/drivers/gpu/drm/radeon/radeon_kms.c
+> @@ -71,6 +71,7 @@ void radeon_driver_unload_kms(struct drm_device *dev)
+>         if (radeon_is_px(dev)) {
+>                 pm_runtime_get_sync(dev->dev);
+>                 pm_runtime_forbid(dev->dev);
+> +               pm_runtime_dont_use_autosuspend(dev->dev);
+>         }
+>
+>         radeon_acpi_fini(rdev);
+> --
+> 2.43.0
 >
