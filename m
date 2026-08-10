@@ -4,130 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 85D41C5AC82
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 10:10:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D247C5AC82
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 11:36:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 91A1D10E78F;
-	Mon, 10 Aug 2026 10:10:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B820D10E7D5;
+	Mon, 10 Aug 2026 11:36:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dzlxVcRe";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="dDi3YCFA";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010063.outbound.protection.outlook.com [52.101.61.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D167810E212
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 10:10:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aQAJydYJpyoiCAcDf1BAdhW6LlPjpGOoPsC8MHvuWA6f5KdedUT1yh+CIEB5duGdW5XB/wU+WSB3mgb4mFTA2A3CskEPLK+ILfkeXqXOjbAMlUjR2qvohYhW5J4JyJEckO+ObkHmzvIzxZB05FrNQvQKcHaq4yMlxCbhuFImg5hXL/iy8DWJdnaMlDvlVwf8mQNG42BLDRrWN0b2PBOaluKnNPJyaMuZ//lnIc87IhhV+kMNR2/UpJ8npM+xPay1sTLZcStCsJHE65vugrGMIxqd9/4NnfEiuVUiWIXx+TbGZ1IH99TFB3PAfHEUYbjCGpHa1mnf8LfdulZzLP6cuw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mVtcuAR4aG8lKDsDCsqPIUQ1cp5zoyeee+diXiidPRM=;
- b=W33094jDLdA1EqB+ZotsdM8XHfc9nIghiaJ/C+9rx8K+7RurQPdKmk8zWwLQt8kpdPK60YpmCpx8eLufK6oRH06Okh4EEImyATg4lhscou1L1hiVJr0nxP6gdBoM5H9kuHJW/cKfecOkW7biZet9NMY7YxUtfj6FzM99Du5wRsGFLJj+h5omv2g/YQ2mZ8eX0lmEvdrqPbmUoxzjw6C6lD4a/4tnu57y75TJqowRzvpwsynGlhrl9z9EToPBVL6NHRpVOmRBA0YGCK65y+Yu02jub3JrVePU3h69LaCjVCQP2Wzs72GCukPL9om2i8fJrhJv4jcYUICvtlR6PMudTQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mVtcuAR4aG8lKDsDCsqPIUQ1cp5zoyeee+diXiidPRM=;
- b=dzlxVcReN3C/dMTQan91J8pkxYrU2cCD5xyzHLKYxBFqARvLVT3mG47jhPWTqa2W+LvME2SogRH2jdksgO0ZOxGx3emx6E82yo4q8SpWtw4EofXvgNQIaHYFOspbhsWHdHADgYrQ5fMSFWkYzEOe4CBBeQlufTUXOSFWiCPZnTw=
-Received: from MW4PR12MB6803.namprd12.prod.outlook.com (2603:10b6:303:20e::10)
- by LV8PR12MB9452.namprd12.prod.outlook.com (2603:10b6:408:200::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
- 2026 10:10:06 +0000
-Received: from MW4PR12MB6803.namprd12.prod.outlook.com
- ([fe80::c193:ef2e:260f:dcfd]) by MW4PR12MB6803.namprd12.prod.outlook.com
- ([fe80::c193:ef2e:260f:dcfd%6]) with mapi id 15.21.0292.024; Mon, 10 Aug 2026
- 10:10:06 +0000
-From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amdgpu: fix nbif 6.3.1 l1 low power not functional
-Thread-Topic: [PATCH] drm/amdgpu: fix nbif 6.3.1 l1 low power not functional
-Thread-Index: AQHdKK70c8z3YwJKPkqLkxDDqqilz7aXDOlw
-Date: Mon, 10 Aug 2026 10:10:06 +0000
-Message-ID: <MW4PR12MB6803CD2C966176A9F1A8EBEB8EDE2@MW4PR12MB6803.namprd12.prod.outlook.com>
-References: <20260810095916.1752707-1-kevinyang.wang@amd.com>
-In-Reply-To: <20260810095916.1752707-1-kevinyang.wang@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-10T10:00:57.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW4PR12MB6803:EE_|LV8PR12MB9452:EE_
-x-ms-office365-filtering-correlation-id: 349c233d-9744-4c8e-a58b-08def6c78d45
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|376014|23010399003|22082099003|18002099003|10067099003|56012099006|11063799006|38070700021;
-x-microsoft-antispam-message-info: j2b2w03upyEivPDtctTQhUVFNn/lufO5Ka0odgFE9Qs8l8V0J1cVbavqtiMoURaBBqMHq2FvMLvfmFxpVyWBkH+NlS05zNDbJl1sU6qfPovUd4F79ipHkJmFLUohaGSEjMlUDDPT1BzS3UJhS8aqwQvrUj+ZIH5F+0zU6S+mCStBxeNw+55mBOd+nGg0ltOv5+qr1ZdxdzhUIRf+Fq1QswFnCv5kYrxTkrdeBk+lREwthrFskS+hCEP/3XskfCV4Fb/h1YVw1spkZe2yXLIr0uu6soiW4pHwok5cFhtmHEAGTMjX6alelzoC+QicP0KHwcWoSOA1GuyaA4esrh42M3A+VrSrt/hJM1fKvkEVOw1PrdQYqeXp53b5aZK/Wh8HdrhhjfmCGbgW0qEL5U+D4J+EaPM5KLiYgMR47STs+VxlkBd+wQixk5C4Yo+jm1VJnIeKq17k248kjKxEW1o/aLCPdZtx1duW4TQlaLR+C4yMhdk0JjwtAzJKrhX9nYdn7ygjK0D8hpSuzChPAsXQKBLbGfPR6+PVBLyLUqZvX6QzSR4nsV4XI252D8Vqg7kkMzSKeE4g2G8q0jccjHp6ket7of7SCxCFAWLkCEYz3VCymMNPbg6KbFcyx3sy09GOXKZGphFjvk1D7XUiNUwrHH/E9zWWOVal9G3OeDEeYBibpSUdbdxmuaTamt6XJtfqS5WToaSL0xauQD0dIKEoJn+ww+hVmt76aClyeKVPHAg=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6803.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ODR3OHhDM0JMY3h3eGJUUjdOWnFqbHpPQVN3bWY3TzNMc1JmVSt0cjhvUnBm?=
- =?utf-8?B?UjEvelYzMGtBM3JIMlBQZ1QwVVYxMm9zV0lFUmJwZ3NINWsycG5PWEpnNnND?=
- =?utf-8?B?VTNSak9aVTh3MFNmRmlIY3JsVjdpNk1HQis5VXlYR01MZmcyRDV4TWlVVWpw?=
- =?utf-8?B?eDl5bmpxTEVzVGl4ZWtZVS9aVXJGVjlVY3o1NEZjWENWQmdpMjFnK20xck4x?=
- =?utf-8?B?WXhJVExLcmkrdXRXb1BYcHRaalB5VFVLWkxMenJiN2pvY1ZveFo0Z0ZWQnZO?=
- =?utf-8?B?Y3hXTzNHVWhLNzY5bE5KZHp1QnJHRkVxVVEyVDNpOHZNYWlPSFBUTEtKbURT?=
- =?utf-8?B?TGl0RWxhNGM1SlhiMFdQMGtPUmRSMFd6ajE1eVBtMG1NQXFyc2ZDY3paazhq?=
- =?utf-8?B?T0ZrVXpOeDN3c1lPS2FoVjRpUXBnZjVURFFmWHB6bXhjUjNMTDRaMURibldw?=
- =?utf-8?B?clR4aUJuNEtRcEhnb0xySVBjdzl5dnN6dktYSU40NDBRZjdGNnFQdTZxNFF0?=
- =?utf-8?B?dDU0Rkd0WGU1MC81aFFSTHg1b21EMHJsUU5Bd1UxV1N1Wmo0ZjlUYjdCNS9k?=
- =?utf-8?B?ZEpJNnliL1YramhKSTJFSFVOWjhnem01Lzd3aVBVTk83NVBybi9NSW0wSmx1?=
- =?utf-8?B?NVY2OThFcHl6V3krZis4Z2lJMkVDSDk3NDhoVkdxWDBIQWVrTURITTdLR3JI?=
- =?utf-8?B?L1RTUDFITXJ4elZudWF2YVZwdk1ZYTlYcGh2ZlkxRkphdkUvRVVmd1Jzdlpk?=
- =?utf-8?B?OUs2elpxWS9vOVE5aGhQYVVmdm1yNmtPQ3NGS2g0K1NCOGMwNHBuMEUvM2M0?=
- =?utf-8?B?cTBIRlFzOWxGVzltVXNLbXBRdi95Z1c2eGQ2RnB1ZWZ4K09ZS0RuYU9pNDZB?=
- =?utf-8?B?MHlXRXA3ejNuM3d2NWpta3RyMmpWYjhmQUZhZjh0VmpKb2RVVjFGT0xuaTdn?=
- =?utf-8?B?RTc5aVNEZGVoRzEwdFZZb2FhLzJMVk5Ka0tyVnNjbkk0MDhhLzA4aGV1Vkd0?=
- =?utf-8?B?SFN3RjF5V3VVYnA5QmMxb0dJOFoxSlorUDFvRG1ZMm5DRWl6VnZiNCtSWm5I?=
- =?utf-8?B?QWdya3dyYmU4WGRWczFWZ1VBcXA3YVkzZ2NhK1ZqRytZRkhiTTB3UHliSlN6?=
- =?utf-8?B?WHNFSk9EWVcwZTFQN3dWWFVaaXZ1NTJJMndkNm5UNkU3Q2RuMkY2c0EwSnhp?=
- =?utf-8?B?d0I5TFp4Sk5Mdk94U3F6TExLRGNkTU5wTDB0QnEyOStxQmxiSEcxRVZBcVdU?=
- =?utf-8?B?eE1nVG9LK3d4d3R0bjFiWEZsQVkzaFdTeTM0YWhBOXA0T2lneTdMYktmd0xE?=
- =?utf-8?B?N1ErZHpMVkhBNE9NY1UyaFNlT3ZwOURpcVdDbytka0ZWWk9UbVdhZ3JZRzBz?=
- =?utf-8?B?R3d0emlPRk1HRVFtM0Z2MlorS1lsZ1ZadWtyVmF4NjAyUlY1SjQ2Tk5zZnlE?=
- =?utf-8?B?UWk3eHJUTWJ6TmFaVkFsVlhkdUJQdGhURWI5NG40OWJManUzbmNXNTYwR3hn?=
- =?utf-8?B?QitMN3o4NHpMOG1xbmNyY250U3ZOS28vUkF6Z2Y5b3IxdjRoaW1GRGdjRGNZ?=
- =?utf-8?B?Sm9maTB6VkR3VFJ6N3UyR2VzUWtjbVNoR251Q3FRanZqY1RHaGNDSkdmTks0?=
- =?utf-8?B?NDQyTnZyZkxKc0hpZVZ6S2g5UnVkMG1wV2xOSC8wNWdsRWROR2lQcWVaajJD?=
- =?utf-8?B?MnpuTWdkL0lVcFdjVEN0OHZwdU5FRmFzT0VsYVZSV05qZ3JiMzJSVnJQamsx?=
- =?utf-8?B?ZDNHRi9tSFJCQ0ZMUlpXQTB6ZEttMSsyYy9sZXZRdEU4eG8rMUJjbUZxN2p5?=
- =?utf-8?B?SmxFZWtKVlF6SEVvZUoydEIvK2wxSUR3Ykt5bks0V1M0eFZyQnVZUkFSUVJL?=
- =?utf-8?B?ZnB0cHoxWngrVU5PTWcrM1JKVFZDSEVacmtLZjZVZmV1WHVaRFR6aWRCWmVZ?=
- =?utf-8?B?VEI1QXBSVjIwYmM1UkhQeE5KN0I4eVRDeVFLZGEzcytZc1BaTVR2dnk0dENF?=
- =?utf-8?B?NmR2cUFiRVdwTDYxKzVOVVpIMUM2b0w3TGJWbkg3L0tGdUI3c0g3S3JoZ2R2?=
- =?utf-8?B?VzRLNm41VUVZYk1GNUZIckc3blZVQkg3RERvS3orMll3TmRhMTkzK1pIUDlP?=
- =?utf-8?B?dUNNbW0vOEtORkFmbEVSYzFtTmZHUEU3Y01EQW1SSVAzeGp5emhiZ1dSME8x?=
- =?utf-8?B?dzc0TE5STU92cHhuN1JjWE5WakhuY3lxVmUyTU56dVZOdGdZc0liczZTVjV6?=
- =?utf-8?B?N083TE5ESlkwRUlaVlV4emxSTzR6QjBRV3IySWZaUFI3RWtyV3doWmpYRStS?=
- =?utf-8?Q?pk+TKO0V1D3UGsYrJ1?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
+ [209.85.160.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9DCBF10E7D3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 11:36:53 +0000 (UTC)
+Received: by mail-qt1-f178.google.com with SMTP id
+ d75a77b69052e-51c0006ea8eso13106671cf.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 04:36:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1786361812; x=1786966612; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=SXRcPlyRBlzOQgIcCkcRdarCPll4g6nyvpn9WQFz5cU=;
+ b=dDi3YCFAHpq8GRdGcaVW6GcZ5rMsR23lEx2hQd6zyIJjqvrc60Xk39UjnTCQa80K/d
+ 87GV3ameELWWxES0RKlJMTEC5Nr1ofsMQP6flhKCplVz0mZLGOB0jlwMmlpLduOFxzYW
+ 04wHXG7rAPDbZtm0bXgawQVAJSSXzwt89arzek5iIXxH3kgwnwhBMwbqA+0V5TseCIJm
+ l0OAjbpI40/osw+Fcr1wJQhULaxTuJX94EFdW8YZhs0MLBCTjwiLhPSDBs2+WOHmHigm
+ 1DlYTWWBfRnUrJCukFbz8QKp+VqIMDn9rUxmP0a2PAzlibF/zbu5Ir6NA6MgPOTWWOw/
+ hogw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786361812; x=1786966612;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=SXRcPlyRBlzOQgIcCkcRdarCPll4g6nyvpn9WQFz5cU=;
+ b=KTNZZNY+BGFu4egrBDIUkdKVUoRg6UsZQLKF2QdLi7LYnCelAREOs758wcvLmZFB/L
+ wixxgJn+XMTAfIiLfHXwStuRbe8VP+AtKvoMzDPT9WJUZu6eQ0zxUsy55fRyy/OWAV11
+ k9jiedG5bbdm8yYPbwuU8gsk9RcgFoLlNP47Ed9aPxJ1qwUip8EmU/7tw1OPP6Mv5KS4
+ EaebwsbtS7Rnag3ZByrcI/d4+5Bs11GJWYkO6BVPmfWoscTxmUxjVLWan6OccCY+z1JP
+ x2aGssJEfrKTZtSGyGUYvoL1Hbwh7MJMFLc0/JRzLJOAcr3zGTcniG9zxAwCWUK7fkh9
+ ODAQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RpT5eO7j0eFs775/d9xyLT71LAwOGu0VqUf3+8q70DKos07PwM7KSMnlujJXHl61e135T6rGzHc@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzKvRuFRO58nHOXhGVzdPgQW8Xozo4y5jRMsILmhVOUdSaQ0QzL
+ wZaDpYqaHoofTMF2B36a8pa3LlzmQHi6EyhS7gDa/0TtZDbpQ6Ltn/D1S4CgqoACFmY=
+X-Gm-Gg: AR+sD11ZvHBC5RQBHBPRC4CEUKrIUrLuXiv6rWksYIEqFfqQJG2H7gloASU7QhNA2NO
+ N1ow4c048Cr8dLYtcYagLaZHect7/hNyT0CK6MolxwevktSpXIY5gJmSF/Kmhnlw9ccaUNNYz2k
+ Dod+C868ZVthJP6Ulwun7zx2PSFDmUIHCHO9yHICqPuqZ5npmNdYzkELDjvNdGOZ6gqF1R1ITZY
+ W+Qf9KYILeFPuuj5t0VRIkb2CW5IrVnCXpkftgr6XKW1d/W3Il/Rnt5cs14kthszzatEFGNiUN5
+ WfpxBYptk+f19cOqXuzn22Dgoa6FsktL7JConVCPhotSyPxtp7DUmIw/sa5X8Tfefk4nOP1wp3h
+ FifV2LaCECZA+u4sbavHRofAUKoMa/BvnTHhvKjy8pGgMd/F3X7ZfOydQcwLbt5/jGI+6tKptR7
+ CJJscs6yOAvLQyOuFie9zpBc6cEXV23rH8+A5hJ8BNwyYuwMd6BcbcFI9IkvySCC1qYvuFjmWCd
+ GMh5dslbuONs5/CoDzg5Q==
+X-Received: by 2002:a05:622a:1449:b0:51c:404:af7a with SMTP id
+ d75a77b69052e-52d4bc9a5aamr7898791cf.31.1786361812300; 
+ Mon, 10 Aug 2026 04:36:52 -0700 (PDT)
+Received: from [192.168.0.116] ([90.249.211.112])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-52d165efd05sm69318071cf.20.2026.08.10.04.36.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 10 Aug 2026 04:36:51 -0700 (PDT)
+Message-ID: <1bf21e40-908d-4e66-80fd-7548a7a748c3@ursulin.net>
+Date: Mon, 10 Aug 2026 12:36:49 +0100
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6803.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 349c233d-9744-4c8e-a58b-08def6c78d45
-X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Aug 2026 10:10:06.1637 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wGw32VuhUyTcrupqbLXX+ZQ7JxGrGSPHjZittr/uO+zBtoPp1OJ8z+fBoencdVR4
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9452
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
+ degradation at max GPU load on 9070XT
+To: Luke.Wildhardt@proton.me,
+ "matthew.brost@intel.com" <matthew.brost@intel.com>,
+ "dakr@kernel.org" <dakr@kernel.org>, "phasta@kernel.org"
+ <phasta@kernel.org>,
+ "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,97 +99,215 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-QU1EIEdlbmVyYWwNCg0KVGhpcyBmaXggYWxpZ25zIHdpdGggdGhlIEFTUE0gcHJvZ3JhbW1pbmcg
-c3BlYy4NClJldmlld2VkLWJ5OiBLZW5uZXRoIEZlbmcgPGtlbm5ldGguZmVuZ0BhbWQuY29tPg0K
-DQoNCi0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQpGcm9tOiBXYW5nLCBZYW5nKEtldmluKSA8
-S2V2aW5ZYW5nLldhbmdAYW1kLmNvbT4NClNlbnQ6IE1vbmRheSwgQXVndXN0IDEwLCAyMDI2IDU6
-NTkgUE0NClRvOiBhbWQtZ2Z4QGxpc3RzLmZyZWVkZXNrdG9wLm9yZw0KQ2M6IERldWNoZXIsIEFs
-ZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IFpoYW5nLCBIYXdraW5nIDxIYXdr
-aW5nLlpoYW5nQGFtZC5jb20+OyBGZW5nLCBLZW5uZXRoIDxLZW5uZXRoLkZlbmdAYW1kLmNvbT47
-IEZlbmcsIEtlbm5ldGggPEtlbm5ldGguRmVuZ0BhbWQuY29tPg0KU3ViamVjdDogW1BBVENIXSBk
-cm0vYW1kZ3B1OiBmaXggbmJpZiA2LjMuMSBsMSBsb3cgcG93ZXIgbm90IGZ1bmN0aW9uYWwNCg0K
-VGhlIFBDSWUgTDEgbG934oCRcG93ZXIgc2V0dGluZ3MgZm9yIE5CSUYgNi4zLjEgd2VyZSBuZXZl
-ciBhcHBsaWVkIGR1ZSB0byB1bnJlc29sdmVkIHJlZ2lzdGVyIG1hcHBpbmcsIHdoaWNoIGNhdXNl
-ZCB0aGUgcmVsZXZhbnQgY29kZSB0byBiZSBjb21waWxlZCBvdXQuDQpBcyBhIHJlc3VsdCwgdGhl
-IFBDSWUgbGluayBjb3VsZCBub3QgZW50ZXIgTDEvTDIzIHBvd2Vy4oCRZG93biBzdGF0ZXMgb3Ig
-dHJhbnNpdGlvbiB0byBMMHMuDQoNClByb3Blcmx5IGNvbmZpZ3VyZSB0aGUgbGluayBjb250cm9s
-IHJlZ2lzdGVyIHRvIGVuYWJsZSBMMSBhbmQgTDIzIHBvd2Vy4oCRZG93biwgYW5kIHBlcm1pdCBM
-MHMgbGluayB0cmFuc2l0aW9ucy4gS2VlcCBMVFIgZGlzYWJsZWQgYW5kIGxldCB0aGUgUENJIGNv
-cmUgZW5hYmxlIGl0IG9ubHkgYWZ0ZXIgdmVyaWZ5aW5nIGVuZOKAkXRv4oCRZW5kIHJvb3QgY29t
-cGxleCBzdXBwb3J0IGFjcm9zcyBzd2l0Y2hlcy4NCg0KRml4ZXM6IDg5NGM2ZDM1MjJkMSAoImRy
-bS9hbWRncHU6IEFkZCBuYmlmIHY2XzNfMSBpcCBibG9jayBzdXBwb3J0IikNCg0KU2lnbmVkLW9m
-Zi1ieTogWWFuZyBXYW5nIDxrZXZpbnlhbmcud2FuZ0BhbWQuY29tPg0KU2lnbmVkLW9mZi1ieTog
-S2VubmV0aCBGZW5nIDxLZW5uZXRoLmZlbmdAYW1kLmNvbT4NCi0tLQ0KIGRyaXZlcnMvZ3B1L2Ry
-bS9hbWQvYW1kZ3B1L25iaWZfdjZfM18xLmMgfCA0MiArKysrKysrKysrLS0tLS0tLS0tLS0tLS0N
-CiAxIGZpbGUgY2hhbmdlZCwgMTcgaW5zZXJ0aW9ucygrKSwgMjUgZGVsZXRpb25zKC0pDQoNCmRp
-ZmYgLS1naXQgYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9uYmlmX3Y2XzNfMS5jIGIvZHJp
-dmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbmJpZl92Nl8zXzEuYw0KaW5kZXggNTdiMGNmODE3YWZi
-Li5jZWEwODEzNGQ0YzIgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9u
-YmlmX3Y2XzNfMS5jDQorKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9uYmlmX3Y2XzNf
-MS5jDQpAQCAtNDIzLDcgKzQyMyw2IEBAIHN0YXRpYyB1MzIgbmJpZl92Nl8zXzFfZ2V0X3JvbV9v
-ZmZzZXQoc3RydWN0IGFtZGdwdV9kZXZpY2UgKmFkZXYpICBzdGF0aWMgdm9pZCBuYmlmX3Y2XzNf
-MV9wcm9ncmFtX2x0cihzdHJ1Y3QgYW1kZ3B1X2RldmljZSAqYWRldikgIHsNCiAgICAgICAgdWlu
-dDMyX3QgZGVmLCBkYXRhOw0KLSAgICAgICB1MTYgZGV2Y3RsMjsNCg0KICAgICAgICBkZWYgPSBS
-UkVHMzJfU09DMTUoTkJJTywgMCwgcmVnUkNDX0VQX0RFVjBfMF9FUF9QQ0lFX1RYX0xUUl9DTlRM
-KTsNCiAgICAgICAgZGF0YSA9IDB4MzVFQjsNCkBAIC00MzcsMTUgKzQzNiw4IEBAIHN0YXRpYyB2
-b2lkIG5iaWZfdjZfM18xX3Byb2dyYW1fbHRyKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0K
-ICAgICAgICBpZiAoZGVmICE9IGRhdGEpDQogICAgICAgICAgICAgICAgV1JFRzMyX1NPQzE1KE5C
-SU8sIDAsIHJlZ1JDQ19TVFJBUDBfUkNDX0JJRl9TVFJBUDIsIGRhdGEpOw0KDQotICAgICAgIHBj
-aWVfY2FwYWJpbGl0eV9yZWFkX3dvcmQoYWRldi0+cGRldiwgUENJX0VYUF9ERVZDVEwyLCAmZGV2
-Y3RsMik7DQotDQotICAgICAgIGlmIChhZGV2LT5wZGV2LT5sdHJfcGF0aCA9PSAoZGV2Y3RsMiAm
-IFBDSV9FWFBfREVWQ1RMMl9MVFJfRU4pKQ0KLSAgICAgICAgICAgICAgIHJldHVybjsNCi0NCi0g
-ICAgICAgaWYgKGFkZXYtPnBkZXYtPmx0cl9wYXRoKQ0KLSAgICAgICAgICAgICAgIHBjaWVfY2Fw
-YWJpbGl0eV9zZXRfd29yZChhZGV2LT5wZGV2LCBQQ0lfRVhQX0RFVkNUTDIsIFBDSV9FWFBfREVW
-Q1RMMl9MVFJfRU4pOw0KLSAgICAgICBlbHNlDQotICAgICAgICAgICAgICAgcGNpZV9jYXBhYmls
-aXR5X2NsZWFyX3dvcmQoYWRldi0+cGRldiwgUENJX0VYUF9ERVZDVEwyLCBQQ0lfRVhQX0RFVkNU
-TDJfTFRSX0VOKTsNCisgICAgICAgcGNpZV9jYXBhYmlsaXR5X3NldF93b3JkKGFkZXYtPnBkZXYs
-IFBDSV9FWFBfREVWQ1RMMiwNCisgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIFBDSV9F
-WFBfREVWQ1RMMl9MVFJfRU4pOw0KIH0NCiAjZW5kaWYNCg0KQEAgLTQ1Myw3ICs0NDUsNyBAQCBz
-dGF0aWMgdm9pZCBuYmlmX3Y2XzNfMV9wcm9ncmFtX2FzcG0oc3RydWN0IGFtZGdwdV9kZXZpY2Ug
-KmFkZXYpICB7ICAjaWZkZWYgQ09ORklHX1BDSUVBU1BNDQogICAgICAgIHVpbnQzMl90IGRlZiwg
-ZGF0YTsNCi0gICAgICAgdTE2IGRldmN0bDIsIGx0cjsNCisgICAgICAgdTE2IGx0cjsNCg0KICAg
-ICAgICBkZWYgPSBkYXRhID0gUlJFRzMyX1NPQzE1KFBDSUUsIDAsIHJlZ1BDSUVfTENfQ05UTCk7
-DQogICAgICAgIGRhdGEgJj0gflBDSUVfTENfQ05UTF9fTENfTDFfSU5BQ1RJVklUWV9NQVNLOw0K
-QEAgLTQ4MywxMSArNDc1LDggQEAgc3RhdGljIHZvaWQgbmJpZl92Nl8zXzFfcHJvZ3JhbV9hc3Bt
-KHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KICAgICAgICBpZiAoZGVmICE9IGRhdGEpDQog
-ICAgICAgICAgICAgICAgV1JFRzMyX1NPQzE1KE5CSU8sIDAsIHJlZ1JDQ19TVFJBUDBfUkNDX0JJ
-Rl9TVFJBUDUsIGRhdGEpOw0KDQotICAgICAgIHBjaWVfY2FwYWJpbGl0eV9yZWFkX3dvcmQoYWRl
-di0+cGRldiwgUENJX0VYUF9ERVZDVEwyLCAmZGV2Y3RsMik7DQotICAgICAgIGRhdGEgPSBkZWYg
-PSBkZXZjdGwyOw0KLSAgICAgICBkYXRhICY9IH5QQ0lfRVhQX0RFVkNUTDJfTFRSX0VOOw0KLSAg
-ICAgICBpZiAoZGVmICE9IGRhdGEpDQotICAgICAgICAgICAgICAgcGNpZV9jYXBhYmlsaXR5X3Nl
-dF93b3JkKGFkZXYtPnBkZXYsIFBDSV9FWFBfREVWQ1RMMiwgKHUxNilkYXRhKTsNCisgICAgICAg
-cGNpZV9jYXBhYmlsaXR5X2NsZWFyX3dvcmQoYWRldi0+cGRldiwgUENJX0VYUF9ERVZDVEwyLA0K
-KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBQQ0lfRVhQX0RFVkNUTDJfTFRSX0VO
-KTsNCg0KICAgICAgICBsdHIgPSBwY2lfZmluZF9leHRfY2FwYWJpbGl0eShhZGV2LT5wZGV2LCBQ
-Q0lfRVhUX0NBUF9JRF9MVFIpOw0KDQpAQCAtNDk1LDE1ICs0ODQsMTMgQEAgc3RhdGljIHZvaWQg
-bmJpZl92Nl8zXzFfcHJvZ3JhbV9hc3BtKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KICAg
-ICAgICAgICAgICAgIHBjaV93cml0ZV9jb25maWdfZHdvcmQoYWRldi0+cGRldiwgbHRyICsgUENJ
-X0xUUl9NQVhfU05PT1BfTEFULCAweDEwMDExMDAxKTsNCiAgICAgICAgfQ0KDQotI2lmIDANCi0g
-ICAgICAgLyogcmVnUFNXVVNQMF9QQ0lFX0xDX0NOVEwyIHNob3VsZCBiZSByZXBsYWNlIGJ5IFBD
-SUVfTENfQ05UTDIgb3Igc29tZW9uZSBlbHNlID8gKi8NCi0gICAgICAgZGVmID0gZGF0YSA9IFJS
-RUczMl9TT0MxNShOQklPLCAwLCByZWdQU1dVU1AwX1BDSUVfTENfQ05UTDIpOw0KLSAgICAgICBk
-YXRhIHw9IFBTV1VTUDBfUENJRV9MQ19DTlRMMl9fTENfQUxMT1dfUERXTl9JTl9MMV9NQVNLIHwN
-Ci0gICAgICAgICAgICAgICBQU1dVU1AwX1BDSUVfTENfQ05UTDJfX0xDX0FMTE9XX1BEV05fSU5f
-TDIzX01BU0s7DQotICAgICAgIGRhdGEgJj0gflBTV1VTUDBfUENJRV9MQ19DTlRMMl9fTENfUkNW
-X0wwX1RPX1JDVl9MMFNfRElTX01BU0s7DQorICAgICAgIGRlZiA9IGRhdGEgPSBSUkVHMzJfU09D
-MTUoUENJRSwgMCwgcmVnUENJRV9MQ19DTlRMMik7DQorICAgICAgIGRhdGEgfD0gUENJRV9MQ19D
-TlRMMl9fTENfQUxMT1dfUERXTl9JTl9MMV9NQVNLIHwNCisgICAgICAgICAgICAgICBQQ0lFX0xD
-X0NOVEwyX19MQ19BTExPV19QRFdOX0lOX0wyM19NQVNLOw0KKyAgICAgICBkYXRhICY9IH5QQ0lF
-X0xDX0NOVEwyX19MQ19SQ1ZfTDBfVE9fUkNWX0wwU19ESVNfTUFTSzsNCiAgICAgICAgaWYgKGRl
-ZiAhPSBkYXRhKQ0KLSAgICAgICAgICAgICAgIFdSRUczMl9TT0MxNShOQklPLCAwLCByZWdQU1dV
-U1AwX1BDSUVfTENfQ05UTDIsIGRhdGEpOw0KLSNlbmRpZg0KKyAgICAgICAgICAgICAgIFdSRUcz
-Ml9TT0MxNShQQ0lFLCAwLCByZWdQQ0lFX0xDX0NOVEwyLCBkYXRhKTsNCisNCiAgICAgICAgZGVm
-ID0gZGF0YSA9IFJSRUczMl9TT0MxNShQQ0lFLCAwLCByZWdQQ0lFX0xDX0NOVEw0KTsNCiAgICAg
-ICAgZGF0YSB8PSBQQ0lFX0xDX0NOVEw0X19MQ19MMV9QT1dFUkRPV05fTUFTSzsNCiAgICAgICAg
-aWYgKGRlZiAhPSBkYXRhKQ0KQEAgLTUxNCw3ICs1MDEsMTIgQEAgc3RhdGljIHZvaWQgbmJpZl92
-Nl8zXzFfcHJvZ3JhbV9hc3BtKHN0cnVjdCBhbWRncHVfZGV2aWNlICphZGV2KQ0KICAgICAgICBp
-ZiAoZGVmICE9IGRhdGEpDQogICAgICAgICAgICAgICAgV1JFRzMyX1NPQzE1KFBDSUUsIDAsIHJl
-Z1BDSUVfTENfUlhSRUNPVkVSX1JYU1RBTkRCWV9DTlRMLCBkYXRhKTsNCg0KLSAgICAgICBuYmlm
-X3Y2XzNfMV9wcm9ncmFtX2x0cihhZGV2KTsNCisgICAgICAgLyoNCisgICAgICAgICogRG8gbm90
-IGVuYWJsZSBlbmRwb2ludCBMVFIgdW5sZXNzIHRoZSBSb290IENvbXBsZXggYW5kIGV2ZXJ5DQor
-ICAgICAgICAqIHVwc3RyZWFtIHN3aXRjaCBzdXBwb3J0IGl0Lg0KKyAgICAgICAgKi8NCisgICAg
-ICAgaWYgKGFkZXYtPnBkZXYtPmx0cl9wYXRoKQ0KKyAgICAgICAgICAgICAgIG5iaWZfdjZfM18x
-X3Byb2dyYW1fbHRyKGFkZXYpOw0KDQogICAgICAgIGRlZiA9IGRhdGEgPSBSUkVHMzJfU09DMTUo
-TkJJTywgMCwgcmVnUkNDX1NUUkFQMF9SQ0NfQklGX1NUUkFQMyk7DQogICAgICAgIGRhdGEgfD0g
-MHg1REUwIDw8IFJDQ19TVFJBUDBfUkNDX0JJRl9TVFJBUDNfX1NUUkFQX1ZMSU5LX0FTUE1fSURM
-RV9USU1FUl9fU0hJRlQ7DQotLQ0KMi41NC4wDQoNCg==
+
+Hi,
+
+On 09/08/2026 00:33, Luke.Wildhardt@proton.me wrote:
+> Since the DRM scheduler default policy was switched to FAIR in 7.2, sustained 100% GPU load in-game on my RX 9070 XT causes severe performance degradation. In the example title running through Proton, Project Silverfish, the foreground application degrades to roughly 10 fps or freezes outright while audio continues, and the KDE Plasma Wayland session can lock up entirely, requiring a reboot or killing the compositor to recover. The problem is not limited to games. Running the game in the background + alt tabbing, then playing a YouTube video can also cause the entire desktop to freeze.
+> 
+> Then, if the game starts to stutter, either alt-tabbing, or opening up a menu in game (which reduced the load on the GPU) immediately stops the stuttering.
+> 
+> The issue is reliably reproducible under sustained GPU saturation, although the time-to-failure varies. Increasing shadow load (which decreases in-game frame rate) substantially shortens the time-to-failure.
+> 
+> In game, MangoHud does not reveal any frametime discrepancy.
+> 
+> Bisection / test matrix
+> 
+> Reproducer: Project Silverfish (Proton) at settings that saturate the GPU, with a second GPU client active (browser video). Other titles show the same symptom under sustained load; I have not yet re-tested those specific titles against the fix.
+> 
+> Kernel	Result
+> torvalds/master stock	FAIR (default)	FAIL
+> same as above + reverts below	gpu_sched.sched_policy=2 (FAIR)	FAIL
+> same as above + reverts below	gpu_sched.sched_policy=1 (FIFO)	PASS
+> 7.1.5 release	PASS
+> drm-next	FAIR (default)	FAIL
+> 
+> Reverted Commits:
+> 
+> d09339388b77 drm/sched: Remove drm_sched_init_args->num_rqs
+> 2833a0512b4c drm/sched: Remove drm_sched_init_args->num_rqs usage
+> 16e7698bc04d drm/sched: Embed run queue singleton into the scheduler
+> 77a6809f1dc3 drm/sched: Remove FIFO and RR and simplify to a single run queue
+> 45c211ddf92a drm/sched: Switch default policy to fair
+> 2462a0ce23b0 drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
+> 
+> 
+> 
+> Kernel (failing):  7.2.0-rc6 (stock), also current drm-next
+> Kernel (working):  7.2.0-rc6-default-revert-00006-g7e5de9b07e3d with sched_policy=1
+>                     7.1 release
+> Distro:            Arch Linux
+> Session:           KDE Plasma 6.7.4 / Wayland (KWin), Qt 6.11.1, KF 6.28.0
+> CPU:               AMD Ryzen 9 9950X3D
+> RAM:               64 GiB
+> GPU:               Sapphire Pulse Radeon RX 9070 XT
+>                     03:00.0 [1002:7550] rev c0, subsys Sapphire 1478
+> Motherboard:       ASUS (AM5 / 800-series chipset)
+> Mesa:              26.1.6-arch1.1 (RADV, driverVersion 26.1.6)
+> Vulkan:            instance 1.4.357 / device 1.4.354
+> 
+> 
+> 
+> 
+> On the same reverted kernel build, changing only gpu_sched.sched_policy from 2 (FAIR) to 1 (FIFO) changes the result from reliably failing to passing extended stress testing.
+> 
+> 
+> 
+> Possible mitigation options
+> 
+> Given that 7.2 is late in the release cycle and 77a6809f1dc3 removes FIFO/RR as selectable policies, there is currently no runtime workaround for affected systems.
+> 
+> 
+> Revert 45c211ddf92a so FIFO remains the default while FAIR remains available for further testing.
+> 
+> If necessary, also revert 77a6809f1dc3 and dependent changes to restore runtime policy selection.
+> 
+> Alternatively, fix the underlying FAIR regression if a suitable fix can be identified in time for 7.2.
+> 
+> 
+> I mention the revert options because the justification for removing FIFO/RR included the absence of known regressions relative to those policies. This report appears to provide at least one counterexample.
+> 
+> 
+> I am willing to test patches responsively and collect data if necessary.
+
+Initially I thought it could be a missing wakeup but I couldn't spot 
+any. Then I thought about the clue that the regressed/stuck state 
+happens after some runtime, and is accelerated by the competing clients. 
+So I thought could there be an accumulating error in vruntime handling 
+somehow. The only problem I found so far is that I think the 
+min_vruntime handling has a bug where if an entity never exists the 
+run-queue it can get penalised by its' vruntime only growing, while the 
+re-joining ones get the pull ahead of it. I think the fix is to make 
+sure min_vruntime is strictly monotonic and strictly follows the last 
+popped entity. On a re-read I also think that aligns with how the CPU 
+scheduler does it.
+
+Could you please test the below diff against the tip (no reverts):
+
+diff --git a/drivers/gpu/drm/scheduler/sched_rq.c 
+b/drivers/gpu/drm/scheduler/sched_rq.c
+index 044546bcb5f8..6b40f0c44fe5 100644
+--- a/drivers/gpu/drm/scheduler/sched_rq.c
++++ b/drivers/gpu/drm/scheduler/sched_rq.c
+@@ -95,6 +95,7 @@ void drm_sched_rq_init(struct drm_sched_rq *rq)
+  	INIT_LIST_HEAD(&rq->entities);
+  	rq->rb_tree_root = RB_ROOT_CACHED;
+  	rq->head_prio = DRM_SCHED_PRIORITY_INVALID;
++	rq->min_vruntime = 0;
+  }
+
+  /*
+@@ -117,28 +118,6 @@ static const unsigned int vruntime_shift[] = {
+  	[DRM_SCHED_PRIORITY_LOW]    = 7,
+  };
+
+-static ktime_t
+-drm_sched_rq_get_min_vruntime(struct drm_sched_rq *rq)
+-{
+-	ktime_t vruntime = 0;
+-	struct rb_node *rb;
+-
+-	lockdep_assert_held(&rq->lock);
+-
+-	rb = rb_first_cached(&rq->rb_tree_root);
+-	if (rb) {
+-		struct drm_sched_entity *entity =
+-			rb_entry(rb, typeof(*entity), rb_tree_node);
+-		struct drm_sched_entity_stats *stats = entity->stats;
+-
+-		spin_lock(&stats->lock);
+-		vruntime = stats->vruntime;
+-		spin_unlock(&stats->lock);
+-	}
+-
+-	return vruntime;
+-}
+-
+  static void
+  drm_sched_entity_save_vruntime(struct drm_sched_entity *entity,
+  			       ktime_t min_vruntime)
+@@ -148,7 +127,7 @@ drm_sched_entity_save_vruntime(struct 
+drm_sched_entity *entity,
+
+  	spin_lock(&stats->lock);
+  	vruntime = stats->vruntime;
+-	if (min_vruntime && vruntime > min_vruntime)
++	if (ktime_after(vruntime, min_vruntime))
+  		vruntime = ktime_sub(vruntime, min_vruntime);
+  	else
+  		vruntime = 0;
+@@ -271,8 +250,8 @@ drm_sched_rq_add_entity(struct drm_sched_entity *entity)
+  		list_add_tail(&entity->list, &rq->entities);
+  	}
+
+-	ts = drm_sched_rq_get_min_vruntime(rq);
+-	ts = drm_sched_entity_restore_vruntime(entity, ts, rq->head_prio);
++	ts = drm_sched_entity_restore_vruntime(entity, rq->min_vruntime,
++					       rq->head_prio);
+  	drm_sched_rq_update_tree_locked(entity, rq, ts);
+
+  	spin_unlock(&rq->lock);
+@@ -318,6 +297,7 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity 
+*entity)
+  {
+  	struct drm_sched_job *next_job;
+  	struct drm_sched_rq *rq;
++	ktime_t ts;
+
+  	/*
+  	 * Update the entity's location in the min heap according to
+@@ -326,18 +306,17 @@ void drm_sched_rq_pop_entity(struct 
+drm_sched_entity *entity)
+  	spin_lock(&entity->lock);
+  	rq = entity->rq;
+  	spin_lock(&rq->lock);
++
++	ts = drm_sched_entity_update_vruntime(entity);
++	if (ktime_after(ts, rq->min_vruntime))
++		rq->min_vruntime = ts;
++
+  	next_job = drm_sched_entity_queue_peek(entity);
+  	if (next_job) {
+-		ktime_t ts;
+-
+-		ts = drm_sched_entity_update_vruntime(entity);
+  		drm_sched_rq_update_tree_locked(entity, rq, ts);
+  	} else {
+-		ktime_t min_vruntime;
+-
+  		drm_sched_rq_remove_tree_locked(entity, rq);
+-		min_vruntime = drm_sched_rq_get_min_vruntime(rq);
+-		drm_sched_entity_save_vruntime(entity, min_vruntime);
++		drm_sched_entity_save_vruntime(entity, rq->min_vruntime);
+  	}
+  	spin_unlock(&rq->lock);
+  	spin_unlock(&entity->lock);
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 363d13fc929f..892ef474c5c1 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -252,6 +252,7 @@ struct drm_sched_entity {
+   * @entities: list of the entities to be scheduled.
+   * @rb_tree_root: root of time based priority queue of entities for 
+FIFO scheduling
+   * @head_prio: priority of the top tree element.
++ * @min_vruntime: Minimum virtual runtime for the run-queue.
+   *
+   * Run queue is a set of entities scheduling command submissions for
+   * one specific ring. It implements the scheduling policy that selects
+@@ -263,6 +264,7 @@ struct drm_sched_rq {
+  	struct list_head		entities;
+  	struct rb_root_cached		rb_tree_root;
+  	enum drm_sched_priority		head_prio;
++	ktime_t				min_vruntime;
+  };
+
+  /**
+
+
+
+Regards,
+
+Tvrtko
+
+
