@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DBF36C5AE49
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 03:41:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 568B9C5AC82
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 03:41:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 486BC10E5DA;
-	Mon, 10 Aug 2026 03:41:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BDFA410E5E5;
+	Mon, 10 Aug 2026 03:41:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ymm53Se1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TfMtiXr7";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013041.outbound.protection.outlook.com
- [40.93.201.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 188EB10E5E3
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 03:41:15 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010033.outbound.protection.outlook.com
+ [40.93.198.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2949010E5EC
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 03:41:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QQ6ooqellBnNcTdoxSOpxJUmLmiUHFxbOnKWyQvVDCGAb5J8pYkmUKdhgfazhffpsG5K2gCxpMMMVk8qaMy9n7wj7xEN/VxIb1p5HfpfwnXP40dCY1yaz4FLEJYuoWbG5YGXtHMFMjq5gqWhManTvgiJo8O8vGjdD5MiVh++i1kGuwUYJSITPbQJpLxWt1O3RUq74JOJRkHonIPJX4yYjynu3ZBHfABkb1W6VZTqYRDSopL8XA05Umr1/1LfsJzPJnSn5XfgbqkPrqx66JYRbIQsE7nqI4Sm1Efryr6q0IU1zSpWbfq5A0DBRLACP7Z8FF6jqrWcNPTg7aU5gPzW6g==
+ b=s0H9MO4dxDy+bxc4zgvncMI8vWkrH0y3KZ2TKYXvRSI/pp8bytVlqXD9ll+MsU3Ss+qcHy9PCGunpve0w654TrJDSVdjZkxC/uAUwLJQ8ps4HyT5h97atnShXrFwRF3pmb/akTawpNlfUst1C92Gtop+CgoG+FDZQFl4prY6h6wqA6ANQM819ZAuvYsOIiSt5sT+xsA0/P415XzK1vL/E7KIVuKTICbRRMuU7qsE4mRP8064Szs/7BhsO0V9JcLfq+giFxTZlCZUDTer4DeNimDwC4EfbkiSNfwigLj+dvPrfS7g4vCrTwRsOCxQbcBcIUa0gspmmvwruyFYc0SWuw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6enCIYDPG1owkHaVgtZ7akm5sHY0+yMkaEtryITxaV0=;
- b=RRqUNXRMtWAvZyIOc3B8Njy0KBkszr+YDGPt/Vea0PwWbtZuLtSVgK6uCSnybk0pSUjZXp27sy0TZnUy9CA5MvCy0otEpPISCrrQRty6HWotD8N9T6BhBP36j3Xco/fTEij533T5WrEgjIyI5oUGPIhvuEm4yjXj14EYV3JZ/Ww/jhGhjHisulr4Ef5c/AfI+rD1TDoN4feea6R5BbBFXECIi+TaChmrm/L5feSiSlMekZj/rwMurwt13UG+3OyURnW0rsaSblY97KNKguWZ9z/3IMHnQmSaqLh1jsGzRb9s8fvLhO6pcVsmLNZs7RAQmr2cSAscV8CREUubuBzinw==
+ bh=znyZd1E5WRZO+FRPosZFsSC8qokBJyP5iu807WKcQKE=;
+ b=hjmYcmVe1l+GSMmcipikGxkpx0SllKRT/PozfmGaL9G5MHdOg0n743dr1Aqpku37FPZwMztlizOEjEHOH/TiiWfRcjDqvn5lPpBYkw8BAPU/yRRMCA98Mu8IMLToMD5WBGeI2+0LlndjXEbHKTFYm2R+K/5Li+nMvjNNXdBsU4fX5JO2f5mn6k0EnyPIEjNEL9rroQ0lsvPhgjyQYSnV+sjWLaUaNi/IlnopiY3MsFN/oTFdLdU3wb6qdbUGa74MWDJ6vpASCLmkaA8CA1WDSgkvmoKpBH+GFUnApKnbwqraxBAM7FvGjDWBJ4/Fd9InRXIloJX8tUXXBhkfOWRSuw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6enCIYDPG1owkHaVgtZ7akm5sHY0+yMkaEtryITxaV0=;
- b=Ymm53Se1KCDg8doTORxCF7HT8FLV7Ce6j+YuiemexHOiNT94FdNIDYYwiUhk9q1lv6qzInlp9WzmagdwJq3nrdmy08j+zz6/2UTwf08dbJZTcyVOVxt31laGtbR1affPJb/tP7P3FY/QcdgO0c2DStn7Zet8+Xxq3i3JUmLSra4=
-Received: from DM6PR06CA0073.namprd06.prod.outlook.com (2603:10b6:5:336::6) by
- MN2PR12MB4424.namprd12.prod.outlook.com (2603:10b6:208:26a::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.292.25; Mon, 10 Aug 2026 03:41:12 +0000
+ bh=znyZd1E5WRZO+FRPosZFsSC8qokBJyP5iu807WKcQKE=;
+ b=TfMtiXr7GwQcjIe5p4xfo1tTbvbBnjkPbnWb2NdOTFbv/GgCiaOOeZJwcApbWdJirOBjvoiIVPATjJiE60iTluHQxi2ayxsH3cZavRPe6STN0WNjVSR5njSKMhxuRpTys1kACmYCfpwWS4DxV9fW+0ufhKDNFw/FA9CcpCoR0D4=
+Received: from DM6PR06CA0079.namprd06.prod.outlook.com (2603:10b6:5:336::12)
+ by IA0PR12MB9045.namprd12.prod.outlook.com (2603:10b6:208:406::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
+ 2026 03:41:13 +0000
 Received: from CY4PEPF0000EE3B.namprd03.prod.outlook.com
- (2603:10b6:5:336:cafe::36) by DM6PR06CA0073.outlook.office365.com
- (2603:10b6:5:336::6) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:5:336:cafe::ab) by DM6PR06CA0079.outlook.office365.com
+ (2603:10b6:5:336::12) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.25 via Frontend Transport; Mon,
- 10 Aug 2026 03:41:12 +0000
+ 10 Aug 2026 03:41:13 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -55,15 +55,15 @@ Received: from satlexmb07.amd.com (165.204.84.17) by
 Received: from localhost.localdomain (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 9 Aug
- 2026 22:41:08 -0500
+ 2026 22:41:09 -0500
 From: <boyuan.zhang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <leo.liu@amd.com>, <alexander.deucher@amd.com>,
  <Christian.Koenig@amd.com>, <sonjiang@amd.com>, Sonny Jiang
  <sonny.jiang@amd.com>
-Subject: [PATCH 11/13] drm/amdgpu: Jpeg 5_0_2 enable doorbell
-Date: Sun, 9 Aug 2026 23:36:42 -0400
-Message-ID: <20260810033644.118194-11-boyuan.zhang@amd.com>
+Subject: [PATCH 12/13] drm/amdgpu: Jpeg uses shard VM invalidation engine
+Date: Sun, 9 Aug 2026 23:36:43 -0400
+Message-ID: <20260810033644.118194-12-boyuan.zhang@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260810033644.118194-1-boyuan.zhang@amd.com>
 References: <20260810033644.118194-1-boyuan.zhang@amd.com>
@@ -75,29 +75,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3B:EE_|MN2PR12MB4424:EE_
-X-MS-Office365-Filtering-Correlation-Id: e47696c3-bef2-47c0-ccf8-08def691393f
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3B:EE_|IA0PR12MB9045:EE_
+X-MS-Office365-Filtering-Correlation-Id: f6538266-49ec-42bf-c8cd-08def6913993
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|23010399003|36860700016|22082099003|18002099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: 1le/VRqsLi/pPYGRiHWG3j6QKDL1EOMNTgD/l4CG5a0NdH5rnDkzmaVBHOtqHOv9xKCeD+7mGeLGRKQNcB7z+tV1k1K8j1EJyn6mCY5HktksyBRf3nXLmukO+IFUUkrNAA/287OvWUHepsRID+4WYp21KXAAk/9ocuf5KOuSQs5c/0/G7iUIwDDdTFvMR6tuwszqzefent5ojisGHOy4l+Vy17CZEUViJXOtKqv+mffnE+1aNkTBzXskz+uIO6BrEy0dSBXz2mgMlbpYZjwmtqZxEcWSrV3kITx2OEcs44KOVAJc1HRnFwueDMC3jJNs3dHGgz9/rVNXBc8RCApXGtxf4xlMik3U1gdvSkY0iYLSBA6GjuXJtudAsjHCgXy9JbF2V819G5j5aUb1hd0WSJKce5WmOD6SMSPF5b+AJaSv1QBn74p/lLhtZ5l9U/3CbMcjhh9NCtcv/ViL6xNQsNJsgROxt2UwyBE0RxPEObKWtLqzfkDikJwMC9xg9HVqehxsrVnrWmN7FPKXpbh03PntWEJx1PsBoJ0RM83jjD4r4jQjmO2VssCuj/9gqb9sEKYluUpf750Emldau2I99RmZzhMpgF6jWZrSsacQKQe+/UFxm7D2GrFq/F/9oYFG/i+l32RE/OidzUyCJNBfv+igSy8CvhrCij24EFgAZCzpokLuAGUaDOGr+bG4BVP6CTkAOkePCvQzUfT7NJ5o3g==
+ ARA:13230040|36860700016|376014|1800799024|23010399003|82310400026|18002099003|22082099003|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: HYIqoAkcTAT75vLxxsyHZ0tHd/24S54iZ71CKzlYG3oFUCI6Brf8MFs6Sp8pYgxqjGUoyBcDd+DU8U7nZCLzQQJ+I21XTHS2WEbGggdcQ2QjpF17G9X5qmY0OMQ9JE3Vr01Wsqi6WTKxifxMIN0eZSHXU45ai7oPS3O+3RMcrAP37XpXAdfS7y129guASxL3djTD/yf+5FeTGRhz5C4RcNi6/aDbv2g6HqipcxNMWOxC3f99WKr82po8gI0gfzDlVkZO9t8iYHw2Vb9o49xGKJWmSmb8r9tG50+0IxJB8T9+hoTk4PHdq8DQGka6K9H/8SwflXUA9rpbebgN7ASAKnW73HmhOnIs4IIpzn7KPXr3gfrbXyAn/IcXYUDDZZYmNbvx8jGDWt4KkJ9DIxRzuRvVKOUhBs9KEZoZjfJft015iFPJ8Mk8xxFPcIxLjqzt+Xko4BkasmjxuwKYlzc4OnKnwEpAecTa1j2P96jc4gfZOnhulLz7iMrD5bY/lCPGuS25PdrkA+pkrt65+4LlQXvjEs95GKwUFFDm/n3VUat7BdUUCg3mFjkQlfUVVCW8E2e8gotCyNQAadCgpWl686O7dPicLM1NTzbAG7ExUrnOhgkqcjZ8AXZZtaIyRR7BlNbzZi9PyHZwA4/OXVpeVWQgiUQ2Oj6FjO3MR2CuYoQfdxpd2q6DsU9KTP8w1H3kZq97s1Yl6A6dEYid4iQnaQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(23010399003)(36860700016)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006);
+ SFS:(13230040)(36860700016)(376014)(1800799024)(23010399003)(82310400026)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Eb6WNq5rkX7d4Qv7Z0RMcftRyKMEhpRSI/EpgV16zZx5t4bzPq06dcTuUUqfRekL4bp/mtGGGXf0wUATjqmxHPHmiJa/tLihW1dasBcklbj9VciazLHivY5I2EOdE1eXjB786ykfCAcsbEu/SJ7KEnVvGOjE83dVtNhmeX93A0dai8WiUP63F2ZbuKktzlvOfiLmsjOPLflQhS5SQsIelh+yoit93HbB1UHCoN+c5ZH/5ktafMlwsDAa3YL2egfSkFJfoZXot4pytNI8FaEgqCZ8s/hbqubrzAFm+mm/tSExzzM00bJQRVcXsgPE35aJbGVb9Ej/yY5fk4KHLKn9Z7VTNzUKbeoChmK3a75QkXQix7aHzg+dkGfOrd5ePtzUmiD51YRzpHkXIHFMFV1wDHbAxxJDOBr87yFkeLy7f58LtW9J5EFap34gasGxmFEm
+X-MS-Exchange-AntiSpam-MessageData-0: uWlZ16uYOdRdUMkkX6Sj4yoTfkssiqg/qLdyA9rINObf89hJdvKfTfhAFVHWMkDogB7a3lv+cClIPI801rBqyIS5Euo125UKkt/RuTw6SoRKUcN9u6ims5Pv2eqUN4gNAUQM53ZhJgVeXTnK3e4Tnj4BGPGt8XmnsKh+fxhAsejvmkrNtWqf5EE0QAC1Wiy6GCGGVZS0k31SIZ4i/0WkurQexoefM7NdR8RTzWlDzbXAKDoM4NbxGfnghrLg+Pe2IVYGA19I7jeeFe1rxCWSeJ8QqbMjHTRLhmLspHAtZWaeks4Z/JnaP44b0yMy8vkTqjZzVe/jyU/vgJuF1PJyMFY8D+pdWOYsb9cnhczvPaxV1NmGD8dUA1s6fM61eAOq2NyUt5beLfxQlNr1MXio5qpjkjH9txhOMEpCe4IegHQG2lMTNiceymsUVQTQ3ysO
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 03:41:12.3497 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e47696c3-bef2-47c0-ccf8-08def691393f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 03:41:12.8991 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f6538266-49ec-42bf-c8cd-08def6913993
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE3B.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4424
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB9045
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,27 +114,108 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Sonny Jiang <sonny.jiang@amd.com>
 
-Enable JPEG 5_0_2 doorbell
+JPEG 5_0_2 has 2 instances per die. Each instance has 10 rings.
+Each ring consuming a unique VM invalidation engine exhausts the
+available engines per MMHUB.
+
+All rings within a JPEG instance can safely share one engine since
+MMHUB serializes concurrent invalidation requests via hardware
+semaphore (see "drm/amdgpu: add invalidate semaphore support for
+gmc v12.1").
 
 Signed-off-by: Sonny Jiang <sonny.jiang@amd.com>
-Reviewed-by: Leo Liu <leo.liu@amd.com>
+Acked-by: Leo Liu <leo.liu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c  |  9 +++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c | 38 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h |  2 ++
+ 3 files changed, 48 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
-index 059b6b927251..341577db7d6b 100644
---- a/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c
-@@ -162,7 +162,7 @@ static int jpeg_v5_0_2_sw_init(struct amdgpu_ip_block *ip_block)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+index 3dc8faa091d7..2f6d20c00ce2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+@@ -672,7 +672,8 @@ int amdgpu_gmc_allocate_vm_inv_eng(struct amdgpu_device *adev)
+ 			continue;
  
- 		for (j = 0; j < adev->jpeg.num_jpeg_rings; ++j) {
- 			ring = &adev->jpeg.inst[i].ring_dec[j];
--			ring->use_doorbell = false;
-+			ring->use_doorbell = true;
- 			ring->vm_hub = AMDGPU_MMHUB0(adev->jpeg.inst[i].aid_id);
- 			ring->doorbell_index =
- 				(adev->doorbell_index.vcn.vcn_ring0_1 << 1) +
+ 		/* Skip if the ring is a shared ring */
+-		if (amdgpu_sdma_is_shared_inv_eng(adev, ring))
++		if (amdgpu_sdma_is_shared_inv_eng(adev, ring) ||
++		    amdgpu_jpeg_is_shared_inv_eng(adev, ring))
+ 			continue;
+ 
+ 		inv_eng = ffs(vm_inv_engs[vmhub]);
+@@ -702,6 +703,12 @@ int amdgpu_gmc_allocate_vm_inv_eng(struct amdgpu_device *adev)
+ 					ring->name, ring->vm_inv_eng, shared_ring->name, ring->vm_hub);
+ 			continue;
+ 		}
++
++		/* All decode rings within one JPEG instance share one VM
++		 * invalidation engine (no-op unless ring is a JPEG instance's
++		 * first ring).
++		 */
++		amdgpu_jpeg_set_shared_inv_eng(adev, ring);
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+index 363b99168478..208566ffe898 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.c
+@@ -607,3 +607,41 @@ int amdgpu_jpeg_dec_parse_cs(struct amdgpu_cs_parser *parser,
+ 
+ 	return 0;
+ }
++
++/**
++ * amdgpu_jpeg_is_shared_inv_eng - Check if a ring is a JPEG ring that shares a VM invalidation
++ * engine
++ * @adev: Pointer to the AMDGPU device structure
++ * @ring: Pointer to the ring structure to check
++ *
++ * All decode rings within one JPEG instance share a single VM invalidation
++ * engine (see amdgpu_jpeg_set_shared_inv_eng()). This returns true for every
++ * ring in the instance except the first (ring->pipe == 0), which owns the
++ * engine allocated by amdgpu_gmc_allocate_vm_inv_eng().
++ */
++bool amdgpu_jpeg_is_shared_inv_eng(struct amdgpu_device *adev, struct amdgpu_ring *ring)
++{
++	return ring->funcs->type == AMDGPU_RING_TYPE_VCN_JPEG && ring->pipe != 0;
++}
++
++/**
++ * amdgpu_jpeg_set_shared_inv_eng - Propagate a VM invalidation engine to the rest of a JPEG
++ * instance
++ * @adev: Pointer to the AMDGPU device structure
++ * @ring: Pointer to the ring that just had a VM invalidation engine allocated
++ *
++ * No-op unless @ring is the owner (ring->pipe == 0) of a JPEG instance.
++ * When it is, mirrors its freshly allocated vm_inv_eng onto the rest of the
++ * rings in that instance, so the whole instance shares one engine instead of
++ * consuming one per ring.
++ */
++void amdgpu_jpeg_set_shared_inv_eng(struct amdgpu_device *adev, struct amdgpu_ring *ring)
++{
++	int j;
++
++	if (ring->funcs->type != AMDGPU_RING_TYPE_VCN_JPEG || ring->pipe != 0)
++		return;
++
++	for (j = 1; j < adev->jpeg.num_jpeg_rings; j++)
++		adev->jpeg.inst[ring->me].ring_dec[j].vm_inv_eng = ring->vm_inv_eng;
++}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h
+index fe95d9188713..05d58e6bbfab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_jpeg.h
+@@ -183,5 +183,7 @@ void amdgpu_jpeg_print_ip_state(struct amdgpu_ip_block *ip_block, struct drm_pri
+ int amdgpu_jpeg_dec_parse_cs(struct amdgpu_cs_parser *parser,
+ 			     struct amdgpu_job *job,
+ 			     struct amdgpu_ib *ib);
++bool amdgpu_jpeg_is_shared_inv_eng(struct amdgpu_device *adev, struct amdgpu_ring *ring);
++void amdgpu_jpeg_set_shared_inv_eng(struct amdgpu_device *adev, struct amdgpu_ring *ring);
+ 
+ #endif /*__AMDGPU_JPEG_H__*/
 -- 
 2.43.0
 
