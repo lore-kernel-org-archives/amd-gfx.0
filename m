@@ -4,98 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE46CC5AD55
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 15:29:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D6448C5AD7B
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 15:33:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ED4D510E48B;
-	Mon, 10 Aug 2026 15:29:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 00C7310E835;
+	Mon, 10 Aug 2026 15:33:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XTC0cVXs";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="InSSFqAU";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4C4D010E171
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 15:29:06 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-383fff6e8b6so113805a91.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 08:29:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786375746; cv=none;
- d=google.com; s=arc-20260327;
- b=d8/cOhAUeVAigmbZxZtYH+ShwaQurArmDYwp3nre69thVUw0oQUIPRXhpR3oslAjQl
- OxtK26RDLzjXkOHoE56byTA6ET5dKnco0zRXJSlSKg5OMobREu+ddeApUL+w2TKhxVdO
- dF5MMrUOtyy3jAIYRdhaYyt2VOAxpuMowEQ6zd8RvrGsGEN5juuFe0xim8eHcb4Je597
- rlt10ynVDrUn+M7s6tZ+hDI1f52VITySxQxG/0xnc0tef0tNhu7zrgJQICX6MrLiRAOB
- PCFFIr5hrUUWRQ6rZiqJSJoL5lkRAW4cJOQnETtXNxkRrM1y/d2u2048UlxTg7uw33tb
- Pqhg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=zCRGU5HCA6z/GMlHy6u0KoSXvvUh0siN5DEwo60DeHc=;
- fh=nmMcbJqe+fZD4O2GBrWQowoUZ6l9K69irbW4yTCMvc4=;
- b=LDOYoWfRCXNDz/KAL8/5eXCS389xeMofJsJigXpE+941Xi+mMu/Jp/kuLq8nVN+N80
- kFOztmFn3CSbZ4qpDn2wqfNJ6sfJVqSQD7y2F0oD9Sx2xatktaN+J/0WVtynqA1/kwYV
- pI1cERTxAmsTUA0hEVmvu6rEmRA4Ftwhyp1QFrPNE20+nkfE8qIPyOw/KxGYmIW6Nf2J
- DDL5vp9tVtdgQtz1SKEty4zwXoUb99m52iWTkb0PZl//9sb1ujcm6sreRxgdkL/6izO7
- PfdI3Dy+ndfI2bR0OvnGt63fTQvb3EGgroyLAoVkdFLP/CKYOY/k4QPq1iBsK3tEpsWb
- t82w==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786375746; x=1786980546; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=zCRGU5HCA6z/GMlHy6u0KoSXvvUh0siN5DEwo60DeHc=;
- b=XTC0cVXsdQdHDRqOr/kjnVyj/V5I7wga34snOvyNP4+0OKxYJ/KoTMTNOy6pRTS2Y1
- R/3KvDqIbAAi1SDxa1+d4n11Vf/S2h9y0kcXJZ+1kWI2/5pw8R1Kk8tQgX8IBZt0dyhj
- bcD7eW5uj1lM04S8GSjR/IL8/su49MHrdLv4oefZxYfDk7B8ZVH4z1IxV1qdDFJlegSF
- v0tHc3cnk3V0KnCQce5b65ppRsAJZmsYVy6XYwRnkPG3ri1aHiUYubCGw43CC8P/1NyG
- JTR/YKw/exVBeK2OQnq6jpfM7Oi7YCTveL9RR7qGCoRmGebMaMzJoj1HQVGSKi9SJSBp
- Z1Cg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786375746; x=1786980546;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=zCRGU5HCA6z/GMlHy6u0KoSXvvUh0siN5DEwo60DeHc=;
- b=G6ohHLZ5u+iWbZllGNngX2cVhy/CQewqEerC4lA7TfXEuFKuSkLsdJAORrQoHousW8
- MwN2oGojoQTP14QGqJe48ZgQIlqFhlBtWzlai0h71JELGplVvr9HWfPdTQglbCL624sc
- pdxYg73a9HfM1Sgu0FbGhoTsZb49AxZkOFVEAxb6YYfm+Pn+I2wVmrVExqQyZAnK26NN
- rxBgh3ocfCjfmLWfuFW2zgH6q2t7BtYb9eCF6uvrXKhlFHCu7auGO/9q3Ztf+Agw4WBk
- 0bitc3SIqiLdJvQC0jX/em64mq2TW+1959KQwD71nzo90aimbC+lYxinV8xSUY0sjmJb
- gXNA==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq4nQ6PZYGhZAZDaqrC4/kbH9OcRC2R/jVwCzVYvRpQHxpybG354fxZAdlyNatN0mHFj0qArPHy@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxO0qoWAfgTptULhijjV+7NRXrpK/Rv//RIBJsAnlTa2V79NSH2
- DK59oAaeJ/IG9pWAXusWm9QQAFl5IYziiygR9p/KZzqjaD8LzPBg/5GEINbyTZKR9LwLlk2/OZM
- uLdBMdAemAcrxVrpgRc5RkLDWpxLVd+s=
-X-Gm-Gg: AR+sD12LqIMlpkfT54V2BRint4nVkKXKRWNPr9OI7ab2U4WWYZgB2fBDb3fK7DSGk6k
- giR/jNZo8wVZEGXro1EAsVc3ZIgbJwrmeb3Q/XPcTH0lAV4F6glh9JMHbO1mF3Q5RA/O1stuuKt
- uMYe/h6qgzr8+SWMfb+w5JwJhWVmXIPWQdXJ/zt8CEDba3itrcHYg/c5R3q5iYHuv9Ny09eodb4
- EUEziMYJ3LujSgoCkSRrDUSJ4bt9xuomqoRzomPfeYeU5La0IjsrkS/x7Oiim/JDhq27fe5eaAg
- c6U7Y9Cyz+R5Pj+CIhf1zAhK38zIGXQF8CtwdMtspRVQiE9jqmjlu5DfpCMevMO8kxolMivzIX3
- 4xBNZfWO/MgJoQE2v+dM3/EIp8BGPPbE=
-X-Received: by 2002:a17:90a:ec8c:b0:38e:549:9e04 with SMTP id
- 98e67ed59e1d1-3903c5c101bmr32377324a91.1.1786375745798; Mon, 10 Aug 2026
- 08:29:05 -0700 (PDT)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F38210E236;
+ Mon, 10 Aug 2026 15:33:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=os657xqLGgDm/9BsJwKm0Ml1+Xpgpj6PbqbNKEPedwY=; b=InSSFqAUtqJgpjF9gDXzPI1PX3
+ 6OPs13+vrcLG+PApOUtM/gkAZsPLUyxTij20rEkuatYQP933tg2VnYa3lqdwmLkDgY7YFXGi8rPGW
+ u04iztb1TsRZzL9E/qsRGp2Pu2AFyCfJD4RT4AMaYhWguPU9GnwJwjZR0RNmwIfzXhWsJrOn32U6t
+ S63k1qX0fJOZaVvnJ20/iRkO+PNr+B7m4pqsjen42Aj938aVUSDcsTNEWkKNjucVsvgxvI4Wa+g1y
+ Mo0k67uDzncD6H8oeFJxIhUyZvBAjFSIDeDLuBkcinzYp8NP3ZoZjLHmPqgxHZeThMN/Y0mq0v+Qt
+ 3SctFU3Q==;
+Received: from [187.36.208.132] (helo=[192.168.1.103])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wtRzU-00GeZ7-KL; Mon, 10 Aug 2026 17:32:40 +0200
+Message-ID: <038c825a-aaa3-4bb0-98ae-6f93dce73544@igalia.com>
+Date: Mon, 10 Aug 2026 12:32:31 -0300
 MIME-Version: 1.0
-References: <20260808135942.2880971-1-lgs201920130244@gmail.com>
-In-Reply-To: <20260808135942.2880971-1-lgs201920130244@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 10 Aug 2026 11:28:53 -0400
-X-Gm-Features: AUfX_mzxEVWjyMA91yyuAHYgB82GBMnbuh99tfXeZl3LTUv9kt3twL5mx0BLoL0
-Message-ID: <CADnq5_MTp9ZJw6f0Pu52kS-sP4xrntBj4kBvZtkbmcd1LC6ewA@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: fix autosuspend cleanup during teardown
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/6] drm/amdgpu: Use drm_timeout_abs_to_jiffies()
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dave Airlie <airlied@redhat.com>, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+ Alex Deucher <alexander.deucher@amd.com>, Melissa Wen <mwen@igalia.com>,
+ Iago Toral <itoral@igalia.com>, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260809-drm-timeout-helpers-v1-0-2de67405a145@igalia.com>
+ <20260809-drm-timeout-helpers-v1-3-2de67405a145@igalia.com>
+ <eaba2132-a4ad-4634-b00b-6728364a792c@amd.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <eaba2132-a4ad-4634-b00b-6728364a792c@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,50 +93,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied.  Thanks!
+Hi Christian,
 
-On Sat, Aug 8, 2026 at 10:20=E2=80=AFAM Guangshuo Li <lgs201920130244@gmail=
-.com> wrote:
->
-> radeon_driver_load_kms() calls pm_runtime_use_autosuspend() for PX
-> devices, but radeon_driver_unload_kms() does not call the matching
-> pm_runtime_dont_use_autosuspend() during teardown.
->
-> If the autosuspend delay is set to a negative value while autosuspend
-> is enabled, the runtime PM core increments usage_count to prevent
-> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
-> during teardown, this reference is not dropped.
->
-> The documentation for pm_runtime_use_autosuspend() also notes that it
-> is important to undo it with pm_runtime_dont_use_autosuspend() at
-> driver exit time, unless runtime PM was initially enabled with
-> devm_pm_runtime_enable().
->
-> Add the missing pm_runtime_dont_use_autosuspend() call to the driver
-> unload path.
->
-> This issue was found by manual code inspection.
->
-> Fixes: 10ebc0bc0934 ("drm/radeon: add runtime PM support (v2)")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/gpu/drm/radeon/radeon_kms.c | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_kms.c b/drivers/gpu/drm/radeon=
-/radeon_kms.c
-> index dc43fd790a9c..4a99c09f4164 100644
-> --- a/drivers/gpu/drm/radeon/radeon_kms.c
-> +++ b/drivers/gpu/drm/radeon/radeon_kms.c
-> @@ -71,6 +71,7 @@ void radeon_driver_unload_kms(struct drm_device *dev)
->         if (radeon_is_px(dev)) {
->                 pm_runtime_get_sync(dev->dev);
->                 pm_runtime_forbid(dev->dev);
-> +               pm_runtime_dont_use_autosuspend(dev->dev);
->         }
->
->         radeon_acpi_fini(rdev);
-> --
-> 2.43.0
->
+On 10/08/26 10:34, Christian König wrote:
+> On 8/9/26 21:23, Maíra Canal wrote:
+>> amdgpu_gem_timeout() converts an absolute deadline in ns into jiffies,
+>> which is what drm_timeout_abs_to_jiffies() already does for the other
+>> drivers whose wait UAPI takes a deadline. Use the shared helper and keep
+>> only the part that is specific to amdgpu.
+>>
+>> Two details change along this conversion: the helper rounds up rather than
+>> truncating, so a deadline less than a tick away now waits for one jiffy
+>> instead of returning 0. It also uses nsecs_to_jiffies64(), so the
+>> conversion no longer truncates on 32-bit, where a large deadline could
+>> previously be reduced to an arbitrary shorter one.
+>>
+>> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+>>
+>> ---
+>>
+>> As a note, this patch can be merged independently to the AMD tree
+>> without any dependencies.
+>> ---
+>>   drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 16 ++--------------
+>>   1 file changed, 2 insertions(+), 14 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> index 6a0699746fbc..84b509a484b0 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+>> @@ -25,7 +25,6 @@
+>>    *          Alex Deucher
+>>    *          Jerome Glisse
+>>    */
+>> -#include <linux/ktime.h>
+>>   #include <linux/module.h>
+>>   #include <linux/overflow.h>
+>>   #include <linux/pagemap.h>
+>> @@ -40,6 +39,7 @@
+>>   #include <drm/drm_gem_ttm_helper.h>
+>>   #include <drm/ttm/ttm_tt.h>
+>>   #include <drm/drm_syncobj.h>
+>> +#include <drm/drm_utils.h>
+>>   
+>>   #include "amdgpu.h"
+>>   #include "amdgpu_display.h"
+>> @@ -622,23 +622,11 @@ int amdgpu_gem_mmap_ioctl(struct drm_device *dev, void *data,
+>>    */
+>>   unsigned long amdgpu_gem_timeout(uint64_t timeout_ns)
+> 
+> Please completely nuke that function and replace it with calls to drm_timeout_abs_to_jiffies().
+> 
+>>   {
+>> -	unsigned long timeout_jiffies;
+>> -	ktime_t timeout;
+>> -
+>>   	/* clamp timeout if it's to large */
+>>   	if (((int64_t)timeout_ns) < 0)
+>>   		return MAX_SCHEDULE_TIMEOUT;
+> 
+> That check was actually never correct at all as far as I can see.
+> 
+
+I'm not sure about that... Taking a look at other UAPIs (like Panfrost),
+I see that they use a s64 timeout_ns, which matches the ktime_t the
+deadline is converted through. Contrary to that, AMD exposes a __u64 in
+the UAPI and defines AMDGPU_TIMEOUT_INFINITE = 0xffffffffffffffffull in
+libdrm. Therefore the check looks correct to me: it detects the values
+above S64_MAX and maps them to an infinite wait.
+
+Having said that, the comment is quite misleading. How about?
+
+       /* Map anything that doesn't fit in a s64 to an infinite wait */
+
+To make it even clearer, we could use `if (timeout_ns > S64_MAX)`.
+
+> We need to make sure that when timeout_ns is larger than represent-able in long jiffies (especially on 32bit systems) then MAX_SCHEDULE_TIMEOUT is returned by drm_timeout_abs_to_jiffies().
+> 
+
+Actually, what drm_timeout_abs_to_jiffies() does is clamp the
+nsecs_to_jiffies64() return to MAX_SCHEDULE_TIMEOUT - 1, so that a
+finite deadline is never turned into an infinite wait. So it is safe on
+32-bit, but it's not doing exactly what you described.
+
+Best regards,
+- Maíra
+
+> And I hope that drm_timeout_abs_to_jiffies() does that correctly already, if not this seriously needs fixing anyway.
+> 
+> Regards,
+> Christian.
+> 
+>>   
+>> -	timeout = ktime_sub(ns_to_ktime(timeout_ns), ktime_get());
+>> -	if (ktime_to_ns(timeout) < 0)
+>> -		return 0;
+>> -
+>> -	timeout_jiffies = nsecs_to_jiffies(ktime_to_ns(timeout));
+>> -	/*  clamp timeout to avoid unsigned-> signed overflow */
+>> -	if (timeout_jiffies > MAX_SCHEDULE_TIMEOUT)
+>> -		return MAX_SCHEDULE_TIMEOUT - 1;
+>> -
+>> -	return timeout_jiffies;
+>> +	return drm_timeout_abs_to_jiffies(timeout_ns);
+>>   }
+>>   
+>>   int amdgpu_gem_wait_idle_ioctl(struct drm_device *dev, void *data,
+>>
+> 
+
