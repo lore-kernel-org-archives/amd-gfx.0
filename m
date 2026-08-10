@@ -4,94 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE3F9C5B569
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 19:16:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 406D3C5AD55
+	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 20:04:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B834210E984;
-	Mon, 10 Aug 2026 19:16:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8EB5E10E99B;
+	Mon, 10 Aug 2026 20:04:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XaDfzBQC";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nrc4DAmm";
 	dkim-atps=neutral
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D4AB10E220
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 19:16:14 +0000 (UTC)
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-2d027b7c8easo5857175ad.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 12:16:14 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786389373; cv=none;
- d=google.com; s=arc-20260327;
- b=HWKhLR9ZKhe5bPbzy/jJzGyw7fqgS3Z5kLTtUkLvKryOjTcu8grr3RrDRGfqKkD5dF
- W0TjagCpua8ESJj9uF0xRr1fP9u3EIj9RB7ATCT5QL9wUbdBTfmbnZy41OItt/aWZYih
- mys6yo+iQbbraJcFAjdgRHe7qv+9Q6TIXuWkEFFvOerfNlJZ5TgIY2K70sBtsMa4J/+/
- QHnFFedDhmlRB9zA3DczuSHW4/toBrzv+4752mx7cQH3Oze490MB3cMNvKk45aYhKVxi
- s0JUOWHuNd2NwwGp0uSg8XDkomIscAXJjhGhZmk6uFPwWbn0kuzCMoSlsVBnlxEFLC9x
- /Hng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=HQKyHVq3ygy/Bc3aNr+atei5qWh9KHU8VwmS9zk6DmY=;
- fh=XwLyg1jXE2pBGupH75bMp/CUvSf//NSKrnnnO7U8v6M=;
- b=QWiwC/5pmM6XGp1ARUdmHo/z3Zk5YMuPb4lhS+bOIq7ZrGS8VgGApJsRK8dtmr0rZA
- urhEIoV0phaz18e/wRksEENQLrqmtaM4IXGjFa3hHrRvHzjXAohfzZ+rhiDADwGOZbtV
- UuLIiT8P6RGefQtFG5AXVGw06JUtzpRFCABy/P8uEi2guk0jGeryzJxndP9ZXQw9xJHZ
- oyAzX4YAU8cFdom57BLRVdec2O6msv93bGf8F2j0ARBLiZy0x3adYpF/qfnGq2R/CQ4Q
- ek/1iBKnz3ecegdzAl8R+dgZwSodTFMWY9O3toK9x9lIwX0VrIaQoNaWNFeB6fjP7zCF
- cGgw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786389373; x=1786994173; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=HQKyHVq3ygy/Bc3aNr+atei5qWh9KHU8VwmS9zk6DmY=;
- b=XaDfzBQC7lY0qq9CtZHFxqHWcUGOQzkpbj10s8+Q6r3kmwBLvYKebTfccx8fsQpX6F
- zM8oSEn0ooMj2eCRMOxkYPAnMmFTQ2kDO3irtGF1es9X/+vm+Ud3kCxffAGJJTuxn/rD
- KMWWSEKeuwqX7htfYnKdHaI2pBAewWTUwGXgVZe7MSlFzniRyNxEc+yznzk1pEvDC7WP
- ygmxnbZF7jshzupp3OrqksRRhFvdoUwB+rRHkMNiJyRhcqW3IMj2xsx9EN1XYK9bJQX5
- JwdC73t2KwM6QTJBYVLLZAmFIMPWcrwcOJkW/iVQmyS0d/Z7nAazRRcYh8frF2dcMeEL
- oxVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786389373; x=1786994173;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=HQKyHVq3ygy/Bc3aNr+atei5qWh9KHU8VwmS9zk6DmY=;
- b=pJxKI2ajxeFusJK+3T5KNg5nBk87ICcrglCXtNsTVKWKEl9iGIgo/o5bb+kCRqmi33
- HlDhjzlULN86NX/fecOWZ4NjAdgLaJ5N8lg3Pwcw/vBDuLm+WtrK41XutLWHX2CsrtVA
- UAwR1s543yXerN7XJwe/pw2zWfAYzbKfBVV5pgH5eAIabkKvcrhVSL+tY7MG6K4q/BQR
- gKEfsq867ko0jdWlcz1/29QqhwtyrWt6RGd2WNFAldJuPKpIGJ3oOgi0VuNTwZ0P/FhV
- TukxljxCFu8jPsTbWPv4rdA436N80aQFt7Pw79uJ27mI9oROuldKgD960oIt64+YYgE8
- D9ow==
-X-Gm-Message-State: AOJu0YzBD4ALLF0Jk/5Dor3+FkAAXJSMX98hmNIjf2tgubgfY83UdR1/
- Xv+2VApK32yUvbQWulai5DAto0bK5HE78RflaYmeCFEB5r9/j5xyG2MXO6I1Z2yXGCYvijU4epS
- cjJvAkWLvlIbcmF2xbSE87ScIJzw2IqE=
-X-Gm-Gg: AR+sD13cpSMWLPl5Gi6Ska0h6GNZvdgxdmoBj+b+co6qXSW9WbtdEX4qasFub/qUqY2
- mse0E1ZPcOZOOihVdhHSUyn+JtbDnxpchI0gh1eg9/c1ALA0H/qM8tgbQFBTh0DQI/WcXscEWlr
- MVDptKNdraEMvAYDGb59d6ZfjuwDnadpzkZ4FySf0r2bDk8xRokGF9Jl3b0nvYjcQG/yFdTac/Z
- M2W3L5jsg+4sQgrZh8H/kpvjxcfJfCvtoeLk7fBsKNFYfl3N/vOJr52NaVy3A0sIa0ArDsoBNmT
- euWFWAeuHbNyg6M8cnHc3MLsEG3AgXN7bDY8PnnIDCIjt1SdhKUvjO10YYlFrSDFEgeierWLrNF
- hJNEc83VGVLltRGppSq/wWyFYluaYU9k=
-X-Received: by 2002:a17:90b:278c:b0:38f:aa76:88b with SMTP id
- 98e67ed59e1d1-3903c776ae3mr32451041a91.4.1786389373401; Mon, 10 Aug 2026
- 12:16:13 -0700 (PDT)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013060.outbound.protection.outlook.com
+ [40.93.196.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE04E10E99B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 20:04:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Qlwzh0AODdeYozUn747nOs1phDmRIvWAARDD0thxXZK7QvjcxBDdVr3Xb8UmI51CTeIPmkVXJh8EYRQDgMovJFbmBf+4DQEoF92IO66h8I/fFz53UeZKY9eVpkYSENpHoPvXOaIeK31QoG8As7ISWuuuN+K16mjqG7dF5TNtDEGINbufUVBQy6MOvKgIi4mve/ZgNrR9dPuTGylcYZ304dnbvLwD745rzxzQQaZBpYO4bBi4sS4jeptKwp8z8t4eukWYYwnX9QYB1KU96vVUWMYrnPzSsXJF4FXRWyn/8uqxonT+umbX9sx2V7+qCZlvpL6TuQJ44LKV/swefMt5Gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S+3sqzVR7QbrbXAFnkiUT4ATv1s2hbWF4ddyLeurx4k=;
+ b=Imus8HfN+AgpngAfeParQtiIb7PoP8RIpcw+N9Kou3t0QvoK8Gv7Po3EKZyeovEADucSoB4UWuLAgvVHQrKFVvd+x/JwFdVfT36y/KXK6bnBIeSKPQcEcXZ993GEdHcH15JZuqFK1bM9jQyAD0Romv4MvTJc22Pt5ZaJJDtyDtvx1pP84W9g5MkhVya1fphiFLGH97omsFp34PiVe+6Hb/ObawuETr8+LmRtM2d+QBgSy7v87+EFZLnqsXeAl/ubAwa8PrGIDML9h2hUm4Dx5KeL7Y8DNH31CUBZV6sDfTE85rXtA5FehBdqG5RoyrHFufnNDgL1bBFyG6xpWjq0aQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S+3sqzVR7QbrbXAFnkiUT4ATv1s2hbWF4ddyLeurx4k=;
+ b=nrc4DAmmtf6AKXN0I2ghBKw76eS/+WrrXsE28/ZX2m7jto+iGzXzEVAp8BQdv+dzGTHo7CAyt0AATCFTbVRD4v0v9TwABhHY1vQVZ1BH7bIMGRYpMCTzXCQ8E8LQHHuASpoCF5pPDSVUPAt4s+d1kAjs054ttIyL1aRtSYTMbmk=
+Received: from PH0PR07CA0079.namprd07.prod.outlook.com (2603:10b6:510:f::24)
+ by DM6PR12MB4204.namprd12.prod.outlook.com (2603:10b6:5:212::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Mon, 10 Aug
+ 2026 20:04:14 +0000
+Received: from SN1PEPF000397B2.namprd05.prod.outlook.com
+ (2603:10b6:510:f:cafe::1b) by PH0PR07CA0079.outlook.office365.com
+ (2603:10b6:510:f::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.25 via Frontend Transport; Mon,
+ 10 Aug 2026 20:04:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF000397B2.mail.protection.outlook.com (10.167.248.56) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Mon, 10 Aug 2026 20:04:13 +0000
+Received: from david-B650-PG-Lightning.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Mon, 10 Aug 2026 15:04:12 -0500
+From: "David (Ming Qiang) Wu" <David.Wu3@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>
+CC: <leo.liu@amd.com>
+Subject: [PATCH v2] amdgpu/vcn: vcn dec_msg integer overflow fix
+Date: Mon, 10 Aug 2026 16:04:01 -0400
+Message-ID: <20260810200401.1203733-1-David.Wu3@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <cover.1785616749.git.nlucasgit@gmail.com>
-In-Reply-To: <cover.1785616749.git.nlucasgit@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 10 Aug 2026 15:16:01 -0400
-X-Gm-Features: AUfX_mwrEJIp4EMHkXnoK416XqZ0pGnbbA8pXDtHVtlj5DDXVcVLCr8qek9F3n4
-Message-ID: <CADnq5_NMWdV_zy6xJUtkdLGxXSCe2vfGp=Kc0kH_Rqg1SAV2Kg@mail.gmail.com>
-Subject: Re: [PATCH 0/2] drm/amd/display: fix BT.2020 YCbCr output CSC matrices
-To: Nathan Lucas <nlucasgit@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, harry.wentland@amd.com, sunpeng.li@amd.com, 
- siqueira@igalia.com, alexander.deucher@amd.com, joshua@froggi.es, 
- mwen@igalia.com, leorize+oss@disroot.org, alex.hung@amd.com, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B2:EE_|DM6PR12MB4204:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2c0f067e-a9a2-4eba-0e3b-08def71a8c8e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700016|23010399003|82310400026|11063799006|56012099006|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: k0yB+Q5jzq3JwSi2MHoNjUDlDBx6YbiiJszEsUCByTm9xbKz9CF4n2z1xpvvu6yeMLZSZmewQzujhPoH8uIqfV+X0IxAe/atArOzQCtCyXQeoqEKTUJ5CvV0JGFf15850dljGDcbvOYbdL+vjRZvXyxEREDjqU2sZeDrScu9puG+OTwuuqnWX4HHVzGhHIu7/n3S1yz8DYDpfBZKu5P1iwG9E8PKSgWBTr2Hh3jIKFd5MHyewwJszRuNnN5vJ7LTrPHBlNG7DgIqpJY2CWdYGEbqTkLndOq3VhKBwbg2RKdB1Dk4Y0DwcXrMkUKd+GRwjLfZXVBMIVhfNKoKYBWOOCrxU0UvIaWXd5RnNsQLHr9WE1ePrAyTDN3FhN77hVQ2GqbeuSYaMxP7CDA95nzLpzkbx3k/Bsgk5iqzeoy9XAGTwaUmRS9Pr4+u7pyKCPyAEEzMn1FeYLC2qUHKLtV4uysNM6qmW0yMdt54Lqv2AqDIaAnBQBGIuoTtCF8ubbiVcpVoOTgHujF9w4En8CwpdC/DkAzb8OsmWiA0egVHSm7xOvBySOZTN/VaDh7iyZMzetfIrucT643XO+w/+zfzyg+NNNpf6HoyO0X2JjZfNc4fQpdftP1OP0l+TieOnouazuEqm4yN0n8m0dMdMyOHaOQzCU1sc9nfnmI5whFkv+I5C+If+Wcu0CTD0OL+KbLV
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700016)(23010399003)(82310400026)(11063799006)(56012099006)(10067099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 2EbY1s+CzYcCjlgleCD2NI3TdPGtBaP70lczpEvRBuzfBhlwUxkiP/jIJjp1X2TskbPp41ei2D7KkpM58vWgclLgcWjHW9ZFZnfJr8s308aHXjOLudQ0SwDMWAJcq5ePuyjGmuHsD+CUdl2w1v8OJ9OxZ2ypigcNQzn5U6D77W3uAUN1wDdtYn6INOJ9bL9k0OT33xhfaRhFjjr6AE0ZXlXQrZnkP1aEcbuk8wyqz9bByvcJZoLSwdcFYdtY5TdqCeYxquZYQ8KxWpucdyRz3yHwxydauf6Rg0MlpZyrN/3kIQ3FBZrJHYzkjXqe2Mb1HY0XpMAWV0ASBlFn3nz85Z2wJILxFl/8kmPF0pdMhMXsW/9K8dDYY2SzkwplzoWfgTbvdfb0+gwSbnP4bbBICjQZ1g9JeDMU+yMwAJOv8PN8GgEk1vdT+RLYcfCz5TTm
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Aug 2026 20:04:13.2165 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2c0f067e-a9a2-4eba-0e3b-08def71a8c8e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B2.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4204
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,114 +108,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Applied the series.  Thanks!
+if supplied msg[2] in the header is too large around
+0x40000000, 4 times of this unsigned 32 bit value will
+overflow and the test could pass.
 
-Alex
+v2: using kernel helpers to check the overflow.
+    this needs 2 checks: multiplication and addition
 
-On Sun, Aug 2, 2026 at 10:35=E2=80=AFAM Nathan Lucas <nlucasgit@gmail.com> =
-wrote:
->
-> This patch series fixes COLOR_SPACE_YCBCR2020_TYPE in dc_hw_sequencer.c
-> which is used for COLOR_SPACE_2020_YCBCR_LIMITED output but does not have
-> correct luma and chroma scaling for that output range, and fixes its
-> copies in dce_transform.c and dce110_opp_csc_v.c.
->
-> It looks like this matrix was originally added in commit 40df2f809e8f
-> ("drm/amd/display: color space ycbcr709 support") as a raw BT.2020-NCL RG=
-B
-> to YCbCr conversion matrix that had not yet been prepared for unsigned
-> limited or full-range quantization.  Commit 973a9c810c78
-> ("drm/amd/display: Fix COLOR_SPACE_YCBCR2020_TYPE matrix") applied offset=
-s
-> for unsigned limited-range quantization but did not fix the luma and chro=
-ma
-> scales which are still full range.  Because of this, output on a calibrat=
-ed
-> display is too bright with incorrect color, although it still looks rough=
-ly
-> correct at low luminance in my testing.
->
-> Later, in commit 51e6668ab4ba
-> ("drm/amd/display: add missing CSC entries for BT.2020 for DCE IPs"), the
-> incorrect COLOR_SPACE_YCBCR2020_TYPE matrix coefficients were duplicated =
-to
-> DCE COLOR_SPACE_2020_YCBCR_LIMITED and COLOR_SPACE_2020_YCBCR_FULL, so
-> those matrices are also currently incorrect.
->
-> The first patch adds separate matrices for full and limited-range.  The
-> derivation is in the commit message.  The second patch replaces the copie=
-d
-> matrix coefficients in dce_transform.c and dce110_opp_csc_v.c with the ne=
-w
-> ones.
->
-> For testing I have only been able to check the limited-range DCN path on =
-a
-> 9070 XT with a patched kernel.  amdgpu_dm_get_output_color_space does not
-> currently have a path to select COLOR_SPACE_2020_YCBCR_FULL although the
-> enum value exists.  Also, I cannot test the DCE paths as I do not have th=
-e
-> hardware to do so.
->
-> I ran into this issue measuring PQ test patterns through mpv with the
-> following command line:
->
-> mpv \
->   --no-config \
->   --vo=3Dgpu-next \
->   --gpu-context=3Ddisplayvk \
->   --gpu-api=3Dvulkan \
->   --vulkan-display-plane=3D3 \
->   --vulkan-display-mode=3D22 \
->   --target-trc=3Dpq \
->   --target-prim=3Dbt.2020 \
->   --target-colorspace-hint-mode=3Dsource \
->   --target-colorspace-hint=3Dyes \
->   --tone-mapping=3Dclip \
->   --hdr-compute-peak=3Dno \
->   [pattern file]
->
-> Free test patterns:
-> https://diversifiedvideosolutions.com/hdr-10.html
->
-> Below is a table of values I measured on a Samsung S95H (US model) with a
-> Calibrite Display Pro HL meter.
->
-> Three sets of meter readings below:
-> Unpatched - Unpatched Fedora 44 kernel 7.1.4-200.fc44.x86_64
-> Patched   - The patches in these e-mails applied to Fedora 44 kernel
->             7.1.4-200.fc44.x86_64
-> NVS/Kodi  - NVIDIA Shield Pro with Kodi
->
->  5% HDR10/PQ
->  Test Pattern        Meter Readings (nits)
-> =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D   =3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> PQ%       Nits   Unpatched   Patched   NVS/Kodi
-> 15        1.01        1.63      1.01     1.02
-> 25        5.24        9.68      5.46     5.12
-> 35       18.78       40        20.5     21.2
-> 45       56.55      128        62.0     62.1
-> 55      148.03      369       155      155
-> 65      384.71     1106       403      401
-> 75      973.13     2681*     1030     1025
->
-> * This is at the peak capability for this TV.
->
-> PQ brightness overtracks a bit in Patched and NVS/Kodi, but that is likel=
-y
-> due to the TV's default calibration or my meter since the readings are so
-> similar.  Unpatched stands out as being way too bright.
->
-> Nathan Lucas (2):
->   drm/amd/display: fix BT.2020 YCbCr limited output CSC matrix
->   drm/amd/display: fix BT.2020 YCbCr output CSC matrices for DCE
->
->  .../drm/amd/display/dc/core/dc_hw_sequencer.c | 31 ++++++++++++-------
->  .../drm/amd/display/dc/dce/dce_transform.c    |  7 +++--
->  .../amd/display/dc/dce110/dce110_opp_csc_v.c  |  7 +++--
->  3 files changed, 28 insertions(+), 17 deletions(-)
->
-> --
-> 2.55.0
->
+Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 6 ++++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 6 ++++--
+ 2 files changed, 8 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 81bba3ec2a93..7a301cfe91ee 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -1910,7 +1910,7 @@ static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+ 	struct ttm_operation_ctx ctx = { false, false };
+ 	struct amdgpu_device *adev = p->adev;
+ 	struct amdgpu_bo_va_mapping *map;
+-	uint32_t *msg, num_buffers, len_dw;
++	uint32_t *msg, num_buffers, len_dw, mul, total;
+ 	struct amdgpu_bo *bo;
+ 	uint64_t start, end;
+ 	unsigned int i;
+@@ -1965,7 +1965,9 @@ static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+ 	num_buffers = msg[2];
+ 
+ 	/* Verify that all indices fit within the claimed length. Each index is 4 DWORDs */
+-	if (num_buffers > len_dw || 6 + num_buffers * 4 > len_dw) {
++	if (check_mul_overflow(num_buffers, 4u, &mul) ||
++	    check_add_overflow(6u, mul, &total) ||
++	    total > len_dw) {
+ 		DRM_ERROR("VCN message has too many buffers!\n");
+ 		r = -EINVAL;
+ 		goto out;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index 0cce78b205a8..413854fcf84a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -1826,7 +1826,7 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+ 	struct ttm_operation_ctx ctx = { false, false };
+ 	struct amdgpu_device *adev = p->adev;
+ 	struct amdgpu_bo_va_mapping *map;
+-	uint32_t *msg, num_buffers, len_dw;
++	uint32_t *msg, num_buffers, len_dw, mul, total;
+ 	struct amdgpu_bo *bo;
+ 	uint64_t start, end;
+ 	unsigned int i;
+@@ -1881,7 +1881,9 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+ 	num_buffers = msg[2];
+ 
+ 	/* Verify that all indices fit within the claimed length. Each index is 4 DWORDs */
+-	if (num_buffers > len_dw || 6 + num_buffers * 4 > len_dw) {
++	if (check_mul_overflow(num_buffers, 4u, &mul) ||
++	    check_add_overflow(6u, mul, &total) ||
++	    total > len_dw) {
+ 		DRM_ERROR("VCN message has too many buffers!\n");
+ 		r = -EINVAL;
+ 		goto out;
+-- 
+2.43.0
+
