@@ -4,74 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1951C5AC67
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 12:05:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A4A0BC5B56A
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 12:05:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B67C210E314;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE43710E304;
 	Tue, 11 Aug 2026 12:05:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="UvTz/Vn/";
+	dkim=pass (1024-bit key; unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="UwX/Ilov";
 	dkim-atps=neutral
-X-Greylist: delayed 468 seconds by postgrey-1.36 at gabe;
- Tue, 11 Aug 2026 05:32:08 UTC
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [185.244.194.184])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B130110EA4B
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 05:32:08 +0000 (UTC)
-Received: from relay01-mors.netcup.net (localhost [127.0.0.1])
- by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hK0RQ27LWz9Cmf;
- Tue, 11 Aug 2026 07:24:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1786425858;
- bh=v0Tg3ZnPRcotZDFgtJVylnE8t3hD5XhREn53fn8R/P4=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=UvTz/Vn/JhlzIbbkpvqdzCiX/HIANqTHR4xdmp5Owaa3yazl+b6SaDrschqDBQ95j
- 6pLdcr3qW9rGZ7Gz6uqfuev29bjusW3m1Rxiic95poZv7+zMwpEI8Vv4xDQDP+Qwan
- B+8UlNgfQ4eKxmSYLs9L1nUwm4Mefh4Zo8JzDcMIouOVr7HbjXri5168k0NSEhroe+
- ix+7xSlt5wy2vcgc9hayC5p9wdVGCWZitFvDY2Z2qT7c4mzWmpnQFam9p2l+DceLVr
- vxygAbra4r1GLuPYNrMCWMINbddaWo9PwHFOydFKdY15bmvB0KZdccY9dFdWUAWIFT
- rm+sLQj+brN2A==
-Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
- by relay01-mors.netcup.net (Postfix) with ESMTPS id 4hK0RQ1R8sz7wQZ;
- Tue, 11 Aug 2026 07:24:18 +0200 (CEST)
-X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hK0RN3J57z8tf6;
- Tue, 11 Aug 2026 07:24:16 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id A0E8D5FA60;
- Tue, 11 Aug 2026 07:24:15 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <23db5f95-c2d6-4712-856e-28f647e184f7@leemhuis.info>
-Date: Tue, 11 Aug 2026 07:24:14 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] Please revert 1191285ecb42 from 7.1.y
-To: Greg KH <gregkh@linuxfoundation.org>,
- Sergio Callegari <sergio.callegari@gmail.com>
-Cc: stable@vger.kernel.org, Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Linux kernel regressions list <regressions@lists.linux.dev>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- George Zhang <george.zhang@amd.com>
-References: <9c6acb62-4080-48e6-9ba2-d1c457c4ec88@gmail.com>
- <2026081106-pebbly-cahoots-37a7@gregkh>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <2026081106-pebbly-cahoots-37a7@gregkh>
-Content-Type: text/plain; charset=UTF-8
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A152F10E1A1;
+ Mon, 10 Aug 2026 22:10:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9C362600AA;
+ Mon, 10 Aug 2026 22:10:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB66F1F000E9;
+ Mon, 10 Aug 2026 22:10:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linux-foundation.org; s=korg; t=1786399810;
+ bh=/hUK9nmdYQUfhG6ut1/QpR/T7D3LLI4jSc7+bBZ5Ofc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=UwX/Ilov0bIFii9m3iwtL8q7dWNlzT+Wx3UroPo9PylX7if0NcfH9JAavRDAn86dw
+ JNwDAbfcVY3VRo/UBsUbAdQe6WqOiVdxquE1mb7LVSCrY0NRcx31i22SVoR5H3wZ9K
+ Nroa/JyRqqFqLrw3hFrR5C55A7jEiwD4QPiMGP18=
+Date: Mon, 10 Aug 2026 15:10:07 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport
+ <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal Hocko
+ <mhocko@suse.com>, Jann Horn <jannh@google.com>, Pedro Falcato
+ <pfalcato@suse.de>, "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan
+ Kara <jack@suse.cz>, Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
+ <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>, Harry Yoo
+ <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>, Kees Cook
+ <kees@kernel.org>, Zi Yan <ziy@nvidia.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, Ryan
+ Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, Barry Song
+ <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>, Matthew Brost
+ <matthew.brost@intel.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim
+ <rakie.kim@sk.com>, Byungchul Park <byungchul@sk.com>, Gregory Price
+ <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, Alistair
+ Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>, Xu Xin
+ <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>, Arnd
+ Bergmann <arnd@arndb.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, Janosch Frank
+ <frankja@linux.ibm.com>, Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer
+ <gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, Vasily
+ Gorbik <gor@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Alex
+ Deucher <alexander.deucher@amd.com>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, Peter Zijlstra
+ <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de
+ Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>, Alexander Shishkin
+ <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, Ian
+ Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, James
+ Clark <james.clark@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>, John
+ Hubbard <jhubbard@nvidia.com>, Muchun Song <muchun.song@linux.dev>, Oscar
+ Salvador <osalvador@suse.de>, Chris Li <chrisl@kernel.org>, Kairui Song
+ <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham
+ <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, Youngjun Park
+ <youngjun.park@lge.com>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ kvm@vger.kernel.org, linux-s390@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 02/20] mm: provide vma_[flags_]is_cow_mapping() and
+ remove is_cow_mapping()
+Message-Id: <20260810151007.c1cfbcf46d498d2f8ce566f9@linux-foundation.org>
+In-Reply-To: <ann-vS6MYT9kuXqu@lucifer>
+References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
+ <20260806-b4-scalable-cow-virt-pgoff-v4-2-ab318a350404@kernel.org>
+ <ann-vS6MYT9kuXqu@lucifer>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: <178642585611.1330248.4545404733011382024@mxe9fb.netcup.net>
-X-NC-CID: WEohhmkvU4GRgtzzV1+7dBZ5kmzu/VCK0bQpMzD6qlyUOt1lGD4=
 X-Mailman-Approved-At: Tue, 11 Aug 2026 12:05:18 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,43 +105,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[CCing a few people and lists]
+On Mon, 10 Aug 2026 18:59:34 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
 
-/me just wanted to send a revert request himself, but then saw that
-there was one to join in
+> Hi Andrew - would it be possible to insert the comments added below? Trying
+> to avoid a respin if possible :)
 
-On 8/11/26 04:29, Greg KH wrote:
-> On Mon, Aug 10, 2026 at 03:17:43PM +0200, Sergio Callegari wrote:
->> after having looked a bit more thoroughly into the matter, and having gone
->> through the relevant commits that introduced and subsequently modified the
->> AMD backlight brightness code paths, I would like to suggest reverting
->> commit
->>
->> 1191285ecb4233e5bf907da7e9394d7999055566
+np, like this?
 
-For the record, that is f1b5d8f9cc54ae ("drm/amd/display: Fix backlight
-max_brightness to match exported range") [v7.2-rc4, v7.1.6
-(1191285ecb4233), v6.18.42 (490ceacd2162de)]
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: mm-provide-vma_is_cow_mapping-and-remove-is_cow_mapping-fix
+Date: Mon Aug 10 03:07:02 PM PDT 2026
 
-And yes, 6.18.y seems affected, too, according to a comment in the
-ticket linked below.
+add comments, per Lorenzo
 
->> from the 7.1 stable series.
-> 
-> It needs to be reverted in Linus's tree first, otherwise the regression
-> will be hit when you update to 7.2.
-Normally I'd agree, but according to one reporter that problem does not
-happen with 7.2-rc:
-https://gitlab.freedesktop.org/drm/amd/-/work_items/5562#note_3603131
+Link: https://lore.kernel.org/ann-vS6MYT9kuXqu@lucifer
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+---
 
-So it seems it's some missing backport or something like that. But it
-seems nobody yet has mentioned which other change(s) might be be
-missing, unless I missed it (which is quite possible).
+ include/linux/mm.h |   57 +++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 57 insertions(+)
 
-Quite a few people are affected, as can be seen by all the duplicated
-Alex marked for the ticket linked above.
+--- a/include/linux/mm.h~mm-provide-vma_is_cow_mapping-and-remove-is_cow_mapping-fix
++++ a/include/linux/mm.h
+@@ -2271,17 +2271,74 @@ void unpin_user_pages(struct page **page
+ void unpin_user_folio(struct folio *folio, unsigned long npages);
+ void unpin_folios(struct folio **folios, unsigned long nfolios);
+ 
++/**
++ * vma_flags_is_cow_mapping() - Do these VMA flags imply a CoW mapping?
++ * @flags: The VMA flags to check.
++ *
++ * Mappings which could be CoW'd (subject to Copy-On-Write faults) are
++ * described as CoW mappings.
++ *
++ * All mappings backed by anonymous folios (all anonymous mappings and most
++ * MAP_PRIVATE-file backed ranges) are CoW mappings.
++ *
++ * All other mappings (including all writable MAP_SHARED mappings) are
++ * non-CoW.
++ *
++ * The criteria are !VMA_SHARED_BIT, VMA_MAYWRITE_BIT.
++ *
++ * VMA_MAYWRITE_BIT is checked instead of VMA_WRITE_BIT to account for both
++ * future mprotect() calls which can render a read-only mapping writable, and
++ * GUP with FOLL_FORCE (e.g. ptrace) which can CoW a read-only mapping.
++ *
++ * - No anonymous mapping can ever clear VMA_MAYWRITE_BIT.
++ *
++ * - Writes to anonymous mappings do not immediately result in CoW faults but
++ *   may do so after the process is forked or if a read is followed by a
++ *   write.
++ *
++ * - Writes to MAP_PRIVATE file-backed mappings result in CoW faults and may
++ *   do so again after fork.
++ *
++ * - MAP_SHARED mappings of a file opened read-only are transformed into
++ *   VMA_MAYSHARE_BIT, !VMA_SHARED_BIT, !VMA_MAYWRITE_BIT mappings, so remain
++ *   non-CoW.
++ *
++ * - Drivers may clear VMA_MAYWRITE_BIT but do so at mmap() time and cannot
++ *   mark themselves anonymous. Having cleared this flag it is not valid for
++ *   them to leave the VMA_WRITE_BIT flag set.
++ *
++ * As a consequence, the anonymous reverse mapping only tracks CoW mappings.
++ *
++ * Returns: true if the flags indicate a CoW mapping, otherwise false.
++ */
+ static inline bool vma_flags_is_cow_mapping(const vma_flags_t *flags)
+ {
+ 	return vma_flags_test(flags, VMA_MAYWRITE_BIT) &&
+ 		!vma_flags_test(flags, VMA_SHARED_BIT);
+ }
+ 
++/**
++ * vma_is_cow_mapping() - Is this VMA a CoW mapping?
++ * @desc: The VMA to check.
++ *
++ * See vma_flags_is_cow_mapping() for details.
++ *
++ * Returns: true if the VMA is a CoW mapping, otherwise false.
++ */
+ static inline bool vma_is_cow_mapping(const struct vm_area_struct *vma)
+ {
+ 	return vma_flags_is_cow_mapping(&vma->flags);
+ }
+ 
++/**
++ * vma_desc_is_cow_mapping() - Is this VMA descriptor a CoW mapping?
++ * @desc: The VMA descriptor to check.
++ *
++ * See vma_flags_is_cow_mapping() for details.
++ *
++ * Returns: true if the VMA descriptor describes a CoW mapping, otherwise
++ * false.
++ */
+ static inline bool vma_desc_is_cow_mapping(struct vm_area_desc *desc)
+ {
+ 	return vma_flags_is_cow_mapping(&desc->vma_flags);
+_
 
-Given all that I wonder if dropping that commit for now might be the
-best move.
-
-Ciao, Thorsten
