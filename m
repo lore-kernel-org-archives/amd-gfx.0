@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D608C5B56A
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 15:48:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07233C5CFE7
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 15:49:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC80110ECA8;
-	Tue, 11 Aug 2026 15:48:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 42F4C10EC8D;
+	Tue, 11 Aug 2026 15:49:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VuO4A2Qq";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ffWL2K9M";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011022.outbound.protection.outlook.com [40.107.208.22])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1746310EC97
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 15:48:55 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010044.outbound.protection.outlook.com
+ [52.101.193.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F3CB10ECAC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 15:49:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KZKXY6r/crYmD2OwKBn6btcUpTiD1BFu3eWDNqfWrn/LI5dpOIBmDXnvYQdvPZGccWK7JaLu9BP7ZU1a5VGEXX0c+aE6Xlmmqr08H5AALxMaGIwZMsFr+JTtI13zrK8BXTsoH5YwSybJccDT8rBDb6pKor+qBoi0M6X8XlGLLWmWoo5rwcNxZJiHSjLHW2nIgQ7wTPTAl3+dqWb1SIAm0XWevMrGDvdkLXZUZYsOe2zjsVvx9s+0Tsa++6Uch7DRdrcT41U86S/09eJ8J/QfebnjFc6qUFQ36Lf4XxmAOySSbJeaS2hW59ECdUbe425rmuT603ssH8ZPEzOri9EhzA==
+ b=PJ0bqU82BjCCjFQFgECo8rmxGWBOAdlaVbdkPD0ey+wiM6f+4zx08ufONVIuK/IRPt3ALzPjPnTKnXrO7KheP98O3P5UU21MxKnrN8bzx1AWdYwl+IA8CRX4uWyoVYwJaobwjCuOOYxEv2cQBH+dtXEQWMD4k2QvOeDCIbP/3hXnR0iuVjm8PaDTliQrkCSWMSAci1USCqV8UWYyn3vTGVpLK3BzW+fjJQqy0jLkXVlRksYpcCHyu817A0AdhnaDLdnhZDYVz3jb92oOxMFNds1kkUtvHVTcpEEk5KGMzk/qOMAk1QbFu/WJGHNT/Zk4H84ploQb7AFljMXtdmjokw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ui3sefNo4qEOV/ajcUxjwMAMXIlJvQa0tJFEzxrZy7s=;
- b=NMy/BLJeRxbFi5HDqNA9qjOAGtepkJFahOrBgeGp3ji6m7MNAUWXFmWpdei1azsa8tF1gcEXsnnzH//fhLTQwV/eYH32H9R5LRRLWJBBDYxnDIMp0JtHeXs5oxDcv73BbM+caA0Ua1wYrSdNAymqzggtIJtq09sUTEMzVB+/rGytZ2V50ifCqA9fEbkpfxEK2Qx5rRDCwr9mnR8AEjxqZCSH4sI/6xw40CiB7gg8hLy51fcC+qCiCChbmz2f9vBLSAOvjp9XPZdz2ailqYD1G9TW39gshPdufRjQUvIeuYB/9CPbo6ldWNmiGh4FDcdfC8ozSAoPjwD7xdXo61uYnQ==
+ bh=KFpr4QtebRTaQXlOWJxw94S6xRBbl3PvkPFe/s4NluY=;
+ b=JiCk0QLq3vftRxq7f5yGXXhjW59ZDP0cqS9tmCBshKSDyNxe/oRP2L8f8i6pW3qUMIJt92ezYgqtjqD5VdXu6nmxnFhkCaJOAtH/jNZEeLOtG29nuectGPah0Wan4gst6noWQCCCuzpN1fZDNmhST6BVqSfdCZ2eh9KsTvbC+M/APjMiX/HSkAvpxqiCFwbbjPCh5aEk7r+qyDfUemk/y5ReuqSoNzGNxSm+7bpND67L6Vzz60LOSZV6YDLxQxXhzWegnegXp8OHwoPw3d4Z3abbjrjy1DFEK7PbP5DSJcsQGK0jK36lzIPXLREe+AFpAZqt1pJ38o6aXMXVA/l3EQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ui3sefNo4qEOV/ajcUxjwMAMXIlJvQa0tJFEzxrZy7s=;
- b=VuO4A2QqWFF6moncwl2Lp1h7raq6cOn3KSvnygJiOfpL3hiYuu31AymKh6LYryBc6gCdELV4YQhfMKZ4znyT0dbDOD9qBXaN75lIN3JvCHnTBH5vFYXRItmdsc/B42/zNCyi/Ix70ZNh25Wowfr5Q2oAtJzp2qd3gqJHR1x3B30=
-Received: from CH0PR03CA0384.namprd03.prod.outlook.com (2603:10b6:610:119::26)
- by IA1PR12MB6258.namprd12.prod.outlook.com (2603:10b6:208:3e6::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
- 2026 15:48:35 +0000
-Received: from CH2PEPF00000141.namprd02.prod.outlook.com
- (2603:10b6:610:119:cafe::5c) by CH0PR03CA0384.outlook.office365.com
- (2603:10b6:610:119::26) with Microsoft SMTP Server (version=TLS1_3,
+ bh=KFpr4QtebRTaQXlOWJxw94S6xRBbl3PvkPFe/s4NluY=;
+ b=ffWL2K9MlwItH45ZaR6+w+0fLwPiRAIDy0+Ja9aHuVydLsFoGbvmDhtzKWVjNk3XiyUSgdOgJfrPJorAA1p6lAkRs2nvyfyStjYR3m9EVw7GDGM2sl27+a2KdBcPMEUAMpX1HAqVzx8ARMpvhh+H9/TQGuz2GdfI1cSSDMWlggA=
+Received: from CH0P221CA0023.NAMP221.PROD.OUTLOOK.COM (2603:10b6:610:11c::24)
+ by CY8PR12MB8314.namprd12.prod.outlook.com (2603:10b6:930:7b::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.11; Tue, 11 Aug
+ 2026 15:48:56 +0000
+Received: from CH2PEPF0000013E.namprd02.prod.outlook.com
+ (2603:10b6:610:11c:cafe::a3) by CH0P221CA0023.outlook.office365.com
+ (2603:10b6:610:11c::24) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.12 via Frontend Transport; Tue,
- 11 Aug 2026 15:48:35 +0000
+ 11 Aug 2026 15:48:56 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +49,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF00000141.mail.protection.outlook.com (10.167.244.74) with Microsoft
+ CH2PEPF0000013E.mail.protection.outlook.com (10.167.244.70) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Tue, 11 Aug 2026 15:48:34 +0000
+ 15.21.315.6 via Frontend Transport; Tue, 11 Aug 2026 15:48:56 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 11 Aug
- 2026 10:48:28 -0500
+ 2026 10:48:55 -0500
 Received: from james-Birman-PHX.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via
- Frontend Transport; Tue, 11 Aug 2026 10:48:19 -0500
+ Frontend Transport; Tue, 11 Aug 2026 10:48:47 -0500
 From: James Lin <PingLei.Lin@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,12 +67,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Tomasz Siemek <tomasz.siemek@amd.com>, Alvin Lee
+ <Chen-Yu.Chen@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Alvin Lee
  <alvin.lee2@amd.com>, James Lin <pinglei.lin@amd.com>
-Subject: [PATCH 02/24] drm/amd/display: Move periodic interrupt calculations
- to HWSS
-Date: Tue, 11 Aug 2026 05:28:36 +0800
-Message-ID: <20260810213010.1703162-3-PingLei.Lin@amd.com>
+Subject: [PATCH 05/24] drm/amd/display: Add utm_support capability flag
+Date: Tue, 11 Aug 2026 05:28:39 +0800
+Message-ID: <20260810213010.1703162-6-PingLei.Lin@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260810213010.1703162-1-PingLei.Lin@amd.com>
 References: <20260810213010.1703162-1-PingLei.Lin@amd.com>
@@ -80,29 +80,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000141:EE_|IA1PR12MB6258:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5e108d73-ae8c-483c-bbdd-08def7c00064
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000013E:EE_|CY8PR12MB8314:EE_
+X-MS-Office365-Filtering-Correlation-Id: 14a4ec0c-2187-47a0-cbf0-08def7c00d5f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|23010399003|1800799024|36860700016|18002099003|22082099003|11063799006|10067099003|56012099006|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: 4AJ6RgCTxTiEM3h4zW5vDLH/MXALUCV0j2Z7PF4+r2vD4iAm9l/NsftOQ10/OhWuMVn5XY58/vlkYjuGr2Ee2p9z/rWzLv2MKuZ0dQuOX9qlzna4ckuT5yYOYcL+Rcbqhml/q9ESszP8pKefjTL8XNWX46l/m1PUWpaFoZ01i9xid4BEhQkFcPGYS8iu6FcepwXjI9vudlpC2ww/Ku4MwqX76RUMqCLoCngOfchtXFkqvW4eWuZKdMq53LWjECTNSIFc4XqpMXp48c97+mYIA6v7uAI0GLIX9I4jkFvKYmh+nv0Z8bZr4oTXtbYzXTzwxu9Y0LLBD1g60dv1tnXQA0OfTIWdsRKXd6bwKKDxEaQVJm+PgLKT+EzVKJU9tENDO0qHHb4o9OvuA1UT4jDWRnhuEXl5coGCs+QKLqFU7mrqggmdcogNcvyOBuz59weHeJvXWoiRWV+F2S1Eq0ElEU19OfTra2+eLKhlPRZHHwFPjqVHmmng6oJE34jCmsjGAMkOOWF7QNmETgJx080nUx7MG9crcmpcXjPeeffqvu3ZDwPKVIgMZg2YubJ+Sf6/oDqqE8RDES/uAShY4Vk2Iv5eu4sBu/jg4DjL3bJI3dAiDWXi7mDBfWifiKu0U8AWEzk7xMDL67VJTzGPbw85LPExmf6g3hrgLmffzrlaqk/hDC6qSWdTZKaQx0xNk9nXt6sSa6ylw6y/YqLRHaeaEg==
+ ARA:13230040|23010399003|82310400026|1800799024|376014|36860700016|6133799003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: sWzoWCsiLlDGo5dA2gVRCO5xXh3Ey2mAdVcVOclpnNz+te1VQE0cPrgoCbSy+TRGSm9MtZtDCFqdajDKEMF/dVfR0XRGzWW4aRmmvtIvu9JhcSbk5LDaM8gk9D47F/TZ4BKhRmmhlaVt3U+x8HKgVanLryTA9h9/86pDsoLfxrXY6bHd3ry5PwMkQE4gaTZh3Unn9IwwinwS86HUwHog7W3EprrIj/9pLZMxKqC0KmxxCrpwQ85w9fPFUKl8qXqzHOsxw+Qja3JTW8MH3oJlZwvLOkSqn9yHe4fTZEekW4Gj+IVUIGqOj+G3FFaJ1feEsHr9mtVPSff2840EVUeJ2sk6fVfj+ygQcI3Ix+C981VmC0x07aTM4apaTfM1aVWcWEYrwwLkDEmv71d+FrQkdFVfJtcuCyRRPvP+HZAEtUnc9ZkrAkVeVvhL4IIBWToi/Xa0gIwC6sANQ+OJ4uoN2Rd8/kQn2V9Kxv0hkgkMhMSI3Ni3bMUZgaBSJELjKQJop/bvdzQ5rzzrQoBigTGipFbagdUXHcV3qff6+IuoAgchYgSkT01dqtmGsVYrPGK/v2UK5QqzV33YylV/stBgkLgWbWMxQG1657OpqelQDQ5ox/4swbVL6yLETHUC0/INnvoEQ0lD8MtKpGHwJiiwLwn7u+1e8EXqUdIJJDumuOUpM/oZIHqKrC49Wizh6S+xzK/GBFIkojPUWTl2Qmx14Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(23010399003)(1800799024)(36860700016)(18002099003)(22082099003)(11063799006)(10067099003)(56012099006)(6133799003)(3023799007);
+ SFS:(13230040)(23010399003)(82310400026)(1800799024)(376014)(36860700016)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: aQSYYMrd97tox752+PRxqXadxhNlZ1xnHkHvjGFcOyE3rrPo20vUpOVN/pZ8dfDMs6CJaXFIFlKwVRBLqI1NgIfNjiTOUFQLS8xCdpw0TWjADK1650IxVFESOhD72cfGgf5G8KcdCeb64TH5MxEtvZdAEKAbOoxhc0p0Z4IdnB4tyOW5pLO1VY0QXKEDp3met93RM2cZmhQAzzOvt7mEXeEc29VE5wZqy+YeGIrF+r2TO0m14P6cDlY3CpjPyExUiVhXLFJ4LySYgWiiYYhkWUZHgq47aJ3BvkqLlE0Nv9s8LKjL0a7+m+3Sg860X9xT4dN1KpfhIQGCSFWF3RfOS+kJHxBLZm2/9tBswA79WxvWcdKRl7GDjRMHL/G1ZMDe1yA/p11znmegsuapJeKeAurCNAUg1sPd+FG4Yh4a2bmYPh0WDqN2WTHK/Rk8UHHS
+X-MS-Exchange-AntiSpam-MessageData-0: RcolFH/4OjUYHK61osQDKbP1qOQA+D6e5mQCDDftz58KQ7aXNEjd3i6CtbQjiY/iLNjPH4xzj4RQmriBCl6WQpaHOhGKuTBTeLY5OOGLXRGX0mbiegbrxy4RAryOWEodqm14yDIu9L8m7c64NRx9ijtFUOoyj2NwuxLnG0EAwtY8dE/fyiqbw+w92Spm0yD2r3DfA90z8lq4pdYWN8+/MLLoorgAyNMsEcOtYyTkfVrvo8mJhXVwllRZS+OoIzKfAK08v6MoAY8muFOqr6+71dQRWn2TmO+DCarjmWNigUDST+rVX4RrDU8cisLr46h03Qv6GtodOaQF93BS0zNwnUo+vDw9Rb/W+Z4NAthdhFOxiSztwDesrkjod5KvqkujH9h3P34KGKOF9P7W9RyQhVrDmFCFg7ODT9bB1Bztu6RWNoWdtw9w3//cFlQ6kWds
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 15:48:34.5021 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5e108d73-ae8c-483c-bbdd-08def7c00064
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 15:48:56.2821 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 14a4ec0c-2187-47a0-cbf0-08def7c00d5f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000141.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013E.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6258
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB8314
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,272 +117,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Tomasz Siemek <tomasz.siemek@amd.com>
+From: Wenjing Liu <wenjing.liu@amd.com>
 
-[why]
-Periodic interrupt line calculations depends on stream and pipe state, not
-ASIC-specific register programming. Keeping it in the DCN10 implementation
-also prevents block-sequence callers from carrying fully resolved
-parameters.
-We want HWSS block parameters to not include complex structures like
-pipe_ctx.
+[Why]
+Expose whether the ASIC supports Universal Traffic Management so
+upper layers can query the capability instead of assuming support.
 
-[how]
-- Move the vertical interrupt line calculation into common HWSS code.
-- Update the periodic interrupt callback.
-- Calculate the values before direct or block-sequence execution.
+[How]
+Add a new bool capability field to dc_caps, defaulting to false,
+and set it to true during DCN6 resource construction.
 
 Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Signed-off-by: Tomasz Siemek <tomasz.siemek@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 Signed-off-by: James Lin <pinglei.lin@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/core/dc.c      |  4 +-
- .../drm/amd/display/dc/core/dc_hw_sequencer.c | 76 ++++++++++++++++---
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   | 41 +---------
- .../amd/display/dc/hwss/dcn10/dcn10_hwseq.h   |  5 +-
- .../drm/amd/display/dc/hwss/hw_sequencer.h    | 12 +--
- 5 files changed, 83 insertions(+), 55 deletions(-)
+ drivers/gpu/drm/amd/display/dc/dc.h                            | 1 +
+ drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c | 1 +
+ 2 files changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index 68f228014305..bc2207d29954 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -4367,8 +4367,8 @@ static void commit_planes_do_stream_update(struct dc *dc,
- 
- 		if (resource_is_pipe_type(pipe_ctx, OTG_MASTER) && pipe_ctx->stream == stream) {
- 
--			if (stream_update->periodic_interrupt && dc->hwss.setup_periodic_interrupt)
--				dc->hwss.setup_periodic_interrupt(dc, pipe_ctx);
-+			if (stream_update->periodic_interrupt)
-+				hwss_setup_periodic_interrupt(dc, pipe_ctx);
- 
- 			if ((stream_update->hdr_static_metadata && !stream->use_dynamic_meta) ||
- 					stream_update->vrr_infopacket ||
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-index 90d754d192f1..bfb598a22c26 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
-@@ -745,6 +745,38 @@ static bool get_update_dchubp_dpp_flags_status(struct pipe_ctx *pipe)
- 	return false;
- }
- 
-+static void calc_vline_position(
-+		struct dc *dc,
-+		struct pipe_ctx *pipe_ctx,
-+		uint32_t *start_line,
-+		uint32_t *end_line)
-+{
-+	if (!dc->hwss.get_vupdate_offset_from_vsync)
-+		return;
-+
-+	const struct dc_crtc_timing *timing = &pipe_ctx->stream->timing;
-+	int vline_pos = pipe_ctx->stream->periodic_interrupt.lines_offset;
-+
-+	if (pipe_ctx->stream->periodic_interrupt.ref_point == START_V_UPDATE) {
-+		if (vline_pos > 0)
-+			vline_pos--;
-+		else if (vline_pos < 0)
-+			vline_pos++;
-+
-+		vline_pos += dc->hwss.get_vupdate_offset_from_vsync(pipe_ctx);
-+		if (vline_pos >= 0)
-+			*start_line = vline_pos - ((vline_pos / timing->v_total) * timing->v_total);
-+		else
-+			*start_line = vline_pos + ((-vline_pos / timing->v_total) + 1) * timing->v_total - 1;
-+		*end_line = (*start_line + 2) % timing->v_total;
-+	} else if (pipe_ctx->stream->periodic_interrupt.ref_point == START_V_SYNC) {
-+		// vsync is line 0 so start_line is just the requested line offset
-+		*start_line = vline_pos;
-+		*end_line = (*start_line + 2) % timing->v_total;
-+	} else
-+		ASSERT(0);
-+}
-+
- // Function to check if any update flags are set
- static bool get_pipe_update_bits_status(struct pipe_ctx *pipe, struct dc_plane_state *plane, struct dc_stream_state *stream)
- {
-@@ -1173,8 +1205,16 @@ void hwss_build_fast_sequence(struct dc *dc,
- 	}
- 
- 	if (dc->hwss.setup_periodic_interrupt && stream->update_flags.bits.periodic_interrupt) {
--		block_sequence[*num_steps].params.setup_periodic_interrupt_params.dc = dc;
--		block_sequence[*num_steps].params.setup_periodic_interrupt_params.pipe_ctx = pipe_ctx;
-+		uint32_t start_line = 0;
-+		uint32_t end_line = 0;
-+
-+		calc_vline_position(dc, pipe_ctx, &start_line, &end_line);
-+		block_sequence[*num_steps].params.setup_periodic_interrupt_params.tg =
-+				pipe_ctx->stream_res.tg;
-+		block_sequence[*num_steps].params.setup_periodic_interrupt_params.start_line =
-+				start_line;
-+		block_sequence[*num_steps].params.setup_periodic_interrupt_params.end_line =
-+				end_line;
- 		block_sequence[*num_steps].func = HWSS_SETUP_PERIODIC_INTERRUPT;
- 		(*num_steps)++;
- 	}
-@@ -1668,7 +1708,11 @@ void hwss_execute_sequence(struct dc *dc,
- 			hwss_tg_setup_vertical_interrupt0(params);
- 			break;
- 		case HWSS_SETUP_PERIODIC_INTERRUPT:
--			hwss_setup_periodic_interrupt(dc, params);
-+			if (dc->hwss.setup_periodic_interrupt)
-+				dc->hwss.setup_periodic_interrupt(
-+						params->setup_periodic_interrupt_params.tg,
-+						params->setup_periodic_interrupt_params.start_line,
-+						params->setup_periodic_interrupt_params.end_line);
- 			break;
- 		case HWSS_UPDATE_INFO_FRAME:
- 			hwss_update_info_frame(dc, params);
-@@ -3322,12 +3366,18 @@ void hwss_update_info_frame(struct dc *dc, union block_sequence_params *params)
- 		dc->hwss.update_info_frame(pipe_ctx);
- }
- 
--void hwss_setup_periodic_interrupt(struct dc *dc, union block_sequence_params *params)
-+void hwss_setup_periodic_interrupt(struct dc *dc, struct pipe_ctx *pipe_ctx)
- {
--	struct pipe_ctx *pipe_ctx = params->setup_periodic_interrupt_params.pipe_ctx;
-+	uint32_t start_line = 0;
-+	uint32_t end_line = 0;
- 
--	if (dc->hwss.setup_periodic_interrupt)
--		dc->hwss.setup_periodic_interrupt(dc, pipe_ctx);
-+	if (dc->hwss.setup_periodic_interrupt) {
-+		calc_vline_position(dc, pipe_ctx, &start_line, &end_line);
-+		dc->hwss.setup_periodic_interrupt(
-+				pipe_ctx->stream_res.tg,
-+				start_line,
-+				end_line);
-+	}
- }
- 
- void hwss_tg_setup_vertical_interrupt0(union block_sequence_params *params)
-@@ -5934,9 +5984,17 @@ void hwss_add_setup_periodic_interrupt(struct block_sequence_state *seq_state,
- 		struct pipe_ctx *pipe_ctx)
- {
- 	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
-+		uint32_t start_line = 0;
-+		uint32_t end_line = 0;
-+
-+		calc_vline_position(dc, pipe_ctx, &start_line, &end_line);
- 		seq_state->steps[*seq_state->num_steps].func = HWSS_SETUP_PERIODIC_INTERRUPT;
--		seq_state->steps[*seq_state->num_steps].params.setup_periodic_interrupt_params.dc = dc;
--		seq_state->steps[*seq_state->num_steps].params.setup_periodic_interrupt_params.pipe_ctx = pipe_ctx;
-+		seq_state->steps[*seq_state->num_steps].params.setup_periodic_interrupt_params.tg =
-+				pipe_ctx->stream_res.tg;
-+		seq_state->steps[*seq_state->num_steps].params.setup_periodic_interrupt_params.start_line =
-+				start_line;
-+		seq_state->steps[*seq_state->num_steps].params.setup_periodic_interrupt_params.end_line =
-+				end_line;
- 		(*seq_state->num_steps)++;
- 	}
- }
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-index 097e4ac2df05..850639b6fd9b 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
-@@ -4026,45 +4026,12 @@ void dcn10_calc_vupdate_position(
- 	*end_line = (*start_line + 2) % timing->v_total;
- }
- 
--static void dcn10_cal_vline_position(
--		struct dc *dc,
--		struct pipe_ctx *pipe_ctx,
--		uint32_t *start_line,
--		uint32_t *end_line)
--{
--	const struct dc_crtc_timing *timing = &pipe_ctx->stream->timing;
--	int vline_pos = pipe_ctx->stream->periodic_interrupt.lines_offset;
--
--	if (pipe_ctx->stream->periodic_interrupt.ref_point == START_V_UPDATE) {
--		if (vline_pos > 0)
--			vline_pos--;
--		else if (vline_pos < 0)
--			vline_pos++;
--
--		vline_pos += dc->hwss.get_vupdate_offset_from_vsync(pipe_ctx);
--		if (vline_pos >= 0)
--			*start_line = vline_pos - ((vline_pos / timing->v_total) * timing->v_total);
--		else
--			*start_line = vline_pos + ((-vline_pos / timing->v_total) + 1) * timing->v_total - 1;
--		*end_line = (*start_line + 2) % timing->v_total;
--	} else if (pipe_ctx->stream->periodic_interrupt.ref_point == START_V_SYNC) {
--		// vsync is line 0 so start_line is just the requested line offset
--		*start_line = vline_pos;
--		*end_line = (*start_line + 2) % timing->v_total;
--	} else
--		ASSERT(0);
--}
--
- void dcn10_setup_periodic_interrupt(
--		struct dc *dc,
--		struct pipe_ctx *pipe_ctx)
-+		struct timing_generator *tg,
-+		uint32_t start_line,
-+		uint32_t end_line
-+	)
- {
--	struct timing_generator *tg = pipe_ctx->stream_res.tg;
--	uint32_t start_line = 0;
--	uint32_t end_line = 0;
--
--	dcn10_cal_vline_position(dc, pipe_ctx, &start_line, &end_line);
--
- 	tg->funcs->setup_vertical_interrupt0(tg, start_line, end_line);
- }
- 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.h b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.h
-index 2cb674ba54e1..a93109c2199b 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.h
-@@ -183,8 +183,9 @@ void dcn10_set_cursor_position(struct pipe_ctx *pipe_ctx);
- void dcn10_set_cursor_attribute(struct pipe_ctx *pipe_ctx);
- void dcn10_set_cursor_sdr_white_level(struct pipe_ctx *pipe_ctx);
- void dcn10_setup_periodic_interrupt(
--		struct dc *dc,
--		struct pipe_ctx *pipe_ctx);
-+		struct timing_generator *tg,
-+		uint32_t start_line,
-+		uint32_t end_line);
- enum dc_status dcn10_set_clock(struct dc *dc,
- 		enum dc_clock_type clock_type,
- 		uint32_t clk_khz,
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-index cdf2562a9a40..129120ac6d9e 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
-@@ -819,8 +819,9 @@ struct cursor_lock_params {
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index c23299d3f36a..edd6a113cfee 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -432,6 +432,7 @@ struct dc_caps {
+ 	uint8_t num_of_dpias_per_host_router;
+ 	/* limit of the ODM only, could be limited by other factors (like pipe count)*/
+ 	uint8_t max_odm_combine_factor;
++	bool utm_support;
  };
  
- struct setup_periodic_interrupt_params {
--	struct dc *dc;
--	struct pipe_ctx *pipe_ctx;
-+	struct timing_generator *tg;
-+	uint32_t start_line;
-+	uint32_t end_line;
- };
+ struct dc_bug_wa {
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
+index 2dac5f7486d9..7171b237c427 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
+@@ -2037,6 +2037,7 @@ static bool dcn60_resource_construct(
+ 	dc->caps.edp_dsc_support = true;
+ 	dc->caps.extended_aux_timeout_support = true;
+ 	dc->caps.dmcub_support = true;
++	dc->caps.utm_support = true;
+ 	dc->caps.max_v_total = (1 << 15) - 1;
  
- struct send_cursor_info_to_dmu_params {
-@@ -1452,8 +1453,9 @@ struct hw_sequencer_funcs {
- 	void (*enable_vblanks_synchronization)(struct dc *dc,
- 			int group_index, int group_size,
- 			struct pipe_ctx *grouped_pipes[]);
--	void (*setup_periodic_interrupt)(struct dc *dc,
--			struct pipe_ctx *pipe_ctx);
-+	void (*setup_periodic_interrupt)(struct timing_generator *tg,
-+			uint32_t start_line,
-+			uint32_t end_line);
- 	void (*set_drr)(struct pipe_ctx **pipe_ctx, int num_pipes,
- 			struct dc_crtc_timing_adjust adjust);
- 	void (*set_static_screen_control)(struct pipe_ctx **pipe_ctx,
-@@ -2113,7 +2115,7 @@ void hwss_commit_cursor_offload_update(union block_sequence_params *params);
- 
- void hwss_update_cursor_offload_pipe(union block_sequence_params *params);
- 
--void hwss_setup_periodic_interrupt(struct dc *dc, union block_sequence_params *params);
-+void hwss_setup_periodic_interrupt(struct dc *dc, struct pipe_ctx *pipe_ctx);
- 
- void hwss_disable_audio_stream(struct dc *dc, union block_sequence_params *params);
- 
+ 	if (ASICREV_IS_GC_12_0_1_A0(dc->ctx->asic_id.hw_internal_rev))
 -- 
 2.43.0
 
