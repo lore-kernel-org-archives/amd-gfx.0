@@ -4,97 +4,104 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BE13C5CFCF
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:07:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA441C5CFCF
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:07:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D460C10E364;
-	Tue, 11 Aug 2026 17:07:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DB53210ECF7;
+	Tue, 11 Aug 2026 17:07:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1hL9PpTm";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="muZHQpJO";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013041.outbound.protection.outlook.com
- [40.107.201.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D564710E364
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 17:07:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DROT4F6qtYszBQD776jlG7uGGbIQsadXuiLKSVkB9b+Ul8hRTYVN03sw0WccZEGjeCY0cxIcLe7RNV9Q+3goGmCqtdBcqj3q7gmuKZcmFPVE8gvV491MMVDr6MXtaidndsq8xAC5TcB20+xZQDeFiTmhPlHrs4MisiP9+qIOT9RtCsuAdte7UrBvGK0Wk/yXprIRTIuDhHbt5UrLO8UxzRY5t/D8h3ybxFCL+uxlUgDo4uQSYkMOF9UKbHhr8wcGGWIUD3Kb/pkFxTJgH3u9d0EgOKR9ulHbSlR/WKQ9dyEZqcuFtBUB5I1j/27uksTWlSjvuSTUdixeUzLdOJJILg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lJU2nIMSPDG11hS4m6MHLkw/lMH7ENo6Ltp3/6LaaVE=;
- b=oAbsSUhbH/eeewhlA2Y4d7vYZwqLCcwz5NaXLtt/jYAiTYI9/urWMV9qeurVq1HLvCT3oI2Rmz9bRkKj3kXGwKXZVKN8Ndr/lhQIutvoG78qWiApOXjL2LAuT9/aYBn9UxDFkkbivk1NSRyvTOp3pF1/N63QH58kJoA17ciD346H5V376xkS5JJyNlZ1r0pFh6j7ZWkqAMxAxI5vdWD69wWv8olmZcFo/99f2LuQRT0gbFzrbkkdWT1vEa4KbVSp3l+/TD7zQi3ULlu+uZ7+Vs7qEeolmIGp+NNpjKc+rczaWIG5z7UgLDgmvBVMW24nXb9SUPiWecPxrPTiX9hSXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lJU2nIMSPDG11hS4m6MHLkw/lMH7ENo6Ltp3/6LaaVE=;
- b=1hL9PpTmHyGYUlCF7/QLC6Zm6NVktM5S/WxQp/h4avCU0FKVn1KzKixtAPOCs6/UpyPGNJTRo48Qh4Gxg7TyxdZ0JG4mT+kOzKh0S9HeIGKcKIIKLlA/06GdIzT0G03R82zgXJpH5n0d9RE0S2yXIMF1pAg/w+5KiFRNssUSjuQ=
-Received: from CH0PR03CA0019.namprd03.prod.outlook.com (2603:10b6:610:b0::24)
- by SA0PR12MB4415.namprd12.prod.outlook.com (2603:10b6:806:70::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.11; Tue, 11 Aug
- 2026 17:07:14 +0000
-Received: from CH2PEPF0000013E.namprd02.prod.outlook.com
- (2603:10b6:610:b0:cafe::b) by CH0PR03CA0019.outlook.office365.com
- (2603:10b6:610:b0::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.12 via Frontend Transport; Tue,
- 11 Aug 2026 17:07:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH2PEPF0000013E.mail.protection.outlook.com (10.167.244.70) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Tue, 11 Aug 2026 17:07:14 +0000
-Received: from david-B650-PG-Lightning.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 11 Aug 2026 12:07:13 -0500
-From: "David (Ming Qiang) Wu" <David.Wu3@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>
-CC: <leo.liu@amd.com>, <stable@vger.kernel.org>
-Subject: [PATCH v3] drm/amdgpu/vcn: fix integer overflow in dec_msg buffer
- count check
-Date: Tue, 11 Aug 2026 13:06:53 -0400
-Message-ID: <20260811170653.2092673-1-David.Wu3@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2003110ECF7;
+ Tue, 11 Aug 2026 17:07:52 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 05CDE406D0;
+ Tue, 11 Aug 2026 17:07:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33E4A1F00A3A;
+ Tue, 11 Aug 2026 17:07:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786468071;
+ bh=iUKLaNVgnm6yVlIUuq3S+v3XbNNRA5IFdKQLUZEf4Po=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=muZHQpJO9uzZAk0kMRcdaEMI9jcfs4Uu8oC32MtScjPY0WQhPC9xcG9YtLeaqYkRQ
+ BghULgIcL5/Ouo5WcMWjVgCzG81bXQD6IdhgzJ6RLsQSkBK03Zm7Q/fe1OeV3TUm0h
+ 46THJIkIrI54+SDkzKF9E0cwdr8sdNPbtzdgd4zMW4gmlKrbgcMHPDNsbQ5FIgOYzV
+ 5i4BQIab45nRpWJ+5/jy2TB8m8BQIVBiwTgWhiKCPfXFIL663Lp+qsXIZ1AuT7UVS6
+ vdbOBvZg6oEOgAzKgxsuG5rlZ/X3CLkTg0FKOgfOxRCP92SoTKocLw6YIaqodz+n1H
+ r9H212Mfzjw/w==
+Date: Tue, 11 Aug 2026 18:07:36 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Kees Cook <kees@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, 
+ Liviu Dudau <liviu.dudau@arm.com>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ kvm@vger.kernel.org, 
+ linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 16/20] tools/testing/selftests/mm: test anonymous page
+ offset merge behaviour
+Message-ID: <antWw3a0iEv4l1Yd@gremlin>
+References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
+ <20260806-b4-scalable-cow-virt-pgoff-v4-16-ab318a350404@kernel.org>
+ <cf70ce8f-cdde-43ec-a50e-796d4e390f3f@kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000013E:EE_|SA0PR12MB4415:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8ad8eed3-4bfa-4f95-e902-08def7cafd94
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|36860700016|1800799024|82310400026|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: 3ZGPVJbFamqrjyMHDVD9FyBZTaFrTYXrZ/kl/EvzpSN1rMdA0O3OVraxhsSvRkyId1Fip7grT60Kc1QBCy6KgHB6oIh8iXa69j+h/psPFwHReHy40Z2hxHu/M0H6CXkSuBm5FhI1bhlQ43r/s8ICxTwbos5+GkkxJkU9qdHZjspL9EGO6DXsks0QX9prUXddqMcivkK2BUmjxcMR7F7FVLYLzfp/viLjqi+LDt7BEtn17UbvopzvydbykiTugIPxXVTzHa8bOTTxtqYHPeTQcdVB9Q7effReWaSHwtZii6HUc7nqJICXZb1C+00GQ087oFZklhsflQad1CCnu0nm20lNVtAZuVWCJZwDo6VmMwEXTCUmHT6WcW30/cypsS5Th1YFIXQTmLSkfy52wmUaOYfaJhgP0Hx5Zd5kvEsM7wDLDGhdmOIfYMtNqauOPv++Z6J3CyamQa5KEum/IeI/vOr+Q7x7iibgm2P51uYv4959e12dRbNJcMsXxUTQAcLoCaIZbIC7npwQjJ1B0qpG6bw+n0Pau7cTYBZGxblo+svIWB0A6uIwfLTp0xhdTIJU3E95CIYkHtj8iyPG6V3efOiNFGdU+Hvswgw99CQdsB2ybMHUbi7Pa7ri/VS9qPVFbKhYRZ3Pv4d5JMQd3aQAASRc0SfK7WVDLw3M3p4FEU3RMww1vHW9exKkxBEi0NJj
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(36860700016)(1800799024)(82310400026)(10067099003)(11063799006)(56012099006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: lfX2Y6cXjbzb17OHTRFPisw7m5EU0RpouIXrXFEDgqw2nOk0tct5It5xAeuQQ1vTZroVIZEZ/lrfWCWFcz7VKsZHXaKS2Ks245dokBK5nmS+9D+R64lrnS+15Q1T0JQpnJbx7cWoydzdM3OhZ7IxAb7UPuYqySgLa8VB77DaO2Vf/kQOPSwBHXUlsQ/cbePW9G30Ck8btQrMojHrehfkt/Ugwh1Js9zw2w/EfmYEqIq2PEYwAJ1zehaTr8GdatqhdwfFhviH0t2NEyeOjsgExvuuPcZecV6bCOrhvjDr1d2ei0wJv3Mb6nxFYyp9ENC3hiewnSPtunYftfSgiTr5gmOTyUBXNOuWUP8CxQhIK0Ou0z55wJM38gPLzuVmFhqEaj69cIEwm2ejcKTGZKKDjIYgVhl9pbOLNKFhWxCz+jVaF4BRRMWboVQ2oqNciETp
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 17:07:14.2481 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ad8eed3-4bfa-4f95-e902-08def7cafd94
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013E.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4415
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cf70ce8f-cdde-43ec-a50e-796d4e390f3f@kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,61 +116,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-if supplied msg[2] in the header is too large, 4 times
-of this unsigned 32 bit value will overflow and the test could pass.
+On Tue, Aug 11, 2026 at 06:56:18PM +0200, David Hildenbrand (Arm) wrote:
+> On 8/6/26 22:21, Lorenzo Stoakes (ARM) wrote:
+> > While maintaining anonymous page offsets for VMAs has no impact for most
+> > merge cases, it does impact MAP_PRIVATE-mapped file-backed mappings which
+> > happen to have matching page offset but not matching anonymous page offset.
+> >
+> > Assert this behaviour by attempting to map an unfaulted MAP_PRIVATE-memfd
+> > region with a faulted one with compatible file page offsets but
+> > incompatible anonymous page offsets.
+> >
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> >  tools/testing/selftests/mm/merge.c | 57 ++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 57 insertions(+)
+> >
+> > diff --git a/tools/testing/selftests/mm/merge.c b/tools/testing/selftests/mm/merge.c
+> > index 519e5ac02db7..cb7cdb6b7ada 100644
+> > --- a/tools/testing/selftests/mm/merge.c
+> > +++ b/tools/testing/selftests/mm/merge.c
+> > @@ -1305,6 +1305,63 @@ TEST_F(merge, merge_vmas_with_mseal)
+> >  	ASSERT_EQ(procmap->query.vma_end, (unsigned long)ptr + 2 * page_size);
+> >  }
+> >
+> > +TEST_F(merge, anon_and_page_offset_mismatch_memfd)
+> > +{
+> > +	struct procmap_fd *procmap = &self->procmap;
+> > +	unsigned int page_size = self->page_size;
+> > +	char *carveout = self->carveout;
+> > +	char *ptr, *ptr2;
+> > +	int fd;
+> > +
+> > +	/* Create a 10 page memfd descriptor. */
+> > +	fd = memfd_create("anon_page_offset_test", MFD_CLOEXEC);
+> > +	ASSERT_NE(fd, -1);
+> > +	ASSERT_EQ(ftruncate(fd, 10 * page_size), 0);
+> > +
+> > +	/* Map a region using the memfd at page offset 0. */
+> > +	ptr = mmap(carveout, 5 * page_size, PROT_READ | PROT_WRITE,
+> > +		   MAP_FIXED | MAP_PRIVATE, fd, 0);
+> > +	ASSERT_NE(ptr, MAP_FAILED);
+> > +
+> > +	/*
+> > +	 * Map another separately, and fault in, at page offset 5:
+> > +	 *
+>
+> "Fault in" is imprecise, as a read-fault won't do. "Trigger a CoW fault." might
+> be better.
 
-v3: Using two-helper form is heavier than needed.
-    Since len_dw is a plain u32, a division-based test is
-    overflow-free by construction.
+Andrew - could you fix up? Thanks :)
 
-Fixes: b193019860d6 ("drm/amdgpu/vcn3: Prevent OOB reads when parsing dec msg")
-Fixes: 0a78f2bac142 ("drm/amdgpu/vcn4: Prevent OOB reads when parsing dec msg")
+>
+>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
-Cc: stable@vger.kernel.org
----
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 8 ++++++--
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 8 ++++++--
- 2 files changed, 12 insertions(+), 4 deletions(-)
+Thanks!
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-index 81bba3ec2a93..686f5f758cb1 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
-@@ -1964,8 +1964,12 @@ static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
- 	len_dw = msg[1] / 4;
- 	num_buffers = msg[2];
- 
--	/* Verify that all indices fit within the claimed length. Each index is 4 DWORDs */
--	if (num_buffers > len_dw || 6 + num_buffers * 4 > len_dw) {
-+	/* Verify that all indices fit within the claimed length.
-+	 * There are 6 dwords in the header before the first buffer.
-+	 * Each buffer has 4 dwords. Extra dwords will be ignored
-+	 * at the end of the last buffer.
-+	 */
-+	if (len_dw < 6 || num_buffers > (len_dw - 6) / 4) {
- 		DRM_ERROR("VCN message has too many buffers!\n");
- 		r = -EINVAL;
- 		goto out;
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-index 0cce78b205a8..6f0a51c436db 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
-@@ -1880,8 +1880,12 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
- 	len_dw = msg[1] / 4;
- 	num_buffers = msg[2];
- 
--	/* Verify that all indices fit within the claimed length. Each index is 4 DWORDs */
--	if (num_buffers > len_dw || 6 + num_buffers * 4 > len_dw) {
-+	/* Verify that all indices fit within the claimed length.
-+	 * There are 6 dwords in the header before the first buffer.
-+	 * Each buffer has 4 dwords. Extra dwords will be ignored
-+	 * at the end of the last buffer.
-+	 */
-+	if (len_dw < 6 || num_buffers > (len_dw - 6) / 4) {
- 		DRM_ERROR("VCN message has too many buffers!\n");
- 		r = -EINVAL;
- 		goto out;
--- 
-2.43.0
+>
+> --
+> Cheers,
+>
+> David
 
+--
+Cheers, Lorenzo
