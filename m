@@ -4,39 +4,39 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2AA4DC5CFCF
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 13:48:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4D76C5B572
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 13:48:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2FA3B10EBEC;
-	Tue, 11 Aug 2026 13:48:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F26110EBF0;
+	Tue, 11 Aug 2026 13:48:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="UqIjcPb7";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="e8Elhm4I";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A797210EBDB;
- Tue, 11 Aug 2026 13:48:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B0F110EBEB;
+ Tue, 11 Aug 2026 13:48:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=YtXGH4d6P96H2uH2l8a6g6zEJJTmQ5VPZ9zpfU2qDxI=; b=
- UqIjcPb7/WBTbzo+nN40dAQ4z6xClrj8061F5/cYGde+oofXShtB8ba2NIJUKi+Z42+O2Qepwe50H
- cvAfcL8zAr8YZDA7Bd/jLQygohx34ZPnGW9ozEfrejTrdcv2WksjnsMqZ0Fk5PGTenzKEcTUfW8Vi
- asRWawmg3xyPTNN1cG4sPwXPc3yBO5gj3y2HR5TsmPJd3X4b44VJnVIBNNdscD54F0aMoXRKQs2AE
- dUC2cMh+C9JES6J3SafWv7ZH/83/iBfnmJCW1oz2cEd/wU0sM+xvCTwElZ+e0xVTdXAlkY5gLpjkO
- pi6/HVvGx+Ay7YD6eriFvx/Jrc+fEOsj/Q==;
+ Cc:To:From:From:Reply-To; bh=oYN5qhEs3yDoEu+OJKIX2zuyVV/8uzAhV8a6AkRFXzw=; b=
+ e8Elhm4IlOEskaQjPo21A73xlbWYB101iYtQa7HK8+OVakprAxV7J1RMhjGz+N4J1IAj2KwZvPiqP
+ r37qNh5XC6knG4ZLYgtWi324G0gqbaBlSK80PAn5a4JQALihSnQjpdMkYT13zO1WyI7Zcl7IzhL1e
+ wg+m9klDBqTwS2UA/YoFh3eO0YrQ7mXbyHAzfWiKeuCJ8t3hcDRFcRJsc1n/hri7JXaS3KKjMFc9M
+ 5cK+0DR7Hbxsl/ffF5uuzdTpJnytvJVOV6OEhOJEkNq8ZzHMPipAJJclc8ttrZsc9Nb49OWPcl3OK
+ /9BdmXPYSH9XjG56M+BfQkRIy8svnZdA9Q==;
 Received: from [90.249.211.112] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtmpo-00H9n3-Ro; Tue, 11 Aug 2026 15:48:04 +0200
+ id 1wtmpr-00H9nr-9J; Tue, 11 Aug 2026 15:48:07 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com,
 	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Subject: [PATCH 05/20] Revert "drm/sched: Remove drm_sched_init_args->num_rqs
- usage"
-Date: Tue, 11 Aug 2026 14:47:43 +0100
-Message-ID: <20260811134758.96339-6-tvrtko.ursulin@igalia.com>
+Subject: [PATCH 08/20] Revert "drm/nouveau: Remove
+ drm_sched_init_args->num_rqs usage"
+Date: Tue, 11 Aug 2026 14:47:46 +0100
+Message-ID: <20260811134758.96339-9-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260811134758.96339-1-tvrtko.ursulin@igalia.com>
 References: <20260811134758.96339-1-tvrtko.ursulin@igalia.com>
@@ -56,23 +56,23 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 2833a0512b4cd55d9fea7ec18be85ef82e69ad3b.
+This reverts commit 79005e34bdcbb4a0b7f512bc32981fb60041767b.
 ---
- drivers/gpu/drm/scheduler/tests/mock_scheduler.c | 1 +
+ drivers/gpu/drm/nouveau/nouveau_sched.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-index 14403a762335..8e9ae7d980eb 100644
---- a/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-+++ b/drivers/gpu/drm/scheduler/tests/mock_scheduler.c
-@@ -290,6 +290,7 @@ struct drm_mock_scheduler *drm_mock_sched_new(struct kunit *test, long timeout)
- {
+diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.c b/drivers/gpu/drm/nouveau/nouveau_sched.c
+index 2cbae003d6de..8b9f935afe09 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_sched.c
++++ b/drivers/gpu/drm/nouveau/nouveau_sched.c
+@@ -405,6 +405,7 @@ nouveau_sched_init(struct nouveau_sched *sched, struct nouveau_drm *drm,
+ 	struct drm_sched_entity *entity = &sched->entity;
  	struct drm_sched_init_args args = {
- 		.ops		= &drm_mock_scheduler_ops,
-+		.num_rqs	= DRM_SCHED_PRIORITY_COUNT,
- 		.credit_limit	= U32_MAX,
- 		.hang_limit	= 1,
- 		.timeout	= timeout,
+ 		.ops = &nouveau_sched_ops,
++		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
+ 		.credit_limit = credit_limit,
+ 		.timeout = msecs_to_jiffies(NOUVEAU_SCHED_JOB_TIMEOUT_MS),
+ 		.name = "nouveau_sched",
 -- 
 2.54.0
 
