@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 80506C5CFEE
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDBA0C5CFEB
 	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 16:32:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 29BA910ECCE;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ADEC210ECCB;
 	Tue, 11 Aug 2026 16:31:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="mH0jNFgA";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="eMeZez0j";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 87E7B10ECC9;
- Tue, 11 Aug 2026 16:31:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51C7610ECCB;
+ Tue, 11 Aug 2026 16:31:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=/HjRNsLgirEwPBqRzb4uyH/hNAFV4NEmvWitpKMODpA=; b=mH0jNFgAiKEE3UXTP23E715sQc
- eY0l5k9Zlj9ty8HnEZEnkHMVByMllk5zeJJCtKQEEOK/pQT/4jbghx9KF8GcXRF+Zo5xG6mLD106d
- FemiP5fWeHnwMDsGmby4VCFhri60v4eiYcgWU2tvJ2EyelIQUieESuyI0vbjeVcwxfwmu25MmiuTH
- zlm8Ockh2RB9phzAMq41BOG+sC0ys1CeaPwRaxZE4VGLHiTDfi2kbUoFXRNt4/j9ojB+p2nuqzMdo
- IGcKCSqRs9veh1pMQxo5G0FCYlxjk1mspp5Q9g+q3zr1oaE14NUYd4A5kMT6zhezm0PuPO/sNvFgV
- b7z6Hxmw==;
+ bh=3WOfPIosR3PoQpWsHIDX8V3i3dfuZq20vorv6OOV8Y0=; b=eMeZez0jXMQCcnp0QaCrH/hfx5
+ RyqQuEtb27RJL47HKHxM1I6aC63CHZvzdcPYS5A8YYdk0u8QB5ZG5Nyl+rAzf6FIv1pUMQNtM54JM
+ 4u4i42J9U4X8iwX2VvnXEsDMoyJV9/mKWr6aMF3sYSxpSKkYaULkKqqIfUsBVAO55Bx4gkEg0bQXD
+ SVV35+xf/zV6GaYUZqedFGoO/HwvPGiy+CjlLQkBGDY103KRXg7gCvntMfbGRRkay6y9CfdISrIm/
+ BzsPiGNmPwoRGdtQjNOdu8MzfM+OrIycqWoRrDQGgAfvTOS7eWOUfLCcGLrY4i12e+f5c+gngxiNK
+ h2VcqvDg==;
 Received: from [90.249.211.112] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtpOH-00HFf4-Mq; Tue, 11 Aug 2026 18:31:49 +0200
+ id 1wtpOI-00HFfI-FE; Tue, 11 Aug 2026 18:31:50 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -36,10 +36,10 @@ Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Luke.Wildhardt@proton.me, Matthew Brost <matthew.brost@intel.com>,
  Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: [PATCH v3 12/19] Revert "drm/amdgpu: Remove
+Subject: [PATCH v3 13/19] Revert "accel/ethosu: Remove
  drm_sched_init_args->num_rqs usage"
-Date: Tue, 11 Aug 2026 17:31:31 +0100
-Message-ID: <20260811163139.99746-13-tvrtko.ursulin@igalia.com>
+Date: Tue, 11 Aug 2026 17:31:32 +0100
+Message-ID: <20260811163139.99746-14-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260811163139.99746-1-tvrtko.ursulin@igalia.com>
 References: <20260811163139.99746-1-tvrtko.ursulin@igalia.com>
@@ -60,7 +60,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 2462a0ce23b0ba1c2195beccf39bc8608cdbd84e.
+This reverts commit 06879a9ad55bc4a7aa2e1bb7ee9fa658cdddee79.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Luke.Wildhardt@proton.me
@@ -69,21 +69,21 @@ Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Philipp Stanner <phasta@kernel.org>
 Cc: Christian König <ckoenig.leichtzumerken@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 1 +
+ drivers/accel/ethosu/ethosu_job.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index bff3e06a756c..e43024ad4feb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -2250,6 +2250,7 @@ static int amdgpu_device_init_schedulers(struct amdgpu_device *adev)
- {
+diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
+index b76924645aaa..1e2465279aae 100644
+--- a/drivers/accel/ethosu/ethosu_job.c
++++ b/drivers/accel/ethosu/ethosu_job.c
+@@ -296,6 +296,7 @@ int ethosu_job_init(struct ethosu_device *edev)
+ 	struct device *dev = edev->base.dev;
  	struct drm_sched_init_args args = {
- 		.ops = &amdgpu_sched_ops,
+ 		.ops = &ethosu_sched_ops,
 +		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
- 		.timeout_wq = adev->reset_domain->wq,
- 		.dev = adev->dev,
- 	};
+ 		.credit_limit = 1,
+ 		.timeout = msecs_to_jiffies(JOB_TIMEOUT_MS),
+ 		.name = dev_name(dev),
 -- 
 2.54.0
 
