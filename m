@@ -4,105 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D33BFC5CFE7
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:07:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BE13C5CFCF
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:07:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A986F10E339;
-	Tue, 11 Aug 2026 17:07:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D460C10E364;
+	Tue, 11 Aug 2026 17:07:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bf5TjJfO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1hL9PpTm";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E8EA010E2BA;
- Tue, 11 Aug 2026 17:07:05 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D211D40E34;
- Tue, 11 Aug 2026 17:07:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56DAB1F000E9;
- Tue, 11 Aug 2026 17:06:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786468024;
- bh=tzHgNprRUHzM+nWJ/u98+1Hlh2UAUyJ3Kbr/TZIbCxA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Bf5TjJfOh3SVJsd4OtNdIG5B5d2xI11qP61qJcO2dcoDBDjurnJvmNPwolN5e/u0t
- B+s35+Ba3k0Ns93TcFR/N9sUve5/+B3Goi9qQ4RIFY2/TfV1P1ngNQrwNDWdpXcp/r
- 4q69xnZYEQ2sxu0tJvaoTKAAFegaeOn7niN+JtEhikAMpqH+Kg8C+KtvXPzvej/CwY
- f4+zv+hOyB74boEfRrhRV6IzRg4W734UjR7CsmOmmM/IuOBia8qp9ei8JtAxef+bGo
- fuAaB+9VFjwnNgmP/8bxFEXx+LF/kKv9tXOqV2pglDl8d/GMZ6T8XshRpJkqe6TIUs
- eq8QHs1RDNSBg==
-Date: Tue, 11 Aug 2026 18:06:44 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Kees Cook <kees@kernel.org>,
- Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, 
- Liviu Dudau <liviu.dudau@arm.com>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kvm@vger.kernel.org, 
- linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 07/20] mm/vma: fix self-merge check in copy_vma()
-Message-ID: <antWi82nEl-7GY7u@gremlin>
-References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
- <20260806-b4-scalable-cow-virt-pgoff-v4-7-ab318a350404@kernel.org>
- <3a0a9aaf-20f5-4f92-b848-00ab702e8fe2@kernel.org>
- <antTCpT9gXN7pSRn@gremlin>
- <20f5b9eb-c4ad-4241-9556-e9bfce9ac715@kernel.org>
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013041.outbound.protection.outlook.com
+ [40.107.201.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D564710E364
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 17:07:21 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DROT4F6qtYszBQD776jlG7uGGbIQsadXuiLKSVkB9b+Ul8hRTYVN03sw0WccZEGjeCY0cxIcLe7RNV9Q+3goGmCqtdBcqj3q7gmuKZcmFPVE8gvV491MMVDr6MXtaidndsq8xAC5TcB20+xZQDeFiTmhPlHrs4MisiP9+qIOT9RtCsuAdte7UrBvGK0Wk/yXprIRTIuDhHbt5UrLO8UxzRY5t/D8h3ybxFCL+uxlUgDo4uQSYkMOF9UKbHhr8wcGGWIUD3Kb/pkFxTJgH3u9d0EgOKR9ulHbSlR/WKQ9dyEZqcuFtBUB5I1j/27uksTWlSjvuSTUdixeUzLdOJJILg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lJU2nIMSPDG11hS4m6MHLkw/lMH7ENo6Ltp3/6LaaVE=;
+ b=oAbsSUhbH/eeewhlA2Y4d7vYZwqLCcwz5NaXLtt/jYAiTYI9/urWMV9qeurVq1HLvCT3oI2Rmz9bRkKj3kXGwKXZVKN8Ndr/lhQIutvoG78qWiApOXjL2LAuT9/aYBn9UxDFkkbivk1NSRyvTOp3pF1/N63QH58kJoA17ciD346H5V376xkS5JJyNlZ1r0pFh6j7ZWkqAMxAxI5vdWD69wWv8olmZcFo/99f2LuQRT0gbFzrbkkdWT1vEa4KbVSp3l+/TD7zQi3ULlu+uZ7+Vs7qEeolmIGp+NNpjKc+rczaWIG5z7UgLDgmvBVMW24nXb9SUPiWecPxrPTiX9hSXw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lJU2nIMSPDG11hS4m6MHLkw/lMH7ENo6Ltp3/6LaaVE=;
+ b=1hL9PpTmHyGYUlCF7/QLC6Zm6NVktM5S/WxQp/h4avCU0FKVn1KzKixtAPOCs6/UpyPGNJTRo48Qh4Gxg7TyxdZ0JG4mT+kOzKh0S9HeIGKcKIIKLlA/06GdIzT0G03R82zgXJpH5n0d9RE0S2yXIMF1pAg/w+5KiFRNssUSjuQ=
+Received: from CH0PR03CA0019.namprd03.prod.outlook.com (2603:10b6:610:b0::24)
+ by SA0PR12MB4415.namprd12.prod.outlook.com (2603:10b6:806:70::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.11; Tue, 11 Aug
+ 2026 17:07:14 +0000
+Received: from CH2PEPF0000013E.namprd02.prod.outlook.com
+ (2603:10b6:610:b0:cafe::b) by CH0PR03CA0019.outlook.office365.com
+ (2603:10b6:610:b0::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.12 via Frontend Transport; Tue,
+ 11 Aug 2026 17:07:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF0000013E.mail.protection.outlook.com (10.167.244.70) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Tue, 11 Aug 2026 17:07:14 +0000
+Received: from david-B650-PG-Lightning.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 11 Aug 2026 12:07:13 -0500
+From: "David (Ming Qiang) Wu" <David.Wu3@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <alexander.deucher@amd.com>
+CC: <leo.liu@amd.com>, <stable@vger.kernel.org>
+Subject: [PATCH v3] drm/amdgpu/vcn: fix integer overflow in dec_msg buffer
+ count check
+Date: Tue, 11 Aug 2026 13:06:53 -0400
+Message-ID: <20260811170653.2092673-1-David.Wu3@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20f5b9eb-c4ad-4241-9556-e9bfce9ac715@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000013E:EE_|SA0PR12MB4415:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ad8eed3-4bfa-4f95-e902-08def7cafd94
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|376014|36860700016|1800799024|82310400026|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: 3ZGPVJbFamqrjyMHDVD9FyBZTaFrTYXrZ/kl/EvzpSN1rMdA0O3OVraxhsSvRkyId1Fip7grT60Kc1QBCy6KgHB6oIh8iXa69j+h/psPFwHReHy40Z2hxHu/M0H6CXkSuBm5FhI1bhlQ43r/s8ICxTwbos5+GkkxJkU9qdHZjspL9EGO6DXsks0QX9prUXddqMcivkK2BUmjxcMR7F7FVLYLzfp/viLjqi+LDt7BEtn17UbvopzvydbykiTugIPxXVTzHa8bOTTxtqYHPeTQcdVB9Q7effReWaSHwtZii6HUc7nqJICXZb1C+00GQ087oFZklhsflQad1CCnu0nm20lNVtAZuVWCJZwDo6VmMwEXTCUmHT6WcW30/cypsS5Th1YFIXQTmLSkfy52wmUaOYfaJhgP0Hx5Zd5kvEsM7wDLDGhdmOIfYMtNqauOPv++Z6J3CyamQa5KEum/IeI/vOr+Q7x7iibgm2P51uYv4959e12dRbNJcMsXxUTQAcLoCaIZbIC7npwQjJ1B0qpG6bw+n0Pau7cTYBZGxblo+svIWB0A6uIwfLTp0xhdTIJU3E95CIYkHtj8iyPG6V3efOiNFGdU+Hvswgw99CQdsB2ybMHUbi7Pa7ri/VS9qPVFbKhYRZ3Pv4d5JMQd3aQAASRc0SfK7WVDLw3M3p4FEU3RMww1vHW9exKkxBEi0NJj
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(36860700016)(1800799024)(82310400026)(10067099003)(11063799006)(56012099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: lfX2Y6cXjbzb17OHTRFPisw7m5EU0RpouIXrXFEDgqw2nOk0tct5It5xAeuQQ1vTZroVIZEZ/lrfWCWFcz7VKsZHXaKS2Ks245dokBK5nmS+9D+R64lrnS+15Q1T0JQpnJbx7cWoydzdM3OhZ7IxAb7UPuYqySgLa8VB77DaO2Vf/kQOPSwBHXUlsQ/cbePW9G30Ck8btQrMojHrehfkt/Ugwh1Js9zw2w/EfmYEqIq2PEYwAJ1zehaTr8GdatqhdwfFhviH0t2NEyeOjsgExvuuPcZecV6bCOrhvjDr1d2ei0wJv3Mb6nxFYyp9ENC3hiewnSPtunYftfSgiTr5gmOTyUBXNOuWUP8CxQhIK0Ou0z55wJM38gPLzuVmFhqEaj69cIEwm2ejcKTGZKKDjIYgVhl9pbOLNKFhWxCz+jVaF4BRRMWboVQ2oqNciETp
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 17:07:14.2481 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ad8eed3-4bfa-4f95-e902-08def7cafd94
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4415
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,58 +109,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 11, 2026 at 06:53:05PM +0200, David Hildenbrand (Arm) wrote:
-> On 8/11/26 18:51, Lorenzo Stoakes (ARM) wrote:
-> > On Tue, Aug 11, 2026 at 06:44:01PM +0200, David Hildenbrand (Arm) wrote:
-> >>>
-> >>> Since copy_vma_and_data() which calls copy_vma() intends to reference the
-> >>> old VMA after the merge, it must have this pointer updated.
-> >>>
-> >>> This kind of self-merge is not possible with a succeeding merge, as the
-> >>> merge always prefers to expand the preceding VMA if possible.
-> >>>
-> >>> copy_vma() accounts for this by explicitly checking to see if a self-merge
-> >>> occurred and updating the vmap pointer if so. However it incorrect did so
-> >>> even for a subsequent merge (this is simply a noop so it had no impact).
-> >>
-> >> Took me longer than it should to find out that this is no real fix ;)
-> >>
-> >>>
-> >>> So change this to only check for the case which matters - a backwards
-> >>> merge - and rearrange the parameters to make it clearer we're doing that -
-> >>> i.e. check new_vma->vm_start < old_vma_start (having already renamed
-> >>> vma_start to old_vma_start to make it clear this is the previous VMA).
-> >>>
-> >>> Also update the existing wall-of-text comment to be a lot clearer.
-> >>>
-> >>> While we're here, replace the VM_BUG_ON_VMA() with a VM_WARN_ON_ONCE_VMA()
-> >>> and update the VMA userland tests accordingly.
-> >>>
-> >>> No functional change intended.
-> >>>
-> >>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> >>> ---
-> >> I skimmed over it, looks correct, but the merging stuff is way over my head to
-> >> confidentially give a RB tag her :)
-> >
-> > Well that's what A-b is for ;)
->
-> Assisted-by? Half-assed-by?
->
-> ;)
+if supplied msg[2] in the header is too large, 4 times
+of this unsigned 32 bit value will overflow and the test could pass.
 
-A schloppy schplatch I like? ;)
+v3: Using two-helper form is heavier than needed.
+    Since len_dw is a plain u32, a division-based test is
+    overflow-free by construction.
 
->
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Fixes: b193019860d6 ("drm/amdgpu/vcn3: Prevent OOB reads when parsing dec msg")
+Fixes: 0a78f2bac142 ("drm/amdgpu/vcn4: Prevent OOB reads when parsing dec msg")
 
-Thanks!
+Signed-off-by: David (Ming Qiang) Wu <David.Wu3@amd.com>
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c | 8 ++++++--
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c | 8 ++++++--
+ 2 files changed, 12 insertions(+), 4 deletions(-)
 
->
-> --
-> Cheers,
->
-> David
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+index 81bba3ec2a93..686f5f758cb1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c
+@@ -1964,8 +1964,12 @@ static int vcn_v3_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+ 	len_dw = msg[1] / 4;
+ 	num_buffers = msg[2];
+ 
+-	/* Verify that all indices fit within the claimed length. Each index is 4 DWORDs */
+-	if (num_buffers > len_dw || 6 + num_buffers * 4 > len_dw) {
++	/* Verify that all indices fit within the claimed length.
++	 * There are 6 dwords in the header before the first buffer.
++	 * Each buffer has 4 dwords. Extra dwords will be ignored
++	 * at the end of the last buffer.
++	 */
++	if (len_dw < 6 || num_buffers > (len_dw - 6) / 4) {
+ 		DRM_ERROR("VCN message has too many buffers!\n");
+ 		r = -EINVAL;
+ 		goto out;
+diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+index 0cce78b205a8..6f0a51c436db 100644
+--- a/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c
+@@ -1880,8 +1880,12 @@ static int vcn_v4_0_dec_msg(struct amdgpu_cs_parser *p, struct amdgpu_job *job,
+ 	len_dw = msg[1] / 4;
+ 	num_buffers = msg[2];
+ 
+-	/* Verify that all indices fit within the claimed length. Each index is 4 DWORDs */
+-	if (num_buffers > len_dw || 6 + num_buffers * 4 > len_dw) {
++	/* Verify that all indices fit within the claimed length.
++	 * There are 6 dwords in the header before the first buffer.
++	 * Each buffer has 4 dwords. Extra dwords will be ignored
++	 * at the end of the last buffer.
++	 */
++	if (len_dw < 6 || num_buffers > (len_dw - 6) / 4) {
+ 		DRM_ERROR("VCN message has too many buffers!\n");
+ 		r = -EINVAL;
+ 		goto out;
+-- 
+2.43.0
 
---
-Cheers, Lorenzo
