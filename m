@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 53500C5B56A
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:11:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D57AC5B572
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:11:10 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70EBA10E38C;
-	Tue, 11 Aug 2026 17:11:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3BFBF10ED0C;
+	Tue, 11 Aug 2026 17:11:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="BoR16pZR";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="YmPl7ouN";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B79A510ED10;
- Tue, 11 Aug 2026 17:10:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C9F110E38C;
+ Tue, 11 Aug 2026 17:10:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=0R/8QSF9rsUV/I2X2ZO5JMNGHhsVjujX7spy0FNwWEY=; b=
- BoR16pZRNeh5log75rwHefDmF2Ws3yJfCVs65hGz9E0wCCjGWjsAqT3G3oeId6SVxXSXC8VbDlIgF
- dDZiUoD/rdC+UR6VSN5QEHKs3guAUEzaAKReYUP/QsrR/fx8EIFk2qBR3+j2WIzda/aBvo+q2DxY5
- h36fiYfkOyhRr+azUQncUfXEeUWQ9RO40K0ww2oYijmgmuEx3H9sVDyFcM3cG/yDgidpP4+l6odaj
- nybZzs7HXUVkOzqOlTILAGUbiLQNUYm4Lflf/16xZKOlpoi7cuAWEG9hbasvT9gEvbR+8oVYn59x8
- 6W41kXNdz1QMxAchSm8f+dW7YPYgR9eJIQ==;
+ Cc:To:From:From:Reply-To; bh=//TxnqmlztwKvjmOKGcBYvIodU2Ir5/N828O7glJey4=; b=
+ YmPl7ouNJi7kF0nPGlB0RlbDSuiODNB02o1DVUe5KCyvAaEFI0c6/1utb9lMx13gjzyqFGQa3v5VK
+ d9ARCmcdWNQlv2VGUFAcWuHhbpSiVjf1zaXku2vCyc5hGqv06NEocxNrKFMGzV/M7WH2xUNWiQp46
+ Mey8aY2Sgum8vfwJUWu1gqRbBr85apPWfucg67q8SsKQePOeZqobIXOvugFClh6VQCRVNaV/98yqu
+ Mm0pC1F9R5CI0froKw2H21MeE/BLGvMkHIqSk1bqypRK5cpS3ZAuq1seBQKmWJU/hRRUBGPMAtK15
+ Dn9PW/BRg6roZgf568Jr2XeJpA1F80qyOg==;
 Received: from 154.red-79-147-121.dynamicip.rima-tde.net ([79.147.121.154]
  helo=killbill.Home) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtpze-00HH9d-Lg; Tue, 11 Aug 2026 19:10:26 +0200
+ id 1wtpza-00HH9d-Qb; Tue, 11 Aug 2026 19:10:22 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
  aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
@@ -47,10 +47,9 @@ Cc: Uma Shankar <uma.shankar@intel.com>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH v4 06/11] drm/amd/display: truly bypass plane colorop 3x4
- matrix and hdr mult
-Date: Tue, 11 Aug 2026 18:45:55 +0200
-Message-ID: <20260811171011.184964-7-mwen@igalia.com>
+Subject: [PATCH v4 03/11] drm/atomic: duplicate state of all colorops
+Date: Tue, 11 Aug 2026 18:45:52 +0200
+Message-ID: <20260811171011.184964-4-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260811171011.184964-1-mwen@igalia.com>
 References: <20260811171011.184964-1-mwen@igalia.com>
@@ -70,52 +69,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Latent issue as the driver is currently just skipping programming 3x4
-matrix and hdr multiplier blocks on bypass. Reset to default values if
-the bypass property is set true.
+Userspace expects that colorop settings of an inactive color pipeline
+persist, so that, when the color pipeline is activated again, preserves
+the values they had when it was deactivated. Colorop setup is expected
+to persist even during a suspend/resume. To snapshot colorop settings
+correctly, duplicate state of all colorops in a given plane, regardless
+of whether color pipeline is active. Depends on skipping
+drm_atomic_colorop_check() for duplicated state done in previous commit.
 
-Acked-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c    | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/drm_atomic_helper.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-index 357c7c5c85cf..450a1469d0fd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
-@@ -1595,7 +1595,13 @@ __set_dm_plane_colorop_3x4_matrix(struct drm_plane_state *plane_state,
+diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
+index 917fd0594259..11c67bb808f9 100644
+--- a/drivers/gpu/drm/drm_atomic_helper.c
++++ b/drivers/gpu/drm/drm_atomic_helper.c
+@@ -3801,12 +3801,9 @@ drm_atomic_helper_duplicate_state(struct drm_device *dev,
+ 			goto free;
  		}
+ 
+-		if (plane_state->color_pipeline) {
+-			err = drm_atomic_add_affected_colorops(state, plane);
+-			if (err)
+-				goto free;
+-		}
+-
++		err = drm_atomic_add_affected_colorops(state, plane);
++		if (err)
++			goto free;
  	}
  
--	if (colorop_state && !colorop_state->bypass && colorop->type == DRM_COLOROP_CTM_3X4) {
-+	if (colorop_state && colorop->type == DRM_COLOROP_CTM_3X4) {
-+		if (colorop_state->bypass) {
-+			dc_plane_state->gamut_remap_matrix.enable_remap = false;
-+			dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
-+			return 0;
-+		}
-+
- 		drm_dbg(dev, "3x4 matrix colorop with ID: %d\n", colorop->base.id);
- 		blob = colorop_state->data;
- 		if (blob->length == sizeof(struct drm_color_ctm_3x4)) {
-@@ -1634,9 +1640,13 @@ __set_dm_plane_colorop_multiplier(struct drm_plane_state *plane_state,
- 		}
- 	}
- 
--	if (colorop_state && !colorop_state->bypass && colorop->type == DRM_COLOROP_MULTIPLIER) {
--		drm_dbg(dev, "Multiplier colorop with ID: %d\n", colorop->base.id);
--		dc_plane_state->hdr_mult = amdgpu_dm_fixpt_from_s3132(colorop_state->multiplier);
-+	if (colorop_state && colorop->type == DRM_COLOROP_MULTIPLIER) {
-+		if (colorop_state->bypass) {
-+			dc_plane_state->hdr_mult = dc_fixpt_one;
-+		} else {
-+			drm_dbg(dev, "Multiplier colorop with ID: %d\n", colorop->base.id);
-+			dc_plane_state->hdr_mult = amdgpu_dm_fixpt_from_s3132(colorop_state->multiplier);
-+		}
- 	}
- 
- 	return 0;
+ 	drm_connector_list_iter_begin(dev, &conn_iter);
 -- 
 2.53.0
 
