@@ -4,104 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 772CBC5B56A
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 19:25:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02C8AC5B56A
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 19:54:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C489D10E37D;
-	Tue, 11 Aug 2026 19:25:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6ED2C10ED7D;
+	Tue, 11 Aug 2026 19:54:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="QjR46Q4l";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lMQDnR4Y";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6634510E371;
- Tue, 11 Aug 2026 19:25:44 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D4E7B4376E;
- Tue, 11 Aug 2026 19:25:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B2051F000E9;
- Tue, 11 Aug 2026 19:25:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786476343;
- bh=d/kFT/bPhzj3VGlufcHrxy72DzfiKj46fSUWmYSSRdY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=QjR46Q4l38ohpBPR9a3NVpyj00X97b0QAtzWD4CJusxEIHEk06ZVprfqvGEwliaFz
- ApBeXPVAZFUoE+1iAOYtGAf1euN2IjulS05jD3suRf8nP+UXfJAjvY23m4sDGtj2gN
- 0iZV+swR1WmPVz6C9JwEZAJHMXnIVG0wfTVbm3960TN4McRip96oHmA0zV1PTgK4PR
- sMEkhML8HuqBfgHxpw5B+Vxc7jB7S5Ing8jtzB1kK0TmQkbcsUP5Z6S8nxav9KhiA5
- LIHxirdJ5+/7iEag07J0iZPWWUreSRXob3X4jSbGiOtkALzPRhYglSoT5SwTdh0u/I
- C3aXsRk4aSs+g==
-Date: Tue, 11 Aug 2026 20:25:07 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Kees Cook <kees@kernel.org>,
- Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, 
- Liviu Dudau <liviu.dudau@arm.com>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kvm@vger.kernel.org, 
- linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 17/20] mm/vma: only permit MAP_PRIVATE /dev/zero to be
- mapped anonymous
-Message-ID: <ant1xwiG3djtoXoe@lucifer>
-References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
- <20260806-b4-scalable-cow-virt-pgoff-v4-17-ab318a350404@kernel.org>
- <c7930f14-5978-4709-bac2-54950c988883@kernel.org>
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010062.outbound.protection.outlook.com
+ [52.101.193.62])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4CEB10ED7D
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 19:54:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qw9/u5sF19Pin+Zo9pvmPMAuhI0qG15RLoyVoalqwBBAtA2Hjuq1ef30bjjHsxc47wBjwjXLd4Y1ZhopJ0eBdcs9yfIA4gAZvtltEdUR/QlLkPjT79H1OKPVoGFPhUm6MXX/a/sIM9Di7/sAvAwi/aao1bd1g6zgO3ec6frbw4E04SxeTnMAr8nWzRmDrX+tcynSzu9OFrrYqOyThnf/P8BBeegdtNJPIMbdrDs+W2q6CSQ0g6mr8ejRws48AiZZLgv0K1M6S9DfyCdUPgVMBHI03txirvAqkbIr11lT1PyzF6o5MbP39f99KVg/oPX02WTV5wZoIMLpU4fP+5wsTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+yR1lkEvNjYMvZ303upUEPQ4jDKqTgEsGGJ5UIZS/pQ=;
+ b=A2/nlbMAw4/f7hXH/87FGbeCgCiKM6+BVKm9EKFJoMHeULonU/zXLvWqN7Hz7tloci64MtmXqMDNw8+N2v+0pGidFcTxjk/5NAXhSH4QtP4MxuVLLOuCqJdOzsrZWlukOfAaSQQmSv6lpPxbOsJwzGYr5RLlSWTDOAC0byYGrY3sDqXbs3wUtL0FbVYrp7MA6RlZGcAZ5KPxmhdQknNwalDaVGUMufFRfg64XyWZ+w0WAGUQJxOMLVIVKk8QfRZ2A2RM8MnO0Vnc6iFHPsQOlTweOAPpjSG5Fx0PB3OeJ9/e6kJE9YlJXKCiKEfe4wBFNN43zx8GNXJ3LiF2a7SkyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+yR1lkEvNjYMvZ303upUEPQ4jDKqTgEsGGJ5UIZS/pQ=;
+ b=lMQDnR4YoXffbLTLGbazVCVgM0nc/1+QolHs90ec3VdJ2YPZjwdvzLU8qoRymiwWUz3ZcPSdR1wgze0ZAHnnHW3Hat75HT9AFnb+qy93IBhmelePY3ZfKJFy+wQyDB5IjJTiGJHN9chlCqsIlt+ncTLZloQAKGvbhT9GiVfCk/k=
+Received: from SN6PR2101CA0023.namprd21.prod.outlook.com
+ (2603:10b6:805:106::33) by DM4PR12MB5890.namprd12.prod.outlook.com
+ (2603:10b6:8:66::20) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Tue, 11 Aug
+ 2026 19:54:28 +0000
+Received: from SA2PEPF00003AE9.namprd02.prod.outlook.com
+ (2603:10b6:805:106:cafe::44) by SN6PR2101CA0023.outlook.office365.com
+ (2603:10b6:805:106::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.2 via Frontend Transport; Tue, 11
+ Aug 2026 19:54:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SA2PEPF00003AE9.mail.protection.outlook.com (10.167.248.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Tue, 11 Aug 2026 19:54:27 +0000
+Received: from amberlin-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 11 Aug
+ 2026 14:54:25 -0500
+From: Amber Lin <amber.lin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <shaoyun.liu@amd.com>
+CC: Amber Lin <amber.lin@amd.com>
+Subject: [PATCH 1/2] drm/amdgpu: Fix per queue reset on MES 12.1
+Date: Tue, 11 Aug 2026 15:54:07 -0400
+Message-ID: <20260811195408.1000488-1-amber.lin@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c7930f14-5978-4709-bac2-54950c988883@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE9:EE_|DM4PR12MB5890:EE_
+X-MS-Office365-Filtering-Correlation-Id: 33449f29-82c9-41e7-4514-08def7e259ca
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: 1rzXV2QAvuaANGlnZPBo0BTzVqWGn60aBlDnTPFsJvuTb9iAtLfkdjy/TD1MnWPXnMN7m/4574N0QFI0xhf8f2Y5bKt76tWGuTJP7P4RoaMwxK3HoR/d/noe9WGs1zcUxxgf0h5nTlm62kQunuhsWKaiV55raF8LeaREpYRrPLIa/IlvWbGdb4wfMQpjx/zRgomVk2pvxNSPA7WD7Kaj7eQwWFB7ED25oyxxrBaM2Hqme7nmyJB3sQzcaH+Iyh88e4FZEIF2twRSY5VdRcCLTVberzivM28JdLn4w7hW6wpJ1rYU8dYs1ojBO9sDZFk3/qrPcoNJ3qLpscQB2698lZ5DXKrsFq+SFD8L4qus1U5YUrZJjdwFF62+25linU4c9tVLFIGJyq92OlihJ485yeJ99W1ECiYsJ+KNzbaGmRm5gCO95SUJ3eECvN3wU8m+2OoTBZQbVpEnMijlml2sxQt4aPgYQ1QiRzCL/QbKW7TNqwEiL5ITCODkALESG/EBM7D/gB61oBBJum/BZNNrm/YNZIL+/DFVus/IF4FGLFTj2ZhM7fHyucnU1yRK/UDVIyNzn/OsotZD73kxB4Im6YuS+CB//bn/mvMVZL+JFWFLCUmrnsbw+Oma0W4NFJ/380V5zvxf5TtH5Ld7+RigjPAhk9o/ncISZr4VaZosqqhZphcJsv6kHxJQ/uUPdo5q0QYJZqJtFy6fztxMApnpxQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(10067099003)(11063799006)(56012099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: YDU06VAjItBF1ggLGQHeUh7lwPBzqvgy/CLRwG7rFoDk6piVLSOabvbHN+UElN6RwH5PybRnA6rJGCYfGihRWL27N/vm3QUCk0QJdO5fxSrPv4gCSw3EQdVznhmv4ocJ/jSUKkHXlXcGduzSJWYZG6qXNFmxFVRvziRXy0fcrGIhL1Jbn07YDcJswpPRc6rjsAu1jMLSmEudQ6M1l7FZMDIqFRmAMf8BtyXk9jFir/jIdGTG+KSSx8UME5HnqGu0EY9wg/654xetPpsjGMQqbTf95TWipWqzDROZsJ21cnxWUI72/1QpHUOz/JXopFuT4h5TIA5eGbrfVkVi2UczZ1aKVbxzs2fFmj8ovjYzTRgj2U4rasUI+WZm35fBn55iJQEoH2BxoYkEJqlzxdXJNzI0BdXQ/ROAfHF7uKZSBd/1etAjPUJ+zDCGX7cJMiAM
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 19:54:27.3641 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 33449f29-82c9-41e7-4514-08def7e259ca
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AE9.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB5890
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,119 +108,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 11, 2026 at 07:07:27PM +0200, David Hildenbrand (Arm) wrote:
-> On 8/6/26 22:21, Lorenzo Stoakes (ARM) wrote:
-> > In order to use mmap_prepare() with MAP_PRIVATE mappings of /dev/zero
-> > without the success_hook hack we explicitly permitted mmap_prepare handlers
-> > to set NULL vm_ops.
->
-> The sentence is a bit hard to get as you are mixing "with" with another "without".
->
-> >
-> > However this is dangerous and we really only want to allow this for
-> > MAP_PRIVATE-mapped /dev/zero.
-> >
-> > Make it possible to explicitly identify /dev/zero by setting a global
-> > DEVZERO_MINOR device minor number then explicitly check for this in mmap
-> > code for a MAP_PRIVATE mapping and only set the VMA anonymous if we have
-> > positively identified it.
-> >
-> > Then remove all ability for mmap_prepare or mmap hooks to set a VMA
-> > anonymous and update mmap_zero_prepare() to leave it to the core mmap code
-> > to mark the VMA anonymous.
-> >
-> > Note that this disallows nested MAP_PRIVATE-mappings of /dev/zero
-> > regions. Doing this would be broken in any case.
->
-> What exactly do you mean by "nested MAP_PRIVATE mappings"? You mean, reusing
-> parts in other drives?
+Different from detect_and_reset, reset_hw_queue performs per queue reset
+by sending reset_queue_only=1 and hung queue's doorbell_offset to MES
+in RESET packet. enable_compute_pipe_reset=1 also needs to be set in
+SET_HW_RESOURCES so when queue reset fails, MES will proceed pipe reset.
 
-I should have said stacked I think.
+This patch also fix a bug in mes_v12_1_reset_hw_queue function. Instead of
+using MESAPI__RESET offset for api_status, the existing code uses
+MESAPI__REMOVE_QUEUE.
 
->
-> Do you mean things like ...
->
-> [...]
->
-> >
-> > An example of this is drm_gem_shmem_mmap() which deliberately clears
-> > vma->vm_ops before handing the VMA to dma-buf. Cases such as this will be
-> > updated when they are converted to mmap_prepare.
->
-> ... this?
+Signed-off-by: Amber Lin <amber.lin@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mes_v12_1.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Yup.
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+index f1098118d5c0..9c01dc97d271 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_v12_1.c
+@@ -388,7 +388,7 @@ static int mes_v12_1_reset_hw_queue(struct amdgpu_mes *mes,
+ 
+ 	mes_reset_queue_pkt.doorbell_offset = input->doorbell_offset;
+ 	/* mes_reset_queue_pkt.gang_context_addr = input->gang_context_addr; */
+-	/*mes_reset_queue_pkt.reset_queue_only = 1;*/
++	mes_reset_queue_pkt.reset_queue_only = 1;
+ 
+ 	if (mes->adev->enable_uni_mes)
+ 		pipe = AMDGPU_MES_KIQ_PIPE;
+@@ -398,7 +398,7 @@ static int mes_v12_1_reset_hw_queue(struct amdgpu_mes *mes,
+ 	return mes_v12_1_submit_pkt_and_poll_completion(mes,
+ 			input->xcc_id, pipe,
+ 			&mes_reset_queue_pkt, sizeof(mes_reset_queue_pkt),
+-			offsetof(union MESAPI__REMOVE_QUEUE, api_status));
++			offsetof(union MESAPI__RESET, api_status));
+ }
+ 
+ static int mes_v12_1_map_legacy_queue(struct amdgpu_mes *mes,
+@@ -743,6 +743,8 @@ static int mes_v12_1_set_hw_resources(struct amdgpu_mes *mes,
+ 	mes_set_hw_res_pkt.use_different_vmid_compute = 1;
+ 	mes_set_hw_res_pkt.enable_reg_active_poll = 1;
+ 	mes_set_hw_res_pkt.enable_level_process_quantum_check = 1;
++	/* proceeds pipe reset if queue reset fails */
++	mes_set_hw_res_pkt.enable_compute_pipe_reset = 1;
+ 
+ 	/*
+ 	 * Keep oversubscribe timer for sdma . When we have unmapped doorbell
+-- 
+2.43.0
 
->
-> >
-> > Also, in order to avoid a single commit bisection hazard, add a temporary
-> > workaround to set the VMA anonymous only after vma->vm_file is assigned in
-> > __mmap_new_file_vma().
-> >
-> > This is because vma_set_range() calls vma_set_pgoff() and
-> > assert_sane_pgoff() in turn, prior to the vma->vm_file being assigned. If
-> > we set the VMA anonymous early then this assert will fail.
-> >
-> > This is removed in the subsequent commit.
-> >
-> > Also update the VMA userland tests to reflect the change.
-> >
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
->
-> [...]
->
-> >
-> > +static bool map_is_dev_zero(const struct mmap_state *map)
-> > +{
-> > +	const struct file *file = map->file;
-> > +	struct inode *inode;
-> > +
-> > +	if (!file)
-> > +		return false;
-> > +	inode = file_inode(file);
-> > +	if (!S_ISCHR(inode->i_mode))
-> > +		return false;
-> > +	return imajor(inode) == MEM_MAJOR && iminor(inode) == DEVZERO_MINOR;
-> > +}
->
-> My brain is a bit slow after digging through this series.
->
-> We identify shmem, for example, through shmem_vm_ops/shmem_anon_vm_ops.
->
-> So naturally I am wondering: couldn't we do something similar to identify that?
-> Like, checking for zero_fops?
-
-We don't assign vm_ops for a MAP_PRIVATE-/dev/zero mapping. So that won't work.
-
-We could expose zero->f_ops but then it's literally in drivers/char/ and that's
-just weird to expose in mm.h or whatever.
-
-I'm giving a really minimal possible thing to export, which is the DEVZERO_MINOR
-number which avoids all kinds of weirdness like that. No driver stuff exported,
-just a number :) MEM_MAJOR is already available.
-
-So I think it's the least bad choice in this one, very very specific scenario.
-
->
-> > +
-> > +static bool map_is_private(const struct mmap_state *map)
-> > +{
-> > +	return !vma_flags_test(&map->vma_flags, VMA_SHARED_BIT);
->
-> Can't we use the is_cow_mapping() helper instead somehow?
-
-Lol... yup. Let's see how the rest of the review goes and we'll see whether I
-can ask Andrew to change it or I'll change it on a respin.
-
->
->
->
->
-> --
-> Cheers,
->
-> David
-
---
-Cheers, Lorenzo
