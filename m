@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99BB8C5CFF1
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 16:32:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D36BBC5CFCF
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 16:32:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04BF610ECD5;
-	Tue, 11 Aug 2026 16:31:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EFDF410ECD4;
+	Tue, 11 Aug 2026 16:31:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="BMxrjKuK";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hTxG3Cnm";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D788610E34B;
- Tue, 11 Aug 2026 16:31:53 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD0DD10E347;
+ Tue, 11 Aug 2026 16:31:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=wKA4j0DHgzkwr5BzC+/j/W/2kiNi6Hu7dhx8TOZWDGI=; b=BMxrjKuKVYlvuOIu73H7LVA35X
- 6Ey6A9o1pD+EbA59ydNbLAO+tAak9j4x+XjiTq2xJg8Xz4EnG/wqum5HnZJbqFP8j8+BZOcYarsw+
- IuR8TBhoD/utPuu6jxtPW8ImsVuwY6U/OCJhQrm2QKjk8seZwaTI2n64xRnIpIsLSlB1d0J7qHOED
- zApS25feY7kq3LVgqhmDhQMEq5veXqvD49NHLvNMWC7kSQx3lu7xQIbSY4GmQF/YWgBcjaipKuZBO
- ++lHXPhocWgMxJdISURPqnE3p3l5vr6kAlUTdxa1q/zhxLSIuzGMxTZLE7bVq8CabF8pVYBjzLqNs
- EuyEQNXg==;
+ bh=Wgt4rZaTFj/RpLzFpqBgwVIn/wzPs+e7KjNnlchLTGc=; b=hTxG3Cnm0x4BgA3TBinUVcS92q
+ CcKZhgbyw2H9Xxepxmr4ZKT89s0szsLTRI4tkGGB8yvmGbF0bou3TPZqucTcBS8fkNTBGxVFMoGRq
+ MMappLwW35dZTn0y4/Rq3mz2OFvKrAwU8/lBGDhDKfxXBFDMzIpCjhLJokdWMLboQ79dsLzsBjPEp
+ HhOqhqxqOnUk4y1vBl6ruSYD7wFxHVpW5cLoA/ukL2CpTfPf4cs1zuZCbrFkszdDq3ELnJI2wU12x
+ vM3utfKwGhoytNYqdYOXc6xHPO007AwPanuVH2RO4rsbk08bg8ztSe4J0WpVCdmvitz+1DrcKuO3N
+ gSxnnL1g==;
 Received: from [90.249.211.112] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtpOK-00HFfx-04; Tue, 11 Aug 2026 18:31:52 +0200
+ id 1wtpOD-00HFdj-Tz; Tue, 11 Aug 2026 18:31:46 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -36,10 +36,10 @@ Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Luke.Wildhardt@proton.me, Matthew Brost <matthew.brost@intel.com>,
  Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: [PATCH v3 15/19] Revert "accel/amdxdna: Remove
+Subject: [PATCH v3 07/19] Revert "drm/nouveau: Remove
  drm_sched_init_args->num_rqs usage"
-Date: Tue, 11 Aug 2026 17:31:34 +0100
-Message-ID: <20260811163139.99746-16-tvrtko.ursulin@igalia.com>
+Date: Tue, 11 Aug 2026 17:31:26 +0100
+Message-ID: <20260811163139.99746-8-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260811163139.99746-1-tvrtko.ursulin@igalia.com>
 References: <20260811163139.99746-1-tvrtko.ursulin@igalia.com>
@@ -60,7 +60,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit ac58121339db0178186d256a956bb65feb8b6e45.
+This reverts commit 79005e34bdcbb4a0b7f512bc32981fb60041767b.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Luke.Wildhardt@proton.me
@@ -69,21 +69,21 @@ Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Philipp Stanner <phasta@kernel.org>
 Cc: Christian König <ckoenig.leichtzumerken@gmail.com>
 ---
- drivers/accel/amdxdna/aie2_ctx.c | 1 +
+ drivers/gpu/drm/nouveau/nouveau_sched.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/accel/amdxdna/aie2_ctx.c b/drivers/accel/amdxdna/aie2_ctx.c
-index 4b3a62aa8798..2b97d9707129 100644
---- a/drivers/accel/amdxdna/aie2_ctx.c
-+++ b/drivers/accel/amdxdna/aie2_ctx.c
-@@ -665,6 +665,7 @@ int aie2_hwctx_init(struct amdxdna_hwctx *hwctx)
- 	struct amdxdna_dev *xdna = client->xdna;
- 	const struct drm_sched_init_args args = {
- 		.ops = &sched_ops,
+diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.c b/drivers/gpu/drm/nouveau/nouveau_sched.c
+index 2cbae003d6de..8b9f935afe09 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_sched.c
++++ b/drivers/gpu/drm/nouveau/nouveau_sched.c
+@@ -405,6 +405,7 @@ nouveau_sched_init(struct nouveau_sched *sched, struct nouveau_drm *drm,
+ 	struct drm_sched_entity *entity = &sched->entity;
+ 	struct drm_sched_init_args args = {
+ 		.ops = &nouveau_sched_ops,
 +		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
- 		.credit_limit = HWCTX_MAX_CMDS,
- 		.timeout = tdr_timeout_ms ?
- 			msecs_to_jiffies(tdr_timeout_ms) :
+ 		.credit_limit = credit_limit,
+ 		.timeout = msecs_to_jiffies(NOUVEAU_SCHED_JOB_TIMEOUT_MS),
+ 		.name = "nouveau_sched",
 -- 
 2.54.0
 
