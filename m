@@ -4,94 +4,99 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E02CC5AD7B
-	for <amd-gfx@archiver.kernel.org>; Mon, 10 Aug 2026 22:32:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4AD0EC5AD7B
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 00:38:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8996810E09D;
-	Mon, 10 Aug 2026 22:32:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0085F10E256;
+	Tue, 11 Aug 2026 00:38:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="b/l7q4F1";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dSM/0ujh";
 	dkim-atps=neutral
-Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com
- [209.85.160.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9B52810EA00
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 22:32:03 +0000 (UTC)
-Received: by mail-oa1-f41.google.com with SMTP id
- 586e51a60fabf-448b0ff4a57so2483138fac.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 10 Aug 2026 15:32:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786401122; cv=none;
- d=google.com; s=arc-20260327;
- b=E7qCnZBi5oNZ+XTJrfCGLqo9reqJ8lSTbfgGORd9bOiEOmm+1hSZE2PyczFUk8MAnm
- CUIp5GtAr5F7GH3dh47daYOeShotXn3v1+VYsCJilKsy3SB55+/MNEGeXFGvEM0uXvPM
- 2l6srOCG0i2h4FI88zgvWQNLm8UD6l8gPI2svRwymgCGN48o7PYOElaEa6E6IUOeq2Ng
- BzwAm6Uxf3Y9nnpkSYFvSLHmGZhEW+dQSZaIf2ewyZ6QppxPxTmaTeVJwlRWyCYh1jhR
- qGsgrPy0ydudlP8a85d9nENfhrQbwMtSiuId6mMftGDtEL7nydtcgcvCWP2Xssp7XgAQ
- sJAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=zyxXtENBpyFNsNuf38voWr1wQ1uEtNHDyiKrmTqUuxg=;
- fh=T9iK5wvcavkqyvVffXBdb8Md8noUalR5DtA16BzhEWQ=;
- b=Ov/sgMMl5IYtonOe3zovx8dvPPAK1Rj13qpjFaJckk92vQbUOpch7uQILjU2O5S9Zg
- omClt+C8u3LC7pdCJ9j3nGJopXSGmqtnZEINF5OOUObSOzTPeVXhAIzo481Fhu7AGb3g
- 6GuEvVQ+ZPTbO9RyY8Ah26HPAbLy19jqj3kpYkOorTJN9KRJdeAbw4j8QjaWdn59BDik
- tbfc0PhmDNKrqxjQClKWdandOGR1nQyMtu7CGTaBkHMcyGq6Jl7JMcdRzbLstPPDjvMl
- 0WB2Sihc/rWsf5Ec9xFbq3JjpfpoMDpdpTeBfTG81G89XRGCbQXfy7NCyTqx/mF3Hwso
- qwCw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786401122; x=1787005922; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=zyxXtENBpyFNsNuf38voWr1wQ1uEtNHDyiKrmTqUuxg=;
- b=b/l7q4F1ANeRr1F0D+YASwmlUdm03H/niyRPnybJ7PJTzH+reqap6yrgf/uFsiFc/v
- YG1MfnrOxt0akbYT3PazyNXLqj1lZPEp9XfubVgelhAplvek5BXBRFmzdy9MtSVaS1Eu
- bGbwe8hNTDk48z7a4+GmzyYMQmz0Iv+br9Xx2bd90gK24oWx5VQhVE1adx9ZH4i+ECp3
- BqJ9RWqBnPCbsuK8+Nlo2W7BoUEQEuODhSWYvrwR7kbSDQ61xk+roy0jIpm/fWvWkBeD
- LAcK/w3tvWd5cYgwK4EVSHV9381ZPxUCkATOkNZhZEgWNrsaSbwabcpThNcaF4Jiti3A
- bFAQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786401122; x=1787005922;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=zyxXtENBpyFNsNuf38voWr1wQ1uEtNHDyiKrmTqUuxg=;
- b=dZboYUGNxWALyrzLx/DmlGFiPjIiDTgZgUYtMbd3LP1v7G9tIzGXPA6PSKjj+/5jou
- aH6bRQbnY3DPjrWxc0dv9AvHbkmIsvdkrZH6ZbVwWMT8ByUJoLMW6RMC9Ff1TILnn6jT
- EdxWr5HKjfCpdXRh+VHfH1xMVoHz3bnSmnXiVYRbpifq7taalNgQzH5J8/ZiTZG1yaFu
- qCiF0AXPptXg3lbhQj2VXKGLTINW7LUAYOEnZG5H/Ii/OC9SjGts2SrjkuC4C0Av2Til
- 8fpcPE1wRT6uFm0YEHTlS3O/Qe5EAX0elNDlbadva/WI/Dk7ROn2dnKhyorkZy37FmDq
- uV4Q==
-X-Gm-Message-State: AOJu0Yy9zgf6tAgANOll+5APQOred0wJeB6Nmfeau9NEWFW8Q4slano5
- 0Ti/vrAHlVfi27sxLRfGRP3o40PdCLlyP0k25sQpaOYhG2KbfcnYJeLK8o9hcnVJyp51qVf7yV/
- 5td46rjuKGlbVi5eb3+Pr/WJaEYY++sk=
-X-Gm-Gg: AR+sD13/W1MIhZe5JbcDHNyeM4KAeYO0c3AiwDTrBATTQKGewLQlb6IYVkUBpH2rvpQ
- rxwGRhNqEiHB6mw9uVwJsoWd83J5B3CxSiIwdItGoklfmJdjyw99v/u18MixC9lqcGUONyBu+KL
- wngcc+qailfPVewxgXjvmwd2f6GWH29cZYPGA8jHuN5XKnyPbmhF/2RfqI7pi4LRPtXmLEENsxa
- eaAckR1F7fl5Mu8PhJv0hYfst6rlfuguoLSgZ4M2vqZnevekXawt5yQkYsplO8u68RrQ6GFdpjb
- fwhGd5+E529f0AkKgRA2oLu64lQLcgNR2z5c+u46Ll74O43elf7TsSzL
-X-Received: by 2002:a05:6871:eb14:b0:409:5241:8abc with SMTP id
- 586e51a60fabf-459ffc96be9mr14219832fac.20.1786401122585; Mon, 10 Aug 2026
- 15:32:02 -0700 (PDT)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012044.outbound.protection.outlook.com [52.101.48.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BBA3410E1D4;
+ Tue, 11 Aug 2026 00:38:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=h7Mz0Z69l2rXYo5UoE8huLqcAK3uxdvcKWkVkCiOVnQa3M2KGg7iXSLE3c5ODdBXS8nvbkJ+FcSUcA7M2PNazc5O5FpBJFyESCsV7+ffvoGADPpHNqu/KlCQNx3EXT5nyp/ru42xDVoTHtG0Eh9mcOTMG/bC7QoNg1s4Z+RAZPHjlT4oayLNtmY2S+AHNJjfROlqBSP0dnnMwY41WSXX6vwDOE1/rHhP0rFDFmm1eDntppgsyESyyxSu9TPNEA9CWUjhGPR4VLOAqKFdQT8q4SNS+ASuEONDk5EknP1GB3r7smIHccCcieLVYOM8Z+3KzDcA5/ZCuLQeISCkZxujnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Iv3BnUX6LAV0n4YPzgn+u6IfAE9FF/w4e6zfEvFJ6pM=;
+ b=up0dO8ukrIjZXSYkqy/s4YVtzpxy7ekKoRboX98L5S01hJECyhveHvIbjwg1+uzxtdNigbrDxp6Bbzb03/5p16yjdpv/dBMvY5h98J18v6Jp/YKCfLMO85DUTthzVS1ok/yP/BwZv6oHLFGYSwmpPKit8mYwC2XhXpFH95q7PmSfMOE8TDOKKDl7lF34itp4k+JL8OSPkoEFOf4N7BEIzc4LAZ2LG9SZ4oVD9FIlTmGl/doULKG6wdr1/7MsG2HsrQbN537QgvwQOnCwe5tm3e4phCok/0+BMQKXEsQafvEMAJWJCyu4oN7edoyeDxdv0IQUBQ9eCjDSrs6G+gI2Dg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Iv3BnUX6LAV0n4YPzgn+u6IfAE9FF/w4e6zfEvFJ6pM=;
+ b=dSM/0ujhViThJ3E+WYmGD/eUOV8tQT6ex2NSQvU7QWPLpkiaYO084zmI2dihBt5EtzL4PeSdFOc+IKyNRfWdlJRaO1BHndNIja/Vp9XBnGO/39RvpN+o1gYO++sSpANOiITbJT8bE3Qrii4IKLYHuvGmccOZDZ0rr1tBqH+223Q=
+Received: from MW4PR02CA0018.namprd02.prod.outlook.com (2603:10b6:303:16d::17)
+ by LV2PR12MB5917.namprd12.prod.outlook.com (2603:10b6:408:175::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
+ 2026 00:38:42 +0000
+Received: from CO1PEPF000066EA.namprd05.prod.outlook.com
+ (2603:10b6:303:16d:cafe::36) by MW4PR02CA0018.outlook.office365.com
+ (2603:10b6:303:16d::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.25 via Frontend Transport; Tue,
+ 11 Aug 2026 00:38:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF000066EA.mail.protection.outlook.com (10.167.249.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Tue, 11 Aug 2026 00:38:41 +0000
+Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 10 Aug
+ 2026 19:38:41 -0500
+From: Fangzhi Zuo <jerry.zuo@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <dri-devel@lists.freedesktop.org>, Harry Wentland
+ <harry.wentland@amd.com>, =?UTF-8?q?Tomasz=20Paku=C5=82a?=
+ <tomasz.pakula.oficjalny@gmail.com>, Fangzhi Zuo <jerry.zuo@amd.com>
+Subject: [PATCH v3 0/4] HDMI 2.1 VRR and ALLM support
+Date: Mon, 10 Aug 2026 20:39:17 -0400
+Message-ID: <20260811003921.1398292-1-jerry.zuo@amd.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260806205449.16806-1-jerry.zuo@amd.com>
+References: <20260806205449.16806-1-jerry.zuo@amd.com>
 MIME-Version: 1.0
-References: <20260807182724.51018-1-edu042sjroy@proton.me>
- <CACNCB+=r4dAU4+WF2wGzsedbP67ZztWb8xE=CHgAf92BUhmxzA@mail.gmail.com>
- <TfUyS8ZAROFt0PXoGV7cW9HCmJCeX30V7o6BJSHAQOkc5aUVRYg5x0Bzui1uOBd5b1jXlYkwajcV4Z0_wSDRSHVaAcnu8HbjDYqhGD6q0Tg=@proton.me>
-In-Reply-To: <TfUyS8ZAROFt0PXoGV7cW9HCmJCeX30V7o6BJSHAQOkc5aUVRYg5x0Bzui1uOBd5b1jXlYkwajcV4Z0_wSDRSHVaAcnu8HbjDYqhGD6q0Tg=@proton.me>
-From: Nathan Lucas <nlucasgit@gmail.com>
-Date: Mon, 10 Aug 2026 16:31:51 -0600
-X-Gm-Features: AUfX_mwWXSS48fnafVI5tybbDEohF5POqvdUB9mQHhCRVov_4uA_RvOrYmLge74
-Message-ID: <CACNCB+=cv9gBMLKxz+1e8=yFCC4PbKR0z4sh_jVEXPif1PG_zg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/display: Fix BT2020 YCbCr limited range output CSC
-To: edu042sjroy@proton.me
-Cc: amd-gfx@lists.freedesktop.org, harry.wentland@amd.com, sunpeng.li@amd.com, 
- siqueira@igalia.com, alexander.deucher@amd.com, Ilya.Bakoulin@amd.com, 
- dri-devel@lists.freedesktop.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF000066EA:EE_|LV2PR12MB5917:EE_
+X-MS-Office365-Filtering-Correlation-Id: 11def932-d44a-414a-8e84-08def740e488
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|23010399003|36860700016|10067099003|11063799006|56012099006|6133799003|18002099003|22082099003|13003099007;
+X-Microsoft-Antispam-Message-Info: rpc6EYNIVtm6dOn+vVwLSdonSAIFo/+/NG9Jh+NyyAtSUlAvGFhUgwok1MogFBVOkWieLOjA/mxujm1S1dWh4ONfaEF8kYkjb2PB15tWgDWkXuXNeNBs99vynRfEiLKNwYSkGkIJKOla+pEDn4RTF4yXT+KOmSDNmG6duNVVgYklfjT/jW3i4/4EyeYke3hm5AsDK7K3T6T4RkeagZcepE51mAqExKY1xJw48bYNKUHV3HINclt1LBRnS3Tw7ti2xrZDnYeQY+/H9YbQ0pCxiTd3R+EAlQVKC2LmJ29HrefVLstuMPB9Cd6sU/4kct0VM/lttrpnBO1mG+AayyDfMGAN6JZ4d6eXS++vGdQWwogsjSa0w6Wb38owLEk3dSQWJT5KQetaUeqIUGzs2NlzGl9O+O5wPUOAKZgI7K6bgEnOfmVoOywsZKuxQ9YdDS1MIWXaxFWFejZqnlYPQwHG69MfGsgAdqrGbk8wS66UjRMZ+zVmSdP9aOtJEw8edFfrABGmzNhJ0ELvmtAtXBSKYBj4yafqRNHFbzwwyjlT13993b5nXj0PQAn1H5MDw7wSq0Gx830rch0RuzfbZ43AorttcXLMRzpLYo+5fWIEGV4pD1e2fopO0sizT+fybe52qxqaaufxLb7NstvgaWhmd12LecYQnoOYgoNbIEdWB7Fal7xiVGIab2y0t/FLfOkAh8PhLdt2UP1EYOMgRmfHRg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(23010399003)(36860700016)(10067099003)(11063799006)(56012099006)(6133799003)(18002099003)(22082099003)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 7gn2QMYGwSFHoU/lGqNhv8/KukT79kFfY8O8qECwjhzZDYjktXEQzKvv6DjfLkpZk7pzccRGweBF88wfxcbRCUth3HM3wz0KQ2Zgv23vCdHm8bmpdAeAMltTKhby+n+hIwlMpzNCSVO5XuS2xU9VIgfd+arjq+Kh9L0V5m4q7riki2mccU6YVpo50F7AI6AxlFSfsD4wyzPQVFKn65DIN3NTNW1yPMTJLJ83LDb31nQNlvIAC0AndP2C0eNX7aELpwAx+bV84Ub0E7kqz3vNflFRgYsy8cEH55JzguExMiCNz8/++R3iaIifwvzZFWqERRMDS8Rf/uEwvg3PHCSTmPPDBjU6gDpiJscWjR9ZCpK9l5jSqIEsyFfZBf3NHZfXMKs91UErQIH24vdvFhX9kfLGCpsISWdwu/7q0oMY6xPKu6s0Q7EQfho4cJMeARf3
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 00:38:41.6564 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 11def932-d44a-414a-8e84-08def740e488
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000066EA.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB5917
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,31 +111,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Satyajit,
-That makes sense for the 8-bit normalization.  Thank you for testing
-the patch on your equipment.
+This series adds HDMI 2.1 gaming support to amdgpu: Variable Refresh Rate
+(VRR) derived from the HDMI Forum VSDB (HF-VSDB), and Auto Low-Latency
+Mode (ALLM). It builds on a drm/edid patch that parses the HF-VSDB gaming
+capabilities into struct drm_hdmi_info.
 
-On Mon, Aug 10, 2026 at 12:05=E2=80=AFPM <edu042sjroy@proton.me> wrote:
->
-> Hi Nathan,
->
-> Thanks for catching the normalization issue.
->
-> I initially used 8-bit normalization because the mode I was debugging was=
- 3840x2160@60 YCbCr 4:4:4 at 8 bpc, and I incorrectly tied the CSC normaliz=
-ation to the output link bit depth. Your 10-bit normalization is correct.
->
-> I built and tested your first patch, "[PATCH 1/2] drm/amd/display: fix BT=
-.2020 YCbCr limited output CSC matrix", on Navi33 / DCN 3.2.1 over HDMI to =
-an LG CX with BT.2020/PQ HDR. The limited-range path works correctly with t=
-he corrected matrix and fixes the incorrect HDR levels and color I was seei=
-ng with the original matrix.
->
-> I also confirmed that the resulting amdgpu module contains the corrected =
-limited-range coefficients from that patch. My hardware testing was limited=
- to the DCN limited-range path.
->
-> Tested-by: Satyajit Roy edu042sjroy@proton.me
->
-> Thanks,
-> Satyajit
+  - Patch 1 reports FreeSync from the AMD VSDB (existing mechanism).
+  - Patch 2 (drm/edid) parses the HF-VSDB VRR range and ALLM bit.
+  - Patch 3 enables VRR from the HF-VSDB when the AMD VSDB has no range.
+  - Patch 4 signals ALLM_Mode in the HF-VSIF for Game content / active VRR.
+
+v1: https://lore.kernel.org/amd-gfx/20260730171754.704049-1-jerry.zuo@amd.com/
+v2: https://lore.kernel.org/amd-gfx/20260806205449.16806-1-jerry.zuo@amd.com/
+
+Changes since v2:
+  - Fix coding-style issues in the VTEM info-packet code.
+
+Fangzhi Zuo (3):
+  drm/amd/display: Add 2.1 FreeSync support for AMD VSDB EDID Block
+  drm/amd/display: Add HDMI 2.1 VRR support from HF-VSDB
+  drm/amd/display: Add HDMI ALLM support
+
+Tomasz Pakuła (1):
+  drm/edid: parse HDMI 2.1 gaming (ALLM/VRR) capabilities from HF-VSDB
+
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   5 +-
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |  89 +++++++++++++-
+ .../display/amdgpu_dm/amdgpu_dm_freesync.c    |  43 +++++++
+ .../amd/display/modules/inc/mod_info_packet.h |   4 +
+ .../display/modules/info_packet/info_packet.c | 109 ++++++++++++++++++
+ drivers/gpu/drm/drm_edid.c                    |  42 +++++++
+ include/drm/drm_connector.h                   |  47 ++++++++
+ 7 files changed, 335 insertions(+), 4 deletions(-)
+
+
+base-commit: de2622bbc20276eaaaafa8fdbd374ace1ced28dc
+-- 
+2.53.0
+
