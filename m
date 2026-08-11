@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 662E5C5B56A
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 16:31:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3127AC5B56A
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 16:31:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D493310E1D0;
-	Tue, 11 Aug 2026 16:31:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EBD6910E33C;
+	Tue, 11 Aug 2026 16:31:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="W+YY7Lkv";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="WpnJI901";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C19E10E2DC;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8BF5010E2AD;
  Tue, 11 Aug 2026 16:31:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=eAIC2eNVCx/36oK4Mvg5M742QyIslF218wMVqg03OUU=; b=W+YY7LkvO2dR0dm3Cr09Bnu24w
- qGVzCEsQMkmR02uc2SD3Cu5q6y36LZyFJ6Yko7WX+UJzcsYFyIEXWfq5+pLDR93u/rE1TyCjLFLJm
- YDyTBUa4p3VWxV2YWGBAD2e07WslVVGB8okMdIPkf4+H7LoiB5AYsD21+U3v1kb4KRm3xInWFGrGC
- uDsIzoqjzVqfei9xgbo8GRPuhPRfL9HSKAyQ6a5mx1zg7VWrSizQAsOfMmFIGEpRG5vfzTqv3pcCp
- 4fAhvcqTC2uWn5atbnpZZ8BAwZ+iMhv3IMuxY7NLH4yqwuMBE4Uz8HE+Ag+kXelRH+o9yiJsMYg7t
- qdfGzlAw==;
+ bh=m7qYw0XOBDIoyrIZhqy06lGKZmKonyjQ3VqVBfATbu0=; b=WpnJI901kLCXMTdfVGnjhGg/bg
+ +YKJpTFOLGuc+4V3A2mQgSIMJzL6zTWzDJe3GgHYanM6l4A1t57lsiCJTEADkHcHNwA9sMr7I6XBE
+ VyCxNlnv7mwBZJwM/tVHIsLbkJWYET4I9gAVagm91oWOxJsEV8fMFKcPVY2Ggk04VzEhMP+sw+ORe
+ u3vUifZE3dfryBBSRG3dO6qYVyIFlubr++uAxRMOcVI02I30Wco/f/JtQvrVCf+lt4LoXxE54jRmP
+ +8w7uQz0it25Q1+rY8y7xRq7+kRyGtrhDuHxGOtzphBtKXaDKjXFK74pFhEnjHoX9P/bzoTi0X7Es
+ hAlYcHWw==;
 Received: from [90.249.211.112] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtpOA-00HFcq-3Q; Tue, 11 Aug 2026 18:31:42 +0200
+ id 1wtpO8-00HFcg-IS; Tue, 11 Aug 2026 18:31:40 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -36,13 +36,10 @@ Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Luke.Wildhardt@proton.me, Matthew Brost <matthew.brost@intel.com>,
  Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: [PATCH v3 02/19] Revert "drm/xe: Remove drm_sched_init_args->num_rqs
- usage"
-Date: Tue, 11 Aug 2026 17:31:21 +0100
-Message-ID: <20260811163139.99746-3-tvrtko.ursulin@igalia.com>
+Subject: [PATCH v3 00/19] Revert switching default DRM scheduler policy to fair
+Date: Tue, 11 Aug 2026 17:31:19 +0100
+Message-ID: <20260811163139.99746-1-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260811163139.99746-1-tvrtko.ursulin@igalia.com>
-References: <20260811163139.99746-1-tvrtko.ursulin@igalia.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -60,56 +57,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 4ca491d6ccf2daea813e67ed4b42e7b272f0687d.
+There was a late minute user regression report[1] so lets revert this so it can
+be debugged in peace.
 
-Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+I have not been able to locally reproduce it yet, but at least a partial fix
+looks to be this[2]. Further debug will be needed, possibly after the holiday/
+vacation season is over.
+
+[1] https://lore.kernel.org/dri-devel/TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me/
+[2] https://lore.kernel.org/dri-devel/20260811134223.96203-1-tvrtko.ursulin@igalia.com/
+
 Cc: Luke.Wildhardt@proton.me
 Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Philipp Stanner <phasta@kernel.org>
 Cc: Christian König <ckoenig.leichtzumerken@gmail.com>
----
- drivers/gpu/drm/xe/xe_dep_scheduler.c | 1 +
- drivers/gpu/drm/xe/xe_execlist.c      | 1 +
- drivers/gpu/drm/xe/xe_gpu_scheduler.c | 1 +
- 3 files changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_dep_scheduler.c b/drivers/gpu/drm/xe/xe_dep_scheduler.c
-index 004aac8b89e6..51d99fee9aa5 100644
---- a/drivers/gpu/drm/xe/xe_dep_scheduler.c
-+++ b/drivers/gpu/drm/xe/xe_dep_scheduler.c
-@@ -78,6 +78,7 @@ xe_dep_scheduler_create(struct xe_device *xe,
- 	const struct drm_sched_init_args args = {
- 		.ops = &sched_ops,
- 		.submit_wq = submit_wq,
-+		.num_rqs = 1,
- 		.credit_limit = job_limit,
- 		.timeout = MAX_SCHEDULE_TIMEOUT,
- 		.name = name,
-diff --git a/drivers/gpu/drm/xe/xe_execlist.c b/drivers/gpu/drm/xe/xe_execlist.c
-index 9fb99c038ea8..0fe4fb226ef4 100644
---- a/drivers/gpu/drm/xe/xe_execlist.c
-+++ b/drivers/gpu/drm/xe/xe_execlist.c
-@@ -328,6 +328,7 @@ static int execlist_exec_queue_init(struct xe_exec_queue *q)
- 	struct drm_gpu_scheduler *sched;
- 	const struct drm_sched_init_args args = {
- 		.ops = &drm_sched_ops,
-+		.num_rqs = 1,
- 		.credit_limit = xe_lrc_ring_size() / MAX_JOB_SIZE_BYTES,
- 		.hang_limit = XE_SCHED_HANG_LIMIT,
- 		.timeout = XE_SCHED_JOB_TIMEOUT,
-diff --git a/drivers/gpu/drm/xe/xe_gpu_scheduler.c b/drivers/gpu/drm/xe/xe_gpu_scheduler.c
-index 67d8ce368486..9c8004d5dd91 100644
---- a/drivers/gpu/drm/xe/xe_gpu_scheduler.c
-+++ b/drivers/gpu/drm/xe/xe_gpu_scheduler.c
-@@ -66,6 +66,7 @@ int xe_sched_init(struct xe_gpu_scheduler *sched,
- 	const struct drm_sched_init_args args = {
- 		.ops = ops,
- 		.submit_wq = submit_wq,
-+		.num_rqs = 1,
- 		.credit_limit = hw_submission,
- 		.hang_limit = hang_limit,
- 		.timeout = timeout,
+v2:
+ * Forgot the SoBs.
+
+v3:
+ * Rebased for drm-misc-fixes.
+
+Tvrtko Ursulin (19):
+  Revert "drm/sched: Remove drm_sched_init_args->num_rqs"
+  Revert "drm/xe: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/v3d: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/sched: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/panthor: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/panfrost: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/nouveau: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/msm: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/lima: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/imagination: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/etnaviv: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/amdgpu: Remove drm_sched_init_args->num_rqs usage"
+  Revert "accel/ethosu: Remove drm_sched_init_args->num_rqs usage"
+  Revert "accel/rocket: Remove drm_sched_init_args->num_rqs usage"
+  Revert "accel/amdxdna: Remove drm_sched_init_args->num_rqs usage"
+  Revert "drm/sched: Embed run queue singleton into the scheduler"
+  Revert "drm/sched: Remove FIFO and RR and simplify to a single run
+    queue"
+  Revert "drm/sched: Switch default policy to fair"
+  drm/sched: Mark fair policy as experimental
+
+ drivers/accel/amdxdna/aie2_ctx.c              |   1 +
+ drivers/accel/ethosu/ethosu_job.c             |   1 +
+ drivers/accel/rocket/rocket_job.c             |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.c       |  27 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_job.h       |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c   |   8 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       |   8 +-
+ drivers/gpu/drm/etnaviv/etnaviv_sched.c       |   1 +
+ drivers/gpu/drm/imagination/pvr_queue.c       |   1 +
+ drivers/gpu/drm/lima/lima_sched.c             |   1 +
+ drivers/gpu/drm/msm/msm_gem_vma.c             |   1 +
+ drivers/gpu/drm/msm/msm_ringbuffer.c          |   1 +
+ drivers/gpu/drm/nouveau/nouveau_sched.c       |   1 +
+ drivers/gpu/drm/panfrost/panfrost_job.c       |   1 +
+ drivers/gpu/drm/panthor/panthor_mmu.c         |   1 +
+ drivers/gpu/drm/panthor/panthor_sched.c       |   1 +
+ drivers/gpu/drm/scheduler/sched_entity.c      |  52 ++++++--
+ drivers/gpu/drm/scheduler/sched_fence.c       |   2 +-
+ drivers/gpu/drm/scheduler/sched_internal.h    |  15 ++-
+ drivers/gpu/drm/scheduler/sched_main.c        | 121 +++++++++++++++---
+ drivers/gpu/drm/scheduler/sched_rq.c          |  87 +++++++++----
+ .../gpu/drm/scheduler/tests/mock_scheduler.c  |   1 +
+ drivers/gpu/drm/v3d/v3d_sched.c               |   1 +
+ drivers/gpu/drm/xe/xe_dep_scheduler.c         |   1 +
+ drivers/gpu/drm/xe/xe_execlist.c              |   1 +
+ drivers/gpu/drm/xe/xe_gpu_scheduler.c         |   1 +
+ include/drm/gpu_scheduler.h                   |  42 +++++-
+ 30 files changed, 304 insertions(+), 95 deletions(-)
+
 -- 
 2.54.0
 
