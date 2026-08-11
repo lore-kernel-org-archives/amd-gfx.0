@@ -4,102 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 93E6DC5B574
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 08:07:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4613CC5AC67
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 08:41:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E81B510E296;
-	Tue, 11 Aug 2026 08:07:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E75410E2B3;
+	Tue, 11 Aug 2026 08:41:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZfVJS5+6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="HneO5wKc";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013025.outbound.protection.outlook.com
- [40.93.196.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 145DB10E296
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 08:07:43 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WYzK8Vz25TqtyNfpOU6W8BoMAsn1KlIjHzbVOtuD4OjN4gu1ynNeJPwEsPYDLjgwxB7nPqIfMhg/7wP9Ao2xUZMkNfpp21AJKIpqn8tYPk478JkPplGURQQ9ShVVArfiTKSy0mnfkfgipK1z7BdzmoKLIXgy++JlcXdvl+0NOYacvtDQAuWdo8sIoBe1rpaiG+gssXVvB+Y0mvpzsJ8O5b6yYp5oGX5unMeXf+a25qM8f08fECbIe4c8lzLuk8xFyOYOxq8i6nFcthRO9Au2FbEixpm1jdYYQ3xYt9d6zqbH9aF4bhVbtZ25SFRLMKG28vUv9OlfrvGk5lNKH65bxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qd+4LBOsl8lmp6CvtjKPdolDLEAaDhCFv2TPHbRZnAs=;
- b=EkBzRJ90pvz7MmQ1TjH8QHigIokqU+Iolj2GNEubGwQO7l3FXFvrUsiQqmSwxZd7/QDtbmuSnQuMIeZACcxWOhCH426Ewpyp8pmpZADmj1oQ9BF7K4VeoZUu46MhB9rgRcqXxpGffyL+5shkMMez7ME5jU7qpx+i7A119j6rcMfAfPscqM1eoPqe5yhvrdiTsBskN3fTdrmbRX4aFnzfbTFmShBzzRZFZ+sJFO69TSyf3MjoXslbbKUrWep/+kYOQz1Fa25zvQWnqPVbmM1F3r06d3dRN1xE1XK5x1e8foPX5G4TmE9KwEavizBFIrQFJujvyPErU8YF1x8HjG0kyw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qd+4LBOsl8lmp6CvtjKPdolDLEAaDhCFv2TPHbRZnAs=;
- b=ZfVJS5+6Ekf8qALUzRd4gPrGYOWsyZFrzME+eoz/UxxPYtwtPtEHOSPCEsU/+qCRouLEI1J1KFLRnaRRzmm2+/K12u9V6IHOkA2STqKZSs+a/QjDNPvAJW36NNKWUjfpH2sOeXh9/4nQyz+vUG+yWLuW6JVfCqxA/VYuwppliac=
-Received: from SJ0PR03CA0152.namprd03.prod.outlook.com (2603:10b6:a03:338::7)
- by IA1PR12MB6091.namprd12.prod.outlook.com (2603:10b6:208:3ed::20)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
- 2026 08:07:37 +0000
-Received: from BY1PEPF0001AE18.namprd04.prod.outlook.com
- (2603:10b6:a03:338:cafe::7f) by SJ0PR03CA0152.outlook.office365.com
- (2603:10b6:a03:338::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.11 via Frontend Transport; Tue,
- 11 Aug 2026 08:07:37 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BY1PEPF0001AE18.mail.protection.outlook.com (10.167.242.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Tue, 11 Aug 2026 08:07:36 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 11 Aug
- 2026 03:07:36 -0500
-Received: from yifan.amd.com (10.180.168.240) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 11 Aug
- 2026 03:07:34 -0500
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
- <Perry.Yuan@amd.com>, Prerona Ghosh <Prerona.Ghosh@amd.com>, Yifan Zhang
- <yifan1.zhang@amd.com>
-Subject: [PATCH v2] drm/amdgpu: bind imported BOs before mapping them into a VM
-Date: Tue, 11 Aug 2026 16:07:17 +0800
-Message-ID: <20260811080717.547510-1-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 551CC10E2B3;
+ Tue, 11 Aug 2026 08:41:26 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7477F600AE;
+ Tue, 11 Aug 2026 08:41:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B8E21F000E9;
+ Tue, 11 Aug 2026 08:41:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786437685;
+ bh=B9oyw8VGrdnmKGUbtduBgbxCRdwpvdeLqgkhrCXDNKQ=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=HneO5wKcZdSzCZgiPL7O6y0hkp8NxpOysOwjQ1/0p5DZJDgbHmr8oIIto+qbUqUP8
+ QSncbqQais7NDR31QFmgQ7SJeueG1RlsaCn/ugXce/uqztMKctFvKx1+vcfyXCvqNZ
+ VJEHlmRInootV9fshr8tYk5LG1afiv/E+UOYl58uNgPRApc4UGU+ngmdh3PqQBdarD
+ Za9aH05yjKoWK0cBkN69Xhhb9cMAk62gCUKpXkd+IC3tlRx4y1qZ5QJ3SYz3eWJwWJ
+ /V1P5kbBwkgzwAFtJUA4uuFpLGZnK495BJYq41HQc15Y/yGaMH9StOXlfO1t3CLsMy
+ Wo0bc8EiRjuEw==
+Date: Tue, 11 Aug 2026 09:40:50 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Kees Cook <kees@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, 
+ Liviu Dudau <liviu.dudau@arm.com>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ kvm@vger.kernel.org, 
+ linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 02/20] mm: provide vma_[flags_]is_cow_mapping() and
+ remove is_cow_mapping()
+Message-ID: <anrfA56ZIL7QQqvk@lucifer>
+References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
+ <20260806-b4-scalable-cow-virt-pgoff-v4-2-ab318a350404@kernel.org>
+ <ann-vS6MYT9kuXqu@lucifer>
+ <20260810151007.c1cfbcf46d498d2f8ce566f9@linux-foundation.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
- (10.181.42.218)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE18:EE_|IA1PR12MB6091:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5f9b15e-a8ca-4fed-4ca7-08def77f9b1a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|10067099003|56012099006|5023799004|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: aVAzuSBb9ZjPB1TFRlonHJEnC2yndcP5Azzkz1R8mfrG8G1mz+wwiLT3YjPkMQMDybGkGzs+JWfoirwkH42oXjlr6cPgB/IMmk89g91Ay0g9kU3050ZvU7a1yNVzcbyTqsztt5K1/dbM/NIW9iBawVlk75uVYz5/Tg5wRikp3EddE8HTaVX+Bpq0FoQB2N2A+6pWc78KfV/fMawxBxotCG64Tx3gLM6ueCwtirlscxDy/J/RXjVfxrCp0htwRftA123S0UJ7JZNcnK20PDzTLhYlb9lPyqosYBf5NNFv8WFd+dwfQrnolRVkf0AWWVqt3Euor77wQar6ZrzhqZYGJUFQl58+G4L0xNfM8duGuzEXJFC8zHfQlyTU/dZEU7/mwssXv7rhh53D9KyBFp2M0PrL5w0vxujlCevP/8zIyU+AqkoFb9BZMD9Ng2aPRfr3Id2YY+PYzrYljCCbdF0wmNYUfRbVfr0CC3lf9pomQGgISG9GVtS/ykHD9t/J2QBFJjRPSTt7Bws//wzc9/PD8H4ZubUBmSz6a4/FWrAQ5z3CV/l6TNSKKBxx5oaJFeXtXYpUrhT/Em4MQ1JpBUxiEfcMWWQRUmZLytg5AqlT1+g3rwUBzHrThnOTUp02U52R/WkQZBzK4kkmL5eTBH2eEVunAjSdMOxzEzoTnBzYaDTTn/0+sjgpjmJmvX7ZHvU28JuOHRV52uklyEMSUbLovA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(10067099003)(56012099006)(5023799004)(11063799006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: eI5jBDHbwqX6MxcHeAZgkJyELxvl0bLV/knSHaxv7XumwjHkUEyztXEqoJJxPY/omhWL8htKJWeDM1U3hoVppR2v27clEruKWUvG+LHRKs0O08flFBpUfmq4OmZIWOCg2BczEMTINqvlio8rWdCECdWZY8ChoPyj4FtHzojNYz04oDNohsrRMRSDCUOx/QkG/3B3wfpvvHey/0IhDQE4temiguzWDmxblIouShbdDKolOywFwyYbla0ae9JKCiCIwR52TAPYdN9U42NEbLD4CI9bu8PTYkE9rJ/a9qdvNgwPydxwv6hpNIzNz4DFOQGYyIx+Sksd+6CH1Ziy90XM2Qdw6eXC3drOf1DyMlPihaTuILlz8ZoI6HgFWonifqLHddFnB1aU3qMLzKRdo7ZX8plqxg6lSkSbhYl1Zc1g1GbrZogeC/YhM4VI3uOq7SQ1
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 08:07:36.7185 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5f9b15e-a8ca-4fed-4ca7-08def77f9b1a
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE18.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6091
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260810151007.c1cfbcf46d498d2f8ce566f9@linux-foundation.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,82 +117,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Prerona Ghosh <Prerona.Ghosh@amd.com>
+On Mon, Aug 10, 2026 at 03:10:07PM -0700, Andrew Morton wrote:
+> On Mon, 10 Aug 2026 18:59:34 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+>
+> > Hi Andrew - would it be possible to insert the comments added below? Trying
+> > to avoid a respin if possible :)
+>
+> np, like this?
 
-An imported dma-buf with a dynamic attachment is not bound to GTT until
-it is validated. In a VM that is not a KFD compute context nothing does
-that: amdgpu_gem_object_open() only validates and fences imports for
-compute VMs, and clients submitting through HW queues never go through
-amdgpu_cs, so amdgpu_vm_validate() does not run either.
+Great thanks!
 
-AMDGPU_GEM_VA then maps the BO while its resource is still
-TTM_PL_SYSTEM. amdgpu_ttm_tt_pde_flags() drops AMDGPU_PTE_VALID and
-AMDGPU_PTE_SYSTEM for that memory type, so the range is programmed with
-PTE flags 0x60 (readable and writeable only) and the first GPU access to
-it faults:
+Just one minor edit below (being pedantic here but kinda what the comment
+needs I think :)
 
- amdgpu 0000:26:00.0: [gfxhub0] retry page fault (src_id:0 ring:0 vmid:3 pasid:46)
- amdgpu 0000:26:00.0:   in page starting at address 0x00007f142d6d8000 from IH client 0x1b (UTCL2)
- amdgpu 0000:26:00.0: VM_L2_PROTECTION_FAULT_STATUS:0x00301011
- amdgpu 0000:26:00.0:      Faulty UTCL2 client ID: TCP (0x8)
- amdgpu 0000:26:00.0:      PERMISSION_FAULTS: 0x1
+>
+> From: Andrew Morton <akpm@linux-foundation.org>
+> Subject: mm-provide-vma_is_cow_mapping-and-remove-is_cow_mapping-fix
+> Date: Mon Aug 10 03:07:02 PM PDT 2026
+>
+> add comments, per Lorenzo
+>
+> Link: https://lore.kernel.org/ann-vS6MYT9kuXqu@lucifer
+> Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> ---
+>
+>  include/linux/mm.h |   57 +++++++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 57 insertions(+)
+>
+> --- a/include/linux/mm.h~mm-provide-vma_is_cow_mapping-and-remove-is_cow_mapping-fix
+> +++ a/include/linux/mm.h
+> @@ -2271,17 +2271,74 @@ void unpin_user_pages(struct page **page
+>  void unpin_user_folio(struct folio *folio, unsigned long npages);
+>  void unpin_folios(struct folio **folios, unsigned long nfolios);
+>
+> +/**
+> + * vma_flags_is_cow_mapping() - Do these VMA flags imply a CoW mapping?
+> + * @flags: The VMA flags to check.
+> + *
+> + * Mappings which could be CoW'd (subject to Copy-On-Write faults) are
+> + * described as CoW mappings.
+> + *
+> + * All mappings backed by anonymous folios (all anonymous mappings and most
+> + * MAP_PRIVATE-file backed ranges) are CoW mappings.
+> + *
+> + * All other mappings (including all writable MAP_SHARED mappings) are
+> + * non-CoW.
 
-Validate imported BOs into their allowed domains before MAP and REPLACE
-so that the mapping is always created from a bound resource.
+I ummed and ahhed over how to put this but now I think this could cause
+confusion so could you replace the paragraph with:
 
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
-Assisted-by: Claude:opus-5
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 29 +++++++++++++++++++++++++
- 1 file changed, 29 insertions(+)
+ * All other mappings (including all MAP_SHARED mappings) are non-CoW.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index f754a4a3a1c2..214ae2a95da2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -747,6 +747,27 @@ int amdgpu_gem_metadata_ioctl(struct drm_device *dev, void *data,
- 	return r;
- }
- 
-+/**
-+ * amdgpu_gem_va_make_resident - bind an imported BO before it gets mapped
-+ *
-+ * @bo: the BO about to be mapped into a VM
-+ *
-+ * Imported dma-bufs with a dynamic attachment stay unbound until they are
-+ * validated. Mapping one while it is still in TTM_PL_SYSTEM would program
-+ * PTEs without AMDGPU_PTE_VALID and any GPU access to them faults.
-+ */
-+static int amdgpu_gem_va_make_resident(struct amdgpu_bo *bo)
-+{
-+	struct ttm_operation_ctx ctx = { true, false };
-+
-+	if (bo->tbo.resource &&
-+	    bo->tbo.resource->mem_type != TTM_PL_SYSTEM)
-+		return 0;
-+
-+	amdgpu_bo_placement_from_domain(bo, bo->allowed_domains);
-+	return ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
-+}
-+
- /**
-  * amdgpu_gem_va_update_vm -update the bo_va in its VM
-  *
-@@ -962,6 +983,14 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 	if (r)
- 		goto error;
- 
-+	if (abo && drm_gem_is_imported(&abo->tbo.base) &&
-+	    (args->operation == AMDGPU_VA_OP_MAP ||
-+	     args->operation == AMDGPU_VA_OP_REPLACE)) {
-+		r = amdgpu_gem_va_make_resident(abo);
-+		if (r)
-+			goto error;
-+	}
-+
- 	switch (args->operation) {
- 	case AMDGPU_VA_OP_MAP:
- 		r = amdgpu_vm_bo_map(adev, bo_va, args->va_address,
--- 
-2.43.0
+It's _all_ MAP_SHARED mappings not just writable, I thought people would
+automatically assume read-only wasn't included plus drivers could in theory
+do crazy things (I have a pending series to fix that though) but it's
+clearer just to say all.
 
+> + *
+> + * The criteria are !VMA_SHARED_BIT, VMA_MAYWRITE_BIT.
+> + *
+> + * VMA_MAYWRITE_BIT is checked instead of VMA_WRITE_BIT to account for both
+> + * future mprotect() calls which can render a read-only mapping writable, and
+> + * GUP with FOLL_FORCE (e.g. ptrace) which can CoW a read-only mapping.
+> + *
+> + * - No anonymous mapping can ever clear VMA_MAYWRITE_BIT.
+> + *
+> + * - Writes to anonymous mappings do not immediately result in CoW faults but
+> + *   may do so after the process is forked or if a read is followed by a
+> + *   write.
+> + *
+> + * - Writes to MAP_PRIVATE file-backed mappings result in CoW faults and may
+> + *   do so again after fork.
+> + *
+> + * - MAP_SHARED mappings of a file opened read-only are transformed into
+> + *   VMA_MAYSHARE_BIT, !VMA_SHARED_BIT, !VMA_MAYWRITE_BIT mappings, so remain
+> + *   non-CoW.
+> + *
+> + * - Drivers may clear VMA_MAYWRITE_BIT but do so at mmap() time and cannot
+> + *   mark themselves anonymous. Having cleared this flag it is not valid for
+> + *   them to leave the VMA_WRITE_BIT flag set.
+> + *
+> + * As a consequence, the anonymous reverse mapping only tracks CoW mappings.
+> + *
+> + * Returns: true if the flags indicate a CoW mapping, otherwise false.
+> + */
+>  static inline bool vma_flags_is_cow_mapping(const vma_flags_t *flags)
+>  {
+>  	return vma_flags_test(flags, VMA_MAYWRITE_BIT) &&
+>  		!vma_flags_test(flags, VMA_SHARED_BIT);
+>  }
+>
+> +/**
+> + * vma_is_cow_mapping() - Is this VMA a CoW mapping?
+> + * @desc: The VMA to check.
+> + *
+> + * See vma_flags_is_cow_mapping() for details.
+> + *
+> + * Returns: true if the VMA is a CoW mapping, otherwise false.
+> + */
+>  static inline bool vma_is_cow_mapping(const struct vm_area_struct *vma)
+>  {
+>  	return vma_flags_is_cow_mapping(&vma->flags);
+>  }
+>
+> +/**
+> + * vma_desc_is_cow_mapping() - Is this VMA descriptor a CoW mapping?
+> + * @desc: The VMA descriptor to check.
+> + *
+> + * See vma_flags_is_cow_mapping() for details.
+> + *
+> + * Returns: true if the VMA descriptor describes a CoW mapping, otherwise
+> + * false.
+> + */
+>  static inline bool vma_desc_is_cow_mapping(struct vm_area_desc *desc)
+>  {
+>  	return vma_flags_is_cow_mapping(&desc->vma_flags);
+> _
+>
+
+--
+Cheers, Lorenzo
