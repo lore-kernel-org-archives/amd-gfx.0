@@ -4,62 +4,49 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06F14C5CFC1
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 12:58:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9CA26C5AC67
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 12:58:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 419F210E713;
-	Tue, 11 Aug 2026 12:58:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 69AA610E136;
+	Tue, 11 Aug 2026 12:58:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="OaG5ZbyE";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2UU/DQpj";
 	dkim-atps=neutral
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C281510EAB9;
- Tue, 11 Aug 2026 07:29:21 +0000 (UTC)
-Received: from smtp102.mailbox.org (smtp102.mailbox.org
- [IPv6:2001:67c:2050:b231:465::102])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hK3Cg1SVnzMlLV;
- Tue, 11 Aug 2026 09:29:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1786433359; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=+4uurmhz/gFAz1ktMFv7oDxYCBjoixUMjupFd8mXcfI=;
- b=OaG5ZbyEMmKJ5TslKKTdyPfdrtGU3ej55jlxU9KMdwtTedMKGge4GLt4KkAKziv633cdtd
- NLVkrV6T7A/93q/+n3NsrgbGgDf/ntD3/P579Qb0j5FnIx+S9rFknCKt4WE7Fl4SuLtoLq
- nbJOmW7CbF/c3hbLN0P+52quJ2rInCCCQV3JcIYiwr471QV4cvGV5QX1tkgX1iUQYZqz8e
- eWrfAzU8/09zrVW9mnD1iDfUNUs9Ya7cLSuCmSRbFSUJ9hUAcZP6PBGixJI8dOnvTqeLKX
- cz8nGfZSirSZeIl8/VtNWWTxqjV3pBz4RT5ZgH1o6ErQUAc7ojN66iKxSROhrQ==
-Message-ID: <e343b5fb2034b56af9049df970b987b239aacde7.camel@mailbox.org>
-Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
- degradation at max GPU load on 9070XT
-From: Philipp Stanner <phasta@mailbox.org>
-To: Luke.Wildhardt@proton.me, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, phasta@kernel.org, 
- "matthew.brost@intel.com"
- <matthew.brost@intel.com>, "ckoenig.leichtzumerken@gmail.com"
- <ckoenig.leichtzumerken@gmail.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "regressions@lists.linux.dev"
- <regressions@lists.linux.dev>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Date: Tue, 11 Aug 2026 09:29:13 +0200
-In-Reply-To: <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
-References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
- <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
- <DKL9VAWD2Y98.RBQPQUL7Y47F@kernel.org>
- <6e2a207e-4db6-4d47-b1f6-9cb13b8d6eeb@igalia.com>
- <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76BC510EABC
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 08:10:23 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4A811403D2;
+ Tue, 11 Aug 2026 08:10:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B544C1F00A3A;
+ Tue, 11 Aug 2026 08:10:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1786435823;
+ bh=Qia2GBLa3uGfOENajCCh3ErjQV0Nz7IBPzM4Q9K25uU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=2UU/DQpjA9BD4KjeO3nbAmvwmTDS3PNec+0I0gKwYZ5aTXFT/s/4h5FmCLXz2Mlm6
+ g346zWPl2Y8TnuNFGH4TebaylOsUmN3aXVKKH/0VRbDjCSiYpCZV2iyvIm4urFkG66
+ 4EmUvS0jq29JGY3qXu7xX7u5N2V+iSZQcQXG7b94=
+Date: Tue, 11 Aug 2026 17:08:49 +0900
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Sergio Callegari <sergio.callegari@gmail.com>
+Cc: Thorsten Leemhuis <regressions@leemhuis.info>, stable@vger.kernel.org,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ George Zhang <george.zhang@amd.com>
+Subject: Re: [REGRESSION] Please revert 1191285ecb42 from 7.1.y
+Message-ID: <2026081151-reabsorb-calamari-7442@gregkh>
+References: <9c6acb62-4080-48e6-9ba2-d1c457c4ec88@gmail.com>
+ <2026081106-pebbly-cahoots-37a7@gregkh>
+ <23db5f95-c2d6-4712-856e-28f647e184f7@leemhuis.info>
+ <1caea72e-b9c8-452b-a3ff-5690d948b4fc@gmail.com>
 MIME-Version: 1.0
-X-MBO-RS-META: qawuyb5ic8ztzk5pkjzpf8tjmyq5dqcg
-X-MBO-RS-ID: e8842c3fbe0a84fa24a
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1caea72e-b9c8-452b-a3ff-5690d948b4fc@gmail.com>
 X-Mailman-Approved-At: Tue, 11 Aug 2026 12:58:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,36 +59,54 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, 2026-08-10 at 16:40 +0000, Luke.Wildhardt@proton.me wrote:
-> Oops, forgot to reply all in my last message.
->=20
-> I did a quick test of the patch before I left this morning, the
-> freezing seems to gone, but when the GPU is under the same condition,
-> the stuttering is more uniform if that makes sense. Granted this was
-> only a 5 minute test but the freeze was rather reliable before, I can
-> do more testing later.
+On Tue, Aug 11, 2026 at 09:28:52AM +0200, Sergio Callegari wrote:
+> On 11/08/2026 07:24, Thorsten Leemhuis wrote:
+> >
+> > And yes, 6.18.y seems affected, too, according to a comment in the
+> > ticket linked below.
+> >
+> 
+> Yes, my bad I only mentioned 7.1.6 to be quick. My actual concern is that
+> the troublesome commit got to the LTS kernels, which I think is the biggest
+> issue right now. People may find their display completely black or almost
+> black as soon as their DE starts. Getting to the conclusion that they need
+> to /reduce/ the brightness to recover is not totally obvious and is not
+> applicable at all if you have a system that is touchscreen only (since you
+> won't be able to see where to press).
+> 
+> >> It needs to be reverted in Linus's tree first, otherwise the regression
+> >> will be hit when you update to 7.2.
+> 
+> Indeed, but I think the biggest issue is with the LTS kernels right now.
+> 
+> > Normally I'd agree, but according to one reporter that problem does not
+> > happen with 7.2-rc:
+> > https://gitlab.freedesktop.org/drm/amd/-/work_items/5562#note_3603131
+> 
+> I'll see if I can try myself the 7.2 RCn series. From my superficial
+> analysis of the commits that brought us to the current situation, the
+> troublesome commit actually tried to patch on a true issue, namely that the
+> user facing brightness data is not mapped symmetrically to the hardware
+> data, but that the correct solution involves some more thorough rework of
+> the brightness coordinate system. So there may well be some larger activity
+> on it on upstream.
+> >
+> > Given all that I wonder if dropping that commit for now might be the
+> > best move.
+> 
+> Personally, I think that dropping on the stable series would be beneficial,
+> unless upstream can now offer a correct solution to pick. Behavior you get
+> by dropping is not 100% ideal but certainly not as bad as what you get with
+> the problematic commit.
 
-That, unfortunately, indeed sounds as if we should go for the revert
-ASAP.
+We aim to be "bug compatible" with Linus's branch, otherwise the
+"pressure" to fix those bugs goes down.  But I defer to the maintainers
+of the code involved if it is being worked on, and they want it
+reverted, great, we can do that.  Otherwise we prefer to leave it as-is.
 
->=20
-> I know these things can be hard to describe, if that helps. If
-> there's any profiling I could do or detailed logging that would help
-> don't hesitate to ask.
->=20
+thanks,
 
-Would a screencast / filmed screen be helpful? IIRC Steam also has some
-fps counter etc in a submenu somewhere?
-
-
-In any case, if we want to go for the CFS rework in another respin, I
-suppose that it would be cool if @Tvrtko and you stay in contact
-
-
-Thank you very much for the report!
-Philipp
-
+greg k-h
