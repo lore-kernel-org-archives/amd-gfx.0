@@ -4,31 +4,31 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDBA0C5CFEB
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 211DDC5B56A
 	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 16:32:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ADEC210ECCB;
-	Tue, 11 Aug 2026 16:31:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68B2410ECCD;
+	Tue, 11 Aug 2026 16:31:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="eMeZez0j";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="fsxcGd3P";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51C7610ECCB;
- Tue, 11 Aug 2026 16:31:52 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 56A1E10E2DC;
+ Tue, 11 Aug 2026 16:31:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=3WOfPIosR3PoQpWsHIDX8V3i3dfuZq20vorv6OOV8Y0=; b=eMeZez0jXMQCcnp0QaCrH/hfx5
- RyqQuEtb27RJL47HKHxM1I6aC63CHZvzdcPYS5A8YYdk0u8QB5ZG5Nyl+rAzf6FIv1pUMQNtM54JM
- 4u4i42J9U4X8iwX2VvnXEsDMoyJV9/mKWr6aMF3sYSxpSKkYaULkKqqIfUsBVAO55Bx4gkEg0bQXD
- SVV35+xf/zV6GaYUZqedFGoO/HwvPGiy+CjlLQkBGDY103KRXg7gCvntMfbGRRkay6y9CfdISrIm/
- BzsPiGNmPwoRGdtQjNOdu8MzfM+OrIycqWoRrDQGgAfvTOS7eWOUfLCcGLrY4i12e+f5c+gngxiNK
- h2VcqvDg==;
+ bh=vQyZaKdVlJIR+nf57h+JQl/8BxVbK8ZRNIPJ61QLgrM=; b=fsxcGd3P2UaolWVq3kKuvQv+ys
+ n0NUZ2JjStUwSl+v8weOxqhlDMI+aOTcmYh3UoIPc4EbUQqeJ+j8fVp0m0uN0poLLG/acRCX18BAg
+ 9DONm3Z9J+HN1bsh3Ha93G47VqwfLVHE5dBLYMS2EEEHLnKCIZ+G5ePlFfGsNor+vWJMdWthz/4kA
+ IRL0UOI8C13KQs4g7EKBr4dt94oIbhHG6bSW0gflBoGUiN1VmhO26f7jHmIFp67YqHiUgsIceKs0P
+ gFcAHEQ4YpsHORuY3zKFibN+D2MJRTv2CAV0A61QBJkzPakQAuJ1WdzQl40onZBbGKl6zlxgXVvYA
+ JkUAnwug==;
 Received: from [90.249.211.112] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtpOI-00HFfI-FE; Tue, 11 Aug 2026 18:31:50 +0200
+ id 1wtpOF-00HFeE-El; Tue, 11 Aug 2026 18:31:47 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
@@ -36,10 +36,10 @@ Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Luke.Wildhardt@proton.me, Matthew Brost <matthew.brost@intel.com>,
  Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>
-Subject: [PATCH v3 13/19] Revert "accel/ethosu: Remove
+Subject: [PATCH v3 09/19] Revert "drm/lima: Remove
  drm_sched_init_args->num_rqs usage"
-Date: Tue, 11 Aug 2026 17:31:32 +0100
-Message-ID: <20260811163139.99746-14-tvrtko.ursulin@igalia.com>
+Date: Tue, 11 Aug 2026 17:31:28 +0100
+Message-ID: <20260811163139.99746-10-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260811163139.99746-1-tvrtko.ursulin@igalia.com>
 References: <20260811163139.99746-1-tvrtko.ursulin@igalia.com>
@@ -60,7 +60,7 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This reverts commit 06879a9ad55bc4a7aa2e1bb7ee9fa658cdddee79.
+This reverts commit 098fe077ec029a1c8ded65af3c2b2a4190d93e9d.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Luke.Wildhardt@proton.me
@@ -69,21 +69,21 @@ Cc: Danilo Krummrich <dakr@kernel.org>
 Cc: Philipp Stanner <phasta@kernel.org>
 Cc: Christian König <ckoenig.leichtzumerken@gmail.com>
 ---
- drivers/accel/ethosu/ethosu_job.c | 1 +
+ drivers/gpu/drm/lima/lima_sched.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/accel/ethosu/ethosu_job.c b/drivers/accel/ethosu/ethosu_job.c
-index b76924645aaa..1e2465279aae 100644
---- a/drivers/accel/ethosu/ethosu_job.c
-+++ b/drivers/accel/ethosu/ethosu_job.c
-@@ -296,6 +296,7 @@ int ethosu_job_init(struct ethosu_device *edev)
- 	struct device *dev = edev->base.dev;
- 	struct drm_sched_init_args args = {
- 		.ops = &ethosu_sched_ops,
+diff --git a/drivers/gpu/drm/lima/lima_sched.c b/drivers/gpu/drm/lima/lima_sched.c
+index 0a01213c4878..9a1e6b9ecbe5 100644
+--- a/drivers/gpu/drm/lima/lima_sched.c
++++ b/drivers/gpu/drm/lima/lima_sched.c
+@@ -521,6 +521,7 @@ int lima_sched_pipe_init(struct lima_sched_pipe *pipe, const char *name)
+ 			       lima_sched_timeout_ms : 10000;
+ 	const struct drm_sched_init_args args = {
+ 		.ops = &lima_sched_ops,
 +		.num_rqs = DRM_SCHED_PRIORITY_COUNT,
  		.credit_limit = 1,
- 		.timeout = msecs_to_jiffies(JOB_TIMEOUT_MS),
- 		.name = dev_name(dev),
+ 		.hang_limit = lima_job_hang_limit,
+ 		.timeout = msecs_to_jiffies(timeout),
 -- 
 2.54.0
 
