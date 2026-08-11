@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2ABDCC5B56A
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:11:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3DAFCC5CFEB
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:11:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 78BC310ED10;
-	Tue, 11 Aug 2026 17:11:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1D68410ED17;
+	Tue, 11 Aug 2026 17:11:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hDJYm9RZ";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="mjeSnO0k";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9739410ED0C;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B12A310ED0F;
  Tue, 11 Aug 2026 17:10:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=mJCoRC5psha18dGd3NKJz4LTeLbCvuqhkA2jfFjGv4A=; b=
- hDJYm9RZiBdeZtQz7XnKpLjOLBfTr7WFdXWvYK0Jt0jHJhGgh/JSOUo3b1vkD0/uwSWDUPb5fP0Wh
- AozwNpE2ZwZFnMOfAM47DlCg690ha/oD57jJ5EBBiJJMRJ/7z1vH8ucZRWgRCguOlOP+H6+tTZTX0
- 5VRwHCzIfXhdWhz50+PKMzPotjp2C2bSUP4dYQ4oFNtx3tIcWHGYVzowtVGdFo2JaeiSgQ5GVDdDJ
- rDhwuQMNQXlNBUhtIRDhCskybcAUX2vO9DGR4SkynXWHfx0VNMaDcOfnIflvH/dUnabxtLium1IZi
- 2NO8AlfCTPZe9b28lHKCNS4PCn7trhiiJg==;
+ Cc:To:From:From:Reply-To; bh=aeVLgTc9lZD5on/N87viJZ3GrMBOhpVvY69l77soMIM=; b=
+ mjeSnO0kwHJ1/45i3TDYpAjYfSybU8gEDrTFuzUUHx8l8igaIIwpQXOmZQGsV+jV5JWcNaGU9nmaf
+ gArCchncM2YFzcWUTIVd4d8pM4pBT9HqUzNfbfoqD5gL1+t9Ql/RM4ouJiEe9JtSuEHoJzYCOkjKy
+ 4ffy+FzS5wcF0I+1Z2ut241/rorsExv5WxedxABSW6GKWLLk9Q9J4oda1F8TTgt9kRDoSpYyf15WB
+ SgIMeg1Lma+WQeDYZrJMh6f1NkxRlvcMMb2RTucUnHrs2+f0Q50C4KGJgOm9VGiIpcnCCFcLfs7fx
+ V8XKpd85T/NjGaBeuW6mJU03WwCvrwd8+A==;
 Received: from 154.red-79-147-121.dynamicip.rima-tde.net ([79.147.121.154]
  helo=killbill.Home) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtpzc-00HH9d-2W; Tue, 11 Aug 2026 19:10:24 +0200
+ id 1wtpzd-00HH9d-EX; Tue, 11 Aug 2026 19:10:25 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
  aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
@@ -46,11 +46,11 @@ Cc: Uma Shankar <uma.shankar@intel.com>,
  Marijn Suijten <marijn.suijten@somainline.org>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org
-Subject: [PATCH v4 04/11] drm/atomic: check if an active colorop has a blob if
- its type requires one
-Date: Tue, 11 Aug 2026 18:45:53 +0200
-Message-ID: <20260811171011.184964-5-mwen@igalia.com>
+ Sashiko <sashiko-bot@kernel.org>, dri-devel@lists.freedesktop.org
+Subject: [PATCH v4 05/11] drm/amd/display: only check colorops of an active
+ color pipeline
+Date: Tue, 11 Aug 2026 18:45:54 +0200
+Message-ID: <20260811171011.184964-6-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260811171011.184964-1-mwen@igalia.com>
 References: <20260811171011.184964-1-mwen@igalia.com>
@@ -70,56 +70,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If colorop TYPE requires a data blob, userspace have to set a blob
-whenever enables this colorop, i.e. when setting this colorop bypass
-property to false.
+dm_plane_color_pipeline_active() iterates every colorop state in the
+atomic commit, so colorops of a pipeline that userspace deactivated via
+plane COLOR_PIPELINE are still taken into account, even though their
+BYPASS property is irrelevant once the pipeline is off. Walk the color
+pipeline of the plane state under evaluation instead, falling back to
+the committed colorop state when a colorop isn't in the atomic commit.
 
-Fixes: e5719e7f1900 ("drm/colorop: Add 3x4 CTM type")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: d3a549f4df78 ("drm/amd/display: Use overlay cursor when color pipeline is active")
+Acked-by: Harry Wentland <harry.wentland@amd.com>
 Signed-off-by: Melissa Wen <mwen@igalia.com>
----
- drivers/gpu/drm/drm_atomic.c | 22 ++++++++++++++++++++--
- 1 file changed, 20 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 86e4348cad58..7b9d52cf87d0 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -947,8 +947,13 @@ drm_atomic_add_pipeline_colorops(struct drm_atomic_commit *state,
-  * drm_atomic_colorop_check - check new colorop state
-  * @new_colorop_state: new colorop state to check
+---
+
+v4:
+- drop the ternary and add just a warn_on since both current callers
+  iterate planes already in the atomic state. (John H.)
+- explain the reason to use commited colorop (John H.)
+---
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 33 ++++++++++++++-----
+ 1 file changed, 24 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index d0e612371c8f..384541b9ac9c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6551,9 +6551,9 @@ static int add_affected_mst_dsc_crtcs(struct drm_atomic_commit *state, struct dr
+  * @use_old: if true, inspect the old colorop states; otherwise the new ones
   *
-- * Ensure that the colorop in @new_colorop_state belongs to an active color
-- * pipeline, i.e. it's in the chain of colorops set to the color_pipeline
-+ * Check that a colorop whose TYPE requires a data blob has one when it's
-+ * enabled, i.e. userspace can't clear (or never set) the DATA property while
-+ * taking the colorop out of bypass, since drivers would have nothing to
-+ * program.
-+ *
-+ * Also ensure that the colorop in @new_colorop_state belongs to an active
-+ * color pipeline, i.e. it's in the chain of colorops set to the color_pipeline
-  * property of current, old or new plane state.
+  * A color pipeline may be selected (color_pipeline != NULL) but still is
+- * inactive if every colorop in the chain is bypassed.  Only return
+- * true when at least one colorop has bypass == false, meaning the cursor
+- * would be subjected to the transformation in native mode.
++ * inactive if every colorop in the chain is bypassed. Only return true when at
++ * least one colorop has bypass == false, meaning the cursor would be subjected
++ * to the transformation in native mode.
   *
-  * Userspace is allowed to finalize colorop's settings in the same commit that
-@@ -972,6 +977,19 @@ static int drm_atomic_colorop_check(const struct drm_colorop_state *new_colorop_
- 	if (state->duplicated)
- 		return 0;
+  * Return: true if the pipeline modifies pixels, false otherwise.
+  */
+@@ -6561,18 +6561,33 @@ static bool dm_plane_color_pipeline_active(struct drm_atomic_commit *state,
+ 					   struct drm_plane *plane,
+ 					   bool use_old)
+ {
++	struct drm_plane_state *plane_state = use_old ?
++					      drm_atomic_get_old_plane_state(state, plane) :
++					      drm_atomic_get_new_plane_state(state, plane);
+ 	struct drm_colorop *colorop;
+-	struct drm_colorop_state *old_colorop_state, *new_colorop_state;
+-	int i;
++	struct drm_colorop_state *cstate;
  
+-	for_each_oldnew_colorop_in_state(state, colorop, old_colorop_state, new_colorop_state, i) {
+-		struct drm_colorop_state *cstate = use_old ? old_colorop_state : new_colorop_state;
++	if (drm_WARN_ON(plane->dev, !plane_state))
++		return false;
+ 
+-		if (cstate->colorop->plane != plane)
+-			continue;
 +	/*
-+	 * Reject if colorop TYPE requires a DATA but set bypass to false and
-+	 * no blob submitted
++	 * A commit may change only some colorops of a pipeline, and only those
++	 * have old and new states here. Telling whether the pipeline modifies
++	 * pixels requires every colorop of the selected pipeline, so fall back
++	 * to the committed state of the untouched ones; it's both their old
++	 * and new state.
 +	 */
-+	if (new_colorop_state->colorop->data_property &&
-+	    !new_colorop_state->bypass && !new_colorop_state->data) {
-+		drm_dbg_atomic(new_colorop_state->colorop->dev,
-+			       "[COLOROP:%d:%d] enabled without a DATA blob\n",
-+			       new_colorop_state->colorop->base.id,
-+			       new_colorop_state->colorop->type);
-+		return -EINVAL;
-+	}
++	drm_for_each_colorop_in_pipeline(colorop, plane_state->color_pipeline) {
++		cstate = use_old ?
++			 drm_atomic_get_old_colorop_state(state, colorop) :
++			 drm_atomic_get_new_colorop_state(state, colorop);
 +
- 	/* Not a plane colorop */
- 	if (!plane)
- 		return 0;
++		if (!cstate)
++			cstate = colorop->state;
+ 		if (!cstate->bypass)
+ 			return true;
+ 	}
++
+ 	return false;
+ }
+ 
 -- 
 2.53.0
 
