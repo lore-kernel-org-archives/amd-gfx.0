@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F2095C5CFEE
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:11:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B40B6C5B572
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 17:11:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B7B710ED25;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 766E210ED27;
 	Tue, 11 Aug 2026 17:11:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="C8MeFc3D";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="SSQd8Cd3";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7656B10ECFA;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8373A10ED06;
  Tue, 11 Aug 2026 17:10:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=XSqPNlMRjHTgCivrcOmZqe2DefzjiZUQWPd+89+xPCc=; b=
- C8MeFc3DphZKn1a6SoT1kmxXXcAitI6yu0Xir9IQPd2pEbICRVc+rHFw6FrF1UMG53Z3i1BjHdqIe
- hTasrGVWHw3ToQHNN7vQ3o2/kZ8BCIb8wmHiIv2v7zaTaHPbhUVrO2MKf7zczOZKPsbAyby944OZL
- 63EYkwSYfCySbFbSnF8icHNjtkmjTxgnw0BP/xRjW83OFmdARA/s/RirDqU91h7u4u0srjDHdP0Fb
- HJPHu2qsxJmbFqUzLe403u/MR8gIkz8QpjKfLbGnuzRHzZ8gp3ok2uut9Nddt8FW0y48MhKJY3Ho8
- SX6SRma8M/Mgz4gJqsx+NH4Fp3zkRLdtPQ==;
+ Cc:To:From:From:Reply-To; bh=TKOOjCLLZWBgmHVgLpQgEUNXD3dMcbd5GmU0BxUALeo=; b=
+ SSQd8Cd3EA//Ea9yfyu4mzraFFzSkeKlJk90b11Jm79ajUSxtDLx1fnFtKyNcS+dKZsE9X5WVSIeR
+ HHAyxIL0P8fWMaW7NOqIGlGHveE2+MABw1fym6sHpfENsc7Dp2hsX8B1zG6HHvfGvpFWUGh0+knMM
+ 5iasnHlWAZlr1x/QAPlJHB/ao5QpYIjJelbqgb8EWWMv4gQoB4nm4RD+y0KzFjApoqYtpJl28TpzS
+ XwWggH1Ahy05hKDQPC7Lw0Bpawm8e/HHFZGx4RJvHVh8QDfdchX8fjnBm5kUfLELIrf5/ekf4uFVz
+ KKjbzLiLD1urXZWAIZrWjye9ca0AReLtlA==;
 Received: from 154.red-79-147-121.dynamicip.rima-tde.net ([79.147.121.154]
  helo=killbill.Home) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wtpzW-00HH9d-Lm; Tue, 11 Aug 2026 19:10:18 +0200
+ id 1wtpzl-00HH9d-Am; Tue, 11 Aug 2026 19:10:33 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, alex.hung@amd.com,
  aurabindo.pillai@amd.com, christian.koenig@amd.com, contact@emersion.fr,
@@ -47,11 +47,13 @@ Cc: Uma Shankar <uma.shankar@intel.com>,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org
-Subject: [PATCH v4 00/11] drm/atomic: don't allow changes to inactive colorops
- & other fixes
-Date: Tue, 11 Aug 2026 18:45:49 +0200
-Message-ID: <20260811171011.184964-1-mwen@igalia.com>
+Subject: [PATCH v4 11/11] drm/amd/display: distinguish colorop setup error
+ from no colorop support
+Date: Tue, 11 Aug 2026 18:46:00 +0200
+Message-ID: <20260811171011.184964-12-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260811171011.184964-1-mwen@igalia.com>
+References: <20260811171011.184964-1-mwen@igalia.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -68,97 +70,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This series is a follow-up of what was discussed in [1] and on #wayland
-IRC channel regarding policy and userspace expectations on changes in
-colorop properties and the current status of the color pipeline in which
-the colorop is part of. In short, we agreed that userspace can change
-properties of colorops that are currently part of an active color
-pipeline or when the pipeline is switching status in the same commit.
-However, userspace cannot change colorop properties of inactive color
-pipeline in the expactation that it will be activated at some point in
-the future.
+amdgpu_dm_plane_set_colorop_properties() returns -EINVAL both when the
+plane has no color pipeline selected, where falling back to the legacy
+color properties is correct, and when programming an active pipeline
+fails, so the caller treats every failure as the former and silently
+programs the plane from the legacy properties, leaving it in a mixed
+state and userspace with no error. Check if plane_state->color_pipeline
+is set instead, so the legacy path is only taken when no pipeline is set
+and any other failure is propagated out of the atomic check.
 
-Userspace also expects persistence of color pipeline already set, even
-if it becomes inactive for a while, when activated, colorop settings
-previouly set should be preserved.
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-In addition, I found some bugs on IGT tests when this policy is applied.
-So I sent bug fixes to kms_colorop and kms_properties to behave
-according to this contract (new version) [2]. The rest of the series in
-[1] was detached in [3] and already applied. However, after a bad merge
-conflict resolution the colorop-update track was removed from AMD and
-this series needs it back to make the AMD part work correctly. I've
-already resubmitted it [4].
-
-I also tried to address some Sashiko's complaints on pre-existent issues
-that affects the stability of this series, but not all since I want to
-keep a healthy scope for reviews. AMD fixes are in this series because
-of their scope, but they can be detached and applied whenever it's
-convenient.
-
-[v1] https://lore.kernel.org/dri-devel/20260526142940.504911-1-mwen@igalia.com/
-Changes:
-- define a macro to walk in the color pipeline (Alex H.)
-- fix checkpatch warning (Alex H.)
-
-[v2] https://lore.kernel.org/dri-devel/20260604180457.1110110-1-mwen@igalia.com/
-Changes:
-- [Drop] drm/atomic: duplicate state of all colorops
-  If inactive colorops state are duplicated on resume, the commit will be
-  rejected. 
-- [New] Four new patches to make AMD driver match the policy of colorop
-  updates only for colorops in active color pipelines plus individual
-  colorop updates. It also tries to untangle COLOR_PIPELINE = Bypass from
-  colorop BYPASS prop = true. I think patches 3-5 can be cherry-picked and
-  applied if it looks correct for AMD, I just included them here for
-  context (for example, Sashiko reported an issue in the previous version
-  of this series).
-
-[v3] https://lore.kernel.org/dri-devel/20260609121230.1358786-1-mwen@igalia.com/
-Changes:
-- make drm_atomic_add_affected_colorops static and move to
-  drm_atomic_helper.c (John H.)
-- skip check when just duplicating state for suspend/resume persistence.
-- [re-add] drm/atomic: duplicate state of all colorops to preserve all
-  colorop status in a suspend/resume
-- rewite commit message and better explain what's considered an active
-  colorop (John H.)
-- [new] drm/atomic: check if an active colorop has a blob if its type
-  requires one
-- drop the ternary and add just a warn_on since both current callers
-  iterate planes already in the atomic state in AMD's active pipeline
-  check (John H.)
-- explain the reason to use commited colorop in AMD's active pipeline
-  check (John H.)
-- [new] drm/amd/display: don't ignore failure on blend colorop setup
-- [new] drm/amd/display: distinguish colorop setup error from no colorop support
-
-[1] https://lore.kernel.org/dri-devel/20260519211111.228303-1-mwen@igalia.com/
-[2] https://lore.kernel.org/igt-dev/20260811143558.141813-1-mwen@igalia.com
-[3] https://lore.kernel.org/dri-devel/20260609110420.1298352-1-mwen@igalia.com/
-[4] https://lore.kernel.org/dri-devel/20260807115712.22423-1-mwen@igalia.com/
-
-Melissa Wen (11):
-  drm/atomic: only add states of active or transient active colorops
-  drm/atomic: reject colorop update from inactive color pipeline
-  drm/atomic: duplicate state of all colorops
-  drm/atomic: check if an active colorop has a blob if its type requires one
-  drm/amd/display: only check colorops of an active color pipeline
-  drm/amd/display: truly bypass plane colorop 3x4 matrix and hdr mult
-  drm/amd/display: make shaper bypass mode cleaner
-  drm/amd/display: make blnd bypass mode clearer
-  drm/amd/display: don't ignore failure on blend colorop setup
-  drm/amd/display: allow individual colorop changes
-  drm/amd/display: distinguish colorop setup error from no colorop support
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  33 ++-
- .../amd/display/amdgpu_dm/amdgpu_dm_color.c   | 206 +++++++-----------
- drivers/gpu/drm/drm_atomic.c                  | 199 ++++++++++++-----
- drivers/gpu/drm/drm_atomic_helper.c           |  52 ++++-
- include/drm/drm_atomic.h                      |   3 -
- include/drm/drm_colorop.h                     |   3 +
- 6 files changed, 304 insertions(+), 192 deletions(-)
-
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+index f6a2af5d2e96..f2731989499c 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_color.c
+@@ -1906,10 +1906,10 @@ amdgpu_dm_plane_set_colorop_properties(struct drm_plane_state *plane_state,
+ 	bool has_3dlut = adev->dm.dc->caps.color.dpp.hw_3d_lut || adev->dm.dc->caps.color.mpc.preblend;
+ 	int ret;
+ 
+-	/* 1D Curve - DEGAM TF */
+-	if (!colorop)
++	if (drm_WARN_ON(dev, !colorop))
+ 		return -EINVAL;
+ 
++	/* 1D Curve - DEGAM TF */
+ 	ret = __set_dm_plane_colorop_degamma(plane_state, dc_plane_state, colorop);
+ 	if (ret)
+ 		return ret;
+@@ -2080,8 +2080,8 @@ int amdgpu_dm_update_plane_color_mgmt(struct dm_crtc_state *crtc,
+ 		dc_plane_state->input_csc_color_matrix.enable_adjustment = false;
+ 	}
+ 
+-	if (!amdgpu_dm_plane_set_colorop_properties(plane_state, dc_plane_state))
+-		return 0;
++	if (plane_state->color_pipeline)
++		return amdgpu_dm_plane_set_colorop_properties(plane_state, dc_plane_state);
+ 
+ 	return amdgpu_dm_plane_set_color_properties(plane_state, dc_plane_state);
+ }
 -- 
 2.53.0
 
