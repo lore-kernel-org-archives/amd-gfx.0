@@ -4,108 +4,148 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B1D7C5B56A
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 15:52:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D15ADC5B56A
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 16:14:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9473110ECB0;
-	Tue, 11 Aug 2026 15:51:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C5B810E378;
+	Tue, 11 Aug 2026 16:14:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="foM8tPy+";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="AqIEyxYo";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011030.outbound.protection.outlook.com [52.101.52.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA1B510ECAE
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 15:51:57 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AhFqWzbqj+54W3x6G+f1o14xZWgxLZAU6MSPHsPx+7k2VDe5hpG0KQhQUa/hcv02cPACuWQ/JknY7bc4ghOqeHU7XitUc0zTzBVDx7vMjs+5pNSgjQE137SUQUYMlkpeIeKxZ9qZAbt25c1bIB5Z0QKHKTkhLq1/u2hOlx0c3jn+h63rvYg6dqiPuny/KFuAVahDikE28JxH3RWTQUl4gQWDItvtIa1OATQle4ICg1J8SvEhEcuv5fYPut4uPtXhKkefXwEnCAgxlsfqyejdBOUZfU+4mxG7g0N4SKe6JJeJouIL+J0LXuyRtS18s6lBMvKNIdFkJybHkaE+xR4A4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=l1DL9CI1xrlii1Ea99KoHjjN14/XUmMViOiDNKM0mrY=;
- b=nBuM0Bw1Ahd3VFN11d35fNKS5J88sWKwHrFWacdAhnU+PRT2DdEoY6/N0DmfAUQsgH+E37eX3dPOJXjqRVzJJC4YhvtQDaWF9cGCC0po9Gmn8XTlc182Mo2BoGd80zxh6CJvX4FUQ41VkhnKw9lmOUtZZa/4ZroP/gNeuc725nha0EbWOtPkUyKdl4yZXhIXXjFn174cFRcHp/d2XIk0f0PYoliaKmSRBzYw1EG7Jv1t8r01IkCm1jNxWrgXADo7T3AM3YhRQ0S6I2XiCSd/oAFqJDAa/uy5HAM2dEQrvlvqb6N7aa6TrVvAaq9huttAAHnMeAwvSF1tXVhcTHHxAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=l1DL9CI1xrlii1Ea99KoHjjN14/XUmMViOiDNKM0mrY=;
- b=foM8tPy++GxuCu1hgzfyJMcKPMGnv8IFmm3SIM3CImWyC+JJHnjVBFInaOpGQhWoUXte4i+T9YCSJJVIYeuTXZ/QVKUZ71QrjS6wLh5i7FMTkC2N/HhcmyCBNtgSK4hTCgsH76OcmEN3lw7ld1uZJRDQqkfT+dE0EsQd8dA6nlY=
-Received: from CH2PR18CA0051.namprd18.prod.outlook.com (2603:10b6:610:55::31)
- by CH3PR12MB7547.namprd12.prod.outlook.com (2603:10b6:610:147::5)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
- 2026 15:51:50 +0000
-Received: from CH2PEPF00000142.namprd02.prod.outlook.com
- (2603:10b6:610:55:cafe::96) by CH2PR18CA0051.outlook.office365.com
- (2603:10b6:610:55::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.11 via Frontend Transport; Tue,
- 11 Aug 2026 15:51:50 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF00000142.mail.protection.outlook.com (10.167.244.75) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Tue, 11 Aug 2026 15:51:49 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 11 Aug
- 2026 10:51:48 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 11 Aug
- 2026 10:51:48 -0500
-Received: from james-Birman-PHX.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via
- Frontend Transport; Tue, 11 Aug 2026 10:51:39 -0500
-From: James Lin <PingLei.Lin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
- Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
- Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
- <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
- <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Taimur Hassan <Syed.Hassan@amd.com>, James Lin
- <pinglei.lin@amd.com>
-Subject: [PATCH 24/24] drm/amd/display: Promote DC to 3.2.394
-Date: Tue, 11 Aug 2026 05:28:58 +0800
-Message-ID: <20260810213010.1703162-25-PingLei.Lin@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260810213010.1703162-1-PingLei.Lin@amd.com>
-References: <20260810213010.1703162-1-PingLei.Lin@amd.com>
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15B6310E330;
+ Tue, 11 Aug 2026 16:14:54 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 0F122600AE;
+ Tue, 11 Aug 2026 16:14:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D19C41F000E9;
+ Tue, 11 Aug 2026 16:14:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786464892;
+ bh=ibHFa0NT6MxhyCm/QcqTUG2/hFc7gFbSlpWq8jjQ7cA=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=AqIEyxYo6WM3YdPSsSHbSDLMZr1JxmvH7h6KOYcSNIk3QXd2QVDV+IXaf+fBWHLQf
+ 0b9y8y43sz8IUXGlQYKUUEcnqC/pPtKubYZ31f00YbF6B+5+QQkC3l+M/2k7hoZ0Tt
+ a7TQCvXUCihZYHiWPRbGiwyJJrqK+B21ErINP+HNxYn1zaWYuXdldZOzPWtmT+qrvZ
+ sV76ODh7HoZ2k3TTs7JrMZ6FV8O2QKp0q8LprjSmZii3bN/k4gT3tA/YRKP9iVuwNC
+ pS0kSyWEURkoxvEHc5Mvx9ktzU6+nR50vPxDfujsHFVAaE1UrxqHbWhCnNE+/m0SZu
+ pGLlpPrOKHZTQ==
+Message-ID: <08302615-8635-403f-b817-08a8a889cd58@kernel.org>
+Date: Tue, 11 Aug 2026 18:14:24 +0200
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF00000142:EE_|CH3PR12MB7547:EE_
-X-MS-Office365-Filtering-Correlation-Id: 67a1a64a-8dc7-4605-6eb9-08def7c074d3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|82310400026|36860700016|6133799003|11063799006|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 8+7xRXqat4WeWf+D34EZvlz0ufl9HtCUGZz6L/AVPUR/4zvEImuOMmZmS+94pXNx13cRyIJ2Wks/Lrl451n/gvGIy6pCT3iAACZ92L08N9jNcJcBpt21Vh07N+kOjG9qf/1N92lnl1XlhtWW6/yvbCm3wDrKqGGhw1lXo327rlp8ZiAcwGc6FOJop1lzRxYzz6kVs6qrvoxLDQIhblkt6RnE8tPqScfIyM6UmKAfHsuBOIBbJXTI8X7yfKJKzHWzL6+lArK/HfWovbJVdb4O4bySRy0OfhQIhykQpOpyxwfPMn7UhvF12ESeFZUela0wu9ikm5l04Hqc6DNDjm8wJABOHlsoxx7KOATUdi9TykIDpN4w1FFFYZSa1rHiRje7f9sB3lK7CrG4+Yj1ZYwvA/ATcbglwfLqe6oAnbj4AQVKjfeLrpyLJSAY7bsDfHW1r+EN7et9wQ8TJPB3idzgV/Tm9Fb/zTqsaBtIAg71RyGZW7KKiJ0GQazgQhnMzo/Log88W2CMXWqYGpuMDzSDH3sId0TYBvftzVO0L2ARu/tQRDhPWtofEZd5XgVH3HumyynfcsAdhyX7TNsm7k5tD/QrWqGiXeABMo6tGV/NqFA5P0IsKk8OpACZIZpe6lWc6a+grY2I7AsSfRYOokcFJhl+2348UfqVyVA5EZJKnsCHIxWudHHDqFElieLB9pLSSthTz9kZ0GyaLr9ziENcwA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(6133799003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: bfUegGxNg+bBj5qC5D3WW9uEN/xGWiSo3ndjHY3tsP8JkAwbUZvQpCDafb6oqgbnMY8HAA8W3niXzAL5vXrt235GdJ3fi3g+G/4TRio3hCkxpRQZBEN+47fWey0ie5Lmyi3qBfynlnY9PBcWl4d/bSb+WU1z489uB5r2Ife6cljwdZBiIFEivF7G5pVc108BtjTvgvc7OHeqKZjVrBJXiGjL7elk6aia6MdUhtsp0e3qasV8pmh5Zox6nj+2KXv3oSBKT0NdZDFlCndNS25jWuzA2puxM0zdh0mbj/0EkVw/no0QD70zSiFa7T0NCFhLjh6dIopyH7qNQ+PeVvCrAgQjjK/ia422wwGBTZ/kCgPNWK/DvOa7vnPMqDbJGFQxX0uo+pSwBpBD2jSsgkyqLVFo+irlmMZL2f+j8uZzuNbavb+p7od4OWAkr7hZs9Pk
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 15:51:49.8440 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 67a1a64a-8dc7-4605-6eb9-08def7c074d3
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF00000142.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7547
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 02/20] mm: provide vma_[flags_]is_cow_mapping() and
+ remove is_cow_mapping()
+To: Andrew Morton <akpm@linux-foundation.org>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi
+ <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Kees Cook <kees@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Usama Arif <usama.arif@linux.dev>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, Gregory Price <gourry@gourry.net>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Xu Xin <xu.xin16@zte.com.cn>, Chengming Zhou <chengming.zhou@linux.dev>,
+ Arnd Bergmann <arnd@arndb.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Sven Schnelle <svens@linux.ibm.com>, Alex Deucher
+ <alexander.deucher@amd.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Huang Rui <ray.huang@amd.com>, Matthew Auld <matthew.auld@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Masami Hiramatsu
+ <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Arnaldo Carvalho de Melo <acme@kernel.org>,
+ Namhyung Kim <namhyung@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark
+ <james.clark@linaro.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ John Hubbard <jhubbard@nvidia.com>, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>, Chris Li <chrisl@kernel.org>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+ Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-kselftest@vger.kernel.org, kvm@vger.kernel.org,
+ linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
+ <20260806-b4-scalable-cow-virt-pgoff-v4-2-ab318a350404@kernel.org>
+ <ann-vS6MYT9kuXqu@lucifer>
+ <20260810151007.c1cfbcf46d498d2f8ce566f9@linux-foundation.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20260810151007.c1cfbcf46d498d2f8ce566f9@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,53 +160,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Taimur Hassan <Syed.Hassan@amd.com>
+On 8/11/26 00:10, Andrew Morton wrote:
+> On Mon, 10 Aug 2026 18:59:34 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+> 
+>> Hi Andrew - would it be possible to insert the comments added below? Trying
+>> to avoid a respin if possible :)
+> 
+> np, like this?
+> 
+> From: Andrew Morton <akpm@linux-foundation.org>
+> Subject: mm-provide-vma_is_cow_mapping-and-remove-is_cow_mapping-fix
+> Date: Mon Aug 10 03:07:02 PM PDT 2026
+> 
+> add comments, per Lorenzo
+> 
+> Link: https://lore.kernel.org/ann-vS6MYT9kuXqu@lucifer
+> Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> ---
 
-This DC patchset brings improvements in multiple areas. In summary, we
-have:
+To the whole resulting thing
 
-* Reworked per-DPM derate handling: refactor the per-DPM derate logic,
-  update derates with default per-DPM values, and move the
-  soc_and_ip_translator onto the new per-DPM organization
-* DCN6 mode-support and UTM work: opt-out for the OutstandingRequests
-  check, a utm_support capability flag, and a guard against an empty
-  DCN6 UTM QoS table
-* More DMU/DMUB offload: send DPM0 clock values for Z8 retention, allow
-  DCHVM<->rIOMMU SDP port disconnection on DCN42, and add the DC_BLS
-  command
-* HWSS block-sequence cleanups: move periodic interrupt calculations
-  to HWSS, drop pipe_ctx from HUBP_WAIT_FOR_DCC_META_PROP, use mpcc_id
-  instead of the hubp instance, and add a wait stream regen event
-* DML updates: unify CalculateFlipSchedule logic and relax the frame
-  size limit for the dcn5/6 core funcs files
-* clk_mgr refactor renaming carried DCE clock manager functions for
-  dcn10, plus a missing-prototype build fix and a static DCN42 SOC BB
-  struct
-* Expanded IGT/KUnit validation: CACP ACE curve area debugfs and cursor
-  mode tests on disabled CRTCs
-* eDP fix to skip teardown while a forced PSR is active
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-
-Acked-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: Taimur Hassan <Syed.Hassan@amd.com>
-Signed-off-by: James Lin <pinglei.lin@amd.com>
----
- drivers/gpu/drm/amd/display/dc/dc.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index edd6a113cfee..1355ce2b4970 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -66,7 +66,7 @@ struct dcn_dsc_reg_state;
- struct dcn_optc_reg_state;
- struct dcn_dccg_reg_state;
- 
--#define DC_VER "3.2.393"
-+#define DC_VER "3.2.394"
- 
- /**
-  * MAX_SURFACES - representative of the upper bound of surfaces that can be piped to a single CRTC
 -- 
-2.43.0
+Cheers,
 
+David
