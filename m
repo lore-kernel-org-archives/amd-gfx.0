@@ -4,97 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EF16FC5AC67
-	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 07:40:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 18E21C5AC67
+	for <amd-gfx@archiver.kernel.org>; Tue, 11 Aug 2026 07:47:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 484D910E2B1;
-	Tue, 11 Aug 2026 07:40:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8548510E298;
+	Tue, 11 Aug 2026 07:46:59 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RANtnqiG";
+	dkim=pass (2048-bit key; unprotected) header.d=ursulin.net header.i=@ursulin.net header.b="DPICmu4A";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011019.outbound.protection.outlook.com [52.101.62.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6061B10E2B1
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 07:40:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=V3a5xGRz+4aLIRwsPS1MiVyAq1mty8INiRjXxQBOIVI/PjSL5kTQGb5WdVgbisyZ7fEr7wlpvySjkv1cdumzW71B6i0gmIKJ7FJAVkNgWva7kDjP28+OezurS1AZlyE5UrIRQZXYFXrYjq0SAN+CYpqad5odWifUcM5y/5zK+GoZYwLZUAGUOnIsjf7Zotl0rtzVohgPIt1LElfBsk7sR0ppuqJwJMn3/GGLy4miSCp/wPprWOPWH5zyWMfaprIo7HLS0vyQ3ussDcwKxddvWT1POmLULeKm7wk0IpdfRaGmEK5BZ8hqc0ujOVB5fyz7S3xoQQUd+a8oVal/rMR2UQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a45shaDj4V9OfzWCVqTWWgMCqWhVBrHfpIogwtu+6hA=;
- b=YK47S0gILTEx1MHXbuC2NqYkGyZxE0Lu4izQHXW1woT5aRZP7/j5NhHjoQod7ZzWirdtj46WIupFTXYW5R9rIhR6bKvJVUvlWEA0HSdvHCOGEhTNgbXoRgndEDUthRCwl8t/CWLaDKBMrhHGH0P+OwExuukotmsJsYOOjg+TAh4V3e7Fe+6ggRkTDTcah88lIGs0x6bWRFd/OM78laBdhXZ14sqjW5+FV2YvN4V+6UmtzBY0SWQwbwb91+bxUXwojOJ3AlNI8QbBU2nWrTQqGK2il0BKkfuuDbtDBiEBCOJjecIY9XxgefFcw5Xw0xsCGKVdbyQUXnc1LLkKAewnzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a45shaDj4V9OfzWCVqTWWgMCqWhVBrHfpIogwtu+6hA=;
- b=RANtnqiGxjXNwtJkyeAbl1rkdLeYsDUCVuJIOSJnko3dxCWh0L7RgDbCoPNrXf/8Pkf9WEVV0aH1XNDt6I0peBzXlXwnThbUHItLIj2yRS92uXC3db744/ZUAGfoeNkt1ZZckdD10Vnl6oSsp1m8m1N6ugMPCuNF+MaOKVG6hRU=
-Received: from SJ0PR05CA0150.namprd05.prod.outlook.com (2603:10b6:a03:33d::35)
- by CY8PR12MB7242.namprd12.prod.outlook.com (2603:10b6:930:59::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.11; Tue, 11 Aug
- 2026 07:40:16 +0000
-Received: from CO1PEPF000075F3.namprd03.prod.outlook.com
- (2603:10b6:a03:33d:cafe::93) by SJ0PR05CA0150.outlook.office365.com
- (2603:10b6:a03:33d::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.11 via Frontend Transport; Tue,
- 11 Aug 2026 07:40:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF000075F3.mail.protection.outlook.com (10.167.249.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Tue, 11 Aug 2026 07:40:15 +0000
-Received: from shubhankar-X570-AORUS-ELITE.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 11 Aug 2026 02:40:08 -0500
-From: Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpande@amd.com>
-To: <Alexander.Deucher@amd.com>, <Pratik.Vishwakarma@amd.com>,
- <Christian.Koenig@amd.com>, <amd-gfx@lists.freedesktop.org>
-CC: <Shubhankar.MilindSardeshpande@amd.com>,
- <Veerabadhran.Gopalakrishnan@amd.com>
-Subject: [PATCH] drm/amdgpu: add missing nbio_v7_11_5 callbacks
-Date: Tue, 11 Aug 2026 13:09:03 +0530
-Message-ID: <20260811073953.553303-1-Shubhankar.MilindSardeshpande@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8520D10E29E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 07:46:58 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-49556f97a9dso18599625e9.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 00:46:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=ursulin.net; s=google; t=1786434417; x=1787039217; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Lb5ET+WzzMHF6IHDftmOMyIKThUmSRKYzy1eFtIR7Vs=;
+ b=DPICmu4Anwh0SrG9mJrecG3zSf39NbDORse8jN2cfVPMpzL2XkrUvhP0IdoKAJkgo/
+ hnu8D/Cqf+B+v4ilPNFdCm9S2qQ1A+Cap19vke3t/rO9SxlxflgU/xX6mJbVKW/5+Lc5
+ ea8fWEj5fb8i4QH6VealWLzHl6XTj4pFVB/dsiC/lrm5MwVD4qHENG4zp7FConEBV4NQ
+ QAkvoMWLBCfWEETX3vNwD5bLQgdCOmn/UlS8QLYcGYQc2xTtwkiQ8ekdCyEn+PDskJGi
+ u7sNQViCPzfpdtRzIndRI5tacKbpj6QFpiy4z1w+flJSc2nm0nV889nDyb2DHb/yvWiI
+ m0FA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786434417; x=1787039217;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Lb5ET+WzzMHF6IHDftmOMyIKThUmSRKYzy1eFtIR7Vs=;
+ b=hgcaqkX51iYk6mpyj53HlxUC5nRMUq1tZScuLXGmdU3Ml1zhf7J73d9nXsfzk8V59I
+ o39ivNW2Z1NJ8iQzo2MoZEn7n0q0BH1Ggh7ZWqCrknk7NZpXvTge2OAJBbAtokt/382k
+ QPSMrxpxzOWlG4gRQzMZOSmtbDmr01AVlw1aEOjAuRBchGxE1c/X6TgVne2BlirxCMFw
+ AW7y7bCaZmRfb8BNC882RtVQ/qrZum97rk0T+Zxd//i/cN3l/ELD7cmP6Awurqdr1AUG
+ Z5ajDgypi8vhc9WMOM0U/nWqSlY8QcRa7I87/czBc8u+OqE5eWSpyB5dsI/qiL3AYAu4
+ rZ5Q==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RopNovUHRZmy+r2gNJ2d2nQpfwO9jlbfZPAeVCHi7K6tVjCrzYgy/l6qBcnedzraR1tQ2VucxYe@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxqsCYhDVD+DzBGT+ETcMRHYF/IvCYiXtu3U40qjgOQkFwPpWEh
+ mvGG9/owcpMQZV5HVt1L2nO5Q3zbfvo9S179RjDpQEHhO3FbdpFtiqOmzE4Uob9Hmlo=
+X-Gm-Gg: AR+sD10bLVmsnf8j6FVp/zlTc1mq8ivojlz1YIoU2AJkQgl39bjDQTHd2+MQWFex8mu
+ MKqgPAvWdbqZ6If4zkm7RrW48boKtv1N6DC3Tn4msS/J6lR9gjybErajP2uKyjaztYemykXJKVe
+ nuaNIZsAjhiC6yFGu+D0P18K9uRW0vRP78Wj74KUYEVw/UEMw8+xuDjgkYzIcihQtwATERR73/t
+ giNEfrCExxZcAggIXTH80Dh+jXPorq/K0Iy8QR2RTwEMvEd/GVc33dbadE6ifnWFCh6ho3XJsiM
+ VYbOI9gCQa/szhSEvJKaIetN7CIDXk3Wn6PlBhbTUHnwwkIeg27DJqWr3MyyrX28ESvsLQxvy14
+ iQPgQOqWZLqvNyuYI5doQUzSuiBVGEFkO4IncuoiL7xRygyFNt3Ffc46pZOBRk6SW+aUtNc7iHp
+ latCtD373MY8Z9/RjARiY1vdIX/SACcnIFLC7aVIHP1djfIxAjkqhSqCRFzxjnowDax5c613g4z
+ U7uMy9pRQ==
+X-Received: by 2002:a05:600c:3114:b0:495:6e68:5df2 with SMTP id
+ 5b1f17b1804b1-4997844f628mr20367895e9.12.1786434416734; 
+ Tue, 11 Aug 2026 00:46:56 -0700 (PDT)
+Received: from [192.168.0.116] ([90.249.211.112])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49977e647acsm21670595e9.3.2026.08.11.00.46.55
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 11 Aug 2026 00:46:55 -0700 (PDT)
+Message-ID: <938ef65f-231f-40e9-a9b1-327d5d91e53a@ursulin.net>
+Date: Tue, 11 Aug 2026 08:46:54 +0100
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000075F3:EE_|CY8PR12MB7242:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5413afdb-2bd4-400f-6465-08def77bc8f4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|56012099006|11063799006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: Krrv1zSZ9klH2p8Hxg5v84Aq7YGOtK698ZuG5BxiZWm+1Rjav3P+kMj1DOjuJyI2GYQASaObCaiq2w/JKS+IQf8FPOh0JuGi1T/U1rxV+F7/BOEh/cFmHas0dZLVEA2zYZQHeTJgfsY0hKhYmv9/3J8jk8d6cQFI4L3aSwq4gslWRiFAh8x9NS9oek2KaCUnTwQSM3PfETmjQVvnQAfC44nCdkMkYXnNUOdVYxg7G9qS6kuJ7g/dcGjNnHgRlPu1k+N/4KCcXU81VWNkklixxaAW6G6d9YFtxFVsZf3NKsC/YMNvrtK3uxKqMAjzcBy38+K+UH6LGx2GCaNXH/R2WQIUnx/14k9GeL51vapJwtgZPFxM47Qo6WOxc7z9DkOORdYOLtgy4jbPQ/eWfPZ0iq7IA1Zrwt4nLnNpxc5zVDleGqHZVRttVI7X+gLiCDhJj5f1qxQeaoAalhtUqZf8zXxMTrqD/3zUzrNdCvOoG+BN+3uMEY/yJweS5hsVjrQ7vusdigAtuMrFuCgJOQdIJX8N0Chj7euyrMOwEwoOTaALFKfkTFsrMeBh5wjiWrC5odKXay027I4QCJn+dAFGPzZyoNLpVPQ9WmyFLyZkMb3Ohxb7cHET73eQFuiakSzT5jbjLTMvfSIikvotHuziCE6Pt1MAdYf3BeHCnFKBW6nrZXCcVYYFNrteQuW43QsNHdn+9T6QYo2YMYkuJc556w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(56012099006)(11063799006)(10067099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: +A3pQyi8vwqZ4uo0VIZQFw9nNow3FnTbrSbYCspnhLrmwNqOj/nHszNOqi1PTqUqEDyx5kzaCufSY3tArk9tuOssxY5jH7foV4a2T6wTJOJ4sSQw466vphd043KX8BQvaKnj0csS0hfI4atk/qUIgNEcHjqIQKnG8uesLQMKTim01+LIs9mfzfQI/OZW4iFrsYatuVdjqp4cdh62K3DXwo0DEJayvE8c18YY54NbeZiy2hsWXirUKJIqX4HM8xL9ktXNaAmd3Hx6RfXIjr4ouCKRzLzZFqOEbdA38+rkVALonVjXQtkbyNOgQojaxNnHBlap5qod49CeZLusXbL5HKG6305WD5zTtgN10JeHbUPRwLQRqBd0+KUDPe0zEdFJ/hlBBks0zfQazT0827ENoorxm0bqAPxHP1oaBy/GlJ1WkTDGnFf+JxV3NdgQB216
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Aug 2026 07:40:15.6331 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5413afdb-2bd4-400f-6465-08def77bc8f4
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000075F3.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7242
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
+ degradation at max GPU load on 9070XT
+To: Luke.Wildhardt@proton.me,
+ "matthew.brost@intel.com" <matthew.brost@intel.com>,
+ "dakr@kernel.org" <dakr@kernel.org>, "phasta@kernel.org"
+ <phasta@kernel.org>,
+ "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Cc: "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tursulin@ursulin.net>
+In-Reply-To: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,77 +99,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Wire up get_clockgating_state, update_medium_grain_clock_gating,
-update_medium_grain_light_sleep and get_rom_offset. The missing
-get_clockgating_state caused a NULL pointer dereference when reading
-the amdgpu_pm_info debugfs node.
 
-Fixes: 0453ccd3237a ("drm/amdgpu: Add NBIO 7.11.5 support")
+On 09/08/2026 00:33, Luke.Wildhardt@proton.me wrote:
+> Since the DRM scheduler default policy was switched to FAIR in 7.2, sustained 100% GPU load in-game on my RX 9070 XT causes severe performance degradation. In the example title running through Proton, Project Silverfish, the foreground application degrades to roughly 10 fps or freezes outright while audio continues, and the KDE Plasma Wayland session can lock up entirely, requiring a reboot or killing the compositor to recover. The problem is not limited to games. Running the game in the background + alt tabbing, then playing a YouTube video can also cause the entire desktop to freeze.
 
-Signed-off-by: Shubhankar Milind Sardeshpande <Shubhankar.MilindSardeshpande@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/nbio_v7_11_5.c | 32 +++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+Was there anything interesting in dmesg then the total UI lockup happened?
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11_5.c b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11_5.c
-index 9bb998a47ef6..558511dd25aa 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v7_11_5.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v7_11_5.c
-@@ -249,6 +249,24 @@ static void nbio_v7_11_5_ih_control(struct amdgpu_device *adev)
- 		WREG32_SOC15(NBIO, 0, regBIF_BX1_INTERRUPT_CNTL, interrupt_cntl);
- }
- 
-+static void
-+nbio_v7_11_5_update_medium_grain_clock_gating(struct amdgpu_device *adev,
-+					     bool enable)
-+{
-+}
-+
-+static void
-+nbio_v7_11_5_update_medium_grain_light_sleep(struct amdgpu_device *adev,
-+					    bool enable)
-+{
-+}
-+
-+static void
-+nbio_v7_11_5_get_clockgating_state(struct amdgpu_device *adev,
-+				  u64 *flags)
-+{
-+}
-+
- static u32 nbio_v7_11_5_get_hdp_flush_req_offset(struct amdgpu_device *adev)
- {
- 	u32 offset;
-@@ -309,6 +327,16 @@ static void nbio_v7_11_5_init_registers(struct amdgpu_device *adev)
- 	WREG32_SOC15(NBIO, 0, regRCC_DEV0_EPF2_STRAP2, data);
- }
- 
-+static u32 nbio_v7_11_5_get_rom_offset(struct amdgpu_device *adev)
-+{
-+	u32 data, rom_offset;
-+
-+	data = RREG32_SOC15(NBIO, 0, regREGS_ROM_OFFSET_CTRL);
-+	rom_offset = REG_GET_FIELD(data, REGS_ROM_OFFSET_CTRL, ROM_OFFSET);
-+
-+	return rom_offset;
-+}
-+
- #define MMIO_REG_HOLE_OFFSET (0x80000 - PAGE_SIZE)
- 
- static void nbio_v7_11_5_set_reg_remap(struct amdgpu_device *adev)
-@@ -337,8 +365,12 @@ const struct amdgpu_nbio_funcs nbio_v7_11_5_funcs = {
- 	.enable_doorbell_aperture = nbio_v7_11_5_enable_doorbell_aperture,
- 	.enable_doorbell_selfring_aperture = nbio_v7_11_5_enable_doorbell_selfring_aperture,
- 	.ih_doorbell_range = nbio_v7_11_5_ih_doorbell_range,
-+	.update_medium_grain_clock_gating = nbio_v7_11_5_update_medium_grain_clock_gating,
-+	.update_medium_grain_light_sleep = nbio_v7_11_5_update_medium_grain_light_sleep,
-+	.get_clockgating_state = nbio_v7_11_5_get_clockgating_state,
- 	.ih_control = nbio_v7_11_5_ih_control,
- 	.init_registers = nbio_v7_11_5_init_registers,
- 	.remap_hdp_registers = nbio_v7_11_5_remap_hdp_registers,
-+	.get_rom_offset = nbio_v7_11_5_get_rom_offset,
- 	.set_reg_remap = nbio_v7_11_5_set_reg_remap,
- };
--- 
-2.43.0
+> 
+> Then, if the game starts to stutter, either alt-tabbing, or opening up a menu in game (which reduced the load on the GPU) immediately stops the stuttering.
+> 
+> The issue is reliably reproducible under sustained GPU saturation, although the time-to-failure varies. Increasing shadow load (which decreases in-game frame rate) substantially shortens the time-to-failure.
+> 
+> In game, MangoHud does not reveal any frametime discrepancy.
+
+What exactly did you mean by not revealing discrepancy? Game is at 10fps 
+and HUD shows 10fps? Or game appears to stutter but HUD shows "normal" fps?
+
+> Bisection / test matrix
+> 
+> Reproducer: Project Silverfish (Proton) at settings that saturate the GPU, with a second GPU client active (browser video). Other titles show the same symptom under sustained load; I have not yet re-tested those specific titles against the fix.
+
+Could you list the other titles which showed the issue?
+
+Regards,
+
+Tvrtko
+
+> 
+> Kernel	Result
+> torvalds/master stock	FAIR (default)	FAIL
+> same as above + reverts below	gpu_sched.sched_policy=2 (FAIR)	FAIL
+> same as above + reverts below	gpu_sched.sched_policy=1 (FIFO)	PASS
+> 7.1.5 release	PASS
+> drm-next	FAIR (default)	FAIL
+> 
+> Reverted Commits:
+> 
+> d09339388b77 drm/sched: Remove drm_sched_init_args->num_rqs
+> 2833a0512b4c drm/sched: Remove drm_sched_init_args->num_rqs usage
+> 16e7698bc04d drm/sched: Embed run queue singleton into the scheduler
+> 77a6809f1dc3 drm/sched: Remove FIFO and RR and simplify to a single run queue
+> 45c211ddf92a drm/sched: Switch default policy to fair
+> 2462a0ce23b0 drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
+> 
+> 
+> 
+> Kernel (failing):  7.2.0-rc6 (stock), also current drm-next
+> Kernel (working):  7.2.0-rc6-default-revert-00006-g7e5de9b07e3d with sched_policy=1
+>                     7.1 release
+> Distro:            Arch Linux
+> Session:           KDE Plasma 6.7.4 / Wayland (KWin), Qt 6.11.1, KF 6.28.0
+> CPU:               AMD Ryzen 9 9950X3D
+> RAM:               64 GiB
+> GPU:               Sapphire Pulse Radeon RX 9070 XT
+>                     03:00.0 [1002:7550] rev c0, subsys Sapphire 1478
+> Motherboard:       ASUS (AM5 / 800-series chipset)
+> Mesa:              26.1.6-arch1.1 (RADV, driverVersion 26.1.6)
+> Vulkan:            instance 1.4.357 / device 1.4.354
+> 
+> 
+> 
+> 
+> On the same reverted kernel build, changing only gpu_sched.sched_policy from 2 (FAIR) to 1 (FIFO) changes the result from reliably failing to passing extended stress testing.
+> 
+> 
+> 
+> Possible mitigation options
+> 
+> Given that 7.2 is late in the release cycle and 77a6809f1dc3 removes FIFO/RR as selectable policies, there is currently no runtime workaround for affected systems.
+> 
+> 
+> Revert 45c211ddf92a so FIFO remains the default while FAIR remains available for further testing.
+> 
+> If necessary, also revert 77a6809f1dc3 and dependent changes to restore runtime policy selection.
+> 
+> Alternatively, fix the underlying FAIR regression if a suitable fix can be identified in time for 7.2.
+> 
+> 
+> I mention the revert options because the justification for removing FIFO/RR included the absence of known regressions relative to those policies. This report appears to provide at least one counterexample.
+> 
+> 
+> I am willing to test patches responsively and collect data if necessary.
+> 
 
