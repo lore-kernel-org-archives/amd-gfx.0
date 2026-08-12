@@ -4,106 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF5A1C5B572
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 17:25:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1BC4DC5B572
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 18:04:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD0C610F0AD;
-	Wed, 12 Aug 2026 17:25:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F6EE10E2AF;
+	Wed, 12 Aug 2026 18:04:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="okENkuhg";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="HnOqHnx+";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 281B910E409;
- Wed, 12 Aug 2026 17:25:03 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 284CA60A84;
- Wed, 12 Aug 2026 17:25:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 078981F000E9;
- Wed, 12 Aug 2026 17:24:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786555501;
- bh=4oSNzFjHuzTOgbEhKYNA4ws0ltCJrHAzS2GU8pXVakw=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=okENkuhgzJjXS2UaQaKvB9ybQ+m9ds7pwF4/b8z12pNVDtXC7HNFGnfr3MAVGjum9
- OvD/UR/LQA7302JY5sAzT40e1zQDjEK91x2GZsHTbymznhWHeWiZDz7hwLCqiSn6HJ
- dVm/gtD6dBtUo5Ozo/Ni81ygCihwBpcTeoM/4Oqf/oGFAhL3/gVP1qSTk3tipcc1f9
- u+sOr4XyXy7FN4TCvoZtjmKo0V0yvHBm/1K/pWlH7wTBTxGJ51f5FevBzvXtye5VVe
- yrp075F1nLy9NekTz0yx4F7BHc6yPEj13/zVnbG0vx+U8pYkCM5NqOG4MzgR1FeG48
- OfkGs+4EOKBuA==
-Date: Wed, 12 Aug 2026 18:24:27 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Kees Cook <kees@kernel.org>,
- Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, 
- Liviu Dudau <liviu.dudau@arm.com>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kvm@vger.kernel.org, 
- linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 16/20] tools/testing/selftests/mm: test anonymous page
- offset merge behaviour
-Message-ID: <anysQa1hC83cdX_7@lucifer>
-References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
- <20260806-b4-scalable-cow-virt-pgoff-v4-16-ab318a350404@kernel.org>
- <cf70ce8f-cdde-43ec-a50e-796d4e390f3f@kernel.org>
- <antWw3a0iEv4l1Yd@gremlin>
- <20260811130832.3f18d4326a5ebe6eb18cfb5f@linux-foundation.org>
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F16B510E2AF
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 18:04:37 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-38ecc48b3deso257154a91.0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 11:04:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786557877; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Zu6oi6/SipT3hKUEhVKwB7tCTqz1xHJLBm5ntoz2NL/86AAMkoOTw5weNYHrtbTWdE
+ anGVAYy5ZRiHzgRzQRJoBPs4ov4aHZFoeiAhD6DZd1jNFBGUW8CVWNPXkV5RR3UmQTYq
+ 6v8amHixuiy12nDxrjggoNLYEzDpi2zx0QZKyrKIF39UALqTY0VCvJrRKwm0PEF/5LSy
+ 8YuvLGT5AAyAeMkK6Lu0O8CfEyM/Q47F4dvu5Iqo6aqWgrxYoUiVytM0/HrSqpsC2cpH
+ AF08j/criszhoCQ1cSKJMmIvXESdBf5cSv8Beeb+w7mqeNtCitOlCBgS4FIKQkdRcDpV
+ IaOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=fAwYnwI+iWLzM+NS5sOqmOoXB5NjfiBli0Dy+4D6dqE=;
+ fh=Gz/Xb2/sum+uTy0yshHmXhaz7heKZnhj9g7yDriPtN4=;
+ b=dBQbz+1XZWsCRbuVLTNwxxR35waofoQNCq0hWBkRsafOkYmWS8cTyAaVDGTY7M+qHA
+ VPUvvj4eIBLAK+prICRTirXoJVCXfhHrZ3I+OlabV0BleJtwBWAxt3EHErtKhJkyQ0Ra
+ op5gs7iuryFsNHSMwREzJZ+rCVp/8c3o4ybL5Wd21CcKngHgm81wlIf7CBbjjrl7SgC2
+ 0GIGsxUB5VyUrlL/5t8aDPql7+8AKjaKc4+zXKsSaBgnLTTrE0dDsLatKFWaUUorIayv
+ jkJpC/Ii/IsEl8FTIXWi/CHGxIMgwP7/PprRd7lw4QqtkS6IqiCz52oikqn6ARoDt22Q
+ AT4w==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786557877; x=1787162677; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=fAwYnwI+iWLzM+NS5sOqmOoXB5NjfiBli0Dy+4D6dqE=;
+ b=HnOqHnx+tizWdzXfooLogKFMknV0gqO55v3U4FBrKG6PreO1SVNLCjrkETFKgOtzcX
+ Y2OQjaRordiJEYNa+uvVA5C2Pq6wOCfmnoNn+VNny0+/0SHpGv7D/N5QCwJr0vjQKRoj
+ FdvMYz7DY7pv8ej34EwK4HPsvZfSW8VNmVa+F/g66tDnplNr8BXwUEcmw/heiX2lEkYV
+ XHTs7iAx1C6wFjF/y3SQPTV4qCHVN7H5QhL7mIHg9AQ4o+CY5BwHiAo3Gjq3iCfwhBWi
+ XkRZqVi1NyzaQYX4U5+vYU9yMQJEiyC/cDGWWaH3xdk5i8k85Pvie4DoGZLj3aEureEn
+ 1nGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786557877; x=1787162677;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=fAwYnwI+iWLzM+NS5sOqmOoXB5NjfiBli0Dy+4D6dqE=;
+ b=CDKFO0s2VxX23ftQqrBSJwUNHRff1Fd35+8dRrf59vNYdj89wT/ljAefBe23DcglIV
+ WtntdjDz+hvxFFRldWJtMfYKSnBrwWEw5cdI+dGCifpMlJ2SCvZraHZ6Z2eujVdl5XS9
+ GPRkBr+S6LjTYyV3KlcPRGbGbox80VOhMdyphpE6PdsBWOLStkTLv6g5xp1aTW5EVny7
+ p0+QSLUBDohTNx7t2pZoLUlkzX/2FThBl962OKeLQZi1/d3y+P78UE2W2poIVrn4PtPi
+ cael4KioOPVBz3YVjMyFiTS4vS4j+p7/5TG+sxb0pPJWL3o2v/xLYKveaiz6B3OcgtqG
+ 75/g==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqcAsWgIsjXTnrrcWdx9SFW9cA2Jbd/UdUNiSzVSafdOmDd2zZhDumVBiNieFPfXhCHfmZY8ZlW@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YyQBfUi5jKmY+KMiKaDE2njQtVSC3QviZtVK7aTBv7rl6zlD9lI
+ GMVrAl5DLmZcIjBY19wCz45yQbhyu7Fy0jG8sATv/wu3XJCvfJRoLXFr4hmPxk7VJSU4G+Z6bqe
+ 0octF7AwEhQRIsPJ0zIxD4mORii90d2M=
+X-Gm-Gg: AR+sD13pkShS9h1/zYqdEdq2NA0xr5B1kc5n5q8vH56gd2pekzvgA4+lCoEdxVGTQh+
+ eLEaUvg2gNg4+Ybesh+bjzVMPsRZJ67xh8fWQC12DESsxzU6gwpyHkpjXqZUcuoEYln/i+axmpx
+ un7bua65QBlOuhIm7CY4juhpebftC6fL8hzEP9x00bfKtxHmsWHV80G/PKODrsJD59Aj5dDFPlw
+ 8MtnCHcJQ+y1PIc4j+Awg60a28kwzPQq4Pal4PiMBppv5qxn40A+HvnGbqjc3SLiEsvW6rhAKSD
+ 9HlZlKV5gntzKo5yCZqfWfmI/6JNk7gpGmBfv6B8Y0B+I6xUVCy0vHX8rvBhEeH5p0OZU76/1Tg
+ DhnIBsaDIz02UKFzT6/i4CBJuCMhF6U0=
+X-Received: by 2002:a17:90b:5107:b0:381:2788:a437 with SMTP id
+ 98e67ed59e1d1-3931e03ddbdmr42863a91.1.1786557877360; Wed, 12 Aug 2026
+ 11:04:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260811130832.3f18d4326a5ebe6eb18cfb5f@linux-foundation.org>
+References: <20260723082334.606456-1-lingshan.zhu@amd.com>
+ <c2a5fb47-d8b8-44c3-ab16-3538e7925fc8@amd.com>
+ <8987dfbe-65f5-4652-adf6-710269d85a08@amd.com>
+In-Reply-To: <8987dfbe-65f5-4652-adf6-710269d85a08@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 12 Aug 2026 14:04:25 -0400
+X-Gm-Features: AUfX_mxETVBz7jFGvDRKBGrd9UqLIMCaq4QcvnJ02n7q0iTHIcoYNQ3JrI2ZH-E
+Message-ID: <CADnq5_OAft6UEdb-OwmjZpQqZoCrq4ZjNKJMONOE8itqhkOk8w@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: ensure all userq VAs mapped before restore
+To: "Zhu, Lingshan" <lingshan.zhu@amd.com>
+Cc: "Khatri, Sunil" <sukhatri@amd.com>, Alexander.Deucher@amd.com,
+ Christian.Koenig@amd.com, Ray.Huang@amd.com, amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,31 +108,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 11, 2026 at 01:08:32PM -0700, Andrew Morton wrote:
-> On Tue, 11 Aug 2026 18:07:36 +0100 "Lorenzo Stoakes (ARM)" <ljs@kernel.org> wrote:
+On Thu, Aug 6, 2026 at 3:53=E2=80=AFAM Zhu, Lingshan <lingshan.zhu@amd.com>=
+ wrote:
 >
-> > > "Fault in" is imprecise, as a read-fault won't do. "Trigger a CoW fault." might
-> > > be better.
-> >
-> > Andrew - could you fix up? Thanks :)
+> Ping Christian and Alex
 >
-> np.
->
-> --- a/tools/testing/selftests/mm/merge.c~tools-testing-selftests-mm-test-anonymous-page-offset-merge-behaviour-fix
-> +++ a/tools/testing/selftests/mm/merge.c
-> @@ -1324,7 +1324,7 @@ TEST_F(merge, anon_and_page_offset_misma
->  	ASSERT_NE(ptr, MAP_FAILED);
->
->  	/*
-> -	 * Map another separately, and fault in, at page offset 5:
-> +	 * Map another separately and trigger a CoW fault, at page offset 5:
->  	 *
->  	 * |-----------|           |---------|
->  	 * | unfaulted |           | faulted |
-> _
->
+> I may still need the maintainer's comments to merge this patch.
 
-LGTM thanks very much! :)
+You can go ahead with Sunil's RB.
 
---
-Cheers, Lorenzo
+Thanks!
+
+Alex
+
+>
+> Thanks
+> Lingshan
+>
+> On 7/23/2026 7:17 PM, Khatri, Sunil wrote:
+>
+> Reviewed-by: Sunil Khatri <sunil.khatri@amd.com>
+>
+> On 23-07-2026 01:53 pm, Zhu Lingshan wrote:
+>
+> amdgpu_userq_buffer_vas_mapped() checks whether all VAs
+> of a queue are mapped before restoring it.
+> So that HW won't access any invalid addresses.
+>
+> Currently, this function assumes all VAs are mapped if
+> any VA of a queue has been mapped, which is wrong.
+>
+> This commit fixes this problem by examining all VAs of
+> a queue and reporting false if any of them is not mapped.
+>
+> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 16 +++++++++-------
+>   1 file changed, 9 insertions(+), 7 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_userq.c
+> index 3fe10d6af757..2b3cb4ec4835 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -280,22 +280,24 @@ static bool amdgpu_userq_buffer_va_mapped(struct am=
+dgpu_vm *vm, u64 addr)
+>     static bool amdgpu_userq_buffer_vas_mapped(struct amdgpu_usermode_que=
+ue *queue)
+>   {
+> -    int i, r =3D 0;
+> +    int i;
+> +    bool mapped;
+>         for (i =3D 0; i < ARRAY_SIZE(queue->userq_vas.va_array); i++) {
+>           if (!queue->userq_vas.va_array[i])
+>               continue;
+> -        r +=3D amdgpu_userq_buffer_va_mapped(queue->vm,
+> +
+> +        mapped =3D amdgpu_userq_buffer_va_mapped(queue->vm,
+>                              queue->userq_vas.va_array[i]);
+>           dev_dbg(queue->userq_mgr->adev->dev,
+>               "validate the userq mapping:%p va:%llx r:%d\n",
+> -            queue, queue->userq_vas.va_array[i], r);
+> -    }
+> +            queue, queue->userq_vas.va_array[i], mapped);
+>   -    if (r !=3D 0)
+> -        return true;
+> +        if (!mapped)
+> +            return false;
+> +    }
+>   -    return false;
+> +    return true;
+>   }
+>
