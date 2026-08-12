@@ -4,108 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 415B3C5CFEB
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 09:37:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52BD4C5CFDB
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 10:03:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E4B110F241;
-	Thu, 13 Aug 2026 09:36:59 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="lz1Duy5E";
-	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52E9D10F23F;
- Thu, 13 Aug 2026 09:36:58 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 58A2C600BB;
- Thu, 13 Aug 2026 09:36:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49AAC1F000E9;
- Thu, 13 Aug 2026 09:36:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786613817;
- bh=JSSZgUjMMjodUF2jdlWEV6On7VUDzA3+jCqusZy+uHI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=lz1Duy5EEJcZhdAXU+VSGCAzjzSl7Kl+2x9ncpE/plgruGPWrJSXsgJ2lIhi0rQyx
- sliVkI2Aefju0S0hgJvweLoT7d2v+tO16QpN39qrZ7iGGNqly0nKRius6h1q/JnSK7
- cP4vdq5tefx9H6GW3cP5Mn1Ld3Jhb5QI/aIP4GAl8HTzo20BPS0/yzFBY79XYrBsGv
- Z4czr0gSiplSdNc2NweADG0o5ddfvy2HXXlZ4RX+bbv/PrwXw1EbqM8ipXjCI1yPJI
- xohYc83bYTwoK1dRJ0h+9ReF+fALWELNLpnn0/uGJKajxIsac9e4uOKPC0dRxQL8Gx
- 4yBEag3xPb5mw==
-Date: Thu, 13 Aug 2026 10:36:20 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Kees Cook <kees@kernel.org>,
- Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, 
- Liviu Dudau <liviu.dudau@arm.com>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kvm@vger.kernel.org, 
- linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 17/20] mm/vma: only permit MAP_PRIVATE /dev/zero to be
- mapped anonymous
-Message-ID: <an2PqxrAAJaEC4u2@lucifer>
-References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
- <20260806-b4-scalable-cow-virt-pgoff-v4-17-ab318a350404@kernel.org>
- <c7930f14-5978-4709-bac2-54950c988883@kernel.org>
- <ant1xwiG3djtoXoe@lucifer>
- <14a06774-4157-4629-8327-b1a6bae24ab7@kernel.org>
- <anyst_4LGm6bpWdq@lucifer>
- <ea3c2889-343b-4eba-9758-cf56c75da4fc@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8FD2010F284;
+	Thu, 13 Aug 2026 10:03:26 +0000 (UTC)
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC6CE10E417;
+ Wed, 12 Aug 2026 11:58:59 +0000 (UTC)
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hKn8L1qlzzKvxn;
+ Wed, 12 Aug 2026 13:58:58 +0200 (CEST)
+Message-ID: <932892b196f7bbba7f5e9bff22f9b484854aaccc.camel@mailbox.org>
+Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
+ degradation at max GPU load on 9070XT
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Luke.Wildhardt@proton.me
+Cc: Danilo Krummrich <dakr@kernel.org>, phasta@kernel.org, 
+ "matthew.brost@intel.com"
+ <matthew.brost@intel.com>, "ckoenig.leichtzumerken@gmail.com"
+ <ckoenig.leichtzumerken@gmail.com>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, "regressions@lists.linux.dev"
+ <regressions@lists.linux.dev>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Date: Wed, 12 Aug 2026 13:58:54 +0200
+In-Reply-To: <a9ee4edb-e763-4fd7-a510-32191df0cf8f@igalia.com>
+References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
+ <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
+ <DKL9VAWD2Y98.RBQPQUL7Y47F@kernel.org>
+ <6e2a207e-4db6-4d47-b1f6-9cb13b8d6eeb@igalia.com>
+ <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
+ <4OmZej9WiJ6-rsJ_lFcrmwtClAwMdN4oHXWH0p8FkIrhAn4LKS4O3q36wrdZrvjZHBNS8PZsvaIvR-1aFZfF2tDiy1cdMzTYNylcbGDQN68=@proton.me>
+ <a9ee4edb-e763-4fd7-a510-32191df0cf8f@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ea3c2889-343b-4eba-9758-cf56c75da4fc@kernel.org>
+X-MBO-RS-ID: c458c48d41946d84b5f
+X-MBO-RS-META: 4gth8jcm81u5wkqkmj6m45i1ad48gjpj
+X-Mailman-Approved-At: Thu, 13 Aug 2026 10:03:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,111 +57,66 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 13, 2026 at 11:18:13AM +0200, David Hildenbrand (Arm) wrote:
-> On 8/12/26 20:05, Lorenzo Stoakes (ARM) wrote:
-> > TL;DR - either we need to find a way to uniquely identify it (keep my approach
-> > or move it to core mm) or we should drop this patch.
-> >
-> > Given we're late in the cycle + you stringly objective to my approach I think
-> > maybe best to drop it and respin?
->
-> Yes, let's handle that separately.
+On Wed, 2026-08-12 at 12:37 +0100, Tvrtko Ursulin wrote:
+> Jokes aside, I agree with the above analysis that a better fix would be=
+=20
+> to pull things under the lock, and interestingly, Philipp had a lock=20
+> widening patch not so long ago but I don't remember what happened it or=
+=20
+> how exactly did it look. It would possibly have fixed this problem.
 
-Agreed. Will respin with these bits lopped off!
+https://lore.kernel.org/dri-devel/a0d969408a5a55dfb6d0b3e65906fd7bbf3eee1c.=
+camel@mailbox.org/
 
->
-> >
-> > Can do a follow up to add unique identification later, somehow.
-> >
-> > The key change of 'make anon-assigned file-backed MAP_PRIVATE mappings not
-> > special snowflakes' will still be achieved in the other patches (but have to
-> > rework them a little obviously).
-> >
-> > On Wed, Aug 12, 2026 at 07:15:05PM +0200, David Hildenbrand (Arm) wrote:
-> >>>
-> >>> We don't assign vm_ops for a MAP_PRIVATE-/dev/zero mapping. So that won't work.
-> >>>
-> >>> We could expose zero->f_ops but then it's literally in drivers/char/ and that's
-> >>> just weird to expose in mm.h or whatever.
-> >>
-> >> Thinking out loud: could we use a dummy (empty) vm_ops?
-> >>
-> >> We'd place it in mm.h (zero_vm_ops) and just use it in drivers/char/.
-> >
-> > The entire purpose of this patch is to _uniquely identify_ MAP_PRIVATE-mapped
-> > /dev/zero and only permit this to make a mapping anonymous.
-> >
-> > As per the commit message: 'mm/vma: only permit MAP_PRIVATE /dev/zero to be
-> > mapped anonymous'
-> >
-> > MAP_PRIVATE-/dev/zero to anon is a historical abberation. This is why it is a
-> > unique case where semantics don't make sense.
-> >
-> > Doing things by semantics makes sense if the semantics are a _class_ of
-> > thing. This is not a class of thing it is a one of one.
-> >
-> > Yes the method used is ugly, but the alternatives (I can think of) are:
-> >
-> > 1. (your proposal) allow any in-tree non-module mmap_prepare() driver to map
-> >    anonymous pages, creating an entirely new semantic for memory mapping.
-> >
-> >    (this is currently something that is possible, unfortunately).
-> >
-> >    To be safe we would have to implement then a series of checks to prevent true
-> >    insanities, because doing that would permit broken madness like a PFN map
-> >    being treated as anon.
-> >
-> >    Once this stuff is out there as an API, even in-tree, even non-module, people
-> >    will abuse it because it'll go through some random tree and we'll have to
-> >    support it.
-> >
-> >    I mean we may as well just not make a change in this case other than maybe
-> >    preventing .mmap from being able to do this.
->
-> As discussed off-list, we could have in in mm/ and special-case
-> drivers/char/mem.c to include a mm header like fs/exec.c similarly does.
->
-> drivers/char/mem.c really belongs to core-mm.
+TBH I got discouraged and increasingly dissatisfied with the state of
+our community, because whenever I try to fix things that are
+*obviously* broken and incorrect (and which were usually not broken by
+me), with relatively simple patches, I have to work uphill and only
+receive pushback.
 
-Yeah, there's no approach that won't involve something gross but it's a case of
-least-worst.
+Reviewers and supporters are usually absent unless they want to have
+more features or performance-hacks added, though it is apparent that
+many indeed read what we are doing.
 
-As per my MAINTAINERS change putting drivers/char/mem.c in mm sections also
-(first step at least :) I agree very much that it's a core mm thing or at least
-large chunks of it.
+Should things get better it's usually not acknowledged, and should
+things go wrong one runs danger of getting blamed with hindsight-bias.
 
->
-> >
-> > 2. My solution - ugly but uniquely identifies the single permitted situation
-> >    where this behaviour is desired.
-> >
-> > 3. Export something from drivers/char/mem.c to mm - horrific for multiple
-> >    reasons, violates separation of concerns etc. etc.
->
-> Jup.
->
-> >
-> > 4. Move the driver code just for /dev/zero to mm - I thought a pretty horrible
-> >    idea, but maybe we could have some mm/ bit and some driver/char bit like
-> >    hugetlbfs or uffd? But I'm not sure there is a not-ugly way of doing this.
-> >    MAP_SHARED /dev/zero does shmem stuff so maybe could live there.
->
-> Given that I think drivers/char/mem.c really is core-mm material, something
-> along these lines also make sense.
+Had my patch landed and (speculatively) prevented this regression, no
+one would have noticed, but Phoronix would write some nice article
+about the FPS gain in video games, achieved by Tvrtko Ursulin :)
 
-Yeah, the devil's in the details but the /dev/zero stuff can be dealt with next
-cycle.
+Ah well.
 
-Respin incoming!
+My vision for drm_sched has been that we absolutely need to start
+establishing strict computer science standards and have to prioritze
+formal correctness, simplicity and documentation over features and
+*especially* performance.
 
->
-> --
-> Cheers,
->
-> David
+Though I maybe should have tried to be more polite and diplomatic about
+it, the evidence that I see is that the DRM community does not actually
+want the above. At least I have to conclude that from the lack of
+encouraging participation and the presence of discouragement.=C2=A0
 
---
-Cheers, Lorenzo
+So if I want to add a spinlock for something obviously broken, the
+burden of proof is on me, not on the one who broke it. If I want to
+prevent someone from adding a 4th drm_sched_start_x() function for
+performance-reasons, then I receive not-so-nice emails.
+
+Folks here seem to want to continue like they did for the last 15
+years.
+
+If anyone here reads this who *doesn't* want to continue like we did
+for the last 15 years, then I would kindly ask for public participation
+and help with moving things towards the right direction. Simple emails
+with "I support this idea, +1", would almost be enough.
+
+
+It would seem that these recent event might proof that I was right
+about our fundamental issues.
+
+
+P.
