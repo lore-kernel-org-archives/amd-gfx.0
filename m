@@ -4,104 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B5C6C5B56A
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 12:47:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9C44C5CFDB
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 12:56:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E180810EEBC;
-	Wed, 12 Aug 2026 12:47:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 747B510E413;
+	Wed, 12 Aug 2026 12:56:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GTtAcCCV";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="k1JDh0Rs";
 	dkim-atps=neutral
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75A7610EEBC
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 12:47:12 +0000 (UTC)
-Received: by mail-pj1-f51.google.com with SMTP id
- 98e67ed59e1d1-384c94c9423so175304a91.2
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 05:47:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786538832; cv=none;
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 36CB210EF12
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 12:56:30 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id
+ 98e67ed59e1d1-385b78b4f9bso180694a91.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 05:56:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786539390; cv=none;
  d=google.com; s=arc-20260327;
- b=Uvgy0mPcZCiIZNcPO1DOjZ6oZXDgZwX2RErHr0M3lyULFnuCTB1pduVI0KHNs2uXnm
- TOT1cFEvVmL16KQMNzCCzDa1b+izdyyxb/92hATIRYsrRqF5KOTKGqT3igWC802uvVpe
- xHylI584OniTbTxuYbB0nkVyqs4kHEljWZ7vl33a214W/3OYrOeDc40njSEZTmHI6KQO
- yMYeQtnsCkRMJe9ZpLmvSPxWq1JH6IVy4/tpDEjBDB1O8ruuADMPocmKUlefECV5turW
- Qa1Xscg1qK1ZIxVlhcrhIQ/3pTJo8k+4GgA5s3NK7ya64rmS3wmJfSiiVKqM4bgtH3mb
- vRIA==
+ b=rw5LxsWbqtPX5O2TFyMrkPHv+wRQG05ldoK9ZUVP0hgMaw9YEFjOaqb4HlcOY7r2bI
+ ntfOSufj2Fh/AgXK67/wEC0paXcwoP6e08yzGJgairiZhgdErzOS5U8oz7XjwJgnqX3O
+ NMxQqBq3uFX1Ofqoypzp8fh1TaEZkzXnWsA/BLmwwSJWnray+N90YmKku0RYjD4d42X3
+ USkos9GS0gSKy6rZD4jz+RQZv2JNEmrkkL3BH5GLehfOM77wVdYMHPkFrzyvI4rvHbHn
+ mKbGa7KpmETTMtiWLkv86y7emdLzSXp638Hf5YjJOOLc0q8wog4KZvjHgd4Kw7GjjRTm
+ WadA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=sbospAZJFrkiLd7dGzgbRYF0HvWC9S3FOmFvYIRR+vY=;
- fh=W4urHV6Jxzgzzxw2YDhJT/SpG6V6wMzjpVvif4ofd8U=;
- b=cWPGzCtMV+usnyVlR3mBkWoyRMVbWY39YK48aqKqnK597C3l0VQ9gDdVf8T3wbU2/2
- nUZURJmvUoiwbgJuqlkJqRjiQlMYZQfAERMrf3Wj54z+CT2g4YX9I9jomCQ52h9gHui4
- ODRZZYH8cjlPhAeLXXW8ffmYF08eSUNPSmPDzVbCGGwNrnGerXAcqu/RNTh1OOgDs1vK
- sXN3ICePSfu+7R1aw/Jh/tI93EXhRKEviD1VoncavM3IWe1jRXV8blKgQdhWaK8fgYgn
- TndIft7QQGaGskizIPu3Fl1rKF9qOLHnj7qSsTLbttbuOgpZwPDMFYVUlS0B6U/0sAS5
- CHuw==; darn=lists.freedesktop.org
+ bh=D+LcmQESFF0P0RuY5S7aDIeT7+kIzCB74smOfajljks=;
+ fh=8ctcLcTMQegsol4jW1vK0/TpYIQESQo3t9uXEfVRTmA=;
+ b=IaHnaMGalww2XrIOkag8RAsaOWLwMexXcDKbOSafW+j/WaJaqQBDWOLbonGhtF0lbM
+ SycCU/9fhBzSo0L+BTK5OAmrbn+YV3eMB0Yv326dyCTWvV7XuCEIDf0qMhFMgri9xCd1
+ GzQd733LuDHDndYlN9R2KxS2NNUV1/YsX7Hjdne/nmTtINnZtUoL2+SSCBQfy75OEtoy
+ Vyu9GhzZroU4KBheuRmJHpNkeyjrqqBAufSq3BntHhYWWQLRBUoiLa9ELHNsbkk1V0N8
+ 2Ypc9uYnp4axZI6TrMDZQEIQCZjZgZfXAQrD/m05UbyHClVpstktE0+6CD5CkBbf5PL4
+ viTQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786538832; x=1787143632; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786539390; x=1787144190; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=sbospAZJFrkiLd7dGzgbRYF0HvWC9S3FOmFvYIRR+vY=;
- b=GTtAcCCVa6PvzeGGRUGJ7EzTlJ3NFnvDqzDUjmx3xtRgQmLAG+OHmrsdryRxy90IJK
- DnsGIedoAwJMmqtY3HISq5lbUT68udMaaKvlxN8EurIjQM+OhaYKfYZwJ/F3YEbXXcXD
- Z439yIels0jw2tjdglRZphw4oN4gLJ4RqpHlqsQQdLbISVbkP+wOFdu+TFT+ww3fqXmL
- yTemGvDD6jPW5XYiwyAf+Ry16GzN4usXjUizIQyY1iJrgSPNDIIitz6p9dRVVGfPP7Os
- WYdslHTIY+/IcXlR5mwtGW/ZlZrCeD8MDF4t3SAijiSGCRilaVS8yihexSP/DMxdrK9N
- QqwA==
+ bh=D+LcmQESFF0P0RuY5S7aDIeT7+kIzCB74smOfajljks=;
+ b=k1JDh0RsbiGyBkhex/G+sEC+L05YebjRdeta6GJLklu4YNtYhgpq21wVnsxfrHaTb2
+ SwaXPMGCrz1pzJhIr4KkcEw3l36Ix+WexUr9GljUkMvVftZXK1fohSTwzpHhWxoH2qss
+ 8e9zAWmk4a+K2K2eIFvmR68sg9r7k0gymvFuoozVo7XzeLTGGwWQ7Pv3814GLFWtU71h
+ j4F6XaFGO7pOSYv42+gR//ZCU9OLiIm+KywJcfhZD9S13neeEuZymaCkN1dRmDzjikvA
+ IRGpkYaQNkyWpNYYzzsspPQt2EaTCFDCnW650SjpEt8BP3r/GcMRoBuwxH5/lucIvZ+v
+ HrkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786538832; x=1787143632;
+ d=1e100.net; s=20251104; t=1786539390; x=1787144190;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=sbospAZJFrkiLd7dGzgbRYF0HvWC9S3FOmFvYIRR+vY=;
- b=K7REpB9oPRWaqA2/rE2XfDgFXyBTU0RSwt2seKm1Y45gG9/+CaqBq67M7DqHtdeU5q
- 7pf19pWz9jBiFgiXEOK88aw1kBv68RNsalg+s0c/DmXkM9HCtrLRkvhpHisNWl4TPVAY
- SVVbJi0a68mXm8vvndhZUMqxKvpsxCEgaSBFV+aKI6K8Y/Oyt8syCGSoiD/uX0IDjFpy
- nkQGSbB2idbIhIZ8WVTL2HxfX0uhNQJKNieulRGHpXsG5jHl7CQAI2dDMWPyc1VIO15w
- Tlr2E8JXaeDW+Y611nks33+tt1MM57r3nA3KHUAov7UOZhv5Tjh0xykwaW5PHzAPY19t
- qJ+g==
-X-Gm-Message-State: AOJu0YwHHVAbj25nwv0dSG+fs7anGafSA+Qe53GY01NCsGZPkV70DHVu
- 4CjLcTwpaDs8NkgqFpFD24aogN0uqorH5SwpXy227KJNOJF/wL9nT3JnI+ZeCmwW8qApaQ8tivU
- m1x7XuYbM8Hsy4/6yhhjgXpWPy80bXBo=
-X-Gm-Gg: AR+sD10F/L9eOeXzo2e839rlcL2OJ4MQuHYzPf1FBoH9n2WA8fFI/Y/TCBrOsu+loxY
- 6BSsz8cwpunqE0XWULqYRAQLjZL++/tcsEfP/ByknIhbamgjVYE5MWfFZk9luqLmI2pMepN3m5f
- K8OiRgE8bEcYtW7zcQxoueWzTqNkUAiislXROjNvINFVx6Q4zo7kElZktaSQ/W/WH9Ed1ajVEHW
- pfzHsNT7VXi8nDmdZGtdbcd3WnHb2lG7mh9jLhtlkE/u4kQIL75FYhjbRRbb0Tu1WnuV+oaoKEJ
- /au9bj+1KOdy7aUy/t+ZfIfYRvKWdZ9ZIxtiv/SPHiRZi6nwCfkfhYrInMEJrieB1CYkjfRSesr
- ZfPWAX/ZIPlI+vtuLnTo2YV4QL52h/cM=
-X-Received: by 2002:a17:90a:e18c:b0:381:bcfb:e710 with SMTP id
- 98e67ed59e1d1-3930161e073mr3832755a91.3.1786538831732; Wed, 12 Aug 2026
- 05:47:11 -0700 (PDT)
+ bh=D+LcmQESFF0P0RuY5S7aDIeT7+kIzCB74smOfajljks=;
+ b=QPucvDFlKR3MI8VrW57AA/CjVf49Hw3L5J7BDMRrXV2DHcosI5PWfXDjQc4rH/OMIe
+ 2dXeA4R1bs2GAh6eJEd+1Xy911DsSE677jqRwCllUjAL0JCNZPyG++v7mE1XxH50pWY6
+ FeOg1bCbw9Q72lkKcw+ZfH6qXH53Hbp1er41SjVs2svlSd2Rcw6w+S6GJfMVTf2leCP5
+ 3HmK4DOHPJplpagDJ/6TTWrSSDdIAVOJ3ldawVyyxgvs+S9TPOEeeD/TzC1tAZek1/Ss
+ GHS2114Vu5xgwoFKlPcE7/wDjkFP4ZGsf7dRyTgyCpa1pHrroxhpBAwjTG3NmuwI4JQu
+ 6b8g==
+X-Gm-Message-State: AOJu0YxfXXONd0xO7OH1Tbh7hBxzH+NCrNObUMWBe7ACu18Z1yBgi7bg
+ SIfLThnFQDq2QZPBFcpJ7nPX+saqVoFRdmQmwxBRuptnYUkSvrMWMC8dnpp+UOnUjnjvSOqiooQ
+ IKLXt0XJ7kPuF5JsGaTSQHY/BMfbA/8Y=
+X-Gm-Gg: AR+sD13XMa/cngq5MKrgbZ59FqLzOuXFXGR2nN7JTU3JfQm9QhYM+Gl0fjCK5c0ZD/4
+ vnA0IcqH6EDQrxFyY0VtGQ7f81mPudpntwzeHR/eiccno7NFIgWvzIVb5y/UdQBFv9ejvJ0rDUD
+ wPhclCQ9qRvfRTr4eS5QnN5dk6Ion3XT3+GBeG/uSQ5kbGsZ7EVr7XdQIh0ACvj8EjTimABIXQb
+ IAhGTQdTkoEfL5DneOVPqeUPLH/+zf7lnITCOUYXMLj7eTEZJPWxRRItssYmWR+IgO8iX3bbZje
+ htFlWVw8bI2TJ1YG42grIy4FKRz+r7bxDJObH+pp9bcv7t7jhGe8cUEW1EqWoaoEJjpPhtkZLp6
+ /EnP0wdCJqOBnz75JtVBcx8kj5kzkU8Y=
+X-Received: by 2002:a17:90b:17cd:b0:38e:c140:2a0b with SMTP id
+ 98e67ed59e1d1-3930140f403mr3748050a91.3.1786539386721; Wed, 12 Aug 2026
+ 05:56:26 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260715063128.581232-1-Prike.Liang@amd.com>
- <DS7PR12MB6005701083F93C0330D4F4C0FBC02@DS7PR12MB6005.namprd12.prod.outlook.com>
- <PH7PR12MB60005AAE1676A52D0A72A0C4FBD52@PH7PR12MB6000.namprd12.prod.outlook.com>
- <CADnq5_MeA+koAWeUF1L5WnLCeB-c=W2n0nnLzY3fpguOQprGgw@mail.gmail.com>
- <DS7PR12MB6005E76101209F514B1544D9FBD52@DS7PR12MB6005.namprd12.prod.outlook.com>
- <CADnq5_PL1ECn9BHex4czV=35+ZkTmPrpQHbVOFg_ZQK7t1HygA@mail.gmail.com>
- <DS7PR12MB60058ABC1D885DF414416607FBD42@DS7PR12MB6005.namprd12.prod.outlook.com>
- <CADnq5_ONP+D7kSJEb0B0d3q8CaJGL4PTV7jfq+=j+dd_Tj0+Ow@mail.gmail.com>
- <PH7PR12MB600029F6BFBAD2FE80A1841DFBD12@PH7PR12MB6000.namprd12.prod.outlook.com>
- <CADnq5_NtQF7eU0iZv5786gVPUJ+U8daOBrqP0snAUpknKogMgQ@mail.gmail.com>
- <PH7PR12MB6000775677CD969B8AE74AB7FBD12@PH7PR12MB6000.namprd12.prod.outlook.com>
- <CADnq5_NBuTYNc=XgJztJZCY6ZU6w4g_Cu51dmK+1AV1nFA3xiw@mail.gmail.com>
- <PH7PR12MB6000E91DA1F11496A776E1ABFBDC2@PH7PR12MB6000.namprd12.prod.outlook.com>
-In-Reply-To: <PH7PR12MB6000E91DA1F11496A776E1ABFBDC2@PH7PR12MB6000.namprd12.prod.outlook.com>
+References: <20260812092414.2513383-1-Jesse.Zhang@amd.com>
+In-Reply-To: <20260812092414.2513383-1-Jesse.Zhang@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 12 Aug 2026 08:46:59 -0400
-X-Gm-Features: AUfX_my3swyX2rTfdbU--55eABAEhnqmmms5ChBpVsBvZ9ss5ISzleXZpZ9upbU
-Message-ID: <CADnq5_MtbqCeD0yDCQ0zv9DbKD9SEBjkPyxAxGKF_H_Nmc0Zog@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdgpu: Remove separate guilty compute userq reset
-To: "Liang, Prike" <Prike.Liang@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Date: Wed, 12 Aug 2026 08:56:14 -0400
+X-Gm-Features: AUfX_mwgYWpU9m150I8UjJxdN2pooz33hSAPoHakOfNK4yzBb0QrEMr1RpZD7Jo
+Message-ID: <CADnq5_MrzP08w+S4nXeo_Xr+9Uxkd627RCJKq0958SCD8TysxQ@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu: force complete the MES scheduler ring
+ fences on reset
+To: Jesse Zhang <Jesse.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian Koenig <christian.koenig@amd.com>, Shaoyun Liu <shaoyun.liu@amd.com>,
+ Amber Lin <Amber.Lin@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -118,447 +106,78 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 12, 2026 at 5:18=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com> =
-wrote:
+On Wed, Aug 12, 2026 at 5:30=E2=80=AFAM Jesse Zhang <Jesse.Zhang@amd.com> w=
+rote:
 >
-> AMD General
->
-> Regards,
->       Prike
->
-> > -----Original Message-----
-> > From: Alex Deucher <alexdeucher@gmail.com>
-> > Sent: Friday, August 7, 2026 10:38 PM
-> > To: Liang, Prike <Prike.Liang@amd.com>
-> > Cc: amd-gfx@lists.freedesktop.org; Zhang, Jesse(Jie) <Jesse.Zhang@amd.c=
-om>;
-> > Liu, Shaoyun <Shaoyun.Liu@amd.com>; Deucher, Alexander
-> > <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.co=
-m>
-> > Subject: Re: [PATCH 1/2] drm/amdgpu: Remove separate guilty compute use=
-rq reset
-> >
-> > On Fri, Aug 7, 2026 at 10:11=E2=80=AFAM Liang, Prike <Prike.Liang@amd.c=
-om> wrote:
-> > >
-> > > AMD General
-> > >
-> > > Regards,
-> > >       Prike
-> > >
-> > > > -----Original Message-----
-> > > > From: Alex Deucher <alexdeucher@gmail.com>
-> > > > Sent: Friday, August 7, 2026 9:47 PM
-> > > > To: Liang, Prike <Prike.Liang@amd.com>
-> > > > Cc: amd-gfx@lists.freedesktop.org; Zhang, Jesse(Jie)
-> > > > <Jesse.Zhang@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>; Deucher,
-> > > > Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
-> > > > <Christian.Koenig@amd.com>
-> > > > Subject: Re: [PATCH 1/2] drm/amdgpu: Remove separate guilty compute
-> > > > userq reset
-> > > >
-> > > > On Fri, Aug 7, 2026 at 9:39=E2=80=AFAM Liang, Prike <Prike.Liang@am=
-d.com> wrote:
-> > > > >
-> > > > > AMD General
-> > > > >
-> > > > >
-> > > > >
-> > > > > Regards,
-> > > > >       Prike
-> > > > >
-> > > > > > -----Original Message-----
-> > > > > > From: Alex Deucher <alexdeucher@gmail.com>
-> > > > > > Sent: Tuesday, August 4, 2026 10:18 PM
-> > > > > > To: Liang, Prike <Prike.Liang@amd.com>
-> > > > > > Cc: amd-gfx@lists.freedesktop.org; Zhang, Jesse(Jie)
-> > > > > > <Jesse.Zhang@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>;
-> > > > > > Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig,
-> > > > > > Christian <Christian.Koenig@amd.com>
-> > > > > > Subject: Re: [PATCH 1/2] drm/amdgpu: Remove separate guilty
-> > > > > > compute userq reset
-> > > > > >
-> > > > > > On Tue, Aug 4, 2026 at 4:16=E2=80=AFAM Liang, Prike <Prike.Lian=
-g@amd.com>
-> > wrote:
-> > > > > > >
-> > > > > > > AMD General
-> > > > > > >
-> > > > > > > Regards,
-> > > > > > >       Prike
-> > > > > > >
-> > > > > > > > -----Original Message-----
-> > > > > > > > From: Alex Deucher <alexdeucher@gmail.com>
-> > > > > > > > Sent: Monday, August 3, 2026 9:40 PM
-> > > > > > > > To: Liang, Prike <Prike.Liang@amd.com>
-> > > > > > > > Cc: amd-gfx@lists.freedesktop.org; Zhang, Jesse(Jie)
-> > > > > > > > <Jesse.Zhang@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>;
-> > > > > > > > Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig,
-> > > > > > > > Christian <Christian.Koenig@amd.com>
-> > > > > > > > Subject: Re: [PATCH 1/2] drm/amdgpu: Remove separate guilty
-> > > > > > > > compute userq reset
-> > > > > > > >
-> > > > > > > > On Mon, Aug 3, 2026 at 9:36=E2=80=AFAM Liang, Prike
-> > > > > > > > <Prike.Liang@amd.com>
-> > > > wrote:
-> > > > > > > > >
-> > > > > > > > > AMD General
-> > > > > > > > >
-> > > > > > > > > Regards,
-> > > > > > > > >       Prike
-> > > > > > > > >
-> > > > > > > > > > -----Original Message-----
-> > > > > > > > > > From: Alex Deucher <alexdeucher@gmail.com>
-> > > > > > > > > > Sent: Monday, August 3, 2026 9:23 PM
-> > > > > > > > > > To: Liang, Prike <Prike.Liang@amd.com>
-> > > > > > > > > > Cc: amd-gfx@lists.freedesktop.org; Zhang, Jesse(Jie)
-> > > > > > > > > > <Jesse.Zhang@amd.com>; Liu, Shaoyun
-> > > > > > > > > > <Shaoyun.Liu@amd.com>; Deucher, Alexander
-> > > > > > > > > > <Alexander.Deucher@amd.com>; Koenig, Christian
-> > > > > > > > > > <Christian.Koenig@amd.com>
-> > > > > > > > > > Subject: Re: [PATCH 1/2] drm/amdgpu: Remove separate
-> > > > > > > > > > guilty compute userq reset
-> > > > > > > > > >
-> > > > > > > > > > On Mon, Aug 3, 2026 at 5:25=E2=80=AFAM Liang, Prike
-> > > > > > > > > > <Prike.Liang@amd.com>
-> > > > > > wrote:
-> > > > > > > > > > >
-> > > > > > > > > > > AMD General
-> > > > > > > > > > >
-> > > > > > > > > > > As for the hung userq, it should be identified by the
-> > > > > > > > > > > MES reset API with the
-> > > > > > > > > > hang_detect_only setting. However, it is unlikely to
-> > > > > > > > > > miss detecting the invalid opcode hang case, especially
-> > > > > > > > > > given that the userq invalid opcode IGT test has not be=
-en
-> > implemented yet.
-> > > > > > > > > > >
-> > > > > > > > > > > Hi @Liu, Shaoyun, are you aware of any known userq
-> > > > > > > > > > > hang scenarios that cannot
-> > > > > > > > > > be identified by MES API hang_detect_only? If not, coul=
-d
-> > > > > > > > > > you please help review the following patch, which
-> > > > > > > > > > unifies the userq reset path for hung
-> > > > > > > > queues?
-> > > > > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > We added it in the first place to deal with those cases=
-.
-> > > > > > > > > > There can be queues which are not hung, but will never
-> > > > > > > > > > complete and hence never signal their fence.  E.g., you
-> > > > > > > > > > can have a queue that is waiting on a memory location
-> > > > > > > > > > that MES can preempt, but due to a bug elsewhere that
-> > > > > > > > > > memory location will never change so the fence will
-> > > > > > never signal.
-> > > > > > > > >
-> > > > > > > > > Thank you for the input. However, for fake timeout cases
-> > > > > > > > > such as the long shader
-> > > > > > > > scenario, we should identify the fake hang cases by checkin=
-g
-> > > > > > > > whether the guilty queue appears in the hang list, or
-> > > > > > > > whether the queue rptr is still updating? If so, preempt th=
-e
-> > > > > > > > queue rather than resetting
-> > > > it?
-> > > > > > > > >
-> > > > > > > >
-> > > > > > > > We have to assume that if we end up in the queue reset path
-> > > > > > > > that the queue is
-> > > > > > hung.
-> > > > > > > > The fences have to signal in finite time.  If we preempt th=
-e
-> > > > > > > > queue that won't signal the fence so we'll just end up in
-> > > > > > > > the queue reset path again.  Preemption of a queue that
-> > > > > > > > won't make progress only makes sense
-> > > > > > if fences are not involved.
-> > > > > > >
-> > > > > > > The most cases relevant to userq fence timeout and reset
-> > > > > > > worker likely to be
-> > > > > > scheduled when a userq fence polling period expires. If a long
-> > > > > > running shader is detected, the driver may need to try
-> > > > > > preempting the queue
-> > > > within a few retry cycles.
-> > > > > > If the userq fence remains unsignaled after the retries are
-> > > > > > exhausted, the driver can either return -ETIME to userspace for
-> > > > > > further handling or fall back to resetting the queue directly.
-> > > > > > Meanwhile, If the preemption succeeds and the queue completes
-> > > > > > its work during the subsequent restore process, no further rese=
+> The MES scheduler ring has no drm scheduler (no_scheduler =3D true), so i=
+t is
+> skipped by the force-completion loop in amdgpu_device_pre_asic_reset(). I=
 t
-> > > > > > is necessary for the
-> > > > guilty queue?
-> > > > > > >
-> > > > > >
-> > > > > > If an application wants to run long running jobs they shouldn't
-> > > > > > use protected fences in the first place.  If they don't use
-> > > > > > protected fences, then it should behave like KFD queues.  If
-> > > > > > there is some operation that needs to happen the queues will ge=
-t
-> > > > > > preempted and then will continue later.  DMA fences need to
-> > > > > > signal in finite time so we can't just keep pushing them off.
-> > > > > > Other kernel paging operations may
-> > > > depend on them signalling.
-> > > > >
-> > > > > Regarding the protected fences, do you mean the userq fence that
-> > > > > triggers the
-> > > > hang detection work queue?
-> > > > >
-> > > >
-> > > > Yes.
-> > > >
-> > > > > If so, the current implementation calls amdgpu_userq_fence_init()
-> > > > > at fence emit
-> > > > time (i.e., at each queue submission), which both initializes the
-> > > > dma_fence structure and starts the hang detection timer for that
-> > > > submission. Once the timeout expires,
-> > > > amdgpu_userq_hang_detect_work() fires and triggers a queue reset
-> > > > regardless of whether the queue is actually hung or simply
-> > > > long-running. But there's a core problem for the kernel to
-> > > > distinguish a hung queue from a slow one at fence emit time, since =
-both look
-> > identical an unsignaled fence with an active queue.
-> > > > >
-> > > >
-> > > > That is the intended behavior. If you opt into using a dma fence,
-> > > > you need to abide by its semantics.
-> > > >
-> > > > > However, we can defer that determination to the first timeout
-> > > > > expiry in
-> > > > amdgpu_userq_hang_detect_work(). At that point we have more
-> > > > information to work
-> > > > with:
-> > > > >
-> > > > >
-> > > > > Check for real hang: query rptr and rptr has not updated since th=
-e
-> > > > > fence was
-> > > > emitted, the queue is genuinely stuck (frozen waves, infinite loop)=
+> uses a polling fence whose hw value lives in wb (GTT) memory and survives=
+ a
+> MODE1 reset, while fence_drv.sync_seq keeps advancing for every packet.
+>
+> When the reset is triggered because MES itself stopped responding, the
+> timed-out packets advance sync_seq past the last hw fence value MES wrote=
 .
-> > > > This is a real hang, reset immediately and forcing completing the f=
-ences.
-> > > > > Check for forward progress: if rptr has updated but the fence is
-> > > > > still unsignaled, the
-> > > > queue is making progress, so it is long running, not hung. In this =
-case:
-> > > > >
-> > > > > Extend the timeout (reschedule hang_detect_work with a longer
-> > > > > interval) Track retry count if the queue still has not completed
-> > > > > after N extended
-> > > > cycles, escalate: Preempt the queue, force completing the fence and
-> > > > return -ETIME to userspace then let the application decide: resubmi=
-t, split the
-> > workload, or drop.
-> > > > >
-> > > > > Avoid unnecessary resets: if preemption succeeds and the queue
-> > > > > resumes and
-> > > > completes within the extended window, cancel the reset entirely
-> > > > since the queue was slow, not broken.
-> > > > >
-> > > > >
-> > > > > Do you think this is the right way for handling long-running task=
-s
-> > > > > to resolve the
-> > > > userq timeout issue, or does it align with your idea?
-> > > >
-> > > > If you want to run a super long running job, then you shouldn't use
-> > > > a dma fence in the first place.  There might be a job that takes 2
-> > > > minutes or even an hour to run, but you can't wait that long for a
-> > > > dma fence.  If you do, the kernel might run out of memory and the
-> > > > OOM killer will start killing processes or you could deadlock.  If
-> > > > you want to run a long job, don't use a dma fence.  If you don't us=
-e
-> > > > a dma fence, then the kernel can preempt the queues, do whatever me=
-mory
-> > management it needs to and then it can resume the queues.  dma fences h=
-ave to
-> > signal in finite time.
-> > >
-> > > Got it. So to skip attaching a dma_fence to a long-running submission=
-, does this
-> > require an explicit flag from userspace at queue creation, or is there =
-another
-> > mechanism to identify it on the kernel side?
-> > >
-> >
-> > Userspace would simply not call the userq signal IOCTL if they want to =
-run long
-> > running jobs.
+> After resume the first MES submission polls forever on a seq that is neve=
+r
+> written back, failing the resume and wedging the box on a second reset:
 >
-> Yes, this approach can also handle long-running jobs submitted from users=
-pace. However, after revisiting the Mesa code, it appears that a fence is a=
-lways emitted for each userq submission, and I could not find any code for =
-identifying long-running submissions. How should long-running submissions b=
-e identified in userspace?
-
-Userspace should not use protected fences in that case.  In theory
-compositors that use explicit sync do not need to use the protected
-fence.  Someone just needs to handle this case in mesa.
-
+>   amdgpu: MES ring buffer is full.
+>   amdgpu: *ERROR* ring gfx_0.0.0 test failed (-110)
+>   amdgpu: resume of IP block <gfx_v11_0> failed -110
+>   amdgpu: GPU reset end with ret =3D -110
 >
-> If a long-running submission does not use a protected fence, hang_detect_=
-work should not be scheduled for that submission, and this cleanup patch sh=
-ould not affect the corresponding long-running userq. This should therefore=
- be treated as a separate case requiring further investigation, including h=
-ow to identify long-running userq submissions and avoid attaching protected=
- fences to them.
+> Force complete the MES scheduler ring fences together with the scheduler
+> rings so their hw fence is realigned to sync_seq.
 >
+> v2: cover all XCCs (one scheduler ring each), not just mes.ring[0].
+>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 
-All we need to do is check for the presence of a fence on the queue
-(the application would have called the fence IOCTL).  If the fence is
-present, then we'd reset the queue.  If no fence, and MES hang_detect
-doesn't detect the queue as hung, then there is no need to reset it.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-> Regarding the cleanup, if all hung user queues can be identified through =
-hang_detect_only, do we still need to handle the guilty userq separately? C=
-ould we simply reset all guilty queues by traversing the list of hung doorb=
-ells, as proposed in this cleanup patch?
-
-If there are no protected fences, then yes, all we need is MES hang detect.
+KIQ needs a similar fix.  It also sets ring->no_scheduler =3D true.
 
 Alex
 
+> ---
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
 >
-> Regards,
-> Prike
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 520fd59036d5..e2b8253489f3 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -5036,6 +5036,19 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_dev=
+ice *adev,
+>                 amdgpu_fence_driver_force_completion(ring, fence);
+>         }
 >
-> > Alex
-> >
-> > > Thanks,
-> > > Prike
-> > > > Alex
-> > > >
-> > > > >
-> > > > > Thanks,
-> > > > > Prike
-> > > > >
-> > > > > Avoid unnecessary resets: if preemption succeeds and the queue
-> > > > > resumes and completes within the extended window, cancel the rese=
-t
-> > > > > entirely =E2=80=94 the queue was slow, not broken.>
-> > > > > > Alex
-> > > > > >
-> > > > > > > In the longer term, we may need to introduce a more robust
-> > > > > > > mechanism to
-> > > > > > distinguish slow queue cases from genuine hangs, handling them
-> > > > > > appropriately via extending time slice for completing the queue
-> > > > > > submission, userspace driven resubmission, or dropping the work
-> > > > > > through a queue reset. If it makes sense and right way to do,
-> > > > > > then I will work on implementing the solution for such slow/lon=
-g queue
-> > cases.
-> > > > > > >
-> > > > > > > Thanks,
-> > > > > > > Prike
-> > > > > > >
-> > > > > > > > Alex
-> > > > > > > >
-> > > > > > > > > >
-> > > > > > > > > > Alex
-> > > > > > > > > >
-> > > > > > > > > > > Regards,
-> > > > > > > > > > >       Prike
-> > > > > > > > > > >
-> > > > > > > > > > > > -----Original Message-----
-> > > > > > > > > > > > From: Liang, Prike
-> > > > > > > > > > > > Sent: Thursday, July 23, 2026 2:38 PM
-> > > > > > > > > > > > To: amd-gfx@lists.freedesktop.org; Zhang, Jesse(Jie=
-)
-> > > > > > > > > > > > <Jesse.Zhang@amd.com>
-> > > > > > > > > > > > Cc: Deucher, Alexander <Alexander.Deucher@amd.com>;
-> > > > > > > > > > > > Koenig, Christian <Christian.Koenig@amd.com>
-> > > > > > > > > > > > Subject: RE: [PATCH 1/2] drm/amdgpu: Remove separat=
-e
-> > > > > > > > > > > > guilty compute userq reset
-> > > > > > > > > > > >
-> > > > > > > > > > > > I checked each different userq hang cases, and the
-> > > > > > > > > > > > guilty userq can be identified by the MES firmware
-> > > > > > > > > > > > and report
-> > > > correctly.
-> > > > > > > > > > > > @Zhang,
-> > > > > > > > > > > > Jesse(Jie) could you further check as well at you s=
-ide?
-> > > > > > > > > > > >
-> > > > > > > > > > > > If there're some hang queues miss identified by MES
-> > > > > > > > > > > > firmware, then the correct thing is to further debu=
-g
-> > > > > > > > > > > > from MES firmware side rather than have such strang=
-e
-> > > > > > > > > > > > reset sequence and this reset workaround should be
-> > > > > > > > > > cleaned sooner or later.
-> > > > > > > > > > > >
-> > > > > > > > > > > >
-> > > > > > > > > > > > Regards,
-> > > > > > > > > > > >       Prike
-> > > > > > > > > > > >
-> > > > > > > > > > > > > -----Original Message-----
-> > > > > > > > > > > > > From: Liang, Prike <Prike.Liang@amd.com>
-> > > > > > > > > > > > > Sent: Wednesday, July 15, 2026 2:31 PM
-> > > > > > > > > > > > > To: amd-gfx@lists.freedesktop.org
-> > > > > > > > > > > > > Cc: Deucher, Alexander
-> > > > > > > > > > > > > <Alexander.Deucher@amd.com>; Koenig, Christian
-> > > > > > > > > > > > > <Christian.Koenig@amd.com>; Liang, Prike
-> > > > > > > > > > > > > <Prike.Liang@amd.com>
-> > > > > > > > > > > > > Subject: [PATCH 1/2] drm/amdgpu: Remove separate
-> > > > > > > > > > > > > guilty compute userq reset
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > amdgpu_mes_detect_and_reset_hung_queues() already
-> > > > > > > > > > > > > detects the guilty compute user queue and resets
-> > > > > > > > > > > > > it through mes_userq_reset_queue(). The additiona=
-l
-> > > > > > > > > > > > > reset via
-> > > > > > > > > > > > > mes_userq_reset() is unnecessary, so remove it to
-> > > > > > > > > > > > > unify the compute userq
-> > > > > > > > > > reset.
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> > > > > > > > > > > > > ---
-> > > > > > > > > > > > >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c    | 5 -=
-----
-> > > > > > > > > > > > >  drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 2 -=
--
-> > > > > > > > > > > > >  2 files changed, 7 deletions(-)
-> > > > > > > > > > > > >
-> > > > > > > > > > > > > diff --git
-> > > > > > > > > > > > > a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > > > > > > > > > > > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > > > > > > > > > > > > index 1e275c2e7dd3..4f2d5ff2f7be 100644
-> > > > > > > > > > > > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > > > > > > > > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.c
-> > > > > > > > > > > > > @@ -2315,11 +2315,6 @@ int
-> > > > > > > > > > > > > amdgpu_gfx_reset_mes_compute(struct
-> > > > > > > > > > > > > amdgpu_device *adev,
-> > > > > > > > > > > > >             deferred_end[n_deferred].fence =3D gu=
-ilty_fence;
-> > > > > > > > > > > > >             n_deferred++;
-> > > > > > > > > > > > >     }
-> > > > > > > > > > > > > -   if (uq) {
-> > > > > > > > > > > > > -           r =3D mes_userq_reset(uq);
-> > > > > > > > > > > > > -           if (r)
-> > > > > > > > > > > > > -                   goto out;
-> > > > > > > > > > > > > -   }
-> > > > > > > > > > > > >     for (i =3D 0; i < num_hung; i++) {
-> > > > > > > > > > > > >             struct amdgpu_ring *hr =3D NULL;
-> > > > > > > > > > > > >             struct amdgpu_fence *hf =3D NULL; dif=
-f
-> > > > > > > > > > > > > --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.=
-c
-> > > > > > > > > > > > > b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > > > > > > > > > > > > index b6bfa3974839..fab21d4275f3 100644
-> > > > > > > > > > > > > --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > > > > > > > > > > > > +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> > > > > > > > > > > > > @@ -226,8 +226,6 @@ int
-> > > > > > > > > > > > > mes_userq_reset_queue(struct amdgpu_device *adev,
-> > > > > > > > > > > > >
-> > > > > > > > > > > > >     xa_for_each(&adev->userq_doorbell_xa, uq_id, =
-uq) {
-> > > > > > > > > > > > >             if (uq->queue_type =3D=3D queue_type)=
- {
-> > > > > > > > > > > > > -                   if (uq =3D=3D guilty_uq)
-> > > > > > > > > > > > > -                           continue;
-> > > > > > > > > > > > >                     if (uq->doorbell_index =3D=3D=
- db) {
-> > > > > > > > > > > > >                             uq->state =3D
-> > AMDGPU_USERQ_STATE_HUNG;
-> > > > > > > > > > > > >                             if (use_mmio)
-> > > > > > > > > > > > > --
-> > > > > > > > > > > > > 2.34.1
-> > > > > > > > > > >
+> +       /*
+> +        * MES scheduler rings have no drm scheduler, so they are missed =
+by the
+> +        * loop above. Realign their polling fence too (one per XCC), oth=
+erwise the
+> +        * first post-reset submission polls forever on a stale seq. sche=
+d.ready
+> +        * skips KIQ pipes.
+> +        */
+> +       for (i =3D 0; i < AMDGPU_MAX_MES_INST_PIPES; i++) {
+> +               struct amdgpu_ring *mes_ring =3D &adev->mes.ring[i];
+> +
+> +               if (mes_ring->fence_drv.initialized && mes_ring->sched.re=
+ady)
+> +                       amdgpu_fence_driver_force_completion(mes_ring, fe=
+nce);
+> +       }
+> +
+>         amdgpu_fence_driver_isr_toggle(adev, false);
+>
+>         r =3D amdgpu_reset_prepare_hwcontext(adev, reset_context);
+> --
+> 2.49.0
+>
