@@ -4,37 +4,35 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00931C5CFDB
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 07:26:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23F0EC5B567
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 07:26:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 961F210EE8D;
-	Wed, 12 Aug 2026 07:26:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 358B510EE95;
+	Wed, 12 Aug 2026 07:26:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="Rj5jtiD8";
+	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="ZC9O8bT4";
 	dkim-atps=neutral
-X-Greylist: delayed 91105 seconds by postgrey-1.36 at gabe;
- Tue, 11 Aug 2026 17:59:18 UTC
-Received: from mail-10630.protonmail.ch (mail-10630.protonmail.ch
- [79.135.106.30])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1165710ED6B
- for <amd-gfx@lists.freedesktop.org>; Tue, 11 Aug 2026 17:59:18 +0000 (UTC)
+Received: from mail-106109.protonmail.ch (mail-106109.protonmail.ch
+ [79.135.106.109])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 03FF110E3C4
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 04:52:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=3jue3prkvzdelhxqbbuuvwtkqe.protonmail; t=1786471155; x=1786730355;
- bh=Rhq8TQEyp/YkXN1pgK+No4ze40gOJy7gf5bTiXAy8xk=;
+ s=protonmail; t=1786510337; x=1786769537;
+ bh=QxpfgLUxNSdiBijKLdd2WbIDliEEu661/LABaYjzQfU=;
  h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
  Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
  Message-ID:BIMI-Selector;
- b=Rj5jtiD873I7jKzJj9eX5AUjZgOQx8tzvXszjkLAJc7kRVrn+RvP2hghKv9lY/mjD
- oXT5pIL0WEaiQR37Q5abIr/V8dxMsWHUuKG+5XCILr5rQ5gtsvKFx8q4UGDpjaJxpL
- 4l0Oh74xS10wwbFt41FLj/jicUI6Srl8OLckEpKrCKIhLIuOMZjsVaZyXD+XXUKvbU
- PvgnuvTtWp5isvQtal+j0lGR0ESh5+T5xOEmce+5t7ANoEQWsvh0WII/Se2blfEFQs
- X3W8hcqAvJA1gVwwKnm/EA6Zgyyg/aBeWEM0CCJzeIytp2eDXEy0pLJ3uE+43tHaAV
- eO6ZVQcWMFWSA==
-Date: Tue, 11 Aug 2026 17:59:09 +0000
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+ b=ZC9O8bT46edEWPqoEo28iKLiC9RIM+R6DYPQ8de9X3CJXT7DiLV5c7yEPFD/7igmA
+ XzjlYW5CobKUWlXT0QrDAG+uLjQf/robI+5vi1mmmEVIbtj6nIuMZwU1sg1rrJ+JR7
+ exYpDyf5rruwyTKRVjthdikdY4+ieqF5Pr3cLp3iDOCU1gWrhOc5wptR64gReZJOwv
+ I4RdtcH8tdMiEmXPMmEVN0c3W17CvA7GU40bzcf3n6CdJC2HR1twzXWJ52GgK+vFJ+
+ DmtF7dI0lWsh/g+fY2F3Q2cMp/qBacZPaEPR/DbLNM8OKsDNR6Fq4VPGtXZ9L7hlRe
+ Ee9BOr8RmxeUg==
+Date: Wed, 12 Aug 2026 04:52:13 +0000
+To: Tvrtko Ursulin <tursulin@ursulin.net>
 From: Luke.Wildhardt@proton.me
-Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@mailbox.org>,
- phasta@kernel.org, "matthew.brost@intel.com" <matthew.brost@intel.com>,
+Cc: "matthew.brost@intel.com" <matthew.brost@intel.com>,
+ "dakr@kernel.org" <dakr@kernel.org>, "phasta@kernel.org" <phasta@kernel.org>,
  "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
  "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
  "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
@@ -42,15 +40,12 @@ Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@mailbox.org>,
  "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
 Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
  degradation at max GPU load on 9070XT
-Message-ID: <4OmZej9WiJ6-rsJ_lFcrmwtClAwMdN4oHXWH0p8FkIrhAn4LKS4O3q36wrdZrvjZHBNS8PZsvaIvR-1aFZfF2tDiy1cdMzTYNylcbGDQN68=@proton.me>
-In-Reply-To: <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
+Message-ID: <0cdzNER9iUvIoKj0xg2DofKCfvToYWAhxj4MWWVyePXAP__liqXLKh6BMul6p3ypc-MqEiNM4i3uwCx_qg0XPc71rpYNJchP8xjCEmDVyoE=@proton.me>
+In-Reply-To: <938ef65f-231f-40e9-a9b1-327d5d91e53a@ursulin.net>
 References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
- <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
- <DKL9VAWD2Y98.RBQPQUL7Y47F@kernel.org>
- <6e2a207e-4db6-4d47-b1f6-9cb13b8d6eeb@igalia.com>
- <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
+ <938ef65f-231f-40e9-a9b1-327d5d91e53a@ursulin.net>
 Feedback-ID: 214028577:user:proton
-X-Pm-Message-ID: 33967dafe27c211d4ea346d13d616ab9ee968239
+X-Pm-Message-ID: a179f2fa176cac2eba01ef3e32aba7ce803bc9ad
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
@@ -69,186 +64,146 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I want to be very clear here, I was working with Claude Opus on debugging t=
-his issue. I am not a good programmer and work in on the hardware side of t=
-hings, so this is only code I've tested and not of my creation, just hoping=
- to be helpful.
+Here are some videos I took of what I encountered
+
+Stock 7.2.0-rc7
+https://www.youtube.com/watch?v=3DDAmnZ25i1uA
+
+The first patch you sent me:
+https://www.youtube.com/watch?v=3D86kYUwGwv2c
+
+My initial quick observation with the patch you sent me might have just bee=
+n a fluke, or things were just right for it not to freeze entirely.
+
+Additional games I saw this in was
+
+Spyro: Reignited Trilogy
+Hitman: Absolution
+
+Same sort of deal, opening a menu (which reduced GPU load) recovered the ga=
+me.=20
+
+At least in the original game, Project Silverfish, and a small amount of ti=
+me in Spyro, it appeared that playing with gamescope stopped the issue from=
+ appearing. Maybe gamescope does something under the hood that changes the =
+scheduling?
 
 
+On Tuesday, August 11th, 2026 at 12:46 AM, Tvrtko Ursulin <tursulin@ursulin=
+.net> wrote:
 
-It appears the freezing (and maybe what I'll call micro freezing instead of=
- stuttering) was resolved after an issue was potentially identified in driv=
-ers/gpu/drm/scheduler/sched_rq.c
-
-I did a 20m play session attempting to reproduce the issue but was not able=
- to. Previously, I could reproduce this on-demand.
-
-I will copy the writeup it created and the testing we did below. I am only =
-claiming that the freezing had been seemingly resolved, not a particular fi=
-tness or correct identification of the issue, that is for developers to jud=
-ge.
-
-Quotations are an output of a summery I had Claude create.
-
-"
-THE INVARIANT
-
-drm_sched_entity_stats::vruntime is held absolute while the entity is linke=
-d
-in the run queue tree, and relative to min_vruntime while it is idle.
-save_vruntime() converts one way on the way out, restore_vruntime() the oth=
-er
-on the way back in. drm_sched_rq_add_entity() calls restore unconditionally=
-,
-which is only correct if the entity has definitely been through save.
-
-
-THE WINDOW
-
-drm_sched_entity_pop_job():
-
-    spsc_queue_pop(&entity->job_queue);      /* queue now empty */
-
-    drm_sched_rq_pop_entity(entity);         /* takes entity->lock inside *=
-/
-
-No lock held across those two lines. A concurrent push seeing the queue emp=
-ty
-gets first =3D=3D true, calls add_entity, and restores a vruntime that has =
-not yet
-been saved -- adding min_vruntime to an already-absolute value. If the enti=
-ty
-is leftmost, get_min_vruntime() returns its own vruntime and it doubles.
-
-It persists: pop_entity then finds the pushed job, takes the next_job branc=
-h,
-and update_vruntime() carries the inflated value forward. The entity sits f=
-ar
-right in the tree and is not selected until min_vruntime catches up, which
-under sustained load may be effectively never.
-
-
-EVIDENCE
-
-WARN_ON_ONCE(!RB_EMPTY_NODE(&entity->rb_tree_node)) at the top of
-add_entity(), after the rq lock, fires reproducibly.
-
-That condition should be unreachable. add_entity() is reached only from the
-"first job" branch of push_job(), and first is true only when the SPSC queu=
-e
-was empty. A linked entity implies its last pop_entity() peeked non-empty.
-Empty queue and still linked cannot both hold in any ordered execution. Fre=
-sh
-entities are excluded -- entity_init() calls RB_CLEAR_NODE() unconditionall=
-y.
-
-Instrumented as a counter instead, with ring and comm logged:
-
-  idle 10s:      0 races /  5662 restores
-  gameplay 60s:  8 races / 43315 restores
-
-  [ 192.754604] vruntime race on ring gfx_0.0.0 (comm kwin_wayla:cs0)
-  [ 226.882135] vruntime race on ring gfx_0.0.0 (comm kwin_wayla:cs0)
-  [ 292.226032] vruntime race on ring gfx_0.0.0 (comm kwin_wayla:cs0)
-
-plus Xwayland:cs0 and vkd3d_queue on gfx, and many more on sdma0/sdma1. The
-gfx_0.0.0 / kwin_wayla:cs0 entries are the compositor submission thread on =
-the
-graphics ring -- the process that dies when the desktop freezes.
-
-
-CHANGE
-
-The principled fix is presumably to close the window by holding entity->loc=
-k
-across the pop, which needs a _locked variant of drm_sched_rq_pop_entity().
-I did not attempt that. What I tested checks the invariant instead: a still=
--
-linked entity never left, so its vruntime is already absolute and its tree
-position valid.
-
---- a/drivers/gpu/drm/scheduler/sched_rq.c
-+++ b/drivers/gpu/drm/scheduler/sched_rq.c
-@@ drm_sched_rq_add_entity
--=09ts =3D drm_sched_rq_get_min_vruntime(rq);
--=09ts =3D drm_sched_entity_restore_vruntime(entity, ts, rq->head_prio);
--=09drm_sched_rq_update_tree_locked(entity, rq, ts);
-+=09if (RB_EMPTY_NODE(&entity->rb_tree_node)) {
-+=09=09ts =3D drm_sched_rq_get_min_vruntime(rq);
-+=09=09ts =3D drm_sched_entity_restore_vruntime(entity, ts,
-+=09=09=09=09=09=09       rq->head_prio);
-+=09=09drm_sched_rq_update_tree_locked(entity, rq, ts);
-+=09}
-
-On stock 7.2-rc7 with this applied, freezes are gone against a trigger that
-previously reproduced on demand, and perceptible hitching appears gone too.
-The race counter keeps incrementing (35 in the last session against 295744
-restores), so the window still opens at the same rate and is now absorbed -=
--
-the timing has not merely shifted. Extended soak in progress.
-"
-
-
-
-On Monday, August 10th, 2026 at 9:40 AM, Luke.Wildhardt@proton.me <Luke.Wil=
-dhardt@proton.me> wrote:
-
-> Oops, forgot to reply all in my last message.
 >
-> I did a quick test of the patch before I left this morning, the freezing =
-seems to gone, but when the GPU is under the same condition, the stuttering=
- is more uniform if that makes sense. Granted this was only a 5 minute test=
- but the freeze was rather reliable before, I can do more testing later.
+> On 09/08/2026 00:33, Luke.Wildhardt@proton.me wrote:
+> > Since the DRM scheduler default policy was switched to FAIR in 7.2, sus=
+tained 100% GPU load in-game on my RX 9070 XT causes severe performance deg=
+radation. In the example title running through Proton, Project Silverfish, =
+the foreground application degrades to roughly 10 fps or freezes outright w=
+hile audio continues, and the KDE Plasma Wayland session can lock up entire=
+ly, requiring a reboot or killing the compositor to recover. The problem is=
+ not limited to games. Running the game in the background + alt tabbing, th=
+en playing a YouTube video can also cause the entire desktop to freeze.
 >
-> I know these things can be hard to describe, if that helps. If there's an=
-y profiling I could do or detailed logging that would help don't hesitate t=
-o ask.
+> Was there anything interesting in dmesg then the total UI lockup happened=
+?
 >
->
->
-> -------- Original Message --------
-> On Monday, 08/10/26 at 06:48 Tvrtko Ursulin <tvrtko.ursulin@igalia.com> w=
-rote:
->
-> On 10/08/2026 13:45, Danilo Krummrich wrote:
-> > On Mon Aug 10, 2026 at 10:28 AM CEST, Philipp Stanner wrote:
-> >>> Reverted Commits:
-> >>>
-> >>> d09339388b77 drm/sched: Remove drm_sched_init_args->num_rqs
-> >>> 2833a0512b4c drm/sched: Remove drm_sched_init_args->num_rqs usage
-> >>> 16e7698bc04d drm/sched: Embed run queue singleton into the scheduler
-> >>> 77a6809f1dc3 drm/sched: Remove FIFO and RR and simplify to a single r=
-un queue
-> >>> 45c211ddf92a drm/sched: Switch default policy to fair
-> >>> 2462a0ce23b0 drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
 > >
-> > [...]
+> > Then, if the game starts to stutter, either alt-tabbing, or opening up =
+a menu in game (which reduced the load on the GPU) immediately stops the st=
+uttering.
 > >
-> >> That might be the wisest thing to do; but let's hear if Tvrtko has an =
-idea for
-> >> a hotfix first.
+> > The issue is reliably reproducible under sustained GPU saturation, alth=
+ough the time-to-failure varies. Increasing shadow load (which decreases in=
+-game frame rate) substantially shortens the time-to-failure.
 > >
-> > -rc7 was released yesterday; even with a working hotfix today it'd be t=
-ricky to
-> > ensure the hotfix does not regress other drivers or workloads with 7.2 =
-being
-> > just a few days ahead.
-> >
-> > I suggest to not wait and get the reverts ready.
+> > In game, MangoHud does not reveal any frametime discrepancy.
 >
-> Yes reverts would be safer. I have them in a branch at
-> people.freedesktop.org/~tursulin/drm-intel drm-sched-fair-reverts,
-> mostly straightforward apart from one easy conflict in
-> amdgpu_xcp_release_sched. Smoke tested on Steam Deck looks fine.
+> What exactly did you mean by not revealing discrepancy? Game is at 10fps
+> and HUD shows 10fps? Or game appears to stutter but HUD shows "normal" fp=
+s?
 >
-> Having said that, the fix for min_vruntime handling I provided earlier
-> in the thread also looks fine in my testing and is simple. No
-> regressions found with synthetic unit test workloads or messing around
-> on the Steam Deck. But we need to wait to hear from Luke since I haven't
-> been able to repro his report locally yet.
+> > Bisection / test matrix
+> >
+> > Reproducer: Project Silverfish (Proton) at settings that saturate the G=
+PU, with a second GPU client active (browser video). Other titles show the =
+same symptom under sustained load; I have not yet re-tested those specific =
+titles against the fix.
+>
+> Could you list the other titles which showed the issue?
 >
 > Regards,
 >
 > Tvrtko
+>
+> >
+> > Kernel=09Result
+> > torvalds/master stock=09FAIR (default)=09FAIL
+> > same as above + reverts below=09gpu_sched.sched_policy=3D2 (FAIR)=09FAI=
+L
+> > same as above + reverts below=09gpu_sched.sched_policy=3D1 (FIFO)=09PAS=
+S
+> > 7.1.5 release=09PASS
+> > drm-next=09FAIR (default)=09FAIL
+> >
+> > Reverted Commits:
+> >
+> > d09339388b77 drm/sched: Remove drm_sched_init_args->num_rqs
+> > 2833a0512b4c drm/sched: Remove drm_sched_init_args->num_rqs usage
+> > 16e7698bc04d drm/sched: Embed run queue singleton into the scheduler
+> > 77a6809f1dc3 drm/sched: Remove FIFO and RR and simplify to a single run=
+ queue
+> > 45c211ddf92a drm/sched: Switch default policy to fair
+> > 2462a0ce23b0 drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
+> >
+> >
+> >
+> > Kernel (failing):  7.2.0-rc6 (stock), also current drm-next
+> > Kernel (working):  7.2.0-rc6-default-revert-00006-g7e5de9b07e3d with sc=
+hed_policy=3D1
+> >                     7.1 release
+> > Distro:            Arch Linux
+> > Session:           KDE Plasma 6.7.4 / Wayland (KWin), Qt 6.11.1, KF 6.2=
+8.0
+> > CPU:               AMD Ryzen 9 9950X3D
+> > RAM:               64 GiB
+> > GPU:               Sapphire Pulse Radeon RX 9070 XT
+> >                     03:00.0 [1002:7550] rev c0, subsys Sapphire 1478
+> > Motherboard:       ASUS (AM5 / 800-series chipset)
+> > Mesa:              26.1.6-arch1.1 (RADV, driverVersion 26.1.6)
+> > Vulkan:            instance 1.4.357 / device 1.4.354
+> >
+> >
+> >
+> >
+> > On the same reverted kernel build, changing only gpu_sched.sched_policy=
+ from 2 (FAIR) to 1 (FIFO) changes the result from reliably failing to pass=
+ing extended stress testing.
+> >
+> >
+> >
+> > Possible mitigation options
+> >
+> > Given that 7.2 is late in the release cycle and 77a6809f1dc3 removes FI=
+FO/RR as selectable policies, there is currently no runtime workaround for =
+affected systems.
+> >
+> >
+> > Revert 45c211ddf92a so FIFO remains the default while FAIR remains avai=
+lable for further testing.
+> >
+> > If necessary, also revert 77a6809f1dc3 and dependent changes to restore=
+ runtime policy selection.
+> >
+> > Alternatively, fix the underlying FAIR regression if a suitable fix can=
+ be identified in time for 7.2.
+> >
+> >
+> > I mention the revert options because the justification for removing FIF=
+O/RR included the absence of known regressions relative to those policies. =
+This report appears to provide at least one counterexample.
+> >
+> >
+> > I am willing to test patches responsively and collect data if necessary=
+.
+> >
 >
 >
