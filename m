@@ -4,56 +4,137 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AECDAC5CFDB
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 11:38:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E37A5C5AD5A
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 12:16:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 241A010E3F9;
-	Wed, 12 Aug 2026 11:38:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 832C410E3BC;
+	Wed, 12 Aug 2026 12:16:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="L4IwcYtp";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Pyq/BP2F";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AF08F10E400;
- Wed, 12 Aug 2026 11:38:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=FOsbDIiKv0vNOMkm31uIgCuQq87hGoNH63/OPIvWnp8=; b=L4IwcYtpjpcItMyTTkTS0w69AT
- +VPySXaN21UEv0G0CAUayUPEZAeYjM/0cAcnfWdiJyrj1K9smN/9fB+SOCsDCd+C5rg71JryxHU6M
- Dq3ZfnKK/NGoIxDEikZvBLUfuNW7CSe0w3E/bgdvibFfiDnfJcv92oR2AfLs3pCYvru5cLO0vOD/y
- 7cfaccZtri5WzLdkQHSDe8q3pUIUGfwVAZymSXw3odABPdRZC/pUOWNWNVlPpkKPbuTLl7SMrI+F/
- oBqZtiAJQgS0Y7rDIb31BUkR1z1QjMa1myKmoDgcxh9M+gkjHRuoo6sHLd/ZONHI/y5m0dp6/xDWi
- NeYWpdug==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wu7HO-0000dF-GU; Wed, 12 Aug 2026 13:37:54 +0200
-Message-ID: <a9ee4edb-e763-4fd7-a510-32191df0cf8f@igalia.com>
-Date: Wed, 12 Aug 2026 12:37:53 +0100
-MIME-Version: 1.0
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011026.outbound.protection.outlook.com [52.101.52.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8163A10E3BC;
+ Wed, 12 Aug 2026 12:16:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qmCWGeLE9z8RRozRL28NdsDChrhEKjMnNDPDuTRSJB4P3/eByfI7PPnQI3y9vGqGB7nLvK+wFGOPMMGJ13PGCq1/qoUpO98RJbtXeLwZ+uQGNBFQJ+LVKfvopXG4SO7Udc8+QeRj/5mFtQjur9ll7AAeDNCwYAZDb3BcPrvH4Slm+EevYSGagJ8wfqt2CWXFHOGCjDxbXQstYPX2oqws3ZeJIQ/Gr2o/NNsk+P26jXlLjJFjCbl1rMPZpdzhjaWmbwtdA2dB7ZMVSiNw142iajEDEmbA9lmE/EMZi2Bh0uhu7zPYZfwp/J8wK9FFu6fiLo3YY8JpYwW1aNjW7oMv8Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=4LD5jfsmdDj3T4swA3+4pnoTpKkAKhGNA+GaVpUv33g=;
+ b=nQU/0OHb1K337qqCD1jFVqrv7PqiMmSvc6xEq9npz2J34FXj+oNLCbaVabXUrvrUbJRNY2A8Q00GQI7xaBZgxi9Jd78jgxfww3edKD+2k8YDx2W+9eJs/erRPpwsZhsh0C+0b9bR4I7Qww3J3HnbP2ym/bdlTSwZaoIT//z+kqFjlrY2B1IrggG2FqMUeVmMDVzOnH83JAPsJIfhIvAUC/smK+o/dRABe1jqXzigcmaBsa2a4erG+cxPFcYsnaoUmVX5TBe6af2+fAmET3AjeOP2xSy5QzpFP5UTW30IXX8rUy/DyGM9LDtaoEVPKQL7MWUdoRYUuw2QSnGXLmCtjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=4LD5jfsmdDj3T4swA3+4pnoTpKkAKhGNA+GaVpUv33g=;
+ b=Pyq/BP2Fx8TrdztECtXGjrX7ItBa30bcpFYYjotILEc0MLrBYD8Lh09DHpPIlhCmfRokzkHkEANgQyDbkCl22YfIqZVAAE4DHKmoQwPRd4EfX3mSrXZcv0kdGkFGDkc4EGYNja4VWksY+PwEUw0tNMXRVKsXb60mHB5U3A0qVDU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS7PR12MB8322.namprd12.prod.outlook.com (2603:10b6:8:ed::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Wed, 12 Aug
+ 2026 12:16:10 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0292.024; Wed, 12 Aug 2026
+ 12:16:09 +0000
+Message-ID: <ffda865c-2f2f-4b5c-a21d-6d0ef7c1b10a@amd.com>
+Date: Wed, 12 Aug 2026 14:16:03 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
- degradation at max GPU load on 9070XT
-To: Luke.Wildhardt@proton.me
-Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@mailbox.org>, 
- phasta@kernel.org, "matthew.brost@intel.com" <matthew.brost@intel.com>,
- "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
- <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
- <DKL9VAWD2Y98.RBQPQUL7Y47F@kernel.org>
- <6e2a207e-4db6-4d47-b1f6-9cb13b8d6eeb@igalia.com>
- <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
- <4OmZej9WiJ6-rsJ_lFcrmwtClAwMdN4oHXWH0p8FkIrhAn4LKS4O3q36wrdZrvjZHBNS8PZsvaIvR-1aFZfF2tDiy1cdMzTYNylcbGDQN68=@proton.me>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <4OmZej9WiJ6-rsJ_lFcrmwtClAwMdN4oHXWH0p8FkIrhAn4LKS4O3q36wrdZrvjZHBNS8PZsvaIvR-1aFZfF2tDiy1cdMzTYNylcbGDQN68=@proton.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v9 02/18] drm/amdgpu: add SVM core header and VM
+ integration
+To: "Huang, Honglei" <honghuan@amd.com>, Huang Rui <ray.huang@amd.com>,
+ Philip Yang <Philip.Yang@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ Felix Kuehling <felix.kuehling@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>
+Cc: Xiaogang Chen <xiaogang.chen@amd.com>, Oak Zeng <Oak.Zeng@amd.com>,
+ Jenny Liu <Jenny-Jing.Liu@amd.com>, Zhu Lingshan <lingshan.zhu@amd.com>,
+ Honglei Huang <honglei1.huang@amd.com>, Junhua Shen <Junhua.Shen@amd.com>,
+ Yiru Ma <yiru.ma@amd.com>, Simona Vetter <simona@ffwll.ch>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+References: <20260804094246.1719318-1-ray.huang@amd.com>
+ <20260804094246.1719318-3-ray.huang@amd.com>
+ <ee51e993-705e-496e-89f4-c5d0196c8951@amd.com>
+ <b12d31fb-f9f2-4e09-a0fe-21f2d6bb7999@amd.com>
+ <d9439960-3e65-4fc9-921d-02a6052655c2@amd.com>
+ <e4e1acc6-c8f6-47af-b3e2-cd4bb396bbde@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <e4e1acc6-c8f6-47af-b3e2-cd4bb396bbde@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0157.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:99::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB8322:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1505ebab-82f0-4006-face-08def86b7e01
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|23010399003|22082099003|18002099003|56012099006|11063799006|4143699003|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info: G60urFM8Qzc5I0i0UTcQuyOGlAWWPKEn+RvS5NOBGTlwPdJiaO/gouWmNulB4bMkSppB3Y2qsrmuBpKxUk6UjG+3Xrb31A1CG9EuWWpVJsbobtyqLdb4TVw7KA/kHuVDeQknLE4dXhhBA2/UChPDkOJEk8BOhkP6mNW9Ymks77dI7IghGO7UZbRHyo5MJWnWWJWZ9KeGw5qIfEipnzc2GCFBHTmqRleIXeFxz/V9o3mWRUFmeR1tIaVjTdS/K1JdKRP546GCojaeO02WygbYnmaeg0T4nqMq42iF9S2xCZcznBZbKQTT5Iw6cZuCgKqH8aDdFSd9IIl1rNW7oZGi7S9jTAvqGH6fguZYupwawiO5iAmkkckhrtx1ri6Q8mHwTjEKqZ/QczyJOUcjBhNVfFceSxAdt+nZxTqpEj0v4G6LyicZ93SY7mrZHWTvtRZxtqPi6WVHlh1hf+61bg1DG7ODY5bAdyElKYx09M9luSUGuwn1RnOy3C8yC4Lj3xrSsi7lorPIVvXBzzC3NcAt7iZnXEGGR2jgBMaoab1no9Z3NLGPI2//7TxlrLAAEF0kKoBlKmfbCV0pw5EehziJ7Xhf9kuZYfEc8TyjgoX6Gam/DUAWel2VBaO4C9drP3KhbDWB0XQoD4o9b7lENU2YU40zHonRL72i00NngJATuAU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(6133799003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bVdJOTgwemIwZGpjd3FUZjZidVJxb0IyVVM2TlFPQzNKZlBTcGluMnhUV3dq?=
+ =?utf-8?B?dExDczRMQTltOENXL0NjdUpHZ25FMzlhVjgrbEJ4MlgwOFd6QVRLM1AzVXpS?=
+ =?utf-8?B?VXpzTzQyM0p5Rk1XNTlTR1B5UHE4UkxzMmJRT3I5MU9ndkw3ZVhrMU0xQUdO?=
+ =?utf-8?B?dklFQlVKblpBSkN3Y3FLbnNrdkROUU5OZzVhc1dmeWZTeHB0WWVJbHJvUmRX?=
+ =?utf-8?B?YU96Y2Z5RW1laWxTSFgxME0rbmM3RlRjaitkRy9FRzVvMmlpYlN2T3FLeWs5?=
+ =?utf-8?B?NG51Vk9rTHhpd1hmb0NQTG94bzQ2YzgzSThFeDNsM09sNEJLL01VR1RQS0FH?=
+ =?utf-8?B?MGRMWHloWm1NYlJGc3VwK1BRa05qNE95cFlneGNzQjAxNndSWk5QSmxEVmhx?=
+ =?utf-8?B?a0d0S3pXbkFBMXN0SHRIVFFMUTJ3S1RWdEkvODdPYmlYc0QvWEg4VS9pUlNS?=
+ =?utf-8?B?bXgyeFpocWlPbjhBNXBiZ2tsMHd1QkxWRlJoL0FVNEdsVXZyVjlnbU54STQ2?=
+ =?utf-8?B?TGt4WVRZeng0ZS9hK2lCQkxxYlNCUURBNllwRFNVQXdFTFdPYUZYSWEwYkdQ?=
+ =?utf-8?B?TUlKd0pYSnlGY2ptblRPU25nYkxYbGE4bThEcmtUR3RSVWVwdW0za2g0ZmtU?=
+ =?utf-8?B?SXJJbVR3UFRsVmJlaUhsYTJVWmtnbHBVM0YxSHQ0K1pkeFRkb3dOckI0ZFBD?=
+ =?utf-8?B?WVdJTjVER294dDhvM3FQY0hBVU1LSlp2TVBBVE5CNjU3UzZHUkhzRkt6L2Jl?=
+ =?utf-8?B?ME9JQ2dqTEcrSzdrUitIeXhtK00wTlZ6cm9WZkpCdG1VT1pGT3ExTVBXSEhU?=
+ =?utf-8?B?b0VVY09LYmxwK0M5TFdreU85RWo1N2J5SHlnSTc0OENaNWJneTlKbTQ5Zkdp?=
+ =?utf-8?B?MTdCdGIrc0RjWkp0ZmVaaGw3NjdxYUhiMkFueVRNZTl4YmpTNkJKU1lIZEJT?=
+ =?utf-8?B?aFVKZk15RzYyZm5RTzlRWldOdkxCbkpIcXJmZFJWTE1WaGlsRnVvTWJaT21z?=
+ =?utf-8?B?OWVHRDNGL21iVGdUOXJiVzB0MU9wZ2F0NjI1SHBaMTMyQ0ZUak9Ma052SmRQ?=
+ =?utf-8?B?UCtpQWt3NXdPWXZUYm41cUcvNkg1WnRtR01xWWlwTXgvREZsKzhvMjVSSlU4?=
+ =?utf-8?B?TjI0a2JyYVpnS3pKYXBIVzNWQVYrVHBXRFlmRGpYdEs5ZnVua2g3cjZRMTk2?=
+ =?utf-8?B?N1ZiaWowNFNVN3dSSUNrdVRGM2pVSElFZU5zSFBWVXljVDNIaXRGbmxUT0NV?=
+ =?utf-8?B?VkdKTXR5Z2F6ZDdzcUFUNHhkNUhoVGd6NzUzazJGSVcxRjVJSENZUnhvME9K?=
+ =?utf-8?B?L0FpVkx4bVdMY1NwWWlBMUJraEZVNWJ4WWdRdGhUSEIvUTNLb0NGb21yam02?=
+ =?utf-8?B?LzF6MUhqK3ZtKzIzQ1gzNUNzNFdYRjB2NGI2YmlEb0tuNVc1Qlc4NWlPeG84?=
+ =?utf-8?B?UVl3SkhsdEdxejNzbEVwVmMyVnZyMTRkYVhPY1pHREJ0S0xFUk1HNzBFcCtD?=
+ =?utf-8?B?dnJwQVNGeTA4dGlXZ0lWQytXcURZMDl3Wmc4UGFub3JIY2lkK0RkbTFhV0VS?=
+ =?utf-8?B?ZzRYZ292ZW10NjB6aStzSkNwRVZXbWsxMHV1YVBWeDNUTk1GREhBZmVxSi9l?=
+ =?utf-8?B?SHhzUzFuZ1AxRng5TGhhLzFWRTI1bjlqdis1d3NMMXNqL0RGUnh0aDFrOHcy?=
+ =?utf-8?B?VmhHUGFjSnBrcGNYMkNzQ1BRNkpCb1FITDZEYnlrdE8xeDlPRXNEY05heUhU?=
+ =?utf-8?B?aWFKYlExNGVUbGhCN0o4ODZ2d2RBUU1kY3BtWE91UllVVmlPc3VRSG9PdzEx?=
+ =?utf-8?B?VndzYnJvSzJiVlJMRlkzRExuTzFkN0x5dmZrUjdMMXJ6Vm9haEFWRGR3TlIz?=
+ =?utf-8?B?OWFUYnVLQ3VOSUkvRndoaFFESGM2ZjRwVTMzUmVGTHZzcFRCZ2J1VS9teWFK?=
+ =?utf-8?B?QU1mZGwxZ2kvNE15clQzaitFeUJuaG1DMUFyL0liRTBBeDFmNGh5L3NyVmFx?=
+ =?utf-8?B?ZUNiSTN6eFJvMXVwUXp4QUpjRXU0eWJXZTdMdmRmdlFQTEtVay9DNit3TFRC?=
+ =?utf-8?B?MXhRUkM1WFpUQ1FwL0FCNzRJcEs3NXQ0ekpMQ3RwcGUwdTNGVlVjVG1HdWlz?=
+ =?utf-8?B?WXZIUjYrZTlQbDcvMHVzaW1ubUNtQ1ZqVEoyTmkwSEZWdGhYMmN1NWdEVVdM?=
+ =?utf-8?B?ZEViblI4Qlk4VWJJS09ock9DaGkvdVdrU202M2llZHpnYjhTVnN2RnpncWpP?=
+ =?utf-8?B?aHMyQmpHVFl4dGZtWWJqNFp5eEc1UnVDRFBHRXpMZDVWcnp2WUdCZDFSSElB?=
+ =?utf-8?Q?tC6SZvTQA3QeiHtdo5?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1505ebab-82f0-4006-face-08def86b7e01
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 12:16:09.5397 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ux3NMqplMHINz/iD7WjRKiTwFHde4SQoDy0iPPrPuQPE9VB62DElQbElE8Dy09F5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8322
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,172 +149,310 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+On 8/12/26 11:55, Huang, Honglei wrote:
+> On 8/12/2026 4:36 PM, Christian König wrote:
+>> On 8/11/26 16:06, Huang, Honglei wrote:
+>> ...
+>>>>> +/*
+>>>>> + * Helpers for amdgpu_svm.svm_lock, the driver_svm_lock registered with GPU SVM.
+>>>>> + * Hold it in write mode around structural GPU SVM updates, including
+>>>>> + * drm_gpusvm_range_find_or_insert() and drm_gpusvm_range_remove().
+>>>>> + */
+>>>>> +static inline void amdgpu_svm_lock(struct amdgpu_svm *svm)
+>>>>> +{
+>>>>> +    down_write(&svm->svm_lock);
+>>>>> +}
+>>>>> +
+>>>>> +static inline void amdgpu_svm_unlock(struct amdgpu_svm *svm)
+>>>>> +{
+>>>>> +    up_write(&svm->svm_lock);
+>>>>> +}
+>>>>> +
+>>>>> +static inline void amdgpu_svm_assert_locked(struct amdgpu_svm *svm)
+>>>>> +{
+>>>>> +    lockdep_assert_held_write(&svm->svm_lock);
+>>>>> +}
+>>>>
+>>>> I'm starting to repeat myself, so once more: This stuff doesn't work like that!
+>>>>
+>>>> The lock the SVM subsystem uses to serialize updates *must* be the amdgpu_vm->eviction_lock and *not* a separate one.
+>>>>
+>>>> So clear NAK to having this functions here.
+>>>
+>>>
+>>> I have explained why eviction lock can not be used as svm lock in V8, previous version. And it seems like we have a big gap about it.
+>>>
+>>> The eviction lock can not be used for svm lcok.
+>>>
+>>> And the design of svm lock is the core locking design of drmsvm frame work, without this desgin, this framework lost its soul. So I have to explain how to use this lock.
+>>>
+>>> I believe we are talking about two different locks.
+>>
+>> Yeah, that stuff is more than a bit complicated. The key point is that I still don't see any of the mandatory changes to amdgpu_vm.c in this patch set.
+>>
+>>> You may treat svm lock as notifier lock. drm_gpusvm has two of them, and the "no allocation while held in the MMU notifier" rule applies
+>>> to the other one, not to driver_svm_lock.
+>>>
+>>> 1) drm_gpusvm has two distinct locks: drivers/gpu/drm/drm_gpusvm.c
+>>>
+>>>    - notifier_lock: safeguards the notifier's range RB tree and list, as
+>>>      well as the range's DMA mappings and sequence number. ... This lock
+>>>      corresponds to the driver->update lock mentioned in
+>>>      Documentation/mm/hmm.rst."
+>> And that one here *MUST* be identical to the eviction lock in amdgpu_vm.c
+> 
+> Actually I have a question about this,
+> 
+> The notifier lock protects the CPU pages tables, it prevents the migration/swap ... from MM logic.
+> 
+> And the eviction lock protects the GPU VM page table, it prevents gpu page table changes from TTM logic.
+> 
+> They have different jobs,
 
-On 11/08/2026 18:59, Luke.Wildhardt@proton.me wrote:
-> I want to be very clear here, I was working with Claude Opus on debugging this issue. I am not a good programmer and work in on the hardware side of things, so this is only code I've tested and not of my creation, just hoping to be helpful.
+No, exactly that is what we have gotten wrong in the existing KFD SVM implementation.
 
-It is really helpful and appreciated! Both that you found the regression 
-and that you are helping debug and fix it.
+> 
+> when doing a GPU mapping in SVM, cpu page table can not change, casue it
+> may change the cpu dma addr -> gpu mapping. So must hold it, it is done in current code, and it is must required by drm gpu svm frame work.
+> 
+> And at the same time the eviciton lock must hold also, casue the GPU page tables may change by TTM logic.
+> 
+> Those two locks are all need be hold, no conflict, this is just my thought.
 
-> It appears the freezing (and maybe what I'll call micro freezing instead of stuttering) was resolved after an issue was potentially identified in drivers/gpu/drm/scheduler/sched_rq.c
-> 
-> I did a 20m play session attempting to reproduce the issue but was not able to. Previously, I could reproduce this on-demand.
-> 
-> I will copy the writeup it created and the testing we did below. I am only claiming that the freezing had been seemingly resolved, not a particular fitness or correct identification of the issue, that is for developers to judge.
-> 
-> Quotations are an output of a summery I had Claude create.
-> 
-> "
-> THE INVARIANT
-> 
-> drm_sched_entity_stats::vruntime is held absolute while the entity is linked
-> in the run queue tree, and relative to min_vruntime while it is idle.
-> save_vruntime() converts one way on the way out, restore_vruntime() the other
-> on the way back in. drm_sched_rq_add_entity() calls restore unconditionally,
-> which is only correct if the entity has definitely been through save.
-> 
-> 
-> THE WINDOW
-> 
-> drm_sched_entity_pop_job():
-> 
->      spsc_queue_pop(&entity->job_queue);      /* queue now empty */
-> 
->      drm_sched_rq_pop_entity(entity);         /* takes entity->lock inside */
-> 
-> No lock held across those two lines. A concurrent push seeing the queue empty
-> gets first == true, calls add_entity, and restores a vruntime that has not yet
-> been saved -- adding min_vruntime to an already-absolute value. If the entity
-> is leftmost, get_min_vruntime() returns its own vruntime and it doubles.
-> 
-> It persists: pop_entity then finds the pushed job, takes the next_job branch,
-> and update_vruntime() carries the inflated value forward. The entity sits far
-> right in the tree and is not selected until min_vruntime catches up, which
-> under sustained load may be effectively never.
-> 
-> 
-> EVIDENCE
-> 
-> WARN_ON_ONCE(!RB_EMPTY_NODE(&entity->rb_tree_node)) at the top of
-> add_entity(), after the rq lock, fires reproducibly.
-> 
-> That condition should be unreachable. add_entity() is reached only from the
-> "first job" branch of push_job(), and first is true only when the SPSC queue
-> was empty. A linked entity implies its last pop_entity() peeked non-empty.
-> Empty queue and still linked cannot both hold in any ordered execution. Fresh
-> entities are excluded -- entity_init() calls RB_CLEAR_NODE() unconditionally.
-> 
-> Instrumented as a counter instead, with ring and comm logged:
-> 
->    idle 10s:      0 races /  5662 restores
->    gameplay 60s:  8 races / 43315 restores
-> 
->    [ 192.754604] vruntime race on ring gfx_0.0.0 (comm kwin_wayla:cs0)
->    [ 226.882135] vruntime race on ring gfx_0.0.0 (comm kwin_wayla:cs0)
->    [ 292.226032] vruntime race on ring gfx_0.0.0 (comm kwin_wayla:cs0)
-> 
-> plus Xwayland:cs0 and vkd3d_queue on gfx, and many more on sdma0/sdma1. The
-> gfx_0.0.0 / kwin_wayla:cs0 entries are the compositor submission thread on the
-> graphics ring -- the process that dies when the desktop freezes.
-> 
-> 
-> CHANGE
-> 
-> The principled fix is presumably to close the window by holding entity->lock
-> across the pop, which needs a _locked variant of drm_sched_rq_pop_entity().
-> I did not attempt that. What I tested checks the invariant instead: a still-
-> linked entity never left, so its vruntime is already absolute and its tree
-> position valid.
-> 
-> --- a/drivers/gpu/drm/scheduler/sched_rq.c
-> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
-> @@ drm_sched_rq_add_entity
-> -	ts = drm_sched_rq_get_min_vruntime(rq);
-> -	ts = drm_sched_entity_restore_vruntime(entity, ts, rq->head_prio);
-> -	drm_sched_rq_update_tree_locked(entity, rq, ts);
-> +	if (RB_EMPTY_NODE(&entity->rb_tree_node)) {
-> +		ts = drm_sched_rq_get_min_vruntime(rq);
-> +		ts = drm_sched_entity_restore_vruntime(entity, ts,
-> +						       rq->head_prio);
-> +		drm_sched_rq_update_tree_locked(entity, rq, ts);
-> +	}
-> 
-> On stock 7.2-rc7 with this applied, freezes are gone against a trigger that
-> previously reproduced on demand, and perceptible hitching appears gone too.
-> The race counter keeps incrementing (35 in the last session against 295744
-> restores), so the window still opens at the same rate and is now absorbed --
-> the timing has not merely shifted. Extended soak in progress.
-> "
+Originally the notifier_lock only made sure that the CPU page table updates where done in order and originally the eviction lock made sure that the GPU page table updates where done in order, but essentially we need the order for both.
 
-Good find! I almost feel obsolete. Perhaps our new AI overlords should 
-make a pension fund out of the proceeds obtained by training their 
-models on the decades of our work so us old programmers can safely retire.
+The point is that the updates need to be serialized. In other words when one CPU is doing a mapping operation and another CPU is doing an unmap through an MMU notifier we somehow need to make sure that the coresponding GPU page table updates execute in the correct order.
 
-Jokes aside, I agree with the above analysis that a better fix would be 
-to pull things under the lock, and interestingly, Philipp had a lock 
-widening patch not so long ago but I don't remember what happened it or 
-how exactly did it look. It would possibly have fixed this problem.
+So essentially those two locks need to be the same one, and we need to drop the lock to allocate page tables and when we re-acquire it we need to double check the sequence number to make sure that no unmap operation happened concurrently.
 
-Anyway, I have prepared a branch with the two fixes if you would be kind 
-enough to give it a spin:
-
-https://cgit.freedesktop.org/~tursulin/drm-intel/log/?h=drm-sched-fair-fixes
-
-In my testing it all looks good. Fingers crossed.
+And yeah I know that this makes things much much more complicated, but it is definately necessary.
 
 Regards,
+Christian.
 
-Tvrtko
-
-> On Monday, August 10th, 2026 at 9:40 AM, Luke.Wildhardt@proton.me <Luke.Wildhardt@proton.me> wrote:
 > 
->> Oops, forgot to reply all in my last message.
+> Regards,
+> Honglei
+> 
 >>
->> I did a quick test of the patch before I left this morning, the freezing seems to gone, but when the GPU is under the same condition, the stuttering is more uniform if that makes sense. Granted this was only a 5 minute test but the freeze was rather reliable before, I can do more testing later.
+>> The background is that XE uses a different page table allocation approach than amdgpu and we need to drop this lock in amdgpu to be able to allocate page tables. See function amdgpu_vm_pt_alloc().
 >>
->> I know these things can be hard to describe, if that helps. If there's any profiling I could do or detailed logging that would help don't hesitate to ask.
+>> With that design here that currently doesn't work at all.
 >>
+>> We have two options, either use the drm_gpusvm notifier_lock as eviction_lock in amdgpu_vm.c or re-design amdgpu_vm.c to use the same approach for allocating page tables as XE.
 >>
+>> Some engineer from Valve is working on re-designing amdgpu_vm.c, but that will potentially take month if not years.
 >>
->> -------- Original Message --------
->> On Monday, 08/10/26 at 06:48 Tvrtko Ursulin <tvrtko.ursulin@igalia.com> wrote:
+>> So my take is that the new SVM code needs to modify amdgpu_vm.c so that the drm_gpusvm notifier_lock is used as eviction lock by the VM code.
 >>
->> On 10/08/2026 13:45, Danilo Krummrich wrote:
->>> On Mon Aug 10, 2026 at 10:28 AM CEST, Philipp Stanner wrote:
->>>>> Reverted Commits:
->>>>>
->>>>> d09339388b77 drm/sched: Remove drm_sched_init_args->num_rqs
->>>>> 2833a0512b4c drm/sched: Remove drm_sched_init_args->num_rqs usage
->>>>> 16e7698bc04d drm/sched: Embed run queue singleton into the scheduler
->>>>> 77a6809f1dc3 drm/sched: Remove FIFO and RR and simplify to a single run queue
->>>>> 45c211ddf92a drm/sched: Switch default policy to fair
->>>>> 2462a0ce23b0 drm/amdgpu: Remove drm_sched_init_args->num_rqs usage
->>>
->>> [...]
->>>
->>>> That might be the wisest thing to do; but let's hear if Tvrtko has an idea for
->>>> a hotfix first.
->>>
->>> -rc7 was released yesterday; even with a working hotfix today it'd be tricky to
->>> ensure the hotfix does not regress other drivers or workloads with 7.2 being
->>> just a few days ahead.
->>>
->>> I suggest to not wait and get the reverts ready.
->>
->> Yes reverts would be safer. I have them in a branch at
->> people.freedesktop.org/~tursulin/drm-intel drm-sched-fair-reverts,
->> mostly straightforward apart from one easy conflict in
->> amdgpu_xcp_release_sched. Smoke tested on Steam Deck looks fine.
->>
->> Having said that, the fix for min_vruntime handling I provided earlier
->> in the thread also looks fine in my testing and is simple. No
->> regressions found with synthetic unit test workloads or messing around
->> on the Steam Deck. But we need to wait to hear from Luke since I haven't
->> been able to repro his report locally yet.
->>
+> 
 >> Regards,
+>> Christian.
 >>
->> Tvrtko
 >>
->>
+>>>
+>>>    - driver_svm_lock: In addition to the locking mentioned above, the
+>>>      driver should implement a lock to safeguard core GPU SVM function
+>>>      calls that modify state, such as drm_gpusvm_range_find_or_insert and
+>>>      drm_gpusvm_range_remove.
+>>>
+>>>    Two locks, two jobs.
+>>>
+>>> 2) The lock held in the MMU notifier is notifier_lock, never driver_svm_lock
+>>>
+>>>    drm_gpusvm_notifier_invalidate():
+>>>          down_write(&gpusvm->notifier_lock);
+>>>          ...
+>>>          gpusvm->ops->invalidate(gpusvm, notifier, mmu_range);
+>>>
+>>>    The driver invalidate callback runs under notifier_lock only. Per the
+>>>    framework's own notifier example it just unmaps pages
+>>>    and queues the range to the garbage collector no allocation, and it
+>>>    does not take driver_svm_lock:
+>>>
+>>>          drm_gpusvm_range_unmap_pages(...);
+>>>          drm_gpusvm_range_set_unmapped(...);
+>>>          driver_garbage_collector_add(...);
+>>>
+>>> 3) driver_svm_lock is by design an allocating, process context lock
+>>>
+>>>    drm_gpusvm_range_find_or_insert() asserts it and then allocates under it:
+>>>
+>>>          drm_gpusvm_range_find_or_insert():
+>>>                  drm_gpusvm_driver_lock_held(gpusvm);
+>>>                  ...
+>>>                  range = drm_gpusvm_range_alloc(...);
+>>>                  ... mmu_interval_notifier_insert(), kzalloc
+>>>
+>>>    drm_gpusvm_range_remove() asserts it and frees. This is only safe
+>>>    because driver_svm_lock is a sleepable, reclaim friendly lock that is
+>>>    never taken from the MMU notifier. Reference counting
+>>>     handles range *lifetime*, but it does not
+>>>    serialize tree insert/remove, which is exactly why the framework still
+>>>    asserts driver_svm_lock on those two entry points regardless of refcount.
+>>>
+>>> Now the three concrete points:
+>>>
+>>> A) Why the primary driver_svm_lock is required
+>>>
+>>>    It is a framework requirement, not an amdgpu invention:
+>>>     - DOC: Locking says the driver "should implement" it.
+>>>     - drm_gpusvm lockdep-asserts it on every structural entry:
+>>>       drm_gpusvm_range_find_or_insert() and drm_gpusvm_range_remove() both
+>>>       call drm_gpusvm_driver_lock_held().
+>>>     - The reference fault handler holds it across the whole fault:
+>>>       GC -> find_or_insert -> migrate -> get_pages -> bind.
+>>>
+>>>    Xe does exactly this:
+>>>     - xe_svm.c:      drm_gpusvm_driver_set_lock(&vm->svm.gpusvm, &vm->lock);
+>>>     - xe_pagefault.c: down_write(&vm->lock); before dispatching the fault
+>>>     - __xe_svm_handle_pagefault(): lockdep_assert_held_write(&vm->lock);
+>>>       held across GC / find_or_insert / alloc_vram / get_pages / rebind
+>>>     - xe_svm_garbage_collector(): lockdep_assert_held_write(&vm->lock);
+>>>
+>>>    amdgpu's svm_lock is the same driver_svm_lock, used the same way.
+>>>
+>>> B) Why eviction_lock cannot be that lock
+>>>
+>>>> This lock eviction_lock can only be grabbed while updating the mapping range.
+>>>
+>>>    and that is precisely why it cannot be driver_svm_lock.
+>>>    driver_svm_lock must wrap find_or_insert, migration, and
+>>>    drm_gpusvm_range_get_pages
+>>>    eviction_lock is the opposite by contract:
+>>>
+>>>     - It is taken with memalloc_noreclaim_save() in
+>>>       amdgpu_vm_begin_critical(), specifically so no reclaim happens while
+>>>       held (to avoid the reclaim -> MMU-notifier deadlock). Holding it
+>>>       across get_pages/migration breaks that.
+>>>     - TTM eviction try-locks it: amdgpu_vm_evictable() does
+>>>       scoped_cond_guard(mutex_try, return false, &vm->eviction_lock) and
+>>>       sets vm->evicting. Long holds starve eviction.
+>>>     - It is a plain mutex that the SVM map path re-enters:
+>>>       amdgpu_svm_range_update_mapping() -> amdgpu_vm_map_range() ->
+>>>       amdgpu_vm_begin_critical() -> mutex_lock(&vm->eviction_lock). If
+>>>       eviction_lock were also the outer SVM lock, this is a self-deadlock.
+>>>
+>>>    In short, eviction_lock has the contract of notifier_lock , not of
+>>>    driver_svm_lock. This is also why the current split is correct:
+>>>    svm_lock (outer) != eviction_lock (inner). Your own rule - "you can't
+>>>    call the VM code with the lock held, the VM code must take it itself" -
+>>>    is satisfied today only because they are separate: svm_lock is held
+>>>    while calling amdgpu_vm_map_range(), and amdgpu_vm_map_range() takes
+>>>    eviction_lock itself. Merging them is what would violate that rule.
+>>>
+>>>> No, they Xe vm->lock and eviction_lock are actually identical in the handling.
+>>>
+>>>    They are not. Xe's vm->lock is a rw_semaphore, the "outer most lock" of
+>>>    the VM , held down_write across the whole fault. amdgpu's
+>>>    eviction_lock is a mutex taken only inside amdgpu_vm_begin_critical()
+>>>    during a PT update, under memalloc_noreclaim. Xe's eviction/reclaim
+>>>    handling is separate from vm->lock. The amdgpu analogue of Xe's vm->lock
+>>>    is svm_lock, not eviction_lock.
+>>>
+>>> C) Reusing an existing amdgpu_vm lock as the primary lock needs refactor amdgpu VM
+>>>
+>>>    Xe can register vm->lock because Xe's VM was designed with an outer
+>>>    rw_semaphore held across faults. amdgpu_vm has no such lock: only
+>>>    eviction_lock , the root PD dma_resv , and a few spinlocks.
+>>>
+>>>    So do it like Xe means introducing a dedicated, outer, sleepable VM
+>>>    lock held across the fault. That lock is exactly svm_lock. Folding it
+>>>    into struct amdgpu_vm as a general vm->lock is a core amdgpu VM refactor.
+>>>
+>>> Regards,
+>>> Honglei
+>>>
+>>>
+>>>>
+>>>> Regards,
+>>>> Christian.
+>>>>
+>>>>> +
+>>>>> +#if IS_ENABLED(CONFIG_DRM_AMDGPU_SVM)
+>>>>> +void amdgpu_svm_flush_tlb(struct amdgpu_svm *svm);
+>>>>> +
+>>>>> +int amdgpu_svm_init(struct amdgpu_device *adev, struct amdgpu_vm *vm);
+>>>>> +void amdgpu_svm_close(struct amdgpu_vm *vm);
+>>>>> +void amdgpu_svm_fini(struct amdgpu_vm *vm);
+>>>>> +
+>>>>> +void amdgpu_svm_put(struct amdgpu_svm *svm);
+>>>>> +struct amdgpu_svm *amdgpu_svm_lookup_by_pasid(struct amdgpu_device *adev,
+>>>>> +                           uint32_t pasid);
+>>>>> +int amdgpu_svm_handle_fault(struct amdgpu_device *adev, uint32_t pasid,
+>>>>> +                uint64_t fault_page, uint64_t ts,
+>>>>> +                bool write_fault);
+>>>>> +bool amdgpu_svm_is_enabled(struct amdgpu_vm *vm);
+>>>>> +
+>>>>> +int amdgpu_gem_svm_ioctl(struct drm_device *dev, void *data,
+>>>>> +             struct drm_file *filp);
+>>>>> +void amdgpu_svm_clean_queue(struct amdgpu_svm *svm,
+>>>>> +                struct list_head *work_list);
+>>>>> +void amdgpu_svm_sync_work(struct amdgpu_svm *svm);
+>>>>> +int amdgpu_svm_garbage_collector(struct amdgpu_svm *svm);
+>>>>> +int amdgpu_svm_apply_attr_change(struct amdgpu_svm *svm,
+>>>>> +                 const struct amdgpu_svm_attrs *old_attrs,
+>>>>> +                 const struct amdgpu_svm_attrs *new_attrs,
+>>>>> +                 unsigned long start_page,
+>>>>> +                 unsigned long last_page);
+>>>>> +bool amdgpu_svm_devmem_possible(struct amdgpu_svm *svm);
+>>>>> +#else
+>>>>> +static inline int amdgpu_svm_init(struct amdgpu_device *adev,
+>>>>> +                  struct amdgpu_vm *vm)
+>>>>> +{
+>>>>> +    return 0;
+>>>>> +}
+>>>>> +
+>>>>> +static inline void amdgpu_svm_close(struct amdgpu_vm *vm)
+>>>>> +{
+>>>>> +}
+>>>>> +
+>>>>> +static inline void amdgpu_svm_fini(struct amdgpu_vm *vm)
+>>>>> +{
+>>>>> +}
+>>>>> +
+>>>>> +static inline int amdgpu_svm_handle_fault(struct amdgpu_device *adev,
+>>>>> +                      uint32_t pasid,
+>>>>> +                      uint64_t fault_page,
+>>>>> +                      uint64_t ts,
+>>>>> +                      bool write_fault)
+>>>>> +{
+>>>>> +    return -EOPNOTSUPP;
+>>>>> +}
+>>>>> +
+>>>>> +static inline bool amdgpu_svm_is_enabled(struct amdgpu_vm *vm)
+>>>>> +{
+>>>>> +    return false;
+>>>>> +}
+>>>>> +
+>>>>> +static inline int amdgpu_gem_svm_ioctl(struct drm_device *dev, void *data,
+>>>>> +                       struct drm_file *filp)
+>>>>> +{
+>>>>> +    return -EOPNOTSUPP;
+>>>>> +}
+>>>>> +#endif /* CONFIG_DRM_AMDGPU_SVM */
+>>>>> +
+>>>>> +#endif /* __AMDGPU_SVM_H__ */
+>>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>>>> index ec1196d390bb7..30463a83e2e60 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
+>>>>> @@ -43,6 +43,7 @@ struct amdgpu_bo_va;
+>>>>>    struct amdgpu_job;
+>>>>>    struct amdgpu_bo_list_entry;
+>>>>>    struct amdgpu_bo_vm;
+>>>>> +struct amdgpu_svm;
+>>>>>      /*
+>>>>>     * GPUVM handling
+>>>>> @@ -373,6 +374,9 @@ struct amdgpu_vm {
+>>>>>          /* cached fault info */
+>>>>>        struct amdgpu_vm_fault_info fault_info;
+>>>>> +
+>>>>> +    /* SVM experimental implementation */
+>>>>> +    struct amdgpu_svm *svm;
+>>>>>    };
+>>>>>      struct amdgpu_vm_manager {
+>>>>
+>>>
+> 
 
