@@ -4,104 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 62087C5B572
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 14:31:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B735C5B572
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 14:42:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2DDD10E41F;
-	Wed, 12 Aug 2026 14:30:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B516A10E420;
+	Wed, 12 Aug 2026 14:42:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Vk+Efjvz";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="7tVU6ovb";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="wJwaCONb";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="e7bHqRWr";
+	dkim=pass (2048-bit key; secure) header.d=deq.rocks header.i=@deq.rocks header.b="hUkUTUQb";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 248E110E41F;
- Wed, 12 Aug 2026 14:30:59 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1B13F3DF3;
- Wed, 12 Aug 2026 14:30:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1786545053; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4DT9tBNyLwA3sWYorDlzSqDnUt2SRFG6qIwU3+DA56M=;
- b=Vk+EfjvznafJpSvUaElBpfEe96XH6oqZvgLnmwvgqfXAQDUWJ9Wa6WyOV6ZCKicIDectoS
- AQTTJ1L13x2ItZ5uBqB5aZ56qokYoG87U/EBIQIkyFhW7h4Mwd6PX/OZf1BWn3fQgfdYVP
- e6ld6N8R8MZLtB9lPc5VmpuG8ac37sw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1786545053;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4DT9tBNyLwA3sWYorDlzSqDnUt2SRFG6qIwU3+DA56M=;
- b=7tVU6ovbwczQBGga1c0KdYXGyH3nMsI8t9lOhlhN5jwDKR8cNd/taRkVj2B/l4qRKrv/66
- kpTeCdbuW54Se2Bw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1786545049; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4DT9tBNyLwA3sWYorDlzSqDnUt2SRFG6qIwU3+DA56M=;
- b=wJwaCONbUbIevo2lmTM6cdDi8WqoBaXTz62hlTf+zlAjqFpKlz3102HseuKwQP+UZ3Cs74
- 5qLtEDlgSRMKAyCm5RnlClosUA8DeazukTRaXRhq7Rxq1pIyoHGnOFfas8QUqDylhkcPme
- TslYRAB2UMdIkKo/jHOaDqjJgPqN9rw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1786545049;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=4DT9tBNyLwA3sWYorDlzSqDnUt2SRFG6qIwU3+DA56M=;
- b=e7bHqRWrR6D/DtEX+WVZ8G4obDt527IgS8pYeLucUmf+PaPkd56vRRWWeuYjZd2QsPKe/N
- KaEkjEozhTCYqlBA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id D3E64779B1;
- Wed, 12 Aug 2026 14:30:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 9EoSM5iDfGoZIQAAD6G6ig
- (envelope-from <tiwai@suse.de>); Wed, 12 Aug 2026 14:30:48 +0000
-Date: Wed, 12 Aug 2026 16:30:44 +0200
-Message-ID: <87bjb7za0b.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Andre Eikmeyer <dev@deq.rocks>
-Cc: Takashi Iwai <tiwai@suse.de>,	platform-driver-x86@vger.kernel.org,
- amd-gfx@lists.freedesktop.org,	linux-sound@vger.kernel.org,	Atharva Tiwari
- <atharvatiwarilinuxdev@gmail.com>,	Hans de Goede <hansg@kernel.org>,	Ilpo
- =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,	Alex Deucher
- <alexander.deucher@amd.com>,	Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>,	David Airlie <airlied@gmail.com>,	Simona Vetter
- <simona@ffwll.ch>,	Kenneth Feng <kenneth.feng@amd.com>,	Jaroslav Kysela
- <perex@perex.cz>,	Takashi Iwai <tiwai@suse.com>,	Harry Wentland
- <harry.wentland@amd.com>,	Leo Li <sunpeng.li@amd.com>,
- dri-devel@lists.freedesktop.org,	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] ALSA: hda: allow direct complete with a
- powered-off GPU
-In-Reply-To: <20260812142300.34472-1-dev@deq.rocks>
-References: <20260812140347.33360-1-dev@deq.rocks>
- <20260812142300.34472-1-dev@deq.rocks>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-3.30 / 50.00]; BAYES_HAM(-3.00)[99.99%];
- MID_CONTAINS_FROM(1.00)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- RCVD_TLS_ALL(0.00)[]; RCPT_COUNT_TWELVE(0.00)[19];
- ARC_NA(0.00)[]; MIME_TRACE(0.00)[0:+];
- RCVD_VIA_SMTP_AUTH(0.00)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_CC(0.00)[suse.de,vger.kernel.org,lists.freedesktop.org,gmail.com,kernel.org,linux.intel.com,amd.com,ffwll.ch,perex.cz,suse.com];
- TO_DN_SOME(0.00)[]; FROM_HAS_DN(0.00)[];
- RCVD_COUNT_TWO(0.00)[2]; FROM_EQ_ENVFROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[deq.rocks:email, suse.de:email, suse.de:mid,
- imap1.dmz-prg2.suse.org:helo]
+Received: from bulk0.mail-out.lima-city.de (bulk0.mail-out.lima-city.de
+ [91.216.248.212])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E6C6B10E426;
+ Wed, 12 Aug 2026 14:42:28 +0000 (UTC)
+From: Andre Eikmeyer <dev@deq.rocks>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
+ s=securedbylima-20251205; t=1786545746;
+ bh=BwotxlEtPq994nsVoeymRzR3rcs0fcURPURwHTMYp/Q=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=hUkUTUQbYiWm3Kib3a1/3kxoAJaIKpUoSXaeR0/ON/LcZxW14QeTr9CgUC66Ha1fo
+ 9FseJRc5U7SQV3kKVrUZHkMy4yUPJ+AwP2DzNWkhFK9fJDnw2XR9QrSFIKH7cuYjyc
+ c7tgravmbDo+nki7FV7Bd+1VzXYLa+JWtv5xRaSH+h696oG2i+sNFezRJ1qjbftxIZ
+ zBDSJPyAAs3bxK/3KCKD/6AB33jBkjbXVPvu/0KBc1pMUQnddUcbmdRv395Ou4KfaF
+ JJPHh2/Eun9zG6OdZtFQ8JdCjm87A4LU8JGDsQSC/BT9y1SgkNH2jonbnh55cyucuV
+ mc4yhakWcpTAg==
+To: platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ linux-sound@vger.kernel.org
+Cc: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
+ Hans de Goede <hansg@kernel.org>,
+ =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Kenneth Feng <kenneth.feng@amd.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.de>, Takashi Iwai <tiwai@suse.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Andre Eikmeyer <dev@deq.rocks>
+Subject: [PATCH v2 0/3] Apple GMUX hybrid graphics support for MacBookPro15,1
+Date: Wed, 12 Aug 2026 16:42:18 +0200
+Message-ID: <20260812144221.35877-1-dev@deq.rocks>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260812122206.193680-1-dev@deq.rocks>
+References: <20260812122206.193680-1-dev@deq.rocks>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,49 +62,63 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 12 Aug 2026 16:23:00 +0200,
-Andre Eikmeyer wrote:
-> 
-> The HDA controller normally needs different WAKEEN settings for runtime and
-> system suspend, so azx_prepare() prevents direct complete. For a switcheroo
-> audio client whose bound GPU is already runtime suspended and switched off,
-> however, the controller is physically inaccessible and cannot signal wake
-> events.
-> 
-> Resuming the HDA function during system suspend also acquires its runtime
-> PM supplier. This powers the discrete GPU back on only to suspend it again
-> and can expose failures while restoring an otherwise unused GPU.
-> 
-> Direct complete is now allowed when the bound VGA device is both runtime
-> suspended and reported off by vga_switcheroo. Active GPUs and HDA
-> controllers without a switcheroo binding retain the existing WAKEEN
-> transition.
-> 
-> This was tested as part of the MacBookPro15,1 hybrid graphics series on
-> both the 2018 and 2019 revisions. The discrete GPU remains powered off
-> across system suspend when it is unused, and suspend and resume complete
-> successfully.
-> 
-> Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
-> ---
-> Changes in v3:
-> - Rework the conditional compilation as suggested in the follow-up review.
-> - Keep the switcheroo implementation in the existing switcheroo section.
-> 
-> The follow-up review crossed with the v2 submission.
-> 
-> Changes in v2:
-> - Explain the significance of the positive azx_prepare() return value.
+Hello everyone,
 
-Feel free to take my ack:
+This series enables hybrid graphics on the MacBookPro15,1.
 
-Reviewed-by: Takashi Iwai <tiwai@suse.de>
+The MacBookPro15,1 normally starts Linux with the discrete GPU as primary.
+On the machines tested here that results in roughly 24 W idle power draw,
+about 12 W of which is attributable to the otherwise unused discrete GPU.
+Selecting the integrated GPU at boot avoids that cost, but the discrete GPU
+cannot currently return after GMUX powers it down, so usable hybrid graphics
+and suspend are not available.
 
-But I guess you'd need to refresh the patch descriptions in other two
-patches in the series, so better to resubmit the whole series with
-corrected patches :)
+This series provides the missing power lifecycle across apple-gmux, amdgpu
+and the HDA controller. With the integrated GPU as primary, the discrete GPU
+transitions between DynOff and DynPwr. Offloading through DRI_PRIME and
+external monitor support both work across these transitions.
 
+The result has been tested for three weeks on both the 2018 and 2019
+MacBookPro15,1 revisions. Runtime suspend and resume, system suspend and
+resume, repeated GPU wakeups, and a variety of external Thunderbolt and
+USB-C monitors were tested successfully.
 
-thanks,
+One question remains regarding Apple's gpu-power-prefs EFI variable. The
+firmware defaults to the discrete GPU, while selecting the integrated GPU
+is required before this hybrid configuration can take effect. Would setting
+that preference from the kernel be appropriate on a known-good model, or
+should it remain a userspace policy decision? Some discoverable way to
+select the power-efficient configuration would seem preferable to requiring
+users to know about a vendor-specific NVRAM variable.
 
-Takashi
+Changes in v2:
+- Refresh the individual patch descriptions.
+- Evaluate PWG methods without expecting an integer return object.
+- Refresh the cached discrete PCI device when a client is re-registered.
+- Keep the HDA switcheroo implementation in the existing switcheroo section.
+- Document the positive azx_prepare() return and add Takashi's Reviewed-by.
+
+The HDA follow-up review crossed with the standalone v2 and v3 revisions of
+patch 3/3. This full-series v2 contains the reviewed v3 implementation.
+
+v1: https://lore.kernel.org/all/20260812122206.193680-1-dev@deq.rocks/
+
+Thank you for your time and consideration.
+
+Andre Eikmeyer (2):
+  drm/amdgpu: add Apple GMUX runtime PM support
+  ALSA: hda: allow direct complete with a powered-off GPU
+
+Atharva Tiwari (1):
+  platform/x86: apple-gmux: add MacBookPro15,1 dGPU power sequence
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 34 ++++++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 30 ++++++---
+ drivers/gpu/drm/amd/pm/inc/amdgpu_dpm.h    |  1 +
+ drivers/platform/x86/apple-gmux.c          | 78 ++++++++++++++++++++--
+ sound/hda/controllers/intel.c              | 24 +++++++
+ 6 files changed, 145 insertions(+), 23 deletions(-)
+
+-- 
+2.55.0
