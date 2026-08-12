@@ -4,61 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04E0FC5CFEB
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 07:26:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9C5DC5B567
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 07:26:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2863A10EE93;
-	Wed, 12 Aug 2026 07:26:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6B0E010EE8F;
+	Wed, 12 Aug 2026 07:26:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=mailbox.org header.i=@mailbox.org header.b="kEn9UvL1";
+	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YcQXNkR+";
 	dkim-atps=neutral
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4613710E0D5;
- Wed, 12 Aug 2026 06:51:07 +0000 (UTC)
-Received: from smtp1.mailbox.org (smtp1.mailbox.org
- [IPv6:2001:67c:2050:b231:465::1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hKfJp5HJTz8tyn;
- Wed, 12 Aug 2026 08:50:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
- s=mail20150812; 
- t=1786517464; h=from:from:reply-to:reply-to:subject:subject:date:date:
- message-id:message-id:to:to:cc:cc:mime-version:mime-version:
- content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=aqUcPPYLa1DMjRbDFm2x6DWrts41qlTCDa5xchY2uwY=;
- b=kEn9UvL1OKBs9R/ssaKhB2y4M4kcq1Yy/myJoLAMJG4isVQmJ91bJ2ocWKJAeOSe+34jJ5
- W1bNw1gHtfUsvVLlSKTa6WhqC5lsdX60ZTH9w6+inbKtE0RiUdBOJ+z0jhOUDjZAkgkNhc
- gI0/7gYVoXUhmFXE2HsuiGtTSJsz9phe9Sk0jiiCbyUzrfy+MpXxp37/7QFvO5WVH+Y5C+
- CNHQ2LJ+s4K7UWPgTCHorRQDF8WcF6L4GBjpfDLbWlPnhANYWfJn7WIx0ZbfiEJrj3+gGm
- D37oQmvMZP67vSmlUErpcX2wiV+8IXU5+cEwX1Tw7EppVCD6lhxyKdrLYY77YQ==
-Authentication-Results: outgoing_mbo_mout; dkim=none;
- spf=pass (outgoing_mbo_mout: domain of phasta@mailbox.org designates
- 2001:67c:2050:b231:465::1 as permitted sender)
- smtp.mailfrom=phasta@mailbox.org
-Message-ID: <7df541d56edc935326eed7cad14dd80a0aba61de.camel@mailbox.org>
-Subject: Re: [PATCH v3 00/19] Revert switching default DRM scheduler policy
- to fair
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- amd-gfx@lists.freedesktop.org, 	dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Luke.Wildhardt@proton.me, Matthew Brost	
- <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>, Philipp
- Stanner	 <phasta@kernel.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
- <ckoenig.leichtzumerken@gmail.com>
-Date: Wed, 12 Aug 2026 08:50:23 +0200
-In-Reply-To: <20260811163139.99746-1-tvrtko.ursulin@igalia.com>
-References: <20260811163139.99746-1-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D57D10E185
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 00:14:00 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2E32060A88;
+ Wed, 12 Aug 2026 00:13:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BD1D1F00A3A;
+ Wed, 12 Aug 2026 00:13:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+ s=korg; t=1786493638;
+ bh=K906TWK3NX4+ZpiFv6QQYIMRy2gKRZnzgTB4Few++Ms=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=YcQXNkR+vw9/ibatGK4jbM+armsihiYQcgu0F8rBYfWGFc3ssBu9PAHUsf3+YcUB2
+ V2kjLAJ6wOpgawDKeBuGyQHgdNGOJtUtLH5tLrN0atHfblBZ6+RN44V6UjPxWc+2hI
+ WhLndLDlrVN6p1nxN/dUFF0m1xMsry/Le1sdMIcE=
+Date: Wed, 12 Aug 2026 09:12:26 +0900
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Sergio Callegari <sergio.callegari@gmail.com>,
+ Thorsten Leemhuis <regressions@leemhuis.info>, stable@vger.kernel.org,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Linux kernel regressions list <regressions@lists.linux.dev>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ George Zhang <george.zhang@amd.com>
+Subject: Re: [REGRESSION] Please revert 1191285ecb42 from 7.1.y
+Message-ID: <2026081216-goon-nicotine-6d62@gregkh>
+References: <9c6acb62-4080-48e6-9ba2-d1c457c4ec88@gmail.com>
+ <2026081106-pebbly-cahoots-37a7@gregkh>
+ <23db5f95-c2d6-4712-856e-28f647e184f7@leemhuis.info>
+ <1caea72e-b9c8-452b-a3ff-5690d948b4fc@gmail.com>
+ <2026081151-reabsorb-calamari-7442@gregkh>
+ <8a0fad2d-788a-403f-a880-2f97c6708275@gmail.com>
+ <CADnq5_Pb=ox3nWfdpb3Qeo_eSQayuc7UqUOnm0x+WS+EQTVWjA@mail.gmail.com>
 MIME-Version: 1.0
-X-MBO-RS-META: f7fwy1ocy3myd71b5jupwiruzk4x1f5a
-X-MBO-RS-ID: 0f406911fbffb3a7ece
-X-Rspamd-Queue-Id: 4hKfJp5HJTz8tyn
-X-Mailman-Approved-At: Wed, 12 Aug 2026 07:26:24 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CADnq5_Pb=ox3nWfdpb3Qeo_eSQayuc7UqUOnm0x+WS+EQTVWjA@mail.gmail.com>
+X-Mailman-Approved-At: Wed, 12 Aug 2026 07:26:23 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,129 +64,41 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2026-08-11 at 17:31 +0100, Tvrtko Ursulin wrote:
-> There was a late minute user regression report[1] so lets revert this so =
-it can
-> be debugged in peace.
->=20
-> I have not been able to locally reproduce it yet, but at least a partial =
-fix
-> looks to be this[2]. Further debug will be needed, possibly after the hol=
-iday/
-> vacation season is over.
->=20
-> [1] https://lore.kernel.org/dri-devel/TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Ei=
-hzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=3D=
-@proton.me/
-> [2] https://lore.kernel.org/dri-devel/20260811134223.96203-1-tvrtko.ursul=
-in@igalia.com/
->=20
-> Cc: Luke.Wildhardt@proton.me
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: Danilo Krummrich <dakr@kernel.org>
-> Cc: Philipp Stanner <phasta@kernel.org>
-> Cc: Christian K=C3=B6nig <ckoenig.leichtzumerken@gmail.com>
->=20
-> v2:
-> =C2=A0* Forgot the SoBs.
->=20
-> v3:
-> =C2=A0* Rebased for drm-misc-fixes.
+On Tue, Aug 11, 2026 at 01:25:14PM -0400, Alex Deucher wrote:
+> On Tue, Aug 11, 2026 at 11:25 AM Sergio Callegari
+> <sergio.callegari@gmail.com> wrote:
+> >
+> > On 11/08/2026 10:08, Greg KH wrote:
+> > > We aim to be "bug compatible" with Linus's branch, otherwise the
+> > > "pressure" to fix those bugs goes down.  But I defer to the maintainers
+> > > of the code involved if it is being worked on, and they want it
+> > > reverted, great, we can do that.  Otherwise we prefer to leave it as-is.
+> >
+> > I understand. Sorry for asking about things that might be obvious to
+> > most people here. My expectation was that only a selected subset of the
+> > patches on the Linus' tree were to enter in stable, so do we really need
+> > to have stable "bug compatible" wrt this bug? The original behavior was
+> > not free of issues, but they were rather minor (a reporting issue). Now
+> > we have this very bad behavior where the display remains dark.
+> >
+> > To make the matter worse, on systems that have encrypted root the screen
+> > remains dark also on that password prompt (observed with plymouth).
+> >
+> > In any case, I managed testing 7.2.0RC7 and it is fine again.
+> >
+> > Looks like the Linus' tree has more changes wrt backlight, and the
+> > interesting ones are probably those in the cumulative fix
+> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=973fd9493ec21f12e760fbbedeb7b0b2317c02f4.
+> >
+> 
+> Thanks for testing.  It sounds like we should revert the change from
+> stable.  There must be some dependency we are missing in stable.
 
-Why is one patch now missing? Used to be 20.
+Great, can someone send a revert?
 
-And it would seem you forgot the Acked-bys.
+thanks,
 
-
-P.
-
->=20
-> Tvrtko Ursulin (19):
-> =C2=A0 Revert "drm/sched: Remove drm_sched_init_args->num_rqs"
-> =C2=A0 Revert "drm/xe: Remove drm_sched_init_args->num_rqs usage"
-> =C2=A0 Revert "drm/v3d: Remove drm_sched_init_args->num_rqs usage"
-> =C2=A0 Revert "drm/sched: Remove drm_sched_init_args->num_rqs usage"
-> =C2=A0 Revert "drm/panthor: Remove drm_sched_init_args->num_rqs usage"
-> =C2=A0 Revert "drm/panfrost: Remove drm_sched_init_args->num_rqs usage"
-> =C2=A0 Revert "drm/nouveau: Remove drm_sched_init_args->num_rqs usage"
-> =C2=A0 Revert "drm/msm: Remove drm_sched_init_args->num_rqs usage"
-> =C2=A0 Revert "drm/lima: Remove drm_sched_init_args->num_rqs usage"
-> =C2=A0 Revert "drm/imagination: Remove drm_sched_init_args->num_rqs usage=
-"
-> =C2=A0 Revert "drm/etnaviv: Remove drm_sched_init_args->num_rqs usage"
-> =C2=A0 Revert "drm/amdgpu: Remove drm_sched_init_args->num_rqs usage"
-> =C2=A0 Revert "accel/ethosu: Remove drm_sched_init_args->num_rqs usage"
-> =C2=A0 Revert "accel/rocket: Remove drm_sched_init_args->num_rqs usage"
-> =C2=A0 Revert "accel/amdxdna: Remove drm_sched_init_args->num_rqs usage"
-> =C2=A0 Revert "drm/sched: Embed run queue singleton into the scheduler"
-> =C2=A0 Revert "drm/sched: Remove FIFO and RR and simplify to a single run
-> =C2=A0=C2=A0=C2=A0 queue"
-> =C2=A0 Revert "drm/sched: Switch default policy to fair"
-> =C2=A0 drm/sched: Mark fair policy as experimental
->=20
-> =C2=A0drivers/accel/amdxdna/aie2_ctx.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/accel/ethosu/ethosu_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/accel/rocket/rocket_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 6 +-
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_device.c=C2=A0=C2=A0=C2=A0 |=C2=
-=A0=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0 27 ++--
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_job.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 5 +-
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h=C2=A0=C2=A0=C2=A0=C2=A0 |=
-=C2=A0=C2=A0 8 +-
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_vm_sdma.c=C2=A0=C2=A0 |=C2=A0=C2=
-=A0 8 +-
-> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 8 +-
-> =C2=A0drivers/gpu/drm/etnaviv/etnaviv_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/imagination/pvr_queue.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/lima/lima_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/msm/msm_gem_vma.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/msm/msm_ringbuffer.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/panfrost/panfrost_job.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/panthor/panthor_mmu.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/panthor/panthor_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0 |=C2=A0 52 ++++++--
-> =C2=A0drivers/gpu/drm/scheduler/sched_fence.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 |=C2=A0=C2=A0 2 +-
-> =C2=A0drivers/gpu/drm/scheduler/sched_internal.h=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 15 ++-
-> =C2=A0drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 121 +++++++++++++++---
-> =C2=A0drivers/gpu/drm/scheduler/sched_rq.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 87 +++++++++----
-> =C2=A0.../gpu/drm/scheduler/tests/mock_scheduler.c=C2=A0 |=C2=A0=C2=A0 1 =
-+
-> =C2=A0drivers/gpu/drm/v3d/v3d_sched.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/xe/xe_dep_scheduler.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/xe/xe_execlist.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0drivers/gpu/drm/xe/xe_gpu_scheduler.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
-> =C2=A0include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
-=A0 42 +++++-
-> =C2=A030 files changed, 304 insertions(+), 95 deletions(-)
+greg k-h
