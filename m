@@ -4,50 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA748C5B572
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 14:23:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E8FFC5B572
+	for <amd-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 14:30:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 54CED10F007;
-	Wed, 12 Aug 2026 14:23:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3454A10F02C;
+	Wed, 12 Aug 2026 14:30:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=deq.rocks header.i=@deq.rocks header.b="ulLQMA3I";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qKTzfrxK";
 	dkim-atps=neutral
-Received: from bulk0.mail-out.lima-city.de (bulk0.mail-out.lima-city.de
- [91.216.248.212])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6FD5110E108;
- Wed, 12 Aug 2026 14:23:07 +0000 (UTC)
-From: Andre Eikmeyer <dev@deq.rocks>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=deq.rocks;
- s=securedbylima-20251205; t=1786544585;
- bh=DeON9CiENPk48ETmcdA0LflKVCteSZXW32YpFnPEgDM=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=ulLQMA3IVlDfrJdCagk96SJ3oyXaoRuDOtkgF+6yFVuWmENJ+2VBqTYFPxlE3TWev
- N5Mulq4QsDgLqJZrp+rpcLcmZYX6EbinR/krs+9q6uXOVw9su4KUgw5vDu6kjlcbB1
- R1HZZKhXIYi243CuMSR3jwnVCGFJOxGmYwfz9WlbcZ4tk7LDIBt17bCC+NrDEjYLxH
- bufvEQnKu8ZRL0dQMqv9yxXysv9D5Pcnsjb5nU0BMjAu3n/ww6KO6XTMw6p4xY2RSr
- pHY4mbjMzfyJAv4VvOXEC0esMwgSkuE4ewoXqMSorRp9K5s8w3AvMsPLs4Hp9UVJ5K
- pCx80wyjpvEfw==
-To: Takashi Iwai <tiwai@suse.de>
-Cc: platform-driver-x86@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-sound@vger.kernel.org,
- Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>,
- Hans de Goede <hansg@kernel.org>,
- =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kenneth Feng <kenneth.feng@amd.com>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Andre Eikmeyer <dev@deq.rocks>
-Subject: [PATCH v3 3/3] ALSA: hda: allow direct complete with a powered-off GPU
-Date: Wed, 12 Aug 2026 16:23:00 +0200
-Message-ID: <20260812142300.34472-1-dev@deq.rocks>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260812140347.33360-1-dev@deq.rocks>
-References: <20260812140347.33360-1-dev@deq.rocks>
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com
+ [209.85.128.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C75710F02C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 14:30:37 +0000 (UTC)
+Received: by mail-yw1-f174.google.com with SMTP id
+ 00721157ae682-81bd69f4f6fso761617b3.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 07:30:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786545036; cv=none;
+ d=google.com; s=arc-20260327;
+ b=P/7fc/Cxc6zAWHN6Jk8hYl6ph/SNxvjC3Gw23aBzQXHWtMQh5kgXxpPKcgwvLdvL6+
+ 1XWfPoPs288RD6ERm+Oqgy+GOqquhIDhMGXhoX/WL+IyEerx09W7YZONynWomVX0vVI0
+ yWS7fzzo0Eaxdhy2PO/vP+k2uXChAn/9AXH9+UJJuSfFN5xvu5F5D5cndF2MHqQQFhka
+ WI6L4JLmQdPASMjCJfoRr91whlEAey/b6iQog1eiSyMYUB84+1CZsG2sLt7p09Wsd45l
+ rPZd0HBcKBK6RyO2YvgmtT/fRqpOk9RePb2nROf0BmJj7LIcSAzfMgi1wmjKufbAe4sa
+ 6HXw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=unaVSsEtvY+hPuXdERf5Wge0Y/VU4wyQ40nI2MLwHoA=;
+ fh=/cF5cQq/FqPFGBykVUp25+67vl7d+1caNPg/4Qq4xxg=;
+ b=lzcPWV2teLrn0eUaGw0zVJGWxcOBDEyVeXDKCOj4USI/TSHV6hnSPA8C8DWpO97Wsi
+ 6+qUF6HnFw5Y20pJsAY0DRheL7ky8N7PqJzl24avZ584YHPPjkTb//gV/ckWVg6ejDTx
+ TDx6R6F1zjV4SKLHVTZ0BwycFHvY/ma9ojMl3pVTnyVzdgNOXhbqPnBVkoaH4u8f5izC
+ lgOdtyK8taRMIF2RkarOdVQzoa/9vZ38+0n+1SR2rJIyQmeBbNqeYBWt5XhqoWApxTeU
+ sTX89BXaM/pPOv/Ivqnx5/hHTzeVPe1Tstn/JJHVzdRNQ5INqQpSyOJmQ/Hrj5O2IHwV
+ b8XQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786545036; x=1787149836; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=unaVSsEtvY+hPuXdERf5Wge0Y/VU4wyQ40nI2MLwHoA=;
+ b=qKTzfrxKvybgtA9xiUuUWF0v5kHeVKlsKmo3lyJtPtaDUy2H/BcnJ1UFm8gFpPHytq
+ yOKAFCN1xASeQdkq1PO0ipxfy7IeG4YI3h0vvAL7vHA2J4g7iuOTaBevpNq0AtEc3wMQ
+ hOKQikGBYzw8E5LaiPbwVK+iBZZrGjhWKdFmu0coEeeMrFlxwNLz4Q5yijxntp4OXq3x
+ wYXgHJDn+K3OBu3vgFTNyWJ5l66y1AHLPSP8+LC21AbVS9VunUjJsTiKReAE5demShFd
+ a9Yjb/oNcFiYB1r6XsPqdRhEr7683i7A5MNEmrBF1BWkw0T4OK4YM1rS8l2eePt/cnPo
+ F3XA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786545036; x=1787149836;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=unaVSsEtvY+hPuXdERf5Wge0Y/VU4wyQ40nI2MLwHoA=;
+ b=pDgy4ll8MkL6deRGyCBq21Wb+EOAk2BmXIsYleFn9EkG61V1zZkN2AECeT9wU2C+eN
+ vA8tQfF9/kDAum/85UkkURNhsY+9uiB1JTQPiSWfPESBJUUow69X64G2dIWSTBo3RArC
+ GjAjtfhm4vOP7axdveV86S4EQfFTFIFEKAwP3/suKCzVd6EodqFULH9wkdHuUpGYbwpN
+ iNnnYROUN1ThS8n3FchSqurFv8nzEFtG86zM+v7Dlsiq1OIk4KWcmrOjxc9fe8yoXYUk
+ kPKOCQdBTYclhG6yXLk98EYVEAVWhUbB7EYMwvC2rj9yODOdgMkA0aHvOcHo+sqPJATF
+ andg==
+X-Gm-Message-State: AOJu0YyWmcGtoSCr/Gh5y/djndrU7B4Dlo6QB1qtOJIwzLxyLb78MUPr
+ LYPo/xV0r1kreQe7CJhRJGZXSSjSeCFaBgiv2R52Gu1wSs3tOn119eN60q5HuVXRbzEHpKNnnWE
+ +1dWd7y+yERNdYpXXWqFBGyC3cwu+hq8=
+X-Gm-Gg: AR+sD12v242Do5ZjmFVS3mmyWgPCa5fZNKFYDoP7W/y507YdkqvfdAu01rpEGZ107+6
+ P1NNpx/MU4cje6PMS52YEbL4UPZmMQ35xDKHcaTXCXOs9FYT1VnFEpleuBw835xM6nGvfGataOS
+ OUgr+Lpo9kquW4/ONuad6u4eTmbbIFlGx9kctTpxWmGXu1p3AHaeO9u1coHQsJI/mVPF7OIRiIq
+ glZgTe2QNfK4Riqoh3tqgHtaNO/zvuEttdOp01ccwlGQiWflmhbLd8K+Rwm/YohHmICRQgOtict
+ BPVljcUyKYcghomD+krZudZpyfKRVLfUmQtGJLKfS2oHLTD1ZviCnrbXxLraCSJS/JfJhrwzWy3
+ iyvivd7TSchSLWYu4ifZYg98j+unDTK8=
+X-Received: by 2002:a05:690c:4d44:b0:81d:bb95:9f84 with SMTP id
+ 00721157ae682-8310aa9669amr23978527b3.3.1786545036076; Wed, 12 Aug 2026
+ 07:30:36 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260812080841.2936007-1-kevinyang.wang@amd.com>
+In-Reply-To: <20260812080841.2936007-1-kevinyang.wang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 12 Aug 2026 10:30:23 -0400
+X-Gm-Features: AUfX_mxV5P8rp1kJgHQyT61I83uL9agpNtC6fc8Dolgk3YgGlnnLCuxlFCal4_Y
+Message-ID: <CADnq5_NDBUquX6CgaLEZ3YZMpkUHn757J=FQYTJO-Ld8KW-pqw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: Disable runtime PM for externally attached
+ dGPUs
+To: Yang Wang <kevinyang.wang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+ hawking.zhang@amd.com, kenneth.feng@amd.com, candice.li@amd.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,91 +105,56 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The HDA controller normally needs different WAKEEN settings for runtime and
-system suspend, so azx_prepare() prevents direct complete. For a switcheroo
-audio client whose bound GPU is already runtime suspended and switched off,
-however, the controller is physically inaccessible and cannot signal wake
-events.
+On Wed, Aug 12, 2026 at 4:45=E2=80=AFAM Yang Wang <kevinyang.wang@amd.com> =
+wrote:
+>
+> pci_is_thunderbolt_attached() requires an upstream PCI bridge with
+> is_thunderbolt set from an Intel Thunderbolt VSEC. This does not cover
+> the affected ASM4242 USB4 PCI hierarchy:
+>
+>   00:02.2
+>     \- 0f:00.0 [1b21:2421]
+>        +- 10:01.0 [1b21:2423] -> 45:00.0 -> 46:00.0
+>        |  -> 47:00.0 -> 48:00.0 -> 49:00.0 [1002:7590]
+>        \- 10:03.0 -> 76:00.0 [1b21:2425] USB4 Host Router
+>
+> The host router is outside the GPU upstream bridge chain, leaving no
+> ancestor with is_thunderbolt set. PCI core propagates DEVICE_REMOVABLE
+> below the external-facing PCIe tunnel. Disable Runtime PM when either
+> pci_is_thunderbolt_attached() or dev_is_removable() is true.
+>
 
-Resuming the HDA function during system suspend also acquires its runtime
-PM supplier. This powers the discrete GPU back on only to suspend it again
-and can expose failures while restoring an otherwise unused GPU.
+I could see BOCO being an issue, but shouldn't BACO work?  That should
+be self contained to the driver.
 
-Direct complete is now allowed when the bound VGA device is both runtime
-suspended and reported off by vga_switcheroo. Active GPUs and HDA
-controllers without a switcheroo binding retain the existing WAKEEN
-transition.
+Alex
 
-This was tested as part of the MacBookPro15,1 hybrid graphics series on
-both the 2018 and 2019 revisions. The discrete GPU remains powered off
-across system suspend when it is unused, and suspend and resume complete
-successfully.
-
-Signed-off-by: Andre Eikmeyer <dev@deq.rocks>
----
-Changes in v3:
-- Rework the conditional compilation as suggested in the follow-up review.
-- Keep the switcheroo implementation in the existing switcheroo section.
-
-The follow-up review crossed with the v2 submission.
-
-Changes in v2:
-- Explain the significance of the positive azx_prepare() return value.
-
- sound/hda/controllers/intel.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
-
-diff --git a/sound/hda/controllers/intel.c b/sound/hda/controllers/intel.c
-index 28c55c5..194d962 100644
---- a/sound/hda/controllers/intel.c
-+++ b/sound/hda/controllers/intel.c
-@@ -334,9 +334,11 @@ enum {
- #ifdef SUPPORT_VGA_SWITCHEROO
- #define use_vga_switcheroo(chip)	((chip)->use_vga_switcheroo)
- #define needs_eld_notify_link(chip)	((chip)->bus.keep_power)
-+static bool azx_vga_is_powered_off(struct azx *chip);
- #else
- #define use_vga_switcheroo(chip)	0
- #define needs_eld_notify_link(chip)	false
-+#define azx_vga_is_powered_off(chip)	false
- #endif
- 
- static const char * const driver_short_names[] = {
-@@ -1025,6 +1027,10 @@ static int azx_prepare(struct device *dev)
- 		return 0;
- 
- 	chip = card->private_data;
-+	/* A positive return allows the PM core to use direct complete. */
-+	if (azx_vga_is_powered_off(chip))
-+		return 1;
-+
- 	chip->pm_prepared = 1;
- 	snd_power_change_state(card, SNDRV_CTL_POWER_D3hot);
- 
-@@ -1185,6 +1191,24 @@ static int azx_probe_continue(struct azx *chip);
- #ifdef SUPPORT_VGA_SWITCHEROO
- static struct pci_dev *get_bound_vga(struct pci_dev *pci);
- 
-+static bool azx_vga_is_powered_off(struct azx *chip)
-+{
-+	struct pci_dev *pci;
-+	bool powered_off = false;
-+
-+	if (!use_vga_switcheroo(container_of(chip, struct hda_intel, chip)))
-+		return false;
-+
-+	pci = get_bound_vga(chip->pci);
-+	if (pci) {
-+		powered_off = pm_runtime_suspended(&pci->dev) &&
-+			vga_switcheroo_get_client_state(pci) == VGA_SWITCHEROO_OFF;
-+		pci_dev_put(pci);
-+	}
-+
-+	return powered_off;
-+}
-+
- static void azx_vs_set_state(struct pci_dev *pci,
- 			     enum vga_switcheroo_state state)
- {
--- 
-2.55.0
+> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index 8ebe24d59ab6..a4b4f9645c84 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -609,6 +609,13 @@ void amdgpu_device_detect_runtime_pm_mode(struct amd=
+gpu_device *adev)
+>         int bamaco_support;
+>
+>         adev->pm.rpm_mode =3D AMDGPU_RUNPM_NONE;
+> +       if (pci_is_thunderbolt_attached(adev->pdev) ||
+> +           dev_is_removable(&adev->pdev->dev)) {
+> +               dev_info(adev->dev,
+> +                        "Runtime PM disabled for externally attached dev=
+ice\n");
+> +               return;
+> +       }
+> +
+>         bamaco_support =3D amdgpu_device_supports_baco(adev);
+>
+>         switch (amdgpu_runtime_pm) {
+> --
+> 2.54.0
+>
