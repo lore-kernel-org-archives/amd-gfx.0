@@ -4,47 +4,78 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 52BD4C5CFDB
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 119E9C5B572
 	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 10:03:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FD2010F284;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E94C10F27D;
 	Thu, 13 Aug 2026 10:03:26 +0000 (UTC)
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC6CE10E417;
- Wed, 12 Aug 2026 11:58:59 +0000 (UTC)
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hKn8L1qlzzKvxn;
- Wed, 12 Aug 2026 13:58:58 +0200 (CEST)
-Message-ID: <932892b196f7bbba7f5e9bff22f9b484854aaccc.camel@mailbox.org>
-Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
- degradation at max GPU load on 9070XT
-From: Philipp Stanner <phasta@mailbox.org>
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, Luke.Wildhardt@proton.me
-Cc: Danilo Krummrich <dakr@kernel.org>, phasta@kernel.org, 
- "matthew.brost@intel.com"
- <matthew.brost@intel.com>, "ckoenig.leichtzumerken@gmail.com"
- <ckoenig.leichtzumerken@gmail.com>, "dri-devel@lists.freedesktop.org"
- <dri-devel@lists.freedesktop.org>, "regressions@lists.linux.dev"
- <regressions@lists.linux.dev>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "linux-kernel@vger.kernel.org"
- <linux-kernel@vger.kernel.org>
-Date: Wed, 12 Aug 2026 13:58:54 +0200
-In-Reply-To: <a9ee4edb-e763-4fd7-a510-32191df0cf8f@igalia.com>
-References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
- <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
- <DKL9VAWD2Y98.RBQPQUL7Y47F@kernel.org>
- <6e2a207e-4db6-4d47-b1f6-9cb13b8d6eeb@igalia.com>
- <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
- <4OmZej9WiJ6-rsJ_lFcrmwtClAwMdN4oHXWH0p8FkIrhAn4LKS4O3q36wrdZrvjZHBNS8PZsvaIvR-1aFZfF2tDiy1cdMzTYNylcbGDQN68=@proton.me>
- <a9ee4edb-e763-4fd7-a510-32191df0cf8f@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=hartkopp.net header.i=@hartkopp.net header.b="enp44H+L";
+	dkim=permerror (0-bit key) header.d=hartkopp.net header.i=@hartkopp.net header.b="+Kue8qOt";
+	dkim-atps=neutral
+X-Greylist: delayed 360 seconds by postgrey-1.36 at gabe;
+ Wed, 12 Aug 2026 09:13:17 UTC
+Received: from mo4-p00-ob.smtp.rzone.de (mo4-p00-ob.smtp.rzone.de
+ [85.215.255.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F0B4910E3E8
+ for <amd-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 09:13:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1786525271; cv=none;
+ d=strato.com; s=strato-dkim-0002;
+ b=ZD9Xy+L+0InuNI3GSu9dmMcSM8MNGMUYNqMEG+lFNcBh6pJiu6AWO4yJTS8hBoZZWz
+ MutZs/qkh8wVAeNK/B1qzIiYKfXc1vwv8+q41AcL/eYOKq3+SDZuPZJlvqnBlaSd+/Xy
+ npZq/7MtRUhDEn5CaLSDls52yougv6Slofd5Y564hSJF1awPCA6zf9/dc2oUmJAt3gas
+ peWZCpqbb8xMMryhRCgZVmkVAmKJkSyat7fldeBNsKHfT8OJHtfbvaoR+fYqB+O9dm5n
+ mIXYB/BNHftEW0E+yhvgVcuJUpZE69mTkMiFzmB655yYsAJC7vBhSyit74vo4mcYIQ1k
+ xF2w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1786525271;
+ s=strato-dkim-0002; d=strato.com;
+ h=Subject:From:To:Date:Message-ID:Cc:Date:From:Subject:Sender;
+ bh=XZYWCAFSoIhBTn5BI7YGLkJF9ADtMbjMjOJSEvRXLeU=;
+ b=M4MjgoIG964+4loBqwDP8qjuYn8zokGqRlXu1bi8fUQmCG1ZArLgjbu5j+LujZ0dEI
+ L70DBNJQEx83/y25yrcN3XrXfmGwA69H+6bmGnOQAN4PFgrqfAz1pQ488betDYIbydyw
+ fQO3+BSweKinfm/feSd0oBPiEeeIb30tsbyRQxN3ToAkUBoIjaWF0sn3dcjq1Gui+XuG
+ 0vNIqqqCJVV/RFHpVpIQn3EFcvGyxD5joXOuQdAVxi2s40tRwbS8fpR6SFKHPKvhP0eh
+ H5VkkJCcCBr4mCQe43jzvmK0zpKPtaCLBvwmAreULvpJq90aGcD5s12k48Z5rokH1Z/w
+ tvBw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo00
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1786525271;
+ s=strato-dkim-0002; d=hartkopp.net;
+ h=Subject:From:To:Date:Message-ID:Cc:Date:From:Subject:Sender;
+ bh=XZYWCAFSoIhBTn5BI7YGLkJF9ADtMbjMjOJSEvRXLeU=;
+ b=enp44H+LHw5ahZrKry+o/bXRnNJbDwYjUOrTOsjxC1dTNGHGLdEXj7Qki8MEgFhKsh
+ 1W/292qJrsjE9giOfgE4uRqIJogSNT9sjt+FmX0gdUXjM5mPycYQxMzf+WJ8SAoVqQm9
+ utwJ0n7+8jh1hzukOwUyQdPskATpk9LEguSJXtoiRE/KvmNIUMR9FghdKhfQj+0uP6RL
+ C2nh9BNkGWqGe4RPF0sMOGTurDi9j2uhHWY3e9Le9S+IdoyKbMKRUjEtSF46CzLCgr8g
+ w99N6YpcmXh4RSbUpnnP9adsH5DnM46m9CEyYOI2rGxtZ3PZos0yQgNsjsbSTwLiR8c5
+ nONA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1786525271;
+ s=strato-dkim-0003; d=hartkopp.net;
+ h=Subject:From:To:Date:Message-ID:Cc:Date:From:Subject:Sender;
+ bh=XZYWCAFSoIhBTn5BI7YGLkJF9ADtMbjMjOJSEvRXLeU=;
+ b=+Kue8qOtvIbB7hDPF5MvTWq3Dk59peU35KSVQJHCCQHUKc8TQqiTjDarPgy6RkRZat
+ Or05/+dGurhyc8a4RGAA==
+X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
+Received: from [IPV6:2a00:6020:4a38:6810::989]
+ by smtp.strato.de (RZmta 55.5.6 AUTH) with ESMTPSA id K5281927C91Bcis
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+ (Client did not present a certificate);
+ Wed, 12 Aug 2026 11:01:11 +0200 (CEST)
+Message-ID: <f582f2c2-b097-42cf-a0a3-2a4bb28adf54@hartkopp.net>
+Date: Wed, 12 Aug 2026 11:01:04 +0200
 MIME-Version: 1.0
-X-MBO-RS-ID: c458c48d41946d84b5f
-X-MBO-RS-META: 4gth8jcm81u5wkqkmj6m45i1ad48gjpj
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, amd-gfx@lists.freedesktop.org
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+Subject: WARNING 7.2.0-rc7: [drm] REG_WAIT timeout 1us * 100 tries -
+ dcn31_program_compbuf_size line:142
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Thu, 13 Aug 2026 10:03:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -57,66 +88,276 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: phasta@kernel.org
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, 2026-08-12 at 12:37 +0100, Tvrtko Ursulin wrote:
-> Jokes aside, I agree with the above analysis that a better fix would be=
-=20
-> to pull things under the lock, and interestingly, Philipp had a lock=20
-> widening patch not so long ago but I don't remember what happened it or=
-=20
-> how exactly did it look. It would possibly have fixed this problem.
+Hi all,
 
-https://lore.kernel.org/dri-devel/a0d969408a5a55dfb6d0b3e65906fd7bbf3eee1c.=
-camel@mailbox.org/
+I got this warning at 2249.712413 and 4436.000606 this morning.
+Kernel 7.2.0-rc7 Debian forky/sid (laptop hw description below).
 
-TBH I got discouraged and increasingly dissatisfied with the state of
-our community, because whenever I try to fix things that are
-*obviously* broken and incorrect (and which were usually not broken by
-me), with relatively simple patches, I have to work uphill and only
-receive pushback.
+Any idea?
 
-Reviewers and supporters are usually absent unless they want to have
-more features or performance-hacks added, though it is apparent that
-many indeed read what we are doing.
+Best regards,
+Oliver
 
-Should things get better it's usually not acknowledged, and should
-things go wrong one runs danger of getting blamed with hindsight-bias.
+[ 2249.712413] amdgpu 0000:03:00.0: [drm] REG_WAIT timeout 1us * 100 
+tries - dcn31_program_compbuf_size line:142
+[ 2249.712493] ------------[ cut here ]------------
+[ 2249.712496] WARNING: 
+drivers/gpu/drm/amd/amdgpu/../display/dc/hubbub/dcn31/dcn31_hubbub.c:151 
+at dcn31_program_compbuf_size+0xd2/0x230 [amdgpu], CPU#15: Xorg/981
+[ 2249.712833] Modules linked in: uhid ccm rfcomm algif_hash 
+algif_skcipher af_alg bnep dm_mod vcan can_dev nls_ascii nls_cp437 vfat 
+fat binfmt_misc mt7921e mt7921_common mt792x_lib mt76_connac_lib mt76 
+mac80211 btusb btintel btmtk snd_sof_amd_rembrandt bluetooth 
+snd_sof_amd_acp snd_sof_xtensa_dsp snd_sof_pci snd_sof uvcvideo amd_atl 
+videobuf2_vmalloc snd_hda_codec_alc269 videobuf2_memops snd_sof_utils 
+snd_hda_scodec_component intel_rapl_msr uvc snd_hda_codec_realtek_lib 
+snd_hda_codec_atihdmi intel_rapl_common videobuf2_v4l2 libarc4 
+snd_hda_codec_generic snd_hda_codec_hdmi ecdh_generic snd_soc_core 
+videodev cfg80211 snd_hda_intel amdxdna snd_compress snd_intel_dspcfg 
+videobuf2_common snd_hda_codec snd_acp_pci edac_mce_amd asus_nb_wmi 
+snd_acp_config mc aesni_intel asus_wmi snd_hwdep snd_amd_acpi_mach 
+gf128mul sparse_keymap snd_hda_core amd_pmf wmi_bmof 
+snd_acp_legacy_common pcspkr snd_soc_acpi spd5118 amdtee snd_pcm 
+drm_shmem_helper rfkill snd_timer amd_sfh ac snd ccp joydev tee button 
+soundcore k10temp evdev fuse
+[ 2249.712927]  efi_pstore autofs4 raid10 raid456 async_raid6_recov 
+async_memcpy async_pq async_xor xor async_tx raid6_pq raid1 raid0 md_mod 
+r8153_ecm cdc_ether usbnet mii usbhid amdgpu drm_client_lib i2c_algo_bit 
+drm_buddy drm_ttm_helper ttm drm_exec drm_suballoc_helper 
+drm_panel_backlight_quirks gpu_sched ucsi_acpi amdxcp xhci_pci 
+typec_ucsi hid_multitouch drm_display_helper roles hid_generic xhci_hcd 
+cec typec i2c_hid_acpi thunderbolt i2c_hid usbcore drm_kms_helper hid 
+sp5100_tco watchdog serio_raw usb_common battery configfs drm fan 
+i2c_piix4 i2c_smbus efivarfs
+[ 2249.712997] CPU: 15 UID: 0 PID: 981 Comm: Xorg Not tainted 
+7.2.0-rc7-dirty #79 PREEMPT(full)
+[ 2249.713001] Hardware name: ASUSTeK COMPUTER INC. ASUS Vivobook 18 
+M1807HA_M1807HA/M1807HA, BIOS M1807HA.323 03/27/2026
+[ 2249.713005] RIP: 0010:dcn31_program_compbuf_size+0xd2/0x230 [amdgpu]
+[ 2249.713156] Code: 00 48 8b 43 28 8b 88 d8 01 00 00 48 8b 43 20 0f b6 
+50 76 48 8b 43 18 8b b0 14 01 00 00 e8 36 9d 14 00 85 c0 0f 85 32 01 00 
+00 <0f> 0b 48 8b 44 24 08 65 48 2b 05 cf 37 49 f3 0f 85 35 01 00 00 48
+[ 2249.713159] RSP: 0018:ffffd380c57a72b8 EFLAGS: 00010202
+[ 2249.713163] RAX: 0000000000000001 RBX: ffff8ae167ba5400 RCX: 
+0000000000000001
+[ 2249.713166] RDX: ffffd380c2a8e5e8 RSI: 000000000000397a RDI: 
+ffff8ae0d3500000
+[ 2249.713168] RBP: ffff8ae146f04338 R08: 0000000080041619 R09: 
+000000000000397a
+[ 2249.713170] R10: ffffd380c57a7238 R11: 0000000000000001 R12: 
+ffff8ae146f00000
+[ 2249.713172] R13: ffff8ae167ba5400 R14: ffff8ae18c800000 R15: 
+0000000000000001
+[ 2249.713174] FS:  00007f4c5c84cb80(0000) GS:ffff8ae82a14d000(0000) 
+knlGS:0000000000000000
+[ 2249.713177] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+[ 2249.713179] CR2: 00007fc8bdbd1000 CR3: 00000001875bb000 CR4: 
+0000000000f50ef0
+[ 2249.713181] PKRU: 55555554
+[ 2249.713183] Call Trace:
+[ 2249.713188]  <TASK>
+[ 2249.713193]  dcn20_optimize_bandwidth+0xfc/0x270 [amdgpu]
+[ 2249.713390]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.713397]  dc_commit_state_no_check+0xf9d/0x1950 [amdgpu]
+[ 2249.713575]  dc_commit_streams+0x315/0x690 [amdgpu]
+[ 2249.713726]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.713730]  ? dmub_srv_update_inbox_status.part.0+0x15/0xd0 [amdgpu]
+[ 2249.713936]  amdgpu_dm_atomic_commit_tail+0x63e/0x4160 [amdgpu]
+[ 2249.714161]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.714166]  ? dcn30_internal_validate_bw+0x9f2/0xdc0 [amdgpu]
+[ 2249.714377]  ? dc_fpu_end+0x97/0xc0 [amdgpu]
+[ 2249.714580]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.714584]  ? dcn314_validate_bandwidth+0xf7/0x2f0 [amdgpu]
+[ 2249.714793]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.714797]  ? dma_resv_get_fences+0xb2/0x290
+[ 2249.714805]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.714808]  ? dma_resv_get_singleton+0x43/0x130
+[ 2249.714812]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.714815]  ? wait_for_completion_timeout+0x118/0x150
+[ 2249.714822]  ? __wait_for_common+0x161/0x190
+[ 2249.714825]  ? hrtimer_nanosleep_restart+0x80/0x80
+[ 2249.714829]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.714834]  ? ttm_resource_move_to_lru_tail+0xd7/0x210 [ttm]
+[ 2249.714847]  commit_tail+0xae/0x150 [drm_kms_helper]
+[ 2249.714865]  drm_atomic_helper_commit+0x13c/0x180 [drm_kms_helper]
+[ 2249.714878]  drm_atomic_commit+0xb1/0xe0 [drm]
+[ 2249.714911]  ? 
+drm_plane_create_color_pipeline_property.cold+0x1e/0x1e [drm]
+[ 2249.714936]  drm_atomic_connector_commit_dpms+0xfa/0x110 [drm]
+[ 2249.714960]  drm_mode_obj_set_property_ioctl+0x1c4/0x410 [drm]
+[ 2249.714989]  ? drm_connector_set_obj_prop+0xa0/0xa0 [drm]
+[ 2249.715014]  drm_connector_property_set_ioctl+0x3c/0x60 [drm]
+[ 2249.715036]  drm_ioctl_kernel+0xae/0x100 [drm]
+[ 2249.715061]  drm_ioctl+0x2af/0x540 [drm]
+[ 2249.715085]  ? drm_connector_set_obj_prop+0xa0/0xa0 [drm]
+[ 2249.715109]  amdgpu_drm_ioctl+0x4a/0x80 [amdgpu]
+[ 2249.715227]  __x64_sys_ioctl+0x86/0xd0
+[ 2249.715234]  do_syscall_64+0xdd/0xfb0
+[ 2249.715240]  ? amdgpu_drm_ioctl+0x6a/0x80 [amdgpu]
+[ 2249.715360]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.715363]  ? __x64_sys_ioctl+0xa2/0xd0
+[ 2249.715366]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.715368]  ? do_syscall_64+0x5e3/0xfb0
+[ 2249.715372]  ? drm_connector_set_obj_prop+0xa0/0xa0 [drm]
+[ 2249.715387]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.715390]  ? drm_connector_property_set_ioctl+0x3c/0x60 [drm]
+[ 2249.715404]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.715406]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.715409]  ? __check_object_size+0x44/0x220
+[ 2249.715414]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.715417]  ? drm_ioctl+0x2e4/0x540 [drm]
+[ 2249.715432]  ? drm_connector_set_obj_prop+0xa0/0xa0 [drm]
+[ 2249.715448]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.715451]  ? amdgpu_drm_ioctl+0x6a/0x80 [amdgpu]
+[ 2249.715551]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.715554]  ? __x64_sys_ioctl+0xa2/0xd0
+[ 2249.715557]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.715559]  ? do_syscall_64+0x5e3/0xfb0
+[ 2249.715563]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.715565]  ? count_memcg_events+0xd9/0x210
+[ 2249.715572]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.715575]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.715577]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.715580]  ? irqentry_exit+0x3b7/0x790
+[ 2249.715583]  ? srso_alias_return_thunk+0x5/0xfbef5
+[ 2249.715585]  ? do_syscall_64+0x94/0xfb0
+[ 2249.715588]  entry_SYSCALL_64_after_hwframe+0x55/0x5d
+[ 2249.715592] RIP: 0033:0x7f4c5cbd0c3b
+[ 2249.715595] Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 
+00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 
+05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
+[ 2249.715598] RSP: 002b:00007ffd6456a300 EFLAGS: 00000246 ORIG_RAX: 
+0000000000000010
+[ 2249.715601] RAX: ffffffffffffffda RBX: 0000000000000000 RCX: 
+00007f4c5cbd0c3b
+[ 2249.715603] RDX: 00007ffd6456a390 RSI: 00000000c01064ab RDI: 
+000000000000000e
+[ 2249.715605] RBP: 00007ffd6456a390 R08: 00007ffd6456a270 R09: 
+00007f4c5d195000
+[ 2249.715606] R10: 00007f4c5c473cb0 R11: 0000000000000246 R12: 
+00000000c01064ab
+[ 2249.715608] R13: 000000000000000e R14: 000055983db98c60 R15: 
+0000000000000000
+[ 2249.715612]  </TASK>
+[ 2249.715614] ---[ end trace 0000000000000000 ]---
+[ 4436.000606] amdgpu 0000:03:00.0: [drm] REG_WAIT timeout 1us * 100 
+tries - dcn31_program_compbuf_size line:142
 
-Had my patch landed and (speculatively) prevented this regression, no
-one would have noticed, but Phoronix would write some nice article
-about the FPS gain in video games, achieved by Tvrtko Ursulin :)
-
-Ah well.
-
-My vision for drm_sched has been that we absolutely need to start
-establishing strict computer science standards and have to prioritze
-formal correctness, simplicity and documentation over features and
-*especially* performance.
-
-Though I maybe should have tried to be more polite and diplomatic about
-it, the evidence that I see is that the DRM community does not actually
-want the above. At least I have to conclude that from the lack of
-encouraging participation and the presence of discouragement.=C2=A0
-
-So if I want to add a spinlock for something obviously broken, the
-burden of proof is on me, not on the one who broke it. If I want to
-prevent someone from adding a 4th drm_sched_start_x() function for
-performance-reasons, then I receive not-so-nice emails.
-
-Folks here seem to want to continue like they did for the last 15
-years.
-
-If anyone here reads this who *doesn't* want to continue like we did
-for the last 15 years, then I would kindly ask for public participation
-and help with moving things towards the right direction. Simple emails
-with "I support this idea, +1", would almost be enough.
+$ dmesg | grep amdgpu
 
 
-It would seem that these recent event might proof that I was right
-about our fundamental issues.
+[    2.409005] amdgpu: Virtual CRAT table created for CPU
+[    2.409249] amdgpu: Topology: Add CPU node
+[    2.409585] amdgpu 0000:03:00.0: enabling device (0006 -> 0007)
+[    2.409825] amdgpu 0000:03:00.0: initializing kernel modesetting (IP 
+DISCOVERY 0x1002:0x1900 0x1043:0x3C68 0xB6).
+[    2.410161] amdgpu 0000:03:00.0: register mmio base: 0xFC900000
+[    2.410367] amdgpu 0000:03:00.0: register mmio size: 524288
+[    2.414020] amdgpu 0000:03:00.0: detected ip block number 0 
+<common_v1_0_0> (soc21_common)
+[    2.414239] amdgpu 0000:03:00.0: detected ip block number 1 
+<gmc_v11_0_0> (gmc_v11_0)
+[    2.414241] amdgpu 0000:03:00.0: detected ip block number 2 
+<ih_v6_0_0> (ih_v6_0)
+[    2.415168] amdgpu 0000:03:00.0: detected ip block number 3 
+<psp_v13_0_4> (psp)
+[    2.415416] amdgpu 0000:03:00.0: detected ip block number 4 
+<smu_v13_0_0> (smu)
+[    2.415662] amdgpu 0000:03:00.0: detected ip block number 5 
+<dce_v1_0_0> (dm)
+[    2.415902] amdgpu 0000:03:00.0: detected ip block number 6 
+<gfx_v11_0_0> (gfx_v11_0)
+[    2.416138] amdgpu 0000:03:00.0: detected ip block number 7 
+<sdma_v6_0_0> (sdma_v6_0)
+[    2.416376] amdgpu 0000:03:00.0: detected ip block number 8 
+<vcn_v4_0_0> (vcn_v4_0)
+[    2.416612] amdgpu 0000:03:00.0: detected ip block number 9 
+<jpeg_v4_0_0> (jpeg_v4_0)
+[    2.416852] amdgpu 0000:03:00.0: detected ip block number 10 
+<mes_v11_0_0> (mes_v11_0)
+[    2.417101] amdgpu 0000:03:00.0: Fetched VBIOS from VFCT
+[    2.417337] amdgpu 0000:03:00.0: [drm] ATOM BIOS: 113-PHXGENERIC-001, 
+build: 00159851, ver: 022.012.000.029.000001, 2025/08/05
+[    2.419984] amdgpu 0000:03:00.0: vgaarb: deactivate vga console
+[    2.419988] amdgpu 0000:03:00.0: Trusted Memory Zone (TMZ) feature 
+enabled
+[    2.420064] amdgpu 0000:03:00.0: vm size is 262144 GB, 4 levels, 
+block size is 9-bit, fragment size is 9-bit
+[    2.420091] amdgpu 0000:03:00.0: VRAM: 512M 0x0000008000000000 - 
+0x000000801FFFFFFF (512M used)
+[    2.420095] amdgpu 0000:03:00.0: GART: 512M 0x00007FFF00000000 - 
+0x00007FFF1FFFFFFF
+[    2.420107] amdgpu 0000:03:00.0: [drm] Detected VRAM RAM=512M, BAR=512M
+[    2.420111] amdgpu 0000:03:00.0: [drm] RAM width 128bits DDR5
+[    2.421125] amdgpu 0000:03:00.0:  512M of VRAM memory ready
+[    2.421129] amdgpu 0000:03:00.0:  15680M of GTT memory ready.
+[    2.421150] amdgpu 0000:03:00.0: [drm] GART: num cpu pages 131072, 
+num gpu pages 131072
+[    2.421526] amdgpu 0000:03:00.0: [drm] PCIE GART of 512M enabled 
+(table at 0x0000008000900000).
+[    2.422192] amdgpu 0000:03:00.0: [drm] Loading DMUB firmware via PSP: 
+version=0x08005D00
+[    2.422466] amdgpu 0000:03:00.0: [VCN instance 0] Found VCN firmware 
+Version ENC: 1.24 DEC: 9 VEP: 0 Revision: 34
+[    2.422572] amdgpu 0000:03:00.0: MES: vmid_mask_mmhub 0x0000ff00, 
+vmid_mask_gfxhub 0x0000ff00
+[    2.422576] amdgpu 0000:03:00.0: MES: gfx_hqd_mask 0x00000002, 
+compute_hqd_mask 0x0000000c, sdma_hqd_mask 0x000000fc
+[    2.447744] amdgpu 0000:03:00.0: reserve 0x4000000 from 0x8018000000 
+for PSP TMR
+[    3.006559] amdgpu 0000:03:00.0: RAS: optional ras ta ucode is not 
+available
+[    3.014774] amdgpu 0000:03:00.0: RAP: optional rap ta ucode is not 
+available
+[    3.014783] amdgpu 0000:03:00.0: SECUREDISPLAY: optional 
+securedisplay ta ucode is not available
+[    3.014935] amdgpu 0000:03:00.0: smu driver if version = 0x00000008, 
+smu fw if version = 0x00000008, smu fw program = 0, smu fw version = 
+0x004c6500 (76.101.0)
+[    3.047178] amdgpu 0000:03:00.0: SMU is initialized successfully!
+[    3.047914] amdgpu 0000:03:00.0: [drm] Display Core v3.2.384 
+initialized on DCN 3.1.4
+[    3.047920] amdgpu 0000:03:00.0: [drm] DP-HDMI FRL PCON supported
+[    3.050319] amdgpu 0000:03:00.0: [drm] DMUB hardware initialized: 
+version=0x08005D00
+[    3.225181] amdgpu: Virtual CRAT table created for GPU
+[    3.225378] amdgpu: Topology: Add GPU node [0x1002:0x1900]
+[    3.225399] amdgpu 0000:03:00.0: SE 1, SH per SE 2, CU per SH 6, 
+active_cu_number 12
+[    3.225409] amdgpu 0000:03:00.0: ring gfx_0.0.0 uses VM inv eng 0 on 
+hub 0
+[    3.225416] amdgpu 0000:03:00.0: ring comp_1.0.0 uses VM inv eng 1 on 
+hub 0
+[    3.225421] amdgpu 0000:03:00.0: ring comp_1.1.0 uses VM inv eng 4 on 
+hub 0
+[    3.225426] amdgpu 0000:03:00.0: ring comp_1.2.0 uses VM inv eng 6 on 
+hub 0
+[    3.225431] amdgpu 0000:03:00.0: ring comp_1.3.0 uses VM inv eng 7 on 
+hub 0
+[    3.225436] amdgpu 0000:03:00.0: ring comp_1.0.1 uses VM inv eng 8 on 
+hub 0
+[    3.225441] amdgpu 0000:03:00.0: ring comp_1.1.1 uses VM inv eng 9 on 
+hub 0
+[    3.225445] amdgpu 0000:03:00.0: ring comp_1.2.1 uses VM inv eng 10 
+on hub 0
+[    3.225450] amdgpu 0000:03:00.0: ring comp_1.3.1 uses VM inv eng 11 
+on hub 0
+[    3.225455] amdgpu 0000:03:00.0: ring sdma0 uses VM inv eng 12 on hub 0
+[    3.225460] amdgpu 0000:03:00.0: ring vcn_unified_0 uses VM inv eng 0 
+on hub 8
+[    3.225465] amdgpu 0000:03:00.0: ring jpeg_dec uses VM inv eng 1 on hub 8
+[    3.225470] amdgpu 0000:03:00.0: ring mes_kiq_3.1.0 uses VM inv eng 
+13 on hub 0
+[    3.229168] amdgpu 0000:03:00.0: Runtime PM not available
+[    3.229461] amdgpu 0000:03:00.0: [drm] Using custom brightness curve
+[    3.230641] amdgpu 0000:03:00.0: [drm] Registered 4 planes with drm panic
+[    3.244850] [drm] Initialized amdgpu 3.64.0 for 0000:03:00.0 on minor 0
+[    3.251516] fbcon: amdgpudrmfb (fb0) is primary device
+[    3.290174] amdgpu 0000:03:00.0: [drm] fb0: amdgpudrmfb frame buffer 
+device
+[    5.988394] snd_hda_intel 0000:03:00.1: bound 0000:03:00.0 (ops 
+amdgpu_dm_audio_component_bind_ops [amdgpu])
 
-
-P.
