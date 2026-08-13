@@ -4,57 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7867C5CFDB
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 10:03:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DBF6C5B572
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 10:30:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9CFE510F294;
-	Thu, 13 Aug 2026 10:03:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D54010E4A2;
+	Thu, 13 Aug 2026 10:30:07 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=qq.com header.i=@qq.com header.b="XAnu6obF";
+	dkim=pass (2048-bit key; secure) header.d=fooishbar.org header.i=@fooishbar.org header.b="dgphkjyc";
 	dkim-atps=neutral
-Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com
- [162.62.57.87])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D86BD10E331;
- Wed, 12 Aug 2026 18:14:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1786558469; bh=MD1tjg36c3OeZ9hDq0F6/eietHx/Pou6c3Od0JphNqw=;
- h=Date:To:Cc:From:Subject;
- b=XAnu6obF+WROv4wZcRuGywXs7YjGZDxHJpYjvkm0bfBjcy3UF7MXVnxzYTy59KA/L
- lYeVxnVLGFVJ9uqqmtTgRJr+7KZJCZtI/hvbf4uMPXGsf+/0wmCuwMk+9kWrxPBB8H
- 79ZcJmE+vKbL3wum+T3bFunhmsPo4/4fvGqCVCOQ=
-Received: from [IPV6:2409:8a00:7894:a160:585d:605d:694d:91cf]
- ([2409:8a00:7894:a160:585d:605d:694d:91cf])
- by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
- id 34A97EC5; Thu, 13 Aug 2026 02:13:10 +0800
-X-QQ-mid: xmsmtpt1786558390tpe6y633z
-Message-ID: <tencent_7F7A79BF9FCDCFA0A6CE645F7B0D8A71870A@qq.com>
-X-QQ-XMAILINFO: OOO9dHjlsLs7iIfk7wHMrsd30dW8I71YlAxkWwUPKckb2f7LhJ5Lts8uuuNeqJ
- mGst7R9V0kr89RTq86LxC5DaxrwgsSfOYOQy3HPOF3eG/JJhVt9rK1IcJPe2x2fPztKc8eQZgmyc
- cc7HegRfG6kwYgeIiVRUU82eoyPVNY2av/5O24/wWCTclKAX9p/uEBTmHbCXhKarwce7X72R4FsX
- y70NbU57c3BYoElNi1RarNdZYXYWw05qyZheAalb0Li4JxspUAAQl9YMRqINRZ1z0ccJEhZUCXN6
- vfdAW5Qyuv8DWyi2fpnZZuxxv/xZp+tz7rSSZjdPmvvtm++Gd56nPnYUUqzANA1lv2m3OqwIIhOL
- F5+NKAmdmdEbn/hpGPf7LuLBCb2o4nKTciaBEXhFpVDB0IiBXGjMvD4rpjZZzg9RUwCSiaA38ZTf
- Tut7Fc7CLmD4OGUu+bY0DRTqnmtDO4HGadwuDftGm8vXtzwyyKh8GGZHp6n6DcoozNQeiJ75wNrE
- TnhbwGM/rKJrMp2eqaZpIL8RLgHqpPDLDdZ2oZGu+B5miodzQTUYS3o8ai2SL/zmHj0qWNWI5A9Z
- wp1+eXbGNErhr66OxatAggwHhLyxBI3HbiZ01wzLGlbcZMenycJrCF6E0q4RtLfC4RIvck7V9sdB
- aQZtgdXsY03H8IROb+UJjOI77ToJp/AbA+b5FBzXplpd2nVfL0REfd65/nZDBhVqy0AnR5+FZXmO
- 7csHKYonSlw+dA2vJNtM6EzUT6xYC6vvqvUAYJ3ibW75O7EgplbjNqfFlZmGpNUQuoDyzWWfy59r
- f8x99UK79oEHQqy14+gi50Ojixa+ER+DT9q+ew+8R7Suy0Yu/FKOI3Jx3m3MfpwVqJKnyDgcFiYF
- GLH8xl+9bYtOTsQ3cGF0d30xbxHR+aQ+yNvPWv7syJwykbkVylK7exczh1yAqLVEOkiU4DkkQhVs
- qQglmEo1jobYsbq4OTgPi1c1S35ET6r9z1i97qKyRMp/B4wWTC5BhsGpdJN17koEeuKsppPNaEDR
- WG9yu1jZdt51+DMo2pj8JiRNZXbnfvak4NoeXcewTPHAgxijVtj9tomMrAus0=
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-OQ-MSGID: <92443462-90c5-4924-bdb0-ab7340f327ad@qq.com>
-Date: Thu, 13 Aug 2026 02:13:10 +0800
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5505510E0AE
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 10:30:06 +0000 (UTC)
+Received: by mail-pf1-f177.google.com with SMTP id
+ d2e1a72fcca58-84a4d8fd6ecso615593b3a.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 03:30:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786617006; cv=none;
+ d=google.com; s=arc-20260327;
+ b=pmA6jv8paFXpJ7B2KW+oQnZAgdW0q7czORpQAQQohPsbfI9VOo0Nxj1JXqX1bUznn0
+ HRzqgVzoG7p3QgNK6U1NnnTLIutMcRpWQhqkHWfrcqeP6/TNY8d7kwKbmMo04vPL5BwO
+ VUnduCh6WRukRP+qqLbtRiQWMEpeBYK6BU/+tpL/L5ecpmQ/CazpfsdJwN+3VSsqT8yt
+ yYFHwUlFKBzZA0GL1hugi8aAkK/0zJAAwwsjfjBjr9atisD3DZ7XmLQiztzyPOemwIhr
+ 2xcLpEiIuWn+geD5j0NsTbghQbFbhduKoWC3/PcU25d+oNZYxPjTgMUk/dR/MheuyV1j
+ RU7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=WXpJ0s2z/yoiEHWuJMF9fdHN283vjFazEZaxaUcCo5I=;
+ fh=osGbdIexd8wDtakz7amC5nOx+xbi+k8eOWVFIFoMl+A=;
+ b=RmCZe1Opy+xDcA053TBm/xkhi7pakM+bD90UUYdOPYp3RL1jD31/nYfJla5KCb4CpP
+ qYcCLthvLmc0YqIt5x3x/D1qMXmsIiDfDo1dszX4unwZUQs0G33E41DrWAxIN/AQ2yaA
+ 2udDegBUUxdVR4MzXrw6Q7xOsMeP7sOKA2l+EG+lV4lkOJbch1e0NCZ6LSMoB0KWgE04
+ aF4wZ4Bm7sjY4MIdSvON4h4p0Y3zwmbXRZG1q0YjzymmvV41oddoPxD+HgGiT5aJeYU8
+ nS0tn2uDNe7TsypdSpCZR9L052y9U9mS1Hq3cxwpMAuPF0u2mmdEqgweXDK3tb2Dhb+s
+ /BVQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=fooishbar.org; s=google; t=1786617006; x=1787221806;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=WXpJ0s2z/yoiEHWuJMF9fdHN283vjFazEZaxaUcCo5I=;
+ b=dgphkjycg+cWzvWGiKjA/09JEi/G9rC3c5xINrgiunpMtCkEbW4rbsmAtFqt2x00xa
+ l8KTDkHC7WJUpUg28dEnUpsKywUNDdQ6xyNp9s/OADHvCktukFoW7V0h1sHMbMNt7kdt
+ LJXYgY8MZ1CGVi/TY+cEUlFKDLJmUqYeZtEKXkRZOSfwMo+hfEAVu6i03mLTZTX+cMnf
+ j6CSvPMbg/jfi1wfdInvKLUhVyWIeLGc5NPRfvwwqILSowZiWtOaGuEYGDoc1LIcRTRi
+ My2tM73XkT4vU0DgYljhsaDeQywVmDkDKQqC/jo31t1aWGlwanN7gSx4IJFQombKVAAC
+ VbBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786617006; x=1787221806;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=WXpJ0s2z/yoiEHWuJMF9fdHN283vjFazEZaxaUcCo5I=;
+ b=Jd8fYA2CcA2Q9AoZNBLMaL7tq9IrIvwU4DY80lxNMZeB66qlb4OliL2iyx9ALVvMYO
+ Ctx+IYqtHA8EKyhJECeJDPIAAEZ7tdy/L33dgDmEqMKrF+hoig24Q+6eQyhWE6HaVF+v
+ N/gL6w82AubHB8wZrePKjqP5U071XGL7e3KA67wkYt3oNfVEeh9UwmXqCHssgA7NYQdG
+ LAihU7CIDb269F3ch56FlRSIuQv8jrydNZRXYfeUxbLA3wvkFLG3fGVECmZpQa8RcSjp
+ ykxSOustFqGC1UL5y58ZptnmakVE8Wll5ux3ngma0l4z7wzo16yaYqkbU8BXXfqwyQ2C
+ kVYg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrR/YRtlVaGajvssCQc958EHfYQTnFKqxEM5OZugQbKq+VogZCwXtrxfPa7GLQ5CBakmOKx5eVa@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwArDUC1w9KdbbKav6ji+GPxEznQtcXwlCGE+LxIowYAKRXb3Uf
+ 0Bt6MSADk39voCdPechVZmb4lTYJkuPJGj6LbwKT197VD0LjB2ne0B9FFMbfGBwBZVdALcphEk4
+ 8Tf95fSX0WWSbimIEMJYiNFHy+mgKZVtAtmEKnjCgl6BvumM/dGru
+X-Gm-Gg: AR+sD10D1oe7rPIyREY7hH9o3UxLMA4DPYNXh3yGzxqbhhtUaZly3AsZ66Fxx412KWD
+ DCr7qbTlcZQ7dDO3N7QNsXSLdwX72joAC2m+zadSEmT7XFqYcLrhzieNjGscEOUXVml39UzLkXP
+ jithK2rVJxnxSXzeuc1SP6JFVBMuxZ9NuUbfEhwuVwvLwitAxHGME6fqUkAwemoRM+ox/8ID1PO
+ 3RrvobG8P54VDqjcVLceB7vSEsKDIkpau8k8Ih4W24PeEtGpa23rfe+9Jn9ZQr74bU9Mf3qbx6w
+ bIJbO0C+k6E4ZkQRnmuLH1pQUV4wjydjocmcMZDM5bp3
+X-Received: by 2002:a05:6a00:b47:b0:848:56ff:6ced with SMTP id
+ d2e1a72fcca58-84fc749497bmr4495492b3a.8.1786617005678; Thu, 13 Aug 2026
+ 03:30:05 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-From: Yang Zi <2959243019@qq.com>
-Subject: [BUG] double fault in amdgpu_discovery_init [amdgpu] [syzkaller]
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Thu, 13 Aug 2026 10:03:25 +0000
+References: <20260806205449.16806-1-jerry.zuo@amd.com>
+ <20260811003921.1398292-1-jerry.zuo@amd.com>
+ <20260811003921.1398292-5-jerry.zuo@amd.com>
+ <0102019ff114857a-259b7f40-8202-425a-bfbc-71bb92acf184-000000@eu-west-1.amazonses.com>
+ <CAPj87rMSYC0wKP66p5Q5uOL+-Fb04-gYJFcRxdxxZ2-_du89GQ@mail.gmail.com>
+ <e7bd40e5-b0fb-47da-aae8-fa16838f9185@amd.com>
+In-Reply-To: <e7bd40e5-b0fb-47da-aae8-fa16838f9185@amd.com>
+From: Daniel Stone <daniel@fooishbar.org>
+Date: Thu, 13 Aug 2026 11:29:54 +0100
+X-Gm-Features: AUfX_mww3yBHM5AmV0obwFDMSKP_QrJHvyHW5GJ3zS0Ihbtesai0qAGpr8B-AgQ
+Message-ID: <CAPj87rMv1si7XBC4QRk_5yhn5+0558VTJnRq3NpU4pT-LqVz4g@mail.gmail.com>
+Subject: Re: [PATCH v3 4/4] drm/amd/display: Add HDMI ALLM support
+To: Harry Wentland <harry.wentland@amd.com>
+Cc: Derek Foreman <derek.foreman@collabora.com>,
+ Fangzhi Zuo <jerry.zuo@amd.com>, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ =?UTF-8?Q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,111 +110,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On Tue, 11 Aug 2026 at 18:42, Harry Wentland <harry.wentland@amd.com> wrote:
+> On 2026-08-11 11:23, Daniel Stone wrote:
+> > On Tue, 11 Aug 2026 at 14:54, Derek Foreman <derek.foreman@collabora.com> wrote:
+> >> Tying this to Gaming-VRR seems potentially surprising. Gaming-VRR
+> >> doesn't mean we're playing a game. We might be using it to play back
+> >> judder free video (where we'd like ALLM off to preserve the sink's image
+> >> enhancement), or we might be at the desktop.
+> >>
+> >> I'd imagine some users would still want their sink to use all the image
+> >> enhancements they saw in the showroom even when playing a game, so I'm
+> >> not sure any kind of "auto" decision making in the kernel makes sense at
+> >> all, even based on content type. It's a very subjective trade-off.
+> >>
+> >> To me, this seems like something a compositor would want control of with
+> >> a simple boolean property.
+> >
+> > I strongly agree. I really don't want to see more magic implicit
+> > semantics unless they're completely necessary for some reason.
+> >
+>
+> Yes, though I wonder what's the point of the content_type property
+> then. It's another one of those properties that's defined and unused
+> by all canonical upstream compositors.
 
-While fuzzing kernel v7.1 with syzkaller, we found a kernel double fault PANIC 
-in the amdgpu IP discovery initialization path. The crash was triggered during 
-GPU probe on a custom QEMU virtual NAVI14 device.
+Poor old Weston, no longer canonical ... !
 
-Kernel PANIC via double fault in `amdgpu_discovery_init()` at
-drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:635 during IP discovery
-table reading. The function triggered a double fault at its entry point
-(large stack frame allocation of 0x1358 bytes), causing a PANIC.
+Seriously though, I see the point, I'm just really wary about the
+kernel trying to be too cute about policy. If you want to use Weston
+as a vehicle for an ALLM property, we'll happily give you one
+tomorrow. It would be static as is all our current output
+configuration, but we could also type up something easily enough to
+implement the content-type hint protocol for dynamic use, with a user
+configuration of 'enable ALLM if there are no games on screen'.
 
-The crash occurs at `amdgpu_discovery_init+0x18` — very early in the
-function. The trapping instruction is a `call` at offset 0x18, after the
-function prologue allocates a large stack frame (`sub $0x1358, %rsp` =
-4952 bytes). A double fault at function entry indicates stack corruption
-or stack overflow — the large stack allocation may have crossed into an
-unmapped guard page, or the stack was already corrupted by anomalous
-MMIO responses from the virtual device.
-
-The amdgpu driver's `amdgpu_discovery_init()` function does not validate
-the device's IP discovery data sufficiently before proceeding with
-stack-intensive operations. The virtual device returned anomalous IP
-discovery data, causing memory/stack corruption that led to the double
-fault.
-
-- Kernel: 7.1.0 #1 PREEMPT(lazy)
-- Hardware: QEMU Standard PC (Q35 + ICH9), virtual NAVI14 (0x1002:0x7340)
-- Tainted: G B W O (BAD_PAGE, WARN, OOT_MODULE)
-
-The crash report attached below:
-
-amdgpu 0000:00:05.0: enabling device (0000 -> 0002)
-amdgpu 0000:00:05.0: initializing kernel modesetting (NAVI14 0x1002:0x7340 0x1AF4:0x1100 0x00).
-amdgpu 0000:00:05.0: register mmio base: 0xFC000000
-amdgpu 0000:00:05.0: register mmio size: 33554432
-traps: PANIC: double fault, error_code: 0x0
-Oops: double fault: 0000 [#1] SMP KASAN NOPTI
-CPU: 0 UID: 0 PID: 715 Comm: syz.0.2 Tainted: G    B   W  O        7.1.0 #1 PREEMPT(lazy) 
-Tainted: [B]=BAD_PAGE, [W]=WARN, [O]=OOT_MODULE
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS rel-1.16.3-0-ga6ed6b701f0a-prebuilt.qemu.org 04/01/2014
-RIP: 0010:amdgpu_discovery_init+0x18/0x87f0 drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:635 [amdgpu]
-Code: 66 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 41 57 41 56 41 54 53 48 81 ec 58 13 00 00 48 89 bc 24 08 13 00 00 31 ff <e8> b3 df b8 f6 48 89 84 24 f0 12 00 00 31 ff e8 54 e3 b8 f6 48 89
-RSP: 0018:ffff8880600ff710 EFLAGS: 00010246
-RAX: 0000000000000001 RBX: ffff8880099860c8 RCX: 0000000000100000
-RDX: ffffc90004409000 RSI: 00000000000fffff RDI: 0000000000000000
-RBP: ffff888060106d48 R08: 0000000000000000 R09: 0000000000000000
-R10: ffff888060106c20 R11: ffffed100c020da4 R12: ffff8880099860c8
-R13: ffff888009986078 R14: ffff888009986000 R15: ffff888009986000
-FS:  000055557874c500(0000) GS:ffff8880e6a8d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: ffff8880600ff708 CR3: 00000000694a9000 CR4: 00000000000006f0
-Call Trace:
- <TASK>
- amdgpu_driver_load_kms+0x147/0x5c0 drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c:148 [amdgpu]
- </TASK>
-Modules linked in: amdgpu(+) ppp_generic slhc gadgetfs udc_core sit tunnel4 ip_tunnel geneve ip6_udp_tunnel udp_tunnel macsec macvtap tap ipvlan macvlan virt_wifi veth nlmon dummy team bonding tun rfuzzer_device(O) i2c_dev iTCO_wdt intel_pmc_bxt ppdev watchdog vga16fb vgastate parport_pc parport gpu_sched drm_panel_backlight_quirks amdxcp drm_exec drm_suballoc_helper lpc_ich mfd_core drm_ttm_helper bochs mousedev serio_raw tpm_tis tpm_tis_core tpm dm_mod dax dmi_sysfs qemu_fw_cfg virtio_rng kt_runtime(O) uio_pci_kerneltracker_driver(O) [last unloaded: amdgpu]
----[ end trace 0000000000000000 ]---
-RIP: 0010:amdgpu_discovery_init+0x18/0x87f0 drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c:635 [amdgpu]
-Code: 66 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 41 57 41 56 41 54 53 48 81 ec 58 13 00 00 48 89 bc 24 08 13 00 00 31 ff <e8> b3 df b8 f6 48 89 84 24 f0 12 00 00 31 ff e8 54 e3 b8 f6 48 89
-RSP: 0018:ffff8880600ff710 EFLAGS: 00010246
-RAX: 0000000000000001 RBX: ffff8880099860c8 RCX: 0000000000100000
-RDX: ffffc90004409000 RSI: 00000000000fffff RDI: 0000000000000000
-RBP: ffff888060106d48 R08: 0000000000000000 R09: 0000000000000000
-R10: ffff888060106c20 R11: ffffed100c020da4 R12: ffff8880099860c8
-R13: ffff888009986078 R14: ffff888009986000 R15: ffff888009986000
-FS:  000055557874c500(0000) GS:ffff8880e6a8d000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: ffff8880600ff708 CR3: 00000000694a9000 CR4: 00000000000006f0
-----------------
-Code disassembly (best guess):
-   0:	66 90                	xchg   %ax,%ax
-   2:	90                   	nop
-   3:	90                   	nop
-   4:	90                   	nop
-   5:	90                   	nop
-   6:	90                   	nop
-   7:	90                   	nop
-   8:	90                   	nop
-   9:	90                   	nop
-   a:	90                   	nop
-   b:	90                   	nop
-   c:	90                   	nop
-   d:	90                   	nop
-   e:	90                   	nop
-   f:	90                   	nop
-  10:	90                   	nop
-  11:	90                   	nop
-  12:	41 57                	push   %r15
-  14:	41 56                	push   %r14
-  16:	41 54                	push   %r12
-  18:	53                   	push   %rbx
-  19:	48 81 ec 58 13 00 00 	sub    $0x1358,%rsp
-  20:	48 89 bc 24 08 13 00 	mov    %rdi,0x1308(%rsp)
-  27:	00
-  28:	31 ff                	xor    %edi,%edi
-* 2a:	e8 b3 df b8 f6       	call   0xf6b8dfe2 <-- trapping instruction
-  2f:	48 89 84 24 f0 12 00 	mov    %rax,0x12f0(%rsp)
-  36:	00
-  37:	31 ff                	xor    %edi,%edi
-  39:	e8 54 e3 b8 f6       	call   0xf6b8e392
-  3e:	48                   	rex.W
-  3f:	89                   	.byte 0x89
-
-<<<<<<<<<<<<<<< tail report >>>>>>>>>>>>>>>
-
-Regards,
-Yang Zi
-
+Cheers,
+Daniel
