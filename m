@@ -4,58 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C73CC5AD5A
-	for <amd-gfx@archiver.kernel.org>; Wed, 12 Aug 2026 22:21:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34F55C5B572
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 04:37:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B238A10F145;
-	Wed, 12 Aug 2026 22:21:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD41110E03B;
+	Thu, 13 Aug 2026 04:37:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WyzytDJL";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4Kke2lP3";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 28D9A10F145
- for <amd-gfx@lists.freedesktop.org>; Wed, 12 Aug 2026 22:21:48 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D0BFC42B9E;
- Wed, 12 Aug 2026 22:21:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 772CB1F000E9;
- Wed, 12 Aug 2026 22:21:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786573307;
- bh=lSjfsT9lz56s5Gpwb7v0lw3+r8UguBFDrjycJYrRh50=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=WyzytDJLW4uygTB8IkrNv+M6l8KIdEXdWj0ar5ta618faApIAlLlo6conCSs2Vnf8
- /RmPyIQchw5ZRaEgcfwzoN/asl/qrvGpDYC/EmT6+MHkCHruoug94FEa/9ERu3Tgjf
- UMARMLQSCJAPLr8J7MLgeiQLTOt2EDgshkBHbbERI6funv0ohrjMmthWR2NUqikhoo
- 7m4S7acpeOBGRgcHuOKdlx03xQoh6bAiZbpXi/7YThGLbExImYG6uoIVY+Ym57rzmL
- zCxtonGW2KVyLbyH3TxflcIV4spiCqk96HrQTfYz0p1zPjZgH/WWjAriS6804MHqgx
- PwklUDbDxCZrg==
-Date: Wed, 12 Aug 2026 18:21:46 -0400
-From: Sasha Levin <sashal@kernel.org>
-To: Alex Deucher <alexdeucher@gmail.com>
-Cc: Sergio Callegari <sergio.callegari@gmail.com>,
- Greg KH <gregkh@linuxfoundation.org>,
- Thorsten Leemhuis <regressions@leemhuis.info>, stable@vger.kernel.org,
- Mario Limonciello <mario.limonciello@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Linux kernel regressions list <regressions@lists.linux.dev>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
- George Zhang <george.zhang@amd.com>
-Subject: Re: [REGRESSION] Please revert 1191285ecb42 from 7.1.y
-Message-ID: <anzx-jMt6_6OTdTI@laps>
-References: <9c6acb62-4080-48e6-9ba2-d1c457c4ec88@gmail.com>
- <2026081106-pebbly-cahoots-37a7@gregkh>
- <23db5f95-c2d6-4712-856e-28f647e184f7@leemhuis.info>
- <1caea72e-b9c8-452b-a3ff-5690d948b4fc@gmail.com>
- <2026081151-reabsorb-calamari-7442@gregkh>
- <8a0fad2d-788a-403f-a880-2f97c6708275@gmail.com>
- <CADnq5_Pb=ox3nWfdpb3Qeo_eSQayuc7UqUOnm0x+WS+EQTVWjA@mail.gmail.com>
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011065.outbound.protection.outlook.com [40.107.208.65])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 921AD10E03B
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 04:37:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eli/tYSUulOEaSfD/nVBtSsNiuwAU7GIPcCj4oS7Ei1DPWC9o/FXobibgi1tS5xLAgXNJgrV4NKhwHUAQpMlCAsQH0M7QX2Qt4BqJIrFwh5xGlCedN79KSEMA2nU4h0CBUKaR8hXq/6fOj78NfDGNJoVdIQm9JL/Q7NBUdL5f1P8ABuF+kgsFvCNm9b2mctGUg0wRrUpx5cQSwK2/eo2y2tmWURW6ovcUsq1x4pHjTfZ6fm4dEfudN69AhXjYpeDLsJfDqud/0uuN3/4335JgO6Atiqt5449aoIZqv+h1+1VGZ0gEzPcvPJ9h4xCo2vZkuamnSrc6/AuBpj/tYLJSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=59NZF3vw0CxWwEnYQVWmDgstAkda5S7HbtyhxJbdQeU=;
+ b=yp59PHct5HIEb81VaeS/ro0qsVfRB2+yi1N3GxlaMTwtbRHFOY3K28HqQUnOHQl+bU3Oxs7sN6UKbblMDBWId8GbAD6f607VSvrQlruhkUk2Rwiizlmr9vMertJLsILtV6rb4m+PqwfwDMx5GbxSh4mUBFfSu5vh3aqeNd0bpGqjEKaoqOQdYEH6XCEovvAgwCXKBX66685FaokNMAMerxsbvlIH+QwmfJYX8xEsn7M1ejZvAR2vQeYuD2nTgb3HVwtHqameBnguuymHGQOmb/bRUJXwJL95Qxx8msw7jRaQrekyElt/C6J2JFyG0rDN8QKBC6FQO2ZVApXushskUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=59NZF3vw0CxWwEnYQVWmDgstAkda5S7HbtyhxJbdQeU=;
+ b=4Kke2lP3NDIuTj4qgUoaFoCqqQ8wY63/vmTREWRHBLOhr7Wnm/y5BbevihXVskqgD9tL9ivU16jP0IThoQ123mBUjZioxsdkx3w6owBTP+T7TXi9ubnHT/87mUgYwY/qb3bjoNARjo3OSJrdYpylLLJ1PBW3eKHPN3eCz5Ck8cc=
+Received: from PH7P220CA0128.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:327::15)
+ by MW6PR12MB8999.namprd12.prod.outlook.com (2603:10b6:303:247::8)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Thu, 13 Aug
+ 2026 04:37:20 +0000
+Received: from MW1PEPF0001615A.namprd21.prod.outlook.com
+ (2603:10b6:510:327:cafe::b) by PH7P220CA0128.outlook.office365.com
+ (2603:10b6:510:327::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.14 via Frontend Transport; Thu,
+ 13 Aug 2026 04:37:20 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MW1PEPF0001615A.mail.protection.outlook.com (10.167.249.85) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.339.0 via Frontend Transport; Thu, 13 Aug 2026 04:37:19 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 12 Aug
+ 2026 23:37:18 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 12 Aug
+ 2026 23:37:18 -0500
+Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Wed, 12 Aug 2026 23:37:11 -0500
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Shaoyun Liu <shaoyun.liu@amd.com>, Amber Lin <Amber.Lin@amd.com>,
+ Jesse Zhang <Jesse.Zhang@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdgpu: force complete the KIQ ring fences on reset
+Date: Thu, 13 Aug 2026 12:36:59 +0800
+Message-ID: <20260813043706.3195196-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CADnq5_Pb=ox3nWfdpb3Qeo_eSQayuc7UqUOnm0x+WS+EQTVWjA@mail.gmail.com>
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW1PEPF0001615A:EE_|MW6PR12MB8999:EE_
+X-MS-Office365-Filtering-Correlation-Id: c0526638-6578-4a8e-94c8-08def8f48f74
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|18002099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: /b0qFH47hKTjbnnUtTGUh6J517ovI7m23PQ4Vi6kJrF5IUxuF3auFl8sHnAZR9Six7zqjIc92UJj8RKE+Rd8Q7iaZezkF5N5s2qft/rkaR1W3F+t6ovP3Pey3uvx0X6dF9w5S9WPZjBte8jrPyN2g4pUYOD54na2cnHfcbwZR7CoLRVrv7KB4xsbQvMTKwOSVl+VvcYUUqnLVWoaaph/AVApJAZMgYctHeSB3jhzHjjVK0gK6xbWOOgf7I/0tx/UMWlzuQQvbcPumP4xu4fo8I2m4paavdodETZsCKh9yzmVPfjVXwq7XQhBAgy0D0HaWeIHVnDAf28wlTHCcMe9Ji0/M6OUnwZwlOCL8NmeU6y/ugRSW8ujwXsr8TSOb1i9LM9cOlFm6eDizYy8DLnCxnu9s3gzbpwSe8wnDSnqp1cxdhsoxPK7BVUYSRvaO83G/+1YmGf5kghBpx/7oV+Hkd8L/mNkQyukmJicSyZHnbkfBupHoKDiZdttR48FyZ6OKQbMpxUWd47EH8RX4wrUA2IETryRGVSdXj/fufjFTXNSZwi295kMCRrSqLcCltkJsQmO1Pj0NfNwugAKx0W3LkKjLt9CTuiMDFcIeMVpSTwkb0tJWmAHZdpnf3DS3ISa2X3kVf5cgGC881bB7WoxQnObNCJOTkrsGvBplDVoreOpzwleoz+uMBNiKEHJx6nFgN24BDFh1T/Gv6q/xqiNGQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(18002099003)(56012099006)(11063799006)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: LhAmPxaaAn5nTlr+NacwaU0Zo7+4SoCCRHGRCFilvR9JMheTJUvzWZy94SPw1T6V1d33Urjhyuc1wslfmulzPzuKtvFS9e7czHkpde4lfD70SCLNx1ytC/pcfyfCdplZyYSVjwKHaLrnpei5JjAnnbqUaGa5Y3EKcnqUE5qgzXUoqpFGX4q14Mmg6DZkh9xl/RBkisiUMKi0Gse9MoXwbTxZQpcBZA35g9ppyopD4Xp/AWI2dELbsxUZtm/2T2lHxMVFaS7cWSZVDmTdpN5M0CvlWPWePzyZpqQgLlXxgoaS48okiemvbVc6Fc2LsyUN2bYHJBajQ1fAJyygIrEQ+1ymXpVEW3OZtIx8uC371LtU81UqngfW4rIgaGAc2YB6d4XNJGUuWTNjAUNy01X09/O5YJK4VmADlKyErpD1iySDd/5whw8aSP+chp8kXCaI
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 04:37:19.4339 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0526638-6578-4a8e-94c8-08def8f48f74
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MW1PEPF0001615A.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB8999
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,50 +113,45 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, Aug 11, 2026 at 01:25:14PM -0400, Alex Deucher wrote:
->On Tue, Aug 11, 2026 at 11:25 AM Sergio Callegari
-><sergio.callegari@gmail.com> wrote:
->>
->> On 11/08/2026 10:08, Greg KH wrote:
->> > We aim to be "bug compatible" with Linus's branch, otherwise the
->> > "pressure" to fix those bugs goes down.  But I defer to the maintainers
->> > of the code involved if it is being worked on, and they want it
->> > reverted, great, we can do that.  Otherwise we prefer to leave it as-is.
->>
->> I understand. Sorry for asking about things that might be obvious to
->> most people here. My expectation was that only a selected subset of the
->> patches on the Linus' tree were to enter in stable, so do we really need
->> to have stable "bug compatible" wrt this bug? The original behavior was
->> not free of issues, but they were rather minor (a reporting issue). Now
->> we have this very bad behavior where the display remains dark.
->>
->> To make the matter worse, on systems that have encrypted root the screen
->> remains dark also on that password prompt (observed with plymouth).
->>
->> In any case, I managed testing 7.2.0RC7 and it is fine again.
->>
->> Looks like the Linus' tree has more changes wrt backlight, and the
->> interesting ones are probably those in the cumulative fix
->> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=973fd9493ec21f12e760fbbedeb7b0b2317c02f4.
->>
->
->Thanks for testing.  It sounds like we should revert the change from
->stable.  There must be some dependency we are missing in stable.
+Like the MES scheduler ring, the KIQ ring sets no_scheduler = true and uses a
+polling fence, so it is skipped by the force-completion loop in
+amdgpu_device_pre_asic_reset(). Its hw fence value lives in wb (GTT) memory and
+survives a MODE1 reset while fence_drv.sync_seq keeps advancing, so after a
+reset the first KIQ submission can poll forever on a seq that is never written
+back.
 
-Hmm...
+Force complete the KIQ ring fences too so their hw fence is realigned to
+sync_seq.
 
-In stable kernels, convert_custom_brightness() still scales the user value by
-(max - min), but f1b5d8f9cc54 ("drm/amd/display: Fix backlight max_brightness
-to match exported range") widened the exported range to max. Past ~(max - min),
-scale_input_to_fw() exceeds AMDGPU_MAX_BL_LEVEL and
-convert_brightness_from_user() returns >0xFFFF, which wraps in
-dce_driver_set_backlight(). With the defaults the cliff lands on 64533, which
-is what Sergio sees.
+Suggested-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-Upstream only hides it: mod_power_set_backlight_percent() clamps at 100%.
-
-Does this make sense?
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 168947747c5c..77426e814e08 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -5049,6 +5049,18 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_device *adev,
+ 			amdgpu_fence_driver_force_completion(mes_ring, fence);
+ 	}
+ 
++	/*
++	 * KIQ rings are polling-fence/no_scheduler like MES, so realign their
++	 * fence too (one ring per XCC), otherwise the first post-reset KIQ
++	 * submission polls forever on a stale seq.
++	 */
++	for (i = 0; i < AMDGPU_MAX_GC_INSTANCES; i++) {
++		struct amdgpu_ring *kiq_ring = &adev->gfx.kiq[i].ring;
++
++		if (kiq_ring->fence_drv.initialized && kiq_ring->sched.ready)
++			amdgpu_fence_driver_force_completion(kiq_ring, fence);
++	}
++
+ 	amdgpu_fence_driver_isr_toggle(adev, false);
+ 
+ 	r = amdgpu_reset_prepare_hwcontext(adev, reset_context);
 -- 
-Thanks,
-Sasha
+2.49.0
+
