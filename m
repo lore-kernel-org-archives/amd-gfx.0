@@ -4,91 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3428C5B572
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 18:33:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7D67C5B572
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 19:02:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A0C710E50A;
-	Thu, 13 Aug 2026 18:33:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 41F2110E20F;
+	Thu, 13 Aug 2026 19:02:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="hVRmu6Xe";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Kz5lapto";
 	dkim-atps=neutral
 Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
  [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DEA7D10E50A
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 18:33:03 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51BD910E20F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 19:02:42 +0000 (UTC)
 Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-392af6bda98so29890a91.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 11:33:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786645983; cv=none;
+ 98e67ed59e1d1-38eca09faa2so18636a91.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 12:02:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786647762; cv=none;
  d=google.com; s=arc-20260327;
- b=FWk65eMjuQs/Mn0F17qMGKEZV55qAIZ8lqgh4AmTqob1Bit/YKMZckQfarO7Y3lZ9e
- hG0XQ8L1cG2i51WmVg/cpjzR4IpqqdwVJzq34Mz0UM9A+zx/0tNu3musNFaXxIwSjjD9
- 7CqQ6rFS5yO+EQB1eBStj7FX0LTe7Ih8PASZEj/m/BsNN95BSQyxQQ5W+BTEgRZ8NJzl
- /rB6B0gE+yCcMoqWNUPuB2o5T6plPxwPjbd4haZFMCBY2AjKdsWRqVtXciyiZKA00t3h
- sg05pli3/r4f46Ck7ZrKI3kZ+zIObIzu8ZzobINth5lKlzAI16FOdFpNH/VZCwCgL5L+
- +HEw==
+ b=f5okxVgA79y5TLWU1O3FygnXY3XoRqEsea1sIWRRzwxL6Nlc8IAJDUzcL+xYgVExWN
+ 5frrmhHE5Y98y+JeioonAPAlA1h2x6AH4wOcQhNuLfP3mD2QGp+cu52qjdXEmLlDuU4Y
+ 8ekuz87lp+cXAFCy52filkdoAO3s05m82owrlEYMlPTu3URHlOk+IALpHq2+FZJH4mmf
+ hV4TX/Nd1Rq/Vj5yVnzancAQlFkm9sjhrXYmNJmMZlWeNJxKTBOooMspF9jACt22bcA/
+ GJR5Sz3LJrFGcW/1T2zqhRu/nbXmwDJzp7PzuHRo4jZO0licEQAGFJ+kv19DCZXmz7v4
+ vV+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=Hav6mMeW4xpM/kIYE4giCMkk3YpiDnvoMFDqD4xLPP8=;
- fh=8ctcLcTMQegsol4jW1vK0/TpYIQESQo3t9uXEfVRTmA=;
- b=T1CMJy3FVnYFzAxSZf2Kui7PKqgecabA5dOBXhb6DmfS2rtLBoLYu7iyNEOZWLqQQJ
- DnBrxGVLDb89ei5U13RmHGjVm1Bi8pZvFv5g9oYErDZH3TAjIy05IYTR/qfoEduZZWju
- NGm/q5mANu6rOBW2g3UysD9UHcLTG2BMniQx+RmpFyP7oE363S/TDpZOSWZ1AWFU0Irn
- XVUPpA+GeGGEzVj4AmaA9jvJQdkc1pCHsR17qrTuTO06XIV3n9DH8q1plcPsJUxTM9ZG
- HlZ1nN4dU+78QcHt+IuKq5roi7tQ0fpXEt4Rf7H/TmXHuNKZzG+hL7EzX/S41K/20uBQ
- VwUg==; darn=lists.freedesktop.org
+ bh=/z+Uy3HejSrVCI10pjAPI9q6GyLVcGX/liopkYvuS2k=;
+ fh=GN/o0e6iJIJKBv/q08m6Nx5sYL/0dpGPEYOcyLG1FvI=;
+ b=W7fnBtqxUuM6YmkMennczLM60atE6sAPfO0bxMsHwTKwpUn/Wut3G6c+24Wl1xTS6a
+ v7pWpxpj+DgOTiMQAroj45xjzna1t9qXSX+dqGWVMstzFmWZgPTjx+o2pAHLxCfSxn7U
+ HQjaFUzdpK8HGn0I56rLdAHXADReLMi7x8bPUUiQVllcIeN7wKjaERG+quJxnJly0zOo
+ uLhK3THOayw5SLSN2BpjD5x72vgtVSovUgseW0E28VXDr8Ovob+Cv+6AlmJO7sToxr9I
+ teLE6JbjfYhiqNlwox4JRcJBcWAFdG6xtdcL3eX2+Vdy8h5FKzE0ZK3Hs5SY0S2nEL23
+ KZpw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786645983; x=1787250783; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786647762; x=1787252562; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=Hav6mMeW4xpM/kIYE4giCMkk3YpiDnvoMFDqD4xLPP8=;
- b=hVRmu6XeADX1zdiyIvf2GrQgDgmeDgh2xrJ4cCszx5c+HVENbehoWkBWr1wgCi2kqG
- sja13zXU8jHSL3yP9JmLiPsB3MIp0yjq3CZsqpOS7O1BOTI70aFqAFW1XcxNp4/VDfTf
- ShDaZmnFM9nmzaTLDuwe6h5bhZ/ZkR6DPll8xaazLvFSja5t7nFcVY13vbsplX5QkGd3
- e6c6UaoTl3hXeNMCkKRrKabCJP1fUBxPzIblhkDOTceVMBSfp/rLNAAeQOy+NNzruS4n
- XUrxeMiDsS9J3i8KMUtWt2VDPJqtgBhiLYl9DgXmxyaUnPU/zhsLEtR6k05digOiyqHg
- U8fw==
+ bh=/z+Uy3HejSrVCI10pjAPI9q6GyLVcGX/liopkYvuS2k=;
+ b=Kz5laptoYDUEL/84c5kq+QzMt271KhMeQ+EzVn20SQcLdFK6vNMuxunLzYHrauZWiw
+ BFM50M4uQbPLK7qUCiigaK49OIKbr/LtxlVK6dTekiitgx28qGTTbJrdr8EQ/2RLkkRt
+ LjqeXH/qGOeGoCDqGAQsapM3ds5TtDlSGYu+XNP8qJnwmhdgDwNj1dzd2iQ8kEwo+e+b
+ BV2fsVE5VLngKM2y8cijbFMWZpoADlPFDr1z2Rb7Bnqm3juTDiMLLVPmH8Vi+gDJer8e
+ pXLi+xsqPLTTsGoK7aMvJWa3XlFZ20CAFgd7YtFVD4r4847DPAYbe71uzfg5R85JM759
+ iohw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786645983; x=1787250783;
+ d=1e100.net; s=20251104; t=1786647762; x=1787252562;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Hav6mMeW4xpM/kIYE4giCMkk3YpiDnvoMFDqD4xLPP8=;
- b=IhaNwaZaqXqkcRkrLHOI+/sMsRpJy8+netgHHqJhPqqS4aN8vj8Q9BEzJeWGFSyBXf
- OEFHN0RIvOHiCYOkOpk55XzxNfYRXaBiuKmnTx/NzhC4pFkfoMgqlY1GmSP6P/ZOB05P
- plk8LA/OQe6uqxLbQzNG87TKN1UECidHWmzK9P0lk0u6Rxg6Z0SJEEfTwvWD3nTuPBeQ
- RwoPt+FtMLEMkezYE33zH8iVn/orJL6YotqBKB5lICKknc4tuErt5H7ZDEmTO7ABiZIA
- UMLRnMfupKRB6VLIt+5eBA3JCJctamVCvZIWFalJjg55JpG8A/nUdUjQQZWboiAa392Z
- jibQ==
-X-Gm-Message-State: AOJu0YxnGJK56dwZUMKfJyD1bOtXGht9oeFVqmLaFeRlXlCVubvu1wws
- eb89S9fYjDoxiptDJ50cBIwy0+KPjiGzpajgA8PQzkVajEYF6Iib/xrrvclDJuYx/z7KjdteurD
- rQdCigodnKPpxKhsSO0cI4PKXhJEp56ZPPw==
-X-Gm-Gg: AR+sD11/7dPEVB9PqkawRvP+rzL1gCcmODrzy+ambFMpJiHU5HopTRPyvR9n+eq1Brp
- gv5c1bxEjD0M6EtPaomqVm2Q6uwrtk/g9xQ94Cm0g+97TrkoRhpWe9zO0tnDjIFehNiwNZNAzzm
- g7UxJF3BQNWwcOXdBPV5eYUMWxT31/APCHfoksWx4G2CRdlvXG5jXyoXD21a1AIzxs1tNmtRLoV
- 3AMPekHR6CqHH4XZW5NaExmBX1MWVIFwD/AJ60ACk2DUJJaucoj9IESMJqAXHk+r1ga8POuCRHa
- nOFbsqFieMn8798O8kfWf7cOOojKgI4W5IO8z7w2vT/GrXFn5O+SwlOltkYOGEEpRsA00++RQzA
- nS6Wz4jG/J0EBykj2LY1Ha0Fay+ZXBoE=
-X-Received: by 2002:a17:90b:588e:b0:38e:76f8:fcbb with SMTP id
- 98e67ed59e1d1-3931e31ce69mr6810819a91.4.1786645983209; Thu, 13 Aug 2026
- 11:33:03 -0700 (PDT)
+ bh=/z+Uy3HejSrVCI10pjAPI9q6GyLVcGX/liopkYvuS2k=;
+ b=Jt95WQLtXM2bOO7b4otfet/jH3FmmjnZYk8Yiodp/E1lSjga+OeY/VxaGrhjHx3yiu
+ N9rmE9/KjHXorbOvwmFeUY/evs1xo0mvssEWla/ry7jzMDgq1IxOJ/ZfDEVJDzYYsUOp
+ A/nnMbW6NQ7xwRIsZdKE1Jern3b5bfbZHhON4i+8WG9MXK2rPWMXiQE3x6zIcaOTu1EN
+ krBaVzAu8jh/XUXjhYtItiVsM5wVo2qYW+nV3nPTYUnM7SlqvhR4RgxoydN/oH+5xLv7
+ pFSJOhyyfX788pqO8oR/spzU1hw8HD6c08Aau4eTnqeGzjsJv5uBgaShBAdEgI3AMVec
+ zY/A==
+X-Gm-Message-State: AOJu0YwXq8a7ENN7tJXZXqax6TdLQ9XOtlhRN6wFRpkSVxZ0kDtuXZEf
+ KCeXyN8O0CmB6pbra0bQDlxhbaNYh1P1w7/5M3ZeF3SxgJJw+0rufYayBCz8OHVf7zgwES2qoA6
+ GvFm+DmHF1R7M152I2pc7Gh6HM9xmjRE=
+X-Gm-Gg: AR+sD137ZfoZ6MauN3KtG0B9PHQDsfAdbpV/uZZB0d9Vd16Sj72VCtvyoZOqD783kGx
+ jdvMqblw+3wsXHp9mzBxxekYcdlndFsiGclvQqdHy2Vm8cl77JZ5+WhST6DtHReqKJjDSFH8ubH
+ JvbFUSDlFnqvh2E3CA2b7yUAtkL0mED5X6emO+V+DH/oPh92U9EOEgx5hHDLsLrpIysZKQKKtIn
+ knFmrg3KsJ2Q9+Ycfuc7u6r+XgDR6sUjbm/MCTsbZhuNNVbPvq/ashfnFfNmfvIfVZmXtYYXZIk
+ uJVuoTIyaHHdJ40friC7ct3csMYoJCRlFSlTT1NMtq1KB0O4AkA2UYA4NaF+XJjCbcXkE5ajpIN
+ VOKdWs++7t5hN6u3G1ff9nprMMQpvuy0=
+X-Received: by 2002:a17:90b:2d8e:b0:38e:6d4c:14df with SMTP id
+ 98e67ed59e1d1-3933bd2c8bdmr68606a91.1.1786647761623; Thu, 13 Aug 2026
+ 12:02:41 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260813043706.3195196-1-Jesse.Zhang@amd.com>
-In-Reply-To: <20260813043706.3195196-1-Jesse.Zhang@amd.com>
+References: <20260813054220.450509-1-Priya.Hosur@amd.com>
+ <20260813054220.450509-2-Priya.Hosur@amd.com>
+In-Reply-To: <20260813054220.450509-2-Priya.Hosur@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 13 Aug 2026 14:32:51 -0400
-X-Gm-Features: AUfX_myi7pHqmJG9FJTPigIv6K9x1N4y8hsr_VCpSCXU2i7Yyc9kZfZUCMlX3-Y
-Message-ID: <CADnq5_MamKsSzw0DbU-kmkb387xWkH=q51LnpJts=Fd3CekpYw@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: force complete the KIQ ring fences on reset
-To: Jesse Zhang <Jesse.Zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>, Shaoyun Liu <shaoyun.liu@amd.com>,
- Amber Lin <Amber.Lin@amd.com>
+Date: Thu, 13 Aug 2026 15:02:30 -0400
+X-Gm-Features: AUfX_my5pm9Jt9Qaunp8fxbXEM0c9GJNk5JzW76333_YoX-q-ooqzpDd5A_g_Ns
+Message-ID: <CADnq5_Mge5MoNRyf0Nnynx5M=V2HKN8L-pFXV88GnLzAfOL5dw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/1] drm/amdkfd: Add TLB flush after MES queue
+ eviction/suspension
+To: Priya Hosur <Priya.Hosur@amd.com>, Sunil Khatri <sunil.khatri@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Shaoyun.Liu@amd.com, Lijo.Lazar@amd.com, 
+ Alexander.Deucher@amd.com, Mario.Limonciello@amd.com, 
+ Christian.Koenig@amd.com, Pratik.Vishwakarma@amd.com, 
+ Veerabadhran.Gopalakrishnan@amd.com, Felix.Kuehling@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -105,62 +108,91 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 13, 2026 at 1:35=E2=80=AFPM Jesse Zhang <Jesse.Zhang@amd.com> w=
++ Sunil
+
+
+On Thu, Aug 13, 2026 at 1:50=E2=80=AFAM Priya Hosur <Priya.Hosur@amd.com> w=
 rote:
 >
-> Like the MES scheduler ring, the KIQ ring sets no_scheduler =3D true and =
-uses a
-> polling fence, so it is skipped by the force-completion loop in
-> amdgpu_device_pre_asic_reset(). Its hw fence value lives in wb (GTT) memo=
-ry and
-> survives a MODE1 reset while fence_drv.sync_seq keeps advancing, so after=
- a
-> reset the first KIQ submission can poll forever on a seq that is never wr=
-itten
-> back.
+> MES (Micro Engine Scheduler) does not perform heavy-weight TLB invalidati=
+on
+> after unmapping queues, unlike HWS which does this automatically. This ca=
+uses
+> a race condition where in-flight DMA descriptors can access memory that
+> has been unmapped, leading to page faults and GPU queue hangs during SVM
+> page migration.
 >
-> Force complete the KIQ ring fences too so their hw fence is realigned to
-> sync_seq.
+> The issue manifests as KFDSVMRangeTest.MultiThreadMigrationTest/1 failure=
+s
+> on gfx1151 (Ryzen AI MAX) with XNACK mode 1 enabled - the GPU compute que=
+ue
+> hangs with packets submitted but never consumed.
 >
-> Suggested-by: Alex Deucher <alexander.deucher@amd.com>
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> Add kfd_flush_tlb() with TLB_FLUSH_HEAVYWEIGHT in two MES code paths:
+> 1. evict_process_queues_cpsch() - after MES removes queues
+> 2. suspend_queues() - after MES suspends queues and mem_fence completes
+>
+> This ensures all in-flight memory accesses from unmapped queues are flush=
+ed
+> before memory is freed or migrated.
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Can you check amdgpu_userq.c as well?  I suspect it needs something
+similar when unmapping.
 
+Thanks,
+
+Alex
+
+>
+> Testing on gfx1151 shows this reduces failure rate from 100% to approxima=
+tely
+> 7-10%. The residual failures require further investigation.
+>
+> Change-Id: Ia83e6af7a66fe2bff56cb62c741728e9a18883e8
+> Signed-off-by: Priya Hosur <Priya.Hosur@amd.com>
+> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 12 ++++++++++++
->  1 file changed, 12 insertions(+)
+>  .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c   | 13 ++++++++++++-
+>  1 file changed, 12 insertions(+), 1 deletion(-)
 >
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 168947747c5c..77426e814e08 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -5049,6 +5049,18 @@ int amdgpu_device_pre_asic_reset(struct amdgpu_dev=
-ice *adev,
->                         amdgpu_fence_driver_force_completion(mes_ring, fe=
-nce);
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
+ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index a23384571193..71c60a42c581 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -1450,6 +1450,14 @@ static int evict_process_queues_cpsch(struct devic=
+e_queue_manager *dqm,
+>                 dqm_evict_mqd_bo(dqm, q);
 >         }
 >
 > +       /*
-> +        * KIQ rings are polling-fence/no_scheduler like MES, so realign =
-their
-> +        * fence too (one ring per XCC), otherwise the first post-reset K=
-IQ
-> +        * submission polls forever on a stale seq.
+> +        * Heavy-weight TLB flush after MES removes queues to ensure
+> +        * in-flight memory accesses complete before memory is freed/migr=
+ated.
+> +        * HWS does this automatically, MES does not.
 > +        */
-> +       for (i =3D 0; i < AMDGPU_MAX_GC_INSTANCES; i++) {
-> +               struct amdgpu_ring *kiq_ring =3D &adev->gfx.kiq[i].ring;
+> +       if (dqm->dev->kfd->shared_resources.enable_mes)
+> +               kfd_flush_tlb(pdd, TLB_FLUSH_HEAVYWEIGHT);
 > +
-> +               if (kiq_ring->fence_drv.initialized && kiq_ring->sched.re=
-ady)
-> +                       amdgpu_fence_driver_force_completion(kiq_ring, fe=
-nce);
-> +       }
-> +
->         amdgpu_fence_driver_isr_toggle(adev, false);
+>         if (!dqm->dev->kfd->shared_resources.enable_mes) {
+>                 pdd->last_evict_timestamp =3D get_jiffies_64();
+>                 retval =3D execute_queues_cpsch(dqm,
+> @@ -3736,8 +3744,11 @@ int suspend_queues(struct kfd_process *p,
+>                 if (!per_device_suspended) {
+>                         dqm_unlock(dqm);
+>                         mutex_unlock(&p->event_mutex);
+> -                       if (total_suspended)
+> +                       if (total_suspended) {
+>                                 amdgpu_amdkfd_debug_mem_fence(dqm->dev->a=
+dev);
+> +                               /* Heavy-weight TLB flush after MES suspe=
+nds queues */
+> +                               kfd_flush_tlb(pdd, TLB_FLUSH_HEAVYWEIGHT)=
+;
+> +                       }
+>                         continue;
+>                 }
 >
->         r =3D amdgpu_reset_prepare_hwcontext(adev, reset_context);
 > --
-> 2.49.0
+> 2.43.0
 >
