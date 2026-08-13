@@ -4,103 +4,126 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 711B9C5B572
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 05:42:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2B394C5CFEB
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 06:21:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3C4910E4E3;
-	Thu, 13 Aug 2026 05:42:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CC8210E1FF;
+	Thu, 13 Aug 2026 06:21:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dxRzzoFa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="YM1VwMTs";
 	dkim-atps=neutral
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010047.outbound.protection.outlook.com
- [40.93.198.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7CB6610E4D2
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 05:42:36 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011009.outbound.protection.outlook.com [52.101.62.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7193610E1FF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 06:21:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iPLpSStNVDwl/QXV4W/hIQfce0QGaWcYjmu9IByiZVYdqiZTmLG2EH5DAcxuPiiel7cKWyMfkWUeOt1gV0hSliYSp3AhYPXM4XwMfXKqLq20OrT4MlRPU8fACHCfVpBWg+S7QCsybj2LV8wjkG3F6bjn8UG/k6ttNfjpRfJoRrn2/uIEhKlwOA15Ynu4i+zG2bKO+6sDFavfZVHLlv6NY4CgCC9FOQmYSHTdoPhnj02IpX9G+1ayGWPta2g8wIB6W+LlxM4qCai01dMP2OFhBBINZ0xpK+I1zYSeMpog1wVX41UHDe8ccCzxor2XAMidCpUjlbXIBgsbPBefSHkTKQ==
+ b=oiKj26SjigELrQzcvEfWjquupn2F4EWEFmufKXLb/U+sOZ0/9yLy7pYbQaL5lq5l9E3cKTdBjZZAHo09tJu9JECsbHCs8dPo7VDrb3yQ4reWKWixcYBYhmqwNbRdq4K2TAzKEmncovqamEPsa9ZaRoo3Zss7Po2D3JpMA07cnbQ5dbn7CGGhviQu8wEVVzg4qSQYYH2AamJ7Q9Korjws2TclSRjZsjJ/hkh9uoSU8GGQLvfW1W9eEFVHii0pubTiL52hO+tPheVgk7PRUeNwZ1bcpxTIqO1RVdDqad95a9WI8HjUp5wIQtZY3uWrPnwWCe3PD0WQVfKo5XL1GzdVvQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=W5MJ4LubXohyPh0DXj8HT9nT3Rtc75mwO6uRtWPeVnY=;
- b=Tzdr4nyo5sG460ew/cE0FnBwbOJPdMWq2x1wdEvhjaRKwa5fGyYHCAlJAgX6BNxuRoz72ynqyzNGRUTFtKRLJ8iFA8yIXQhKDUGWPc2HbLApRTU+rpgUEmYQhfBe7M63sz2d9gzWvD3C5aMNvJ5YIbV+BkxWZSvZfurrVvO3C4O61CWjY4K0iVOi5sd2AoUSQ13UGlHkNs8cqEZCHVu3Xx57fFAkYx2JOkqMbzp74Z6xAM7OuyvAZMA6aSpRCUGnSDu/4T0NfLUiuPmQKo28HWdLS2xkCaV+6R4dZLgP1lBn/m7ESrzC0IJMjW+bF/V4eMJeuiTpZEvLgFPA4Zk05Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=TtDV+h5SCGcBxog5vae/nzvyXhk4BYCxiaTtkwl21ZQ=;
+ b=HKQQ5beoRT8KTB8qlMVp60zpmrV8wgjO2TLXGOZSOaWG3c+fyjh9Te6vpTCc8YISZhgZ56JMq2EsS27Rhw8mVorzSmvz5SDVTHB+wrphE6rJ1Kv6d+/EqgCM+BlBT7PHIILrxbZlE9DhxjPk9l9le6f5++Fg2y97cPpdUNz6KAgt9JAIWzXpO2fF1nI4u4jyX7AE/dkaTbo5kBj/1wL5HiSlYrBwNdL1gXu+hVQptLIsyo1lFOmX8HJuxQj8/T7GI1tdRrdioNAG6grI8VZ+Jim7U6M5i2eNmrrL4AlrjbL01TSKwRytZFFUpZSfy+4+i8oDez6cvxUBoulRY0hDXA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=W5MJ4LubXohyPh0DXj8HT9nT3Rtc75mwO6uRtWPeVnY=;
- b=dxRzzoFazgIH5i54uTvrHXWjsFi+Aq8RE6iAQZ5z2vykg7UnGff8Ppf2uU3/FPqSZwpoB163LdegvZ+oc6sOMzOhDV/ng6x0PP90I8vuTdhILgEwZSXOaTrcUn2eXO9Zx1ljgOIJMmsL2mfroPm0gLc9V7ee87N3JIDgPcnA45g=
-Received: from BN1PR13CA0026.namprd13.prod.outlook.com (2603:10b6:408:e2::31)
- by DSVPR12MB999261.namprd12.prod.outlook.com (2603:10b6:8:41b::5)
+ bh=TtDV+h5SCGcBxog5vae/nzvyXhk4BYCxiaTtkwl21ZQ=;
+ b=YM1VwMTs4bbp32OZCex6Un2bf6fWvsuIxJxyX08LJtp2F0k2ZZSX+BNI7qF+PswYDQbcW3PDG56OyOkiq2peX3s+i955tu7xZutH08d6RzZ2uBi3PjZ3u92hA7AK0+FfevdwR25QZlpSxTBClm4tk5uJRMWr+VEhvOSE36AmuOM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CH2PR12MB9457.namprd12.prod.outlook.com (2603:10b6:610:27c::7)
+ by LV3PR12MB9356.namprd12.prod.outlook.com (2603:10b6:408:20c::21)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.14; Thu, 13 Aug
- 2026 05:42:33 +0000
-Received: from BL02EPF0001A101.namprd05.prod.outlook.com
- (2603:10b6:408:e2:cafe::6c) by BN1PR13CA0026.outlook.office365.com
- (2603:10b6:408:e2::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.4 via Frontend Transport; Thu, 13
- Aug 2026 05:42:33 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL02EPF0001A101.mail.protection.outlook.com (10.167.241.132) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Thu, 13 Aug 2026 05:42:32 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 13 Aug
- 2026 00:42:31 -0500
-Received: from rtg-MAPLE.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Thu, 13 Aug 2026 00:42:24 -0500
-From: Priya Hosur <Priya.Hosur@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <Shaoyun.Liu@amd.com>,
- <Lijo.Lazar@amd.com>, <Alexander.Deucher@amd.com>,
- <Mario.Limonciello@amd.com>, <Christian.Koenig@amd.com>
-CC: <Priya.Hosur@amd.com>, <Pratik.Vishwakarma@amd.com>,
- <Veerabadhran.Gopalakrishnan@amd.com>, <Felix.Kuehling@amd.com>, "Felix
- Kuehling" <felix.kuehling@amd.com>
-Subject: [PATCH v2 1/1] drm/amdkfd: Add TLB flush after MES queue
- eviction/suspension
-Date: Thu, 13 Aug 2026 11:12:20 +0530
-Message-ID: <20260813054220.450509-2-Priya.Hosur@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260813054220.450509-1-Priya.Hosur@amd.com>
-References: <20260813054220.450509-1-Priya.Hosur@amd.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Thu, 13 Aug
+ 2026 06:21:33 +0000
+Received: from CH2PR12MB9457.namprd12.prod.outlook.com
+ ([fe80::85a8:1df:840a:cd4c]) by CH2PR12MB9457.namprd12.prod.outlook.com
+ ([fe80::85a8:1df:840a:cd4c%4]) with mapi id 15.21.0292.024; Thu, 13 Aug 2026
+ 06:21:33 +0000
+Content-Type: multipart/alternative;
+ boundary="------------FbBlHFvZ0BgSzreCD1dQEl70"
+Message-ID: <be92ca16-443a-478d-96dc-c83318df3670@amd.com>
+Date: Thu, 13 Aug 2026 14:21:25 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] amdkfd: allow profiler process reenter
+To: "Kuehling, Felix" <felix.kuehling@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20260806084312.79422-1-lingshan.zhu@amd.com>
+ <CH2PR12MB94573C6D5DD3480E33E6463F8CDC2@CH2PR12MB9457.namprd12.prod.outlook.com>
+ <3f62daa5-7c4c-476b-b692-0cb544e3d2a3@amd.com>
+Content-Language: en-US
+From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
+In-Reply-To: <3f62daa5-7c4c-476b-b692-0cb544e3d2a3@amd.com>
+X-ClientProxiedBy: TPYP295CA0044.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:7d0:7::18) To CH2PR12MB9457.namprd12.prod.outlook.com
+ (2603:10b6:610:27c::7)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A101:EE_|DSVPR12MB999261:EE_
-X-MS-Office365-Filtering-Correlation-Id: 969de1e0-79c8-4bb9-27c0-08def8fdabd7
+X-MS-TrafficTypeDiagnostic: CH2PR12MB9457:EE_|LV3PR12MB9356:EE_
+X-MS-Office365-Filtering-Correlation-Id: dfca35ea-4d30-457e-50c4-08def9031ee9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|6133799003|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 5cEefYxSkt5sSyJu1ahmGniETXbGOYgs9gHAhL10gzNXMdIyJKLXsUigx0ODhpU8D/QMjxreFd5jhjx3g/l8jcuU2r9ITAZGRTt1ZE1l8CmKTskNxxNj+suvmyWTEeCd5UYLDttNgXEWYCeDOfG5N3fF6xviN5acrd+5c+CfWPDk8aDDIsu9yCvtQHZ+jzTrqbLx5xidFtKfDXVNp5uZDxihL5j0D7vMIhb+Ka2Mk4cp3JaWPA+kwtlLIw/DTIdgJcB1Gi/NamhDnVktdDNXnuoBrjFd1MB+V4hEnjWo5m3IuZk4lpwfldmEjRrv2i80hz22OOlk5dvXOz6rycPNRMV/GDLLO1ZLLj8YiIEK+DGdaQDV3J/PbOOaVf7kEgjPeJ3srtaBSZygvWp0T9hjFtDXwZ0T0ldO9duJffXU9UUn7gHopgNdeMAdsBJjRd4yQWhxrpbjyUGMq8qMQ3xxVy5t2hIMh2anadA2inTbWRGpaw3WpAw66j7flqinhyh7yfj0Tkttwzvyqq1VtESa1mwIf5yEw/Qp08n7eWlDv0lwrti7Ria8U9Rkp2Q3h54h/CARr8DPXNE/JrMZMucrKWG9SI863yBpCs10mw1U4htdjxwojSgl6JazOC5xzueKCucsD5Z46gzoaKYH139f7HU/D9xFzmkG9M9FrMpaneTa377eljvynf7K0GHFJU08osQtRZ9D5TRuwLhzSG0rOA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
+ ARA:13230040|366016|1800799024|23010399003|376014|56012099006|5023799004|11063799006|10067099003|6133799003|18002099003|22082099003|4143699003|8096899003;
+X-Microsoft-Antispam-Message-Info: jSB9MOiGVmqrtfgQX4uvj0JAwiKjOR31OPzEWLYpz2eDsnI6tBAuHklsQUTRncGvP2u+IgpknMjdOkCcKSSk+eTHYBomNHh23z8uMDtYRxZ6Mdq5qSP4M8OrxdfuYsG+MdVYVOzV5zTJ0YOKwDQlpnpTptlCSW6iuL+tDNW+mUHuxEF3XeWp/G7TlTWOBivwP3DipGRPZZtS0FRmdUS2wQtHTFkjNa5dFTdLjuF/wDQmKrDu5Yd9e0Jx1nO2XgSAAi7Mbe/E2lz1RzbCtwwrt5vDI48YA271Npmw1enmtwh8MdIsAbmxP3TmE3FIzBMJfgNu9TtK7SINaalqgML/p/3+IKjrhDHKAqacOgm5FVYN1dOLeBDUF+mV2lkmkpKdyfoO2h/0OekEMAQVsFgbM/t0ZkQqrYtFyj52X6Rk5wbj422sJZ8GHMKZ4S2CMAeVnOcrAcaFCIZx9rN3aQz+6aW4PCI3rHTmZYssk96IO1uVF3lopxaqebMECJZeo4TtKnrKMgpqLsAkpi06IitF1Rxr/VSONzvN6EjpPVPsCP6v5NjrH4Iq6zerwOcYs68juntmW6sYSKiWSLqDJr5qsXYhglSsAo7jfsA71iPB2WtrV6Zus5wUlWLOrNWfYjkdVATF0sZrFS/Fafo4VH2N9ZBZDUA504eQY9rfWHGE7Uc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB9457.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(56012099006)(5023799004)(11063799006)(10067099003)(6133799003)(18002099003)(22082099003)(4143699003)(8096899003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: tXiwXcLlG694TPKTwH0CVX3k6tX36btoWu5u/exr7Si8RGI4cjX8UARq7bnqNdfFmLr0ZetEAN9QNiHs7JMaEMEd9Tg1+l7CICRBLx9V9a7+4RDQW9AgETSuCeftPYPUTbORt9kMVRhTQf+DaMtQ+OdkLOqh9yoMQ+5W+vwZxcOTXmIvGWottaXAMMBcYoqKDq2EQ2MCBona+Au+vNA3Ey4jhSw/dM5nHkK1G8ptkq3ZdO6h/QGeEt2ZbKpVoTszkjvdgE6xGh8+CKsa6JS/gA+DSdTrg4BlSGSQXg5PBMkTzMJPnQiMMqRf1o6LY/cEo1lxtgMSbAaqN0nO/XlDrK3KhPgchVgeq5wOCYv2tCa8Cgj423IzWZRl5JqurcDePbQQjW2bVNhkWZJBPL8eK6I1L6U4C3u0AigOC+r/WX3IBvSyqmrexIg4JIt1GGqJ
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aWowcTRvN0tpMUIycy96eVFnVllRR0IycEs3aEFCUjFLTnRtZ2FOd3BSMFhh?=
+ =?utf-8?B?TUVQS0JaUWhPTldVSEpueitxRE9rMUIxcHAyL3hXRks3ZXE0djBGTGFDNmwv?=
+ =?utf-8?B?VVlhRVNOUHdlNFlESHcyMk9wZ3VjaElVVWZIUmFPQ3BCUFk2WjlVeEloTjB4?=
+ =?utf-8?B?T09WaG1ONklzZGlIUEJuR3FzNlUrQnBGUTNHR1N4b0pGcjJHYWp4ZXBuU1Bl?=
+ =?utf-8?B?NkxPZW9DRGNvR212L1JEZDNnT1pITzJxQkJxaHYzem12R0JHRjBrRkpuSDBZ?=
+ =?utf-8?B?Kzd0dUlGWm1FNXJuRENOMEQ1b1RsTHNjK01JZ1dXWS84T29kNlhDRUdiRnk1?=
+ =?utf-8?B?Y0wvVjBRRjgyT3FTM0RncmwzU0M3c0lZbHdMcTBjd3pIbXArcVBEUVZUamFi?=
+ =?utf-8?B?YmJTYmRPelpOQ0NQaDdxMks5OWFleC9RYVIzTUdrdSs1YWpNNXh5QTlpa3VS?=
+ =?utf-8?B?UTJNMEd0M3ZmdDJ0c3hLSjRKOW96SXNnN2UvTk5CQW9UT094UXpBQ2Vhc2d3?=
+ =?utf-8?B?dVE3dDBKYjFXZkFDdDBLcHFjWEgyVzR6cW1TTkdRME1LNDZJWjBsWGh3NndS?=
+ =?utf-8?B?c0JTUlhNaDNSODI0eFNncnB6eU5aaDF3MUN6VVh6dXU5OXk4OGxwRGxJcnNZ?=
+ =?utf-8?B?K2JVU2l3V1hPdG9YQkFESE1IeFJubHpyUWhkTnlFTjY0M1Y0QXdrNkVPTGpZ?=
+ =?utf-8?B?bWdlSU5URjNzMFdwZVkwcGRZTEx2UVJkTDIwaGxjWU9YaVNaMkJnWEFOMFY3?=
+ =?utf-8?B?bXExbEt3azhwdCtaMTR6dkNRMGdITHhwMkNzN09uWnM5MzV3cTRzemg1bWR6?=
+ =?utf-8?B?SGZySW5IZFFLdlF5WEJ6eUlwczdob1Q2NWg0R1ZBYXBLYWN6LzFRcmUzNzBH?=
+ =?utf-8?B?MjBkMk9id2JzZGlTU0QzalBBMUlSSnZMREVPKzdNU0hudWpkMGpUUUNNMVAy?=
+ =?utf-8?B?a0NPTkxzUmsxdGovVkszYmdlRDNWU293ZzBYVGVkU0lOSXhvZ3VLYnR6RzU1?=
+ =?utf-8?B?OHhVUVg4djJkdW5aVmhzMHd4OUlyMTNFTjVjcldxbUFiZ2cvUmJCdy91MUxE?=
+ =?utf-8?B?UisxUFN2TkRNZjhjWWt3dXlZR0RQLzY0OEMwb0h5TXJ1WmU4b056QW1zOCtz?=
+ =?utf-8?B?b2xOd3FmVkQxM0M2L3RnbkRVcG9lR0hUMHlkOEtKYklkUldKR0I1S2NFUGYx?=
+ =?utf-8?B?WDI3S0xYNndCcFZwSW9xdmRYWWtQbmd4VGhrSk9Hc0xsN1FsMU9lMURnd3kr?=
+ =?utf-8?B?U0NOS29zWEZDeDlmdVYyU2NGeVhwdWM4UUtsT3RQN3FIT3d5OFZMYkJiT3dY?=
+ =?utf-8?B?MURiVXNsMU5hY25nNVpHS2FtR1doMTJsTU1sRjhHK3ZIVkxWK1hlQ2dMcmkz?=
+ =?utf-8?B?c0R0OHQxU25VU25DT0VzN2ZjalppM284dlFHMVBVWC9IZkxJVkluRU9veXB6?=
+ =?utf-8?B?Vy9QSmZjalIyckpIZDhzT3h1OFp0dTNRWGRiWHFDbzhSNVpYV3dWQkRrQ2p3?=
+ =?utf-8?B?VXBKWkdUTFNzK0NhU1orODI4VXBDZk5Sb2tqNXBqVnk1U04xZEs0RXp4VGZ1?=
+ =?utf-8?B?eXNocjdsd0MvKzdRYlo4MEgzZ1oyQndlWDBWa1puczBpclFrNElQNnJDbTZB?=
+ =?utf-8?B?VThrMzBDaTUxZmdycmdlQ3U1ZXJzSE56MVdUMGxQQkxhRDNnV2lHUnR4M3pI?=
+ =?utf-8?B?SmpIRURYSFpsUktWU2dQOVMyMDY4bStNUVE5RWRXNzJGMXhSYnZPK0JtTysv?=
+ =?utf-8?B?WHgyVnBHMlBIRWFRTUNEMkZmVG9sU3dLTUNKdGlhUDRxRVdsOStGSmNIc3ZC?=
+ =?utf-8?B?Y0hnZDVqdjl2SkhvOGFPSU0wRHk0SnBOcFJXZHhXbzdsTnZSRmtDM2lUQllx?=
+ =?utf-8?B?YUsrOFpmbnZ2YTcxZkdWdmNlY1Z0dmpzUms5WHJ0ajFFc3doUEF0U29tZmIz?=
+ =?utf-8?B?MWF0dFM4MExYYngwSm44c0hPT0RxbUdSK0hYQUYyZHhZZGp3RnQzcGVxamVz?=
+ =?utf-8?B?YW5VQzJ1R283Ky9RdlNYem5zQTU1U2hhKzF0cVNubURNYjU0cFhJR2dvNDU1?=
+ =?utf-8?B?elJaQUpPcnloNk1YZ05HNzN0alFLd29iUktoYjRWWmtXbDRCOElhUmFPK2VU?=
+ =?utf-8?B?NVl1akhBejRESENDN2ZuN0N4ZDhWL1FTK3VwLzJ0Tkd1bkRrb0RFZXNHTy9j?=
+ =?utf-8?B?RUt4VWVKOWx6VDAyY2RnL1lud1hIMnFSSnpUY1czK05ncU9iK2FGbDFlZ1NQ?=
+ =?utf-8?B?RG03Q0RlcWhZMzJ2bWNhTTY1ODdhNHhHL3ZHdThIck45VVcwMWFUQXpXdWF6?=
+ =?utf-8?Q?tb1OngGsfluChfHEqj?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 05:42:32.6171 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 969de1e0-79c8-4bb9-27c0-08def8fdabd7
+X-MS-Exchange-CrossTenant-Network-Message-Id: dfca35ea-4d30-457e-50c4-08def9031ee9
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB9457.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 06:21:33.6071 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A101.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999261
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Y3jIwftVm0xaSODb1cwpFmt59tukTD+6Qfj276BGJytr5r0KXvjB/01XyazIeSLFUw/Q4qMO9M/hmn+BUwccLg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9356
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,65 +138,262 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-MES (Micro Engine Scheduler) does not perform heavy-weight TLB invalidation
-after unmapping queues, unlike HWS which does this automatically. This causes
-a race condition where in-flight DMA descriptors can access memory that
-has been unmapped, leading to page faults and GPU queue hangs during SVM
-page migration.
+--------------FbBlHFvZ0BgSzreCD1dQEl70
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The issue manifests as KFDSVMRangeTest.MultiThreadMigrationTest/1 failures
-on gfx1151 (Ryzen AI MAX) with XNACK mode 1 enabled - the GPU compute queue
-hangs with packets submitted but never consumed.
+Hello Felix,
 
-Add kfd_flush_tlb() with TLB_FLUSH_HEAVYWEIGHT in two MES code paths:
-1. evict_process_queues_cpsch() - after MES removes queues
-2. suspend_queues() - after MES suspends queues and mem_fence completes
+Yes I agree the user space may be buggy, and the kernel should be robust.
 
-This ensures all in-flight memory accesses from unmapped queues are flushed
-before memory is freed or migrated.
+Even though it is named locking, it is actually a reservation, not recursive locking.
+The kfd_process that successfully invokes the ioctl reserves the device as a profiler. 
+So when a user space locks the device multiple times, it does not increase any reference counters, and doesn't need to unlock multiple times.
 
-Testing on gfx1151 shows this reduces failure rate from 100% to approximately
-7-10%. The residual failures require further investigation.
+Multiple times lockings from the same kfd_process just keeps the reservation, it still reserves the device successfully,
+so IMHO kfd should return 0 other than -EALREADY, which is a negative error code.
 
-Change-Id: Ia83e6af7a66fe2bff56cb62c741728e9a18883e8
-Signed-off-by: Priya Hosur <Priya.Hosur@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
----
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c   | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+By the way, the function is declared to return uint32_t, which is definitely wrong, because the function may return errors, for example -EBUSY.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index a23384571193..71c60a42c581 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -1450,6 +1450,14 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
- 		dqm_evict_mqd_bo(dqm, q);
- 	}
- 
-+	/*
-+	 * Heavy-weight TLB flush after MES removes queues to ensure
-+	 * in-flight memory accesses complete before memory is freed/migrated.
-+	 * HWS does this automatically, MES does not.
-+	 */
-+	if (dqm->dev->kfd->shared_resources.enable_mes)
-+		kfd_flush_tlb(pdd, TLB_FLUSH_HEAVYWEIGHT);
-+
- 	if (!dqm->dev->kfd->shared_resources.enable_mes) {
- 		pdd->last_evict_timestamp = get_jiffies_64();
- 		retval = execute_queues_cpsch(dqm,
-@@ -3736,8 +3744,11 @@ int suspend_queues(struct kfd_process *p,
- 		if (!per_device_suspended) {
- 			dqm_unlock(dqm);
- 			mutex_unlock(&p->event_mutex);
--			if (total_suspended)
-+			if (total_suspended) {
- 				amdgpu_amdkfd_debug_mem_fence(dqm->dev->adev);
-+				/* Heavy-weight TLB flush after MES suspends queues */
-+				kfd_flush_tlb(pdd, TLB_FLUSH_HEAVYWEIGHT);
-+			}
- 			continue;
- 		}
- 
--- 
-2.43.0
+Thanks
+Lingshan
 
+On 8/13/2026 12:27 AM, Kuehling, Felix wrote:
+
+> I suspect this won't work correctly. If the profiler locks the device
+> multiple times, it probably also unlocks it multiple times. But I see
+> no reference counting being done, so this may result in a situation
+> where user mode locks twice, and unlocks once. Now it's lost the lock
+> but it was still expecting to have it from the first lock operation.
+>
+> I suspect that this is a user mode bug, and KFD is working as expected.
+>
+> Regards,
+>   Felix
+>
+> On 2026-08-12 03:14, Zhu, Lingshan wrote:
+>> AMD General
+>>
+>> Gentle Ping.
+>>
+>> Thanks
+>> Lingshan
+>>
+>> -----Original Message-----
+>> From: Zhu, Lingshan <Lingshan.Zhu@amd.com>
+>> Sent: Thursday, August 6, 2026 4:43 PM
+>> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian
+>> <Christian.Koenig@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.com>
+>> Cc: Huang, Ray <Ray.Huang@amd.com>; amd-gfx@lists.freedesktop.org;
+>> Zhu, Lingshan <Lingshan.Zhu@amd.com>
+>> Subject: [PATCH] amdkfd: allow profiler process reenter
+>>
+>> profile_lock_device() currently returns -EALREADY when the current
+>> profiler process requests to lock the device again. However any
+>> negtive values here are treated as failure, so this causes rejecting
+>> a profiler operation even though the caller still owns the device
+>> locking.
+>>
+>> This commit fixes this problem by returning 0 when the current
+>> profiler process locking the device again.
+>>
+>> This commit also changes profile_lock_device() to return an int value
+>> other than uint32_t, because it returns negative number when fail.
+>>
+>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+>> ---
+>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 6 +++---
+>>   1 file changed, 3 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>> b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>> index 309510e23315..9acd5c91e51c 100644
+>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>> @@ -3329,8 +3329,8 @@ static int kfd_ioctl_create_process(struct file
+>> *filep, struct kfd_process *p, v
+>>          return 0;
+>>   }
+>>
+>> -static inline uint32_t profile_lock_device(struct kfd_process *p,
+>> -                                          uint32_t gpu_id, uint32_t op)
+>> +static inline int profile_lock_device(struct kfd_process *p,
+>> +                                     uint32_t gpu_id, uint32_t op)
+>>   {
+>>          struct kfd_process_device *pdd;
+>>          struct kfd_dev *kfd;
+>> @@ -3365,7 +3365,7 @@ static inline uint32_t
+>> profile_lock_device(struct kfd_process *p,
+>>                          }
+>>                          return status;
+>>                  } else if (kfd->profiler_process == p) {
+>> -                       status = -EALREADY;
+>> +                       status = 0;
+>>                  } else {
+>>                          status = -EBUSY;
+>>                  }
+>> -- 
+>> 2.53.0
+>>
+--------------FbBlHFvZ0BgSzreCD1dQEl70
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <pre>Hello Felix,
+
+Yes I agree the user space may be buggy, and the kernel should be robust.
+
+Even though it is named locking, it is actually a reservation, not recursive locking.
+The kfd_process that successfully invokes the ioctl reserves the device as a profiler. 
+So when a user space locks the device multiple times, it does not increase any reference counters, and doesn't need to unlock multiple times.
+
+Multiple times lockings from the same kfd_process just keeps the reservation, it still reserves the device successfully,
+so IMHO kfd should return 0 other than -EALREADY, which is a negative error code.
+
+By the way, the function is declared to return uint32_t, which is definitely wrong, because the function may return errors, for example -EBUSY.
+
+Thanks
+Lingshan</pre>
+    <pre class="moz-cite-prefix">On 8/13/2026 12:27 AM, Kuehling, Felix wrote:
+</pre>
+    <blockquote type="cite" cite="mid:3f62daa5-7c4c-476b-b692-0cb544e3d2a3@amd.com">I suspect
+      this won't work correctly. If the profiler locks the device
+      multiple times, it probably also unlocks it multiple times. But I
+      see no reference counting being done, so this may result in a
+      situation where user mode locks twice, and unlocks once. Now it's
+      lost the lock but it was still expecting to have it from the first
+      lock operation.
+      <br>
+      <br>
+      I suspect that this is a user mode bug, and KFD is working as
+      expected.
+      <br>
+      <br>
+      Regards,
+      <br>
+      &nbsp; Felix
+      <br>
+      <br>
+      On 2026-08-12 03:14, Zhu, Lingshan wrote:
+      <br>
+      <blockquote type="cite">AMD General
+        <br>
+        <br>
+        Gentle Ping.
+        <br>
+        <br>
+        Thanks
+        <br>
+        Lingshan
+        <br>
+        <br>
+        -----Original Message-----
+        <br>
+        From: Zhu, Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:Lingshan.Zhu@amd.com">&lt;Lingshan.Zhu@amd.com&gt;</a>
+        <br>
+        Sent: Thursday, August 6, 2026 4:43 PM
+        <br>
+        To: Deucher, Alexander <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com">&lt;Alexander.Deucher@amd.com&gt;</a>;
+        Koenig, Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com">&lt;Christian.Koenig@amd.com&gt;</a>; Kuehling,
+        Felix <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com">&lt;Felix.Kuehling@amd.com&gt;</a>
+        <br>
+        Cc: Huang, Ray <a class="moz-txt-link-rfc2396E" href="mailto:Ray.Huang@amd.com">&lt;Ray.Huang@amd.com&gt;</a>;
+        <a class="moz-txt-link-abbreviated" href="mailto:amd-gfx@lists.freedesktop.org">amd-gfx@lists.freedesktop.org</a>; Zhu, Lingshan
+        <a class="moz-txt-link-rfc2396E" href="mailto:Lingshan.Zhu@amd.com">&lt;Lingshan.Zhu@amd.com&gt;</a>
+        <br>
+        Subject: [PATCH] amdkfd: allow profiler process reenter
+        <br>
+        <br>
+        profile_lock_device() currently returns -EALREADY when the
+        current profiler process requests to lock the device again.
+        However any negtive values here are treated as failure, so this
+        causes rejecting a profiler operation even though the caller
+        still owns the device locking.
+        <br>
+        <br>
+        This commit fixes this problem by returning 0 when the current
+        profiler process locking the device again.
+        <br>
+        <br>
+        This commit also changes profile_lock_device() to return an int
+        value other than uint32_t, because it returns negative number
+        when fail.
+        <br>
+        <br>
+        Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
+        <br>
+        ---
+        <br>
+        &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 6 +++---
+        <br>
+        &nbsp; 1 file changed, 3 insertions(+), 3 deletions(-)
+        <br>
+        <br>
+        diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+        b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+        <br>
+        index 309510e23315..9acd5c91e51c 100644
+        <br>
+        --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+        <br>
+        +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+        <br>
+        @@ -3329,8 +3329,8 @@ static int kfd_ioctl_create_process(struct
+        file *filep, struct kfd_process *p, v
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0;
+        <br>
+        &nbsp; }
+        <br>
+        <br>
+        -static inline uint32_t profile_lock_device(struct kfd_process
+        *p,
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t gpu_id,
+        uint32_t op)
+        <br>
+        +static inline int profile_lock_device(struct kfd_process *p,
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t gpu_id, uint32_t
+        op)
+        <br>
+        &nbsp; {
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process_device *pdd;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_dev *kfd;
+        <br>
+        @@ -3365,7 +3365,7 @@ static inline uint32_t
+        profile_lock_device(struct kfd_process *p,
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return status;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (kfd-&gt;profiler_process == p) {
+        <br>
+        -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; status = -EALREADY;
+        <br>
+        +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; status = 0;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; status = -EBUSY;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }
+        <br>
+        --
+        <br>
+        2.53.0
+        <br>
+        <br>
+      </blockquote>
+    </blockquote>
+  </body>
+</html>
+
+--------------FbBlHFvZ0BgSzreCD1dQEl70--
