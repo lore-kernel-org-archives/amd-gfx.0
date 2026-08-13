@@ -4,122 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3A8BC5CFDB
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 07:54:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58DDEC5CFDB
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 07:59:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2D9FE10F1D8;
-	Thu, 13 Aug 2026 07:54:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB91C10F1DB;
+	Thu, 13 Aug 2026 07:59:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="i+2kMKr7";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="hdc/TYsG";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011041.outbound.protection.outlook.com [52.101.57.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A219A10F1D8
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 07:54:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XYV6AaT396k3+iC0ZQa2kyGtI1z9ULGX4rM3NIf7K6TYnqnmf94N6uvwMzH9QHXl6Vtmh15+aDdPF0Xdb5ryYnemPeGu4918uzqozj7uiVofr1UGyYSWSEznkxBb1PGljWcZeoLe63MIGmz62Xm3C0QpUU9OvbX0C+ljOJLwPYx75NwYyoTD7TDNLcFPydtQt41wtya0BBZ3j4r7IyOtA1R5SUkH9fZAsCGGe6Aj2eSlCWJ+D8en4qCBv47FeKScM5klhpKFyzK35M4vODmfo6bF5PkQT2e+R8uICdprhP6NfCZ2i7s+4TlkdAJJEBHLGSbipfMLu03hDEsyOTzeBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8bX6JkE0b+zaPNaxvnfSN8nVgi0hAy9SveC8MsVBFMo=;
- b=QN9jKVKCRQJ+GF6jQNTappoRwYdupIp/6IFC0iK26oRxqlhYmQDfCs9EKgOcWCxwO1551djy7Ve/qe8zzXu9HLqtJbkoa9qE8bhnqpXGskf2EKSzkV1tPApnOU4GHLmJwYiCuPArvDF8+0uRgUPCDLB+P1HJ6aVDPvyO3x8ENoN8QyJLQpl0l4wNfSBvS/xwSh1CORXFd2jibiydgHFLHN/PQYro3bt9j7XjcEWWZOuBhymETr4KIH3SpwCfeELaUBUpTREKvFtqBMbhYTaRDSjTd3eJ6wz3KeHD4u/LSPu8ogkgknCgjM3W/GZ9o/0AHA4PXXXVQ+3aykxvWCbxBg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8bX6JkE0b+zaPNaxvnfSN8nVgi0hAy9SveC8MsVBFMo=;
- b=i+2kMKr7/lAqWXLyz4djzLtKJjv3lFgzh/LZTuqZY8umv8Y68W0P4uxj6RjBrW9rV2eavtIQuEdhqRD3Ypi0OZZxzQQDL0494oYIuVgnt9K4wa99NajH5zODll9sQnqz9UtYLNrwVDMqooSMkBy/bVuX/dLVgR4Cf51Dp5rGLVg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA0PR12MB8930.namprd12.prod.outlook.com (2603:10b6:208:481::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Thu, 13 Aug
- 2026 07:54:18 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0292.024; Thu, 13 Aug 2026
- 07:54:18 +0000
-Message-ID: <f2418e1b-43fd-4d3d-9f52-10bd50dfe68d@amd.com>
-Date: Thu, 13 Aug 2026 09:54:15 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu/userq: fix lock missing for userq fence error
- set
-To: Prike Liang <Prike.Liang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Alexander.Deucher@amd.com
-References: <20260807061422.365929-1-Prike.Liang@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260807061422.365929-1-Prike.Liang@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: BLAPR03CA0008.namprd03.prod.outlook.com
- (2603:10b6:208:32b::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A5D3C10F1D9;
+ Thu, 13 Aug 2026 07:59:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=uyRKfejl5js6NDDDEUB7U7M5f2j8gaDH5+HlJp1OK1Q=; b=hdc/TYsGDH0NDLOjNwuULY7iR0
+ LYnTlgCPFWxGsKWLRynPKYKRe4p+CdLURJBUM3wQ9IpzLpryIN4RV/PUE0Lcvu0ncdtzuuxd9lXZW
+ mLz5G5CDJjRNolvT43BU7PMWMFkAbytoyRWz41PnAi8pJDWmRegq3KCoOIBcRmRHRpDuWOKVVvslx
+ h8zbWxwVMtsk4qs0YFrtP8/FdtRYV8m2hK4EfGKHo7wlnE9pDoxz4ANz39VHNv+oDt/um0zmrvPQa
+ 4QYCxumAksNYP+C0XL6eSVrLmP2kPPoSXvrICw3DmOUbiQo/JNkH2J0pKyC/efPnr/kZ3ypLFpb8l
+ zdetznoA==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1wuQKu-000koQ-2G; Thu, 13 Aug 2026 09:58:48 +0200
+Message-ID: <61a96635-e143-4d69-b0f7-0f312f5a3a3c@igalia.com>
+Date: Thu, 13 Aug 2026 08:58:47 +0100
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB8930:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1f898c2-6b05-418b-a052-08def91013f5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|366016|11063799006|56012099006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: 6xWbZGnvhwySJhaiYT9U9wPIEnEN+vVHnPK2kTk7GGfV6XAsGGx4f4thyLxEc7OtNi/JljMaZEhvmXLz3gXLwWYEgI3xnsEm4tVZgmuLNgxPxY1qxqEprwKaBBMiSb3MYMRZah0RvSP063oBjbBq5Gr0Y27S1KqNyeVYqbDfMaPA/8H2R4WNuzgXWIeGWwQtav2tO2FYQSXKPRvXHZBUx2WNNQEEKyargdK6Iv+wAnqBngicxmUvcqwcCh2psN0kVLQ5KyiaPjfN4327iSxR3YL0IkxPY/XjnUNBB0uhNYPIU0MxL6MjFCoitknyfyu0g8XtoAVBdIWlotzhfwUAMFgmfDEHEUTfUYfCN2h+kSvN2UZ/+lMCbC2NJWwJ5jikQ/ienHllb8lQeop1Sppn3WHxBjzDiRPJo0Yss0LXKwtelikdMTQhLbquaZ2RozKTZrwq3xGyCaTjiuD0zfLGYQ2gU2Q+9txZ/rDgq0zgxi0wi7E1RALRVkTmn8M8Z+2qtZY5d/yYxr8aZSSP/DJe90uZ6nSYt9pMS77JF2j8c3T7OuBv9wdmXBz58TcD9iuJBwcAuA7AKk0ME8hGwGVpdcUWDkLqtMYNYTonNyGhc76zUjFt76l1K9etQprapQg6ddadbu/+ybP/AIoIPV0b2rXaGugKkBH0/z+kGo5a8Tw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OC93MjQ2VVRiRGNzckVxU2RvS3dxN0lJWTJZTElIb1lsTGN4MzMwbHRFRU1L?=
- =?utf-8?B?T1Y1S2NlVlVuRHlQSStuRkRpbDdObG9wRDVYbDBEZEVmYVkxei9jcUtCTGVr?=
- =?utf-8?B?ZVN4Y2JnNmRuQVgzY2JaUnlBQXFoREloZmZ2MFAxb0ZmcDdiOW84K21LNkts?=
- =?utf-8?B?UCszZW5GdDFSQnhFR2NUdXhscU92OWFVb0U3SHJ6WmRXcVk1VW5nbWVtOVpG?=
- =?utf-8?B?UEs0Rk1uNXY0NFlKV1BrdTh5SlVoOWNUSzhPMkF1aEpuRXdjTE8vMU9pRXRG?=
- =?utf-8?B?ajYvK0Uwb1R6cThrVkY4U3BMdktwcDV1V3c3bjEvMFJKbnJKZlU2bWRqTU0y?=
- =?utf-8?B?WWx2eElVYnArM3ZJMEwyQTJUQ29mSjR3WDMxaEo1Z1ZUeEJYeWh5eFdnMDN4?=
- =?utf-8?B?b3A3M3JRVFdNYldkd3l1NDZYRWNMZXRVTjJYR1pSWXIra0RBbTAvVFk3c1NH?=
- =?utf-8?B?amNucjJVckdEbE1rOW1rejNRK1diajZUN0xIWkJmem80eXoxZGFYa0tTVVZW?=
- =?utf-8?B?TkxrMjh0K0pxRU11c1oybUl5dDdkVVVNU1gvNG5IbTFjWWt6WmtjUGpoZkJ1?=
- =?utf-8?B?VU02RkVTdDBVT3huckJZR2NpUGNRMVI0NmZqdVJiRXVtL1prZE5UeXE3c1Ny?=
- =?utf-8?B?Z1BxbjRIZkxXQ3pxUnBoTEUzOGl3TGs2MXZvS2RJMVE2LzlhemtKOFBBQUhO?=
- =?utf-8?B?bTZlTGVuYWxWMURpQVBuTDNSZFBVakdQdWgzUkRPYjJrMlBXaGNKTXBPK1Ey?=
- =?utf-8?B?eVF2ODl3c1V5Vis5TlpRNkp0eE9ESEdFOHJpZThMR2xBSHdicWtlaDN6enNG?=
- =?utf-8?B?bk0rLzhuQ2NGVWJqaXFiaXFFRmlXYnNxcUNONmdLWXRKWXFCWkt4bGJiL0pE?=
- =?utf-8?B?TW5iWG8wUGNqZTRNWFJqTGpiNlVUYW5pcEFFblVpN284cTU0N0FMNWZnWHc4?=
- =?utf-8?B?SEl3cXFUVXgxZHhPbFpKMjNxVXFlbDUrbWlCOW5UelAzdE81a0t3ZkdydTY1?=
- =?utf-8?B?T0UzR1E2aURSSDZ2U2ZFN3dJRDZjR3hWNVJFMUE2VXA3U1U0TEZzMm5RWmVh?=
- =?utf-8?B?ZCtrcG1kSmpTVEJsdE5hRkNGOTN5MTc0ZkZHSG92dDFxN0hXMEdMZitVeEwx?=
- =?utf-8?B?TWdaUU56UEYzdmljWjd0MWMveUlOd1BnQXhzNTZOdEJxQmNzU0JFYlJRZnhG?=
- =?utf-8?B?RVZZbFU5TDlhVU1Nc2c2OE1QUEdjZlFqZTBmV1dJUHQ1Z3QrRVNubWtWYThY?=
- =?utf-8?B?TFF3bjE0ZTlkWmlXYlJDcFRvVGVXMm9NbjZ5U3hIbGh5dGVZMXdEQm92VUFm?=
- =?utf-8?B?MUZUR2xNdDBhcXNRRUFZSzA1VVh6V0FHK3p3bE1EVkFXN0g4alVZcEN4ZEVU?=
- =?utf-8?B?MUFFRS9CaWpxRmprc3A4WklQNnV5SVFsdUdGeFdLc2g0cCtDZ0xrTFI3MTZU?=
- =?utf-8?B?R3NsUkU4ell6RHFwb1VmMExnd2xEWVZ0bVQ4dkNReEZWYXNKWldDOTBjWFZR?=
- =?utf-8?B?Y3JKOFUxUXRNdG8wQUp3cWpSa2IrWm00RjFnVzVRQlI2RGNxNVE4ZFN0R04v?=
- =?utf-8?B?ZENHTEtoZDFBUG1kcGhNRGlxL2N1T1YwTGZpeWIxTDZ2NmF3SXhqRGxvSjVR?=
- =?utf-8?B?SkJKaFFxWlhXU09DUkYramFSZmttTEY1N0Q5c3NzRkwxL1JMdGduVXo3eHd4?=
- =?utf-8?B?bytKTmpmYnVla0lRUmNEZ0l1M2hYWnJhVkcraS8yMWJxK1UwVWNiY0FkaUls?=
- =?utf-8?B?eXNzT0ErSzhHbHRON1pkdSs0RUJnSWEwcmRCV2I1WDhMSGlyK1VrU2o5TDd5?=
- =?utf-8?B?STVWSThmU0VHM3d1TlNvSnVzS3g1clZpNlVicGJHM2k0OGVndThCTUZoQUhT?=
- =?utf-8?B?MnZzQ3BUV0Y2d1c3cnJRTk1KLzNybHliQ1ZoVlZ6akF2b1FZWkxUcSswd3pB?=
- =?utf-8?B?Z0VLU2ZYU3pjWktjTjR3WTFjZ2tKQm1tYllBM2YvY2UwRlB2bzBDYzJRUmht?=
- =?utf-8?B?c3RkeVRCaW5mdVB0UmZSZWMyUVlOa0dDV2M2RnF5WEE5dC9yWXlnS1FYZjd4?=
- =?utf-8?B?TU5nUlpSSGRJT0U2WjdZcEFWSjJuWXZ1OG9yUmlxMnVCMlBNczJRT3pOM2ty?=
- =?utf-8?B?UXNxK3ZuUVR4TTNjelkrNDk3eENQdmQvLzA0eTRZQUFucnp1NGt2MW9EcEN3?=
- =?utf-8?B?cms3SnM2ZHI5WU4xZnQxNHpNQ25LRVVETVBlOEVvNWxyVitGRUVtWDIxUlNu?=
- =?utf-8?B?SG82WUM2Q242Ulc5Q1I4VkhBbFBnd3RQdGkwa2lNNW5nakNwaGZTblVWSGdI?=
- =?utf-8?Q?kRaSvkmWa5pVDdlL4h?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1f898c2-6b05-418b-a052-08def91013f5
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 07:54:18.5129 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: j6BkA2BidEaBDYEZKGXX3czGS+zIB6edG7Y0AUoGHN7VIRllg8ucyzrDpFWnUa6u
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8930
+User-Agent: Mozilla Thunderbird
+Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
+ degradation at max GPU load on 9070XT
+To: Luke.Wildhardt@proton.me
+Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@mailbox.org>, 
+ phasta@kernel.org, "matthew.brost@intel.com" <matthew.brost@intel.com>,
+ "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
+ <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
+ <DKL9VAWD2Y98.RBQPQUL7Y47F@kernel.org>
+ <6e2a207e-4db6-4d47-b1f6-9cb13b8d6eeb@igalia.com>
+ <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
+ <4OmZej9WiJ6-rsJ_lFcrmwtClAwMdN4oHXWH0p8FkIrhAn4LKS4O3q36wrdZrvjZHBNS8PZsvaIvR-1aFZfF2tDiy1cdMzTYNylcbGDQN68=@proton.me>
+ <a9ee4edb-e763-4fd7-a510-32191df0cf8f@igalia.com>
+ <Wgbhe0iRVno6QTXUasXAw96sdk1GzzJ8DW_Yw8EyCtxvwV4-EfRTaUdaF9vYeMYsMyfLVVTmXBOB1Br_d-l8b87D_2CMFyYSJi34eaaGGW4=@proton.me>
+ <ylme_dYqb7yeNvmFl3ZeH3v8d_46-oAWr6t95wEZTYGiLMdbNTzXBFoV1zueOeHcKXcFrMMsoF0s_57Hzj0wwEfxDRjPhmu-xquKmeXKehg=@proton.me>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <ylme_dYqb7yeNvmFl3ZeH3v8d_46-oAWr6t95wEZTYGiLMdbNTzXBFoV1zueOeHcKXcFrMMsoF0s_57Hzj0wwEfxDRjPhmu-xquKmeXKehg=@proton.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,57 +72,128 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-
-On 8/7/26 08:14, Prike Liang wrote:
-> amdgpu_userq_fence_driver() and amdgpu_userq_fence_driver_destroy()
-> don't acquire the dma_fence spinlock, so locking the dma_fence lock
-> before test the signaled state and set error state.
+On 13/08/2026 07:42, Luke.Wildhardt@proton.me wrote:
+> Ok, after a lot of A/B testing, it appears that trying your "drm-intel/drm-sched-fair-fixed" branch, the stuttering is still there. It's definitely paced differently though, I will attach a video. It's "choppier" when it happens. I tested in a few different areas / times of day, in case you notice the scenery isn't the same; this is representative of what I experienced in other places. I will note, that I tried playing 4 times, 3/4 times, shortly after boot. 1/4 times I left my desktop to idle for about 30 minutes while I did something else, and I didn't encounter the issue at all in 10 minutes. Not sure how significant that is, or if it's just noise.
 > 
-> Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 15 ++++++++++-----
->  1 file changed, 10 insertions(+), 5 deletions(-)
+> https://www.youtube.com/watch?v=GWyIVEuhooM
 > 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> index e8de64f8357d..db5bfd79ec1f 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> @@ -193,12 +193,12 @@ void amdgpu_userq_fence_driver_destroy(struct kref *ref)
->  	spin_lock_irqsave(&fence_drv->fence_list_lock, flags);
->  	list_for_each_entry_safe(fence, tmp, &fence_drv->fences, link) {
->  		f = &fence->base;
-> -
-> -		if (!dma_fence_is_signaled(f)) {
-> +		spin_lock(dma_fence_spinlock(f));
+> To make sure I wasn't insane, I went back to the patch Claude gave me, applied against a clean 7.2.0-rc7. At least again in a few sessions after boot, no issue. I'll post that exact code below.
 
-Please use dma_fence_lock_irqsave() here and below, using only spin_lock is completely unsafe!
+Yes, I had a brain fart yesterday and had only pulled the lock out on 
+the pop side. I have now pushed the updated branch, with both the add 
+and pop side made symmetric in lock taking aspect.
 
-Apart from that looks good to me,
-Christian.
+If you could pull and re-test once more that would be great.
 
-> +		if (!dma_fence_is_signaled_locked(f)) {
->  			dma_fence_set_error(f, -ECANCELED);
->  			dma_fence_signal(f);
->  		}
-> -
-> +		spin_unlock(dma_fence_spinlock(f));
->  		list_del(&fence->link);
->  		dma_fence_put(f);
->  	}
-> @@ -428,8 +428,13 @@ amdgpu_userq_fence_driver_set_error(struct amdgpu_userq_fence *fence,
->  
->  	f = rcu_dereference_protected(&fence->base,
->  				      lockdep_is_held(&fence_drv->fence_list_lock));
-> -	if (f && !dma_fence_is_signaled_locked(f))
-> -		dma_fence_set_error(f, error);
-> +	if (f) {
-> +		/* nest f->lock inside fence_list_lock */
-> +		spin_lock(dma_fence_spinlock(f));
-> +		if (!dma_fence_is_signaled_locked(f))
-> +			dma_fence_set_error(f, error);
-> +		spin_unlock(dma_fence_spinlock(f));
+Regards,
+
+Tvrtko
+
+> If you need any other info from me let me know.
+> 
+> 
+> --- a/drivers/gpu/drm/scheduler/sched_rq.c
+> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
+> @@ -2,6 +2,7 @@
+>   /* Copyright 2015 Advanced Micro Devices, Inc. */
+>   /* Copyright (c) 2025 Valve Corporation */
+> 
+> +#include <linux/moduleparam.h>
+>   #include <linux/rbtree.h>
+> 
+>   #include <drm/drm_print.h>
+> @@ -9,6 +10,32 @@
+> 
+>   #include "sched_internal.h"
+> 
+> +/*
+> + * Diagnostic counters. Not for submission.
+> + *
+> + * dbg_pop_stayed  - pops where the entity had another job queued and so stayed
+> + *                   in the tree. No save/restore of vruntime occurs.
+> + * dbg_pop_left    - pops where the entity queue drained, so it left the tree
+> + *                   and drm_sched_entity_save_vruntime() ran. Only this path
+> + *                   arms a later restore.
+> + * dbg_add_restore - calls to drm_sched_rq_add_entity(), i.e. restores.
+> + * dbg_add_race    - restores where the entity was still linked in the tree,
+> + *                   meaning the vruntime being restored is still absolute.
+> + *
+> + * Incremented under rq->lock, so exact per scheduler and only mildly lossy
+> + * when summed across rings. Writable so they can be reset between runs:
+> + *   echo 0 > /sys/module/gpu_sched/parameters/dbg_pop_left
+> + */
+> +static unsigned long dbg_pop_stayed;
+> +static unsigned long dbg_pop_left;
+> +static unsigned long dbg_add_restore;
+> +static unsigned long dbg_add_race;
+> +
+> +module_param(dbg_pop_stayed, ulong, 0644);
+> +module_param(dbg_pop_left, ulong, 0644);
+> +module_param(dbg_add_restore, ulong, 0644);
+> +module_param(dbg_add_race, ulong, 0644);
+> +
+>   static __always_inline bool
+>   drm_sched_entity_compare_before(struct rb_node *a, const struct rb_node *b)
+>   {
+> @@ -266,14 +293,40 @@
+>   	sched = container_of(rq, typeof(*sched), rq);
+>   	spin_lock(&rq->lock);
+> 
+> +	dbg_add_restore++;
+> +	if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
+> +		dbg_add_race++;
+> +		pr_warn_ratelimited("drm_sched: vruntime race on ring %s (comm %s)\n",
+> +				    sched->name, current->comm);
 > +	}
->  	spin_unlock_irqrestore(&fence_drv->fence_list_lock, flags);
->  }
->  
+> +
+>   	if (list_empty(&entity->list)) {
+>   		atomic_inc(sched->score);
+>   		list_add_tail(&entity->list, &rq->entities);
+>   	}
+> 
+> -	ts = drm_sched_rq_get_min_vruntime(rq);
+> -	ts = drm_sched_entity_restore_vruntime(entity, ts, rq->head_prio);
+> -	drm_sched_rq_update_tree_locked(entity, rq, ts);
+> +	/*
+> +	 * Only restore the vruntime if the entity actually left the run queue.
+> +	 *
+> +	 * drm_sched_entity_pop_job() dequeues the last job and only afterwards
+> +	 * calls drm_sched_rq_pop_entity(), which is where the entity is removed
+> +	 * from the tree and drm_sched_entity_save_vruntime() converts its
+> +	 * vruntime to min_vruntime-relative form. A push landing in that window
+> +	 * sees an empty queue, takes the "first job" path to here, and would
+> +	 * restore a vruntime which is still absolute -- adding min_vruntime to
+> +	 * it a second time. If the entity is also the leftmost one,
+> +	 * drm_sched_rq_get_min_vruntime() returns the entity's own vruntime and
+> +	 * the value is doubled, placing it far to the right of the tree where it
+> +	 * will not be selected again until the run queue catches up.
+> +	 *
+> +	 * A still-linked entity never left, so its vruntime is already absolute
+> +	 * and its tree position is valid. The concurrent pop will update both.
+> +	 */
+> +	if (RB_EMPTY_NODE(&entity->rb_tree_node)) {
+> +		ts = drm_sched_rq_get_min_vruntime(rq);
+> +		ts = drm_sched_entity_restore_vruntime(entity, ts, rq->head_prio);
+> +		drm_sched_rq_update_tree_locked(entity, rq, ts);
+> +	}
+> 
+>   	spin_unlock(&rq->lock);
+>   	spin_unlock(&entity->lock);
+> @@ -330,11 +383,13 @@
+>   	if (next_job) {
+>   		ktime_t ts;
+> 
+> +		dbg_pop_stayed++;
+>   		ts = drm_sched_entity_update_vruntime(entity);
+>   		drm_sched_rq_update_tree_locked(entity, rq, ts);
+>   	} else {
+>   		ktime_t min_vruntime;
+> 
+> +		dbg_pop_left++;
+>   		drm_sched_rq_remove_tree_locked(entity, rq);
+>   		min_vruntime = drm_sched_rq_get_min_vruntime(rq);
+>   		drm_sched_entity_save_vruntime(entity, min_vruntime);
+> 
+> 
+> 
 
