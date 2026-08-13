@@ -4,60 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 518E6C5CFC1
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 07:13:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 58DF2C5B572
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 07:13:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DA0510F295;
-	Fri, 14 Aug 2026 07:13:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 852FC10F33D;
+	Fri, 14 Aug 2026 07:13:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=proton.me header.i=@proton.me header.b="eWtTwJDC";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D1ctloHi";
 	dkim-atps=neutral
-X-Greylist: delayed 27908 seconds by postgrey-1.36 at gabe;
- Thu, 13 Aug 2026 14:28:03 UTC
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch
- [109.224.244.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D821310E044
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 14:28:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
- s=protonmail; t=1786631282; x=1786890482;
- bh=qGFcsBc4bsHSsqqNNBQTtVy8gp5FOx6AGTr/PDwWl7E=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=eWtTwJDCy/bIwpUXJBe2t3IA4YUFyCb23saPmBCfYJIABof9t0Yf47Mir3O16cPq1
- yS3RmapqBO5csmhcf3fj0bMXQxgJalj5K5bqpLe79/LbggQpWROB4XgL2bgJ3mG/j+
- vbpnhJ7zJ/z1nbtyhSLwsQe4dG+6dcx3Ye/Dx/fgs25Cw0EItR4OMyP/Q1A8BDXSNZ
- XWg46hWlhk3Sl4C4Vg7kLQg2cIG82E5NCXkiK+tWXNETgDgqHpgr3Wmc8MuM0hes7e
- NAnrtjIyscj7tl4MtOYopGT0jU+r4RxMglaFVUR8yryr6LQJH6ozvHA4jM3nQgRGEj
- T23lBq5ImrIBA==
-Date: Thu, 13 Aug 2026 14:27:55 +0000
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-From: Luke.Wildhardt@proton.me
-Cc: Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@mailbox.org>,
- phasta@kernel.org, "matthew.brost@intel.com" <matthew.brost@intel.com>,
- "ckoenig.leichtzumerken@gmail.com" <ckoenig.leichtzumerken@gmail.com>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [REGRESSION] drm/sched: FAIR policy causes serious performance
- degradation at max GPU load on 9070XT
-Message-ID: <3vUDQmfKtaP3e1p0qrjrY9_5SnuA7-cIWQUk2-MElleGKbG4obs96fPT4A_F183UnGt5clbj7belPDQ5CSWLhxTkJ8oXsjN1VS5rCbocPd4=@proton.me>
-In-Reply-To: <61a96635-e143-4d69-b0f7-0f312f5a3a3c@igalia.com>
-References: <TfhgV1W0W5LI6RWUO6J35B3R8QIYH_FN3Eihzdo_9PH39hfn1AVByT-QBPHmWiAR-L0Kqi2sppM_EhFPKwZPGmb5pFgpF2MrzeFzkZDmpG8=@proton.me>
- <cef49cf329737e0af12ef5a90dd21f31e113d4c3.camel@mailbox.org>
- <DKL9VAWD2Y98.RBQPQUL7Y47F@kernel.org>
- <6e2a207e-4db6-4d47-b1f6-9cb13b8d6eeb@igalia.com>
- <enK0t0JrZ3lr9gmgPwE_YaVJDy7K355Bs0xy0YNoVwujLHCGWNRXCjDOhYfiHNGN3pPDSlEUIz3_UkXmFNAJNXxrJOIwvzAG-k8_p_D5FOQ=@proton.me>
- <4OmZej9WiJ6-rsJ_lFcrmwtClAwMdN4oHXWH0p8FkIrhAn4LKS4O3q36wrdZrvjZHBNS8PZsvaIvR-1aFZfF2tDiy1cdMzTYNylcbGDQN68=@proton.me>
- <a9ee4edb-e763-4fd7-a510-32191df0cf8f@igalia.com>
- <Wgbhe0iRVno6QTXUasXAw96sdk1GzzJ8DW_Yw8EyCtxvwV4-EfRTaUdaF9vYeMYsMyfLVVTmXBOB1Br_d-l8b87D_2CMFyYSJi34eaaGGW4=@proton.me>
- <ylme_dYqb7yeNvmFl3ZeH3v8d_46-oAWr6t95wEZTYGiLMdbNTzXBFoV1zueOeHcKXcFrMMsoF0s_57Hzj0wwEfxDRjPhmu-xquKmeXKehg=@proton.me>
- <61a96635-e143-4d69-b0f7-0f312f5a3a3c@igalia.com>
-Feedback-ID: 214028577:user:proton
-X-Pm-Message-ID: 0a81b811aa2182b5c7686ef92c41cb62fbbf3e67
+Received: from mail-qk1-f171.google.com (mail-qk1-f171.google.com
+ [209.85.222.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E664E10E027
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 18:26:31 +0000 (UTC)
+Received: by mail-qk1-f171.google.com with SMTP id
+ af79cd13be357-92e6391b114so15324185a.3
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 11:26:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786645591; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Uz9MqPMkvlxClFN7ok8o2yOhsVWixC9iujJWiA3aRIfqSv0cY2bmR27Jkr5JrAg7wC
+ gqI7nuZPG9WvyE6zbubNObl20c6LpS4C72oFullrY2D8mhivaYyfau8IgomiONs42Wor
+ K4AsjoeeD6MVy/9jj5YSafJDXf397XfAfyuSF094R6R9wZFDQeGf0dx/XvtNqTi3p9B4
+ qz4jIhi+yeXxwAqDNCQ88yWdD2VzNaUnj4v6LSp0+rNFrp0jt4KZ2YQfS0o4kFzpt+MX
+ tMMAxyXL8uas3vl9ZhORIv3/jOVnaoKJ9OUf5oH5lb2SFSp6FrouuZUgUDLoQ0w8WE54
+ yQYA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=3GdkHDTH1pSo8fy2lfq+SzZj1fBJy47v0jj+oNnZRWc=;
+ fh=DWbP4ckgJJ3wrASNcOnoDXn1Wo2NHE49NKye1ErrjJw=;
+ b=ryyJ9i+D2U92xbn7otcJ1NDGJK9h+sO6BGPEY1XRKhahZvqm4djjLtBT2vgQzoLgUo
+ KqmUTD0QOGHhe7GIE/KSlKoXaihFjM2Fe3Bj3cLS0yi0naErPq+NlHquT5ax3VTFr79o
+ 1GBzzEPPWszmLLYYxJuPyDHEFebd5+XnvyBh3xZrr4NXF4VRFyPr3pflEh89GZJR+JWt
+ EytP3v1wCjzfKlrUoHve9F5v6++u3RryLmmQptLye8OQD70Yr4Od1B5/qBlbbIoUkrU0
+ BBlIREr6B063bXC9PE8HKsBdHNxKqyavtYe1l/SyfmeLiz/Rh6+oTO83UsibUva9uDbQ
+ MBJw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786645591; x=1787250391; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=3GdkHDTH1pSo8fy2lfq+SzZj1fBJy47v0jj+oNnZRWc=;
+ b=D1ctloHiCqwgGMg8qNDWzN3yTksBmE9+/096annf7WKroDbBE2LTyuREJEw/pQ5fR2
+ UScQ2pkT7q9Ai19JD29DP56vCGzCwOH2hnEYyLZxK+zQsAnSLm+xrhOLW+iNBE+hqm/q
+ F7Q0H57hdkzpkK5RGyAbcSa/9Tt273ySVvk9Quyabqw5bRee1uhzP37E4c4tUcbU1AyN
+ pgFL0yN7gdrK1WeLQ55mT9HYnixjkU8Q5Yp3FBZ+6UIOUpEWhSUDTSgXNz5BkG1QbrRa
+ eYejouFPKdKi5q02uMWwsFPFQTYuEDjf7fgZCXt0rBvfDRlnZTVJvI8P/HBFFwmJ56PL
+ Yv5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786645591; x=1787250391;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=3GdkHDTH1pSo8fy2lfq+SzZj1fBJy47v0jj+oNnZRWc=;
+ b=sPcDZcXb0dSYD8zWnhbF5R8ZqKL0QGxAfPM1I2Ziv8wh/mqfjMcrIvhBdFtpx4yU0q
+ V9/bQVBwCU7Z5vIiu+iagPGBWArgIePorvQ+DRwI+ZaOHEWBmudUGyAW4ut0frdwvpDt
+ tAW+IsEFWuugQl/TarZ0RVgRFH7mHgAfT8e9WcFUqecwoygOpiwyknHkkrgYR1kdskLK
+ sZXi8da4ZbtheWUZJj02vF0AZDubGzuEtYrgCNfvPhO1C1QbxHUH7CIRexM2sak0crze
+ UW7dNdKP4+yXqDYnGrLqSYIKxbFD2sQD0ZqBSFzowapQVZQLfexPuQ2XblxCvR+RiHPw
+ iZmg==
+X-Gm-Message-State: AOJu0YwVrvfUtgdbk8IfCQCd19kJXc9FLJJPwHgJo3vnyffT5W1FGwxv
+ FFIsVGt6Z05YhwQZZLGTvPtRAq31XhYrS1GdGm9Gk4BmGjBSsywa3DPDAZxDlb51q3y/tt7ac80
+ cTvErqXb+350MGmcOMukP99sZNnPi1+0=
+X-Gm-Gg: AR+sD102BXeedmZp8oanuSVrhuEUYNgS4mu9jhxOwZVL38cx1tHHw7U1ouiN9saxbjB
+ H/ztZB7qqSO6kcBdBUfpMjniJ1d0+x1t/rEmDw41EKl/Wc05Fx39VbhywUhNGuFZU/LfCvHZhKX
+ DomeYWjVnLh33AJ0S6/UntYs0WPNoPQADFNQRk2y++i1iMSNhxHSDJ0Tts1gCxWgTRORoltx+KB
+ Ycl55p7xqPNP41kT4I+6R6AoVZYn0iMKktZJBooYkzKHr/7MUySmqlKLftmi78KZ2yK6vjyi4XF
+ erHaCsKaoymsc4IJIWY11R7NwYHWrpMn/OYQCc/a89jxx2pDpCIjMNB+BcyubwnkI2GFXFuGQjS
+ +0Q==
+X-Received: by 2002:a05:620a:a40a:10b0:936:b8ea:3366 with SMTP id
+ af79cd13be357-936bf853467mr676498585a.4.1786645590872; Thu, 13 Aug 2026
+ 11:26:30 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260813170959.22073-1-zhitaevakh@gmail.com>
+ <20f0d0e6-c551-4982-9820-68169039e504@amd.com>
+In-Reply-To: <20f0d0e6-c551-4982-9820-68169039e504@amd.com>
+From: =?UTF-8?B?0JDRhdC80LXQtCDQltC40YLQsNC10LI=?= <zhitaevakh@gmail.com>
+Date: Thu, 13 Aug 2026 23:26:19 +0500
+X-Gm-Features: AUfX_mw-38zlBHu8TWWHByMsk7m551ieF-G2AoUNDG7_Z167QTQz5WAyx6YmL4E
+Message-ID: <CAGJKGUzjqofpXFQqv=hwg4schv3NaZth9974NLfmwYJLG04C-g@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Scale custom brightness curve from full
+ range
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, harry.wentland@amd.com, sunpeng.li@amd.com, 
+ siqueira@igalia.com, alexander.deucher@amd.com, christian.koenig@amd.com, 
+ airlied@gmail.com, simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com, 
+ stable@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Fri, 14 Aug 2026 07:13:01 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -74,173 +110,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Looks good, in the 10 minutes I spent this morning doing a quick test, I wa=
-sn't able to reproduce the failure. I will do extended testing tonight. =20
+Yes, this is still needed.
 
-I will report back later with more details, but given the issue was typical=
-ly reproducible on-demand, this is looking very promising.=20
+f1b5d8f9cc54 fixes the advertised max_brightness mismatch by restoring
+the full userspace range [0..max].
 
-Thanks for all the hard work everyone!
+The issue fixed by this patch is different: the custom brightness curve
+input is still normalized by (max - min). On panels with a non-zero PWM
+minimum, valid userspace requests near the top of the [0..max] range can
+therefore produce a curve input above 255.
 
-On Thursday, August 13th, 2026 at 12:58 AM, Tvrtko Ursulin <tvrtko.ursulin@=
-igalia.com> wrote:
+On my panel, min=3D3084 and max=3D65535. Without this patch, requests above
+the upper boundary caused the backlight to drop dark; with this patch,
+the full range maps into [0..255] and the issue no longer reproduces.
 
->=20
-> On 13/08/2026 07:42, Luke.Wildhardt@proton.me wrote:
-> > Ok, after a lot of A/B testing, it appears that trying your "drm-intel/=
-drm-sched-fair-fixed" branch, the stuttering is still there. It's definitel=
-y paced differently though, I will attach a video. It's "choppier" when it =
-happens. I tested in a few different areas / times of day, in case you noti=
-ce the scenery isn't the same; this is representative of what I experienced=
- in other places. I will note, that I tried playing 4 times, 3/4 times, sho=
-rtly after boot. 1/4 times I left my desktop to idle for about 30 minutes w=
-hile I did something else, and I didn't encounter the issue at all in 10 mi=
-nutes. Not sure how significant that is, or if it's just noise.
+I also tested with the f1b5d8f9cc54 semantics present, so the regression
+is still present without this change.
+
+
+=D1=87=D1=82, 13 =D0=B0=D0=B2=D0=B3. 2026=E2=80=AF=D0=B3. =D0=B2 22:45, Mar=
+io Limonciello <mario.limonciello@amd.com>:
+>
+>
+>
+> On 8/13/26 12:09, Akhmed Zhitaev wrote:
+> > Custom brightness curves use an 8-bit input signal.  After exporting th=
+e
+> > full PWM range to userspace, the curve normalizer still divides request=
+s
+> > by the physical PWM span.  On panels with a nonzero minimum PWM level,
+> > this can produce a curve input greater than 255 and send an invalid
+> > backlight level to DC.
 > >
-> > https://www.youtube.com/watch?v=3DGWyIVEuhooM
+> > Scale the userspace [0..max] range to the curve's [0..255] range
+> > instead.  This retains the full advertised range and keeps the reverse
+> > readback conversion unchanged.
 > >
-> > To make sure I wasn't insane, I went back to the patch Claude gave me, =
-applied against a clean 7.2.0-rc7. At least again in a few sessions after b=
-oot, no issue. I'll post that exact code below.
->=20
-> Yes, I had a brain fart yesterday and had only pulled the lock out on
-> the pop side. I have now pushed the updated branch, with both the add
-> and pop side made symmetric in lock taking aspect.
->=20
-> If you could pull and re-test once more that would be great.
->=20
-> Regards,
->=20
-> Tvrtko
->=20
-> > If you need any other info from me let me know.
+> > Fixes: 8dbd72cb7900 ("drm/amd/display: Export full brightness range to =
+userspace")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Akhmed Zhitaev <zhitaevakh@gmail.com>
+> > ---
+> >   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 ++++----
+> >   1 file changed, 4 insertions(+), 4 deletions(-)
 > >
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/driver=
+s/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > index 40d82a3ee..533c69f0b 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> > @@ -5131,10 +5131,10 @@ static int get_brightness_range(const struct am=
+dgpu_dm_backlight_caps *caps,
+> >       return 1;
+> >   }
 > >
-> > --- a/drivers/gpu/drm/scheduler/sched_rq.c
-> > +++ b/drivers/gpu/drm/scheduler/sched_rq.c
-> > @@ -2,6 +2,7 @@
-> >   /* Copyright 2015 Advanced Micro Devices, Inc. */
-> >   /* Copyright (c) 2025 Valve Corporation */
-> >
-> > +#include <linux/moduleparam.h>
-> >   #include <linux/rbtree.h>
-> >
-> >   #include <drm/drm_print.h>
-> > @@ -9,6 +10,32 @@
-> >
-> >   #include "sched_internal.h"
-> >
-> > +/*
-> > + * Diagnostic counters. Not for submission.
-> > + *
-> > + * dbg_pop_stayed  - pops where the entity had another job queued and =
-so stayed
-> > + *                   in the tree. No save/restore of vruntime occurs.
-> > + * dbg_pop_left    - pops where the entity queue drained, so it left t=
-he tree
-> > + *                   and drm_sched_entity_save_vruntime() ran. Only th=
-is path
-> > + *                   arms a later restore.
-> > + * dbg_add_restore - calls to drm_sched_rq_add_entity(), i.e. restores=
-.
-> > + * dbg_add_race    - restores where the entity was still linked in the=
- tree,
-> > + *                   meaning the vruntime being restored is still abso=
-lute.
-> > + *
-> > + * Incremented under rq->lock, so exact per scheduler and only mildly =
-lossy
-> > + * when summed across rings. Writable so they can be reset between run=
-s:
-> > + *   echo 0 > /sys/module/gpu_sched/parameters/dbg_pop_left
-> > + */
-> > +static unsigned long dbg_pop_stayed;
-> > +static unsigned long dbg_pop_left;
-> > +static unsigned long dbg_add_restore;
-> > +static unsigned long dbg_add_race;
-> > +
-> > +module_param(dbg_pop_stayed, ulong, 0644);
-> > +module_param(dbg_pop_left, ulong, 0644);
-> > +module_param(dbg_add_restore, ulong, 0644);
-> > +module_param(dbg_add_race, ulong, 0644);
-> > +
-> >   static __always_inline bool
-> >   drm_sched_entity_compare_before(struct rb_node *a, const struct rb_no=
-de *b)
+> > -/* Rescale from [min..max] to [0..AMDGPU_MAX_BL_LEVEL] */
+> > -static inline u32 scale_input_to_fw(int min, int max, u64 input)
+> > +/* Rescale userspace [0..max] to the firmware curve's [0..255]. */
+> > +static inline u32 scale_input_to_fw(int max, u64 input)
 > >   {
-> > @@ -266,14 +293,40 @@
-> >   =09sched =3D container_of(rq, typeof(*sched), rq);
-> >   =09spin_lock(&rq->lock);
+> > -     return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max - m=
+in);
+> > +     return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max);
+> >   }
 > >
-> > +=09dbg_add_restore++;
-> > +=09if (!RB_EMPTY_NODE(&entity->rb_tree_node)) {
-> > +=09=09dbg_add_race++;
-> > +=09=09pr_warn_ratelimited("drm_sched: vruntime race on ring %s (comm %=
-s)\n",
-> > +=09=09=09=09    sched->name, current->comm);
-> > +=09}
-> > +
-> >   =09if (list_empty(&entity->list)) {
-> >   =09=09atomic_inc(sched->score);
-> >   =09=09list_add_tail(&entity->list, &rq->entities);
-> >   =09}
+> >   /* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
+> > @@ -5147,7 +5147,7 @@ static void convert_custom_brightness(const struc=
+t amdgpu_dm_backlight_caps *cap
+> >                                     unsigned int min, unsigned int max,
+> >                                     uint32_t *user_brightness)
+> >   {
+> > -     u32 brightness =3D scale_input_to_fw(min, max, *user_brightness);
+> > +     u32 brightness =3D scale_input_to_fw(max, *user_brightness);
+> >       u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
+> >       int left, right;
 > >
-> > -=09ts =3D drm_sched_rq_get_min_vruntime(rq);
-> > -=09ts =3D drm_sched_entity_restore_vruntime(entity, ts, rq->head_prio)=
-;
-> > -=09drm_sched_rq_update_tree_locked(entity, rq, ts);
-> > +=09/*
-> > +=09 * Only restore the vruntime if the entity actually left the run qu=
-eue.
-> > +=09 *
-> > +=09 * drm_sched_entity_pop_job() dequeues the last job and only afterw=
-ards
-> > +=09 * calls drm_sched_rq_pop_entity(), which is where the entity is re=
-moved
-> > +=09 * from the tree and drm_sched_entity_save_vruntime() converts its
-> > +=09 * vruntime to min_vruntime-relative form. A push landing in that w=
-indow
-> > +=09 * sees an empty queue, takes the "first job" path to here, and wou=
-ld
-> > +=09 * restore a vruntime which is still absolute -- adding min_vruntim=
-e to
-> > +=09 * it a second time. If the entity is also the leftmost one,
-> > +=09 * drm_sched_rq_get_min_vruntime() returns the entity's own vruntim=
-e and
-> > +=09 * the value is doubled, placing it far to the right of the tree wh=
-ere it
-> > +=09 * will not be selected again until the run queue catches up.
-> > +=09 *
-> > +=09 * A still-linked entity never left, so its vruntime is already abs=
-olute
-> > +=09 * and its tree position is valid. The concurrent pop will update b=
-oth.
-> > +=09 */
-> > +=09if (RB_EMPTY_NODE(&entity->rb_tree_node)) {
-> > +=09=09ts =3D drm_sched_rq_get_min_vruntime(rq);
-> > +=09=09ts =3D drm_sched_entity_restore_vruntime(entity, ts, rq->head_pr=
-io);
-> > +=09=09drm_sched_rq_update_tree_locked(entity, rq, ts);
-> > +=09}
-> >
-> >   =09spin_unlock(&rq->lock);
-> >   =09spin_unlock(&entity->lock);
-> > @@ -330,11 +383,13 @@
-> >   =09if (next_job) {
-> >   =09=09ktime_t ts;
-> >
-> > +=09=09dbg_pop_stayed++;
-> >   =09=09ts =3D drm_sched_entity_update_vruntime(entity);
-> >   =09=09drm_sched_rq_update_tree_locked(entity, rq, ts);
-> >   =09} else {
-> >   =09=09ktime_t min_vruntime;
-> >
-> > +=09=09dbg_pop_left++;
-> >   =09=09drm_sched_rq_remove_tree_locked(entity, rq);
-> >   =09=09min_vruntime =3D drm_sched_rq_get_min_vruntime(rq);
-> >   =09=09drm_sched_entity_save_vruntime(entity, min_vruntime);
-> >
-> >
-> >
->=20
-> 
+>
+> Is this still needed with
+>
+> "drm/amd/display: Fix backlight max_brightness to match exported range"
+>
+> https://github.com/torvalds/linux/commit/f1b5d8f9cc54ae8a2567ac126867ae48=
+8e1bf625
