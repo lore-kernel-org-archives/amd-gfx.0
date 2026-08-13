@@ -4,126 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3367C5B572
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 17:45:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E9AB3C5B572
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 17:49:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1297F10F479;
-	Thu, 13 Aug 2026 17:45:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47CC810F49C;
+	Thu, 13 Aug 2026 17:49:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="r/c1iNrN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Sc5+xl58";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011032.outbound.protection.outlook.com [40.107.208.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 52EAF10F479;
- Thu, 13 Aug 2026 17:45:40 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010071.outbound.protection.outlook.com [52.101.56.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB3A710F494;
+ Thu, 13 Aug 2026 17:49:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FWN+7f14RMU2bNax7VsCwk7cSiDXWzBEBo/4nEithW47iSJNlDuR2v2qI46/hJIsq2b9Fi4g2b4pPEGvNNyrEJr11fJ/jDxDn6yPLQ6p71rIbgx4E7iq+dDHmTwAeudT8uZMXaX8UAtEcYUIiqywBGcnmzL6dQYcShSNDjyWK7ZIhW30MfOrYkcqJH1bQL4iG1GdDCBE5oGu0C/QnH8almHeI7fZjNyPBnKAZrHH1SnS9AwaP8CyVrGzrOTBpXO1OOP2d7lEPdfouXhUWvfi8aWQheJJ6cmWmQyawuqYcBpArqMm1cdNFolDBp6CvIWv54rkIeOjoQt8prUp/gme8g==
+ b=OjndOFuLYIXJJcrewtPjeIQjJ2Tqi/m+3qbH9Fe3T/xoXh0xRWgsDY60Oof9Y4BQEPYcLEXopa4k81YNRKCp4MyLKYBJydHIxl1cTcB0WLneDyoKeqpaLta7iahj3fS+NMTnXDBlDxhp5+8dERj4q7QOMwEC60V0ex7gP51xx/QSKdB0LNNWNNCQ/6QiA5lf6HkFyoJGK/XOOO63KN17Wated2Zf5VzxluJT/VmCbTCo4i5hbR4XS5xsvYDH/1CDeJ0FRBbHlzNxDMN1EYD1k5iJ2i46UQngdhWPurPlvZwn+8ssdW7Sfn8WIn8W6Y+Dekm5T1n25rfUO2dkNj/+sA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cUfxBTxzhSz4G0gdilYDBGOvDoOEwYVztntJJcjF1r4=;
- b=TRlylZOEvSQdjwFAnGZb4RqZ76Qd8sJtQw+jQSJ8SROcH4/UQkYv/9hg83qJGY63OjSijKdt9rTD5FEiGnwG7OOGtGUHiNoqYGmjF3W8H+EYnWWkMSGkiRYdbP7dT5q/iLvtva2sSnpxss71ARIjG9YBaIWU/A/sQe3XpNsWOouKzR3/UseWO9umk6yanpFa2IyyzAyHUVnpYHjRND7j4i05uip3eLaVUJvGMTWFV/Ds/A9mzNkx9O/OzOzEefGKhSho18+6SKuoFhlFQDep5/4YpSIs/cU4W0zqR3fuaTD8ZHAxt4v5Fdovkrwb4duRu3mG15J5yl3FqhNMENT7oA==
+ bh=onlKc7PGNoIIazC3Tt6z8WlvW6Q+WQZlC0CBIJmM5/o=;
+ b=lRGxrrU3ETgSLWwop2Za20fzCAI7LWus62ycBvOg8cFjYQi3MXw+D1kSw//4pMtC7cO/srrZSYK6m1H9Gr3ed3v0SsnJp5YLn17GySVZDoEHt+P+W2FxkC6Osu6UJ4ZxNS0owyQebS3kPYNWAeInqPzNfEipIL+OqRpnkApPWyu1VTvKBH6hLcYD3TZB7Cvo1+Q0rcdG8EatxuaZBTkzxiHjefNFP3z7/ibIqeUeI6ApnvRVqXLUrZ/+yaatWnKCG9i+5IUyz3LRkyqUWkC+NleuA+o196UHlVkz7Ek/hGn7eqyOxfNl7PI0WABYs9+0yZiEy6PFZzmO8pvO15afmg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cUfxBTxzhSz4G0gdilYDBGOvDoOEwYVztntJJcjF1r4=;
- b=r/c1iNrNvxIBECjyOzeIaVKSUQ5Ez9PxYO9fyLGq24VBmJYSB9R/IwJbxovNNV0iA34zQ99/oL6MbSSw0H/WXKoR4/X3aT1aQWsGC1aqz0EK4v4SV6rmZQQqCUnCqvjxBO8fXYp3N3+5hvSIHXQ6hR/X6fKMjHqPUJhswuR4gtk=
+ bh=onlKc7PGNoIIazC3Tt6z8WlvW6Q+WQZlC0CBIJmM5/o=;
+ b=Sc5+xl58wZEFqe/EdTsxia6oCwWMfpTl5isGX9/y0QtnWwdYCdqcPAjXW1x+ET7xwrsBkFseglK6r9aFiNtDI/mL7bAVRwXirwm9ECw429Cnh1RCkzAeE3TJX5iXPMD2KRA37UDz0ImuSioxNT/uOCSmGKiPlW6NwPf/1dGkos4=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by DM4PR12MB7767.namprd12.prod.outlook.com (2603:10b6:8:100::16) with
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by CY5PR12MB6057.namprd12.prod.outlook.com (2603:10b6:930:2e::17) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Thu, 13 Aug
- 2026 17:45:35 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0315.012; Thu, 13 Aug 2026
- 17:45:35 +0000
-Message-ID: <20f0d0e6-c551-4982-9820-68169039e504@amd.com>
-Date: Thu, 13 Aug 2026 12:45:31 -0500
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Thu, 13 Aug
+ 2026 17:49:40 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0315.014; Thu, 13 Aug 2026
+ 17:49:40 +0000
+Message-ID: <bcbd2ce2-d668-4992-8ba9-8d20a0065b18@amd.com>
+Date: Thu, 13 Aug 2026 11:49:38 -0600
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Scale custom brightness curve from full
- range
+Subject: Re: [PATCH v3 2/3] drm/amd/display: fix missing blend-mode-prop
+ warning for DCN
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, daniels@collabora.com,
+ harry.wentland@amd.com, leandro.ribeiro@collabora.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ pekka.paalanen@collabora.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Daniel Wheeler <Daniel.Wheeler@amd.com>, kernel-dev@igalia.com,
+ Lyude Paul <lyude@redhat.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260813143605.106104-1-mwen@igalia.com>
+ <20260813143605.106104-3-mwen@igalia.com>
 Content-Language: en-US
-To: Akhmed Zhitaev <zhitaevakh@gmail.com>, amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com,
- stable@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260813170959.22073-1-zhitaevakh@gmail.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260813170959.22073-1-zhitaevakh@gmail.com>
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20260813143605.106104-3-mwen@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH0PR04CA0081.namprd04.prod.outlook.com
- (2603:10b6:610:74::26) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+X-ClientProxiedBy: MW4PR04CA0385.namprd04.prod.outlook.com
+ (2603:10b6:303:81::30) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|DM4PR12MB7767:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f1582f2-07e8-4a68-a2a0-08def962adb1
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|CY5PR12MB6057:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6958e4aa-f68a-46ef-99fe-08def9633fe4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|23010399003|18002099003|22082099003|56012099006|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info: Sq0q/c9k2ShPrKn8PLHp+FTJRV9vePKgM90r4f2fTCk6C5kcgtusYyA+uDb8NhqlpNRQJ/h2KINgJ8i/CGWPIBan+LP4XPXhj439/8THQ0hqqJYZy67zailqgyc0pLMjHIbqrvsylZDQKoleL116jOQXfFly27aRsidWawWxl0sOE9uJMLv6CYyAqVfevmXl5mt3aHpF9KrOd6MKfo2Apus57H3XABCg848r/KyrX/oVj+cn3eyKcNV826Uulz9sQe2Y88APAOYw9njQ3GCePW1sjI+sjzDMog5TYlzTugyfKKKdJlF1XOsKKj8N85Vkh9Tk5UPpJPT4lBoXPkMdXeJHHV4opSyvnu6gu1h9qftHpX/SHKrigt9sUM8WuSli05uXj24OkMfgXt4fQa39jI5nAVw9w9pzaEXBl1dlnjVu2LoNsC0FgaH0GiFC/CoMFo602jqWmLkIgi4dz3z8pvesatelQtzTMrrVTf86PGrHectC0MId/0cQ1138A5n5yqu+uwVQqmn/yEbOSme1SFGZB5c6KIwHH5Qwgz62vJWExu/1qyVDyBgdJz+q5rktA2lezoqu1LP5hyE2RBPIiMJSl5pLVgCj0W/8RRNxTOQcgbiyelvHHtSMx9fSiWqz8GbVAbshpRvzYhL+i0mdclyYaCtUpQ080hc0q/Mq9ew=
+ ARA:13230040|376014|7416014|366016|23010399003|1800799024|11063799006|4143699003|56012099006|10067099003|6133799003|921020|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: mtzRf3DR3AkyV0hvtD15S4gl53TcA4+yRj0FcqQu2IZTxfOYVZgWrwfrzPG7vaXJoEVBhEXP4khBzc8K5sBUwV+lYO7fYKtb/uTqmMdMKp9JUW3Gzi8hWox9USYHMVTPptca+t6Oa3v5Q7bO3LK2IOpP/GfLQlaTnskpHATwTJhhBDvzvRdtgFs0gXyZEUnXmA/w/R8+olZTiWCOQxVZAlJNRVl/ChHgJHs0wGG7TrxSDapZaBT6mBFK8kjVCl/H4vY7B4duLOjmT9Oc5Mh0xfO305OJu8a8ade4eEG5EcX2wqtTO2ZyW8R75c/Gn8PtNTWfXc7r4tYrorlic8QIEiF7CQyfkufXbqJHdPAeD7bZsQQWiRhWhQ3eRDWMi/kvklPEeDQjiUle2wXrHCMRyN7BCiTFRlfGi+uO62FIzxk2jVF0BqigPkaGJWlqygyCPZEtrrh+vViqVYoQcbO/ymvB6fvraDTFdsinMfJR/U791/u97Gjaf4kT3Bfe6ZByvLaURNKg9j+jPUqCOwMaehS6UvDZ8GKnDOL8b2yM0tbjlgjnk6D5uQ70tUjBoGMZmpCt30rYBNTjr3l0aNaa7Qea3tcdPuzvddUDCCMknZ99NuprE2VCs+GzUlkGHkDe/OuN+oJj1GA5+7zp4dHjJkl817rgFlTyhbJrPdlutqJwxPj0sUsFXv3NZN8TOAtwOmRYew66mIXB30ZQdXa1tA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(56012099006)(10067099003)(11063799006);
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(11063799006)(4143699003)(56012099006)(10067099003)(6133799003)(921020)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b3JRSkg0Z0NVVGVSUzR5aE1aWkdPR2QwbWZRWTlXT0o5K1QwZ2dSVWJvRm90?=
- =?utf-8?B?K1NrZUdGWXdVMDBDV1hEL0hYaXpTSklQbnJhZ2xhQnJzUEsrNi8xMytLdzBS?=
- =?utf-8?B?MzJKNzRBczBMTXRCRnhBeUhUcFUzeXdDSnA1NkgzakZvT2xSR1E4Wlh4elRr?=
- =?utf-8?B?cnhaZkFKMFN4T3lBL0p5bGdmUDVyRDlNM0h4ZjlqM3h2SUw2R3djRlpqb1ZF?=
- =?utf-8?B?L2FHYjdoTnRsNUd1YjB2QlpoWDc5T01GWElMTUhRT2tyY1E1enhhaEVKTWZQ?=
- =?utf-8?B?ZUtxamo0c2g4U0pFYW1QL3Nvemp5dUl0d0RTelpaRlNZRldIQ3ZQdlJXTDJ6?=
- =?utf-8?B?YUtDK1VmSTBSOWNidERSOEdSV2dGeTZyR1VETW9rVDBlaDcwclZySWNIWWwz?=
- =?utf-8?B?Z1BLNDB3ZXpNMFl6am5lWmd1c3FhNW13L1QvV2hkaVZ1ZGNwY1V2YVdEOEcv?=
- =?utf-8?B?MTJzalY4U285TTFSL0tXcDRTMFNKdUlYVklFSm9ZS0pnR0Vna3llWVZWTkhq?=
- =?utf-8?B?Sjh2NTFNMG5BbnVDSEtGT3NORWZlRUFkQ0hucWlSWStodk9iSkhLMHNZVXBh?=
- =?utf-8?B?MFVzUG5reW9Bdzh4aUZVaWhPcytUcXFWZi9CR0RDaVBhdWh6czhNS2NPOWNu?=
- =?utf-8?B?ZFFLa2xaTVpjYU5VbU9aZEFkNU9GdjZIajVFL0FkcGRlS21IMWNkNW56Z3VX?=
- =?utf-8?B?YjZWWlpOSW5WMjdweTN5ZG1DYm9lMlJ1N1lZNGMxdFMvdkwrWkpVSnZNdnBl?=
- =?utf-8?B?SDhyWmxaUEQ2Yks3aUdBSXNqeTAzcThuK2FodnczZ0V2Y2hHVy9pa0l1cmY0?=
- =?utf-8?B?NlJZUFVObWxtN2ZBa0VlSWZMVnBoK29QZWpjbFBQOFNKZ3VZRElkQ2ltcTZ2?=
- =?utf-8?B?dTJKdkZyOEVGWWtKYXAyckRNZmNvY002cmFIYWdrN2QwWjl1THEwN0NkMlZl?=
- =?utf-8?B?d1I5am9qNmIxeUpueldxZEJWaG5PZ1BLQjRnSkFaVnM0ZURYZWtHYUEwVk5t?=
- =?utf-8?B?aGlCaEl5Z2Z0b1labHRjaWdORFVEMHFLUExuL1BTdjE4bkp6TndBV1FrQTcz?=
- =?utf-8?B?Nkc0UWxVZEx0cXFROHdzZnFXTVBjL0IyUVNtMFp2eFh3MXd2enMwbW1BQVp5?=
- =?utf-8?B?ZTlETjFCVmxVdUlQMXZkQTRjOGxGck4vaXNYeHZvUzh4Q3RzYks1azJGejZ6?=
- =?utf-8?B?WCtvb00zMzRLYmw0QlNHNXBmUlZaazRKM2o2djRDaDcvMXNONkZjeE1uRWZF?=
- =?utf-8?B?MWNEQkp0RkpiODVRaGNKZDRlWUlWeEhIVXI2NDZpYmVQWG9QbEJsNEhUc3JU?=
- =?utf-8?B?ZFYzNkVHamJlL3pHdE9oS0N0YUxwKzFxR0lhclpEb0p6cVQycThmMjh4SzhX?=
- =?utf-8?B?NXZZYXBxb3l2ZjhMS0Jpc0JQWWVlVE5YWDF2YU9HZEVRdmJpMXZTbE9FRENW?=
- =?utf-8?B?aEtNK0FOL2FlTkE0UEh3UVU3ZWwzcTJxSW53VThheXhNY1IybjY0RmhMUEVh?=
- =?utf-8?B?UTZFRVJraGYrUkJvZ2JEQ0UwbHN0NmZzUTNYWSs1SU5VVFM4WllhQWU0TVBC?=
- =?utf-8?B?RE5GOVZ5RGxMbVp4V2xHQ1BrZ1hqQ1lpeGFtNDJxZkhya1JtanM0Z2xueGZU?=
- =?utf-8?B?UXkzai9TbUt6WFQ3M1VncXJmcXlmVyt2aFFFT0RhSzlrK3JNOFIxRHFuL2tV?=
- =?utf-8?B?OFdWTGo3UjBwWlAwN3dFS2RRSTRmVTArR0thK09UWVNtTGRyaFQ0SHZaUk9h?=
- =?utf-8?B?cDhwSytKRktRZG9wc3JJZ21VejY5Z0NWMUhJWlZNOHVLK2QwUGw1QlAxa2hX?=
- =?utf-8?B?cmdubDlxLzZvM1VXV0hmVGR3QjNsbmJXd0FmcUJ5Yk9Mb0x2TzJlRHl3Tk1v?=
- =?utf-8?B?aUo4SUM0UDBWSDU2MmR0ZVBKZ0xObUVyd0VaVU04WG9nZnIrL1lJZHhqQjAr?=
- =?utf-8?B?eEdkR2xudXNJSFg1T1hldUpjcmtMbXZ6QlJJbHN1RW1JRU9xQy9YdXhnNDhy?=
- =?utf-8?B?T2thZzR4YUErNUFtV2RNSGtrK3VxdFhtdzRkZW96VWVCajNTNDVHb1pNWnhM?=
- =?utf-8?B?dVFDcEtpTDhEMkdoTXpuZ2R5ZWk1OExqZFBoanhUQWRLblExcEd0UkVTS2t2?=
- =?utf-8?B?UWZtL2pnWkI1a3RlSDFhVTlyQ2loWjIwdi92dzArdE9iNjdJckJZdmNVYzQv?=
- =?utf-8?B?QXJsS1FUN1NIamJQN1dENDEvWllTY0dDVnZ4RUlTa2owZmlScWtoWTJhbTNG?=
- =?utf-8?B?V3hxNGxaS2pGb0ZYeWhvRW9tU0Q1U2lLYUFnNDhwNzNMRnVWbmJGQm9GZU8r?=
- =?utf-8?B?dFFLYWNESFpiMEZHaVlLZVV6MnNrT0h3RXNnQjdwTnIxS2tjRE42Zz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YWdjRFNxeHRMRVF2bWtkN2NDM0IwY0owUlhFYnhJRmh5RzEva2krQXJKeHA0?=
+ =?utf-8?B?ZUlIeE1JTFA2cGRTcU8vQzB3aUNTMWtMSkVVekNTUXM5U1ZBaUtCZkY3NnVh?=
+ =?utf-8?B?UCtLV3BPOWJzRUt1M2pzY3hDbTl5MGtJOUp6b0VpVTkxaGRFWlQvTkRmNVNK?=
+ =?utf-8?B?ODV3V1F5Z1c5dDdaS0xmaWdnRUNiNXg5alBjQTFOUm9ZMVBIYjBXYThIa2JR?=
+ =?utf-8?B?ejhFdUlJQ0dybmFzQWozWTAzTFU4UjR0bTNRNkZMZit1a3BETytmMWZXVEV1?=
+ =?utf-8?B?K0lPZzhRSW9acWxSWTdpYWV2NHpGMVQ2QkpudzJWRkVzajJYdDJkeFVNYUZ0?=
+ =?utf-8?B?amlzZ0wvZjlSYi9CdU1PR3l4dnRueDVZQnRuejRjdlN3YkNtTVk2VHdPbTZR?=
+ =?utf-8?B?QW5pR1pzUFJYTUdmQnIxWGRPOVNSak85V0RwS2xoMkhhbXROUXppSUdvVis4?=
+ =?utf-8?B?OVhSdGJwNUJYQU1PRy9jYi9qMUd3Zyt6WXZGSHl4d3g3cC9JNnIwV0ozS3Bv?=
+ =?utf-8?B?MGdJbEZHTWVvR1VCbzBUd1Yyd2lwSTh2U3hHdTNlYUJaRk5JUG4wVlhlMGcr?=
+ =?utf-8?B?TWlHcm9hYTcvTks3UTdpbEpWMnR5Y25UOTlBSUFNMkwxS3VnRU5xcjN0L3lI?=
+ =?utf-8?B?UXNFZnN0cmlOUUFvTVBYWkUvVWVKaGpWNlFQZW55L1RVZlhMTHg3UCtuZUFO?=
+ =?utf-8?B?eGUyZ0k1cFJtcDVhUGJPd0J6enljZEVFQ2xDTXZoODBJeTduZzI3SitZM2gr?=
+ =?utf-8?B?Z0xmNDA0OWV1VGpqU1RWZk1KR2dNNGI5MDV0bUltMUlkK0E5bzBmQzhTaXFj?=
+ =?utf-8?B?TEFwTDhiRHRDNE1ZbFJTaHYwWFdHcllIcTBQKzBEam41RDcybnFEYmxTeXBt?=
+ =?utf-8?B?aVRMbXRkRVpvYjAyS0Z3elNQcnQrQVBDTFppZ253ZjhLNkd0ZXZQUVl3bnI4?=
+ =?utf-8?B?Q3dyQ2Z1ZWtwWk1SaG5pRGxHQ2RBaFdKeGxGUy9VK2FzNkwwSHZPdEMrSzBI?=
+ =?utf-8?B?RHNTQWllNmcxRFNTZmpodHFPNi9HOVNiR0FEQ1J3OVZCeHZFTzFOUHlxNlBp?=
+ =?utf-8?B?R1BsZVpMeUhMR3ZMRU03RzdDRUQ3OFhYVzMySWZmbm1Cc2N3anl3UEY1Uzhs?=
+ =?utf-8?B?WTA0b2ZZK2Nqd3lLMk5veGpzTlFnN1ZydXcxK0QrN1dHOTkrSzBIQTZSZlov?=
+ =?utf-8?B?T1hWQ3cybzYvNDVHVFV0cTdSektVeEhmK0JicVhGRjNSSkJWV3BVM2dWRWNi?=
+ =?utf-8?B?amh6NHhPR2hPZnVaR1VaRkpSbWdUWEYzM0hGV09PZXBnR1h5K3JPSmVZbXpl?=
+ =?utf-8?B?VWYwakZuNElhZ2NZSlVleU13U2hBVUNrWU96UXo3YkFrODYvRHNiZWI3c2JF?=
+ =?utf-8?B?UEd3WnVMajN2TUdjYzlOZnM5R0xDa01aeGFBUjFBcncxVTVMSFIvdTVmMkdJ?=
+ =?utf-8?B?a25rZnIzZml6NHBzL0F2SCtYSWkya09BeHJydUVTNFoxVVNKMktlTURSMVcz?=
+ =?utf-8?B?UnNva2hWSXpPR0dvMElvQW00MW9IcEtlTzlGSHErMy8xZVM4K04rR3hVbTVT?=
+ =?utf-8?B?cWVjQnhXbE4rc2dJTEZiOVh2aklLUGhBN0k4Q1ZVeGhyZ1pjMzVoUk03dnVF?=
+ =?utf-8?B?SFZUNitTNTFMMFViN01CK0k2NGs0MUJnR3JGVWdXUVNxSEJyVjNXQVdjTEU4?=
+ =?utf-8?B?aDl0TnhOTG8wc1lPemVkS3F3OE9ZOE0rNC80Z1FRMkVlU3ZjNmo1WFUyMzQ3?=
+ =?utf-8?B?UVVpWnlCYmkvMTlwSXZiOHFSOHNBSkFhRlA2eFlXaGM3WUhPU1NaSWJkOUZF?=
+ =?utf-8?B?bXN4Q3VQRW1kb2QrOHJmcGVQVVk5dnczaXhnaFIvbGVKdVllbW1USU1sWWo3?=
+ =?utf-8?B?cXFna21yMlNNQlNYQ0c3aHhVY2F0TitnT1NhVSt5dHVmeUtFMGFJSTJmdlRL?=
+ =?utf-8?B?dEFWN296U0JiK3o3aTJtbm1QUWVQcjVBK1RJOWFYUmc5Y0xSUXBqeUtSQ3Q4?=
+ =?utf-8?B?ZWQxcTd5N25ML2ZndzUxL04yNEtFQXh5M0JkaVd5S01iR0tTbEJzSlRZRTJS?=
+ =?utf-8?B?YVdxZytMOTRoMkxYbHNrTlFhV0dNUURBSlBVcWdUUGEyczBuY3B4cndGYStQ?=
+ =?utf-8?B?R3dKMlJkdENlQmRJMlQ5Vlh0eEJFdmlHalh6am1qU012UjdHYTk2MjBWUXdZ?=
+ =?utf-8?B?eTRsS2ZSMnZ2YXJWRFN0cThteWlBUFp6bHJNZVZISFM5V0hpajZnVzZQeWox?=
+ =?utf-8?B?NnVPR1lTRk5KNC9QcURMU1VhcnAxRFU0dE8vWFV0dmxOUjFXMGk0QTM4U2U1?=
+ =?utf-8?Q?mCEoXsd9qbacyxIe15?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f1582f2-07e8-4a68-a2a0-08def962adb1
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6958e4aa-f68a-46ef-99fe-08def9633fe4
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 17:45:35.2247 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 17:49:40.4195 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TdBZmsX0i2AHbaaMX9ybmRRPhbGbYCip9NnEul7TYX4TV+3gS83QruoVAsqfZswm+Y5KRh1mskg51VpYYRsdIg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7767
+X-MS-Exchange-CrossTenant-UserPrincipalName: qseGZ7214hdRn8AWHjRCDhUx9QN5MH1GVeQVj2uQy8D0bJsu0ZJ6LAecNva5ko3jCnQlfFbHp1xFWIA6rMetSg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6057
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,56 +142,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+I can confirm IGT's "kms_plane_alpha_blend --run-subtest alpha-basic" no 
+longer fails with v3.
 
-
-On 8/13/26 12:09, Akhmed Zhitaev wrote:
-> Custom brightness curves use an 8-bit input signal.  After exporting the
-> full PWM range to userspace, the curve normalizer still divides requests
-> by the physical PWM span.  On panels with a nonzero minimum PWM level,
-> this can produce a curve input greater than 255 and send an invalid
-> backlight level to DC.
+On 8/13/26 08:30, Melissa Wen wrote:
+> validate_blend_mode_for_alpha_formats() warns when a plane supports
+> formats with alpha but doesn't expose the blend mode property. Fix this
+> by adding the same overlay plane blend modes to primary plane, since
+> they are all universal planes in DCN-generation. Cursor planes support
+> ARGB8888 format and CURSOR_MODE_COLOR_PRE_MULTIPLIED_ALPHA is set by
+> default (other color formats are not implemented), so only expose
+> support to PREMULTI, which is the default blend mode on DRM.
 > 
-> Scale the userspace [0..max] range to the curve's [0..255] range
-> instead.  This retains the full advertised range and keeps the reverse
-> readback conversion unchanged.
+> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
+> Reviewed-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
 > 
-> Fixes: 8dbd72cb7900 ("drm/amd/display: Export full brightness range to userspace")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Akhmed Zhitaev <zhitaevakh@gmail.com>
 > ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
+> v3:
+> - keep primary planes w/o alpha property
+> - re-order if-conditions for readability
+> ---
+>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 21 ++++++++++++++++---
+>   1 file changed, 18 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 40d82a3ee..533c69f0b 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -5131,10 +5131,10 @@ static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
->   	return 1;
->   }
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> index 1b564cfe2120..ab9bbe8ca333 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -1923,16 +1923,31 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+>   	if (res)
+>   		return res;
 >   
-> -/* Rescale from [min..max] to [0..AMDGPU_MAX_BL_LEVEL] */
-> -static inline u32 scale_input_to_fw(int min, int max, u64 input)
-> +/* Rescale userspace [0..max] to the firmware curve's [0..255]. */
-> +static inline u32 scale_input_to_fw(int max, u64 input)
->   {
-> -	return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max - min);
-> +	return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max);
->   }
+> -	if (plane->type == DRM_PLANE_TYPE_OVERLAY &&
+> -	    plane_cap && plane_cap->per_pixel_alpha) {
+> +	/* TODO: Check which blend modes are supported in DCE-generation
+> +	 * planes, i.e. DC_PLANE_TYPE_DCE_RGB/UNDERLAY and expose blend mode
+> +	 * property accordingly.
+> +	 */
+> +	if ((plane->type == DRM_PLANE_TYPE_OVERLAY ||
+> +	     plane->type == DRM_PLANE_TYPE_PRIMARY) &&
+> +	    plane_cap && plane_cap->per_pixel_alpha &&
+> +	    plane_cap->type == DC_PLANE_TYPE_DCN_UNIVERSAL) {
+>   		unsigned int blend_caps = BIT(DRM_MODE_BLEND_PIXEL_NONE) |
+>   					  BIT(DRM_MODE_BLEND_PREMULTI) |
+>   					  BIT(DRM_MODE_BLEND_COVERAGE);
 >   
->   /* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
-> @@ -5147,7 +5147,7 @@ static void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *cap
->   				      unsigned int min, unsigned int max,
->   				      uint32_t *user_brightness)
->   {
-> -	u32 brightness = scale_input_to_fw(min, max, *user_brightness);
-> +	u32 brightness = scale_input_to_fw(max, *user_brightness);
->   	u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
->   	int left, right;
+> -		drm_plane_create_alpha_property(plane);
+>   		drm_plane_create_blend_mode_property(plane, blend_caps);
+> +
+> +		if (plane->type == DRM_PLANE_TYPE_OVERLAY)
+> +			drm_plane_create_alpha_property(plane);
+>   	}
 >   
+> +	/* Cursor color format is set to CURSOR_MODE_COLOR_PRE_MULTIPLIED_ALPHA
+> +	 * by default, so only advertise DRM_MODE_BLEND_PREMULTI blend mode for
+> +	 * this type of plane.
+> +	 */
+> +	if (plane->type == DRM_PLANE_TYPE_CURSOR)
+> +		drm_plane_create_blend_mode_property(plane, BIT(DRM_MODE_BLEND_PREMULTI));
+> +
+>   	if (plane->type == DRM_PLANE_TYPE_PRIMARY) {
+>   		/*
+>   		 * Allow OVERLAY planes to be used as underlays by assigning an
 
-Is this still needed with
-
-"drm/amd/display: Fix backlight max_brightness to match exported range"
-
-https://github.com/torvalds/linux/commit/f1b5d8f9cc54ae8a2567ac126867ae488e1bf625
