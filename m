@@ -4,121 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3519CC5CFCF
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 12:23:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6B04BC5B572
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 12:59:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9FD7910E4CE;
-	Thu, 13 Aug 2026 12:23:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0D6910E286;
+	Thu, 13 Aug 2026 12:59:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="jl1ot9F4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="GSUOzEXG";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011031.outbound.protection.outlook.com [40.107.208.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D987C10E4CE
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 12:23:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pOapeLar4w/NquHyQaW/rzv4o3ACQUqcoyOKtxNF5p1cDV0q39ELLxwgjZjuHhKvhR3EDCqIYtJ63yiwxMUEuRdJ7kDQWUfdu/SCGUjbyKATXd2KDrYeKX/MK0omxXjoAok+QRNpy4+zesnSxNlukFpiGRyPdeoQ654tm3OWZ0l+cUiqliaM+oWaoqimbgpS7VErurM5HttOKKlW5lwl44rU3uwOm0TVjBddJt2doLgD9XDabOINMRVXMgItVckKsKfUZo+wtZHjkQTHtzIKRs3/P1n09x/Ymn4ZsaeKddrb8SgnZRnUOVnbmfKuWfmrR94LVVU4eMBRQlMjGud9Xw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pEKRD/5PujlZmNYncqgvIfQ/tUVZI6SbXgNGGx4Xfng=;
- b=YucpGPK1CBsqMcwcfEA8tFo8cFx+nTs7SslJqJEKY0/8v+8zd/DhjHQLN9WJ/ywzHbzoMSXidj/c7KLDzZ/gbpuDr7RP6fTqMALcXW6gL5UWBu/zKUEAjPIQrqXGjKiIqH1IBbOX6OVxz3wg8Cx6L7sev9NP102nOoi/e7kMqnOCMPT4u1+/4raZoQT5mTcpB2xP8XX6twsR8VHGsVfKLxRFMaHscLWTtepH2ouo9TssHyRiaCThgro1sFI/gS7dUlMxBSDsVfj0TFxhC/rPYcYLMZ8EoMbaUINs/n+5dJYrboGfAg0wzYqffv04jOYYwDXw8STCpSOATmFT+V1Qtg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pEKRD/5PujlZmNYncqgvIfQ/tUVZI6SbXgNGGx4Xfng=;
- b=jl1ot9F4QjKGFzqJvTenT1OI24Zn+hmHAGYwi5W6EspZngf+TY2ZPBxKyan3VZr4o44spjvP4ZW72i4gKlwEEkrOjhVzyB12Ten1jrr2pwSmN+aJ1ihhoS1u6AP/fcBXcndEXTpVwsxoxYXi3g9VUjNUIdTCuI9/lfI2CbnOiOE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SJ0PR12MB5610.namprd12.prod.outlook.com (2603:10b6:a03:423::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Thu, 13 Aug
- 2026 12:22:57 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0292.024; Thu, 13 Aug 2026
- 12:22:57 +0000
-Message-ID: <1d9cbc80-c227-4b5b-8305-d2038875b559@amd.com>
-Date: Thu, 13 Aug 2026 14:22:54 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/amdgpu: handle GDS and SPM without a VM fence
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20260713182414.630372-1-alexander.deucher@amd.com>
- <20260713182414.630372-3-alexander.deucher@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260713182414.630372-3-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0385.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f7::10) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
+ [209.85.210.178])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A878D10F2CF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 11:27:03 +0000 (UTC)
+Received: by mail-pf1-f178.google.com with SMTP id
+ d2e1a72fcca58-84e04df8c46so2143352b3a.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 04:27:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786620423; x=1787225223; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=NRGBrMNvLSobAjKhMm1lIf6g/DD55p77HOff+VMHwOw=;
+ b=GSUOzEXGHDGDfqUpCxTuhdKXfDDk6MkZ/vdPpeymS5eSH5IoD7P7SdTE75aaDqawzl
+ qlW+rU9UUmKSNS0Uj+/mcL2uxaeJV/MiEHt0Y4ZGaVj43pIM0MmkOzwxykcdXRnIUv0z
+ HHXTukLxlx6gTNGRk/rxqTpEHAtouDfUiUW/IvcivK6eC88USirKXAJU1anaaQQNEFYt
+ dMrJuP2mhYlVpPJZjd/waidX6+osQMVDNDHmYJ56MaEtrQm04ZvEMCvQVFqW3Pb9+KKz
+ BLFc6re6qHsWf+BxUQcEG/v8y3wTVwvYgqo/0rV+eD2VUH/yy2S4Z7D9DrIzS5JWELvY
+ bymg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786620423; x=1787225223;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=NRGBrMNvLSobAjKhMm1lIf6g/DD55p77HOff+VMHwOw=;
+ b=jRKZk+plw2ADgyd1yUfJS5lYSmzBgND0Ez/hS61TunhpVc/i4dXABjIZqieSIquW41
+ nYu+qa0pT76zTnN3fjG1iq9FXvAIZmk2fb54yT9+M2tdbIavebXbPU3mTNo2dvtURmcl
+ 7XNrNcQ+z74czvjs2ItG9wuDAFI8mU7ACiB6QuXLxoJhLBmivkX/B/uETdnMWATilYxQ
+ KwcT7/dbsCn3oYy4W4Eh55qP4As7iG1SaUea4Ma4v66zmsrs8QsT1x+OgaolBjG7yM0V
+ v9/SGXD9RTeFa20/+3S9bSrD6qlfSOk/sHUzRzQz3jjJ0X29kQYARkkj+9OSjcQyE5I9
+ Q/qQ==
+X-Gm-Message-State: AOJu0Yyv34FxjWFsmC7vuihCTk1YIIFZA2JruWBTg64BGVHgQ0q0MMb8
+ U9UTidZIs0pmS7Cz5BdTrTSKTJRVNyFbVxRc7Ev/WwX+pRAN6MZk2KIjNDMd11a4P1HUHw==
+X-Gm-Gg: AR+sD10KsEmbZ3wl9Znk6FNLXO5bkMv9r7lR3+epdHXusrphP2Hk9+1z9BIgXNdYnaN
+ xHXg4i2YVfF1UuyJH3eWNefxn2TFsDpr5SQujH5G0AcsRQMMmBojYLm484JKokqdAvh+a9wF13s
+ XXKrMbQCdFOo+he+Nn1AAJAc4Ayprqo95Dpui6JlCGjSqcqyP1hn9j5PSLadgdudVrdBT4B/ETM
+ cST+zvmbL7LbA6xx/KPhTQ5kfs1G6YCxctSXl1RS+no9RF6OSVfQDe/zkpUwwJhltfyRoOVqH/h
+ gV3unBS9DSTiMi/n9QyfwNMwNNV1ijh9tvggM9VZlRWymziUHBE9teGzNxzCQp86CC02I8MgHFM
+ jGwdVV6n9Hk/m/i9YymZIsAbSnmq4kpvSvsveKIxCzgwTl0bdQY1XKHBA+qG1UHpo0BRAGCRFe4
+ ghkBFNHBWX3Ffb5Q95zHzsijgTAR2U9ZAf2LX4KsPn6Zm+DutVWxcabUPZM3hetDheKTSfg8GMF
+ 3qolffMEKmbng22Mc3LTS2p
+X-Received: by 2002:a05:6a00:2999:b0:848:788a:e7f9 with SMTP id
+ d2e1a72fcca58-84fc6dc62cbmr5033736b3a.18.1786620422989; 
+ Thu, 13 Aug 2026 04:27:02 -0700 (PDT)
+Received: from localhost ([64.176.39.245]) by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cbef6a59d80sm894282a12.11.2026.08.13.04.27.00
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 13 Aug 2026 04:27:02 -0700 (PDT)
+From: David Weber <weber.aulendorf@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
+ sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, David Weber <weber.aulendorf@gmail.com>,
+ stable@vger.kernel.org
+Subject: [PATCH 1/2] drm/amd/display: Skip connector updates without a stream
+Date: Thu, 13 Aug 2026 13:26:33 +0200
+Message-ID: <20260813112634.11455-2-weber.aulendorf@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260813112634.11455-1-weber.aulendorf@gmail.com>
+References: <20260813112634.11455-1-weber.aulendorf@gmail.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ0PR12MB5610:EE_
-X-MS-Office365-Filtering-Correlation-Id: da1e749d-256a-4fa9-5b9c-08def9359b90
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|22082099003|18002099003|56012099006|6133799003|11063799006|4143699003|10067099003;
-X-Microsoft-Antispam-Message-Info: 823ROzmcW2oFLybaVM4YHw4uiDl4cwNEEwbeXzmfChjLFGp6X5VuTouFZF+UxK2kVhWXxBJFulCUwCG323sy5h6sg06G8PFgn/tlMFs1VUag0FnxpwlvC+iRMSMEaW9Cb2YJUZFsO20gffx4dzr7yns7MxrrzYrjYjwr6sPD+CKvtAAipu+0zdjq3oydG8/tfzkem3c6qgMLJfM6lxfTJGALFNZsb8anWz/PJSpXKVCAGYujy/S/S8r6G2xBOiLB2ooUyf+DMfYYldojHnTUhiA0LuYlqmgk7coZTHoWb/N2NsY/RY5/biHW8D0baOYg301M3M+1IFPQ9Id4SgnxrkVpTjfbGSbvJ4J6fF3VfFx2Lh2gQMOm1X+7juUFJpkbJ0cgdLp88/Smg7vszn9Pl6XxsZKhU0v5vSkZEZeer4Rj/CJs1VM5EzFkNLH5xtVu/JnQ3VcnFnFy9g3Y24LijPbHXlSFwvkRzM2wgM86/eQbNSRedHZ3xnzVqqasoqq/+OGf5dnj6I9aMrqLMX82Hw/zFEXll0EMq1/NRpfhf2ikWC80w3dPWiSsh5YqX2EgN66SWXWobn8qWh6qgiPL6obh8X1WpXRX/emSOIlfubLIGgWyegj5T2qXSdNhDV6JmRJqERUCL3CFAVfSPQLBxNaYZQKJfHaeE1cL6TMD/d0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(22082099003)(18002099003)(56012099006)(6133799003)(11063799006)(4143699003)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bDNMbDlwS0JmcG1abGZVWkJ0NW5VdlFDYnZsN2x3RU5GRWRWRFpCbEk3R1lU?=
- =?utf-8?B?eGtnWE9VY1RJZFpuZm9ZMlFSV1IzU3hSYlZTMHlIOGxFaGZMUGFWTlhGOFBC?=
- =?utf-8?B?MHpPcFRlbXhBMENlc1JVWmdVTWNjcHNEMy85aWxQZkxkRzFBN0R2Mnh3bFY2?=
- =?utf-8?B?RkhzUndITkxpbk5QSHJFb3N5czBXSUJMT0M3S2x1ZCtYZnEyRGc1WStZZ1Mv?=
- =?utf-8?B?SGk2bWtCbnZFVTBIdE5lVEVCb3E4T0cveWdrMGRSM1E3bkUxVmFNQXhVYmJs?=
- =?utf-8?B?OWdIbEZ0ZEpyQ1BHelBIVjd0K1ptZEdxSWgzRXYzKzVtUktXU3RialFnZDVt?=
- =?utf-8?B?UXQvdlBqTTgxV2x1a29sYU40RUVZREI2WTZJd2VVVG9qYjN0OXpPQWlCNXJ4?=
- =?utf-8?B?NllQRm5ZMThqTmZiU3pld2dpVzhBaFV5UzZaL0FrQjhLSmVrak1FMFhuSjZZ?=
- =?utf-8?B?SkZpSmtuVDVSVlhmNXdGYnFseHFadGhzeVBQVmZSdFlSSUJCb05rNm9aVkNx?=
- =?utf-8?B?M1FMVEZVZHZkaHVyYTNEVkV1NVpEamRCaDZBZHdNbkNwRTNtc3NCOGVmODVs?=
- =?utf-8?B?UzQ2eHRWQ3A2WmVib1hiTWN5Sm1GQVJHaytxODFCdXFvUVd3N21yMkVVc081?=
- =?utf-8?B?Nk1naUZ1RkZkWVdiaW56UnpPM3g5YkwxeUk4MUYrRzlyVENKVmpHN25uYTcw?=
- =?utf-8?B?cG10TThDL2NBQlM2Tmc4OHJVNWhKa2JXcU5yT2tQaGFZMGpkWG1SRE1relpo?=
- =?utf-8?B?ajg5RE9xTUUyMXg2UjFiQzBMdDIvZmVPR2xPUGhpSW94eUtsUzJCM2hwbkJa?=
- =?utf-8?B?V2xwaVh4emYzeE5FL2l3RnVoY2Z2cFVjaGpTNTJoRG1CcUk5YTNkMzMxMFly?=
- =?utf-8?B?K28zcnFqMEllZW9ydTBJdm14aFAxMTN1SFh3YnlaakVRSXo4TlpzNmZySzVS?=
- =?utf-8?B?ZG1Jcm1PQXpnd0RKU2RPYVlIajIxRnVkbXlwaE5xQWpyWnVveUZBcGQvbWpt?=
- =?utf-8?B?U3B1NkczNldrYmhyeDJmeFpCdnVzczlUUld5d3g2bGNDY1R4OU04Ri80UU82?=
- =?utf-8?B?MTZzZHlRRzF2c1JMQXZRbzJ2K2pIc0d5ZEUreDE1THNlcDJLSW02TFZURnFq?=
- =?utf-8?B?MlVHV1RNV2FWMDR3b05vM1c2OVdzazVzVGxybXZ6VzBjemNwUzBmaUFxMjZw?=
- =?utf-8?B?RWJVLzZHMGx5SzV5Y3pGemN3Slg2R1FEQ2c3eldhcGlqYVQ5YnRmeXVPSUpt?=
- =?utf-8?B?dERZcS84MTNTR0lwMU84UkdHZWo2R1pjS3NHQ2hUODB4YzNQdnpzYVB2RVo4?=
- =?utf-8?B?R0FYOWRSTjhtN2JSQzhvMmRxNGZ1NXI1WWVmMEtlVnh5dDhndjZoU2FXbmJp?=
- =?utf-8?B?em92VzFsaUVGelNNSmhLUXBaYTcyZzkyYUtCWHIvKy9yK0FsSUw5bG9uVHox?=
- =?utf-8?B?V3RyRnNVWExubnkxcU9kSHdtbWVZb1ZmdUh2SDhHWlM5cWM0M0VXOG16Skp3?=
- =?utf-8?B?WGs1Y3NlY1hMMnRzN0NpMmp2aUhWVGsxUERDYWZCNWJLVDdwRHArUGhLUmU5?=
- =?utf-8?B?MUw2S0lTOVZQZHpvMzF5N2lRQzQyOU02em53eklqM0twaEV3VksyR0FQQnBk?=
- =?utf-8?B?QWRTcmwvN00vdUUxcTZ1dzIvL2tmd0lQUmZyZkJuSjdpeng3eVNJK0hmVUNV?=
- =?utf-8?B?K1k4Y24za2VGdUdKYXJUcWdQdnpneUtTeUZwNGpmeGkxQlM1WVlGZFU1UjhS?=
- =?utf-8?B?T08zd0tZUjRQaFd0cG9EQXVaMGxCZlBGZjAvSWVjNzZiajlVSnk4UmRnQnJm?=
- =?utf-8?B?WlV3aURDalFyK0R5dmxqdGRpVlFTZEZzOE9EaVplcDBNR09IZk1HbnVWZExP?=
- =?utf-8?B?STFTL2pEQTJyTWIycGF4QmgzenVCRDJPaHRqNUg5dE9udGxrdnlkZFdKdCtI?=
- =?utf-8?B?Ti8xbFdxZ0tLU0tOL2p0Q1Bic0pGS3hydHpLaVB3Vnh1Nm1aSUdBbjVuUVRR?=
- =?utf-8?B?cnNBbHBzN2p4cTFkdVREQWFiZ3NjUmEyMjZxQUVnRjFDRmkzMGxyN0RJV2FL?=
- =?utf-8?B?eVk5czFvVUJNUFF5TkVWZVoxbENjODlYWWFaU0FoVi9OQzN6M1VUL0R1dGlh?=
- =?utf-8?B?aitVQXJ5bDc4SkVVUXk1YW1WTnhCWk84VGFaTmZQU1JmaFovYVI1T3dBZjEz?=
- =?utf-8?B?a3o5NDhrVnR3cmhzUFVUbDJNaGxxSkQ4NE1KcTVvbmVlSENmQ3dlV1JzMWxw?=
- =?utf-8?B?N0JSY1FiZ2pOaWxqcmpxallPdTJRQlJ6dW9tSkFLRU9tQWJOOE9EMUNpREk0?=
- =?utf-8?Q?Y9SY/R3bIxAiAVwBMP?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: da1e749d-256a-4fa9-5b9c-08def9359b90
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 12:22:57.4418 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Ct+qX8EBiT2VYey1KjezOPnZqjX03FoVD/rk1XFBJYNwMX0CgZTOvbUosgqIP9gH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5610
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 13 Aug 2026 12:59:36 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,176 +89,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 7/13/26 20:24, Alex Deucher wrote:
-> If we end up emitting a VM fence keep GDS and SPM
-> associated with that fence.  If not, emit them as
-> part of the IB fence.
+Atomic DPMS can leave a connector assigned to an enabled but inactive
+CRTC after the driver has removed its DC stream. A later atomic commit
+can then change HDR_OUTPUT_METADATA or Broadcast RGB while leaving the
+CRTC mode, routing and active state unchanged.
 
-I've just stumbled over that this was pushed into amd-staging-drm-next.
+That property-only commit does not require a modeset, so it reaches the
+connector stream-update path with a NULL stream. An HDR metadata change
+passes the update bailout and reaches dc_stream_get_status(NULL), while
+a Broadcast RGB change dereferences the stream earlier when comparing
+its output color space.
 
-As far as I can see the patch doesn't make any sense at all. Why should we do that?
+Skip stream updates until a stream exists. The connector state remains
+stored, and an enabling modeset applies it to the newly created stream.
 
-Regards,
-Christian.
+The crash was reproduced on a Phoenix1 system with DCN 3.1.4 and Linux
+7.2-rc5 using a one-shot AI-generated DRM atomic reproducer:
 
-> 
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c | 14 +++++++-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 47 ++++++++++++++++++--------
->  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h |  4 ++-
->  3 files changed, 48 insertions(+), 17 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> index f1ed4a436f5b4..d439c68eed9de 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c
-> @@ -131,6 +131,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
->  	struct amdgpu_fence *af;
->  	struct amdgpu_fence *vm_af;
->  	bool need_ctx_switch;
-> +	bool emit_spm_needed = false;
-> +	bool emit_gds_needed = false;
->  	struct amdgpu_vm *vm;
->  	uint64_t fence_ctx;
->  	uint32_t status = 0, alloc_size;
-> @@ -220,7 +222,8 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
->  		vm_af = job->hw_vm_fence;
->  		/* VM sequence */
->  		vm_af->ib_wptr = ring->wptr;
-> -		amdgpu_vm_flush(ring, job, need_pipe_sync);
-> +		amdgpu_vm_flush(ring, job, need_pipe_sync, &emit_spm_needed,
-> +				&emit_gds_needed);
->  		vm_af->ib_dw_size =
->  			amdgpu_ring_get_dw_distance(ring, vm_af->ib_wptr, ring->wptr);
->  	}
-> @@ -232,6 +235,15 @@ int amdgpu_ib_schedule(struct amdgpu_ring *ring, unsigned int num_ibs,
->  	if (ring->funcs->insert_start)
->  		ring->funcs->insert_start(ring);
->  
-> +	if (emit_spm_needed)
-> +		adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id, ring, job->vmid);
-> +
-> +	if (emit_gds_needed)
-> +		amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base,
-> +					    job->gds_size, job->gws_base,
-> +					    job->gws_size, job->oa_base,
-> +					    job->oa_size);
-> +
->  	if ((ib->flags & AMDGPU_IB_FLAG_EMIT_MEM_SYNC) && ring->funcs->emit_mem_sync)
->  		ring->funcs->emit_mem_sync(ring);
->  
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> index aec8468634535..756810c606d80 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-> @@ -766,18 +766,22 @@ bool amdgpu_vm_need_pipeline_sync(struct amdgpu_ring *ring,
->   * @ring: ring to use for flush
->   * @job:  related job
->   * @need_pipe_sync: is pipe sync needed
-> + * @emit_spm_needed: does the caller need to emit spm
-> + * @emit_gds_needed: does the caller need to emit gds
->   *
->   * Emit a VM flush when it is necessary.
->   */
->  void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
-> -		     bool need_pipe_sync)
-> +		     bool need_pipe_sync, bool *emit_spm_needed,
-> +		     bool *emit_gds_needed)
->  {
->  	struct amdgpu_device *adev = ring->adev;
->  	struct amdgpu_isolation *isolation = &adev->isolation[ring->xcp_id];
->  	unsigned vmhub = ring->vm_hub;
->  	struct amdgpu_vmid_mgr *id_mgr = &adev->vm_manager.id_mgr[vmhub];
->  	struct amdgpu_vmid *id = &id_mgr->ids[job->vmid];
-> -	bool spm_update_needed = job->spm_update_needed;
-> +	bool spm_update_needed = adev->gfx.rlc.funcs->update_spm_vmid &&
-> +		job->spm_update_needed;
->  	bool gds_switch_needed = ring->funcs->emit_gds_switch &&
->  		job->gds_switch_needed;
->  	bool vm_flush_needed = job->vm_needs_flush;
-> @@ -785,6 +789,7 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
->  	bool pasid_mapping_needed = false;
->  	struct dma_fence *fence = NULL;
->  	unsigned int patch = 0;
-> +	bool emit_fence;
->  
->  	if (amdgpu_vmid_had_gpu_reset(adev, id)) {
->  		gds_switch_needed = true;
-> @@ -800,6 +805,7 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
->  	mutex_unlock(&id_mgr->lock);
->  
->  	gds_switch_needed &= !!ring->funcs->emit_gds_switch;
-> +	spm_update_needed &= !!adev->gfx.rlc.funcs->update_spm_vmid;
->  	vm_flush_needed &= !!ring->funcs->emit_vm_flush  &&
->  			job->vm_pd_addr != AMDGPU_BO_INVALID_OFFSET;
->  	pasid_mapping_needed &= adev->gmc.gmc_funcs->emit_pasid_mapping &&
-> @@ -810,6 +816,17 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
->  		ring->funcs->emit_cleaner_shader && job->base.s_fence &&
->  		&job->base.s_fence->scheduled == isolation->spearhead;
->  
-> +	emit_fence = !!(vm_flush_needed || pasid_mapping_needed ||
-> +			cleaner_shader_needed);
-> +
-> +	*emit_spm_needed = spm_update_needed;
-> +	if (spm_update_needed && emit_fence)
-> +		*emit_spm_needed = false;
-> +
-> +	*emit_gds_needed = gds_switch_needed;
-> +	if (gds_switch_needed && emit_fence)
-> +		*emit_gds_needed = false;
-> +
->  	if (!vm_flush_needed && !gds_switch_needed && !need_pipe_sync &&
->  	    !cleaner_shader_needed && !spm_update_needed)
->  		return;
-> @@ -844,21 +861,21 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
->  	if (pasid_mapping_needed)
->  		amdgpu_gmc_emit_pasid_mapping(ring, job->vmid, job->pasid);
->  
-> -	if (spm_update_needed && adev->gfx.rlc.funcs->update_spm_vmid)
-> -		adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id, ring, job->vmid);
-> +	if (emit_fence) {
-> +		if (spm_update_needed)
-> +			adev->gfx.rlc.funcs->update_spm_vmid(adev, ring->xcc_id, ring, job->vmid);
->  
-> -	if (ring->funcs->emit_gds_switch &&
-> -	    gds_switch_needed) {
-> -		amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base,
-> -					    job->gds_size, job->gws_base,
-> -					    job->gws_size, job->oa_base,
-> -					    job->oa_size);
-> -	}
-> +		if (gds_switch_needed)
-> +			amdgpu_ring_emit_gds_switch(ring, job->vmid, job->gds_base,
-> +						    job->gds_size, job->gws_base,
-> +						    job->gws_size, job->oa_base,
-> +						    job->oa_size);
->  
-> -	amdgpu_fence_emit(ring, job->hw_vm_fence, 0);
-> -	fence = &job->hw_vm_fence->base;
-> -	/* get a ref for the job */
-> -	dma_fence_get(fence);
-> +		amdgpu_fence_emit(ring, job->hw_vm_fence, 0);
-> +		fence = &job->hw_vm_fence->base;
-> +		/* get a ref for the job */
-> +		dma_fence_get(fence);
-> +	}
->  
->  	if (vm_flush_needed) {
->  		mutex_lock(&id_mgr->lock);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> index 939f639cd8bfd..f82572b71c5ad 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h
-> @@ -515,7 +515,9 @@ int amdgpu_vm_validate(struct amdgpu_device *adev, struct amdgpu_vm *vm,
->  		       struct ww_acquire_ctx *ticket,
->  		       int (*callback)(void *p, struct amdgpu_bo *bo),
->  		       void *param);
-> -void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job, bool need_pipe_sync);
-> +void amdgpu_vm_flush(struct amdgpu_ring *ring, struct amdgpu_job *job,
-> +		     bool need_pipe_sync, bool *emit_spm_needed,
-> +		     bool *emit_gds_needed);
->  int amdgpu_vm_update_pdes(struct amdgpu_device *adev,
->  			  struct amdgpu_vm *vm, bool immediate);
->  int amdgpu_vm_clear_freed(struct amdgpu_device *adev,
+https://pastebin.com/KxT1BcSs
+
+The reproducer first sets HDR_OUTPUT_METADATA on an active CRTC, then
+sets CRTC ACTIVE=0 to remove the DC stream while keeping the connector
+routed to the CRTC, and finally changes HDR_OUTPUT_METADATA from one
+non-NULL blob to another. The last commit does not require a modeset and
+reached dc_stream_get_status(NULL) from amdgpu_dm_atomic_commit_tail().
+The same sequence completed without crashing with this fix applied.
+
+Fixes: b232d4ed92ea ("drm/amd/display: Only force modesets when toggling HDR")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: David Weber <weber.aulendorf@gmail.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 1820547b1dde..13101a6be437 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -11519,6 +11519,9 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+ 
+ 		dm_new_crtc_state = to_dm_crtc_state(new_crtc_state);
+ 		dm_old_crtc_state = to_dm_crtc_state(old_crtc_state);
++		/* DPMS-off leaves the connector routed to a streamless CRTC. */
++		if (!dm_new_crtc_state->stream)
++			continue;
+ 
+ 		scaling_changed = is_scaling_state_different(dm_new_con_state,
+ 							     dm_old_con_state);
+-- 
+2.54.0
 
