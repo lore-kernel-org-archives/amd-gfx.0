@@ -4,96 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7D67C5B572
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 19:02:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BC78C5B572
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 19:38:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41F2110E20F;
-	Thu, 13 Aug 2026 19:02:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 17A2010E03F;
+	Thu, 13 Aug 2026 19:38:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Kz5lapto";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KITOZQWQ";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 51BD910E20F
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 19:02:42 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-38eca09faa2so18636a91.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 12:02:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786647762; cv=none;
- d=google.com; s=arc-20260327;
- b=f5okxVgA79y5TLWU1O3FygnXY3XoRqEsea1sIWRRzwxL6Nlc8IAJDUzcL+xYgVExWN
- 5frrmhHE5Y98y+JeioonAPAlA1h2x6AH4wOcQhNuLfP3mD2QGp+cu52qjdXEmLlDuU4Y
- 8ekuz87lp+cXAFCy52filkdoAO3s05m82owrlEYMlPTu3URHlOk+IALpHq2+FZJH4mmf
- hV4TX/Nd1Rq/Vj5yVnzancAQlFkm9sjhrXYmNJmMZlWeNJxKTBOooMspF9jACt22bcA/
- GJR5Sz3LJrFGcW/1T2zqhRu/nbXmwDJzp7PzuHRo4jZO0licEQAGFJ+kv19DCZXmz7v4
- vV+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=/z+Uy3HejSrVCI10pjAPI9q6GyLVcGX/liopkYvuS2k=;
- fh=GN/o0e6iJIJKBv/q08m6Nx5sYL/0dpGPEYOcyLG1FvI=;
- b=W7fnBtqxUuM6YmkMennczLM60atE6sAPfO0bxMsHwTKwpUn/Wut3G6c+24Wl1xTS6a
- v7pWpxpj+DgOTiMQAroj45xjzna1t9qXSX+dqGWVMstzFmWZgPTjx+o2pAHLxCfSxn7U
- HQjaFUzdpK8HGn0I56rLdAHXADReLMi7x8bPUUiQVllcIeN7wKjaERG+quJxnJly0zOo
- uLhK3THOayw5SLSN2BpjD5x72vgtVSovUgseW0E28VXDr8Ovob+Cv+6AlmJO7sToxr9I
- teLE6JbjfYhiqNlwox4JRcJBcWAFdG6xtdcL3eX2+Vdy8h5FKzE0ZK3Hs5SY0S2nEL23
- KZpw==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786647762; x=1787252562; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=/z+Uy3HejSrVCI10pjAPI9q6GyLVcGX/liopkYvuS2k=;
- b=Kz5laptoYDUEL/84c5kq+QzMt271KhMeQ+EzVn20SQcLdFK6vNMuxunLzYHrauZWiw
- BFM50M4uQbPLK7qUCiigaK49OIKbr/LtxlVK6dTekiitgx28qGTTbJrdr8EQ/2RLkkRt
- LjqeXH/qGOeGoCDqGAQsapM3ds5TtDlSGYu+XNP8qJnwmhdgDwNj1dzd2iQ8kEwo+e+b
- BV2fsVE5VLngKM2y8cijbFMWZpoADlPFDr1z2Rb7Bnqm3juTDiMLLVPmH8Vi+gDJer8e
- pXLi+xsqPLTTsGoK7aMvJWa3XlFZ20CAFgd7YtFVD4r4847DPAYbe71uzfg5R85JM759
- iohw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786647762; x=1787252562;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=/z+Uy3HejSrVCI10pjAPI9q6GyLVcGX/liopkYvuS2k=;
- b=Jt95WQLtXM2bOO7b4otfet/jH3FmmjnZYk8Yiodp/E1lSjga+OeY/VxaGrhjHx3yiu
- N9rmE9/KjHXorbOvwmFeUY/evs1xo0mvssEWla/ry7jzMDgq1IxOJ/ZfDEVJDzYYsUOp
- A/nnMbW6NQ7xwRIsZdKE1Jern3b5bfbZHhON4i+8WG9MXK2rPWMXiQE3x6zIcaOTu1EN
- krBaVzAu8jh/XUXjhYtItiVsM5wVo2qYW+nV3nPTYUnM7SlqvhR4RgxoydN/oH+5xLv7
- pFSJOhyyfX788pqO8oR/spzU1hw8HD6c08Aau4eTnqeGzjsJv5uBgaShBAdEgI3AMVec
- zY/A==
-X-Gm-Message-State: AOJu0YwXq8a7ENN7tJXZXqax6TdLQ9XOtlhRN6wFRpkSVxZ0kDtuXZEf
- KCeXyN8O0CmB6pbra0bQDlxhbaNYh1P1w7/5M3ZeF3SxgJJw+0rufYayBCz8OHVf7zgwES2qoA6
- GvFm+DmHF1R7M152I2pc7Gh6HM9xmjRE=
-X-Gm-Gg: AR+sD137ZfoZ6MauN3KtG0B9PHQDsfAdbpV/uZZB0d9Vd16Sj72VCtvyoZOqD783kGx
- jdvMqblw+3wsXHp9mzBxxekYcdlndFsiGclvQqdHy2Vm8cl77JZ5+WhST6DtHReqKJjDSFH8ubH
- JvbFUSDlFnqvh2E3CA2b7yUAtkL0mED5X6emO+V+DH/oPh92U9EOEgx5hHDLsLrpIysZKQKKtIn
- knFmrg3KsJ2Q9+Ycfuc7u6r+XgDR6sUjbm/MCTsbZhuNNVbPvq/ashfnFfNmfvIfVZmXtYYXZIk
- uJVuoTIyaHHdJ40friC7ct3csMYoJCRlFSlTT1NMtq1KB0O4AkA2UYA4NaF+XJjCbcXkE5ajpIN
- VOKdWs++7t5hN6u3G1ff9nprMMQpvuy0=
-X-Received: by 2002:a17:90b:2d8e:b0:38e:6d4c:14df with SMTP id
- 98e67ed59e1d1-3933bd2c8bdmr68606a91.1.1786647761623; Thu, 13 Aug 2026
- 12:02:41 -0700 (PDT)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8906D10E03F;
+ Thu, 13 Aug 2026 19:38:47 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4C0964368F;
+ Thu, 13 Aug 2026 19:38:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 586351F000E9;
+ Thu, 13 Aug 2026 19:38:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786649927;
+ bh=dICXO7+0Rud/oDHZkiYIFj47TYUXR2epDxTQFHgDpGM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To;
+ b=KITOZQWQIcY6An7SP/U3Ps20OvV4uGM2z2NIyyNaPDmCscBhflgTnTPXXRei/1o9H
+ p5IJVxF3lJ+LJgdX5awscIHjsFzT8knBVxOFwEZ5yZbhFp19/UO4fWnaIw0CoDw51K
+ tTCCdhkFdpjW1dTACsdxXgCG6MYRZ7niEbXPj/6Agvd6dxxdNKC5ok6pudIgiO+fEr
+ kVMRh4OwWCKckBaYMNSfDGGBzQR7A0KqU0Ga1Bx9kYNU1EMan203FSBND2e8v2cNj3
+ QRqi5Y7vrudDkN4bXlU+aK8XZtMyDN45M2t2X8CPg71MA2ZdO3u17k07WHHLZH6NlG
+ XccyWdOIBvAyw==
+Message-ID: <7bb4075c-4186-4f20-8006-2e414429463a@kernel.org>
+Date: Thu, 13 Aug 2026 14:38:45 -0500
 MIME-Version: 1.0
-References: <20260813054220.450509-1-Priya.Hosur@amd.com>
- <20260813054220.450509-2-Priya.Hosur@amd.com>
-In-Reply-To: <20260813054220.450509-2-Priya.Hosur@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 13 Aug 2026 15:02:30 -0400
-X-Gm-Features: AUfX_my5pm9Jt9Qaunp8fxbXEM0c9GJNk5JzW76333_YoX-q-ooqzpDd5A_g_Ns
-Message-ID: <CADnq5_Mge5MoNRyf0Nnynx5M=V2HKN8L-pFXV88GnLzAfOL5dw@mail.gmail.com>
-Subject: Re: [PATCH v2 1/1] drm/amdkfd: Add TLB flush after MES queue
- eviction/suspension
-To: Priya Hosur <Priya.Hosur@amd.com>, Sunil Khatri <sunil.khatri@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Shaoyun.Liu@amd.com, Lijo.Lazar@amd.com, 
- Alexander.Deucher@amd.com, Mario.Limonciello@amd.com, 
- Christian.Koenig@amd.com, Pratik.Vishwakarma@amd.com, 
- Veerabadhran.Gopalakrishnan@amd.com, Felix.Kuehling@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Scale custom brightness curve from full
+ range
+Content-Language: en-US
+To: Akhmed Zhitaev <zhitaevakh@gmail.com>, amd-gfx@lists.freedesktop.org
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com,
+ stable@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <20260813170959.22073-1-zhitaevakh@gmail.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20260813170959.22073-1-zhitaevakh@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,91 +62,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-+ Sunil
 
 
-On Thu, Aug 13, 2026 at 1:50=E2=80=AFAM Priya Hosur <Priya.Hosur@amd.com> w=
-rote:
->
-> MES (Micro Engine Scheduler) does not perform heavy-weight TLB invalidati=
-on
-> after unmapping queues, unlike HWS which does this automatically. This ca=
-uses
-> a race condition where in-flight DMA descriptors can access memory that
-> has been unmapped, leading to page faults and GPU queue hangs during SVM
-> page migration.
->
-> The issue manifests as KFDSVMRangeTest.MultiThreadMigrationTest/1 failure=
-s
-> on gfx1151 (Ryzen AI MAX) with XNACK mode 1 enabled - the GPU compute que=
-ue
-> hangs with packets submitted but never consumed.
->
-> Add kfd_flush_tlb() with TLB_FLUSH_HEAVYWEIGHT in two MES code paths:
-> 1. evict_process_queues_cpsch() - after MES removes queues
-> 2. suspend_queues() - after MES suspends queues and mem_fence completes
->
-> This ensures all in-flight memory accesses from unmapped queues are flush=
-ed
-> before memory is freed or migrated.
+On 8/13/26 12:09, Akhmed Zhitaev wrote:
+> Custom brightness curves use an 8-bit input signal.  After exporting the
+> full PWM range to userspace, the curve normalizer still divides requests
+> by the physical PWM span.  On panels with a nonzero minimum PWM level,
+> this can produce a curve input greater than 255 and send an invalid
+> backlight level to DC.
+> 
+> Scale the userspace [0..max] range to the curve's [0..255] range
+> instead.  This retains the full advertised range and keeps the reverse
+> readback conversion unchanged.
+> 
+> Fixes: 8dbd72cb7900 ("drm/amd/display: Export full brightness range to userspace")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Akhmed Zhitaev <zhitaevakh@gmail.com>
 
-Can you check amdgpu_userq.c as well?  I suspect it needs something
-similar when unmapping.
+Thanks for this.
 
-Thanks,
+We have moved the code in amd-staging-drm-next
 
-Alex
+https://gitlab.freedesktop.org/agd5f/linux/-/commit/6c2b46e9774f13e45985f6da9f7d5f8458767b98
 
->
-> Testing on gfx1151 shows this reduces failure rate from 100% to approxima=
-tely
-> 7-10%. The residual failures require further investigation.
->
-> Change-Id: Ia83e6af7a66fe2bff56cb62c741728e9a18883e8
-> Signed-off-by: Priya Hosur <Priya.Hosur@amd.com>
-> Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+As your changes are trivial, I'll adjust while commiting.
+
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+
 > ---
->  .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c   | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
-ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> index a23384571193..71c60a42c581 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-> @@ -1450,6 +1450,14 @@ static int evict_process_queues_cpsch(struct devic=
-e_queue_manager *dqm,
->                 dqm_evict_mqd_bo(dqm, q);
->         }
->
-> +       /*
-> +        * Heavy-weight TLB flush after MES removes queues to ensure
-> +        * in-flight memory accesses complete before memory is freed/migr=
-ated.
-> +        * HWS does this automatically, MES does not.
-> +        */
-> +       if (dqm->dev->kfd->shared_resources.enable_mes)
-> +               kfd_flush_tlb(pdd, TLB_FLUSH_HEAVYWEIGHT);
-> +
->         if (!dqm->dev->kfd->shared_resources.enable_mes) {
->                 pdd->last_evict_timestamp =3D get_jiffies_64();
->                 retval =3D execute_queues_cpsch(dqm,
-> @@ -3736,8 +3744,11 @@ int suspend_queues(struct kfd_process *p,
->                 if (!per_device_suspended) {
->                         dqm_unlock(dqm);
->                         mutex_unlock(&p->event_mutex);
-> -                       if (total_suspended)
-> +                       if (total_suspended) {
->                                 amdgpu_amdkfd_debug_mem_fence(dqm->dev->a=
-dev);
-> +                               /* Heavy-weight TLB flush after MES suspe=
-nds queues */
-> +                               kfd_flush_tlb(pdd, TLB_FLUSH_HEAVYWEIGHT)=
-;
-> +                       }
->                         continue;
->                 }
->
-> --
-> 2.43.0
->
+>   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 40d82a3ee..533c69f0b 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -5131,10 +5131,10 @@ static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
+>   	return 1;
+>   }
+>   
+> -/* Rescale from [min..max] to [0..AMDGPU_MAX_BL_LEVEL] */
+> -static inline u32 scale_input_to_fw(int min, int max, u64 input)
+> +/* Rescale userspace [0..max] to the firmware curve's [0..255]. */
+> +static inline u32 scale_input_to_fw(int max, u64 input)
+>   {
+> -	return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max - min);
+> +	return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max);
+>   }
+>   
+>   /* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
+> @@ -5147,7 +5147,7 @@ static void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *cap
+>   				      unsigned int min, unsigned int max,
+>   				      uint32_t *user_brightness)
+>   {
+> -	u32 brightness = scale_input_to_fw(min, max, *user_brightness);
+> +	u32 brightness = scale_input_to_fw(max, *user_brightness);
+>   	u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
+>   	int left, right;
+>   
+
