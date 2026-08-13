@@ -4,50 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7BC78C5B572
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 19:38:49 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E0B0C5B572
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 21:36:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 17A2010E03F;
-	Thu, 13 Aug 2026 19:38:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7118E10E513;
+	Thu, 13 Aug 2026 21:36:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KITOZQWQ";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="jQIPZ+hm";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8906D10E03F;
- Thu, 13 Aug 2026 19:38:47 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C76B910E088
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 21:36:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4C0964368F;
- Thu, 13 Aug 2026 19:38:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 586351F000E9;
- Thu, 13 Aug 2026 19:38:46 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 02B39600DA;
+ Thu, 13 Aug 2026 21:36:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B2021F00A3D;
+ Thu, 13 Aug 2026 21:36:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786649927;
- bh=dICXO7+0Rud/oDHZkiYIFj47TYUXR2epDxTQFHgDpGM=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=KITOZQWQIcY6An7SP/U3Ps20OvV4uGM2z2NIyyNaPDmCscBhflgTnTPXXRei/1o9H
- p5IJVxF3lJ+LJgdX5awscIHjsFzT8knBVxOFwEZ5yZbhFp19/UO4fWnaIw0CoDw51K
- tTCCdhkFdpjW1dTACsdxXgCG6MYRZ7niEbXPj/6Agvd6dxxdNKC5ok6pudIgiO+fEr
- kVMRh4OwWCKckBaYMNSfDGGBzQR7A0KqU0Ga1Bx9kYNU1EMan203FSBND2e8v2cNj3
- QRqi5Y7vrudDkN4bXlU+aK8XZtMyDN45M2t2X8CPg71MA2ZdO3u17k07WHHLZH6NlG
- XccyWdOIBvAyw==
-Message-ID: <7bb4075c-4186-4f20-8006-2e414429463a@kernel.org>
-Date: Thu, 13 Aug 2026 14:38:45 -0500
+ s=k20260515; t=1786656971;
+ bh=p9f51wPt4Me2mLXjwn+nYgzJniqhQG1acKdKdYdH70c=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=jQIPZ+hmvxFBuLhDkPmCx7P6LrbuvVKn0cNRFJyqBO7VX/oLiC/z2qcRg5/Bt3HQt
+ hVr7b+kIPkk+gCp3zRhYB3Gh8j6r2eoWb1HzmZ8n8+ci9Ia1y5Jx8v9GKqDz73RRda
+ +kylS6Yhpy+8BKm5wjqBK0vPIK1EPdyNx7BreUJOWH7O1Z5qHcsmrGhrC2SP5OtJml
+ Q5NpngvJNJBucvm4oAEj8HbUMwuKSIhTL9xX5P7HhzIAy6PQX1N17+NEWEHAnK3cOL
+ sS0sxXzciRywW6ywlE91DLCo38POwg9hKegIJ7umE8poNijCb+oiSv6cbbvzRK6fst
+ cwI67C9wzeo+Q==
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfauth.phl.internal (Postfix) with ESMTP id 49114F40067;
+ Thu, 13 Aug 2026 17:36:10 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Thu, 13 Aug 2026 17:36:10 -0400
+X-ME-Sender: <xms:yjh-am3lm8BdOKF3S3cHS1g5VFPmw2kfsztM2D8tLAHVNcJzWfzNrA>
+ <xme:yjh-aur8r8xQSpji5PmTo_N9TQ5VCMeaVRUNN3iezH9KA5EUUsDpVXfnSaxadN632
+ IIDkDbrw3sNaSYN2aS1ks2QYn7ocRkEzchIri7pXG53E6HADMrG6vM>
+X-ME-Received: <xmr:yjh-aodzMmzK9cRoXCI7eru-AOSTl76Bu7VuUkHsH7LFynaS_HZCKKZSpSX4K0LesHWsziUTU9hxSIbe9beTQJwA0TPPw9Fu>
+X-ME-Proxy-Cause: dmFkZTFFk3kTpZ2SFvlqu/9NZoiEZe5tJqWtrVRy19Y8SztAWXFfhy/49Dkn8QCnOPK2+5
+ AogX8kvYOK34JJ7nqRZYM515r4tYKFep0ch8rpdETStvosQB8Lv9DKOjDF+jWme2+C48aq
+ tDZ5Cu8cR+nP44tCYWphM1ScDJWKjd/9+x1yBekjqAYWHTj5FP+RJyW4ZhW0zewY51QP/9
+ 9qP8GHzYdzv1w1GSaw7C27ELYUcPcV2bijCnHcsNoASmdNrOEZsVJDEdzYZnYTIstP8xq2
+ x/Nq2kNPuLOnPtzX9LBBWo0uhHpJAcP0wulimVm/zVnIpJajaE7ZUCmC4kf7NmFI2VTAPQ
+ rzZ1mihRcK8Nd2qPTzFLpyfWRFoVCav5asz5EX6+oaJfpNST8T9oTkb8wrLsYUnPYseE9G
+ KvO2gqxHhNeFN87lPEYat54EgKGM7CN3A9D4Kt+yGsNQLPkFwtDpf8+OGscPLg8lkJyGxx
+ 9+DpF18SkYOXvo51SMkSJ87TQ32AdrocX+DDJ/Zl1ueJKugpFfeOccwjwl59Da5BomlJtv
+ Indi661HVGvok/39k56FfTpsEPQ+QFsKw86B7cgbR6Ar7c9yrsi6ofinymRVXd5Dls7N3F
+ xeFtiM4MXiyOVQhzljuCYehZq49xf3Zr2N9SVJbYaSIVsSvr9N3WQOmJBvDA
+X-ME-Proxy: <xmx:yjh-aou4QNcgxyRFsdXgDtFIhbqV5nVhwqSjNik8EZXKl5j2-gzqhA>
+ <xmx:yjh-agWRe-wL_vAxkOsJtzL-uedi6sgOR1KM_G87u_X6gv8Tnjw4ig>
+ <xmx:yjh-at-I6Ywfsj0FHQxpaFIW0I_FSxZGHqA8eHWurGOHOsdVQgO8xg>
+ <xmx:yjh-as7e-i-KnBOtVr_5ed2UBwiY86dJq380p62ja_S_-SPKzWRYsw>
+ <xmx:yjh-au1vHhiy6jXMqFBfal2MoIUiUsh8XScjdfBKm4RYmJ53cMekqe2z>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 13 Aug 2026 17:36:09 -0400 (EDT)
+Date: Thu, 13 Aug 2026 14:36:08 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: amd-gfx@lists.freedesktop.org
+Cc: Mark Janes <mjanes@netflix.com>, Kenneth Feng <kenneth.feng@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Lijo Lazar <lijo.lazar@amd.com>, Asad Kamal <asad.kamal@amd.com>,
+ Yang Wang <kevinyang.wang@amd.com>,
+ Priya Hosur <Priya.Hosur@amd.com>, mythilam <mythilam@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amd/pm: Fix incorrect avg vcn utilization in
+ gpu_metrics
+Message-ID: <an44yIv7WG7vqTqQ@tardis.local>
+References: <20260805140227.44868-1-boqun@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Scale custom brightness curve from full
- range
-Content-Language: en-US
-To: Akhmed Zhitaev <zhitaevakh@gmail.com>, amd-gfx@lists.freedesktop.org
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com,
- stable@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20260813170959.22073-1-zhitaevakh@gmail.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260813170959.22073-1-zhitaevakh@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260805140227.44868-1-boqun@kernel.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,62 +91,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 8/13/26 12:09, Akhmed Zhitaev wrote:
-> Custom brightness curves use an 8-bit input signal.  After exporting the
-> full PWM range to userspace, the curve normalizer still divides requests
-> by the physical PWM span.  On panels with a nonzero minimum PWM level,
-> this can produce a curve input greater than 255 and send an invalid
-> backlight level to DC.
+On Wed, Aug 05, 2026 at 07:02:21AM -0700, Boqun Feng wrote:
+> In a Strix Halo system, a >100 average_vcn_activity in gpu_metrics can
+> be observed by running the following command:
 > 
-> Scale the userspace [0..max] range to the curve's [0..255] range
-> instead.  This retains the full advertised range and keeps the reverse
-> readback conversion unchanged.
+>     ffmpeg -hwaccel vappi -vappi_device /dev/dri/renderD128 -i \
+>     ~/sample-10s.mp4 -vf hwupload,scale_vappi=format=nv12 -c:v \
+>     h264_vappi /tmp/output.mp4
 > 
-> Fixes: 8dbd72cb7900 ("drm/amd/display: Export full brightness range to userspace")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Akhmed Zhitaev <zhitaevakh@gmail.com>
+> This is incorrect because the value is supposed to be in [0-100] range.
+> 
+> The cause of the issue is that the metrics.VcnActivity reported by
+> smu_cmn_get_metrics_table() is a permyriad value instead of a percentage
+> value (e.g. smu_v14_0_0_get_smu_metrics_data() has a division by 100 to
+> report the vcn_busy_percent). Therefore fix this by applying the same
+> division in smu_v14_0_0_get_gpu_metrics().
+> 
+> Reported-by: Mark Janes <mjanes@netflix.com>
+> Signed-off-by: Boqun Feng <boqun@kernel.org>
 
-Thanks for this.
+Ping?
 
-We have moved the code in amd-staging-drm-next
-
-https://gitlab.freedesktop.org/agd5f/linux/-/commit/6c2b46e9774f13e45985f6da9f7d5f8458767b98
-
-As your changes are trivial, I'll adjust while commiting.
-
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Regards,
+Boqun
 
 > ---
->   drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 ++++----
->   1 file changed, 4 insertions(+), 4 deletions(-)
+>  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 40d82a3ee..533c69f0b 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -5131,10 +5131,10 @@ static int get_brightness_range(const struct amdgpu_dm_backlight_caps *caps,
->   	return 1;
->   }
->   
-> -/* Rescale from [min..max] to [0..AMDGPU_MAX_BL_LEVEL] */
-> -static inline u32 scale_input_to_fw(int min, int max, u64 input)
-> +/* Rescale userspace [0..max] to the firmware curve's [0..255]. */
-> +static inline u32 scale_input_to_fw(int max, u64 input)
->   {
-> -	return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max - min);
-> +	return DIV_ROUND_CLOSEST_ULL(input * AMDGPU_MAX_BL_LEVEL, max);
->   }
->   
->   /* Rescale from [0..AMDGPU_MAX_BL_LEVEL] to [min..max] */
-> @@ -5147,7 +5147,7 @@ static void convert_custom_brightness(const struct amdgpu_dm_backlight_caps *cap
->   				      unsigned int min, unsigned int max,
->   				      uint32_t *user_brightness)
->   {
-> -	u32 brightness = scale_input_to_fw(min, max, *user_brightness);
-> +	u32 brightness = scale_input_to_fw(max, *user_brightness);
->   	u8 lower_signal, upper_signal, upper_lum, lower_lum, lum;
->   	int left, right;
->   
-
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> index 568665265a13..1058338344b0 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> @@ -566,7 +566,8 @@ static ssize_t smu_v14_0_0_get_gpu_metrics(struct smu_context *smu,
+>  	gpu_metrics->temperature_skin = metrics.SkinTemp;
+>  
+>  	gpu_metrics->average_gfx_activity = metrics.GfxActivity;
+> -	gpu_metrics->average_vcn_activity = metrics.VcnActivity;
+> +	/* metrics.VcnActivity is permyriad, convert it to percentage. */
+> +	gpu_metrics->average_vcn_activity = metrics.VcnActivity / 100;
+>  	memcpy(&gpu_metrics->average_ipu_activity[0],
+>  		&metrics.IpuBusy[0],
+>  		sizeof(uint16_t) * 8);
+> -- 
+> 2.50.1 (Apple Git-155)
+> 
