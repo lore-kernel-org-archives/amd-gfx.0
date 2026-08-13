@@ -4,73 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28FF2C5CFEB
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 12:59:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D578C5DF67
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 12:59:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6BFD110E2BB;
-	Thu, 13 Aug 2026 12:59:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 270BA10F2F8;
+	Thu, 13 Aug 2026 12:59:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Ej4OyhJv";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="d9X7pXWM";
 	dkim-atps=neutral
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4347710F2D2
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 11:27:06 +0000 (UTC)
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-cbedb88aa34so541898a12.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 04:27:06 -0700 (PDT)
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
+ [209.85.210.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CB6E210F2CF
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 11:27:00 +0000 (UTC)
+Received: by mail-pf1-f182.google.com with SMTP id
+ d2e1a72fcca58-848743155bcso889180b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 13 Aug 2026 04:27:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786620426; x=1787225226; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=yedogQjnb5nGvW1U+3x4hYyDe/AHyo+j+5EWGorL0yk=;
- b=Ej4OyhJvYeaj+T9LwKMnU/vy1x3sQv/60qrf9arEGugORQzyFZE2us/UdBYo631K+6
- BzX6gc90hwsyMjVoYTufZHWOiVKmOpS//UdYMMsVglEQOrKy89hKbgt2/4YLchVqrJFs
- Jp4Uhiiw3NhcCODps+se/9h0gekvaJJYtj2RNJgKT9jIKhlBlUCQ4+G+X2hMPADruhO4
- RnqtCm+mUXlmlzRMoDSljI6eV39SgfxwClPDdF5yTbu9hibYxzf644JeM1aTtEN7OEZ6
- SWSNzQj2AkFFtAz2kj/b/EmgYXVZDNsB2CSGfOpnNheY94BDJDPSPbp0/CTBcBklsZ+q
- PZZw==
+ d=gmail.com; s=20251104; t=1786620420; x=1787225220; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=NnsKlsQfAgw4TYphFLbsBTyUS9mLXz1EROz2+K+BZeY=;
+ b=d9X7pXWMRdgQtSk4EKmHoRHrNslaRra4TyANwEalINqMX0Xfu8wre0QhT4Rpultdh3
+ EE2B9AqzyTVhfdC/llD9H909WwQ5aAc7dU4pDYMZZ5vdpZzbPdo77pS6K/gTmIQ2QNTd
+ hlPr1JEnOXn4tFG7osLwn7q6COps1iUhfla1Kiokl8Rk01m9JLZj1nTrul3CxuYIjWiR
+ PI3wLesnagdrPoE1dFCNfl7lr6yzdaB7XO2zxaXE1UzC19tn8TdnNqOQePw7bTGHstGi
+ OQanLjdntu6WTEw0MGwMjU0M31ITzrs7riiz+7fn07gn1mK9jXgeWovQYEe/ggpTlu5H
+ fNng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786620426; x=1787225226;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=yedogQjnb5nGvW1U+3x4hYyDe/AHyo+j+5EWGorL0yk=;
- b=s39TyFZu5l90aKUD7CiWd8Sm3OvzQ2ZwPNb3X/3oCvXpOPaounXOXT+/05hDIjb6W6
- 0Qe4oA8iMT034pB7B/S09ktMnP4k/xldP+Nr7nsjEW4LWSh0k/doBBu6GDKmHS3fo6EU
- 8+dAlkkwcaujtuhBx3z0RlKmQDCh6CAcz51FH0Mm9QuU7CrwXBjcJ+cNpIpoSzCQ/uGl
- ZEj4xgjv06Pi/WWCtUMPRIFMS5fWsj6SVH43pDyPaIGNlRcTZIP1U2kNRJDQkR3HJeXw
- bMCUJ23uHgv57parBbR9gHrwK9UhSULg+k7y05/BfYKdlqlhUDGpdy6B5Sm3dLHRiUDQ
- PMlA==
-X-Gm-Message-State: AOJu0YxpOp1fb0HvqAUcAVHDZtG3R0X0pHzO1G1JQ89SEwP5aDOJr8nt
- 3YAstEvFxluWyORYKzBQHle+AnAp9uOpXcQJooeEc5vVMqxnFcyVfhXjcqJgWcbrk5pKVw==
-X-Gm-Gg: AR+sD10DyzSxtZ4xsRcB0878ZhEoG96Lk+XKUepGMS8TTOiiaKBK1HRQZPQS+U/FyDh
- 09/0b9KEj19FfO5YSP0Kj8+S44N8WCK2szCPWah6iP6eZU8GWzv9g3DNAD1Czs5WfZewSMiTd6z
- +gjS1QXyIxgx00/iPd97hYu2/UdS0LA8/urhZTt6poP1Xi29Sb98KImD2YiVP4OC/g3b3hIuLtU
- NBnnUGjcWYitDBuodd7vMAz2TJIjKtpHidepvRh7r+buFvyO2w4JU26uD07lzfyA8XZRQrzfJyD
- oSBlwyhI6ZdWNuOouo2cK5r69uDtKkfKULE/eFZ43GC8ww7hRbOspY4dd+ieBI4PXzWtQ0XMTdp
- 6dlQOJBbEn+wyTcm3Z0ALOUFJ3xlTFZhHLZ0N8dw1Pc9x2b6GOpNJz8jEyDmwSDkVhOBXI/4NpI
- EvyVaeMY0hZvE6o7FvLjXLPcVl/Jg5lJgLzCMkl8qmUXPB080bGF409AEwtMmzHlEaA7otzKKNC
- /4SX70KCw3GFGyyjwXcKXPik+LI2nZK/Js=
-X-Received: by 2002:a05:6a20:3d1c:b0:3c3:791e:5e0c with SMTP id
- adf61e73a8af0-3cc5531808bmr6904887637.19.1786620425563; 
- Thu, 13 Aug 2026 04:27:05 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1786620420; x=1787225220;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=NnsKlsQfAgw4TYphFLbsBTyUS9mLXz1EROz2+K+BZeY=;
+ b=Xxzj4pjwTQbZOrU8tSSEfT4261LHAA6/RiEU8CQNDKa7/1Iqii00tExjPG/8k0KUpI
+ 67vRDNUFCg4SjFnIuURS/NH76evaoQNlaVTbOd/SpAR3ab6Ctcyz7F1rwcKbvWswUVFU
+ eN2eGnofdzuD4cGJYwNi/1a5AdoMFV/6y2BHqLg1SnUOqZz1OFaXvcKPZmnkSqgmjSJm
+ EAxfpLEBdblQINtnPYdvs4zxPcVmeZDiAweBIkFkxZiJZp77Dmp/JQgk0PWjc1oNCnK/
+ OL8iFW82j31LZJPUOc37oDnaEKvcp1z210PhQQGqF9oPdM2Nzv8BzS1RM5R964Y+TD+B
+ qJGg==
+X-Gm-Message-State: AOJu0Yy72A7xlpe2TFOLx8IdH744YO+OCZ8mszjsWd4TpuNfxM5kyHgm
+ 3Wa0xW6zeMgPoze+B0k5nsBCGUzS+zCI/BQLoypAw27wkAluTTb15ePluVkANQzHzNCxcg==
+X-Gm-Gg: AR+sD10lwo++cCmtZidT466mKWCYhZbholXZy85lzticiIUoywGbBhOAHlu73dZM9KD
+ xD6MDyVRXt9oVfW98rjafKqian6YQymAznXYfPE78x394wlYMyMPmTKIRclYgSQONMp9YNWupm/
+ d25iEsz7WPb/jlx1pk2WEgJqcGt+eQZaUHyzMrUdnWn42kZg1MGg42QmbkYm9KK2V6FvCP5900H
+ w4ejOGUtWFW3LiZw+v4SeuPHmJg8MbN+ZVP1PQ0DjdOwH+0qAr61TlR/5ClxxuaC6V3uytDDi1r
+ YsjsIRrsAr3h2t70SDOX1IiqYpnHpoNAC9lkFsdV7ucD9ukTsnXjwwtDZsMcgLJcUgW+gvl/6uA
+ 63hMYu+MAmJR+WlYi6yy/dNry/iE/1omXQvtTIKpzEyCCp2eJKtDzXgomKuMo77kDDo91yfMyZJ
+ mQFfOTYxhEWxrQBjoSQgTfoaJoIGkP4bXv2VuyH0xgIIH3TYG173wKEN5P48ExjsJFYdjQFQZDl
+ V59vhgs7Vd8t1AAahy2ebPM
+X-Received: by 2002:aa7:88d0:0:b0:848:70dd:f5a9 with SMTP id
+ d2e1a72fcca58-84fc74958c7mr4544635b3a.38.1786620420195; 
+ Thu, 13 Aug 2026 04:27:00 -0700 (PDT)
 Received: from localhost ([64.176.39.245]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-cbef6a59d80sm894282a12.11.2026.08.13.04.27.03
+ 41be03b00d2f7-cbef6a59d80sm894282a12.11.2026.08.13.04.26.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 13 Aug 2026 04:27:05 -0700 (PDT)
+ Thu, 13 Aug 2026 04:26:59 -0700 (PDT)
 From: David Weber <weber.aulendorf@gmail.com>
 To: amd-gfx@lists.freedesktop.org
 Cc: dri-devel@lists.freedesktop.org, harry.wentland@amd.com,
  sunpeng.li@amd.com, siqueira@igalia.com, alexander.deucher@amd.com,
  christian.koenig@amd.com, David Weber <weber.aulendorf@gmail.com>
-Subject: [PATCH 2/2] drm/amd/display: Avoid modeset for ABM changes
-Date: Thu, 13 Aug 2026 13:26:34 +0200
-Message-ID: <20260813112634.11455-3-weber.aulendorf@gmail.com>
+Subject: [PATCH 0/2] drm/amd/display: Fix streamless connector update and ABM
+ modesets
+Date: Thu, 13 Aug 2026 13:26:32 +0200
+Message-ID: <20260813112634.11455-1-weber.aulendorf@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260813112634.11455-1-weber.aulendorf@gmail.com>
-References: <20260813112634.11455-1-weber.aulendorf@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 13 Aug 2026 12:59:36 +0000
@@ -88,59 +86,31 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-ABM connector property changes currently set connectors_changed on the
-associated CRTC. DRM treats that flag as requiring a modeset, so each
-ABM change tears down and recreates the stream and visibly blanks the
-panel.
+Hi,
 
-drm_atomic_get_crtc_state() already adds the affected CRTC to the
-atomic state. dm_update_crtc_state() then copies the connector ABM level
-to the CRTC state, allowing the commit tail to program it with the
-existing stream update path.
+This series contains two independent fixes for connector property updates
+in amdgpu_dm.
 
-Stop marking the CRTC as connectors_changed for ABM changes. Continue
-doing so for scaling changes.
+The first patch fixes a reproduced NULL-stream dereference and is marked
+for stable.
 
-This makes runtime ABM changes practical for desktop power management,
-for example when switching between AC, battery and low-battery
-profiles.
+The second avoids the visible panel blank caused by modesetting for every
+ABM level change. This is useful for desktop environments that want to
+adjust ABM dynamically for AC, battery and low-battery profiles without
+making the screen go black briefly on every profile transition.
 
-Tested on a Phoenix1 system with DCN 3.1.4 and an internal eDP panel.
-Changing ABM through the panel_power_savings sysfs property was
-confirmed visually and by measuring the resulting change in system
-power consumption. It no longer caused the black-screen flicker from
-the forced modeset.
+It would be nice to have the ABM fix in stable kernels too, but I am not
+sure whether this behavior issue justifies a stable backport. I therefore
+kept its Fixes tag but did not explicitly Cc stable.
 
-Fixes: c5892a102182 ("drm/amd/display: Fix dmesg warning from setting abm level")
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: David Weber <weber.aulendorf@gmail.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+David
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 13101a6be437..40099bff153a 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -13168,7 +13168,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 		struct dm_connector_state *dm_old_con_state = to_dm_connector_state(old_con_state);
- 		struct dm_connector_state *dm_new_con_state = to_dm_connector_state(new_con_state);
- 
--		/* Skip connectors that are disabled or part of modeset already. */
-+		/* Skip connectors without a CRTC. */
- 		if (!new_con_state->crtc)
- 			continue;
- 
-@@ -13179,8 +13179,7 @@ static int amdgpu_dm_atomic_check(struct drm_device *dev,
- 			goto fail;
- 		}
- 
--		if (dm_old_con_state->abm_level != dm_new_con_state->abm_level ||
--		    dm_old_con_state->scaling != dm_new_con_state->scaling)
-+		if (dm_old_con_state->scaling != dm_new_con_state->scaling)
- 			new_crtc_state->connectors_changed = true;
- 	}
- 
+David Weber (2):
+  drm/amd/display: Skip connector updates without a stream
+  drm/amd/display: Avoid modeset for ABM changes
+
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
 -- 
 2.54.0
-
