@@ -4,40 +4,40 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41000C5B572
-	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 09:18:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D967CC5B572
+	for <amd-gfx@archiver.kernel.org>; Thu, 13 Aug 2026 09:30:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9A40210E233;
-	Thu, 13 Aug 2026 09:18:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E8C010F21C;
+	Thu, 13 Aug 2026 09:30:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="bWIcRYVo";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ClERN4IN";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D11ED10E233;
- Thu, 13 Aug 2026 09:18:42 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1ADDD10F21C;
+ Thu, 13 Aug 2026 09:30:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 858A7407E5;
- Thu, 13 Aug 2026 09:18:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07F781F000E9;
- Thu, 13 Aug 2026 09:18:14 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5FC67600E2;
+ Thu, 13 Aug 2026 09:30:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23CB81F000E9;
+ Thu, 13 Aug 2026 09:29:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786612722;
- bh=GetBiy0Zn1Zt+WVhmIztIBXSgbwgf2K+rHp84uzlz2E=;
+ s=k20260515; t=1786613407;
+ bh=AbNB7YmIIEAsBupr3N2a7aEdIcPITLg2I2/18fsoCbY=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=bWIcRYVoSsY+NP8RDYGqeCKfdNSxxjBsO0HFtspwgEIcp4mxv6MIb+2TtjGjCRLw9
- hIFNHL3xy64xAuU96ONyJA6lJgCdNyALdgyI+DydU5l+v+zFz/J5b/Y1Kd30ZurMF5
- LX4SUYoWQFIjEvpb0hBaybB0GmnOwdsg4e3tYQF94wvU9f1NxWbA9ptSNnR6vuNgF9
- /pBx8beROUiTVDlXLjY9uCUrg/A3FYGguRxxKdoiDYMZa0ZmOsA30p8M+qmovrM09i
- ++Q2dp3raik6cTHMydkCPT3cK/35vli7LyQG8Ow9StXI6zByuJcR/6Mea1EDO0Ksop
- xQtWNqBuv2IBQ==
-Message-ID: <ea3c2889-343b-4eba-9758-cf56c75da4fc@kernel.org>
-Date: Thu, 13 Aug 2026 11:18:13 +0200
+ b=ClERN4INhPkBslxL5w4ZJcA1HiSs+6EJS5j2wIA/YNYxGzQCzzOltTl8mtVstS2Zv
+ v6pbP1+6xy3WTefzm7r5D1n78dDzwYDPCLqM3C2uMBinPgnhev/yTaEWJUu2+3LCpE
+ /oC3GCv+k+6f+600guIAvTW53T5sKQHXS5FRkrKjlATP4H8E92JsuOrLfoYUk6rT5M
+ Es7CfwkPX97KRxwE72qlmu+QZ3FS51F5N5fgbF6KJ044HpYpGF6IF7YHBQx51Gf+Sm
+ eGfAOyFrSE+Va+lns8GxKRnZ5JhnebCnBwPc1nogAQzkdqrN4uwRjCOnoRNzcPaOIp
+ gHZjz5IjIBrlw==
+Message-ID: <517ea018-d6a9-4c78-b0a6-4f002b3b72ca@kernel.org>
+Date: Thu, 13 Aug 2026 11:29:43 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 17/20] mm/vma: only permit MAP_PRIVATE /dev/zero to be
- mapped anonymous
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
+Subject: Re: [PATCH v4 18/20] mm/vma: make MAP_PRIVATE-mapped /dev/zero
+ mappings truly anonymous
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
  Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
  Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
@@ -87,16 +87,15 @@ Cc: Andrew Morton <akpm@linux-foundation.org>,
  Oscar Salvador <osalvador@suse.de>, Chris Li <chrisl@kernel.org>,
  Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
  Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
- Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, kvm@vger.kernel.org,
- linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- linux-perf-users@vger.kernel.org, linux-trace-kernel@vger.kernel.org
+ Youngjun Park <youngjun.park@lge.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ kvm@vger.kernel.org, linux-s390@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
 References: <20260806-b4-scalable-cow-virt-pgoff-v4-0-ab318a350404@kernel.org>
- <20260806-b4-scalable-cow-virt-pgoff-v4-17-ab318a350404@kernel.org>
- <c7930f14-5978-4709-bac2-54950c988883@kernel.org> <ant1xwiG3djtoXoe@lucifer>
- <14a06774-4157-4629-8327-b1a6bae24ab7@kernel.org> <anyst_4LGm6bpWdq@lucifer>
+ <20260806-b4-scalable-cow-virt-pgoff-v4-18-ab318a350404@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -143,7 +142,7 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <anyst_4LGm6bpWdq@lucifer>
+In-Reply-To: <20260806-b4-scalable-cow-virt-pgoff-v4-18-ab318a350404@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -160,85 +159,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/12/26 20:05, Lorenzo Stoakes (ARM) wrote:
-> TL;DR - either we need to find a way to uniquely identify it (keep my approach
-> or move it to core mm) or we should drop this patch.
+On 8/6/26 22:21, Lorenzo Stoakes (ARM) wrote:
+> When mapping /dev/zero with MAP_PRIVATE, one ends up with strange VMAs
+> originating from Linux's distant past.
 > 
-> Given we're late in the cycle + you stringly objective to my approach I think
-> maybe best to drop it and respin?
+> These have vma->vm_file set but NULL vma->vm_ops, meaning they satisfy
+> vma_is_anonymous() but otherwise resemble a file-backed VMA.
+> 
+> The introduction of anonymous page offsets and their subsequent use as
+> indexes for MAP_PRIVATE-file-backed mappings mean the rmap does the right
+> thing with these but we are left with inconsistencies.
+> 
+> The vma_start_pgoff(vma) == vma_start_anon_pgoff(vma) invariant is true for
+> all other anonymous VMAs, but not these.
+> 
+> These VMAs are also observable as files in /proc/<pid>/[maps, smaps,
+> map_files] but otherwise behave like anonymous mappings.
+> 
+> Therefore let's make these VMAs actually anonymous at mapping time which
+> will activate the anonymous code path for mappings.
+> 
+> This means we no longer have to account for this discrepancy anywhere and
+> no longer have to think about these at all.
+> 
+> This is user-observable, as MAP_PRIVATE-/dev/zero will no longer appear in
+> procfs as a file-backed mapping, but the impact of this change should be
+> low as likely nobody is relying upon this.
 
-Yes, let's handle that separately.
+As discussed off-list, it's best to discuss the impact with the wider community.
+I'm afraid not many people made it to patch #18 in this series. :)
 
-> 
-> Can do a follow up to add unique identification later, somehow.
-> 
-> The key change of 'make anon-assigned file-backed MAP_PRIVATE mappings not
-> special snowflakes' will still be achieved in the other patches (but have to
-> rework them a little obviously).
-> 
-> On Wed, Aug 12, 2026 at 07:15:05PM +0200, David Hildenbrand (Arm) wrote:
->>>
->>> We don't assign vm_ops for a MAP_PRIVATE-/dev/zero mapping. So that won't work.
->>>
->>> We could expose zero->f_ops but then it's literally in drivers/char/ and that's
->>> just weird to expose in mm.h or whatever.
->>
->> Thinking out loud: could we use a dummy (empty) vm_ops?
->>
->> We'd place it in mm.h (zero_vm_ops) and just use it in drivers/char/.
-> 
-> The entire purpose of this patch is to _uniquely identify_ MAP_PRIVATE-mapped
-> /dev/zero and only permit this to make a mapping anonymous.
-> 
-> As per the commit message: 'mm/vma: only permit MAP_PRIVATE /dev/zero to be
-> mapped anonymous'
-> 
-> MAP_PRIVATE-/dev/zero to anon is a historical abberation. This is why it is a
-> unique case where semantics don't make sense.
-> 
-> Doing things by semantics makes sense if the semantics are a _class_ of
-> thing. This is not a class of thing it is a one of one.
-> 
-> Yes the method used is ugly, but the alternatives (I can think of) are:
-> 
-> 1. (your proposal) allow any in-tree non-module mmap_prepare() driver to map
->    anonymous pages, creating an entirely new semantic for memory mapping.
-> 
->    (this is currently something that is possible, unfortunately).
-> 
->    To be safe we would have to implement then a series of checks to prevent true
->    insanities, because doing that would permit broken madness like a PFN map
->    being treated as anon.
-> 
->    Once this stuff is out there as an API, even in-tree, even non-module, people
->    will abuse it because it'll go through some random tree and we'll have to
->    support it.
-> 
->    I mean we may as well just not make a change in this case other than maybe
->    preventing .mmap from being able to do this.
+I don't expect this to actually break something, but we should be clear that
+doing a mmap("/dev/zero") will no longer indicate that as a file mapping in /proc/.
 
-As discussed off-list, we could have in in mm/ and special-case
-drivers/char/mem.c to include a mm header like fs/exec.c similarly does.
+You could mention that e.g., criu checks for "/dev/zero" mappings explicitly,
+but will just keep doing the right thing once this is a proper anon mapping; we
+expect similar use cases to do exactly that, and rather check for "/dev/zero"
+only to conclude themselves "this is just an anon mapping".
 
-drivers/char/mem.c really belongs to core-mm.
-
-> 
-> 2. My solution - ugly but uniquely identifies the single permitted situation
->    where this behaviour is desired.
-> 
-> 3. Export something from drivers/char/mem.c to mm - horrific for multiple
->    reasons, violates separation of concerns etc. etc.
-
-Jup.
-
-> 
-> 4. Move the driver code just for /dev/zero to mm - I thought a pretty horrible
->    idea, but maybe we could have some mm/ bit and some driver/char bit like
->    hugetlbfs or uffd? But I'm not sure there is a not-ugly way of doing this.
->    MAP_SHARED /dev/zero does shmem stuff so maybe could live there.
-
-Given that I think drivers/char/mem.c really is core-mm material, something
-along these lines also make sense.
+Doing some digging, AI raised that there is the potential of some workload
+explicitly using "/dev/zero" to get an entry in map_files. I think that's
+essentially what our selftests do that you have to modify. I cannot thing of a
+good reason why someone would do that in their workload, and at least AI wasn't
+able to easily identify any such users.
 
 -- 
 Cheers,
