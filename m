@@ -4,102 +4,103 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 68106C5CFC1
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 08:56:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 397A0C5DF67
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 09:01:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EAED410E0FC;
-	Fri, 14 Aug 2026 08:56:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4353710F449;
+	Fri, 14 Aug 2026 09:01:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uoh8A80v";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eE2MY0m3";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010058.outbound.protection.outlook.com [52.101.56.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 959CB10E0FC
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 08:56:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GBFWz+u6BgPSxtMhRIAznXobRuV+JxWUySXkMalP29EeBhxNDyhgg1NvkCpmcomCti/NfTRdVyDWQr/Agt1XibPAKz7nOKHyi8/RtEXvClzcQUlW0S5pItJTUX0ClRDR75c71KBlQXCy1AruS/Of5F1UODCYxkZrbAlk02YzMFnaGepoLMOnBb589ZwlOAznF3Aq+yIW6tMdJs2IOhU+3x1JrzbVxIk2Gc8LoK72qkzbUoaQ8aEJabMw7ldinqoLDPxbR07b/kRBVyrkB4+M8gTilVRE3un6FA5RY0BUE4wy1YmN+LSQgOqJiFE17nuGW3xBySNzPkYwHz+PhdcALg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HU6xcd9EIyGksYuFlK479ZtNinStbosGmxgOwQdsNho=;
- b=JT9+oOufAipOHm0TkFWqZH9Tq/2RUh2tnuGUzYcpYBOw6NMeUzsBXjD/xf2gxCg4hrPUA4HW4k1WbSTpJTPK0IfdkOllQq32tvh+huFtZgFZ7W7wNXRW+EfdpawXBcLmMID7ZRymZU7JPHZgVSCU0XKQcjdN3OY9MjU1vf0EVJ7z6agNMkc9XrUYruNTUqPGr/VR8JMqe0hyZqm78VJGLON/8PrHmrjqo9ZdWqdS/S2HoBJ70dd0CzZF9ap4onuQr2FteSQitFqQgyhQkts2s71sXUYHeqWOf6tv1zunGllU1yz//fIsLY7a7ERd7ZA4GgMuaEjxHZMz1o/6gnRS0Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HU6xcd9EIyGksYuFlK479ZtNinStbosGmxgOwQdsNho=;
- b=uoh8A80vn47Ieg8yKnQyUoLNZilaPmlxv7y5pG0NQ2Q1ZRLSsumewZGCJRc/lXs3uOHGjeL8CVLveEq2kGlGZMNDxCX4w25HINmPrZm8v1U5z8wlkUeIdm5V3XL9sB/utXjf4XvS84WQO8WgdX1r8lrL9mu8Ods25L/yJvpNRYI=
-Received: from MN0PR05CA0004.namprd05.prod.outlook.com (2603:10b6:208:52c::10)
- by SJ5PPF2CD49510F.namprd12.prod.outlook.com
- (2603:10b6:a0f:fc02::98f) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.14; Fri, 14 Aug
- 2026 08:56:35 +0000
-Received: from BL02EPF0002992D.namprd02.prod.outlook.com
- (2603:10b6:208:52c:cafe::91) by MN0PR05CA0004.outlook.office365.com
- (2603:10b6:208:52c::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.6 via Frontend Transport; Fri, 14
- Aug 2026 08:56:34 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF0002992D.mail.protection.outlook.com (10.167.249.58) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 08:56:34 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 03:56:34 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 03:56:33 -0500
-Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 14 Aug 2026 03:56:32 -0500
-From: Jesse Zhang <Jesse.Zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- <prike.liang@amd.com>, Sunil Khatri <sunil.khatri@amd.com>, Jesse Zhang
- <Jesse.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu/userq: lock and validate wptr BOs before reading
- their GPU offset on restore
-Date: Fri, 14 Aug 2026 16:55:56 +0800
-Message-ID: <20260814085626.80716-1-Jesse.Zhang@amd.com>
-X-Mailer: git-send-email 2.49.0
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DADCF10E100;
+ Fri, 14 Aug 2026 09:01:50 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id EBCDD60A58;
+ Fri, 14 Aug 2026 09:01:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE3461F000E9;
+ Fri, 14 Aug 2026 09:01:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786698109;
+ bh=aREJLXh0wxbb3nZihaVcXk40V52DY2xFz9pCSGYdLS4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=eE2MY0m32hJuAJFYme4vl6xadaHzNlx7iLEI2wSMiAd21SBP1eIWzPN+U5ISusgwy
+ e/zxJKt4nezf6hE84mGfy0ZuybyP5UzegNNYXZ6BT9AzK7D0U6vOHfr2c1c6hIRMPS
+ hT3bJaqpWyiCoaHEOaniC/rjigruTHbqpB21Pi/vv5QZaoFe4al/YHR19FLVcfX2Iw
+ w6qfg7IMnwxe+YgpsxnEtiyH23zTEqpx7WJt3me3gGySq0b6/j1GJ7j/6sWlwZv5nz
+ xxa0Kmn9MSnM0G+mBgUABW2FutzhEQM/cqUucU+HFsP10hCYBDEdRpuV0ZaFY8GRRP
+ 2kvAB58Y2ieIQ==
+Date: Fri, 14 Aug 2026 10:01:19 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, 
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Miaohe Lin <linmiaohe@huawei.com>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Kees Cook <kees@kernel.org>,
+ Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, 
+ Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
+ Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
+ Xu Xin <xu.xin16@zte.com.cn>, 
+ Chengming Zhou <chengming.zhou@linux.dev>, Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Janosch Frank <frankja@linux.ibm.com>,
+ Claudio Imbrenda <imbrenda@linux.ibm.com>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, Alex Deucher <alexander.deucher@amd.com>, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, 
+ Liviu Dudau <liviu.dudau@arm.com>, Huang Rui <ray.huang@amd.com>, 
+ Matthew Auld <matthew.auld@intel.com>, 
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
+ Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+ Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+ Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
+ Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
+ Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ kvm@vger.kernel.org, 
+ linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org, 
+ linux-trace-kernel@vger.kernel.org, syzbot@syzkaller.appspotmail.com
+Subject: Re: [PATCH v5 00/16] mm/rmap: index MAP_PRIVATE file-backed folios
+ by anonymous pgoff
+Message-ID: <an7SkamROquJ7If0@lucifer>
+References: <20260813-b4-scalable-cow-virt-pgoff-v5-0-c21581c0c3c8@kernel.org>
+ <20260813115346.2aaad419a351341a4f5f3ae0@linux-foundation.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0002992D:EE_|SJ5PPF2CD49510F:EE_
-X-MS-Office365-Filtering-Correlation-Id: 58504431-be71-459c-fd18-08def9e1f158
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|36860700016|376014|1800799024|56012099006|18002099003|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info: s4rgF5ThPn2GyImpaQTvW4tExS9RQAITfi07c88MR30G+BViasK0LRXcdkt7l0e2UaMSiZs0gz0+iGiQtGvaqGW9TiRpzqjOg01hnqKZunw/DR6ZhnOGHACJcNoW5/ze0lO7Ugd1sOsOxe+SB6Wx40+U3+uboxgCt4blPa3VzyViYKS8anx7XCEZySCVF2p/bG8VhMesJIIg+frLPjwqRcAuFuLuYRpUvhm9UH27iyGEZhSZoMSBBMK6F8nraNMzcHRioLz4yx+P4Br6G1OqZogEj7uWxtKYOyIyVVVRn8MUmcv19vmEngOgWFRbrzp6zFenxukbu2d06LAlEDXYLgT45plLCSDpEJ6DbfojtFFo0iHSYLIlVdwW1x9ZG3W/GtE5QoaGYZc5HmuyO2TAJLRJ2GewuTi0G2ZkATZ3DY9GOnEUSd/s9gHe0tBjANjsckuUqywngA1Ypu0DVNddm8pjWcWTHeG107INkAFaMjXGX5EfPZA6dQdIPkpU7Shf7yWb8XfzFNOn0o+LM/xM0BJs4m4Y785rU62bStychsKDrF/xudcZOFJtQKKlAjaxj2pV8AK3Nmw0HGwuZ1RgLAIygX1/Sv2EvG7BG/sNBub1wp1jaXXpKUWPFxGhc7Vx/Wkd4QsZEk0uJq3gokANXe/Co4h2zoq1aMVZ05Xw49IyhyMbTqRnQycekVM2nhCtaN2OPjFPJ0l+mUCmo14OPQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(36860700016)(376014)(1800799024)(56012099006)(18002099003)(10067099003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: b8S3alVm8gwHZtLXC2HlyvZNziRlDOdLubdXhma5v8M/8Gm+lHUYwdl1hsrCJIQEdMsTgodmI679I0gk2d2u8V3WOLIG01VnSRHZjhc4KAQYIJCoa2nkYSZbCanvQtwxhd26AV/oGCSm56FEbQ3pTxbz642fQ/F4UXI9JabtQS0yu3/m8oJ4Gz2ejKUJYma4wt7IuyocXKiygSEF+vNefhCadol672X/uJZK9TIGExPyhf44BNLSRv94Nb8D7aPfwcQQ+iUwH/xkKwVmoFUT0yywRj++jR1dcEHAHw7XLY8BnZCIGAUWqmJahYgms9M29JuYlBKL0m/oxMNqyTI1M2yV3NzMlreHkjPZqPT/iJNBBrIsoDeB05Ci3Eg0nxtf7LFqa2D2Pu3RB0Gz3gslAED2M1lEdGl9Qqfm+XAjVDP71EA0HWzuWOaU4gmDJzE+
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 08:56:34.4849 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 58504431-be71-459c-fd18-08def9e1f158
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0002992D.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF2CD49510F
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260813115346.2aaad419a351341a4f5f3ae0@linux-foundation.org>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,86 +115,602 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_userq_vm_validate_and_restore_queue() reads each queue's wptr BO
-GPU offset via amdgpu_bo_gpu_offset() after only calling
-amdgpu_ttm_alloc_gart() on it. But the wptr BOs are not part of this VM
-(their reservation object is their own, not vm->root), so neither
-amdgpu_vm_validate() nor amdgpu_userq_bo_validate() (which only handles
-the VM's evicted list) covers them. As a result a wptr BO can still be in
-TTM_PL_SYSTEM and unreserved when its offset is read, tripping the
-amdgpu_bo_gpu_offset() sanity checks from the restore worker:
+On Thu, Aug 13, 2026 at 11:53:46AM -0700, Andrew Morton wrote:
+> You'll be mortified to hear that Sashiko wasn't able to find anything
+> to which to apply this.
 
-  ------------[ cut here ]------------
-  WARNING: amdgpu_object.c:1486 at amdgpu_bo_gpu_offset+0x75/0xa0 [amdgpu], CPU#3: kworker/3:1/116
-  Workqueue: events amdgpu_userq_restore_worker [amdgpu]
-  RIP: 0010:amdgpu_bo_gpu_offset+0x75/0xa0 [amdgpu]
-  Call Trace:
-   <TASK>
-   amdgpu_userq_vm_validate_and_restore_queue+0x629/0x960 [amdgpu]
-   amdgpu_userq_restore_worker+0xa6/0x180 [amdgpu]
-   process_scheduled_works+0xa6/0x460
-   worker_thread+0x13c/0x290
-   kthread+0xfb/0x140
-   ret_from_fork+0x1b6/0x2b0
-   ret_from_fork_asm+0x1a/0x30
-   </TASK>
-  ---[ end trace 0000000000000000 ]---
-  ------------[ cut here ]------------
-  WARNING: amdgpu_object.c:1485 at amdgpu_bo_gpu_offset+0x9a/0xa0 [amdgpu], CPU#2: kworker/2:1/127
-  Workqueue: events amdgpu_userq_restore_worker [amdgpu]
-  RIP: 0010:amdgpu_bo_gpu_offset+0x9a/0xa0 [amdgpu]
+:))
 
-amdgpu_ttm_alloc_gart() only creates the GART mapping; it does not migrate
-the BO out of system memory, so the offset read is bogus (the queue would
-resume with a wrong wptr address).
+Well, when it's right it's useful, when it's wrong or suggesting unrelated
+what-nots it's less useful :>)
 
-Lock each wptr BO into the drm_exec context and validate it into GTT
-inside the drm_exec_until_all_locked() block, mirroring what the create
-path (mes_userq_create_wptr_mapping) already does, so that the offset read
-later is safe and correct.
+I do locally put things through claude + Chris Mason's prompts a lot, I
+don't always invoke local sashiko as it's very slow and token-heavy or has
+been so far, but am planning to do that more also in future.
 
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 26 +++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+>
+> Sashiko can be guided with a base-commit: tag but I'm not sure how to
+> tell it what tree/branch to try, or even if that's necessary.  Perhaps
+> someone can figure this out sometime.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 17cc48d87c4d..59aa4802c111 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -1054,6 +1054,32 @@ amdgpu_userq_vm_validate_and_restore_queue(struct amdgpu_userq_mgr *uq_mgr)
- 		drm_exec_retry_on_contention(&exec);
- 		if (unlikely(ret))
- 			goto unlock_all;
-+
-+		/*
-+		 * The per-queue wptr BOs are not part of this VM (their resv is
-+		 * their own, not vm->root), so the validation above does not
-+		 * cover them. Lock and validate each into GTT here so that
-+		 * reading its GPU offset below is safe - matching what the
-+		 * create path (mes_userq_create_wptr_mapping) does.
-+		 */
-+		xa_for_each(&uq_mgr->userq_xa, tmp_key, queue) {
-+			struct ttm_operation_ctx wptr_ctx = { false, false };
-+
-+			bo = queue->wptr_obj.obj;
-+			if (!bo)
-+				continue;
-+
-+			ret = drm_exec_prepare_obj(&exec, &bo->tbo.base,
-+						   TTM_NUM_MOVE_FENCES + 1);
-+			drm_exec_retry_on_contention(&exec);
-+			if (unlikely(ret))
-+				goto unlock_all;
-+
-+			amdgpu_bo_placement_from_domain(bo, bo->allowed_domains);
-+			ret = ttm_bo_validate(&bo->tbo, &bo->placement, &wptr_ctx);
-+			if (unlikely(ret))
-+				goto unlock_all;
-+		}
- 	}
- 
- 	if (invalidated) {
--- 
-2.49.0
+b4 gives a base commit, but I think because the trees are rebased it ends
+up being the incorrect one.
 
+Not sure what the solution is!
+
+>
+> maybe
+>
+> hp2:/usr/src/linux-next> git log --oneline | grep "mm/vma: introduce VMA anon page offset field and add helpers"
+> 249646a587dc mm/vma: introduce VMA anon page offset field and add helpers
+>
+> base-commit: 249646a587dc^
+>
+> But that requires that Sashiko be able to poke around in linux-next
+> from previous days.
+>
+> > v5:
+> > * Accumulated tags (thanks everybody!)
+> > * Removed the final 4 patches to be handled later as there are nuances with
+> >   the /dev/zero stuff we need to figure out, as discussed with David.
+> > * Updated the cover letter to reflect this.
+> > * Added comments to vma_flags_is_cow_mapping(),
+> >   vma_[desc_]is_cow_mapping() as per Suren.
+> > * Correct typo as per Suren.
+> > * Reworded test comment in patch 16 from 'fault in' to 'trigger a CoW
+> >   fault' as per David.
+> > * Fix -> 75 char limit in patch 12's commit msg.
+>
+> Here's how v5 altered mm.git.  It's rather substantial, but mainly
+> selftests:
+
+Thanks for the diff, always useful!
+
+The noise it's mostly because of dropping the final 4 commits, and as you
+say mostly test stuff that will be sent with whichever approach we decide
+on for MAP_PRIVATE-/dev/zero in the next cycle.
+
+The actual changes elsewhere are rather trivial otherwise.
+
+What remains, targeting 2nd week of the merge window, is heavily tested +
+fully reviewed, so all is still very sane :)
+
+>
+>
+>  drivers/char/mem.c                                     |    8
+>  include/linux/mm.h                                     |   18 -
+>  include/linux/pagemap.h                                |    3
+>  mm/internal.h                                          |   17 -
+>  mm/vma.c                                               |   52 ----
+>  mm/vma.h                                               |    3
+>  mm/vma_internal.h                                      |    1
+>  tools/testing/selftests/mm/merge.c                     |  106 ----------
+>  tools/testing/selftests/proc/proc-self-map-files-001.c |    2
+>  tools/testing/selftests/proc/proc-self-map-files-002.c |    2
+>  tools/testing/vma/include/dup.h                        |   40 ---
+>  tools/testing/vma/tests/mmap.c                         |   50 ----
+>  12 files changed, 40 insertions(+), 262 deletions(-)
+>
+> --- a/drivers/char/mem.c~b
+> +++ a/drivers/char/mem.c
+> @@ -506,7 +506,11 @@ static int mmap_zero_prepare(struct vm_a
+>  	if (vma_desc_test(desc, VMA_SHARED_BIT))
+>  		return shmem_zero_setup_desc(desc);
+>
+> -	/* MAP_PRIVATE semantics are taken care for us by core mm. */
+> +	/*
+> +	 * This is a highly unique situation where we mark a MAP_PRIVATE mapping
+> +	 * of /dev/zero anonymous, despite it not being.
+> +	 */
+> +	vma_desc_set_anonymous(desc);
+>  	return 0;
+>  }
+>
+> @@ -694,7 +698,7 @@ static const struct memdev {
+>  #ifdef CONFIG_DEVPORT
+>  	[4] = { "port", &port_fops, 0, 0 },
+>  #endif
+> -	[DEVZERO_MINOR] = { "zero", &zero_fops, FMODE_NOWAIT, 0666 },
+> +	[5] = { "zero", &zero_fops, FMODE_NOWAIT, 0666 },
+>  	[7] = { "full", &full_fops, 0, 0666 },
+>  	[8] = { "random", &random_fops, FMODE_NOWAIT, 0666 },
+>  	[9] = { "urandom", &urandom_fops, FMODE_NOWAIT, 0666 },
+> --- a/include/linux/mm.h~b
+> +++ a/include/linux/mm.h
+> @@ -740,9 +740,6 @@ static inline bool fault_flag_allow_retr
+>  	{ FAULT_FLAG_INTERRUPTIBLE,	"INTERRUPTIBLE" }, \
+>  	{ FAULT_FLAG_VMA_LOCK,		"VMA_LOCK" }
+>
+> -/* /dev/zero minor device number. Special due to MAP_PRIVATE semantics. */
+> -#define DEVZERO_MINOR	5
+> -
+>  /*
+>   * vm_fault is filled by the pagefault handler and passed to the vma's
+>   * ->fault function. The vma's ->fault is responsible for returning a bitmask
+> @@ -1554,6 +1551,11 @@ static inline void vma_set_anonymous(str
+>  	vma->vm_ops = NULL;
+>  }
+>
+> +static inline void vma_desc_set_anonymous(struct vm_area_desc *desc)
+> +{
+> +	desc->vm_ops = NULL;
+> +}
+> +
+>  static inline bool vma_is_anonymous(const struct vm_area_struct *vma)
+>  {
+>  	return !vma->vm_ops;
+> @@ -2279,8 +2281,7 @@ void unpin_folios(struct folio **folios,
+>   * All mappings backed by anonymous folios (all anonymous mappings and most
+>   * MAP_PRIVATE-file backed ranges) are CoW mappings.
+>   *
+> - * All other mappings (including all writable MAP_SHARED mappings) are
+> - * non-CoW.
+> + * All other mappings (including all MAP_SHARED mappings) are non-CoW.
+>   *
+>   * The criteria are !VMA_SHARED_BIT, VMA_MAYWRITE_BIT.
+>   *
+> @@ -2317,7 +2318,7 @@ static inline bool vma_flags_is_cow_mapp
+>
+>  /**
+>   * vma_is_cow_mapping() - Is this VMA a CoW mapping?
+> - * @vma: The VMA to check.
+> + * @desc: The VMA to check.
+>   *
+>   * See vma_flags_is_cow_mapping() for details.
+>   *
+> @@ -4407,8 +4408,9 @@ static inline unsigned long vma_pages(co
+>   * If @vma is a MAP_PRIVATE file-backed mapping, then this returns the
+>   * page offset within the file.
+>   *
+> - * Edge cases: nommu does not abide by these and CoW MAP_PRIVATE-pfnmap regions
+> - * have their page offset set to the first PFN in the range.
+> + * Edge cases: nommu does not abide by these, MAP_PRIVATE-/dev/zero satisfies
+> + * vma_is_anonymous() but has file-backed page offset, and MAP_PRIVATE-pfnmap
+> + * regions have their page offset set to the first PFN in the range.
+>   *
+>   * Returns: The page offset of the start of @vma.
+>   */
+> --- a/include/linux/pagemap.h~b
+> +++ a/include/linux/pagemap.h
+> @@ -1128,7 +1128,8 @@ static inline pgoff_t linear_anon_page_i
+>  	const pgoff_t pgoff = __linear_anon_page_index(vma, address);
+>
+>  	VM_WARN_ON_ONCE(!vma_is_cow_mapping(vma));
+> -	if (vma_is_anonymous(vma))
+> +	/* Account for MAP_PRIVATE-/dev/zero which is only semi-anonymous. */
+> +	if (vma_is_anonymous(vma) && !vma->vm_file)
+>  		VM_WARN_ON_ONCE(pgoff != linear_page_index(vma, address));
+>
+>  	return pgoff;
+> --- a/mm/internal.h~b
+> +++ a/mm/internal.h
+> @@ -240,18 +240,15 @@ static inline int mmap_file(struct file
+>  {
+>  	int err = vfs_mmap(file, vma);
+>
+> +	if (likely(!err))
+> +		return 0;
+> +
+>  	/*
+> -	 * Either we tried to call the file hook for mmap() and an error arose
+> -	 * or a driver set vma->vm_ops = NULL intending there to be no VMA
+> -	 * operations.
+> -	 *
+> -	 * In the former case the VMA is in an inconsistent state and we mustn't
+> -	 * invoke any further hooks on it, in the latter case the hook actually
+> -	 * wanted no further hooks to be invoked, so fix both by setting dummy
+> -	 * VMA ops.
+> +	 * OK, we tried to call the file hook for mmap(), but an error
+> +	 * arose. The mapping is in an inconsistent state and we must not invoke
+> +	 * any further hooks on it.
+>  	 */
+> -	if (unlikely(err || !vma->vm_ops))
+> -		vma->vm_ops = &vma_dummy_vm_ops;
+> +	vma->vm_ops = &vma_dummy_vm_ops;
+>
+>  	return err;
+>  }
+> --- a/mm/vma.c~b
+> +++ a/mm/vma.c
+> @@ -2621,36 +2621,6 @@ static int __mmap_new_file_vma(struct mm
+>  	return 0;
+>  }
+>
+> -static bool map_is_dev_zero(const struct mmap_state *map)
+> -{
+> -	const struct file *file = map->file;
+> -	struct inode *inode;
+> -
+> -	if (!file)
+> -		return false;
+> -	inode = file_inode(file);
+> -	if (!S_ISCHR(inode->i_mode))
+> -		return false;
+> -	return imajor(inode) == MEM_MAJOR && iminor(inode) == DEVZERO_MINOR;
+> -}
+> -
+> -static void map_set_anon(struct mmap_state *map)
+> -{
+> -	map->file = NULL;
+> -	map->vm_ops = NULL;
+> -	map->pgoff = map->addr >> PAGE_SHIFT;
+> -}
+> -
+> -static bool map_is_private(const struct mmap_state *map)
+> -{
+> -	return !vma_flags_test(&map->vma_flags, VMA_SHARED_BIT);
+> -}
+> -
+> -static bool map_is_anon(const struct mmap_state *map)
+> -{
+> -	return map_is_private(map) && !map->file;
+> -}
+> -
+>  /*
+>   * __mmap_new_vma() - Allocate a new VMA for the region, as merging was not
+>   * possible.
+> @@ -2664,7 +2634,8 @@ static bool map_is_anon(const struct mma
+>  static int __mmap_new_vma(struct mmap_state *map, struct vm_area_struct **vmap,
+>  	struct mmap_action *action)
+>  {
+> -	const bool is_anon = map_is_anon(map);
+> +	const bool is_anon = !map->file &&
+> +		!vma_flags_test(&map->vma_flags, VMA_SHARED_BIT);
+>  	struct vma_iterator *vmi = map->vmi;
+>  	int error = 0;
+>  	struct vm_area_struct *vma;
+> @@ -2806,10 +2777,6 @@ static int call_mmap_prepare(struct mmap
+>  	if (err)
+>  		return err;
+>
+> -	/* Hooks cannot mark themselves anonymous. */
+> -	if (!desc->vm_ops)
+> -		return -EINVAL;
+> -
+>  	err = call_action_prepare(map, desc);
+>  	if (err)
+>  		return err;
+> @@ -2826,21 +2793,16 @@ static int call_mmap_prepare(struct mmap
+>  	map->vm_ops = desc->vm_ops;
+>  	map->vm_private_data = desc->private_data;
+>
+> -	/*
+> -	 * MAP_PRIVATE-/dev/zero mappings are an ancient way of getting
+> -	 * anonymous mappings. Rather than allowing these mappings to be odd
+> -	 * outliers, simply make them truly anonymous.
+> -	 */
+> -	if (map_is_private(map) && map_is_dev_zero(map))
+> -		map_set_anon(map);
+> -
+>  	return 0;
+>  }
+>
+>  static void set_vma_user_defined_fields(struct vm_area_struct *vma,
+>  		struct mmap_state *map)
+>  {
+> -	vma->vm_ops = map->vm_ops;
+> +	if (map->vm_ops)
+> +		vma->vm_ops = map->vm_ops;
+> +	else	/* Only /dev/zero should do this. */
+> +		vma_set_anonymous(vma);
+>  	vma->vm_private_data = map->vm_private_data;
+>  }
+>
+> @@ -2920,7 +2882,7 @@ static unsigned long __mmap_region(struc
+>  		allocated_new = true;
+>  	}
+>
+> -	if (have_mmap_prepare && !map_is_anon(&map))
+> +	if (have_mmap_prepare)
+>  		set_vma_user_defined_fields(vma, &map);
+>
+>  	__mmap_complete(&map, vma);
+> --- a/mm/vma.h~b
+> +++ a/mm/vma.h
+> @@ -267,6 +267,9 @@ static inline void assert_sane_pgoff(str
+>  	 */
+>  	if (!vma_is_anonymous(vma))
+>  		return;
+> +	/* MAP_PRIVATE-/dev/zero is anon, non-NULL vm_file, but has file pgoff. */
+> +	if (vma->vm_file)
+> +		return;
+>  	/* If faulted in, could have been remapped. */
+>  	if (vma->anon_vma)
+>  		return;
+> --- a/mm/vma_internal.h~b
+> +++ a/mm/vma_internal.h
+> @@ -23,7 +23,6 @@
+>  #include <linux/ksm.h>
+>  #include <linux/khugepaged.h>
+>  #include <linux/list.h>
+> -#include <linux/major.h>
+>  #include <linux/maple_tree.h>
+>  #include <linux/mempolicy.h>
+>  #include <linux/mm.h>
+> --- a/tools/testing/selftests/mm/merge.c~b
+> +++ a/tools/testing/selftests/mm/merge.c
+> @@ -1324,7 +1324,7 @@ TEST_F(merge, anon_and_page_offset_misma
+>  	ASSERT_NE(ptr, MAP_FAILED);
+>
+>  	/*
+> -	 * Map another separately and trigger a CoW fault, at page offset 5:
+> +	 * Map another separately and trigger a CoW fault at page offset 5:
+>  	 *
+>  	 * |-----------|           |---------|
+>  	 * | unfaulted |           | faulted |
+> @@ -1362,110 +1362,6 @@ TEST_F(merge, anon_and_page_offset_misma
+>  	ASSERT_EQ(procmap->query.vma_end, (unsigned long)ptr + 5 * page_size);
+>  }
+>
+> -TEST_F(merge, merge_map_private_dev_zero_unfaulted)
+> -{
+> -	struct procmap_fd *procmap = &self->procmap;
+> -	unsigned int page_size = self->page_size;
+> -	char *carveout = self->carveout;
+> -	char *ptr, *ptr2;
+> -	int fd_zero;
+> -
+> -	if (access("/dev/zero", F_OK))
+> -		SKIP(return, "No /dev/zero.");
+> -	fd_zero = open("/dev/zero", O_RDWR);
+> -	ASSERT_NE(fd_zero, -1);
+> -
+> -	/*
+> -	 * Map two MAP_PRIVATE-/dev/zero VMAs next to one another with offset 0
+> -	 * each.
+> -	 *
+> -	 * With these being made truly anonymous upon mapping, they will
+> -	 * merge. If they were file-backed VMAs the page offsets would prevent
+> -	 * merge:
+> -	 *
+> -	 * |-----||------|    |-------------|
+> -	 * | ptr || ptr2 | -> |     ptr     |
+> -	 * |-----||------|    |-------------|
+> -	 */
+> -	ptr = mmap(carveout, 5 * page_size, PROT_READ | PROT_WRITE,
+> -		   MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
+> -	if (ptr == MAP_FAILED) {
+> -		close(fd_zero);
+> -		ASSERT_TRUE(false);
+> -	}
+> -	ptr2 = mmap(&carveout[5 * page_size], 5 * page_size,
+> -		   PROT_READ | PROT_WRITE, MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
+> -	if (ptr2 == MAP_FAILED) {
+> -		close(fd_zero);
+> -		ASSERT_TRUE(false);
+> -	}
+> -	close(fd_zero);
+> -
+> -	/* Assert that they merged. */
+> -	ASSERT_TRUE(find_vma_procmap(procmap, ptr));
+> -	ASSERT_EQ(procmap->query.vma_start, (unsigned long)ptr);
+> -	ASSERT_EQ(procmap->query.vma_end, (unsigned long)ptr + 10 * page_size);
+> -}
+> -
+> -TEST_F(merge, merge_map_private_dev_zero_faulted_unfaulted)
+> -{
+> -	struct procmap_fd *procmap = &self->procmap;
+> -	unsigned int page_size = self->page_size;
+> -	char *carveout = self->carveout;
+> -	char *ptr, *ptr2;
+> -	int fd_zero;
+> -
+> -	if (access("/dev/zero", F_OK))
+> -		SKIP(return, "No /dev/zero.");
+> -	fd_zero = open("/dev/zero", O_RDWR);
+> -	ASSERT_NE(fd_zero, -1);
+> -
+> -	/*
+> -	 * Map a MAP_PRIVATE mapping of /dev/zero with page offset 0, then fault
+> -	 * it in:
+> -	 *
+> -	 * |-------------------------------|
+> -	 * |           faulted             |
+> -	 * |-------------------------------|
+> -	 */
+> -	ptr = mmap(carveout, 15 * page_size, PROT_READ | PROT_WRITE,
+> -		   MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
+> -	if (ptr == MAP_FAILED) {
+> -		close(fd_zero);
+> -		ASSERT_TRUE(false);
+> -	}
+> -	memset(ptr, 'x', 15 * page_size);
+> -
+> -	/*
+> -	 * Unmap the middle:
+> -	 *
+> -	 * |---------|           |---------|
+> -	 * | faulted |           | faulted |
+> -	 * |---------|           |---------|
+> -	 */
+> -	ASSERT_EQ(munmap(&ptr[5 * page_size], 5 * page_size), 0);
+> -
+> -	/*
+> -	 * Map in a new unfaulted mapping in the middle with page offset 0 -
+> -	 * this should merge and would not if it were treated as a file rather
+> -	 * than pure anon:
+> -	 *
+> -	 * |---------|-----------|---------|
+> -	 * | faulted | unfaulted | faulted |
+> -	 * |---------|-----------|---------|
+> -	 */
+> -	ptr2 = mmap(&carveout[5 * page_size], 5 * page_size,
+> -		    PROT_READ | PROT_WRITE, MAP_FIXED | MAP_PRIVATE,
+> -		    fd_zero, 0);
+> -	close(fd_zero);
+> -	ASSERT_NE(ptr2, MAP_FAILED);
+> -
+> -	/* Assert that they merged. */
+> -	ASSERT_TRUE(find_vma_procmap(procmap, ptr));
+> -	ASSERT_EQ(procmap->query.vma_start, (unsigned long)ptr);
+> -	ASSERT_EQ(procmap->query.vma_end, (unsigned long)ptr + 15 * page_size);
+> -}
+> -
+>  TEST_F(merge_with_fork, mremap_faulted_to_unfaulted_prev)
+>  {
+>  	struct procmap_fd *procmap = &self->procmap;
+> --- a/tools/testing/selftests/proc/proc-self-map-files-001.c~b
+> +++ a/tools/testing/selftests/proc/proc-self-map-files-001.c
+> @@ -51,7 +51,7 @@ int main(void)
+>  	int fd;
+>  	unsigned long a, b;
+>
+> -	fd = open("/proc/self/exe", O_RDONLY);
+> +	fd = open("/dev/zero", O_RDONLY);
+>  	if (fd == -1)
+>  		return 1;
+>
+> --- a/tools/testing/selftests/proc/proc-self-map-files-002.c~b
+> +++ a/tools/testing/selftests/proc/proc-self-map-files-002.c
+> @@ -57,7 +57,7 @@ int main(void)
+>  	int fd;
+>  	unsigned long a, b;
+>
+> -	fd = open("/proc/self/exe", O_RDONLY);
+> +	fd = open("/dev/zero", O_RDONLY);
+>  	if (fd == -1)
+>  		return 1;
+>
+> --- a/tools/testing/vma/include/dup.h~b
+> +++ a/tools/testing/vma/include/dup.h
+> @@ -15,21 +15,6 @@ struct task_struct *get_current(void);
+>  #define MMF_HAS_MDWE	28
+>  #define current get_current()
+>
+> -#define MINORBITS	20
+> -#define MINORMASK	((1U << MINORBITS) - 1)
+> -
+> -#define MAJOR(dev)	((unsigned int) ((dev) >> MINORBITS))
+> -#define MINOR(dev)	((unsigned int) ((dev) & MINORMASK))
+> -#define MKDEV(ma, mi)	(((ma) << MINORBITS) | (mi))
+> -
+> -#define S_IFMT  00170000
+> -#define S_IFCHR  0020000
+> -
+> -#define S_ISCHR(m)	(((m) & S_IFMT) == S_IFCHR)
+> -
+> -#define MEM_MAJOR		1
+> -#define DEVZERO_MINOR	5
+> -
+>  /*
+>   * Define the task command name length as enum, then it can be visible to
+>   * BPF programs.
+> @@ -38,8 +23,6 @@ enum {
+>  	TASK_COMM_LEN = 16,
+>  };
+>
+> -typedef unsigned short		umode_t;
+> -
+>  /* PARTIALLY implemented types. */
+>  struct mm_struct {
+>  	struct maple_tree mm_mt;
+> @@ -62,10 +45,6 @@ struct address_space {
+>  	unsigned long		flags;
+>  	atomic_t		i_mmap_writable;
+>  };
+> -struct inode {
+> -	umode_t			i_mode;
+> -	dev_t			i_rdev;
+> -};
+>  struct file_operations {
+>  	int (*mmap)(struct file *, struct vm_area_struct *);
+>  	int (*mmap_prepare)(struct vm_area_desc *);
+> @@ -73,7 +52,6 @@ struct file_operations {
+>  struct file {
+>  	struct address_space	*f_mapping;
+>  	const struct file_operations	*f_op;
+> -	struct inode			*f_inode;
+>  };
+>  struct anon_vma_chain {
+>  	struct anon_vma *anon_vma;
+> @@ -1660,23 +1638,9 @@ static inline pgoff_t linear_anon_page_i
+>  	const pgoff_t pgoff = __linear_anon_page_index(vma, address);
+>
+>  	VM_WARN_ON_ONCE(!vma_is_cow_mapping(vma));
+> -	if (vma_is_anonymous(vma))
+> +	/* Account for MAP_PRIVATE-/dev/zero which is only semi-anonymous. */
+> +	if (vma_is_anonymous(vma) && !vma->vm_file)
+>  		VM_WARN_ON_ONCE(pgoff != linear_page_index(vma, address));
+>
+>  	return pgoff;
+>  }
+> -
+> -static inline struct inode *file_inode(const struct file *f)
+> -{
+> -	return f->f_inode;
+> -}
+> -
+> -static inline unsigned iminor(const struct inode *inode)
+> -{
+> -	return MINOR(inode->i_rdev);
+> -}
+> -
+> -static inline unsigned imajor(const struct inode *inode)
+> -{
+> -	return MAJOR(inode->i_rdev);
+> -}
+> --- a/tools/testing/vma/tests/mmap.c~b
+> +++ a/tools/testing/vma/tests/mmap.c
+> @@ -45,57 +45,7 @@ static bool test_mmap_region_basic(void)
+>  	return true;
+>  }
+>
+> -static int dummy_mmap_prepare(struct vm_area_desc *desc)
+> -{
+> -	return 0;
+> -}
+> -
+> -static bool test_pure_anon_dev_zero(void)
+> -{
+> -	const vma_flags_t vma_flags = mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT,
+> -			VMA_MAYREAD_BIT, VMA_MAYWRITE_BIT);
+> -	const struct file_operations f_op = {
+> -		.mmap_prepare = dummy_mmap_prepare,
+> -	};
+> -	struct inode inode = {
+> -		.i_mode = S_IFCHR,
+> -		.i_rdev = MKDEV(MEM_MAJOR, DEVZERO_MINOR),
+> -	};
+> -	struct file file = {
+> -		.f_inode = &inode,
+> -		.f_op = &f_op,
+> -	};
+> -	struct mm_struct mm = {};
+> -	struct vm_area_struct *vma;
+> -	unsigned long addr;
+> -	VMA_ITERATOR(vmi, &mm, 0);
+> -
+> -	current->mm = &mm;
+> -
+> -	/*
+> -	 * Map a MAP_PRIVATE-/dev/zero mapping at address 0x300000 with a page
+> -	 * offset of 0x10, which we expect to be reset to the anonymous page
+> -	 * offset.
+> -	 */
+> -	addr = __mmap_region(&file, 0x300000, 0x3000, vma_flags, 0x10, NULL);
+> -	ASSERT_EQ(addr, 0x300000);
+> -
+> -	/* Assert that it truly is an anonymous mapping. */
+> -	vma = vma_lookup(&mm, addr);
+> -	ASSERT_NE(vma, NULL);
+> -	ASSERT_TRUE(vma_is_anonymous(vma));
+> -	ASSERT_EQ(vma->vm_file, NULL);
+> -	ASSERT_EQ(vma->vm_private_data, NULL);
+> -	/* Expect anonymous page offsets. */
+> -	ASSERT_EQ(vma->vm_pgoff, 0x300);
+> -	ASSERT_EQ(vma_start_anon_pgoff(vma), 0x300);
+> -
+> -	cleanup_mm(&mm, &vmi);
+> -	return true;
+> -}
+> -
+>  static void run_mmap_tests(int *num_tests, int *num_fail)
+>  {
+>  	TEST(mmap_region_basic);
+> -	TEST(pure_anon_dev_zero);
+>  }
+> _
+>
+
+--
+Cheers, Lorenzo
