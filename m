@@ -4,67 +4,68 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 41FCAC5DF76
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 21:03:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BDDAC5B572
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 21:03:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A70110F726;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 150D710F718;
 	Fri, 14 Aug 2026 21:03:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4BWnGs9W";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0o9Qin6j";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011019.outbound.protection.outlook.com [40.107.208.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E128B10F718
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 21:03:53 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011015.outbound.protection.outlook.com [52.101.57.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8905D10F71F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 21:03:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=p+zFh9exU2khP1OvdKVbNbdD7tR+U5B+0vgB28aWWnd2TvSFV/1jLTvI1ot0YwPwbTsSdQnM4h9YmI37fwh4mmgK/or317KidnXU9hYrkk6KYqjJVEEkH7QVS+nNy0fkrbTiFOFfHwwWBzBds1PB4cs3KzY9MKet6Co2+oFtrGhJACM211846+n2WKYdvGTvciOeYSIRy9St/pf1LSjVJ2Wq1vBiap2REibbT84+715/t2JKERPN6JqD4GoGtQILGrvv9RUG1enXz5wWvbkLnUAcoNTTY6cq7fhZvNMGirHP6hIlxUTL8r1q4//4+25ukurde/Y2DsrpE7B/orH76w==
+ b=trDKGGAe3a2eDBWMQxQsGY9knkD+GBWBWkq31gzwkop3nnwQFCagIWWkX8W2g+yuWuVCEXfzzRnpK+iuKEaMsIhWtAvfYhEeNJtuzYXyDw7cKqUA6/jkB9QUElpQSCjzm+vcGYYBH1evr7kjV0sXOjREgZfY/dd1Lk6qVVW2Dig7QLXHTgvVygnWoL1+crPQHbBtLFrj0DE6DdkmVAKT9oD9PfykCBrXOc6tHNjEZZMxN8RKWibZW7bdk/ZLXiA0/1hBumPfT9I3i3o/C39mRUfcciE6IiUDVHwzl02jj+0tGTjj1q3C8N0J8KlEk8XIa42D9z3JoDmSWOMFoXwdMA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mdrpaPXWAC4qobrG8LGsnKUzdmkC9sDkVrXPqYfwqm4=;
- b=Zg4qWQBl8GjOpjcHHxgqvCrdmam/RUsqc1kNbvHJJKGiAA3ZzGblT1n1Nm5CCDPAxNOumT9LV7ERmV8IYpHZgY1oDUizU9uzg/oTap0oE1CMssic4R7//UM49DdKYopRcMVki2Mc/hsBcLrwSVlna7STvDINxVWBECTkWMwjxVTL+PMG2Yt4JhAYTiHi8qeKcw2i1IbJ7YmomtQ5y5UNNtV46hxjPCQ6yQCxJSdEwwIA7S766viTyAB4F+bqdLfUeydu0xn+PBEjTNLBdz88pa+CwJKNwzi8A6EkkumAGV8sI/s6vwOSLYVU/BvX8ApcyuNGp3TYTC2B+lpKO8gnig==
+ bh=NAfTRebp6I7XRBbydy2GuJ+jI1P1cBp9IFK5hiT31aE=;
+ b=W/MPwmuVtocsbzWws9wTS3E6b4sZ1jmvUTMiRFU4bbJUml3+pny7nEiBqJpK+SuNdT/SRudGLbgpzXdibYi6qRBy+6bfkgyuyLgkgZVmDzlWm3kUWd0uBC+aczm0myKdlBk+/Qm8DxHTvZ8koedlg9a4pu2/60SSB9ib6/TK3Sr7dp1h3a6lmA/UfvE/3ZSVI4uKQ0vzBvSd0N3uWBqNOTwSh2lJmrkQz5eZYC0CFnsxgM6urG2JHXLZwaUCJQBf6IonPy2s6r4IKYm3tHvwypq9fQ5UqeluuNPY9C9jmOBmCe5sk8jl05OQSvP4rznExW4UQtKUTxu3m1rlaR0Jhw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mdrpaPXWAC4qobrG8LGsnKUzdmkC9sDkVrXPqYfwqm4=;
- b=4BWnGs9WGTSFBQ4RKHCcHX6Il+54hBiHeOougSMzyJrlhl5GSCfIJPL+WQMvbGex/2TYR9lKPynuXQflBfyEyEzkscxYJ+Yma5Y/k0dcFFnZh9Pcty+ZPrtzmHwzQFMxSlLbbgxUzL8FztfSpfGbb10UUWvvMrbeQDJlh0wIytg=
-Received: from DSZP220CA0002.NAMP220.PROD.OUTLOOK.COM (2603:10b6:5:280::6) by
- IA0PPF44635DB8D.namprd12.prod.outlook.com (2603:10b6:20f:fc04::bcc)
+ bh=NAfTRebp6I7XRBbydy2GuJ+jI1P1cBp9IFK5hiT31aE=;
+ b=0o9Qin6jqJEcpeRLmdXvgcx/I3piLCtKogRUpuSkRqaRp5DQy5fMF0qq75yV4d6q/se3lEs9Sjib6drK+RrFsSEqReXk5kNzzEgcFpWWurgV5eBelBWPYvPVQDa6CDgjBRjOizCP/Eokih2V4uJ1UZ1lw4fkVailgCZ3L3g1PMk=
+Received: from BN0PR10CA0009.namprd10.prod.outlook.com (2603:10b6:408:143::6)
+ by MW4PR12MB7214.namprd12.prod.outlook.com (2603:10b6:303:229::8)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Fri, 14 Aug
- 2026 21:03:48 +0000
-Received: from CH3PEPF00000015.namprd21.prod.outlook.com
- (2603:10b6:5:280:cafe::3f) by DSZP220CA0002.outlook.office365.com
- (2603:10b6:5:280::6) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.16 via Frontend Transport; Fri,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Fri, 14 Aug
+ 2026 21:03:49 +0000
+Received: from BN2PEPF0000449F.namprd02.prod.outlook.com
+ (2603:10b6:408:143:cafe::83) by BN0PR10CA0009.outlook.office365.com
+ (2603:10b6:408:143::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.15 via Frontend Transport; Fri,
  14 Aug 2026 21:03:48 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF00000015.mail.protection.outlook.com (10.167.244.120) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN2PEPF0000449F.mail.protection.outlook.com (10.167.243.150) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.0 via Frontend Transport; Fri, 14 Aug 2026 21:03:48 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 21:03:48 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 16:03:43 -0500
+ 2026 16:03:44 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 14 Aug 2026 16:03:42 -0500
+ Transport; Fri, 14 Aug 2026 16:03:44 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Xiang Liu <xiang.liu@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- "Alex Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH 075/109] drm/amd/ras: add rascore BERT record walker
-Date: Fri, 14 Aug 2026 17:02:12 -0400
-Message-ID: <20260814210246.3067612-76-alexander.deucher@amd.com>
+CC: YiPeng Chai <YiPeng.Chai@amd.com>, Tao Zhou <tao.zhou1@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+Subject: [PATCH 078/109] drm/amdgpu/ras: use flip-bit mask to generalize bad
+ page address derivation
+Date: Fri, 14 Aug 2026 17:02:15 -0400
+Message-ID: <20260814210246.3067612-79-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260814210246.3067612-1-alexander.deucher@amd.com>
 References: <20260814210246.3067612-1-alexander.deucher@amd.com>
@@ -73,29 +74,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000015:EE_|IA0PPF44635DB8D:EE_
-X-MS-Office365-Filtering-Correlation-Id: 99dca2e2-943e-4500-8b4c-08defa478926
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449F:EE_|MW4PR12MB7214:EE_
+X-MS-Office365-Filtering-Correlation-Id: 666f8b0a-98b9-421d-c23c-08defa478951
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|10067099003|11063799006|56012099006|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info: rG+SkVLfNt8EFC6J1jmWdj7OgWmfuQqIZn4dLDgTGw/FDqpYY59JOAFszNNgqRlizmAp4SHhmWpKCzcq3D6BBsjpJyy1aVW+5d9XjOcAPnZop0Y0WfxGMkQaD9l/4hBkTZk025E4Nryj5f8hJCrs6Xgl4IfppmCclLrmVHRLUymBZEoXK7FxQlt9lbITJe4J+cFZWjpGfiHVhDJlK1O06h4cFn5jpsk9PK7s1sP8sKY0VnD2V+bq3UuubKBd5tIjmFij0Eivu9U/amErMF5L/tDTRdeUU81QRao3qJSSL8W3r8BLgfZORn6w78tt1JKDUe22uVRSXQTZv03VlpCSstu5N1q4hQiokrTQdAWyy7RvJ2sTiio++iOWjISwGd9n7RJlbSTt/X7zHTgmAQnodi5z0fEfnpiQ3AOw3EtHCxCBRHoNmOfil/vNFAM/5VvK3X6KIejmqsLlXgxepAbEne3OCK/lrgFbiJQBBTvnyv2ANGgnkE9bKzeMlNAU+KtENo1+f7V9uJZ2brulHTb3CnkJctXQJVScXnviItwZcOSFE6aEQSUXz8HmkfmU7H/AGlsgn3Xw2yIf7nRalbhWuGC/VVEGkeXBQEpY3xjELGtEf39ep8Lo6oN/79fBBT4HuIfcLSYjv3F5jndzsGSNljk/MqsEEpyF2BHvG71h/NQ=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003)(3023799007);
+ ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|6133799003|10067099003|11063799006|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: NQ//EmlQDvLuFdg7eD3+I/xkvHyBnlpSXsNwisJyHbh31wrBzfPMlVcH9dxMSnIrnXxz7zqH5nFP538rGIXeCFbAWwfG+IR8r4Y+5za60qwm2zGuItg5iPwu7vNXwjzQRNrPG6kWJr0hG1tP1gHTu4qBrjWhx8uhhgYuj0VZYXZ1AiLVhdrxWQ2EVIjMGjNsd7Qn9XQ7pGCAzcEIXSeo8JkovGpEvKMgbnZmNg61mr3cAxyGSwhs4nmgWqmL4NavqLwa+vjLiC79PfPJq9arDLW+Yjfk40cww3fde1N3DumL6EZXXqAEzG5nuf5dQwnXuHd5LUcjvdGlR5HAK/DoNB0vvKk9EzP3I1pjO1P1azxhocHn0Cuyj/KZi42fFmJCERdBgC40lZwU67aXKwm2r103VQKzAxwRyGedKO+8Ae9JJ2Tlmo0PL+1kCS17urLKPpgK3F/LIzCRrXWQFP+xUKo9CPJn0B2eejSJ6TQ2d7bpCbI9QPQNS/8638FxYRsvUNKmWMdL0fuVLd0cv7ammVAyYtPxlMJKYo+BkJiiydgr/E3DkxcrNfr7/bjvVZWy4lm+uwSgat1olvYbKJM7SVDmu/rc7cEesMwfv9Hm+3/Bpb9ue3phDcclcq/yaM1M6KysYLq3hZpCVjYMAVqijVBAHrp6vVPVX8YKoew0AUxrOEk3NMivozk4dGVnD0vPEjMKAfUgD27q/iWjtMlrWA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(6133799003)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: XFM/AgShkJn75SSSnW7N3xDlk5kA3QFMPLOAW5u4cZUulqCe+R93alF9qbLGhMwNe6oSV+yIoa/Vy14r6CUKvNs4F2Yd2y4iNKDihmItjWq2Fqp/EKplm75XrCCZoql/AT/U5BloGrbXPYaJX8fI5CvCEe+bvldFRV9dtwNtlBehw+PLxtM3i/EPzs85d1K3gn3bHEQXmOQ3hEzgk18imJJ1BdVUq2M9OI9tc/HqgpNfDL3s58Jq0jJurgHFbCMyWGaybelRKdEAPZNvnivcwnFPlWWmsHJDiw5opT2F2EMLVZg882y3h3Jpvq2aj89Jf4+Qa+IqOv9wSgK4JYjX9VnSzt1IaU5hmng1zwMvFFAR74z5bMEKf58FE6zsuoondelVvQeAcViD6foHibUERcog2KhsdQrMHfBtb05Tf9Do54EOQWxhsH0huVk6ic+A
+X-MS-Exchange-AntiSpam-MessageData-0: naR/XvthgLlLycfPsom6VGiqgFpcAyyuSH8n5vXtj14hyI3jplppLYjAygpnXiR0oRsTREKTnP9hgrR8yccvS3AT/uJZm88dWTLNhotVDfcXL1vF1t16GD2Dcb9wjWEKNQTfcxZQavg1Cg4czBllHALVmhMxmPE3XYmf9rKcfCj7zNO1i2uBZEdANOhle3QnpARame6sHu5A9oa3KxCirSIkVta/SkoEXVNf2RnfIxg/ANc4Pu9bUazpvx+8w4gafp1cWFft6IX7aK2N+M2j1zcMD6DUP4lJXOjdbUKquTWDu9HA8DhqCdoAMU4C718uniyQvePp+mpScz8mJYQmwq4+OxGAy9rill79hsQ78AgfS6FzZyGi0CFYd1DMVNP+PoKrGRYHBwy55ib6b0Iyly0ky8Hljor2txHydRUz36OQxm6Pg8JOIm0mEGT6ayCS
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 21:03:48.3497 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 99dca2e2-943e-4500-8b4c-08defa478926
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 21:03:48.6223 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 666f8b0a-98b9-421d-c23c-08defa478951
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000015.namprd21.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000449F.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF44635DB8D
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7214
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,151 +111,449 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Xiang Liu <xiang.liu@amd.com>
+From: YiPeng Chai <YiPeng.Chai@amd.com>
 
-Add a rascore BERT record walker that validates cached BERT generic
-status blocks and iterates their CPER section descriptors.
+Use flip-bit mask to generalize bad page address derivation in a row.
 
-The generic APEI BERT path may have already consumed the boot error
-region and cleared block_status before AMDGPU caches the payload, so do
-not use block_status to decide whether cached records should be parsed.
-
-Section-specific parsers can be added separately on top of this walker.
-
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/ras/core/Makefile     |  1 +
- drivers/gpu/drm/amd/ras/core/ras.h        |  3 +
- drivers/gpu/drm/amd/ras/core/ras_bert.c   | 78 +++++++++++++++++++++++
- drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h |  4 ++
- 4 files changed, 86 insertions(+)
- create mode 100644 drivers/gpu/drm/amd/ras/core/ras_bert.c
+ drivers/gpu/drm/amd/ras/core/eeprom.h        |   1 +
+ drivers/gpu/drm/amd/ras/core/ras_umc.c       |  77 +++++++++++--
+ drivers/gpu/drm/amd/ras/core/ras_umc.h       |   3 -
+ drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c | 110 ++++++++++++++++---
+ drivers/gpu/drm/amd/ras/core/ras_umc_v15_0.c |  49 ++++-----
+ 5 files changed, 181 insertions(+), 59 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/ras/core/Makefile b/drivers/gpu/drm/amd/ras/core/Makefile
-index def5fbb2a49e6..b2872affbf719 100644
---- a/drivers/gpu/drm/amd/ras/core/Makefile
-+++ b/drivers/gpu/drm/amd/ras/core/Makefile
-@@ -38,6 +38,7 @@ RAS_CORE_FILES = core.o \
- 			ras_nbio.o \
- 			ras_nbio_v7_9.o \
- 			log_ring.o \
-+			ras_bert.o \
- 			ras_cper.o \
- 			ras_psp.o \
- 			ras_psp_v13_0.o \
-diff --git a/drivers/gpu/drm/amd/ras/core/ras.h b/drivers/gpu/drm/amd/ras/core/ras.h
-index 9c830b803e834..168766d449ce7 100644
---- a/drivers/gpu/drm/amd/ras/core/ras.h
-+++ b/drivers/gpu/drm/amd/ras/core/ras.h
-@@ -475,4 +475,7 @@ bool ras_core_poison_supported(struct ras_core_context *ras_core);
- bool ras_core_in_early_init(struct ras_core_context *ras_core);
- bool ras_core_early_init_service_enabled(struct ras_core_context *ras_core);
- int ras_core_eeprom_early_init_service(struct ras_core_context *ras_core);
-+#if defined(CONFIG_X86_MCE_AMD) && defined(CONFIG_ACPI_APEI)
-+int ras_bert_process_records(struct ras_core_context *ras_core, const void *bert, u32 bert_len);
-+#endif
- #endif
-diff --git a/drivers/gpu/drm/amd/ras/core/ras_bert.c b/drivers/gpu/drm/amd/ras/core/ras_bert.c
-new file mode 100644
-index 0000000000000..5d11b7d0d0c08
---- /dev/null
-+++ b/drivers/gpu/drm/amd/ras/core/ras_bert.c
-@@ -0,0 +1,78 @@
-+// SPDX-License-Identifier: MIT
-+/*
-+ * Copyright 2026 Advanced Micro Devices, Inc.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining a
-+ * copy of this software and associated documentation files (the "Software"),
-+ * to deal in the Software without restriction, including without limitation
-+ * the rights to use, copy, modify, merge, publish, sublicense,
-+ * and/or sell copies of the Software, and to permit persons to whom the
-+ * Software is furnished to do so, subject to the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be included in
-+ * all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
-+ * THE COPYRIGHT HOLDER(S) OR AUTHOR(S) BE LIABLE FOR ANY CLAIM, DAMAGES OR
-+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
-+ * ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-+ * OTHER DEALINGS IN THE SOFTWARE.
-+ *
-+ */
-+
-+#include "ras.h"
-+
-+#if defined(CONFIG_X86_MCE_AMD) && defined(CONFIG_ACPI_APEI)
-+int ras_bert_process_records(struct ras_core_context *ras_core,
-+			     const void *bert, u32 bert_len)
+diff --git a/drivers/gpu/drm/amd/ras/core/eeprom.h b/drivers/gpu/drm/amd/ras/core/eeprom.h
+index ae22bb3f83187..bf721c2a11f1e 100644
+--- a/drivers/gpu/drm/amd/ras/core/eeprom.h
++++ b/drivers/gpu/drm/amd/ras/core/eeprom.h
+@@ -167,6 +167,7 @@ struct eeprom_umc_record {
+ 	 * used with cur_nps_retired_row_pfn to derive all bad page addresses
+ 	 */
+ 	uint64_t cur_nps_pa_flip_mask;
++	uint32_t cur_nps_valid_page_num;
+ 	uint32_t cur_nps_bank;
+ 	uint32_t cur_nps;
+ 	uint64_t ipid;
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_umc.c b/drivers/gpu/drm/amd/ras/core/ras_umc.c
+index cef5770a75a60..c30d11942a72b 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_umc.c
++++ b/drivers/gpu/drm/amd/ras/core/ras_umc.c
+@@ -177,19 +177,61 @@ int ras_umc_clear_logged_ecc(struct ras_core_context *ras_core)
+ 	return 0;
+ }
+ 
++static int ras_umc_expand_row_pages(struct ras_core_context *ras_core,
++	struct eeprom_umc_record *record, uint64_t *page_pfns, uint32_t nr_page_pfns)
 +{
-+	struct acpi_hest_generic_status *estatus;
-+	struct acpi_hest_generic_data *gdata;
-+	u32 estatus_len;
-+	int remain;
++	uint64_t retired_addr = RAS_PFN_TO_ADDR(record->cur_nps_retired_row_pfn);
++	uint64_t flip_mask = record->cur_nps_pa_flip_mask;
++	uint64_t subset;
++	uint64_t row_pa, addr;
++	uint32_t count = 0;
 +
-+	if (!ras_core || !bert || bert_len < sizeof(struct acpi_hest_generic_status))
-+		return -EINVAL;
++	if (!retired_addr || !flip_mask || !page_pfns || !nr_page_pfns)
++		return -ENOEXEC;
 +
-+	estatus = (struct acpi_hest_generic_status *)bert;
-+	remain = bert_len;
++	row_pa = retired_addr & ~(flip_mask);
 +
-+	while (remain >= sizeof(struct acpi_hest_generic_status)) {
-+		estatus_len = estatus->raw_data_length ?
-+			      estatus->raw_data_offset + estatus->raw_data_length :
-+			      sizeof(*estatus) + estatus->data_length;
-+		if (remain < estatus_len) {
-+			RAS_DEV_ERR(ras_core->dev, "truncated status block (length: %u).\n",
-+				    estatus_len);
-+			return -EINVAL;
-+		}
-+		if (!estatus_len)
-+			return -EINVAL;
++	if (count < nr_page_pfns)
++		page_pfns[count++] = RAS_ADDR_TO_PFN(row_pa);
 +
-+		/*
-+		 * The generic APEI BERT path may have already consumed the boot
-+		 * error region and cleared block_status. AMDGPU still needs to
-+		 * parse the cached BERT payload, so do not use block_status to
-+		 * decide whether this status block contains records.
-+		 */
-+		if (cper_estatus_check(estatus)) {
-+			RAS_DEV_ERR(ras_core->dev, "invalid error record.\n");
-+			return -EINVAL;
-+		}
++	subset = flip_mask;
++	while (subset) {
++		addr = row_pa ^ subset;
 +
-+		gdata = (struct acpi_hest_generic_data *)(estatus + 1);
-+		while ((void *)gdata - (void *)(estatus + 1) < estatus->data_length) {
-+			RAS_DEV_INFO(ras_core->dev, "unknown section: %pUl\n",
-+				     gdata->section_type);
++		if (count >= nr_page_pfns)
++			break;
 +
-+			gdata = acpi_hest_get_next(gdata);
-+		}
-+		estatus = (struct acpi_hest_generic_status *)((u8 *)estatus + estatus_len);
-+		remain -= estatus_len;
++		page_pfns[count++] = RAS_ADDR_TO_PFN(addr);
++
++		subset = (subset - 1) & flip_mask;
++	};
++
++	return count;
++}
++
+ int ras_umc_convert_record_to_nps_pages(struct ras_core_context *ras_core,
+ 		struct eeprom_umc_record *record, uint32_t nps,
+-		uint64_t *page_pfn, uint32_t max_pages)
++		uint64_t *page_pfns, uint32_t nr_page_pfns)
+ {
+-	int count = 0;
+-	struct ras_umc *ras_umc = &ras_core->ras_umc;
++	uint32_t new_nps;
++	int ret, count = 0;
+ 
+-	if (!page_pfn || !max_pages)
++	if (!page_pfns || !nr_page_pfns || !record ||
++	    (record->cur_nps > UMC_MEMORY_PARTITION_MODE_NPS8))
+ 		return -EINVAL;
+ 
+-	if (ras_umc->ip_func && ras_umc->ip_func->eeprom_record_to_nps_pages)
+-		count = ras_umc->ip_func->eeprom_record_to_nps_pages(ras_core,
+-					record, nps, page_pfn, max_pages);
++	if (!record->cur_nps || !record->cur_nps_retired_row_pfn ||
++	    !record->cur_nps_pa_flip_mask) {
++		new_nps = record->cur_nps ?
++			record->cur_nps : ras_core_get_curr_nps_mode(ras_core);
++		ret = ras_umc_record_to_nps_record(ras_core, record, new_nps);
++		if (ret)
++			return ret;
 +	}
++
++	count = ras_umc_expand_row_pages(ras_core, record, page_pfns, nr_page_pfns);
++	if (count > 0)
++		record->cur_nps_valid_page_num = count;
+ 
+ 	return count;
+ }
+@@ -496,7 +538,7 @@ static bool ras_umc_check_retired_record(struct ras_core_context *ras_core,
+ 	int ret;
+ 
+ 	nps = ras_core_get_curr_nps_mode(ras_core);
+-	ret = ras_umc_eeprom_rec2nps_rec(ras_core, record, nps);
++	ret = ras_umc_record_to_nps_record(ras_core, record, nps);
+ 	if (ret) {
+ 		RAS_DEV_ERR(ras_core->dev, "Failed to translate nps record! ret:%d\n", ret);
+ 		return true;
+@@ -993,11 +1035,28 @@ int ras_umc_bank_to_umc_record(struct ras_core_context *ras_core,
+ int ras_umc_record_to_nps_record(struct ras_core_context *ras_core,
+ 		struct eeprom_umc_record *record,  uint32_t nps)
+ {
++	struct ras_umc *ras_umc = &ras_core->ras_umc;
++	uint64_t ch_idx_v2;
++	uint32_t save_nps;
++
+ 	if (!record || !nps ||
+ 		(nps >= UMC_MEMORY_PARTITION_MODE_UNKNOWN))
+ 		return -EINVAL;
+ 
+-	return ras_umc_eeprom_rec2nps_rec(ras_core, record, nps);
++	/* Avoid redundant conversion for the same NPS mode */
++	if ((record->cur_nps == nps) && record->cur_nps_retired_row_pfn &&
++	    record->cur_nps_pa_flip_mask)
++		return 0;
++
++	save_nps = EEPROM_RECORD_UMC_NPS_MODE(record);
++	ch_idx_v2 = record->retired_row_pfn & UMC_CHANNEL_IDX_V2;
++	if (!save_nps && !ch_idx_v2)
++		return ras_umc_eeprom_rec2nps_rec(ras_core, record, nps);
++
++	if (!ras_umc->ip_func || !ras_umc->ip_func->eeprom_record_to_nps_record)
++		return -EOPNOTSUPP;
++
++	return ras_umc->ip_func->eeprom_record_to_nps_record(ras_core, record, nps);
+ }
+ 
+ int ras_umc_dump_fw_records(struct ras_core_context *ras_core)
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_umc.h b/drivers/gpu/drm/amd/ras/core/ras_umc.h
+index a64b5106d0051..b52480ba886b8 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_umc.h
++++ b/drivers/gpu/drm/amd/ras/core/ras_umc.h
+@@ -128,9 +128,6 @@ struct umc_bank_addr {
+ struct ras_umc_ip_func {
+ 	int (*bank_to_eeprom_record)(struct ras_core_context *ras_core,
+ 			struct ras_bank_ecc *bank, struct eeprom_umc_record *record);
+-	int (*eeprom_record_to_nps_pages)(struct ras_core_context *ras_core,
+-			struct eeprom_umc_record *record, uint32_t nps,
+-			uint64_t *pfns, uint32_t num);
+ 	int (*eeprom_record_to_nps_record)(struct ras_core_context *ras_core,
+ 			struct eeprom_umc_record *record, uint32_t nps);
+ 	int (*bank_to_soc_pa)(struct ras_core_context *ras_core,
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c b/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c
+index 438270adcfcbb..37fa24acddd02 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c
++++ b/drivers/gpu/drm/amd/ras/core/ras_umc_v12_0.c
+@@ -148,21 +148,31 @@ static void __get_nps_pa_flip_bits(struct ras_core_context *ras_core,
+ 	}
+ }
+ 
+-static uint64_t umc_v12_0_nps_pa_to_row_pa(struct ras_core_context *ras_core,
+-		uint64_t pa, enum umc_memory_partition_mode nps, bool zero_pfn_ok)
++static uint64_t __get_nps_pa_flip_mask(struct ras_core_context *ras_core,
++		enum umc_memory_partition_mode nps)
+ {
+ 	struct umc_flip_bits flip_bits = {0};
+-	uint64_t row_pa;
++	uint64_t flip_mask = 0;
+ 	int i;
+ 
+ 	__get_nps_pa_flip_bits(ras_core, nps, &flip_bits);
+ 
+-	row_pa = pa;
+-	/* clear loop bits in soc physical address */
+ 	for (i = 0; i < flip_bits.bit_num; i++)
+-		row_pa &= ~BIT_ULL(flip_bits.flip_bits_in_pa[i]);
++		flip_mask |= BIT_ULL(flip_bits.flip_bits_in_pa[i]);
++
++	return flip_mask;
++}
++
++static uint64_t umc_v12_0_nps_pa_to_row_pa(struct ras_core_context *ras_core,
++		uint64_t pa, enum umc_memory_partition_mode nps, bool zero_pfn_ok)
++{
++	struct umc_flip_bits flip_bits = {0};
++	uint64_t row_pa;
+ 
+-	if (!zero_pfn_ok && !RAS_ADDR_TO_PFN(row_pa))
++	__get_nps_pa_flip_bits(ras_core, nps, &flip_bits);
++	row_pa = pa & ~__get_nps_pa_flip_mask(ras_core, nps);
++
++	if (!zero_pfn_ok && !RAS_ADDR_TO_PFN(row_pa) && flip_bits.bit_num > 2)
+ 		row_pa |= BIT_ULL(flip_bits.flip_bits_in_pa[2]);
+ 
+ 	return row_pa;
+@@ -176,13 +186,15 @@ static int lookup_bad_pages_in_a_row(struct ras_core_context *ras_core,
+ 	uint32_t col, col_lower, row, row_lower, idx, row_high;
+ 	uint64_t soc_pa, row_pa, column, err_addr;
+ 	uint64_t retired_addr = RAS_PFN_TO_ADDR(record->cur_nps_retired_row_pfn);
++	uint64_t flip_mask = 0;
+ 	struct umc_flip_bits flip_bits = {0};
+ 	uint32_t retire_unit;
+ 	uint32_t i;
+ 
+ 	__get_nps_pa_flip_bits(ras_core, nps, &flip_bits);
+ 
+-	row_pa = umc_v12_0_nps_pa_to_row_pa(ras_core, retired_addr, nps, true);
++	flip_mask = __get_nps_pa_flip_mask(ras_core, nps);
++	row_pa = retired_addr & ~(flip_mask);
+ 
+ 	err_addr = record->address;
+ 	/* get column bit 0 and 1 in mca address */
+@@ -348,7 +360,24 @@ static int umc_v12_0_ma2pa(struct ras_core_context *ras_core,
+ 
+ 	return 0;
+ }
++static int convert_ma_to_pa(struct ras_core_context *ras_core,
++			struct umc_mca_addr *addr_in, struct umc_phy_addr *addr_out,
++			uint32_t nps)
++{
++	int ret;
+ 
++	if (ras_psp_check_supported_cmd(ras_core, RAS_TA_CMD_ID__QUERY_ADDRESS))
++		ret = ras_umc_ras_ta_translate_addr(ras_core,
++				addr_in, addr_out, nps);
++	else
++		ret = umc_v12_0_ma2pa(ras_core,
++				addr_in, addr_out, nps);
++
++	if (!addr_out->pa_flip_mask)
++		addr_out->pa_flip_mask = __get_nps_pa_flip_mask(ras_core, nps);
++
++	return ret;
++}
+ static int convert_bank_to_nps_addr(struct ras_core_context *ras_core,
+ 			struct ras_bank_ecc *bank, struct umc_phy_addr *pa_addr, uint32_t nps)
+ {
+@@ -365,10 +394,10 @@ static int convert_bank_to_nps_addr(struct ras_core_context *ras_core,
+ 	addr_in.node_inst = ACA_IPID_2_DIE_ID(bank->ipid);
+ 	addr_in.socket_id = ACA_IPID_2_SOCKET_ID(bank->ipid);
+ 
+-	ret = ras_umc_ma2pa(ras_core, &addr_in, &addr_out, nps);
++	ret = convert_ma_to_pa(ras_core, &addr_in, &addr_out, nps);
+ 	if (!ret) {
+-		pa_addr->pa =
+-			umc_v12_0_nps_pa_to_row_pa(ras_core, addr_out.pa, nps, false);
++		pa_addr->pa_flip_mask = addr_out.pa_flip_mask;
++		pa_addr->pa = addr_out.pa | pa_addr->pa_flip_mask;
+ 		pa_addr->channel_idx = addr_out.channel_idx;
+ 		pa_addr->bank = addr_out.bank;
+ 	}
+@@ -408,12 +437,59 @@ static int umc_v12_0_bank_to_eeprom_record(struct ras_core_context *ras_core,
+ 	return 0;
+ }
+ 
+-static int umc_v12_0_eeprom_record_to_nps_pages(struct ras_core_context *ras_core,
+-			struct eeprom_umc_record *record, uint32_t nps,
+-			uint64_t *pfns, uint32_t num)
++static int convert_eeprom_record_to_nps_addr(struct ras_core_context *ras_core,
++	struct eeprom_umc_record *record, uint64_t *pa, uint64_t *pa_flip_mask, uint32_t nps)
+ {
+-	return lookup_bad_pages_in_a_row(ras_core,
+-				record, nps, pfns, num, 0, false);
++	struct device_system_info dev_info = {0};
++	struct umc_mca_addr addr_in;
++	struct umc_phy_addr addr_out;
++	int ret;
++
++	memset(&addr_in, 0, sizeof(addr_in));
++	memset(&addr_out, 0, sizeof(addr_out));
++
++	ras_core_get_device_system_info(ras_core, &dev_info);
++
++	addr_in.err_addr = record->address;
++	addr_in.ch_inst = record->mem_channel;
++	addr_in.umc_inst = record->mcumc_id;
++	addr_in.node_inst = UMC_INV_AID_NODE;
++	addr_in.socket_id = dev_info.socket_id;
++
++	ret = convert_ma_to_pa(ras_core, &addr_in, &addr_out, nps);
++	if (ret)
++		return ret;
++
++	*pa_flip_mask = addr_out.pa_flip_mask;
++	*pa = addr_out.pa | addr_out.pa_flip_mask;
 +
 +	return 0;
 +}
-+#endif
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h b/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h
-index 2775c7bf41b7e..351864a1dd40d 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h
-@@ -28,6 +28,10 @@
- #include <linux/printk.h>
- #include <linux/dev_printk.h>
- #include <linux/mempool.h>
-+#if defined(CONFIG_X86_MCE_AMD) && defined(CONFIG_ACPI_APEI)
-+#include <linux/cper.h>
-+#include <acpi/ghes.h>
-+#endif
- #include "amdgpu.h"
++
++static int umc_v12_0_eeprom_record_to_nps_record(struct ras_core_context *ras_core,
++				struct eeprom_umc_record *record, uint32_t nps)
++{
++	uint64_t pa = 0, flip_mask = 0;
++	uint64_t row_pfn;
++	int ret = 0;
++
++	if (nps == EEPROM_RECORD_UMC_NPS_MODE(record)) {
++		record->cur_nps_pa_flip_mask = __get_nps_pa_flip_mask(ras_core, nps);
++		row_pfn = EEPROM_RECORD_UMC_ADDR_PFN(record);
++		record->cur_nps_retired_row_pfn =
++			RAS_ADDR_TO_PFN(RAS_PFN_TO_ADDR(row_pfn) | record->cur_nps_pa_flip_mask);
++	} else {
++		ret = convert_eeprom_record_to_nps_addr(ras_core,
++				record, &pa, &flip_mask, nps);
++		if (!ret) {
++			record->cur_nps_retired_row_pfn = RAS_ADDR_TO_PFN(pa);
++			record->cur_nps_pa_flip_mask = flip_mask;
++		}
++	}
++
++	record->cur_nps = nps;
++
++	return ret;
+ }
  
- /* inject address is 52 bits */
+ static int umc_12_0_soc_pa_to_bank(struct ras_core_context *ras_core,
+@@ -527,7 +603,7 @@ static uint32_t umc_v12_0_get_die_id(uint64_t mca_addr, uint64_t pa)
+ 
+ const struct ras_umc_ip_func ras_umc_func_v12_0 = {
+ 	.bank_to_eeprom_record = umc_v12_0_bank_to_eeprom_record,
+-	.eeprom_record_to_nps_pages = umc_v12_0_eeprom_record_to_nps_pages,
++	.eeprom_record_to_nps_record = umc_v12_0_eeprom_record_to_nps_record,
+ 	.bank_to_soc_pa = umc_12_0_bank_to_soc_pa,
+ 	.soc_pa_to_bank = umc_12_0_soc_pa_to_bank,
+ 	.mca_ipid_parse = umc_v12_0_mca_ipid_parse,
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_umc_v15_0.c b/drivers/gpu/drm/amd/ras/core/ras_umc_v15_0.c
+index 39e95a5515f83..8f3bba2621f89 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_umc_v15_0.c
++++ b/drivers/gpu/drm/amd/ras/core/ras_umc_v15_0.c
+@@ -33,27 +33,19 @@ static void __get_nps_pa_flip_bits(struct ras_core_context *ras_core,
+ 
+ }
+ 
+-static uint64_t  convert_nps_pa_to_row_pa(struct ras_core_context *ras_core,
+-	struct umc_phy_addr *pa, enum umc_memory_partition_mode nps, bool zero_pfn_ok)
++static uint64_t  __get_nps_pa_flip_mask(struct ras_core_context *ras_core,
++		enum umc_memory_partition_mode nps)
+ {
+ 	struct umc_flip_bits flip_bits = {0};
+-	uint64_t row_pa;
++	uint64_t flip_mask = 0;
+ 	int i;
+ 
+-	if (pa->pa_flip_mask)
+-		return zero_pfn_ok ? (pa->pa & ~pa->pa_flip_mask) : pa->pa;
+-
+ 	__get_nps_pa_flip_bits(ras_core, nps, &flip_bits);
+ 
+-	row_pa = pa->pa;
+-	/* clear loop bits in soc physical address */
+ 	for (i = 0; i < flip_bits.bit_num; i++)
+-		row_pa &= ~BIT_ULL(flip_bits.flip_bits_in_pa[i]);
+-
+-	if (!zero_pfn_ok && !RAS_ADDR_TO_PFN(row_pa))
+-		row_pa |= BIT_ULL(flip_bits.flip_bits_in_pa[2]);
++		flip_mask |= BIT_ULL(flip_bits.flip_bits_in_pa[i]);
+ 
+-	return row_pa;
++	return flip_mask;
+ }
+ 
+ static int lookup_bad_pages_in_a_row(struct ras_core_context *ras_core,
+@@ -113,9 +105,8 @@ static int convert_bank_to_nps_addr(struct ras_core_context *ras_core,
+ 
+ 	ret = convert_ma_to_pa(ras_core, &addr_in, &addr_out, nps);
+ 	if (!ret) {
+-		pa_addr->pa =
+-			convert_nps_pa_to_row_pa(ras_core, &addr_out, nps, false);
+ 		pa_addr->pa_flip_mask = addr_out.pa_flip_mask;
++		pa_addr->pa = addr_out.pa | pa_addr->pa_flip_mask;
+ 		pa_addr->channel_idx = addr_out.channel_idx;
+ 		pa_addr->bank = addr_out.bank;
+ 	}
+@@ -153,7 +144,7 @@ static int umc_v15_0_bank_to_eeprom_record(struct ras_core_context *ras_core,
+ }
+ 
+ static int convert_eeprom_record_to_nps_addr(struct ras_core_context *ras_core,
+-			struct eeprom_umc_record *record, uint64_t *pa, uint32_t nps)
++	struct eeprom_umc_record *record, uint64_t *pa, uint64_t *pa_flip_mask, uint32_t nps)
+ {
+ 	struct device_system_info dev_info = {0};
+ 	struct umc_mca_addr addr_in;
+@@ -175,7 +166,8 @@ static int convert_eeprom_record_to_nps_addr(struct ras_core_context *ras_core,
+ 	if (ret)
+ 		return ret;
+ 
+-	*pa = convert_nps_pa_to_row_pa(ras_core, &addr_out, nps, false);
++	*pa_flip_mask = addr_out.pa_flip_mask;
++	*pa = addr_out.pa | addr_out.pa_flip_mask;
+ 
+ 	return 0;
+ }
+@@ -183,16 +175,22 @@ static int convert_eeprom_record_to_nps_addr(struct ras_core_context *ras_core,
+ static int umc_v15_0_eeprom_record_to_nps_record(struct ras_core_context *ras_core,
+ 				struct eeprom_umc_record *record, uint32_t nps)
+ {
+-	uint64_t pa = 0;
++	uint64_t pa = 0, flip_mask = 0;
++	uint64_t row_pfn;
+ 	int ret = 0;
+ 
+ 	if (nps == EEPROM_RECORD_UMC_NPS_MODE(record)) {
+-		record->cur_nps_retired_row_pfn = EEPROM_RECORD_UMC_ADDR_PFN(record);
++		record->cur_nps_pa_flip_mask = __get_nps_pa_flip_mask(ras_core, nps);
++		row_pfn = EEPROM_RECORD_UMC_ADDR_PFN(record);
++		record->cur_nps_retired_row_pfn =
++			RAS_ADDR_TO_PFN(RAS_PFN_TO_ADDR(row_pfn) | record->cur_nps_pa_flip_mask);
+ 	} else {
+ 		ret = convert_eeprom_record_to_nps_addr(ras_core,
+-				record, &pa, nps);
+-		if (!ret)
++				record, &pa, &flip_mask, nps);
++		if (!ret) {
+ 			record->cur_nps_retired_row_pfn = RAS_ADDR_TO_PFN(pa);
++			record->cur_nps_pa_flip_mask = flip_mask;
++		}
+ 	}
+ 
+ 	record->cur_nps = nps;
+@@ -200,14 +198,6 @@ static int umc_v15_0_eeprom_record_to_nps_record(struct ras_core_context *ras_co
+ 	return ret;
+ }
+ 
+-static int umc_v15_0_eeprom_record_to_nps_pages(struct ras_core_context *ras_core,
+-			struct eeprom_umc_record *record, uint32_t nps,
+-			uint64_t *pfns, uint32_t num)
+-{
+-	return lookup_bad_pages_in_a_row(ras_core,
+-				record, nps, pfns, num, 0, false);
+-}
+-
+ static int umc_v15_0_soc_pa_to_bank(struct ras_core_context *ras_core,
+ 			uint64_t soc_pa,
+ 			struct umc_bank_addr *bank_addr)
+@@ -225,7 +215,6 @@ static int umc_v15_0_bank_to_soc_pa(struct ras_core_context *ras_core,
+ const struct ras_umc_ip_func ras_umc_func_v15_0 = {
+ 	.bank_to_eeprom_record = umc_v15_0_bank_to_eeprom_record,
+ 	.eeprom_record_to_nps_record = umc_v15_0_eeprom_record_to_nps_record,
+-	.eeprom_record_to_nps_pages = umc_v15_0_eeprom_record_to_nps_pages,
+ 	.bank_to_soc_pa = umc_v15_0_bank_to_soc_pa,
+ 	.soc_pa_to_bank = umc_v15_0_soc_pa_to_bank,
+ };
 -- 
 2.55.0
 
