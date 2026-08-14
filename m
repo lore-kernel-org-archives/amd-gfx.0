@@ -4,95 +4,56 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 04B7AC5CFC1
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 14:55:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32CE4C5CFCF
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 14:58:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 650D010E158;
-	Fri, 14 Aug 2026 14:55:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC9F310F62C;
+	Fri, 14 Aug 2026 14:58:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cTA9D5t6";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FfygS9WS";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011058.outbound.protection.outlook.com [52.101.62.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A88E210E158
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 14:55:30 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rgc7CKgrlPWXh74DCdUrbpC0/4PvHC90gCO5Uu8Hunbhipe0LVmFymvudHk5NbrYCiP7TGHuIAXLsujl5NiHkM0RcpmLdJAbBsjKNHj/Mjo2RpHEAI95iJxl/4IAp3ZEaQ9tch5N1NOLxuZLK/qKlA9Ge/8Flm7O1URo2W4NXzFTN342YgGuOmG0x+YKPAH++5wrppcUgwYKNBRgNkQuN00ASu+nifB7hcVve6XvJrmjLRoS+PucshmO7/ujoX5OmPAoJcSCv/oyWEZfqcRID2/ncgbbFGKt4CAIJe8Etc9v9v4NOBvlWeb85eulqKDBLF81XG3mhee1qa9vh+Si1g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FSzgfNAyJEFb8lszh3bLz5BsS8tWPq9MrOSKY3SRRNA=;
- b=NAA1FKgQl79+OhnDcwBRpeavR980reP7zZMnSyyEHrn4k/+BSjIwUzaac7ufmvQCVYCz8+UmbdTjnTl0qw1XbpT4qO8l+LUsszyuF4fJJqfCN9E7vn8DbutdYB8LQM3EM2FRFNKdenMz7myx59czqur+WOqck7sOscVLvfamTS4Y26i7gvESjJNoWIbAYG3X7ppTrHhdtIShBqSIXE+6C23c6xhc011HyToWoCUyZK0ijDDWobdngGHTEtBv9Fs61/VVPkiG5y3Gl5VXN0Q2msjSQkokTwfDSrGuQSwwjkwS6zrnPsHSe2jtD23eC52G6Hyn116cGwauH4W6XXK+zg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FSzgfNAyJEFb8lszh3bLz5BsS8tWPq9MrOSKY3SRRNA=;
- b=cTA9D5t6WwNCQ3ga6JVjAIpCrVZUENi3385HHiP7WN8pq0PgG8Qbhl5kmaXNAE6EoXnG3xyvv0Po8Vic9W1wfi76zzBgTvL3R53+iW6+2NCBKgBdeWC8j3btON4OeUzrhPUGBTvxceIlNkZC5lgqWZZNWBfTcDrpMLR2XyBqTkY=
-Received: from SJ0PR03CA0255.namprd03.prod.outlook.com (2603:10b6:a03:3a0::20)
- by CH3PR12MB8281.namprd12.prod.outlook.com (2603:10b6:610:128::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Fri, 14 Aug
- 2026 14:55:18 +0000
-Received: from SJ5PEPF000001D3.namprd05.prod.outlook.com
- (2603:10b6:a03:3a0:cafe::2e) by SJ0PR03CA0255.outlook.office365.com
- (2603:10b6:a03:3a0::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.16 via Frontend Transport; Fri,
- 14 Aug 2026 14:55:17 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001D3.mail.protection.outlook.com (10.167.242.55) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 14:55:16 +0000
-Received: from work.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 09:55:15 -0500
-From: David Rosca <david.rosca@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: David Rosca <david.rosca@amd.com>
-Subject: [PATCH] Revert "drm/amdgpu: Implement insert_end for VCE 3"
-Date: Fri, 14 Aug 2026 16:54:49 +0200
-Message-ID: <20260814145448.11178-2-david.rosca@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 129D710F62C;
+ Fri, 14 Aug 2026 14:58:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id F056344EA6;
+ Fri, 14 Aug 2026 14:58:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F4DF1F00A3D;
+ Fri, 14 Aug 2026 14:58:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1786719489;
+ bh=5geaCHjr0ZQ01ScfFAL8GMDyoQmKF4vqxWCJ6mZjohM=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=FfygS9WS+TRfknWmKaJ1lfHKaD7cNw6leoGNsHHbFDYtkelyZ7EnUVZ+TB6UlVQO4
+ mOIlUTbM7+vH1I79sqftEi1Azw7UtgO98Qwe5z8TLv33eBdRQaXdN5gIgG8xtv6ZVk
+ snI0EK0vtFK8DqRZs6DxzJzOuEve45+xm0NIEvPwi9D2UaZTy/RSbSx5E+zaca8ocQ
+ 0vbp38uJcdkvj7ROUBW6qYra3G7+MSLoZlac7CLq2p9/cr8Al75YoMGIlMVugN8Y/Q
+ oVirpSBEyZqqhDDxPJFL2i5tJiz3KUUi1Pj2E5oUlH10Ujd5SiZYBsLIfXWBFT/y3Z
+ ecaGfBRs2Mj8w==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Fri, 14 Aug 2026 16:57:02 +0200
+Subject: [PATCH v2 13/61] drm/amdgpu: Convert to atomic_create_state
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D3:EE_|CH3PR12MB8281:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0cbf312a-cd53-4657-8a14-08defa140dd1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|23010399003|376014|36860700016|18002099003|56012099006|6133799003|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: UomtXgpAnBQKa5avjwVZY+ZpaK7hJIWhkMe+uwCT6V4BuDXbmvedo/wwoyhg62YFfmh7xVEgM+5xCL8ORsD67eerm3nIM/lnvpNX2Jf5kopKTK2N/6yXUFepuhhWgogflrNMC4mlCWILxxywTC28Hc9YOR9us3YVp0Ma/ROBiqA7DwiCO3ZcKNC6JnbANLz0KBzC1qh6euV9jbcaUumrSGgLNszO/j3CuWk5ITHUZnKxwfe7sLTBkYZL2UfbnjDIOcaWKwMmSUUWsAMCPPVNdgdaVg5hBC2dubzCC72P4Secc45mXunnAeGxGfLhwWbrDsc7bsw7e8iZJBIXKF1/87H8OkTASDOej5CPCfVOnEqWPXQtQLOsWM4FmPooV7CX2mYmQAEJ8Ts1u6NiKTNHPZRZJrxeSRWkSZ774kmHdmU/dCOUlZAHT/96OliYaHZFA8P1fbbgxXBoVV//OdxjXYjL8hG6R5g78hGa9Weuav6j+QQIMimBuPwqlbLwL/hNc9Ql9RKrop3epDGtGhFuCFCuKdkhP0NOP31y46aSJ/YFy7Anoge93eOEwkeu6MpIQ+MP12X0GwvXvXMVN2O+yqFsjlp0YRgPrVMNxoZW/bod4WP6GTHBo9UHGZCh/YoHQXLr1S7dqY8AWWdcBAqBYYP7G3mqAjBjdLgl7u7U/Tdv3z2KSUYaj/HAPNS1qj2OIHaHJQMTbUBznYgfrdYQyQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(23010399003)(376014)(36860700016)(18002099003)(56012099006)(6133799003)(11063799006)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: RuU6l96zo/5vwyHd1m8bLdEaLWeEXCe18qzViLdmSvFsQ4nrDvLbs2j8q49+dBQR5USpXnNb8QzkZ7cBEIdk+fgdjlg8HPX5RxmxsW129r4Ks/XkxgrFaPd561Xkjsif6y22E+Gf3TNk+/wnktMWSEcwNfahpbM37wsTHoNe2BQixkFIGflEFZM8joAjp0rVkMvGi/EkXHdT1FeTBzE+WmU8Dh6KSE2xAxzoZa1gvtLDSsCM8QXkaZVFgXfuyDls9G88kIlbjDpkdFkmHpboeAejhsi8gE5OGxQMk3dzum+qFE5WQ+p7jO0BwVzl+yHw4PkDROPPoQWj1DjXfjhDy3YQjv2jOvocB+zzaMnm+pBH2KtQF77LN1L/gu17BBZ33bRrjitZ7Ep8/QbDMxYv6MZHxChXhKn+G5am1ng58COjZ/OBXc2xUqj6qHhJY4ji
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 14:55:16.9977 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0cbf312a-cd53-4657-8a14-08defa140dd1
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D3.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8281
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260814-drm-no-more-plane-reset-v2-13-82d2963dd134@kernel.org>
+References: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
+In-Reply-To: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
+ alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, 
+ christian.koenig@amd.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6064; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=kvWHYt8LsDRVMSkumxTEE/o/yKEoa8qcTFw4CTwvH/4=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn1OqcKeK+p/Ji3KDgqQMG1Mm7WwWshHwV3Lc2dxSMRp
+ uLMMa2jYyoLgzAng6yYIssTmbDTy9sXVznYr/wBM4eVCWQIAxenAEzkujdjwz0BsznX366Nqj35
+ s/6ntPL2xyWxSXf73eatT1Bef2mGmBO7yZTXuXvCu+dO7pr4J19xDmN9aHhT0aPgswt6Yz7/lG6
+ cbsMm7M7w4psjm5SH7Oqureyfdoon/Jtxee4MH8MVjarG/3IB
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,78 +68,297 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This doesn't solve the issue, VCE still hangs in some cases.
+The plane only initializes a pristine state in its reset hook
+using drm_atomic_helper_plane_reset(), which is equivalent to what
+atomic_create_state expects. Convert to it.
 
-4959138b6461 ("drm/amdgpu: handle GDS and SPM without a VM fence")
-fixes the regression, originally introduced in
-83a8dee2bdfb ("drm/amdgpu: always emit the job vm fence").
+The conversion was done using the following Coccinelle semantic patch:
 
-This reverts commit 7591335141a06d5b176510054576d9c64519f348.
+@@
+identifier funcs;
+symbol drm_atomic_helper_plane_reset;
+symbol drm_atomic_helper_plane_create_state;
+@@
 
-Signed-off-by: David Rosca <david.rosca@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/vce_v3_0.c | 26 ++++----------------------
- 1 file changed, 4 insertions(+), 22 deletions(-)
+struct drm_plane_funcs funcs = {
+  ...,
+- .reset = drm_atomic_helper_plane_reset,
++ .atomic_create_state = drm_atomic_helper_plane_create_state,
+  ...,
+};
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-index a9497e2e07f7..9f4e88440c0a 100644
---- a/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vce_v3_0.c
-@@ -809,23 +809,6 @@ static void vce_v3_0_ring_emit_ib(struct amdgpu_ring *ring,
- 	amdgpu_ring_write(ring, ib->length_dw);
- }
- 
--static void vce_v3_0_ring_emit_fence(struct amdgpu_ring *ring, u64 addr,
--			u64 seq, unsigned flags)
--{
--	WARN_ON(flags & AMDGPU_FENCE_FLAG_64BIT);
--
--	amdgpu_ring_write(ring, VCE_CMD_FENCE);
--	amdgpu_ring_write(ring, addr);
--	amdgpu_ring_write(ring, upper_32_bits(addr));
--	amdgpu_ring_write(ring, seq);
--	amdgpu_ring_write(ring, VCE_CMD_TRAP);
--}
--
--static void vce_v3_0_ring_insert_end(struct amdgpu_ring *ring)
--{
--	amdgpu_ring_write(ring, VCE_CMD_END);
--}
--
- static void vce_v3_0_emit_vm_flush(struct amdgpu_ring *ring,
- 				   unsigned int vmid, uint64_t pd_addr)
+@match_struct_reset@
+identifier funcs, reset_func;
+@@
+struct drm_plane_funcs funcs = {
+    ...,
+    .reset = reset_func,
+    ...,
+};
+
+@reset_uses_helpers depends on match_struct_reset@
+identifier match_struct_reset.reset_func;
+@@
+
+ void reset_func(...)
  {
-@@ -835,6 +818,7 @@ static void vce_v3_0_emit_vm_flush(struct amdgpu_ring *ring,
- 
- 	amdgpu_ring_write(ring, VCE_CMD_FLUSH_TLB);
- 	amdgpu_ring_write(ring, vmid);
-+	amdgpu_ring_write(ring, VCE_CMD_END);
+ 	<+...
+(
+ 	__drm_atomic_helper_plane_reset(...);
+|
+	__drm_gem_reset_shadow_plane(...);
+)
+ 	...+>
  }
+
+@match_struct_destroy@
+identifier funcs, destroy_func;
+@@
+struct drm_plane_funcs funcs = {
+    ...,
+    .atomic_destroy_state = destroy_func,
+    ...,
+};
+
+@script:python renamed_func@
+old_name << match_struct_reset.reset_func;
+new_name;
+@@
+if old_name.endswith("_reset"):
+    coccinelle.new_name = old_name.replace("_reset", "_create_state")
+else:
+    coccinelle.new_name = old_name
+
+@update_struct depends on match_struct_reset && reset_uses_helpers@
+identifier match_struct_reset.funcs, match_struct_reset.reset_func;
+identifier renamed_func.new_name;
+@@
+struct drm_plane_funcs funcs = {
+    ...,
+-   .reset = reset_func,
++   .atomic_create_state = new_name,
+    ...,
+};
+
+@drop_destroy depends on update_struct && match_struct_destroy@
+identifier match_struct_reset.reset_func;
+identifier match_struct_destroy.destroy_func;
+identifier container_func;
+identifier P;
+symbol drm_atomic_helper_plane_destroy_state;
+symbol __drm_atomic_helper_plane_destroy_state;
+@@
+
+ void reset_func(struct drm_plane *P)
+ {
+ 	...
+(
+-	if (P->state) {
+- 		<+...
+(
+-		drm_atomic_helper_plane_destroy_state(P, P->state);
+|
+-		__drm_atomic_helper_plane_destroy_state(P->state);
+|
+-		P->funcs->atomic_destroy_state(P, P->state);
+|
+-		destroy_func(P, P->state);
+)
+- 		...+>
+- 	}
+|
+-	drm_WARN_ON_ONCE(P->dev, P->state);
+|
+-	WARN_ON(P->state);
+)
+ 	...
+(
+-	kfree(P->state);
+|
+-	kfree(container_func(P->state));
+|
+ 	// kfree is optional
+)
+(
+-	P->state = NULL;
+|
+ 	// plane->state clearing is optional
+)
+ 	...
+ }
+
+@drop_destroy_mtk depends on update_struct@
+identifier P;
+symbol __drm_atomic_helper_plane_destroy_state;
+symbol to_mtk_plane_state;
+@@
+
+ void mtk_plane_reset(struct drm_plane *P)
+ {
+ 	...
+-	if (P->state) {
+-		__drm_atomic_helper_plane_destroy_state(P->state);
+-		...
+-	} else {
+ 		...
+-	}
+ 	...
+ }
+
+@transform_nv50_wndw depends on update_struct@
+identifier S;
+@@
+
+ void nv50_wndw_reset(...)
+ {
+ 	...
+-	if (WARN_ON(!(S = kzalloc_obj(*S))))
++	S = kzalloc_obj(*S);
++	if (WARN_ON(!S))
+ 		return;
+ 	...
+ }
+
+@transform_kzalloc depends on update_struct@
+identifier match_struct_reset.reset_func;
+identifier P, S;
+statement ST;
+statement list STL;
+@@
+
+ void reset_func(struct drm_plane *P)
+ {
+ 	<...
+ 	S = kzalloc_obj(*S);
+(
+-	if (S)
+-	{
+-		STL
+-	}
++	if (!S) return;
++
++	STL
+|
+-	if (S) ST
++	if (!S) return;
++
++	ST
+)
+	...>
+ }
+
+@transform_body depends on update_struct@
+identifier match_struct_reset.reset_func;
+identifier renamed_func.new_name;
+identifier S, P;
+expression PS;
+@@
+- void reset_func(struct drm_plane *P)
++ struct drm_plane_state *new_name(struct drm_plane *P)
+{
+	...
+ 	S = kzalloc_obj(*S);
+	...
+(
+ 	if (!S) {
+		...
+-		return;
++		return ERR_PTR(-ENOMEM);
+ 	}
+|
+ 	if (WARN_ON(!S)) {
+		...
+-		return;
++		return ERR_PTR(-ENOMEM);
+ 	}
+|
+ 	if (S == NULL) {
+ 		...
+-		return;
++		return ERR_PTR(-ENOMEM);
+ 	}
+)
+	...
+(
+-	__drm_atomic_helper_plane_reset(P, PS);
++	__drm_atomic_helper_plane_state_init(PS, P);
+|
+-	__drm_gem_reset_shadow_plane(P, PS);
++	__drm_gem_shadow_plane_state_init(P, PS);
+)
+	...
+}
+
+@update_early_return depends on update_struct@
+identifier match_struct_reset.reset_func;
+identifier renamed_func.new_name;
+identifier P;
+expression PS;
+@@
+ struct drm_plane_state *new_name(struct drm_plane *P)
+{
+	<+...
+-	return;
++	return ERR_PTR(-EINVAL);
+	...+>
+}
+
+@update_return_plane depends on update_struct@
+identifier match_struct_reset.reset_func;
+identifier renamed_func.new_name;
+identifier P;
+expression PS;
+@@
+ struct drm_plane_state *new_name(struct drm_plane *P)
+{
+	...
+ 	__drm_atomic_helper_plane_state_init(PS, P);
+	...
++
++	return PS;
+}
+
+@update_return_shadow depends on update_struct@
+identifier renamed_func.new_name;
+identifier P;
+expression PS;
+@@
+ struct drm_plane_state *new_name(struct drm_plane *P)
+{
+	...
+ 	__drm_gem_shadow_plane_state_init(P, PS);
+	...
++
++	return &PS->base;
+}
+
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+Cc: alexander.deucher@amd.com
+Cc: amd-gfx@lists.freedesktop.org
+Cc: christian.koenig@amd.com
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+index 170adaf7e76a..9628239855d2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c
+@@ -142,11 +142,11 @@ static const struct drm_connector_helper_funcs amdgpu_vkms_conn_helper_funcs = {
  
- static void vce_v3_0_emit_pipeline_sync(struct amdgpu_ring *ring)
-@@ -900,19 +884,17 @@ static const struct amdgpu_ring_funcs vce_v3_0_ring_vm_funcs = {
- 	.set_wptr = vce_v3_0_ring_set_wptr,
- 	.patch_cs_in_place = amdgpu_vce_ring_parse_cs_vm,
- 	.emit_frame_size =
--		5 + /* vce_v3_0_emit_vm_flush */
-+		6 + /* vce_v3_0_emit_vm_flush */
- 		4 + /* vce_v3_0_emit_pipeline_sync */
--		5 + 5 + /* vce_v3_0_ring_emit_fence x2 vm fence */
--		1, /* vce_v3_0_ring_insert_end */
-+		6 + 6, /* amdgpu_vce_ring_emit_fence x2 vm fence */
- 	.emit_ib_size = 5, /* vce_v3_0_ring_emit_ib */
- 	.emit_ib = vce_v3_0_ring_emit_ib,
- 	.emit_vm_flush = vce_v3_0_emit_vm_flush,
- 	.emit_pipeline_sync = vce_v3_0_emit_pipeline_sync,
--	.emit_fence = vce_v3_0_ring_emit_fence,
-+	.emit_fence = amdgpu_vce_ring_emit_fence,
- 	.test_ring = amdgpu_vce_ring_test_ring,
- 	.test_ib = amdgpu_vce_ring_test_ib,
- 	.insert_nop = amdgpu_ring_insert_nop,
--	.insert_end = vce_v3_0_ring_insert_end,
- 	.pad_ib = amdgpu_ring_generic_pad_ib,
- 	.begin_use = amdgpu_vce_ring_begin_use,
- 	.end_use = amdgpu_vce_ring_end_use,
+ static const struct drm_plane_funcs amdgpu_vkms_plane_funcs = {
+ 	.update_plane		= drm_atomic_helper_update_plane,
+ 	.disable_plane		= drm_atomic_helper_disable_plane,
+ 	.destroy		= drm_plane_cleanup,
+-	.reset			= drm_atomic_helper_plane_reset,
++	.atomic_create_state = drm_atomic_helper_plane_create_state,
+ 	.atomic_duplicate_state = drm_atomic_helper_plane_duplicate_state,
+ 	.atomic_destroy_state	= drm_atomic_helper_plane_destroy_state,
+ };
+ 
+ static void amdgpu_vkms_plane_atomic_update(struct drm_plane *plane,
+
 -- 
-2.43.0
+2.55.0
 
