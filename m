@@ -4,104 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E3923C5DF6A
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 21:18:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 455ACC5B572
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 21:20:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C9D0610F76C;
-	Fri, 14 Aug 2026 21:18:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C2CC410F75D;
+	Fri, 14 Aug 2026 21:20:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="lMZerUje";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="h41y++cs";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012015.outbound.protection.outlook.com [52.101.43.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1D51C10F75E;
- Fri, 14 Aug 2026 21:18:33 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013060.outbound.protection.outlook.com
+ [40.107.201.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DBE710F75D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 21:20:22 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=zOwEyDyDMbclKqiOU/3AO0/ZaPJ6BdLcgDtng3ZwSD5hxoedEfoEYvo99kQd34/0lAUXjksCu6GNubBkZyZZDa+R7+UCiND1qZ5PL27+ulq+6hJ5mUfsnBkoq6/q68jTcgeLJQ0dpWFkBwtZrMt/A2pdUTRmov10vMGNhBZj29jN9j6FUNwuftDddswfjM+NIz8dvK7lVCqQuEaz1Uje+vYBYanEmXtYpsX9uJ3Ag4Ovtgl4hBdWPPdyUZuyuuNo24L+uvZIYaNSPXqktmfzrXCkrNU0LhaDooaS5aWqbOVW/0Rw4ZQZhB+6n6BbhSatx3M5qrM6q2HSFMjrcDnP7A==
+ b=Oa7G96JjppIbs/43MkV/KDEY2dmJVyFdiB5gjWJ0mE/HC8jIykTEQhUR4VysIYkQDFGgslsLR8Njv07aftFAuGptAKGlDV/fRLACjs/7KsPXBKdCVvrOsR/mYcq3qbQe2/2tHQz1iSaHTjS8hWliLf9SWcvX0qShyakyXPtjXVo2aap6aJBTlUTcrzCMwi4GfQdqcYGRggC3Harw0qS2rnaK8W58E5tPD4JuEq5YfQAsVN7T4DEY9nXjeQb50En2rHanJ7OA5vZ/M7Dx5nPyuo/+c4Q+xnExHfY+7KfYBaYXdMBy6OsaHE0B+p9xV+1c3d3o/zzwU1qgj5MjP3QRug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/dXwXGxs0XoNeCV6kj6eyhsV/3jB2tgJnWk7rl1DXjM=;
- b=RHuja0EeM5tmnSEx0ObKQIP69o6xgOMq48wQ123TLfECxJVdq4Awxr8GaVucO+EHIe2de5jvC/Lf3kA3nPDzwjxGMTwcpIkefXFSmXO3dcj3DoARYeM1JqqnShJLifTpIhnVpFqfgggCJirfdDTQ+rr8OWVidq8By9l/L1su1sn/b9OTIyv9gGDBz3MydxW/Oo3rB7z0U7Z9G8wNQ/UXAqLq8vnIyFLs7SO8oRVdUwo/eJpWl9tWHR1fOWzdfwUFjP1P+2iO0KGXZsokuZ1ReNbDjCJ2nKfgvpxb/HUBNL8esA8Q3eemGVKz+i7SutFs1k8uImOC2dMU/DpRnGhkxg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=hqHT0t9En4da8vr/jNR67uXaBWhV0PvDJ1RzaQedyHQ=;
+ b=urAbEbcjCJJ5UZt82meJv7xgembS7rjUyoMNDM/ZayWUv2MV6lZv53aMzj6paQjx09cEsEBNMa+LqVWtErRK9a+EknhK4mjVA2+DpAr6orwEet3Yn9s2uDdouhp9LauTLPcXkhM9/bPD8mee00M/+GtF9MjEYEAOeuWJKXL7NP9XJNMmA7g9JJ6G2/jmQk9V0Dw7yKFpsQaD/hmv3+gZGWjdSGWYPwhS8mo0c/wy9dzrt6y0snbrmPRaRVmPxV00mCIJlVQz6xM5DIWznOWaFiCnWI1hMeOSaVPD1fANPT3SdzEplW13jizQ6Yw35qFBCbnr9bDJSCPZcLtYWrFTCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/dXwXGxs0XoNeCV6kj6eyhsV/3jB2tgJnWk7rl1DXjM=;
- b=lMZerUjetY2t/uyVVXjD9N8wqMhoTeQW+xWCO0uemu11XGDnh6K30k7rwHk3XPRjQpWtwV/H+OlL39alKJ9CVCEZwFAn6QgYLs4Gn4UnBF8mhahF5n3x3eoUwnr02LRsr8EGO8/ts0LhXBnKwAnl39bagAgukaEFZ7nRQS+zqtU=
-Received: from SJ0PR03CA0251.namprd03.prod.outlook.com (2603:10b6:a03:3a0::16)
- by LV8PR12MB9692.namprd12.prod.outlook.com (2603:10b6:408:295::15)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=hqHT0t9En4da8vr/jNR67uXaBWhV0PvDJ1RzaQedyHQ=;
+ b=h41y++cs6V5kcJzKkuZqsta4VsrVrhORzpMY1b5/TZ1RDQp7iT0x+CXNTIHstfHOm680ByEJyxLyLG+3/sumfOg/LIf8n7wL3oS/auV5IrjD2P/zTbnqxtusq0p/SU/lAaYMCz9IN7vAbc0xnZw4EM2Jk1bpC1xKDoQ5ttwLWcQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ (2603:10b6:f:fc00::655) by CH2PR12MB4213.namprd12.prod.outlook.com
+ (2603:10b6:610:a4::24) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Fri, 14 Aug
- 2026 21:18:22 +0000
-Received: from SJ1PEPF00001CE6.namprd03.prod.outlook.com
- (2603:10b6:a03:3a0:cafe::75) by SJ0PR03CA0251.outlook.office365.com
- (2603:10b6:a03:3a0::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.16 via Frontend Transport; Fri,
- 14 Aug 2026 21:18:22 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF00001CE6.mail.protection.outlook.com (10.167.242.22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 21:18:22 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 16:18:19 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 16:18:19 -0500
-Received: from hwentlanryzen (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 14 Aug 2026 16:18:18 -0500
-From: Harry Wentland <harry.wentland@amd.com>
-To: <dri-devel@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
-CC: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>, Harry Wentland
- <harry.wentland@amd.com>, Melissa Wen <mwen@igalia.com>, Robert Mader
- <robert.mader@collabora.com>, Alex Hung <alex.hung@amd.com>, Pekka Paalanen
- <pekka.paalanen@collabora.com>
-Subject: [PATCH v6 01/10] drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
-Date: Fri, 14 Aug 2026 17:18:07 -0400
-Message-ID: <20260814211816.1219597-2-harry.wentland@amd.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260814211816.1219597-1-harry.wentland@amd.com>
-References: <20260814211816.1219597-1-harry.wentland@amd.com>
+ 2026 21:20:19 +0000
+Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ ([fe80::7111:7e5c:8508:7852]) by DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ ([fe80::7111:7e5c:8508:7852%8]) with mapi id 15.21.0315.014; Fri, 14 Aug 2026
+ 21:20:19 +0000
+Content-Type: multipart/alternative;
+ boundary="------------KL07kNuUU9OH9ZJxhbDb9SpT"
+Message-ID: <3c09d100-d0a0-4ac9-9285-ae212f51f07f@amd.com>
+Date: Fri, 14 Aug 2026 17:20:17 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] amdkfd: allow profiler process reenter
+To: "Zhu, Lingshan" <lingshan.zhu@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Koenig, Christian" <Christian.Koenig@amd.com>
+Cc: "Huang, Ray" <Ray.Huang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+References: <20260806084312.79422-1-lingshan.zhu@amd.com>
+ <CH2PR12MB94573C6D5DD3480E33E6463F8CDC2@CH2PR12MB9457.namprd12.prod.outlook.com>
+ <3f62daa5-7c4c-476b-b692-0cb544e3d2a3@amd.com>
+ <be92ca16-443a-478d-96dc-c83318df3670@amd.com>
+ <02e91cc3-a3b1-40b0-8027-ceef0f17a05a@amd.com>
+ <4a94f469-1c79-4f46-a57d-bd2aa08ef162@amd.com>
+Content-Language: en-US
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <4a94f469-1c79-4f46-a57d-bd2aa08ef162@amd.com>
+X-ClientProxiedBy: BLAPR03CA0028.namprd03.prod.outlook.com
+ (2603:10b6:208:32b::33) To DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ (2603:10b6:f:fc00::655)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE6:EE_|LV8PR12MB9692:EE_
-X-MS-Office365-Filtering-Correlation-Id: b7e0b485-36d2-44da-a62e-08defa4991f3
+X-MS-TrafficTypeDiagnostic: DS5PPF78FC67EBA:EE_|CH2PR12MB4213:EE_
+X-MS-Office365-Filtering-Correlation-Id: e59227c6-7af3-49cb-1d3e-08defa49d7c8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|1800799024|82310400026|23010399003|6133799003|56012099006|11063799006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: 3+WGtp3ghBhXUx6IjjMCHcF+ZJah8uNWM8XuQCJfiRUdiHR9CQUQRzh2WNfdmSUQRcRze8mpK0vFiwtXjmLWYJ/3mYnj5wi/yobmM5Qut7Zrl9n0Og/lo6vIjhbS85b4qcKPOsPbNUXF5VXFVJho1e44nXV6fDUxd+vR+NrG4H0sAwwCLrB/f+T90IZQPCD89uobbrztT3VhNuuZdbGsYDCcmSHsVsi6IT00ZVMEap8y5+tMkjjB/VHkPg376trXEmYYEBZe/Mg5u4IIyaiwNklHqnGT2UMhw2gf1d/gJdkNX97hlMd5FflceSm5VY2abGR4BIaQKFtwOFcvIIjgakNSXl9NO7HEkAMO1+e3fXayjnLZsbDC2vnrxKOpeN89bZ8LUGp614AY03xasoCOwl1PnZeYaxSi/w17ZrdQbpca23cRVC2P+9+lICD2BczbeCw8xg0S0W5lhAxld7944ZvE0g7RxwtskWOLr7oFwXDPsPHEumieJeMzYnYDPNOn9ZjpUrcNiaGvBLwNp1KDxsBZ99TsWUhCwzQYC/hW54I1xV9weHqvcIHIi6sISknKHDDEx6DwGJfIQOB3jv4SAjGVVJ++0cIt9Zbw/icL9f0SF3TuK7ExFP+C6lz4YxDjGBZiMlUuJRWAZVWD8s58GKykrvDJRt5q/EfBGl1Y7iZaibSUIhZ/HI0JRTxeDxp4+EQ7qp0VL+sI3Suan1de0g==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(23010399003)(6133799003)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
+ ARA:13230040|23010399003|366016|376014|1800799024|56012099006|6133799003|8096899003|10067099003|11063799006|5023799004|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: UzkudX9LxD6lrWwGQx8deW01q+2x8qTKqRXOpa1tMVLrxuhk8Y8HpXtq3u8TYT2s3VJr8kfsVLG4csAItQomv7qU7ri0Qv/DDg6xtiaoE2TCsnLlxlld7FKZyIISYtCe7zALCWx5ANBEWbSfrCfM3jQuwLdyWlT+/poHpVNBKi/755V1+PEgl9YnHvd+ZrqicovbhsyZV+E9o6QCKCcS8vcCV8Dx7Ve0Aopa78siSB4+EXdTsXpJ+sisEXPa82K6qNyLuPODnccpT6emPxQuXYYZbMSJGlnuz4qYe56txSKu2ZTQAuWQJ+g2ay99rLUy0hkf66omRvscS7DCLc2WAh8YjZ+kO9QqPJk0VNaYwcMI1NUB+pI23yDQa6MJ2NZbpy0GNDKemyGph4quFU9dYDq4IzjYDoVIwsvHRq2GhbyoXi/rMVcldRXXfptm3FKDBrjk6Whi52hxvYQicMhQXS9STQrnFQGvpyFhw5qPrJRUYnyf9Z/vnZGe3rS0pSH7UoggjxEJ7EkovrHaiiGtFWfkZh3Mxhq+8tYb1Txt8hXkEQ8bIznYyejk7pM8mD735n2ppbcNsNNbu6WduJ6VfRrLh91SeazBIdaseUzaqpSWjx3p5ReP24FDwAQ0d6zDXSTz6gABStw4vJZ3PTVkvodzdlkGYhFL3O/OWGjf2P0=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS5PPF78FC67EBA.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(56012099006)(6133799003)(8096899003)(10067099003)(11063799006)(5023799004)(4143699003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: INTxykVWsc0LsV7NWxW3OcJWlm1/zlImvH9epKk/GTm+lh8ZzSNeBcuZGtEFTqMUhWM51FcIxjVRG+TntC8CpckqiKqVbfj+0QjMnK3rkUd7HpP3ruOZeTzM7b3dGCYx6XLbNSArt448uf6uqoEZcEAJB2sitZscSHO6XYhm+hfQa0TReyMRd4DPPUZ5b8XyovBFW43wX5UyNQJPjOe+g+OLFopa/NwtXbSMTSPVFUbPBucwqnNb/PDBJbX6bv8UDZPMofCrwnrR4Ns4d8/jLm5s1ny3YGyf4dNJGlK8lafJBRk/9tYof96EOq7V/zFDuvtjBx3MsW0OV0o74XFAxXr93kHqQQquggL+Fl1N5IBxoZTVxhTtrSy7RWgz6ZOMdQ+UKBX889vFgiNk7bywvzlwkizdYpq+50AIB1drWZd81U1hU9mZGtORetxhm5h6
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NGViWXlNT1JCR1lzNGd4b2c2YXU3UzlIMHNXZ2c4VkNmdUJnRUxaY3hvSXBk?=
+ =?utf-8?B?MU16RWp0M1NJcFdremtCM01tNW5CVVp2ZitmS0JEWDBWK3o0WUU0dXovQ2NF?=
+ =?utf-8?B?T3pCWGlGQklkeFZyQ0ErRnJSbzN1SzBNRHFKdUxySjk1Q2JyQ1p4QU5sRUl0?=
+ =?utf-8?B?bk14bitOWkF6aFFuWFQ1c2lSNG1zbG5mNy80QmlMY2I4ckNWa1paZFhhanVK?=
+ =?utf-8?B?ZjY1YmxvN20xNU9KOXhyL3RSSEQzaVRMVzVjelhUaENJaXlwYXJPQXZsbWg2?=
+ =?utf-8?B?Z0tzWHF1SlQ5ZE93QUdaNEI5NENtck04TEErNW8zQVJnems3Q2xrVG5pbFVa?=
+ =?utf-8?B?d3MyNVU1VEFVSnJQQzFmR0ZoNzR6dGNtUVBGTWE1bENXWEtuNkJnbUZLc252?=
+ =?utf-8?B?UzF1WWRCdElKbkVKTEtobU5PNnBveTREYnREZHpQUGp5dVMxb2xSaXkzZTVk?=
+ =?utf-8?B?MWlxM28yeWlzTW9WYkM3M1o0YW5kTGQ1RXdZUFlSamFGZ0lRUjA5SjZLUlJJ?=
+ =?utf-8?B?VzJqNFhYZ2wxZFUvSnVXQjVRMWtBNlZkTmJ2Nm9IT1lNRlV2UVd1dy93VGdz?=
+ =?utf-8?B?RDk2ZmtkSVpPVUpIQkNyNkJKSU1MdTBlL3N4eUh3WDZwUWlFaVhmV2lWditB?=
+ =?utf-8?B?UWpmYkJCM0oxMmpzMXVMcFVHRGhBbE9mdWs1N3pCS3A0dTZZYXNCQTRKcDB6?=
+ =?utf-8?B?UDhIdDFkcmV0b0xUVVBHNHY0dUFxcTNrNTdZUW5GaGs5NkNhWGlQTjkrdG9P?=
+ =?utf-8?B?b1orYnNyMm1uQmJ0TXlERmtySHZ6Z244YzNHOW5qNjZWeWlJd2l3YjhmWFF1?=
+ =?utf-8?B?WEJLZi8waFJ6cUhvMFlya0pYVHVjZzhySS9rV1RBVjRWUXA4S1ZpQVlTNmVO?=
+ =?utf-8?B?WDdtclR0eUpIay9kV1M1NUtXbDE0SU0xYlBSZncyT2RUSVJLcGdHVWxHaWJD?=
+ =?utf-8?B?ZWkvTDVZY0hpV0Noamp0ejJIWDBHNXJWK1REL1BFZ3R6bWJ6MGNBZ0poYVFY?=
+ =?utf-8?B?SVB2RE1CdkgzRmFoYmZxS0ZlMlIxS0NDdU5TOVYxeTVITGN0eUZqT3h4bXJh?=
+ =?utf-8?B?WHRMOGVxNE5aR09mOTBoWGsxbHNBL0paSjZ5cGxtb3N4ZG44aUlOQzhUWUZt?=
+ =?utf-8?B?VXFLZENLUCt2TG40N0Jpcm5pRUdsTmZ1MzI2QlRyZnpDdGRxazhsVGM4Rmpi?=
+ =?utf-8?B?OWtmRTFMYTROUlZjTVRXY0hqRUFIZ2dsL2dmNHRCTlo2bXBEWFAvV3RLRU5s?=
+ =?utf-8?B?bUxpOWNNUFlWTUJ2YlIwckpKcE9YQVc2bW9WbjRWOHJnOUlhcWpjUFZGQWFW?=
+ =?utf-8?B?bzhJNk94bXV0WTNucDQwaUlRMG0yT0RLbVBLeEZuRUNaTGZncnBqVW5iS3N4?=
+ =?utf-8?B?M1VaZkJndkVpOVhKNTh1YzVPSVlKOTd1SUU1dFo2YU54eSs0R3IrYTBTcVVu?=
+ =?utf-8?B?YUpheTNyVlJKcGxCaUVGblh5L3dMbjR1ZVV0SlNmd3ZLMGV5TjJ2eHZYQmEw?=
+ =?utf-8?B?L3R4TEVnWnMyY01iMWhpQzhrWDl3eFNIaFlqZTZmQmlMZ2VsK3ExQUtaYWhI?=
+ =?utf-8?B?a2FsQjJOZWJ3enhJTnJLUXNReW1mZWYrZG1qSnZZcUU2YWhDZXJiUGxYcUZE?=
+ =?utf-8?B?bjlqYTZwYWlmb3pId3Z6VVpyQm11amtOZi9wZFFMeFdFenZDQk1acm84bUIx?=
+ =?utf-8?B?Q1VwdTJXdUE5cmYwaEU2cDVhenIvamZ5cGRsdTd1UmZ1T2JBK1MxQVg3V0dh?=
+ =?utf-8?B?RHZ1dkI3eVlaQi9Zd0ZlcldWd29TNXg2N0VrUUIxZzd3cCtXNjJxeGlpZnBy?=
+ =?utf-8?B?N0p5RkZxMVJJaTV0LzlZRVA1dGR6SU9aRVNNeUhUUTlIVXlhaEhDNERDMEJM?=
+ =?utf-8?B?L3FkTm53SzNFSldKQ3BTVWJzTFh5TDBLaFZzQlJrbU52dXd6eWxBd3hTdzVn?=
+ =?utf-8?B?VUdWUjZQWjFIa1NvZG04YlJNUGxXbzNBbmNrcXBwVW5YaDFNVXdUWGtXQklp?=
+ =?utf-8?B?SE1zTHBQNFNhb3FXeElVMEc4N0tRRis3eFVJcTFjbXFBREVoN2M4UjJoK1RM?=
+ =?utf-8?B?YnhHelh1TDFRbjdhOTBrZFZCZUpqRXk2S2o3K3NScTd2N2o2ZGR0MXl0OUY3?=
+ =?utf-8?B?QzJzVjlwbnF4ekFDU1JWbmU0dTYwdXo5TkNhSHBFSDVnOWNBSFRMaHRkeFhk?=
+ =?utf-8?B?VjFlZGlHb1REOUE2TW0rK3BXTy80UENoWGJwL0VyeE9DeXllT0dlMXJqZVZO?=
+ =?utf-8?B?clpxdlViUHF0NUhxWVhtSzJoVlRoVExEYmMxb3RNblpBaHZKZlhXemh4UHRy?=
+ =?utf-8?B?SkEvRXJCNy80ZitPSWZlc1kvenVaalg5NUlRaG5wNFlVUnA0Uk1NUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 21:18:22.0054 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b7e0b485-36d2-44da-a62e-08defa4991f3
+X-MS-Exchange-CrossTenant-Network-Message-Id: e59227c6-7af3-49cb-1d3e-08defa49d7c8
+X-MS-Exchange-CrossTenant-AuthSource: DS5PPF78FC67EBA.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 21:20:19.4801 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE6.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9692
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zovH26IISk1/nUhNvmidP6aP7LKf7unV/i3TNPY9RHmBwjJhSQBuyxPaXGLyBgz1H6UDAEvPpAFdfpOap4goUA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4213
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,431 +142,352 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+--------------KL07kNuUU9OH9ZJxhbDb9SpT
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Introduce DRM_COLOROP_FIXED_MATRIX, a new colorop type representing a
-hardware that performs a fixed matrix operation.
+On 2026-08-14 02:47, Zhu, Lingshan wrote:
+> On 8/14/2026 12:05 AM, Kuehling, Felix wrote:
+>> On 2026-08-13 02:21, Zhu, Lingshan wrote:
+>>> Hello Felix,
+>>>
+>>> Yes I agree the user space may be buggy, and the kernel should be 
+>>> robust.
+>>>
+>>> Even though it is named locking, it is actually a reservation, not 
+>>> recursive locking.
+>>> The kfd_process that successfully invokes the ioctl reserves the 
+>>> device as a profiler.
+>>> So when a user space locks the device multiple times, it does not 
+>>> increase any reference counters, and doesn't need to unlock multiple 
+>>> times.
+>>>
+>>> Multiple times lockings from the same kfd_process just keeps the 
+>>> reservation, it still reserves the device successfully,
+>>> so IMHO kfd should return 0 other than -EALREADY, which is a 
+>>> negative error code.
+>>
+>> That's exactly the problem. The API is apparently designed for user 
+>> mode to "reserve" profiler access once, presumably to get exclusive 
+>> access to some profiler resources. If user space reserves multiple 
+>> times, you probably have multiple uncoordinated users of the profiler 
+>> features in the same process. If they are not aware of each other, 
+>> they will run into problems because they're expecting exclusive 
+>> access to resources that are actually shared with someone else.
+> do you mean some pthreads in a process that own the same kfd_process?
 
-Unlike CTM-based colorops, this block does not expose programmable
-coefficients. Instead, userspace selects one of the predefined
-hardware modes via a new FIXED_MATRIX_TYPE enum property. Supported modes
-include common YCbCr->RGB and RGB709->RGB2020 conversions.
+I'm thinking of situations where you may have multiple libraries or 
+modules linked into the same binary that all want to use the profiler 
+feature. It doesn't matter whether they run on the same thread or 
+different threads.
 
-v5:
- - Drop YCbCr limited to full and RGB709 to RGB2020 matrices
-   until we have non-IGT userspace that shows their use (Robert)
+Regards,
+   Felix
 
-v4:
- - Add limited-range YCbCr-RGB conversion matrix enums (Robert)
- - Document matrix values (Pekka)
- - Clarify RGB709 to RGB2020 is a full-range matrix (Pekka)
- - Fix confusing "CSC preset" doc (Pekka)
 
-v2:
- - Naming changes (Pekka)
+>>
+>> For example they will both independently call "unreserve" as well. 
+>> When the first one calls "unreserve", the other one breaks. This may 
+>> happen intermittently, depending on the order of operations. Or it 
+>> may be noticed as a regression after seemingly harmless changes that 
+>> affect the order of operations. This is much harder to debug than a 
+>> clear error code returned when a double reservation first happens.
+>>
+>> By returning 0 here, you paper over the user mode bug. But chances 
+>> are, you're going to run into other bugs later that have the same 
+>> cause and are much more difficult to debug. Unless someone explains 
+>> to me that I'm misunderstanding the intent of the reservation API, I 
+>> will not approve this change.
+>>
+>>
+>>>
+>>> By the way, the function is declared to return uint32_t, which is 
+>>> definitely wrong, because the function may return errors, for 
+>>> example -EBUSY.
+>>
+>> I agree with this part.
+> I will send out a patch to fix this part.
+>
+> Thanks
+> Lingshan
+>>
+>> Regards,
+>>   Felix
+>>
+>>
+>>>
+>>> Thanks
+>>> Lingshan
+>>> On 8/13/2026 12:27 AM, Kuehling, Felix wrote:
+>>>> I suspect this won't work correctly. If the profiler locks the 
+>>>> device multiple times, it probably also unlocks it multiple times. 
+>>>> But I see no reference counting being done, so this may result in a 
+>>>> situation where user mode locks twice, and unlocks once. Now it's 
+>>>> lost the lock but it was still expecting to have it from the first 
+>>>> lock operation.
+>>>>
+>>>> I suspect that this is a user mode bug, and KFD is working as 
+>>>> expected.
+>>>>
+>>>> Regards,
+>>>>   Felix
+>>>>
+>>>> On 2026-08-12 03:14, Zhu, Lingshan wrote:
+>>>>> AMD General
+>>>>>
+>>>>> Gentle Ping.
+>>>>>
+>>>>> Thanks
+>>>>> Lingshan
+>>>>>
+>>>>> -----Original Message-----
+>>>>> From: Zhu, Lingshan <Lingshan.Zhu@amd.com>
+>>>>> Sent: Thursday, August 6, 2026 4:43 PM
+>>>>> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, 
+>>>>> Christian <Christian.Koenig@amd.com>; Kuehling, Felix 
+>>>>> <Felix.Kuehling@amd.com>
+>>>>> Cc: Huang, Ray <Ray.Huang@amd.com>; amd-gfx@lists.freedesktop.org; 
+>>>>> Zhu, Lingshan <Lingshan.Zhu@amd.com>
+>>>>> Subject: [PATCH] amdkfd: allow profiler process reenter
+>>>>>
+>>>>> profile_lock_device() currently returns -EALREADY when the current 
+>>>>> profiler process requests to lock the device again. However any 
+>>>>> negtive values here are treated as failure, so this causes 
+>>>>> rejecting a profiler operation even though the caller still owns 
+>>>>> the device locking.
+>>>>>
+>>>>> This commit fixes this problem by returning 0 when the current 
+>>>>> profiler process locking the device again.
+>>>>>
+>>>>> This commit also changes profile_lock_device() to return an int 
+>>>>> value other than uint32_t, because it returns negative number when 
+>>>>> fail.
+>>>>>
+>>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+>>>>> ---
+>>>>>   drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 6 +++---
+>>>>>   1 file changed, 3 insertions(+), 3 deletions(-)
+>>>>>
+>>>>> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c 
+>>>>> b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>>>> index 309510e23315..9acd5c91e51c 100644
+>>>>> --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>>>> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+>>>>> @@ -3329,8 +3329,8 @@ static int kfd_ioctl_create_process(struct 
+>>>>> file *filep, struct kfd_process *p, v
+>>>>>          return 0;
+>>>>>   }
+>>>>>
+>>>>> -static inline uint32_t profile_lock_device(struct kfd_process *p,
+>>>>> -                                          uint32_t gpu_id, 
+>>>>> uint32_t op)
+>>>>> +static inline int profile_lock_device(struct kfd_process *p,
+>>>>> +                                     uint32_t gpu_id, uint32_t op)
+>>>>>   {
+>>>>>          struct kfd_process_device *pdd;
+>>>>>          struct kfd_dev *kfd;
+>>>>> @@ -3365,7 +3365,7 @@ static inline uint32_t 
+>>>>> profile_lock_device(struct kfd_process *p,
+>>>>>                          }
+>>>>>                          return status;
+>>>>>                  } else if (kfd->profiler_process == p) {
+>>>>> -                       status = -EALREADY;
+>>>>> +                       status = 0;
+>>>>>                  } else {
+>>>>>                          status = -EBUSY;
+>>>>>                  }
+>>>>> -- 
+>>>>> 2.53.0
+>>>>>
+--------------KL07kNuUU9OH9ZJxhbDb9SpT
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-v3:
- - Fix NC matrix enum name and string (Melissa)
- - Rebase
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <div class="moz-cite-prefix">On 2026-08-14 02:47, Zhu, Lingshan
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:4a94f469-1c79-4f46-a57d-bd2aa08ef162@amd.com">
+      
+      <pre>On 8/14/2026 12:05 AM, Kuehling, Felix wrote:</pre>
+      <blockquote type="cite" cite="mid:02e91cc3-a3b1-40b0-8027-ceef0f17a05a@amd.com">On
+        2026-08-13 02:21, Zhu, Lingshan wrote: <br>
+        <blockquote type="cite">Hello Felix, <br>
+          <br>
+          Yes I agree the user space may be buggy, and the kernel should
+          be robust. <br>
+          <br>
+          Even though it is named locking, it is actually a reservation,
+          not recursive locking. <br>
+          The kfd_process that successfully invokes the ioctl reserves
+          the device as a profiler. <br>
+          So when a user space locks the device multiple times, it does
+          not increase any reference counters, and doesn't need to
+          unlock multiple times. <br>
+          <br>
+          Multiple times lockings from the same kfd_process just keeps
+          the reservation, it still reserves the device successfully, <br>
+          so IMHO kfd should return 0 other than -EALREADY, which is a
+          negative error code. <br>
+        </blockquote>
+        <br>
+        That's exactly the problem. The API is apparently designed for
+        user mode to &quot;reserve&quot; profiler access once, presumably to get
+        exclusive access to some profiler resources. If user space
+        reserves multiple times, you probably have multiple
+        uncoordinated users of the profiler features in the same
+        process. If they are not aware of each other, they will run into
+        problems because they're expecting exclusive access to resources
+        that are actually shared with someone else. <br>
+      </blockquote>
+      do you mean some pthreads in a process that own the same
+      kfd_process?</blockquote>
+    <p>I'm thinking of situations where you may have multiple libraries
+      or modules linked into the same binary that all want to use the
+      profiler feature. It doesn't matter whether they run on the same
+      thread or different threads.</p>
+    <p>Regards,<br>
+      &nbsp; Felix</p>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:4a94f469-1c79-4f46-a57d-bd2aa08ef162@amd.com">
+      <blockquote type="cite" cite="mid:02e91cc3-a3b1-40b0-8027-ceef0f17a05a@amd.com"><br>
+        For example they will both independently call &quot;unreserve&quot; as
+        well. When the first one calls &quot;unreserve&quot;, the other one
+        breaks. This may happen intermittently, depending on the order
+        of operations. Or it may be noticed as a regression after
+        seemingly harmless changes that affect the order of operations.
+        This is much harder to debug than a clear error code returned
+        when a double reservation first happens. <br>
+        <br>
+        By returning 0 here, you paper over the user mode bug. But
+        chances are, you're going to run into other bugs later that have
+        the same cause and are much more difficult to debug. Unless
+        someone explains to me that I'm misunderstanding the intent of
+        the reservation API, I will not approve this change. <br>
+        <br>
+        <br>
+        <blockquote type="cite"> <br>
+          By the way, the function is declared to return uint32_t, which
+          is definitely wrong, because the function may return errors,
+          for example -EBUSY. <br>
+        </blockquote>
+        <br>
+        I agree with this part. <br>
+      </blockquote>
+      <pre>I will send out a patch to fix this part.
 
-Co-developed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-Reviewed-by: Melissa Wen <mwen@igalia.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Reviewed-by: Robert Mader <robert.mader@collabora.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Reviewed-by: Pekka Paalanen <pekka.paalanen@collabora.com>
----
- drivers/gpu/drm/drm_atomic.c      |   4 +
- drivers/gpu/drm/drm_atomic_uapi.c |   7 ++
- drivers/gpu/drm/drm_colorop.c     | 107 +++++++++++++++++++++++++
- include/drm/drm_colorop.h         | 127 ++++++++++++++++++++++++++++++
- include/uapi/drm/drm_mode.h       |  12 +++
- 5 files changed, 257 insertions(+)
+Thanks
+Lingshan</pre>
+      <blockquote type="cite" cite="mid:02e91cc3-a3b1-40b0-8027-ceef0f17a05a@amd.com"><br>
+        Regards, <br>
+        &nbsp; Felix <br>
+        <br>
+        <br>
+        <blockquote type="cite"> <br>
+          Thanks <br>
+          Lingshan <br>
+          On 8/13/2026 12:27 AM, Kuehling, Felix wrote: <br>
+          <blockquote type="cite">I suspect this won't work correctly.
+            If the profiler locks the device multiple times, it probably
+            also unlocks it multiple times. But I see no reference
+            counting being done, so this may result in a situation where
+            user mode locks twice, and unlocks once. Now it's lost the
+            lock but it was still expecting to have it from the first
+            lock operation. <br>
+            <br>
+            I suspect that this is a user mode bug, and KFD is working
+            as expected. <br>
+            <br>
+            Regards, <br>
+            &nbsp; Felix <br>
+            <br>
+            On 2026-08-12 03:14, Zhu, Lingshan wrote: <br>
+            <blockquote type="cite">AMD General <br>
+              <br>
+              Gentle Ping. <br>
+              <br>
+              Thanks <br>
+              Lingshan <br>
+              <br>
+              -----Original Message----- <br>
+              From: Zhu, Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:Lingshan.Zhu@amd.com" moz-do-not-send="true">&lt;Lingshan.Zhu@amd.com&gt;</a>
+              <br>
+              Sent: Thursday, August 6, 2026 4:43 PM <br>
+              To: Deucher, Alexander <a class="moz-txt-link-rfc2396E" href="mailto:Alexander.Deucher@amd.com" moz-do-not-send="true">&lt;Alexander.Deucher@amd.com&gt;</a>;
+              Koenig, Christian <a class="moz-txt-link-rfc2396E" href="mailto:Christian.Koenig@amd.com" moz-do-not-send="true">&lt;Christian.Koenig@amd.com&gt;</a>;
+              Kuehling, Felix <a class="moz-txt-link-rfc2396E" href="mailto:Felix.Kuehling@amd.com" moz-do-not-send="true">&lt;Felix.Kuehling@amd.com&gt;</a>
+              <br>
+              Cc: Huang, Ray <a class="moz-txt-link-rfc2396E" href="mailto:Ray.Huang@amd.com" moz-do-not-send="true">&lt;Ray.Huang@amd.com&gt;</a>;
+              <a class="moz-txt-link-abbreviated moz-txt-link-freetext" href="mailto:amd-gfx@lists.freedesktop.org" moz-do-not-send="true">amd-gfx@lists.freedesktop.org</a>;
+              Zhu, Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:Lingshan.Zhu@amd.com" moz-do-not-send="true">&lt;Lingshan.Zhu@amd.com&gt;</a>
+              <br>
+              Subject: [PATCH] amdkfd: allow profiler process reenter <br>
+              <br>
+              profile_lock_device() currently returns -EALREADY when the
+              current profiler process requests to lock the device
+              again. However any negtive values here are treated as
+              failure, so this causes rejecting a profiler operation
+              even though the caller still owns the device locking. <br>
+              <br>
+              This commit fixes this problem by returning 0 when the
+              current profiler process locking the device again. <br>
+              <br>
+              This commit also changes profile_lock_device() to return
+              an int value other than uint32_t, because it returns
+              negative number when fail. <br>
+              <br>
+              Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com" moz-do-not-send="true">&lt;lingshan.zhu@amd.com&gt;</a>
+              <br>
+              --- <br>
+              &nbsp; drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 6 +++--- <br>
+              &nbsp; 1 file changed, 3 insertions(+), 3 deletions(-) <br>
+              <br>
+              diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+              b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c <br>
+              index 309510e23315..9acd5c91e51c 100644 <br>
+              --- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c <br>
+              +++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c <br>
+              @@ -3329,8 +3329,8 @@ static int
+              kfd_ioctl_create_process(struct file *filep, struct
+              kfd_process *p, v <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return 0; <br>
+              &nbsp; } <br>
+              <br>
+              -static inline uint32_t profile_lock_device(struct
+              kfd_process *p, <br>
+              -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t
+              gpu_id, uint32_t op) <br>
+              +static inline int profile_lock_device(struct kfd_process
+              *p, <br>
+              +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uint32_t gpu_id,
+              uint32_t op) <br>
+              &nbsp; { <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_process_device *pdd; <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct kfd_dev *kfd; <br>
+              @@ -3365,7 +3365,7 @@ static inline uint32_t
+              profile_lock_device(struct kfd_process *p, <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return status; <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else if (kfd-&gt;profiler_process == p)
+              { <br>
+              -&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; status = -EALREADY; <br>
+              +&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; status = 0; <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else { <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; status = -EBUSY; <br>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
+              --&nbsp;<br>
+              2.53.0 <br>
+              <br>
+            </blockquote>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+    </blockquote>
+  </body>
+</html>
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index e5c8ef06caed..45df6376f408 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -925,6 +925,10 @@ static void drm_atomic_colorop_print_state(struct drm_printer *p,
- 				  drm_get_colorop_lut3d_interpolation_name(state->lut3d_interpolation));
- 		drm_printf_indent(p, 1, "data blob id=%d\n", state->data ? state->data->base.id : 0);
- 		break;
-+	case DRM_COLOROP_FIXED_MATRIX:
-+		drm_printf_indent(p, 1, "fixed_matrix_type=%s\n",
-+				  drm_get_colorop_fixed_matrix_type_name(state->fixed_matrix_type));
-+		break;
- 	default:
- 		break;
- 	}
-diff --git a/drivers/gpu/drm/drm_atomic_uapi.c b/drivers/gpu/drm/drm_atomic_uapi.c
-index 1050dddadb17..d52504d823bc 100644
---- a/drivers/gpu/drm/drm_atomic_uapi.c
-+++ b/drivers/gpu/drm/drm_atomic_uapi.c
-@@ -786,6 +786,11 @@ static int drm_atomic_colorop_set_property(struct drm_colorop *colorop,
- 		return drm_atomic_color_set_data_property(colorop, state,
- 							  property, val,
- 							  replaced);
-+	} else if (property == colorop->fixed_matrix_type_property) {
-+		if (state->fixed_matrix_type != val) {
-+			state->fixed_matrix_type = val;
-+			*replaced = true;
-+		}
- 	} else {
- 		drm_dbg_atomic(colorop->dev,
- 			       "[COLOROP:%d:%d] unknown property [PROP:%d:%s]\n",
-@@ -818,6 +823,8 @@ drm_atomic_colorop_get_property(struct drm_colorop *colorop,
- 		*val = state->lut3d_interpolation;
- 	else if (property == colorop->data_property)
- 		*val = (state->data) ? state->data->base.id : 0;
-+	else if (property == colorop->fixed_matrix_type_property)
-+		*val = state->fixed_matrix_type;
- 	else
- 		return -EINVAL;
- 
-diff --git a/drivers/gpu/drm/drm_colorop.c b/drivers/gpu/drm/drm_colorop.c
-index 682fcc651525..95da03d6c65c 100644
---- a/drivers/gpu/drm/drm_colorop.c
-+++ b/drivers/gpu/drm/drm_colorop.c
-@@ -68,6 +68,7 @@ static const struct drm_prop_enum_list drm_colorop_type_enum_list[] = {
- 	{ DRM_COLOROP_CTM_3X4, "3x4 Matrix"},
- 	{ DRM_COLOROP_MULTIPLIER, "Multiplier"},
- 	{ DRM_COLOROP_3D_LUT, "3D LUT"},
-+	{ DRM_COLOROP_FIXED_MATRIX, "Fixed Matrix"},
- };
- 
- static const char * const colorop_curve_1d_type_names[] = {
-@@ -90,6 +91,15 @@ static const struct drm_prop_enum_list drm_colorop_lut3d_interpolation_list[] =
- 	{ DRM_COLOROP_LUT3D_INTERPOLATION_TETRAHEDRAL, "Tetrahedral" },
- };
- 
-+static const char * const colorop_fixed_matrix_type_names[] = {
-+	[DRM_COLOROP_FM_YCBCR601_FULL_RGB] = "YCbCr 601 Full to RGB",
-+	[DRM_COLOROP_FM_YCBCR601_LIMITED_RGB] = "YCbCr 601 Limited to RGB",
-+	[DRM_COLOROP_FM_YCBCR709_FULL_RGB] = "YCbCr 709 Full to RGB",
-+	[DRM_COLOROP_FM_YCBCR709_LIMITED_RGB] = "YCbCr 709 Limited to RGB",
-+	[DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB] = "YCbCr 2020 NC Full to RGB",
-+	[DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB] = "YCbCr 2020 NC Limited to RGB",
-+};
-+
- /* Init Helpers */
- 
- static int drm_plane_colorop_init(struct drm_device *dev, struct drm_colorop *colorop,
-@@ -453,6 +463,80 @@ int drm_plane_colorop_3dlut_init(struct drm_device *dev, struct drm_colorop *col
- }
- EXPORT_SYMBOL(drm_plane_colorop_3dlut_init);
- 
-+/**
-+ * drm_plane_colorop_fixed_matrix_init - Initialize a DRM_COLOROP_FIXED_MATRIX
-+ *
-+ * @dev: DRM device
-+ * @colorop: The drm_colorop object to initialize
-+ * @plane: The associated drm_plane
-+ * @funcs: control functions for the new colorop
-+ * @supported_fm: A bitfield of supported drm_colorop_fixed_matrix_type enum values,
-+ *               created using BIT(fixed_matrix_type) and combined with the OR '|'
-+ *               operator.
-+ * @flags: bitmask of misc, see DRM_COLOROP_FLAG_* defines.
-+ * @return zero on success, -E value on failure
-+ */
-+int drm_plane_colorop_fixed_matrix_init(struct drm_device *dev, struct drm_colorop *colorop,
-+					struct drm_plane *plane,
-+					const struct drm_colorop_funcs *funcs,
-+					u64 supported_fm, uint32_t flags)
-+{
-+	struct drm_prop_enum_list enum_list[DRM_COLOROP_FM_COUNT];
-+	int i, len;
-+	struct drm_property *prop;
-+	int ret;
-+
-+	if (!supported_fm) {
-+		drm_err(dev,
-+			"No supported FM type op for new Fixed Matrix colorop on [PLANE:%d:%s]\n",
-+			plane->base.id, plane->name);
-+		return -EINVAL;
-+	}
-+
-+	if ((supported_fm & -BIT(DRM_COLOROP_FM_COUNT)) != 0) {
-+		drm_err(dev, "Unknown Fixed Matrix provided on [PLANE:%d:%s]\n",
-+			plane->base.id, plane->name);
-+		return -EINVAL;
-+	}
-+
-+	ret = drm_plane_colorop_init(dev, colorop, plane, funcs, DRM_COLOROP_FIXED_MATRIX, flags);
-+	if (ret)
-+		return ret;
-+
-+	len = 0;
-+	for (i = 0; i < DRM_COLOROP_FM_COUNT; i++) {
-+		if ((supported_fm & BIT(i)) == 0)
-+			continue;
-+
-+		enum_list[len].type = i;
-+		enum_list[len].name = colorop_fixed_matrix_type_names[i];
-+		len++;
-+	}
-+
-+	if (WARN_ON(len <= 0))
-+		return -EINVAL;
-+
-+	prop = drm_property_create_enum(dev, DRM_MODE_PROP_ATOMIC, "FIXED_MATRIX_TYPE",
-+					enum_list, len);
-+
-+	if (!prop)
-+		return -ENOMEM;
-+
-+	colorop->fixed_matrix_type_property = prop;
-+	/*
-+	 * Default to the first supported CSC mode as provided by the driver.
-+	 * Intuitively this should be something that keeps the colorop in pixel bypass
-+	 * mode but that is already handled via the standard colorop bypass
-+	 * property.
-+	 */
-+	drm_object_attach_property(&colorop->base, colorop->fixed_matrix_type_property,
-+				   enum_list[0].type);
-+	drm_colorop_reset(colorop);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL(drm_plane_colorop_fixed_matrix_init);
-+
- static void __drm_atomic_helper_colorop_duplicate_state(struct drm_colorop *colorop,
- 							struct drm_colorop_state *state)
- {
-@@ -533,6 +617,13 @@ static void __drm_colorop_state_init(struct drm_colorop_state *colorop_state,
- 							   &val))
- 			colorop_state->lut3d_interpolation = val;
- 	}
-+
-+	if (colorop->fixed_matrix_type_property) {
-+		if (!drm_object_property_get_default_value(&colorop->base,
-+							   colorop->fixed_matrix_type_property,
-+							   &val))
-+			colorop_state->fixed_matrix_type = val;
-+	}
- }
- 
- /**
-@@ -596,6 +687,7 @@ static const char * const colorop_type_name[] = {
- 	[DRM_COLOROP_CTM_3X4] = "3x4 Matrix",
- 	[DRM_COLOROP_MULTIPLIER] = "Multiplier",
- 	[DRM_COLOROP_3D_LUT] = "3D LUT",
-+	[DRM_COLOROP_FIXED_MATRIX] = "Fixed Matrix",
- };
- 
- static const char * const colorop_lu3d_interpolation_name[] = {
-@@ -652,6 +744,21 @@ const char *drm_get_colorop_lut3d_interpolation_name(enum drm_colorop_lut3d_inte
- 	return colorop_lu3d_interpolation_name[type];
- }
- 
-+/**
-+ * drm_get_colorop_fixed_matrix_type_name: return a string for fixed matrix type
-+ * @type: fixed matrix type to compute name of
-+ *
-+ * In contrast to the other drm_get_*_name functions this one here returns a
-+ * const pointer and hence is threadsafe.
-+ */
-+const char *drm_get_colorop_fixed_matrix_type_name(enum drm_colorop_fixed_matrix_type type)
-+{
-+	if (WARN_ON(type >= ARRAY_SIZE(colorop_fixed_matrix_type_names)))
-+		return "unknown";
-+
-+	return colorop_fixed_matrix_type_names[type];
-+}
-+
- /**
-  * drm_colorop_set_next_property - sets the next pointer
-  * @colorop: drm colorop
-diff --git a/include/drm/drm_colorop.h b/include/drm/drm_colorop.h
-index 224fae40ed2b..26ef67c835e2 100644
---- a/include/drm/drm_colorop.h
-+++ b/include/drm/drm_colorop.h
-@@ -134,6 +134,114 @@ enum drm_colorop_curve_1d_type {
- 	DRM_COLOROP_1D_CURVE_COUNT
- };
- 
-+/**
-+ * enum drm_colorop_fixed_matrix_type - type of Fixed Matrix
-+ *
-+ * Describes a Fixed Matrix operation to be applied by the DRM_COLOROP_FIXED_MATRIX
-+ */
-+enum drm_colorop_fixed_matrix_type {
-+	/**
-+	 * @DRM_COLOROP_FM_YCBCR601_FULL_RGB:
-+	 *
-+	 * enum string "YCbCr 601 Full to RGB"
-+	 *
-+	 * Converts full-range YCbCr into full-range RGB using the BT.601
-+	 * coefficients. Y is normalized to [0, 1] and Cb, Cr are centered
-+	 * at 0 (the nominal 0.5 offset removed) before the matrix::
-+	 *
-+	 *   | R |   | 1.0   0.000000   1.402000 |   | Y  |
-+	 *   | G | = | 1.0  -0.344136  -0.714136 | x | Cb |
-+	 *   | B |   | 1.0   1.772000   0.000000 |   | Cr |
-+	 */
-+	DRM_COLOROP_FM_YCBCR601_FULL_RGB,
-+
-+	/**
-+	 * @DRM_COLOROP_FM_YCBCR601_LIMITED_RGB:
-+	 *
-+	 * enum string "YCbCr 601 Limited to RGB"
-+	 *
-+	 * Converts limited- (narrow-) range YCbCr into full-range RGB using
-+	 * the BT.601 coefficients. Before the matrix Y is offset by 16/255
-+	 * and Cb, Cr are centered at 0, following the studio-range
-+	 * convention of ITU-R BT.601::
-+	 *
-+	 *   | R |   | 1.164384   0.000000   1.596027 |   | Y - 16/255 |
-+	 *   | G | = | 1.164384  -0.391762  -0.812968 | x | Cb         |
-+	 *   | B |   | 1.164384   2.017232   0.000000 |   | Cr         |
-+	 */
-+	DRM_COLOROP_FM_YCBCR601_LIMITED_RGB,
-+
-+	/**
-+	 * @DRM_COLOROP_FM_YCBCR709_FULL_RGB:
-+	 *
-+	 * enum string "YCbCr 709 Full to RGB"
-+	 *
-+	 * Converts full-range YCbCr into full-range RGB using the BT.709
-+	 * coefficients. Y is normalized to [0, 1] and Cb, Cr are centered
-+	 * at 0 (the nominal 0.5 offset removed) before the matrix::
-+	 *
-+	 *   | R |   | 1.0   0.000000   1.574800 |   | Y  |
-+	 *   | G | = | 1.0  -0.187324  -0.468124 | x | Cb |
-+	 *   | B |   | 1.0   1.855600   0.000000 |   | Cr |
-+	 */
-+	DRM_COLOROP_FM_YCBCR709_FULL_RGB,
-+
-+	/**
-+	 * @DRM_COLOROP_FM_YCBCR709_LIMITED_RGB:
-+	 *
-+	 * enum string "YCbCr 709 Limited to RGB"
-+	 *
-+	 * Converts limited- (narrow-) range YCbCr into full-range RGB using
-+	 * the BT.709 coefficients. Before the matrix Y is offset by 16/255
-+	 * and Cb, Cr are centered at 0, following the studio-range
-+	 * convention of ITU-R BT.709::
-+	 *
-+	 *   | R |   | 1.164384   0.000000   1.792741 |   | Y - 16/255 |
-+	 *   | G | = | 1.164384  -0.213249  -0.532909 | x | Cb         |
-+	 *   | B |   | 1.164384   2.112402   0.000000 |   | Cr         |
-+	 */
-+	DRM_COLOROP_FM_YCBCR709_LIMITED_RGB,
-+
-+	/**
-+	 * @DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB:
-+	 *
-+	 * enum string "YCbCr 2020 NC Full to RGB"
-+	 *
-+	 * Converts full-range YCbCr into full-range RGB using the BT.2020
-+	 * non-constant luminance coefficients. Y is normalized to [0, 1]
-+	 * and Cb, Cr are centered at 0 (the nominal 0.5 offset removed)
-+	 * before the matrix::
-+	 *
-+	 *   | R |   | 1.0   0.000000   1.474600 |   | Y  |
-+	 *   | G | = | 1.0  -0.164553  -0.571353 | x | Cb |
-+	 *   | B |   | 1.0   1.881400   0.000000 |   | Cr |
-+	 */
-+	DRM_COLOROP_FM_YCBCR2020_NC_FULL_RGB,
-+
-+	/**
-+	 * @DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB:
-+	 *
-+	 * enum string "YCbCr 2020 NC Limited to RGB"
-+	 *
-+	 * Converts limited- (narrow-) range YCbCr into full-range RGB using
-+	 * the BT.2020 non-constant luminance coefficients. Before the matrix
-+	 * Y is offset by 16/255 and Cb, Cr are centered at 0, following the
-+	 * studio-range convention of ITU-R BT.2020::
-+	 *
-+	 *   | R |   | 1.164384   0.000000   1.678674 |   | Y - 16/255 |
-+	 *   | G | = | 1.164384  -0.187326  -0.650424 | x | Cb         |
-+	 *   | B |   | 1.164384   2.141772   0.000000 |   | Cr         |
-+	 */
-+	DRM_COLOROP_FM_YCBCR2020_NC_LIMITED_RGB,
-+
-+	/**
-+	 * @DRM_COLOROP_FM_COUNT:
-+	 *
-+	 * enum value denoting the size of the enum
-+	 */
-+	DRM_COLOROP_FM_COUNT
-+};
-+
- /**
-  * struct drm_colorop_state - mutable colorop state
-  */
-@@ -197,6 +305,13 @@ struct drm_colorop_state {
- 	 */
- 	enum drm_colorop_lut3d_interpolation_type lut3d_interpolation;
- 
-+	/**
-+	 * @fixed_matrix_type:
-+	 *
-+	 * Type of Fixed Matrix operation.
-+	 */
-+	enum drm_colorop_fixed_matrix_type fixed_matrix_type;
-+
- 	/** @state: backpointer to global drm_atomic_commit */
- 	struct drm_atomic_commit *state;
- };
-@@ -366,6 +481,13 @@ struct drm_colorop {
- 	 */
- 	struct drm_property *data_property;
- 
-+	/**
-+	 * @fixed_matrix_type_property:
-+	 *
-+	 * Sub-type for DRM_COLOROP_FIXED_MATRIX type.
-+	 */
-+	struct drm_property *fixed_matrix_type_property;
-+
- 	/**
- 	 * @next_property:
- 	 *
-@@ -422,6 +544,10 @@ int drm_plane_colorop_3dlut_init(struct drm_device *dev, struct drm_colorop *col
- 				 uint32_t lut_size,
- 				 enum drm_colorop_lut3d_interpolation_type interpolation,
- 				 uint32_t flags);
-+int drm_plane_colorop_fixed_matrix_init(struct drm_device *dev, struct drm_colorop *colorop,
-+					struct drm_plane *plane,
-+					const struct drm_colorop_funcs *funcs,
-+					u64 supported_fm, uint32_t flags);
- 
- struct drm_colorop_state *
- drm_atomic_helper_colorop_create_state(struct drm_colorop *colorop);
-@@ -480,6 +606,7 @@ drm_get_colorop_lut1d_interpolation_name(enum drm_colorop_lut1d_interpolation_ty
- 
- const char *
- drm_get_colorop_lut3d_interpolation_name(enum drm_colorop_lut3d_interpolation_type type);
-+const char *drm_get_colorop_fixed_matrix_type_name(enum drm_colorop_fixed_matrix_type type);
- 
- void drm_colorop_set_next_property(struct drm_colorop *colorop, struct drm_colorop *next);
- 
-diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-index bd435effdcee..ed1a660a3dfd 100644
---- a/include/uapi/drm/drm_mode.h
-+++ b/include/uapi/drm/drm_mode.h
-@@ -955,6 +955,18 @@ enum drm_colorop_type {
- 	 *         color = lut3d[index]
- 	 */
- 	DRM_COLOROP_3D_LUT,
-+
-+	/**
-+	 * @DRM_COLOROP_FIXED_MATRIX:
-+	 *
-+	 * enum string "Fixed Matrix"
-+	 *
-+	 * A Colorop block that performs a pre-defined matrix operation selected
-+	 * via the FIXED_MATRIX_TYPE enum property. The driver advertises the supported
-+	 * operations through this property.
-+	 */
-+	DRM_COLOROP_FIXED_MATRIX,
-+
- };
- 
- /**
--- 
-2.55.0
-
+--------------KL07kNuUU9OH9ZJxhbDb9SpT--
