@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01B2BC5B572
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 07:57:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C6F40C5CFCF
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 07:57:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E11C610F418;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA68A10F417;
 	Fri, 14 Aug 2026 07:57:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Ean71xlV";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="o43AhyMU";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6ED0C10F3F5;
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0294010E0E4;
  Fri, 14 Aug 2026 07:57:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=FlsaeBieZrbIa/BOohisaNfrc5gra+pstA/KS7KfUO4=; b=Ean71xlVThDCm01v1Ofx7JGBFG
- ChpcCSeqU0ulQcTMMxMmNmL/GcigLW+UpMMSqzM92l1AQ9EKh9Y2rBgWT4bdpwMgDmFUdVSoxVQi6
- v1jLlUZD+EN2w9zqvXz3pvgZqQUzrFm0dwvgsfqSRe1QMMg0Nm/e4jAnH68Q8YzgXuGqfA/JQnaJX
- fPJY81X7TwpchEas494QMmol3hBTiwyzmTUZAYfZ5trXBU/nLIttaJAf0NTR7DX9o1GaO3E8qvu96
- QKkdYUDR47sTmzJvkT6+grBcfC4HXy1dmf9QtIBCY8k4MJyj4laOpmT6V6sSHSRp4jqwQiJdpEFRq
- fFTJ6MzA==;
+ bh=NLcEGm1VsxFiuoMqjM9ekRQhLgaTUgAi2fGwwgS7Idw=; b=o43AhyMUzmNgiJUpAzt3Ra4PPE
+ +y8DzqOZU0yirYDHVd7y3+5bhiwLSz9J3lLrXAszEA5RGbdZBLHd0i6BYNGdLtqqKPzKDQr+AD0+D
+ zuFHqPIT6bKbrmaq+tL1aDj+Flt57tPvwCgSh4gH6aJBlqfE0Q2srAyLbTCfaEQFPSJtO359H+Ng2
+ Qz3BVShxMomfjRmkWnOpbVP3S11eBFCD+vROADjUIs5xGOh+/sAwWKmpw+gJCdLy8Ind5PRAEcDad
+ I0RFBxDw0KrPfjE9c/PcGVddXFf3l+t0vHElOzc0hWCDxVn+DUIYJfYTHIlxZ0H1HvIDlgkllwTRJ
+ myg0YBgQ==;
 Received: from [81.79.79.1] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wumnX-001ds6-HY; Fri, 14 Aug 2026 09:57:51 +0200
+ id 1wumnW-001ds1-Ld; Fri, 14 Aug 2026 09:57:50 +0200
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: amd-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
  Luke.Wildhardt@proton.me,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- Philipp Stanner <phasta@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
  Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+ Matthew Brost <matthew.brost@intel.com>,
  Vitaly Prosyak <vitaly.prosyak@amd.com>
-Subject: [PATCH 2/2] drm/sched: Ensure monotonic min_vruntime
-Date: Fri, 14 Aug 2026 08:57:39 +0100
-Message-ID: <20260814075739.32481-3-tvrtko.ursulin@igalia.com>
+Subject: [PATCH 1/2] drm/sched: Do not restore unsaved virtual runtime
+Date: Fri, 14 Aug 2026 08:57:38 +0100
+Message-ID: <20260814075739.32481-2-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260814075739.32481-1-tvrtko.ursulin@igalia.com>
 References: <20260814075739.32481-1-tvrtko.ursulin@igalia.com>
@@ -63,179 +62,128 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-min_vruntime handling had a bug where if an entity never exited the run-
-queue it could get penalised by its virtual runtime only ever growing,
-while the periodically exiting and re-joining entities could repeatedly
-get pulled ahead of it.
+Prevent pushing a new job to an entity seeing it being the first in the
+queue, and hence entering the drm_sched_rq_add_entity() path, if the pop
+side in drm_sched_entity_pop_job() has de-queued the job but not yet
+updated the saved virtual time.
 
-Fix it by making the min_vruntime strictly monotonic by tracking it
-separately (an keeping it always up to date) instead of fetching what
-happens to be the top of the tree sorted by virtual runtime.
-
-While at it replace open coded ktime_t comparison with the correct
-ktime_after() helper.
+We do this by pulling the locked sections out to encompass both the queue
+push/pop and corresponding rbtree management.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
+Suggested-by: Luke.Wildhardt@proton.me # via Claude Opus
 Tested-by: Luke.Wildhardt@proton.me
 Cc: Christian König <christian.koenig@amd.com>
 Cc: Danilo Krummrich <dakr@kernel.org>
-Cc: Luke.Wildhardt@proton.me
-Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Philipp Stanner <phasta@kernel.org>
 Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
 Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
 ---
- drivers/gpu/drm/scheduler/sched_rq.c | 65 ++++++++--------------------
- include/drm/gpu_scheduler.h          |  2 +
- 2 files changed, 21 insertions(+), 46 deletions(-)
+ drivers/gpu/drm/scheduler/sched_entity.c |  8 +++++++-
+ drivers/gpu/drm/scheduler/sched_rq.c     | 20 +++++++++-----------
+ 2 files changed, 16 insertions(+), 12 deletions(-)
 
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index a4a7efdbf229..673ca9cbf362 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -559,9 +559,10 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+ 	 */
+ 	smp_wmb();
+ 
++	spin_lock(&entity->lock);
+ 	spsc_queue_pop(&entity->job_queue);
+-
+ 	drm_sched_rq_pop_entity(entity);
++	spin_unlock(&entity->lock);
+ 
+ 	/* Jobs and entities might have different lifecycles. Since we're
+ 	 * removing the job from the entities queue, set the jobs entity pointer
+@@ -647,6 +648,9 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+ 	 * Make sure to set the submit_ts first, to avoid a race.
+ 	 */
+ 	sched_job->submit_ts = submit_ts = ktime_get();
++
++	spin_lock(&entity->lock);
++
+ 	first = spsc_queue_push(&entity->job_queue, &sched_job->queue_node);
+ 
+ 	/* first job wakes up scheduler */
+@@ -657,5 +661,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+ 		if (sched)
+ 			drm_sched_wakeup(sched);
+ 	}
++
++	spin_unlock(&entity->lock);
+ }
+ EXPORT_SYMBOL(drm_sched_entity_push_job);
 diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
-index 23f46ec610e7..bc8363974a27 100644
+index 0464d324d98d..23f46ec610e7 100644
 --- a/drivers/gpu/drm/scheduler/sched_rq.c
 +++ b/drivers/gpu/drm/scheduler/sched_rq.c
-@@ -98,6 +98,7 @@ void drm_sched_rq_init(struct drm_gpu_scheduler *sched,
- 	rq->rb_tree_root = RB_ROOT_CACHED;
- 	rq->sched = sched;
- 	rq->head_prio = DRM_SCHED_PRIORITY_INVALID;
-+	rq->min_vruntime = 0;
- }
+@@ -257,19 +257,17 @@ static ktime_t drm_sched_entity_get_job_ts(struct drm_sched_entity *entity)
+ struct drm_gpu_scheduler *
+ drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
+ {
++	struct drm_sched_rq *rq = entity->rq;
+ 	struct drm_gpu_scheduler *sched;
+-	struct drm_sched_rq *rq;
  
- /*
-@@ -120,28 +121,6 @@ static const unsigned int vruntime_shift[] = {
- 	[DRM_SCHED_PRIORITY_LOW]    = 7,
- };
- 
--static ktime_t
--drm_sched_rq_get_min_vruntime(struct drm_sched_rq *rq)
--{
--	ktime_t vruntime = 0;
--	struct rb_node *rb;
+ 	/* Add the entity to the run queue */
+-	spin_lock(&entity->lock);
++	lockdep_assert_held(&entity->lock);
++
+ 	if (entity->stopped) {
+-		spin_unlock(&entity->lock);
 -
--	lockdep_assert_held(&rq->lock);
--
--	rb = rb_first_cached(&rq->rb_tree_root);
--	if (rb) {
--		struct drm_sched_entity *entity =
--			rb_entry(rb, typeof(*entity), rb_tree_node);
--		struct drm_sched_entity_stats *stats = entity->stats;
--
--		spin_lock(&stats->lock);
--		vruntime = stats->vruntime;
--		spin_unlock(&stats->lock);
--	}
--
--	return vruntime;
--}
--
- static void
- drm_sched_entity_save_vruntime(struct drm_sched_entity *entity,
- 			       ktime_t min_vruntime)
-@@ -151,7 +130,7 @@ drm_sched_entity_save_vruntime(struct drm_sched_entity *entity,
- 
- 	spin_lock(&stats->lock);
- 	vruntime = stats->vruntime;
--	if (min_vruntime && vruntime > min_vruntime)
-+	if (ktime_after(vruntime, min_vruntime))
- 		vruntime = ktime_sub(vruntime, min_vruntime);
- 	else
- 		vruntime = 0;
-@@ -239,11 +218,6 @@ static ktime_t drm_sched_entity_update_vruntime(struct drm_sched_entity *entity)
- 	return runtime;
- }
- 
--static ktime_t drm_sched_entity_get_job_ts(struct drm_sched_entity *entity)
--{
--	return drm_sched_entity_update_vruntime(entity);
--}
--
- /**
-  * drm_sched_rq_add_entity - add an entity
-  * @entity: scheduler entity
-@@ -276,13 +250,11 @@ drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
- 		list_add_tail(&entity->list, &rq->entities);
+ 		DRM_ERROR("Trying to push to a killed entity\n");
+ 		return NULL;
  	}
  
--	if (drm_sched_policy == DRM_SCHED_POLICY_FAIR) {
--		ts = drm_sched_rq_get_min_vruntime(rq);
--		ts = drm_sched_entity_restore_vruntime(entity, ts,
-+	if (drm_sched_policy == DRM_SCHED_POLICY_FAIR)
-+		ts = drm_sched_entity_restore_vruntime(entity, rq->min_vruntime,
- 						       rq->head_prio);
--	} else if (drm_sched_policy == DRM_SCHED_POLICY_RR) {
-+	else if (drm_sched_policy == DRM_SCHED_POLICY_RR)
- 		ts = entity->rr_ts;
--	}
+-	rq = entity->rq;
+ 	spin_lock(&rq->lock);
+ 	sched = rq->sched;
  
+@@ -289,7 +287,6 @@ drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
  	drm_sched_rq_update_fifo_locked(entity, rq, ts);
  
-@@ -342,6 +314,7 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
+ 	spin_unlock(&rq->lock);
+-	spin_unlock(&entity->lock);
+ 
+ 	return sched;
+ }
+@@ -343,16 +340,17 @@ drm_sched_rq_next_rr_ts(struct drm_sched_rq *rq,
+  */
+ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
  {
- 	struct drm_sched_rq *rq = entity->rq;
++	struct drm_sched_rq *rq = entity->rq;
  	struct drm_sched_job *next_job;
-+	ktime_t ts;
+-	struct drm_sched_rq *rq;
++
++	lockdep_assert_held(&entity->lock);
++
++	spin_lock(&rq->lock);
  
- 	lockdep_assert_held(&entity->lock);
- 
-@@ -351,27 +324,27 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
+ 	/*
  	 * Update the entity's location in the min heap according to
  	 * the timestamp of the next job, if any.
  	 */
-+
-+	if (drm_sched_policy == DRM_SCHED_POLICY_FAIR) {
-+		ts = drm_sched_entity_update_vruntime(entity);
-+		if (ktime_after(ts, rq->min_vruntime))
-+			rq->min_vruntime = ts;
-+	}
-+
+-	spin_lock(&entity->lock);
+-	rq = entity->rq;
+-	spin_lock(&rq->lock);
  	next_job = drm_sched_entity_queue_peek(entity);
  	if (next_job) {
--		ktime_t ts;
--
--		if (drm_sched_policy == DRM_SCHED_POLICY_FAIR)
--			ts = drm_sched_entity_get_job_ts(entity);
--		else if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
-+		if (drm_sched_policy == DRM_SCHED_POLICY_FIFO)
- 			ts = next_job->submit_ts;
--		else
-+		else if (drm_sched_policy == DRM_SCHED_POLICY_RR)
- 			ts = drm_sched_rq_next_rr_ts(rq, entity);
- 
- 		drm_sched_rq_update_fifo_locked(entity, rq, ts);
- 	} else {
-+		if (drm_sched_policy == DRM_SCHED_POLICY_FAIR)
-+			drm_sched_entity_save_vruntime(entity,
-+						       rq->min_vruntime);
-+
- 		drm_sched_rq_remove_fifo_locked(entity, rq);
--
--		if (drm_sched_policy == DRM_SCHED_POLICY_FAIR) {
--			ktime_t min_vruntime;
--
--			min_vruntime = drm_sched_rq_get_min_vruntime(rq);
--			drm_sched_entity_save_vruntime(entity, min_vruntime);
--		}
+ 		ktime_t ts;
+@@ -375,8 +373,8 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
+ 			drm_sched_entity_save_vruntime(entity, min_vruntime);
+ 		}
  	}
- 
++
  	spin_unlock(&rq->lock);
-diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-index 7a64cc11de08..92d1a6ff9ac0 100644
---- a/include/drm/gpu_scheduler.h
-+++ b/include/drm/gpu_scheduler.h
-@@ -267,6 +267,7 @@ struct drm_sched_entity {
-  * @entities: list of the entities to be scheduled.
-  * @rb_tree_root: root of time based priority queue of entities for FIFO scheduling
-  * @head_prio: priority of the top tree element.
-+ * @min_vruntime: Minimum virtual runtime for the run-queue.
-  *
-  * Run queue is a set of entities scheduling command submissions for
-  * one specific ring. It implements the scheduling policy that selects
-@@ -281,6 +282,7 @@ struct drm_sched_rq {
- 	struct list_head		entities;
- 	struct rb_root_cached		rb_tree_root;
- 	enum drm_sched_priority		head_prio;
-+	ktime_t				min_vruntime;
- };
+-	spin_unlock(&entity->lock);
+ }
  
  /**
 -- 
