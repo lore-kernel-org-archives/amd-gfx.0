@@ -4,100 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6F24DC5CFCF
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 16:18:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 697DEC5CFCF
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 16:19:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEA2310E161;
-	Fri, 14 Aug 2026 16:18:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0745E10E172;
+	Fri, 14 Aug 2026 16:19:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PRjwkEsK";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="S4CRZCXZ";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012001.outbound.protection.outlook.com
- [40.93.195.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1B76310E161
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 16:18:56 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012007.outbound.protection.outlook.com [52.101.53.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A61D210E172
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 16:19:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kzP3xGhXNG34FDVQwV/FBP+WDdT9LWS/6i/4ANlg44+sLyEbSSO54jAvUHuuR9y8F8uAM04+n5Po73Jku0fKl9SrHOGXA75sBWEkVi3S+oKX5P3wl1kedUHzRvlBLGcHXbaxYk4yl/VBf8q5Qs7b4TQ0315tcC5bzdxWL/Gr1H3GFsJRDSnrDRPZmQI/pYxwZu3CFUfZigQxGeSBY+ekni7e3tRQLIga/C3VG0zg9LKRLDVwd34Ck7SO0CliRG3ZIcaOQflxxXWE74Rh+XrQL2tExQIQpd/Kddvnxnq8bBF0hBPq+8RKrjS6woOpun8SJVesTILU9zgSTejaKxD1SQ==
+ b=mHTKVfeQSXIZiykyEgMtKHgZC8JYvQbZU4UPDRwAPNU/AML8oHxra1BExtvIYYff9jqS2V8VhAOX5eJhQGEdI+2Me2mSg30zwCu/P2fc8GyOaayMmkfmhRY2w8v2uf33K8kJ/k3+F0R5rkU66EdR/5Nv8kdBGjOxFVEzPgMU+m0Gi8FEV9OAzj+q3JcOK9eJylU2Vbiprh7UnskTUvEETHNbYasxCg7QrpxPawwZ3upS0k09CzPfWYORgXxwKj31/1r5T5kO9vcfl6dRROmKweuieUi2E+kOQZgC7yTCCEYK5HHD+rfa8NxnGnFkX9A36H/3HV0wP4C89RdfzgLyvg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iQW2fNTSjZhtJRsiyB4AmwuJxCuq9rJ8XVCtHYcltHs=;
- b=RSqfvUuAzKhCWUyI5sj9HtOIqYVzd03c0N74kG3V85mih6cJZbJuxJ6oawAlfNgZU+8xga9zMyMtDPLe8wBsoaHSTlt6RRby//kxwV92i1fcv5D50v0Od20VNBYyq5YgLhHWgyjLmfUkjSzfJ5PHSwKdEYtx+N36DYxEc3UMXsLpDM2mV6RbjbBrT5fnIwwJh9OPcz+6HdCmCqAUY8xMiEMGBlvLf9ukybyUalzju1g8t2aiWKdNKy1qJL9T9Lho1q9bsEe3rblCisaLAd0hi0bQiR/n0KONh1V0zSclzC8UIrc6us6yh/+f2dVDNUdEpK423JMoRIv5iuuwYyifjA==
+ bh=G6LjGh3/Tb+jXtvEOal6cSn6/SJo/eq2wBqPXa2KFaM=;
+ b=Ffsh9Ppza9mNUvNFvFk9sEd4ijbLWA764WvSUIS9uYtB3GWurvjRoYAy2PDGa99nmQLp3Hms15/msZSWZV4s3I9eWqXyvif8GVko+L6QUUiWGGOJTJ/a5n6I3eMOlEQuWQXtAo4rbLlXE3OVQnBgYiwhIuPatUq+BsgNyFh2CBfJPwNK/Y/Wg/Wkpu4aaYhJZcKpOxI3TUerOIMCBjhn8ezulsyMwO0h2f1JEQS+8bekNUvk3FbBHPrDnDY6Itq60qf4UjGKoBf7op2HGsesnPUrBRwVog559fTCBEm5NrOx6hxS364gO+IGkCmp0aX95nOPszThKmGrrZjkRH6jeA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iQW2fNTSjZhtJRsiyB4AmwuJxCuq9rJ8XVCtHYcltHs=;
- b=PRjwkEsKPTJEwxnpQClV+MvvQjxvyneklkgDPsW+O2Q/nYSCGW3kiJoks0XCQ7FWXmTiq2IqTAiauTqfmXRjzz6iAhx/lNfe+AVQLX57avZkagB1HHJSmzzfttll43HuSUyzZnoiK39emnwAyVeA/yKAsWBQkbf7uyWLlZle/Vc=
-Received: from DS7P220CA0051.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:224::24) by
- SA1PR12MB9548.namprd12.prod.outlook.com (2603:10b6:806:458::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Fri, 14 Aug
- 2026 16:18:51 +0000
-Received: from DS1PEPF00017094.namprd03.prod.outlook.com
- (2603:10b6:8:224:cafe::9e) by DS7P220CA0051.outlook.office365.com
- (2603:10b6:8:224::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.15 via Frontend Transport; Fri,
- 14 Aug 2026 16:18:51 +0000
+ bh=G6LjGh3/Tb+jXtvEOal6cSn6/SJo/eq2wBqPXa2KFaM=;
+ b=S4CRZCXZfqghgwISyLN3/8wpLS8pqyqIdihDIM+zPF51RxL1bQF3CZlCzJyls1cMDuMY3ExwcyCdP5G1SiQ03jHW+CCKuTftaJbVL1l8e+YSL7ZwdZWsCzT6Zaarfk3unJoZp6GaXk/8cHBZai6ywPU5Z7YE6zqrSY6aWNlK0Qc=
+Received: from SJ0PR05CA0130.namprd05.prod.outlook.com (2603:10b6:a03:33d::15)
+ by LV5PR12MB9778.namprd12.prod.outlook.com (2603:10b6:408:300::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Fri, 14 Aug
+ 2026 16:19:00 +0000
+Received: from SJ1PEPF00001CDD.namprd05.prod.outlook.com
+ (2603:10b6:a03:33d:cafe::7e) by SJ0PR05CA0130.outlook.office365.com
+ (2603:10b6:a03:33d::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.4 via Frontend Transport; Fri, 14
+ Aug 2026 16:18:59 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS1PEPF00017094.mail.protection.outlook.com (10.167.17.137) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF00001CDD.mail.protection.outlook.com (10.167.242.5) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 16:18:50 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 16:18:59 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 11:18:49 -0500
+ 2026 11:18:58 -0500
 Received: from rtg-MAPLE.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 14 Aug 2026 11:18:46 -0500
+ Transport; Fri, 14 Aug 2026 11:18:50 -0500
 From: Priya Hosur <Priya.Hosur@amd.com>
 To: <amd-gfx@lists.freedesktop.org>, <Alexander.Deucher@amd.com>,
  <Sunil.Khatri@amd.com>, <Felix.Kuehling@amd.com>, <Shaoyun.Liu@amd.com>,
  <Lijo.Lazar@amd.com>, <Mario.Limonciello@amd.com>, <Christian.Koenig@amd.com>
 CC: <Pratik.Vishwakarma@amd.com>, <Veerabadhran.Gopalakrishnan@amd.com>,
- <Priya.Hosur@amd.com>
-Subject: [PATCH v3 0/2] drm/amdkfd: Add TLB flush after MES queue
+ <Priya.Hosur@amd.com>, Felix Kuehling <felix.kuehling@amd.com>
+Subject: [PATCH v3 1/2] drm/amdkfd: Add TLB flush after MES queue
  eviction/suspension
-Date: Fri, 14 Aug 2026 21:48:38 +0530
-Message-ID: <20260814161841.5906-1-Priya.Hosur@amd.com>
+Date: Fri, 14 Aug 2026 21:48:39 +0530
+Message-ID: <20260814161841.5906-2-Priya.Hosur@amd.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260814161841.5906-1-Priya.Hosur@amd.com>
+References: <20260814161841.5906-1-Priya.Hosur@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017094:EE_|SA1PR12MB9548:EE_
-X-MS-Office365-Filtering-Correlation-Id: 73a3b819-44ba-450c-d7d8-08defa1fb9fe
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDD:EE_|LV5PR12MB9778:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f12211d-3a4a-40e2-72a0-08defa1fbf4e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|23010399003|1800799024|82310400026|11063799006|56012099006|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info: MgQSZvgcltql4qV1S2EwhZzIDvY6scRkyUz12THUVbOVm/qJNtDI+Y6LHV6c2+T9HZ0wwOGU+sT9iAdtBQZc05R5leyxYdiGpCGkGayRrmMTF/lJZA2t8ikpPXZKJEfBD5988KfGidXAUipuGP/JhxZluCSy6NpgAtAluXE1+QWlPZn/CvqceZAosG9FK6IYV+nDJ4bsy744eS7rTfpm4w44Am7VFdJrSEIz/gr1FIvLgumvId/nWkQEjgp+Hp0dgLqHlZPM/klbZHts88EqlNPWYIWbDYqpFUcPN9xwJwaATG01MGCO0ItTBoUFnEBi8VTx3PEI4tpUlQESPnvhyIFGBg0zD8peWno23mTfM3kmRPLfU5yXPAY3odl68rVZkZ+VpiPY373Q6+a7Ms985s91SPKoxkfT/12gF5X+u4E6h6wBO5KLHyVgrA8Cuvdwq9E4DIRWViBoTlmUqwVb85K0VShmNwRNMACLYkfVv2G0KzVhbuLwPjl+ZkGYLeiufR1vTFZW/+S15zUoFjryp9dg+mbd3Cu+LSPoYyu6V3HtcBe43dA9QM+U3xSikPU5BMDfdaSbykAx7L/FOz7bnjUggud8c9FLMN/qr8NbxgqHkeEUioSd58nD0GXhAJBnFqECPW8dFlyx9qUdjFoggAe+3TtRIG4OP9b/5YMNE7baYJA6SeXMUYgAw7iyb08RmF7WaaWqWRUTUyWWxB7MEA==
+ ARA:13230040|82310400026|376014|1800799024|23010399003|36860700016|22082099003|18002099003|56012099006|6133799003|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: sKPP9LgiKlXprB6l2hYJE/fyAuno+Hy1w91ASoQ49gL5BcQKx22+18hoGzrjhB9tot7nFRCoIaFx2p4f48H1MHj8+RKZCy1S3MPnO5R/4pkD0jdqFOc9Gj58MIGJxJxCM/ZOcx+LCI7Hu6279aMCrpz+HtYbXVFZdrOk3DExRfUWfN3A1iSepoG6N2dyQjxetdkpCm3ApUxyDRw/bd8vOJkahkDjmh2CmNq1jJQiwUwRCMRefNz2GNUP0RxMBAKJm4KnoogEC5+OyJRhqPMI3RMj+/CvRSm+/mZ3VF86qBFQtpgmEifya/+TYt7y1nwz/QR9XIEBXdTzr8diMK6WBPV3rbQJHlnVN4laY0HvcbpMjslab2s8vtW1ly6/geNF1ESoASYskm0Rmz6iyJFlw0HbPrS8pxbzMTlLPurjbbsrslQ3UFnKzsTWLTPKvIy1FF7lE7sErk1Ry4nh2ULfcpRS0QTB7sOsBhbGfNrcDSss6iAlLjJ3KECvavL0zr/TBHns8gWJOolFbrvyNHGOpnlZcNPrX9PUkLHnJQDMu4OA7qg6yUrfuWruKYqYele1NW9YecsZFtI88VgIOkZWSfPb/jjUtk+K23dvbhjPMtwEGv8SvmpdcW59MOkKQl3mucfYhoFpxbz5qu68gRF+8qzLc4s6sQAmaHE3eE+eBLlF/s8aD+5JAOiPqkEc0BduauYFlBM+H4vFngMho7l+yw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(11063799006)(56012099006)(10067099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(23010399003)(36860700016)(22082099003)(18002099003)(56012099006)(6133799003)(11063799006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 3hkvr7B5UdYvN2C2U/ueoD5VEP6b5FfH/+3nXcOL8wpjAmwZ/1nuWh9w3dgsSAMAKrs23mTYvd+RpwJcC6bxwjyJ3FlwDXczd56D6eQ82z2Zmp3/I0p4wBjSL8dmcQI76XzJHygtKo2ac8RNJ2hzJFDclHrplQBN+rn27AMZC+vTZjOfR6FPzELkcyz1f2ikmmqZK0o438Mlc/DNYONQExg1mSuGT8pIWS3WjXFvw+jAsTGyx6M8GNRnBPJXZeuMUXjTPHa1aQyUaX04RPyfo3arqAn86378v/BUP+Eh9d6hxgj6QMh26eXHjbq5IKC3ryYpXGsZxbMFw+k37V36KHJxnn1pdW9E4hsaWINurQwZN5j2JfITl9yBRydc4soGRB5nkYva+tP+oEnwU6Jv6mpt5ByOBI4BAwIBhU3k4Oqujb8wSixw31/rwG5796q5
+X-MS-Exchange-AntiSpam-MessageData-0: XrSH5eE18l89n538UJ/f/Sjo+iLxTBI8Y2a3ORlNe2gG8VIaKbO8XTkw9uHP5Ex5mEVlTqPpWCAFKK4FYGt0ZGW4MqLrqg3r42Kn7KDS0l8YbtUmRc2k23DUrtosXVQnVtUHNE4cX9PgigJg406ip31w6Gt0ia+/0E6A0NJQa66jFA7Fh/GeW0Dul5pnsrxmvyAKNK6Udvw734CmoYtiC7tsCZBxM7zOjPJJm61CX3r69EMs44/lYme0jb5xcO8uOEON5PHv3HbUGMSiEMIjO2TchfU1Ky7yGq6AwASo13LtkFeJY8brMwCXlisQ4KlrJDWvSd1l9W/KSuwfHckMNNUYco3Hb5opSCnBQPBg4Ztmj6ObW1AEwdvc8FVoOlK2DonC3sI9fy6IAyH+NQw5k9jah50wbJlCgva0bipvGMKJqD/kGlEJETb+3YlzeYMf
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 16:18:50.3870 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 73a3b819-44ba-450c-d7d8-08defa1fb9fe
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 16:18:59.2352 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f12211d-3a4a-40e2-72a0-08defa1fbf4e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017094.namprd03.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDD.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB9548
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV5PR12MB9778
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,26 +113,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This patch series adds heavy-weight TLB flush after MES queue eviction/suspension
-to fix SVM page migration hangs on gfx1151 with XNACK mode enabled.
+MES (Micro Engine Scheduler) does not perform heavy-weight TLB
+invalidation after unmapping queues, unlike HWS which does this
+automatically. This causes a race condition where in-flight DMA
+descriptors can access memory that has been unmapped, leading to page
+faults and GPU queue hangs during SVM page migration.
 
-v3:
-  - Split into 2 patches per Alex's review
-  - Added userq TLB flush in amdgpu_userq_unmap_helper() (amdgpu_userq.c)
+The issue manifests as KFDSVMRangeTest.MultiThreadMigrationTest
+failures on gfx1151 (Strix Point) with XNACK mode 1 enabled - the GPU
+compute queue hangs with packets submitted but never consumed.
 
-v2:
-  - Removed "SDMA" from comment as this affects all in-flight memory
-    accesses, not just SDMA (Felix Kuehling)
-  - Added Reviewed-by tag
+Add kfd_flush_tlb() calls after MES queue removal in two locations:
+- evict_process_queues_cpsch(): after all queues removed during eviction
+- suspend_queues(): after debug/criu queue suspension (with mem_fence barrier)
 
-Priya Hosur (2):
-  drm/amdkfd: Add TLB flush after MES queue eviction/suspension
-  drm/amdgpu: Add TLB flush after MES user queue unmap
+This ensures all in-flight memory accesses from unmapped queues are
+flushed before memory is freed or migrated.
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c           |  6 ++++++
+Change-Id: Iaa884d4a7ad1199446bc45f4ad8a9a179ab386e6
+Signed-off-by: Priya Hosur <Priya.Hosur@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+---
  .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c   | 13 ++++++++++++-
- 2 files changed, 18 insertions(+), 1 deletion(-)
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index a23384571193..6002c8a65fbe 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -1450,6 +1450,14 @@ static int evict_process_queues_cpsch(struct device_queue_manager *dqm,
+ 		dqm_evict_mqd_bo(dqm, q);
+ 	}
+ 
++	/*
++	 * Heavy-weight TLB flush after MES removes queues to ensure
++	 * in-flight memory accesses complete before memory is freed/migrated.
++	 * HWS does this automatically, MES does not.
++	 */
++	if (dqm->dev->kfd->shared_resources.enable_mes)
++		kfd_flush_tlb(pdd);
++
+ 	if (!dqm->dev->kfd->shared_resources.enable_mes) {
+ 		pdd->last_evict_timestamp = get_jiffies_64();
+ 		retval = execute_queues_cpsch(dqm,
+@@ -3736,8 +3744,11 @@ int suspend_queues(struct kfd_process *p,
+ 		if (!per_device_suspended) {
+ 			dqm_unlock(dqm);
+ 			mutex_unlock(&p->event_mutex);
+-			if (total_suspended)
++			if (total_suspended) {
+ 				amdgpu_amdkfd_debug_mem_fence(dqm->dev->adev);
++				/* Heavy-weight TLB flush after MES suspends queues */
++				kfd_flush_tlb(pdd);
++			}
+ 			continue;
+ 		}
+ 
 -- 
 2.43.0
 
