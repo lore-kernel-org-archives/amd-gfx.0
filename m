@@ -4,113 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E011BC5CFC1
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 07:01:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4595BC5DF77
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 07:01:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CA2D10E678;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C56110E67C;
 	Mon, 17 Aug 2026 07:01:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="KUGSZSzM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fwaLXJLM";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F3D0510F620;
- Fri, 14 Aug 2026 14:57:39 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2CA0B60120;
- Fri, 14 Aug 2026 14:57:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B88A31F000E9;
- Fri, 14 Aug 2026 14:57:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786719458;
- bh=oRHsc21NPHRRTL5TCXKm1vpU6KJAiAdM4KGx4fHfbPM=;
- h=From:Subject:Date:To:Cc;
- b=KUGSZSzMNBGgEbZ5Oo19cwy5OO7XpvFKIqR4u+Q/uLSgBrSE90y4IB5hkgsOFBnSJ
- smkV7tH2KkJ4/Uv+tHHF1fA/A6BYPuT4jPOHSNOYhaOpwSpc4Bdse1LxeG0VJVCWL7
- j0y0PN81fA6pSUJxlcQbSip45VS2QfaOManc9uAZMh4FREFqEWT9Zyr0HnxllJdB6Y
- SEdJweF9UW3/8m34t59n2UeL3ys2ujpz1kIMQVOLRlF06q6FuHJiiJrnD2zM5eTCiQ
- kHZ15qJK0sT4P9TLHMp2vcvggwXfVgIHCag07PA3FTuRUDCqR5J/Z+aiRlja/zYLXP
- w+/4+pP3rqgSQ==
-From: Maxime Ripard <mripard@kernel.org>
-Subject: [PATCH v2 00/61] drm/plane: Convert all drivers to
- atomic_create_state and remove reset
-Date: Fri, 14 Aug 2026 16:56:49 +0200
-Message-Id: <20260814-drm-no-more-plane-reset-v2-0-82d2963dd134@kernel.org>
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F14B10E589
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 17:34:16 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-47fe377a217so817567f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 10:34:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786728854; x=1787333654; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=gtJy9LLDFt0NmzJILJgVKeBO+MrtI49rw/kXkyURaBQ=;
+ b=fwaLXJLMUNnaAufhCg0VV/HPRZbV76BwBrQzdAoubwPEzSFb+dyK5RO/yh8/jbc8Qz
+ 5GtdxMniyKvGDPjWnuH1uyiWBHgQAfvwxq7VHqvUo0Zt72HaNUJXUcrgaFHAIxUmmljX
+ e0dNKkPA1oWbY2xEhSaVeqB75ZMSEr+NB26melHw2UEFTmckgNh0XVbHwqnQbNOqkQ/q
+ 1e5m7XkQfx3OUhKmn4GGz807HGMjId1P/HbRU6yMvYlCmkb21gOGcgfABqZgTaooNVNd
+ /PAey3yKT08dZBncF2mWmaxPFJPzvU0MbmSpzDIPPgrYkW08RanOdkBOCNH1fF0CsZq2
+ DsSQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786728854; x=1787333654;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=gtJy9LLDFt0NmzJILJgVKeBO+MrtI49rw/kXkyURaBQ=;
+ b=J8DIJY9KTsHMnzl5fRErEhw858qf+ww2OUNBe1tLSuPHwa7pPtF8VtSHnihIGsEoyJ
+ v1bKyHxOn+TEtqtm3ycKcQRqgMkMRIXwklB+sspaAEZ8J+Sj4LGoBfjbjvA0P8B3v+y8
+ Okt6XLcgSmrKOtIhAG8RIO3U7hmDKEagCpBPLM9DSxKufamyUwvs6hnUka3RSMmZtQ69
+ A0fwwwZmBgbNPYn4Bg+Bi8cUeTQSLKGn26ZvqtB1pCUfbhqinaAdvniF12zT1jmipXDs
+ WCEHt0zFp1zp6zzZBNXW9/H4vWAjeFnSE1HRJxypETeKS6ehsNLWvmG/73+XTipqJYPh
+ Ojiw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrZB++lQStkgwccUtpawHioOP2ZGkKpNvlQn6QmPIPN4E7Aa5YK9Ga31gGhus5+NAYWctSjmBmQ@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxWE70ePn2dl2xxA6EkSGWFbDzQuea2i+n5i/t0hhI93OAEiCNW
+ Up7Nr2Qkaz/NnKK3eSZkToZSaQhEXOIwKfiMqLXyVVVUa9IHTqDzBe/o
+X-Gm-Gg: AR+sD12uoLznmDf56SC82aS6DRjD/INu6QmsmJ4gbnsQpnlXelTggHVNEfSaONKUTDT
+ h0zrr2M2Bezdf4znIogJ9aE2a3QG/katdaYN9oLWaKebs1B82FVeFF29NUBZPzvY5wrutrWDgkh
+ Ysx5UTzT4QPnLrzZtbTleeEsnvtlYq9p06fIhrWPTwnh/O8mdFMcPWUjpv8C6dpcxHQP0r8lyyv
+ 71fsAaIxPtLdrcgLZ1xf/S1AOz8xwol4F0xOATBLtKhtjyvYc/YcBRN9IULWo53T+U4dUkA4HVV
+ zNQh1fvuk0WSdg3Q/LzRjL8Acj5jFikHvRRkC20LelIe28iaDzONmTIGdiBDe+tLFZQRDAdD3RP
+ KmwLHSppO4yd+AeEXQaALCIrcQ15sT9f+j49xssPZ5Xl5eGNxQqNxMWz/WhPi6OUh290NdKmKFl
+ Jjp3Wy3sMXi3feERTVKIL/uvMrOk+IGn9coLDzvy2eYH50oA0BWYhrvTIjtPLQ
+X-Received: by 2002:a05:6000:1212:b0:47d:fc23:abe8 with SMTP id
+ ffacd0b85a97d-4816079b5camr8667132f8f.28.1786728854523; 
+ Fri, 14 Aug 2026 10:34:14 -0700 (PDT)
+Received: from localhost ([5.83.201.220]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4815f219d3dsm10046899f8f.14.2026.08.14.10.34.14
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 14 Aug 2026 10:34:14 -0700 (PDT)
+From: Colin Ian King <colin.i.king@gmail.com>
+To: Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <Roman.Li@amd.com>,
+ Ivan Lipski <ivan.lipski@amd.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-janitors@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH][next][V2] drm/amd/display: Fix spelling mistakes "optmization
+ and "resul"
+Date: Fri, 14 Aug 2026 18:32:19 +0100
+Message-ID: <20260814173219.1102435-1-colin.i.king@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0Jm7ZihQhFW3sOwIDKFRmjJlDQaw
- t2tuHb5XvLf3yCwWA7QZBsIRxusdwnUKYPH2LmB0faJQZHSpFWNvczoPM5eGJepc4zCgVekoi7
- JFIqpMpDWi7Cxr6N8bxOPNqxe3sdRzL/216zofzPmSHgh1ddXbbg0dHuyOJ7OXgZo933/AP0Ol
- yu/AAAA
-X-Change-ID: 20260629-drm-no-more-plane-reset-04950f42e07f
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- javierm@redhat.com, Iker Pedrosa <ikerpedrosam@gmail.com>, 
- Aditya Garg <gargaditya08@proton.me>, admin@kodeit.net, 
- hamohammed.sa@gmail.com, louis.chauvet@bootlin.com, melissa.srw@gmail.com, 
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, 
- christian.koenig@amd.com, Liviu Dudau <liviu.dudau@arm.com>, 
- alison.wang@nxp.com, stefan@agner.ch, jstultz@google.com, 
- sumit.semwal@linaro.org, xinliang.liu@linaro.org, yongqin.liu@linaro.org, 
- Frank.Li@nxp.com, Sascha Hauer <s.hauer@pengutronix.de>, festevam@gmail.com, 
- imx@lists.linux.dev, kernel@pengutronix.de, victor.liu@nxp.com, 
- l.stach@pengutronix.de, laurentiu.palcu@oss.nxp.com, 
- Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org, 
- anitha.chrisanthus@intel.com, paulk@sys-base.io, chenhuacai@kernel.org, 
- jeffbai@aosc.io, lvjianmin@loongson.cn, wuqianhai@loongson.cn, 
- xry111@xry111.site, zhengxingda@iscas.ac.cn, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- jbrunet@baylibre.com, khilman@baylibre.com, 
- linux-amlogic@lists.infradead.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- abhinav.kumar@linux.dev, freedreno@lists.freedesktop.org, 
- jesszhan0024@gmail.com, linux-arm-msm@vger.kernel.org, lumag@kernel.org, 
- marijn.suijten@somainline.org, robin.clark@oss.qualcomm.com, 
- sean@poorly.run, marex@denx.de, airlied@redhat.com, kraxel@redhat.com, 
- spice-devel@lists.freedesktop.org, virtualization@lists.linux.dev, 
- andy.yan@rock-chips.com, heiko@sntech.de, hjc@rock-chips.com, 
- linux-rockchip@lists.infradead.org, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, orsonzhai@gmail.com, 
- zhang.lyra@gmail.com, alain.volmat@foss.st.com, rgallaispou@gmail.com, 
- alexandre.torgue@foss.st.com, mcoquelin.stm32@gmail.com, 
- philippe.cornu@foss.st.com, raphael.gallais-pou@foss.st.com, 
- yannick.fertre@foss.st.com, linux-sunxi@lists.linux.dev, 
- samuel@sholland.org, wens@kernel.org, jyri.sarha@iki.fi, 
- tomi.valkeinen@ideasonboard.com, hansg@kernel.org, 
- dmitry.osipenko@collabora.com, gurchetansingh@chromium.org, 
- olvaffe@gmail.com, michal.simek@amd.com, harry.wentland@amd.com, 
- siqueira@igalia.com, sunpeng.li@amd.com, linux@armlinux.org.uk, 
- Dharma Balasubiramani <dharma.b@microchip.com>, 
- Ludovic Desroches <ludovic.desroches@microchip.com>, 
- Manikandan Muralidharan <manikandan.m@microchip.com>, 
- alexandre.belloni@bootlin.com, claudiu.beznea@tuxon.dev, 
- nicolas.ferre@microchip.com, alim.akhtar@samsung.com, inki.dae@samsung.com, 
- krzk@kernel.org, kyungmin.park@samsung.com, 
- linux-samsung-soc@vger.kernel.org, sw0312.kim@samsung.com, 
- p.zabel@pengutronix.de, angelogioacchino.delregno@collabora.com, 
- chunkuang.hu@kernel.org, matthias.bgg@gmail.com, dakr@kernel.org, 
- lyude@redhat.com, nouveau@lists.freedesktop.org, geert+renesas@glider.be, 
- kieran.bingham+renesas@ideasonboard.com, 
- laurent.pinchart+renesas@ideasonboard.com, 
- linux-renesas-soc@vger.kernel.org, magnus.damm@gmail.com, 
- tomi.valkeinen+renesas@ideasonboard.com, 
- Biju Das <biju.das.jz@bp.renesas.com>, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- dave.stevenson@raspberrypi.com, kernel-list@raspberrypi.com, 
- bcm-kernel-feedback-list@broadcom.com, zack.rusin@broadcom.com, 
- Mikko Perttunen <mperttunen@nvidia.com>, jonathanh@nvidia.com, 
- linux-tegra@vger.kernel.org, thierry.reding@kernel.org
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9816; i=mripard@kernel.org;
- h=from:subject:message-id; bh=VJPKLZAERv57LU6ZWlnm/FbV5fCc6NLCWv56VYxLhBU=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFn1Okd4jeNl+X7syqqbY/cw1tCm+4K+vPySv7ffRjMlP
- 95gKxbTMZWFQZiTQVZMkeWJTNjp5e2LqxzsV/6AmcPKBDKEgYtTACayYxpjfeGuW6d2Cid9skic
- XnUw2HXGCmPJg5Nr1x3Q9Gd/Jvuwfu/ra3bOtgm3eByXSe3b8dOmirFOre7X1j0XI2KFw/tl704
- 9Fr7Ql4Wlr9zT5H/pCUb7a2dvrqxxuza/Pehf6JagnKI0rp8A
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 17 Aug 2026 07:01:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -126,183 +95,29 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a follow-up to the bridge reset removal series, and part of a
-larger effort to remove the reset hook from all KMS objects.
+There are spelling mistakes in a DML_ASSERT_MSG message. Fix them
 
-The plane reset hook is overloaded: it is called both at probe time
-to create the initial software state and during suspend/resume to
-reset hardware and software state. These two roles have different
-requirements, and the reset hook is not fallible, making error
-handling difficult for the initial state allocation path.
-
-While reset has the semantics to reset both the software and hardware
-state, the vast majority of implementations and all the helpers only
-reset the software state, making them equivalent to
-atomic_create_state in practice. The atomic_create_state hook makes
-this explicit: it only allocates and initializes a pristine state
-without any side effect, and returns the state pointer or an ERR_PTR
-on failure.
-
-This series first adds the necessary infrastructure in the simple-kms
-and GEM atomic helpers, then converts all 51 plane drivers tree-wide
-from the reset hook to atomic_create_state. The conversions were done
-using a combination of Coccinelle semantic patches and manual
-adjustments. Once all drivers are converted, the old helpers and the
-reset hook itself are removed from struct drm_plane_funcs.
-
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
-Changes in v2:
-- Rebase on latest drm-misc-next tag
-- Fix sashiko reviews
-- Fix atmel-hlcdc breakage
-- Link to v1: https://lore.kernel.org/r/20260709-drm-no-more-plane-reset-v1-0-302d986fe5f0@kernel.org
+Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
 
 ---
-Maxime Ripard (61):
-      drm/simple-kms: Add create_plane_state hook
-      drm/gem-atomic-helper: Create drm_gem_create_shadow_plane_state()
-      drm/gem-atomic-helper: Convert simple-kms shadow helpers to create_plane_state
-      drm/gem-atomic-helper: Switch DRM_GEM_SHADOW_PLANE_FUNCS to atomic_create_state
-      drm/gem-atomic-helper: Remove drm_gem_reset_shadow_plane()
-      drm/sysfb: Convert to atomic_create_state
-      drm/simple-kms: Switch to atomic_create_state
-      drm/ssd130x: Convert to atomic_create_state
-      drm/st7920: Convert to atomic_create_state
-      drm/appletbdrm: Convert to atomic_create_state
-      drm/vkms: Convert to atomic_create_state
-      drm/gem-atomic-helper: Remove __drm_gem_reset_shadow_plane()
-      drm/amdgpu: Convert to atomic_create_state
-      drm/hdlcd: Convert to atomic_create_state
-      drm/fsl-dcu: Convert to atomic_create_state
-      drm/hisilicon/kirin: Convert to atomic_create_state
-      drm/imx/dc: Convert to atomic_create_state
-      drm/imx/dcss: Convert to atomic_create_state
-      drm/ingenic: Convert to atomic_create_state
-      drm/kmb: Convert to atomic_create_state
-      drm/logicvc: Convert to atomic_create_state
-      drm/loongson: Convert to atomic_create_state
-      drm/meson: Convert to atomic_create_state
-      drm/msm/mdp4: Convert to atomic_create_state
-      drm/lcdif: Convert to atomic_create_state
-      drm/mxsfb: Convert to atomic_create_state
-      drm/qxl: Convert to atomic_create_state
-      drm/rockchip: Convert to atomic_create_state
-      drm/sprd: Convert to atomic_create_state
-      drm/sti: Convert to atomic_create_state
-      drm/stm: Convert to atomic_create_state
-      drm/sun4i: sun8i: Convert to atomic_create_state
-      drm/tests: kunit: Convert to atomic_create_state
-      drm/tilcdc: Convert to atomic_create_state
-      drm/vboxvideo: Convert to atomic_create_state
-      drm/verisilicon: Convert to atomic_create_state
-      drm/virtio: Convert to atomic_create_state
-      drm/xlnx: Convert to atomic_create_state
-      drm/atomic-state-helper: Remove drm_atomic_helper_plane_reset()
-      drm/amdgpu_dm: Convert to atomic_create_state
-      drm/komeda: Convert to atomic_create_state
-      drm/malidp: Convert to atomic_create_state
-      drm/armada: Convert to atomic_create_state
-      drm/atmel-hlcdc: Drop spurious csc_init call from reset
-      drm/atmel-hlcdc: Convert to atomic_create_state
-      drm/exynos: Convert to atomic_create_state
-      drm/imx/ipuv3: Convert to atomic_create_state
-      drm/mediatek: Convert to atomic_create_state
-      drm/msm/dpu1: Convert to atomic_create_state
-      drm/msm/mdp5: Convert to atomic_create_state
-      drm/nouveau: Convert to atomic_create_state
-      drm/omap: Convert to atomic_create_state
-      drm/rcar-du: Convert to atomic_create_state
-      drm/rz-du: Convert to atomic_create_state
-      drm/shmobile: Convert to atomic_create_state
-      drm/sun4i: layer: Convert to atomic_create_state
-      drm/vc4: Convert to atomic_create_state
-      drm/vmwgfx: Convert to atomic_create_state
-      drm/atomic-state-helper: Remove __drm_atomic_helper_plane_reset()
-      drm/tegra: Convert to atomic_create_state
-      drm/plane: Remove reset
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c           |   2 +-
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    |  26 +++---
- drivers/gpu/drm/arm/display/komeda/komeda_plane.c  |  18 ++--
- drivers/gpu/drm/arm/hdlcd_crtc.c                   |   2 +-
- drivers/gpu/drm/arm/malidp_planes.c                |  18 ++--
- drivers/gpu/drm/armada/armada_overlay.c            |  39 ++++----
- drivers/gpu/drm/armada/armada_plane.c              |  15 ++--
- drivers/gpu/drm/armada/armada_plane.h              |   2 +-
- drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_plane.c    |  33 +++----
- drivers/gpu/drm/drm_atomic_state_helper.c          |  41 ---------
- drivers/gpu/drm/drm_gem_atomic_helper.c            | 100 +++++++++++----------
- drivers/gpu/drm/drm_mode_config.c                  |   4 +-
- drivers/gpu/drm/drm_simple_kms_helper.c            |  11 +--
- drivers/gpu/drm/exynos/exynos_drm_plane.c          |  22 ++---
- drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_plane.c        |   2 +-
- drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c    |   2 +-
- drivers/gpu/drm/imx/dc/dc-plane.c                  |   2 +-
- drivers/gpu/drm/imx/dcss/dcss-plane.c              |   2 +-
- drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c            |  19 ++--
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |   2 +-
- drivers/gpu/drm/ingenic/ingenic-ipu.c              |   2 +-
- drivers/gpu/drm/kmb/kmb_plane.c                    |   2 +-
- drivers/gpu/drm/logicvc/logicvc_layer.c            |   2 +-
- drivers/gpu/drm/loongson/lsdc_plane.c              |   2 +-
- drivers/gpu/drm/mediatek/mtk_plane.c               |  22 ++---
- drivers/gpu/drm/meson/meson_overlay.c              |   2 +-
- drivers/gpu/drm/meson/meson_plane.c                |   2 +-
- drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c          |  18 ++--
- drivers/gpu/drm/msm/disp/mdp4/mdp4_plane.c         |   2 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_plane.c         |  16 ++--
- drivers/gpu/drm/mxsfb/lcdif_kms.c                  |   2 +-
- drivers/gpu/drm/mxsfb/mxsfb_kms.c                  |   2 +-
- drivers/gpu/drm/nouveau/dispnv50/wndw.c            |  15 ++--
- drivers/gpu/drm/omapdrm/omap_plane.c               |  13 ++-
- drivers/gpu/drm/qxl/qxl_display.c                  |   4 +-
- drivers/gpu/drm/renesas/rcar-du/rcar_du_plane.c    |  15 ++--
- drivers/gpu/drm/renesas/rcar-du/rcar_du_vsp.c      |  15 ++--
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_vsp.c       |  15 ++--
- drivers/gpu/drm/renesas/shmobile/shmob_drm_plane.c |  15 ++--
- drivers/gpu/drm/rockchip/rockchip_drm_vop.c        |   2 +-
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c       |   2 +-
- drivers/gpu/drm/sitronix/st7920.c                  |  12 +--
- drivers/gpu/drm/solomon/ssd130x.c                  |  12 +--
- drivers/gpu/drm/sprd/sprd_dpu.c                    |   2 +-
- drivers/gpu/drm/sti/sti_cursor.c                   |   2 +-
- drivers/gpu/drm/sti/sti_gdp.c                      |   2 +-
- drivers/gpu/drm/sti/sti_hqvdp.c                    |   2 +-
- drivers/gpu/drm/stm/ltdc.c                         |   2 +-
- drivers/gpu/drm/sun4i/sun4i_layer.c                |  12 ++-
- drivers/gpu/drm/sun4i/sun8i_ui_layer.c             |   2 +-
- drivers/gpu/drm/sun4i/sun8i_vi_layer.c             |   2 +-
- drivers/gpu/drm/sysfb/drm_sysfb_helper.h           |   4 +-
- drivers/gpu/drm/sysfb/drm_sysfb_modeset.c          |  30 +++++--
- drivers/gpu/drm/tegra/plane.c                      |  28 +++---
- drivers/gpu/drm/tests/drm_kunit_helpers.c          |   2 +-
- drivers/gpu/drm/tilcdc/tilcdc_plane.c              |   2 +-
- drivers/gpu/drm/tiny/appletbdrm.c                  |  12 +--
- drivers/gpu/drm/vboxvideo/vbox_mode.c              |   2 +-
- drivers/gpu/drm/vc4/vc4_plane.c                    |  15 ++--
- drivers/gpu/drm/verisilicon/vs_cursor_plane.c      |   2 +-
- drivers/gpu/drm/verisilicon/vs_plane.c             |  14 ++-
- drivers/gpu/drm/verisilicon/vs_plane.h             |   2 +-
- drivers/gpu/drm/verisilicon/vs_primary_plane.c     |   2 +-
- drivers/gpu/drm/virtio/virtgpu_plane.c             |   2 +-
- drivers/gpu/drm/vkms/vkms_plane.c                  |  15 ++--
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c                |  17 ++--
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.h                |   2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c                |   4 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c               |   4 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c               |   4 +-
- drivers/gpu/drm/xlnx/zynqmp_kms.c                  |   2 +-
- include/drm/drm_atomic_state_helper.h              |   3 -
- include/drm/drm_gem_atomic_helper.h                |  13 +--
- include/drm/drm_plane.h                            |  12 ---
- include/drm/drm_simple_kms_helper.h                |   1 +
- 75 files changed, 343 insertions(+), 433 deletions(-)
+V2: Fix resul too, Kudos to Rolf Reintjes for spotting that
 ---
-base-commit: bd4f284df04d76fd65e57141cb1e6e7a49e4c3cb
-change-id: 20260629-drm-no-more-plane-reset-04950f42e07f
+ .../drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_utm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Best regards,
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_utm.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_utm.c
+index ab9cadaf5a60..79ec5838c26f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_utm.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_utm.c
+@@ -123,7 +123,7 @@ static enum dml2_status dml2_top_perform_stage_optimization(struct dml2_instance
+ 	DML_ASSERT_MSG(worksheet->validation_result.is_mode_support_valid
+ 			&& worksheet->validation_result.is_mcache_allocation_valid
+ 			&& worksheet->validation_result.is_prefetch_valid,
+-			"worksheet must be valid on exit independent from optmization resul!\n");
++			"worksheet must be valid on exit independent from optimization result!\n");
+ //	DML_ASSERT_MSG(iteration <= MAX_OPTIMIZATION_ITERATIONS,
+ //			"exceeds max optimization iterations!\n"
+ //			"\t is_permissible_found = %s\n"
 -- 
-Maxime Ripard <mripard@kernel.org>
+2.55.0
 
