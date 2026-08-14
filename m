@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4170FC5CFC1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D87F9C5DF79
 	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 21:03:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AA8F10F720;
+	by gabe.freedesktop.org (Postfix) with ESMTP id AE3CB10F721;
 	Fri, 14 Aug 2026 21:03:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="u+wsrZ4f";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mhbtG6ev";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012025.outbound.protection.outlook.com [52.101.43.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0F9B110F70C
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 21:03:41 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010017.outbound.protection.outlook.com [52.101.56.17])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 295CD10F711
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 21:03:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oIfjynexOaODwzaSn9PkqULvG+UW8UmGtj/9rC/O7gQWjvact1aiOqMIX6R3nUvnY60sC2Fh/ti4PhOmtRvoSgC7b5e/utb1LYJcrdxrH8chsPoDf/FmQ/ZZ7N7Q/X9GOYYkR++iJ4ppHQPW/IVN44Kr0WbeuhHGRdS62kHpQ4ug4Oaiew1VOBYFA+CbrXv2L5zEXDjcXDhjUV5QLL3QZqmic3izDhnR4FniwEk5q94mQMxZfEQvMckJiCn9xJ2tqjmJpU1K6P+GFpl/T2kctA8SaxPfKDazqsdh5JyTR20CBGdfwVavDPX1wwPnc1ZJhBczi2MFazXU13jxFKrMJQ==
+ b=VR2dAyl8BA5Oq4bRcU46svMUisMBWM1xP94Jj8I2gkXjbH++HP6jBxM602sHnVSzdgHwDtc6bqZxgsnYWZvDEaMqu9BgbUgzxyw74pBF49jH0aSIfCK/G7stBamkBbeYoavXnwma/8TPlXFzS8z8gnW+oOFo+Dh0uYhgySlarVTPx3sE9ZQtL7tH1BmNzIP3fviWDCAazGnAYkgdUfTyANMKvd1uX5ZbsBEQd4dc3IO6BJOO6sDXvddAlFYkYMTeN92uqrt8uWIQZIw77aBGi8xC71wYlrFUAogpbpBdDgsIRSz+Sk/kpV5HGggn38PrCjbNeWRD++CGpGE4p1CTZw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x+mLqPJa8ZPLbgjHV3uA/7/aLz/9hih5WB21iQFkHVw=;
- b=hw25LFl8mQj0m6CCfpW5jz5id33UUzDTIfAtTmeTlt2RFRvNBp+ytiwuVjlOT5VEqN5D7Po+t8Xk3iAMimYy4qSYibRtJanrnQ12YRBaPTlzoJAjZa0Pq4rIfWivDa9+PJjyw64zofvCPM17h+8buL3ZWtPlLDdhRAhL5cHxz3C2nVctGKPoDuWXuuhDSboXDgOIrO5rkK81xCVKvz2E9Y2ZkHV96VGejOBi0cKoJUWE/aTZ+qSguOFoStnGIaJ1nfGUSSU0dSGGFG0JTKX3Mlv4aBaUL7zD6UnxPFZDe8zcE8iwgSpkRHUzm/g0CYXHVcrkL5S+/dsTJgp70pj2QA==
+ bh=WJrzvzET7IXITC5lalNdPMZhlwRmKv7U+7ufOHO34jE=;
+ b=ZY5GtPoF4iJfBOMVONAjYtQ+c5oumIumMaWiOQ7pef9uklX9gqXfaw+MY/Fh979ZAZI0SZOY7TrDA1usD/L6Yrlg8zijLFMR8wcoZswBpgRwB0rPVdvLOBhT4a1I92aNXr6N6cdqoYVvVmKSMromfDTiMyrlyMW6xZy390i8Tsb9YrByak5MzoKuYRR/zgRGZFXIZeuphV4ePZc2MVjeDUYgT3hjjZ5SYV0hInxM73hHi08a/Z6ufMmFr0peiL0H1PNpG5GsZHMvb/56d5Sgh1sbH5ejqQYcV+2mFQZ9fUWg3E4EJ7W/BOX+RJA1K9uBIw9IYI7zGpUB8RZO96yLYA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x+mLqPJa8ZPLbgjHV3uA/7/aLz/9hih5WB21iQFkHVw=;
- b=u+wsrZ4fM/x26qS4/+RhFqLd+fLnLWuI8v8rq6sny6I2dkYRk4QjxaIHjyRGjdF5Xz5cVPigTQs5i9mEbjTbfQvYT+DhX+MzIRg5PWCl1UAoPDXmUTv3W4MQPSoCTOXSnVVnXRPrstEANC5nCXsJgvRZ48QYPOteZ+wtck88pr0=
-Received: from DS7PR03CA0326.namprd03.prod.outlook.com (2603:10b6:8:2b::28) by
- DS5PPF5A66AFD1C.namprd12.prod.outlook.com (2603:10b6:f:fc00::64d)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Fri, 14 Aug
- 2026 21:03:35 +0000
-Received: from CH3PEPF00000013.namprd21.prod.outlook.com
- (2603:10b6:8:2b:cafe::65) by DS7PR03CA0326.outlook.office365.com
- (2603:10b6:8:2b::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.16 via Frontend Transport; Fri,
- 14 Aug 2026 21:03:35 +0000
+ bh=WJrzvzET7IXITC5lalNdPMZhlwRmKv7U+7ufOHO34jE=;
+ b=mhbtG6evko67hxZaqwSmimNlfqGQ2Gz8DIqjKm4SsG3C4nPmGseyWPJzju12Ah+9tGtavskrdGAdo217hBfUvKNEsi60Er5oDTDyI92JGg3iFRdvj3Ex/7maGRtWwOr6C1HeSoA4B1t01FDgwCUHzSDxrD6HU+FO2xqNuLvnjlk=
+Received: from CH2PR10CA0005.namprd10.prod.outlook.com (2603:10b6:610:4c::15)
+ by CY8PR12MB7588.namprd12.prod.outlook.com (2603:10b6:930:9b::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Fri, 14 Aug
+ 2026 21:03:39 +0000
+Received: from CH3PEPF00000017.namprd21.prod.outlook.com
+ (2603:10b6:610:4c:cafe::9c) by CH2PR10CA0005.outlook.office365.com
+ (2603:10b6:610:4c::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.14 via Frontend Transport; Fri,
+ 14 Aug 2026 21:03:39 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,27 +48,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF00000013.mail.protection.outlook.com (10.167.244.118) with Microsoft
+ CH3PEPF00000017.mail.protection.outlook.com (10.167.244.122) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.0 via Frontend Transport; Fri, 14 Aug 2026 21:03:35 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
+ 15.21.360.0 via Frontend Transport; Fri, 14 Aug 2026 21:03:39 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 16:03:28 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 16:03:26 -0500
+ 2026 16:03:37 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 14 Aug 2026 16:03:26 -0500
+ Transport; Fri, 14 Aug 2026 16:03:36 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: YiPeng Chai <YiPeng.Chai@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, 
  Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 048/109] drm/amd/ras: preload and handle bad pages at boot time
-Date: Fri, 14 Aug 2026 17:01:45 -0400
-Message-ID: <20260814210246.3067612-49-alexander.deucher@amd.com>
+Subject: [PATCH 065/109] drm/amd/ras: support multi-parameter communication
+ with mp1 in ras_mp1_v15_0
+Date: Fri, 14 Aug 2026 17:02:02 -0400
+Message-ID: <20260814210246.3067612-66-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260814210246.3067612-1-alexander.deucher@amd.com>
 References: <20260814210246.3067612-1-alexander.deucher@amd.com>
@@ -77,29 +74,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000013:EE_|DS5PPF5A66AFD1C:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3e72c7f0-8f7e-4d1b-ef8a-08defa47819d
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000017:EE_|CY8PR12MB7588:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6334cc6d-0227-4ea5-0a8d-08defa4783f1
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|1800799024|23010399003|82310400026|56012099006|10067099003|6133799003|18002099003|22082099003|11063799006;
-X-Microsoft-Antispam-Message-Info: 1mOrC5m1fFR1RjtMfTiXNFlmFsAC/fpUiDF70DaonLh9dwMgS0pLjTL6bNxL6Nm2uoxURPoZ1a3YMkGffm2PXQk/ugyiWJ8uaPLHFb1/WrmBN63DLJox/MBkHXbZbuelDDEzdp/0RQA2TR1D/+pzHA2FiCza3rNYLCnb/lK0CRkstydGhERNDGhSNMy3NvqeH1fA4vKXMTYjBH2vcIrUkRLVZ5jfV9tUebsZzW6hVxGUHDqihii/h8uW1QwpbLxtLXlIT/dLjDD1Z/yOq0kzIsPV+QpCpzmcahl5fUWQs9k/H+CD9K75icyxC66R8+EVF31ScGJDacTGR5Sr3ltmgq9STuIh7w4ZwAuITR7AlI+WnLsGjGpwruaBQ5d+bBfNEnDQbXkQHMXr/9IzVAW7rabkrvmXlbWF8Qe09LRKvwDm1kyFZpyku59HLz7SqzLC1MJ76XlIUD2Q1zBjRfXRfodm1IazCETbP12yrTA5PZA1mnUXNiC7OyiQO61pAEdVkEXlHBV3+RmimFRra1CseS1lAnq0cVSHKbr7xrnLV6CjdY2zUNJElSsKCA0s8tP0lUYiGEqXDNBWuYOiqVfdEYiGEX8I3idvTRqCWhXre5l/QwsFRkMvkHfPH9orbvz2yMUHHnLr82Re0Y4/GOSGG2l7ocviOlVv/x29FeN51tg=
+ ARA:13230040|23010399003|1800799024|82310400026|376014|36860700016|22082099003|18002099003|56012099006|3023799007|5023799004|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: 1hhOf8XzcsgpR5X+WzPfbAS9NKr+fYM989NElyKpzOjUkZMKyR96dHevDsEHYdsggS0wcEfEojooVbNMjsxRdaLKMUW6N77SK8So0804Hjw7wOnB/4xb8jAmYR4gcWYNWN4mTT9fj2ZPDlrb6UPaJEpVEeR2Hj+OWL9ISSPrw7asuzXNe5foXxex6ZXDIAD9AI48RvvjIf6/aH8cLAQNepBQ6qqDvSvY2SZ25pKQbLTCH72bjzqqKDNrYKinQkJhLHPtDw986yI8/ll9G/3SFtLAHZVw73RzXtaJvs7VPO0Eytm7Ym28Ld9k0dZ0WL0udDxgahanSuWVogtEOEunXL/ulOFD5NwjGwsx/Wxqx6gsAOyrTI7zKA836UH6N0OGYNMLSh/nfCwuv/axqUzrKrzKqqgo+FWNz7dpzUTOnwpmTx6TmTR4SDD5VlFWBaVg5fwQCrOs7SFfDSXX6W379t/HolN22nX36zZdw0XSCvlH2w2vdhWTjjZGTDp+h1abrvHBOtGKv4FD7egSgCBY7qEWaw54UbWTdYSp3khV5Z3L9zG53QlTclkxDW/Te6GNO6XVEl8OJoyfFZ7JlelwsBpsndDfTwhYyj5T+Iv6c3Ril2Z1eJUW2bjIH9E7dvfB3qr1AwWTm5HizqB4sIIjgS03COhAvX4Tymco5fFBS3M=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(1800799024)(23010399003)(82310400026)(56012099006)(10067099003)(6133799003)(18002099003)(22082099003)(11063799006);
+ SFS:(13230040)(23010399003)(1800799024)(82310400026)(376014)(36860700016)(22082099003)(18002099003)(56012099006)(3023799007)(5023799004)(11063799006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: abtgbhn9sJJ4GxnK3nBfvf0SY6ID2rQ+noMGgkANGFyzhMNSBFy9gaOgyvmH4wc0C10PD2veeK5WD12d1BCAFSWNqSAzwLrajPIjTxDa+uNDd3MpN8pr90hO6fOFBGnGSnOYhQ6JSENGImLmPg6LnH0957VzZ2GGpZmU7hZCrnGBYPvmr4BnNAFhTcGx5pTLX82t0BKzSAiL2AO5XjY470AQarcLcNqc7Upy3q9E1yd3HD4bJZJXIXcIXd/T/TeG6SszdhWEaIEwZmuTAdiWQc0rDyuiwS66WUs6xp4zN9sG1QXTKJqbK7zF4pknil+ScrScVtbCaCzE2HvGYFvI6nVx0dDuRNq0cXK3PA4W0bQ1bXR0k+hplxvfkidRedFA9GVVxTYG3OXDZSZbQ18IBn4M6dE64NRdkOA+I8nsviBjxVCCwLuP46ibEwkv9Vnv
+X-MS-Exchange-AntiSpam-MessageData-0: ZJG8YSROtOQgy56KgLMrY4qkOJP2dI1RqDJezngpUhI+tq2x4zHeU+Ae4jJ6fTmvgXMtVhSfWqwhCOkgobq03ntgrqimpCYNTuB6qhmM8pz/y6noK1t/3E3jXFiM7Lw8fL7XPp0o0HBj6Ua/vvJLEu9m2pFWiNerJtNk4YCmHLOQzgTzR7sUixb33IVvwZFTuZpGnRMjeOCxo30/A3V6vEMo04lbvfdRDRnz+GJY8m9Tb1ZzNqKWh3LjnAQUrMM0QzVHq9Nf1B7iqlIAJulIQTh3Lgu5mPT8amtlxm4s1DbrgilKTcRr/2F7e52QUuzQDbPXCj48PaPRxxYOHUZf+YIPzBQU+W8KTIOegc+OxWoi072lSMrK1g54Nc1P7bwDV9GOux6a9IA7Afu4fyxRGdN8VHEO4Y0Ev5JCqhGg8x3JqmoSUiSTwnCFLl+v123z
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 21:03:35.6877 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3e72c7f0-8f7e-4d1b-ef8a-08defa47819d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 21:03:39.6061 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6334cc6d-0227-4ea5-0a8d-08defa4783f1
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000013.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000017.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF5A66AFD1C
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7588
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,435 +113,383 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 
-Preload bad pages occur during the sw_init stage, so
-the preload-related code in RAS module must be moved
-to sw_init for proper initialization.
-
-v2:
-  Rename functions and variables.
+support multi-parameter communication with mp1 in ras_mp1_v15_0.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/ras/core/core.c           | 54 ++++++++++++++-----
- drivers/gpu/drm/amd/ras/core/eeprom.c         | 27 ++++++----
- drivers/gpu/drm/amd/ras/core/ras.h            |  7 +++
- drivers/gpu/drm/amd/ras/core/ras_mp1.c        |  7 ++-
- drivers/gpu/drm/amd/ras/core/ras_mp1.h        |  4 +-
- drivers/gpu/drm/amd/ras/core/ras_umc.c        | 17 +++---
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c  | 25 +++++++++
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h  |  1 +
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c  | 22 ++++++++
- 9 files changed, 132 insertions(+), 32 deletions(-)
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |   7 -
+ drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |   2 -
+ drivers/gpu/drm/amd/ras/core/ras.h            |   2 +
+ drivers/gpu/drm/amd/ras/core/ras_mp1.c        |   2 +-
+ drivers/gpu/drm/amd/ras/core/ras_mp1.h        |  24 +---
+ drivers/gpu/drm/amd/ras/core/ras_mp1_v15_0.c  | 121 +++++++++++++-----
+ .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1.c  |  10 +-
+ 7 files changed, 99 insertions(+), 69 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/ras/core/core.c b/drivers/gpu/drm/amd/ras/core/core.c
-index fc399192713ec..8a8f5134fdac7 100644
---- a/drivers/gpu/drm/amd/ras/core/core.c
-+++ b/drivers/gpu/drm/amd/ras/core/core.c
-@@ -331,6 +331,12 @@ int ras_core_sw_init(struct ras_core_context *ras_core)
- 		return -EINVAL;
- 	}
- 
-+	ras_core->ras_eeprom_supported = ras_core->config->ras_eeprom_supported;
-+	ras_core->poison_supported = ras_core->config->poison_supported;
-+	ras_core->early_init_service_enabled = ras_core->config->early_init_service_supported;
-+
-+	ras_core->in_early_init = true;
-+
- 	ras_core->sys_fn = ras_core->config->sys_fn;
- 	if (!ras_core->sys_fn)
- 		return -EINVAL;
-@@ -367,6 +373,14 @@ int ras_core_sw_init(struct ras_core_context *ras_core)
- 	if (ret)
- 		return ret;
- 
-+	ret = ras_mp1_sw_init(ras_core);
-+	if (ret)
-+		return ret;
-+
-+	ret = ras_eeprom_mgr_sw_init(ras_core);
-+	if (ret)
-+		return ret;
-+
- 	ret = ras_mce_sw_init(ras_core);
- 	if (ret)
- 		return ret;
-@@ -383,7 +397,9 @@ int ras_core_sw_fini(struct ras_core_context *ras_core)
- 	ras_log_ring_sw_fini(ras_core);
- 	ras_cmd_fini(ras_core);
- 	ras_umc_sw_fini(ras_core);
-+	ras_mp1_sw_fini(ras_core);
- 	ras_aca_sw_fini(ras_core);
-+	ras_eeprom_mgr_sw_fini(ras_core);
- 	ras_mce_sw_fini(ras_core);
- 
- 	return 0;
-@@ -393,11 +409,6 @@ int ras_core_hw_init(struct ras_core_context *ras_core)
- {
- 	int ret;
- 
--	ras_core->ras_eeprom_supported =
--			ras_core->config->ras_eeprom_supported;
--
--	ras_core->poison_supported = ras_core->config->poison_supported;
--
- 	ret = ras_psp_hw_init(ras_core);
- 	if (ret)
- 		return ret;
-@@ -406,10 +417,6 @@ int ras_core_hw_init(struct ras_core_context *ras_core)
- 	if (ret)
- 		goto init_err1;
- 
--	ret = ras_mp1_hw_init(ras_core);
--	if (ret)
--		goto init_err2;
--
- 	ret = ras_nbio_hw_init(ras_core);
- 	if (ret)
- 		goto init_err3;
-@@ -426,6 +433,8 @@ int ras_core_hw_init(struct ras_core_context *ras_core)
- 	if (ret)
- 		goto init_err6;
- 
-+	ras_core->in_early_init = false;
-+
- 	ret = ras_core_eeprom_recovery(ras_core);
- 	if (ret) {
- 		RAS_DEV_ERR(ras_core->dev,
-@@ -450,8 +459,6 @@ int ras_core_hw_init(struct ras_core_context *ras_core)
- init_err4:
- 	ras_nbio_hw_fini(ras_core);
- init_err3:
--	ras_mp1_hw_fini(ras_core);
--init_err2:
- 	ras_aca_hw_fini(ras_core);
- init_err1:
- 	ras_psp_hw_fini(ras_core);
-@@ -467,7 +474,6 @@ int ras_core_hw_fini(struct ras_core_context *ras_core)
- 	ras_gfx_hw_fini(ras_core);
- 	ras_nbio_hw_fini(ras_core);
- 	ras_umc_hw_fini(ras_core);
--	ras_mp1_hw_fini(ras_core);
- 	ras_aca_hw_fini(ras_core);
- 	ras_psp_hw_fini(ras_core);
- 
-@@ -782,3 +788,27 @@ bool ras_core_poison_supported(struct ras_core_context *ras_core)
- 	return ras_core->poison_supported ? true :
- 			ras_psp_poison_supported(ras_core);
- }
-+
-+bool ras_core_in_early_init(struct ras_core_context *ras_core)
-+{
-+	if (!ras_core)
-+		return true;
-+
-+	return ras_core->in_early_init;
-+}
-+
-+bool ras_core_early_init_service_enabled(struct ras_core_context *ras_core)
-+{
-+	return ras_core->early_init_service_enabled &&
-+		ras_eeprom_mgr_early_init_service_supported(ras_core);
-+}
-+
-+int ras_core_eeprom_early_init_service(struct ras_core_context *ras_core)
-+{
-+	if (!ras_core_early_init_service_enabled(ras_core))
-+		return -EOPNOTSUPP;
-+	else if (!ras_core_in_early_init(ras_core))
-+		return -EACCES;
-+
-+	return ras_core_eeprom_recovery(ras_core);
-+}
-diff --git a/drivers/gpu/drm/amd/ras/core/eeprom.c b/drivers/gpu/drm/amd/ras/core/eeprom.c
-index b261f11799f6c..01e4cde581f42 100644
---- a/drivers/gpu/drm/amd/ras/core/eeprom.c
-+++ b/drivers/gpu/drm/amd/ras/core/eeprom.c
-@@ -1085,7 +1085,7 @@ static int __read_table_ras_info(struct ras_eeprom_control *control)
- 	return res == RAS_TABLE_V2_1_INFO_SIZE ? 0 : res;
- }
- 
--static int __check_ras_table_status(struct ras_core_context *ras_core)
-+static int __ras_table_init(struct ras_core_context *ras_core)
- {
- 	struct ras_eeprom_control *control = ras_core->eeprom_mgr.ras_eeprom;
- 	unsigned char buf[RAS_TABLE_HEADER_SIZE] = { 0 };
-@@ -1102,7 +1102,6 @@ static int __check_ras_table_status(struct ras_core_context *ras_core)
- 
- 	control->ras_header_offset = RAS_HDR_START;
- 	control->ras_info_offset = RAS_TABLE_V2_1_INFO_START;
--	mutex_init(&control->ras_tbl_mutex);
- 
- 	/* Read the table header from EEPROM address */
- 	res = __eeprom_read(ras_core,
-@@ -1284,18 +1283,26 @@ static int ras_eeprom_sw_init(struct ras_core_context *ras_core,
- 	control->i2c_adapter = param->eeprom_i2c_adapter;
- 	control->i2c_port = param->eeprom_i2c_port;
- 	control->i2c_address = param->eeprom_i2c_addr;
-+	control->record_threshold_count = param->record_threshold;
-+	control->sys_func = param->sys_fn;
- 
- 	control->update_channel_flag = false;
- 
-+	mutex_init(&control->ras_tbl_mutex);
-+
- 	return 0;
- }
- 
- static int ras_eeprom_sw_fini(struct ras_core_context *ras_core)
- {
--	if (!ras_core)
-+	struct ras_eeprom_control *control = ras_core->eeprom_mgr.ras_eeprom;
-+
-+	if (!control)
- 		return -EINVAL;
- 
--	kfree(ras_core->eeprom_mgr.ras_eeprom);
-+	mutex_destroy(&control->ras_tbl_mutex);
-+
-+	kfree(control);
- 	ras_core->eeprom_mgr.ras_eeprom = NULL;
- 
- 	return 0;
-@@ -1309,15 +1316,17 @@ static int ras_eeprom_hw_init(struct ras_core_context *ras_core,
- 	if (!control)
- 		return -EINVAL;
- 
--	return __check_ras_table_status(ras_core);
-+	control->max_read_len = param->max_i2c_read_len;
-+	control->max_write_len = param->max_i2c_write_len;
-+	control->i2c_adapter = param->eeprom_i2c_adapter;
-+	control->i2c_port = param->eeprom_i2c_port;
-+	control->i2c_address = param->eeprom_i2c_addr;
-+
-+	return __ras_table_init(ras_core);
- }
- 
- static int ras_eeprom_hw_fini(struct ras_core_context *ras_core)
- {
--	struct ras_eeprom_control *control = ras_core->eeprom_mgr.ras_eeprom;
--
--	mutex_destroy(&control->ras_tbl_mutex);
--
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/ras/core/ras.h b/drivers/gpu/drm/amd/ras/core/ras.h
-index a08f83ed05857..ba656c82d4ee6 100644
---- a/drivers/gpu/drm/amd/ras/core/ras.h
-+++ b/drivers/gpu/drm/amd/ras/core/ras.h
-@@ -153,6 +153,7 @@ enum ras_notify_event {
- 	RAS_EVENT_ID__RAS_EVENT_PROC_BEGIN,
- 	RAS_EVENT_ID__RAS_EVENT_PROC_END,
- 	RAS_EVENT_ID__UPDATE_ACA_DATA,
-+	RAS_EVENT_ID__EARLY_INIT_RESERVE_PAGE,
- };
- 
- enum ras_gpu_status {
-@@ -359,6 +360,7 @@ struct ras_core_config {
- 	u32 nbio_ip_version;
- 	u32 psp_ip_version;
- 
-+	bool early_init_service_supported;
- 	bool poison_supported;
- 	bool ras_eeprom_supported;
- 	uint ras_debug_mask;
-@@ -402,6 +404,8 @@ struct ras_core_context {
- 
- 	bool is_rma;
- 	bool is_initialized;
-+	bool in_early_init;
-+	bool early_init_service_enabled;
- 
- 	struct kfifo de_seqno_fifo;
- 	struct kfifo consumption_seqno_fifo;
-@@ -474,4 +478,7 @@ int ras_core_get_ip_version(struct ras_core_context *ras_core,
- 	enum ras_unit_id unit_id, uint32_t *version);
- uint64_t ras_core_get_ras_caps(struct ras_core_context *ras_core);
- bool ras_core_poison_supported(struct ras_core_context *ras_core);
-+bool ras_core_in_early_init(struct ras_core_context *ras_core);
-+bool ras_core_early_init_service_enabled(struct ras_core_context *ras_core);
-+int ras_core_eeprom_early_init_service(struct ras_core_context *ras_core);
- #endif
-diff --git a/drivers/gpu/drm/amd/ras/core/ras_mp1.c b/drivers/gpu/drm/amd/ras/core/ras_mp1.c
-index 7a2a6da26ae38..7ba872732efd2 100644
---- a/drivers/gpu/drm/amd/ras/core/ras_mp1.c
-+++ b/drivers/gpu/drm/amd/ras/core/ras_mp1.c
-@@ -183,11 +183,14 @@ int ras_mp1_set_debug_mode(struct ras_core_context *ras_core, bool enable)
- 	return mp1->ip_func->set_debug_mode(ras_core, enable);
- }
- 
--int ras_mp1_hw_init(struct ras_core_context *ras_core)
-+int ras_mp1_sw_init(struct ras_core_context *ras_core)
- {
- 	struct ras_mp1 *mp1 = &ras_core->ras_mp1;
- 	int ret = 0;
- 
-+	if (!ras_core->config)
-+		return -EINVAL;
-+
- 	mp1->mp1_ip_version = ras_core->config->mp1_ip_version;
- 
- 	if (ras_core->config && ras_core->config->mp1_cfg.mp1_sys_fn)
-@@ -208,7 +211,7 @@ int ras_mp1_hw_init(struct ras_core_context *ras_core)
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 649fdc4471487..4e8950a143e98 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -667,13 +667,6 @@ int amdgpu_smu_ras_send_msg(struct amdgpu_device *adev, enum smu_message_type ms
  	return ret;
  }
  
--int ras_mp1_hw_fini(struct ras_core_context *ras_core)
-+int ras_mp1_sw_fini(struct ras_core_context *ras_core)
+-int amdgpu_smu_ras_send_msg_legacy(struct amdgpu_device *adev,
+-		enum smu_message_type msg, uint32_t param, uint32_t *read_arg)
+-{
+-	return amdgpu_smu_ras_send_msg(adev, msg, &param, 1,
+-			read_arg, read_arg ? 1 : 0);
+-}
+-
+ int amdgpu_smu_ras_feature_is_enabled(struct amdgpu_device *adev,
+ 						enum smu_feature_mask mask)
  {
- 	struct ras_mp1 *mp1 = &ras_core->ras_mp1;
- 
-diff --git a/drivers/gpu/drm/amd/ras/core/ras_mp1.h b/drivers/gpu/drm/amd/ras/core/ras_mp1.h
-index 3b3d4cab1d0c9..6eac9488843e1 100644
---- a/drivers/gpu/drm/amd/ras/core/ras_mp1.h
-+++ b/drivers/gpu/drm/amd/ras/core/ras_mp1.h
-@@ -88,8 +88,8 @@ struct ras_mp1 {
- 	struct mutex op_mutex;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+index b77723f04268d..f1f61efb968ab 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
++++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+@@ -1993,8 +1993,6 @@ ssize_t smu_get_pm_policy_info(struct smu_context *smu,
+ int amdgpu_smu_ras_send_msg(struct amdgpu_device *adev, enum smu_message_type msg,
+ 			const uint32_t *params, size_t num_params,
+ 			uint32_t *read_args, size_t num_read_args);
+-int amdgpu_smu_ras_send_msg_legacy(struct amdgpu_device *adev,
+-		enum smu_message_type msg, uint32_t param, uint32_t *read_arg);
+ int amdgpu_smu_ras_feature_is_enabled(struct amdgpu_device *adev,
+ 						enum smu_feature_mask mask);
+ #endif
+diff --git a/drivers/gpu/drm/amd/ras/core/ras.h b/drivers/gpu/drm/amd/ras/core/ras.h
+index 2311d988b3e52..38ab1aa9be0f9 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras.h
++++ b/drivers/gpu/drm/amd/ras/core/ras.h
+@@ -213,6 +213,8 @@ struct ras_mp1_sys_func {
+ 	int (*mp1_get_ras_enabled_mask)(struct ras_core_context *ras_core,
+ 			uint64_t *enabled_mask);
+ 	int (*mp1_set_debug_mode)(struct ras_core_context *ras_core, bool enable);
++	int (*mp1_send_ras_msg)(struct ras_core_context *ras_core, u32 msg_id,
++		u32 *params, u32 num_params, u32 *read_args, u32 num_read_args);
  };
  
--int ras_mp1_hw_init(struct ras_core_context *ras_core);
--int ras_mp1_hw_fini(struct ras_core_context *ras_core);
-+int ras_mp1_sw_init(struct ras_core_context *ras_core);
-+int ras_mp1_sw_fini(struct ras_core_context *ras_core);
- 
- int ras_mp1_get_bank_count(struct ras_core_context *ras_core,
- 			    enum ras_err_type type, u32 *count);
-diff --git a/drivers/gpu/drm/amd/ras/core/ras_umc.c b/drivers/gpu/drm/amd/ras/core/ras_umc.c
-index b9961796a5395..ee4ad9ffb50c0 100644
---- a/drivers/gpu/drm/amd/ras/core/ras_umc.c
-+++ b/drivers/gpu/drm/amd/ras/core/ras_umc.c
-@@ -187,8 +187,9 @@ static void ras_umc_reserve_eeprom_record(struct ras_core_context *ras_core,
- 
- 	/* Reserve memory */
- 	for (i = 0; i < count; i++)
--		ras_core_event_notify(ras_core,
--			RAS_EVENT_ID__RESERVE_BAD_PAGE, &page_pfn[i]);
-+		ras_core_event_notify(ras_core, ras_core_in_early_init(ras_core) ?
-+			RAS_EVENT_ID__EARLY_INIT_RESERVE_PAGE : RAS_EVENT_ID__RESERVE_BAD_PAGE,
-+			&page_pfn[i]);
+ struct ras_eeprom_param_config {
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_mp1.c b/drivers/gpu/drm/amd/ras/core/ras_mp1.c
+index 7ba872732efd2..34578806ef3c0 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_mp1.c
++++ b/drivers/gpu/drm/amd/ras/core/ras_mp1.c
+@@ -111,7 +111,7 @@ bool ras_mp1_rma_detected(struct ras_core_context *ras_core)
  }
  
- /* When gpu reset is ongoing, ecc logging operations will be pended.
-@@ -726,6 +727,13 @@ int ras_umc_sw_init(struct ras_core_context *ras_core)
- 	mutex_init(&ras_umc->umc_lock);
- 	mutex_init(&ras_umc->bank_log_lock);
- 
-+	ras_umc->umc_ip_version = ras_core->config->umc_ip_version;
-+	ras_umc->ip_func = ras_umc_get_ip_func(ras_core, ras_umc->umc_ip_version);
-+	if (!ras_umc->ip_func) {
-+		RAS_DEV_ERR(ras_core->dev, "Failed to get umc ip function!\n");
-+		return -EINVAL;
-+	}
-+
- 	return 0;
- }
- 
-@@ -775,11 +783,6 @@ int ras_umc_hw_init(struct ras_core_context *ras_core)
- 	struct ras_umc *ras_umc = &ras_core->ras_umc;
- 	ras_umc->num_umc = ras_core->config->umc_cfg.num_umc;
- 
--	ras_umc->umc_ip_version = ras_core->config->umc_ip_version;
--	ras_umc->ip_func = ras_umc_get_ip_func(ras_core, ras_umc->umc_ip_version);
--	if (!ras_umc->ip_func)
--		return -EINVAL;
--
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-index d84cf9162e588..c08e573206bd2 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-@@ -257,6 +257,9 @@ static struct ras_core_context *amdgpu_ras_mgr_create_ras_core(struct amdgpu_dev
- 	    init_config.umc_ip_version == IP_VERSION(12, 5, 0))
- 		init_config.aca_ip_version = IP_VERSION(1, 0, 0);
- 
-+	if (init_config.mp1_ip_version == IP_VERSION(15, 0, 8))
-+		init_config.early_init_service_supported = true;
-+
- 	init_config.sys_fn = &amdgpu_ras_sys_fn;
- 	init_config.ras_eeprom_supported =
- 		amdgpu_ras_mgr_eeprom_is_supported(adev);
-@@ -738,3 +741,25 @@ bool amdgpu_ras_mgr_get_debug_mode(struct amdgpu_device *adev)
- 
- 	return ras_mgr->is_debug_mode;
- }
-+
-+int amdgpu_ras_mgr_early_init_service(struct amdgpu_device *adev)
-+{
-+	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-+	struct amdgpu_ras_mgr *ras_mgr;
-+	int ret;
-+
-+	if (!con->uniras_enabled)
-+		return 0;
-+
-+	ras_mgr = amdgpu_ras_mgr_get_context(adev);
-+	if (!ras_mgr || !ras_mgr->ras_core) {
-+		RAS_DEV_ERR(adev, "amdgpu ras sw is not ready!\n");
-+		return -EPERM;
-+	}
-+
-+	ret = ras_core_eeprom_early_init_service(ras_mgr->ras_core);
-+	if (ret)
-+		RAS_DEV_WARN(adev, "RAS early init service failure! ret:%d\n", ret);
-+
-+	return ret;
-+}
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
-index 056d482644984..cb98606306932 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
-@@ -61,6 +61,7 @@ struct amdgpu_ras_mgr {
- 
- extern const struct amdgpu_ip_block_version ras_v1_0_ip_block;
- 
-+int amdgpu_ras_mgr_early_init_service(struct amdgpu_device *adev);
- struct amdgpu_ras_mgr *amdgpu_ras_mgr_get_context(
- 			struct amdgpu_device *adev);
- int amdgpu_enable_uniras(struct amdgpu_device *adev, bool enable);
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c
-index 4744a7991757b..6115f241f13b4 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_sys.c
-@@ -110,6 +110,25 @@ static int amdgpu_ras_sys_gen_seqno(struct ras_core_context *ras_core,
- 
- }
- 
-+static int amdgpu_ras_early_init_reserve_badpage(struct ras_core_context *ras_core,
-+			uint64_t pfn)
-+{
-+	struct amdgpu_bo *bo;
-+	void *va;
-+	int ret;
-+
-+	ret = amdgpu_bo_create_kernel_at(ras_core->dev, RAS_PFN_TO_ADDR(pfn),
-+			AMDGPU_GPU_PAGE_SIZE, &bo, &va);
-+	if (ret) {
-+		ras_core->is_rma = true;
-+		RAS_DEV_ERR(ras_core->dev,
-+			"Early init: RAS failed to reserve: offset=0x%llx size=0x%x ret=%d\n",
-+			RAS_PFN_TO_ADDR(pfn), AMDGPU_GPU_PAGE_SIZE, ret);
-+	}
-+
-+	return ret;
-+}
-+
- static int amdgpu_ras_sys_event_notifier(struct ras_core_context *ras_core,
- 				   enum ras_notify_event event_id, void *data)
+ int ras_mp1_set_timestamp(struct ras_core_context *ras_core,
+-		u32 timestamp)
++		u64 timestamp)
  {
-@@ -126,6 +145,9 @@ static int amdgpu_ras_sys_event_notifier(struct ras_core_context *ras_core,
- 	case RAS_EVENT_ID__RESERVE_BAD_PAGE:
- 		ret = amdgpu_ras_reserve_page(ras_core->dev, *(uint64_t *)data);
- 		break;
-+	case RAS_EVENT_ID__EARLY_INIT_RESERVE_PAGE:
-+		ret = amdgpu_ras_early_init_reserve_badpage(ras_core, *(uint64_t *)data);
-+		break;
- 	case RAS_EVENT_ID__FATAL_ERROR_DETECTED:
- 		ret = amdgpu_ras_sys_detect_fatal_event(ras_core, data);
- 		break;
+ 	struct ras_mp1 *mp1 = &ras_core->ras_mp1;
+ 	int ret;
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_mp1.h b/drivers/gpu/drm/amd/ras/core/ras_mp1.h
+index 6eac9488843e1..d70070645cede 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_mp1.h
++++ b/drivers/gpu/drm/amd/ras/core/ras_mp1.h
+@@ -40,23 +40,9 @@ enum ras_mp1_msg_id {
+ };
+ 
+ struct eeprom_err_record {
+-	u32 timestamp;
+-
+-	union {
+-		struct {
+-			u32 mca_addr_low;
+-			u32 mca_addr_high;
+-		};
+-		u64 mca_addr;
+-	};
+-
+-	union {
+-		struct {
+-			u32 ipid_low;
+-			u32 ipid_high;
+-		};
+-		u64 ipid;
+-	};
++	u64 timestamp;
++	u64 mca_addr;
++	u64 ipid;
+ };
+ 
+ enum ras_err_type;
+@@ -72,7 +58,7 @@ struct ras_mp1_ip_func {
+ 			u32 *table_version);
+ 	bool (*rma_detected)(struct ras_core_context *ras_core);
+ 	int (*set_timestamp)(struct ras_core_context *ras_core,
+-			u32 timestamp);
++			u64 timestamp);
+ 	int (*reset_ras_table)(struct ras_core_context *ras_core,
+ 			u32 *result);
+ 	int (*get_record_count)(struct ras_core_context *ras_core,
+@@ -102,7 +88,7 @@ int ras_mp1_get_table_version(struct ras_core_context *ras_core,
+ 		u32 *table_version);
+ bool ras_mp1_rma_detected(struct ras_core_context *ras_core);
+ int ras_mp1_set_timestamp(struct ras_core_context *ras_core,
+-		u32 timestamp);
++		u64 timestamp);
+ int ras_mp1_reset_ras_table(struct ras_core_context *ras_core,
+ 		u32 *result);
+ int ras_mp1_get_record_count(struct ras_core_context *ras_core, u32 *count);
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_mp1_v15_0.c b/drivers/gpu/drm/amd/ras/core/ras_mp1_v15_0.c
+index fc977396d9cb0..9b3c6651bb852 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_mp1_v15_0.c
++++ b/drivers/gpu/drm/amd/ras/core/ras_mp1_v15_0.c
+@@ -26,9 +26,6 @@
+ #include "core_status.h"
+ #include "ras_mp1_v13_0.h"
+ 
+-#define MSG_DATA_LOW32(idx)   (idx | (0x1 << 16))
+-#define MSG_DATA_HIGH32(idx)  (idx | (0x2 << 16))
+-
+ #define regMP1_SMN_C2PMSG_40                              0x0068
+ #define regMP1_SMN_C2PMSG_40_BASE_IDX                     2
+ #define regMP1_SMN_C2PMSG_41                              0x0069
+@@ -58,19 +55,33 @@ static u32 ras_mp1_msg_codes[RAS_MP1_MSG_MAX] = {
+ };
+ 
+ static int __direct_send_mp1_msg(struct ras_core_context *ras_core,
+-		enum ras_mp1_msg_id msg_id, u32 input, u32 *output)
++		enum ras_mp1_msg_id msg_id, u32 *inputs, u32 num_inputs,
++		u32 *outputs, u32 num_outputs)
+ {
+ 	u32 msg_code = 0;
+ 	int timeout = 100000;  //100 ms
+ 	u32 reg = 0;
+ 
++	if (num_inputs > 2 || num_outputs > 2)
++		return -EINVAL;
++
+ 	msg_code = ras_mp1_msg_codes[msg_id];
+ 	if (!msg_code)
+ 		return -EOPNOTSUPP;
+ 
+ 	/* Send message and parameter to fw */
+ 	RAS_DEV_WREG32_SOC15(ras_core->dev, MP1, 0, regMP1_SMN_C2PMSG_41, 0);
+-	RAS_DEV_WREG32_SOC15(ras_core->dev, MP1, 0, regMP1_SMN_C2PMSG_42, input);
++	if (num_inputs == 1) {
++		/* Input u32 parameter */
++		RAS_DEV_WREG32_SOC15(ras_core->dev,
++			MP1, 0, regMP1_SMN_C2PMSG_42, inputs[0]);
++	} else if (num_inputs == 2) {
++		/* Input u64 parameter */
++		RAS_DEV_WREG32_SOC15(ras_core->dev,
++			MP1, 0, regMP1_SMN_C2PMSG_42, inputs[0]);
++		RAS_DEV_WREG32_SOC15(ras_core->dev,
++			MP1, 0, regMP1_SMN_C2PMSG_43, inputs[1]);
++	}
+ 	RAS_DEV_WREG32_SOC15(ras_core->dev, MP1, 0, regMP1_SMN_C2PMSG_40, msg_code);
+ 
+ 	/* Poll MP1 response */
+@@ -83,35 +94,85 @@ static int __direct_send_mp1_msg(struct ras_core_context *ras_core,
+ 	};
+ 
+ 	if (reg != MP1_RESP_OK) {
+-		RAS_DEV_ERR(ras_core->dev, "MP1 fail to ack 0x%x for msg: 0x%x, 0x%x, %p\n",
+-			reg, msg_code, input, output);
++		RAS_DEV_ERR(ras_core->dev, "MP1 fail to ack 0x%x for msg: 0x%x\n",
++			reg, msg_code);
+ 		return -EIO;
+ 	}
+ 
+ 	/* Read output data */
+-	if (output)
+-		*output = RAS_DEV_RREG32_SOC15(ras_core->dev, MP1, 0, regMP1_SMN_C2PMSG_42);
++	if (outputs && num_outputs) {
++		if (num_outputs == 1) {
++			/* Output u32 parameter */
++			outputs[0] = RAS_DEV_RREG32_SOC15(ras_core->dev,
++						MP1, 0, regMP1_SMN_C2PMSG_42);
++		} else if (num_outputs == 2) {
++			/* Output u64 parameter */
++			outputs[0] = RAS_DEV_RREG32_SOC15(ras_core->dev,
++						MP1, 0, regMP1_SMN_C2PMSG_42);
++			outputs[1] = RAS_DEV_RREG32_SOC15(ras_core->dev,
++						MP1, 0, regMP1_SMN_C2PMSG_43);
++		}
++	}
+ 
+ 	return 0;
+ }
+ 
++static int __sys_send_mp1_msg(struct ras_core_context *ras_core,
++		enum ras_mp1_msg_id msg_id, u32 *inputs, u32 num_inputs,
++		u32 *outputs, u32 num_outputs)
++{
++	if (!ras_core->ras_mp1.sys_func ||
++	    !ras_core->ras_mp1.sys_func->mp1_send_ras_msg)
++		return -EOPNOTSUPP;
++
++	return ras_core->ras_mp1.sys_func->mp1_send_ras_msg(ras_core,
++				msg_id, inputs, num_inputs, outputs, num_outputs);
++}
++
+ static int __send_mp1_msg(struct ras_core_context *ras_core,
+-		enum ras_mp1_msg_id msg_id, u32 input, u32 *output)
++		enum ras_mp1_msg_id msg_id, u32 *inputs, u32 num_inputs,
++		u32 *outputs, u32 num_outputs)
+ {
+ 	if (msg_id >= RAS_MP1_MSG_MAX)
+ 		return -EINVAL;
+ 
+ 	if (ras_core_in_early_init(ras_core))
+-		return __direct_send_mp1_msg(ras_core, msg_id, input, output);
++		return __direct_send_mp1_msg(ras_core, msg_id,
++				inputs, num_inputs, outputs, num_outputs);
+ 	else
+-		return ras_core->ras_mp1.sys_func->mp1_send_eeprom_msg(ras_core,
+-				msg_id, input, output);
++		return __sys_send_mp1_msg(ras_core, msg_id,
++				inputs, num_inputs, outputs, num_outputs);
++}
++
++static int __send_mp1_msg32(struct ras_core_context *ras_core,
++		enum ras_mp1_msg_id msg_id, u32 input, u32 *output)
++{
++	return __send_mp1_msg(ras_core, msg_id,
++			&input, 1, output, output ? 1 : 0);
++}
++
++static int __send_mp1_msg64(struct ras_core_context *ras_core,
++		enum ras_mp1_msg_id msg_id, u64 input, u64 *output)
++{
++	u32 in[2] = {lower_32_bits(input), upper_32_bits(input)};
++	u32 out[2] = {0};
++	int ret;
++
++	ret = __send_mp1_msg(ras_core, msg_id,
++			in, 2, output ? out : NULL, output ? 2 : 0);
++	if (!ret && output)
++		*output = ((u64)out[1] << 32) | out[0];
++
++	return ret;
+ }
+ 
+ static int ras_mp1_v15_get_table_version(struct ras_core_context *ras_core,
+ 				     u32 *table_ver)
+ {
+-	return __send_mp1_msg(ras_core, RAS_MP1_MSG_GetRasTableVersion,
++	if (!table_ver)
++		return -EINVAL;
++
++	return __send_mp1_msg32(ras_core, RAS_MP1_MSG_GetRasTableVersion,
+ 			0, table_ver);
+ }
+ 
+@@ -119,19 +180,19 @@ static bool ras_mp1_v15_rma_detected(struct ras_core_context *ras_core)
+ {
+ 	u32 rma = 0;
+ 
+-	if (__send_mp1_msg(ras_core, RAS_MP1_MSG_GetRmaStatus, 0, &rma))
++	if (__send_mp1_msg32(ras_core, RAS_MP1_MSG_GetRmaStatus, 0, &rma))
+ 		return false;
+ 
+ 	return rma;
+ }
+ 
+ static int ras_mp1_v15_set_timestamp(struct ras_core_context *ras_core,
+-			u32 timestamp)
++			u64 timestamp)
+ {
+ 	if (!timestamp)
+ 		return -EINVAL;
+ 
+-	return __send_mp1_msg(ras_core, RAS_MP1_MSG_SetTimestamp, timestamp, NULL);
++	return __send_mp1_msg64(ras_core, RAS_MP1_MSG_SetTimestamp, timestamp, NULL);
+ }
+ 
+ static int ras_mp1_v15_reset_ras_table(struct ras_core_context *ras_core,
+@@ -140,7 +201,7 @@ static int ras_mp1_v15_reset_ras_table(struct ras_core_context *ras_core,
+ 	if (!result)
+ 		return -EINVAL;
+ 
+-	return __send_mp1_msg(ras_core, RAS_MP1_MSG_EraseRasTable, 0, result);
++	return __send_mp1_msg32(ras_core, RAS_MP1_MSG_EraseRasTable, 0, result);
+ }
+ 
+ static int ras_mp1_v15_get_record_count(struct ras_core_context *ras_core,
+@@ -151,7 +212,7 @@ static int ras_mp1_v15_get_record_count(struct ras_core_context *ras_core,
+ 
+ 	*count = 0;
+ 
+-	return __send_mp1_msg(ras_core, RAS_MP1_MSG_GetBadPageCount, 0, count);
++	return __send_mp1_msg32(ras_core, RAS_MP1_MSG_GetBadPageCount, 0, count);
+ }
+ 
+ static int ras_mp1_v15_get_record(struct ras_core_context *ras_core,
+@@ -160,30 +221,20 @@ static int ras_mp1_v15_get_record(struct ras_core_context *ras_core,
+ 	int ret;
+ 
+ 	if (!rec)
+-		return 0;
++		return -EINVAL;
+ 
+-	ret = __send_mp1_msg(ras_core, RAS_MP1_MSG_GetTimestamp,
++	ret = __send_mp1_msg64(ras_core, RAS_MP1_MSG_GetTimestamp,
+ 			idx, &rec->timestamp);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = __send_mp1_msg(ras_core, RAS_MP1_MSG_GetBadPageMcaAddr,
+-			MSG_DATA_LOW32(idx), &rec->mca_addr_low);
+-	if (ret)
+-		return ret;
+-
+-	ret = __send_mp1_msg(ras_core, RAS_MP1_MSG_GetBadPageMcaAddr,
+-			MSG_DATA_HIGH32(idx), &rec->mca_addr_high);
+-	if (ret)
+-		return ret;
+-
+-	ret = __send_mp1_msg(ras_core, RAS_MP1_MSG_GetBadPageIpId,
+-			MSG_DATA_LOW32(idx), &rec->ipid_low);
++	ret = __send_mp1_msg64(ras_core, RAS_MP1_MSG_GetBadPageMcaAddr,
++			idx, &rec->mca_addr);
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = __send_mp1_msg(ras_core, RAS_MP1_MSG_GetBadPageIpId,
+-			MSG_DATA_HIGH32(idx), &rec->ipid_high);
++	ret = __send_mp1_msg64(ras_core, RAS_MP1_MSG_GetBadPageIpId,
++			idx, &rec->ipid);
+ 
+ 	return ret;
+ }
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1.c
+index 698a373005092..baf5f156fc6fb 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1.c
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mp1.c
+@@ -44,8 +44,8 @@ static enum smu_message_type
+ 	return ras_smu_msg_maps[msg_id];
+ }
+ 
+-static int amdgpu_ras_send_mp1_msg(struct ras_core_context *ras_core,
+-			u32 msg_id, uint32_t param, uint32_t *read_arg)
++static int amdgpu_ras_send_mp1_msg(struct ras_core_context *ras_core, u32 msg_id,
++		u32 *params, u32 num_params, u32 *read_args, u32 num_read_args)
+ {
+ 	struct amdgpu_device *adev = (struct amdgpu_device *)ras_core->dev;
+ 	enum smu_message_type smu_msg;
+@@ -56,8 +56,8 @@ static int amdgpu_ras_send_mp1_msg(struct ras_core_context *ras_core,
+ 		return -EOPNOTSUPP;
+ 
+ 	if (down_read_trylock(&adev->reset_domain->sem)) {
+-		ret = amdgpu_smu_ras_send_msg_legacy(adev, smu_msg,
+-				param, read_arg);
++		ret = amdgpu_smu_ras_send_msg(adev, smu_msg,
++				params, num_params, read_args, num_read_args);
+ 		up_read(&adev->reset_domain->sem);
+ 	} else {
+ 		ret = -RAS_CORE_GPU_IN_MODE1_RESET;
+@@ -67,5 +67,5 @@ static int amdgpu_ras_send_mp1_msg(struct ras_core_context *ras_core,
+ }
+ 
+ const struct ras_mp1_sys_func amdgpu_ras_mp1_sys_func = {
+-	.mp1_send_eeprom_msg = amdgpu_ras_send_mp1_msg,
++	.mp1_send_ras_msg = amdgpu_ras_send_mp1_msg,
+ };
 -- 
 2.55.0
 
