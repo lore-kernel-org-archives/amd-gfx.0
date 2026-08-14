@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E42C6C5DF74
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 21:04:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DDE4C5DF79
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 21:04:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D30F10F733;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E0F010F732;
 	Fri, 14 Aug 2026 21:04:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="nUC2HmLf";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="g3TZrB3J";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010006.outbound.protection.outlook.com [52.101.201.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D170410F72E
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 21:03:59 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012069.outbound.protection.outlook.com [40.107.209.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 631AD10F72B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 21:03:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=i/0fx7MQVcTgLgvqnwriVIlBnqEwJsQzDFzzaIXnOkMMeahTzLb35/sPi4uTQRVa7Kv6ivSkcAa7abQuqUckBwpHxcfoGV/kMe91jOujw/rFs/cYc7zOu4pBz2VaOt0UX9eAFnXA8D02sjeOJaBnjNyHhQeMTG11oBfmBBClD/iXpvd7gdM5lwcTkcq+dmutFKGr0KDgsB52Zxy3zi2WZtG0l8mPzeTgKsd6tUQHF3XHCaNxKRRCi0Gi8Uu8O2rwJX53I7RKuMCGEFLxNlrV2WA8VsQlavJ5EhSGDMaddKr1TRVxUL6vQEix82llDBhDUt3X1sgicU199KFNitRauw==
+ b=riWzeIQH0v4sEMMjPtC6rLU7vaR6hxtehtadELn3QRPnLUfgMogW2m+fJQ/NLYoDeE7YDt+muNnk4THgoTxjFtPPqLiidPZzIGh7RF4kYpC7GETa+tMAzk6fJp+lQmP1sgpKR7pjAFJx2M0fJbHRA5/ovwrf6zwmZauuj1kkOOvrm0CjDMW8y9xvFBk6xQGfiWNlWEq9DBeCIWZXAErVkOljqCzhIHwDGTNGQzHjsl0oucvUNRgInFpo+Cg71cnnKYZ3++J4yFPX5H1qRGORhS+PqZwJm9zFITTE6nQSPaGT1a4z5lQ+mbsTO3TdmGVlAl6TvveVAf+cBuR+Qr8BOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2000zyF2b11ZPwatVAJxJ4STrxGAbW76mqEqNOsjV7Y=;
- b=XGFh+FChu2n0wKfshKOEuSjrSS7HuaWRXtnaCMRRN0JJhakkeJL8r7XQ8dqN4pcx0jhO7zzABm2iQ+8Yij2yBNGPI2cE8zqiqGM/EztCuNLIpgVfOBq9ieyI1fbBQnOJOfJ1i8WgorLTyBRIRGzUFJ/hftBPd683Wd+YuO825UKIjZmWWj+x/psKjV1aFT72xSpiIizYNS7PQD35nPHpWiGTMvxca6VgDo89bt+yk2k2B87n9PjzcHTze+NdkznICk17hnPEhyYf7DITAXGlqFhWYJ3/erHeoQbngcpFrznaAfldIQ6BqpKym2EIYlnNpYz5FvoK5vdYdLz2cXN29w==
+ bh=xLAQokbEn8p8kc2RZdVkZaryEP4gv3WI/vYCyNWY7D0=;
+ b=IkPF+Z7h1RAerX9irvxfPXoCLYEKQqTjhkI7mutbBUlbu2A7OChfl8Pso+fXWERXFdmU2pBlpdQObXvPlBfLI2F4n8p7szlhagHwp9vdyd8vHhvoiwNXx3uJ76wFBXt+Gony7Kwcc2ENkeov/Zwdt0TlJ/LtFIObDPUhZFsGS7TDz3awt5Vc7OgydMZpRTBiCpqscopB3KXuTVuBXxMAlHxCZj5wARFuygXqC/EipnQS38BBDT5uF1dgnM3XFI76tUXt6WfeuZl/BSV71jUpM+prpASJVotY+TrGBG+S5mKaiVSgIZN/1GvTQpVkpc9Fem7V6CbMwDkme16CEYCJrQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2000zyF2b11ZPwatVAJxJ4STrxGAbW76mqEqNOsjV7Y=;
- b=nUC2HmLf1Ejp1VDgsLF+4zPxonJW66bzi/sNLsQEFdCO2udmpZ157Rq/vfoDp1GVMrqvWE88nWYtIheTtq6rkE364tmHknZa9IErFiXAtZZQQJp6Zh/ZU0T0wfBT5ujNL5pKScC3HyNA+TqOWW0xFk/Ho6jxCXFa4363RMMroJo=
-Received: from BN0PR10CA0027.namprd10.prod.outlook.com (2603:10b6:408:143::28)
- by SA5PPF80B25317E.namprd12.prod.outlook.com
- (2603:10b6:80f:fc04::8d2) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.24; Fri, 14 Aug
+ bh=xLAQokbEn8p8kc2RZdVkZaryEP4gv3WI/vYCyNWY7D0=;
+ b=g3TZrB3JTtI8g4y2dUKcHMFBN7KCYVDEaXCOvi9ppN0oBZdljSxbl/kLSjZTF+YV0fAPlvTDvYd+m5EiLOyYl55HprQnjmpEC9rkTaatHuc2A8ARe58toTNqNEGwJ5/TlzX+5e+dGRauIshiSLQPntztTDQ458U68y41UueM0P8=
+Received: from BN9PR03CA0338.namprd03.prod.outlook.com (2603:10b6:408:f6::13)
+ by CY8PR12MB7364.namprd12.prod.outlook.com (2603:10b6:930:50::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Fri, 14 Aug
  2026 21:03:54 +0000
-Received: from BN2PEPF0000449F.namprd02.prod.outlook.com
- (2603:10b6:408:143:cafe::7b) by BN0PR10CA0027.outlook.office365.com
- (2603:10b6:408:143::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.15 via Frontend Transport; Fri,
- 14 Aug 2026 21:03:54 +0000
+Received: from BN2PEPF0000449E.namprd02.prod.outlook.com
+ (2603:10b6:408:f6:cafe::1d) by BN9PR03CA0338.outlook.office365.com
+ (2603:10b6:408:f6::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.14 via Frontend Transport; Fri,
+ 14 Aug 2026 21:03:53 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,23 +48,27 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- BN2PEPF0000449F.mail.protection.outlook.com (10.167.243.150) with Microsoft
+ BN2PEPF0000449E.mail.protection.outlook.com (10.167.243.149) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 21:03:54 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 21:03:53 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
+ 2026 16:03:50 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
  2026 16:03:50 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 14 Aug 2026 16:03:50 -0500
+ Transport; Fri, 14 Aug 2026 16:03:49 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: YiPeng Chai <YiPeng.Chai@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, 
  Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 088/109] drm/amd/ras: add module parameter for uniras
-Date: Fri, 14 Aug 2026 17:02:25 -0400
-Message-ID: <20260814210246.3067612-89-alexander.deucher@amd.com>
+Subject: [PATCH 087/109] drm/amd/ras: improve ras log timestamp precision
+Date: Fri, 14 Aug 2026 17:02:24 -0400
+Message-ID: <20260814210246.3067612-88-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260814210246.3067612-1-alexander.deucher@amd.com>
 References: <20260814210246.3067612-1-alexander.deucher@amd.com>
@@ -73,29 +77,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000449F:EE_|SA5PPF80B25317E:EE_
-X-MS-Office365-Filtering-Correlation-Id: eea0ab5d-9dd7-4bcf-3c6d-08defa478cdb
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449E:EE_|CY8PR12MB7364:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ae29a0b-7744-4a63-b45d-08defa478c7d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|36860700016|23010399003|82310400026|10067099003|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: vnnkiYg0xA7RX9DSQ8Dp55zcOAqSI9JsDf9xjY5lg+GRh9iVQqJxyft7ciTk8KelLrpKiWtiwKFfJSwoYGgQ/M27TVDYJHNChcRaYlFBpqeyC4XUeEqH3QRkso9QNK62ZhXvumjMWEN2OB+wmS0w9aXeJygD1sB9couHXFPDd5wV8wMVCz8t94rKNDmedkSNnueDKquQjXn6SEOi869+b7SVZSudrKOOxioWNJrZRE68rnbOtlibYZF+6Xku8zQ4ampxSJUnddrm237yBWXmC0UaKrLsn86EzJKcLthFiXKaPoZlc3lDthmClRxXqMB960HEboJ7ytbjce3PxOOUI9avvTEdj29X3Fb9VUw5JIx7UeBF+EkxhSdZ07bq87KeR1PL9LKFeR+NuemiJw66vNjX2W8+rKe3sLrAlBQuL2F0tHiFt9tXcwXqFCyIIXM5X94VLSphRSfogr3+kQsJjOpY1ShM7+CD3WV2E7atHdws/5IEUir8yJgDrsfHw/waQEreKO1nAFhNQFBwQ2es+ZMV8OSDHtlU6cOMtQxdqd14xd0Jn3XrE4hbDxP3alu2xwTgkqahtjCF7bUAKZ8ZslzqqTWAVXc4sSozR5iOr/LOdNdjdM0ubiMejfWrXM5O2af2SAvyVpKig6PZhu65GZycNzE9gViwtvJxmATgqY/vTjuisnYOE2rO4tfsvyzCFDiK2pviMWo4tqmPhrMAQg==
+ ARA:13230040|36860700016|1800799024|23010399003|82310400026|376014|56012099006|10067099003|18002099003|22082099003|11063799006;
+X-Microsoft-Antispam-Message-Info: JgtjfWoGmxt7bzxMxvtKNJeBu28LDCI4eIzmUEYYBxBXiRtjl4EN6MbL7EZFGO40lOKDMqbejBkCmrjozpGzluvQgvxrfCAn3v1vXGuLS9D85tFRHSVQWioZ8PxGHHJxe1XcHmMFWlIfI9qyfk879ouLppmnYhOcp1hMIPlUjWQhRQW2Zkq8mbzUTxh9JvDZCqexmCSfwP7SZm/wIVe0GWdxPZhRUddC8sY6W+B8ZoVHdOn5xmlEI1U051f0MldISZyA2TzLZkRO13NU4VtXpyN65T9dicUGQ8jOydGRGZ+WTak7VN+D6CpMnnk/HtOaH0JJJ38bDNsgj6uvgfR1WoHWIMUh6AaF6gKfurHFw1KbdJByOr00cZEH+vdX0Hi8FOsiqX3qJ53eYONEuDPsO7VhVrc3XV9ApKCiJYu4Da4el4ecm7A3K0Jq2V8yfyLgGxx0JOXO3XrLzVA9LTaq0WZ71WEUFlD0N14WMl9c98t23ZTnPGkvLpXgBLs8YccVOkkVlGy/ZPJXeZOa4s40hGcoHlJVnX+OynfhDvDilZgpwNIErk1kKLzeQTfxqcAoag6ebKcHIx5fF8omFn3EJ7yJAut7hKcjbGwgt3Qe9ApIWrhYT5dYFMz4xc1rcYFcLlAhi6DtDuuqFiGEy2YuGyrFXbgK4YI8F4X0Xcb5UKgqjKJz0/bD2EIV1W5XtIgbg1UOKN4U3H3hWo2s8l9Zug==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(36860700016)(23010399003)(82310400026)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006);
+ SFS:(13230040)(36860700016)(1800799024)(23010399003)(82310400026)(376014)(56012099006)(10067099003)(18002099003)(22082099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 2aKRrg2g+V0ZemKAvO77mbMHyhe5OpYxNZowyRgOofrQ0inhOXngSt4WdrK9tez2yxn3uOcYhAh/fJ6HlreFZevP3XT/xLcL4x5LpPUvgV3M9vZg2KgNZwAtYO745loOOzX04jcXDxzEPC/9PY/kDi6xoDMrWPLzxbyjD9VmhpxzZ6XpzTIYriLtgSeMmS+cC/olNZgrskLV7MYhIEnlFNFniCbPeYpqLZah/02g1aTo50xPpGcgpGzlbAo1dricy6z6PQGrSCLCyWYp1u7suWEf1cDWEouqIhCK/A+hb1+Suhqkk2AOoueLg45K0KjWYMbsyrg3ktSlkjHWrFGNXPXxcNN3hQK5wPIcE+mwpG/bUwYKX0/2gHnyaZq6QRleGrqN6vitSdfEdEXgFod1zhKYL/rQZnKLVSDXwNapiHKzA1rOHODFKGRT7Ya4+KsP
+X-MS-Exchange-AntiSpam-MessageData-0: aw/W1e0q4XQEWySG43aT5jjiruA7HR14+w8etg4H0kPH7DOSaVL191p/I2s2C+yy99s7B2t/SiBNR2QiQEr0jEsjVFVwD+O/Cim6dyPZldzjy0lxv5BC5Mt2Mj08fHjaTTrbCbFQHAOWIsOA+wQvHG+vG1FaJT5b4MOIAnIeXzh9lWk1IUbV3hDPN4+EOenVHbRvlQOXPoWFqhIilWxXN6V0mwir7AGLeeDiJ0N++HZmUi/y9ZC9zmL3bJjqxqFW7DEF9/XwePvg77uACe+Sq87uMl0otygQaxU16dYYN/DKa13OOy1fGg0uNjyUCAa0nq1xAfGdEgmWLYqqTbU5jCuoKanDSFtPMHFwh4E14kjlVDyyWsM24PtBQaI0lsq/m8NIZgbJr/DivzANvRFfVvdkh8EEPKJgEt+a00wprxXjF7ibrHUuIWTvfz6EAZOD
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 21:03:54.5585 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: eea0ab5d-9dd7-4bcf-3c6d-08defa478cdb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 21:03:53.9470 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ae29a0b-7744-4a63-b45d-08defa478c7d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000449F.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000449E.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF80B25317E
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7364
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,275 +116,74 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 
-Add module parameter for uniras.
+Improve ras log timestamp precision.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+(cherry picked from commit 2e5d98b306cdc6e1992bc068ce696d35d75ba26d)
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c       |  6 +++-
- drivers/gpu/drm/amd/ras/core/core.c           | 20 +++++++++++-
- drivers/gpu/drm/amd/ras/core/ras.h            | 11 +++++++
- .../amd/ras/ras_mgr/amdgpu_ras_eeprom_i2c.c   | 27 +++++++++++-----
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c  | 31 ++++++++++++++++---
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h  |  3 +-
- 6 files changed, 83 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/amd/ras/core/log_ring.c   | 4 ++--
+ drivers/gpu/drm/amd/ras/core/ras_cper.c   | 3 ++-
+ drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h | 2 ++
+ 3 files changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-index 13297b6f062b6..4def1bf489c3b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
-@@ -3570,6 +3570,7 @@ static void amdgpu_ras_init_reserved_vram_size(struct amdgpu_device *adev)
- int amdgpu_ras_init(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
-+	struct ras_module_param param = {0};
- 	int r;
+diff --git a/drivers/gpu/drm/amd/ras/core/log_ring.c b/drivers/gpu/drm/amd/ras/core/log_ring.c
+index b57749bc63d0f..28cda7528e2bd 100644
+--- a/drivers/gpu/drm/amd/ras/core/log_ring.c
++++ b/drivers/gpu/drm/amd/ras/core/log_ring.c
+@@ -212,7 +212,7 @@ struct ras_log_batch_tag *ras_log_ring_create_batch_tag(struct ras_core_context
+ 	spin_unlock_irqrestore(&log_ring->spin_lock, flags);
  
- 	if (con)
-@@ -3593,7 +3594,10 @@ int amdgpu_ras_init(struct amdgpu_device *adev)
- 
- 	amdgpu_ras_check_supported(adev);
- 
--	amdgpu_ras_mgr_sw_init(adev);
-+	param.ras_feature_enable = amdgpu_ras_enable;
-+	param.ras_feature_mask = amdgpu_ras_mask;
-+	param.ras_bad_page_threshold = amdgpu_bad_page_threshold;
-+	amdgpu_ras_mgr_sw_init(adev, &param);
- 
- 	if (!con->uniras_enabled &&
- 	    (!adev->ras_enabled || adev->asic_type == CHIP_VEGA10)) {
-diff --git a/drivers/gpu/drm/amd/ras/core/core.c b/drivers/gpu/drm/amd/ras/core/core.c
-index 662a3a17a6b6a..e03f6889e1db5 100644
---- a/drivers/gpu/drm/amd/ras/core/core.c
-+++ b/drivers/gpu/drm/amd/ras/core/core.c
-@@ -783,14 +783,21 @@ int ras_core_get_eeprom_version(struct ras_core_context *ras_core,
- uint64_t ras_core_get_ras_caps(struct ras_core_context *ras_core)
- {
- 	uint64_t ras_hw_caps,  ras_drv_caps;
-+	struct ras_module_param param = {0};
- 
- 	if (!ras_core)
- 		return 0;
- 
-+	if (ras_core_get_module_param(ras_core, &param))
-+		return 0;
-+
-+	if (!param.ras_feature_enable)
-+		return 0;
-+
- 	ras_hw_caps = ras_psp_get_hw_ras_caps(ras_core);
- 	ras_drv_caps = ras_aca_get_parser_caps(ras_core);
- 
--	return ras_hw_caps & ras_drv_caps;
-+	return ras_hw_caps & ras_drv_caps & param.ras_feature_mask;
+ 	batch_tag->sub_seqno = 0;
+-	batch_tag->timestamp = ras_core_get_utc_second_timestamp(ras_core);
++	batch_tag->timestamp = ktime_get_real_ns();
+ 	return batch_tag;
  }
  
- bool ras_core_poison_supported(struct ras_core_context *ras_core)
-@@ -826,3 +833,14 @@ int ras_core_eeprom_early_init_service(struct ras_core_context *ras_core)
+@@ -249,7 +249,7 @@ void ras_log_ring_add_log_event(struct ras_core_context *ras_core,
  
- 	return ras_core_eeprom_recovery(ras_core);
- }
-+
-+int ras_core_get_module_param(struct ras_core_context *ras_core,
-+		struct ras_module_param *param)
-+{
-+	if (!ras_core || !ras_core->config || !param)
-+		return -EINVAL;
-+
-+	memcpy(param, &ras_core->config->mod_param, sizeof(*param));
-+
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/amd/ras/core/ras.h b/drivers/gpu/drm/amd/ras/core/ras.h
-index 238a587447ff4..6ae23a677f57b 100644
---- a/drivers/gpu/drm/amd/ras/core/ras.h
-+++ b/drivers/gpu/drm/amd/ras/core/ras.h
-@@ -350,6 +350,13 @@ struct ras_eeprom_config {
- 	const struct ras_eeprom_sys_func *eeprom_sys_fn;
- };
+ 	memset(log, 0, sizeof(*log));
+ 	log->timestamp =
+-		batch_tag ? batch_tag->timestamp : ras_core_get_utc_second_timestamp(ras_core);
++		batch_tag ? batch_tag->timestamp : ktime_get_real_ns();
+ 	log->event = event;
  
-+struct ras_module_param {
-+	/* driver installation option parameter */
-+	int ras_feature_enable;
-+	u64 ras_feature_mask;
-+	int ras_bad_page_threshold;
-+};
-+
- struct ras_core_config {
- 	u32 aca_ip_version;
- 	u32 umc_ip_version;
-@@ -370,6 +377,8 @@ struct ras_core_config {
- 	struct ras_psp_config psp_cfg;
- 	struct ras_eeprom_config eeprom_cfg;
- 	struct ras_umc_config umc_cfg;
-+
-+	struct ras_module_param mod_param;
- };
+ 	if (data && size && size <= sizeof(log->body))
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_cper.c b/drivers/gpu/drm/amd/ras/core/ras_cper.c
+index 4047f9b0806e2..bb60fcd283a87 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_cper.c
++++ b/drivers/gpu/drm/amd/ras/core/ras_cper.c
+@@ -25,6 +25,7 @@
+ #include "core_status.h"
+ #include "log_ring.h"
+ #include "ras_cper.h"
++#define ns_to_seconds(ns)   div_u64(ns, NSEC_PER_SEC)
  
- struct ras_core_context {
-@@ -478,4 +487,6 @@ bool ras_core_poison_supported(struct ras_core_context *ras_core);
- bool ras_core_in_early_init(struct ras_core_context *ras_core);
- bool ras_core_early_init_service_enabled(struct ras_core_context *ras_core);
- int ras_core_eeprom_early_init_service(struct ras_core_context *ras_core);
-+int ras_core_get_module_param(struct ras_core_context *ras_core,
-+		struct ras_module_param *param);
- #endif
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_eeprom_i2c.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_eeprom_i2c.c
-index 14817de696a39..d2c9fc525af57 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_eeprom_i2c.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_eeprom_i2c.c
-@@ -81,9 +81,12 @@ static int ras_eeprom_i2c_config(struct ras_core_context *ras_core,
- 		struct ras_eeprom_param_config *cfg)
- {
- 	struct amdgpu_device *adev = (struct amdgpu_device *)ras_core->dev;
-+	struct ras_module_param mod_param = {0};
- 	u64 badpages, badpages_per_record = 0;
- 	u8 i2c_addr;
- 	u32 ip_version;
-+	int badpage_threshold = 0;
-+	int ret;
+ static const struct ras_cper_guid MCE	= CPER_NOTIFY__MCE;
+ static const struct ras_cper_guid CMC	= CPER_NOTIFY__CMC;
+@@ -69,7 +70,7 @@ static void fill_section_hdr(struct ras_core_context *ras_core,
  
- 	ip_version = amdgpu_ip_version(adev, MP1_HWIP, 0);
+ 	ras_core_get_device_system_info(ras_core, &dev_info);
  
-@@ -136,8 +139,16 @@ static int ras_eeprom_i2c_config(struct ras_core_context *ras_core,
- 		}
- 	}
+-	cper_get_timestamp(ras_core, &hdr->timestamp, trace->timestamp);
++	cper_get_timestamp(ras_core, &hdr->timestamp, ns_to_seconds(trace->timestamp));
  
-+	ret = ras_core_get_module_param(ras_core, &mod_param);
-+	if (ret) {
-+		RAS_DEV_ERR(adev, "Failed to get module option parameter.\n");
-+		return ret;
-+	}
-+
-+	badpage_threshold = mod_param.ras_bad_page_threshold;
-+
- 	/*
--	 * amdgpu_bad_page_threshold is used to config
-+	 * badpage_threshold is used to config
- 	 * the threshold for the number of bad pages.
- 	 * -1:  Threshold is set to default value
- 	 *      Driver will issue a warning message when threshold is reached
-@@ -152,21 +163,21 @@ static int ras_eeprom_i2c_config(struct ras_core_context *ras_core,
- 	 *      A user-defined threshold is set
- 	 *      Driver will halt runtime services when this custom threshold is reached.
- 	 */
--	if (amdgpu_bad_page_threshold == NONSTOP_OVER_THRESHOLD) {
-+	if (badpage_threshold == NONSTOP_OVER_THRESHOLD) {
- 		cfg->work_mode_over_thresh = RAS_WORK_MODE_OVER_THRESH_NORMAL;
- 		badpages = ESTIMATE_BAD_PAGE_THRESHOLD(adev->gmc.mc_vram_size);
--	} else if (amdgpu_bad_page_threshold == WARN_NONSTOP_OVER_THRESHOLD) {
-+	} else if (badpage_threshold == WARN_NONSTOP_OVER_THRESHOLD) {
- 		cfg->work_mode_over_thresh = RAS_WORK_MODE_OVER_THRESH_STRICT;
- 		badpages = COUNT_BAD_PAGE_THRESHOLD(RAS_RESERVED_VRAM_SIZE_DEFAULT);
--	} else if (!amdgpu_bad_page_threshold) {
-+	} else if (!badpage_threshold) {
- 		cfg->work_mode_over_thresh = RAS_WORK_MODE_OVER_THRESH_DEBUG;
- 		badpages = 128;
--	} else if (amdgpu_bad_page_threshold > 0) {
-+	} else if (badpage_threshold > 0) {
- 		cfg->work_mode_over_thresh = RAS_WORK_MODE_OVER_THRESH_RMA;
--		badpages = amdgpu_bad_page_threshold;
-+		badpages = badpage_threshold;
- 	} else {
--		RAS_DEV_ERR(adev, "Invalid amdgpu_bad_page_threshold value(%d)\n",
--			amdgpu_bad_page_threshold);
-+		RAS_DEV_ERR(adev, "Invalid badpage_threshold value(%d)\n",
-+			badpage_threshold);
- 		return -EINVAL;
- 	}
+ 	snprintf(record_id, sizeof(record_id), "%d:%llX", dev_info.socket_id,
+ 		    RAS_LOG_SEQNO_TO_BATCH_IDX(trace->seqno));
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h b/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h
+index 2775c7bf41b7e..de3da5571ef82 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/ras_sys.h
+@@ -28,6 +28,8 @@
+ #include <linux/printk.h>
+ #include <linux/dev_printk.h>
+ #include <linux/mempool.h>
++#include <linux/math64.h>
++#include <linux/time.h>
+ #include "amdgpu.h"
  
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-index ccfa213816da7..bda1f76d2dbf9 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-@@ -81,6 +81,24 @@ static void amdgpu_ras_mgr_init_event_mgr(struct ras_core_context *ras_core)
- 		amdgpu_put_xgmi_hive(hive);
- }
- 
-+static int amdgpu_ras_mgr_init_module_param(struct amdgpu_device *adev,
-+		struct ras_core_config *config, struct ras_module_param *param)
-+{
-+	struct ras_module_param *mod_param = &config->mod_param;
-+
-+	if (param) {
-+		mod_param->ras_feature_enable = param->ras_feature_enable;
-+		mod_param->ras_feature_mask = param->ras_feature_mask;
-+		mod_param->ras_bad_page_threshold = param->ras_bad_page_threshold;
-+	} else {
-+		mod_param->ras_feature_enable = -1;
-+		mod_param->ras_feature_mask = U64_MAX;
-+		mod_param->ras_bad_page_threshold = -1;
-+	}
-+
-+	return 0;
-+}
-+
- static int amdgpu_ras_mgr_init_aca_config(struct amdgpu_device *adev,
- 		struct ras_core_config *config)
- {
-@@ -250,7 +268,8 @@ static int amdgpu_ras_mgr_init_umc_config(struct amdgpu_device *adev,
- 	return 0;
- }
- 
--static struct ras_core_context *amdgpu_ras_mgr_create_ras_core(struct amdgpu_device *adev)
-+static struct ras_core_context *amdgpu_ras_mgr_create_ras_core(struct amdgpu_device *adev,
-+			struct ras_module_param *param)
- {
- 	struct ras_core_config init_config;
- 
-@@ -278,6 +297,7 @@ static struct ras_core_context *amdgpu_ras_mgr_create_ras_core(struct amdgpu_dev
- 		amdgpu_ras_is_poison_mode_supported(adev);
- 	init_config.ras_debug_mask = amdgpu_debug_mask;
- 
-+	amdgpu_ras_mgr_init_module_param(adev, &init_config, param);
- 	amdgpu_ras_mgr_init_aca_config(adev, &init_config);
- 	amdgpu_ras_mgr_init_eeprom_config(adev, &init_config);
- 	amdgpu_ras_mgr_init_mp1_config(adev, &init_config);
-@@ -288,7 +308,7 @@ static struct ras_core_context *amdgpu_ras_mgr_create_ras_core(struct amdgpu_dev
- 	return ras_core_create(&init_config);
- }
- 
--int amdgpu_ras_mgr_sw_init(struct amdgpu_device *adev)
-+int amdgpu_ras_mgr_sw_init(struct amdgpu_device *adev, struct ras_module_param *param)
- {
- 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
- 	struct amdgpu_ras_mgr *ras_mgr;
-@@ -300,7 +320,10 @@ int amdgpu_ras_mgr_sw_init(struct amdgpu_device *adev)
- 	/* Disabled by default */
- 	con->uniras_enabled = false;
- 
--	if (amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 14) ||
-+	/* Disable ras via driver installation option */
-+	if (param && !param->ras_feature_enable)
-+		return 0;
-+	else if (amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 14) ||
- 	    amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 12) ||
- 	    amdgpu_ip_version(adev, MP0_HWIP, 0) == IP_VERSION(13, 0, 6))
- 		con->uniras_enabled = true;
-@@ -317,7 +340,7 @@ int amdgpu_ras_mgr_sw_init(struct amdgpu_device *adev)
- 	con->ras_mgr = ras_mgr;
- 	ras_mgr->adev = adev;
- 
--	ras_mgr->ras_core = amdgpu_ras_mgr_create_ras_core(adev);
-+	ras_mgr->ras_core = amdgpu_ras_mgr_create_ras_core(adev, param);
- 	if (!ras_mgr->ras_core) {
- 		RAS_DEV_ERR(adev, "Failed to create ras core!\n");
- 		ret = -EINVAL;
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
-index 32416c9d6086e..442d628ccfece 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.h
-@@ -61,7 +61,8 @@ struct amdgpu_ras_mgr {
- 
- extern const struct amdgpu_ip_block_version ras_v1_0_ip_block;
- 
--int amdgpu_ras_mgr_sw_init(struct amdgpu_device *adev);
-+int amdgpu_ras_mgr_sw_init(struct amdgpu_device *adev,
-+		struct ras_module_param *param);
- int amdgpu_ras_mgr_sw_fini(struct amdgpu_device *adev);
- int amdgpu_ras_mgr_early_init_service(struct amdgpu_device *adev);
- struct amdgpu_ras_mgr *amdgpu_ras_mgr_get_context(
+ /* inject address is 52 bits */
 -- 
 2.55.0
 
