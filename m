@@ -4,101 +4,129 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2F43FC5CFCF
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 16:43:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6ACF2C5CFCF
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 16:47:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9D33510F69F;
-	Fri, 14 Aug 2026 16:43:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A48A10E191;
+	Fri, 14 Aug 2026 16:47:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="U2jY50kE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1DDyVojs";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012026.outbound.protection.outlook.com [40.107.209.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D01910F0DC;
- Fri, 14 Aug 2026 16:43:41 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010058.outbound.protection.outlook.com
+ [52.101.193.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAE7210E191
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 16:47:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=k+N2x2P7LyamKhphsiSrQaoYsvRbiqpzjpx+D45hRCTBMHLyfu178J2pHcbrg8Ppi4vgo/OCviUA+lg3p9c2h4f/lh/RpsrRO1SX5pzDxsCc9SNfSKGoQRauQDkkClj3DkiN9+lcEDEQfYaY12KWpOXG7HBwOOvdk1mTV+nDmFLZd8ceqEE9i7jLQ098L8Fj6KykRxVyFLmhLnLZghrg5LHsNIWKGp5oPg1GftrrL2gNwmLMC+yRA+gEDCYTjvCTnnuk3RfO5K1tVFoMwOkzK4enTbFx6Zo22J1RwgKoJnuWj7z7LU+J9pFZGz3e5JjdSdfu+cLC9e0sEwpVEjGTtw==
+ b=PEFnwrJbcfZTnsCrwZUWAWFQ5o3vcPaNWROJrbl4Q+8DF0TmXYy6pRHVwcR0pna9lWMGGjApNxDN/O28uqEiBESS295FXfas1RqKPMHDnwM+IqNvnbMh3+9Toc2SuyeMWzFtwEWT3f5n22h6GGJ1f88TRufh0fb2E8izv65P1yobjSVPxFE1jSbomsMFxle7i2gSa7ibTyfrKSTVqW0KT47ZYKIDc3v5v/bVCdlShV8q+UGudesZVdSYsb0vUX7kxp+31Guvtv3aXNCFFAi9qxYGZNyRBoXff/HW76tE+EMeFLDKn7Vh10unGVGvSK9SIzaty2p3sul/CBqDSjwxOg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Zqu0YDvpg+UJQ5gI74MQG+zlDjG+gRFq1nGjCdSDOhA=;
- b=JKh2AVlVnoSb1pmj3Mxnp2kwRS8/YIzv+es2ujCx+0oWOAMKwq9cFsO4GoowypmZH8d0yTWqtQiPP+MlLwTUTDimvgXboEy3jmhmyII/VF7EA1Ii9N4bun53xB4lWjQOfDlBA97Lmi+4O3AxpJ2+O5pIG3VCJrihfVG3jOyYfJrb5Uqicy8LypMP3+aE9fBdk6Nx3OM5obBjSrtiOmf4lLppwSeY6KDTE9AJvjOEFSzcoWfBLCJipa2Ue4wL617H/GLTFtSYcYbFQsFTrSoeWJmBUZMwuxuXdWA39wt42GCU7I53BlKRw0tDKTu58IHLGEVAgkCl9CRCHEFkeGF8JA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=nAU0Oem7GCiBxIH+8gQWFeLTdSLbUlqwN+vXZjlI1Vo=;
+ b=RkiRUc3nTnpEWBPBtFyPipcLhvG3Y4wk1g0Mj8rk5nMCC4yyIChZmtF5LvAUoZ5lVOEr1QIQ3nBpVaBEAhAOBA/45WpKk7HPoOBTTuP79Obc6PMe1NMyTiT0lvM1/id/uVGiJmpuQL+AgbyCpF1HLvfszkQgFFdM+Y4jnK1MMcQ+aW3Volr6J/nd5ltZ5VJZZvbfVsMgNPft8x4e3+huV4kp1QsgJVdMl8/Z1Sgly1jh9HL/8DXoHQ3yyPsYdMjv/PnG24SuE5SYfgjwj8i8rW4DjKRaEJ+q3eHTBRagfO7fVIxOyIYt13Km/bD3qo/9+p+ZMBA/gMzyVibOFFUp5w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Zqu0YDvpg+UJQ5gI74MQG+zlDjG+gRFq1nGjCdSDOhA=;
- b=U2jY50kEz20svtsvuYfoWB/H+vyyruCa0qwXs1XSNIBRQK0mkR5FUIXBAUyFYSpOWSp+yy4ruIkCROfKlaRLeXODqs5g3zHrTGnvUevpww2k9BKk1yZo/jzDL9e4h0XEDxcy2Pl0K8ry5i78tcEunY6U/sO0SKmlk0lm2Ygjjbg=
-Received: from BL1PR13CA0014.namprd13.prod.outlook.com (2603:10b6:208:256::19)
- by SN7PR12MB7024.namprd12.prod.outlook.com (2603:10b6:806:26e::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Fri, 14 Aug
- 2026 16:43:32 +0000
-Received: from BN3PEPF0000B36E.namprd21.prod.outlook.com
- (2603:10b6:208:256:cafe::20) by BL1PR13CA0014.outlook.office365.com
- (2603:10b6:208:256::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.5 via Frontend Transport; Fri, 14
- Aug 2026 16:43:31 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B36E.mail.protection.outlook.com (10.167.243.165) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.0 via Frontend Transport; Fri, 14 Aug 2026 16:43:31 +0000
-Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 11:43:28 -0500
-From: Fangzhi Zuo <jerry.zuo@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <dri-devel@lists.freedesktop.org>, Harry Wentland
- <harry.wentland@amd.com>, =?UTF-8?q?Tomasz=20Paku=C5=82a?=
- <tomasz.pakula.oficjalny@gmail.com>, <daniel@fooishbar.org>, Fangzhi Zuo
- <jerry.zuo@amd.com>, Fangzhi Zuo <Jerry.Zuo@amd.com>
-Subject: [PATCH v4 3/4] drm/amd/display: Add HDMI 2.1 VRR support from HF-VSDB
-Date: Fri, 14 Aug 2026 12:43:43 -0400
-Message-ID: <20260814164344.3098143-4-jerry.zuo@amd.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260814164344.3098143-1-jerry.zuo@amd.com>
-References: <20260811003921.1398292-1-jerry.zuo@amd.com>
- <20260814164344.3098143-1-jerry.zuo@amd.com>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36E:EE_|SN7PR12MB7024:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5aa9f81d-2e99-45b6-32db-08defa232cc0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|82310400026|376014|36860700016|5023799004|11063799006|4143699003|10067099003|56012099006|22082099003|6133799003|18002099003;
-X-Microsoft-Antispam-Message-Info: U5nY1VSVSqF4vhe112GTx9nPxhcAlunWlQIHfdd5unVifBCXgWUdR16MUV8BlDlcRUPPxr2EIHsg8imtMaoUz4+Ni4Qy+QiZt8XOH1BWxJi6tgr5uPiZ8nTQhmp9HzxgdqyLZQ1pvuNNIYgCja1nDujdAt2i1JsgN4qa7MiYnMZ7t3ERbUuoTDTPB2Ugj2qrh9RSQF47c8n8MH1gMYr2hCYhAeoYJ5fXYE63h1kIdS41p86VI6wwGRXMhC+zqFXCUX6jadslwaQ6QEewxXC8lcnZthz9USQf8ZWS/iU2HxZVfeuV0f5GX4pwn+MOeyCqWtWk5sydCqzfND60ArQgPugCyMeBaAIsOjbruF7LgzzaXsRle6fHdQlJrfgLQBucoyZU6kXnz8kjlgTEjYuX46oET0FYBUkRwi+VtLu5MSoBSNc3yMDuf3KgroJj8BBLe0z8qE6UlwwxOUn7GqYk9WdvOtZxyzd2JWbBN242FQns2ecqjQtegor7ZUOCBn/FXjzbTONBjzMnC2VZml+41EopkDT4zcyRP6NC9gg84t2uw+ZaMZBer8PAcU3dhu1ASaF2QFH4np98Iy0PNKpF1AvaZyz04E1isKl1TJPq2K9an8pzS2ZMt1agTYELhUXmcdeJ3o9ZHXATmgA5cOM2COye/voGLga83G8jAiMI5ei/IMNM8KhZtO/vV5ydC6nKEhLfJcsUYoAlRH9r4mZiIQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(82310400026)(376014)(36860700016)(5023799004)(11063799006)(4143699003)(10067099003)(56012099006)(22082099003)(6133799003)(18002099003);
+ bh=nAU0Oem7GCiBxIH+8gQWFeLTdSLbUlqwN+vXZjlI1Vo=;
+ b=1DDyVojsy2INXw6DA0hq8rPsL1UzWnF39q+xAEsYM+ELOsntuDUihSj6azWn3SmefPcTN5Vwy8DBC7DdbkuAFFpQmSFB2j9eZSWkiMnd3JfQ4tvUejkXx4vbDj8iM4TQ0SYF+aAydlVelbyTczXIOl3kUMaxhRVLrXAtbCtENT8=
+Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ (2603:10b6:f:fc00::655) by DS0PR12MB8294.namprd12.prod.outlook.com
+ (2603:10b6:8:f4::16) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Fri, 14 Aug
+ 2026 16:47:51 +0000
+Received: from DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ ([fe80::7111:7e5c:8508:7852]) by DS5PPF78FC67EBA.namprd12.prod.outlook.com
+ ([fe80::7111:7e5c:8508:7852%8]) with mapi id 15.21.0315.014; Fri, 14 Aug 2026
+ 16:47:50 +0000
+From: "Kuehling, Felix" <Felix.Kuehling@amd.com>
+To: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Hosur, Priya" <Priya.Hosur@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Deucher, 
+ Alexander" <Alexander.Deucher@amd.com>, "Khatri, Sunil"
+ <Sunil.Khatri@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, "Limonciello,
+ Mario" <Mario.Limonciello@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>
+CC: "Vishwakarma, Pratik" <Pratik.Vishwakarma@amd.com>, "Gopalakrishnan,
+ Veerabadhran (Veera)" <Veerabadhran.Gopalakrishnan@amd.com>
+Subject: Re: [PATCH v3 2/2] drm/amdgpu: Add TLB flush after MES user queue
+ unmap
+Thread-Topic: [PATCH v3 2/2] drm/amdgpu: Add TLB flush after MES user queue
+ unmap
+Thread-Index: AQHdLAilqY7k/FT2/kiiGQxlEdR407advBMAgAADta8=
+Date: Fri, 14 Aug 2026 16:47:50 +0000
+Message-ID: <DS5PPF78FC67EBA848622BC6037F917872992DA2@DS5PPF78FC67EBA.namprd12.prod.outlook.com>
+References: <20260814161841.5906-1-Priya.Hosur@amd.com>
+ <20260814161841.5906-3-Priya.Hosur@amd.com>
+ <SA0PR12MB7091D3AE34006DC6797EECD197DA2@SA0PR12MB7091.namprd12.prod.outlook.com>
+In-Reply-To: <SA0PR12MB7091D3AE34006DC6797EECD197DA2@SA0PR12MB7091.namprd12.prod.outlook.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-14T16:47:49.776Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
+ General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS5PPF78FC67EBA:EE_|DS0PR12MB8294:EE_
+x-ms-office365-filtering-correlation-id: 8b1f33e5-016b-42e7-29d0-08defa23c6ec
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|366016|23010399003|1800799024|38070700021|921020|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003|8096899003;
+x-microsoft-antispam-message-info: XWw0yl+ZevWczQKjXD1KacyVnYyhLiJlPQl8/LtvyheoDtFomH7FEW0x0aD4zg5RRYHZHuSbkzbeRzuUfJTJsXymxlbFnMccfOh6BYeCCDxcJwBIHycbNtK5MyxjSzsTXsoGTKwmUNPHedgfLNDvTR0UtdMTGiWbm2qEMukft78okR15yJtdWYDQGYrHMOQgXn31o29Pr3YML1EDQhayN1SI10nQh4IrYH3+XmpK2ZLDzXKdCJwLYoLzKmhmvCKx+LcoX/fVZjkXFb8bVSF3zubs/n+lQuo7Q2Fa1GY2hoEB7gryTSz3NWWOFqTeS6ZLnwzQWXA/jn1yGzRDnx77eU2FY9wQ2F3Cd/AVUv/2q0CfhL4RrixQhve0xsU47bDhAJc0isIw5L5SLJKMwOdksYLIquWr8+aKtaw5z6j4ftyLFV3GkXQlnSgusj+eo8eogHdpXjZBZuxrNq09huGxSIjoDnQ2xS2wd0N7VeoKiyJdVA/1iTzexxnpH1NkR2pxlj0olQP+osHhXX/P9LBTHn8Z8hyev4wCrpw0mH+8d8aPa7l63P7PTW7oEnVHxId3gYHafeIlxmaH5lvUE94q8Stx2i8SGGG5Shx08Mz9ztxnahBWaWe6aBGerNpf69wfIuTLIavd9Kku+h3+O7WeZHO3zbVZvdbuWHovZ7qnepHqSTpP7pj93PmKewKux+js1w2w0UwUfdBGbFDBfp8vHbUsrU7J0C6SqMHxu3P68YMSuD1cSKmMGcGV9RTBKlEp
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS5PPF78FC67EBA.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(38070700021)(921020)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003)(8096899003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: HHcsa1aH6VrpD5Iy1+zu/A4bH4zfrbIb+exEE8bASDRVExZKTIHb+mvvk74nezRlQ21lWSG8n9Y0O6cZKRo+E5aJTZiKQ+kGM0+YZqX6i7rRG2Q1RhEHrMCNxEpd9O0UlhthY7qdBNBV1Tb5rCQDpJZnCOKxE/DK10ZYqCve33Z0icHmY1hJodzFJtr9Rtd2hyjk/Xmb4l//OPqndSo4hEmcmbLLj5LltqnEGWvU0JBy6/9sHUtbSPRzLBWqDlfQvWEIvyb/LfDNbbC8c//Nr8PK8CRiQ77nXMIh824Io197l9w55R31RflYrmvCEg6wMgR8OxKvvuzYaTBCJts3wmLP5yfFtDKOGH7dbwrBkhbkF7JxwhfGwZaoXkY0/bZTI8NN418UrldJuje4pfR0tOlXmP5wB0SPA7c74K0EYhl6eFJF0fwPFSUvGdqgtDG0
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?p0iojLyMMRQACaP6csUkp+PJy9kuRUzFSM7CCEM9i+IRmbuz6PzRERlrKXD4?=
+ =?us-ascii?Q?9qr+E0BdZcgn79sxlp0fbz73dtLDpPc8Pb0cy/JVHwnVw9Q5TAO2FUlJoN5y?=
+ =?us-ascii?Q?9G08upgiA8Iot0/NOqaZlviqaPCqi5moTWA0egG7Jg3m1U5WnGsxZQb118WG?=
+ =?us-ascii?Q?u+IjdDUmU58AzrmFRrn0wujzZdw0JVTvsBq6Vvrb6dhqkUgyOgN6yxCTIyO9?=
+ =?us-ascii?Q?Yk3ZbSDwiDoEMHvf0C/tgTS5YplKvdTxNIOhB+TbD4c3QabBy6L3FlfS5b6z?=
+ =?us-ascii?Q?hLLshtAVQ2gDnIcNJhF62kNl2wdkcuqQy7enm8PcgJUITkkGmC0F1qYCnHvL?=
+ =?us-ascii?Q?P47/MsamKfUWHdfgKRS1QH90amFjp4rNX/JI7gXQa6fxv62Yxaj4CkpFgKgx?=
+ =?us-ascii?Q?O86ayT//mqHBB8jhJMJvm67oedzSNpX6vqrihRlifo1QvKmKI0ePOzwfgmwF?=
+ =?us-ascii?Q?y5k8DgfmougvobDi51YY4QCpnBysjalXIC2PCDpxKh6TMeG/PXkv88j50OtX?=
+ =?us-ascii?Q?R8Ss4/XQlc7ZAQU3zgGKIFwx4zKyURgo++GPi7Jk/ABqT6vCy9V7yBNmolni?=
+ =?us-ascii?Q?G37uvDtLvoNeNfyIlY58+bEyIJZb3p6A8+os99MmRLloVOZfxE89OvTqqilY?=
+ =?us-ascii?Q?CZaGd+hIG98sdzxfYTJGk+3Li4wJ+1eosBR86s8O1wJjSaKCJHWBk/957Hj1?=
+ =?us-ascii?Q?imSSRT+M3rolzNV4GDbVyOZ8NDye/Wmh8VZRpMACv4J/CCQMVkZEPMv41JXY?=
+ =?us-ascii?Q?OHeflte3b3MYP1peiid18xWEOZACDSw0vp2ekvZV4PL8IeSA9befINN5xDBi?=
+ =?us-ascii?Q?bQiUzOVS0nKvfuxcn0iPvNbKSZLkgA6bbsZtxRDFkjWoVYQwzCr9AJuwQyQY?=
+ =?us-ascii?Q?XPstJDmyE8z0Q+uNthaTXJ3V4bUy9q+/kxkIhFL6hiH8MyDCNyha6rInsVsP?=
+ =?us-ascii?Q?ZMUEE1TX7L15lxiLrB8J5S6L1uLSwBambb9Uox2XOulaJqrP0ORu+bKPLEIh?=
+ =?us-ascii?Q?jVt9ITXd/DzjLuxOA7gYjArACxlSgj6ACHvGS70LplEE5lSVH3k0UVb9Ta1M?=
+ =?us-ascii?Q?WYDnv5KD3HNxtU8B3zVzq+gU/0V6XMDbhPFdxbOXYrs+Yn1rlbH/cnCnBJeR?=
+ =?us-ascii?Q?hQejLsMvsW1GQkD1Gn9xuNswKdQfFQ8I4pFD1Nyd5VJfWki3sYrhMmPIEuM6?=
+ =?us-ascii?Q?v/q3aJ69InAf7enHUZn+VYlsJcKngfLO8kwasMeP+10Avl6ytPou3ZcT1isF?=
+ =?us-ascii?Q?YrpizSuZdfc6AsUWocLiD6az+krjFo6/bRNpT9ojEB7p3y73hs3Qaod18raW?=
+ =?us-ascii?Q?ez2nbEq/oUJa7XEms4JAxPkx8IEdmDG7MlLBBv77HyhRCy/t83oUu/HZT4iR?=
+ =?us-ascii?Q?QUxMWx3vcqGDrDEXQRUh6IiYzfvSTfRom++/wNkj0oGGhakfYGP1kZdNrgmx?=
+ =?us-ascii?Q?rMfVddbD2YZ8LZ6+n+XlQjtQP74eJUf0Z/2UFe6n/sNkuha/KYocYIg1Za4m?=
+ =?us-ascii?Q?oZX26mVtRKmBy9Tq8OZKHpvliH+nApAaqk077smI7Hbr9yVNAVcGWXpCsiv3?=
+ =?us-ascii?Q?wjjpNc4cuIBBgT5BgMgCbrsGeOWWgWbey99mm1RhVhnb7J4s6Bc/U8hEazRJ?=
+ =?us-ascii?Q?+MRvtHoI0ZKhMhiST+nLCDlLoEXQXyTXEYGahBA0xhRrswtafkrJ7aWu8IDc?=
+ =?us-ascii?Q?lGS/q9DcP2htfagseR0DOYIa71h05S6Oifdf8ER6f/fgsQvT?=
+Content-Type: multipart/alternative;
+ boundary="_000_DS5PPF78FC67EBA848622BC6037F917872992DA2DS5PPF78FC67EBA_"
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 16:43:31.4352 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5aa9f81d-2e99-45b6-32db-08defa232cc0
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36E.namprd21.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7024
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS5PPF78FC67EBA.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8b1f33e5-016b-42e7-29d0-08defa23c6ec
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Aug 2026 16:47:50.0719 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 4gYUXxMYpcen5gLNs1fFP7wirBjh7GyKYnTLCotDdrwlIr77Izdnfn8NlVtcZ4FT22FUJLb1+A/XK7R1RmyHiw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8294
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,141 +141,303 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-why:
-HDMI 2.1 sinks advertise their VRR range in the HDMI Forum VSDB
-(HF-VSDB), but amdgpu derived FreeSync capability only from the AMD
-VSDB. Sinks that expose just the HDMI Forum VRR capability (e.g. HDMI
-compliance EDIDs) were therefore reported as not VRR capable.
+--_000_DS5PPF78FC67EBA848622BC6037F917872992DA2DS5PPF78FC67EBA_
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 
-how:
-- In amdgpu_dm_update_freesync_caps(), when the AMD VSDB does not
-  provide a valid FreeSync range, fall back to the HDMI 2.1 VRR range
-  parsed by DRM core from the HF-VSDB
-  (connector->display_info.hdmi.vrr_cap). VRRMAX = 0 means "up to the
-  Base Refresh Rate"; when the EDID provides no monitor range maximum
-  either, fall back to the Base Refresh Rate (the highest refresh-rate
-  mode of the preferred timing) so a valid VRR range is still reported
-  to userspace.
-- Add VRR debug logging along the FreeSync capability and config paths.
+AMD General
 
-Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+We don't need to flush TLBs after every queue unmap. We only need to do it =
+if there is an expectation that memory access is quiesced after unmapping. =
+In the case of KFD, we are doing it when we're unmapping all queues, e.g. i=
+n MMU notifiers, evictions or when the debugger needs to stop the queues an=
+d look at memory contents. We only need one TLB flush after unmapping many =
+queues.
+
+Therefore, MES should flush TLBs after every queue unmap. OTOH, MES must fl=
+ush TLBs by itself when it switches VMIDs. This is not under driver control=
+.
+
+I don't know what the requirements are for quiescing memory access after un=
+mapping amdgpu user mode queues.
+
+Regards,
+  Felix
+________________________________
+From: Lazar, Lijo <Lijo.Lazar@amd.com>
+Sent: Friday, August 14, 2026 12:29
+To: Hosur, Priya <Priya.Hosur@amd.com>; amd-gfx@lists.freedesktop.org <amd-=
+gfx@lists.freedesktop.org>; Deucher, Alexander <Alexander.Deucher@amd.com>;=
+ Khatri, Sunil <Sunil.Khatri@amd.com>; Kuehling, Felix <Felix.Kuehling@amd.=
+com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>; Limonciello, Mario <Mario.Limonci=
+ello@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
+Cc: Vishwakarma, Pratik <Pratik.Vishwakarma@amd.com>; Gopalakrishnan, Veera=
+badhran (Veera) <Veerabadhran.Gopalakrishnan@amd.com>; Hosur, Priya <Priya.=
+Hosur@amd.com>
+Subject: Re: [PATCH v3 2/2] drm/amdgpu: Add TLB flush after MES user queue =
+unmap
+
+
+AMD General
+
+Hi,
+
+Shouldn't this be a FW fix?
+
+Thanks,
+Lijo
+________________________________
+From: Priya Hosur <Priya.Hosur@amd.com>
+Sent: Friday, 14 August 2026 21:48:40
+To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deucher,=
+ Alexander <Alexander.Deucher@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com=
+>; Kuehling, Felix <Felix.Kuehling@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.=
+com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Limonciello, Mario <Mario.Limonciel=
+lo@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
+Cc: Vishwakarma, Pratik <Pratik.Vishwakarma@amd.com>; Gopalakrishnan, Veera=
+badhran (Veera) <Veerabadhran.Gopalakrishnan@amd.com>; Hosur, Priya <Priya.=
+Hosur@amd.com>
+Subject: [PATCH v3 2/2] drm/amdgpu: Add TLB flush after MES user queue unma=
+p
+
+Similar to the KFD fix, MES does not perform heavy-weight TLB
+invalidation after unmapping user queues. Add
+amdgpu_gmc_flush_gpu_tlb_pasid() after MES unmap succeeds in
+amdgpu_userq_unmap_helper() to ensure in-flight memory accesses
+complete before memory is freed or migrated.
+
+Change-Id: I94fe2c84547723b6b73816ce8d727a54bd773a6a
+Signed-off-by: Priya Hosur <Priya.Hosur@amd.com>
 ---
- .../display/amdgpu_dm/amdgpu_dm_connector.c   | 67 +++++++++++++++++++
- .../display/amdgpu_dm/amdgpu_dm_freesync.c    |  8 +++
- 2 files changed, 75 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index 9eaa20ec528e..2fe7bfb1e88f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -3812,6 +3812,15 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 	if (!adev->dm.freesync_module || !dc_supports_vrr(sink->ctx->dce_version))
- 		goto update;
- 
-+	drm_dbg_driver(adev_to_drm(adev),
-+		       "VRR: enter signal=%d hdmi_vrr=%d mrange[%d-%d] hdmi.vrr_cap[sup=%d min=%d max=%d]\n",
-+		       sink->sink_signal, connector->display_info.hdmi.vrr_cap.supported,
-+		       connector->display_info.monitor_range.min_vfreq,
-+		       connector->display_info.monitor_range.max_vfreq,
-+		       connector->display_info.hdmi.vrr_cap.supported,
-+		       connector->display_info.hdmi.vrr_cap.vrr_min,
-+		       connector->display_info.hdmi.vrr_cap.vrr_max);
-+
- 	/* FIXME: Get rid of drm_edid_raw() */
- 	edid = drm_edid_raw(drm_edid);
- 
-@@ -3856,6 +3865,59 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 				connector->display_info.monitor_range.max_vfreq = vsdb_info.max_refresh_rate_hz;
- 			}
- 		}
-+
-+		drm_dbg_driver(adev_to_drm(adev),
-+			       "VRR: amd_vsdb i=%d fs_sup=%d min=%d max=%d fs_capable=%d\n",
-+			       i, vsdb_info.freesync_supported,
-+			       vsdb_info.min_refresh_rate_hz,
-+			       vsdb_info.max_refresh_rate_hz, freesync_capable);
-+
-+		/*
-+		 * If AMD VSDB didn't provide a valid FreeSync range, fall back to
-+		 * the HDMI 2.1 VRR capability parsed from the HF-VSDB.
-+		 */
-+		if (!freesync_capable && connector->display_info.hdmi.vrr_cap.supported) {
-+			struct drm_hdmi_vrr_cap *vrr_cap =
-+				&connector->display_info.hdmi.vrr_cap;
-+
-+			drm_dbg_driver(adev_to_drm(adev),
-+				       "VRR: HF-VSDB fallback: hdmi_vrr=1 vrr_cap[sup=%d min=%d max=%d] mrange_max=%d\n",
-+				       vrr_cap->supported, vrr_cap->vrr_min, vrr_cap->vrr_max,
-+				       connector->display_info.monitor_range.max_vfreq);
-+
-+			if (vrr_cap->supported && vrr_cap->vrr_min > 0) {
-+				amdgpu_dm_connector->min_vfreq = vrr_cap->vrr_min;
-+				amdgpu_dm_connector->max_vfreq = vrr_cap->vrr_max ?
-+					vrr_cap->vrr_max :
-+					connector->display_info.monitor_range.max_vfreq;
-+
-+				/*
-+				 * VRRMAX = 0 in the HF-VSDB means "up to the Base
-+				 * Refresh Rate". If the EDID also did not provide a
-+				 * monitor range max, fall back to the Base Refresh
-+				 * Rate (the highest refresh rate of the preferred
-+				 * timing) so a valid VRR range is still reported to
-+				 * userspace.
-+				 */
-+				if (!amdgpu_dm_connector->max_vfreq) {
-+					struct drm_display_mode *brr_mode =
-+						amdgpu_dm_get_highest_refresh_rate_mode(amdgpu_dm_connector, true);
-+
-+					if (brr_mode)
-+						amdgpu_dm_connector->max_vfreq =
-+							drm_mode_vrefresh(brr_mode);
-+				}
-+
-+				if (amdgpu_dm_connector->max_vfreq -
-+				    amdgpu_dm_connector->min_vfreq > 10)
-+					freesync_capable = true;
-+
-+				connector->display_info.monitor_range.min_vfreq =
-+					amdgpu_dm_connector->min_vfreq;
-+				connector->display_info.monitor_range.max_vfreq =
-+					amdgpu_dm_connector->max_vfreq;
-+			}
-+		}
- 	}
- 
- 	if (amdgpu_dm_connector->dc_link)
-@@ -3911,6 +3973,11 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 	if (dm_con_state)
- 		dm_con_state->freesync_capable = freesync_capable;
- 
-+	drm_dbg_driver(adev_to_drm(adev),
-+		       "VRR: caps result: freesync_capable=%d min_vfreq=%d max_vfreq=%d\n",
-+		       freesync_capable, amdgpu_dm_connector->min_vfreq,
-+		       amdgpu_dm_connector->max_vfreq);
-+
- 	if (connector->state && amdgpu_dm_connector->dc_link && !freesync_capable &&
- 	    amdgpu_dm_connector->dc_link->replay_settings.config.replay_supported) {
- 		amdgpu_dm_connector->dc_link->replay_settings.config.replay_supported = false;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-index 035d7e88c3ed..382c339b67b1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-@@ -152,6 +152,14 @@ void amdgpu_dm_get_freesync_config_for_crtc(
- 	}
- out:
- 	new_crtc_state->freesync_config = config;
-+
-+	drm_dbg_driver(new_con_state->base.connector->dev,
-+		       "VRR: cfg vrr_enabled=%d vrr_supported=%d fs_capable=%d vrefresh=%d min=%d max=%d state=%d\n",
-+		       new_crtc_state->base.vrr_enabled,
-+		       new_crtc_state->vrr_supported,
-+		       new_con_state->freesync_capable, vrefresh,
-+		       aconnector->min_vfreq, aconnector->max_vfreq,
-+		       config.state);
- }
- EXPORT_IF_KUNIT(amdgpu_dm_get_freesync_config_for_crtc);
- 
--- 
-2.53.0
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_userq.c
+index 6d3ed55e9ab4..9fcf15d69b7b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -375,6 +375,12 @@ static int amdgpu_userq_unmap_helper(struct amdgpu_use=
+rmode_queue *queue)
+                 } else {
+                         trace_amdgpu_userq_state_changed(queue, AMDGPU_USE=
+RQ_STATE_UNMAPPED);
+                         queue->state =3D AMDGPU_USERQ_STATE_UNMAPPED;
++                       /*
++                        * Heavy-weight TLB flush after MES unmaps queue to=
+ ensure
++                        * in-flight memory accesses complete before memory=
+ is freed/migrated.
++                        * MES does not do this automatically unlike HWS.
++                        */
++                       amdgpu_gmc_flush_gpu_tlb_pasid(adev, queue->vm->pas=
+id, 2, true, 0);
+                 }
+         }
 
+--
+2.43.0
+
+
+--_000_DS5PPF78FC67EBA848622BC6037F917872992DA2DS5PPF78FC67EBA_
+Content-Type: text/html; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
+>
+<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
+ttom:0;} </style>
+</head>
+<body dir=3D"ltr">
+<div>
+<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
+; margin-left: 5pt; font-size: 10pt;">
+AMD General</div>
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+We don't need to flush TLBs after every queue unmap. We only need to do it =
+if there is an expectation that memory access is quiesced after unmapping. =
+In the case of KFD, we are doing it when we're unmapping all queues, e.g. i=
+n MMU notifiers, evictions or when
+ the debugger needs to stop the queues and look at memory contents. We only=
+ need one TLB flush after unmapping many queues.</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+Therefore, MES should flush TLBs after every queue unmap. OTOH, MES must fl=
+ush TLBs by itself when it switches VMIDs. This is not under driver control=
+.</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+I don't know what the requirements are for quiescing memory access after un=
+mapping amdgpu user mode queues.</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+<br>
+</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+Regards,</div>
+<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
+nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 11pt; c=
+olor: rgb(0, 0, 0);">
+&nbsp; Felix</div>
+<div id=3D"appendonsend"></div>
+<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
+<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
+yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Lazar, Lijo &lt;Lijo.=
+Lazar@amd.com&gt;<br>
+<b>Sent:</b> Friday, August 14, 2026 12:29<br>
+<b>To:</b> Hosur, Priya &lt;Priya.Hosur@amd.com&gt;; amd-gfx@lists.freedesk=
+top.org &lt;amd-gfx@lists.freedesktop.org&gt;; Deucher, Alexander &lt;Alexa=
+nder.Deucher@amd.com&gt;; Khatri, Sunil &lt;Sunil.Khatri@amd.com&gt;; Kuehl=
+ing, Felix &lt;Felix.Kuehling@amd.com&gt;; Liu, Shaoyun &lt;Shaoyun.Liu@amd=
+.com&gt;;
+ Limonciello, Mario &lt;Mario.Limonciello@amd.com&gt;; Koenig, Christian &l=
+t;Christian.Koenig@amd.com&gt;<br>
+<b>Cc:</b> Vishwakarma, Pratik &lt;Pratik.Vishwakarma@amd.com&gt;; Gopalakr=
+ishnan, Veerabadhran (Veera) &lt;Veerabadhran.Gopalakrishnan@amd.com&gt;; H=
+osur, Priya &lt;Priya.Hosur@amd.com&gt;<br>
+<b>Subject:</b> Re: [PATCH v3 2/2] drm/amdgpu: Add TLB flush after MES user=
+ queue unmap</font>
+<div>&nbsp;</div>
+</div>
+<div>
+<p align=3D"Left" style=3D"font-family:Calibri; font-size:10pt; color:#0000=
+FF; margin:5pt; font-style:normal; font-weight:normal; text-decoration:none=
+">
+AMD General<br>
+</p>
+<br>
+<div>
+<div dir=3D"auto" style=3D"font-family:Aptos,Aptos_MSFontService,-apple-sys=
+tem,Roboto,Arial,Helvetica,sans-serif; font-size:12pt; color:rgb(33,33,33)"=
+>
+Hi,</div>
+<div dir=3D"auto" style=3D"font-family:Aptos,Aptos_MSFontService,-apple-sys=
+tem,Roboto,Arial,Helvetica,sans-serif; font-size:12pt; color:rgb(33,33,33)"=
+>
+<br>
+</div>
+<div dir=3D"auto" style=3D"font-family:Aptos,Aptos_MSFontService,-apple-sys=
+tem,Roboto,Arial,Helvetica,sans-serif; font-size:12pt; color:rgb(33,33,33)"=
+>
+Shouldn't this be a FW fix?</div>
+<div id=3D"x_ms-outlook-mobile-body-separator-line" data-applydefaultfontst=
+yles=3D"true" dir=3D"auto" style=3D"font-family:Aptos,Aptos_MSFontService,-=
+apple-system,Roboto,Arial,Helvetica,sans-serif; font-size:12pt">
+<div dir=3D"auto" style=3D"font-family:Aptos,Aptos_MSFontService,-apple-sys=
+tem,Roboto,Arial,Helvetica,sans-serif; font-size:12pt">
+<br>
+</div>
+</div>
+<div id=3D"x_ms-outlook-mobile-signature" dir=3D"auto" style=3D"font-family=
+:Aptos,Aptos_MSFontService,-apple-system,Roboto,Arial,Helvetica,sans-serif;=
+ font-size:12pt; color:rgb(33,33,33)">
+<div dir=3D"auto" style=3D"font-family:Aptos,Aptos_MSFontService,-apple-sys=
+tem,Roboto,Arial,Helvetica,sans-serif; font-size:12pt; color:rgb(33,33,33)"=
+>
+Thanks,</div>
+<div dir=3D"auto" style=3D"font-family:Aptos,Aptos_MSFontService,-apple-sys=
+tem,Roboto,Arial,Helvetica,sans-serif; font-size:12pt; color:rgb(33,33,33)"=
+>
+Lijo</div>
+</div>
+<hr tabindex=3D"-1" style=3D"display:inline-block; width:98%">
+<div id=3D"x_divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" =
+color=3D"#000000" style=3D"font-size:11pt"><b>From:</b> Priya Hosur &lt;Pri=
+ya.Hosur@amd.com&gt;<br>
+<b>Sent:</b> Friday, 14 August 2026 21:48:40<br>
+<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
+gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Khatri, Sunil &l=
+t;Sunil.Khatri@amd.com&gt;; Kuehling, Felix &lt;Felix.Kuehling@amd.com&gt;;=
+ Liu, Shaoyun &lt;Shaoyun.Liu@amd.com&gt;; Lazar, Lijo &lt;Lijo.Lazar@amd.c=
+om&gt;;
+ Limonciello, Mario &lt;Mario.Limonciello@amd.com&gt;; Koenig, Christian &l=
+t;Christian.Koenig@amd.com&gt;<br>
+<b>Cc:</b> Vishwakarma, Pratik &lt;Pratik.Vishwakarma@amd.com&gt;; Gopalakr=
+ishnan, Veerabadhran (Veera) &lt;Veerabadhran.Gopalakrishnan@amd.com&gt;; H=
+osur, Priya &lt;Priya.Hosur@amd.com&gt;<br>
+<b>Subject:</b> [PATCH v3 2/2] drm/amdgpu: Add TLB flush after MES user que=
+ue unmap</font>
+<div>&nbsp;</div>
+</div>
+<div class=3D"x_BodyFragment"><font size=3D"2"><span style=3D"font-size:11p=
+t">
+<div class=3D"x_PlainText">Similar to the KFD fix, MES does not perform hea=
+vy-weight TLB<br>
+invalidation after unmapping user queues. Add<br>
+amdgpu_gmc_flush_gpu_tlb_pasid() after MES unmap succeeds in<br>
+amdgpu_userq_unmap_helper() to ensure in-flight memory accesses<br>
+complete before memory is freed or migrated.<br>
+<br>
+Change-Id: I94fe2c84547723b6b73816ce8d727a54bd773a6a<br>
+Signed-off-by: Priya Hosur &lt;Priya.Hosur@amd.com&gt;<br>
+---<br>
+&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 6 ++++++<br>
+&nbsp;1 file changed, 6 insertions(+)<br>
+<br>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_userq.c<br>
+index 6d3ed55e9ab4..9fcf15d69b7b 100644<br>
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
+@@ -375,6 +375,12 @@ static int amdgpu_userq_unmap_helper(struct amdgpu_use=
+rmode_queue *queue)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; } else {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; trace=
+_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_UNMAPPED);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue=
+-&gt;state =3D AMDGPU_USERQ_STATE_UNMAPPED;<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Heavy-we=
+ight TLB flush after MES unmaps queue to ensure<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * in-fligh=
+t memory accesses complete before memory is freed/migrated.<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * MES does=
+ not do this automatically unlike HWS.<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
++&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_gmc_flush=
+_gpu_tlb_pasid(adev, queue-&gt;vm-&gt;pasid, 2, true, 0);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
+sp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;<br>
+-- <br>
+2.43.0<br>
+<br>
+</div>
+</span></font></div>
+</div>
+</div>
+</body>
+</html>
+
+--_000_DS5PPF78FC67EBA848622BC6037F917872992DA2DS5PPF78FC67EBA_--
