@@ -4,62 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4595BC5DF77
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 07:01:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 735ACC5DF70
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 07:01:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C56110E67C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6303210E67D;
 	Mon, 17 Aug 2026 07:01:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fwaLXJLM";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="djE887sn";
 	dkim-atps=neutral
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2F14B10E589
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 17:34:16 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-47fe377a217so817567f8f.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 10:34:16 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE3E210E590
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 17:15:31 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-495437bb891so9624125e9.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 10:15:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786728854; x=1787333654; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786727730; x=1787332530; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:message-id:date
  :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=gtJy9LLDFt0NmzJILJgVKeBO+MrtI49rw/kXkyURaBQ=;
- b=fwaLXJLMUNnaAufhCg0VV/HPRZbV76BwBrQzdAoubwPEzSFb+dyK5RO/yh8/jbc8Qz
- 5GtdxMniyKvGDPjWnuH1uyiWBHgQAfvwxq7VHqvUo0Zt72HaNUJXUcrgaFHAIxUmmljX
- e0dNKkPA1oWbY2xEhSaVeqB75ZMSEr+NB26melHw2UEFTmckgNh0XVbHwqnQbNOqkQ/q
- 1e5m7XkQfx3OUhKmn4GGz807HGMjId1P/HbRU6yMvYlCmkb21gOGcgfABqZgTaooNVNd
- /PAey3yKT08dZBncF2mWmaxPFJPzvU0MbmSpzDIPPgrYkW08RanOdkBOCNH1fF0CsZq2
- DsSQ==
+ :content-type; bh=NlJYVJ/8GdD4qg+Ajeu5HEDnsi7CdGS+uFMUtLjS2lM=;
+ b=djE887sn2VlrjEj3qJ/EhodRLUs+gBY/Jb61yEHdkS0rzQvoQrLs1d0lCFJcgTcbQw
+ d+tOuF4yvMgnchYnBbOXM2VsNyN1fHo6rJ/DFrE+kC7omKRtkNLJkhBsntWlYjdZiG4b
+ WqywLTfMUa5/cttERyHJosVjOFBqRx3r/eudF4dU4DIweTKty4T1TNeFBs0G21W4vS2/
+ qGIeVwplaf9Ycr5Q5Ik57IDXHwNBtUlrAA57O7S+oGF/7zlpGs8h/9l5WyziqrjI+d+s
+ ucdHDZyEPWqDf1wNsx7Xs6GcCINacM6JXcf+rwR/d3J6lMFDz00SoFJ7qt8DQnchfhQj
+ j8Ag==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786728854; x=1787333654;
+ d=1e100.net; s=20251104; t=1786727730; x=1787332530;
  h=content-transfer-encoding:content-type:mime-version:message-id:date
  :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=gtJy9LLDFt0NmzJILJgVKeBO+MrtI49rw/kXkyURaBQ=;
- b=J8DIJY9KTsHMnzl5fRErEhw858qf+ww2OUNBe1tLSuPHwa7pPtF8VtSHnihIGsEoyJ
- v1bKyHxOn+TEtqtm3ycKcQRqgMkMRIXwklB+sspaAEZ8J+Sj4LGoBfjbjvA0P8B3v+y8
- Okt6XLcgSmrKOtIhAG8RIO3U7hmDKEagCpBPLM9DSxKufamyUwvs6hnUka3RSMmZtQ69
- A0fwwwZmBgbNPYn4Bg+Bi8cUeTQSLKGn26ZvqtB1pCUfbhqinaAdvniF12zT1jmipXDs
- WCEHt0zFp1zp6zzZBNXW9/H4vWAjeFnSE1HRJxypETeKS6ehsNLWvmG/73+XTipqJYPh
- Ojiw==
+ bh=NlJYVJ/8GdD4qg+Ajeu5HEDnsi7CdGS+uFMUtLjS2lM=;
+ b=jFul9one4XgRv4Qc01Ha3QcUcQXTI+/7B0ZHGt0G13pz9NrjXrSFmg4zMXRrP++IDH
+ wwsCnLFDTbvBJfh0jYMzcykgswJEF9QfiXHzK5+yFeyFReqPa4C6p7NPMhyYfC7nmW7V
+ TvG3TkFkBli8y2pVWxsDAOkQslRF/GFoqPSknplBDFMjGqbTqJN9fS3ENfCSmaou2E3Y
+ OaQvvL0tIF/POt/HuMraD7JyeT+9gjeFJkJxaPlY3836vGxFYnnQkmHEVAFZdT31jdGw
+ U05RhglCGvxwLFniIP0u8UnaKwBKAKTQC/rUVqgaoQF17XZQevPjGKKdQtYTNwdaSoyH
+ ByBA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrZB++lQStkgwccUtpawHioOP2ZGkKpNvlQn6QmPIPN4E7Aa5YK9Ga31gGhus5+NAYWctSjmBmQ@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YxWE70ePn2dl2xxA6EkSGWFbDzQuea2i+n5i/t0hhI93OAEiCNW
- Up7Nr2Qkaz/NnKK3eSZkToZSaQhEXOIwKfiMqLXyVVVUa9IHTqDzBe/o
-X-Gm-Gg: AR+sD12uoLznmDf56SC82aS6DRjD/INu6QmsmJ4gbnsQpnlXelTggHVNEfSaONKUTDT
- h0zrr2M2Bezdf4znIogJ9aE2a3QG/katdaYN9oLWaKebs1B82FVeFF29NUBZPzvY5wrutrWDgkh
- Ysx5UTzT4QPnLrzZtbTleeEsnvtlYq9p06fIhrWPTwnh/O8mdFMcPWUjpv8C6dpcxHQP0r8lyyv
- 71fsAaIxPtLdrcgLZ1xf/S1AOz8xwol4F0xOATBLtKhtjyvYc/YcBRN9IULWo53T+U4dUkA4HVV
- zNQh1fvuk0WSdg3Q/LzRjL8Acj5jFikHvRRkC20LelIe28iaDzONmTIGdiBDe+tLFZQRDAdD3RP
- KmwLHSppO4yd+AeEXQaALCIrcQ15sT9f+j49xssPZ5Xl5eGNxQqNxMWz/WhPi6OUh290NdKmKFl
- Jjp3Wy3sMXi3feERTVKIL/uvMrOk+IGn9coLDzvy2eYH50oA0BWYhrvTIjtPLQ
-X-Received: by 2002:a05:6000:1212:b0:47d:fc23:abe8 with SMTP id
- ffacd0b85a97d-4816079b5camr8667132f8f.28.1786728854523; 
- Fri, 14 Aug 2026 10:34:14 -0700 (PDT)
+ AHgh+RrZTyIHxYvI/FfHZN3guZ6eapox5SSWLyCeuCqWleFll0J9wj73tmageD1E4u4SW+8eeFCtcZvo@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YzO56I5Iuq0OS1bGfysUtH84Y/rC1lBH5NdVVgQ8KLs/JXU9lRp
+ k3WdxqWmHfvTKdh+OUX8VloMqhvmcaaQhsKmdIqDeHh9mgOwNEoRmK9k
+X-Gm-Gg: AR+sD11poKxjTDsmiOClhsJJMSL9/X+aFMYj8MzdBhVdizwZfFeqx3gcX5PpCSKYMTi
+ O+3j0ufzwcLq7fSkBr4kp1jm+B2YXS2r2TPPjmOAEQDb/eJtaPjpdkxH70bNfCMiqklQ0yhPgwr
+ LCOB7u7TMScRZseoWM3QnjKZGccZLTzsJFt+AoP2XK1qFQCYtTA5kYel9wu3rJoW50ikCSglJMO
+ RVKwyc3YfhiqBGRK1y6tgBDco6Avhl2ITAb2jqpeI1jLOFhifYg19EXm0+WdAqhNe4imNXjju/5
+ N9hrrdod/aeKeD4O+2ljGtEMNU8R4vlXXgUIVIwsCs8LHcl7fBA1djmVSl+qsDLcQaM9pBp1BL9
+ kGsDkOHWRSXkCLzhXpSov2GZb9Vmsomdr7E1JVJ5+Ne/WMqzD7pm6ILzkcGFvShHWywwxrdsNG8
+ GHLh1yvVnV8CgvU+0Rr+JZXZPVBCCFWKCLERyKlb0imPFIzdCQGkrOE0UYYMw=
+X-Received: by 2002:a05:600c:5643:b0:499:77ba:4b6 with SMTP id
+ 5b1f17b1804b1-49987ad988emr70687995e9.9.1786727730016; 
+ Fri, 14 Aug 2026 10:15:30 -0700 (PDT)
 Received: from localhost ([5.83.201.220]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4815f219d3dsm10046899f8f.14.2026.08.14.10.34.14
+ 5b1f17b1804b1-499899b5ad0sm44859855e9.4.2026.08.14.10.15.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 14 Aug 2026 10:34:14 -0700 (PDT)
+ Fri, 14 Aug 2026 10:15:29 -0700 (PDT)
 From: Colin Ian King <colin.i.king@gmail.com>
 To: Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
  Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -72,10 +72,10 @@ To: Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
  dri-devel@lists.freedesktop.org
 Cc: kernel-janitors@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH][next][V2] drm/amd/display: Fix spelling mistakes "optmization
- and "resul"
-Date: Fri, 14 Aug 2026 18:32:19 +0100
-Message-ID: <20260814173219.1102435-1-colin.i.king@gmail.com>
+Subject: [PATCH][next] drm/amd/display: Fix spelling mistake "optmization" ->
+ "optimization"
+Date: Fri, 14 Aug 2026 18:13:35 +0100
+Message-ID: <20260814171335.1099999-1-colin.i.king@gmail.com>
 X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
@@ -95,12 +95,9 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-There are spelling mistakes in a DML_ASSERT_MSG message. Fix them
+There is a spelling mistake in a DML_ASSERT_MSG message. Fix it.
 
 Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
-
----
-V2: Fix resul too, Kudos to Rolf Reintjes for spotting that
 ---
  .../drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_utm.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
@@ -114,7 +111,7 @@ index ab9cadaf5a60..79ec5838c26f 100644
  			&& worksheet->validation_result.is_mcache_allocation_valid
  			&& worksheet->validation_result.is_prefetch_valid,
 -			"worksheet must be valid on exit independent from optmization resul!\n");
-+			"worksheet must be valid on exit independent from optimization result!\n");
++			"worksheet must be valid on exit independent from optimization resul!\n");
  //	DML_ASSERT_MSG(iteration <= MAX_OPTIMIZATION_ITERATIONS,
  //			"exceeds max optimization iterations!\n"
  //			"\t is_permissible_found = %s\n"
