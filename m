@@ -4,51 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E9A5C5B572
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 09:58:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 163D8C5CFC1
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 10:30:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E514510E10B;
-	Fri, 14 Aug 2026 09:58:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A38510E547;
+	Fri, 14 Aug 2026 10:30:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="I9RVmSi5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0xPWd5DS";
 	dkim-atps=neutral
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1AC910E10B;
- Fri, 14 Aug 2026 09:58:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
- s=20170329;
- h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
- MIME-Version:Date:Message-ID:From:Reply-To;
- bh=x22IGKY9oz2JwILhMxrsKHEmklxVIjnqaXeJXedAhGc=; b=I9RVmSi5MKrX3jtjZiLBKWg6ug
- xwjwRCP/XwHfEVCMSvx2M4ZgloSq2VMVwcnDAiniAbYmVx25m+5s9jlQ/zgMVM0u9YsnH7wu+swIX
- rROrT8aZoGZJy7KNg/lU8g3tXCzvGj8HSH4eeCVWAcuuACRX7cI8ZwVJBhLaxAtIVqVPPT1J87xKm
- LKHo55yV60cRF+25cmlspkWVsRrczFqWjaOdFxA6/9VPtFjpz1p0EFNKE3ZpyQR7idt0cTW631Kfv
- CC4KnjxxWtYHf67XYiun+iAaj1CqPatjkhCO7TVrDkbEoxhywO83UudCK6eog3D1nwJNVD41UUFmV
- aS08oXSQ==;
-Received: from [81.79.79.1] (helo=[192.168.0.116])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1wuogC-001gI6-EN; Fri, 14 Aug 2026 11:58:24 +0200
-Message-ID: <a8d7c386-bfa7-4b46-8fef-b4ff6ec063d0@igalia.com>
-Date: Fri, 14 Aug 2026 10:58:23 +0100
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012005.outbound.protection.outlook.com [40.107.209.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A1F0610E547
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 10:30:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rzJOSzwqt6qfK7RXka6WhO7vaJEGh4JrahkuVjpj26m7DJpY+Ttwp7YNJ0QbWYk9pkcqkn519fbbhASycWp3dvR2eKIvXPzPRC0Hk7KBSUBGemuZ28OkO0rBBVI98hrRvg6odkJSC3QKCn98DO7onhwOLA8YcXerFqEhXkmdKEvyydTb+9AtvvHSXCcIAqefklugwEdDhUDgQnet3gk+eZFVY++J/nw5iQbNpfpJPYO33+p5Ayv+kdryALeEVeIpG/293mk6n3Lz8woMsxzvcdVUc6Vqnwo+k5mRgfOGoSTUlL4W69nRssh2CKycubHOrdMJ985Dev0W1QCWM7K4TQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=n2KoiJIwO6xFkdHGqVV9arHwAP9qgB+V63yJWMwtGgo=;
+ b=OCyBq4sQxB2vDP4e2Sl/3JF0paOu3bpnVnbcQB1UrHTKm9bvsvYgN/8ei5yA+2MJ3Fw20inlPR/jQY/SnPser2w3+EsNSRR+H7g0Lur7zZW2oZiikWgycE75yPCPx6rErjKelIB8j5Y4MwEI0V6YwRgGsD7BZcmx3XfYE7O+ub3vs/yVu1s1CZvGr9eZvdAL9FpaaAOoferzPbnNWqni0wA+15uU2ilkc6mcMT+PUkSCnfmeUliGHBAeI4Mr3wT3nXnjd5uenpIeXmp/WVwkrmO9vUpOZoNFBvggLY3Q90A9sb4SOlk0aebazkEQka9XvPYPE4eyhV5dFXgMt9f50Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=n2KoiJIwO6xFkdHGqVV9arHwAP9qgB+V63yJWMwtGgo=;
+ b=0xPWd5DS2/2/DGjKrAyPDu+oZSmi8jOy97ngFECw9PFApxjp34e3EueUf9/EaDwVPBioONGu5Nileu3nJHe2ZsyL4uBLbAVpYlo+gq03t43hlGyYdos0bCAV4NYOz1HHhgyF58SgbepHH/+05WlRcDlpzYNaEtU69ve/+cMKxnc=
+Received: from MN0P220CA0024.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:52e::18)
+ by CH3PR12MB8186.namprd12.prod.outlook.com (2603:10b6:610:129::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Fri, 14 Aug
+ 2026 10:30:06 +0000
+Received: from BL6PEPF00022574.namprd02.prod.outlook.com
+ (2603:10b6:208:52e:cafe::2a) by MN0P220CA0024.outlook.office365.com
+ (2603:10b6:208:52e::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.16 via Frontend Transport; Fri,
+ 14 Aug 2026 10:30:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL6PEPF00022574.mail.protection.outlook.com (10.167.249.42) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 10:30:06 +0000
+Received: from ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
+ 2026 05:30:02 -0500
+From: Zhu Lingshan <lingshan.zhu@amd.com>
+To: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
+ <felix.kuehling@amd.com>
+CC: <Ray.Huang@amd.com>, <amd-gfx@lists.freedesktop.org>, Zhu Lingshan
+ <lingshan.zhu@amd.com>
+Subject: [PATCH] drm/amdgpu: fix hang and race in userq destroy
+Date: Fri, 14 Aug 2026 18:30:05 +0800
+Message-ID: <20260814103005.9924-1-lingshan.zhu@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] drm/sched: Do not restore unsaved virtual runtime
-To: Matthew Brost <matthew.brost@intel.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- kernel-dev@igalia.com, Luke.Wildhardt@proton.me,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Vitaly Prosyak <vitaly.prosyak@amd.com>
-References: <20260814075739.32481-1-tvrtko.ursulin@igalia.com>
- <20260814075739.32481-2-tvrtko.ursulin@igalia.com>
- <an7Xl8fpejcUQfvH@gsse-cloud1.jf.intel.com>
-Content-Language: en-GB
-From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-In-Reply-To: <an7Xl8fpejcUQfvH@gsse-cloud1.jf.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022574:EE_|CH3PR12MB8186:EE_
+X-MS-Office365-Filtering-Correlation-Id: ccd9e3b2-2b93-484c-ac6a-08def9ef0215
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|23010399003|82310400026|376014|56012099006|10067099003|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: NBUDinZypkmg1uRPzph3rJJpPt0KWDuuiQTOn7UmtHtEAAvYUjf2g8H+b3eKZgZGZ5/o9H9RCAr08X86Us1Aj0fgMQd/skDsJjISE5parpkEOp247gAHMRK3D3/92JuOS+eBJrOlZ/PKkLEqFoltum+/+eUR6Lqtvo5SZlaa+MJnEWHZFdk4nAW9FzdO7VReCTR9VV0D110IODRxul5EvUgRaPP5aVBFSmAMNmUW1L7yq/2AWNOHRn1J5N2Mw6Gds4I+O7tYD+NvtLUZ7qHIN14t7v7tg2eqNl4uxo2Mo0it56TvmNAqEmmzrq/JG0Hh3p/58BHFN3EyMCsbPqe2SONr1HwqFLcRATjzJlWaL8kPCuRNxWauFfMXtYcfvJ8B35E1laDeIW1OSJJU9us24ZzlxJCQg+RVDnqNXIcA08qoBsCdn45aqYDI+FfBwC5/eIl4/nCUH0Iiaws6X8gWfPFxv237lzBdErHWcY/ZTTrnffbq7ApVa4RQRpMN2eAxCdlXK6zc4F479RU7wQ+xfW18TpWYre4+cI39np1nbtxDxaOznFIsWhqrYS9nlgHpoFffSJWSIPic3RjmuLnD3WuSVre11WmqPEaDOkbm+GKnIVMKd2O/AaFXTSrdo8rW/OV3ED11YLhHKhtEq+U+QS4xxbs4NMXcQzZ6KcTop38wMjL7IG6T0RzYb9zKUlRrLGOe9Lv+ChSHQ072D3y9ng==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(23010399003)(82310400026)(376014)(56012099006)(10067099003)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: R7Rm8dQPadvxdVB+ioIrlzmsZHU2ydFqhORafnGc/GJEv6rEe9r2e+LwSBu1fx+5nloTbBKrpR/ZjLBeKKs4Z9kj89AO449PYPjhuMPahUq6EdLw+ykhc2hCpJocSBXy2TI++IaFJUpitbgwO2p82thTrlvUpYtmJFH+g0ye13Rc0aS+v4wioUhiDhZYSQvOgdhaAgkLb69O9HQLPaEkmGAjess1iTp8YP7BP4H1yz6TChxMig9/vhzvsK5chWnuNO+vNbYrqKfs1alrSKCIWDFelHJYskAt30X6tSk5fhs8WEVTQf36vJph9hMBihTaynA+UqVHVdHxMcX3ykOhZ1HHhkMYOKH/8Q2bLqn+UyPO2M35oIw6/8T1TOYcoeszL3h39z8tYq1JVKtVunnuHFy6TRYt6/iXUdlZ1YR0cggqsXdBhoE7O/WpEpmrUkQU
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 10:30:06.0237 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ccd9e3b2-2b93-484c-ac6a-08def9ef0215
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00022574.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8186
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,167 +109,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+When a queue is hung, the hang_detect_work is the
+only way to recover it. However in amdgpu_userq_destroy(),
+the hang_detect_work is cancelled too early,
+resulting in amdgpu_userq_wait_for_last_fence()
+may never return, leaving an uninterruptible dma_fence_wait()
+hang there.
 
-On 14/08/2026 09:53, Matthew Brost wrote:
-> On Fri, Aug 14, 2026 at 08:57:38AM +0100, Tvrtko Ursulin wrote:
->> Prevent pushing a new job to an entity seeing it being the first in the
->> queue, and hence entering the drm_sched_rq_add_entity() path, if the pop
->> side in drm_sched_entity_pop_job() has de-queued the job but not yet
->> updated the saved virtual time.
->>
->> We do this by pulling the locked sections out to encompass both the queue
->> push/pop and corresponding rbtree management.
->>
->> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
->> Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
->> Suggested-by: Luke.Wildhardt@proton.me # via Claude Opus
->> Tested-by: Luke.Wildhardt@proton.me
->> Cc: Christian König <christian.koenig@amd.com>
->> Cc: Danilo Krummrich <dakr@kernel.org>
->> Cc: Philipp Stanner <phasta@kernel.org>
->> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
->> Cc: Matthew Brost <matthew.brost@intel.com>
-> 
-> Ugh. Idiom:
-> 
-> "How much longer are we going to keep polishing this turd?"
-> 
-> The revert of FAIR IMO shows it basically time for a rewrite, cough -
-> DRM dep.
+To fix this problem, this commit moves the cancelling of
+hang_detect_work after amdgpu_userq_wait_for_last_fence(), and it has
+to be before the unmap helper, because hang_detect_work resets the
+queue, so it races with amdgpu_userq_unmap_helper() for MES operations
+and queue state.
 
-To give any external readers clarity - hypothetical new DRM dep and fair 
-policy for the current scheduler address separate and distinct kernel 
-drivers.
+This commit splits amdgpu_userq_cleanup() into two parts:
 
-Or to put it differently, the regression which warranted a revert does 
-not apply at all to any of the drivers DRM dep would be the new solution 
-for. Better scheduler for drivers not covered by the DRM dep proposal is 
-still required should DRM dep happen or not.
+1) amdgpu_userq_detach_doorbell(), which detaches the queue from
+userq_doorbell_xa. This has to be called before the cancel, otherwise
+the IRQ handlers (for example amdgpu_userq_process_fence_irq)
+can re-schedule the hang_detect_work and the cancel is not final.
 
-Having clarified that...
+2) amdgpu_userq_fence_driver_free(), this has to be called after the
+unmap helper, because it can release the seq64 slot that the GPU
+writes fence values to.
 
-> If we can agree, I'll prioritize, if not we'll be here seemingly
-> forever.
+Only one cancel_delayed_work_sync(&queue->hang_detect_work) is needed,
+so other redundancies are removed.
 
-...for me that's fine albeit unfortunate. I proposed refactoring the 
-existing scheduler to split it at the backend submission level by sched 
-ops and rq ops, with a future route to split the data structures as 
-well, but that was rejected as a direction. So it seems some flavour of 
-two schedulers will happen, but will it be DRM dep, or jobq in Rust it's 
-up to the (more) interested parties to agree upon.
+Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 23 ++++++++---------------
+ 1 file changed, 8 insertions(+), 15 deletions(-)
 
-Regards,
-
-Tvrtko
-
->> Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
->> ---
->>   drivers/gpu/drm/scheduler/sched_entity.c |  8 +++++++-
->>   drivers/gpu/drm/scheduler/sched_rq.c     | 20 +++++++++-----------
->>   2 files changed, 16 insertions(+), 12 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
->> index a4a7efdbf229..673ca9cbf362 100644
->> --- a/drivers/gpu/drm/scheduler/sched_entity.c
->> +++ b/drivers/gpu/drm/scheduler/sched_entity.c
->> @@ -559,9 +559,10 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
->>   	 */
->>   	smp_wmb();
->>   
->> +	spin_lock(&entity->lock);
->>   	spsc_queue_pop(&entity->job_queue);
->> -
->>   	drm_sched_rq_pop_entity(entity);
->> +	spin_unlock(&entity->lock);
->>   
->>   	/* Jobs and entities might have different lifecycles. Since we're
->>   	 * removing the job from the entities queue, set the jobs entity pointer
->> @@ -647,6 +648,9 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
->>   	 * Make sure to set the submit_ts first, to avoid a race.
->>   	 */
->>   	sched_job->submit_ts = submit_ts = ktime_get();
->> +
->> +	spin_lock(&entity->lock);
->> +
->>   	first = spsc_queue_push(&entity->job_queue, &sched_job->queue_node);
->>   
->>   	/* first job wakes up scheduler */
->> @@ -657,5 +661,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
->>   		if (sched)
->>   			drm_sched_wakeup(sched);
->>   	}
->> +
->> +	spin_unlock(&entity->lock);
->>   }
->>   EXPORT_SYMBOL(drm_sched_entity_push_job);
->> diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
->> index 0464d324d98d..23f46ec610e7 100644
->> --- a/drivers/gpu/drm/scheduler/sched_rq.c
->> +++ b/drivers/gpu/drm/scheduler/sched_rq.c
->> @@ -257,19 +257,17 @@ static ktime_t drm_sched_entity_get_job_ts(struct drm_sched_entity *entity)
->>   struct drm_gpu_scheduler *
->>   drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
->>   {
->> +	struct drm_sched_rq *rq = entity->rq;
->>   	struct drm_gpu_scheduler *sched;
->> -	struct drm_sched_rq *rq;
->>   
->>   	/* Add the entity to the run queue */
->> -	spin_lock(&entity->lock);
->> +	lockdep_assert_held(&entity->lock);
->> +
->>   	if (entity->stopped) {
->> -		spin_unlock(&entity->lock);
->> -
->>   		DRM_ERROR("Trying to push to a killed entity\n");
->>   		return NULL;
->>   	}
->>   
->> -	rq = entity->rq;
->>   	spin_lock(&rq->lock);
->>   	sched = rq->sched;
->>   
->> @@ -289,7 +287,6 @@ drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
->>   	drm_sched_rq_update_fifo_locked(entity, rq, ts);
->>   
->>   	spin_unlock(&rq->lock);
->> -	spin_unlock(&entity->lock);
->>   
->>   	return sched;
->>   }
->> @@ -343,16 +340,17 @@ drm_sched_rq_next_rr_ts(struct drm_sched_rq *rq,
->>    */
->>   void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
->>   {
->> +	struct drm_sched_rq *rq = entity->rq;
->>   	struct drm_sched_job *next_job;
->> -	struct drm_sched_rq *rq;
->> +
->> +	lockdep_assert_held(&entity->lock);
->> +
->> +	spin_lock(&rq->lock);
->>   
->>   	/*
->>   	 * Update the entity's location in the min heap according to
->>   	 * the timestamp of the next job, if any.
->>   	 */
->> -	spin_lock(&entity->lock);
->> -	rq = entity->rq;
->> -	spin_lock(&rq->lock);
->>   	next_job = drm_sched_entity_queue_peek(entity);
->>   	if (next_job) {
->>   		ktime_t ts;
->> @@ -375,8 +373,8 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
->>   			drm_sched_entity_save_vruntime(entity, min_vruntime);
->>   		}
->>   	}
->> +
->>   	spin_unlock(&rq->lock);
->> -	spin_unlock(&entity->lock);
->>   }
->>   
->>   /**
->> -- 
->> 2.54.0
->>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 17cc48d87c4d..24adad7be251 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -418,19 +418,12 @@ static void amdgpu_userq_wait_for_last_fence(struct amdgpu_usermode_queue *queue
+ 	dma_fence_wait(f, false);
+ }
+ 
+-static void amdgpu_userq_cleanup(struct amdgpu_usermode_queue *queue)
++static void amdgpu_userq_detach_doorbell(struct amdgpu_usermode_queue *queue)
+ {
+-	struct amdgpu_userq_mgr *uq_mgr = queue->userq_mgr;
+-	struct amdgpu_device *adev = uq_mgr->adev;
++	struct amdgpu_device *adev = queue->userq_mgr->adev;
+ 
+-	/* Wait for mode-1 reset to complete */
+ 	down_read(&adev->reset_domain->sem);
+-
+-	/* Use interrupt-safe locking since IRQ handlers may access these XArrays */
+ 	xa_erase_irq(&adev->userq_doorbell_xa, queue->doorbell_index);
+-	amdgpu_userq_fence_driver_free(queue);
+-	queue->fence_drv = NULL;
+-
+ 	up_read(&adev->reset_domain->sem);
+ }
+ 
+@@ -551,18 +544,19 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
+ 
+ 	cancel_delayed_work_sync(&uq_mgr->resume_work);
+ 
+-	/* Cancel any pending hang detection work and cleanup */
+-	cancel_delayed_work_sync(&queue->hang_detect_work);
+-
+ 	mutex_lock(&uq_mgr->userq_mutex);
+ 	amdgpu_userq_wait_for_last_fence(queue);
+ 
++	amdgpu_userq_detach_doorbell(queue);
++	cancel_delayed_work_sync(&queue->hang_detect_work);
++
+ #if defined(CONFIG_DEBUG_FS)
+ 	debugfs_remove_recursive(queue->debugfs_queue);
+ #endif
+ 	r = amdgpu_userq_unmap_helper(queue);
+ 	atomic_dec(&uq_mgr->userq_count[queue->queue_type]);
+-	amdgpu_userq_cleanup(queue);
++	amdgpu_userq_fence_driver_free(queue);
++	queue->fence_drv = NULL;
+ 	mutex_unlock(&uq_mgr->userq_mutex);
+ 
+ 	/*
+@@ -574,7 +568,6 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
+ 	if (r)
+ 		queue_work(adev->reset_domain->wq, &uq_mgr->reset_work);
+ 
+-	cancel_delayed_work_sync(&queue->hang_detect_work);
+ 	uq_funcs->mqd_destroy(queue);
+ 	queue->userq_mgr = NULL;
+ 
+@@ -748,7 +741,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	    ((queue->queue_type != AMDGPU_HW_IP_GFX) &&
+ 	     (queue->queue_type != AMDGPU_HW_IP_COMPUTE))) {
+ 		/* Serialize the map against an in-progress GPU reset (MES is
+-		 * unresponsive during recovery), matching amdgpu_userq_cleanup().
++		 * unresponsive during recovery), matching amdgpu_userq_detach_doorbell().
+ 		 */
+ 		down_read(&adev->reset_domain->sem);
+ 		r = amdgpu_userq_map_helper(queue);
+-- 
+2.53.0
 
