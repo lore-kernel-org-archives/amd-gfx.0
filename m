@@ -4,67 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14045C5DF6E
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 21:03:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AC9FC5DF77
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 21:03:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 230E810F703;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C28DB10F711;
 	Fri, 14 Aug 2026 21:03:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aZfy2c+g";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="24eNqRVB";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010012.outbound.protection.outlook.com [52.101.56.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B9F7B10F70A
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012048.outbound.protection.outlook.com
+ [40.107.200.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9D48110F701
  for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 21:03:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hcdgccinVMZUXJ9V8lMCdhSrYh/irz1Es+Hl+rcjYlhyY4kSkgC0WGyoSZV4X/19z1hqKl4wCyivuhz4HTJ99VjL0MNfWly14p+hNzY7mPaEabyWL1wmfdsMesuICwGdRXcGfc0BUBqAuHxYExlhGIDdqdu8NY/JRjY30uBDMI7huyJy0Csr8A8IS9sQ3Tp4ePxCjMCeHJaahHPNmGIYYJwcIifVFeRDyQ+6SpVg325uzbY6VrSYmGYgj1oGtjo98wa758tj6EeqpZS9vt+kPt20EfbACIGRyHfiqvnOpHoF8vGMwPWi7+iyRw9/IrCc+//HVzQ5Qys26rnS8ut0Cg==
+ b=DNfkjr1VG96PkVodq79KwxFT53XcKwMZR7KUb42cJ+M8fGdtRHhufbbQVPVgV32oiZanTUpD0Bo9oIPV5CQBlyjewzEIXNiDT3t2+TnasSJPOCPW+OkHrQl4me1F0pnZlzig7OS5B0QdjPNucvpIx01eGm0WEC4lQ+IlBrpTTk+cK0Sul39j1r0FH7hVa/0OBDEhvuNKIZu/PDm+n6LElxD/Ln/dgSmTcgKRz82VZThsYRhh/0ZTmpYpBF0QiKElfSbktGt3aasBxJ5tYcDt/GiiVN2ODOxqQvS7Utb3QffIm7g5i9AAzsz1gHjIH6UYfh5jyDIaw62UwbCOJe0BQw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U3lHETjoHFagInxf1P1ddq9kL8yn0v/LwnQFnseKlis=;
- b=BfyODfX+1ipGdcuqquZNdiNrMPqLr0339UyeXul/tXNINHVoDVQgdsD9stzN+SwueSKNEE/NzakMhTPQjWK0nrWBL3HdnGA7sPTVwVBcXZnc/ZXghchgbL/G2zhlUihOnFuivf9Fc7RThn7sH38ew4W6s4xgLSXu7+tMslDw1E69+eBM7TkxfMWu/3G9s4N9i0pPOoYKRVL7w/dXM2YuERDfgY4S6nbjHv/2Z203isJOFr/hSdkVVA6z/qAI9j4LuJjY4ltgatmd5yL28U0X/SngVu3IsTcVVijfOmg6NWkrh0ihoYFHJ7X5K6KSlBqV4kS3bbvXZTiTM5IPv2zEKg==
+ bh=xkMXoGOfe9mGvRnj1q8/1D04Od4nQQjWa+y0oJIfaTQ=;
+ b=ZYdxe7mqXQFIwv1OSlaEbZFqdcijoqvHn9AxttAlRh9V3QuPHuswBcnM13s69hTn4emWlQriNaJU1RTxBw1Av9ckJSyNBoatPmh2nDi9pOvjMe3GzQzMz4Yvlm/74ve+s6NwqNgv1tecQmA0LHidz25Dl3qutuX6GKi+qkzEYDCc0+PYyTnLoJ4T4H7zjm2u/OlE6t+1TS2An1Gl28XYRMehdxGf25PydsF3ClGYRjOFwMFxuNy2AWcnzgZ/3tfEgAkEZ0l8BDjRkpIjU9Zm3NBiQ2LEyrwUB9c9NB6HQeD1Thg9r+DCi00PXCnF84WKEiGat36WBNkdno3zt3mIgA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U3lHETjoHFagInxf1P1ddq9kL8yn0v/LwnQFnseKlis=;
- b=aZfy2c+gO+R5JMKAYICZ0KGTvuYvpQxefexXFjUvU39o3mJEDXd1mkB5xExz1bEOCUi2boldbsPp2SFwc9NiQYyXtfCEiZ3hpeW9zhiHqgQ+DFFCm7Zym/6oahiyx+0YwQXpKQQkH03bCUCdA8oAFyHNZ59f52yi3YOeh5GGhvg=
-Received: from DSZP220CA0008.NAMP220.PROD.OUTLOOK.COM (2603:10b6:5:280::9) by
- CY5PR12MB6228.namprd12.prod.outlook.com (2603:10b6:930:20::6) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.15; Fri, 14 Aug 2026 21:03:28 +0000
-Received: from CH3PEPF00000015.namprd21.prod.outlook.com
- (2603:10b6:5:280:cafe::79) by DSZP220CA0008.outlook.office365.com
- (2603:10b6:5:280::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.16 via Frontend Transport; Fri,
- 14 Aug 2026 21:03:28 +0000
+ bh=xkMXoGOfe9mGvRnj1q8/1D04Od4nQQjWa+y0oJIfaTQ=;
+ b=24eNqRVBKypkAVHkYPQK0ryLVMbCXIF2l2WnYER4SGPTiSIC65uD0DKmMVtqpHrFSjSFPBpBYiCI/DZR8aQjcuq+QAy/p8mpKmFh84hhT2rub1ewHImnO/Mwbx3R1wkYnqQftPMUTUkp3i2UcvExIFYw6TLtG+sBrRI4KwR5PlY=
+Received: from BN9PR03CA0967.namprd03.prod.outlook.com (2603:10b6:408:109::12)
+ by SJ5PPF000ACABD1.namprd12.prod.outlook.com
+ (2603:10b6:a0f:fc02::984) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Fri, 14 Aug
+ 2026 21:03:34 +0000
+Received: from BN2PEPF0000449D.namprd02.prod.outlook.com
+ (2603:10b6:408:109:cafe::79) by BN9PR03CA0967.outlook.office365.com
+ (2603:10b6:408:109::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.13 via Frontend Transport; Fri,
+ 14 Aug 2026 21:03:33 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF00000015.mail.protection.outlook.com (10.167.244.120) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN2PEPF0000449D.mail.protection.outlook.com (10.167.243.148) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.0 via Frontend Transport; Fri, 14 Aug 2026 21:03:27 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 21:03:33 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 16:03:21 -0500
+ 2026 16:03:31 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
+ 2026 16:03:30 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 14 Aug 2026 16:03:20 -0500
+ Transport; Fri, 14 Aug 2026 16:03:29 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: YiPeng Chai <YiPeng.Chai@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, 
  Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 039/109] drm/amd/ras: ras mp1 introduces common interfaces
-Date: Fri, 14 Aug 2026 17:01:36 -0400
-Message-ID: <20260814210246.3067612-40-alexander.deucher@amd.com>
+Subject: [PATCH 054/109] drm/amd/ras: Add null check to prevent null pointer
+ exception
+Date: Fri, 14 Aug 2026 17:01:51 -0400
+Message-ID: <20260814210246.3067612-55-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260814210246.3067612-1-alexander.deucher@amd.com>
 References: <20260814210246.3067612-1-alexander.deucher@amd.com>
@@ -73,29 +79,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000015:EE_|CY5PR12MB6228:EE_
-X-MS-Office365-Filtering-Correlation-Id: d2144ee8-7eb3-49d9-820b-08defa477cfb
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449D:EE_|SJ5PPF000ACABD1:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4ce00f8f-4431-4c77-1920-08defa47805e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|82310400026|1800799024|376014|36860700016|10067099003|56012099006|6133799003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: cCryXRREDyQB9m5XM0B60dMBYu0g8IfZjMKt+o+2ZwQFn7Bvyij9S5UZvTEyc03HosDTS04bVkAjx+J6n7hz/khg0NoMoePdhmuFGpiyqh3p6z7grP1+7DC4Ud1cImsE/nrioOKqRzlpqVRWUWJt0GJdlvptl6ngGwlfSsHTSEmjoxZPEqbPNxZTwrwxi5x2bMRt9jK9UDpQEsz3YouqtBcQ+PZa8AXUKkfOzx2k5GgKGcfT4F4iHHDF31dMYHNhji/8REeHAdH6XR84EedZ8irJnuh/znHJBNi32uDYwobX4AMlfi8izDdKutAvpimxYNMjC2f/b+l6tXDTg3mIj/n6Yl5RpWQ6whNXJUlBaIj+JaxyDhXFSIruG2LL+wyGTx+LAjV/gdWye82xUZ9d+2AsHTY6gG/WH/7o5cMnqgF+EN995EUinsTm+KTmohcf0AH2lLxODGKlPCd36JZZLxrVJYqcUl3Qy2uYXinSCEBNmbVbvhh+hpXYdfcRO94FEL0QqPnXqUuUuBkKJ0Fvq1s4DBm1GPvfv6ScPHLIdycpNqlCkMW1xb1dl56575Ci+2MEyIzzBxgnwzqQ0bPyTSao0CKyG6e1lv2GE+qybE55juDU3Oau5efVytXZzCN78TCxMMBrUxi/aSYpKXZxYSBDadTN5Stb56jSxLmGH+o=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(82310400026)(1800799024)(376014)(36860700016)(10067099003)(56012099006)(6133799003)(11063799006)(18002099003)(22082099003);
+ ARA:13230040|1800799024|82310400026|376014|36860700016|23010399003|11063799006|56012099006|18002099003|22082099003|10067099003;
+X-Microsoft-Antispam-Message-Info: EXlcCgIV2pWx5ye+4KQZL4YRV5DaQkGTFy6GXGUMZkGuPTD2DRuDzwicmK/bbL74dkqUKx3mIsrKRrl5quCt1u4RRVhUS+oTCOwZR6oCXFHzo38Gev/4TOF2303W5FFaaZtOw/Ryq121KGKcc++RC2aNip1lZcM2p6O3dcED9DHBL59zIhhJtUPnzCdEEj/+W/asehQWWsrvv95Opm+BDzA0M4kyn+zfhCgDLAH+vRSMH/Va4k3XzePB7bY77k6pRaYqecI/sgRKXy8uZnOW/y8U1aM8Yjjg5RhMlPqWFjqgpCzym53Tc3rji7RxmKQsnH2ASHADSdAawdOBLuHdNpWxhRPnP0iNLv3yKIUEH66LwGU6hjIcI49kzhG6gAl/XAKg16sTuHkTuhg72KjKMsssnZhtPVCqzIG2MEDnvrt0PC1+PdFkicCoWz86ebRi03idNlY4PU7/ai9g4ySoMJ9gSf+tRF29uf3tN6snMAqnkFi48uzZ8LJ+hTD099R110kH0R1A/ThG8w1r8H0Z2Fves0lITIfxz1EmbhCX0mlkuqDNi49s55edp4YhbdaROsezbMblZBbcdQNk+kagcm6NVahfh/b8ADiR5NlbEjVnMp9sPplKtF4k2sRuI562SsdUb0nZh2Ktp+URxLSvNWlTe0QZ+18JTdN0DHKj5YCp1EwBpTun9SvKOn07p3rRRYQyQdoSxCabfoHHzw9lHg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(23010399003)(11063799006)(56012099006)(18002099003)(22082099003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: BcjJ+b4bubt130+JhuQrd2qruMeBfkylYjDcf94u+czWUYKMoLDN/IcFMruBP0a6utyZcIHJt441BbHUEy7ZP0yjLUZ9pI59WGaclNWiukOPKGotGcePG0mLgj8m1tRYsXWOLhmT8gm7aUs38UtsVVnPdplT1xS3Vy6EPAlq4EDwZYIQI9qheMJs2lWin6FCMopkiTNc21gIAyzzsGfED+RhwyJciXL0LhC7wUz+GGSE2pzltpxAVeDioiaWe/f8KPTLSSZgKZxp5FwgLt9CClBmhjnXq6ICM6h6RuTyHazL8F1L9i1AgOFOQqKbnTStrbW5x14hOZOj9nS7dxvaIgcTl8AG6D8eEDCAh7dQmb2dEnaQ8C/dsuG1rVhk/UX7iuDmcIt9b9NVdUMD3meR5ybVou7dZ3OYEBTfanXR0wzl+rcKPkJZsmoURJTy0OoK
+X-MS-Exchange-AntiSpam-MessageData-0: tP92ZPMOthdVxTe0Kcc+OMFEr8EeYNzzaAfZV7GhYv5gg6getswLSud1n+9bOHVEY4pOuj2/GW17u2g0jmmCIb3UVvsN7wbvgZK7i2K3rdoItyByEmDHUVU5i6zZzoYguIguCWNMOjESvTiZpC0nHIgAv1X/qGotHExOshxs/2nD78FQbnqtM3lC4B82/VOSayHg9XYghPPvb+hQ/W7Lgap6KNGXD2Rn+HI2dI8lcUEIplpaL/EpJsrH9cLFX6YgI5qtcEBOyta6nlqLrUSyTfX8BIRC+7C+3OagASPzWMKj1WoXITecCT+WyIo5+Cm5ibaSCk88hTdhGkuV795XuBJh1az5wpW3gOV1TfO6SsrYHzZUWuQ4UGOJgwasv085C5d9zFiucfCHq+CDcw9lCDcdzREHjQ31eCtIy0kxCLc2tFYK0/AiR7FW8+95VCe7
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 21:03:27.9409 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d2144ee8-7eb3-49d9-820b-08defa477cfb
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 21:03:33.6038 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4ce00f8f-4431-4c77-1920-08defa47805e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000015.namprd21.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000449D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6228
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF000ACABD1
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,260 +118,84 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: YiPeng Chai <YiPeng.Chai@amd.com>
 
-Ras mp1 introduces common interfaces to manage mp1 data
-obtained from different ASICs.
-
-v2:
-  Add mutex to ensure complete data transactions with MP1.
+Add null check to prevent null pointer exception.
 
 Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/ras/core/ras_mp1.c | 122 ++++++++++++++++++++++++-
- drivers/gpu/drm/amd/ras/core/ras_mp1.h |  44 +++++++++
- 2 files changed, 161 insertions(+), 5 deletions(-)
+ .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c  | 20 ++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/ras/core/ras_mp1.c b/drivers/gpu/drm/amd/ras/core/ras_mp1.c
-index 12c9e20098c43..eccd6f16c35a7 100644
---- a/drivers/gpu/drm/amd/ras/core/ras_mp1.c
-+++ b/drivers/gpu/drm/amd/ras/core/ras_mp1.c
-@@ -50,23 +50,127 @@ int ras_mp1_get_bank_count(struct ras_core_context *ras_core,
- 			    enum ras_err_type type, u32 *count)
- {
- 	struct ras_mp1 *mp1 = &ras_core->ras_mp1;
-+	int ret;
+diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+index c08e573206bd2..128a9bc1f2f09 100644
+--- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
++++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
+@@ -284,6 +284,9 @@ static int amdgpu_ras_mgr_sw_init(struct amdgpu_ip_block *ip_block)
+ 	struct amdgpu_ras_mgr *ras_mgr;
+ 	int ret = 0;
  
- 	if (!mp1->ip_func || !mp1->ip_func->get_valid_bank_count)
- 		return 0;
- 
--	return mp1->ip_func->get_valid_bank_count(ras_core, type, count);
-+	mutex_lock(&mp1->op_mutex);
-+	ret = mp1->ip_func->get_valid_bank_count(ras_core, type, count);
-+	mutex_unlock(&mp1->op_mutex);
-+
-+	return ret;
- }
- 
- int ras_mp1_dump_bank(struct ras_core_context *ras_core,
- 		u32 type, u32 idx, u64 *regs, u32 regs_sz)
- {
- 	struct ras_mp1 *mp1 = &ras_core->ras_mp1;
-+	int ret;
- 
- 	if (!mp1->ip_func || !mp1->ip_func->dump_valid_bank)
- 		return 0;
- 
--	return mp1->ip_func->dump_valid_bank(ras_core,
-+	mutex_lock(&mp1->op_mutex);
-+	ret = mp1->ip_func->dump_valid_bank(ras_core,
- 				type, idx, regs, regs_sz);
-+	mutex_unlock(&mp1->op_mutex);
-+
-+	return ret;
-+}
-+
-+int ras_mp1_get_table_version(struct ras_core_context *ras_core,
-+		u32 *table_version)
-+{
-+	struct ras_mp1 *mp1 = &ras_core->ras_mp1;
-+	int ret;
-+
-+	if (!mp1->ip_func || !mp1->ip_func->get_table_version)
-+		return -EOPNOTSUPP;
-+
-+	mutex_lock(&mp1->op_mutex);
-+	ret = mp1->ip_func->get_table_version(ras_core, table_version);
-+	mutex_unlock(&mp1->op_mutex);
-+
-+	return ret;
-+}
-+
-+bool ras_mp1_rma_detected(struct ras_core_context *ras_core)
-+{
-+	struct ras_mp1 *mp1 = &ras_core->ras_mp1;
-+	int ret;
-+
-+	if (!mp1->ip_func || !mp1->ip_func->rma_detected)
-+		return false;
-+
-+	mutex_lock(&mp1->op_mutex);
-+	ret = mp1->ip_func->rma_detected(ras_core);
-+	mutex_unlock(&mp1->op_mutex);
-+
-+	return ret;
-+}
-+
-+int ras_mp1_set_timestamp(struct ras_core_context *ras_core,
-+		u32 timestamp)
-+{
-+	struct ras_mp1 *mp1 = &ras_core->ras_mp1;
-+	int ret;
-+
-+	if (!mp1->ip_func || !mp1->ip_func->set_timestamp)
-+		return -EOPNOTSUPP;
-+
-+	mutex_lock(&mp1->op_mutex);
-+	ret = mp1->ip_func->set_timestamp(ras_core, timestamp);
-+	mutex_unlock(&mp1->op_mutex);
-+
-+	return ret;
-+}
-+
-+int ras_mp1_reset_ras_table(struct ras_core_context *ras_core,
-+		u32 *result)
-+{
-+	struct ras_mp1 *mp1 = &ras_core->ras_mp1;
-+	int ret;
-+
-+	if (!result || !mp1->ip_func || !mp1->ip_func->reset_ras_table)
-+		return -EOPNOTSUPP;
-+
-+	mutex_lock(&mp1->op_mutex);
-+	ret = mp1->ip_func->reset_ras_table(ras_core, result);
-+	mutex_unlock(&mp1->op_mutex);
-+
-+	return ret;
-+}
-+
-+int ras_mp1_get_record_count(struct ras_core_context *ras_core, u32 *count)
-+{
-+	struct ras_mp1 *mp1 = &ras_core->ras_mp1;
-+	int ret;
-+
-+	if (!count || !mp1->ip_func || !mp1->ip_func->get_record_count)
++	if (!con)
 +		return 0;
 +
-+	mutex_lock(&mp1->op_mutex);
-+	ret = mp1->ip_func->get_record_count(ras_core, count);
-+	mutex_unlock(&mp1->op_mutex);
-+
-+	return ret;
-+}
-+
-+int ras_mp1_get_record(struct ras_core_context *ras_core,
-+		u32 idx, struct eeprom_err_record *rec)
-+{
-+	struct ras_mp1 *mp1 = &ras_core->ras_mp1;
-+	int ret;
-+
-+	if (!rec || !mp1->ip_func || !mp1->ip_func->get_record)
-+		return -EOPNOTSUPP;
-+
-+	mutex_lock(&mp1->op_mutex);
-+	ret = mp1->ip_func->get_record(ras_core, idx, rec);
-+	mutex_unlock(&mp1->op_mutex);
-+
-+	return ret;
- }
+ 	/* Disabled by default */
+ 	con->uniras_enabled = false;
  
- int ras_mp1_set_debug_mode(struct ras_core_context *ras_core, bool enable)
-@@ -86,21 +190,29 @@ int ras_mp1_hw_init(struct ras_core_context *ras_core)
+@@ -347,11 +350,12 @@ static int amdgpu_ras_mgr_sw_fini(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+-	struct amdgpu_ras_mgr *ras_mgr = (struct amdgpu_ras_mgr *)con->ras_mgr;
++	struct amdgpu_ras_mgr *ras_mgr;
  
- 	mp1->mp1_ip_version = ras_core->config->mp1_ip_version;
+-	if (!con->uniras_enabled)
++	if (!con || !con->uniras_enabled)
+ 		return 0;
  
--	if (ras_core->config->mp1_cfg.mp1_sys_fn)
-+	if (ras_core->config && ras_core->config->mp1_cfg.mp1_sys_fn)
- 		mp1->sys_func = ras_core->config->mp1_cfg.mp1_sys_fn;
++	ras_mgr = amdgpu_ras_mgr_get_context(adev);
+ 	if (!ras_mgr)
+ 		return 0;
  
- 	mp1->ip_func = ras_mp1_get_ip_funcs(ras_core, mp1->mp1_ip_version);
- 	if (!mp1->ip_func)
+@@ -374,12 +378,13 @@ static int amdgpu_ras_mgr_hw_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+-	struct amdgpu_ras_mgr *ras_mgr = amdgpu_ras_mgr_get_context(adev);
++	struct amdgpu_ras_mgr *ras_mgr;
+ 	int ret;
+ 
+-	if (!con->uniras_enabled)
++	if (!con || !con->uniras_enabled)
+ 		return 0;
+ 
++	ras_mgr = amdgpu_ras_mgr_get_context(adev);
+ 	if (!ras_mgr || !ras_mgr->ras_core)
  		return -EINVAL;
  
-+	mutex_init(&mp1->op_mutex);
-+
- 	ret = ras_mp1_set_debug_mode(ras_core, false);
--	if (ret)
--		return -EINVAL;
-+	if (ret) {
-+		mutex_destroy(&mp1->op_mutex);
-+		return ret;
-+	}
- 
- 	return ret;
- }
- 
- int ras_mp1_hw_fini(struct ras_core_context *ras_core)
+@@ -407,11 +412,12 @@ static int amdgpu_ras_mgr_hw_fini(struct amdgpu_ip_block *ip_block)
  {
-+	struct ras_mp1 *mp1 = &ras_core->ras_mp1;
-+
-+	mutex_destroy(&mp1->op_mutex);
-+
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/amd/ras/core/ras_mp1.h b/drivers/gpu/drm/amd/ras/core/ras_mp1.h
-index 17499e1c9c54b..a00eb8117885b 100644
---- a/drivers/gpu/drm/amd/ras/core/ras_mp1.h
-+++ b/drivers/gpu/drm/amd/ras/core/ras_mp1.h
-@@ -25,6 +25,26 @@
- #define __RAS_MP1_H__
- #include "ras.h"
+ 	struct amdgpu_device *adev = ip_block->adev;
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+-	struct amdgpu_ras_mgr *ras_mgr = amdgpu_ras_mgr_get_context(adev);
++	struct amdgpu_ras_mgr *ras_mgr;
  
-+struct eeprom_err_record {
-+	u32 timestamp;
-+
-+	union {
-+		struct {
-+			u32 mca_addr_low;
-+			u32 mca_addr_high;
-+		};
-+		u64 mca_addr;
-+	};
-+
-+	union {
-+		struct {
-+			u32 ipid_low;
-+			u32 ipid_high;
-+		};
-+		u64 ipid;
-+	};
-+};
-+
- enum ras_err_type;
- struct ras_mp1_ip_func {
- 	int (*get_valid_bank_count)(struct ras_core_context *ras_core,
-@@ -32,12 +52,26 @@ struct ras_mp1_ip_func {
- 	int (*dump_valid_bank)(struct ras_core_context *ras_core,
- 		enum ras_err_type type, u32 idx, u64 *regs, u32 regs_sz);
- 	int (*set_debug_mode)(struct ras_core_context *ras_core, bool enable);
-+
-+	/* The following is used for firmware management of EEPROM */
-+	int (*get_table_version)(struct ras_core_context *ras_core,
-+			u32 *table_version);
-+	bool (*rma_detected)(struct ras_core_context *ras_core);
-+	int (*set_timestamp)(struct ras_core_context *ras_core,
-+			u32 timestamp);
-+	int (*reset_ras_table)(struct ras_core_context *ras_core,
-+			u32 *result);
-+	int (*get_record_count)(struct ras_core_context *ras_core,
-+			u32 *count);
-+	int (*get_record)(struct ras_core_context *ras_core,
-+			u32 idx, struct eeprom_err_record *rec);
- };
+-	if (!con->uniras_enabled)
++	if (!con || !con->uniras_enabled)
+ 		return 0;
  
- struct ras_mp1 {
- 	uint32_t mp1_ip_version;
- 	const struct ras_mp1_ip_func *ip_func;
- 	const struct ras_mp1_sys_func *sys_func;
-+	struct mutex op_mutex;
- };
++	ras_mgr = amdgpu_ras_mgr_get_context(adev);
+ 	if (!ras_mgr || !ras_mgr->ras_core)
+ 		return -EINVAL;
  
- int ras_mp1_hw_init(struct ras_core_context *ras_core);
-@@ -50,4 +84,14 @@ int ras_mp1_dump_bank(struct ras_core_context *ras_core,
- 		u32 ecc_type, u32 idx, u64 *regs, u32 regs_sz);
+@@ -748,7 +754,7 @@ int amdgpu_ras_mgr_early_init_service(struct amdgpu_device *adev)
+ 	struct amdgpu_ras_mgr *ras_mgr;
+ 	int ret;
  
- int ras_mp1_set_debug_mode(struct ras_core_context *ras_core, bool enable);
-+int ras_mp1_get_table_version(struct ras_core_context *ras_core,
-+		u32 *table_version);
-+bool ras_mp1_rma_detected(struct ras_core_context *ras_core);
-+int ras_mp1_set_timestamp(struct ras_core_context *ras_core,
-+		u32 timestamp);
-+int ras_mp1_reset_ras_table(struct ras_core_context *ras_core,
-+		u32 *result);
-+int ras_mp1_get_record_count(struct ras_core_context *ras_core, u32 *count);
-+int ras_mp1_get_record(struct ras_core_context *ras_core,
-+		u32 idx, struct eeprom_err_record *rec);
- #endif
+-	if (!con->uniras_enabled)
++	if (!con || !con->uniras_enabled)
+ 		return 0;
+ 
+ 	ras_mgr = amdgpu_ras_mgr_get_context(adev);
 -- 
 2.55.0
 
