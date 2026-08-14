@@ -4,130 +4,102 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05EBAC5CFC1
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 16:29:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E496AC5CFC1
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 16:43:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 951A510E17B;
-	Fri, 14 Aug 2026 16:29:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8173710E584;
+	Fri, 14 Aug 2026 16:43:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="l5YgtCj8";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VReFLjaf";
 	dkim-atps=neutral
-Received: from BN8PR05CU002.outbound.protection.outlook.com
- (mail-eastus2azon11011007.outbound.protection.outlook.com [52.101.57.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3598410E17B
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 16:29:30 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011043.outbound.protection.outlook.com [52.101.62.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7125710E584;
+ Fri, 14 Aug 2026 16:43:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e7rC+rt9uTFzyU8Zzwm1sLTBsYoCu6+WgxlTg+w+ktsmiaetL0Orxt8Go90NDQQ7MYsCPmFIdZu97pUozNUeGsZBl7p44674U776pMsVG13TWhNIS96/h2fEo9G8jtA0MFR4m/fcFKb3ysM4MyKwuAZgYHXbjwfHyNZMuVTKUqKDiHXa+OmVL8z8tZgn+Pl553vaBOnocaM+7qVFpTYfAtQMVFv7QHAjKIxEnKzoCcXR0TQjHjtFwCGzohZQo/OxuHt2lrfaYrZ5nNEz28l8Ituwceq7N/pRRMBwhifhCsXRB0DU20FczmkIdwKGeebwe+fVcP87ASvmJbZ+vteX2Q==
+ b=U2BFq8RBen+rw8H6GNKL/Q3M7cGOFXEvgtU7etFSQDdnUP7BWwrE6Vinxm/a/8efjn/zoldac+2+A+qKLV0bw8ntcln9mDnleB76eX6mQF8w8mlo/1154NJUKgzI+7nfzfS/FVlVgLbKxwHiWoubPAYhYMV7yh6herAb4Bk0hPvwYvT7VbOP2mPxBHHUyKp4oA2yNYB+UAejKA5uyqSeI39eaXNi+TFYVuP4OZvHdBaSp9ra0rf/ddmOhvhIWHYS5FWlzKuCLfX1t8zfVs7xsPJ8R13KN0Yk2bJdszNaDCk+i71uhVf+kinbFK3I5IHNDEcK60mwsS3GhXR+3y0QaQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=RBQure/oDTHRQtIfbi6+eU3NoFuC3QhYniVZR33FrsE=;
- b=gi9mkTY2n69J/VRcCtzw1zv816ZNkMUKVA1o9t3tUDG0pcn1f8ARueR/rYX5gmYGZoDmpEsMLnhtwTbQX/1xOKfpbnIoWHFIRJgJrv/WlHxXoaXuTwIzS5RMZ4kvXg8ZmTtHUKYZRsB0WVaWT0nY1xP4LmvkX0R+ageMFtlZn5IvuuOOvVHZK5knsLCg9vNCSh91Axgv2pXfvUj3QoynCCWUVrcAqIpGEgeM2iE7U/7AwKEiuPZdn2HjvgnNNbIK2OLMUxObUeRqFwnI/eA75CC/2GmEkQlpUOKUelM9bbSJOeej6YyFbGK3JFfHktjtIvVg4BhG87qf5Ma9USgN0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=jDqkSutGDtaOPGlpQNv/KaLWhLWrtK4V6TT+I5NSOq0=;
+ b=EO07/rGz+LEFPfHsHN/lUflD/ilXSiKpUouQHBcWNAJLwKYmPZAX+IO1NpiEctqe3vYme/PAXc1vrO9COFG9nRQSDjcMNDAffgmKRLSjnFv8DPnxDqnTqipW5jvlRoWwvCq5nsH1pWlRZuuctzDGVZvC7ozsRQlvws6qjOKFr+mV5oc0AQUdLIemIjRFEMIxjPBzHwr3JOfLk/LCWOkHnHILDl0wdxEnARUeAIL8C66xg62OddRqKpLlMO09Rd1r5yQfguGiJou0BTi/2CI7poaomZMA9vDFRq+A1kJTxDkQFjfDIwwODxOPFkLO28SNl1d1AzUFf0A8S2Sx8qYv3A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=RBQure/oDTHRQtIfbi6+eU3NoFuC3QhYniVZR33FrsE=;
- b=l5YgtCj8vi1HxzfQwHKpEOEIVLzgfKaLC3BIqYrlpAsDOK70LxIctVwAoFlMJ2j1aAKk8deq0mFsTh4D6XWa0x/RjOfoaNb7ojONQ/DZBh3FzBEQYw7xitoKfPbievqVdf0hPzMI2QiDvQKCtEA5q0Ta4g5pKT1H3m3YtwtPdBg=
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by LV8PR12MB9642.namprd12.prod.outlook.com (2603:10b6:408:295::7)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=jDqkSutGDtaOPGlpQNv/KaLWhLWrtK4V6TT+I5NSOq0=;
+ b=VReFLjafYOZ9ymPqUTCrqZdF9jY22b3a/UIKzLxUnFgvr0XuB+g3b2gBqquK170P3j/BU3TA2f4y+9U5uPlO6HYAcXAs2km1SwSVHlWGvu9RX2C/eHC/kz1tqHVM88MaHmzt6j0pIbw0mAyMptnuDum7I/yriR+Byijg6V5NQD0=
+Received: from BL1PR13CA0009.namprd13.prod.outlook.com (2603:10b6:208:256::14)
+ by IA0PPF04DCE520E.namprd12.prod.outlook.com
+ (2603:10b6:20f:fc04::bc5) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Fri, 14 Aug
- 2026 16:29:26 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0315.014; Fri, 14 Aug 2026
- 16:29:26 +0000
-From: "Lazar, Lijo" <Lijo.Lazar@amd.com>
-To: "Hosur, Priya" <Priya.Hosur@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>, "Deucher, Alexander"
- <Alexander.Deucher@amd.com>, "Khatri, Sunil" <Sunil.Khatri@amd.com>,
- "Kuehling, Felix" <Felix.Kuehling@amd.com>, "Liu, Shaoyun"
- <Shaoyun.Liu@amd.com>, "Limonciello, Mario" <Mario.Limonciello@amd.com>,
- "Koenig, Christian" <Christian.Koenig@amd.com>
-CC: "Vishwakarma, Pratik" <Pratik.Vishwakarma@amd.com>, "Gopalakrishnan,
- Veerabadhran (Veera)" <Veerabadhran.Gopalakrishnan@amd.com>, "Hosur, Priya"
- <Priya.Hosur@amd.com>
-Subject: Re: [PATCH v3 2/2] drm/amdgpu: Add TLB flush after MES user queue
- unmap
-Thread-Topic: [PATCH v3 2/2] drm/amdgpu: Add TLB flush after MES user queue
- unmap
-Thread-Index: AQHdLAimb22PfBCNZEqhjo73LVXY17adu+i/
-Date: Fri, 14 Aug 2026 16:29:26 +0000
-Message-ID: <SA0PR12MB7091D3AE34006DC6797EECD197DA2@SA0PR12MB7091.namprd12.prod.outlook.com>
-References: <20260814161841.5906-1-Priya.Hosur@amd.com>
- <20260814161841.5906-3-Priya.Hosur@amd.com>
-In-Reply-To: <20260814161841.5906-3-Priya.Hosur@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-14T16:28:50.1720513Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-x-ms-reactions: allow
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA0PR12MB7091:EE_|LV8PR12MB9642:EE_
-x-ms-office365-filtering-correlation-id: 135d10ac-bb20-47b9-35e4-08defa2134f9
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|376014|366016|1800799024|4143699003|8096899003|56012099006|10067099003|11063799006|18002099003|22082099003|921020|38070700021;
-x-microsoft-antispam-message-info: qu4vv32cIksYeldGOFQARLHia/lWShP+iA5drdRvfNtmqdIrLbRfJBsp6qVdoqD6Zi0q3hRG+rJ1wdDdudS3cda3IR/BZw0XluzWeBpQ63UeqpnP8a1wft9fo7CxkOQYyLxsk5z1bBQyurRORV8mpi6l+GjV5vjehdd+Y2S1HDiA66uu+HEbGIQ9MppLn9yNpF6P9R0ddiFH18ZE5BjZHAJrVL5RTrMvcZHuiYVmhL7zoM0kcp9v5UY7kXE/Bri6fOL80RbWlQrbMZ4OqrCbuD8vm5I8ye3DqhUajqzaFms3nt5HjyLbMmDXpm5BJUjsXjtCxJNkpLW7DG061W5/TfnMjZPf16wNzTwY6LROobE7t68xO41KDTcxeqr9IFYsVxhTxW1AA97Y8+vqDJSjoei3ByK1FbUrKWD0pwSD/D+9MYrDT17zR+8OcYxCFUxXtfWAj4zzQ0uvWXtpB5kHQfTrfdubCvu0ZUzNYSqhyYSSq1GHIEzLkSzcn0aotu9voWBG5ume2kaMiSDwLqMxjjTThtVuBfnqMbzdvDM6gfg+rgM8fKiysai0yOOdtFeF1iygnUkI6Wp37voTiNJ68Yi9PwQKM0JBHpaDnYHLZqDqSwhSNoQr1uT1RjEnYbbPTk6uEB/+Qqz8SzpzIrCOxi/w3ULRVsQB5OrynJTN/7ZlF70wuxtGSw+2YfkheWf4Go9vNSyGsvQgeD0hlKg5Mle1N6V90y9LT6YkZJRlKrQsRkeKk7gAfUUdfed+zxvF
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(4143699003)(8096899003)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003)(921020)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?naGI06fcehdp+sQN72DqZSXdLD8XiH0m0m6P3Qp1oDKuJm0rfYNdQ3kHtmtR?=
- =?us-ascii?Q?cPpzUy2iirtXYdBE8apdf9mHMbg3nT61/AImG4KUvrjogrVwTn7WBufvBq6j?=
- =?us-ascii?Q?hYXhNjC1qRAl6X1aJbOCb9fhtCiVRIfI8oi1DZ19ANNWgfEbyfgkPuTDzbcs?=
- =?us-ascii?Q?jLRBmZEB9ruxSA/K6j3fcBC5DnaLcryo81OBklZ18LFK9jIzjrvfzRNQtzfV?=
- =?us-ascii?Q?YywDzVntdl9Z2e/nvOmY/LVSveKMxFnhNPaRGHLZJ97KtyPeobUuOHPku+lK?=
- =?us-ascii?Q?QQv+BCShHK3lJpjhJe/1VmRhmGjMkn89KHw9D+SehQ0YynsnVhXWKFej9Xjv?=
- =?us-ascii?Q?2iKEHZYc72olPEUSwaRgJMHC454QG2sJpGGMM/Cx/dUoJTSJP1Hs0LXmbUri?=
- =?us-ascii?Q?t6GqSnC7tMlOInVmkvKpzlPKDrh30BSAkG6YlZQVxeMMq3kynDDU55+utlIl?=
- =?us-ascii?Q?0OMbLM2YFmIfyWhfhGfa8TEG4J8BpEMGMB0W3cj0Y/eu8xsxhw3/IYJxJ5ry?=
- =?us-ascii?Q?zRKMjef/l7mPwtZq7xKZZvi+HD+XMCSu45N4m5Zk10KL5Q7Y5netWCkYrxKb?=
- =?us-ascii?Q?1PqnSo1EM1E/UCH0XKuo9vmdrrAiomLVajwR0tMEfX1Gkk3ZpC8FygF0aIhc?=
- =?us-ascii?Q?lQED7cvpWdv2uvJbg9msvY0gRBep0gqpAQ/36bOvJq2LH9OWpPwRQRnD0qg+?=
- =?us-ascii?Q?8eSoSLlCKSx+UA6NwvJyKUKyx0yqWpTcl4k0B00/O0T/859yjARe4WGg67si?=
- =?us-ascii?Q?GA0NIGMpHTc0Yzlb5wuHjsQTYchRlNjRNhVbgJYc6ZMjjmP5B26o3Dmpm+VT?=
- =?us-ascii?Q?e+TghgP30d/BcW+NGrBQWYJxxEg622PX2N1ZFz1gRxy5Hg7JXD8ZQeH0X/w/?=
- =?us-ascii?Q?mYjpJhIvB5VcDLysM/GtFpnNCqR93ffneymkHGBUnL3BlQL27eEk26Ct/q9d?=
- =?us-ascii?Q?P0pKhPDafk6nQl5TDBXRekcGGQndBc6Jd+Z3CmCwhijzkLvdYDdlbf41rAU/?=
- =?us-ascii?Q?WJJn0rlL5PcTlVUm6LfYxT5tR8aHtAg73i7H8+ppdYGJowWaEyhZmBrihvnV?=
- =?us-ascii?Q?pE/NbNKixdYDKthSAXnFh5Ar7q7Xc8jGnMLQ5BEV3VOzpid3HkHRsQ7qhlIC?=
- =?us-ascii?Q?8i0AHzh3MBSFiCtArABMXM/4h/W0vYvgONa0m8vLBAXExEzrHrhvtBdRIfSx?=
- =?us-ascii?Q?yDiR8Y7uE6tMDIlLhS8oUHn5mUeU6RMPjyU9sp4XdDe5r98di4b7H7t7K2tH?=
- =?us-ascii?Q?0svYnHosyBYI8tujn7LccFj1VrEqXHkbc3Nr0K6HRhYXdqKyVA7FvzNnqqzC?=
- =?us-ascii?Q?yxxYmbQGzDrOJIPeDFbIygpxWmpHMgmpqd/+T2tZjDcFhxbPCTfWDvrCUvgg?=
- =?us-ascii?Q?lkxL0FLR5eqS3eEe7vBBl2sQij8bwbULX7oBr4qvHj2DiFKyk7qGm9RGzOTC?=
- =?us-ascii?Q?b6s/YaGJq9R3jhDal7Zo7UOSDFDVWI/K3bl/LxWK82TUatzZxsasYAQXxHoM?=
- =?us-ascii?Q?ytpyhkuFPGMGR42lHn9Hu5otOWxdblk2pGWecZxqZAew6uqaGbHLnB7H8c+C?=
- =?us-ascii?Q?klofGB2TXKEavQwlILvH2rlZaYpUcOxJxfKGDNdWG6vzkf//VguVwfkEu4lE?=
- =?us-ascii?Q?A/7wgHCmpOidGvsaQr018tzc+QHMrtR/Mwy/xgf8nTC7NtkEVFOo+kEu4DmZ?=
- =?us-ascii?Q?VOTr5v8psBf/AOb8NwHwuPW7gm2uPK+2eqN+IsM0vCBGJY5iTjN1/qlUnAVA?=
- =?us-ascii?Q?oWRdg/Y7Pw=3D=3D?=
-Content-Type: multipart/alternative;
- boundary="_000_SA0PR12MB7091D3AE34006DC6797EECD197DA2SA0PR12MB7091namp_"
+ 2026 16:43:31 +0000
+Received: from BN3PEPF0000B36E.namprd21.prod.outlook.com
+ (2603:10b6:208:256:cafe::87) by BL1PR13CA0009.outlook.office365.com
+ (2603:10b6:208:256::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.5 via Frontend Transport; Fri, 14
+ Aug 2026 16:43:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF0000B36E.mail.protection.outlook.com (10.167.243.165) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.339.0 via Frontend Transport; Fri, 14 Aug 2026 16:43:31 +0000
+Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
+ 2026 11:43:27 -0500
+From: Fangzhi Zuo <jerry.zuo@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <dri-devel@lists.freedesktop.org>, Harry Wentland
+ <harry.wentland@amd.com>, =?UTF-8?q?Tomasz=20Paku=C5=82a?=
+ <tomasz.pakula.oficjalny@gmail.com>, <daniel@fooishbar.org>, Fangzhi Zuo
+ <Jerry.Zuo@amd.com>, Bernhard Berger <bernhard.berger@gmail.com>
+Subject: [PATCH v4 2/4] drm/edid: parse HDMI 2.1 gaming (ALLM/VRR)
+ capabilities from HF-VSDB
+Date: Fri, 14 Aug 2026 12:43:42 -0400
+Message-ID: <20260814164344.3098143-3-jerry.zuo@amd.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260814164344.3098143-1-jerry.zuo@amd.com>
+References: <20260811003921.1398292-1-jerry.zuo@amd.com>
+ <20260814164344.3098143-1-jerry.zuo@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36E:EE_|IA0PPF04DCE520E:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f911497-8b93-4541-18d0-08defa232c87
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700016|23010399003|82310400026|11063799006|5023799004|56012099006|18002099003|22082099003|10067099003|4143699003|6133799003;
+X-Microsoft-Antispam-Message-Info: qbe3puRuU1L7wwBxRs26hOXONez974vFR8XsRdwk4BUdHnN5z7x2+fSWti3K/m3wj97REetzxbxXMV3KAoa7fJ+4yBwcOytsHU+ruQzpvaFpbTyBVZXH066CbUGDc0tpQnV0/CiWpYA62uO380WfQMTRo2vNTZIyGM8QlcENRWuJ8N5cmo/iGKaCvcpHjM00hUA69y+NeuEjlkjn43o/09zN4zcC/w1kW+1O7ZS0eQlkvoBhh5EMktaLL9Pc7wpD4jwFzOmMaMhePRTgjnACMJjkE9oHJEJzs3q5hs8vbS6etw9dVQQ2GOEY9e0AEEjh/G1PHcoRU106rBFKCEhgJSyPGZ8vBm/2X4szlP5daAUWW1xwb4A8QDXQZ937BW0xTUI8xzQnYpoH57VxJgf42S96/n3eil1cfXcxxV+8sd1OSkDReaC+79xaUDfZqAfdYoJZraxmlhkSQWVcLjTR2Hj4SuMVajg3E+ezV9gJSVEoHBYg25VoiZGGAwI18yR6KnDUKbqcammHTNuAtUOFTLhkDVfqx6rnU96mYj38LBpkfD8huYDY7IVQ262hfYNHVadIxox+Z10Wy2L0KM1EPeDZ7m6gVnhzfbIfTTSkGxI9DzIUTCxLA1fKYoO1A3RMPLhZN990KCvDHy0FnAD46J61AnvWc+n6d/fQauO0zZIs0Pt2xh8lUcteW1yB/V9YvC5V4/YK/WlBDnEo9WpSMA==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(36860700016)(23010399003)(82310400026)(11063799006)(5023799004)(56012099006)(18002099003)(22082099003)(10067099003)(4143699003)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: MofEThZQusohMhxdmtp6O+TOu+ONiPdiwVadBPYzUha6OPzUerxM6YWcP7CrI1JOhJtlTDWXEsQAidOGstQmeRNOrXgv71FjLbQgXdlb1kqlrD483MorWI3Nuekkgq/ZO0CvSvncnxjft30HVYa+M+WxjQJRiekRNw06hVZXXkFNhALxe3aZhDzp9JR+ZiDVdKkOQF+yjyMjWxCeqtsNRRRVy1z5SxPP+n3j8bJDG6X8jHwTENgITSHSRZC09NXOYuorskDYO7pIJsaFIMNKNp5cUkMwY8bHFXmP6NTaEweNUI4+fv2N/w4sS3+bYIrFf8EvYn1UM5q5Nycm8iJwu09W/4jcjGBZl4ob92S3Ovum8JV0QWFMFsMh4chCfBgjtY8WJD1sE2JnlbDriImhgOPxyvrjukkrqjYFDq3tikksuhUqbpTUMpp8OPFQBeBp
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 135d10ac-bb20-47b9-35e4-08defa2134f9
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Aug 2026 16:29:26.2306 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KS47Pnxg//ZKt8lolAnkCpZW/+sTmHdzJMPkq19o6XOqcVkwEtMHwbQlEiNA2e1L
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9642
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 16:43:31.0604 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f911497-8b93-4541-18d0-08defa232c87
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36E.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF04DCE520E
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,196 +114,166 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_SA0PR12MB7091D3AE34006DC6797EECD197DA2SA0PR12MB7091namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+From: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
 
-AMD General
+Parse the HDMI 2.1 gaming-related capabilities advertised in the HDMI
+Forum VSDB (HF-VSDB) and expose them through struct drm_hdmi_info so
+drivers can consume them.
 
-Hi,
+Add struct drm_hdmi_vrr_cap describing the sink's VRR capabilities: Fast
+VActive (Quick Frame Transport), Negative M VRR, Cinema VRR, MDelta, and
+the VRRmin/VRRmax range, together with a "supported" flag derived from
+that range. Add the fapa_start_location and allm (Auto Low Latency Mode)
+flags to struct drm_hdmi_info.
 
-Shouldn't this be a FW fix?
+drm_parse_hdmi_gaming_info() reads byte 8 of the HF-VSDB for the
+FAPA/ALLM/FVA/CNMVRR/CinemaVRR/MDelta flags and bytes 9-10 for
+VRRmin/VRRmax. Per HDMI 2.1, VRR is considered supported when VRRmin is
+within 1-48 and VRRmax is either 0 (maximum based on the video mode) or
+>= 100. It is invoked from drm_parse_hdmi_forum_scds(), and the parsed
+values are logged for debugging.
 
-Thanks,
-Lijo
-________________________________
-From: Priya Hosur <Priya.Hosur@amd.com>
-Sent: Friday, 14 August 2026 21:48:40
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deucher,=
- Alexander <Alexander.Deucher@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com=
->; Kuehling, Felix <Felix.Kuehling@amd.com>; Liu, Shaoyun <Shaoyun.Liu@amd.=
-com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Limonciello, Mario <Mario.Limonciel=
-lo@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
-Cc: Vishwakarma, Pratik <Pratik.Vishwakarma@amd.com>; Gopalakrishnan, Veera=
-badhran (Veera) <Veerabadhran.Gopalakrishnan@amd.com>; Hosur, Priya <Priya.=
-Hosur@amd.com>
-Subject: [PATCH v3 2/2] drm/amdgpu: Add TLB flush after MES user queue unma=
-p
-
-Similar to the KFD fix, MES does not perform heavy-weight TLB
-invalidation after unmapping user queues. Add
-amdgpu_gmc_flush_gpu_tlb_pasid() after MES unmap succeeds in
-amdgpu_userq_unmap_helper() to ensure in-flight memory accesses
-complete before memory is freed or migrated.
-
-Change-Id: I94fe2c84547723b6b73816ce8d727a54bd773a6a
-Signed-off-by: Priya Hosur <Priya.Hosur@amd.com>
+Signed-off-by: Tomasz Pakuła <tomasz.pakula.oficjalny@gmail.com>
+Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
+Tested-by: Bernhard Berger <bernhard.berger@gmail.com>
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/drm_edid.c  | 42 +++++++++++++++++++++++++++++++++
+ include/drm/drm_connector.h | 47 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 89 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_userq.c
-index 6d3ed55e9ab4..9fcf15d69b7b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -375,6 +375,12 @@ static int amdgpu_userq_unmap_helper(struct amdgpu_use=
-rmode_queue *queue)
-                 } else {
-                         trace_amdgpu_userq_state_changed(queue, AMDGPU_USE=
-RQ_STATE_UNMAPPED);
-                         queue->state =3D AMDGPU_USERQ_STATE_UNMAPPED;
-+                       /*
-+                        * Heavy-weight TLB flush after MES unmaps queue to=
- ensure
-+                        * in-flight memory accesses complete before memory=
- is freed/migrated.
-+                        * MES does not do this automatically unlike HWS.
-+                        */
-+                       amdgpu_gmc_flush_gpu_tlb_pasid(adev, queue->vm->pas=
-id, 2, true, 0);
-                 }
-         }
+diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
+index ae26618a9a57..d508ec633c9b 100644
+--- a/drivers/gpu/drm/drm_edid.c
++++ b/drivers/gpu/drm/drm_edid.c
+@@ -6182,6 +6182,33 @@ static void drm_parse_ycbcr420_deep_color_info(struct drm_connector *connector,
+ 	hdmi->y420_dc_modes = dc_mask;
+ }
+ 
++static void drm_parse_hdmi_gaming_info(struct drm_hdmi_info *hdmi, const u8 *db)
++{
++	struct drm_hdmi_vrr_cap *vrr = &hdmi->vrr_cap;
++
++	if (cea_db_payload_len(db) < 8)
++		return;
++
++	hdmi->fapa_start_location = db[8] & DRM_EDID_FAPA_START_LOCATION;
++	hdmi->allm = db[8] & DRM_EDID_ALLM;
++	vrr->fva = db[8] & DRM_EDID_FVA;
++	vrr->cnmvrr = db[8] & DRM_EDID_CNMVRR;
++	vrr->cinema_vrr = db[8] & DRM_EDID_CINEMA_VRR;
++	vrr->mdelta = db[8] & DRM_EDID_MDELTA;
++
++	if (cea_db_payload_len(db) < 9)
++		return;
++
++	vrr->vrr_min = db[9] & DRM_EDID_VRR_MIN_MASK;
++	vrr->supported = (vrr->vrr_min > 0 && vrr->vrr_min <= 48);
++
++	if (cea_db_payload_len(db) < 10)
++		return;
++
++	vrr->vrr_max = (db[9] & DRM_EDID_VRR_MAX_UPPER_MASK) << 2 | db[10];
++	vrr->supported &= (vrr->vrr_max == 0 || vrr->vrr_max >= 100);
++}
++
+ static void drm_parse_dsc_info(struct drm_hdmi_dsc_cap *hdmi_dsc,
+ 			       const u8 *hf_scds)
+ {
+@@ -6308,6 +6335,8 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
+ 
+ 	drm_parse_ycbcr420_deep_color_info(connector, hf_scds);
+ 
++	drm_parse_hdmi_gaming_info(&connector->display_info.hdmi, hf_scds);
++
+ 	if (cea_db_payload_len(hf_scds) >= 11 && hf_scds[11]) {
+ 		drm_parse_dsc_info(hdmi_dsc, hf_scds);
+ 		dsc_support = true;
+@@ -6317,6 +6346,19 @@ static void drm_parse_hdmi_forum_scds(struct drm_connector *connector,
+ 		    "[CONNECTOR:%d:%s] HF-VSDB: max TMDS clock: %d KHz, HDMI 2.1 support: %s, DSC 1.2 support: %s\n",
+ 		    connector->base.id, connector->name,
+ 		    max_tmds_clock, str_yes_no(max_frl_rate), str_yes_no(dsc_support));
++	drm_dbg_kms(connector->dev,
++		    "[CONNECTOR:%d:%s] FAPA in blanking: %s, ALLM support: %s, Fast Vactive support: %s\n",
++		    connector->base.id, connector->name, str_yes_no(hdmi->fapa_start_location),
++		    str_yes_no(hdmi->allm), str_yes_no(hdmi->vrr_cap.fva));
++	drm_dbg_kms(connector->dev,
++		    "[CONNECTOR:%d:%s] Negative M VRR support: %s, CinemaVRR support: %s, Mdelta: %d\n",
++		    connector->base.id, connector->name, str_yes_no(hdmi->vrr_cap.cnmvrr),
++		    str_yes_no(hdmi->vrr_cap.cinema_vrr), hdmi->vrr_cap.mdelta);
++	drm_dbg_kms(connector->dev,
++		    "[CONNECTOR:%d:%s] VRRmin: %u, VRRmax: %u, VRR supported: %s\n",
++		    connector->base.id, connector->name, hdmi->vrr_cap.vrr_min,
++		    hdmi->vrr_cap.vrr_max, str_yes_no(hdmi->vrr_cap.supported));
++
+ }
+ 
+ static void drm_parse_hdmi_deep_color_info(struct drm_connector *connector,
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index cd06a3b914a0..9f8f109c2dd1 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -254,6 +254,44 @@ struct drm_scdc {
+ 	struct drm_scrambling scrambling;
+ };
+ 
++/**
++ * struct drm_hdmi_vrr_cap - Information about VRR capabilities of a HDMI sink
++ *
++ * Describes the VRR support provided by HDMI 2.1 sink. The information is
++ * fetched fom additional HFVSDB blocks defined for HDMI 2.1.
++ */
++struct drm_hdmi_vrr_cap {
++	/** @fva: flag for Fast VActive (Quick Frame Transport) support */
++	bool fva;
++
++	/** @mcnmvrr: flag for Negative M VRR support */
++	bool cnmvrr;
++
++	/** @mcinema_vrr: flag for Cinema VRR support */
++	bool cinema_vrr;
++
++	/** @mdelta: flag for limited frame-to-frame compensation support */
++	bool mdelta;
++
++	/**
++	 * @vrr_min : minimum supported variable refresh rate in Hz.
++	 * Valid values only inide 1 - 48 range
++	 */
++	u16 vrr_min;
++
++	/**
++	 * @vrr_max : maximum supported variable refresh rate in Hz (optional).
++	 * Valid values are either 0 (max based on video mode) or >= 100
++	 */
++	u16 vrr_max;
++
++	/**
++	 * @supported: flag for vrr support based on checking for VRRmin and
++	 * VRRmax values having correct values.
++	 */
++	bool supported;
++};
++
+ /**
+  * struct drm_hdmi_dsc_cap - DSC capabilities of HDMI sink
+  *
+@@ -330,6 +368,15 @@ struct drm_hdmi_info {
+ 	/** @max_lanes: supported by sink */
+ 	u8 max_lanes;
+ 
++	/** @fapa_start_location: flag for the FAPA in blanking support */
++	bool fapa_start_location;
++
++	/** @allm: flag for Auto Low Latency Mode support by sink */
++	bool allm;
++
++	/** @vrr_cap: VRR capabilities of the sink */
++	struct drm_hdmi_vrr_cap vrr_cap;
++
+ 	/** @dsc_cap: DSC capabilities of the sink */
+ 	struct drm_hdmi_dsc_cap dsc_cap;
+ };
+-- 
+2.53.0
 
---
-2.43.0
-
-
---_000_SA0PR12MB7091D3AE34006DC6797EECD197DA2SA0PR12MB7091namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-</head>
-<body>
-<p style=3D"font-family:Calibri;font-size:10pt;color:#0000FF;margin:5pt;fon=
-t-style:normal;font-weight:normal;text-decoration:none;" align=3D"Left">
-AMD General<br>
-</p>
-<br>
-<div>
-<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
-system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(3=
-3, 33, 33);">
-Hi,</div>
-<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
-system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(3=
-3, 33, 33);">
-<br>
-</div>
-<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
-system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(3=
-3, 33, 33);">
-Shouldn't this be a FW fix?</div>
-<div id=3D"ms-outlook-mobile-body-separator-line" data-applydefaultfontstyl=
-es=3D"true" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system=
-, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;" dir=3D"auto">
-<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
-system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt;">
-<br>
-</div>
-</div>
-<div style=3D"font-family: Aptos, Aptos_MSFontService, -apple-system, Robot=
-o, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(33, 33, 33);" =
-id=3D"ms-outlook-mobile-signature" dir=3D"auto">
-<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
-system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(3=
-3, 33, 33);">
-Thanks,</div>
-<div dir=3D"auto" style=3D"font-family: Aptos, Aptos_MSFontService, -apple-=
-system, Roboto, Arial, Helvetica, sans-serif; font-size: 12pt; color: rgb(3=
-3, 33, 33);">
-Lijo</div>
-</div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Priya Hosur &lt;Priya=
-.Hosur@amd.com&gt;<br>
-<b>Sent:</b> Friday, 14 August 2026 21:48:40<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;; Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Khatri, Sunil &l=
-t;Sunil.Khatri@amd.com&gt;; Kuehling, Felix &lt;Felix.Kuehling@amd.com&gt;;=
- Liu, Shaoyun &lt;Shaoyun.Liu@amd.com&gt;; Lazar, Lijo &lt;Lijo.Lazar@amd.c=
-om&gt;;
- Limonciello, Mario &lt;Mario.Limonciello@amd.com&gt;; Koenig, Christian &l=
-t;Christian.Koenig@amd.com&gt;<br>
-<b>Cc:</b> Vishwakarma, Pratik &lt;Pratik.Vishwakarma@amd.com&gt;; Gopalakr=
-ishnan, Veerabadhran (Veera) &lt;Veerabadhran.Gopalakrishnan@amd.com&gt;; H=
-osur, Priya &lt;Priya.Hosur@amd.com&gt;<br>
-<b>Subject:</b> [PATCH v3 2/2] drm/amdgpu: Add TLB flush after MES user que=
-ue unmap</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">Similar to the KFD fix, MES does not perform heavy=
--weight TLB<br>
-invalidation after unmapping user queues. Add<br>
-amdgpu_gmc_flush_gpu_tlb_pasid() after MES unmap succeeds in<br>
-amdgpu_userq_unmap_helper() to ensure in-flight memory accesses<br>
-complete before memory is freed or migrated.<br>
-<br>
-Change-Id: I94fe2c84547723b6b73816ce8d727a54bd773a6a<br>
-Signed-off-by: Priya Hosur &lt;Priya.Hosur@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 6 ++++++<br>
-&nbsp;1 file changed, 6 insertions(+)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_userq.c<br>
-index 6d3ed55e9ab4..9fcf15d69b7b 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c<br>
-@@ -375,6 +375,12 @@ static int amdgpu_userq_unmap_helper(struct amdgpu_use=
-rmode_queue *queue)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; } else {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; trace=
-_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_UNMAPPED);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue=
--&gt;state =3D AMDGPU_USERQ_STATE_UNMAPPED;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; /*<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * Heavy-we=
-ight TLB flush after MES unmaps queue to ensure<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * in-fligh=
-t memory accesses complete before memory is freed/migrated.<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; * MES does=
- not do this automatically unlike HWS.<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; amdgpu_gmc_flush=
-_gpu_tlb_pasid(adev, queue-&gt;vm-&gt;pasid, 2, true, 0);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&nbsp;<br>
--- <br>
-2.43.0<br>
-<br>
-</div>
-</span></font></div>
-</div>
-</body>
-</html>
-
---_000_SA0PR12MB7091D3AE34006DC6797EECD197DA2SA0PR12MB7091namp_--
