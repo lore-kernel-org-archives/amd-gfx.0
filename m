@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9028BC5B572
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 21:03:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74058C5DF6E
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 21:03:40 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0092710F6F5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B928910F709;
 	Fri, 14 Aug 2026 21:03:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RPXo7wKJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zX8eCSgN";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010069.outbound.protection.outlook.com
- [52.101.193.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 894DC10F6E2
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 21:03:38 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012047.outbound.protection.outlook.com [52.101.43.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 722B610F6F5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 21:03:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=LVJnhbi7B0KgbAp3/Y7NVDAZj8AqqaiUa4OQa4vZgGfsIXFZodCUlbgJc0c6Yyz5hj6nn3UfU2hQv32FWjmMFH+v19F9DXURLyrFrSkQhv5ZfmtN7wJ2zY0/7kXWBg3g7Dl+IQI+lHIK/o6478N2zaztJPWOSfEAhqN1QpuR25wiLHmo2Fv9wBb9ZRlfNCxFTblO6KJUnnf6PmQyD4s4JpAUesEJhmog+pcjsojKYxNJjMRhNaWpcEOBh5eUfKt0UxVaBDtmSfE+B+T8OteQbgC9336xHXIeikj3nY85NFiUb+o1e1qxYjbKj2RtX0BTBqjJOZCEQUc+hjGl8BnEPA==
+ b=b0RJdCnb4d2Ce72RhqZF0+YQJwFyK6E1JDIIPZkbZTrmXJloZLAoFU47zxp+HUftyN3fIxU65gv3W6ami+dBJYk5e9XY95X/zuDm3AZdzcZYcrsAiSJiWFFsBYppbx6Y0ADslxABcUQzNCYiUoNJgRXBDfuYEzYD1r45M6/CA8t4YYl3X47TFZBHSF+vMesF0qCID5v36/Jnqjg7J/aX4XGRCaBQ2/dj2LnNpSEycKL4ue7pKsoVOs5ro9w+qQVSuMUJgAvJ8ru/dnKwFiliUAZjQUr2RAQ++rnylHBdtwVzpZV30ZgesofEAJgVSEH7s+DcU4t82U1xqYAxF71UWw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/s/GvCrhSNTNDPsnMdgEodfDyORFnWEcf1kUbWWAC1c=;
- b=RA4kIBNTdmG9ng7U0r7My7WY8QdBtVDweM5FqGA/MMpnAaMKJK/YRDP/CMMsGYyZNe3r+a4ktHILvlHtSVb1PuMDqgcsCTl/qXnfKQ7ZrF4rzHUiCBpfVPhvI6A4ok/N6nqDOohf6C5cqTJtDXCEMABM7QOx7Rgo6DakvgA6bIZSHiqbWLBSKIXvD9PMsJKhmY9hJePr7EtDmnF7CInpes+UsKhQ++nUiGVCBZYqea9s95Qp9pVqBgpNktN13rjM8y4MWkkUE4HfJTC3AlljXgkxhMuC8tFzMoEQmbdFOXbOsCIt46t0yC6WmcmdIHMyj7xnEDuhlz1JdBRnqOQfsA==
+ bh=Wi/HtnbGrP0pE16zpwCQjXmdhj4SJdYZz1pjlpH5P2k=;
+ b=F3vyezt7ZsC6x0ccnkRZ04P5W8gpecgrCVRCt7RFw7ODwhkExHZTlaUzL15q2FAplC39J8vGAWj/qOpW0uiefTusIupGJUalDPSynw++p0neKbPr0CmUtYNlZiwW713RbaN76HJbn7AWdyMd0sVDbWsHsHE9VkAJuLCOvL4AuFR0gjCIQh4CgpwmWuAcYbSkqBJJKGHV5gwsDMJNgxUJuzrG2M4goUf1/avmO4pIUL7Hy5wssgpwNbQxRrsd2mYvwx0UhkcWnnnd2eb34zkC2wSqJsIuw2R3BGugfwW3RCyC3C7036cEKXse+YKl2VkIf4KTpjoTQayXwFuP86MP8w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/s/GvCrhSNTNDPsnMdgEodfDyORFnWEcf1kUbWWAC1c=;
- b=RPXo7wKJeqyVwfhbDEsR43pBLcpzqPlyFoHB7lGchN+jCxV11prGTq+0naRvm+wkz1PcdPflbZjefRFXcpMPcQ+9w7G8PF29Hj3rRoizE3fTBGk0UC4jxjNuFKy/yShxSw5yIrgnA6z1oK227CVaPulJOcNfE6MzufA4/nlwENc=
-Received: from CH0PR04CA0011.namprd04.prod.outlook.com (2603:10b6:610:76::16)
- by DM6PR12MB4044.namprd12.prod.outlook.com (2603:10b6:5:21d::17) with
+ bh=Wi/HtnbGrP0pE16zpwCQjXmdhj4SJdYZz1pjlpH5P2k=;
+ b=zX8eCSgNX+pXf4Ce5KUYyn2PQyGS0GVc0jC+2O3j+HUh9UY1RJuOyjJoYhxUbs5MlZwXDIhUqJR/r26Fjs5zAX42hY7RyynNwq2rcnY2YuWQxSoAnTBJvF/nVC48uJG+4iAXzM0hbo/n5/F614qrsWGGOZRiTXZLhjYDlqjdJ7U=
+Received: from CH0P220CA0026.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:ef::22)
+ by PH8PR12MB7159.namprd12.prod.outlook.com (2603:10b6:510:229::10) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.16; Fri, 14 Aug
- 2026 21:03:35 +0000
-Received: from CH3PEPF00000016.namprd21.prod.outlook.com
- (2603:10b6:610:76:cafe::73) by CH0PR04CA0011.outlook.office365.com
- (2603:10b6:610:76::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Fri, 14 Aug
+ 2026 21:03:23 +0000
+Received: from CH3PEPF00000011.namprd21.prod.outlook.com
+ (2603:10b6:610:ef:cafe::ac) by CH0P220CA0026.outlook.office365.com
+ (2603:10b6:610:ef::22) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.16 via Frontend Transport; Fri,
- 14 Aug 2026 21:03:35 +0000
+ 14 Aug 2026 21:03:22 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,24 +48,23 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF00000016.mail.protection.outlook.com (10.167.244.121) with Microsoft
+ CH3PEPF00000011.mail.protection.outlook.com (10.167.244.116) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.0 via Frontend Transport; Fri, 14 Aug 2026 21:03:35 +0000
+ 15.21.360.0 via Frontend Transport; Fri, 14 Aug 2026 21:03:22 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 16:03:29 -0500
+ 2026 16:03:16 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 14 Aug 2026 16:03:28 -0500
+ Transport; Fri, 14 Aug 2026 16:03:16 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: YiPeng Chai <YiPeng.Chai@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>, 
+CC: Candice Li <candice.li@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 052/109] drm/amd/ras: use record count instead of bad page
- count for EEPROM threshold checking
-Date: Fri, 14 Aug 2026 17:01:49 -0400
-Message-ID: <20260814210246.3067612-53-alexander.deucher@amd.com>
+Subject: [PATCH 032/109] drm/amdgpu: update UMC active_mask to u64
+Date: Fri, 14 Aug 2026 17:01:29 -0400
+Message-ID: <20260814210246.3067612-33-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260814210246.3067612-1-alexander.deucher@amd.com>
 References: <20260814210246.3067612-1-alexander.deucher@amd.com>
@@ -75,29 +73,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000016:EE_|DM6PR12MB4044:EE_
-X-MS-Office365-Filtering-Correlation-Id: 221ff617-e4f3-46b4-bee5-08defa4781b8
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000011:EE_|PH8PR12MB7159:EE_
+X-MS-Office365-Filtering-Correlation-Id: a0abdb66-48f0-4736-a057-08defa4779be
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|82310400026|36860700016|376014|22082099003|18002099003|56012099006|6133799003|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: ijGPPOvmhtaPnDNAuadsGLUXT6blDpnD+SQGNWy0ozeuPX3RwkrmVSvMASG5tYiacQRX9aXbvsdw7X5aOU5ZnQyMwnuic35ARfiEpnl5Qa4EOZcuUxs1qRna4BSKfXbRQAeYsuXUDjWpzn/MiWBISdP9aK6M680Nbl/g0UCwO+yvMhy/lEDIcJe7bmKz+2RhNpKmry3XSJhjKSrwxY5veV6fl8Z8+uENSQgc4mw66lEUu2Mwqdvnjrq2Vqri4OB/GfA3W4RlXKRvQ9KDdAPaiuU1U5ZCXTIy7hLEaEwsNu/2zaOF0vMCp3una75fECHDRtGrLEFKHXGo3G8U8KWD73lHR3xxhyVuT4tHN0ITxLWhwzR2mc9WEGzPxTf28HMnyqHPH3XzbSkTuGLVH5WKOtbB133LBhLiqYyh/Gl5m5Ox7Ac/95/7K2hkmTgi7l3UxMNOi7a1429jZzB642HrEiq16SygDBLc/RSOjNLFg2WRhUJdMIB4/MiUi2PBv7NKHLPSoQb8sRjCAmrpsVfZD2MWXh56+R9VdRA6/wC70hBehEmJKyTxztz8wVdzESwWDd/YcSWrVvfYAo6Y5Xb/kH/MV3dia/d6yk/fEQ5wvjeE0XGq+yoYOuZqNygBbXZzjPUyjynOLe6XxPd9TC7baOnDpLhrZQ2GGJDE7vwOApo=
+ ARA:13230040|1800799024|376014|36860700016|82310400026|23010399003|10067099003|11063799006|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: FjGEdZEccMBVYJTDYv+NS7OJ2doup97S8d+OsGD7MKlGQezZuoZFWW4lu7b9ppyTyrX9QlFTTfdCNWXD+QMlaLF5A5OcvJM5MgRs+yA56x/XkmA44k6ZXQ5HZo5/Lq9FehulZlCQQOSAx47oJcohnfCgs4Un4NTveDh0G7SV0agGqupSZ0wXuCjd3Lxd/HXe6gdsI2dcb+IKy8FxZMAygXWjBmlsLvq6jc3Qb66EFhz6WFYC7Ic2wNUh/y4/V8fMqzcDdPf+nXnQY0QZiMUs2yaE54vG3OMrDUbU15A26R9o3GjcOXQ0OTdBscbf7OUIg5GcPneSXvsfpcCXtbfSrEpY2wCDLZAhv4o/MkzVG8zsaC8jdcROesKx2XyYEGXECCeseZ64IAdxhE0pTqdq0ZPm5hLnHB1AainJzCcjfo6esOcDxRw2gYpFiN9gKyg89xGU3XJEDRvxfmGQk693fh7B+PVG3FhlbQ0/eO0pl19Cv1UgMAf0gmEFcKqh7ErtJ4ZvoKV3Xb77Ku4DKYXQWkdc1BbCRYvi2YS69SISLjQ/Zf1DiAUjvYCVIXUGGzYuJ+/Drcll5yoPwKzMFb/nig1rgC/gS4OP1Gw2ibA3O/y8CoO1KBXNfDg69qCM14Pktwohzw0g6FAiM+SZ44Von1DnnRuWNKhXUXeRMvksIrA=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(82310400026)(36860700016)(376014)(22082099003)(18002099003)(56012099006)(6133799003)(11063799006)(10067099003);
+ SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(23010399003)(10067099003)(11063799006)(22082099003)(18002099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Gxpmdf3H1v4H2DjkV+v893RkMbw/txdIOgBSxHY05aSUtsjxymNxvJNVfJE64JnuNx6Z6xHXR4vgKh5AWUocOlMK3fOzGWpLIFlYeR8Ca7YFPVOPBDgaOMyfKCfU7zosiFwZEhwZz9ABQn+cE+xHtAbGm/WeWLzosaVwIPmZU/8zJtOmUz7O1w/T5wHCL9Rjuts1FFoJZx0wQ3WCJ2MmVuYPJKpzAQTASHB6+9w93j5pF8HKiv0aPvYfzPWvb7HStCjtJPbpsyouCQ4hSDm0mtipaqrcVcoHCQAWlinqcAKC5wyKjVFljZj/eQYsdELXA5WyNxu3DR03/Ch6FSGp6Fre8bVZZiNtoVbSL/cOlXnxHm3dPR1lMdiYV9O1CM2vHcSYBcgb8bpRDIVaYql82dZkHQqdA/+KiMCEEKN5/bIQ75OSUnpTT96Y5yju3dw8
+X-MS-Exchange-AntiSpam-MessageData-0: c/9/+GDypQWUkG6W81X8u0Cl1Hu/5aXBaLE2tjh12PgajfqN2D08R1t+Xezre/76Dw0F0dEgt3I6qJirCBSAK0MXPI72KWoaqrc/f3ovE400GgCIiMwAWBdWj2G5NgOFj6BSoAMRBC7PbX82ZRKOxXl9AZEh+M2BeuqZqzXphjb8usvMenZ9141fvRna0nnV9rdR9Fbkm4uVg5niuxREQXb22itN4nP+e05PS04cEP9q1In68TaArvV4JB2pzyWQTDbJnjOnSKJhwmj9ZwxouwTXc1s8AftnM5teoExk18oOCG9KsPRsafzaxKKpCV+B1WbACi1TXRRDZvL4/STihCknv14TXXXw1bPQTTO4Su0QeYi9UXj75IVx5KsAEqJAyEjIQN7lFyfCx1KmiiWCQ3KevrmciNLR5d4jgFJ9oRVPHKUyHuDI/gOo+4P2eoxg
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 21:03:35.8855 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 221ff617-e4f3-46b4-bee5-08defa4781b8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 21:03:22.4789 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0abdb66-48f0-4736-a057-08defa4779be
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000016.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000011.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4044
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7159
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,78 +110,106 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: YiPeng Chai <YiPeng.Chai@amd.com>
+From: Candice Li <candice.li@amd.com>
 
-- Since EEPROM threshold configuration is record count, use
-  record count instead of bad page count for EEPROM threshold
-  checking.
-- RMA check and notification have been moved to ras_eeprom_mgr.
+amdgpu_umc.active_mask is widened to u64 to
+match 64-bit harvest masks and avoid LP32
+unsigned long width limits.
 
-Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+Fix UMC harvest bitmask (drop le16 on u8, use 1ULL shift).
+
+Signed-off-by: Candice Li <candice.li@amd.com>
 Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/ras/core/eeprom.c | 28 ++++++---------------------
- 1 file changed, 6 insertions(+), 22 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c | 25 +++++++++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h |  8 +-------
+ 2 files changed, 18 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/ras/core/eeprom.c b/drivers/gpu/drm/amd/ras/core/eeprom.c
-index 01e4cde581f42..6b8f9fec5da80 100644
---- a/drivers/gpu/drm/amd/ras/core/eeprom.c
-+++ b/drivers/gpu/drm/amd/ras/core/eeprom.c
-@@ -732,35 +732,20 @@ static int ras_eeprom_append_table(struct ras_eeprom_control *control,
- static int ras_eeprom_update_header(struct ras_eeprom_control *control)
- {
- 	struct ras_core_context *ras_core = to_ras_core_context(control->mgr);
--	int threshold_config = control->record_threshold_config;
- 	u8 *buf, *pp, csum;
- 	u32 buf_size;
--	int bad_page_count;
-+	int record_count;
- 	int res;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+index 986f307630f61..34702e5cb1b6c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.c
+@@ -21,6 +21,7 @@
+  *
+  */
  
--	bad_page_count = ras_umc_get_badpage_count(ras_core);
--	ras_core_event_notify(ras_core, RAS_EVENT_ID__UPDATE_BAD_PAGE_NUM,
--			      &bad_page_count);
--
-+	record_count = ras_umc_get_saved_eeprom_count(ras_core);
- 	/* Modify the header if it exceeds.
++#include <linux/bitmap.h>
+ #include <linux/sort.h>
+ #include "amdgpu.h"
+ #include "umc_v6_7.h"
+@@ -426,6 +427,7 @@ static int amdgpu_umc_loop_all_aid(struct amdgpu_device *adev, umc_func func,
+ 	uint32_t node_inst;
+ 	uint32_t umc_inst;
+ 	uint32_t ch_inst;
++	DECLARE_BITMAP(umc_bitmap, 64);
+ 	int ret;
+ 
+ 	/*
+@@ -435,9 +437,10 @@ static int amdgpu_umc_loop_all_aid(struct amdgpu_device *adev, umc_func func,
+ 	 * umc.node_inst_num = maximum number of node instances
+ 	 * Channel instances are not assumed to be harvested.
  	 */
--	if (threshold_config != 0 &&
--		bad_page_count > control->record_threshold_count) {
--		RAS_DEV_WARN(ras_core->dev,
--			"Saved bad pages %d reaches threshold value %d\n",
--			bad_page_count, control->record_threshold_count);
-+	if (record_count >= control->record_threshold_count) {
- 		control->tbl_hdr.header = RAS_TABLE_HDR_BAD;
- 		if (control->tbl_hdr.version >= RAS_TABLE_VER_V2_1) {
- 			control->tbl_rai.rma_status = RAS_GPU_RETIRED__ECC_REACH_THRESHOLD;
- 			control->tbl_rai.health_percent = 0;
+-	dev_dbg(adev->dev, "active umcs :%lx umc_inst per node: %d",
++	dev_dbg(adev->dev, "active umcs :%llx umc_inst per node: %d",
+ 		adev->umc.active_mask, adev->umc.umc_inst_num);
+-	for_each_set_bit(umc_node_inst, &(adev->umc.active_mask),
++	bitmap_from_u64(umc_bitmap, adev->umc.active_mask);
++	for_each_set_bit(umc_node_inst, umc_bitmap,
+ 			 adev->umc.node_inst_num * adev->umc.umc_inst_num) {
+ 		node_inst = umc_node_inst / adev->umc.umc_inst_num;
+ 		umc_inst = umc_node_inst % adev->umc.umc_inst_num;
+@@ -470,12 +473,18 @@ int amdgpu_umc_loop_channels(struct amdgpu_device *adev,
+ 		return amdgpu_umc_loop_all_aid(adev, func, data);
+ 
+ 	if (adev->umc.node_inst_num) {
+-		LOOP_UMC_EACH_NODE_INST_AND_CH(node_inst, umc_inst, ch_inst) {
+-			ret = func(adev, node_inst, umc_inst, ch_inst, data);
+-			if (ret) {
+-				dev_err(adev->dev, "Node %d umc %d ch %d func returns %d\n",
+-					node_inst, umc_inst, ch_inst, ret);
+-				return ret;
++		DECLARE_BITMAP(umc_bitmap, 64);
++
++		bitmap_from_u64(umc_bitmap, adev->umc.active_mask);
++		for_each_set_bit(node_inst, umc_bitmap, adev->umc.node_inst_num) {
++			LOOP_UMC_INST_AND_CH(umc_inst, ch_inst) {
++				ret = func(adev, node_inst, umc_inst, ch_inst, data);
++				if (ret) {
++					dev_err(adev->dev,
++						"Node %d umc %d ch %d func returns %d\n",
++						node_inst, umc_inst, ch_inst, ret);
++					return ret;
++				}
+ 			}
  		}
--
--		if ((threshold_config != WARN_NONSTOP_OVER_THRESHOLD) &&
--			(threshold_config != NONSTOP_OVER_THRESHOLD))
--			ras_core->is_rma = true;
--
--		/* ignore the -ENOTSUPP return value */
--		ras_core_event_notify(ras_core, RAS_EVENT_ID__DEVICE_RMA, NULL);
- 	}
+ 	} else {
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
+index b2a3db60d231e..9e6d8681b0731 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_umc.h
+@@ -45,12 +45,6 @@
+ #define LOOP_UMC_CH_INST(ch_inst) for ((ch_inst) = 0; (ch_inst) < adev->umc.channel_inst_num; (ch_inst)++)
+ #define LOOP_UMC_INST_AND_CH(umc_inst, ch_inst) LOOP_UMC_INST((umc_inst)) LOOP_UMC_CH_INST((ch_inst))
  
- 	if (control->tbl_hdr.version >= RAS_TABLE_VER_V2_1)
-@@ -801,11 +786,10 @@ static int ras_eeprom_update_header(struct ras_eeprom_control *control)
- 	 * bad page records have been stored in eeprom,
- 	 * now calculate gpu health percent
- 	 */
--	if (threshold_config != 0 &&
--	    control->tbl_hdr.version >= RAS_TABLE_VER_V2_1 &&
--	    bad_page_count <= control->record_threshold_count)
-+	if (control->tbl_hdr.version >= RAS_TABLE_VER_V2_1 &&
-+	    record_count <= control->record_threshold_count)
- 		control->tbl_rai.health_percent = ((control->record_threshold_count -
--			bad_page_count) * 100) / control->record_threshold_count;
-+			record_count) * 100) / control->record_threshold_count;
+-#define LOOP_UMC_NODE_INST(node_inst) \
+-		for_each_set_bit((node_inst), &(adev->umc.active_mask), adev->umc.node_inst_num)
+-
+-#define LOOP_UMC_EACH_NODE_INST_AND_CH(node_inst, umc_inst, ch_inst) \
+-		LOOP_UMC_NODE_INST((node_inst)) LOOP_UMC_INST_AND_CH((umc_inst), (ch_inst))
+-
+ /* Page retirement tag */
+ #define UMC_ECC_NEW_DETECTED_TAG       0x1
+ /*
+@@ -117,7 +111,7 @@ struct amdgpu_umc {
+ 	struct amdgpu_umc_ras *ras;
  
- 	/* Recalc the checksum.
- 	 */
+ 	/* active mask for umc node instance */
+-	unsigned long active_mask;
++	u64 active_mask;
+ 
+ 	unsigned long err_addr_cnt;
+ };
 -- 
 2.55.0
 
