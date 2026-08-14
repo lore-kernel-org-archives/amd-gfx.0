@@ -4,123 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7093DC5CFC1
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 07:06:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 781D8C5B572
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 07:07:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D775110E3B1;
-	Fri, 14 Aug 2026 07:06:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA96010F28D;
+	Fri, 14 Aug 2026 07:07:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rZ1EUxQG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="3fYxv6eS";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013011.outbound.protection.outlook.com
- [40.93.196.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E877810E3B1
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 07:06:27 +0000 (UTC)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012025.outbound.protection.outlook.com
+ [40.107.200.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 76B3610F0E9
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 07:07:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Dk88VjJiyNMrRsq7FifaearqUdRcG0aGfxDeV4upR4goW+ZyxQ5fe6T1pvdTDk9YjjgTTJNtEdaHyPhj5IG+4m7CuowHxhOS28/mApn4lPYVOwCJg5LeOZdMsqp64/J0SN9deZ5+Pa4pBDkxRMuA1LNr9iTtN9id+4FII8krlrloVt/j+4jPTDXQ+r0shqk13HnBsAQsze0wjU4vZ+8gfuQv9dv1iSN2SV/NBw6PIVdBsVD+U/pLK8l7sqUU6/o6T6sc0qM3MkzfTpOiWpJw3DToCtUOAA/2rTr867bdR2RHXxqEL52eG75vGLRnnEp2s7UjPjssHEypVIbmazZiSA==
+ b=ZfoV1KUNaOQ4mfVJzd+mrVaip5kYuP/jZ5favKU7nWje1HTNF+AKpvQDOtwg7BCWBH6bWs6lOMxBTiquiWRhIK871IPxO+ebuy7FycRnDfdspZZogiSfWM+38C1RXCCv7C2r/zYqNQ8r3zgUmZ6eVwdkVRifCMDZ7oa/E8h83eRqCx1q1T6zewFg9/qBttGxH3KYj0W+5s45ibQXWAh9P0lujp5d3zrfB67BcwYF4IcYpeMt3Y6d9su4WMsKUaauiYN60NCCcs4j3lyU/Lx0w4ht+Nr/vYlVChLugbVjf/mXWArMcZhSM0v8FCCHr0AgRmmei53hWTOSfl4eHYmPPw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sGp2Nw4t9gtZOhYjlRh3KKlaO2JnhB3Q1zvwmqwswOs=;
- b=q6ghMMRrUOgC+yCn1UncAJ0hheJUeS4JcKdwmnP1g3Qn55zokpDeD5ydAn6xHcjXpE28KLnSim9iR06loKTfpCZD6V0qPja+Um4tfjZtPwwrcqpJ/UImeBRiZq7WpKv7BaVTlHKL+k1f475rz/5xKchUlGtOoBmLEcDrfI/uRNW/yg9/eZW7usK3LVpkPWSmKpTTPlW6j5CEjA5wlK6CZDjsSygfAaEHAuG1VV21VOgGVoNidF30tlECkTJNMcQ1eGIL3e4zGObF9O+vwFs5qgKL43GhoSVFpOk1bMpE71JQ1DptrOg1l+jH+7cPC9zY+m5xF6UPX6ROtaIEYumr8A==
+ bh=tJGhDekcVHJYUAGeaYQd6IMS2I2jcd3yUfYvafUmTF4=;
+ b=B1mWKfT5hFAfGS/ahRSFuCsZfhB56OGRVh3D9ZBqDUlOZErqj0s0cEbHS8QguFkenpmJkPF0zU072orxMaBk0JFwYLo7+ixKwvfr+CUWTx2/sDdu1ahHsvdcHEMG3tLaGq7MLImgFsmy5QEsrFwJtMrwihqM+tomiBoTmm+zxjDSGWbg5xQA0Lc0A0T286c9LxwmfW5SzT+IFsgvkUY8InSNUgcQnevltn7ec3Zr2u5lir7PUx0nBnqusUXBW9zWcOH9LHYfsvlnF6OypTap8BC6XDJzigbZwODcsJPn6HX+rNLAvAsw3xslKwftUQonA0xJyeu4Jm6K03LMtA+Uxg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sGp2Nw4t9gtZOhYjlRh3KKlaO2JnhB3Q1zvwmqwswOs=;
- b=rZ1EUxQGV/2kWoJ/qt2+lltk+BaeM/Pv0tBD26VP2jLPr8isWUaVbbYTRFRXd1c5JwmyHwQD4LWk8D9WFOmiWrQESZyPwESYjEezUn+gea3+1LpU2JoqMjKyM54ZtpIDZH6G5zKjKWb3j36Qj8i4WOSN7IZ86UHkLUGPUqYYrao=
-Received: from SA1PR12MB6799.namprd12.prod.outlook.com (2603:10b6:806:25b::18)
- by CYXPR12MB9320.namprd12.prod.outlook.com (2603:10b6:930:e6::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Fri, 14 Aug
- 2026 07:06:24 +0000
-Received: from SA1PR12MB6799.namprd12.prod.outlook.com
- ([fe80::6d46:bf1d:4a60:76c5]) by SA1PR12MB6799.namprd12.prod.outlook.com
- ([fe80::6d46:bf1d:4a60:76c5%7]) with mapi id 15.21.0315.011; Fri, 14 Aug 2026
- 07:06:24 +0000
-From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
-To: "Wang, Yang(Kevin)" <KevinYang.Wang@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
- <Hawking.Zhang@amd.com>
-Subject: RE: [PATCH] drm/amd/pm: Snapshot PPT limits for suspend and reset
- recovery
-Thread-Topic: [PATCH] drm/amd/pm: Snapshot PPT limits for suspend and reset
- recovery
-Thread-Index: AQHdK63TJyo+Ag9jC0SJPjvNE+e8d7adHdRA
-Date: Fri, 14 Aug 2026 07:06:24 +0000
-Message-ID: <SA1PR12MB6799C72ECE491AD37C1E1E5D8EDA2@SA1PR12MB6799.namprd12.prod.outlook.com>
-References: <20260814052848.1293509-1-kevinyang.wang@amd.com>
-In-Reply-To: <20260814052848.1293509-1-kevinyang.wang@amd.com>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-14T07:00:30.0000000Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
- v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: dkim=none (message not signed)
+ bh=tJGhDekcVHJYUAGeaYQd6IMS2I2jcd3yUfYvafUmTF4=;
+ b=3fYxv6eSxZtud9JkHjTxBRaVPnyt7YEM4FZ7G//8tmqKqV1//66Qzdsn5pdDgufm/QASMi3zNOse2O6WQdaJzN2cI4wExyXLcbep8bPBSzoQ6dKFYOZ7XSDlwAYXLbPiKQmbFmwtdYbbKgzt3NrAeumaVs/FcAKGnbklHtd5E9s=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA1PR12MB6799:EE_|CYXPR12MB9320:EE_
-x-ms-office365-filtering-correlation-id: 52fcf9ae-b003-467b-f79a-08def9d28d6a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|38070700021|10067099003|56012099006|11063799006;
-x-microsoft-antispam-message-info: 8SqY/WqFmDOsVhTqIXlzJVeI9iQs9ngDYaybTvrI0OuzxFcaU304Ob0Q46fqJcKCM+/RDJnYyKdMkz/BjAJqG5aNesCMRb84XyzrFaFfUdJ8eOJ103EoB/UlQtlYRv1svX/1sh9E6XUovYkvT0PTqEruuVNCODzI9ynZsMX1m/YiwwTEmPZa31gYoDikIw2x31VdZ+Gxrx9W5wO8cFdVRejTM2xunTaQFTU9RwMwFRKmFRnn5yK4KI8riMNH2+nLjtbnB8E05NwCdYBxo3zDic3vOn0e8pp5PoN/vjfnPB66nF8LVy+AjWEf41+WA5XR6wN3cbcPdWAexvH70w27ovpC/uayS5rI+qH2VPj6qrl6ke2ZDfXHZPkOHqqdYQ81PIBUZ4jarHe6CiT78luqM8Kn+JRQl46vuFq5NwnAuiI7ngmBexBFP434hhwZ94EpOKkIDcPAIkDGJp4dEfya/pJaaQW4OymkF3KIs5kAdd5J2+YR9o/Mv3Zr/rFSec123R5vkuhaBbdodo+99fg89XzCpN1oiuiHc44dmbN4cmSw5QlU4n48CTKJoffqQNmrhbYJ3nzsvLb6qzdlNvRble3fGN07kyzsMtwjDpY81cL2qj1sQBVuPvHuTDtUxcjaLPdVMki3VWVRAJ3Bn10lM5yOMC0O28htEFUvhxbIgKwFNIjy4yOXAqBDu1SXKQMphUmHxEUCDLjFbh/866moc9iMdQV6vGdJzOddU6EHMmk=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB6799.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(38070700021)(10067099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?YHIDup5UmbF4sfhsg0iwlm573pVuxKMc79m+pz4ykEnlcVNHssHHYE8iSQzN?=
- =?us-ascii?Q?3D9fqnPQyGPxkqlr6wSgLJTXykP4Jg6QMdDPu84eMKhR8mfNOM1xvD0J6fyk?=
- =?us-ascii?Q?SjlnvR1B31aStWQSYFuIn3g9HyJxS0K0C567X1VFVOzuYLqsLRBBxAPH0zD6?=
- =?us-ascii?Q?yaRsal/hY8NusEFQOn6bWoT/jnTqfn8hhxoCfUZa8QN34LPQ5TrLgM9efFIK?=
- =?us-ascii?Q?YSGf08tNvp2+NZqbcQlf72Esa9V9AlOaFYwvtZuqBWDbX5Xyr0oxXXZfCAi3?=
- =?us-ascii?Q?K6R2OAtKHuqsQuXtq7ZheZUIICZNPx2+wX64JUvilOHZP0ah15SptneIN5Us?=
- =?us-ascii?Q?vlnrDU61d0U+BHgfFw42zyRN1zaUTbCjGwpey1aQOA3o3qG+acHDf3cRgxsu?=
- =?us-ascii?Q?y2oX4G3BeXegprZEYYtyVpGjZZjPnlY3/mFFImy1h+p735j2ru02j2OaMNpm?=
- =?us-ascii?Q?CtLkdovPk26ig5ZBI09SYqHoyPQEVJC6Py49RIegSKPY8hi7c16QBoGczqcv?=
- =?us-ascii?Q?NkW0gRNWQVhE6ql3BaHedSbAUFBOZmqjBeHwbg+TWqC2Mg9P54xGIgnMm6iP?=
- =?us-ascii?Q?PPy/5zou/Q0fgVa2Fe3fqx+We0gCuyJuI+DbsW1ZDTpj6oFztiCQY1dhlmYJ?=
- =?us-ascii?Q?Vz0+gDc3fFoCeDRMjxjChjlay+CNQiiNt0YTUd96Lh+kGCvKC7WHVGO412pG?=
- =?us-ascii?Q?lsWSpIow2xTphj18+MrJk+N9HUDtyRL47HQ4S0DO3N+LMra5Pi2rgv9oixj6?=
- =?us-ascii?Q?tDhGvpdbywAU2kP51ulRF9xeW9p4YlR5VA6DfbgGJkul9oqQjnjyGiFQNwNC?=
- =?us-ascii?Q?vI8X/eZEgclC1N/RYGrltXBiRBPxYWmkgcb/WV8wiyEGqYT7JeUHM86dXtvp?=
- =?us-ascii?Q?GJvsrMHyvY5ZQT6Px15nix7ZiC9PugDF/SSEMhUKEEj2foX1trDFwX2To8S7?=
- =?us-ascii?Q?KELKFcHtsS5Z7aDjeflhkXjeskitUylnGVzHdNNUNP2+F75n7cvwXUu0rec5?=
- =?us-ascii?Q?BQn/rYvl03oc00U5fAMBKU2KiDzNgkU/SsnYjfGCg5fMOZFKVTwiypSWo9xp?=
- =?us-ascii?Q?98uJPdlfklNbzyCcBCpQee/cB5+j0qnANBRVKKPZoLyQgXZKAlhYwlc73y7C?=
- =?us-ascii?Q?cIWBZHgNedrdkBo1EG8Prd2YcqETMBONWvfkPyKSJtUvuwvgmGGwYC3m5dnt?=
- =?us-ascii?Q?sAM600gXHUIYkHhCeAZS2EMkxSOgxksPH/bXVEvclZqC1CXXkqCPhrTkr78O?=
- =?us-ascii?Q?Tm3b8/rJKnqJKrtvZfNwQidbBkzCW8FsVKztgsIibI7mN+ztenVGTlt8mTsg?=
- =?us-ascii?Q?2FOcgjYpSZPVt72Y0KYbCVLUQAxPzPgXyVV8GkVkHgLqsLty5C8kuz8vQ16c?=
- =?us-ascii?Q?jyqJBxX98ZRgqXg23zEGPYgIvdm1JJcdnpbC6p2nxfzBu3+Rti3Br/gNDAHx?=
- =?us-ascii?Q?1qhAHk2ClPhF9I8v6UCkzhferpVtRNpqJl6b3IYGH29zgbdLV+dg6i0p/12r?=
- =?us-ascii?Q?Uvd1XP2JOIqo3s+smJg50cR3yIImaINyPRvsXapkJatmstSeV6SS/lYUcm3A?=
- =?us-ascii?Q?kFdMxiMlH2RkWJmGHX2S3kRhMvBiV3vqdZsM8gtWIgLTzK7A3XmoXh+iFDOl?=
- =?us-ascii?Q?S9O0VuUgkSDymWBcZK1W7H7KALODWS/rPjzX92J0bAmxkeXGqlXXPc7vpoT0?=
- =?us-ascii?Q?wN5ta3qjFTKdO1k1D5+G+UAgybyNEXo+D5QFYWd1Lhi2x7Ny?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by DS7PR12MB9476.namprd12.prod.outlook.com (2603:10b6:8:250::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Fri, 14 Aug
+ 2026 07:07:42 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0315.014; Fri, 14 Aug 2026
+ 07:07:42 +0000
+Message-ID: <208faf20-8e6d-4d51-a719-c5f817649f61@amd.com>
+Date: Fri, 14 Aug 2026 12:37:35 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/pm: Snapshot PPT limits for suspend and reset
+ recovery
+To: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, hawking.zhang@amd.com, kenneth.feng@amd.com
+References: <20260814052848.1293509-1-kevinyang.wang@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20260814052848.1293509-1-kevinyang.wang@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5PR01CA0001.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:174::14) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|DS7PR12MB9476:EE_
+X-MS-Office365-Filtering-Correlation-Id: 91089c3a-5ae6-434f-ea58-08def9d2bb83
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: C/9Dyy9Nmw8RYLkfznR1QxxWvuQiT6TQn3BYLxnvGuHYilV+qGQUq6o8VvWSVgsa27PnWZ9zMkjyXUqfUXnFhF2p5aWgtk5eQylAdzXotObeqF5j+y+pMMhs3e5CBlBENeBYD1cJ6F1lTg5HeVpUGHVHZaF3KChTQuOTYo4Y2a3iABfMFMrYyISTl6M5b2Y5MCT9cP9UIdDCs2/dPxmEEqqAGsOZlNXmMglxt/T3MGd7d9B/rAwm/7l6lD3y3rXs5mcKUpv6gGNfllZl7KdimKwhGViUpBCcunDvFpVAZ86wsdfLm84EjELhAyZIs9eS7hLKzwvZpI6D0lQFF/1DB7/qhfXJ2bcAYO4KD4dFCPkVGq/gffpKC9QRDLqYhn5o9KXTK72PaOe8CzfjnBE+3QniqvBL4LTwLkjXvqLckTzvVu8YI8MEwDOLMv73Di6Hau0Zfmg+cUGV79yZeCcGTqniRO3o/KfMOlV+k6gqzbznBjo6mmPcVhw53w1GYOFXthjAxrGOY/x8ixEGnR9cHOEjPlBylTincptgswOekvHBCVpEtwWdsL6NAaJlO77FC+UoHosjHKqc8nSFXFbJLj3YfCbO0ikrg8HXuM+3ISmhoJOm862SbjKj7mxi1PEtDh+I45Q6mKjtOAxfGLHqqtb0/LCLolv9V0qyzhfT0bk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NXNYdlkxeWNaNzJQR2hJY0hQbS9pODBhWEd2STM3c1ptbWwrK1dSVnBzS3k4?=
+ =?utf-8?B?cDJCSlpuV2lsaVdQOUNWd1MzbVRpdnAzMkpwd2pUNkN0eDRWbUpqWUhCeExt?=
+ =?utf-8?B?WmtjTDg1b1hnWVhmMU90SjhZT1cvcEk0eStrL1p3SDk5N2w1SkJ5Q2FNRk56?=
+ =?utf-8?B?SFYwakJ4TnNtZERkaW5ZdlNUVklmc0t5elFjaVBQb1EvYW1FWHR5Y2YxbTF4?=
+ =?utf-8?B?VVZMcEFlc2NHLzJpY3hBajFHRlkzd1NJT1RNcHVNWDNPYlJ5VzM4Umlxbi9O?=
+ =?utf-8?B?M1BmNWMwbk9kNVVENFowcVE0aUxFZWt2Vm1UenVaUXMvTnlnNEFIbC9IczR1?=
+ =?utf-8?B?QkxqazNNVkp0YTBmbVVQa2dpNExDcWRHek5IMDJvV0dpSHdoSlVuRDhTZ2tN?=
+ =?utf-8?B?OGp6cDVmN2hTV0wrWWtDcWJOVkU0TEdmdFp2eU9NM0hSdmtyalNkUzVEcjly?=
+ =?utf-8?B?bFY3VjB5elM4WE9BN3l1clB6U3NYYnFkRjRqc0RoLzhLMGEzS1FMdisrZUpU?=
+ =?utf-8?B?Z1hyeXN1R0lscnNlcEprajNHSDBiZHdiVUNEWDR6akxJSUxBR0pDSElkUWts?=
+ =?utf-8?B?cUFyencvTDRwMmlxL0dHcTNrR3gyRGc1K1MySWRmWkg3OVoxZG9jVDF4a2pG?=
+ =?utf-8?B?NWxuZWY4bHptNkVWQXJueGkxdEZTQnN2V05MSGZMazZidkFqcWxvaXlMbDhO?=
+ =?utf-8?B?bjFFd3BwV3VjNkk2Q3dWRGlqR25KZEo5b0RoQW1RTVV5dXpqbVo4MzdUeFR4?=
+ =?utf-8?B?RGkyZ00xMEJpU3VnNjhpU2hmZWFkY016MUxEK0UvNit0Q3JzNEJpekdwbTV6?=
+ =?utf-8?B?ZjZoWUlqWWxSamNPL1RJR25FdGVkSUpraEtRMzloQ2tJTlZkcHpQek5IS096?=
+ =?utf-8?B?Sm5EUWpSaWR3RVdsa09ETTF4UGd0anpKUzBIdXZ5TnJXR0Q4bmV2KytOdWJx?=
+ =?utf-8?B?bkpvTkdLMiswNlcwVzRrbG5vZzZRMjV6cWlBcjVONFB0Z1NkMlBMRTc3WDZQ?=
+ =?utf-8?B?bGovVmdwZlVwOWc3Q2g3OU13L0dTK1pUV09UL2ZKMUExcFpvVDA1ZTdTOUZC?=
+ =?utf-8?B?UmVONWN2SW8yTk43ZWxFQWt1VDZZcFZuUHI4R2p6NzJlR0QrTitRdnJvaWZh?=
+ =?utf-8?B?VkhnYUQxdUhTSGtnQ0ZxQ0R4aFhocklHaVAvOVAyYnpabXpMR2Y0Z2xHUDZp?=
+ =?utf-8?B?ZzJYTVExUXBsWGtyWGFKRmk0ZU85czhjU1kxU0cxQ1dOZGN3VjltbFJBbVh6?=
+ =?utf-8?B?UkZEVHVMZVI0RFFscGdtZnR4R1c5MEI1eURWVi9RdWhFbUpSSTVqZVpBTWFv?=
+ =?utf-8?B?eEZ1RWp3MElKL1NicDNhYzZuNE5vSFFocTNQK2lxQThkR21ucCtVNkRwR1RK?=
+ =?utf-8?B?eklKSXhYSi9TNDk1TGl0UTNOYmZOSGhxTFZCeGNtOW96RHZKNGYwQW41ejZ3?=
+ =?utf-8?B?Z1BNaGM4SGQ2NkE1QnA0bWdmWjdiaXJOd1NPU2VPdGRIcDBGL2swaDJJTTNz?=
+ =?utf-8?B?ZFdsNEJQbVAvN3RscXR6bzF2ZDRNZVl5QzU0MDYvd1JyeDNMZDlwbS8wWHlp?=
+ =?utf-8?B?REZtNUFKQTR0TSt3TEtBMnkraEMyNm51WjQvSkZrOTl6eUZBOTgrR0FoY3do?=
+ =?utf-8?B?V2xWVGhkS2M0Nlk1cUFVZFpMZXlTOFk2clBURklxaXg5TWpkRkd6dGNLczAz?=
+ =?utf-8?B?TEthU1F0c09YSGxEUGd1djJlQitiNlpQU01JcGhmMnRsMzgzdTVpVFNtNmZp?=
+ =?utf-8?B?eUhGNEVsSDM2RHJLb1hwNmducHplQWVLLzJKRnJkbWpwL1VYSWJPMVAvcEMx?=
+ =?utf-8?B?Z0ZIVkZIaEpnV29QaTlDUkFDam5WS3NLcDV6N1ZHMDRZbTIwUHNZZ3pVSlpN?=
+ =?utf-8?B?UXF4MEsySWlZemRIaElFT3piT1FCNmFsL3ZoNkwwcFdVNUJvdEEvQ2hSLzRI?=
+ =?utf-8?B?bUM1aXYyVngrREZyQWszOXhCWjhwd2llaFhjUE8xQXRYUjVDa3hIeW9qR0lv?=
+ =?utf-8?B?V1gwbEJOZm04L01VaFBHNmM1QTRqTCszTFkzOWtUMXl6bnVvbS9RaklLc1hC?=
+ =?utf-8?B?b1ZmdDhNYlZvR0lRdE8rVnZrUHdQcENaUDQrbSs3WkE0bU0vUFlBRTBBbE9B?=
+ =?utf-8?B?T1BWZWZnN2tBOXlyT2RVdW1qR2hEQ0JBeGVlOFVwN3FtVUk5RFYvQ3pFWTc5?=
+ =?utf-8?B?bGlST0xHSFl3UmF5dWNZZGlvMzF2eEYrNlBNQ0NTTUNlRDRGOERNZWZNUElS?=
+ =?utf-8?B?Y0FqV0JxWFdsQkZtNzR2Zi9CZjVRZy9JVUQ1dTdkU01KYW9QREozQkNDMzhJ?=
+ =?utf-8?B?RFlCYXNtU0xtZWJvOHI0QnduTkRoa1d3bE52QThWaHlsODhhak9Qdz09?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91089c3a-5ae6-434f-ea58-08def9d2bb83
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB6799.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52fcf9ae-b003-467b-f79a-08def9d28d6a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Aug 2026 07:06:24.4027 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2n5VBZCCApU1PxyqBw8Np1LDTrfw57rKMB0KUJs16ULb8lc7hW/jEkWflDXX3u+/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYXPR12MB9320
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 07:07:42.2097 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jCrTqh+GlRR++/diqzDNCsyIA3uJ7qrCiEVKGzG8h1hj3aKdqcfKpmqtEd2HyXQy
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9476
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,354 +135,339 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-AMD General
-
-I guess the latency to retrieve the power limit before mode1 reset is accep=
-table.
-Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 
 
------Original Message-----
-From: Wang, Yang(Kevin) <KevinYang.Wang@amd.com>
-Sent: Friday, August 14, 2026 1:29 PM
-To: amd-gfx@lists.freedesktop.org
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
-.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
-Subject: [PATCH] drm/amd/pm: Snapshot PPT limits for suspend and reset reco=
-very
+On 14-Aug-26 10:58 AM, Yang Wang wrote:
+> The DPM user profile records driver-programmed policy, not the effective
+> PMFW limits. Replaying it after recovery can restore stale policy.
+> 
+> Maintain a PMFW PPT snapshot:
+> - Query supported PPT controllers before suspend and mode1 reset.
+> - Save successful queries with the current OS AC/DC source.
+> - Clear the selected source mask before capture to prevent stale replay.
+> - Refresh the OS power source before recovery.
+> - Synchronize the current source with PMFW before restoring PPT limits.
+> - Restore PPT limits only when the snapshot source still matches.
+> - Do not replay PPT policy on normal AC/DC changes.
+> 
+> Capture reset state before DPM and PMFW teardown.
+> Add debug logging for the snapshot, restore order, and PMFW AC/DC sync.
+> 
+> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+> ---
+>   drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |   2 +-
+>   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 152 +++++++++++++-----
+>   drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |   8 +-
+>   3 files changed, 117 insertions(+), 45 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> index ce526db4d24a..c3688b3b12cc 100644
+> --- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> +++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+> @@ -508,7 +508,7 @@ void amdgpu_pm_acpi_event_handler(struct amdgpu_device *adev)
+>   			amdgpu_dpm_notify_ac_dc(adev);
+>   
+>   		if (is_support_sw_smu(adev))
+> -			smu_set_ac_dc(adev->powerplay.pp_handle, true);
+> +			smu_set_ac_dc(adev->powerplay.pp_handle);
+>   
+>   		mutex_unlock(&adev->pm.mutex);
+>   	}
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> index bfe2c0bf426d..e5cb8d0420ab 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+> @@ -489,44 +489,122 @@ static void smu_set_user_clk_dependencies(struct smu_context *smu, enum smu_clk_
+>   		return;
+>   }
+>   
+> -static void smu_restore_ppt_limits(struct smu_context *smu,
+> -				   bool restore_defaults)
+> +static void smu_save_ppt_limits(struct smu_context *smu)
+>   {
+> +	struct amdgpu_device *adev = smu->adev;
+>   	enum smu_power_src_type power_source;
+> -	struct smu_ppt_limit_range *range;
+> -	uint32_t restore_mask;
+> -	uint32_t limit;
+> +	u32 limit;
+>   	int i, ret;
+>   
+> -	power_source = smu->adev->pm.ac_power ?
+> +	/* AC/DC is maintained by the OS and driver power-source events. */
+> +	smu->ppt_limits.saved_ac_power = adev->pm.ac_power;
+> +	power_source = adev->pm.ac_power ?
+>   		SMU_POWER_SOURCE_AC : SMU_POWER_SOURCE_DC;
+> -	restore_mask = smu->user_dpm_profile.ppt_limit_user_mask[power_source] &
+> -		smu->ppt_limits.supported_mask;
+> -	if (!restore_mask && !restore_defaults)
+> -		return;
+> -
+> -	smu->user_dpm_profile.flags |= SMU_DPM_USER_PROFILE_RESTORE;
+> +	smu->ppt_limits.saved_mask[power_source] = 0;
+> +	dev_dbg(adev->dev, "PPT snapshot: source=%s\n",
+> +		adev->pm.ac_power ? "AC" : "DC");
+>   
+>   	for (i = SMU_PPT_LIMIT_PPT0; i < SMU_LIMIT_TYPE_COUNT; i++) {
+>   		if (!(smu->ppt_limits.supported_mask & BIT(i)))
+>   			continue;
+>   
+> -		if (restore_mask & BIT(i)) {
+> -			limit = smu->user_dpm_profile.ppt_limits[power_source][i];
+> -		} else if (restore_defaults) {
+> -			range = &smu->ppt_limits.range[power_source][i];
+> -			limit = range->default_value;
+> -		} else {
+> +		ret = smu_get_asic_ppt_limit(smu, i, &limit);
+> +		if (ret) {
+> +			dev_err(adev->dev,
+> +				"Failed to save PPT%d limit: %d\n", i, ret);
 
-The DPM user profile records driver-programmed policy, not the effective PM=
-FW limits. Replaying it after recovery can restore stale policy.
+Not all SOCs support all source/limit types. If it's not supported like 
+EOPNOTSUPP, it should skip throwing this error.
+>   			continue;
+>   		}
+>   
+> +		smu->ppt_limits.saved_values[power_source][i] = limit;
+> +		smu->ppt_limits.saved_mask[power_source] |= BIT(i);
 
-Maintain a PMFW PPT snapshot:
-- Query supported PPT controllers before suspend and mode1 reset.
-- Save successful queries with the current OS AC/DC source.
-- Clear the selected source mask before capture to prevent stale replay.
-- Refresh the OS power source before recovery.
-- Synchronize the current source with PMFW before restoring PPT limits.
-- Restore PPT limits only when the snapshot source still matches.
-- Do not replay PPT policy on normal AC/DC changes.
+This mask can be avoided by keeping the saved value as default power 
+limit or 0. Also, the limit should be saved during any set/get call 
+also. If the FW message fails during suspend/reset, the last known limit 
+can be used. The FW message will indeed fail on some SOCs during RAS 
+recovery.
 
-Capture reset state before DPM and PMFW teardown.
-Add debug logging for the snapshot, restore order, and PMFW AC/DC sync.
+> +		dev_dbg(adev->dev, "PPT%d snapshot: source=%s limit=%u\n",
+> +			i, adev->pm.ac_power ? "AC" : "DC", limit);
+> +	}
+> +
+> +	dev_dbg(adev->dev, "PPT snapshot complete: source=%s mask=%#x\n",
+> +		adev->pm.ac_power ? "AC" : "DC",
+> +		smu->ppt_limits.saved_mask[power_source]);
+> +}
+> +
+> +static int smu_restore_ac_dc(struct smu_context *smu, u32 *restore_mask)
+> +{
+> +	struct amdgpu_device *adev = smu->adev;
+> +	enum smu_power_src_type current_source;
+> +	enum smu_power_src_type saved_source;
+> +
+> +	*restore_mask = 0;
+> +
+> +	if (adev->in_suspend || amdgpu_reset_in_recovery(adev)) {
+> +		/* The power source may change while the device is suspended. */
+> +		adev->pm.ac_power = power_supply_is_system_supplied() > 0;
+> +		current_source = adev->pm.ac_power ?
+> +			SMU_POWER_SOURCE_AC : SMU_POWER_SOURCE_DC;
+> +		saved_source = smu->ppt_limits.saved_ac_power ?
+> +			SMU_POWER_SOURCE_AC : SMU_POWER_SOURCE_DC;
 
-Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
----
- drivers/gpu/drm/amd/pm/amdgpu_dpm.c           |   2 +-
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     | 152 +++++++++++++-----
- drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h |   8 +-
- 3 files changed, 117 insertions(+), 45 deletions(-)
+This logic is unnecessary. What all needs to be restored can be figured 
+out from the saved limit value itself.
 
-diff --git a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c b/drivers/gpu/drm/amd/pm/a=
-mdgpu_dpm.c
-index ce526db4d24a..c3688b3b12cc 100644
---- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-+++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
-@@ -508,7 +508,7 @@ void amdgpu_pm_acpi_event_handler(struct amdgpu_device =
-*adev)
-                        amdgpu_dpm_notify_ac_dc(adev);
+> +		*restore_mask = smu->ppt_limits.saved_mask[saved_source] &
+> +			smu->ppt_limits.supported_mask;
+> +		dev_dbg(adev->dev,
+> +			"PPT restore: saved source=%s mask=%#x, current source=%s\n",
+> +			smu->ppt_limits.saved_ac_power ? "AC" : "DC",
+> +			*restore_mask, adev->pm.ac_power ? "AC" : "DC");
+> +		/*
+> +		 * A snapshot is valid only for the source under which it was
+> +		 * captured. Do not replay an AC snapshot after switching to DC,
+> +		 * or vice versa. The current OS power source takes precedence.
+> +		 */
+> +		if (current_source != saved_source) {
+> +			dev_dbg(adev->dev,
+> +				"Discard PPT snapshot after source change: %s to %s\n",
+> +				smu->ppt_limits.saved_ac_power ? "AC" : "DC",
+> +				adev->pm.ac_power ? "AC" : "DC");
+> +			*restore_mask = 0;
+> +		}
+> +	}
+> +
+> +	/*
+> +	 * NOTE: Synchronize PMFW with the OS AC/DC source before restoring PPT
+> +	 * limits so both sides use the same power policy. GPIO-controlled
+> +	 * platforms perform the synchronization in PMFW.
+> +	 */
+> +	return smu_set_ac_dc(smu);
 
-                if (is_support_sw_smu(adev))
--                       smu_set_ac_dc(adev->powerplay.pp_handle, true);
-+                       smu_set_ac_dc(adev->powerplay.pp_handle);
+There is no need to associate ac/dc setting with PPT limit restore sequence.
 
-                mutex_unlock(&adev->pm.mutex);
-        }
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/am=
-d/pm/swsmu/amdgpu_smu.c
-index bfe2c0bf426d..e5cb8d0420ab 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-+++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-@@ -489,44 +489,122 @@ static void smu_set_user_clk_dependencies(struct smu=
-_context *smu, enum smu_clk_
-                return;
- }
+> +}
+> +
+> +static int smu_restore_ppt_limits(struct smu_context *smu)
+> +{
+> +	struct amdgpu_device *adev = smu->adev;
+> +	enum smu_power_src_type power_source;
+> +	u32 restore_mask;
+> +	u32 limit;
+> +	int i, ret;
+> +
+> +	ret = smu_restore_ac_dc(smu, &restore_mask);
 
--static void smu_restore_ppt_limits(struct smu_context *smu,
--                                  bool restore_defaults)
-+static void smu_save_ppt_limits(struct smu_context *smu)
- {
-+       struct amdgpu_device *adev =3D smu->adev;
-        enum smu_power_src_type power_source;
--       struct smu_ppt_limit_range *range;
--       uint32_t restore_mask;
--       uint32_t limit;
-+       u32 limit;
-        int i, ret;
+This should only be about fetching the limits that need to be restored. 
+No need associate ac/dc restore with this.
 
--       power_source =3D smu->adev->pm.ac_power ?
-+       /* AC/DC is maintained by the OS and driver power-source events. */
-+       smu->ppt_limits.saved_ac_power =3D adev->pm.ac_power;
-+       power_source =3D adev->pm.ac_power ?
-                SMU_POWER_SOURCE_AC : SMU_POWER_SOURCE_DC;
--       restore_mask =3D smu->user_dpm_profile.ppt_limit_user_mask[power_so=
-urce] &
--               smu->ppt_limits.supported_mask;
--       if (!restore_mask && !restore_defaults)
--               return;
--
--       smu->user_dpm_profile.flags |=3D SMU_DPM_USER_PROFILE_RESTORE;
-+       smu->ppt_limits.saved_mask[power_source] =3D 0;
-+       dev_dbg(adev->dev, "PPT snapshot: source=3D%s\n",
-+               adev->pm.ac_power ? "AC" : "DC");
+> +	if (ret)
+> +		return ret;
+> +	if (!restore_mask)
+> +		return 0;
+> +
+> +	power_source = adev->pm.ac_power ?
+> +		SMU_POWER_SOURCE_AC : SMU_POWER_SOURCE_DC;
+> +
+> +	dev_dbg(adev->dev, "PPT restore: source=%s mask=%#x\n",
+> +		adev->pm.ac_power ? "AC" : "DC", restore_mask);
+> +
+> +	for (i = SMU_PPT_LIMIT_PPT0; i < SMU_LIMIT_TYPE_COUNT; i++) {
+> +		if (!(restore_mask & BIT(i)))
+> +			continue;
+> +
 
-        for (i =3D SMU_PPT_LIMIT_PPT0; i < SMU_LIMIT_TYPE_COUNT; i++) {
-                if (!(smu->ppt_limits.supported_mask & BIT(i)))
-                        continue;
+There is no need to keep a mask. The saved limit can be default limit or 
+0 if not saved/changed. It just needs to check that value and decide 
+whether to use that or not.
 
--               if (restore_mask & BIT(i)) {
--                       limit =3D smu->user_dpm_profile.ppt_limits[power_so=
-urce][i];
--               } else if (restore_defaults) {
--                       range =3D &smu->ppt_limits.range[power_source][i];
--                       limit =3D range->default_value;
--               } else {
-+               ret =3D smu_get_asic_ppt_limit(smu, i, &limit);
-+               if (ret) {
-+                       dev_err(adev->dev,
-+                               "Failed to save PPT%d limit: %d\n", i, ret)=
-;
-                        continue;
-                }
+> +		limit = smu->ppt_limits.saved_values[power_source][i];
+>   		ret = smu_set_ppt_limit(smu, i, limit);
+>   		if (ret)
+> -			dev_err(smu->adev->dev,
+> +			dev_err(adev->dev,
+>   				"Failed to restore PPT%d limit: %d\n", i, ret);
+> +		else
+> +			dev_dbg(adev->dev,
+> +				"PPT%d restored: source=%s limit=%u\n", i,
+> +				adev->pm.ac_power ? "AC" : "DC", limit);
+>   	}
+>   
+> -	smu->user_dpm_profile.flags &= ~SMU_DPM_USER_PROFILE_RESTORE;
+> +	return 0;
+>   }
+>   
+>   /**
+> @@ -954,15 +1032,9 @@ static int smu_late_init(struct amdgpu_ip_block *ip_block)
+>   		return ret;
+>   	}
+>   
+> -	/*
+> -	 * Explicitly notify PMFW the power mode the system in. Since
+> -	 * the PMFW may boot the ASIC with a different mode.
+> -	 * For those supporting ACDC switch via gpio, PMFW will
+> -	 * handle the switch automatically. Driver involvement
+> -	 * is unnecessary.
+> -	 */
+> -	adev->pm.ac_power = power_supply_is_system_supplied() > 0;
+> -	smu_set_ac_dc(smu, false);
+> +	ret = smu_restore_ppt_limits(smu);
+> +	if (ret)
+> +		return ret;
+>   
+>   	if ((amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 1)) ||
+>   	    (amdgpu_ip_version(adev, MP1_HWIP, 0) == IP_VERSION(13, 0, 3)))
+> @@ -997,8 +1069,6 @@ static int smu_late_init(struct amdgpu_ip_block *ip_block)
+>   		return ret;
+>   	}
+>   
+> -	if (adev->in_suspend || amdgpu_reset_in_recovery(adev))
+> -		smu_restore_ppt_limits(smu, false);
+>   	smu_restore_dpm_user_profile(smu);
+>   
+>   	return 0;
+> @@ -2202,6 +2272,9 @@ static int smu_hw_fini(struct amdgpu_ip_block *ip_block)
+>   	if (!smu->pm_enabled)
+>   		return 0;
+>   
+> +	if (amdgpu_in_reset(adev))
+> +		smu_save_ppt_limits(smu);
+> +
+>   	adev->pm.dpm_enabled = false;
+>   
+>   	ret = smu_smc_hw_cleanup(smu);
+> @@ -2263,6 +2336,8 @@ static int smu_suspend(struct amdgpu_ip_block *ip_block)
+>   	if (!smu->pm_enabled)
+>   		return 0;
+>   
+> +	smu_save_ppt_limits(smu);
+> +
+>   	adev->pm.dpm_enabled = false;
+>   
+>   	ret = smu_smc_hw_cleanup(smu);
+> @@ -2778,7 +2853,7 @@ static int smu_set_watermarks_for_clock_ranges(void *handle,
+>   	return smu_set_watermarks_table(smu, clock_ranges);
+>   }
+>   
+> -int smu_set_ac_dc(struct smu_context *smu, bool restore_ppt_policy)
+> +int smu_set_ac_dc(struct smu_context *smu)
+>   {
+>   	int ret = 0;
+>   
+> @@ -2796,11 +2871,12 @@ int smu_set_ac_dc(struct smu_context *smu, bool restore_ppt_policy)
+>   				smu->adev->pm.ac_power ? "AC" : "DC");
+>   			return ret;
+>   		}
+> +	} else {
+> +		dev_dbg(smu->adev->dev,
+> +			"PMFW controls %s mode through GPIO\n",
+> +			smu->adev->pm.ac_power ? "AC" : "DC");
+>   	}
+>   
+> -	if (restore_ppt_policy)
+> -		smu_restore_ppt_limits(smu, true);
+> -
+>   	return 0;
+>   }
+>   
+> @@ -3057,12 +3133,6 @@ static int smu_set_ppt_limit(void *handle, uint32_t limit_type, uint32_t limit)
+>   	ret = smu->ppt_funcs->set_ppt_limit(smu, limit_type, limit);
+>   	if (ret)
+>   		return ret;
+> -	if (!(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) {
+> -		smu->user_dpm_profile.ppt_limits[power_source][limit_type] = limit;
+> -		smu->user_dpm_profile.ppt_limit_user_mask[power_source] |=
+> -			BIT(limit_type);
+> -	}
+> -
+>   	return 0;
+>   }
+>   
+> diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> index d30951121e1f..9f85b302060e 100644
+> --- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> +++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
+> @@ -238,6 +238,10 @@ struct smu_ppt_limit_range {
+>   struct smu_ppt_limit_context {
+>   	struct smu_ppt_limit_range
+>   		range[SMU_POWER_SOURCE_COUNT][SMU_LIMIT_TYPE_COUNT];
+> +	/* PMFW state saved before suspend or mode1 reset. */
+> +	u32 saved_values[SMU_POWER_SOURCE_COUNT][SMU_LIMIT_TYPE_COUNT];
+> +	u32 saved_mask[SMU_POWER_SOURCE_COUNT];
+> +	bool saved_ac_power;
 
-+               smu->ppt_limits.saved_values[power_source][i] =3D limit;
-+               smu->ppt_limits.saved_mask[power_source] |=3D BIT(i);
-+               dev_dbg(adev->dev, "PPT%d snapshot: source=3D%s limit=3D%u\=
-n",
-+                       i, adev->pm.ac_power ? "AC" : "DC", limit);
-+       }
-+
-+       dev_dbg(adev->dev, "PPT snapshot complete: source=3D%s mask=3D%#x\n=
-",
-+               adev->pm.ac_power ? "AC" : "DC",
-+               smu->ppt_limits.saved_mask[power_source]);
-+}
-+
-+static int smu_restore_ac_dc(struct smu_context *smu, u32
-+*restore_mask) {
-+       struct amdgpu_device *adev =3D smu->adev;
-+       enum smu_power_src_type current_source;
-+       enum smu_power_src_type saved_source;
-+
-+       *restore_mask =3D 0;
-+
-+       if (adev->in_suspend || amdgpu_reset_in_recovery(adev)) {
-+               /* The power source may change while the device is suspende=
-d. */
-+               adev->pm.ac_power =3D power_supply_is_system_supplied() > 0=
-;
-+               current_source =3D adev->pm.ac_power ?
-+                       SMU_POWER_SOURCE_AC : SMU_POWER_SOURCE_DC;
-+               saved_source =3D smu->ppt_limits.saved_ac_power ?
-+                       SMU_POWER_SOURCE_AC : SMU_POWER_SOURCE_DC;
-+               *restore_mask =3D smu->ppt_limits.saved_mask[saved_source] =
-&
-+                       smu->ppt_limits.supported_mask;
-+               dev_dbg(adev->dev,
-+                       "PPT restore: saved source=3D%s mask=3D%#x, current=
- source=3D%s\n",
-+                       smu->ppt_limits.saved_ac_power ? "AC" : "DC",
-+                       *restore_mask, adev->pm.ac_power ? "AC" : "DC");
-+               /*
-+                * A snapshot is valid only for the source under which it w=
-as
-+                * captured. Do not replay an AC snapshot after switching t=
-o DC,
-+                * or vice versa. The current OS power source takes precede=
-nce.
-+                */
-+               if (current_source !=3D saved_source) {
-+                       dev_dbg(adev->dev,
-+                               "Discard PPT snapshot after source change: =
-%s to %s\n",
-+                               smu->ppt_limits.saved_ac_power ? "AC" : "DC=
-",
-+                               adev->pm.ac_power ? "AC" : "DC");
-+                       *restore_mask =3D 0;
-+               }
-+       }
-+
-+       /*
-+        * NOTE: Synchronize PMFW with the OS AC/DC source before restoring=
- PPT
-+        * limits so both sides use the same power policy. GPIO-controlled
-+        * platforms perform the synchronization in PMFW.
-+        */
-+       return smu_set_ac_dc(smu);
-+}
-+
-+static int smu_restore_ppt_limits(struct smu_context *smu) {
-+       struct amdgpu_device *adev =3D smu->adev;
-+       enum smu_power_src_type power_source;
-+       u32 restore_mask;
-+       u32 limit;
-+       int i, ret;
-+
-+       ret =3D smu_restore_ac_dc(smu, &restore_mask);
-+       if (ret)
-+               return ret;
-+       if (!restore_mask)
-+               return 0;
-+
-+       power_source =3D adev->pm.ac_power ?
-+               SMU_POWER_SOURCE_AC : SMU_POWER_SOURCE_DC;
-+
-+       dev_dbg(adev->dev, "PPT restore: source=3D%s mask=3D%#x\n",
-+               adev->pm.ac_power ? "AC" : "DC", restore_mask);
-+
-+       for (i =3D SMU_PPT_LIMIT_PPT0; i < SMU_LIMIT_TYPE_COUNT; i++) {
-+               if (!(restore_mask & BIT(i)))
-+                       continue;
-+
-+               limit =3D smu->ppt_limits.saved_values[power_source][i];
-                ret =3D smu_set_ppt_limit(smu, i, limit);
-                if (ret)
--                       dev_err(smu->adev->dev,
-+                       dev_err(adev->dev,
-                                "Failed to restore PPT%d limit: %d\n", i, r=
-et);
-+               else
-+                       dev_dbg(adev->dev,
-+                               "PPT%d restored: source=3D%s limit=3D%u\n",=
- i,
-+                               adev->pm.ac_power ? "AC" : "DC", limit);
-        }
+There is no need to save this. If changed to a different source, use the 
+last saved value for that source or keep the default.
 
--       smu->user_dpm_profile.flags &=3D ~SMU_DPM_USER_PROFILE_RESTORE;
-+       return 0;
- }
-
- /**
-@@ -954,15 +1032,9 @@ static int smu_late_init(struct amdgpu_ip_block *ip_b=
-lock)
-                return ret;
-        }
-
--       /*
--        * Explicitly notify PMFW the power mode the system in. Since
--        * the PMFW may boot the ASIC with a different mode.
--        * For those supporting ACDC switch via gpio, PMFW will
--        * handle the switch automatically. Driver involvement
--        * is unnecessary.
--        */
--       adev->pm.ac_power =3D power_supply_is_system_supplied() > 0;
--       smu_set_ac_dc(smu, false);
-+       ret =3D smu_restore_ppt_limits(smu);
-+       if (ret)
-+               return ret;
-
-        if ((amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(13, 0, =
-1)) ||
-            (amdgpu_ip_version(adev, MP1_HWIP, 0) =3D=3D IP_VERSION(13, 0, =
-3))) @@ -997,8 +1069,6 @@ static int smu_late_init(struct amdgpu_ip_block *=
-ip_block)
-                return ret;
-        }
-
--       if (adev->in_suspend || amdgpu_reset_in_recovery(adev))
--               smu_restore_ppt_limits(smu, false);
-        smu_restore_dpm_user_profile(smu);
-
-        return 0;
-@@ -2202,6 +2272,9 @@ static int smu_hw_fini(struct amdgpu_ip_block *ip_blo=
-ck)
-        if (!smu->pm_enabled)
-                return 0;
-
-+       if (amdgpu_in_reset(adev))
-+               smu_save_ppt_limits(smu);
-+
-        adev->pm.dpm_enabled =3D false;
-
-        ret =3D smu_smc_hw_cleanup(smu);
-@@ -2263,6 +2336,8 @@ static int smu_suspend(struct amdgpu_ip_block *ip_blo=
-ck)
-        if (!smu->pm_enabled)
-                return 0;
-
-+       smu_save_ppt_limits(smu);
-+
-        adev->pm.dpm_enabled =3D false;
-
-        ret =3D smu_smc_hw_cleanup(smu);
-@@ -2778,7 +2853,7 @@ static int smu_set_watermarks_for_clock_ranges(void *=
-handle,
-        return smu_set_watermarks_table(smu, clock_ranges);  }
-
--int smu_set_ac_dc(struct smu_context *smu, bool restore_ppt_policy)
-+int smu_set_ac_dc(struct smu_context *smu)
- {
-        int ret =3D 0;
-
-@@ -2796,11 +2871,12 @@ int smu_set_ac_dc(struct smu_context *smu, bool res=
-tore_ppt_policy)
-                                smu->adev->pm.ac_power ? "AC" : "DC");
-                        return ret;
-                }
-+       } else {
-+               dev_dbg(smu->adev->dev,
-+                       "PMFW controls %s mode through GPIO\n",
-+                       smu->adev->pm.ac_power ? "AC" : "DC");
-        }
-
--       if (restore_ppt_policy)
--               smu_restore_ppt_limits(smu, true);
--
-        return 0;
- }
-
-@@ -3057,12 +3133,6 @@ static int smu_set_ppt_limit(void *handle, uint32_t =
-limit_type, uint32_t limit)
-        ret =3D smu->ppt_funcs->set_ppt_limit(smu, limit_type, limit);
-        if (ret)
-                return ret;
--       if (!(smu->user_dpm_profile.flags & SMU_DPM_USER_PROFILE_RESTORE)) =
-{
--               smu->user_dpm_profile.ppt_limits[power_source][limit_type] =
-=3D limit;
--               smu->user_dpm_profile.ppt_limit_user_mask[power_source] |=
-=3D
--                       BIT(limit_type);
--       }
--
-        return 0;
- }
-
-diff --git a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h b/drivers/gpu/dr=
-m/amd/pm/swsmu/inc/amdgpu_smu.h
-index d30951121e1f..9f85b302060e 100644
---- a/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-+++ b/drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-@@ -238,6 +238,10 @@ struct smu_ppt_limit_range {  struct smu_ppt_limit_con=
-text {
-        struct smu_ppt_limit_range
-                range[SMU_POWER_SOURCE_COUNT][SMU_LIMIT_TYPE_COUNT];
-+       /* PMFW state saved before suspend or mode1 reset. */
-+       u32 saved_values[SMU_POWER_SOURCE_COUNT][SMU_LIMIT_TYPE_COUNT];
-+       u32 saved_mask[SMU_POWER_SOURCE_COUNT];
-+       bool saved_ac_power;
-        uint32_t supported_mask;
- };
-
-@@ -251,8 +255,6 @@ enum smu_memory_pool_size {
-
- struct smu_user_dpm_profile {
-        uint32_t fan_mode;
--       uint32_t ppt_limits[SMU_POWER_SOURCE_COUNT][SMU_LIMIT_TYPE_COUNT];
--       uint32_t ppt_limit_user_mask[SMU_POWER_SOURCE_COUNT];
-        uint32_t fan_speed_pwm;
-        uint32_t fan_speed_rpm;
-        uint32_t flags;
-@@ -1954,7 +1956,7 @@ int smu_set_soft_freq_range(struct smu_context *smu, =
-enum pp_clock_type clk_type
-
- int smu_set_gfx_power_up_by_imu(struct smu_context *smu);
-
--int smu_set_ac_dc(struct smu_context *smu, bool restore_ppt_policy);
-+int smu_set_ac_dc(struct smu_context *smu);
-
- int smu_set_xgmi_plpd_mode(struct smu_context *smu,
-                           enum pp_xgmi_plpd_mode mode);
---
-2.54.0
+Thanks,
+Lijo
+>   	uint32_t supported_mask;
+>   };
+>   
+> @@ -251,8 +255,6 @@ enum smu_memory_pool_size {
+>   
+>   struct smu_user_dpm_profile {
+>   	uint32_t fan_mode;
+> -	uint32_t ppt_limits[SMU_POWER_SOURCE_COUNT][SMU_LIMIT_TYPE_COUNT];
+> -	uint32_t ppt_limit_user_mask[SMU_POWER_SOURCE_COUNT];
+>   	uint32_t fan_speed_pwm;
+>   	uint32_t fan_speed_rpm;
+>   	uint32_t flags;
+> @@ -1954,7 +1956,7 @@ int smu_set_soft_freq_range(struct smu_context *smu, enum pp_clock_type clk_type
+>   
+>   int smu_set_gfx_power_up_by_imu(struct smu_context *smu);
+>   
+> -int smu_set_ac_dc(struct smu_context *smu, bool restore_ppt_policy);
+> +int smu_set_ac_dc(struct smu_context *smu);
+>   
+>   int smu_set_xgmi_plpd_mode(struct smu_context *smu,
+>   			   enum pp_xgmi_plpd_mode mode);
 
