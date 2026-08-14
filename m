@@ -4,103 +4,145 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 397A0C5DF67
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 09:01:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 81A35C5B572
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 09:07:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4353710F449;
-	Fri, 14 Aug 2026 09:01:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 029C810E100;
+	Fri, 14 Aug 2026 09:07:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="eE2MY0m3";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="oOAL7sqL";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DADCF10E100;
- Fri, 14 Aug 2026 09:01:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id EBCDD60A58;
- Fri, 14 Aug 2026 09:01:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE3461F000E9;
- Fri, 14 Aug 2026 09:01:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1786698109;
- bh=aREJLXh0wxbb3nZihaVcXk40V52DY2xFz9pCSGYdLS4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=eE2MY0m32hJuAJFYme4vl6xadaHzNlx7iLEI2wSMiAd21SBP1eIWzPN+U5ISusgwy
- e/zxJKt4nezf6hE84mGfy0ZuybyP5UzegNNYXZ6BT9AzK7D0U6vOHfr2c1c6hIRMPS
- hT3bJaqpWyiCoaHEOaniC/rjigruTHbqpB21Pi/vv5QZaoFe4al/YHR19FLVcfX2Iw
- w6qfg7IMnwxe+YgpsxnEtiyH23zTEqpx7WJt3me3gGySq0b6/j1GJ7j/6sWlwZv5nz
- xxa0Kmn9MSnM0G+mBgUABW2FutzhEQM/cqUucU+HFsP10hCYBDEdRpuV0ZaFY8GRRP
- 2kvAB58Y2ieIQ==
-Date: Fri, 14 Aug 2026 10:01:19 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
- Miaohe Lin <linmiaohe@huawei.com>, 
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Kees Cook <kees@kernel.org>,
- Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, Nico Pache <npache@redhat.com>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, 
- Usama Arif <usama.arif@linux.dev>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>,
- Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Peter Xu <peterx@redhat.com>,
- Xu Xin <xu.xin16@zte.com.cn>, 
- Chengming Zhou <chengming.zhou@linux.dev>, Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Janosch Frank <frankja@linux.ibm.com>,
- Claudio Imbrenda <imbrenda@linux.ibm.com>, 
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, Alex Deucher <alexander.deucher@amd.com>, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, 
- Liviu Dudau <liviu.dudau@arm.com>, Huang Rui <ray.huang@amd.com>, 
- Matthew Auld <matthew.auld@intel.com>, 
- Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Masami Hiramatsu <mhiramat@kernel.org>, Oleg Nesterov <oleg@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
- Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
- Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, 
- Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
- Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
- Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Youngjun Park <youngjun.park@lge.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- kvm@vger.kernel.org, 
- linux-s390@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, linux-perf-users@vger.kernel.org, 
- linux-trace-kernel@vger.kernel.org, syzbot@syzkaller.appspotmail.com
-Subject: Re: [PATCH v5 00/16] mm/rmap: index MAP_PRIVATE file-backed folios
- by anonymous pgoff
-Message-ID: <an7SkamROquJ7If0@lucifer>
-References: <20260813-b4-scalable-cow-virt-pgoff-v5-0-c21581c0c3c8@kernel.org>
- <20260813115346.2aaad419a351341a4f5f3ae0@linux-foundation.org>
+Received: from PH0PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11011058.outbound.protection.outlook.com [40.107.208.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DC47F10E100
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 09:07:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=aIddD7Va25rSlQ2y2zaBJy+vZtGMfJAczW/ODZaYwm/ZLkFL87D3sdgZ0HJP6904S95Tcub131ohxxq9OM825ASFh9F1GvVhUfhHL7gvS4n1+LTtpI5d37PrG51JcW27kvjV/eYptj//OWgkB2sQqKknJG0qfPWUq04WzpSWTjEu8QsaoQ+5LuxOAfgfCQJVFYqSInh2ll1sQbPJbieRxpuGsWBT2E2VL2EFqKrHNo1O4E+fBa0Roc9PF6jpdpiJSThF9wUuiTI2BY4MBI1GsIq2S9DzZvXDlJlem7GFyUzgifNAWHK/s9KjX+5a9rdUVRPxWskBNMEvRhC2IKLALg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lqeXy4QtatIwmSNFMOYy6fM2Htl3+hkE10Itt/zpYzw=;
+ b=h72UbM5YF5GfnQrgvXMxxRSM6rRuGsZZ320q+DOdWUnwkkjgqBt962bRxB053MOFRJ0Uzu4LSbXq65SoMjPeEq+Y9ndhENxvzJXFQ0YHg14Q8509Ofsb4OCLudjVYGTeP8kXlFueCK8/u3eAJrgXoBDpST2aHOASm5jSOZPAbnfPfePLwMA0c8k3/Dj2RhGrnZAGuA9B8huAuJZ3pB+mYUnZtffpQVt741CyGFgZ0pEjpilcexFt3EWSe8pJQ8vlpw0AOzKPtWAx2heJS3TglTXWGdN9K7LDDKJsgXCRngF5i/21kisycrmquKuiUgZKHkY/GqM7jn+l4lbVKd1nJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lqeXy4QtatIwmSNFMOYy6fM2Htl3+hkE10Itt/zpYzw=;
+ b=oOAL7sqLfVhY6p0n5g15jE9I+tZ2rAAXP36aSi9w0WWhFbevbhUaslxdg36wcY7d0GeTM3njlFLwI9ssRHukld+SS1cZI/HUKw0Y3O/0jEeGJa1XOLw0aADpzTKRS++N3qZig5hMSrMEiytgJ59jCwOlBH8kkG3zIAjYod82bVU=
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com (2603:10b6:8:7c::17) by
+ IA0PR12MB8301.namprd12.prod.outlook.com (2603:10b6:208:40b::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Fri, 14 Aug
+ 2026 09:07:49 +0000
+Received: from DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::ab84:617d:61a9:3727]) by DS7PR12MB6005.namprd12.prod.outlook.com
+ ([fe80::ab84:617d:61a9:3727%6]) with mapi id 15.21.0315.014; Fri, 14 Aug 2026
+ 09:07:49 +0000
+From: "Liang, Prike" <Prike.Liang@amd.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, "Zhang,
+ Jesse(Jie)" <Jesse.Zhang@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>
+Subject: RE: [PATCH 1/2] drm/amdgpu: Remove separate guilty compute userq reset
+Thread-Topic: [PATCH 1/2] drm/amdgpu: Remove separate guilty compute userq
+ reset
+Thread-Index: AQHdFCOgnbCr85VDm0SiIcpJNE08b7Z6sLoggBF2puCAAEaogIAAATBwgAADwoCAATF7AIAAa04AgASarBCAABPKgIAABEkQgAAJ3oCAB3ne0IAAQs6AgALmivA=
+Date: Fri, 14 Aug 2026 09:07:49 +0000
+Message-ID: <DS7PR12MB60054E72D5D810485F15E949FBDA2@DS7PR12MB6005.namprd12.prod.outlook.com>
+References: <20260715063128.581232-1-Prike.Liang@amd.com>
+ <DS7PR12MB6005701083F93C0330D4F4C0FBC02@DS7PR12MB6005.namprd12.prod.outlook.com>
+ <PH7PR12MB60005AAE1676A52D0A72A0C4FBD52@PH7PR12MB6000.namprd12.prod.outlook.com>
+ <CADnq5_MeA+koAWeUF1L5WnLCeB-c=W2n0nnLzY3fpguOQprGgw@mail.gmail.com>
+ <DS7PR12MB6005E76101209F514B1544D9FBD52@DS7PR12MB6005.namprd12.prod.outlook.com>
+ <CADnq5_PL1ECn9BHex4czV=35+ZkTmPrpQHbVOFg_ZQK7t1HygA@mail.gmail.com>
+ <DS7PR12MB60058ABC1D885DF414416607FBD42@DS7PR12MB6005.namprd12.prod.outlook.com>
+ <CADnq5_ONP+D7kSJEb0B0d3q8CaJGL4PTV7jfq+=j+dd_Tj0+Ow@mail.gmail.com>
+ <PH7PR12MB600029F6BFBAD2FE80A1841DFBD12@PH7PR12MB6000.namprd12.prod.outlook.com>
+ <CADnq5_NtQF7eU0iZv5786gVPUJ+U8daOBrqP0snAUpknKogMgQ@mail.gmail.com>
+ <PH7PR12MB6000775677CD969B8AE74AB7FBD12@PH7PR12MB6000.namprd12.prod.outlook.com>
+ <CADnq5_NBuTYNc=XgJztJZCY6ZU6w4g_Cu51dmK+1AV1nFA3xiw@mail.gmail.com>
+ <PH7PR12MB6000E91DA1F11496A776E1ABFBDC2@PH7PR12MB6000.namprd12.prod.outlook.com>
+ <CADnq5_MtbqCeD0yDCQ0zv9DbKD9SEBjkPyxAxGKF_H_Nmc0Zog@mail.gmail.com>
+In-Reply-To: <CADnq5_MtbqCeD0yDCQ0zv9DbKD9SEBjkPyxAxGKF_H_Nmc0Zog@mail.gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-14T09:04:37.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS7PR12MB6005:EE_|IA0PR12MB8301:EE_
+x-ms-office365-filtering-correlation-id: 61855e75-6779-48aa-0b4f-08def9e38394
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|366016|1800799024|376014|6133799003|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info: 1d7aXl1+clsPaA8nJQnpHdjN+HkxhX07mD12aUoS+381TZl7IGWEdr8FkE+sic7zvW3M7YVnc+dDvtU3Wq9qX8nDoGgV5EGZ9Xk+k8uZLEC47u9fFjhyhnu6HMUdMLKBNHDAAb4fYcuL2VbiFi9n+iW9PV7xxynRV3p8lcHLA+uNDYqPu4O5SYF4J5ZZnd5EAD8+/W8I//Wl0sdHJKbFTTBUXhbad7RpE58E6Rx36zZBBKpch56dZ3F06MTXZCRhaBy0b406T7GHezPd+qS7TIVtC+D+jEmQgeEU+jZvFew8F2byOe0svheHdv03H32AGxc1SZ2t+smHoU5dbd8LtYInkwNB7vX481eeBf0hQHOtj6R0SVXxfvg+Or9rPl4SiWlUtctyefcpknZvX+GcHZ5WdP4rBPCR51E96dgy0tPfpipg4F0v3L1jUEybRgkQ0mC6IUd0xMytvOolzvrfMEA3fpatyn5yucQM8bcYjJoGBcvuemiXaWqH+5SpU2vGlNJc6XC+yKCGFPHQ6dR4Y2df6S9yDyryc1HLjFFCyJd6gqz0X0f7nBw2OvLjur40IkE2rjMPW47p8fzlJQXDbU17dgGnjbMOO9L+TOIjm7plNUhYEIzcoXo5FyfU48kMT9DK5u9KV4DN6ycucvNSXH797EfuBjm5yGSZOEBT676ymD8a4P7uLb2NWudZwmCVtWQQwfffvsk/b/GzBbaY8lT3WtDW+ThWfo8hUllEefY=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR12MB6005.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(6133799003)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?SmRCaXZUdDRRWkxwdlBpd1BRWTY5ektqYUR2Vk92MktBRnozVHRBYzRwWnNi?=
+ =?utf-8?B?UjFQM281WEVyRWxVZExRNk95RVZGUEphWU54eWhFMzkzellTV0w5YnVvSXVE?=
+ =?utf-8?B?ODdFVEtvQXRhVDhnOHZ0dkFhSHdKMzhFbnR4OHN0cGhtU2hhWHlSL3U5THB3?=
+ =?utf-8?B?dzdtbU8zN0FYQTUvMndXT3VmbHdaaXFOV1k5cmxIalNjT3pidFJuS3NDZjVp?=
+ =?utf-8?B?YXI4blcyeEx6U2w2ZVRydks0bGJOUThzOUFWbjRyenBPVmhrdEdVSFBadC83?=
+ =?utf-8?B?aTlVVHVYWWd5RE5PQW9sNUdpRy9IK0EyRUFQdk1ycU54TlJCR2lZWGhIOXZU?=
+ =?utf-8?B?RllKbW9tRnMzTHBGLzBSWXQwRUFGaUdZYWhUeEE5VEpLWUJRRjErMEcyQmRi?=
+ =?utf-8?B?ZVl6UU4reHJpWm1lSkZjZDJURTVGNFFBdEJSZ0NTTDc4bE5iNGg2STdybXly?=
+ =?utf-8?B?c1BCR2QzTjBRWnZvcy9uR1JDVGpSRXlwQUI3RzdheTg1WDhmekc2aFFueTZw?=
+ =?utf-8?B?UGR5TFZtUE1ybXhYaWd2aUV0UDhTSkVBWjQ3S2tRVnNMZlNBNkRMVmJUcmJO?=
+ =?utf-8?B?ZHJydmpTVzZCSUdxWU01dWphZnhRUTZpL2daYVlJN2JOTzZ6c2lBU1NURXE5?=
+ =?utf-8?B?eTVvQS9FTXJxTmV0SWNGVVVOVTVHcWthTWYrRjlGem1USmo0K1d0L2hlb0NR?=
+ =?utf-8?B?RW1ZekRQdWoySXF4dFRwdk5PZDJBb2xUNnFha2VLME5jbm9QYU1HRzVsR2Jl?=
+ =?utf-8?B?WkhpdzVLRkhUL013Z3J3aVVZWlNYelNDRVNuM0NOYUQ5R09NRGhEL29ReWtS?=
+ =?utf-8?B?VVRiWFFKTkdJc2o2Q3FKbEY2ZTRLQmhUaE1Md0FNOVBtalVXayttSGs2S0Fp?=
+ =?utf-8?B?YWFWZ0hVbXpLOFdpL0t1RXRqZzlPRHlhM1pZbnJiYzU4aFZ3S1RUdms1cGN4?=
+ =?utf-8?B?MWdpYnYxbGI2dzZ4Rm1IWU85OFVudjExVjRycmNHVzBxVGdpaVd6ZlFzYU1j?=
+ =?utf-8?B?TklVS0VUbHJpUk5NTzFvVlN6bStqT214bzQ2aFcxdEJ2MzBUcXgvRmN4NnN3?=
+ =?utf-8?B?QU9ZNDF2bG8xRlhFcGpjTWc4SEI5V1ZLWVNjQWVnaWE5SmtFaGVNckw5Nldk?=
+ =?utf-8?B?dDkwTmFUVjZGa01CbnRMU1FSSGQ4cG5MMHlJZWNZOHR6T043WUV6K21QRE9j?=
+ =?utf-8?B?YWVKeXMxZFlEVDY3MDl5WGtLQWNCSUpQTWUydnF0SnZPS1h3ZFpLVkdyRkV1?=
+ =?utf-8?B?NFJmLzIzM3F5VVc1NEMzdU51V1JSL05BaDlFYS8xMmxKbSsvNUtZOUlDM0x4?=
+ =?utf-8?B?cjRDNjRQc3ZWaS9oTjhTYWo4VVhMRUM2bEpMeWhZUU15N1c1cVVPZlBnT3dP?=
+ =?utf-8?B?V1VZU3kzbzhwV2w1Z2dBUkVLUXErdzlNdW0vZmRZellCTGVMRlkzVGRZOVdO?=
+ =?utf-8?B?akNqS2pqa0JBb1BBZWFIQzYxS2NQYzg0VHBPQ1Z1Yy80UlFmUHhWTzFaRzBO?=
+ =?utf-8?B?TVhoYittclFUY2dCZHYxS3BZWWs0K2JVVFdjUzlqTVl2NmN5MHBjNmgyb1ZZ?=
+ =?utf-8?B?MnFmQkx0bVR6YThzQnQ2dyt4VmNlZ1lIWE40MEYwRFJwem9ibGxRcXpQTDJv?=
+ =?utf-8?B?TW5OUHZhTEpHMzVOUG10TXpaT3pYT0M1TGxyaTNIZmNFdGp1eVZ6a0V6eDk2?=
+ =?utf-8?B?S2dOdlhqRnM2ZnZUSWV3QU9zemtQVCtxVnFlSkdNTmJSeU05U2FGdjlxVjB6?=
+ =?utf-8?B?b0RKYm5XODI5RldwSGc5eWw4djBRaWt3c3Z4YkU3Q2EzS04veEovSVdRZTNn?=
+ =?utf-8?B?WlplcGhaRWl3SzBpVjlTQmE4R1hjVE51VVBFQjRZVnhEWTRGamtLWXNQdmFj?=
+ =?utf-8?B?bHNjZERZeGZxYm9ZQ3dNL3JGUjhDcGFiaWMxdmpKSWJvcnlvTEx3MHo5ekJ3?=
+ =?utf-8?B?Q1kzaFRYOW9SVzFwUDU2MkxpbGs2UjlxdEFtd05iU0VGVm9jQ3doTkNLSElo?=
+ =?utf-8?B?UkVtcXNaZDdrNm9rMkJkMVZ2c2RyU1NXSXhnMHZCRk5hajk2V01ZOEJXcWx0?=
+ =?utf-8?B?VFlqSm9FRWtFaEs4MERRRFNFMmYzZko3R09ldEI5MmpaTnJ6YWRZelkxZFJs?=
+ =?utf-8?B?UFJpTlJNZWF3eS9oSk1WQU1lK3JzNWY1cnQ0by9IVngrSWQ3c0o2WVVjM0JW?=
+ =?utf-8?B?QTMveHRwRnBFZk9FUFY2T01QTGZhRnFnOGxjY1dSWDZveFIvbnJ1RFgrRHdO?=
+ =?utf-8?B?a1JlS21IWDBucW9YWXBaWGJCbXhDNjAxSnFBaXJvbDVTamxqcGpzeFF1dmo5?=
+ =?utf-8?Q?4E4toNScYycx7JXhih?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260813115346.2aaad419a351341a4f5f3ae0@linux-foundation.org>
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR12MB6005.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 61855e75-6779-48aa-0b4f-08def9e38394
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Aug 2026 09:07:49.3554 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2G1DWrbuJwjk2FCh5IfpwjI7pSQvq8dNBScDdyKlyJOGux0boo0zEgmMykS70F4C
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8301
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,602 +157,370 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 13, 2026 at 11:53:46AM -0700, Andrew Morton wrote:
-> You'll be mortified to hear that Sashiko wasn't able to find anything
-> to which to apply this.
-
-:))
-
-Well, when it's right it's useful, when it's wrong or suggesting unrelated
-what-nots it's less useful :>)
-
-I do locally put things through claude + Chris Mason's prompts a lot, I
-don't always invoke local sashiko as it's very slow and token-heavy or has
-been so far, but am planning to do that more also in future.
-
->
-> Sashiko can be guided with a base-commit: tag but I'm not sure how to
-> tell it what tree/branch to try, or even if that's necessary.  Perhaps
-> someone can figure this out sometime.
-
-b4 gives a base commit, but I think because the trees are rebased it ends
-up being the incorrect one.
-
-Not sure what the solution is!
-
->
-> maybe
->
-> hp2:/usr/src/linux-next> git log --oneline | grep "mm/vma: introduce VMA anon page offset field and add helpers"
-> 249646a587dc mm/vma: introduce VMA anon page offset field and add helpers
->
-> base-commit: 249646a587dc^
->
-> But that requires that Sashiko be able to poke around in linux-next
-> from previous days.
->
-> > v5:
-> > * Accumulated tags (thanks everybody!)
-> > * Removed the final 4 patches to be handled later as there are nuances with
-> >   the /dev/zero stuff we need to figure out, as discussed with David.
-> > * Updated the cover letter to reflect this.
-> > * Added comments to vma_flags_is_cow_mapping(),
-> >   vma_[desc_]is_cow_mapping() as per Suren.
-> > * Correct typo as per Suren.
-> > * Reworded test comment in patch 16 from 'fault in' to 'trigger a CoW
-> >   fault' as per David.
-> > * Fix -> 75 char limit in patch 12's commit msg.
->
-> Here's how v5 altered mm.git.  It's rather substantial, but mainly
-> selftests:
-
-Thanks for the diff, always useful!
-
-The noise it's mostly because of dropping the final 4 commits, and as you
-say mostly test stuff that will be sent with whichever approach we decide
-on for MAP_PRIVATE-/dev/zero in the next cycle.
-
-The actual changes elsewhere are rather trivial otherwise.
-
-What remains, targeting 2nd week of the merge window, is heavily tested +
-fully reviewed, so all is still very sane :)
-
->
->
->  drivers/char/mem.c                                     |    8
->  include/linux/mm.h                                     |   18 -
->  include/linux/pagemap.h                                |    3
->  mm/internal.h                                          |   17 -
->  mm/vma.c                                               |   52 ----
->  mm/vma.h                                               |    3
->  mm/vma_internal.h                                      |    1
->  tools/testing/selftests/mm/merge.c                     |  106 ----------
->  tools/testing/selftests/proc/proc-self-map-files-001.c |    2
->  tools/testing/selftests/proc/proc-self-map-files-002.c |    2
->  tools/testing/vma/include/dup.h                        |   40 ---
->  tools/testing/vma/tests/mmap.c                         |   50 ----
->  12 files changed, 40 insertions(+), 262 deletions(-)
->
-> --- a/drivers/char/mem.c~b
-> +++ a/drivers/char/mem.c
-> @@ -506,7 +506,11 @@ static int mmap_zero_prepare(struct vm_a
->  	if (vma_desc_test(desc, VMA_SHARED_BIT))
->  		return shmem_zero_setup_desc(desc);
->
-> -	/* MAP_PRIVATE semantics are taken care for us by core mm. */
-> +	/*
-> +	 * This is a highly unique situation where we mark a MAP_PRIVATE mapping
-> +	 * of /dev/zero anonymous, despite it not being.
-> +	 */
-> +	vma_desc_set_anonymous(desc);
->  	return 0;
->  }
->
-> @@ -694,7 +698,7 @@ static const struct memdev {
->  #ifdef CONFIG_DEVPORT
->  	[4] = { "port", &port_fops, 0, 0 },
->  #endif
-> -	[DEVZERO_MINOR] = { "zero", &zero_fops, FMODE_NOWAIT, 0666 },
-> +	[5] = { "zero", &zero_fops, FMODE_NOWAIT, 0666 },
->  	[7] = { "full", &full_fops, 0, 0666 },
->  	[8] = { "random", &random_fops, FMODE_NOWAIT, 0666 },
->  	[9] = { "urandom", &urandom_fops, FMODE_NOWAIT, 0666 },
-> --- a/include/linux/mm.h~b
-> +++ a/include/linux/mm.h
-> @@ -740,9 +740,6 @@ static inline bool fault_flag_allow_retr
->  	{ FAULT_FLAG_INTERRUPTIBLE,	"INTERRUPTIBLE" }, \
->  	{ FAULT_FLAG_VMA_LOCK,		"VMA_LOCK" }
->
-> -/* /dev/zero minor device number. Special due to MAP_PRIVATE semantics. */
-> -#define DEVZERO_MINOR	5
-> -
->  /*
->   * vm_fault is filled by the pagefault handler and passed to the vma's
->   * ->fault function. The vma's ->fault is responsible for returning a bitmask
-> @@ -1554,6 +1551,11 @@ static inline void vma_set_anonymous(str
->  	vma->vm_ops = NULL;
->  }
->
-> +static inline void vma_desc_set_anonymous(struct vm_area_desc *desc)
-> +{
-> +	desc->vm_ops = NULL;
-> +}
-> +
->  static inline bool vma_is_anonymous(const struct vm_area_struct *vma)
->  {
->  	return !vma->vm_ops;
-> @@ -2279,8 +2281,7 @@ void unpin_folios(struct folio **folios,
->   * All mappings backed by anonymous folios (all anonymous mappings and most
->   * MAP_PRIVATE-file backed ranges) are CoW mappings.
->   *
-> - * All other mappings (including all writable MAP_SHARED mappings) are
-> - * non-CoW.
-> + * All other mappings (including all MAP_SHARED mappings) are non-CoW.
->   *
->   * The criteria are !VMA_SHARED_BIT, VMA_MAYWRITE_BIT.
->   *
-> @@ -2317,7 +2318,7 @@ static inline bool vma_flags_is_cow_mapp
->
->  /**
->   * vma_is_cow_mapping() - Is this VMA a CoW mapping?
-> - * @vma: The VMA to check.
-> + * @desc: The VMA to check.
->   *
->   * See vma_flags_is_cow_mapping() for details.
->   *
-> @@ -4407,8 +4408,9 @@ static inline unsigned long vma_pages(co
->   * If @vma is a MAP_PRIVATE file-backed mapping, then this returns the
->   * page offset within the file.
->   *
-> - * Edge cases: nommu does not abide by these and CoW MAP_PRIVATE-pfnmap regions
-> - * have their page offset set to the first PFN in the range.
-> + * Edge cases: nommu does not abide by these, MAP_PRIVATE-/dev/zero satisfies
-> + * vma_is_anonymous() but has file-backed page offset, and MAP_PRIVATE-pfnmap
-> + * regions have their page offset set to the first PFN in the range.
->   *
->   * Returns: The page offset of the start of @vma.
->   */
-> --- a/include/linux/pagemap.h~b
-> +++ a/include/linux/pagemap.h
-> @@ -1128,7 +1128,8 @@ static inline pgoff_t linear_anon_page_i
->  	const pgoff_t pgoff = __linear_anon_page_index(vma, address);
->
->  	VM_WARN_ON_ONCE(!vma_is_cow_mapping(vma));
-> -	if (vma_is_anonymous(vma))
-> +	/* Account for MAP_PRIVATE-/dev/zero which is only semi-anonymous. */
-> +	if (vma_is_anonymous(vma) && !vma->vm_file)
->  		VM_WARN_ON_ONCE(pgoff != linear_page_index(vma, address));
->
->  	return pgoff;
-> --- a/mm/internal.h~b
-> +++ a/mm/internal.h
-> @@ -240,18 +240,15 @@ static inline int mmap_file(struct file
->  {
->  	int err = vfs_mmap(file, vma);
->
-> +	if (likely(!err))
-> +		return 0;
-> +
->  	/*
-> -	 * Either we tried to call the file hook for mmap() and an error arose
-> -	 * or a driver set vma->vm_ops = NULL intending there to be no VMA
-> -	 * operations.
-> -	 *
-> -	 * In the former case the VMA is in an inconsistent state and we mustn't
-> -	 * invoke any further hooks on it, in the latter case the hook actually
-> -	 * wanted no further hooks to be invoked, so fix both by setting dummy
-> -	 * VMA ops.
-> +	 * OK, we tried to call the file hook for mmap(), but an error
-> +	 * arose. The mapping is in an inconsistent state and we must not invoke
-> +	 * any further hooks on it.
->  	 */
-> -	if (unlikely(err || !vma->vm_ops))
-> -		vma->vm_ops = &vma_dummy_vm_ops;
-> +	vma->vm_ops = &vma_dummy_vm_ops;
->
->  	return err;
->  }
-> --- a/mm/vma.c~b
-> +++ a/mm/vma.c
-> @@ -2621,36 +2621,6 @@ static int __mmap_new_file_vma(struct mm
->  	return 0;
->  }
->
-> -static bool map_is_dev_zero(const struct mmap_state *map)
-> -{
-> -	const struct file *file = map->file;
-> -	struct inode *inode;
-> -
-> -	if (!file)
-> -		return false;
-> -	inode = file_inode(file);
-> -	if (!S_ISCHR(inode->i_mode))
-> -		return false;
-> -	return imajor(inode) == MEM_MAJOR && iminor(inode) == DEVZERO_MINOR;
-> -}
-> -
-> -static void map_set_anon(struct mmap_state *map)
-> -{
-> -	map->file = NULL;
-> -	map->vm_ops = NULL;
-> -	map->pgoff = map->addr >> PAGE_SHIFT;
-> -}
-> -
-> -static bool map_is_private(const struct mmap_state *map)
-> -{
-> -	return !vma_flags_test(&map->vma_flags, VMA_SHARED_BIT);
-> -}
-> -
-> -static bool map_is_anon(const struct mmap_state *map)
-> -{
-> -	return map_is_private(map) && !map->file;
-> -}
-> -
->  /*
->   * __mmap_new_vma() - Allocate a new VMA for the region, as merging was not
->   * possible.
-> @@ -2664,7 +2634,8 @@ static bool map_is_anon(const struct mma
->  static int __mmap_new_vma(struct mmap_state *map, struct vm_area_struct **vmap,
->  	struct mmap_action *action)
->  {
-> -	const bool is_anon = map_is_anon(map);
-> +	const bool is_anon = !map->file &&
-> +		!vma_flags_test(&map->vma_flags, VMA_SHARED_BIT);
->  	struct vma_iterator *vmi = map->vmi;
->  	int error = 0;
->  	struct vm_area_struct *vma;
-> @@ -2806,10 +2777,6 @@ static int call_mmap_prepare(struct mmap
->  	if (err)
->  		return err;
->
-> -	/* Hooks cannot mark themselves anonymous. */
-> -	if (!desc->vm_ops)
-> -		return -EINVAL;
-> -
->  	err = call_action_prepare(map, desc);
->  	if (err)
->  		return err;
-> @@ -2826,21 +2793,16 @@ static int call_mmap_prepare(struct mmap
->  	map->vm_ops = desc->vm_ops;
->  	map->vm_private_data = desc->private_data;
->
-> -	/*
-> -	 * MAP_PRIVATE-/dev/zero mappings are an ancient way of getting
-> -	 * anonymous mappings. Rather than allowing these mappings to be odd
-> -	 * outliers, simply make them truly anonymous.
-> -	 */
-> -	if (map_is_private(map) && map_is_dev_zero(map))
-> -		map_set_anon(map);
-> -
->  	return 0;
->  }
->
->  static void set_vma_user_defined_fields(struct vm_area_struct *vma,
->  		struct mmap_state *map)
->  {
-> -	vma->vm_ops = map->vm_ops;
-> +	if (map->vm_ops)
-> +		vma->vm_ops = map->vm_ops;
-> +	else	/* Only /dev/zero should do this. */
-> +		vma_set_anonymous(vma);
->  	vma->vm_private_data = map->vm_private_data;
->  }
->
-> @@ -2920,7 +2882,7 @@ static unsigned long __mmap_region(struc
->  		allocated_new = true;
->  	}
->
-> -	if (have_mmap_prepare && !map_is_anon(&map))
-> +	if (have_mmap_prepare)
->  		set_vma_user_defined_fields(vma, &map);
->
->  	__mmap_complete(&map, vma);
-> --- a/mm/vma.h~b
-> +++ a/mm/vma.h
-> @@ -267,6 +267,9 @@ static inline void assert_sane_pgoff(str
->  	 */
->  	if (!vma_is_anonymous(vma))
->  		return;
-> +	/* MAP_PRIVATE-/dev/zero is anon, non-NULL vm_file, but has file pgoff. */
-> +	if (vma->vm_file)
-> +		return;
->  	/* If faulted in, could have been remapped. */
->  	if (vma->anon_vma)
->  		return;
-> --- a/mm/vma_internal.h~b
-> +++ a/mm/vma_internal.h
-> @@ -23,7 +23,6 @@
->  #include <linux/ksm.h>
->  #include <linux/khugepaged.h>
->  #include <linux/list.h>
-> -#include <linux/major.h>
->  #include <linux/maple_tree.h>
->  #include <linux/mempolicy.h>
->  #include <linux/mm.h>
-> --- a/tools/testing/selftests/mm/merge.c~b
-> +++ a/tools/testing/selftests/mm/merge.c
-> @@ -1324,7 +1324,7 @@ TEST_F(merge, anon_and_page_offset_misma
->  	ASSERT_NE(ptr, MAP_FAILED);
->
->  	/*
-> -	 * Map another separately and trigger a CoW fault, at page offset 5:
-> +	 * Map another separately and trigger a CoW fault at page offset 5:
->  	 *
->  	 * |-----------|           |---------|
->  	 * | unfaulted |           | faulted |
-> @@ -1362,110 +1362,6 @@ TEST_F(merge, anon_and_page_offset_misma
->  	ASSERT_EQ(procmap->query.vma_end, (unsigned long)ptr + 5 * page_size);
->  }
->
-> -TEST_F(merge, merge_map_private_dev_zero_unfaulted)
-> -{
-> -	struct procmap_fd *procmap = &self->procmap;
-> -	unsigned int page_size = self->page_size;
-> -	char *carveout = self->carveout;
-> -	char *ptr, *ptr2;
-> -	int fd_zero;
-> -
-> -	if (access("/dev/zero", F_OK))
-> -		SKIP(return, "No /dev/zero.");
-> -	fd_zero = open("/dev/zero", O_RDWR);
-> -	ASSERT_NE(fd_zero, -1);
-> -
-> -	/*
-> -	 * Map two MAP_PRIVATE-/dev/zero VMAs next to one another with offset 0
-> -	 * each.
-> -	 *
-> -	 * With these being made truly anonymous upon mapping, they will
-> -	 * merge. If they were file-backed VMAs the page offsets would prevent
-> -	 * merge:
-> -	 *
-> -	 * |-----||------|    |-------------|
-> -	 * | ptr || ptr2 | -> |     ptr     |
-> -	 * |-----||------|    |-------------|
-> -	 */
-> -	ptr = mmap(carveout, 5 * page_size, PROT_READ | PROT_WRITE,
-> -		   MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
-> -	if (ptr == MAP_FAILED) {
-> -		close(fd_zero);
-> -		ASSERT_TRUE(false);
-> -	}
-> -	ptr2 = mmap(&carveout[5 * page_size], 5 * page_size,
-> -		   PROT_READ | PROT_WRITE, MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
-> -	if (ptr2 == MAP_FAILED) {
-> -		close(fd_zero);
-> -		ASSERT_TRUE(false);
-> -	}
-> -	close(fd_zero);
-> -
-> -	/* Assert that they merged. */
-> -	ASSERT_TRUE(find_vma_procmap(procmap, ptr));
-> -	ASSERT_EQ(procmap->query.vma_start, (unsigned long)ptr);
-> -	ASSERT_EQ(procmap->query.vma_end, (unsigned long)ptr + 10 * page_size);
-> -}
-> -
-> -TEST_F(merge, merge_map_private_dev_zero_faulted_unfaulted)
-> -{
-> -	struct procmap_fd *procmap = &self->procmap;
-> -	unsigned int page_size = self->page_size;
-> -	char *carveout = self->carveout;
-> -	char *ptr, *ptr2;
-> -	int fd_zero;
-> -
-> -	if (access("/dev/zero", F_OK))
-> -		SKIP(return, "No /dev/zero.");
-> -	fd_zero = open("/dev/zero", O_RDWR);
-> -	ASSERT_NE(fd_zero, -1);
-> -
-> -	/*
-> -	 * Map a MAP_PRIVATE mapping of /dev/zero with page offset 0, then fault
-> -	 * it in:
-> -	 *
-> -	 * |-------------------------------|
-> -	 * |           faulted             |
-> -	 * |-------------------------------|
-> -	 */
-> -	ptr = mmap(carveout, 15 * page_size, PROT_READ | PROT_WRITE,
-> -		   MAP_FIXED | MAP_PRIVATE, fd_zero, 0);
-> -	if (ptr == MAP_FAILED) {
-> -		close(fd_zero);
-> -		ASSERT_TRUE(false);
-> -	}
-> -	memset(ptr, 'x', 15 * page_size);
-> -
-> -	/*
-> -	 * Unmap the middle:
-> -	 *
-> -	 * |---------|           |---------|
-> -	 * | faulted |           | faulted |
-> -	 * |---------|           |---------|
-> -	 */
-> -	ASSERT_EQ(munmap(&ptr[5 * page_size], 5 * page_size), 0);
-> -
-> -	/*
-> -	 * Map in a new unfaulted mapping in the middle with page offset 0 -
-> -	 * this should merge and would not if it were treated as a file rather
-> -	 * than pure anon:
-> -	 *
-> -	 * |---------|-----------|---------|
-> -	 * | faulted | unfaulted | faulted |
-> -	 * |---------|-----------|---------|
-> -	 */
-> -	ptr2 = mmap(&carveout[5 * page_size], 5 * page_size,
-> -		    PROT_READ | PROT_WRITE, MAP_FIXED | MAP_PRIVATE,
-> -		    fd_zero, 0);
-> -	close(fd_zero);
-> -	ASSERT_NE(ptr2, MAP_FAILED);
-> -
-> -	/* Assert that they merged. */
-> -	ASSERT_TRUE(find_vma_procmap(procmap, ptr));
-> -	ASSERT_EQ(procmap->query.vma_start, (unsigned long)ptr);
-> -	ASSERT_EQ(procmap->query.vma_end, (unsigned long)ptr + 15 * page_size);
-> -}
-> -
->  TEST_F(merge_with_fork, mremap_faulted_to_unfaulted_prev)
->  {
->  	struct procmap_fd *procmap = &self->procmap;
-> --- a/tools/testing/selftests/proc/proc-self-map-files-001.c~b
-> +++ a/tools/testing/selftests/proc/proc-self-map-files-001.c
-> @@ -51,7 +51,7 @@ int main(void)
->  	int fd;
->  	unsigned long a, b;
->
-> -	fd = open("/proc/self/exe", O_RDONLY);
-> +	fd = open("/dev/zero", O_RDONLY);
->  	if (fd == -1)
->  		return 1;
->
-> --- a/tools/testing/selftests/proc/proc-self-map-files-002.c~b
-> +++ a/tools/testing/selftests/proc/proc-self-map-files-002.c
-> @@ -57,7 +57,7 @@ int main(void)
->  	int fd;
->  	unsigned long a, b;
->
-> -	fd = open("/proc/self/exe", O_RDONLY);
-> +	fd = open("/dev/zero", O_RDONLY);
->  	if (fd == -1)
->  		return 1;
->
-> --- a/tools/testing/vma/include/dup.h~b
-> +++ a/tools/testing/vma/include/dup.h
-> @@ -15,21 +15,6 @@ struct task_struct *get_current(void);
->  #define MMF_HAS_MDWE	28
->  #define current get_current()
->
-> -#define MINORBITS	20
-> -#define MINORMASK	((1U << MINORBITS) - 1)
-> -
-> -#define MAJOR(dev)	((unsigned int) ((dev) >> MINORBITS))
-> -#define MINOR(dev)	((unsigned int) ((dev) & MINORMASK))
-> -#define MKDEV(ma, mi)	(((ma) << MINORBITS) | (mi))
-> -
-> -#define S_IFMT  00170000
-> -#define S_IFCHR  0020000
-> -
-> -#define S_ISCHR(m)	(((m) & S_IFMT) == S_IFCHR)
-> -
-> -#define MEM_MAJOR		1
-> -#define DEVZERO_MINOR	5
-> -
->  /*
->   * Define the task command name length as enum, then it can be visible to
->   * BPF programs.
-> @@ -38,8 +23,6 @@ enum {
->  	TASK_COMM_LEN = 16,
->  };
->
-> -typedef unsigned short		umode_t;
-> -
->  /* PARTIALLY implemented types. */
->  struct mm_struct {
->  	struct maple_tree mm_mt;
-> @@ -62,10 +45,6 @@ struct address_space {
->  	unsigned long		flags;
->  	atomic_t		i_mmap_writable;
->  };
-> -struct inode {
-> -	umode_t			i_mode;
-> -	dev_t			i_rdev;
-> -};
->  struct file_operations {
->  	int (*mmap)(struct file *, struct vm_area_struct *);
->  	int (*mmap_prepare)(struct vm_area_desc *);
-> @@ -73,7 +52,6 @@ struct file_operations {
->  struct file {
->  	struct address_space	*f_mapping;
->  	const struct file_operations	*f_op;
-> -	struct inode			*f_inode;
->  };
->  struct anon_vma_chain {
->  	struct anon_vma *anon_vma;
-> @@ -1660,23 +1638,9 @@ static inline pgoff_t linear_anon_page_i
->  	const pgoff_t pgoff = __linear_anon_page_index(vma, address);
->
->  	VM_WARN_ON_ONCE(!vma_is_cow_mapping(vma));
-> -	if (vma_is_anonymous(vma))
-> +	/* Account for MAP_PRIVATE-/dev/zero which is only semi-anonymous. */
-> +	if (vma_is_anonymous(vma) && !vma->vm_file)
->  		VM_WARN_ON_ONCE(pgoff != linear_page_index(vma, address));
->
->  	return pgoff;
->  }
-> -
-> -static inline struct inode *file_inode(const struct file *f)
-> -{
-> -	return f->f_inode;
-> -}
-> -
-> -static inline unsigned iminor(const struct inode *inode)
-> -{
-> -	return MINOR(inode->i_rdev);
-> -}
-> -
-> -static inline unsigned imajor(const struct inode *inode)
-> -{
-> -	return MAJOR(inode->i_rdev);
-> -}
-> --- a/tools/testing/vma/tests/mmap.c~b
-> +++ a/tools/testing/vma/tests/mmap.c
-> @@ -45,57 +45,7 @@ static bool test_mmap_region_basic(void)
->  	return true;
->  }
->
-> -static int dummy_mmap_prepare(struct vm_area_desc *desc)
-> -{
-> -	return 0;
-> -}
-> -
-> -static bool test_pure_anon_dev_zero(void)
-> -{
-> -	const vma_flags_t vma_flags = mk_vma_flags(VMA_READ_BIT, VMA_WRITE_BIT,
-> -			VMA_MAYREAD_BIT, VMA_MAYWRITE_BIT);
-> -	const struct file_operations f_op = {
-> -		.mmap_prepare = dummy_mmap_prepare,
-> -	};
-> -	struct inode inode = {
-> -		.i_mode = S_IFCHR,
-> -		.i_rdev = MKDEV(MEM_MAJOR, DEVZERO_MINOR),
-> -	};
-> -	struct file file = {
-> -		.f_inode = &inode,
-> -		.f_op = &f_op,
-> -	};
-> -	struct mm_struct mm = {};
-> -	struct vm_area_struct *vma;
-> -	unsigned long addr;
-> -	VMA_ITERATOR(vmi, &mm, 0);
-> -
-> -	current->mm = &mm;
-> -
-> -	/*
-> -	 * Map a MAP_PRIVATE-/dev/zero mapping at address 0x300000 with a page
-> -	 * offset of 0x10, which we expect to be reset to the anonymous page
-> -	 * offset.
-> -	 */
-> -	addr = __mmap_region(&file, 0x300000, 0x3000, vma_flags, 0x10, NULL);
-> -	ASSERT_EQ(addr, 0x300000);
-> -
-> -	/* Assert that it truly is an anonymous mapping. */
-> -	vma = vma_lookup(&mm, addr);
-> -	ASSERT_NE(vma, NULL);
-> -	ASSERT_TRUE(vma_is_anonymous(vma));
-> -	ASSERT_EQ(vma->vm_file, NULL);
-> -	ASSERT_EQ(vma->vm_private_data, NULL);
-> -	/* Expect anonymous page offsets. */
-> -	ASSERT_EQ(vma->vm_pgoff, 0x300);
-> -	ASSERT_EQ(vma_start_anon_pgoff(vma), 0x300);
-> -
-> -	cleanup_mm(&mm, &vmi);
-> -	return true;
-> -}
-> -
->  static void run_mmap_tests(int *num_tests, int *num_fail)
->  {
->  	TEST(mmap_region_basic);
-> -	TEST(pure_anon_dev_zero);
->  }
-> _
->
-
---
-Cheers, Lorenzo
+QU1EIEdlbmVyYWwNCg0KUmVnYXJkcywNCiAgICAgIFByaWtlDQoNCj4gLS0tLS1PcmlnaW5hbCBN
+ZXNzYWdlLS0tLS0NCj4gRnJvbTogQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+
+DQo+IFNlbnQ6IFdlZG5lc2RheSwgQXVndXN0IDEyLCAyMDI2IDg6NDcgUE0NCj4gVG86IExpYW5n
+LCBQcmlrZSA8UHJpa2UuTGlhbmdAYW1kLmNvbT4NCj4gQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRl
+c2t0b3Aub3JnOyBaaGFuZywgSmVzc2UoSmllKSA8SmVzc2UuWmhhbmdAYW1kLmNvbT47DQo+IExp
+dSwgU2hhb3l1biA8U2hhb3l1bi5MaXVAYW1kLmNvbT47IERldWNoZXIsIEFsZXhhbmRlcg0KPiA8
+QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IEtvZW5pZywgQ2hyaXN0aWFuIDxDaHJpc3RpYW4u
+S29lbmlnQGFtZC5jb20+DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMS8yXSBkcm0vYW1kZ3B1OiBS
+ZW1vdmUgc2VwYXJhdGUgZ3VpbHR5IGNvbXB1dGUgdXNlcnEgcmVzZXQNCj4NCj4gT24gV2VkLCBB
+dWcgMTIsIDIwMjYgYXQgNToxOOKAr0FNIExpYW5nLCBQcmlrZSA8UHJpa2UuTGlhbmdAYW1kLmNv
+bT4gd3JvdGU6DQo+ID4NCj4gPiBBTUQgR2VuZXJhbA0KPiA+DQo+ID4gUmVnYXJkcywNCj4gPiAg
+ICAgICBQcmlrZQ0KPiA+DQo+ID4gPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiA+ID4g
+RnJvbTogQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+DQo+ID4gPiBTZW50OiBG
+cmlkYXksIEF1Z3VzdCA3LCAyMDI2IDEwOjM4IFBNDQo+ID4gPiBUbzogTGlhbmcsIFByaWtlIDxQ
+cmlrZS5MaWFuZ0BhbWQuY29tPg0KPiA+ID4gQ2M6IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Au
+b3JnOyBaaGFuZywgSmVzc2UoSmllKQ0KPiA+ID4gPEplc3NlLlpoYW5nQGFtZC5jb20+OyBMaXUs
+IFNoYW95dW4gPFNoYW95dW4uTGl1QGFtZC5jb20+OyBEZXVjaGVyLA0KPiA+ID4gQWxleGFuZGVy
+IDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgS29lbmlnLCBDaHJpc3RpYW4NCj4gPiA+IDxD
+aHJpc3RpYW4uS29lbmlnQGFtZC5jb20+DQo+ID4gPiBTdWJqZWN0OiBSZTogW1BBVENIIDEvMl0g
+ZHJtL2FtZGdwdTogUmVtb3ZlIHNlcGFyYXRlIGd1aWx0eSBjb21wdXRlDQo+ID4gPiB1c2VycSBy
+ZXNldA0KPiA+ID4NCj4gPiA+IE9uIEZyaSwgQXVnIDcsIDIwMjYgYXQgMTA6MTHigK9BTSBMaWFu
+ZywgUHJpa2UgPFByaWtlLkxpYW5nQGFtZC5jb20+IHdyb3RlOg0KPiA+ID4gPg0KPiA+ID4gPiBB
+TUQgR2VuZXJhbA0KPiA+ID4gPg0KPiA+ID4gPiBSZWdhcmRzLA0KPiA+ID4gPiAgICAgICBQcmlr
+ZQ0KPiA+ID4gPg0KPiA+ID4gPiA+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0tDQo+ID4gPiA+
+ID4gRnJvbTogQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+DQo+ID4gPiA+ID4g
+U2VudDogRnJpZGF5LCBBdWd1c3QgNywgMjAyNiA5OjQ3IFBNDQo+ID4gPiA+ID4gVG86IExpYW5n
+LCBQcmlrZSA8UHJpa2UuTGlhbmdAYW1kLmNvbT4NCj4gPiA+ID4gPiBDYzogYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmc7IFpoYW5nLCBKZXNzZShKaWUpDQo+ID4gPiA+ID4gPEplc3NlLlpo
+YW5nQGFtZC5jb20+OyBMaXUsIFNoYW95dW4gPFNoYW95dW4uTGl1QGFtZC5jb20+Ow0KPiA+ID4g
+PiA+IERldWNoZXIsIEFsZXhhbmRlciA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IEtvZW5p
+ZywNCj4gPiA+ID4gPiBDaHJpc3RpYW4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT4NCj4gPiA+
+ID4gPiBTdWJqZWN0OiBSZTogW1BBVENIIDEvMl0gZHJtL2FtZGdwdTogUmVtb3ZlIHNlcGFyYXRl
+IGd1aWx0eQ0KPiA+ID4gPiA+IGNvbXB1dGUgdXNlcnEgcmVzZXQNCj4gPiA+ID4gPg0KPiA+ID4g
+PiA+IE9uIEZyaSwgQXVnIDcsIDIwMjYgYXQgOTozOeKAr0FNIExpYW5nLCBQcmlrZSA8UHJpa2Uu
+TGlhbmdAYW1kLmNvbT4gd3JvdGU6DQo+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gQU1EIEdlbmVy
+YWwNCj4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+IFJl
+Z2FyZHMsDQo+ID4gPiA+ID4gPiAgICAgICBQcmlrZQ0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+
+ID4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPiA+ID4gPiA+ID4gRnJvbTogQWxleCBE
+ZXVjaGVyIDxhbGV4ZGV1Y2hlckBnbWFpbC5jb20+DQo+ID4gPiA+ID4gPiA+IFNlbnQ6IFR1ZXNk
+YXksIEF1Z3VzdCA0LCAyMDI2IDEwOjE4IFBNDQo+ID4gPiA+ID4gPiA+IFRvOiBMaWFuZywgUHJp
+a2UgPFByaWtlLkxpYW5nQGFtZC5jb20+DQo+ID4gPiA+ID4gPiA+IENjOiBhbWQtZ2Z4QGxpc3Rz
+LmZyZWVkZXNrdG9wLm9yZzsgWmhhbmcsIEplc3NlKEppZSkNCj4gPiA+ID4gPiA+ID4gPEplc3Nl
+LlpoYW5nQGFtZC5jb20+OyBMaXUsIFNoYW95dW4gPFNoYW95dW4uTGl1QGFtZC5jb20+Ow0KPiA+
+ID4gPiA+ID4gPiBEZXVjaGVyLCBBbGV4YW5kZXIgPEFsZXhhbmRlci5EZXVjaGVyQGFtZC5jb20+
+OyBLb2VuaWcsDQo+ID4gPiA+ID4gPiA+IENocmlzdGlhbiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQu
+Y29tPg0KPiA+ID4gPiA+ID4gPiBTdWJqZWN0OiBSZTogW1BBVENIIDEvMl0gZHJtL2FtZGdwdTog
+UmVtb3ZlIHNlcGFyYXRlIGd1aWx0eQ0KPiA+ID4gPiA+ID4gPiBjb21wdXRlIHVzZXJxIHJlc2V0
+DQo+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+IE9uIFR1ZSwgQXVnIDQsIDIwMjYgYXQgNDox
+NuKAr0FNIExpYW5nLCBQcmlrZQ0KPiA+ID4gPiA+ID4gPiA8UHJpa2UuTGlhbmdAYW1kLmNvbT4N
+Cj4gPiA+IHdyb3RlOg0KPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gQU1EIEdlbmVy
+YWwNCj4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+IFJlZ2FyZHMsDQo+ID4gPiA+ID4g
+PiA+ID4gICAgICAgUHJpa2UNCj4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gLS0t
+LS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPiA+ID4gPiA+ID4gPiA+IEZyb206IEFsZXggRGV1
+Y2hlciA8YWxleGRldWNoZXJAZ21haWwuY29tPg0KPiA+ID4gPiA+ID4gPiA+ID4gU2VudDogTW9u
+ZGF5LCBBdWd1c3QgMywgMjAyNiA5OjQwIFBNDQo+ID4gPiA+ID4gPiA+ID4gPiBUbzogTGlhbmcs
+IFByaWtlIDxQcmlrZS5MaWFuZ0BhbWQuY29tPg0KPiA+ID4gPiA+ID4gPiA+ID4gQ2M6IGFtZC1n
+ZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBaaGFuZywgSmVzc2UoSmllKQ0KPiA+ID4gPiA+ID4g
+PiA+ID4gPEplc3NlLlpoYW5nQGFtZC5jb20+OyBMaXUsIFNoYW95dW4NCj4gPiA+ID4gPiA+ID4g
+PiA+IDxTaGFveXVuLkxpdUBhbWQuY29tPjsgRGV1Y2hlciwgQWxleGFuZGVyDQo+ID4gPiA+ID4g
+PiA+ID4gPiA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IEtvZW5pZywgQ2hyaXN0aWFuDQo+
+ID4gPiA+ID4gPiA+ID4gPiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPiA+ID4gPiA+ID4g
+PiA+ID4gU3ViamVjdDogUmU6IFtQQVRDSCAxLzJdIGRybS9hbWRncHU6IFJlbW92ZSBzZXBhcmF0
+ZQ0KPiA+ID4gPiA+ID4gPiA+ID4gZ3VpbHR5IGNvbXB1dGUgdXNlcnEgcmVzZXQNCj4gPiA+ID4g
+PiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiBPbiBNb24sIEF1ZyAzLCAyMDI2IGF0IDk6Mzbi
+gK9BTSBMaWFuZywgUHJpa2UNCj4gPiA+ID4gPiA+ID4gPiA+IDxQcmlrZS5MaWFuZ0BhbWQuY29t
+Pg0KPiA+ID4gPiA+IHdyb3RlOg0KPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+
+ID4gPiBBTUQgR2VuZXJhbA0KPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4g
+PiBSZWdhcmRzLA0KPiA+ID4gPiA+ID4gPiA+ID4gPiAgICAgICBQcmlrZQ0KPiA+ID4gPiA+ID4g
+PiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IC0tLS0tT3JpZ2luYWwgTWVzc2FnZS0tLS0t
+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gRnJvbTogQWxleCBEZXVjaGVyIDxhbGV4ZGV1Y2hlckBn
+bWFpbC5jb20+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gU2VudDogTW9uZGF5LCBBdWd1c3QgMywg
+MjAyNiA5OjIzIFBNDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gVG86IExpYW5nLCBQcmlrZSA8UHJp
+a2UuTGlhbmdAYW1kLmNvbT4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBDYzogYW1kLWdmeEBsaXN0
+cy5mcmVlZGVza3RvcC5vcmc7IFpoYW5nLCBKZXNzZShKaWUpDQo+ID4gPiA+ID4gPiA+ID4gPiA+
+ID4gPEplc3NlLlpoYW5nQGFtZC5jb20+OyBMaXUsIFNoYW95dW4NCj4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiA8U2hhb3l1bi5MaXVAYW1kLmNvbT47IERldWNoZXIsIEFsZXhhbmRlcg0KPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+IDxBbGV4YW5kZXIuRGV1Y2hlckBhbWQuY29tPjsgS29lbmlnLCBDaHJpc3Rp
+YW4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA8Q2hyaXN0aWFuLktvZW5pZ0BhbWQuY29tPg0KPiA+
+ID4gPiA+ID4gPiA+ID4gPiA+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMS8yXSBkcm0vYW1kZ3B1OiBS
+ZW1vdmUgc2VwYXJhdGUNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBndWlsdHkgY29tcHV0ZSB1c2Vy
+cSByZXNldA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gT24g
+TW9uLCBBdWcgMywgMjAyNiBhdCA1OjI14oCvQU0gTGlhbmcsIFByaWtlDQo+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gPFByaWtlLkxpYW5nQGFtZC5jb20+DQo+ID4gPiA+ID4gPiA+IHdyb3RlOg0KPiA+
+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IEFNRCBHZW5lcmFs
+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gQXMgZm9y
+IHRoZSBodW5nIHVzZXJxLCBpdCBzaG91bGQgYmUgaWRlbnRpZmllZCBieQ0KPiA+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gdGhlIE1FUyByZXNldCBBUEkgd2l0aCB0aGUNCj4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiBoYW5nX2RldGVjdF9vbmx5IHNldHRpbmcuIEhvd2V2ZXIsIGl0IGlzIHVubGlrZWx5IHRv
+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gbWlzcyBkZXRlY3RpbmcgdGhlIGludmFsaWQgb3Bjb2Rl
+IGhhbmcgY2FzZSwNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBlc3BlY2lhbGx5IGdpdmVuIHRoYXQg
+dGhlIHVzZXJxIGludmFsaWQgb3Bjb2RlIElHVA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IHRlc3Qg
+aGFzIG5vdCBiZWVuDQo+ID4gPiBpbXBsZW1lbnRlZCB5ZXQuDQo+ID4gPiA+ID4gPiA+ID4gPiA+
+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gSGkgQExpdSwgU2hhb3l1biwgYXJlIHlvdSBh
+d2FyZSBvZiBhbnkga25vd24gdXNlcnENCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IGhhbmcgc2Nl
+bmFyaW9zIHRoYXQgY2Fubm90DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gYmUgaWRlbnRpZmllZCBi
+eSBNRVMgQVBJIGhhbmdfZGV0ZWN0X29ubHk/IElmIG5vdCwNCj4gPiA+ID4gPiA+ID4gPiA+ID4g
+PiBjb3VsZCB5b3UgcGxlYXNlIGhlbHAgcmV2aWV3IHRoZSBmb2xsb3dpbmcgcGF0Y2gsDQo+ID4g
+PiA+ID4gPiA+ID4gPiA+ID4gd2hpY2ggdW5pZmllcyB0aGUgdXNlcnEgcmVzZXQgcGF0aCBmb3Ig
+aHVuZw0KPiA+ID4gPiA+ID4gPiA+ID4gcXVldWVzPw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4N
+Cj4gPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IFdlIGFkZGVkIGl0
+IGluIHRoZSBmaXJzdCBwbGFjZSB0byBkZWFsIHdpdGggdGhvc2UgY2FzZXMuDQo+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gVGhlcmUgY2FuIGJlIHF1ZXVlcyB3aGljaCBhcmUgbm90IGh1bmcsIGJ1dCB3
+aWxsDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gbmV2ZXIgY29tcGxldGUgYW5kIGhlbmNlIG5ldmVy
+IHNpZ25hbCB0aGVpciBmZW5jZS4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBFLmcuLCB5b3UgY2Fu
+IGhhdmUgYSBxdWV1ZSB0aGF0IGlzIHdhaXRpbmcgb24gYQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+
+IG1lbW9yeSBsb2NhdGlvbiB0aGF0IE1FUyBjYW4gcHJlZW1wdCwgYnV0IGR1ZSB0byBhDQo+ID4g
+PiA+ID4gPiA+ID4gPiA+ID4gYnVnIGVsc2V3aGVyZSB0aGF0IG1lbW9yeSBsb2NhdGlvbiB3aWxs
+IG5ldmVyIGNoYW5nZQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+IHNvIHRoZSBmZW5jZSB3aWxsDQo+
+ID4gPiA+ID4gPiA+IG5ldmVyIHNpZ25hbC4NCj4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4g
+PiA+ID4gPiA+ID4gVGhhbmsgeW91IGZvciB0aGUgaW5wdXQuIEhvd2V2ZXIsIGZvciBmYWtlIHRp
+bWVvdXQNCj4gPiA+ID4gPiA+ID4gPiA+ID4gY2FzZXMgc3VjaCBhcyB0aGUgbG9uZyBzaGFkZXIN
+Cj4gPiA+ID4gPiA+ID4gPiA+IHNjZW5hcmlvLCB3ZSBzaG91bGQgaWRlbnRpZnkgdGhlIGZha2Ug
+aGFuZyBjYXNlcyBieQ0KPiA+ID4gPiA+ID4gPiA+ID4gY2hlY2tpbmcgd2hldGhlciB0aGUgZ3Vp
+bHR5IHF1ZXVlIGFwcGVhcnMgaW4gdGhlIGhhbmcNCj4gPiA+ID4gPiA+ID4gPiA+IGxpc3QsIG9y
+IHdoZXRoZXIgdGhlIHF1ZXVlIHJwdHIgaXMgc3RpbGwgdXBkYXRpbmc/IElmDQo+ID4gPiA+ID4g
+PiA+ID4gPiBzbywgcHJlZW1wdCB0aGUgcXVldWUgcmF0aGVyIHRoYW4gcmVzZXR0aW5nDQo+ID4g
+PiA+ID4gaXQ/DQo+ID4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4g
+PiA+ID4gPiA+ID4gV2UgaGF2ZSB0byBhc3N1bWUgdGhhdCBpZiB3ZSBlbmQgdXAgaW4gdGhlIHF1
+ZXVlIHJlc2V0DQo+ID4gPiA+ID4gPiA+ID4gPiBwYXRoIHRoYXQgdGhlIHF1ZXVlIGlzDQo+ID4g
+PiA+ID4gPiA+IGh1bmcuDQo+ID4gPiA+ID4gPiA+ID4gPiBUaGUgZmVuY2VzIGhhdmUgdG8gc2ln
+bmFsIGluIGZpbml0ZSB0aW1lLiAgSWYgd2UgcHJlZW1wdA0KPiA+ID4gPiA+ID4gPiA+ID4gdGhl
+IHF1ZXVlIHRoYXQgd29uJ3Qgc2lnbmFsIHRoZSBmZW5jZSBzbyB3ZSdsbCBqdXN0IGVuZA0KPiA+
+ID4gPiA+ID4gPiA+ID4gdXAgaW4gdGhlIHF1ZXVlIHJlc2V0IHBhdGggYWdhaW4uICBQcmVlbXB0
+aW9uIG9mIGEgcXVldWUNCj4gPiA+ID4gPiA+ID4gPiA+IHRoYXQgd29uJ3QgbWFrZSBwcm9ncmVz
+cyBvbmx5IG1ha2VzIHNlbnNlDQo+ID4gPiA+ID4gPiA+IGlmIGZlbmNlcyBhcmUgbm90IGludm9s
+dmVkLg0KPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gVGhlIG1vc3QgY2FzZXMgcmVs
+ZXZhbnQgdG8gdXNlcnEgZmVuY2UgdGltZW91dCBhbmQgcmVzZXQNCj4gPiA+ID4gPiA+ID4gPiB3
+b3JrZXIgbGlrZWx5IHRvIGJlDQo+ID4gPiA+ID4gPiA+IHNjaGVkdWxlZCB3aGVuIGEgdXNlcnEg
+ZmVuY2UgcG9sbGluZyBwZXJpb2QgZXhwaXJlcy4gSWYgYQ0KPiA+ID4gPiA+ID4gPiBsb25nIHJ1
+bm5pbmcgc2hhZGVyIGlzIGRldGVjdGVkLCB0aGUgZHJpdmVyIG1heSBuZWVkIHRvIHRyeQ0KPiA+
+ID4gPiA+ID4gPiBwcmVlbXB0aW5nIHRoZSBxdWV1ZQ0KPiA+ID4gPiA+IHdpdGhpbiBhIGZldyBy
+ZXRyeSBjeWNsZXMuDQo+ID4gPiA+ID4gPiA+IElmIHRoZSB1c2VycSBmZW5jZSByZW1haW5zIHVu
+c2lnbmFsZWQgYWZ0ZXIgdGhlIHJldHJpZXMgYXJlDQo+ID4gPiA+ID4gPiA+IGV4aGF1c3RlZCwg
+dGhlIGRyaXZlciBjYW4gZWl0aGVyIHJldHVybiAtRVRJTUUgdG8gdXNlcnNwYWNlDQo+ID4gPiA+
+ID4gPiA+IGZvciBmdXJ0aGVyIGhhbmRsaW5nIG9yIGZhbGwgYmFjayB0byByZXNldHRpbmcgdGhl
+IHF1ZXVlIGRpcmVjdGx5Lg0KPiA+ID4gPiA+ID4gPiBNZWFud2hpbGUsIElmIHRoZSBwcmVlbXB0
+aW9uIHN1Y2NlZWRzIGFuZCB0aGUgcXVldWUNCj4gPiA+ID4gPiA+ID4gY29tcGxldGVzIGl0cyB3
+b3JrIGR1cmluZyB0aGUgc3Vic2VxdWVudCByZXN0b3JlIHByb2Nlc3MsIG5vDQo+ID4gPiA+ID4g
+PiA+IGZ1cnRoZXIgcmVzZXQgaXMgbmVjZXNzYXJ5IGZvciB0aGUNCj4gPiA+ID4gPiBndWlsdHkg
+cXVldWU/DQo+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gSWYg
+YW4gYXBwbGljYXRpb24gd2FudHMgdG8gcnVuIGxvbmcgcnVubmluZyBqb2JzIHRoZXkNCj4gPiA+
+ID4gPiA+ID4gc2hvdWxkbid0IHVzZSBwcm90ZWN0ZWQgZmVuY2VzIGluIHRoZSBmaXJzdCBwbGFj
+ZS4gIElmIHRoZXkNCj4gPiA+ID4gPiA+ID4gZG9uJ3QgdXNlIHByb3RlY3RlZCBmZW5jZXMsIHRo
+ZW4gaXQgc2hvdWxkIGJlaGF2ZSBsaWtlIEtGRA0KPiA+ID4gPiA+ID4gPiBxdWV1ZXMuICBJZiB0
+aGVyZSBpcyBzb21lIG9wZXJhdGlvbiB0aGF0IG5lZWRzIHRvIGhhcHBlbiB0aGUNCj4gPiA+ID4g
+PiA+ID4gcXVldWVzIHdpbGwgZ2V0IHByZWVtcHRlZCBhbmQgdGhlbiB3aWxsIGNvbnRpbnVlIGxh
+dGVyLiAgRE1BDQo+ID4gPiA+ID4gPiA+IGZlbmNlcyBuZWVkIHRvIHNpZ25hbCBpbiBmaW5pdGUg
+dGltZSBzbyB3ZSBjYW4ndCBqdXN0IGtlZXAgcHVzaGluZyB0aGVtDQo+IG9mZi4NCj4gPiA+ID4g
+PiA+ID4gT3RoZXIga2VybmVsIHBhZ2luZyBvcGVyYXRpb25zIG1heQ0KPiA+ID4gPiA+IGRlcGVu
+ZCBvbiB0aGVtIHNpZ25hbGxpbmcuDQo+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gUmVnYXJkaW5n
+IHRoZSBwcm90ZWN0ZWQgZmVuY2VzLCBkbyB5b3UgbWVhbiB0aGUgdXNlcnEgZmVuY2UNCj4gPiA+
+ID4gPiA+IHRoYXQgdHJpZ2dlcnMgdGhlDQo+ID4gPiA+ID4gaGFuZyBkZXRlY3Rpb24gd29yayBx
+dWV1ZT8NCj4gPiA+ID4gPiA+DQo+ID4gPiA+ID4NCj4gPiA+ID4gPiBZZXMuDQo+ID4gPiA+ID4N
+Cj4gPiA+ID4gPiA+IElmIHNvLCB0aGUgY3VycmVudCBpbXBsZW1lbnRhdGlvbiBjYWxscw0KPiA+
+ID4gPiA+ID4gYW1kZ3B1X3VzZXJxX2ZlbmNlX2luaXQoKSBhdCBmZW5jZSBlbWl0DQo+ID4gPiA+
+ID4gdGltZSAoaS5lLiwgYXQgZWFjaCBxdWV1ZSBzdWJtaXNzaW9uKSwgd2hpY2ggYm90aCBpbml0
+aWFsaXplcw0KPiA+ID4gPiA+IHRoZSBkbWFfZmVuY2Ugc3RydWN0dXJlIGFuZCBzdGFydHMgdGhl
+IGhhbmcgZGV0ZWN0aW9uIHRpbWVyIGZvcg0KPiA+ID4gPiA+IHRoYXQgc3VibWlzc2lvbi4gT25j
+ZSB0aGUgdGltZW91dCBleHBpcmVzLA0KPiA+ID4gPiA+IGFtZGdwdV91c2VycV9oYW5nX2RldGVj
+dF93b3JrKCkgZmlyZXMgYW5kIHRyaWdnZXJzIGEgcXVldWUgcmVzZXQNCj4gPiA+ID4gPiByZWdh
+cmRsZXNzIG9mIHdoZXRoZXIgdGhlIHF1ZXVlIGlzIGFjdHVhbGx5IGh1bmcgb3Igc2ltcGx5DQo+
+ID4gPiA+ID4gbG9uZy1ydW5uaW5nLiBCdXQgdGhlcmUncyBhIGNvcmUgcHJvYmxlbSBmb3IgdGhl
+IGtlcm5lbCB0bw0KPiA+ID4gPiA+IGRpc3Rpbmd1aXNoIGEgaHVuZyBxdWV1ZSBmcm9tIGEgc2xv
+dyBvbmUgYXQgZmVuY2UgZW1pdCB0aW1lLA0KPiA+ID4gPiA+IHNpbmNlIGJvdGggbG9vaw0KPiA+
+ID4gaWRlbnRpY2FsIGFuIHVuc2lnbmFsZWQgZmVuY2Ugd2l0aCBhbiBhY3RpdmUgcXVldWUuDQo+
+ID4gPiA+ID4gPg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gVGhhdCBpcyB0aGUgaW50ZW5kZWQgYmVo
+YXZpb3IuIElmIHlvdSBvcHQgaW50byB1c2luZyBhIGRtYQ0KPiA+ID4gPiA+IGZlbmNlLCB5b3Ug
+bmVlZCB0byBhYmlkZSBieSBpdHMgc2VtYW50aWNzLg0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiBI
+b3dldmVyLCB3ZSBjYW4gZGVmZXIgdGhhdCBkZXRlcm1pbmF0aW9uIHRvIHRoZSBmaXJzdCB0aW1l
+b3V0DQo+ID4gPiA+ID4gPiBleHBpcnkgaW4NCj4gPiA+ID4gPiBhbWRncHVfdXNlcnFfaGFuZ19k
+ZXRlY3Rfd29yaygpLiBBdCB0aGF0IHBvaW50IHdlIGhhdmUgbW9yZQ0KPiA+ID4gPiA+IGluZm9y
+bWF0aW9uIHRvIHdvcmsNCj4gPiA+ID4gPiB3aXRoOg0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+
+DQo+ID4gPiA+ID4gPiBDaGVjayBmb3IgcmVhbCBoYW5nOiBxdWVyeSBycHRyIGFuZCBycHRyIGhh
+cyBub3QgdXBkYXRlZCBzaW5jZQ0KPiA+ID4gPiA+ID4gdGhlIGZlbmNlIHdhcw0KPiA+ID4gPiA+
+IGVtaXR0ZWQsIHRoZSBxdWV1ZSBpcyBnZW51aW5lbHkgc3R1Y2sgKGZyb3plbiB3YXZlcywgaW5m
+aW5pdGUgbG9vcCkuDQo+ID4gPiA+ID4gVGhpcyBpcyBhIHJlYWwgaGFuZywgcmVzZXQgaW1tZWRp
+YXRlbHkgYW5kIGZvcmNpbmcgY29tcGxldGluZyB0aGUgZmVuY2VzLg0KPiA+ID4gPiA+ID4gQ2hl
+Y2sgZm9yIGZvcndhcmQgcHJvZ3Jlc3M6IGlmIHJwdHIgaGFzIHVwZGF0ZWQgYnV0IHRoZSBmZW5j
+ZQ0KPiA+ID4gPiA+ID4gaXMgc3RpbGwgdW5zaWduYWxlZCwgdGhlDQo+ID4gPiA+ID4gcXVldWUg
+aXMgbWFraW5nIHByb2dyZXNzLCBzbyBpdCBpcyBsb25nIHJ1bm5pbmcsIG5vdCBodW5nLiBJbiB0
+aGlzIGNhc2U6DQo+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gRXh0ZW5kIHRoZSB0aW1lb3V0IChy
+ZXNjaGVkdWxlIGhhbmdfZGV0ZWN0X3dvcmsgd2l0aCBhIGxvbmdlcg0KPiA+ID4gPiA+ID4gaW50
+ZXJ2YWwpIFRyYWNrIHJldHJ5IGNvdW50IGlmIHRoZSBxdWV1ZSBzdGlsbCBoYXMgbm90DQo+ID4g
+PiA+ID4gPiBjb21wbGV0ZWQgYWZ0ZXIgTiBleHRlbmRlZA0KPiA+ID4gPiA+IGN5Y2xlcywgZXNj
+YWxhdGU6IFByZWVtcHQgdGhlIHF1ZXVlLCBmb3JjZSBjb21wbGV0aW5nIHRoZSBmZW5jZQ0KPiA+
+ID4gPiA+IGFuZCByZXR1cm4gLUVUSU1FIHRvIHVzZXJzcGFjZSB0aGVuIGxldCB0aGUgYXBwbGlj
+YXRpb24gZGVjaWRlOg0KPiA+ID4gPiA+IHJlc3VibWl0LCBzcGxpdCB0aGUNCj4gPiA+IHdvcmts
+b2FkLCBvciBkcm9wLg0KPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+IEF2b2lkIHVubmVjZXNzYXJ5
+IHJlc2V0czogaWYgcHJlZW1wdGlvbiBzdWNjZWVkcyBhbmQgdGhlIHF1ZXVlDQo+ID4gPiA+ID4g
+PiByZXN1bWVzIGFuZA0KPiA+ID4gPiA+IGNvbXBsZXRlcyB3aXRoaW4gdGhlIGV4dGVuZGVkIHdp
+bmRvdywgY2FuY2VsIHRoZSByZXNldCBlbnRpcmVseQ0KPiA+ID4gPiA+IHNpbmNlIHRoZSBxdWV1
+ZSB3YXMgc2xvdywgbm90IGJyb2tlbi4NCj4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPg0KPiA+ID4g
+PiA+ID4gRG8geW91IHRoaW5rIHRoaXMgaXMgdGhlIHJpZ2h0IHdheSBmb3IgaGFuZGxpbmcgbG9u
+Zy1ydW5uaW5nDQo+ID4gPiA+ID4gPiB0YXNrcyB0byByZXNvbHZlIHRoZQ0KPiA+ID4gPiA+IHVz
+ZXJxIHRpbWVvdXQgaXNzdWUsIG9yIGRvZXMgaXQgYWxpZ24gd2l0aCB5b3VyIGlkZWE/DQo+ID4g
+PiA+ID4NCj4gPiA+ID4gPiBJZiB5b3Ugd2FudCB0byBydW4gYSBzdXBlciBsb25nIHJ1bm5pbmcg
+am9iLCB0aGVuIHlvdSBzaG91bGRuJ3QNCj4gPiA+ID4gPiB1c2UgYSBkbWEgZmVuY2UgaW4gdGhl
+IGZpcnN0IHBsYWNlLiAgVGhlcmUgbWlnaHQgYmUgYSBqb2IgdGhhdA0KPiA+ID4gPiA+IHRha2Vz
+IDIgbWludXRlcyBvciBldmVuIGFuIGhvdXIgdG8gcnVuLCBidXQgeW91IGNhbid0IHdhaXQgdGhh
+dA0KPiA+ID4gPiA+IGxvbmcgZm9yIGEgZG1hIGZlbmNlLiAgSWYgeW91IGRvLCB0aGUga2VybmVs
+IG1pZ2h0IHJ1biBvdXQgb2YNCj4gPiA+ID4gPiBtZW1vcnkgYW5kIHRoZSBPT00ga2lsbGVyIHdp
+bGwgc3RhcnQga2lsbGluZyBwcm9jZXNzZXMgb3IgeW91DQo+ID4gPiA+ID4gY291bGQgZGVhZGxv
+Y2suICBJZiB5b3Ugd2FudCB0byBydW4gYSBsb25nIGpvYiwgZG9uJ3QgdXNlIGEgZG1hDQo+ID4g
+PiA+ID4gZmVuY2UuICBJZiB5b3UgZG9uJ3QgdXNlIGEgZG1hIGZlbmNlLCB0aGVuIHRoZSBrZXJu
+ZWwgY2FuDQo+ID4gPiA+ID4gcHJlZW1wdCB0aGUgcXVldWVzLCBkbyB3aGF0ZXZlciBtZW1vcnkN
+Cj4gPiA+IG1hbmFnZW1lbnQgaXQgbmVlZHMgdG8gYW5kIHRoZW4gaXQgY2FuIHJlc3VtZSB0aGUg
+cXVldWVzLiAgZG1hDQo+ID4gPiBmZW5jZXMgaGF2ZSB0byBzaWduYWwgaW4gZmluaXRlIHRpbWUu
+DQo+ID4gPiA+DQo+ID4gPiA+IEdvdCBpdC4gU28gdG8gc2tpcCBhdHRhY2hpbmcgYSBkbWFfZmVu
+Y2UgdG8gYSBsb25nLXJ1bm5pbmcNCj4gPiA+ID4gc3VibWlzc2lvbiwgZG9lcyB0aGlzDQo+ID4g
+PiByZXF1aXJlIGFuIGV4cGxpY2l0IGZsYWcgZnJvbSB1c2Vyc3BhY2UgYXQgcXVldWUgY3JlYXRp
+b24sIG9yIGlzDQo+ID4gPiB0aGVyZSBhbm90aGVyIG1lY2hhbmlzbSB0byBpZGVudGlmeSBpdCBv
+biB0aGUga2VybmVsIHNpZGU/DQo+ID4gPiA+DQo+ID4gPg0KPiA+ID4gVXNlcnNwYWNlIHdvdWxk
+IHNpbXBseSBub3QgY2FsbCB0aGUgdXNlcnEgc2lnbmFsIElPQ1RMIGlmIHRoZXkgd2FudA0KPiA+
+ID4gdG8gcnVuIGxvbmcgcnVubmluZyBqb2JzLg0KPiA+DQo+ID4gWWVzLCB0aGlzIGFwcHJvYWNo
+IGNhbiBhbHNvIGhhbmRsZSBsb25nLXJ1bm5pbmcgam9icyBzdWJtaXR0ZWQgZnJvbSB1c2Vyc3Bh
+Y2UuDQo+IEhvd2V2ZXIsIGFmdGVyIHJldmlzaXRpbmcgdGhlIE1lc2EgY29kZSwgaXQgYXBwZWFy
+cyB0aGF0IGEgZmVuY2UgaXMgYWx3YXlzIGVtaXR0ZWQgZm9yDQo+IGVhY2ggdXNlcnEgc3VibWlz
+c2lvbiwgYW5kIEkgY291bGQgbm90IGZpbmQgYW55IGNvZGUgZm9yIGlkZW50aWZ5aW5nIGxvbmct
+cnVubmluZw0KPiBzdWJtaXNzaW9ucy4gSG93IHNob3VsZCBsb25nLXJ1bm5pbmcgc3VibWlzc2lv
+bnMgYmUgaWRlbnRpZmllZCBpbiB1c2Vyc3BhY2U/DQo+DQo+IFVzZXJzcGFjZSBzaG91bGQgbm90
+IHVzZSBwcm90ZWN0ZWQgZmVuY2VzIGluIHRoYXQgY2FzZS4gIEluIHRoZW9yeSBjb21wb3NpdG9y
+cyB0aGF0DQo+IHVzZSBleHBsaWNpdCBzeW5jIGRvIG5vdCBuZWVkIHRvIHVzZSB0aGUgcHJvdGVj
+dGVkIGZlbmNlLiAgU29tZW9uZSBqdXN0IG5lZWRzIHRvDQo+IGhhbmRsZSB0aGlzIGNhc2UgaW4g
+bWVzYS4NCg0KVW5kZXJzdGFuZGluZywgSSB3aWxsIGNyZWF0ZSBhIG5ldyB0aHJlYWQgZm9yIHRy
+YWNraW5nIHRoZSBsb25nIHJ1bm5pbmcgc3VibWlzc2lvbiB3b3JrIGl0ZW0uDQoNCj4gPg0KPiA+
+IElmIGEgbG9uZy1ydW5uaW5nIHN1Ym1pc3Npb24gZG9lcyBub3QgdXNlIGEgcHJvdGVjdGVkIGZl
+bmNlLCBoYW5nX2RldGVjdF93b3JrDQo+IHNob3VsZCBub3QgYmUgc2NoZWR1bGVkIGZvciB0aGF0
+IHN1Ym1pc3Npb24sIGFuZCB0aGlzIGNsZWFudXAgcGF0Y2ggc2hvdWxkIG5vdA0KPiBhZmZlY3Qg
+dGhlIGNvcnJlc3BvbmRpbmcgbG9uZy1ydW5uaW5nIHVzZXJxLiBUaGlzIHNob3VsZCB0aGVyZWZv
+cmUgYmUgdHJlYXRlZCBhcyBhDQo+IHNlcGFyYXRlIGNhc2UgcmVxdWlyaW5nIGZ1cnRoZXIgaW52
+ZXN0aWdhdGlvbiwgaW5jbHVkaW5nIGhvdyB0byBpZGVudGlmeSBsb25nLXJ1bm5pbmcNCj4gdXNl
+cnEgc3VibWlzc2lvbnMgYW5kIGF2b2lkIGF0dGFjaGluZyBwcm90ZWN0ZWQgZmVuY2VzIHRvIHRo
+ZW0uDQo+ID4NCj4NCj4gQWxsIHdlIG5lZWQgdG8gZG8gaXMgY2hlY2sgZm9yIHRoZSBwcmVzZW5j
+ZSBvZiBhIGZlbmNlIG9uIHRoZSBxdWV1ZSAodGhlIGFwcGxpY2F0aW9uDQo+IHdvdWxkIGhhdmUg
+Y2FsbGVkIHRoZSBmZW5jZSBJT0NUTCkuICBJZiB0aGUgZmVuY2UgaXMgcHJlc2VudCwgdGhlbiB3
+ZSdkIHJlc2V0IHRoZQ0KPiBxdWV1ZS4gIElmIG5vIGZlbmNlLCBhbmQgTUVTIGhhbmdfZGV0ZWN0
+IGRvZXNuJ3QgZGV0ZWN0IHRoZSBxdWV1ZSBhcyBodW5nLCB0aGVuDQo+IHRoZXJlIGlzIG5vIG5l
+ZWQgdG8gcmVzZXQgaXQuDQo+DQo+ID4gUmVnYXJkaW5nIHRoZSBjbGVhbnVwLCBpZiBhbGwgaHVu
+ZyB1c2VyIHF1ZXVlcyBjYW4gYmUgaWRlbnRpZmllZCB0aHJvdWdoDQo+IGhhbmdfZGV0ZWN0X29u
+bHksIGRvIHdlIHN0aWxsIG5lZWQgdG8gaGFuZGxlIHRoZSBndWlsdHkgdXNlcnEgc2VwYXJhdGVs
+eT8gQ291bGQgd2UNCj4gc2ltcGx5IHJlc2V0IGFsbCBndWlsdHkgcXVldWVzIGJ5IHRyYXZlcnNp
+bmcgdGhlIGxpc3Qgb2YgaHVuZyBkb29yYmVsbHMsIGFzIHByb3Bvc2VkIGluDQo+IHRoaXMgY2xl
+YW51cCBwYXRjaD8NCj4NCj4gSWYgdGhlcmUgYXJlIG5vIHByb3RlY3RlZCBmZW5jZXMsIHRoZW4g
+eWVzLCBhbGwgd2UgbmVlZCBpcyBNRVMgaGFuZyBkZXRlY3QuDQoNClBlciB0aGlzIGNsZWFudXAg
+Zm9yIHRoZSBndWlsdHkgcmVzZXQgaGFuZGxpbmcsIG1heSBJIGhhdmUgYSByZXZpZXcgb3IgYWNr
+IGZvciB0aG9zZSBjbGVhbiB1cCBzZXJpZXM/DQoNCj4gQWxleA0KPg0KPiA+DQo+ID4gUmVnYXJk
+cywNCj4gPiBQcmlrZQ0KPiA+DQo+ID4gPiBBbGV4DQo+ID4gPg0KPiA+ID4gPiBUaGFua3MsDQo+
+ID4gPiA+IFByaWtlDQo+ID4gPiA+ID4gQWxleA0KPiA+ID4gPiA+DQo+ID4gPiA+ID4gPg0KPiA+
+ID4gPiA+ID4gVGhhbmtzLA0KPiA+ID4gPiA+ID4gUHJpa2UNCj4gPiA+ID4gPiA+DQo+ID4gPiA+
+ID4gPiBBdm9pZCB1bm5lY2Vzc2FyeSByZXNldHM6IGlmIHByZWVtcHRpb24gc3VjY2VlZHMgYW5k
+IHRoZSBxdWV1ZQ0KPiA+ID4gPiA+ID4gcmVzdW1lcyBhbmQgY29tcGxldGVzIHdpdGhpbiB0aGUg
+ZXh0ZW5kZWQgd2luZG93LCBjYW5jZWwgdGhlDQo+ID4gPiA+ID4gPiByZXNldCBlbnRpcmVseSDi
+gJQgdGhlIHF1ZXVlIHdhcyBzbG93LCBub3QgYnJva2VuLj4NCj4gPiA+ID4gPiA+ID4gQWxleA0K
+PiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+IEluIHRoZSBsb25nZXIgdGVybSwgd2UgbWF5
+IG5lZWQgdG8gaW50cm9kdWNlIGEgbW9yZSByb2J1c3QNCj4gPiA+ID4gPiA+ID4gPiBtZWNoYW5p
+c20gdG8NCj4gPiA+ID4gPiA+ID4gZGlzdGluZ3Vpc2ggc2xvdyBxdWV1ZSBjYXNlcyBmcm9tIGdl
+bnVpbmUgaGFuZ3MsIGhhbmRsaW5nDQo+ID4gPiA+ID4gPiA+IHRoZW0gYXBwcm9wcmlhdGVseSB2
+aWEgZXh0ZW5kaW5nIHRpbWUgc2xpY2UgZm9yIGNvbXBsZXRpbmcNCj4gPiA+ID4gPiA+ID4gdGhl
+IHF1ZXVlIHN1Ym1pc3Npb24sIHVzZXJzcGFjZSBkcml2ZW4gcmVzdWJtaXNzaW9uLCBvcg0KPiA+
+ID4gPiA+ID4gPiBkcm9wcGluZyB0aGUgd29yayB0aHJvdWdoIGEgcXVldWUgcmVzZXQuIElmIGl0
+IG1ha2VzIHNlbnNlDQo+ID4gPiA+ID4gPiA+IGFuZCByaWdodCB3YXkgdG8gZG8sIHRoZW4gSSB3
+aWxsIHdvcmsgb24gaW1wbGVtZW50aW5nIHRoZQ0KPiA+ID4gPiA+ID4gPiBzb2x1dGlvbiBmb3Ig
+c3VjaCBzbG93L2xvbmcgcXVldWUNCj4gPiA+IGNhc2VzLg0KPiA+ID4gPiA+ID4gPiA+DQo+ID4g
+PiA+ID4gPiA+ID4gVGhhbmtzLA0KPiA+ID4gPiA+ID4gPiA+IFByaWtlDQo+ID4gPiA+ID4gPiA+
+ID4NCj4gPiA+ID4gPiA+ID4gPiA+IEFsZXgNCj4gPiA+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBBbGV4DQo+ID4gPiA+ID4gPiA+ID4g
+PiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IFJlZ2FyZHMsDQo+ID4gPiA+ID4gPiA+ID4g
+PiA+ID4gPiAgICAgICBQcmlrZQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPiA+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gRnJvbTogTGlhbmcsIFByaWtlDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+
+IFNlbnQ6IFRodXJzZGF5LCBKdWx5IDIzLCAyMDI2IDI6MzggUE0NCj4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gVG86IGFtZC1nZnhAbGlzdHMuZnJlZWRlc2t0b3Aub3JnOyBaaGFuZywNCj4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiA+ID4gSmVzc2UoSmllKSA8SmVzc2UuWmhhbmdAYW1kLmNvbT4NCj4g
+PiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gQ2M6IERldWNoZXIsIEFsZXhhbmRlcg0KPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiA8QWxleGFuZGVyLkRldWNoZXJAYW1kLmNvbT47IEtvZW5pZywgQ2hy
+aXN0aWFuDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IDxDaHJpc3RpYW4uS29lbmlnQGFtZC5j
+b20+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IFN1YmplY3Q6IFJFOiBbUEFUQ0ggMS8yXSBk
+cm0vYW1kZ3B1OiBSZW1vdmUNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gc2VwYXJhdGUgZ3Vp
+bHR5IGNvbXB1dGUgdXNlcnEgcmVzZXQNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiA+ID4gSSBjaGVja2VkIGVhY2ggZGlmZmVyZW50IHVzZXJxIGhhbmcg
+Y2FzZXMsIGFuZA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiB0aGUgZ3VpbHR5IHVzZXJxIGNh
+biBiZSBpZGVudGlmaWVkIGJ5IHRoZSBNRVMNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gZmly
+bXdhcmUgYW5kIHJlcG9ydA0KPiA+ID4gPiA+IGNvcnJlY3RseS4NCj4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gQFpoYW5nLA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiBKZXNzZShKaWUpIGNv
+dWxkIHlvdSBmdXJ0aGVyIGNoZWNrIGFzIHdlbGwgYXQgeW91IHNpZGU/DQo+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IElmIHRoZXJlJ3JlIHNvbWUg
+aGFuZyBxdWV1ZXMgbWlzcyBpZGVudGlmaWVkIGJ5DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+
+IE1FUyBmaXJtd2FyZSwgdGhlbiB0aGUgY29ycmVjdCB0aGluZyBpcyB0bw0KPiA+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiBmdXJ0aGVyIGRlYnVnIGZyb20gTUVTIGZpcm13YXJlIHNpZGUgcmF0aGVy
+IHRoYW4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gaGF2ZSBzdWNoIHN0cmFuZ2UgcmVzZXQg
+c2VxdWVuY2UgYW5kIHRoaXMgcmVzZXQNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gd29ya2Fy
+b3VuZCBzaG91bGQgYmUNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiBjbGVhbmVkIHNvb25lciBvciBs
+YXRlci4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+
+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gUmVnYXJkcywNCj4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gICAgICAgUHJpa2UNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiA+ID4gPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2UtLS0tLQ0KPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiA+IEZyb206IExpYW5nLCBQcmlrZSA8UHJpa2UuTGlhbmdAYW1kLmNv
+bT4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiBTZW50OiBXZWRuZXNkYXksIEp1bHkgMTUs
+IDIwMjYgMjozMSBQTQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IFRvOiBhbWQtZ2Z4QGxp
+c3RzLmZyZWVkZXNrdG9wLm9yZw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IENjOiBEZXVj
+aGVyLCBBbGV4YW5kZXINCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA8QWxleGFuZGVyLkRl
+dWNoZXJAYW1kLmNvbT47IEtvZW5pZywgQ2hyaXN0aWFuDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4g
+PiA+ID4gPENocmlzdGlhbi5Lb2VuaWdAYW1kLmNvbT47IExpYW5nLCBQcmlrZQ0KPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiA+IDxQcmlrZS5MaWFuZ0BhbWQuY29tPg0KPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+IFN1YmplY3Q6IFtQQVRDSCAxLzJdIGRybS9hbWRncHU6IFJlbW92ZQ0KPiA+
+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IHNlcGFyYXRlIGd1aWx0eSBjb21wdXRlIHVzZXJxIHJl
+c2V0DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiBhbWRncHVfbWVzX2RldGVjdF9hbmRfcmVzZXRfaHVuZ19xdWV1ZXMoKQ0KPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiA+IGFscmVhZHkgZGV0ZWN0cyB0aGUgZ3VpbHR5IGNvbXB1dGUgdXNl
+ciBxdWV1ZQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IGFuZCByZXNldHMgaXQgdGhyb3Vn
+aCBtZXNfdXNlcnFfcmVzZXRfcXVldWUoKS4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiBU
+aGUgYWRkaXRpb25hbCByZXNldCB2aWENCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiBtZXNf
+dXNlcnFfcmVzZXQoKSBpcyB1bm5lY2Vzc2FyeSwgc28gcmVtb3ZlIGl0DQo+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4gdG8gdW5pZnkgdGhlIGNvbXB1dGUgdXNlcnENCj4gPiA+ID4gPiA+ID4g
+PiA+ID4gPiByZXNldC4NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiA+IFNpZ25lZC1vZmYtYnk6IFByaWtlIExpYW5nDQo+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4gPFByaWtlLkxpYW5nQGFtZC5jb20+DQo+ID4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gLS0tDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gIGRyaXZlcnMvZ3B1L2Ry
+bS9hbWQvYW1kZ3B1L2FtZGdwdV9nZnguYyAgICB8IDUgLS0tLS0NCj4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gPiAgZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbWVzX3VzZXJxdWV1ZS5jIHwN
+Cj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiAyIC0tDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4g
+PiA+ID4gIDIgZmlsZXMgY2hhbmdlZCwgNyBkZWxldGlvbnMoLSkNCj4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IGRpZmYgLS1naXQNCj4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiBhL2RyaXZlcnMvZ3B1L2RybS9hbWQvYW1kZ3B1L2FtZGdw
+dV9nZnguYw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IGIvZHJpdmVycy9ncHUvZHJtL2Ft
+ZC9hbWRncHUvYW1kZ3B1X2dmeC5jDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gaW5kZXgg
+MWUyNzVjMmU3ZGQzLi40ZjJkNWZmMmY3YmUgMTAwNjQ0DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4g
+PiA+ID4gLS0tIGEvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvYW1kZ3B1X2dmeC5jDQo+ID4g
+PiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gKysrIGIvZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUv
+YW1kZ3B1X2dmeC5jDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gQEAgLTIzMTUsMTEgKzIz
+MTUsNiBAQCBpbnQNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiBhbWRncHVfZ2Z4X3Jlc2V0
+X21lc19jb21wdXRlKHN0cnVjdA0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IGFtZGdwdV9k
+ZXZpY2UgKmFkZXYsDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gICAgICAgICAgICAgZGVm
+ZXJyZWRfZW5kW25fZGVmZXJyZWRdLmZlbmNlID0gZ3VpbHR5X2ZlbmNlOw0KPiA+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiA+ICAgICAgICAgICAgIG5fZGVmZXJyZWQrKzsNCj4gPiA+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiAgICAgfQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IC0gICBpZiAo
+dXEpIHsNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiAtICAgICAgICAgICByID0gbWVzX3Vz
+ZXJxX3Jlc2V0KHVxKTsNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiAtICAgICAgICAgICBp
+ZiAocikNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiAtICAgICAgICAgICAgICAgICAgIGdv
+dG8gb3V0Ow0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IC0gICB9DQo+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4gICAgIGZvciAoaSA9IDA7IGkgPCBudW1faHVuZzsgaSsrKSB7DQo+ID4g
+PiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gICAgICAgICAgICAgc3RydWN0IGFtZGdwdV9yaW5nICpo
+ciA9IE5VTEw7DQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gICAgICAgICAgICAgc3RydWN0
+IGFtZGdwdV9mZW5jZSAqaGYgPSBOVUxMOw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IGRp
+ZmYgLS1naXQNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiBhL2RyaXZlcnMvZ3B1L2RybS9h
+bWQvYW1kZ3B1L21lc191c2VycXVldWUuYw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IGIv
+ZHJpdmVycy9ncHUvZHJtL2FtZC9hbWRncHUvbWVzX3VzZXJxdWV1ZS5jDQo+ID4gPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4gaW5kZXggYjZiZmEzOTc0ODM5Li5mYWIyMWQ0Mjc1ZjMgMTAwNjQ0DQo+
+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gLS0tDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+
+ID4gYS9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tZXNfdXNlcnF1ZXVlLmMNCj4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiA+ID4gPiArKysgYi9kcml2ZXJzL2dwdS9kcm0vYW1kL2FtZGdwdS9tZXNf
+dXNlcnF1ZXVlDQo+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gKysrIC5jDQo+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiA+ID4gQEAgLTIyNiw4ICsyMjYsNiBAQCBpbnQNCj4gPiA+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiBtZXNfdXNlcnFfcmVzZXRfcXVldWUoc3RydWN0IGFtZGdwdV9kZXZpY2UN
+Cj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiAqYWRldiwNCj4gPiA+ID4gPiA+ID4gPiA+ID4g
+PiA+ID4gPg0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ICAgICB4YV9mb3JfZWFjaCgmYWRl
+di0+dXNlcnFfZG9vcmJlbGxfeGEsIHVxX2lkLCB1cSkgew0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+
+ID4gPiA+ICAgICAgICAgICAgIGlmICh1cS0+cXVldWVfdHlwZSA9PSBxdWV1ZV90eXBlKSB7DQo+
+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gLSAgICAgICAgICAgICAgICAgICBpZiAodXEgPT0g
+Z3VpbHR5X3VxKQ0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+IC0gICAgICAgICAgICAgICAg
+ICAgICAgICAgICBjb250aW51ZTsNCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiAgICAgICAg
+ICAgICAgICAgICAgIGlmICh1cS0+ZG9vcmJlbGxfaW5kZXggPT0gZGIpIHsNCj4gPiA+ID4gPiA+
+ID4gPiA+ID4gPiA+ID4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdXEtPnN0YXRlID0N
+Cj4gPiA+IEFNREdQVV9VU0VSUV9TVEFURV9IVU5HOw0KPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4g
+PiA+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICBpZiAodXNlX21taW8pDQo+ID4gPiA+ID4g
+PiA+ID4gPiA+ID4gPiA+ID4gLS0NCj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+ID4gPiAyLjM0LjEN
+Cj4gPiA+ID4gPiA+ID4gPiA+ID4gPiA+DQo=
