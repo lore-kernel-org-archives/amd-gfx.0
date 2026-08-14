@@ -4,71 +4,66 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28EF7C5DF6E
-	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 21:04:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19D73C5DF75
+	for <amd-gfx@archiver.kernel.org>; Fri, 14 Aug 2026 21:04:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4563A10F74A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C013A10F74D;
 	Fri, 14 Aug 2026 21:04:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="C5dvweDi";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="c2OiDYcA";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013027.outbound.protection.outlook.com
- [40.107.201.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7178210F745
- for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 21:04:06 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010022.outbound.protection.outlook.com [52.101.201.22])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D82110F73E
+ for <amd-gfx@lists.freedesktop.org>; Fri, 14 Aug 2026 21:04:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oAlfnWPI4VlYU7RizEE+RaIjSCt0dp83QOUE4TVkEzgK7F9wM9pV6Zu2i+yZsfH7OGWhwhdUjTP9UmoFQDIDvMWR1vnVLpd0SmhKeFHDpqzBaQiXWMoT+YmZ1ZpgdU0UslQA70hCaG/M1ME8tk7ZcQsgB47dSuyXQmCT8QpAt9qXZJsAhLx0cTQpBHeanD6crl/ltqv9vpZix30uxRvu/ju5cvLSMC59oLquk2YxK+qa5EA8zMbNd5ebd4EnJW7qSEGHq4f+LRA/DHhWi4rSneOnGFTgTmM9VAKJ3j5qULXaG7+Y0oZKcDmAaKo5eUJSVnj2gk41Uqm/YsNt6K/m5Q==
+ b=VT0wvmsMV/dUIBTOidOkyY9NJ8zMW1B+cs8SsoAA9Jz/rAjlcHJwRs9fDP1Z/M2JWtg9bXjedcOBHityMw2qaaZt04n8i/vup78BwfwTKB108Ijx0EsabfV6wM7jVcdb55EAemK+XtOyb1mUG1PvcjpMLweROJcmQwGEy9Kq4Zk/Q1WGIy+UNBv33nvt+AYxEXJ+8OA4rBVHch7PAR6TQMlXloycVPz49wRabZiDEfijjhFGWGmUlvnGEaX23J9+6k2B0amG9dJYmT8jTzydzKDkapZZzHrEmaDD39u/Gknsoaz1eZX/NQKEnjU3A0wy8aqsGOSOXUNmPcyTkqlfiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BokHb/nvPTmyEnde7t/XBhCcuF6A1KlCr65qu1yqb50=;
- b=IHSPE5mt3rwMg5jb4YSkrBILU09PE98Hrk3SaverrK3eDtUyWuQllsKBAZdm1DCBXbCjYeMA9sD61e8uTlgYZF9Q7Ur4OBSeIucyil2ZdNxgA0Dd3OLP6pQgZy+K311l74xnDrF2OzqsYmyx9kaz7gAZCj4WLiP8cTlUX0/OIPKJkbJAUycxW+TMjGOjQ8CQXpEUHY7GxIJ2OAmWyaOMMMe12FsTAtBEiwlsn/tEtPaE5Gw7rE4awybJcVK9CHPHnNJeAF9lA8DoUMIQ9aaLoaywV0lYalCQSpsL+RFE4ywo1FHQXQZ23dpnsbXFdRh2ctHEP4S7x4F0WuGOOJS69Q==
+ bh=ktonijW/eKc0F7+LQwHpnLubquxC71r0DbPmK39hR4Y=;
+ b=vEWmicf7Js27IAPbZuneNfLIqiet2XUIdnsMtklp4I6HUmrAw7SnJwI2j8+p5ZSn7h9FvkSZ1YpWNliJaRZXApg64YHkPLqdGbigal+niehFBnnX0ODtIvzvPMGHjc9n7Hgj+djxeKCwwfN/fB6d7IoV8x8bOhvU0qMaTDjq87jqzD8Z/o1iL37awKA+RuZ7LIpjmJel3paFSilT6P/Kq3CZVd9TxU1j+M3KAL+XLqp4kbr5RS4aiV3rxKgQmRB+NcxTyZ0TTn/VMPArxEuzoqCC9bg0sfHkcL331xqAZixvi9sEJihxbWoTNbCdm4+ovdQqwQMgqVfvb9x5/pe/cQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BokHb/nvPTmyEnde7t/XBhCcuF6A1KlCr65qu1yqb50=;
- b=C5dvweDiWtKsnPyCGc7D6+zIvb8Ye06nuUtUQ8FCfCVM7stWiM0/xXm8AiHkegLX8+NNDoLgJNoSgiJytBi36ZJCT/fobAsVFYA1zqdKS+S5tr3Rz0LAuHD6WXF3P27Dr6WUl+w/pFW1POMt/0pUNoZqt00b5QiTPZft1SCkaVQ=
-Received: from DSZP220CA0003.NAMP220.PROD.OUTLOOK.COM (2603:10b6:5:280::13) by
- CY8PR12MB9033.namprd12.prod.outlook.com (2603:10b6:930:71::7) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.16; Fri, 14 Aug 2026 21:03:57 +0000
-Received: from CH3PEPF00000015.namprd21.prod.outlook.com
- (2603:10b6:5:280:cafe::a6) by DSZP220CA0003.outlook.office365.com
- (2603:10b6:5:280::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.16 via Frontend Transport; Fri,
- 14 Aug 2026 21:03:57 +0000
+ bh=ktonijW/eKc0F7+LQwHpnLubquxC71r0DbPmK39hR4Y=;
+ b=c2OiDYcAa42YAb6hCaDPdskbHeG3j0dfsj3DkIwitvfxEwxojWBhG6uF24b8mVUkuSpnKvUidQ0sNcsywukeHWakm8Z6j/hVZqtBNaBZHGIlF7XIEkvnKoNj41hmZcTULvUPuJqzGCO5a5mZc7ZcWHvHrPkFHMVyF34sIF95ZXU=
+Received: from BN9PR03CA0349.namprd03.prod.outlook.com (2603:10b6:408:f6::24)
+ by SJ0PR12MB6903.namprd12.prod.outlook.com (2603:10b6:a03:485::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Fri, 14 Aug
+ 2026 21:04:04 +0000
+Received: from BN2PEPF0000449E.namprd02.prod.outlook.com
+ (2603:10b6:408:f6:cafe::ad) by BN9PR03CA0349.outlook.office365.com
+ (2603:10b6:408:f6::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.15 via Frontend Transport; Fri,
+ 14 Aug 2026 21:04:02 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH3PEPF00000015.mail.protection.outlook.com (10.167.244.120) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN2PEPF0000449E.mail.protection.outlook.com (10.167.243.149) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.0 via Frontend Transport; Fri, 14 Aug 2026 21:03:57 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.339.3 via Frontend Transport; Fri, 14 Aug 2026 21:04:02 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 16:03:56 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 14 Aug
- 2026 16:03:56 -0500
+ 2026 16:03:58 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 14 Aug 2026 16:03:56 -0500
+ Transport; Fri, 14 Aug 2026 16:03:58 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Xiang Liu <xiang.liu@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 098/109] drm/amd/ras: move BERT boot errors to BERT sw init
-Date: Fri, 14 Aug 2026 17:02:35 -0400
-Message-ID: <20260814210246.3067612-99-alexander.deucher@amd.com>
+Subject: [PATCH 102/109] drm/amd/ras: define processor and memory CPER formats
+Date: Fri, 14 Aug 2026 17:02:39 -0400
+Message-ID: <20260814210246.3067612-103-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260814210246.3067612-1-alexander.deucher@amd.com>
 References: <20260814210246.3067612-1-alexander.deucher@amd.com>
@@ -77,29 +72,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000015:EE_|CY8PR12MB9033:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3cc22620-3ae9-4c44-479c-08defa478e5c
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000449E:EE_|SJ0PR12MB6903:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7eb59d02-699e-4aed-1b3a-08defa479194
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|82310400026|36860700016|376014|18002099003|22082099003|6133799003|56012099006|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info: +o1j5Q1tDBOASjrDfCUe0wCYiu9pMhIHgT82xpinpq/fVYIh8QDTZ/I02XIbdmLOGB++HN0D7BJVwH7SURza8kvRQZrqBCfLdB/qc1u/XnAkcs7iH3GIs4D6rRyZGPDQPvcTLVB0oiKZGE5MEIG0IaDu4OE0FRaiWmc7YNlNLYmBgZneVKOvcNDQERO7o/XbDBLhxWl+/HBBLJsP1ctamupgVH2gd76Tb9uLxgEwjIpXsalyWXun7vannhE9VgGa8Uj6inTf0maMEjU/FGO5FON+yudvKMmWaYHvFVP6+uBBDsq+VmS+x1bvkMZDALZfEF4e05REZaYek8VB9Bwe1awRT4dObODCMhzHS4EJZy+OgArOYQ0IPyPmy8bqrD9VZOwU6Ee9KwfyNUnwQSq0hmjPYtSD7twKaK0WsAqxwArqBDupnbosRJyy2/wzM4LWOu6Bc/QGwmLlT9Rsfshas9xKc5+vDz/wSX3r2FfG60rP+dQRO0YiTx1n0zLdpIj4fvevFF+RAdtwq5G6RB8nva2pIDTmiAwmlxJ/oq6mV2TCwRC4KxZVQJAv6O/dTBQxYP1xNrLxDtKw1+Qy031AgqOUt77OkA92N+0rVG7j3tkVT4XFbOeXV//sMIfIhyQDnlZuvdmCHnT+QVOGBZ7Q/D1IVcJ2sDIzTUzsBFyIawM=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(82310400026)(36860700016)(376014)(18002099003)(22082099003)(6133799003)(56012099006)(10067099003)(11063799006);
+ ARA:13230040|36860700016|376014|23010399003|1800799024|82310400026|22082099003|18002099003|56012099006|11063799006|3023799007|6133799003|10067099003;
+X-Microsoft-Antispam-Message-Info: hExxdBICo9vrKqFkcTbqlsxVDMCZlwTwrSzFZqJRwejy+VxvwekQIxI5u67tfP51rnzjkWyOLC8XXwlnxv9DErP8tXTlnjyFebLs5dEwODE5rtl+8l9/ZWYW4mMzLTAZqxW1gqWrb+YAUM9KWrz86Thu8HTqXCp5IpEVj76QCWU4k7UGTeHxQM1W0NjjWmPtZsHdhkFQklUxI0OmXo8MjcUhavIvmGZ5ZEtC74z/jrSuusU1HDCIZJq9fXauh4JxROJJ2tN0mO3fT4PFQGGELb17TIEwzzetKW/2JNr5p+pry32gf4UwpvpSdEFyugpEZD6acWL8c0seBeZapa7PdtNYU9V6myONjPHaUa30GunUwhlHYP/LOdESAgYjeqi0DwL6XhnmJ19hlzuVnqqEfIIQmGfZ0NsKZAJ349+Hs3dGsK4miqn7p2C2/GR111v5y6clllF1txwa/EYYFgAztAzlEhQQQ4DcUQt2xtw1L4NBCtOtf7tw2o2UqFARijAneIf32D02ly2VGGTgFf73ymvj1YBwAxedBltFmE0xlXYGGO5dy1glSU2PteljAUP+VQ06Cqk/8o74l3M3zvvliHbleqQ73DGrKvVIi401YPmAqbcF4ySEUnJiwmRu4WXjoOmieRFpGNvDqCML2Ic9WPmq4YYQykNTlIk5ZOEOpqpO5YmG/w4FmYEHcN7CbPKvNV2gGIkipSfegS7hYRJnJQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(22082099003)(18002099003)(56012099006)(11063799006)(3023799007)(6133799003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: jzH5unEKWdFy1yCVCK9DwEWU4Cd8oqT6be/eBYwzqXpejuSmRMYEOVnNieOUgKrAqQSAkWcILqfJ15ebVvLoe0HuF2ai0Gw1bgE5vZo/9qI1NbbHtTkNMSffko4is228AMe5ZA0zq9GyfiKfmhbOKKmKDIiQzDlu6jcwoPYiNAxfoipqTyaPcDD63bmJC+NuI67LCRT0HvEKUc2NV4/8u8NO6a3RjCje49o6DQ9ZSw1jBGh1UgZj0/1sWQyfxVxN/nVEeE5eIN2QWmE99iE+YhLU+9oAvxUZCL+KyTsNRDsnQjD8/5ymPQY9y2/ehgtyeITFjBNa93vBdwkbtsa82VI5o0/jDUDnGv9jjdkitjOwwjbGFVuGUaASyLxJEq1hPPMpNyb8xAmgvJdHYaKdsj0e6ZZS6y1eOMTmQ3nNRVSdtqvMx4Pw3Gm2MjCYygNs
+X-MS-Exchange-AntiSpam-MessageData-0: 34AsG6mKRi9FzFJ53Zov+yPXT9ar2SoVZKwanemZTcRCDM8xozMwA37tile9ANa6F04GV7+zDnY5Ozz7lSLExdSw5g4FLyiiaP72bNCT4rWB7Zqe76bSFF5MNkXEow6UAjyBCnBAmXkOvlQJvXFb2pEAU/9nNI0XRF0le9jZom/EROQ7tkLvYDSjcWjT+nyxOD1KAftevX9923PHWdHx4mka7sdr8YOdNNxtGJ92KjHRXQLIxd/AUzD8D6kGv1NDJs8aPr8pJmne2prr7CYwEeV9XWqsFoNdvE7gkd7s+mTIdKKuCgUQmJ1wTBWCH/UuBs4d+Nubllzj8XfeRYvH8PL94un/EuNQsZ8vF0anL+pFJoR95A7JJ/gHBpmZht7OQjw6b4LtCLvcAfq1eI64tJogpS5k9WJziBoUbOa7t7MWpT3aQ9bdROzWufBqGuTn
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 21:03:57.0673 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3cc22620-3ae9-4c44-479c-08defa478e5c
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 Aug 2026 21:04:02.4839 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7eb59d02-699e-4aed-1b3a-08defa479194
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000015.namprd21.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF0000449E.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB9033
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6903
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,284 +111,175 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Xiang Liu <xiang.liu@amd.com>
 
-Keep BERT boot-error handling owned by the BERT module instead of letting
-the MCE notifier lifecycle drive BERT processing and cleanup.
+CPU machine-check and platform boot errors require standard processor
+and Platform Memory section definitions. The AMD crashdump format also
+uses a 64-byte common header followed by a common error information
+structure.
 
-Group the cached boot-error state into a single structure so the related
-poll result, raw record data, per-socket write tracking, and lock are
-managed together.
-
-Expose only the standard BERT sw_init/sw_fini entry points. The RAS manager
-calls them around the existing MCE sw lifecycle, while the MCE code no
-longer includes BERT headers or calls BERT helpers directly.
-
-This lets BERT process cached boot records earlier in the RAS manager
-sw_init path and release its cached state independently during sw_fini.
+Add the required GUIDs, validity fields, processor structures, and AMD
+crashdump wire layout so rascore can generate each record type.
 
 Signed-off-by: Xiang Liu <xiang.liu@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_bert.c | 95 ++++++++++++-------
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_bert.h |  6 +-
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mce.c  |  7 --
- .../gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c  |  5 +
- 4 files changed, 68 insertions(+), 45 deletions(-)
+ drivers/gpu/drm/amd/ras/core/ras_cper.h | 99 +++++++++++++++++++++++--
+ 1 file changed, 93 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_bert.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_bert.c
-index 29111b10b00a3..04490f5173c41 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_bert.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_bert.c
-@@ -31,15 +31,23 @@
+diff --git a/drivers/gpu/drm/amd/ras/core/ras_cper.h b/drivers/gpu/drm/amd/ras/core/ras_cper.h
+index f69f4e4de9ec9..58d2955ec08dc 100644
+--- a/drivers/gpu/drm/amd/ras/core/ras_cper.h
++++ b/drivers/gpu/drm/amd/ras/core/ras_cper.h
+@@ -38,8 +38,10 @@ struct ras_cper_guid {
+ 		(d0), (d1), (d2), (d3), (d4), (d5), (d6), (d7) }}
  
- #include "amdgpu_ras_mgr.h"
+ #define CPER_HDR__REV_1          (0x100)
++#define CPER_HDR__REV_AMD_CPU    (0x101)
+ #define CPER_SEC__MINOR_REV_1    (0x01)
+ #define CPER_SEC__MAJOR_REV_22   (0x22)
++#define CPER_SEC__REV_AMD_CPU    (0x0100)
+ #define CPER_OAM_MAX_COUNT      (8)
  
--static DEFINE_MUTEX(boot_err_lock);
--static bool boot_err_polled, boot_err_written[MAX_GPU_INSTANCE];
--static int boot_err_poll_result;
--static u8 *boot_err_raw_data;
--static u32 boot_err_raw_data_len;
--
--int amdgpu_ras_bert_process_boot_errors(struct amdgpu_device *adev)
-+struct amdgpu_ras_bert_boot_err_state {
-+	struct mutex lock; /* protects cached boot error state */
-+	bool polled;
-+	bool written[MAX_GPU_INSTANCE];
-+	int poll_result;
-+	u8 *raw_data;
-+	u32 raw_data_len;
+ #define CPER_CTX_TYPE__CRASH     (1)
+@@ -68,6 +70,43 @@ struct ras_cper_guid {
+ #define PROC_ERR__SECTION_TYPE                                         \
+ 	CPER_GUID__INIT(0xDC3EA0B0, 0xA144, 0x4797, 0xB9, 0x5B, 0x53, 0xFA, \
+ 		  0x24, 0x2B, 0x6E, 0x1D)
++#define PROC_ERR__MS_CHECK_TYPE                                        \
++	CPER_GUID__INIT(0x48AB7F57, 0xDC34, 0x4F6C, 0xA7, 0xD3, 0xB0, 0xB5, \
++		  0xB0, 0xA7, 0x43, 0x14)
++#define PLATFORM_MEM__SECTION_TYPE                                     \
++	CPER_GUID__INIT(0xA5BC1114, 0x6F64, 0x4EDE, 0xB8, 0x63, 0x3E, 0x83, \
++		  0xED, 0x7C, 0x83, 0xB1)
++#define PCIE_ERR__SECTION_TYPE                                         \
++	CPER_GUID__INIT(0xD995E954, 0xBBC1, 0x430F, 0xAD, 0x91, 0xB4, 0x4D, \
++		  0xCB, 0x3C, 0x6F, 0x35)
++#define SMN_ERR__SECTION_TYPE                                          \
++	CPER_GUID__INIT(0xA2860CC1, 0x8987, 0x4B7C, 0xB8, 0x6A, 0xD5, 0x08, \
++		  0xB1, 0x76, 0xBA, 0x70)
++
++#define CPER_PROC_VALID_APIC_ID		BIT_ULL(0)
++#define CPER_PROC_ERR_INFO_COUNT(x)	(((u64)(x) & 0x3f) << 2)
++#define CPER_PROC_CONTEXT_COUNT(x)	(((u64)(x) & 0x3f) << 8)
++#define CPER_AMD_CONTEXT_COUNT(x)	(((u64)(x) & 0x3f) << 8)
++#define CPER_AMD_ERR_INFO_COUNT(x)	(((u64)(x) & 0x3f) << 2)
++
++#define CPER_PROC_INFO_VALID_CHECK_INFO	BIT_ULL(0)
++
++#define CPER_MS_CHECK_VALID_ERR_TYPE	BIT_ULL(0)
++#define CPER_MS_CHECK_VALID_PCC		BIT_ULL(1)
++#define CPER_MS_CHECK_VALID_UNCORRECTED	BIT_ULL(2)
++#define CPER_MS_CHECK_VALID_OVERFLOW	BIT_ULL(5)
++#define CPER_MS_CHECK_ERR_TYPE_INTERNAL	(5ULL << 16)
++#define CPER_MS_CHECK_PCC		BIT_ULL(19)
++#define CPER_MS_CHECK_UNCORRECTED	BIT_ULL(20)
++#define CPER_MS_CHECK_OVERFLOW		BIT_ULL(23)
++
++#define CPER_MCA_STATUS_OVERFLOW	BIT_ULL(62)
++#define CPER_MCA_STATUS_UNCORRECTED	BIT_ULL(61)
++#define CPER_MCA_STATUS_PCC		BIT_ULL(57)
++#define CPER_MCA_STATUS_DEFERRED	BIT_ULL(44)
++
++#define CPER_SMCA_MC0_STATUS_MSR	(0xc0002001U)
++#define CPER_SMCA_BANK_STRIDE		(0x10U)
+ 
+ enum ras_cper_type {
+ 	RAS_CPER_TYPE_RUNTIME,
+@@ -238,10 +277,10 @@ struct cper_section_runtime {
+ };
+ 
+ struct crashdump_hdr {
+-	uint64_t reserved1;
+-	uint64_t reserved2;
++	u64 valid_bits;
++	u32 pcie_device_id;
++	u32 pldm_bundle;
+ 	char     fw_id[48];
+-	uint64_t reserved3[8];
+ };
+ 
+ struct fatal_reg_info {
+@@ -267,16 +306,56 @@ struct crashdump_boot {
+ 	uint64_t msg[CPER_OAM_MAX_COUNT];
+ };
+ 
++struct crashdump_error_info {
++	struct ras_cper_guid error_type;
++	u64 valid_bits;
++	u64 check_info;
++	u8 fru_part_number[16];
++	u8 redfish_event_id[16];
 +};
 +
-+static struct amdgpu_ras_bert_boot_err_state boot_err_state = {
-+	.lock = __MUTEX_INITIALIZER(boot_err_state.lock),
+ struct cper_section_fatal {
+-	struct crashdump_hdr    hdr;
+-	struct crashdump_fatal  data;
++	struct crashdump_hdr hdr;
++	struct crashdump_error_info error_info;
++	struct crashdump_fatal data;
+ };
+ 
+ struct cper_section_boot {
+-	struct crashdump_hdr  hdr;
++	struct crashdump_hdr hdr;
++	struct crashdump_error_info error_info;
+ 	struct crashdump_boot data;
+ };
+ 
++struct cper_processor_section {
++	u64 valid_bits;
++	u64 apic_id;
++	u8 cpuid[48];
 +};
 +
-+static int amdgpu_ras_bert_process_boot_errors(struct amdgpu_device *adev)
- {
- 	struct amdgpu_ras_mgr *ras_mgr = amdgpu_ras_mgr_get_context(adev);
-+	struct amdgpu_ras_bert_boot_err_state *state = &boot_err_state;
- 	struct acpi_bert_region *boot_error_region;
- 	struct acpi_table_header *table;
- 	struct acpi_table_bert *bert_tab;
-@@ -51,11 +59,11 @@ int amdgpu_ras_bert_process_boot_errors(struct amdgpu_device *adev)
- 	if (!ras_mgr || !ras_mgr->ras_core)
- 		return -EPERM;
- 
--	mutex_lock(&boot_err_lock);
-+	mutex_lock(&state->lock);
- 
--	if (!boot_err_polled) {
--		boot_err_polled = true;
--		boot_err_poll_result = 0;
-+	if (!state->polled) {
-+		state->polled = true;
-+		state->poll_result = 0;
- 		ret = 0;
- 
- 		if (acpi_disabled)
-@@ -67,7 +75,7 @@ int amdgpu_ras_bert_process_boot_errors(struct amdgpu_device *adev)
- 
- 		if (ACPI_FAILURE(status)) {
- 			RAS_DEV_ERR(adev, "get table failed, %s.\n", acpi_format_exception(status));
--			boot_err_poll_result = -EINVAL;
-+			state->poll_result = -EINVAL;
- 			goto out_unlock;
- 		}
- 		bert_tab = (struct acpi_table_bert *)table;
-@@ -75,36 +83,36 @@ int amdgpu_ras_bert_process_boot_errors(struct amdgpu_device *adev)
- 		if (bert_tab->header.length < sizeof(struct acpi_table_bert) ||
- 		    bert_tab->region_length < sizeof(struct acpi_bert_region)) {
- 			RAS_DEV_ERR(adev, "table invalid.\n");
--			boot_err_poll_result = -EINVAL;
-+			state->poll_result = -EINVAL;
- 			goto out_put_bert_tab;
- 		}
- 
- 		region_len = bert_tab->region_length;
- 		boot_error_region = acpi_os_map_memory(bert_tab->address, region_len);
- 		if (boot_error_region) {
--			boot_err_raw_data = kmemdup(boot_error_region, region_len, GFP_KERNEL);
-+			state->raw_data = kmemdup(boot_error_region, region_len, GFP_KERNEL);
- 			acpi_os_unmap_memory(boot_error_region, region_len);
--			if (!boot_err_raw_data) {
-+			if (!state->raw_data) {
- 				RAS_DEV_ERR(adev, "failed to cache BERT raw data.\n");
--				boot_err_poll_result = -ENOMEM;
-+				state->poll_result = -ENOMEM;
- 			} else {
--				boot_err_raw_data_len = region_len;
-+				state->raw_data_len = region_len;
- 			}
- 		} else {
- 			RAS_DEV_ERR(adev, "failed to map BERT region.\n");
--			boot_err_poll_result = -ENOMEM;
-+			state->poll_result = -ENOMEM;
- 		}
- 
- out_put_bert_tab:
- 		acpi_put_table(table);
- 	}
- 
--	if (boot_err_poll_result) {
--		ret = boot_err_poll_result;
-+	if (state->poll_result) {
-+		ret = state->poll_result;
- 		goto out_unlock;
- 	}
- 
--	if (!boot_err_raw_data || !boot_err_raw_data_len ||
-+	if (!state->raw_data || !state->raw_data_len ||
- 	    !(adev && (adev->gmc.xgmi.connected_to_cpu || adev->gmc.is_app_apu))) {
- 		ret = 0;
- 		goto out_unlock;
-@@ -122,31 +130,50 @@ int amdgpu_ras_bert_process_boot_errors(struct amdgpu_device *adev)
- 		goto out_unlock;
- 	}
- 
--	if (boot_err_written[socket_id]) {
-+	if (state->written[socket_id]) {
- 		ret = 0;
- 		goto out_unlock;
- 	}
- 
- 	ret = ras_bert_process_records(ras_mgr->ras_core,
--				       boot_err_raw_data, boot_err_raw_data_len);
-+				       state->raw_data, state->raw_data_len);
- 	if (!ret)
--		boot_err_written[socket_id] = true;
-+		state->written[socket_id] = true;
- 
- out_unlock:
--	mutex_unlock(&boot_err_lock);
-+	mutex_unlock(&state->lock);
- 
- 	return ret;
- }
- 
--void amdgpu_ras_bert_reset_boot_errors(void)
-+static void amdgpu_ras_bert_reset_boot_errors(void)
- {
--	mutex_lock(&boot_err_lock);
--	memset(boot_err_written, 0, sizeof(boot_err_written));
--	kfree(boot_err_raw_data);
--	boot_err_raw_data = NULL;
--	boot_err_raw_data_len = 0;
--	boot_err_poll_result = 0;
--	boot_err_polled = false;
--	mutex_unlock(&boot_err_lock);
-+	struct amdgpu_ras_bert_boot_err_state *state = &boot_err_state;
++struct cper_processor_error_info {
++	struct ras_cper_guid error_type;
++	u64 valid_bits;
++	u64 check_info;
++	u64 target_id;
++	u64 requester_id;
++	u64 responder_id;
++	u64 instruction_pointer;
++};
 +
-+	mutex_lock(&state->lock);
-+	memset(state->written, 0, sizeof(state->written));
-+	kfree(state->raw_data);
-+	state->raw_data = NULL;
-+	state->raw_data_len = 0;
-+	state->poll_result = 0;
-+	state->polled = false;
-+	mutex_unlock(&state->lock);
- }
- #endif
++struct cper_processor_context {
++	u16 reg_ctx_type;
++	u16 reg_arr_size;
++	u32 msr_addr;
++	u64 mm_reg_addr;
++	u64 reg_dump[RAS_CPER_ACA_REG_COUNT];
++};
 +
-+int amdgpu_ras_bert_sw_init(struct amdgpu_device *adev)
-+{
-+#if defined(CONFIG_X86_MCE_AMD) && defined(CONFIG_ACPI_APEI)
-+	return amdgpu_ras_bert_process_boot_errors(adev);
-+#else
-+	return 0;
-+#endif
-+}
++struct cper_section_processor {
++	struct cper_processor_section processor;
++	struct cper_processor_error_info error_info;
++	struct cper_processor_context context;
++};
 +
-+int amdgpu_ras_bert_sw_fini(struct amdgpu_device *adev)
-+{
-+#if defined(CONFIG_X86_MCE_AMD) && defined(CONFIG_ACPI_APEI)
-+	amdgpu_ras_bert_reset_boot_errors();
-+#endif
-+	return 0;
-+}
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_bert.h b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_bert.h
-index 27e2378ea5f3a..e56aa143ad952 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_bert.h
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_bert.h
-@@ -24,9 +24,7 @@
- #ifndef __AMDGPU_RAS_BERT_H__
- #define __AMDGPU_RAS_BERT_H__
+ struct ras_cper_fatal_record {
+ 	struct cper_section_hdr hdr;
+ 	struct cper_section_desc descriptor;
+@@ -288,6 +367,13 @@ struct ras_cper_boot_record {
+ 	struct cper_section_desc descriptor;
+ 	struct cper_section_boot boot;
+ };
++
++struct ras_cper_processor_record {
++	struct cper_section_hdr hdr;
++	struct cper_section_desc descriptor;
++	struct cper_section_processor processor;
++};
++
+ #pragma pack(pop)
  
--#if defined(CONFIG_X86_MCE_AMD) && defined(CONFIG_ACPI_APEI)
--int amdgpu_ras_bert_process_boot_errors(struct amdgpu_device *adev);
--void amdgpu_ras_bert_reset_boot_errors(void);
--#endif
-+int amdgpu_ras_bert_sw_init(struct amdgpu_device *adev);
-+int amdgpu_ras_bert_sw_fini(struct amdgpu_device *adev);
+ struct ras_core_context;
+@@ -334,6 +420,7 @@ struct ras_cper {
+ #define RAS_BOOT_SEC_LEN			(sizeof(struct cper_section_boot))
+ #define RAS_FATAL_SEC_LEN			(sizeof(struct cper_section_fatal))
+ #define RAS_NONSTD_SEC_LEN			(sizeof(struct cper_section_runtime))
++#define RAS_PROC_SEC_LEN			(sizeof(struct cper_section_processor))
  
- #endif
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mce.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mce.c
-index 97ef50149fdf9..bc7a44618ac6c 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mce.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mce.c
-@@ -23,7 +23,6 @@
-  */
+ #define RAS_SEC_DESC_OFFSET(idx)		(RAS_HDR_LEN + (RAS_SEC_DESC_LEN * idx))
  
- #include "amdgpu.h"
--#include "amdgpu_ras_bert.h"
- #include "amdgpu_ras_mgr.h"
- #include "amdgpu_ras_mce.h"
- #include <asm/mce.h>
-@@ -123,9 +122,6 @@ static int amdgpu_ras_unregister_mce_notifier(struct amdgpu_device *adev)
- 	if (atomic_read(&mce_mgr->ref_count) <= 0) {
- 		atomic_set(&mce_mgr->dev_count, 0);
- 		mce_unregister_decode_chain(&mce_mgr->nb);
--#ifdef CONFIG_ACPI_APEI
--		amdgpu_ras_bert_reset_boot_errors();
--#endif
- 	}
- 
- 	return 0;
-@@ -243,9 +239,6 @@ static int amdgpu_ras_mce_notifier(struct amdgpu_device *adev,
- 
- int amdgpu_ras_mce_hw_init(struct amdgpu_device *adev)
- {
--#if defined(CONFIG_X86_MCE_AMD) && defined(CONFIG_ACPI_APEI)
--	amdgpu_ras_bert_process_boot_errors(adev);
--#endif
- 	return 0;
- }
- 
-diff --git a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-index bda1f76d2dbf9..64622b593ab94 100644
---- a/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-+++ b/drivers/gpu/drm/amd/ras/ras_mgr/amdgpu_ras_mgr.c
-@@ -33,6 +33,7 @@
- #include "amdgpu_ras_mp1_v13_0.h"
- #include "amdgpu_ras_mp1.h"
- #include "amdgpu_ras_nbio_v7_9.h"
-+#include "amdgpu_ras_bert.h"
- #include "amdgpu_ras_mce.h"
- 
- #define MAX_AID_NUM_PER_SOCKET_GFX9     4
-@@ -356,6 +357,7 @@ int amdgpu_ras_mgr_sw_init(struct amdgpu_device *adev, struct ras_module_param *
- 		goto err2;
- 	}
- 	amdgpu_ras_mgr_init_event_mgr(ras_mgr->ras_core);
-+	amdgpu_ras_bert_sw_init(adev);
- 	amdgpu_ras_mce_sw_init(adev);
- 
- 	if (amdgpu_sriov_vf(adev)) {
-@@ -370,6 +372,8 @@ int amdgpu_ras_mgr_sw_init(struct amdgpu_device *adev, struct ras_module_param *
- 	return 0;
- 
- err3:
-+	amdgpu_ras_mce_sw_fini(adev);
-+	amdgpu_ras_bert_sw_fini(adev);
- 	if (ras_mgr->ras_core)
- 		ras_core_sw_fini(ras_mgr->ras_core);
- err2:
-@@ -398,6 +402,7 @@ int amdgpu_ras_mgr_sw_fini(struct amdgpu_device *adev)
- 		amdgpu_virt_ras_sw_fini(adev);
- 
- 	amdgpu_ras_mce_sw_fini(adev);
-+	amdgpu_ras_bert_sw_fini(adev);
- 	amdgpu_ras_process_fini(adev);
- 	ras_core_sw_fini(ras_mgr->ras_core);
- 	ras_core_destroy(ras_mgr->ras_core);
 -- 
 2.55.0
 
