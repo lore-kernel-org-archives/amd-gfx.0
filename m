@@ -4,41 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDD75C5B572
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70E4EC5CFC1
 	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 07:01:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E93DA10E680;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43E8710E663;
 	Mon, 17 Aug 2026 07:01:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="pU37zViC";
+	dkim=pass (2048-bit key; secure) header.d=protonmail.com header.i=@protonmail.com header.b="SDzZijdI";
 	dkim-atps=neutral
-Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ECEF710E22A;
- Sat, 15 Aug 2026 18:22:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
- ; s=bytemarkmx;
- h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
- :Subject; bh=oTrmRfuF4LFHnbDfi9z2KLYSR4yAXCBAI1LUpKxCdws=; b=pU37zViCbh9w42tP
- YtpZ7SJco+wWDS0Oj6bevH1qaOZ+98b/iX6Qbw1x060X5zvvY9C1TiF4KGMaaYxJo0wrbcgg5AnDl
- Kje9xrCzuEf7MS1Bd2j6mNtziPYuE/oSVITatBJJcMQeHFodZNLM7Y5Wi6nJYIwpN9KSX2Wn47NM6
- kZVadOT54bLTChiSYWjNJQ8nhasfpjQU1FJ+CH7k9RjBw3mzE8Aa60fKfIoBH271CX3uqatbfH0Ce
- 8NuYcZ+xi8OPtfwfXLQpHZpqsa0WyCPTzS5yNEUmpBAvJTCiaBqDPv9HJEz1nwaV8Zu4QwwfURXPI
- ij0A5+dA4NmBAVgv9g==;
-Received: from localhost ([127.0.0.1] helo=dalek)
- by mx.treblig.org with esmtp (Exim 4.98.2)
- (envelope-from <linux@treblig.org>) id 1wvIgW-00000002HFi-0VgB;
- Sat, 15 Aug 2026 18:00:44 +0000
-From: linux@treblig.org
-To: alexander.deucher@amd.com, christian.koenig@amd.com,
- harry.wentland@amd.com, sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org
-Cc: airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, "Dr. David Alan Gilbert" <linux@treblig.org>
-Subject: [PATCH 0/4] drm/amdgpu: Remove is_idle method
-Date: Sat, 15 Aug 2026 19:00:29 +0100
-Message-ID: <20260815180033.8958-1-linux@treblig.org>
-X-Mailer: git-send-email 2.55.0
+Received: from mail-244103.protonmail.ch (mail-244103.protonmail.ch
+ [109.224.244.103])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 631FA10F66F;
+ Fri, 14 Aug 2026 15:14:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+ s=protonmail3; t=1786720444; x=1786979644;
+ bh=ebHvG8J7OHD1DkAFZuYCk4KhWJsTkQYIAAPyBGxbFw8=;
+ h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+ Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+ Message-ID:BIMI-Selector;
+ b=SDzZijdIUQ8nCxCsFGdVcVfY7Di3O4mgbnUwZeqEoW7YM2Wy6I82CYnItojdFIZgz
+ FA0FOmOXQeS9Iuh7ooFC2qUgjhEZnRUaHompUumGCQxNFzvze56JkmxF8bo8ELPy9+
+ hzqgkCkbxFFEWuPDePKy853hcyGsi1ksF3TUOnSBEh6m/DhUtXFmZf8oUBHC+6NqFj
+ 4fxW2NmKtYYQrvnnkCNlg7Lny3+6RELyRrXhuxFbmxppB87pFg/OuRCX8UxaCBUh53
+ 03S7lUhtuOHWyVt34lStnDR7tE5ObtnrkHrtlrej53Q8XT0v0/YEVxdgiTqRLtJOQh
+ mdTDGYxmrqLag==
+Date: Fri, 14 Aug 2026 15:14:00 +0000
+To: Boqun Feng <boqun@kernel.org>
+From: Umio-Yasuno - coelacanth_dream <coelacanth_dream@protonmail.com>
+Cc: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org,
+ Mark Janes <mjanes@netflix.com>, Kenneth Feng <kenneth.feng@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Lijo Lazar <lijo.lazar@amd.com>, Asad Kamal <asad.kamal@amd.com>,
+ Yang Wang <kevinyang.wang@amd.com>, Priya Hosur <Priya.Hosur@amd.com>,
+ mythilam <mythilam@amd.com>, Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amd/pm: Fix incorrect avg vcn utilization in
+ gpu_metrics
+Message-ID: <rTEGWQn-uThfLOzKzIsvt-Dk_dm9_L0dNXzRGAQd0qYSQbMVpvB5cd_zC5CuMFkC-u2o3KjqDjh_J4jcYWUtXR8O9KEL4suMEV8lJQCOvXA=@protonmail.com>
+In-Reply-To: <an5ESxy8-OMYvD4d@tardis.local>
+References: <20260805140227.44868-1-boqun@kernel.org>
+ <an44yIv7WG7vqTqQ@tardis.local>
+ <CADnq5_PLV1rDw8DSawdHfQxyk8XgPp94TQa0HuFVdZVvZo+zmQ@mail.gmail.com>
+ <an5ESxy8-OMYvD4d@tardis.local>
+Feedback-ID: 19510729:user:proton
+X-Pm-Message-ID: a65a74b293661b0e75435d7cb352b25804818840
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Mon, 17 Aug 2026 07:01:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -54,127 +68,114 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Dr. David Alan Gilbert" <linux@treblig.org>
+Apologies, I forgot to set the CC. Below is my opinion that I wrote outside=
+ the thread.
 
-The is_idle method in amd_ip_funcs is never called, however
-there are some functions assigned to it.
+---
+amdgpu_top already divides average_vcn_activity in gpu_metrics_v3_0 by 100,=
+ so this patch would unfortunately end up affecting user-space applications=
+.
 
-Remove the bindings to it, and if the functions aren't called
-anywhere else remove the function as well.
+In my view, if users want to obtain media engine usage that is properly cor=
+rected based on the firmware (or firmware version) in the AMDGPU driver, th=
+e best option is to use the vcn_busy_percent sysfs interface.
+However, that adds extra reading cost.
 
-Remove the kunit test hook for it.
+Alternatively, since gpu_metrics is designed as an interface that provides =
+raw data[^1] (but undocumented it[^2]), it would be better to have the corr=
+ection applied on the user-space.
 
-In many cases the wait_for_idle code either calls the
-function which was wired to is_idle or duplicates the
-code (or curiously kind of duplicates it with changes).
+[^1]: https://gitlab.freedesktop.org/drm/amd/-/work_items/3251#note_2904104
+[^2]: https://www.kernel.org/doc/html/latest/gpu/amdgpu/thermal.html#gpu-me=
+trics
+---
 
-Based on drm-next-7.3 0d710af8e4abdd1fa500bddbab7c0ee47fc98143.
-Booted on my Ryzen with RX560.
-(That is spewing some warnings of the form:
-[    9.680879] [PLANE:44:plane-0] pixel format with alpha exposed but blend mode not setup
-[    9.680881] WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate+0x3c2/0x4f0, CPU#4: (udev-worker)/538
+On Friday, August 14th, 2026 at 7:25, Boqun Feng <boqun@kernel.org> wrote:
 
-but I don't *think* I've gone anywhere near anything to do with pixel
-formats etc)
-
-Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
-
-
-Dr. David Alan Gilbert (4):
-  drm/amdgpu: Remove is_idle test case
-  drm/amdgpu: Remove is_idle (trivial cases)
-  drm/amdgpu: Remove is_idle (non trivial functions)
-  drm/amdgpu: Remove is_idle
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c       |  6 -----
- drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c       |  6 -----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c      |  6 -----
- drivers/gpu/drm/amd/amdgpu/cik.c              |  7 ------
- drivers/gpu/drm/amd/amdgpu/cik_ih.c           | 12 ----------
- drivers/gpu/drm/amd/amdgpu/cik_sdma.c         |  1 -
- drivers/gpu/drm/amd/amdgpu/cz_ih.c            | 12 ----------
- drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  6 -----
- drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  6 -----
- drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  6 -----
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 12 ----------
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        | 12 ----------
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c        | 12 ----------
- drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c        |  1 -
- drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c         |  1 -
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         | 11 ---------
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c         |  1 -
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         |  1 -
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       |  1 -
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |  7 ------
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |  7 ------
- drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        |  7 ------
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |  1 -
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |  1 -
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         | 13 -----------
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |  7 ------
- drivers/gpu/drm/amd/amdgpu/iceland_ih.c       | 12 ----------
- drivers/gpu/drm/amd/amdgpu/ih_v6_0.c          |  7 ------
- drivers/gpu/drm/amd/amdgpu/ih_v6_1.c          |  7 ------
- drivers/gpu/drm/amd/amdgpu/ih_v7_0.c          |  7 ------
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c        |  1 -
- drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c        |  2 --
- drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c        |  1 -
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c        |  1 -
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c      |  1 -
- drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c      |  1 -
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c      |  1 -
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c      |  1 -
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c      |  1 -
- drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c      |  1 -
- drivers/gpu/drm/amd/amdgpu/navi10_ih.c        |  7 ------
- drivers/gpu/drm/amd/amdgpu/nv.c               |  6 -----
- drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c        | 13 -----------
- drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c        | 13 -----------
- drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        | 16 -------------
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      | 16 -------------
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        | 16 -------------
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        | 16 -------------
- drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        | 16 -------------
- drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c        | 16 -------------
- drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c        | 16 -------------
- drivers/gpu/drm/amd/amdgpu/si.c               |  6 -----
- drivers/gpu/drm/amd/amdgpu/si_dma.c           |  1 -
- drivers/gpu/drm/amd/amdgpu/si_ih.c            |  1 -
- drivers/gpu/drm/amd/amdgpu/soc15.c            |  6 -----
- drivers/gpu/drm/amd/amdgpu/soc21.c            |  6 -----
- drivers/gpu/drm/amd/amdgpu/soc24.c            |  6 -----
- drivers/gpu/drm/amd/amdgpu/soc_v1_0.c         |  6 -----
- drivers/gpu/drm/amd/amdgpu/tonga_ih.c         | 12 ----------
- drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c         |  8 -------
- drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c         |  8 -------
- drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c         |  8 -------
- drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c         |  1 -
- drivers/gpu/drm/amd/amdgpu/vce_v1_0.c         |  1 -
- drivers/gpu/drm/amd/amdgpu/vce_v2_0.c         |  1 -
- drivers/gpu/drm/amd/amdgpu/vce_v3_0.c         |  1 -
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c         |  1 -
- drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c         |  1 -
- drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c         |  2 --
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         | 16 -------------
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c         | 23 -------------------
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c       | 21 -----------------
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c       | 23 -------------------
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c       | 23 -------------------
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c       | 19 ---------------
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c       | 19 ---------------
- drivers/gpu/drm/amd/amdgpu/vega10_ih.c        |  7 ------
- drivers/gpu/drm/amd/amdgpu/vega20_ih.c        |  7 ------
- drivers/gpu/drm/amd/amdgpu/vi.c               |  6 -----
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 -------
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 -
- .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 10 --------
- drivers/gpu/drm/amd/include/amd_shared.h      |  2 --
- drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  6 -----
- drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |  7 ------
- .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |  6 -----
- drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  1 -
- 87 files changed, 639 deletions(-)
-
--- 
-2.55.0
-
+> On Thu, Aug 13, 2026 at 06:01:47PM -0400, Alex Deucher wrote:
+> > On Thu, Aug 13, 2026 at 5:36=E2=80=AFPM Boqun Feng <boqun@kernel.org> w=
+rote:
+> > >
+> > > On Wed, Aug 05, 2026 at 07:02:21AM -0700, Boqun Feng wrote:
+> > > > In a Strix Halo system, a >100 average_vcn_activity in gpu_metrics =
+can
+> > > > be observed by running the following command:
+> > > >
+> > > >     ffmpeg -hwaccel vappi -vappi_device /dev/dri/renderD128 -i \
+> > > >     ~/sample-10s.mp4 -vf hwupload,scale_vappi=3Dformat=3Dnv12 -c:v =
+\
+> > > >     h264_vappi /tmp/output.mp4
+> > > >
+> > > > This is incorrect because the value is supposed to be in [0-100] ra=
+nge.
+> > > >
+> > > > The cause of the issue is that the metrics.VcnActivity reported by
+> > > > smu_cmn_get_metrics_table() is a permyriad value instead of a perce=
+ntage
+> > > > value (e.g. smu_v14_0_0_get_smu_metrics_data() has a division by 10=
+0 to
+> > > > report the vcn_busy_percent). Therefore fix this by applying the sa=
+me
+> > > > division in smu_v14_0_0_get_gpu_metrics().
+> >
+> > I think this is correct as is.  smu_v14_0_0_get_smu_metrics_data() is
+> > used to fetch data for standardized formats like hwmon while
+> > smu_v14_0_0_get_gpu_metrics() is for dumping the raw metrics data.
+> >
+>=20
+> Well, then kgd_pp_interface.h needs some help?
+>=20
+> struct gpu_metrics_v3_0 {
+> =09...
+> =09/* Utilization */
+> =09/* time filtered GFX busy % [0-100] */
+> =09uint16_t=09=09=09average_gfx_activity;
+> =09/* time filtered VCN busy % [0-100] */
+> =09uint16_t=09=09=09average_vcn_activity;
+> =09...
+> }
+>=20
+> Clearly it's not true.
+>=20
+> [Cc amdgpu_top]
+>=20
+> Regards,
+> Boqun
+>=20
+> > Alex
+> >
+> > > >
+> > > > Reported-by: Mark Janes <mjanes@netflix.com>
+> > > > Signed-off-by: Boqun Feng <boqun@kernel.org>
+> > >
+> > > Ping?
+> > >
+> > > Regards,
+> > > Boqun
+> > >
+> > > > ---
+> > > >  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c | 3 ++-
+> > > >  1 file changed, 2 insertions(+), 1 deletion(-)
+> > > >
+> > > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b=
+/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> > > > index 568665265a13..1058338344b0 100644
+> > > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> > > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
+> > > > @@ -566,7 +566,8 @@ static ssize_t smu_v14_0_0_get_gpu_metrics(stru=
+ct smu_context *smu,
+> > > >       gpu_metrics->temperature_skin =3D metrics.SkinTemp;
+> > > >
+> > > >       gpu_metrics->average_gfx_activity =3D metrics.GfxActivity;
+> > > > -     gpu_metrics->average_vcn_activity =3D metrics.VcnActivity;
+> > > > +     /* metrics.VcnActivity is permyriad, convert it to percentage=
+. */
+> > > > +     gpu_metrics->average_vcn_activity =3D metrics.VcnActivity / 1=
+00;
+> > > >       memcpy(&gpu_metrics->average_ipu_activity[0],
+> > > >               &metrics.IpuBusy[0],
+> > > >               sizeof(uint16_t) * 8);
+> > > > --
+> > > > 2.50.1 (Apple Git-155)
+> > > >
+> 
