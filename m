@@ -4,50 +4,41 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0223DC5DF7C
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 07:01:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDD75C5B572
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 07:01:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 53FB710E67A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E93DA10E680;
 	Mon, 17 Aug 2026 07:01:17 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="LNe9pJAh";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="pU37zViC";
 	dkim-atps=neutral
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BABED10E3A7;
- Mon, 17 Aug 2026 03:22:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=/B
- TS0YnDiCPCTjdhpYHGy2UZT5ZE2ofB1EIK8zfKQEE=; b=LNe9pJAh4Y7mw+WEYk
- umsQuSnCoY8ckvwyRbWrDmw5N2X3hCMWf9y8QZZWYDI0CvFf9khagdW/MApLiA7G
- 4DiIuLYsnvWWTh2KMo7RNPwrT3XRRsuxPqT58ZLHzX2kcn7j2/guXEWLoYGqGp/b
- myadYND8MFlpAzrH8FjRxXvxc=
-Received: from debian.lenovo.com (unknown [])
- by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id
- _____wA31gLffIJqrnqiPQ--.59422S2; 
- Mon, 17 Aug 2026 11:15:44 +0800 (CST)
-From: rh_king@163.com
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: siqueira@igalia.com, dillon.varone@amd.com, gaghik.khachatrian@amd.com,
- pinglei.lin@amd.com, zhikai.zhai@amd.com, robin.chen@amd.com,
- alex.hung@amd.com, Matthew.Stewart2@amd.com, jack.chang@amd.com,
- clayking@amd.com, chuntao.tso@amd.com, PeiChen.Huang@amd.com,
- Derek.Lai@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Kean Ren <rh_king@163.com>
-Subject: [PATCH] drm/amdgpu/dc: Avoid PSR AUX WARN on unhealthy eDP link
-Date: Mon, 17 Aug 2026 11:16:39 +0800
-Message-ID: <20260817031640.2097973-1-rh_king@163.com>
-X-Mailer: git-send-email 2.47.3
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECEF710E22A;
+ Sat, 15 Aug 2026 18:22:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+ ; s=bytemarkmx;
+ h=MIME-Version:Message-ID:Date:Subject:From:Content-Type:From
+ :Subject; bh=oTrmRfuF4LFHnbDfi9z2KLYSR4yAXCBAI1LUpKxCdws=; b=pU37zViCbh9w42tP
+ YtpZ7SJco+wWDS0Oj6bevH1qaOZ+98b/iX6Qbw1x060X5zvvY9C1TiF4KGMaaYxJo0wrbcgg5AnDl
+ Kje9xrCzuEf7MS1Bd2j6mNtziPYuE/oSVITatBJJcMQeHFodZNLM7Y5Wi6nJYIwpN9KSX2Wn47NM6
+ kZVadOT54bLTChiSYWjNJQ8nhasfpjQU1FJ+CH7k9RjBw3mzE8Aa60fKfIoBH271CX3uqatbfH0Ce
+ 8NuYcZ+xi8OPtfwfXLQpHZpqsa0WyCPTzS5yNEUmpBAvJTCiaBqDPv9HJEz1nwaV8Zu4QwwfURXPI
+ ij0A5+dA4NmBAVgv9g==;
+Received: from localhost ([127.0.0.1] helo=dalek)
+ by mx.treblig.org with esmtp (Exim 4.98.2)
+ (envelope-from <linux@treblig.org>) id 1wvIgW-00000002HFi-0VgB;
+ Sat, 15 Aug 2026 18:00:44 +0000
+From: linux@treblig.org
+To: alexander.deucher@amd.com, christian.koenig@amd.com,
+ harry.wentland@amd.com, sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org
+Cc: airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, "Dr. David Alan Gilbert" <linux@treblig.org>
+Subject: [PATCH 0/4] drm/amdgpu: Remove is_idle method
+Date: Sat, 15 Aug 2026 19:00:29 +0100
+Message-ID: <20260815180033.8958-1-linux@treblig.org>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wA31gLffIJqrnqiPQ--.59422S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3CFy8AFWkurWkCr1kWFyUZFb_yoWkJFy7p3
- yfKFy5GrW8Zr4Ivr4UJ3W09ry5Z3W7Aa47JrZ3Kr1kZ3W5Aw15WF18Zw1a9F98Grsrta13
- XF1Dua4Ig3WjkaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0p_WlkJUUUUU=
-X-Originating-IP: [36.141.44.3]
-X-CM-SenderInfo: 5ukbyxlqj6il2tof0z/xtbC3wCSQWqCfOAr4gAA3x
 X-Mailman-Approved-At: Mon, 17 Aug 2026 07:01:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,229 +54,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Kean Ren <rh_king@163.com>
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
 
-When an eDP panel is still recovering right after resume (e.g. lid open
-or AC return on a ThinkPad that has been in s2idle for hours), AUX/DPCD
-writes may transiently fail. Two distinct code paths compound this into
-a kernel WARN at dce_aux_transfer_raw():
+The is_idle method in amd_ip_funcs is never called, however
+there are some functions assigned to it.
 
-  1. dpcd_set_link_settings() reuses a single `status` variable for
-     four core_link_write_dpcd() calls and only emits DC_LOG_ERROR on
-     failure. The first failing write gets overwritten by the next
-     call, so the function can return DC_OK even when every DPCD write
-     failed. Callers therefore cannot tell that the link is unhealthy
-     and continue with PSR setup on a dead AUX channel.
+Remove the bindings to it, and if the functions aren't called
+anywhere else remove the function as well.
 
-  2. edp_setup_psr() does not consult link->link_status.link_active
-     before pushing the PSR enable DPCD writes. When the link training
-     failed, the sink is not actually there to ACK, so
-     dm_helpers_dp_write_dpcd() -> dce_aux_transfer_raw() hangs until
-     AUX_SW_DONE times out and triggers ASSERT_CRITICAL().
+Remove the kunit test hook for it.
 
-Observed on a Lenovo ThinkPad 21XHZDY2CN (BIOS R3HET22W 1.08) running
-Ubuntu 24.04 with 6.17.0-1030-oem. The user-visible trigger is usually
-a network event right after resume (unplug/replug the r8169 Ethernet
-cable, NetworkManager roaming to wlan, or a lid-close -> lid-open
-cycle). The dbus signal from those events causes a Wayland compositor
-(gnome-shell) or an X11 client running under XWayland to issue
-DRM_IOCTL_MODE_SETCRTC, which reaches amdgpu_dm_enable_self_refresh()
-and then edp_setup_psr(). The "Xorg" comm name in the WARN trace is
-XWayland, since this box boots into a GNOME Wayland session.
+In many cases the wait_for_idle code either calls the
+function which was wired to is_idle or duplicates the
+code (or curiously kind of duplicates it with changes).
 
-```
-amdgpu 0000:c6:00.0: [drm] enabling link 0 failed: 15
-amdgpu 0000:c6:00.0: [drm] *ERROR* dpcd_set_link_settings:1122: core_link_write_dpcd (DP_DOWNSPREAD_CTRL) failed
-amdgpu 0000:c6:00.0: [drm] *ERROR* dpcd_set_link_settings:1127: core_link_write_dpcd (DP_LANE_COUNT_SET) failed
-amdgpu 0000:c6:00.0: [drm] *ERROR* dpcd_set_link_settings:1144: core_link_write_dpcd (DP_LINK_BW_SET) failed
-amdgpu 0000:c6:00.0: [drm] *ERROR* dpcd_set_link_settings:1149: core_link_write_dpcd (DP_LINK_RATE_SET) failed
-[- cut here -]
-WARNING: CPU: 0 PID: 2615 at drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dce_aux.c:393 dce_aux_transfer_raw+0x296/0x2e0 [amdgpu]
-CPU: 0 UID: 1000 PID: 2615 Comm: Xorg Tainted: G           O        6.17.0-1030-oem #30-Ubuntu PREEMPT(voluntary)
-Tainted: [O]=OOT_MODULE
-Hardware name: LENOVO 21XHZDY2CN/21XHZDY2CN, BIOS R3HET22W (1.08 ) 06/24/2026
-RIP: 0010:dce_aux_transfer_raw+0x296/0x2e0 [amdgpu]
-Code: ff e9 49 ff ff ff 41 c7 04 24 04 00 00 00 eb eb 3c 01 0f 87 4c f4 34 00 83 e0 01 3c 01 19 c0 83 e0 c0 83 c0 50 e9 3f fe ff ff <0f> 0b 41 c7 04 24 03 00 00 00 eb c5 41 c7 04 24 03 00 00 00 eb bb
-RSP: 0018:ffffcdd6c53272f8 EFLAGS: 00010246
-RAX: 0000000062000000 RBX: ffff8d353020fc80 RCX: 0000000000000000
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: ffffcdd6c5327358 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000000 R12: ffffcdd6c53273ac
-R13: ffffcdd6c53273b0 R14: 0000000000000001 R15: ffff8d3562690000
-FS:  00007b3cc831aac0(0000) GS:ffff8d4c6d669000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000700f940020f8 CR3: 000000012fe37000 CR4: 0000000000f50ef0
-PKRU: 55555554
-Call stack:
- <TASK>
- link_aux_transfer_raw+0x48/0x80 [amdgpu]
- dc_link_aux_transfer_raw+0x24/0x40 [amdgpu]
- dm_dp_aux_transfer+0xee/0x2b0 [amdgpu]
- drm_dp_dpcd_access+0xbe/0x160 [drm_display_helper]
- drm_dp_dpcd_write+0xc4/0x120 [drm_display_helper]
- dm_helpers_dp_write_dpcd+0x29/0x60 [amdgpu]
- edp_setup_psr+0x156/0x5a0 [amdgpu]
- dc_link_setup_psr+0x20/0x40 [amdgpu]
- amdgpu_dm_link_setup_psr+0x155/0x1a0 [amdgpu]
- ? dm_write_reg_func+0x47/0xc0 [amdgpu]
- amdgpu_dm_enable_self_refresh+0xaa/0x240 [amdgpu]
- amdgpu_dm_commit_planes+0x636/0x1740 [amdgpu]
- ? manage_dm_interrupts+0xa5/0x280 [amdgpu]
- amdgpu_dm_atomic_commit_tail+0xb04/0x1270 [amdgpu]
- ? __set_output_tf.constprop.0+0xfd/0x1a0 [amdgpu]
- commit_tail+0xc6/0x1b0
- drm_atomic_helper_commit+0x132/0x160
- drm_atomic_commit+0xac/0xf0
- ? __pfx___drm_printfn_info+0x10/0x10
- drm_atomic_helper_set_config+0x82/0xd0
- drm_mode_setcrtc+0x3ff/0x9e0
- ? rmapiMapWithSecInfo+0x230/0x2b0 [nvidia]
- ? __pfx_drm_mode_setcrtc+0x10/0x10
- drm_ioctl_kernel+0xb4/0x110
- drm_ioctl+0x2ec/0x5b0
- ? __pfx_drm_mode_setcrtc+0x10/0x10
- amdgpu_drm_ioctl+0x4b/0xa0 [amdgpu]
- __x64_sys_ioctl+0xa2/0x100
- x64_sys_call+0x1226/0x2680
- do_syscall_64+0x80/0x8b0
- ? check_heap_object+0x17f/0x1c0
- ? nvidia_unlocked_ioctl+0x175/0x9a0 [nvidia]
- ? __x64_sys_ioctl+0xbf/0x100
- ? arch_exit_to_user_mode_prepare.isra.0+0xd/0xe0
- ? do_syscall_64+0xb6/0x8b0
- ? arch_exit_to_user_mode_prepare.isra.0+0xd/0xe0
- ? do_syscall_64+0xb6/0x8b0
- ? arch_exit_to_user_mode_prepare.isra.0+0xd/0xe0
- ? do_syscall_64+0xb6/0x8b0
- entry_SYSCALL_64_after_hwframe+0x76/0x7e
-RIP: 0033:0x7b3cc8724f1d
-Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8 64 48 2b 04 25 28 00 00 00
-RSP: 002b:00007ffe65c05b80 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000617240d63e10 RCX: 00007b3cc8724f1d
-RDX: 00007ffe65c05c10 RSI: 00000000c06864a2 RDI: 0000000000000010
-RBP: 00007ffe65c05bd0 R08: 0000000000000000 R09: 0000617240c4b700
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffe65c05c10
-R13: 00000000c06864a2 R14: 0000000000000010 R15: 000061723f332b30
- </TASK>
-[- end trace 0000000000000000 -]
-```
+Based on drm-next-7.3 0d710af8e4abdd1fa500bddbab7c0ee47fc98143.
+Booted on my Ryzen with RX560.
+(That is spewing some warnings of the form:
+[    9.680879] [PLANE:44:plane-0] pixel format with alpha exposed but blend mode not setup
+[    9.680881] WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate+0x3c2/0x4f0, CPU#4: (udev-worker)/538
 
-Fix both issues:
+but I don't *think* I've gone anywhere near anything to do with pixel
+formats etc)
 
-  - dpcd_set_link_settings(): use a separate `result` variable for each
-    core_link_write_dpcd() call and return immediately on the first
-    failure, so callers see the real AUX/DPCD state.
+Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
 
-  - edp_setup_psr(): short-circuit when link->link_status.link_active
-    is false, so we never push PSR configuration over a dead AUX
-    channel.
 
-Signed-off-by: Kean Ren <rh_king@163.com>
----
- drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c       | 33 ++++++++++++++++----
- drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c | 11 +++++++
- 2 files changed, 38 insertions(+), 6 deletions(-)
+Dr. David Alan Gilbert (4):
+  drm/amdgpu: Remove is_idle test case
+  drm/amdgpu: Remove is_idle (trivial cases)
+  drm/amdgpu: Remove is_idle (non trivial functions)
+  drm/amdgpu: Remove is_idle
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-index 605bf19dc4f2..881cba95427f 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-@@ -1097,6 +1097,7 @@ enum dc_status dpcd_set_link_settings(
- {
- 	uint8_t rate;
- 	enum dc_status status;
-+	enum dc_status result;
+ drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c       |  6 -----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c       |  6 -----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c      |  6 -----
+ drivers/gpu/drm/amd/amdgpu/cik.c              |  7 ------
+ drivers/gpu/drm/amd/amdgpu/cik_ih.c           | 12 ----------
+ drivers/gpu/drm/amd/amdgpu/cik_sdma.c         |  1 -
+ drivers/gpu/drm/amd/amdgpu/cz_ih.c            | 12 ----------
+ drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  6 -----
+ drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  6 -----
+ drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  6 -----
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 12 ----------
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        | 12 ----------
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c        | 12 ----------
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c        |  1 -
+ drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c         |  1 -
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         | 11 ---------
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c         |  1 -
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         |  1 -
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       |  1 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |  7 ------
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |  7 ------
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        |  7 ------
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |  1 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |  1 -
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         | 13 -----------
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |  7 ------
+ drivers/gpu/drm/amd/amdgpu/iceland_ih.c       | 12 ----------
+ drivers/gpu/drm/amd/amdgpu/ih_v6_0.c          |  7 ------
+ drivers/gpu/drm/amd/amdgpu/ih_v6_1.c          |  7 ------
+ drivers/gpu/drm/amd/amdgpu/ih_v7_0.c          |  7 ------
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c        |  1 -
+ drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c        |  2 --
+ drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c        |  1 -
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c        |  1 -
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c      |  1 -
+ drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c      |  1 -
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c      |  1 -
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c      |  1 -
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c      |  1 -
+ drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c      |  1 -
+ drivers/gpu/drm/amd/amdgpu/navi10_ih.c        |  7 ------
+ drivers/gpu/drm/amd/amdgpu/nv.c               |  6 -----
+ drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c        | 13 -----------
+ drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c        | 13 -----------
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        | 16 -------------
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      | 16 -------------
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        | 16 -------------
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        | 16 -------------
+ drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        | 16 -------------
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c        | 16 -------------
+ drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c        | 16 -------------
+ drivers/gpu/drm/amd/amdgpu/si.c               |  6 -----
+ drivers/gpu/drm/amd/amdgpu/si_dma.c           |  1 -
+ drivers/gpu/drm/amd/amdgpu/si_ih.c            |  1 -
+ drivers/gpu/drm/amd/amdgpu/soc15.c            |  6 -----
+ drivers/gpu/drm/amd/amdgpu/soc21.c            |  6 -----
+ drivers/gpu/drm/amd/amdgpu/soc24.c            |  6 -----
+ drivers/gpu/drm/amd/amdgpu/soc_v1_0.c         |  6 -----
+ drivers/gpu/drm/amd/amdgpu/tonga_ih.c         | 12 ----------
+ drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c         |  8 -------
+ drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c         |  8 -------
+ drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c         |  8 -------
+ drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c         |  1 -
+ drivers/gpu/drm/amd/amdgpu/vce_v1_0.c         |  1 -
+ drivers/gpu/drm/amd/amdgpu/vce_v2_0.c         |  1 -
+ drivers/gpu/drm/amd/amdgpu/vce_v3_0.c         |  1 -
+ drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c         |  1 -
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c         |  1 -
+ drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c         |  2 --
+ drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         | 16 -------------
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c         | 23 -------------------
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c       | 21 -----------------
+ drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c       | 23 -------------------
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c       | 23 -------------------
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c       | 19 ---------------
+ drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c       | 19 ---------------
+ drivers/gpu/drm/amd/amdgpu/vega10_ih.c        |  7 ------
+ drivers/gpu/drm/amd/amdgpu/vega20_ih.c        |  7 ------
+ drivers/gpu/drm/amd/amdgpu/vi.c               |  6 -----
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 -------
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 -
+ .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 10 --------
+ drivers/gpu/drm/amd/include/amd_shared.h      |  2 --
+ drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  6 -----
+ drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |  7 ------
+ .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |  6 -----
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  1 -
+ 87 files changed, 639 deletions(-)
 
- 	union down_spread_ctrl downspread = {0};
- 	union lane_count_set lane_count_set = {0};
-@@ -1117,15 +1118,25 @@ enum dc_status dpcd_set_link_settings(
- 				link->dpcd_caps.max_ln_count.bits.POST_LT_ADJ_REQ_SUPPORTED;
- 	}
-
--	status = core_link_write_dpcd(link, DP_DOWNSPREAD_CTRL,
--		&downspread.raw, sizeof(downspread));
--	if (status != DC_OK)
-+	/* Bail out on the first DPCD write failure so callers can react and
-+	 * subsequent operations (e.g. PSR setup) do not keep poking an
-+	 * unhealthy AUX channel. Without this, a transient AUX/HPD glitch
-+	 * during resume leads to a cascade of DPCD errors and ultimately a
-+	 * WARN at dce_aux_transfer_raw() because AUX_SW_DONE never asserts.
-+	 */
-+	result = core_link_write_dpcd(link, DP_DOWNSPREAD_CTRL,
-+				      &downspread.raw, sizeof(downspread));
-+	if (result != DC_OK) {
- 		DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_DOWNSPREAD_CTRL) failed\n", __func__, __LINE__);
-+		return result;
-+	}
-
--	status = core_link_write_dpcd(link, DP_LANE_COUNT_SET,
--		&lane_count_set.raw, 1);
--	if (status != DC_OK)
-+	result = core_link_write_dpcd(link, DP_LANE_COUNT_SET,
-+				      &lane_count_set.raw, 1);
-+	if (result != DC_OK) {
- 		DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_LANE_COUNT_SET) failed\n", __func__, __LINE__);
-+		return result;
-+	}
-
- 	if (link->dpcd_caps.dpcd_rev.raw >= DPCD_REV_13 &&
- 			lt_settings->link_settings.use_link_rate_set == true) {
-@@ -1140,20 +1151,26 @@ enum dc_status dpcd_set_link_settings(
- 			core_link_read_dpcd(link, DP_SUPPORTED_LINK_RATES,
- 					supported_link_rates, sizeof(supported_link_rates));
- 		}
--		status = core_link_write_dpcd(link, DP_LINK_BW_SET, &rate, 1);
--		if (status != DC_OK)
-+		result = core_link_write_dpcd(link, DP_LINK_BW_SET, &rate, 1);
-+		if (result != DC_OK) {
- 			DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_LINK_BW_SET) failed\n", __func__, __LINE__);
-+			return result;
-+		}
-
--		status = core_link_write_dpcd(link, DP_LINK_RATE_SET,
--				&lt_settings->link_settings.link_rate_set, 1);
--		if (status != DC_OK)
-+		result = core_link_write_dpcd(link, DP_LINK_RATE_SET,
-+					      &lt_settings->link_settings.link_rate_set, 1);
-+		if (result != DC_OK) {
- 			DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_LINK_RATE_SET) failed\n", __func__, __LINE__);
-+			return result;
-+		}
- 	} else {
- 		rate = get_dpcd_link_rate(&lt_settings->link_settings);
-
--		status = core_link_write_dpcd(link, DP_LINK_BW_SET, &rate, 1);
--		if (status != DC_OK)
-+		result = core_link_write_dpcd(link, DP_LINK_BW_SET, &rate, 1);
-+		if (result != DC_OK) {
- 			DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_LINK_BW_SET) failed\n", __func__, __LINE__);
-+			return result;
-+		}
- 	}
-
- 	if (rate) {
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-index 80a372ceaa51..43a0facc8884 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-@@ -699,6 +699,17 @@ bool edp_setup_psr(struct dc_link *link,
- 	if (!link)
- 		return false;
-
-+	/* Skip PSR setup when the eDP link is not active. When AUX/DPCD
-+	 * writes are failing (e.g. after a resume where the panel has not
-+	 * fully come back yet), edp_setup_psr() will still try to push
-+	 * configuration over the AUX channel. That auxiliary transfer never
-+	 * completes and triggers ASSERT_CRITICAL() in dce_aux_transfer_raw().
-+	 * The DPCD read of the PSR cap below is also unsafe on a dead link,
-+	 * so bail out early before touching the sink.
-+	 */
-+	if (!link->link_status.link_active)
-+		return false;
-+
- 	/* This is a workaround: some vendors require the source to
- 	 * read the PSR cap; otherwise, the vendor's PSR feature will
- 	 * fall back to its default behavior, causing a misconfiguration
---
-2.47.3
+-- 
+2.55.0
 
