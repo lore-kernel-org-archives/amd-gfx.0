@@ -4,122 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 536D0C5CFC1
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 07:23:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00291C5CFC1
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 07:51:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA70010E6A2;
-	Mon, 17 Aug 2026 07:23:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8209610E33A;
+	Mon, 17 Aug 2026 07:51:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Uy7q5V2s";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="jRMkhm9J";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011045.outbound.protection.outlook.com [40.107.208.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A141B10E3CF
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 07:23:54 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AY+pwBg5YJJ2uJWnV5tXpfHDOBKctGp4OR2mNbAJzaTjvAHdzUVeTnAJmCqh6KQb74fvj9+S7ihkfpqoCq7RpLLfvOR77q47SO1V1URXGgU1k6+hOO4TwdD9hZdPuD/HnIhINsVH31kEpI3Khddakw3TvBYKteOND2uST8+tpddkv55KdoOwvZ9QW7JVjMpgj2qWnc1lfXX1kljorWqeLJugFKlYLt9E0cjFsMzjw91lHecmvqkRMS4nbeQqiNGcGYdw3qwUwbvAct2ib0p/9Vmu3Da+WdzVFdzS8P0e4JT3TTfU7uvH7+dmYIx4n4E9KMMs/muOyp8BB8gHQYj9MA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=N/wZ6vg8dUuva3eYHqciaevqlOtGoLTE7mhj6TdBCXk=;
- b=hiSao4bu3/WolRyoZ/iqu+lrr6SPD4+t7iLXkmdTCvY8xWFBltlCeYIEiegxc+TiJA0qVPKs4BWY8OwwmumHMN7I50PPvRSZ4adJ2GHsIGVkR2utkiWf46J5MipHWgMLH+7+Xvck0kc2peLCUsxIhbAJl4CPc30L/lr/DyyRHnGp6JBGUOa9uwrJO9+NipXQ1xFglQMSg9tb8+j2CTQuLFin68yEyEeOnLZ/dc6egK36HUwlsp3+IZoif6DBAjUbwYhpehacge32nM8rAIvWgtdSSq5JmAeuhL79qOqVVEVY5E5u949mzclh1Qurvfd0qjAry/XY+IjDxLOhM6C9Ww==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=N/wZ6vg8dUuva3eYHqciaevqlOtGoLTE7mhj6TdBCXk=;
- b=Uy7q5V2sk+Nu426GZKmnBGEj9b1ckqpf3GU9IjgAQNwAjK4eUGg6hydK/7IKoPEpPU0pvz8Df6QKq3e41a4mDQmU7vi2UJ++c7KaqPNwx2ssWalwU4VTpdRfO1ScjYCeVejhdOyX1q8Qje+N/KDUZVcJPbFnLBLn8fWvALukUqU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
- by SA0PR12MB7463.namprd12.prod.outlook.com (2603:10b6:806:24b::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
- 2026 07:23:50 +0000
-Received: from SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
- ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
- 07:23:50 +0000
-Message-ID: <021213ee-1cae-4e9f-9cf5-0550a0410a12@amd.com>
-Date: Mon, 17 Aug 2026 12:53:44 +0530
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
+ [136.143.188.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4581C10E33A;
+ Mon, 17 Aug 2026 07:51:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1786953106; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=cmpvimoyKdw0quuF10WfKz8an/HvUbRn/bAu0ZLpBJNF5tBM8ECFoeYu58AhcS2o0gIGIo4dD2Y6j9+LrpHothuLo8uOUugu2BSFBmDBrA4cdaDao9moMqy+IrFMoRc9ybS+XJWZHk7XJDVTspuKf26YWwloxkvqliqy6lZHiyM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1786953106;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=Iw2aC94vSPrMousY4cikxQwgSo2Xe6DUtMC2fgKE8Q4=; 
+ b=H5XzUeI4WI9psxf5f6bYH1spVDyJS1o/rbYaFLb34WRV/YVexZAtfcJ91Jv4TdUEX9p8bV6H0Fje305p1wukY5CDvlAuBasJ60YXjHUrvLFQkImIASEgflT7QCZO31dFBOH83HPfhpP3asxHoeszl6tpdJFx6oaJQgnkCRKBYYY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=robert.mader@collabora.com;
+ dmarc=pass header.from=<robert.mader@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786953106; 
+ s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
+ h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+ bh=Iw2aC94vSPrMousY4cikxQwgSo2Xe6DUtMC2fgKE8Q4=;
+ b=jRMkhm9Jw3JoB13sFdqvRQVf7mC/xvzBNmuObFWieIOyrQ/PLQ7Hjm65qS0Z/51l
+ OI2CoTcCnrBvuF0lCCwbLwHDdpvdKpaUFSKdFzFSKQ3UQFdF7bybi++9nrv4458vriP
+ kuEaQQWZZUpu07VJjLXvJkhigcmK4xUrQ6tIp7ZY=
+Received: by mx.zohomail.com with SMTPS id 1786953105068477.0091982509358;
+ Mon, 17 Aug 2026 00:51:45 -0700 (PDT)
+Message-ID: <c0d5a2bd-eb17-4ec0-aeb7-1fa9debb8154@collabora.com>
+Date: Mon, 17 Aug 2026 09:51:40 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/pm: fix smu messages after system resume for smu
- 11.0.x
-To: Yang Wang <kevinyang.wang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, hawking.zhang@amd.com, kenneth.feng@amd.com
-References: <20260817062728.2535467-1-kevinyang.wang@amd.com>
-Content-Language: en-US
-From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260817062728.2535467-1-kevinyang.wang@amd.com>
+Subject: Re: [PATCH v6 00/10] YUV conversion colorop with amdgpu and VKMS
+To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+Cc: Alex Hung <alex.hung@amd.com>, Daniel Stone <daniels@collabora.com>,
+ Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
+ Uma Shankar <uma.shankar@intel.com>,
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
+ Simon Ser <contact@emersion.fr>
+References: <20260814211816.1219597-1-harry.wentland@amd.com>
+Content-Language: en-US, de-DE
+From: Robert Mader <robert.mader@collabora.com>
+In-Reply-To: <20260814211816.1219597-1-harry.wentland@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA0P287CA0011.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:d9::7) To SA0PR12MB7091.namprd12.prod.outlook.com
- (2603:10b6:806:2d5::17)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SA0PR12MB7463:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5e93ba7-c6a7-4a58-303d-08defc307b9a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|1800799024|366016|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: NGnPAIcJMUlpWvqWszsrC7URx5gDlt+jOXUrzK/NlNko4oc9vRWeVYuOh/H2ZqNT3rTHoneyYebRA83IlVj8cO3/LY5s5dYlQ0qkWBmBNltr8LdzVsC+iRsY3LYPnaKuQ1llZZelCV0H3CbETSQCyFXXJb+wSoNAbHEJiucSpvCbtE6HyLqPCx1fm0lGRy8jJCB33UIcisn4G4VC/YEtoUm4nrmAnB5zW8Wmy57ozc+TWoC9wVfEgg3paRnRYKO00l0Qg/gNoZmwU3dvQXCxpFKSThCnd91w9HP0sDw8RHtfWuL8sUtVCRvuNOkidFgGtCvESUdCkKectLpI24YmniGLPeqis9muF16UX+s8AgNcnsCnchuqG4ygSBJ05xso6Y26OFgVMhuLseGBjQE951nTq00j8tP4Ew8e+RmljBZAcVNQQqullFdMh8xyGj/bszSqehVatHyr1owqMNOpdTAjenhRq3rOkE9RR3wpn9DFOjJbWCF3+q+mx/5dCffOCKzTcYr7NmDdfdgmDiR8mLkpxPsne6scD75c5L7r1lCa44QJ/sOmmhKt0jwVeUdyMixG/mBHkJq9ABBJvUUnvBSzUfQEGmWYONXV4cdXHMI=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MkJTYlUzeFduREhObTl6aDJ5elpqREpRSGg5V3NsVHltTE9aMXhEbVkwS3Rq?=
- =?utf-8?B?ZTNPQk5uZ3BuVWNIbEdLZzZEVHdNbzZlYnRSY01hSTdDUnNBSS96cHhaSEQr?=
- =?utf-8?B?TEJ2SExNQnlVdkFnQlJWMTVtdEk4bm5uaFU3RkM3emtkNlFabTZhdTFQaktG?=
- =?utf-8?B?S2dGZ0Z6SFNwbTR0V0tka0NicU04YXRHQk9pMVBMS041Z01mU1ZGZjd2dWRr?=
- =?utf-8?B?SEFEZG5WM3Z5MGlmenlGYXdBUUkwNlB0WkgzK1dMODUxbksxZjQxeit0Z2I5?=
- =?utf-8?B?Uk9oSlRsWFpsMmRPWFpleVoyOWZQcFdZdEIycmJUU0c5M1NQNW8wRUFsdDdo?=
- =?utf-8?B?RjVqMGpaQld6eWl5cjg5bjdGNFJaOHhtM0h5YmN2dzhkL2xPNG9RcUlsdEF3?=
- =?utf-8?B?NTg0Ri9USnBkRm5YZU5VVTdReTg1cFo1Mk5xWDk2dEFqN2FXWTNlbmhjMENz?=
- =?utf-8?B?TlpCZzV4Z2lXMTdpcmhBejB3ajkrOVZNSDRNS2hhTWpvdUdrV21NR0FJa3N6?=
- =?utf-8?B?TDlzODhXSWVFUkNVZ2cvZlYzeGtocStCaFpPUUVucVNwZzZRcFhweXptVFN0?=
- =?utf-8?B?L3psOHRudzNLbUNqb3c0YTlKbWVIYnlWaVhzYmZlYWg5a1ZsaXVpSnR5ZzV3?=
- =?utf-8?B?QnNaa1hSYmZsTG5kZG84cVR0QXJxaUp2YVVRK0xZUCsxVjJzVGhMSVVlemJy?=
- =?utf-8?B?NzBBbFRSN3B6VUovNmpaVFZtWWlGQkI3RGQzSzkyamNnaFduMVZTWExEWm5T?=
- =?utf-8?B?aG5YZjBQaE5zYUNVa1NZRjZKbUxLUTh0WDJ5OVNERi9qTnlRWmxjZzhWUjF2?=
- =?utf-8?B?UHZwYmNkQXA1VHRmcW54Q0xvSFVKZnQveEo3YzFNRWU4dFpzbzk3VGY5RnhQ?=
- =?utf-8?B?STNTdDVEVnpoZHU4U3RtSUpRZ3ZaV09HbHpTUGEyYU5VeUZ6Zm93M0VKSitX?=
- =?utf-8?B?eFN2LzVMV2taOGlrVGdZTlUvajFhbTNQVU9GVUs1MUhGQTlOUkxBUlJFNkta?=
- =?utf-8?B?WjBIdlVyWllSN0xLYTczMWw2QUZDOGxCNUtsM3NVdlNuZThlSExZR1JrSkJE?=
- =?utf-8?B?TEt3Z3NkZ2hmWnhXVmNoUlN5cFJNeHJGT3NER2RSNG05NFdQK1czamFhYWZx?=
- =?utf-8?B?WGliekg2VjVjc3I0QXFHVVBnZCsyQVFxSHA5Q05CbU56SVJianVmZUpoa2cy?=
- =?utf-8?B?VnltREZqYWZnSHBpSHcrdTM1emNMSlBWRHdaaklnYVBVZkltRW9iY29xTE5E?=
- =?utf-8?B?T3JtRnVNRklHRk85eWd5Z2dLQURiWmJYNGlhSndiWDVwRGRDVlpGYXM3K2kv?=
- =?utf-8?B?UEt3MytlN29LWDRRQVR5SDZSWEZuQmgzOW90Vnh6UTYxOUM4UkJJRzRzYlY4?=
- =?utf-8?B?UjBZZ01rbXZVOXhzalVxRWJiNHlqY0JPRXF3V1lnRzVyWmd1WlAxWkhRa0la?=
- =?utf-8?B?TFNjdldRMHE1dkMyZ0Vtc3FscEN3VVo4SFZFUXNaREFONlgwSWJCTmVWdDdy?=
- =?utf-8?B?enRia1JGRFZBWjJtR0pKQklaVkI1ZUNmcGJWMVREQVgvbyt2NXBETzllbWhp?=
- =?utf-8?B?VytLVUppMjBzOHlHcTNnRU9xTkVjNlYrR3FkWVJCa3luS0NyaThESmg2NU5X?=
- =?utf-8?B?ZFVMZkdKNDNwZ3Y5dUdSeVBrWWYyb0dXZ3hjWTZ3Qjd6bmhXWU1jUFFqdlVY?=
- =?utf-8?B?a3ZIQzVrY0dLMmovR2hqTkhXZ1htOUh4cis1WVZqTVFPajdPcGMwUk83QzMv?=
- =?utf-8?B?cTBwZVZuaEFtUHY5MXQvRTVGZjFMM1N4WFFZTURwcC9DRDlHM3o4NktQNkx4?=
- =?utf-8?B?N1pKYXU0VWVBeHdIT2pLeFhjYjdKMXFtdExoTmhINEFvZFM3MWw5RmlaZ0dp?=
- =?utf-8?B?YndYcmpibnYvTlByeDNtYTZNSmhkV3dqckVNcXhPYWZJdHY1SmZqTmUxekpj?=
- =?utf-8?B?NzJnQ01QZitycSttM0RaK2w5Y3NUWXdXZlorY3lmdnZBNW9yTzlpWklCalh0?=
- =?utf-8?B?NUJMdnZpeVN5N1hZci9XS3NQQWxxTDhIbjArMXNJWlZVT2VWMXFjdytYTTd6?=
- =?utf-8?B?WXVoSm81aTk5ZzhBUHNhdWp2anA0RldQRU1LRTd6WVBPMGozU2RnTlE0K0Nj?=
- =?utf-8?B?U0xIUndMaTgzcmQvZW1RRk1GNTlwc0JnQVdSditYaTc0Qk5nYXJwWWdOZGZ6?=
- =?utf-8?B?bjlBb0QxS3RGTWZ2RXZhMWxzZjRuSWljZGM5R1Zsd1dMbFQ4MWNtMEY4cS9l?=
- =?utf-8?B?a2JxbUtybk5OUmNKOE90WCtKYkU2ZHBVZEdBVFYwTSt0NmlUREpzWDVPeExH?=
- =?utf-8?B?NFdqK0ttdSs0elVpbzhUY2FIc0FJd0c3cGJxU3dNbWJseFpSLzhNdz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5e93ba7-c6a7-4a58-303d-08defc307b9a
-X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 07:23:49.9544 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ItF29BjKAwZgAaoNkG9wdJMXF4jpwx6KRUCWZMt9gktD9lobuZmSI+qyDRuZ8HN/
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7463
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,124 +69,154 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Hi Harry, thanks!
+
+I retested the series with the Weston branch[1], both on an AMD device 
+as well as the CI tests [2] with VKMS, and it looks all good to me. 
+Naveen Kumar also confirmed that the corresponding Intel series works 
+with the same Weston branch [3].
+
+So I think we're all set, assuming we defer the discussed legacy 
+properties helper[4] to after the uapi changes and first implementations 
+have landed.
+
+Who's reviews/acks do we still need to get the series landed? I suppose 
+one from Louis for the VKMS changes - and one for the uapi changes from 
+a maintainer?
+
+Best regards,
+
+Robert
 
 
-On 17-Aug-26 11:57 AM, Yang Wang wrote:
-> SMU 11.0.x can retain an unfinished command across system
-> suspend, causing SMU messages such as RunDcBtc to fail during resume.
-> 
-> Prepare MP1 for unload during system suspend and record successful completion,
-> reload SMC firmware after PSP restart before resume sends further SMU messages,
-> then clear the reload state.
-> 
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5620
-> 
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c   |  9 ++++--
->   drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h   |  2 ++
->   drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 38 ++++++++++++++++++++---
->   3 files changed, 42 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> index 04f6ebf31cca..5c00683c1edd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -3512,11 +3512,16 @@ static int psp_load_non_psp_fw(struct psp_context *psp)
->   	struct amdgpu_firmware_info *ucode;
->   	struct amdgpu_device *adev = psp->adev;
->   
-> -	if (psp->autoload_supported &&
-> -	    !psp->pmfw_centralized_cstate_management) {
-> +	if (psp->smu_fw_needs_reload ||
-> +	    (psp->autoload_supported &&
-> +	     !psp->pmfw_centralized_cstate_management)) {
+1: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2133
 
-Is this really needed? For PMFW managed cstate ones, load_smu_fw is 
-called before TMR setup already. SMU versions 11.0.x listed in this 
-patch have pmfw_centralized_cstate_management set to true.
+2: this also needs 
+https://lore.kernel.org/dri-devel/20260709115855.53725-1-robert.mader@collabora.com/, 
+but that's unrelated to this series
 
-Thanks,
-Lijo
+3: 
+https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2133#note_3615800
 
-> +		if (psp->smu_fw_needs_reload)
-> +			dev_dbg(adev->dev,
-> +				"Reloading SMU firmware after MP1 unload\n");
->   		ret = psp_load_smu_fw(psp);
->   		if (ret)
->   			return ret;
-> +		psp->smu_fw_needs_reload = false;
->   	}
->   
->   	/* Load P2S table first if it's available */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> index d80c85793e3b..20338caa4921 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> @@ -443,6 +443,8 @@ struct psp_context {
->   	bool				boot_time_tmr;
->   	/* flag to mark whether df cstate management centralized to PMFW */
->   	bool				pmfw_centralized_cstate_management;
-> +	/* SMC firmware reload required during resume */
-> +	bool				smu_fw_needs_reload;
->   
->   	/* xgmi ta firmware and buffer */
->   	const struct firmware		*ta_fw;
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> index 559afdc5815d..8d499d9a86df 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -2182,12 +2182,36 @@ static int smu_smc_hw_cleanup(struct smu_context *smu)
->   static int smu_reset_mp1_state(struct smu_context *smu)
->   {
->   	struct amdgpu_device *adev = smu->adev;
-> -	int ret = 0;
-> +	u32 mp1_version = amdgpu_ip_version(adev, MP1_HWIP, 0);
-> +	bool needs_mp1_unload;
-> +	int ret;
->   
-> -	if ((!adev->in_runpm) && (!adev->in_suspend) &&
-> -		(!amdgpu_in_reset(adev)) && !smu->is_apu &&
-> -			amdgpu_ip_version(adev, MP1_HWIP, 0) >= IP_VERSION(13, 0, 0))
-> -		ret = smu_set_mp1_state(smu, PP_MP1_STATE_UNLOAD);
-> +	if (adev->in_runpm || amdgpu_in_reset(adev) || smu->is_apu)
-> +		return 0;
-> +
-> +	switch (mp1_version) {
-> +	case IP_VERSION(11, 0, 7):
-> +	case IP_VERSION(11, 0, 11):
-> +	case IP_VERSION(11, 0, 12):
-> +	case IP_VERSION(11, 0, 13):
-> +		/*
-> +		 * These SMU versions require MP1 unload before system suspend.
-> +		 * The shutdown path already requests it through mp1_state.
-> +		 */
-> +		needs_mp1_unload = adev->mp1_state != PP_MP1_STATE_UNLOAD;
-> +		break;
-> +	default:
-> +		needs_mp1_unload = !adev->in_suspend &&
-> +			mp1_version >= IP_VERSION(13, 0, 0);
-> +		break;
-> +	}
-> +
-> +	if (!needs_mp1_unload)
-> +		return 0;
-> +
-> +	ret = smu_set_mp1_state(smu, PP_MP1_STATE_UNLOAD);
-> +	if (!ret && adev->in_suspend)
-> +		adev->psp.smu_fw_needs_reload = true;
->   
->   	return ret;
->   }
-> @@ -2279,6 +2303,10 @@ static int smu_suspend(struct amdgpu_ip_block *ip_block)
->   	if (ret)
->   		return ret;
->   
-> +	ret = smu_reset_mp1_state(smu);
-> +	if (ret)
-> +		return ret;
-> +
->   	smu->watermarks_bitmap &= ~(WATERMARKS_LOADED);
->   
->   	smu_set_gfx_cgpg(smu, false);
+4: 
+https://lore.kernel.org/dri-devel/d42d5750-f3c5-4e2b-baa3-514b87e59e86@linux.intel.com/
+
+On 14.08.26 23:18, Harry Wentland wrote:
+> When we merged the drm_plane color pipeline API the major gap
+> that existed was the lack of a YUV to RGB conversion colorop.
+> We deprecated any legacy drm_plane color properties, which
+> means that the COLOR_RANGE and COLOR_ENCODING properties can't
+> be used with the COLOR_PIPELINE property on a drm_plane. In
+> practice this means that we can't use a COLOR_PIPELINE on
+> YCbCr encoded framebuffers.
+>
+> This patchset expands on the Fixed Matrix colorop proposed by Chaitanya
+> and adds limited range variants of the YCbCr to RGB conversions.
+>
+> His full patchset can be found at
+> https://patchwork.freedesktop.org/patch/709860
+>
+> This code has been tested with IGT and an experimental KWin branch.
+>
+> All patches are now reviewed and tested. We have a Weston and
+> KWin implementation. IGT patches are missing one review. I
+> deem these patches ready to merge once the last IGT patch review
+> comes in.
+>
+> IGT branch:
+> https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/yuv-fm-colorop
+>
+> KWin branch used for testing:
+> https://invent.kde.org/hwentlan/kwin/-/tree/yuv-fm-colorop
+>
+> The kernel branch containing these changes, based on drm-misc-next
+> can be found at:
+> https://gitlab.freedesktop.org/hwentland/linux/-/tree/yuv-fm-colorop
+>
+> Further background on this work can be found at:
+> https://hwentland.github.io/2026/03/10/plane-color-pipeline-csc-3d-lut-kwin.html
+>
+> v6:
+>   - Fix fill_plane_color_attributes build failure in Patch 8 when
+>     building with KUNIT (Robert)
+>
+> v5:
+>   - Drop new VKMS kunit tests for conversion matrices
+>   - Added script to show how VKMS kunit test values are computed (Pekka)
+>   - Removed fixed-matrix enums for "YCbCr limtied to full" and
+>     "RGB709 to RGB2020" as they're currently unused by userspace (Robert)
+>
+> v4:
+>   - Specify matrix entries in docs (Pekka)
+>   - Squash limited-range enums into "Add FM" patch (Robert)
+>   - Don't reject RGB planes with fixed matrix in VKMS as
+>     we don't want or need to make a colorop dependent on
+>     the framebuffer's pixel format. (Robert)
+>   - Fix conversion matrices in VKMS and implement kunit
+>     tests (discovered while documenting the matrices)
+>
+> v3:
+> - base on Chaitanya's updated patch and rename code accordingly
+>    to Fixed_Matrix instead of CSC Fixed-Function
+>
+> v2:
+> - use Chaitanya's CSC_FF block for named matrices
+>
+> Cc: Alex Hung <alex.hung@amd.com>
+> Cc: Daniel Stone <daniels@collabora.com>
+> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
+> Cc: Uma Shankar <uma.shankar@intel.com>
+> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
+> Cc: Melissa Wen <mwen@igalia.com>
+> Cc: Simon Ser <contact@emersion.fr>
+> Cc: Robert Mader <robert.mader@collabora.com>
+>
+> Chaitanya Kumar Borah (1):
+>    drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
+>
+> Harry Wentland (9):
+>    drm/vkms: Fix limited-range YCbCr to RGB conversion scaling
+>    drm/vkms: Add fixed matrix colorop to color pipeline
+>    drm/vkms: Add atomic check and matrix handling for fixed matrix
+>      colorop
+>    drm/amd/display: Add fixed matrix colorop to color pipeline
+>    drm/amd/display: Implement fixed matrix colorop color space mapping
+>    drm/amd/display: Use GAMCOR for first TF if YUV conversion is needed
+>    drm/amd/display: Check actual state during commit_tail
+>    drm/amd/display: Set color_space to plane_infos
+>    drm/amd/display: Force GAMCOR for subsampled surfaces with
+>      PQ/Gamma22/HLG
+>
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  14 +-
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   7 +-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  85 +++++++++++-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  27 +++-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |   1 +
+>   .../display/amdgpu_dm/tests/amdgpu_dm_test.c  |  16 +--
+>   .../amd/display/modules/color/color_gamma.c   |   3 +-
+>   drivers/gpu/drm/drm_atomic.c                  |   4 +
+>   drivers/gpu/drm/drm_atomic_uapi.c             |   7 +
+>   drivers/gpu/drm/drm_colorop.c                 | 107 +++++++++++++++
+>   .../gpu/drm/vkms/tests/gen_yuv_conversion.py  |  87 ++++++++++++
+>   drivers/gpu/drm/vkms/tests/vkms_format_test.c |  40 +++---
+>   drivers/gpu/drm/vkms/vkms_colorop.c           |  66 ++++++---
+>   drivers/gpu/drm/vkms/vkms_composer.c          |   6 +
+>   drivers/gpu/drm/vkms/vkms_formats.c           |  64 ++++++---
+>   drivers/gpu/drm/vkms/vkms_formats.h           |   2 +-
+>   drivers/gpu/drm/vkms/vkms_plane.c             |  55 +++++++-
+>   include/drm/drm_colorop.h                     | 127 ++++++++++++++++++
+>   include/uapi/drm/drm_mode.h                   |  12 ++
+>   19 files changed, 651 insertions(+), 79 deletions(-)
+>   create mode 100755 drivers/gpu/drm/vkms/tests/gen_yuv_conversion.py
+>
+> --
+> 2.55.0
+>
+-- 
+Robert Mader
+Consultant Software Developer
+
+Collabora Ltd.
+Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
+Registered in England & Wales, no. 5513718
 
