@@ -4,57 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00291C5CFC1
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 07:51:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7DA69C5CFC1
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 08:07:49 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8209610E33A;
-	Mon, 17 Aug 2026 07:51:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F09CF895C1;
+	Mon, 17 Aug 2026 08:07:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="jRMkhm9J";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QlChY2K4";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4581C10E33A;
- Mon, 17 Aug 2026 07:51:55 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1786953106; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=cmpvimoyKdw0quuF10WfKz8an/HvUbRn/bAu0ZLpBJNF5tBM8ECFoeYu58AhcS2o0gIGIo4dD2Y6j9+LrpHothuLo8uOUugu2BSFBmDBrA4cdaDao9moMqy+IrFMoRc9ybS+XJWZHk7XJDVTspuKf26YWwloxkvqliqy6lZHiyM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1786953106;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=Iw2aC94vSPrMousY4cikxQwgSo2Xe6DUtMC2fgKE8Q4=; 
- b=H5XzUeI4WI9psxf5f6bYH1spVDyJS1o/rbYaFLb34WRV/YVexZAtfcJ91Jv4TdUEX9p8bV6H0Fje305p1wukY5CDvlAuBasJ60YXjHUrvLFQkImIASEgflT7QCZO31dFBOH83HPfhpP3asxHoeszl6tpdJFx6oaJQgnkCRKBYYY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786953106; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=Iw2aC94vSPrMousY4cikxQwgSo2Xe6DUtMC2fgKE8Q4=;
- b=jRMkhm9Jw3JoB13sFdqvRQVf7mC/xvzBNmuObFWieIOyrQ/PLQ7Hjm65qS0Z/51l
- OI2CoTcCnrBvuF0lCCwbLwHDdpvdKpaUFSKdFzFSKQ3UQFdF7bybi++9nrv4458vriP
- kuEaQQWZZUpu07VJjLXvJkhigcmK4xUrQ6tIp7ZY=
-Received: by mx.zohomail.com with SMTPS id 1786953105068477.0091982509358;
- Mon, 17 Aug 2026 00:51:45 -0700 (PDT)
-Message-ID: <c0d5a2bd-eb17-4ec0-aeb7-1fa9debb8154@collabora.com>
-Date: Mon, 17 Aug 2026 09:51:40 +0200
-MIME-Version: 1.0
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012068.outbound.protection.outlook.com
+ [40.93.195.68])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6FF23895C1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 08:07:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Duzjrsh6UJvWE36p0Hudfi936EhQPCJq16sKqV6wmbjsgAhGJxRwBqKgvM+uGMgOUnNOR12rw+BR35GKHN/2W6TtfUhfwKK+zL87IjZtY/y38RsLXb41epx3BCAYGti+2GnQMTFqFmkUeIfz9WhQ2Iz8uq3eU62+aO5SOkD5zbRh1b2k0pYqnho0glWdg20OlEtNbkoh2KPxkGVhs+2JA37FwjPt8uHGF1y1Yspx9Q9A32OLB/mTmt6CNwMFImP7uqB96bRcIae/YpZ9/8jYA0jKJZ/Gl5g3HEIzD3dT2w6iLKgyX6UHgAYprzmMqoayj5oo5L+9koAxJJTnhwjQbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tWxxwpkxo36VLskhPbk4uhAmsLTTHu7FBvrgz0mLuSw=;
+ b=X5DoahDGfHt/p6drOjZw+DF/Geu8rinIgqqfJ4UehubsWYgdeaPBc97RtBgxmoeRGVKDQUbrRZjaA34tkG3nJagr8GirC7Pv/nTG1dPMnpESUU7RorwGlaB44ffHKpKvnrVjzSUeXENK4t8bN+bG3Gk5NJlKuneZMlViOGrxg7WUWkkkmy9vBbcQ7yCI2/yWaPyzKFwv9l3tnzxqsFnVOk1QSecOXd+wNJ5ef2pJLnR0tPd8A/8udRi5BSTFIir+TRpvqHWpHh/9DeGeUO86htBpwTeA1ZAgKvRfHb5L7DcT34Pd+7Z0sO/5wK8M0WSgrGP2N0zUbdh+WWozQhIV4w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tWxxwpkxo36VLskhPbk4uhAmsLTTHu7FBvrgz0mLuSw=;
+ b=QlChY2K4k7nteZ8gB2BtEhdzZWdeec3oPpFMY5w5E1k/UOayjatgo7JPI2/YuLf3fGu2IU/XzihJ6HrKbUO+AKFZ4s14grznXvuJBTJGT9HIn9TAtMLJcR27AL/+D6Jxw8naN7BJw1jTTq30EeLauMU+fTPoW0eP9Cncb86wNJA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by SA3PR12MB7973.namprd12.prod.outlook.com (2603:10b6:806:305::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
+ 2026 08:07:44 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
+ 08:07:44 +0000
+Message-ID: <59918fde-87c3-434a-a606-abb11ab3d899@amd.com>
+Date: Mon, 17 Aug 2026 13:37:37 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 00/10] YUV conversion colorop with amdgpu and VKMS
-To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Cc: Alex Hung <alex.hung@amd.com>, Daniel Stone <daniels@collabora.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <mwen@igalia.com>,
- Simon Ser <contact@emersion.fr>
-References: <20260814211816.1219597-1-harry.wentland@amd.com>
-Content-Language: en-US, de-DE
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <20260814211816.1219597-1-harry.wentland@amd.com>
+Subject: Re: [PATCH v4 0/1] drm/amdkfd: Add TLB flush after MES queue
+ eviction/suspension
+To: Priya Hosur <Priya.Hosur@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alexander.Deucher@amd.com, Sunil.Khatri@amd.com, Felix.Kuehling@amd.com,
+ Shaoyun.Liu@amd.com, Mario.Limonciello@amd.com, Christian.Koenig@amd.com
+Cc: Pratik.Vishwakarma@amd.com, Veerabadhran.Gopalakrishnan@amd.com
+References: <20260816172608.14470-1-Priya.Hosur@amd.com>
+Content-Language: en-US
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <20260816172608.14470-1-Priya.Hosur@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0337.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:21f::13) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|SA3PR12MB7973:EE_
+X-MS-Office365-Filtering-Correlation-Id: 288888ca-c8d0-4b5a-1f73-08defc369e02
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|366016|23010399003|18002099003|22082099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: vdLVkU/Hxi0xHSgJcDH7/pZ/hg/9iZLrGwl99ADcrynKe7gs3AHDcOm1fe3jtqq9KBPAGSdHR43YoLxZ3WvvpxQkQ7yizNAEE0LCnE3cQq6ABDxb6lJ3rhWPYNJLZF5VS70Erq7BPF0mEUzkO+R+nxt7hT2/9jGi4nlXs4MMosBXJ2acNRIQJFDxHg4O8FqHlw3crG+mO/2uUHTUAQqpT9YM2UOXUylWaMF6gbecZi2pT1NxxKvG3m4UVc8wCCI1of4BQ/iWuLjPPrFO0sKtoLe/7gh6qWEYF5Gz4xzzLVTwNjBwCKBU2eHuHfCLIzqQ8WEcCuOHB7n2Nh6Z4rPx8COmgU5ms9R5M8eYzCx2HouA76Ihiks3s6wzLWAZTb4iUYlRYR62fLlNwmGWkoj7EpGKbMUhiAZTogPl1kDrje0dkSEQ/E6BjGVR39L6lvpcvTrg4rnlJZ+52HMi6vJDqNWGTKprfc5UF/iQfXyqVeXopqRyOn9D+y8L/KWmATiaovFPPzWTp4myEyy9hsSiao1Weh/XAf6Hv+nw1l0KGA4z/tFzpgjC50ZIbLrhoeaefgB2RskiRz4vX7lDb50ep+XOD6NNkJrD9yREQOU87qAhUbBSoQiw+tMNLTA8harczLjYzxYnbJzQSSr7fNWgb0XG1dluoTD5+D+1rToG0uc=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QmJ1R3Y2c0lwNHduNXROM3JKVkxyT0kwc0x6eDFRWVdMQXREOEFBVkN5Njhp?=
+ =?utf-8?B?N2twV3lpVTh1dlA0TUttaGJvdTZrYy8zdHRCNUtZYTREQTM3VlpKTmV5L2RV?=
+ =?utf-8?B?MEVQY09VL1Y5ZzV4TU5ab215TmVVOWFFOXVmYy95dHhKekwwK2NWYUpNVlJQ?=
+ =?utf-8?B?c2w5VktCbFBrMTNMVzFEZW55dHlEL2d6QThqWGRSQ1AvWWxYejJ4VTl3d3ZR?=
+ =?utf-8?B?S1FiUVRvNUlVTExNQXBWMUNTRVprVGdDMFRkQnJTRE10RnE1SjdVS24wTVFs?=
+ =?utf-8?B?UGhxODRrOXd5akZGSkE1RzVCM0VXSCt6c1BTZk9yL0RYQ3ByamV3emVSdzBT?=
+ =?utf-8?B?Q3lmak1aUDJEVXE3cnFPZ1V5YVVVUlczTVdPT2pyVS9YaE56MDdIb00xL0tB?=
+ =?utf-8?B?RHAzN1dzNWpMMW1uNzRtT04zbm5EL3JrenZ6SDlpQWlFemtLTk52Z1o3Zmcv?=
+ =?utf-8?B?b1c4cDRRVjl1aDNKTk56d2M2ZGI1TExkSDlHQzg3Z05XSXRLOWZHdFN0OFdI?=
+ =?utf-8?B?MmFXSjBMdGpjZnN2WFpuSW82RGZQZjdEc0dmYVdZc1NGQlpaY25hQ2dlb2l4?=
+ =?utf-8?B?R3BXNURRTDZaVmVhUlFkalZrL0p3ZHNDd3FUNXdQY0s4bnBIUXB2SDdPS3l0?=
+ =?utf-8?B?eG8zUTRuTG9nRlYyUDdrVlh6UGEyd1JpS0pvdzI3eXVHTjVpRkdIeGVCVWtz?=
+ =?utf-8?B?dEEyVWNZU1NQRG9kMkhDa080SVF1a2ZCZkZWQ00wVkFoQWFKSU9IU0NUN25k?=
+ =?utf-8?B?QWNNamJER01sNUMvTktpcElkc1BGQ3FrM0VzLzhsb0J5aVFoOEJ5SGJXc2l4?=
+ =?utf-8?B?NGtpcXA4cEV6WnhRbitvcGN1MWJIMWVJaWVqYUt4OVN5ai9YYnJnK1ZNVHFL?=
+ =?utf-8?B?NlRwRGlUVHdmdGVGU0VzV0ptakd0NEQ1U014NGVXZW1IVU5ZN0tMekZYZFhz?=
+ =?utf-8?B?T1lVdGtZUzVDdVVBbFppaUcyWWY5bXQyRUNSWjRIcjVnWGdxc0xMSlhqaUFx?=
+ =?utf-8?B?UkVQbnBDUDh0b1dtbzNzSStlTnhQbGorSHQ4Tnh0RTBveE8zVm9SZS9TaXVD?=
+ =?utf-8?B?S0ZEREVyd0VvT1pTT3JHTzYxbnJLemJ6NUhnRmV1VjVyRjRSS2hodUFmNUhh?=
+ =?utf-8?B?MEVDU09iYXBxZzVFOWNxWkR1RjNJekd4QVB6VzR2UzM1azNjazQ5L1JCakJC?=
+ =?utf-8?B?Z09maDhPY0tJcXlIaEpBUWwxRUEwc0ZybnVJSkRYMldqWUxFZ1RCTnZzVUZD?=
+ =?utf-8?B?eTZNbXNjb3Nob04vUldxV1hlUTZ6bXlxekZUL3pKd1ZBUmVGZHlkUUttNVVD?=
+ =?utf-8?B?OFAwRlJMd1BURS9UYVJoZW1rVG15NEVuaTJwZ1RBalBFWlJxZWJRSzRRbUFt?=
+ =?utf-8?B?dnc2VjJhOEZKZnl0Ykh5QTN0NWVlM0V2SUR1MldvTWNwRGp1NllFS1JxcWxw?=
+ =?utf-8?B?WVdGbWphMjVvME9SNkZzNUJLS0RJREoybUJET01CNlRQeGtCVmQzQldPcUtp?=
+ =?utf-8?B?SUp5Rk5oNFA3dnJBaUJVeGJWV1JKVnZvTWp5UDlXTWhiTXloellZWElJVjlt?=
+ =?utf-8?B?YnY0MUFSYWZVZnR5eHRIUGR2dDNjQlI5YTFkVzFpbmc3UWJ0ZWYwVU9GUkNF?=
+ =?utf-8?B?K0Faa0dHdkJlY2ZNbzJhdUJpMUwrWjJkNXJWbVRSM28xY3dEZ0twelp4NjY4?=
+ =?utf-8?B?aWZTM1EyZnJacE16WHBseW55VGh2cGxXQ2l5eVVLa2M5aDNzdjJuNzVjaDRm?=
+ =?utf-8?B?bU50SmZUdGk1NEpLai9LLzJXRGgrRnA3Vmt2amRIY1pmMi8yQy82aER0Q09h?=
+ =?utf-8?B?RzRqSWh2dUJBRDNxSXhPNUV2MWo3UmY1SWpUUVM5aDNlWndhMGJkaW5GM1Q3?=
+ =?utf-8?B?VU05angwcU5vcFhDYmFRTmd2TDlNQmlYL0NTM2NDbHJNc0FIa2NxcmZEeUor?=
+ =?utf-8?B?SVgxUW02czJlcUhMOHFBanRRMzk0Z2p3RFJhSXR1ckVNcHF5d2pyQ1g2YUdJ?=
+ =?utf-8?B?REpqN1p4Tkx2SzF1d0hsT1d2MTNtTHdNSmRua2VzdmsrVHdyVWkreTkwWnNw?=
+ =?utf-8?B?Y2dwcm02a2ZZdjBJSzg2WGtWc1cyajlPblphOWFYYlBJS29JM2pOVTN6cnFy?=
+ =?utf-8?B?cEVXTFJNbnNqUUhNOHlvTnVqb2l2aHMzWm4vTTJsRjhyU1M3a25GdWJlQUw1?=
+ =?utf-8?B?di9CL3BxMzdxNmEwdmsxTWthQkxxaDlDcE53R0ZaYW1UOGtwMHBqZ28xQml4?=
+ =?utf-8?B?Qk9RUHdrQ0lybENoc0g0SjBTOVI5SU4vRUlWdEpwbHhWVEowSEVxV2JjOFVl?=
+ =?utf-8?Q?cDXbDLYebsKlAI9xvY?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 288888ca-c8d0-4b5a-1f73-08defc369e02
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 08:07:44.4918 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: YFOti+Xh7VJfYFxf3vK02hipjFOQj/yiMUeoGtoGhNULbYHPU8j6B7h8UVwKvN7h
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7973
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,154 +137,40 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Harry, thanks!
-
-I retested the series with the Weston branch[1], both on an AMD device 
-as well as the CI tests [2] with VKMS, and it looks all good to me. 
-Naveen Kumar also confirmed that the corresponding Intel series works 
-with the same Weston branch [3].
-
-So I think we're all set, assuming we defer the discussed legacy 
-properties helper[4] to after the uapi changes and first implementations 
-have landed.
-
-Who's reviews/acks do we still need to get the series landed? I suppose 
-one from Louis for the VKMS changes - and one for the uapi changes from 
-a maintainer?
-
-Best regards,
-
-Robert
 
 
-1: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2133
-
-2: this also needs 
-https://lore.kernel.org/dri-devel/20260709115855.53725-1-robert.mader@collabora.com/, 
-but that's unrelated to this series
-
-3: 
-https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2133#note_3615800
-
-4: 
-https://lore.kernel.org/dri-devel/d42d5750-f3c5-4e2b-baa3-514b87e59e86@linux.intel.com/
-
-On 14.08.26 23:18, Harry Wentland wrote:
-> When we merged the drm_plane color pipeline API the major gap
-> that existed was the lack of a YUV to RGB conversion colorop.
-> We deprecated any legacy drm_plane color properties, which
-> means that the COLOR_RANGE and COLOR_ENCODING properties can't
-> be used with the COLOR_PIPELINE property on a drm_plane. In
-> practice this means that we can't use a COLOR_PIPELINE on
-> YCbCr encoded framebuffers.
->
-> This patchset expands on the Fixed Matrix colorop proposed by Chaitanya
-> and adds limited range variants of the YCbCr to RGB conversions.
->
-> His full patchset can be found at
-> https://patchwork.freedesktop.org/patch/709860
->
-> This code has been tested with IGT and an experimental KWin branch.
->
-> All patches are now reviewed and tested. We have a Weston and
-> KWin implementation. IGT patches are missing one review. I
-> deem these patches ready to merge once the last IGT patch review
-> comes in.
->
-> IGT branch:
-> https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/yuv-fm-colorop
->
-> KWin branch used for testing:
-> https://invent.kde.org/hwentlan/kwin/-/tree/yuv-fm-colorop
->
-> The kernel branch containing these changes, based on drm-misc-next
-> can be found at:
-> https://gitlab.freedesktop.org/hwentland/linux/-/tree/yuv-fm-colorop
->
-> Further background on this work can be found at:
-> https://hwentland.github.io/2026/03/10/plane-color-pipeline-csc-3d-lut-kwin.html
->
-> v6:
->   - Fix fill_plane_color_attributes build failure in Patch 8 when
->     building with KUNIT (Robert)
->
-> v5:
->   - Drop new VKMS kunit tests for conversion matrices
->   - Added script to show how VKMS kunit test values are computed (Pekka)
->   - Removed fixed-matrix enums for "YCbCr limtied to full" and
->     "RGB709 to RGB2020" as they're currently unused by userspace (Robert)
->
+On 16-Aug-26 10:56 PM, Priya Hosur wrote:
+> This patch adds heavy-weight TLB flush after MES queue eviction/suspension
+> to fix SVM page migration hangs on gfx1151 with XNACK mode enabled.
+> 
 > v4:
->   - Specify matrix entries in docs (Pekka)
->   - Squash limited-range enums into "Add FM" patch (Robert)
->   - Don't reject RGB planes with fixed matrix in VKMS as
->     we don't want or need to make a colorop dependent on
->     the framebuffer's pixel format. (Robert)
->   - Fix conversion matrices in VKMS and implement kunit
->     tests (discovered while documenting the matrices)
->
-> v3:
-> - base on Chaitanya's updated patch and rename code accordingly
->    to Fixed_Matrix instead of CSC Fixed-Function
->
-> v2:
-> - use Chaitanya's CSC_FF block for named matrices
->
-> Cc: Alex Hung <alex.hung@amd.com>
-> Cc: Daniel Stone <daniels@collabora.com>
-> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
-> Cc: Uma Shankar <uma.shankar@intel.com>
-> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
-> Cc: Melissa Wen <mwen@igalia.com>
-> Cc: Simon Ser <contact@emersion.fr>
-> Cc: Robert Mader <robert.mader@collabora.com>
->
-> Chaitanya Kumar Borah (1):
->    drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
->
-> Harry Wentland (9):
->    drm/vkms: Fix limited-range YCbCr to RGB conversion scaling
->    drm/vkms: Add fixed matrix colorop to color pipeline
->    drm/vkms: Add atomic check and matrix handling for fixed matrix
->      colorop
->    drm/amd/display: Add fixed matrix colorop to color pipeline
->    drm/amd/display: Implement fixed matrix colorop color space mapping
->    drm/amd/display: Use GAMCOR for first TF if YUV conversion is needed
->    drm/amd/display: Check actual state during commit_tail
->    drm/amd/display: Set color_space to plane_infos
->    drm/amd/display: Force GAMCOR for subsampled surfaces with
->      PQ/Gamma22/HLG
->
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  14 +-
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   7 +-
->   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  85 +++++++++++-
->   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  27 +++-
->   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |   1 +
->   .../display/amdgpu_dm/tests/amdgpu_dm_test.c  |  16 +--
->   .../amd/display/modules/color/color_gamma.c   |   3 +-
->   drivers/gpu/drm/drm_atomic.c                  |   4 +
->   drivers/gpu/drm/drm_atomic_uapi.c             |   7 +
->   drivers/gpu/drm/drm_colorop.c                 | 107 +++++++++++++++
->   .../gpu/drm/vkms/tests/gen_yuv_conversion.py  |  87 ++++++++++++
->   drivers/gpu/drm/vkms/tests/vkms_format_test.c |  40 +++---
->   drivers/gpu/drm/vkms/vkms_colorop.c           |  66 ++++++---
->   drivers/gpu/drm/vkms/vkms_composer.c          |   6 +
->   drivers/gpu/drm/vkms/vkms_formats.c           |  64 ++++++---
->   drivers/gpu/drm/vkms/vkms_formats.h           |   2 +-
->   drivers/gpu/drm/vkms/vkms_plane.c             |  55 +++++++-
->   include/drm/drm_colorop.h                     | 127 ++++++++++++++++++
->   include/uapi/drm/drm_mode.h                   |  12 ++
->   19 files changed, 651 insertions(+), 79 deletions(-)
->   create mode 100755 drivers/gpu/drm/vkms/tests/gen_yuv_conversion.py
->
-> --
-> 2.55.0
->
--- 
-Robert Mader
-Consultant Software Developer
+>    - Dropped userq TLB flush patch per Felix/Lijo feedback: TLB flush is only
+>      needed after batch unmap in amdgpu_userq_unmap_all(), not per-queue unmap
+> 
 
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
+Sorry, that was not the intention. I was thinking there is a unmap_all 
+API in MES in which case this could be done within FW itself instead.
+
+I believe Alex was also asking to check about batch unmap cases of user 
+queue. Ex: - amdgpu_eviction_fence_suspend_worker there could still be 
+inflight transactions similar to KFD case.
+
+Thanks,
+Lijo
+
+> v3:
+>    - Split into 2 patches per Alex's review
+>    - Added userq TLB flush in amdgpu_userq_unmap_helper() (amdgpu_userq.c)
+> 
+> v2:
+>    - Removed "SDMA" from comment as this affects all in-flight memory
+>      accesses, not just SDMA (Felix Kuehling)
+>    - Added Reviewed-by tag
+> 
+> Priya Hosur (1):
+>    drm/amdkfd: Add TLB flush after MES queue eviction/suspension
+> 
+>   .../drm/amd/amdkfd/kfd_device_queue_manager.c | 10 ++++++++++
+>   1 file changed, 10 insertions(+)
+> 
 
