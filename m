@@ -4,102 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4CBDBC5DF66
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 15:12:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F616C5DF77
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 15:27:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DAB6810E826;
-	Mon, 17 Aug 2026 15:12:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 235D710E416;
+	Mon, 17 Aug 2026 15:27:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IzTMZgmS";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="TfrzPhxZ";
 	dkim-atps=neutral
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com
- [209.85.221.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4079210E826
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 15:12:44 +0000 (UTC)
-Received: by mail-vk1-f172.google.com with SMTP id
- 71dfb90a1353d-5c2b6d3f2f6so129301e0c.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 08:12:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786979563; cv=none;
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com
+ [209.85.217.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A041210E17C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 15:27:54 +0000 (UTC)
+Received: by mail-vs1-f46.google.com with SMTP id
+ ada2fe7eead31-73e516d6ddcso94325137.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 08:27:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786980473; cv=none;
  d=google.com; s=arc-20260327;
- b=QKQ1Xob6lOyzqb5x2+xRXlPbyHyvObJ6LirTJ8PDDut+uxkyrisoT7eAaXZ/whWVDW
- dblxsyVMWTzkmQrNSUvGputgdSZXYeUNECpP9RhuedKVQLZh3dNLXco6F86ymxgNEFrq
- 1bF15f3PvP6xg1kze7DZC1Bc1efLHfEe3CDYDTQ8fl0PyRHN6MmqEtwh2b1lWj6APh2z
- A09iEGLlO30kJkuldcivnsJDn0WmEeqnhfi9ixwhRGWjbvZ9XIOkM2rztMcj6UOAtH6t
- YGBOrbH8HclFbdQskMoKUyEMax0/VxTMvGGAdGkOVwPBqT85b1H09FPjfsiKh5hFC+XL
- GJOg==
+ b=ByEOJ+YN2HArJ+xrqpYw+6LZEeix1qYelxeTAP1DadvFDdB8aabTSEdkgqtpuUjbFc
+ ReVKtN+YBrf/kamLSoB6PtQKblfSP9mVwRhQVZA+YNA+rt8hn5oZADMOoTgPh28Ig6TH
+ kDwmcCwX1DBYq3oQ5rVeSBOC6PaRfehLCOrjw7gbq6/PXEea6A4ow741M/RnbYHMpKWd
+ vTUFeTyZ2mWDvu/mi/i7IOiyaocJpCWlsvgPOBv6oumFSmCVdOQUus02O5dDPCou/on9
+ iz46mYDXhNAmL7tuQu35BG2t4eoLf9hoxxsXIgnjDCDiDL1NyCT9ih3wI5opg65gdVvV
+ 9JFA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=vaf9Cx5bbS91iI9Sw9I5LhAq5i2BXevWkKrJ5KbO5u0=;
- fh=scc6gZ6Zc9EdtBBqKw1NEusO+BFBA2QhgDoT11kzMYg=;
- b=E16DB21q+hiu07Yans7vQWb+YjpOFMwwOoCQamPYfZ5h2cpqzy50PQNdL8v6eRTics
- sRIZWVnhbVFHTmkBujmZqc/KhUxbUb0XC8KX/H5nlhLfwB78BM978DVmbijbtyW2b6gO
- rC9mRc3QjysXAt/36PLUUf6eCTJQaEuUTHysX/lBM3q7mgyZ4OrGGdvbD0H4WE2WCSwN
- JQaX7uV1OSA3PgeE1SYHvNXPnIppvyQa30QrhkQY06OVEhIdoMNnvOv1h3HGf5WSV3yM
- wwUAhT2mmEzN32xV8wgsJt963j19Yg9AFmUFCSVWpTl8Xu8oqqxChEzbky1OtMhHVFY7
- D1mQ==; darn=lists.freedesktop.org
+ bh=j7Gz1gcwZac7xU6+dxpSqkGJeThcHsEFEecN33cuchg=;
+ fh=ZdSlsgUMnBtFPE/YehYOYBq0pgEcSJuC1t1V9hy5/R8=;
+ b=pHAkxJSn2Yi84Fw9RKkIaoda81rR29uimGE1uw3Hmxpxov19dG2VkamOE+nM1ZoIgQ
+ pMY6eTqNcmsFz41DLIW1ZDHFEhz6NJl9cQh9qJSt19H9MXdSxE8aw2Sbw2GCE8Q6nhWH
+ 0NQpNCHyiaAk9q7M2aPnlNmM61UABZSvKlyGe1RVyxDYJDDPj/c9HvlRbHSmU350caB5
+ n/5wNB1jW2z9u4H0d7IVfG0HB6lLz52xOZr5qURfeWd7ml2gNBHHyb8FHn6Vu4Hhxont
+ nA6U0izYMaeODMjAYr2MB0QEsPNsqMeeJYs6d7oSYxTMMUHEh+TbNFLSwq9sgGO9+Vss
+ GdeQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786979563; x=1787584363; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786980473; x=1787585273; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=vaf9Cx5bbS91iI9Sw9I5LhAq5i2BXevWkKrJ5KbO5u0=;
- b=IzTMZgmSpobJmjpwI427ErVDoEgXXQNl1DRNQfNdiB2SbTxMxZns3GyTnwj+xVjQGF
- N2kdSYDOVGtJf1tvPvgPPSzM+MXM2+XMP/mUft6e6f1KAFDYZR0V2K1VejFk1e/uWRfY
- qoA5eGj5c00MpoGJr1ZJrqWgvlh1Luqg7jMmCHS5THPPuXT14VmqxxTXwNV/0778fIlO
- EniICeW6mJGzm4tE1qVKFADLwEwuNLME4dVRXMepcc3s8T4yDJvWooQYZGidRY2eK0ZR
- IA3PXoYbZAQnAh/agp1ryuK24AQZAvY4112MRWKGS7Jg2i3bfQ4pzb2/XorwC/OZtMgN
- ZFFg==
+ bh=j7Gz1gcwZac7xU6+dxpSqkGJeThcHsEFEecN33cuchg=;
+ b=TfrzPhxZmMJjNn6UHE35Ni64FsKQXTfGcv0AuuvrsckEpZDshaCWerx6cO9TZydtab
+ Vq0LUus8d7Kr8j/znMH9f2VMv45e/S7uTdCaeTF+cZvdjwSbuSzciibM7UbZgaAUJaOD
+ i6AKgxn3xSbpf9mMyAc0FTVGd3JLfkxtW3+x2nGbJG6s6rlNzOt5X7ycoHclSy8ew+3b
+ QgEflSfQi47K1QKCCtpu1SFX8+n14ucKb5SfNAekrmXSm6Ub/6MZi/ycDPexqWFBxoVi
+ k7bQUdBa+tXyIYZsudrkWiWebUHxk9A8kkCoIBhb92l30TRkYQUJLsqQ9HejbzvJUUqn
+ 8zlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786979563; x=1787584363;
+ d=1e100.net; s=20251104; t=1786980473; x=1787585273;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=vaf9Cx5bbS91iI9Sw9I5LhAq5i2BXevWkKrJ5KbO5u0=;
- b=EWU5Ogcv0qbHXahtrlQ/UPncKQzS+32vowXItN4g/NGQh02okzc5oOeUrmpre7imBM
- Pvct0XlWU1RwhVtRzyGft+0PbZY59tORUBd7XSvcSPMbawKslDR3C3p5DqdEpi/QKu9+
- WK4OD6uxcJ8hDdpCpSCS1Hjv1uioU00P9BxAUctJW3lQOKCFlXjr3cS7jc+KkyWjcXfu
- car0CN924jGdxXg8G2IDp+WmtTg7dZ87ZCbiQuF9ocfwvXc4q8kDCAeKEduoT8Q5rLKS
- EGnUfM3l36jO4m0LMk/T+2AoX0K/8RzyBCLDNu2bjZtCaymaUsgW3clySuMwiTV6+cKM
- VB+A==
+ bh=j7Gz1gcwZac7xU6+dxpSqkGJeThcHsEFEecN33cuchg=;
+ b=NtMhPmUMaTbj0AHBD4ITREuN8NOkcR/zbysYfqF4CtKgJ3Ktbx5XwTc99wsnAOQjkF
+ PUNYoGj5w9KgI8sutC1rdSEOqBQgYdgkTtTSfVyfc7rmhFaWW+seMdlkcX+wwMuuXlHs
+ Kal+Q6RsoInPJV+Bpb+95pSzaiedt1vOTAPWWrqoKZDp+nYNfN5Y+IsYitbysz9uteRa
+ 1nhQD5EMBfEmwJ22Y1d+ZzeusweXGVY4O2P+iBWyQzRq1E3GaCs+/Nvk/w9cQa9uHfDq
+ su4lBbuzQcWkog73lG24R8yH90+buoXNANvOwXPPAlZAcM5WmxlLBO7MCxEIGwg01/34
+ 4Rbg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rp6oSPPnr/4gdMneElDKIWiATUN/jnPZqyW679JESmrhyXtFIXKeVKfGuNgMWykwHCS58ksdV7/@lists.freedesktop.org
-X-Gm-Message-State: AOJu0Yxec/+aOxyulLS6UirYo+zIGag2/7fFI+Bzm37Y7gpq4Z+JJM0K
- GKZPqcZxcdPdzkKzgz2f0HQV9rIs65Rp/3B0GBJgv7ATf/uYmUuHz4wvMvxILyPjKLUwaBNbhzd
- XxwgXF2YaJL1goFfIj2OTRoxoIZINDSY=
-X-Gm-Gg: AR+sD12Yj04DbW5BVgkqyQ/+EAayZeeVbOAguSFH55fuvqfptslctNQoIAYIrmeuiuh
- NlHbs3NNmr6JgWP/y9ieGkz99IZORrijKa1EcZya2H57Gh/alY9l8Wv6mPppKCPKtK6CVqMN4AH
- PRMmPF2p2nUVcA8eB37FDN33AYW2X/wbIxy2nd5N9pwgXg9lchYGcCdegDcm7QwhoZSqlvILdnH
- +eY1kUf2veMOJsVx9oq3Jl5R4c5JEGK8mXFvOyb6Xbp+NFVnkKRr4NL1pNt15QlBvsomDONRat3
- mxYOPfiWyrRrxHCVT8wlCiIDmi7kvzyQZDye9O4JAQ8Ex34KUthf0mFaWEjckrt0R5oMZYQRnAZ
- 0rI5mZT7jxZwUPUSYhG5DLknBbJWeNvPT
-X-Received: by 2002:a05:6102:c13:b0:738:8d0f:72a3 with SMTP id
- ada2fe7eead31-76f2d5762b4mr1616598137.4.1786979563020; Mon, 17 Aug 2026
- 08:12:43 -0700 (PDT)
+ AHgh+RosZPrTDpFqfeqWadzamOU6BUf9SBslGUm1Mgf1lXJaQtWt81e6+eGeTESXSXjVzsiQKAeTKyUg@lists.freedesktop.org
+X-Gm-Message-State: AOJu0Yx9Qi7Dfid8BkDRSKNDJTHQoFqXdgfdf9ZrGT96Po5u9NuYGCRn
+ xK2tUrberAQhf0ZA4GO3AN95sY1N2RSVjE9/6zHZJrbs0ESFjWRCFbZ1IlI6vFzjELGKQp0qi/d
+ jmLM9bkU3JC96D9nWIQOrLlNRL+yKub0=
+X-Gm-Gg: AR+sD11CbwWcYMmjRNSotBXky0DWYhoutW9vFQWeP6xXkPSn8r/03kJd9R/52oDGAwJ
+ mzk/IfV1097I8/5Jj+VyEDAnCeB+s7AXKX+CjUYPdD997e7coMdMbV+pxC2HimY2gnvx7nfGhmW
+ +b8JxKST1u0qf9/Xcaia09wCsCkL/cJEghLC14WBcZ5Zig3KNqg4fgnJqpZr18uzPhg/gvg44NQ
+ LG3sQw7h69399n+TWrKTo+jYMhlaQbhikexNaERp8CAo/EVvr0bDXO+Z59ma7n7zclO8R2c9POB
+ YUwwRHoqgId1ERvlmCFqK8p33wylwJK+iqHHz0U5GvafFhKqWJWF2Wh6KLI/oTdas0NRk+V/GBF
+ xawHZ5lOueWGoB7Z3HKgB4rFesUIGPc0=
+X-Received: by 2002:a05:6102:6888:b0:745:17b0:10d5 with SMTP id
+ ada2fe7eead31-76f2cd6ba90mr1573367137.3.1786980473456; Mon, 17 Aug 2026
+ 08:27:53 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260814171335.1099999-1-colin.i.king@gmail.com>
- <3ec52129-0629-46cb-a0d9-cc4dc68a502a@web.de>
-In-Reply-To: <3ec52129-0629-46cb-a0d9-cc4dc68a502a@web.de>
+References: <20260815180033.8958-1-linux@treblig.org>
+In-Reply-To: <20260815180033.8958-1-linux@treblig.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 17 Aug 2026 11:12:30 -0400
-X-Gm-Features: AcwNN1VF2iMgMunOjlyCoDEKc8oOXYaVq-li5iG15rUf9zg_MtFAAXGEZuaCAzQ
-Message-ID: <CADnq5_M+DcrDvy+1pvW0u6prJYQvG602-rNkni2Dj06fEpsE_g@mail.gmail.com>
-Subject: Re: [PATCH][next] drm/amd/display: Fix spelling mistake "optmization"
- -> "optimization"
-To: Rolf Reintjes <rolf.reintjes@web.de>
-Cc: Colin Ian King <colin.i.king@gmail.com>,
- Austin Zheng <austin.zheng@amd.com>, 
- Jun Lei <jun.lei@amd.com>, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <Roman.Li@amd.com>, 
- Ivan Lipski <ivan.lipski@amd.com>, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, kernel-janitors@vger.kernel.org
+Date: Mon, 17 Aug 2026 11:27:41 -0400
+X-Gm-Features: AcwNN1XHUDt8s6mDwjoJ12PTOsnRJxLYjVl2DsSChp_Cj9bjnQi-HFN67HAYlHE
+Message-ID: <CADnq5_PgZx7aDGFD5pPQ=1MvF9_N_omVojNiDQFHjs0Tqasv+A@mail.gmail.com>
+Subject: Re: [PATCH 0/4] drm/amdgpu: Remove is_idle method
+To: linux@treblig.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com, 
+ harry.wentland@amd.com, sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org, 
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -116,47 +108,135 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Squashed in the additional "resul" fix and applied.  Thanks!
+Applied.  Thanks.
 
 Alex
 
-On Mon, Aug 17, 2026 at 3:20=E2=80=AFAM Rolf Reintjes <rolf.reintjes@web.de=
-> wrote:
+On Sat, Aug 15, 2026 at 2:22=E2=80=AFPM <linux@treblig.org> wrote:
 >
-> Hello,
+> From: "Dr. David Alan Gilbert" <linux@treblig.org>
 >
-> Am 14.08.2026 um 19:13 schrieb Colin Ian King:
-> > There is a spelling mistake in a DML_ASSERT_MSG message. Fix it.
-> >
-> > Signed-off-by: Colin Ian King <colin.i.king@gmail.com>
-> > ---
-> >   .../drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top_utm.c | 2 +=
--
-> >   1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/d=
-ml2_top_utm.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dm=
-l2_top_utm.c
-> > index ab9cadaf5a60..79ec5838c26f 100644
-> > --- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top=
-_utm.c
-> > +++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_top/dml2_top=
-_utm.c
-> > @@ -123,7 +123,7 @@ static enum dml2_status dml2_top_perform_stage_opti=
-mization(struct dml2_instance
-> >       DML_ASSERT_MSG(worksheet->validation_result.is_mode_support_valid
-> >                       && worksheet->validation_result.is_mcache_allocat=
-ion_valid
-> >                       && worksheet->validation_result.is_prefetch_valid=
-,
-> > -                     "worksheet must be valid on exit independent from=
- optmization resul!\n");
-> > +                     "worksheet must be valid on exit independent from=
- optimization resul!\n");
+> The is_idle method in amd_ip_funcs is never called, however
+> there are some functions assigned to it.
 >
-> There is another spelling mistake here: "resul" should be "result".
+> Remove the bindings to it, and if the functions aren't called
+> anywhere else remove the function as well.
 >
-> >   //  DML_ASSERT_MSG(iteration <=3D MAX_OPTIMIZATION_ITERATIONS,
-> >   //                  "exceeds max optimization iterations!\n"
-> >   //                  "\t is_permissible_found =3D %s\n"
+> Remove the kunit test hook for it.
+>
+> In many cases the wait_for_idle code either calls the
+> function which was wired to is_idle or duplicates the
+> code (or curiously kind of duplicates it with changes).
+>
+> Based on drm-next-7.3 0d710af8e4abdd1fa500bddbab7c0ee47fc98143.
+> Booted on my Ryzen with RX560.
+> (That is spewing some warnings of the form:
+> [    9.680879] [PLANE:44:plane-0] pixel format with alpha exposed but ble=
+nd mode not setup
+> [    9.680881] WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode=
+_config_validate+0x3c2/0x4f0, CPU#4: (udev-worker)/538
+>
+> but I don't *think* I've gone anywhere near anything to do with pixel
+> formats etc)
+>
+> Signed-off-by: Dr. David Alan Gilbert <linux@treblig.org>
+>
+>
+> Dr. David Alan Gilbert (4):
+>   drm/amdgpu: Remove is_idle test case
+>   drm/amdgpu: Remove is_idle (trivial cases)
+>   drm/amdgpu: Remove is_idle (non trivial functions)
+>   drm/amdgpu: Remove is_idle
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_acp.c       |  6 -----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_isp.c       |  6 -----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c      |  6 -----
+>  drivers/gpu/drm/amd/amdgpu/cik.c              |  7 ------
+>  drivers/gpu/drm/amd/amdgpu/cik_ih.c           | 12 ----------
+>  drivers/gpu/drm/amd/amdgpu/cik_sdma.c         |  1 -
+>  drivers/gpu/drm/amd/amdgpu/cz_ih.c            | 12 ----------
+>  drivers/gpu/drm/amd/amdgpu/dce_v10_0.c        |  6 -----
+>  drivers/gpu/drm/amd/amdgpu/dce_v6_0.c         |  6 -----
+>  drivers/gpu/drm/amd/amdgpu/dce_v8_0.c         |  6 -----
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        | 12 ----------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        | 12 ----------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c        | 12 ----------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c        |  1 -
+>  drivers/gpu/drm/amd/amdgpu/gfx_v6_0.c         |  1 -
+>  drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         | 11 ---------
+>  drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c         |  1 -
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         |  1 -
+>  drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       |  1 -
+>  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |  7 ------
+>  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |  7 ------
+>  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        |  7 ------
+>  drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |  1 -
+>  drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |  1 -
+>  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         | 13 -----------
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |  7 ------
+>  drivers/gpu/drm/amd/amdgpu/iceland_ih.c       | 12 ----------
+>  drivers/gpu/drm/amd/amdgpu/ih_v6_0.c          |  7 ------
+>  drivers/gpu/drm/amd/amdgpu/ih_v6_1.c          |  7 ------
+>  drivers/gpu/drm/amd/amdgpu/ih_v7_0.c          |  7 ------
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v2_0.c        |  1 -
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v2_5.c        |  2 --
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v3_0.c        |  1 -
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0.c        |  1 -
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_3.c      |  1 -
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v4_0_5.c      |  1 -
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_0.c      |  1 -
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_1.c      |  1 -
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v5_0_2.c      |  1 -
+>  drivers/gpu/drm/amd/amdgpu/jpeg_v5_3_0.c      |  1 -
+>  drivers/gpu/drm/amd/amdgpu/navi10_ih.c        |  7 ------
+>  drivers/gpu/drm/amd/amdgpu/nv.c               |  6 -----
+>  drivers/gpu/drm/amd/amdgpu/sdma_v2_4.c        | 13 -----------
+>  drivers/gpu/drm/amd/amdgpu/sdma_v3_0.c        | 13 -----------
+>  drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c        | 16 -------------
+>  drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c      | 16 -------------
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c        | 16 -------------
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c        | 16 -------------
+>  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c        | 16 -------------
+>  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c        | 16 -------------
+>  drivers/gpu/drm/amd/amdgpu/sdma_v7_1.c        | 16 -------------
+>  drivers/gpu/drm/amd/amdgpu/si.c               |  6 -----
+>  drivers/gpu/drm/amd/amdgpu/si_dma.c           |  1 -
+>  drivers/gpu/drm/amd/amdgpu/si_ih.c            |  1 -
+>  drivers/gpu/drm/amd/amdgpu/soc15.c            |  6 -----
+>  drivers/gpu/drm/amd/amdgpu/soc21.c            |  6 -----
+>  drivers/gpu/drm/amd/amdgpu/soc24.c            |  6 -----
+>  drivers/gpu/drm/amd/amdgpu/soc_v1_0.c         |  6 -----
+>  drivers/gpu/drm/amd/amdgpu/tonga_ih.c         | 12 ----------
+>  drivers/gpu/drm/amd/amdgpu/uvd_v3_1.c         |  8 -------
+>  drivers/gpu/drm/amd/amdgpu/uvd_v4_2.c         |  8 -------
+>  drivers/gpu/drm/amd/amdgpu/uvd_v5_0.c         |  8 -------
+>  drivers/gpu/drm/amd/amdgpu/uvd_v6_0.c         |  1 -
+>  drivers/gpu/drm/amd/amdgpu/vce_v1_0.c         |  1 -
+>  drivers/gpu/drm/amd/amdgpu/vce_v2_0.c         |  1 -
+>  drivers/gpu/drm/amd/amdgpu/vce_v3_0.c         |  1 -
+>  drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c         |  1 -
+>  drivers/gpu/drm/amd/amdgpu/vcn_v2_0.c         |  1 -
+>  drivers/gpu/drm/amd/amdgpu/vcn_v2_5.c         |  2 --
+>  drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c         | 16 -------------
+>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c         | 23 -------------------
+>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_3.c       | 21 -----------------
+>  drivers/gpu/drm/amd/amdgpu/vcn_v4_0_5.c       | 23 -------------------
+>  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_0.c       | 23 -------------------
+>  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_1.c       | 19 ---------------
+>  drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c       | 19 ---------------
+>  drivers/gpu/drm/amd/amdgpu/vega10_ih.c        |  7 ------
+>  drivers/gpu/drm/amd/amdgpu/vega20_ih.c        |  7 ------
+>  drivers/gpu/drm/amd/amdgpu/vi.c               |  6 -----
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  8 -------
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  1 -
+>  .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 10 --------
+>  drivers/gpu/drm/amd/include/amd_shared.h      |  2 --
+>  drivers/gpu/drm/amd/pm/legacy-dpm/kv_dpm.c    |  6 -----
+>  drivers/gpu/drm/amd/pm/legacy-dpm/si_dpm.c    |  7 ------
+>  .../gpu/drm/amd/pm/powerplay/amd_powerplay.c  |  6 -----
+>  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c     |  1 -
+>  87 files changed, 639 deletions(-)
+>
+> --
+> 2.55.0
 >
