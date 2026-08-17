@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70677C5DF66
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 19:50:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4D74BC5B572
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 19:50:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA06710E44C;
-	Mon, 17 Aug 2026 19:50:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEF2710E45C;
+	Mon, 17 Aug 2026 19:50:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DxB6ZCsj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="x6M+TB6L";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013070.outbound.protection.outlook.com
- [40.107.201.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B96FC10E44C
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 19:50:30 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013046.outbound.protection.outlook.com
+ [40.93.196.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E2C210E45C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 19:50:32 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QF59X3wNS/aiSRC0rEAzioEtrSNjv3gGAG/Q0cclx6TeQZGgsh0ZM06UC55ErlnGX/cl1mUkZJ5P15Mlu/Jp6LOnLofmG8k5sgbAqozuJXdwVRjrqv7oZExYQBhXGjtYKaKQMn9U1108nFK0gqPx1RnA4mmEwwkKBGYGLjIjjjTyiB3S4lyaJ/tAkU/jbsfEGi0i0V9nDv3ID9d7essEM/Tq2lF+9T7rKoK6Y19tMR4G+rC99qCwvq058d/kU9XRksuOCVc6TNwQ9mbbwmpbPkEKiT17Yf0c2OtfA3gyT8iCSTveyy40BhtTNo97/tuUikdf9KggYIQyE6jj294S2A==
+ b=VHST4shd2Vx8+OuSUE8qSeoMxESKGvEyTM+PacLM3rRTvhu5Wx61kBgC7Hq2E/CyqynBS7ntG8Iewwbbaz9jGa7G9dK5RkICP/7qTLcFGnO0eTaJwzfYjYchOWAX2SEV+aoOJgNUQ+enrHzjz6l05eQGjeBpE0S5pzkUYS76AdZCkrbsQxHCURwbps7hY5Knbn8mAZr9DqyoGcLXoCrWbyjVwohOhtZyEj6dSzcAS+H/nWBRvL0IN3Rq9CxCcgzv3mflA7hV5LbbEwzQtMsmPCiA3yznEUg+1gjXrqwBgwvHvir2kkjvxRW1HbwkVI12Dh0vlx8dvdz7e7mXn75jpg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G2t1LpcknMEjPJn+W2caHr4/vc7j6KwLAfXEEJ5Il7k=;
- b=YYv4MxLQqHn+lgdB2CBLEfoknDoUIx6qvZVbxdzz6mLNZt7yAbR8vyU6UHbcAuPgM7PuLoIEsEbKMl3c635fLulYe7T9sEEp3BW6UklTCsSh+yYTV0dcKJQ1qba7dMTOe3hJDrGsEnMTFzDDh7jB/wLwBM9d2hjfXEy/gILn+d25zSIiR5o46AhLleP9oRqIxbxOd+H127Kz/M4SoG2WTZog+H3prwMtUhE18rizHh5gtQD33Iso3c4wXo27OE37oKOcfGRN+5B6w28FPFKhTTdaMx4LJ3yHvM7nI4Igl/0X59NocVqR9fCYEsCXbuU2/wkf1LcfuqIR0Nc3YzMCQw==
+ bh=RmMvtLUrWt13cjcnenpz0JH+ymC7uhOxJ2nnfEEPQFM=;
+ b=GryPgWpUtKz8xNpsSP/gjg+akgboEI6jA0zxcL0s6zYbRb446LkxRY62/kiD+lRK/N/3AjA5ui1uv5neX6ESkNgB3QktVSoM33g7YtndS//VAHMRDMXUPeGqwdDT/X4JMqhGqAomG38acM3ov/xAIqZMToNLADSMUoq6pE60x2ctCFj1LSAzch48XPLPkK8yH0guRb1pJhMu3kbwBODdCS9rMZDGMQT+1pUpS+D+MDxy2DCo2tVsdCSYBmrk09A7cB0jllr2V4urGe6CUqR0Ow52EmhQVXaM7E0H9NFUov8KJJJ09m3XZthu/ta3Ye+dH5PAOjvTbmkDIl/9DMPxjQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G2t1LpcknMEjPJn+W2caHr4/vc7j6KwLAfXEEJ5Il7k=;
- b=DxB6ZCsjvtXLR3n/WTgCGBb+LIEDWVWyic2QLypioTltF+JUiyLFVYxHnH4xK8xrX4ArmjHl0WIIM6Z53x05MCuvbRX2dyhzpMFAnHyl/DEgJyCcIt6EIwly4M53BPirZ8ywJZQumm8//qzcd5sonlIvWSp64N+uYhqeBInMdpM=
-Received: from SJ0PR05CA0046.namprd05.prod.outlook.com (2603:10b6:a03:33f::21)
- by SA1PR12MB6894.namprd12.prod.outlook.com (2603:10b6:806:24d::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.12; Mon, 17 Aug
- 2026 19:50:24 +0000
+ bh=RmMvtLUrWt13cjcnenpz0JH+ymC7uhOxJ2nnfEEPQFM=;
+ b=x6M+TB6LriL5v0gsvloYepjzj6LTTTO8HJvE6dOs3p3k7oYOaviFzizxX+spvZLnlYNBy1Bj/EXin03WPmCHezvcCYUxaG29CJJFjGT9b61P9Bs99G1Qoo0ojZ5N9EkXloWEYzy1ML6xwalY6lNWPUs06SUUUVnSGsAygJw0sEI=
+Received: from SJ0PR05CA0038.namprd05.prod.outlook.com (2603:10b6:a03:33f::13)
+ by DS7PR12MB9528.namprd12.prod.outlook.com (2603:10b6:8:252::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
+ 2026 19:50:28 +0000
 Received: from SJ1PEPF00002314.namprd03.prod.outlook.com
- (2603:10b6:a03:33f:cafe::16) by SJ0PR05CA0046.outlook.office365.com
- (2603:10b6:a03:33f::21) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:a03:33f:cafe::a1) by SJ0PR05CA0038.outlook.office365.com
+ (2603:10b6:a03:33f::13) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Mon, 17
- Aug 2026 19:50:21 +0000
+ Aug 2026 19:50:27 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,18 +51,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  SJ1PEPF00002314.mail.protection.outlook.com (10.167.242.168) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Mon, 17 Aug 2026 19:50:21 +0000
+ 15.21.339.3 via Frontend Transport; Mon, 17 Aug 2026 19:50:27 +0000
 Received: from belanger-linux.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 17 Aug
- 2026 14:50:20 -0500
+ 2026 14:50:27 -0500
 From: David Belanger <david.belanger@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: David Belanger <david.belanger@amd.com>
-Subject: [PATCH 1/2] drm/kfd: Add CU occupancy support to GFX11
-Date: Mon, 17 Aug 2026 15:49:52 -0400
-Message-ID: <20260817194953.97887-1-david.belanger@amd.com>
+Subject: [PATCH 2/2] drm/kfd: Add CU occupancy support to GFX12
+Date: Mon, 17 Aug 2026 15:49:53 -0400
+Message-ID: <20260817194953.97887-2-david.belanger@amd.com>
 X-Mailer: git-send-email 2.51.1
+In-Reply-To: <20260817194953.97887-1-david.belanger@amd.com>
+References: <20260817194953.97887-1-david.belanger@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -71,29 +73,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002314:EE_|SA1PR12MB6894:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1aaf87f-c85f-46a8-1583-08defc98c5b8
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002314:EE_|DS7PR12MB9528:EE_
+X-MS-Office365-Filtering-Correlation-Id: f2dac2a1-4d6e-41f9-f41e-08defc98c97d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|1800799024|82310400026|23010399003|11063799006|3023799007|56012099006|10067099003|6133799003|18002099003;
-X-Microsoft-Antispam-Message-Info: Hrsfqm56GwQzs8uKSppt/lnzoXC8ZgpbF3DEgR9i6YcS2vBWbv5czVXFz5aUDbC4IC6kBa5gyV2HR3/1cy5fdVxlUMvhNY7aQ9UfOWOGZozH3/kMomFR1YDyBaqY1yw+U8zdF8Zx06Pa9jKTAePqH+aovO9tP25Cs/57sBwQsyCge5+BebERIOI+lCz/1rK34DTHw4+CdYnmujT+t0cwnKKkrd95g/89tuiNepCzz1B6APYwdZDmRUyDouNblQBFo+xPvFoP24VLZJ+ocq0gs153cpObt4W/d0fWRrpqtiw6bGkp+MI0lvJvW6ueopK/zvJ1j87yav0SVgPS92i/+R2IvStFxilJtpeJqVTXgZ40aE3Cs2+iX1JjR50LGaWwwRkMlvYvJD6DU8a93jQaMQUwyCzWxDTk9GZhO7GBr62mPiv25ufJ5liPv+iQBX3W7Lcmwqp2x5vmiBejLHXwaMxCNRzl6mZLF6AOq47btD41BuwH6/Z9ImhjpHGWY3NcWPnqG3IliT0c3RQWe6dAIWT5KXIKIZK8Jn5tzJT61Ov93Aa3SgKP/kbr587orxkVBb1so1zGoWG3D1xpl23GPCH7p8K50wJtbVE2XIp6Dh0XZMSGqFGktOP5Lw/cMYvmRsSob+5GxJxv3+VETIkprKcN3oWgu4E9KpEzdiycFTSEPtTfGDNB3W5QKUdUcJxtyFO4rTw7TGsxPH0Sd+0cIw==
+ ARA:13230040|82310400026|36860700016|376014|1800799024|23010399003|3023799007|6133799003|56012099006|10067099003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: edfwbb1Oheb6e7iSKf7vxDN5+QUcT39ERZ+EMIXf8pi5kog7Fle6OiaJ6qKu421D+PwIXWnrPBAHvxf83BsN1JKJeW5hi19NRlI/QxgTUrsBiDHskiEiS+ysApdIWjRwOYOt97v8cIQjl7Oz/CfCEN//vkpgox4o3fWSpMSHf3rJRNq9dRxXCLqt3OsRjZbGkUhs1LX43SVv1fcFbas9x0DpZaPsc9zA7tYobzqBiLOdJIXEPTJ6+ZLKGxLLrcRKBJpg8btJJE9N8vSSJPfBUZC+C9Mlzbj9+OYtaeC1uu9vfxR70Owk/ZPzJwD8FzL2KikvGZvabE3mAQs4atrTie7C3q19FVAdn+WVWohWiL5i42LNZK5oMiDOABT6f50xJFvwiFFVJYD+AZSUWQfqIq03Je33j/txx5pJQJA5VJJts77ndyN2WR3K7omZMLT51OLFEJ6Ta2QXoIFYQ5hlec9epsa75Zkxf3iNx+nbQpKdzowj8Jr5ltURfnldc6VD+MnW3iN9b8K9+24hB2uDvLbaJm+7I6XqJtu1P40h5gQIZ6OByQekNFqrAWAQpe3/zN66/l9Fsxqj5HNR7lzxYItVymK2Jcr6g0Eb68LeIeIXDRKgMS9BPI3qKw/QQ5065FSCv1obl65QPDzdxKNoJvwwQLNjsp2ypECKnR8tk0xJBOQtMgb6aAqOzgCvyfAfHpqjE6GPQwRHlWqs6xnSoA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(23010399003)(11063799006)(3023799007)(56012099006)(10067099003)(6133799003)(18002099003);
+ SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(23010399003)(3023799007)(6133799003)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: VAzNDCL3oOefbgaqDSxP4aYN8x9AR/BSyWE+6JQHDjWWH9W5XoriTMp89//D+su/du0jZS0LIYXMEFhPlgbE6OeHGDazKa/BRlvdt688KXatIhIBS9h/dS3h41CD8xRpnhE8LU08sHds/KyNjQ4+jE/Pywewk7UXIc9NOAMrSu1flaEHrym6O9rE27UI7NRSE8ipJqIDNwYbov3Ka4FDVTuZ9u+1Otal2RvhyV7WQbqElPgbHb3Q9XU6CtCEAZw+josT2ZdVfYKcTnpQADyjMtveKbcek1j6+e34YughAzlCcW7TJj4cSI+l131nCnZLaa9UsQV07xysIulKUK4jl4gnpND1OIlG4rY+DMzIOF08sox+k8v57z80Osw2hYWvE0dTC2NZfqlG6imbBq2Ul1Me6ARyhx+tUleG4N4+4dpsFKXv7MH6URPrHFYpqaqX
+X-MS-Exchange-AntiSpam-MessageData-0: iTonZq9kePV17aQeh5jOC3poS5leOwWMdED7lpTJyaXNL5+CyDuSclM4N9TeCfzdz5GorVI7MxSsTnMujY+ORbCrs5s5O060i2j8AAmQt0DQvucuwM+uTqLoStvMowaaBnek4HPcq9sfi/MIKbo8FlOintTj8y2dAZ4WJND2qWJlXhxtEsX3f6eYiydL37L5AZjpswS7w3hZT7SV2CkQ1BGTqc8/McitORYjEIjdJd31M164j+7rNayIf0wRWQwdo8ZjU/lOpD+6b/C+ygPMArDYVB+FgP/tAFAy3X9QaRsdKYqAtPOP3pdMsGvqCBCix94TWbqyhMa8mRVorNOSwJ5S4WKnlgxUNNdpb14m/p3pYCSxUeyFFi5rOQlNroxz3veFjaUMfj3CcrynL7px+aoB/St+v/wDbtuQWcI/5vu3hiIzJGS35aGMKTi9c3nQ
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 19:50:21.4272 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1aaf87f-c85f-46a8-1583-08defc98c5b8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 19:50:27.8227 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f2dac2a1-4d6e-41f9-f41e-08defc98c97d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002314.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6894
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9528
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,20 +110,20 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Port changes from GFX9 to GFX11 mostly as-is.
+Port changes from GFX9 to GFX12 mostly as-is.
 Minor changes to register access code.
 
 Assisted-by: Claude:Sonnet 4.6
 Signed-off-by: David Belanger <david.belanger@amd.com>
 ---
- .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c    | 148 ++++++++++++++++++
- 1 file changed, 148 insertions(+)
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12.c    | 150 +++++++++++++++++-
+ 1 file changed, 149 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-index 724beb96ed1aa..46042f72741b4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-@@ -807,6 +807,153 @@ static uint32_t kgd_gfx_v11_hqd_sdma_get_doorbell(struct amdgpu_device *adev,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12.c
+index e11ba3e918411..c7717cf0e148f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12.c
+@@ -368,6 +368,153 @@ static uint32_t kgd_gfx_v12_hqd_sdma_get_doorbell(struct amdgpu_device *adev,
  	return 0;
  }
  
@@ -162,7 +164,7 @@ index 724beb96ed1aa..46042f72741b4 100644
 +	 */
 +	pipe_idx = queue_idx / adev->gfx.mec.num_queue_per_pipe;
 +	queue_slot = queue_idx % adev->gfx.mec.num_queue_per_pipe;
-+	soc21_grbm_select(adev, 1, pipe_idx, queue_slot, 0);
++	soc24_grbm_select(adev, 1, pipe_idx, queue_slot, 0);
 +	reg_val = RREG32_SOC15_IP(GC, SOC15_REG_OFFSET(GC, 0,
 +				  regSPI_CSQ_WF_ACTIVE_COUNT_0) + queue_slot);
 +	wave_cnt = reg_val & SPI_CSQ_WF_ACTIVE_COUNT_0__COUNT_MASK;
@@ -176,7 +178,7 @@ index 724beb96ed1aa..46042f72741b4 100644
 +}
 +
 +/**
-+ * kgd_gfx_v11_get_cu_occupancy: Reads relevant registers associated with each
++ * kgd_gfx_v12_get_cu_occupancy: Reads relevant registers associated with each
 + * shader engine and aggregates the number of waves that are in flight for the
 + * process whose pasid is provided as a parameter. The process could have ZERO
 + * or more queues running and submitting waves to compute units.
@@ -220,7 +222,7 @@ index 724beb96ed1aa..46042f72741b4 100644
 + *
 + *  Reading registers referenced above involves programming GRBM appropriately
 + */
-+static void kgd_gfx_v11_get_cu_occupancy(struct amdgpu_device *adev,
++static void kgd_gfx_v12_get_cu_occupancy(struct amdgpu_device *adev,
 +				struct kfd_cu_occupancy *cu_occupancy,
 +				int *max_waves_per_cu, uint32_t inst)
 +{
@@ -232,7 +234,7 @@ index 724beb96ed1aa..46042f72741b4 100644
 +	DECLARE_BITMAP(cp_queue_bitmap, AMDGPU_MAX_QUEUES);
 +
 +	lock_spi_csq_mutexes(adev);
-+	soc21_grbm_select(adev, 1, 0, 0, 0);
++	soc24_grbm_select(adev, 1, 0, 0, 0);
 +
 +	/*
 +	 * Iterate through the shader engines and arrays of the device
@@ -264,7 +266,7 @@ index 724beb96ed1aa..46042f72741b4 100644
 +	}
 +
 +	amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, inst);
-+	soc21_grbm_select(adev, 0, 0, 0, 0);
++	soc24_grbm_select(adev, 0, 0, 0, 0);
 +	unlock_spi_csq_mutexes(adev);
 +
 +	/* Update the output parameters and return */
@@ -272,15 +274,16 @@ index 724beb96ed1aa..46042f72741b4 100644
 +				adev->gfx.cu_info.max_waves_per_simd;
 +}
 +
- const struct kfd2kgd_calls gfx_v11_kfd2kgd = {
- 	.program_sh_mem_settings = program_sh_mem_settings_v11,
- 	.set_pasid_vmid_mapping = set_pasid_vmid_mapping_v11,
-@@ -832,5 +979,6 @@ const struct kfd2kgd_calls gfx_v11_kfd2kgd = {
- 	.clear_address_watch = kgd_gfx_v11_clear_address_watch,
- 	.hqd_get_pq_addr = kgd_gfx_v11_hqd_get_pq_addr,
- 	.hqd_reset = kgd_gfx_v11_hqd_reset,
-+	.get_cu_occupancy = kgd_gfx_v11_get_cu_occupancy,
- 	.hqd_sdma_get_doorbell = kgd_gfx_v11_hqd_sdma_get_doorbell
+ const struct kfd2kgd_calls gfx_v12_kfd2kgd = {
+ 	.init_interrupts = init_interrupts_v12,
+ 	.hqd_dump = hqd_dump_v12,
+@@ -381,5 +528,6 @@ const struct kfd2kgd_calls gfx_v12_kfd2kgd = {
+ 	.set_wave_launch_mode = kgd_gfx_v12_set_wave_launch_mode,
+ 	.set_address_watch = kgd_gfx_v12_set_address_watch,
+ 	.clear_address_watch = kgd_gfx_v12_clear_address_watch,
+-	.hqd_sdma_get_doorbell = kgd_gfx_v12_hqd_sdma_get_doorbell
++	.hqd_sdma_get_doorbell = kgd_gfx_v12_hqd_sdma_get_doorbell,
++	.get_cu_occupancy = kgd_gfx_v12_get_cu_occupancy,
  };
 -- 
 2.51.1
