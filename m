@@ -4,130 +4,93 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 16F55C5DF77
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 15:36:51 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A89EC5B572
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 15:50:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AFAE10E87C;
-	Mon, 17 Aug 2026 15:36:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 012AA8916D;
+	Mon, 17 Aug 2026 15:50:09 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RLy0T37k";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="At+c3OpU";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011042.outbound.protection.outlook.com [40.107.208.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 457D210E873;
- Mon, 17 Aug 2026 15:36:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WJVQ59RjhVYvSk/0z8Teb3jtFuSgfCTuoP9kTUZlV+TRrXuGF5SuUmAGfjH5YnRHZ7u79Knital+x6+W3oERwwkKE5Tip2ABP545+SHpm1UzeGY8f0AWYReKHELfzXB+HqRAtLGrNLZh4sCJxiggXoczaLc+pdvSiSppcjapJK4xDsceOyv4vpgiMFw9sjSytV3bsSZpRo6PyWCvJJucD3PFBdBmcV6l9V08vVeFQjqTcufgFeKUlFFbsagQTwrTPSfFaMmwcUnFS/TyDkW/4hf98Nrb7CBSQMWnE4vPd+b93FgwGgvW1F72UJCbZBJAzeQSmt4oYGIuddXr9fiN+g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eht0E/oVuN0tyvzM9XOBkZa3ZIjd5iFemMNdaaZRdx8=;
- b=fjzA9x7JjPpHDTuLLIUn9jVBZJFf5O8jlk9kiY1pAsBDRjVcDj8AfJsp4BXETYUqWsdaK/nxDMtcoVe8VyjHafulI7q0DquV2SSajwFrchixxxZ8rMkYRY0TssUqM8jDlS5w10dIqxLD52GDwoE3Wi8kNQDp8q1LmB7qghhHGVpCZaI1MwGTGgLR2KqCpearxUIzRdh4jR4WMF/M6xyVSlOH1hKv2UXYEF+PPvQEtNmrof4S4NCQuIX4tuMlN/MYB5WYeK2S/4UObPStpbuyI43yqxvYv4aJGd0RwpKuhafy/dyCESGpHhcoNvz7s7v3fy9FLeoJtI3Vu/MHC6+3BA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eht0E/oVuN0tyvzM9XOBkZa3ZIjd5iFemMNdaaZRdx8=;
- b=RLy0T37kxod8HiR3d5sPidqU61ndy3v/dhrgrgEuILdtxLuZCzrAvd+yNEC6tswAkD0dBprI8tqoU0lJ059RljhtBEB6s3e/gDW20+wGRBTjHTX7jN9+J5oPJgtrlTv3snV06nBne4dRh8oYKyoF75NXmWgHQ+yhR7LNhpk1iHg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
- by DM4PR12MB7671.namprd12.prod.outlook.com (2603:10b6:8:104::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
- 2026 15:36:42 +0000
-Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
- ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0315.016; Mon, 17 Aug 2026
- 15:36:40 +0000
-Message-ID: <c9e2cbd8-b488-417b-8f37-e34aa0c339e0@amd.com>
-Date: Mon, 17 Aug 2026 11:36:35 -0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 00/10] YUV conversion colorop with amdgpu and VKMS
-To: Robert Mader <robert.mader@collabora.com>,
- dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- Louis Chauvet <louis.chauvet@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Dave Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Alex Hung <alex.hung@amd.com>, Daniel Stone <daniels@collabora.com>,
- Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>,
- Uma Shankar <uma.shankar@intel.com>, Melissa Wen <mwen@igalia.com>,
- Simon Ser <contact@emersion.fr>
-References: <20260814211816.1219597-1-harry.wentland@amd.com>
- <c0d5a2bd-eb17-4ec0-aeb7-1fa9debb8154@collabora.com>
-Content-Language: en-US
-From: Harry Wentland <harry.wentland@amd.com>
-In-Reply-To: <c0d5a2bd-eb17-4ec0-aeb7-1fa9debb8154@collabora.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: YT4PR01CA0189.CANPRD01.PROD.OUTLOOK.COM
- (2603:10b6:b01:110::7) To SJ0PR12MB7007.namprd12.prod.outlook.com
- (2603:10b6:a03:486::8)
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
+ [209.85.216.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 523D88916D
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 15:50:07 +0000 (UTC)
+Received: by mail-pj1-f44.google.com with SMTP id
+ 98e67ed59e1d1-392af6bda98so398632a91.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 08:50:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786981807; cv=none;
+ d=google.com; s=arc-20260327;
+ b=Mm+R7PFUMHx1U1Qe9HoFWdVSHBN2e5ZWLzvwi0Ie+gitF5TjN4axStRgTLQGbACHdQ
+ LVxQuM28oN6dqC69MXu8sH8RZ77uaE5wKGR6JhO8Htf718Or2sFYuXIlUk4P9HNUI965
+ mEJLdUtoOc6EckuQ23vWWwa7MHkybdTt4dmTKaFo9SS59RW+SFnXoGDd0O20VS7UB8VR
+ i2ER/rRMmMVaHh7RL+tbf8RovO9ymDDpS4mnY4o8522QN4dKE5hyH72hfILaYqBPznWh
+ wHrwa7kjwCamRos/Yip6XrRWxWg3ZmCgkeDprIX83WPAN+7oLKMiZnnsxMYqRXxYqpeB
+ +16A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=+mS7CI5znZ7VAP2bJOpsmLm22U/E7yLjGdlEJQ0epFQ=;
+ fh=YFqqTxdR3R9j06ZYM4qB+o3OGNiDDAN5wTvPWvcIcoo=;
+ b=A2/b3pIwvbggVEKMsNRgRav5EP77xsuorkCr87PiH9CvItKwD2tNCQpzajDuLCJXnl
+ Qu3wNWH6H5hUNJEtm9aPkVC72wMhXlWVGBCIJqG8VJH/EfxN4F8D8qqCPs/h7ouonDFg
+ 9B66XQTBqpr9rYQyT+zMw5JtFm+2uR1FyYUC1kztd6nkDDh5VDBA2WAbmFKJ5af9kbyj
+ 0VNKTQM8egu1tPsP0m8PJj1sGy8OZK1BFUJWhzAkHyDfGW/5teFrbQ4vtojLpTm6qYDH
+ A10tjgOCu8XT5zll+adVSNyHONas+Rp1Xu7J0XxeBJD6CXrw6gUd74JNqqiZFM5hlTpP
+ Qvqw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786981807; x=1787586607; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=+mS7CI5znZ7VAP2bJOpsmLm22U/E7yLjGdlEJQ0epFQ=;
+ b=At+c3OpUoL1Vb5aDeLQHr84j6iv5Jf+M1JNnPMcoxRymg3t4fD0JWD9Vl9mkJ6Vz+o
+ VJRFo+BHRLmJACW1d/XqcIPixImqHmVtONZGXBRdx2YVkX7HT7d5kPqVukpcoVI7rC6c
+ /j88VHWm62bIr3lOE70CE4jAbKW+FdZ76I3Xwfoxv5rOQAnW0apNGASzr64eiS12Po4U
+ 7KZWl2ysP4sP5Rbl9OKKOYWku8iT4oE+0Vr2hE5koqXUORccJPtUqw6c6YoEvV1u5Nvb
+ GF7fmLYZ/5lKq0Hdp/y/xAAj1YJGqQfQUjfvO1ApnAtyfVtmls0Y6F4gZQJflatY4kMR
+ +UEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786981807; x=1787586607;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=+mS7CI5znZ7VAP2bJOpsmLm22U/E7yLjGdlEJQ0epFQ=;
+ b=tZJWXbQHxrF0y0gzTYZVCuxmjo9lt/5QmJP1sHPa1Y3KiATHpNJ9iGO4j+iBS/G6Vz
+ P1ElH6EVPojPaXpAJa4MlfE+pZBEJPX42GNKtCN+quQevrl/5gvj979XswQVyw/mA9CN
+ Nvtraa5rgogf5uzQDpBhZxvpwtG6lQmS0etY72itETRuaTLgKz2viDSAUIhompJzAONO
+ gFiEQUHkbeAe96dKSdLuXMLm0gJcvqc0oDjXsXBMZy+meov+acx+miSr7h72HfOX1aIY
+ 8FfWNcwIwUAhYNtEUjDRlb82r9H9KBF54v3fn+7Kaez4Y8WZ3oKMCGrs4Stp18f+dITF
+ 0RNA==
+X-Gm-Message-State: AOJu0YxoWZAbKzL/igUV0XU+nw+kADerYWqYSx/SeSmYe2JhFbJXPXTN
+ oBHr20ZulmM6SXw3659REFuJ3vve8QKNBwmUj2SNgoHI4YBc94tfwu9Y2ws83i2PYcUlf31rQEv
+ Uzqio0SIiMG6CcqTs47FbgxDSV8+0Aqk=
+X-Gm-Gg: AR+sD13pExgA9ajXQUyR+bmz5mNk/DxTNT+B/cTFFC5KztzgQ/sLk5VClg7T3Xv6+Em
+ LMYeGa0lmX2Zp5AeY7PKV/m8Vs5XxrMv6AqN+tMJZOQ1Z4ntG7ew7OApaarfC4PSmpyDLU0iGgs
+ 2fqfHk4jNce3NyKIHHW+OWxCPluXxKjEFswWkSx7aqlfErpk/h+/4RCGdYUiLqo45PGuFP5/EZS
+ oUPiHkMp7GcWSRlQf+Zn/w3h51DPg70bQUCjHz/EfE7XynLUxX2o+wJcdysVLBkGX5LWdvba1dU
+ 5pFQ5OI9i5Et8lsk8FqsaBxdfuW4LjkHsC/48gRlNelqDHLxuwmFpYqZlqjZzbTcoK8KQLe8+PQ
+ SOBEX8B1oWtYfIB5neE8MfAOMKFR48ag=
+X-Received: by 2002:a17:90a:2ce3:b0:395:4df3:8800 with SMTP id
+ 98e67ed59e1d1-3954df388e5mr2752052a91.0.1786981806590; Mon, 17 Aug 2026
+ 08:50:06 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|DM4PR12MB7671:EE_
-X-MS-Office365-Filtering-Correlation-Id: 025dadf1-385d-4081-6776-08defc7554e8
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|7416014|376014|6133799003|4143699003|10067099003|56012099006|11063799006|3023799007|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: q62VaaNaD6e9ByNPVQ1+GBJBFrZuXpC8distj9W5hdeoicfXcUEZa+wcB6RU/ktjE1eGc5bzUvmRkWwoh7iix43ID48KAzStbngEkftiMhJwHWPgrWkxA6U4+uVGBvzf7PhIg2X9UTeUPfB3wK6BzbrmrqUB6SQtNWd4x2Pmtcq/cDemhDdvnNI5D+SYXKgUwhbryfAszo9hYDWugPU+uluMn+4V2rvfTdMlFHUEeuBFyhQzbggL1qvZChtC5zJrM3OGKOSsFYIPHAG/ZgTnpVvWGIAd+BU8uATKy2C2CdAyMXNHnhT+5GG88oFXqWRmQkKsxep2zdaM98lfdiEskAxwX27lWpXWQZy178d/6CBIY6XLNYKy9RD0zj0cZ6FceBJ1Wi/y+BQBWRhIfzVk2gSTXscLQH2Q+2oGGZcUvlr61IoBIbEIMEmP4GFgnFWEMOx0wA5YkK97rfeD881JbAJi1L/WCq+t/AS7fKhplYgqMwLJtGdh/eZiUYDEqRlMfhDZg9Yqv5ImQgjjBpjuh/5UsmbJHsKKPWqmqs/vPJRkEWi9JOSmSUWJe/AB2xp6XfSoaupPvt4KGvC7ZmmlfwwUylltwRYyjGgRB2e9rYQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(6133799003)(4143699003)(10067099003)(56012099006)(11063799006)(3023799007)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eG94OCt1OWRFQ2xUakN6L1dSRmNvdkNkblR1U1RjMzgrN0g0cXdkWkpNTktL?=
- =?utf-8?B?d2NlOUpTV2lxazh5UnZVOFBWb2NRcEdNRnBqb05CcDA2RmM0ZkFvWVlPWlpj?=
- =?utf-8?B?Tjd1NXU3anFDWEVlRnU0M1N5RXBBV0thS1hpZW9IamJmUGRrdy9weERqTTlN?=
- =?utf-8?B?dlBuM3RwdTFrOGszVVUrdldPQXg1Y1VyQ0x2OUJFMkRxVGpHWHNuU2N3VHdn?=
- =?utf-8?B?Qzc4ZzAySlBBSVdHdVZZcy91WWR3TUR2NFBZNmM3V3NiSGZzbnAzRzRmb0ht?=
- =?utf-8?B?WEpyZVVMaFA4RzRQRjVJMHFzVWdKWnpodFhENG9VaDlnTnpVSWpyaGFCZVRs?=
- =?utf-8?B?R0FNUGp3djdpa0pnYU9PbTBHMmxFNGlJMlE4N0M0YmMvRmVXZ2plaEQ2YmFP?=
- =?utf-8?B?NmJUZWlXaTdkVVlZcHIybFpyaktXWm9NNlNVQm84aDFiSVlKZ3g1WHVJY2c4?=
- =?utf-8?B?aVAxMFJ0RTVKV1lmUW8zajllR0RtaEVic1lkNlhJbEZBcTFSM3VzdlovbGtx?=
- =?utf-8?B?SkpSZ0tEK3liUDdVbDZuTW1VWCtJYTRPeXM3ZzVsYWNuaDg5OHhQc1JJRjls?=
- =?utf-8?B?eWl1bW40ZUtUSnE1OUJvVU8xZDE3NnEzZXRlbWJlRk9Hc1BlNGZ6OG9hVWlm?=
- =?utf-8?B?UktiMTNsZ2U0ZUJGd1FnYlJkNWxRNW9KSmJiek10bUl2Mkw0eVNvVG1HNFhM?=
- =?utf-8?B?S3Z0SmphT0UwdzlRQk54SzBBTTFpWHYrWTMzZWY4enRhWlRYREVuNW1WNEVT?=
- =?utf-8?B?RXltRE1GM3ZFRk8zMWQ3dWlWWk1PVnpRUko5RGJHMEpva1AwOHJzSkhGeSs4?=
- =?utf-8?B?R1BoeW14U2FNSEhsYWxLOEVNK0RYZXZOb3JaSG0zUURaaVNvaFZxYzZWaytS?=
- =?utf-8?B?WVdBRFZJeXNpeG1tcno1a3k4R3g4eS9kZ3g1VEpRVGZQVDZNWkRIcFN0TGk5?=
- =?utf-8?B?VHh1YnBqalZ2Wnl0WjluSnM3VkR1a2pNZGtqakN6RWNqVWFJNlYwOHBjbTZm?=
- =?utf-8?B?VDZJdjlaZndMQTZCRUc1elAzSC9CS0k3YWRlUDJzOUZ5ZUNEL0dBN1lRSjJ6?=
- =?utf-8?B?clozbFQ4ZUgxK1NYWXVFY1piWUp3UUc2dGRxMGlLM2hWZFNxc2Q0WWx5V1RR?=
- =?utf-8?B?TFo3Nm1NN2JkVXVieFhkdUxrYWRRaTBtZ2tpUytCLzlOczJjVXBzU01jN1Ri?=
- =?utf-8?B?MUpRdTVYSEZKY09WZVRaRHlXaFc0WjZIWlUzQnhGWGRZTWJma2J5S21lYm4y?=
- =?utf-8?B?YmtBMjl0U1c4WjFKK0t6ZnFNT2VnQ0xQMk05ci9vNG91YjNDRnY5Y0FTd3h6?=
- =?utf-8?B?R0FoS0lFZEdBRGpDQittZVNvY0kzYzZMSzBRdEgxOXdkOVNUMCtOWmZiZUQ0?=
- =?utf-8?B?MFU4OUxnYmhWU1VDcXNtNXU2NXUxUmgxZzFMeDBlZXdLdFYzVGxQWVdYRzJF?=
- =?utf-8?B?QU5NOWZjcldqMG1YTFpHSW5QYk9Sd254UzROR3h0OU43ZWZVUjgyWDl6cUFL?=
- =?utf-8?B?anYzdkl4UWlId3J3YWp3TXRZcDVhamJmY041RFBlc1pXM2tYMUlKSHZ5Wlov?=
- =?utf-8?B?WUkxWndNWnVQdmlTSnBxL25OdzBJcUVGRmYrdnhjQjB1NTROREJxbC9KeXFX?=
- =?utf-8?B?cVo4YW5SWTBaYXZBeno5eTB3bklISTUzZE11bEZNMzBKSHZEZXZEdkdxdzZn?=
- =?utf-8?B?MkhJSHBCeXg2YnB1eTRab08zQktxRUtmcUNpTHRhbmVFY1FNbUhmRHhvOHBa?=
- =?utf-8?B?a3VZSlVkRkRYUnp2SThpSCs1M0pFUHNFY1VtY0lvbUd6dmZPUFhMYkFSV1pt?=
- =?utf-8?B?NGpnRDl6bVBNSGIrdXVQQzJuSFdlbnFlYkt3YWFnSE4xM3UvdERkNXdlV3pI?=
- =?utf-8?B?TytacE1ISllmYms0WUsySkNIQ1RmcGpQTDl2Yk5iT0ZyZWQ3UnFSNUhkcURY?=
- =?utf-8?B?RHFQY3FXUlpaSkorcWlrTmhLZlRxdVRoQ2pXV0p1K2VsbVJjcGFOTzlEbzNP?=
- =?utf-8?B?Z1lRTU14M0RsbkY5bEtRR2xkL1pLcm1BRTNNNkw4czhWY0Q2WXNZQkVlY1lt?=
- =?utf-8?B?VzdUdWpZRHc3Nk4yYXlLdmlqQzNSalpJalh6SUdRTit2K0t4aWtEWFN2NHc4?=
- =?utf-8?B?MHVyelZpaWVRRG8wVUhzeGhrL09UTU5CNUVBVmRiUjBhU3haS010aHI2dE9y?=
- =?utf-8?B?OVhWVGFnbjk0RmN4eTV6eVYyWnVhV29NQWkzNHJJNHpHd3NQRjdWOGFSUGlW?=
- =?utf-8?B?NG9RM0ZVNHBwTm5LTHF4aVRLUGFHWS95Z2JRQzltaDNEdjRubWdsZjd0ZzVv?=
- =?utf-8?B?alY2N2xGVzRtS1MxZUt6RFM5UzU1Uk0zWHZJaHVzSFdxbW5wQlN6QT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 025dadf1-385d-4081-6776-08defc7554e8
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 15:36:40.0340 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MBYlsJFc94ZXf8ljd9ADsBysGFSaB+f80lwJ12PsWN04lGdW9RM/Mq5+JsoR2nJvTOL84jF+zJNuBU/hpxyt/Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB7671
+References: <SA1PR12MB8600A6C7595378BECA3E4A999FDB2@SA1PR12MB8600.namprd12.prod.outlook.com>
+In-Reply-To: <SA1PR12MB8600A6C7595378BECA3E4A999FDB2@SA1PR12MB8600.namprd12.prod.outlook.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Mon, 17 Aug 2026 11:49:54 -0400
+X-Gm-Features: AcwNN1V67yHExTs9iwrvYJZ3LNWw9wOcPLibEKj91ytbR-2EwjJCe2TjegH4-vs
+Message-ID: <CADnq5_MAW7_GOR3sEeGB5xQAEuCugBqZuU0jiUwkjBv7ckwMfw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] drm/amdkfd: guard against NULL restore_mqd in CRIU
+ queue restore
+To: "Marioukhine, Vladimir" <Vladimir.Marioukhine@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -142,153 +105,109 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Series is:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-
-On 2026-08-17 03:51, Robert Mader wrote:
-> Hi Harry, thanks!
-> 
-> I retested the series with the Weston branch[1], both on an AMD device as well as the CI tests [2] with VKMS, and it looks all good to me. Naveen Kumar also confirmed that the corresponding Intel series works with the same Weston branch [3].
-> 
-> So I think we're all set, assuming we defer the discussed legacy properties helper[4] to after the uapi changes and first implementations have landed.
-> 
-
-Agree.
-
-I'm still a bit on the fence about the value of the legacy properties helpers but might take a look again if I can find time. Happy to review patches from anyone else interested in it.
-
-> Who's reviews/acks do we still need to get the series landed? I suppose one from Louis for the VKMS changes - and one for the uapi changes from a maintainer?
-> 
-
-Louis, want to review the VKMS patches here or are you happy with the existing reviews?
-
-Dave, Simona, Maarten, Maxime, Thomas, would you like to review the uapi changes or are you happy with the existing reviews?
-
-If there are no objections I think these are ready to merge this week or next.
-
-Harry
-
-> Best regards,
-> 
-> Robert
-> 
-> 
-> 1: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2133
-> 
-> 2: this also needs https://lore.kernel.org/dri-devel/20260709115855.53725-1-robert.mader@collabora.com/, but that's unrelated to this series
-> 
-> 3: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2133#note_3615800
-> 
-> 4: https://lore.kernel.org/dri-devel/d42d5750-f3c5-4e2b-baa3-514b87e59e86@linux.intel.com/
-> 
-> On 14.08.26 23:18, Harry Wentland wrote:
->> When we merged the drm_plane color pipeline API the major gap
->> that existed was the lack of a YUV to RGB conversion colorop.
->> We deprecated any legacy drm_plane color properties, which
->> means that the COLOR_RANGE and COLOR_ENCODING properties can't
->> be used with the COLOR_PIPELINE property on a drm_plane. In
->> practice this means that we can't use a COLOR_PIPELINE on
->> YCbCr encoded framebuffers.
->>
->> This patchset expands on the Fixed Matrix colorop proposed by Chaitanya
->> and adds limited range variants of the YCbCr to RGB conversions.
->>
->> His full patchset can be found at
->> https://patchwork.freedesktop.org/patch/709860
->>
->> This code has been tested with IGT and an experimental KWin branch.
->>
->> All patches are now reviewed and tested. We have a Weston and
->> KWin implementation. IGT patches are missing one review. I
->> deem these patches ready to merge once the last IGT patch review
->> comes in.
->>
->> IGT branch:
->> https://gitlab.freedesktop.org/hwentland/igt-gpu-tools/-/tree/yuv-fm-colorop
->>
->> KWin branch used for testing:
->> https://invent.kde.org/hwentlan/kwin/-/tree/yuv-fm-colorop
->>
->> The kernel branch containing these changes, based on drm-misc-next
->> can be found at:
->> https://gitlab.freedesktop.org/hwentland/linux/-/tree/yuv-fm-colorop
->>
->> Further background on this work can be found at:
->> https://hwentland.github.io/2026/03/10/plane-color-pipeline-csc-3d-lut-kwin.html
->>
->> v6:
->>   - Fix fill_plane_color_attributes build failure in Patch 8 when
->>     building with KUNIT (Robert)
->>
->> v5:
->>   - Drop new VKMS kunit tests for conversion matrices
->>   - Added script to show how VKMS kunit test values are computed (Pekka)
->>   - Removed fixed-matrix enums for "YCbCr limtied to full" and
->>     "RGB709 to RGB2020" as they're currently unused by userspace (Robert)
->>
->> v4:
->>   - Specify matrix entries in docs (Pekka)
->>   - Squash limited-range enums into "Add FM" patch (Robert)
->>   - Don't reject RGB planes with fixed matrix in VKMS as
->>     we don't want or need to make a colorop dependent on
->>     the framebuffer's pixel format. (Robert)
->>   - Fix conversion matrices in VKMS and implement kunit
->>     tests (discovered while documenting the matrices)
->>
->> v3:
->> - base on Chaitanya's updated patch and rename code accordingly
->>    to Fixed_Matrix instead of CSC Fixed-Function
->>
->> v2:
->> - use Chaitanya's CSC_FF block for named matrices
->>
->> Cc: Alex Hung <alex.hung@amd.com>
->> Cc: Daniel Stone <daniels@collabora.com>
->> Cc: Chaitanya Kumar Borah <chaitanya.kumar.borah@intel.com>
->> Cc: Uma Shankar <uma.shankar@intel.com>
->> Cc: Louis Chauvet <louis.chauvet@bootlin.com>
->> Cc: Melissa Wen <mwen@igalia.com>
->> Cc: Simon Ser <contact@emersion.fr>
->> Cc: Robert Mader <robert.mader@collabora.com>
->>
->> Chaitanya Kumar Borah (1):
->>    drm/colorop: Add DRM_COLOROP_FIXED_MATRIX
->>
->> Harry Wentland (9):
->>    drm/vkms: Fix limited-range YCbCr to RGB conversion scaling
->>    drm/vkms: Add fixed matrix colorop to color pipeline
->>    drm/vkms: Add atomic check and matrix handling for fixed matrix
->>      colorop
->>    drm/amd/display: Add fixed matrix colorop to color pipeline
->>    drm/amd/display: Implement fixed matrix colorop color space mapping
->>    drm/amd/display: Use GAMCOR for first TF if YUV conversion is needed
->>    drm/amd/display: Check actual state during commit_tail
->>    drm/amd/display: Set color_space to plane_infos
->>    drm/amd/display: Force GAMCOR for subsampled surfaces with
->>      PQ/Gamma22/HLG
->>
->>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  14 +-
->>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   7 +-
->>   .../amd/display/amdgpu_dm/amdgpu_dm_color.c   |  85 +++++++++++-
->>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.c |  27 +++-
->>   .../amd/display/amdgpu_dm/amdgpu_dm_colorop.h |   1 +
->>   .../display/amdgpu_dm/tests/amdgpu_dm_test.c  |  16 +--
->>   .../amd/display/modules/color/color_gamma.c   |   3 +-
->>   drivers/gpu/drm/drm_atomic.c                  |   4 +
->>   drivers/gpu/drm/drm_atomic_uapi.c             |   7 +
->>   drivers/gpu/drm/drm_colorop.c                 | 107 +++++++++++++++
->>   .../gpu/drm/vkms/tests/gen_yuv_conversion.py  |  87 ++++++++++++
->>   drivers/gpu/drm/vkms/tests/vkms_format_test.c |  40 +++---
->>   drivers/gpu/drm/vkms/vkms_colorop.c           |  66 ++++++---
->>   drivers/gpu/drm/vkms/vkms_composer.c          |   6 +
->>   drivers/gpu/drm/vkms/vkms_formats.c           |  64 ++++++---
->>   drivers/gpu/drm/vkms/vkms_formats.h           |   2 +-
->>   drivers/gpu/drm/vkms/vkms_plane.c             |  55 +++++++-
->>   include/drm/drm_colorop.h                     | 127 ++++++++++++++++++
->>   include/uapi/drm/drm_mode.h                   |  12 ++
->>   19 files changed, 651 insertions(+), 79 deletions(-)
->>   create mode 100755 drivers/gpu/drm/vkms/tests/gen_yuv_conversion.py
->>
->> -- 
->> 2.55.0
->>
-
+On Thu, Aug 13, 2026 at 1:15=E2=80=AFPM Marioukhine, Vladimir
+<Vladimir.Marioukhine@amd.com> wrote:
+>
+> AMD General
+>
+>
+> Both create_queue_cpsch() and create_queue_nocpsch() unconditionally
+>
+> call mqd_mgr->restore_mqd() when a CRIU restore is in progress
+>
+> (qd !=3D NULL), with no NULL guard. On any system where restore_mqd is
+>
+> not implemented, a user holding CAP_CHECKPOINT_RESTORE can trigger a
+>
+> kernel NULL pointer dereference and panic the machine by issuing
+>
+> KFD_IOC_CRIU_OP_RESTORE with a crafted queue restore object.
+>
+>
+>
+> Add a NULL guard for restore_mqd right after mqd_mgr is resolved,
+>
+> before any resource allocations, returning -EOPNOTSUPP if the callback
+>
+> is not implemented. This avoids complex error unwinding and is
+>
+> consistent with the existing checkpoint_mqd guard.
+>
+>
+>
+> Fixes: 48f0bdf4e38e ("drm/amdkfd: Added MQD manager files for GFX12.")
+>
+> Fixes: 01bbc4a4b947 ("drm/amdkfd: Add MQD manager for GFX 12.1.0")
+>
+> Cc: stable@vger.kernel.org
+>
+> Signed-off-by: Vladimir Marioukhine <Vladimir.Marioukhine@amd.com>
+>
+> ---
+>
+> drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 10 ++++++++++
+>
+> 1 file changed, 10 insertions(+)
+>
+>
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
+ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>
+> index ea9d87450eae..25b738200e7e 100644
+>
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+>
+> @@ -769,6 +769,11 @@ static int create_queue_nocpsch(struct device_queue_=
+manager *dqm,
+>
+>                mqd_mgr =3D dqm->mqd_mgrs[get_mqd_type_from_queue_type(
+>
+>                                             q->properties.type)];
+>
+> +            if (qd && !mqd_mgr->restore_mqd) {
+>
+> +                           pr_debug("restore_mqd not implemented for thi=
+s GPU\n");
+>
+> +                           retval =3D -EOPNOTSUPP;
+>
+> +                           goto deallocate_vmid;
+>
+> +            }
+>
+>               if (q->properties.type =3D=3D KFD_QUEUE_TYPE_COMPUTE) {
+>
+>                              retval =3D allocate_hqd(dqm, q);
+>
+>                              if (retval)
+>
+> @@ -2134,6 +2139,11 @@ static int create_queue_cpsch(struct device_queue_=
+manager *dqm, struct queue *q,
+>
+>                mqd_mgr =3D dqm->mqd_mgrs[get_mqd_type_from_queue_type(
+>
+>                                             q->properties.type)];
+>
+> +            if (qd && !mqd_mgr->restore_mqd) {
+>
+> +                           pr_debug("restore_mqd not implemented for thi=
+s GPU\n");
+>
+> +                           retval =3D -EOPNOTSUPP;
+>
+> +                           goto out_deallocate_sdma_queue;
+>
+> +            }
+>
+>                if (q->properties.type =3D=3D KFD_QUEUE_TYPE_SDMA ||
+>
+>                              q->properties.type =3D=3D KFD_QUEUE_TYPE_SDM=
+A_XGMI)
+>
+>
