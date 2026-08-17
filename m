@@ -4,96 +4,105 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C51A1C5DF74
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 14:18:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89A6FC5DF66
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 14:19:52 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 57C9C10E7FC;
-	Mon, 17 Aug 2026 14:18:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 20D3F10E7FF;
+	Mon, 17 Aug 2026 14:19:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PRVApgpN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gn8gzwTQ";
 	dkim-atps=neutral
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com
- [209.85.221.179])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F1C7310E7FC
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 14:18:06 +0000 (UTC)
-Received: by mail-vk1-f179.google.com with SMTP id
- 71dfb90a1353d-5bf88d3fc8fso111856e0c.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 07:18:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786976286; cv=none;
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com
+ [209.85.221.171])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BDDC10E7FF
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 14:19:50 +0000 (UTC)
+Received: by mail-vk1-f171.google.com with SMTP id
+ 71dfb90a1353d-5c3a84d3739so121986e0c.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 07:19:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786976389; cv=none;
  d=google.com; s=arc-20260327;
- b=G0/uwMfkc8HDXworVDjpUJAKBUXl9uXZLTV8p11JmvGydWQMLSdhNs49mV4AUxlK5k
- DBMdSd+IJqeorLGm8JOk/NpR/VOR3Hh7eYFiX8M+qd9cjEXDA2EMjrB9NI9mQriWpP0L
- hfRFssCqcZnBzuONlqKY7jc7CgR6nVSlRwyuIABvQLjXh33m9vvvYSN2Jo2PV5ZXnC4Z
- FTmU6nz0Zq/vNQGWaUeVWqKPS2DlWUXN2Tj17ugFEQYsJzcV0w4s/N0y8O84RKLYRqSI
- EeyXGfII7bi/BFCVrWvLCVqu+U+XuZeCXRDQ3aOX7S3nXJDNXeJ4D+LxpYnqQQ0FznxX
- PQfA==
+ b=obdgvmEh8rsBHP+TAt1YabFblVEWaci0kzmfv71AiWc5kF2Mn8LG3OBBqyx1U6F8vH
+ JVqSm/jhd5p16Y5Uf/zZZ9US+HRQHoELu/uXZnh2XAURqVDpzFkZfk0BZKzWytU3OaJt
+ WrHAS1Rihm9zJh3y8QIzaeSOw/mxncQjiPYchg1Jr0ubI37KbzZmHw5P6CfD7iQMtUUS
+ CXI0rNIKWy9WSlUXsu8WP6A+UzYFZxUKAs/Xs30TOqJ6aEjk7OaGnD8JmfCPfnz0YILn
+ /ak795BnCz14u30b7gC1hPR6n44gwIAY4CNbyLzEFp/o0uMysr19L5g4wimUy9D6Rrzk
+ 2HUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=fJiC7+cQ8AtTWZU1xCie2iTw8hw0/psRuoPzVHT7FvQ=;
- fh=YOInKe7fHU6KQqWbI1KmabGU6SXgNJV4IZdJ367vBio=;
- b=RJST50cGOLOI0ZqpQANFXTEXFiUIr0LUZ52sGvTefAXiKyC0nQsCRT7FQ5YFPTaYjr
- wCX6ADMrHBgcM9MVxHYcg3KxV4/VPGqW1hhu7+74jVAq0V0VXB/n6eS2NDO8MsTn4ZRX
- FdFEagb9KGQF/E9WXXJK0aSb/3LGKLpKJxmeKLc6TuiX8lQ/wBxamBxHRdVzZrvSl3Ar
- 3kEDsZPhImAblbqbk2bKqNCZaOHHr9Nonz5O2NCw9LwVSxlr+TNHiVROAk7KdPSVqNi+
- miKCZZqtrW9oIh/+jpSF/E2UFH1WvIPW17CrZdew2SJPksJQ0eW1l0KP9qJKjwp5p1iJ
- /jWw==; darn=lists.freedesktop.org
+ bh=c5YpZ1q0pC8kUCkk8k+rMVoaboya53PziE9bHaTWc3s=;
+ fh=iUCiXD7bHLkkcVD2lfBQFNBz81Wdi6NoRE9ABjqxMJI=;
+ b=EuJSYkJDU5jZqpxawSHhzYVcqbtT9AG3wvX1EGe6VCYBvFOpt/8gz0kLq4z+w5z5Kd
+ AvbvhD8wjUtlsG8dqdTl12CTVsNcg8X7N+/2bO8Ml0CYf/PEKEinr1Ajd0rL1vvkRlmp
+ YGi+psNQsqJ69Mz8Nuh+orOkmfh/Pb/eLBO7J7D3aLMI3ol40dQcu0YaiIMysq9k0wzM
+ 2oRgfJTdtkV0qzIXBVRaHitDmnsROlbkl+TVzO7yWZb/coLM1B3rdxFrpzb5EAOkvYfQ
+ 9l6B+PohEunIJXqfXK+dHnLAIPfl9QSdTsNHPp6OYHIpUM/Y0bNdFXqTM7lMg+mHzoAs
+ fZLg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786976286; x=1787581086; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786976389; x=1787581189; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=fJiC7+cQ8AtTWZU1xCie2iTw8hw0/psRuoPzVHT7FvQ=;
- b=PRVApgpNXlJ/LikALGZAH0mybF6oknhE+C9D45eFTYIhc3e9YUJmZEBsTG0RDHJwtC
- tR9Exk5uqyX7OArA+eWn8sHzM+2zOEDzkNpE0j7VrpPj4ItDVSMINJWGbIrZnsVMVD1L
- aK/kianK8A80UfzSlRcc//OL+Fu19MHPi1Phfbk3NSGWRl7q0wnHQ9Ew/UbAhaBxkgN0
- zGoN1j20qr8aC9glWi13L/X+res1m9+eFcesDdedGudF9kGXj3XP3HstsAN9r/K7gb0T
- wCCNk+cmiAJ+bEA/GJLvMw7WCTRVrAshXsGw4tIRxmdh2hjqOz/liniN289ytwkW5sf0
- UImw==
+ bh=c5YpZ1q0pC8kUCkk8k+rMVoaboya53PziE9bHaTWc3s=;
+ b=gn8gzwTQEVgVjdgeAlmYPeiDSyOYrFQJGM4w/wXYK4ngEWU/XWCAegwHXYrNPn2HsT
+ mjJMD9YEskroMG2lzZ40Dk+frMqR6NSq5GST0IGsUSA5+XxD6h1Osh2XZjy4AnaUvF3t
+ adEOSyrPW3jOOKfClcC5NcsnmnsBjiZpNylM5cT/Koc+aeuBIK1PHPB9ZTfwKOK1NqQ3
+ Zjcuz7G7srYLhx734EQGnHRD5ouxOXtJaIjcMf8uzDEooSaBz0kM9UXB2HY33hwZYyUj
+ zyqWa4onoQvur3uGeOrfVoGvdT68+W5EBXoJSsocnav573B1EOXx64Ldj+64DJdGb86V
+ ge4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786976286; x=1787581086;
+ d=1e100.net; s=20251104; t=1786976389; x=1787581189;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=fJiC7+cQ8AtTWZU1xCie2iTw8hw0/psRuoPzVHT7FvQ=;
- b=B4jRcJyxNLsLnZAP9QxggWZFFrwzgfHYDynf/HdfaPo6sWaeT9+p/dXOnuJGKGB+zs
- qbFe9e54qWm6rUCZlfNK49ebbIYF6S+McSsk7s/auVehvfhUdL05ZzgyZ9dbL9XD25dw
- vqUKH+l+h4a7EaRF4nVmZHDZWYQpXwQ6RnHhGJSrDqgE6R4R2BupbXWmhXCgqYGjkVTZ
- oNehn/VpTvNP0ZrhErWwxS33JaDSe5heN9nEr6oottPcG2RmxmneDhNQclEnw1MHLVUw
- ADgsuGEZOjZshnp4mD58RduNQYWEzL1yRX4rwMGD5Fd0BfQYG23k3GDpku9O5LaaU7LC
- AatQ==
+ bh=c5YpZ1q0pC8kUCkk8k+rMVoaboya53PziE9bHaTWc3s=;
+ b=Fs0yhD+gS5hIsPMVuSCyfEOli0m8wEheg0BaO4MvMU6Krg+XJw2NyOu6u2y5tWaChT
+ tl9/VePMGCxfSNvpyDBRM75NN22mKXiviR0yqI6Yklttmiz1TIfmhA5zuMVDJc5ZkP0C
+ LpJMoDKEeVPOhpnSjMb0u6eNQ7b2DXY5v6utiB/uAIXcZxFVniRl23BndWYeNzEMcoCr
+ DN7CZ1APPyEq3BipHYyTkYhfvakBnW2sHa3/FEKX8gAhCO56pbb/tJJqXPObo5XeF1BZ
+ LSOEZ4hF9PSe9PR/1PDv1LzSUq+a6kVQae777yFXRgEVd7mBFBsMvEFyOmT5cYOQYlKD
+ qiwQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RonRC6/mFsr3vSM5VJeGDQFBLajpz1+NndtMnm9qI+bFiHSPHDF/6rEZoDQovd592puv/uF0kf1@lists.freedesktop.org
-X-Gm-Message-State: AOJu0YzhbUd0jUNdYdqD/qolI47aGpNG18m8VnVY15Ixjlg0l/JyOhhR
- +3lZBmh3XNpCaghaDitSEBxEOgmoy9NRuEcoGvekrdPzb/v/Qj0+yeZN2IQ7FFqCVnFWrV+XKfI
- reH79K80ytr2qhvlBHDQEYUWLYB/SQl8=
-X-Gm-Gg: AR+sD131OK/LVVuENybFXU7nNH6xGyucC5H0i9U11ACpu64rdAcqpv/1C8ZWX+5+n3L
- JrEa9RuTER2Oeeie78K2xtaNY/oVjkGPWzYQDKCwGdt1fTqmvd1VqJAnF/gS+/TSoKoGs5RLUqX
- y8Y2WM9aFgcN1fAy/CcVWNnA+NDWDCQb6REb/2APZXY8L2rqLcHqx9by+IFWx/UaSrOVSuawK8v
- dLpAp/xMY+3IuLlDkxtcOhSRZBQqjzD8eHZGSceVvlL9UjjitMD03I/jsZJigCUlLJEc/5RgJ34
- AFKqSbDKnB8TsxQx1wDLIV/3JAojHzIIDi8bqpwe+URj/OT2sUpsQLDltX1VWvhZznny24tau/2
- DQRqv8XDfwiPTvj1iBTGxR18Z71NJ1Lo=
-X-Received: by 2002:a05:6123:4205:20b0:5c3:6e8a:4a22 with SMTP id
- 71dfb90a1353d-5c591f2c4afmr1542021e0c.3.1786976285747; Mon, 17 Aug 2026
- 07:18:05 -0700 (PDT)
+ AHgh+RoUVPYidV7tlu748WDkGYcop4m12NmYosAQ1MCWHxU4Ixcu3J75Any0pQuahvbn9Ik9+9cEAFdc@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YxhaVtQWqvED2obfvHJOyqpMt71OUeweWHgh6tTCeSK69q1BeXX
+ 165eMyTtWqR/+xKHpw/8fzdlmUG/Zf8i0Nf4w5bO2L+VT2wquAQ2+Y9xi6SCdiPUG5PGGcuEsgU
+ vZfdk+RQpSCDhXvWA7UPffuJCnvCFSvE=
+X-Gm-Gg: AR+sD11fWEh0IXlfEpN/s6LZHOLijlgU2tHumjtAzYl+9C93YAotSe5BJPECH6/cPGD
+ k7j7bnUXg1oWheE59FXy2bsjOgt9z3+y8GK9ZXbgssqHW+N+pqQ3re2MmauQCAEjidbyHMKr+8B
+ X6la0pTAqyKhYIJebLArt/OA7JidF4H7m4M6rYVQhdZdCQgVh0G1pjB+QKnT5FkXM5gLSJeZvMN
+ e2VK5illSLJyDS7buzI8JoQpFZaCxP6bPG+RjmXE0xTMnz1wNM2DLGxVDcm1JrxxwGdc1SsJ8gd
+ ejTwKoEC0uTiWqfUPmTzAvpW2Mv/qWNZj71brHx/SRk8kRjTdX/7Za/YyjW1JZYmji06Ke9AVHd
+ w7eV75F96X44j30svpUrdxl1uvGFzznU=
+X-Received: by 2002:a05:6122:11a9:b0:5c5:90ae:a8b8 with SMTP id
+ 71dfb90a1353d-5c591c781b3mr1329519e0c.1.1786976389365; Mon, 17 Aug 2026
+ 07:19:49 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260816172608.14470-1-Priya.Hosur@amd.com>
- <59918fde-87c3-434a-a606-abb11ab3d899@amd.com>
-In-Reply-To: <59918fde-87c3-434a-a606-abb11ab3d899@amd.com>
+References: <20260814161841.5906-1-Priya.Hosur@amd.com>
+ <20260814161841.5906-3-Priya.Hosur@amd.com>
+ <SA0PR12MB7091D3AE34006DC6797EECD197DA2@SA0PR12MB7091.namprd12.prod.outlook.com>
+ <DS5PPF78FC67EBA848622BC6037F917872992DA2@DS5PPF78FC67EBA.namprd12.prod.outlook.com>
+ <SA0PR12MB7091F549BC02FFD7312367AF97DA2@SA0PR12MB7091.namprd12.prod.outlook.com>
+ <IA0PR12MB8895E3ADC3692524015EDC2AF3D82@IA0PR12MB8895.namprd12.prod.outlook.com>
+In-Reply-To: <IA0PR12MB8895E3ADC3692524015EDC2AF3D82@IA0PR12MB8895.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 17 Aug 2026 10:17:52 -0400
-X-Gm-Features: AcwNN1UNEHZostKNNw_muonEXPSbkFa9jKBeiut7_q3ahxb7znFNkopjnr98fFY
-Message-ID: <CADnq5_O+qrWfFiLoMtdjFzXm2x35QK5ZFYgqX98qepXkfP2HGQ@mail.gmail.com>
-Subject: Re: [PATCH v4 0/1] drm/amdkfd: Add TLB flush after MES queue
- eviction/suspension
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: Priya Hosur <Priya.Hosur@amd.com>, amd-gfx@lists.freedesktop.org, 
- Alexander.Deucher@amd.com, Sunil.Khatri@amd.com, Felix.Kuehling@amd.com, 
- Shaoyun.Liu@amd.com, Mario.Limonciello@amd.com, Christian.Koenig@amd.com, 
- Pratik.Vishwakarma@amd.com, Veerabadhran.Gopalakrishnan@amd.com
+Date: Mon, 17 Aug 2026 10:19:37 -0400
+X-Gm-Features: AcwNN1X7wPKX9xOBxpVlRFZJtPqLV-Gq6fiKpC4heiF4_zCwsOb_dEYwEU1YeTU
+Message-ID: <CADnq5_Pj0gOHMupA+X9x6F-71TQJDeDiJQ6kdFgrLdzLh-z70Q@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] drm/amdgpu: Add TLB flush after MES user queue
+ unmap
+To: "Hosur, Priya" <Priya.Hosur@amd.com>
+Cc: "Lazar, Lijo" <Lijo.Lazar@amd.com>, "Kuehling,
+ Felix" <Felix.Kuehling@amd.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
+ "Vishwakarma, Pratik" <Pratik.Vishwakarma@amd.com>, 
+ "Gopalakrishnan, Veerabadhran (Veera)" <Veerabadhran.Gopalakrishnan@amd.com>, 
+ "Khatri, Sunil" <Sunil.Khatri@amd.com>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>, 
+ "Limonciello, Mario" <Mario.Limonciello@amd.com>, "Koenig,
+ Christian" <Christian.Koenig@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -110,58 +119,197 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 17, 2026 at 4:07=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> wr=
-ote:
+On Sun, Aug 16, 2026 at 1:25=E2=80=AFPM Hosur, Priya <Priya.Hosur@amd.com> =
+wrote:
+>
+> AMD General
+>
+>
+> Hi Felix, Lijo,
 >
 >
 >
-> On 16-Aug-26 10:56 PM, Priya Hosur wrote:
-> > This patch adds heavy-weight TLB flush after MES queue eviction/suspens=
-ion
-> > to fix SVM page migration hangs on gfx1151 with XNACK mode enabled.
-> >
-> > v4:
-> >    - Dropped userq TLB flush patch per Felix/Lijo feedback: TLB flush i=
-s only
-> >      needed after batch unmap in amdgpu_userq_unmap_all(), not per-queu=
-e unmap
-> >
+> Thanks for the clarification. I understand now - TLB flush is only needed=
+ after batch queue unmapping (eviction/suspension), not after each individu=
+al queue unmap.
 >
-> Sorry, that was not the intention. I was thinking there is a unmap_all
-> API in MES in which case this could be done within FW itself instead.
+>
+>
+> Alex - based on Felix's feedback, the userq unmap path doesn't need the s=
+ame fix since it's per-queue unmap rather than batch unmap.
 >
 
-There is a suspend_all and I believe the reset detect and
-detect_and_reset calls end up suspending all queues the type specified
-(gfx, compute, sdma).
-
-> I believe Alex was also asking to check about batch unmap cases of user
-> queue. Ex: - amdgpu_eviction_fence_suspend_worker there could still be
-> inflight transactions similar to KFD case.
-
-RIght.  When we evict a KGD userq process, we evict all of the queues
-for that GPU VM.
+I think it's still needed when we evict all KGD userqs for a process
+(technically per GPU VM instance).  E.g., the eviction fence case.
 
 Alex
 
 >
+>
+> I'll drop patch 2/2 (userq fix) and send v4 with only the KFD fix.
+>
+>
+>
+> Thanks and Regards,
+> Priya Hosur
+>
+>
+>
+> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+> Sent: Friday, August 14, 2026 10:56 PM
+> To: Kuehling, Felix <Felix.Kuehling@amd.com>; Hosur, Priya <Priya.Hosur@a=
+md.com>; amd-gfx@lists.freedesktop.org; Deucher, Alexander <Alexander.Deuch=
+er@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>; Liu, Shaoyun <Shaoyun.Li=
+u@amd.com>; Limonciello, Mario <Mario.Limonciello@amd.com>; Koenig, Christi=
+an <Christian.Koenig@amd.com>
+> Cc: Vishwakarma, Pratik <Pratik.Vishwakarma@amd.com>; Gopalakrishnan, Vee=
+rabadhran (Veera) <Veerabadhran.Gopalakrishnan@amd.com>
+> Subject: Re: [PATCH v3 2/2] drm/amdgpu: Add TLB flush after MES user queu=
+e unmap
+>
+>
+>
+> AMD General
+>
+>
+>
+> Thanks for the details. Didn't realise that it is one by one removal. I t=
+hought it was something like unmap-all for a PAS id.
+>
+>
+>
 > Thanks,
+>
 > Lijo
 >
-> > v3:
-> >    - Split into 2 patches per Alex's review
-> >    - Added userq TLB flush in amdgpu_userq_unmap_helper() (amdgpu_userq=
-.c)
-> >
-> > v2:
-> >    - Removed "SDMA" from comment as this affects all in-flight memory
-> >      accesses, not just SDMA (Felix Kuehling)
-> >    - Added Reviewed-by tag
-> >
-> > Priya Hosur (1):
-> >    drm/amdkfd: Add TLB flush after MES queue eviction/suspension
-> >
-> >   .../drm/amd/amdkfd/kfd_device_queue_manager.c | 10 ++++++++++
-> >   1 file changed, 10 insertions(+)
-> >
+> ________________________________
 >
+> From: Kuehling, Felix <Felix.Kuehling@amd.com>
+> Sent: Friday, 14 August 2026 22:17:50
+> To: Lazar, Lijo <Lijo.Lazar@amd.com>; Hosur, Priya <Priya.Hosur@amd.com>;=
+ amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deucher, Al=
+exander <Alexander.Deucher@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>; =
+Liu, Shaoyun <Shaoyun.Liu@amd.com>; Limonciello, Mario <Mario.Limonciello@a=
+md.com>; Koenig, Christian <Christian.Koenig@amd.com>
+> Cc: Vishwakarma, Pratik <Pratik.Vishwakarma@amd.com>; Gopalakrishnan, Vee=
+rabadhran (Veera) <Veerabadhran.Gopalakrishnan@amd.com>
+> Subject: Re: [PATCH v3 2/2] drm/amdgpu: Add TLB flush after MES user queu=
+e unmap
+>
+>
+>
+> AMD General
+>
+>
+>
+> We don't need to flush TLBs after every queue unmap. We only need to do i=
+t if there is an expectation that memory access is quiesced after unmapping=
+. In the case of KFD, we are doing it when we're unmapping all queues, e.g.=
+ in MMU notifiers, evictions or when the debugger needs to stop the queues =
+and look at memory contents. We only need one TLB flush after unmapping man=
+y queues.
+>
+>
+>
+> Therefore, MES should flush TLBs after every queue unmap. OTOH, MES must =
+flush TLBs by itself when it switches VMIDs. This is not under driver contr=
+ol.
+>
+>
+>
+> I don't know what the requirements are for quiescing memory access after =
+unmapping amdgpu user mode queues.
+>
+>
+>
+> Regards,
+>
+>   Felix
+>
+> ________________________________
+>
+> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+> Sent: Friday, August 14, 2026 12:29
+> To: Hosur, Priya <Priya.Hosur@amd.com>; amd-gfx@lists.freedesktop.org <am=
+d-gfx@lists.freedesktop.org>; Deucher, Alexander <Alexander.Deucher@amd.com=
+>; Khatri, Sunil <Sunil.Khatri@amd.com>; Kuehling, Felix <Felix.Kuehling@am=
+d.com>; Liu, Shaoyun <Shaoyun.Liu@amd.com>; Limonciello, Mario <Mario.Limon=
+ciello@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
+> Cc: Vishwakarma, Pratik <Pratik.Vishwakarma@amd.com>; Gopalakrishnan, Vee=
+rabadhran (Veera) <Veerabadhran.Gopalakrishnan@amd.com>; Hosur, Priya <Priy=
+a.Hosur@amd.com>
+> Subject: Re: [PATCH v3 2/2] drm/amdgpu: Add TLB flush after MES user queu=
+e unmap
+>
+>
+>
+> AMD General
+>
+>
+>
+> Hi,
+>
+>
+>
+> Shouldn't this be a FW fix?
+>
+>
+>
+> Thanks,
+>
+> Lijo
+>
+> ________________________________
+>
+> From: Priya Hosur <Priya.Hosur@amd.com>
+> Sent: Friday, 14 August 2026 21:48:40
+> To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deuche=
+r, Alexander <Alexander.Deucher@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.c=
+om>; Kuehling, Felix <Felix.Kuehling@amd.com>; Liu, Shaoyun <Shaoyun.Liu@am=
+d.com>; Lazar, Lijo <Lijo.Lazar@amd.com>; Limonciello, Mario <Mario.Limonci=
+ello@amd.com>; Koenig, Christian <Christian.Koenig@amd.com>
+> Cc: Vishwakarma, Pratik <Pratik.Vishwakarma@amd.com>; Gopalakrishnan, Vee=
+rabadhran (Veera) <Veerabadhran.Gopalakrishnan@amd.com>; Hosur, Priya <Priy=
+a.Hosur@amd.com>
+> Subject: [PATCH v3 2/2] drm/amdgpu: Add TLB flush after MES user queue un=
+map
+>
+>
+>
+> Similar to the KFD fix, MES does not perform heavy-weight TLB
+> invalidation after unmapping user queues. Add
+> amdgpu_gmc_flush_gpu_tlb_pasid() after MES unmap succeeds in
+> amdgpu_userq_unmap_helper() to ensure in-flight memory accesses
+> complete before memory is freed or migrated.
+>
+> Change-Id: I94fe2c84547723b6b73816ce8d727a54bd773a6a
+> Signed-off-by: Priya Hosur <Priya.Hosur@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_userq.c
+> index 6d3ed55e9ab4..9fcf15d69b7b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -375,6 +375,12 @@ static int amdgpu_userq_unmap_helper(struct amdgpu_u=
+sermode_queue *queue)
+>                  } else {
+>                          trace_amdgpu_userq_state_changed(queue, AMDGPU_U=
+SERQ_STATE_UNMAPPED);
+>                          queue->state =3D AMDGPU_USERQ_STATE_UNMAPPED;
+> +                       /*
+> +                        * Heavy-weight TLB flush after MES unmaps queue =
+to ensure
+> +                        * in-flight memory accesses complete before memo=
+ry is freed/migrated.
+> +                        * MES does not do this automatically unlike HWS.
+> +                        */
+> +                       amdgpu_gmc_flush_gpu_tlb_pasid(adev, queue->vm->p=
+asid, 2, true, 0);
+>                  }
+>          }
+>
+> --
+> 2.43.0
