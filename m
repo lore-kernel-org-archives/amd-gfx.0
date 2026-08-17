@@ -4,88 +4,88 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A89EC5B572
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 15:50:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CFB8BC5DF66
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 15:52:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 012AA8916D;
-	Mon, 17 Aug 2026 15:50:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6C6F110E883;
+	Mon, 17 Aug 2026 15:52:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="At+c3OpU";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iIKZUvxU";
 	dkim-atps=neutral
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com
- [209.85.216.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 523D88916D
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 15:50:07 +0000 (UTC)
-Received: by mail-pj1-f44.google.com with SMTP id
- 98e67ed59e1d1-392af6bda98so398632a91.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 08:50:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786981807; cv=none;
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
+ [209.85.216.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C15B10E261
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 15:52:21 +0000 (UTC)
+Received: by mail-pj1-f54.google.com with SMTP id
+ 98e67ed59e1d1-385b78b4f9bso295953a91.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 08:52:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786981940; cv=none;
  d=google.com; s=arc-20260327;
- b=Mm+R7PFUMHx1U1Qe9HoFWdVSHBN2e5ZWLzvwi0Ie+gitF5TjN4axStRgTLQGbACHdQ
- LVxQuM28oN6dqC69MXu8sH8RZ77uaE5wKGR6JhO8Htf718Or2sFYuXIlUk4P9HNUI965
- mEJLdUtoOc6EckuQ23vWWwa7MHkybdTt4dmTKaFo9SS59RW+SFnXoGDd0O20VS7UB8VR
- i2ER/rRMmMVaHh7RL+tbf8RovO9ymDDpS4mnY4o8522QN4dKE5hyH72hfILaYqBPznWh
- wHrwa7kjwCamRos/Yip6XrRWxWg3ZmCgkeDprIX83WPAN+7oLKMiZnnsxMYqRXxYqpeB
- +16A==
+ b=O7ceTS0nqTHshTBa/QQhZcrZRSXrbzzWIU4gbNkn6Xc/d3De7XaUPDbdvLCtXNLqdT
+ KjtdvyL/ubUPkp0q7HN5y7KLp7cdXz7YS7J7TDjxq7k9Ex0WrVepx0vwayLC/XdHDOXa
+ 74o6SruM18TRi4lP/xTQNdmHQppy5t4yJeMF+eBVOIXrIl7Dkntz+eHRmtv0zwhLTR+K
+ o5b0H6SAdDJJCj+u40+Yiho4pvML1CTQwpEBTkxEQ7LUY768fkBzA53iEV42ZFfFxLww
+ iLssLkPqU0TgGMoQsnL73mR3YhiG+Vx/pRhIoCgA1UKuDXwdY/+FP9xa6srLS3KLhd3W
+ euHA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=+mS7CI5znZ7VAP2bJOpsmLm22U/E7yLjGdlEJQ0epFQ=;
+ bh=IucPUu1W2J+zIVlTIAFTCSLx0rQfqLKBJDrZj7TQaE8=;
  fh=YFqqTxdR3R9j06ZYM4qB+o3OGNiDDAN5wTvPWvcIcoo=;
- b=A2/b3pIwvbggVEKMsNRgRav5EP77xsuorkCr87PiH9CvItKwD2tNCQpzajDuLCJXnl
- Qu3wNWH6H5hUNJEtm9aPkVC72wMhXlWVGBCIJqG8VJH/EfxN4F8D8qqCPs/h7ouonDFg
- 9B66XQTBqpr9rYQyT+zMw5JtFm+2uR1FyYUC1kztd6nkDDh5VDBA2WAbmFKJ5af9kbyj
- 0VNKTQM8egu1tPsP0m8PJj1sGy8OZK1BFUJWhzAkHyDfGW/5teFrbQ4vtojLpTm6qYDH
- A10tjgOCu8XT5zll+adVSNyHONas+Rp1Xu7J0XxeBJD6CXrw6gUd74JNqqiZFM5hlTpP
- Qvqw==; darn=lists.freedesktop.org
+ b=h4yCW/dS3qdytHVzbuXm43Wa1VjkBDlwOt2u5nEiPGdj17do8Uxj+3UQ/BeIIj9GtK
+ +DhreuBrM/IwdhchmwCRgPQTGdgfLAueTYghLQMBzJ6bflKuXuJDUQyqiKPSp7KxMF28
+ ZYV8GtE+sTWV00t+5enY4mteVkeqMvo8RkckIxI6L0eGI/DvZHkSakezdXgRnWYS+RQZ
+ ZjiIyQ0D+gi4n9aVMvnRJMfmwJnZg2GruWEpGx7d116zv7EY1WGL8FY/s+DowxYQVjbe
+ iFPH6mhmGS27zf8saMTE6jemhugm/DIzyNU2wAfL/1dcybjgHhs8z115ARekCe2/R6kP
+ MX/Q==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786981807; x=1787586607; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1786981940; x=1787586740; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=+mS7CI5znZ7VAP2bJOpsmLm22U/E7yLjGdlEJQ0epFQ=;
- b=At+c3OpUoL1Vb5aDeLQHr84j6iv5Jf+M1JNnPMcoxRymg3t4fD0JWD9Vl9mkJ6Vz+o
- VJRFo+BHRLmJACW1d/XqcIPixImqHmVtONZGXBRdx2YVkX7HT7d5kPqVukpcoVI7rC6c
- /j88VHWm62bIr3lOE70CE4jAbKW+FdZ76I3Xwfoxv5rOQAnW0apNGASzr64eiS12Po4U
- 7KZWl2ysP4sP5Rbl9OKKOYWku8iT4oE+0Vr2hE5koqXUORccJPtUqw6c6YoEvV1u5Nvb
- GF7fmLYZ/5lKq0Hdp/y/xAAj1YJGqQfQUjfvO1ApnAtyfVtmls0Y6F4gZQJflatY4kMR
- +UEA==
+ bh=IucPUu1W2J+zIVlTIAFTCSLx0rQfqLKBJDrZj7TQaE8=;
+ b=iIKZUvxUtuf++CjlvQ/ANW4s5Z2Xfex+onM+zD5iscfRs2n5AYkg/Lp/fuUsM+lS+h
+ GVuWZEQ7mKAk6GY1aKjYnW2m6NsP9Ek6BcP4h4T6k81yXJRmkuyqqPPgTw0Y/CJrd0rz
+ 5EBUuf1u0Oc6rIx+R+j2qJuwdiM0AMbK1LfKhre2fMoZ6j15dCsh38SubsEyPgULZ41p
+ gg8gda0sSpO/ZpWSWICAUONMn3DwTS8mHcbsIVWHpTHi5iNcuYgeWUbSIr9hceXH4ud9
+ Xc75XXA/S1PEKyXL7OxuBey13ynXxev9Rk0+Fhzua9oq2ThwXVkS1ZEUqTLlJZTSYx46
+ WaRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786981807; x=1787586607;
+ d=1e100.net; s=20251104; t=1786981940; x=1787586740;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=+mS7CI5znZ7VAP2bJOpsmLm22U/E7yLjGdlEJQ0epFQ=;
- b=tZJWXbQHxrF0y0gzTYZVCuxmjo9lt/5QmJP1sHPa1Y3KiATHpNJ9iGO4j+iBS/G6Vz
- P1ElH6EVPojPaXpAJa4MlfE+pZBEJPX42GNKtCN+quQevrl/5gvj979XswQVyw/mA9CN
- Nvtraa5rgogf5uzQDpBhZxvpwtG6lQmS0etY72itETRuaTLgKz2viDSAUIhompJzAONO
- gFiEQUHkbeAe96dKSdLuXMLm0gJcvqc0oDjXsXBMZy+meov+acx+miSr7h72HfOX1aIY
- 8FfWNcwIwUAhYNtEUjDRlb82r9H9KBF54v3fn+7Kaez4Y8WZ3oKMCGrs4Stp18f+dITF
- 0RNA==
-X-Gm-Message-State: AOJu0YxoWZAbKzL/igUV0XU+nw+kADerYWqYSx/SeSmYe2JhFbJXPXTN
- oBHr20ZulmM6SXw3659REFuJ3vve8QKNBwmUj2SNgoHI4YBc94tfwu9Y2ws83i2PYcUlf31rQEv
- Uzqio0SIiMG6CcqTs47FbgxDSV8+0Aqk=
-X-Gm-Gg: AR+sD13pExgA9ajXQUyR+bmz5mNk/DxTNT+B/cTFFC5KztzgQ/sLk5VClg7T3Xv6+Em
- LMYeGa0lmX2Zp5AeY7PKV/m8Vs5XxrMv6AqN+tMJZOQ1Z4ntG7ew7OApaarfC4PSmpyDLU0iGgs
- 2fqfHk4jNce3NyKIHHW+OWxCPluXxKjEFswWkSx7aqlfErpk/h+/4RCGdYUiLqo45PGuFP5/EZS
- oUPiHkMp7GcWSRlQf+Zn/w3h51DPg70bQUCjHz/EfE7XynLUxX2o+wJcdysVLBkGX5LWdvba1dU
- 5pFQ5OI9i5Et8lsk8FqsaBxdfuW4LjkHsC/48gRlNelqDHLxuwmFpYqZlqjZzbTcoK8KQLe8+PQ
- SOBEX8B1oWtYfIB5neE8MfAOMKFR48ag=
-X-Received: by 2002:a17:90a:2ce3:b0:395:4df3:8800 with SMTP id
- 98e67ed59e1d1-3954df388e5mr2752052a91.0.1786981806590; Mon, 17 Aug 2026
- 08:50:06 -0700 (PDT)
+ bh=IucPUu1W2J+zIVlTIAFTCSLx0rQfqLKBJDrZj7TQaE8=;
+ b=Dva2g0cyBZV1P9xJiUxJqvgzfMCRaiihegHRVwbrzyljA2N+CA4EFXMpsAR7HKtGcG
+ sGX/pUYDGnRTWmvVRpocdtt5ez33N3V89TILs0COxEg7CXJnj24UflWvOxsrPHhPTx1v
+ 20jBUM+5T+1B6XHeJqb0/hARrA85NeRo3YsNDl+LvMHWT5HxDtbg8qKlkjxHKbq1/M7u
+ rr3F/jq8Ar/MlpueFj9kFDSw8M6h0oQ/COZtnWRw1AeRk+xNCGzN0GXAKxPC/ibVM1Qo
+ 3VikzPVmLyG0dq8IGH8TeMhMn11W1rkvnmPSu54c52AqRmQ23UysSOw1yYqw7Hvqn1AY
+ IhZw==
+X-Gm-Message-State: AOJu0Yw9UlYPx5NUTnUWPXt2kkqYeBpwH+Y8ZOLuiNGKGwEx2HksqbVX
+ gG33K/mDgXsblK8U0h9gl3tSwNzkjqUWCEurBS0/m5P9Rt0Z5xd9IfxE4kB4vKCJx8eqns6OjDe
+ TOEkoBbdwJFQgPEvXHWDVEAcWWnUaNyMuSQ==
+X-Gm-Gg: AR+sD10frtyrj7m5avIY0q1IaVbWJ/1idRLY1MpnKgZ/f1Nwcvgy+yKwgykAmdi1rhF
+ mdzfzIZmWSnJGH4ekVS11Jz6SXm8IaZbIKr79FpND5W1YrdJ+2tnGf7m7M8LmdYtvRogpFZ4pC1
+ oHxR3I7UcsEc6DlUKyLjwtCnx7Ucfkw74lhs2Y3HFjYCjAdeTd1dKfK8nh3ATtGx70Fzc94VVBb
+ dd352hdHzJTwKk7xWMD3T4MkI1yOIaWMugMuhLu8/BlB8NFVLzjdzFUJP4nhsqMLK2mZGQHs4QV
+ oeyrpmlH7R8a+cXIjqM1TMjqUYkuVJEN8MzB9HwKz0SsyuJdT6TXP6AquzrHa4QIeHsvIFkckEU
+ oWOAVai5oM0rjanmEUITOnu0Hocyi1N/xNOJFtXlZQYo=
+X-Received: by 2002:a17:90b:4c87:b0:38e:549:9e04 with SMTP id
+ 98e67ed59e1d1-3933b7d1d85mr18765658a91.1.1786981940451; Mon, 17 Aug 2026
+ 08:52:20 -0700 (PDT)
 MIME-Version: 1.0
-References: <SA1PR12MB8600A6C7595378BECA3E4A999FDB2@SA1PR12MB8600.namprd12.prod.outlook.com>
-In-Reply-To: <SA1PR12MB8600A6C7595378BECA3E4A999FDB2@SA1PR12MB8600.namprd12.prod.outlook.com>
+References: <SA1PR12MB8600EE73548498C578990CF49FDC2@SA1PR12MB8600.namprd12.prod.outlook.com>
+In-Reply-To: <SA1PR12MB8600EE73548498C578990CF49FDC2@SA1PR12MB8600.namprd12.prod.outlook.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 17 Aug 2026 11:49:54 -0400
-X-Gm-Features: AcwNN1V67yHExTs9iwrvYJZ3LNWw9wOcPLibEKj91ytbR-2EwjJCe2TjegH4-vs
-Message-ID: <CADnq5_MAW7_GOR3sEeGB5xQAEuCugBqZuU0jiUwkjBv7ckwMfw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/amdkfd: guard against NULL restore_mqd in CRIU
- queue restore
+Date: Mon, 17 Aug 2026 11:52:07 -0400
+X-Gm-Features: AcwNN1WgrTce_6V2_S6DdZTuZY_mOwpuxGAKNxyX-QQXQktsam3XEWNz2joT_qY
+Message-ID: <CADnq5_M3K3G=ugc_mSAq0dE8TJA=1cZHgZvfjPS+Jj5aaQcxXg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: fix integer overflow in queue ring buffer
+ size calculation
 To: "Marioukhine, Vladimir" <Vladimir.Marioukhine@amd.com>
 Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
  "Deucher, Alexander" <Alexander.Deucher@amd.com>
@@ -105,109 +105,105 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Series is:
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-
-On Thu, Aug 13, 2026 at 1:15=E2=80=AFPM Marioukhine, Vladimir
+On Wed, Aug 12, 2026 at 11:55=E2=80=AFAM Marioukhine, Vladimir
 <Vladimir.Marioukhine@amd.com> wrote:
 >
 > AMD General
 >
 >
-> Both create_queue_cpsch() and create_queue_nocpsch() unconditionally
+> queue_size and metadata_queue_size are u64 fields copied directly from
 >
-> call mqd_mgr->restore_mqd() when a CRIU restore is in progress
+> user-supplied ring_size and metadata_ring_size ioctl arguments. When
 >
-> (qd !=3D NULL), with no NULL guard. On any system where restore_mqd is
+> both are set to 0x8000000000000000 (2^63), their sum overflows to zero
 >
-> not implemented, a user holding CAP_CHECKPOINT_RESTORE can trigger a
+> in kfd_queue_acquire_buffers(), causing kfd_queue_buffer_get() to skip
 >
-> kernel NULL pointer dereference and panic the machine by issuing
+> the BO size validation and accept any GPU buffer object regardless of
 >
-> KFD_IOC_CRIU_OP_RESTORE with a crafted queue restore object.
+> its actual size. The resulting queue is misconfigured: the kernel
 >
+> validates only a 4 KB backing GPU buffer while the hardware is
 >
+> programmed using a ring size derived from the much larger user-controlled
 >
-> Add a NULL guard for restore_mqd right after mqd_mgr is resolved,
->
-> before any resource allocations, returning -EOPNOTSUPP if the callback
->
-> is not implemented. This avoids complex error unwinding and is
->
-> consistent with the existing checkpoint_mqd guard.
+> value, potentially resulting in GPU MMU faults and GPU reset.
 >
 >
 >
-> Fixes: 48f0bdf4e38e ("drm/amdkfd: Added MQD manager files for GFX12.")
+> Use check_add_overflow() to detect the overflow at the arithmetic site
 >
-> Fixes: 01bbc4a4b947 ("drm/amdkfd: Add MQD manager for GFX 12.1.0")
+> and return -EINVAL if it occurs.
 >
-> Cc: stable@vger.kernel.org
+>
+>
+> Fixes: c51bb53d5c68 ("drm/amdkfd: Add metadata ring buffer for compute")
 >
 > Signed-off-by: Vladimir Marioukhine <Vladimir.Marioukhine@amd.com>
 >
 > ---
 >
-> drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 10 ++++++++++
+> drivers/gpu/drm/amd/amdkfd/kfd_queue.c | 12 +++++++++---
 >
-> 1 file changed, 10 insertions(+)
+> 1 file changed, 9 insertions(+), 3 deletions(-)
 >
 >
 >
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
-ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd=
+/amdkfd/kfd_queue.c
 >
-> index ea9d87450eae..25b738200e7e 100644
+> index 25954c2c2d91..52cc022dea36 100644
 >
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
 >
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
 >
-> @@ -769,6 +769,11 @@ static int create_queue_nocpsch(struct device_queue_=
-manager *dqm,
+> @@ -250,9 +250,15 @@ int kfd_queue_acquire_buffers(struct kfd_process_dev=
+ice *pdd, struct queue_prope
 >
->                mqd_mgr =3D dqm->mqd_mgrs[get_mqd_type_from_queue_type(
+>                             /* metadata_queue_size not supported on GFX7/=
+GFX8 */
 >
->                                             q->properties.type)];
+>                             expected_queue_size =3D
 >
-> +            if (qd && !mqd_mgr->restore_mqd) {
+>                                           PAGE_ALIGN(properties->queue_si=
+ze / 2);
 >
-> +                           pr_debug("restore_mqd not implemented for thi=
-s GPU\n");
+> -             else
 >
-> +                           retval =3D -EOPNOTSUPP;
+> -                           expected_queue_size =3D
 >
-> +                           goto deallocate_vmid;
+> -                                          PAGE_ALIGN(properties->queue_s=
+ize + properties->metadata_queue_size);
+>
+> +            else {
+
+Both sides of the else should be converted to {} if one side is per
+kernel coding style.  With that fixed:
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+
+>
+> +                          u64 total_size;
+>
+> +
+>
+> +                          if (check_add_overflow(properties->queue_size,
+>
+> +                                                              properties=
+->metadata_queue_size,
+>
+> +                                                              &total_siz=
+e))
+>
+> +                                         return -EINVAL;
+>
+> +                          expected_queue_size =3D PAGE_ALIGN(total_size)=
+;
 >
 > +            }
 >
->               if (q->properties.type =3D=3D KFD_QUEUE_TYPE_COMPUTE) {
+>               vm =3D drm_priv_to_vm(pdd->drm_priv);
 >
->                              retval =3D allocate_hqd(dqm, q);
->
->                              if (retval)
->
-> @@ -2134,6 +2139,11 @@ static int create_queue_cpsch(struct device_queue_=
-manager *dqm, struct queue *q,
->
->                mqd_mgr =3D dqm->mqd_mgrs[get_mqd_type_from_queue_type(
->
->                                             q->properties.type)];
->
-> +            if (qd && !mqd_mgr->restore_mqd) {
->
-> +                           pr_debug("restore_mqd not implemented for thi=
-s GPU\n");
->
-> +                           retval =3D -EOPNOTSUPP;
->
-> +                           goto out_deallocate_sdma_queue;
->
-> +            }
->
->                if (q->properties.type =3D=3D KFD_QUEUE_TYPE_SDMA ||
->
->                              q->properties.type =3D=3D KFD_QUEUE_TYPE_SDM=
-A_XGMI)
+>              err =3D amdgpu_bo_reserve(vm->root.bo, false);
 >
 >
