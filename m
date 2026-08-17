@@ -4,55 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 70E4EC5CFC1
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 07:01:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 44D82C5DF7D
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 07:01:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 43E8710E663;
-	Mon, 17 Aug 2026 07:01:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1538410E682;
+	Mon, 17 Aug 2026 07:01:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=protonmail.com header.i=@protonmail.com header.b="SDzZijdI";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="lBwx5GkS";
 	dkim-atps=neutral
-Received: from mail-244103.protonmail.ch (mail-244103.protonmail.ch
- [109.224.244.103])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 631FA10F66F;
- Fri, 14 Aug 2026 15:14:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1786720444; x=1786979644;
- bh=ebHvG8J7OHD1DkAFZuYCk4KhWJsTkQYIAAPyBGxbFw8=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=SDzZijdIUQ8nCxCsFGdVcVfY7Di3O4mgbnUwZeqEoW7YM2Wy6I82CYnItojdFIZgz
- FA0FOmOXQeS9Iuh7ooFC2qUgjhEZnRUaHompUumGCQxNFzvze56JkmxF8bo8ELPy9+
- hzqgkCkbxFFEWuPDePKy853hcyGsi1ksF3TUOnSBEh6m/DhUtXFmZf8oUBHC+6NqFj
- 4fxW2NmKtYYQrvnnkCNlg7Lny3+6RELyRrXhuxFbmxppB87pFg/OuRCX8UxaCBUh53
- 03S7lUhtuOHWyVt34lStnDR7tE5ObtnrkHrtlrej53Q8XT0v0/YEVxdgiTqRLtJOQh
- mdTDGYxmrqLag==
-Date: Fri, 14 Aug 2026 15:14:00 +0000
-To: Boqun Feng <boqun@kernel.org>
-From: Umio-Yasuno - coelacanth_dream <coelacanth_dream@protonmail.com>
-Cc: Alex Deucher <alexdeucher@gmail.com>, amd-gfx@lists.freedesktop.org,
- Mark Janes <mjanes@netflix.com>, Kenneth Feng <kenneth.feng@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?utf-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Lijo Lazar <lijo.lazar@amd.com>, Asad Kamal <asad.kamal@amd.com>,
- Yang Wang <kevinyang.wang@amd.com>, Priya Hosur <Priya.Hosur@amd.com>,
- mythilam <mythilam@amd.com>, Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] drm/amd/pm: Fix incorrect avg vcn utilization in
- gpu_metrics
-Message-ID: <rTEGWQn-uThfLOzKzIsvt-Dk_dm9_L0dNXzRGAQd0qYSQbMVpvB5cd_zC5CuMFkC-u2o3KjqDjh_J4jcYWUtXR8O9KEL4suMEV8lJQCOvXA=@protonmail.com>
-In-Reply-To: <an5ESxy8-OMYvD4d@tardis.local>
-References: <20260805140227.44868-1-boqun@kernel.org>
- <an44yIv7WG7vqTqQ@tardis.local>
- <CADnq5_PLV1rDw8DSawdHfQxyk8XgPp94TQa0HuFVdZVvZo+zmQ@mail.gmail.com>
- <an5ESxy8-OMYvD4d@tardis.local>
-Feedback-ID: 19510729:user:proton
-X-Pm-Message-ID: a65a74b293661b0e75435d7cb352b25804818840
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B141310E384
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 00:43:39 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-47fde295992so1959704f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Sun, 16 Aug 2026 17:43:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1786927418; x=1787532218; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=pCREQy6It226dTYeaLnGfvrHe1ADDTxHfHCidnxEJo0=;
+ b=lBwx5GkS20fga0MIUkbHcg+cOTYvb4f+KhScWc/j3R2h5QchwDqVauig3S4WhbV38W
+ JpVgsPs49i2Th1Hg18NkO51CrCONjPzaZ1odPQOMtnJg91g/7ArPxFuE84GiIqkFzKu0
+ EDsx2ALta1m38rsYigToJK7Mylmx5HrTrvIlqzJ1POamq74hBK6OOCjPAao6h9793qNA
+ fb+lkSLOWGOspXp7Fmf6X2FkJ4q32iXggSm+ss2XxBQlSBYPPL/aDGW5naNULmyN2eOt
+ V2sOnTh1w0jRYKfQCQRPsLnlZ3mo1kk6cMIL5SBGfMFzydEtmD0niltIaIuoyq4nt+7J
+ eGUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1786927418; x=1787532218;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=pCREQy6It226dTYeaLnGfvrHe1ADDTxHfHCidnxEJo0=;
+ b=g7S+xaKXiz7euEYTsj7cl81W912UbldbkReJgKVdg98UzFbrGgMC39tgbMPn30zw8/
+ Cb3UxKAIWw7zMRlbRWZWS1yqQZSfyB9TBds/lCoqWmRxFkmi+Ea8CIc9oI060oYzz2K6
+ Bq7KF348EqqWHHHxoUzYDV4G4F5oQ8M1Dbl8u5j/2MkhsbjSAxZWRChKLoDERdYKzWp8
+ ejWk+bFLZYDvnVRnnWsXKxoNNHoo690twan7HgR8vnZKeK6ka+5QCVZrlSB7ZuPrAX1O
+ Cw+I7HHd9HHBTcll/REfgMzgYMrVFdOw5f+xOfmo8qn1cZduCsuKkMbunSJhM4EUgLvy
+ Te0g==
+X-Gm-Message-State: AOJu0YwQuHZJIsld+EOTRBsZzd/CjbTw+x4suSMd8f0MGig1bVtIWz1k
+ 4+KzdATXoAL3X88mSD3tlHSDFflj+Ja7DdFGnoED8nzyQfReQ+rQVHDV
+X-Gm-Gg: AR+sD11ZLQdTTXWZJi8EWGh1bWhFCMndS+RMhegEX3seGGsUPiuoPAD8zGPgbLO2zJv
+ 82xTkH5HLBdPlxcKOFzkD0HJ9FHhE4FP8olTsabPqx6btnWe6EG39Vvu3RBpKKUB0y4Wu6/KPqg
+ XwtaBJ4pepU3KSolvx6hZl1R2vffjBgIW+pWcIclq8iIbCgTo/faVXKrRYS5yohKTwbF7y5mbwL
+ gKb//QeZBpWxO5sN0Ws1dRy1mkJcwiOWFCK3ct2vDm6W50fzvgGSNP1MaoVLFA6EVBRlzdr1Dbe
+ 05vVHSdqyWQ1AP3kkokiNhqgnC5SMP3LehjHXApXsXvHYLeRhdlbAYU9ZYUs92bLU91oDJQ1vQL
+ 9Gs4BwHKh26V1pMozg1Jvut2Mtio0DxiLsu6s33JAl+sUthlYK3OyzUtWIHAgImUsh3lIbNx0SA
+ uX8JulzXuZL3Q7/FXY9CArW7CJCvJrbXYFMVkw/EY1Tiky8uC5Iiq5+aAeEQ0en3shrEDv0Js5E
+ RBUUwdT2g==
+X-Received: by 2002:a5d:69cd:0:b0:47f:fcff:6b05 with SMTP id
+ ffacd0b85a97d-48160799027mr25305749f8f.13.1786927417818; 
+ Sun, 16 Aug 2026 17:43:37 -0700 (PDT)
+Received: from skylab.fritz.box ([2a06:4944:10fb:f400:4fc8:8418:6988:19b9])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4815f2cc81csm28027768f8f.34.2026.08.16.17.43.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 16 Aug 2026 17:43:37 -0700 (PDT)
+From: Gilles Risch <gilles.risch@gmail.com>
+To: alexander.deucher@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ lukas@wunner.de, Gilles Risch <gilles.risch@gmail.com>
+Subject: [PATCH v6] drm/radeon: fix internal display on iMac11,
+ 1  (RV770/DCE3.1)
+Date: Mon, 17 Aug 2026 02:43:26 +0200
+Message-ID: <20260817004326.3192-1-gilles.risch@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <180318e7-0432-403a-b87b-6f9a455bb86a@gmail.com>
+References: <180318e7-0432-403a-b87b-6f9a455bb86a@gmail.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 17 Aug 2026 07:01:16 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,114 +89,113 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Apologies, I forgot to set the CC. Below is my opinion that I wrote outside=
- the thread.
+The Apple iMac11,1 (27-inch, Late 2009) uses a Mobility Radeon HD 4850
+(RV770/DCE3.1) with a 2560x1440 internal panel on an internal
+DisplayPort path. Without this fix the display stays dark under KMS.
 
+This machine suffers from the same issue as iMac10,1 and iMac11,2:
+Apple routes the internal display through Link B of the DIG encoder
+instead of Link A. Add iMac11,1 to the existing DMI quirk and move
+the Apple-specific encoder assignment into its own block, independent
+of the DCE version check.
+
+Additionally, the 2560x1440 panel requires RADEON_PLL_USE_FRAC_FB_DIV
+and ATOM_ENCODER_CMD_DP_VIDEO_ON, limited to iMac11,1 via dmi_match()
+to avoid affecting other boards.
+
+Signed-off-by: Gilles Risch <gilles.risch@gmail.com>
+
+Good morning,
+
+this is v6 of the patch, rebased on top of amd-staging-drm-next
+(agd5f/linux).
+
+There are no functional or code changes since v5.
+
+Regarding Lukas Wunner's previous Reviewed-by (which was provided on v2),
+I have kept him in CC so he can confirm if his review still stands given
+the changes between v2 and v5.
+
+Could you have a look at this when you have a spare moment?
+
+Regards,
+Gilles
+
+Changes in v6:
+- Rebased on amd-staging-drm-next (no functional/code changes since v5)
 ---
-amdgpu_top already divides average_vcn_activity in gpu_metrics_v3_0 by 100,=
- so this patch would unfortunately end up affecting user-space applications=
-.
+ drivers/gpu/drm/radeon/atombios_crtc.c     |  5 ++++-
+ drivers/gpu/drm/radeon/atombios_encoders.c | 23 ++++++++++++----------
+ 2 files changed, 17 insertions(+), 11 deletions(-)
 
-In my view, if users want to obtain media engine usage that is properly cor=
-rected based on the firmware (or firmware version) in the AMDGPU driver, th=
-e best option is to use the vcn_busy_percent sysfs interface.
-However, that adds extra reading cost.
+diff --git a/drivers/gpu/drm/radeon/atombios_crtc.c b/drivers/gpu/drm/radeon/atombios_crtc.c
+index 2fc0334e0d6c..075eba2d47f3 100644
+--- a/drivers/gpu/drm/radeon/atombios_crtc.c
++++ b/drivers/gpu/drm/radeon/atombios_crtc.c
+@@ -24,6 +24,8 @@
+  *          Alex Deucher
+  */
+ 
++#include <linux/dmi.h>
++
+ #include <drm/drm_fixed.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_framebuffer.h>
+@@ -594,7 +596,8 @@ static u32 atombios_adjust_pll(struct drm_crtc *crtc,
+ 		if (((rdev->family == CHIP_RS780) || (rdev->family == CHIP_RS880))
+ 		    && !radeon_crtc->ss_enabled)
+ 			radeon_crtc->pll_flags |= RADEON_PLL_USE_FRAC_FB_DIV;
+-		if (ASIC_IS_DCE32(rdev) && mode->clock > 165000)
++		if ((ASIC_IS_DCE32(rdev) || dmi_match(DMI_PRODUCT_NAME, "iMac11,1"))
++		    && mode->clock > 165000)
+ 			radeon_crtc->pll_flags |= RADEON_PLL_USE_FRAC_FB_DIV;
+ 	} else {
+ 		radeon_crtc->pll_flags |= RADEON_PLL_LEGACY;
+diff --git a/drivers/gpu/drm/radeon/atombios_encoders.c b/drivers/gpu/drm/radeon/atombios_encoders.c
+index 5cfd8fcfa5e8..8b3f8303a967 100644
+--- a/drivers/gpu/drm/radeon/atombios_encoders.c
++++ b/drivers/gpu/drm/radeon/atombios_encoders.c
+@@ -1707,7 +1707,7 @@ radeon_atom_encoder_dpms_dig(struct drm_encoder *encoder, int mode)
+ 		if (ENCODER_MODE_IS_DP(atombios_get_encoder_mode(encoder)) && connector) {
+ 			/* DP_SET_POWER_D0 is set in radeon_dp_link_train */
+ 			radeon_dp_link_train(encoder, connector);
+-			if (ASIC_IS_DCE4(rdev))
++			if (ASIC_IS_DCE4(rdev) || dmi_match(DMI_PRODUCT_NAME, "iMac11,1"))
+ 				atombios_dig_encoder_setup(encoder, ATOM_ENCODER_CMD_DP_VIDEO_ON, 0);
+ 		}
+ 		if (radeon_encoder->devices & (ATOM_DEVICE_LCD_SUPPORT)) {
+@@ -2123,17 +2123,20 @@ int radeon_atom_pick_dig_encoder(struct drm_encoder *encoder, int fe_idx)
+ 	}
+ 
+ 	/*
+-	 * On DCE32 any encoder can drive any block so usually just use crtc id,
+-	 * but Apple thinks different at least on iMac10,1 and iMac11,2, so there use linkb,
+-	 * otherwise the internal eDP panel will stay dark.
++	 * Apple routes the internal eDP panel through Link B of the DIG encoder
++	 * instead of Link A on the iMac10,1, iMac11,1 and iMac11,2.
++	 * Use linkb to avoid a dark display.
+ 	 */
+-	if (ASIC_IS_DCE32(rdev)) {
+-		if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1") ||
+-		    dmi_match(DMI_PRODUCT_NAME, "iMac11,2"))
+-			enc_idx = (dig->linkb) ? 1 : 0;
+-		else
+-			enc_idx = radeon_crtc->crtc_id;
++	if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1") ||
++	    dmi_match(DMI_PRODUCT_NAME, "iMac11,1") ||
++	    dmi_match(DMI_PRODUCT_NAME, "iMac11,2")) {
++		enc_idx = (dig->linkb) ? 1 : 0;
++		goto assigned;
++	}
+ 
++	/* on DCE32 and encoder can driver any block so just crtc id */
++	if (ASIC_IS_DCE32(rdev)) {
++		enc_idx = radeon_crtc->crtc_id;
+ 		goto assigned;
+ 	}
+ 
 
-Alternatively, since gpu_metrics is designed as an interface that provides =
-raw data[^1] (but undocumented it[^2]), it would be better to have the corr=
-ection applied on the user-space.
+base-commit: 21c50d41af7c46e138b542dba2dcf6d2a978ae99
+-- 
+2.47.3
 
-[^1]: https://gitlab.freedesktop.org/drm/amd/-/work_items/3251#note_2904104
-[^2]: https://www.kernel.org/doc/html/latest/gpu/amdgpu/thermal.html#gpu-me=
-trics
----
-
-On Friday, August 14th, 2026 at 7:25, Boqun Feng <boqun@kernel.org> wrote:
-
-> On Thu, Aug 13, 2026 at 06:01:47PM -0400, Alex Deucher wrote:
-> > On Thu, Aug 13, 2026 at 5:36=E2=80=AFPM Boqun Feng <boqun@kernel.org> w=
-rote:
-> > >
-> > > On Wed, Aug 05, 2026 at 07:02:21AM -0700, Boqun Feng wrote:
-> > > > In a Strix Halo system, a >100 average_vcn_activity in gpu_metrics =
-can
-> > > > be observed by running the following command:
-> > > >
-> > > >     ffmpeg -hwaccel vappi -vappi_device /dev/dri/renderD128 -i \
-> > > >     ~/sample-10s.mp4 -vf hwupload,scale_vappi=3Dformat=3Dnv12 -c:v =
-\
-> > > >     h264_vappi /tmp/output.mp4
-> > > >
-> > > > This is incorrect because the value is supposed to be in [0-100] ra=
-nge.
-> > > >
-> > > > The cause of the issue is that the metrics.VcnActivity reported by
-> > > > smu_cmn_get_metrics_table() is a permyriad value instead of a perce=
-ntage
-> > > > value (e.g. smu_v14_0_0_get_smu_metrics_data() has a division by 10=
-0 to
-> > > > report the vcn_busy_percent). Therefore fix this by applying the sa=
-me
-> > > > division in smu_v14_0_0_get_gpu_metrics().
-> >
-> > I think this is correct as is.  smu_v14_0_0_get_smu_metrics_data() is
-> > used to fetch data for standardized formats like hwmon while
-> > smu_v14_0_0_get_gpu_metrics() is for dumping the raw metrics data.
-> >
->=20
-> Well, then kgd_pp_interface.h needs some help?
->=20
-> struct gpu_metrics_v3_0 {
-> =09...
-> =09/* Utilization */
-> =09/* time filtered GFX busy % [0-100] */
-> =09uint16_t=09=09=09average_gfx_activity;
-> =09/* time filtered VCN busy % [0-100] */
-> =09uint16_t=09=09=09average_vcn_activity;
-> =09...
-> }
->=20
-> Clearly it's not true.
->=20
-> [Cc amdgpu_top]
->=20
-> Regards,
-> Boqun
->=20
-> > Alex
-> >
-> > > >
-> > > > Reported-by: Mark Janes <mjanes@netflix.com>
-> > > > Signed-off-by: Boqun Feng <boqun@kernel.org>
-> > >
-> > > Ping?
-> > >
-> > > Regards,
-> > > Boqun
-> > >
-> > > > ---
-> > > >  drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c | 3 ++-
-> > > >  1 file changed, 2 insertions(+), 1 deletion(-)
-> > > >
-> > > > diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c b=
-/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-> > > > index 568665265a13..1058338344b0 100644
-> > > > --- a/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-> > > > +++ b/drivers/gpu/drm/amd/pm/swsmu/smu14/smu_v14_0_0_ppt.c
-> > > > @@ -566,7 +566,8 @@ static ssize_t smu_v14_0_0_get_gpu_metrics(stru=
-ct smu_context *smu,
-> > > >       gpu_metrics->temperature_skin =3D metrics.SkinTemp;
-> > > >
-> > > >       gpu_metrics->average_gfx_activity =3D metrics.GfxActivity;
-> > > > -     gpu_metrics->average_vcn_activity =3D metrics.VcnActivity;
-> > > > +     /* metrics.VcnActivity is permyriad, convert it to percentage=
-. */
-> > > > +     gpu_metrics->average_vcn_activity =3D metrics.VcnActivity / 1=
-00;
-> > > >       memcpy(&gpu_metrics->average_ipu_activity[0],
-> > > >               &metrics.IpuBusy[0],
-> > > >               sizeof(uint16_t) * 8);
-> > > > --
-> > > > 2.50.1 (Apple Git-155)
-> > > >
-> 
