@@ -4,93 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 95BE8C5DF66
-	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 13:27:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6A930C5B572
+	for <amd-gfx@archiver.kernel.org>; Mon, 17 Aug 2026 14:00:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B20F10E7CE;
-	Mon, 17 Aug 2026 13:27:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DAC8910E7D1;
+	Mon, 17 Aug 2026 14:00:31 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="XpO4O54I";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ec/EwQXA";
 	dkim-atps=neutral
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com
- [209.85.221.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 08C2310E7CE
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 13:26:59 +0000 (UTC)
-Received: by mail-vk1-f181.google.com with SMTP id
- 71dfb90a1353d-5c3a84d3739so116505e0c.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 06:26:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786973218; cv=none;
- d=google.com; s=arc-20260327;
- b=kY72o8snpIg5ascmor7wwakPdcRTl1sKiF/2x84/fN70mBVnG+2p+zLdkWyPJFIQcC
- A/B+fjQFHhqOaWvySwTOtK6dWwGKSuY2m5603wLHHGRYf9HOHOrLWSeTjUBvl3oZcyBH
- zJk2Grp1EW6RX3qxhAOUxtd63XBHzbetOhTmwgZkq/PyAmtg2fXSgbv53E5KZvdfmSUd
- CSbyl5i8i6ma9kQWmZgvUoG2msVWvsofx/3g1J0cIQwbUgJmhQIXPmUBtIUDb4+EIm4r
- rAhgpdw93JKdkO7NnxOvB2v/PHrDr8shb3vnzLpAHSLRJliM0dJ21Rv2I1dKpEtZMnlo
- OmLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=iVd1i3NQ6ZOfITrD5COPv3UDlwNHN7CLeGfwkbUqtUM=;
- fh=ef20Xe9w3moUMLSr91PnwNIFupJfidka0pXpS8D+8d0=;
- b=nD4he9+E3iZW/sxvU59Uarp7i2zgyYsB9kwqdyIEcplZzdssJg+eF9/XGtSiQbVLN3
- aApsFUCmMH6vcNBtTgaRINkzKAfsjhahHnuRe9qNVuAPUpPfPYG/PI1F4sHEAiU9axxS
- YmmdTBojpoS03tuzQK8J+fijw3wGG23SJ/4XRo/NY1ZvH7au+LSemSTkdfzC/3OZuOIF
- UBKgmyfXiow/ZPR+81MY6QjjbI2GE9aE3VBg9uEF0mjk02gEetKUfVZnauWWSfuWik8w
- 4PyjO0rk+Vfvig+Xizv5CpGdWNSDSK3kZoquG3cSKDgKkVO1YzFEaz8xV3ETZYtlflVX
- HnXA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1786973218; x=1787578018; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=iVd1i3NQ6ZOfITrD5COPv3UDlwNHN7CLeGfwkbUqtUM=;
- b=XpO4O54IY1MFKV03jgre6dRrYE/lFyoskD0ShacOSmJ6y6KxJDjk8aAEF8xu3tQCL/
- xvrdba9mo5SjSB1B51IoXhHKxKlh8aVSdlBsdcfLSzg3PdOQTqBCKhPXVUqbalCzOTiI
- WxcEMhKHUTd3jJWkQzQVl7Ofj6rFpz62h2L8iXxfubWN2wnZNFibeEDkQNxsDOEoSFqR
- i1YMCTxtqITb79v9p7YRjbZFYZzrDpG/okEiDIWhFpkmHFPGA7w0sXTKLd2go+lINdma
- Y6RfmCQy+LFA2RdkNKFS0g6GerYmgx+BroDhkeKdTY5SVrLJK9wShuL1nViKoG43aN3e
- XAIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1786973218; x=1787578018;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=iVd1i3NQ6ZOfITrD5COPv3UDlwNHN7CLeGfwkbUqtUM=;
- b=D6TDq7hzc9vqYv/FcMYpJFL1nkqjFN+gaYXCcHVN1y1s8SL3kvuEDsnxQZPMXV0sbP
- fnD7RnDCSdMun6fmKgTuBsavaXzfwyDfnifeFHgWHkpmECdTPC+ErU1vywb2Y0DcRekS
- mjCHkcxgtraUNMbWzy0aOW+3kpslemtn4RmFSsXVfvtjht02uWMiqyjfuWYaArxIcXY2
- pHWrH9fC42F8GoZu4AXTrAa60m7zqvThSfTtAY55H9Cv+eV2zTTeRvSwSZM44/5Mf2ae
- oM2YuQ8w+VvURrhaKnTpz6O2LcdI1yMcxgPvBdXdPUQYcSz69ZFYwbON2TmUlDrc9IXj
- e9SQ==
-X-Gm-Message-State: AOJu0Yxcs3QAxtrkt/31R7xhcXj3fwCLe+XZponkJqADbAWjvVzupqeY
- yreAYYci8rNmd+XpCE9hPHYwVle7Ol2OSRumZ8WukNKIJfefrrGYrTHNg8KJeXqGxXZ1azdOAeI
- 2UpG/xcu6AsG0iYlxPCVAw87jNE7m8Yw=
-X-Gm-Gg: AR+sD13TGJjBNCAZlWwL7vxjIiK5gjcgymp4DfVNGwgCe6/mWjcOvJCgkFn83KHvvzD
- x6KLy+N2ix/ynp2KFbEKxExdIsiyPb1eHCAJm2zM2Pg8lPBrrNDK4uzKrFaehnbWjpV3pDBj8fM
- 6fHUoEdorIPOUCOBHi2EyRSRYIgw3HwN2eyuzq6gjfvf/WYcN+AEP0RMBnjmDK57co+55hWdT7I
- ETBSf5UYB/pFL17izyrmn2dHo+mYOE72poF16tI5am/qUze6hczPdpsqXWiUOKjbFeEUWKD8/bC
- uFjZPiQc6wGd/hjlQfzXcBes30sYfE9z6/uyeRKmhBuEOzZmYt8elwCgff0x53p1P4wlyibH3Dm
- 07NczAGtp+fD4xwvGVPeduwggmG/sRsg=
-X-Received: by 2002:a67:fe10:0:b0:772:cccb:f851 with SMTP id
- ada2fe7eead31-772cccc075emr358743137.0.1786973217597; Mon, 17 Aug 2026
- 06:26:57 -0700 (PDT)
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012055.outbound.protection.outlook.com
+ [40.107.200.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0953010E7D1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 14:00:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wQNtV2v/lSmjcSgQtWCd7ZTQ3TUKqyBHSY1CMrfEY+K7mX/G9axNw4mYZcF+2EaaCwy6/bJ65VHEo3EZ/VMdZ4uDUUFsaP0a+g8IxpqjqNJIEA5UuSzU6STIGrlt0EWYImWg+nzlE2MsEk7XmBFCIBhIZUf+zmTX8UhJcb/20NiZuyD5MbPBk1AWK5hs42T/pCi120hJFn8BcsCFm4e0pnNj/kinhcaUxz+cn/UK5wDSeZCE4dEUzprPrSUHmUopDJMRKjuziyCBGsjPWPUkzJtSGeg2Re7fSGP4+Es6YUo9GA8I9UnXuYTFJoRYtvLTX6vsZ9/uW7KLk+SWQ1EWRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=R+rxmrnLj/DuCxDXeepGHglyZ1x3VG8PPcqHB8SwtH8=;
+ b=ptqx6l+W5MxHjA6x+9xCZca/vvTk5BPsNGYjasE8XTY/BudC5GEnH8U6Wcm1OoUe+1k6FyOtGiz1qQnQVmnJ3EOfTo7FloJ8FRWKgQtJF6WcGStzfK813GQhxPtz4c3rvrgn5ramXkq3hcCnMzvz26ar+vOBKT8GjwnoE+NDSeaHB+1XFS4GkU3Izv8+tXqyPANiGDzW55T2NPTYTiHNUuYdy5s/1SZjtPC8V7HsMmK0bVzz0ycVOIZIcra69HyGSRYkHkHNtiS1qryhi0P4ZPBtjTMvo+6ITAZpqAWdmGCllXgbX3ghkDhhA5Y8bOl9V6unmJQ5FRGqjkz4aIwU7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=R+rxmrnLj/DuCxDXeepGHglyZ1x3VG8PPcqHB8SwtH8=;
+ b=Ec/EwQXAOQgbe9KXvV2Lk3xVfmb3vg1yu5de66kFiokeYWvnPPxTVfR/9FMw1SEmjd9usjcU9fhV5YeL6PseqRv5rLleqPSqYgRhxbF8Rj3yEvIzVWDKS70dPusqPE5OUEXFAcURKq3zy9ZGSEFju4yq26TlC8Sn0b20G6deDKI=
+Received: from DS7P220CA0099.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:25d::18) by
+ MW4PR12MB7333.namprd12.prod.outlook.com (2603:10b6:303:21b::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
+ 2026 14:00:27 +0000
+Received: from DS2PEPF00003442.namprd04.prod.outlook.com
+ (2603:10b6:8:25d:cafe::a9) by DS7P220CA0099.outlook.office365.com
+ (2603:10b6:8:25d::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.17 via Frontend Transport; Mon,
+ 17 Aug 2026 14:00:27 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS2PEPF00003442.mail.protection.outlook.com (10.167.17.69) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.339.3 via Frontend Transport; Mon, 17 Aug 2026 14:00:25 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 17 Aug
+ 2026 09:00:25 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 17 Aug
+ 2026 09:00:25 -0500
+Received: from Xiaogang-ROCM-Dev.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45
+ via Frontend Transport; Mon, 17 Aug 2026 09:00:25 -0500
+From: Xiaogang.Chen <xiaogang.chen@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Xiaogang Chen <xiaogang.chen@amd.com>
+Subject: [PATCH 1/3] drm/amdkfd: Fix error path at svm_migrate_copy_to_ram
+Date: Mon, 17 Aug 2026 08:59:16 -0500
+Message-ID: <20260817135918.228397-1-xiaogang.chen@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20260817062728.2535467-1-kevinyang.wang@amd.com>
-In-Reply-To: <20260817062728.2535467-1-kevinyang.wang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 17 Aug 2026 09:26:45 -0400
-X-Gm-Features: AcwNN1UbGgH9T6q8Hw38z65PPRB6RgiKr8o72m7duJkYNgLo1JzpQEvh1nyf_i4
-Message-ID: <CADnq5_PhiEzW7eA311hSyCo=ve1Bx2dBUEf3LArLbPTK2s==Ww@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm: fix smu messages after system resume for smu
- 11.0.x
-To: Yang Wang <kevinyang.wang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- hawking.zhang@amd.com, kenneth.feng@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF00003442:EE_|MW4PR12MB7333:EE_
+X-MS-Office365-Filtering-Correlation-Id: 62b2d557-f27f-4079-6fd4-08defc67e35c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: PVdrk5c7xs7IXtmS0zEwlXfbVCOZMnP/CLUXkAAX8d+1AzD1KtR4cERzntZuNSc0ZLZEfJ5GJQhdZpu+AtOJTczQAhA5kYos3eGvJ2ronDkxbcEgyTDNjdErUM8/klDHhS36980nmw1xQfZg9ytapbne/33/BwtTU71Ymf1C8avubdq0hekBBa8Bm9u6BRchrPVpDVfHA9GOEngnwAfYwCwoUAto/ayLG3/R3H+DnkbA7mAkLPeKTy3GvROtpYygSiKGn3tD+NI52c3H01tkD8LqfYON4aAfB9elVJO9UzG2n1eW4D2TparNdwuNMIP8K8a+UhHeEURRFGd1WDqS/8OLaQp5LqpArs4TsiJGnEWo1DtAzAzAM9AEEAXM+PwvU1LocuVQBeFxkI+O9xWZDVy8z+8kxBeOoObNKdcz9BHC8XnS1J9wjJiRy55knXAiL3Qp+TS4zABifkOPeKiq9CBdQ6cxwfWpcUjFvYSXfRO7jAnEKxo52BhTV/PVcbWaRuZ+P/FkZb66jXMhZzlz8Uqa8WL4lOuVNKbUk/HEi70iXt1l8lkqRD4idoOib/pQ6dnYMFprBRJaP/smrwcr0/0sQudMPPFORyYUGAMisPByCa1cNFm6z2gNqIiNm59U6atCIjnTdD8UhPgQcxi9K/hNW5eAEN2xWvEgG4Ir+IS6SRh5whb9JdTiXtVZJYBwqKySBX8R3dsSCp+G6WQDww==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(10067099003)(11063799006)(56012099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: oItbPDZQqBUGOaehwzBcl+aqo6/mfjZjwJo/m40o1dwsrkbatiyu85SeUxQvfynEoCv66ONN8c7re37BL8zSEwaN2pNPuuJlgumSyByP3LdoeExlvM/mYRnsQPL2GZXx+uB+6rMPH8HibAascSGMebSbhIvcqvsgCVf2RTqC5VqTzk9mxY05TjHmHjOMaqitQcu74z82pZY4r0CkmWcu3oom9g/3iCkgfkgHNpnMupdN7tCSg7C43pmxAI0uIh7vRSB/JzcrjkF5nIPF4d/293Nt+roZ+dvuIo60mmNhEwStOzQDUd5igy9mi4PsZ4GpEaOGYhdU7LnTJ5YwDZNRAgKf3JA/3HAbQszaBL6HMvEgPV+lPJuA+f+bAeKelHzz+q98kh4+Q/XnZ31C7Lpmhjl4lcmyh9g//JoGOApz1dKvmTPUXllSvrPDxv9OV3Mi
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 14:00:25.8695 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 62b2d557-f27f-4079-6fd4-08defc67e35c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003442.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7333
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,138 +112,108 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 17, 2026 at 3:45=E2=80=AFAM Yang Wang <kevinyang.wang@amd.com> =
-wrote:
->
-> SMU 11.0.x can retain an unfinished command across system
-> suspend, causing SMU messages such as RunDcBtc to fail during resume.
->
-> Prepare MP1 for unload during system suspend and record successful comple=
-tion,
-> reload SMC firmware after PSP restart before resume sends further SMU mes=
-sages,
-> then clear the reload state.
+From: Xiaogang Chen <xiaogang.chen@amd.com>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+If page migration from device to sys ram fails for some reasons driver needs
+release and unlock allocated system pages. To do that driver should use page
+physical address, or pfn, then get struct page*. Current driver uses dma
+address(for adev) that is not correct with IOMMU enabled, or even in general.
 
-Is there any reason not to do mp1 unload for all dGPUs in this case?
+The patch releases and unlocks allocated system pages based on where migration
+failed by struct page* of sys ram pages. Also dma_unmap correspodent system
+ram pages at error path.
 
->
-> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5620
->
-> Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c   |  9 ++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h   |  2 ++
->  drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 38 ++++++++++++++++++++---
->  3 files changed, 42 insertions(+), 7 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.c
-> index 04f6ebf31cca..5c00683c1edd 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -3512,11 +3512,16 @@ static int psp_load_non_psp_fw(struct psp_context=
- *psp)
->         struct amdgpu_firmware_info *ucode;
->         struct amdgpu_device *adev =3D psp->adev;
->
-> -       if (psp->autoload_supported &&
-> -           !psp->pmfw_centralized_cstate_management) {
-> +       if (psp->smu_fw_needs_reload ||
-> +           (psp->autoload_supported &&
-> +            !psp->pmfw_centralized_cstate_management)) {
-> +               if (psp->smu_fw_needs_reload)
-> +                       dev_dbg(adev->dev,
-> +                               "Reloading SMU firmware after MP1 unload\=
-n");
->                 ret =3D psp_load_smu_fw(psp);
->                 if (ret)
->                         return ret;
-> +               psp->smu_fw_needs_reload =3D false;
->         }
->
->         /* Load P2S table first if it's available */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.h
-> index d80c85793e3b..20338caa4921 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-> @@ -443,6 +443,8 @@ struct psp_context {
->         bool                            boot_time_tmr;
->         /* flag to mark whether df cstate management centralized to PMFW =
-*/
->         bool                            pmfw_centralized_cstate_managemen=
-t;
-> +       /* SMC firmware reload required during resume */
-> +       bool                            smu_fw_needs_reload;
->
->         /* xgmi ta firmware and buffer */
->         const struct firmware           *ta_fw;
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/=
-amd/pm/swsmu/amdgpu_smu.c
-> index 559afdc5815d..8d499d9a86df 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
-> @@ -2182,12 +2182,36 @@ static int smu_smc_hw_cleanup(struct smu_context =
-*smu)
->  static int smu_reset_mp1_state(struct smu_context *smu)
->  {
->         struct amdgpu_device *adev =3D smu->adev;
-> -       int ret =3D 0;
-> +       u32 mp1_version =3D amdgpu_ip_version(adev, MP1_HWIP, 0);
-> +       bool needs_mp1_unload;
-> +       int ret;
->
-> -       if ((!adev->in_runpm) && (!adev->in_suspend) &&
-> -               (!amdgpu_in_reset(adev)) && !smu->is_apu &&
-> -                       amdgpu_ip_version(adev, MP1_HWIP, 0) >=3D IP_VERS=
-ION(13, 0, 0))
-> -               ret =3D smu_set_mp1_state(smu, PP_MP1_STATE_UNLOAD);
-> +       if (adev->in_runpm || amdgpu_in_reset(adev) || smu->is_apu)
-> +               return 0;
-> +
-> +       switch (mp1_version) {
-> +       case IP_VERSION(11, 0, 7):
-> +       case IP_VERSION(11, 0, 11):
-> +       case IP_VERSION(11, 0, 12):
-> +       case IP_VERSION(11, 0, 13):
-> +               /*
-> +                * These SMU versions require MP1 unload before system su=
-spend.
-> +                * The shutdown path already requests it through mp1_stat=
-e.
-> +                */
-> +               needs_mp1_unload =3D adev->mp1_state !=3D PP_MP1_STATE_UN=
-LOAD;
-> +               break;
-> +       default:
-> +               needs_mp1_unload =3D !adev->in_suspend &&
-> +                       mp1_version >=3D IP_VERSION(13, 0, 0);
-> +               break;
-> +       }
-> +
-> +       if (!needs_mp1_unload)
-> +               return 0;
-> +
-> +       ret =3D smu_set_mp1_state(smu, PP_MP1_STATE_UNLOAD);
-> +       if (!ret && adev->in_suspend)
-> +               adev->psp.smu_fw_needs_reload =3D true;
->
->         return ret;
->  }
-> @@ -2279,6 +2303,10 @@ static int smu_suspend(struct amdgpu_ip_block *ip_=
-block)
->         if (ret)
->                 return ret;
->
-> +       ret =3D smu_reset_mp1_state(smu);
-> +       if (ret)
-> +               return ret;
-> +
->         smu->watermarks_bitmap &=3D ~(WATERMARKS_LOADED);
->
->         smu_set_gfx_cgpg(smu, false);
-> --
-> 2.54.0
->
+Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 46 ++++++++++++++++--------
+ 1 file changed, 31 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index 226e76ae0be7..aea82da5f575 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -258,15 +258,6 @@ svm_migrate_get_sys_page(struct vm_area_struct *vma, unsigned long addr)
+ 	return page;
+ }
+ 
+-static void svm_migrate_put_sys_page(unsigned long addr)
+-{
+-	struct page *page;
+-
+-	page = pfn_to_page(addr >> PAGE_SHIFT);
+-	unlock_page(page);
+-	put_page(page);
+-}
+-
+ static unsigned long svm_migrate_successful_pages(struct migrate_vma *migrate)
+ {
+ 	unsigned long mpages = 0;
+@@ -591,9 +582,10 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
+ 			dma_addr_t *scratch, u64 npages)
+ {
+ 	struct device *dev = adev->dev;
+-	u64 *src;
++	struct page *dpage = NULL;
+ 	dma_addr_t *dst;
+-	struct page *dpage;
++	u64 *src;
++
+ 	u64 i = 0, j;
+ 	u64 addr;
+ 	int r = 0;
+@@ -647,6 +639,7 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
+ 		r = dma_mapping_error(dev, dst[i]);
+ 		if (r) {
+ 			dev_err(adev->dev, "%s: fail %d dma_map_page\n", __func__, r);
++			dst[i] = 0;
+ 			goto out_oom;
+ 		}
+ 
+@@ -654,17 +647,40 @@ svm_migrate_copy_to_ram(struct amdgpu_device *adev, struct svm_range *prange,
+ 				     dst[i] >> PAGE_SHIFT, page_to_pfn(dpage));
+ 
+ 		migrate->dst[i] = migrate_pfn(page_to_pfn(dpage));
++
++		dpage = NULL;
+ 		j++;
+ 	}
+ 
+-	r = svm_migrate_copy_memory_gart(adev, dst + i - j, src + i - j, j,
+-					 FROM_VRAM_TO_RAM, mfence);
+-
++	if (j > 0)
++		r = svm_migrate_copy_memory_gart(adev, dst + i - j, src + i - j, j,
++						 FROM_VRAM_TO_RAM, mfence);
+ out_oom:
+ 	if (r) {
+ 		pr_debug("failed %d copy to ram\n", r);
++
++		/* first release current dpage when dma_map_page fail */
++		if (dpage) {
++			unlock_page(dpage);
++			put_page(dpage);
++			dpage = NULL;
++		}
++
++		/* release previous allocated sys pages and unmap dma address */
+ 		while (i--) {
+-			svm_migrate_put_sys_page(dst[i]);
++
++			if (dst[i] && !dma_mapping_error(dev, dst[i])) {
++				dma_unmap_page(dev, dst[i], PAGE_SIZE,
++					       DMA_BIDIRECTIONAL);
++				dst[i] = 0;
++			}
++
++			dpage = migrate_pfn_to_page(migrate->dst[i]);
++			if (!dpage)
++				continue;
++
++			unlock_page(dpage);
++			put_page(dpage);
+ 			migrate->dst[i] = 0;
+ 		}
+ 	}
+-- 
+2.34.1
+
