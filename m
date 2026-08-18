@@ -4,54 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C930FC5DF81
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 06:48:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76EAFC5DF6D
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 06:48:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 367B810ED29;
-	Wed, 19 Aug 2026 06:48:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E3C410ED39;
+	Wed, 19 Aug 2026 06:48:39 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="Ui5KdUDl";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Az+NFpOA";
 	dkim-atps=neutral
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 798B710EBDD;
- Tue, 18 Aug 2026 15:55:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=Oib1sAGemzHmu6ROtRkEHyhCtwDTicVNKskycatCaao=; b=Ui5KdUDlipNO9Vm4nINkg/+v4R
- bOUqu7BxrFpPjJPyyxL5/SQNc4/JySqtBdMrb5CyEz/IRILpW8+YnFuGzsaYbvWJv+9e0YtT8uwx/
- eE0eXe6fRPjm1sfCVSmOReeGwtH7/zEHlNxdnu5tpHNRyMiy4cejksDu81kvbeMEFRTaItbMt/IGi
- Q61CWpoF2IThZoi159FSHVf/TCVp1AzMzc9ZSRaQVSMkGFqvkSEm1dUtgG8Qvp88FNz5jkcBhNEOs
- ACjeQ2XWgqHevHSOffjhKrvnRBjt4Y+4cNGXzMxdf7NzZpsvk2bac1B5a/UMTuKt7keKswSiklY2c
- JG0mN6zA==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
- by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
- id 1wwM9g-00000008JC7-1PPo; Tue, 18 Aug 2026 15:55:12 +0000
-Message-ID: <916c4bd5-c73f-466e-8e9b-aee9d4d7d742@infradead.org>
-Date: Tue, 18 Aug 2026 08:55:11 -0700
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C66E10EBBA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 14:21:23 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-4994c49f588so12849655e9.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 07:21:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787062882; x=1787667682; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=xh6sznIcTWQR5cHVojCsxyM98WEjQuypf/fmpziWKAg=;
+ b=Az+NFpOAu6PbeZF6+mJ3XoeEpyYSuqIb8lLQqHRDjm+5RNzBervVUXprw/mDDb0PHr
+ SNUX0G52Itk0/FwKlSqbtgMeFwzJPjQHMCny/tXlPyYTrmae+UaLmFvaFE1rLFvEN+jf
+ 0LokU34HIPjfPWRRjr63FoWDd9RexVfik5MmMa5gr+mmUYrPO6kwwiPI8rpQg3pjkgi8
+ cKjMAk8Szwp3J4zLCSyzyBJLNjIeF/IBn/JAXI/KDTAO3zpdv0xHJQObaKefiM7RyZri
+ klpeB+jHVzlwQ30bK0iweabxQG3TxogR1c14HIW3oryz+5RK5/vN7qcyYSkzoH15WadM
+ MRfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787062882; x=1787667682;
+ h=content-transfer-encoding:content-type:mime-version:references
+ :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=xh6sznIcTWQR5cHVojCsxyM98WEjQuypf/fmpziWKAg=;
+ b=IwkEyYrCIfMMRUu+Wk7cgKx9HfKSumTItnl91GYSwgZr/V3UhnH7h0m1eevTJjh+f5
+ SwIes7fwP+8QV2rTEjx3P2fkG/dBySCEOceyWqxJJZ2x+ROFKyZcfxChY4IHdXAexM6b
+ lflwlmBmyVoPOA0Hajs3Ke6/3GQuoAwPzin/PqBxl5ysFZJ6xctEdFtH2TEexw3P3tE/
+ kr39k40IRhOfah6fvDJ1b/Xz3n3F0N5iURP4hQiP/kUmwqptwidBHZiVYH5vExjkDLBa
+ PL5UCWd4eDVaxHVtMwnO6j/LhavhQtS8AnU5iZhoTyu6vrC9/wJebWDV/MsaNmjkBayt
+ 96pQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp9DOp6M64n64iiY+ocQPQ09PCD1eV0Pt+CF/4m+YpCFCg+3zgG6hyESYJNa932bse2QURd/DAw@lists.freedesktop.org
+X-Gm-Message-State: AOJu0YwL9fZGzuuSwlr21aDHV8pVeAEck2jl/+D0LnEw5UMgEyozJFyD
+ L8D/aeJNg9+sX/NyVkQX9BOpwa3QjUNx/A8BvKugEIY5be6qfYNpHkX7
+X-Gm-Gg: AR+sD10Ra3aEZ/XHr1ViYU1mcwFlDfkKhe1nFq6xU+nnCLGaWpQvq2ecJ4KpoIya0eh
+ a1JMFx1QM0KiG7U9K5N2k5Y+zG+bZHJzrysdwf7e8axn+HBUZpiXhfnvx3oHfIqx4iTafPbUmtZ
+ UUiAsW4MvCcfytdv50x9+afUtZ31NiyuKHdpGk4D5ii5/1IcMDUKkA+P1KgEH8tvntQYH3yd72N
+ c10eDnBYM7xJBYnHq3V4t2z0PnP0Ula2skQYLj8G7HyiGzXFnWwzlSPv2HtgGmgvTJPLhcB6INN
+ lZCg2ReIpGlxEmh1Dt5N27m4DXfA3zPphMTfnrprFAA25m+Ycvo7I5Kz30/pd3QH5im0VHkR/9h
+ nj+qj6YPzBVsdD1LmkGQxhP655YsMF6J2dB/bIvvFa0avUJKuWBebjDuTEAtYpXnmXDVokJiuOL
+ tCsbYgqctHLK0Il6GHTn7Ag9inWqmqze/gK3xwvPhsq8udjGMj8cgu+OHDsTk8BfBKGX5CnXlz3
+ 7agIbt6s1fh6VHsy0JcnHdkIA==
+X-Received: by 2002:a05:600c:858e:b0:499:5f81:8ca1 with SMTP id
+ 5b1f17b1804b1-499a08d2c5fmr119294355e9.6.1787062881505; 
+ Tue, 18 Aug 2026 07:21:21 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-482a5b81715sm12428769f8f.35.2026.08.18.07.21.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Aug 2026 07:21:20 -0700 (PDT)
+Date: Tue, 18 Aug 2026 15:21:13 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: Amin Gattout <amin.gattout@gmail.com>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] drm/amdgpu: Replace deprecated strcpy with strscpy
+Message-ID: <20260818152113.31b72e30@pumpkin>
+In-Reply-To: <CADnq5_NZQrSAqV4cTz8HaJYsatb9VWgc4J3--gTWvF8NTz6-xg@mail.gmail.com>
+References: <20260818-amdgpu-strcpy-v1-1-3ee9b111fafe@gmail.com>
+ <CADnq5_NZQrSAqV4cTz8HaJYsatb9VWgc4J3--gTWvF8NTz6-xg@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/12] drm/panic: Move panic display code into helper
- library
-To: Thomas Zimmermann <tzimmermann@suse.de>, jfalempe@redhat.com,
- javierm@redhat.com, airlied@gmail.com, simona@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
- sashiko-reviews@lists.linux.dev
-References: <20260818125012.468092-1-tzimmermann@suse.de>
- <20260818125012.468092-12-tzimmermann@suse.de>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260818125012.468092-12-tzimmermann@suse.de>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Wed, 19 Aug 2026 06:48:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -67,44 +96,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+On Tue, 18 Aug 2026 09:01:43 -0400
+Alex Deucher <alexdeucher@gmail.com> wrote:
 
-On 8/18/26 5:28 AM, Thomas Zimmermann wrote:
->  M:	Hans de Goede <hansg@kernel.org>
-> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
-> index 323422861e8f..cdfd72d9a9c5 100644
-> --- a/drivers/gpu/drm/Kconfig
-> +++ b/drivers/gpu/drm/Kconfig
-> @@ -45,6 +45,7 @@ config DRM_MIPI_DSI
->  config DRM_KMS_HELPER
->  	tristate
->  	depends on DRM
-> +	select DRM_PANIC_HELPER if DRM_PANIC
+> Applied.  Thanks!
+>=20
+> On Tue, Aug 18, 2026 at 7:10=E2=80=AFAM Amin Gattout <amin.gattout@gmail.=
+com> wrote:
+> >
+> > strcpy() has been deprecated because it performs no bounds checking
+> > on the destination buffer, which can lead to buffer overflows. Replace
+> > it with the safer strscpy().  No functional changes.
+> >
+> > Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
+> > ---
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c | 6 +++---
+> >  1 file changed, 3 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_mca.c
+> > index cc6d1a4e4c3a..1caa393c44d5 100644
+> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+> > @@ -97,7 +97,7 @@ int amdgpu_mca_mp0_ras_sw_init(struct amdgpu_device *=
+adev)
+> >                 return err;
+> >         }
+> >
+> > -       strcpy(ras->ras_block.ras_comm.name, "mca.mp0");
+> > +       strscpy(ras->ras_block.ras_comm.name, "mca.mp0");
 
-but DRM_PANIC_HELPER depends on DRM_TTM so
-DRM_KMS_HELPER should also depend on DRM_TTM. Otherwise:
+I missed this being proposed.
+Both strcpy() and strscpy() get converted to the same memcpy()
+(which might itself get converted to writing a 64bit constant).
 
-WARNING: unmet direct dependencies detected for DRM_PANIC_HELPER
-  Depends on [n]: HAS_IOMEM [=y] && DRM [=y] && DRM_TTM [=n]
-  Selected by [y]:
-  - DRM_KMS_HELPER [=y] && HAS_IOMEM [=y] && DRM [=y] && DRM_PANIC [=y]
+But if the string were too long strcpy() would generate a compile error
+whereas strscpy() just trunctates the string.
 
+Which one is better?
 
->  	select FB_CORE if DRM_FBDEV_EMULATION
->  	help
->  	  CRTC helpers for KMS drivers.
-> @@ -130,6 +131,10 @@ config DRM_PANIC_SCREEN_QR_VERSION
->  	  Smaller QR code are easier to read, but will contain less debugging
->  	  data. Default is 40.
->  
-> +config DRM_PANIC_HELPER
-> +	bool
-> +	depends on DRM_TTM
-> +
->  config DRM_RAS
->  	bool "DRM RAS support"
->  	depends on DRM
+	David
 
--- 
-~Randy
+> >         ras->ras_block.ras_comm.block =3D AMDGPU_RAS_BLOCK__MCA;
+> >         ras->ras_block.ras_comm.sub_block_index =3D AMDGPU_RAS_MCA_BLOC=
+K__MP0;
+> >         ras->ras_block.ras_comm.type =3D AMDGPU_RAS_ERROR__MULTI_UNCORR=
+ECTABLE;
+> > @@ -122,7 +122,7 @@ int amdgpu_mca_mp1_ras_sw_init(struct amdgpu_device=
+ *adev)
+> >                 return err;
+> >         }
+> >
+> > -       strcpy(ras->ras_block.ras_comm.name, "mca.mp1");
+> > +       strscpy(ras->ras_block.ras_comm.name, "mca.mp1");
+> >         ras->ras_block.ras_comm.block =3D AMDGPU_RAS_BLOCK__MCA;
+> >         ras->ras_block.ras_comm.sub_block_index =3D AMDGPU_RAS_MCA_BLOC=
+K__MP1;
+> >         ras->ras_block.ras_comm.type =3D AMDGPU_RAS_ERROR__MULTI_UNCORR=
+ECTABLE;
+> > @@ -147,7 +147,7 @@ int amdgpu_mca_mpio_ras_sw_init(struct amdgpu_devic=
+e *adev)
+> >                 return err;
+> >         }
+> >
+> > -       strcpy(ras->ras_block.ras_comm.name, "mca.mpio");
+> > +       strscpy(ras->ras_block.ras_comm.name, "mca.mpio");
+> >         ras->ras_block.ras_comm.block =3D AMDGPU_RAS_BLOCK__MCA;
+> >         ras->ras_block.ras_comm.sub_block_index =3D AMDGPU_RAS_MCA_BLOC=
+K__MPIO;
+> >         ras->ras_block.ras_comm.type =3D AMDGPU_RAS_ERROR__MULTI_UNCORR=
+ECTABLE;
+> >
+> > ---
+> > base-commit: 0f23d56f17fdfc7db69d51f64c8b91bbab947aa9
+> > change-id: 20260818-amdgpu-strcpy-0e92d18299c6
+> >
+> > Best regards,
+> > --
+> > Amin Gattout <amin.gattout@gmail.com>
+> > =20
+>=20
 
