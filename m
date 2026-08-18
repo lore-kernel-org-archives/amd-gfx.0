@@ -4,65 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9E369C5DF9B
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01E93C5DF93
 	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 20:23:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D53DC10ECD7;
-	Tue, 18 Aug 2026 20:23:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 25FBE10ECD8;
+	Tue, 18 Aug 2026 20:23:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="N7PQU+Pp";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5dSYI8Fa";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012057.outbound.protection.outlook.com
- [40.93.195.57])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1CCBE10ECCD
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:56 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012029.outbound.protection.outlook.com [40.107.209.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DCAC10ECD2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dOpfjkhHToLVzZvXfFYUYWGF8U837/3g64eGE7TQ3vNKDPy1soHoPiREgRbct7iKHizck/PIpKG8jHpnAsqX3ANBzY7r9tCHX/1bnZrJ7MMYhs0OOIUlCb6K82LCc8v4gr8TXm4pMtKqztD4Uxk07gD/Jr0HzG3e4vy8jQEzq3etUTd/O+FKmv3p8Q1bxzrKc8q/9ytKdtr3jonWqggzMerjay1Z2/SbR5N8go/mc9U5ra5UdTPF3P3yTC6/OC6fl8a89uQVIzZgVOOonG/Mzoko9ARnj9zH0k2247cHfioqq8EIZU3P/6Qd7OQhZXxW0YyOecwtuFvf4Wy7+XigRQ==
+ b=NkFf4xVBazsBEtYEokNCUQ0fZWVhL6hc/J9RA0/vRXuVOY5TvrfplQP0t7f88ER3kDz95epqHvxVN57P4hY00/bUnClQm3VvU8Q1Iy1qNes/939wmXVIS/YjYcgvHSU30o16NnJPAThfA0ePhfLVnGFasQUDGVm7PENGmnmmRiBeYJ8QqK4S+/0oRIkStMXIj/8JSfRbzGyT8MZu8+p9WSZgEXWrREPPbAEtV8srmn9GKrjOml1iG0svUfXpd8jlIMfAoP6ir7Ydyfxpcvf50mJvZNndMxq7n9XvTs4EdXW1YnSi2rYFf+srbuI8LD7dtYdcAutNNS43RHHvigrkiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+fhdLqSL1Mh9INt8x2QCZVVKfxwvyS7VAHJM7xJOAGk=;
- b=sVmsCIUAh9dAp4PT4x3ocTV3DoQ0GegfJVuzsZ79nnOuzU3gJtSn2crxHjn+EeiXh20MVAgwDWRNj6Mtn5tCfxdp0e5xVnoKc/cEQ4HATs5zdD2lu9dw8bRd7kI8KFCeDzYdvHZCrP6/HxR3YNqKyTISV7RXge8uSiErXu2aN2uRhKaOyJfiYvW0t7i2oanrevOdfaNjuWsiCIDAJU2wZuVzU7VIskRT6RPx14UviWPjsszUnLpFEfX7iO9Itn9bcby/+tPfR5MFyqWRLBFEK7ddCxJz4YtbEEJigX2tnOEc/n83LhuvPsmuLT9yPbAqO9cTKeZQtfP37hQoJ9eU5A==
+ bh=bV8xutFDLmnwCqj0IdEQ7ofcW2ICkcZz5i5qgMCq4LE=;
+ b=rvrhIGkk0vjE9f+Eyj4APJ6icff7iC8QtjClyj2odag7suYWr7naXL384hWJ3JZWXXSb1Ozsm1DjFrFenM/AtU8p/FXBOf2/bth4Bt9V1C6r/uSRq61ABec82HgNYIyMqnN7v8g7gSYw8udFxcOMypKPbwOunnsYl1hj5SbQmD2KxggEh5cldVYJVGeTvcYKRdfjp2/XBtU31131FlaCFMd9vL2QvvWLn9BvW/R0cgZ6ONwocAdAZJTCW9+mXrR0b9zdO5Tif4KbVaLcWyyq864kWITTdLd+gLebLQe8SHOwtlLtntNbk0tPGAnWYX/GbP3B75VPbm0B6GW4nClPgQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+fhdLqSL1Mh9INt8x2QCZVVKfxwvyS7VAHJM7xJOAGk=;
- b=N7PQU+PpzDxtDkEhLjL6wMt5GNj+6nmTlTudZh2SipDM4fZfoYQSmhRkZkk5kJ0YRSURkZvLI+RbFAyUmmOZzqazY1GCPfw2wH2iOL5N0kDdic9NT38pytQRsZcLDxxNx75xwQ7SZaRdo6GUkK581tRBCnJ2s7RuSVzkKTbcKjg=
-Received: from BN9PR03CA0552.namprd03.prod.outlook.com (2603:10b6:408:138::17)
- by MN2PR12MB4095.namprd12.prod.outlook.com (2603:10b6:208:1d1::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Tue, 18 Aug
- 2026 20:22:51 +0000
-Received: from MN1PEPF0000F0DF.namprd04.prod.outlook.com
- (2603:10b6:408:138:cafe::32) by BN9PR03CA0552.outlook.office365.com
- (2603:10b6:408:138::17) with Microsoft SMTP Server (version=TLS1_3,
+ bh=bV8xutFDLmnwCqj0IdEQ7ofcW2ICkcZz5i5qgMCq4LE=;
+ b=5dSYI8FaN7T9ELYCH29CmRiZ4jfdKYcUchHn+UJDgcRLbHJDQ9Ns7hRRmh9+LCOT0aeNoKgtjndno3ACTewJqGvbTqcr2NBpYow2HT8CReEtDSQe7k+ab27WXxwmlXooeyIOMv6Qix7tN5opGQb39iQ1ZrlXWEm1ZulHDFtwe6M=
+Received: from BL1P221CA0024.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:2c5::31)
+ by DS0PR12MB8477.namprd12.prod.outlook.com (2603:10b6:8:15b::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Tue, 18 Aug
+ 2026 20:22:48 +0000
+Received: from BN3PEPF0000B36F.namprd21.prod.outlook.com
+ (2603:10b6:208:2c5:cafe::90) by BL1P221CA0024.outlook.office365.com
+ (2603:10b6:208:2c5::31) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.17 via Frontend Transport; Tue,
- 18 Aug 2026 20:22:51 +0000
+ 18 Aug 2026 20:22:48 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MN1PEPF0000F0DF.mail.protection.outlook.com (10.167.242.37) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF0000B36F.mail.protection.outlook.com (10.167.243.166) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Tue, 18 Aug 2026 20:22:51 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 20:22:48 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
- 2026 15:22:51 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 15:22:45 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
- 2026 15:22:50 -0500
+ 2026 15:22:44 -0500
 Received: from box-0.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Tue, 18 Aug 2026 15:22:50 -0500
+ Transport; Tue, 18 Aug 2026 15:22:44 -0500
 From: <IVAN.LIPSKI@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -72,9 +71,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 76/82] drm/amd/display: Cover amdgpu_dm_i2c_xfer
-Date: Tue, 18 Aug 2026 16:16:08 -0400
-Message-ID: <20260818202139.4172592-77-IVAN.LIPSKI@amd.com>
+Subject: [PATCH 68/82] drm/amd/display: Test
+ amdgpu_dm_dce110_register_irq_handlers
+Date: Tue, 18 Aug 2026 16:16:00 -0400
+Message-ID: <20260818202139.4172592-69-IVAN.LIPSKI@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
 References: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
@@ -83,29 +83,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DF:EE_|MN2PR12MB4095:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6728b01e-0565-4790-76fa-08defd667a61
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36F:EE_|DS0PR12MB8477:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5beb6df-161f-44e4-e962-08defd667867
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|1800799024|36860700016|23010399003|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: dHWSweWJBDOegsnK52ZXHVxUctIGGpmU3rov6Ay7jvvPxuR2YmxI/EUD2GgBTL7fpGo/JtrSI8bM9W6VZUeoXLhRjwTL8y6Ysb/9HgemM8H8D+dVK6jUrC+K9Yi9vU0H92YSVzd0HrKR7WrXT3BptXzA+dxMBoCBwZn5Dvioo+li/UdEDpwn8MgOciszdbaCrSbM3isejt/Ygnagn+HH55Tu5LPTsu5mMZvQyye4MXxA21xwemMWles35hwKQt7RfQ+Ts6dNSadnIbyKE4sEIx8sI0PnbiUiBLpxlyRjxtH7SHGdCmmIM54LOMBIaYYNMo1lravK4J5cY6unhXeDQS+jYxgX7yvAnebPH78PkQSZHx4/ri9jwY/FvBOATudxL4PuVxFlRT7t2sa75r2HWNZ0Xi7s10iO6S1CSQKiOuywHLnq42rX+hAhPAp0ia7ENjyk/x/VN9QGnOydkODalCAaVKih2wowiQstPbjXE03XxlDl7t+5lCxoFm43J43EZZZfU0tcnZgiAQtVDGQLYrkGNs8Alg2jMRuICnqeue6/3bC1XkT4WtxRyHTkQ9dcjKdbuuFWmZ9/X10BpCiJqpi0xf0frxfkYhwSqfGLoUgemFEzyPeQJd3hyCbGCxTA071m3ExmkS21OuhFU+nrQpav6nQDYKYGhxoYOioAuAwPDR/2jzNBPiFdEwkPeQzAmA5T1E2XBkXg69YtNzjyiw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(1800799024)(36860700016)(23010399003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
+ ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|22082099003|18002099003|10067099003|56012099006|11063799006|5023799004;
+X-Microsoft-Antispam-Message-Info: STuL1Wxk6iHRN/1EWIpyNXCPuBHvHQvm2p9N9Wt/vNO2hCaspBkU3pewAR+pS/V0BGTumNkiEinKK4CthYxMTD8VMPO8oZSI/i8BHtqv//KLTFTDUd3hbAk7/XhO5/YGWtFFPAUFi2aDaQlIN1oO2K0xwU0HUumAp7NI5s2cugFappVMNdFx4BR6g11tA8oWMNqt1RTCRJfnIVh5OHYFuFi6lH2sqxvH+JKpL6wjdFN5MkLAwYF2I38VR7BZSD1BYYQ6BFwVkjZfOTYQnN8StxmqI1RnonPEqeXqFP3Bfpsk62G1Sq0z2AZQFB3iADqgRJGVeUa+Dgqqefx5DqlpXBESJa+lrZmejVuHvMZYRGVgOESSD5klYhINHPPx1X4cFOyGZ+DyEQgCivjPTTl6ItXox34Ps8IpjKFBml1joQggff0L9vEMrAIeK2jN6nPSQy1vwQfqv8N6p4KhsSbcPyirm8Q2A18wLoIrfNnJJY75Fx2VwrVidxZ7tkpD4LGeAZ4QWjNEaSPnRP1sPGcgvrexzWHIRtt0eQ8q1ZHAy8C+L+HhBgJ7WcZyXSsc+SrmbrUlzX0DNi3cGMmLPl5dQ6M2GhPSWtm4M4MZW3/RpIa5Ar9AQHTzQAVT6TFEVIYRhQg48Hl1JcD7Sq64pIGvWERBuq2mcviIa7kISzToZyY=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006)(5023799004);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: z/wMn+GJekj4AqzDbeDhgE5pRpg20PvDCI5S/Q1YDdiYAxDKYCQlX3S57EjSJuatixj4WptTtYNymiOVNMZ88MqEsNcSk4omooR+E30a+zm8bHfzqeIRjv4nI2U8wmFRjST9xqc/jCyIZzAv8bkhJo/oVYBN3D/foH6SyH7cRyFuHdGIQSsB9kufU9sBKiZr/MAxZwnXIibWUKMHI0VhMtiGOeqVpIt3C7j1L0jdG9ViB/8dYb503RSW9t5R56n552CeVlMRGKXDhVtCMO+C5IBzBhcdaVB6pwDiyc9ydBudd6+HGhaZTGpOz/vvbvQmHG6atPWS7SwnqVTSi8HikBcgCGlM4Iq8/jq/911xEh9DhJ7xdllGyPEGfxeQqtwNJvWDPEejFnElsaAjht+pjlyeiUOziZspdUVAt3PLbRjUBrsj7+FruWcLymY4Okx3
+X-MS-Exchange-AntiSpam-MessageData-0: X0Qmui42PaaC8NS5gUf7+EmbYtM4eivcVKEI0kV8wbYHIKasJeGHkAPjA4pNOaT0MN79iT46cYASbCN6lfArbwX+1Z6wGhPSU9mNQ7s6bp7sxywFkGNVfyVqa5KRRw8ZKA6UWjCeRKMOtFJd0kM+6hWkmdniAA/w3jKgeJ/uPIErhiySKRKLLOSgpZzjFFXriGTzzxi75VpAaBfl9WjwKrZRtnkMu2QeGloTdUHwXuMmmfpqW9SccycO4PmCuriMBgrXeGM0I7pX0vYYUQazSR42plEFTaZR6xlh+Stae9f+ajt0yy07v8TJDsq3eFqlZBfFcS9teYpNjlfruHaN+BMxWKqX2s0gVXz14kw8a8ToO8ev/aK+3+ZcnFjt7OgjYb8mO5sPAINUTjQ6YIDIPw30DAMX1V60UaheVvO7zJHsa9P945rEADL8TjXcMi5C
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:51.4443 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6728b01e-0565-4790-76fa-08defd667a61
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:48.1324 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5beb6df-161f-44e4-e962-08defd667867
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0DF.namprd04.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36F.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4095
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8477
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,134 +120,248 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+From: Alex Hung <alex.hung@amd.com>
 
-Add KUnit tests for amdgpu_dm_i2c_xfer() covering a failed hardware
-command submission and the OEM i2c path with no device present.
+[WHAT]
+Add KUnit tests for amdgpu_dm_dce110_register_irq_handlers() covering
+the SOC15 DCE client used from Vega on, the amdgpu_irq_add_id()
+rejections for the CRTC, VUPDATE and HPD sources, and the
+invalid-source guards in the VBLANK, VUPDATE and PFLIP loops.
 
-Assisted-by: Copilot:Claude-Opus-4.8
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+[HOW]
+Add three fake IRQ services that map only a prefix of the source IDs so
+each loop reaches its guard in turn. Clearing a single amdgpu_irq_src's
+funcs makes only that source's add_id() fail.
+
+Assisted-by: Copilot:Claude-Opus-5
+Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 ---
- .../tests/amdgpu_dm_connector_test.c          | 97 +++++++++++++++++++
- 1 file changed, 97 insertions(+)
+ .../amdgpu_dm/tests/amdgpu_dm_irq_test.c      | 196 ++++++++++++++++++
+ 1 file changed, 196 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index 24f55432e3262..39b7dda52fb0b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -5746,6 +5746,101 @@ static void dm_test_i2c_xfer_no_ddc_pin(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, amdgpu_dm_i2c_xfer(&i2c->base, NULL, 0), -EIO);
- }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
+index 933a33a360fbe..a354fa25998f7 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
+@@ -276,6 +276,55 @@ static const struct irq_service_funcs dm_test_irq_service_funcs_dce110 = {
+ 	.to_dal_irq_source = dm_test_to_dal_irq_source_dce110
+ };
  
-+/* Fake i2c adapter chain used by the amdgpu_dm_i2c_xfer() tests. */
-+struct dm_test_i2c_ctx {
-+	struct amdgpu_i2c_adapter *i2c;
-+	struct ddc_service *ddc;
-+	struct dc_context *dc_ctx;
-+	struct dc *dc;
-+	struct dc_link *link;
++/* Maps nothing, so the first (VBLANK) register loop sees an invalid source. */
++static enum dc_irq_source dm_test_to_dal_irq_source_unmapped(
++		struct irq_service *irq_service,
++		uint32_t src_id,
++		uint32_t ext_id)
++{
++	return DC_IRQ_SOURCE_INVALID;
++}
++
++static const struct irq_service_funcs dm_test_irq_service_funcs_unmapped = {
++	.to_dal_irq_source = dm_test_to_dal_irq_source_unmapped
 +};
 +
-+/*
-+ * Build an i2c adapter whose ddc_service has a ddc_pin (so the transfer is not
-+ * rejected up front) and whose dc back-pointer resolves to a link at index 0.
-+ * The link ddc has no ddc_pin, so the non-OEM dc_submit_i2c() path bails out
-+ * and reports failure without touching real hardware.
-+ */
-+static struct dm_test_i2c_ctx *dm_test_i2c_setup(struct kunit *test)
++/* Maps VBLANK only, so the VUPDATE register loop sees an invalid source. */
++static enum dc_irq_source dm_test_to_dal_irq_source_vblank_only(
++		struct irq_service *irq_service,
++		uint32_t src_id,
++		uint32_t ext_id)
 +{
-+	struct dm_test_i2c_ctx *ctx;
-+	struct ddc_service *link_ddc;
-+	struct ddc *pin;
++	if (src_id == VISLANDS30_IV_SRCID_D1_VERTICAL_INTERRUPT0)
++		return DC_IRQ_SOURCE_VBLANK1;
 +
-+	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx);
-+	ctx->i2c = kunit_kzalloc(test, sizeof(*ctx->i2c), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->i2c);
-+	ctx->ddc = kunit_kzalloc(test, sizeof(*ctx->ddc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->ddc);
-+	ctx->dc_ctx = kunit_kzalloc(test, sizeof(*ctx->dc_ctx), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->dc_ctx);
-+	ctx->dc = kunit_kzalloc(test, sizeof(*ctx->dc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->dc);
-+	ctx->link = kunit_kzalloc(test, sizeof(*ctx->link), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->link);
-+	pin = kunit_kzalloc(test, sizeof(*pin), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, pin);
-+	link_ddc = kunit_kzalloc(test, sizeof(*link_ddc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, link_ddc);
++	return DC_IRQ_SOURCE_INVALID;
++}
 +
-+	ctx->ddc->ddc_pin = pin;
-+	ctx->ddc->ctx = ctx->dc_ctx;
-+	ctx->ddc->link = ctx->link;
-+	ctx->dc_ctx->dc = ctx->dc;
-+	ctx->link->link_index = 0;
-+	ctx->link->ddc = link_ddc;
-+	ctx->dc->links[0] = ctx->link;
-+	ctx->i2c->ddc_service = ctx->ddc;
-+	i2c_set_adapdata(&ctx->i2c->base, ctx->i2c);
++static const struct irq_service_funcs dm_test_irq_service_funcs_vblank_only = {
++	.to_dal_irq_source = dm_test_to_dal_irq_source_vblank_only
++};
 +
-+	return ctx;
++/* Maps everything but PFLIP, so the PFLIP register loop sees an invalid source. */
++static enum dc_irq_source dm_test_to_dal_irq_source_no_pflip(
++		struct irq_service *irq_service,
++		uint32_t src_id,
++		uint32_t ext_id)
++{
++	switch (src_id) {
++	case VISLANDS30_IV_SRCID_D1_VERTICAL_INTERRUPT0:
++		return DC_IRQ_SOURCE_VBLANK1;
++	case VISLANDS30_IV_SRCID_D1_V_UPDATE_INT:
++		return DC_IRQ_SOURCE_VUPDATE1;
++	default:
++		return DC_IRQ_SOURCE_INVALID;
++	}
++}
++
++static const struct irq_service_funcs dm_test_irq_service_funcs_no_pflip = {
++	.to_dal_irq_source = dm_test_to_dal_irq_source_no_pflip
++};
++
+ static enum dc_irq_source dm_test_to_dal_irq_source_dcn10(
+ 		struct irq_service *irq_service,
+ 		uint32_t src_id,
+@@ -4266,6 +4315,146 @@ static void dm_test_dce110_register_irq_handlers_one_crtc(struct kunit *test)
+ 	amdgpu_dm_irq_fini(adev);
+ }
+ 
++/**
++ * dm_test_dce110_register_irq_handlers_soc15_client - Test DCE110 on AI+ ASICs
++ * @test: The KUnit test context
++ *
++ * From Vega on, the DCE interrupts are routed through the SOC15 DCE client
++ * rather than the legacy one, so the IRQ sources must be registered there.
++ */
++static void dm_test_dce110_register_irq_handlers_soc15_client(struct kunit *test)
++{
++	struct amdgpu_irq_src **soc15_sources;
++	struct amdgpu_device *adev;
++
++	adev = dm_test_setup_irq_regs(test, &dm_test_irq_service_funcs_dce110);
++	adev->family = AMDGPU_FAMILY_AI;
++
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_dce110_register_irq_handlers(adev), 0);
++
++	KUNIT_EXPECT_NULL(test, adev->irq.client[AMDGPU_IRQ_CLIENTID_LEGACY].sources);
++	soc15_sources = adev->irq.client[SOC15_IH_CLIENTID_DCE].sources;
++	KUNIT_ASSERT_NOT_NULL(test, soc15_sources);
++	KUNIT_EXPECT_PTR_EQ(test,
++			    soc15_sources[VISLANDS30_IV_SRCID_D1_VERTICAL_INTERRUPT0],
++			    &adev->crtc_irq);
++
++	amdgpu_dm_irq_fini(adev);
 +}
 +
 +/**
-+ * dm_test_i2c_xfer_hw_submit_fails - Test the non-OEM path reports a failed submit
++ * dm_test_dce110_register_irq_handlers_crtc_add_id_fails - Test add-id failure
 + * @test: The KUnit test context
 + *
-+ * With a ddc_pin present the transfer builds the payload list and dispatches
-+ * through dc_submit_i2c(); the target link has no ddc_pin, so the submit fails
-+ * and the transfer returns -EIO instead of the message count.
++ * amdgpu_irq_add_id() rejects a source with no funcs table, so registering the
++ * VBLANK interrupt before amdgpu_dm_set_irq_funcs() has run must fail.
 + */
-+static void dm_test_i2c_xfer_hw_submit_fails(struct kunit *test)
++static void dm_test_dce110_register_irq_handlers_crtc_add_id_fails(struct kunit *test)
 +{
-+	struct dm_test_i2c_ctx *ctx = dm_test_i2c_setup(test);
-+	u8 buf[2];
-+	struct i2c_msg msgs[] = {
-+		{ .addr = 0x50, .flags = I2C_M_RD, .len = sizeof(buf), .buf = buf },
-+	};
++	struct amdgpu_device *adev;
++	struct dc *dc;
 +
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_i2c_xfer(&ctx->i2c->base, msgs, 1), -EIO);
++	adev = dm_kunit_alloc_adev(test);
++	dc = dm_test_alloc_dc_with_irq_service(test, &dm_test_irq_service_funcs_dce110);
++	dc->ctx->dce_version = DCE_VERSION_11_0;
++	adev->dm.dc = dc;
++	adev->mode_info.num_crtc = 1;
++
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_dce110_register_irq_handlers(adev), -EINVAL);
 +}
 +
 +/**
-+ * dm_test_i2c_xfer_oem_no_device - Test the OEM path with no OEM device fails
++ * dm_test_dce110_register_irq_handlers_bad_vblank_source - Test VBLANK guard
 + * @test: The KUnit test context
 + *
-+ * When the adapter is flagged as OEM the transfer routes through
-+ * dc_submit_i2c_oem(); with no oem_device on the resource pool the submit
-+ * fails and the transfer returns -EIO.
++ * A source ID that DC does not map to a VBLANK IRQ source must be rejected
++ * rather than used to index the vblank parameter array.
 + */
-+static void dm_test_i2c_xfer_oem_no_device(struct kunit *test)
++static void dm_test_dce110_register_irq_handlers_bad_vblank_source(struct kunit *test)
 +{
-+	struct dm_test_i2c_ctx *ctx = dm_test_i2c_setup(test);
-+	struct resource_pool *pool;
-+	u8 buf[2] = { 0x12, 0x34 };
-+	struct i2c_msg msgs[] = {
-+		{ .addr = 0x50, .flags = 0, .len = sizeof(buf), .buf = buf },
-+	};
++	struct amdgpu_device *adev;
 +
-+	pool = kunit_kzalloc(test, sizeof(*pool), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, pool);
-+	ctx->dc->res_pool = pool;
-+	ctx->i2c->oem = true;
++	adev = dm_test_setup_irq_regs(test, &dm_test_irq_service_funcs_unmapped);
 +
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_i2c_xfer(&ctx->i2c->base, msgs, 1), -EIO);
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_dce110_register_irq_handlers(adev), -EINVAL);
++
++	amdgpu_dm_irq_fini(adev);
++}
++
++/**
++ * dm_test_dce110_register_irq_handlers_bad_vupdate_source - Test VUPDATE guard
++ * @test: The KUnit test context
++ *
++ * With VBLANK mapped but VUPDATE unmapped, registration must fail once the
++ * VUPDATE loop sees the invalid source.
++ */
++static void dm_test_dce110_register_irq_handlers_bad_vupdate_source(struct kunit *test)
++{
++	struct amdgpu_device *adev;
++
++	adev = dm_test_setup_irq_regs(test, &dm_test_irq_service_funcs_vblank_only);
++
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_dce110_register_irq_handlers(adev), -EINVAL);
++
++	amdgpu_dm_irq_fini(adev);
++}
++
++/**
++ * dm_test_dce110_register_irq_handlers_bad_pflip_source - Test PFLIP guard
++ * @test: The KUnit test context
++ *
++ * With VBLANK and VUPDATE mapped but PFLIP unmapped, registration must fail
++ * once the pageflip loop sees the invalid source.
++ */
++static void dm_test_dce110_register_irq_handlers_bad_pflip_source(struct kunit *test)
++{
++	struct amdgpu_device *adev;
++
++	adev = dm_test_setup_irq_regs(test, &dm_test_irq_service_funcs_no_pflip);
++
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_dce110_register_irq_handlers(adev), -EINVAL);
++
++	amdgpu_dm_irq_fini(adev);
++}
++
++/**
++ * dm_test_dce110_register_irq_handlers_vupdate_add_id_fails - Test add-id failure
++ * @test: The KUnit test context
++ *
++ * The VBLANK loop succeeds, then a VUPDATE source with no funcs table is
++ * rejected by amdgpu_irq_add_id().
++ */
++static void dm_test_dce110_register_irq_handlers_vupdate_add_id_fails(struct kunit *test)
++{
++	struct amdgpu_device *adev;
++
++	adev = dm_test_setup_irq_regs(test, &dm_test_irq_service_funcs_dce110);
++	adev->vupdate_irq.funcs = NULL;
++
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_dce110_register_irq_handlers(adev), -EINVAL);
++
++	amdgpu_dm_irq_fini(adev);
++}
++
++/**
++ * dm_test_dce110_register_irq_handlers_hpd_add_id_fails - Test HPD add-id failure
++ * @test: The KUnit test context
++ *
++ * All three per-CRTC loops succeed, then the HPD source with no funcs table is
++ * rejected by amdgpu_irq_add_id().
++ */
++static void dm_test_dce110_register_irq_handlers_hpd_add_id_fails(struct kunit *test)
++{
++	struct amdgpu_device *adev;
++
++	adev = dm_test_setup_irq_regs(test, &dm_test_irq_service_funcs_dce110);
++	adev->hpd_irq.funcs = NULL;
++
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_dce110_register_irq_handlers(adev), -EINVAL);
++
++	amdgpu_dm_irq_fini(adev);
 +}
 +
  /**
-  * dm_test_get_amd_vsdb_unsupported - Test a zero VSDB version reports no support
+  * dm_test_dcn10_register_irq_handlers_zero_crtc - Test DCN10 zero-CRTC registration
   * @test: The KUnit test context
-@@ -8497,6 +8592,8 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
- 	KUNIT_CASE(dm_test_i2c_func_returns_flags),
- 	/* amdgpu_dm_i2c_xfer */
- 	KUNIT_CASE(dm_test_i2c_xfer_no_ddc_pin),
-+	KUNIT_CASE(dm_test_i2c_xfer_hw_submit_fails),
-+	KUNIT_CASE(dm_test_i2c_xfer_oem_no_device),
- 	/* get_amd_vsdb */
- 	KUNIT_CASE(dm_test_get_amd_vsdb_unsupported),
- 	KUNIT_CASE(dm_test_get_amd_vsdb_supported),
+@@ -4673,6 +4862,13 @@ static struct kunit_case amdgpu_dm_irq_tests[] = {
+ 	/* IRQ handler registration helpers */
+ 	KUNIT_CASE(dm_test_dce110_register_irq_handlers_rejects_uninitialized_sources),
+ 	KUNIT_CASE(dm_test_dce110_register_irq_handlers_one_crtc),
++	KUNIT_CASE(dm_test_dce110_register_irq_handlers_soc15_client),
++	KUNIT_CASE(dm_test_dce110_register_irq_handlers_crtc_add_id_fails),
++	KUNIT_CASE(dm_test_dce110_register_irq_handlers_bad_vblank_source),
++	KUNIT_CASE(dm_test_dce110_register_irq_handlers_bad_vupdate_source),
++	KUNIT_CASE(dm_test_dce110_register_irq_handlers_bad_pflip_source),
++	KUNIT_CASE(dm_test_dce110_register_irq_handlers_vupdate_add_id_fails),
++	KUNIT_CASE(dm_test_dce110_register_irq_handlers_hpd_add_id_fails),
+ 	KUNIT_CASE(dm_test_dcn10_register_irq_handlers_zero_crtc),
+ 	KUNIT_CASE(dm_test_dcn10_register_irq_handlers_one_crtc),
+ 	KUNIT_CASE(dm_test_register_outbox_irq_handlers_without_dmub),
 -- 
 2.43.0
 
