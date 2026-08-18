@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 088B3C5DF8A
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 73957C5DF8D
 	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 20:22:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EC0AB10EC99;
-	Tue, 18 Aug 2026 20:22:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 51BDB10ECC6;
+	Tue, 18 Aug 2026 20:22:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TgQwfdRQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="a+Er2iH0";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010045.outbound.protection.outlook.com [52.101.201.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8AFE10ECC1
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:48 +0000 (UTC)
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012021.outbound.protection.outlook.com [52.101.53.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 00F0D10E38B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NgbXs794W6TeL3WFYwvosCaGFMtQtT1kg2wuk6mEVZhSL478KUHfpw77UMBd2kCtfHgax9V0VOsy0XhCPnlWpoY2uUrC7Q6PpZ1tjqdAeTJE5jfefmhnCLn4uxgntea5Jn/CR4n20301w/OzA5isOiDHYdNZEhqCCoI8V0U8cSohBBZXb2rbgNBBedUb9O915OwWawwPxTO+MhiTZaCuUnmW/mUslVB7rgaw1Uh7BBW5J2eyQXyKi2AS4jLrwoGMLzBKhuwd5i3SHuYSRUznwQDGHE9iLyQxOJbXebEwW4X/KYr1AzdaXDfFtQCRIFaz4jQIEZU1dAbK+Ff9Cck6UA==
+ b=oaak7hWXMbxiidRHsBoAW9YII5wCNEffMAbEegJuDTfbCoOh8T4ak2YTMB88Et+eN0s1m/hxpC8R8rClYQYG3SCgVZwzUg9JGT9umpMKmqrTetaUWv7wmVJBTy60TsrWytyfZiv0AZxttLyNyTdOOD/b5yr3yNbC8I6Wr81Kt5XZZFDqNJNLgGHUt5sBKAET0FBABI+WbbJaynWcVO5rqwcfP1XJ7BAkoc09n0/qFmesToQpBgluC/42zkRX1Tp7MO5FGDw3Oo8wkZpQyrDf4sLrsXzcvbTzIbPhLlK06VVjnAT1pgYHb7Gt2jWJB9swHa2kDmw2/3nKPfkBlohXaw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=MkmnRGdWPzXmbIBaOLoBz++CvBofI5jv+/sufImawDU=;
- b=OMjsiOwf2jJvX5mlM+JlZpcdiOJrRbfJJlenepWjqeQkAghYCzEKxhUXJQzVUmsXv7tIxFevv7OIq3zKjYk1ZopCrrbd4xK31ESzH7hF5fSpNoyQ+kPtTRIlZjbyoo1sVSIVZBBYDv8MCvURaXHEdfQy76qXSPGkCgjs734vAgWviN66KBGMed8u4NO1G0gjLl+3g/NoSlh+MkSJxDeMEy0/g17clkIiYqJBvRISUVw1hNBJZNsXwoMMvZxIICpoohb0/TuyVYWgbIQ9QM2ncJT5Twhzz2KAxl1HpqxIC2cqPY5kVUa6QqDRim9ShzFe1vYJTSAtcFthPKfb/W6RFA==
+ bh=q9yd+pk0v87xvxB9Sz9oknrW6Exhr2MtqnudCYOvaKQ=;
+ b=BmRcMDZi5id+7EFCBy+ybsz/QfrAoAQyNyUKpiB798/0nzAongj9EFs7jXZcEK95DCgP6PSIcsZKifZOoBzf3WIVAmUNN/mdvlG9bPgPIn9Ji8vx28LjrFlpuIjxHAwvn5uZil/cD59bLhfhjRLrL6X8sHSHb9TQUVLEI2pIP1Ab4AqE0PetpZL7oioSBUybet1tqfUEPF6gZCbVNZnPWQKuz92fQjO27Tjm5PrK3ga0dLCPd4vS1ct8hELz+LHTKsrQ548YUZ2KFyEsajHR9htegZgaO+as2EQgNy8S2VnZRsYXgnJ/ZHdMtawqDpH3waK2RIObxlYy14xThvKQAQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=MkmnRGdWPzXmbIBaOLoBz++CvBofI5jv+/sufImawDU=;
- b=TgQwfdRQBYccxCuA6/hdGOubLuOAU/Kpn94cXFbqtVN+5CVktLJuK6Wkl6QXH42oMANMsXtGSa7h/jkh9Sh+e1fjb0D8tyoRtUeKVVsjqqiwmIteEQ1sp8hSqSTtfxUoeL0OcyPZptto7h8qvh1MlTOYmklWGoNwkRlsFVnJk/8=
-Received: from BN9PR03CA0332.namprd03.prod.outlook.com (2603:10b6:408:f6::7)
- by CY8PR12MB7145.namprd12.prod.outlook.com (2603:10b6:930:5f::8) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=q9yd+pk0v87xvxB9Sz9oknrW6Exhr2MtqnudCYOvaKQ=;
+ b=a+Er2iH0ZQ/GZUJj6mroiOFKKp+gy4oU15W/pMqyqyF4r1CNU223h4G0p+ibVNguwyZX+B9Dcr0fvXj6j23tHUcYyAVJk34i/NS3u9Vfl8lz6jOTuKDe0Av/FXfS0JK3oxrQZJMuy0HUJcq2utBTOfSK+k4kYROGg4rWl1qO0gY=
+Received: from BN9PR03CA0339.namprd03.prod.outlook.com (2603:10b6:408:f6::14)
+ by SAWPR12MB999115.namprd12.prod.outlook.com (2603:10b6:806:4e3::16)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Tue, 18 Aug
- 2026 20:22:43 +0000
+ 2026 20:22:47 +0000
 Received: from MN1PEPF0000F0DE.namprd04.prod.outlook.com
- (2603:10b6:408:f6:cafe::21) by BN9PR03CA0332.outlook.office365.com
- (2603:10b6:408:f6::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.17 via Frontend Transport; Tue,
- 18 Aug 2026 20:22:43 +0000
+ (2603:10b6:408:f6:cafe::37) by BN9PR03CA0339.outlook.office365.com
+ (2603:10b6:408:f6::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Tue, 18
+ Aug 2026 20:22:47 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  MN1PEPF0000F0DE.mail.protection.outlook.com (10.167.242.36) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Tue, 18 Aug 2026 20:22:43 +0000
+ 15.21.339.3 via Frontend Transport; Tue, 18 Aug 2026 20:22:47 +0000
 Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
- 2026 15:22:32 -0500
+ 2026 15:22:45 -0500
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
- 2026 15:22:32 -0500
+ 2026 15:22:45 -0500
 Received: from box-0.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Tue, 18 Aug 2026 15:22:31 -0500
+ Transport; Tue, 18 Aug 2026 15:22:45 -0500
 From: <IVAN.LIPSKI@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -71,9 +71,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 54/82] drm/amd/display: Cover amdgpu_dm_fill_hdr_info_packet
-Date: Tue, 18 Aug 2026 16:15:46 -0400
-Message-ID: <20260818202139.4172592-55-IVAN.LIPSKI@amd.com>
+Subject: [PATCH 69/82] drm/amd/display: Test
+ amdgpu_dm_dcn10_register_irq_handlers
+Date: Tue, 18 Aug 2026 16:16:01 -0400
+Message-ID: <20260818202139.4172592-70-IVAN.LIPSKI@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
 References: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
@@ -82,29 +83,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DE:EE_|CY8PR12MB7145:EE_
-X-MS-Office365-Filtering-Correlation-Id: b75884b1-2640-460e-11de-08defd66756f
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0DE:EE_|SAWPR12MB999115:EE_
+X-MS-Office365-Filtering-Correlation-Id: a2435e62-12e6-4273-885d-08defd6677c3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|23010399003|376014|82310400026|10067099003|11063799006|56012099006|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: Eo4AJWUxY3b4GlbVKadjINfeHqpm312QUQhWy8U4qZFXjBkwW7VQuEKbBoqPbQGgdblCp3lD+YkN/gSlOWhdFymydfZH2cRBFKyfvnq2EJo+IqZM962rMtoXSXOlAFbZJGRkiRTwNP/TVHMXrYEBaNF08tk2HALE/w0z0YqSphi3Nq+d+6bR07vqYSOKie0zrNkwbV1ZG/pMELiZaZkAqTrso5M4feEygE2BWMLvTUNmiYqcUi8AKSQMPGHdDS7i+bZVp0mZ/JIwA5BZpwppt9hYvpbGoI7SE02u+nuE1PQXTZMGcyQs8xbPgyVffDNT+GxwmKpq9ILpWuvQ+yuM0EvE/j14MmpxbkSQ5yHU5o58VnPztIor8EdDUjzPTmk763BEgpeFsKsyb3MKGImHjg6CK1n2a9kjQaBpQHGokLDHdUqqMDOXpcOyDV/KlV0CKgPYFOWiijp9h4JsM1GnIfWVbANMgLsXoMzcYEAWwxjHwSe4YE5D2A2jvm+wL5nfqn1r0daX0dY/8z6Ho8J/USqQHqeco7hqNdoTH0wnY53nwrJlAvzJNOujIA4UE/DjfyHKGWPaPCvwUqpSEM9OH4RDqnNNoCBi6he2wjwI3jxeK94Ff/Gw7SEjw7XGIWIg45q71Gac4fzaqYjkGPIKKYTgIHSLrGN1RVhyrCkNeSdzOnvAq2eYPKoYHfDHBlPX8+GtjlncEz2cgCWdQgns5w==
+ ARA:13230040|36860700016|1800799024|23010399003|376014|82310400026|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: BBh1pISbmuNMk6NF+pBT5sKhV1a4v/s+RP1DrztfSJDzodxJ+wVrhMQMlYzZRgnsTdT+qN+D6NX5rJMvZyWSPno5i2GMQL1GXDK5FA3JTMGvnWvS0Gy8vMkzc3/O1ioAqEy5afGvixRgOUqXlbxVgY1o8tn9bpPu/ooarlmbcEKZpj+WWH94vOd9VkdQt5stGdr8iPJNs/ElD3ghpaJ0cKjSkkTIlHkT1kBAWEZ5agxBQMNsVK4AYjqprFGA0R23eN/cNhA9yD6LdBvPirDpJG9Hl1O/2Cw7xD2DRAIgwOAkdzaeVKpcuURQUb/Hq9GkbxA8MF1DVq/FBVwdjfRFt/vBkmOGDmctBdsfzh9MscuVZj1zbpCu1xQA0IcLe0Sv8Sn4en6j9m6ppgDGsC4JXxn01HuS/pj/7H55ch3N5kbdi5+H2LS+8kcrwSaIBGkWLVifX+PFh83aGe6JUstdkxkXRoCAOzg/X65ZYFZldIYfJXVyfV+WMCUfYS2CwgSR7nfbk75b39doIxXVgwYG36/zQq2USKJpRXPtkOrChhMZ6hM5OTzg+jpodtq0Bgb0tAXHTVF0iwEqSDS0MPb+rB11vpjz5XwhY/TLbJnRSlnwTtHpnQPaJULiFQrdBZ3wnjQ7+JL1ZSC5fcYpWxDjgf++NdBdsF7AVFzJ/HG6zcpDM93bw//vIVUdL+4j5EyanUHHrUik6+gByVoUUoCgUg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(23010399003)(376014)(82310400026)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(3023799007);
+ SFS:(13230040)(36860700016)(1800799024)(23010399003)(376014)(82310400026)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: W6w5qTo6aSEZ7AvMnj8sslr3vYpWUQ3jFtMH0B+R/bhl2Rj9yqKdrIadXC5mMfRNitw7wIIN0VN/KnZxMd8j/jdKTOoMcRUaubI50u58EiS2wScdAW6VQWiyo8Cauk+AMWjBqU7cUYx0yEWTOlXgQp9T+4H4NPte+KBFwLkLh3IPjOpRbpEJHBo8+fdX/WSpAfTzRp0Q9gD+pWFf1cDlYDAMoBqI/3d64GT6Nyunf+OTofUh5LUlpvvgGi67i1m1ajhXFLVQJGBJT9m309PXMVhqyblcSJgUKE/9c1EUQ3yWQhANXT1VXp3PSYKTStqnWei6QK7Mv88BGpu2JHwl0GMd6gugWUH+K5zI6JpVdH/BOJJi8quXzZBXOnxgw+WhgcGujQ1j3fZ4l6sxbqbIiAFuS8LSj4SOxmP9R9yZlGjlL6vumQ3BE6T4Org+7Skr
+X-MS-Exchange-AntiSpam-MessageData-0: 3Wrbg7ZZ4R5wUq3WV7zlV1AYveqQNFuV8nB4q/lWCBm5M3rsVFk9WdIlImWRjgc4JJRWeIzbC50QjbgKOBuSY6XVSZJs1Ni8KEYsWW21SmEWTRhFUsRtKK+EwywGPLVN+Ns2voQewAykx1QWKIltfqMNW5O5dzPL/eigqAYTAZ7C5IBY1RvzE1dXXqgbXoMyOZjK9+U9xYBKupQq4VLM9Oj2nnBMwevtbM0AfxU1z76QUheZgJAzMZpjkbL5fZw5yhM0ok0sXU9rTR54RsXOQwP446lznZULggxo257S3Ad4m6zNGWljt0jp3JqE/wcDpLu6Ry7oLMCOmHQqz0yRDPLmXg9jMO1OWGy6+VX81pkJ6s2cWtEcekrJEW/qg1AdKaGlcO4t/ZZGRJsB5OcgK76A2dEoqJQ+q3Dl/J6p4K8Y+EyoFmXzfXXgs6TDbaRA
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:43.1458 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b75884b1-2640-460e-11de-08defd66756f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:47.0559 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2435e62-12e6-4273-885d-08defd6677c3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: MN1PEPF0000F0DE.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7145
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999115
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,160 +120,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+From: Alex Hung <alex.hung@amd.com>
 
-Add KUnit tests for amdgpu_dm_fill_hdr_info_packet() covering the HDMI
-and DisplayPort HDR paths, an unsupported connector signal, and invalid
-HDR metadata.
+[WHAT]
+Add KUnit tests for amdgpu_dm_dcn10_register_irq_handlers() covering the
+add_id() rejections for the VUPDATE and HPD sources and the
+invalid-source guard in the VUPDATE_NO_LOCK loop, and for
+amdgpu_dm_register_outbox_irq_handlers() rejecting a source with no
+funcs table.
 
-Assisted-by: Copilot:Claude-Opus-4.8
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+[HOW]
+Reuse the shared registration fixture and the fake IRQ service that maps
+no source IDs.
+
+Assisted-by: Copilot:Claude-Opus-5
+Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 ---
- .../tests/amdgpu_dm_connector_test.c          | 122 ++++++++++++++++++
- 1 file changed, 122 insertions(+)
+ .../amdgpu_dm/tests/amdgpu_dm_irq_test.c      | 78 +++++++++++++++++++
+ 1 file changed, 78 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index fc16d3a35b653..5c701c6b0511d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -1654,6 +1654,124 @@ static void dm_test_fill_hdr_zeroes_output(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, (int)out.hb3, 0);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
+index a354fa25998f7..37851af59ffe1 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
+@@ -4508,6 +4508,61 @@ static void dm_test_dcn10_register_irq_handlers_one_crtc(struct kunit *test)
+ 	amdgpu_dm_irq_fini(adev);
  }
  
-+/*
-+ * Build a minimal connector state carrying a valid static HDR metadata blob so
-+ * the packing path can be exercised without a full atomic state. connector_type
-+ * selects the sink-specific header layout.
++/**
++ * dm_test_dcn10_register_irq_handlers_vupdate_add_id_fails - Test add-id failure
++ * @test: The KUnit test context
++ *
++ * A VUPDATE source with no funcs table must be rejected by amdgpu_irq_add_id().
 + */
-+struct dm_test_hdr_ctx {
-+	struct drm_connector conn;
-+	struct drm_connector_state state;
-+	struct drm_property_blob blob;
-+	struct hdr_output_metadata meta;
-+};
-+
-+static struct dm_test_hdr_ctx *
-+dm_test_hdr_ctx_alloc(struct kunit *test, int connector_type)
++static void dm_test_dcn10_register_irq_handlers_vupdate_add_id_fails(struct kunit *test)
 +{
-+	struct dm_test_hdr_ctx *ctx;
++	struct amdgpu_device *adev;
 +
-+	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx);
++	adev = dm_test_setup_irq_regs(test, &dm_test_irq_service_funcs_dcn10);
++	adev->vupdate_irq.funcs = NULL;
 +
-+	ctx->conn.connector_type = connector_type;
-+	ctx->state.connector = &ctx->conn;
-+	ctx->blob.data = &ctx->meta;
-+	ctx->blob.length = sizeof(ctx->meta);
-+	ctx->state.hdr_output_metadata = &ctx->blob;
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_dcn10_register_irq_handlers(adev), -EINVAL);
 +
-+	return ctx;
++	amdgpu_dm_irq_fini(adev);
 +}
 +
 +/**
-+ * dm_test_fill_hdr_hdmi - Test the HDMI infopacket header layout
++ * dm_test_dcn10_register_irq_handlers_bad_vupdate_source - Test VUPDATE guard
 + * @test: The KUnit test context
 + *
-+ * A valid metadata blob on an HDMI connector packs a type 0x87 infoframe and
-+ * marks the packet valid.
++ * A source ID that DC does not map to a VUPDATE IRQ source must be rejected
++ * rather than used to index the vupdate parameter array.
 + */
-+static void dm_test_fill_hdr_hdmi(struct kunit *test)
++static void dm_test_dcn10_register_irq_handlers_bad_vupdate_source(struct kunit *test)
 +{
-+	struct dm_test_hdr_ctx *ctx =
-+		dm_test_hdr_ctx_alloc(test, DRM_MODE_CONNECTOR_HDMIA);
-+	struct dc_info_packet out;
++	struct amdgpu_device *adev;
 +
-+	memset(&out, 0xAA, sizeof(out));
++	adev = dm_test_setup_irq_regs(test, &dm_test_irq_service_funcs_unmapped);
 +
-+	KUNIT_EXPECT_EQ(test,
-+			amdgpu_dm_fill_hdr_info_packet(&ctx->state, &out), 0);
-+	KUNIT_EXPECT_TRUE(test, out.valid);
-+	KUNIT_EXPECT_EQ(test, (int)out.hb0, 0x87);
-+	KUNIT_EXPECT_EQ(test, (int)out.hb1, 0x01);
-+	KUNIT_EXPECT_EQ(test, (int)out.hb2, 0x1A);
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_dcn10_register_irq_handlers(adev), -EINVAL);
++
++	amdgpu_dm_irq_fini(adev);
 +}
 +
 +/**
-+ * dm_test_fill_hdr_dp - Test the DisplayPort SDP header layout
++ * dm_test_dcn10_register_irq_handlers_hpd_add_id_fails - Test HPD add-id failure
 + * @test: The KUnit test context
 + *
-+ * A valid metadata blob on a DisplayPort connector packs the SDP header with
-+ * the version/length subpacket bytes and marks the packet valid.
++ * The VUPDATE loop succeeds, then the HPD source with no funcs table is
++ * rejected by amdgpu_irq_add_id().
 + */
-+static void dm_test_fill_hdr_dp(struct kunit *test)
++static void dm_test_dcn10_register_irq_handlers_hpd_add_id_fails(struct kunit *test)
 +{
-+	struct dm_test_hdr_ctx *ctx =
-+		dm_test_hdr_ctx_alloc(test, DRM_MODE_CONNECTOR_DisplayPort);
-+	struct dc_info_packet out;
++	struct amdgpu_device *adev;
 +
-+	memset(&out, 0xAA, sizeof(out));
++	adev = dm_test_setup_irq_regs(test, &dm_test_irq_service_funcs_dcn10);
++	adev->hpd_irq.funcs = NULL;
 +
-+	KUNIT_EXPECT_EQ(test,
-+			amdgpu_dm_fill_hdr_info_packet(&ctx->state, &out), 0);
-+	KUNIT_EXPECT_TRUE(test, out.valid);
-+	KUNIT_EXPECT_EQ(test, (int)out.hb0, 0x00);
-+	KUNIT_EXPECT_EQ(test, (int)out.hb1, 0x87);
-+	KUNIT_EXPECT_EQ(test, (int)out.hb2, 0x1D);
-+	KUNIT_EXPECT_EQ(test, (int)out.hb3, 0x13 << 2);
-+	KUNIT_EXPECT_EQ(test, (int)out.sb[0], 0x01);
-+	KUNIT_EXPECT_EQ(test, (int)out.sb[1], 0x1A);
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_dcn10_register_irq_handlers(adev), -EINVAL);
++
++	amdgpu_dm_irq_fini(adev);
 +}
 +
-+/**
-+ * dm_test_fill_hdr_unsupported_connector - Test unsupported sinks are rejected
-+ * @test: The KUnit test context
-+ *
-+ * A connector type with no defined HDR infopacket layout returns -EINVAL and
-+ * leaves the packet invalid.
-+ */
-+static void dm_test_fill_hdr_unsupported_connector(struct kunit *test)
-+{
-+	struct dm_test_hdr_ctx *ctx =
-+		dm_test_hdr_ctx_alloc(test, DRM_MODE_CONNECTOR_VGA);
-+	struct dc_info_packet out = {};
-+
-+	KUNIT_EXPECT_EQ(test,
-+			amdgpu_dm_fill_hdr_info_packet(&ctx->state, &out),
-+			-EINVAL);
-+	KUNIT_EXPECT_FALSE(test, out.valid);
-+}
-+
-+/**
-+ * dm_test_fill_hdr_bad_metadata - Test malformed metadata is propagated
-+ * @test: The KUnit test context
-+ *
-+ * A metadata blob with no payload makes drm_hdmi_infoframe_set_hdr_metadata()
-+ * fail, and that error is returned unchanged.
-+ */
-+static void dm_test_fill_hdr_bad_metadata(struct kunit *test)
-+{
-+	struct dm_test_hdr_ctx *ctx =
-+		dm_test_hdr_ctx_alloc(test, DRM_MODE_CONNECTOR_HDMIA);
-+	struct dc_info_packet out = {};
-+
-+	ctx->blob.data = NULL;
-+
-+	KUNIT_EXPECT_EQ(test,
-+			amdgpu_dm_fill_hdr_info_packet(&ctx->state, &out),
-+			-EINVAL);
-+	KUNIT_EXPECT_FALSE(test, out.valid);
-+}
-+
- /* Tests for amdgpu_dm_connector_atomic_set_property() */
+ /**
+  * dm_test_register_outbox_irq_handlers_without_dmub - Test outbox registration without DMUB
+  * @test: The KUnit test context
+@@ -4532,6 +4587,25 @@ static void dm_test_register_outbox_irq_handlers_without_dmub(struct kunit *test
+ 		&adev->dmub_outbox_irq);
+ }
  
- /*
-@@ -7018,6 +7136,10 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
- 	/* amdgpu_dm_fill_hdr_info_packet */
- 	KUNIT_CASE(dm_test_fill_hdr_null_metadata),
- 	KUNIT_CASE(dm_test_fill_hdr_zeroes_output),
-+	KUNIT_CASE(dm_test_fill_hdr_hdmi),
-+	KUNIT_CASE(dm_test_fill_hdr_dp),
-+	KUNIT_CASE(dm_test_fill_hdr_unsupported_connector),
-+	KUNIT_CASE(dm_test_fill_hdr_bad_metadata),
- 	/* amdgpu_dm_connector_atomic_set_property */
- 	KUNIT_CASE(dm_test_set_property_scaling_center),
- 	KUNIT_CASE(dm_test_set_property_scaling_aspect),
++/**
++ * dm_test_register_outbox_irq_handlers_add_id_fails - Test outbox add-id failure
++ * @test: The KUnit test context
++ *
++ * Registering the outbox interrupt before amdgpu_dm_set_irq_funcs() has run
++ * leaves the source without a funcs table, so amdgpu_irq_add_id() rejects it.
++ */
++static void dm_test_register_outbox_irq_handlers_add_id_fails(struct kunit *test)
++{
++	struct amdgpu_device *adev;
++	struct dc *dc;
++
++	adev = dm_kunit_alloc_adev(test);
++	dc = dm_kunit_alloc_dc_with_ctx(test);
++	adev->dm.dc = dc;
++
++	KUNIT_EXPECT_EQ(test, amdgpu_dm_register_outbox_irq_handlers(adev), -EINVAL);
++}
++
+ /**
+  * dm_test_register_outbox_irq_handlers_with_dmub - Test outbox registration with DMUB
+  * @test: The KUnit test context
+@@ -4871,7 +4945,11 @@ static struct kunit_case amdgpu_dm_irq_tests[] = {
+ 	KUNIT_CASE(dm_test_dce110_register_irq_handlers_hpd_add_id_fails),
+ 	KUNIT_CASE(dm_test_dcn10_register_irq_handlers_zero_crtc),
+ 	KUNIT_CASE(dm_test_dcn10_register_irq_handlers_one_crtc),
++	KUNIT_CASE(dm_test_dcn10_register_irq_handlers_vupdate_add_id_fails),
++	KUNIT_CASE(dm_test_dcn10_register_irq_handlers_bad_vupdate_source),
++	KUNIT_CASE(dm_test_dcn10_register_irq_handlers_hpd_add_id_fails),
+ 	KUNIT_CASE(dm_test_register_outbox_irq_handlers_without_dmub),
++	KUNIT_CASE(dm_test_register_outbox_irq_handlers_add_id_fails),
+ 	KUNIT_CASE(dm_test_register_outbox_irq_handlers_with_dmub),
+ 	/* amdgpu_dm_irq_handler */
+ 	KUNIT_CASE(dm_test_irq_handler_dispatches_work),
 -- 
 2.43.0
 
