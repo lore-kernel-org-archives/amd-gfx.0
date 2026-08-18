@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4BE0CC5DF8B
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 20:22:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CEC3BC5DF85
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 20:22:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6715110ECC8;
-	Tue, 18 Aug 2026 20:22:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECECB10ECB0;
+	Tue, 18 Aug 2026 20:22:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="s9Ndp22y";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GOqi6k1d";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013047.outbound.protection.outlook.com
- [40.93.196.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DA0610ECBF
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:48 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011058.outbound.protection.outlook.com
+ [40.93.194.58])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD28A10E38B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:53 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NpDd4Auq4hlilwWw3gvGbUBqHfD4sWku9o8ScOItMt58X/o7WdtB5AWTwh0i3UksdyNns2iSFxLORCuieUrYuo9YsgHo1CtkNrkefjA6W5gLNHl3S6OS+iYE+Y0fS+ezhZDJUJ9wIY7hP/fTEWp6asEh4z0Wr0VDOSqWqsMqSPItnqorzbQMbzHk95+s0bYTLqh9k99waoOatOu3Zkk12gqzirISLLLjvExCwsgwoYPkMQ8lj3CD7fVzmB3c3IJg+TBT8nr/4JglRxvbQXM2aC6vHBh1Ift8oLT0zEnr9akSPZ+/IZojwr9KyUmaJTeUrGUnWxIMnKU9Z3L7Kq72OA==
+ b=OsS4nMmvm0bFVf+IL/8/mOSyfkZho0mC5V122Z/5JQCSp01UZxqMxgsq5bW8Ehw8bQ6IygXryIj/atTpyCcHdcBh6dik1asoAvbLKlx0nWIuxs5GFj4FHiK+IMQV2r/itbCXD9YiUTFH3AjvJi1sW/1TlvsddycMeG0voAWI+Z1uU3ogX5p7Bhz01U2b2MebE461A4EmqjOjSXbCcyM2e1w39zRPaNMdLs66KTgCDKImwTfF3UXlOQcR31fGK0Aha2W+R2bn9r9ug8vn2KsjJWQJiuCkXHtEXKovpJHaSRTnb+2d49jjZuExrR0VGcECnnRFn7e7rdbIQ+Q++h3zqg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PBNx43bRjVLrRtaZxP1+QRWXri69NuiLksKOx31XVyQ=;
- b=azXLTyJZ69ATNrlUDRDwkqp66V4mCeeeMnJoL+loHY0CDutDauVx7ldcpTBwmIfq4xHqwCBLP5/Z8rteqjs8C4At4QPwZvt1IXKorATwKQi/bEypDk1sb75Wpt4K1fc4ZjzpGXNXsc08bJjmaUYGkigb46Ui/mwEZgpeg2+RudQyRCmQ5kEhBgdLb9Ob8ForHBloyLn0824lQqV5QA+RhT4Lumw4gHkk+eG3VWNri4LcVk28SKNA2UR5FvLdVoc1GsbqrphYuOOhUp2RWhyXaRckRBQeFz5CTmqpz5SlLuDYQiC+bP7qrA3GuTslcNzsyJyA4uiARS1vvexYu4RFZg==
+ bh=nzde14Yn3P2PUZZ/oOuy3dyODAwfKqkSqOJiFDWKZVM=;
+ b=lVitWCDxNnDUztAWDZtUheUci0bit/KYZbEcgDma3pjxPKUm4KL/n4fQyJWy3HwuCeY5jmJhPIV8gi5jYJGcN9knuT/J02Caf1l1zv3F8VLVKzAtwuAmvmw/0oxIL903R7mhmqRPD65NEKm0PUfIDajj8emebyLEpIehPZBJ59kUK6LGZSZwM/WCI61dPS92GIKForT8k9c21Sbmod+E45KuqxG3vV2IAg9h/0MB/Mv1FiXH0TjNUy8x36JBm4+Yx2b5IdA6tU8DtbUZIwLyvc8zefRiFlpmPgZofa7UQGqBZWUjpz2gzmudvcI8lAXrDeS3SL0L8Z5jCYf1Ox/CJw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PBNx43bRjVLrRtaZxP1+QRWXri69NuiLksKOx31XVyQ=;
- b=s9Ndp22ygyOffZ12ce+A2o9VLbNhcUKYdHy8X7v/nJHolX8Ppe28+FNThCteK9mUiygNzHUI9ZBGk/BGz/V6pfP6SGBlctfRQkGv9+1oSx1vLZbITE0OzfeLHukg0xAvpkBj1mxmMvTfOkmDAJWQ2wSrWJIUTUGIDds9jviC0JY=
-Received: from CH5P222CA0016.NAMP222.PROD.OUTLOOK.COM (2603:10b6:610:1ee::23)
- by BL1PR12MB5825.namprd12.prod.outlook.com (2603:10b6:208:394::20)
+ bh=nzde14Yn3P2PUZZ/oOuy3dyODAwfKqkSqOJiFDWKZVM=;
+ b=GOqi6k1d2yrU43KBXVCG0l6bVVWdbBeK0sZ3MNqcv1WYVU2KqckmTBRtS0dNjLhmFhMQuP21axpUYtj0eCPfApMlMH8p6UPNbz5Vem6b8yDh8WnOivnQBzBzBylC6Aqt4WM7lCsgKgaC4djff6XRKA/7nk/zpS/R3AurE5WOFyI=
+Received: from BL1P221CA0028.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:2c5::18)
+ by PH0PR12MB7096.namprd12.prod.outlook.com (2603:10b6:510:21d::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Tue, 18 Aug
- 2026 20:22:43 +0000
-Received: from BN3PEPF0000B370.namprd21.prod.outlook.com
- (2603:10b6:610:1ee:cafe::b) by CH5P222CA0016.outlook.office365.com
- (2603:10b6:610:1ee::23) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Tue, 18
- Aug 2026 20:22:43 +0000
+ 2026 20:22:47 +0000
+Received: from BN3PEPF0000B36F.namprd21.prod.outlook.com
+ (2603:10b6:208:2c5:cafe::58) by BL1P221CA0028.outlook.office365.com
+ (2603:10b6:208:2c5::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.17 via Frontend Transport; Tue,
+ 18 Aug 2026 20:22:47 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,16 +49,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B370.mail.protection.outlook.com (10.167.243.167) with Microsoft
+ BN3PEPF0000B36F.mail.protection.outlook.com (10.167.243.166) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 20:22:42 +0000
+ 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 20:22:47 +0000
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
- 2026 15:22:36 -0500
+ 2026 15:22:44 -0500
 Received: from box-0.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Tue, 18 Aug 2026 15:22:35 -0500
+ Transport; Tue, 18 Aug 2026 15:22:43 -0500
 From: <IVAN.LIPSKI@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -68,9 +68,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 59/82] drm/amd/display: Cover create_eml_sink valid EDID path
-Date: Tue, 18 Aug 2026 16:15:51 -0400
-Message-ID: <20260818202139.4172592-60-IVAN.LIPSKI@amd.com>
+Subject: [PATCH 67/82] drm/amd/display: Test dm_dmub_outbox1_low_irq drain and
+ work guards
+Date: Tue, 18 Aug 2026 16:15:59 -0400
+Message-ID: <20260818202139.4172592-68-IVAN.LIPSKI@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
 References: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
@@ -79,29 +80,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B370:EE_|BL1PR12MB5825:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3f5ae026-1e36-424a-16bc-08defd66754b
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36F:EE_|PH0PR12MB7096:EE_
+X-MS-Office365-Filtering-Correlation-Id: 84463cca-4342-40d4-2573-08defd667813
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|376014|82310400026|23010399003|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: NMuya74hxxppHOxfNQo4O1VWpGoqZuRmXMwxWYzd1wndMwGuph4mWLJIWt43iQqdustIVFfZPmZbsSpKVNW1bm6DbeOt56GJVl7OWCYmngH/8JxgundXvKAaFsNP83rG1IQtPXLY3OzMWt/DBUuqEbCx/t9J96o6enQG9H0ak6U2BfdqvF4E1dTpGKEwCxsQhY5h1vt6BYFe3smO/JiLTGt/9ITqZQFmgl5p98ktN3ohmLWotjghZB2BBT2bhthj1Y80+N0/LYW4dHH52nbe5695OnclOAhJ8S9QCB5pgijTv5NLA+ccXLqAhbaNH9pd66WkY/O86hM8fImwA2c7opvrvXgOjE+lsNok0ZuKjaQhl+kGhEyUvR2a0K6ZDk/I3FkkxpqCG7IXPjgiiqCHGXeiWx7WoT40YjmckQQ4i4m7XqGVhqdskjwCo+ithANHvTvb6Y6T2fLSFmVkOQiLsodsKsVJA43B5QvJLo6aTkV1IpFhDROsMBA+k0t5v1+fB0PBOpeXqrXODbaz1L28hMkjp8LVW+gGXbddcql3TPU3lSrv0Sk3cI84gBoCCy56m+TIyuzpoyOX9CUkT7CiKlhNwSfpX7Yz9TbiPu4XCsLxiyzzYAhYvkhjn8U5GHSl4biHFuG33o1YI4QpW4oBhqfejnDY3U/6RqtS++nZBwwCbUr2aN192jk6wQEJnuaqVwLLB5Mlu3GgDBBPADPeqg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ ARA:13230040|82310400026|23010399003|376014|1800799024|36860700016|56012099006|10067099003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: M/HOaV3OfXRYUeTeGtoqifSFNBH2aasG/x8AYKPxCSMezmBeY+IwETbmdu6Td/3DljgGclRJg9e8tTZN5ZMGePU/GeGn9ujsBzyp37HH85/V9GRRZbq9m+7I1l904M/q82B2UQWGM1nbtPWtj4ZSLg32uHnGYU6xvFzTg1bXw+8J0Q8fSLFYb/GmazWswXUOwis7GMyUSUtq349neDRsu9RDKk0+ITV1etR8fEubIb1wFnoeYp4K0xSSqunWyCVvzGn3bm/ZyLgWLtlQRlc7OmW0wDtgrvSKfvGUeSP0R0PzfFwryPzrplqLuEFTQMmNofvO1ZM57ViIz3iLF0QRYigCmTin2swaEI2zV0T1OYIqbRQ0z1KXXIxKy2wMRKfi2yONPWTieiHxdaFAxfA8PoLT1x2BVshXQWXpDmhoF0wChG/kLs4RsEjZXdJSIPHiDENM8EXHlHSbdhmRVBrCsTRzJYm7h3itwkF7b99S7VPUYxsAz1njYO60mOQ21RRkyBs7tVdHOFm0d2yFvigXjKsygCiF7D16S5MpH9hCbrwKmXTYkDSMwUXoeO45W9zb7/lM7HM9KjfqyUZcMfOrkbApo/y0ivlq7hKpYsygLX5sgJwTxH7clHCfAIZJ41VZBV57jUf9HAVxmq9BihV89BFLKBJzf6Ij3ECQTbWX21Q=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(23010399003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
+ SFS:(13230040)(82310400026)(23010399003)(376014)(1800799024)(36860700016)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Hcf7iMCihjHzwGzkUWIAB9uEJnipkgy1dyG3Ykam6gI6LmrgE43OXEekCdS5J/gZX6F389x7zvDPCJKqdhmb1YFj64p6iYsXyVhm9tY1wI+vVrg3P1E0z0oF4cwjSRM4O+SO6RH79zN/LY8eZA4dM8gAJKoGkhM8fV7k7Q2kG9EnxuIakVoFOk8PdIMn4uxtVvKLtwallDD1t6FRKVguRgYBVwezWsdng5haa/Rrc3S2bnrFziSMJL+zb1Yx2/9oZr5SAl85fsttFipm/wY42q0WdAKOWYLRgkstoHPww25RDtym+4DLpxpTawVT0YtFuM7vvkCwk+4RDm/vRv/SO6rMDtSowd5G19MhLqhzMwuJVpgtE3zJHe3nu4ZyOPHyGI3/0ivyDBFyroA2Z3dzY0IcKaj1Ke2qixgFS2l1UZFOGEen9rnWI9WJZezskEsm
+X-MS-Exchange-AntiSpam-MessageData-0: U+4G8kjeA/pNL7HpOTFtKlltOVVx1u5qRqwbiHbf2q3RAbn1fDTaWiGtaQjMvddyIMHwc6O8ms9OvzcOkC6OmvC9SuOoyDCHB+tFcXiFsxk3EOH7sAazdJTxNTS7c0gHVlHRyVua6qhFC1nZCsr2q1EsBQFEEkWGOSZqZscvQfvk6ELfjYmOQFm4zR1IDPDQCUTYFK6VlUvjboECq+gvCx3X+Gm/ep9Plsc2kLwrxnjrORJIs7y38JY25xHQYCgdcyT3y8yPX0tfKmLqqv/UsrEcs36gTVd1zokF8yVzCotFz0Z8KaJSmN94p0535xi1vXNob5qV4nb2omKAwpEeQOEGf4MIO0FpP0yVxgdVAGIrMM8vwZ9USdswCP/upPfQOJdBCUkKLIDGZ8FYOsnxW3totERJUX7ctxIlgfDarqOe8US5GbGzZZmcoiDcwC4l
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:42.9121 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3f5ae026-1e36-424a-16bc-08defd66754b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:47.5771 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84463cca-4342-40d4-2573-08defd667813
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B370.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36F.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5825
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7096
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,173 +117,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+From: Alex Hung <alex.hung@amd.com>
 
-Add KUnit tests driving create_eml_sink() through the valid-EDID
-branch: reading the EDID over DDC, and the forced-on paths using an
-emulated sink and a cached local sink.
+[WHAT]
+Add KUnit tests for dm_dmub_outbox1_low_irq() draining a trace ring up
+to the DMUB_TRACE_MAX_READ cap, dm_handle_hpd_work() rejecting a work
+item with no notification, and amdgpu_dm_irq_schedule_work() not
+queueing once the IRQ workqueue is gone.
 
-Assisted-by: Copilot:Claude-Opus-4.8
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+[HOW]
+Back dmub->outbox0_rb with a fake ring whose write pointer sits one
+entry past the cap, and keep the ring larger so the read pointer does
+not wrap. dm_handle_hpd_work() returns before its own kfree() on the
+NULL-notify path, so the test frees the work item.
+
+Assisted-by: Copilot:Claude-Opus-5
+Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 ---
- .../tests/amdgpu_dm_connector_test.c          | 135 ++++++++++++++++++
- 1 file changed, 135 insertions(+)
+ .../amdgpu_dm/tests/amdgpu_dm_irq_test.c      | 110 ++++++++++++++++++
+ 1 file changed, 110 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index fc6b6013d1188..120d0e27f5eed 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -7171,6 +7171,138 @@ static void dm_test_funcs_force_reads_edid(struct kunit *test)
- 	ctx->aconnector->drm_edid = NULL;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
+index 4f22230a5520e..933a33a360fbe 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
+@@ -220,6 +220,18 @@ static uint32_t dm_test_dmub_get_outbox0_wptr(struct dmub_srv *dmub)
+ 	return 0;
  }
  
-+/* Tests for create_eml_sink() with a valid EDID */
++/* One more than DMUB_TRACE_MAX_READ, so the drain loop reaches its cap. */
++#define DM_TEST_OUTBOX0_TRACE_ENTRIES	65
++#define DM_TEST_OUTBOX0_TRACE_BYTES \
++	(DM_TEST_OUTBOX0_TRACE_ENTRIES * sizeof(struct dmcub_trace_buf_entry))
++/* Keep the ring larger than the write pointer so rptr does not wrap. */
++#define DM_TEST_OUTBOX0_RB_SIZE		(2 * DM_TEST_OUTBOX0_TRACE_BYTES)
 +
-+/*
-+ * create_eml_sink() reads the EDID off the connector DDC and, on success,
-+ * installs an emulated sink from link_srv->add_remote_sink(). A non-AUX link
-+ * selects the connector i2c adapter (serving dm_test_uad_edid) and a fake
-+ * add_remote_sink() returns dm_test_ces_remote_sink, so the full EDID path
-+ * runs without real hardware or DC.
-+ */
-+static struct dc_sink *dm_test_ces_remote_sink;
-+
-+static struct dc_sink *
-+dm_test_ces_add_remote_sink(struct dc_link *link, const uint8_t *edid,
-+			    unsigned int len, struct dc_sink_init_data *init_data)
++static uint32_t dm_test_dmub_get_outbox0_wptr_full(struct dmub_srv *dmub)
 +{
-+	return dm_test_ces_remote_sink;
++	return DM_TEST_OUTBOX0_TRACE_BYTES;
 +}
 +
-+static void dm_test_ces_setup(struct kunit *test, struct dm_test_edid_ctx *ctx,
-+			      struct dc_sink *em_sink)
-+{
-+	struct amdgpu_i2c_adapter *i2c;
-+	struct link_service *link_srv;
-+	struct dc *dc;
-+
-+	i2c = kunit_kzalloc(test, sizeof(*i2c), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, i2c);
-+	i2c->base.algo = &dm_test_force_edid_i2c_algo;
-+	i2c->base.lock_ops = &dm_test_force_edid_lock_ops;
-+	ctx->aconnector->i2c = i2c;
-+
-+	dc = kunit_kzalloc(test, sizeof(*dc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, dc);
-+	link_srv = kunit_kzalloc(test, sizeof(*link_srv), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, link_srv);
-+	link_srv->add_remote_sink = dm_test_ces_add_remote_sink;
-+	dc->link_srv = link_srv;
-+
-+	ctx->link->dc = dc;
-+	ctx->link->aux_mode = false;
-+	dm_test_ces_remote_sink = em_sink;
-+}
-+
-+/**
-+ * dm_test_create_eml_sink_reads_edid - Test the valid-EDID path builds a sink
-+ * @test: The KUnit test context
-+ *
-+ * With a readable EDID and force unspecified, create_eml_sink() caches the EDID
-+ * in drm_edid and installs the emulated sink while leaving dc_sink untouched.
-+ */
-+static void dm_test_create_eml_sink_reads_edid(struct kunit *test)
-+{
-+	struct dm_test_edid_ctx *ctx =
-+	dm_test_edid_ctx_alloc(test, DRM_MODE_CONNECTOR_DisplayPort);
-+	struct dc_sink *em_sink;
-+
-+	em_sink = kunit_kzalloc(test, sizeof(*em_sink), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, em_sink);
-+	dm_test_ces_setup(test, ctx, em_sink);
-+	ctx->aconnector->base.force = DRM_FORCE_UNSPECIFIED;
-+
-+	create_eml_sink(ctx->aconnector);
-+
-+	KUNIT_EXPECT_NOT_NULL(test, ctx->aconnector->drm_edid);
-+	KUNIT_EXPECT_PTR_EQ(test, ctx->aconnector->dc_em_sink, em_sink);
-+	KUNIT_EXPECT_NULL(test, ctx->aconnector->dc_sink);
-+
-+	drm_edid_free(ctx->aconnector->drm_edid);
-+	ctx->aconnector->drm_edid = NULL;
-+}
-+
-+/**
-+ * dm_test_create_eml_sink_force_on_em - Test force-on adopts the emulated sink
-+ * @test: The KUnit test context
-+ *
-+ * With DRM_FORCE_ON and no local sink, create_eml_sink() adopts the emulated
-+ * sink as dc_sink and retains it.
-+ */
-+static void dm_test_create_eml_sink_force_on_em(struct kunit *test)
-+{
-+	struct dm_test_edid_ctx *ctx =
-+	dm_test_edid_ctx_alloc(test, DRM_MODE_CONNECTOR_DisplayPort);
-+	struct dc_sink *em_sink;
-+
-+	em_sink = kunit_kzalloc(test, sizeof(*em_sink), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, em_sink);
-+	kref_init(&em_sink->refcount);
-+	dm_test_ces_setup(test, ctx, em_sink);
-+	ctx->link->local_sink = NULL;
-+	ctx->aconnector->base.force = DRM_FORCE_ON;
-+
-+	create_eml_sink(ctx->aconnector);
-+
-+	KUNIT_EXPECT_PTR_EQ(test, ctx->aconnector->dc_sink, em_sink);
-+	KUNIT_EXPECT_EQ(test, kref_read(&em_sink->refcount), 2);
-+
-+	drm_edid_free(ctx->aconnector->drm_edid);
-+	ctx->aconnector->drm_edid = NULL;
-+}
-+
-+/**
-+ * dm_test_create_eml_sink_force_on_local - Test force-on prefers the local sink
-+ * @test: The KUnit test context
-+ *
-+ * With DRM_FORCE_ON and a local sink present, create_eml_sink() adopts the
-+ * local sink as dc_sink instead of the emulated one and retains it.
-+ */
-+static void dm_test_create_eml_sink_force_on_local(struct kunit *test)
-+{
-+	struct dm_test_edid_ctx *ctx =
-+	dm_test_edid_ctx_alloc(test, DRM_MODE_CONNECTOR_DisplayPort);
-+	struct dc_sink *em_sink;
-+	struct dc_sink *local_sink;
-+
-+	em_sink = kunit_kzalloc(test, sizeof(*em_sink), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, em_sink);
-+	local_sink = kunit_kzalloc(test, sizeof(*local_sink), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, local_sink);
-+	kref_init(&local_sink->refcount);
-+	dm_test_ces_setup(test, ctx, em_sink);
-+	ctx->link->local_sink = local_sink;
-+	ctx->aconnector->base.force = DRM_FORCE_ON;
-+
-+	create_eml_sink(ctx->aconnector);
-+
-+	KUNIT_EXPECT_PTR_EQ(test, ctx->aconnector->dc_sink, local_sink);
-+	KUNIT_EXPECT_EQ(test, kref_read(&local_sink->refcount), 2);
-+
-+	drm_edid_free(ctx->aconnector->drm_edid);
-+	ctx->aconnector->drm_edid = NULL;
-+}
-+
- /* Tests for amdgpu_dm_connector_get_modes() */
+ static uint32_t dm_test_dmub_get_outbox1_wptr(struct dmub_srv *dmub)
+ {
+ 	return 0;
+@@ -1941,6 +1953,39 @@ static void dm_test_irq_schedule_work_requeue_fallback(struct kunit *test)
+ 	amdgpu_dm_irq_fini(adev);
+ }
  
- static enum dp_link_encoding dm_test_gm_enc_8b10b(const struct dc_link_settings *s)
-@@ -7801,6 +7933,9 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
- 	KUNIT_CASE(dm_test_hdmi_cec_unset_edid_no_notifier),
- 	/* create_eml_sink */
- 	KUNIT_CASE(dm_test_create_eml_sink_no_edid),
-+	KUNIT_CASE(dm_test_create_eml_sink_reads_edid),
-+	KUNIT_CASE(dm_test_create_eml_sink_force_on_em),
-+	KUNIT_CASE(dm_test_create_eml_sink_force_on_local),
- 	/* handle_edid_mgmt */
- 	KUNIT_CASE(dm_test_handle_edid_mgmt_dp_sets_link_caps),
- 	KUNIT_CASE(dm_test_handle_edid_mgmt_non_dp_leaves_caps),
++/**
++ * dm_test_irq_schedule_work_no_workqueue - Test schedule work after wq teardown
++ * @test: The KUnit test context
++ *
++ * An interrupt that races DM teardown can reach the scheduler after the IRQ
++ * workqueue is gone, so a registered handler must simply not be queued.
++ */
++static void dm_test_irq_schedule_work_no_workqueue(struct kunit *test)
++{
++	struct dc_interrupt_params int_params = { 0 };
++	struct amdgpu_device *adev;
++	int count = 0;
++	void *handler;
++
++	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, adev);
++	KUNIT_ASSERT_EQ(test, amdgpu_dm_irq_init(adev), 0);
++
++	int_params.int_context = INTERRUPT_LOW_IRQ_CONTEXT;
++	int_params.irq_source = DC_IRQ_SOURCE_HPD1;
++	handler = amdgpu_dm_irq_register_interrupt(adev, &int_params,
++						   dm_test_irq_handler_count, &count);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, handler);
++
++	destroy_workqueue(adev->dm.irq_wq);
++	adev->dm.irq_wq = NULL;
++
++	amdgpu_dm_irq_schedule_work(adev, DC_IRQ_SOURCE_HPD1);
++	KUNIT_EXPECT_EQ(test, count, 0);
++
++	amdgpu_dm_irq_fini(adev);
++}
++
+ /* Tests for amdgpu_dm_set_hpd_irq_state() */
+ 
+ /**
+@@ -3938,6 +3983,28 @@ static void dm_test_handle_hpd_work_out_of_range(struct kunit *test)
+ 	dm_handle_hpd_work(&hpd_work->handle_hpd_work);
+ }
+ 
++/**
++ * dm_test_handle_hpd_work_null_notify - Test HPD work with no notification
++ * @test: The KUnit test context
++ *
++ * A work item carrying no notification must be rejected before dispatch.
++ */
++static void dm_test_handle_hpd_work_null_notify(struct kunit *test)
++{
++	struct dmub_hpd_work *hpd_work;
++	struct amdgpu_device *adev;
++
++	adev = dm_kunit_alloc_adev(test);
++	hpd_work = kzalloc_obj(*hpd_work, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, hpd_work);
++	hpd_work->adev = adev;
++	INIT_WORK(&hpd_work->handle_hpd_work, dm_handle_hpd_work);
++
++	/* The handler bails out before its own kfree(), so free it here. */
++	dm_handle_hpd_work(&hpd_work->handle_hpd_work);
++	kfree(hpd_work);
++}
++
+ /* Tests for dm_dmub_outbox1_low_irq() */
+ 
+ /**
+@@ -3969,6 +4036,46 @@ static void dm_test_dmub_outbox1_low_irq_empty(struct kunit *test)
+ 	dm_dmub_outbox1_low_irq(&params);
+ }
+ 
++/**
++ * dm_test_dmub_outbox1_low_irq_drains_trace - Test the trace drain loop
++ * @test: The KUnit test context
++ *
++ * A trace ring holding more entries than the handler reads in one pass must be
++ * drained up to the DMUB_TRACE_MAX_READ cap, leaving the read pointer parked
++ * after the last entry the handler consumed.
++ */
++static void dm_test_dmub_outbox1_low_irq_drains_trace(struct kunit *test)
++{
++	struct common_irq_params params = { 0 };
++	struct dc_dmub_srv *dc_dmub_srv;
++	struct amdgpu_device *adev;
++	struct dmub_srv *dmub;
++	struct dc *dc;
++	void *rb;
++
++	adev = dm_kunit_alloc_adev(test);
++	dc = dm_kunit_alloc_dc_with_ctx(test);
++	dc_dmub_srv = kunit_kzalloc(test, sizeof(*dc_dmub_srv), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc_dmub_srv);
++	dmub = kunit_kzalloc(test, sizeof(*dmub), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dmub);
++	rb = kunit_kzalloc(test, DM_TEST_OUTBOX0_RB_SIZE, GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, rb);
++
++	dmub->outbox0_rb.base_address = rb;
++	dmub->outbox0_rb.capacity = DM_TEST_OUTBOX0_RB_SIZE;
++	dmub->hw_funcs.get_outbox0_wptr = dm_test_dmub_get_outbox0_wptr_full;
++	dc_dmub_srv->dmub = dmub;
++	dc->ctx->dmub_srv = dc_dmub_srv;
++	adev->dm.dc = dc;
++	params.adev = adev;
++	params.irq_src = DC_IRQ_SOURCE_DMCUB_OUTBOX;
++
++	dm_dmub_outbox1_low_irq(&params);
++
++	KUNIT_EXPECT_EQ(test, dmub->outbox0_rb.rptr, DM_TEST_OUTBOX0_TRACE_BYTES);
++}
++
+ /*
+  * dm_test_alloc_adev_outbox_notify - Build an adev wired for DMUB outbox
+  * notification handling.
+@@ -4487,6 +4594,7 @@ static struct kunit_case amdgpu_dm_irq_tests[] = {
+ 	KUNIT_CASE(dm_test_irq_schedule_work_empty),
+ 	KUNIT_CASE(dm_test_irq_schedule_work_queues_handler),
+ 	KUNIT_CASE(dm_test_irq_schedule_work_requeue_fallback),
++	KUNIT_CASE(dm_test_irq_schedule_work_no_workqueue),
+ 	/* amdgpu_dm_set_hpd_irq_state */
+ 	KUNIT_CASE(dm_test_set_hpd_irq_state_null_dc),
+ 	/* amdgpu_dm_set_dmub_outbox_irq_state */
+@@ -4555,8 +4663,10 @@ static struct kunit_case amdgpu_dm_irq_tests[] = {
+ 	KUNIT_CASE(dm_test_crtc_high_irq_schedules_vmin_vmax),
+ 	/* dm_handle_hpd_work */
+ 	KUNIT_CASE(dm_test_handle_hpd_work_out_of_range),
++	KUNIT_CASE(dm_test_handle_hpd_work_null_notify),
+ 	/* dm_dmub_outbox1_low_irq */
+ 	KUNIT_CASE(dm_test_dmub_outbox1_low_irq_empty),
++	KUNIT_CASE(dm_test_dmub_outbox1_low_irq_drains_trace),
+ 	KUNIT_CASE(dm_test_dmub_outbox1_low_irq_no_handler),
+ 	KUNIT_CASE(dm_test_dmub_outbox1_low_irq_direct_callback),
+ 	KUNIT_CASE(dm_test_dmub_outbox1_low_irq_offload),
 -- 
 2.43.0
 
