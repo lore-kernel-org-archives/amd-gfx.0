@@ -4,53 +4,89 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F0A7C5DF7D
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 12:49:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A045C5DF7E
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 12:49:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5F86210E3EB;
-	Tue, 18 Aug 2026 12:49:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E28B410EAFF;
+	Tue, 18 Aug 2026 12:49:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=163.com header.i=@163.com header.b="FnDhUm9J";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NKuG5bfl";
 	dkim-atps=neutral
-X-Greylist: delayed 84203 seconds by postgrey-1.36 at gabe;
- Tue, 18 Aug 2026 02:42:00 UTC
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 273D610E495;
- Tue, 18 Aug 2026 02:41:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=WO
- 8FyUC4HwnkJnyEzBvf1tqLaeA8/0Z4r64+dWiiiOI=; b=FnDhUm9JJpk6qrtczi
- Of6bd+w3mjQgg6loGcD9abFLT4rUmqmTWSYDupVnzNZlPSw9xwNyRATzXGdH7N4o
- 8Yi35Lan1CmM+apZ72pr8r4nzKdUodWLrMLztjmv82tz6CDjtgq3ZiXNeHVID1qc
- 0pcVUuhTE+Vro2xr+r4kEH3QI=
-Received: from debian.lenovo.com (unknown [])
- by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wDX3V9VxoNqomgEOQ--.254S2;
- Tue, 18 Aug 2026 10:41:29 +0800 (CST)
-From: rh_king@163.com
-To: harry.wentland@amd.com, sunpeng.li@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch
-Cc: siqueira@igalia.com, dillon.varone@amd.com, gaghik.khachatrian@amd.com,
- pinglei.lin@amd.com, zhikai.zhai@amd.com, robin.chen@amd.com,
- alex.hung@amd.com, Matthew.Stewart2@amd.com, jack.chang@amd.com,
- clayking@amd.com, chuntao.tso@amd.com, PeiChen.Huang@amd.com,
- Derek.Lai@amd.com, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Kean Ren <rh_king@163.com>
-Subject: [PATCH v2] drm/amdgpu/dc: Avoid PSR AUX WARN on unhealthy eDP link
-Date: Tue, 18 Aug 2026 10:42:19 +0800
-Message-ID: <20260818024219.2921012-1-rh_king@163.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260817031640.2097973-1-rh_king@163.com>
-References: <20260817031640.2097973-1-rh_king@163.com>
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6BACA10E407
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 10:32:36 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-499a4d1d7f1so3760515e9.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 03:32:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787049155; x=1787653955; darn=lists.freedesktop.org;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=AaTdQTQ5KDHtFKgVM7cEDQIq5HDLA+lElYs4fROzZ+c=;
+ b=NKuG5bflyMeHeEmPqw0vzp3Ik7ne/my91kfce4tCKV5KifYUnmXMW8a3hOIeJDr6q1
+ qGR5tR2nssEq7Lu1dGO29NWfi2uvnepBN+iT4V9qW9e1qs8xnUGQHn2D4U9kIuTAz0X5
+ u4LgsRckfIKxS0uA9mcAOKMf9DX74coMKri4LELzMhIbVHRzFAe+CVvrRq0S9d9AgjtE
+ R21BOQxL1uRpD4w83UPTRFS7Gl07cHQFD2NyQl8W09dsnKQ/FrDIY1k5Cq4F/5NvX3dG
+ Sq4v2o4knQgRcDVvCWiP6hAAQrbUL6fPC386CvKYc+0dcFfMhllZQkxysNeuiBrKH1AG
+ OboA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787049155; x=1787653955;
+ h=cc:to:message-id:content-transfer-encoding:content-type
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=AaTdQTQ5KDHtFKgVM7cEDQIq5HDLA+lElYs4fROzZ+c=;
+ b=AqbBGv73NO92NSMGar3zVmogmOIrSz+VlSca8gFuyCO29DFaqEqbt/hUKAI5u7+1Cf
+ QyuWzJcTN+Z1R+jtEBpjjf+J7SQeSCjtyL5/FCUN8T2pIMJ8KjDXz6Y1O+WPOH4hpW2f
+ rZ1kXQun6Lr0b8vdT5Ao2irl5HeVfadtfP9rSBYXA4Oj0jwBDBRz1kYork8N70GkDM3u
+ 6s4EYx3n2weeuw3lC7GuCN17RjjgWbGcNBpiesPdM4gf/qFXZof0Q2fa714ibomIuwLK
+ nlzPPgmMBINLdgGqI1wInPyV/lnfY0pKYgpjlqDbqQ4RP/d5/WaTeCtLWeXC5LzVk8eO
+ h4sg==
+X-Gm-Message-State: AOJu0YxCdVBvXqkSr2GKBu/mxkZQv2GFAVhP9bjSRng42+Zi34rRLox8
+ lZiuvrwNZFpmeSO8NpbQxFHYRLcQzByR7mLz/I+G5q7ZyVPv4WIs1pgn
+X-Gm-Gg: AR+sD13vk+eixtxpfRMgPwzuuycN2nB3B4VMcz8q96yDvYoLof3PR9hteCAbn+hAWME
+ Q8fieMgVu2IA7BOhtZwcdawjB8viuCglFXoCarSi/GcOExEudJBLGC2oOYiODNdJ82+wSO883YP
+ gd4BO10z0ujX4UAKqoL93xaxcGJZrNoInBu7DQHYg7G/iP2Iv+UAjs143lOr1jL/QSjqhwq/VDC
+ OGnLVmBkYhz3sPKaFCFUmW2J/GmMdgVFK3bR3GQouM0f8SjWm83U0k/guUsmBp1pM1BjJrXBV/N
+ og8KyogPZ/KBYji21x+QBl/7WCiupEPSnByS0Lrabtmy74nFeCZfS6IrFtreP1tQKWVfBjKHDdp
+ 2EX1QRLjiZz6pHrvvcnSsyDazjX6tWcvqtEJ9KAP8pTmn78YCM+eJdqyK+Xf2N0S0BfGSihoJ2m
+ Jc/n7Xusb9t88pTc1cVR7oNiW3c+Mdovi/DmgD1/6YBD9zyNn9wBBwT/j6avcf8xXj8hBKuFhXs
+ 4yhU6mTW4/pWD+eFnLTI7sAVzqtZdLeZjT/gE3QwhhEfCrrByMCa2Fx
+X-Received: by 2002:a05:600c:5306:b0:498:952:e276 with SMTP id
+ 5b1f17b1804b1-4999fafdb79mr142980085e9.8.1787049154516; 
+ Tue, 18 Aug 2026 03:32:34 -0700 (PDT)
+Received: from [127.0.1.1]
+ (2a01cb0007c59900868885f119326717.ipv6.abo.wanadoo.fr.
+ [2a01:cb00:7c5:9900:8688:85f1:1932:6717])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49996183b89sm286950535e9.12.2026.08.18.03.32.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 18 Aug 2026 03:32:34 -0700 (PDT)
+From: Amin Gattout <amin.gattout@gmail.com>
+Date: Tue, 18 Aug 2026 12:32:00 +0200
+Subject: [PATCH] drm/amdgpu: Replace deprecated strcpy with strscpy
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID: _____wDX3V9VxoNqomgEOQ--.254S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3CFy8AFWkurWkCr1kWFyUZFb_yoWDKFyrp3
- yfKFW5GrW8Zr42vF47J3W09rW5Z3W7Aa47JrZ3Gr1kZ3W5Aw1UuF18Zr1agF98GrZrJa13
- JF1kua4Ig3Wqkw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0p_WlkJUUUUU=
-X-Originating-IP: [36.141.44.3]
-X-CM-SenderInfo: 5ukbyxlqj6il2tof0z/xtbC-BlD8WqDxlln9QAA3z
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260818-amdgpu-strcpy-v1-1-3ee9b111fafe@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAJ80hGoC/yXMQQ5AMBBA0avIrDVpu5DWVcSCdjASNB2EiLsrl
+ m/x/wWMkZChzC6IuBPTMieoPAM3NHOPgnwyaKkLaZQRzeT7sAleowunkGi1V0Zb6wpITYjY0fH
+ 9qvo3b+2Ibn0ncN8PgUo2VnEAAAA=
+X-Change-ID: 20260818-amdgpu-strcpy-0e92d18299c6
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, Amin Gattout <amin.gattout@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787049153; l=2002;
+ i=amin.gattout@gmail.com; s=20260818; h=from:subject:message-id;
+ bh=Z9rg6SsGzP7wm590tdNj/0vQ4mbnDFtBl6dpCEg6CDs=;
+ b=9xpeH0/D3c0TwnMtjtVQSYoVw0OGC2Mm2rbnA+SzNRcXNiA2RICYmkzbS1cQm5NFbPQv+KFiX
+ Dh8hhR4CfEKBrVrHn4sGbn5JTaAPvfHw0loe+4seB43vcRLZgS/+H+S
+X-Developer-Key: i=amin.gattout@gmail.com; a=ed25519;
+ pk=MSIqDPkCOkwtyP8Fns1m+KFU9SgqoDl2mpLe18vL+hQ=
 X-Mailman-Approved-At: Tue, 18 Aug 2026 12:49:26 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -66,237 +102,52 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Kean Ren <rh_king@163.com>
+strcpy() has been deprecated because it performs no bounds checking
+on the destination buffer, which can lead to buffer overflows. Replace
+it with the safer strscpy().  No functional changes.
 
-v2: Keep the original `status` variable, just add `return status;` on
-    each error path. The previous v1 attempt renamed `status` to a new
-    `result` variable to avoid masking failures across the four
-    core_link_write_dpcd() calls, but missed that the function's final
-    `return status;` was then left returning uninitialised stack memory
-    on the success path (caught by Sashiko AI review). Restoring the
-    `status` name and only adding the early returns gives a smaller,
-    more obvious diff.
-
-When an eDP panel is still recovering right after resume (e.g. lid open
-or AC return on a ThinkPad that has been in s2idle for hours), AUX/DPCD
-writes may transiently fail. Two distinct code paths compound this into
-a kernel WARN at dce_aux_transfer_raw():
-
-  1. dpcd_set_link_settings() reuses a single `status` variable for
-     four core_link_write_dpcd() calls and only emits DC_LOG_ERROR on
-     failure. The first failing write gets overwritten by the next
-     call, so the function can return DC_OK even when every DPCD write
-     failed. Callers therefore cannot tell that the link is unhealthy
-     and continue with PSR setup on a dead AUX channel.
-
-  2. edp_setup_psr() does not consult link->link_status.link_active
-     before pushing the PSR enable DPCD writes. When the link training
-     failed, the sink is not actually there to ACK, so
-     dm_helpers_dp_write_dpcd() -> dce_aux_transfer_raw() hangs until
-     AUX_SW_DONE times out and triggers ASSERT_CRITICAL().
-
-Observed on a Lenovo ThinkPad 21XHZDY2CN (BIOS R3HET22W 1.08) running
-Ubuntu 24.04 with 6.17.0-1030-oem. The user-visible trigger is usually
-a network event right after resume (unplug/replug the r8169 Ethernet
-cable, NetworkManager roaming to wlan, or a lid-close -> lid-open
-cycle). The dbus signal from those events causes a Wayland compositor
-(gnome-shell) or an X11 client running under XWayland to issue
-DRM_IOCTL_MODE_SETCRTC, which reaches amdgpu_dm_enable_self_refresh()
-and then edp_setup_psr(). The "Xorg" comm name in the WARN trace is
-XWayland, since this box boots into a GNOME Wayland session.
-
-```
-amdgpu 0000:c6:00.0: [drm] enabling link 0 failed: 15
-amdgpu 0000:c6:00.0: [drm] *ERROR* dpcd_set_link_settings:1122:
-        core_link_write_dpcd (DP_DOWNSPREAD_CTRL) failed
-amdgpu 0000:c6:00.0: [drm] *ERROR* dpcd_set_link_settings:1127:
-        core_link_write_dpcd (DP_LANE_COUNT_SET) failed
-amdgpu 0000:c6:00.0: [drm] *ERROR* dpcd_set_link_settings:1144:
-        core_link_write_dpcd (DP_LINK_BW_SET) failed
-amdgpu 0000:c6:00.0: [drm] *ERROR* dpcd_set_link_settings:1149:
-        core_link_write_dpcd (DP_LINK_RATE_SET) failed
-[- cut here -]
-WARNING: CPU: 0 PID: 2615 at drivers/gpu/drm/amd/amdgpu/../display/dc/dce/dce_aux.c:393
-        dce_aux_transfer_raw+0x296/0x2e0 [amdgpu]
-CPU: 0 UID: 1000 PID: 2615 Comm: Xorg Tainted: G           O
-        6.17.0-1030-oem #30-Ubuntu PREEMPT(voluntary)
-Tainted: [O]=OOT_MODULE
-Hardware name: LENOVO 21XHZDY2CN/21XHZDY2CN, BIOS R3HET22W (1.08 )
-        06/24/2026
-RIP: 0010:dce_aux_transfer_raw+0x296/0x2e0 [amdgpu]
-Code: ff e9 49 ff ff ff 41 c7 04 24 04 00 00 00 eb eb 3c 01
-       0f 87 4c f4 34 00 83 e0 01 3c 01 19 c0 83 e0 c0 83 c0 50
-       e9 3f fe ff ff <0f> 0b 41 c7 04 24 03 00 00 00 eb c5
-       41 c7 04 24 03 00 00 00 eb bb
-RSP: 0018:ffffcdd6c53272f8 EFLAGS: 00010246
-RAX: 0000000062000000 RBX: ffff8d353020fc80 RCX: 0000000000000000
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: ffffcdd6c5327358 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000000 R12: ffffcdd6c53273ac
-R13: ffffcdd6c53273b0 R14: 0000000000000001 R15: ffff8d3562690000
-FS:  00007b3cc831aac0(0000) GS:ffff8d4c6d669000(0000)
-    knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 0000700f940020f8 CR3: 000000012fe37000 CR4: 0000000000f50ef0
-PKRU: 55555554
-Call stack:
- <TASK>
- link_aux_transfer_raw+0x48/0x80 [amdgpu]
- dc_link_aux_transfer_raw+0x24/0x40 [amdgpu]
- dm_dp_aux_transfer+0xee/0x2b0 [amdgpu]
- drm_dp_dpcd_access+0xbe/0x160 [drm_display_helper]
- drm_dp_dpcd_write+0xc4/0x120 [drm_display_helper]
- dm_helpers_dp_write_dpcd+0x29/0x60 [amdgpu]
- edp_setup_psr+0x156/0x5a0 [amdgpu]
- dc_link_setup_psr+0x20/0x40 [amdgpu]
- amdgpu_dm_link_setup_psr+0x155/0x1a0 [amdgpu]
- ? dm_write_reg_func+0x47/0xc0 [amdgpu]
- amdgpu_dm_enable_self_refresh+0xaa/0x240 [amdgpu]
- amdgpu_dm_commit_planes+0x636/0x1740 [amdgpu]
- ? manage_dm_interrupts+0xa5/0x280 [amdgpu]
- amdgpu_dm_atomic_commit_tail+0xb04/0x1270 [amdgpu]
- ? __set_output_tf.constprop.0+0xfd/0x1a0 [amdgpu]
- commit_tail+0xc6/0x1b0
- drm_atomic_helper_commit+0x132/0x160
- drm_atomic_commit+0xac/0xf0
- ? __pfx___drm_printfn_info+0x10/0x10
- drm_atomic_helper_set_config+0x82/0xd0
- drm_mode_setcrtc+0x3ff/0x9e0
- ? rmapiMapWithSecInfo+0x230/0x2b0 [nvidia]
- ? __pfx_drm_mode_setcrtc+0x10/0x10
- drm_ioctl_kernel+0xb4/0x110
- drm_ioctl+0x2ec/0x5b0
- ? __pfx_drm_mode_setcrtc+0x10/0x10
- amdgpu_drm_ioctl+0x4b/0xa0 [amdgpu]
- __x64_sys_ioctl+0xa2/0x100
- x64_sys_call+0x1226/0x2680
- do_syscall_64+0x80/0x8b0
- ? check_heap_object+0x17f/0x1c0
- ? nvidia_unlocked_ioctl+0x175/0x9a0 [nvidia]
- ? __x64_sys_ioctl+0xbf/0x100
- ? arch_exit_to_user_mode_prepare.isra.0+0xd/0xe0
- ? do_syscall_64+0xb6/0x8b0
- ? arch_exit_to_user_mode_prepare.isra.0+0xd/0xe0
- ? do_syscall_64+0xb6/0x8b0
- ? arch_exit_to_user_mode_prepare.isra.0+0xd/0xe0
- ? do_syscall_64+0xb6/0x8b0
- entry_SYSCALL_64_after_hwframe+0x76/0x7e
-RIP: 0033:0x7b3cc8724f1d
-Code: 04 25 28 00 00 00 48 89 45 c8 31 c0 48 8d 45 10 c7 45 b0 10 00 00 00 48 89 45 b8
- 48 8d 45 d0 48 89 45 c0 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1a 48 8b 45 c8
- 64 48 2b 04 25 28 00 00 00
-RSP: 002b:00007ffe65c05b80 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000617240d63e10 RCX: 00007b3cc8724f1d
-RDX: 00007ffe65c05c10 RSI: 00000000c06864a2 RDI: 0000000000000010
-RBP: 00007ffe65c05bd0 R08: 0000000000000000 R09: 0000617240c4b700
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffe65c05c10
-R13: 00000000c06864a2 R14: 0000000000000010 R15: 000061723f332b30
- </TASK>
-[- end trace 0000000000000000 -]
-```
-
-Fix both issues:
-
-  - dpcd_set_link_settings(): add an early `return status;` after each
-    failed core_link_write_dpcd() check, so callers see the real
-    AUX/DPCD state instead of the last successful write.
-
-  - edp_setup_psr(): short-circuit when link->link_status.link_active
-    is false, so we never push PSR configuration over a dead AUX
-    channel.
-
-Signed-off-by: Kean Ren <rh_king@163.com>
+Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
 ---
- drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c       | 30 ++++++++++++++++----
- drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c | 11 +++++++
- 2 files changed, 36 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-index 605bf19dc4f2..f15a5e7ea43a 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_training.c
-@@ -1117,15 +1117,25 @@ enum dc_status dpcd_set_link_settings(
- 				link->dpcd_caps.max_ln_count.bits.POST_LT_ADJ_REQ_SUPPORTED;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+index cc6d1a4e4c3a..1caa393c44d5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mca.c
+@@ -97,7 +97,7 @@ int amdgpu_mca_mp0_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
  	}
-
-+	/* Bail out on the first DPCD write failure so callers can react and
-+	 * subsequent operations (e.g. PSR setup) do not keep poking an
-+	 * unhealthy AUX channel. Without this, a transient AUX/HPD glitch
-+	 * during resume leads to a cascade of DPCD errors and ultimately a
-+	 * WARN at dce_aux_transfer_raw() because AUX_SW_DONE never asserts.
-+	 */
- 	status = core_link_write_dpcd(link, DP_DOWNSPREAD_CTRL,
--		&downspread.raw, sizeof(downspread));
--	if (status != DC_OK)
-+				      &downspread.raw, sizeof(downspread));
-+	if (status != DC_OK) {
- 		DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_DOWNSPREAD_CTRL) failed\n", __func__, __LINE__);
-+		return status;
-+	}
-
- 	status = core_link_write_dpcd(link, DP_LANE_COUNT_SET,
--		&lane_count_set.raw, 1);
--	if (status != DC_OK)
-+				      &lane_count_set.raw, 1);
-+	if (status != DC_OK) {
- 		DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_LANE_COUNT_SET) failed\n", __func__, __LINE__);
-+		return status;
-+	}
-
- 	if (link->dpcd_caps.dpcd_rev.raw >= DPCD_REV_13 &&
- 			lt_settings->link_settings.use_link_rate_set == true) {
-@@ -1141,19 +1151,25 @@ enum dc_status dpcd_set_link_settings(
- 					supported_link_rates, sizeof(supported_link_rates));
- 		}
- 		status = core_link_write_dpcd(link, DP_LINK_BW_SET, &rate, 1);
--		if (status != DC_OK)
-+		if (status != DC_OK) {
- 			DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_LINK_BW_SET) failed\n", __func__, __LINE__);
-+			return status;
-+		}
-
- 		status = core_link_write_dpcd(link, DP_LINK_RATE_SET,
--				&lt_settings->link_settings.link_rate_set, 1);
--		if (status != DC_OK)
-+					      &lt_settings->link_settings.link_rate_set, 1);
-+		if (status != DC_OK) {
- 			DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_LINK_RATE_SET) failed\n", __func__, __LINE__);
-+			return status;
-+		}
- 	} else {
- 		rate = get_dpcd_link_rate(&lt_settings->link_settings);
-
- 		status = core_link_write_dpcd(link, DP_LINK_BW_SET, &rate, 1);
--		if (status != DC_OK)
-+		if (status != DC_OK) {
- 			DC_LOG_ERROR("%s:%d: core_link_write_dpcd (DP_LINK_BW_SET) failed\n", __func__, __LINE__);
-+			return status;
-+		}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "mca.mp0");
++	strscpy(ras->ras_block.ras_comm.name, "mca.mp0");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__MCA;
+ 	ras->ras_block.ras_comm.sub_block_index = AMDGPU_RAS_MCA_BLOCK__MP0;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+@@ -122,7 +122,7 @@ int amdgpu_mca_mp1_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
  	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "mca.mp1");
++	strscpy(ras->ras_block.ras_comm.name, "mca.mp1");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__MCA;
+ 	ras->ras_block.ras_comm.sub_block_index = AMDGPU_RAS_MCA_BLOCK__MP1;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
+@@ -147,7 +147,7 @@ int amdgpu_mca_mpio_ras_sw_init(struct amdgpu_device *adev)
+ 		return err;
+ 	}
+ 
+-	strcpy(ras->ras_block.ras_comm.name, "mca.mpio");
++	strscpy(ras->ras_block.ras_comm.name, "mca.mpio");
+ 	ras->ras_block.ras_comm.block = AMDGPU_RAS_BLOCK__MCA;
+ 	ras->ras_block.ras_comm.sub_block_index = AMDGPU_RAS_MCA_BLOCK__MPIO;
+ 	ras->ras_block.ras_comm.type = AMDGPU_RAS_ERROR__MULTI_UNCORRECTABLE;
 
- 	if (rate) {
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-index 80a372ceaa51..43a0facc8884 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
-@@ -699,6 +699,17 @@ bool edp_setup_psr(struct dc_link *link,
- 	if (!link)
- 		return false;
+---
+base-commit: 0f23d56f17fdfc7db69d51f64c8b91bbab947aa9
+change-id: 20260818-amdgpu-strcpy-0e92d18299c6
 
-+	/* Skip PSR setup when the eDP link is not active. When AUX/DPCD
-+	 * writes are failing (e.g. after a resume where the panel has not
-+	 * fully come back yet), edp_setup_psr() will still try to push
-+	 * configuration over the AUX channel. That auxiliary transfer never
-+	 * completes and triggers ASSERT_CRITICAL() in dce_aux_transfer_raw().
-+	 * The DPCD read of the PSR cap below is also unsafe on a dead link,
-+	 * so bail out early before touching the sink.
-+	 */
-+	if (!link->link_status.link_active)
-+		return false;
-+
- 	/* This is a workaround: some vendors require the source to
- 	 * read the PSR cap; otherwise, the vendor's PSR feature will
- 	 * fall back to its default behavior, causing a misconfiguration
---
-2.47.3
+Best regards,
+--  
+Amin Gattout <amin.gattout@gmail.com>
 
