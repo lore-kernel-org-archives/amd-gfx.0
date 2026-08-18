@@ -4,41 +4,42 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A24ABC5DF81
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 20:22:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D8D6AC5DF85
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 20:22:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4676110EC7B;
-	Tue, 18 Aug 2026 20:22:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7262710EC89;
+	Tue, 18 Aug 2026 20:22:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sT6DUYut";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Q5gB/CPz";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012050.outbound.protection.outlook.com [52.101.53.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B21EA10EC7B
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:21:59 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010003.outbound.protection.outlook.com
+ [40.93.198.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D56EE10EC89
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:01 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fbozC/qXfhyzoSkfQD9klfse+jdroO390lTFoQBxYey2snQ5TOAxzyC1kJK8cbsUpjwWCJw5tkESKW25PppmJbdDNPj/pfQ1upq4RytKc5hpszli04LddcyZ8kv9LgP0Azixith5NuGUFrr1bQ6U3YpsXkz2XN7QQOvtCsjr8WHwbxJ6BbimOC/XOuxruQwhNnGVFkh5rX0wL1FYTyASWFI+ZIiPXdskJCeV5zWbYAz9Nep469fbJQ97AuLVpHE6WGySC/lyPhZCovCesEj03mnHly9BhJKTzwoUC6MSUneRmtTCw/ywg0vvxVdI1y+dIWSv7lBYpWHVC2Jw720Kmw==
+ b=KZp/HCc8b1mUZAu2Tf8ku0uRRF5ECPHwYGz5a0LZ2oYQoOoMNACUKQBGwLBZfXmS7NKuvijhDcVwG4gIrBC5bSgrkpAEjncl4liMJ8jZB2DojG95u7HOOclK6rCIleJniyZvNzyO1cWEeF6EV6MQTXcNPAR6TFUYqPQ5j8qBkTdB/2bNWICUzh/36QI7FLDYhVLMbKuEfwprW1SKj15GdP18Oaxk32ce0ndPWgbRQ/N08Wh5MMHNnYiDdZ64sSokd0rwUGobokc0a9yYPjyS2ceooeGCtz1eW9//4ek0ERcv8bSsAOfscAAMRPcdBekk79yLw9IwYOsAWsh9yO8vhQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FXTLlmCS9S/hZDfMQOOhRDuCGXRM4uETVjy1gq+LiTw=;
- b=ly3+gWZ9IquXrUarZpmwsqk7Oorjw1KfDH2cIfouDRs2iTtlpkrGjtzVdNOaj5GlocEATfUGYZ1Wg/1UVn8fpmB+R8hqIvwpod2CDrNjyALpN9RyR7Svien287LVcL4gPe5ccZHSyGf2TAkqjOswjMbtfXbOGh0DrPa/uucrtgfcKfumH/5eoOL/U3aq3B8gMt314jUmcO7v0eeG5UF/qJXtyCHutR7ZHbILfVpILeOOVpiqchxBYZ/nMMIr23v15+TVcYx7Ev1ayEnv6WIL/zvQ6rECJF9pFrVfbOLVxQGGj6IqgPBRaSqvj+xbreOb7frXbcTf1R/XQUUgcfVeLA==
+ bh=PMgMqu1gjHu5JkbZSpjtbhDkYDUG8ZvjMrrLXCYrbIc=;
+ b=rV1XsncINv2lgcUXNOnsjFmZckMvAva3AcEakH+Y448Q1tmAiTCCKStYQnry/ZW3iLgFn5KDIpXLL0qIKzLiGk0rk8fascSR6m9eP+792dLnJ857rgZLBFwVondmJNoHViAo96lL3E31Wo/PPv9Oi65jNozWGxlFy+Srvo9S8IVzvu/nBVFDPHnllACrtvpKRMTo4eNL5zaHMBPAgI7/Bd3DAkMyJ66uw/8eWaA4s0i4QA5cLVgqzEIe344Qqd5jho3AmJEc6DRj9oQuZUUWly7PlFRkd33FWIjDZl8EDFD0AvzCUj4CLb7ggGJcv6+M395Ea0559stDDskoHd/SnA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FXTLlmCS9S/hZDfMQOOhRDuCGXRM4uETVjy1gq+LiTw=;
- b=sT6DUYutL4dyUZ5pawfkf0HdWE7qixuQpLfeJydGj1EvFLzD/BtfEmbp5FE9Nn/LFTJEW29IJSdF8Hir4c+HL7vGVDp+DLtqxik3TOlZJ4VPJc8LtTMdqWEs1H6kLU7TP55NBYsFL8QaTGF9vUJF5wN4y/JIO6/eAcxfrPGMID8=
-Received: from BN9PR03CA0347.namprd03.prod.outlook.com (2603:10b6:408:f6::22)
- by DS7PR12MB8345.namprd12.prod.outlook.com (2603:10b6:8:d8::14) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=PMgMqu1gjHu5JkbZSpjtbhDkYDUG8ZvjMrrLXCYrbIc=;
+ b=Q5gB/CPzpMGnYNPa5fEYnG3rHvkyriA/l3ggXfsEZ2bII5zTw79IEqr0zVp/8Lb7g4nfbUkQt48gkVSVFMixkoVQ90dzUR9pTQGR3usxvwCo/dIhKVoP6hrtLZ/+jDj1QxcgaxGPkMVa4gPoMSSJhEVNqkNCrYYaoHHPNDhkudQ=
+Received: from BN9PR03CA0847.namprd03.prod.outlook.com (2603:10b6:408:13d::12)
+ by SA1PR12MB5616.namprd12.prod.outlook.com (2603:10b6:806:22a::11)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Tue, 18 Aug
- 2026 20:21:50 +0000
-Received: from BN3PEPF0000B36D.namprd21.prod.outlook.com
- (2603:10b6:408:f6:cafe::3a) by BN9PR03CA0347.outlook.office365.com
- (2603:10b6:408:f6::22) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 20:21:56 +0000
+Received: from BL6PEPF00020E65.namprd04.prod.outlook.com
+ (2603:10b6:408:13d:cafe::6d) by BN9PR03CA0847.outlook.office365.com
+ (2603:10b6:408:13d::12) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.17 via Frontend Transport; Tue,
  18 Aug 2026 20:21:50 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
@@ -46,18 +47,22 @@ X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B36D.mail.protection.outlook.com (10.167.243.164) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL6PEPF00020E65.mail.protection.outlook.com (10.167.249.26) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 20:21:49 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.339.3 via Frontend Transport; Tue, 18 Aug 2026 20:21:50 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
- 2026 15:21:49 -0500
+ 2026 15:21:50 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
+ 2026 15:21:50 -0500
 Received: from box-0.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Tue, 18 Aug 2026 15:21:48 -0500
+ Transport; Tue, 18 Aug 2026 15:21:49 -0500
 From: <IVAN.LIPSKI@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,11 +71,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>
-Subject: [PATCH 01/82] drm/amd/display: Fall back to overlay cursor on dcn4x
- when top plane doesn't fill CRTC
-Date: Tue, 18 Aug 2026 16:14:53 -0400
-Message-ID: <20260818202139.4172592-2-IVAN.LIPSKI@amd.com>
+ <Chen-Yu.Chen@amd.com>, Sridevi Arvindekar <sridevi.arvindekar@amd.com>,
+ Wenjing Liu <wenjing.liu@amd.com>
+Subject: [PATCH 02/82] drm/amd/display: Fixes for HPO test regressions
+Date: Tue, 18 Aug 2026 16:14:54 -0400
+Message-ID: <20260818202139.4172592-3-IVAN.LIPSKI@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
 References: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
@@ -79,29 +84,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36D:EE_|DS7PR12MB8345:EE_
-X-MS-Office365-Filtering-Correlation-Id: e92c1943-3226-4b20-da70-08defd665599
+X-MS-TrafficTypeDiagnostic: BL6PEPF00020E65:EE_|SA1PR12MB5616:EE_
+X-MS-Office365-Filtering-Correlation-Id: bac73f18-cec9-4def-8e8d-08defd665618
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|82310400026|36860700016|18002099003|22082099003|56012099006|3023799007|6133799003|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: RhjHjtAjtDp9CUec5V4IXEsVK0XdJp1K/FkXhLwRu+L/AFLt8ss2I6dI9THlWIp7DakR+yA2V2U8ferhuDsMyfBGbw7d19god+scOL/M0jtAvWACg119FZvpqGutsgOsfUoM6L4J104WMqFmy/Au0aQP2MYy3RxP8xPncVrVd9nf6t54JFOR4L0pmWUFwIYR3UU14ywwuyXnf6+t3ceoey6vykojHKmRrROIIZpPwHegizJu+gWqkFdJ46rtx6IAjnXrmB9OZ2MivHO5QEuyKJvMmlQCPemFlGD1bAYly1+RgYVyjbZwD3uSFaFQQHeKl9ZwHvCiHmquQ/vNrGIOxTXNuw9rjLJp9VzQs2zgUmG9JnOle0Repk6kQC8RdgJlurhT1puWY7JC20m6NHDhoR/skADLSop5uWjJDCwrbfwKuJuplC0XCvSyJWNyv3cVD9aex9DP8tX2AsDaSVGC0H1PvEj2xcrKhG7SDtLjre5Q5Ug7+uMjCQQh8If9UQKS1lraCYz9QCcTUvczUW/ove5F1fDX8bolJ+UO7Hwwcc+TwjvoGyCQZ4tnJwOeulw5vi66m6En9048l/q1nJL7jXGW9vyvqAmdXrAoVFA/wb23ASdcdw+b9pVbk7rrXm8yB3KAX++rIffSTdFNRxjSIXqBn88MBDQAIUMykG5fiSfXpjmwq52DLB19SdEdQURL
+ ARA:13230040|36860700016|376014|1800799024|23010399003|82310400026|6133799003|3023799007|56012099006|10067099003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: wbs32CCBvxTsJ+x/No21ZVuO9QHSHDTmMxXlGBnywyroh+U26/Wo8TAaW9n6S9FbVtCcb/7ooy4HXlinj5kGHvxmD3a1BvR1KMPO2y3sGscXOcWLugrGfE6sMfnm5hkXCn8L0sc6cNME2/UQeDJohifB6nenzvSF9Uv5bIJKuk88bBWb3i7R9EHDT2bHyBHt9OhEVz4jLOHn51IHqWAT2if3li5YGKRfA/i5zgZv25rIYP5CKyC5FOlRoVk4Px2OxGjD/A7oTz7sS41aFgKdbXHLRlbZ1mT6COFiZzJkuYsar4ByOVtkvp0gc98rKNLQ+zjr/UbFCmIuFWn6L3BoIxR8rjMX477Y8a6GRE1KPklKKbki7pmKRrsskigB0/dH9+iD6Ryy8dAMjGRns9gPaGgEWjQFzCn+NJdrM8Ioovmx3k4zW8cazLIn26V5qaduV/PzdQV0HJlzhgn5GwxYy4aV89LGYHKnfGKpKV9pLHLb4uwaS8MKzl4T5NaZbUG3T/zdxQk9XaF0+TZ2ffwIj+sruTb2HoQ+N5/mWRy87akMIGLizqdR4WhaiB8FRzhKMbzu5/cmVzpX9SJ3UPGUk3NkhM1k1LY3zwJBHLcSGVyK/H0XR0TU+ZpMd5D1J5hhgWVgfWH0AC0TZG86LzPRwPt6MAzZdgY9AXzB/OTEtB+LbYNpMibXVvZjdnjBufe+gZyxWvJNNOYrFTq6AKLfyw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(82310400026)(36860700016)(18002099003)(22082099003)(56012099006)(3023799007)(6133799003)(11063799006)(10067099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(1800799024)(23010399003)(82310400026)(6133799003)(3023799007)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: TVvSuhCIG8pUiFPDECcXE68N5gO4rogFPHQSji9g/B64RTuf3RUKEuUrKfV3kij6L8w30AhOD+8bM3qEiuYpqVJHUJYJnA0hfUQavgX5pBfkCO6blI9nsXarsM8sPqkmZFYMLlP8re+PLcDpDEYGnhm3vfGPcYwUTqqvZGv+fCL1INdkj6WhkfMWHMbJZ5vbuQc9obqacSyzbYHclt/AJ7HpcFoCq0HYUJZKk78DDCXhH/OlK+7/cCmQi8/lKakQDD8NaxAofHpjNPD23cVODY9RxDpa1oZ8q5ptc/uDjKfxE0kCoACw3r0uj474YWhIEFpcM/d5xRgEIcjQBjvx/gJ84gVx1QAII0KmCrnpZknY9VbQwY4RnI28mq7MtX5eCcSlVnUbcMPNqFvg0SYlpGb58lkqX6sF4oHjN1R6GTMHDqhb4/1HMACDNFFcFsNu
+X-MS-Exchange-AntiSpam-MessageData-0: Ptas/fxOtsabIoT22ch9w1L+A6wdZIZizFEPRUti+LS8BPghCDQXWrYQ6WX1i3fFA5USfDzwZklbeh46zpDDFxLIi8uAW2RLnUkJbEiB/ZBduHm0bsBUb9ARCo46SoLYMNx2xpW+MIZLIDWiSd4L+UxhYF8Di8Hd1gryvJeVXVt3a+yZVUCMyFL/mU8X1orKscNHY15Cez2y6s3gJYFVnfTSmvvJqTSxNjsayWudIx8ntXPjkSXu91wyu/LYkIbM+Sify16GsvW2OrWGkuXAfUiO7SfgOecnU+cH2zzTkm9OM3M01RSJqiQvklyzRXjpD25T9EhqNVvXqIxN54qFRDL3yBaIOwt3yYDYj6x+xAWqsQ+uOD6FfSNtbyHvDKVzNT6TbYyJvXJwcSKv8G6T5mxNBotnUbn4wf5BduqylAoycT7kqErlJEP1gAglow7w
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:21:49.7392 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e92c1943-3226-4b20-da70-08defd665599
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:21:50.5689 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bac73f18-cec9-4def-8e8d-08defd665618
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36D.namprd21.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E65.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8345
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB5616
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,178 +121,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: James Lin <PingLei.Lin@amd.com>
+From: Sridevi Arvindekar <sridevi.arvindekar@amd.com>
 
-[why]
-amdgpu_dm_crtc_get_cursor_mode() returns DM_CURSOR_NATIVE_MODE early and
-unconditionally for dcn4.x. That early return was added because these
-ASICs no longer have the cursor-on-scaled-plane or cursor-on-yuv-plane
-restrictions of older DCN, so native cursor is fine in those cases.
-However, it also bypasses the "does the top plane fill the CRTC?" (hole)
-evaluation further down. When the top/primary plane does not cover the
-whole CRTC, the cursor must fall back to an overlay plane so it is
-composited over the uncovered region; keeping the native cursor there
-produces an incorrect result. As a consequence
-igt@amdgpu/amd_cursor_overlay@non-full, which verifies exactly this
-native->overlay fallback, fails on dcn42.
+[Why&How]
+Updates and fixes to HPO functionality, initialization, encoder
+configuration and platform-specific behavior.
 
-[how]
-Change unconditional early return with a skip_fmt_scale_restrictions flag.
-For dcn4.x keep skipping the YUV / active-color-pipeline / different-scale
-overlay triggers (genuinely unnecessary on this hardware), but fall
-through to the existing entire_crtc_covered check so a top plane that does
-not fill the CRTC still selects DM_CURSOR_OVERLAY_MODE. Native mode is
-still chosen when the plane covers the whole CRTC.
-
-Update the amdgpu_dm_cursor KUnit tests accordingly: exercise the dcn4x
-path with a full atomic state fixture (full coverage -> native) and add a
-dcn4x hole case (top plane does not fill the CRTC -> overlay).
-
-Reviewed-by: Tom Chung <chiahsuan.chung@amd.com>
-Signed-off-by: James Lin <PingLei.Lin@amd.com>
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Sridevi Arvindekar <sridevi.arvindekar@amd.com>
 Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 ---
- .../amd/display/amdgpu_dm/amdgpu_dm_cursor.c  | 28 ++++++++--------
- .../amdgpu_dm/tests/amdgpu_dm_cursor_test.c   | 32 +++++++++++++------
- 2 files changed, 38 insertions(+), 22 deletions(-)
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  7 ++++++
+ drivers/gpu/drm/amd/display/dc/dce/dce_aux.c  | 12 +++++++++-
+ drivers/gpu/drm/amd/display/dc/gpio/hw_ddc.c  |  7 +++---
+ .../amd/display/dc/hwss/dcn30/dcn30_hwseq.c   |  6 +++++
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |  5 +++-
+ .../display/dc/link/hwss/link_hwss_hpo_dp.c   | 23 ++++++++++---------
+ .../dc/link/protocols/link_dp_capability.c    |  3 ++-
+ 7 files changed, 46 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c
-index 9534848ed240c..c41fce07b8fa8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c
-@@ -87,12 +87,8 @@ STATIC_IFN_KUNIT int dm_check_cursor_fb(struct amdgpu_crtc *new_acrtc,
- 	 * check tiling flags when the FB doesn't have a modifier.
- 	 */
- 	if (!(fb->flags & DRM_MODE_FB_MODIFIERS)) {
--#if defined(CONFIG_DRM_AMD_DC_DCN6_0) || defined(CONFIG_DRM_AMD_DC_DCN5_0)
- 		if (adev->family == AMDGPU_FAMILY_GC_12_0_0
- 		    || adev->family == AMDGPU_FAMILY_GC_13_0_1) {
--#else
--		if (adev->family == AMDGPU_FAMILY_GC_12_0_0) {
--#endif
- 			linear = AMDGPU_TILING_GET(afb->tiling_flags, GFX12_SWIZZLE_MODE) == 0;
- 		} else if (adev->family >= AMDGPU_FAMILY_AI) {
- 			linear = AMDGPU_TILING_GET(afb->tiling_flags, SWIZZLE_MODE) == 0;
-@@ -289,6 +285,7 @@ int amdgpu_dm_crtc_get_cursor_mode(struct amdgpu_device *adev,
- 	int underlying_scale_w, underlying_scale_h;
- 	int cursor_scale_w, cursor_scale_h;
- 	int i;
-+	bool skip_fmt_scale_restrictions = false;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index e019db3dc8226..837af136464ba 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -3002,6 +3002,11 @@ static inline int find_acquired_dio_link_enc_for_link(
  
- 	/* Overlay cursor not supported on HW before DCN
- 	 * DCN401/420 does not have the cursor-on-scaled-plane or cursor-on-yuv-plane restrictions
-@@ -300,15 +297,17 @@ int amdgpu_dm_crtc_get_cursor_mode(struct amdgpu_device *adev,
- 	 */
- 	if (amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(4, 0, 1) ||
- 	    amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(4, 2, 0) ||
--#if defined(CONFIG_DRM_AMD_DC_DCN6_0)
- 	    amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(4, 2, 1) ||
- 	    amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(6, 0, 0) ||
--#else
--	    amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(4, 2, 1) ||
--#endif
- 	    !dm_crtc_state->base.enable) {
--		*cursor_mode = DM_CURSOR_NATIVE_MODE;
--		return 0;
-+		/*
-+		 * Newer DCN has no cursor-on-scaled/yuv-plane restriction, so
-+		 * skip those overlay triggers below. A plane that does not fill
-+		 * the CRTC still needs overlay mode so the cursor renders over
-+		 * the hole, so fall through to the coverage check instead of
-+		 * unconditionally forcing native mode here.
-+		 */
-+		skip_fmt_scale_restrictions = true;
+ static inline int find_fixed_dio_link_enc(const struct dc_link *link)
+ {
++	/* virtual links own their link encoder directly and are never
++	 * registered into pool->link_encoders[]. */
++	if (link->connector_signal == SIGNAL_TYPE_VIRTUAL)
++		return -1;
++
+ 	/* the 8b10b dp phy can only use fixed link encoder */
+ 	return link->eng_id;
+ }
+@@ -3147,6 +3152,8 @@ static bool add_dio_link_enc_to_ctx(const struct dc *dc,
+ 
+ 	if (enc_index >= 0)
+ 		pipe_ctx->link_res.dio_link_enc = pool->link_encoders[enc_index];
++	else
++		pipe_ctx->link_res.dio_link_enc = stream->link->link_enc;
+ 
+ 	return pipe_ctx->link_res.dio_link_enc != NULL;
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
+index 6cb5e8152cf10..4abf51c8ab52c 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_aux.c
+@@ -432,14 +432,24 @@ static bool acquire_aux_engine_without_ddc_pin(
+ 	struct dce_aux *engine,
+ 	struct ddc *ddc)
+ {
+-	(void)ddc;
+ 	if ((engine == NULL) || !is_engine_available(engine))
+ 		return false;
+ 
++	/* Open the DDC in AUX mode so the I3C PAD set_config hook runs and
++	 * enables the PAD RX (disabled by default); otherwise DPCD reads time
++	 * out even though the connector has no native I2C/DDC pin. */
++	if (ddc != NULL &&
++		dal_ddc_open(ddc, GPIO_MODE_HARDWARE,
++			GPIO_DDC_CONFIG_TYPE_MODE_AUX) != GPIO_RESULT_OK)
++		return false;
++
+ 	if (!acquire_engine(engine)) {
++		engine->ddc = ddc;
+ 		release_engine(engine);
+ 		return false;
+ 	}
++
++	engine->ddc = ddc;
+ 	return true;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/hw_ddc.c b/drivers/gpu/drm/amd/display/dc/gpio/hw_ddc.c
+index b75bfea635fd4..bbfdcfc5b48fe 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/hw_ddc.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/hw_ddc.c
+@@ -469,10 +469,11 @@ static enum gpio_result dal_hw_ddc_set_config_i3cpad(
+ 	switch (config_data->config.ddc.type) {
+ 	/* For ASICs with i3cpad module there is no dual pad mode for i3cpads */
+ 	case GPIO_DDC_CONFIG_TYPE_MODE_I2C:
+-		/* Enable the RX for the PAD (it is disabled by default). */
+-		REG_UPDATE(dc_i3cpad_control1, DC_I3CPAD_RXSEL, 0);
+-		return GPIO_RESULT_OK;
+ 	case GPIO_DDC_CONFIG_TYPE_MODE_AUX:
++		/* Enable the RX for the PAD (it is disabled by default). Required for
++		 * both I2C (EDID) and AUX (DPCD); without it the sink reply is never
++		 * received and the transaction times out. */
++		REG_UPDATE(dc_i3cpad_control1, DC_I3CPAD_RXSEL, 0);
+ 		return GPIO_RESULT_OK;
+ 
+ 	case GPIO_DDC_CONFIG_TYPE_POLL_FOR_CONNECT:
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+index cb163902e12e7..8c29aa2cd2c92 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+@@ -966,6 +966,12 @@ enum dc_status dcn30_setup_hdmi_frl_link(
+ 		frl_phy_clock_source_id,
+ 		link->frl_link_settings.frl_link_rate);
+ 	link->phy_state.symclk_state = SYMCLK_ON_TX_ON;
++
++	/* Enable HPO link encoder */
++	link->hpo_frl_link_enc->funcs->setup_link_encoder(
++			link->hpo_frl_link_enc,
++			link->frl_link_settings.frl_num_lanes);
++
+ 	return status;
+ }
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+index 42b2fbb8a4ae4..bdefe699f8ca2 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+@@ -1847,7 +1847,10 @@ void dcn401_unblank_stream(struct pipe_ctx *pipe_ctx,
  	}
  
- 	/* Init cursor_mode to be the same as current */
-@@ -407,13 +406,15 @@ int amdgpu_dm_crtc_get_cursor_mode(struct amdgpu_device *adev,
- 			continue;
+ 	if (dc_is_hdmi_frl_signal(pipe_ctx->stream->signal)) {
+-		if (link->link_status.link_active && link->frl_link_settings.frl_link_rate != 0)
++		bool unblank_required =
++			link->link_status.link_active && link->frl_link_settings.frl_link_rate != 0;
++
++		if (unblank_required)
+ 			pipe_ctx->stream_res.hpo_frl_stream_enc->funcs->hdmi_frl_unblank(
+ 					pipe_ctx->stream_res.hpo_frl_stream_enc,
+ 					pipe_ctx->stream_res.tg->inst);
+diff --git a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_hpo_dp.c b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_hpo_dp.c
+index 04df75114dd5b..8110481234012 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_hpo_dp.c
++++ b/drivers/gpu/drm/amd/display/dc/link/hwss/link_hwss_hpo_dp.c
+@@ -117,16 +117,18 @@ void enable_hpo_dp_link_output(struct dc_link *link,
+ 		return;
+ 	}
  
- 		/* Underlying plane is YUV format - use overlay cursor */
--		if (amdgpu_dm_plane_is_video_format(plane_state->fb->format->format)) {
-+		if (!skip_fmt_scale_restrictions &&
-+		    amdgpu_dm_plane_is_video_format(plane_state->fb->format->format)) {
- 			*cursor_mode = DM_CURSOR_OVERLAY_MODE;
- 			return 0;
- 		}
- 
- 		/* Underlying plane has an active color pipeline - cursor would be transformed */
--		if (dm_plane_color_pipeline_active(state, plane, false)) {
-+		if (!skip_fmt_scale_restrictions &&
-+		    dm_plane_color_pipeline_active(state, plane, false)) {
- 			*cursor_mode = DM_CURSOR_OVERLAY_MODE;
- 			return 0;
- 		}
-@@ -424,7 +425,8 @@ int amdgpu_dm_crtc_get_cursor_mode(struct amdgpu_device *adev,
- 				   &cursor_scale_w, &cursor_scale_h);
- 
- 		/* Underlying plane has different scale - use overlay cursor */
--		if (cursor_scale_w != underlying_scale_w &&
-+		if (!skip_fmt_scale_restrictions &&
-+		    cursor_scale_w != underlying_scale_w &&
- 		    cursor_scale_h != underlying_scale_h) {
- 			*cursor_mode = DM_CURSOR_OVERLAY_MODE;
- 			return 0;
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_cursor_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_cursor_test.c
-index efd16575896ec..9026c6ce73363 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_cursor_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_cursor_test.c
-@@ -521,25 +521,38 @@ static void dm_test_crtc_get_cursor_mode_disabled_crtc(struct kunit *test)
+-	if (link->dc->res_pool->dccg->funcs->set_symclk32_le_root_clock_gating)
+-		link->dc->res_pool->dccg->funcs->set_symclk32_le_root_clock_gating(
+-				link->dc->res_pool->dccg,
+-				link_res->hpo_dp_link_enc->inst,
+-				true);
+-	link_res->hpo_dp_link_enc->funcs->enable_link_phy(
+-			link_res->hpo_dp_link_enc,
+-			link_settings,
+-			link->link_enc->transmitter,
+-			link->link_enc->hpd_source);
++	{
++		if (link->dc->res_pool->dccg->funcs->set_symclk32_le_root_clock_gating)
++			link->dc->res_pool->dccg->funcs->set_symclk32_le_root_clock_gating(
++					link->dc->res_pool->dccg,
++					link_res->hpo_dp_link_enc->inst,
++					true);
++		link_res->hpo_dp_link_enc->funcs->enable_link_phy(
++				link_res->hpo_dp_link_enc,
++				link_settings,
++				link->link_enc->transmitter,
++				link->link_enc->hpd_source);
++	}
  }
  
- /**
-- * dm_test_crtc_get_cursor_mode_new_hardware - Test new hardware always uses native mode
-+ * dm_test_crtc_get_cursor_mode_new_hardware - Test dcn4x uses native cursor when the top plane fills the CRTC
-  * @test: The KUnit test context
-  */
- static void dm_test_crtc_get_cursor_mode_new_hardware(struct kunit *test)
+ void disable_hpo_dp_link_output(struct dc_link *link,
+@@ -231,4 +233,3 @@ const struct link_hwss *get_hpo_dp_link_hwss(void)
  {
--	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
--	struct dm_crtc_state *dm_crtc_state;
-+	struct dm_cursor_mode_fixture fixture = dm_test_alloc_cursor_mode_fixture(test);
- 	enum amdgpu_dm_cursor_mode cursor_mode = DM_CURSOR_OVERLAY_MODE;
--	int ret;
- 
--	dm_crtc_state = kunit_kzalloc(test, sizeof(*dm_crtc_state), GFP_KERNEL);
--	KUNIT_ASSERT_NOT_NULL(test, dm_crtc_state);
--	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(4, 2, 0);
-+	fixture.adev->ip_versions[DCE_HWIP][0] = IP_VERSION(4, 2, 0);
- 
--	ret = amdgpu_dm_crtc_get_cursor_mode(adev, NULL, dm_crtc_state, &cursor_mode);
--	KUNIT_EXPECT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, dm_test_get_cursor_mode(&fixture, &cursor_mode), 0);
- 	KUNIT_EXPECT_EQ(test, cursor_mode, DM_CURSOR_NATIVE_MODE);
+ 	return &hpo_dp_link_hwss;
  }
- 
-+/**
-+ * dm_test_crtc_get_cursor_mode_new_hardware_hole - Test dcn4x falls back to
-+ * overlay cursor when the top plane does not fill the CRTC
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_crtc_get_cursor_mode_new_hardware_hole(struct kunit *test)
-+{
-+	struct dm_cursor_mode_fixture fixture = dm_test_alloc_cursor_mode_fixture(test);
-+	enum amdgpu_dm_cursor_mode cursor_mode = DM_CURSOR_NATIVE_MODE;
-+
-+	fixture.adev->ip_versions[DCE_HWIP][0] = IP_VERSION(4, 2, 0);
-+	fixture.old_primary_state->crtc_w = 1280;
-+	fixture.primary_state->crtc_w = 1280;
-+
-+	KUNIT_EXPECT_EQ(test, dm_test_get_cursor_mode(&fixture, &cursor_mode), 0);
-+	KUNIT_EXPECT_EQ(test, cursor_mode, DM_CURSOR_OVERLAY_MODE);
-+}
-+
- /**
-  * dm_test_crtc_get_cursor_mode_no_change - Test unchanged atomic state preserves cursor mode
-  * @test: The KUnit test context
-@@ -948,6 +961,7 @@ static struct kunit_case amdgpu_dm_cursor_tests[] = {
- 	/* amdgpu_dm_crtc_get_cursor_mode */
- 	KUNIT_CASE(dm_test_crtc_get_cursor_mode_disabled_crtc),
- 	KUNIT_CASE(dm_test_crtc_get_cursor_mode_new_hardware),
-+	KUNIT_CASE(dm_test_crtc_get_cursor_mode_new_hardware_hole),
- 	KUNIT_CASE(dm_test_crtc_get_cursor_mode_no_change),
- 	KUNIT_CASE(dm_test_crtc_get_cursor_mode_disabled_cursor),
- 	KUNIT_CASE(dm_test_crtc_get_cursor_mode_yuv_plane),
+-
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+index 24e3bbec15ffb..ad1a499b0d9d2 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
+@@ -997,7 +997,8 @@ bool link_decide_link_settings(struct dc_stream_state *stream,
+ 		 * TODO: add MST specific link training routine
+ 		 */
+ 		decide_mst_link_settings(link, link_setting);
+-	} else if (stream->signal == SIGNAL_TYPE_VIRTUAL) {
++	} else if (dc_is_virtual_signal(stream->signal)) {
++		/* virtual signals skip link training; use a valid dummy setting. */
+ 		link_setting->lane_count = LANE_COUNT_FOUR;
+ 		link_setting->link_rate = LINK_RATE_HIGH3;
+ 	} else if (link->connector_signal == SIGNAL_TYPE_EDP) {
 -- 
 2.43.0
 
