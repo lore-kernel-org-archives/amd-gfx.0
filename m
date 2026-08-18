@@ -4,55 +4,54 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC2A5C5B572
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 06:48:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C930FC5DF81
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 06:48:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C63E710E7E5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 367B810ED29;
 	Wed, 19 Aug 2026 06:48:35 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E08210E0B9;
- Wed, 19 Aug 2026 05:47:54 +0000 (UTC)
-X-UUID: 81237c649b9111f19a56ed5b684f684d-20260819
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19, REQID:935162e1-4b5d-4aed-acbb-16546980a9ef, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:25
-X-CID-META: VersionHash:7db8b62, CLOUDID:061688282109be565fb1e26fb1d5117b,
- BulkI
- D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50,EDM:5|-
- 100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0
- ,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 81237c649b9111f19a56ed5b684f684d-20260819
-X-User: gonglinkai@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <gonglinkai@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 191839397; Wed, 19 Aug 2026 13:47:46 +0800
-From: Linkai Gong <gonglinkai@kylinos.cn>
-To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Mario Limonciello <superm1@kernel.org>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Alex Hung <alex.hung@amd.com>,
- =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Ivan Lipski <ivan.lipski@amd.com>, Ray Wu <ray.wu@amd.com>,
- Chenyu Chen <chen-yu.chen@amd.com>, Wayne Lin <Wayne.Lin@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, gonglinkai@kylinos.cn, stable@vger.kernel.org
-Subject: [PATCH] drm/amd/display: fix dc_lock leak on GPU reset error paths
-Date: Wed, 19 Aug 2026 13:47:42 +0800
-Message-Id: <20260819054742.3143856-1-gonglinkai@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+Authentication-Results: gabe.freedesktop.org;
+	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=infradead.org header.i=@infradead.org header.b="Ui5KdUDl";
+	dkim-atps=neutral
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 798B710EBDD;
+ Tue, 18 Aug 2026 15:55:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+ Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+ bh=Oib1sAGemzHmu6ROtRkEHyhCtwDTicVNKskycatCaao=; b=Ui5KdUDlipNO9Vm4nINkg/+v4R
+ bOUqu7BxrFpPjJPyyxL5/SQNc4/JySqtBdMrb5CyEz/IRILpW8+YnFuGzsaYbvWJv+9e0YtT8uwx/
+ eE0eXe6fRPjm1sfCVSmOReeGwtH7/zEHlNxdnu5tpHNRyMiy4cejksDu81kvbeMEFRTaItbMt/IGi
+ Q61CWpoF2IThZoi159FSHVf/TCVp1AzMzc9ZSRaQVSMkGFqvkSEm1dUtgG8Qvp88FNz5jkcBhNEOs
+ ACjeQ2XWgqHevHSOffjhKrvnRBjt4Y+4cNGXzMxdf7NzZpsvk2bac1B5a/UMTuKt7keKswSiklY2c
+ JG0mN6zA==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+ by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+ id 1wwM9g-00000008JC7-1PPo; Tue, 18 Aug 2026 15:55:12 +0000
+Message-ID: <916c4bd5-c73f-466e-8e9b-aee9d4d7d742@infradead.org>
+Date: Tue, 18 Aug 2026 08:55:11 -0700
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 11/12] drm/panic: Move panic display code into helper
+ library
+To: Thomas Zimmermann <tzimmermann@suse.de>, jfalempe@redhat.com,
+ javierm@redhat.com, airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
+ sashiko-reviews@lists.linux.dev
+References: <20260818125012.468092-1-tzimmermann@suse.de>
+ <20260818125012.468092-12-tzimmermann@suse.de>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260818125012.468092-12-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Wed, 19 Aug 2026 06:48:34 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,43 +67,44 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On GPU reset, dm_suspend() takes dc_lock and leaves it for dm_resume()
-to drop. If amdgpu_dm_commit_zero_streams() or dm_dmub_hw_init() fails,
-the function returns with the lock still held. The matching resume path
-is then skipped, so every later dc_lock take hangs.
+Hi,
 
-Release the cached DC state and unlock before returning the error.
+On 8/18/26 5:28 AM, Thomas Zimmermann wrote:
+>  M:	Hans de Goede <hansg@kernel.org>
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index 323422861e8f..cdfd72d9a9c5 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -45,6 +45,7 @@ config DRM_MIPI_DSI
+>  config DRM_KMS_HELPER
+>  	tristate
+>  	depends on DRM
+> +	select DRM_PANIC_HELPER if DRM_PANIC
 
-Fixes: 3cf7a0bc87f0 ("drm/amd/display: Catch failures for amdgpu_dm_commit_zero_streams()")
-Fixes: 2b6943df5413 ("drm/amd/display: Pass up errors for reset GPU that fails to init HW")
-Cc: stable@vger.kernel.org
-Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 941c1a312824..214aca906fe1 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3511,6 +3511,9 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
- 		res = amdgpu_dm_commit_zero_streams(dm->dc);
- 		if (res != DC_OK) {
- 			drm_err(adev_to_drm(adev), "Failed to commit zero streams: %d\n", res);
-+			dc_state_release(dm->cached_dc_state);
-+			dm->cached_dc_state = NULL;
-+			mutex_unlock(&dm->dc_lock);
- 			return -EINVAL;
- 		}
- 
-@@ -3824,6 +3827,9 @@ static int dm_resume(struct amdgpu_ip_block *ip_block)
- 		r = dm_dmub_hw_init(adev);
- 		if (r) {
- 			drm_err(adev_to_drm(adev), "DMUB interface failed to initialize: status=%d\n", r);
-+			dc_state_release(dm->cached_dc_state);
-+			dm->cached_dc_state = NULL;
-+			mutex_unlock(&dm->dc_lock);
- 			return r;
- 		}
- 
+but DRM_PANIC_HELPER depends on DRM_TTM so
+DRM_KMS_HELPER should also depend on DRM_TTM. Otherwise:
+
+WARNING: unmet direct dependencies detected for DRM_PANIC_HELPER
+  Depends on [n]: HAS_IOMEM [=y] && DRM [=y] && DRM_TTM [=n]
+  Selected by [y]:
+  - DRM_KMS_HELPER [=y] && HAS_IOMEM [=y] && DRM [=y] && DRM_PANIC [=y]
+
+
+>  	select FB_CORE if DRM_FBDEV_EMULATION
+>  	help
+>  	  CRTC helpers for KMS drivers.
+> @@ -130,6 +131,10 @@ config DRM_PANIC_SCREEN_QR_VERSION
+>  	  Smaller QR code are easier to read, but will contain less debugging
+>  	  data. Default is 40.
+>  
+> +config DRM_PANIC_HELPER
+> +	bool
+> +	depends on DRM_TTM
+> +
+>  config DRM_RAS
+>  	bool "DRM RAS support"
+>  	depends on DRM
+
 -- 
-2.25.1
+~Randy
+
