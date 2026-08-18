@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3819DC5DF96
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 86AC3C5DF93
 	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 20:22:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 32A6010ECBC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A713310ECC4;
 	Tue, 18 Aug 2026 20:22:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="y7uhcREu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XsYUZOWx";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010031.outbound.protection.outlook.com [52.101.46.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A82AB10ECAB
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:40 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010026.outbound.protection.outlook.com [52.101.85.26])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EDDCE10ECBF
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:47 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Vqwi9oS0z1vhbkSGrWeO1BU/ZhmBbLgIjT3aFW+koKT+20jS9lzozyacnazhpARKZEeR/52AFhgQkxzWktm5VgruXOc3hOLc1PNTrukp/OQVlcb94mF28d9OqGQsA+WWYKmY+79CLyYdeA5+WRPt484TpLR5XSW0cYX1vm0WMFC/XfW3NM3tGSSmS/DvtDrqJ0v+hXAaBiSMfC56zCAyNopSTChfoVphy6Ff9ktgo7pMF9BvriKAkrnNvIx6Zgu7O6Ab8k+2IBge1K/WqE8ZI8f1NRpHDzuK2fJ/W9Z5JQJwwgzTMt46PtQN6bHRb4hnjiLlv47TD5WTOGoobO9yiQ==
+ b=UjjxFQgOgTz53qsTGCMZVwSJ675Hu3u/4b3HTeUJF7QzLnp7aCVhincqj2ZSV90J84ZQNke3ZlL29ReV4TrI1PmCFmQ8LJqfa2dY2iH8grsyMqoDp2yypnqEaHYXGwWqomNxe+jNKHO7izqBuBW+SquiCZeWqU5R5M8es6QXf0rl1Fpvl1ClcPX4VSbRQlCv1ByK/PRBeDQr5XwQzUuA0hC+PXcRXwtKgGbNxnGbgV8Za7ioRAIRqLDz4c5xqqiUi6CBjM2vO/2zW5W0TUNK8mO69ifhoyhRqWsFrXQRmnMc/G6dMHRgplR2p4zTzGDhhDGOpzyY8+yzA4pSkCkx1w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mxVysfL+4xH3pL7B9a340Wkguev790T4VFEw9LkjE6s=;
- b=O5fvutmvzOsjX7Eslih0beFyDqEq6/SnvPfy6pVSM27QHXw25AQEu3GExSee6bdoexXjPWDJm5+AABdV1wfo+v5SETBjM9OmNA4ccFWwISiUOgPP9CJw1f4YuQWx2IWcSOkRAzH6AJxmf83X2KoO0SL+RqURDNLG63hJVlXiQ8NDTlwPv9UZANQ3W/k9gt0QNSiiie8oQu4fbhoUd5UiV/yU8f9K2tXDQ4ZUVx9C8FlHam/wnr3vZ7b8fwIUkzhnbcudmWSryH6DAcjTXFMADE1krPuCG6XaPbUxOE3+sXYGxiT7y0abeVWJCcqr81D0wWGFZmOvkHizhGa/z6WxzA==
+ bh=olPv8mobIZlM1Z5kyoLk/GnmOPFwOpesMV+PxDQfX/c=;
+ b=CTlXNjc2NcD/gwj3cWAAB8beVdIJ91uzpqCzapI5Qwg+kPHYaPypOy/tO92UjRDI/Th27AO+pvAjCxSgnBiMecS+AIyedCzSCcb5ITGteak18hyOtp0wK4fdRPDvciOQ0SoQGqOH2uFVQlgm3CHEHl0E1eCn/wqEAMZ/zFtg8UquxHJzJRfV35O/E9W7GinBLi9rZz8FXw63W7rIb1yuiFyBI+OzpbptFd3oGhNZA2dTy/c8QIAznK309j6PdGpuYjAtOYNeVwTACV+2yHAjvctZQARAvAjeM6f+aGo3+tjkSsrIBolWRwXsj2aLW096/qatiuKEAhMUzW4DK0kz1w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mxVysfL+4xH3pL7B9a340Wkguev790T4VFEw9LkjE6s=;
- b=y7uhcREuE/R43HnWT/OIHc3lRFm8EIUU/+s/n3JUTVUvrCz0K/efVZAUTBti9f45rJoHxpbzjko79gboIFAUYjPD8p3BWPrAZ2w9pKjC6R+jTxHQamHrSmf+8Bge/s5U6NX4ORF+DTrwihBwkXnDSXrAO+jG4Ak3cZtrD/2ed+8=
-Received: from CH5P222CA0015.NAMP222.PROD.OUTLOOK.COM (2603:10b6:610:1ee::13)
- by CH3PR12MB8903.namprd12.prod.outlook.com (2603:10b6:610:17a::7)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=olPv8mobIZlM1Z5kyoLk/GnmOPFwOpesMV+PxDQfX/c=;
+ b=XsYUZOWxNeXQpKUVtoRuY7JPW3G2BibZhnmBcYzxOxObs81Tmr9DHe4Ny93AUYgJbOZnGgZygeQxq7ZrWkajZqHQDxoHmSGgPw+EB9Y2M5mQQawTWO8Sb5BJrZc97+6unVZ3HuN35zQhyDL4f+pdkspKShkxyWkiSDpQT3GiOcs=
+Received: from CH5P222CA0009.NAMP222.PROD.OUTLOOK.COM (2603:10b6:610:1ee::25)
+ by CY5PR12MB6105.namprd12.prod.outlook.com (2603:10b6:930:2a::9) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Tue, 18 Aug
- 2026 20:22:34 +0000
+ 2026 20:22:42 +0000
 Received: from BN3PEPF0000B370.namprd21.prod.outlook.com
- (2603:10b6:610:1ee:cafe::48) by CH5P222CA0015.outlook.office365.com
- (2603:10b6:610:1ee::13) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:610:1ee:cafe::18) by CH5P222CA0009.outlook.office365.com
+ (2603:10b6:610:1ee::25) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Tue, 18
- Aug 2026 20:22:34 +0000
+ Aug 2026 20:22:42 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN3PEPF0000B370.mail.protection.outlook.com (10.167.243.167) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 20:22:34 +0000
+ 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 20:22:42 +0000
 Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
- 2026 15:22:26 -0500
+ 2026 15:22:31 -0500
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
- 2026 15:22:25 -0500
+ 2026 15:22:31 -0500
 Received: from box-0.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Tue, 18 Aug 2026 15:22:25 -0500
+ Transport; Tue, 18 Aug 2026 15:22:31 -0500
 From: <IVAN.LIPSKI@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -71,9 +71,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 45/82] drm/amd/display: Test modifier list de-duplication
-Date: Tue, 18 Aug 2026 16:15:37 -0400
-Message-ID: <20260818202139.4172592-46-IVAN.LIPSKI@amd.com>
+Subject: [PATCH 53/82] drm/amd/display: Cover mode_valid EDID mgmt path
+Date: Tue, 18 Aug 2026 16:15:45 -0400
+Message-ID: <20260818202139.4172592-54-IVAN.LIPSKI@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
 References: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
@@ -82,29 +82,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B370:EE_|CH3PR12MB8903:EE_
-X-MS-Office365-Filtering-Correlation-Id: ad87874c-aa36-4cf0-68bf-08defd66706f
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B370:EE_|CY5PR12MB6105:EE_
+X-MS-Office365-Filtering-Correlation-Id: 449ec85b-96a2-4a55-4d67-08defd6674fc
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|82310400026|36860700016|1800799024|376014|56012099006|10067099003|22082099003|18002099003|5023799004|11063799006;
-X-Microsoft-Antispam-Message-Info: rm0STNObUHSSakpT40B1pWLnv1j5zI4c0WHa8qVlgNFWygk19ianOX6HFjLEATrs7b9JjNTibgCxV01oCtLc9q4767oFuqy3duCVofpcnvNKTZzrtegWyrMkPVrhx1/yhujvHvdcHZfmB40XSv1dLNz+8T12PfYjfPMLOZUoifCPGUu8EQLnw4diXIegRNHaea/IS9BHD4n7sdwRE8v7Maz19aqpdNC1EStemthk6X/Mqnye/WumRzgWUEMoBKT0iMIUOmA8jwIgorm92Yzb6MWT4uaDy4oWU3Vb/n+6q+6n65DRWfngSfkH4JrPMQ5VVm1dWvfpKLC42BrDoUDF4AGiEyKu5sMcK14FRbAuxEV59/9kOg/Q4Q4nw/fP4cr20006KiF24N1OIw+Gt4l17GatMWpol59RpRkyCO0+I7BLfZdlXKBg8IGBUjHADSW+HyuRWbLX3nUqPvZlUzN77wXyl5gv/bOM1+azPPaMqljiM9FR5AxuJ/bShwkablcV2irinoCNMdaCGOhpKV9JYad7oSFpXlw1kG5pZ3temK8hzcXm4aTiH/AYmoBJW8pTmG4sJFvxB9PAR9bwmEQaQaMwaBxrCfsn69wn6vcFS79gMJxlb+FH8v0cvsSuGgVSF97gVBm4aAbV8WB2TRQZJpf9i6pZ3OMqHdbh12QxOMJnaqVhZEhZRHlC4dgAl+/9zcw6t/q5dP1k4im2YS89SA==
+ ARA:13230040|82310400026|23010399003|376014|1800799024|36860700016|56012099006|10067099003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: rMiraY3b5nawz0qanfuPRn+PAOzQRtvQilPA81PVa/oh0JEvAJjkBSgZ4uSDDmSf59v47L64YQFRKhf5yhO/TczH58MRldvaURNfwWRif/Wpsm261k+wTcIpcbjDwoe0Aa/UkZhr+w04ZL4foKeI+jvWLnxTfDiTzVNIMolkfmyIQWvXrbCkED4K4DwlbyxhMK+1XwnjLLqOiVt9cUbN+2fbWsIxoJ+sYepNsOXNcG2yvjsTFZauNvsc/yQDy4a/Qarj2bbd3y0gjIRrzLmArJxdOVFepB8PjF06xh2v99/8TENp94Y2txxEKbqEJIqp85klhKptjTfY5mIt0OGmxszM10pQKaR42UVYCqCwvACVuunqQmyzMypJp9vDUo+HWsj96oF6HqCEotrM3rEE+Jun5lX8QkfnIxQbX28vL2khFfGo8jdP7pM+C0HxHH5lgXvegKBekGaSgEZ5IdXtHstYqOKtvBVd0XropuTDQqT7OItLvQnGctfj9cPcXHD1f722N4q43Rw29KKbNQvKCJqEftWgt7NBJ58wZcdfwbQKfZ90I7/MkIrqnTKJEfOZ2QP8AHJbneXjksdfp21P82uIIo6GMHn1AFGkXCndTCsyjtPNrG4k6iBeArb0Dy2A831Fy7Re6Dv3/i8MdwZrccJkwadHSHevWmT3qRUQudWLRgObYv8u2N/Vm7odu5oPVruzeCN6zg1ZVJaKwRycaA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(56012099006)(10067099003)(22082099003)(18002099003)(5023799004)(11063799006);
+ SFS:(13230040)(82310400026)(23010399003)(376014)(1800799024)(36860700016)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 6ckFYDCcf0nwYZKuBtBjAN3cMea+XtRCzpJU3l9pGqfVHhItEvbHm55GHYY6KUELZ23go70+aaYSrstY+WNR6FmGjgWC/uvO0NMmLVsM4A7xNyQqW5s/cfBWiJIqDJeEixRt6yfPBZriL4ZsWgz8alLk5Yx2q8uU+sN3pSSzx9zKVO2Cjeu9Zp4YZot1AOCeG+Pok7X67amOodBLIwAfBJgU1rDTvOmEBPsasY3dSFUi/Da++55JJfvKCyGlVI/DRsZQvAEm3ayv7ZSJ+8SIamS+LzXorvPRLNGgZBJfLbvjnsthFwqIDda8FIzI4xzUpfhq1EZTU/VCq2vpc0SURgF6QfmQyTmdQFDvijfGdbecAuPdgAz4GFPBpbRNnQaPT8f2HeOSw0Yro7GaZYG8yabcjoupDCd7YJ6rP87KrhbJ0BqgiqoJJZtNGzJtozqv
+X-MS-Exchange-AntiSpam-MessageData-0: ywWvws8ot6oKonO5aOxHBTAlL/1/d9hg9WHQ2Mz4piOfzZ9Nnkb0JmfRTb5Q2oKqSprJsC3RLBZnxtaeG9UaDdVzQ1PjnsB9IoAldp7yTqasz0pWszaklLA6BE0sYNpUVjaPxCljwJ7yyr38e5go/ir3+ib2MZYF20BWJKGblVOito4IRj4b1bFIkTYEEseeknU1RW/sgpj/Fb6n6Y6lmCnSl7hgj3fnqmP5MK/oC27KvFpLBNNO6DP+tMXqBtxGoICq6F6fdJPpMvoGapyLkWhdgNnYvGNLtdxEZOqT0vtrxkgFhYqqmb+5eD2bHRs7mxhJJgixjGNioL0YYie2/zRMCZzDpte031XZudUl8UNgbfxrCPp1M6Tl1lUhV6VbMYXrghatNrOdmAq6m4PzjSRTuOZMFXTlZRfdvx9H0maNeXAWxy6yIc7PnbJ8RnLP
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:34.7606 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad87874c-aa36-4cf0-68bf-08defd66706f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:42.3933 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 449ec85b-96a2-4a55-4d67-08defd6674fc
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B370.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8903
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6105
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,93 +119,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 
-[WHAT]
-Add KUnit tests for amdgpu_dm_plane_add_modifier_dedup() covering a
-modifier already present in the list, which is not appended a second
-time, a new modifier, which is appended, and a NULL list left over from
-an earlier allocation failure, which is a no-op.
+Add a KUnit test driving amdgpu_dm_connector_mode_valid() through the
+EDID-management branch for a forced-on connector.
 
-Assisted-by: Copilot:Claude-Opus-5
-Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+Assisted-by: Copilot:Claude-Opus-4.8
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_plane_test.c    | 53 +++++++++++++++++++
- 1 file changed, 53 insertions(+)
+ .../tests/amdgpu_dm_connector_test.c          | 25 +++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-index 17789b3845b77..4017dc1d6a771 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-@@ -3135,6 +3135,56 @@ static void dm_test_plane_destroy_state_releases_resources(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, kref_read(&dc_plane_state->refcount), 1U);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index 23b83bbde73fd..fc16d3a35b653 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -6321,6 +6321,30 @@ static void dm_test_mode_valid_force_on_no_stream(struct kunit *test)
+ 			MODE_ERROR);
  }
  
 +/**
-+ * dm_test_add_modifier_dedup_skips_duplicate() - Verify duplicates are not appended.
-+ * @test: KUnit test context.
++ * dm_test_mode_valid_edid_mgmt_forced - Test the forced-connector EDID refresh
++ * @test: The KUnit test context
 + *
-+ * Verify if a modifier already present in the list is not appended a second
-+ * time.
++ * A forced connector with no emulated sink runs the one-time EDID mgmt refresh
++ * before validating; with no readable EDID no dc_sink appears and a non-on
++ * force still bails to MODE_ERROR.
 + */
-+static void dm_test_add_modifier_dedup_skips_duplicate(struct kunit *test)
++static void dm_test_mode_valid_edid_mgmt_forced(struct kunit *test)
 +{
-+	u64 size = 2;
-+	u64 cap = 4;
-+	u64 *mods = kmalloc_array(cap, sizeof(*mods), GFP_KERNEL);
++	struct dm_test_edid_ctx *ctx =
++		dm_test_edid_ctx_alloc(test, DRM_MODE_CONNECTOR_DisplayPort);
++	struct drm_display_mode *mode;
 +
-+	KUNIT_ASSERT_NOT_NULL(test, mods);
-+	mods[0] = 0xAAULL;
-+	mods[1] = 0xBBULL;
++	ctx->link->connector_signal = SIGNAL_TYPE_DISPLAY_PORT;
 +
-+	amdgpu_dm_plane_add_modifier_dedup(&mods, &size, &cap, 0xAAULL);
-+	KUNIT_EXPECT_EQ(test, size, 2ULL);
++	mode = kunit_kzalloc(test, sizeof(*mode), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, mode);
 +
-+	amdgpu_dm_plane_add_modifier_dedup(&mods, &size, &cap, 0xBBULL);
-+	KUNIT_EXPECT_EQ(test, size, 2ULL);
-+
-+	amdgpu_dm_plane_add_modifier_dedup(&mods, &size, &cap, 0xCCULL);
-+	KUNIT_ASSERT_EQ(test, size, 3ULL);
-+	KUNIT_EXPECT_EQ(test, mods[2], 0xCCULL);
-+
-+	kfree(mods);
++	KUNIT_EXPECT_EQ(test,
++			amdgpu_dm_connector_mode_valid(&ctx->aconnector->base, mode),
++			MODE_ERROR);
 +}
 +
-+/**
-+ * dm_test_add_modifier_dedup_noop_when_mods_null() - Verify NULL list is a no-op.
-+ * @test: KUnit test context.
-+ *
-+ * Verify if the de-duplicating append does nothing when the modifier list is
-+ * NULL after an earlier allocation failure.
-+ */
-+static void dm_test_add_modifier_dedup_noop_when_mods_null(struct kunit *test)
-+{
-+	u64 size = 3;
-+	u64 cap = 7;
-+	u64 *mods = NULL;
-+
-+	amdgpu_dm_plane_add_modifier_dedup(&mods, &size, &cap, 0x55ULL);
-+
-+	KUNIT_EXPECT_PTR_EQ(test, mods, NULL);
-+	KUNIT_EXPECT_EQ(test, size, 3ULL);
-+	KUNIT_EXPECT_EQ(test, cap, 7ULL);
-+}
-+
- static struct kunit_case amdgpu_dm_plane_test_cases[] = {
- 	/* amdgpu_dm_plane_is_video_format() */
- 	KUNIT_CASE(dm_test_plane_is_video_format_known_video),
-@@ -3221,6 +3271,9 @@ static struct kunit_case amdgpu_dm_plane_test_cases[] = {
- 	KUNIT_CASE(dm_test_add_modifier_appends_value),
- 	KUNIT_CASE(dm_test_add_modifier_grows_capacity),
- 	KUNIT_CASE(dm_test_add_modifier_noop_when_mods_null),
-+	/* amdgpu_dm_plane_add_modifier_dedup() */
-+	KUNIT_CASE(dm_test_add_modifier_dedup_skips_duplicate),
-+	KUNIT_CASE(dm_test_add_modifier_dedup_noop_when_mods_null),
- 	/* amdgpu_dm_plane_fill_gfx9_tiling_info_from_device() */
- 	KUNIT_CASE(dm_test_fill_gfx9_tiling_info_from_device_pre_10_3),
- 	KUNIT_CASE(dm_test_fill_gfx9_tiling_info_from_device_10_3_plus),
+ /**
+  * dm_test_update_after_detect_mst_noop - Test MST connectors are left to drm_mst
+  * @test: The KUnit test context
+@@ -7178,6 +7202,7 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_mode_valid_dblscan_rejected),
+ 	KUNIT_CASE(dm_test_mode_valid_no_dc_sink),
+ 	KUNIT_CASE(dm_test_mode_valid_force_on_no_stream),
++	KUNIT_CASE(dm_test_mode_valid_edid_mgmt_forced),
+ 	/* amdgpu_dm_hdmi_cec_set_edid */
+ 	KUNIT_CASE(dm_test_hdmi_cec_set_edid_no_notifier),
+ 	/* amdgpu_dm_s3_handle_hdmi_cec */
 -- 
 2.43.0
 
