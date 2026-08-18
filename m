@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CABF1C5DF81
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 20:22:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F007FC5DF85
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 20:22:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 55BA110EC8C;
-	Tue, 18 Aug 2026 20:22:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8707210EC92;
+	Tue, 18 Aug 2026 20:22:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2wnUbWhE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="J6Ipiyda";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011035.outbound.protection.outlook.com [52.101.62.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC52210EC8C
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:11 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010008.outbound.protection.outlook.com
+ [40.93.198.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6C42C10EC8E
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kl7xSiXw1M1Pghp4rpc2ACQptOMArbfobBZaSETGfLEExYilFdjJg6Zifw7hQhuzQJH0LZ224tIEOFRQOaMHoi+IrfDIFfMbAVxcDR8H9ozDYHU2gJmcGyF0b6J3bWOpDRvIaTW6cK4TwhttC7QG/onzwmVqqF0c1YwpcroBOQFvVy1rD9tS/OChCCxMAnKAzp2jdSZYn4Y6Wu26kbo3YtsR02j8qqRIjeJmki6xpQKBcdVSOwwvQj3g0Yzu2ZHqTQRZaUhcOmxGzU2iV0SVl0qGaWRcVnjs3uBoGRji78x1Wf0XQGBrM46dW1yfet+Kl3kVvLa+KV+1na1CIkcRJg==
+ b=RqmHEQOeMjBT33O22evzLPRw9agT1u07cqnlRbsg3R+trgRAbE6nUXN6PblYDIuhVMti7tMOxqZBDnaBIPc5q8j2fMMHH7X+uPNyVRRaT6E6sIxMBjOLHeCj5vehcVlIwzcA5S2qmdqCW2ZzDwPwxmnuOPHshgcdSI5Z+uc/OfwzlwZTv1AkeYdTl3P0Ei8TdTILuPdOdwx32w14S7MvS1XJu6LhGmTbGM15BbvpGBGEH6FpgqaVz1epIPK/C7dHYQa+7tmKEwTZdliLfsGpa9PVjMU3BqB6O/Pe9NBMP5GEpD/bcpYGwSUZx1tXGELgd20dkQKwL3Vb9EDdt2Y94w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TnnczNLhJqHhO2KKwmXcpL1fuwH9gPO5LhcxiVOtb3U=;
- b=YGdBxvpRUv19E8EhjeZHHYwYTVPMWIakZIHjuT+BfQzZNGqa2IEgR5bcrVTTIIhroLtu8kDcx0KUE0Ig8psCHoym46KwV43K4PZ/btHQaKHjPJGPYjjxEzVtfyv/q0+d7vYZwhvXxDwBHgvfAa8XUulEoSVkq3NJc9Cqh8bLX/Zfxf1WvEeC/WoKchIUoWjYhf2R5kUl5KOeTNru5eebo88k42Nn96iNEDAtDZg+IzFSIF/yBGApLnKH1sS3uriR7Tqon5mFZSYNUobYwo2VqczxmndiThz8hrmHPoG10lK1nPeNpOdObRsLI7U3Ph46/sM5tL5Xoosoez19jhhbWg==
+ bh=erZOncqsm2q2JPzEUQO/h9NRFY4ij+YZ3WzZFc033KI=;
+ b=WXjzV5NUI8y/KbRYcYKKin4R1pnNWrCZeuPja8VGrjQlZ85zToWPgkfLKMBkNjYYJcKHb3bZOV5l5wk90RiAhS5c9m5yD6y12nmloTL1y/uUTGWIJI1wsHliAfXgcHM+bi8c8QX5BIdEtK5YRb+h5WN7iuTQsrqSiew0DvZpANsszajqxYHFC1L0m/PYSPnwCBijnDmcIGO9Ri0c6dH9StTutkgGvoFcF40HXZMvqmaNgy8bY46+B8RqhWJObd6SzGAyeGAbzUEbzX6eZoYzKhXXD0g5oFXkIhF6l020HiuWu4PjEB1G24tscFzRKGioEFuxgs76t0WaTndeQzENsA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TnnczNLhJqHhO2KKwmXcpL1fuwH9gPO5LhcxiVOtb3U=;
- b=2wnUbWhEhoXE9PeukN4B/jrMe0fLH9lNx5qd51Rhx8zGTNPE8Jf6d+CJDUdd6JTPM8JKB54JywKW4YSQQv2lgjL1XSsO6x4z8J2ZpJHGWYJTsuX5IHYmvl+w/br44EB6qkIHee5oazbaJhqTsvRWohqKrJ2/4EacJxIvZ7mdxFg=
-Received: from CH5P222CA0011.NAMP222.PROD.OUTLOOK.COM (2603:10b6:610:1ee::26)
- by IA1PR12MB8335.namprd12.prod.outlook.com (2603:10b6:208:3fa::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Tue, 18 Aug
- 2026 20:22:00 +0000
-Received: from BN3PEPF0000B370.namprd21.prod.outlook.com
- (2603:10b6:610:1ee:cafe::7d) by CH5P222CA0011.outlook.office365.com
- (2603:10b6:610:1ee::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Tue, 18
- Aug 2026 20:22:00 +0000
+ bh=erZOncqsm2q2JPzEUQO/h9NRFY4ij+YZ3WzZFc033KI=;
+ b=J6IpiydammXnLFPggMW8MSivSysXulehSFKMks6VRLv+sZup4oXfbE1B5bq+H7UpgV3euK81uOfr+fHutDep49+XnJ+qVEVFD5PlSj3ybNRfXYW6A8AQFwxrIo68CO/2awH5zycjhyRoTW4eM2aX5weozMrBB2wMUZy5v0RiiW0=
+Received: from BN1PR10CA0030.namprd10.prod.outlook.com (2603:10b6:408:e0::35)
+ by BN7PPF48E601ED5.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::6ce) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Tue, 18 Aug
+ 2026 20:22:12 +0000
+Received: from BN3PEPF0000B371.namprd21.prod.outlook.com
+ (2603:10b6:408:e0:cafe::35) by BN1PR10CA0030.outlook.office365.com
+ (2603:10b6:408:e0::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.17 via Frontend Transport; Tue,
+ 18 Aug 2026 20:22:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +49,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B370.mail.protection.outlook.com (10.167.243.167) with Microsoft
+ BN3PEPF0000B371.mail.protection.outlook.com (10.167.243.168) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 20:21:59 +0000
+ 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 20:22:12 +0000
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
- 2026 15:21:59 -0500
+ 2026 15:22:03 -0500
 Received: from box-0.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Tue, 18 Aug 2026 15:21:59 -0500
+ Transport; Tue, 18 Aug 2026 15:22:03 -0500
 From: <IVAN.LIPSKI@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,10 +67,11 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>
-Subject: [PATCH 08/82] drm/amd/display: Test GPU memory allocation
-Date: Tue, 18 Aug 2026 16:15:00 -0400
-Message-ID: <20260818202139.4172592-9-IVAN.LIPSKI@amd.com>
+ <Chen-Yu.Chen@amd.com>, Ilya Bakoulin <Ilya.Bakoulin@amd.com>, Dillon Varone
+ <Dillon.Varone@amd.com>
+Subject: [PATCH 14/82] drm/amd/display: Clear HUBPREQ_DEBUG_DB on DCN6
+Date: Tue, 18 Aug 2026 16:15:06 -0400
+Message-ID: <20260818202139.4172592-15-IVAN.LIPSKI@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
 References: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
@@ -78,29 +80,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B370:EE_|IA1PR12MB8335:EE_
-X-MS-Office365-Filtering-Correlation-Id: 95e354d1-2ce2-4d1c-5c67-08defd665bab
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B371:EE_|BN7PPF48E601ED5:EE_
+X-MS-Office365-Filtering-Correlation-Id: 773a460f-8388-44f9-d908-08defd6662f4
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|82310400026|36860700016|18002099003|56012099006|22082099003|6133799003|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: 7volXWIkG2DADhaAqqqK1NEXzNo4WP8zOz1wJWm1IbioxReKrKz1sDbTw2qukF6D5AjyanbZ2zRU9JDd03AEFTPOa1Q7EOZl1MiDxJicLihMmkIJsBq8IrGS09OXWSx33FzVz11tc7ASknTDQxyfS+QATGfwjLiv/qcIC2F3Wt/MBCHT59imx47QfTxeDSF5MALxEbelW3n3x7HhWOJ90l18YZEnO9vrZb3azQUMUkj4ht2VslZ3pl1B5FMsJ5nW3bhWwMC920sGOILZmXr0PPVLj7Wmo7AitaxOB/jR2k6QqyqNB8rqteoEyXFzsGceWc4h+k+w3+XBI4AXskIYCi3tZzzk1K1TGeGhOsCvMNAXET6Cqc4xDx0NLaf3hR3MidH65qF/iDcyF5LwWUqh0DrauSpBNZJq3gVLZO4TLJ6710hM+5S+I6CZsRWrIHAkRsAzGn9KC2+xXP5Vpfe1CmBxzFRM5ezliFBczgAmOsdBOKflx6SvSZm/0AJqVkRx6gM1z+0sdRk5eVk7GP3hy7V+I8gRdvtWtMz3UWApJPKTvzFUAUcUwcjuAK6XvlMyQJ2u1vUQAwywpmG+FSFjIH34veLrVIh4IkWRLvDOUwLTnWdvKKkSdSSDUPvBnE1cEeKc0g4D0cfMOCaxxW0QdkvEhl4iIPrh/QjPVTdvoy3HYYBVNvzNdZr8lUg3+D0ZfXSxihJRFtxlZZ4f3pPfig==
+ ARA:13230040|82310400026|23010399003|376014|1800799024|36860700016|10086099003|56012099006|10067099003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: ErG4a/gHAAub2hyKg/dgYGQh9SIJhanFDVBO3bENY82UmKIzAZWlIdVo/QeCaQ9ZC1jDCG6S1F53/toojhDCx0DdzrJOZF55zGLbb5E6nFeCjKkpk9VsV5Sl2erb5nPB92s7Mk03QVBHRS3VReB+hZcTKVaitDVAMcLEy+9ouIV/5E/zWzXOFdO1IKjM0tuDg9oEkcgW3bGe7zE3VtmUfgRvn7BUcsK4dGoGjDxjaFAuy28AJdt07PDMJFvfWmmq1UQeiiDwDLTmc3SBe8Ei9ePNa7f320wKXDgw51uaRpqCZsn2VyJBLokksrG/Ioyel1WAXDplfqDgobUFZxWZeIbGfwM8o3U1/JfYRHmrV8zcyjRQjGhI/4reTWiEJuf8lrXJw+12KvgIcji9K91oTQjiLubLvCMygqZKHiCcJdCbWUpPUBctTlj2ywlCaLSDnCz9LVfjyQBj9ccf6TOsISEsdZSAZV6siEUwru4NqsGHmmkwBr34k8/MbzxMfrKavLCZygHWrOvBTtlq58AiBkmWipYy6U2wscrgZLWTyfeY2DKwjwu6K6SuPimJ09UpVpeUW/Ltq7O6hM/ANcexqO6jmH8A37Oo1yaeX1qYZYDRzpN4h8YmsmuSwE9qATzBLJDOTkXpv1d051H9NsutPagjtbWbMNRGqXLWWfrsnm3IgijMkNFwEX4A5t1j0hRFjD5NnFXyXgB/Y9HG1TaY4w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(82310400026)(36860700016)(18002099003)(56012099006)(22082099003)(6133799003)(11063799006)(10067099003);
+ SFS:(13230040)(82310400026)(23010399003)(376014)(1800799024)(36860700016)(10086099003)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Khrt2M6gEaKdpjiO2Wycj6fDfG7hRZ0FGZYLmM7BwHDPtDEFmHFhMQp5ohZL2h5SosqQEgXFeO5gBDXR5bVGHboQXvGOH0RDuhDELh4fK65BvqcTbPypTEAl407H+jrPLJfjtC2FIKjUNA+pnhRGUNqozqhNs92i//4TGYWBSdgOUjUfZdkr7qm865PshjiEjncdKKwSZOPmVQ1Uk/QXdIHyi+iS3MuPcYbMPVom4MYjYawrkhEGmoLNvnXnFM5EpMLOHKbUZkqqzmxDqhD03qteEJxZ2NYGhSAtbLE2SUaSKAfTNWXD+zz0nvUNls7G1Kbeq3eh9T58fxxqXvcwM0Mv8dsf3+tYI/It3amMoLhVfzoTl5KhLAxCZxUT6i3Cx7An3Y/BS5bfxCtyslWfU1c2s1vX539avLxWrkTKOiBx90i7I+77J8Mgth3XLD9z
+X-MS-Exchange-AntiSpam-MessageData-0: DPU/C8xfUEMyEmtZ8PAS7YX4QvQT6XaWjsxgDfIkpcLwiPSbSNqkm+P/2AttfHclKyFi216Uk7oXFqFhiT/V3Ytlx1h9W3wjsNmeFvuo544nmiXC4QZ7MqiZVH+DH1mEOntws2XY6ibzSqnN8xulaDXl52Sv7WSNc7SBfImeI8LHjYk/ITeREfbKB6M22smGDt9M2fmq3Y9bdcn99Tu+Hewniov3IsWqIP/KEFF1+2zNvBkRdWqrYhVWQSYN4VdPXI6RwkOcYR/mwA9Jfu/VI5TJSZ0lRxbO2PQTl+03leKM67LKRmPm3uf04LY2pdmPCpX5a5B/KMHUDlCzxkzger6yezl7lqI5A7sl3I0jGzikiOt8VZQV/M1eC9C3XuCd5PuCIMUu9dbtAmUhtMUVrMposlpN6jiuy9GPVQqVPu+dMTTfO4gO/dpJNWgDKY/g
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:21:59.9199 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 95e354d1-2ce2-4d1c-5c67-08defd665bab
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:12.1464 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 773a460f-8388-44f9-d908-08defd6662f4
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B370.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B371.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8335
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF48E601ED5
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,374 +117,33 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
 
-[WHAT]
-Add KUnit tests covering GART and VRAM domain selection, size and
-alignment forwarding, the buffer object creation failure path,
-and the free path for a matching pointer, a non-matching pointer
-and an empty allocation list.
+[Why/How]
+Make sure the HUBPREQ_DEBUG_DB register is cleared to prevent underflow
+in some instances.
 
-[HOW]
-Add struct amdgpu_dm_services_kunit_ops, a KUnit-only indirection table
-for the buffer object calls that would otherwise need a live TTM
-device. Tests install their own table to force an error return and to
-count calls, which makes the failure and list handling paths reachable
-in the UML test environment. The default table points at the existing
-AMDGPU functions, so no test-only wrapper is introduced.
-
-Route the affected calls through services_bo_* wrappers, so the KUnit
-build dispatches through the table while non-KUnit builds call the same
-functions directly.
-
-Assisted-by: Copilot:Claude-Opus-5
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+Reviewed-by: Dillon Varone <Dillon.Varone@amd.com>
+Signed-off-by: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
 Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  10 +
- .../display/amdgpu_dm/amdgpu_dm_services.c    |  35 ++-
- .../amdgpu_dm/tests/amdgpu_dm_services_test.c | 228 +++++++++++++++++-
- 3 files changed, 268 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/dc/hubp/dcn60/dcn60_hubp.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index 3524931451c86..0217a26283a36 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -1188,6 +1188,16 @@ bool is_content_protection_different(struct drm_crtc_state *new_crtc_state,
- 				     struct drm_connector_state *old_conn_state,
- 				     const struct drm_connector *connector,
- 				     struct hdcp_workqueue *hdcp_w);
-+
-+struct amdgpu_dm_services_kunit_ops {
-+	int (*bo_create_kernel)(struct amdgpu_device *adev, unsigned long size,
-+				int align, u32 domain, struct amdgpu_bo **bo_ptr,
-+				u64 *gpu_addr, void **cpu_addr);
-+	void (*bo_free_kernel)(struct amdgpu_bo **bo, u64 *gpu_addr,
-+			       void **cpu_addr);
-+};
-+
-+void amdgpu_dm_services_kunit_set_ops(const struct amdgpu_dm_services_kunit_ops *ops);
- #endif
+diff --git a/drivers/gpu/drm/amd/display/dc/hubp/dcn60/dcn60_hubp.c b/drivers/gpu/drm/amd/display/dc/hubp/dcn60/dcn60_hubp.c
+index d22fe26aae623..01b6b3ed5a998 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubp/dcn60/dcn60_hubp.c
++++ b/drivers/gpu/drm/amd/display/dc/hubp/dcn60/dcn60_hubp.c
+@@ -25,6 +25,9 @@ static void hubp60_program_deadline(
+ {
+ 	struct dcn20_hubp *hubp2 = TO_DCN20_HUBP(hubp);
  
- #endif /* __AMDGPU_DM_H__ */
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
-index 6dbc8d1b4ecd3..23f1db81a1544 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_services.c
-@@ -38,6 +38,31 @@
- #include "amdgpu_dm_trace.h"
- #include "dm_helpers.h"
- 
-+#if IS_ENABLED(CONFIG_DRM_AMD_DC_KUNIT_TEST)
-+static const struct amdgpu_dm_services_kunit_ops amdgpu_dm_services_default_ops = {
-+	.bo_create_kernel = amdgpu_bo_create_kernel,
-+	.bo_free_kernel = amdgpu_bo_free_kernel,
-+};
++	/* Make sure DLG test mode is disabled */
++	REG_WRITE(HUBPREQ_DEBUG_DB, 0);
 +
-+static const struct amdgpu_dm_services_kunit_ops *amdgpu_dm_services_ops =
-+	&amdgpu_dm_services_default_ops;
-+
-+void amdgpu_dm_services_kunit_set_ops(const struct amdgpu_dm_services_kunit_ops *ops)
-+{
-+	amdgpu_dm_services_ops = ops ? ops : &amdgpu_dm_services_default_ops;
-+}
-+EXPORT_IF_KUNIT(amdgpu_dm_services_kunit_set_ops);
-+
-+#define services_bo_create_kernel	amdgpu_dm_services_ops->bo_create_kernel
-+#define services_bo_free_kernel		amdgpu_dm_services_ops->bo_free_kernel
-+
-+#else
-+
-+#define services_bo_create_kernel	amdgpu_bo_create_kernel
-+#define services_bo_free_kernel		amdgpu_bo_free_kernel
-+
-+#endif
-+
- 	unsigned long long
- 	dm_get_elapse_time_in_ns(struct dc_context *ctx,
- 				 unsigned long long current_time_stamp,
-@@ -113,9 +138,9 @@ dm_allocate_gpu_mem(
- 	if (!da)
- 		return NULL;
- 
--	ret = amdgpu_bo_create_kernel(adev, size, PAGE_SIZE,
--				      domain, &da->bo,
--				      &da->gpu_addr, &da->cpu_ptr);
-+	ret = services_bo_create_kernel(adev, size, PAGE_SIZE,
-+					domain, &da->bo,
-+					&da->gpu_addr, &da->cpu_ptr);
- 
- 	*addr = da->gpu_addr;
- 
-@@ -129,6 +154,7 @@ dm_allocate_gpu_mem(
- 
- 	return da->cpu_ptr;
- }
-+EXPORT_IF_KUNIT(dm_allocate_gpu_mem);
- 
- void
- dm_free_gpu_mem(
-@@ -141,7 +167,7 @@ dm_free_gpu_mem(
- 	/* walk the da list in DM */
- 	list_for_each_entry(da, &adev->dm.da_list, list) {
- 		if (pvMem == da->cpu_ptr) {
--			amdgpu_bo_free_kernel(&da->bo, &da->gpu_addr, &da->cpu_ptr);
-+			services_bo_free_kernel(&da->bo, &da->gpu_addr, &da->cpu_ptr);
- 			list_del(&da->list);
- 			kfree(da);
- 			break;
-@@ -149,3 +175,4 @@ dm_free_gpu_mem(
- 	}
- 
- }
-+EXPORT_IF_KUNIT(dm_free_gpu_mem);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_services_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_services_test.c
-index e48bac7fb024c..4ff430e4b23b6 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_services_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_services_test.c
-@@ -277,6 +277,212 @@ static void dm_test_query_brightness_caps_non_lcd1_uses_second_slot(struct kunit
- 	KUNIT_EXPECT_EQ(test, caps.data_points[0].signal_level, 0);
- }
- 
-+/* Tests for dm_allocate_gpu_mem() and dm_free_gpu_mem() */
-+
-+#define DM_TEST_FAKE_GPU_ADDR 0xF00DBEEFULL
-+
-+struct dm_test_bo_ops_ctx {
-+	void *cpu_ptr;
-+	u64 gpu_addr;
-+	int create_ret;
-+	unsigned long create_size;
-+	int create_align;
-+	u32 create_domain;
-+	unsigned int create_calls;
-+	unsigned int free_calls;
-+};
-+
-+static struct dm_test_bo_ops_ctx dm_test_bo_ctx;
-+
-+static int dm_test_bo_create_kernel(struct amdgpu_device *adev, unsigned long size,
-+				    int align, u32 domain, struct amdgpu_bo **bo_ptr,
-+				    u64 *gpu_addr, void **cpu_addr)
-+{
-+	dm_test_bo_ctx.create_calls++;
-+	dm_test_bo_ctx.create_size = size;
-+	dm_test_bo_ctx.create_align = align;
-+	dm_test_bo_ctx.create_domain = domain;
-+
-+	if (dm_test_bo_ctx.create_ret)
-+		return dm_test_bo_ctx.create_ret;
-+
-+	*gpu_addr = dm_test_bo_ctx.gpu_addr;
-+	*cpu_addr = dm_test_bo_ctx.cpu_ptr;
-+
-+	return 0;
-+}
-+
-+static void dm_test_bo_free_kernel(struct amdgpu_bo **bo, u64 *gpu_addr, void **cpu_addr)
-+{
-+	dm_test_bo_ctx.free_calls++;
-+
-+	*bo = NULL;
-+	*gpu_addr = 0;
-+	*cpu_addr = NULL;
-+}
-+
-+static const struct amdgpu_dm_services_kunit_ops dm_test_bo_ops = {
-+	.bo_create_kernel = dm_test_bo_create_kernel,
-+	.bo_free_kernel = dm_test_bo_free_kernel,
-+};
-+
-+/**
-+ * dm_test_gpu_mem_init - Install the fake buffer object ops
-+ * @test: The KUnit test context
-+ *
-+ * amdgpu_bo_create_kernel() and amdgpu_bo_free_kernel() need a live TTM
-+ * device, so route them through a fake table for the duration of the test.
-+ */
-+static int dm_test_gpu_mem_init(struct kunit *test)
-+{
-+	void *cpu_ptr;
-+
-+	cpu_ptr = kunit_kzalloc(test, sizeof(*cpu_ptr), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, cpu_ptr);
-+
-+	dm_test_bo_ctx = (struct dm_test_bo_ops_ctx) {
-+		.cpu_ptr = cpu_ptr,
-+		.gpu_addr = DM_TEST_FAKE_GPU_ADDR,
-+	};
-+
-+	amdgpu_dm_services_kunit_set_ops(&dm_test_bo_ops);
-+
-+	return 0;
-+}
-+
-+static void dm_test_gpu_mem_exit(struct kunit *test)
-+{
-+	amdgpu_dm_services_kunit_set_ops(NULL);
-+}
-+
-+static struct amdgpu_device *dm_test_alloc_adev(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+
-+	adev = kunit_kzalloc(test, sizeof(*adev), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, adev);
-+	INIT_LIST_HEAD(&adev->dm.da_list);
-+
-+	return adev;
-+}
-+
-+/**
-+ * dm_test_allocate_gpu_mem_gart - Test Allocate gpu mem gart
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_allocate_gpu_mem_gart(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = dm_test_alloc_adev(test);
-+	long long addr = 0;
-+	void *mem;
-+
-+	mem = dm_allocate_gpu_mem(adev, DC_MEM_ALLOC_TYPE_GART, 4096, &addr);
-+
-+	KUNIT_EXPECT_PTR_EQ(test, mem, dm_test_bo_ctx.cpu_ptr);
-+	KUNIT_EXPECT_EQ(test, addr, (long long)DM_TEST_FAKE_GPU_ADDR);
-+	KUNIT_EXPECT_EQ(test, dm_test_bo_ctx.create_calls, 1U);
-+	KUNIT_EXPECT_EQ(test, dm_test_bo_ctx.create_size, 4096UL);
-+	KUNIT_EXPECT_EQ(test, dm_test_bo_ctx.create_align, (int)PAGE_SIZE);
-+	KUNIT_EXPECT_EQ(test, dm_test_bo_ctx.create_domain, (u32)AMDGPU_GEM_DOMAIN_GTT);
-+	KUNIT_EXPECT_FALSE(test, list_empty(&adev->dm.da_list));
-+
-+	dm_free_gpu_mem(adev, DC_MEM_ALLOC_TYPE_GART, mem);
-+}
-+
-+/**
-+ * dm_test_allocate_gpu_mem_frame_buffer - Test Allocate gpu mem frame buffer
-+ * @test: The KUnit test context
-+ *
-+ * Any non-GART allocation type must land in the VRAM domain.
-+ */
-+static void dm_test_allocate_gpu_mem_frame_buffer(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = dm_test_alloc_adev(test);
-+	long long addr = 0;
-+	void *mem;
-+
-+	mem = dm_allocate_gpu_mem(adev, DC_MEM_ALLOC_TYPE_FRAME_BUFFER, 8192, &addr);
-+
-+	KUNIT_EXPECT_PTR_EQ(test, mem, dm_test_bo_ctx.cpu_ptr);
-+	KUNIT_EXPECT_EQ(test, dm_test_bo_ctx.create_domain, (u32)AMDGPU_GEM_DOMAIN_VRAM);
-+	KUNIT_EXPECT_EQ(test, dm_test_bo_ctx.create_size, 8192UL);
-+
-+	dm_free_gpu_mem(adev, DC_MEM_ALLOC_TYPE_FRAME_BUFFER, mem);
-+}
-+
-+/**
-+ * dm_test_allocate_gpu_mem_create_fails - Test Allocate gpu mem create fails
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_allocate_gpu_mem_create_fails(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = dm_test_alloc_adev(test);
-+	long long addr = 0;
-+	void *mem;
-+
-+	dm_test_bo_ctx.create_ret = -ENOMEM;
-+
-+	mem = dm_allocate_gpu_mem(adev, DC_MEM_ALLOC_TYPE_GART, 4096, &addr);
-+
-+	KUNIT_EXPECT_NULL(test, mem);
-+	KUNIT_EXPECT_EQ(test, dm_test_bo_ctx.create_calls, 1U);
-+	KUNIT_EXPECT_TRUE(test, list_empty(&adev->dm.da_list));
-+}
-+
-+/**
-+ * dm_test_free_gpu_mem_matching - Test Free gpu mem matching
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_free_gpu_mem_matching(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = dm_test_alloc_adev(test);
-+	long long addr = 0;
-+	void *mem;
-+
-+	mem = dm_allocate_gpu_mem(adev, DC_MEM_ALLOC_TYPE_GART, 4096, &addr);
-+	KUNIT_ASSERT_NOT_NULL(test, mem);
-+
-+	dm_free_gpu_mem(adev, DC_MEM_ALLOC_TYPE_GART, mem);
-+
-+	KUNIT_EXPECT_EQ(test, dm_test_bo_ctx.free_calls, 1U);
-+	KUNIT_EXPECT_TRUE(test, list_empty(&adev->dm.da_list));
-+}
-+
-+/**
-+ * dm_test_free_gpu_mem_no_match - Test Free gpu mem no match
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_free_gpu_mem_no_match(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = dm_test_alloc_adev(test);
-+	long long addr = 0;
-+	void *mem;
-+
-+	mem = dm_allocate_gpu_mem(adev, DC_MEM_ALLOC_TYPE_GART, 4096, &addr);
-+	KUNIT_ASSERT_NOT_NULL(test, mem);
-+
-+	dm_free_gpu_mem(adev, DC_MEM_ALLOC_TYPE_GART, (char *)mem + 1);
-+
-+	KUNIT_EXPECT_EQ(test, dm_test_bo_ctx.free_calls, 0U);
-+	KUNIT_EXPECT_FALSE(test, list_empty(&adev->dm.da_list));
-+
-+	dm_free_gpu_mem(adev, DC_MEM_ALLOC_TYPE_GART, mem);
-+}
-+
-+/**
-+ * dm_test_free_gpu_mem_empty_list - Test Free gpu mem empty list
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_free_gpu_mem_empty_list(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = dm_test_alloc_adev(test);
-+
-+	dm_free_gpu_mem(adev, DC_MEM_ALLOC_TYPE_GART, dm_test_bo_ctx.cpu_ptr);
-+
-+	KUNIT_EXPECT_EQ(test, dm_test_bo_ctx.free_calls, 0U);
-+	KUNIT_EXPECT_TRUE(test, list_empty(&adev->dm.da_list));
-+}
-+
- static struct kunit_case amdgpu_dm_services_test_cases[] = {
- 	/* dm_get_elapse_time_in_ns */
- 	KUNIT_CASE(dm_test_get_elapse_time_zero_delta),
-@@ -307,7 +513,27 @@ static struct kunit_suite amdgpu_dm_services_test_suite = {
- 	.test_cases = amdgpu_dm_services_test_cases,
- };
- 
--kunit_test_suite(amdgpu_dm_services_test_suite);
-+static struct kunit_case amdgpu_dm_services_gpu_mem_test_cases[] = {
-+	/* dm_allocate_gpu_mem */
-+	KUNIT_CASE(dm_test_allocate_gpu_mem_gart),
-+	KUNIT_CASE(dm_test_allocate_gpu_mem_frame_buffer),
-+	KUNIT_CASE(dm_test_allocate_gpu_mem_create_fails),
-+	/* dm_free_gpu_mem */
-+	KUNIT_CASE(dm_test_free_gpu_mem_matching),
-+	KUNIT_CASE(dm_test_free_gpu_mem_no_match),
-+	KUNIT_CASE(dm_test_free_gpu_mem_empty_list),
-+	{}
-+};
-+
-+static struct kunit_suite amdgpu_dm_services_gpu_mem_test_suite = {
-+	.name = "amdgpu_dm_services_gpu_mem",
-+	.init = dm_test_gpu_mem_init,
-+	.exit = dm_test_gpu_mem_exit,
-+	.test_cases = amdgpu_dm_services_gpu_mem_test_cases,
-+};
-+
-+kunit_test_suites(&amdgpu_dm_services_test_suite,
-+		  &amdgpu_dm_services_gpu_mem_test_suite);
- 
- MODULE_DESCRIPTION("KUnit tests for amdgpu_dm_services");
- MODULE_LICENSE("Dual MIT/GPL");
+ 	/* DLG - Per hubp */
+ 	REG_SET_2(BLANK_OFFSET_0, 0,
+ 		REFCYC_H_BLANK_END, dlg_attr->refcyc_h_blank_end,
 -- 
 2.43.0
 
