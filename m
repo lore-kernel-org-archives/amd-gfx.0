@@ -4,91 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id F06C4C5DF74
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 03:38:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 23BABC5DF67
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 04:20:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FF4A10E4AC;
-	Tue, 18 Aug 2026 03:38:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BC11110E9DB;
+	Tue, 18 Aug 2026 04:20:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IsmlWPuP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="m1vI731a";
 	dkim-atps=neutral
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1EF9110E47C
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 03:38:09 +0000 (UTC)
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-2cf4c37dbe6so6662765ad.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 17 Aug 2026 20:38:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787024288; cv=none;
- d=google.com; s=arc-20260327;
- b=I50t9JW6mpfe2QUMvIEV6BcfAyM2Zs7bfEZ3YS1tpphh5LZmxvpGG62wiU+sUvR9rB
- iGqkI9CuZ39HwWJS3OlbdaZfoFncBJIjz69gCzJV0AxU2ufFtkH4Ydi+lt2PRaYRDKqT
- QdoGrHOb1GkS+wCWcUU43/AbECz6jlL0lhfDeAMgNL5W+Jpq/XSZpIWg7Rf2B7XxkZ4H
- ijl9EihyvxBg6wp8/OsFz9kpcWWEg/9kPAlyxfQrlsFAi4eRieM81r2AGQK81YulbvZK
- 7hRWoNXJNW8NKVKpxU6QwZ9jcqxc64gBL/M4JliGpyI7lximzQja/Ifh9glt0RY0fwlI
- PMUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=zpAcAN+mTNpqh7BgPFv+GrRajps8PvLNMzS/IQFzHlU=;
- fh=owwHazWs97Rzgl08lFSKv/EcjcJ5ww1JR2BXRPmhh/w=;
- b=f9ILc1he46RSXz6KC/4+nWUtaJAg3GaKGWpBoS/acoEjci7HeKOhBNs3oP1FookPGA
- 0jZCBrTQEfwqnnnewk8FcCOg+KscYY8HWf57farH0ikqCCC6XARaLEHOuXBU2dtC6X3D
- MvQyxWe3sigLmhVi2CzM3KJm8XGoFgMaLRXr1txl+ARj+LzO18p/dTbSDyVEcR3J5QFV
- MFEFfH4ISjHjuji2qr87eoBX8ueFG6QMd4Os8vnJZ9ktsDeooqxeyxZN5LTJ5R6koF9R
- 3KjIpjvijWSbSSdqt/ey0HBGleYYDRbV7wYPUI76ptpy4DUxO1fMhEGiYf2J7fxH/aKp
- pdTg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787024288; x=1787629088; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=zpAcAN+mTNpqh7BgPFv+GrRajps8PvLNMzS/IQFzHlU=;
- b=IsmlWPuPnOj2SFP0cHe+f4J0yEByGjpV7CjIswPea77UbBOGxayokVPqVb8PNoyNHF
- ppFlBEXDnnPhH7Bo6Lyu31S1e+G9pa58dwTq1bSWTho4P1OPTIh0ZMBjVAypuLfnHPxm
- cLEWOs7xEBld2nPAPmQsw8COjHEzwfvNsdj9tX7sDc5kl8jLM96MTqPdFddXxBwPa9Ti
- 5Hul2VLoizO9t2sm9ktiVN3pUTCzPukkL/iaPbyhfWiIukTadkxvUpCzaZd45TVZ/v4Z
- zKrJ966DqnUG6ANvJmZq9KV8CpAOHM1ehzhOsn4pHtb9oGgbgOJn4mzgzPjJkzsQOvRt
- IJyA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787024288; x=1787629088;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=zpAcAN+mTNpqh7BgPFv+GrRajps8PvLNMzS/IQFzHlU=;
- b=KSBtny12Sj3/Hv2VvJ/Ag2FpE/689b4y+w+gQO7ZWgk0hoaCdnikcyLFwlWF12d3wL
- WXO5EYM8zC9U0WSbzNcyYl9XgXlZQYb7CTZDeWtK90auFi2yiBK1orOlksii4NiI22Bo
- D1j4YKfUnReIt2uWTFVDMK56YQXpeszq6CnGgJa1Y3CHl7w1NEq8kpMnUT66QqqDKKV8
- Ft9F41daI8d0kXKPIPZseZQMxgHtuu2ILJWU0pgPwdEbdJVdlmDDeDuti+nSYyUKw8sS
- 0Q3oefVnzVaQ+kQJRYBmhIjTwar/SG/2d0Qf+TFZipE3qu2ccNXgYAmxd8gRZE85h/kK
- JhLA==
-X-Gm-Message-State: AOJu0Yy6j6EbU5elk3bhqcYPMyFDVkXNgE6nUPnR//qZLKfqaOxSzV0s
- MFSIf7NYORTLZuiFzb1cvowh8YQUi8XCq1e2/+oGIAsI8ZLCi0iSRpMWpwHyQi9jKEUFPTLuZYT
- X5fzFXT9WkzirBnxv4Y0RxX5vIrEcQd90xw==
-X-Gm-Gg: AR+sD11fHQ3PjEOAfzqY44rfXxqLInvNa0x/yELG5VUs2Y6Fy58BivRM6N5UWUrGus4
- SJpd82jNkXcrCt5JXaRY07keRcNwg70pu+bVwus0LaBJDAC/1HNBAbSV76Pd2D0ZPiRxNWxM8d0
- sHozXoQ+Rdc9aFx2yIVJlMsyAMnBboGN3Aar7UDrvJFMA2ZYwZi4BuMEgo5mB7WOCAF2/xEtcV6
- l0WEYUnMfyVUhl6ZKwnGt0s/EqN/Uvp17UFe84pBoVftD6ARLryYcC/vY/8ZC6wExmCFsk/8lwf
- w2oFJ33xNvdbEVuVmsqHWXdl5OZ0zc8T6Ea81pmhsQS5mYLfH0euHJfJn8ii/y/0npjUxujfA7d
- hefZG8hcT0/pAM2gc0xZ79bXklmLexl0=
-X-Received: by 2002:a17:903:3847:b0:2cc:f4d4:29a0 with SMTP id
- d9443c01a7336-2d3b0c9938cmr261981905ad.3.1787024288400; Mon, 17 Aug 2026
- 20:38:08 -0700 (PDT)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012015.outbound.protection.outlook.com [52.101.48.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF39110E9DB
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 04:20:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Cmlzl+gSzdcor1SNl/XPLl/8PGjcRN4Cw8DLlg5LflRlc8conohDIjghMHz9ZPpdXIVAUp9Zuv3o5nP6tcRqRoWwPDj13WOT11+aIRAuL4VWFptoBGwplZFKgZO5pQy6fKCgBUzUu7qiVGz/v0A45ZK9pvV/gSTqxPGi0FuW3D5qBYuVUgcM2/+dqcfCfXZeACZ44wnBc8C1MSL+A1+jd2thC+cWaaXj87dF98msyv2m07l8rNrMgK2Nm21mppH4/PdaYWENt6A2QLDOU2e84UdAXdEq3UFj8f1/PHpUjbE8bIiuIW5sErZ3vvaOJ3ggn/i5nDUhHFXaucUM+8ymZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qVM3DrhFlDmWIApWy+pAcbV7A6XSZQ3NPBudBdEyMxY=;
+ b=yNNUhoUYtys8eAt5nZeOUy5lfYUxfBlfCXogabCItxVW1wxI1dk1/5vHTURHkpcJ365sGbrY3GCaGxPdjJdoZbz2QVhkwjgBCXpr2XjjJoOLBMYGsBv7g+pBvVgWxbd1lATVnDtKlrXEIbYiSDT9OHJCLwVsrlI8gODNF6MbLfgQlWQT/RCnT9SZvCMQBtoUhOaxUoeR7kvGYkMxNAs8dxLKmCxa8EH2EhRcWey6zukilyLJmLTtXMuvydTLa1zkTmNjwHhxdAnYclKk7EioBrtF9eXLhHZxMW6eLBd8E7eO0D6tYrUSNVmM38zy8lbGMmu2DYW1fVYQ5MzvW1YLTQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qVM3DrhFlDmWIApWy+pAcbV7A6XSZQ3NPBudBdEyMxY=;
+ b=m1vI731a+wZUd1r+EayUYpsgAwiFdhpR29E8r/WhvjuIV5HyOpkD/St74xRgWuotibUAtSXhHXIN1+kETMWGXgpsDNyZHhgNBgVpZnBsNQYbi+BF2JeZ25CcNdm6r1n/+WgZPZTWcZ1EvIalc9lLc05XMIP1mAm+4A/WudZu8vE=
+Received: from PH3PEPF000040AE.namprd05.prod.outlook.com (2603:10b6:518:1::59)
+ by SN7PR12MB7129.namprd12.prod.outlook.com (2603:10b6:806:2a1::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Tue, 18 Aug
+ 2026 04:20:39 +0000
+Received: from MW1PEPF0001615F.namprd21.prod.outlook.com
+ (2a01:111:f403:c903::2) by PH3PEPF000040AE.outlook.office365.com
+ (2603:1036:903:49::3) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Tue, 18
+ Aug 2026 04:20:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MW1PEPF0001615F.mail.protection.outlook.com (10.167.249.90) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 04:20:38 +0000
+Received: from kevin-mlse-vm.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 17 Aug
+ 2026 23:20:36 -0500
+From: Yang Wang <kevinyang.wang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <alexander.deucher@amd.com>, <hawking.zhang@amd.com>,
+ <kenneth.feng@amd.com>
+Subject: [PATCH v2] drm/amd/pm: Fix SMU messages after system resume for smu
+ 11.0.x
+Date: Tue, 18 Aug 2026 12:20:08 +0800
+Message-ID: <20260818042008.287779-1-kevinyang.wang@amd.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-References: <20260817194953.97887-1-david.belanger@amd.com>
-In-Reply-To: <20260817194953.97887-1-david.belanger@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 17 Aug 2026 23:37:56 -0400
-X-Gm-Features: AcwNN1U4gI8w-fMW0u_n_SLkqr-pyFiSxzR2oFZks3s1C5VbjM2gkVeR70yOApk
-Message-ID: <CADnq5_NdV+ZX-gTS-fL8rSRX3AQAc1LRU-mS9nTUG3vPGuu1WQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] drm/kfd: Add CU occupancy support to GFX11
-To: David Belanger <david.belanger@amd.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW1PEPF0001615F:EE_|SN7PR12MB7129:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0cbc1d3b-fd6f-42b5-4b6f-08defce00f30
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|23010399003|82310400026|376014|1800799024|10067099003|56012099006|18002099003|11063799006|13003099007;
+X-Microsoft-Antispam-Message-Info: 70lYu+LVm6ltKOxhabsw0EgiqZ6mUjPJfUpHCc+1bsn4V+yGU3sVVZSX8uhi4Aj7ut+E8tN8j1I9WdsuVanilX35+LwLEUtM5xEVSdqqEo3OctUV+wL87g06WUHb9WKYUlTHMeoLqF6FnxI1nf6ODQG2kvL2gX2vvGZCmTYpVrOe3aNzI2vRLDlHkEozVGjSLUGpzlA7Fq+t7gUOlxKmDf9stxcvgHMx+lVOYk8nVsBS0bN51z6lbLePMeOxIAKnQbSL7Qks4Ap6qkTP/uUdENfKd7mZOma3eiuwbc8gTeKx1Gqtk0KZsdcBvVkH+qgP111/WP5/c0eagYQwSBGzpGDPClJUSfzdC8XLkrwmqbM+EEUFhOwO/cPxUAjCG0N6CF1FnuRAoNeJ0rHIPEnzdg0cIQxxvT9NDZUEDycE9HwWRw9IbTwdPYW+xHbP8QeLjL9ETwjSQU8vPJ0e9yswBzlAOyDQ7b9kVTTC95M+nTEEezKhFgZONKw2PMc+GInZcbGTWn6AczPOxxrWbcNGFCB6ufkpW/iPqq6g9sVXS4djOn57mVVPB/nkVVzmfJ81n+8oRDdSZscksPre8OTo8mFje1C2wX/+0RMGslrHaHqkTTwsTxBVmssTUzrgFx9HDL58YPUkLJLN+UuM2OXC7w==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(23010399003)(82310400026)(376014)(1800799024)(10067099003)(56012099006)(18002099003)(11063799006)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: FQT3eSW8tu5A+9g3rKESjFVYKR0g9nUGGkGWXdRQGmB0OmQ9/o+Hhs6SYCqldtH9yfGBvQmJYxK1XhTO7TNQFAKkrHAXE4VBOn0CAXAEeytJ2Cc7ozvdrArHoD82xrzk2X11WhDay4dI7zCL3VS37KjqVOLYLVrS9ZzETJxV/sXxS7F565sEilUzkvCbEGBgbmf7nKhsAsO2vgBWZdcf8dk19UxRVmwCadPJBXibxyauZDgj0R3g3k3J3cnm0OAxM92NVExKW+JihCWTSRpN1xuiM3vgAlAvbTY04uNAWd9b2xjBXJm3lk0CF+ufvj+nU4UJT5E6eHIrKPMJh8iaRNpQXK2GkBPQMN2O7I+kTAxrtaCsy+27O1/Py0ddfdjTIziog8Me/AbR/PI1B6nzyFJeTssxnfZ9tQjys8pKGraEAxuijAPnLX3/KZnCs8EN
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 04:20:38.9384 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0cbc1d3b-fd6f-42b5-4b6f-08defce00f30
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: MW1PEPF0001615F.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7129
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,227 +109,184 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 17, 2026 at 4:45=E2=80=AFPM David Belanger <david.belanger@amd.=
-com> wrote:
->
-> Port changes from GFX9 to GFX11 mostly as-is.
-> Minor changes to register access code.
+SMU 11.0.x can retain an unfinished command across system
+suspend, causing SMU messages such as RunDcBtc to fail during resume.
 
-While you are at it, can you port this to gfx10 10 and 10.3 as well?
+The original failure path is:
 
->
-> Assisted-by: Claude:Sonnet 4.6
-> Signed-off-by: David Belanger <david.belanger@amd.com>
-> ---
->  .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c    | 148 ++++++++++++++++++
->  1 file changed, 148 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c b/drivers=
-/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-> index 724beb96ed1aa..46042f72741b4 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c
-> @@ -807,6 +807,153 @@ static uint32_t kgd_gfx_v11_hqd_sdma_get_doorbell(s=
-truct amdgpu_device *adev,
->         return 0;
->  }
->
-> +static void lock_spi_csq_mutexes(struct amdgpu_device *adev)
-> +{
-> +       mutex_lock(&adev->srbm_mutex);
-> +       mutex_lock(&adev->grbm_idx_mutex);
-> +
-> +}
-> +
-> +static void unlock_spi_csq_mutexes(struct amdgpu_device *adev)
-> +{
-> +       mutex_unlock(&adev->grbm_idx_mutex);
-> +       mutex_unlock(&adev->srbm_mutex);
-> +}
-> +
-> +/**
-> + * get_wave_count: Read device registers to get number of waves in fligh=
-t for
-> + * a particular queue. The method also returns the doorbell offset assoc=
-iated
-> + * with the queue.
-> + *
-> + * @adev: Handle of device whose registers are to be read
-> + * @queue_idx: Index of queue in the queue-map bit-field
-> + * @queue_cnt: Stores the wave count and doorbell offset for an active q=
-ueue
-> + * @inst: xcc's instance number on a multi-XCC setup
-> + */
-> +static void get_wave_count(struct amdgpu_device *adev, int queue_idx,
-> +               struct kfd_cu_occupancy *queue_cnt, uint32_t inst)
-> +{
-> +       int pipe_idx;
-> +       int queue_slot;
-> +       unsigned int reg_val;
-> +       unsigned int wave_cnt;
-> +       /*
-> +        * Program GRBM with appropriate MEID, PIPEID, QUEUEID and VMID
-> +        * parameters to read out waves in flight. Get VMID if there are
-> +        * non-zero waves in flight.
-> +        */
-> +       pipe_idx =3D queue_idx / adev->gfx.mec.num_queue_per_pipe;
-> +       queue_slot =3D queue_idx % adev->gfx.mec.num_queue_per_pipe;
-> +       soc21_grbm_select(adev, 1, pipe_idx, queue_slot, 0);
-> +       reg_val =3D RREG32_SOC15_IP(GC, SOC15_REG_OFFSET(GC, 0,
-> +                                 regSPI_CSQ_WF_ACTIVE_COUNT_0) + queue_s=
-lot);
-> +       wave_cnt =3D reg_val & SPI_CSQ_WF_ACTIVE_COUNT_0__COUNT_MASK;
-> +       if (wave_cnt !=3D 0) {
-> +               queue_cnt->wave_cnt +=3D wave_cnt;
-> +               queue_cnt->doorbell_off =3D
-> +                       (RREG32_SOC15(GC, 0, regCP_HQD_PQ_DOORBELL_CONTRO=
-L) &
-> +                        CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_OFFSET_MASK=
-) >>
-> +                        CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_OFFSET__SHI=
-FT;
-> +       }
-> +}
-> +
-> +/**
-> + * kgd_gfx_v11_get_cu_occupancy: Reads relevant registers associated wit=
-h each
-> + * shader engine and aggregates the number of waves that are in flight f=
-or the
-> + * process whose pasid is provided as a parameter. The process could hav=
-e ZERO
-> + * or more queues running and submitting waves to compute units.
-> + *
-> + * @adev: Handle of device from which to get number of waves in flight
-> + * @cu_occupancy: Array that gets filled with wave_cnt and doorbell offs=
-et
-> + *               for comparison later.
-> + * @max_waves_per_cu: Output parameter updated with maximum number of wa=
-ves
-> + *                    possible per Compute Unit
-> + * @inst: xcc's instance number on a multi-XCC setup
-> + *
-> + * Note: It's possible that the device has too many queues (oversubscrip=
-tion)
-> + * in which case a VMID could be remapped to a different PASID. This cou=
-ld lead
-> + * to an inaccurate wave count. Following is a high-level sequence:
-> + *    Time T1: vmid =3D getVmid(); vmid is associated with Pasid P1
-> + *    Time T2: passId =3D getPasId(vmid); vmid is associated with Pasid =
-P2
-> + * In the sequence above wave count obtained from time T1 will be incorr=
-ectly
-> + * lost or added to total wave count.
-> + *
-> + * The registers that provide the waves in flight are:
-> + *
-> + *  SPI_CSQ_WF_ACTIVE_STATUS - bit-map of queues per pipe. The bit is ON=
- if a
-> + *  queue is slotted, OFF if there is no queue. A process could have ZER=
-O or
-> + *  more queues slotted and submitting waves to be run on compute units.=
- Even
-> + *  when there is a queue it is possible there could be zero wave fronts=
-, this
-> + *  can happen when queue is waiting on top-of-pipe events - e.g. waitRe=
-gMem
-> + *  command
-> + *
-> + *  For each bit that is ON from above:
-> + *
-> + *    Read (SPI_CSQ_WF_ACTIVE_COUNT_0 + queue_idx) register. It provides=
- the
-> + *    number of waves that are in flight for the queue at specified inde=
-x. The
-> + *    index ranges from 0 to 7.
-> + *
-> + *    If non-zero waves are in flight, store the corresponding doorbell =
-offset
-> + *    of the queue, along with the wave count.
-> + *
-> + *    Determine if the queue belongs to the process by comparing the doo=
-rbell
-> + *    offset against the process's queues. If it matches, aggregate the =
-wave
-> + *    count for the process.
-> + *
-> + *  Reading registers referenced above involves programming GRBM appropr=
-iately
-> + */
-> +static void kgd_gfx_v11_get_cu_occupancy(struct amdgpu_device *adev,
-> +                               struct kfd_cu_occupancy *cu_occupancy,
-> +                               int *max_waves_per_cu, uint32_t inst)
-> +{
-> +       int qidx;
-> +       int se_idx;
-> +       int se_cnt;
-> +       int queue_map;
-> +       int max_queue_cnt;
-> +       DECLARE_BITMAP(cp_queue_bitmap, AMDGPU_MAX_QUEUES);
-> +
-> +       lock_spi_csq_mutexes(adev);
-> +       soc21_grbm_select(adev, 1, 0, 0, 0);
-> +
-> +       /*
-> +        * Iterate through the shader engines and arrays of the device
-> +        * to get number of waves in flight
-> +        */
-> +       bitmap_complement(cp_queue_bitmap, adev->gfx.mec_bitmap[0].queue_=
-bitmap,
-> +                         AMDGPU_MAX_QUEUES);
-> +       max_queue_cnt =3D adev->gfx.mec.num_pipe_per_mec *
-> +                       adev->gfx.mec.num_queue_per_pipe;
-> +       se_cnt =3D adev->gfx.config.max_shader_engines;
-> +       for (se_idx =3D 0; se_idx < se_cnt; se_idx++) {
-> +               amdgpu_gfx_select_se_sh(adev, se_idx, 0, 0xffffffff, inst=
-);
-> +               queue_map =3D RREG32_SOC15(GC, 0,
-> +                                        regSPI_CSQ_WF_ACTIVE_STATUS);
-> +
-> +               for (qidx =3D 0; qidx < max_queue_cnt; qidx++) {
-> +                       /* Skip queues that are not associated with
-> +                        * compute functions
-> +                        */
-> +                       if (!test_bit(qidx, cp_queue_bitmap))
-> +                               continue;
-> +
-> +                       if (!(queue_map & (1 << qidx)))
-> +                               continue;
-> +
-> +                       /* Get number of waves in flight and aggregate th=
-em */
-> +                       get_wave_count(adev, qidx, &cu_occupancy[qidx], i=
-nst);
-> +               }
-> +       }
-> +
-> +       amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff,=
- inst);
-> +       soc21_grbm_select(adev, 0, 0, 0, 0);
-> +       unlock_spi_csq_mutexes(adev);
-> +
+amdgpu_pmops_resume()
+`-- amdgpu_device_resume()
+    `-- amdgpu_device_ip_resume()
+        `-- smu_resume()
+            `-- smu_smc_hw_setup()
+                `-- smu_run_btc()
+                    `-- RunDcBtc fails
 
-I think you need to disallow gfxoff around the MMIO accesses unless
-that is already handled elsewhere.  Same comment on the gfx12
-implementation.
+v1:
+- Prepare MP1 for unload for an active system suspend.
+- Restore PMFW context after the normal PSP resume load. The initial
+  centralized load preserves PMFW-before-TMR ordering; a successful MP1
+  unload additionally requires the post-TMR context reload.
 
-Alex
+v2:
+- Snapshot the runtime PM state at system-suspend entry.
+- Exclude runtime-suspended BACO entries from the MP1 unload and PMFW
+  recovery transaction.
+- Mark the successful MP1 unload in PSP to order the post-TMR reload.
 
-> +       /* Update the output parameters and return */
-> +       *max_waves_per_cu =3D adev->gfx.cu_info.simd_per_cu *
-> +                               adev->gfx.cu_info.max_waves_per_simd;
-> +}
-> +
->  const struct kfd2kgd_calls gfx_v11_kfd2kgd =3D {
->         .program_sh_mem_settings =3D program_sh_mem_settings_v11,
->         .set_pasid_vmid_mapping =3D set_pasid_vmid_mapping_v11,
-> @@ -832,5 +979,6 @@ const struct kfd2kgd_calls gfx_v11_kfd2kgd =3D {
->         .clear_address_watch =3D kgd_gfx_v11_clear_address_watch,
->         .hqd_get_pq_addr =3D kgd_gfx_v11_hqd_get_pq_addr,
->         .hqd_reset =3D kgd_gfx_v11_hqd_reset,
-> +       .get_cu_occupancy =3D kgd_gfx_v11_get_cu_occupancy,
->         .hqd_sdma_get_doorbell =3D kgd_gfx_v11_hqd_sdma_get_doorbell
->  };
-> --
-> 2.51.1
->
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5620
+Signed-off-by: Yang Wang <kevinyang.wang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h       |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c   | 11 ++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c   | 11 +++++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h   |  2 ++
+ drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c | 40 ++++++++++++++++++++---
+ 5 files changed, 58 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index 070986b03fb8..71606dd2d6fc 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -860,6 +860,8 @@ struct amdgpu_device {
+ 
+ 	/* s3/s4 mask */
+ 	bool                            in_suspend;
++	/* runtime PM state snapshot at system-suspend entry */
++	bool				in_runpm_at_suspend;
+ 	bool				in_s3;
+ 	bool				in_s4;
+ 	bool				in_s0ix;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 845160d2c516..8c7df6b4e168 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2803,10 +2803,15 @@ static int amdgpu_pmops_prepare(struct device *dev)
+ 	struct drm_device *drm_dev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(drm_dev);
+ 
++	adev->in_runpm_at_suspend = false;
++
+ 	/* device maybe not resumed here, return immediately in this case */
+ 	if (adev->in_s4 && adev->in_suspend)
+ 		return 0;
+ 
++	/* System PM can change runtime PM state after this callback. */
++	adev->in_runpm_at_suspend = pm_runtime_suspended(dev);
++
+ 	/* Return a positive number here so
+ 	 * DPM_FLAG_SMART_SUSPEND works properly
+ 	 */
+@@ -2825,7 +2830,11 @@ static int amdgpu_pmops_prepare(struct device *dev)
+ 
+ static void amdgpu_pmops_complete(struct device *dev)
+ {
+-	amdgpu_device_complete(dev_get_drvdata(dev));
++	struct drm_device *drm_dev = dev_get_drvdata(dev);
++	struct amdgpu_device *adev = drm_to_adev(drm_dev);
++
++	amdgpu_device_complete(drm_dev);
++	adev->in_runpm_at_suspend = false;
+ }
+ 
+ static int amdgpu_pmops_suspend(struct device *dev)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+index 04f6ebf31cca..e252733a6f3b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
+@@ -3512,11 +3512,18 @@ static int psp_load_non_psp_fw(struct psp_context *psp)
+ 	struct amdgpu_firmware_info *ucode;
+ 	struct amdgpu_device *adev = psp->adev;
+ 
+-	if (psp->autoload_supported &&
+-	    !psp->pmfw_centralized_cstate_management) {
++	/*
++	 * NOTE: The centralized PMFW load in psp_hw_start() must precede
++	 * TMR setup. A successful MP1 unload also requires PMFW context
++	 * recovery after TMR, so reload it for this transaction here.
++	 */
++	if (psp->smu_fw_post_tmr_reload ||
++	    (psp->autoload_supported &&
++	     !psp->pmfw_centralized_cstate_management)) {
+ 		ret = psp_load_smu_fw(psp);
+ 		if (ret)
+ 			return ret;
++		psp->smu_fw_post_tmr_reload = false;
+ 	}
+ 
+ 	/* Load P2S table first if it's available */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+index d80c85793e3b..540077b9f070 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
+@@ -443,6 +443,8 @@ struct psp_context {
+ 	bool				boot_time_tmr;
+ 	/* flag to mark whether df cstate management centralized to PMFW */
+ 	bool				pmfw_centralized_cstate_management;
++	/* SMC firmware reload required after TMR during system resume */
++	bool				smu_fw_post_tmr_reload;
+ 
+ 	/* xgmi ta firmware and buffer */
+ 	const struct firmware		*ta_fw;
+diff --git a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+index 559afdc5815d..8ff1cb1efc5b 100644
+--- a/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
++++ b/drivers/gpu/drm/amd/pm/swsmu/amdgpu_smu.c
+@@ -2182,12 +2182,38 @@ static int smu_smc_hw_cleanup(struct smu_context *smu)
+ static int smu_reset_mp1_state(struct smu_context *smu)
+ {
+ 	struct amdgpu_device *adev = smu->adev;
+-	int ret = 0;
++	u32 mp1_version = amdgpu_ip_version(adev, MP1_HWIP, 0);
++	bool needs_mp1_unload;
++	int ret;
+ 
+-	if ((!adev->in_runpm) && (!adev->in_suspend) &&
+-		(!amdgpu_in_reset(adev)) && !smu->is_apu &&
+-			amdgpu_ip_version(adev, MP1_HWIP, 0) >= IP_VERSION(13, 0, 0))
+-		ret = smu_set_mp1_state(smu, PP_MP1_STATE_UNLOAD);
++	if (adev->in_runpm || amdgpu_in_reset(adev) || smu->is_apu)
++		return 0;
++
++	switch (mp1_version) {
++	case IP_VERSION(11, 0, 7):
++	case IP_VERSION(11, 0, 11):
++	case IP_VERSION(11, 0, 12):
++	case IP_VERSION(11, 0, 13):
++		/*
++		 * Prepare MP1 only for an active system-suspend entry.
++		 * BACO retains the SMU firmware across runtime suspend.
++		 */
++		needs_mp1_unload = adev->in_suspend &&
++			!adev->in_runpm_at_suspend &&
++			adev->mp1_state != PP_MP1_STATE_UNLOAD;
++		break;
++	default:
++		needs_mp1_unload = !adev->in_suspend &&
++			mp1_version >= IP_VERSION(13, 0, 0);
++		break;
++	}
++
++	if (!needs_mp1_unload)
++		return 0;
++
++	ret = smu_set_mp1_state(smu, PP_MP1_STATE_UNLOAD);
++	if (!ret && adev->in_suspend)
++		adev->psp.smu_fw_post_tmr_reload = true;
+ 
+ 	return ret;
+ }
+@@ -2279,6 +2305,10 @@ static int smu_suspend(struct amdgpu_ip_block *ip_block)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = smu_reset_mp1_state(smu);
++	if (ret)
++		return ret;
++
+ 	smu->watermarks_bitmap &= ~(WATERMARKS_LOADED);
+ 
+ 	smu_set_gfx_cgpg(smu, false);
+-- 
+2.54.0
+
