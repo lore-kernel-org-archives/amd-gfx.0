@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1F41C5DF85
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 20:22:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D3EDC5DF81
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 20:22:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7AAFE10EC96;
-	Tue, 18 Aug 2026 20:22:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA65010EC98;
+	Tue, 18 Aug 2026 20:22:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="19WKNqVE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="d8ZY5+h2";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012032.outbound.protection.outlook.com
- [40.93.195.32])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 80B4D10EC93
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:18 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013006.outbound.protection.outlook.com
+ [40.93.201.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D044510EC98
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=H4UFoOEBVxwok0RIlvTLp400OrUhFOP6gtMwzP0z42teC+5hDuFv9u41EQML0KaEQWSGmy6qqGckU5a7zARxgyUhD0zve8A10yhmTxv0UeVK579ncdWDTmJENWY/dgC/HRcVxMkZneKdI19+8rMsnqW2ATevoQ0NVjeoRoCdlMMij1zKBcsbq/ozOMHKJLcuxpfXoDxPqdKbdr3G+s/HXhi4Q83zQjs0HujwYDZ9xghllyO23zvebuhk3pH29bAlcQpkCpMzwHUOsPOVv1vW4oYIexahiETj957cJJisSfSNMjCFL1SO9Vymorufrx7G23q4yBn2rTX54UBsK6Cq5Q==
+ b=vQglCOw5zOBvgKFYo4x9KrODSA0UPLOAyjifFWEsXhvNtxwh3HbMpINEJcX37rfQl28RM86B7SuPU0YO9Vy6PyngUZKo35d633M1RjA3cSerey1rzpQngidMUYyWNOcBuX7oxs6vbpP3s54zGZqU52JXVaQZGBBQEb/3Q2zg7J+6U+fJnoAY7/2pRgZFersmLJrIYOEzJNqiMkDoZi3rKC65RF+1ui+XvHpGVGcku4rZflwpJUS0qz170109PhX67ogWFBfNpTerp7n3mgaossd/2LlYBzGwIFwtvtmpVUflCviTKQTlHYR7acUU3rQExXjtpfmMlh/jRUTDRFmGjg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2E2LAlapTfBGXUbDwo0601SIifdkGpgp6nsE2DGScVg=;
- b=a1cls3btBHNXoKxXYBil6BmzcnLGuVmj/1g1gjt8MIVljA+jtlRAT9+Od9cEfBmgwll2i4vu8zviZudBppeDPiH9/biQa60t5be3AmHiFLsp2/5r43JIOCuthcN8W5WLb912pQI8oL2u7PmkXC4tu30PLKgUn4MsTl63U6dXo0IeWrbs9NSxQiRQp0GwtCmLpsbvqcvKG63hGrZPr6GDZWuzT7vRXLv9e4lr+jcsVOlUqsLWeMT3HYxxjejAhRpjMk4+4XLdmDkJFEhRVL6Wub54Ds4psdv/kUL2/Vo+HY5aO2D8dx4C8KnZ0oyR8HlzptF9UtlZRrLuNifXdStDRA==
+ bh=E1kmISqdPpt/LRZQI3MdjZsWz5tSlhNo3wloJmkrlhs=;
+ b=TG1i9yokDGhsd1MFe2RHF6Gt9QyKE3w3vuS+zQIHCxo5gRW9a+sIVXE6zHFmayaxQn+oKydhpwHHkX92ODgUoe4GRmRtWq5J37MALQ5KjYQ3cPx8IScUaWCmfTbg6DL+1UG3VcWeEXmfK/0Hwciln61XI6SoVeIgUqouHzXSTPj+9noTWPKXi7lYpXin6d9jFbUsK4uCRISUjsSx+KtYRFNSuduf2FVxLLZDUgDpG8wxcK8EXYuykuf9va0bHDLND0SpkGeijwBgvskyK5Im7FFZ6KevsdQskoDeIRUIhukCsZzQ8DLG7wG8/6NpS0f+18Q/W0PUuSvH8BlsqvnUrA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2E2LAlapTfBGXUbDwo0601SIifdkGpgp6nsE2DGScVg=;
- b=19WKNqVELlWNDI48MtwSVQXxqM08FaROfYWnrJCMdITNDX/FFyTqbHErRG5k80jir6ixcP1RqA1EKFE20B+iSi3f1diRgVgmvDqf6afM1t0/6UdkeqDH+UOow7v/7ilNp5B4G9riZzOJjVnmNT37bGuXRnDT9afkwsLm+8B4Q4U=
-Received: from BN1PR10CA0005.namprd10.prod.outlook.com (2603:10b6:408:e0::10)
- by CY1PR12MB9627.namprd12.prod.outlook.com (2603:10b6:930:104::9)
+ bh=E1kmISqdPpt/LRZQI3MdjZsWz5tSlhNo3wloJmkrlhs=;
+ b=d8ZY5+h2o9FXHz+QZjo99OaSlZwUGtyBXgCJbcfbHXHnVeD+qufOk57HMX16KIuOYE8LFaJEHYNdi4tVu34W9IMulbvupyyuNw+dQk6Jcd/umZJTNBgDKAU+J/mO+wx4Mt9X802ZKSt/MlA38m+hC9XqFOCLAFV8J8OWNP1ALR8=
+Received: from BN9PR03CA0873.namprd03.prod.outlook.com (2603:10b6:408:13c::8)
+ by LV1PR12MB999280.namprd12.prod.outlook.com (2603:10b6:408:3f5::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Tue, 18 Aug
- 2026 20:22:11 +0000
-Received: from BN3PEPF0000B371.namprd21.prod.outlook.com
- (2603:10b6:408:e0:cafe::56) by BN1PR10CA0005.outlook.office365.com
- (2603:10b6:408:e0::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Tue, 18 Aug
+ 2026 20:22:21 +0000
+Received: from BN3PEPF0000B373.namprd21.prod.outlook.com
+ (2603:10b6:408:13c:cafe::8b) by BN9PR03CA0873.outlook.office365.com
+ (2603:10b6:408:13c::8) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.17 via Frontend Transport; Tue,
- 18 Aug 2026 20:22:11 +0000
+ 18 Aug 2026 20:22:21 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,20 +49,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B371.mail.protection.outlook.com (10.167.243.168) with Microsoft
+ BN3PEPF0000B373.mail.protection.outlook.com (10.167.243.170) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 20:22:11 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 20:22:21 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
- 2026 15:22:03 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
- 2026 15:22:03 -0500
+ 2026 15:22:07 -0500
 Received: from box-0.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Tue, 18 Aug 2026 15:22:02 -0500
+ Transport; Tue, 18 Aug 2026 15:22:06 -0500
 From: <IVAN.LIPSKI@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -72,10 +68,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 13/82] drm/amd/display: Cover HDMI infoframe/freesync timing
- paths
-Date: Tue, 18 Aug 2026 16:15:05 -0400
-Message-ID: <20260818202139.4172592-14-IVAN.LIPSKI@amd.com>
+Subject: [PATCH 19/82] drm/amd/display: Test MST stream feature read failure
+Date: Tue, 18 Aug 2026 16:15:11 -0400
+Message-ID: <20260818202139.4172592-20-IVAN.LIPSKI@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
 References: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
@@ -84,29 +79,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B371:EE_|CY1PR12MB9627:EE_
-X-MS-Office365-Filtering-Correlation-Id: 311d8c3b-f043-4cba-25c2-08defd6662af
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B373:EE_|LV1PR12MB999280:EE_
+X-MS-Office365-Filtering-Correlation-Id: 503e379c-1467-4a7a-3f44-08defd666856
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|23010399003|36860700016|56012099006|10067099003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: rK9NsHgEe4sI6oXx0P4eYHhMTrphcU1/YR7mY4YmqCVeXCOEdattuULlryP68mix3cDb5gx8sxlRQHJKhXeykERlPhhxyzBTg6cvT4q8qX6Lm/LK/brDquo/hEnNttB8GzbDEQkCvIqPzAVdcCh65hnCd7coH1PpOy7kx+fT5TQC2PYugmunWFIzybEzZT62Hcpf50ROYDfBOyTMeU43A/BScH2V22XZ6kDK6m1mV9yorhO8Tp5vYCMzWH9CDg3Xkp2WaASTxfKJVMCAoU4darLaWlu216LJtizsT7XJtJSqHmIBfypG3FFFi/MBFIDz7MKtybm0vzQrqU8TNkAik1M45AqeK7vdIqN4pq9Xt1hfNuk1KDa9Sgrj1tVjBQP/OwShkYsLx8B+37egoZCtpkugO66a7+EHv13sEquXGPNI1ULq2Y6AcAIjQQFFHUBxq9VJpTe+wGx8vSbxrBS5ze++sV7/LXgYFM+k5qw8+3BBMozZ4/uOsHjcsc1dwcYko2Pur1EWNz/GFh13Z7+syagZmdD2PhMb3UJBq5ah9Wd1OPhchjky1yw2OrLs+sMfXYbDrI76o1CBMP6kMXUTCoXydpQPu2/GAfPfsu/DUFIpzz4CyrNdRDq0f91n0hQ8VTqCvw6DXswBdcBOemCDUiufhjDLYXwoXSmO/xZs36O2+2QbO0T5lANTYYmrmLifQcqf8ue7r/JjmjgB6YPrGA==
+ ARA:13230040|82310400026|23010399003|376014|1800799024|36860700016|56012099006|10067099003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: HZXxpaAZRmohFMbhgvppKrRHyKsSTgJUWE7WR7QOwohaGaNvqSrM244oD1k3dJeF+3dNYIpwtvpnpsepfiHRWhSgDyrivY2UeHgc/skIdIEjlSmAd/q9hjTKztzaRwbdZ3ed0VdBtkb8KL+7vSxQMPtTAamUMrEVbPUq9R7fv3DS5YfINGE8T7JQgZlvCpQorgzmM8OzVTffe5m8h9UInEMAw45qhzHhw5Z/GaFPz66B50x2FdnP1bg9xynS9bjgXs4vBadFcn6cURc2c8QXouBirYEPzRlUM9/1HtAxbciwB43PvaU3A2XfcwFg7hAydm68aQfOap3Y5rVZwCrMXpbnGtwsT6PGur7LpDEGhtdE/ZG1OC0uFMfnsrMAKAf39n69G8F+qgnJAzQyzvbzoDVTKDdJeiIRQAWxBNoMPj6uVuREUrxBdOLdWgMlbg7N10AamKW8RGr2V/xhbVxYtdmTntiS6HAeqDoWBZ80JQ2/ifcpeSiczh/A5KUpvOBz95fYQQG45v/DUX62JhiVELajoGYYXpaBG2an/EuTQ2C4ULDJ79/zZX0ZDdpdIJy2vpugrzpme6GXyD6Fz2XxGNv4JUCwx2ZaICYpU4qHdzIOXKtDCYcyeZ6xzFGsG3Q3Mn0Gj1VdQjfwAU3FtBDDda2FVvxiXuxswROOB/UbuszRh9D/D9Jpy8XNhD/nToUluMs10pllqjgTrClVxfUb0w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(23010399003)(36860700016)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003);
+ SFS:(13230040)(82310400026)(23010399003)(376014)(1800799024)(36860700016)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: vXGyjzkEe9EJ4kTbSd2NaUNhmn4lZ73YXPs3pHUqZC33wt7qkkURF8vmsx7RY9iRviRQAS8leOwvXv0S2fR8KNitE4amKk+89pWQ+RlVU8W8Fr+oyqpHAKbNjAMxb9PEDisFS5mPbvuiMSuke5QGtXcFPC6tWrpnlcc8CxkZp6izFwHJjDzPgNNHw+/BzHgiuCkbKLCXyUG4R5jnB0pvDRuqkw4e4IHUXs8x3RSviT5yaVN765UQIaT8+4kD/yZCT2XrfuN6j8KVM1ZMHhOWcuzNDahxf9q/GVrbSxPru42QS0ukXrMhZJhZnAkIuV5ayTBVB/XQx5RJ5pLgGmL+6pQNqkFd7NMQwGmLIc+n3C5EvfJATh7E3LVJTC/XCRCZ/2q7UG4DMGW4IP7fUbH2rIyfquPy80aJdPDls8tzWSvOLBOAnBcVdmP23qVzFZ2A
+X-MS-Exchange-AntiSpam-MessageData-0: XOCeA8u557y9FiX2QkP3VyAY/aGmdtGj7FoqlnUolHdXHaAHnlVJEkeNJYmmGkCe5upyVUblUibZECMSCydiATWJiXw41f9kGlQCU6HOH6fz0m84Nl8Pw+Sx11x/h+Wi8vemr5CaLYFSxlHSVfewNDHxj/+tKJg8t3PfVLkiAVaXoXLF3C9FLXLkGhKHM37l9IYVqRMcIvJIzJnrp13XSHerd3uw3Mlcrrba4moY6TzBjncmTEJRu6je8/sMP4C8XWFdWxbHhPlN6GNz373u2+ANhyhj+PyAwBkYR/l2yMgXg2e3njyu0ffPOhFg8L4ebr9IwHoFbaCVtMYDmR0KBkcdQM+ImZlPkQECqwKubj/x0rk/klaWqrGRVwhd9QdUA46oB97b09jWho5P43CiIriHZ8VdPCxMFwqCxZyaN/uG2s6KT55oLDEcNK+S6QPd
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:11.6845 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 311d8c3b-f043-4cba-25c2-08defd6662af
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:21.1745 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 503e379c-1467-4a7a-3f44-08defd666856
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B371.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B373.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY1PR12MB9627
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR12MB999280
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,117 +116,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+From: Alex Hung <alex.hung@amd.com>
 
-Add KUnit tests for fill_stream_properties_from_drm_display_mode(): an
-HDMI stream signal that runs the AVI/vendor infoframe block and
-overwrites the VIC, and a mode matching the connector freesync base
-mode that takes timing from the drm mode fields with a 10x pixel clock.
+[WHAT]
+Add a KUnit test for dm_helpers_mst_enable_stream_features() that fails
+the DP_DOWNSPREAD_CTRL read.
 
-Assisted-by: Copilot:Claude-Opus-4.8
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+The helper must bail out without writing the register back, which covers
+the early return on a failed DPCD read.
+
+Assisted-by: Copilot:Claude-Opus-5
+Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
+Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 ---
- .../tests/amdgpu_dm_connector_test.c          | 78 +++++++++++++++++++
- 1 file changed, 78 insertions(+)
+ .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c  | 33 +++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index 61cd1ebe9fcd1..1a95694ea35cd 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -3775,6 +3775,82 @@ static void dm_test_fill_stream_non_hdmi_ep_keeps_depth(struct kunit *test)
- 			(int)COLOR_DEPTH_101010);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c
+index bc8b607b6c83b..6b4f6993ace94 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c
+@@ -2661,6 +2661,38 @@ static void dm_test_mst_enable_stream_features_writes_downspread(struct kunit *t
+ 	KUNIT_EXPECT_EQ(test, fixture->dpcd_write_value, (u8)BIT(7));
  }
  
 +/**
-+ * dm_test_fill_stream_hdmi_infoframe - Test HDMI signal fills VIC from infoframe
++ * dm_test_mst_enable_stream_features_read_fail - Test early return on DPCD read failure
 + * @test: The KUnit test context
-+ *
-+ * With an HDMI stream signal the AVI/vendor infoframe path runs and overwrites
-+ * the VIC (seeded via an old stream) with the value derived from the mode.
 + */
-+static void dm_test_fill_stream_hdmi_infoframe(struct kunit *test)
++static void dm_test_mst_enable_stream_features_read_fail(struct kunit *test)
 +{
-+	struct dm_test_fill_ctx *ctx = dm_test_fill_ctx_alloc(test);
-+	struct dc_crtc_timing *timing = &ctx->stream->timing;
-+	struct dc_stream_state *old_stream;
-+	struct drm_display_mode *cea;
++	struct dm_test_synaptics_aux *fixture;
++	struct amdgpu_dm_connector *aconnector;
++	struct dc_stream_state *stream;
++	struct amdgpu_device *adev;
++	struct dc_link *link;
 +
-+	old_stream = kunit_kzalloc(test, sizeof(*old_stream), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, old_stream);
-+	old_stream->timing.vic = 99;
++	adev = dm_kunit_alloc_adev(test);
++	fixture = dm_test_alloc_synaptics_aux_with_dev(test, &adev->ddev);
++	aconnector = dm_kunit_alloc_connector(test, adev, NULL);
++	link = dm_kunit_alloc_link(test);
++	stream = kunit_kzalloc(test, sizeof(*stream), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, stream);
 +
-+	/* A real CEA-16 (1080p60) mode so the AVI infoframe resolves VIC 16. */
-+	cea = drm_display_mode_from_cea_vic(ctx->drm, 16);
-+	KUNIT_ASSERT_NOT_NULL(test, cea);
-+	*ctx->mode = *cea;
-+	drm_mode_destroy(ctx->drm, cea);
++	fixture->fail_address = DP_DOWNSPREAD_CTRL;
++	dm_test_current_aux_recorder = fixture;
++	aconnector->dm_dp_aux.aux.drm_dev = &adev->ddev;
++	aconnector->dm_dp_aux.aux.transfer = dm_test_current_aux_transfer;
++	drm_dp_aux_init(&aconnector->dm_dp_aux.aux);
++	link->priv = aconnector;
++	stream->link = link;
 +
-+	ctx->stream->signal = SIGNAL_TYPE_HDMI_TYPE_A;
++	dm_helpers_mst_enable_stream_features(stream);
 +
-+	fill_stream_properties_from_drm_display_mode(ctx->stream, ctx->mode,
-+		&ctx->aconnector->base, ctx->conn_state, old_stream, 8,
-+		PIXEL_ENCODING_RGB, false);
-+
-+	/* The HDMI block overwrote the old stream's VIC of 99 with the AVI code. */
-+	KUNIT_EXPECT_EQ(test, (int)timing->vic, 16);
++	KUNIT_EXPECT_EQ(test, fixture->downspread_writes, 0U);
 +}
 +
-+/**
-+ * dm_test_fill_stream_freesync_video - Test timing taken from the mode for FS video
-+ * @test: The KUnit test context
-+ *
-+ * When the mode matches the connector's cached freesync base mode the timing is
-+ * taken from the drm mode fields (not crtc_*), including a 10x pixel clock.
-+ */
-+static void dm_test_fill_stream_freesync_video(struct kunit *test)
-+{
-+	struct dm_test_fill_ctx *ctx = dm_test_fill_ctx_alloc(test);
-+	struct dc_crtc_timing *timing = &ctx->stream->timing;
-+
-+	/* Cached high mode == the mode passed in => freesync video mode. */
-+	ctx->aconnector->freesync_vid_base.clock = 148500;
-+	ctx->aconnector->freesync_vid_base.hdisplay = 1920;
-+	ctx->aconnector->freesync_vid_base.vdisplay = 1080;
-+	ctx->aconnector->freesync_vid_base.hsync_start = 2008;
-+	ctx->aconnector->freesync_vid_base.hsync_end = 2052;
-+	ctx->aconnector->freesync_vid_base.htotal = 2200;
-+	ctx->aconnector->freesync_vid_base.vsync_start = 1084;
-+	ctx->aconnector->freesync_vid_base.vsync_end = 1089;
-+	ctx->aconnector->freesync_vid_base.vtotal = 1125;
-+
-+	ctx->mode->clock = 148500;
-+	ctx->mode->hdisplay = 1920;
-+	ctx->mode->vdisplay = 1080;
-+	ctx->mode->hsync_start = 2008;
-+	ctx->mode->hsync_end = 2052;
-+	ctx->mode->htotal = 2200;
-+	ctx->mode->vsync_start = 1084;
-+	ctx->mode->vsync_end = 1089;
-+	ctx->mode->vtotal = 1125;
-+
-+	fill_stream_properties_from_drm_display_mode(ctx->stream, ctx->mode,
-+		&ctx->aconnector->base, ctx->conn_state, NULL, 8,
-+		PIXEL_ENCODING_RGB, false);
-+
-+	KUNIT_EXPECT_EQ(test, (int)timing->h_addressable, 1920);
-+	KUNIT_EXPECT_EQ(test, (int)timing->v_addressable, 1080);
-+	KUNIT_EXPECT_EQ(test, (int)timing->pix_clk_100hz, 1485000);
-+}
-+
- /* Tests for create_stream_for_sink() */
+ /* Tests for dm_helpers_enable_periodic_detection() */
  
- /*
-@@ -6239,6 +6315,8 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
- 	KUNIT_CASE(dm_test_fill_stream_encoding_from_caller_ycbcr444),
- 	KUNIT_CASE(dm_test_fill_stream_hdmi_ep_clamps_depth),
- 	KUNIT_CASE(dm_test_fill_stream_non_hdmi_ep_keeps_depth),
-+	KUNIT_CASE(dm_test_fill_stream_hdmi_infoframe),
-+	KUNIT_CASE(dm_test_fill_stream_freesync_video),
- 	/* create_stream_for_sink */
- 	KUNIT_CASE(dm_test_create_stream_fake_sink_success),
- 	KUNIT_CASE(dm_test_create_stream_sets_dm_context),
+ struct dm_test_idle_work {
+@@ -4013,6 +4045,7 @@ static struct kunit_case amdgpu_dm_helpers_test_cases[] = {
+ 	/* dm_helpers_mst_enable_stream_features */
+ 	KUNIT_CASE(dm_test_mst_enable_stream_features_aux_disabled),
+ 	KUNIT_CASE(dm_test_mst_enable_stream_features_writes_downspread),
++	KUNIT_CASE(dm_test_mst_enable_stream_features_read_fail),
+ 	/* dm_helpers_enable_periodic_detection */
+ 	KUNIT_CASE(dm_test_enable_periodic_detection_no_workqueue),
+ 	KUNIT_CASE(dm_test_enable_periodic_detection_updates_enable),
 -- 
 2.43.0
 
