@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3D3EDC5DF81
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7D612C5DF7D
 	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 20:22:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BA65010EC98;
+	by gabe.freedesktop.org (Postfix) with ESMTP id ECA8D10EC8D;
 	Tue, 18 Aug 2026 20:22:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="d8ZY5+h2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0jQdFBJX";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013006.outbound.protection.outlook.com
- [40.93.201.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D044510EC98
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:24 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010014.outbound.protection.outlook.com [52.101.46.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 33E9310EC93
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vQglCOw5zOBvgKFYo4x9KrODSA0UPLOAyjifFWEsXhvNtxwh3HbMpINEJcX37rfQl28RM86B7SuPU0YO9Vy6PyngUZKo35d633M1RjA3cSerey1rzpQngidMUYyWNOcBuX7oxs6vbpP3s54zGZqU52JXVaQZGBBQEb/3Q2zg7J+6U+fJnoAY7/2pRgZFersmLJrIYOEzJNqiMkDoZi3rKC65RF+1ui+XvHpGVGcku4rZflwpJUS0qz170109PhX67ogWFBfNpTerp7n3mgaossd/2LlYBzGwIFwtvtmpVUflCviTKQTlHYR7acUU3rQExXjtpfmMlh/jRUTDRFmGjg==
+ b=dIDaEa1zPf6gR1JU3Vd0YHij15Tm+KyoukR3L8eg08u87M/8HHTF4ib22/BH46+nvo6UsBAgDY+XFkeshmIxLrwd6XL7grqWXA6iboPMyAp4hdtCX/EAk9q5d75UbPjaF0kXYj+S0gXA5tawihJ0Qkm4NtapYh1L23eTMNhJnnK9rQ58Q5yKtMMtEfhQy65quTlcKl/0q/TvUMXBfrifkrKKsjtda0mNOz2xbAg+QmP5xfu/BAaTCnKg81ktikWjBDRWHDiEKTlwzEhCEQ+tJpcHDcehlli7cd+phY7Wus9vabkazARe8lHGo4BMbnI4C3g09GxsAxYTEfwIJEg98w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=E1kmISqdPpt/LRZQI3MdjZsWz5tSlhNo3wloJmkrlhs=;
- b=TG1i9yokDGhsd1MFe2RHF6Gt9QyKE3w3vuS+zQIHCxo5gRW9a+sIVXE6zHFmayaxQn+oKydhpwHHkX92ODgUoe4GRmRtWq5J37MALQ5KjYQ3cPx8IScUaWCmfTbg6DL+1UG3VcWeEXmfK/0Hwciln61XI6SoVeIgUqouHzXSTPj+9noTWPKXi7lYpXin6d9jFbUsK4uCRISUjsSx+KtYRFNSuduf2FVxLLZDUgDpG8wxcK8EXYuykuf9va0bHDLND0SpkGeijwBgvskyK5Im7FFZ6KevsdQskoDeIRUIhukCsZzQ8DLG7wG8/6NpS0f+18Q/W0PUuSvH8BlsqvnUrA==
+ bh=zIKTPwB/JdJiN8co/JMxtANkjcMN44xuZ44mod6d6A4=;
+ b=oC4Vcg2lrfkEx8ByqJwZQHLMcLjzwhRc0QLLX0y/NmiV0ScHvLnqFuuevJ+l2jVdihmoSo9DmvqJ6AcHGyLUoFzVtu47AFUWKGK/choXVoqCUpa/s6N4uAxLfPMhA3SJfAAtjLwbnM/z2PnrzWND6puvgP0JpmoffvRT7VFXEJdxbhCq18FQir4w6tQKMoZ80lbyj7/jWXEJuvDCocE8G04HwX++AjXQNpQcijYPviTq9DQU6XXm/CXG9KVX1bTluvL0JNuA0aPlSXlYahL2BGX4BCLORiWE10NiiFJ8HUO1ANeLBw4tmJzX+axFEmXQO8dV3dpt0W1BYP4hWGwX+Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=E1kmISqdPpt/LRZQI3MdjZsWz5tSlhNo3wloJmkrlhs=;
- b=d8ZY5+h2o9FXHz+QZjo99OaSlZwUGtyBXgCJbcfbHXHnVeD+qufOk57HMX16KIuOYE8LFaJEHYNdi4tVu34W9IMulbvupyyuNw+dQk6Jcd/umZJTNBgDKAU+J/mO+wx4Mt9X802ZKSt/MlA38m+hC9XqFOCLAFV8J8OWNP1ALR8=
-Received: from BN9PR03CA0873.namprd03.prod.outlook.com (2603:10b6:408:13c::8)
- by LV1PR12MB999280.namprd12.prod.outlook.com (2603:10b6:408:3f5::12)
+ bh=zIKTPwB/JdJiN8co/JMxtANkjcMN44xuZ44mod6d6A4=;
+ b=0jQdFBJX28EBMwy69mSuBb5rGcnCI9YGrxU6UNPoiVmSY8TgWr518x+qUTjnw6sajwKblzhcaR7Ic7il2/1zp4YPN1v184Y79/IvZmPcAMiyGqEqQyxvSPHsdkGzdIJ+BfmQWxE1AwEgd8Y9L9jSvbkPJ5xri0ATUqdw+8d5PBQ=
+Received: from BN1PR10CA0015.namprd10.prod.outlook.com (2603:10b6:408:e0::20)
+ by MW4PR12MB7334.namprd12.prod.outlook.com (2603:10b6:303:219::21)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Tue, 18 Aug
- 2026 20:22:21 +0000
-Received: from BN3PEPF0000B373.namprd21.prod.outlook.com
- (2603:10b6:408:13c:cafe::8b) by BN9PR03CA0873.outlook.office365.com
- (2603:10b6:408:13c::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.17 via Frontend Transport; Tue,
- 18 Aug 2026 20:22:21 +0000
+ 2026 20:22:13 +0000
+Received: from BN3PEPF0000B371.namprd21.prod.outlook.com
+ (2603:10b6:408:e0:cafe::38) by BN1PR10CA0015.outlook.office365.com
+ (2603:10b6:408:e0::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Tue, 18
+ Aug 2026 20:22:12 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,16 +48,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B373.mail.protection.outlook.com (10.167.243.170) with Microsoft
+ BN3PEPF0000B371.mail.protection.outlook.com (10.167.243.168) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 20:22:21 +0000
+ 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 20:22:12 +0000
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
- 2026 15:22:07 -0500
+ 2026 15:22:04 -0500
 Received: from box-0.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Tue, 18 Aug 2026 15:22:06 -0500
+ Transport; Tue, 18 Aug 2026 15:22:04 -0500
 From: <IVAN.LIPSKI@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -67,10 +66,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 19/82] drm/amd/display: Test MST stream feature read failure
-Date: Tue, 18 Aug 2026 16:15:11 -0400
-Message-ID: <20260818202139.4172592-20-IVAN.LIPSKI@amd.com>
+ <Chen-Yu.Chen@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>, Dillon Varone
+ <Dillon.Varone@amd.com>
+Subject: [PATCH 15/82] drm/amd/display: Disable alt-ch until dependencies are
+ ready
+Date: Tue, 18 Aug 2026 16:15:07 -0400
+Message-ID: <20260818202139.4172592-16-IVAN.LIPSKI@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
 References: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
@@ -79,29 +80,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B373:EE_|LV1PR12MB999280:EE_
-X-MS-Office365-Filtering-Correlation-Id: 503e379c-1467-4a7a-3f44-08defd666856
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B371:EE_|MW4PR12MB7334:EE_
+X-MS-Office365-Filtering-Correlation-Id: f8139141-66cd-4196-7389-08defd66632a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|376014|1800799024|36860700016|56012099006|10067099003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: HZXxpaAZRmohFMbhgvppKrRHyKsSTgJUWE7WR7QOwohaGaNvqSrM244oD1k3dJeF+3dNYIpwtvpnpsepfiHRWhSgDyrivY2UeHgc/skIdIEjlSmAd/q9hjTKztzaRwbdZ3ed0VdBtkb8KL+7vSxQMPtTAamUMrEVbPUq9R7fv3DS5YfINGE8T7JQgZlvCpQorgzmM8OzVTffe5m8h9UInEMAw45qhzHhw5Z/GaFPz66B50x2FdnP1bg9xynS9bjgXs4vBadFcn6cURc2c8QXouBirYEPzRlUM9/1HtAxbciwB43PvaU3A2XfcwFg7hAydm68aQfOap3Y5rVZwCrMXpbnGtwsT6PGur7LpDEGhtdE/ZG1OC0uFMfnsrMAKAf39n69G8F+qgnJAzQyzvbzoDVTKDdJeiIRQAWxBNoMPj6uVuREUrxBdOLdWgMlbg7N10AamKW8RGr2V/xhbVxYtdmTntiS6HAeqDoWBZ80JQ2/ifcpeSiczh/A5KUpvOBz95fYQQG45v/DUX62JhiVELajoGYYXpaBG2an/EuTQ2C4ULDJ79/zZX0ZDdpdIJy2vpugrzpme6GXyD6Fz2XxGNv4JUCwx2ZaICYpU4qHdzIOXKtDCYcyeZ6xzFGsG3Q3Mn0Gj1VdQjfwAU3FtBDDda2FVvxiXuxswROOB/UbuszRh9D/D9Jpy8XNhD/nToUluMs10pllqjgTrClVxfUb0w==
+ ARA:13230040|376014|82310400026|23010399003|36860700016|1800799024|56012099006|10067099003|22082099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: 3V2BdTPsTjoIIdeUfjyqqYXr776g7QUsMNmSu6IXpjWzc0vvTfiSw2qudsyHXIULVXGvS0dVSqOtz6e4jFt+jpVb4nZr/2vvOrSL3xudqlGZpkrB8kQsq2LLc2FSpu/iB1fnxCHfWnlIZfkP4yWlYFoD7T7s1DPp51IXEHG33oNS7lEHdtW+mo6ZNTfuGjBDR3s2EomECwIEt0Gkwqf16Zfg8pLtrpf6QEWY3cwsHg7Yb2BzveCres/LNanB02MJUidDkkRQoQciASheiOXs2rXDCuAy5NFxfKrHmatzgiyW+u3G4lr5zrIDDFLOzUgxpAXlztWYmQaptT2qqQ5EHJ4+dhBgDIUtbS/o0+RLkJnK4Km+qXN/lh8Apfi+s+ZM5TMINjziviRxjRFxrmYtsRHeJsClZZgZqP3uUcPRhRxitf+wlVnoXXAgr0RKo7tb/Cf3+VFJU7NrjZNo/DILlqrZamVGlpAKU8U8RvirFzVJwrWKgBxF+gBZkJV+Z7aFig+xkbmFs8dsKEddNQAFxwNpir+NmT0c43usK0KzGte9K6plHEvOmqSoV3VnzP3xUbej/lK8uG2RG0zz45d+6QMU0IAYor08E5K65mFLIhRzJFvgsvKc5MtSB51/PM39WfWQjfWA6dFj4R285r8LtjeQedO4xP0FnXASKTaB0IQMXultqX7o33el5PfpJkRzWt0rSBiG4Vl7OItj/H/bxA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(376014)(1800799024)(36860700016)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);
+ SFS:(13230040)(376014)(82310400026)(23010399003)(36860700016)(1800799024)(56012099006)(10067099003)(22082099003)(18002099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: XOCeA8u557y9FiX2QkP3VyAY/aGmdtGj7FoqlnUolHdXHaAHnlVJEkeNJYmmGkCe5upyVUblUibZECMSCydiATWJiXw41f9kGlQCU6HOH6fz0m84Nl8Pw+Sx11x/h+Wi8vemr5CaLYFSxlHSVfewNDHxj/+tKJg8t3PfVLkiAVaXoXLF3C9FLXLkGhKHM37l9IYVqRMcIvJIzJnrp13XSHerd3uw3Mlcrrba4moY6TzBjncmTEJRu6je8/sMP4C8XWFdWxbHhPlN6GNz373u2+ANhyhj+PyAwBkYR/l2yMgXg2e3njyu0ffPOhFg8L4ebr9IwHoFbaCVtMYDmR0KBkcdQM+ImZlPkQECqwKubj/x0rk/klaWqrGRVwhd9QdUA46oB97b09jWho5P43CiIriHZ8VdPCxMFwqCxZyaN/uG2s6KT55oLDEcNK+S6QPd
+X-MS-Exchange-AntiSpam-MessageData-0: VqbVxkyK6QHdyGom9En2KmCuleobV+myBW0aHQF0GxdA2NbvUn8wUnBv/5Gu6RuLkGkI4tXc72W4pbREXe2oeuA99c1t76bsSE/sJFi2z55xFIaCQ0J2CdKjV5A+pUugNS/ohD55E48Hk/ATJd1UfoVYA+Cn+qt1zVnxRlDenZcI2Nf7dL7pXDyufsLfPRp34BcEbqrR+YgtP+W/xuxM/qqe0naK2z3xx4KrrTFQv8MNyY7WPXkebFJ8oPH5+3b/B8PDlyudaeaZqQyb1wV9k0c2atn4lLxy+VJb7PONEBIL684UBMZWglQdRyhTqHK18DbHeHPn2pRHxtV+s0zEu24eU3ZAgo8Njmll+THXV3NNPl4m6qMosPv+G+22aMxxeOCz4vfU/jYMLkzhvp0lrXzixXzeLXd+fbV4vwgoyt/cv6VegYOfhGYooRzLjrcp
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:21.1745 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 503e379c-1467-4a7a-3f44-08defd666856
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:12.5014 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f8139141-66cd-4196-7389-08defd66632a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B373.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B371.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR12MB999280
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7334
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,74 +117,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Alvin Lee <Alvin.Lee2@amd.com>
 
-[WHAT]
-Add a KUnit test for dm_helpers_mst_enable_stream_features() that fails
-the DP_DOWNSPREAD_CTRL read.
+[Description]
+- Alt-Ch cannot be enabled until all dependncies are ready (SMU needs
+  to support double p-state + IFWI needs to support G7 regions
+  enabled).
+- If PMFW enables UCLK DPM without double p-state support and alt-ch
+  is enabled then hangs could occur
 
-The helper must bail out without writing the register back, which covers
-the early return on a failed DPCD read.
-
-Assisted-by: Copilot:Claude-Opus-5
-Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+Reviewed-by: Dillon Varone <Dillon.Varone@amd.com>
+Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+Signed-off-by: Ivan Lipsi <ivan.lipski@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_helpers_test.c  | 33 +++++++++++++++++++
- 1 file changed, 33 insertions(+)
+ drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c
-index bc8b607b6c83b..6b4f6993ace94 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_helpers_test.c
-@@ -2661,6 +2661,38 @@ static void dm_test_mst_enable_stream_features_writes_downspread(struct kunit *t
- 	KUNIT_EXPECT_EQ(test, fixture->dpcd_write_value, (u8)BIT(7));
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
+index 7171b237c4278..d7947105af223 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
+@@ -671,6 +671,8 @@ static const struct dc_debug_options debug_defaults_drv = {
+ 		}
+ 	},
+ 	.force_cositing = CHROMA_COSITING_NONE + 1,
++	.dml21_disable_pstate_method_mask = 0x20, // disable alt-ch unconditionally until dependencies are ready
++
+ };
  
-+/**
-+ * dm_test_mst_enable_stream_features_read_fail - Test early return on DPCD read failure
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_mst_enable_stream_features_read_fail(struct kunit *test)
-+{
-+	struct dm_test_synaptics_aux *fixture;
-+	struct amdgpu_dm_connector *aconnector;
-+	struct dc_stream_state *stream;
-+	struct amdgpu_device *adev;
-+	struct dc_link *link;
-+
-+	adev = dm_kunit_alloc_adev(test);
-+	fixture = dm_test_alloc_synaptics_aux_with_dev(test, &adev->ddev);
-+	aconnector = dm_kunit_alloc_connector(test, adev, NULL);
-+	link = dm_kunit_alloc_link(test);
-+	stream = kunit_kzalloc(test, sizeof(*stream), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, stream);
-+
-+	fixture->fail_address = DP_DOWNSPREAD_CTRL;
-+	dm_test_current_aux_recorder = fixture;
-+	aconnector->dm_dp_aux.aux.drm_dev = &adev->ddev;
-+	aconnector->dm_dp_aux.aux.transfer = dm_test_current_aux_transfer;
-+	drm_dp_aux_init(&aconnector->dm_dp_aux.aux);
-+	link->priv = aconnector;
-+	stream->link = link;
-+
-+	dm_helpers_mst_enable_stream_features(stream);
-+
-+	KUNIT_EXPECT_EQ(test, fixture->downspread_writes, 0U);
-+}
-+
- /* Tests for dm_helpers_enable_periodic_detection() */
- 
- struct dm_test_idle_work {
-@@ -4013,6 +4045,7 @@ static struct kunit_case amdgpu_dm_helpers_test_cases[] = {
- 	/* dm_helpers_mst_enable_stream_features */
- 	KUNIT_CASE(dm_test_mst_enable_stream_features_aux_disabled),
- 	KUNIT_CASE(dm_test_mst_enable_stream_features_writes_downspread),
-+	KUNIT_CASE(dm_test_mst_enable_stream_features_read_fail),
- 	/* dm_helpers_enable_periodic_detection */
- 	KUNIT_CASE(dm_test_enable_periodic_detection_no_workqueue),
- 	KUNIT_CASE(dm_test_enable_periodic_detection_updates_enable),
+ static const struct dc_check_config config_defaults = {
 -- 
 2.43.0
 
