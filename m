@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 54F29C5DF9F
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 20:23:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1FF0C5DF81
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 20:23:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CDE3410ECE4;
-	Tue, 18 Aug 2026 20:23:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3C9BE10ECE0;
+	Tue, 18 Aug 2026 20:23:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="qxvo8Xsj";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ITb9woCI";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012000.outbound.protection.outlook.com [52.101.53.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0E75F10ECA9
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:38 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012048.outbound.protection.outlook.com
+ [40.93.195.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A509A10ECD1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:58 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bRzodx4SpYk4FxQiq0gj+KGmCL/PqwA/DyPWe+B/5Hn8nsXdCHHFExQGvwEmhHd+C8PVDxrzyWwzP5+Onfl66xfyoklx10zfCce0u5QJQwWVOwXnLSCflNRDTNcnZoDAraY4sFctiy3ysB6/nGiHewQRS+tfWptS1NJljbOZKC6y26bBAJAWacLBUcYOXr5ITRlT4TFnEjHAtVQnozf0zlLf53PQHOpLEhLL2Bv5mPo8wKO962wleMpJUcCD7cgzVz1jNV3X4ImOtAnRVPEe2X+rXX7SG9l2tbeta3eDFK58HNrIdL/Ewn51DfrPI9NUY0c9eQ06pe3JyvfCLh0cIA==
+ b=tMGl5RENyL+Pa7lMblDUS9BF22XYqfKGy1WOIQUDtBQIR2cGIykEjWdF9RHciAG3dI6taULV2BnrkXpE47N97Cbs1JIC9odAbCbGzZp+BVmFEPG5J2vifz19YiTj8LhzmWscS8u8r8FnAHiG8ZdLsqxzK6yzxdRv6UuhSpWIi8sy3yrt6ECf6sfuZTZm3ZG1XvuOLIAH7eUSb8UbOUIOJfGbvzgMEM3a8Tojs2vG32hk+eU/pmPOAiHGIMIimH+TR4h4TRd+06eHsXEoUJ7PUGlsmePa3CMaLRCPlXdI89EO4cua0SGz0B+8E/3ZRbkHM4W9JSayFW+9dj8CorU4MA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PqrjUKwlLV6bq9Lmg1pFvD2nW8KlULKBNtSXl27Oe5c=;
- b=NtP2jZtKwayfuixKF4uhEEJTIT7xOc2IMaGJnHu3FRwXU3m7sb0ZLNp63WFhPOthGKXHSr/hPD5tcL1CCME0Vd1QyKynFczugDEm/ZmPykXx+l9hmfsFL0uzYalDOnfXtHsitkixF2yD316FYa3asb99usktlftb6vg6o6nIylhtOH4+GiSYAel7jMlzH6JluwZ5/0p1bDM7CVntb7WQgqzN4Ap795yp9WBGtF4e5K0CMR7SCMTcm4JRDS2g3inKAx3GGIfRLFf56i8KP6yyVFIj+f/m4k8IaSGxUbDZMycGD4AyWbpndAnRnlembWhSdjNPCmDbqTeClQDk4eaRnw==
+ bh=L9h/c2mFA3XDrlaE0VijeYWbR0wbp9nLjfF4+pyQAk0=;
+ b=Yv1TzanpJ7fNk28fAUZvZpOHDhV5fCCMseyfmdsLcvUBxNeul7RuqymDH5PgYDB9QVDSYGDOCYTSk5h40RGSN3Nixdd/AGqtxLh7DKrSxXAndtRmb3Z8Jc4l1YHueVVjs1gCo98cXEVXR9U2UtfiF43YJnb7UW8R0enhIkl2ugwm2QPaY1Fi+1GLRSPTCPlDWMynaNmN79wn6s53DxNZQgrlP7pPexwkfq/dZsvMItYaJSoT3wS9pIBT70FEd6R/qyiIdOS051/NXh+1LHheE1el04mrbQHpgvq1QUfh78Y8P0DQkNPE1TEaGiMbz0IOr1kp+qVGvqhZ8FTj5oHjng==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PqrjUKwlLV6bq9Lmg1pFvD2nW8KlULKBNtSXl27Oe5c=;
- b=qxvo8Xsjeafk0PMB+X16xyKvVNh2NMBWJ4tXJ3H8PY6jWCwauwhnFnhD/bl+j2p1zJ3B5Ct3unq42cTnNQHdeOSc+jnEEIVQtKRXVvmDSd0YI81b4Ymz5osQ5Ge5+wnfzhGM2jO4h5HS3/5lR8SElP/TiBpTku96dMjHU+wk5gs=
-Received: from CH5P222CA0009.NAMP222.PROD.OUTLOOK.COM (2603:10b6:610:1ee::25)
- by DS0PR12MB6608.namprd12.prod.outlook.com (2603:10b6:8:d0::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Tue, 18 Aug
- 2026 20:22:30 +0000
-Received: from BN3PEPF0000B370.namprd21.prod.outlook.com
- (2603:10b6:610:1ee:cafe::63) by CH5P222CA0009.outlook.office365.com
- (2603:10b6:610:1ee::25) with Microsoft SMTP Server (version=TLS1_3,
+ bh=L9h/c2mFA3XDrlaE0VijeYWbR0wbp9nLjfF4+pyQAk0=;
+ b=ITb9woCIYXR18ivd3eofMMkJQQ7SrICl/7PTE+gAQoXqcOBPVoIwVR7p4uXTnQCmx7slT9zxNoFm7WWE8BaW5IRsp6qtMADedd2VSRLhzL4AKkg5g/a08aBB3QVWayImbEO8N00HVLGMfHKQk4NkoPVELjZ1s+9AlUKhPDtBzHg=
+Received: from BN9PR03CA0359.namprd03.prod.outlook.com (2603:10b6:408:f6::34)
+ by BN7PPF3C1137D8A.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::6cd) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Tue, 18 Aug
+ 2026 20:22:54 +0000
+Received: from BN3PEPF0000B36D.namprd21.prod.outlook.com
+ (2603:10b6:408:f6:cafe::61) by BN9PR03CA0359.outlook.office365.com
+ (2603:10b6:408:f6::34) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Tue, 18
- Aug 2026 20:22:26 +0000
+ Aug 2026 20:22:54 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +49,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B370.mail.protection.outlook.com (10.167.243.167) with Microsoft
+ BN3PEPF0000B36D.mail.protection.outlook.com (10.167.243.164) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 20:22:26 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 20:22:54 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
- 2026 15:22:21 -0500
+ 2026 15:22:54 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
+ 2026 15:22:54 -0500
 Received: from box-0.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Tue, 18 Aug 2026 15:22:20 -0500
+ Transport; Tue, 18 Aug 2026 15:22:53 -0500
 From: <IVAN.LIPSKI@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,10 +71,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 38/82] drm/amd/display: Test MST sideband message ack path
-Date: Tue, 18 Aug 2026 16:15:30 -0400
-Message-ID: <20260818202139.4172592-39-IVAN.LIPSKI@amd.com>
+ <Chen-Yu.Chen@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Dillon Varone <dillon.varone@amd.com>
+Subject: [PATCH 80/82] drm/amd/display: Adjust vblank_nom policy for HW SDP
+ tranmission reqs
+Date: Tue, 18 Aug 2026 16:16:12 -0400
+Message-ID: <20260818202139.4172592-81-IVAN.LIPSKI@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
 References: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
@@ -78,29 +85,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B370:EE_|DS0PR12MB6608:EE_
-X-MS-Office365-Filtering-Correlation-Id: cdae3fc1-ad2b-48ce-e6eb-08defd666bbf
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36D:EE_|BN7PPF3C1137D8A:EE_
+X-MS-Office365-Filtering-Correlation-Id: 485ae025-d26e-421d-2661-08defd667c6b
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700016|23010399003|3023799007|56012099006|10067099003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: ck4fylI/FadtU5IOnfLHFetBxffeF6DQOmrLdxpsuWJIUc/9aQ0GZfwRyIq/JdfnGU30OqH7F6e6swE/woFEi17K8wt9riA0VtSTyzRxbHCWkBygxEk5fLhMC2MgzdgVT9V5BLj3dP0sNa7xnpmT//C3EDvLI1shtyJyAwR5S9NZ4ehYCK4/seToT9d67iMYCbUM0hL/ujmyjfCWMzQT0uWVwt5RBRBomVJLJgRvzk5i/ayITcxmzukIni6bJRiPwZcAGXoTjBGdGiy3D7OOZVa06p/WGe18nlxl8XM3DNTm2x4UfS7AzqASD/BdXteBmlxMUMQK27SxcpG7lv/lr8TNRfzNoeXK9luw7UbXhoj31oTB/qlVojkeqk1Pt37+bG1OUAGFdTJmlkxjl9Zw2R404JK3lFOQk2+YGyHTW+/uZ8d8fwEE+mp2XlYT9aOlaqoXiJxxwO5uNXyDaNKnGedKYxhRm4zpcEsMFM16GYWipw0IjqxrjSkM153UNDOIQcPJUEwRy6CSpTKcuCTTbgYdiG4J3s4CNDykEqASpphOdTNR2nOK8GJfKYxOmu0nl/xeJhxiHymqs/1GScnkDwIFXd1DVrsJ00C/Vv10PHwI8B38UWt3zr6/uIaNZn6VA3isNHq8sNQuA2w4RHnu0cyyxIeA85FHBi97LELlx+wmOjVcX9qHdv5d5fun0uvYiSsuEX68CqCaeraCSC1qhQ==
+ ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|56012099006|10067099003|18002099003|22082099003|11063799006;
+X-Microsoft-Antispam-Message-Info: NwsTy6n+6g05GTM7OC8SMql+RMBymOA0ZmsHNZr10cMqXaMJEF4+K9yIh8uEOS45BGMnVpKsYWqpZYJ+pmqrXrIpWPJSJaxIB5TeTRjAJ260f1H4Gb+h5HNLMwpC/a4UhsK4tVOPov3Ky+57sf3UNoOYqmyqqP0Ao8jGY8/2PeQGfyOA67BcvvPrlWqyFp3O9EGZqAQu9v9lXwLKlBxVfuoOCNxbvrhR6A4IV1FZTkPVToVQxXSSsJROzWw4bERIijFv+uUbypkjqZD5pqUFiwoIx2MIxvEtW0tTCXEYb6UxJbEXYOS6PRKfJR0h1Dbb9o9SKbDrKbhVJmTkEg8oYVrfHEdMb59xlhdW5IBQ345c/UVKISyBCkyBmiHNZudf2Mq5EGvuzm+a3XlHBWZ0bQ2BfWndTNvGQwRPqPidXZ7ZA1PTsEPJs1Wvh0PEDjCfx5ZeRlsJ6t17/Bp0LU4yREhZ5xvXOgzdIOYLc6epiKxlH8+VZFYVMgZBMcbgK2YHq/kLQBfgtsEzRy61FvaEWnNQks1GWWprGxNPRe5FqX8+3TDJFSq5ZPZD5qZfrpXqb9wVJgw8vbi5/RDxdgcUC8pjD8ddaVrMwJD747XEbHo0/F3BuJGeK6Yz8vYSMQSDH5BqtrfGRlguC0/Pyb0pKI5ZxsY292RnQ0dsp8dvGZiVuO1ri0AkBCSBjydnENeZ
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(23010399003)(3023799007)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);
+ SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(56012099006)(10067099003)(18002099003)(22082099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: gYKZmmZHb+atFoZp3TebDqq6Ej+iBc/5zFzY0KFez1HjdyFaG3dYgm/F1cmPdO+3wD5F99rbLDMzUgPtdeKiidA93w+Q4nEtBys7SL3/4jFn5Feq2+pzp91sP7LlBb6hsTffcw3yNZtxc74D2G+P3LrbWmk04Cz8e00TQh4HOP+R5XT8xr3PFto0wWJqjFIcEcaS0i3u+qvVLEYLJwg1LRqNXBE0ZfbquD4e6njQ1q/p28JIleNqhaaXbgvYVE+mHQxeKY0bOydF3sCPvt7UO0wfqPUCPqej6I3IKYN+6KuRHa5dx+ihUC2n9C+1ttlLlI72dqxJNndeJD4M293YiAPhwGMZPkAQVqka3w0RkIozOkJl8I5SZPyPcSaYN+LofRgp9Rm2g63L1nbwwdGfkwhm4ywAfvfRZlWwfavaj8fPPVf/JjjtZNDcWWxvEXTj
+X-MS-Exchange-AntiSpam-MessageData-0: ccepVPzGnsIxFwmzmN8qBY9BFTFDys6h0VdFTMmvsb16f632Ex+iLmnxfg/UhPDQwsXF04x1A4FT0gQOp0TUVPOm4FPMaD3krEb7pjEFBSgneZuWDAQhveJoz7cTQQX+Gsh+gyfNVjEAHiIkDbLNTqph3F07lkZjdrG8qi4zUmcwKMhvJ4jWTyAeSULXYc36AqsRjfnNV2U4tOS1m9gfFb0thvRdubFoRHZenmhT39r7FRbgWHYEq4/nXCVt1EfiO94JaCyRwh7qc803IjB4n10PSGIjfcq8Q8L8lPIhLkR5FRVhzmiZiSw66DEko/4H+LOSYrCsEJFBTPR1jB9vJZ2p8nfWR/TGMM/lc9A/QD1HrA9yHp2C2tiQMDbmGRlQBumzC31thHImbr9rAkBfCw3v2EEbVwcJvwpV9ugZgEH1uy+nBaAB9VM8R1rZLtku
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:26.8997 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cdae3fc1-ad2b-48ce-e6eb-08defd666bbf
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:54.8645 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 485ae025-d26e-421d-2661-08defd667c6b
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B370.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36D.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6608
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF3C1137D8A
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,147 +122,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 
-[WHAT]
-Add KUnit tests for dm_handle_mst_sideband_msg_ready_event() covering the
-DOWN_REP ready bit that is acknowledged at DPCD and re-polled until the
-iteration limit, and the case where the acknowledge write keeps failing
-and the handler gives up after the third retry.
+[Why]
+The requirement is that VSTARTUP has to come before vsync, line 0.
+This means that the VSTARTUP has to be in the blank front porch.
 
-[HOW]
-A live topology manager is needed for the handler to reach its ack path,
-so the tests initialise one on a DRM device and arm the DOWN_REP ready
-bit in the fake DPCD. The fake AUX channel gains a separate write result
-so the ESI read still succeeds while the acknowledge write fails.
+The current implementation in DML2.1 does meet this requirement by
+adjusting vblank_nom to the full vblank_avail but this has two
+undesirable side effects:
 
-Assisted-by: Copilot:Claude-Opus-5
-Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+1. When vblank is nominal this pushes VUPDATE on the line after VBLANK
+   start. For Replay this gives only 1 line worth of time to program the
+   SDP and blank the DPG. If we miss this window then we have to wait
+   an entire frame before we can retry IPX entry. Residency is impacted.
+
+2. The prefetch schedule is suboptimal. Instead of leveraging a very
+   long vblank for power we wake early and block c-state earlier.
+
+[How]
+Use the same policy as prior ASIC - clamp the vblank_nom adjustment to
+be the maximum of vblank_nom or the size of the back porch + 2 lines.
+The back porch includes the vsync width in it in the calculation.
+
+Reviewed-by: Dillon Varone <dillon.varone@amd.com>
+Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
 Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 ---
- .../tests/amdgpu_dm_mst_types_test.c          | 80 +++++++++++++++++++
- 1 file changed, 80 insertions(+)
+ .../dml2_0/dml21/dml21_translation_helper.c   | 20 +++++++++++++++----
+ 1 file changed, 16 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-index caedad4197bd9..6a5191f9baf61 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_mst_types_test.c
-@@ -38,6 +38,7 @@ static int dm_mst_test_aux_transfer_raw_result;
- static u8 dm_mst_test_aux_transfer_raw_reply;
- static enum aux_return_code_type dm_mst_test_aux_transfer_raw_operation_result;
- static ssize_t dm_mst_test_aux_transfer_override;
-+static ssize_t dm_mst_test_aux_write_override;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_translation_helper.c
+index db78810f2b906..79da467ddb5d6 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_translation_helper.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/dml21_translation_helper.c
+@@ -101,10 +101,22 @@ static unsigned int calc_vblank_nom_lines(const struct dc_stream_state *stream,
+ 	unsigned int vblank_nom = (unsigned int)div64_u64((uint64_t)default_vblank_nom_us * 1000ULL, // vblank_nom_ns
+ 			div64_u64((uint64_t)stream->timing.h_total * 10000000ULL, (uint64_t)stream->timing.pix_clk_100hz)); // line_time_ns
  
- static int dm_mst_test_aux_transfer_raw(struct ddc_service *ddc,
- 						struct aux_payload *payload,
-@@ -109,6 +110,8 @@ static ssize_t dm_mst_test_aux_transfer(struct drm_dp_aux *aux,
- 		msg->reply = DP_AUX_NATIVE_REPLY_ACK;
- 		return msg->size;
- 	case DP_AUX_NATIVE_WRITE:
-+		if (dm_mst_test_aux_write_override)
-+			return dm_mst_test_aux_write_override;
- 		msg->reply = DP_AUX_NATIVE_REPLY_ACK;
- 		return msg->size;
- 	default:
-@@ -146,6 +149,7 @@ static struct amdgpu_dm_connector *dm_mst_test_alloc_sideband_connector(struct k
+-	if (vblank_avail < vblank_nom ||
+-			stream->adaptive_sync_infopacket.valid ||
+-			(stream->link && stream->link->replay_settings.config.replay_supported))
+-		vblank_nom = vblank_avail;
++	/*
++	 * HW requirement for SDP to be in FP ahead of vsync (line 0).
++	 * TODO: Move this out of the translation layer into DC core as per-ASIC policy.
++	 */
++	if (stream->adaptive_sync_infopacket.valid ||
++			(stream->link && stream->link->replay_settings.config.replay_supported)) {
++		const unsigned int v_active = stream->timing.v_border_top + stream->timing.v_addressable +
++					      stream->timing.v_border_bottom;
++		const unsigned int blank_lines = stream->timing.v_total - v_active;
++		const unsigned int bp_lines = blank_lines - stream->timing.v_front_porch;
++		const unsigned int min_vblank_nom = bp_lines + 2;
++
++		vblank_nom = max(vblank_nom, min_vblank_nom);
++	}
++
++	vblank_nom = min(vblank_nom, vblank_avail);
  
- 	memset(dm_mst_test_dpcd, 0, sizeof(dm_mst_test_dpcd));
- 	dm_mst_test_aux_transfer_override = 0;
-+	dm_mst_test_aux_write_override = 0;
- 
- 	return aconnector;
+ 	return vblank_nom;
  }
-@@ -1339,6 +1343,80 @@ static void dm_mst_test_detect_unregistered(struct kunit *test)
- 			(int)connector_status_disconnected);
- }
- 
-+/*
-+ * Sideband connector with a live topology manager and the DOWN_REP ready bit
-+ * armed, so dm_handle_mst_sideband_msg_ready_event() reaches its ack path.
-+ */
-+static struct amdgpu_dm_connector *
-+dm_mst_test_alloc_armed_sideband_connector(struct kunit *test)
-+{
-+	struct amdgpu_dm_connector *aconnector;
-+	struct amdgpu_device *adev;
-+	int ret;
-+
-+	adev = dm_kunit_alloc_adev(test);
-+	ret = drmm_mode_config_init(&adev->ddev);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+
-+	aconnector = dm_mst_test_alloc_sideband_connector(test);
-+
-+	ret = drm_dp_mst_topology_mgr_init(&aconnector->mst_mgr, &adev->ddev,
-+					   &aconnector->dm_dp_aux.aux, 16, 4, 0);
-+	KUNIT_ASSERT_EQ(test, ret, 0);
-+	aconnector->mst_mgr.mst_state = true;
-+	dm_mst_test_dpcd[(DP_SINK_COUNT_ESI + 1) & 0xf] = DP_DOWN_REP_MSG_RDY;
-+
-+	return aconnector;
-+}
-+
-+static void dm_mst_test_free_armed_sideband_connector(struct amdgpu_dm_connector *aconnector)
-+{
-+	aconnector->mst_mgr.mst_state = false;
-+	drm_dp_mst_topology_mgr_destroy(&aconnector->mst_mgr);
-+}
-+
-+/**
-+ * dm_mst_test_sideband_msg_ready_acks_down_rep - Test DOWN_REP ack handling
-+ * @test: KUnit test context
-+ *
-+ * With an active topology manager and the DOWN_REP ready bit set, the sideband
-+ * handler must acknowledge the event at DPCD and keep polling until the
-+ * iteration limit is reached, since the fake sideband message never completes.
-+ */
-+static void dm_mst_test_sideband_msg_ready_acks_down_rep(struct kunit *test)
-+{
-+	struct amdgpu_dm_connector *aconnector;
-+
-+	aconnector = dm_mst_test_alloc_armed_sideband_connector(test);
-+
-+	dm_handle_mst_sideband_msg_ready_event(&aconnector->mst_mgr, DOWN_REP_MSG_RDY_EVENT);
-+
-+	KUNIT_EXPECT_EQ(test, aconnector->mst_mgr.sink_count, 0);
-+
-+	dm_mst_test_free_armed_sideband_connector(aconnector);
-+}
-+
-+/**
-+ * dm_mst_test_sideband_msg_ready_ack_write_fails - Test failed DPCD ack
-+ * @test: KUnit test context
-+ *
-+ * When the DPCD acknowledge write keeps failing, the sideband handler must give
-+ * up after the third retry instead of looping forever.
-+ */
-+static void dm_mst_test_sideband_msg_ready_ack_write_fails(struct kunit *test)
-+{
-+	struct amdgpu_dm_connector *aconnector;
-+
-+	aconnector = dm_mst_test_alloc_armed_sideband_connector(test);
-+	dm_mst_test_aux_write_override = -EIO;
-+
-+	dm_handle_mst_sideband_msg_ready_event(&aconnector->mst_mgr, DOWN_REP_MSG_RDY_EVENT);
-+
-+	KUNIT_EXPECT_EQ(test, aconnector->mst_mgr.sink_count, 0);
-+
-+	dm_mst_test_free_armed_sideband_connector(aconnector);
-+}
-+
- #if !defined(CONFIG_DRM_AMD_DC_FP)
- /**
-  * dm_mst_test_fp_guarded_public_stubs - Test FP-off public fallbacks
-@@ -1399,6 +1477,8 @@ static struct kunit_case dm_mst_types_test_cases[] = {
- 	KUNIT_CASE(dm_mst_test_sideband_msg_ready_no_ready_bits),
- 	KUNIT_CASE(dm_mst_test_sideband_msg_ready_read_error),
- 	KUNIT_CASE(dm_mst_test_sideband_msg_ready_without_mst_state),
-+	KUNIT_CASE(dm_mst_test_sideband_msg_ready_acks_down_rep),
-+	KUNIT_CASE(dm_mst_test_sideband_msg_ready_ack_write_fails),
- 	KUNIT_CASE(dm_mst_test_down_rep_msg_ready_wrapper),
- 	/* amdgpu_dm_initialize_dp_connector tests */
- 	KUNIT_CASE(dm_mst_test_initialize_dp_connector_edp),
 -- 
 2.43.0
 
