@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AB561C5DF89
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 20:22:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2935AC5DF8F
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 20:22:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 660A610ECCF;
-	Tue, 18 Aug 2026 20:22:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 838BE10ECC2;
+	Tue, 18 Aug 2026 20:22:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PfJtzUnM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fsOKJjR1";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010052.outbound.protection.outlook.com [52.101.56.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F29BF10ECB0
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:53 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011060.outbound.protection.outlook.com [52.101.62.60])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C89F10E38B
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QZ2gZ6UXq5tgj+2rCAa7wv2/JwjopFyctsKYwk1UMOYNryDHJ3LBki3Ov6UdkDP5ybNEjucnEYwKShG/8bIgladiXdcfc6duWNh8Yqmm2kQNyJIS4Dfy9x3hunke83x7P5YWay9749ilHj/Y/fkIvTY/GETJ8cSZe7HGkhf7aZUsnFnrCcpl6Zwj+L/QGnJwsst3KoWaAVz/H7uThVCauVYIb2Tuwle+MXzZYKr6QKpoCv458Su2fRLV+QyhC6s7tnAhbEKhIyskveu1sD7bMseDv5meWrMyBSAO5eon7GcYutHRzK0QPJ+iQi4n5mnCND1uCiFazIuuOxJEBz7Tnw==
+ b=T6off4GTAuo4P0yi3GQOtho/bH/k+bNHW1NSClDIGq6JC2oRBmkUipgbFMvZMb/3LuPewaqLyae1+iJFxDc062JBVQIXNFyinm2/WSgH2T3CDDxQ5Sb34d82aKwu6HpauZVTG9IbSfxgXecoXhRE7E5ZDVkA+awtkk+auSj25VaxVOak3lH1DGeCGGaiU5uE5wkK6ocwyZz3MyjVdB0GEY0jmhspayk56pH+69MAGfONDwwD2rL2edYN6Uodcs8tYNVvtbFngSO2u9uzAcJSvF+zTy2fffyp4/l/QqHPKS6PnbY1MoE/Yt4N+66Pf7lxfjGEZH/YCUYKVz1ZRDZrCA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TQg1MKQNP0y8I0oCmciOK66JU1su7d4gXdHqxKLKRjA=;
- b=JI9oH3v2l2A9nfrDhm77y9FeoCYhBfzZWr2DoIhWA0OFgqpNTT1AZq4uDH2HhtZyrUdwcbc6FOv7e/grrocsLEghrgjO9wyb7xalxbpa24ZEnejSRdvDHp4fM7wu7byAfBwmxgEGaJae115wng/LvsMvN8F3P+q87bYHFWdHOcmFJDLaASKuMT4SI1rbONlHFsvEXGLK0ifK16azhTQI1MZ3Hd13j0Na09XlvIeo/DBZRXNZR054pWJqOL5wsJ9cHgSvbslXbhmFrZkqDhtqgWr0O6XBsx0gKLg+Wl/bmDf7+y4WQztBmNsuEOu6JoQcHCQqqArb/pgtjQczF4MsyA==
+ bh=qWvXa+9Gw9I309wLg/8qVpNTW+r1TVh0hT5RSi+8rAU=;
+ b=DGNeoOhE1ui6UKfzDSwKa4KdQXHOtTTvUZi0azdFXUFzc9CUWJKL8IfPrMXIKuhk9bnlvkCsNXNqKgA+sA1izKWeQ2QooaT2XZy28KbfbTLDUJRQoMZXd1ENOLE90PiymIoTOKMcbdTfXfZGPeJTGru8zqnD+O/gSbLgFsGFLPDsUeB+jwSmdkakXt6mPN2UDTD6fiuZRS487MMSacRiCQ2Hl3GAsa7OOV/9LpwWKZA3K53kpZ2VcHV095DCJ43WlKKisNRbYEStOEsOBR6Y0jjftXKl2kKsm0lhA1QQknY3+rO0KTrllkkQ52iNPuw7dxhMLYkEekNOWtBAB0aE9w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TQg1MKQNP0y8I0oCmciOK66JU1su7d4gXdHqxKLKRjA=;
- b=PfJtzUnMPpUAl1Sq2+PJ6zl/LyBI8OeXetsksNFfGZ5GTorn1AIngQOG6ITqtCI8SlSp4lR0vgWU1484fqWb7c3nRnOb8pHlJMsAK7tvWI/7I/coZpJVPvOqLPhdachAd6u8h6z4J5lA2b2jpFZi71iMqR5yVZno2zYneQK+myA=
-Received: from BL1P221CA0004.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:2c5::15)
- by SA1PR12MB6919.namprd12.prod.outlook.com (2603:10b6:806:24e::6)
+ bh=qWvXa+9Gw9I309wLg/8qVpNTW+r1TVh0hT5RSi+8rAU=;
+ b=fsOKJjR11lvcLhuQ0TixIdo5t+j1/TeYOJqtJAI5jhgF0OWW7su0Y+lGMIv7dkXG1tQFY7MW6JMT3bnb6dxbzDdv0p3TxOksaA97/+16YHejnvNPrs2R0PQZcsr9iXYHmTIgYv1vxV0evuEehxJSSZrSJT+PaKMctF+rUhtpn0Q=
+Received: from BL1P221CA0018.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:2c5::30)
+ by CH3PR12MB8402.namprd12.prod.outlook.com (2603:10b6:610:132::12)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.14; Tue, 18 Aug
- 2026 20:22:47 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Tue, 18 Aug
+ 2026 20:22:45 +0000
 Received: from BN3PEPF0000B36F.namprd21.prod.outlook.com
- (2603:10b6:208:2c5:cafe::60) by BL1P221CA0004.outlook.office365.com
- (2603:10b6:208:2c5::15) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:208:2c5:cafe::2e) by BL1P221CA0018.outlook.office365.com
+ (2603:10b6:208:2c5::30) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.17 via Frontend Transport; Tue,
- 18 Aug 2026 20:22:47 +0000
+ 18 Aug 2026 20:22:45 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,18 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  BN3PEPF0000B36F.mail.protection.outlook.com (10.167.243.166) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 20:22:46 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 20:22:45 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
- 2026 15:22:43 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 15:22:41 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
- 2026 15:22:43 -0500
+ 2026 15:22:40 -0500
 Received: from box-0.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Tue, 18 Aug 2026 15:22:42 -0500
+ Transport; Tue, 18 Aug 2026 15:22:40 -0500
 From: <IVAN.LIPSKI@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -71,10 +71,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 66/82] drm/amd/display: Test HPD RX,
- HPD init and DMUB callback branches
-Date: Tue, 18 Aug 2026 16:15:58 -0400
-Message-ID: <20260818202139.4172592-67-IVAN.LIPSKI@amd.com>
+Subject: [PATCH 64/82] drm/amd/display: Test schedule_dc_vmin_vmax
+Date: Tue, 18 Aug 2026 16:15:56 -0400
+Message-ID: <20260818202139.4172592-65-IVAN.LIPSKI@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
 References: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
@@ -83,29 +82,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36F:EE_|SA1PR12MB6919:EE_
-X-MS-Office365-Filtering-Correlation-Id: 202b819c-6801-4397-093b-08defd6677b5
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36F:EE_|CH3PR12MB8402:EE_
+X-MS-Office365-Filtering-Correlation-Id: e0e4136b-e0ad-465a-cc1b-08defd667702
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|36860700016|376014|1800799024|11063799006|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: fOamzpVAOE8ajS9UaaSxea0WpjjqGs2GnSJXYWzukKd7nbbX2Jina4ATyxeSrSElgw7FNyWVs4tcdyTlSZSXC1opTVh1J6aFiaKNdeP9b5OyBGeT2Cq+IgSbZLdhYhzgGUvBYzzYE6HnD2k26RxWg6UbPsymEwHRoavrpwoIY9y/0jh5wierkIJKEr0JO4pdnycPBAe+E+DA+J1wQ90sGesJFVzN5L1DWCdavvuxIpMzalD001Dz2abj3XRSgRaSSXsK+RjbepqdXLuQvxmPqoUdDGSEF2VXL584U8SL4+3scS9ufgmbZHbG2IIskWiaL1ix/o2tAIeEkdgD9CYnvhRbnbSA7/Vg5i+IlcM1P7+oKlmewN9vxJZdRB14K4IsRf5O5kUno0LAn45OiaEr8KRmK4jyy/MxPMSYNqMRm+3qxjf3cQPlKuLmXXh4Prl+aLHyvg4mc0G9RWvjfYQDBB5b3Cue81P4ACEtiNlS8b+FaBePXVdK4sNdO47TnjEmr70aDVcwHEu4LoaJlUsRQhI5W+0KnB6LBbdfyqOs3hu2bKANjSGd8BYZ0XjQVfPWSXWLHD1VQKclaNhiD/iWdB7MlJk0FxEntnqkhEi+8zHE1fEkharNE5M1gh3zVa0U0GYkTrnkGU4gfrDJZ7emWECUBDA6YHWq85wtFi06IOA=
+ ARA:13230040|376014|82310400026|23010399003|36860700016|1800799024|6133799003|56012099006|10067099003|5023799004|22082099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: q1YmmRa12P/JrmKMt3G+kLwsSZxu55DV6TcN868r+FN5ydGOnCeL2bo9ceQlYv5NpfZmtwgbszP+LdBRXulbM7qeL+n2AIB8ivLoGGUuO8Eut4D+jrRE23vwvsTpuC+fuKNuseXED6jGd+Nk6SDr3sYomfqtAPxgwRHn2SPSkprBb9ju/CyIxvQVaWaYd+61xhcKPnoOt5AWJBbrsRckl4LRVJm+ance9qHP2bN71v39PTI6JOUpNPaM9fFd+KfmHUed2kEkUcNnYlGy2bM0BS+jlFUxbhi5DvdOr8Lnsm3azXSrQfMsUn+xo1hHnqaKHmKc/a01nUYWxQnqDDCGzwOAo+00DZEUyeHES6i8LMBPdwW2jHbRAHwEL7DA+HghCA2snPP/U7fNEYBwdSbxn9UHTDZrI+qGtLOKC7qsdG3t8py1R23h7cGhvAQgbpOQhvEkt3HZNKrY4Q2+GS7oDDCcajERcI+D8KE2jM7ISzNy3a1j4MF3ypEoRKUtRh/ZYo82N56KPXNZuD+rly/A4eRmyvycCVIKe4P5ZmunqATAQj6VWq7ZulNOHr/2fmhwuWXSX8gsSRPKddzcZBLr0dGxJw2+xCShS5phM+n0P3UvH/XLZejchzC+jotDF4txTLvnrhKSyTcRqYb4+5kb0+B8Ft2jXLyAWmug4hubp9A=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(36860700016)(376014)(1800799024)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);
+ SFS:(13230040)(376014)(82310400026)(23010399003)(36860700016)(1800799024)(6133799003)(56012099006)(10067099003)(5023799004)(22082099003)(18002099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: h2qtGw1f3fQF4Z/mI24OX5y/b5oYzTP7qA+BEjBOzR78PgsY0jPKBkREXDCjRNbJuIdxxwsqXJM4anweqsB0RDMCoFOCl4RnyqVsu/B2om3rzLa+elrUUlwrVp3bAhGMEVW/Pt4hPExhmqQgvlTwjKlWtNp+HN9vScogYqb97/WMEp8FhjL8W6UVR7YhFTYR6gflhcH/P6vJda4LiMTJvr9iMV76E3fJFOwpCzlDDYVe3ViidHJ4LI8lYkg/VangR1KTI2OzxaioKSo1D1tgO+SPFey89aomBvhOk81H3k7eP10YSnCAgynQY24ECsjcxL5FuwohrRHJ9/WWce2EK6+0Vzg55NARCXrgmyKdSvZVSxFl8TXbCw3ImDDYoN0TYag7fd84mpclNr6OnmGhCJm0BL+Xfp9FgPg1TCgq3Prj5aEZUSAbfUGWVv9uZVGX
+X-MS-Exchange-AntiSpam-MessageData-0: M61lrWnVFZrqxXec2ap5YRnSHZJ0z4TQkC9VxTJ54EQiy2q+K1ru+IeljKZGxpqeIK5dK/Z70vgzxt07gRCRNEM7YEX/xMn1XKe7xa2zYemdAH0PBbMjo8NJrxgkg4hVvg848vVwsKUq6W64xj+DiJIEEbaApqEB0CbDJ3Rk0OdD53CN/dR2Cfai53W5dpsRhnJE/rzicqjdJ96UQ7hFrRGmYNs0Tkw8UG+qhskAvRJt6ry4QyzJSpocv0IqM9bGfZIoAnuGEF7dvr8Eo9L9HchuR3scSCv1eibRtFKXIndsdYav5SRm6qNGTo7L2DGp8ZyyeFqoo98fdIKrYfdAgHTfshiQoyuW3OmZ9LAPkowRgO4qLBCcJ1fTbFajfdEAHbAV6Q9HCjdL3rMp6cG0KfeQLHfi9E6gDDZIp8spMG+JCuUxWaaTIsZlQuhghSo5
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:46.9638 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 202b819c-6801-4397-093b-08defd6677b5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:45.7914 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0e4136b-e0ad-465a-cc1b-08defd667702
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36F.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6919
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8402
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,203 +122,168 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 From: Alex Hung <alex.hung@amd.com>
 
 [WHAT]
-Add KUnit tests for handle_hpd_rx_irq() re-detecting a downstream port
-change on a non-MST-root connector, amdgpu_dm_hpd_init() skipping a
-connector with no dc_link, and dmub_hpd_callback() deferring HPD while
-suspended. Also add a writeback connector to the HPD registration test.
+Add KUnit tests for schedule_dc_vmin_vmax(), which had no coverage. Both
+callers are exercised: dm_crtc_high_irq() on an AI+ family and the DCE
+path of dm_vupdate_high_irq() on a pre-DCE12 family.
 
 [HOW]
-The downstream-change test reuses dm_test_setup_hpd_rx_irq() and clears
-the MST root state, with dc_link_detect() stubbed to fail. The suspend
-test leaves adev->dm.ddev NULL, so reaching the connector walk would
-crash.
+Add a dm_test_setup_vmin_vmax_crtc() fixture building a CRTC with an
+active VRR stream and a vmin/vmax work queue. Each test flushes the
+queue and checks the worker applied the adjust and dropped its stream
+reference.
 
 Assisted-by: Copilot:Claude-Opus-5
 Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_irq_test.c      | 109 ++++++++++++++++++
- 1 file changed, 109 insertions(+)
+ .../amdgpu_dm/tests/amdgpu_dm_irq_test.c      | 114 ++++++++++++++++++
+ 1 file changed, 114 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-index c335ac0e2a6f5..4f22230a5520e 100644
+index 4cb52093987f3..b398be878c932 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-@@ -197,6 +197,18 @@ static bool dm_test_handle_hpd_rx_link_loss(struct dc_link *link,
- 	return false;
+@@ -3450,6 +3450,83 @@ static void dm_test_vupdate_high_irq_dcn_no_active_planes(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, acrtc->pflip_status, AMDGPU_FLIP_NONE);
  }
  
-+static bool dm_test_handle_hpd_rx_result_true(struct dc_link *link,
-+					      union hpd_irq_data *hpd_irq_data,
-+					      bool *link_loss,
-+					      bool defer_handling,
-+					      bool *has_left_work)
-+{
-+	*link_loss = false;
-+	*has_left_work = false;
-+
-+	return true;
-+}
-+
- static bool dm_test_allow_hpd_rx_irq_true(const struct dc_link *link)
- {
- 	return true;
-@@ -2165,6 +2177,35 @@ static void dm_test_hpd_init_fini_irq_ref(struct kunit *test)
- 	amdgpu_dm_hpd_fini(adev);
- }
- 
-+/**
-+ * dm_test_hpd_init_skips_connector_without_link - Test HPD init skips linkless
-+ * @test: The KUnit test context
-+ *
-+ * A connector that does not carry a dc_link yet must be skipped by the init
-+ * loop. Only init is exercised: fini has no such guard.
++/*
++ * Build a CRTC with an active VRR stream on a device whose vmin/vmax updates
++ * are offloaded to adev->dm.vmin_vmax_wq, seeded with the given timing adjust.
++ * Caller sets adev->family to select the DCE or DCN path, then invokes the
++ * handler and flushes the queue.
 + */
-+static void dm_test_hpd_init_skips_connector_without_link(struct kunit *test)
++static struct amdgpu_crtc *dm_test_setup_vmin_vmax_crtc(struct kunit *test,
++							unsigned int v_total_min,
++							unsigned int v_total_max)
 +{
-+	struct amdgpu_dm_connector *aconn;
++	struct dc_stream_state *stream;
 +	struct amdgpu_device *adev;
-+
-+	adev = dm_kunit_alloc_adev(test);
-+	adev->mode_info.num_hpd = 0;
-+
-+	aconn = kunit_kzalloc(test, sizeof(*aconn), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, aconn);
-+	KUNIT_ASSERT_EQ(test, drm_connector_init(&adev->ddev, &aconn->base,
-+						 &dm_test_connector_funcs,
-+						 DRM_MODE_CONNECTOR_DisplayPort), 0);
-+	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, dm_test_connector_cleanup,
-+							&aconn->base), 0);
-+
-+	amdgpu_dm_hpd_init(adev);
-+
-+	/* Skipped before the analog check, so polling was never requested. */
-+	KUNIT_EXPECT_FALSE(test, adev->ddev.mode_config.poll_enabled);
-+}
-+
- /* Tests for dm_handle_hpd_rx_offload_work() */
- 
- /**
-@@ -2953,6 +2994,34 @@ static void dm_test_handle_hpd_rx_irq_link_loss(struct kunit *test)
- 				->dm.hpd_rx_offload_wq->is_handling_link_loss);
- }
- 
-+/**
-+ * dm_test_handle_hpd_rx_irq_downstream_change - Test HPDRX post-detect block
-+ * @test: The KUnit test context
-+ *
-+ * A handled HPD RX IRQ on a connector that is not an MST root means a
-+ * downstream port status change, so the handler must re-detect the link.
-+ * Detection is stubbed to fail, leaving the connector untouched, and a
-+ * non-MST-branch link also exercises the trailing CEC IRQ dispatch.
-+ */
-+static void dm_test_handle_hpd_rx_irq_downstream_change(struct kunit *test)
-+{
-+	struct amdgpu_dm_connector *aconn;
-+	struct link_service *link_srv;
-+
-+	aconn = dm_test_setup_hpd_rx_irq(test, &link_srv);
-+	link_srv->dp_handle_hpd_rx_irq = dm_test_handle_hpd_rx_result_true;
-+	link_srv->detect_connection_type = dm_test_detect_connection_single;
-+	link_srv->detect_link = dm_test_detect_link_false;
-+
-+	aconn->mst_mgr.mst_state = false;
-+	aconn->dc_link->type = dc_connection_single;
-+	aconn->fake_enable = true;
-+
-+	handle_hpd_rx_irq(aconn);
-+
-+	KUNIT_EXPECT_TRUE(test, aconn->fake_enable);
-+}
-+
- /* Tests for dmub_hpd_callback()/dmub_hpd_sense_callback() */
- 
- /**
-@@ -3010,6 +3079,31 @@ static void dm_test_dmub_hpd_callback_empty_connectors(struct kunit *test)
- 	dmub_hpd_sense_callback(adev, &notify);
- }
- 
-+/**
-+ * dm_test_dmub_hpd_callback_suspend_skip - Test DMUB HPD skipped in suspend
-+ * @test: The KUnit test context
-+ *
-+ * Plain HPD notifications are deferred while the device is suspended; they get
-+ * re-probed on resume, so the callback must return before the connector walk.
-+ */
-+static void dm_test_dmub_hpd_callback_suspend_skip(struct kunit *test)
-+{
-+	struct dmub_notification notify = { 0 };
-+	struct amdgpu_device *adev;
++	struct amdgpu_crtc *acrtc;
++	struct dc_link *link;
 +	struct dc *dc;
 +
 +	adev = dm_kunit_alloc_adev(test);
-+	dc = kunit_kzalloc(test, sizeof(*dc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc);
-+	adev->dm.dc = dc;
-+	adev->in_suspend = true;
-+	dc->link_count = 1;
-+	notify.type = DMUB_NOTIFICATION_HPD;
++	mutex_init(&adev->dm.dc_lock);
++	KUNIT_ASSERT_EQ(test, drm_vblank_init(&adev->ddev, 1), 0);
++	KUNIT_ASSERT_EQ(test, amdgpu_dm_irq_init(adev), 0);
 +
-+	/* adev->dm.ddev is left NULL: reaching the connector walk would crash. */
-+	dmub_hpd_callback(adev, &notify);
++	dc = dm_kunit_alloc_dc_with_ctx(test);
++	dc->current_state = kunit_kzalloc(test, sizeof(*dc->current_state),
++					  GFP_KERNEL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc->current_state);
++	adev->dm.dc = dc;
++
++	link = dm_kunit_alloc_link(test);
++	stream = dm_kunit_alloc_stream(test, link);
++
++	acrtc = dm_test_add_crtc(test, adev);
++	/* VRR active so the !vrr_active vblank handler is skipped. */
++	acrtc->dm_irq_params.freesync_config.state = VRR_STATE_ACTIVE_VARIABLE;
++	acrtc->dm_irq_params.stream = stream;
++	acrtc->dm_irq_params.vrr_params.adjust.v_total_min = v_total_min;
++	acrtc->dm_irq_params.vrr_params.adjust.v_total_max = v_total_max;
++
++	return acrtc;
++}
++
++/**
++ * dm_test_vupdate_high_irq_dce_vrr_btr - Test DCE vupdate BTR handling
++ * @test: The KUnit test context
++ *
++ * On DCE (zero DCE IP version) with VRR active and a pre-DCE12 family, vupdate
++ * runs the below-the-range section: it handles the vblank and offloads the
++ * vmin/vmax update, which the worker then applies to the stream.
++ */
++static void dm_test_vupdate_high_irq_dce_vrr_btr(struct kunit *test)
++{
++	struct common_irq_params params = { 0 };
++	struct dc_stream_state *stream;
++	struct amdgpu_device *adev;
++	struct amdgpu_crtc *acrtc;
++
++	acrtc = dm_test_setup_vmin_vmax_crtc(test, 2000, 2200);
++	adev = drm_to_adev(acrtc->base.dev);
++	stream = acrtc->dm_irq_params.stream;
++	/* Pre-AI family so the BTR block inside the DCE path runs. */
++	adev->family = AMDGPU_FAMILY_SI;
++
++	adev->ddev.vblank[0].time = ktime_get();
++
++	params.adev = adev;
++	params.irq_src = (enum dc_irq_source)IRQ_TYPE_VUPDATE;
++
++	dm_vupdate_high_irq(&params);
++
++	/* The offloaded worker applies the adjust and drops its stream ref. */
++	flush_workqueue(adev->dm.vmin_vmax_wq);
++	KUNIT_EXPECT_EQ(test, stream->adjust.v_total_min, 2000);
++	KUNIT_EXPECT_EQ(test, stream->adjust.v_total_max, 2200);
++	KUNIT_EXPECT_EQ(test, kref_read(&stream->refcount), 1);
++
++	amdgpu_dm_irq_fini(adev);
 +}
 +
  /**
-  * dm_test_dmub_hpd_callback_unknown_type_match - Test DMUB callback matched
-  *						   connector, unknown type
-@@ -3217,10 +3311,15 @@ static void dm_test_register_hpd_handlers_empty(struct kunit *test)
- /**
-  * dm_test_register_hpd_handlers_valid - Test HPD/HPDRX registration succeeds
+  * dm_test_crtc_high_irq_no_crtc - Test crtc high IRQ with no CRTC
   * @test: The KUnit test context
-+ *
-+ * A writeback connector must be skipped by the per-connector loop, while a
-+ * DisplayPort connector carrying valid HPD and HPD RX sources registers a
-+ * low-context handler for each.
-  */
- static void dm_test_register_hpd_handlers_valid(struct kunit *test)
- {
- 	struct amdgpu_dm_connector *aconn;
-+	struct drm_connector *wbconn;
- 	struct amdgpu_device *adev;
- 	struct dc_link *link;
- 	struct dc *dc;
-@@ -3231,6 +3330,13 @@ static void dm_test_register_hpd_handlers_valid(struct kunit *test)
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dc);
- 	adev->dm.dc = dc;
+@@ -3619,6 +3696,41 @@ static void dm_test_crtc_high_irq_writeback_completes(struct kunit *test)
+ 	KUNIT_EXPECT_FALSE(test, acrtc->wb_frame_done);
+ }
  
-+	wbconn = kunit_kzalloc(test, sizeof(*wbconn), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, wbconn);
-+	KUNIT_ASSERT_EQ(test, drm_connector_init(&adev->ddev, wbconn, &dm_test_connector_funcs,
-+						 DRM_MODE_CONNECTOR_WRITEBACK), 0);
-+	KUNIT_ASSERT_EQ(test,
-+			kunit_add_action_or_reset(test, dm_test_connector_cleanup, wbconn), 0);
++/**
++ * dm_test_crtc_high_irq_schedules_vmin_vmax - Test the freesync BTR update
++ * @test: The KUnit test context
++ *
++ * On an AI+ family with an active VRR stream, the handler must run the freesync
++ * v-update and offload the vmin/vmax programming, which the worker then applies
++ * to the stream.
++ */
++static void dm_test_crtc_high_irq_schedules_vmin_vmax(struct kunit *test)
++{
++	struct common_irq_params params = { 0 };
++	struct dc_stream_state *stream;
++	struct amdgpu_device *adev;
++	struct amdgpu_crtc *acrtc;
 +
- 	aconn = kunit_kzalloc(test, sizeof(*aconn), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, aconn);
- 	KUNIT_ASSERT_EQ(test, drm_connector_init(&adev->ddev, &aconn->base,
-@@ -4395,6 +4501,7 @@ static struct kunit_case amdgpu_dm_irq_tests[] = {
- 	KUNIT_CASE(dm_test_hpd_init_fini_with_connectors),
- 	KUNIT_CASE(dm_test_hpd_init_fini_analog_connector),
- 	KUNIT_CASE(dm_test_hpd_init_fini_irq_ref),
-+	KUNIT_CASE(dm_test_hpd_init_skips_connector_without_link),
- 	/* dm_handle_hpd_rx_offload_work */
- 	KUNIT_CASE(dm_test_hpd_rx_offload_work_no_connector),
- 	KUNIT_CASE(dm_test_hpd_rx_offload_work_no_connection),
-@@ -4416,11 +4523,13 @@ static struct kunit_case amdgpu_dm_irq_tests[] = {
- 	KUNIT_CASE(dm_test_handle_hpd_rx_irq_automated_test),
- 	KUNIT_CASE(dm_test_handle_hpd_rx_irq_msg_rdy),
- 	KUNIT_CASE(dm_test_handle_hpd_rx_irq_link_loss),
-+	KUNIT_CASE(dm_test_handle_hpd_rx_irq_downstream_change),
- 	KUNIT_CASE(dm_test_schedule_hpd_rx_offload_work),
- 	/* dmub_hpd_callback/dmub_hpd_sense_callback */
- 	KUNIT_CASE(dm_test_dmub_hpd_callback_null_inputs),
- 	KUNIT_CASE(dm_test_dmub_hpd_callback_invalid_index),
- 	KUNIT_CASE(dm_test_dmub_hpd_callback_empty_connectors),
-+	KUNIT_CASE(dm_test_dmub_hpd_callback_suspend_skip),
- 	KUNIT_CASE(dm_test_dmub_hpd_callback_unknown_type_match),
- 	KUNIT_CASE(dm_test_dmub_hpd_callback_hpd_type),
- 	KUNIT_CASE(dm_test_dmub_hpd_callback_hpd_irq_type),
++	acrtc = dm_test_setup_vmin_vmax_crtc(test, 1000, 1100);
++	adev = drm_to_adev(acrtc->base.dev);
++	stream = acrtc->dm_irq_params.stream;
++	adev->family = AMDGPU_FAMILY_AI;
++	acrtc->dm_irq_params.vrr_params.supported = true;
++
++	params.adev = adev;
++	params.irq_src = (enum dc_irq_source)IRQ_TYPE_VBLANK;
++
++	dm_crtc_high_irq(&params);
++
++	/* The offloaded worker applies the adjust and drops its stream ref. */
++	flush_workqueue(adev->dm.vmin_vmax_wq);
++	KUNIT_EXPECT_EQ(test, stream->adjust.v_total_min, 1000);
++	KUNIT_EXPECT_EQ(test, stream->adjust.v_total_max, 1100);
++	KUNIT_EXPECT_EQ(test, kref_read(&stream->refcount), 1);
++
++	amdgpu_dm_irq_fini(adev);
++}
++
+ /* Tests for dm_handle_hpd_work() */
+ 
+ /**
+@@ -4246,11 +4358,13 @@ static struct kunit_case amdgpu_dm_irq_tests[] = {
+ 	KUNIT_CASE(dm_test_vupdate_high_irq_no_crtc),
+ 	KUNIT_CASE(dm_test_vupdate_high_irq_dcn_completes_flip),
+ 	KUNIT_CASE(dm_test_vupdate_high_irq_dcn_no_active_planes),
++	KUNIT_CASE(dm_test_vupdate_high_irq_dce_vrr_btr),
+ 	KUNIT_CASE(dm_test_crtc_high_irq_no_crtc),
+ 	KUNIT_CASE(dm_test_crtc_high_irq_vrr_pre_ai),
+ 	KUNIT_CASE(dm_test_crtc_high_irq_vrr_ai_no_stream),
+ 	KUNIT_CASE(dm_test_crtc_high_irq_writeback_disables),
+ 	KUNIT_CASE(dm_test_crtc_high_irq_writeback_completes),
++	KUNIT_CASE(dm_test_crtc_high_irq_schedules_vmin_vmax),
+ 	/* dm_handle_hpd_work */
+ 	KUNIT_CASE(dm_test_handle_hpd_work_out_of_range),
+ 	/* dm_dmub_outbox1_low_irq */
 -- 
 2.43.0
 
