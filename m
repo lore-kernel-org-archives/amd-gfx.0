@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01E93C5DF93
-	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 20:23:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 947BDC5DF97
+	for <amd-gfx@archiver.kernel.org>; Tue, 18 Aug 2026 20:23:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25FBE10ECD8;
-	Tue, 18 Aug 2026 20:23:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 49A2910ECDE;
+	Tue, 18 Aug 2026 20:23:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5dSYI8Fa";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eIgrMsKM";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012029.outbound.protection.outlook.com [40.107.209.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1DCAC10ECD2
- for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:59 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010024.outbound.protection.outlook.com [52.101.201.24])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EEC1F10EC9F
+ for <amd-gfx@lists.freedesktop.org>; Tue, 18 Aug 2026 20:22:29 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NkFf4xVBazsBEtYEokNCUQ0fZWVhL6hc/J9RA0/vRXuVOY5TvrfplQP0t7f88ER3kDz95epqHvxVN57P4hY00/bUnClQm3VvU8Q1Iy1qNes/939wmXVIS/YjYcgvHSU30o16NnJPAThfA0ePhfLVnGFasQUDGVm7PENGmnmmRiBeYJ8QqK4S+/0oRIkStMXIj/8JSfRbzGyT8MZu8+p9WSZgEXWrREPPbAEtV8srmn9GKrjOml1iG0svUfXpd8jlIMfAoP6ir7Ydyfxpcvf50mJvZNndMxq7n9XvTs4EdXW1YnSi2rYFf+srbuI8LD7dtYdcAutNNS43RHHvigrkiw==
+ b=tWNqYgtR3dRcA9syphwYj5g/D9VRp1Cy8Y0Pmr6yf+i/daLGArKfmHgZJ2huwnMWWSzaE4kez4XuA+825C5j+nRTgCfp9F4w3/PJ6b7mIAyY+AMo82WzkI5Opuh1dNGMGQ8sxwTM368pMHQrUo/+KgBTsLPFia455wTWmM/fJddSX57LkBiZ5CPSq7UX1IgIXR5Q9MfivEBNK2J58oRoFvw1t3t4quBmHnA+oZiVfo0PAhae1G9WC5HqqGh8040RzzpRlfoOjqdjn/82BWMQ8vlZCmCYDoQd+IeeM2m/pKweiZQSAK9wvXNFWJ2FxOoGCpDv3S4AsBeIJwVSRaxM7Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bV8xutFDLmnwCqj0IdEQ7ofcW2ICkcZz5i5qgMCq4LE=;
- b=rvrhIGkk0vjE9f+Eyj4APJ6icff7iC8QtjClyj2odag7suYWr7naXL384hWJ3JZWXXSb1Ozsm1DjFrFenM/AtU8p/FXBOf2/bth4Bt9V1C6r/uSRq61ABec82HgNYIyMqnN7v8g7gSYw8udFxcOMypKPbwOunnsYl1hj5SbQmD2KxggEh5cldVYJVGeTvcYKRdfjp2/XBtU31131FlaCFMd9vL2QvvWLn9BvW/R0cgZ6ONwocAdAZJTCW9+mXrR0b9zdO5Tif4KbVaLcWyyq864kWITTdLd+gLebLQe8SHOwtlLtntNbk0tPGAnWYX/GbP3B75VPbm0B6GW4nClPgQ==
+ bh=cV6EWtCrXcIPn27Fd6S24Uc3CXpcssldG8eVntggpvQ=;
+ b=tLCge03apNj3NEO0DdatC2muFA89lNt4Vk7ohSLGnYV5JXZLSJzoUfisr7jSpxwI5bNVfEQb8D99Te43zBAnXX72a3aCaiAoGIf6V+UMSiHXdKRp0hWSkWSw3QakOBCiptMX4L2u4g41kRsmRnFv9eoIrTol4Sv6bh3TDvZnGAvo/OVOv3Q34DbUgPWoAX8cHM3XD6MgfIrFL766wKNCCbUcELj9UWWb/GSptv5lxdV9o/YQgJHQee69/Eiksjyjj6AYKr7gtuEQITr3BMa6lUzv9O/1VOewgnVzK5J+NbDAGVQ1MHDm0bIjOAqyRvCd6WYZUiGIQK8cBr1WLpQPYA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bV8xutFDLmnwCqj0IdEQ7ofcW2ICkcZz5i5qgMCq4LE=;
- b=5dSYI8FaN7T9ELYCH29CmRiZ4jfdKYcUchHn+UJDgcRLbHJDQ9Ns7hRRmh9+LCOT0aeNoKgtjndno3ACTewJqGvbTqcr2NBpYow2HT8CReEtDSQe7k+ab27WXxwmlXooeyIOMv6Qix7tN5opGQb39iQ1ZrlXWEm1ZulHDFtwe6M=
-Received: from BL1P221CA0024.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:2c5::31)
- by DS0PR12MB8477.namprd12.prod.outlook.com (2603:10b6:8:15b::18) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=cV6EWtCrXcIPn27Fd6S24Uc3CXpcssldG8eVntggpvQ=;
+ b=eIgrMsKMSwagC1wPbMCRNzRoAXUUsbEyvsWdC62DfOi09NVWZYw4P2SAEsv5uU8WBUmXNqx/rOFdPSnedqvZOU/16/78lNsBkRbbIHdwH0hYBiYkVg9RqjWhEy3Tx8XR+GZCo3C69+3ZPlb1ZhpzCF3OrGdMcGqDtnktj/PHqUE=
+Received: from BN9PR03CA0899.namprd03.prod.outlook.com (2603:10b6:408:13c::34)
+ by BN7PPFED9549B84.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::6e7) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Tue, 18 Aug
- 2026 20:22:48 +0000
-Received: from BN3PEPF0000B36F.namprd21.prod.outlook.com
- (2603:10b6:208:2c5:cafe::90) by BL1P221CA0024.outlook.office365.com
- (2603:10b6:208:2c5::31) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 20:22:25 +0000
+Received: from BN3PEPF0000B373.namprd21.prod.outlook.com
+ (2603:10b6:408:13c:cafe::aa) by BN9PR03CA0899.outlook.office365.com
+ (2603:10b6:408:13c::34) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.17 via Frontend Transport; Tue,
- 18 Aug 2026 20:22:48 +0000
+ 18 Aug 2026 20:22:25 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,20 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B36F.mail.protection.outlook.com (10.167.243.166) with Microsoft
+ BN3PEPF0000B373.mail.protection.outlook.com (10.167.243.170) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 20:22:48 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ 15.21.360.0 via Frontend Transport; Tue, 18 Aug 2026 20:22:25 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
- 2026 15:22:45 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 15:22:18 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 18 Aug
- 2026 15:22:44 -0500
+ 2026 15:22:18 -0500
 Received: from box-0.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Tue, 18 Aug 2026 15:22:44 -0500
+ Transport; Tue, 18 Aug 2026 15:22:17 -0500
 From: <IVAN.LIPSKI@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -71,10 +71,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 68/82] drm/amd/display: Test
- amdgpu_dm_dce110_register_irq_handlers
-Date: Tue, 18 Aug 2026 16:16:00 -0400
-Message-ID: <20260818202139.4172592-69-IVAN.LIPSKI@amd.com>
+Subject: [PATCH 34/82] drm/amd/display: Cover
+ hide_secondary_tile_from_userspace
+Date: Tue, 18 Aug 2026 16:15:26 -0400
+Message-ID: <20260818202139.4172592-35-IVAN.LIPSKI@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
 References: <20260818202139.4172592-1-IVAN.LIPSKI@amd.com>
@@ -83,29 +83,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B36F:EE_|DS0PR12MB8477:EE_
-X-MS-Office365-Filtering-Correlation-Id: e5beb6df-161f-44e4-e962-08defd667867
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B373:EE_|BN7PPFED9549B84:EE_
+X-MS-Office365-Filtering-Correlation-Id: c47546c2-1f47-4bf6-9bfe-08defd666ae0
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|376014|82310400026|36860700016|22082099003|18002099003|10067099003|56012099006|11063799006|5023799004;
-X-Microsoft-Antispam-Message-Info: STuL1Wxk6iHRN/1EWIpyNXCPuBHvHQvm2p9N9Wt/vNO2hCaspBkU3pewAR+pS/V0BGTumNkiEinKK4CthYxMTD8VMPO8oZSI/i8BHtqv//KLTFTDUd3hbAk7/XhO5/YGWtFFPAUFi2aDaQlIN1oO2K0xwU0HUumAp7NI5s2cugFappVMNdFx4BR6g11tA8oWMNqt1RTCRJfnIVh5OHYFuFi6lH2sqxvH+JKpL6wjdFN5MkLAwYF2I38VR7BZSD1BYYQ6BFwVkjZfOTYQnN8StxmqI1RnonPEqeXqFP3Bfpsk62G1Sq0z2AZQFB3iADqgRJGVeUa+Dgqqefx5DqlpXBESJa+lrZmejVuHvMZYRGVgOESSD5klYhINHPPx1X4cFOyGZ+DyEQgCivjPTTl6ItXox34Ps8IpjKFBml1joQggff0L9vEMrAIeK2jN6nPSQy1vwQfqv8N6p4KhsSbcPyirm8Q2A18wLoIrfNnJJY75Fx2VwrVidxZ7tkpD4LGeAZ4QWjNEaSPnRP1sPGcgvrexzWHIRtt0eQ8q1ZHAy8C+L+HhBgJ7WcZyXSsc+SrmbrUlzX0DNi3cGMmLPl5dQ6M2GhPSWtm4M4MZW3/RpIa5Ar9AQHTzQAVT6TFEVIYRhQg48Hl1JcD7Sq64pIGvWERBuq2mcviIa7kISzToZyY=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:; LANG:en; SCL:1; SRV:;
+ ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|10067099003|11063799006|5023799004|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: o7cytJPSmBm5m9ZN1QK4DXV7QVT1QoA53C3eN+ogpAP/O9Kezmllk0IU5E8WiR0Il5poIaFmIhUB2W2ggfZ0st7kom4NWkJDyRo78wuf/nAwjn1E2JzFkF2oVBuuA9LmtaXmBrCTsdnMASAOPay/Pybv1ypeLrmjRs3fahO1JqG5W9gQQKzF8ZYtpxhzTockahdYiJw9v34AMr39p3S16QqyxDjs0Q9aa8RtUI7UsgdWtcgm2gAuffMbOFUgUcq9msgA2/vkQZhQ+gNcgo7pnlpY8sgIwKFeCf2S583KyyAY7k4+NOjaBCJIpQ7OEK746rwoea+PhJARD/SXDX439njOWtd/MxtnFp1JCHeF9ECG7cDLfIHlklRfc+5rxIozFZNWRue14lQ+skpZcz3CE6p2VeESqx9AnJKGGK/xhw4Ojn2XgpeXHkPAre6mXvwEXVpoWt+wT7lX+yQkD3Dkf0oPilTPmLCSPV7310WTMDBNBrjqWM43ZS1iVo+6fQ5CiDQ/AsCMZjafm5N7tF462M2MYFDOIvQXxRH4WDhEbC/u7TGC8p4N3d4vwrWeRHXQwcrL93hSCfEtpBhuV5T3KBiAldaVUQHun2nV+qvBkfzXEfLOFSQQCNE7hXcraHxyBlF7CEoEZVmzzoZprfW7X50OFcbrDANod4d02TntqHEYKMIWUbGQS4UCDyJGbV2CVBH4CI2rdMvaUOfy/Od5Zg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(376014)(82310400026)(36860700016)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006)(5023799004);
+ SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(10067099003)(11063799006)(5023799004)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: X0Qmui42PaaC8NS5gUf7+EmbYtM4eivcVKEI0kV8wbYHIKasJeGHkAPjA4pNOaT0MN79iT46cYASbCN6lfArbwX+1Z6wGhPSU9mNQ7s6bp7sxywFkGNVfyVqa5KRRw8ZKA6UWjCeRKMOtFJd0kM+6hWkmdniAA/w3jKgeJ/uPIErhiySKRKLLOSgpZzjFFXriGTzzxi75VpAaBfl9WjwKrZRtnkMu2QeGloTdUHwXuMmmfpqW9SccycO4PmCuriMBgrXeGM0I7pX0vYYUQazSR42plEFTaZR6xlh+Stae9f+ajt0yy07v8TJDsq3eFqlZBfFcS9teYpNjlfruHaN+BMxWKqX2s0gVXz14kw8a8ToO8ev/aK+3+ZcnFjt7OgjYb8mO5sPAINUTjQ6YIDIPw30DAMX1V60UaheVvO7zJHsa9P945rEADL8TjXcMi5C
+X-MS-Exchange-AntiSpam-MessageData-0: SFVSHhdonR6+JpOyCAE653aizA6vcMyBiGyqJPfl8OBMpQnkYdYmN2+dC+S03WYZFk5mdoPV50zuRxpR4IBJmMcIQlP825IS3qoa/DNXG1QljiBgh0g1I/yGbao677xeIv6TfMO6GLl7ZbiUVzSGUtBF+a/WdoLgpCkMriW3hV9+k/VXtkxCutk6bM7imSdpFbv9sdIKAnojpytkDy+1R2G6G+2Eq5qeqr40CCtmGhYtJrTCrLlUi8088765ltJ4bkztwhO+YCyLbh89jHmnqIexnWaSTFjX4UJKSGYVQ6U4x7BeDpxB6Mdr3YdymahLFGQpSzML1FGuoltD0NeBN2dQc+xVU/URNMNLc2Y3Kf4IftQ4zz9IYc7s/hu2CDjJOMO/6QEorXwzcp92yj2mp8tQ/amorb/UpTZIxv19+8PDM3BPEkXA4PFxMyXeqhMX
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:48.1324 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e5beb6df-161f-44e4-e962-08defd667867
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Aug 2026 20:22:25.4361 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c47546c2-1f47-4bf6-9bfe-08defd666ae0
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B36F.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B373.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8477
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPFED9549B84
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,248 +120,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alex Hung <alex.hung@amd.com>
+From: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 
-[WHAT]
-Add KUnit tests for amdgpu_dm_dce110_register_irq_handlers() covering
-the SOC15 DCE client used from Vega on, the amdgpu_irq_add_id()
-rejections for the CRTC, VUPDATE and HPD sources, and the
-invalid-source guards in the VBLANK, VUPDATE and PFLIP loops.
+Add a KUnit test that drives amdgpu_dm_connector_detect() through the
+amdgpu_dm_hide_secondary_tile_from_userspace() path using a sink that
+requests disable_second_tile and a synthesized DisplayID tiled EDID at a
+non-origin tile location, so the secondary Apple Studio Display tile is
+hidden and the connector reports disconnected. Raises the helper coverage
+from 44% to 100%.
 
-[HOW]
-Add three fake IRQ services that map only a prefix of the source IDs so
-each loop reaches its guard in turn. Clearing a single amdgpu_irq_src's
-funcs makes only that source's add_id() fail.
-
-Assisted-by: Copilot:Claude-Opus-5
-Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Signed-off-by: Alex Hung <alex.hung@amd.com>
+Assisted-by: Copilot:Claude-Opus-4.8
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_irq_test.c      | 196 ++++++++++++++++++
- 1 file changed, 196 insertions(+)
+ .../tests/amdgpu_dm_connector_test.c          | 62 +++++++++++++++++++
+ 1 file changed, 62 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-index 933a33a360fbe..a354fa25998f7 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_irq_test.c
-@@ -276,6 +276,55 @@ static const struct irq_service_funcs dm_test_irq_service_funcs_dce110 = {
- 	.to_dal_irq_source = dm_test_to_dal_irq_source_dce110
- };
- 
-+/* Maps nothing, so the first (VBLANK) register loop sees an invalid source. */
-+static enum dc_irq_source dm_test_to_dal_irq_source_unmapped(
-+		struct irq_service *irq_service,
-+		uint32_t src_id,
-+		uint32_t ext_id)
-+{
-+	return DC_IRQ_SOURCE_INVALID;
-+}
-+
-+static const struct irq_service_funcs dm_test_irq_service_funcs_unmapped = {
-+	.to_dal_irq_source = dm_test_to_dal_irq_source_unmapped
-+};
-+
-+/* Maps VBLANK only, so the VUPDATE register loop sees an invalid source. */
-+static enum dc_irq_source dm_test_to_dal_irq_source_vblank_only(
-+		struct irq_service *irq_service,
-+		uint32_t src_id,
-+		uint32_t ext_id)
-+{
-+	if (src_id == VISLANDS30_IV_SRCID_D1_VERTICAL_INTERRUPT0)
-+		return DC_IRQ_SOURCE_VBLANK1;
-+
-+	return DC_IRQ_SOURCE_INVALID;
-+}
-+
-+static const struct irq_service_funcs dm_test_irq_service_funcs_vblank_only = {
-+	.to_dal_irq_source = dm_test_to_dal_irq_source_vblank_only
-+};
-+
-+/* Maps everything but PFLIP, so the PFLIP register loop sees an invalid source. */
-+static enum dc_irq_source dm_test_to_dal_irq_source_no_pflip(
-+		struct irq_service *irq_service,
-+		uint32_t src_id,
-+		uint32_t ext_id)
-+{
-+	switch (src_id) {
-+	case VISLANDS30_IV_SRCID_D1_VERTICAL_INTERRUPT0:
-+		return DC_IRQ_SOURCE_VBLANK1;
-+	case VISLANDS30_IV_SRCID_D1_V_UPDATE_INT:
-+		return DC_IRQ_SOURCE_VUPDATE1;
-+	default:
-+		return DC_IRQ_SOURCE_INVALID;
-+	}
-+}
-+
-+static const struct irq_service_funcs dm_test_irq_service_funcs_no_pflip = {
-+	.to_dal_irq_source = dm_test_to_dal_irq_source_no_pflip
-+};
-+
- static enum dc_irq_source dm_test_to_dal_irq_source_dcn10(
- 		struct irq_service *irq_service,
- 		uint32_t src_id,
-@@ -4266,6 +4315,146 @@ static void dm_test_dce110_register_irq_handlers_one_crtc(struct kunit *test)
- 	amdgpu_dm_irq_fini(adev);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index 1b1ed534ed441..55cf9c3708394 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -4122,6 +4122,67 @@ static void dm_test_detect_no_sink(struct kunit *test)
+ 		(int)connector_status_disconnected);
  }
  
-+/**
-+ * dm_test_dce110_register_irq_handlers_soc15_client - Test DCE110 on AI+ ASICs
-+ * @test: The KUnit test context
-+ *
-+ * From Vega on, the DCE interrupts are routed through the SOC15 DCE client
-+ * rather than the legacy one, so the IRQ sources must be registered there.
++/*
++ * A 256-byte EDID whose DisplayID extension carries a tiled display
++ * topology block placing this connector at tile location (h=1, v=0), i.e.
++ * a secondary tile. drm_edid_connector_update() parses it to set has_tile
++ * and the non-origin tile location.
 + */
-+static void dm_test_dce110_register_irq_handlers_soc15_client(struct kunit *test)
-+{
-+	struct amdgpu_irq_src **soc15_sources;
-+	struct amdgpu_device *adev;
-+
-+	adev = dm_test_setup_irq_regs(test, &dm_test_irq_service_funcs_dce110);
-+	adev->family = AMDGPU_FAMILY_AI;
-+
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_dce110_register_irq_handlers(adev), 0);
-+
-+	KUNIT_EXPECT_NULL(test, adev->irq.client[AMDGPU_IRQ_CLIENTID_LEGACY].sources);
-+	soc15_sources = adev->irq.client[SOC15_IH_CLIENTID_DCE].sources;
-+	KUNIT_ASSERT_NOT_NULL(test, soc15_sources);
-+	KUNIT_EXPECT_PTR_EQ(test,
-+			    soc15_sources[VISLANDS30_IV_SRCID_D1_VERTICAL_INTERRUPT0],
-+			    &adev->crtc_irq);
-+
-+	amdgpu_dm_irq_fini(adev);
-+}
-+
-+/**
-+ * dm_test_dce110_register_irq_handlers_crtc_add_id_fails - Test add-id failure
-+ * @test: The KUnit test context
-+ *
-+ * amdgpu_irq_add_id() rejects a source with no funcs table, so registering the
-+ * VBLANK interrupt before amdgpu_dm_set_irq_funcs() has run must fail.
-+ */
-+static void dm_test_dce110_register_irq_handlers_crtc_add_id_fails(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+	struct dc *dc;
-+
-+	adev = dm_kunit_alloc_adev(test);
-+	dc = dm_test_alloc_dc_with_irq_service(test, &dm_test_irq_service_funcs_dce110);
-+	dc->ctx->dce_version = DCE_VERSION_11_0;
-+	adev->dm.dc = dc;
-+	adev->mode_info.num_crtc = 1;
-+
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_dce110_register_irq_handlers(adev), -EINVAL);
-+}
++static const u8 dm_test_detect_tile_edid[256] = {
++	0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x00, 0x10, 0xac, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x04, 0x80, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xc4, 0x70, 0x12, 0x18, 0x00,
++	0x00, 0x12, 0x00, 0x15, 0x00, 0x11, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x8d, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
++	0x00, 0x00, 0x00, 0x90,
++};
 +
 +/**
-+ * dm_test_dce110_register_irq_handlers_bad_vblank_source - Test VBLANK guard
++ * dm_test_detect_hides_secondary_tile - Test the secondary tile is hidden
 + * @test: The KUnit test context
 + *
-+ * A source ID that DC does not map to a VBLANK IRQ source must be rejected
-+ * rather than used to index the vblank parameter array.
++ * A sink whose panel patch requests disable_second_tile combined with a tiled
++ * EDID at a non-origin tile location makes the detect path hide the secondary
++ * Apple Studio Display tile, reporting the connector as disconnected.
 + */
-+static void dm_test_dce110_register_irq_handlers_bad_vblank_source(struct kunit *test)
++static void dm_test_detect_hides_secondary_tile(struct kunit *test)
 +{
-+	struct amdgpu_device *adev;
++	struct amdgpu_dm_connector *aconnector = dm_test_detect_connector(test);
++	struct dc_sink *sink;
 +
-+	adev = dm_test_setup_irq_regs(test, &dm_test_irq_service_funcs_unmapped);
++	sink = kunit_kzalloc(test, sizeof(*sink), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, sink);
++	sink->edid_caps.panel_patch.disable_second_tile = true;
 +
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_dce110_register_irq_handlers(adev), -EINVAL);
++	aconnector->base.force = DRM_FORCE_UNSPECIFIED;
++	aconnector->dc_sink = sink;
++	aconnector->drm_edid = drm_edid_alloc(dm_test_detect_tile_edid,
++					     sizeof(dm_test_detect_tile_edid));
++	KUNIT_ASSERT_NOT_NULL(test, aconnector->drm_edid);
 +
-+	amdgpu_dm_irq_fini(adev);
++	KUNIT_EXPECT_EQ(test,
++		(int)amdgpu_dm_connector_detect(&aconnector->base, false),
++		(int)connector_status_disconnected);
++
++	drm_edid_free(aconnector->drm_edid);
 +}
 +
-+/**
-+ * dm_test_dce110_register_irq_handlers_bad_vupdate_source - Test VUPDATE guard
-+ * @test: The KUnit test context
-+ *
-+ * With VBLANK mapped but VUPDATE unmapped, registration must fail once the
-+ * VUPDATE loop sees the invalid source.
-+ */
-+static void dm_test_dce110_register_irq_handlers_bad_vupdate_source(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+
-+	adev = dm_test_setup_irq_regs(test, &dm_test_irq_service_funcs_vblank_only);
-+
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_dce110_register_irq_handlers(adev), -EINVAL);
-+
-+	amdgpu_dm_irq_fini(adev);
-+}
-+
-+/**
-+ * dm_test_dce110_register_irq_handlers_bad_pflip_source - Test PFLIP guard
-+ * @test: The KUnit test context
-+ *
-+ * With VBLANK and VUPDATE mapped but PFLIP unmapped, registration must fail
-+ * once the pageflip loop sees the invalid source.
-+ */
-+static void dm_test_dce110_register_irq_handlers_bad_pflip_source(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+
-+	adev = dm_test_setup_irq_regs(test, &dm_test_irq_service_funcs_no_pflip);
-+
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_dce110_register_irq_handlers(adev), -EINVAL);
-+
-+	amdgpu_dm_irq_fini(adev);
-+}
-+
-+/**
-+ * dm_test_dce110_register_irq_handlers_vupdate_add_id_fails - Test add-id failure
-+ * @test: The KUnit test context
-+ *
-+ * The VBLANK loop succeeds, then a VUPDATE source with no funcs table is
-+ * rejected by amdgpu_irq_add_id().
-+ */
-+static void dm_test_dce110_register_irq_handlers_vupdate_add_id_fails(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+
-+	adev = dm_test_setup_irq_regs(test, &dm_test_irq_service_funcs_dce110);
-+	adev->vupdate_irq.funcs = NULL;
-+
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_dce110_register_irq_handlers(adev), -EINVAL);
-+
-+	amdgpu_dm_irq_fini(adev);
-+}
-+
-+/**
-+ * dm_test_dce110_register_irq_handlers_hpd_add_id_fails - Test HPD add-id failure
-+ * @test: The KUnit test context
-+ *
-+ * All three per-CRTC loops succeed, then the HPD source with no funcs table is
-+ * rejected by amdgpu_irq_add_id().
-+ */
-+static void dm_test_dce110_register_irq_handlers_hpd_add_id_fails(struct kunit *test)
-+{
-+	struct amdgpu_device *adev;
-+
-+	adev = dm_test_setup_irq_regs(test, &dm_test_irq_service_funcs_dce110);
-+	adev->hpd_irq.funcs = NULL;
-+
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_dce110_register_irq_handlers(adev), -EINVAL);
-+
-+	amdgpu_dm_irq_fini(adev);
-+}
-+
+ /* Tests for amdgpu_dm_connector_poll() */
+ 
  /**
-  * dm_test_dcn10_register_irq_handlers_zero_crtc - Test DCN10 zero-CRTC registration
-  * @test: The KUnit test context
-@@ -4673,6 +4862,13 @@ static struct kunit_case amdgpu_dm_irq_tests[] = {
- 	/* IRQ handler registration helpers */
- 	KUNIT_CASE(dm_test_dce110_register_irq_handlers_rejects_uninitialized_sources),
- 	KUNIT_CASE(dm_test_dce110_register_irq_handlers_one_crtc),
-+	KUNIT_CASE(dm_test_dce110_register_irq_handlers_soc15_client),
-+	KUNIT_CASE(dm_test_dce110_register_irq_handlers_crtc_add_id_fails),
-+	KUNIT_CASE(dm_test_dce110_register_irq_handlers_bad_vblank_source),
-+	KUNIT_CASE(dm_test_dce110_register_irq_handlers_bad_vupdate_source),
-+	KUNIT_CASE(dm_test_dce110_register_irq_handlers_bad_pflip_source),
-+	KUNIT_CASE(dm_test_dce110_register_irq_handlers_vupdate_add_id_fails),
-+	KUNIT_CASE(dm_test_dce110_register_irq_handlers_hpd_add_id_fails),
- 	KUNIT_CASE(dm_test_dcn10_register_irq_handlers_zero_crtc),
- 	KUNIT_CASE(dm_test_dcn10_register_irq_handlers_one_crtc),
- 	KUNIT_CASE(dm_test_register_outbox_irq_handlers_without_dmub),
+@@ -6491,6 +6552,7 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_detect_force_off),
+ 	KUNIT_CASE(dm_test_detect_sink_present),
+ 	KUNIT_CASE(dm_test_detect_no_sink),
++	KUNIT_CASE(dm_test_detect_hides_secondary_tile),
+ 	/* amdgpu_dm_connector_poll */
+ 	KUNIT_CASE(dm_test_poll_dac_load_returns_cached),
+ 	KUNIT_CASE(dm_test_poll_connected_cached_sink),
 -- 
 2.43.0
 
