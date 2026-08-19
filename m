@@ -4,141 +4,101 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6390FC5DF6D
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 06:17:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1E33EC5DF6D
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 06:43:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0A1FA10E4DE;
-	Wed, 19 Aug 2026 06:17:39 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B74210E05B;
+	Wed, 19 Aug 2026 06:43:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="dO720plT";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="3Q9NN6B3";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="L8HnCUTS";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="eaPdP7nU";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="csQb0fwm";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A1B710E36E;
- Wed, 19 Aug 2026 06:17:36 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 168B33E69;
- Wed, 19 Aug 2026 06:16:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787120204; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=c/AzOS9nYCn1gKcDW+iR9M86QEqFfEOWGqdTZE1/Q8A=;
- b=dO720plTJcEcHC+arFs6mB/9g8FDyt9rYEInkQG8s2VxFn+S+3tlBdg/z0/AE76kVegV/J
- po0cwcLIJ0eVH1dO9hOcYHWbGx/nXdmjU0jchzVB/Ap9d4oLj2BeJMXDhXaD1gW3tzAHoa
- VMq/ekbE9a8qAKfFTXWZ3jSUpCcnGBI=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787120204;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=c/AzOS9nYCn1gKcDW+iR9M86QEqFfEOWGqdTZE1/Q8A=;
- b=3Q9NN6B3P//DA/0r1qISw0CBzYxq34c3kFnAVy/gpQSWIUSsUBzu81MGBqHvUkojiRlIT4
- IvkPnljiLo7vL3CA==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=L8HnCUTS;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=eaPdP7nU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787120200; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=c/AzOS9nYCn1gKcDW+iR9M86QEqFfEOWGqdTZE1/Q8A=;
- b=L8HnCUTSvXwz89JqoFEUVGXfyBa/oJZAT7BC7J3w1uwidMcKF4OuijNQdTHOe7KdU9uEgh
- 5FjLcKdQXjz0iGVcE0TMronQ79HDZTovL3ne4XDVb7NDRzvZyTBD8D37rgnErtXW0X/CoY
- vMYe1wsMsZ1pQJYvLMtEzC1qL6dpgqk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787120200;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=c/AzOS9nYCn1gKcDW+iR9M86QEqFfEOWGqdTZE1/Q8A=;
- b=eaPdP7nUjcgGMN2xiwEPnkNBTlV45RYeLfigA5z8I3ZRnJMisCHgbu0N+Luewac2zV75sO
- rnXH4UsE7FZEdMAg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 960AA2F81;
- Wed, 19 Aug 2026 06:16:39 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id B2BRI0dKhWpUcwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 19 Aug 2026 06:16:39 +0000
-Message-ID: <614bdf7b-031d-444b-a30c-132daa55ce3e@suse.de>
-Date: Wed, 19 Aug 2026 08:16:39 +0200
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010054.outbound.protection.outlook.com
+ [40.93.198.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF14010E05B
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Aug 2026 06:43:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NHPQmfJjHBmmiUjB9vK05vPMBqTUk/rRlXpWec7abzGOVJgrCKaNczHLO3Kzmxbf6RidZ/d02XpjBAov/D6hKs6tgJYRZuG3dJml78H+I3Fwuy9MlMl6aJEJeJEpYZZpsDc45yh90RuiWoTIV0zgcubpL4Gf8tXCrWR9SPhXyX6FOwvcDzYm3L4nivC3VC4bLO1hFcB2oW/iQbOqobmzOL5wNZckyW9hgZmgzNeoomfGHXXvxAPp+e65qC5EGe4UZXHdVWjLA2G0P4x5vVmIp5+vcl78itUW58Cqjt7lCihQzAdr5OdKnTzCsZwD9Re5Ad2QB9Gyeahn5VVUeLABSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aBXEv5YSXLKvBvgGc0fs1BfOW1yNbATE6k/0DAwgJaM=;
+ b=S8xnHx8VGHDjUcARebios4ucVrGWhDoaLDdq/VU/fWwIXpHD2YFELeYrwg+1pBYyOKgmP6Gx1WEn97Y6dDNKlCNnB16Hw8R5joefqww0EEyBEgTAuMNQ2I+G8b+U7iZ+B7PNTWr9w4cp4m1Zlk7Ebf70x65nJ1TfxPHwfl3ast/+7pIwbj3XPi7MyW/m50E9IVf+gmLO1zg264UOJiENEh9iAeyFZoVWYAL551eEyz4SpeQOd1H4v+LK1XPuGsboVnVyxWKN5fNnxhC1NLtPJKqh/ArNsQjIGVxGMvcFrpcUkiF+X4LqYKmcSj76Xa+Lxyjd8Cz7Hm0159I8YDZaag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aBXEv5YSXLKvBvgGc0fs1BfOW1yNbATE6k/0DAwgJaM=;
+ b=csQb0fwmYTuLvQlXrKt6ELXPiPCpyDMk3BPv0yNmzWk7qBzdRrmhFK3Lc1oE4J6QB5704HZXQix8+BnS5nfuEsXtRHyynv0v44HJ+Wc4VxAIgats0ZDZGVAXwyLLOWikw6CdfWSXNzdfx8ulV6vaKj0rQ1QAR7/mk3+07tHHDDQ=
+Received: from BLAP220CA0014.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:32c::19)
+ by BN5PR12MB9538.namprd12.prod.outlook.com (2603:10b6:408:2ac::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
+ 2026 06:43:16 +0000
+Received: from BL02EPF0001A0FB.namprd03.prod.outlook.com
+ (2603:10b6:208:32c:cafe::a6) by BLAP220CA0014.outlook.office365.com
+ (2603:10b6:208:32c::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Wed, 19
+ Aug 2026 06:43:16 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL02EPF0001A0FB.mail.protection.outlook.com (10.167.242.102) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.339.3 via Frontend Transport; Wed, 19 Aug 2026 06:43:16 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 19 Aug
+ 2026 01:43:15 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 19 Aug
+ 2026 01:43:15 -0500
+Received: from dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Wed, 19 Aug 2026 01:43:14 -0500
+From: Bob Zhou <bobzhou2@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>,
+ <Alexander.Deucher@amd.com>, <frank.min@amd.com>
+CC: Bob Zhou <bobzhou2@amd.com>
+Subject: [PATCH v3] drm/amdgpu: avoid force-completing uninitialized UVD rings
+Date: Wed, 19 Aug 2026 14:43:13 +0800
+Message-ID: <20260819064313.3609274-1-bobzhou2@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/12] drm/panic: Move panic display code into helper
- library
-To: Randy Dunlap <rdunlap@infradead.org>, jfalempe@redhat.com,
- javierm@redhat.com, airlied@gmail.com, simona@ffwll.ch,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
- sashiko-reviews@lists.linux.dev
-References: <20260818125012.468092-1-tzimmermann@suse.de>
- <20260818125012.468092-12-tzimmermann@suse.de>
- <916c4bd5-c73f-466e-8e9b-aee9d4d7d742@infradead.org>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <916c4bd5-c73f-466e-8e9b-aee9d4d7d742@infradead.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.50 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.19)[-0.973]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[infradead.org,redhat.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org];
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[20]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- RCVD_TLS_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, suse.de:mid, suse.de:dkim,
- imap1.dmz-prg2.suse.org:rdns, imap1.dmz-prg2.suse.org:helo]
-X-Rspamd-Queue-Id: 168B33E69
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A0FB:EE_|BN5PR12MB9538:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8c036e13-ee1a-44cb-4e44-08defdbd25f4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|82310400026|36860700016|1800799024|376014|56012099006|10067099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: hrrA6Tt++rhmOlWBcA/1TZyN030VPN5WbsU7euNllPAtjfSpzHHgM1Yr+zKWtgOMGkpbK+X5pnEYg45dEvfbCpsjq2KFRrKG4HLoHbprxTWiDOHL/KnxlLrScPuC6CKHQlQtnRHK1pQYX0SpzsLLGjGKpqYyAQTKQ4q6d9aj61lufri8NZDXbWsau76GKb7BZF0w5rAihgjmRYu/qt84FZt2tpJg4arxehb0T17sisHObdItUHVUBf+meNUosFmvsVttjnfP5yp//3ahkhS7Uj9x59O+YyX8StI9WWq6/SONLTphvzvfkCKYKs5PslBKpbuOeSit4AL0kYbzJkNxRJq6oMA8Ye9au1JyWM99OCAxQ2fYscSJ6dpKmfJ09uB5oNab6fd7jvEBLiF2erBgJ6EqOat3kLMUXmT7usnRz7UK9zR3+pO/EcJGM1lIekJRT1p+MACrEiq9Y7lwsknVjRSvfWAfISQNg+KbeL04zmiMxHG7Ag0+pGpemiH9+bfUNuLyKQJx80qa7f2dkKkkW6vmKpSDJeYcExvv2OUcjEwXnVDUQNiZY2N9M4mE9busc5aCHWYmw8efbO9kTv9gsvT/JKdH7WWbJBQLtME82qo+9zS2RJh1VYWDFQY2YhdJtHVPmkY5WeMeZMLoZAJZzrnIX1sKkla+75xdVMYF84789D+yzm3Jt/kWvJSxE7kLZxnQtRnb+ob8WQErhQmocw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(56012099006)(10067099003)(18002099003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 49iS6Id3ScidH84J4+qcbxKhvARxLi0DOauTvcVE3MNfNd8KqplN2HmSCq3ipcYajORp43oaJE10PrxxzZv9GgN4yXsmvoTWgRgCZglYtJi2lggcbeE5mVZlCIQgyWOA3Kr0IWgY0wCTDQ6QuVK5YjTEjmynoBsGkFV81ydqx7aSBwtPRHTPyPt+oXW5lPGKd014+w3B5ijEQMZJJpAKYJx6kDsSnx/ufl7w5hD3vkwosMfU85hu2EoNMfZ5D84zp/De3gK2aNzUn7Mv7ztoznPhu4719YBssS7xBeSutY3jfSm8O0M7+50Zj/ebK7uIRakhQsvRuiVhkcc1ucFlBIEkdAXbEMTzLRDLxbGRkFcfrh81JFm3fuU3gEkpetzxD8kELbuvqNlfhqEBY1VvJSVG+kBWKJo3ySA49s+YuQWzbyYrdH0ScljSfSK3Ffsy
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 06:43:16.0174 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8c036e13-ee1a-44cb-4e44-08defdbd25f4
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A0FB.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN5PR12MB9538
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,59 +113,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+uvd_v7_0_sw_init() does not initialize the UVD decode ring for an
+SR-IOV VF. However, amdgpu_uvd_resume() unconditionally force-completes
+the decode ring when restoring its fence sequence.
 
-Am 18.08.26 um 17:55 schrieb Randy Dunlap:
-> Hi,
->
-> On 8/18/26 5:28 AM, Thomas Zimmermann wrote:
->>   M:	Hans de Goede <hansg@kernel.org>
->> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
->> index 323422861e8f..cdfd72d9a9c5 100644
->> --- a/drivers/gpu/drm/Kconfig
->> +++ b/drivers/gpu/drm/Kconfig
->> @@ -45,6 +45,7 @@ config DRM_MIPI_DSI
->>   config DRM_KMS_HELPER
->>   	tristate
->>   	depends on DRM
->> +	select DRM_PANIC_HELPER if DRM_PANIC
-> but DRM_PANIC_HELPER depends on DRM_TTM so
-> DRM_KMS_HELPER should also depend on DRM_TTM. Otherwise:
+Skip fence completion when the fence driver is not initialized.
 
-Oops, how did that creep in?  There's no TTM dependency. This Kconfig 
-change appears to be a copy-paste accident. Thanks for noting.
+Fixes: 043f2271e2d0 ("drm/amdgpu: mark force completed fences with -ECANCELED")
+Signed-off-by: Bob Zhou <bobzhou2@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Best regards
-Thomas
-
->
-> WARNING: unmet direct dependencies detected for DRM_PANIC_HELPER
->    Depends on [n]: HAS_IOMEM [=y] && DRM [=y] && DRM_TTM [=n]
->    Selected by [y]:
->    - DRM_KMS_HELPER [=y] && HAS_IOMEM [=y] && DRM [=y] && DRM_PANIC [=y]
->
->
->>   	select FB_CORE if DRM_FBDEV_EMULATION
->>   	help
->>   	  CRTC helpers for KMS drivers.
->> @@ -130,6 +131,10 @@ config DRM_PANIC_SCREEN_QR_VERSION
->>   	  Smaller QR code are easier to read, but will contain less debugging
->>   	  data. Default is 40.
->>   
->> +config DRM_PANIC_HELPER
->> +	bool
->> +	depends on DRM_TTM
->> +
->>   config DRM_RAS
->>   	bool "DRM RAS support"
->>   	depends on DRM
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+index 228a405a94c4f..ecd7caa95d4b2 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+@@ -517,7 +517,8 @@ int amdgpu_uvd_resume(struct amdgpu_device *adev)
+ 			}
+ 			memset_io(ptr, 0, size);
+ 			/* to restore uvd fence seq */
+-			amdgpu_fence_driver_force_completion(&adev->uvd.inst[i].ring, NULL);
++			if (adev->uvd.inst[i].ring.fence_drv.initialized)
++				amdgpu_fence_driver_force_completion(&adev->uvd.inst[i].ring, NULL);
+ 		}
+ 	}
+ 	return 0;
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+2.34.1
 
