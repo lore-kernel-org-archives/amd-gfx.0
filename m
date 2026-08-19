@@ -4,100 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6FDFC5DF81
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 18:36:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BE386C5DF85
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 18:46:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73DD110E589;
-	Wed, 19 Aug 2026 18:36:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D40C10E12C;
+	Wed, 19 Aug 2026 18:46:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="eFHRC1cF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Dz5EYjR/";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012070.outbound.protection.outlook.com [52.101.53.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C04C10E18E;
- Wed, 19 Aug 2026 18:36:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h4mqIxOEO1bm2Y7qddkqe3ZNziny/6khnyWJ0gU6PlJeo/pflHl68MK1glSWqoAUzkyVjUobTQOdWZ4pMrZ8XxanV2AKkuEifWNXpXPOrYT5tJOdKaFInxHDzXloeJLyT2nYovH6LV+sbqZaGNdp5yqqW2Rly4GrgapSSJBzib0I7G3BkR0RXmdNjt0Lq6SaUaQoTsVjs4EOXCS8lc8LJh9STiZAja3sk6Jv0sJQ2KFKOhBDDbRxvIZr+rnKH98XPpPaBlIcKN4aqrYVRc5rMtoaD3aq0aMytfXX73egSTe2N1KhhW1M+wA0im8AaH7b7c6kCCweogNGR9dWp3qJlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yzIaRBGwxDA7DxG6mE1JmTWij6m7tfJntb3nDGLrvlU=;
- b=OGKZsZIlXRPZF1hiRrfkFKBJLDYPT4yQHX7xcIWiXUPefcQw0IHnl8yO/VX65E0mPN6FNdi8qwZp3DBhvKSrJzhkOvLYrGP1getPnUunlWMARdSQ3PMREWIy+mOVlU5s/Cdt12MRSJEf8gkJB1uu6p4ak7pUiffCXrwG6thrk4sLS2zKpJrAJyONMiboGvDhedo5zfxW/w11LcexDhxRnQyBJVBCMhZ/pbZ3F6ZygY0M1bufCY15D8StbzW+7Ffp1zlOIMFgPlKvuwFtfAEADpeECyYg/EQyIDBRc9ML4enLHa5EdkSS2X3DzMhp5RFE4lpbDDArNXT1RbHYrhu5UQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yzIaRBGwxDA7DxG6mE1JmTWij6m7tfJntb3nDGLrvlU=;
- b=eFHRC1cFEmqS1EUY5lIAroRsW/IkBmm5UIpj6SotTJOVnDl/zRnfoRlp/u+PpBrotzzfTz9ydXaL4zX4CISoYDGq02xokbCsVnvR35+DJoVH4vRQCOrGUw92jtHUHOA4xWQPmbnozm5zvkhQ4NW3wPZf65rglifJEpxCq4sLaLA=
-Received: from BL1P221CA0008.NAMP221.PROD.OUTLOOK.COM (2603:10b6:208:2c5::28)
- by IA1PR12MB6459.namprd12.prod.outlook.com (2603:10b6:208:3a9::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
- 2026 18:36:29 +0000
-Received: from BL6PEPF00020E66.namprd04.prod.outlook.com
- (2603:10b6:208:2c5:cafe::7b) by BL1P221CA0008.outlook.office365.com
- (2603:10b6:208:2c5::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.17 via Frontend Transport; Wed,
- 19 Aug 2026 18:36:29 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF00020E66.mail.protection.outlook.com (10.167.249.27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Wed, 19 Aug 2026 18:36:29 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 19 Aug
- 2026 13:36:29 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 19 Aug
- 2026 13:36:29 -0500
-Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Wed, 19 Aug 2026 13:36:28 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu, amdkfd, radeon drm-next-7.3
-Date: Wed, 19 Aug 2026 14:36:22 -0400
-Message-ID: <20260819183622.2406038-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.55.0
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com
+ [209.85.217.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7634C10E12C
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Aug 2026 18:46:19 +0000 (UTC)
+Received: by mail-vs1-f41.google.com with SMTP id
+ ada2fe7eead31-744ca620161so46717137.2
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Aug 2026 11:46:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787165178; cv=none;
+ d=google.com; s=arc-20260327;
+ b=qIRohqrlZsx7VurIZSivF9Wz4udv6jZ/QM4gUQGjwPq3nol89lIWhOZObHgljxdvph
+ pqruzQdiX5eUUdrCR+BIXZByJsNSeao9i46+GhkrgEFpwbi9etGDsacb/lelxUu9XcR9
+ Uu2o489VKdR31SoAlXlz8THwIXLABV6eNRntXkjNuVnWVd0+iuFCK63ovEl3iV3QTJFf
+ BfsIRtLarwbXpU8IqGBdIh4UBAHTgi5zHBimusHh1B/kTOdaxNsYXwKzfVxLT46+c40x
+ WStGqoA6A31DGSfBbL9PnVXJP9UpBY4kPr70FFNHA4eicSvK9c9U2oU2yuGAB/FakN7y
+ uN2A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=UfLG2NH8uuqt4uEQrP8cDXbdagEYsIFGZX9Ev2t60SI=;
+ fh=9vOszAai2AI0Hw/GHddpUWBge+q08tJRQ7GYTWpdqCk=;
+ b=r7RZWvVonKu8yatyD3UCoa9/09JFUNykmSq/ZeAaI1/pjHhgaMfdF+TqnpA68CtTdL
+ XnJRix/pUVtP7NYMidHigdkIQE7sEkyCql5biXHdAQ1FqXA+P7yVLaCWKQ3Y6AIK3t7Z
+ 629CgaGF7pyJ04kgI43iL4PWQtRZjInX7EBp0s3chg9dnviQnH6FzXc/fUuAia4yb/5r
+ 2GCPDF6c7BOHtLdjFOE5HYWbANnNfa2dpUBaY5Ur7LRH1yKbbvCQiINC1ZK73EE8r20v
+ B0ZGKBx8zMawfdVXD1NY9gNbFG1GEJ4B7nxFq2boD+x+jiEwQb79ttdUE/rdIt/52t1o
+ ZjMw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787165178; x=1787769978; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=UfLG2NH8uuqt4uEQrP8cDXbdagEYsIFGZX9Ev2t60SI=;
+ b=Dz5EYjR/okWYUQ6i4nuAoKscl7YOVG9fKiAhPu3YdnkDkpkiNh0t/pwRwFDzV9kiMc
+ 2wc7nlbwpY3AUOqDa0fjbEG/3hwQexIG7HKj03vDaLl046/2n3K2nwrnE/GMjZR2d4ks
+ DTDO6OVC707zfeA91x1h5SI9QA2cWcOFJF04qU0Gu5Edf/k7xHb6tAh28L4z5D0Q04//
+ IgzmntWZJEJllDrYzTEngRxe2aduq0rbBar+u8MIwjFi3Z9SKfUHaK7SXjHivE6wjqzr
+ OTEzt8L9TOwvWezREBDehUCUi1/MYpg09ISNN9GzsOAORItgfCUysMH5zsoUXm9s7JSf
+ ZX/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787165178; x=1787769978;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=UfLG2NH8uuqt4uEQrP8cDXbdagEYsIFGZX9Ev2t60SI=;
+ b=nDcfeBxC4gXQ4Ee0uUV/g2TE2DwEC5nA/E+3cep1ms7pKyp1DLAhTaz/PagdGYJl0b
+ KsZS3DhceRkOui8OVykE1jtWrvbkd0NvwUK2vsyDC1maVnX0DCyaV80ZkaGVuGQ7/+0b
+ 8tB7wioREfDmBBB9wOyT0ewbK5N3kBE4OwpDhU/pe31UcVvNbT+yxQuj+8e8LGI+KthI
+ JBC4xuhtVKTRU/2dwrH6ZVnPx8HiL36UzmBaw+uQ78OVGmWXu+eRx2NP/UIAUyJgHlM4
+ RK/WHsXvob5MulpWVIgmNf9hB+ZtrhqWPi8aKh/GVVNjL8MiFni8c+2n+pFQCc7FuHZo
+ n/rQ==
+X-Gm-Message-State: AOJu0Yy6/sZjk7SOrYFPb8Y5uh7aG8vB+6BOCFNmL4zYhaIWJc1GCQ/A
+ eys+lG6YawZgzj/YsqPn3/D+Vhtd2+o6f5PCMKLw6GMLUSYD7vyePmWeNdmjwd3wASaJowUQoqi
+ xbXtX803GxQR3UXx1mXZvObG8RLPKlsc=
+X-Gm-Gg: AR+sD12Wd7jUCMuFMd2st8aFoMGvD+q4pl9lLuj1RGwGnUujY5ppibBHqygiMXOvXHi
+ vQV3Gq02pUnsDu0tKQaoDGwDWILFtHncC4ERQIdMeia5LOhnrsezBVvt6wQaCkfZFIOPvV10/W4
+ Y584E2JTxiYIrA1qG+VYqwZ57BSyKm/0AOYQPiQm1MQX7VZ4KWWTxB/HLep0495V3RrjgDnIogA
+ 8P/4hGu5QYL3FX1RJXYOoKl1X4+zSCHKo9AU3O6snYZxg2ZIRmhFLLU0RyneT+TCqwbT87D9C1z
+ Fg7qS7YTHfOdvMjnDyB5YBfzB9R95uh4/PpbHeOXhjKC5ASCcde4Inb/FzfQ3NiMdJyv4SfHFc6
+ ZZQNt7l4/HYR1kWJO+0YfISxwBthq5zJE
+X-Received: by 2002:a05:6102:41a5:b0:740:2974:57bd with SMTP id
+ ada2fe7eead31-777f5a413a2mr936746137.0.1787165178019; Wed, 19 Aug 2026
+ 11:46:18 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E66:EE_|IA1PR12MB6459:EE_
-X-MS-Office365-Filtering-Correlation-Id: c1834dda-611e-4393-a21a-08defe20c8e6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|23010399003|1800799024|82310400026|6133799003|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: iEEHwOmKnWk4eG7xf/E5sUTYYoNH0HINxYbFv27roQpEcmVx9/5pmxuDnhb80z/PHglcpsWwSEVtuybJzLSwg9gM2LQ/XQhpfs1lmSktSBak23irSd9SLdJkB5xoHXvOmIxYIMLDVkAPRDQZauxFHLh+NsFcJQOJmWyo67otuQoZ39VHeNQTDoIlIriphXdBADngVMkoNntS4SQ9N3eotI5Uhg29llEff3DiakJmV51UlLmhApp1sg7v6JWdlbrtRnCwpPrPwsI6KUr7DubT8/OyUeKiZYBTUKxET9nYF8gQytssAbsy4Nam3q3HcdQEZHe3X04gzIBcp41PbHRccvd+HrpovT4DoGktpHhn9I7LpjPTiU4xgCQquB3lV7zv2da7TlNeZj65Aepin40drKD7n8TaaLwfpsCQRFs2Ijecyic3kuqsgjTC3fG/KfYFDLJxYNyuItJ2c74pqUh0oYolL/tDOT/ibhGuwq+jkq5YwxVwmDTO0uvFIi8RVIApKxdSFPtOgr/GM3S0ZTR7J22FJMBA3p/RTFwJCQqAMolKaAATVDCcUEq/c0MGF6Eukn6YoCPMNqggTO46n78x89AhkzCWrQlsUTzuSBY3dBUbIc3wdUr1CGbrhy+dJdQJNGQ3W1U/NDFmHb9wz8yasA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: /XlWvcdqJjDpBNMSBSv5k/ZFf6TtdAK7WhEUDnq/KhK3ptJ945h0WgDhAE6ndOwQcfrmF/iquVzK0ob33OVhPXMuolz0KL9rjRayhn8ZR8lDAtzXNRAP9Aa7zZVfxsfaGBb/ffQ5vx7NYoj1mbRrgcTswKLB0hflrhDYQLrKvtQLTbGaZC5OoS1GrtU8UMFHT4LL/4HjBc+dXQsoIu1fW0rWC0WMqCw3J4E3yYVc8sBYLnF7PhFPusuMZUkzJ8vvWDHBrVLiutT5NIfpshwBECFEE6Kx/QEidYakmoluICg5OqndiSktEtMbKczoG4ROlOg2cBafazKMNiawlMXx0mIvFVc4qGeo/GMQ6YIpr+gSclRXDHUUzYSx7GHftcTRcCKHGI7cpbRhoCLolD85gdzaJQzUwN1vHh7aM57zwcLJqreahqtJSBNKX8dqJEyF
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 18:36:29.5705 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1834dda-611e-4393-a21a-08defe20c8e6
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E66.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6459
+References: <20260819022138.3908141-1-Jesse.Zhang@amd.com>
+In-Reply-To: <20260819022138.3908141-1-Jesse.Zhang@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Wed, 19 Aug 2026 14:46:05 -0400
+X-Gm-Features: AcwNN1VWoESduIhIwrdU0Th4fMM2d_aL2m2JsVJ-jRSiRJWmB6mwJL1rkMTzsac
+Message-ID: <CADnq5_O=__oGRMPMDOaLG5sw2aG3NVuXZM5_2iQ7H2tai0CBEA@mail.gmail.com>
+Subject: Re: [PATCH v2] drm/amdgpu/userq: lock and validate wptr BOs before
+ reading their GPU offset on restore
+To: Jesse Zhang <Jesse.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
+ Christian Koenig <christian.koenig@amd.com>, prike.liang@amd.com, 
+ Sunil Khatri <sunil.khatri@amd.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,101 +106,103 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+On Tue, Aug 18, 2026 at 10:40=E2=80=AFPM Jesse Zhang <Jesse.Zhang@amd.com> =
+wrote:
+>
+> On resume, amdgpu_userq_vm_validate_and_restore_queue() updates each queu=
+e's
+> wptr GPU address via amdgpu_bo_gpu_offset().
+>
+> WPTR BOs are VM-mapped, but each BO has its own reservation object and is=
+ not
+> implicitly covered by the VM validation path here. This can leave offset =
+reads
+> without proper BO locking/placement state and trigger WARN_ONs.
+>   ------------[ cut here ]------------
+>   WARNING: amdgpu_object.c:1486 at amdgpu_bo_gpu_offset+0x75/0xa0 [amdgpu=
+], CPU#3: kworker/3:1/116
+>   Workqueue: events amdgpu_userq_restore_worker [amdgpu]
+>   RIP: 0010:amdgpu_bo_gpu_offset+0x75/0xa0 [amdgpu]
+>   Call Trace:
+>    <TASK>
+>    amdgpu_userq_vm_validate_and_restore_queue+0x629/0x960 [amdgpu]
+>    amdgpu_userq_restore_worker+0xa6/0x180 [amdgpu]
+>    process_scheduled_works+0xa6/0x460
+>    worker_thread+0x13c/0x290
+>    kthread+0xfb/0x140
+>    ret_from_fork+0x1b6/0x2b0
+>    ret_from_fork_asm+0x1a/0x30
+>    </TASK>
+>   ---[ end trace 0000000000000000 ]---
+>   ------------[ cut here ]------------
+>   WARNING: amdgpu_object.c:1485 at amdgpu_bo_gpu_offset+0x9a/0xa0 [amdgpu=
+], CPU#2: kworker/2:1/127
+>   Workqueue: events amdgpu_userq_restore_worker [amdgpu]
+>   RIP: 0010:amdgpu_bo_gpu_offset+0x9a/0xa0 [amdgpu]
+>
+> Add each queue's WPTR BO to the drm_exec ww context and validate it to it=
+s
+> allowed placement before the later offset update.
+>
+> v2:
+> - Clarify that WPTR BOs are VM-mapped (fix incorrect "not part of VM" wor=
+ding). (Christian)
+> - Describe both parts of the fix: lock BO reservations in drm_exec and
+>   validate BO placement before offset reads.
+>
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
 
-Fixes for 7.3.
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
 
-The following changes since commit 65b92bc671db7c222f8de1146c88e40fe8764d95:
-
-  Merge tag 'drm-xe-next-fixes-2026-08-13' of https://gitlab.freedesktop.org/drm/xe/kernel into drm-next (2026-08-14 18:30:33 +1000)
-
-are available in the Git repository at:
-
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-7.3-2026-08-19
-
-for you to fetch changes up to e4c3ab59021e7c146a84b6671f0d530972bd58b4:
-
-  drm/amd/display: validate plane degamma LUT size for private color prop (2026-08-19 10:14:55 -0400)
-
-----------------------------------------------------------------
-amd-drm-next-7.3-2026-08-19:
-
-amdgpu:
-- eGPU fixes
-- Runtime PM fix
-- UserQ fixes
-- Backlight fix
-- Discovery sysfs fix
-- Reset handling fixes
-- Buffer func handling fix for xgmi
-- VCN boundary check fix
-- DC lut handling fixes
-
-amdkfd:
-- Fix return value
-
-radeon:
-- iMac display fix
-
-----------------------------------------------------------------
-Akhmed Zhitaev (1):
-      drm/amd/display: Scale custom brightness curve from full range
-
-Alex Deucher (1):
-      drm/amdgpu: handle pipeline sync without a VM fence
-
-David (Ming Qiang) Wu (1):
-      drm/amdgpu/vcn: fix integer overflow in dec_msg buffer count check
-
-Gilles Risch (1):
-      drm/radeon: fix internal display on iMac11, 1 (RV770/DCE3.1)
-
-Guangshuo Li (1):
-      drm/amdgpu: fix autosuspend cleanup during removal
-
-Harry Wentland (2):
-      drm/amd/display: avoid divide-by-zero in __is_lut_linear()
-      drm/amd/display: validate plane degamma LUT size for private color prop
-
-Jesse Zhang (2):
-      drm/amdgpu: force complete the MES ring fences on reset
-      drm/amdgpu: force complete the KIQ ring fences on reset
-
-Mukul Joshi (1):
-      drm/amdgpu: fix sysfs ip base addr for 64bit in standalone mode
-
-Pierre-Eric Pelloux-Prayer (1):
-      drm/amdgpu: delay ttm buffer func enablement on xgmi
-
-Sunil Khatri (3):
-      drm/amdgpu/userq: ignore duplicate BO locks in userq signal ioctl
-      drm/amdgpu/userq: ignore duplicate BO locks when counting wait fences
-      drm/amdgpu/userq: ignore duplicate BO locks when returning wait fence info
-
-Yang Wang (2):
-      drm/amdgpu: Disable runtime PM for externally attached dGPUs
-      drm/amdgpu: check thunderbolt before switcheroo registration
-
-Zhu Lingshan (4):
-      drm/amdgpu: ensure all userq VAs mapped before restore
-      drm/amdgpu: validate rptr and wptr of a userq
-      amdkfd: let profile_lock_device return an int other than uint32
-      drm/amdgpu: fix hang and race in userq destroy
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         | 54 +++++++++++++++++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c      | 15 +++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c            |  1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ib.c             |  6 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          | 49 ++++++++++----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c    |  6 +--
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             | 27 ++++++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h             |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_xgmi.c           |  3 ++
- drivers/gpu/drm/amd/amdgpu/vcn_v3_0.c              | 10 ++--
- drivers/gpu/drm/amd/amdgpu/vcn_v4_0.c              | 10 ++--
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |  2 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_backlight.c    |  8 ++--
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_color.c    | 13 ++++++
- drivers/gpu/drm/radeon/atombios_crtc.c             |  5 +-
- drivers/gpu/drm/radeon/atombios_encoders.c         | 23 +++++----
- 16 files changed, 160 insertions(+), 74 deletions(-)
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 24 +++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/=
+amd/amdgpu/amdgpu_userq.c
+> index 17cc48d87c4d..ab8fc14a235b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -1054,6 +1054,30 @@ amdgpu_userq_vm_validate_and_restore_queue(struct =
+amdgpu_userq_mgr *uq_mgr)
+>                 drm_exec_retry_on_contention(&exec);
+>                 if (unlikely(ret))
+>                         goto unlock_all;
+> +
+> +               /*
+> +                * WPTR BOs are VM-mapped, but each BO has its own reserv=
+ation
+> +                * object. Lock them into this drm_exec ww context so the=
+ later
+> +                * amdgpu_bo_gpu_offset() reads are done with the BO resv=
+ locked.
+> +                */
+> +               xa_for_each(&uq_mgr->userq_xa, tmp_key, queue) {
+> +                       struct ttm_operation_ctx wptr_ctx =3D { false, fa=
+lse };
+> +
+> +                       bo =3D queue->wptr_obj.obj;
+> +                       if (!bo)
+> +                               continue;
+> +
+> +                       ret =3D drm_exec_prepare_obj(&exec, &bo->tbo.base=
+,
+> +                                                  TTM_NUM_MOVE_FENCES + =
+1);
+> +                       drm_exec_retry_on_contention(&exec);
+> +                       if (unlikely(ret))
+> +                               goto unlock_all;
+> +
+> +                       amdgpu_bo_placement_from_domain(bo, bo->allowed_d=
+omains);
+> +                       ret =3D ttm_bo_validate(&bo->tbo, &bo->placement,=
+ &wptr_ctx);
+> +                       if (unlikely(ret))
+> +                               goto unlock_all;
+> +               }
+>         }
+>
+>         if (invalidated) {
+> --
+> 2.49.0
+>
