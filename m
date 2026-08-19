@@ -4,122 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB102C5DF85
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 18:51:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2595CC5DF85
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 18:53:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 757D710EB89;
-	Wed, 19 Aug 2026 18:51:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F0D2810EC65;
+	Wed, 19 Aug 2026 18:53:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FoukTfIN";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qVEc/0Am";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012042.outbound.protection.outlook.com
- [40.107.200.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 21C4410EB89
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Aug 2026 18:51:33 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l+k6807NXL6L5e3ePxA7s6wMzItOOAwy4V3AAhEi892BO/0fcp5bt1vSm79+GoiwyetVC9HzOp9X/v7CZjIfegK7L5aOSMZK+BjbntQsvphD/SiwJ8Wzu4N/mpYH/hiTdw5GRyGqFkJwqmGyDQkXizQOdR2uIgJX5ZqmYgB9XUnlnsZBH5/kTLrt13ctUHxKTVPIEwHSJOnAxQ1+G/wSfy5tecUP3HolpLs8Vz1Q8hjNiAuFR35rOq2ZXkyQE6FiXRgYGtkXTEfTb8NGgxUTyTfIuy8r0C5Dh49NsesH7nr7THPE97lEnpHn8df8hbjEnuPjMvkUZJHmwcQcER24Sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sYqq8GhzYtwogTcOzeTHeL0N+2rC3Z9wVtfly7J0j1Q=;
- b=A//0ikGx2lkxs33irDHapK4PL5zI6E1yBA1Xz7c2/PlMpLA6WLcHdJ7NomPz59n4RTlB4LAlHpuWmHyrO1QL8pigXR13PiGoQZCs9x5QJ1B4zLdoCvVYXHV3TQiPry9ETXLvE95TErQ52vrmiCj3rAsME+d+wpvCpFJtmmFVFdzJ1g06wnZAiaVfs7K1GPgj2/WKWbCoP2+vtM7kwgqeQj7lQbQ24M0JzhZiJz+fjmnOdC9JZuJHxaPMIfPWN5iFxjpg42HBYC16gsKtljweN5wy8zvEKo9lbrnKe3InX3Y3mWxLMcC4xmEfmAEwzu+GYA8dOjfBR6b5k1DPQON/Tw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sYqq8GhzYtwogTcOzeTHeL0N+2rC3Z9wVtfly7J0j1Q=;
- b=FoukTfINX1L+6F9AP0rZZwiCF1g+zIT7sNBuiPEmfjI00fny99nLyUblbCBUvRjVcQzS8PH+1aiAo/SP0LRzNVSztyPRFe6UBPNyNwcnux960gvJZj1fY5qz/8r+nDhbSIcKhh2aZGzBoZCix9BK0YBXJaEBcC9ayRnnOR1lx6Y=
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
- by IA1PR12MB8494.namprd12.prod.outlook.com (2603:10b6:208:44c::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
- 2026 18:51:27 +0000
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23]) by BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23%3]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
- 18:51:27 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Koenig, Christian" <Christian.Koenig@amd.com>
-Subject: Re: [PATCH] drm/amdgpu/mes_userqueue: add MODIFY support for SDMA
- user queues
-Thread-Topic: [PATCH] drm/amdgpu/mes_userqueue: add MODIFY support for SDMA
- user queues
-Thread-Index: AQHdL8+EXFCq0RDB+Uml3orBIRhVYralt7wL
-Date: Wed, 19 Aug 2026 18:51:26 +0000
-Message-ID: <BN9PR12MB5146938FA3451458BF032D79F7A52@BN9PR12MB5146.namprd12.prod.outlook.com>
-References: <20260819114001.718908-1-Jesse.Zhang@amd.com>
-In-Reply-To: <20260819114001.718908-1-Jesse.Zhang@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-19T18:51:26.586Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|IA1PR12MB8494:EE_
-x-ms-office365-filtering-correlation-id: 506af424-e3ac-498a-a621-08defe22dfdd
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|56012099006|10067099003|8096899003|22082099003|18002099003|11063799006|38070700021;
-x-microsoft-antispam-message-info: jqlEcmpkvfwvCZUiIi82tIZpNf2FC/4dVxC8DxbgpRQLsbdPJCD6lrwRTfx0J1fdfCThJR1rLWt6RQDIjiV2hJoguFDnDlrO6PCTpOPAkrP4CRkVeibzT4eDnvo21227VxMOq1kHNCdDNuRuYkiNGaMNwUz/mH4FagGI/g/ypvvRp6ymiAFHNdKZiKqGiCHzd3eErVP95lF2Rx6XEhrSoQjwMtKD7Ut0KbU6BnJRObuvWtCHXc4jFK5kgwx6odvC879BdZREk1hRZsqqA/TuKn9RoN3EOXlD6D+XWnFh9HhytUrYOpjJ2tgrjOA8yfXCqMebn8RCjWkcVfCH+HSHMREUp1Nl/T04fG8/QzVlJYMINwSE8VyvARqlVU1ivBTlNxkNZVhRwNRptMzFfJxzKz4bWJoLkW8la3QNNQmCKYAsrX69govESvoRz76ST8sXG3/l8h6Y5eYL8HCBygIajDSQAl2dv1LeN1DcCS0gfHniI4SI7CGd+GSiRB+W/zr+sgJzNc0cGJ2M9GSl7eQE/cSDMpp4zJ3SAUMl/Ak8e9oGm14uch26gAh9dCAi/YrdFS8EJCk3YgiKgW8bD5KdTgq3RjFTNYtijxp7IcqjwMhGqWC+KoaxxdXv7SqNezK9EqtP484zgwGpDbsNBpjhjP9/d10F12ODm2JpCOUisjoMpasfIgt8U9T7eChZViFTetJCSWH1+0ERjBY5p38CmLr0RhmDuvMvhZhlP6V/h0w=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(56012099006)(10067099003)(8096899003)(22082099003)(18002099003)(11063799006)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?w4NYd1GvdqFLidcT68/KT+kihrvII31wAsQ2xgEgmiHnN5MtQ8Y+y5dNhXik?=
- =?us-ascii?Q?i6GMtPEuQSUGdX8p6f2NIfjKbJvH6wFKQRr0Wf8MBmtSOEn+aS9W3m/CBMYN?=
- =?us-ascii?Q?VxuD5kqqdUufeoRPckvxKgr2nXrx/Zw/n1WggWrJwgq+Ah8yWWw2ez0oDKZu?=
- =?us-ascii?Q?LZ/RYIwGcluCPuxz4gPcUEAJzGFwS9uHhrIPJQ8ARxpjyLQ/qzLR5oZGmcg/?=
- =?us-ascii?Q?bfZXJkFbFI5K4WRalA4ADGifKbObjRdK/vIyrDk48RMXhZPO8UGsplSnvvva?=
- =?us-ascii?Q?8LftnCVnFAG2yCCzne2wk3EZTo6Gfx+WHTWqWq+TRJ8vdExt+dd3so5lx31C?=
- =?us-ascii?Q?ehWt9Cg+MMMnfLJYfCYAwvjTBjZ8wtvwR4HyGQtMh3vK2jjZIsRTrZsZBhwI?=
- =?us-ascii?Q?fB0YeTxA1H7MF3a325yvxItDzzbxz6GHLom7rDCDvTkj4bfBMupwfpsWUjv8?=
- =?us-ascii?Q?xbL+KrEdmg8Ll65Ve0nkceN8p4dwZ2MfSa/y2pLQqwl0pvyFQYvHpIjSQRli?=
- =?us-ascii?Q?4XfRI1Ao/6K2MDrGC17ttV+V/+n+VFxdFZLZzSUenrQdO+oQSzFZcf3pHPqv?=
- =?us-ascii?Q?5hVg1JqM8JVc9oh0TJfqye4lZWhNAhUyr/Ywb2ChRLNbZACJ9CLPmsvWHBXL?=
- =?us-ascii?Q?b4mWs+ews+jYmari2N0Nsp8n34bFUxwQ9A7lW2dgLNlpG8zEL7Wfg3oO6dtF?=
- =?us-ascii?Q?BhvFffD44AvxuuQr+RiouS0B8NvI0BDmi4cLG41r0SXHDVg5SN6AzXS6nnTJ?=
- =?us-ascii?Q?6VIUJXWnfQbeP6tAj9lYMGLz/dfVucOOXMvHAQjl3td/g9rOU65L+HQV9XrC?=
- =?us-ascii?Q?ZuJrY5VySAScHXRJhL4DA+b65VpCnV4t/W7XIthaWmOimwl/7mhQZ69Q/U7C?=
- =?us-ascii?Q?XuJd629Y02X0I0JHvmCfXhqGcr/MOmR+JKA3aaa83uT4x7SdphFI/C2hI0d0?=
- =?us-ascii?Q?pRYxWj92QCXw5cxiczYyYc3yhy/D73A/MmgJykKLm144q/gNtQoZyYrXv0vu?=
- =?us-ascii?Q?c9ktguTAMt339w+pElxL9baOVG5DNtSZ09AZ9+lskEZBf3Ikw6fE7IkHwrYj?=
- =?us-ascii?Q?CIjI/XLk9duQ6fTP8twJ4iz2tKSIK2VpXisYvJAzS0nhIrRZFgd3TZcPZ3rt?=
- =?us-ascii?Q?MB3/F1+FgzP5va38ZuQybFJ84Qw4oTHwNhzBTrN8Rw4+wWI0u3GrCkd5q4ot?=
- =?us-ascii?Q?Hsg2IASZDtc2vpadK04pTr4rJNmtBT4gKYbW94igepgxJ9uMFWdnycyIBg4O?=
- =?us-ascii?Q?JCkopud6QPngF44xhwlH6XWSODd24Rjs5mF57oH2kFusHOFdBBGkKvBIUhUx?=
- =?us-ascii?Q?CTKfuBkwSfP1ZI1wL2cT/MfQyYEKjEtWF7jlUHslB3rGclK9FoGb+PYNVHux?=
- =?us-ascii?Q?DL55jg0QHomWxIeT859V0K5rb+v4vyqll5Vu/N7MfVCEvEio3lVp0CJNpHKr?=
- =?us-ascii?Q?ua3mE2vepoqAJ9sDsHxD7lW2yg1L3u7QWMHC8e4Tx/X59k8IMg6qxTsiE5CX?=
- =?us-ascii?Q?BB2W5E7oggmozIIktEkkWY/OawlADeAnpYTR6Eal5eh9gHM/JwG1ubCE8Veg?=
- =?us-ascii?Q?6zOI3TRUXWV6lE8j28H8GiEc7T9Yso6hHUGN9qZcYCeknwh00cVyzJoet58y?=
- =?us-ascii?Q?p1SbiYIM89XHT/dFxG4WlMXHx4yPJCCA/z4dLXyTtULbBLoe63wNBZ8vI2Mr?=
- =?us-ascii?Q?TZ5lmfP0cYHYU0wg+mnsVtMGePkSqPzBuiEMbih5l1CJ3LoL?=
-Content-Type: multipart/alternative;
- boundary="_000_BN9PR12MB5146938FA3451458BF032D79F7A52BN9PR12MB5146namp_"
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4547610E4D5
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Aug 2026 18:53:55 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-499a4d1d7f1so12070885e9.3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Aug 2026 11:53:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787165634; x=1787770434; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=LeaiBk7jtPj1JV25dNEYhySyvqZDMBq0LxTmZgiU7l8=;
+ b=qVEc/0AmaRFJetyb5ehO2lsMwC14fKhHXEsescnnXQKTtm/N0Od4pPjXiHJaRt+KUu
+ IsPyOZY7uImuSe569quyO+HjRiu3XMVOs8gMH1a3qcQRJXYOdyUK55Ce4ktvG28tfRB/
+ /Jyb7pWG26iEKlgNNB+ecvejt/hpLynEeyG8IUX5RJwPt+tHtTMleyzXTi1ygFpX8U/T
+ 9mW0TJpVIx0vZVPVIfqxUtJIFWszq+bGi70AAkBg2Uiag4t3RxlpjsiPRVMEy5HFuiYO
+ 8dYRJfW1mq5h9PFeMYp/14gHdg+osz3v2crHfZe+zfEqW0t1lin5K2gKJa8qPDgaBX6X
+ P3wg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787165634; x=1787770434;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=LeaiBk7jtPj1JV25dNEYhySyvqZDMBq0LxTmZgiU7l8=;
+ b=Sg9RMZ+hI2CKbNKSuOs0974ql0JEw9SF7T1w6eHXa9Ogmqodd88PiEdMAZizqsQC9+
+ RxFTzP3IVr1bskJ+VY/vHSHbDW3aKeySOkRvcdBYzXuhTvWODHOoWVGbi7h6OD94g5oy
+ u2u9kZkRXe0HUbwC0DPS9fZQubbCIsQouawasl7QUCw6jNTn40r1gb9MZrT/1IiKBdTb
+ /Ne0QWYxG60KPrKigMyCBR82M8Nr0m+Tm8qCkXezpS8cDEAITLHIN4+mziqzlb0Ou+Ri
+ MV4dLiJqeTXf17yB/wtBJZrUf9hJ0gtjaFTCC3j4/Wv3H9EH/GjB7VOt9XH9IjSRaTzF
+ 6oag==
+X-Gm-Message-State: AOJu0YzcdNZK18SYJfbiMLhqTFExBQpfcYHOZAg2n1jh6nVUA+xSLZQJ
+ BP6wettO27X/tsREm6tpJBycJU+3BG0sKyX++8L4UliqCWh9Qz7sB3Cx1Ap6DMRAUxE=
+X-Gm-Gg: AR+sD127do/pw11gDgU77Lgn5Gy8IEagkiXFstqMNyYNbw3Yaxy91+jPmR1Z38ggwqL
+ GNMPZix73+22wOnE3etpu+zFEpJLFj5gh1Mdtmatp/fbNOrIbxs7QaYaczB5Nn90oPmrJWSH9mq
+ x/Ap0D6fK3nLiZCpFuZPQs911y+JztpANdfaR+Q4HR2FUYaJJxWtmHq/Gkzs+ff+T/yuxG1SpqP
+ lLJ2sNOIbs5VD54hmLFdv7O/FzQ8l+LBuK4GXyzY0FWV5Tnde0hR5nRXaauPA8Z1mgkrgf7mZSw
+ hqUytu42FmpLfBbQxVRPqs8LYyjW5DyI4kLzuwiSSQ8fzdLkzAgD0EuO4qRT5aXbrOdcO+jnReN
+ Z92gAvs1nn2Hd/lb73zd85u4Hhx29mDebFR+90lcHzTGNHSLv0o8MYavcmi5o/7Iq3ynzpeFjmm
+ oHWUvLyyy8bYNlPYOJws2StdyWUGstQC7Pw7QgYNYBFZLWCHUs4PBEeYPoRD98mWfcLQUBahIve
+ yOQNJukvQBvQHtwLLMwUf6Yl88YgPQDSx2rwgyPizklylAyRN1gSM8MFILDuhMbMRuyzwTQnT0u
+ igKHvkb2PMKlpI+r
+X-Received: by 2002:a05:600c:4ec9:b0:495:6e68:5df2 with SMTP id
+ 5b1f17b1804b1-499aa1e33femr110408125e9.12.1787165633486; 
+ Wed, 19 Aug 2026 11:53:53 -0700 (PDT)
+Received: from horsehead.lan (p548c9e2a.dip0.t-ipconnect.de. [84.140.158.42])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-499aa0d6721sm104205315e9.11.2026.08.19.11.53.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 19 Aug 2026 11:53:53 -0700 (PDT)
+From: Denis Pisarev <pisarevden@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
+ mario.limonciello@amd.com, ionut_n2001@yahoo.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Denis Pisarev <pisarevden@gmail.com>
+Subject: [RFC PATCH 0/1] drm/amdgpu: MMIO TLB invalidation fallback when KIQ
+ is wedged after S4 resume
+Date: Wed, 19 Aug 2026 20:53:48 +0200
+Message-ID: <20260819185349.29407-1-pisarevden@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 506af424-e3ac-498a-a621-08defe22dfdd
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Aug 2026 18:51:27.0980 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9Z8JPON9IML1VuxMYApXoTul5ZN3relYKv1dC/j0Uk1HhGjjtavdy2ezylwsqL7FONYIHrAiQUpETrsmgwaI+A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8494
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,279 +88,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BN9PR12MB5146938FA3451458BF032D79F7A52BN9PR12MB5146namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Hi,
 
-AMD General
+This RFC follows up on bugzilla 219492 ("failed to write reg 28b4 wait
+reg 28c6" after hibernation) and on the resume_gpu_stable proposal
+rejected in January:
 
-Can you send a patch to handle gfx as well?
+  https://lore.kernel.org/amd-gfx/20260106125929.25214-6-sunlightlinux@gmail.com/
 
-Alex
+The rejection argued that (a) kiq sched.ready is managed correctly -
+set false in suspend, set true again only after ring tests pass on
+resume - and (b) the proposed flag would have disabled the KIQ flush
+path permanently. Both points are correct, and this RFC takes a
+different route: nothing is disabled proactively; the driver reacts to
+observed failures.
 
-________________________________
-From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> on behalf of Jesse Zh=
-ang <Jesse.Zhang@amd.com>
-Sent: Wednesday, August 19, 2026 7:39 AM
-To: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>
-Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Chri=
-stian.Koenig@amd.com>; Zhang, Jesse(Jie) <Jesse.Zhang@amd.com>
-Subject: [PATCH] drm/amdgpu/mes_userqueue: add MODIFY support for SDMA user=
- queues
+MEASURED FAILURE MODE (Cezanne iGPU, Ryzen 7 PRO 5850U, 7.1.8, KDE
+Wayland, no ROCm):
 
-mes_userq_mqd_update() only handled compute user queues and rejected
-every other queue type with -EINVAL, so an SDMA user queue could not be
-updated at runtime.
+- S4 resume -> "failed to write reg 28b4/28c6" + "1a6f4/1a706" pairs
+  begin in the same second as the thaw and continue at 80-140/hour
+  for 9+ hours until reboot. kiq sched.ready is true throughout (the
+  ring test at resume passed).
+- Two user-visible consequences: each failed flush burns the ~5 s KIQ
+  retry window (desktop-wide sluggishness), and the invalidation is
+  then silently dropped (stale TLBs - correctness).
 
-Add mes_userq_sdma_mqd_update() to update an SDMA queue's MQD from a
-drm_amdgpu_userq_mqd_sdma_gfx11 (csa address, queue size and ring base)
-and re-init the MQD. Validate the queue type up front, then dispatch to
-the SDMA or compute path based on queue_type.
+TRIGGER ISOLATION (single-variable tests, one hibernate cycle each):
 
-This aligns KGD user queues with KFD, which already supports updating
-SDMA queues via update_mqd_sdma.
+- stock (GFXOFF allowed across S4):    ~70-140 errors / 30 min of use
+- GFXOFF held off across S4:                    0 errors (30 min)
+- GFXOFF re-enabled 40 min after the clean
+  resume:                                      0 errors (15 min;
+  gating resumption not independently verified)
 
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 36 +++++++++++++++++++++-
- 1 file changed, 35 insertions(+), 1 deletion(-)
+So the wedge forms in the S4 resume window while GFXOFF is allowed,
+and is consistent with the existing semaphore workaround comment in
+gmc_v9_0.c about losing invalidate-acknowledge state across
+power-gating cycles. A boot-time amdgpu.pg_mask=0 does not even
+initialize on this part (probe -ETIMEDOUT), so runtime debugfs
+control was used.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/a=
-md/amdgpu/mes_userqueue.c
-index ad72ced472dd..03f6b5ab32ae 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-@@ -681,6 +681,36 @@ static int mes_userq_mqd_create(struct amdgpu_usermode=
-_queue *queue,
-         return r;
- }
+THE PATCH (1/1):
 
-+static int mes_userq_sdma_mqd_update(struct amdgpu_usermode_queue *queue,
-+                                    struct drm_amdgpu_userq_in *args_in)
-+{
-+       int retval =3D 0;
-+       struct amdgpu_device *adev =3D queue->userq_mgr->adev;
-+       struct amdgpu_mqd_prop *userq_props =3D queue->userq_prop;
-+       struct amdgpu_mqd *mqd_hw_default =3D &adev->mqds[queue->queue_type=
-];
-+       struct drm_amdgpu_userq_mqd_sdma_gfx11 *sdma_mqd_v11;
-+
-+       if (args_in->mqd_size !=3D sizeof(*sdma_mqd_v11)) {
-+               DRM_ERROR("Invalid SDMA IP MQD size\n");
-+               return -EINVAL;
-+       }
-+
-+       sdma_mqd_v11 =3D memdup_user(u64_to_user_ptr(args_in->mqd), args_in=
-->mqd_size);
-+       if (IS_ERR(sdma_mqd_v11)) {
-+               DRM_ERROR("Failed to read user MQD\n");
-+               return -ENOMEM;
-+       }
-+
-+       userq_props->csa_addr =3D sdma_mqd_v11->csa_va;
-+       userq_props->queue_size =3D args_in->queue_size;
-+       userq_props->hqd_base_gpu_addr =3D args_in->queue_va;
-+
-+       retval =3D mqd_hw_default->init_mqd(adev, (void *)queue->mqd.cpu_pt=
-r, userq_props);
-+
-+       kfree(sdma_mqd_v11);
-+       return retval;
-+}
-+
- static int mes_userq_mqd_update(struct amdgpu_usermode_queue *queue, struc=
-t drm_amdgpu_userq_in *args_in)
- {
-         int retval =3D 0;
-@@ -692,9 +722,13 @@ static int mes_userq_mqd_update(struct amdgpu_usermode=
-_queue *queue, struct drm_
-         if (!queue || !userq_props)
-                 return -EINVAL;
+- amdgpu_gmc_fw_reg_write_reg_wait() returns -ETIME on failure and
+  counts consecutive failures
+- gmc_v9_0_flush_gpu_tlb() uses its existing MMIO path as fallback
+  when the KIQ submit fails (invalidations no longer dropped), and
+  after 3 consecutive failures skips the KIQ path entirely until the
+  counter resets - so wedged systems stop paying 5 s per flush
+- counter resets on every success and in gmc_v9_0_hw_fini(); each
+  suspend/resume cycle re-arms KIQ. No proactive disabling anywhere.
+- gmc_v10/v11/v12 call sites unchanged and compile-safe (int return
+  used as statement); extending the fallback to them is trivial once
+  the approach is agreed.
 
--       if (queue->queue_type !=3D AMDGPU_HW_IP_COMPUTE)
-+       if (queue->queue_type !=3D AMDGPU_HW_IP_COMPUTE &&
-+           queue->queue_type !=3D AMDGPU_HW_IP_DMA)
-                 return -EINVAL;
+This mirrors what the sibling PASID path already does (KIQ submit,
+-ETIME on timeout, MMIO variant as fallback), applied to the per-VMID
+path.
 
-+       if (queue->queue_type =3D=3D AMDGPU_HW_IP_DMA)
-+               return mes_userq_sdma_mqd_update(queue, args_in);
-+
-         if (args_in->mqd_size !=3D sizeof(*compute_mqd_v11)) {
-                 DRM_ERROR("Invalid compute IP MQD size\n");
-                 return -EINVAL;
---
-2.49.0
+OPEN QUESTIONS:
 
+1. Root cause in the S4 window: RLC/ME not processing KIQ invalidates
+   while GFXOFF is allowed? Happy to run tracing (amdgpu.vm_debug,
+   VM_INVALIDATE ack registers) on the affected hardware on request.
+2. Should the latch be per-xcc-inst?
+3. Should amdgpu_gmc_flush_gpu_tlb_pasid()'s KIQ branch share the
+   latch?
 
---_000_BN9PR12MB5146938FA3451458BF032D79F7A52BN9PR12MB5146namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Patch 1/1 follows. Comments very welcome - especially on whether the
+failure-driven fallback is the right shape vs. fixing the S4 resume
+ordering directly.
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-AMD General</div>
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Can you send a patch to handle gfx as well?</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-Alex</div>
-<div class=3D"elementToProof" style=3D"font-family: Aptos, Aptos_EmbeddedFo=
-nt, Aptos_MSFontService, Calibri, Helvetica, sans-serif; font-size: 12pt; c=
-olor: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> amd-gfx &lt;amd-gfx-b=
-ounces@lists.freedesktop.org&gt; on behalf of Jesse Zhang &lt;Jesse.Zhang@a=
-md.com&gt;<br>
-<b>Sent:</b> Wednesday, August 19, 2026 7:39 AM<br>
-<b>To:</b> amd-gfx@lists.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&=
-gt;<br>
-<b>Cc:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; Koenig, Ch=
-ristian &lt;Christian.Koenig@amd.com&gt;; Zhang, Jesse(Jie) &lt;Jesse.Zhang=
-@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu/mes_userqueue: add MODIFY support for SD=
-MA user queues</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">mes_userq_mqd_update() only handled compute user q=
-ueues and rejected<br>
-every other queue type with -EINVAL, so an SDMA user queue could not be<br>
-updated at runtime.<br>
-<br>
-Add mes_userq_sdma_mqd_update() to update an SDMA queue's MQD from a<br>
-drm_amdgpu_userq_mqd_sdma_gfx11 (csa address, queue size and ring base)<br>
-and re-init the MQD. Validate the queue type up front, then dispatch to<br>
-the SDMA or compute path based on queue_type.<br>
-<br>
-This aligns KGD user queues with KFD, which already supports updating<br>
-SDMA queues via update_mqd_sdma.<br>
-<br>
-Signed-off-by: Jesse Zhang &lt;Jesse.Zhang@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 36 +++++++++++++++++++++=
--<br>
-&nbsp;1 file changed, 35 insertions(+), 1 deletion(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/a=
-md/amdgpu/mes_userqueue.c<br>
-index ad72ced472dd..03f6b5ab32ae 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c<br>
-@@ -681,6 +681,36 @@ static int mes_userq_mqd_create(struct amdgpu_usermode=
-_queue *queue,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return r;<br>
-&nbsp;}<br>
-&nbsp;<br>
-+static int mes_userq_sdma_mqd_update(struct amdgpu_usermode_queue *queue,<=
-br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_am=
-dgpu_userq_in *args_in)<br>
-+{<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int retval =3D 0;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_device *adev =3D queue-=
-&gt;userq_mgr-&gt;adev;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_mqd_prop *userq_props =
-=3D queue-&gt;userq_prop;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_mqd *mqd_hw_default =3D=
- &amp;adev-&gt;mqds[queue-&gt;queue_type];<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct drm_amdgpu_userq_mqd_sdma_gfx1=
-1 *sdma_mqd_v11;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (args_in-&gt;mqd_size !=3D sizeof(=
-*sdma_mqd_v11)) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; DRM_ERROR(&quot;Invalid SDMA IP MQD size\n&quot;);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return -EINVAL;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; sdma_mqd_v11 =3D memdup_user(u64_to_u=
-ser_ptr(args_in-&gt;mqd), args_in-&gt;mqd_size);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (IS_ERR(sdma_mqd_v11)) {<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; DRM_ERROR(&quot;Failed to read user MQD\n&quot;);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return -ENOMEM;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; userq_props-&gt;csa_addr =3D sdma_mqd=
-_v11-&gt;csa_va;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; userq_props-&gt;queue_size =3D args_i=
-n-&gt;queue_size;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; userq_props-&gt;hqd_base_gpu_addr =3D=
- args_in-&gt;queue_va;<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; retval =3D mqd_hw_default-&gt;init_mq=
-d(adev, (void *)queue-&gt;mqd.cpu_ptr, userq_props);<br>
-+<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kfree(sdma_mqd_v11);<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; return retval;<br>
-+}<br>
-+<br>
-&nbsp;static int mes_userq_mqd_update(struct amdgpu_usermode_queue *queue, =
-struct drm_amdgpu_userq_in *args_in)<br>
-&nbsp;{<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int retval =3D 0;<br>
-@@ -692,9 +722,13 @@ static int mes_userq_mqd_update(struct amdgpu_usermode=
-_queue *queue, struct drm_<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (!queue || !userq_props=
-)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (queue-&gt;queue_type !=3D AMDGPU_=
-HW_IP_COMPUTE)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (queue-&gt;queue_type !=3D AMDGPU_=
-HW_IP_COMPUTE &amp;&amp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; queue-&gt;que=
-ue_type !=3D AMDGPU_HW_IP_DMA)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
-&nbsp;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (queue-&gt;queue_type =3D=3D AMDGP=
-U_HW_IP_DMA)<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; return mes_userq_sdma_mqd_update(queue, args_in);<br>
-+<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (args_in-&gt;mqd_size !=
-=3D sizeof(*compute_mqd_v11)) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; DRM_ERROR(&quot;Invalid compute IP MQD size\n&quot;);=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; return -EINVAL;<br>
--- <br>
-2.49.0<br>
-<br>
-</div>
-</span></font></div>
-</body>
-</html>
+Denis Pisarev
 
---_000_BN9PR12MB5146938FA3451458BF032D79F7A52BN9PR12MB5146namp_--
+Denis Pisarev (1):
+  drm/amdgpu: fall back to MMIO TLB invalidation when KIQ is
+    unresponsive
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  2 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 15 +++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  4 +++-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 18 ++++++++++++++----
+ 4 files changed, 30 insertions(+), 9 deletions(-)
+
+-- 
+2.55.0
+
