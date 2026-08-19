@@ -4,79 +4,131 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E641FC5DF85
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 18:54:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30DFAC5DF81
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 19:04:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BF1B10EE80;
-	Wed, 19 Aug 2026 18:54:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FE3310EE8F;
+	Wed, 19 Aug 2026 19:04:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Hj6sj8K4";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="MBjEpjra";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C51FA10EE80
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Aug 2026 18:54:15 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4953de5be0aso11702845e9.0
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Aug 2026 11:54:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787165654; x=1787770454; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Zm036wVSHCwjE+KgqqdhRQjiPW8I9ChBRCr+PRjwQeU=;
- b=Hj6sj8K4U9VUHpfKEfsQ/r0DMNMfBQWDCoKmiAaFrSQ3xNtuJzlgcMy40Kic88u/bS
- KZm18OOyAput30SHmMQA28KGgkVCALOKqNzyE+cPJftRPnCYjQqWpyd45csfez9rYxv/
- 5YafuGm96lsFgfpMR5QsUlWHRl3ojwBYukX4cCayVHq52zwlwc9uZFsYv9SzMNsZpQjb
- +owZcTdRLgyo+UGd2/IeteQB0Yy+39pa9/LCQ8l18SSQB1MqQClIooDS3XbQXyS9mmZz
- nKHkipotd9sIlQ4HHOJKXOdwHQk9OcLgYPWvtzx1oK2G6NxoI2j5QZCVNZpWcffk0j/j
- 392Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787165654; x=1787770454;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Zm036wVSHCwjE+KgqqdhRQjiPW8I9ChBRCr+PRjwQeU=;
- b=qMTLjV1IQwRxAFKlD2zkahAt5xdDMgGSHTlvFbCtoR79oj7+ZWYJyXHC/MXPTGgDMU
- 8bS1i56OXRBwI4hGnitoTnlIAslbRH7P8Vr/xeekKazI04Tqq++X72QHgsnHuqqeCson
- AnJt1ZunGXdaW6WHyhKWbaAf0KCOKS9QiJM09iy0OgRxOsjw9SQ55tH6qWvG5CYIsA3c
- 7hc+ppNFfrgC6npwaV3y/c0V0/b+KBIupNLftg+xNSPgv7weFr+a2Y2WAOuAbdTi8kpq
- 0KQuSSUHrd0a3ftsBoazFSnjVYnAXmevUzgrOAHPURCradmeJjq3L8Trp9/98+r77Lrg
- XokQ==
-X-Gm-Message-State: AOJu0Yxtm+xr/tp93KAMOCfqJ3oWonEqdZA5rqQUc3LSe7+Uo7aLORme
- MdXDOu34Mgf6ic6KygTeEV3IQEjBtL1I2/uYpnXnCES5DsuQt7B8Kr5ccwe20n3ReL4=
-X-Gm-Gg: AR+sD13CzW8SCCgR+Ry9MiA8grJJeNHVAG3QWG3sXaHDfFK/mlxCCi/QqOYHHbJOUff
- qlbdpqFvFSQAX8XKXhIODuL7aRXcaOHjq0xwLqc5tkEONwwg7/GrPZvXX8684ixHOqjbGlwYFE3
- nYzgdqj0itNR3ZjxUO8ylVCk+pJpbyOq8vwWoCdrLHba1l/97h7KTUTZuV1JLfOiNKszPSnIuVQ
- YGG/KiRuPCy5NF6NNGGSdLmA4WRCEBaTT1rdHZtZTRVANBS/rZoUq3HnJhE5KPZOg5/K+zznfeu
- gI9nOaAjBRtK3oD2I101yQlcwaSsqCR5XZIodLHTkNBaTPeJ2tvrB0WrtAuhMD54tDJDCZVZWKs
- KIrTNe9WxCwroy5d5GXcKsOuSagmk/jATMKYfH2PWElfWPrqOBzbjDpV4rixx04QSv+g4p3sxvV
- VMQDHAmyBWCgU0vvYtqNBAxzrfvBPKdWmVaiA0vYR3UfnXEZ1w/ue+QZijcMHbE1dKMcztb3Q38
- ciT4qs7CZ13DocIfoHXwntiKg0eywlZ5NeN14y7E4w4x8nZ4h9oOgsQymWg+z6JmKDS9jZY/JV0
- wVdvbdY=
-X-Received: by 2002:a05:600c:6308:b0:499:80d0:8b73 with SMTP id
- 5b1f17b1804b1-499aa171fd8mr133181025e9.4.1787165653853; 
- Wed, 19 Aug 2026 11:54:13 -0700 (PDT)
-Received: from horsehead.lan (p548c9e2a.dip0.t-ipconnect.de. [84.140.158.42])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-499aa0d6721sm104205315e9.11.2026.08.19.11.54.12
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Aug 2026 11:54:13 -0700 (PDT)
-From: Denis Pisarev <pisarevden@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
- mario.limonciello@amd.com, ionut_n2001@yahoo.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Denis Pisarev <pisarevden@gmail.com>
-Subject: [RFC PATCH 1/1] drm/amdgpu: fall back to MMIO TLB invalidation when
- KIQ is unresponsive
-Date: Wed, 19 Aug 2026 20:53:49 +0200
-Message-ID: <20260819185349.29407-2-pisarevden@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260819185349.29407-1-pisarevden@gmail.com>
-References: <20260819185349.29407-1-pisarevden@gmail.com>
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012050.outbound.protection.outlook.com [52.101.53.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D089910EE8F
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Aug 2026 19:04:32 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QHgYSb4381xuudNE/WIgzyyD0uUvV7YvSaoDnnQzSaiqcLX/v0UJ3zcz5oxNq8PEfB+4flU6O5H7DVpx65EgOWD7aOeg/xujRJOtQjnFL68e4illk4cd9Awpj3TLW0nnletJZ97FJknDdvRc+bwTX6u5EjSnBgsRITKgMptI0cj2LGA2ROBy/UwoZ0oFmWiksBKx4+MHhME1HEB1Wywvk19SC8p0U/eVB0YzMzzb4NAp/WSQwPP7rrajw0IB9CptLTV6ubgyyCxeDc5GfVaAhm1Oq4O8s1Ca1qPtxqbuNO4mfI6aNkBwBShLv/cGxGd6FKiPvnHmCqDG4UlPT/a7tg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=s+Kk4lS2KlNyEyymy7nmP3KmJzHk6BiwVPTL2qfaRYw=;
+ b=kmWJASWYiZz9kirbrNhl3HwzaDqW5ADm9adsz6I/dOWEh0K+S3E1+JNhD2sb2wVVhEDrqyaRNBGR/oOabkKOKbkTc9OZNqF8PVedfqQ794qL4gEzz8hGBhG6rLblNLxJr7vGmDrge0/H7xcfjJAZZJvtLdIwQ5iCVK/xSrTgrS6F0WG7XNN9D5rJSC1PBWpNPqU3oFax9o6LagZnl1RKhmZVpV5XW47pbLuxi5AQ3fbeQX/g5pteQZfh6rlegAzuIpm8xEQQT6omtGFd2Dgvj+XC1XTTT1Atipba9Xuul+qniPnGrAbk8fpLGmmjGPUosAy6zJltcO30uqAWtcd3Zw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=s+Kk4lS2KlNyEyymy7nmP3KmJzHk6BiwVPTL2qfaRYw=;
+ b=MBjEpjra9nZ7AVAJB29Lc/bZPJpYvQ+5XEckTnL6+pmhAkDAhIx/pmLrplL/WoirtykKwPso4NtGoa92BVOOfP8wRrJZKmqe6bL/ofG8afN1nmz1dXpPmHpK/EcUuRSj7QSVvbMxaMpifsio6XqqxtcP3P8PkxM+tSRws33Ihzw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by DS7PR12MB8417.namprd12.prod.outlook.com (2603:10b6:8:eb::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
+ 2026 19:04:09 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
+ 19:04:09 +0000
+Message-ID: <bbeeb981-c4eb-48c6-a268-bec48d979be5@amd.com>
+Date: Wed, 19 Aug 2026 13:04:07 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] drm/amd/display: use
+ translate_curve_to_degamma_hw_format on DCN30
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, harry.wentland@amd.com,
+ simona@ffwll.ch, siqueira@igalia.com, sunpeng.li@amd.com
+Cc: Krunoslav Kovac <Krunoslav.Kovac@amd.com>,
+ "'Dr . David Alan Gilbert'" <linux@treblig.org>,
+ Bhawanpreet Lakha <Bhawanpreet.Lakha@amd.com>,
+ Aurabindo Pillai <Aurabindo.Pillai@amd.com>,
+ Matthew Schwartz <matthew.schwartz@linux.dev>, pekka.paalanen@collabora.com,
+ robert.mader@posteo.de, amd-gfx@lists.freedesktop.org,
+ kernel-dev@igalia.com, linux-kernel@vger.kernel.org
+References: <20260819161106.27702-1-mwen@igalia.com>
+ <20260819161106.27702-3-mwen@igalia.com>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20260819161106.27702-3-mwen@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR04CA0300.namprd04.prod.outlook.com
+ (2603:10b6:303:89::35) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|DS7PR12MB8417:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9c471e30-6c59-4ca4-9bf0-08defe24a5ff
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|366016|23010399003|1800799024|376014|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: JpHa4BFPC8Ghrbn7gtgecFjcH6GvWYDh58Z2ijU/NLrcqFS0i/6P0PSGvcjhlVN4nqtbRsGZqrsH7WndIf6Q0yLN23knBipqg1LdLvBEMlaJf28kKXhEdlL0jAtRuxhB17a2cRqU3P/zXbBQBfn4J4iKcwjxjIYA/eHDUf05FvmQYE/gBjsajMunhyMx6tU/v6cMiPtZfc9MuKU2lIA+bbBBhu8WGbvso+jpZrd65Tax1oh48tkUDrlSWE/+8wb4UhqSLHkJmBwbVWqzTKdIIvP1od8CXUac76s3L+DuVnB49G2dfc6K1VcR5arCahnO/lKebbObWptbvMF9L1GWYKF29TTk72vZOryyea4i/ZZ/5tA5gLTWokfbHApVfoX7Wj8C3nipAUGMNd8EvfACAd73yNT/LltdtmyGuj+anAMi99kBmMpcBi3dmOwPQEUS0e7NoCX00rNp8sD4oW+rQ6c4UXrSjoxXm+mMUqQgpONiUFb2y+xU1itfzB84/dnGdmcW5YNFkMuic70Ik/ph77BjTfT7Y4t51D343JWktOE97CPN99au2bOIeg+CFMS1ylt3LM90dsajRtAIRmWE+FCu4zlKi04o9VWYlaVyH4cW+PI+ojOKFgB5H70Ogfr/4H6EgrFhXZ3ur+MfP7Z0EGFVGWO/wNV9BvbPZ0O4bLQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(366016)(23010399003)(1800799024)(376014)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dTFjV21FbjdmMDJzamF5ZkV4RXRmK3N6SHZ4bUU1U0tJS1RUeU00R05xT0Zi?=
+ =?utf-8?B?aWpQMXE5am1LanFCamRJaXBWbndkb1V4YTdPUFRMU2x4eFFNUmw5ZXNwTHZD?=
+ =?utf-8?B?bUMzVkRDcnF6dkN3Wm0reUxSNC93c20ycm0yMmFrelVCS1h4OUk2L0g4SjlT?=
+ =?utf-8?B?eTBSaVpudlB0dEZkTDlnTVNUZ2RWQmRzUE51dkN6Mk1CNGNPWHc1VG9UVksw?=
+ =?utf-8?B?dmRuWVlReVArUHpSTHZVSU1KWkpVOENKS2IzUEpKREt0T0dHYURNUzJWOTJj?=
+ =?utf-8?B?VWprK1BRdHhEWUZrRnNzOHdjMUpaV09YWjNHRFN0SVAvL0lWTDA2QkdLOVRI?=
+ =?utf-8?B?bEozSStBSFpYVWpxQ3JoVmRXSkZ5ZmV4K0RXdXJZWkxuWWZsSHBKV3hlbXlE?=
+ =?utf-8?B?QTlMbEthZ0NxRkcvbmdTa1RlY25KblNIWWthQXJVLzErUHZCMUU0QW5Sd0tQ?=
+ =?utf-8?B?aFFCalArTTl6Y3QyRGx4blBEeDZrVmYxQmdxYkNvZytNdlBud2xrazlYS0NG?=
+ =?utf-8?B?cEZCUTh3Smo1ZXVPOTVvWktXMTlvWVllbTNmelJHRDBNUk1xWTNYaXdESjJ5?=
+ =?utf-8?B?elZrU1JVS0dLUHF1RHFmay94aklaeURLMlpwSkVkd09tSkw4b3ZmSEVIU2Z4?=
+ =?utf-8?B?QndUdHFQWFZzRXVpZWFoUDFDT0tLaDYreEF3MXpVNjhWZ3EzQ1JuNlBMcWk3?=
+ =?utf-8?B?d0xvWnpWbEhmQVMxZFcwM2dQMzE4ajRSdDNhTlZFeStxZ3dwUGZDT1ZyQTJw?=
+ =?utf-8?B?MUNFQ2VwejZNMjA4aHBJMXRQRWF4VFpNT2xhTkdEcVNSYzlGTk9BT2NMc2VM?=
+ =?utf-8?B?d2FxQlIzWnlPTXBybEh2NDMwSlRqUHhscTJ1c2xlenVZbXVsOVVSbXlKTXZO?=
+ =?utf-8?B?YnZuQzd4OTVYc3lUZ3J2OUE0anhONFpvUkFPOXRTRG4zVVN1K2p0Q1RvU2NZ?=
+ =?utf-8?B?RmdoZ3F2WFNFZFIrSTZXZFA4ZytQdTVtT3cvOUt5OWNuVnRDNFJjUEErWEgz?=
+ =?utf-8?B?UHFZaXVIb0Jzd0M4eHk5S1BncE1KWjkrMlpiM21yRmlvenJYM0svTElXUys3?=
+ =?utf-8?B?bkx3elZyakxONGhwOThzbDRCYXFTOGJRYUIvZjFrVnFjUVkzZW8veUdxaXlJ?=
+ =?utf-8?B?ZEQ1TytMc2NPOUljSno4SnBnd1N3ZmFDWmdsYXZ3bDZyTDlIUGhsVFRtc2t1?=
+ =?utf-8?B?aXRJeGQ1V2EvNEZmUzFjTDQ3U01PQnJ4TG5PcTkvZElNZnhtalc4OG9XeDlW?=
+ =?utf-8?B?VGUyODV0SkM3ZHoxeFlaenlxZ1hXVmhoOHdFY0xXM25GUG1CeHM3aVZuSHIx?=
+ =?utf-8?B?Ly9KTlBtbFROSCs5MnZpRktvMzRYZnhVQ1ExVlBtVm1WMTZQMUM0R0cxVExr?=
+ =?utf-8?B?bEpUa1dER2lhWHE4QUk4cjVSRCtheG5ROGp6S3JWVEpFRkp5MzJPZ3BhMlUy?=
+ =?utf-8?B?bjlLTnVBNDV2UlhuQk9YTFFXQUQ1TXd0QU9BaHUvYzFINno2T2FLT2ovVExP?=
+ =?utf-8?B?WjJoV1Z6UHc1OXlubUFJWXFsRXgzdHhSMHZBbXdJVjdua05KWlBGV0pwTnNw?=
+ =?utf-8?B?Q0tNRlV6NGEyZDg1TnVYbEtQVmZsMnQrR2IzZ1NFZlNHUFBCb0RnRFliakxU?=
+ =?utf-8?B?OXV1aEw1VzhJTXRMc1lUc1oxNGxUSnlPQ201cEFCOURaWW5id1hoVkZISXZ6?=
+ =?utf-8?B?Qitaek1IR2VZdVA3TmQrdVN2cTEyaFo5QjhIaFBzSUdmNVI5SmxaSWhjNGxj?=
+ =?utf-8?B?MUxZMWVWQ2VpbitFY2Q3RlpCS09ObXRja3ozTURIbVlJM2s1eVBmOHlTOEdI?=
+ =?utf-8?B?ZE1sdVBYbkdPeDdWYWMrM3Fod09LcWozWEpOZHBOYVFpSmhKUUdJcVVYc1Iv?=
+ =?utf-8?B?REtFYmlML0VNRmN4bFpZK0V3MzkzNzQ4cFdZQk5ueHhMbDJzUFhxenFZUGVB?=
+ =?utf-8?B?c0plb2Jxc2UyL2YvaGxIR0xFSXJnbG9oU25FNEc2WWNmdnFLekthallSN2R5?=
+ =?utf-8?B?M3pNVXkrV1ZNZWJpN2hYcXR2SG9aM3FVZmNaYWQxZTJGVjFkRmZVcmg2Y3pB?=
+ =?utf-8?B?NWV0bXpwcGVDMEo3YkNSRkNucTFLOC9QYVVyNHc1YmJyMnNiREx6OTRkZ2FI?=
+ =?utf-8?B?UlFhV1hyR29JTDM3MHhUcXYrd1lxN0tCbm10aElZTlV3OTZMMEYvcDRWZnFS?=
+ =?utf-8?B?alpWRjlua3dsNXliQUtDWlkvVTljcytnSklFdlMyeDU1SHp0Wmt3cFUzYk51?=
+ =?utf-8?B?Kzg2WE1PTXFjWmp2UlRtK2MwdTFMdzZIbkJrOEpPS1lzRTJSN3FqQ0wyZStY?=
+ =?utf-8?B?TTczeit4dUh1Slowc2VwU0s2OVA5K1ZiMlFWUXo1cXJZenkvZUpBZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c471e30-6c59-4ca4-9bf0-08defe24a5ff
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 19:04:09.2528 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: zqNKn3/eziDk6E4PPt9v/pJvd1Mw+CiXqsjqUFk09tS5MsbQp1qGdFshpMl8N2jVJzq0KaZ49r1bhmZMorXvBw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8417
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,204 +143,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-After resume from S4 (hibernation) on gmc_v9 parts with GFXOFF
-(observed on Cezanne / Ryzen 7 PRO 5850U, kernel 7.1.8), KIQ-based TLB
-flushes start failing at the moment of the thaw and keep failing for
-hours of normal desktop use:
 
-  amdgpu 0000:07:00.0: failed to write reg 28b4 wait reg 28c6
-  amdgpu 0000:07:00.0: failed to write reg 1a6f4 wait reg 1a706
 
-(80-140 errors/hour measured over 9+ hours; bugzilla 219492)
+On 8/19/26 10:00, Melissa Wen wrote:
+> DCN3.01 presents the same banding issue as reported in the link below,
 
-Two problems follow from the current code:
+This affects more than just DCN301 as below:
 
-1. Every failed flush burns the full retry window
-   (MAX_KIQ_REG_TRY * MAX_KIQ_REG_BAILOUT_INTERVAL = ~5 s) before
-   erroring out, which makes the whole desktop sluggish.
+drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_init.c: .set_blend_lut = 
+dcn30_set_blend_lut,
+drivers/gpu/drm/amd/display/dc/hwss/dcn301/dcn301_init.c: 
+.set_blend_lut = dcn30_set_blend_lut,
+drivers/gpu/drm/amd/display/dc/hwss/dcn31/dcn31_init.c: .set_blend_lut = 
+dcn30_set_blend_lut,
+drivers/gpu/drm/amd/display/dc/hwss/dcn314/dcn314_init.c: 
+.set_blend_lut = dcn30_set_blend_lut,
 
-2. The invalidation is then silently dropped - stale TLB entries are
-   left in place - because gmc_v9_0_flush_gpu_tlb() returns as soon as
-   amdgpu_gmc_fw_reg_write_reg_wait() finishes, whether it succeeded
-   or not.
-
-The KIQ ring is marked ready during resume after its ring test passes,
-but on affected systems the ring subsequently stops completing
-invalidation commands. sched.ready therefore does not reflect the
-state of the hardware in this failure mode, and there is no path back
-to the direct MMIO invalidation that already exists in
-gmc_v9_0_flush_gpu_tlb() for the pre-KIQ stage.
-
-Make the failure observable and self-healing:
-
-- amdgpu_gmc_fw_reg_write_reg_wait() returns 0/-ETIME and counts
-  consecutive failures in adev->gmc.kiq_flush_failures
-  (dev_err_ratelimited instead of dev_err, since affected systems
-  print this 80-140x/hour for hours)
-
-- gmc_v9_0_flush_gpu_tlb() falls back to its existing MMIO path when
-  the KIQ submit fails, so the invalidation is no longer dropped
-
-- after AMDGPU_KIQ_FLUSH_MAX_FAIL (3) consecutive failures the KIQ
-  path is skipped entirely until the counter is reset, so wedged
-  systems stop paying the 5 s retry window per flush
-
-- the counter is reset on every success and in gmc_v9_0_hw_fini(),
-  i.e. every suspend/resume cycle re-arms the KIQ path; nothing is
-  disabled proactively
-
-gmc_v10/v11/v12 call sites are unchanged (statement calls compile
-fine against the new int return; behavior identical). They can get
-the same fallback once this approach is agreed for gmc_v9.
-
-The sibling PASID path (amdgpu_gmc_flush_gpu_tlb_pasid) already has
-an -ETIME/MMIO split; this brings the per-VMID path in line with it.
-
-RFC questions for maintainers:
-
-- Is a per-xcd-inst latch preferred over the global gmc one? (single
-  inst on the affected hardware here)
-- Should the latch also gate the KIQ branch of
-  amdgpu_gmc_flush_gpu_tlb_pasid()? (no failures observed on that
-  path on the affected system)
-- Root cause: with GFXOFF disabled across the S4 cycle (debugfs
-  amdgpu_gfxoff), zero errors occur across resume and 30 min of use
-  vs ~70-140 in the control arm. The wedge forms in the S4 resume
-  window while GFXOFF is allowed, consistent with the existing
-  semaphore workaround comment about losing invalidate acknowledge
-  state across power-gating cycles in this file.
-
-Tested on Cezanne (Ryzen 7 PRO 5850U, Manjaro 7.1.8): S4 resume with
-GFXOFF enabled reproduces the failure storm on stock; hibernate loop
-testing of this patch pending maintainer feedback on the approach.
-
-Signed-off-by: Denis Pisarev <pisarevden@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  2 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 15 +++++++++++----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  4 +++-
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 18 ++++++++++++++----
- 4 files changed, 30 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 7b09410d6..cd5d9e56e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -360,6 +360,8 @@ enum amdgpu_kiq_irq {
- #define MAX_KIQ_REG_WAIT       5000 /* in usecs, 5ms */
- #define MAX_KIQ_REG_BAILOUT_INTERVAL   5 /* in msecs, 5ms */
- #define MAX_KIQ_REG_TRY 1000
-+/* consecutive KIQ TLB flush failures before falling back to MMIO */
-+#define AMDGPU_KIQ_FLUSH_MAX_FAIL 3
- 
- /*
-  * BIOS.
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 5d6149ba7..000a1d107 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -874,7 +874,7 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
- 	return r;
- }
- 
--void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
-+int amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
- 				      uint32_t reg0, uint32_t reg1,
- 				      uint32_t ref, uint32_t mask,
- 				      uint32_t xcc_inst)
-@@ -888,7 +888,7 @@ void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
- 	if (adev->mes.ring[MES_PIPE_INST(xcc_inst, 0)].sched.ready) {
- 		amdgpu_mes_reg_write_reg_wait(adev, reg0, reg1,
- 					      ref, mask, xcc_inst);
--		return;
-+		return 0;
- 	}
- 
- 	spin_lock_irqsave(&kiq->ring_lock, flags);
-@@ -919,13 +919,20 @@ void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
- 	if (cnt > MAX_KIQ_REG_TRY)
- 		goto failed_kiq;
- 
--	return;
-+	atomic_set(&adev->gmc.kiq_flush_failures, 0);
-+	return 0;
- 
- failed_undo:
- 	amdgpu_ring_undo(ring);
- 	spin_unlock_irqrestore(&kiq->ring_lock, flags);
- failed_kiq:
--	dev_err(adev->dev, "failed to write reg %x wait reg %x\n", reg0, reg1);
-+	if (atomic_inc_return(&adev->gmc.kiq_flush_failures) ==
-+			AMDGPU_KIQ_FLUSH_MAX_FAIL)
-+		dev_warn(adev->dev,
-+			 "KIQ reg access keeps failing, falling back to MMIO\n");
-+	dev_err_ratelimited(adev->dev,
-+			    "failed to write reg %x wait reg %x\n", reg0, reg1);
-+	return -ETIME;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index ddb0d500e..3e5c152ad 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -366,6 +366,8 @@ struct amdgpu_gmc {
- 	bool flush_tlb_needs_extra_type_0;
- 	bool flush_tlb_needs_extra_type_2;
- 	bool flush_pasid_uses_kiq;
-+	/* consecutive KIQ TLB flush failures; MMIO fallback when latched */
-+	atomic_t kiq_flush_failures;
- 
- 	bool override_pte;
- };
-@@ -447,7 +449,7 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
- 				   uint32_t flush_type, bool all_hub,
- 				   uint32_t inst);
--void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
-+int amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
- 				      uint32_t reg0, uint32_t reg1,
- 				      uint32_t ref, uint32_t mask,
- 				      uint32_t xcc_inst);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 8a5c44810..a262df837 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -798,13 +798,18 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- 	 * properly under bare metal
- 	 */
- 	if (adev->gfx.kiq[inst].ring.sched.ready &&
--	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
-+	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev)) &&
-+	    atomic_read(&adev->gmc.kiq_flush_failures) <
-+			AMDGPU_KIQ_FLUSH_MAX_FAIL) {
- 		uint32_t req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
- 		uint32_t ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
- 
--		amdgpu_gmc_fw_reg_write_reg_wait(adev, req, ack, inv_req,
--						 1 << vmid, inst);
--		return;
-+		if (!amdgpu_gmc_fw_reg_write_reg_wait(adev, req, ack, inv_req,
-+						      1 << vmid, inst))
-+			return;
-+		/* KIQ submit failed - fall through to the MMIO path below
-+		 * so the invalidation is not silently dropped
-+		 */
- 	}
- 
- 	/* This path is needed before KIQ/MES/GFXOFF are set up */
-@@ -2238,6 +2243,11 @@ static int gmc_v9_0_hw_fini(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
- 
-+	/* KIQ is re-initialized on the next resume; give it a clean
-+	 * start for the MMIO fallback latch
-+	 */
-+	atomic_set(&adev->gmc.kiq_flush_failures, 0);
-+
- 	gmc_v9_0_gart_disable(adev);
- 
- 	if (amdgpu_sriov_vf(adev)) {
--- 
-2.55.0
+> but the previous fix doesn't cover this hw. Change the helper for
+> degamma/blend curves for DCN30-based family.
+> 
+> Link: https://lore.kernel.org/amd-gfx/20260623160112.1636801-1-mwen@igalia.com/
+> Fixes: 3719314af322 ("drm/amd/display: use a separate helper to translate degamma curves")
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
+> ---
+>   .../gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c    | 10 ++++------
+>   1 file changed, 4 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+> index cb163902e12e..6980f622db0a 100644
+> --- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+> +++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+> @@ -243,10 +243,9 @@ bool dcn30_set_blend_lut(
+>   	if (plane_state->cm.blend_func.type == TF_TYPE_HWPWL)
+>   		blend_lut = &plane_state->cm.blend_func.pwl;
+>   	else if (plane_state->cm.blend_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
+> -		result = cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
+> +		result = cm3_helper_translate_curve_to_degamma_hw_format(
+>   				&plane_state->cm.blend_func,
+> -				&dpp_base->regamma_params,
+> -				false);
+> +				&dpp_base->regamma_params);
+>   		if (!result)
+>   			return result;
+>   
+> @@ -337,9 +336,8 @@ bool dcn30_set_input_transfer_func(struct dc *dc,
+>   	if (plane_state->in_transfer_func.type == TF_TYPE_HWPWL)
+>   		params = &plane_state->in_transfer_func.pwl;
+>   	else if (plane_state->in_transfer_func.type == TF_TYPE_DISTRIBUTED_POINTS &&
+> -		cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
+> -							&plane_state->in_transfer_func,
+> -							&dpp_base->degamma_params, false))
+> +		cm3_helper_translate_curve_to_degamma_hw_format(&plane_state->in_transfer_func,
+> +								&dpp_base->degamma_params))
+>   		params = &dpp_base->degamma_params;
+>   
+>   	result = dpp_base->funcs->dpp_program_gamcor_lut(dpp_base, params);
 
