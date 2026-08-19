@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22EE9C5DF85
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 20:15:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B426C5DF81
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 20:15:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF33F10E1BB;
-	Wed, 19 Aug 2026 20:15:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA76510E1C3;
+	Wed, 19 Aug 2026 20:15:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hVuGVvW2";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2U+Vkazk";
 	dkim-atps=neutral
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012024.outbound.protection.outlook.com [52.101.48.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7ED2A10E1AD
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Aug 2026 20:15:11 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011004.outbound.protection.outlook.com [52.101.52.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3DB4810E1C3
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Aug 2026 20:15:18 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TpE7Lc2ozgMEmPBkFtwf2hoIJSlOjB11y5aSAItHs2FQMMjTUZpb4OsXi3ZSXKOUIqf5bML3//CrAWl+FhfiPFKb7OfPgaSQ/Qj7GE1f/LDllmL0OkmUB6Buqd1Ty8a0X0Fo7jcNJZ6Bz3VWxc5ZNNmwaNpsIb7VyKg80+QzZ5B2/W91Ai5xsH0GwTeKVga82zj4h7wb1F3LEwiRMYqHMSryv5N9yjdUdFgQq1ZOAWpSXGU1nwvcK1WYFPDGHhhYTBjqyW2nLfGGVVsCBpAnp4sEk4QEAYyqixcs81KoahFznRTmAgWzo3ph11lSd7w7wxY/UcoB0SXSuY3V8uXbMw==
+ b=wbmUhK7AFB5uBeOL1S7f4IrqhdJE//rL43lJvBPgm6d46HLC7tjM6VKSxtq/lMHugN0qHBZueE5fFJy15+HnOfYzSTjd3/Lf9Vza9QB8T6PizPHo/AHU5InQhrBcin21OmzdZuihkiXnxGHXhzpCDQP5ZflLl9CdrVNm4xT0ahbNBXNxxbBn6n6k0CQu6lFmUBX0dN6PySHluqllcWu2dX/qme3vNcPuBOoSMDZN4UoDvNQa1ViiJSvIy44Gu3uNZGxxJg/iFSFWqikjUq+qVDF+42+thfZYG9lZ99i8etX3ggJM/meYRFUTwd+5WhOLepq8BbJEiZujBSlf0L8vvA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=33O/IX74VS898zXvFY/iX09AdWFt47mhbNtic3ytx3c=;
- b=cICIxkwYzJ2eK496vv7UtUPQimWud4rR4FGpY9YHjQQcWWbk/MzgwmLB8iWEU971u0vOphiuJt13ocCFER0MoHc4VhO4XACSr+TXWT/l5+MsKExh14pVvBnLXUpt8XhMI+WAxtVjOG6ip5Qgxtb2mmMk/5KIu/MqcHDATWPoaI5ZAg+ns5xDv6HovZ9soAlcu11HacxcLf3xAfrOCZZK98C51+N3JFV7sBdxpoo7RfCGMjVs5NMKWNlP5kjBw9n1jnkQduKh7Hu2oVqGIWbYjXJPWCH0UNiAbKXBgyTRcE23JhSayL+mUpC61Dh6nNEC63MkoJkSoiGZcBx1AZJQvw==
+ bh=L6phRmRDZYWEThPMp8KOBwtm/3hEO+s9AqbZr7xW6Hw=;
+ b=Nu/jv+XvFW0TUyraSzjw9pHwmcEsVDuOQAmgycMvAn4DS701IvYr3gzGQc3ARsvtLZQi2DbfXIC4b5wVM6eLsS0/tymANi0dmWb352CiqLL0oEnsEwM9RkPHP9s6lCJdugS1L8iwFd+huuhT3DNct7+u+zmUNb09cQ4I5hxqWHyWTtAGIJ3i8fhSyFkzI6yAGJUmlOHFR+fLSELmhf9c4Zin9otMx/oRHEslCsTru1I90d0CTUDqpMyD5Gs3Bfs1ClhpbWHWtnllNyefJWatCDZnCgFTz1lsAfIvMpze09KZ5onaCRt1VI/ICftFefZcZxQgE3nvajBvgC6N/iFSKQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=33O/IX74VS898zXvFY/iX09AdWFt47mhbNtic3ytx3c=;
- b=hVuGVvW2VG4/R13aAoriwGwI3p/nv3gnnSfOAYzyTDeFW8nA8g/ukAfvz1DamhUrcCRxJxKi+LvZ8luRUdQMp1eyfUtDKxOWqiaXmqaqJFEvaSnpmGXnrVWjcQZdqZ4Jq093Kuulnzu3fGYzqobn81tYNVcCXSFE4KMgTQQl1dc=
-Received: from CH5PR05CA0009.namprd05.prod.outlook.com (2603:10b6:610:1f0::15)
- by CH1PR12MB9600.namprd12.prod.outlook.com (2603:10b6:610:2ae::19)
+ bh=L6phRmRDZYWEThPMp8KOBwtm/3hEO+s9AqbZr7xW6Hw=;
+ b=2U+VkazkcZHAtsx7NaEdJ8bxSt50wY0xbi0nF9qDKTU895mg8xw2Qxuo5YdDhkfjhSJApDuuqrT01DlJwFEwfsflWr+P8IJZNs04xgZ0WfIl7MHFJXv0kKe0HbeCSKhnOC1crC9UAR0pEn4D3c2Wg6UbMrjYlteiCtDS3NRNhFI=
+Received: from CH5PR05CA0008.namprd05.prod.outlook.com (2603:10b6:610:1f0::17)
+ by CH3PR12MB7619.namprd12.prod.outlook.com (2603:10b6:610:14b::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Wed, 19 Aug
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
  2026 20:15:07 +0000
 Received: from DS2PEPF000061C5.namprd02.prod.outlook.com
- (2603:10b6:610:1f0:cafe::5d) by CH5PR05CA0009.outlook.office365.com
- (2603:10b6:610:1f0::15) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:610:1f0:cafe::4c) by CH5PR05CA0008.outlook.office365.com
+ (2603:10b6:610:1f0::17) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Wed, 19
- Aug 2026 20:15:06 +0000
+ Aug 2026 20:15:07 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,18 +50,19 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  DS2PEPF000061C5.mail.protection.outlook.com (10.167.23.72) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Wed, 19 Aug 2026 20:15:06 +0000
+ 15.21.339.3 via Frontend Transport; Wed, 19 Aug 2026 20:15:07 +0000
 Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 19 Aug 2026 15:15:05 -0500
+ 15.2.2562.45; Wed, 19 Aug 2026 15:15:06 -0500
 From: Eric Huang <jinhuieric.huang@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <Tishko.Araz@amd.com>, <Alexander.Deucher@amd.com>, Eric Huang
  <jinhuieric.huang@amd.com>
-Subject: [PATCH 2/3] drm/amdkfd: workaround 100% gpu usage issue for gfx11
-Date: Wed, 19 Aug 2026 16:14:42 -0400
-Message-ID: <20260819201443.282689-2-jinhuieric.huang@amd.com>
+Subject: [PATCH 3/3] drm/amdgpu/userq: create the same workaround of
+ oversubscription timer
+Date: Wed, 19 Aug 2026 16:14:43 -0400
+Message-ID: <20260819201443.282689-3-jinhuieric.huang@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260819201443.282689-1-jinhuieric.huang@amd.com>
 References: <20260819201443.282689-1-jinhuieric.huang@amd.com>
@@ -73,29 +74,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF000061C5:EE_|CH1PR12MB9600:EE_
-X-MS-Office365-Filtering-Correlation-Id: bd7d7b9d-37f6-4ec5-c21f-08defe2e8fe5
+X-MS-TrafficTypeDiagnostic: DS2PEPF000061C5:EE_|CH3PR12MB7619:EE_
+X-MS-Office365-Filtering-Correlation-Id: ae49aa41-0d69-4821-a42e-08defe2e9048
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700016|23010399003|376014|18002099003|22082099003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: ILY6Wr8TzxQxWVsMuAsESk0y0HckUtS4MNH7m2GOH16wuZ0bkSTIQXi4Z1WNV1CCC+osBufFDXUxFh6odAXbkV3vlThWzCHudBgshnmYAx5uFgWVOdOtRyFFdw4DZmlyNhvt9KDUZhF22KpRevnmLqrl9VlIugvqrjN+M8LcPmb8BXEHTBcKK/soDNuRalumGiFXsojz5G0nPBUyW59xdQiYJCYkjbuTATQIxJqvE2tCGTLMXrOjaX+83i7xs/8Iq21Cb4RDg1CDwJqPnUMIHNROMMEzBn1sq53dxQJOV+iG6BMRv67XczqrMNqGM2entbyX/wPoRx5SSTEzlI8UkRios+XhWls2VP/9dd0i15ReY6E6buYNbXLQdkdDq+S0Rfaz02//yG/bpLn9QkDeWN2niLV/ap1ri7nZLvdT8Hnz+IycbPX0+U+/bApLnGSUuHkYc+Yv3QpcEJukNnCVkNa4h5DcaqMSmMGMbYLfMNsY+9QRNrQNnIUz66lFiOzOLhOK6n2N6XBHk+VLkbxkWW5NOi/2tDV78NfahbxhQtJI6CDKFYXP0mZ7BY1/+d3N2erB22bzYwDx8M7abGRoMhCG6Yozx7F40/iH9YJP+UvtioaBc5FChJ+tOGGSzJ4QLZQhNWWq/Vp1uQwSQxVXcTLAChuHTT1BU6M9IzqF3X2krRQBSCbIspQ0bDvXcxGoIoLAZ8M3SMRTceLYF0jf0Q==
+ ARA:13230040|23010399003|82310400026|36860700016|376014|1800799024|11063799006|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: ZXW5P+EMOc8rUlFjWQZcp1/kB4otmUlUPJ//j/WyrBUd0uJ+NiIouX6TuPTNy3VAt8TPiPcT9zE57wsVSdSSRTWwHBp5becQYfbz7DvvrT94iR+dhcD/ytOPDMlWNEkHNP5QyUlMR9PucD1UepdNyZr/iYxJEZKdtpXXhJ4GUnexnxdph+38haj4/xsJSL8NbzoxXEvlN0l/PgymUbmxHSndNN9W/lBEJihP+Vy8O//rLHRPpJuUbq5yuyabxLYU37AwVvc8aOH2R9fWPOz1CayvZJRaZMfqkBkkJDqemUdJhN266qVrz0scdSTW7mRk9HuBswqO4mb2vaVy1hYV/0z1k//L9l4PdG1sC21FWEuBhv1i95KXvRFnpOgu3vAEa+VVIoUi4KJMCUu0rruvpKn6jUM1R8Vq4VmbNSIm4NNqmCaqHHkQf9DGTlngANRmGQ6Ltl+iFQWoHwxC7+BV373SY9e8nZ/lL00H5plEAzalRHp/BMVlPul/JQSYSKPHPmnOj73lStRSOFQgqojLrcq/3x2kLUJasGe3qSxmwm4oR/jLs4ySI+3OqBnbi8yzIpEnbz7GOWNAyaUXmRF98bsOCKikyhZmjFL5pvQqGEfwnsfaQXuXIh/G88SlSKOLzO6gID6FPxnmxB86y9lTZ7yMEINzShdIWyFblySdTZPNty9RUuoKXW8P3iBpkmxQYfgkrZnCtQ5aR40sPyC+4Q==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700016)(23010399003)(376014)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006);
+ SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(11063799006)(10067099003)(56012099006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Slgx02Fg0fEAz4axU6gDvMFgvUJ1bG9S+13QpADnQxitlQKUJRcRMgGY9F/QYwvXJvNKBPYGfzIVgRqbsnYjKaoFzz2IUxhoyRTRuTMXAmZhg3DcK3SWSpoPg0ff+8rXnG0TCvk58b62KQLN88zoZyiJkUijkt8DFmhrgQ6dePXVaMP7dTfuPQAtvh0Sy79j3yU1MK6GfVQji0VQcNQ0UyUL+Le5EsJXXDl3ytBRfmwMWDSYmZ+cNBOI3iQ0YXi3jJEDEtboI5EvIXJBWmfQP84e8MdwlSir+I267AhmGczCRZxx5GSnfjBM3KWAcqycU1U5TkypLUx8EXGiefgCPNt1OFkTcHIRiF21nisli7krYUOZwKSAuEpxspiIvz37iiQ1sfAb2IbiqufWU8rsdmGwHMQlzZ0yIQfSS2JdSlLvsz0svyyVqshAVfZPRUFx
+X-MS-Exchange-AntiSpam-MessageData-0: fCdiF9WHVE8Mrt8y7HQrcLKlO6MnFkg7nzT/Ts1cEWWB9unx2n+uO37NHXRGzITZVPoqJBiZwp3/ZlmeBV+2TwZBYo0VoQUh+KlrPA5HvyDueuVqaeI3QX48Kv1HVHsRyPaOgQx8EEivfgRGG2DDwJDGPcfkuj2bk1G2UuLCe5neuBQM04AMz+JaaVyZhvlgJCuURh4rkbTUQz/veUNCd/Lh6zKUxBc3uHqqZk5FrDNwkFnLIJN9QSQtOW841sgmUT3T4XOik2vTRZoNXWS98LLDw80qnAiPGVd4rQ1swPzAkwZgzttKvAp7nFj/PEJE1AFLaBr1K5tnl0H2CVp8rQ0W0qpM2cpmZ/teM0lk2FZAYJs+FDIpNwQb1ipcRTYhbHzI/0/vkufa2dfJX0pGNo1vpwgSvk/3ujc947P8YuqDlf6S/IYafW52bTvn3UU+
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 20:15:06.8555 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bd7d7b9d-37f6-4ec5-c21f-08defe2e8fe5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 20:15:07.5413 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ae49aa41-0d69-4821-a42e-08defe2e9048
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF000061C5.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PR12MB9600
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7619
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,129 +111,178 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-the issue only happens with oversubscription when gpu has no
-workload, the root cause is mes oversubscription timer, so
-disable mes timer and make a similar timer in kfd to resolve
-the issue.
+removing MES oversubscription timer will affect both amdgpu/amdkfd, so
+add the similar timer for amdgpu userq as well.
 
 Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c        |  1 -
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 39 ++++++++++++++++++-
- .../drm/amd/amdkfd/kfd_device_queue_manager.h |  1 +
- 3 files changed, 39 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c    | 70 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h    |  7 +++
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 10 +++-
+ 3 files changed, 85 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index df71e9447b35..33ff1afd7c4c 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -1024,7 +1024,6 @@ static int mes_v11_0_set_hw_resources(struct amdgpu_mes *mes)
- 	mes_set_hw_res_pkt.use_different_vmid_compute = 1;
- 	mes_set_hw_res_pkt.enable_reg_active_poll = 1;
- 	mes_set_hw_res_pkt.enable_level_process_quantum_check = 1;
--	mes_set_hw_res_pkt.oversubscription_timer = 50;
- 	if (adev->mes.use_rs64mem)
- 		mes_set_hw_res_pkt.use_rs64mem_for_proc_gang_ctx = 1;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+index 421d937c1188..b2c64ec8e0af 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
+@@ -101,6 +101,8 @@ static inline u32 amdgpu_mes_get_hqd_mask(u32 num_pipe,
+ 	return (total_hqd_mask & ~reserved_hqd_mask);
+ }
  
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index a23384571193..45e039c9f31b 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -47,6 +47,9 @@
- /* See unmap_queues_cpsch() */
- #define USE_DEFAULT_GRACE_PERIOD 0xffffffff
- 
-+/* Interval for notifying MES of work on unmapped queues during oversubscription */
-+#define DQM_MES_UNMAP_NOTIFY_DELAY_MS 50
++static void amdgpu_mes_userq_notify_unmap_work_handler(struct work_struct *work);
 +
- static int set_pasid_vmid_mapping(struct device_queue_manager *dqm,
- 				  u32 pasid, unsigned int vmid);
+ int amdgpu_mes_init(struct amdgpu_device *adev)
+ {
+ 	int i, r, num_pipes, num_queues = 0;
+@@ -123,6 +125,9 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
+ 		spin_lock_init(&adev->mes.ring_lock[i]);
  
-@@ -276,8 +279,16 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 			q->properties.doorbell_off);
- 		dev_err(adev->dev, "MES might be in unrecoverable state, issue a GPU reset\n");
- 		kfd_hws_hang(dqm);
-+		return r;
- 	}
+ 	adev->mes.total_max_queue = AMDGPU_FENCE_MES_QUEUE_ID_MASK;
++	atomic_set(&adev->mes.userq_hw_queue_count, 0);
++	INIT_DELAYED_WORK(&adev->mes.userq_notify_unmap_work,
++			  amdgpu_mes_userq_notify_unmap_work_handler);
+ 	total_vmid_mask = (u32)((1UL << 16) - 1);
+ 	reserved_vmid_mask = (u32)((1UL << adev->vm_manager.first_kfd_vmid) - 1);
  
-+	/* GFX11: start notify timer only once when oversubscription begins */
-+	if (KFD_GC_VERSION(dqm->dev) >= IP_VERSION(11, 0, 0) &&
-+	    KFD_GC_VERSION(dqm->dev) < IP_VERSION(12, 0, 0) &&
-+	    dqm->active_cp_queue_count > get_cp_queues_num(dqm))
-+		queue_delayed_work(system_wq, &dqm->notify_unmap_work,
-+				   msecs_to_jiffies(DQM_MES_UNMAP_NOTIFY_DELAY_MS));
+@@ -288,6 +293,8 @@ void amdgpu_mes_fini(struct amdgpu_device *adev)
+ 	int i;
+ 	int num_xcc = adev->gfx.xcc_mask ? NUM_XCC(adev->gfx.xcc_mask) : 1;
+ 
++	cancel_delayed_work_sync(&adev->mes.userq_notify_unmap_work);
 +
+ 	kfree(adev->gfx.mec.mes_hung_db_array);
+ 
+ 	amdgpu_bo_free_kernel(&adev->mes.event_log_gpu_obj,
+@@ -1163,6 +1170,69 @@ int amdgpu_mes_notify_unmap_queue(struct amdgpu_device *adev)
  	return r;
  }
  
-@@ -354,7 +365,16 @@ static void set_perfcount(struct device_queue_manager *dqm, int enable)
- static int remove_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 			    struct qcm_process_device *qpd)
- {
--	return remove_queue_mes_on_reset_option(dqm, q, qpd, false, false);
-+	int r = remove_queue_mes_on_reset_option(dqm, q, qpd, false, false);
++/* Interval for notifying MES of work on unmapped queues during oversubscription */
++#define AMDGPU_USERQ_UNMAP_NOTIFY_DELAY_MS 50
 +
-+	/* GFX11: stop notify timer when oversubscription clears */
-+	if (!r &&
-+	    KFD_GC_VERSION(dqm->dev) >= IP_VERSION(11, 0, 0) &&
-+	    KFD_GC_VERSION(dqm->dev) < IP_VERSION(12, 0, 0) &&
-+	    dqm->active_cp_queue_count <= get_cp_queues_num(dqm))
-+		cancel_delayed_work(&dqm->notify_unmap_work);
-+
-+	return r;
- }
- 
- static int remove_all_kfd_queues_mes(struct device_queue_manager *dqm)
-@@ -3194,6 +3214,20 @@ static void deallocate_hiq_sdma_mqd(struct kfd_node *dev,
- 	amdgpu_amdkfd_free_kernel_mem(dev->adev, &mqd->mem);
- }
- 
-+static void mes_notify_unmap_work_handler(struct work_struct *work)
++static unsigned int amdgpu_mes_userq_hw_queue_num(struct amdgpu_device *adev)
 +{
-+	struct device_queue_manager *dqm =
-+		container_of(work, struct device_queue_manager,
-+			     notify_unmap_work.work);
++	int num_xcc = adev->gfx.xcc_mask ? NUM_XCC(adev->gfx.xcc_mask) : 1;
++	unsigned int n = bitmap_weight(adev->gfx.me.queue_bitmap, AMDGPU_MAX_GFX_QUEUES);
++	int i;
 +
-+	amdgpu_mes_notify_unmap_queue((struct amdgpu_device *)dqm->dev->adev);
++	for (i = 0; i < num_xcc; i++)
++		n += bitmap_weight(adev->gfx.mec_bitmap[i].queue_bitmap,
++				    AMDGPU_MAX_COMPUTE_QUEUES);
 +
-+	/* Re-arm if still oversubscribed */
-+	if (READ_ONCE(dqm->active_cp_queue_count) > get_cp_queues_num(dqm))
-+		queue_delayed_work(system_wq, &dqm->notify_unmap_work,
-+				   msecs_to_jiffies(DQM_MES_UNMAP_NOTIFY_DELAY_MS));
++	return n;
 +}
 +
- struct device_queue_manager *device_queue_manager_init(struct kfd_node *dev)
- {
- 	struct device_queue_manager *dqm;
-@@ -3319,6 +3353,8 @@ struct device_queue_manager *device_queue_manager_init(struct kfd_node *dev)
++static void amdgpu_mes_userq_notify_unmap_work_handler(struct work_struct *work)
++{
++	struct amdgpu_mes *mes = container_of(work, struct amdgpu_mes,
++					       userq_notify_unmap_work.work);
++	struct amdgpu_device *adev = mes->adev;
++
++	amdgpu_mes_notify_unmap_queue(adev);
++
++	/* Re-arm if still oversubscribed */
++	if (atomic_read(&mes->userq_hw_queue_count) >
++	    amdgpu_mes_userq_hw_queue_num(adev))
++		queue_delayed_work(system_wq, &mes->userq_notify_unmap_work,
++				   msecs_to_jiffies(AMDGPU_USERQ_UNMAP_NOTIFY_DELAY_MS));
++}
++
++/*
++ * Called after a GFX11 usermode queue is successfully mapped to MES.
++ * Starts the periodic unmap-notify timer if this pushed the device into
++ * HW queue oversubscription.
++ */
++void amdgpu_mes_userq_queue_mapped(struct amdgpu_device *adev)
++{
++	if (!(amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(11, 0, 0) &&
++	      amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(12, 0, 0)))
++		return;
++
++	if (atomic_inc_return(&adev->mes.userq_hw_queue_count) >
++	    amdgpu_mes_userq_hw_queue_num(adev))
++		queue_delayed_work(system_wq, &adev->mes.userq_notify_unmap_work,
++				   msecs_to_jiffies(AMDGPU_USERQ_UNMAP_NOTIFY_DELAY_MS));
++}
++
++/*
++ * Called after a GFX11 usermode queue is unmapped from MES. Stops the
++ * periodic unmap-notify timer once oversubscription clears.
++ */
++void amdgpu_mes_userq_queue_unmapped(struct amdgpu_device *adev)
++{
++	if (!(amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(11, 0, 0) &&
++	      amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(12, 0, 0)))
++		return;
++
++	if (atomic_dec_return(&adev->mes.userq_hw_queue_count) <=
++	    amdgpu_mes_userq_hw_queue_num(adev))
++		cancel_delayed_work(&adev->mes.userq_notify_unmap_work);
++}
++
+ #if defined(CONFIG_DEBUG_FS)
  
- 	if (!dqm->ops.initialize(dqm)) {
- 		init_waitqueue_head(&dqm->destroy_wait);
-+		INIT_DELAYED_WORK(&dqm->notify_unmap_work,
-+				  mes_notify_unmap_work_handler);
- 		return dqm;
+ static int amdgpu_debugfs_mes_event_log_show(struct seq_file *m, void *unused)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+index 0291ae14a1e7..5160b227943b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
+@@ -29,6 +29,7 @@
+ #include "amdgpu_gfx.h"
+ #include "amdgpu_doorbell.h"
+ #include <linux/sched/mm.h>
++#include <linux/workqueue.h>
+ 
+ #define AMDGPU_MES_MAX_COMPUTE_PIPES        8
+ #define AMDGPU_MES_MAX_GFX_PIPES            2
+@@ -90,6 +91,10 @@ struct amdgpu_mes {
+ 	uint32_t                        total_max_queue;
+ 	uint32_t                        max_doorbell_slices;
+ 
++	/* GFX11 usermode queue oversubscription notify timer */
++	atomic_t                        userq_hw_queue_count;
++	struct delayed_work             userq_notify_unmap_work;
++
+ 	uint64_t                        default_process_quantum;
+ 	uint64_t                        default_gang_quantum;
+ 
+@@ -646,5 +651,7 @@ void amdgpu_mes_free_gang_ctx_index(struct amdgpu_mes *mes,
+ 				    uint32_t index);
+ 
+ int amdgpu_mes_notify_unmap_queue(struct amdgpu_device *adev);
++void amdgpu_mes_userq_queue_mapped(struct amdgpu_device *adev);
++void amdgpu_mes_userq_queue_unmapped(struct amdgpu_device *adev);
+ 
+ #endif /* __AMDGPU_MES_H__ */
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+index fae709f134bb..5a10af16e0c1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+@@ -171,6 +171,8 @@ static int mes_userq_map(struct amdgpu_usermode_queue *queue)
+ 		return r;
  	}
  
-@@ -3335,6 +3371,7 @@ struct device_queue_manager *device_queue_manager_init(struct kfd_node *dev)
++	amdgpu_mes_userq_queue_mapped(adev);
++
+ 	DRM_DEBUG_DRIVER("Queue (doorbell:%d) mapped successfully\n", userq_props->doorbell_index);
+ 	return 0;
+ }
+@@ -195,9 +197,13 @@ static int mes_userq_unmap(struct amdgpu_usermode_queue *queue)
+ 	amdgpu_mes_unlock(&adev->mes);
+ 	if (mes->use_rs64mem)
+ 		amdgpu_mes_free_gang_ctx_index(mes, queue->gang_ctx_array_index);
+-	if (r)
++	if (r) {
+ 		DRM_ERROR("Failed to unmap queue in HW, err (%d)\n", r);
+-	return r;
++		return r;
++	}
++
++	amdgpu_mes_userq_queue_unmapped(adev);
++	return 0;
+ }
  
- void device_queue_manager_uninit(struct device_queue_manager *dqm)
- {
-+	cancel_delayed_work_sync(&dqm->notify_unmap_work);
- 	dqm->ops.stop(dqm);
- 	dqm->ops.uninitialize(dqm);
- 	if (!dqm->dev->kfd->shared_resources.enable_mes)
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-index c9f9f7a87111..21cf3c16f3f9 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.h
-@@ -281,6 +281,7 @@ struct device_queue_manager {
- 	uint32_t		wait_times;
- 
- 	wait_queue_head_t	destroy_wait;
-+	struct delayed_work	notify_unmap_work;
- 
- 	/* for per-queue reset support */
- 	struct dqm_detect_hang_info *detect_hang_info;
+ int mes_userq_reset(struct amdgpu_usermode_queue *queue)
 -- 
 2.34.1
 
