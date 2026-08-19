@@ -4,61 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C483C5DF86
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 10:57:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5C8CAC5DF6D
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 11:40:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E35210E55F;
-	Wed, 19 Aug 2026 10:57:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA8C010EE03;
+	Wed, 19 Aug 2026 11:40:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mBX2NcrZ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AjmjN8RD";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C4D610E54E;
- Wed, 19 Aug 2026 10:57:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787137052; x=1818673052;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=sP01/4b7FuKKARMPlkNw6ESfAzF7voEyqpTp2DPD5Rg=;
- b=mBX2NcrZLwy37Cw4IAngQJwy0W6o/OlSFAkUU+6dAG37km0EofQaFZq4
- 7VwPR1Ylh4IIRqA2EvPJepFwCfZvVO2rBqwwgS8nMlXUqpK1fv/6P/DSM
- TvSXTySMYInmAUlyCGWS6BbHKVX63WgzpLKnorH2UF8K4iF5M1FwWwyX7
- df4ffcq/tZ8XaHRQnQz99Vd/oHYbzd3JqxHNqs693V9zCoFOIZnG58G5j
- HLMo+014AI0052KELf7xAw2YKrv/xU9O+0rKqF71E4oTMf3nxNXoRxpVK
- 7GDaOtPgRvDllBoTsZBtccwocX4mRvu08uYlhyMiK+K/hP93NnQTw0mSv w==;
-X-CSE-ConnectionGUID: kJm/5G+FTuOf8QjpeuoYsw==
-X-CSE-MsgGUID: hRGsjC2yQiWFZoz2Q2yrUA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11879"; a="87566245"
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="87566245"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2026 03:57:32 -0700
-X-CSE-ConnectionGUID: I1w3rCl1QLCPkHiHK3b8qw==
-X-CSE-MsgGUID: fkGxM+IYT5OVICvZaLKCiQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="265058901"
-Received: from inaky-mobl1.amr.corp.intel.com (HELO [10.245.244.176])
- ([10.245.244.176])
- by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Aug 2026 03:57:30 -0700
-Message-ID: <90e47436-3fe9-473c-8350-31ab5c1800d0@intel.com>
-Date: Wed, 19 Aug 2026 11:57:27 +0100
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010004.outbound.protection.outlook.com [52.101.46.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 521C310EE03
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Aug 2026 11:40:14 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=WM3I0sXVW547rWp6qUdZ3QYEZd32we43Yvj5aFEHmQSQ1iclWFQisJAfqLDvHrxuKuoCMJePBcs2gqsy7ewi4Dhkm/puzOGU+TipEHkmSShnyUv1OZUCjftTneSO2He9drFs270M/pkqU4YsmUu7eWF1VjPuWKKvKswHbcUZPwOSwojnupKTcGf0Lo5/e17zU0wxzbHMuidZ40lzxIckj8Uj2Bo4ZjO1kj/vbJgjDuKzuVwVVRGflggLQWB3xPsykHicaw4seTOgu/i8zzdbL4YlOetSrxzGQ+B9mHqlosRyYoVqt4NyJY7PJQwAI9P3cZF6C+8wf6M/+JMPTEM8aA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iViElLcWcgwCFUbLcfVpeD6gRXflTgPywRl9HuidjDI=;
+ b=KjEyCd7HFz8zqdLaeXsaTK4QRAVuJLnK+wBkU8lTm6XOuEOKjIrmwijonO03rvXfVbpHDyfYrPqNpdjALiJlGR2cPC6TLbPblXp8dy6RvilSCkC14SGDn8IwYOS851u4pwtr7Q9ptvdgd541nc1HE6AHnjiH0jt/K/JRY1Q1S2iFEjIWCNmQTr4cRuUrat8or0TFbaRp6TBOXLd0fvZjj6/jR8h82zExdRp/KttHohtfIoO9H7AxZ63n1IWijruLTQiHSO3VrbBm5rxPqpIiSiYlc6WslDBX3Tv4HfQVJOk/OpIJrkD4g9tnhEkGVzjNK+9GCqJP8iwSbPonzZrftw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iViElLcWcgwCFUbLcfVpeD6gRXflTgPywRl9HuidjDI=;
+ b=AjmjN8RDoQq81F+X2LGJ3m2oi2TpKV8hQuyCrS3e+q9k+BKf7xhZq+kKE2MOzNg4z5Xr8V4kOtSStj0HloYv8Q+5P0/YoXB8vBk4BywYsZB1+vLbd2VIYcb8OyEOxbeE7Stfz0H+1EJKFauIAR5MpbXQ8IRWpzgTm+EpGgSCdwk=
+Received: from CH5P222CA0020.NAMP222.PROD.OUTLOOK.COM (2603:10b6:610:1ee::12)
+ by LV3PR12MB9185.namprd12.prod.outlook.com (2603:10b6:408:199::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
+ 2026 11:40:09 +0000
+Received: from CH1PEPF0000A349.namprd04.prod.outlook.com
+ (2603:10b6:610:1ee:cafe::22) by CH5P222CA0020.outlook.office365.com
+ (2603:10b6:610:1ee::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Wed, 19
+ Aug 2026 11:40:09 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000A349.mail.protection.outlook.com (10.167.244.9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.339.3 via Frontend Transport; Wed, 19 Aug 2026 11:40:09 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 19 Aug
+ 2026 06:40:08 -0500
+Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Wed, 19 Aug 2026 06:40:06 -0500
+From: Jesse Zhang <Jesse.Zhang@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
+ Jesse Zhang <Jesse.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu/mes_userqueue: add MODIFY support for SDMA user
+ queues
+Date: Wed, 19 Aug 2026 19:39:52 +0800
+Message-ID: <20260819114001.718908-1-Jesse.Zhang@amd.com>
+X-Mailer: git-send-email 2.49.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 1/2] gpu/buddy: replace dual-tree/force_merge with
- decoupled dirty tracker
-To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com
-References: <20260819104242.10703-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20260819104242.10703-1-Arunpravin.PaneerSelvam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A349:EE_|LV3PR12MB9185:EE_
+X-MS-Office365-Filtering-Correlation-Id: 65a33438-49ed-48a5-fbb6-08defde69f5b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|23010399003|82310400026|36860700016|18002099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: kztepl1HLlWZxaWjNCSvGwHcQAP0ts73QWp/2A8zfwS00z7BKQFgCOGG7Cnh5rSpe2EA/TpC67QnkydZ3YCUlFW41hoRVl/H35KkhAwe8jAZ5YDmDlYnbJT1bPgRreaavSDJvKBPdWn5dEX+hpMuZtAz7zKiIMTFt+c2ZgoUlJ85zwwjAA/RoAOIXRpFoHFxgnfzKi/+ZyFVkzePbeR2J56uA75ckNwZ3pmAJ4jxsxn72N5SoCqIW2+OGbYY+RtB/Rkl3lIwXcMeYESvwEJUtM7ZoP/asY4mHHhivOfsox/WZ+632U1dBtnEmNHlONwF0nfrXp5Lo+VWtRg7fzdEjUsfJzKyN4s6hVSwOiBTiskUcf3BoSVn6/vEK9dPrdgGZVUo+kcFym51tatRB7yL5G+xK5kfwzBbHB2P/50VgRvICjbit5vpz0O3sHPp8SihkP4sGIZduGWfZ1Mpxxc5zj6KK5WF7Q8NfWqtUx7IADruvi3EapPVFNX/fThlPSEmqm04kxTFbGjENBXclJuOFymdtfhThV+sY1Pm1yk502SeE48y7fbMAKlv2XEyapfdoMWss6zd62UklYcLSmJHs5EO/KMwEZNYWGAu80YrtqHrw6QMBaPCV5bojK2r/B5Oa+NoQMbGBgrR9HaanaEvAi/X8DH+GZ55b2cfiL2lloSjG7naCU3ryKyat7u+LEQ9lieDtMUQBK0R+zqHECKjCQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(18002099003)(56012099006)(11063799006)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: /HV0nqoJZ3YgsGlJLzV4BaCE+Pp4NK0lK4zXYavcZ/1uWlueLbNO73x8ttBkbo3cw6pa5Vd1bsCxlk7kJyBSa5/xIehRI28+U1ZXVfBYExUWBSYolULOnfk2BJGmJolcQI0qO/MSnVN8JwrI+BDAYheUTppSkL2gfH1Nsy+6fLFxQ2xp0uQkgEhFB+7gfBUFz7Oc9CYoCzbRkJHVwMIjU2ELMacdL8qTzCwLbiAZI36ssWVGmTtJpMuYJYqAu3KTiIOu/03GUxCymO3yIAdxSOyyOkwzJJXxpSzROrjalyNLNKvFWOB9iLScKCPdu4Ae2rAkgaagxnK0hcsFY73DcgkJvkw+oojicgi3eqMVnkaCXlUOw8u8luMbXNXQaD2YpZ6VsajS7eAfi7djNcecxeUIbcj5TbFc9vb2cpvuWU3ph2gvlXn6Dxbw99E6r2+V
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 11:40:09.0547 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65a33438-49ed-48a5-fbb6-08defde69f5b
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000A349.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9185
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,186 +109,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 19/08/2026 11:42, Arunpravin Paneer Selvam wrote:
-> The current buddy allocator maintains separate clear_tree[] and
-> dirty_tree[] rbtrees per order, preventing coalescing between cleared
-> and dirty buddies. Under mixed workloads, this creates a merge barrier:
-> adjacent buddies frequently end up split across trees, forcing reliance
-> on __force_merge() during allocation.
-> 
-> __force_merge() performs an O(N x max_order) scan under the VRAM manager
-> lock, leading to allocation stalls and failures for large contiguous
-> requests even when sufficient total free memory is available.
-> 
-> Solution
-> 
-> Replace the dual-tree design with:
-> - A single free_tree[order] rbtree for dirty and mixed free blocks
->    (fully cleared free blocks float outside this tree)
-> - A lightweight out-of-band dirty tracker (gpu_dirty_tracker)
-> 
-> Fully cleared free blocks are tracked outside the buddy trees using an
-> augmented interval rbtree, enabling O(log E) lookup of the largest
-> cleared extents.
-> 
-> Buddy coalescing is now unconditional in __gpu_buddy_free(), regardless
-> of clear/dirty state. This removes the merge barrier and eliminates the
-> need for __force_merge().
-> 
-> Benefits
-> 
-> - Correct high-order allocations after mixed clear/dirty workloads
-> - Elimination of O(N x max_order) merge cost from the allocation path
-> - O(log E) cleared-extent lookup replacing O(N) scans
-> - Predictable allocation latency under fragmentation
-> - Reduced complexity with a single tree per order
-> 
-> Test:
-> dEQP-VK.memory.allocation.basic.size_8KiB.reverse.count_4000
-> 
-> Below data is from /sys/kernel/debug/dri/1/amdgpu_vram_mm:
-> 
-> Base (dual-tree), before VKCTS test:
->    order- 6 free:   6 MiB,  blocks: 26
->    order- 5 free:   1 MiB,  blocks: 15
->    order- 4 free: 960 KiB,  blocks: 15
->    order- 3 free:   5 MiB,  blocks: 171
->    order- 2 free:   2 MiB,  blocks: 176
->    order- 1 free:   1 MiB,  blocks: 165
->    order- 0 free:  16 KiB,  blocks: 4
-> 
-> Base (dual-tree), after VKCTS test:
->    order- 6 free: 768 KiB,  blocks: 3
->    order- 5 free: 499 MiB,  blocks: 3999
->    order- 4 free: 250 MiB,  blocks: 4001
->    order- 3 free: 129 MiB,  blocks: 4157
->    order- 2 free:  65 MiB,  blocks: 4161
->    order- 1 free:  63 MiB,  blocks: 8138
->    order- 0 free:  20 KiB,  blocks: 5
-> 
-> Dirty tracker, before VKCTS test:
->    order- 6 free:   4 MiB,  blocks: 19
->    order- 5 free:   2 MiB,  blocks: 18
->    order- 4 free: 704 KiB,  blocks: 11
->    order- 3 free:   5 MiB,  blocks: 168
->    order- 2 free:   2 MiB,  blocks: 174
->    order- 1 free:   1 MiB,  blocks: 167
->    order- 0 free:  32 KiB,  blocks: 8
-> 
-> Dirty tracker, after VKCTS test:
->    order- 6 free:   4 MiB,  blocks: 19
->    order- 5 free:   2 MiB,  blocks: 18
->    order- 4 free: 704 KiB,  blocks: 11
->    order- 3 free:   5 MiB,  blocks: 168
->    order- 2 free:   2 MiB,  blocks: 174
->    order- 1 free:   1 MiB,  blocks: 167
->    order- 0 free:  28 KiB,  blocks: 7
-> 
-> v2:
->   - Code-style cleanup and minor refactoring
->   - Renamed locals for clarity
-> 
-> v3:
->   - Keep cleared blocks inside free_tree[] instead of floating them.
->   - Add subtree_has_dirty rbtree augment for O(log N) dirty-first walk.
-> 
-> v4:
->   - Fixed checkpatch warnings.
->   - Optimized gpu_buddy_reset_clear() to a single post-order walk that
->     flips block headers and recomputes the rbtree augment in one pass.
->   - Propagate subtree_max_size top-down in insert_extent() so ancestors
->     are not left with stale values on no-rotation inserts. (sashiko)
->   - Drop the whole extent in gpu_dirty_tracker_mark_dirty() when the
->     inside-split allocation fails, avoiding a stale clear claim. (sashiko)
->   - Make gpu_dirty_tracker_find() alignment-aware and fall back to the
->     dirty tree on steered failure to avoid spurious -ENOSPC. (sashiko)
-> 
-> v5:
->   - Track dirty extents instead of cleared ones: steer dirty allocs onto
->     tracked dirty windows and pick clear allocs via a free-tree augment,
->     avoiding clear-memory wastage by keeping cleared free blocks untouched
->     during dirty allocation.
-> 
-> v6:
->   - Make __alloc_range_bias() return the highest/right-most address by
->     default, establishing top-down as the intended placement for
->     range-biased allocations.
->   - Honour GPU_BUDDY_CLEAR_ALLOCATION in __alloc_range_bias() by steering
->     the descent towards clear subtrees for non-top-down clear
->     requests. (sashiko)
->   - Skip dirty-tracker steering for offset-aligned requests so they keep
->     their min_block_size alignment. (sashiko)
->   - sashiko reported that the __GFP_NOFAIL dirty-extent allocations on
->     the free path could deadlock during memory reclaim, since that is a
->     GFP_KERNEL allocation on the free path; move to a per-tracker
->     mempool so extent nodes are guaranteed without __GFP_NOFAIL.
->     (sashiko)
->   - Derive each free block's clear/dirty class from the blocks already
->     in hand on split, free, alloc, trim and init instead of querying the
->     dirty tracker, removing the tracker lookups from the hot paths.
-> 
-> v7:
->   - Preserve mixed-block clear state in __gpu_buddy_free() when a mixed
->     split child is re-merged after an undone split. (sashiko)
->   - Prefer a fully-clear block over a mixed one of the same order via a
->     single ordered clear-state max augment on free_tree[].
-> 
-> v8:
->   - Coalesce contiguous dirty blocks in __gpu_buddy_free_list() into one
->     dirty extent update instead of one mark_dirty() per block. (Matthew)
-> 
-> v9:
->   - Reset has_clear on allocation so a mixed block taken whole and later
->     freed fully dirty is not re-tracked as mixed. (sashiko)
-> 
-> v10:
->   - Use a plain slab allocation for dirty extents; skip and log once on
->     failure. (Matthew)
->   - Assert a non-zero size in the dirty-tracker range helpers. (Matthew)
->   - Drop the cached clear_avail member; derive it on demand. (Matthew)
->   - Collapse the two dirty branches of gpu_buddy_reset_clear(). (Matthew)
->   - Move the gpu_block_state enum above the gpu_buddy_block kernel-doc
->     so the doc directly precedes its struct. (Matthew)
->   - Mark the gpu_dirty_tracker struct private. (Matthew)
->   - Preserve a block's clear state on non-clear allocation instead of
->     force-dirtying it. (Matthew)
->   - Drop the redundant header clear in gpu_buddy_block_trim(). (Matthew)
-> 
-> Assisted-by: Claude:claude-opus-4-8
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-> ---
+mes_userq_mqd_update() only handled compute user queues and rejected
+every other queue type with -EINVAL, so an SDMA user queue could not be
+updated at runtime.
 
-<snip>
+Add mes_userq_sdma_mqd_update() to update an SDMA queue's MQD from a
+drm_amdgpu_userq_mqd_sdma_gfx11 (csa address, queue size and ring base)
+and re-init the MQD. Validate the queue type up front, then dispatch to
+the SDMA or compute path based on queue_type.
 
->   
-> +/**
-> + * gpu_buddy_clear_avail - free space that is clear (zeroed), in bytes
-> + * @mm: gpu buddy allocator
-> + *
-> + * A subset of @mm->avail. Derived on demand as @mm->avail minus the bytes
-> + * the dirty tracker records as dirty, so it is always consistent with the
-> + * tracker without a cached field to keep in sync. Zero for a fresh pool,
-> + * which is fully dirty.
-> + */
-> +static inline u64 gpu_buddy_clear_avail(const struct gpu_buddy *mm)
-> +{
+This aligns KGD user queues with KFD, which already supports updating
+SDMA queues via update_mqd_sdma.
 
-gpu_buddy_driver_lock_held(mm);
+Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 36 +++++++++++++++++++++-
+ 1 file changed, 35 insertions(+), 1 deletion(-)
 
-Just to make it clear that avail & total_dirty need to be in-sync to 
-always get something sane here?
-
-Can be tweaked when merging.
-
-> +	return mm->avail - mm->dirty.total_dirty;
-> +}
-> +
->   #ifdef CONFIG_LOCKDEP
->   /**
->    * gpu_buddy_driver_set_lock() - Set the lock protecting accesses to GPU BUDDY
-> 
-> base-commit: 063019ac51afffda4ab3d658701b086caa0c8e9e
+diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+index ad72ced472dd..03f6b5ab32ae 100644
+--- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
++++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
+@@ -681,6 +681,36 @@ static int mes_userq_mqd_create(struct amdgpu_usermode_queue *queue,
+ 	return r;
+ }
+ 
++static int mes_userq_sdma_mqd_update(struct amdgpu_usermode_queue *queue,
++				     struct drm_amdgpu_userq_in *args_in)
++{
++	int retval = 0;
++	struct amdgpu_device *adev = queue->userq_mgr->adev;
++	struct amdgpu_mqd_prop *userq_props = queue->userq_prop;
++	struct amdgpu_mqd *mqd_hw_default = &adev->mqds[queue->queue_type];
++	struct drm_amdgpu_userq_mqd_sdma_gfx11 *sdma_mqd_v11;
++
++	if (args_in->mqd_size != sizeof(*sdma_mqd_v11)) {
++		DRM_ERROR("Invalid SDMA IP MQD size\n");
++		return -EINVAL;
++	}
++
++	sdma_mqd_v11 = memdup_user(u64_to_user_ptr(args_in->mqd), args_in->mqd_size);
++	if (IS_ERR(sdma_mqd_v11)) {
++		DRM_ERROR("Failed to read user MQD\n");
++		return -ENOMEM;
++	}
++
++	userq_props->csa_addr = sdma_mqd_v11->csa_va;
++	userq_props->queue_size = args_in->queue_size;
++	userq_props->hqd_base_gpu_addr = args_in->queue_va;
++
++	retval = mqd_hw_default->init_mqd(adev, (void *)queue->mqd.cpu_ptr, userq_props);
++
++	kfree(sdma_mqd_v11);
++	return retval;
++}
++
+ static int mes_userq_mqd_update(struct amdgpu_usermode_queue *queue, struct drm_amdgpu_userq_in *args_in)
+ {
+ 	int retval = 0;
+@@ -692,9 +722,13 @@ static int mes_userq_mqd_update(struct amdgpu_usermode_queue *queue, struct drm_
+ 	if (!queue || !userq_props)
+ 		return -EINVAL;
+ 
+-	if (queue->queue_type != AMDGPU_HW_IP_COMPUTE)
++	if (queue->queue_type != AMDGPU_HW_IP_COMPUTE &&
++	    queue->queue_type != AMDGPU_HW_IP_DMA)
+ 		return -EINVAL;
+ 
++	if (queue->queue_type == AMDGPU_HW_IP_DMA)
++		return mes_userq_sdma_mqd_update(queue, args_in);
++
+ 	if (args_in->mqd_size != sizeof(*compute_mqd_v11)) {
+ 		DRM_ERROR("Invalid compute IP MQD size\n");
+ 		return -EINVAL;
+-- 
+2.49.0
 
