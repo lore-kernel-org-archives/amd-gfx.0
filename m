@@ -4,30 +4,30 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11CA5C5DF85
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 16:11:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 25DF4C5DF88
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 16:11:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 41DC210EE5D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D30910EE63;
 	Wed, 19 Aug 2026 16:11:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="TL4LFsTf";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="Bpn1mzPM";
 	dkim-atps=neutral
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64DFB10EE63
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Aug 2026 16:11:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70EF410EE43
+ for <amd-gfx@lists.freedesktop.org>; Wed, 19 Aug 2026 16:11:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
- Cc:To:From:From:Reply-To; bh=pQEZdjEYvZ37z1IjNVUcYzMWagugWm8OJbaapWEXwwE=; b=
- TL4LFsTfZ9KimHfggKSdaj3MpFUx8byTtcsMNPW5cWIP5ZvBNg3H2HyBdUQXzRIXOHbtTh59EE3ET
- dCk8s+RbaJpQmI6eLByot/7tUFu/bRqJSy8Tvax3LImLWV6yBsfKAz+vTzh9Rdfdu3F51TE8lZmFf
- GxW1dCsp3v1CjSmo6RNVklJwavHWvViWw98b0z+QrxokESCj8TY5mg8gNgT9JEKE2kjLSD081PIjN
- x9aacl0N64f951F9Z+ll5GegVDFi+tkl3+55A6Gvd3eiSICPfkEzbXGIkp9Jvxv5cO6g5piRbSlGf
- xGvgqWjvXvtSFSN90C6X5mGLqe3++hFw+w==;
+ Cc:To:From:From:Reply-To; bh=xwByNHtzNj9S0lDXZF63ll8KwMNauy+aLrTaIcyMnts=; b=
+ Bpn1mzPMl11LjZKll0v357ZYzKrRLIlIUfBlmStR/riM9ICTnKHsjvprAhZL9cgH/9cfqnSuhfxdG
+ KdFv+XQEQz5Julyl9bTodY9MoVxodRSjOawv+g88ACLTSML1oae0c+Eckv67WNBqAmkWVaE/qnu1M
+ H9IVXm99fSLHqvrDKZSWWKsh/e13QRVBtg6/TtY3gq2J6qoCvYO01WiMnNGYZEIKF+3sb2ESM/cMG
+ OIU821hOXrcQx1U5HANknTdhVIsR/YgtASpS/tGyayjFIYSok3XIX+XWG183Gqo/oHuXAkeXXlhWP
+ kB7NKpuOg3gq5uZhWj2olVbkcp7+6snexw==;
 Received: from 154.red-79-147-121.dynamicip.rima-tde.net ([79.147.121.154]
  helo=killbill.home) by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1wwisn-006BRc-8z; Wed, 19 Aug 2026 18:11:17 +0200
+ id 1wwisp-006BRc-IY; Wed, 19 Aug 2026 18:11:19 +0200
 From: Melissa Wen <mwen@igalia.com>
 To: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
  harry.wentland@amd.com, mwen@igalia.com, simona@ffwll.ch,
@@ -40,10 +40,10 @@ Cc: Krunoslav Kovac <Krunoslav.Kovac@amd.com>,
  pekka.paalanen@collabora.com, robert.mader@posteo.de,
  amd-gfx@lists.freedesktop.org, kernel-dev@igalia.com,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] drm/amd/display: use halving distribution for all
- encode-to-linear curves
-Date: Wed, 19 Aug 2026 18:00:16 +0200
-Message-ID: <20260819161106.27702-2-mwen@igalia.com>
+Subject: [PATCH 2/2] drm/amd/display: use translate_curve_to_degamma_hw_format
+ on DCN30
+Date: Wed, 19 Aug 2026 18:00:17 +0200
+Message-ID: <20260819161106.27702-3-mwen@igalia.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260819161106.27702-1-mwen@igalia.com>
 References: <20260819161106.27702-1-mwen@igalia.com>
@@ -63,80 +63,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-In encode-to-linear conversions, LUT entries should be uniformly
-distributed across the input range: non-linear encodings are already
-approximately perceptually uniform, so every input code carries the same
-weight. A fixed count per region does the opposite, concentrating
-entries on the darker values and leaving few for the bright end, whereas
-halving distribution spaces all 256 entries uniformly. This holds for
-any encoded input, so remove the PQ/sRGB condition from de17c6bb7072 and
-apply halving to all encode-to-linear operations (pre-defined TF or user
-LUTs).
+DCN3.01 presents the same banding issue as reported in the link below,
+but the previous fix doesn't cover this hw. Change the helper for
+degamma/blend curves for DCN30-based family.
 
-It fixes the following IGT kms_colorop subtests:
-- plane-XR30-XR30-srgb_inv_eotf_lut-srgb_eotf_lut
-- plane-XR30-XR30-gamma_2_2-gamma_2_2_inv-gamma_2_2
-
-Fixes: de17c6bb7072 ("drm/amd/display: use halving distribution for PQ/sRGB linearizing LUT")
-Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+Link: https://lore.kernel.org/amd-gfx/20260623160112.1636801-1-mwen@igalia.com/
+Fixes: 3719314af322 ("drm/amd/display: use a separate helper to translate degamma curves")
 Signed-off-by: Melissa Wen <mwen@igalia.com>
 ---
- .../amd/display/dc/dcn30/dcn30_cm_common.c    | 34 ++++++-------------
- 1 file changed, 10 insertions(+), 24 deletions(-)
+ .../gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c    | 10 ++++------
+ 1 file changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
-index 66fe7f313ea3..62ca235cd649 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn30/dcn30_cm_common.c
-@@ -320,6 +320,8 @@ static struct fixed31_32 interp_tf_pts(const struct fixed31_32 *output_tf_channe
- 	return value;
- }
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+index cb163902e12e..6980f622db0a 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn30/dcn30_hwseq.c
+@@ -243,10 +243,9 @@ bool dcn30_set_blend_lut(
+ 	if (plane_state->cm.blend_func.type == TF_TYPE_HWPWL)
+ 		blend_lut = &plane_state->cm.blend_func.pwl;
+ 	else if (plane_state->cm.blend_func.type == TF_TYPE_DISTRIBUTED_POINTS) {
+-		result = cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
++		result = cm3_helper_translate_curve_to_degamma_hw_format(
+ 				&plane_state->cm.blend_func,
+-				&dpp_base->regamma_params,
+-				false);
++				&dpp_base->regamma_params);
+ 		if (!result)
+ 			return result;
  
-+#define NUM_DEGAMMA_REGIONS    9
-+
- bool cm3_helper_translate_curve_to_degamma_hw_format(
- 				const struct dc_transfer_func *output_tf,
- 				struct pwl_params *lut_params)
-@@ -343,31 +345,15 @@ bool cm3_helper_translate_curve_to_degamma_hw_format(
- 	memset(lut_params, 0, sizeof(struct pwl_params));
- 	memset(seg_distr, 0, sizeof(seg_distr));
+@@ -337,9 +336,8 @@ bool dcn30_set_input_transfer_func(struct dc *dc,
+ 	if (plane_state->in_transfer_func.type == TF_TYPE_HWPWL)
+ 		params = &plane_state->in_transfer_func.pwl;
+ 	else if (plane_state->in_transfer_func.type == TF_TYPE_DISTRIBUTED_POINTS &&
+-		cm3_helper_translate_curve_to_hw_format(plane_state->ctx,
+-							&plane_state->in_transfer_func,
+-							&dpp_base->degamma_params, false))
++		cm3_helper_translate_curve_to_degamma_hw_format(&plane_state->in_transfer_func,
++								&dpp_base->degamma_params))
+ 		params = &dpp_base->degamma_params;
  
--	if (output_tf->tf == TRANSFER_FUNCTION_PQ ||
--	    output_tf->tf == TRANSFER_FUNCTION_SRGB) {
--		/* 9 segments
--		 * segments are from 2^-9 to 0
--		 */
--		const uint8_t SEG_COUNT = 9;
--		seg_distr[0] = 0; // Since we only have one point in darkest region
--		for (k = 1; k < SEG_COUNT; k++)
--			seg_distr[k] = k - 1; // 2^(k-1) points per region; halves as k decreases
-+	/* 9 segments
-+	 * segments are from 2^-9 to 2^0
-+	 */
-+	seg_distr[0] = 0; // Since we only have one point in darkest region
-+	for (k = 1; k < NUM_DEGAMMA_REGIONS; k++)
-+		seg_distr[k] = k - 1; // 2^(k-1) points per region; halves as k decreases
- 
--		region_start = -SEG_COUNT;
--		region_end = 0;
--	} else {
--		/* 12 segments
--		 * segments are from 2^-12 to 2^0
--		 * There are less than 256 points, for optimization
--		 */
--		const uint8_t SEG_COUNT = 12;
--
--		for (i = 0; i < SEG_COUNT; i++)
--			seg_distr[i] = 4;
--
--		region_start = -SEG_COUNT;
--		region_end = 0;
--	}
-+	region_start = -NUM_DEGAMMA_REGIONS;
-+	region_end = 0;
- 
- 	for (i = region_end - region_start; i < MAX_REGIONS_NUMBER ; i++)
- 		seg_distr[i] = -1;
+ 	result = dpp_base->funcs->dpp_program_gamcor_lut(dpp_base, params);
 -- 
 2.53.0
 
