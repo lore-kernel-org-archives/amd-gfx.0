@@ -4,134 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B3896C5DF86
-	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 10:45:52 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C483C5DF86
+	for <amd-gfx@archiver.kernel.org>; Wed, 19 Aug 2026 10:57:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3F6BB89A77;
-	Wed, 19 Aug 2026 10:45:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E35210E55F;
+	Wed, 19 Aug 2026 10:57:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="LdNWfzPK";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="NtPGda8x";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HtiVdQ6P";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="nQiVOu0G";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="mBX2NcrZ";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E1D0710EDB8;
- Wed, 19 Aug 2026 10:45:47 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3CA123ECE;
- Wed, 19 Aug 2026 10:45:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787136342; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Hg/ZPXFle3feAVe1hiMHSTS/1Mz1wkpga/z0zY78R5Q=;
- b=LdNWfzPKrb9NDTksCcvaHrsvxugOfINA1v+h3Kxy67vH2zhc75r2JKsfmAAhoII4pijNSl
- DamY7typxy92U9RMhZP6Sk+eDBWphjO7TfrMGA6m0nv+DQmV6o0cPOsy5bl7f8mbDMhkuM
- fEkDpG5lCEQUoiHXix5NG6Zduj7fH0w=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787136342;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Hg/ZPXFle3feAVe1hiMHSTS/1Mz1wkpga/z0zY78R5Q=;
- b=NtPGda8xTU4/ykIvNTrk/MXoH9S0MdxTKEoPi+bSi+fNK8qvsVvOrNREMwnZWfeM++KHAq
- bAb3yg0PLR0wlCBw==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787136338; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Hg/ZPXFle3feAVe1hiMHSTS/1Mz1wkpga/z0zY78R5Q=;
- b=HtiVdQ6P+QJOYv7bdivbBbzsLhrDtGsKdck5z+Rrnv5Or6Yb44FhFp1YxLUk3gDWrB9qYV
- cn2gnBsxFaQ4xwdio3kwwY4iDLHaGThOj7ebSl9TL/PcG3Ua+Yaq9p1sn/dvBl9zZR/kEE
- h4zGF9BReqs7jdJ4u7HD2AXm8xs8UR8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787136338;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Hg/ZPXFle3feAVe1hiMHSTS/1Mz1wkpga/z0zY78R5Q=;
- b=nQiVOu0G3/p+k3HKPnabYNUqcD5L4WSj9Qhtsmg5DXJti+Tl/1EJONrUHo9Krh/jZRLA7e
- BT6JqTT+EATfroAQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AC5BB2F81;
- Wed, 19 Aug 2026 10:45:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id PoR9KFGJhWo/KAAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Wed, 19 Aug 2026 10:45:37 +0000
-Message-ID: <427a13f5-c820-4aa1-b19f-1fb0493d264d@suse.de>
-Date: Wed, 19 Aug 2026 12:45:37 +0200
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C4D610E54E;
+ Wed, 19 Aug 2026 10:57:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787137052; x=1818673052;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=sP01/4b7FuKKARMPlkNw6ESfAzF7voEyqpTp2DPD5Rg=;
+ b=mBX2NcrZLwy37Cw4IAngQJwy0W6o/OlSFAkUU+6dAG37km0EofQaFZq4
+ 7VwPR1Ylh4IIRqA2EvPJepFwCfZvVO2rBqwwgS8nMlXUqpK1fv/6P/DSM
+ TvSXTySMYInmAUlyCGWS6BbHKVX63WgzpLKnorH2UF8K4iF5M1FwWwyX7
+ df4ffcq/tZ8XaHRQnQz99Vd/oHYbzd3JqxHNqs693V9zCoFOIZnG58G5j
+ HLMo+014AI0052KELf7xAw2YKrv/xU9O+0rKqF71E4oTMf3nxNXoRxpVK
+ 7GDaOtPgRvDllBoTsZBtccwocX4mRvu08uYlhyMiK+K/hP93NnQTw0mSv w==;
+X-CSE-ConnectionGUID: kJm/5G+FTuOf8QjpeuoYsw==
+X-CSE-MsgGUID: hRGsjC2yQiWFZoz2Q2yrUA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11879"; a="87566245"
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="87566245"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2026 03:57:32 -0700
+X-CSE-ConnectionGUID: I1w3rCl1QLCPkHiHK3b8qw==
+X-CSE-MsgGUID: fkGxM+IYT5OVICvZaLKCiQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; d="scan'208";a="265058901"
+Received: from inaky-mobl1.amr.corp.intel.com (HELO [10.245.244.176])
+ ([10.245.244.176])
+ by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 19 Aug 2026 03:57:30 -0700
+Message-ID: <90e47436-3fe9-473c-8350-31ab5c1800d0@intel.com>
+Date: Wed, 19 Aug 2026 11:57:27 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/12] drm/panic: Allocate QR-code buffers statically
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: jfalempe@redhat.com, javierm@redhat.com, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
- sashiko-reviews@lists.linux.dev
-References: <20260818125012.468092-1-tzimmermann@suse.de>
- <20260818125012.468092-2-tzimmermann@suse.de>
- <CAMuHMdWYVjvGM2pOzWoDq8LUSrkFtzOQwdmosHYQuBLnSn3D-Q@mail.gmail.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <CAMuHMdWYVjvGM2pOzWoDq8LUSrkFtzOQwdmosHYQuBLnSn3D-Q@mail.gmail.com>
+Subject: Re: [PATCH v10 1/2] gpu/buddy: replace dual-tree/force_merge with
+ decoupled dirty tracker
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ christian.koenig@amd.com, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com
+References: <20260819104242.10703-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Language: en-GB
+From: Matthew Auld <matthew.auld@intel.com>
+In-Reply-To: <20260819104242.10703-1-Arunpravin.PaneerSelvam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-4.30 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; MIME_TRACE(0.00)[0:+];
- ARC_NA(0.00)[]; RCPT_COUNT_TWELVE(0.00)[20];
- FREEMAIL_CC(0.00)[redhat.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,lists.freedesktop.org,vger.kernel.org,lists.linux.dev,lists.infradead.org];
- RCVD_TLS_ALL(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo, suse.com:url,
- suse.de:mid, suse.de:email]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,91 +73,186 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+On 19/08/2026 11:42, Arunpravin Paneer Selvam wrote:
+> The current buddy allocator maintains separate clear_tree[] and
+> dirty_tree[] rbtrees per order, preventing coalescing between cleared
+> and dirty buddies. Under mixed workloads, this creates a merge barrier:
+> adjacent buddies frequently end up split across trees, forcing reliance
+> on __force_merge() during allocation.
+> 
+> __force_merge() performs an O(N x max_order) scan under the VRAM manager
+> lock, leading to allocation stalls and failures for large contiguous
+> requests even when sufficient total free memory is available.
+> 
+> Solution
+> 
+> Replace the dual-tree design with:
+> - A single free_tree[order] rbtree for dirty and mixed free blocks
+>    (fully cleared free blocks float outside this tree)
+> - A lightweight out-of-band dirty tracker (gpu_dirty_tracker)
+> 
+> Fully cleared free blocks are tracked outside the buddy trees using an
+> augmented interval rbtree, enabling O(log E) lookup of the largest
+> cleared extents.
+> 
+> Buddy coalescing is now unconditional in __gpu_buddy_free(), regardless
+> of clear/dirty state. This removes the merge barrier and eliminates the
+> need for __force_merge().
+> 
+> Benefits
+> 
+> - Correct high-order allocations after mixed clear/dirty workloads
+> - Elimination of O(N x max_order) merge cost from the allocation path
+> - O(log E) cleared-extent lookup replacing O(N) scans
+> - Predictable allocation latency under fragmentation
+> - Reduced complexity with a single tree per order
+> 
+> Test:
+> dEQP-VK.memory.allocation.basic.size_8KiB.reverse.count_4000
+> 
+> Below data is from /sys/kernel/debug/dri/1/amdgpu_vram_mm:
+> 
+> Base (dual-tree), before VKCTS test:
+>    order- 6 free:   6 MiB,  blocks: 26
+>    order- 5 free:   1 MiB,  blocks: 15
+>    order- 4 free: 960 KiB,  blocks: 15
+>    order- 3 free:   5 MiB,  blocks: 171
+>    order- 2 free:   2 MiB,  blocks: 176
+>    order- 1 free:   1 MiB,  blocks: 165
+>    order- 0 free:  16 KiB,  blocks: 4
+> 
+> Base (dual-tree), after VKCTS test:
+>    order- 6 free: 768 KiB,  blocks: 3
+>    order- 5 free: 499 MiB,  blocks: 3999
+>    order- 4 free: 250 MiB,  blocks: 4001
+>    order- 3 free: 129 MiB,  blocks: 4157
+>    order- 2 free:  65 MiB,  blocks: 4161
+>    order- 1 free:  63 MiB,  blocks: 8138
+>    order- 0 free:  20 KiB,  blocks: 5
+> 
+> Dirty tracker, before VKCTS test:
+>    order- 6 free:   4 MiB,  blocks: 19
+>    order- 5 free:   2 MiB,  blocks: 18
+>    order- 4 free: 704 KiB,  blocks: 11
+>    order- 3 free:   5 MiB,  blocks: 168
+>    order- 2 free:   2 MiB,  blocks: 174
+>    order- 1 free:   1 MiB,  blocks: 167
+>    order- 0 free:  32 KiB,  blocks: 8
+> 
+> Dirty tracker, after VKCTS test:
+>    order- 6 free:   4 MiB,  blocks: 19
+>    order- 5 free:   2 MiB,  blocks: 18
+>    order- 4 free: 704 KiB,  blocks: 11
+>    order- 3 free:   5 MiB,  blocks: 168
+>    order- 2 free:   2 MiB,  blocks: 174
+>    order- 1 free:   1 MiB,  blocks: 167
+>    order- 0 free:  28 KiB,  blocks: 7
+> 
+> v2:
+>   - Code-style cleanup and minor refactoring
+>   - Renamed locals for clarity
+> 
+> v3:
+>   - Keep cleared blocks inside free_tree[] instead of floating them.
+>   - Add subtree_has_dirty rbtree augment for O(log N) dirty-first walk.
+> 
+> v4:
+>   - Fixed checkpatch warnings.
+>   - Optimized gpu_buddy_reset_clear() to a single post-order walk that
+>     flips block headers and recomputes the rbtree augment in one pass.
+>   - Propagate subtree_max_size top-down in insert_extent() so ancestors
+>     are not left with stale values on no-rotation inserts. (sashiko)
+>   - Drop the whole extent in gpu_dirty_tracker_mark_dirty() when the
+>     inside-split allocation fails, avoiding a stale clear claim. (sashiko)
+>   - Make gpu_dirty_tracker_find() alignment-aware and fall back to the
+>     dirty tree on steered failure to avoid spurious -ENOSPC. (sashiko)
+> 
+> v5:
+>   - Track dirty extents instead of cleared ones: steer dirty allocs onto
+>     tracked dirty windows and pick clear allocs via a free-tree augment,
+>     avoiding clear-memory wastage by keeping cleared free blocks untouched
+>     during dirty allocation.
+> 
+> v6:
+>   - Make __alloc_range_bias() return the highest/right-most address by
+>     default, establishing top-down as the intended placement for
+>     range-biased allocations.
+>   - Honour GPU_BUDDY_CLEAR_ALLOCATION in __alloc_range_bias() by steering
+>     the descent towards clear subtrees for non-top-down clear
+>     requests. (sashiko)
+>   - Skip dirty-tracker steering for offset-aligned requests so they keep
+>     their min_block_size alignment. (sashiko)
+>   - sashiko reported that the __GFP_NOFAIL dirty-extent allocations on
+>     the free path could deadlock during memory reclaim, since that is a
+>     GFP_KERNEL allocation on the free path; move to a per-tracker
+>     mempool so extent nodes are guaranteed without __GFP_NOFAIL.
+>     (sashiko)
+>   - Derive each free block's clear/dirty class from the blocks already
+>     in hand on split, free, alloc, trim and init instead of querying the
+>     dirty tracker, removing the tracker lookups from the hot paths.
+> 
+> v7:
+>   - Preserve mixed-block clear state in __gpu_buddy_free() when a mixed
+>     split child is re-merged after an undone split. (sashiko)
+>   - Prefer a fully-clear block over a mixed one of the same order via a
+>     single ordered clear-state max augment on free_tree[].
+> 
+> v8:
+>   - Coalesce contiguous dirty blocks in __gpu_buddy_free_list() into one
+>     dirty extent update instead of one mark_dirty() per block. (Matthew)
+> 
+> v9:
+>   - Reset has_clear on allocation so a mixed block taken whole and later
+>     freed fully dirty is not re-tracked as mixed. (sashiko)
+> 
+> v10:
+>   - Use a plain slab allocation for dirty extents; skip and log once on
+>     failure. (Matthew)
+>   - Assert a non-zero size in the dirty-tracker range helpers. (Matthew)
+>   - Drop the cached clear_avail member; derive it on demand. (Matthew)
+>   - Collapse the two dirty branches of gpu_buddy_reset_clear(). (Matthew)
+>   - Move the gpu_block_state enum above the gpu_buddy_block kernel-doc
+>     so the doc directly precedes its struct. (Matthew)
+>   - Mark the gpu_dirty_tracker struct private. (Matthew)
+>   - Preserve a block's clear state on non-clear allocation instead of
+>     force-dirtying it. (Matthew)
+>   - Drop the redundant header clear in gpu_buddy_block_trim(). (Matthew)
+> 
+> Assisted-by: Claude:claude-opus-4-8
+> Cc: Matthew Auld <matthew.auld@intel.com>
+> Cc: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+> ---
 
-Am 19.08.26 um 11:38 schrieb Geert Uytterhoeven:
-> Hi Thomas,
->
-> On Tue, 18 Aug 2026 at 15:00, Thomas Zimmermann <tzimmermann@suse.de> wrote:
->> Declare qrbuf1 and qrbuf2 as static arrays so that the module loader
->> allocates them for us. Avoids the kmalloc later on. Also allows for
->> using sizeof() to get the number of bytes in each array. Access the
->> arrays once with memset, so that the physical pages are available on
->> a panic.
->>
->> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
-> Thanks for your patch!
->
->> --- a/drivers/gpu/drm/drm_panic.c
->> +++ b/drivers/gpu/drm/drm_panic.c
->> @@ -628,24 +628,23 @@ MODULE_PARM_DESC(panic_qr_version, "maximum version (size) of the QR code");
->>   #define WINDOW_BITS 12
->>   #define MEM_LEVEL 4
->>
->> -static char *qrbuf1;
->> -static char *qrbuf2;
->> +static u8 qrbuf1[QR_BUFFER1_SIZE];
->> +static u8 qrbuf2[QR_BUFFER2_SIZE];
-> I am not a big fan of increasing kernel size like this.
-> You may run (faster) into boot loader limitations.
+<snip>
 
-Which limitation would this be?
+>   
+> +/**
+> + * gpu_buddy_clear_avail - free space that is clear (zeroed), in bytes
+> + * @mm: gpu buddy allocator
+> + *
+> + * A subset of @mm->avail. Derived on demand as @mm->avail minus the bytes
+> + * the dirty tracker records as dirty, so it is always consistent with the
+> + * tracker without a cached field to keep in sync. Zero for a fresh pool,
+> + * which is fully dirty.
+> + */
+> +static inline u64 gpu_buddy_clear_avail(const struct gpu_buddy *mm)
+> +{
 
->
->>   static struct z_stream_s stream;
->>
->>   static void __init drm_panic_qr_init(void)
->>   {
->> -       qrbuf1 = kmalloc(QR_BUFFER1_SIZE, GFP_KERNEL);
->> -       qrbuf2 = kmalloc(QR_BUFFER2_SIZE, GFP_KERNEL);
->> +       /* best-effort allocation; can be NULL */
->>          stream.workspace = kmalloc(zlib_deflate_workspacesize(WINDOW_BITS, MEM_LEVEL),
->>                                     GFP_KERNEL);
-> <ironic>Why not use a static array for this, too?</ironic>
+gpu_buddy_driver_lock_held(mm);
 
-I tried, by the size is calculated at runtime.
+Just to make it clear that avail & total_dirty need to be in-sync to 
+always get something sane here?
 
+Can be tweaked when merging.
 
->
->> +
->> +       /* touch memory so that pages are there in the case of a panic */
->> +       memset(qrbuf1, 0, sizeof(qrbuf1));
->> +       memset(qrbuf2, 0, sizeof(qrbuf2));
-> Please clarify "there"?
-> In cache? Not all systems have sufficient data cache, so it may be
-> evicted at any time.
-> In RAM? AFAIK kernel and module memory is not demand-paged.
-> In TLB? Like cache, it may be evicted at any time.
-
-I'd like to avoid looking for a page after a panic has already occurred. 
-But I guess it might not make a difference, given all the DRM that is 
-involved.
-
-The motivation here was that I did not like that panic handling depends 
-on a number of dynamic kmallocs, with which we don't even detect alloc 
-failures until a panic has occurred.
-
->
-> So IMHO this is futile.
-
-Noted.
-
-Best regards
-Thomas
-
->
->>   }
-> Gr{oetje,eeting}s,
->
->                          Geert
->
-
--- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+> +	return mm->avail - mm->dirty.total_dirty;
+> +}
+> +
+>   #ifdef CONFIG_LOCKDEP
+>   /**
+>    * gpu_buddy_driver_set_lock() - Set the lock protecting accesses to GPU BUDDY
+> 
+> base-commit: 063019ac51afffda4ab3d658701b086caa0c8e9e
 
