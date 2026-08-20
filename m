@@ -4,81 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9D09C5DF81
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 06:50:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66A49C5DF82
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 06:54:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 549D810EEF3;
-	Thu, 20 Aug 2026 06:50:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E089C10E0F6;
+	Thu, 20 Aug 2026 06:54:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="DSw2biAM";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="n1VzZwa4";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cRyJSPYe";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oZUkM5nA";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Ea3TBV9a";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mtWC9orN";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JyvAL0sl";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fqk28GyM";
 	dkim-atps=neutral
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC70C10EEF3;
- Thu, 20 Aug 2026 06:50:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2624710E0F6;
+ Thu, 20 Aug 2026 06:54:22 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id F3A6484ED2;
- Thu, 20 Aug 2026 06:50:23 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 638CF84F15;
+ Thu, 20 Aug 2026 06:54:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787208628; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1787208856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=b8o41ZjdYsCNJhkSmVC9m7iryevxQlhVBAMtPeSR/s8=;
- b=DSw2biAMogiUZuW86bB+f3vD8diHy10Juys+SdKUOA0APUzNIO6PRNaOabKutR8RGvDLL0
- NtzcnBEeqRU+ioyGNf07R8txFS02vr6T+VxOpcWHrFPm4fz6qS5XCJBij/xE3VSgWs9qtR
- 5aRA75F4kqHPfysouuKsFuV3nQFg3Jw=
+ bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
+ b=Ea3TBV9aJHMQ4nGbhso8lG+QJ0OjfuTfK7IOL11mRsL9VW2IUIOcH50hdNc1xJX2PxNVgB
+ UmXkAkCQnRaDCk/WNtFaamAVdzjwTTkjGsY8uYocPV4RZHhNZlcP5hNEuL0McKqwYQoJ7/
+ 10EPUAGAnxrb5TuD/T6Lcu7rkxPwSuA=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787208628;
+ s=susede2_ed25519; t=1787208856;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=b8o41ZjdYsCNJhkSmVC9m7iryevxQlhVBAMtPeSR/s8=;
- b=n1VzZwa4W4gZSN2GZ+jyGvvNqm4nCxLukGpivPEMPey+FamGe9wgoDch8CubsTuSjmv6sQ
- p2z7/LfYhxGMQlDg==
+ bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
+ b=mtWC9orNdouFa8DCLWPXTWFpyfzRAzc5mA+ApcZp7qQI6kESaiiC4rfC5cMD7CJkllCTmk
+ 2T/gc7F418D8O+Dg==
 Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=cRyJSPYe;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=oZUkM5nA
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=JyvAL0sl;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=fqk28GyM
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787208624; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1787208852; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=b8o41ZjdYsCNJhkSmVC9m7iryevxQlhVBAMtPeSR/s8=;
- b=cRyJSPYeUu61kSiOuvXdAokx8j5jXqprnrvckudFA+D63FktkIu/nuid9f/X6S09Unt0di
- +rF1AHlF9ZH/1rLju2y1LYXHIjg8djYzB2WlXt24E2NRXmhwXFcSPW2kUXYHCc2H3YIll/
- WOamYaB6rXQGpqgpfxBHGuxFWNo2ZS4=
+ bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
+ b=JyvAL0slVAMJ4ZgNEpYmekyQVQL1yRiBbvb86J7CIf20JcNzrfMs8V4+lapVo9JkNFo57m
+ w8zRj9vDJhMHpAadQqieC8GZGnYWSYLS1vpeFobHXFTBfA8lPMQZWN+KaZMJpgGN0qcqoM
+ idlFnJtGBwx3tXl1Nn2+PvhFXExsy2k=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787208624;
+ s=susede2_ed25519; t=1787208852;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=b8o41ZjdYsCNJhkSmVC9m7iryevxQlhVBAMtPeSR/s8=;
- b=oZUkM5nAEXOIpCy+zxj/gijDrGXwIo2tnLmgEGDnGux5/4Oti+oYsw7PTTI23tyOYYDKYu
- HBTH6M2DH/xoDUDA==
+ bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
+ b=fqk28GyMqbm+M6byic1Pp0d8keCsy1LHCZ34KQutnpLNCu6jSMeo54DPAbOPg8GS9mbXF1
+ TBunt1qeiHlZm1CA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6B59C27A8;
- Thu, 20 Aug 2026 06:50:23 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E675C27A8;
+ Thu, 20 Aug 2026 06:54:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id YzPEGK+jhmpxLgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 20 Aug 2026 06:50:23 +0000
-Message-ID: <0490d52a-9ec6-4428-ad8d-353b04291f29@suse.de>
-Date: Thu, 20 Aug 2026 08:50:22 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id odyVNpOkhmr4MQAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 20 Aug 2026 06:54:11 +0000
+Message-ID: <fa6953ff-1de3-40c9-8910-549083bb9a88@suse.de>
+Date: Thu, 20 Aug 2026 08:54:11 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] drm: Move drm_timeout_abs_to_jiffies() to
- drm_timeout.c
+Subject: Re: [PATCH v2 2/6] drm: Add drm_timeout_rel_to_jiffies()
 To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
@@ -94,7 +93,7 @@ To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
 Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
  amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
 References: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
- <20260817-drm-timeout-helpers-v2-1-73052b669f49@igalia.com>
+ <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
 Content-Language: en-US
 From: Thomas Zimmermann <tzimmermann@suse.de>
 Autocrypt: addr=tzimmermann@suse.de; keydata=
@@ -121,29 +120,29 @@ Autocrypt: addr=tzimmermann@suse.de; keydata=
  SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
  Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
  4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260817-drm-timeout-helpers-v2-1-73052b669f49@igalia.com>
+In-Reply-To: <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: F3A6484ED2
+X-Rspamd-Queue-Id: 638CF84F15
 X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[19]; MIME_TRACE(0.00)[0:+];
- FREEMAIL_TO(0.00)[igalia.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,intel.com,raspberrypi.com];
- MID_RHS_MATCH_FROM(0.00)[];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,igalia.com:email,suse.de:mid,suse.de:dkim];
- RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ ARC_NA(0.00)[];
+ FREEMAIL_TO(0.00)[igalia.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,intel.com,raspberrypi.com];
+ RCPT_COUNT_TWELVE(0.00)[19]; MIME_TRACE(0.00)[0:+];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]; FROM_EQ_ENVFROM(0.00)[];
+ FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
+ RCVD_COUNT_TWO(0.00)[2];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[igalia.com:email, suse.com:url, suse.de:mid,
+ suse.de:dkim, imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns]
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -162,152 +161,95 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 Hi
 
 Am 17.08.26 um 23:05 schrieb Maíra Canal:
-> drm_timeout_abs_to_jiffies() began as a static helper inside the syncobj
-> wait implementation and was later exported in place, so that it could be
-> called by multiple drivers (e.g. panfrost, lima, tegra and accel
-> drivers). All of them reach it through drm_utils.h.
+> drm_timeout_abs_to_jiffies() covers the drivers whose wait UAPI takes an
+> absolute deadline, but there is no equivalent for the drivers that
+> express a wait as a duration. Drivers such as i915 and v3d convert the
+> value themselves.
 >
-> Give it a file of its own, so that timeout conversion helpers have a
-> home, which will be useful when we add new timeout handlers. The
-> declaration stays in drm_utils.h, so no caller changes.
+> Converting a nanosecond duration to jiffies needs some care.
+> nsecs_to_jiffies() returns unsigned long, so on 32-bit a large
+> userspace-supplied timeout overflows its range and is silently truncated.
 >
-> No functional change.
+> i915 already handles both cases in a local helper, which v3d has a copy
+> of. Add the same conversion to the core, so that it is available to any
+> driver and both copies can be dropped.
 >
 > Signed-off-by: Maíra Canal <mcanal@igalia.com>
 > ---
->   drivers/gpu/drm/Makefile      |  1 +
->   drivers/gpu/drm/drm_syncobj.c | 33 ------------------------------
->   drivers/gpu/drm/drm_timeout.c | 47 +++++++++++++++++++++++++++++++++++++++++++
->   3 files changed, 48 insertions(+), 33 deletions(-)
+>   drivers/gpu/drm/drm_timeout.c | 34 ++++++++++++++++++++++++++++++++++
+>   include/drm/drm_utils.h       |  1 +
+>   2 files changed, 35 insertions(+)
 >
-> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
-> index e97faabcd783..0a0d7ea08347 100644
-> --- a/drivers/gpu/drm/Makefile
-> +++ b/drivers/gpu/drm/Makefile
-> @@ -68,6 +68,7 @@ drm-y := \
->   	drm_rect.o \
->   	drm_syncobj.o \
->   	drm_sysfs.o \
-> +	drm_timeout.o \
->   	drm_trace_points.o \
->   	drm_vblank.o \
->   	drm_vblank_work.o \
-> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-> index 2fa170a29a62..cf03681de6f7 100644
-> --- a/drivers/gpu/drm/drm_syncobj.c
-> +++ b/drivers/gpu/drm/drm_syncobj.c
-> @@ -1193,39 +1193,6 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
->   	return timeout;
->   }
->   
-> -/**
-> - * drm_timeout_abs_to_jiffies - calculate jiffies timeout from absolute value
-> - *
-> - * @timeout_nsec: timeout nsec component in ns, 0 for poll
-> - *
-> - * Calculate the timeout in jiffies from an absolute time in sec/nsec.
-> - */
-> -signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
-> -{
-> -	ktime_t abs_timeout, now;
-> -	u64 timeout_ns, timeout_jiffies64;
-> -
-> -	/* make 0 timeout means poll - absolute 0 doesn't seem valid */
-> -	if (timeout_nsec == 0)
-> -		return 0;
-> -
-> -	abs_timeout = ns_to_ktime(timeout_nsec);
-> -	now = ktime_get();
-> -
-> -	if (!ktime_after(abs_timeout, now))
-> -		return 0;
-> -
-> -	timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
-> -
-> -	timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
-> -	/*  clamp timeout to avoid infinite timeout */
-> -	if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
-> -		return MAX_SCHEDULE_TIMEOUT - 1;
-> -
-> -	return timeout_jiffies64 + 1;
-> -}
-> -EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
-> -
->   static int drm_syncobj_array_wait(struct drm_device *dev,
->   				  struct drm_file *file_private,
->   				  struct drm_syncobj_wait *wait,
 > diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
-> new file mode 100644
-> index 000000000000..78e9f65e5477
-> --- /dev/null
+> index 78e9f65e5477..18c2719d1fe9 100644
+> --- a/drivers/gpu/drm/drm_timeout.c
 > +++ b/drivers/gpu/drm/drm_timeout.c
-> @@ -0,0 +1,47 @@
-> +// SPDX-License-Identifier: MIT
-> +/*
-> + * Timeout conversion helpers for wait ioctls.
-> + *
-> + * Copyright 2017 Red Hat
-> + * Copyright 2016 Advanced Micro Devices, Inc.
-> + */
-> +
-> +#include <linux/export.h>
-> +#include <linux/jiffies.h>
-> +#include <linux/ktime.h>
-> +#include <linux/sched.h>
-> +
-> +#include <drm/drm_utils.h>
+> @@ -9,6 +9,7 @@
+>   #include <linux/export.h>
+>   #include <linux/jiffies.h>
+>   #include <linux/ktime.h>
+> +#include <linux/math64.h>
+>   #include <linux/sched.h>
+>   
+>   #include <drm/drm_utils.h>
+> @@ -45,3 +46,36 @@ signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+>   	return timeout_jiffies64 + 1;
+>   }
+>   EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
 > +
 > +/**
-> + * drm_timeout_abs_to_jiffies - calculate jiffies timeout from absolute value
+> + * drm_timeout_rel_to_jiffies - calculate jiffies timeout from relative value
 > + *
-
-No empty line here
-
-> + * @timeout_nsec: timeout nsec component in ns, 0 for poll
+> + * @timeout_nsec: relative timeout in ns, 0 for poll
 > + *
-> + * Calculate the timeout in jiffies from an absolute time in sec/nsec.
+> + * Calculate the timeout in jiffies from a relative timeout in ns, for drivers
+> + * whose UAPI expresses a wait as a duration rather than as a deadline.
+> + *
+> + * The result is clamped to MAX_JIFFY_OFFSET. That keeps it positive once it is
+> + * converted to the signed long taken by dma_fence_wait_timeout() and friends,
+> + * which matters on 32-bit, and keeps it distinct from MAX_SCHEDULE_TIMEOUT so
+> + * that a finite wait is never understood as an infinite one.
+> + *
+> + * It's strongly discouraged to use relative timeouts in uAPIs, as they do not
+> + * survive a restarted ioctl. A signal-interrupted ioctl is re-entered with the
+> + * same arguments, so the duration starts counting from zero again. New uAPIs
+> + * should take an absolute deadline and use drm_timeout_abs_to_jiffies().
 
-Just 'nsec'.
+I would not speak of uAPIs here, as it's unrelated to the function at 
+hand. You might want to mention it in the commit description though.
 
-The documentation and commit  description should also be clear that the 
-result is the number of jiffies until the given timeout (right?) and not 
-some absolute value in jiffies.
-
-> + */
-
-Needs to document the returned value
-
-   Returns:
-   The number of jiffies until the given timeout, or some upper limit
+Please also see my comments on the docs of drm_timeout_abs_to_jiffies(). 
+Most of it applies here as well.
 
 Best regards
 Thomas
 
-> +signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+> + */
+> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec)
 > +{
-> +	ktime_t abs_timeout, now;
-> +	u64 timeout_ns, timeout_jiffies64;
-> +
-> +	/* make 0 timeout means poll - absolute 0 doesn't seem valid */
+> +	/* make 0 timeout means poll, as for the absolute variant */
 > +	if (timeout_nsec == 0)
 > +		return 0;
 > +
-> +	abs_timeout = ns_to_ktime(timeout_nsec);
-> +	now = ktime_get();
+> +	/* nsecs_to_jiffies64() does not guard against overflow */
+> +	if ((NSEC_PER_SEC % HZ) != 0 &&
+> +	    div_u64(timeout_nsec, NSEC_PER_SEC) >= MAX_JIFFY_OFFSET / HZ)
+> +		return MAX_JIFFY_OFFSET;
 > +
-> +	if (!ktime_after(abs_timeout, now))
-> +		return 0;
-> +
-> +	timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
-> +
-> +	timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
-> +	/*  clamp timeout to avoid infinite timeout */
-> +	if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
-> +		return MAX_SCHEDULE_TIMEOUT - 1;
-> +
-> +	return timeout_jiffies64 + 1;
+> +	return min_t(u64, MAX_JIFFY_OFFSET, nsecs_to_jiffies64(timeout_nsec) + 1);
 > +}
-> +EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+> +EXPORT_SYMBOL(drm_timeout_rel_to_jiffies);
+> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
+> index 6a46f755daba..8c0cc9835413 100644
+> --- a/include/drm/drm_utils.h
+> +++ b/include/drm/drm_utils.h
+> @@ -25,5 +25,6 @@ const struct drm_panel_backlight_quirk *
+>   drm_get_panel_backlight_quirk(const struct drm_edid *edid);
+>   
+>   signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
+> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec);
+>   
+>   #endif
 >
 
 -- 
