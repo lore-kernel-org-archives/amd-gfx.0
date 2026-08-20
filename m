@@ -4,99 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0A136C5DF81
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 17:30:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA0F3C5DF81
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 17:49:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 951DE10F142;
-	Thu, 20 Aug 2026 17:30:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4827E10F155;
+	Thu, 20 Aug 2026 17:49:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KADi4HU7";
+	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Qa2N9n89";
 	dkim-atps=neutral
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 62C2010F142
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 17:30:32 +0000 (UTC)
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-384422b05b5so2448a91.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 10:30:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787247032; cv=none;
- d=google.com; s=arc-20260327;
- b=lIwTyNWGspZgbHem6hlWerBEEClQwGSV620Gdoyo8DAiApb3WARwKuGMGeC/KQLkV7
- SgvEp2s3sDJrs8a1ufZGjwTCShBjMtA0HDGA22lt6l2vBSbd1g+BAlDQktEAc5KX1ugv
- LG8xHsd51NMhmxY8ddc0e6MjpXrEO2T1FfvTl/pn/PtuRLXiY9IhCxLZ2Rj9JEhrAwKq
- wdzQcsH9slyBlr4phZl8INTU0DEcAA7gKDMx/O36/IH90PO+WDiRfNWeV8ZMEICi5lqg
- BtRVF5xfeNsIsaaFzoJSMtqmflvXvpE//Wu3P+7LzdY7hjUNv+F/Tm7KXBt3Appr6zUP
- Ypjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=CXnMANvJ9eN98YzEYsCcWeGUongdCQIQFEcU/aBU4T0=;
- fh=INgAn3Dz+hp99rlSHGoUboV5nmBkpKulC1yGIax4Mhc=;
- b=EsBxQCTJt/WqlZM1i64LHPiiQ1EILS9W3xI/6aNpNKZxPFLPFOE6tuddMqIBah7HqF
- ILH7dlzPlScQUR/F8sB6KKlBNfKG9wohexaA91YkyiAE5OBY/MbCA8BQ7u4D91+btG9P
- pVkFUJ3sGkNFYYnHEqqrQPYaWoe4m0WzG1lrzLZZc602UB4SWGAPkBM2pUS2e881r9CQ
- L3UCIcuUNR8LRApYtgeYEbfGqkENjqA7kU1lGGNTiYpLwAXQOYQXHoVquy+rY9JJT64n
- b+R07duqOT/IsRyMe8PY6u/7L8cZxLVMfsRL3WB75ULnVRv4JljXt0N74bQg7I3xe8Le
- WOww==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787247032; x=1787851832; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=CXnMANvJ9eN98YzEYsCcWeGUongdCQIQFEcU/aBU4T0=;
- b=KADi4HU7d15NsCowvzrHicqANIUsah061nU0Ap5dlPlNdKJcrOC6aUwADd/Hs0fPE1
- VPy5U3FTZi4uDE7vsFJaW/WHvj03d/oH5YKrEDKVm0GKQQWpdhPRkSjfC7jlgH/ohEWL
- TZjX9Obt2tBB9MOFxMOtK8Z6mXw79lxIrYgxhrBCwvc3STvRZW3IT+4sPWJSmSzazdjG
- Op63gzvQWWHnYQ7VtrQoSW0xuvhKseChl4HmSV5DI5P7VNjjbQbml093QK2ZQszR9zYv
- ypkP7ovCXMR6EhNqivv27UBcKTPF2y4QHg1KSKT88tyX1yX13uFcQb0YTBv4GUHzZU/h
- B2xQ==
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43EC010F155
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 17:49:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1787248183;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=6+qiRA0Rr68w6luARuut3h/5z5IL9+5qPOnuZ1Bth1E=;
+ b=Qa2N9n89qzL7LHK1UmEu5L0TouYM7HY9V/YhR2cDJC5yWPXSFcAGiF5BRPJH43wThkwFq1
+ uCRaQR4D1FX0ZmaKzUWqT/aSevBu8DyW9s3fm3pUm5yMHM0XUTjHQxpE3e/o7UhTDAMNs/
+ 7+pX/5Pd+yBVaAEerh/G077lLZWBblg=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-16-MNvbgvEbNK--s73qeq0X7A-1; Thu, 20 Aug 2026 13:49:42 -0400
+X-MC-Unique: MNvbgvEbNK--s73qeq0X7A-1
+X-Mimecast-MFC-AGG-ID: MNvbgvEbNK--s73qeq0X7A_1787248181
+Received: by mail-wr1-f72.google.com with SMTP id
+ ffacd0b85a97d-47f81362fb1so99837f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 10:49:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787247032; x=1787851832;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=CXnMANvJ9eN98YzEYsCcWeGUongdCQIQFEcU/aBU4T0=;
- b=Dzc3s3SYEK265gbIvU6cH2q4rYBOKKP6U8yHp8nLOBFpyvP5PtSJAtCybAiA10DpOf
- SMS4CKoAcJXPWKGFIVArykflfOUWkPShXgqfrajTrDtv9q66ZCn6xC17X40lILE97+HU
- Q+yTH/u9yNhpQVhREG4F9/5J/jZHdmc7oeZdxcYCk9b5im6feZwFFwCPTtZwaavmXdjr
- hXIRHuiMir90n7EakTjGz6j86U71sFWB+5vEFxvBvSRT5XQD7UR9qEtDncNT/F1ukTRf
- P40fJd/7GSDSkCrxHn02cZGTIAzcDBQG3KqSgYIoC03jSTqdCRIzsPJ+xZc8Jm+SieXh
- NEPg==
-X-Gm-Message-State: AFuF++lke4rTAYiX2qJmrqMOFOJKy8LHswW1lLo8cKHngOQR3TpvypqN
- gt+5rxNU6TXXwHzfH/tdkK1mNWdFP/54OnsBuNyUaLFnrdrC1P4DmOFKSvoc1HPJE19IWO4LfGV
- I8SW4/s0BTYxwuVfiOGloTfnaEMH1hqE=
-X-Gm-Gg: AR+sD13b6kQZ4PG+h3MVu9L28Fjm38SBYJK+ODgjFZtGqVx1s/Yv0s9JDCU+7HPnyok
- CwWnjoGVJAcBjGqRQMyvzeW8ti+1vgwP6Pt4Er/VdJYMxi5DtfJzQiYoLHB4DyzDdSBr+nkN0VQ
- XCTrf5JPkLjN8A6BMQ+0EigQUwHI2IpGaQzRIe+Dv8n3ZR7jUBeGzY4KiZCShwm2NLcP66ajoey
- sjHRjeCIF19UdNb2s5k89uKVNG29EOR2mATpgIRTcV0npIb6vODHCphiAntkMxFE9famjg30H18
- /nlDtuu/QTZ0+Bm2zSnhuwer+LoEiWjxyNKpqu7boxXkAqeB6DfYW0zbEK7GLl/LNEcGYRCwnZp
- +zlKjNLP9o4UG26CqDqSBRj1SjVBCTYw=
-X-Received: by 2002:a17:90b:2687:b0:38e:6a7c:abbc with SMTP id
- 98e67ed59e1d1-395c37238dbmr71890a91.3.1787247031544; Thu, 20 Aug 2026
- 10:30:31 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1787248181; x=1787852981;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=6+qiRA0Rr68w6luARuut3h/5z5IL9+5qPOnuZ1Bth1E=;
+ b=J/vqIYLxaQQefOj2H5SDqOcTUdo/9ENdTm7iXagYqHWEHLzn/7ph6AYj2lGF+6jOVR
+ wy1TmKyMACn9Qqp42T+NBcrqDhidVuXGMMY+jdqaPEwuDHdDWFfjf7OFnPIopwmpkutv
+ HgPJhxIHGWZARy0eqafFLCoGRUcw+jo9ZFXFnuMsRIz1/2+Q08FfyRrZGlHCjNWKxs8D
+ 6FBJKPJH/xTsaet6pksr46X1VgzQqAhL7MnOZGgxuncdtxaxf5xQgO4MkGd7UiVVGUv1
+ K48U/nHJ4Oh42z2jO7MQ79e5yXXEndIqFILJ234l3RbgU4rZkmzKfRrxIXmP/esyq5/t
+ wvxA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RofEAy4SOeZdQzmuw6hiI6RvB/LrNhpfPZKoea31sR/oggax9OZa4ApUbt6y0k7Thc42wkOX07C@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mJzganuiiuWzJPyJQsDLslygRjipbD8We+nJ+nfidatE1U0/SJ
+ 6OUQrHJNptO985NMUlWon5AeX+LkFPEUBaweuqYai76/IO7+o7BT+8FahYxLu7640zVMTE3/dOh
+ /gIEx8PCVvjn7q8lFX8BuxxIIafY8lNqp4FjrgS/SlUMq73KZCV6scrZZFk1aCSwUz84=
+X-Gm-Gg: AR+sD10q2fET5UoPTjy98Dman8QYZviKUrqiqL2gmp+fIIbXgg7Q63UUnZjGm6wDORc
+ RDtlzzPvGT6OUMbRSM1ohXlklyLbotVu88K/8Ftgj7FTLFoOpP/csG2hj136nN73NXisB34unUp
+ hWqfRrK6Zxd9KNgSB+4a6m7soN5/mDoY1tKTmUsXRCQ3UaosKWiyTxQhBSqmf58PSxPIavDOL5+
+ 4iKatBxjqE07SiYiDZGYbisO158iXSPqvgGXegElYN68YlyZQbgIf9jVQ+ZpBSAo3mHuQ+V73CO
+ jxS/o5WOlBfGmUrC3Ko4N+10V3urUXg2IKpiP088fTNN7BsyecDy09EIzqUaHpW4u7jMq/P8uEj
+ I54UXqi+05JbKYN4gqMs2YiV91526RCD+MgU14+6f/DQYmQ==
+X-Received: by 2002:a05:6000:184e:b0:47f:f339:556c with SMTP id
+ ffacd0b85a97d-482c0b4a40dmr705154f8f.2.1787248180688; 
+ Thu, 20 Aug 2026 10:49:40 -0700 (PDT)
+X-Received: by 2002:a05:6000:184e:b0:47f:f339:556c with SMTP id
+ ffacd0b85a97d-482c0b4a40dmr705081f8f.2.1787248180291; 
+ Thu, 20 Aug 2026 10:49:40 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:11aa:87f0:935:4f8e:b423:64eb?
+ ([2a01:e0a:11aa:87f0:935:4f8e:b423:64eb])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-482b145d31bsm13853815f8f.16.2026.08.20.10.49.39
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 20 Aug 2026 10:49:39 -0700 (PDT)
+Message-ID: <e4da5ba4-9a02-4080-9a83-19d401017910@redhat.com>
+Date: Thu, 20 Aug 2026 19:49:36 +0200
 MIME-Version: 1.0
-References: <20260820045438.3974-1-yogesh.mohanmarimuthu@amd.com>
- <CADnq5_MNFZfbvkgQ6JYjBZOb5+E+kezXDphFHshaaw7h7yVk0w@mail.gmail.com>
- <CH0PR12MB52689AE98C9044860F3FB914FFA42@CH0PR12MB5268.namprd12.prod.outlook.com>
- <CADnq5_NL1vec9Xp=6EjUupmJb8DkkUu2dz44URLL5gf+f9bKxg@mail.gmail.com>
- <CH0PR12MB5268E3922230EB424FAEB36DFFA42@CH0PR12MB5268.namprd12.prod.outlook.com>
-In-Reply-To: <CH0PR12MB5268E3922230EB424FAEB36DFFA42@CH0PR12MB5268.namprd12.prod.outlook.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 20 Aug 2026 13:30:16 -0400
-X-Gm-Features: AcwNN1VrtAXXCcg9-bjeQ4YY42Zn2Ju-OkqLNAsePKhLTzqJbl0ysPMnLg7V2ks
-Message-ID: <CADnq5_On3OffA8-eqe7wmuhxmqafw_hd-uWN_DTttefyt8ATVg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/userq: fix struct drm_amdgpu_info_device
- padding for 32bit compile
-To: "Mohan Marimuthu, Yogesh" <Yogesh.Mohanmarimuthu@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>, 
- "Khatri, Sunil" <Sunil.Khatri@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/12] drm/panic: Split into core and helpers
+To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
+ airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
+ sashiko-reviews@lists.linux.dev
+References: <20260818125012.468092-1-tzimmermann@suse.de>
+From: Jocelyn Falempe <jfalempe@redhat.com>
+In-Reply-To: <20260818125012.468092-1-tzimmermann@suse.de>
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: Q6Oggg1xGWNltfJ0oNyXNUQCnFDfzawUOu7R-uDULoY_1787248181
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US, fr
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,107 +109,133 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 20, 2026 at 11:28=E2=80=AFAM Mohan Marimuthu, Yogesh
-<Yogesh.Mohanmarimuthu@amd.com> wrote:
->
-> AMD General
->
-> Hi Alex,
->
-> I am not changing the layout.
->
-> For 64 bit gcc, default alignment for __u64 is 8bytes.
-> For 32 bit gcc, default alignment for __u64 is 4bytes.
->
-> For 32 bit gcc, I have manually padded 4bytes so that it is 8bytes aligne=
-d for __u64. This will make 64bit kernel compatible with 32bit mesa compile=
-d using gcc.
->
+On 18/08/2026 14:27, Thomas Zimmermann wrote:
+> Split DRM's current panic handling into a core and a helper module.
+> The core is still part of DRM's core library. The panic helpers are
+> part of DRM's KMS helper module (for now).
+> 
+> The motivation behind this series is to get panic handling's drawing
+> code out of the DRM core. At some point it should share a single
+> module with DRM's other drawing and format conversion.
+> 
+> With the series applied, panic hanlding follows DRM's established
+> design pattern of having a DRM core interface with an dedicated
+> implementation in each driver. Drivers share common code in helper
+> modules. For panic handling, the DRM core still contains the panic
+> entry points, the parameters and the debugfs interface. All drawing
+> is now located in the panic helpers.
+> 
+> Patches 1 to 4 improve several issues in the current panic code. It
+> makes sense to fix them before moving the core around.
+> 
+> Patches 5 to 8 put handling of all panic state and locking into a
+> single place, drm_panic_display_panic_screen(). It is maintained by
+> panic handling's DRM core code. This also enables the test cases to
+> work more independently from the kernel's configuration.
+> 
+> Patches 9 to 11 split the panic-handling code into the core and panic
+> helpers. The former maintain all state, locking and public interfaces.
+> The latter handles drawing and details of the involved framebuffers.
+> 
+> DRM devices that offer panic handling provide a single callback, struct
+> drm_plane_funcs.display_panic_screen. A new initializer macro makes it
+> point to the existing panic-drawing implementation. Hence there's no
+> change in features or functionality. If panic handling is configured
+> off, it all clears out to NULL.
+> 
+> Patch 12 reworks the test cases slighly, so that they can be build as
+> a separate module. Do 'modprobe drm_panic_helper_test' to run them.
+> 
+> Tested under bochs with debugfs and test cases.
 
-Won't this break 32 bit kernels?
+Overall the series looks good to me, and I like the split between the 
+helper and the core.
+I would just drop the first two patches, as I don't see much difference 
+between static allocation or kmalloc() at init, and I think that 
+memset() the buffers to 0 is not useful in this case.
 
-Alex
+Best regards,
 
-> Thank you,
-> Yogesh
->
-> ________________________________
-> From: Alex Deucher <alexdeucher@gmail.com>
-> Sent: Thursday, August 20, 2026 8:51 PM
-> To: Mohan Marimuthu, Yogesh <Yogesh.Mohanmarimuthu@amd.com>
-> Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deuche=
-r, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koen=
-ig@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>
-> Subject: Re: [PATCH] drm/amdgpu/userq: fix struct drm_amdgpu_info_device =
-padding for 32bit compile
->
-> On Thu, Aug 20, 2026 at 11:18=E2=80=AFAM Mohan Marimuthu, Yogesh
-> <Yogesh.Mohanmarimuthu@amd.com> wrote:
-> >
-> > AMD General
-> >
-> > Hi Alex,
-> >
-> > In 32bit mesa, I did not get the correct userq_ip_mask value.
-> > I checked for variable alignment and tcc_disabled_mask was not on 8 byt=
-e alignment. This patch fixes it.
-> >
-> > Can you please tell how it would break UAPI. What did I miss.
->
-> You are changing the layout of the structure that existing apps expect.
->
-> Alex
->
-> >
-> > Thank you,
-> > Yogesh
-> >
-> > ________________________________
-> > From: Alex Deucher <alexdeucher@gmail.com>
-> > Sent: Thursday, August 20, 2026 7:23 PM
-> > To: Mohan Marimuthu, Yogesh <Yogesh.Mohanmarimuthu@amd.com>
-> > Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deuc=
-her, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Ko=
-enig@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>
-> > Subject: Re: [PATCH] drm/amdgpu/userq: fix struct drm_amdgpu_info_devic=
-e padding for 32bit compile
-> >
-> > On Thu, Aug 20, 2026 at 12:55=E2=80=AFAM Yogesh Mohan Marimuthu
-> > <yogesh.mohanmarimuthu@amd.com> wrote:
-> > >
-> > > need to pad before __u64 tcc_disabled_mask variable.
-> > >
-> > > Signed-off-by: Yogesh Mohan Marimuthu <yogesh.mohanmarimuthu@amd.com>
-> >
-> > This will break UAPI.
-> >
-> > Alex
-> >
-> > > ---
-> > >  include/uapi/drm/amdgpu_drm.h | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > >
-> > > diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_=
-drm.h
-> > > index 0a113529b..5beef3eaa 100644
-> > > --- a/include/uapi/drm/amdgpu_drm.h
-> > > +++ b/include/uapi/drm/amdgpu_drm.h
-> > > @@ -1517,6 +1517,7 @@ struct drm_amdgpu_info_device {
-> > >         __u64 high_va_max;
-> > >         /* gfx10 pa_sc_tile_steering_override */
-> > >         __u32 pa_sc_tile_steering_override;
-> > > +       __u32 pad;
-> > >         /* disabled TCCs */
-> > >         __u64 tcc_disabled_mask;
-> > >         __u64 min_engine_clock;
-> > > @@ -1541,7 +1542,6 @@ struct drm_amdgpu_info_device {
-> > >         __u32 csa_alignment;
-> > >         /* Userq IP mask (1 << AMDGPU_HW_IP_*) */
-> > >         __u32 userq_ip_mask;
-> > > -       __u32 pad;
-> > >  };
-> > >
-> > >  struct drm_amdgpu_info_hw_ip {
-> > > --
-> > > 2.43.0
-> > >
+-- 
+
+Jocelyn
+> 
+> Future directions:
+> 
+> - Panic handling shares some drawing code with format conversion and
+> clients. There's even more drawing code in vkms. Later series' can
+> attempt to unify and harmonize all these implementations in a single
+> draw module.
+> 
+> - The drawing helper drm_plane_helper_display_panic_screen() still
+> implements various access schemes (map, set_pixel, memcpy) in a single
+> function. It could be split up into specifialized helpers.
+> 
+> - If we ever need a driver-specific helper, it is now possible to
+> implement a custom version of display_panic_screen.
+> 
+> Thomas Zimmermann (12):
+>    drm/panic: Allocate QR-code buffers statically
+>    drm/panic: Make allocation of zlib workspace more robust
+>    drm/panic: Return -EINVAL if font is not available
+>    drm/panic: Return errno codes if panic output fails
+>    drm/panic: Pass colors to draw_panic_dispatch()
+>    drm/panic: Pass global module parameters to drm_panic_dispatch()
+>    drm/panic: Retry in dispatch function if panic output fails
+>    drm/panic: Split draw_panic_plane()
+>    drm/panic: Display panic screen via per-plane callback
+>    drm/panic: Internalize panic locking in DRM core and helpers
+>    drm/panic: Move panic display code into helper library
+>    drm/panic: Compile KUnit tests as module
+> 
+>   Documentation/gpu/drm-kms-helpers.rst         |  11 +-
+>   Documentation/gpu/drm-kms.rst                 |   3 +
+>   MAINTAINERS                                   |  11 +-
+>   drivers/gpu/drm/Kconfig                       |   5 +
+>   drivers/gpu/drm/Kconfig.debug                 |   1 +
+>   drivers/gpu/drm/Makefile                      |   3 +-
+>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |   2 +
+>   drivers/gpu/drm/ast/ast_mode.c                |   2 +
+>   drivers/gpu/drm/drm_atomic_helper.c           |   2 +-
+>   drivers/gpu/drm/drm_crtc_internal.h           |   2 -
+>   drivers/gpu/drm/drm_drv.c                     |   3 +-
+>   drivers/gpu/drm/drm_kms_helper_common.c       |  14 +
+>   drivers/gpu/drm/drm_panic.c                   | 914 +----------------
+>   drivers/gpu/drm/drm_panic_helper.c            | 915 ++++++++++++++++++
+>   ...drm_panic_qr.rs => drm_panic_helper_qr.rs} |   4 +-
+>   drivers/gpu/drm/drm_panic_internal.h          |  59 ++
+>   drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |   2 +
+>   drivers/gpu/drm/i915/display/i9xx_plane.c     |   3 +
+>   .../drm/i915/display/skl_universal_plane.c    |   4 +
+>   drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c       |   2 +
+>   drivers/gpu/drm/mgag200/mgag200_drv.h         |   4 +-
+>   drivers/gpu/drm/nouveau/dispnv50/wndw.c       |   2 +
+>   .../gpu/drm/renesas/rcar-du/rcar_du_plane.c   |   2 +
+>   .../drm/renesas/shmobile/shmob_drm_plane.c    |   2 +
+>   drivers/gpu/drm/sysfb/drm_sysfb_helper.h      |   4 +-
+>   drivers/gpu/drm/sysfb/vesadrm.c               |   1 +
+>   drivers/gpu/drm/tests/Makefile                |   1 +
+>   ...m_panic_test.c => drm_panic_helper_test.c} |  65 +-
+>   drivers/gpu/drm/tidss/tidss_plane.c           |   2 +
+>   drivers/gpu/drm/tiny/bochs.c                  |   4 +-
+>   drivers/gpu/drm/virtio/virtgpu_plane.c        |   2 +
+>   include/drm/drm_mode_config.h                 |   4 +-
+>   include/drm/drm_modeset_helper_vtables.h      |  11 +-
+>   include/drm/drm_panic.h                       | 117 +--
+>   include/drm/drm_panic_helper.h                |  40 +
+>   include/drm/drm_plane.h                       |  57 ++
+>   rust/bindings/bindings_helper.h               |   4 +-
+>   37 files changed, 1253 insertions(+), 1031 deletions(-)
+>   create mode 100644 drivers/gpu/drm/drm_panic_helper.c
+>   rename drivers/gpu/drm/{drm_panic_qr.rs => drm_panic_helper_qr.rs} (99%)
+>   create mode 100644 drivers/gpu/drm/drm_panic_internal.h
+>   rename drivers/gpu/drm/tests/{drm_panic_test.c => drm_panic_helper_test.c} (80%)
+>   create mode 100644 include/drm/drm_panic_helper.h
+> 
+> 
+> base-commit: dc462ab791b686c48545c160ecc81be64f77a846
+> prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
+> prerequisite-patch-id: a5a973e527c88a5b47053d7a72aefe0b550197cb
+> prerequisite-patch-id: b9adc9622920a3e70168e672c2c92795b3e3a106
+> prerequisite-patch-id: 5030de433a01c2e99056cadb676a8e2ba35f055a
+
