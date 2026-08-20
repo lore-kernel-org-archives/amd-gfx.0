@@ -4,73 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1E6BC5DF82
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 10:06:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CA179C5DF88
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 10:16:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7FFDD10E21F;
-	Thu, 20 Aug 2026 10:06:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 397C310EFB6;
+	Thu, 20 Aug 2026 10:16:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=pixelcluster.dev header.i=@pixelcluster.dev header.b="Qe7vPb2r";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="QWZMhzgF";
 	dkim-atps=neutral
-X-Greylist: delayed 401 seconds by postgrey-1.36 at gabe;
- Thu, 20 Aug 2026 10:06:12 UTC
-Received: from smtpout1.mo2.mail-out.ovh.net (smtpout1.mo2.mail-out.ovh.net
- [79.137.123.219])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EC0810E21F
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 10:06:12 +0000 (UTC)
-Received: from director3.derp.mail-out.ovh.net
- (director3.derp.mail-out.ovh.net [79.137.60.223])
- by mo2.mail-out.ovh.net (Postfix) with ESMTPS id 4hQf6m4t8pz488C;
- Thu, 20 Aug 2026 09:59:28 +0000 (UTC)
-Received: from director3.derp.mail-out.ovh.net
- (director3.derp.mail-out.ovh.net. [127.0.0.1])
- by director3.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <alexander.deucher@amd.com>; Thu, 20 Aug 2026 09:59:28 +0000 (UTC)
-Received: from mta3.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.109.231.53])
- by director3.derp.mail-out.ovh.net (Postfix) with ESMTPS id
- 4hQf6m2qqzz1y8L; Thu, 20 Aug 2026 09:59:28 +0000 (UTC)
-Received: from pixelcluster.dev (unknown [10.1.6.11])
- (Authenticated sender: nat@pixelcluster.dev)
- by mta3.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id E3080941AF5; 
- Thu, 20 Aug 2026 09:59:26 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-111S005b8ea7353-3f05-463a-9f9b-15bbabc0bbb5,
- 272873839BD06AC788C5654E217593B0E5FF663A) smtp.auth=nat@pixelcluster.dev
-X-OVh-ClientIp: 88.133.252.134
-Message-ID: <6dcd3e9a-b308-44c6-a9cb-4bca149a2fde@pixelcluster.dev>
-Date: Thu, 20 Aug 2026 11:59:26 +0200
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011032.outbound.protection.outlook.com [52.101.62.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BB8E10EFB6
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 10:16:23 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MuTzVCkQwYCNjGKJ2Z2Cba7fS/fi7pD5sKFRrCdfIiBQoD2f3zj7aR5KzwPgTM6G0q8c9odRFDM7B8GemjiWZEVgmFhgM8JiuIV88ZV6jGE6EB4+25GKtX9+bckff1W2rERScWMGFbshmLXEK9/Z37sNYJVNHliWpvJsz4aH1wT07/7UPZw2/IPT5jQxAF0SmMBhwWjffGtEBcnhszBK4RFcWkYLPGaT2SZR8bgcTaqSbmqSJVZItra27R+4epPRcgooentuVL0IjJaoWDFA6fh7o/EyHbAil1HhnxsIu+heaU88OOv7i7pYlcuwGuMvrFZzIKeqJfT378J6h8e7/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Qrt+vil73wIhoUiZmudTQlMwKqSNHvPGJAoI2N1nYVw=;
+ b=o/acB7Fwv0Z7gAtAVa2T8+sxS4rFDJZEUhFQIK+9UbSlOFas4RTn22Jc0eyaYzAzn/97dtrtRq1qXWMfk6D0OMzbTNorjwj6hif+nl0pxUSoBcXE0BzViTGiiRdGzEDcMqS+SCENvjnPy0tk6TTPlOPPD1MBluNko7I0vg5zIgT517vT8bnLuzh2j22F4OpS27xETxPt2dIZbSI3JYUYpUIrNiKL/dCMn8DHZK58UpU4z3spepGGRGuA1s7LArpkvFyRt3OmqQf6QEe6Az+bWUExzo76EVqC45tWC7Y4RxTnlWGYZhCEW94yxgHA/cN5u8TA2K4Q21iHpVlgU5C53w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Qrt+vil73wIhoUiZmudTQlMwKqSNHvPGJAoI2N1nYVw=;
+ b=QWZMhzgFWJ92YU0csHJSNviuoP9KBbw7BWvNHUyPwBDlxah6D/Cjgl4wKae63jrucddLmCWdINNK0mscGb7Nxh+AQjhZrWtEtGqUF93b9/hrm1gJHXrGZ5auOP3HHwhFL9SB2/kGdcltpLahCDi/FUBaXRK0G3PaUpUPsvplx6M=
+Received: from BY1P220CA0022.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:5c3::14)
+ by CH2PR12MB4055.namprd12.prod.outlook.com (2603:10b6:610:78::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.11; Thu, 20 Aug
+ 2026 10:16:17 +0000
+Received: from CO1PEPF00012E64.namprd05.prod.outlook.com
+ (2603:10b6:a03:5c3:cafe::37) by BY1P220CA0022.outlook.office365.com
+ (2603:10b6:a03:5c3::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.10 via Frontend Transport; Thu,
+ 20 Aug 2026 10:16:16 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CO1PEPF00012E64.mail.protection.outlook.com (10.167.249.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Thu, 20 Aug 2026 10:16:16 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 20 Aug 2026 05:16:13 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: Alex Hung <alex.hung@amd.com>, Aurabindo Pillai <aurabindo.pillai@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Dan Carpenter <error27@gmail.com>, Roman Li
+ <roman.li@amd.com>, Tom Chung <chiahsuan.chung@amd.com>
+Subject: [PATCH] drm/amd/display: Fix redundant GPUVMEnable checks in dcn6
+ flip schedule
+Date: Thu, 20 Aug 2026 15:46:01 +0530
+Message-ID: <20260820101601.3942853-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 1/3] drm/amdgpu/uapi: Add second-level trap handler
- ops to VM ioctl
-To: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Felix Kuehling <felix.kuehling@amd.com>,
- James Zhu <james.zhu@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Lancelot Six <lancelot.six@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Samuel Pitoiset <hakzsam@gmail.com>
-References: <20260820070143.3916329-1-srinivasan.shanmugam@amd.com>
- <20260820070143.3916329-2-srinivasan.shanmugam@amd.com>
-Content-Language: en-US
-From: Natalie Vock <nat@pixelcluster.dev>
-In-Reply-To: <20260820070143.3916329-2-srinivasan.shanmugam@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-x-ovh-tracer-id: 14987979560382652916
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTEzm86N0dMFhAyDanaKFRGUQnCHz7n7btvIXXcHdgRdA0d7Dctxjx6pAZFqyADuYsSYuNvg+UpF4OnpcQYh83PUVdl+rsxF7EVb2iwup3AqDdc9JIu5CHLAYbq7GXjsdnFNgj+ZX+6xErdGts/dRhvzVSHIAuHQRa7/OsYCeAH1jeSpBJrUU+t5fJqZfMvu+MyELKlromGw1hBnxzSpva2v0QIquHJ9Kw/+kWjMSM7K6gxgdO55Qspue4eFw6FsrTetCNKmk0idJx7NNCd7W5y5ykX0sf6VQ2XR4vzsy//dkuTlbS/8k81Kp+lpIPFdhnTiE8AtA4PZZfWIVxyF7hhNE0cpFkJa15M7MHyQMJvV6KsNMMmoLJJWb+fVoVtHzqPaQKyA5DWz01Yqcx52uTf85pWJ0Kb0OI5zmlrxvJKQJ7U3u6pN3ewG3lai3KjOnib24J+jYBEMOfc0QRnYy11acveOnZdlx4KO5pENT3UWtJL6x1XJwH7LnBMNuk4St/yKmgLo1BTz7C6kwddqPZl/blZOb27I1KdIeN8fbhl1gtpbFnU/tlS02xd7YjfpFYtfX9P42lgmHzPOpHeLUzhc1SDsGOJOlaPgrmZPnJ6hEjlcXfTGrZXhJPR9wlLns32PUkNAuGNQmWHX3JOetmWyhWW8/YINwGvAYZM/h8Ifug
-DKIM-Signature: a=rsa-sha256; bh=L3Z0i0tO6auraOdmrwzr5OoyWeuR/yLjP/6tpWR0he4=; 
- c=relaxed/relaxed; d=pixelcluster.dev; h=From;
- s=ovhmo-selector-1; t=1787219969; v=1;
- b=Qe7vPb2rAVq6cp0Rmg6Zjxx+M2GLcY+5dXktb2UUr/UG7/m/WvjjHw9NNQXMdpvxrDv8hHaB
- DZohqhqamAwZ7xT91Seog+iuDxZPrJ8yWkgR8V3rFZ2uMHMJaCJZ6AJDmo/2/r1qWKYCo73uHZe
- vjCxj/WCSHitCEtxUcD4wDOJqaWrNpAQRtzExVqcqJq3HO9GHMWHI0Qlr64P9NFbGewQl9pIRn/
- Gyl3FMis2Iuq4aDM1+jzPOd/ZyZSD8f+fNW2ntQPOyK3zlZgIbbtbpePr3ViY5VPCIP/Pp5cijZ
- 8ax7ToR9BdJD3+okhdYfx7A7GUXPL0xTtATh5NooNhaIw==
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E64:EE_|CH2PR12MB4055:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2e6de832-1f3b-43ac-ac69-08defea411f2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|376014|1800799024|82310400026|23010399003|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info: ZQ8Mn3rKhil8HtN2F6/W0KN8N32h7uQb/A3azub01JP9IE8gPXfVxLQETRk2ugz4rgXqAGFDDU3bpFeAWtyR/haXoOmVDbbHpYgOk7HbcdOMf03RkSErzf+ingXcMv/cmi2Qf+Ue0+aEIiJz6qxpdOFsoP79K4imZHvc5xDkbnDXJTFX9WowIw7e4TXYZxobZT32T1ANpBb9mrHPMipxZoQabO0tgKpUHk5IuBm/j68SX9O9WGyCHOQEdZnxl35u0kpP5b42JmsW2O4FHxp3R4VPpRj9NrMAqepAWxSuDDsQK8BcLckeCb8sGqVejrxbkC0J3O9FJdv2+nP+sfwCYwb9aM9hVEcmsk6CdNKaA8kvMwIi0VGfDpHdxqhtRSaBjREZSScV3J4oCse4LxHFjuBpGuuuNaDCd8YxnacaMMKW5U0Nlu5p8lND2PGSPeL70VhpHzfqO5uUH+RLHm/shqalM7135hPYkr4cEO9EZ4v/qzaxtxY8zidF1gKreLCrZfesAGnb2QNo8PlDajarWRNqAm5XzD8ewwr2ihWDL8+9OCHEAj+qOwWmNGfyQNMrsuO4LAthbKireyQ8x57KoKSxRXtOhpk4rQV64K8HQMMrepK4fIuKFUEvJA+UOwJgFaE6MgXicpOpRuR6Ue1bEiFxboOQjdrGR12jZF8HQiWTokWvGB2QUsAqc+rwHTpl
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: PFfNr/GzEGXUnux5oDTxBowSnVUUUgevamPTncOjurXfj7XM6ElOtLxMqizahl8a++G0MGzCVleIs6jjRxCqcr04qdfqTbyTW7QHtPnQPEXLPlDh2nwx1SL2FEal4S9kaxOX/vpGA3NhtCGDxa9ct8g3G40Oio506frYkEXNAMYveDKuawcrxLwafcttLl52z37dA8RZU6FWKa/XKNuUxdX01GeJPlWX+VkTxTRNKbzVXRH1RoVFOgU9gp4OFUBHZtJCLrCUgVN8aiWjkUWat52zDz7meSOUMlZg402UqsNfMX7wCdAsRXOpyA6rZUYlSIji+opwtXSRAGe00x81kafCW4G77QpF6PdhNswacmPvzZUKMTxMII+sWDlGNkE4P/KySBC4oaEWZs6foOmFxKohTN3OFxwuDzt7K1Qdzr4VFO03tI554pQh0bfWp5+3
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 10:16:16.1636 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e6de832-1f3b-43ac-ac69-08defea411f2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E64.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4055
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,170 +110,54 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Inside dcn6_calculate_flip_schedule(), GPUVMEnable is already checked in
+the outer if block. But the same GPUVMEnable is checked again in two
+inner if blocks inside it. Since GPUVMEnable is always true at that
+point, the inner else branches that assign meta_row_height are never
+reached.
 
-first of all: Thanks for working on this! It's great seeing trap handler 
-support come together.
+Remove the redundant inner GPUVMEnable checks and directly assign
+dpte_row_height, which is always the correct value here.
 
-On 8/20/26 09:01, Srinivasan Shanmugam wrote:
-> When a GPU shader hits an exception, memory fault, or debug breakpoint,
-> the hardware jumps to the first-level trap handler. The first-level
-> handler (managed by the kernel via CWSR) checks the TMA buffer for a
-> second-level handler address. If one is installed, it forwards the trap
-> to that userspace handler, allowing the runtime or debugger to handle
-> shader exceptions without modifying the kernel trap handler.
-> 
-> KFD already supports this for compute workloads. Render-node user queues
-> had no equivalent mechanism. Add it.
-> 
-> The second-level handler is a per-VM setting — it applies to all shader
-> waves executing under that VMID regardless of queue type. GFX and
-> compute queues from the same process share the same VMID, so one
-> SET_L2_TRAP call covers all queue types for that process. This
-> configuration is not CWSR-specific; CWSR is only the first-level handler
-> mechanism. The correct home for this setting is the VM ioctl
-> (DRM_AMDGPU_VM), following the same pattern as
-> AMDGPU_VM_OP_RESERVE_VMID.
-> 
-> Add two new VM ioctl operations:
->    AMDGPU_VM_OP_SET_L2_TRAP   (op = 3) — install second-level handler
->    AMDGPU_VM_OP_CLEAR_L2_TRAP (op = 4) — remove second-level handler
-> 
-> Extend drm_amdgpu_vm_in with a 32-byte union for op-specific data. The
-> l2trap member carries the GPU virtual addresses and sizes of the TBA
-> (handler code) and TMA (handler scratch memory).
+Fixes: 04d9a88decbc ("drm/amd/display: Add new sources for DCN6")
+Reported-by: Dan Carpenter <error27@gmail.com>
+Cc: Roman Li <roman.li@amd.com>
+Cc: Alex Hung <alex.hung@amd.com>
+Cc: Tom Chung <chiahsuan.chung@amd.com>
+Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+---
+ .../src/dml2_core/dml2_core_dcn6_calcs_dchub.c    | 15 +++------------
+ 1 file changed, 3 insertions(+), 12 deletions(-)
 
-This should be a BO handle and offset+size, instead. The BOs associated
-with the TBA/TMA must be tracked as used by every submission from the VM
-that has this trap handler installed, otherwise you introduce a ton of
-race conditions. Off the top of my head, here are a few:
-1. The GEM VA ioctl can spuriously fail to actually update page tables.
-    This is okay and intentional, and BOs with outdated page tables will
-    be updated on the next submit if they're used by the submission. If
-    the TBA/TMA BOs aren't marked in the set of used buffers, the PTs may
-    end up never being updated and subsequent accesses will fault.
-2. The TBA/TMA may be evicted/moved around concurrently with executing
-    submissions if these submissions didn't add their fences to the
-    TBA/TMA resv, which would likely randomly corrupt things or hang.
-
-A simpler solution could be requiring the TBA/TMA buffers to be
-VM_ALWAYS_VALID, in which case synchronization to all submissions in the
-VM is taken care of automagically. This prevents exporting the TBA/TMA
-to an fd, but I don't expect anyone would want to do this.
-
-Regards,
-Natalie
-
-> Existing ops only use
-> the first 8 bytes (op + flags); the union is zero-initialized for those
-> ops. The DRM framework zero-extends when userspace passes a smaller
-> struct, so existing userspace is unaffected.
-> 
-> Explicit padding is used at every natural alignment boundary so the
-> layout is identical for native and 32-bit compat userspace.
-> 
-> If the TBA or TMA mapping is removed via GEM_VA UNMAP/CLEAR while the
-> handler is active, the kernel waits for the VM to be idle, evicts all
-> user queues, flushes the GPU TLB, clears the handler, and allows the
-> unmap to proceed. UNMAP never returns an error for this condition.
-> Queues whose trap handler VA was removed are not restarted.
-> 
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Alex Deucher <alexander.deucher@amd.com>
-> Cc: Felix Kuehling <felix.kuehling@amd.com>
-> Cc: James Zhu <james.zhu@amd.com>
-> Cc: Lijo Lazar <lijo.lazar@amd.com>
-> Cc: Lancelot Six <lancelot.six@amd.com>
-> Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-> Cc: Timur Kristóf <timur.kristof@gmail.com>
-> Cc: Samuel Pitoiset <hakzsam@gmail.com>
-> Cc: Natalie Vock <natalie.vock@gmx.de>
-> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-> Change-Id: Ie039e496c75092c91c13719a16d541c5f06c3257
-> ---
->   include/uapi/drm/amdgpu_drm.h | 67 +++++++++++++++++++++++++++++++++++
->   1 file changed, 67 insertions(+)
-> 
-> diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-> index 9222be9a6d2a..872ff9d1d1ff 100644
-> --- a/include/uapi/drm/amdgpu_drm.h
-> +++ b/include/uapi/drm/amdgpu_drm.h
-> @@ -634,10 +634,77 @@ struct drm_amdgpu_userq_wait {
->   #define AMDGPU_VM_OP_RESERVE_VMID	1
->   #define AMDGPU_VM_OP_UNRESERVE_VMID	2
->   
-> +/**
-> + * AMDGPU_VM_OP_SET_L2_TRAP - install or replace the second-level trap
-> + *   handler for all GFX and compute user queues belonging to this VM.
-> + *
-> + * The second-level trap handler is a per-VM setting. All shader waves
-> + * executing under this VMID share the same handler regardless of queue
-> + * type. GFX and compute queues from the same process share the same VMID
-> + * so one SET_L2_TRAP covers all queue types for this DRM file.
-> + *
-> + * The TBA range must contain the handler executable code.
-> + * The TMA range is the handler scratch memory buffer.
-> + * Both ranges must be non-empty and fully mapped in the GPU virtual
-> + * address space of this DRM file descriptor.
-> + *
-> + * Userspace should keep both mappings alive until
-> + * AMDGPU_VM_OP_CLEAR_L2_TRAP succeeds. If either mapping is removed
-> + * while the handler is active, the kernel waits for the VM to be idle,
-> + * evicts all user queues, flushes the GPU TLB, clears the handler, and
-> + * allows the unmap to proceed. UNMAP never returns an error for this
-> + * condition. Queues whose trap handler VA was removed are not restarted.
-> + *
-> + * Returns:
-> + *  0             on success;
-> + *  -EOPNOTSUPP   if the first-level CWSR handler is unavailable;
-> + *  -EINVAL       for an invalid or incompletely mapped range;
-> + *  negative errno if the VM reservation fails.
-> + */
-> +#define AMDGPU_VM_OP_SET_L2_TRAP	3
-> +/**
-> + * AMDGPU_VM_OP_CLEAR_L2_TRAP - disable the second-level trap handler.
-> + *
-> + * All active user queues are evicted and the GPU TLB is flushed before
-> + * TBA is zeroed to ensure no wave is executing inside the handler at the
-> + * time of the clear and no stale TBA/TMA values remain cached.
-> + * The l2trap input members are ignored.
-> + *
-> + * After this operation succeeds userspace may safely remove the TBA
-> + * and TMA mappings.
-> + *
-> + * Returns:
-> + *  0             on success;
-> + *  -EOPNOTSUPP   if the first-level CWSR handler is unavailable;
-> + *  negative errno if the VM reservation fails.
-> + */
-> +#define AMDGPU_VM_OP_CLEAR_L2_TRAP	4
-> +
->   struct drm_amdgpu_vm_in {
->   	/** AMDGPU_VM_OP_* */
->   	__u32	op;
->   	__u32	flags;
-> +	union {
-> +		struct {
-> +			/** Second-level trap handler code base address (GPU VA) */
-> +			__u64 tba_va;
-> +			/** TBA buffer size in bytes */
-> +			__u32 tba_sz;
-> +			/** Explicit padding; tma_va starts at offset 24 */
-> +			__u32 _pad;
-> +			/** Second-level trap handler scratch memory address (GPU VA) */
-> +			__u64 tma_va;
-> +			/** TMA buffer size in bytes */
-> +			__u32 tma_sz;
-> +			/** Padding to fix total union size at 32 bytes */
-> +			__u32 _pad2;
-> +		} l2trap;
-> +		/**
-> +		 * Padding — keeps the union at a fixed 32-byte size for
-> +		 * future ops. Zero-initialise for RESERVE/UNRESERVE_VMID.
-> +		 */
-> +		__u64 _pad[4];
-> +	};
->   };
->   
->   struct drm_amdgpu_vm_out {
+diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_calcs_dchub.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_calcs_dchub.c
+index cae6bee93fe3..a4e2f8604650 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_calcs_dchub.c
++++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_calcs_dchub.c
+@@ -569,20 +569,11 @@ void dcn6_calculate_flip_schedule(
+ 
+ 	if (GPUVMEnable) {
+ 		if (l->dual_plane) {
+-			if (GPUVMEnable) {
+-				l->min_row_height = dpte_row_height;
+-				l->min_row_height_chroma = dpte_row_height_chroma;
+-			} else {
+-				l->min_row_height = meta_row_height;
+-				l->min_row_height_chroma = meta_row_height_chroma;
+-			}
++			l->min_row_height = dpte_row_height;
++			l->min_row_height_chroma = dpte_row_height_chroma;
+ 			l->min_row_time = math_min2(l->min_row_height * LineTime / VRatio, l->min_row_height_chroma * LineTime / VRatioChroma);
+ 		} else {
+-			if (GPUVMEnable)
+-				l->min_row_height = dpte_row_height;
+-			else
+-				l->min_row_height = meta_row_height;
+-
++			l->min_row_height = dpte_row_height;
+ 			l->min_row_time = l->min_row_height * LineTime / VRatio;
+ 		}
+ 		DML_LOG_VERBOSE("DML::%s: min_row_time = %f\n", __func__, l->min_row_time);
+-- 
+2.34.1
 
