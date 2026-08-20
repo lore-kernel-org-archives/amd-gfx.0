@@ -4,80 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A11A9C5DF81
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 12:34:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8570C5DF88
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 12:34:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 114E710E1CF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF8FA10F011;
 	Thu, 20 Aug 2026 12:34:00 +0000 (UTC)
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com
- [209.85.128.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6C05010ED94
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Aug 2026 09:47:21 +0000 (UTC)
-Received: by mail-yw1-f175.google.com with SMTP id
- 00721157ae682-80cebd41372so13859467b3.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Aug 2026 02:47:21 -0700 (PDT)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="D107wQRr";
+	dkim-atps=neutral
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8ED810E5E5
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 08:28:35 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-47f904e80eeso1796791f8f.1
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 01:28:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787214514; x=1787819314; darn=lists.freedesktop.org;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=AtZWl8gfmirhc78hgFz/ygE56D7vm423VDeJ4LWiLPk=;
+ b=D107wQRrvaxZYoSfwDoo9OAotWs8QTcC03v87odfthXySWfgrY40IYTG6D/qjgAj+i
+ oA2V0x+fVD0o0XNzfGOL7rXY/7cHbHPTG0gtwUrRPR04lLDM+s3RAu0AjguBjCVr8KaC
+ wvMYuBrwJSxRppmWWOQiPdvV0gDZDK3JPfArMZhN6VbXZ8zy6LfJnGVsUE/FykkgCo/7
+ aKp0Vtc5fqkL3maEmZUI21MOHVJBTlRSbCrkPVtNtvO9vWqxmZCVQIMzdsU74BEBPTSq
+ Fixt6OZqFUOLj5ZBvJP87MsiwvMRaq7qERYQ2ulNav04I8KUcPj4FCcZwGbYiAOSyPmS
+ 9jdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787132840; x=1787737640;
- h=content-type:cc:to:subject:message-id:date:from:in-reply-to
- :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=dIMgKn9ssmwMdJVgg9MfbDylpozJGdyvq0xNOf3CW1Q=;
- b=DGYpN8EtAdbGm6JgNDhE2jkX0Tg4lXEwqRpYUJ1f3v9+mBMbojRFm6KxBYW82jZ4f0
- tE4OtWB51qTF/yZCrhuIRJ3qXNh7M1XAc5O0vGn1su4wqgLoh5AX1tIuGFdby8lKctc5
- 6uAJxJHHDfej3UnzrzybizX8WoNx+jmF+SiEiaZrb99bhVHBS6oMjHc+Rwr7moaWNRUm
- JLDgrN8KwjIwlWZDCZcggetfguvMDDBYtghkXenkOL2AUz3BLgQraVnULZSO7c3Atf7E
- FkgDwP1Mf13w5uF+q1DfF4JxjYAwhEFf5jtoXPOMSUxxRhRv20025TJMNVj0VEZ4OFt+
- 4H7A==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrH7506TQqUHNfRwuEdgDWxDwDOyugjDnkf9K409JwvMb7qb0f0FQqiNDYuak1nQUNRFe0dsNf+@lists.freedesktop.org
-X-Gm-Message-State: AFuF++m5VnH5IAuOQIxQAqqSMIn1jEqdNw4zDzAceBaV/LRh3HIgJsVz
- dTluXAoaXbYN7DiAK9V7pR63Ykjbt0hvHVMVlgmz4RSKTTEhUG2WqzxOfwRLr7mvPiY=
-X-Gm-Gg: AR+sD13lI4qwG8Qzu2YB+X0he6U0X04D+DemXsnhlJf32IaqD7YzVlENr75iOwqD1PN
- c1SizU69LPqeGR2h5usCfzBIQSCsgXFSZKHcB1A03w1mG2B+h6usdzAtIxhqiirehmSSz683U5u
- PnpOj+YZjj/GcAPSfT9K4UdazVsY2GsKJr7OdbXMQJraSypJO0MgbrnD2opOP4/L2Dih2M45pvx
- bBff+FUrPAOuPDB7eD0mskYVyJ+HVHV4uSCoTrOtZn/iyUmmtxzA4+Zv0NxrCIVA9P9Wq7jIlvF
- ZiZROD38ya5YU3XUgofGvJeFCo4onM/xnVTKQFRrzsUw0OzgnLa8fSNP0n0i/WXMOVoW0PGiyFg
- gtjIqDTE6BdajQV068Xbuiwcmmw8WDo4HF0IBXSynVh/WbxcUIIHdNB/INSn+Dj85v4RnRMhGjG
- GaKrOxq4AGs1ZQgdNtRMi9X8qXQR87dVrREoZ4ENZIgRH0aplqMOUoUpl5PlQ1KTjPL8w/9dzOd
- TGGCtQfaCbg0LpcELp5qWdITnWv6Q==
-X-Received: by 2002:a53:cbd0:0:b0:66c:c6b3:b1f with SMTP id
- 956f58d0204a3-66ccb621feemr958819d50.14.1787132840241; 
- Wed, 19 Aug 2026 02:47:20 -0700 (PDT)
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com.
- [209.85.128.170]) by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-66ccafcfe96sm713963d50.4.2026.08.19.02.47.19
- for <amd-gfx@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 19 Aug 2026 02:47:19 -0700 (PDT)
-Received: by mail-yw1-f170.google.com with SMTP id
- 00721157ae682-836ce5d6e85so14295887b3.1
- for <amd-gfx@lists.freedesktop.org>; Wed, 19 Aug 2026 02:47:19 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RoddLqaT9+3To4zlrJbQyj7WLuEnx81hbti4cnRpLYJMw84qPrwxATVvaXrUhJnrG2YkvZtVTrg@lists.freedesktop.org
-X-Received: by 2002:a67:e04e:0:b0:777:ffe0:a10b with SMTP id
- ada2fe7eead31-777ffe0a6b7mr539021137.4.1787132346344; Wed, 19 Aug 2026
- 02:39:06 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1787214514; x=1787819314;
+ h=content-disposition:content-type:mime-version:message-id:subject:cc
+ :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=AtZWl8gfmirhc78hgFz/ygE56D7vm423VDeJ4LWiLPk=;
+ b=A5b20mkGihkbE8kgn/7TE+3lOMMEt+yFLrQEjrBqaou7ZmdEE9AwMLGH910JZh0jJa
+ OjBGSJwC892B+M1QTusmMAPm7wL1I3XeRjvnvXfy2tIB9VMpbdxuY7hJRvjc//o6AuQH
+ xosbQuGcwQLTzU9IvsTOe2EAzt+gZWYryouVXcETGVw7Lv0ACAXeLVsKrCFH6Rpxa1ib
+ CXaZ3B32C1o22OY4V79HA7oJE2AS8JvMjGs3MkmKm0scH3U+ycBFrTfwIo+hsjBFnY6n
+ nYzfkPjXUB9KcQKSw9usZFsUQ3uD46coy28j+wJXS2N+8uy5pTS6TWvjFdF3tLjOh2SE
+ twcQ==
+X-Gm-Message-State: AOJu0YxdGJQAtlsM+D/QMC0Ummoa0XHLAsHiKYCur1mTIX6wdNjomA3z
+ 58Eqn+Tg5bX26kJwm2YPXa0TukxmfNDTubtCe6xAdvQLgw4BxkPtNyCo
+X-Gm-Gg: AR+sD10HrrbQq37aGWsE6haGUWdvi637tL9DkHujjCWmrcfWIYcHIC255t8tlh8J9a7
+ 8LXs9uyzLmPYGzPJ2HEItXOiDqUb1OI4gTY7349W1i7Hni9xPmR64SAIT87NDmG3ZcdfKgkGfTq
+ vCG08UCFCM2jswrgB/6HXfyNXD51NOShyftWFl4Q7XNL8OrdksTccoLOqazzu+CMr0sWESomOSo
+ j1BRKBrS6wQNJ3SjXEzLcI0ms3RlUFuuVOtbWR85Hy4wPgQUpzYlEEXabKzWFzFyvMDBZd3vbwI
+ MQgdlL1xERE0lVvak2oaIAuKnQI/7Vv+H9wamWA4HnzBAvbXKahBD5lOmcs1fXwe87Pb4MWXBho
+ HJLw8XAuaFIv7JZqLatHvU2IjIsBO8CCRVcf/jI/qAAi9lp2Yfr2xlMGTOHKU6aV/+0hjNN4qSk
+ /ZW9MOkZvPo1lOqLIq5X8QubW8TqJ+0UZOOy9/ikwsp+mCCrMv1NYIvvfdOHEZkhPRze8w
+X-Received: by 2002:a05:600c:4f52:b0:499:7a15:fcec with SMTP id
+ 5b1f17b1804b1-499aa1fdfb3mr165898715e9.13.1787214513965; 
+ Thu, 20 Aug 2026 01:28:33 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-499aa0dd5fcsm136676025e9.14.2026.08.20.01.28.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Aug 2026 01:28:33 -0700 (PDT)
+Date: Thu, 20 Aug 2026 11:28:29 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Aurabindo Pillai <aurabindo.pillai@amd.com>
+Cc: amd-gfx@lists.freedesktop.org,
+ "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>
+Subject: [bug report] drm/amd/display: Add new sources for DCN6
+Message-ID: <aoa6rezcQKFQLvWl@stanley.mountain>
 MIME-Version: 1.0
-References: <20260818125012.468092-1-tzimmermann@suse.de>
- <20260818125012.468092-2-tzimmermann@suse.de>
-In-Reply-To: <20260818125012.468092-2-tzimmermann@suse.de>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 19 Aug 2026 11:38:55 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWYVjvGM2pOzWoDq8LUSrkFtzOQwdmosHYQuBLnSn3D-Q@mail.gmail.com>
-X-Gm-Features: AcwNN1Uwr-MWNK1wEAyEr8Z9JNVhxk4jrnSNE7dazUpWIvLo30uHHQJP967oerw
-Message-ID: <CAMuHMdWYVjvGM2pOzWoDq8LUSrkFtzOQwdmosHYQuBLnSn3D-Q@mail.gmail.com>
-Subject: Re: [PATCH 01/12] drm/panic: Allocate QR-code buffers statically
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: jfalempe@redhat.com, javierm@redhat.com, airlied@gmail.com, 
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org, 
- amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
- linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org, 
- linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev, 
- sashiko-reviews@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 X-Mailman-Approved-At: Thu, 20 Aug 2026 12:33:59 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -93,67 +84,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Thomas,
+Hello Aurabindo Pillai,
 
-On Tue, 18 Aug 2026 at 15:00, Thomas Zimmermann <tzimmermann@suse.de> wrote:
-> Declare qrbuf1 and qrbuf2 as static arrays so that the module loader
-> allocates them for us. Avoids the kmalloc later on. Also allows for
-> using sizeof() to get the number of bytes in each array. Access the
-> arrays once with memset, so that the physical pages are available on
-> a panic.
->
-> Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
+Commit 7f7d7ea1fa51 ("drm/amd/display: Add new sources for DCN6")
+from Jul 22, 2026 (linux-next), leads to the following Smatch static
+checker warning:
 
-Thanks for your patch!
+	drivers/gpu/drm/amd/amdgpu/../display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.c:82 dcn5_calculate_byte_per_pixel_and_block_sizes()
+	warn: duplicate check 'SourcePixelFormat == 17' (previous on line 77)
 
-> --- a/drivers/gpu/drm/drm_panic.c
-> +++ b/drivers/gpu/drm/drm_panic.c
-> @@ -628,24 +628,23 @@ MODULE_PARM_DESC(panic_qr_version, "maximum version (size) of the QR code");
->  #define WINDOW_BITS 12
->  #define MEM_LEVEL 4
->
-> -static char *qrbuf1;
-> -static char *qrbuf2;
-> +static u8 qrbuf1[QR_BUFFER1_SIZE];
-> +static u8 qrbuf2[QR_BUFFER2_SIZE];
+drivers/gpu/drm/amd/amdgpu/../display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.c
+    45 void dcn5_calculate_byte_per_pixel_and_block_sizes(
+    46         enum dml2_source_format_class SourcePixelFormat,
+    47         enum dml2_swizzle_mode SurfaceTiling,
+    48         unsigned int pitch_y,
+    49         unsigned int pitch_c,
+    50 
+    51         // Output
+    52         unsigned int *BytePerPixelY,
+    53         unsigned int *BytePerPixelC,
+    54         double *BytePerPixelDETY,
+    55         double *BytePerPixelDETC,
+    56         unsigned int *BlockHeight256BytesY,
+    57         unsigned int *BlockHeight256BytesC,
+    58         unsigned int *BlockWidth256BytesY,
+    59         unsigned int *BlockWidth256BytesC,
+    60         unsigned int *MacroTileHeightY,
+    61         unsigned int *MacroTileHeightC,
+    62         unsigned int *MacroTileWidthY,
+    63         unsigned int *MacroTileWidthC,
+    64         bool *surf_linear128_l,
+    65         bool *surf_linear128_c)
+    66 {
+    67         *BytePerPixelDETY = 0;
+    68         *BytePerPixelDETC = 0;
+    69         *BytePerPixelY = 0;
+    70         *BytePerPixelC = 0;
+    71 
+    72         if (SourcePixelFormat == dml2_444_64) {
+    73                 *BytePerPixelDETY = 8;
+    74                 *BytePerPixelDETC = 0;
+    75                 *BytePerPixelY = 8;
+    76                 *BytePerPixelC = 0;
+    77         } else if (SourcePixelFormat == dml2_444_32 || SourcePixelFormat == dml2_rgbe || SourcePixelFormat == dml2_422_packed_10 || SourcePixelFormat == dml2_422_packed_12) {
+                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-I am not a big fan of increasing kernel size like this.
-You may run (faster) into boot loader limitations.
+    78                 *BytePerPixelDETY = 4;
+    79                 *BytePerPixelDETC = 0;
+    80                 *BytePerPixelY = 4;
+    81                 *BytePerPixelC = 0;
+--> 82         } else if (SourcePixelFormat == dml2_422_packed_10) {
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
->  static struct z_stream_s stream;
->
->  static void __init drm_panic_qr_init(void)
->  {
-> -       qrbuf1 = kmalloc(QR_BUFFER1_SIZE, GFP_KERNEL);
-> -       qrbuf2 = kmalloc(QR_BUFFER2_SIZE, GFP_KERNEL);
-> +       /* best-effort allocation; can be NULL */
->         stream.workspace = kmalloc(zlib_deflate_workspacesize(WINDOW_BITS, MEM_LEVEL),
->                                    GFP_KERNEL);
+Dead code.
 
-<ironic>Why not use a static array for this, too?</ironic>
+    83                 *BytePerPixelDETY = (double)(8.0 / 3);
+    84                 *BytePerPixelDETC = 0;
+    85                 *BytePerPixelY = 4;
+    86                 *BytePerPixelC = 0;
 
-> +
-> +       /* touch memory so that pages are there in the case of a panic */
-> +       memset(qrbuf1, 0, sizeof(qrbuf1));
-> +       memset(qrbuf2, 0, sizeof(qrbuf2));
+This email is a free service from the Smatch-CI project [smatch.sf.net].
 
-Please clarify "there"?
-In cache? Not all systems have sufficient data cache, so it may be
-evicted at any time.
-In RAM? AFAIK kernel and module memory is not demand-paged.
-In TLB? Like cache, it may be evicted at any time.
-
-So IMHO this is futile.
-
->  }
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+regards,
+dan carpenter
