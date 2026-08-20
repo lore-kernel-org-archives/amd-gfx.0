@@ -4,146 +4,109 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 66A49C5DF82
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 06:54:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B037FC5DF85
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 07:02:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E089C10E0F6;
-	Thu, 20 Aug 2026 06:54:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 33F8610EF1D;
+	Thu, 20 Aug 2026 07:02:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="Ea3TBV9a";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="mtWC9orN";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="JyvAL0sl";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="fqk28GyM";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wjKOv0+H";
 	dkim-atps=neutral
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2624710E0F6;
- Thu, 20 Aug 2026 06:54:22 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 638CF84F15;
- Thu, 20 Aug 2026 06:54:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787208856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
- b=Ea3TBV9aJHMQ4nGbhso8lG+QJ0OjfuTfK7IOL11mRsL9VW2IUIOcH50hdNc1xJX2PxNVgB
- UmXkAkCQnRaDCk/WNtFaamAVdzjwTTkjGsY8uYocPV4RZHhNZlcP5hNEuL0McKqwYQoJ7/
- 10EPUAGAnxrb5TuD/T6Lcu7rkxPwSuA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787208856;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
- b=mtWC9orNdouFa8DCLWPXTWFpyfzRAzc5mA+ApcZp7qQI6kESaiiC4rfC5cMD7CJkllCTmk
- 2T/gc7F418D8O+Dg==
-Authentication-Results: smtp-out1.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=JyvAL0sl;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=fqk28GyM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787208852; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
- b=JyvAL0slVAMJ4ZgNEpYmekyQVQL1yRiBbvb86J7CIf20JcNzrfMs8V4+lapVo9JkNFo57m
- w8zRj9vDJhMHpAadQqieC8GZGnYWSYLS1vpeFobHXFTBfA8lPMQZWN+KaZMJpgGN0qcqoM
- idlFnJtGBwx3tXl1Nn2+PvhFXExsy2k=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787208852;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=R1ngbWEjFgxmUD7Z+BwhT1MATuq4D2MzeDdpvo04RrM=;
- b=fqk28GyMqbm+M6byic1Pp0d8keCsy1LHCZ34KQutnpLNCu6jSMeo54DPAbOPg8GS9mbXF1
- TBunt1qeiHlZm1CA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E675C27A8;
- Thu, 20 Aug 2026 06:54:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id odyVNpOkhmr4MQAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 20 Aug 2026 06:54:11 +0000
-Message-ID: <fa6953ff-1de3-40c9-8910-549083bb9a88@suse.de>
-Date: Thu, 20 Aug 2026 08:54:11 +0200
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012029.outbound.protection.outlook.com [40.107.209.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3903310E164
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 07:02:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XsGlMANFA49aT6J2tcZB4C15CoFzK1fdv+DwxB8CKwc4XiVCFmO1Eiipqypo8ZWVWI7tFczgZuyIOVgpCaFQwxqhIho2X2H55bZBi9IDaOSIHiAMpCd0uIkLDs5t4U0enrxzl9hrhM0QkiOWl+TF8D9D7JjLJ9iJVutpR5BIBr/I+iXiejS+UaOB2t3xg8KemDbWkKAl95902aujB0igYY8KImTpH21lXhrIiGnFOLBnh5Y8+f8ZEi+8LvcxUeip4XLKvX88OxQPDys5Lu6PzCg91Fuu1gqV+76qsf1WI0IpMs5blwDpjn7DOtp97nwRwIrAWkT2AewgYe2be5/yMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DVlinUlC+sU10AAbPFmZkqS64LyYdpHVxu8yi8oeVa8=;
+ b=HaBWvpGxWbnjIyKBOkomFwniqA3ZQLBg6ZsJ+rJn88RUgb06skCH549ipRyPI0qUG5PLerhq08sYcRhUQcjPUr2IMdO4pTC7ghMZPEHEQ/LC56Ypb+5os/ELJq1klJLfX8oYIEzW1Zeyc/DU9yNS4W/4j7E8vUZk2pZBpkiF9si0dhlV7H9DG2WqBdA/j7JhPA2+RguaX67WRUKV0XCmKpeM4ZoUz1SSm3Hy4D5zkUFCz3yokfqiiXv5WpweCFUA/FvaNQn6fV8UJX6ZTeA+g45XPz6fZaQ+fDrbXhUSq2kBfmJSUsNU6GqBYkG6wlm1zUQN37uaH+b8B8cuKd1bkQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DVlinUlC+sU10AAbPFmZkqS64LyYdpHVxu8yi8oeVa8=;
+ b=wjKOv0+HrRJnV7AduCBGtmy8fWP9+uJrnm153Xucol0jDAN0UmEDb5Yl8pUxStumBPK34x5G0gxtMNdnKlepyknZ31sA0G01p16j2tfn7SVG0qtG9On9Jl1qgVrtIilH2PZkVmCmJB3GN3l73TSQmK4e1VY6arAG9XiCPtdTBmA=
+Received: from BY3PR04CA0023.namprd04.prod.outlook.com (2603:10b6:a03:217::28)
+ by SA1PR12MB7317.namprd12.prod.outlook.com (2603:10b6:806:2ba::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Thu, 20 Aug
+ 2026 07:02:47 +0000
+Received: from SJ1PEPF00001CDC.namprd05.prod.outlook.com
+ (2603:10b6:a03:217:cafe::49) by BY3PR04CA0023.outlook.office365.com
+ (2603:10b6:a03:217::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Thu, 20
+ Aug 2026 07:02:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF00001CDC.mail.protection.outlook.com (10.167.242.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.339.3 via Frontend Transport; Thu, 20 Aug 2026 07:02:46 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 20 Aug
+ 2026 02:02:46 -0500
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb09.amd.com (10.181.42.218) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 20 Aug 2026 02:02:04 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
+ James Zhu <james.zhu@amd.com>, Lijo Lazar <lijo.lazar@amd.com>, Lancelot Six
+ <lancelot.six@amd.com>, Pierre-Eric Pelloux-Prayer
+ <pierre-eric.pelloux-prayer@amd.com>, =?UTF-8?q?Timur=20Krist=C3=B3f?=
+ <timur.kristof@gmail.com>, Samuel Pitoiset <hakzsam@gmail.com>, Natalie Vock
+ <natalie.vock@gmx.de>
+Subject: [RFC PATCH 1/3] drm/amdgpu/uapi: Add second-level trap handler ops to
+ VM ioctl
+Date: Thu, 20 Aug 2026 12:31:41 +0530
+Message-ID: <20260820070143.3916329-2-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260820070143.3916329-1-srinivasan.shanmugam@amd.com>
+References: <20260820070143.3916329-1-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] drm: Add drm_timeout_rel_to_jiffies()
-To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
- Jani Nikula <jani.nikula@linux.intel.com>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
-References: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
- <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260817-drm-timeout-helpers-v2-2-73052b669f49@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 638CF84F15
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[]; FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- ARC_NA(0.00)[];
- FREEMAIL_TO(0.00)[igalia.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,intel.com,raspberrypi.com];
- RCPT_COUNT_TWELVE(0.00)[19]; MIME_TRACE(0.00)[0:+];
- TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+]; FROM_EQ_ENVFROM(0.00)[];
- FROM_HAS_DN(0.00)[]; TO_DN_SOME(0.00)[];
- RCVD_COUNT_TWO(0.00)[2];
- RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
- MID_RHS_MATCH_FROM(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[igalia.com:email, suse.com:url, suse.de:mid,
- suse.de:dkim, imap1.dmz-prg2.suse.org:helo, imap1.dmz-prg2.suse.org:rdns]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
+ (10.181.42.218)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CDC:EE_|SA1PR12MB7317:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3912c43d-a86a-46dc-8bb6-08defe890a13
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|23010399003|36860700016|376014|1800799024|6133799003|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: IIKojC2Hs9UNHr7AiXjX5nHIFB6CHHlG7G7gV44DpC85f/h54sA+Y5LI0EtIgT/T7agkcy9FJoAsDyvylnRCMyOJ0lcU8Nzhr8272uzrViJP/1ONqAPHoj2FLCbOPI1qSzmJJeneMJEgsBbLZorzu8rNQ5jYZnISaXv8fQds9okX3HJmYJ3Kslx+AZXgLLwJcYkFKgUqf7hoctG0v7U0j/RrgJlFuuVqjb0sHoA19nA7gbc1/st7x5XiFVZmvCtcqmMNHHnnbClrMgcr0vXkOOozPr0CZVZbruVt3Z2uoYK0W9mtMYwDjMNWBxzGwKw7n6yZWAa/YvqO9Zp3YKkvq0pthli8ev1Jq9a7uMSYYJi6yM0LqwbufgxM3EtPJwLIgHU2nYu1Tv8VLKFlSnHeThgqJFFIlR6yxylkwHnMHyh3CU8P+Rv9Hf9Wvio1I5qyyZbGC1J8qsNKA0GAZv7Ec297UHDTBe7uQ2PknOedrBMi2Ob+SY2SbQ92UXbVrNjGsQ2HDjr+tR7ZQNUo1R44aCxRpfk2IA+hz6XYOqxdgBdNOn04gjAAipy4riFqjkx5oBFhj9eUJsa2YCak3dr4DLj6zJXOmG0WjivZ09Q/ApMUGuuHPhVmrRIZec8SqAO687Q8O4h0eMw4VOgtsBkNxQYM686XWP8PYZbc9IcO+q4EdMccOQuGCfflDi58pOL48o6RK2YyKSa722f78ZFLKQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(23010399003)(36860700016)(376014)(1800799024)(6133799003)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: BAbKE8Yc4pryskvdy02XPFLqMozaiZSzKFOdeMMSNL83I8p3Eai3pDfwEcM+LMmYXjYpcTkzbRoovd6VVgR7y+5/w0k/2woCaxdrglRc7gLXO33F04aDch7lKH5xC7OvvG8H6W831HnDWE60uYM91hkpeg1e8qVM7FUPJPnIfuEkhsXvcCB7PWYwG/4fVbbw0pmaWvPDuzc/Vx+o+4Q+CICw6VZ/apJ+tfIfJ1zYWXbk7ejuoz5aEMGSttElP/WpzOrz1DuZ9sfQ1aFN2J0BV8BJw+lk/91iPaos2o2U7+P+xiIgNDvvNJKNZmtsrNhlcgNHpr1Wzny8T/OXV+CBRGR+9+QEsHkCoIIHYObrG3N5bPUuCXluBI00P5bDpuP0eNQ4YlEfLZ7YU12SiFrCdwDXt8LTeSLQJach4lYzYimti/HUzF3NvgZRngJCIlKs
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 07:02:46.5521 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3912c43d-a86a-46dc-8bb6-08defe890a13
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CDC.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7317
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -158,106 +121,143 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi
+When a GPU shader hits an exception, memory fault, or debug breakpoint,
+the hardware jumps to the first-level trap handler. The first-level
+handler (managed by the kernel via CWSR) checks the TMA buffer for a
+second-level handler address. If one is installed, it forwards the trap
+to that userspace handler, allowing the runtime or debugger to handle
+shader exceptions without modifying the kernel trap handler.
 
-Am 17.08.26 um 23:05 schrieb Maíra Canal:
-> drm_timeout_abs_to_jiffies() covers the drivers whose wait UAPI takes an
-> absolute deadline, but there is no equivalent for the drivers that
-> express a wait as a duration. Drivers such as i915 and v3d convert the
-> value themselves.
->
-> Converting a nanosecond duration to jiffies needs some care.
-> nsecs_to_jiffies() returns unsigned long, so on 32-bit a large
-> userspace-supplied timeout overflows its range and is silently truncated.
->
-> i915 already handles both cases in a local helper, which v3d has a copy
-> of. Add the same conversion to the core, so that it is available to any
-> driver and both copies can be dropped.
->
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
-> ---
->   drivers/gpu/drm/drm_timeout.c | 34 ++++++++++++++++++++++++++++++++++
->   include/drm/drm_utils.h       |  1 +
->   2 files changed, 35 insertions(+)
->
-> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
-> index 78e9f65e5477..18c2719d1fe9 100644
-> --- a/drivers/gpu/drm/drm_timeout.c
-> +++ b/drivers/gpu/drm/drm_timeout.c
-> @@ -9,6 +9,7 @@
->   #include <linux/export.h>
->   #include <linux/jiffies.h>
->   #include <linux/ktime.h>
-> +#include <linux/math64.h>
->   #include <linux/sched.h>
->   
->   #include <drm/drm_utils.h>
-> @@ -45,3 +46,36 @@ signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
->   	return timeout_jiffies64 + 1;
->   }
->   EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
-> +
-> +/**
-> + * drm_timeout_rel_to_jiffies - calculate jiffies timeout from relative value
-> + *
-> + * @timeout_nsec: relative timeout in ns, 0 for poll
-> + *
-> + * Calculate the timeout in jiffies from a relative timeout in ns, for drivers
-> + * whose UAPI expresses a wait as a duration rather than as a deadline.
-> + *
-> + * The result is clamped to MAX_JIFFY_OFFSET. That keeps it positive once it is
-> + * converted to the signed long taken by dma_fence_wait_timeout() and friends,
-> + * which matters on 32-bit, and keeps it distinct from MAX_SCHEDULE_TIMEOUT so
-> + * that a finite wait is never understood as an infinite one.
-> + *
-> + * It's strongly discouraged to use relative timeouts in uAPIs, as they do not
-> + * survive a restarted ioctl. A signal-interrupted ioctl is re-entered with the
-> + * same arguments, so the duration starts counting from zero again. New uAPIs
-> + * should take an absolute deadline and use drm_timeout_abs_to_jiffies().
+KFD already supports this for compute workloads. Render-node user queues
+had no equivalent mechanism. Add it.
 
-I would not speak of uAPIs here, as it's unrelated to the function at 
-hand. You might want to mention it in the commit description though.
+The second-level handler is a per-VM setting — it applies to all shader
+waves executing under that VMID regardless of queue type. GFX and
+compute queues from the same process share the same VMID, so one
+SET_L2_TRAP call covers all queue types for that process. This
+configuration is not CWSR-specific; CWSR is only the first-level handler
+mechanism. The correct home for this setting is the VM ioctl
+(DRM_AMDGPU_VM), following the same pattern as
+AMDGPU_VM_OP_RESERVE_VMID.
 
-Please also see my comments on the docs of drm_timeout_abs_to_jiffies(). 
-Most of it applies here as well.
+Add two new VM ioctl operations:
+  AMDGPU_VM_OP_SET_L2_TRAP   (op = 3) — install second-level handler
+  AMDGPU_VM_OP_CLEAR_L2_TRAP (op = 4) — remove second-level handler
 
-Best regards
-Thomas
+Extend drm_amdgpu_vm_in with a 32-byte union for op-specific data. The
+l2trap member carries the GPU virtual addresses and sizes of the TBA
+(handler code) and TMA (handler scratch memory). Existing ops only use
+the first 8 bytes (op + flags); the union is zero-initialized for those
+ops. The DRM framework zero-extends when userspace passes a smaller
+struct, so existing userspace is unaffected.
 
-> + */
-> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec)
-> +{
-> +	/* make 0 timeout means poll, as for the absolute variant */
-> +	if (timeout_nsec == 0)
-> +		return 0;
-> +
-> +	/* nsecs_to_jiffies64() does not guard against overflow */
-> +	if ((NSEC_PER_SEC % HZ) != 0 &&
-> +	    div_u64(timeout_nsec, NSEC_PER_SEC) >= MAX_JIFFY_OFFSET / HZ)
-> +		return MAX_JIFFY_OFFSET;
-> +
-> +	return min_t(u64, MAX_JIFFY_OFFSET, nsecs_to_jiffies64(timeout_nsec) + 1);
-> +}
-> +EXPORT_SYMBOL(drm_timeout_rel_to_jiffies);
-> diff --git a/include/drm/drm_utils.h b/include/drm/drm_utils.h
-> index 6a46f755daba..8c0cc9835413 100644
-> --- a/include/drm/drm_utils.h
-> +++ b/include/drm/drm_utils.h
-> @@ -25,5 +25,6 @@ const struct drm_panel_backlight_quirk *
->   drm_get_panel_backlight_quirk(const struct drm_edid *edid);
->   
->   signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec);
-> +unsigned long drm_timeout_rel_to_jiffies(u64 timeout_nsec);
->   
->   #endif
->
+Explicit padding is used at every natural alignment boundary so the
+layout is identical for native and 32-bit compat userspace.
 
+If the TBA or TMA mapping is removed via GEM_VA UNMAP/CLEAR while the
+handler is active, the kernel waits for the VM to be idle, evicts all
+user queues, flushes the GPU TLB, clears the handler, and allows the
+unmap to proceed. UNMAP never returns an error for this condition.
+Queues whose trap handler VA was removed are not restarted.
+
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Felix Kuehling <felix.kuehling@amd.com>
+Cc: James Zhu <james.zhu@amd.com>
+Cc: Lijo Lazar <lijo.lazar@amd.com>
+Cc: Lancelot Six <lancelot.six@amd.com>
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Cc: Timur Kristóf <timur.kristof@gmail.com>
+Cc: Samuel Pitoiset <hakzsam@gmail.com>
+Cc: Natalie Vock <natalie.vock@gmx.de>
+Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+Change-Id: Ie039e496c75092c91c13719a16d541c5f06c3257
+---
+ include/uapi/drm/amdgpu_drm.h | 67 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 67 insertions(+)
+
+diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
+index 9222be9a6d2a..872ff9d1d1ff 100644
+--- a/include/uapi/drm/amdgpu_drm.h
++++ b/include/uapi/drm/amdgpu_drm.h
+@@ -634,10 +634,77 @@ struct drm_amdgpu_userq_wait {
+ #define AMDGPU_VM_OP_RESERVE_VMID	1
+ #define AMDGPU_VM_OP_UNRESERVE_VMID	2
+ 
++/**
++ * AMDGPU_VM_OP_SET_L2_TRAP - install or replace the second-level trap
++ *   handler for all GFX and compute user queues belonging to this VM.
++ *
++ * The second-level trap handler is a per-VM setting. All shader waves
++ * executing under this VMID share the same handler regardless of queue
++ * type. GFX and compute queues from the same process share the same VMID
++ * so one SET_L2_TRAP covers all queue types for this DRM file.
++ *
++ * The TBA range must contain the handler executable code.
++ * The TMA range is the handler scratch memory buffer.
++ * Both ranges must be non-empty and fully mapped in the GPU virtual
++ * address space of this DRM file descriptor.
++ *
++ * Userspace should keep both mappings alive until
++ * AMDGPU_VM_OP_CLEAR_L2_TRAP succeeds. If either mapping is removed
++ * while the handler is active, the kernel waits for the VM to be idle,
++ * evicts all user queues, flushes the GPU TLB, clears the handler, and
++ * allows the unmap to proceed. UNMAP never returns an error for this
++ * condition. Queues whose trap handler VA was removed are not restarted.
++ *
++ * Returns:
++ *  0             on success;
++ *  -EOPNOTSUPP   if the first-level CWSR handler is unavailable;
++ *  -EINVAL       for an invalid or incompletely mapped range;
++ *  negative errno if the VM reservation fails.
++ */
++#define AMDGPU_VM_OP_SET_L2_TRAP	3
++/**
++ * AMDGPU_VM_OP_CLEAR_L2_TRAP - disable the second-level trap handler.
++ *
++ * All active user queues are evicted and the GPU TLB is flushed before
++ * TBA is zeroed to ensure no wave is executing inside the handler at the
++ * time of the clear and no stale TBA/TMA values remain cached.
++ * The l2trap input members are ignored.
++ *
++ * After this operation succeeds userspace may safely remove the TBA
++ * and TMA mappings.
++ *
++ * Returns:
++ *  0             on success;
++ *  -EOPNOTSUPP   if the first-level CWSR handler is unavailable;
++ *  negative errno if the VM reservation fails.
++ */
++#define AMDGPU_VM_OP_CLEAR_L2_TRAP	4
++
+ struct drm_amdgpu_vm_in {
+ 	/** AMDGPU_VM_OP_* */
+ 	__u32	op;
+ 	__u32	flags;
++	union {
++		struct {
++			/** Second-level trap handler code base address (GPU VA) */
++			__u64 tba_va;
++			/** TBA buffer size in bytes */
++			__u32 tba_sz;
++			/** Explicit padding; tma_va starts at offset 24 */
++			__u32 _pad;
++			/** Second-level trap handler scratch memory address (GPU VA) */
++			__u64 tma_va;
++			/** TMA buffer size in bytes */
++			__u32 tma_sz;
++			/** Padding to fix total union size at 32 bytes */
++			__u32 _pad2;
++		} l2trap;
++		/**
++		 * Padding — keeps the union at a fixed 32-byte size for
++		 * future ops. Zero-initialise for RESERVE/UNRESERVE_VMID.
++		 */
++		__u64 _pad[4];
++	};
+ };
+ 
+ struct drm_amdgpu_vm_out {
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+2.34.1
 
