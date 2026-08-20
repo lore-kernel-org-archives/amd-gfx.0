@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C42C6C5DF89
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9103C5DF87
 	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 07:02:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2EADA10EF1F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2B82B10EF1E;
 	Thu, 20 Aug 2026 07:02:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PGQHyV1L";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="e36Vk6XY";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010064.outbound.protection.outlook.com [52.101.61.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8B12F10EF1E
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 07:02:55 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013009.outbound.protection.outlook.com
+ [40.93.201.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5BF9410EF1E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 07:02:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R58WuinjRT41vJQExufbDuxgW/xlimSbvtkswbDXkwW6CRxnL/osbkHQA6yum4kT2hVidrcHaJUEGsMR1VdeP4uFDdhyv47lm5GC6wtLn740LC0uMgsA13xhn9ttELyIhey156f5sE94SfHekJ5uqx8Q7xl23WtvRJNCqBzU/C5PZ98kyiC7Qg8aDZR2ip2Sy0jjyQvI2bWfjxfSxMducQVv5lJ2H0fz5GqKtaCMeCyF4We0Axelt+KVtvXFD2is0qg5SCE+CuqZ/ne+neuO1FtQGucm/xxHp879Kd6Zy89VkEbvFlvHyP3L2rmNAiEqhBnP0gcAyIiZvVDyTawAUw==
+ b=m3bhqspC8U9tnWSOg9rRI9Zh22y+ZbYuAf7z/Wa1YQ2CCyym3rwTL8JwpqGcLsIZLIeGo+enxr+I21IiDcAD0HHyyqtK+b7h3MEzY/u1NaIplvhjFOJGMLQlWHwgiRDrTGTCrl9QSpjFRtyCZAm8y5nW/+vSHopE4WMPkM7WK1J/n77uY5iDcTJxjIe047MO9Wmi/1fBpitQwyzC7DkOfa6sHeC1+qpgJZsMYvWXlHKoBJGauecv3JkD0AfwzBl9szsR44Ro0IFr/qBM+JpXT5mVatR6/6ar+lKhTyzCGF7KM0IKD1rrniNgTBziWyeblgLf0MaaJV2THb/p6xHxOA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=8ic5TI9zjsHiKg+vVyxdk+5xolLmLy886wZOkq5s79s=;
- b=HijN2oWjaFRw5a14fwL7Id+HkfQ56pNiBd61jMACwwse+9fWRsGivJjZBxBoGD774tJMj5P+Wkt3v6Qn/q0W8OO/Jo9KpfBUuPVKeqRQHLClkj3blFidZGjZPyGgzl6Tx/5HoJEh6hZ7n8yAc/mzHovi2mMRp7F5UPAPuFhUWUeGPAhi5qGvZThGK39KFUtP4n5QB6O/YOtm7BmEU7GsGJEgmTETRaHvld7K+XSs5Vg4ESe/haO7T0AJmfdAgCVJ35QBY8lzZL+0iPVbRO3/G3Mb4BLlN8ubvcuH/HJBCyJ35WJplh7zrfbhM+8LGJDDzkBkfzMB/zYc6WLGAhRDlQ==
+ bh=Q27HW/3fkIFLQqbyTaewHsx/j+XZa+tBUvk7/PTroWk=;
+ b=PWMavWVgD5HQYbnYYHywvSLyxbM8WRX28YOu1tdGCvcG6QB7tC+WfZhh8VcrfFSVMW4wQVElXrA+M7fR8igG/5rV4AxEN6uzQHm2bdpCfHjb3ow3iLN3SfIjZB69SbmuwQ3Zpu1W+wfbn4oQKqjUcwqmr/lXiyQ+fIpGqEB1diYz0aM9AnHXlncH+ABxlzGinkapedyI5nSz6I8MJYgAhVXyQE6BAGBc+X1EVymE/61ZrbAVFGu0OvYTDS15+oh44Z/GI9CYlheZgDDbSr/WgiAoWTSHA/evY+Mw9T6cVgQUnDWjcLWxZYxz8+TduipF38ex5E5JeptanZjC1+oF0A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=8ic5TI9zjsHiKg+vVyxdk+5xolLmLy886wZOkq5s79s=;
- b=PGQHyV1LfCgaa8YXK+9YXrUa14iBW2ssf8amuIn9ZO74buKub8I2th/CU7mnkEzsDbSziIZGI58wJHlkqqe1dx8YAw4Do9DjLB7BPTxeq8JttDLJZjqHpjINAAR4f92TISJLLRyMVDpoF7FWfSTwYqId7U0JLgFC/itAdS3+dF8=
-Received: from SJ0PR05CA0070.namprd05.prod.outlook.com (2603:10b6:a03:332::15)
- by SN7PR12MB6957.namprd12.prod.outlook.com (2603:10b6:806:263::17)
+ bh=Q27HW/3fkIFLQqbyTaewHsx/j+XZa+tBUvk7/PTroWk=;
+ b=e36Vk6XYXS71ED8CaXWrsYo+b5q6OIWFWNJZNLWtIGfWVOgwOGOvDkO2i6Im5oiAjvWnUtIQ5S9hq+5tbtf+TGdahnrg5tMF1WZ105SyJc9T1BDc/oiWiRBHbFt+XPuRjpoGbNbXYcNKI1e0CoyOZ4mAxkMZeH6scb2nXlHXpRI=
+Received: from SJ0PR05CA0090.namprd05.prod.outlook.com (2603:10b6:a03:332::35)
+ by PH8PR12MB7111.namprd12.prod.outlook.com (2603:10b6:510:22d::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Thu, 20 Aug
  2026 07:02:47 +0000
 Received: from SJ1PEPF00001CE0.namprd05.prod.outlook.com
- (2603:10b6:a03:332:cafe::25) by SJ0PR05CA0070.outlook.office365.com
- (2603:10b6:a03:332::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.3 via Frontend Transport; Thu, 20
- Aug 2026 07:02:47 +0000
+ (2603:10b6:a03:332:cafe::3c) by SJ0PR05CA0090.outlook.office365.com
+ (2603:10b6:a03:332::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Thu, 20
+ Aug 2026 07:02:46 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,7 +51,7 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  SJ1PEPF00001CE0.mail.protection.outlook.com (10.167.242.8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Thu, 20 Aug 2026 07:02:47 +0000
+ 15.21.339.3 via Frontend Transport; Thu, 20 Aug 2026 07:02:46 +0000
 Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 20 Aug
@@ -58,24 +59,21 @@ Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
 Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
  satlexmb09.amd.com (10.181.42.218) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 20 Aug 2026 02:02:12 -0500
+ 15.2.2562.45; Thu, 20 Aug 2026 02:02:01 -0500
 From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
  Deucher" <alexander.deucher@amd.com>
 CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
- <srinivasan.shanmugam@amd.com>, Felix Kuehling <felix.kuehling@amd.com>,
- James Zhu <james.zhu@amd.com>, Lijo Lazar <lijo.lazar@amd.com>, Lancelot Six
- <lancelot.six@amd.com>, Pierre-Eric Pelloux-Prayer
+ <srinivasan.shanmugam@amd.com>, Lancelot Six <lancelot.six@amd.com>, "Felix
+ Kuehling" <felix.kuehling@amd.com>, James Zhu <james.zhu@amd.com>, Lijo Lazar
+ <lijo.lazar@amd.com>, Pierre-Eric Pelloux-Prayer
  <pierre-eric.pelloux-prayer@amd.com>, =?UTF-8?q?Timur=20Krist=C3=B3f?=
  <timur.kristof@gmail.com>, Samuel Pitoiset <hakzsam@gmail.com>, Natalie Vock
  <natalie.vock@gmx.de>
-Subject: [RFC PATCH 3/3] drm/amdgpu: Disable L2 trap handler when its VA range
- is unmapped
-Date: Thu, 20 Aug 2026 12:31:43 +0530
-Message-ID: <20260820070143.3916329-4-srinivasan.shanmugam@amd.com>
+Subject: [RFC PATCH 0/3] drm/amdgpu: Render-node second-level trap handler
+Date: Thu, 20 Aug 2026 12:31:40 +0530
+Message-ID: <20260820070143.3916329-1-srinivasan.shanmugam@amd.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260820070143.3916329-1-srinivasan.shanmugam@amd.com>
-References: <20260820070143.3916329-1-srinivasan.shanmugam@amd.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
@@ -84,29 +82,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb09.amd.com
  (10.181.42.218)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE0:EE_|SN7PR12MB6957:EE_
-X-MS-Office365-Filtering-Correlation-Id: 41b91b11-d4a5-46e4-2301-08defe890aa1
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE0:EE_|PH8PR12MB7111:EE_
+X-MS-Office365-Filtering-Correlation-Id: dd763653-6f3d-4888-66bf-08defe890a23
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|1800799024|82310400026|376014|6133799003|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: a2hfOkG150RvfECS7OGETbkmpwzmi6Slo80QizOaItyq81HsWWp4U7+WDB5YRzSywRZbQDYq4pV90lkdmRnWxKQNUypU5Z/RN9T7vgglLoJfTu/wOq1k08rlBXVz7ey9r8D9xUj62rFbE/i1jQI9x+gO4L6fun+s2IyDyRCB+F2ZnchDtqlbrggQyLbUrE1ejdUcDX1/licEtEdWqWt0XOgR++Zy/33KcJBCbJRJzCah/+96yvyigFDd/zRDatHhLFdXTM2eio3NQEGn1E8bj628pAkDHE5wWTy0Aw3KTSHu/mjejxU4uD9apLqIuWKNPVcsbT0bwdu4yEPFsC4D74ijp1rA3ODYz2Oi8mfZnLzd8jBYGBuJUEhmeaX2hkMQhgxlAiFTG/Z449JxXs/471Argz9pThY/eDM87KKOXD59FEhaS4uz5jXmWJi9tka34g3LTJGHgzoR/tIVlvuwATrvZd/uCu8tFBmKkM5RrrqMy2KUNDeECoMiz9dP2iYHxsu2CwDoKwd7kvDbvmA9T345h53Vwya8hxFtc3UP5Zj2xeaaKQX+7wqUasELY4pRHElX4i8+pXo4/8JdwIftTldxwNPlU/vFl8wqybcvPQ3WpbFJp1iuaNdsZY+63wZRShXHmEdfRbWsktxNGD9dE1CdGpA69dL6nV/AiaWdaWxlHKsnwK+1Pc69kZ2/bM3Pq8vwZTgJMQKEnZoe4drM6w==
+ ARA:13230040|376014|82310400026|36860700016|1800799024|23010399003|56012099006|10067099003|10086099003|11063799006|5023799004|18092099006|18002099003;
+X-Microsoft-Antispam-Message-Info: jppZcgtLv1qVB7kJ1eSWqpYACcdylA2sZJhRSVGgziKOF638R0KbFoWO7G4SNytf4GYiJThvhqws0VORWcQntKhSUvr9MJ4DvSeQTB59rMCFWIWLFrEXmwA30quuudl74SHpLZpTxWG8veNX+dl4RFW+rih4cOs2Aa//Lsw+f7L6WJ5moBVHIVwZMz6k6sjDMuwur9hoqaNlWefCHLlWSE6aylHj3SmOeVLA9VxnNyEjJvyV/jae8WO7nTZQQCP2WoQwYf/BsHeod8w2G0d7ufx0j02kUJ72QkIiEcBSi5KePMEj0yS0wXbTLCYni8GyiSYyLYgwSxYya/xZmhMoUoHzpR5BSPnLJLkNqxnjaBCjSQrpO6kUOIbvVpoEvt+ubk3CPDi0TGu8oIUkBaym5M3FGMN0WDV1eMBghVmqvby6SxujNoKzSdXGCObPn3zwBg1JwN6U+Vbuw1jJNEIY0nWYi4+/KhhK4//FOp8SwoElfGSzqnqPZXYHx5i7SFaEr1lL2w74YamMOj46uNgNOLXLj5Fei7Iylp8O7dDWRtL1JYP11hFHcqKwCR7RFGiROzFJYcruJPmtT/ktBzuPu3BuqEFVv+Q4yuQd+Y8Yvfy7pTEoQBH9/48Moecfl2yGCRJXASp6jwfELFc5yReCC+Xa7tWYNF6gkvglQ4ap9NIW4n0iqh3KMwN10mCozpkdFpGDy9CdWkpgy3vHJ6EG+w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(1800799024)(82310400026)(376014)(6133799003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
+ SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(56012099006)(10067099003)(10086099003)(11063799006)(5023799004)(18092099006)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 0KC3jKJRAclyk344iCqb8Y8QfnPs4pDwVJQw6CrsFBMngKYLIOndTkETJbnRpcD0hjA6S2vwEnaDhZJwX1SMOVxa+M6Ar4d7+ZFWfSbcPrjYm15rgzEOYmf0/IRtRuT3LdHaznzsYIGMOICupFraoj/W5iWVqpdo3Wr5VS6Kg+9laSeduvENSPi2vZoUcRelv+w3DZYkkQSR61dGTcxVXdVI/8zHXhsOwOAr+MuVteAOqceXYjJ9w1oflmfU6KdvzeNG8DYc5ylVX+VZ4dMgtGvWMER/RPLxsszbNcJ0jvElKnk1b5/pXQatWn7waUOB7FatqrBEGPgmfx0/SzY5DErrfAhXjov2pbRKN3q4yHN/WR9oDDLLJnEArgaa5n77ySimWUjPN0Hef4o9juD6H8agzrp5Lvc2XSNz/otYwhOIV+CU4o74EhYq3VnLkgIB
+X-MS-Exchange-AntiSpam-MessageData-0: Q+BuKRPhFnSgYtT5RvpOETYC3bByE7yhGMTar7SCS/mA8S/+owWhP3N+JxuvZTjQ0BrvgImdGNWzxMrLPqHdrnEWk6SXcj3MWATLxuoQOZvXwHSs3egSny5HOOL1kP5gOKZlK1Cr5lmmnNnLO65f6Wjn1EnSJi8OqCkxIpo2y6rtAr41eRPEWmZI/p346/GkPrj7fyInukz59Z5XuKbzJHO/MebhrM68bKD9Vf1DFjlVLQs/Pf0Nk6nZdG/RxLwPy6xLbCbE7o0/qiGEBEFxJiiyyQNfBWY67sQfafpo59L/4lsRNiXVCqa+okZxAKhKBfvJYT8jVOgLB8tD5OlrMNGG1w/vMJv6zSx8zWmaWCJVrUnPED55sUCz61owcCHNX68T0OAMWAMSKny2PsFvNGhyXK/nFPU+d9tvhF7eY/nfm/fWRJlkBEvWERp5Ugly
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 07:02:47.4154 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 41b91b11-d4a5-46e4-2301-08defe890aa1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 07:02:46.5921 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd763653-6f3d-4888-66bf-08defe890a23
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00001CE0.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB6957
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7111
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,86 +119,96 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-If userspace removes the TBA or TMA mapping via GEM_VA UNMAP without
-calling CLEAR_L2_TRAP first, the GPU still holds a reference to the old
-VA. The next shader exception would cause the GPU to jump to an unmapped
-address, triggering a page fault or memory corruption.
+When a GPU shader hits an error or exception, the hardware calls a trap
+handler. AMD GPUs support two levels: a first-level handler that runs
+inside the kernel (via CWSR), and an optional second-level handler that
+runs in userspace. The second-level handler lets a runtime or debugger
+catch shader exceptions without any kernel changes.
 
-Intercept UNMAP and CLEAR in amdgpu_gem_va_ioctl(). If the VA range
-overlaps the active TBA or TMA, drain the VM scheduler, evict all user
-queues, flush the GPU TLB, and zero the TBA/TMA slots before allowing
-the unmap to proceed. GEM_VA UNMAP and CLEAR must never return an error
-— this path cleans up silently and lets the unmap succeed.
+KFD already provides this for compute workloads. Render-node user queues
+use the same first-level CWSR trap infrastructure but had no way to
+install a second-level handler. This series adds that support.
 
-Cc: Christian König <christian.koenig@amd.com>
+The second-level handler is a per-process (per-VM) setting. All shader
+queues belonging to the same process share the same hardware VMID, so
+one SET_L2_TRAP call covers every GFX and compute queue for that
+process. This setting belongs in the VM ioctl (DRM_AMDGPU_VM), not in
+the CWSR ioctl, because it is not specific to the first-level handler
+mechanism.
+
+UAPI backward compatibility
+---------------------------
+The drm_amdgpu_vm_in struct gains a 32-byte union for the new op data.
+Existing ops (RESERVE/UNRESERVE_VMID) only use the first 8 bytes and
+are unaffected. The DRM framework automatically zero-fills the new fields
+for older userspace programs. No existing Mesa or ROCr code is broken.
+
+Implementation
+--------------
+On discrete GPUs the CWSR scratch buffer (TMA) may live in VRAM, which
+is accessed through MMIO on some CPU platforms. Direct CPU pointer writes
+are unsafe there. The driver uses struct iosys_map for all TMA writes,
+which picks the right accessor automatically (regular memory or MMIO).
+
+Installing a new TBA/TMA requires two separate memory writes, which
+creates a race: a shader that traps between the two writes would see a
+mismatched TBA/TMA pair and could crash. To prevent this, the driver
+stops all user queues, flushes the GPU TLB, writes both values, then
+restarts the queues.
+
+GEM_VA UNMAP and CLEAR operations must always succeed — they cannot
+return an error. If userspace removes a TBA or TMA buffer without first
+calling CLEAR_L2_TRAP, the driver detects the overlap, runs the same
+stop-flush-clear sequence, and lets the unmap proceed silently. Queues
+that lose their trap handler this way are marked invalid and not
+restarted — a queue cannot safely run without a valid trap handler.
+
+TTMP register layout
+--------------------
+When a shader wave enters the second-level trap handler, these hardware
+registers carry the relevant state:
+
+  ttmp0/1    faulting shader PC (set by hardware)
+  ttmp14/15  second-level TMA address (set by first-level handler)
+  ttmp2/3    free for the handler to use as temporaries
+  ttmp6[30]  wave stopped flag (set by second-level handler/debugger)
+  ttmp6[29]  saved halt flag (set by second-level handler/debugger)
+  ttmp11[23] debug mode enabled (set by first-level handler)
+  
+Only compilation tested.
+
+Based on: amd-unified-interface branch
+Base commit: 0f354d789fdc ("drm/amdgpu: Drop vm_manager PASID to VM
+             mapping")
+
 Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Lancelot Six <lancelot.six@amd.com>
 Cc: Felix Kuehling <felix.kuehling@amd.com>
 Cc: James Zhu <james.zhu@amd.com>
 Cc: Lijo Lazar <lijo.lazar@amd.com>
-Cc: Lancelot Six <lancelot.six@amd.com>
 Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
 Cc: Timur Kristóf <timur.kristof@gmail.com>
 Cc: Samuel Pitoiset <hakzsam@gmail.com>
 Cc: Natalie Vock <natalie.vock@gmx.de>
-Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
-Change-Id: I1f103c586c4c5ee444d08bba93a3b6a93d6de98d
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c | 24 +++++++++++++++++++++++-
- 1 file changed, 23 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index efc270e99b4e..b51b691edb9d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -47,6 +47,8 @@
- #include "amdgpu_hmm.h"
- #include "amdgpu_xgmi.h"
- #include "amdgpu_vm.h"
-+#include "amdgpu_cwsr.h"
-+#include "amdgpu_userq.h"
- 
- static int
- amdgpu_gem_add_input_fence(struct drm_file *filp,
-@@ -948,10 +950,31 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 				     args->flags);
- 		break;
- 	case AMDGPU_VA_OP_UNMAP:
-+		/*
-+		 * If the range overlaps an active second-level trap TBA or TMA,
-+		 * wait for VM idle, evict queues, flush TLB, and disable the
-+		 * handler. UNMAP must not return an error for this condition.
-+		 */
-+		amdgpu_cwsr_handle_l2_trap_unmap(adev,
-+						 &fpriv->vm,
-+						 &fpriv->userq_mgr,
-+						 fpriv->cwsr_trap,
-+						 args->va_address,
-+						 args->map_size);
- 		r = amdgpu_vm_bo_unmap(adev, bo_va, args->va_address);
- 		break;
- 
- 	case AMDGPU_VA_OP_CLEAR:
-+		/*
-+		 * Same as VA_OP_UNMAP — disable the handler if needed,
-+		 * then clear all mappings in the range.
-+		 */
-+		amdgpu_cwsr_handle_l2_trap_unmap(adev,
-+						 &fpriv->vm,
-+						 &fpriv->userq_mgr,
-+						 fpriv->cwsr_trap,
-+						 args->va_address,
-+						 args->map_size);
- 		r = amdgpu_vm_bo_clear_mappings(adev, &fpriv->vm,
- 						args->va_address,
- 						args->map_size);
-@@ -991,7 +1014,6 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
- 			}
- 		}
- 		dma_fence_put(fence);
--
- 	}
- 
- error:
+Srinivasan Shanmugam (3):
+  drm/amdgpu/uapi: Add second-level trap handler ops to VM ioctl
+  drm/amdgpu: Add VM ioctl handlers for second-level trap handler
+  drm/amdgpu: Disable L2 trap handler when its VA range is unmapped
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.c  | 341 ++++++++++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cwsr.h  |  54 +++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c   |  24 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c   |   5 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c |  15 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |   1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c    |  26 ++
+ include/uapi/drm/amdgpu_drm.h             |  80 ++++-
+ 8 files changed, 469 insertions(+), 77 deletions(-)
+
+
+base-commit: 0f354d789fdcd03147eb77ab2e3ecdd5a67a1fad
 -- 
 2.34.1
 
