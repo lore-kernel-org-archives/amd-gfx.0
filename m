@@ -4,77 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 213DBC5DF82
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 06:38:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9D09C5DF81
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 06:50:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EE4410E147;
-	Thu, 20 Aug 2026 06:38:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 549D810EEF3;
+	Thu, 20 Aug 2026 06:50:35 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="RKH0ex5M";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="AHNcU0nt";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="F7xU+dBY";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vNieZpzi";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="DSw2biAM";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="n1VzZwa4";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="cRyJSPYe";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="oZUkM5nA";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DA58A10E038;
- Thu, 20 Aug 2026 06:38:02 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BC70C10EEF3;
+ Thu, 20 Aug 2026 06:50:33 +0000 (UTC)
 Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
  [IPv6:2a07:de40:b281:104:10:150:64:97])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A30D33ED9;
- Thu, 20 Aug 2026 06:37:36 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id F3A6484ED2;
+ Thu, 20 Aug 2026 06:50:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787207860; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1787208628; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=MUXh/Wkm5tFQmj9zs5Wo2lEa/xlKF6J+m5iHYTUL1ho=;
- b=RKH0ex5MkmJtY2uD7i76EggdXnGhXY8WTEmfz9SPgcK6CAwl+6h442x7A2sxaOpO+SlBig
- jGqGhhVDUTXpubDrqdY6qTtuAubtt3quUi3jOOT/deUKHN8ifM+MCNM0M9QIfCIu4Ijm5M
- zsRIi6K3rW63eQV+aSmP8cpq9h0aI9A=
+ bh=b8o41ZjdYsCNJhkSmVC9m7iryevxQlhVBAMtPeSR/s8=;
+ b=DSw2biAMogiUZuW86bB+f3vD8diHy10Juys+SdKUOA0APUzNIO6PRNaOabKutR8RGvDLL0
+ NtzcnBEeqRU+ioyGNf07R8txFS02vr6T+VxOpcWHrFPm4fz6qS5XCJBij/xE3VSgWs9qtR
+ 5aRA75F4kqHPfysouuKsFuV3nQFg3Jw=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787207860;
+ s=susede2_ed25519; t=1787208628;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=MUXh/Wkm5tFQmj9zs5Wo2lEa/xlKF6J+m5iHYTUL1ho=;
- b=AHNcU0ntD69IvwDRN1pd+inQn9fXxG7g1YHsAJNTv07VVBh1yIQqBW+QMa2WbjyFw3/6zR
- vRSChQybWFjUpxBw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b=F7xU+dBY;
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=vNieZpzi
+ bh=b8o41ZjdYsCNJhkSmVC9m7iryevxQlhVBAMtPeSR/s8=;
+ b=n1VzZwa4W4gZSN2GZ+jyGvvNqm4nCxLukGpivPEMPey+FamGe9wgoDch8CubsTuSjmv6sQ
+ p2z7/LfYhxGMQlDg==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=cRyJSPYe;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=oZUkM5nA
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787207856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ t=1787208624; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=MUXh/Wkm5tFQmj9zs5Wo2lEa/xlKF6J+m5iHYTUL1ho=;
- b=F7xU+dBYnFARY2U7edBa+1n/z35xEVyM9Nt+aWHqjDe+igrp3FQLoYZo3y++UFPFiLsLzI
- GlEQ1J294YKmsb/6ZCW+3Y4KnDwn4AVJ+xbFU5NTHlI7cWKpQyZCnFwVMYZhdp1/isB4RA
- 1ZwoFYqQZ8MYrn2lLH7foztY7HhtYG8=
+ bh=b8o41ZjdYsCNJhkSmVC9m7iryevxQlhVBAMtPeSR/s8=;
+ b=cRyJSPYeUu61kSiOuvXdAokx8j5jXqprnrvckudFA+D63FktkIu/nuid9f/X6S09Unt0di
+ +rF1AHlF9ZH/1rLju2y1LYXHIjg8djYzB2WlXt24E2NRXmhwXFcSPW2kUXYHCc2H3YIll/
+ WOamYaB6rXQGpqgpfxBHGuxFWNo2ZS4=
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787207856;
+ s=susede2_ed25519; t=1787208624;
  h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
  mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=MUXh/Wkm5tFQmj9zs5Wo2lEa/xlKF6J+m5iHYTUL1ho=;
- b=vNieZpziuyls+ZVPvqGpX6qug5rn+aQ9aY4tWJP2BVX1RMBzIMlMJxkdYJvmJ34nOX1vEh
- Sj7Sy6nB8BfammCg==
+ bh=b8o41ZjdYsCNJhkSmVC9m7iryevxQlhVBAMtPeSR/s8=;
+ b=oZUkM5nAEXOIpCy+zxj/gijDrGXwIo2tnLmgEGDnGux5/4Oti+oYsw7PTTI23tyOYYDKYu
+ HBTH6M2DH/xoDUDA==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2A52927A8;
- Thu, 20 Aug 2026 06:37:36 +0000 (UTC)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6B59C27A8;
+ Thu, 20 Aug 2026 06:50:23 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id zt8oCbCghmotIgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Thu, 20 Aug 2026 06:37:36 +0000
-Message-ID: <25a9543a-c5bc-4094-9386-28ff69d0ccd7@suse.de>
-Date: Thu, 20 Aug 2026 08:37:35 +0200
+ by imap1.dmz-prg2.suse.org with ESMTPSA id YzPEGK+jhmpxLgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 20 Aug 2026 06:50:23 +0000
+Message-ID: <0490d52a-9ec6-4428-ad8d-353b04291f29@suse.de>
+Date: Thu, 20 Aug 2026 08:50:22 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 1/6] drm: Move drm_timeout_abs_to_jiffies() to
@@ -125,12 +125,12 @@ In-Reply-To: <20260817-drm-timeout-helpers-v2-1-73052b669f49@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: A30D33ED9
+X-Rspamd-Queue-Id: F3A6484ED2
 X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000];
  R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
+ MIME_GOOD(-0.10)[text/plain]; MX_GOOD(-0.01)[];
  RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
  FREEMAIL_ENVRCPT(0.00)[gmail.com];
  RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
@@ -141,7 +141,7 @@ X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
  DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
  FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
  TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:dkim,suse.com:url];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,igalia.com:email,suse.de:mid,suse.de:dkim];
  RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
  DKIM_TRACE(0.00)[suse.de:+]
 X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
@@ -170,14 +170,6 @@ Am 17.08.26 um 23:05 schrieb Maíra Canal:
 > Give it a file of its own, so that timeout conversion helpers have a
 > home, which will be useful when we add new timeout handlers. The
 > declaration stays in drm_utils.h, so no caller changes.
-
-Personally I'd prefer a drm_timeout.h header. There aren't that many 
-callers after all.  drm_utils.h is then only about panel quirks and 
-could be renamed accordingly.
-
-Best regards
-Thomas
-
 >
 > No functional change.
 >
@@ -268,10 +260,29 @@ Thomas
 > +/**
 > + * drm_timeout_abs_to_jiffies - calculate jiffies timeout from absolute value
 > + *
+
+No empty line here
+
 > + * @timeout_nsec: timeout nsec component in ns, 0 for poll
 > + *
 > + * Calculate the timeout in jiffies from an absolute time in sec/nsec.
+
+Just 'nsec'.
+
+The documentation and commit  description should also be clear that the 
+result is the number of jiffies until the given timeout (right?) and not 
+some absolute value in jiffies.
+
 > + */
+
+Needs to document the returned value
+
+   Returns:
+   The number of jiffies until the given timeout, or some upper limit
+
+Best regards
+Thomas
+
 > +signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
 > +{
 > +	ktime_t abs_timeout, now;
