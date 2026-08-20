@@ -4,97 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BA0F3C5DF81
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 17:49:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 28577C5DF82
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 18:48:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4827E10F155;
-	Thu, 20 Aug 2026 17:49:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F0F710E21A;
+	Thu, 20 Aug 2026 18:48:42 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=redhat.com header.i=@redhat.com header.b="Qa2N9n89";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EGkzm00m";
 	dkim-atps=neutral
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 43EC010F155
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 17:49:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1787248183;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=6+qiRA0Rr68w6luARuut3h/5z5IL9+5qPOnuZ1Bth1E=;
- b=Qa2N9n89qzL7LHK1UmEu5L0TouYM7HY9V/YhR2cDJC5yWPXSFcAGiF5BRPJH43wThkwFq1
- uCRaQR4D1FX0ZmaKzUWqT/aSevBu8DyW9s3fm3pUm5yMHM0XUTjHQxpE3e/o7UhTDAMNs/
- 7+pX/5Pd+yBVaAEerh/G077lLZWBblg=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-16-MNvbgvEbNK--s73qeq0X7A-1; Thu, 20 Aug 2026 13:49:42 -0400
-X-MC-Unique: MNvbgvEbNK--s73qeq0X7A-1
-X-Mimecast-MFC-AGG-ID: MNvbgvEbNK--s73qeq0X7A_1787248181
-Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-47f81362fb1so99837f8f.1
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 10:49:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787248181; x=1787852981;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=6+qiRA0Rr68w6luARuut3h/5z5IL9+5qPOnuZ1Bth1E=;
- b=J/vqIYLxaQQefOj2H5SDqOcTUdo/9ENdTm7iXagYqHWEHLzn/7ph6AYj2lGF+6jOVR
- wy1TmKyMACn9Qqp42T+NBcrqDhidVuXGMMY+jdqaPEwuDHdDWFfjf7OFnPIopwmpkutv
- HgPJhxIHGWZARy0eqafFLCoGRUcw+jo9ZFXFnuMsRIz1/2+Q08FfyRrZGlHCjNWKxs8D
- 6FBJKPJH/xTsaet6pksr46X1VgzQqAhL7MnOZGgxuncdtxaxf5xQgO4MkGd7UiVVGUv1
- K48U/nHJ4Oh42z2jO7MQ79e5yXXEndIqFILJ234l3RbgU4rZkmzKfRrxIXmP/esyq5/t
- wvxA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RofEAy4SOeZdQzmuw6hiI6RvB/LrNhpfPZKoea31sR/oggax9OZa4ApUbt6y0k7Thc42wkOX07C@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mJzganuiiuWzJPyJQsDLslygRjipbD8We+nJ+nfidatE1U0/SJ
- 6OUQrHJNptO985NMUlWon5AeX+LkFPEUBaweuqYai76/IO7+o7BT+8FahYxLu7640zVMTE3/dOh
- /gIEx8PCVvjn7q8lFX8BuxxIIafY8lNqp4FjrgS/SlUMq73KZCV6scrZZFk1aCSwUz84=
-X-Gm-Gg: AR+sD10q2fET5UoPTjy98Dman8QYZviKUrqiqL2gmp+fIIbXgg7Q63UUnZjGm6wDORc
- RDtlzzPvGT6OUMbRSM1ohXlklyLbotVu88K/8Ftgj7FTLFoOpP/csG2hj136nN73NXisB34unUp
- hWqfRrK6Zxd9KNgSB+4a6m7soN5/mDoY1tKTmUsXRCQ3UaosKWiyTxQhBSqmf58PSxPIavDOL5+
- 4iKatBxjqE07SiYiDZGYbisO158iXSPqvgGXegElYN68YlyZQbgIf9jVQ+ZpBSAo3mHuQ+V73CO
- jxS/o5WOlBfGmUrC3Ko4N+10V3urUXg2IKpiP088fTNN7BsyecDy09EIzqUaHpW4u7jMq/P8uEj
- I54UXqi+05JbKYN4gqMs2YiV91526RCD+MgU14+6f/DQYmQ==
-X-Received: by 2002:a05:6000:184e:b0:47f:f339:556c with SMTP id
- ffacd0b85a97d-482c0b4a40dmr705154f8f.2.1787248180688; 
- Thu, 20 Aug 2026 10:49:40 -0700 (PDT)
-X-Received: by 2002:a05:6000:184e:b0:47f:f339:556c with SMTP id
- ffacd0b85a97d-482c0b4a40dmr705081f8f.2.1787248180291; 
- Thu, 20 Aug 2026 10:49:40 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:11aa:87f0:935:4f8e:b423:64eb?
- ([2a01:e0a:11aa:87f0:935:4f8e:b423:64eb])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-482b145d31bsm13853815f8f.16.2026.08.20.10.49.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 20 Aug 2026 10:49:39 -0700 (PDT)
-Message-ID: <e4da5ba4-9a02-4080-9a83-19d401017910@redhat.com>
-Date: Thu, 20 Aug 2026 19:49:36 +0200
-MIME-Version: 1.0
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012061.outbound.protection.outlook.com
+ [40.93.195.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A716D10E21A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 18:48:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SX7dPAjYjtyVViQnUbz7e/TzXclYz42NOoiXvAe8T6A2wVooe5JtegSBsoZ4sFYjekqIrB3InEVKmaK/oG3ZM1InlcHfkG0wOG9CcWSaWuKz2yMhunq8Ykhjq+haInxS3DQ1XObiUcCFzL4DSBmzte2CSowPJDQt06FDji6yeimuCXT/FNXebGFsC5ax1i91YlgzMbzE8dUyBFMChBZt+9HuS5kg6nbcS5F75sV/hGmqzTD0ISuLylxKwfpK8Yqr3Sp3YLhKiXiWjdTZqDnVlaw49YuZf8K5eUp70c7iA51BsCZcuwBtdSnEKtr+rzeJyFtALMFyYC6lKYzcR4yzgw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kyER0ryyQsOuGYyfoi9cCnyuIs5UYVrKxT7rvajS8kI=;
+ b=QWZqJPHSndyLgiUfWWbeAGFL426cd7wsQBk7yNpbnoA/GDm+sTCMcGVJcxo0JQjrIWlWOYqChhgHWhtcwd/T8FkiRncsjUa0+vD3NKczftQyPgM3HRTPPdiEhNFNBKGJIbSIwrhGK2JJ+tNZwN7w3XIQHeBz0IuCp8riNIEJomsNBMnsU3lBrkdRkTBHLTBts/vYEYrDeLTD6DxdLNBVV8KKPRDUAmarwTVKb89vn8gLzvSKhVTafumiqsDI1+2nlLqsi33klMZVoS69+kPPjGAQcqqRnUqL+Mt0Wpf89bUCxqd3vt5coAElU0gGOLyiMyL7CvJjFfc6LC5Z+dDPbA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kyER0ryyQsOuGYyfoi9cCnyuIs5UYVrKxT7rvajS8kI=;
+ b=EGkzm00mu8mFi9V48UNOUJns+y4Z84ozwsoByEZgHrHBNT0uV2RHlYXK1ziv2gLtoL9gvTEC/ZqOGnCDczJX4jxF1SuAXq1qi1yuM5ie4HEx0moTDMbJjO6HjgKiloeyMJGjYIlNFSGj7NDgYxN5+vj4TnObGGAYHPlah5zwOqs=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SA1PR12MB6970.namprd12.prod.outlook.com (2603:10b6:806:24d::5)
+ by MW5PR12MB5684.namprd12.prod.outlook.com (2603:10b6:303:1a1::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.11; Thu, 20 Aug
+ 2026 18:48:34 +0000
+Received: from SA1PR12MB6970.namprd12.prod.outlook.com
+ ([fe80::a65f:48fc:86fb:e958]) by SA1PR12MB6970.namprd12.prod.outlook.com
+ ([fe80::a65f:48fc:86fb:e958%4]) with mapi id 15.21.0315.016; Thu, 20 Aug 2026
+ 18:48:33 +0000
+Message-ID: <9e637983-d315-443e-9424-ac51932b2ca4@amd.com>
+Date: Thu, 20 Aug 2026 14:48:32 -0400
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/12] drm/panic: Split into core and helpers
-To: Thomas Zimmermann <tzimmermann@suse.de>, javierm@redhat.com,
- airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
- sashiko-reviews@lists.linux.dev
-References: <20260818125012.468092-1-tzimmermann@suse.de>
-From: Jocelyn Falempe <jfalempe@redhat.com>
-In-Reply-To: <20260818125012.468092-1-tzimmermann@suse.de>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: Q6Oggg1xGWNltfJ0oNyXNUQCnFDfzawUOu7R-uDULoY_1787248181
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US, fr
+From: george.zhang@amd.com
+To: amd-gfx@lists.freedesktop.org
+Subject: Re: [PATCH] drm/amd/display: Fix redundant GPUVMEnable checks in dcn6
+ flip schedule
+References: <20260820101601.3942853-1-srinivasan.shanmugam@amd.com>
+In-Reply-To: <20260820101601.3942853-1-srinivasan.shanmugam@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR0101CA0094.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:4::27) To SA1PR12MB6970.namprd12.prod.outlook.com
+ (2603:10b6:806:24d::5)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA1PR12MB6970:EE_|MW5PR12MB5684:EE_
+X-MS-Office365-Filtering-Correlation-Id: 01b043b4-c1c7-4356-7836-08defeeba2df
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: ozfw/nHnTZlUtaJVUJbCQBpi6rCpdKgo9KDiyR9mSuu+qsPbKcK3e2BSlP0FqEryoBnrqfCr/qURqd/zCiK+Su33ZtBLXfWLc8vr5k+KOTN6Tl18as/4kU8+gA1cAEP79yv28vAS9lgtYYxsniS6DkXIecXs3oHO/XoooykYvXUa/x27gJQLVtu4jZO8mZOlRHL4bsv4TX3GpAURql/36/13Ogw3cz6p+jmznObmspa60Lx7HnwpTuAARWEX5ggdvt6bx9HDehaI/5u6/yFircpSHqlYTqKc+6kPMpB3Q2jbcjYabrWo47UeUBPA9K0BoHJ4y6/QDhGCo8bmkS2Q3GokJxAAb4dwh27F8M70UOgg/9L48KDzwJpfJdaQl6N7bwezj9BfhaM7XfwnzDAWfZq1UxKEUD0GO7UW9FWxF3GTDdmZIGoziKv7VXCz5TJ8fq1iefPt/CuDMtfdIzxWjfGGZb96ML4hIb6h0RfR6vVb5KZQK/D7AjHct1OHRW7bv8xz1d00Ur/6cqAPP75KxGt4lwrrL3qJ+ddVw26Vfte6MvZr4g6UYJR3Gj3s5XSCBxb9z3SrkGrvJ3TDwbjIXmriLW9asYknDNQAQ/tfqaB8sE3YPFqDTcjm099XFcDd+ijXbaN4RMeY+hxjQqsO0Q==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SA1PR12MB6970.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?V1lwNzZIN3JXVnRjMXRUS042MWp5ektKSHNCb0F6c3N5ZE54VjhRVkFMQUJ1?=
+ =?utf-8?B?eW4zcTBJZ0RiclVJVXQrQkhqQ3Y4OEVGTkdVd2pzd0J5TW5WeDFBRVVJRU5i?=
+ =?utf-8?B?b0hlYWFyZmxrNkhOWlNKSnhhbnM2OXQ1R1NDVjdXdSt6YnpuYXFyaG5maWx6?=
+ =?utf-8?B?b1o2NHpzenRsYmx2VHdndGY3RDRXcFZvckp5YWIyUytIRzZnUU05MWcrNGI2?=
+ =?utf-8?B?NDN3blQ1VW11R2NjemxoUzBEUkdHRERENlFZS0c1Y3h1Z3hkTnRlQTcwQWVF?=
+ =?utf-8?B?cXljRGFBT3JpdFpaenU0WHhyZzAwQWZ2YzhCQXhqcCtZWmFjRE5ad1U1b0pQ?=
+ =?utf-8?B?djUyMm5QSHhXbnMvemV2YTlnMGRRbi90NExvcDVrZTdMRUMrOWtGMkhtczJl?=
+ =?utf-8?B?RGN2TGVsZXZ1QzFUdTVkY2YxRGJIeWNLcTNEWVZwMERESng3NVMralNOWjA0?=
+ =?utf-8?B?djVvL0xpaGxSeVJDeVZGeTN4SnBBeTNTVm81Ty9ORllSVy9MOUpNd1IzRlFJ?=
+ =?utf-8?B?U25hNkt2dmlBMFlqbWEvV2xxMjM1MWRla1ArcjJkTWVuNVlPVERoYU0xV0RN?=
+ =?utf-8?B?N1FRRXJtYzVkMjFZMmphN1BRSk5DTWZDMGxLY1pwbVZtQmFHaXA2QWJsK0Zy?=
+ =?utf-8?B?UGdCdEJvdS8yUHF5OVdsV1ZIUWViL2NaYkpQY01QUnhLRmZCUXpqOVI2YklZ?=
+ =?utf-8?B?NVZGVG5rTlBUdjJVOUx6L290eEZIRzZraVBHbGtyclhmQTA1WUFIQWJXSnZX?=
+ =?utf-8?B?dEIyUHNoVVFIc08zdlpKVUIyNHFnL2IzMWwzOFFSdkIwdE9YWlRxamE4NlhY?=
+ =?utf-8?B?WEw4dGtCckRXc0Q4T1Y1TUwvV3VDQWJ6T2oyUkw2MTlkc3c2REdXWWlxYk1M?=
+ =?utf-8?B?ekY0U2xweXcrYVMwQklDMGpTTFplZ2h1SjJhYm8zSXJGbTBHVmxLK21NSU1I?=
+ =?utf-8?B?VDFQaCtpbTRZR3Z1L1JNdE5aeVVpRjJjQXFmM01yVFNoUFgxZ3IrVlJKOTUy?=
+ =?utf-8?B?USs4MmdUNVFobnBLMCtkWVE2a0FqTWFpeVhlTnM4MlhpUEhnYjRkYXNOZUlY?=
+ =?utf-8?B?UndzdG9wVUp2c0dJYmVHbU80RnVtRzFvK3lmdTJmdWhMZ1UwUmFEUytjR1ow?=
+ =?utf-8?B?eStsZDNqZ0hPUG05VDBkYThiRFNaUUlDaDR4VnNLTmtFUkY1SnRIQzJuTzA4?=
+ =?utf-8?B?aUNXYnd5SmZ4RjV2dlV5UzdLeklpR0lKaFJKaXZxSWhzclB2clNtVFJwNnZH?=
+ =?utf-8?B?bVFGaVp6bDRIZ1JEMEZIOTlHcjhQUjdhOTJ5N3FjZ0s4UXFOTUMwZW1tRVVX?=
+ =?utf-8?B?ZkM1RUJwbVFncWVxc3M4UGkrZTFJSFROK1B4Smh4VzNVZjVHQWFGT240amF6?=
+ =?utf-8?B?QkFUTlk0dHYyWmh5NWpVRVFPQ2c4YUNlckJ3MmJiVnJUR0NzODJDREMwMFUz?=
+ =?utf-8?B?UjBjdXdIUlludDBxVWROeDVWVE5PSFlYQUZDazcrZ2UzdERPdmlodXRZZyt5?=
+ =?utf-8?B?TTBhOHRNdjRNcEtrOVpSZjMweWhXTW5CQ2VNLzhhOGRKdEJXOWd5L1UwZnUw?=
+ =?utf-8?B?SEt0NGp5ZXNSS2hUT0F3Qll0QytSN2ZIdE5nazVka1VYSkVkR1VYdk5VQjJZ?=
+ =?utf-8?B?N3lhQnRBaWZBTUt1S1poRTJBZi8raElZMndCVlp1YWhreTg0aGs3YjNTUmZU?=
+ =?utf-8?B?UW5uK2hYaHVXYzR3SlQ2ejZnTDN4Vmp6SDR1WDBWMTd0dFpwZkJQbkhuamM4?=
+ =?utf-8?B?VWJTVUZKcGM5dVQ1Q0JLYUJ2eFNwa0pzYm84Kys3aHh0RENmb2VrQ0hscm45?=
+ =?utf-8?B?WmpKUmx3d2Y0UGtMR2MzRnVmbEtTbyszU2FkdWFhUTY5V3FDQ0tkWkVYZ3BJ?=
+ =?utf-8?B?RDYzZ1NlTjE0VkNLcm5pd0lxZkEvRjFRdWRPcHRUMFBzNGZxRCtVdEZVZUxr?=
+ =?utf-8?B?RWUvaldMWS8zYTNDKzdEQ1FQWDQ5ZTZ4WTF0QkN5RW1lYzFRRlB6RjN3Qmh0?=
+ =?utf-8?B?UHdrbEJvZVZVWUNlMVdGSnZyZ2FMeU53QzlwVVpoZGw2SEpEdjRjYmpzME4r?=
+ =?utf-8?B?YkNjaEVJbTlWa09FQ1Q4NHBzK0NBa1NJalU2SzBKejRDb2dYN0hEM3VDT3dN?=
+ =?utf-8?B?Sm9pVWVweUpFMk0rNkdzK2piaElYbmtrY3U3R1BLbmNWQ2M3TGxlNEVrdnJB?=
+ =?utf-8?B?TE51c2lZa29Xd0RYWmVuN0gzT0ZRQlQvNVRkaVpPY3dCZjNQalZ6VklxS0pi?=
+ =?utf-8?B?ZzBhVlZyc1hNem5FTlVpQXUvTkt5VTlBdnJKaGRjZ1kyRzFUSlV2RXo0NThm?=
+ =?utf-8?B?aG5lT2FZd3FQSEdsZzhlcDZ3ejhST1JjNldVdEViSDNENGplaFR1UT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 01b043b4-c1c7-4356-7836-08defeeba2df
+X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB6970.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 18:48:33.8835 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fVAthBxXxFvIH4Zy7YKbi0wLQ8VuFCtIZHbVOyJ5nE54B2yR/9ufllXwOTv7Q5kBpTAlAin2WBHvPz/NY8102w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5684
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,133 +133,58 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 18/08/2026 14:27, Thomas Zimmermann wrote:
-> Split DRM's current panic handling into a core and a helper module.
-> The core is still part of DRM's core library. The panic helpers are
-> part of DRM's KMS helper module (for now).
-> 
-> The motivation behind this series is to get panic handling's drawing
-> code out of the DRM core. At some point it should share a single
-> module with DRM's other drawing and format conversion.
-> 
-> With the series applied, panic hanlding follows DRM's established
-> design pattern of having a DRM core interface with an dedicated
-> implementation in each driver. Drivers share common code in helper
-> modules. For panic handling, the DRM core still contains the panic
-> entry points, the parameters and the debugfs interface. All drawing
-> is now located in the panic helpers.
-> 
-> Patches 1 to 4 improve several issues in the current panic code. It
-> makes sense to fix them before moving the core around.
-> 
-> Patches 5 to 8 put handling of all panic state and locking into a
-> single place, drm_panic_display_panic_screen(). It is maintained by
-> panic handling's DRM core code. This also enables the test cases to
-> work more independently from the kernel's configuration.
-> 
-> Patches 9 to 11 split the panic-handling code into the core and panic
-> helpers. The former maintain all state, locking and public interfaces.
-> The latter handles drawing and details of the involved framebuffers.
-> 
-> DRM devices that offer panic handling provide a single callback, struct
-> drm_plane_funcs.display_panic_screen. A new initializer macro makes it
-> point to the existing panic-drawing implementation. Hence there's no
-> change in features or functionality. If panic handling is configured
-> off, it all clears out to NULL.
-> 
-> Patch 12 reworks the test cases slighly, so that they can be build as
-> a separate module. Do 'modprobe drm_panic_helper_test' to run them.
-> 
-> Tested under bochs with debugfs and test cases.
 
-Overall the series looks good to me, and I like the split between the 
-helper and the core.
-I would just drop the first two patches, as I don't see much difference 
-between static allocation or kmalloc() at init, and I think that 
-memset() the buffers to 0 is not useful in this case.
 
-Best regards,
+On 8/20/26 6:16 AM, Srinivasan Shanmugam <srinivasan.shanmugam@amd.com> wrote:
+> Inside dcn6_calculate_flip_schedule(), GPUVMEnable is already checked in
+> the outer if block. But the same GPUVMEnable is checked again in two
+> inner if blocks inside it. Since GPUVMEnable is always true at that
+> point, the inner else branches that assign meta_row_height are never
+> reached.
+> 
+> Remove the redundant inner GPUVMEnable checks and directly assign
+> dpte_row_height, which is always the correct value here.
+> 
+> Fixes: 04d9a88decbc ("drm/amd/display: Add new sources for DCN6")
+> Reported-by: Dan Carpenter <error27@gmail.com>
+> Cc: Roman Li <roman.li@amd.com>
+> Cc: Alex Hung <alex.hung@amd.com>
+> Cc: Tom Chung <chiahsuan.chung@amd.com>
+> Cc: Aurabindo Pillai <aurabindo.pillai@amd.com>
+> Signed-off-by: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
 
--- 
+Reviewed-by: George Zhang <george.zhang@amd.com>
 
-Jocelyn
+> ---
+>   .../src/dml2_core/dml2_core_dcn6_calcs_dchub.c    | 15 +++------------
+>   1 file changed, 3 insertions(+), 12 deletions(-)
 > 
-> Future directions:
+> diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_calcs_dchub.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_calcs_dchub.c
+> index cae6bee93fe3..a4e2f8604650 100644
+> --- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_calcs_dchub.c
+> +++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_calcs_dchub.c
+> @@ -569,20 +569,11 @@ void dcn6_calculate_flip_schedule(
+>   
+>   	if (GPUVMEnable) {
+>   		if (l->dual_plane) {
+> -			if (GPUVMEnable) {
+> -				l->min_row_height = dpte_row_height;
+> -				l->min_row_height_chroma = dpte_row_height_chroma;
+> -			} else {
+> -				l->min_row_height = meta_row_height;
+> -				l->min_row_height_chroma = meta_row_height_chroma;
+> -			}
+> +			l->min_row_height = dpte_row_height;
+> +			l->min_row_height_chroma = dpte_row_height_chroma;
+>   			l->min_row_time = math_min2(l->min_row_height * LineTime / VRatio, l->min_row_height_chroma * LineTime / VRatioChroma);
+>   		} else {
+> -			if (GPUVMEnable)
+> -				l->min_row_height = dpte_row_height;
+> -			else
+> -				l->min_row_height = meta_row_height;
+> -
+> +			l->min_row_height = dpte_row_height;
+>   			l->min_row_time = l->min_row_height * LineTime / VRatio;
+>   		}
+>   		DML_LOG_VERBOSE("DML::%s: min_row_time = %f\n", __func__, l->min_row_time);
 > 
-> - Panic handling shares some drawing code with format conversion and
-> clients. There's even more drawing code in vkms. Later series' can
-> attempt to unify and harmonize all these implementations in a single
-> draw module.
-> 
-> - The drawing helper drm_plane_helper_display_panic_screen() still
-> implements various access schemes (map, set_pixel, memcpy) in a single
-> function. It could be split up into specifialized helpers.
-> 
-> - If we ever need a driver-specific helper, it is now possible to
-> implement a custom version of display_panic_screen.
-> 
-> Thomas Zimmermann (12):
->    drm/panic: Allocate QR-code buffers statically
->    drm/panic: Make allocation of zlib workspace more robust
->    drm/panic: Return -EINVAL if font is not available
->    drm/panic: Return errno codes if panic output fails
->    drm/panic: Pass colors to draw_panic_dispatch()
->    drm/panic: Pass global module parameters to drm_panic_dispatch()
->    drm/panic: Retry in dispatch function if panic output fails
->    drm/panic: Split draw_panic_plane()
->    drm/panic: Display panic screen via per-plane callback
->    drm/panic: Internalize panic locking in DRM core and helpers
->    drm/panic: Move panic display code into helper library
->    drm/panic: Compile KUnit tests as module
-> 
->   Documentation/gpu/drm-kms-helpers.rst         |  11 +-
->   Documentation/gpu/drm-kms.rst                 |   3 +
->   MAINTAINERS                                   |  11 +-
->   drivers/gpu/drm/Kconfig                       |   5 +
->   drivers/gpu/drm/Kconfig.debug                 |   1 +
->   drivers/gpu/drm/Makefile                      |   3 +-
->   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   |   2 +
->   drivers/gpu/drm/ast/ast_mode.c                |   2 +
->   drivers/gpu/drm/drm_atomic_helper.c           |   2 +-
->   drivers/gpu/drm/drm_crtc_internal.h           |   2 -
->   drivers/gpu/drm/drm_drv.c                     |   3 +-
->   drivers/gpu/drm/drm_kms_helper_common.c       |  14 +
->   drivers/gpu/drm/drm_panic.c                   | 914 +----------------
->   drivers/gpu/drm/drm_panic_helper.c            | 915 ++++++++++++++++++
->   ...drm_panic_qr.rs => drm_panic_helper_qr.rs} |   4 +-
->   drivers/gpu/drm/drm_panic_internal.h          |  59 ++
->   drivers/gpu/drm/hyperv/hyperv_drm_modeset.c   |   2 +
->   drivers/gpu/drm/i915/display/i9xx_plane.c     |   3 +
->   .../drm/i915/display/skl_universal_plane.c    |   4 +
->   drivers/gpu/drm/imx/ipuv3/ipuv3-plane.c       |   2 +
->   drivers/gpu/drm/mgag200/mgag200_drv.h         |   4 +-
->   drivers/gpu/drm/nouveau/dispnv50/wndw.c       |   2 +
->   .../gpu/drm/renesas/rcar-du/rcar_du_plane.c   |   2 +
->   .../drm/renesas/shmobile/shmob_drm_plane.c    |   2 +
->   drivers/gpu/drm/sysfb/drm_sysfb_helper.h      |   4 +-
->   drivers/gpu/drm/sysfb/vesadrm.c               |   1 +
->   drivers/gpu/drm/tests/Makefile                |   1 +
->   ...m_panic_test.c => drm_panic_helper_test.c} |  65 +-
->   drivers/gpu/drm/tidss/tidss_plane.c           |   2 +
->   drivers/gpu/drm/tiny/bochs.c                  |   4 +-
->   drivers/gpu/drm/virtio/virtgpu_plane.c        |   2 +
->   include/drm/drm_mode_config.h                 |   4 +-
->   include/drm/drm_modeset_helper_vtables.h      |  11 +-
->   include/drm/drm_panic.h                       | 117 +--
->   include/drm/drm_panic_helper.h                |  40 +
->   include/drm/drm_plane.h                       |  57 ++
->   rust/bindings/bindings_helper.h               |   4 +-
->   37 files changed, 1253 insertions(+), 1031 deletions(-)
->   create mode 100644 drivers/gpu/drm/drm_panic_helper.c
->   rename drivers/gpu/drm/{drm_panic_qr.rs => drm_panic_helper_qr.rs} (99%)
->   create mode 100644 drivers/gpu/drm/drm_panic_internal.h
->   rename drivers/gpu/drm/tests/{drm_panic_test.c => drm_panic_helper_test.c} (80%)
->   create mode 100644 include/drm/drm_panic_helper.h
-> 
-> 
-> base-commit: dc462ab791b686c48545c160ecc81be64f77a846
-> prerequisite-patch-id: c67e5d886a47b7d0266d81100837557fda34cb24
-> prerequisite-patch-id: a5a973e527c88a5b47053d7a72aefe0b550197cb
-> prerequisite-patch-id: b9adc9622920a3e70168e672c2c92795b3e3a106
-> prerequisite-patch-id: 5030de433a01c2e99056cadb676a8e2ba35f055a
-
