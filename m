@@ -4,96 +4,94 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0789DC5DF89
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 19:34:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E7C07C5DF89
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 19:35:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3BAB610F17C;
-	Thu, 20 Aug 2026 19:34:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4038D10F17F;
+	Thu, 20 Aug 2026 19:35:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RWMkBDWT";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="h8RENewc";
 	dkim-atps=neutral
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
- [209.85.215.171])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CAED10E603
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 19:34:34 +0000 (UTC)
-Received: by mail-pg1-f171.google.com with SMTP id
- 41be03b00d2f7-cbe41618110so29215a12.2
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 12:34:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787254474; cv=none;
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
+ [209.85.215.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B331510F17F
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 19:35:35 +0000 (UTC)
+Received: by mail-pg1-f180.google.com with SMTP id
+ 41be03b00d2f7-ca53979f8e8so31968a12.2
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 12:35:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787254535; cv=none;
  d=google.com; s=arc-20260327;
- b=E0XctJDjpV/2ucVumuCyUkVkKbfdxB/jZTrbeoYlWS6p1bFoTN33aewX+n01c6qvUT
- iPrMtIVpB7Zvf/l+GRpdNKb5vvH3te8YPbVP/tJzEX1qP99s8OCpg+Y+sLJOM9PEu28J
- eABZc662UokdSdGJv1UAsJp1KN3XEus0RMDbRUd+JbADMDor97vilxg9j01uRy9S7A7M
- 8lG9Sp+zZ4e8oVSCnnQHxzqdKSXrL/KitoYCSib2xkB/xMLFsZvaxE4+o5aRR6P3ZwVI
- 88TYzOBz1O1EJIayZNf/Y7FuACJYQ/iCLp5WGLhTaVq9Ebywnk1TGM/c38Zsg5a+qlpb
- OBhw==
+ b=R7bvNrLAFKTc0kb4KD/6zSsGIHbHcdIKcBD5+Of0pzUAx5hCUIW596gbUWadeA9Wil
+ IEuIhT2WR9KLAQMM9czEjefLQ4s4q784Ts5aZF3K3rBuxkFrVIEr0rbzZazBweY0UR7a
+ dy9FwLaVCybx13NPDeL2AHbu4MWKpQ0KhPCTkKcmX2lSyW87NOIsQFn7HUrGb+Mph2lK
+ CMcteQ4vX6UBL9M4s+nlnGiVXOXERlZlUWWMCDXoD2JHgk++LvyD2Mmc2BakRfc7OMEw
+ 5K3Kcxmixb3wi+lKBiorWRZkuyIFPyqb+v+2OprMeNPlST6NZkRfAngK8Ughf5SByXzi
+ xtxQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=dPlCotS2r/D7gi3E/PoHViYh+YnVAxJCTi+3Pa0/DcQ=;
- fh=1WrBcjd4nneYGVQDbWHfEuEVNDZkabzDoIOngoLnwLw=;
- b=anDMGD7c4cvzgijEx5nHPfwcGgt9Nf+KGzS7pNYoEEx4NzqhxH2b8sAmghjn7N3W3G
- AxThXYk0D7AkYzXyEnMDoNYsnHBBaVfo9J14+0rily0+kutzEnRgMht3xjVdqGnk4D5L
- ZIqO9UiKZDT5o7nYs+HoZTGi4oe3GViY0pxj16NQHpFaGAVKHZqrVvah1LaTRT3lxhXr
- 0ohzSPeKF2VN/WfzHVEsPOW9EipTOfRur072bAjGNRK7pTgnSr5fViB8/nvbVCWhRMse
- MEvaf0gFIXmx7Fnp2X7xsUeCUONY03eFoHk/k98PXBPgHMLFoqkgHAnH7F28DBPvgSmt
- myzg==; darn=lists.freedesktop.org
+ bh=gqytTIc7u2uOtpbZfg574tdAzUb/kPMViOM7fTVII1Y=;
+ fh=CBsscPxRx0t1IZlgmntxn+VAQlWh6r2bS0v24EukBWE=;
+ b=kyFonQFq1kS9EGvVPh+nnAUgMGME17vhDwA+f4cOd0KaGds60KHu0iWLOmwHTM/3Qb
+ Sb/BE3+gxmM5xgc7jnS/npZx0Da80Dglf+NHPOC5v+rPRLPsE0dZz2yPthelQGRajAmz
+ b94osdZRZiZsR90J2px3KoR9qrpn4iHo4J3S2/dTujhbol/KPFagDu4gVscx2IN3Dngx
+ He1akRVVwlaAwK60E9oQH1cSzQVJGrd1aIq7pextJPhO26KLm5vMjlkFFPlzKHZ8d+Vh
+ LyU5eFxTokHel5DEZEo/VVnTuRK0Fj6fnRD3zcqLm7SMjF1pdQjrqVViyLXjnsJObmCw
+ VgFw==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787254474; x=1787859274; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1787254535; x=1787859335; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=dPlCotS2r/D7gi3E/PoHViYh+YnVAxJCTi+3Pa0/DcQ=;
- b=RWMkBDWT3Y4qOTUl2TgnahRtNgcwYVVB3hkWcm6199GqJI0SSOLCO30nWSIemL5sPq
- +KKnKOOfrPVSxJxgWFefWd9XyOv0REd2fznqzdQQ29FZ/IVJ7J1B8K8azxHG7EUclckZ
- m1VnSWkTjFVycRBCj0lFEr77avSOsFqFYYts4bmUS2eWku8a8dGK0CUMHNGvaIlupKXk
- P4//4tJEsyb9gnl/JxmuU6gFu7a2dyyFS3acU/bYCZmax+IBzgmWejkdYb+Af9tYzaij
- NQyIB2hJ66uzfeWU1x1asnPOu15I4N2dSbTkr27I+c67Y7cJc5OSxRbeNVDy//2a2UDZ
- mwaw==
+ bh=gqytTIc7u2uOtpbZfg574tdAzUb/kPMViOM7fTVII1Y=;
+ b=h8RENewcf4Hc6WiVMeCucYhLVj5uwGpTqd22bQ4KHmH52we8RYPTGwda4wjq/IUL1Z
+ qLv0oDTqllAwF85xAjUUadFxqHD+Nd4ZgZWkVthGayvw3gBbEMkzGl6rTcwWP8azYLWV
+ gIPO5XDaK8WM2cZ9Y2T2zS5JuNXAoqV4TV9DN1LDt1GKc+YX3ADWibCzm0AEdzGBkPXT
+ AAkjpPALoOXv0ZRq93AJPK7YQSRYo5NWHGKWGJCWsIRnVm7zp8BjlWqS0dsC8BMR7+aD
+ KcAzfw1asTVoI2wFMI9Fip7o5zYm9fkSnoLrSotf8JbclDer4ozYJ5eugbiytIWl5ivV
+ 4SAQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787254474; x=1787859274;
+ d=1e100.net; s=20251104; t=1787254535; x=1787859335;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=dPlCotS2r/D7gi3E/PoHViYh+YnVAxJCTi+3Pa0/DcQ=;
- b=jW4zNuM4FA8gMh5Y8KQmPSD525Z4QLRm5XCu5dQ63T/kjmFMfhLp4VZxByFgx1O2VT
- dIpnbgehRGfbIZQYOYFYW5EGUPlQZ72Qn07mvLF5FmR/8d1JHMK/19d6Y3lOXRaCtZ6E
- Bkz1zW2SikuyrXjG/zUh6xmU+mfJcYqpVboe3MvXUAZLZX8Ui3gQs4sJ7eepFREJFc7h
- SsqT0QnYdCJfZYdK696X5kODTypP+rpgZSZfdObUwGqb7lNiM8M9ASmmXoUAKrMXGWrE
- c/LsuT3ZdYdI2XbcpNwIKypewv5KTxbu8bKGpzYIHz2byK5T45GVsLwH/2MI8hN647h9
- yQvg==
+ bh=gqytTIc7u2uOtpbZfg574tdAzUb/kPMViOM7fTVII1Y=;
+ b=UMvZvk+iDoxGNBeLOwu0QVFcLMtjOqOrqcwYKpVCnjzqCDIwE9xlS5Nt3uQpDWxOCh
+ MGJYal660C+j2OfUba4bFa4lVVW9V37lrmho1QfWE3pfcsNa74ewF02jSW849DfQeqnr
+ oXqyZkkr0P2DJiekaxnio7r21X1W22Kxnif4JpPaI//wN+URg/zjghg15AEOQvwtmRnm
+ 6AVQjwZux3jovuqdw9IzuxbgTMBL+xb9z5/uyxF4WZlet9Dinw1VFkdrP58rkbzPa9t0
+ T8cMqnwgBwucV54Ahlf/Zn25jlT/FFbuzqLpdgEeNDsenhPSUwxdjd+TBLSuSzSDansm
+ VYjw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RobyYVTm2T0YPjuSiKw1eh1a18ujFewac2ujwukEb0K3Uq8mCrPLjKbzKGht8bhOSE1NopYI4NU@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kUMa+mvPCaq1z0I1NRaQEG2WNs/9Is9RG7480ayKNDo7YBA/oL
- p26TchocSLmZtEfvuxqMJ70chSSzsq2U3xSN39eGSrmJWEGf6OufIYeode/H9V0B5N1xc1293Ji
- PK3xs0B1n8wyaBKs9lzIVCrA1sAD+rT0=
-X-Gm-Gg: AR+sD12oEHVH/6sZlnDnWWFdpY7tFO9WGgz4dJitZFnpOnpiwAlrtO8DXLCG1ZWHR7/
- /FgfMoUCZer0s3pNBiOY0zDpCGxQ4HfGNVALggPWo0fbC0U/6kvnwK3kxA1huSn8y1p+qOHZ98u
- rK4V+AhZcOFzkSQpL4dFlC3N3pIVrqyOItOnETBGu57KkmUzDsDTTA72T0qfgzZZeEGveb+vV+w
- qi//UahWcOLQTR24HC8AA/ddt6+JkePKW+CqEMoCxvY2PxiDhpY94h+wegIEE7axy4j/NZZaV2a
- A6U/c7ogPx0Xkn+reZ7h/JYFma8YBoMScwlLjAIbSTOpRVYRLyxEKM0Wxr1nlCzVI14GhduKj3x
- vDsbb/B3onrRI9u/ZQvfYhk84LyZsz9M=
-X-Received: by 2002:a17:90b:1c8d:b0:395:4df3:8800 with SMTP id
- 98e67ed59e1d1-395c2f3cdefmr761936a91.0.1787254473619; Thu, 20 Aug 2026
- 12:34:33 -0700 (PDT)
+ AHgh+RqO7tob8qYTgSeKkCmax7/6wsOPGbRUbppqsZLz+8n0iinGOB+ddXPYtpBQP1DLk+Kod2PdnGwa@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kV6vl06D0uYL+fASiwoHpBcJnSVWMqd7C1Zz93mFc2eHXaMgFW
+ a2M3oUkRcSFUq/gT6cYsTSBpkVeYdgxjKfBcyU1xzVlHFiTTWQIJ7sKUYhhrKoKxMBhB2N2wqbj
+ IdNKREYmxQ+MAoIpt/QQuLhwQ6CjIhNk=
+X-Gm-Gg: AR+sD11Sr8NFhKdfMEsh/xNLIOb3w6Y2hu0qX5F2zR/jZS/UdOqN1tR7/0Nd+AZKFZU
+ ytx4ELHIqR5oWb5KUimT78R72VTTXvQJyNkxVV3yetUBR1RZ3sIlQghB62pmeC6321U/2OOgNuW
+ Ekkcyej68Lvl8urNVNn0txSWhQXFGYYMBZy9ZqDfYiqiFBValAnbLkhPT9UaRb9EaA369nfOG9q
+ KGCdaEEQGCRctMm3QiNPvwb/G0tpu6ZqvVw3NJoTSi46Q9+e4W65ilUgxCQPunGDaUgdTvVs2K6
+ BD117jf/niLIMGUc8/39IJtyZCAcT5igRtYEaSM7D20OAd3Ei+3nJG+R2coRKhDWYgJsay9TUrz
+ xtyaFV31jo2ku+vD5o4mUoWCwPTNl454=
+X-Received: by 2002:a17:90b:1b03:b0:38f:aa76:88b with SMTP id
+ 98e67ed59e1d1-395c35d68demr662214a91.4.1787254535103; Thu, 20 Aug 2026
+ 12:35:35 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260601211931.2837-2-gilles.risch@gmail.com>
- <010001a01df94f48-3026542f-b8eb-4661-868e-1d35cfd0254b-000000@email.amazonses.com>
- <CADnq5_N7_w0k5mrgvcEgLZAa4Huv6PP-mTChsoxNx7Vnrb1qzQ@mail.gmail.com>
- <5310cd8c-c0e4-4196-97d3-3bbb57a190a2@gmail.com>
-In-Reply-To: <5310cd8c-c0e4-4196-97d3-3bbb57a190a2@gmail.com>
+References: <20260820142802.1342066-2-rodrigo.vivi@intel.com>
+ <e48a854b-1240-4fcb-a429-2c02be10da5d@kernel.org>
+In-Reply-To: <e48a854b-1240-4fcb-a429-2c02be10da5d@kernel.org>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 20 Aug 2026 15:34:21 -0400
-X-Gm-Features: AcwNN1XhIuYNQVAQ37m4XZblaxYNLpbkADmjJIBR4U-tPODb9taoLSi3miogAC4
-Message-ID: <CADnq5_PhfdtFz_hUnGx58YfYvPZYb2ExESuBgQ5UvhbaT-grmA@mail.gmail.com>
-Subject: Re: [PATCH v5] drm/radeon: fix internal display on iMac11,
- 1 (RV770/DCE3.1)
-To: Gilles Risch <gilles.risch@gmail.com>
-Cc: Erik Gregg <hank@mowden.top>, alexander.deucher@amd.com, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Date: Thu, 20 Aug 2026 15:35:23 -0400
+X-Gm-Features: AcwNN1UwFcHSw7D74U3tBOLcfnE6T2qJeXaLFCpWNAHVx_ZWYlTuFww1BcGCv8I
+Message-ID: <CADnq5_PvMKVbmukOJW9oHK-bw3110eAf97WXfUVi-urhcEGMMg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Drop KUnit tests for removed
+ parse_hdmi_amd_vsdb()
+To: Mario Limonciello <superm1@kernel.org>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, Alex Huang <Alex.Huang2@amd.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -110,140 +108,168 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 20, 2026 at 2:59=E2=80=AFPM Gilles Risch <gilles.risch@gmail.co=
-m> wrote:
+On Thu, Aug 20, 2026 at 3:30=E2=80=AFPM Mario Limonciello <superm1@kernel.o=
+rg> wrote:
 >
-> Good afternoon,
+> On 8/20/26 09:28, Rodrigo Vivi wrote:
+> > parse_hdmi_amd_vsdb() was removed when HDMI FreeSync detection moved to
+> > the common EDID parser, but its declaration and KUnit tests remained,
+> > breaking modpost:
+> >
+> >    ERROR: modpost: "parse_hdmi_amd_vsdb" [...connector_test.ko] undefin=
+ed!
+> >
+> > Remove the stale declaration and the three dead test cases.
+> >
+> > Fixes: f65198b3d073 ("drm/amd/display: Use HDMI FreeSync range from com=
+mon EDID parser")
+> > Cc: Alex Huang <Alex.Huang2@amd.com>
+> > Cc: Mario Limonciello <superm1@kernel.org>
+> > Assisted-by: Copilot:Claude-Opus-5
+> > Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+> > ---
+> Thanks this looks correct to me.
 >
-> no problem, please find attached my complete dmesg output after a fresh
-> reboot. I don't see a bit difference, except that my card is connected
-> to a different PCI bus.
+> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
 >
-> I don=E2=80=99t pass any kernel parameters via GRUB and I don=E2=80=99t u=
-se a xorg.conf
-> configuration file either. Have you connected an additional, external
-> display?
-> Kind regards,
-> Gilles
->
-> On 20.08.26 15:24, Alex Deucher wrote:
-> > On Thu, Aug 20, 2026 at 8:50=E2=80=AFAM Erik Gregg <hank@mowden.top> wr=
-ote:
-> >> On Mon, 1 Jun 2026 23:19:32 +0200, Gilles Risch <gilles.risch@gmail.co=
-m> wrote:
-> >>> The Apple iMac11,1 (27-inch, Late 2009) uses a Mobility Radeon HD 485=
-0
-> >>> (RV770/DCE3.1) with a 2560x1440 internal panel on an internal
-> >>> DisplayPort path. Without this fix the display stays dark under KMS.
-> >>>
-> >>> This machine suffers from the same issue as iMac10,1 and iMac11,2:
-> >>> Apple routes the internal display through Link B of the DIG encoder
-> >>> instead of Link A. Add iMac11,1 to the existing DMI quirk and move
-> >>> the Apple-specific encoder assignment into its own block, independent
-> >>> of the DCE version check.
-> >>>
-> >>> Additionally, the 2560x1440 panel requires RADEON_PLL_USE_FRAC_FB_DIV
-> >>> and ATOM_ENCODER_CMD_DP_VIDEO_ON, limited to iMac11,1 via dmi_match()
-> >>> to avoid affecting other boards.
-> >>>
-> >>> Signed-off-by: Gilles Risch <gilles.risch@gmail.com>
-> >> I tested this patch on top of 7.1.7-arch1 on a Late 2009 27" iMac11,1
-> >> with the Mobility Radeon HD 4850. With nomodeset the machine boots wit=
-h
-> >> a working (efifb) console. On vanilla 7.1.7 without nomodeset the pane=
-l
-> >> stays completely black (backlight off) and no radeon init is visible i=
-n
-> >> dmesg over SSH.
-> >>
-> >> With the patch and without nomodeset, radeon initializes normally per
-> >> dmesg, but at the fbcon modeset (~4s) the panel goes blank and then
-> >> shows flashing horizontal lines that start at the top and sweep down a=
-t
-> >> regular intervals. It never recovers. The logs below are from that cas=
-e,
-> >> gathered by logging in blind on the console and running commands blind=
-.
-> >>
-> >> I tried radeon.dpm=3D0, radeon.audio=3D0, video=3DeDP-1:2560x1440@60 a=
-nd
-> >> radeon.modeset=3D1, with no change.
-> > I wonder if different variants of the board are wired up differently.
-> > @Gilles Risch, can you attach your dmesg output as well?  Maybe there
-> > are different panels on different variants?
+> I'm not sure where we should apply it though, it's from a conflict
+> between drm-misc-next and Alex's drm-next pull.
 
-@Erik Gregg Can you narrow down which hunk(s) if this patch are
-problematic?  If I had to guess, I'd say it's this hunk:
-
-+       if (dmi_match(DMI_PRODUCT_NAME, "iMac10,1") ||
-+           dmi_match(DMI_PRODUCT_NAME, "iMac11,1") ||
-+           dmi_match(DMI_PRODUCT_NAME, "iMac11,2")) {
-+               enc_idx =3D (dig->linkb) ? 1 : 0;
-+               goto assigned;
-+       }
+I'll pull it into my next -fixes PR.
 
 Alex
 
+> >   .../display/amdgpu_dm/amdgpu_dm_connector.h   |  3 -
+> >   .../tests/amdgpu_dm_connector_test.c          | 73 ------------------=
+-
+> >   2 files changed, 76 deletions(-)
 > >
-> > Alex
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.=
+h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+> > index 4e9eb3ff2c90..ce900844602e 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+> > @@ -153,9 +153,6 @@ void parse_edid_displayid_vrr(struct drm_connector =
+*connector,
+> >                             const struct edid *edid);
+> >   int get_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+> >                struct amdgpu_hdmi_vsdb_info *vsdb_info);
+> > -int parse_hdmi_amd_vsdb(struct amdgpu_dm_connector *aconnector,
+> > -                     const struct edid *edid,
+> > -                     struct amdgpu_hdmi_vsdb_info *vsdb_info);
+> >   void amdgpu_dm_connector_funcs_force(struct drm_connector *connector)=
+;
+> >   enum dc_status dm_validate_stream_and_context(struct dc *dc,
+> >                                             struct dc_stream_state *str=
+eam);
+> > diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_conn=
+ector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connec=
+tor_test.c
+> > index a54fd9529dc9..83d3be543202 100644
+> > --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_t=
+est.c
+> > +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_t=
+est.c
+> > @@ -4874,75 +4874,6 @@ static void dm_test_get_amd_vsdb_supported(struc=
+t kunit *test)
+> >       KUNIT_EXPECT_TRUE(test, vsdb_info.replay_mode);
+> >   }
 > >
-> >> Renderer: AMD RV770 (DRM 2.51.0 / 7.1.7-arch1-1-imac), Mesa 26.1.6
-> >>
-> >> [    3.028962] radeon 0000:02:00.0: fence driver on ring 3 uses gpu ad=
-dr 0x0000000020000c0c
-> >> [    3.029207] radeon 0000:02:00.0: fence driver on ring 5 uses gpu ad=
-dr 0x0000000000056230
-> >> [    3.030250] radeon 0000:02:00.0: radeon: using MSI.
-> >> [    3.030275] [drm] radeon: irq initialized.
-> >> [    3.076796] [drm] ring test on 0 succeeded in 1 usecs
-> >> [    3.076803] [drm] ring test on 3 succeeded in 2 usecs
-> >> [    3.252855] radeon 0000:02:00.0: [drm] ring test on 5 succeeded in =
-1 usecs
-> >> [    3.252861] radeon 0000:02:00.0: [drm] UVD initialized successfully=
+> > -/**
+> > - * dm_test_parse_hdmi_amd_vsdb_null_edid - Test NULL EDID returns -ENO=
+DEV
+> > - * @test: The KUnit test context
+> > - */
+> > -static void dm_test_parse_hdmi_amd_vsdb_null_edid(struct kunit *test)
+> > -{
+> > -     struct amdgpu_dm_connector *aconnector;
+> > -     struct amdgpu_hdmi_vsdb_info vsdb_info =3D {0};
+> > -
+> > -     aconnector =3D kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNE=
+L);
+> > -     KUNIT_ASSERT_NOT_NULL(test, aconnector);
+> > -
+> > -     KUNIT_EXPECT_EQ(test,
+> > -                     parse_hdmi_amd_vsdb(aconnector, NULL, &vsdb_info)=
+,
+> > -                     -ENODEV);
+> > -}
+> > -
+> > -/**
+> > - * dm_test_parse_hdmi_amd_vsdb_no_extensions - Test EDID without exten=
+sions
+> > - * @test: The KUnit test context
+> > - *
+> > - * An EDID that declares no extension blocks has no CEA block to parse=
 .
-> >> [    3.253264] [drm] ib test on ring 0 succeeded in 0 usecs
-> >> [    3.253283] [drm] ib test on ring 3 succeeded in 0 usecs
-> >> [    3.906199] radeon 0000:02:00.0: [drm] ib test on ring 5 succeeded
-> >> [    3.906669] [drm] radeon atom DIG backlight initialized
-> >> [    3.906672] radeon 0000:02:00.0: [drm] Radeon Display Connectors
-> >> [    3.906674] radeon 0000:02:00.0: [drm] Connector 0:
-> >> [    3.906676] radeon 0000:02:00.0: [drm]   DP-1
-> >> [    3.906677] radeon 0000:02:00.0: [drm]   HPD2
-> >> [    3.906679] radeon 0000:02:00.0: [drm]   DDC: 0x7e60 0x7e60 0x7e64 =
-0x7e64 0x7e68 0x7e68 0x7e6c 0x7e6c
-> >> [    3.906682] radeon 0000:02:00.0: [drm]   Encoders:
-> >> [    3.906683] radeon 0000:02:00.0: [drm]     DFP1: INTERNAL_UNIPHY
-> >> [    3.906685] radeon 0000:02:00.0: [drm] Connector 1:
-> >> [    3.906687] radeon 0000:02:00.0: [drm]   eDP-1
-> >> [    3.906688] radeon 0000:02:00.0: [drm]   HPD3
-> >> [    3.906689] radeon 0000:02:00.0: [drm]   DDC: 0x7e20 0x7e20 0x7e24 =
-0x7e24 0x7e28 0x7e28 0x7e2c 0x7e2c
-> >> [    3.906692] radeon 0000:02:00.0: [drm]   Encoders:
-> >> [    3.906693] radeon 0000:02:00.0: [drm]     LCD1: INTERNAL_UNIPHY
-> >> [    3.906695] radeon 0000:02:00.0: [drm] Connector 2:
-> >> [    3.906697] radeon 0000:02:00.0: [drm]   VGA-1
-> >> [    3.906698] radeon 0000:02:00.0: [drm]   DDC: 0x7e40 0x7e40 0x7e44 =
-0x7e44 0x7e48 0x7e48 0x7e4c 0x7e4c
-> >> [    3.906701] radeon 0000:02:00.0: [drm]   Encoders:
-> >> [    3.906702] radeon 0000:02:00.0: [drm]     CRT1: INTERNAL_KLDSCP_DA=
-C1
-> >> [    3.915213] [drm] Initialized radeon 2.51.0 for 0000:02:00.0 on min=
-or 0
-> >> [    3.988184] [drm] fb mappable at 0xC0347000
-> >> [    3.988187] [drm] vram apper at 0xC0000000
-> >> [    3.988188] [drm] size 14745600
-> >> [    3.988189] [drm] fb depth is 24
-> >> [    3.988190] [drm]    pitch is 10240
-> >> [    3.988263] fbcon: radeondrmfb (fb0) is primary device
-> >> [    4.026022] radeon 0000:02:00.0: [drm] fb0: radeondrmfb frame buffe=
-r device
-> >> [    5.366673] systemd[1]: Load Kernel Module drm skipped, unmet condi=
-tion check ConditionKernelModuleLoaded=3D!drm
-> >> [    8.464118] snd_hda_intel 0000:02:00.1: bound 0000:02:00.0 (ops rad=
-eon_audio_component_bind_ops [radeon])
-> >>
-> >> Happy to test further patches or gather more logs.
-> >>
-> >> Regards,
-> >> Erik
+> > - */
+> > -static void dm_test_parse_hdmi_amd_vsdb_no_extensions(struct kunit *te=
+st)
+> > -{
+> > -     struct amdgpu_dm_connector *aconnector;
+> > -     struct amdgpu_hdmi_vsdb_info vsdb_info =3D {0};
+> > -     struct edid *edid;
+> > -
+> > -     aconnector =3D kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNE=
+L);
+> > -     KUNIT_ASSERT_NOT_NULL(test, aconnector);
+> > -     edid =3D kunit_kzalloc(test, sizeof(*edid), GFP_KERNEL);
+> > -     KUNIT_ASSERT_NOT_NULL(test, edid);
+> > -
+> > -     edid->extensions =3D 0;
+> > -
+> > -     KUNIT_EXPECT_EQ(test,
+> > -                     parse_hdmi_amd_vsdb(aconnector, edid, &vsdb_info)=
+,
+> > -                     -ENODEV);
+> > -}
+> > -
+> > -/**
+> > - * dm_test_parse_hdmi_amd_vsdb_no_cea_ext - Test EDID with no CEA exte=
+nsion
+> > - * @test: The KUnit test context
+> > - *
+> > - * An extension block that is not a CEA block leaves no VSDB to parse.
+> > - */
+> > -static void dm_test_parse_hdmi_amd_vsdb_no_cea_ext(struct kunit *test)
+> > -{
+> > -     struct amdgpu_dm_connector *aconnector;
+> > -     struct amdgpu_hdmi_vsdb_info vsdb_info =3D {0};
+> > -     struct edid *edid;
+> > -     u8 *raw;
+> > -
+> > -     aconnector =3D kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNE=
+L);
+> > -     KUNIT_ASSERT_NOT_NULL(test, aconnector);
+> > -
+> > -     /* Base block + one extension block that is NOT a CEA extension. =
+*/
+> > -     raw =3D kunit_kzalloc(test, 2 * EDID_LENGTH, GFP_KERNEL);
+> > -     KUNIT_ASSERT_NOT_NULL(test, raw);
+> > -     edid =3D (struct edid *)raw;
+> > -     edid->extensions =3D 1;
+> > -     raw[EDID_LENGTH] =3D DM_TEST_DISPLAYID_EXT;
+> > -
+> > -     KUNIT_EXPECT_EQ(test,
+> > -                     parse_hdmi_amd_vsdb(aconnector, edid, &vsdb_info)=
+,
+> > -                     -ENODEV);
+> > -}
+> > -
+> >   /**
+> >    * dm_test_parse_displayid_vrr_null_edid - Test NULL EDID leaves rang=
+e untouched
+> >    * @test: The KUnit test context
+> > @@ -5647,10 +5578,6 @@ static struct kunit_case amdgpu_dm_connector_tes=
+ts[] =3D {
+> >       /* get_amd_vsdb */
+> >       KUNIT_CASE(dm_test_get_amd_vsdb_unsupported),
+> >       KUNIT_CASE(dm_test_get_amd_vsdb_supported),
+> > -     /* parse_hdmi_amd_vsdb */
+> > -     KUNIT_CASE(dm_test_parse_hdmi_amd_vsdb_null_edid),
+> > -     KUNIT_CASE(dm_test_parse_hdmi_amd_vsdb_no_extensions),
+> > -     KUNIT_CASE(dm_test_parse_hdmi_amd_vsdb_no_cea_ext),
+> >       /* parse_edid_displayid_vrr */
+> >       KUNIT_CASE(dm_test_parse_displayid_vrr_null_edid),
+> >       KUNIT_CASE(dm_test_parse_displayid_vrr_no_displayid),
 >
