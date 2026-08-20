@@ -4,99 +4,147 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3667EC5DF87
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 05:06:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 213DBC5DF82
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 06:38:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AED2910EEEF;
-	Thu, 20 Aug 2026 05:06:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EE4410E147;
+	Thu, 20 Aug 2026 06:38:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="A0U8oiue";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="RKH0ex5M";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="AHNcU0nt";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="F7xU+dBY";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="vNieZpzi";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012009.outbound.protection.outlook.com [52.101.43.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0FC3410EEE5
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 05:06:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RbdKmgi1cdqz4CD38ijn/YkaHY4qsX2enTxjsd0Q/MjVMY9meelRbW5pj/e9xAI3UfMyiwHJ20Hv5hHvtSIBZAGZrYB2CejAXMU5JdLAF70/14WIDiNOqS7hAEXDqJtl3ID++HowJ96971QjqT6dmuw+BD3gR0vBSsOZ6w2/MijdmsSmMECcaKPZ1I1VTlPeam6lDUnNx9Fyzh8qv4UA5t1AEc9qoLVQctHk7cwD/lnF2t1BCPmcsfWV/kgfTkFJ0TWu8U7aZgA5MpREWww9MZapB/6xKpUQaBse4+rpQgCaekMOacvYZXytfJosVqmRsUgOfNKfDxaif7yORxEMXw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=u6HBgHmS+M0bCR9f0yQTLzSbkTL5rpb1KbAgV07dbjc=;
- b=eLYZcOi3yI+U/xhokRqywwdXPf5SaAkQrX2JQX0+T13OfLS+GAxoC2FRtDugV3d82FAlQa4idxlne3ZZjkIokgNMvnvwA3S7V4iV5Ck5Mn2OGhqwHg5ZVw5ZybaP3PBGO7Nk32MS3P7i/e4Kgt3qlnV3cMTNcMINVR6tqTOQH93VHojdCb60PBPZzqdV/+zdrJocFgM2Uot3QH97gJc+Wet2umAAM9B7r/2C2zMjS5AAFrL2pksvZluDvJoDVn7jA4n3Ravh8WdF4jk+BiCTFNPF/iaGpVIVqK7z13Lo2Ktro3XwQ498r2x7+NUwVuZzZFcks+Q/ENMWp1mek07rtA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=u6HBgHmS+M0bCR9f0yQTLzSbkTL5rpb1KbAgV07dbjc=;
- b=A0U8oiueFog/O2PNAyBnYv4BGcKYEcUY3T8WcYp+FkPoMciFfiVcv7mGTOX6vhJmeRTTZ4NUVthyUz+0n9MbV4DwNRRnEVJpqS8VOdob0/w6akSOw3B6SAFUZNL8z713jkGq096hJ4vrVE/t5XTRsWgEohqaGftmnWC+JNJipME=
-Received: from SJ0PR03CA0095.namprd03.prod.outlook.com (2603:10b6:a03:333::10)
- by PH0PR12MB8098.namprd12.prod.outlook.com (2603:10b6:510:29a::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Thu, 20 Aug
- 2026 05:06:07 +0000
-Received: from BY1PEPF0001AE1C.namprd04.prod.outlook.com
- (2603:10b6:a03:333:cafe::4a) by SJ0PR03CA0095.outlook.office365.com
- (2603:10b6:a03:333::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Thu, 20
- Aug 2026 05:06:06 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BY1PEPF0001AE1C.mail.protection.outlook.com (10.167.242.105) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Thu, 20 Aug 2026 05:06:05 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 20 Aug
- 2026 00:06:05 -0500
-Received: from JesseDEV.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Thu, 20 Aug 2026 00:06:03 -0500
-From: Jesse Zhang <Jesse.Zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, Christian Koenig <christian.koenig@amd.com>, 
- Jesse Zhang <Jesse.Zhang@amd.com>
-Subject: [PATCH v3 3/3] drm/amdgpu/mes_userqueue: add MODIFY support for GFX
- user queues
-Date: Thu, 20 Aug 2026 13:05:37 +0800
-Message-ID: <20260820050600.1249902-3-Jesse.Zhang@amd.com>
-X-Mailer: git-send-email 2.49.0
-In-Reply-To: <20260820050600.1249902-1-Jesse.Zhang@amd.com>
-References: <20260820050600.1249902-1-Jesse.Zhang@amd.com>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA58A10E038;
+ Thu, 20 Aug 2026 06:38:02 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A30D33ED9;
+ Thu, 20 Aug 2026 06:37:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787207860; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=MUXh/Wkm5tFQmj9zs5Wo2lEa/xlKF6J+m5iHYTUL1ho=;
+ b=RKH0ex5MkmJtY2uD7i76EggdXnGhXY8WTEmfz9SPgcK6CAwl+6h442x7A2sxaOpO+SlBig
+ jGqGhhVDUTXpubDrqdY6qTtuAubtt3quUi3jOOT/deUKHN8ifM+MCNM0M9QIfCIu4Ijm5M
+ zsRIi6K3rW63eQV+aSmP8cpq9h0aI9A=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787207860;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=MUXh/Wkm5tFQmj9zs5Wo2lEa/xlKF6J+m5iHYTUL1ho=;
+ b=AHNcU0ntD69IvwDRN1pd+inQn9fXxG7g1YHsAJNTv07VVBh1yIQqBW+QMa2WbjyFw3/6zR
+ vRSChQybWFjUpxBw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=F7xU+dBY;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=vNieZpzi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787207856; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=MUXh/Wkm5tFQmj9zs5Wo2lEa/xlKF6J+m5iHYTUL1ho=;
+ b=F7xU+dBYnFARY2U7edBa+1n/z35xEVyM9Nt+aWHqjDe+igrp3FQLoYZo3y++UFPFiLsLzI
+ GlEQ1J294YKmsb/6ZCW+3Y4KnDwn4AVJ+xbFU5NTHlI7cWKpQyZCnFwVMYZhdp1/isB4RA
+ 1ZwoFYqQZ8MYrn2lLH7foztY7HhtYG8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787207856;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=MUXh/Wkm5tFQmj9zs5Wo2lEa/xlKF6J+m5iHYTUL1ho=;
+ b=vNieZpziuyls+ZVPvqGpX6qug5rn+aQ9aY4tWJP2BVX1RMBzIMlMJxkdYJvmJ34nOX1vEh
+ Sj7Sy6nB8BfammCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2A52927A8;
+ Thu, 20 Aug 2026 06:37:36 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id zt8oCbCghmotIgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Thu, 20 Aug 2026 06:37:36 +0000
+Message-ID: <25a9543a-c5bc-4094-9386-28ff69d0ccd7@suse.de>
+Date: Thu, 20 Aug 2026 08:37:35 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] drm: Move drm_timeout_abs_to_jiffies() to
+ drm_timeout.c
+To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Melissa Wen <mwen@igalia.com>, Iago Toral <itoral@igalia.com>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ amd-gfx@lists.freedesktop.org, intel-gfx@lists.freedesktop.org
+References: <20260817-drm-timeout-helpers-v2-0-73052b669f49@igalia.com>
+ <20260817-drm-timeout-helpers-v2-1-73052b669f49@igalia.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260817-drm-timeout-helpers-v2-1-73052b669f49@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE1C:EE_|PH0PR12MB8098:EE_
-X-MS-Office365-Filtering-Correlation-Id: d1c1cdc3-4157-4910-e125-08defe78bd71
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|23010399003|376014|82310400026|18002099003|22082099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: bvNdUq9y+PaQ9uSQiBH4K1rBpYLRcXLntltQFOga/Dgeyrp0uEwJ09yjDm2I4G+LSy5Tal0iXY8fz/SLuj16ELsFNi8LotGfi23LeocxGXGWAYFl566G/fkHvk1sMT0zyCaLDYk/LUcddc4GJ4iIClZW1AmZ6gccRsfbIONOg0n2f9XBzBl8KqBATN1iWeNld/XvrVC7MP2ascqwFUZ26aTn1fpTd1vZBeguSkw41d5xLWk/SyeKzZUpoGKSbIBLXDwRvmM9TfNKizW7HX24PXjSo7mB7J8awOZVMemUWfXTcI2+jbjikCGk4peqKqd+KVCyV40yyhq096B0WWkUkxeOwA2+jkcIPavN5fFta6QiiLpRY/F75/xlSL1EB7/5q2LqGwsSl/KkKxUQr3LWfFKxMzEIyFllckxRLS1nWLeaSEXl0fvw/8PMbD9/nYRZkDfRJMawi0X9q6ZgSSZ5Gw+eDs0jXGupgl6PWWM/F9MmjCCxLCggf4HPFKm73eAdHdOzuJJ5lLwcR7R7AAseiJH829RUK7pEc5Rv4av8gm7YKLnZdePChRHKb2i6FuBdxSKmk3LhkAhslD79yvABNxlDrNh329Ry7yfYN2b9IjGZHHcbTu+XKW7aTM1jRum0fUGAprLtXFEDxVunoJ9j94hV82Ntf/7Ndh2yogeXkt4DnlOBLM4ttn4fqGkh+sxmS5RdKNkrBenPx9znXrqlWw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(23010399003)(376014)(82310400026)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: d9oiZ+qzg2AO1HRWHd2CDXEZbSZji9ksKCZZ5etl1TxThnx+TdXSTd8KnIcAqUmMzB48LLbj6aGmUBRHseAxAmNprhvOUIMzG3Gu2SRBKQygIo9mdYwbfNwSXj7yjnvCXDjmbO443hOlW3LmC00Su2uh021JkGQtoE2L2BpeUzTHQFndwlpDew9i43PoTal7mxfvMVrDqpuFrc4oZHnVcMZMMdUtxt/YZjgoou5CFRM4vm74IDcaF78tHyqB+PKEJOfQIRqncAvCkmUTeNYYxSEdAup4kH/P1LTwG8SOU8dC0c0SXnWtirrwj4u9HLWHKnjEoC+yE+HA0bKwoMcCQftSlrD2IG+0PJNC3MFv+XWlbGQRsk4He/3/xDMYnW1cue7YzHARqjc7ebUDA5WFE4t76JM0a9zudOgnA2AMg7jW58rDvxduDgvPM11DXYJV
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 05:06:05.9739 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1c1cdc3-4157-4910-e125-08defe78bd71
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BY1PEPF0001AE1C.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8098
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: A30D33ED9
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ ARC_NA(0.00)[]; RCVD_VIA_SMTP_AUTH(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[19]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[igalia.com,linux.intel.com,kernel.org,gmail.com,ffwll.ch,amd.com,intel.com,raspberrypi.com];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns,suse.de:mid,suse.de:dkim,suse.com:url];
+ RCVD_COUNT_TWO(0.00)[2]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,71 +159,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Add the GFX case to the mqd_update dispatcher so a GFX user queue can be
-updated at runtime; until now it was rejected with -EINVAL.
+Hi
 
-mes_userq_gfx_mqd_update() reads a drm_amdgpu_userq_mqd_gfx11 from user
-space, refreshes the queue props (shadow address, csa address, queue
-size and ring base) and re-inits the MQD, mirroring the compute and SDMA
-paths.
+Am 17.08.26 um 23:05 schrieb Maíra Canal:
+> drm_timeout_abs_to_jiffies() began as a static helper inside the syncobj
+> wait implementation and was later exported in place, so that it could be
+> called by multiple drivers (e.g. panfrost, lima, tegra and accel
+> drivers). All of them reach it through drm_utils.h.
+>
+> Give it a file of its own, so that timeout conversion helpers have a
+> home, which will be useful when we add new timeout handlers. The
+> declaration stays in drm_utils.h, so no caller changes.
 
-Suggested-by: Alexander Deucher <Alexander.Deucher@amd.com>
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 33 ++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+Personally I'd prefer a drm_timeout.h header. There aren't that many 
+callers after all.  drm_utils.h is then only about panel quirks and 
+could be renamed accordingly.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-index 4f6d92031838..6b5095efdfc5 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-@@ -711,6 +711,37 @@ static int mes_userq_sdma_mqd_update(struct amdgpu_usermode_queue *queue,
- 	return retval;
- }
- 
-+static int mes_userq_gfx_mqd_update(struct amdgpu_usermode_queue *queue,
-+				    struct drm_amdgpu_userq_in *args_in)
-+{
-+	int retval = 0;
-+	struct amdgpu_device *adev = queue->userq_mgr->adev;
-+	struct amdgpu_mqd_prop *userq_props = queue->userq_prop;
-+	struct amdgpu_mqd *mqd_hw_default = &adev->mqds[queue->queue_type];
-+	struct drm_amdgpu_userq_mqd_gfx11 *gfx_mqd_v11;
-+
-+	if (args_in->mqd_size != sizeof(*gfx_mqd_v11)) {
-+		DRM_ERROR("Invalid GFX IP MQD size\n");
-+		return -EINVAL;
-+	}
-+
-+	gfx_mqd_v11 = memdup_user(u64_to_user_ptr(args_in->mqd), args_in->mqd_size);
-+	if (IS_ERR(gfx_mqd_v11)) {
-+		DRM_ERROR("Failed to read user MQD\n");
-+		return -ENOMEM;
-+	}
-+
-+	userq_props->shadow_addr = gfx_mqd_v11->shadow_va;
-+	userq_props->csa_addr = gfx_mqd_v11->csa_va;
-+	userq_props->queue_size = args_in->queue_size;
-+	userq_props->hqd_base_gpu_addr = args_in->queue_va;
-+
-+	retval = mqd_hw_default->init_mqd(adev, (void *)queue->mqd.cpu_ptr, userq_props);
-+
-+	kfree(gfx_mqd_v11);
-+	return retval;
-+}
-+
- static int mes_userq_compute_mqd_update(struct amdgpu_usermode_queue *queue,
- 					struct drm_amdgpu_userq_in *args_in)
- {
-@@ -753,6 +784,8 @@ static int mes_userq_mqd_update(struct amdgpu_usermode_queue *queue, struct drm_
- 	switch (queue->queue_type) {
- 	case AMDGPU_HW_IP_COMPUTE:
- 		return mes_userq_compute_mqd_update(queue, args_in);
-+	case AMDGPU_HW_IP_GFX:
-+		return mes_userq_gfx_mqd_update(queue, args_in);
- 	case AMDGPU_HW_IP_DMA:
- 		return mes_userq_sdma_mqd_update(queue, args_in);
- 	default:
+Best regards
+Thomas
+
+>
+> No functional change.
+>
+> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+> ---
+>   drivers/gpu/drm/Makefile      |  1 +
+>   drivers/gpu/drm/drm_syncobj.c | 33 ------------------------------
+>   drivers/gpu/drm/drm_timeout.c | 47 +++++++++++++++++++++++++++++++++++++++++++
+>   3 files changed, 48 insertions(+), 33 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index e97faabcd783..0a0d7ea08347 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -68,6 +68,7 @@ drm-y := \
+>   	drm_rect.o \
+>   	drm_syncobj.o \
+>   	drm_sysfs.o \
+> +	drm_timeout.o \
+>   	drm_trace_points.o \
+>   	drm_vblank.o \
+>   	drm_vblank_work.o \
+> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+> index 2fa170a29a62..cf03681de6f7 100644
+> --- a/drivers/gpu/drm/drm_syncobj.c
+> +++ b/drivers/gpu/drm/drm_syncobj.c
+> @@ -1193,39 +1193,6 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>   	return timeout;
+>   }
+>   
+> -/**
+> - * drm_timeout_abs_to_jiffies - calculate jiffies timeout from absolute value
+> - *
+> - * @timeout_nsec: timeout nsec component in ns, 0 for poll
+> - *
+> - * Calculate the timeout in jiffies from an absolute time in sec/nsec.
+> - */
+> -signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+> -{
+> -	ktime_t abs_timeout, now;
+> -	u64 timeout_ns, timeout_jiffies64;
+> -
+> -	/* make 0 timeout means poll - absolute 0 doesn't seem valid */
+> -	if (timeout_nsec == 0)
+> -		return 0;
+> -
+> -	abs_timeout = ns_to_ktime(timeout_nsec);
+> -	now = ktime_get();
+> -
+> -	if (!ktime_after(abs_timeout, now))
+> -		return 0;
+> -
+> -	timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
+> -
+> -	timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
+> -	/*  clamp timeout to avoid infinite timeout */
+> -	if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
+> -		return MAX_SCHEDULE_TIMEOUT - 1;
+> -
+> -	return timeout_jiffies64 + 1;
+> -}
+> -EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+> -
+>   static int drm_syncobj_array_wait(struct drm_device *dev,
+>   				  struct drm_file *file_private,
+>   				  struct drm_syncobj_wait *wait,
+> diff --git a/drivers/gpu/drm/drm_timeout.c b/drivers/gpu/drm/drm_timeout.c
+> new file mode 100644
+> index 000000000000..78e9f65e5477
+> --- /dev/null
+> +++ b/drivers/gpu/drm/drm_timeout.c
+> @@ -0,0 +1,47 @@
+> +// SPDX-License-Identifier: MIT
+> +/*
+> + * Timeout conversion helpers for wait ioctls.
+> + *
+> + * Copyright 2017 Red Hat
+> + * Copyright 2016 Advanced Micro Devices, Inc.
+> + */
+> +
+> +#include <linux/export.h>
+> +#include <linux/jiffies.h>
+> +#include <linux/ktime.h>
+> +#include <linux/sched.h>
+> +
+> +#include <drm/drm_utils.h>
+> +
+> +/**
+> + * drm_timeout_abs_to_jiffies - calculate jiffies timeout from absolute value
+> + *
+> + * @timeout_nsec: timeout nsec component in ns, 0 for poll
+> + *
+> + * Calculate the timeout in jiffies from an absolute time in sec/nsec.
+> + */
+> +signed long drm_timeout_abs_to_jiffies(int64_t timeout_nsec)
+> +{
+> +	ktime_t abs_timeout, now;
+> +	u64 timeout_ns, timeout_jiffies64;
+> +
+> +	/* make 0 timeout means poll - absolute 0 doesn't seem valid */
+> +	if (timeout_nsec == 0)
+> +		return 0;
+> +
+> +	abs_timeout = ns_to_ktime(timeout_nsec);
+> +	now = ktime_get();
+> +
+> +	if (!ktime_after(abs_timeout, now))
+> +		return 0;
+> +
+> +	timeout_ns = ktime_to_ns(ktime_sub(abs_timeout, now));
+> +
+> +	timeout_jiffies64 = nsecs_to_jiffies64(timeout_ns);
+> +	/*  clamp timeout to avoid infinite timeout */
+> +	if (timeout_jiffies64 >= MAX_SCHEDULE_TIMEOUT - 1)
+> +		return MAX_SCHEDULE_TIMEOUT - 1;
+> +
+> +	return timeout_jiffies64 + 1;
+> +}
+> +EXPORT_SYMBOL(drm_timeout_abs_to_jiffies);
+>
+
 -- 
-2.49.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
