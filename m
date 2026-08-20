@@ -4,95 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 94473C5DF87
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 10:55:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6E7C3C5DF88
+	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 10:57:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 24C7C10EFE5;
-	Thu, 20 Aug 2026 10:55:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0308E10EFDE;
+	Thu, 20 Aug 2026 10:57:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fzkfpYfY";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="rHHapAKZ";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011044.outbound.protection.outlook.com [52.101.52.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 283A510EFDE
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 10:55:56 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SEEX9NTacbZelQmd8oZ/OXhW0QbcCaA/AQ3gNNQNpn+OGdTWsF5J4aF3WxyF/VJmAaEDvPawnUhLr395GOPjc/6BHRCokHubA235BHS/tiSsOBAXRoE04ORxEMZGuRz6m3WxyioVQcY5kGZocMIbGN1GjB6C7CMZrw2QvQQJExhnG+z6NsyVYDvymB70oU2M3m+mhawNVkFLPyTV6KpbaN4+roCI5oceFZGhc+uoFXPh5FKxaBu//85rxwHWhKPRM70EDViI4p0mMQG+c0yP/Wh2O1pAt7JeRjS+gLzGXhtdAxnDC+vtcGvACc3uUy6lsfzXLjI5zn3BRTtgcuqbFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iCRcETvbVbQfARADCktsuT6zKUcoPPRKK4rk6EzR1UQ=;
- b=rfAFs8oo9syMUcPOLnYfbBPc/TN1cafiiczTUchoSpbASmrA+fyN+GCG3NYIe+K6UMBRw/KiUOTPIsAJAnV96rTv2Kr3pW0hy1EYyrQc4h15tIgGqB3N4z0uf4fNJsNGBAleMVsWeEvF7OUMOZOMJOE073ItWhks3rfPOWpPUHa5BuDjM+7EHw1TSfcpcnwET5Gbiyq13NVqBfPx0VATwv/e35Ginr8S79IzlB/XAktLgmmxdltcuQ2HJ1UwmDb9wTdyojjXcAdnUzMVPIEcDky5lR2cvlMoKF9/StlBzdubyuEgBWarErFpCLPTt4hYvCYw9LDiTDazPnfW27Gj0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iCRcETvbVbQfARADCktsuT6zKUcoPPRKK4rk6EzR1UQ=;
- b=fzkfpYfY7AZHG6Of6yE7UNDx2Xc4Hc9I+IG7+mtSWPyxqHTG2WEINcc8J+vDpwS864jly8GXv0hHXNqYjKSta3laQHNuK2pL9RhwFImyXizFt9Sj16C5yYHEb8YuaKM8hU9/JZJ9lU3aZBnJrJ3DzdeaKd2/AiCjgiTRcs6sRQE=
-Received: from MW4PR03CA0224.namprd03.prod.outlook.com (2603:10b6:303:b9::19)
- by DS0PR12MB6389.namprd12.prod.outlook.com (2603:10b6:8:cf::9) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.8; Thu, 20 Aug 2026 10:55:51 +0000
-Received: from SJ5PEPF0000020A.namprd05.prod.outlook.com
- (2603:10b6:303:b9:cafe::19) by MW4PR03CA0224.outlook.office365.com
- (2603:10b6:303:b9::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Thu, 20
- Aug 2026 10:55:51 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF0000020A.mail.protection.outlook.com (10.167.244.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Thu, 20 Aug 2026 10:55:51 +0000
-Received: from mao-Super-Server.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 20 Aug
- 2026 05:55:49 -0500
-From: YuanShang Mao <YuanShang.Mao@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <yuansmao@amd.com>
-Subject: [PATCH] drm/amdkfd: mark queues as reset after a full GPU reset
-Date: Thu, 20 Aug 2026 18:55:37 +0800
-Message-ID: <20260820105537.3138777-1-YuanShang.Mao@amd.com>
-X-Mailer: git-send-email 2.25.1
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F8DA10EFE4
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 10:57:23 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-499b57cf2f3so1110425e9.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 03:57:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787223441; x=1787828241; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=h/HhSZtTG2M/MhbMK/mYTVAf7lwkJQIPzztoCbrat6E=;
+ b=rHHapAKZ+9ycAx2TWkC4Hvc/FiKfINFn91Zs3+1VbSmi3x6K84e8BFiMpSxDy8bZ4Y
+ UQIa1FR2avSlXVjf/iruza3KdAu39U3qCpc13Wn479kKWEDmPDvVNp2y1es/9e1YYIKb
+ R91CYVVD5LV/Vn5yLj3ARJ+2Go0moJrZgeXJFh/8o/EOHqFmnnu/KL8qBsOh58riDEwr
+ qPWikLG2Y/8S+0pdngOWHz4YmePXn5lQZaoUa9xue1eZZYOPgTtwaV9vmn+xgns0Ki1H
+ b94oEbdeC816lfgrgmW8m74eKuz3jOB5l+Jrns25Ca5hwBq+jVk68SgYZFeW9psKUCI2
+ WbhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787223441; x=1787828241;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=h/HhSZtTG2M/MhbMK/mYTVAf7lwkJQIPzztoCbrat6E=;
+ b=QqORBo+/uEMEGOY82mhErk8MFKO08M7UzvYwJjRe7hv1vZ3tDKcEAvMff1TI44TR59
+ EJBcmIPI7aGm7vMzVsHwBv/rnVr6sbG5tKLlaUeTjEOUZBmWhZbe5wUCZhdx0XnLo0Y+
+ dW2TmUBCxxvkakpS0GoZHT9EOlbqBmBa6WKsryAqtkDHY37/ICKRkQTfqrmDGgEUQpxa
+ Uzs6NB3tRJsjwEdoJafIdhaihaKXX1zaR5COYH68F2R8Ac/V2Ku5ZxQKUjWhfPBdgTvg
+ MwDfe2KadGYTXDyTvJSop53CjJ41pjPhGfi+GnED/g9R8ogHgfz0tf2D2cjqSj0ulXhs
+ xLTg==
+X-Gm-Message-State: AOJu0YxFyqhfdIJfXCmEHXkhDixHQlt6ln1xwG5uHFWZ4CClVaO7++wz
+ 1xB8yTD5/rTxU10rF3lNTGV4JoA7YhiYJxcItHD/bokeJJadK2QyVdsHPOI/ag62RYQ=
+X-Gm-Gg: AR+sD11pkwJrgGweplCZST/5/S19WYigpFnDjt3dMua1HsqeZ6rJoamB0Uv+h6P6Cs0
+ GzdljCQDXj0t2vyXD5n3j2WaEZCxG9CgtVKHoFkEFjDXeydmw7zosT2eGb9iCnXfqfcahlh2n+W
+ wlg+TYWEZLy62irk3M8rqe4JN4IXRkRzJi5e9l2ej3VHm6pdGKFAwScJAOZnmVsUDxmOVHPFSd7
+ 97RXipEg9vDD4LnSeT5cT/OmRp7UtL4EpuT9Vzx7mtDm0PCPqNLQayIsFApF0NjTpWy8MdzkZS9
+ nQwJuCaI1ken9Bs1azT/r/Rlsqn83fo9uAseodG3tCiZs6bNYT4k8Zej7Xo0Z4qijGZ1bPQJHMp
+ 9tsDqnjLD+Llg/fSaSoVAEnD+VqA5VLyVw9vxqneLRad+/MndliOxPMUZ0tvqGkEBXqidDL+EJs
+ exef7Fz0nntGGWAV7YBxgKmDKnwkD10eAsizLv9jYy03w3sgQRU3ykVYnKd6lgblGwS4iUkEAgS
+ YZRhAsPBuFsuDS74jSsecR3qQg9xe4jQp0wC/EcxLR1dwjG/QfdL92vCDllTZm3U+PZPb0NKBnM
+ Zz+dQdwwG0DawawO
+X-Received: by 2002:a05:600c:3487:b0:495:5d6d:9cc1 with SMTP id
+ 5b1f17b1804b1-499b0633f1bmr82252225e9.0.1787223441255; 
+ Thu, 20 Aug 2026 03:57:21 -0700 (PDT)
+Received: from horsehead.lan (p548c9e2a.dip0.t-ipconnect.de. [84.140.158.42])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-499b4568a65sm13872775e9.2.2026.08.20.03.57.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 20 Aug 2026 03:57:20 -0700 (PDT)
+From: Denis Pisarev <pisarevden@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
+ mario.limonciello@amd.com, ionut_n2001@yahoo.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Denis Pisarev <pisarevden@gmail.com>
+Subject: [RFC PATCH v2 0/1] drm/amdgpu: MMIO TLB invalidation fallback when
+ KIQ is wedged after S4 resume
+Date: Thu, 20 Aug 2026 12:57:15 +0200
+Message-ID: <20260820105716.148732-1-pisarevden@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260819185349.29407-1-pisarevden@gmail.com>
+References: <20260819185349.29407-1-pisarevden@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF0000020A:EE_|DS0PR12MB6389:EE_
-X-MS-Office365-Filtering-Correlation-Id: d4abf724-d6dc-4b09-50ed-08defea99982
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|1800799024|23010399003|82310400026|6133799003|56012099006|10067099003|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: llr9GJo1paz7NcX6zdCHOUQav8YP0Z92odI+6q9ecTTKm27L0MlLXy5415arifMipBqO4eWsL2RVumE3hwGREjYGp5a0iyIN94uOLDY+vfOH2T+CwI4mpzMBz8CyGeTN8PQDpCjkpFN6rqKPh3vq1ywUMm3lO1EjX0bt9OHmRfePypO3okZIvMZNlGpTr3vP3JfBznIK6mOZgFE2NasW4wf1brbGOTXpJzQ4m/sMTIS9irJU8nPaGlSAP9L64YqU5qVlvl1ulsleCcCmhuGlzggVW5W/z5ffutiYODrkIZX/YcyrilqsKvoXtH3rrVnN/nmFjdjboYj4X8aF6W/uncV570bkWrxEpCkTTr0D039Fjp24tXZ0/8/7Rh4f/LgqXfxLcS2o6W+98+ceig8BNAURlQQx1bBUD1ABPm/JRcEugI/2CMt5PnXgaQAP1F3349Vxte9JHbKR3zvEOt1EHzsNSe8tJK7cvgemxSwVWnECjWPvMhCNGuOFRhx3cKEVaxwpygD3zrRMftoRCEeQdOvudS+rx7L6wriHWhj0qmNXbiIa7PrBsIKxx+UUFGkAPz6IwOzDnn8nenW2d4cfGDEbtNqP1g4Dgvx1ExHqCzxvgw9st7CljXDHQ/ZFp6Nw/7TphQtYQU+R9/sSVIS+hdVQUwiytYMwG46agQ83V9x+D95pDgzhpF8nxBeVMQ2kLnQTTOgsT+xIF4xHrN/+xQ==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(1800799024)(23010399003)(82310400026)(6133799003)(56012099006)(10067099003)(11063799006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: d+mw2GqBeLQkGFgCt3IRApjVLid8vmyjyTDDAT5VcftX9sSqkcVKBASzKbf42aYKLb8lnyLRDtPXUmL66ZbaLKpT+dbSs0Cw/jAaaFUaRHmZAYX0a6QwWl18CEwsrN8dcluiIkP4OOjTjTCcSG4Eu0RPVHZ9Q6D1h6nk96MWqSFjjuj5JDPd2eYZasaAIaNT65FFUF4negoyfw/k1b4yj0oKuvrxDEOu6PyLntN5ZDbQ6sOXYVG8sQFNLldBY/qiL7gLKsF3jcD4rw9+ZvpvDkknGDtFU3H0udDB1/AQVOf7qURdHx7fecjRtOWs4JThA3oFaiOqw0IkSbhBcwa7ECkqdcFTrySOHgSJxYqXP784kisif2ipkam3TE/3JG+PLxqIVXAygeJscn/wOeFnr0SHHwoi8DKSmEdnlxF9TXS7/7zlnKrS+1vGIsHii/Py
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 10:55:51.0232 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d4abf724-d6dc-4b09-50ed-08defea99982
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF0000020A.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6389
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,74 +91,62 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Yuansheng Mao <yuansmao@amd.com>
+Hi,
 
-A full GPU reset reloads the MES firmware and wipes its queue
-table, but KFD keeps the queue objects with is_reset left false.
-Pre-reset cleanup cannot fix this: it runs with the reset domain
-write lock held, so remove_queue_mes() fails with -EIO and the
-cleanup loops bail out early.
+v2 of this RFC, addressing the automated sashiko-bot review of v1.
+The failure data and trigger isolation are unchanged from v1
+(bugzilla 219492):
 
-When the process later exits, process_termination_cpsch() sends
-REMOVE_QUEUE for doorbells MES no longer knows about. MES rejects
-them, remove_queue_mes_on_reset_option() mistakes the rejection
-for a hung queue and ends up in kfd_hws_hang(), requesting another
-GPU reset. On SR-IOV that resets the whole card, so one injected
-hang costs two resets and disturbs the other VFs.
+- S4 resume on Cezanne (gmc_v9, GFXOFF) -> KIQ TLB flush reg failures
+  at 80-140/hour for 9+ hours, sched.ready true throughout; each
+  failure burns the ~5 s retry window and the invalidation is dropped
+- GFXOFF held off across S4: 0 errors (vs ~70-140/30 min stock);
+  re-enabled 40 min after a clean resume: 0 errors in 15 min
+- so the wedge forms in the S4 resume window while GFXOFF is allowed
 
-Observed on Navi32 SR-IOV with a compute workload running:
+Changes since v1 (all from the bot review, all reasonable):
 
-  ring sdma1 timeout, signaled seq=239, emitted seq=240
-  GPU reset begin!. Source:  1
-  Failed to evict queue 2
-  GPU reset(1) succeeded!
-  [ ~34s later, when the killed process is reaped ]
-  failed to remove queue from MES, doorbell=0x1002
-  MES might be in unrecoverable state, issue a GPU reset
-  GPU reset begin!. Source:  3
+1. [Critical] the runtime MMIO fallback now holds the GC block awake
+   with amdgpu_gfx_off_ctrl(adev, false) across the direct register
+   access - the unguarded v1 could touch power-gated registers.
+   Because that call may sleep, the fallback is restricted to process
+   context.
+2. [High] failure counter moved from a global in amdgpu_gmc to the
+   per-instance struct amdgpu_kiq - no cross-talk between XCCs.
+3. [High] SR-IOV VFs never take the runtime MMIO fallback (they lack
+   privileges for direct GMC invalidation register writes).
+4. [Medium] gmc_v9_0_flush_gpu_tlb_mmio() (extracted helper) takes
+   invalidate_lock with irqsave since the path is now
+   runtime-reachable.
+5. [High, pre-existing] the MES branch now propagates
+   amdgpu_mes_reg_write_reg_wait()'s error instead of hardcoding
+   success.
+6. [Medium] threshold warning no longer claims a fallback that
+   gmc_v10/v11/v12 do not implement.
 
-remove_queue_mes_on_reset_option() already skips queues with
-is_reset set, but only the per-queue reset paths ever set it. Set
-it in kgd2kfd_post_reset() as well. Suspend/resume is unaffected:
-it goes through kgd2kfd_resume(), where queues are re-added to MES.
+Open question kept from v1: a KIQ command that timed out remains
+queued in the ring; if the ring recovers late, a duplicate
+(idempotent) invalidation could race a CPU MMIO flush. Input on
+whether the req/ack handshake needs protection for that case is
+welcome. Alternative direction also still open: fix the S4 resume
+ordering itself (RLC/ME vs GFXOFF) instead of a runtime fallback -
+happy to run tracing on the affected hardware.
 
-Signed-off-by: Yuansheng Mao <yuansmao@amd.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_device.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+Patch 1/1 follows.
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-index 586e640f13dc..d326e41a8656 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
-@@ -1033,6 +1033,27 @@ int kgd2kfd_post_reset(struct kfd_dev *kfd)
- 	if (!kfd->init_complete)
- 		return 0;
- 
-+	/*
-+	 * The reset wiped the MES queue table. Mark the queues as reset so
-+	 * that teardown does not try to remove them from MES again.
-+	 */
-+	if (kfd->shared_resources.enable_mes) {
-+		for (i = 0; i < kfd->num_nodes; i++) {
-+			struct device_queue_manager *dqm = kfd->nodes[i]->dqm;
-+			struct device_process_node *cur;
-+			struct qcm_process_device *qpd;
-+			struct queue *q;
-+
-+			dqm_lock(dqm);
-+			list_for_each_entry(cur, &dqm->queues, list) {
-+				qpd = cur->qpd;
-+				list_for_each_entry(q, &qpd->queues_list, list)
-+					q->properties.is_reset = true;
-+			}
-+			dqm_unlock(dqm);
-+		}
-+	}
-+
- 	for (i = 0; i < kfd->num_nodes; i++) {
- 		ret = kfd_resume(kfd->nodes[i]);
- 		if (ret)
+Denis Pisarev
+
+Denis Pisarev (1):
+  drm/amdgpu: fall back to MMIO TLB invalidation when KIQ is
+    unresponsive
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c |  18 ++--
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |   2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 111 ++++++++++++++++++------
+ 5 files changed, 102 insertions(+), 33 deletions(-)
+
 -- 
-2.25.1
+2.55.0
 
