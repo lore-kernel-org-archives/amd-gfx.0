@@ -4,72 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BC524C5DF7D
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 19:53:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 825A1C5DF7D
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 19:53:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 58ECB10F4A3;
-	Fri, 21 Aug 2026 19:53:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2126010F48B;
+	Fri, 21 Aug 2026 19:53:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="E+r7l0Ki";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ae1ne7uf";
 	dkim-atps=neutral
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013014.outbound.protection.outlook.com
- [40.93.201.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E4BE10F494
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 19:53:13 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011009.outbound.protection.outlook.com [52.101.52.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8AB8E10F48B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 19:53:19 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hpca9HYzoxuIdmxcb28Y8ZjLab0gYKy1S2h5TS1AP16M4lxieP7KiJjTfVEuM5DbMqpQ7/CeKN0oVRPWrLfcbcKJqaHV6Dyqq1MsgRNY+Io0s1RQ/GKzGiIKwkPApt8x2Yz7k44e6rpaIWZZaE+AfFzBHVhULaPCX1QssMY1iwMQUF2WpHQw2uv2uSgpT2P7WbxH5IK9PEtlczBSBX62nuydKGqF5o5Vv2h8maHCjVoX6R3kC+GXJqRmmXejQuqudfN1e47wiBfvlFdzeJUxgSsWe1ALUj+yxZa+ltVEj+YbZA0j3gUFFkTEcYougI7GoJlUulRj7mp2gn0M3H9g8g==
+ b=v832HMIUlcAOoxSh7B9ha4C+q7TAG9+OkAYDdLOnjNyqHYB6Fe/uwGgW54usopWuHwnb/804NUzT+HwfXoYmucRxGaxn4ddOBBj4A5ulSn/klmahB6HydE5WgU8SCrioD8FtrhWhz0qRpa7W+BG5ua07lajsWBy1Y7nEXCQ8rPFTU235bo9QBE7NxT93om/YKnErji5U9+iPJ+cp11fCw1c2JzHCoecNy7/5C/K0D9bxLfZd5AZ4x9WgHRcRfJelOaHYM+uI6mc/JXAMU45uVzMlzU1WpPZGKyRQ2kd3YFz/GSDMQAtFQE5dTCDHzDpDKF6Ppc7NZRPQA4PxK2kWxw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iaYCyoZEqZtUG5j3HZb4WpZb8I+znz8D7zJ3M+TVwOI=;
- b=YyrNpBdX9VS3kwdSuETg2bZx9TzPZTcWMW8b8cMrhxuN4oMDYnKjQ8dESLdmsIb1Ti3EGa+bL755ktN3NzVv9fNMX9GbkigkHG6f6+vrWQ9sLBQdT93DVo61HxDcCyAL4AKiASD3GIKoSo6zDLjJ5TDe9iV8uSH5l0NMC7AvJcQpzpxfh5zUgBfbpb60qiL12v8q0FmaCCJbNdGsQ/W1Cd5/t0T3dI6z6tquH+gUpVQrkfEmXKAM2zOnHZh/4cebuLKJ4es041gvFtjaA7xF34H06dDRAPZYk14quqMnqEwcy0zVqAK9Bazw3ixEKyNBk8IaYQlnMJwev2oFmAG02A==
+ bh=Oixp2AZxGkbISdAA8jWvknFtBwxfk9GjlmqubCc0TUg=;
+ b=CgJKpeWsaOU34OBg4pzwN9r+cill6IR8yJHvzyDq8JtfaqayrrlbhkbH0955nMPNJpklJobOmlApkpKe1RACY5cQo1cqGQDqC2XsgLoGEmLs9fVJHFXVvu8tyod2rB22usAK60sRYtZ+7zzpGJZ+v6xwJlkdruBFdm9MBZ81VZ8yM4sNfJWwjxLFpfQWbi5tAB7GUkCy3Yy0PMqIOTU6FPjXdaNkKhThqY+xoJz9TyNKZJoPlspWfWy78N+2AskyvByeXxo0ATLfEjirwcT2AbXRSeF38tuC1AIMTXDku9AKDd+/CnhT15ORU/bOYQG3CpxnBGI7dlfnfH4jO3/CuA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iaYCyoZEqZtUG5j3HZb4WpZb8I+znz8D7zJ3M+TVwOI=;
- b=E+r7l0KiwJTwXEGZLj0x4/8D8eRaTYYpTCIPFiHyqtZCdAlFFzBhQAXGu/SaBki636CZa2j10kljkY7fpqxHFVnfuNteE3WJEGwa/zhtY3Si/5SPP1y8Y8rgO328Sd97/SYwzj31F9CK+Wenk++Bumfh1JDDJZDsf8NmMoeaihI=
-Received: from CY5PR19CA0077.namprd19.prod.outlook.com (2603:10b6:930:69::26)
- by DM6PR12MB4089.namprd12.prod.outlook.com (2603:10b6:5:213::19) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=Oixp2AZxGkbISdAA8jWvknFtBwxfk9GjlmqubCc0TUg=;
+ b=Ae1ne7ufVl8lvv4SZGOLxvYeOzVceRVYcBTq9BicZMbVJs1qtOt+odeDJsgWlI0mhJnfz7WMNeJ+MpsTQZaRnwQjqdzcQkOnrxISgoS59ERHS/3o8N2T6ijqE5Llyk+HbUiuAwbkXlu/r6hR1/2rY2BCcGACwP2cLKUMp3/TCGk=
+Received: from CH0PR04CA0005.namprd04.prod.outlook.com (2603:10b6:610:76::10)
+ by SN7PR12MB7225.namprd12.prod.outlook.com (2603:10b6:806:2a8::12)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
- 2026 19:35:54 +0000
-Received: from CY4PEPF0000EDD6.namprd03.prod.outlook.com
- (2603:10b6:930:69:cafe::51) by CY5PR19CA0077.outlook.office365.com
- (2603:10b6:930:69::26) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 19:36:15 +0000
+Received: from CH1PEPF0000AD81.namprd04.prod.outlook.com
+ (2603:10b6:610:76:cafe::97) by CH0PR04CA0005.outlook.office365.com
+ (2603:10b6:610:76::10) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
- 21 Aug 2026 19:35:54 +0000
+ 21 Aug 2026 19:36:15 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000EDD6.mail.protection.outlook.com (10.167.241.202) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000AD81.mail.protection.outlook.com (10.167.244.89) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 19:35:53 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 19:36:15 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 14:35:47 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 14:36:09 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 14:35:47 -0500
+ 2026 14:36:08 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 21 Aug 2026 14:35:46 -0500
+ Transport; Fri, 21 Aug 2026 14:36:08 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling
  <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 58/95] drm/amdgpu: Handle local GPUs in UALink import
-Date: Fri, 21 Aug 2026 15:34:21 -0400
-Message-ID: <20260821193458.808626-59-alexander.deucher@amd.com>
+Subject: [PATCH 94/95] drm/amdgpu: add mtype_remote module parameter
+Date: Fri, 21 Aug 2026 15:34:57 -0400
+Message-ID: <20260821193458.808626-95-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260821193458.808626-1-alexander.deucher@amd.com>
 References: <20260821193458.808626-1-alexander.deucher@amd.com>
@@ -78,29 +77,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD6:EE_|DM6PR12MB4089:EE_
-X-MS-Office365-Filtering-Correlation-Id: 08377515-7b16-43ba-c16b-08deffbb6a4a
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD81:EE_|SN7PR12MB7225:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2885f8a1-92c8-47de-598d-08deffbb76dd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|11063799006|10067099003|56012099006|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: fX3SUqdh49Htnf6wSQocLSjEmxq8Wu3HHICv0NU6HOnptd7ctIGsiqicBup+o3Ov03hp/xwnnxrj6WIDRlYBaRtv73ZPoQf2JM3QanjH+WXrKYOY/3oLXHp7tBYjP9NKf2D0Z90zsIrBwigCIibipkHdW4gykicpkN6yf3Rg5Gk2J5+fkK+7Hlt9M2uU09NagaY1xIIBuY1ZY3FpWimDgkwhj9IJloz/cxKHN9aL7y5Fj5RpFIeRTQ9dDYSiyNIYbhwS5+j9GdzxF2QxUbnx7Oa3BzqsLElg7YAlLVhx5sgk9N17RlWSa1Hf4der92P+UKOHrc4AyqrOb8lvS2VY452oB4nxhR0gwcUIy5Okggb2XGGBKMXect8GR2+bQ1efjzXIpQwViRDcoonmqsa++byXcinLi+XF9ckARlgXxIbYr53Tbx6eM2s6Y+kuOjfPyLbdAr9OxQ58R3Kp78f4owTxCbWksU6MltJFeELqC3CRxE8E95YyfaWUBZ4w3/AxpllYoKG6eLQUJQIf9TvKaKRYDLTPBRALjpPfk2t2hpp7FhbtWUthEnrB5sPIhtRF3mK7k6oteRwOuCbrs6BaSbkfP5eC6sEFoWpeLXQpdxEc/t/xOJopUUNHRlmfpOukmMY0/WTsTkyY4eED+66h72/Kf0+dB71jCXFePA2zVUaGkXjVEC7nFJsmugXOEtBO6t1HINyMN14hS351MYR0KA==
+ ARA:13230040|23010399003|376014|36860700016|1800799024|82310400026|56012099006|3023799007|10067099003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: Ubyw/7/xm7V0Y+8REe8BvtCeoa/rUEEM8HlUyH+16AnYZwJOOl0oZPgP9NP4OIw1C+xlVd1pFy0FVD+Q+awwmOpGk5mtw/m6MGdEMfWlyKPsQ+1nPlvPlN9Ien5wHHjRTVqMjYNA9HG9Y9A9B6wFuxnZci5hjgkGw3bd0MI7drXl1aeQlDM8j5XAFBte9dUQag8LH9x7gGbz/RjbNWhdZrj8x35HBUF1TEwGouZczuU2DZFgNVIJljq7EKmXeD19iqul7PvAUgqyLoKojWMg/cGGHjWKJ4kneFkybW8Vxh/nMBpvcLmsHfG+1BY5qNJ5MQ+tU+IjfMZt8DoJgc3Sl6n5l4/OPGuue/lOEMMS1UxouDzBJSQp4B2mkiRN1nDlFS6Siy/H4jsOBGVwoypcyvWnZDvAwUOr4xch8UUX7qtQxQk4f8Cce3Gc4M5/FFA3LLMlz00r/xGrsLJdzL096Gwey3hy7g4KsMGAroMUKQtC+nksdcWbfYYtnP8yqaCZobTs8VuJmgCCqJvNtoAAi2xt4imeCYHneQc7IqoDhi9gtdMPVozFSJdQeFKyFNy4lKMUnqpElwwwHv4UtNUZBy1fTMBAHu0qpdl9Hqu4kW717Y63bDvUC6uHXCM5WmXqVB9c7LhsSw5xHh/3jud+w/LYIrodIzC9rE6ztCqUJVSc3m6TzERUdV3SlWc7QpJ0geAp0dx44JYW140pUgB+dQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(11063799006)(10067099003)(56012099006)(3023799007)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(23010399003)(376014)(36860700016)(1800799024)(82310400026)(56012099006)(3023799007)(10067099003)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Mc/Ywpov6zdgpyEmXZZl672pudiQJBGoekrkqXIqtsPg1YnODQJBO1IxGgzlSLFnWwnXd6XgDOXILET0e/tVW36qH6AQnGp1GQ3wYFNXa9jtnEYiThyZXOTuWn0/KO7wA3szgzQXbwsVvg9QwCA/L30SwuHkUDHw7In2pwEkoH+sdBA7mS9zlyNAIHjP1BLSDjL1Hqy0EPym/zaLzVaPjFgh5zf6CXSL0jawah51P9d3BNzhDoJF0YPqg+fFb4Qw8kdZipp1vOdAR7SXsAp5cEyEHsYBsW8zgTU/TiiimYGcxRAeWZFDxnKDiAJPoDkf8/gW3nEwGRu9Pgu2LCs3JUWYJlSP4EQ2VqDElZ0LxHHVKinTTpL/kep24h5k+FU1/+LpfJQ+IQ0dIEsZUfQ5nhAto3vFgg0+Nw012AhIoBL3g6V+Eb6kfpABQCtVOFu9
+X-MS-Exchange-AntiSpam-MessageData-0: 5kriL+hYtNjXqijzH6NkDqo/c0YtYoX2nr7i3p5fIH+DNlrYoSN44FKT6S61rtzsghVFWM4OMj6fa8xO3vb8Wr9Y/6OmyUkf0bgLwKX1gaVlXCmMjn1zrXmUpVchbUzofK6Wq67Zo4Rc4hMMlWARejiNkhvmHQM2UwAk85SjfTJRJubiveCO22RRdtSlCxKr+zKJWQ7r51583R+y34JMx2kh3Sb27UdgBDub/4qyWh+VDhsiFD0PKHDpTmDGaMAQe6DYnNdbmWE7/ZKud35AJc0VfHta+1m6JezRRVZAf+C2Rk/KDhKlS40L5JcOepssJncDXmo5khyQRuCWQFFwa69y6GmhJhj2Lm5uIqXoldW66uMB07D6Dt5Di8ACVpMt1mzq4KD4bhTZTTriu+lF8l6GgbAn+1C2ICrPIRD2NZXkJW6Tj3p1shwLph2Gx7RL
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 19:35:53.9600 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 08377515-7b16-43ba-c16b-08deffbb6a4a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 19:36:15.0761 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2885f8a1-92c8-47de-598d-08deffbb76dd
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD6.namprd03.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD81.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4089
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7225
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,121 +116,127 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Mukul Joshi <mukul.joshi@amd.com>
 
-When the remote GPU is part of the local_accels array (same physical
-pod), bypass the HELLO/NPA-REQ messaging protocol and directly look up
-the exported BO in the peer's exporter xarray. Export it as a DMA-buf
-and return the fd to user-space without creating an importer xarray
-entry.
+Add an amdgpu_mtype_remote module parameter so the MTYPE used for remote
+memory accesses can be overridden. For now only MTYPE_NC and MTYPE_UC
+are selectable (0 = MTYPE_NC, 1 = MTYPE_UC); it defaults to the
+ASIC-dependent value. Currently, it is used only for GFX 12.1.
+
+The MTYPEs resolved for both local and remote memory are logged once.
 
 Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 70 ++++++++++++++++++++++
- 1 file changed, 70 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  1 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c |  7 +++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c  | 34 +++++++++++++------------
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c    |  8 ++++--
+ 4 files changed, 32 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 57332243ea027..cd9ee0484f9c2 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -28,6 +28,7 @@
- #include "amdgpu.h"
- #include "amdgpu_ualink.h"
- #include "amdgpu_xgmi.h"
-+#include "amdgpu_dma_buf.h"
- #include <linux/sysfs.h>
- #include <linux/string.h>
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+index f619d95a5ccfe..79b69d74eb2e5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+@@ -223,6 +223,7 @@ extern int amdgpu_force_asic_type;
+ extern int amdgpu_smartshift_bias;
+ extern int amdgpu_use_xgmi_p2p;
+ extern int amdgpu_mtype_local;
++extern int amdgpu_mtype_remote;
+ extern int amdgpu_enforce_isolation;
+ extern uint amdgpu_debug_mask;
+ #ifdef CONFIG_HSA_AMD
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 53738b40c97f6..04b21e456fbc0 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -844,6 +844,13 @@ int amdgpu_mtype_local = -1;
+ MODULE_PARM_DESC(mtype_local, "MTYPE for local memory (default: ASIC dependent, 0 = MTYPE_RW, 1 = MTYPE_NC, 2 = MTYPE_CC)");
+ module_param_named_unsafe(mtype_local, amdgpu_mtype_local, int, 0444);
  
-@@ -610,6 +611,22 @@ static struct amdgpu_device *find_peer_adev(unsigned int accel_id)
- 	return NULL;
- }
++/**
++ * DOC: mtype_remote (int)
++ */
++int amdgpu_mtype_remote = -1;
++MODULE_PARM_DESC(mtype_remote, "MTYPE for remote memory (default: ASIC dependent, 0 = MTYPE_NC, 1 = MTYPE_UC)");
++module_param_named_unsafe(mtype_remote, amdgpu_mtype_remote, int, 0444);
++
+ /**
+  * DOC: pcie_p2p (bool)
+  * Enable PCIe P2P (requires large-BAR). Default value: true (on)
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
+index a3b7e240abaed..4e7b6e2c87ab5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c
+@@ -618,8 +618,8 @@ static void gmc_v12_1_get_npa_flags(struct amdgpu_device *adev,
  
-+static bool amdgpu_ualink_is_local_accel(struct amdgpu_device *adev,
-+					 u32 accel_id)
-+{
-+	struct amdgpu_ualink_info *info = adev->ualink.info;
-+	unsigned int i;
-+
-+	if (!info)
-+		return false;
-+
-+	for (i = 0; i < info->n_local_accels; i++) {
-+		if (info->local_accels[i] == accel_id)
-+			return true;
-+	}
-+	return false;
-+}
-+
- static bool check_local_vpod_integrity(struct amdgpu_device *adev)
+ /*
+  * Resolve the MTYPEs used for local and remote memory accesses on GFX 12.1.
+- * Remote memory always uses MTYPE_UC; local memory depends on the AID stepping
+- * and the amdgpu_mtype_local module parameter.
++ * Both default to an ASIC-dependent value that can be overridden through the
++ * amdgpu_mtype_local and amdgpu_mtype_remote module parameters.
+  */
+ static void gmc_v12_1_get_mtypes(struct amdgpu_device *adev,
+ 				 unsigned int *mtype_local,
+@@ -627,23 +627,25 @@ static void gmc_v12_1_get_mtypes(struct amdgpu_device *adev,
  {
- 	struct amdgpu_ualink_info *info = adev->ualink.info;
-@@ -3055,6 +3072,55 @@ static int amdgpu_ualink_do_import_handle(struct amdgpu_device *adev,
- 	return r;
+ 	bool is_aid_a1 = (adev->rev_id & 0x10);
+ 
++	/* Local memory: ASIC default depends on the AID stepping. */
+ 	*mtype_local = is_aid_a1 ? MTYPE_RW : MTYPE_NC;
+-	/* Remote memory always uses MTYPE_UC on GFX 12.1. */
+-	*mtype_remote = MTYPE_UC;
+-
+-	if (amdgpu_mtype_local == 0) {
+-		DRM_INFO_ONCE("Using MTYPE_RW for local memory\n");
++	if (amdgpu_mtype_local == 0)
+ 		*mtype_local = MTYPE_RW;
+-	} else if (amdgpu_mtype_local == 1) {
+-		DRM_INFO_ONCE("Using MTYPE_NC for local memory\n");
++	else if (amdgpu_mtype_local == 1)
+ 		*mtype_local = MTYPE_NC;
+-	} else if (amdgpu_mtype_local == 2) {
+-		DRM_INFO_ONCE("MTYPE_CC not supported, using %s for local memory\n",
+-			      is_aid_a1 ? "MTYPE_RW" : "MTYPE_NC");
+-	} else {
+-		DRM_INFO_ONCE("Using %s for local memory and MTYPE_UC for remote memory\n",
+-			      is_aid_a1 ? "MTYPE_RW" : "MTYPE_NC");
+-	}
++	else if (amdgpu_mtype_local == 2)
++		DRM_INFO_ONCE("MTYPE_CC not supported for local memory\n");
++
++	/* Remote memory defaults to MTYPE_UC on GFX 12.1. */
++	*mtype_remote = MTYPE_UC;
++	if (amdgpu_mtype_remote == 0)
++		*mtype_remote = MTYPE_NC;
++	else if (amdgpu_mtype_remote == 1)
++		*mtype_remote = MTYPE_UC;
++
++	DRM_INFO_ONCE("Using %s for local memory and %s for remote memory\n",
++		      *mtype_local == MTYPE_RW ? "MTYPE_RW" : "MTYPE_NC",
++		      *mtype_remote == MTYPE_NC ? "MTYPE_NC" : "MTYPE_UC");
  }
  
-+static int amdgpu_ualink_local_import(struct amdgpu_device *adev,
-+				      u32 remote_acc_id,
-+				      struct amdgpu_ualink_handle *handle,
-+				      int *fd_out)
-+{
-+	struct amdgpu_ualink_exp_xa_node *exp_xa_node;
-+	struct amdgpu_device *peer_adev;
-+	int fd;
-+
-+	mutex_lock(&mgpu_info.mutex);
-+	peer_adev = find_peer_adev(remote_acc_id);
-+	mutex_unlock(&mgpu_info.mutex);
-+	if (!peer_adev) {
-+		dev_err(adev->dev,
-+			"IMPORT LOCAL: peer adev not found for AccId:%u\n",
-+			remote_acc_id);
-+		return -ENODEV;
-+	}
-+
-+	xa_lock(&peer_adev->ualink.exp_xa);
-+	exp_xa_node = xa_load(&peer_adev->ualink.exp_xa, handle->handle_lo);
-+	if (!exp_xa_node ||
-+	    exp_xa_node->handle.handle_hi != handle->handle_hi ||
-+	    !amdgpu_ualink_exp_xa_entry_get(exp_xa_node)) {
-+		xa_unlock(&peer_adev->ualink.exp_xa);
-+		dev_err(adev->dev,
-+			"IMPORT LOCAL: handle:%llx:%llx not found in peer exp_xa\n",
-+			handle->handle_hi, handle->handle_lo);
-+		return -EINVAL;
-+	}
-+	xa_unlock(&peer_adev->ualink.exp_xa);
-+
-+	get_dma_buf(exp_xa_node->dmabuf);
-+	/* Get a new fd for the DMABuf */
-+	fd = dma_buf_fd(exp_xa_node->dmabuf, O_CLOEXEC | O_RDWR);
-+	if (fd < 0) {
-+		dev_err(adev->dev,
-+			"IMPORT LOCAL: dma-buf fd failed handle:%llx:%llx\n",
-+			handle->handle_hi, handle->handle_lo);
-+		dma_buf_put(exp_xa_node->dmabuf);
-+		amdgpu_ualink_exp_xa_entry_put(exp_xa_node);
-+		return fd;
-+	}
-+
-+	amdgpu_ualink_exp_xa_entry_put(exp_xa_node);
-+	*fd_out = fd;
-+	return 0;
-+}
-+
- int amdgpu_ualink_import_handle(struct drm_device *dev,
- 				const struct amdgpu_ualink_handle *ualink_handle,
- 				int *fd_out)
-@@ -3074,6 +3140,10 @@ int amdgpu_ualink_import_handle(struct drm_device *dev,
- 		return -EINVAL;
- 	}
+ /*
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index 64fb38400bd1a..c521ec07bf3c0 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -1348,8 +1348,12 @@ svm_range_get_pte_flags(struct kfd_node *node, struct amdgpu_vm *vm,
+ 		mtype_local = amdgpu_mtype_local == 0 ? AMDGPU_VM_MTYPE_RW :
+ 				amdgpu_mtype_local == 1 ? AMDGPU_VM_MTYPE_NC :
+ 				is_aid_a1 ? AMDGPU_VM_MTYPE_RW : AMDGPU_VM_MTYPE_NC;
+-		/* Remote memory always uses MTYPE_UC on GFX 12.1. */
+-		mtype_remote = AMDGPU_VM_MTYPE_UC;
++		/* Remote memory defaults to MTYPE_UC on GFX 12.1 and can be
++		 * overridden through the amdgpu_mtype_remote module parameter
++		 * (0 = MTYPE_NC, 1 = MTYPE_UC).
++		 */
++		mtype_remote = amdgpu_mtype_remote == 0 ? AMDGPU_VM_MTYPE_NC :
++				AMDGPU_VM_MTYPE_UC;
+ 		snoop = true;
  
-+	if (amdgpu_ualink_is_local_accel(adev, remote_acc_id))
-+		return amdgpu_ualink_local_import(adev, remote_acc_id,
-+						  &handle, fd_out);
-+
- 	xa_lock(&adev->ualink.imp_xa);
- 	imp_xa_node = xa_load(&adev->ualink.imp_xa, handle.handle_lo);
- 
+ 		if (is_local) /* local HBM  */ {
 -- 
 2.55.0
 
