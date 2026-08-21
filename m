@@ -4,55 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E7E6C5DF94
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 13:18:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0F70C5DF87
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 13:49:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3BE310E2AC;
-	Fri, 21 Aug 2026 13:18:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D2BE10E2C6;
+	Fri, 21 Aug 2026 13:49:19 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=robert.mader@collabora.com header.b="YwxCfVAN";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NmmBBHT/";
 	dkim-atps=neutral
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com
- [136.143.188.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F160D10E2A0;
- Fri, 21 Aug 2026 13:18:41 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1787318316; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=PO6ekrGm0t7zfVe9kVhGQjaIA1yc56qvUaXboDQLU++ho8uetm/T8cHhdnmPglgG+axg6Sx8ALRwMIe772rVCHz31hpRMYWu81A6zB68ObYwKATm5HZHsVsUYDPniOMlbwJXbTiUSK52GPm+s61lj6C0yA/qn7xfcnglv9pX2k8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1787318316;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=gEa87WB9bffTrtjpQDV9KM2RmE0aBNmB7qXjGliDfp0=; 
- b=gNlQXHXoW9AgYwo39qDALUHbC1mayXa/sQqQK+FTGkbVCvDdMVq8AeVPQNlsaWoRfniTjYzLsoDnuInR6C2Tbbw6e5TqxhjZmr5QjIgYuYWbZ0uEduuz113tWOPLt4BQOinzWjhSxDrxZk4c7971/nMBZ+dJ6E8hPa9D9A/SfYI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=robert.mader@collabora.com;
- dmarc=pass header.from=<robert.mader@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787318316; 
- s=zohomail; d=collabora.com; i=robert.mader@collabora.com;
- h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=gEa87WB9bffTrtjpQDV9KM2RmE0aBNmB7qXjGliDfp0=;
- b=YwxCfVANhSJf/cRtRltpfftZRC6jFhyA6vzfLb3SOgJwvtAQOafIsAzK9rzkSve4
- wD7p8tIrlswqaqL0+qu1viqhrOWmYGFO1pkxvgT5XCaoC5YpqQk3LxHplJDHTB6Zgiu
- xHmN0qzLTupnKCNHNwD3vfvceo49fKMzswDnux58=
-Received: by mx.zohomail.com with SMTPS id 1787318314107393.4510032745691;
- Fri, 21 Aug 2026 06:18:34 -0700 (PDT)
-Message-ID: <6979fc5e-5f93-42a5-aec0-b0448aa13197@collabora.com>
-Date: Fri, 21 Aug 2026 15:18:30 +0200
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010025.outbound.protection.outlook.com [52.101.201.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 359EC10E2C0;
+ Fri, 21 Aug 2026 13:49:18 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j4ZDKF4IId/xSxUsz3S/SvpNLbrpmuQmKg/FbIC1XZirKodoziIrHnUD3+uVKrYfIUg79xZTbcv0cYhg+pJX8gKGnH31PcmGi7m6CY0xiTMMPRrB2WaZrWo3MmwUJJZhXEMNHz3inNhrD2SsulBC79TBvVDgGEEhB2gtz2ETJOPRIVIGm1rWVn0MB/XI1AcqlicQKP1uqtyokqcDwQ37O0OFaUZaX+IehuQwfF5AA1kJOcNHYcmGT0yJfsq9FSeseXtDb+Y0Wk0msSTkQJ6UxLnJEu/08M2HznO8u/SRn6TLJ/2l4V4+HJG0Uskb1UNyrFFDM+N7v9ac3g5f3u1EYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tE3UIWqleJWu654rut87Ew1E0aQ7Q1vgsKxROqYPxjQ=;
+ b=NnpjmalSObZNdvgXl11YIgLkKbZjp4SMyEoF60jZowP9l0pgy/au2jjN7TLBtkFVly/Fes6tVEWCzjCELLcGjXn9u3+NSMKivAJ9cZTYCSW7UeyawfsylR7OP7s1Uf+NkPpla3aEo2GMm9Eef4MpSOxM5wFWuo1nh0h8p3FkcQBC75HbXFLhdfjcOlsRp6M4JCtwgccb+Zj8gJ18IZB3IDXU66FtIiIaCiJhWX3NPjcqk07YkNyawdX8HffVDRK66wiW3H4i6pgeJvSabWvUT680hFR0Yz2XMUqs8mor0LOxCqOSTAO1UV72/6G4h3iwWMTe6Xjha3LRgPBheon9bg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tE3UIWqleJWu654rut87Ew1E0aQ7Q1vgsKxROqYPxjQ=;
+ b=NmmBBHT/4y3snQQHtnxuVAGMGKZm0dX/crBzOTQO7XeQmwrZOd++N5h2V6gV4nmpnR5n9pcUlw/5s6/0Ko3jfhfm1W5zoBLhxikFZL36+XrIyFP1yVtN8X34QRIoBzdr81IYFr4HvQ6T/Hzie/QFcSx/NScRlovH6jbiTD+WFJE=
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
+ SJ1PR12MB6338.namprd12.prod.outlook.com (2603:10b6:a03:455::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
+ 2026 13:49:10 +0000
+Received: from DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::b2e1:64e5:3b9e:738a]) by DS0PR12MB6534.namprd12.prod.outlook.com
+ ([fe80::b2e1:64e5:3b9e:738a%6]) with mapi id 15.21.0339.010; Fri, 21 Aug 2026
+ 13:49:10 +0000
+From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
+To: Melissa Wen <mwen@igalia.com>, "airlied@gmail.com" <airlied@gmail.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
+ <Christian.Koenig@amd.com>, "daniels@collabora.com" <daniels@collabora.com>,
+ "Wentland, Harry" <Harry.Wentland@amd.com>, "leandro.ribeiro@collabora.com"
+ <leandro.ribeiro@collabora.com>, "maarten.lankhorst@linux.intel.com"
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>, "pekka.paalanen@collabora.com"
+ <pekka.paalanen@collabora.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
+ "siqueira@igalia.com" <siqueira@igalia.com>, "Li, Sun peng (Leo)"
+ <Sunpeng.Li@amd.com>, "tzimmermann@suse.de" <tzimmermann@suse.de>
+CC: "Hung, Alex" <Alex.Hung@amd.com>, "kernel-dev@igalia.com"
+ <kernel-dev@igalia.com>, Lyude Paul <lyude@redhat.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
+Subject: RE: [PATCH v3 0/3] drm/atomic-state-helper: fixes for blend-mode-prop
+ warning
+Thread-Topic: [PATCH v3 0/3] drm/atomic-state-helper: fixes for
+ blend-mode-prop warning
+Thread-Index: AQHdKzEqbzG4Q7vesUKMS+novRdU2baokNfg
+Date: Fri, 21 Aug 2026 13:49:09 +0000
+Message-ID: <DS0PR12MB65342AEDED0D035DFA92E4189CA32@DS0PR12MB6534.namprd12.prod.outlook.com>
+References: <20260813143605.106104-1-mwen@igalia.com>
+In-Reply-To: <20260813143605.106104-1-mwen@igalia.com>
+Accept-Language: en-CA, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-08-21T13:48:54.0000000Z;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
+ v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|SJ1PR12MB6338:EE_
+x-ms-office365-filtering-correlation-id: b1e914e3-2be5-4e02-9cdc-08deff8af9f3
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|366016|376014|7416014|56012099006|10067099003|6133799003|22082099003|18002099003|11063799006|921020|38070700021;
+x-microsoft-antispam-message-info: /mOqgWBk2QNWnaAD04l1Y7r7tOKXnFi9TH6yAM4YX//7+wFq63mxj3IC5yJKNQghbqcegQLpsls5MqqUEVvJ2pv89Sc/AoUm2HTIVlGWDjKpL8mPFnUDfgLAx49OFXMNm6OWt3OioJK4ddpjfQ91tl4Yd8CbSYbyN3JcMmTEZKyufGpmrdMcXOEtUct/H1Q+i5fmquxEwtrYv+4ZYYRfqSVpkFEF2SZToPG8m2H9t8B6DXo3TqPZsx7FJLQmCIRlcPfw4ynEIZVMjC9jkO4l7hBoDKucW5GqaTJ8e1MyNXYjDlOJLzEzOh2rbTYATGwFUBEx/Nw9k3csB+SqqtcBm2FTE+nINURSve0dfSlYiGkLSYyJg8bsSNPqhhIIJPJ/hbukskaGM+JcxXtZdNYtRqDeA4irEC4+x5Z4qaNq45/SAVYDEb352ZkMPB0kVqDrYXxIfDOa+exZLkAVN3EfwnuPCZhv9mWWFQ3qNQTdK8eABTXs3P8RRDD6Wa41fA9k/BqkE6MvacRW/qVzvRd1zLXS7K5YyNj3yClRvjnYGj/gOaiPjqIdrkxjexYmJ5SYTO3IROFhazTH0s2iPzyi1DGUucA8yHWsK2z0091cNmntrR4Kv4JVle4SjBqJceDo0Iworo0T41TuWb+RixAhEPOWWyvlS7u+eZz0ZaK0OE3j9kY2195/sqiQpFjDBsMigjXq+xSkxbc+49lUgPWqjhiBOsIg6p0PaVW5B8Fi96EES35DnE+Tv7ZEH4/9KTGk
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(56012099006)(10067099003)(6133799003)(22082099003)(18002099003)(11063799006)(921020)(38070700021);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?Hzu3BMdqpd+jzih6MahXDyilq0nD2/rKqD+ab1XbZkLEbwcEy4riF4jdNA?=
+ =?iso-8859-1?Q?tEk77NdmD0lm5U2Zxhc0cZYho6QyG+DXD3DUV/bsm7NmLBMyxzwUe4VF4U?=
+ =?iso-8859-1?Q?8eje0gpqnUNuV9LRh0dzrmeXwLeHXkBQhKUUwTr34rw3UEZE2NbyqYkWsv?=
+ =?iso-8859-1?Q?axKg5qHXAR7veWv9IyIg8v3GtDjzhaba8vEnrvF4yZqE7tAupQ/0sx71Oy?=
+ =?iso-8859-1?Q?7vF2ALfd2IuO4d2EFyeAAsyZF6HtTwryYwvPy5R97TCmk/T9251MLVdwUC?=
+ =?iso-8859-1?Q?xelM6H7jB8bPyCXu4IPFnD67/xRXx6axYwEEMd9ya64Tkl0efzyRiJSdZo?=
+ =?iso-8859-1?Q?SuiIfp/F+bVRiBLb4wSVdp58eJURdd+ZQjmBvMtxAPtqxzzii06G+kVDxX?=
+ =?iso-8859-1?Q?Lg0RG1G5snPCQHTayWlVTXNWBIdmZBtxeU1eMDWJhk4obTtm92SEGtkhSY?=
+ =?iso-8859-1?Q?qcjCMFPMbqd28ViDfeG9XNGuOFi8poo0pa/A8LIIbiWE9j8tpKLpdXh4dD?=
+ =?iso-8859-1?Q?GYvoG7rpKH691rCJzEIKWPwrTb2QQdRBulZqmcys9NVunui4JrrRQP1Joc?=
+ =?iso-8859-1?Q?hjfjR1lkcZBfSImoqxRVN5J+0IL69x8AXu3nWrExgOAnmxwna3vQoDvmFx?=
+ =?iso-8859-1?Q?xwi+iIh7Im6IK3fA5+gYFHtBGlB0Hl3w2yWxT9UiSk2OIhOP8J9gh6dt1C?=
+ =?iso-8859-1?Q?XySpXg8+gaci93lpT3A48C8fQj0YANusir8Sd09dcs/VINFYPtw5pA9EqE?=
+ =?iso-8859-1?Q?8G+KiFjkUbIgijw05BOStH5fwuPXfTg1/TgLAGDdE58WfKdNwuk02ukYzy?=
+ =?iso-8859-1?Q?yyoQ4sz3cdlM/GI9YbT9HyopLJbqK314CfExnUOB+rLP0fHK1G9l4hwZHv?=
+ =?iso-8859-1?Q?f3NTRoTDCRvHL3R3RDKa/0VaXLBl5YaQA6zbWuI+Jne1rQ3tT3Em8bgIfF?=
+ =?iso-8859-1?Q?Egoo3E4OBnkvzPZuEd+ZTyBqPE2t828KNUn0MyqtVV/eEBRu8rormL8Zro?=
+ =?iso-8859-1?Q?hjQVsqLDjqltLyWBsL2NrRrTLAiPm3JIdzz3TdsrsZJZzbStCLE2K9QpwP?=
+ =?iso-8859-1?Q?J/eP6DVS1j82e/XrDplYSckoiqG1DFx7BAadbGwYch8kMrwvF2xEVGFidI?=
+ =?iso-8859-1?Q?1sjFWni4vKghVQhTunfd8goU2QHOzrwRnyWaWBITsLIx2EWtnvC3p1YIaa?=
+ =?iso-8859-1?Q?qpsJqo7PwroRGwyQ7t9KswBNPlVX7psO+6wDquM/uyDQPhEiWHKqzEAzdO?=
+ =?iso-8859-1?Q?2A6rcr8gSaTDytnLUxwSK+iRgRFW5jm5IGiSdVJ+jDbKmqoQhzg8ZcLcV1?=
+ =?iso-8859-1?Q?zu/uXUhqOASaRi0oDRfCZLgPzN38vHZ1qQ9sX0ra+/JQpphBePsNLmOq5i?=
+ =?iso-8859-1?Q?kR+bQAjschNgSS9C+vE9k1iwDh9QWL901EGJjFDoaqfjF6borJB0Pd5LKn?=
+ =?iso-8859-1?Q?1jgZsGAfy0Umu7Qvv/J+/jMKKaRC+PN/wpNiSfyBTqYmTSDoI9krQJbW7k?=
+ =?iso-8859-1?Q?XYeVzjTnbXcjD5UQd0x92/Hdq3zLC7beTtNC9p0ozE6BrqhZe8i/nfMvEQ?=
+ =?iso-8859-1?Q?ValVoW+L2m1dVtcMdSXhigmL0+YWGXVbgyqf6a8XzESG8D1aoceKcplkNW?=
+ =?iso-8859-1?Q?znIdFiICLK8MZMRwmOs3q1eNR8EhCV1GJZF0qiv9xhJL8GfhOo/omH2Yte?=
+ =?iso-8859-1?Q?B3zxhflkOKDEWxpBvRMXt81gHrfCKgPOHSktausbX3PbsXpIXJKgip6qaC?=
+ =?iso-8859-1?Q?dfdisI96WlXHNu7QqJiNvT9M1LwrghMuhIZioCbQOzeXSl?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 02/10] drm/vkms: Fix limited-range YCbCr to RGB
- conversion scaling
-To: Harry Wentland <harry.wentland@amd.com>, dri-devel@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-Cc: Alex Hung <alex.hung@amd.com>
-References: <20260814211816.1219597-1-harry.wentland@amd.com>
- <20260814211816.1219597-3-harry.wentland@amd.com>
-Content-Language: en-US, de-DE
-From: Robert Mader <robert.mader@collabora.com>
-In-Reply-To: <20260814211816.1219597-3-harry.wentland@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b1e914e3-2be5-4e02-9cdc-08deff8af9f3
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Aug 2026 13:49:09.6983 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: NMJs+rXKU4470egFO6+dqp0GAtyzXaI5owOELJoFSCr5Q8jbpRe/B2cRqFrpkijqgwAZjN2QqThKjUMZz8x6NA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6338
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,323 +145,115 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-FYI: Following my previous observation that the Weston 
-test ("color-representation-drm") that should have detected this error 
-did not do so, I opened a MR to reduce the fuzziness (accepted error 
-range) of said test [1]. The test checks all six cases with llvmpipe, 
-lavapipe, Weston-internal GL fallback shaders and VKMS. All of them 
-succeed within an error range of 1 per 8bit channel *with* the change 
-from this patch. Without it the VKMS results have higher errors[2] - 
-confirming again that this patch clearly is an improvement.
+Public
 
-So hope we can move forward with the series soon :)
+Hi Melissa,
 
-Best regards,
+The updated patches passed all my testing this week, so the tested-by can b=
+e added if you'd like.
 
-Robert
+Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
 
-1: https://gitlab.freedesktop.org/wayland/weston/-/merge_requests/2184
+Thank you,
 
-2: https://gitlab.freedesktop.org/rmader/weston/-/pipelines/1731461
+Dan Wheeler
+Sr. Technologist | AMD
+SW Display
+---------------------------------------------------------------------------=
+---------------------------------------
+1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
+amd.com
 
-On 14.08.26 23:18, Harry Wentland wrote:
-> The limited-/studio-range YCbCr to RGB conversion matrices were generated
-> with colour.matrix_YCbCr(is_legal=True, bits=8), which normalises the
-> narrow range by 2^bits (256 for 8-bit) rather than by the full-range
-> maximum 2^bits - 1 (255). As a result the luma scale was 256/219 and the
-> chroma scale 256/224 instead of the correct 255/219 and 255/224.
->
-> This over-scales every limited-range conversion by a factor of 256/255,
-> producing an error of up to ~3/255 (8-bit) and causing IGT tests that
-> compare software-computed surfaces against VKMS-processed ones to fail.
->
-> Recompute the three limited-range matrices from first principles rather
-> than relying on colour's is_legal scaling:
->
->   1. Start from the standard ITU-R YCbCr -> RGB relations for the luma
->      weights Kr, Kb (Kg = 1 - Kr - Kb) of each encoding (BT.601, BT.709
->      and BT.2020 non-constant luminance). These are the same relations
->      that produce the existing full-range matrices.
->   2. Expand the studio input range to full range relative to a full-range
->      maximum of 2^n - 1: the luma coefficient by 255/(235 - 16) and the
->      chroma coefficients by 255/(240 - 16). This matches the DRM UAPI
->      definition and IGT's igt_ycbcr_to_rgb_matrix().
->   3. Convert each coefficient to S31.32 fixed point (round(coeff * 2^32)).
->
-> Update the limited-range reference values in the vkms-format KUnit test
-> accordingly. Provide a python script to show how the kunit test value
-> are calculated.
->
-> Fixes: fe22d21e9342 ("drm/vkms: Add YUV support")
-> Assisted-by: Copilot:claude-opus-4.8
-> Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-> Reviewed-by: Alex Hung <alex.hung@amd.com>
-> Tested-by: Robert Mader <robert.mader@collabora.com>
-> ---
->   .../gpu/drm/vkms/tests/gen_yuv_conversion.py  | 87 +++++++++++++++++++
->   drivers/gpu/drm/vkms/tests/vkms_format_test.c | 38 ++++----
->   drivers/gpu/drm/vkms/vkms_formats.c           | 55 ++++++++----
->   3 files changed, 144 insertions(+), 36 deletions(-)
->   create mode 100755 drivers/gpu/drm/vkms/tests/gen_yuv_conversion.py
->
-> diff --git a/drivers/gpu/drm/vkms/tests/gen_yuv_conversion.py b/drivers/gpu/drm/vkms/tests/gen_yuv_conversion.py
-> new file mode 100755
-> index 000000000000..f4d226137cc2
-> --- /dev/null
-> +++ b/drivers/gpu/drm/vkms/tests/gen_yuv_conversion.py
-> @@ -0,0 +1,87 @@
-> +#!/usr/bin/env python3
-> +# SPDX-License-Identifier: GPL-2.0+
-> +"""
-> +Derive the VKMS YCbCr -> RGB conversion constants and the vkms-format KUnit
-> +reference values.
-> +
-> +It produces:
-> +  1. The S31.32 fixed-point conversion matrices used in
-> +     drivers/gpu/drm/vkms/vkms_formats.c and asserted by
-> +     vkms_format_test_conversion_matrix.
-> +  2. The 16-bit reference YCbCr inputs for the limited-range
-> +     yuv_u16_to_argb_u16 round-trip cases (the values changed by the fix).
-> +
-> +Requires numpy.
-> +"""
-> +
-> +import numpy as np
-> +
-> +FP = 1 << 32                       # S31.32 scale: fixed = round(coeff * 2^32)
-> +
-> +# ITU-R luma weights (Kr, Kb); Kg = 1 - Kr - Kb.
-> +ENCODINGS = {
-> +    "BT601":  (0.299,  0.114),
-> +    "BT709":  (0.2126, 0.0722),
-> +    "BT2020": (0.2627, 0.0593),    # non-constant luminance
-> +}
-> +
-> +# 8-bit studio-range levels: luma 16..235 (range 219), chroma 16..240
-> +# (range 224, neutral 128); full-range maximum is 2^n - 1 = 255.
-> +FULL_MAX = 255
-> +Y_RANGE  = 235 - 16                # 219
-> +C_RANGE  = 240 - 16                # 224
-> +
-> +# 16-bit RGB test colors.
-> +COLORS = {
-> +    "white": (0xffff, 0xffff, 0xffff),
-> +    "gray":  (0x8080, 0x8080, 0x8080),
-> +    "black": (0x0000, 0x0000, 0x0000),
-> +    "red":   (0xffff, 0x0000, 0x0000),
-> +    "green": (0x0000, 0xffff, 0x0000),
-> +    "blue":  (0x0000, 0x0000, 0xffff),
-> +}
-> +
-> +
-> +def rgb_matrix(kr, kb, limited):
-> +    """Normalized YCbCr -> RGB (Y in [0,1], Cb/Cr in [-0.5, 0.5])."""
-> +    kg = 1.0 - kr - kb
-> +    # Standard full-range relations.
-> +    m = [[1.0,  0.0,                     2 * (1 - kr)],
-> +         [1.0, -2 * (1 - kb) * kb / kg, -2 * (1 - kr) * kr / kg],
-> +         [1.0,  2 * (1 - kb),            0.0]]
-> +    if limited:
-> +        # Expand studio input range to full range: luma by 255/219,
-> +        # chroma by 255/224 (relative to full-range maximum 2^n - 1).
-> +        ys, cs = FULL_MAX / Y_RANGE, FULL_MAX / C_RANGE
-> +        m = [[r[0] * ys, r[1] * cs, r[2] * cs] for r in m]
-> +    return m
-> +
-> +
-> +def ref_yuv(m, y_offset):
-> +    """16-bit YCbCr that VKMS decodes back to each RGB color.
-> +
-> +    VKMS decode: [R,G,B] = M . [Y - y_offset*257, Cb - 128*257, Cr - 128*257]
-> +    (8-bit offsets lifted to 16-bit by *257 = 65535/255), so invert and
-> +    re-add the offsets.
-> +    """
-> +    inv = np.linalg.inv(np.array(m, float))
-> +    off = np.array([y_offset * 257, 128 * 257, 128 * 257])
-> +    return {name: tuple(int(min(max(round(v), 0), 0xffff))
-> +                        for v in inv @ np.array(rgb, float) + off)
-> +            for name, rgb in COLORS.items()}
-> +
-> +print(f"== RGB REFERENCE VALUES ==")
-> +for name, rgb in COLORS.items():
-> +    print(f"    {name:6} {{ {rgb[0]:#06x}, {rgb[1]:#06x}, {rgb[2]:#06x} }}")
-> +print()
-> +
-> +for enc, (kr, kb) in ENCODINGS.items():
-> +    for limited in (False, True):
-> +        m = rgb_matrix(kr, kb, limited)
-> +        y_offset = 16 if limited else 0
-> +        print(f"== {enc} {'LIMITED' if limited else 'FULL'} (y_offset={y_offset}) ==")
-> +        for row in m:
-> +            print("    { " + ", ".join(str(round(v * FP)) for v in row) + " },")
-> +        for name, yuv in ref_yuv(m, y_offset).items():
-> +            print(f"    {name:6} {{ {yuv[0]:#06x}, {yuv[1]:#06x}, {yuv[2]:#06x} }}")
-> +        print()
-> diff --git a/drivers/gpu/drm/vkms/tests/vkms_format_test.c b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-> index a7788fbc45dc..d2ae6321383b 100644
-> --- a/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-> +++ b/drivers/gpu/drm/vkms/tests/vkms_format_test.c
-> @@ -54,6 +54,8 @@ struct yuv_u16_to_argb_u16_case {
->    * The YUV color representation were acquired via the colour python framework.
->    * Below are the function calls used for generating each case.
->    *
-> + * The limited-range cases are generated by gen_yuv_conversion.py.
-> + *
->    * For more information got to the docs:
->    * https://colour.readthedocs.io/en/master/generated/colour.RGB_to_YCbCr.html
->    */
-> @@ -101,12 +103,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
->   		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
->   		.n_colors = 6,
->   		.colors = {
-> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-> -			{ "red",   { 0x517b, 0x5a34, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-> -			{ "green", { 0x908e, 0x35cc, 0x2237 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-> -			{ "blue",  { 0x28f7, 0xf000, 0x6dc9 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
-> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-> +			{ "red",   { 0x51cd, 0x5a8e, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-> +			{ "green", { 0x911e, 0x3602, 0x2259 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-> +			{ "blue",  { 0x2920, 0xf0f0, 0x6e37 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
->   		}
->   	},
->   	/*
-> @@ -151,12 +153,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
->   		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
->   		.n_colors = 6,
->   		.colors = {
-> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-> -			{ "red",   { 0x3e8f, 0x6656, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-> -			{ "green", { 0xaca1, 0x29aa, 0x1a45 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-> -			{ "blue",  { 0x1fd0, 0xf000, 0x75bb }, { 0xffff, 0x0000, 0x0000, 0xffff }},
-> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-> +			{ "red",   { 0x3ece, 0x66bc, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-> +			{ "green", { 0xad4e, 0x29d4, 0x1a5f }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-> +			{ "blue",  { 0x1ff0, 0xf0f0, 0x7631 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
->   		}
->   	},
->   	/*
-> @@ -201,12 +203,12 @@ static struct yuv_u16_to_argb_u16_case yuv_u16_to_argb_u16_cases[] = {
->   		.range = DRM_COLOR_YCBCR_LIMITED_RANGE,
->   		.n_colors = 6,
->   		.colors = {
-> -			{ "white", { 0xeb00, 0x8000, 0x8000 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-> -			{ "gray",  { 0x7dee, 0x8000, 0x8000 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-> -			{ "black", { 0x1000, 0x8000, 0x8000 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-> -			{ "red",   { 0x4988, 0x60b9, 0xf000 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-> -			{ "green", { 0xa47b, 0x2f47, 0x1902 }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-> -			{ "blue",  { 0x1cfd, 0xf000, 0x76fe }, { 0xffff, 0x0000, 0x0000, 0xffff }},
-> +			{ "white", { 0xebeb, 0x8080, 0x8080 }, { 0xffff, 0xffff, 0xffff, 0xffff }},
-> +			{ "gray",  { 0x7e6c, 0x8080, 0x8080 }, { 0xffff, 0x8080, 0x8080, 0x8080 }},
-> +			{ "black", { 0x1010, 0x8080, 0x8080 }, { 0xffff, 0x0000, 0x0000, 0x0000 }},
-> +			{ "red",   { 0x49d2, 0x611a, 0xf0f0 }, { 0xffff, 0xffff, 0x0000, 0x0000 }},
-> +			{ "green", { 0xa520, 0x2f76, 0x191b }, { 0xffff, 0x0000, 0xffff, 0x0000 }},
-> +			{ "blue",  { 0x1d1a, 0xf0f0, 0x7775 }, { 0xffff, 0x0000, 0x0000, 0xffff }},
->   		}
->   	},
->   };
-> diff --git a/drivers/gpu/drm/vkms/vkms_formats.c b/drivers/gpu/drm/vkms/vkms_formats.c
-> index dfb8e13cba87..4d5fcaeb82c5 100644
-> --- a/drivers/gpu/drm/vkms/vkms_formats.c
-> +++ b/drivers/gpu/drm/vkms/vkms_formats.c
-> @@ -788,15 +788,36 @@ static const struct conversion_matrix yuv_bt601_full = {
->   };
->   
->   /*
-> - * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.601"],
-> - *                                  is_legal = True,
-> - *                                  bits = 8) * 2**32).astype(int)
-> + * BT.601 limited-/studio-range YCbCr to full-range RGB.
-> + *
-> + * The coefficients are derived as follows:
-> + *
-> + *  1. Take the standard ITU-R YCbCr -> RGB relations for luma weights
-> + *     Kr, Kb (Kg = 1 - Kr - Kb), with Y in [0, 1] and Cb, Cr in
-> + *     [-0.5, 0.5]. For BT.601 Kr = 0.299 and Kb = 0.114:
-> + *
-> + *       R = Y                                + 2 * (1 - Kr)          * Cr
-> + *       G = Y - 2 * (1 - Kb) * Kb / Kg * Cb - 2 * (1 - Kr) * Kr / Kg * Cr
-> + *       B = Y + 2 * (1 - Kb)          * Cb
-> + *
-> + *     These are exactly the yuv_bt601_full coefficients above.
-> + *
-> + *  2. Expand the studio input range to full range, relative to a
-> + *     full-range maximum of 2^n - 1 (255 for 8-bit): the luma
-> + *     coefficient is scaled by 255/(235 - 16) and the chroma
-> + *     coefficients by 255/(240 - 16). This matches the DRM UAPI
-> + *     definition and IGT's igt_ycbcr_to_rgb_matrix(). Note this differs
-> + *     from colour.matrix_YCbCr(is_legal=True), which normalises by 2^n
-> + *     and is thus off by a factor of 256/255.
-> + *
-> + *  3. Convert each coefficient to S31.32 fixed point, i.e.
-> + *     round(coeff * 2^32).
->    */
->   static const struct conversion_matrix yuv_bt601_limited = {
->   	.matrix = {
-> -		{ 5020601039, 0,           6881764740 },
-> -		{ 5020601039, -1689204679, -3505362278 },
-> -		{ 5020601039, 8697922339,  0 },
-> +		{ 5000989317, 0,           6854882848 },
-> +		{ 5000989317, -1682606224, -3491669458 },
-> +		{ 5000989317, 8663946082,  0 },
->   	},
->   	.y_offset = 16,
->   };
-> @@ -816,15 +837,14 @@ static const struct conversion_matrix yuv_bt709_full = {
->   };
->   
->   /*
-> - * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.709"],
-> - *                                  is_legal = True,
-> - *                                  bits = 8) * 2**32).astype(int)
-> + * BT.709 limited-range YCbCr to full-range RGB (Kr = 0.2126, Kb = 0.0722).
-> + * Derived as described for yuv_bt601_limited.
->    */
->   static const struct conversion_matrix yuv_bt709_limited = {
->   	.matrix = {
-> -		{ 5020601039, 0,          7729959424 },
-> -		{ 5020601039, -919487572, -2297803934 },
-> -		{ 5020601039, 9108275786, 0 },
-> +		{ 5000989317, 0,          7699764272 },
-> +		{ 5000989317, -915895824, -2288828138 },
-> +		{ 5000989317, 9072696586, 0 },
->   	},
->   	.y_offset = 16,
->   };
-> @@ -844,15 +864,14 @@ static const struct conversion_matrix yuv_bt2020_full = {
->   };
->   
->   /*
-> - * numpy.around(colour.matrix_YCbCr(K=colour.WEIGHTS_YCBCR["ITU-R BT.2020"],
-> - *                                  is_legal = True,
-> - *                                  bits = 8) * 2**32).astype(int)
-> + * BT.2020 non-constant-luminance limited-range YCbCr to full-range RGB
-> + * (Kr = 0.2627, Kb = 0.0593). Derived as described for yuv_bt601_limited.
->    */
->   static const struct conversion_matrix yuv_bt2020_limited = {
->   	.matrix = {
-> -		{ 5020601039, 0,          7238124312 },
-> -		{ 5020601039, -807714626, -2804506279 },
-> -		{ 5020601039, 9234915964, 0 },
-> +		{ 5000989317, 0,          7209850391 },
-> +		{ 5000989317, -804559491, -2793551177 },
-> +		{ 5000989317, 9198842076, 0 },
->   	},
->   	.y_offset = 16,
->   };
 
--- 
-Robert Mader
-Consultant Software Developer
+-----Original Message-----
+From: Melissa Wen <mwen@igalia.com>
+Sent: Thursday, August 13, 2026 10:30 AM
+To: airlied@gmail.com; Deucher, Alexander <Alexander.Deucher@amd.com>; Koen=
+ig, Christian <Christian.Koenig@amd.com>; daniels@collabora.com; Wentland, =
+Harry <Harry.Wentland@amd.com>; leandro.ribeiro@collabora.com; maarten.lank=
+horst@linux.intel.com; mripard@kernel.org; pekka.paalanen@collabora.com; si=
+mona@ffwll.ch; siqueira@igalia.com; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>=
+; tzimmermann@suse.de
+Cc: Hung, Alex <Alex.Hung@amd.com>; Wheeler, Daniel <Daniel.Wheeler@amd.com=
+>; kernel-dev@igalia.com; Lyude Paul <lyude@redhat.com>; amd-gfx@lists.free=
+desktop.org; dri-devel@lists.freedesktop.org
+Subject: [PATCH v3 0/3] drm/atomic-state-helper: fixes for blend-mode-prop =
+warning
 
-Collabora Ltd.
-Platinum Building, St John's Innovation Park, Cambridge CB4 0DS, UK
-Registered in England & Wales, no. 5513718
+PREMULTI was the default DRM blend mode until 9813e158d13d
+("drm/drm_blend: allow blend mode property without PREMULTI") introduced th=
+e possibility of exposing the blend mode property without PREMULTI being su=
+pported. However, __drm_atomic_helper_plane_state_init() still resets pixel=
+_blend_mode to PREMULTI (hardcoded), ignoring the supported mode in this pr=
+operty. In the same series, 860e748bddcc ("drm: ensure blend mode supported=
+ if pixel format with alpha exposed") starts warning drivers that supports =
+alpha formats in a given planes but doesn't support blend mode property, wh=
+ich includes AMD primary and cursor planes.
+
+For AMD DCN families, overlay and primary planes support the three blend mo=
+des, and therefore PREMULTI is still the default mode. So the warning can b=
+e fixed by just creating blend mode properties for primary planes too. PREM=
+ULTI is the default/unique mode for cursor planes in DCN and DCE driver. Ho=
+wever, looks like PIXEL_NONE is the unique blend mode supported by DCE-gene=
+ration driver. I don't have the hardware to check it out, but looking at th=
+e code I understand that, even if the hardware can do PREMULTI or COVERAGE,=
+ the way it programs registers doesn't make these other blend modes actuall=
+y available.
+
+Bearing this in mind, this series is organized as follow:
+
+- Patch 1 fixes the pixel_blend_mode reset when the blend mode property
+  is advertised without PREMULTI support. It's needed for AMD
+  DCE-generation (patch 3) and I think with this we can also remove a
+  workaround in nouveau nv50_wndw_default_state() caused by the
+  hardcoded PREMULTI default value [1].
+
+- Patch 2 fixes the missing-blend-mode-property warning for DCN primary
+  plane and for DCN+DCE cursor plane. The alpha property keeps only on
+  overlay planes because looks like this is not supported by AMD primary
+  planes and it doesn't affect the blend mode warning we are targetting.
+  Enabling alpha properties to primary was also causing -EINVAL on IGT
+  alpha tests because it started testing primary planes and disabling it
+  (which is not allowed by the AMD display driver).
+
+- Patch 3 fixes the warning for DCE primary plane, but I detached this
+  solution from the previous patch because I don't have hardware to
+  validate if my assumption about PIXEL_NONE-only is correct.
+
+[1] https://lore.kernel.org/dri-devel/20260720215058.398210-3-lyude@redhat.=
+com/
+
+[v1]: https://lore.kernel.org/dri-devel/20260722183240.626522-1-mwen@igalia=
+.com/
+Changes:
+- new patch for pixel_blend_mode default value other than PREMULTI.
+- remove DCE11 which supports per_pixel_alpha but doesn't support DCN_UNIVE=
+RSAL_PLANE.
+- new patch for the primary plane blend mode on DCE-generations
+
+[v2]: https://lore.kernel.org/dri-devel/20260804140758.107683-1-mwen@igalia=
+.com/
+Changes:
+- keep alpha property only for overlay planes (looks like primary plane
+  doesn't actually support it) - alpha prop in primary planes causes IGT
+  test failures with RX 7900 XT on a 4k60 HP U27 as reported by Daniel
+  Wheeler.
+- improve readability of if conditions (Alex H)
+- add Leandro's r-b tags.
+
+Best Regards,
+
+Melissa
+
+Melissa Wen (3):
+  drm/atomic-state-helper: set pixel_blend_mode to prop default on reset
+  drm/amd/display: fix missing blend-mode-prop warning for DCN
+  drm/amd/display: advertise PIXEL_NONE as blend mode for DCE generations
+
+ .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 25 ++++++++++++++++---
+ drivers/gpu/drm/drm_atomic_state_helper.c     |  7 ++++++
+ 2 files changed, 29 insertions(+), 3 deletions(-)
+
+--
+2.53.0
 
