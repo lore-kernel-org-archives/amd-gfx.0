@@ -4,68 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 77E36C5DF7D
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 19:55:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C252FC5DF8C
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 19:55:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 13EFB10F507;
-	Fri, 21 Aug 2026 19:55:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50E9710F4FE;
+	Fri, 21 Aug 2026 19:55:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CRxT7S4y";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xLbDde9R";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012066.outbound.protection.outlook.com
- [40.107.200.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 75CBA10F4FE
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 19:55:34 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011014.outbound.protection.outlook.com [52.101.57.14])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9225C10F4FE
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 19:55:43 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yX6MC7AupWdQfgxczalOBinKpUWpYELHM/Chl97MZSYSWHu1ha9XnsnOMzXOY+v19rVHzJpiyKYPJRN+++/Jg5kWIRF4skkiJdxUbk2oJpoP9utkAdibjHkiam+gatJqcCmJf2DkiC2sDGstQo4sN5wiEKYcakNZ0f691SgaCmglqrChmvgrPA0UhIjgQW/7BAIP969jjdfzd9pZYp5LGSvCUT7wCHVCY+4zG0lBrVcQm6beubw26O8hLCy0uOTXRRJIZ6AktI0L+JD+Z/NMK2lsdgr/KYLgIJBrNDKG6atBgc/U4Lt2x5BbJQTs6pJannauMGOTXmj2+URg/8H8IQ==
+ b=bemUgWL5wu2HUYa75dBpjna1AUdiCBTeDPyoNHSf3JQUZPDcjaeULp2P6U+KzHfUc+zaDw9FbM+MzBSvZuBnnTOp+98on6nk8kuWoynGqIc7fRCEUbAZNEo9ZySgOPQ1sYlyvUld1wp01NtpG6KDq7UbvqaSNvmiI+n1G74A44TC9lHDUO/6zwrbmWpQPZgvHOWEri/NiWO/QLjbbjcR+QVKuh9Nca5S8wpNWnDGpD1xLGfal9T35Hk6dbUnuq46kqBBNW26g6ZYPToCS8rpZ1lxpqEKDWgMxxsDk8qJwR+NpM+LTqYumnm7mPmyS5tUJeA4e56qNKNVhfb0EyiekA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f4HTOLyHpSt+Q1EqICoDZv3Qi2LvB0Ga5V2yvb4Cu6g=;
- b=fvzNDG/kGwRYERYliRSJfkXtd54Ry9nY64Q5f49INNWyXflA8G7UwyW1U7j2BXM2FByBrtC8WoPxM7uT6pgJhexAnaHOom1UmUUrfdITP/v+2XuY7UgauG/gqnHac8CdHsqRpTqjF77pV7FG1C8qG3VhnZFQ1C7ghvpocy3KR0cERVLCMUyg8bEOwR/zwW0JbVEvZOSltBEYryM37MPVOMekPR4DgVlWpMMfpIrLL4ZswGYjF0k556Yx8pPJolJDRq+ENdtdz+C8/LPFue4ORwwebXiadXy+cWryln8oU6JcPx2ocl0su+S+bkgz8KDaEEh0qmN/dPnQIW2b14bWgg==
+ bh=FtIiEreYZ6AB0xuXnsf+4ICI9TPSMeduBLfl+K03Hfw=;
+ b=Tzs63+7fwQtkrLIEzy1UUe65EX7y0cYjjJXVCZHPF0EJn2zb5HV7LYjB+lYmHF2rLwZLJWfa4za6bnUcnRCQHvCGhn7Pa3TaAuA+9ycEKYZJDRtPXEyXG4l8N9lqStj2VvJplmiKwUCZZeneO3tV87M3a6dMSaOx5uq01EpFaVsdK05IAm0zrKVt+x155yYKF7AmpFGQaORkBzTtJaK7f7+4w5usW4H5FrtY006lfNHiuWgGeGUvmHocBfa9RDpMfm//4tj7O/6KiDdwFw80DjMNBrfbyEXEnX3qvxFGSEG6Isa7FKhD5h7Ny2M6wpB7syThENcEdCk3KtSr8a4jiA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f4HTOLyHpSt+Q1EqICoDZv3Qi2LvB0Ga5V2yvb4Cu6g=;
- b=CRxT7S4yq/ppfuN1AuKVadUWb/7ll8ftgWG9vrkAWnPS9njoDZckeZ9J7CB7shOIV4ekR6dGMpG9NrL2IlTWXx4KYSwqjUNmTTrmDBtlEW2xaMcDr0wM8Y9XDkWGZH/mM/hjcTAc1puINqqRmIHbKU1Cw1hq3zLrz2wrmX2Ej8I=
-Received: from CH5P222CA0009.NAMP222.PROD.OUTLOOK.COM (2603:10b6:610:1ee::25)
- by CY8PR12MB7340.namprd12.prod.outlook.com (2603:10b6:930:50::16)
+ bh=FtIiEreYZ6AB0xuXnsf+4ICI9TPSMeduBLfl+K03Hfw=;
+ b=xLbDde9RPCQy6XVOmTxIwNjgaQRrnj6ovm1nybIvVtI7QEN0XPvRI+BNYIc6jFJ3R+BtPFm/WIN40F5dHgoAzhDzPMvgQ9+A05BDYcBxHT0oAzC0Sk6yT7mB1LoBa582eI9K1olqv9AILLf1FGHestal5dHocYKAKD5oimRqQv8=
+Received: from SJ0PR03CA0234.namprd03.prod.outlook.com (2603:10b6:a03:39f::29)
+ by CH2PR12MB4312.namprd12.prod.outlook.com (2603:10b6:610:af::14)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Fri, 21 Aug
- 2026 19:35:20 +0000
-Received: from CH1PEPF0000AD7E.namprd04.prod.outlook.com
- (2603:10b6:610:1ee:cafe::25) by CH5P222CA0009.outlook.office365.com
- (2603:10b6:610:1ee::25) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
+ 2026 19:35:42 +0000
+Received: from CO1PEPF000066E6.namprd05.prod.outlook.com
+ (2603:10b6:a03:39f:cafe::7d) by SJ0PR03CA0234.outlook.office365.com
+ (2603:10b6:a03:39f::29) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
- 21 Aug 2026 19:35:20 +0000
+ 21 Aug 2026 19:35:41 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000AD7E.mail.protection.outlook.com (10.167.244.87) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CO1PEPF000066E6.mail.protection.outlook.com (10.167.249.4) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 19:35:18 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 19:35:41 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 14:35:14 -0500
+ 2026 14:35:33 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
+ 2026 14:35:33 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 21 Aug 2026 14:35:13 -0500
+ Transport; Fri, 21 Aug 2026 14:35:32 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Felix Kuehling <felix.kuehling@amd.com>, Mukul Joshi
- <mukul.joshi@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 04/95] drm/amdgpu: Add sysfs API for UALink physical pod setup
-Date: Fri, 21 Aug 2026 15:33:27 -0400
-Message-ID: <20260821193458.808626-5-alexander.deucher@amd.com>
+CC: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling
+ <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 35/95] drm/amdgpu: Add UALink SDMA scheduler entities
+Date: Fri, 21 Aug 2026 15:33:58 -0400
+Message-ID: <20260821193458.808626-36-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260821193458.808626-1-alexander.deucher@amd.com>
 References: <20260821193458.808626-1-alexander.deucher@amd.com>
@@ -74,29 +77,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7E:EE_|CY8PR12MB7340:EE_
-X-MS-Office365-Filtering-Correlation-Id: 244fefc1-74cd-480d-a91d-08deffbb5533
+X-MS-TrafficTypeDiagnostic: CO1PEPF000066E6:EE_|CH2PR12MB4312:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6a8cf1ef-560d-47e2-ed6e-08deffbb6300
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700016|1800799024|23010399003|10067099003|22082099003|18002099003|11063799006|56012099006|6133799003;
-X-Microsoft-Antispam-Message-Info: zIf7SfEO5oyXAouf6wMgi5ZWmD1xC1yx8WGgKX/UCqZO+iSDAdyFOS4lMwHjKOkYpAhCJweKVyE66D5GwZfyuqrJ3D/cZxTthxYX84YtdyVaehVrGgwoszXKL0fAAQgvG0RFVWs57A/c2vUkNGAnH7i05iLpGelZa70hj+eJuigjtEdSdMw5joosTb8AeWxjWmgnY6I1G0GktHEQ9buoZ4kO3dI8aTNpnW+Oe7tmLKjUYwTLzD8AQMJr2MV1HH3eTu4D6iWvIIC53uSxMpMCWVvYMlO9E1KLPBnHUAoJGLVhUlwr7zTq7YhnRoJNtwNvaH/cd8p7HtaA3foMErLTR1Wd+1Vo+576YLMfqeohHPPam037VgnkeyHJSP6maKdi/MR1Sj4SNPqL/gLfdYNyVk9PdqyCR6WjXz2liTjEw7DutVQ6cUYG3rs5coA1tezggo0zaU0WEwsvWAVnlJqv28lt2N1GGKM/kpzWM5iHS1H7lpOOHBfN/oPUwK+TdVgbD/yhMwVMo8i98P+ZsiqalGClrz7mm2YKVKMV1JzZp40rnxFNywjBnotceOPBL4jatN1AGqHpun18KgNqmfBAO+PdntAhsXNLkXyZpWdYgP1XYjPnbARDVfzpL2GxtyUM1bmOOys9SbRQhN+jYUEhdQHHYZ1VPDRT28mQ0kUgvIiogXdI8R0lGpKbt51rUtiboOQ6q+sZJt/fV0clLGJdyQ==
+ ARA:13230040|82310400026|23010399003|1800799024|36860700016|376014|56012099006|10067099003|3023799007|18002099003|22082099003|11063799006;
+X-Microsoft-Antispam-Message-Info: C/qE5Nni5NP1+hGQ++8qmqp6RijGZ6AI3syiqvbMM3GedD+VaFL5sC8X1ej5wnimAFhjsPHNw1FHmtc2JnIHbeSVsMOJmLELho86ZBTfWao0GtRJR6HhvD75wIHu6B1DVZrN/P/8DtvQO8O2dd3hBlKbvtSRo8UIdqP7MlWvHG7bMy6NkrGQR0xo9tVO23PTWw/6ffEftEVCIZ2adWY2mhWdED/wo4r6a78CUghV5PfVc4sDaPPquM7e//bmkMYF6th6kNqhRXgAzLcBkwbMUD9AJ6b7X2rqrdwHuuSjOdyHa2SqoYyvkgYCfdSxKPgR1P5v2DkM3syHukFm8L8kaVygNPDDmWpBKTIBEFOZxL0sTJGYkj108XN4hvfkE5rE4OPfRv+RA+mLxzM4P10c0l5iEjXPjt4tYfarx1u/+wk0IMG5iAYM456d95nEfSYEiU7sDZte5MAO4KTKFcpIXCXFw0OlRRdnJ1gDlmJZHlqAdb6conboDWVDQyoC6nxLvXoD/b53GxhLNK3pyWFTvMSq5bD/lE/E3219sG5aGZacJL3C5UFdux9Rg+3DwLNKAOW3zXyMLnUWNRTqY2RfYX6KTz3dxHNyEohsbYYe+EkNrYWqW+qTL9sNlohs2HeEwHdkUc8XhXrJIRsj+7QOZskw69AGXWF2FJx+/F31tMT022NfK/4NZvppdVAUF2cjxMMGHoUDyoT24aeE8t85lg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700016)(1800799024)(23010399003)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006)(6133799003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(23010399003)(1800799024)(36860700016)(376014)(56012099006)(10067099003)(3023799007)(18002099003)(22082099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Rt1BbADTgUJf4R0j7ekkH98yGIvatnHf7ToBbOKv62x6dCCQU9gfkj/IlDvVSZr9tVgKN5WowTup+3Ll0VvT0OSs5alh8/dvuWHSf6VEFvchPG4eAMLDjxpd3rdVF9Tft5XrVYTSGe5wzq6V/JyQAIuN2Wb5HR6/m735Je6ReSPUnKzEGLDND5RHZAiTkBJbtOHjAI3Fyi+ECzyc/yeuM6Kwp9F7/yKFXsQEQl/AmFssNsMya5euOZphdewhJ95C9ddKvT/lzAW8YgIdNbEVKF8GS2wYau5MJKMyXmdOcZ1MVK/gxSFYYcQ+cGvdHDmbfLjJyqRkjnekmI3VzMcsAC6M1bjYNqRWEumQU0ggqdPZ2vUN50xUh9PbHdhPQUgynkK9O2G4l3qcuxbzJ+ixAUSFB4hpHL6sYzQfeicoFeIpTAHsFc67gTxeSjZc3VBv
+X-MS-Exchange-AntiSpam-MessageData-0: gxy3EQuzR8vQ114Iq/jB0iazyRoy/L/Hy8vV0yM6SiFSIByd0MU2okS/cVlTdlZ47BG8lOHbm2Zh2upLIzx5GvJxxypOL3UaBZm5YeTJU7hqfEc4Lw6oOpC4PY1a8LmyLYcwTPGiS6MeESwXjn0faSpS0D4MtixUV2u1WjKgKZQGfjjU/GF8MTIEHjEdTMkauziW0qrcmHflxLhjQ2ybxGfYJQz8fltixghGs9BMoP2MmAzY5xDHGLMrPUPXBwRAg1ACiVm/P0ePZ8pAnRC4x3pZQ9ThaJb3xMekzXZr7gu1cfduq/dx6efsTS9wl71iubp2V8UEAZi7Ri5SMg53i7WUJDaRECvEdkM9BZ0taSjHsUG1+pBAd3qPOpKpzZYPBhgkpobldw75K+dNpKKUuoSQLiu1EWZ5M/T6gr2g0gwBVY3P+aLGPAOFvM3I8p+T
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 19:35:18.6041 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 244fefc1-74cd-480d-a91d-08deffbb5533
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 19:35:41.7148 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6a8cf1ef-560d-47e2-ed6e-08deffbb6300
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7E.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000066E6.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7340
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4312
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,296 +114,80 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Felix Kuehling <felix.kuehling@amd.com>
+From: Philip Yang <Philip.Yang@amd.com>
 
-<device>/ualink/setup: Directory for staging physical pod setup
-attributes. Write "true" to commit to apply settings
+Allocate one GPU scheduler entity per SDMA instance for remote command
+dispatch. Commands to the same peer are serialized through one entity;
+different peers can be targeted concurrently by different SDMA engines.
 
-Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
-Reviewed-by: Mukul Joshi <mukul.joshi@amd.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 201 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h |  11 ++
- 2 files changed, 212 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 53 ++++++++++++++++++++++
+ 1 file changed, 53 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 374242372eab7..6c9905b15e93d 100644
+index 191b45a51024a..abbb24330c0af 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -46,6 +46,19 @@ static ssize_t ualink_##prefix##_##name##_show(struct kobject *kobj,	\
- 									\
- 	return sysfs_emit(buf, format"\n", info->field);		\
- }
-+#define UALINK_VALUE_STORE(prefix, name, field, type, base)		\
-+static ssize_t ualink_##prefix##_##name##_store(struct kobject *kobj,	\
-+						struct kobj_attribute *attr,\
-+						const char *buf, size_t count)\
-+{									\
-+	struct amdgpu_ualink_##prefix *info = to_ualink_##prefix(kobj);	\
-+	int r;								\
-+									\
-+	r = kstrto##type(buf, base, &info->field);			\
-+	if (r < 0)							\
-+		return r;						\
-+	return count;							\
-+}
- 
- static ssize_t show_idbits(unsigned long *bits, unsigned int nbits, char *buf)
- {
-@@ -89,6 +102,65 @@ static ssize_t ualink_##prefix##_##name##_show(struct kobject *kobj,	\
- 	return show_idarray(info->field, info->size, buf);		\
+@@ -1962,3 +1962,56 @@ static int amdgpu_ualink_metadata_npa_mapping(struct amdgpu_device *adev)
+ 	return r;
  }
  
-+static ssize_t store_idarray(u32 *array, u32 *size, u32 max_id, u32 max_size,
-+			     const char *buf, size_t count)
++/**
++ * amdgpu_ualink_sdma_entities_init - Initialize SDMA job scheduler entities
++ * @adev: amdgpu device pointer
++ *
++ * Sets up SDMA job scheduler entities for remote interrupt and shootdown.
++ * Each entity uses one SDMA scheduler/ring.
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++static int amdgpu_ualink_sdma_entities_init(struct amdgpu_device *adev)
 +{
-+	char *dup_buf, *str, *tok;
-+	unsigned int index = 0;
-+	ssize_t r;
-+	u32 id;
++	struct amdgpu_ualink_remote *remote = to_remote(adev);
++	struct drm_gpu_scheduler *sched;
++	u32 accel_id;
++	int i = 0, r;
 +
-+	*size = 0;
-+	if (!count)
-+		return 0;
++	dev_dbg(adev->dev, "enter\n");
 +
-+	dup_buf = kstrndup(buf, count, GFP_KERNEL);
-+	if (unlikely(!dup_buf))
-+		return -ENOMEM;
-+	str = dup_buf;
-+	do {
-+		str += strspn(str, " ");
-+		tok = strsep(&str, ", ");
-+		r = kstrtou32(tok, 10, &id);
-+		if (r < 0)
-+			goto err;
-+		if (index >= max_size) {
-+			r = -ENOSPC;
-+			goto err;
-+		}
-+		if (id >= max_id) {
-+			r = -ERANGE;
-+			goto err;
-+		}
-+		array[index++] = id;
-+	} while (str);
-+	kfree(dup_buf);
++	for_each_set_bit(accel_id, remote->active_accel_bits, AMDGPU_UALINK_ACCEL_MAX) {
++		sched = &adev->sdma.instance[accel_id % adev->sdma.num_instances].ring.sched;
 +
-+	*size = index;
-+	return count;
++		r = drm_sched_entity_init(&remote->peer[accel_id].entity, DRM_SCHED_PRIORITY_HIGH,
++					  &sched, 1, NULL);
++		if (r)
++			goto out_free;
++		i++;
++	}
 +
-+err:
-+	kfree(dup_buf);
++	dev_dbg(adev->dev, "exit\n");
++	return 0;
++
++out_free:
++	for_each_set_bit(accel_id, remote->active_accel_bits, AMDGPU_UALINK_ACCEL_MAX) {
++		if (i--)
++			drm_sched_entity_destroy(&remote->peer[accel_id].entity);
++		else
++			break;
++	}
++
 +	return r;
 +}
-+#define UALINK_IDARRAY_STORE(prefix, name, field, size, max_id)		\
-+static ssize_t ualink_##prefix##_##name##_store(struct kobject *kobj,	\
-+						struct kobj_attribute *attr,\
-+						const char *buf, size_t count)\
-+{									\
-+	struct amdgpu_ualink_##prefix *info = to_ualink_##prefix(kobj);	\
-+	u32 new_array[ARRAY_SIZE(info->field)];				\
-+	u32 new_size;							\
-+	ssize_t r = store_idarray(new_array, &new_size, max_id,		\
-+				  ARRAY_SIZE(new_array), buf, count);	\
-+									\
-+	if (r >= 0) {							\
-+		memcpy(info->field, new_array, sizeof(new_array));	\
-+		info->size = new_size;					\
-+	}								\
-+	return r;							\
-+}
 +
- #define UALINK_UUID_SHOW(prefix, name, field)				\
- static ssize_t ualink_##prefix##_##name##_show(struct kobject *kobj,	\
- 					       struct kobj_attribute *attr,\
-@@ -98,6 +170,17 @@ static ssize_t ualink_##prefix##_##name##_show(struct kobject *kobj,	\
- 									\
- 	return sysfs_emit(buf, "%pU\n", &info->field);			\
- }
-+#define UALINK_UUID_STORE(prefix, name, field)				\
-+static ssize_t ualink_##prefix##_##name##_store(struct kobject *kobj,	\
-+						struct kobj_attribute *attr,\
-+						const char *buf, size_t count)\
-+{									\
-+	struct amdgpu_ualink_##prefix *info = to_ualink_##prefix(kobj);	\
-+	int r;								\
-+									\
-+	r = uuid_parse(buf, &info->field);				\
-+	return r ? r : count;						\
-+}
- 
- static ssize_t show_enum(u32 x, const char * const values[], unsigned int n,
- 			 char *buf)
-@@ -180,8 +263,99 @@ static const struct kobj_type ualink_info_ktype = {
- 	.sysfs_ops = &kobj_sysfs_ops
- };
- 
-+UALINK_VALUE_SHOW(ppod_setup, accel_id,  ppod.accel_id,  "%u");
-+UALINK_VALUE_SHOW(ppod_setup, bandwidth, ppod.bandwidth, "%u");
-+UALINK_VALUE_SHOW(ppod_setup, latency,   ppod.latency,   "%u");
-+UALINK_UUID_SHOW(ppod_setup, ppod_id, ppod.id);
-+UALINK_VALUE_SHOW(ppod_setup, ppod_size, ppod.size,      "%u");
-+UALINK_IDARRAY_SHOW(ppod_setup, local_accels, local_accels, n_local_accels);
-+
-+UALINK_VALUE_STORE(ppod_setup, accel_id,  ppod.accel_id,  u32, 10);
-+UALINK_VALUE_STORE(ppod_setup, bandwidth, ppod.bandwidth, u32, 10);
-+UALINK_VALUE_STORE(ppod_setup, latency,   ppod.latency,   u32, 10);
-+UALINK_UUID_STORE(ppod_setup, ppod_id,   ppod.id);
-+UALINK_VALUE_STORE(ppod_setup, ppod_size, ppod.size,      u32, 10);
-+UALINK_IDARRAY_STORE(ppod_setup, local_accels, local_accels, n_local_accels,
-+		     AMDGPU_UALINK_ACCEL_MAX);
-+
-+static enum amdgpu_ualink_accel_state
-+check_ppod_state(struct amdgpu_device *adev,
-+		 const struct amdgpu_ualink_ppod_setup *setup)
++static void amdgpu_ualink_sdma_entities_fini(struct amdgpu_device *adev)
 +{
-+	if (setup->ppod.size <= 0 || setup->ppod.size > AMDGPU_UALINK_ACCEL_MAX) {
-+		dev_dbg(adev->dev, "pPod size %u out of range [1..%u]\n",
-+			setup->ppod.size, AMDGPU_UALINK_ACCEL_MAX);
-+		return AMDGPU_UALINK_ACCEL_STATE_UNCONFIGURED;
-+	}
-+	if (setup->ppod.accel_id >= setup->ppod.size) {
-+		dev_dbg(adev->dev, "Accelerator ID %u greater or equal pPod size %u\n",
-+			setup->ppod.accel_id, setup->ppod.size);
-+		return AMDGPU_UALINK_ACCEL_STATE_UNCONFIGURED;
-+	}
-+	return AMDGPU_UALINK_ACCEL_STATE_CONFIGURED;
++	struct amdgpu_ualink_remote *remote = to_remote(adev);
++	u32 accel_id;
++
++	dev_dbg(adev->dev, "enter\n");
++	for_each_set_bit(accel_id, remote->active_accel_bits, AMDGPU_UALINK_ACCEL_MAX)
++		drm_sched_entity_destroy(&remote->peer[accel_id].entity);
++	dev_dbg(adev->dev, "exit\n");
 +}
 +
-+static ssize_t ualink_ppod_setup_commit_store(struct kobject *kobj,
-+					      struct kobj_attribute *attr,
-+					      const char *buf, size_t count)
-+{
-+	struct amdgpu_ualink_ppod_setup *setup = to_ualink_ppod_setup(kobj);
-+	struct amdgpu_ualink_info *info = to_ualink_info(kobj->parent);
-+	struct device *dev = kobj_to_dev(info->kobj.parent);
-+	struct drm_device *ddev = dev_get_drvdata(dev);
-+	struct amdgpu_device *adev = drm_to_adev(ddev);
-+
-+	if (!sysfs_streq(buf, "true"))
-+		return -EINVAL;
-+
-+	/* TODO: Send configuration to ASP */
-+
-+	info->ppod = setup->ppod;
-+	info->accel_state = check_ppod_state(adev, setup);
-+
-+	/* TODO: If accel_state was ACTIVE, reset all connections */
-+
-+	return count;
-+}
-+
-+#define UALINK_PPOD_SETUP_ATTR(name) __ATTR(name, 0600,			\
-+		ualink_ppod_setup_##name##_show,			\
-+		ualink_ppod_setup_##name##_store)
-+static struct kobj_attribute ualink_ppod_setup_accel_id  = UALINK_PPOD_SETUP_ATTR(accel_id);
-+static struct kobj_attribute ualink_ppod_setup_bandwidth = UALINK_PPOD_SETUP_ATTR(bandwidth);
-+static struct kobj_attribute ualink_ppod_setup_latency   = UALINK_PPOD_SETUP_ATTR(latency);
-+static struct kobj_attribute ualink_ppod_setup_ppod_id   = UALINK_PPOD_SETUP_ATTR(ppod_id);
-+static struct kobj_attribute ualink_ppod_setup_ppod_size = UALINK_PPOD_SETUP_ATTR(ppod_size);
-+static struct kobj_attribute ualink_ppod_setup_local_accels = UALINK_PPOD_SETUP_ATTR(local_accels);
-+static struct kobj_attribute ualink_ppod_setup_commit = __ATTR(commit, 0200, NULL,
-+							       ualink_ppod_setup_commit_store);
-+
-+static const struct attribute *ualink_ppod_setup_attrs[] = {
-+	&ualink_ppod_setup_accel_id.attr,
-+	&ualink_ppod_setup_bandwidth.attr,
-+	&ualink_ppod_setup_latency.attr,
-+	&ualink_ppod_setup_ppod_id.attr,
-+	&ualink_ppod_setup_ppod_size.attr,
-+	&ualink_ppod_setup_local_accels.attr,
-+	&ualink_ppod_setup_commit.attr,
-+	NULL
-+};
-+
-+static void ualink_ppod_setup_release(struct kobject *kobj)
-+{
-+	struct amdgpu_ualink_ppod_setup *setup = to_ualink_ppod_setup(kobj);
-+
-+	kfree(setup);
-+}
-+
-+static const struct kobj_type ualink_ppod_setup_ktype = {
-+	.release = ualink_ppod_setup_release,
-+	.sysfs_ops = &kobj_sysfs_ops
-+};
-+
- int amdgpu_ualink_sysfs_init(struct amdgpu_device *adev)
- {
-+	struct amdgpu_ualink_ppod_setup *ppod_setup = NULL;
- 	struct amdgpu_ualink_info *info = NULL;
- 	int r;
- 
-@@ -203,10 +377,30 @@ int amdgpu_ualink_sysfs_init(struct amdgpu_device *adev)
- 	if (r)
- 		goto err_del_info;
- 
-+	ppod_setup = kzalloc(sizeof(*ppod_setup), GFP_KERNEL);
-+	if (!ppod_setup) {
-+		r = -ENOMEM;
-+		goto err_remove_info_files;
-+	}
-+	r = kobject_init_and_add(&ppod_setup->kobj, &ualink_ppod_setup_ktype,
-+				 &info->kobj, "setup");
-+	if (r)
-+		goto err_put_ppod_setup;
-+	r = sysfs_create_files(&ppod_setup->kobj, ualink_ppod_setup_attrs);
-+	if (r)
-+		goto err_del_ppod_setup;
-+
-+	adev->ualink.setup = ppod_setup;
- 	adev->ualink.info = info;
- 
- 	return r;
- 
-+err_del_ppod_setup:
-+	kobject_del(&ppod_setup->kobj);
-+err_put_ppod_setup:
-+	kobject_put(&ppod_setup->kobj);
-+err_remove_info_files:
-+	sysfs_remove_files(&info->kobj, ualink_info_attrs);
- err_del_info:
- 	kobject_del(&info->kobj);
- err_put_info:
-@@ -216,6 +410,13 @@ int amdgpu_ualink_sysfs_init(struct amdgpu_device *adev)
- 
- void amdgpu_ualink_sysfs_fini(struct amdgpu_device *adev)
- {
-+	if (adev->ualink.setup) {
-+		sysfs_remove_files(&adev->ualink.setup->kobj,
-+				   ualink_ppod_setup_attrs);
-+		kobject_del(&adev->ualink.setup->kobj);
-+		kobject_put(&adev->ualink.setup->kobj);
-+		adev->ualink.setup = NULL;
-+	}
- 	if (adev->ualink.info) {
- 		sysfs_remove_files(&adev->ualink.info->kobj,
- 				   ualink_info_attrs);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-index 390fb5653aaf5..ea52dcd44d088 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-@@ -83,8 +83,19 @@ struct amdgpu_ualink_info {
- };
- #define to_ualink_info(ko) container_of(ko, struct amdgpu_ualink_info, kobj)
- 
-+/* UALink physical pod setup */
-+struct amdgpu_ualink_ppod_setup {
-+	struct kobject kobj;
-+	struct amdgpu_ualink_ppod_info ppod;
-+	/* Local accelerator array indexed by socket ID */
-+	u32 n_local_accels;
-+	u32 local_accels[AMDGPU_UALINK_LOCAL_ACCELS_MAX];
-+};
-+#define to_ualink_ppod_setup(ko) container_of(ko, struct amdgpu_ualink_ppod_setup, kobj)
-+
- struct amdgpu_ualink_mgr {
- 	struct amdgpu_ualink_info *info;
-+	struct amdgpu_ualink_ppod_setup *setup;
- };
- 
- int amdgpu_ualink_sysfs_init(struct amdgpu_device *adev);
 -- 
 2.55.0
 
