@@ -4,71 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D3133C5DF97
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2D94AC5DF8E
 	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 19:53:09 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C82210F48C;
-	Fri, 21 Aug 2026 19:53:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB9B310F490;
+	Fri, 21 Aug 2026 19:53:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="mRbrAbSY";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="S2NVTzQR";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010026.outbound.protection.outlook.com [52.101.46.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 842D610F47B
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 19:53:02 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012011.outbound.protection.outlook.com
+ [40.93.195.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2F27610F483
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 19:53:06 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=rAPVFIU00PRcsdGidtD/wInuE7DBR7XF5ovxRp6HBmnKnh6iNHjdsp36jlEKzpr2h55Of7kYE4ONUpYRdxnhQNqMVgWjIegkcR+472mVYCONNzgrSxpweOB8xx1iRkd04s9cmWn9Bj6rDTn+XphGPJo94yWeIjtroMduIyCr6y4+QlWCj0f9ObMFLnT6jd5F09tgqkEeL6arYqwZAvyl9lz8prFf8WpXRr/N2Xj+OH9w12DMeDbFVqQ9w0jYzg3PofWbk4sajw2C/u8Swwl0fLThYjDf2lnAkq1Rf0emTA7mAw7x6fwZWdYxb1WErSmmTcHuD5doQzMRub+ldZcEng==
+ b=J+rFfHFFRoC73JjbQY6JcOSS49kmVCyQwziQbijwGhsHdpHL5jvZCnn8sa+SYnONyxUeKajbEJ0z9cfRXovrbpOweIfBolTSeAy7FxU8oyM84hpGiekTj9WG9oRlcCPQYbuhIo2GmcWRpH+reVZJ02aq7nCpVnh2Y2sJQjjiXlcRxgWR2hw7C2Sw8d3iwlZQ9hTYzD0WWc5BHwDWWYRcvMWIZwhpccNvGW3/fb4Vo9NOysNY5xNr9mrsp+0e9R3dCjmUzaYYRlwyN0TnnNj2FO1uGhoPqybkRc6E75xYetuQPBUujDxUVyt4O/CGVgZoRv/2ZRMuFSa4TrC/rZ/ffg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dCw+nyF38kxQFW15pdV9C5yyscUXPz1kriROBuhBJNg=;
- b=e2hjIjyJA8gHDnp236MZFh3ouJbEHkbmIpXucvCKIw5uLZ1w3mchj3/w01I1jfsiQ1hq2ae7QNKFFt3jjnXgcqNgFZ6SUJg1FZA7bR0cTNR29dNdNwnrhO8K+Og4IyeGps6Tn79YS56/kbUtDR+zmuj63o8vvUe4nWGi9X+qJPtkCiV/DweVtrOXAnX4EXuC47eJUQBOCxeeK1pEhdAsCJwFg7Std8/pSpjK0BpmLRPvFIP/zLj33gfgGnZIUsSKl6BZ5Zst+xacVmINGgYuQAiwIKJKhFQctji3fy82ATCdMCQaRfRUoiWuRfjOlWUUlRW7WWsp5euociyeIIWG9A==
+ bh=NJr3d/5w+CFdWlQ6PZxuWh8V1gXcKUFIhOALuSYdsUg=;
+ b=nAyON6nZdN5jM04cRIEM1p/2IAZDtlK03Elsl0RyKf4T3Hsv71uUuY3Ph4Z8u3IGLuGmqxbTCN4HcrnYWVxl6WQG4NXp3I3fG3tLNMDCnfTW7TnbImTLFsgeLM92AvOQuGSP9Q4tMKsKFjDqH3U1646PWWLLoXay76uqpt1HPj4VPXSAtlJ+wcR1CAOwGpXBYhpiNMegF5rOxo0alNRODZPmFlSB8+SUrA30Ho3IBYC3Rin4zDpOubSb4cVrmTdmBLRBgKfJ4FVQ6RODeyaUdSWjAF1/DhWSJ9E+N06yrvCBdRwNP7jNJxRuJpHALuJjNS5S0ufQ0YO+et4Nn8Y3gg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dCw+nyF38kxQFW15pdV9C5yyscUXPz1kriROBuhBJNg=;
- b=mRbrAbSY6xzsvuy5CjCurdX8xwWC9Du8um2OOFisp3pVqAXFMYvW9f/WX9ax+1ezzXqFBSFccntqx4GTa7K1VnpPiKul4kN+WC7iAybtVSEQoyjJLfO3J4M2IC4XfsIUqSHxJu8vhlibamR64ZXmWDLMqpUOeXL9DjQ5U0aksxw=
-Received: from CH5P222CA0016.NAMP222.PROD.OUTLOOK.COM (2603:10b6:610:1ee::23)
- by BN7PPF08EEA05B5.namprd12.prod.outlook.com
- (2603:10b6:40f:fc02::6c5) with Microsoft SMTP Server (version=TLS1_2,
+ bh=NJr3d/5w+CFdWlQ6PZxuWh8V1gXcKUFIhOALuSYdsUg=;
+ b=S2NVTzQRBsah1eIpB5qELKCyRyuRBb3X/op9dsv7l0G8jdVK26fhPdmnqwSvgsCQRB+kx4VZENKDjYWY+C8zfqE+aH92SITaDyBwvWfVzsY/NIBIuPWmtbqO2sTYAuf7GfjeROcqB5y1Cssodk6xw94Ts15utQbQSLdCvQE6sW4=
+Received: from CY5PR19CA0069.namprd19.prod.outlook.com (2603:10b6:930:69::15)
+ by DS7PR12MB8291.namprd12.prod.outlook.com (2603:10b6:8:e6::13) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Fri, 21 Aug
- 2026 19:35:27 +0000
-Received: from CH1PEPF0000AD7E.namprd04.prod.outlook.com
- (2603:10b6:610:1ee:cafe::b) by CH5P222CA0016.outlook.office365.com
- (2603:10b6:610:1ee::23) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 19:35:53 +0000
+Received: from CY4PEPF0000EDD6.namprd03.prod.outlook.com
+ (2603:10b6:930:69:cafe::75) by CY5PR19CA0069.outlook.office365.com
+ (2603:10b6:930:69::15) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
- 21 Aug 2026 19:35:27 +0000
+ 21 Aug 2026 19:35:53 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000AD7E.mail.protection.outlook.com (10.167.244.87) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD6.mail.protection.outlook.com (10.167.241.202) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 19:35:26 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 19:35:53 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 14:35:20 -0500
+ 2026 14:35:46 -0500
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 14:35:20 -0500
+ 2026 14:35:45 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 21 Aug 2026 14:35:19 -0500
+ Transport; Fri, 21 Aug 2026 14:35:45 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Felix Kuehling <felix.kuehling@amd.com>, Mukul Joshi
- <mukul.joshi@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 14/95] drm/amdgpu: Implement PSP cmd UAL_SET_STATION_CONFIG
-Date: Fri, 21 Aug 2026 15:33:37 -0400
-Message-ID: <20260821193458.808626-15-alexander.deucher@amd.com>
+CC: Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling
+ <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 56/95] drm/amdgpu: Add handling for remote interrupts
+Date: Fri, 21 Aug 2026 15:34:19 -0400
+Message-ID: <20260821193458.808626-57-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260821193458.808626-1-alexander.deucher@amd.com>
 References: <20260821193458.808626-1-alexander.deucher@amd.com>
@@ -77,29 +78,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7E:EE_|BN7PPF08EEA05B5:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5048e4c3-de37-4581-0e56-08deffbb5a2d
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD6:EE_|DS7PR12MB8291:EE_
+X-MS-Office365-Filtering-Correlation-Id: c2e8ce86-0851-497e-4695-08deffbb6a02
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|23010399003|1800799024|82310400026|6133799003|56012099006|10067099003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: w2drNAKqriCrCkg0xRinf/k0MndtIbXrtrl0Vj03+jjQ0/J3ubRbsnw59fAY04wJjacxeS0C+HIkfxGswKVYh+ERC+mgoZrpwwBhNR99Ia/GanEQFePDDfht8XsZEWEi8KR/3ROmZ+qsaVyX2fj7+JSSPjV/zHDcPszenNEQOGnoVZbMzWF6JVwAs077ezcDZXqnOz5T74TqIJV6KgtkdYP4QzdF7JnfugWeS2+af1kNorecS4tjaNFRv2ZlxRFUt6GVhRGTy5ZjV3yE1JSGe76lJFxtHYGtpKnC12AYi2AWHRukayl7KzVdKHlOAv9LYlSyosSLI1wvN2dySjrU4VnJeindZjQIUEIbgyI8da6vhxQvY6fSRNS15tNChY51SgY5e9qbRWP3Ilm7VYf7NOu9QFxa2gc5q57bL6F5dKZqfseGzhkU4QBGggj6E/k+rfXJ01svDRBXOqN4yeBOGPZQIw96N5sFhOym4Qh/M64An5+k0NSGvnCqjP0gM5zetKXZIcYpjl/ajV+JwxhJPMUkramOG0Jf70i6s9i1legBLu+wrwykhDAMl5uPP/sI0BJTbpmfl5Dqvr7ibKoINIVG3jhUgWsXMfxBVluf9ANZrsspJz9tx5wawLyrOx5dHuP8JV+ZFH9HBoof17w0ZjJutnLpeEijKfOv6rvFdDVeItunAIfEtPVKP3Opy2SsMHkVq5O+QVvkQCX9SBgbqA==
+ ARA:13230040|1800799024|23010399003|82310400026|36860700016|376014|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: TJLKkSEETefGAuH3OfTqK5lxRWGc5rMYAFFILuIcah0+XKchjUXORVdo5cCaTxk7ZNtkQYlULCASZWzXMbumkS+PULOlaeNAuyOVJfzG8OtQeYT8bhrbYIef0WDhEqwj7FaliKE6R13Ta9cvW/Kevn58x68qj+Iq9z6tGv/hrDiidHrAXDikwYAp23y0cPEHjCPeRKHAZAFPEqB/Pgd7VfbIIg3fLYjK2CkZWz7JytpxzlauK0gl+pWM775AFsJLUUyW5hMcp4Y+ZvLEzsLHoxP6B3b6k0rh9BdpGp0eiEfOmzzJ4Mdg7l5CTqVgNWXDU6hP6fsjHhbnuJhxVhJ7yLDrnnU3wYp//+kPSCBd7KO+a+69gCsTqBMm0NEDAZRZDhdPLeVzXPHDM1GyJ3+aUMuyjzzI1JT2vFxMu+9dam422BYNvfoCE+IPnoQ5NMfdR/a2YKcayp/tf/x7aCJVEIemf/HrQUEd95Z0D3CZby6S8gvXcY15plX3bFHlfPwOaDeDHuWUrqRCQxu6YDvdQEsAVGnsZabU2hYmsMf+4VpxZKYdDMdEzccAqH7yeqnupTJSIWY+t+Qw+08NNX6EkpmdiBAVa5btCviNGYF+Lp3wpVFf9Oa1J3cMEwots7opHWEX+AAO6qNcnrIcydMsHA+zkGbPkflEcNI4tzgftxK9ht+YmOQE4vvgZfblZbgcIaF2SJ9XUpahBaRJUWNvJQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(23010399003)(1800799024)(82310400026)(6133799003)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(82310400026)(36860700016)(376014)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: OzBXWdpV5p8DAoErN1dqjz945I1qY/pw7Nfd2f1Zt6EnyIR467MtaXzBE/khMw+HSovjtYUuP7pnyqbwzjGYobtvZMXyh7NX0JhHapnEGfpqTSYXv3r6k3NRjBpJ1EPwUIHlq1F4SElgUFSWqP6h76nVC+twplYhjU/y5My2RshM7ohqPtPOMwbnGwk2Z1D84Ikdbmtm4hIzDr9u9XBOcl7JurHPgssesFTo7ob96cEMYJADFIJNJpaFJ+RraYQ3cBKZsn9KytmSNqeScDMjG0Dz8Uw7BF5R3rMyftx+vo8tj4//AcV0dwZojDfhpf8tI+p1SMzAdarZiRr+K+oh190SvsDBokq4C6LIVOHiBkEuZsuhin3f8MJ1y4XWaiSP1KCoxU7dIwsDE0en/HZ9UMxFp66sydlKqQ+CAcA5vTeDy3ZZd+Fv13s1eJV6PWhM
+X-MS-Exchange-AntiSpam-MessageData-0: 93bYogxFfc5JVJs2juMSMqy09Z5831HCWut4mjIuLZUIHIg9ndkWwxOJzo2jm9JFV5PnbEtYZeZOsOjHPR1pksgI00iAqbD/xsO68+/X6bTOROIcwl3cU5aw80kMlHIX17CXdYsT/wu7qA+78hxGxpyBHQvUHh+j9m1LfpQZZcFZVTctDd2BX7SKOs0oB4ek6gtVYeW++5VSCZXlY/sy8yQcgFbLXJKYbcx/dPT2lyumShEMgVj+fvMVDXzkrRwJ5VYtL/bGFhuWgZtP6i3hVV8B5ljLZGSVdqjKweTSFzE75S28ZRuRbaGOu4EgXu7/KShSf81+U9DHmNYBR3iiCqTUGA5tkY+jyNzw8J5vcdj7DxvcWktLaqdSrOKjTQeCMvD+OWomOfxSkn/52eZxXCQ5vbrNgiosZ2ZmrCRvGNxYEwWzhZPYFVgPoiTzmSAP
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 19:35:26.9687 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5048e4c3-de37-4581-0e56-08deffbb5a2d
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 19:35:53.4851 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2e8ce86-0851-497e-4695-08deffbb6a02
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7E.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD6.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF08EEA05B5
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8291
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,91 +115,175 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Felix Kuehling <felix.kuehling@amd.com>
+From: Mukul Joshi <mukul.joshi@amd.com>
 
-To set the UALink station configuration to PSP.
+Add interrupt handling to process the NPA remote interrupts.
 
-Signed-off-by: Felix Kuehling <felix.kuehling@amd.com>
-Reviewed-by: Mukul Joshi <mukul.joshi@amd.com>
+Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 35 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h |  4 +++
- 2 files changed, 39 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 114 ++++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h |   3 +
+ 2 files changed, 113 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index cbd85b27c6f6c..47367ff8c3903 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -835,6 +835,8 @@ static const char *psp_gfx_cmd_name(enum psp_gfx_cmd_id cmd_id)
- 		return "UAL_SET_PPOD_CONFIG";
- 	case GFX_CMD_ID_UAL_SET_VPOD_CONFIG:
- 		return "UAL_SET_VPOD_CONFIG";
-+	case GFX_CMD_ID_UAL_SET_STATION_CONFIG:
-+		return "UAL_SET_STATION_CONFIG";
- 	default:
- 		return "UNKNOWN CMD";
- 	}
-@@ -1357,6 +1359,39 @@ int psp_ual_set_vpod_config(struct psp_context *psp, uint32_t intf_ver,
- 	return ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+index c393633e69443..2f7df10f39423 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+@@ -5189,10 +5189,31 @@ void amdgpu_ualink_sw_fini(struct amdgpu_device *adev)
+ 	adev->ualink.remote = NULL;
  }
  
-+int psp_ual_set_station_config(struct psp_context *psp, uint32_t intf_ver,
-+			       const struct amdgpu_ualink_station_config *stations)
++int ualink_send_hello(struct amdgpu_device *adev, u32 remote_accel_id)
 +{
-+	struct psp_gfx_cmd_resp *cmd;
-+	int ret;
-+
-+	/* TBD check interface version 1.x */
-+	if (intf_ver > 0x1ffff) {
-+		pr_warn("PSP UAL interface version mismatch: 0x%x\n", intf_ver);
-+		return -EOPNOTSUPP;
-+	}
-+
-+	cmd = acquire_psp_cmd_buf(psp);
-+
-+	cmd->cmd_id = GFX_CMD_ID_UAL_SET_STATION_CONFIG;
-+	cmd->cmd.cmd_set_station_config_ual.num_stations = stations->n_stations;
-+	cmd->cmd.cmd_set_station_config_ual.station_flag = stations->flags;
-+	memcpy(cmd->cmd.cmd_set_station_config_ual.lane_en_bitmap,
-+	       stations->lane_en_bitmap,
-+	       min(stations->n_stations,
-+		   sizeof(cmd->cmd.cmd_set_station_config_ual.lane_en_bitmap)));
-+	/* The remainder is already 0-initialized by acquire_psp_cmd_buf */
-+
-+	ret = psp_cmd_submit_buf(psp, NULL, cmd, psp->fence_buf_mc_addr);
-+
-+	if (!ret && cmd->resp.status)
-+		ret = -EINVAL;
-+
-+	release_psp_cmd_buf(psp);
-+
-+	return ret;
++	return amdgpu_ualink_send_hello_msg(adev, remote_accel_id);
 +}
 +
- int psp_update_fw_reservation(struct psp_context *psp)
- {
- 	int ret;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index d3bc3ba30599c..60ee3dc25113b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -709,6 +709,7 @@ int amdgpu_psp_irq_mgr_register(
- struct amdgpu_ualink_info;
- struct amdgpu_ualink_ppod_setup;
- struct amdgpu_ualink_vpod_config;
-+struct amdgpu_ualink_station_config;
- 
- int psp_ual_get_interface_version(struct psp_context *psp, uint32_t *intf_ver);
- 
-@@ -721,4 +722,7 @@ int psp_ual_set_ppod_config(struct psp_context *psp, uint32_t intf_ver,
- int psp_ual_set_vpod_config(struct psp_context *psp, uint32_t intf_ver,
- 			    const struct amdgpu_ualink_vpod_config *config);
- 
-+int psp_ual_set_station_config(struct psp_context *psp, uint32_t intf_ver,
-+			       const struct amdgpu_ualink_station_config *stations);
++/*
++ * The low bits of handle_lo carry the message-header field on the wire.
++ * Strip those bits and splice in @acc_id to recover the
++ * fully-qualified handle_lo value.
++ */
++static inline u64 amdgpu_ualink_reassemble_handle(u64 handle_lo, u32 acc_id)
++{
++	return (handle_lo & ~AMDGPU_UALINK_MESSAGE_HEADER_MASK) |
++	       (acc_id & AMDGPU_UALINK_HANDLE_ACCID_MASK);
++}
 +
- #endif
+ static int amdgpu_ualink_process_irq(struct amdgpu_device *adev,
+ 				     struct amdgpu_irq_src *source,
+ 				     struct amdgpu_iv_entry *entry)
+ {
++	u32 sender_acc_id, receiver_acc_id, msg_type, src_acc_id;
++	struct amdgpu_ualink_handle handle;
++	u32 size, npa_addr, fail_reason;
++	u32 dw0, dw1, dw2, dw3;
++	u32 local_acc_id;
+ 	int handled = 1;
+ 
+ 	dev_dbg(adev->dev, "%s client_id 0x%x src_id 0x%x ih\n",
+@@ -5206,10 +5227,95 @@ static int amdgpu_ualink_process_irq(struct amdgpu_device *adev,
+ 		return handled;
+ 	}
+ 
+-	/*
+-	 * Call amdgpu_ualink_interrupt handler
+-	 * amdgpu_ualink_interrupt(adev, entry);
+-	 */
++	/* ContextID 4 dwords */
++	src_acc_id = entry->pasid;
++	dw0 = entry->src_data[0];
++	dw1 = entry->src_data[1];
++	dw2 = entry->src_data[2];
++	dw3 = entry->src_data[3];
++
++	dev_dbg(adev->dev, "src accel_id %u context id 0x%x 0x%x 0x%x 0x%x\n",
++		src_acc_id, dw0, dw1, dw2, dw3);
++
++	msg_type = dw0 & AMDGPU_UALINK_MESSAGE_HEADER_MASK;
++	local_acc_id = adev->ualink.info->ppod.accel_id;
++	dev_dbg(adev->dev, "Got MSG: remote acc_id %u msg_type %u\n",
++		src_acc_id, msg_type);
++
++	switch (msg_type) {
++	case AMDGPU_UALINK_HELLO_MSG:
++		receiver_acc_id = (dw0 >> AMDGPU_UALINK_HELLO_MSG_RECV_ACCID_SHIFT) &
++					AMDGPU_UALINK_HELLO_MSG_ACCID_MASK;
++		sender_acc_id = (dw0 >> AMDGPU_UALINK_HELLO_MSG_SENDER_ACCID_SHIFT) &
++					AMDGPU_UALINK_HELLO_MSG_ACCID_MASK;
++		dev_dbg(adev->dev,
++			"Got HELLO MSG: src acc_id %u receiver_acc_id %u sender_acc_id %u\n",
++			src_acc_id, receiver_acc_id, sender_acc_id);
++		amdgpu_ualink_process_hello_msg(adev, receiver_acc_id, sender_acc_id,
++						src_acc_id);
++		break;
++	case AMDGPU_UALINK_HELLO_ACK_MSG:
++		dev_dbg(adev->dev,
++			"Got HELLO-ACK MSG: remote acc_id %u\n", src_acc_id);
++		amdgpu_ualink_process_hello_ack_msg(adev, src_acc_id);
++		break;
++	case AMDGPU_UALINK_NPA_REQ_MSG:
++		memcpy(&handle, entry->src_data, sizeof(struct amdgpu_ualink_handle));
++		handle.handle_lo = amdgpu_ualink_reassemble_handle(handle.handle_lo,
++								   local_acc_id);
++		dev_dbg(adev->dev,
++			"Got NPA-REQ MSG: remote acc_id %u handle %llx:%llx\n",
++			src_acc_id, handle.handle_hi, handle.handle_lo);
++		amdgpu_ualink_process_npa_req_msg(adev, src_acc_id, handle);
++		break;
++	case AMDGPU_UALINK_NPA_RSP_MSG:
++		memcpy(&handle.handle_lo, entry->src_data, sizeof(handle.handle_lo));
++		handle.handle_lo = amdgpu_ualink_reassemble_handle(handle.handle_lo,
++								   src_acc_id);
++		size = entry->src_data[2];
++		npa_addr = entry->src_data[3];
++		dev_dbg(adev->dev,
++			"Got NPA-RSP MSG: remote acc_id %u handle_lo %llx size 0x%x npa_addr 0x%x\n",
++			src_acc_id, handle.handle_lo, size, npa_addr);
++		amdgpu_ualink_process_npa_rsp_msg(adev, src_acc_id,
++						  handle.handle_lo,
++						  npa_addr, size);
++		break;
++	case AMDGPU_UALINK_NPA_FAIL_MSG:
++		memcpy(&handle.handle_lo, entry->src_data, sizeof(handle.handle_lo));
++		handle.handle_lo = amdgpu_ualink_reassemble_handle(handle.handle_lo,
++								   src_acc_id);
++		fail_reason = entry->src_data[2] &
++				AMDGPU_UALINK_NPA_FAIL_MSG_FAIL_REASON_MASK;
++		dev_dbg(adev->dev,
++			"Got NPA-FAIL MSG: remote acc_id %u handle_lo %llx fail_reason %u\n",
++			src_acc_id, handle.handle_lo, fail_reason);
++		amdgpu_ualink_process_npa_fail_msg(adev, src_acc_id,
++						   handle.handle_lo,
++						   fail_reason);
++		break;
++	case AMDGPU_UALINK_NPA_REVOKE_MSG:
++		memcpy(&handle, entry->src_data, sizeof(struct amdgpu_ualink_handle));
++		handle.handle_lo = amdgpu_ualink_reassemble_handle(handle.handle_lo,
++								   src_acc_id);
++		dev_dbg(adev->dev,
++			"Got NPA-REVOKE MSG: remote acc_id %u handle %llx:%llx\n",
++			src_acc_id, handle.handle_hi, handle.handle_lo);
++		amdgpu_ualink_process_npa_revoke_msg(adev, src_acc_id, handle);
++		break;
++	case AMDGPU_UALINK_NPA_RELEASE_MSG:
++		memcpy(&handle, entry->src_data, sizeof(struct amdgpu_ualink_handle));
++		handle.handle_lo = amdgpu_ualink_reassemble_handle(handle.handle_lo,
++								   local_acc_id);
++		dev_dbg(adev->dev,
++			"Got NPA-RELEASE MSG: remote acc_id %u handle %llx:%llx\n",
++			src_acc_id, handle.handle_hi, handle.handle_lo);
++		amdgpu_ualink_process_npa_release_msg(adev, src_acc_id, handle);
++		break;
++	default:
++		dev_err(adev->dev, "Unknown message type (%u)\n", msg_type);
++		break;
++	}
+ 
+ 	return handled;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+index 0c2c5fad867af..bd8af7596a6ef 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+@@ -35,6 +35,7 @@
+ 
+ #define AMDGPU_UALINK_HANDLE_ACCID_MASK			GENMASK_ULL(9, 0)
+ #define AMDGPU_UALINK_MESSAGE_HEADER_MASK		GENMASK_ULL(9, 0)
++#define AMDGPU_UALINK_HELLO_MSG_ACCID_MASK		GENMASK_U32(9, 0)
+ #define AMDGPU_UALINK_HELLO_MSG_RECV_ACCID_SHIFT	10
+ #define AMDGPU_UALINK_HELLO_MSG_SENDER_ACCID_SHIFT	20
+ #define AMDGPU_UALINK_NPA_FAIL_MSG_FAIL_REASON_MASK	GENMASK_U32(7, 0)
+@@ -340,6 +341,8 @@ int amdgpu_ualink_init_interrupt(struct amdgpu_device *adev);
+ int amdgpu_ualink_sw_init(struct amdgpu_device *adev);
+ void amdgpu_ualink_sw_fini(struct amdgpu_device *adev);
+ 
++int ualink_send_hello(struct amdgpu_device *adev, u32 remote_accel_id);
++
+ int amdgpu_ualink_sysfs_init(struct amdgpu_device *adev);
+ void amdgpu_ualink_sysfs_fini(struct amdgpu_device *adev);
+ int amdgpu_ualink_init(struct amdgpu_device *adev);
 -- 
 2.55.0
 
