@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FC33C5DF7D
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 19:53:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 76334C5DF7D
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 19:53:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB99B10F4B7;
-	Fri, 21 Aug 2026 19:53:54 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14F7F10F4D3;
+	Fri, 21 Aug 2026 19:53:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SvMVSYab";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="wT/KLtdB";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012025.outbound.protection.outlook.com
- [40.107.200.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27A0A10F4A4
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 19:53:53 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010051.outbound.protection.outlook.com [52.101.46.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 87DC210F4BD;
+ Fri, 21 Aug 2026 19:53:56 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I4YICJxkoxHKjMkY/baMfo3oSnHHPQ18oeEc7RcxvabsVwrDcJctemkEkQ0j838YKpE1rr4zWfuQbVohsPQqgV+5Pb3fWYme4NweIJKwwp94UNMBc9MuprWa7sFf9f0AIiTy9N8FvIUipFgXQhnqSfbKu9blPztp5gI6rbwoEX416Ph+EquYBa+pZuDu9+S2llR2qqNakVGr8LORMHIFxfZbf6ymo0zezmTs0sFWfgTLshm7nr2KW6lAiYD5RBBgaP/E/ozapMtLyTkv78gnoJievaTIDkKMHaAeuvfpZQ4MYtdqjpZhgXvP071QVR18cmAntOMWkNH1AyYW0LDgRg==
+ b=WXAtvC98VHUhJ9DaA7R6FTybhScQhxRf8cZ/8fBbuieOV3uJ2gTkBqUnuLWxPZk6jOAieE7bfyOsZjXjC1qjGb0WjP56ohXKgOT1TSq9YgNRbVEr/R/1GamXRZyIz1dXZBTaAoNDtdfEqusob3G/tgzJtI5n/nBLkrHvLKmZiAs5CgwZTbfLRhLWwv1eXgeH91uxLak4D2lK3Io1oow2t10bdkFgVWCye0bYiASvblIkcwzSb5qQme1KPRYJVvD0E6tuYgJyMNT3oOlaWMKVD5LA1wI2mPLZh1o8w6YTUcsV7TKymBWqjxkoN7V7B/dBAMPUWzRehzq/AnnIU5KyiA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c5Blsef4kE/AY3vWCdRUkFglz2NN5/curzwPLWLM2kQ=;
- b=Eec4F6zusUtOa4QLK7r6pkgSLWUTy0Lt/cU+0LPDZrE/pL/SXa/B/ETVcTEUYTHiyVlaau0ylbxad6TMsa2ndyG6hpOBVoMuw54vZsT4CT1f8zhqRkjmApP6zn2VJGQ12fPWZv/PMrzeTrgjoKYFDCwSD6KhwuADttQ4gqdjtIu101ze+TMd9slaWbACCn0pKJ6jgL8YajQQM8dFWUL+JqpUaqqheLuKjdW8zQ44TWDosVElpeN+iWs3IAurrbrdBe5johxAx5vKqo4WgeCXPdPsofq9xteEgK15/QnXK5rY7KVp0F9wpjXM2xArDFiKLLJfLotnVZG1NPlN2zvlDg==
+ bh=l8Dmm4FyCV4bRDNVnieY+xRGOlmS6+nt3F4a5ByUdJ8=;
+ b=MtuiRS3BpSDuDCIOvgHofu7o/0tYciFSJSO1F52RGgo+P1PI7YB5mp9Haa2CZWz8JKIVJ3NdaPpLJBxKB9qm53KnsLXGELPgwrIK6yJMEvPXhlRI1Gc0iwfqff/9LSnG+HBEOZHUD9knyUORH3g/BZmUFGphvY/JKvUUNsIepNcCZ31rAvE93/eAVWW5auIvh7tCaDSL8VJxt98m1LoHfKm8rrcOIM1+3HMa0nyt/zVUbx65eGBCqCTzyu6ykQt9l5p1GGrb60M1FLrOpSOmZhWyWB8xSE0+tWWVvIvBtFo6MBaFJXojaP+pGM1W3C8mno+jr9ih3wgTYLfQVWJb+Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c5Blsef4kE/AY3vWCdRUkFglz2NN5/curzwPLWLM2kQ=;
- b=SvMVSYabsCN1KNKvZQ9jgSva9/o9d8YZMN37+ESIZvLHdzwrUpWJH2ly4jV1ssB6VazlVbXgAD8BYIjiTzkSSnFQT9+/q7v6Qi8F/NlVX75xKxZxFDT0rV9Mn9QXdoH8jUeX+PLuC4rozGemc28jkt/dU3zLqPImNG76QodO5CU=
-Received: from PH5P222CA0002.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:34b::9)
- by DS4PR12MB999076.namprd12.prod.outlook.com (2603:10b6:8:2fa::18) with
+ bh=l8Dmm4FyCV4bRDNVnieY+xRGOlmS6+nt3F4a5ByUdJ8=;
+ b=wT/KLtdBphc0TrcMV5/lOeJerQmHqoMrDydaK/8YqdqSESgFNqtbGgBi7hyPY2EFEkeRR3cAvrw3/Xxz0rlJg4zA904RMsCJx+C3MtrdHWHJMckM4RnkXdF4SHQkjoij0g5sdC0ij3m4QvoXfr8a6icYi8W9t4oCy4nQ/e8wm/k=
+Received: from DS7P220CA0008.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:1ca::15) by
+ PH7PR12MB6762.namprd12.prod.outlook.com (2603:10b6:510:1ac::11) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
- 2026 19:36:12 +0000
-Received: from CY4PEPF0000EDD0.namprd03.prod.outlook.com
- (2603:10b6:510:34b:cafe::5f) by PH5P222CA0002.outlook.office365.com
- (2603:10b6:510:34b::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Fri, 21 Aug
+ 2026 19:52:40 +0000
+Received: from CY4PEPF0000EE38.namprd03.prod.outlook.com
+ (2603:10b6:8:1ca:cafe::3f) by DS7P220CA0008.outlook.office365.com
+ (2603:10b6:8:1ca::15) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
- 21 Aug 2026 19:36:12 +0000
+ 21 Aug 2026 19:52:40 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -49,59 +48,60 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000EDD0.mail.protection.outlook.com (10.167.241.196) with Microsoft
+ CY4PEPF0000EE38.mail.protection.outlook.com (10.167.242.10) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 19:36:10 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 19:52:39 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 14:36:05 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 14:52:39 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 14:36:03 -0500
-Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 21 Aug 2026 14:36:03 -0500
+ 2026 14:52:39 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Fri, 21 Aug 2026 14:52:33 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Mukul Joshi <mukul.joshi@amd.com>, Lijo Lazar <lijo.lazar@amd.com>, "Alex
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <Felix.Kuehling@amd.com>
+CC: Mukul Joshi <mukul.joshi@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>, Felix Kuehling <felix.kuehling@amd.com>, "Alex
  Deucher" <alexander.deucher@amd.com>
-Subject: [PATCH 85/95] drm/amdgpu: Add UALink diagnostic logging for vpod
- commit/activation
-Date: Fri, 21 Aug 2026 15:34:48 -0400
-Message-ID: <20260821193458.808626-86-alexander.deucher@amd.com>
+Subject: [PATCH 1/3] drm/gem: Add callback for when handle count goes to 0
+Date: Fri, 21 Aug 2026 15:52:22 -0400
+Message-ID: <20260821195224.809173-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260821193458.808626-1-alexander.deucher@amd.com>
-References: <20260821193458.808626-1-alexander.deucher@amd.com>
+In-Reply-To: <20260821195224.809173-1-alexander.deucher@amd.com>
+References: <20260821195224.809173-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD0:EE_|DS4PR12MB999076:EE_
-X-MS-Office365-Filtering-Correlation-Id: aa5ecd32-5b79-4524-94a7-08deffbb741f
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE38:EE_|PH7PR12MB6762:EE_
+X-MS-Office365-Filtering-Correlation-Id: c0e90476-1b4b-4521-2b0b-08deffbdc1c2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|376014|1800799024|36860700016|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: W/ZybXT+PZ9mGG20U6gEYrBFE3OMyMiCVhiZ2ETN3NGa+LC+OjVmbp8CS3/YzRaV9obFx9AUfd6Jh7BadapE0bV/CRCzBrZpvnBDpa0VWWErGmmnPkJQduIda/bSJIAsmo9VBY1Gs5gehtXqkEahWCDBkLujUon9s1829jEgABA7y+Rq7QMw23fK1BkftWL/XJYYAGJLL5vnSgO1oRFIt3Ka7Ktz4E0RXC8xxtWZyasjDq/PHcOizgruxz5x2MlQ4pMKZ+O4KLp24l5BHbk/q4sAIwgCSWr/GH1C2m2LvxdZ3HyFt7YG1fZjnRDXB/zeVoqVXYayITlvgtpHssiklWZhlsejZoRGTwNUzb3JcZ/PP5AR4VORhzBS/CLu5Gt8nJ44l8QczouaYjwcmNmEVVOg+z23uK8vTcBRIRduqRnOJE9G44sPuqrUvmkArXUsUBB75p5B8+MZgVhQEu+A0aSarDxC/c85q3SJcAFi1czQgx1LVgzUhPMvhr9c1YlmZl9e/CDqre1wdfjWa4hSvkIhP/grd0wuyKvUoWqecLNKMmCcaT/UyfdG0obC+wSRlUdLohoWdfT+Wn2n5siv++2pKgo6hmX76sbELPz+k71ikUWCLHapmS2P7yb0P3hF+G48rko16N3MfnIyNGKFuKecsyBQVj1C/L4mGJoSYBmQee0huR0imWQdcX4p3w0QSy1cSQ22ywHBZUol+EJP8A==
+ ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: i6LRKNeeKBgYeOHb8bR8MD7mqg9ePO0Tkpm9WbnVB8onxnlr5qAuUWs5Hv25tcJmAJwStkMXIB9M+tz2POX9crOJZUcaT4PtetVsCNTyPhji2pbow3L+rJ1Td6srnjQqDubRuUYQX2JHDzLUXgxO3Dij0qKcQKDHakRD4Xqcl9/WRkpAMQicT22cH3SLQ9dXLS3P54edQ8F7tWIQs1/ZQ9alOwnWkE/bRxzW+UoIh/Cxc1VR9ymO6XJYuysktB2zavuXMCNewcyjSZZ//kHncnUncF7Ii14b5rdxOL2wKzEV0D/jRk8zbH8pPnDvPzu5NbpL0G3NR3l7KHPM+chRETcFYa6k9xXoeDijBsAv6TVMSn/Vrky/BQjHaJphNWRg2YXBNss+0TDWXCXP6uXy2rqveOu1oYhDAelXVoTLc7qSxqN2wkK5RXK0crB45vkAcWO2yYoZNNV6hC1iNWfo7f5/SwLr9QTYsIy2AVt7DVqKA2Z6+iyUIQrN2H7K6mU1L6wKonwEGS7r/Cy3s4eugKua1ojgEokjGWq1osE5O/cM3fc8jp/f8DoEq48t09BaIfCNMlD3m9MuCWbTHTmXS/MdcYb6VESTggmoUk22dnmOaKkW5/cdh1X9MmAELeQ9S2SyIBk5//khJc8Y0Odml5bS/QEmbVSrYL5ARU86wOnh/vPYY0Pgc6NatXg4YZuY3TiF/YvBs4mN7tXq4zKqYQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(376014)(1800799024)(36860700016)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
+ SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: IWu/+pj2+Yw1R57DOCADlUR2q6r3W0OT+QgYPNZfn+P21GZuVHslX+Iye3hMcs1DzWiHoyXmFEt/W3S1zVtOPT7r70Ci7u1OO2coBbiZK5uRFSbI0lqe48b/wvWUpBvUX5GYKyVvYOtMV7s8gJuWvnPZGGfugX0tGcxoBAUWjdF63i/LVZ5OxgjGvI3O2aA4O+45x7opMfKOBqT8DSxIsnRm7j7j+Xbbjfwtn7jOH0ZETCH2GpNBMhummY0S6+wrwMXvqQ9vkpqWNS9NKSg05S0wE/HCr4KMMoFaiQUx93nOHl6phYBQwpw/Taq5pKFlmhEa2+vsoDkYEL30JINjXj59ganJOtFOnnc1mIJXgPfj2vUsvwIOHCuEqp9fkEtkNjPJxkPyTAv2GhEksSXANK2+UA8riKidGzyzeNkjXaFuJUVhRC5CetSeSjEKW5sm
+X-MS-Exchange-AntiSpam-MessageData-0: K8Zu3MpPmM943Qcf3+Wjk1kCuLCvRs9OdKQlTE4FW8Cld2PPOAgXWTT9wIvBsXMYAyMi5MN6nhvv/pY/CXn8OsX4zV8XPZq5JVPqmBQUyZxqQMt7Mm3TpU+JWCArGS0x8oBOL0qzlzBk1N1wj42DBMPV/7ofPBVo2wzcdi6yZsavq0LoX0WxgYXTUxTctEk1mh09Y/X1tfpr4P+3DKwhqeyELMk92u8slXvavDM5VBrfWxWN5t8PpCv9Q59VRzvtd/yhHsqqWkCe4gO9qqXcxy+fm2EOr6nSetyidm3z8mAM547WorJGP4HQd/leTiW6qiZQP04O/0gOno2vgJpDYXnbTlSaC6s73dlSP6I1QesUCceMDQleeH6DcT1U9Ql9sOJhDqgSOvOjkp3ERSRBLabXwH0XFf/IV9HGq87zcldCgeI/ICxQuaVGGhmyMfYn
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 19:36:10.4701 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aa5ecd32-5b79-4524-94a7-08deffbb741f
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 19:52:39.6919 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0e90476-1b4b-4521-2b0b-08deffbdc1c2
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD0.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE38.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB999076
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6762
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,312 +118,90 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Mukul Joshi <mukul.joshi@amd.com>
 
-Add UALINK:-tagged dev_info/dev_warn logging along the vpod commit ->
-update_accel_state -> integrity -> activate path so failing and -EAGAIN
-peer-wait cases are visible without dynamic debug. Also fix a wrong
-print arg (vpod->id -> vpod->addr_mode) in the invalid addr mode
-message.
+Add an optional callback for driver-specific cleanup when the GEM
+handle of an object is freed. This will be used by AMDGPU to enable
+freeing of memory exported to other nodes in a UALink pod once all
+user mode references are gone.
 
+The callback is called outside the object_name_lock and before
+releasing the reference count on the GEM object
+
+Suggested-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 156 +++++++++++++++------
- 1 file changed, 114 insertions(+), 42 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c |  9 +++++++++
+ drivers/gpu/drm/drm_gem.c               |  5 ++++-
+ include/drm/drm_gem.h                   | 11 +++++++++++
+ 3 files changed, 24 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 8486d7b3dbe66..5d5df0a288803 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -125,26 +125,29 @@ static bool __check_vpod_info(struct amdgpu_device *adev,
- 	unsigned int weight;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+index f754a4a3a1c22..0d579517c03ce 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
+@@ -386,6 +386,14 @@ static int amdgpu_gem_object_mmap(struct drm_gem_object *obj, struct vm_area_str
+ 	return drm_gem_ttm_mmap(obj, vma);
+ }
  
- 	if (vpod->size == 0 || vpod->size > ppod->size) {
--		dev_dbg(adev->dev, "vPod size %u out of range [1..%u]\n",
--			vpod->size, ppod->size);
-+		dev_warn(adev->dev,
-+			 "UALINK: vPod size %u out of range [1..%u]\n",
-+			 vpod->size, ppod->size);
- 		return false;
- 	}
- 	if (vpod->addr_mode >= AMDGPU_UALINK_ADDR_MODE_MAX) {
--		dev_dbg(adev->dev, "Invalid addr mode %u\n", vpod->id);
-+		dev_warn(adev->dev,
-+			 "UALINK: invalid addr mode %u\n",
-+			 vpod->addr_mode);
- 		return false;
- 	}
- 	weight =
- 		bitmap_weight(vpod->active_accel_bits, AMDGPU_UALINK_ACCEL_MAX);
- 	if (weight != vpod->size) {
--		dev_dbg(adev->dev,
--			"vPod size doesn't match vpod_active_accels list: %u != %u\n",
--			vpod->size, weight);
-+		dev_warn(adev->dev,
-+			 "UALINK: vPod size doesn't match vpod_active_accels list: %u != %u\n",
-+			 vpod->size, weight);
- 		return false;
- 	}
- 	if (!test_bit(ppod->accel_id, vpod->active_accel_bits)) {
--		dev_dbg(adev->dev,
--			"Accelerator ID %u not listed in vpod_active_accels\n",
--			ppod->accel_id);
-+		dev_warn(adev->dev,
-+			 "UALINK: accelerator ID %u not listed in vpod_active_accels\n",
-+			 ppod->accel_id);
- 		return false;
- 	}
- 
-@@ -242,18 +245,27 @@ static int amdgpu_ualink_update_accel_state(
- 	struct amdgpu_device *adev, enum amdgpu_ualink_accel_state prev_state,
- 	u32 prev_vpod_id, enum psp_gfx_ual_config_state cfg_state)
- {
-+	dev_info(adev->dev,
-+		 "UALINK: update_accel_state: prev_state=%d prev_vpod_id=%u new_vpod_id=%u cfg_state=%d\n",
-+		 prev_state, prev_vpod_id, adev->ualink.info->vpod.id,
-+		 cfg_state);
++static void amdgpu_gem_object_handle_free(struct drm_gem_object *gobj)
++{
++	struct amdgpu_bo *aobj = gem_to_amdgpu_bo(gobj);
 +
- 	/* If the device is already active and its vpod_id is unchanged, the
- 	 * update does not affect vpod membership. Skip the local vpod
- 	 * integrity check and re-activation.
++	amdgpu_ualink_revoke_exported_memory(aobj);
++
++}
++
+ const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
+ 	.free = amdgpu_gem_object_free,
+ 	.open = amdgpu_gem_object_open,
+@@ -395,6 +403,7 @@ const struct drm_gem_object_funcs amdgpu_gem_object_funcs = {
+ 	.vunmap = drm_gem_ttm_vunmap,
+ 	.mmap = amdgpu_gem_object_mmap,
+ 	.vm_ops = &amdgpu_gem_vm_ops,
++	.handle_free = amdgpu_gem_object_handle_free
+ };
+ 
+ static bool amdgpu_gem_are_domains_valid(u32 domains)
+diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+index e3ed684ddcf29..6a86bd2a0343e 100644
+--- a/drivers/gpu/drm/drm_gem.c
++++ b/drivers/gpu/drm/drm_gem.c
+@@ -354,8 +354,11 @@ void drm_gem_object_handle_put_unlocked(struct drm_gem_object *obj)
+ 	}
+ 	mutex_unlock(&dev->object_name_lock);
+ 
+-	if (final)
++	if (final) {
++		if (obj->funcs->handle_free)
++			obj->funcs->handle_free(obj);
+ 		drm_gem_object_put(obj);
++	}
+ }
+ 
+ /*
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index 8a704f6a65c15..95d8ae6f85df7 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -227,6 +227,17 @@ struct drm_gem_object_funcs {
  	 */
- 	if (prev_state == AMDGPU_UALINK_ACCEL_STATE_ACTIVE &&
- 	    adev->ualink.info->vpod.id == prev_vpod_id) {
-+		dev_info(adev->dev,
-+			 "UALINK: update_accel_state: already ACTIVE, vpod_id unchanged\n");
- 		amdgpu_ualink_update_vpod_config(adev);
- 		return 0;
- 	}
+ 	size_t (*rss)(struct drm_gem_object *obj);
  
- 	/* A new vpod_id of 0 means this GPU was removed from the vPod. */
- 	if (adev->ualink.info->vpod.id == AMDGPU_UALINK_VPOD_ID_INVALID) {
-+		dev_info(adev->dev,
-+			 "UALINK: update_accel_state: vpod_id=0, removing accelerator from vPod\n");
- 		amdgpu_ualink_update_vpod_config(adev);
- 		scoped_guard(mutex, &mgpu_info.mutex)
- 			deactivate_accelerator(adev);
-@@ -263,6 +275,9 @@ static int amdgpu_ualink_update_accel_state(
- 	/* GPU joining a new vpod should be with invalid vpod id*/
- 	scoped_guard(mutex, &mgpu_info.mutex) {
- 		if (prev_vpod_id == AMDGPU_UALINK_VPOD_ID_INVALID) {
-+			dev_info(adev->dev,
-+				 "UALINK: update_accel_state: joining vpod_id=%u\n",
-+				 adev->ualink.info->vpod.id);
- 			amdgpu_ualink_info_set_accel_state(
- 				adev, adev->ualink.info, cfg_state);
- 			__amdgpu_ualink_activate_vpod_locked(adev);
-@@ -897,6 +912,11 @@ static void activate_accelerator(struct amdgpu_device *adev)
- 	if (adev->ualink.info->accel_state >= AMDGPU_UALINK_ACCEL_STATE_ACTIVE)
- 		return;
- 
-+	dev_info(adev->dev,
-+		 "UALINK: activating accelerator accel_id=%u (accel_state=%d)\n",
-+		 adev->ualink.info->ppod.accel_id,
-+		 adev->ualink.info->accel_state);
++	/**
++	 * @handle_free:
++	 *
++	 * This callback is called when the GEM handle count goes down to 0.
++	 * It is currently used by AMDGPU driver to release their exported BO
++	 * handles.
++	 *
++	 * This callback is optional.
++	 */
++	void (*handle_free)(struct drm_gem_object *obj);
 +
- 	/* Enable incoming NPA address translation with NPA VMID */
- 	r = psp_ual_set_npa_config(&adev->psp, adev->ualink.psp_if_ver,
- 				   adev->vm_manager.npa_vmid, true);
-@@ -919,6 +939,9 @@ static void activate_accelerator(struct amdgpu_device *adev)
- 	}
- 
- 	adev->ualink.info->accel_state = AMDGPU_UALINK_ACCEL_STATE_ACTIVE;
-+	dev_info(adev->dev,
-+		 "UALINK: accelerator accel_id=%u is now ACTIVE\n",
-+		 adev->ualink.info->ppod.accel_id);
- }
- 
- static void deactivate_accelerator(struct amdgpu_device *adev)
-@@ -926,6 +949,11 @@ static void deactivate_accelerator(struct amdgpu_device *adev)
- 	if (adev->ualink.info->accel_state < AMDGPU_UALINK_ACCEL_STATE_ACTIVE)
- 		return;
- 
-+	dev_info(adev->dev,
-+		 "UALINK: deactivating accelerator accel_id=%u (accel_state=%d -> PPOD_CONFIGURED)\n",
-+		 adev->ualink.info->ppod.accel_id,
-+		 adev->ualink.info->accel_state);
-+
- 	/* Disable incoming NPA address translation with NPA VMID */
- 	psp_ual_set_npa_config(&adev->psp, adev->ualink.psp_if_ver,
- 			       adev->vm_manager.npa_vmid, false);
-@@ -988,66 +1016,75 @@ static int __check_local_vpod_integrity(struct amdgpu_device *adev)
- 		peer_info = peer_adev->ualink.info;
- 		/* peer device ppod not configured */
- 		if (peer_info->accel_state <
--		    AMDGPU_UALINK_ACCEL_STATE_PPOD_CONFIGURED)
-+		    AMDGPU_UALINK_ACCEL_STATE_PPOD_CONFIGURED) {
-+			dev_info(adev->dev,
-+				 "UALINK: integrity EAGAIN: peer accel_id=%u not ppod-configured (accel_state=%d)\n",
-+				 peer_info->ppod.accel_id,
-+				 peer_info->accel_state);
- 			return -EAGAIN;
-+		}
- 
- 		accel_id = peer_info->ppod.accel_id;
- 		if (!test_bit(accel_id, info->vpod.active_accel_bits))
- 			continue;
- 		/* peer device vpod not configured */
- 		if (peer_info->accel_state <
--		    AMDGPU_UALINK_ACCEL_STATE_VPOD_CONFIGURED)
-+		    AMDGPU_UALINK_ACCEL_STATE_VPOD_CONFIGURED) {
-+			dev_info(adev->dev,
-+				 "UALINK: integrity EAGAIN: vpod peer accel_id=%u not vpod-configured (accel_state=%d)\n",
-+				 accel_id, peer_info->accel_state);
- 			return -EAGAIN;
-+		}
- 
- 		if (!uuid_equal(&peer_info->ppod.id, &info->ppod.id)) {
--			dev_dbg(adev->dev,
--				"Peer %u ppod_id doesn't match: %pU != %pU",
--				peer_info->ppod.accel_id, &peer_info->ppod.id,
--				&info->ppod.id);
-+			dev_warn(adev->dev,
-+				 "UALINK: integrity fail: peer %u ppod_id doesn't match: %pU != %pU\n",
-+				 peer_info->ppod.accel_id, &peer_info->ppod.id,
-+				 &info->ppod.id);
- 			return -EINVAL;
- 		}
- 
- 		if (peer_info->ppod.size != info->ppod.size) {
--			dev_dbg(adev->dev,
--				"Peer %u ppod_size doesn't match: %u != %u\n",
--				accel_id, peer_info->ppod.size,
--				info->ppod.size);
-+			dev_warn(adev->dev,
-+				 "UALINK: integrity fail: peer %u ppod_size doesn't match: %u != %u\n",
-+				 accel_id, peer_info->ppod.size,
-+				 info->ppod.size);
- 			return -EINVAL;
- 		}
- 
- 		if (peer_info->vpod.id != info->vpod.id) {
--			dev_dbg(adev->dev,
--				"Peer %u vpod_id doesn't match: %u != %u",
--				accel_id, peer_info->vpod.id, info->vpod.id);
-+			dev_warn(adev->dev,
-+				 "UALINK: integrity fail: peer %u vpod_id doesn't match: %u != %u\n",
-+				 accel_id, peer_info->vpod.id, info->vpod.id);
- 			return -EINVAL;
- 		}
- 		if (peer_info->vpod.size != info->vpod.size) {
--			dev_dbg(adev->dev,
--				"Peer %u vpod_size doesn't match: %u != %u\n",
--				accel_id, peer_info->vpod.size,
--				info->vpod.size);
-+			dev_warn(adev->dev,
-+				 "UALINK: integrity fail: peer %u vpod_size doesn't match: %u != %u\n",
-+				 accel_id, peer_info->vpod.size,
-+				 info->vpod.size);
- 			return -EINVAL;
- 		}
- 		if (peer_info->vpod.addr_mode != info->vpod.addr_mode) {
--			dev_dbg(adev->dev,
--				"Peer %u addr_mode doesn't match: %u != %u\n",
--				accel_id, peer_info->vpod.addr_mode,
--				info->vpod.addr_mode);
-+			dev_warn(adev->dev,
-+				 "UALINK: integrity fail: peer %u addr_mode doesn't match: %u != %u\n",
-+				 accel_id, peer_info->vpod.addr_mode,
-+				 info->vpod.addr_mode);
- 			return -EINVAL;
- 		}
- 		if (!bitmap_equal(peer_info->vpod.active_accel_bits,
- 				  info->vpod.active_accel_bits,
- 				  AMDGPU_UALINK_ACCEL_MAX)) {
--			dev_dbg(adev->dev,
--				"Peer %u vpod_active_accels don't match\n",
--				accel_id);
-+			dev_warn(adev->dev,
-+				 "UALINK: integrity fail: peer %u vpod_active_accels don't match\n",
-+				 accel_id);
- 			return -EINVAL;
- 		}
- 
- 		if (__test_and_set_bit(accel_id, local_accel_ids)) {
--			dev_dbg(adev->dev,
--				"Duplicate accel_id %u among local vpod peers\n",
--				accel_id);
-+			dev_warn(adev->dev,
-+				 "UALINK: integrity fail: duplicate accel_id %u among local vpod peers\n",
-+				 accel_id);
- 			return -EINVAL;
- 		}
- 		local_accels[n_local_accels++] = accel_id;
-@@ -1086,8 +1123,16 @@ static void __amdgpu_ualink_activate_vpod_locked(struct amdgpu_device *adev)
- 			"Local vpod integrity check failed: %d\n", ret);
- 		return;
- 	}
--	if (!ret)
--		activate_local_vpod(adev);
-+	if (ret == -EAGAIN) {
-+		dev_info(adev->dev,
-+			 "UALINK: activate deferred, waiting for local vpod peers to reach VPOD_CONFIGURED\n");
-+		return;
-+	}
-+
-+	dev_info(adev->dev,
-+		 "UALINK: integrity OK, applying local vpod (%u local accels)\n",
-+		 adev->ualink.info->n_local_accels);
-+	activate_local_vpod(adev);
- }
- 
- static ssize_t ualink_vpod_config_commit_store(struct kobject *kobj,
-@@ -1105,8 +1150,16 @@ static ssize_t ualink_vpod_config_commit_store(struct kobject *kobj,
- 
- 	if (!sysfs_streq(buf, "true"))
- 		return -EINVAL;
-+
-+	dev_dbg(adev->dev,
-+		"UALINK: vpod-commit enter: accel_state=%d staged vpod_id=%u vpod_size=%u addr_mode=%u\n",
-+		info->accel_state, config->vpod.id, config->vpod.size,
-+		config->vpod.addr_mode);
-+
- 	if (info->accel_state < AMDGPU_UALINK_ACCEL_STATE_PPOD_CONFIGURED) {
--		dev_dbg(adev->dev, "Ualink ppod is not yet configured\n");
-+		dev_warn(adev->dev,
-+			 "UALINK: vpod-commit rejected, ppod not configured (accel_state=%d)\n",
-+			 info->accel_state);
- 		return -EINVAL;
- 	}
- 
-@@ -1114,15 +1167,34 @@ static ssize_t ualink_vpod_config_commit_store(struct kobject *kobj,
- 	prev_vpod_id = info->vpod.id;
- 	r = psp_ual_set_vpod_config(&adev->psp, adev->ualink.psp_if_ver,
- 				    config);
--	if (r)
-+	if (r) {
-+		dev_warn(adev->dev,
-+			 "UALINK: vpod-commit psp_ual_set_vpod_config failed: %d\n",
-+			 r);
- 		return r;
-+	}
-+
- 	r = psp_ual_query_info(&adev->psp, adev->ualink.psp_if_ver, info, NULL);
--	if (r)
-+	if (r) {
-+		dev_warn(adev->dev,
-+			 "UALINK: vpod-commit psp_ual_query_info failed: %d\n",
-+			 r);
- 		return r;
-+	}
-+
-+	dev_dbg(adev->dev,
-+		"UALINK: vpod-commit fw read-back: vpod_id=%u vpod_size=%u accel_id=%u ppod.size=%u addr_mode=%u\n",
-+		info->vpod.id, info->vpod.size, info->ppod.accel_id,
-+		info->ppod.size, info->vpod.addr_mode);
- 
- 	if (info->vpod.id != AMDGPU_UALINK_VPOD_ID_INVALID &&
--	    !__check_vpod_info(adev, info))
-+	    !__check_vpod_info(adev, info)) {
-+		dev_err(adev->dev,
-+			"UALINK: vpod-commit __check_vpod_info() failed: %d\n",
-+			r);
- 		return -EINVAL;
-+	}
-+
- 	/* The integrity check makes sure each new GPU is consistent with the
- 	 * other GPUs already in the vPod. All known local GPUs can become
- 	 * "ready" at the same time.
+ 	/**
+ 	 * @vm_ops:
+ 	 *
 -- 
 2.55.0
 
