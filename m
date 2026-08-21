@@ -4,102 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1BB3C5DF8F
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 06:03:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31150C5DF87
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 06:39:15 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 65AB210F21F;
-	Fri, 21 Aug 2026 06:03:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AA05F10F220;
+	Fri, 21 Aug 2026 06:39:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Wzrsm+G5";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="bwcBwS0+";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6Z4vcbQC";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mL9/9Iir";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xbk2DB96";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011008.outbound.protection.outlook.com [52.101.62.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA1B710F21D
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 06:03:53 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Wh7fkwFpw3jP+zvBjMJlxm1AAqopsBiAl7D2NwHTALWLMUo5CXnZXDsL7n3K2VMM1t9hChPUv04B4kX+YOR+Kg+KP1YhNNSl/B3G6RiKQJJml5ACofzuOVDd6TLvScTS00tbP0L28KE2IT845pxI1FNU/weFx2jjm8r+kb38HU8+eY47B8gPtZehZg+ekS5MRHigBAM6WCTXSNtwrUYR4qo7lPncPkeru3OU7yV7rxYthkCBw10aFkhvpddTUUH6C6KYEo6Hj7S7LFtnDhFI54FG1IuWtoYQJpddn8VkjWMVm9EC/4d9nn+h1YfsRaZHt2EhVh6/LJyfDH6QGVYglA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PUo6AGHjRhMWTP8WCdx+kWvVAtImluzndcPj7fkjd90=;
- b=BqHRa9wzcM1oMJGzoLghvNrDW+eBIiU/008iXinyNC/MNpQqfQck9kcuMfjj77OFQXOqEzQmDB14u8/1z85IECH8vbyhmw3EWB5JVrl0sohgIiT1sH4enkcj/gjjEdc0+8zVFSwXJQERcFTx48K1Vcww6WA7phzFsKN0K2EE+S5IeRVnjjaqI6O2swAXQsFG894DPQ0UjafQUHoWYJtljub7RTXhKzBRGYetd3tW81baDJgt6ZPTKjh9pvnFtsqFhcMFnRiC3vN6jIHfcZdYf+/Kf9THLfUhokiMz7HwChPV3zKfbNHEfjbagiuUgX74Im9JDOxjgtbYPB0Qb6AXfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PUo6AGHjRhMWTP8WCdx+kWvVAtImluzndcPj7fkjd90=;
- b=Wzrsm+G5xrznYB9lTsEJGkrZYRjkXalIOQ8FPjNusk0KE5NPACZaI5K6l6GxFKpz3uskKrSuGXuLyNz9KwujnMLAqaNhuzc83hwRkT01SmUb0p8x5B9Utsk/WbvH9hdkMmQobPOiDPwhAZ8Dl0ZBRfbk5v7wfMnbVVnFv0EFptk=
-Received: from CH2PR19CA0001.namprd19.prod.outlook.com (2603:10b6:610:4d::11)
- by DSVPR12MB999171.namprd12.prod.outlook.com (2603:10b6:8:388::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Fri, 21 Aug
- 2026 06:03:46 +0000
-Received: from CH2PEPF0000013D.namprd02.prod.outlook.com
- (2603:10b6:610:4d:cafe::7d) by CH2PR19CA0001.outlook.office365.com
- (2603:10b6:610:4d::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.10 via Frontend Transport; Fri,
- 21 Aug 2026 06:03:46 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CH2PEPF0000013D.mail.protection.outlook.com (10.167.244.69) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 06:03:46 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 01:03:46 -0500
-Received: from prike-code-pc.amd.com (10.180.168.240) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 01:03:44 -0500
-From: Prike Liang <Prike.Liang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
- <Pierre-eric.Pelloux-prayer@amd.com>, Prike Liang <Prike.Liang@amd.com>
-Subject: [PATCH v2 4/4] drm/amdgpu/userq: Add userq invalid VA status report
-Date: Fri, 21 Aug 2026 14:03:28 +0800
-Message-ID: <20260821060328.461383-4-Prike.Liang@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260821060328.461383-1-Prike.Liang@amd.com>
-References: <20260821060328.461383-1-Prike.Liang@amd.com>
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8198E10F220;
+ Fri, 21 Aug 2026 06:39:12 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 3284B3EAF;
+ Fri, 21 Aug 2026 06:38:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787294328; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=IMECoYsWSShMDNVZ8JDbQREho5iWl1tF8HaXKW+o8bY=;
+ b=bwcBwS0+RC4EqtR9XE60Dr7YThswkD9m/wJHGl0tYz+b+jnsCbHokMe2hGq/Uqk4uzT50A
+ eo3102wp6SGIjVNcjni9XRheTPpNywHtnve3o/8JTxEV7f0KyAXhdofQzz/9ZLDSC0zYU4
+ Y6GN1+Rph/uZtJg+IxXU5IT21JaHaQE=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787294328;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=IMECoYsWSShMDNVZ8JDbQREho5iWl1tF8HaXKW+o8bY=;
+ b=6Z4vcbQCxluqvDsyVW5JOdb+VetFkKQe/E/aiunFRyGnD0F+w7Vd66aAq33oo/wFBvKlfS
+ DD681hcQkd6gUCBw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b="mL9/9Iir";
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=xbk2DB96
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787294324; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=IMECoYsWSShMDNVZ8JDbQREho5iWl1tF8HaXKW+o8bY=;
+ b=mL9/9IirJ/hFuHoEJ9tqN6Gyj/BzCxbBnS8Vhpd9olYi8cAzb5Q7wleR0jkMWFnb6EQXj4
+ MbELBsuGxlTEhOXwdoUh5C2t3dHRphQ2taTyOQWKik5ErjYPYnJRZqA4MOEXeGdv8z+pmE
+ DnM6e+TO6hELLfr5XGJHojqd0ilrLZA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787294324;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=IMECoYsWSShMDNVZ8JDbQREho5iWl1tF8HaXKW+o8bY=;
+ b=xbk2DB96M/yt8An1/BaVXFIB/WVgjEWwzS3BFmfjzbloxDMaBSaA5lj+zU3stDKov/MLO3
+ gePOA+Nf5lkyeWCw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BBCDE3329;
+ Fri, 21 Aug 2026 06:38:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id us1oLHPyh2pUAgAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Fri, 21 Aug 2026 06:38:43 +0000
+Message-ID: <3d0d14e6-05d2-4fc4-befe-e1d0cafc91db@suse.de>
+Date: Fri, 21 Aug 2026 08:38:43 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/12] drm/panic: Split into core and helpers
+To: Jocelyn Falempe <jfalempe@redhat.com>, javierm@redhat.com,
+ airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
+ linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
+ sashiko-reviews@lists.linux.dev
+References: <20260818125012.468092-1-tzimmermann@suse.de>
+ <e4da5ba4-9a02-4080-9a83-19d401017910@redhat.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <e4da5ba4-9a02-4080-9a83-19d401017910@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb09.amd.com
- (10.181.42.218)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000013D:EE_|DSVPR12MB999171:EE_
-X-MS-Office365-Filtering-Correlation-Id: b77325d3-470d-471f-10a0-08deff49f654
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|1800799024|376014|36860700016|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: zZ67w063rwC7dBJ4kp6z9qP7NcS1t95lmKrvuDzEF0UMtKhRu1+TyoMs6VLyuOSqFBDzNz6ae00G9uR7PfDQ8HbQJIafTloPTCfWPSxoTGsH5Wq00vaZEItM8sudSExTbNW5Nr0/2vu+LPs3h315EjObUPuVSWhVZPqbTUSh0RR6BCi3VEav8cXjNAuEz2eXZMH07TX16aYaXoxW94CUieZ/4dFjjv5qQBhbr9BKG/w4nloCRUyupkhjV1g1uJsY3Phg3eLCEmPFY91ZHY4HW7Ve52/04Xy1ketFp/d1BbP1NiIUfwu8xKkBJ+LuJYISbvJVA4C6jn8ITa3jHGB1esEJ6+3G4u1dOI23Ef3HnfVw3wpA2Cs3GSvj6U+1GUgZYOBLUvzvOKJyjK/cMqMpV5Uqd8rrVf3njTDhJQ59ti+3hdJ+z3yHfTytzCZjUdFHXJ6QFhRgCYQlZnJa6tlqIpVVvKL8vaWM637V9EtfvmvkjRUa3wdnjl5k4WxUbvg7hKUShqn7HcNJpq1afna5GqUmaS8CfYL1Tqdvn8nsoWG2klXRRCv04dxCgGMj3v00MP141+sbZVFYtaUlChj0P3Cp7Tg7XUeWzR+EHTJoRZMWf1YUK3v42qjX0z3CjuscBzXtXW20mMIDSqkUp3IkNZswyTV5ZmfW0Nbk7usYWOL8vw2wWxQXZlw1C/nRPxNF6zc7HyaLlXJ+z8vsbRokYg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(1800799024)(376014)(36860700016)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: +bYiBiBlOL/4lNAXDOqvuh09sKk2B5eIpHElXNpkc1QnUY+YBs2C6XeBAdmg4xUtEAMz9kvzTDi0lxxlJoOarVKnszjmmGkstU+VsBY2ZRJ5pXx2CFeyC6D9XauHcf6fYUyT6MdNEV43bXNUa6NhrIuEsx2k6eQmxkP4iSU45op8J8ht17TuS0CFn6Bm071ZE9k6+JE0OONfM3f3cwG6gWcAF3yGoqzttuvK/OFEk6uoj6yGCpNsOStnwHa4Q+2AONq1f2Ncl1zphbbEQYdE4eF/zIj6B+3Q4iKKh0xruOTwAO4auZEBz3g5K81opBO3RyUb6Y2h2GQjT4w8BN7r8OpVOSNs0is/BGcthzbE3ODERZjwsFc+NNkHMsr/jLjiMHp/Ax2+RVpI02Js4KdfMT9h6yy6G69ZqNCP2Tt42zPzfl/39hmbBPBS1j9QVQcT
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 06:03:46.3277 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b77325d3-470d-471f-10a0-08deff49f654
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF0000013D.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999171
+X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 3284B3EAF
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FREEMAIL_TO(0.00)[redhat.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org];
+ RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[19]; TO_MATCH_ENVRCPT_ALL(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_TRACE(0.00)[suse.de:+];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
+ imap1.dmz-prg2.suse.org:rdns, suse.de:mid, suse.de:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,26 +153,75 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Report the userq invalid VA status to the user space.
+Hi Jocelyn
 
-Signed-off-by: Prike Liang <Prike.Liang@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 2 ++
- 1 file changed, 2 insertions(+)
+Am 20.08.26 um 19:49 schrieb Jocelyn Falempe:
+> On 18/08/2026 14:27, Thomas Zimmermann wrote:
+>> Split DRM's current panic handling into a core and a helper module.
+>> The core is still part of DRM's core library. The panic helpers are
+>> part of DRM's KMS helper module (for now).
+>>
+>> The motivation behind this series is to get panic handling's drawing
+>> code out of the DRM core. At some point it should share a single
+>> module with DRM's other drawing and format conversion.
+>>
+>> With the series applied, panic hanlding follows DRM's established
+>> design pattern of having a DRM core interface with an dedicated
+>> implementation in each driver. Drivers share common code in helper
+>> modules. For panic handling, the DRM core still contains the panic
+>> entry points, the parameters and the debugfs interface. All drawing
+>> is now located in the panic helpers.
+>>
+>> Patches 1 to 4 improve several issues in the current panic code. It
+>> makes sense to fix them before moving the core around.
+>>
+>> Patches 5 to 8 put handling of all panic state and locking into a
+>> single place, drm_panic_display_panic_screen(). It is maintained by
+>> panic handling's DRM core code. This also enables the test cases to
+>> work more independently from the kernel's configuration.
+>>
+>> Patches 9 to 11 split the panic-handling code into the core and panic
+>> helpers. The former maintain all state, locking and public interfaces.
+>> The latter handles drawing and details of the involved framebuffers.
+>>
+>> DRM devices that offer panic handling provide a single callback, struct
+>> drm_plane_funcs.display_panic_screen. A new initializer macro makes it
+>> point to the existing panic-drawing implementation. Hence there's no
+>> change in features or functionality. If panic handling is configured
+>> off, it all clears out to NULL.
+>>
+>> Patch 12 reworks the test cases slighly, so that they can be build as
+>> a separate module. Do 'modprobe drm_panic_helper_test' to run them.
+>>
+>> Tested under bochs with debugfs and test cases.
+>
+> Overall the series looks good to me, and I like the split between the 
+> helper and the core.
+> I would just drop the first two patches, as I don't see much 
+> difference between static allocation or kmalloc() at init, and I think 
+> that memset() the buffers to 0 is not useful in this case.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 911b4abfd126..82ceb2a0cc47 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -821,6 +821,8 @@ amdgpu_userq_query_status(struct drm_file *filp, union drm_amdgpu_userq *args)
- 		args->out_qs.flags |= AMDGPU_USERQ_QUERY_STATUS_FLAGS_HUNG;
- 	if (queue->generation != amdgpu_vm_generation(adev, &fpriv->vm))
- 		args->out_qs.flags |= AMDGPU_USERQ_QUERY_STATUS_FLAGS_VRAMLOST;
-+	if (queue->state == AMDGPU_USERQ_STATE_INVALID_VA)
-+		args->out_qs.flags |= AMDGPU_USERQ_QUERY_STATUS_FLAGS_INVALID_VA;
- 	mutex_unlock(&uq_mgr->userq_mutex);
- 
- 	return 0;
+Ok. Geert also expressed a dislike for these changes.
+
+I have a number of changes done from the Sashiko review and will post an 
+update to the series early next week.
+
+Thanks for reviewing.
+
+Best regards
+Thomas
+
+
+>
+> Best regards,
+>
+
 -- 
-2.34.1
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
