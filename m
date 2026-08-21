@@ -4,102 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DE804C5DF8C
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 19:51:41 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F40FDC5DF8E
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 19:51:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 798D710F3F1;
-	Fri, 21 Aug 2026 19:51:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CA2110F401;
+	Fri, 21 Aug 2026 19:51:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="P4gE9tFB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LGfr6Xza";
 	dkim-atps=neutral
-Received: from CO1PR03CU002.outbound.protection.outlook.com
- (mail-westus2azon11010054.outbound.protection.outlook.com [52.101.46.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E9ED410F3F1
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 19:51:40 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012036.outbound.protection.outlook.com [52.101.48.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B620910F40A
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 19:51:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C5ZiDWXKJWjnvmW6fC9Y0A1nx+4+dkuexPmEk4a09vvBKZI5kwjuIki3aALcRzYIjePd18iP+BwbtI6buK8FVryU4ULZkXTY7UUQzLBjXoWrU+McrtRxx3wFDWZmVIKCvJoTt3atJCEuX5TbvSP/EWd2iqk+Q8nB45Uvpgk+/KzeWREPuHWjZkj4g9JriC2R6htV3o9H9WxTllLt62MM53Vmg9a1mKS8tM7+q0GZp6uA5k3jXOk6G9Z4D06zCV7/i4/IRX3Lf4J+B1ZtJ2Vl4iR06kPSQXupstKyKMasBbvoLdnDAFnnS2y8qb3vc8fISvM3V625w62J2Wm+LshMaQ==
+ b=eiW0RqFzvame9aRERJgQQAU2FBZavtPiciM5PN6Do6FfD76BakwSQ9UsWYXTGr5yhsyTFRBzCLS5ZwV4pnaGe5/l/bcZ0fXe41jiNBCyJJ/YC66JFHrzmfxfKDfceDorHSW5BQHy0mZP02N233zaG0vYANGuSbdhBH59zVvwcHaYoe20Gxt7a+GCuEbx4ByaD+a84HG8GnXZLh+3lJ4htq5m5NKFdb0WLUiuXR8ILURc815J8ccXJoGcsh5btnAlc99GFBp9tdKCLMlfaTRgJ1AZdV2HeMlpxLh/xK2UNx06UDen0j0/9yXIPf+Ex80AGYGYAzIjTbXI37sLJ7aDHw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=HH7WRCi85HawlwK6NkeY/5TZLyn/5UwPL5dR6/mSG5g=;
- b=twxyKUwJWspweRXYPYymP4r2/Li8pR+AcFoTp75e3n3xIqeq5x37R8gTvs7s77G796B7iaZ9RUAK/0INyWi2BdMUuevDtQFi1IIKH1ZvNk9A/voeU0yUAErkfkYyaJo58DlHlCxODxdjeEk1S5hl67oUBt1rHVoZIqn8innd5hXVwNv416e5gY+053JsLdapCbih8qwXIuuKADzOGdXuzNjkYsSxZlTdWk6GbQzCka/nMlpY0L+uafzp+xmBP3jor1Qiz/n6AtuGgfkJuQa9zYhmK4qK/Rgn/gZGMte3SpJF5Qe71Cr43jPpPPKwREtb4qVaxZZrVHU4GcOkk+iRVw==
+ bh=Rk/pOHo7kxyg4tQqpHXigYZEOx3ZYam8JDO+qRMMlJ4=;
+ b=iyKbIGR+saLa6lzd9HXGOUiB8GDXkWNmE8Em8fhI4J+Zon4sDH9Cgjw3yLgfIoYFZmCYh73g+39bD0mvbL4OZawqxHR1dSnyZ9ZIVhomh+bdFcycHReE9eKMMDvJWyc/HspQVO8/Im+USreySauB3JChaNR4hR7m0/PvIuuEBXLwKqk3dA601lEw9Z51pDD4enfvYuOzsh/3D1cbDEkQyso1KFG2xrqnAcX/9ssLmNPV/kIJx0aK2BWFyIpwsLVBKznXxqZKlQu8tiGpnhSvvXeTaQ/FI8nWVZk24jFPRLwK6ukcJjm7WKOhtrOfGejJwhRt3nJ7MDD7I+zFqDDb3w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=HH7WRCi85HawlwK6NkeY/5TZLyn/5UwPL5dR6/mSG5g=;
- b=P4gE9tFBgJ2nl80DdaA1mU04PxLLcU8lBtRZEht4rg7bZ0sqMTtwwJ4gmvxP7m/2IbBSPuHnqOu0d9iTnV3trEpwSLHK51j2PUdAOQyBSU47h+wtgQhZGii26xMCHkz69/5UiBG+c6V9VFD51NQgsYhgUOw5/21yJcmF67Akl9Y=
-Received: from SJ0PR03CA0229.namprd03.prod.outlook.com (2603:10b6:a03:39f::24)
- by MW4PR12MB7358.namprd12.prod.outlook.com (2603:10b6:303:22b::19)
+ bh=Rk/pOHo7kxyg4tQqpHXigYZEOx3ZYam8JDO+qRMMlJ4=;
+ b=LGfr6Xza16aTc02hTr1ZVKIjYrtvRzJdIIMidsKZ6ZXrsY6/WoD3H4Q+NuBsajsfPYU9Y13SpJ1x8NJEBdm+6oM7u/oZQyTw/Mfd2ndEvAJSzxVFBxQ5gtwurPC84kcTd5cwmgcq3aMuPQulq9oqm9Z0IfBKY2EuJAbqofLf+cU=
+Received: from CH2PR10CA0023.namprd10.prod.outlook.com (2603:10b6:610:4c::33)
+ by DSVPR12MB999171.namprd12.prod.outlook.com (2603:10b6:8:388::22)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.9; Fri, 21 Aug
- 2026 19:35:41 +0000
-Received: from CO1PEPF000066E6.namprd05.prod.outlook.com
- (2603:10b6:a03:39f:cafe::71) by SJ0PR03CA0229.outlook.office365.com
- (2603:10b6:a03:39f::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
- 21 Aug 2026 19:35:39 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Fri, 21 Aug
+ 2026 19:35:32 +0000
+Received: from CH1PEPF0000AD7F.namprd04.prod.outlook.com
+ (2603:10b6:610:4c:cafe::4c) by CH2PR10CA0023.outlook.office365.com
+ (2603:10b6:610:4c::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.10 via Frontend Transport; Fri,
+ 21 Aug 2026 19:35:32 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CO1PEPF000066E6.mail.protection.outlook.com (10.167.249.4) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000AD7F.mail.protection.outlook.com (10.167.244.88) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 19:35:39 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 19:35:32 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 14:35:32 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 14:35:32 -0500
+ 2026 14:35:27 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 21 Aug 2026 14:35:32 -0500
+ Transport; Fri, 21 Aug 2026 14:35:27 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling
- <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 34/95] drm/amdgpu: Add UALink NPA VM mapping for ring buffers
-Date: Fri, 21 Aug 2026 15:33:57 -0400
-Message-ID: <20260821193458.808626-35-alexander.deucher@amd.com>
+CC: Mukul Joshi <mukul.joshi@amd.com>, =?UTF-8?q?Christian=20K=C3=B6nig?=
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 26/95] drm/amdgpu: Rework VMID reservation logic
+Date: Fri, 21 Aug 2026 15:33:49 -0400
+Message-ID: <20260821193458.808626-27-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260821193458.808626-1-alexander.deucher@amd.com>
 References: <20260821193458.808626-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF000066E6:EE_|MW4PR12MB7358:EE_
-X-MS-Office365-Filtering-Correlation-Id: 722d0b24-f8a8-4531-112a-08deffbb61da
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7F:EE_|DSVPR12MB999171:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6f22a0a8-b416-425a-e216-08deffbb5d5e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|82310400026|36860700016|1800799024|376014|22082099003|18002099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: nN3dlzxdXiA78ttIfV46xVd6qOxVWsUVRHpporjyLkplTzLUytUnulxbCkL+R9Was4wfGPGHqDKpy6L9nLOdULBws/UOW0qJb2aiBZsv+QVGrIPAO0X7VRGmoPMLXCnspPLSzo+hQ9IGit5iuvC4PaUN4AKEXZMSfPlFzjFe/v205w2/kGuw7QfJJnZUj+68aeAOgM95VDJW73ORXcBD/qHzH1lXOGjVeiYulFg0uNzqPgo+2BDfxr512lM5oJf1fpZn1GOHfCSMVvfhgY7ehv+ZLA5T9SNPLC1Lr2bIfKCcJOFdl8X62GFXupnESgMkUcExI+erRFCYUZfW8H59CpUL1ANV8Es5PQUxG236TAqMZw4gyDrNY6PWMupH9lMZGAx629kxizO2sawBo6uL0I0OvOJJLF78iZjM7exEZncMTSjajLrro1iaVBe0di94mK3yns3qFgGoyBegqS28w7piniwQr8khUOU9tgHnWCXY8+KzH1BxtMleLbB4Mf5ZaKSh5DI1Xr0r6gX1uDksLTMxkOv3n1pbeVnpzWGAbBfiQ5mwxMrQgYzZbKpCHpWGqTJhMdm/0pwO8ijL+U77un/BO9wBatF/Q8wDrW+XhFT27XZjsS6RhK27FyCdkduI0pZ0VTolfR9HNC0p0xxrLYZmu0zDWrpBJVOyxlmnI2XO90kmtyUglp0b80LjeMtk2zWJTTnJm+Z1tgRh0Mfogw==
+ ARA:13230040|376014|1800799024|36860700016|23010399003|82310400026|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: BVgFPhMis3ykp52akl3GASgJoAASczzmxOPamUyXwkqYU7xPUFAMctZfLw9FG4Xp5QyyQj6bZ3w0UbDxyuxTBsLLQlIPUP7d7WUjrOQchkY9v81+78s475bKT9vymUqq9O8przDpvA23uPK/vkZLHZgZYapqlJpcW0fv529ZArJboQucTDihajBmBKfKrUirESQTckzOGGal+37lPuwI3aqj6jz7sJ4eCVInMhO9qTrEvg/AnneXP7qiVN5vhzoZinRVt/qTl6INyvSVtxyDgjt19Z7uciPb2Pab9UGuRgDl8PY1znbrxW7plS/5+LwHN0S+r7h3eTmgqsjjWA00ABFirwHWyEiLrvH6ofXj0z9bEURz7Ck4fsZ0+ICaaCGKvPZan40+RIsocWW+O8WtUBFvVvkLXnekgLxmn0AATR5IrHrWd+kzjkh1/D0oM1OFbi1NyUM8ai14lRZwGAYar6IaBczslb/qcIFkwi3t/M5/U7WR5jV6bEXecaHEXFaov+bkYMF1shZK0Cx7RGNsknFb6HcxGn+KpHMvGnwIKrOGXQKCz2fmFyQ+y6PLkH4x10TOlYLmK+IrB/Jf7ql/0HPndXFI/s+m9cC7Va6SMfySbY3cXm0XTCTmq0OHhEwWc8y7bDk2hNms3o9QZQg5cqiNHLod0/Tbg+pgKeEtQVNMnoTX76ySSLKnz5zh3kEiDc+SpKchUVlf7zLEIF/2Ug==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(82310400026)(36860700016)(1800799024)(376014)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(36860700016)(23010399003)(82310400026)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: IbSc5vtrhV/ywlzxaCHCs5a1NbwVZueTr00jLybA079/wHtVVGrR7e/tPnsgJ8RV+jRw5KfScb/5JWmTeW1mr2Vip1kgmT0D69lPb+FvjtcNtQpgzRe7mkGIRNDz6r/oEI491i4eLxrYVdeb3eHD+G0pYQRsajv8zqLX8UdaoF6Uds4WLV3PBrpEKF8rjl1uC76ty0yGhbXc+GKzIWt5NxjWaaRJzvLtQ6ATGz6gn9IfYSb1R8e/FcJXYuFR84sACC51xNmUVHjuQYi8Yju/doRWMUd62YpWK/MPeveuqFJx8Cxn8Ou5Cm69DZUf4xVrPxCBp8x8ovZPeTxpaJO5+4JOuxTM3EvBXmexbhbFSWiYQUVeL/6unSRwfK1WrHqnkKe7870kyHViyRY2hlMdMawyD6+Oa7DjpkgfNBmWhnHId1XBISv5GTpHdccEwqZC
+X-MS-Exchange-AntiSpam-MessageData-0: VYHZJgKpNCigS1vKOrlPSiquVH/chw6Du7iMWRJideSi0ZTgiQSbpPO8SmuYSzOId9tZ5Cv3ZbigokqBtIgY/0qzN/HZngUzRWhHj0V2/Jp6gDAhbHpWB7yzNFhEXM3Roh4GNV9q4AVU/z++6WeS+00D4l89hOIAgd5Qk0tgPveUW3b4Wu/OfIOoHD39i8tL/5qWDuNAlXT/m8OIE3QL72odLEXSswtRRMDRVZ0i45nXRO26Sp2C2m+BGsoVTjsw31UAXDNRSXIBMJu4jDR6u19wcBcn5xJYVpvKJQ76Af8RwTdpv0pDoyjNyUyHdZXQw8kOU0V10KYtdnd7s/L7WOWjTuwrJIDdGOOI4XlY93hOH3bZbrWq7fhNqKc0JW3fkcwyP/N8u/+AGXyaBx5tvaPhpMFK8mYkuvFxwUltKX+qB0Hqw6xWalzWIYGL00ur
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 19:35:39.7742 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 722d0b24-f8a8-4531-112a-08deffbb61da
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 19:35:32.3355 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6f22a0a8-b416-425a-e216-08deffbb5d5e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF000066E6.namprd05.prod.outlook.com
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7F.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7358
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999171
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,478 +110,393 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Philip Yang <Philip.Yang@amd.com>
+From: Mukul Joshi <mukul.joshi@amd.com>
 
-Populate the NPA VM so remote GPUs can access local ring buffers and
-write pointer pages at their reserved NPA addresses. Teardown waits for
-DMA fences and issues a heavyweight TLB flush.
+Rework the VMID reservation logic by passing in the mask
+of VMIDs (for both GFXHUB and MMHUB) available for it to
+use. The VMID masks for both GFXHUB and MMHUB are initialized
+in the respective ASIC specific files.
+This also helps in reserving per-ASIC VMIDs. This is in
+preparation for reserving a VMID for NPA added in the next
+patch.
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+Reviewed-by: Christian König <christian.koenig@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 429 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h |   3 +
- 2 files changed, 432 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c | 33 ++++++++++++++-----------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h | 27 +++++++++++++++++++-
+ drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c  |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c   |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c |  2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c  |  4 +++
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c  |  5 ++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c  | 14 +++++++----
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c   |  6 +++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c   |  6 +++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c   |  6 +++++
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   |  6 +++++
+ 17 files changed, 95 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 857af8a3727b3..191b45a51024a 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -1439,6 +1439,92 @@ static inline u32 ualink_tlb_wb_offset(struct amdgpu_device *adev, u32 accel_id)
- 	return ualink_wb_offset(adev, accel_id) + sizeof(struct amdgpu_ualink_wb);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+index 8a2d64f0ebc3f..8c32c69437645 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c
+@@ -625,12 +625,27 @@ void amdgpu_vmid_reset_all(struct amdgpu_device *adev)
+ 	for (i = 0; i < AMDGPU_MAX_VMHUBS; ++i) {
+ 		struct amdgpu_vmid_mgr *id_mgr =
+ 			&adev->vm_manager.id_mgr[i];
+-
+-		for (j = 1; j < id_mgr->num_ids; ++j)
++		for_each_set_bit(j, id_mgr->vmid_mask, AMDGPU_NUM_VMID)
+ 			amdgpu_vmid_reset(adev, i, j);
+ 	}
  }
  
-+static void amdgpu_ualink_flush_tlb(struct amdgpu_device *adev, u32 flush_type)
++void amdgpu_vmid_mgr_set_vmid_mask(struct amdgpu_device *adev,
++				   unsigned long vmid_mask, bool for_mmhub)
 +{
-+	uint64_t tlb_seq = amdgpu_vm_tlb_seq(&adev->ualink.npa_vm);
-+	u32 bit;
++	unsigned int i;
 +
-+	if (atomic64_xchg(&adev->ualink.last_flushed_tlb_seq, tlb_seq) == tlb_seq)
-+		return;
++	BUILD_BUG_ON(AMDGPU_NUM_VMID > BITS_PER_LONG);
 +
-+	bit = AMDGPU_MMHUB0_START;
++	for (i = 0; i < AMDGPU_MAX_VMHUBS; i++) {
++		bool is_mmhub = AMDGPU_IS_MMHUB0(i) || AMDGPU_IS_MMHUB1(i);
 +
-+	for_each_set_bit_from(bit, adev->vmhubs_mask, AMDGPU_MAX_VMHUBS)
-+		amdgpu_gmc_flush_gpu_tlb(adev, adev->vm_manager.npa_vmid,
-+					bit, flush_type);
++		if (is_mmhub == for_mmhub)
++			bitmap_copy(adev->vm_manager.id_mgr[i].vmid_mask,
++				    &vmid_mask, AMDGPU_NUM_VMID);
++	}
 +}
 +
-+/**
-+ * amdgpu_ualink_npa_vm_map_range - Map a range in the NPA VM
-+ * @adev: amdgpu device pointer
-+ * @bo: buffer object backing the mapping
-+ * @pte_flags: page table entry flags
-+ * @offset: offset into the buffer object in bytes
-+ * @size_in_pages: size of the range to map in pages
-+ * @npa_in_pages: NPA target address in pages
-+ *
-+ * Maps a buffer object range into the NPA VM page table at the specified
-+ * NPA address.
-+ *
-+ * Return: 0 on success, negative error code on failure
-+ */
-+static int amdgpu_ualink_npa_vm_map_range(struct amdgpu_device *adev, struct amdgpu_bo *bo,
-+				   u64 pte_flags, u64 offset, u64 size_in_pages,
-+				   u64 npa_in_pages)
-+{
-+	struct amdgpu_vm *npa_vm = &adev->ualink.npa_vm;
-+	int r;
+ /**
+  * amdgpu_vmid_mgr_init - init the VMID manager
+  *
+@@ -649,19 +664,8 @@ void amdgpu_vmid_mgr_init(struct amdgpu_device *adev)
+ 		mutex_init(&id_mgr->lock);
+ 		INIT_LIST_HEAD(&id_mgr->ids_lru);
+ 
+-		/* for GC <10, SDMA uses MMHUB so use first_kfd_vmid for both GC and MM */
+-		if (amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(10, 0, 0))
+-			/* manage only VMIDs not used by KFD */
+-			id_mgr->num_ids = adev->vm_manager.first_kfd_vmid;
+-		else if (AMDGPU_IS_MMHUB0(i) ||
+-			 AMDGPU_IS_MMHUB1(i))
+-			id_mgr->num_ids = 16;
+-		else
+-			/* manage only VMIDs not used by KFD */
+-			id_mgr->num_ids = adev->vm_manager.first_kfd_vmid;
+-
+ 		/* skip over VMID 0, since it is the system VM */
+-		for (j = 1; j < id_mgr->num_ids; ++j) {
++		for_each_set_bit(j, id_mgr->vmid_mask, AMDGPU_NUM_VMID) {
+ 			amdgpu_vmid_reset(adev, i, j);
+ 			amdgpu_sync_create(&id_mgr->ids[j].active);
+ 			list_add_tail(&id_mgr->ids[j].list, &id_mgr->ids_lru);
+@@ -685,6 +689,7 @@ void amdgpu_vmid_mgr_fini(struct amdgpu_device *adev)
+ 			&adev->vm_manager.id_mgr[i];
+ 
+ 		mutex_destroy(&id_mgr->lock);
 +
-+	dev_dbg(adev->dev, "offset 0x%llx size 0x%llx flags 0x%llx npa 0x%llx\n",
-+		offset, size_in_pages << AMDGPU_GPU_PAGE_SHIFT, pte_flags,
-+		npa_in_pages << AMDGPU_GPU_PAGE_SHIFT);
-+
-+	r = amdgpu_vm_update_range(adev, npa_vm, false, false, true,
-+				   false, NULL, npa_in_pages,
-+				   npa_in_pages + size_in_pages - 1,
-+				   pte_flags, offset, adev->vm_manager.vram_base_offset,
-+				   bo->tbo.resource, NULL, &npa_vm->last_update);
-+	if (r)
-+		dev_dbg(adev->dev, "failed %d to map npa 0x%llx to NPA VM\n", r,
-+			npa_in_pages << AMDGPU_GPU_PAGE_SHIFT);
-+	return r;
-+}
-+
-+/**
-+ * amdgpu_npa_vm_unmap_range - Unmap a range from the NPA VM
-+ * @adev: amdgpu device pointer
-+ * @bo: buffer object backing the mapping
-+ * @pte_flags: page table entry flags
-+ * @offset: offset into the buffer object in bytes
-+ * @size_in_pages: size of the range to unmap in pages
-+ * @npa_in_pages: NPA target address in pages
-+ *
-+ * Removes a previously established mapping from the NPA VM page table.
-+ *
-+ * Return: 0 on success, negative error code on failure
-+ */
-+static int amdgpu_ualink_npa_vm_unmap_range(struct amdgpu_device *adev, struct amdgpu_bo *bo,
-+				     u64 pte_flags, u64 offset, u64 size_in_pages,
-+				     u64 npa_in_pages)
-+{
-+	struct amdgpu_vm *npa_vm = &adev->ualink.npa_vm;
-+	int r;
-+
-+	dev_dbg(adev->dev, "offset 0x%llx size 0x%llx flags 0x%llx npa 0x%llx\n",
-+		offset, size_in_pages << AMDGPU_GPU_PAGE_SHIFT, pte_flags,
-+		npa_in_pages << AMDGPU_GPU_PAGE_SHIFT);
-+
-+	r = amdgpu_vm_update_range(adev, npa_vm, false, false, true,
-+				   false, NULL, npa_in_pages,
-+				   npa_in_pages + size_in_pages - 1,
-+				   pte_flags, offset, 0, bo->tbo.resource, NULL,
-+				   &npa_vm->last_update);
-+	if (r)
-+		dev_dbg(adev->dev, "failed %d to unmap npa 0x%llx from NPA VM\n", r,
-+			npa_in_pages << AMDGPU_GPU_PAGE_SHIFT);
-+	return r;
-+}
-+
- /*
-  * Reserved NPA space for remote shootdown and interrupt ring buffer,
-  * write pointers, read pointers and writeback buffers
-@@ -1533,3 +1619,346 @@ static u64 amdgpu_ualink_gart_npa_addr(struct amdgpu_device *adev, u32 type,
- 	return npa | ((u64)dst_accel_id << AMDGPU_UALINK_GART_NPA_ADDR_GPUID_SHIFT);
- }
+ 		for (j = 0; j < AMDGPU_NUM_VMID; ++j) {
+ 			struct amdgpu_vmid *id = &id_mgr->ids[j];
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+index 4b55d0d9703a3..46b2c21601263 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h
+@@ -26,6 +26,8 @@
+ #include <linux/types.h>
+ #include <linux/mutex.h>
+ #include <linux/list.h>
++#include <linux/bitops.h>
++#include <linux/find.h>
+ #include <linux/dma-fence.h>
+ 
+ #include "amdgpu_sync.h"
+@@ -33,6 +35,27 @@
+ /* maximum number of VMIDs */
+ #define AMDGPU_NUM_VMID	16
  
 +/**
-+ * amdgpu_ualink_reserve_npa_vm_and_bos - Reserve the NPA VM page directory and BOs
-+ * @adev: amdgpu device pointer
-+ * @bos: array of buffer objects to reserve
-+ * @n_bos: number of entries in @bos
-+ * @exec: drm_exec context to initialize and use for locking
-+ * @interruptible: true to use the interruptible dma_resv_lock
++ * for_each_vmid_and_zero - iterate over VMID 0 plus every VMID set in a hub's
++ *                          vmid_mask
++ * @vmid:	loop cursor (int / unsigned int)
++ * @adev:	struct amdgpu_device *
++ * @hub:	vmhub index into adev->vm_manager.id_mgr[]
 + *
-+ * Initializes @exec and uses it to lock all BOs in @bos together with the
-+ * NPA VM page directory, retrying on contention. On failure, @exec is
-+ * finalized and the error code is returned.
++ * Equivalent to OR-ing BIT(0) into id_mgr[hub].vmid_mask and walking the
++ * result with for_each_set_bit(). Used by the gfx_v*_constants_init() paths
++ * which must always touch VMID 0 (system) in addition to the regular VMIDs
++ * owned by the hub.
 + *
-+ * Returns: 0 on success, negative error code on failure.
++ * Relies on AMDGPU_NUM_VMID (16) fitting in a single unsigned long, i.e.
++ * vmid_mask[] being a 1-element bitmap.
 + */
-+static int amdgpu_ualink_reserve_npa_vm_and_bos(struct amdgpu_device *adev,
-+						struct amdgpu_bo *bos[], u32 n_bos,
-+						struct drm_exec *exec,
-+						bool interruptible)
-+{
-+	u32 flags = DRM_EXEC_IGNORE_DUPLICATES;
-+	int i, r = 0;
++#define for_each_vmid_and_zero(vmid, adev, hub)				\
++	for (unsigned long __vmid_mask =				\
++		(adev)->vm_manager.id_mgr[(hub)].vmid_mask[0] | BIT(0);	\
++	     __vmid_mask; __vmid_mask = 0)				\
++		for_each_set_bit((vmid), &__vmid_mask, AMDGPU_NUM_VMID)
 +
-+	if (interruptible)
-+		flags |= DRM_EXEC_INTERRUPTIBLE_WAIT;
-+
-+	dev_dbg(adev->dev, "reserve NPA vm and %d bos\n", n_bos);
-+
-+	drm_exec_init(exec, flags, 0);
-+
-+	drm_exec_until_all_locked(exec) {
-+		for (i = 0; i < n_bos; i++) {
-+			r = drm_exec_lock_obj(exec, &bos[i]->tbo.base);
-+			drm_exec_retry_on_contention(exec);
-+			if (unlikely(r))
-+				goto out;
-+		}
-+
-+		r = amdgpu_vm_lock_pd(&adev->ualink.npa_vm, exec, 0);
-+		drm_exec_retry_on_contention(exec);
-+		if (unlikely(r))
-+			goto out;
-+	}
-+
-+out:
-+	if (r)
-+		drm_exec_fini(exec);
-+	return r;
-+
-+}
-+
-+/**
-+ * amdgpu_ualink_unreserve_npa_vm_and_bos - Release the NPA VM page directory and BOs
-+ * @adev: amdgpu device pointer
-+ * @exec: drm_exec context previously initialized by
-+ *        amdgpu_ualink_reserve_npa_vm_and_bos()
-+ *
-+ * Finalizes @exec, releasing all locks on the NPA VM page directory and
-+ * the associated BOs acquired during reservation.
-+ */
-+static void amdgpu_ualink_unreserve_npa_vm_and_bos(struct amdgpu_device *adev,
-+						   struct drm_exec *exec)
-+{
-+	dev_dbg(adev->dev, "unreserve NPA vm and bos\n");
-+	drm_exec_fini(exec);
-+}
-+
-+/**
-+ * amdgpu_ualink_metadata_npa_unmapping - Tear down NPA address mappings
-+ * @adev: amdgpu device pointer
-+ *
-+ * Unmaps all NPA address mappings from the NPA VM for ring buffers,
-+ * write pointers, and read pointers. Waits for outstanding DMA fences
-+ * and flushes the TLB.
-+ */
-+static void amdgpu_ualink_metadata_npa_unmapping(struct amdgpu_device *adev)
-+{
-+	struct amdgpu_ualink_remote *remote = to_remote(adev);
-+	u64 timeout = msecs_to_jiffies(2000);
-+	u32 dst_accel_id = ualink_accel_id(adev);
-+	struct amdgpu_bo *bos[2];
-+	u32 n_bos;
-+	struct dma_fence *fence;
-+	struct drm_exec exec;
-+	u32 rptr_size, rptr_size_in_pages;
-+	u32 rb_size, rb_size_in_pages;
-+	u64 pte_flags = adev->gmc.noretry_flags;
-+	u64 npa;
-+	int r;
-+
-+	if (!remote->ring_bo)
-+		return;
-+	if (!remote->active_accel_bits)
-+		return;
-+
-+	rb_size = AMDGPU_UALINK_RB_SIZE;
-+	rb_size_in_pages = rb_size >> AMDGPU_GPU_PAGE_SHIFT;
-+
-+	bos[0] = remote->ring_bo;
-+	n_bos = 1;
-+	if (ualink_addr_mode(adev) == AMDGPU_UALINK_ADDR_MODE_SOURCE_ALIAS) {
-+		bos[1] = remote->rptr_bo;
-+		n_bos = 2;
-+	}
-+
-+	r = amdgpu_ualink_reserve_npa_vm_and_bos(adev, bos, n_bos, &exec, false);
-+	if (unlikely(r))
-+		return;
-+
-+	if (ualink_addr_mode(adev) == AMDGPU_UALINK_ADDR_MODE_SOURCE_ALIAS) {
-+		/* rptr npa mapping, up to allocated 2 pages npa address */
-+		rptr_size = ualink_wb_size(adev);
-+		rptr_size = AMDGPU_GPU_PAGE_ALIGN(rptr_size * remote->num_accel);
-+		rptr_size_in_pages = rptr_size >> AMDGPU_GPU_PAGE_SHIFT;
-+
-+		npa = remote->rptr_npa;
-+
-+		amdgpu_ualink_npa_vm_unmap_range(adev, remote->rptr_bo,
-+						 pte_flags, 0, rptr_size_in_pages,
-+						 npa >> AMDGPU_GPU_PAGE_SHIFT);
-+		amdgpu_ualink_npa_free_va(adev, &remote->rptr_mm_node);
-+
-+		/*
-+		 * unmap wptr, remote interrupt, shootdown ring.
-+		 * wptr page is part of the single 2MB mapping for remote GPUs
-+		 * interrupt and shootdown ring buffer
-+		 */
-+		npa = amdgpu_ualink_npa_addr(adev, RB_TYPE_TLB_INV,
-+					     0, dst_accel_id);
-+		amdgpu_ualink_npa_vm_unmap_range(adev, remote->ring_bo, pte_flags,
-+						 0,
-+						 2 * rb_size_in_pages * AMDGPU_UALINK_ACCEL_MAX,
-+						 npa >> AMDGPU_GPU_PAGE_SHIFT);
-+	} else {
-+		u32 wptr_offset = 2 * rb_size * remote->num_accel;
-+		u32 idx = 0;
-+		u32 accel_id;
-+
-+		/* source identification mode */
-+		for_each_set_bit(accel_id, remote->active_accel_bits, AMDGPU_UALINK_ACCEL_MAX) {
-+			if (accel_id == dst_accel_id)
-+				continue;
-+
-+			/* remote interrupt ring npa mapping */
-+			npa = amdgpu_ualink_npa_addr(adev, RB_TYPE_REMOTE_INTERRUPT,
-+						     accel_id, dst_accel_id);
-+			amdgpu_ualink_npa_vm_unmap_range(adev, remote->ring_bo,
-+							 pte_flags, idx * 2 * rb_size,
-+							 rb_size_in_pages,
-+							 npa >> AMDGPU_GPU_PAGE_SHIFT);
-+
-+			/* remote shootdown ring npa mapping */
-+			npa = amdgpu_ualink_npa_addr(adev, RB_TYPE_TLB_INV, accel_id,
-+						     dst_accel_id);
-+			amdgpu_ualink_npa_vm_unmap_range(adev, remote->ring_bo,
-+							 pte_flags, (idx * 2 + 1) * rb_size,
-+							 rb_size_in_pages,
-+							 npa >> AMDGPU_GPU_PAGE_SHIFT);
-+
-+			/* wptr, rptr npa mapping */
-+			npa = amdgpu_ualink_npa_addr(adev, RB_TYPE_TAILPTR, accel_id,
-+						      dst_accel_id);
-+			amdgpu_ualink_npa_vm_unmap_range(adev, remote->ring_bo,
-+						  pte_flags, wptr_offset + idx * PAGE_SIZE,
-+						  1, npa >> AMDGPU_GPU_PAGE_SHIFT);
-+			idx++;
-+		}
-+	}
-+
-+	r = amdgpu_vm_update_pdes(adev, &adev->ualink.npa_vm, false);
-+	if (r) {
-+		dev_dbg(adev->dev, "failed %d to update directories\n", r);
-+		goto out_unreserve;
-+	}
-+
-+	fence = dma_fence_get(adev->ualink.npa_vm.last_update);
-+	if (fence) {
-+		r = dma_fence_wait_timeout(fence, true, timeout);
-+		dma_fence_put(fence);
-+		if (r <= 0)
-+			dev_dbg(adev->dev, "failed %d to dma fence wait\n", r);
-+	}
-+
-+	amdgpu_ualink_flush_tlb(adev, TLB_FLUSH_HEAVYWEIGHT);
-+out_unreserve:
-+	amdgpu_ualink_unreserve_npa_vm_and_bos(adev, &exec);
-+}
-+
-+/**
-+ * amdgpu_ualink_metadata_npa_mapping - Setup NPA address mapping in VM
-+ * @adev: amdgpu device pointer
-+ *
-+ * Maps NPA addresses to GPA for metadata ring buffers, write pointers,
-+ * on NPA VMID 15.
-+ *
-+ * Return: 0 on success, negative error code on failure
-+ */
-+static int amdgpu_ualink_metadata_npa_mapping(struct amdgpu_device *adev)
-+{
-+	struct amdgpu_ualink_remote *remote = to_remote(adev);
-+	u32 dst_accel_id = ualink_accel_id(adev);
-+	u64 timeout = msecs_to_jiffies(2000);
-+	struct amdgpu_bo *bos[2];
-+	u32 n_bos;
-+	struct dma_fence *fence;
-+	struct drm_exec exec;
-+	u32 rb_size, rb_size_in_pages;
-+	u64 npa, npa_in_pages, pte_flags;
-+	int r;
-+
-+	rb_size = AMDGPU_UALINK_RB_SIZE;
-+	rb_size_in_pages = rb_size >> AMDGPU_GPU_PAGE_SHIFT;
-+
-+	bos[0] = remote->ring_bo;
-+	n_bos = 1;
-+	if (ualink_addr_mode(adev) == AMDGPU_UALINK_ADDR_MODE_SOURCE_ALIAS) {
-+		bos[1] = remote->rptr_bo;
-+		n_bos = 2;
-+	}
-+
-+	r = amdgpu_ualink_reserve_npa_vm_and_bos(adev, bos, n_bos, &exec, false);
-+	if (unlikely(r))
-+		return r;
-+
-+	pte_flags = amdgpu_ttm_tt_pte_flags(adev, remote->ring_bo->tbo.ttm,
-+					    remote->ring_bo->tbo.resource);
-+	dev_dbg(adev->dev, "init pte_flags 0x%llx\n", pte_flags);
-+
-+	amdgpu_gmc_get_vm_pte(adev, &adev->ualink.npa_vm, remote->ring_bo,
-+			      AMDGPU_VM_MTYPE_DEFAULT, &pte_flags);
-+	dev_dbg(adev->dev, "after get coherent pte_flags 0x%llx\n", pte_flags);
-+
-+	if (ualink_addr_mode(adev) == AMDGPU_UALINK_ADDR_MODE_SOURCE_ALIAS) {
-+		u32 rptr_size, rptr_size_in_pages;
-+
-+		/* rptr npa mapping, up to allocated 2 pages npa address */
-+		rptr_size = ualink_wb_size(adev);
-+		rptr_size = AMDGPU_GPU_PAGE_ALIGN(rptr_size * remote->num_accel);
-+		rptr_size_in_pages = rptr_size >> AMDGPU_GPU_PAGE_SHIFT;
-+
-+		r = amdgpu_ualink_npa_alloc_va(adev, &remote->rptr_mm_node,
-+					       0, 0, 0,
-+					       rptr_size_in_pages);
-+		if (r)
-+			goto out;
-+
-+		npa_in_pages = remote->rptr_mm_node.start;
-+
-+		dev_dbg(adev->dev, "source aliasing rptr alloc 0x%llx and map to npa vm\n",
-+			npa_in_pages << AMDGPU_GPU_PAGE_SHIFT);
-+
-+		r = amdgpu_ualink_npa_vm_map_range(adev, remote->rptr_bo, pte_flags, 0,
-+						   rptr_size_in_pages,
-+						   npa_in_pages);
-+		if (r)
-+			goto error_npa_mapping;
-+
-+		remote->rptr_npa = npa_in_pages << AMDGPU_GPU_PAGE_SHIFT;
-+
-+		/* wptr, remote interrupt, shootdown ring, single big 2MB mapping */
-+		npa = amdgpu_ualink_npa_addr(adev, RB_TYPE_TLB_INV,
-+					     0, dst_accel_id);
-+		r = amdgpu_ualink_npa_vm_map_range(adev, remote->ring_bo, pte_flags,
-+						   0,
-+						   2 * rb_size_in_pages * AMDGPU_UALINK_ACCEL_MAX,
-+						   npa >> AMDGPU_GPU_PAGE_SHIFT);
-+		if (r)
-+			goto error_npa_mapping;
-+
-+	} else {
-+		u32 wptr_offset = 2 * rb_size * remote->num_accel;
-+		u32 accel_id, idx = 0;
-+
-+		/* Source identification mode */
-+		for_each_set_bit(accel_id, remote->active_accel_bits, AMDGPU_UALINK_ACCEL_MAX) {
-+			if (accel_id == dst_accel_id)
-+				continue;
-+
-+			/* remote interrupt ring npa mapping */
-+			npa = amdgpu_ualink_npa_addr(adev, RB_TYPE_REMOTE_INTERRUPT,
-+						      accel_id, dst_accel_id);
-+			r = amdgpu_ualink_npa_vm_map_range(adev, remote->ring_bo, pte_flags,
-+							   idx * 2 * rb_size,
-+							   rb_size_in_pages,
-+							   npa >> AMDGPU_GPU_PAGE_SHIFT);
-+			if (r)
-+				goto error_npa_mapping;
-+
-+			/* remote shootdown ring npa mapping */
-+			npa = amdgpu_ualink_npa_addr(adev, RB_TYPE_TLB_INV, accel_id,
-+						     dst_accel_id);
-+			r = amdgpu_ualink_npa_vm_map_range(adev, remote->ring_bo, pte_flags,
-+							   (idx * 2 + 1) * rb_size,
-+							   rb_size_in_pages,
-+							   npa >> AMDGPU_GPU_PAGE_SHIFT);
-+			if (r)
-+				goto error_npa_mapping;
-+
-+			/* wptr, rptr npa mapping */
-+			npa = amdgpu_ualink_npa_addr(adev, RB_TYPE_TAILPTR, accel_id,
-+						     dst_accel_id);
-+			r = amdgpu_ualink_npa_vm_map_range(adev, remote->ring_bo,
-+							   pte_flags,
-+							   wptr_offset + idx * PAGE_SIZE,
-+							   1, npa >> AMDGPU_GPU_PAGE_SHIFT);
-+			if (r)
-+				goto error_npa_mapping;
-+
-+			idx++;
-+		}
-+	}
-+
-+	r = amdgpu_vm_update_pdes(adev, &adev->ualink.npa_vm, false);
-+	if (r) {
-+		dev_dbg(adev->dev, "failed %d to update directories\n", r);
-+		goto error_npa_mapping;
-+	}
-+
-+	/* TODO: only wait the last fence, then flush TLB */
-+	fence = dma_fence_get(adev->ualink.npa_vm.last_update);
-+	if (fence) {
-+		r = dma_fence_wait_timeout(fence, true, timeout);
-+		dma_fence_put(fence);
-+		if (r <= 0)
-+			dev_dbg(adev->dev, "failed %d to dma fence wait\n", r);
-+	}
-+
-+	amdgpu_ualink_flush_tlb(adev, TLB_FLUSH_HEAVYWEIGHT);
-+
-+	amdgpu_ualink_unreserve_npa_vm_and_bos(adev, &exec);
-+	return 0;
-+
-+error_npa_mapping:
-+	if (ualink_addr_mode(adev) == AMDGPU_UALINK_ADDR_MODE_SOURCE_ALIAS)
-+		amdgpu_ualink_npa_free_va(adev, &remote->rptr_mm_node);
-+	if (r)
-+		dev_dbg(adev->dev, "failed %d to map NPA vm\n", r);
-+
-+out:
-+	amdgpu_ualink_unreserve_npa_vm_and_bos(adev, &exec);
-+
-+	return r;
-+}
-+
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-index 0d1b46a53e97a..187d42af27dcb 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-@@ -181,6 +181,9 @@ struct amdgpu_ualink_mgr {
+ struct amdgpu_device;
+ struct amdgpu_fpriv;
+ struct amdgpu_vm;
+@@ -65,10 +88,10 @@ struct amdgpu_vmid {
  
- 	/* NPA-VM used on the exporter.*/
- 	struct amdgpu_vm npa_vm;
-+
-+	/* Sequence number to track the need for TLB flushes */
-+	atomic64_t last_flushed_tlb_seq;
+ struct amdgpu_vmid_mgr {
+ 	struct mutex		lock;
+-	unsigned		num_ids;
+ 	struct list_head	ids_lru;
+ 	struct amdgpu_vmid	ids[AMDGPU_NUM_VMID];
+ 	bool			reserved_vmid;
++	DECLARE_BITMAP(vmid_mask, AMDGPU_NUM_VMID);
  };
  
- int amdgpu_ualink_init_interrupt(struct amdgpu_device *adev);
+ int amdgpu_pasid_alloc(unsigned int bits, struct amdgpu_fpriv *fpriv);
+@@ -95,5 +118,7 @@ void amdgpu_vmid_reset_all(struct amdgpu_device *adev);
+ 
+ void amdgpu_vmid_mgr_init(struct amdgpu_device *adev);
+ void amdgpu_vmid_mgr_fini(struct amdgpu_device *adev);
++void amdgpu_vmid_mgr_set_vmid_mask(struct amdgpu_device *adev,
++				   unsigned long vmid_mask, bool for_mmhub);
+ 
+ #endif
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+index f9154421c2d5f..f91e693de60a6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c
+@@ -5364,7 +5364,7 @@ static void gfx_v10_0_constants_init(struct amdgpu_device *adev)
+ 	/* XXX SH_MEM regs */
+ 	/* where to put LDS, scratch, GPUVM in FSA64 space */
+ 	mutex_lock(&adev->srbm_mutex);
+-	for (i = 0; i < adev->vm_manager.id_mgr[AMDGPU_GFXHUB(0)].num_ids; i++) {
++	for_each_vmid_and_zero(i, adev, AMDGPU_GFXHUB(0)) {
+ 		nv_grbm_select(adev, 0, 0, 0, i);
+ 		/* CP and shaders */
+ 		WREG32_SOC15(GC, 0, mmSH_MEM_CONFIG, DEFAULT_SH_MEM_CONFIG);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index a447562977abe..743fe1bd39e86 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -2213,7 +2213,7 @@ static void gfx_v11_0_constants_init(struct amdgpu_device *adev)
+ 	/* XXX SH_MEM regs */
+ 	/* where to put LDS, scratch, GPUVM in FSA64 space */
+ 	mutex_lock(&adev->srbm_mutex);
+-	for (i = 0; i < adev->vm_manager.id_mgr[AMDGPU_GFXHUB(0)].num_ids; i++) {
++	for_each_vmid_and_zero(i, adev, AMDGPU_GFXHUB(0)) {
+ 		soc21_grbm_select(adev, 0, 0, 0, i);
+ 		/* CP and shaders */
+ 		WREG32_SOC15(GC, 0, regSH_MEM_CONFIG, DEFAULT_SH_MEM_CONFIG);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+index fdfee88e41e33..d65ff3e551189 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
+@@ -1852,7 +1852,7 @@ static void gfx_v12_0_constants_init(struct amdgpu_device *adev)
+ 	/* XXX SH_MEM regs */
+ 	/* where to put LDS, scratch, GPUVM in FSA64 space */
+ 	mutex_lock(&adev->srbm_mutex);
+-	for (i = 0; i < adev->vm_manager.id_mgr[AMDGPU_GFXHUB(0)].num_ids; i++) {
++	for_each_vmid_and_zero(i, adev, AMDGPU_GFXHUB(0)) {
+ 		soc24_grbm_select(adev, 0, 0, 0, i);
+ 		/* CP and shaders */
+ 		WREG32_SOC15(GC, 0, regSH_MEM_CONFIG, DEFAULT_SH_MEM_CONFIG);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+index cc4e939cb3f37..aae5ab9c338c1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+@@ -1725,7 +1725,7 @@ static void gfx_v12_1_xcc_constants_init(struct amdgpu_device *adev,
+ 	/* XXX SH_MEM regs */
+ 	/* where to put LDS, scratch, GPUVM in FSA64 space */
+ 	mutex_lock(&adev->srbm_mutex);
+-	for (i = 0; i < adev->vm_manager.id_mgr[AMDGPU_GFXHUB(0)].num_ids; i++) {
++	for_each_vmid_and_zero(i, adev, AMDGPU_GFXHUB(0)) {
+ 		soc_v1_0_grbm_select(adev, 0, 0, 0, i, GET_INST(GC, xcc_id));
+ 		/* CP and shaders */
+ 		WREG32_SOC15(GC, GET_INST(GC, xcc_id),
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+index a1e00be54005d..fa209fd6d4ac9 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c
+@@ -1938,7 +1938,7 @@ static void gfx_v7_0_constants_init(struct amdgpu_device *adev)
+ 	WREG32(mmSH_STATIC_MEM_CONFIG, sh_static_mem_cfg);
+ 
+ 	mutex_lock(&adev->srbm_mutex);
+-	for (i = 0; i < adev->vm_manager.id_mgr[0].num_ids; i++) {
++	for_each_vmid_and_zero(i, adev, 0) {
+ 		if (i == 0)
+ 			sh_mem_base = 0;
+ 		else
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+index f7c2b149acd0a..4c79e594cf8be 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c
+@@ -3758,7 +3758,7 @@ static void gfx_v8_0_constants_init(struct amdgpu_device *adev)
+ 	WREG32(mmSH_STATIC_MEM_CONFIG, sh_static_mem_cfg);
+ 
+ 	mutex_lock(&adev->srbm_mutex);
+-	for (i = 0; i < adev->vm_manager.id_mgr[0].num_ids; i++) {
++	for_each_vmid_and_zero(i, adev, 0) {
+ 		vi_srbm_select(adev, 0, 0, 0, i);
+ 		/* CP and shaders */
+ 		if (i == 0) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+index a4365e26120a5..c220a1cea7d73 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c
+@@ -2682,7 +2682,7 @@ static void gfx_v9_0_constants_init(struct amdgpu_device *adev)
+ 	/* XXX SH_MEM regs */
+ 	/* where to put LDS, scratch, GPUVM in FSA64 space */
+ 	mutex_lock(&adev->srbm_mutex);
+-	for (i = 0; i < adev->vm_manager.id_mgr[AMDGPU_GFXHUB(0)].num_ids; i++) {
++	for_each_vmid_and_zero(i, adev, AMDGPU_GFXHUB(0)) {
+ 		soc15_grbm_select(adev, 0, 0, 0, i, 0);
+ 		/* CP and shaders */
+ 		if (i == 0) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+index 99732056c58f6..4a7e7e1500300 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c
+@@ -1237,7 +1237,7 @@ static void gfx_v9_4_3_xcc_constants_init(struct amdgpu_device *adev,
+ 	/* XXX SH_MEM regs */
+ 	/* where to put LDS, scratch, GPUVM in FSA64 space */
+ 	mutex_lock(&adev->srbm_mutex);
+-	for (i = 0; i < adev->vm_manager.id_mgr[AMDGPU_GFXHUB(0)].num_ids; i++) {
++	for_each_vmid_and_zero(i, adev, AMDGPU_GFXHUB(0)) {
+ 		soc15_grbm_select(adev, 0, 0, 0, i, GET_INST(GC, xcc_id));
+ 		/* CP and shaders */
+ 		if (i == 0) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+index 75a552782c979..9a8a7921ce982 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c
+@@ -869,6 +869,10 @@ static int gmc_v10_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	 * amdkfd will use VMIDs 8-15
+ 	 */
+ 	adev->vm_manager.first_kfd_vmid = 8;
++	amdgpu_vmid_mgr_set_vmid_mask(adev,
++				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
++				      false);
++	amdgpu_vmid_mgr_set_vmid_mask(adev, GENMASK(AMDGPU_NUM_VMID - 1, 1), true);
+ 
+ 	amdgpu_vm_manager_init(adev);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index f454aff831b03..ed75da48ce963 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -852,6 +852,11 @@ static int gmc_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	 */
+ 	adev->vm_manager.first_kfd_vmid = adev->gfx.disable_kq ? 1 : 8;
+ 
++	amdgpu_vmid_mgr_set_vmid_mask(adev,
++				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
++				      false);
++	amdgpu_vmid_mgr_set_vmid_mask(adev, GENMASK(AMDGPU_NUM_VMID - 1, 1), true);
++
+ 	amdgpu_vm_manager_init(adev);
+ 
+ 	r = amdgpu_gmc_ras_sw_init(adev);
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+index 3add79c474f3b..cc4eb05215ea1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c
+@@ -952,13 +952,17 @@ static int gmc_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	 * number of VMs
+ 	 * VMID 0 is reserved for System
+ 	 * amdgpu graphics/compute will use VMIDs 1-7
+-	 * amdkfd will use VMIDs 8-15
++	 * amdkfd will use VMIDs 8-15.
++	 * On GFX 12.1, amdkfd will use VMIDs 3-15.
+ 	 */
+ 	adev->vm_manager.first_kfd_vmid =
+-		 amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 1, 0) ?
+-		3 : 8;
+-	adev->vm_manager.first_kfd_vmid =
+-		adev->gfx.disable_kq ? 1 : (adev->vm_manager.first_kfd_vmid);
++		adev->gfx.disable_kq ? 1 :
++		(amdgpu_ip_version(adev, GC_HWIP, 0) == IP_VERSION(12, 1, 0) ?
++		3 : 8);
++	amdgpu_vmid_mgr_set_vmid_mask(adev,
++				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
++				      false);
++	amdgpu_vmid_mgr_set_vmid_mask(adev, GENMASK(AMDGPU_NUM_VMID - 1, 1), true);
+ 
+ 	amdgpu_vm_manager_init(adev);
+ 
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+index ca7afb9b7d0ae..cdd11587b12ae 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c
+@@ -864,6 +864,12 @@ static int gmc_v6_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	 * amdkfd will use VMIDs 8-15
+ 	 */
+ 	adev->vm_manager.first_kfd_vmid = 8;
++	amdgpu_vmid_mgr_set_vmid_mask(adev,
++				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
++				      false);
++	amdgpu_vmid_mgr_set_vmid_mask(adev,
++				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
++				      true);
+ 	amdgpu_vm_manager_init(adev);
+ 
+ 	/* base offset of vram pages */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+index 1c1eccfe383fd..c9cc55e18893b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c
+@@ -1045,6 +1045,12 @@ static int gmc_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	 * amdkfd will use VMIDs 8-15
+ 	 */
+ 	adev->vm_manager.first_kfd_vmid = 8;
++	amdgpu_vmid_mgr_set_vmid_mask(adev,
++				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
++				      false);
++	amdgpu_vmid_mgr_set_vmid_mask(adev,
++				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
++				      true);
+ 	amdgpu_vm_manager_init(adev);
+ 
+ 	/* base offset of vram pages */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+index bf089595e5dac..8d8a0775878ff 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c
+@@ -1122,6 +1122,12 @@ static int gmc_v8_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	 * amdkfd will use VMIDs 8-15
+ 	 */
+ 	adev->vm_manager.first_kfd_vmid = 8;
++	amdgpu_vmid_mgr_set_vmid_mask(adev,
++				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
++				      false);
++	amdgpu_vmid_mgr_set_vmid_mask(adev,
++				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
++				      true);
+ 	amdgpu_vm_manager_init(adev);
+ 
+ 	/* base offset of vram pages */
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+index b46b87291c512..633772fa71fda 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+@@ -2038,6 +2038,12 @@ static int gmc_v9_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 			3 :
+ 			8;
+ 
++	amdgpu_vmid_mgr_set_vmid_mask(adev,
++				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
++				      false);
++	amdgpu_vmid_mgr_set_vmid_mask(adev,
++				      GENMASK(adev->vm_manager.first_kfd_vmid - 1, 1),
++				      true);
+ 	amdgpu_vm_manager_init(adev);
+ 
+ 	gmc_v9_0_save_registers(adev);
 -- 
 2.55.0
 
