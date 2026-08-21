@@ -4,100 +4,130 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDAEFC5DF97
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 21:36:58 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6BFFC5DF9B
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 21:48:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2E3DC10E2A6;
-	Fri, 21 Aug 2026 21:36:58 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5FB0C10F3B1;
+	Fri, 21 Aug 2026 21:48:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="41mjUxmv";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UsC414QT";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010035.outbound.protection.outlook.com
- [52.101.193.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4074510E2A6
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 21:36:57 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010051.outbound.protection.outlook.com [52.101.201.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6733510E376;
+ Fri, 21 Aug 2026 21:48:03 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ehjbyk1xQZ7GecfJ34g+E6UM73w5aMASlJLmjemx7U1aQJM0PrMBkdsSU7n6rSYI54KY1JiqjMFNm4PGiuR+iEOgeS7Cr8knnn2RVIq228yrd9o8Iim4au7Mol0iV09jgYqEUSCzH22AviPtImKGP0UA6abd2DvFRoHOzxk+WvSMqt/cBkYQ3eMouhw2IRujG75Hs7wdnh+MOTHshXvN/NQ7eJP89UqpuRsWAiRQfM0fMYoaKbfWHfkR0jwv5Kg/0NSc1DpCRe0sWBmMqFhLApm9pcWESGJ0pxvwHbh78O6HxySGRMImtbw0VsWZqvpSupHoX/9vM6Fld51RhtONPA==
+ b=Iov8lC3vVfzRjcP+r8nxsIpkNjE/z8xX/XjkeIUdw+jGbkONgoJJwXfADJQ9+44qTcEgooCFavq58Ysw6KhsiHxBa6OSr4y7/6kyO1IQ9c8PRVzd6dJon1ax6Q5O/JB40KENgrWKUL3SKQHQIxtGnNGEmIKoLKFdhJwIUbHz2zz/Lk0rl67fZ1oE1okIzSHw9feLqu5YH//7mDGjIo+eFZOJM7T86D6TskUafbE7w8U9WfcAWcxUNGy/YIdOpb9HfPiFfkWlUz6+Sr18zI4NLcsfAiMfh6fGSqjF6+pOhRsb58dPgwKhgNiX8umzH4hKbLJOUUmCL/pLqU8bHyySpw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kdlYg070VNm0FvTMS+dSH4n2jix7gCapnOBiNhbp7FM=;
- b=JYDR17faa3nNqsnUHvU29USCvWjNHAkX4TwaYctH4o2RwcPCc46FoA5pMjhbh97z+uAcjkA6+DqdpIYirhzWGJaDxUrlTmuMkfTChxFY6T1ySORsVqO0xXjv1y8l6Hqia0zXPQFl3XQ3OxZCGLqELZXZZcCSgFuQGLhorYECWkiuKHYyR+HEErC5aFfGaPtOtH2NYSIVB7c0BqLTTDehVCxEqDd0S1hH/ken/KMuxVeWvhwLmbHFRmYnhGGDqWXGnvQpZ0V7pYMUnLLrA938BIyDfSO8fV4lLDWQR9RYLaDtXsr9XgSGF/bzXlEM1JS4WghUmFKstbr8Rg+kjoyz7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=YRbj2Up0i0DnKvg8sAAhirD3y1PXB2lc3TAfusSE9zg=;
+ b=SElVwONw9QTadRapz8QbL6AbR44XfnoscN9fakXz6aPwmp+DnW1F9a4rrRjyMqwQKM9ip7uzS7TSYORJrsWBP/3iD1PdEGBYIJZ3KtDUTC0UCp0akGyvzaNPmvo/XHwz3GMaEE6pmPwplRc59gNkbu2gTaPNdPYnvVGuJtgspomwrZcacQwr3gROKFQG+ycQvYEBSDWJXhZbbrN5tJ6Ud9uRiRw0WWuzk/frbYpaDhCmXgfSby0vSq6SL6icRoTeWz3/RQb2tYkkCI5yJJT7+gxGPdbDQfhqyew5O4WWlWdMUT3sEVrL81Qt/sz1/CBLZdAcv53q+VN4aB6GDVbzhw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kdlYg070VNm0FvTMS+dSH4n2jix7gCapnOBiNhbp7FM=;
- b=41mjUxmvFoKIRJ3GX7gnWlRoQpzOiDAhoERsPV6zJLBNnvhTavZ8Z36ZkWdmN48scMl5/IJxxyJ7z21C8Rqkj8avDAYiCisWr8tDzXEXxR/6/Bd0lg2lb2q6S8i5JQxszr1VPJ5wckh0qpgQg7708zO7idmdBOVMHPc0tedrrbI=
-Received: from BN9PR03CA0544.namprd03.prod.outlook.com (2603:10b6:408:138::9)
- by IA0PR12MB8906.namprd12.prod.outlook.com (2603:10b6:208:481::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Fri, 21 Aug
- 2026 21:36:52 +0000
-Received: from BL02EPF0001A101.namprd05.prod.outlook.com
- (2603:10b6:408:138:cafe::a0) by BN9PR03CA0544.outlook.office365.com
- (2603:10b6:408:138::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Fri, 21
- Aug 2026 21:36:52 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BL02EPF0001A101.mail.protection.outlook.com (10.167.241.132) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 21:36:51 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 16:36:50 -0500
-Received: from box-0.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 21 Aug 2026 16:36:50 -0500
-From: <IVAN.LIPSKI@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>, Harry Wentland
- <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Hung
- <alex.hung@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, James Lin
- <PingLei.Lin@amd.com>, Ivan Lipski <ivan.lipski@amd.com>
-Subject: [PATCH] drm/amd/display: Always report native cursor mode for
- disabled CRTC
-Date: Fri, 21 Aug 2026 17:36:44 -0400
-Message-ID: <20260821213644.689017-1-IVAN.LIPSKI@amd.com>
-X-Mailer: git-send-email 2.43.0
+ bh=YRbj2Up0i0DnKvg8sAAhirD3y1PXB2lc3TAfusSE9zg=;
+ b=UsC414QTlMw8fXFA0PFl8dov/AfkyEsjGPqhRfsY7DV5C/fGsOGFnOGd+lSsqjdfifG/0nx4i1GVDDZleympE5Mqaj2n0OTwfSg5sds/1fl3grv+io4SWgJlTHuc9w6hGYkMsp7w2gGvC9ZpCpalM3kiGftGMy08Eff4BaoxXM4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com (2603:10b6:8:17e::15)
+ by CH3PR12MB8970.namprd12.prod.outlook.com (2603:10b6:610:176::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
+ 2026 21:48:00 +0000
+Received: from DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8]) by DM4PR12MB8476.namprd12.prod.outlook.com
+ ([fe80::2d79:122f:c62b:1cd8%6]) with mapi id 15.21.0339.010; Fri, 21 Aug 2026
+ 21:48:00 +0000
+Message-ID: <b7e30ad6-87bd-42da-8853-1580a439893a@amd.com>
+Date: Fri, 21 Aug 2026 15:47:57 -0600
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] drm/amd/display: fix missing blend-mode-prop
+ warning for DCN
+To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
+ alexander.deucher@amd.com, christian.koenig@amd.com, daniels@collabora.com,
+ harry.wentland@amd.com, leandro.ribeiro@collabora.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ pekka.paalanen@collabora.com, simona@ffwll.ch, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: Daniel Wheeler <Daniel.Wheeler@amd.com>, kernel-dev@igalia.com,
+ Lyude Paul <lyude@redhat.com>, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org
+References: <20260813143605.106104-1-mwen@igalia.com>
+ <20260813143605.106104-3-mwen@igalia.com>
+Content-Language: en-US
+From: Alex Hung <alex.hung@amd.com>
+In-Reply-To: <20260813143605.106104-3-mwen@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MW4PR04CA0158.namprd04.prod.outlook.com
+ (2603:10b6:303:85::13) To DM4PR12MB8476.namprd12.prod.outlook.com
+ (2603:10b6:8:17e::15)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A101:EE_|IA0PR12MB8906:EE_
-X-MS-Office365-Filtering-Correlation-Id: f1e0ff7b-ce27-4236-426f-08deffcc504a
+X-MS-TrafficTypeDiagnostic: DM4PR12MB8476:EE_|CH3PR12MB8970:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4c10b718-0feb-4a15-7194-08deffcdde71
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|82310400026|1800799024|23010399003|6133799003|3023799007|56012099006|10067099003|11063799006|18092099006|18002099003;
-X-Microsoft-Antispam-Message-Info: sENLrYCPJGUpWceL5la11wQn4qPfCLDd+YRCOwqvmVDm2h0akiKIYu38ZQko6uK3fjawf79fyUT+/LikplTCjcgj+HjKxOYdkpJCXi0PEMAq4ezxSH75ndCgl3/G+fhKOLD4EngF8MVyF2xrIDC5u0DHTjtrgU/TIFciSd8GixudOa8yT4lVpIYVI0Y/iWoDtgRW2B1iJ7MfqPddmUABef8pgAurZ4W11gAoPVp1fEj0zskVPuvj15OU45Plmhcivg48YaIV/Bjnd8auEursUGyFZV1uVJH48Haz/+8K+iZ8dtkKEIre4boFIK9ChQHjm/pp0L76Zmf09mlohvA+3NzM/IgD3Fike+ccloKs3UBU+Oa71R92MpJYM5N7ZnR8MjoFZTga2gU+SLF+xlP1v+q5oheyHl0Fm5nR/1o0Ai0zSSvIY34G4Aym4JW4//2zahAUNWUJnlSbq7y8FZhZGudbj8eo0jjCJX80X9ahhB90WrjYlDvI8Hwfkz56Au+wK3RSYuEUchA/lTZxRBKHu+xeLQ27jdOrVsyeeIZkfQGBXffomX6ZhyoDCAJBBzMmjKD1fn07mUP1aYWXHkDECrvdcdC3UPRp01q5/Hi3S/nhQgd/zWT2qZZDKZgx96htKXUWIzr1lZ1aCEXNe1q8++siIQEQuoqNo2KDGt2qSgXvZwn/4x+zjUfrRd5v7OtrEI1DeMSXya5CeudxkqWnjg==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(23010399003)(6133799003)(3023799007)(56012099006)(10067099003)(11063799006)(18092099006)(18002099003);
+ ARA:13230040|366016|23010399003|376014|7416014|1800799024|6133799003|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003|921020;
+X-Microsoft-Antispam-Message-Info: WCIj+6OjxhgVissiBcroZio0v/3s8XDa1gUlZFHUMI1uqK2QkajXOLiTHrbMuYI9zhQ4cUt/TB4oHdrm8sCsF6+2aK5D3gI/cSAOW7VTwBBxsXunE9XEcL5518b2sR/jdPgpdzYFFJvS2ihTo2oEV6U7HLznQkrbrpbzDKJNYb5EO22ac1GtJiYgkjVIG34gMp3G+onf6fq5psFJqZsI4MMXQYN30vrCm16H8bGAnVd8cSo5NEtdpY6a+7zuRsYowpBT7KO9EODpldK3/qyz4lvz9UDL+KKlvTK3I10GTyZ7rw1pauCDGlQL2djj9+59vWGu4rN1f6brDRjkzgNIcw2FXe11laqCBTAAAdEbhZY6JriJMushaX9ICKOF93rUa+JOW5fC69dYjKbjTvzU3NtZf1+0g645aqbPHYMKl5/FvBP34tagY+JOt5peRgn7J/+iTXiFzJoqx5J4o/vRqG7d0/alSwX4bLuDYUy2OCtbXriMpNnptKII9+F9Y+iYvmTY7vNOUMSp9a1sUNvDls7iJ5iszPLuXLECLZPA+bTeWqhaAK2ntkKJGPrDh48iFIHOYC7k5BXUmI6dxutdudqagYvYO+ib5DIUvpNidItw0WCFeRRs44qU8ThWN3JVCjUWDjI4sAnQYSU9btDsZZNYcQWQGKMXPxH+dlAraxcJKFuFZPRzgMndtAP14NT5otp2ttJEdaYBGxQMK1KUVA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB8476.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(376014)(7416014)(1800799024)(6133799003)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003)(921020);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: vWzjE0slj7zJXHqFqb/HwHJICYoxmlnm75yLee5gP6+Mt2lHWx12xRXcxZD+EsXaQG4sSsacZc9PcjQBkbc8WvNmQkeTTFNrco3CODzH/NJbCf/1B2C0QwlcFIQolmuqTjV7QglRiJGcEtLvRGWN58I0/LS5MTumQVkMfYEP1e885YeaUWWVWKiUnrpjEwIy2jEx+FMcVVaDQSlqFK9FeoIxv9Xq1TXqqSulfqvuwYd5c4K4gZ8KEFTIO5QwL93XH+9fFeo6t4uf8SVLTg2mwSSLXsvGobDKz9KXLbLNlx7VRWtfF6WX13doVrOYCrEXf8A3dJKEKmuDGpnP1MXLzHX6zLdiwVEkrvmBDJxgpbMyZ4iKwuwyK1xPPLc5NyY1WyAyzixpdexSHpBI9tLqyO8CSZz4vQfzmnYRmKyyU5t/EOIhCZEWwYliKlfAzwrP
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZS9ZM01DcHJ6cExLRFoyaS9KVGdFRDE2Qy96bUpjbm9IV2RtdlgvRkhGaEFN?=
+ =?utf-8?B?OHprVytuK20reldwcjV4ajhDWUNoWENxamxza1NJR2dmYm8yMGw1bmNGWHRo?=
+ =?utf-8?B?KzVCYXVldVg3bnNZZDJJcVhUR2xWcXdxS3NRSDBaZ2dWQW9xTThIZnRqUkc3?=
+ =?utf-8?B?MXNWLzBwd3RIckhnbUpQNCtQbGhUTFZ0eGlDQkRvQ0pYQlNoNVd4SnpmaVpU?=
+ =?utf-8?B?VEwwZWUxR3l3WkhETnkzaEJOVGRHaFJIeDJSeW9kc090dHg4dVFpbk5pbGVZ?=
+ =?utf-8?B?MUphcDZ1SjdQRVY2a29uRzRMZUc3ZEVldFBrVGc0ckdHNlhzVGswcGEwdkwr?=
+ =?utf-8?B?ZEVaT1hBRW9GVTdnbllheHBYaWF4dkN3VzRjK0dNNWp1ZUVoclR6a0FKN1h4?=
+ =?utf-8?B?KzBTcTBEbk5DbEkvcnJsSTR3TUloU3JDZmhUeWl5dHg4SFhUb2FLd2FBRjk2?=
+ =?utf-8?B?WGtUM1NSWWVaM3YzdmFKd2xkK2JzVlRKb1RYVkJJUXBxODRJaXFQdHJ2NHQ4?=
+ =?utf-8?B?aVNTR3FtMUpoSmN6MitBemhteUpob0tIWlQ3SERYdjIwTW9CWVpPYW81djFm?=
+ =?utf-8?B?UTQzMWxQazFwMUVXaXY1U296SThFcmR4Zml0THlRb2NKSmFtdjVuc2VobVAw?=
+ =?utf-8?B?WjB0TVAxWndNZmFPZlk0VllwY2dnT0F6WHkwOHFkU1M0OWlsT1o3U0JSQjJU?=
+ =?utf-8?B?S1NxekZVdzhycG1wTkJFZ0w3bTA0RjJhVGVlUHBBY3FqeWZ4Q0tZRTdMT3Yx?=
+ =?utf-8?B?cnUxYjJxKy9sZFplUlFJNC83dGVrK2ExU0Q2bTg4ZXM5Z0xGZG1acVNKTkJJ?=
+ =?utf-8?B?ZXVRd28wLzU2aWlyRzkrVU1OZjFYK3NjcWdmeEdPYkU3dEJsTVh5TE9KR2M1?=
+ =?utf-8?B?eHhrUWQ2S2R1ejE3UEFabS91RnhtS0J0SHozTGZ5cjNJVU9MNlJQcjF3N1E5?=
+ =?utf-8?B?VEJ3Y0wyeHU1ZUJkM3Jzb2pHMy9EUG5ydndja2RkbEpuNWM5MFBmWCtuSDZQ?=
+ =?utf-8?B?aXYvSDF3Tnp4VGxCRDgxU2hJV0NEdXQvWWRIaUw1cDlqL1lSN0xucHUvcHlr?=
+ =?utf-8?B?a3o3b0UrUjJRNVhEK0ZMNEYrV2pLb1hnMmRnVGdXTi9qWkZFaVcyMEFKR1hn?=
+ =?utf-8?B?UlhVbGh3Wi95VnFHV1NSYlk5WGFTYkE2d0llalVNa28vVFBGYXBMV3pVMmhv?=
+ =?utf-8?B?Z0t4bnJwNFBYZjVvUE90eVkwU3R1ZkZaK2hGRWY4UmJCUFRHd3I3TkVqWklQ?=
+ =?utf-8?B?bjZGdmV6Z3ZzcWpneEZBZDNwY01wK0VZb2VSbHdLdTJYamZBMk1PQndHN0Fw?=
+ =?utf-8?B?TjcwY2p6SGFPckRPcVlUVlVxZFNNeHZITGFlOUZPYzFMUS9pMHFRTStpT1Bi?=
+ =?utf-8?B?V2NNNmJJbmozNHo4MDRHUWhnSks5aDZGM0FzTlByRU9iWjFUcjlQQjRKUzBK?=
+ =?utf-8?B?RlBEeUk3alIzaDY5Si9hWCtPbUFFbzFYS3FDaTM1L0FENjZEOFkyR0pmNnQx?=
+ =?utf-8?B?YWo0a05SRTlDdkhLcHNEcWdQTjBDS2lIeVZCbTZxc2MyKyt4ZWdEdy8wdmIv?=
+ =?utf-8?B?RDR3QkgxYi9FWkdsK0YxTjFRbGJQRHAwdHlRWmxBY3BFdnRwNGltUWdZUmRV?=
+ =?utf-8?B?cVd0dVliYW5LWFhRbUloU2dVQkdFSFVBV2YwWmxGdUJlcTlESDZDK0tCRmcv?=
+ =?utf-8?B?ZXRHdmlvS1FrQ1d6MzBuSE5SQzhiY0FEL25vN1JTZ0xXb2hHdVRFNjB2dHV2?=
+ =?utf-8?B?RjRzL0d2aHZhaXFUTUtwQXhndGNid0hLVEFNanQyY0Y5SVN5WDNDUnYyeE5R?=
+ =?utf-8?B?Wjk5Q1RNTzkwWjh2NVlPQU9PTzdIcFNUR29Xa1hoeHF2ZHlXaVM1ZENHdnFI?=
+ =?utf-8?B?R2piUHpHYUI2aFRSdWM1cS9ROUwwcmlBSjExMkpZcEtiNFVaMmJnOFN5all2?=
+ =?utf-8?B?aSs3elFISGN1R2gyOFFWYnVMeExKQ0ZDTUlsU1IreWdlN3RINXA5c1dKTWdw?=
+ =?utf-8?B?QlEzUm9LMWVNUXBGMks5N252VmpKKzNqZ1lCb1ZIdkJuUllKdE5WVWQ2bXJC?=
+ =?utf-8?B?R1lldVozU2tSbDFHaEtIdVZPZTJualJYMm42VW5kRGdhd1JsRk9hZDIvOEEv?=
+ =?utf-8?B?S2JjelVJZjR0OTdvWHUvTkQ3QVp5SjJ3a1cvOEp6cGUxQlI2SEpoSGE0UTdP?=
+ =?utf-8?B?RXJtRXB6ZFA0Uk0zWVF4ZjhOcE1ESEhmR3pvelNlV3lVbFhXWnM0N1EwQkR3?=
+ =?utf-8?B?bGI5U3A2MS9NTXI4MHN6MG1IV0U2SmtSWDJDWEI3dE4wcTY3aUljSDZCTUtr?=
+ =?utf-8?B?K0ozbmtQNmlKN3ZyRTRBbkUxQlhSR1hjNVoxVEpxWk5LUmEwS3pwUT09?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 21:36:51.3899 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f1e0ff7b-ce27-4236-426f-08deffcc504a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4c10b718-0feb-4a15-7194-08deffcdde71
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB8476.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 21:48:00.1008 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A101.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8906
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: NVRuvSbpQiNP/4uez3GQnjiEWltCersHsmKotQTDbUBEPdl1/gLbY7Wl5WRVk0ntH1WmPiyw9fLqQiiSCPTfNw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8970
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,59 +142,66 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ivan Lipski <ivan.lipski@amd.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
 
-[Why&How]
-The disabled-CRTC check was bundled into the DCN4+ version condition, so a
-disabled CRTC only fell back to native cursor mode on those specific
-ASICs, resulting in overlay cursor mode on disabled CRTCs on pre DCN4,
-casuing failed atomic checks.
-
-Move the check into a separate early return so a disabled CRTC always
-reports native cursor mode on all ASICs.
-
-Fixes: b7d7e714de44 ("drm/amd/display: Fall back to overlay cursor on dcn4x when top plane doesn't fill CRTC")
-
-Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
----
- .../amd/display/amdgpu_dm/amdgpu_dm_cursor.c    | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c
-index c41fce07b8fa8..8204ad4018e6b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c
-@@ -287,19 +287,24 @@ int amdgpu_dm_crtc_get_cursor_mode(struct amdgpu_device *adev,
- 	int i;
- 	bool skip_fmt_scale_restrictions = false;
- 
--	/* Overlay cursor not supported on HW before DCN
--	 * DCN401/420 does not have the cursor-on-scaled-plane or cursor-on-yuv-plane restrictions
--	 * as previous DCN generations, so enable native mode on DCN401/420
--	 *
-+	/*
- 	 * Always set native cursor mode when the CRTC is disabled,
- 	 * to make sure it doesn't cause atomic commits to fail when
- 	 * they are trying to disable the CRTC.
- 	 */
-+	if (!crtc_state->enable) {
-+		*cursor_mode = DM_CURSOR_NATIVE_MODE;
-+		return 0;
-+	}
-+
-+	/* Overlay cursor not supported on HW before DCN
-+	 * DCN401/420 does not have the cursor-on-scaled-plane or cursor-on-yuv-plane restrictions
-+	 * as previous DCN generations, so enable native mode on DCN401/420
-+	 */
- 	if (amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(4, 0, 1) ||
- 	    amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(4, 2, 0) ||
- 	    amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(4, 2, 1) ||
--	    amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(6, 0, 0) ||
--	    !dm_crtc_state->base.enable) {
-+	    amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(6, 0, 0)) {
- 		/*
- 		 * Newer DCN has no cursor-on-scaled/yuv-plane restriction, so
- 		 * skip those overlay triggers below. A plane that does not fill
--- 
-2.43.0
+On 8/13/26 08:30, Melissa Wen wrote:
+> validate_blend_mode_for_alpha_formats() warns when a plane supports
+> formats with alpha but doesn't expose the blend mode property. Fix this
+> by adding the same overlay plane blend modes to primary plane, since
+> they are all universal planes in DCN-generation. Cursor planes support
+> ARGB8888 format and CURSOR_MODE_COLOR_PRE_MULTIPLIED_ALPHA is set by
+> default (other color formats are not implemented), so only expose
+> support to PREMULTI, which is the default blend mode on DRM.
+> 
+> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel format with alpha exposed")
+> Reviewed-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+> Signed-off-by: Melissa Wen <mwen@igalia.com>
+> 
+> ---
+> v3:
+> - keep primary planes w/o alpha property
+> - re-order if-conditions for readability
+> ---
+>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 21 ++++++++++++++++---
+>   1 file changed, 18 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> index 1b564cfe2120..ab9bbe8ca333 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
+> @@ -1923,16 +1923,31 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
+>   	if (res)
+>   		return res;
+>   
+> -	if (plane->type == DRM_PLANE_TYPE_OVERLAY &&
+> -	    plane_cap && plane_cap->per_pixel_alpha) {
+> +	/* TODO: Check which blend modes are supported in DCE-generation
+> +	 * planes, i.e. DC_PLANE_TYPE_DCE_RGB/UNDERLAY and expose blend mode
+> +	 * property accordingly.
+> +	 */
+> +	if ((plane->type == DRM_PLANE_TYPE_OVERLAY ||
+> +	     plane->type == DRM_PLANE_TYPE_PRIMARY) &&
+> +	    plane_cap && plane_cap->per_pixel_alpha &&
+> +	    plane_cap->type == DC_PLANE_TYPE_DCN_UNIVERSAL) {
+>   		unsigned int blend_caps = BIT(DRM_MODE_BLEND_PIXEL_NONE) |
+>   					  BIT(DRM_MODE_BLEND_PREMULTI) |
+>   					  BIT(DRM_MODE_BLEND_COVERAGE);
+>   
+> -		drm_plane_create_alpha_property(plane);
+>   		drm_plane_create_blend_mode_property(plane, blend_caps);
+> +
+> +		if (plane->type == DRM_PLANE_TYPE_OVERLAY)
+> +			drm_plane_create_alpha_property(plane);
+>   	}
+>   
+> +	/* Cursor color format is set to CURSOR_MODE_COLOR_PRE_MULTIPLIED_ALPHA
+> +	 * by default, so only advertise DRM_MODE_BLEND_PREMULTI blend mode for
+> +	 * this type of plane.
+> +	 */
+> +	if (plane->type == DRM_PLANE_TYPE_CURSOR)
+> +		drm_plane_create_blend_mode_property(plane, BIT(DRM_MODE_BLEND_PREMULTI));
+> +
+>   	if (plane->type == DRM_PLANE_TYPE_PRIMARY) {
+>   		/*
+>   		 * Allow OVERLAY planes to be used as underlays by assigning an
 
