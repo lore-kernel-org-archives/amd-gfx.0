@@ -4,124 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8E031C5DF97
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 21:32:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CDAEFC5DF97
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 21:36:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0D08D10E379;
-	Fri, 21 Aug 2026 21:32:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2E3DC10E2A6;
+	Fri, 21 Aug 2026 21:36:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hkoUK5n4";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="41mjUxmv";
 	dkim-atps=neutral
-Received: from SN4PR0501CU005.outbound.protection.outlook.com
- (mail-southcentralusazon11011008.outbound.protection.outlook.com
- [40.93.194.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B650F10E379
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 21:32:11 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010035.outbound.protection.outlook.com
+ [52.101.193.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4074510E2A6
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 21:36:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=E4MMhMoJ88aXs2iDaWbXukTxdfko02Uhua1ezwmjf3ut5VJAx+pw1cLgXXLuSWIQNqqTDXnUHQ0e6YXwpHzpvVxk3/Amu8kUg++wJsn0GS2JvTXe5D0gPTNYQ1FNxmqHniLM5vgO5/GAMiIy6QejAk4Fo4hJ8RuB4QGHIVeCsxOft/JryBBaVHvMeNuUckNt1MBe+ve6DH7s6SkEAB7cPvcoGQ05bNh6ihZm8Xe6cwiMR98fRrAJgeYlf0Ar8L0Zc2W2VodW8q2rkDtoCnq8hj1QMv6z9wqupNknv+jR7NqMCXDCiHIQJXhGKp+FuCWcIe96QhaiP1oMFWmWUcZ83w==
+ b=Ehjbyk1xQZ7GecfJ34g+E6UM73w5aMASlJLmjemx7U1aQJM0PrMBkdsSU7n6rSYI54KY1JiqjMFNm4PGiuR+iEOgeS7Cr8knnn2RVIq228yrd9o8Iim4au7Mol0iV09jgYqEUSCzH22AviPtImKGP0UA6abd2DvFRoHOzxk+WvSMqt/cBkYQ3eMouhw2IRujG75Hs7wdnh+MOTHshXvN/NQ7eJP89UqpuRsWAiRQfM0fMYoaKbfWHfkR0jwv5Kg/0NSc1DpCRe0sWBmMqFhLApm9pcWESGJ0pxvwHbh78O6HxySGRMImtbw0VsWZqvpSupHoX/9vM6Fld51RhtONPA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qBN0Pekw6/HrHlbZMgVGcicS54Y+1o9x9oS5K3GQcGE=;
- b=m5i0lhL949Fm1PxB/UwlYlxl20FWTFq4sGrc6kSjdcZKSHpMnUFsv6BPGFdg/8pvu0VU3QLJll1/57VHr8W6zjm6gC5Cbi5eFI4TEpus/SkATw58cIxBSyg7WqJSQZOHtCFeMKiVF4cyyrJ+CP+Rb0v54xeupqLjBu6LTrk27rsyccQsmQIAF5GKMMBBtgPGBaWiiLNDHieNwmXsm1g2Ckufkf1fLYTv3ANhwOs6dknB57BOJwi+Ev6JXznNldE/X7eBeN5H2q6w7Ysybn3k9pLTd1I4V1whBdGQ1PhqaxFcHnxaLeTRrtcqncnb6Ziog3NvcITi1GOsLgG0mGwdGw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=kdlYg070VNm0FvTMS+dSH4n2jix7gCapnOBiNhbp7FM=;
+ b=JYDR17faa3nNqsnUHvU29USCvWjNHAkX4TwaYctH4o2RwcPCc46FoA5pMjhbh97z+uAcjkA6+DqdpIYirhzWGJaDxUrlTmuMkfTChxFY6T1ySORsVqO0xXjv1y8l6Hqia0zXPQFl3XQ3OxZCGLqELZXZZcCSgFuQGLhorYECWkiuKHYyR+HEErC5aFfGaPtOtH2NYSIVB7c0BqLTTDehVCxEqDd0S1hH/ken/KMuxVeWvhwLmbHFRmYnhGGDqWXGnvQpZ0V7pYMUnLLrA938BIyDfSO8fV4lLDWQR9RYLaDtXsr9XgSGF/bzXlEM1JS4WghUmFKstbr8Rg+kjoyz7A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qBN0Pekw6/HrHlbZMgVGcicS54Y+1o9x9oS5K3GQcGE=;
- b=hkoUK5n4Q/PyuLZ5tB16ASzsbvjIv6kJFycpJOCUkhjyABDktayZpjzfskG/sJ/wXoP67n6qQEUeTEJuGP3R4AITP31uvmQt1YzOtsnf2HmEIlxOUPB0B9+xsGbGBf9uA34XDwopSbnySUH4zAD+fIf1X91fx1yaaQHXKgQrdb0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by CH3PR12MB8536.namprd12.prod.outlook.com (2603:10b6:610:15e::10)
+ bh=kdlYg070VNm0FvTMS+dSH4n2jix7gCapnOBiNhbp7FM=;
+ b=41mjUxmvFoKIRJ3GX7gnWlRoQpzOiDAhoERsPV6zJLBNnvhTavZ8Z36ZkWdmN48scMl5/IJxxyJ7z21C8Rqkj8avDAYiCisWr8tDzXEXxR/6/Bd0lg2lb2q6S8i5JQxszr1VPJ5wckh0qpgQg7708zO7idmdBOVMHPc0tedrrbI=
+Received: from BN9PR03CA0544.namprd03.prod.outlook.com (2603:10b6:408:138::9)
+ by IA0PR12MB8906.namprd12.prod.outlook.com (2603:10b6:208:481::9)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
- 2026 21:32:06 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0315.012; Fri, 21 Aug 2026
- 21:32:05 +0000
-Message-ID: <266cab79-8978-4c18-aee5-e576a9d3fd46@amd.com>
-Date: Fri, 21 Aug 2026 16:32:02 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] drm/amdgpu/userq: create the same workaround of
- oversubscription timer
-Content-Language: en-US
-To: Eric Huang <jinhuieric.huang@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: Tishko.Araz@amd.com, Alexander.Deucher@amd.com
-References: <20260819201443.282689-1-jinhuieric.huang@amd.com>
- <20260819201443.282689-3-jinhuieric.huang@amd.com>
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260819201443.282689-3-jinhuieric.huang@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DS1PR06CA0001.namprd06.prod.outlook.com
- (2603:10b6:8:458::11) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Fri, 21 Aug
+ 2026 21:36:52 +0000
+Received: from BL02EPF0001A101.namprd05.prod.outlook.com
+ (2603:10b6:408:138:cafe::a0) by BN9PR03CA0544.outlook.office365.com
+ (2603:10b6:408:138::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Fri, 21
+ Aug 2026 21:36:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF0001A101.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 21:36:51 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
+ 2026 16:36:50 -0500
+Received: from box-0.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Fri, 21 Aug 2026 16:36:50 -0500
+From: <IVAN.LIPSKI@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>, Harry Wentland
+ <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, Alex Hung
+ <alex.hung@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, James Lin
+ <PingLei.Lin@amd.com>, Ivan Lipski <ivan.lipski@amd.com>
+Subject: [PATCH] drm/amd/display: Always report native cursor mode for
+ disabled CRTC
+Date: Fri, 21 Aug 2026 17:36:44 -0400
+Message-ID: <20260821213644.689017-1-IVAN.LIPSKI@amd.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|CH3PR12MB8536:EE_
-X-MS-Office365-Filtering-Correlation-Id: bcb794d1-6d1a-4be7-8d4d-08deffcba515
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A101:EE_|IA0PR12MB8906:EE_
+X-MS-Office365-Filtering-Correlation-Id: f1e0ff7b-ce27-4236-426f-08deffcc504a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|23010399003|376014|18002099003|22082099003|56012099006|10067099003|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: lBFgeEwM7QV9jEZdFvZ/WQzttFsOKKXwjW4lXMcJvoP+LNbhRvGjT5nW9XO6t/B6YrUxMfSLiKr08W0g+6SXvN8pnThPksKnQx5WUKZBJS/w0V9H6wDECBVOpoLbpEaRBnBcxEJA4Yf1kNC0wux1+c99aFHaD4RxMD4pvi/t7kjtCPads8XNuR0ZQY7Ue1E40Jp/fd/vGrNRIj3po3YzcNBv+sVXQTVeJr9NNQ+L2rwzJOBcozcCLwvXllo8rIbj+WSm3E9q4B0Pd/LP6s51GPv0vHgqXXfSBMBFyKi8MMTBTau/xAkANVIyZk8rM0eGY7ev9ihR+zLTnPxvvxEPfj86MowhOxjW7R5UnRZF74DP1TPXMP2CEyqQ2m+DLtlB+KFv+e83gLQjuqN99Z0zLZmnnlTTrFRNRzuUyW6KPhiZXDaLlYJSrrY+7LT9gw1KgCbr9AMBGnehlXRn85y4Pjj89hnGQ2x3+w1CgzHxGcwlOtbh96ski9Y5tEzqjExctfLnoj4x9eaqY/GiqWgrUT23gy/pkmApNlTejKquPQBpb/rJ1e0rjKBU4e+/iidSHCqAQ3d1yqBWMq1/4lWrXSGLb/VMwlZFcmkT08sy9VcmDNSn/gqOyoi7IBvq//sPNrpBOFIZqZQl31knzlXf0MJ6uRRfq4EdCghjIkQi9LM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(18002099003)(22082099003)(56012099006)(10067099003)(11063799006)(4143699003);
+ ARA:13230040|36860700016|376014|82310400026|1800799024|23010399003|6133799003|3023799007|56012099006|10067099003|11063799006|18092099006|18002099003;
+X-Microsoft-Antispam-Message-Info: sENLrYCPJGUpWceL5la11wQn4qPfCLDd+YRCOwqvmVDm2h0akiKIYu38ZQko6uK3fjawf79fyUT+/LikplTCjcgj+HjKxOYdkpJCXi0PEMAq4ezxSH75ndCgl3/G+fhKOLD4EngF8MVyF2xrIDC5u0DHTjtrgU/TIFciSd8GixudOa8yT4lVpIYVI0Y/iWoDtgRW2B1iJ7MfqPddmUABef8pgAurZ4W11gAoPVp1fEj0zskVPuvj15OU45Plmhcivg48YaIV/Bjnd8auEursUGyFZV1uVJH48Haz/+8K+iZ8dtkKEIre4boFIK9ChQHjm/pp0L76Zmf09mlohvA+3NzM/IgD3Fike+ccloKs3UBU+Oa71R92MpJYM5N7ZnR8MjoFZTga2gU+SLF+xlP1v+q5oheyHl0Fm5nR/1o0Ai0zSSvIY34G4Aym4JW4//2zahAUNWUJnlSbq7y8FZhZGudbj8eo0jjCJX80X9ahhB90WrjYlDvI8Hwfkz56Au+wK3RSYuEUchA/lTZxRBKHu+xeLQ27jdOrVsyeeIZkfQGBXffomX6ZhyoDCAJBBzMmjKD1fn07mUP1aYWXHkDECrvdcdC3UPRp01q5/Hi3S/nhQgd/zWT2qZZDKZgx96htKXUWIzr1lZ1aCEXNe1q8++siIQEQuoqNo2KDGt2qSgXvZwn/4x+zjUfrRd5v7OtrEI1DeMSXya5CeudxkqWnjg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(23010399003)(6133799003)(3023799007)(56012099006)(10067099003)(11063799006)(18092099006)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QU1EQURJcENha2NSQk1NUmJ6dVd4QmxmaldhL09obkpsYXBLUEFUWkVhQ0lh?=
- =?utf-8?B?Q0l0OTRnSGtnOWhJcHlxUGo0NjU1NDIrWUNGWXJCa29wbFBxeEF5WHJDLzJH?=
- =?utf-8?B?RzVUYWRBN1NiWHp0K0k0TlAzYmtYZWlWcFB2cGFIekVDbXJoMnlwSTVSY3dB?=
- =?utf-8?B?UExPT09raXovZjZ5bUQwZ3hmeGlvWGNQKzU3L1dRSWJ3WEM3ZkJQS0QwWHZS?=
- =?utf-8?B?L1B3eXdjNHhvckt1bExaWFdWYkRqRlg3Y1Z0R0Y1c1Z1blFSaGJhY0dsY2NC?=
- =?utf-8?B?TUJtM3c3YmJYYVVFZUVhc0JMeWY0OXRvdDE4OVVYbW0zb2FyQjJJNFU4eEM5?=
- =?utf-8?B?VC83SXhsbC82L01maThtaEM1YmFCZVZPQU1MTUdXZC9BVEtoU3lkSTZpbi9Y?=
- =?utf-8?B?Sk9Mand5T2cvQVU3NnVDQXo3ODRqc2xXeW54VWVsL09QSFJBSEU2Z0REbHhu?=
- =?utf-8?B?dHdTMkREeEFLa2hKTmtpUW5UZXA4NTZFczZxekdsZzhScEM0T0dyUGg4aGFT?=
- =?utf-8?B?ek5KRVVHaTJhMlZSMFhndFhDNjVvYnFFUDkvNUQvazVrdjlUVTNvaFFLWmdp?=
- =?utf-8?B?ZGNMdHpzZkZwV2YwYW9zbGNjaE11V090RCswR2U5MUpUQXM2a3NFck5QZCs0?=
- =?utf-8?B?NzhQSlNsSmtBcXNqWml1R25pVVNwMEh4eElnalFDSDVMUU9tTmdiQjJMUWtZ?=
- =?utf-8?B?WWUreUdzVldrQjNtNUlMQXpPOVJ3TlJxMXRaOER5ZGJ4SklTWGN0eGk2aTY3?=
- =?utf-8?B?RGYwQlJIdWlqeldjU1REVVdOUUlOVmlvcXdyek9XZkllR1c4d0pvbHcxOHJN?=
- =?utf-8?B?ZyswM0I4cnIwTk91dzUvMCtPdWtRaEFyVGxrWWs3UEhIREM1L0ozTFkzbFBP?=
- =?utf-8?B?NGVKVGlDTEtFOThzbXlWZmpwS1IzN3hOZkZCazJ1VDFjbWtBOHluR2VBclow?=
- =?utf-8?B?aEE5RTJaOWdxdGRrY2hNY1J0bmphNWxwZFZoUzYvWUhoUVdqQ1h6NC9xSVVL?=
- =?utf-8?B?UG9xOTBYdllXV3BYelZxOXlxbWgyQk8wK0NyWmhya0J2d1cwZ2RYa2RwdE9T?=
- =?utf-8?B?M000eWRHUHZqTk9lRkdhd2ptNmRLUmkwTllNd20vd3l4Rm1KYmlaOTZvY2M1?=
- =?utf-8?B?OE9PNURieTFlRThIZXJ4RkZhYXlueE1BVHUvTWVKSnFtUDRxeHVxakpFd1dx?=
- =?utf-8?B?K21yV0lzNmlYbWhFNVNKbFplMTRONW9zeUN2NmNkTm9uNnVjcE1Mcm9vbkRM?=
- =?utf-8?B?NXJkUlJCNTRaVzRVbGNoa20wMUZ4b3A4R20zYlphUkUzMnpoWUJsN0h5bElH?=
- =?utf-8?B?Zk4xTDJrY1grLzJWNXBTTlpTSHVlNnU4aU9FUy9oRlFQbzhwZkM1OVVQS2dB?=
- =?utf-8?B?UlJzdVE1RmlYUVZiazJRdzI4YXgxN3pwc29rYUFSVHdZVHRrdlR4ZGROaEQ4?=
- =?utf-8?B?bCtNUy9JMjVralJ1SXhaOFVwR3AyeTAvOWFVK1RkbTVnNUxtWkE0NDdPSmNr?=
- =?utf-8?B?VUFCV2VOREtHZWNlczNqZlBnUktqSEplU2JxVTZoMnRhWUcwQ1BSaTh3QXNE?=
- =?utf-8?B?d2V0amc3RGtqOS9uSnpVOWUwLzlLYnNsRnAwdTNhTFZveStnK0NFdm5oWDJG?=
- =?utf-8?B?d3czZUJiTXRQbWNPNll6NjUwNEJuRFNHS1JxSGw3NGtCeFROK29pMVc2K3Vp?=
- =?utf-8?B?UDRGSlVjajQ2blJEN3lmY294RmFhakF4OVIwNXpsdkRNM2Q2dzI1N2dxVlFI?=
- =?utf-8?B?SCtKVVJQbDlqTk8vOVEyRTRxTjc2UDBBQmtZc0RUNGJXN3lxVWg3WkpLRXJV?=
- =?utf-8?B?bkF1R3MrUG9ORnBGK3hLQmk3N1UwQUVJTmpHWEJoT1JOSEQ5eUsrS2dnUFdL?=
- =?utf-8?B?VEh2Sm9POVVVWFFmSDZxNWpRdllEaU8veGY3aGdQS1FHcG01cVNHMDh3NXZj?=
- =?utf-8?B?SzU2V1p6dFZwOW1SWnNJYktvS0c0M1JGOFZia1pJbUJ1bFBiZW5yWVNDRXJw?=
- =?utf-8?B?RTI4UW1uWDRjQWcvMEJuaTdPa3lWcnV3Z3VEWWV5cnhHVXY2Nyt0SERTbkl1?=
- =?utf-8?B?TnFPT0VmaEF0M3FKQ0h0MUpnUUlqTmlONmhFVExHZHl1cnVLZUNsZnp6aU5z?=
- =?utf-8?B?K2tqSTQvaER0MHZMZUpkRS9UOTFlaDhIbTZYb0N3ZUd3aHNnaW1xMlN5cHBR?=
- =?utf-8?B?K0pIQ3I2RzVCdFR5cndBc3YrQW91cTBZSHJYY0M5ZXdsL00yUmd3RytTTnRO?=
- =?utf-8?B?MmNPam9HeFJ1cmtGc3lNRUhZTE1QT3FZT0JIemJ4VysrOElwUVB0SnRPQ0Iy?=
- =?utf-8?B?ZTBoNThBNk5jQVhvaGlza2V6VzVXWGI5cW9TQ2xNcXdaUTMzNlB4dz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: vWzjE0slj7zJXHqFqb/HwHJICYoxmlnm75yLee5gP6+Mt2lHWx12xRXcxZD+EsXaQG4sSsacZc9PcjQBkbc8WvNmQkeTTFNrco3CODzH/NJbCf/1B2C0QwlcFIQolmuqTjV7QglRiJGcEtLvRGWN58I0/LS5MTumQVkMfYEP1e885YeaUWWVWKiUnrpjEwIy2jEx+FMcVVaDQSlqFK9FeoIxv9Xq1TXqqSulfqvuwYd5c4K4gZ8KEFTIO5QwL93XH+9fFeo6t4uf8SVLTg2mwSSLXsvGobDKz9KXLbLNlx7VRWtfF6WX13doVrOYCrEXf8A3dJKEKmuDGpnP1MXLzHX6zLdiwVEkrvmBDJxgpbMyZ4iKwuwyK1xPPLc5NyY1WyAyzixpdexSHpBI9tLqyO8CSZz4vQfzmnYRmKyyU5t/EOIhCZEWwYliKlfAzwrP
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bcb794d1-6d1a-4be7-8d4d-08deffcba515
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 21:32:04.8255 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 21:36:51.3899 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f1e0ff7b-ce27-4236-426f-08deffcc504a
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CCQiUUH0//ZRo3x9rRy49kJ8kDGqImiOljPL7+WTuCvk6dB95C7jfbzwKdINqstCwoyGS5dYofl+Lvb/PmRttQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8536
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0001A101.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8906
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,180 +112,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+From: Ivan Lipski <ivan.lipski@amd.com>
 
+[Why&How]
+The disabled-CRTC check was bundled into the DCN4+ version condition, so a
+disabled CRTC only fell back to native cursor mode on those specific
+ASICs, resulting in overlay cursor mode on disabled CRTCs on pre DCN4,
+casuing failed atomic checks.
 
-On 8/19/26 15:14, Eric Huang wrote:
-> removing MES oversubscription timer will affect both amdgpu/amdkfd, so
-> add the similar timer for amdgpu userq as well.
-> 
-> Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c    | 70 ++++++++++++++++++++++
->   drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h    |  7 +++
->   drivers/gpu/drm/amd/amdgpu/mes_userqueue.c | 10 +++-
->   3 files changed, 85 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> index 421d937c1188..b2c64ec8e0af 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-> @@ -101,6 +101,8 @@ static inline u32 amdgpu_mes_get_hqd_mask(u32 num_pipe,
->   	return (total_hqd_mask & ~reserved_hqd_mask);
->   }
->   
-> +static void amdgpu_mes_userq_notify_unmap_work_handler(struct work_struct *work);
-> +
->   int amdgpu_mes_init(struct amdgpu_device *adev)
->   {
->   	int i, r, num_pipes, num_queues = 0;
-> @@ -123,6 +125,9 @@ int amdgpu_mes_init(struct amdgpu_device *adev)
->   		spin_lock_init(&adev->mes.ring_lock[i]);
->   
->   	adev->mes.total_max_queue = AMDGPU_FENCE_MES_QUEUE_ID_MASK;
-> +	atomic_set(&adev->mes.userq_hw_queue_count, 0);
-> +	INIT_DELAYED_WORK(&adev->mes.userq_notify_unmap_work,
-> +			  amdgpu_mes_userq_notify_unmap_work_handler);
->   	total_vmid_mask = (u32)((1UL << 16) - 1);
->   	reserved_vmid_mask = (u32)((1UL << adev->vm_manager.first_kfd_vmid) - 1);
->   
-> @@ -288,6 +293,8 @@ void amdgpu_mes_fini(struct amdgpu_device *adev)
->   	int i;
->   	int num_xcc = adev->gfx.xcc_mask ? NUM_XCC(adev->gfx.xcc_mask) : 1;
->   
-> +	cancel_delayed_work_sync(&adev->mes.userq_notify_unmap_work);
-> +
->   	kfree(adev->gfx.mec.mes_hung_db_array);
->   
->   	amdgpu_bo_free_kernel(&adev->mes.event_log_gpu_obj,
-> @@ -1163,6 +1170,69 @@ int amdgpu_mes_notify_unmap_queue(struct amdgpu_device *adev)
->   	return r;
->   }
->   
-> +/* Interval for notifying MES of work on unmapped queues during oversubscription */
-> +#define AMDGPU_USERQ_UNMAP_NOTIFY_DELAY_MS 50
-> +
-> +static unsigned int amdgpu_mes_userq_hw_queue_num(struct amdgpu_device *adev)
-> +{
-> +	int num_xcc = adev->gfx.xcc_mask ? NUM_XCC(adev->gfx.xcc_mask) : 1;
-> +	unsigned int n = bitmap_weight(adev->gfx.me.queue_bitmap, AMDGPU_MAX_GFX_QUEUES);
-> +	int i;
-> +
-> +	for (i = 0; i < num_xcc; i++)
-> +		n += bitmap_weight(adev->gfx.mec_bitmap[i].queue_bitmap,
-> +				    AMDGPU_MAX_COMPUTE_QUEUES);
-> +
-> +	return n;
-> +}
-> +
-> +static void amdgpu_mes_userq_notify_unmap_work_handler(struct work_struct *work)
-> +{
-> +	struct amdgpu_mes *mes = container_of(work, struct amdgpu_mes,
-> +					       userq_notify_unmap_work.work);
-> +	struct amdgpu_device *adev = mes->adev;
-> +
-> +	amdgpu_mes_notify_unmap_queue(adev);
-> +
-> +	/* Re-arm if still oversubscribed */
-> +	if (atomic_read(&mes->userq_hw_queue_count) >
-> +	    amdgpu_mes_userq_hw_queue_num(adev))
-> +		queue_delayed_work(system_wq, &mes->userq_notify_unmap_work,
-> +				   msecs_to_jiffies(AMDGPU_USERQ_UNMAP_NOTIFY_DELAY_MS));
-> +}
-> +
-> +/*
-> + * Called after a GFX11 usermode queue is successfully mapped to MES.
-> + * Starts the periodic unmap-notify timer if this pushed the device into
-> + * HW queue oversubscription.
-> + */
-> +void amdgpu_mes_userq_queue_mapped(struct amdgpu_device *adev)
-> +{
-> +	if (!(amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(11, 0, 0) &&
-> +	      amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(12, 0, 0)))
-> +		return;
-> +
-> +	if (atomic_inc_return(&adev->mes.userq_hw_queue_count) >
-> +	    amdgpu_mes_userq_hw_queue_num(adev))
-> +		queue_delayed_work(system_wq, &adev->mes.userq_notify_unmap_work,
-> +				   msecs_to_jiffies(AMDGPU_USERQ_UNMAP_NOTIFY_DELAY_MS));
-> +}
-> +
-> +/*
-> + * Called after a GFX11 usermode queue is unmapped from MES. Stops the
-> + * periodic unmap-notify timer once oversubscription clears.
-> + */
-> +void amdgpu_mes_userq_queue_unmapped(struct amdgpu_device *adev)
-> +{
-> +	if (!(amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(11, 0, 0) &&
-> +	      amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(12, 0, 0)))
-> +		return;
-> +
-> +	if (atomic_dec_return(&adev->mes.userq_hw_queue_count) <=
-> +	    amdgpu_mes_userq_hw_queue_num(adev))
-> +		cancel_delayed_work(&adev->mes.userq_notify_unmap_work);
-> +}
-> +
->   #if defined(CONFIG_DEBUG_FS)
->   
->   static int amdgpu_debugfs_mes_event_log_show(struct seq_file *m, void *unused)
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> index 0291ae14a1e7..5160b227943b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.h
-> @@ -29,6 +29,7 @@
->   #include "amdgpu_gfx.h"
->   #include "amdgpu_doorbell.h"
->   #include <linux/sched/mm.h>
-> +#include <linux/workqueue.h>
->   
->   #define AMDGPU_MES_MAX_COMPUTE_PIPES        8
->   #define AMDGPU_MES_MAX_GFX_PIPES            2
-> @@ -90,6 +91,10 @@ struct amdgpu_mes {
->   	uint32_t                        total_max_queue;
->   	uint32_t                        max_doorbell_slices;
->   
-> +	/* GFX11 usermode queue oversubscription notify timer */
-> +	atomic_t                        userq_hw_queue_count;
-> +	struct delayed_work             userq_notify_unmap_work;
-> +
->   	uint64_t                        default_process_quantum;
->   	uint64_t                        default_gang_quantum;
->   
-> @@ -646,5 +651,7 @@ void amdgpu_mes_free_gang_ctx_index(struct amdgpu_mes *mes,
->   				    uint32_t index);
->   
->   int amdgpu_mes_notify_unmap_queue(struct amdgpu_device *adev);
-> +void amdgpu_mes_userq_queue_mapped(struct amdgpu_device *adev);
-> +void amdgpu_mes_userq_queue_unmapped(struct amdgpu_device *adev);
->   
->   #endif /* __AMDGPU_MES_H__ */
-> diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> index fae709f134bb..5a10af16e0c1 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-> @@ -171,6 +171,8 @@ static int mes_userq_map(struct amdgpu_usermode_queue *queue)
->   		return r;
->   	}
->   
-> +	amdgpu_mes_userq_queue_mapped(adev);
-> +
->   	DRM_DEBUG_DRIVER("Queue (doorbell:%d) mapped successfully\n", userq_props->doorbell_index);
->   	return 0;
->   }
-> @@ -195,9 +197,13 @@ static int mes_userq_unmap(struct amdgpu_usermode_queue *queue)
->   	amdgpu_mes_unlock(&adev->mes);
->   	if (mes->use_rs64mem)
->   		amdgpu_mes_free_gang_ctx_index(mes, queue->gang_ctx_array_index);
-> -	if (r)
-> +	if (r) {
->   		DRM_ERROR("Failed to unmap queue in HW, err (%d)\n", r);
-> -	return r;
-> +		return r;
-> +	}
-> +
-> +	amdgpu_mes_userq_queue_unmapped(adev);
-> +	return 0;
->   }
->   
->   int mes_userq_reset(struct amdgpu_usermode_queue *queue)
+Move the check into a separate early return so a disabled CRTC always
+reports native cursor mode on all ASICs.
+
+Fixes: b7d7e714de44 ("drm/amd/display: Fall back to overlay cursor on dcn4x when top plane doesn't fill CRTC")
+
+Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+---
+ .../amd/display/amdgpu_dm/amdgpu_dm_cursor.c    | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c
+index c41fce07b8fa8..8204ad4018e6b 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_cursor.c
+@@ -287,19 +287,24 @@ int amdgpu_dm_crtc_get_cursor_mode(struct amdgpu_device *adev,
+ 	int i;
+ 	bool skip_fmt_scale_restrictions = false;
+ 
+-	/* Overlay cursor not supported on HW before DCN
+-	 * DCN401/420 does not have the cursor-on-scaled-plane or cursor-on-yuv-plane restrictions
+-	 * as previous DCN generations, so enable native mode on DCN401/420
+-	 *
++	/*
+ 	 * Always set native cursor mode when the CRTC is disabled,
+ 	 * to make sure it doesn't cause atomic commits to fail when
+ 	 * they are trying to disable the CRTC.
+ 	 */
++	if (!crtc_state->enable) {
++		*cursor_mode = DM_CURSOR_NATIVE_MODE;
++		return 0;
++	}
++
++	/* Overlay cursor not supported on HW before DCN
++	 * DCN401/420 does not have the cursor-on-scaled-plane or cursor-on-yuv-plane restrictions
++	 * as previous DCN generations, so enable native mode on DCN401/420
++	 */
+ 	if (amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(4, 0, 1) ||
+ 	    amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(4, 2, 0) ||
+ 	    amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(4, 2, 1) ||
+-	    amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(6, 0, 0) ||
+-	    !dm_crtc_state->base.enable) {
++	    amdgpu_ip_version(adev, DCE_HWIP, 0) == IP_VERSION(6, 0, 0)) {
+ 		/*
+ 		 * Newer DCN has no cursor-on-scaled/yuv-plane restriction, so
+ 		 * skip those overlay triggers below. A plane that does not fill
+-- 
+2.43.0
 
