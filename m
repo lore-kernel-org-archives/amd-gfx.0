@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 660EBC5DF8C
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 19:53:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2006CC5DF8C
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 19:53:33 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 081B710F494;
-	Fri, 21 Aug 2026 19:53:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB2F610F49B;
+	Fri, 21 Aug 2026 19:53:32 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="n6jPLCXw";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="rY8WN+gJ";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012041.outbound.protection.outlook.com [52.101.43.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CC19C10F494
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 19:53:27 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013053.outbound.protection.outlook.com
+ [40.93.196.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C9B5810F49B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 19:53:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vwE9xRNEtKAZ4O+3sWf69Nu4uiPQfCAlfOohI4FZiV8m1Kptf8CleERRrdJVH5GTutOIG3GMKTnWN0QqvGCsM96A+qtdXCl3M9zFDDZPYVaH94wPQ4tXyTvc245UNDqXd3zR28DXHDKnHmWjDHoQml/2p9ft1eM3o7HLnUSoZEyquXwFTGwAj+WlwDwORsnPlMMbmRknRiFkA/qMYAwKQwtPaH7s326odEduN4HcpDsNFhqd3YTC2jyzFA4bbGGgQ/0tzioG4L80OJmo6Q4AOstgPEk1SQOWTkSGZB+IRlbBuVwPYmFnEh4XK+p/u+V8ProwLcgXc11bGrIlF1E1Mg==
+ b=nNHLk/L/DsWocwrWvkOhTr7qY8sDNTSp2cxQL0CMsGaPZhb3GwQJEdybjxhjJzgjq3Wyvuf9yF26bpLZgM6eTCUUrv7Ce14RXzvAp3g5JjIK4CrQDsOFKjPVyO5hwcOELIrOBQxXoIRA4HjhF8r3TScZ1j6ZG9zatBckCG+FityKuDz6XOYqzulVGbKEFXNSX3Y2ZSMxYGKJQFLJE7Rvrd86jqRvDod3Q0c+dtavD2c8GcYltZhrnvZHLrdVv6fXxlF9W/aQoIwQnkOaZQOacN4u3blnSEUSHxUAwjpKTpZ7+ezogaOkKLzvg9LlUsejKkqb6r21mB/V5QttGAwCTA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v9sCHTcUDf6I1tO04koPk4QoXQTkPMUMvqK98uDr2Wc=;
- b=kU998Kzamj54rlZbNysEEBE4iysZ76ZWBpdMzX/6DekkiBDlVeQAlTCu6kgclLFMNTfhogigWjrfHOHIWHwu++wG4uhYrssWkWcFwOM7VLufbASGounI+sHBye1tV3gh6vFoV2MhQygC8Fs5LTxKIesXlXWP3WTGl2kzpU5Hkh/VYdmUo4MDD9iNbWdcsWnfYl6LfhAKJCyYR5wYjYZPu2vrK3dWm1J4zzIc57/AbG5F25+K7UkjjJDFY7x4JcKahZhbBX4huFI4EV7uCkQAPvsPMfa7lgEzQDp87RbyYm2x+LgU2TUX28VDXPCqbi/ih1fcDRSsQrd/cW/LBdxQxw==
+ bh=8zHouAYxV9RtzBFouXqlAr0hzg6EhtSCcR9qkDaWslI=;
+ b=smEynAJd8NyL+5R21dZFOM/Fm4NNAFUZyhcgp2vFgDyKpsvlAJ4i0s8vux3Tw2Rkk4om8WrwVD67xYBnLSj+aErwRzZhR/B9Ut5IYGyY49w79Yn3lytRI196YV9lHLLOdETJZ6d8/TdU8k8eXfk3YmbFdRCuEZbwEIFw5OBcEaKY67C+W6RprdmSy2NkLM2QcBMFXukOBD/XiR6CxgHD0l7Q79SuRWazvPNrESErMEbt7ps03L2mycTso8k08rta8DCp4OwYsAIr5NMkVKUCAwLSx83ByXq59PCAa1OK97ET+c8V4XrWbSFyzkaBfs5U4tvhnvXmZBlR97SGnfH8NA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v9sCHTcUDf6I1tO04koPk4QoXQTkPMUMvqK98uDr2Wc=;
- b=n6jPLCXwPapboL4l801H6+xphmLoWrY8CnJUkhacA12PkEd13M9Lt3AQ1ktbze2aWN8b8VBSOEMWboZ7wRMLJlhjLFoaNoauYaQLDW5ZFm+nEXJMIvtueyS2LBO/vxZ83GxspLnDWaYsI315n3mYRYHrvnCVPgCwQQtpHuMcAoo=
-Received: from CH2PR12CA0024.namprd12.prod.outlook.com (2603:10b6:610:57::34)
- by DM4PR12MB6349.namprd12.prod.outlook.com (2603:10b6:8:a4::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.11; Fri, 21 Aug 2026 19:36:05 +0000
-Received: from CH1PEPF0000AD83.namprd04.prod.outlook.com
- (2603:10b6:610:57:cafe::56) by CH2PR12CA0024.outlook.office365.com
- (2603:10b6:610:57::34) with Microsoft SMTP Server (version=TLS1_3,
+ bh=8zHouAYxV9RtzBFouXqlAr0hzg6EhtSCcR9qkDaWslI=;
+ b=rY8WN+gJ6a4XSDWYifEwIE/q50RagymXmC0/el/lKzXkAC/5rmXoXTc56W3ZsjdARxVZudSRLPnOwQA3eL/Z0XOG2p4PhE5EoR67/38QFLM3ObsvzpMdNRjNJt6B2EzZzzqUVLjQotZlga0sdSUEvLL8V/3AITh88+Bx/yeT8l4=
+Received: from CH5PR02CA0024.namprd02.prod.outlook.com (2603:10b6:610:1ed::6)
+ by DS7PR12MB6006.namprd12.prod.outlook.com (2603:10b6:8:7d::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
+ 2026 19:35:43 +0000
+Received: from CH1PEPF0000AD7C.namprd04.prod.outlook.com
+ (2603:10b6:610:1ed:cafe::48) by CH5PR02CA0024.outlook.office365.com
+ (2603:10b6:610:1ed::6) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
- 21 Aug 2026 19:36:05 +0000
+ 21 Aug 2026 19:35:42 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,23 +49,28 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000AD83.mail.protection.outlook.com (10.167.244.85) with Microsoft
+ CH1PEPF0000AD7C.mail.protection.outlook.com (10.167.244.84) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 19:36:04 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 19:35:41 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 14:36:01 -0500
+ 2026 14:35:34 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
+ 2026 14:35:34 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 21 Aug 2026 14:36:00 -0500
+ Transport; Fri, 21 Aug 2026 14:35:33 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Lijo Lazar <lijo.lazar@amd.com>, Felix Kuehling <felix.kuehling@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 81/95] drm/amdgpu: Add handlers for ualink notifications
-Date: Fri, 21 Aug 2026 15:34:44 -0400
-Message-ID: <20260821193458.808626-82-alexander.deucher@amd.com>
+CC: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling
+ <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 37/95] drm/amdgpu: Add UALink ring buffer allocation and
+ firmware init
+Date: Fri, 21 Aug 2026 15:34:00 -0400
+Message-ID: <20260821193458.808626-38-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260821193458.808626-1-alexander.deucher@amd.com>
 References: <20260821193458.808626-1-alexander.deucher@amd.com>
@@ -73,29 +79,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD83:EE_|DM4PR12MB6349:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9a4dd2c5-6f49-48fb-33b0-08deffbb70c8
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7C:EE_|DS7PR12MB6006:EE_
+X-MS-Office365-Filtering-Correlation-Id: 91f62a97-d056-4d18-b27a-08deffbb62f7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|1800799024|82310400026|23010399003|22082099003|18002099003|3023799007|56012099006|10067099003|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info: u1E6wVCK3hQgsZn28riDAsnQEltOhI4iyyOXNd5iPIPYImJ80poyJv9BqnBaP0C4mCSdnQukRsFftxys37oxcByLo4LCZBK2UK67/+F0miH4DtbK7dIqQ6/f6ffR20M5jsGgJTmCZnfPgF74uVaZntucpJOxtHl0h3Mtdeq7gjfPKB1FYM3HQk/gvgdgGkAN/5uQwqjwTSJllLrQcNrp3+m9YygxZjGZ3ZUdXjfYjQohnKFK3F2EZ327U7lyjCa/kPrx5gZTc2mRAU48iwaF2embM7FADW5Dr9g2jv41HJeVY4ajFFGY95pMHy2Z0ItPh++o0XWl6/iBb9hgAL4C61KUDv1UnvqlU5y4qjxcyBnfEwbFXpY102ZsbZKvLosTBOrXaFpGwjBdP/JE8OVOrwYmNDAT57jXmkL+YpzFt8UHQRvD1544lZoxspzf4GA5fTaK3S6PJ6Odn4aWZLGeBq3zjF2WW7oIYeuWbHBP8hpwtB+oJg8H8WJHCTc/NG+IixtFqjLISTXHpvec8yseIEOBjFUj5dhHZEvFnEUGVFLGJNsAaniZyyiSM25lg+7O5bRQAQuIu2BFS3oploB/PjJUuTiqywOSnAMF0gqpD9RJPBjqb5rTZl93IGvz2gVK4oha3VH1lwmaKAUe/tfzfRsfYNr/uNwlALZArUJfgAyd1Ii4HE9NQI4dWVjA6jNvUwx/dOz55W3PE7fnGU4ucA==
+ ARA:13230040|36860700016|23010399003|82310400026|1800799024|376014|56012099006|11063799006|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: H1PurIjUw2NuUsrV0iwFugi8m2rW24g0k14pDgary2u6ssuUfxjU1gNoTYdFDdbOKkOEJUKLaYlV8zdGbPfNwlr8+/ddq23I92ORTDsQcoXhJ+POLxZmPU9zREDwJf/GmWyjH9c35ul8pZSv4Oxoh/82bvw7FERDRhZxZ+rqNSbPCJzzq3L2StVRxI6XrdODHDn5fwCstKvwKUYpgF7qa62V4aWETqcGCrvSAhkLSV98y/+APDxKLp+6s0AkgXrJ2L5ONfTKxuTtqBj6CcoRyVU9Xr7p0bO+7tHAudy/ZUIZ6sk6BEwo+vsVY0sUijmABysTJu2ToG8ktujz7hoMye3/ThuRL+O/XP56KcqAaSiUqhSAnQzLcHYpttZWE5t7S0td2lfA8cAdgduCVdTVeYpVw5UUraNJPaTyhdVrWze1chMF76eWS1oafhliYibuFpWGlYFrWnwLn+Hr51XYkN+591zFTdbEERGUAXX/J6+q862pRwTDQNyoDe4hMAmrt9x9JYQxv4405g+cBStUb/AbzQJRNbTYQH0vhJHuAjfH9DcghZzTR9znKT1aOeEkYwq9REdM/mMaJMW+2OteO2j45altv9VFoblTjFKf+uETaEQlCaNJhZcxAdsGN3ou5mxZ1Ep1/rCfjoVciPLIa3W5VPev7LTLIJqSJmHWvWumLxos+XQUy+fUW96LX+XFdBjr7N41HUPvqF+nNktmWA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(23010399003)(22082099003)(18002099003)(3023799007)(56012099006)(10067099003)(11063799006)(6133799003);
+ SFS:(13230040)(36860700016)(23010399003)(82310400026)(1800799024)(376014)(56012099006)(11063799006)(10067099003)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: djnaNnEQcfa03sPUVNvKaH50R8CKNLMxGbicps72q3RySQyFRZarzUMp1yCfgrcaL6sMzkHt+G42hXSXd8LsSdgvpw3yjA4V0RSZ2JCz28TzK1Vot70S7qHWlLjpvSf9anUIpOvgbZMnmoSQRa3MQ1iXBP+FnxA82qWI9Ab9VSld3USLpuvrfPV1QHrdbMtquVfBc9gsAmZcg/6EpvZIJwBYjuVU0gyXyCEfw/wrAQlAGoxu6v1Gj8M7+t6uNBe/FAhrvUIsif6H945rSjrXufxub2vfPaTymnlqddYfmv6StwXp9F3lg1BUxLGjRF2g0HaTnNAQu811JzWzWe2Ip/tNAGdaRwh1nH5B657wPwVyrdKesM63MmNx/n+JcZDAn+wcGOKlooolqFo9MaKyBrqL9EsygfEAQnGoPFmp2BLa1M/iX14DvrKMTZclfo2a
+X-MS-Exchange-AntiSpam-MessageData-0: h/my2OB4SQkR3EoYrT3vNUiYYS80CbVPkuSHMTmEs6UGlva8O4H4pDDWBEH44pC17ZXLA9kXJBXngQNkucgvA7AlrpsnpGu/zKD/hbnrjFHElapJP1M1d3K5zgU0Nm2i6MhPpgl/8eXmkCchQjbXl48a9kiFRVNCwF1iasqMQr90ss7ebMt5ArSuhPq0VfOo33T3lxu5FOcnKM8pu4Ujnk7iq+VtRkDLlBpHmMTxaqrK6qKup0AIFZqkMFAvySvoJdI3V1KXF/FAkLJRGHP2iujJlKnNFiPSFvNeBSR4uO+ZRNiUBII7sf/z3XwS+ErpaXxu2t8brIUzYwIma59RvWfzjvkv0xh+3UIzs1eeB8gc0H2ZP81+d4lZjlP59QsVoYop+VY3Q4ss1yhfYOhwhXVjmlQquZSkTUqi6hyugp1LmhZBwq+nYL/eCrX4E8zA
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 19:36:04.9061 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9a4dd2c5-6f49-48fb-33b0-08deffbb70c8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 19:35:41.7007 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 91f62a97-d056-4d18-b27a-08deffbb62f7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD83.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7C.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6349
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6006
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,221 +116,248 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Lijo Lazar <lijo.lazar@amd.com>
+From: Philip Yang <Philip.Yang@amd.com>
 
-Add handlers for ualink notifications from ASP. Pause/Resume
-notifications are not handled currently.
+Allocate pinned memory for firmware metadata, ring buffers, and write
+and read pointer pages. Populate per-GPU metadata entries and send them
+to MPNHT firmware via SMN mailbox, then poll for a ready acknowledgement.
 
-Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 64 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h |  3 +
- drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h    | 34 ++++++++++--
- drivers/gpu/drm/amd/amdgpu/psp_v15_0_8.c   | 48 +++++++++++++++-
- 4 files changed, 143 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 214 +++++++++++++++++++++
+ 1 file changed, 214 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 4c923f907f275..8b3aff3dc31f0 100644
+index 69abb61e95238..d212416213960 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -204,6 +204,70 @@ static int amdgpu_ualink_query_info(struct amdgpu_device *adev)
- 	return 0;
+@@ -1454,6 +1454,25 @@ static void amdgpu_ualink_flush_tlb(struct amdgpu_device *adev, u32 flush_type)
+ 					bit, flush_type);
  }
  
-+int amdgpu_ualink_config_update_handler(struct amdgpu_device *adev)
++static inline u32 amdgpu_ualink_mailbox_read(struct amdgpu_device *adev,
++					     u32 mailbox_reg)
 +{
-+	int r;
-+	u32 status = 0;
++	u32 value;
 +
-+	/* TBD: Stop ASP interrupts if driver faced an issue */
-+	if (adev->ualink.mgr_state != AMDGPU_UALINK_INIT_COMPLETE) {
-+		dev_dbg(adev->dev,
-+			"UALink not initialized, skipping config update\n");
-+		status = !!(adev->ualink.mgr_state == AMDGPU_UALINK_INIT_ERROR);
-+		goto out;
-+	}
-+
-+	/*TBD: find the right value of status to be sent to ASP*/
-+	r = amdgpu_ualink_query_info(adev);
-+	if (r) {
-+		dev_info(adev->dev, "UALink config update failed %d\n", r);
-+		status = 1;
-+	}
-+
-+out:
-+	return psp_ual_send_completion(&adev->psp, adev->ualink.psp_if_ver,
-+				       PSP_GFX_INT_CTXT_UAL_CMD_CFG_UPDATE_ID,
-+				       status);
++	value = RREG32_PCIE(mailbox_reg);
++	dev_dbg_ratelimited(adev->dev, "ualink read mailbox 0x%x return value 0x%x\n",
++			    mailbox_reg, value);
++	return value;
 +}
 +
-+int amdgpu_ualink_pause_handler(struct amdgpu_device *adev)
++static inline void amdgpu_ualink_mailbox_write(struct amdgpu_device *adev,
++					       u32 mailbox_reg, u32 value)
 +{
-+	u32 status = 0;
-+
-+	if (adev->ualink.mgr_state != AMDGPU_UALINK_INIT_COMPLETE) {
-+		dev_dbg(adev->dev,
-+			"UALink not initialized, skipping pause update\n");
-+		status = !!(adev->ualink.mgr_state == AMDGPU_UALINK_INIT_ERROR);
-+		goto out;
-+	}
-+
-+	dev_dbg(adev->dev, "UALink pause command is not handled\n");
-+
-+out:
-+	return psp_ual_send_completion(&adev->psp, adev->ualink.psp_if_ver,
-+				       PSP_GFX_INT_CTXT_UAL_CMD_PAUSE_ID,
-+				       status);
++	dev_dbg(adev->dev, "ualink write mailbox 0x%x value 0x%x\n",
++		mailbox_reg, value);
++	WREG32_PCIE(mailbox_reg, value);
 +}
 +
-+int amdgpu_ualink_resume_handler(struct amdgpu_device *adev)
-+{
-+	u32 status = 0;
-+
-+	if (adev->ualink.mgr_state != AMDGPU_UALINK_INIT_COMPLETE) {
-+		dev_dbg(adev->dev,
-+			"UALink not initialized, skipping pause update\n");
-+		status = !!(adev->ualink.mgr_state == AMDGPU_UALINK_INIT_ERROR);
-+		goto out;
-+	}
-+
-+	dev_dbg(adev->dev, "UALink resume command is not handled\n");
-+
-+out:
-+	return psp_ual_send_completion(&adev->psp, adev->ualink.psp_if_ver,
-+				       PSP_GFX_INT_CTXT_UAL_CMD_RESUME_ID,
-+				       status);
-+}
-+
- int ualink_ip_hw_init(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-index 18096bdf1272a..d7bde8ab77d77 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-@@ -387,6 +387,9 @@ void amdgpu_ualink_sw_fini(struct amdgpu_device *adev);
- 
- int ualink_send_hello(struct amdgpu_device *adev, u32 remote_accel_id);
- 
-+int amdgpu_ualink_config_update_handler(struct amdgpu_device *adev);
-+int amdgpu_ualink_pause_handler(struct amdgpu_device *adev);
-+int amdgpu_ualink_resume_handler(struct amdgpu_device *adev);
- 
- int amdgpu_ualink_sysfs_init(struct amdgpu_device *adev);
- void amdgpu_ualink_sysfs_fini(struct amdgpu_device *adev);
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
-index 77be21c3eada3..0803cfc445dc7 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
-@@ -400,11 +400,35 @@ struct psp_gfx_cmd_req_perf_hw {
- #define PSP_GFX_UAL_MAX_STATIONS_V1     64       /* max UALink stations */
- #define PSP_GFX_UAL_MAX_ACC_BIT_MASK    32       /* max accelerator bit mask 32*32 */
- 
--enum psp_gfx_ual_npa_address_mode
--{
--    PSP_GFX_UAL_NPA_ADDRESS_MODE_SOURCE_ALIASING = 0,
--    PSP_GFX_UAL_NPA_ADDRESS_MODE_SOURCE_IDENTIFICATION = 1,
--    PSP_GFX_UAL_NPA_ADDRESS_MODE_MAX
-+/* Interrupt category identifiers (upper byte) - ASP interrupts to Driver */
-+
-+/* Commands from ASP */
-+#define PSP_GFX_INT_CTXT_UAL_CAT_CMD 0x01000000
-+/* Mask for Command bits */
-+#define PSP_GFX_INT_CTXT_UAL_CAT_CMD_MASK 0x000000FF
-+/* Notifications from ASP */
-+#define PSP_GFX_INT_CTXT_UAL_CAT_NOTIFY 0x02000000
-+/* Mask for category bits */
-+#define PSP_GFX_INT_CTXT_UAL_CAT_MASK 0xFF000000
-+
-+#define PSP_GFX_INT_CTXT_UAL_CMD_CFG_UPDATE_ID 0x00000001
-+#define PSP_GFX_INT_CTXT_UAL_CMD_PAUSE_ID 0x00000002
-+#define PSP_GFX_INT_CTXT_UAL_CMD_RESUME_ID 0x00000003
-+
-+/* Command interrupts from ASP (GIM must execute action) */
-+#define PSP_GFX_INT_CTXT_UAL_CMD_CFG_UPDATE \
-+	(PSP_GFX_INT_CTXT_UAL_CAT_CMD | PSP_GFX_INT_CTXT_UAL_CMD_CFG_UPDATE_ID)
-+
-+#define PSP_GFX_INT_CTXT_UAL_CMD_PAUSE \
-+	(PSP_GFX_INT_CTXT_UAL_CAT_CMD | PSP_GFX_INT_CTXT_UAL_CMD_PAUSE_ID)
-+
-+#define PSP_GFX_INT_CTXT_UAL_CMD_RESUME \
-+	(PSP_GFX_INT_CTXT_UAL_CAT_CMD | PSP_GFX_INT_CTXT_UAL_CMD_RESUME_ID)
-+
-+enum psp_gfx_ual_npa_address_mode {
-+	PSP_GFX_UAL_NPA_ADDRESS_MODE_SOURCE_ALIASING = 0,
-+	PSP_GFX_UAL_NPA_ADDRESS_MODE_SOURCE_IDENTIFICATION = 1,
-+	PSP_GFX_UAL_NPA_ADDRESS_MODE_MAX
- };
- 
- enum psp_gfx_ual_ports_per_station
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v15_0_8.c b/drivers/gpu/drm/amd/amdgpu/psp_v15_0_8.c
-index 85857b747bd46..dcfc9be269b07 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v15_0_8.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v15_0_8.c
-@@ -428,6 +428,48 @@ static const struct amdgpu_irq_src_funcs psp_v15_0_8_irq_funcs = {
- 	.process = psp_v15_0_8_irq_process,
- };
- 
-+static void psp_v15_0_8_ual_cmd_cfg_update(struct amdgpu_psp_irq_mgr *mgr,
-+					   u32 event_id,
-+					   struct amdgpu_iv_entry *entry)
-+{
-+	struct amdgpu_device *adev = mgr->psp->adev;
-+
-+	amdgpu_ualink_config_update_handler(adev);
-+}
-+
-+static void psp_v15_0_8_ual_cmd_pause(struct amdgpu_psp_irq_mgr *mgr,
-+				      u32 event_id,
-+				      struct amdgpu_iv_entry *entry)
-+{
-+	struct amdgpu_device *adev = mgr->psp->adev;
-+
-+	amdgpu_ualink_pause_handler(adev);
-+}
-+
-+static void psp_v15_0_8_ual_cmd_resume(struct amdgpu_psp_irq_mgr *mgr,
-+				       u32 event_id,
-+				       struct amdgpu_iv_entry *entry)
-+{
-+	struct amdgpu_device *adev = mgr->psp->adev;
-+
-+	amdgpu_ualink_resume_handler(adev);
-+}
-+
-+static const struct amdgpu_psp_irq_handler psp_v15_0_8_ual_irq_handlers[] = {
-+	{
-+		.event_id = PSP_GFX_INT_CTXT_UAL_CMD_CFG_UPDATE,
-+		.callback = psp_v15_0_8_ual_cmd_cfg_update,
-+	},
-+	{
-+		.event_id = PSP_GFX_INT_CTXT_UAL_CMD_PAUSE,
-+		.callback = psp_v15_0_8_ual_cmd_pause,
-+	},
-+	{
-+		.event_id = PSP_GFX_INT_CTXT_UAL_CMD_RESUME,
-+		.callback = psp_v15_0_8_ual_cmd_resume,
-+	},
-+};
-+
- static int psp_v15_0_8_register_irq_handler(struct amdgpu_psp_irq_mgr *mgr,
- 					    struct amdgpu_irq_src *irq_src)
- {
-@@ -443,7 +485,11 @@ static int psp_v15_0_8_register_irq_handler(struct amdgpu_psp_irq_mgr *mgr,
- 	if (ret)
- 		return ret;
- 
--	return 0;
-+	ret = amdgpu_psp_irq_mgr_register(
-+		mgr, psp_v15_0_8_ual_irq_handlers,
-+		ARRAY_SIZE(psp_v15_0_8_ual_irq_handlers), NULL);
-+
-+	return ret;
+ /**
+  * amdgpu_ualink_npa_vm_map_range - Map a range in the NPA VM
+  * @adev: amdgpu device pointer
+@@ -2090,3 +2109,198 @@ static void amdgpu_ualink_gart_unmap(struct amdgpu_device *adev, u64 npages,
+ 	amdgpu_gtt_mgr_free_entries(mgr, mm_node);
  }
  
- static const struct psp_funcs psp_v15_0_8_funcs = {
++/**
++ * amdgpu_ualink_metadata_fini - Clean up ualink metadata structures
++ * @adev: amdgpu device pointer
++ *
++ * Unmaps NPA addresses and frees all allocated buffers for metadata,
++ * ring buffers, and pointers.
++ */
++static void amdgpu_ualink_metadata_fini(struct amdgpu_device *adev)
++{
++	struct amdgpu_ualink_remote *remote = to_remote(adev);
++
++	dev_dbg(adev->dev, "accel_id %u\n", ualink_accel_id(adev));
++	amdgpu_bo_free_kernel(&remote->rptr_bo, &remote->rptr_gpu_addr,
++				      &remote->rptr_cpu_addr);
++	amdgpu_bo_free_kernel(&remote->ring_bo, &remote->rb_gpu_addr,
++			      &remote->rb_cpu_addr);
++	amdgpu_bo_free_kernel(&remote->metadata_bo, &remote->metadata_gpu_addr,
++			      &remote->metadata_cpu_addr);
++}
++
++/**
++ * amdgpu_ualink_metadata_init - Initialize ualink metadata structures
++ * @adev: amdgpu device pointer
++ *
++ * Allocates and initializes metadata structures, ring buffers, and write/read
++ * pointers for multi-GPU ualink. Communicates with firmware to load metadata.
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++static int amdgpu_ualink_metadata_init(struct amdgpu_device *adev)
++{
++	struct amdgpu_ualink_remote *remote = to_remote(adev);
++	struct amdgpu_ualink_metadata *metadata;
++	u32 size, rb_size, wptr_size, rptr_size, metadata_size;
++	u64 rb_gpu_addr, wptr_gpu_addr;
++	u32 status, accel_id;
++	int i, r;
++
++	remote->active_accel_bits = adev->ualink.info->vpod.active_accel_bits;
++	dev_dbg(adev->dev, "%d active accelerators config in vpod\n",
++		bitmap_weight(remote->active_accel_bits, AMDGPU_UALINK_ACCEL_MAX));
++
++	/*
++	 * allocate metadata entries and ring buffer for all remote GPUs,
++	 * to get 2MB page ring buffer NPA mapping for remote access.
++	 */
++	remote->num_accel = AMDGPU_UALINK_ACCEL_MAX;
++
++	status = amdgpu_ualink_mailbox_read(adev, mmMPNHT_SMN_C2PMSG_26_ALT_2);
++	if (status != AMDGPU_UALINK_FW_STATUS_PREINIT &&
++	    status != AMDGPU_UALINK_FW_STATUS_HALT) {
++		dev_dbg(adev->dev, "fw status 0x%x not preinit or halt\n", status);
++		return -ENODEV;
++	}
++
++	dev_dbg(adev->dev, "accel_id %u addr_mode %d fw status 0x%x\n",
++		ualink_accel_id(adev), ualink_addr_mode(adev), status);
++
++	/* Alloc metadata structure for all GPUs */
++	metadata_size = sizeof(struct amdgpu_ualink_metadata) * AMDGPU_UALINK_ACCEL_MAX;
++	metadata_size = AMDGPU_GPU_PAGE_ALIGN(metadata_size);
++
++	dev_dbg(adev->dev, "metadata size 0x%x\n", metadata_size);
++
++	/* pinned system memory */
++	r = amdgpu_bo_create_kernel(adev, metadata_size, PAGE_SIZE,
++				    AMDGPU_GEM_DOMAIN_GTT,
++				    &remote->metadata_bo, &remote->metadata_gpu_addr,
++				    &remote->metadata_cpu_addr);
++	if (r)
++		goto out;
++
++	memset(remote->metadata_cpu_addr, 0, metadata_size);
++	metadata = remote->metadata_cpu_addr;
++
++	dev_dbg(adev->dev, "metadata gpu address 0x%llx\n", remote->metadata_gpu_addr);
++
++	/* Allocate ring buffers, wptr for remote interrupt and shootdown */
++	rb_size = AMDGPU_GPU_PAGE_ALIGN(2 * AMDGPU_UALINK_RB_SIZE);
++	wptr_size = ualink_wptr_size(adev);
++	size = (rb_size + wptr_size) * remote->num_accel;
++	size = AMDGPU_GPU_PAGE_ALIGN(size);
++
++	dev_dbg(adev->dev, "rb_size 0x%x wptr_size 0x%x total alloc size 0x%x\n",
++		rb_size, wptr_size, size);
++
++	/* pinned VRAM */
++	r = amdgpu_bo_create_kernel(adev, size, PAGE_SIZE,
++				    AMDGPU_GEM_DOMAIN_VRAM,
++				    &remote->ring_bo,
++				    &remote->rb_gpu_addr,
++				    &remote->rb_cpu_addr);
++	if (r)
++		goto out;
++
++	memset(remote->rb_cpu_addr, 0, size);
++
++	dev_dbg(adev->dev, "rb gpu addr 0x%llx cpu addr 0x%p vram_start 0x%llx vram_base 0x%llx\n",
++		remote->rb_gpu_addr, remote->rb_cpu_addr, adev->gmc.vram_start,
++		adev->vm_manager.vram_base_offset);
++
++	/*
++	 * address aliasing mode, shared wptr pagee left is not enough for wb data,
++	 * wb status and rptr, alloc another BO, and then alloc npa address and map
++	 * to npa vm, for remote to access.
++	 *
++	 * No gart mapping required for wb data, status and rptr because this is
++	 * updated by firmware.
++	 */
++	if (ualink_addr_mode(adev) == AMDGPU_UALINK_ADDR_MODE_SOURCE_ALIAS) {
++		rptr_size = AMDGPU_GPU_PAGE_ALIGN(ualink_wb_size(adev) * remote->num_accel);
++		dev_dbg(adev->dev, "source aliasing mode rptr_size 0x%x\n", rptr_size);
++
++		/* pinned VRAM */
++		r = amdgpu_bo_create_kernel(adev, rptr_size, PAGE_SIZE,
++					    AMDGPU_GEM_DOMAIN_VRAM,
++					    &remote->rptr_bo,
++					    &remote->rptr_gpu_addr,
++					    &remote->rptr_cpu_addr);
++		if (r)
++			goto out;
++
++		memset(remote->rptr_cpu_addr, 0, rptr_size);
++
++		dev_dbg(adev->dev, "source aliasing rptr gpu addr 0x%llx cpu addr 0x%p\n",
++			remote->rptr_gpu_addr, remote->rptr_cpu_addr);
++	}
++
++	if (ualink_addr_mode(adev) == AMDGPU_UALINK_ADDR_MODE_SOURCE_ALIAS)
++		wptr_gpu_addr = remote->rb_gpu_addr + rb_size * ualink_accel_id(adev);
++
++	for_each_set_bit(accel_id, remote->active_accel_bits, AMDGPU_UALINK_ACCEL_MAX) {
++		dev_dbg(adev->dev, "init for accel_id %u\n", accel_id);
++
++		if (accel_id == ualink_accel_id(adev))
++			continue;
++
++		rb_gpu_addr = remote->rb_gpu_addr + rb_size * accel_id;
++
++		if (ualink_addr_mode(adev) == AMDGPU_UALINK_ADDR_MODE_SOURCE_IDENT) {
++			wptr_gpu_addr = remote->rb_gpu_addr + rb_size * remote->num_accel;
++			wptr_gpu_addr += wptr_size * accel_id;
++		}
++
++		metadata[accel_id].header = AMDGPU_UALINK_METADATA_HEADER;
++		metadata[accel_id].rb_size = fls(AMDGPU_UALINK_RB_SIZE / 64) - 1;
++
++		/*
++		 * remote shootdown type is 0, remote command type is 1
++		 * with 2MB ring buffer mapping, remote shootdown ring NPA is before interrupt
++		 */
++		metadata[accel_id].ri_rb = rb_gpu_addr + AMDGPU_UALINK_RB_SIZE;
++		metadata[accel_id].tlb_inv_rb = rb_gpu_addr;
++
++		metadata[accel_id].tailptr_ri = wptr_gpu_addr +
++						ualink_wptr_offset(adev, accel_id);
++		metadata[accel_id].tailptr_tlb_inv = wptr_gpu_addr +
++						     ualink_tlb_wptr_offset(adev, accel_id);
++
++		dev_dbg(adev->dev, "init from accel_id %u to accel_id %u, rb_size 0x%x\n",
++			accel_id, ualink_accel_id(adev), metadata[accel_id].rb_size);
++		dev_dbg(adev->dev, "rb 0x%llx tlb rb 0x%llx\n",
++			metadata[accel_id].ri_rb, metadata[accel_id].tlb_inv_rb);
++		dev_dbg(adev->dev, "rb wptr at 0x%llx tlb wptr at 0x%llx\n",
++			metadata[accel_id].tailptr_ri, metadata[accel_id].tailptr_tlb_inv);
++	}
++
++	amdgpu_ualink_mailbox_write(adev, mmMPNHT_SMN_C2PMSG_25_ALT_2,
++				    upper_32_bits(remote->metadata_gpu_addr));
++	amdgpu_ualink_mailbox_write(adev, mmMPNHT_SMN_C2PMSG_24_ALT_2,
++				    lower_32_bits(remote->metadata_gpu_addr));
++	amdgpu_ualink_mailbox_write(adev, mmMPNHT_SMN_C2PMSG_23_ALT_2,
++				    AMDGPU_UALINK_ACCEL_MAX << 8);
++	amdgpu_ualink_mailbox_write(adev, mmMPNHT_SMN_C2PMSG_22_ALT_2,
++				    AMDGPU_UALINK_FW_CMD_LOAD_METADATA);
++
++	for (i = 0; i < 2000; i++) {
++		status = amdgpu_ualink_mailbox_read(adev, mmMPNHT_SMN_C2PMSG_26_ALT_2);
++		if (status == AMDGPU_UALINK_FW_STATUS_READY)
++			break;
++		mdelay(1);
++	}
++	if (status != AMDGPU_UALINK_FW_STATUS_READY) {
++		dev_dbg(adev->dev, "f/w load metadata failed 0x%x\n", status);
++		r = -ETIME;
++	}
++
++out:
++	if (r)
++		amdgpu_ualink_metadata_fini(adev);
++
++	dev_dbg(adev->dev, "ret 0x%x\n", r);
++	return r;
++}
++
 -- 
 2.55.0
 
