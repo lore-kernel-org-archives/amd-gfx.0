@@ -4,73 +4,73 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D65F7C5DF9C
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 20:00:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 48B7AC5DF8E
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 20:00:59 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4228210F453;
-	Fri, 21 Aug 2026 19:41:49 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 265EC10F3C9;
+	Fri, 21 Aug 2026 19:41:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4gLMYm98";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="5naopuwW";
 	dkim-atps=neutral
-X-Greylist: delayed 301 seconds by postgrey-1.36 at gabe;
- Fri, 21 Aug 2026 19:41:47 UTC
-Received: from BL0PR03CU003.outbound.protection.outlook.com (unknown
- [52.101.53.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B6C710F453
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 19:41:37 +0000 (UTC)
+X-Greylist: delayed 344 seconds by postgrey-1.36 at gabe;
+ Fri, 21 Aug 2026 19:41:31 UTC
+Received: from PH8PR06CU001.outbound.protection.outlook.com (unknown
+ [40.107.209.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55C7910F3A3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 19:41:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OO/9oz5QoR+lSFqD8ucQMX9oU/3Op00O0ZUv2p9z/3M6lOmrgSzIjwPtAIJ5P6R0YxU2d58hI0IA3I9GVIl8hWLLUcpFJ0lsbdk5m1IVQM/VON/EX5QadXX9Oqe7t8ey9M8Vh5szndR7wBZb86b6QxF4ysF94OJLizcGf2BvR8GsfbWm5NDuX8wXmtXRlMiF9U7TD3JfYt+zYoQS+4yngQX31HRsNSpy1ZLOhhzrn8nRtP4od+56X3AepGpGoPjwcuv9Lycc1tu0vs/CoDlxrKYLW9RSlC767bV8JucD8v02j8NOJ0u8riFSS8MxMtKu7uDki2bkxKOUozhfyb4a1g==
+ b=lFl/JBPN0VkdV8fjY1di1oQ0LoTZufNMqoUwJ8gCrqvHap2k2z0DWWJw0LRd6GWf3jn9h1zk8tl+mt5oElxdxBTs6QikdTRwLA+W3LQQ9vkD3U6YBJh8QBVXaLJj//SyzogUq3aO/XrkrADQEZtUc1WZDJtEkQNFBKFDO5sQxYDqEBkt7+LBVA7y7o61PEmLTpYvGbK0Xh8KVaPAzlf4WZPvvZIggwp2EhLgfhU5z0G1sv43Dym9k6qUof6OcdErp4KMvZn1ZzXUOJF9vNOjSMKgdRh11Exs7VuMSyesTIl0dpsgShewTtmdgOuYwsUSVCcTBRLJZ/INAIZh5mqtlw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6soGj/c9fpvaBUF0S9SB1AUvxm+pyznitD99gbMoWso=;
- b=GY06wctL4y6Rx4ZcmWEBgtSzqzURs9F8HQYC3kYawjbt16DzOb489yC9yA2w3GMojqZffRkhCWWiDxWFLiiKZtXWu7ACTeZZVW8q1T6AJLF/BENtJdy09CW/C2M/W7Yt9lsVxdBzT78It05BmeUf7KX1Piul6SBFT5wmjXyzSgXRS8vZLIpVorfY4E6NLww1qFZGcIhuCL8/5wteCRZJeI/YMlIOHM26oHPE5C3IwJmT7xtqcq2Cj3rKMMOf++l2zVDmgQZ9u70i8+E/nlyB80y6Ck5DSWVnjqjq4GuQAa5N346h/Tz5Kjpj0R+EuMd5eOIDOMq/8jYk0xUmbIxcaw==
+ bh=rY2jdbVjlWFRD4eLZJ/61ngItRxs5dy0hh//tVxkQqQ=;
+ b=cid91C2PAsbZXhCBjULzE1JG5PIusq5MROk6moTLbyE0ap52SxT2DX0967o8qkArKh/yFJkN6PJtkY4OOaCuHZlvXqP3tz9fbxY0Tqfhf+mLsgyYxYmFn2pneAvtOpHTAnTlfXlOcNoj4gEazG69kNdJ+b12jQ7GBE+ZGBkzxvpDFjiJuAOSKXBQIRxj1adPVcdQxCQJZ2nV7+qm8yhFt1o5RaFUIdWSYsyW4QtYWian+jCiWTCndMJZ0JgOjHRgxB5aPowlfq8Uyc/rahnXr9EzDsvf2x/qNpCTr7lrZrTleLjUqHItFzn7dhrpdZLmE5J4FYmB3qK4NRtyvKV3Wg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6soGj/c9fpvaBUF0S9SB1AUvxm+pyznitD99gbMoWso=;
- b=4gLMYm98WNtram/78JwjoU81fyzOFG0OS5tDMOIosylY7lTTytAd60M/Be49TxRns1w7LXITaJnENwe4wXvTAdTMWpK1tdJCjbwbhnjXXe8g28X9P4CxaKNNFLsVrVcWO1duhdawyE49dUPpGBZUzNZPYJNTLG/NfLihWEbO49I=
-Received: from CH0PR04CA0015.namprd04.prod.outlook.com (2603:10b6:610:76::20)
- by PH8PR12MB6698.namprd12.prod.outlook.com (2603:10b6:510:1cd::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Fri, 21 Aug
- 2026 19:35:55 +0000
-Received: from CH1PEPF0000AD81.namprd04.prod.outlook.com
- (2603:10b6:610:76:cafe::45) by CH0PR04CA0015.outlook.office365.com
- (2603:10b6:610:76::20) with Microsoft SMTP Server (version=TLS1_3,
+ bh=rY2jdbVjlWFRD4eLZJ/61ngItRxs5dy0hh//tVxkQqQ=;
+ b=5naopuwWrtkK43fqO63FJ9IOIuKRwBGJ016mvbLHmdF8kYuCi5naPYRcvA6s4UIYubTV7UteGacRG6sExJWaVuyI7m1T8+PxT0PBYhxNED+1XT6OLhJ/a8HWwfA7HFqYzFN7cRV7n7pBcc/0vlefWisyA+dL4Oc9NJZPJ8kP3z4=
+Received: from CY5PR19CA0083.namprd19.prod.outlook.com (2603:10b6:930:69::21)
+ by IA0PPF52B16157D.namprd12.prod.outlook.com
+ (2603:10b6:20f:fc04::bce) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Fri, 21 Aug
+ 2026 19:36:02 +0000
+Received: from CY4PEPF0000EDD6.namprd03.prod.outlook.com
+ (2603:10b6:930:69:cafe::1) by CY5PR19CA0083.outlook.office365.com
+ (2603:10b6:930:69::21) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
- 21 Aug 2026 19:35:54 +0000
+ 21 Aug 2026 19:36:02 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000AD81.mail.protection.outlook.com (10.167.244.89) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD6.mail.protection.outlook.com (10.167.241.202) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 19:35:54 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 19:36:02 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 14:35:46 -0500
+ 2026 14:35:59 -0500
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 14:35:46 -0500
+ 2026 14:35:58 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 21 Aug 2026 14:35:46 -0500
+ Transport; Fri, 21 Aug 2026 14:35:57 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling
- <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 57/95] drm/amdgpu: Send TLB shootdown on exported memory unmap
-Date: Fri, 21 Aug 2026 15:34:20 -0400
-Message-ID: <20260821193458.808626-58-alexander.deucher@amd.com>
+CC: Lijo Lazar <lijo.lazar@amd.com>, Felix Kuehling <felix.kuehling@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 76/95] drm/amdgpu: Add ualink as separate ip block
+Date: Fri, 21 Aug 2026 15:34:39 -0400
+Message-ID: <20260821193458.808626-77-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260821193458.808626-1-alexander.deucher@amd.com>
 References: <20260821193458.808626-1-alexander.deucher@amd.com>
@@ -79,29 +79,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD81:EE_|PH8PR12MB6698:EE_
-X-MS-Office365-Filtering-Correlation-Id: 82e8a48a-9961-47e5-b1bb-08deffbb6ad4
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD6:EE_|IA0PPF52B16157D:EE_
+X-MS-Office365-Filtering-Correlation-Id: b57068c3-f663-4792-815d-08deffbb6f5d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|10067099003|11063799006|18002099003|22082099003|56012099006|3023799007;
-X-Microsoft-Antispam-Message-Info: +nYI1Na2Bcw5BgW8aIIkO6wtX/jqusdYhXUoh4gZaWYzj9pqPREbK1O+S5X3pRyvq11Zx2mqSUO4z4kALbhy01auw/XF87tzYkklrMrUUGuELphr9A0wQ7NG8zPKSH39ZvwvCQWiIRpe2hJfmShic8BWpWO8OZar4VQ9XGgE5erW80ahYkkfaSdta/IbD5WFcuDMbvoSkIRLTQFJ/RUDa9HwmDbN6vF7qvJi2zCuPrZ4nootFv+SWtHQ8Vsy9jx02FipgmL8yhaFxsSfsw3XJWacJt7FSnY9REUrTTJ4xjJx8FCKqlxRngeNvVKNChRVBcr5wVM22mgsqNYYTpKV5sDDGwroFs9PzzwG4vC5VhWb9h+4se+xOXxDgD2Es2JoP3pp5WG+ULbr48PsVzHK2IYxqy0KOXNtzZBMJvQOResdENx8NnaYZbKBQHvT5BTuQp/D0pCKltVO0xB/JPAZmiDJ6Crzl7YkJaD1hrRWjDMjelY4r4taI5Io705dAsHSX5eydMV8KKeFeGZrcVRLDe0b0cebaN8pBjMP/TACdq9XaFpG5NAb3O/mzqdiOq0/Ty9ZGbtqXUxMWgL6pcJTICGDQsUGpvoD2qzaVu0ghMEjoIZ40yx5H2bW5vCWRTjDIzWwRjt95sk7lW7C5ruq9Ctixc0mbYB2QYIZH/TBjn5brRBD33azL/D+ioy/qkLG2NLBe7EdhrFXvl6Kj5AAgg==
+ ARA:13230040|36860700016|1800799024|23010399003|376014|82310400026|56012099006|10067099003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: cI1lWBjmqP/36DIxcND+qnLvjc4yoYXC7StrJpqZ7DEDPfkWiwPqlRi9o2/tEFOybTX1AiMp+qwOQ3XzHwF3NhvpANVb3+0+fyXIvtI8LxSqUuEqYR5b8bLbjaw3ldZtVKagApIUrvs+gMPk/6JxrTioJtPKsNLcypbu4fxbn5gM+dtq9UsVx+WtNyL8RFKHiVC42jNgZeSKCf0ENEXB9glxbnA7SCoXtq12DMeJGLqsnZVXw9yEoRbsHdKGxIJZnqWsiPHrZiloHKtldKUKn7dU2Aos4b1ATMLrJMAl4CBC3vWMu3XeO0N/lVDP2zCHDbzJ8g2D8PliOLvawoIi7lix4makY7elUb5YeGw9XGdaEs2yVIasMZdmOhtjKkhBuw5VoHYVMPae50ZQVfYQ8Gjc6jTo8E1Y3wdnUOBvACFe8Z+NjsKhJnIhuQDTCSDvTPvtQDgq2hi1z2CxCXZhpOFhOZFM7sohoFgb5MgWwbgpNNhhWSatxaTw0u/kkVo/NqdNAD4qBHvK95iueNPprwgJ0ed/oJUNFfd8nDFDAI1fs0rs6Oe2O9K0Uq55IRERrAQnEbSUN7//AeNs1e4EKJWZidJTvKGZqtJYpicAELehWYSa0r8Mc1qnKvZJNcHe1bDn1vU+ddL/HbnXaONCSJDr9iwLzTBRxtsZcH3rhokYL2cGR6HXFoWPyPCRuCmDo7vS+5F1ww1wvIGaMicGcw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(10067099003)(11063799006)(18002099003)(22082099003)(56012099006)(3023799007);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(1800799024)(23010399003)(376014)(82310400026)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 6wLMRCcyzXv7SQnR6QNsp6LQJ6vM4iUL6tYM0OhEu4lzx3vSaACRy1gKon2CWZ4CGbSXwYL7E2s35HoHKSVgn8u16hJZiv4uFMx2EZhhH63YS4FVtxnx2khAPQhpIeYOsecgwlWkAr8MGiQa7XOMmFMNqdRH277/dMCpBBRiqbBrPIMtKILfUArXpKbE0F3oX7HhtqU9YLEUfcqKkDwV6Q2cqWrgghBqUYwHk3/jkYD1IeQZwK8zhBQTHoqlChMT6Lm/lzAzb2aILrSshLOkGs4VPsFsfh7dDJnTd3kd+h+gYysWHWBgk2M9DoiODINDUwVkERX+qIcGDG2Ejsw/ISqufOEV5ogaSWQ9sNi4zJ5E5eRovbK5P8r03QQkRQzbQ/7NrIDBTEPH2ac8uB/oSyoONnVcVETs7keX+FapPA4ufyfPORdKWmgxe1f4DaRJ
+X-MS-Exchange-AntiSpam-MessageData-0: Qx1Srs7JMG/24rYkKPkn0yFpCEsFLVUg2glRjx/75TPDsJTvSfn3Rotw7hj9tQjhID6ou8UWarSvS8Y8tdLVWAJUNgEfs9e0If437fCdTYlNoE5Upj8vusaJEzmc1lHrnh2aXL9nOnuc3AlSAV41VKvj3Ln9pbsGsoD4bHPVe5jB8gTq1eW0RWadRV1uus+qHCqk3djDn5DZB1C/UzkVfDb+y5Ztz7TpyqxoxEgymdthN7+eqEvIPrU8UUVBylkcD9wA69cl+asMw4XYBlwFYbJxObxtyiiUSAGP5vHer7JktmmdLc2Y98+rJXjBLtkaHI12dPx7lcKCZjLD4GgJ/edqqauiFrKkoWWv5GbLjLeq0Pz0+7ZYw+3y2KfCLsi9wFMt4PyYYzhwG8OZIkXyGWrdlKE7NEMoxd/dXUBuJAQEXg3cHv0UsDAIKHxBnNye
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 19:35:54.9145 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 82e8a48a-9961-47e5-b1bb-08deffbb6ad4
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 19:36:02.4709 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b57068c3-f663-4792-815d-08deffbb6f5d
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD81.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD6.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB6698
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF52B16157D
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,131 +116,248 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mukul Joshi <mukul.joshi@amd.com>
+From: Lijo Lazar <lijo.lazar@amd.com>
 
-Replace the stub implementation of TLB shootdown message with
-the actual implementation.
+Manage ualink lifecycle as a separate IP block. For now, use GC version
+to add specific ualink ip block.
 
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Acked-by: Felix Kuehling <felix.kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 66 ++++++++++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h |  3 +
- 2 files changed, 52 insertions(+), 17 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |  8 ----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 21 +++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c    | 44 +++++++++++--------
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h    |  6 +--
+ drivers/gpu/drm/amd/include/amd_shared.h      |  2 +
+ 5 files changed, 50 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 2f7df10f39423..57332243ea027 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -47,6 +47,9 @@ static void amdgpu_ualink_handle_connection_reset(struct amdgpu_device *adev,
- 						  u32 remote_accel_id, u32 state,
- 						  u32 generation_count);
- static void amdgpu_ualink_invalidate_import_mappings(struct amdgpu_bo *bo);
-+static int amdgpu_ualink_remote_shootdown(struct amdgpu_device *adev,
-+					  u32 remote_accel_id, u64 addr,
-+					  u32 size_in_pages, u32 flush_type);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+index 715cc2e85105c..28841fdb3798f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+@@ -2456,8 +2456,6 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+ 		}
+ 	}
  
- #define STRIP_NPA(addr)						\
- 	(((u64)(addr) & ~AMDGPU_UALINK_NPA_ADDR_GPUID_MASK))
-@@ -1401,12 +1404,6 @@ static int amdgpu_ualink_send_npa_req_msg(struct amdgpu_device *adev,
- 					      dw2, dw3);
- }
- 
--static int amdgpu_ualink_send_tlb_shootdown(struct amdgpu_device *adev,
--					    u32 remote_acc_id)
--{
--	return 0;
--}
+-	amdgpu_ualink_mgr_sw_init(adev);
 -
- static u64 amdgpu_ualink_get_export_pte_flags(struct amdgpu_device *adev,
- 				       struct amdgpu_bo *bo,
- 				       u64 mapping_flags)
-@@ -2005,6 +2002,51 @@ static void amdgpu_ualink_force_retry_rpcs(struct amdgpu_device *adev,
- 	amdgpu_ualink_flush_tlb(adev, TLB_FLUSH_HEAVYWEIGHT);
+ 	if (amdgpu_sriov_vf(adev))
+ 		amdgpu_virt_init_data_exchange(adev);
+ 
+@@ -2484,8 +2482,6 @@ static int amdgpu_device_ip_init(struct amdgpu_device *adev)
+ 	if (r)
+ 		goto init_failed;
+ 
+-	amdgpu_ualink_mgr_hw_init(adev);
+-
+ 	/*
+ 	 * retired pages will be loaded from eeprom and reserved here,
+ 	 * it should be called after amdgpu_device_ip_hw_init_phase2  since
+@@ -2769,8 +2765,6 @@ static int amdgpu_device_ip_late_init(struct amdgpu_device *adev)
+ 		adev->ip_blocks[i].status.late_initialized = true;
+ 	}
+ 
+-	amdgpu_ualink_mgr_late_init(adev);
+-
+ 	r = amdgpu_ras_late_init(adev);
+ 	if (r) {
+ 		dev_err(adev->dev, "amdgpu_ras_late_init failed %d", r);
+@@ -2963,8 +2957,6 @@ static int amdgpu_device_ip_fini(struct amdgpu_device *adev)
+ 
+ 	amdgpu_amdkfd_device_fini_sw(adev);
+ 
+-	amdgpu_ualink_mgr_sw_fini(adev);
+-
+ 	for (i = adev->num_ip_blocks - 1; i >= 0; i--) {
+ 		if (!adev->ip_blocks[i].status.sw)
+ 			continue;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 81c3cdba4caf5..7710a8ed3d44d 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -26,6 +26,7 @@
+ 
+ #include "amdgpu.h"
+ #include "amdgpu_discovery.h"
++#include "amdgpu_ualink.h"
+ #include "soc15_hw_ip.h"
+ #include "discovery.h"
+ #include "amdgpu_ras.h"
+@@ -3359,6 +3360,22 @@ static int amdgpu_discovery_set_isp_ip_blocks(struct amdgpu_device *adev)
+ 	return 0;
  }
  
-+static void amdgpu_ualink_send_tlb_shootdown(struct amdgpu_device *adev,
-+				struct amdgpu_ualink_exp_xa_node *exp_xa_node)
++static int amdgpu_discovery_set_ualink_ip_blocks(struct amdgpu_device *adev)
 +{
-+	u32 addr_mode = adev->ualink.info->vpod.addr_mode;
-+	u32 accel_id = adev->ualink.info->ppod.accel_id;
-+	struct amdgpu_ualink_importer_entry *imp_entry;
-+	u64 npa_addr, size;
-+	u32 remote_acc_id;
-+	int r;
-+
-+	size = amdgpu_bo_ngpu_pages(exp_xa_node->bo);
-+
-+	for_each_set_bit(remote_acc_id, exp_xa_node->importers_bitmap,
-+			 AMDGPU_UALINK_ACCEL_MAX) {
-+		/*
-+		 * Replace the GPU-id bits with local accel_id
-+		 */
-+		if (addr_mode == AMDGPU_UALINK_ADDR_MODE_SOURCE_ALIAS)
-+			imp_entry = &exp_xa_node->importer_entries[0];
-+		else
-+			imp_entry = &exp_xa_node->importer_entries[remote_acc_id];
-+
-+		npa_addr = STRIP_NPA(imp_entry->npa_addr);
-+		npa_addr = GENERATE_NPA(npa_addr, accel_id);
-+
-+		if (!amdgpu_ualink_check_conn_ready(adev, remote_acc_id,
-+					imp_entry->generation_count)) {
-+			clear_bit(remote_acc_id,
-+				  exp_xa_node->importers_bitmap);
-+			continue;
-+		}
-+
-+		dev_dbg(adev->dev,
-+			"EXP-CLEANUP: Sending TLB-shootdown to remote:%u\n",
-+			remote_acc_id);
-+		r = amdgpu_ualink_remote_shootdown(adev, remote_acc_id,
-+					npa_addr, size,
-+					AMDGPU_UALINK_HEAVYWEIGHT_TLB_SHOOTDOWN);
-+		if (r)
-+			dev_err(adev->dev,
-+				"EXP-CLEANUP: TLB shootdown send failed to remote:%u\n",
-+				remote_acc_id);
++	/* TODO: no dedicated IP discovery version for UALink yet; key off the
++	 * GC IP version for now.
++	 */
++	switch (amdgpu_ip_version(adev, GC_HWIP, 0)) {
++	case IP_VERSION(12, 1, 0):
++		amdgpu_device_ip_block_add(adev, &ualink_v1_0_ip_block);
++		break;
++	default:
++		break;
 +	}
++
++	return 0;
 +}
 +
- /* Unmap all NPA addresses associated with a BO (UALink handle). This function is used
-  * only in Source Identification mode.
-  */
-@@ -2163,17 +2205,7 @@ static void amdgpu_ualink_exp_cleanup_worker(struct work_struct *work)
- 	amdgpu_ualink_force_retry_rpcs(adev, exp_xa_node);
+ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+ {
+ 	int r;
+@@ -4008,6 +4025,10 @@ int amdgpu_discovery_set_ip_blocks(struct amdgpu_device *adev)
+ 		return r;
  
- 	/* Send TLB-shootdown to all importer GPUs */
--	for_each_set_bit(remote_acc_id, exp_xa_node->importers_bitmap,
--			 AMDGPU_UALINK_ACCEL_MAX) {
--		dev_dbg(adev->dev,
--			"EXP-CLEANUP: Sending TLB-shootdown to remote:%u\n",
--			remote_acc_id);
--		r = amdgpu_ualink_send_tlb_shootdown(adev, remote_acc_id);
--		if (r)
--			dev_err(adev->dev,
--				"EXP-CLEANUP: TLB shootdown send failed to remote:%u\n",
--				remote_acc_id);
--	}
-+	amdgpu_ualink_send_tlb_shootdown(adev, exp_xa_node);
+ 	r = amdgpu_discovery_set_isp_ip_blocks(adev);
++	if (r)
++		return r;
++
++	r = amdgpu_discovery_set_ualink_ip_blocks(adev);
+ 	if (r)
+ 		return r;
+ 	return 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+index bc53d37534222..afcb5ef84bd48 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
+@@ -80,17 +80,6 @@ static int amdgpu_ualink_drm_client_create(struct amdgpu_device *adev)
+ 	return 0;
+ }
  
- 	/* Unmap all NPA addresses for this BO from NPA VM */
- 	amdgpu_ualink_unmap_all_npa_addr(adev, exp_xa_node);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-index bd8af7596a6ef..a1fd5fe953115 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-@@ -78,6 +78,9 @@ enum AMDGPU_UALINK_PROTOCOL_MESSAGES {
- 	AMDGPU_UALINK_MAX_PROTOCOL_MSG
+-static bool amdgpu_ualink_supported(struct amdgpu_device *adev)
+-{
+-	if (!amdgpu_device_ip_get_ip_block(adev, AMD_IP_BLOCK_TYPE_PSP))
+-		return false;
+-
+-	if (amdgpu_ip_version(adev, MP0_HWIP, 0) != IP_VERSION(15, 0, 8))
+-		return false;
+-
+-	return true;
+-}
+-
+ static void amdgpu_ualink_object_fini(struct amdgpu_device *adev)
+ {
+ 	if (!adev->ualink.info)
+@@ -106,8 +95,9 @@ static void amdgpu_ualink_object_fini(struct amdgpu_device *adev)
+ 	adev->ualink.info = NULL;
+ }
+ 
+-int amdgpu_ualink_mgr_hw_init(struct amdgpu_device *adev)
++static int ualink_ip_hw_init(struct amdgpu_ip_block *ip_block)
+ {
++	struct amdgpu_device *adev = ip_block->adev;
+ 	int r;
+ 
+ 	if (!adev->ualink.info)
+@@ -142,8 +132,9 @@ int amdgpu_ualink_mgr_hw_init(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
+-int amdgpu_ualink_mgr_late_init(struct amdgpu_device *adev)
++static int ualink_ip_late_init(struct amdgpu_ip_block *ip_block)
+ {
++	struct amdgpu_device *adev = ip_block->adev;
+ 	int r;
+ 
+ 	if (adev->ualink.mgr_state != AMDGPU_UALINK_INIT_HW)
+@@ -1030,18 +1021,16 @@ static const struct kobj_type ualink_station_config_ktype = {
+ 	.sysfs_ops = &kobj_sysfs_ops
  };
  
-+#define AMDGPU_UALINK_LIGHTWEIGHT_TLB_SHOOTDOWN		0x1
-+#define AMDGPU_UALINK_HEAVYWEIGHT_TLB_SHOOTDOWN		0x2
+-int amdgpu_ualink_mgr_sw_init(struct amdgpu_device *adev)
++static int ualink_ip_sw_init(struct amdgpu_ip_block *ip_block)
+ {
+ 	int r;
+ 
+ 	struct amdgpu_ualink_station_config *stations;
+ 	struct amdgpu_ualink_vpod_config *vpod_config;
+ 	struct amdgpu_ualink_ppod_setup *ppod_setup;
++	struct amdgpu_device *adev = ip_block->adev;
+ 	struct amdgpu_ualink_info *info;
+ 
+-	if (!amdgpu_ualink_supported(adev))
+-		return 0;
+-
+ 	info = kzalloc(sizeof(*info), GFP_KERNEL);
+ 	ppod_setup = kzalloc(sizeof(*ppod_setup), GFP_KERNEL);
+ 	vpod_config = kzalloc(sizeof(*vpod_config), GFP_KERNEL);
+@@ -1084,9 +1073,10 @@ int amdgpu_ualink_mgr_sw_init(struct amdgpu_device *adev)
+ 	return 0;
+ }
+ 
+-void amdgpu_ualink_mgr_sw_fini(struct amdgpu_device *adev)
++static int ualink_ip_sw_fini(struct amdgpu_ip_block *ip_block)
+ {
+-	amdgpu_ualink_object_fini(adev);
++	amdgpu_ualink_object_fini(ip_block->adev);
++	return 0;
+ }
+ 
+ static int ualink_kobj_add(struct kobject *kobj, struct kobject *parent,
+@@ -5550,3 +5540,19 @@ int amdgpu_ualink_init_interrupt(struct amdgpu_device *adev)
+ 	return r;
+ }
+ 
++const struct amd_ip_funcs ualink_ip_funcs = {
++	.name = "ualink",
++	.late_init = ualink_ip_late_init,
++	.sw_init = ualink_ip_sw_init,
++	.sw_fini = ualink_ip_sw_fini,
++	.hw_init = ualink_ip_hw_init,
++};
 +
- enum amdgpu_ualink_conn_state {
- 	AMDGPU_UALINK_CONN_NOT_READY			= 0,
- 	AMDGPU_UALINK_CONN_IN_PROGRESS			= 1,
++const struct amdgpu_ip_block_version ualink_v1_0_ip_block = {
++	.type = AMD_IP_BLOCK_TYPE_UALINK,
++	.major = 1,
++	.minor = 0,
++	.rev = 0,
++	.funcs = &ualink_ip_funcs,
++};
++
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+index 3c5bfdd3af5bb..3c043167f948e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
+@@ -371,10 +371,6 @@ void amdgpu_ualink_sw_fini(struct amdgpu_device *adev);
+ 
+ int ualink_send_hello(struct amdgpu_device *adev, u32 remote_accel_id);
+ 
+-int amdgpu_ualink_mgr_sw_init(struct amdgpu_device *adev);
+-void amdgpu_ualink_mgr_sw_fini(struct amdgpu_device *adev);
+-int amdgpu_ualink_mgr_hw_init(struct amdgpu_device *adev);
+-int amdgpu_ualink_mgr_late_init(struct amdgpu_device *adev);
+ 
+ int amdgpu_ualink_sysfs_init(struct amdgpu_device *adev);
+ void amdgpu_ualink_sysfs_fini(struct amdgpu_device *adev);
+@@ -387,4 +383,6 @@ int amdgpu_ualink_import_handle(struct drm_device *dev,
+ 				const struct amdgpu_ualink_handle *ualink_handle,
+ 				int *fd_out);
+ void amdgpu_ualink_revoke_exported_memory(struct amdgpu_bo *bo);
++
++extern const struct amdgpu_ip_block_version ualink_v1_0_ip_block;
+ #endif
+diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+index e3baef809cd11..fa6caf8e04b5e 100644
+--- a/drivers/gpu/drm/amd/include/amd_shared.h
++++ b/drivers/gpu/drm/amd/include/amd_shared.h
+@@ -90,6 +90,7 @@ enum amd_apu_flags {
+ * @AMD_IP_BLOCK_TYPE_UMSCH_MM: User Mode Scheduler for Multimedia
+ * @AMD_IP_BLOCK_TYPE_ISP: Image Signal Processor
+ * @AMD_IP_BLOCK_TYPE_RAS: Reliability, Availability, Serviceability
++* @AMD_IP_BLOCK_TYPE_UALINK: Ultra Accelerator Link
+ * @AMD_IP_BLOCK_TYPE_NUM: Total number of IP block types
+ */
+ enum amd_ip_block_type {
+@@ -111,6 +112,7 @@ enum amd_ip_block_type {
+ 	AMD_IP_BLOCK_TYPE_UMSCH_MM,
+ 	AMD_IP_BLOCK_TYPE_ISP,
+ 	AMD_IP_BLOCK_TYPE_RAS,
++	AMD_IP_BLOCK_TYPE_UALINK,
+ 	AMD_IP_BLOCK_TYPE_NUM,
+ };
+ 
 -- 
 2.55.0
 
