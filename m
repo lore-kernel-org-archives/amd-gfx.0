@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AE3F1C5DF94
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 16:13:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 818C2C5DF97
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 16:13:07 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DDA3810F370;
-	Fri, 21 Aug 2026 16:13:03 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0A6110F377;
+	Fri, 21 Aug 2026 16:13:06 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="KtTBGnhb";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xb7cS+sU";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013064.outbound.protection.outlook.com
- [40.107.201.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7323A10F373
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 16:13:02 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012015.outbound.protection.outlook.com [52.101.43.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0CB9A10F373
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 16:13:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G3LAtmgGoo0bFbguyudnJP0vVnwy+xZoPWHPHFnNQxZv0EDvgiQsNQfdfH7xGWCO25fQOP4uafJ26TfR4Jl3P/8481r0H6dD8mSk0iWPAc5t3/U7MMOpima6kS+N1JwIODMD2+7XViWzx0FngEGpG3yunQWCV3qFwI9h2mnZZOe53UyEWt1V+6gbutC1ZmdUbCk1cJ0xhqa9wqjMvn+ncb0sDZEQ/Vsf1RJ37hjI5GPYdwDx5BtDnpvULE3Rix5NYGsyM8NAJrztEdjlsKqjA2khKbuKEKK+cnTuYVi8hjpzAOTL2WIdMtcFhN3xLvOg2HVMX5RFmkMy85BHLb3eaA==
+ b=pbTc5JDGRyRYSwYxYTX5vecirxJod7SXWVeVxauqBgMoDM+V90gDH64stUJC24ViAysrzVsYwxZoLjJHKyi72Q+p1VJNCyxxdiDvZmpO154seaxHO6LVgs3TiTFydn/ttdNK+IPZlGfoAGSlH00+pWMl5EA3suiG1rbSPbaojt8lab6KWKL0qA4tg9os+a+zZgyYBiBD4x1h9t0Pdfxno4RPRnTcic27RoSR89KMDrqy0JUvAnXG7KN3dZel/FJqi/3qLo2mjvPWOSAxSBUEuw/MfAEbGMIS+S4uvG5XCQI9nPxVA4gKqKxRqFswIb14ePk0gLzdPT5Vsan5yEYytA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1iWoVCrVtAwlN01n5MQ+N8hKB0aHScHHyChKeKFpYZ4=;
- b=kQq0gcY2fbI5iiW418b6USCx/TEpLXlPLWm3SWnTZdmQ0QPItGPFGdIkynNu9kn+rMuZJgaemTZJlMYD93Fg3PumFK42LXpMIBMh3Y89qJmvnhZ3BFZtxiiQin715auvLIJqwYysdbCn27UV6+pwVLd8c2EUX7YKvSNr/6SgKw7cHlG2RHRHQ7vBaKg4UNocNcaQrIWMB7uQVhPJBArVglAlpNx13Mir0pWkxvZyVTC4J4SGeo+PuaUu+P/vLQCUsRQin4ZpQa60Md84hPT9b5w44Swc46yKzA32mzAVyqb72A0IvWX+kaynuV3K0wQXpuqlVpIgfJ8ojb3gGJvOxg==
+ bh=jSkGu2S0AFnFz3g7leuJVrXbGZFICt4PxfDbwYcnFm0=;
+ b=j8Oeqxzlr3TrzuNcOKrQzvegbA34j+O7j1oTJ0IL96Ie/eQaDlgOB7DpX3yHvMkSNKQb3DpZFn8kOVFddnMdFIiWtH+iJhIqTVBC1a85B0oxtcJpQ7ozIrA9d85IosSNIwuAUU0IXk480cJBdH0nIigGlBzIXM/LvW1Y0TMEhb1CMWWLWOoTmd2ro4C9Hd7R6Be3Kf8j6RE1b7Ov5BSHxkr8/oRQpFYKSw7F3u6LBhkRIdAAcVzPC3BFv6cc77FmkKRb6USYG9wWhPqcWXtQG62kcFhLMBfwA+GMFiS7w5XbESGCPma+ji5G/2bdT2ud89pIWuwg05+/A+mCHccRgQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1iWoVCrVtAwlN01n5MQ+N8hKB0aHScHHyChKeKFpYZ4=;
- b=KtTBGnhbe2jLSSHz06zkijh/bFhOO6BC7uhgDZYaSdgb+xRezv/st4/tktZChogOzSNI0ytGpYlHv9+T4LrAa1yYYbaVrtNkcwjEno0VV8fLrhnwhTqhK8p5Z0wI0vcblQ3X9qg5rh9aDOZOTRB/Wz+E+lx3ivbVY8z4cb/76ec=
-Received: from SA1P222CA0094.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:35e::14)
- by SA0PR12MB7073.namprd12.prod.outlook.com (2603:10b6:806:2d5::8)
+ bh=jSkGu2S0AFnFz3g7leuJVrXbGZFICt4PxfDbwYcnFm0=;
+ b=xb7cS+sUaz7J/kWFlH9wb6Jyc3JCQlpyUs2wZttN8RnJ0L4LMeG9orpRdpG830J8yXBbCkSycUvj4iYRzodY9UMZatOSdabFL4zRtIpN/PZS7+Ai+m8SAbI5n/rcUOn67zeMuu2GqyeLptYDpf7SYy/Obs9BpGFjGetbZHWffsw=
+Received: from SA1P222CA0102.NAMP222.PROD.OUTLOOK.COM (2603:10b6:806:35e::10)
+ by SJ2PR12MB9116.namprd12.prod.outlook.com (2603:10b6:a03:557::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
- 2026 16:12:56 +0000
+ 2026 16:12:57 +0000
 Received: from SA2PEPF00003AE4.namprd02.prod.outlook.com
- (2603:10b6:806:35e:cafe::97) by SA1P222CA0094.outlook.office365.com
- (2603:10b6:806:35e::14) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:806:35e:cafe::75) by SA1P222CA0102.outlook.office365.com
+ (2603:10b6:806:35e::10) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
- 21 Aug 2026 16:12:55 +0000
+ 21 Aug 2026 16:12:57 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,54 +50,56 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  SA2PEPF00003AE4.mail.protection.outlook.com (10.167.248.4) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 16:12:54 +0000
+ 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 16:12:57 +0000
 Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 11:12:40 -0500
+ 2026 11:12:41 -0500
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
  (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 11:12:40 -0500
+ 2026 11:12:41 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 21 Aug 2026 11:12:39 -0500
+ Transport; Fri, 21 Aug 2026 11:12:41 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Stanley.Yang <Stanley.Yang@amd.com>, Hawking Zhang
- <Hawking.Zhang@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 1/4] drm/amd/ras: add supported aca blocks mapping
-Date: Fri, 21 Aug 2026 12:12:29 -0400
-Message-ID: <20260821161232.753638-1-alexander.deucher@amd.com>
+CC: Lijo Lazar <lijo.lazar@amd.com>, Felix Kuehling <felix.kuehling@amd.com>, 
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 3/4] drm/amdgpu: Add PSP v15.0.8 interrupt handler
+Date: Fri, 21 Aug 2026 12:12:31 -0400
+Message-ID: <20260821161232.753638-3-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260821161232.753638-1-alexander.deucher@amd.com>
+References: <20260821161232.753638-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE4:EE_|SA0PR12MB7073:EE_
-X-MS-Office365-Filtering-Correlation-Id: 68519819-4b41-45f3-4fef-08deff9f0eee
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003AE4:EE_|SJ2PR12MB9116:EE_
+X-MS-Office365-Filtering-Correlation-Id: c72f79e8-4626-478a-3b38-08deff9f10af
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: fYPUvAFzS0IHL6hY3y9JQ3HN/u3YLmFN7OemXCG2yEUWJAa2bO++cQJkRBHez1YM5hVmWgA2zP0tQYb5qdJM9i6gkZc73IQr3hj6mN4Ex/SvQ3tRuL28H7AYd14wMqDFbP4Aj5vDZpD7cRpyNiSFCP8AqeGYS6Nr9wyWALpA389+DW8KGDTk0cwU/zCA9ue5FdyL5McDGBnbzyigSkRmO/po2VMeOMC1j6SMXHK1a2ByxICbHQ294zsMUJVH2ugeB5RQTcv4Ia9nG1GJPaU+c4TDItxBg25v3ASr2e9rJnqEekEomKJlxwTS3l0xIY35L8V11QQMWSdbYUhM4/TJ2UvYM0acUC7vh3K1/3D8OmEq1pNM5DFUXASJFiqE1ZrXYEzSDGmegdmsQ9SgRUZuirNkDZ7hNDdw48mAHTosVGjSihSBZZ4/2lDErEhgjBnpZd1Lc4PFOgNb7I4WT36NF+L4E0rUODrsEJuCFjMedaa3N2GJSxiaWLwqHnPbI67lQgKEn1SlYrNKOsjuP4iHrOhRgcE9bFKPiV/WaofJMp6vn9zFW8mlpeJKIaH97DCkVgo1uq0OtheoFiyZzTiY3fOIcZVCpB36tSBCGjYKVCN7eNA+LbB5rxQDqFcgweYSidIOKmxjkaYjXqgLjiCuq5iai2y9uzBxW1k98TGkUsmaUWGPI4eqeBwO8t4j13gfTIjT3os/hUZIlzVX0VXssQ==
+ ARA:13230040|82310400026|23010399003|376014|1800799024|36860700016|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: j8vhWLoZuWyLd2jZGHuPl9ppUlR7UD0ptWj7W4S/4tRsqAWqBmRdDcTOMrOFPzP3dG302yOGU4G3wqajkdJ8Oopxlvd09zcYVAoplb5HgdNBdY4rJzpUJwkECmkT0x3vxlyNfPtS3Kzs7fIIlof1dwhW+B5CZouFDka8ZhdYcKdOLM2f1bn5QjX1lqK1svQaE1Z72gtoBETJz4xdFbdCxTBvLR4LKLv8XzGiFQHyzPNcPbPpGunlIYwAWTaQzUBST1J84m3DqP45CG5T/io3enJPVk6oX3hGo7Eg+KvzMExWD/3SBJ+/sPB24h3U0GiCsVO9kstQDKUbvcF6SSqEXoRAMHCvhXdYOGkjaE0bi5H6H9zovndzDPk6bo5jIVxrWA9KQ7bV27QPI6JFU1MEZwYV3eGENQTJ1WirJ8V253++9PGfiavalD28lFA/PZMe0CmrquvtCstbuiQ/QJ1gueZv179AQNdFXv48tUP8vCu9zFvCxmBxjw+um8tCU7cK4OZoieG4D/GAAlRrOyQM7aL3binp46ejccOdQ7vOqZj+Icwt2ce0viY/aHHNpEzSZlqsiKDc0a9jvVsiSDGt0s2XPX6da9CyevdKd6h2WoK99q5oMc/vCJeKeuCa8dLbCQxY2KcGDlc6zPL2hisP0G1tnhRDuU16/+uilzfogXzR9rUOYfbg4f2loGl5ezertNYMD6w6gGotokdh42NaQw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(10067099003)(11063799006)(56012099006)(18002099003);
+ SFS:(13230040)(82310400026)(23010399003)(376014)(1800799024)(36860700016)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: MnIseMFHXrv620bl7T4A2LKKqRNdMjKqGhoNCTIRhqu5lsk4G0wje4oRT8vsDmQCht2gfOv3HCBw7BywHaFo34HBid7moj8bwRVMds+97/P+pMhqnFsZ8keRvzkUheX99CafPhYqTanqONtuTOiq2/tMzns8uysaU8CgrkM/Nysn2tswdDJ4JlAm2CqBQ6lCVRCq+E+L5SAZoF3mtGqEVKDdb/uJGrm3wpdsq0IfX8RdfKyBVOsrnL7DVjZA4J5yGozz7aadNLyQscUbwEUq9T1QGwdvKWkpDes2Dqg8lIegYlJhUEFCjPPUcMtWScQ5k7z1TJ3+D0o9k8wywcBwpJS0ITj41F4eEiv7rv07jBRMxM/Bv1vIuYIz2rtSteTRR95MEGKTXpGfp53SW2MY6d6Zwuckoi8H9IOp9yBtp5UWrGhPeFs9Bqz2oHJZfOZg
+X-MS-Exchange-AntiSpam-MessageData-0: hfiWNjtK6GLKOzr97w7oY3iUbcRcVi1OoF616GwpOXSCS2uv5KRWt3gqK4Ou+KW3458g6tYH1TpdHbHBosfpD8S+AmF1tYZh6EsWtqdTyKc3PkccfxMbT7BSNzC3cdWewcxtjJ70AL0tn0b8yL+NVKG5wrPFBRmi461XGNRBf9lTiBugG3f9CrVoX5NebvEECRWop1oTnE0DfW0Xg0dXWPFeF7Sj7xKWpcFdUqVr3NGeQZ60lghf4gmcPURYIvIk+Dx4jiI2KiTDMInOtSgRuFftYdxOzMd8yQ96xjLfHc5AFfsr1yTS3wseVjva7qLs3rxN+xglJbng54Moa+7OJeSX8LDv53q6WaOsq8yd91MbMvftiUxlWfVJTIIUhXYSo69fYXGK98KDs/tOCyio7zs5JrNcELJ4wkj9ZrMgGd/TGHOzbP7q1CVGvMxMVi6e
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 16:12:54.2711 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 68519819-4b41-45f3-4fef-08deff9f0eee
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 16:12:57.2132 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c72f79e8-4626-478a-3b38-08deff9f10af
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00003AE4.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB7073
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9116
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,119 +114,164 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: "Stanley.Yang" <Stanley.Yang@amd.com>
+From: Lijo Lazar <lijo.lazar@amd.com>
 
-Add dacee_be, ucie_pcs, lsdma aca blocks mapping,
-add pcs_xgmi aca block info.
+Register and add interrupt handler in PSP v15.0.8.
 
-Signed-off-by: Stanley.Yang <Stanley.Yang@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/ras/core/aca.h          |  3 ++
- drivers/gpu/drm/amd/ras/core/ras_aca_v5_0.c | 54 +++++++++++++++++++++
- 2 files changed, 57 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/ih_v7_0.c     | 13 +++-
+ drivers/gpu/drm/amd/amdgpu/psp_v15_0_8.c | 90 ++++++++++++++++++++++++
+ 2 files changed, 102 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/ras/core/aca.h b/drivers/gpu/drm/amd/ras/core/aca.h
-index 759119bed870c..e428bf53f3ea8 100644
---- a/drivers/gpu/drm/amd/ras/core/aca.h
-+++ b/drivers/gpu/drm/amd/ras/core/aca.h
-@@ -71,6 +71,9 @@ enum aca_ecc_hwip {
- 	ACA_ECC_HWIP__MMHUB,
- 	ACA_ECC_HWIP__MPIFOE,
- 	ACA_ECC_HWIP__PCIE_PL,
-+	ACA_ECC_HWIP__DACC_BE,
-+	ACA_ECC_HWIP__UCIE_PCS,
-+	ACA_ECC_HWIP__LSDMA,
- 	ACA_ECC_HWIP_COUNT,
- };
+diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+index b51dacf9e1266..6265ee4b0ff1e 100644
+--- a/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/ih_v7_0.c
+@@ -420,6 +420,9 @@ static int ih_v7_0_irq_init(struct amdgpu_device *adev)
+ 	if (adev->irq.ih_soft.ring_size)
+ 		adev->irq.ih_soft.enabled = true;
  
-diff --git a/drivers/gpu/drm/amd/ras/core/ras_aca_v5_0.c b/drivers/gpu/drm/amd/ras/core/ras_aca_v5_0.c
-index fe3942f54afc5..2c8dcc5886f3c 100644
---- a/drivers/gpu/drm/amd/ras/core/ras_aca_v5_0.c
-+++ b/drivers/gpu/drm/amd/ras/core/ras_aca_v5_0.c
-@@ -50,6 +50,9 @@ static const u32 sdma_aca_types[] =   {0x00};
- static const u32 mmhub_aca_types[] =  {0x00};
- static const u32 mpifoe_aca_types[] = {0x00};
- static const u32 pcie_pl_aca_types[] = {0x00};
-+static const u32 dacc_be_aca_types[] = {0x00};
-+static const u32 ucie_pcs_aca_types[] = {0x00};
-+static const u32 lsdma_aca_types[] = {0x00};
++	if (adev->irq.ih_psp.ring_size)
++		adev->irq.ih_psp.enabled = true;
++
+ 	return 0;
+ }
  
- static struct ras_aca_hwip_v5 aca_hwip_maps[] = {
- 	ACA_HWIP_MAP(SMU,      0x01,  smu_aca_types),
-@@ -62,6 +65,9 @@ static struct ras_aca_hwip_v5 aca_hwip_maps[] = {
- 	ACA_HWIP_MAP(MMHUB,    0x73,  mmhub_aca_types),
- 	ACA_HWIP_MAP(MPIFOE,   0x1FD, mpifoe_aca_types),
- 	ACA_HWIP_MAP(PCIE_PL,  0x1E1, pcie_pl_aca_types),
-+	ACA_HWIP_MAP(DACC_BE,  0x164, dacc_be_aca_types),
-+	ACA_HWIP_MAP(UCIE_PCS, 0x16C, ucie_pcs_aca_types),
-+	ACA_HWIP_MAP(LSDMA,    0x346, lsdma_aca_types),
- };
+@@ -627,6 +630,10 @@ static int ih_v7_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	if (r)
+ 		return r;
  
- static void aca_decode_bank_info(struct aca_block *aca_blk,
-@@ -344,6 +350,50 @@ static const struct aca_block_info aca_v5_0_pcie_pl = {
- 	},
- };
++	r = amdgpu_ih_ring_init(adev, &adev->irq.ih_psp, IH_PSP_RING_SIZE, true);
++	if (r)
++		return r;
++
+ 	r = amdgpu_irq_init(adev);
  
-+static const struct aca_block_info aca_v5_0_dacc_be = {
-+	.name = "dacc_be",
-+	.ras_block_id = RAS_BLOCK_ID__DACC_BE,
-+	.hwip = ACA_ECC_HWIP__DACC_BE,
-+	.mask = ACA_ERROR__UE_MASK | ACA_ERROR__CE_MASK,
-+	.bank_ops = {
-+		.bank_match = aca_match_bank_default,
-+		.bank_parse = aca_parse_bank_default,
-+	},
+ 	return r;
+@@ -655,7 +662,11 @@ static int ih_v7_0_hw_init(struct amdgpu_ip_block *ip_block)
+ 
+ static int ih_v7_0_hw_fini(struct amdgpu_ip_block *ip_block)
+ {
+-	ih_v7_0_irq_disable(ip_block->adev);
++	struct amdgpu_device *adev = ip_block->adev;
++
++	ih_v7_0_irq_disable(adev);
++
++	cancel_work_sync(&adev->irq.ih_psp_work);
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v15_0_8.c b/drivers/gpu/drm/amd/amdgpu/psp_v15_0_8.c
+index f159efd585c32..85857b747bd46 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_v15_0_8.c
++++ b/drivers/gpu/drm/amd/amdgpu/psp_v15_0_8.c
+@@ -357,6 +357,95 @@ static int psp_v15_0_8_get_fw_type(struct amdgpu_firmware_info *ucode,
+ 	return 0;
+ }
+ 
++/* TBD: These should be in psp_gfx_if.h */
++#define IH_INTERRUPT_ID_TO_DRIVER 0xFF
++
++static int psp_v15_0_8_irq_process(struct amdgpu_device *adev,
++				   struct amdgpu_irq_src *source,
++				   struct amdgpu_iv_entry *entry)
++{
++	struct psp_context *psp = &adev->psp;
++	uint32_t data;
++
++	/* Replayed from the PSP soft ring: run the registered handler. */
++	if (entry->ih == &adev->irq.ih_psp) {
++		amdgpu_psp_irq_mgr_dispatch(&psp->irq_mgr, entry);
++		return 1;
++	}
++
++	/* ACK ASP interrupt */
++	if (!amdgpu_sriov_vf(adev)) {
++		data = RREG32_SOC15(MP0, 0, regMPASP_SMN_IH_SW_INT_CTRL);
++		data = REG_SET_FIELD(data, MPASP_SMN_IH_SW_INT_CTRL, INT_ACK, 1);
++		WREG32_SOC15(MP0, 0, regMPASP_SMN_IH_SW_INT_CTRL, data);
++	}
++
++	dev_dbg(adev->dev,
++		"psp_v15_0_8_irq_process: ctxid[0] = %d, ctxid[1] = %d\n",
++		entry->src_data[0], entry->src_data[1]);
++
++	/* Delegate to the PSP soft ring for process-context handling. */
++	amdgpu_irq_psp_delegate(adev, entry, 8);
++
++	return 1;
++}
++
++static int psp_v15_0_8_set_irq_state(struct amdgpu_device *adev,
++				     struct amdgpu_irq_src *source,
++				     unsigned int type,
++				     enum amdgpu_interrupt_state state)
++{
++	uint32_t val = 0;
++
++	if (amdgpu_sriov_vf(adev))
++		return 0;
++
++	switch (state) {
++	case AMDGPU_IRQ_STATE_DISABLE:
++		val = RREG32_SOC15(MP0, 0, regMPASP_SMN_IH_SW_INT_CTRL);
++		val = REG_SET_FIELD(val, MPASP_SMN_IH_SW_INT_CTRL, INT_MASK, 1);
++		WREG32_SOC15(MP0, 0, regMPASP_SMN_IH_SW_INT_CTRL, val);
++		break;
++	case AMDGPU_IRQ_STATE_ENABLE:
++		val = RREG32_SOC15(MP0, 0, regMPASP_SMN_IH_SW_INT);
++		val = REG_SET_FIELD(val, MPASP_SMN_IH_SW_INT, ID, 0xFE);
++		val = REG_SET_FIELD(val, MPASP_SMN_IH_SW_INT, VALID, 0);
++		WREG32_SOC15(MP0, 0, regMPASP_SMN_IH_SW_INT, val);
++
++		val = RREG32_SOC15(MP0, 0, regMPASP_SMN_IH_SW_INT_CTRL);
++		val = REG_SET_FIELD(val, MPASP_SMN_IH_SW_INT_CTRL, INT_MASK, 0);
++		WREG32_SOC15(MP0, 0, regMPASP_SMN_IH_SW_INT_CTRL, val);
++		break;
++	default:
++		break;
++	}
++
++	return 0;
++}
++
++static const struct amdgpu_irq_src_funcs psp_v15_0_8_irq_funcs = {
++	.set = psp_v15_0_8_set_irq_state,
++	.process = psp_v15_0_8_irq_process,
 +};
 +
-+static const struct aca_block_info aca_v5_0_ucie_pcs = {
-+	.name = "ucie_pcs",
-+	.ras_block_id = RAS_BLOCK_ID__UCIE_PCS,
-+	.hwip = ACA_ECC_HWIP__UCIE_PCS,
-+	.mask = ACA_ERROR__UE_MASK | ACA_ERROR__CE_MASK,
-+	.bank_ops = {
-+		.bank_match = aca_match_bank_default,
-+		.bank_parse = aca_parse_bank_default,
-+	},
-+};
++static int psp_v15_0_8_register_irq_handler(struct amdgpu_psp_irq_mgr *mgr,
++					    struct amdgpu_irq_src *irq_src)
++{
++	struct psp_context *psp = mgr->psp;
++	struct amdgpu_device *adev = psp->adev;
++	int ret;
 +
-+static const struct aca_block_info aca_v5_0_lsdma = {
-+	.name = "lsdma",
-+	.ras_block_id = RAS_BLOCK_ID__LSDMA,
-+	.hwip = ACA_ECC_HWIP__LSDMA,
-+	.mask = ACA_ERROR__UE_MASK | ACA_ERROR__CE_MASK,
-+	.bank_ops = {
-+		.bank_match = aca_match_bank_default,
-+		.bank_parse = aca_parse_bank_default,
-+	},
-+};
++	irq_src->num_types = 1;
++	irq_src->funcs = &psp_v15_0_8_irq_funcs;
 +
-+static const struct aca_block_info aca_v5_0_pcs_xgmi = {
-+	.name = "pcs_xgmi",
-+	.ras_block_id = RAS_BLOCK_ID__PCS_XGMI,
-+	.hwip = ACA_ECC_HWIP__PCS_XGMI,
-+	.mask = ACA_ERROR__UE_MASK | ACA_ERROR__CE_MASK,
-+	.bank_ops = {
-+		.bank_match = aca_match_bank_default,
-+		.bank_parse = aca_parse_bank_default,
-+	},
-+};
++	ret = amdgpu_irq_add_id(adev, SOC15_IH_CLIENTID_MP0,
++				IH_INTERRUPT_ID_TO_DRIVER, irq_src);
++	if (ret)
++		return ret;
 +
- static const struct aca_block_info *aca_block_info_v5_0[] = {
- 	&aca_v5_0_umc,
- 	&aca_v5_0_gfx,
-@@ -351,6 +401,10 @@ static const struct aca_block_info *aca_block_info_v5_0[] = {
- 	&aca_v5_0_mmhub,
- 	&aca_v5_0_xgmi,
- 	&aca_v5_0_pcie_pl,
-+	&aca_v5_0_dacc_be,
-+	&aca_v5_0_ucie_pcs,
-+	&aca_v5_0_lsdma,
-+	&aca_v5_0_pcs_xgmi,
++	return 0;
++}
++
+ static const struct psp_funcs psp_v15_0_8_funcs = {
+ 	.init_microcode = psp_v15_0_8_init_microcode,
+ 	.ring_create = psp_v15_0_8_ring_create,
+@@ -366,6 +455,7 @@ static const struct psp_funcs psp_v15_0_8_funcs = {
+ 	.ring_set_wptr = psp_v15_0_8_ring_set_wptr,
+ 	.get_fw_type = psp_v15_0_8_get_fw_type,
+ 	.get_ras_capability = psp_v15_0_8_get_ras_capability,
++	.register_irq_handler = psp_v15_0_8_register_irq_handler,
  };
  
- static u64 aca_parse_ras_caps_v5_0(struct ras_core_context *ras_core)
+ void psp_v15_0_8_set_psp_funcs(struct psp_context *psp)
 -- 
 2.55.0
 
