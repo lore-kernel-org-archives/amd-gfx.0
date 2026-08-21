@@ -4,141 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 31150C5DF87
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 06:39:15 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1C7A5C5DF7D
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 07:23:18 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AA05F10F220;
-	Fri, 21 Aug 2026 06:39:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0126910F257;
+	Fri, 21 Aug 2026 07:23:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="bwcBwS0+";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="6Z4vcbQC";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mL9/9Iir";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="xbk2DB96";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="CBXV5LPl";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8198E10F220;
- Fri, 21 Aug 2026 06:39:12 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
- [IPv6:2a07:de40:b281:104:10:150:64:97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3284B3EAF;
- Fri, 21 Aug 2026 06:38:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787294328; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=IMECoYsWSShMDNVZ8JDbQREho5iWl1tF8HaXKW+o8bY=;
- b=bwcBwS0+RC4EqtR9XE60Dr7YThswkD9m/wJHGl0tYz+b+jnsCbHokMe2hGq/Uqk4uzT50A
- eo3102wp6SGIjVNcjni9XRheTPpNywHtnve3o/8JTxEV7f0KyAXhdofQzz/9ZLDSC0zYU4
- Y6GN1+Rph/uZtJg+IxXU5IT21JaHaQE=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787294328;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=IMECoYsWSShMDNVZ8JDbQREho5iWl1tF8HaXKW+o8bY=;
- b=6Z4vcbQCxluqvDsyVW5JOdb+VetFkKQe/E/aiunFRyGnD0F+w7Vd66aAq33oo/wFBvKlfS
- DD681hcQkd6gUCBw==
-Authentication-Results: smtp-out2.suse.de;
- dkim=pass header.d=suse.de header.s=susede2_rsa header.b="mL9/9Iir";
- dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=xbk2DB96
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787294324; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=IMECoYsWSShMDNVZ8JDbQREho5iWl1tF8HaXKW+o8bY=;
- b=mL9/9IirJ/hFuHoEJ9tqN6Gyj/BzCxbBnS8Vhpd9olYi8cAzb5Q7wleR0jkMWFnb6EQXj4
- MbELBsuGxlTEhOXwdoUh5C2t3dHRphQ2taTyOQWKik5ErjYPYnJRZqA4MOEXeGdv8z+pmE
- DnM6e+TO6hELLfr5XGJHojqd0ilrLZA=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787294324;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=IMECoYsWSShMDNVZ8JDbQREho5iWl1tF8HaXKW+o8bY=;
- b=xbk2DB96M/yt8An1/BaVXFIB/WVgjEWwzS3BFmfjzbloxDMaBSaA5lj+zU3stDKov/MLO3
- gePOA+Nf5lkyeWCw==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id BBCDE3329;
- Fri, 21 Aug 2026 06:38:43 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id us1oLHPyh2pUAgAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Fri, 21 Aug 2026 06:38:43 +0000
-Message-ID: <3d0d14e6-05d2-4fc4-befe-e1d0cafc91db@suse.de>
-Date: Fri, 21 Aug 2026 08:38:43 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/12] drm/panic: Split into core and helpers
-To: Jocelyn Falempe <jfalempe@redhat.com>, javierm@redhat.com,
- airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
- sashiko-reviews@lists.linux.dev
-References: <20260818125012.468092-1-tzimmermann@suse.de>
- <e4da5ba4-9a02-4080-9a83-19d401017910@redhat.com>
+Received: from CH5PR02CU005.outbound.protection.outlook.com
+ (mail-northcentralusazon11012010.outbound.protection.outlook.com
+ [40.107.200.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2C38D10F257
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 07:23:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yh1XhLPqrfLcoEhKwG/JfrWmhLfhiddsTK0K6VFtpYuLcaB61ArxsohhK+W85o5cp/A0pz5XlyPNcsDGqBTjMOKPX66YZfBL+RWbarB92kfp6xpfHHeYBvsXoAMfmQWcFyLKZtMMEJ09F2iByFD1+xVzgtrhTFVHQVkh27dk8nHPAmfzzs6pAQ/WieI8T3HPBmUlhMJU9ErQCBElR+VTkgv8D9KGjiD7GOkEo4HyFE8SMSdQKw0vG/r64rVhsxLlICNQx+RSg1JaZFO6ZW3hha5OOoafmOV3ieRdOJN+J815Q1K46Xa9kZnAn0UGbgfGVuNVz3KNJszXHMKCtdL1FQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FIK1jBg+2NBMo1Zcy+Nioi+JAwjGOXRyy30zeEmotxc=;
+ b=MC+8BqZOa3GTPFsweMFLrxlMXEJC1lgEd3qDwUMEMGwj3fefxAJD1AW4cTIrYfvdKchpepbt1w/i1j2NaCBw6PyZksuAj8tkAigvv6AOUPHncnbATdqgU/K8UXJwlnS7JSo6eXXDOf24Kh8WAPZKp/7mMF76MAXJYlsPsfpsdRq0+heQGGUaPEALlvmL852ra0uX+S0JmgMl4bsuF6awTpk3IH6NKGYpdUODLzkMlzT30zujH70Ac9YUKpu1Zh8yzc3VVx4vSnK8q6PJQgdj34dE6MuU2bnGbxmqZ/r0vWQwYR9HP7LiFdnbO748/flVZrwBAPnk0gF7+HeKJR0BpQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FIK1jBg+2NBMo1Zcy+Nioi+JAwjGOXRyy30zeEmotxc=;
+ b=CBXV5LPlkwxOSqPCjPuxuhm06R+Ol1n9zugEcoiZ6LQ5ReL9BHGlX21IcNl7zdraOJtfsxMYLTCjuG6naxvn29Dv0R5ADwVHVAPIA3FnQlZZ+Ug614AXW/W0A0NgS/6uPQd696SDuNb888zhfyWswvhSSoD5fJf7FFj+EA42fJY=
+Received: from BYAPR12MB3192.namprd12.prod.outlook.com (2603:10b6:a03:139::14)
+ by CH3PR12MB7715.namprd12.prod.outlook.com (2603:10b6:610:151::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
+ 2026 07:23:08 +0000
+Received: from BYAPR12MB3192.namprd12.prod.outlook.com
+ ([fe80::b4a2:3223:31a2:ab7a]) by BYAPR12MB3192.namprd12.prod.outlook.com
+ ([fe80::b4a2:3223:31a2:ab7a%4]) with mapi id 15.21.0315.016; Fri, 21 Aug 2026
+ 07:23:08 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "Yang, Stanley" <Stanley.Yang@amd.com>, 
+ "Chai, Thomas" <YiPeng.Chai@amd.com>, "Liu,
+ Xiang(Dean)" <Xiang.Liu@amd.com>
+Subject: RE: [PATCH] drm/amd/ras: keep the established socket id layout on
+ older parts
+Thread-Topic: [PATCH] drm/amd/ras: keep the established socket id layout on
+ older parts
+Thread-Index: AQHdMR9jFyEDBjc/4kilUGgfos5oOraoGVww
+Date: Fri, 21 Aug 2026 07:23:08 +0000
+Message-ID: <BYAPR12MB3192CFDFACE171E46AB3C23EFCA32@BYAPR12MB3192.namprd12.prod.outlook.com>
+References: <20260821034358.1487515-1-xiang.liu@amd.com>
+In-Reply-To: <20260821034358.1487515-1-xiang.liu@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <e4da5ba4-9a02-4080-9a83-19d401017910@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Action: no action
-X-Rspamd-Queue-Id: 3284B3EAF
-X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- MX_GOOD(-0.01)[];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FREEMAIL_TO(0.00)[redhat.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org];
- RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from]; 
- MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
- RCPT_COUNT_TWELVE(0.00)[19]; TO_MATCH_ENVRCPT_ALL(0.00)[];
- FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- TO_DN_SOME(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- RCVD_VIA_SMTP_AUTH(0.00)[]; MID_RHS_MATCH_FROM(0.00)[];
- DKIM_TRACE(0.00)[suse.de:+];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url, imap1.dmz-prg2.suse.org:helo,
- imap1.dmz-prg2.suse.org:rdns, suse.de:mid, suse.de:dkim]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-21T07:22:20.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BYAPR12MB3192:EE_|CH3PR12MB7715:EE_
+x-ms-office365-filtering-correlation-id: 56ea5dac-7523-45cf-3a6a-08deff550c93
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|38070700021|56012099006|10067099003|11063799006|6133799003;
+x-microsoft-antispam-message-info: k9ToNrKXSgLu/j4b2iSRhltQAXP0TRpG3M6U8mVybqjO7JEpkDDED4PKX1F2naVNf+n09Cc1qhz2QMEkDSzbKBVRq/XGS9+4w3C6Mytbd2cAE9DQTdsSJZoWxSKiBk+/xeMXbhyhA567f+fMHxTOf0yOf3mHFnSY0EV4xjCAyAYiy9JrOjigrJdzYRI39usoG+kOYPU4QaCLnS6yLDAHbvN9C67LEXTd5B5y5A5kD9XTPvUdYuEpFL2Ajsyhm44SKkNfxmvPgXsuawhOkHgRKq3Ex39LvWvQTQ1w7Zb8PbWPhGCjwDzL3oD1D6r4p7i2ibkZ6X+zgjBAzBObPwQA81C2JGD5z7VWkQBjq/LokOykJiQipgTOe6gPeeWVPvN9HlIJU2uS+rMMic2OhYLv5Gn3PdqGkb7bP9LqAO1xkA9aKTXaw93xdCgoXi9NKFdnT+h5nHsp20Cn3IOTzeLG39RS7KCQ6TDml6lb6h9PKrOVM+uMVzd8MGYaVHz7UpnvYwyz6i6TbRQt6ZuTAzEZONDoPLe5NNSN2W1XPUQCni2SLO3CfTVijDKTBu0ofw2JdnDfE1SgFoY9Bq7OygBRmTct4f7VkRzB6hORcfZ/35Nxpo/4QmJXkl84XvZjSDJL8cgmY9opJPpky4Ji5gPABum6/QpjaW0U2I/JGNzDb9gtKpCC3n60SwbYlsByyeclkelO+VC7oQKz/ZIeLb/Crx0XT2pPuPAnHU6m053sdpo=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BYAPR12MB3192.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(38070700021)(56012099006)(10067099003)(11063799006)(6133799003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?TU4jMpYQeeARPpbN1zc7OMC4deJqmYoNyUWAf+yYbnmglSbT4YmBzxWJgkB8?=
+ =?us-ascii?Q?FYERgdwf92doDyciVkyAIC/fl1nJl6XVr2WfIJrCVkwvNoBLgy57wGuAiefU?=
+ =?us-ascii?Q?ozn5MVlnkx0MsWgDBqnOPD9rd5ZhM5ei5004Z7uUzmygPGg86KnZ9cipPBuW?=
+ =?us-ascii?Q?krI7wukrudZ5afrXB+QtFo4B8unQXSIgev7TPBVE8N0GBVuKqPmOzHa2N4eV?=
+ =?us-ascii?Q?vXSrmuxvlWOL8LoV2b79XhTo1FBrcNATTgF80EgZ0U4VCb+TCr5K+bsm+vHb?=
+ =?us-ascii?Q?gp1DLhhhvVLlkP87YXpgkCfSbg2B5aAdUY7pCO+F7qNpg5zNZNfpNYQguiJ2?=
+ =?us-ascii?Q?FSqjD77MXEmWF0H8mQDc6z4uxcFBoB/VwxvBQcUZ8FYeviXT5Zn0Pr5lyOE4?=
+ =?us-ascii?Q?uHwxNDnZTsHbKXQN1XjE4TPtirK/JKa08nSoyE/PMB0k7/RKhioJ5AZmDNaM?=
+ =?us-ascii?Q?QMTuwJz85ZBY6McuGlsHZqkMAVc+lUwFpfYgxttjglcH8VT42HQsu0bwtvW9?=
+ =?us-ascii?Q?6HcpcOznk/t95T9oJ7vHJOZBqPrOuF0ww+J7NI8it9Rpg1DUHPiDU1I8mcxf?=
+ =?us-ascii?Q?W0/6w4v7GYq/DnvtuZern7AuajRufeQRTTr8UxYG1lQt9kXQa2oBDei7NGKv?=
+ =?us-ascii?Q?t9yoDPpjngGA7QqBUqk0g5q+JPAbfP0/ZJMxAGKrglUYIp12iq7O54WAsl3p?=
+ =?us-ascii?Q?qfTs2XGxRunriwJRgdPQtTIA6vnJArVZ2jR6D2ySYh+P19FKEvI4BgckyP4a?=
+ =?us-ascii?Q?04EjqBKS79t+6cUUqeUOWfz+z8SAcTt4/TJnVNi2/OcsdD7h+qnqH6TCqmSA?=
+ =?us-ascii?Q?t5o6LjYnhMKXeMsp4bl4CQz/gOgLKq+eHVmZDcdnVoaetAjvHS7LAbazRhO0?=
+ =?us-ascii?Q?IkdkadKOK/RDLrFHJU8j0GJ8etxnKzHLcqBPjvR3wI3B5ntuJ3pB/uPPEQyg?=
+ =?us-ascii?Q?BD1BNcgAZATZC9/fMGpx97bL6andQtIqJH04U1W6nXgnBCCQZPKe+AEAr/tN?=
+ =?us-ascii?Q?DcjqxN/SqGJkYzYJ2ZAWgR87zy8HVkkao7XriCmCAWrMjpivDc+rlOH7K4DG?=
+ =?us-ascii?Q?T3Hw4UQmgKl+bgW9ltoacdXoq+0/2jjWlSdXRHnx89ET9CgEDtVneHtl8FkE?=
+ =?us-ascii?Q?sUQtQN1h+Y8i4P91IBroNFrQQpy2YuUstVLeZ6MnlYbJGe4ssg+1tYUO+gdN?=
+ =?us-ascii?Q?NQsBmYdOXGjzm1m+hzAKVGOHPm2qC5D4xD5MLM8csUfuDqgFdneTzKBynJNg?=
+ =?us-ascii?Q?WetLjCyxS3SeGBbZbo42CY07dUzW0vFgaEhFcnC3bdiH0kvuMU6c5SZZf6iu?=
+ =?us-ascii?Q?V0LH46i5MlIqcE2ZTW9ygy9bzVWcJaD1jw8PUJEHxFg91KSp6V9GhQJNS53/?=
+ =?us-ascii?Q?o1FSImhOTwB3gQJ8XKhhwgrL8exbAeifzWJ/8MRwlGB3w2ottLPja3gQRGzH?=
+ =?us-ascii?Q?e6tGwvYv/XI6D7D0RcguItOAYh39sxggfke+kyp/hhMlkTlqDFYgS42U1QTT?=
+ =?us-ascii?Q?CWCyJln0HBeDUX4y3cHm6pbZPSnwP/PyPwP1eMlHpELhyDR1/7P/JhUxEagK?=
+ =?us-ascii?Q?EQI6tsVkl+ChJNkoAWuUak6BNczh3RuUzFtnl0mkcOzvbu1G96SBr+f65R5B?=
+ =?us-ascii?Q?UHxdN+ahVKMaKLoG6sre0S2M9NO7D4jR/ter11yspb9/wDWsFLsj1RYaQry0?=
+ =?us-ascii?Q?SXh+XOABBTbWcW/7rdsQ/h1zuBboReiR7PLpNaDdl4D5RNEo?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BYAPR12MB3192.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 56ea5dac-7523-45cf-3a6a-08deff550c93
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Aug 2026 07:23:08.1134 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 31MHLF7AkLNWluNcgtvoRIvfixO+WrE4zJkcwXkyCrpIxafvCQS+uEdDD9NrJkJEmPLCiqeRWs9YBibdsmfuGA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7715
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,75 +136,82 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Jocelyn
+AMD General
 
-Am 20.08.26 um 19:49 schrieb Jocelyn Falempe:
-> On 18/08/2026 14:27, Thomas Zimmermann wrote:
->> Split DRM's current panic handling into a core and a helper module.
->> The core is still part of DRM's core library. The panic helpers are
->> part of DRM's KMS helper module (for now).
->>
->> The motivation behind this series is to get panic handling's drawing
->> code out of the DRM core. At some point it should share a single
->> module with DRM's other drawing and format conversion.
->>
->> With the series applied, panic hanlding follows DRM's established
->> design pattern of having a DRM core interface with an dedicated
->> implementation in each driver. Drivers share common code in helper
->> modules. For panic handling, the DRM core still contains the panic
->> entry points, the parameters and the debugfs interface. All drawing
->> is now located in the panic helpers.
->>
->> Patches 1 to 4 improve several issues in the current panic code. It
->> makes sense to fix them before moving the core around.
->>
->> Patches 5 to 8 put handling of all panic state and locking into a
->> single place, drm_panic_display_panic_screen(). It is maintained by
->> panic handling's DRM core code. This also enables the test cases to
->> work more independently from the kernel's configuration.
->>
->> Patches 9 to 11 split the panic-handling code into the core and panic
->> helpers. The former maintain all state, locking and public interfaces.
->> The latter handles drawing and details of the involved framebuffers.
->>
->> DRM devices that offer panic handling provide a single callback, struct
->> drm_plane_funcs.display_panic_screen. A new initializer macro makes it
->> point to the existing panic-drawing implementation. Hence there's no
->> change in features or functionality. If panic handling is configured
->> off, it all clears out to NULL.
->>
->> Patch 12 reworks the test cases slighly, so that they can be build as
->> a separate module. Do 'modprobe drm_panic_helper_test' to run them.
->>
->> Tested under bochs with debugfs and test cases.
->
-> Overall the series looks good to me, and I like the split between the 
-> helper and the core.
-> I would just drop the first two patches, as I don't see much 
-> difference between static allocation or kmalloc() at init, and I think 
-> that memset() the buffers to 0 is not useful in this case.
+Please update the inline comments when you commit the patch. Thank you
 
-Ok. Geert also expressed a dislike for these changes.
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-I have a number of changes done from the Sashiko review and will post an 
-update to the series early next week.
+Regards,
+Hawking
+-----Original Message-----
+From: amd-gfx <amd-gfx-bounces@lists.freedesktop.org> On Behalf Of Xiang Li=
+u
+Sent: Friday, August 21, 2026 11:44 AM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao <Tao.Zhou1@amd.com>;=
+ Yang, Stanley <Stanley.Yang@amd.com>; Chai, Thomas <YiPeng.Chai@amd.com>; =
+Liu, Xiang(Dean) <Xiang.Liu@amd.com>
+Subject: [PATCH] drm/amd/ras: keep the established socket id layout on olde=
+r parts
 
-Thanks for reviewing.
+The socket id is exported through the ras "features" sysfs node in bits[31:=
+29] of a 32 bit mask, but the RAS capability mask is 64 bit and reports it =
+in bits[62:60]. Tools parsing the node into a 32 bit variable read block ca=
+pability bits instead, which are identical across a hive, so XGMI injection=
+ resolves every WAFL sub block to the first device and the RAS TA rejects i=
+t with RAS_TA_STATUS__ERROR_PCS_STATE_HANG.
 
-Best regards
-Thomas
+Keep building the 32 bit layout from the same capability mask on parts rele=
+ased before the 64 bit one, and stop assigning the multi bit
+adev->ras_enabled to the single bit en field.
 
+Fixes: 6ae383bdf282 ("drm/amdgpu: Support obtaining ras capabilities")
+Signed-off-by: Xiang Liu <xiang.liu@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
 
->
-> Best regards,
->
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/=
+amdgpu/amdgpu_ras.c
+index d168e5d54d87..34de9daa6124 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -5065,16 +5065,27 @@ uint64_t amdgpu_uniras_get_ras_caps(struct amdgpu_d=
+evice *adev)
+        struct ras_cmd_get_ras_cap_req req =3D {0};
+        struct ras_cmd_get_ras_cap_rsp rsp =3D {0};
+        union ras_feature feature =3D {0};
++       u32 socket_id =3D 0;
 
--- 
+        if (amdgpu_ras_mgr_handle_ras_cmd(adev, RAS_CMD__GET_RAS_CAP,
+                        &req, sizeof(struct ras_cmd_get_ras_cap_req),
+                        &rsp, sizeof(struct ras_cmd_get_ras_cap_rsp)))
+                return 0;
+
+-       feature.block_mask =3D rsp.ras_block_mask;
+-       feature.en =3D adev->ras_enabled;
+        if (adev->smuio.funcs && adev->smuio.funcs->get_socket_id)
+-               feature.tag =3D adev->smuio.funcs->get_socket_id(adev);
++               socket_id =3D adev->smuio.funcs->get_socket_id(adev);
++
++       /* The wide layout spends bits[55:0] on block bits and so relocates=
+ the
++        * socket id. Older parts have to keep the 32 bit one every tool in=
+ the
++        * field parses today, socket id in bits[31:29] included.
++        */
++       if (amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(12, 1, 0))
++               return AMDGPU_RAS_GET_FEATURES(lower_32_bits(rsp.ras_block_=
+mask)) |
++                      (socket_id << AMDGPU_RAS_FEATURES_SOCKETID_SHIFT);
++
++       feature.block_mask =3D rsp.ras_block_mask;
++       feature.en =3D !!adev->ras_enabled;
++       feature.tag =3D socket_id;
+
+        return feature.value;
+ }
 --
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
+2.34.1
 
