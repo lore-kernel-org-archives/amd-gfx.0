@@ -4,72 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 05E28C5DF8E
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 19:51:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id DFB78C5DF8C
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 19:51:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 846D310F3C5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7D5FE10F3BB;
 	Fri, 21 Aug 2026 19:51:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="O2P1bqZS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="cZHgujtp";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011035.outbound.protection.outlook.com [52.101.62.35])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FFE410F3BB
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010037.outbound.protection.outlook.com [52.101.46.37])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CA76210F3C5
  for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 19:51:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TgrhFDxFZ8rc932qhCIGhPmkuBUTCbGCS/LmaAw0wBkJl43hol53b1bC38gErZzrG+xLChXlO3i+8z5JyhyC6O95DQFZukFIBKHj+vZVUxrFN4UHwMRl7WNLfretNuH1F1HXPuJ7vj27tNPCeSKNyzi/7vVgi52cZQiKmwQ1P8zvrPhqgywHHAxBWFJ/ITMO1XApWo2XXEdM01KaE0k+t3iYdn3z26lxgPvZ9h6k1b2jw9OqCdXrGltwESap3VJjPTdZWy8HVVz7ACqU+K65eLbDO4DXzpXWqpWqpe67iud4/njgwakaYoG0Fp/XeSxTDTYRIqRUkaWNhFenmpv8zQ==
+ b=n8mZyjb/HYnF7I0YgjgtZLk/iY8PbHjWb2/LoR+vea7q97YVUi91o+QkqwO7leSYrgqiFw8xJy/flQ83SP2jFEhd+PXnW2Yz+bcpN/mhQiJizjiZcaNl7Ia+ViBu3Y+fjeycwAhMehz7uPmM+GgV29DDS6kuaUFspmMNnEQgkzgYw1fdlImFQmzyRlWGBVYtSn4WrUZQnpY4wJelKW7o24s+scJArLq/HqmG/mKrMy3IL50TyagCKk5ESPJR8Ma8MJZjBnmLLjxNVE+HDY0fGpqK0t1eczSQYShBN0KIBE1lTxeSCgy9PJSz7ntCac9KjdB6fudkncOI/NB7Rqsd0w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FzHDGCa4bXd6w41X3A53qbWduy4fNR2DJ/GtxslJ0og=;
- b=ckzAD3bpwXoMUiJtgSOIfwlMhytinKj3dAEPYltxlEqu0c2jzh9qwmF085TOvmIl7AFBecHVH1B7/o6+2FQUR5hgPI1ABS+D+cc4dpWhjOO9NxEVFqcDto/7N1ENLYnj6gqw6ZyYlP49XoEVvdTIs1uFLJea3vfvL60poGFWEtmXOKq/V/q3vbz+DOhXR/UK7MaMuh7uWrTWndzmlbRHK9Ptv4owOGL3YJiwtTcJN+mPL+je68WEcm0yZSsgnImkkkiV3bErv87on5JJDaDQ34+9qD4T934khkH97gukZVkBw7drhOLMcHmRCs9gKr9FElDiW7DIo3BRm5zftyerXw==
+ bh=XTCL/vnbXuAeUqhzVMNRdchDttGi+ZNXwmTR0nbdBNc=;
+ b=gLNUy5zFnI2z0e/t4HQJ5pX1ivDSYxkMgRB8oJdOpMDlGJKKtR1odJcGuEDvk70MvMlFUgrkyAUkY9U6RmwJsl/6h8CjYRLZ6D3PxAhAgVNajyRRQQHiumTwejDd6Sgv8Pc1go6Xuknbd+KLq1JYsTrEq/PP+6AwN3NY2XltJ00Ga8wfU3bVVV9Qw9aSPC25x/eMlbhkcsQB2pOzJ9fbUCXCWEHCPZXil3YaN1AQ3wwum8I0IHkWSPRpi8wa5teQN3gNbhDlILOi9DQCSwFLdp+02cQSd8oFL3wXMhWiK2LyUYYGzhoA4bnqWILSYprZMlSAZW47vScnnLF9hVKyLw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FzHDGCa4bXd6w41X3A53qbWduy4fNR2DJ/GtxslJ0og=;
- b=O2P1bqZScLxwTu2DXYDd3RGTUgtF5CqhUF9SpgzV5QFr4dhz968n+1zZjwyBKCzlTRh9eP0zyAxv2nCt7gfo2rdFAj+zgraLSyanC1MJ+5kGRhMZ/D9h/8UvhRNFIIgEGncbL0+2uafSEe4uKuBRP6qzw9PZ15wn2pGizP3RyPQ=
-Received: from CH5PR02CA0005.namprd02.prod.outlook.com (2603:10b6:610:1ed::7)
- by CH2PR12MB4293.namprd12.prod.outlook.com (2603:10b6:610:7e::19)
+ bh=XTCL/vnbXuAeUqhzVMNRdchDttGi+ZNXwmTR0nbdBNc=;
+ b=cZHgujtp9lGrjmkJQ9Idq+EU2JP9xPLKVAQ3mHdmCIELQ6yFxwp0cuqtafrtRCk9SzpW2RRqQ6AF3DXUPpmEWmDrtk7kjFpiaS14zGi55cJlxVbIVpi7elMUFknbe3GYpDadc6JzAQm0pQ6w4tjNcS2/XeMEZicBgpy+KnfAeTA=
+Received: from PH5P222CA0003.NAMP222.PROD.OUTLOOK.COM (2603:10b6:510:34b::17)
+ by IA1PR12MB6409.namprd12.prod.outlook.com (2603:10b6:208:38b::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
- 2026 19:35:44 +0000
-Received: from CH1PEPF0000AD7C.namprd04.prod.outlook.com
- (2603:10b6:610:1ed:cafe::56) by CH5PR02CA0005.outlook.office365.com
- (2603:10b6:610:1ed::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Fri, 21 Aug
+ 2026 19:36:14 +0000
+Received: from CY4PEPF0000EDD0.namprd03.prod.outlook.com
+ (2603:10b6:510:34b:cafe::50) by PH5P222CA0003.outlook.office365.com
+ (2603:10b6:510:34b::17) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
- 21 Aug 2026 19:35:44 +0000
+ 21 Aug 2026 19:36:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CH1PEPF0000AD7C.mail.protection.outlook.com (10.167.244.84) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD0.mail.protection.outlook.com (10.167.241.196) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 19:35:43 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 19:36:13 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 14:35:35 -0500
+ 2026 14:36:07 -0500
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
  (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 14:35:35 -0500
+ 2026 14:36:07 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 21 Aug 2026 14:35:35 -0500
+ Transport; Fri, 21 Aug 2026 14:36:07 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling
+CC: Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling
  <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 39/95] drm/amdgpu: Add UALink firmware writeback address
- configuration
-Date: Fri, 21 Aug 2026 15:34:02 -0400
-Message-ID: <20260821193458.808626-40-alexander.deucher@amd.com>
+Subject: [PATCH 92/95] drm/amdgpu: Handle concurrent UALINK handle import race
+Date: Fri, 21 Aug 2026 15:34:55 -0400
+Message-ID: <20260821193458.808626-93-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260821193458.808626-1-alexander.deucher@amd.com>
 References: <20260821193458.808626-1-alexander.deucher@amd.com>
@@ -78,29 +77,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD7C:EE_|CH2PR12MB4293:EE_
-X-MS-Office365-Filtering-Correlation-Id: 44ba20ce-9f4d-4072-92c2-08deffbb641b
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD0:EE_|IA1PR12MB6409:EE_
+X-MS-Office365-Filtering-Correlation-Id: f86df72d-4979-4dc8-4e36-08deffbb760f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|23010399003|1800799024|36860700016|376014|56012099006|10067099003|6133799003|22082099003|18002099003|11063799006;
-X-Microsoft-Antispam-Message-Info: 2vYnFvT8L8QRSxRCduQGM86ZCUxCsVgljIcxjXJhkn3g8jKbnn/aKEziNTajjOwF34ulXHAYjE2z2Lp2aoOduyo7AhN9Ji3S/EMP6w8U/Z4yhBD0jTrUQ45RCfWf5Ya4LFx1Japllo1S9Flsjzht1J7tlcQlRAD8GpFtl/8sBAsPRh4UI6k3rcbhNX6b2HWBHv2c6mEL5fK8VVO+H6I1N+kzyKcBhYpImpFbqA6VGd8FN42GI/27Iv63f1E/GcRA11S/nP4aHeym7+jWhhvXGGHmSg85WzSvl1nHG5BdfOfkTA6YCTsmNS++jNf26Lk2aiAlYZ2UVqTDtMJQ9Zz12eSSj8MUDUvZjBzEsm2sToYSHUB1C2BjFXFhscpNjI+yA0iMh6UiBfP+ZdqvElazsFWImbWGuu91/t9La3Hxll8w+ute5C6xYFRRygJYt3Z8+qIrBCPA+JFM/5LJvivaUjsPx+NKQtCAahDZSns/O7pea57GGycIarR0Z3g/jrlAUUf6ixzvM/uQm7GCNjt0QSp+wEu3ySxSpe4GJ3buH4fkOR6KlGb8pk1KgscWa+pyy4WoX5I8jhNgqcDvUMr+xHUhETl1GzBhrVXy4BFBAgNg3DDcaA5RQ2t7pJ9Oyvf/zp+R69NLLQPoP/KxqVTxIVMrz9gnET80sRA72/Ml8ChcM/rNXFTV4iNoTBXLIb4IoNJwhvRcp79AVc4KAO8AMA==
+ ARA:13230040|82310400026|23010399003|376014|1800799024|36860700016|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: MvLRkNRoiGnjUxmA/x1bARO2zj27nrzEGRuoXepayYJoWDWJBV8kYOzDgUMHNcLomylgtVZC2WK17aIOwQTWkXXO6aHFJgx02z9ajau3oZ8bacdmWbuMKW4XPZ90dZUfN9fJ6aPX0FxPsuDYgb2zIkekiWILkPv4Bof/QLWlpVekCIDZ/BdMl2WnR4drcF+K2pRS8v6+TAeW+mPDSQm/kOiQfdD6YDttr3dy64xT2b5CzozjBQSkLPPwhAECbIKPN6Nu21sN4O3mH11pv+QcxEC7EoQnmiq1qVdJp5Vl5EHJUNM748TSgQqjWOUuHXiyRRsAPpepp4iyeGcA9VeM+a3x5DSam6hoHFeN5fYmMWL0mxM3uMWyDjv2g0HptbkeuzKvIM43zS8Wp6T30NiNmLarW4OjmBERJb4i28cL4K/dm3ZeRw5Sz+7o7+PwgGHs+pA/RO+V6l8f9OncdiEzBZEBJMkGYxny7ubLVRxHCeWtV4hEu+3hatMVumSV9wos//mC6rdk/wx+y06YPHVxhYlVRFLkNv+7Ynq+CThZc7ivkBa9GQtNVC0T4iAWvFjz1cUbfoOmM2oQswGlv+3xSJ+55L7v1oAthm89a2VX02VT5XiPiIIoYLzCvOGOk5pt7IN5q3fL5fBSIJyfgClSkvWtxejUbfZtRBuKihwDOZfaB4ylIigWwdrIbj1g6nYdJgoEDwdByXZrEao+YDpt7w==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(23010399003)(1800799024)(36860700016)(376014)(56012099006)(10067099003)(6133799003)(22082099003)(18002099003)(11063799006);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(23010399003)(376014)(1800799024)(36860700016)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 5Qvvz/iFxvc6SNLM1oILxVjswbdrrPXLIJsNSYiwuzFLPHYBNyPRP9aLpkZtU02W1U+dnkpG/1x4Hvo6wR3r8M4qVXZAfDbIwloRmhLfekoPe/OCY5GZaUFIjZpKCcnu1AaJXtDvJ22MAq0QZ6eiR4FNAqEEPAqGbSnTpt05y0JmBXEGDVdNwTWOvmL2Qu3fMBukbGUvpXrIWCwK7QcPgcEIHeuVE60EQcued3atMLGx/eXlQbMl1mPlck/PhqKoH3eH+HXnKO2/Fjs4N+6wwj8Ycu4Sx6rgh52JTuDm8xFzhlwV5nuFQm14dONWln0RDasSZU45Dixnsn49qq7H+1cxkJyvynzgd+FlwXH95IVmjXJvak2J60SfuSFi3SD9/Igcs0KBnVvylxfbCq1OJxSsQgJN2cUEzyFzC+wlAWWeCwdvbQeNnzyjcJIORgz7
+X-MS-Exchange-AntiSpam-MessageData-0: 39LEx3zTMzQihRG0pC/pc/zuWLib6iDgHsanplpirShSprthlOjHvnQtfKkzYlyet1kIv0XASEFPzMkZJM19BpeOVn8sGHLcmVH+w5FVB8hTxW5el3LEk1IT3pudueNN6OAnaHR3bfx5aZkxp8qpfGD8IUxWI8j5cUMH2yQEA5TSuvEIHJlJkmwI0EBp6bu1Zy5j5QBkbIdwYTmI6I5U8wDkQEgkEc7gpBG9cNK+fYVfLCWG09sGw9e8rXQTEWlNr0B2R+rDQIuUbciZNSZ3VwVxCMfDEC38X3dhwaVFkOGnDHoIrt9OrRXkIFq7p7CdVNRipC6MfKI0ZSOZPYQcokCdacC1RVq6NZNlyztzO7xuieGUx31F6FyfU6/J2SnvtWwopbinRhX7uEyJdVFH7yubCSYhLb4o6iC2OoCYlshEboHfsJISpmL536Cwcwhy
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 19:35:43.6144 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44ba20ce-9f4d-4072-92c2-08deffbb641b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 19:36:13.7259 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f86df72d-4979-4dc8-4e36-08deffbb760f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH1PEPF0000AD7C.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD0.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4293
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6409
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,104 +114,42 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Philip Yang <Philip.Yang@amd.com>
+From: Mukul Joshi <mukul.joshi@amd.com>
 
-Compute the writeback buffer addresses for a ring, send a configuration
-command to firmware, and mark the ring ready on acknowledgement.
-Configuration is deferred to first use.
+When two threads import the same UALINK handle concurrently, the first
+xa_insert() succeeds and the second gets -EBUSY. Convert -EBUSY to
+-EAGAIN so user-space retries instead of seeing a spurious error.
 
-Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 70 ++++++++++++++++++++++
- 1 file changed, 70 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 913d53fe91fc1..dd95e13570d1b 100644
+index 765105aea09e2..444b0e29ee9f4 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -1292,6 +1292,9 @@ struct amdgpu_ualink_ring {
- 	struct drm_mm_node mm_node_wptr;
- 	struct drm_mm_node mm_node_doorbell;
+@@ -3807,9 +3807,15 @@ int amdgpu_ualink_import_handle(struct drm_device *dev,
+ 			      imp_xa_node, GFP_KERNEL);
+ 		if (r) {
+ 			kfree(imp_xa_node);
+-			dev_err(adev->dev,
+-				"IMPORT: XA insert failed for handle:%llx:%llx err:%d\n",
+-				handle.handle_hi, handle.handle_lo, r);
++			/* -EBUSY means another thread raced us and inserted a
++			 * node for the same handle. Ask user-space to retry.
++			 */
++			if (r == -EBUSY)
++				r = -EAGAIN;
++			else
++				dev_err(adev->dev,
++					"IMPORT: XA insert failed for handle:%llx:%llx err:%d\n",
++					handle.handle_hi, handle.handle_lo, r);
+ 			goto out;
+ 		}
  
-+	/* seq, complete status write back cpu address */
-+	struct amdgpu_ualink_wb *wb_cpu;
-+
- 	/* true if fw write back address updated successfully */
- 	bool ready;
- };
-@@ -2651,3 +2654,70 @@ static int amdgpu_ualink_send_command(struct amdgpu_device *adev,
- 	return r;
- }
- 
-+static void amdgpu_ualink_get_wb_addr(struct amdgpu_device *adev,
-+				      u32 remote_accel_id,
-+				      struct amdgpu_ualink_wb **wb_cpu,
-+				      u64 *wb_npa, u32 type)
-+{
-+	struct amdgpu_ualink_remote *remote = to_remote(adev);
-+	u32 accel_id = ualink_accel_id(adev);
-+	u32 rb_size = AMDGPU_GPU_PAGE_ALIGN(2 * AMDGPU_UALINK_RB_SIZE);
-+	u64 wb, npa;
-+	u32 offset = 0;
-+
-+	if (ualink_addr_mode(adev) == AMDGPU_UALINK_ADDR_MODE_SOURCE_IDENT) {
-+		wb = (u64)remote->rb_cpu_addr + rb_size * remote->num_accel;
-+		npa = amdgpu_ualink_npa_addr(adev, RB_TYPE_TAILPTR,
-+					     remote_accel_id, accel_id);
-+	} else {
-+		wb = (u64)remote->rptr_cpu_addr;
-+		npa = remote->rptr_npa;
-+		npa |= (u64)accel_id << AMDGPU_UALINK_GART_NPA_ADDR_GPUID_SHIFT;
-+	}
-+
-+	if (type == RB_TYPE_TLB_INV)
-+		offset = ualink_tlb_wb_offset(adev, remote_accel_id);
-+	else if (type == RB_TYPE_REMOTE_INTERRUPT)
-+		offset = ualink_wb_offset(adev, remote_accel_id);
-+
-+	*wb_cpu = (struct amdgpu_ualink_wb *)(wb + offset);
-+	if (wb_npa)
-+		*wb_npa = npa + offset;
-+
-+	dev_dbg(adev->dev, "source %d remote %d wb npa 0x%llx\n", accel_id,
-+		remote_accel_id, npa + offset);
-+}
-+
-+static int amdgpu_ualink_update_wb_address(struct amdgpu_device *adev,
-+					   u32 remote_accel_id, u32 ring_type)
-+{
-+	struct amdgpu_ualink_remote *remote = to_remote(adev);
-+	struct amdgpu_ualink_peer *peer;
-+	struct amdgpu_ualink_ring *ring;
-+	struct amdgpu_ualink_wb *wb_cpu;
-+	u64 wb_npa;
-+	int r;
-+
-+	peer = &remote->peer[remote_accel_id];
-+	if (ring_type == RB_TYPE_REMOTE_INTERRUPT)
-+		ring = &peer->interrupt;
-+	else if (ring_type == RB_TYPE_TLB_INV)
-+		ring = &peer->shootdown;
-+	else
-+		return -EINVAL;
-+
-+	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &wb_cpu, &wb_npa,
-+				  ring_type);
-+
-+	r = amdgpu_ualink_send_command(adev, remote_accel_id, ring, wb_cpu,
-+				       amdgpu_ualink_emit_update_wb_addr,
-+				       upper_32_bits(wb_npa),
-+				       lower_32_bits(wb_npa),
-+				       0, 0);
-+	if (!r) {
-+		ring->wb_cpu = wb_cpu;
-+		ring->ready = true;
-+	}
-+	return r;
-+}
-+
 -- 
 2.55.0
 
