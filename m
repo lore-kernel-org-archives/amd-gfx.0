@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 84FBDC5DF97
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 16:07:47 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D9FE2C5DF93
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 16:07:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA43410F358;
-	Fri, 21 Aug 2026 16:07:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4617C10F359;
+	Fri, 21 Aug 2026 16:07:50 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="DNXnv6o5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tfIbXorH";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011015.outbound.protection.outlook.com [52.101.52.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46A1110F355
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 16:07:44 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010056.outbound.protection.outlook.com [52.101.201.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0483C10F351
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 16:07:33 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nK26KrC8fiSX2amjNLMLgbrtGEeysEkcziUB3lVB6w9U/d1ekEo0oiNAgPx2HMT+YCa7WdS+PsBkO9fbQtM/PjDRuGyUSrkUmOcdyQYNMLi2z8U/O+eShOnbbnLiz7qD4NLl84GF/duTUw2U7SDTQiFh6G1+kwRJk8C3d5XYoX7+SPeSCmMAXdJstcSJDV2jhX9wQNRwHGRufyQIOcGzdteyr6y1QaJn7BHFb5rucUuCd2FrOsz13o/22DpSt94aD/O9JiMjFdQi3kXK5E8h27LHE7RbmJTssI9HIReIFb2Na0CvG7HVSyTJ1iKPdUlrF45DuFp8ajHDce1zC3rVNQ==
+ b=B9Bt/2zKtIKS/V7g4FJxCYXPjRboSbPdYHklYCE6TCM0T50HqHfEPnAp8miJxtz5pC58ka2Xe5fXLY5ztkySZKDrLdhj5PWwV+sEL9DiOngzQdZ06ffsC08KMQLQqwkdQ4cMpi1/ddfXLmsy790dK+/+HSPjjlkXVKgXBge5JANIJSD/smzAzb1AxUNhwHdTLnb7OxxOE+o+XGrY7pW7GQWETEr0oyPm1qEHgHZ2oorSIsohldM27QfUe+dGp5hUCp5LterTFHFB5Pw+EEUmI0ePXYJqM1i5LE8YXteKYQroB825I7tx0OoEWEkKEjvXgl9BZSAAl07Yio8Twptzhg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=atCYgDYqyY4WM4usI/Q4Gz9rkTn+MduztVlyuXe50jo=;
- b=X7XpSS7CUe2uWapL9MTtZ/WgkgfXCqnK4zdT/iaZxnX+GLh04oWiMCJeEGXxNxUwV/hVUS0edYkbQgSwON0jBL2Mkbx8IfMgw3O/At2ZV06YHYDYi1hKmT1W6/oOfqExR1Nhm7hAxkZ2Om6036CVK9pnNHLBIPhVsthhfDj/buMH8M+ZmpG/XEVydjIkqlOJfR8M082JwJJqRBERXiZcMprMjLUx1dPMMuLDKyLkW8Vwqcp3jOF/HoeiHPKt68Oz0UMYfIeHetENTmY4uPVihSKeyKvHL8hx6g2ae1VN0evDMlyRmcFCcZDtxIfUf1nDZmbfJRtoFc5kG/kM++mr5Q==
+ bh=YhbEeNtiAp9+J5TmwdL5jXLvlxYTO5irp1226xbW808=;
+ b=ULGiszDN9AXCNrTiBWzpoSWvHwVmX4PBx/jeX+vzEODcgYnuWRlN6J2hmb0uqDt/JTSZe4ZeQjyk5ozMLKw2oAVGcUGBTfruP/C14zRFeAee7J04//R6qMCFQZNZH6mxXTroQvuXbJHI5nUwNMBVmarZ4wqdpoY0+/e0gM1O7beAPB4il9JI7xDkFoFR+mAl9sT05uhQ13B0lZZ7FoOhkMoU8mKx22rFSMeboxC0uW0rI8V/Qtbl1o/esGUDo5+1F+c4HY+kHeFYLvoOaLAV60fvo+2Vv3v65D4Jyh8CRHuj7gVDxHPkT0qxtWWFJeN+DqEPopDzISP2DUvj2jrx7g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=atCYgDYqyY4WM4usI/Q4Gz9rkTn+MduztVlyuXe50jo=;
- b=DNXnv6o5DdfgSwy14zx349da5sm7b19B6JgeFw23x+FSyG9k2+rIvjIh9IYjrgwvnpAyq8P4FJq9NrrbN4JTzJ0/1z2CEVOEhSlOxPRCUDws5XgY9+qZaMN01np8XblQfIYMRakQsGKe0268poEIe/kKqwrR+ZwG/pXgK+xR/v4=
-Received: from SJ0PR03CA0192.namprd03.prod.outlook.com (2603:10b6:a03:2ef::17)
- by BY5PR12MB4100.namprd12.prod.outlook.com (2603:10b6:a03:200::13)
+ bh=YhbEeNtiAp9+J5TmwdL5jXLvlxYTO5irp1226xbW808=;
+ b=tfIbXorHwKnPZ9OsU33a0pTuxWY21pV6EFQ3OB804WAK6LM+MevJ1xcTBvNQS5k7Y33YQt5V0nn+SJdt0YIzIFC0RqLCvaqGAEpN72ZjfNeTp0RVRPm6Eer6PJo94vYpiDTJA6QKFG7AydPl/qwz0MbncbbMNXMrgDPwOr0L0vc=
+Received: from BY3PR04CA0026.namprd04.prod.outlook.com (2603:10b6:a03:217::31)
+ by CHXPR12MB999221.namprd12.prod.outlook.com (2603:10b6:610:2fa::7)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
- 2026 16:07:36 +0000
-Received: from CO1PEPF00012E5F.namprd05.prod.outlook.com
- (2603:10b6:a03:2ef:cafe::20) by SJ0PR03CA0192.outlook.office365.com
- (2603:10b6:a03:2ef::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
- 21 Aug 2026 16:07:35 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Fri, 21 Aug
+ 2026 16:07:27 +0000
+Received: from CO1PEPF00012E64.namprd05.prod.outlook.com
+ (2603:10b6:a03:217:cafe::92) by BY3PR04CA0026.outlook.office365.com
+ (2603:10b6:a03:217::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.10 via Frontend Transport; Fri,
+ 21 Aug 2026 16:07:27 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,27 +48,27 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- CO1PEPF00012E5F.mail.protection.outlook.com (10.167.249.68) with Microsoft
+ CO1PEPF00012E64.mail.protection.outlook.com (10.167.249.73) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 16:07:35 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 16:07:27 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 11:07:31 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 11:07:26 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
- 2026 11:07:31 -0500
+ 2026 11:07:26 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Fri, 21 Aug 2026 11:07:31 -0500
+ Transport; Fri, 21 Aug 2026 11:07:25 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Mukul Joshi <mukul.joshi@amd.com>, Harish Kasiviswanathan
- <Harish.Kasiviswanathan@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 15/15] drm/amdkfd: set CP_IQ_WAIT_TIME2.QUE_SLEEP on GFX 12.1
-Date: Fri, 21 Aug 2026 12:07:10 -0400
-Message-ID: <20260821160710.752459-15-alexander.deucher@amd.com>
+CC: Hawking Zhang <Hawking.Zhang@amd.com>, Le Ma <le.ma@amd.com>, Alex Deucher
+ <alexander.deucher@amd.com>
+Subject: [PATCH 06/15] drm/amdgpu: Add gc_info_v1_5 table for soc_v1_0
+Date: Fri, 21 Aug 2026 12:07:01 -0400
+Message-ID: <20260821160710.752459-6-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260821160710.752459-1-alexander.deucher@amd.com>
 References: <20260821160710.752459-1-alexander.deucher@amd.com>
@@ -77,29 +77,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00012E5F:EE_|BY5PR12MB4100:EE_
-X-MS-Office365-Filtering-Correlation-Id: 74010e94-6632-4f0c-95e0-08deff9e50c6
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E64:EE_|CHXPR12MB999221:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3bc04a5b-decf-44a8-a693-08deff9e4bbe
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|82310400026|376014|1800799024|36860700016|6133799003|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: G+ozj8WyTmIhhKXnOIaT3RQtsiZOw0V8CA/0M/VOwwYT9YQBKv36MrpcosT/0nINsmCrmHEJbTSy6f141wFDpABhv8/xKDTqIvur57i/wEUCoaH+RVQ1h8U8a8VsB6oC9vvBaPR81MMeXRBim3yte83OmoIALfCVdXMfgmka+DkXpQxUvEmilYy7ftpnteO+q6Jv0i/wBoqfV7Q/a8I7mzYOeFsDDGQrFiRXMb7UPXLUlpkO4CdylbfRkFCmNlpkZ4SVNQVN8Tar/18XJ2C7uGBLzMRcZFk8m5zFVatZ9cCtc5tmvxdsHpimuFDhMkfzkkAHUpfe2AmAkeHIWrjskdtCKtO8bs2vLJGQc00vrQgZ76nKTp2PYVdeO6/qRUGbfG38N9l3oaxsQgvnQgfgFBk0KZ2ra5VOprkMSh0egoyiH9Vk76U9bURZBH90pbZJVyemuh4z4/UujfL8fI3C4dunkCSgUu7BPXmjZiT6THqpdtiSmkz3bwP1mPUrpR9ZzPTu83XdahbxERRDD9ggh4AwPo4YpQobhOvatPFsqkM5rMeBxnQTy857mdlrRdIuY5xLW3rgrfYIBhIQl0FmbgvHXz4p0er+4wf6WAQ9BqqySWvty4v2C+Ibi+CgocE4hjZz4s1QgCauOOh4se+KnICmzl6DBVeCSqsWZ3MMTx2/wya+g9k40K96/l6Gz97DEo2PnDEMkeW8AaXHaF1r/A==
+ ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|10067099003|11063799006|56012099006|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: gYsiQTobGBgj/nAgzaQtyxxD3tX1skwvOCh/8NI7WQPyuVXUUiCYW8Ntq823+9pk+3g1aAO9pjqGHzuyZCXaU4eeJLg3pJkLbbr5wfMPO+ueDsyc5lYb2tIgp7l6ztWPQ6061fT0VTGd9PEgXCoX/5a1U++QliHxgdx/r3JLpQJe5SyGwnF08Y87T4KwMS79358v/moSOXwrqMOrEuTTZ+/gQpqshtJK8tGbPr0vrzfkTff1NpP5ngmjxghAQrA9K3ZItKsohgF+bPsdviVjRSfPUPrYGGRzB01+rRbFCWiiQrdmmm8zD4yFMnb9xUHWUC+3B/aBw9DrAmGrXUoyW4CltEkEsfmhvXd6RSiBSOXpNbBJc+fdPemBSeZHeDBTCr40chP/w723Fuz0B8gEAE8HuYifgPYyYTi37X2s4ReEul/Ahvs5A3cqbyWIC52Df1fRLEYz7Hj7Ec5ksSEl/blY8h5c4K8ofugGykp5IYds8uJgILeQZO6e+zCsLJYdKOVlqpNJjwteYTHyUVIgm7zpXsmn/JHZ48FFYIL/DbIWjC1e3dAWTY2M8ymTFtTDs2lg9Ty7ZDKn8GWBHu/qNe0qHHFLcguMG2YYKPqxdxgJwQaUU+GiUanSV4Ti/Oh2jm8bVB6WDwMgDFP0oIFk2GrclSisCFrEmCXfPD5pnwI+mJm9WN7dxCGDQGyqb7VyRSM+NoF1mz5vOF6kko0T4g==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(82310400026)(376014)(1800799024)(36860700016)(6133799003)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
+ SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: jt5OHV9+PeuJEQbNwbxmDEdISN5ykf6PXIDLhbb+WrERPynofoC/NbgSDE31hBrrm/oYTnAM1Rdxpatz1PuZ1DhpLyJYbjJYBgeosxp+xDRTwzUYCdEVzzf5afdgBvRdCWBI47j1sH5mD8+Ub28ijHYjxY7Q7t3aeJRu1LFGhbNl7sECQezveu6huCTX/Ku2El7l6K0EXxKp2eduHIO/lYBxpPKXkM9+nikNRZubtqZ81q/ELnk7GdsnYcPj4BbbyegYkThZamsSjdvPQriNeFUrB/CXqxObHSp0sLGJJYCSvLlSQrjIytUKaJCQRJ3rJ2hHAwE6ZZno/tM/zbmQ3GTlm/orAZUpB/IV7zjN9B3FCzLj3FUlJuPIWGDf3IbwTQ7RcrERSFqW99VX7etR0kDbun3SofXkoAfKyYCOlZ7lPo9dK0Ee1cI87K9RhcYA
+X-MS-Exchange-AntiSpam-MessageData-0: PKJp9mrjLaNHydNpRiMW3EJbhmO8rjRJbmMN9Wz+7or2eZ3tz2VPj8G21YPKW6MgW6znXULS71xQbl634Wd02PDLzhtIvU7W1qEDw9GlbhJsu/e9SLFi7/MrLY6/ikgWBkzTpSgJRtVlkr4RkHKaVl0ELmeBiPIpOKPcZvcRulQ7L+TiigHXIAJdxxkx+agiBBBh4pDQgafBU7DiJoBjko9Nb5FjYf1VKWWeskNYi0hq7MjYbzR1oa+8bquhxO2JBKoASv85AJI7MRax7sdCZqJxJgwXnLp47wU/LXGOb4g9ctK5y/q+abFHvD73UeUYZUWfNKSpVleehKzWAYWlYES8UyJWiUnmajVFda/rOVv80IDq0dtO29nwujKfpPq0+l/89alu81PnD580ALS2BXFVOlN32uRlWiMUVBk79cb0wxiuEKh1VM3Z1qh3isgw
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 16:07:35.7496 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 74010e94-6632-4f0c-95e0-08deff9e50c6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 16:07:27.2546 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3bc04a5b-decf-44a8-a693-08deff9e4bbe
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E5F.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CO1PEPF00012E64.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4100
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CHXPR12MB999221
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,223 +114,216 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mukul Joshi <mukul.joshi@amd.com>
+From: Hawking Zhang <Hawking.Zhang@amd.com>
 
-The optimized QUE_SLEEP was only programmed on the HWS packet-manager
-path via a PM4 WRITE_DATA packet, which is skipped when MES is enabled.
+Initialize amdgpu_gfx_config using values from
+gc_info_v1_5.
 
-Add gfx12.1 get_iq_wait_times/build_dequeue_wait_counts_packet_info
-callbacks and program CP_IQ_WAIT_TIME2 through the MES WRITE_REG op at
-start_cpsch, per XCC.
-
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
+Signed-off-by: Hawking Zhang <Hawking.Zhang@amd.com>
+Reviewed-by: Le Ma <le.ma@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    |  3 +-
- .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h    |  3 +-
- .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12_1.c  | 36 ++++++++++++++++-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c |  3 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h |  3 +-
- .../drm/amd/amdkfd/kfd_device_queue_manager.c | 40 +++++++++++++++++++
- .../drm/amd/amdkfd/kfd_packet_manager_v9.c    |  3 +-
- .../gpu/drm/amd/include/kgd_kfd_interface.h   |  3 +-
- 8 files changed, 87 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |  21 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |   3 +
+ drivers/gpu/drm/amd/include/discovery.h       | 125 ++++++++++++------
+ 3 files changed, 109 insertions(+), 40 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-index 88acf75f0edd6..bc48b2ba30d11 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
-@@ -1026,7 +1026,8 @@ void kgd_gfx_v10_build_dequeue_wait_counts_packet_info(struct amdgpu_device *ade
- 						uint32_t sch_wave,
- 						uint32_t que_sleep,
- 						uint32_t *reg_offset,
--						uint32_t *reg_data)
-+						uint32_t *reg_data,
-+						uint32_t inst)
- {
- 	*reg_data = wait_times;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-index a4c607c881783..df350ea67c306 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
-@@ -56,7 +56,8 @@ void kgd_gfx_v10_build_dequeue_wait_counts_packet_info(struct amdgpu_device *ade
- 					       uint32_t sch_wave,
- 					       uint32_t que_sleep,
- 					       uint32_t *reg_offset,
--					       uint32_t *reg_data);
-+					       uint32_t *reg_data,
-+					       uint32_t inst);
- uint64_t kgd_gfx_v10_hqd_get_pq_addr(struct amdgpu_device *adev,
- 				    uint32_t pipe_id,
- 				    uint32_t queue_id,
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12_1.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12_1.c
-index 070001fd34b0f..0694bff871d2d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12_1.c
-@@ -518,6 +518,37 @@ static void kgd_gfx_v12_1_get_cu_occupancy(struct amdgpu_device *adev,
- 				adev->gfx.cu_info.max_waves_per_simd;
- }
- 
-+static void kgd_gfx_v12_1_get_iq_wait_times(struct amdgpu_device *adev,
-+					uint32_t *wait_times,
-+					uint32_t inst)
-+{
-+	*wait_times = RREG32_SOC15(GC, GET_INST(GC, inst), regCP_IQ_WAIT_TIME2);
-+}
-+
-+static void kgd_gfx_v12_1_build_dequeue_wait_counts_packet_info(struct amdgpu_device *adev,
-+					uint32_t wait_times,
-+					uint32_t sch_wave,
-+					uint32_t que_sleep,
-+					uint32_t *reg_offset,
-+					uint32_t *reg_data,
-+					uint32_t inst)
-+{
-+	*reg_data = wait_times;
-+
-+	if (sch_wave)
-+		*reg_data = REG_SET_FIELD(*reg_data,
-+				CP_IQ_WAIT_TIME2,
-+				SCH_WAVE,
-+				sch_wave);
-+	if (que_sleep)
-+		*reg_data = REG_SET_FIELD(*reg_data,
-+				CP_IQ_WAIT_TIME2,
-+				QUE_SLEEP,
-+				que_sleep);
-+
-+	*reg_offset = SOC15_REG_OFFSET(GC, GET_INST(GC, inst), regCP_IQ_WAIT_TIME2);
-+}
-+
- const struct kfd2kgd_calls gfx_v12_1_kfd2kgd = {
- 	.init_interrupts = init_interrupts_v12_1,
- 	.hqd_dump = hqd_dump_v12_1,
-@@ -532,5 +563,8 @@ const struct kfd2kgd_calls gfx_v12_1_kfd2kgd = {
- 	.set_address_watch = kgd_gfx_v12_1_set_address_watch,
- 	.clear_address_watch = kgd_gfx_v12_1_clear_address_watch,
- 	.hqd_sdma_get_doorbell = kgd_gfx_v12_1_hqd_sdma_get_doorbell,
--	.get_cu_occupancy = kgd_gfx_v12_1_get_cu_occupancy
-+	.get_cu_occupancy = kgd_gfx_v12_1_get_cu_occupancy,
-+	.get_iq_wait_times = kgd_gfx_v12_1_get_iq_wait_times,
-+	.build_dequeue_wait_counts_packet_info =
-+				kgd_gfx_v12_1_build_dequeue_wait_counts_packet_info,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+index 836a412fcdc2d..b567860aa555a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
+@@ -1987,6 +1987,7 @@ union gc_info {
+ 	struct gc_info_v1_1 v1_1;
+ 	struct gc_info_v1_2 v1_2;
+ 	struct gc_info_v1_3 v1_3;
++	struct gc_info_v1_5 v1_5;
+ 	struct gc_info_v2_0 v2;
+ 	struct gc_info_v2_1 v2_1;
  };
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-index 2e116c06d5be3..b30ad9701bcef 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.c
-@@ -1082,7 +1082,8 @@ void kgd_gfx_v9_build_dequeue_wait_counts_packet_info(struct amdgpu_device *adev
- 		uint32_t sch_wave,
- 		uint32_t que_sleep,
- 		uint32_t *reg_offset,
--		uint32_t *reg_data)
-+		uint32_t *reg_data,
-+		uint32_t inst)
- {
- 	*reg_data = wait_times;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-index 704452ca62f8e..9f43f16a1acea 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v9.h
-@@ -102,7 +102,8 @@ void kgd_gfx_v9_build_dequeue_wait_counts_packet_info(struct amdgpu_device *adev
- 					       uint32_t sch_wave,
- 					       uint32_t que_sleep,
- 					       uint32_t *reg_offset,
--					       uint32_t *reg_data);
-+					       uint32_t *reg_data,
-+					       uint32_t inst);
- uint64_t kgd_gfx_v9_hqd_get_pq_addr(struct amdgpu_device *adev,
- 				    uint32_t pipe_id,
- 				    uint32_t queue_id,
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index a233845711937..f6daef0e5ec09 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -2046,6 +2046,43 @@ static int unhalt_cpsch(struct device_queue_manager *dqm)
- 	return ret;
- }
- 
-+/* Program CP_IQ_WAIT_TIME2 via the MES WRITE_REG op (MES has no HIQ). */
-+static int init_dequeue_wait_counts_mes(struct device_queue_manager *dqm)
-+{
-+	struct kfd_node *dev = dqm->dev;
-+	struct amdgpu_device *adev = dev->adev;
-+	uint32_t sch_wave = 0, que_sleep = 1;
-+	int inst, ret;
-+
-+	if (!dev->kfd2kgd->build_dequeue_wait_counts_packet_info)
-+		return 0;
-+
-+	if (KFD_GC_VERSION(dev) != IP_VERSION(12, 1, 0))
-+		return 0;
-+
-+	/* CP_IQ_WAIT_TIME2 is per-XCC; the offset must encode the target
-+	 * XCC so MES routes the write to that XCC's local register.
-+	 */
-+	for_each_inst(inst, dev->xcc_mask) {
-+		uint32_t reg_offset = 0, reg_data = 0;
-+
-+		dev->kfd2kgd->build_dequeue_wait_counts_packet_info(
-+				adev, dqm->wait_times, sch_wave, que_sleep,
-+				&reg_offset, &reg_data, inst);
-+
-+		ret = amdgpu_mes_wreg(adev, reg_offset, reg_data, inst);
-+		if (ret) {
+@@ -2016,7 +2017,7 @@ static int amdgpu_discovery_get_gfx_info(struct amdgpu_device *adev)
+ 	case 1:
+ 		adev->gfx.config.max_shader_engines = le32_to_cpu(gc_info->v1.gc_num_se);
+ 		adev->gfx.config.max_cu_per_sh = 2 * (le32_to_cpu(gc_info->v1.gc_num_wgp0_per_sa) +
+-						      le32_to_cpu(gc_info->v1.gc_num_wgp1_per_sa));
++					      le32_to_cpu(gc_info->v1.gc_num_wgp1_per_sa));
+ 		adev->gfx.config.max_sh_per_se = le32_to_cpu(gc_info->v1.gc_num_sa_per_se);
+ 		adev->gfx.config.max_backends_per_se = le32_to_cpu(gc_info->v1.gc_num_rb_per_se);
+ 		adev->gfx.config.max_texture_channel_caches = le32_to_cpu(gc_info->v1.gc_num_gl2c);
+@@ -2057,6 +2058,24 @@ static int amdgpu_discovery_get_gfx_info(struct amdgpu_device *adev)
+ 			adev->gfx.config.gc_tcc_size = le32_to_cpu(gc_info->v1_3.gc_tcc_size);
+ 			adev->gfx.config.gc_tcc_cache_line_size = le32_to_cpu(gc_info->v1_3.gc_tcc_cache_line_size);
+ 		}
++		if (le16_to_cpu(gc_info->v1.header.version_minor) == 4 ||
++		    le16_to_cpu(gc_info->v1.header.version_minor) > 5) {
 +			dev_err(adev->dev,
-+				"Failed to set optimized dequeue wait via MES on xcc %d\n",
-+				inst);
-+			return ret;
++				"Unsupported GC info table %d.%d\n",
++				le16_to_cpu(gc_info->v1.header.version_major),
++				le16_to_cpu(gc_info->v1.header.version_minor));
++			return -EINVAL;
 +		}
-+	}
-+
-+	update_dqm_wait_times(dqm);
-+	return 0;
-+}
-+
- static int start_cpsch(struct device_queue_manager *dqm)
- {
- 	struct device *dev = dqm->dev->adev->dev;
-@@ -2087,6 +2124,9 @@ static int start_cpsch(struct device_queue_manager *dqm)
- 				KFD_DEQUEUE_WAIT_INIT, 0 /* unused */))
- 			dev_err(dev, "Setting optimized dequeue wait failed. Using default values\n");
- 		execute_queues_cpsch(dqm, KFD_UNMAP_QUEUES_FILTER_DYNAMIC_QUEUES, 0, USE_DEFAULT_GRACE_PERIOD);
-+	} else {
-+		if (init_dequeue_wait_counts_mes(dqm))
-+			dev_err(dev, "Setting optimized dequeue wait failed. Using default values\n");
- 	}
++		if (le16_to_cpu(gc_info->v1.header.version_minor) == 5) {
++			adev->gfx.config.gc_max_num_residency_ways = le32_to_cpu(gc_info->v1_5.gc_max_num_residency_ways);
++			adev->gfx.config.gc_cache_ways_size_in_bytes = le32_to_cpu(gc_info->v1_5.gc_cache_ways_size_in_bytes);
++			adev->gfx.config.gc_reserved = le32_to_cpu(gc_info->v1_5.gc_reserved);
++			/* GC info v1.5 derives max_cu_per_sh from the combined SA/SA1 WGP counts. */
++			adev->gfx.config.max_cu_per_sh = le32_to_cpu(gc_info->v1.gc_num_wgp0_per_sa) +
++						le32_to_cpu(gc_info->v1.gc_num_wgp1_per_sa) +
++						le32_to_cpu(gc_info->v1_5.gc_num_wgp0_per_sa1) +
++						le32_to_cpu(gc_info->v1_5.gc_num_wgp1_per_sa1);
++		}
+ 		break;
+ 	case 2:
+ 		adev->gfx.config.max_shader_engines = le32_to_cpu(gc_info->v2.gc_num_se);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+index 1023719c18bb6..6722213db8f01 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
+@@ -307,6 +307,9 @@ struct amdgpu_gfx_config {
+ 	uint32_t gc_scalar_data_cache_size_per_sqc;
+ 	uint32_t gc_scalar_data_cache_line_size;
+ 	uint32_t gc_tcc_cache_line_size;
++	uint32_t gc_max_num_residency_ways;
++	uint32_t gc_cache_ways_size_in_bytes;
++	uint32_t gc_reserved;
+ };
  
- 	/* setup per-queue reset detection buffer  */
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-index 54868b81086e7..55d573fa3de38 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_packet_manager_v9.c
-@@ -306,7 +306,8 @@ static inline void pm_build_dequeue_wait_counts_packet_info(struct packet_manage
- 		sch_value,
- 		que_sleep,
- 		reg_offset,
--		reg_data);
-+		reg_data,
-+		0);
- }
+ struct amdgpu_cu_info {
+diff --git a/drivers/gpu/drm/amd/include/discovery.h b/drivers/gpu/drm/amd/include/discovery.h
+index 76c9f951bc1c8..575705653e957 100644
+--- a/drivers/gpu/drm/amd/include/discovery.h
++++ b/drivers/gpu/drm/amd/include/discovery.h
+@@ -272,45 +272,92 @@ struct gc_info_v1_2 {
+ };
  
- /* pm_grace_period_0_supported - whether firmware tolerates a CWSR grace
-diff --git a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-index 965b50c8ca303..01c2631bbdff8 100644
---- a/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-+++ b/drivers/gpu/drm/amd/include/kgd_kfd_interface.h
-@@ -319,7 +319,8 @@ struct kfd2kgd_calls {
- 			uint32_t sch_wave,
- 			uint32_t que_sleep,
- 			uint32_t *reg_offset,
--			uint32_t *reg_data);
-+			uint32_t *reg_data,
-+			uint32_t inst);
- 	void (*get_cu_occupancy)(struct amdgpu_device *adev,
- 				 struct kfd_cu_occupancy *cu_occupancy,
- 				 int *max_waves_per_cu, uint32_t inst);
+ struct gc_info_v1_3 {
+-    struct gpu_info_header header;
+-    uint32_t gc_num_se;
+-    uint32_t gc_num_wgp0_per_sa;
+-    uint32_t gc_num_wgp1_per_sa;
+-    uint32_t gc_num_rb_per_se;
+-    uint32_t gc_num_gl2c;
+-    uint32_t gc_num_gprs;
+-    uint32_t gc_num_max_gs_thds;
+-    uint32_t gc_gs_table_depth;
+-    uint32_t gc_gsprim_buff_depth;
+-    uint32_t gc_parameter_cache_depth;
+-    uint32_t gc_double_offchip_lds_buffer;
+-    uint32_t gc_wave_size;
+-    uint32_t gc_max_waves_per_simd;
+-    uint32_t gc_max_scratch_slots_per_cu;
+-    uint32_t gc_lds_size;
+-    uint32_t gc_num_sc_per_se;
+-    uint32_t gc_num_sa_per_se;
+-    uint32_t gc_num_packer_per_sc;
+-    uint32_t gc_num_gl2a;
+-    uint32_t gc_num_tcp_per_sa;
+-    uint32_t gc_num_sdp_interface;
+-    uint32_t gc_num_tcps;
+-    uint32_t gc_num_tcp_per_wpg;
+-    uint32_t gc_tcp_l1_size;
+-    uint32_t gc_num_sqc_per_wgp;
+-    uint32_t gc_l1_instruction_cache_size_per_sqc;
+-    uint32_t gc_l1_data_cache_size_per_sqc;
+-    uint32_t gc_gl1c_per_sa;
+-    uint32_t gc_gl1c_size_per_instance;
+-    uint32_t gc_gl2c_per_gpu;
+-    uint32_t gc_tcp_size_per_cu;
+-    uint32_t gc_tcp_cache_line_size;
+-    uint32_t gc_instruction_cache_size_per_sqc;
+-    uint32_t gc_instruction_cache_line_size;
+-    uint32_t gc_scalar_data_cache_size_per_sqc;
+-    uint32_t gc_scalar_data_cache_line_size;
+-    uint32_t gc_tcc_size;
+-    uint32_t gc_tcc_cache_line_size;
++	struct gpu_info_header header;
++	uint32_t gc_num_se;
++	uint32_t gc_num_wgp0_per_sa;
++	uint32_t gc_num_wgp1_per_sa;
++	uint32_t gc_num_rb_per_se;
++	uint32_t gc_num_gl2c;
++	uint32_t gc_num_gprs;
++	uint32_t gc_num_max_gs_thds;
++	uint32_t gc_gs_table_depth;
++	uint32_t gc_gsprim_buff_depth;
++	uint32_t gc_parameter_cache_depth;
++	uint32_t gc_double_offchip_lds_buffer;
++	uint32_t gc_wave_size;
++	uint32_t gc_max_waves_per_simd;
++	uint32_t gc_max_scratch_slots_per_cu;
++	uint32_t gc_lds_size;
++	uint32_t gc_num_sc_per_se;
++	uint32_t gc_num_sa_per_se;
++	uint32_t gc_num_packer_per_sc;
++	uint32_t gc_num_gl2a;
++	uint32_t gc_num_tcp_per_sa;
++	uint32_t gc_num_sdp_interface;
++	uint32_t gc_num_tcps;
++	uint32_t gc_num_tcp_per_wpg;
++	uint32_t gc_tcp_l1_size;
++	uint32_t gc_num_sqc_per_wgp;
++	uint32_t gc_l1_instruction_cache_size_per_sqc;
++	uint32_t gc_l1_data_cache_size_per_sqc;
++	uint32_t gc_gl1c_per_sa;
++	uint32_t gc_gl1c_size_per_instance;
++	uint32_t gc_gl2c_per_gpu;
++	uint32_t gc_tcp_size_per_cu;
++	uint32_t gc_tcp_cache_line_size;
++	uint32_t gc_instruction_cache_size_per_sqc;
++	uint32_t gc_instruction_cache_line_size;
++	uint32_t gc_scalar_data_cache_size_per_sqc;
++	uint32_t gc_scalar_data_cache_line_size;
++	uint32_t gc_tcc_size;
++	uint32_t gc_tcc_cache_line_size;
++};
++
++struct gc_info_v1_5 {
++	struct gpu_info_header header;
++	uint32_t gc_num_se;
++	uint32_t gc_num_wgp0_per_sa;
++	uint32_t gc_num_wgp1_per_sa;
++	uint32_t gc_num_rb_per_se;
++	uint32_t gc_num_gl2c;
++	uint32_t gc_num_gprs;
++	uint32_t gc_num_max_gs_thds;
++	uint32_t gc_gs_table_depth;
++	uint32_t gc_gsprim_buff_depth;
++	uint32_t gc_parameter_cache_depth;
++	uint32_t gc_double_offchip_lds_buffer;
++	uint32_t gc_wave_size;
++	uint32_t gc_max_waves_per_simd;
++	uint32_t gc_max_scratch_slots_per_cu;
++	uint32_t gc_lds_size;
++	uint32_t gc_num_sc_per_se;
++	uint32_t gc_num_sa_per_se;
++	uint32_t gc_num_packer_per_sc;
++	uint32_t gc_num_gl2a;
++	uint32_t gc_num_tcp_per_sa;
++	uint32_t gc_num_sdp_interface;
++	uint32_t gc_num_tcps;
++	uint32_t gc_num_tcp_per_wpg;
++	uint32_t gc_tcp_l1_size;
++	uint32_t gc_num_sqc_per_wgp;
++	uint32_t gc_l1_instruction_cache_size_per_sqc;
++	uint32_t gc_l1_data_cache_size_per_sqc;
++	uint32_t gc_gl1c_per_sa;
++	uint32_t gc_gl1c_size_per_instance;
++	uint32_t gc_gl2c_per_gpu;
++	uint32_t gc_tcp_size_per_cu;
++	uint32_t gc_tcp_cache_line_size;
++	uint32_t gc_instruction_cache_size_per_sqc;
++	uint32_t gc_instruction_cache_line_size;
++	uint32_t gc_scalar_data_cache_size_per_sqc;
++	uint32_t gc_scalar_data_cache_line_size;
++	uint32_t gc_tcc_size;
++	uint32_t gc_tcc_cache_line_size;
++	uint32_t gc_num_wgp0_per_sa1;
++	uint32_t gc_num_wgp1_per_sa1;
++	uint32_t gc_max_num_residency_ways;
++	uint32_t gc_cache_ways_size_in_bytes;
++	uint32_t gc_reserved;
+ };
+ 
+ struct gc_info_v2_0 {
 -- 
 2.55.0
 
