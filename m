@@ -4,94 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4C31FC5DF81
-	for <amd-gfx@archiver.kernel.org>; Thu, 20 Aug 2026 21:11:09 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 22249C5DF81
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 01:34:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D99E610E7A2;
-	Thu, 20 Aug 2026 21:11:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5BB8B10E042;
+	Fri, 21 Aug 2026 01:34:40 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gCJkZ989";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="fxRjt0OM";
 	dkim-atps=neutral
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 216E210E7A2
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 21:11:08 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-392af6bda98so30638a91.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 20 Aug 2026 14:11:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787260267; cv=none;
- d=google.com; s=arc-20260327;
- b=ZpzASgMCUV3VgrrO/89HMLUkArUJ2AUm37TELR80ncuY5lR2KlP3zHzRTtYdhkluXC
- kyfUwpIaAN0Yadq1i45D38R1dEu5gNz0GG3sY2dSP2oLBv640UT+0LSAuI4hc2+k7ye7
- HN3C2lrakpFB+agi895ZXaJOo/3bafK0T7yUgfiXJ6dHQ0sfOzLn8dpFV9t/1W9rOYwg
- 6A0UU85S8LhCDpJ1nbrpRm623J3WDPkNT0t3Dv5MzS87/FfuMjJterCzx+nhLX9UBzin
- VCJxork8fVwudpK9K2KDG9+gLmGPg35+suvOdK1vMYKjZHUS6wbvXkJ9oikdEVYcvrfR
- qUoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=+58ppq7/IWpYfDH5uV4f+qEE0t5tg8bvsSH5WVPCSWM=;
- fh=+HtJfrqdzjrp2YWDzHTzmQ3etLwu7LlEjZ2EqLXECpc=;
- b=M+y2EYyl4XMez/SKFPOvjtL0exyeqteVoYYdc1ktgiBCkI7rB0LDTyKrTOgSBAMuSu
- A6JJ+QfMTT0ma7m2kSFK1rQkvX0JopArPWnVyUAzpf3Cvx5vU89NFuk78MvI6I7t6CFW
- /9tQfhfjFbuxZ+3vIoR6sFANt6Xe8Wvq7aYBJ/zPZpzRSPZ6VWdYQ/P4xcHMQ/JEg9fc
- LxbtGMRscmHJN2wgp5eMdFUU/tLMcI1yI2qpd6B/sZxzzlgKzBghfWpKUIMOJA3clHOJ
- HGCm4Xz8OzGG+qBMItVk+4kpd6fOnKUrmhv7rH7M7Z6uh4NLSYzP5jpEhz+lJ1bnBpMZ
- Kkug==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787260267; x=1787865067; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=+58ppq7/IWpYfDH5uV4f+qEE0t5tg8bvsSH5WVPCSWM=;
- b=gCJkZ989CoT909pSCFzbTHUa+4pKMy7p1ONBhS1I+W0NhTqDU2sxDVomA27qsMNgMl
- DAayTzLVD7Slghu3eFYHQAJNNluM81WAYBI/yIEICme6h6pyP00Sd1Xq+CsdNbsjCOib
- b2m3FCmDAnYMNO0FVfbJYtzN7Ab4znjO40gq48A42ZgPoaGzWH4uBqRjgx2H1KQeywJW
- A5OEuFnujj8icuENStKAEY6NTbo6TiQjTutq2K0wn9y9okPAM6Kk9qoSG8eLDeWnjA64
- v6p/Qc0FjCvatJL43/y8kRbUEx3YVJY5DWOZbznezku+OH5oNW5Mtl1aSocFJQuAER8+
- kdAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787260267; x=1787865067;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=+58ppq7/IWpYfDH5uV4f+qEE0t5tg8bvsSH5WVPCSWM=;
- b=lbYT7jVRNigixT0qkDfosyuSv/XggdTqbvR7RB6sVVfpdSTQ5fr1YTl5TpPf0Ke2Pe
- VuFDCh4ehB1eO91cIt0PwNAiUFQ30x/M7FTJf6v0WYBHqEDrD9PRB6qStk/SKqC1g1GB
- 54ekkNhf96GNhyCtG9MdQnz7G8ImUttJXniyGQDYxcxxQcryJfK846PLQnau4VZeCQ/X
- oPYe0h0hpkjG3NxJe71jGs0bLQx0wiLI6ZXrf4uqJR+bJChu0pec0p3Rzpl2L5c6wMFA
- 9pDvWCA35wb1K/QgJ/dVQRD1ZSUU71Hdplo4uTpvzzoI/HQRRKPasUOS+IT3CnjHp4YQ
- O3Cw==
-X-Gm-Message-State: AFuF++mexphXKPJitfIsTZTw+GTksMfoEaoz5PKwkzc1/lrQGyjOnPbs
- fUCXcxp2JgOXlInmSx5wLyuFVBTM3UpUfmMLzlk+KFkgkIc8EmejjCxnhFqTH9BFukoNrr3WGvZ
- rVowRSOzCt6WCPvUQnzmhAiS7eSXdhqg=
-X-Gm-Gg: AR+sD12qknOU26zMZW2B40hBvsBxpowbkGW5BARANYjJuM5EFYbv4xDMcsjEVFmRKYN
- +dGaZcO4LSarVw4MAmWb6QAbbknWHxKsYFcdaSxIl0W8wv1GTRqzs0QE4lmXNLPaWL0sCQejMIw
- 8ujS2Mp2L04iZxLDDDxcr5wLwrMj+5fsxy48HYe035XqkwvKKxxz/IzynUIzVVnGIqrO3pL3eBE
- aGpSv5nPGhj/7wmEeM+kvTg5fXfTHkNvArZnKVmf/JDP8WQWls4UNeN4N1yM8W2PKhXAJDOGOJE
- U1btgzkK7DBkzmRs6cG8XxAok5f/P+zWX3HH1YcyqEBmQvxzwaWUmMy4baqJXhXgHpeGFWLXTnp
- taEtj8esvyQeHVzaAF7U5SSKXKfuj1js=
-X-Received: by 2002:a17:90b:4484:b0:381:28e0:6248 with SMTP id
- 98e67ed59e1d1-395c33571d5mr1031283a91.1.1787260267517; Thu, 20 Aug 2026
- 14:11:07 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260819185349.29407-1-pisarevden@gmail.com>
-In-Reply-To: <20260819185349.29407-1-pisarevden@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 20 Aug 2026 17:10:55 -0400
-X-Gm-Features: AcwNN1Vai7aWO5WsKEL-otmSiwSsfGMkQzj2Cck3gdB3K6hYszYtDUormEy7lTs
-Message-ID: <CADnq5_M5yrY+QW2-8phcYhZ7McE-zpFvDh9beZ6jvzTEH1A1xw@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/1] drm/amdgpu: MMIO TLB invalidation fallback when
- KIQ is wedged after S4 resume
-To: Denis Pisarev <pisarevden@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
- christian.koenig@amd.com, mario.limonciello@amd.com, ionut_n2001@yahoo.com, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012070.outbound.protection.outlook.com
+ [40.93.195.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 798EC10E042
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 01:34:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kdllvYy7C27uYUK5iMpjmnZTgLb/cyXt8XyZ6KorVuq/At8ULFos5Ps7asxmAIUsV5CRlpRk2JhWU2FYpQ8YAanuef+7MbIafDPQRgmdkLO+U3kty9sn3Crro1597iSDMjz2XDCLoYItllspd/hUj3NBDiQXYgK8eG/iYXh5Mk8EwVPwl046hSO40nFfbgwZ2Y1lHQqD0vyPo3YusPb0f/3eJK7XWYDM3fMnrP39+eBQ/TgtOFasj+QKJczi94zJDTqy9F/i0+uuc1knunUYFTKweDnVkaR7KgJAiABkTdyoJJR15OuZdblT3hGiNqPZSLi/Z2nlqAxrbw7Kfa5XBQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tlRgR7qailWuQJcpZDU3Twejej83oitPeIAFMVhVQAo=;
+ b=o9EfabG9gl2xdyykF3mFwxd68cCy6zTszGqEVGJTmEaQ6g1J46OyJuVm77USImJwvfTe5LMUYgrzgMIXwZ8OzOe7YAnvjc1dEGgTsqfTx0gBkbPAMRyW2ywBzyvAESmXL4wxG1K8wKW/OBc/I8fESzO+YM8Drwznp8Us+aUdw8GTAzhgKrGtbwoISEC3av7ixRT4sT/MF7dLrx4riDhsVzKyxvXYcUp5NB6yG0T1+s6Fl94pa3e+dz4ee9lzBiRNSyE3i7+v+yJVIdHkOn9jrOLgLLK73nec0l2+ZAtJAhSqi+nSr7vSjUANiL2AIhjXQwvj9jW0u76kvkycm5iXmw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tlRgR7qailWuQJcpZDU3Twejej83oitPeIAFMVhVQAo=;
+ b=fxRjt0OMZewE2aHtBRIkSjeqjyM0KQAkWD37HPSvOd6ziALxEBXkSgiDgmfIX5409vVc8VVQixearTHt4BiMySzySESWt+QeJzrefBIJh5gQlEwc2giABUSPQimvrcclpdklpI9Q+v2/gfAVrvNiF1TXt71bNDDKF6LUVaeTrgQ=
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com (2603:10b6:5:393::16)
+ by SA1PR12MB7104.namprd12.prod.outlook.com (2603:10b6:806:29e::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Fri, 21 Aug
+ 2026 01:34:35 +0000
+Received: from DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::8874:ea43:ba4a:e73d]) by DM4PR12MB5152.namprd12.prod.outlook.com
+ ([fe80::8874:ea43:ba4a:e73d%5]) with mapi id 15.21.0339.008; Fri, 21 Aug 2026
+ 01:34:35 +0000
+From: "Zhang, Jesse(Jie)" <Jesse.Zhang@amd.com>
+To: "Lin, Amber" <Amber.Lin@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>, "Liu, Shaoyun" <Shaoyun.Liu@amd.com>,
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Subject: RE: [PATCH 2/2] drm/amdgpu: Set queue reset method for GC 12.1
+Thread-Topic: [PATCH 2/2] drm/amdgpu: Set queue reset method for GC 12.1
+Thread-Index: AQHdMLgyFiUocAZ5sUKGw0cafiTkzbantt+w
+Date: Fri, 21 Aug 2026 01:34:34 +0000
+Message-ID: <DM4PR12MB51528B0FEBDEBAB288359587E3A32@DM4PR12MB5152.namprd12.prod.outlook.com>
+References: <20260820152504.1160822-1-amber.lin@amd.com>
+ <20260820152504.1160822-2-amber.lin@amd.com>
+In-Reply-To: <20260820152504.1160822-2-amber.lin@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-21T01:26:57.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DM4PR12MB5152:EE_|SA1PR12MB7104:EE_
+x-ms-office365-filtering-correlation-id: 0f14d43e-b05d-4e1e-4b3f-08deff245b49
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|23010399003|1800799024|376014|18002099003|56012099006|22082099003|38070700021|6133799003|11063799006|10067099003|4143699003;
+x-microsoft-antispam-message-info: s054y7hL2wbOTkjTE7jq+q/KfZkuNv4zvGwfsBShWfUVYMtC231BhfErhbGi8ewUQTsgIa2c4mDTjdbDBuPwXcSPxW/HN3KLZlwYYa6RnhwMwZ1ZRit/gUprmcqxSgvBh3CoXcEm+TmOZGI9KG6Oacn49kzVOl7Py6vY1MNPbMvWWk6XOwRogIHAoQVm/vtX7Lifyjsdhp/NoHbea30x+SOoWRvuR+Mm5U0vPhDalJ+/ztkcTYYotFgdecAX/gMl9e+APHJtim7iu3AfySRjhxFEnLupJYoXi8IaZX7DdpM+B5Hs673Bcf21po3dPhGG5SB6ODwHErfzXCCpqDT2EHDYQZCzX4ci7tu2on0r4HGcn2PaAdJL0vHfnkYiq/IzNV3JjQACHxqllhZFPwoLya/XcNPJQaeQpFbjKwB956JWPLAuliZKTnhD9vYG96ZKyDx8m3Jkwooj4UpwDJoDCnM9YSa9TRhJ4HmiKVi+8jKQtHLXgHzv3atFADeU/f/VSqCWsKi/Q8bq9BMhsu4YuJmiUGgD80Dz2PLc4vfGMQCY7UGnFwwH5syH48KwnlJThrcU6LJNswrKqATg3sT5SLHDrOEUpVyxGQWbLu4t4ME6XRcGcfjTtqpgmFxDlo9V/9YjmW8b95tp/Gbv/m2KAuF+sa8izC+TvA27GikKyZIh9Sfd0Fwnnl/yOkWdyeB7yT5eJQ9wuKeOi1IgvuK9F4jLUzJ0L8jzcOs2qe8BluQ=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DM4PR12MB5152.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(1800799024)(376014)(18002099003)(56012099006)(22082099003)(38070700021)(6133799003)(11063799006)(10067099003)(4143699003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?f4UsmmEZy1LvWvMfSWBeMK02CQs1+PNwfnC50wtk/nHUlQeuY6is1lndovw+?=
+ =?us-ascii?Q?bqUKfFQtkATGuDHsssPdBbDrM5eWzJtWrsfOwd9pWZGjCLV6RPCnPvQXa6WM?=
+ =?us-ascii?Q?p/sR39C/JM5KF/kSNnGAcW0hFnT4eLwsk3Z9n9Q84KeYLZaOe5F7orI5/OQL?=
+ =?us-ascii?Q?KQrfbbjg2lvkjzuenVOGB3UzaTmI2zllgKvUz0LipQULtNtZRvFAPk6PTaOc?=
+ =?us-ascii?Q?H0pvUAQZ/JhVtqioot8lt8hcM//polWlX8kbP0p6dSwCT4QlnfBnryPB8hwA?=
+ =?us-ascii?Q?VHfUbV4lzRkT/KN4KtNCROdgrLmADRgnexigwnmHkQBE+cMqzWEVdhurSbfV?=
+ =?us-ascii?Q?2js/2/NlKMsjgHpznDTH1o99s/AZFYMXeRjd6Psl3e+6R9W6eWPQdCoZf3gn?=
+ =?us-ascii?Q?rYOBH6AzE64xDxwe2GftP/fHiL0D747UOHIw19gtbcZ7IrBXOgT255AXzj6X?=
+ =?us-ascii?Q?ySyzeU36+JdayLPQ6aGnIC79Dh1Tx/wZQigk2lupCsPSZ+1LdiFKRlqcYjf8?=
+ =?us-ascii?Q?iuELVfGQIHBps4pJVPz0wehQUdtUD7Uxz7+gAN/gVjsYESG48ekP/hqoRLk8?=
+ =?us-ascii?Q?R3dUt4OwkqIXb5QIj/C/+kkl++Rp10y2Rk2OqaGcRrR36AIGiRbgzZL/9Mm9?=
+ =?us-ascii?Q?tl1uCAA5j2rfsE+rladpB9UAVNdczw7GOYS3iKqajdwOypuM5NdFaaGoVV/9?=
+ =?us-ascii?Q?sU2BCua4fkHkC9LBj8/+DkfHBk1PARHQudJ4BA59+Q3Djlw7chtUumuMN5Ih?=
+ =?us-ascii?Q?oBHZlkgNOW4nNi6Q/HO9oW03aLvWUafMSHtm096t0F2ZhPJMhF8/PP4rAFd0?=
+ =?us-ascii?Q?EYfxmHJYOyqzeWwrJITONzuoB+krh0Rv/xFXCt+M/yyeBzpw5TpAws9Mbopd?=
+ =?us-ascii?Q?b2U4zjj5Zsc/Ci9OlLxWMbM7UQj9IsmzPly8QckjHOFFbfc3di0bXUC2F93Y?=
+ =?us-ascii?Q?Zf5k2IXGVBP84990HHnuiNxWMb9fWVCcI/rqeDu/bieUecvekP9aFLLu3gB7?=
+ =?us-ascii?Q?4rET1VNwuIXHUlMMq+I3/jECBjuGRY4itIGQBGumLLs56h7JLfKexXnFG3X1?=
+ =?us-ascii?Q?WeEZn9qmRJv4e26H5lE3ij/PTfepaokV5UHCoIsnVG9k3h4zKpn3v81BxDGH?=
+ =?us-ascii?Q?zaxWfoI/STwa9P50ZNHp8/KMTO4OzS3SHtk7w/qAiNazkq2HXXNl09x+5omz?=
+ =?us-ascii?Q?fXfErCh793BRtXh1NwY6rjJh/J//X53zna5irKGGJ4UoScfOfZGI/XyBfWK5?=
+ =?us-ascii?Q?OC/yHdKb9DNaufZ45h4GH/yfB0kp5QUK4hHWth9Zf0ZY7pCeNWWoa5Kpncia?=
+ =?us-ascii?Q?WzQHZQGEIjk167lYVIFfcNyTZpjOQnmAKi5BAwsKURFB/e7I0SrzzwjW9bp1?=
+ =?us-ascii?Q?t6cZJEou+LN3UYCXLf9NZ9ndM8Lc4wwAdIf9qaD4BOXkx+LJvsBiPva+301X?=
+ =?us-ascii?Q?DOcvxfDcHZlKywfGPd6O9+tXmj4NsbPbxmTrf04fzRyr2xbWmaVp1MMesUIY?=
+ =?us-ascii?Q?Ig4n/N9jAT5MdS8yC3cpZHuNJeY/+eH1ZkoNPVnA6jvhEr35uOng9i//1PPu?=
+ =?us-ascii?Q?mUFSKnOnlShXZi6W69dWOvDuGGXnDm2smKw1jcEY9F2i7hc3fI/c6fxIq16W?=
+ =?us-ascii?Q?rEvQXeU7S2Dgutpfk/3hbkaBGl4PObrGat3ODeA7TpJiidqmEn7iLgkX/VzY?=
+ =?us-ascii?Q?UOqapFhVBENXx+cLGy+S5kAg7cPRxN0QBPXpny0UMxiRvXB5?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5152.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f14d43e-b05d-4e1e-4b3f-08deff245b49
+X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Aug 2026 01:34:34.8390 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: nMxKe8HgfpSCBYKQiP8/GrSPmUmPGcYu+h7SjnHwQz1tu6zul/swV28axgpwrBSsk0Mm8XV06pihfmSVzgA7qQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7104
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,106 +133,50 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 19, 2026 at 3:30=E2=80=AFPM Denis Pisarev <pisarevden@gmail.com=
-> wrote:
->
-> Hi,
->
-> This RFC follows up on bugzilla 219492 ("failed to write reg 28b4 wait
-> reg 28c6" after hibernation) and on the resume_gpu_stable proposal
-> rejected in January:
->
->   https://lore.kernel.org/amd-gfx/20260106125929.25214-6-sunlightlinux@gm=
-ail.com/
->
-> The rejection argued that (a) kiq sched.ready is managed correctly -
-> set false in suspend, set true again only after ring tests pass on
-> resume - and (b) the proposed flag would have disabled the KIQ flush
-> path permanently. Both points are correct, and this RFC takes a
-> different route: nothing is disabled proactively; the driver reacts to
-> observed failures.
->
-> MEASURED FAILURE MODE (Cezanne iGPU, Ryzen 7 PRO 5850U, 7.1.8, KDE
-> Wayland, no ROCm):
->
-> - S4 resume -> "failed to write reg 28b4/28c6" + "1a6f4/1a706" pairs
->   begin in the same second as the thaw and continue at 80-140/hour
->   for 9+ hours until reboot. kiq sched.ready is true throughout (the
->   ring test at resume passed).
-> - Two user-visible consequences: each failed flush burns the ~5 s KIQ
->   retry window (desktop-wide sluggishness), and the invalidation is
->   then silently dropped (stale TLBs - correctness).
->
-> TRIGGER ISOLATION (single-variable tests, one hibernate cycle each):
->
-> - stock (GFXOFF allowed across S4):    ~70-140 errors / 30 min of use
-> - GFXOFF held off across S4:                    0 errors (30 min)
-> - GFXOFF re-enabled 40 min after the clean
->   resume:                                      0 errors (15 min;
->   gating resumption not independently verified)
->
-> So the wedge forms in the S4 resume window while GFXOFF is allowed,
-> and is consistent with the existing semaphore workaround comment in
-> gmc_v9_0.c about losing invalidate-acknowledge state across
-> power-gating cycles. A boot-time amdgpu.pg_mask=3D0 does not even
-> initialize on this part (probe -ETIMEDOUT), so runtime debugfs
-> control was used.
->
-> THE PATCH (1/1):
->
-> - amdgpu_gmc_fw_reg_write_reg_wait() returns -ETIME on failure and
->   counts consecutive failures
-> - gmc_v9_0_flush_gpu_tlb() uses its existing MMIO path as fallback
->   when the KIQ submit fails (invalidations no longer dropped), and
->   after 3 consecutive failures skips the KIQ path entirely until the
->   counter resets - so wedged systems stop paying 5 s per flush
-> - counter resets on every success and in gmc_v9_0_hw_fini(); each
->   suspend/resume cycle re-arms KIQ. No proactive disabling anywhere.
-> - gmc_v10/v11/v12 call sites unchanged and compile-safe (int return
->   used as statement); extending the fallback to them is trivial once
->   the approach is agreed.
+AMD General
 
-I think it would be better to get KIQ and MES out of the TLB path.  If
-they get hung, we have bigger problems.  Can you give this branch a
-spin?
-https://gitlab.freedesktop.org/agd5f/linux/-/commits/tlb_inv_rework?ref_typ=
-e=3Dheads
-It switches over to using SDMA and only falls back to MMIO if SDMA is
-not available.  If you use MMIO, you need to disallow gfxoff before
-you touch the registers over MMIO otherwise you'll hang GFX.
+> -----Original Message-----
+> From: Lin, Amber <Amber.Lin@amd.com>
+> Sent: Thursday, August 20, 2026 11:25 PM
+> To: amd-gfx@lists.freedesktop.org; Liu, Shaoyun <Shaoyun.Liu@amd.com>;
+> Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Jesse(Jie)
+> <Jesse.Zhang@amd.com>
+> Cc: Lin, Amber <Amber.Lin@amd.com>
+> Subject: [PATCH 2/2] drm/amdgpu: Set queue reset method for GC 12.1
+>
+> Explicitely set use_mmio_for_reset=3Dfalse in gfx_v12_1_sw_init for using=
+ MES to
+> perform queue/pipe reset
+>
+> Signed-off-by: Amber Lin <amber.lin@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> index 9dd7a3335719..97f4da7b7607 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+> @@ -1560,6 +1560,9 @@ static int gfx_v12_1_sw_init(struct amdgpu_ip_block
+> *ip_block)
+>
+>       gfx_v12_1_alloc_ip_dump(adev);
+>
+> +     adev->gfx.me.use_mmio_for_reset =3D false;
+> +     adev->gfx.mec.use_mmio_for_reset =3D false;
+> +
 
-Alex
+The MES firmware already supports queue/pipeline reset, right? Do I need to=
+ check the MES firmware version before switching to MES?
+Apart form that, the series is Review-by:Jesse Zhang <Jesse.Zhang@amd.com>
 
+Thanks
+Jesse
+
+>       mutex_init(&adev->gfx.mec.reset_mutex);
 >
-> This mirrors what the sibling PASID path already does (KIQ submit,
-> -ETIME on timeout, MMIO variant as fallback), applied to the per-VMID
-> path.
->
-> OPEN QUESTIONS:
->
-> 1. Root cause in the S4 window: RLC/ME not processing KIQ invalidates
->    while GFXOFF is allowed? Happy to run tracing (amdgpu.vm_debug,
->    VM_INVALIDATE ack registers) on the affected hardware on request.
-> 2. Should the latch be per-xcc-inst?
-> 3. Should amdgpu_gmc_flush_gpu_tlb_pasid()'s KIQ branch share the
->    latch?
->
-> Patch 1/1 follows. Comments very welcome - especially on whether the
-> failure-driven fallback is the right shape vs. fixing the S4 resume
-> ordering directly.
->
-> Denis Pisarev
->
-> Denis Pisarev (1):
->   drm/amdgpu: fall back to MMIO TLB invalidation when KIQ is
->     unresponsive
->
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |  2 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c | 15 +++++++++++----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |  4 +++-
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 18 ++++++++++++++----
->  4 files changed, 30 insertions(+), 9 deletions(-)
->
+>       return 0;
 > --
-> 2.55.0
->
+> 2.43.0
+
