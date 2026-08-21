@@ -4,94 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EACDCC5DF87
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 13:01:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4232DC5DF87
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 13:06:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7014310E226;
-	Fri, 21 Aug 2026 13:01:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AFCCF10E296;
+	Fri, 21 Aug 2026 13:06:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pb6No2s4";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IOI4vWVU";
 	dkim-atps=neutral
-Received: from mail-oi1-f172.google.com (mail-oi1-f172.google.com
- [209.85.167.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B0AB810E226
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 13:01:44 +0000 (UTC)
-Received: by mail-oi1-f172.google.com with SMTP id
- 5614622812f47-4a453848173so118194b6e.1
- for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 06:01:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787317304; cv=none;
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24A9F10E296
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 13:06:17 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-2cad68425a7so1147515ad.1
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 06:06:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787317577; cv=none;
  d=google.com; s=arc-20260327;
- b=rvowE7YDkfi5Qwmz29gPQ9Rae1HGByPZ1Z3eTFHtmqsVw/99ZIqE3yR2OerWJqjV0x
- PRCSffaFqg1AuKECPPdpYiQwJjtQ73E/pu2x2D8aAZj7pR88iFYrTjymlMRASbwAN85j
- cApe3AUFD2bNsuXIj1OsimrljzAmsyKg6WvR8HZTSTfDlbm2bdfDnsV00SrYAPHDm6X4
- Vo7rzSab760fqCfDhQ+ac7HYQTJav/Sjy76VpM0WTFPwAiGqs+EaU/A9JQriD6juSmtA
- Kn+dE20jVMb8Hqn9UTdbfRQJY4nqEo0LPLHp4TIqQNwe96Y1vUuYLH6Izr1crd/Rubz3
- JRzA==
+ b=jqfIjXXDlvhcT7E6v6/eHUJABO27vgktCmPvqf3b4XGfdA9AqK0U1w8UkELaU+UMXJ
+ JrR/F7pnLGpQX6aalRr2U0qlAXzawTzXLTPqlTbbzj/JMauOjhqX9NjJX087AN8PSwzF
+ jRyWP22SK/x4h1SC7LduE39eyPwalWOxNGtfBGmba9TOYuNPYpGVxHGRDm98iAWRqnH1
+ Of2Xm3eC9oOGkJ7KMq+eUesBCBaF65PcXRpbaJTxIxZ3A7jIt4rjF1nZ6LVZT7/YrrB4
+ LMkrbiteUwafpWX6Umw3utjIPHy2TIB/ZYW1c2CcZUxNcM8YawQQgl8lG2z6bFweS+ZA
+ AiKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=pmBpNo9izKZl3cr6183eoF/4yRYwU/OV1hERej/BX6Q=;
- fh=DzLnC5BbIFaHdkDUOVaQPnjnemygSl5Ge93itfSqX0c=;
- b=DWthf4XtEfySc+Plp1lONd/6PBHyHpHWS75Aly9F/rW9EwMYe3XeGvhNuUvPeM7AVy
- BKM1pPEYfvsu+Xs6JFHPZqwear3k05sdqpDJbsr2rIxEy9dO5jUXubqg6KBLR+ax/97h
- /snXgpIiFK5Gm+ECJvMA+SBPg0TrkhTwJcODz/wGaGcgtLL8GiRdAq9Bhy6Y8qDlgwUz
- ZXadLDckU2nDZKVs6o/xgsBTQbnSkCUp9cr9XXIPM6fDZzbrKoIVu8fFL9EEdw9Bu4zi
- d/NlFn7RH+fCy2egTe67mvQfpJFKQSu3bi4Zw2th9nDCgHFf23O51qNLs7ArUUfi6WIE
- ozIg==; darn=lists.freedesktop.org
+ bh=e8+kapFIItIBccHIUABZT6ooH4/t0R4ERogEa828JkQ=;
+ fh=ZJbcsAdpuhkrrEf4MwTFv+CnmlAzlIjOhzSx7/Tzg70=;
+ b=FiopFkgjQ2KXlWshe4q6u0XjGYtgtbV+53NftWzbiss7ZOGI7J9oVPAkTRLFEUNb1h
+ Lz5CKtg2irvWtyTrotmHUqYr3T+KUsdjH20GECMjGRvWuR47s49x1CF3S7ssSDZEPG69
+ bbRbsT1LDHQdR3+qE0yxLeoSifAenGJcbgCoYebWhPi66HWfshFiEkSOzfjh46iYsLUX
+ AN4cn/1KCtRMmoJQ51yJ7d655YskxIGUvPsgNciTnWEHx9zhgR836Svh7l4XrCug9Q5P
+ R6eXLjAKeiq1Iuh2DAyRvBz/w1KLPoO2ef5kR0DFJ1gPmhKAH8CRRcv0XeGwexBtyiLg
+ HJ4A==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787317304; x=1787922104; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1787317577; x=1787922377; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=pmBpNo9izKZl3cr6183eoF/4yRYwU/OV1hERej/BX6Q=;
- b=pb6No2s44glYiqNd7RJ9Kpm5us0bknEIrL/nTUBMiUTdPZ6MobWrYkuzLdkTlIsI/2
- p1JhMP6HlJEDHwmk7rqj/Jl/bz85ovxAckcaWaofecVLATxZX8QpJ+zfVyvlsSNFmAUD
- G30XxEe47oFavuv0JHDSHBlslQdm3L+S5ctH9fh4XHVj3+ELhp2UpLG/TuD0L4gTP4Vn
- 4ob5HHT1ynLylc+x3moQKGo5GkdhQKpQafZE4W1YgqfWg/ek3fvVnC1F1B3SDzTh/UL1
- rBPQrl7xBPERTab6VZnO8Ie5TG+qfTbqw3Cvd9XAivxWSMQ1+0ol1BdrynzWrpN7PD6k
- vwtQ==
+ bh=e8+kapFIItIBccHIUABZT6ooH4/t0R4ERogEa828JkQ=;
+ b=IOI4vWVU8xYjCFzqV2yvROWErzlHgWDDBUiUlUD/K1Z4nLgpsrw91F0Rfee9Wu2BDH
+ j28H9FKPJdcaAF7KLXlllkUQcQNhS5YA+UpAMq5XI4+DtpT35waX9cDfxzwdCo/hWQNG
+ ktQuQoh1EFH5Dq15o8VvqVuwWkQLJWolP9pxoHi/EaeXl1ljzbrHlzeIzsv1oJvkAlHq
+ /NcNgTn8oSmbv213rY6xfAV7YP7aDc3+aRfC9iOzOvVtm4tDXBuiz5PB+ouEvGZaf8HW
+ tbH5O8jo/1jziqMxJoqCuiec8tQ3WQrPerXvKWbIgYphWZ4Iae8BzITUMls5YEuxMT7M
+ 5FQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787317304; x=1787922104;
+ d=1e100.net; s=20251104; t=1787317577; x=1787922377;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=pmBpNo9izKZl3cr6183eoF/4yRYwU/OV1hERej/BX6Q=;
- b=EQHrXAXDcsRulnI1Lk3/baHu6VE3kRjVpqHDxkItlkeOkhKQJlq5jCCvrf1hMvv0IO
- aKaC1LjAujv1ITUeqxRvWSbh0lnq9iPOmlxHUFa/s/LFsEmBfJAk0dbcBMHPsflZQ5Po
- fRPwbNcFI9gPFBG74CPYpddrMXESCFXMtogsKnxLk3gBblKPkpn/KMn5ZMRWereXuGEW
- aSSvqcMs+M0KXxwAwKIkaA43oulmiqLpCiwMOiE6rw2eSGW5ZWaqKpifXJWN19hFJByq
- Y3gepi0u1DbYx4p6GIg0T7CISY5cuApchObHYOdNhmYr2qkjf5SWUrBluDtZzJpQ58Ul
- t83A==
-X-Gm-Message-State: AOJu0YzkcHZIQ7l0hvdzokBYKNx4bKtiS6JvqYe98IeMnnpUvrkvttpf
- TN0NW8sk0vBa0o8OyG2WVmNaChSOuqVD5hPpSN631T3TCWdSxQEtF1bIUcnji4cNNDmvCzQ/p9l
- lp43Bg/FrSOY1Cgt1NPfqK1B/zlLnpi0=
-X-Gm-Gg: AR+sD10XbmPBTLAYGFzRZH+rRj4+WmitCV3DObvWiTvT11wxdvNuS6scD/3JE2JxzJN
- 37pZYLycvGaAxoxmA2hBaPtz8kASUyLo/NPfCeAblaCAbzrV8lT4V3qpSrgzHUJi3NkV+VbDoxh
- n0poWZv4n1A6q1smHZtvLC4OZecr2s6sRogRkFgkxBq3+9t0eGeTEM1uttRBBl+AqBpMg6hKE2N
- Rdp25qVJfU7z+cv90HmkrxGdTrJ8SUHu9eP1NCsL0mnsrTCmT6IcwhydAU6kvV2kL9RKhx2muu2
- nilW+5coCAleUA/mIWOFzr2tewsZa55AL0POwaKaYVH9pXvXQZf4zAcV0kTLJe7IxbQIp72RMG4
- 1WzMU09q3eZk8FdWN4mYMMNdRRXe/EpM=
-X-Received: by 2002:a05:6808:1b0a:b0:4af:5d69:1cb8 with SMTP id
- 5614622812f47-4b2eef4b138mr3544042b6e.0.1787317303616; Fri, 21 Aug 2026
- 06:01:43 -0700 (PDT)
+ bh=e8+kapFIItIBccHIUABZT6ooH4/t0R4ERogEa828JkQ=;
+ b=WtM4mh0mArgofnAnc7disvVYW0JQBOEjEdwrUKHiZdw6N6cgAtam8DS22JacTsKuMo
+ 4SpFrEvQycF/+FGX8QDIfmPS4oFOtDZkxj5WQbOkj1RjlI7iGgMTJeqCwNzX+lvTNQ8t
+ e7Z032+UxHpVmbmcOP6fJpYZmOLg5LpYNIacWsdLgYNi4GPDQqRIimEcJ4xQSpqwjwWN
+ AiLE348YUEOgCrLtC+7dx2kb4rYe3bQKHYe2chnoBDchMJS+0b6BQUVZp4fVJn2U00We
+ bsBjjiuHYJkUR9C+qtNiS7jVKK8GsMZQ+Ew/PwWYwNq7I4CXC9NtJtRdXVkakWLaQg1G
+ 22SA==
+X-Gm-Message-State: AFuF++nuZT4EdZzVhcqSCj4g7lIf+QLD4GjdtiyKbx8QBIjSyNHZ39sk
+ z5wt716eD3oQI5mmIy1y9CsU0IZEutx/HEeAkMYW4NiU8V8KfJeQ7j0L9g8u2XW6OIhMjWV6ian
+ gyW3l3TwV7UTCupiZBmNN4W01d8A7mAk=
+X-Gm-Gg: AR+sD12//ep2wyQ2rlGupa77fVSxO2HMctIOUrnWbPVAolbtqyfyM6nNWDBWreLBjF+
+ Xi1AZMie1gVyTmspHJeo5Z3Bqvhos8TIY75Rf2gXE/3eD+r6k+DBALJXw6CxyZxxpFdhvUzggOz
+ 9/fZmxdSKpUUZcIrFgOiKrYOvCVSHamM5/DLdgxKqRhAchAELMFN9+q5wd8Y0dHfVJtk0kienLN
+ S5CjW8DdqyZ0bLNI0s1xSpa5yD6+EZNvAMMFzRAXJpgfWw/21Ybbq15PbqHe+9+8wD4VAv8bZMp
+ UgCFClCs3cbRV1o6gODLimx7rqeey7ExvFC9nY/yRln3IMh/lMJg/6XggWyLaj8h6vJCnuMUlMI
+ NZbxhRgd7E0PEW6HluDACf3/2v0xx/lA=
+X-Received: by 2002:a17:902:f709:b0:2c9:d298:6c0a with SMTP id
+ d9443c01a7336-2d64b047823mr61827985ad.2.1787317576394; Fri, 21 Aug 2026
+ 06:06:16 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260814033302.406402-1-Prike.Liang@amd.com>
- <CADnq5_OMJpBgYYev6nBf7BJD-+WxPc5YS-42vHkxQH_udD5hCQ@mail.gmail.com>
- <DS7PR12MB60058101B79694CFFE687FC8FBA32@DS7PR12MB6005.namprd12.prod.outlook.com>
-In-Reply-To: <DS7PR12MB60058101B79694CFFE687FC8FBA32@DS7PR12MB6005.namprd12.prod.outlook.com>
+References: <20260821100906.1652542-1-xiang.liu@amd.com>
+In-Reply-To: <20260821100906.1652542-1-xiang.liu@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 21 Aug 2026 09:01:30 -0400
-X-Gm-Features: AcwNN1XJSyqQwxpKv6I3bqIA-bBzL4Y3FqhUH9M-VRKWYJNfsZnbzUwNQ7lRPiE
-Message-ID: <CADnq5_OOdb2z_Di1GMNFrJVe2ML7v829rQsd_UKiTqtLJp6tGQ@mail.gmail.com>
-Subject: Re: [PATCH v2] drm/amdgpu/userq: fix lock missing for userq fence
- error set
-To: "Liang, Prike" <Prike.Liang@amd.com>
-Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig,
- Christian" <Christian.Koenig@amd.com>
+Date: Fri, 21 Aug 2026 09:06:05 -0400
+X-Gm-Features: AcwNN1V5idRFAcFjl3zaiP3wFtMHjFoya3Qmdjz5zbMmMGVLvHusKnHwQyr2Vuo
+Message-ID: <CADnq5_M_8azMxrWBNukehd4ytrXmM_JVN5crHq7_sTSsUSrmzw@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdgpu: clamp the isolation index for rings outside a
+ partition
+To: Xiang Liu <xiang.liu@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, Hawking.Zhang@amd.com, 
+ Christian.Koenig@amd.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -108,109 +105,79 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 21, 2026 at 5:09=E2=80=AFAM Liang, Prike <Prike.Liang@amd.com> =
-wrote:
+On Fri, Aug 21, 2026 at 6:20=E2=80=AFAM Xiang Liu <xiang.liu@amd.com> wrote=
+:
 >
-> AMD General
+> adev->isolation[] has one slot per partition, but a ring that is not
+> assigned to one keeps AMDGPU_XCP_NO_PARTITION, which is ~0, so indexing
+> the array with it is out of bounds. SDMA submissions hit this on both
+> the isolation enforcement and the VM flush path and trip UBSAN.
 >
-> Regards,
->       Prike
+> Fall back to the first slot the way the cleaner shader path already
+> does, and stop taking the address before the ring type check that makes
+> it relevant.
 >
-> > -----Original Message-----
-> > From: Alex Deucher <alexdeucher@gmail.com>
-> > Sent: Wednesday, August 19, 2026 11:52 PM
-> > To: Liang, Prike <Prike.Liang@amd.com>
-> > Cc: amd-gfx@lists.freedesktop.org; Deucher, Alexander
-> > <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.Koenig@amd.co=
-m>
-> > Subject: Re: [PATCH v2] drm/amdgpu/userq: fix lock missing for userq fe=
-nce error
-> > set
-> >
-> > On Thu, Aug 13, 2026 at 11:50=E2=80=AFPM Prike Liang <Prike.Liang@amd.c=
-om> wrote:
-> > >
-> > > amdgpu_userq_fence_driver() and amdgpu_userq_fence_driver_destroy()
-> > > don't acquire the dma_fence spinlock, so locking the dma_fence lock
-> > > before test the signaled state and set error state.
-> > >
-> > > Signed-off-by: Prike Liang <Prike.Liang@amd.com>
-> > > ---
-> > >  .../gpu/drm/amd/amdgpu/amdgpu_userq_fence.c   | 20 ++++++++++++-----=
---
-> > >  1 file changed, 13 insertions(+), 7 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> > > b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> > > index 19af1adc2921..09e2079cfdbd 100644
-> > > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> > > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-> > > @@ -191,14 +191,15 @@ void amdgpu_userq_fence_driver_destroy(struct k=
-ref
-> > *ref)
-> > >         struct dma_fence *f;
-> > >
-> > >         spin_lock_irqsave(&fence_drv->fence_list_lock, flags);
-> > > +       lockdep_assert_held(&fence_drv->fence_list_lock);
-> > >         list_for_each_entry_safe(fence, tmp, &fence_drv->fences, link=
-) {
-> > >                 f =3D &fence->base;
-> > > -
-> > > -               if (!dma_fence_is_signaled(f)) {
-> > > +               spin_lock(dma_fence_spinlock(f));
-> > > +               if (!dma_fence_is_signaled_locked(f)) {
-> > >                         dma_fence_set_error(f, -ECANCELED);
-> > > -                       dma_fence_signal(f);
-> > > +                       dma_fence_signal_locked(f);
-> > >                 }
-> > > -
-> > > +               spin_unlock(dma_fence_spinlock(f));
-> > >                 list_del(&fence->link);
-> > >                 dma_fence_put(f);
-> > >         }
-> > > @@ -423,11 +424,16 @@ amdgpu_userq_fence_driver_set_error(struct
-> > amdgpu_userq_fence *fence,
-> > >         struct dma_fence *f;
-> > >
-> > >         spin_lock_irqsave(&fence_drv->fence_list_lock, flags);
-> > > -
-> > > +       lockdep_assert_held(&fence_drv->fence_list_lock);
-> > >         f =3D rcu_dereference_protected(&fence->base,
-> > >                                       lockdep_is_held(&fence_drv->fen=
-ce_list_lock));
-> > > -       if (f && !dma_fence_is_signaled_locked(f))
-> > > -               dma_fence_set_error(f, error);
-> > > +       if (f) {
-> > > +               /* nest f->lock inside fence_list_lock */
-> > > +               spin_lock(dma_fence_spinlock(f));
-> >
-> > Why do we need to take the fence spinlock for userqs, but not for kerne=
-l queues?
-> > See amdgpu_fence.c
->
-> For the kernel queue ring fence, we also need to hold the dma_fence lock =
-when calling dma_fence_is_signaled_locked(). The reason that does not asser=
-t the lock missing for the kernel ring fence is the .signaled() callback is=
- not implemented, so dma_fence_signal_locked() will never be invoked.
->
+> Signed-off-by: Xiang Liu <xiang.liu@amd.com>
 
-Sounds like we need to fix up the kernel queue fences as well.
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
-
-
-> Thanks,
-> Prike
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 5 ++++-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c     | 4 +++-
+>  2 files changed, 7 insertions(+), 2 deletions(-)
 >
-> > Alex
-> >
-> > > +               if (!dma_fence_is_signaled_locked(f))
-> > > +                       dma_fence_set_error(f, error);
-> > > +               spin_unlock(dma_fence_spinlock(f));
-> > > +       }
-> > >         spin_unlock_irqrestore(&fence_drv->fence_list_lock, flags);  =
-}
-> > >
-> > > --
-> > > 2.34.1
-> > >
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
+/amd/amdgpu/amdgpu_device.c
+> index baadb676f76b..d8d182599fc6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -6756,8 +6756,8 @@ struct dma_fence *amdgpu_device_enforce_isolation(s=
+truct amdgpu_device *adev,
+>                                                   struct amdgpu_ring *rin=
+g,
+>                                                   struct amdgpu_job *job)
+>  {
+> -       struct amdgpu_isolation *isolation =3D &adev->isolation[ring->xcp=
+_id];
+>         struct drm_sched_fence *f =3D job->base.s_fence;
+> +       struct amdgpu_isolation *isolation;
+>         struct dma_fence *dep;
+>         void *owner;
+>         int r;
+> @@ -6770,6 +6770,9 @@ struct dma_fence *amdgpu_device_enforce_isolation(s=
+truct amdgpu_device *adev,
+>             ring->funcs->type !=3D AMDGPU_RING_TYPE_COMPUTE)
+>                 return NULL;
+>
+> +       isolation =3D &adev->isolation[ring->xcp_id =3D=3D AMDGPU_XCP_NO_=
+PARTITION ?
+> +                                    0 : ring->xcp_id];
+> +
+>         /*
+>          * All submissions where enforce isolation is false are handled a=
+s if
+>          * they come from a single client. Use ~0l as the owner to distin=
+ct it
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd=
+/amdgpu/amdgpu_vm.c
+> index 5a6f5151c3ca..743d307c71fd 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+> @@ -774,7 +774,9 @@ void amdgpu_vm_flush(struct amdgpu_ring *ring, struct=
+ amdgpu_job *job,
+>                      bool *emit_gds_needed)
+>  {
+>         struct amdgpu_device *adev =3D ring->adev;
+> -       struct amdgpu_isolation *isolation =3D &adev->isolation[ring->xcp=
+_id];
+> +       struct amdgpu_isolation *isolation =3D
+> +               &adev->isolation[ring->xcp_id =3D=3D AMDGPU_XCP_NO_PARTIT=
+ION ?
+> +                                0 : ring->xcp_id];
+>         unsigned vmhub =3D ring->vm_hub;
+>         struct amdgpu_vmid_mgr *id_mgr =3D &adev->vm_manager.id_mgr[vmhub=
+];
+>         struct amdgpu_vmid *id =3D &id_mgr->ids[job->vmid];
+> --
+> 2.34.1
+>
