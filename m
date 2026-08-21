@@ -4,133 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C0F70C5DF87
-	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 13:49:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E6CDEC5DF89
+	for <amd-gfx@archiver.kernel.org>; Fri, 21 Aug 2026 14:26:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8D2BE10E2C6;
-	Fri, 21 Aug 2026 13:49:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 63E7C10E0A5;
+	Fri, 21 Aug 2026 14:26:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="NmmBBHT/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="04LdTGpP";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010025.outbound.protection.outlook.com [52.101.201.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 359EC10E2C0;
- Fri, 21 Aug 2026 13:49:18 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012070.outbound.protection.outlook.com [40.107.209.70])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8F15410E0A5
+ for <amd-gfx@lists.freedesktop.org>; Fri, 21 Aug 2026 14:26:00 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=j4ZDKF4IId/xSxUsz3S/SvpNLbrpmuQmKg/FbIC1XZirKodoziIrHnUD3+uVKrYfIUg79xZTbcv0cYhg+pJX8gKGnH31PcmGi7m6CY0xiTMMPRrB2WaZrWo3MmwUJJZhXEMNHz3inNhrD2SsulBC79TBvVDgGEEhB2gtz2ETJOPRIVIGm1rWVn0MB/XI1AcqlicQKP1uqtyokqcDwQ37O0OFaUZaX+IehuQwfF5AA1kJOcNHYcmGT0yJfsq9FSeseXtDb+Y0Wk0msSTkQJ6UxLnJEu/08M2HznO8u/SRn6TLJ/2l4V4+HJG0Uskb1UNyrFFDM+N7v9ac3g5f3u1EYw==
+ b=XiP0FZpjQOE0FN2IJ/OPXZ6mVtTY/5q2g7iXwXCJXDqui+BGl+00xwvE9Ath5d1ZORkYPficrDksEtY9pflpDrxtHKvRssv9/+lnaSWmEe8/PbcGQR3ZWBvLg05an6o8hIJkYwbz7uLhJXlHTX0PfpIfREGAjW77ncyl31X9cO00HYUYhQxojSt7j/FMQjPm73TshG4KzM+qlgEfQ/QilxCCB62SU8snpGQ1DqXfV0JD429g+6BueqGqIV+Kl72+BZrd7T1lqD6Q3wA1D3zDVQ/Okw6CxGX4DNJrnvhC/dnvnfa/2O7IUz6TrjUVbP6v9bjmzudPXazkkUX00RORfg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tE3UIWqleJWu654rut87Ew1E0aQ7Q1vgsKxROqYPxjQ=;
- b=NnpjmalSObZNdvgXl11YIgLkKbZjp4SMyEoF60jZowP9l0pgy/au2jjN7TLBtkFVly/Fes6tVEWCzjCELLcGjXn9u3+NSMKivAJ9cZTYCSW7UeyawfsylR7OP7s1Uf+NkPpla3aEo2GMm9Eef4MpSOxM5wFWuo1nh0h8p3FkcQBC75HbXFLhdfjcOlsRp6M4JCtwgccb+Zj8gJ18IZB3IDXU66FtIiIaCiJhWX3NPjcqk07YkNyawdX8HffVDRK66wiW3H4i6pgeJvSabWvUT680hFR0Yz2XMUqs8mor0LOxCqOSTAO1UV72/6G4h3iwWMTe6Xjha3LRgPBheon9bg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=KzR/pMnm5TsfNiWCvW0jTO2HPXN92BwMnLGk1nGct8E=;
+ b=KjDpqY1esFW0tvqSAPJNzyYQ3N4u8mfVV0XGmHVe8/InDreWxl3t+J97SDjn/R5Fcv9HtJ2GpSACJ4FF85Xa9oTsGfwZF+OFzeUZ5sO6X3E2h+c1j355OCB9w1zNg3xKzZBIInbWDvgw1I4G/mYMj7CopDv6DkX/asKxtAkNOOZOVulsH9XoM/iJuQR6xeXHAK7zQ6QyNftAYU7briAXRCz3IuLzkHrU51MH139leW6Gaw8Tdm2wSriwfFFmSYkcv2i4qdrkz4PpgUJp6mNPdnrjrOK50X6DV7F04DnwTjQliu4o0yCJ5hWEatL1SZxr7x/EPS87N/zBhpXhZ/eoqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tE3UIWqleJWu654rut87Ew1E0aQ7Q1vgsKxROqYPxjQ=;
- b=NmmBBHT/4y3snQQHtnxuVAGMGKZm0dX/crBzOTQO7XeQmwrZOd++N5h2V6gV4nmpnR5n9pcUlw/5s6/0Ko3jfhfm1W5zoBLhxikFZL36+XrIyFP1yVtN8X34QRIoBzdr81IYFr4HvQ6T/Hzie/QFcSx/NScRlovH6jbiTD+WFJE=
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com (2603:10b6:8:c1::19) by
- SJ1PR12MB6338.namprd12.prod.outlook.com (2603:10b6:a03:455::19) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=KzR/pMnm5TsfNiWCvW0jTO2HPXN92BwMnLGk1nGct8E=;
+ b=04LdTGpPOBl0113jAcBgVZAqjjwlI8RpgEbQc/MNAA+xm/d7sUk6ohyJerbWrwMT0S9tTZ0xOnI5AiD6aleK1fhMrxOnnsciuCnltyQh1+8K1cJzw6yaaPo2F04Xoybhhhl4EgJGz8dr0KonelJhsH1g+AqYyW7VkscJqMnh3yw=
+Received: from BLAPR03CA0025.namprd03.prod.outlook.com (2603:10b6:208:32b::30)
+ by LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
- 2026 13:49:10 +0000
-Received: from DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::b2e1:64e5:3b9e:738a]) by DS0PR12MB6534.namprd12.prod.outlook.com
- ([fe80::b2e1:64e5:3b9e:738a%6]) with mapi id 15.21.0339.010; Fri, 21 Aug 2026
- 13:49:10 +0000
-From: "Wheeler, Daniel" <Daniel.Wheeler@amd.com>
-To: Melissa Wen <mwen@igalia.com>, "airlied@gmail.com" <airlied@gmail.com>,
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Koenig, Christian"
- <Christian.Koenig@amd.com>, "daniels@collabora.com" <daniels@collabora.com>,
- "Wentland, Harry" <Harry.Wentland@amd.com>, "leandro.ribeiro@collabora.com"
- <leandro.ribeiro@collabora.com>, "maarten.lankhorst@linux.intel.com"
- <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
- <mripard@kernel.org>, "pekka.paalanen@collabora.com"
- <pekka.paalanen@collabora.com>, "simona@ffwll.ch" <simona@ffwll.ch>,
- "siqueira@igalia.com" <siqueira@igalia.com>, "Li, Sun peng (Leo)"
- <Sunpeng.Li@amd.com>, "tzimmermann@suse.de" <tzimmermann@suse.de>
-CC: "Hung, Alex" <Alex.Hung@amd.com>, "kernel-dev@igalia.com"
- <kernel-dev@igalia.com>, Lyude Paul <lyude@redhat.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>
-Subject: RE: [PATCH v3 0/3] drm/atomic-state-helper: fixes for blend-mode-prop
- warning
-Thread-Topic: [PATCH v3 0/3] drm/atomic-state-helper: fixes for
- blend-mode-prop warning
-Thread-Index: AQHdKzEqbzG4Q7vesUKMS+novRdU2baokNfg
-Date: Fri, 21 Aug 2026 13:49:09 +0000
-Message-ID: <DS0PR12MB65342AEDED0D035DFA92E4189CA32@DS0PR12MB6534.namprd12.prod.outlook.com>
-References: <20260813143605.106104-1-mwen@igalia.com>
-In-Reply-To: <20260813143605.106104-1-mwen@igalia.com>
-Accept-Language: en-CA, en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-08-21T13:48:54.0000000Z;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
- v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
- MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DS0PR12MB6534:EE_|SJ1PR12MB6338:EE_
-x-ms-office365-filtering-correlation-id: b1e914e3-2be5-4e02-9cdc-08deff8af9f3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|366016|376014|7416014|56012099006|10067099003|6133799003|22082099003|18002099003|11063799006|921020|38070700021;
-x-microsoft-antispam-message-info: /mOqgWBk2QNWnaAD04l1Y7r7tOKXnFi9TH6yAM4YX//7+wFq63mxj3IC5yJKNQghbqcegQLpsls5MqqUEVvJ2pv89Sc/AoUm2HTIVlGWDjKpL8mPFnUDfgLAx49OFXMNm6OWt3OioJK4ddpjfQ91tl4Yd8CbSYbyN3JcMmTEZKyufGpmrdMcXOEtUct/H1Q+i5fmquxEwtrYv+4ZYYRfqSVpkFEF2SZToPG8m2H9t8B6DXo3TqPZsx7FJLQmCIRlcPfw4ynEIZVMjC9jkO4l7hBoDKucW5GqaTJ8e1MyNXYjDlOJLzEzOh2rbTYATGwFUBEx/Nw9k3csB+SqqtcBm2FTE+nINURSve0dfSlYiGkLSYyJg8bsSNPqhhIIJPJ/hbukskaGM+JcxXtZdNYtRqDeA4irEC4+x5Z4qaNq45/SAVYDEb352ZkMPB0kVqDrYXxIfDOa+exZLkAVN3EfwnuPCZhv9mWWFQ3qNQTdK8eABTXs3P8RRDD6Wa41fA9k/BqkE6MvacRW/qVzvRd1zLXS7K5YyNj3yClRvjnYGj/gOaiPjqIdrkxjexYmJ5SYTO3IROFhazTH0s2iPzyi1DGUucA8yHWsK2z0091cNmntrR4Kv4JVle4SjBqJceDo0Iworo0T41TuWb+RixAhEPOWWyvlS7u+eZz0ZaK0OE3j9kY2195/sqiQpFjDBsMigjXq+xSkxbc+49lUgPWqjhiBOsIg6p0PaVW5B8Fi96EES35DnE+Tv7ZEH4/9KTGk
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DS0PR12MB6534.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(56012099006)(10067099003)(6133799003)(22082099003)(18002099003)(11063799006)(921020)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?Hzu3BMdqpd+jzih6MahXDyilq0nD2/rKqD+ab1XbZkLEbwcEy4riF4jdNA?=
- =?iso-8859-1?Q?tEk77NdmD0lm5U2Zxhc0cZYho6QyG+DXD3DUV/bsm7NmLBMyxzwUe4VF4U?=
- =?iso-8859-1?Q?8eje0gpqnUNuV9LRh0dzrmeXwLeHXkBQhKUUwTr34rw3UEZE2NbyqYkWsv?=
- =?iso-8859-1?Q?axKg5qHXAR7veWv9IyIg8v3GtDjzhaba8vEnrvF4yZqE7tAupQ/0sx71Oy?=
- =?iso-8859-1?Q?7vF2ALfd2IuO4d2EFyeAAsyZF6HtTwryYwvPy5R97TCmk/T9251MLVdwUC?=
- =?iso-8859-1?Q?xelM6H7jB8bPyCXu4IPFnD67/xRXx6axYwEEMd9ya64Tkl0efzyRiJSdZo?=
- =?iso-8859-1?Q?SuiIfp/F+bVRiBLb4wSVdp58eJURdd+ZQjmBvMtxAPtqxzzii06G+kVDxX?=
- =?iso-8859-1?Q?Lg0RG1G5snPCQHTayWlVTXNWBIdmZBtxeU1eMDWJhk4obTtm92SEGtkhSY?=
- =?iso-8859-1?Q?qcjCMFPMbqd28ViDfeG9XNGuOFi8poo0pa/A8LIIbiWE9j8tpKLpdXh4dD?=
- =?iso-8859-1?Q?GYvoG7rpKH691rCJzEIKWPwrTb2QQdRBulZqmcys9NVunui4JrrRQP1Joc?=
- =?iso-8859-1?Q?hjfjR1lkcZBfSImoqxRVN5J+0IL69x8AXu3nWrExgOAnmxwna3vQoDvmFx?=
- =?iso-8859-1?Q?xwi+iIh7Im6IK3fA5+gYFHtBGlB0Hl3w2yWxT9UiSk2OIhOP8J9gh6dt1C?=
- =?iso-8859-1?Q?XySpXg8+gaci93lpT3A48C8fQj0YANusir8Sd09dcs/VINFYPtw5pA9EqE?=
- =?iso-8859-1?Q?8G+KiFjkUbIgijw05BOStH5fwuPXfTg1/TgLAGDdE58WfKdNwuk02ukYzy?=
- =?iso-8859-1?Q?yyoQ4sz3cdlM/GI9YbT9HyopLJbqK314CfExnUOB+rLP0fHK1G9l4hwZHv?=
- =?iso-8859-1?Q?f3NTRoTDCRvHL3R3RDKa/0VaXLBl5YaQA6zbWuI+Jne1rQ3tT3Em8bgIfF?=
- =?iso-8859-1?Q?Egoo3E4OBnkvzPZuEd+ZTyBqPE2t828KNUn0MyqtVV/eEBRu8rormL8Zro?=
- =?iso-8859-1?Q?hjQVsqLDjqltLyWBsL2NrRrTLAiPm3JIdzz3TdsrsZJZzbStCLE2K9QpwP?=
- =?iso-8859-1?Q?J/eP6DVS1j82e/XrDplYSckoiqG1DFx7BAadbGwYch8kMrwvF2xEVGFidI?=
- =?iso-8859-1?Q?1sjFWni4vKghVQhTunfd8goU2QHOzrwRnyWaWBITsLIx2EWtnvC3p1YIaa?=
- =?iso-8859-1?Q?qpsJqo7PwroRGwyQ7t9KswBNPlVX7psO+6wDquM/uyDQPhEiWHKqzEAzdO?=
- =?iso-8859-1?Q?2A6rcr8gSaTDytnLUxwSK+iRgRFW5jm5IGiSdVJ+jDbKmqoQhzg8ZcLcV1?=
- =?iso-8859-1?Q?zu/uXUhqOASaRi0oDRfCZLgPzN38vHZ1qQ9sX0ra+/JQpphBePsNLmOq5i?=
- =?iso-8859-1?Q?kR+bQAjschNgSS9C+vE9k1iwDh9QWL901EGJjFDoaqfjF6borJB0Pd5LKn?=
- =?iso-8859-1?Q?1jgZsGAfy0Umu7Qvv/J+/jMKKaRC+PN/wpNiSfyBTqYmTSDoI9krQJbW7k?=
- =?iso-8859-1?Q?XYeVzjTnbXcjD5UQd0x92/Hdq3zLC7beTtNC9p0ozE6BrqhZe8i/nfMvEQ?=
- =?iso-8859-1?Q?ValVoW+L2m1dVtcMdSXhigmL0+YWGXVbgyqf6a8XzESG8D1aoceKcplkNW?=
- =?iso-8859-1?Q?znIdFiICLK8MZMRwmOs3q1eNR8EhCV1GJZF0qiv9xhJL8GfhOo/omH2Yte?=
- =?iso-8859-1?Q?B3zxhflkOKDEWxpBvRMXt81gHrfCKgPOHSktausbX3PbsXpIXJKgip6qaC?=
- =?iso-8859-1?Q?dfdisI96WlXHNu7QqJiNvT9M1LwrghMuhIZioCbQOzeXSl?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ 2026 14:25:53 +0000
+Received: from BL02EPF0002992A.namprd02.prod.outlook.com
+ (2603:10b6:208:32b:cafe::8d) by BLAPR03CA0025.outlook.office365.com
+ (2603:10b6:208:32b::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.9 via Frontend Transport; Fri, 21
+ Aug 2026 14:25:53 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BL02EPF0002992A.mail.protection.outlook.com (10.167.249.55) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 14:25:52 +0000
+Received: from belanger-linux.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 21 Aug
+ 2026 09:25:52 -0500
+From: David Belanger <david.belanger@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: David Belanger <david.belanger@amd.com>
+Subject: [PATCH 1/2] drm/kfd: Add CU occupancy support to GFX10 and GFX10.3
+Date: Fri, 21 Aug 2026 10:25:25 -0400
+Message-ID: <20260821142526.276153-1-david.belanger@amd.com>
+X-Mailer: git-send-email 2.51.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL02EPF0002992A:EE_|LV8PR12MB9620:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9e38bb86-4d78-407c-1608-08deff901b3a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|23010399003|1800799024|36860700016|376014|56012099006|10067099003|3023799007|6133799003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: KsEpJqD9Y8rVbgmdgz1GH2EUqYNDpiD1Cly4R0Cmam59u1Ahdq4fysAPx+jifMOC+t49QPwqZ1Z4nlQN6hKJltjeZ/W/vsS/2p7+qiJLd1MQcYFaINMi3UdxesF78L1+BrOWRVNwxNnhdnPERD5bCxyZqUz5lk/25n3tg225GyL6Aph9xgWCPJL6WF4cs92gY3bB7aCtK3bs0OYQvKSrmBlmvDh+8+v2hgXCn+vSXDMmuB9SRyvkr/pAsgBE64D7noDUAuNDrHNjGuGpdw1HiWtXXPDwioY5TT2+/HGUSeDdNS9BbiI0gSjzWLUYThiwvM5B6mZ7B2xd/QJYgCWIj/t5rz280IvQQm6MMWd0jvupZAijTZDUyovF4Y9nUWN07YmYoGgLWS+rYLgM1rL1nZhduud9oF57S8GTQP8wRbzi35uplzT4Jp7XNejzdDEBu842yvv03PTdAbwEiA+uXrMbLDxe83A0JAkMS8zV0WhmJyQZ5fOUg4UQJx8wKFRRDteWy5aAAVN/2PFBRmGxT3PrrzcqV89J8T+a2PeEhVs7zD5dihwcLWbZ7A50xafE4SRWwR0U2JHtrA6xL2JwQSIQgFppQLvR0V5jWbAbUXvEN0OUmEhxqhJIm2ZxjDfPYVkYop23cf57IIjZYxLZ516UN/ImIqP4Jf19HwgXmXyHfVRla8Svq2fCR/DntKBC4RfmsBdy+AiXUJ4DQuYIwg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(23010399003)(1800799024)(36860700016)(376014)(56012099006)(10067099003)(3023799007)(6133799003)(18002099003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: VLQikyIsdKW7ISz64Zjyuph+uzsp9yjKGwBhGgmGq3UGaImM94njNhGen7CqIvwjOgZXV/FwvzRmVPvERI5gd51SozPN8a93bGWDXG6uPix+9GKcCr3Z8eWUP6FiA+S23tyYoEKWIYcl6Kqp1VcbPEJu8UjWFR8U5GxlFc1+91tURPNiyxoXA840cqFk6x40YS55v623+XyfsAJOqyyMlxaU3M8IHj/U9QTByEtfTOYJOsRPm7hDx2ANmbYMPRXL6jLkVQRuw3watZRdg/tWXiCgI28otkh5kvrxd7/cnCsmu8mPtC0nZfsVNBbpyiaRy4wimfDG5ZnT45DMhKzayiU4RHc9PhWMqDLTqKMqtyHqTHPrX8LnZ2Yw88mKnPvT8zS2Ymb3bJ9TZt6g2DENpBg/nrpfqrPQsODgURULEMMt+akMn/PvNqtbODRUYzAo
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6534.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b1e914e3-2be5-4e02-9cdc-08deff8af9f3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 21 Aug 2026 13:49:09.6983 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: NMJs+rXKU4470egFO6+dqp0GAtyzXaI5owOELJoFSCr5Q8jbpRe/B2cRqFrpkijqgwAZjN2QqThKjUMZz8x6NA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6338
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 14:25:52.9910 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9e38bb86-4d78-407c-1608-08deff901b3a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0002992A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9620
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,115 +107,204 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Public
+Port changes from GFX9 to GFX10/GFX10.3 mostly as-is.
+Minor changes to register access code.
 
-Hi Melissa,
+Assisted-by: Claude:sonnet-4-6
+Signed-off-by: David Belanger <david.belanger@amd.com>
+---
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c    | 148 ++++++++++++++++++
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h    |   3 +
+ .../drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c  |   1 +
+ 3 files changed, 152 insertions(+)
 
-The updated patches passed all my testing this week, so the tested-by can b=
-e added if you'd like.
-
-Tested-by: Dan Wheeler <daniel.wheeler@amd.com>
-
-Thank you,
-
-Dan Wheeler
-Sr. Technologist | AMD
-SW Display
----------------------------------------------------------------------------=
----------------------------------------
-1 Commerce Valley Dr E, Thornhill, ON L3T 7X6
-amd.com
-
-
------Original Message-----
-From: Melissa Wen <mwen@igalia.com>
-Sent: Thursday, August 13, 2026 10:30 AM
-To: airlied@gmail.com; Deucher, Alexander <Alexander.Deucher@amd.com>; Koen=
-ig, Christian <Christian.Koenig@amd.com>; daniels@collabora.com; Wentland, =
-Harry <Harry.Wentland@amd.com>; leandro.ribeiro@collabora.com; maarten.lank=
-horst@linux.intel.com; mripard@kernel.org; pekka.paalanen@collabora.com; si=
-mona@ffwll.ch; siqueira@igalia.com; Li, Sun peng (Leo) <Sunpeng.Li@amd.com>=
-; tzimmermann@suse.de
-Cc: Hung, Alex <Alex.Hung@amd.com>; Wheeler, Daniel <Daniel.Wheeler@amd.com=
->; kernel-dev@igalia.com; Lyude Paul <lyude@redhat.com>; amd-gfx@lists.free=
-desktop.org; dri-devel@lists.freedesktop.org
-Subject: [PATCH v3 0/3] drm/atomic-state-helper: fixes for blend-mode-prop =
-warning
-
-PREMULTI was the default DRM blend mode until 9813e158d13d
-("drm/drm_blend: allow blend mode property without PREMULTI") introduced th=
-e possibility of exposing the blend mode property without PREMULTI being su=
-pported. However, __drm_atomic_helper_plane_state_init() still resets pixel=
-_blend_mode to PREMULTI (hardcoded), ignoring the supported mode in this pr=
-operty. In the same series, 860e748bddcc ("drm: ensure blend mode supported=
- if pixel format with alpha exposed") starts warning drivers that supports =
-alpha formats in a given planes but doesn't support blend mode property, wh=
-ich includes AMD primary and cursor planes.
-
-For AMD DCN families, overlay and primary planes support the three blend mo=
-des, and therefore PREMULTI is still the default mode. So the warning can b=
-e fixed by just creating blend mode properties for primary planes too. PREM=
-ULTI is the default/unique mode for cursor planes in DCN and DCE driver. Ho=
-wever, looks like PIXEL_NONE is the unique blend mode supported by DCE-gene=
-ration driver. I don't have the hardware to check it out, but looking at th=
-e code I understand that, even if the hardware can do PREMULTI or COVERAGE,=
- the way it programs registers doesn't make these other blend modes actuall=
-y available.
-
-Bearing this in mind, this series is organized as follow:
-
-- Patch 1 fixes the pixel_blend_mode reset when the blend mode property
-  is advertised without PREMULTI support. It's needed for AMD
-  DCE-generation (patch 3) and I think with this we can also remove a
-  workaround in nouveau nv50_wndw_default_state() caused by the
-  hardcoded PREMULTI default value [1].
-
-- Patch 2 fixes the missing-blend-mode-property warning for DCN primary
-  plane and for DCN+DCE cursor plane. The alpha property keeps only on
-  overlay planes because looks like this is not supported by AMD primary
-  planes and it doesn't affect the blend mode warning we are targetting.
-  Enabling alpha properties to primary was also causing -EINVAL on IGT
-  alpha tests because it started testing primary planes and disabling it
-  (which is not allowed by the AMD display driver).
-
-- Patch 3 fixes the warning for DCE primary plane, but I detached this
-  solution from the previous patch because I don't have hardware to
-  validate if my assumption about PIXEL_NONE-only is correct.
-
-[1] https://lore.kernel.org/dri-devel/20260720215058.398210-3-lyude@redhat.=
-com/
-
-[v1]: https://lore.kernel.org/dri-devel/20260722183240.626522-1-mwen@igalia=
-.com/
-Changes:
-- new patch for pixel_blend_mode default value other than PREMULTI.
-- remove DCE11 which supports per_pixel_alpha but doesn't support DCN_UNIVE=
-RSAL_PLANE.
-- new patch for the primary plane blend mode on DCE-generations
-
-[v2]: https://lore.kernel.org/dri-devel/20260804140758.107683-1-mwen@igalia=
-.com/
-Changes:
-- keep alpha property only for overlay planes (looks like primary plane
-  doesn't actually support it) - alpha prop in primary planes causes IGT
-  test failures with RX 7900 XT on a 4k60 HP U27 as reported by Daniel
-  Wheeler.
-- improve readability of if conditions (Alex H)
-- add Leandro's r-b tags.
-
-Best Regards,
-
-Melissa
-
-Melissa Wen (3):
-  drm/atomic-state-helper: set pixel_blend_mode to prop default on reset
-  drm/amd/display: fix missing blend-mode-prop warning for DCN
-  drm/amd/display: advertise PIXEL_NONE as blend mode for DCE generations
-
- .../amd/display/amdgpu_dm/amdgpu_dm_plane.c   | 25 ++++++++++++++++---
- drivers/gpu/drm/drm_atomic_state_helper.c     |  7 ++++++
- 2 files changed, 29 insertions(+), 3 deletions(-)
-
---
-2.53.0
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+index 88acf75f0edd6..4c48f6afb736b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.c
+@@ -1090,6 +1090,153 @@ uint32_t kgd_gfx_v10_hqd_sdma_get_doorbell(struct amdgpu_device *adev,
+ 	return 0;
+ }
+ 
++static void lock_spi_csq_mutexes(struct amdgpu_device *adev)
++{
++	mutex_lock(&adev->srbm_mutex);
++	mutex_lock(&adev->grbm_idx_mutex);
++
++}
++
++static void unlock_spi_csq_mutexes(struct amdgpu_device *adev)
++{
++	mutex_unlock(&adev->grbm_idx_mutex);
++	mutex_unlock(&adev->srbm_mutex);
++}
++
++/**
++ * get_wave_count: Read device registers to get number of waves in flight for
++ * a particular queue. The method also returns the doorbell offset associated
++ * with the queue.
++ *
++ * @adev: Handle of device whose registers are to be read
++ * @queue_idx: Index of queue in the queue-map bit-field
++ * @queue_cnt: Stores the wave count and doorbell offset for an active queue
++ * @inst: xcc's instance number on a multi-XCC setup
++ */
++static void get_wave_count(struct amdgpu_device *adev, int queue_idx,
++		struct kfd_cu_occupancy *queue_cnt, uint32_t inst)
++{
++	int pipe_idx;
++	int queue_slot;
++	unsigned int reg_val;
++	unsigned int wave_cnt;
++	/*
++	 * Program GRBM with appropriate MEID, PIPEID, QUEUEID and VMID
++	 * parameters to read out waves in flight. Get doorbell offset if there are
++	 * non-zero waves in flight.
++	 */
++	pipe_idx = queue_idx / adev->gfx.mec.num_queue_per_pipe;
++	queue_slot = queue_idx % adev->gfx.mec.num_queue_per_pipe;
++	nv_grbm_select(adev, 1, pipe_idx, queue_slot, 0);
++	reg_val = RREG32_SOC15_IP(GC, SOC15_REG_OFFSET(GC, 0,
++				  mmSPI_CSQ_WF_ACTIVE_COUNT_0) + queue_slot);
++	wave_cnt = reg_val & SPI_CSQ_WF_ACTIVE_COUNT_0__COUNT_MASK;
++	if (wave_cnt != 0) {
++		queue_cnt->wave_cnt += wave_cnt;
++		queue_cnt->doorbell_off =
++			(RREG32_SOC15(GC, 0, mmCP_HQD_PQ_DOORBELL_CONTROL) &
++			 CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_OFFSET_MASK) >>
++			 CP_HQD_PQ_DOORBELL_CONTROL__DOORBELL_OFFSET__SHIFT;
++	}
++}
++
++/**
++ * kgd_gfx_v10_get_cu_occupancy: Reads relevant registers associated with each
++ * shader engine and aggregates the number of waves that are in flight for the
++ * process whose pasid is provided as a parameter. The process could have ZERO
++ * or more queues running and submitting waves to compute units.
++ *
++ * @adev: Handle of device from which to get number of waves in flight
++ * @cu_occupancy: Array that gets filled with wave_cnt and doorbell offset
++ *		  for comparison later.
++ * @max_waves_per_cu: Output parameter updated with maximum number of waves
++ *                    possible per Compute Unit
++ * @inst: xcc's instance number on a multi-XCC setup
++ *
++ * Note: It's possible that the device has too many queues (oversubscription)
++ * in which case a VMID could be remapped to a different PASID. This could lead
++ * to an inaccurate wave count. Following is a high-level sequence:
++ *    Time T1: vmid = getVmid(); vmid is associated with Pasid P1
++ *    Time T2: passId = getPasId(vmid); vmid is associated with Pasid P2
++ * In the sequence above wave count obtained from time T1 will be incorrectly
++ * lost or added to total wave count.
++ *
++ * The registers that provide the waves in flight are:
++ *
++ *  SPI_CSQ_WF_ACTIVE_STATUS - bit-map of queues per pipe. The bit is ON if a
++ *  queue is slotted, OFF if there is no queue. A process could have ZERO or
++ *  more queues slotted and submitting waves to be run on compute units. Even
++ *  when there is a queue it is possible there could be zero wave fronts, this
++ *  can happen when queue is waiting on top-of-pipe events - e.g. waitRegMem
++ *  command
++ *
++ *  For each bit that is ON from above:
++ *
++ *    Read (SPI_CSQ_WF_ACTIVE_COUNT_0 + queue_idx) register. It provides the
++ *    number of waves that are in flight for the queue at specified index. The
++ *    index ranges from 0 to 7.
++ *
++ *    If non-zero waves are in flight, store the corresponding doorbell offset
++ *    of the queue, along with the wave count.
++ *
++ *    Determine if the queue belongs to the process by comparing the doorbell
++ *    offset against the process's queues. If it matches, aggregate the wave
++ *    count for the process.
++ *
++ *  Reading registers referenced above involves programming GRBM appropriately
++ */
++void kgd_gfx_v10_get_cu_occupancy(struct amdgpu_device *adev,
++				struct kfd_cu_occupancy *cu_occupancy,
++				int *max_waves_per_cu, uint32_t inst)
++{
++	int qidx;
++	int se_idx;
++	int se_cnt;
++	int queue_map;
++	int max_queue_cnt;
++	DECLARE_BITMAP(cp_queue_bitmap, AMDGPU_MAX_QUEUES);
++
++	lock_spi_csq_mutexes(adev);
++	nv_grbm_select(adev, 1, 0, 0, 0);
++
++	/*
++	 * Iterate through the shader engines and arrays of the device
++	 * to get number of waves in flight
++	 */
++	bitmap_complement(cp_queue_bitmap, adev->gfx.mec_bitmap[0].queue_bitmap,
++			  AMDGPU_MAX_QUEUES);
++	max_queue_cnt = adev->gfx.mec.num_pipe_per_mec *
++			adev->gfx.mec.num_queue_per_pipe;
++	se_cnt = adev->gfx.config.max_shader_engines;
++	for (se_idx = 0; se_idx < se_cnt; se_idx++) {
++		amdgpu_gfx_select_se_sh(adev, se_idx, 0, 0xffffffff, inst);
++		queue_map = RREG32_SOC15(GC, 0,
++					 mmSPI_CSQ_WF_ACTIVE_STATUS);
++
++		for (qidx = 0; qidx < max_queue_cnt; qidx++) {
++			/* Skip queues that are not associated with
++			 * compute functions
++			 */
++			if (!test_bit(qidx, cp_queue_bitmap))
++				continue;
++
++			if (!(queue_map & (1 << qidx)))
++				continue;
++
++			/* Get number of waves in flight and aggregate them */
++			get_wave_count(adev, qidx, &cu_occupancy[qidx], inst);
++		}
++	}
++
++	amdgpu_gfx_select_se_sh(adev, 0xffffffff, 0xffffffff, 0xffffffff, inst);
++	nv_grbm_select(adev, 0, 0, 0, 0);
++	unlock_spi_csq_mutexes(adev);
++
++	/* Update the output parameters and return */
++	*max_waves_per_cu = adev->gfx.cu_info.simd_per_cu *
++				adev->gfx.cu_info.max_waves_per_simd;
++}
++
+ const struct kfd2kgd_calls gfx_v10_kfd2kgd = {
+ 	.program_sh_mem_settings = kgd_program_sh_mem_settings,
+ 	.set_pasid_vmid_mapping = kgd_set_pasid_vmid_mapping,
+@@ -1119,5 +1266,6 @@ const struct kfd2kgd_calls gfx_v10_kfd2kgd = {
+ 	.program_trap_handler_settings = program_trap_handler_settings,
+ 	.hqd_get_pq_addr = kgd_gfx_v10_hqd_get_pq_addr,
+ 	.hqd_reset = kgd_gfx_v10_hqd_reset,
++	.get_cu_occupancy = kgd_gfx_v10_get_cu_occupancy,
+ 	.hqd_sdma_get_doorbell = kgd_gfx_v10_hqd_sdma_get_doorbell
+ };
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
+index a4c607c881783..47ab25d611727 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10.h
+@@ -68,3 +68,6 @@ uint64_t kgd_gfx_v10_hqd_reset(struct amdgpu_device *adev,
+ 			      unsigned int utimeout);
+ uint32_t kgd_gfx_v10_hqd_sdma_get_doorbell(struct amdgpu_device *adev,
+ 					   int engine, int queue);
++void kgd_gfx_v10_get_cu_occupancy(struct amdgpu_device *adev,
++				struct kfd_cu_occupancy *cu_occupancy,
++				int *max_waves_per_cu, uint32_t inst);
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+index e31afee429793..50535563efa86 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v10_3.c
+@@ -683,5 +683,6 @@ const struct kfd2kgd_calls gfx_v10_3_kfd2kgd = {
+ 	.clear_address_watch = kgd_gfx_v10_clear_address_watch,
+ 	.hqd_get_pq_addr = kgd_gfx_v10_hqd_get_pq_addr,
+ 	.hqd_reset = kgd_gfx_v10_hqd_reset,
++	.get_cu_occupancy = kgd_gfx_v10_get_cu_occupancy,
+ 	.hqd_sdma_get_doorbell = kgd_gfx_v10_hqd_sdma_get_doorbell
+ };
+-- 
+2.51.1
 
