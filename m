@@ -4,85 +4,77 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 07AF7C5DF97
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B6618C5DF81
 	for <amd-gfx@archiver.kernel.org>; Sun, 23 Aug 2026 09:28:05 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9561C10E491;
-	Sun, 23 Aug 2026 09:28:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 434A210E49D;
+	Sun, 23 Aug 2026 09:28:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RtSSIAnw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="l+TQGpnw";
 	dkim-atps=neutral
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com
- [209.85.208.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4C0110E346
- for <amd-gfx@lists.freedesktop.org>; Sat, 22 Aug 2026 14:58:02 +0000 (UTC)
-Received: by mail-ed1-f50.google.com with SMTP id
- 4fb4d7f45d1cf-6a38098734bso3589226a12.1
- for <amd-gfx@lists.freedesktop.org>; Sat, 22 Aug 2026 07:58:02 -0700 (PDT)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 43C4010E3D8
+ for <amd-gfx@lists.freedesktop.org>; Sat, 22 Aug 2026 09:17:49 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-49554ebb87dso17135915e9.3
+ for <amd-gfx@lists.freedesktop.org>; Sat, 22 Aug 2026 02:17:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787410681; x=1788015481; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1787390267; x=1787995067; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=MxLxyi+V+p9av77WPt9hWKy9ZGIfmbgiIMqaVzXmUOQ=;
- b=RtSSIAnweF+W5MdGNN33md74zRQ6BO55zGHy7GYHkOvO2a4pf6KOJKEWDE7U3Oh+Ov
- bm56fPs1/NmejIAhdiFELvp3Q9vS0xyELqY0XaYvHbIOagseexm4jsxYfmTK5KzgNx/8
- vVsk+vjhnS2LNuBSCoaw+IJCjDckqWwz2da/KPkDkAPUgw6K4SDc3iWFLIfRLrbf2W4U
- gkzOTr1GnyjVF7Jtb1GfSTb3NcZAdHJDNuGOKS1H1iv4weZGFzeumCTQnr6ladDC23gM
- mpjq6audJNBDUkpyQknLk97r10NhGBIsW7HhFkfdFzK1oyiVdXu0NTBWzvuCSliaptLT
- Zsuw==
+ bh=t6ZdW23XPQbuspc71nQ6IOlPWvgfeZGd9xc03sJ0L8s=;
+ b=l+TQGpnwc+AwbWzwnpFp098sdkb0mVkYRXrhnk0IV13TcfbRHeR4drdRoKnibvjLF8
+ Pv3zTaVvL/KlVEt1UwJPVfTocgNLCc8jFlG0wMZG1wPlbiH1yAcbmKLCk7O1KL0p/lQL
+ xJJhyRWCWVPBtxSEkZMlHQGcT9ucUO/n259vrUQHFz919cXGx98r4Y0Ndx5CI2vpWScW
+ 9Zr2uxF3SS9X8Il7vzkZA3jg9woApUBb5APBxiShGMwbknqGjle+uBsOuFG5GhM+fqwF
+ naYQx35EvdzYrNybFMErQ9iPTcpraWoPkdlQzNoQthBwFh4JNGWbGk5z3ktau+o4wZpz
+ MZsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787410681; x=1788015481;
+ d=1e100.net; s=20251104; t=1787390267; x=1787995067;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=MxLxyi+V+p9av77WPt9hWKy9ZGIfmbgiIMqaVzXmUOQ=;
- b=kYw/PJVTyEQ8SOsNIotX3YbAVKnIt3H5oVi+4HI22YXosnV8lPAK4TvRpLqIPgSDwH
- SDlZo1O6AcjW/Yy/Z9ZwqeA2c6DJIb2vhvfAsDA6YD8ZXxbe75P9Jm8NMUI31lb7Qfix
- cqq/a9G9FOR2ddC274Tr0J3X95sOD9vPelyJl8N4smJu3e6tU1FLBMnJqnfSqELKbCEH
- 9ZMoIz5cqSMnSwStSPBdjH04LdIOsUgWYpWTCH5Nwn+nSPRuKOMDJGRS9fn8YLMXsA/E
- 6/CNIP0kiYm2D1xrxtO2x11vGLRQMXHsNOPyhzlKr80Lw6y+rDd0zLwfMCqcvz6XSjtW
- hV3Q==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrhcsQkhesnAf7hBhqEPuhFTUqu/0MnVM65e3J78TusBtBkA/acTko9ojh+MRq0RGUXVfGHwSys@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l5haILgY3Zj6+xocSdl52+x+phNgdYwdXKQ/m2ZeU5b6SYe4XO
- EzmrvRpwRuREUfbxmwD3wga4kU4PF5lQqLd+GelncDZRI/oVhR8Nag4U
-X-Gm-Gg: AR+sD11F7UAa1A+GLJCOE0kEpBeycYiPwyma4YXn2E44j0MwfGYUNvlpgEnAoTYkUxH
- ZmPAfrVh0Dl2ZN+br6zTG8p+kaWaUL/NB4G4Vjal67gX7akZGCVg0nFWHfnNjlj3GWHkZYu+tD6
- hDo6O/Cw1KN+T4qXV8Tm6BBHsYbfFvalhP9QBs+r7QkRD0cg95Jr5FKCPYKEGa20mBMAPBkZjZh
- e4/Sr6m0UUy3bVGRyo3pIMOlYj/NK1lMChqU3jGXkQfxN39H5YzKGOygjLomq4IngFrFu+LnxJc
- HUcmpwdDEU6bFBHX0Wpjf8j1FpT75CqasQCMaTNWGK5lwcggDjaPkSZomvVU9nRG2PamPeYNK1p
- x9idLxJuV5H+3dszr7xPKTsofhN1EvTmJVMbSTERaChvS3AItMlsI/dXPfNSGfNGGGRxDrZAc5M
- 0lqrNhH1Om7KngMhwEomdEO0YD+gqZ+SSFNRXQNx+unnOsYE9Lx/jUjNx1htNJbGTXZbMhQfrbr
- 8ISSnb19ZRwZZKY6BiA4aOH1hzI5iN5wSAOR2sVhnGwafn0T1VgLqT9tzSuSjVgkV+dKg==
-X-Received: by 2002:a05:6402:a0d8:b0:6a0:926e:f907 with SMTP id
- 4fb4d7f45d1cf-6a42f184b7dmr17373988a12.1.1787410680740; 
- Sat, 22 Aug 2026 07:58:00 -0700 (PDT)
-Received: from localhost.localdomain
- (2a02-a463-a071-0-e100-b32a-30a-b4b.fixed6.kpn.net.
- [2a02:a463:a071:0:e100:b32a:30a:b4b])
+ bh=t6ZdW23XPQbuspc71nQ6IOlPWvgfeZGd9xc03sJ0L8s=;
+ b=jlV/52nMz66ZxJvcSl+FyWuLK/MyR88i7dVxNKLToCOIW3S2Ar6h+Fi4IDzp+B4aZq
+ Az+kyEbbKcukHscc4i58p9DklWTBjWkgmaPUTw8CeVlcLKiFIh/XZslW/Uv8QOiYhuC2
+ 0xpkcRDhFSC8DycYci9MqARZtFVSbWv6ZgdtmUTdW77CVza+gwD3ITWrpE/qnCIIhJZC
+ NH9+zf6++d9MLYP/oIUpDyUSC4vMdJsZ6sz7peVS5u9dH0wbvums0th08Gcmy5manYPq
+ GByY2udPhCb5XL4U54s0N9FYA8a5RGa+YQzeLDzjhhJMroiLPYP9+IQYDAe5isTfG81r
+ oOgw==
+X-Gm-Message-State: AFuF++ljWO34BM54SJXXSKiQ56FTAY7A9+evgifoIyF+8reCOHnF7yJ8
+ bdkINUhubulZWnqYwc5hbdYIM5KauAYxAXCxoWzKoNmYxdUKS0678PdeJGb+jg72wjI1zg==
+X-Gm-Gg: AR+sD13bYkPxsie0hZBXFfbvwSH0jmNtvlgRQMnWMixbNlP9WgFRx94aLiAx7dssz/W
+ rMA+pozpwQjw/nEHycFWq7r8tmGvz3Fxvnfv0JX9ueXj/Y6DVtHCUQPVMBG/7lJ9iPIy6aN5E0X
+ GL6wWf9MMM8oY6ayl/cs8Q/Hxj91cpwCVAS9Z+nQ0uC3kqMYBf0XRqPmVoltgrmsgKbwf4T9A0A
+ QI8KG1alcN5Xoja0aa+bRyOLG20r97+G8Nfq+poQ3mwe4A0aW/V+gBLO+a6FWZeQ5pxtzEDzlmW
+ bVt1mZGT1FexjCKR907XRo3zNWksEmW54LA+s3QptFPlsauLmCPY3cFgIQ29qRfJbN4WQHGAFtb
+ 5YaOHWS4o6r70k1f/an6B3IrkjWc9omGx5oyAZzwTd0TG7DspZJ2BVRS+c6jdkLF/zDLRVKRoqD
+ 2s+szb8lTuVyu7SjbYQueNIiBk7LJh8wIPj0XtNLPEABhc5D3VNp6RJ6RdTFT7lZyce/Rzp/ekK
+ EWBLaggmZgQGu7dymEAj9rKcDbEjlR+
+X-Received: by 2002:a05:600c:a087:b0:499:86ce:465e with SMTP id
+ 5b1f17b1804b1-499b8324b09mr179506975e9.4.1787390267548; 
+ Sat, 22 Aug 2026 02:17:47 -0700 (PDT)
+Received: from cachyos-x8664 ([2a01:e0a:899:6110:90de:8744:7ad5:471e])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6a3ff17df84sm16471538a12.31.2026.08.22.07.57.59
+ ffacd0b85a97d-482c9b78df1sm1539550f8f.10.2026.08.22.02.17.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 22 Aug 2026 07:58:00 -0700 (PDT)
-From: Hari Mishal <harimishal1@gmail.com>
-To: Harry Wentland <harry.wentland@amd.com>
-Cc: Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
+ Sat, 22 Aug 2026 02:17:45 -0700 (PDT)
+From: Julien Le Bourg <julien.lebourg8@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
  Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Dillon Varone <dillon.varone@amd.com>,
- Gaghik Khachatrian <gaghik.khachatrian@amd.com>,
- Cruise Hung <Cruise.Hung@amd.com>, Chenyu Chen <chen-yu.chen@amd.com>,
- Peichen Huang <PeiChen.Huang@amd.com>,
- Qingqing Zhuo <qingqing.zhuo@amd.com>, Jun Lei <Jun.Lei@amd.com>,
- Mustapha Ghaddar <mghaddar@amd.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Hari Mishal <harimishal1@gmail.com>
-Subject: [PATCH] drm/amd/display: fix division by zero in get_estimated_bw()
-Date: Sat, 22 Aug 2026 16:57:51 +0200
-Message-ID: <20260822145751.42328-1-harimishal1@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
+ Wayne Lin <Wayne.Lin@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Chuanyu Tseng <chuanyu.tseng@amd.com>,
+ Julien Le Bourg <julien.lebourg8@gmail.com>
+Subject: [PATCH] drm/amd/display: Restore self-refresh fallback in DCN21
+ bandwidth validation
+Date: Sat, 22 Aug 2026 11:17:15 +0200
+Message-ID: <20260822091715.6692-1-julien.lebourg8@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 23 Aug 2026 09:28:04 +0000
@@ -100,44 +92,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-get_estimated_bw() divides by link->dpia_bw_alloc_config.bw_granularity,
-which is zeroed by reset_bw_alloc_struct() and only populated once
-DP_TUNNELING_BW_ALLOC_CAP_CHANGED has been handled.
+[Why]
+Commit b96150a70696 ("drm/amd/display: Should support p-state under
+dcn21") made dcn21_validate_bandwidth_fp() call dcn21_fast_validate_bw()
+with allow_self_refresh_only = false. This removed the fallback that
+re-runs dml_get_voltage_level() with dm_allow_self_refresh when the
+first pass finds no voltage level with p-state support.
 
-link_dp_dpia_handle_bw_alloc_status(), the DPCD interrupt handler,
-calls get_estimated_bw() whenever DP_TUNNELING_ESTIMATED_BW_CHANGED
-is set, independently of whether DP_TUNNELING_BW_ALLOC_CAP_CHANGED
-has ever fired for that link. A connected USB4/DPIA tunneling device
-that reports an estimated-bandwidth change before ever reporting a
-capability change drives a division by zero in this IRQ path.
+Some eDP panels advertise high refresh rate modes whose vertical
+blanking is too short for a DRAM p-state switch. For example the AUO
+1920x1080@360Hz panel of the ASUS ROG Strix G733QSA (Renoir/Cezanne,
+DCN 2.1) uses a pixel clock of 800.01 MHz with vtotal 1111, i.e. a
+vblank of 31 lines (~77 us). Such modes can only be validated through
+the self-refresh fallback. Since the change they fail
+dml_get_voltage_level(), dcn21_validate_bandwidth() returns
+DC_NOT_SUPPORTED and the mode is pruned:
 
-link_dpia_send_bw_alloc_request() already guards the same
-bw_granularity division; add the identical guard here rather than
-introducing a new pattern.
+  [drm] Mode Validation Warning: Unknown Status failed validation.
+  create_validate_stream_for_sink: Unhandled validation failure 24
+  Rejected mode: "1920x1080": 360 800010 1920 1968 2000 2000 1080 1090 1095 1111 0x48 0xa (ERROR)
 
-Fixes: 8e5cfe547bf3 ("drm/amd/display: upstream link_dp_dpia_bw.c")
-Assisted-by: gkh_clanker_t1000
-Signed-off-by: Hari Mishal <harimishal1@gmail.com>
+leaving the panel with 1920x1080@60 only. This is a user-visible
+regression versus v6.18, where the mode was available.
+
+[How]
+Pass allow_self_refresh_only = true again in
+dcn21_validate_bandwidth_fp(). Modes that support p-state still validate
+on the first pass; the fallback is only taken when no p-state capable
+voltage level exists, which is exactly the case of these short-vblank
+modes.
+
+Note that the issue addressed by commit b96150a70696 ("drm/amd/display:
+Should support p-state under dcn21") (atomic_check passing
+while commit_tail fails, because sr_exit_time_us differs between
+DC_VALIDATE_MODE_ONLY and DC_VALIDATE_MODE_AND_PROGRAMMING) is a
+consistency problem between the two validation contexts rather than a
+problem with the fallback itself. It should be solved without dropping
+modes that have no p-state capable configuration at all.
+
+Tested on ASUS ROG Strix G733QSA (Cezanne, DCN 2.1): 1920x1080@360 is
+enumerated again on top of v7.1.8 with this change.
+
+Fixes: b96150a70696 ("drm/amd/display: Should support p-state under dcn21")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5628
+Cc: Wayne Lin <Wayne.Lin@amd.com>
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Julien Le Bourg <julien.lebourg8@gmail.com>
 ---
- .../gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c  | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
-index dd854d992692..f43fc4b78a8d 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_dpia_bw.c
-@@ -103,6 +103,11 @@ static int get_estimated_bw(struct dc_link *link)
- {
- 	uint8_t bw_estimated_bw = 0;
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+index e82f2d531211..ceb7ca312577 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+@@ -2336,7 +2336,8 @@ bool dcn21_validate_bandwidth_fp(struct dc *dc, struct dc_state *context,
+ 	/*Unsafe due to current pipe merge and split logic*/
+ 	ASSERT(context != dc->current_state);
  
-+	if (link->dpia_bw_alloc_config.bw_granularity == 0) {
-+		DC_LOG_ERROR("%s: BW granularity is zero!\n", __func__);
-+		return 0;
-+	}
-+
- 	core_link_read_dpcd(
- 			link,
- 			ESTIMATED_BW,
+-	out = dcn21_fast_validate_bw(dc, context, pipes, &pipe_cnt, pipe_split_from, &vlevel, validate_mode, false);
++	out = dcn21_fast_validate_bw(dc, context, pipes, &pipe_cnt, pipe_split_from,
++				     &vlevel, validate_mode, true);
+ 
+ 	if (pipe_cnt == 0)
+ 		goto validate_out;
 -- 
-2.43.0
+2.55.0
 
