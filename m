@@ -4,153 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EC74AC5DF9B
-	for <amd-gfx@archiver.kernel.org>; Sun, 23 Aug 2026 09:28:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 89381C5DF9D
+	for <amd-gfx@archiver.kernel.org>; Sun, 23 Aug 2026 09:28:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5C63310E4A9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CE51E10E4B1;
 	Sun, 23 Aug 2026 09:28:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FN1u/yS7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="Tr3+0Ql8";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FB5410E30A;
- Fri, 21 Aug 2026 14:39:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1B5A86136F;
- Fri, 21 Aug 2026 14:39:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 911B61F000E9;
- Fri, 21 Aug 2026 14:39:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1787323162;
- bh=1is4vlPBYIemAGJNcyTfyeB4LcQTBxiGBN1U0sCNEMs=;
- h=From:Subject:Date:To:Cc;
- b=FN1u/yS7xdcJbsStZ+nKUxoMvs+kEhII7QUNCGLCDiEhPuJw8j37Gjf3ioEGHsays
- B4R6H/mGhya901xaI8+TExbsArw8P2XBnjAaCN0Z/T6tQ3ZOnXhBqOG9Y/MCuxFQ6C
- HN/AQR2D5n3xrnHkUZefY218B3odTqpVVkxm7+dJ5uNAgi1zBZ7kt0gno/MpL1h+Xb
- MKG/JonL4EzBXyXM3CGkhUnJDh8c16VtEqLvL0r3/Mmy54DYjR08fTieu12GmNe5E0
- pdEgW/sYqNxYCl6bEerjcj1H24XdynDHugbHesM92juDFZ/tIH8ZmNuSGm3l1YgeXa
- Bk7E97B55Zwjw==
-From: Maxime Ripard <mripard@kernel.org>
-Subject: [PATCH 00/70] drm/crtc: Convert all drivers to atomic_create_state
- and remove reset
-Date: Fri, 21 Aug 2026 16:38:36 +0200
-Message-Id: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com
+ [74.125.224.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8890210E3BC
+ for <amd-gfx@lists.freedesktop.org>; Sat, 22 Aug 2026 14:25:43 +0000 (UTC)
+Received: by mail-yx1-f47.google.com with SMTP id
+ 956f58d0204a3-66c7127a73dso2206723d50.2
+ for <amd-gfx@lists.freedesktop.org>; Sat, 22 Aug 2026 07:25:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787408742; x=1788013542; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=QxqAR5ocTjBBUS/ny625Id0I7Kf488fcpzoDzJMtITk=;
+ b=Tr3+0Ql8HgeI17IxIhy2Z8lG67KjOC9rDQsqlMDSpiWnq38u/Dxk5Bb5Q7/zVtyZE7
+ tjX8g229rjMP3wYkY4146P3HWCM6DOzRMQxlWTt9iFNdZrZeX7rO5Z2E/VoNWEUYvENg
+ 6xw0KNkotSXzqbLcknrwAUSgmbwByDTxW+Q1WBEio6RLGUZTkOrYaeoFvhYQiud3IdTA
+ FPa6tuokcu7wTKwQLdfSQwuXZaUjpSVddEG8G2vFPWSMjgauwqXSunsKtaUxnneQBsdP
+ UHGpI1fgZzLCUJWGBIdP3xIOp+qa/GANV23bj2bn1lmjfuBr8xXCBwky/Fo/s06S2H3E
+ BeOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787408742; x=1788013542;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=QxqAR5ocTjBBUS/ny625Id0I7Kf488fcpzoDzJMtITk=;
+ b=jsAieNk/+0ig5NCV/FN+J+CSBDmOOJBaJ+GlSMAFqMDhRN1zd7mBjSRJ3sm+z//yZD
+ UgePCjeh6J932OC+v9ssc6hCQW7G5lMt2HAUujBikLs6DUNMV5WoYE9R9QH7XUhTjO7t
+ SG/WF+i1Prxy3FJA9uyYWB/GzIaKlwUlPykg6ofiJKegLC7aJPAmAZy138oUbtX0bdjp
+ GIvSvClUVxg+YEtgTWV+DLQNudz5AVX9P7Nrm8N8iCTLPcUKILJ3Ohl6+Zge9kYRD9FF
+ yJMMPjVtjvUe/i53Oq+dRR2amT9R/Gdcad/M3QpVDiKxbcMS/YjeHaMidCIMu+fhl2G0
+ 7zog==
+X-Gm-Message-State: AFuF++mAO/Vbq4CeXBzkgXKELt6rDvTnwxfuRhpXpnBpAkZZo4d6D8IS
+ G4g6Hvl2MVO/mOsql+sxo/zRsgiIQMZbFxXBblXg5/MRQEcINGug2akxDeNfLyHz
+X-Gm-Gg: AR+sD10iZMcvjzaYc3l5dJfDee6TPv02udpzTG83VNxNY0PexdOsBitGnZnbSdLzhBD
+ qG6CVtnNOwcmnCdBgPNJ+ioFRVufIJQPdaRA8JvFgFST1kkChEw/q4dQgGTEMIiRzq0SnydDGrj
+ fqfl93ml6Wb9MKYBnQzzpk4ChFhPjYhKP3ZiqjtOGcd9jUn1y53xyJYX8nEUeFfhyEg83t0daBh
+ gSI2BOMfuBdiYUptDj0tblVtqld6mLJ5wK6yJ5TXxNFGjI2P/BidzwO7X/zYYWocN54L4tJ5c9g
+ MJXztZveFJFf4xwpNrqL0Bvh0HEDp5aLofc+EiexUAdUysg3+y04O7hhp9O673rSuyJpfe9RjKS
+ nUO4YSpdELUnhAVKAoESJVsR4P1BvUBb5JyL3a77VXbU7hf2GBmSAIhpLAJFQiP7VZiyr1uFIAB
+ OnltIt89h6cpi41SJxFlMWq/w8LDHmsWpFCqhGha6M+itBkcp1YBTyZKmyBwJ2aMPXB+taqgjUF
+ 44x4gef2NeqtdPyRGAPDKFgJfZz+0Ohcy43Ii6x4DwpIxSvzmbf1wFeoGvf9cvcI0li
+X-Received: by 2002:a05:690e:d8c:b0:66c:f689:8e60 with SMTP id
+ 956f58d0204a3-66cf6899d6cmr910360d50.23.1787408742210; 
+ Sat, 22 Aug 2026 07:25:42 -0700 (PDT)
+Received: from DigitalOasis.tail29fcbc.ts.net
+ (104-182-93-176.lightspeed.brhmal.sbcglobal.net. [104.182.93.176])
+ by smtp.gmail.com with ESMTPSA id
+ 956f58d0204a3-66cf4a2c3c2sm911142d50.17.2026.08.22.07.25.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 22 Aug 2026 07:25:41 -0700 (PDT)
+From: Bocaj Gnuoy <bocajgnuoy@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ oded.gabbay@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Bocaj Gnuoy <bocajgnuoy@gmail.com>
+Subject: [PATCH] drm/amdkfd: don't leak BOs when process teardown can't unmap
+ them
+Date: Sat, 22 Aug 2026 09:25:21 -0500
+Message-ID: <20260822142521.899098-1-bocajgnuoy@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNwQ7CIAzG8VchPdsEFnRur2J2YFC1B0ALmiXL3
- l3mjv8v6a8rFBKmAqNaQejLhXNqYU4K/NOlByGH1tDp7qJ7PWCQiCljzELopXoUKlTRWGfDefb
- XYA2045fQnZc/fJuOFnp/ml+PEWZXmpBj5DqqXY1cPCZaKu7PUPeoB5i27QeOVHDlpAAAAA==
-X-Change-ID: 20260709-drm-no-more-crtc-reset-14a4d5bc8d41
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- Janne Grunau <j@jannau.net>, Sasha Finkelstein <k@chaosmail.tech>, 
- asahi@lists.linux.dev, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org, 
- Liviu Dudau <liviu.dudau@arm.com>, Russell King <linux@armlinux.org.uk>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Inki Dae <inki.dae@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org, 
- Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>, 
- Ruben Wauters <rubenru09@aol.com>, Tian Tao <tiantao6@hisilicon.com>, 
- Xinwei Kong <kong.kongxinwei@hisilicon.com>, 
- Yongbang Shi <shiyongbang@huawei.com>, John Stultz <jstultz@google.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Xinliang Liu <xinliang.liu@linaro.org>, 
- Yongqin Liu <yongqin.liu@linaro.org>, Dexuan Cui <decui@microsoft.com>, 
- Long Li <longli@microsoft.com>, 
- Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org, 
- Fabio Estevam <festevam@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
- Liu Ying <victor.liu@nxp.com>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Lucas Stach <l.stach@pengutronix.de>, Paul Cercueil <paul@crapouillou.net>, 
- linux-mips@vger.kernel.org, 
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>, 
- Paul Kocialkowski <paulk@sys-base.io>, Jerome Brunet <jbrunet@baylibre.com>, 
- Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- linux-amlogic@lists.infradead.org, Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Dmitry Baryshkov <lumag@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
- freedreno@lists.freedesktop.org, linux-arm-msm@vger.kernel.org, 
- Marek Vasut <marex@denx.de>, Dave Airlie <airlied@redhat.com>, 
- Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org, 
- virtualization@lists.linux.dev, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- linux-renesas-soc@vger.kernel.org, 
- Marcus Folkesson <marcus.folkesson@gmail.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Chunyan Zhang <zhang.lyra@gmail.com>, Orson Zhai <orsonzhai@gmail.com>, 
- Alain Volmat <alain.volmat@foss.st.com>, 
- Raphael Gallais-Pou <rgallaispou@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Yannick Fertre <yannick.fertre@foss.st.com>, Chen-Yu Tsai <wens@kernel.org>, 
- Samuel Holland <samuel@sholland.org>, linux-sunxi@lists.linux.dev, 
- Jyri Sarha <jyri.sarha@iki.fi>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Aditya Garg <gargaditya08@proton.me>, Aun-Ali Zaidi <admin@kodeit.net>, 
- LiangCheng Wang <zaq14760@gmail.com>, Alex Lanzano <lanzano.alex@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
- Chia-I Wu <olvaffe@gmail.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Michal Simek <michal.simek@amd.com>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, 
- Jocelyn Falempe <jfalempe@redhat.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
- Dharma Balasubiramani <dharma.b@microchip.com>, 
- Manikandan Muralidharan <manikandan.m@microchip.com>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Huacai Chen <chenhuacai@kernel.org>, 
- Jianmin Lv <lvjianmin@loongson.cn>, Mingcong Bai <jeffbai@aosc.io>, 
- Qianhai Wu <wuqianhai@loongson.cn>, Xi Ruoyao <xry111@xry111.site>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- Danilo Krummrich <dakr@kernel.org>, Lyude Paul <lyude@redhat.com>, 
- nouveau@lists.freedesktop.org, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Magnus Damm <magnus.damm@gmail.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Biju Das <biju.das.jz@bp.renesas.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Sandy Huang <hjc@rock-chips.com>, 
- linux-rockchip@lists.infradead.org, Iker Pedrosa <ikerpedrosam@gmail.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org, 
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>, 
- Melissa Wen <melissa.srw@gmail.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Zack Rusin <zack.rusin@broadcom.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10779; i=mripard@kernel.org;
- h=from:subject:message-id; bh=XrpjqpxeU7ALF5OLpK2WpdbG15zlPyFx5PlM9LAlHdY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFkdSd+XbtrDvPLAypKrqwIuJBVtKGP58e3vNoGDLkZFC
- yNyzqqYdkxlYRDmZJAVU2R5IhN2enn74ioH+5U/YOawMoEMYeDiFICJRGgxVrO/2eF1MjFl/cHs
- Jxsn5npdOsF9VzR9SUlnHHvK7MgDb5U7ja6LGKsfk5sjoxNiGpPyibE+bdafRRv8i237pSPUjJy
- TN8z19j5uyFy45IQqZ1NX/r7E2TskJUSfuzM9XtUaqtnAHgQA
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sun, 23 Aug 2026 09:28:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -166,188 +89,295 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This is a follow-up to the plane reset removal series, and part of a
-larger effort to remove the reset hook from all KMS objects.
+kfd_process_device_free_bos() discards the return value of both
+amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu() and
+amdgpu_amdkfd_gpuvm_free_memory_of_gpu(), then drops the idr handle
+unconditionally.  That is fine as long as the free succeeds, but the unmap
+has to validate the page-table BOs first (vm_validate_pt_pd_bos()), and
+that allocates.  When the process is dying *because* memory is exhausted -
+e.g. GTT pinned up to amdgpu.gttsize by a compute client that then aborted
+on ENOMEM - the unmap fails with "failed to validate PT BOs",
+mem->mapped_to_gpu_memory stays non-zero, and
+amdgpu_amdkfd_gpuvm_free_memory_of_gpu() bails out with -EBUSY before it
+removes the BO from process_info->kfd_bo_list.  The handle is dropped
+anyway, so nothing will ever free that kgd_mem again.
 
-The CRTC reset hook is overloaded: it is called both at probe time to
-create the initial software state and during suspend/resume to reset
-hardware and software state. These two roles have different
-requirements, and the reset hook is not fallible, making error
-handling difficult for the initial state allocation path.
+The consequences are worse than a leak.  drm_release() ->
+amdgpu_vm_fini() -> amdgpu_amdkfd_gpuvm_destroy_cb() then trips
 
-While reset has the semantics to reset both the software and hardware
-state, the vast majority of implementations and all the helpers only
-reset the software state, making them equivalent to
-atomic_create_state in practice. The atomic_create_state hook makes
-this explicit: it only allocates and initializes a pristine state
-without any side effect, and returns the state pointer or an ERR_PTR
-on failure.
+  WARN_ON(!list_empty(&process_info->kfd_bo_list));
+  WARN_ON(!list_empty(&process_info->userptr_inval_list));
 
-This series converts all CRTC drivers tree-wide from the reset hook to
-atomic_create_state, then removes the reset hook from struct
-drm_crtc_funcs entirely. Two drivers (tilcdc and loongson) had actual
-hardware reset logic mixed into their reset hook; those are moved to
-CRTC creation instead. The conversions were done using a combination of
-Coccinelle semantic patches and manual adjustments.
+and frees process_info regardless, while the leaked BO stays in TTM's
+eviction LRU with bo_vas pointing into the just-freed amdgpu_vm.  A
+subsequent amdgpu_gem_create_ioctl() that forces TTM eviction can then walk
+into it and spin in amdgpu_vm_bo_move() -> _raw_spin_lock(), which produces
+repeating rcu_preempt self-detected stalls, blocks reclaim-related work
+(__lru_add_drain_all()) and eventually makes the machine unusable - within
+about ten minutes here.  A recoverable ENOMEM becomes an unrecoverable
+hang.
 
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
+Note the free path itself does not allocate - it reserves the BO, detaches
+the attachments and drops the references - so it can complete even when the
+unmap could not.  Give amdgpu_amdkfd_gpuvm_free_memory_of_gpu() a @force
+flag and set it on the teardown callers, which have no later chance to try
+again.  The -EBUSY guard is kept for the ioctl paths, where userspace can
+still unmap and retry, and where kfd_ioctl_free_memory_of_gpu() already
+leaves the handle in place on failure.
+
+Reported on: RX 6900 XT (gfx1030), amdgpu 3.64.0, kernel 7.1.6/7.1.8,
+booted with amdgpu.gttsize=4096.  The failing allocation was on the Navi 21
+at 0000:06:00.0, which enumerates as ROCm0; a gfx1100 is also present in
+the same box but was not the device that ran out.
+
+Tooling disclosure, per Documentation/process/generated-content.rst: this
+bug was diagnosed and this patch written with the assistance of Claude Code
+(claude-opus-5) in a single interactive session. The input was a kernel
+trace captured on the reporting host - two WARNs out of
+amdgpu_amdkfd_gpuvm_destroy_cb() during an aborting client's teardown,
+followed by an unrecoverable deadlock in the TTM eviction path in the next
+process to allocate - together with the request to find the cause and, if
+possible, fix it. The assistant read the KFD BO lifecycle in the v7.1.8 and
+v7.2 sources, identified the -EBUSY early return as the point at which the
+BO is stranded on the process_info lists, and wrote both the diff and this
+changelog. The diff was then rebased onto amd-staging-drm-next and the
+call-site audit redone against that tree: one prototype, one definition and
+eight call sites, all converted. The rebase caught a real miss - the tree
+has gained kfd_process_free_gpuvm_map() alongside kfd_process_free_gpuvm(),
+and the original hunk's trailing context matched the wrong one of the two.
+Both are teardown-only (kfd_process_destroy_pdds() and the create_process()
+error unwind), so both take force=true. checkpatch.pl was the only
+additional analysis tool used.
+
+Tested on a RX 6900 XT + RX 7900 XTX box, kernel 7.2.0-1-cachyos, booted
+with amdgpu.gttsize=4096 so the GTT wall is reachable. A HIP-linked client
+(llama.cpp with both the HIP and Vulkan backends present) was made to pin
+host memory up to the 4 GiB cap and die on the resulting ENOMEM. Same
+kernel version, same cap, same workload, same binary either side; the
+patch is the only variable:
+
+                              unpatched   patched
+  peak GTT                      4.00 GiB   4.00 GiB
+  "failed to validate PT BOs"         34         36
+  exit                           139/SEGV   139/SEGV
+  teardown WARNs                       2          0
+  "Force-freeing BO VA"                0          9
+
+Both sides died the same way, on SIGSEGV, so the difference is in teardown
+and not in how the client failed.  The force-free count of 9 matched the 9
+KFD allocations an earlier kprobe run measured for this client, consistent
+with all of those allocations being reclaimed.
+
+End to end: on the unpatched kernel, relaunching the same workload after
+that abort is what hangs the machine - the new client's
+amdgpu_gem_create_ioctl walks the eviction LRU into the orphaned object.
+With the patch, a second run under heavier pressure (1904 "failed to
+validate PT BOs", 35 force-freed BOs) again left zero WARNs, and the
+relaunch then loaded in 12 seconds and served normally instead of
+deadlocking. GTT returned to its 0.05 GiB idle baseline afterwards, so the
+memory is genuinely reclaimed rather than merely not deadlocking. Across
+four runs the client died variously on SIGABRT and SIGSEGV; the leak
+tracked memory exhaustion at teardown, never the signal.
+
+Note the WARNs that fire vary between runs: the originally reported crash
+tripped :1608 and :1610 (kfd_bo_list, userptr_inval_list), while this
+reproduction tripped :1608 and :1609 (kfd_bo_list, userptr_valid_list).
+Both are the same skipped list_del_init(&mem->validate_list) - that node
+serves whichever list the BO currently sits on, so the leak is
+list-agnostic. The client also died on SIGSEGV rather than the abort seen
+originally; the leak depends on memory being exhausted at teardown, not on
+how the process died, which is consistent with SIGKILL alone never
+reproducing it.
+
+Limitations, per Documentation/process/coding-assistants.rst step 8:
+- The deadlock itself was reproduced on the unpatched kernel, but its stack
+  trace was not captured: the jammed workqueue takes journald down with it,
+  so nothing reaches disk. Capturing it needs netconsole or a serial
+  console. The teardown WARNs, which are the direct measure of the leak,
+  are captured in full.
+- The claim that the deadlocked spinlock lives inside the leaked object
+  still rests on address arithmetic (lock at the WARNed structure + 0x30).
+  Confirming the offset needs a debug build, which has not been done.
+- Verification is single-box: one gfx1100 + gfx1030 machine, one kernel
+  version.
+
+The -EBUSY guard itself dates to commit a46a2cd103a8 ("drm/amdgpu: Add
+GPUVM memory management functions for KFD") and is correct for the ioctl
+path. The leak became reachable only once a caller started dropping the
+last handle regardless of the return value.
+
+Fixes: 52b29d73340d ("drm/amdkfd: Add per-process IDR for buffer handles")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5672
+Assisted-by: LLM checkpatch
+Tested-by: Bocaj Gnuoy <bocajgnuoy@gmail.com>
+Signed-off-by: Bocaj Gnuoy <bocajgnuoy@gmail.com>
 ---
-Maxime Ripard (70):
-      drm/adp: Switch to drm_atomic_helper_crtc_create_state
-      drm/amdgpu: vkms: Switch to drm_atomic_helper_crtc_create_state
-      drm/arm: hdlcd: Switch to drm_atomic_helper_crtc_create_state
-      drm/armada: Switch to drm_atomic_helper_crtc_create_state
-      drm/exynos: Switch to drm_atomic_helper_crtc_create_state
-      drm/fsl-dcu: Switch to drm_atomic_helper_crtc_create_state
-      drm/gud: Switch to drm_atomic_helper_crtc_create_state
-      drm/hisilicon: hibmc: Switch to drm_atomic_helper_crtc_create_state
-      drm/hisilicon: kirin: Switch to drm_atomic_helper_crtc_create_state
-      drm/hyperv: Switch to drm_atomic_helper_crtc_create_state
-      drm/imx: dc: Switch to drm_atomic_helper_crtc_create_state
-      drm/imx: dcss: Switch to drm_atomic_helper_crtc_create_state
-      drm/ingenic: Switch to drm_atomic_helper_crtc_create_state
-      drm/kmb: Switch to drm_atomic_helper_crtc_create_state
-      drm/logicvc: Switch to drm_atomic_helper_crtc_create_state
-      drm/meson: Switch to drm_atomic_helper_crtc_create_state
-      drm/msm: mdp4: Switch to drm_atomic_helper_crtc_create_state
-      drm/mxs: mxsfb: Switch to drm_atomic_helper_crtc_create_state
-      drm/qxl: Switch to drm_atomic_helper_crtc_create_state
-      drm/renesas: shmobile: Switch to drm_atomic_helper_crtc_create_state
-      drm/simple-kms: Remove unused reset_crtc hook
-      drm/simple-kms: Switch to drm_atomic_helper_crtc_create_state
-      drm/sitronix: st7571: Switch to drm_atomic_helper_crtc_create_state
-      drm/sprd: Switch to drm_atomic_helper_crtc_create_state
-      drm/sti: Switch to drm_atomic_helper_crtc_create_state
-      drm/stm: Switch to drm_atomic_helper_crtc_create_state
-      drm/sun4i: Switch to drm_atomic_helper_crtc_create_state
-      drm/tests: Switch to drm_atomic_helper_crtc_create_state
-      drm/tilcdc: Move hardware reset to CRTC creation
-      drm/tilcdc: Switch to drm_atomic_helper_crtc_create_state
-      drm/tiny: appletbdrm: Switch to drm_atomic_helper_crtc_create_state
-      drm/tiny: bochs: Switch to drm_atomic_helper_crtc_create_state
-      drm/tiny: cirrus: Switch to drm_atomic_helper_crtc_create_state
-      drm/tiny: pixpaper: Switch to drm_atomic_helper_crtc_create_state
-      drm/tiny: sharp: Switch to drm_atomic_helper_crtc_create_state
-      drm/udl: Switch to drm_atomic_helper_crtc_create_state
-      drm/vbox: Switch to drm_atomic_helper_crtc_create_state
-      drm/verisilicon: Switch to drm_atomic_helper_crtc_create_state
-      drm/virtio: Switch to drm_atomic_helper_crtc_create_state
-      drm/xlnx: Switch to drm_atomic_helper_crtc_create_state
-      drm/mipi-dbi: Switch to drm_atomic_helper_crtc_create_state
-      drm/atomic-helper: Remove drm_atomic_helper_crtc_reset
-      sysfb: Convert to create_state
-      drm/amdgpu: dm: Convert to atomic_create_state
-      drm/komeda: Convert to atomic_create_state
-      drm/malidp: Convert to atomic_create_state
-      drm/ast: Convert to atomic_create_state
-      drm/atmel-hlcdc: Convert to atomic_create_state
-      drm/imx: ipuv3: Convert to atomic_create_state
-      drm/loongsoon: Move hardware reset to CRTC creation
-      drm/loongson: Convert to atomic_create_state
-      drm/mediatek: Convert to atomic_create_state
-      drm/mgag200: Convert to atomic_create_state
-      drm/msm: dpu1: Convert to atomic_create_state
-      drm/msm: mdp5: Convert to atomic_create_state
-      drm/mxsfb: lcdif: Convert to atomic_create_state
-      drm/nouveau: Convert to atomic_create_state
-      drm/omapdrm: Convert to atomic_create_state
-      drm/rcar-du: Convert to atomic_create_state
-      drm/rzg2l-du: Convert to atomic_create_state
-      drm/rockchip: vop: Convert to atomic_create_state
-      drm/rockchip: vop2: Convert to atomic_create_state
-      drm/sitronix: st7920: Convert to atomic_create_state
-      drm/solomon: ssd130x: Convert to atomic_create_state
-      drm/tegra: Convert to atomic_create_state
-      drm/vc4: Convert to atomic_create_state
-      drm/vkms: Convert to atomic_create_state
-      drm/vmwgfx: Convert to atomic_create_state
-      drm/atomic-helper: Remove __drm_atomic_helper_crtc_reset
-      drm/crtc: Remove reset
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  2 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 25 ++++++++++++++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  9 ++++---
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 21 ++++++++++++----
+ 4 files changed, 43 insertions(+), 14 deletions(-)
 
- drivers/gpu/drm/adp/adp_drv.c                      |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c           |  2 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 17 ++++----
- drivers/gpu/drm/arm/display/komeda/komeda_crtc.c   | 18 ++++----
- drivers/gpu/drm/arm/hdlcd_crtc.c                   |  2 +-
- drivers/gpu/drm/arm/malidp_crtc.c                  | 18 ++++----
- drivers/gpu/drm/armada/armada_crtc.c               |  2 +-
- drivers/gpu/drm/ast/ast_mode.c                     | 18 ++++----
- drivers/gpu/drm/atmel-hlcdc/atmel_hlcdc_crtc.c     | 19 ++++-----
- drivers/gpu/drm/drm_atomic_state_helper.c          | 45 --------------------
- drivers/gpu/drm/drm_mode_config.c                  |  4 +-
- drivers/gpu/drm/drm_simple_kms_helper.c            | 13 +-----
- drivers/gpu/drm/exynos/exynos_drm_crtc.c           |  2 +-
- drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_crtc.c         |  2 +-
- drivers/gpu/drm/gud/gud_drv.c                      |  2 +-
- drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_de.c     |  2 +-
- drivers/gpu/drm/hisilicon/kirin/kirin_drm_ade.c    |  2 +-
- drivers/gpu/drm/hyperv/hyperv_drm_modeset.c        |  2 +-
- drivers/gpu/drm/imx/dc/dc-crtc.c                   |  2 +-
- drivers/gpu/drm/imx/dcss/dcss-crtc.c               |  2 +-
- drivers/gpu/drm/imx/ipuv3/ipuv3-crtc.c             | 18 ++++----
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |  2 +-
- drivers/gpu/drm/kmb/kmb_crtc.c                     |  2 +-
- drivers/gpu/drm/logicvc/logicvc_crtc.c             |  2 +-
- drivers/gpu/drm/loongson/lsdc_crtc.c               | 26 ++++++------
- drivers/gpu/drm/mediatek/mtk_crtc.c                | 18 ++++----
- drivers/gpu/drm/meson/meson_crtc.c                 |  2 +-
- drivers/gpu/drm/mgag200/mgag200_drv.h              |  4 +-
- drivers/gpu/drm/mgag200/mgag200_mode.c             | 15 ++++---
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c           | 18 ++++----
- drivers/gpu/drm/msm/disp/mdp4/mdp4_crtc.c          |  2 +-
- drivers/gpu/drm/msm/disp/mdp5/mdp5_crtc.c          | 20 ++++-----
- drivers/gpu/drm/mxsfb/lcdif_kms.c                  | 17 ++++----
- drivers/gpu/drm/mxsfb/mxsfb_kms.c                  |  4 +-
- drivers/gpu/drm/nouveau/dispnv50/head.c            | 14 +++----
- drivers/gpu/drm/omapdrm/omap_crtc.c                | 17 ++++----
- drivers/gpu/drm/qxl/qxl_display.c                  |  2 +-
- drivers/gpu/drm/renesas/rcar-du/rcar_du_crtc.c     | 17 ++++----
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_crtc.c      | 15 +++----
- drivers/gpu/drm/renesas/shmobile/shmob_drm_crtc.c  |  2 +-
- drivers/gpu/drm/rockchip/rockchip_drm_vop.c        | 18 ++++----
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c       | 18 ++++----
- drivers/gpu/drm/sitronix/st7571.c                  |  2 +-
- drivers/gpu/drm/sitronix/st7920.c                  | 10 +++--
- drivers/gpu/drm/solomon/ssd130x.c                  | 10 +++--
- drivers/gpu/drm/sprd/sprd_dpu.c                    |  2 +-
- drivers/gpu/drm/sti/sti_crtc.c                     |  2 +-
- drivers/gpu/drm/stm/ltdc.c                         |  4 +-
- drivers/gpu/drm/sun4i/sun4i_crtc.c                 |  2 +-
- drivers/gpu/drm/sysfb/drm_sysfb_helper.h           |  4 +-
- drivers/gpu/drm/sysfb/drm_sysfb_modeset.c          | 20 ++++-----
- drivers/gpu/drm/tegra/dc.c                         | 18 ++++----
- drivers/gpu/drm/tests/drm_kunit_helpers.c          |  2 +-
- drivers/gpu/drm/tilcdc/tilcdc_crtc.c               | 49 +++++++++-------------
- drivers/gpu/drm/tiny/appletbdrm.c                  |  2 +-
- drivers/gpu/drm/tiny/bochs.c                       |  2 +-
- drivers/gpu/drm/tiny/cirrus-qemu.c                 |  2 +-
- drivers/gpu/drm/tiny/pixpaper.c                    |  2 +-
- drivers/gpu/drm/tiny/sharp-memory.c                |  2 +-
- drivers/gpu/drm/udl/udl_modeset.c                  |  2 +-
- drivers/gpu/drm/vboxvideo/vbox_mode.c              |  2 +-
- drivers/gpu/drm/vc4/tests/vc4_mock_crtc.c          |  2 +-
- drivers/gpu/drm/vc4/vc4_crtc.c                     | 14 +++----
- drivers/gpu/drm/vc4/vc4_drv.h                      |  2 +-
- drivers/gpu/drm/vc4/vc4_txp.c                      |  2 +-
- drivers/gpu/drm/verisilicon/vs_crtc.c              |  2 +-
- drivers/gpu/drm/virtio/virtgpu_display.c           |  2 +-
- drivers/gpu/drm/vkms/vkms_crtc.c                   | 18 ++++----
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.c                | 22 ++++------
- drivers/gpu/drm/vmwgfx/vmwgfx_kms.h                |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_ldu.c                |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_scrn.c               |  2 +-
- drivers/gpu/drm/vmwgfx/vmwgfx_stdu.c               |  2 +-
- drivers/gpu/drm/xlnx/zynqmp_kms.c                  |  2 +-
- include/drm/drm_atomic_state_helper.h              |  3 --
- include/drm/drm_crtc.h                             | 12 ------
- include/drm/drm_mipi_dbi.h                         |  2 +-
- include/drm/drm_simple_kms_helper.h                |  1 -
- 78 files changed, 275 insertions(+), 385 deletions(-)
----
-base-commit: 7ea58b9ddb52264a4ed36bccb975062ada32c62d
-change-id: 20260709-drm-no-more-crtc-reset-14a4d5bc8d41
-
-Best regards,
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index 1b7dc0d3963b..4ad843105443 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -326,7 +326,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 		uint64_t *offset, uint32_t flags, bool criu_resume);
+ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
+ 		struct amdgpu_device *adev, struct kgd_mem *mem, void *drm_priv,
+-		uint64_t *size);
++		uint64_t *size, bool force);
+ int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(struct amdgpu_device *adev,
+ 					  struct kgd_mem *mem, void *drm_priv);
+ int amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+index 1e71829e0fc6..dc1fa664feca 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
+@@ -1901,7 +1901,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
+ 
+ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
+ 		struct amdgpu_device *adev, struct kgd_mem *mem, void *drm_priv,
+-		uint64_t *size)
++		uint64_t *size, bool force)
+ {
+ 	struct amdkfd_process_info *process_info = mem->process_info;
+ 	unsigned long bo_size = mem->bo->tbo.base.size;
+@@ -1922,9 +1922,26 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
+ 	 */
+ 
+ 	if (mapped_to_gpu_memory > 0) {
+-		pr_debug("BO VA 0x%llx size 0x%lx is still mapped.\n",
+-				mem->va, bo_size);
+-		return -EBUSY;
++		/*
++		 * Refusing to free a mapped BO is only meaningful while the
++		 * process can still unmap it. On process teardown (@force)
++		 * there is no such chance: the caller drops the last handle
++		 * to @mem regardless, so bailing out here leaks the BO onto
++		 * process_info->kfd_bo_list / userptr_inval_list. Those lists
++		 * are then destroyed non-empty in
++		 * amdgpu_amdkfd_gpuvm_destroy_cb(), leaving a BO in TTM's
++		 * eviction LRU whose bo_vas point into the freed amdgpu_vm.
++		 * The next client to trigger eviction deadlocks in
++		 * amdgpu_vm_bo_move(). Tear the mappings down instead - the
++		 * VM is going away right after us anyway.
++		 */
++		if (!force) {
++			pr_debug("BO VA 0x%llx size 0x%lx is still mapped.\n",
++				 mem->va, bo_size);
++			return -EBUSY;
++		}
++		pr_warn("Force-freeing BO VA 0x%llx size 0x%lx still mapped %u time(s)\n",
++			mem->va, bo_size, mapped_to_gpu_memory);
+ 	}
+ 
+ 	/* At this point the BO is guaranteed to be freed, so unpin the
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index 6fd18488d5cf..0121c6dc77b3 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1219,7 +1219,7 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
+ 
+ err_free:
+ 	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(dev->adev, (struct kgd_mem *)mem,
+-					       pdd->drm_priv, NULL);
++					       pdd->drm_priv, NULL, false);
+ err_unlock:
+ err_pdd:
+ err_large_bar:
+@@ -1262,7 +1262,8 @@ static int kfd_ioctl_free_memory_of_gpu(struct file *filep,
+ 	}
+ 
+ 	ret = amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev,
+-				(struct kgd_mem *)mem, pdd->drm_priv, &size);
++				(struct kgd_mem *)mem, pdd->drm_priv, &size,
++				false);
+ 
+ 	/* If freeing the buffer failed, leave the handle in place for
+ 	 * clean-up during process tear-down.
+@@ -1618,7 +1619,7 @@ static int kfd_ioctl_import_dmabuf(struct file *filep,
+ 
+ err_free:
+ 	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev, (struct kgd_mem *)mem,
+-					       pdd->drm_priv, NULL);
++					       pdd->drm_priv, NULL, false);
+ err_unlock:
+ 	mutex_unlock(&p->mutex);
+ 	return r;
+@@ -2483,7 +2484,7 @@ static int criu_restore_memory_of_gpu(struct kfd_process_device *pdd,
+ 	if (idr_handle < 0) {
+ 		pr_err("Could not allocate idr\n");
+ 		amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev, *kgd_mem, pdd->drm_priv,
+-						       NULL);
++						       NULL, false);
+ 		return -ENOMEM;
+ 	}
+ 
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 0a7c1900da95..6d5126aa6fe7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -743,7 +743,7 @@ static void kfd_process_free_gpuvm(struct kgd_mem *mem,
+ 
+ 	amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(dev->adev, mem, pdd->drm_priv);
+ 	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(dev->adev, mem, pdd->drm_priv,
+-					       NULL);
++					       NULL, true);
+ }
+ 
+ static void kfd_process_free_gpuvm_map(struct kgd_mem *mem,
+@@ -759,7 +759,7 @@ static void kfd_process_free_gpuvm_map(struct kgd_mem *mem,
+ 
+ 	amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(dev->adev, mem, pdd->drm_priv);
+ 	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(dev->adev, mem, pdd->drm_priv,
+-					       NULL);
++					       NULL, true);
+ }
+ 
+ /* kfd_process_alloc_gpuvm - Allocate GPU VM for the KFD process
+@@ -814,7 +814,7 @@ static int kfd_process_alloc_gpuvm(struct kfd_process_device *pdd,
+ 
+ err_map_mem:
+ 	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(kdev->adev, *mem, pdd->drm_priv,
+-					       NULL);
++					       NULL, false);
+ err_alloc_mem:
+ 	*mem = NULL;
+ 	*kptr = NULL;
+@@ -1119,18 +1119,29 @@ static void kfd_process_device_free_bos(struct kfd_process_device *pdd)
+ 	 * local memory object
+ 	 */
+ 	idr_for_each_entry(&pdd->alloc_idr, mem, id) {
++		int r;
+ 
+ 		for (i = 0; i < p->n_pdds; i++) {
+ 			struct kfd_process_device *peer_pdd = p->pdds[i];
+ 
+ 			if (!peer_pdd->drm_priv)
+ 				continue;
++			/*
++			 * This can fail under memory pressure: unmapping has
++			 * to validate the page-table BOs first. Ignore it and
++			 * force the free below - the handle is dropped either
++			 * way, so a failed free would leak the BO onto the
++			 * process_info lists and poison the eviction LRU.
++			 */
+ 			amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
+ 				peer_pdd->dev->adev, mem, peer_pdd->drm_priv);
+ 		}
+ 
+-		amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev, mem,
+-						       pdd->drm_priv, NULL);
++		r = amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev, mem,
++							   pdd->drm_priv, NULL,
++							   true);
++		if (r)
++			pr_err("Failed to free BO on process teardown: %d\n", r);
+ 		kfd_process_device_remove_obj_handle(pdd, id);
+ 	}
+ }
 -- 
-Maxime Ripard <mripard@kernel.org>
+2.55.0
 
