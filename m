@@ -4,80 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ED9A0C61CE3
-	for <amd-gfx@archiver.kernel.org>; Sun, 23 Aug 2026 09:28:06 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 88F09C5DF81
+	for <amd-gfx@archiver.kernel.org>; Sun, 23 Aug 2026 11:52:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5ADAD10E4C9;
-	Sun, 23 Aug 2026 09:28:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0082710E02B;
+	Sun, 23 Aug 2026 11:52:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WKfS9gk1";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="RsTKWWeM";
 	dkim-atps=neutral
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com
- [74.125.224.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4176810E3FE
- for <amd-gfx@lists.freedesktop.org>; Sat, 22 Aug 2026 14:44:17 +0000 (UTC)
-Received: by mail-yx1-f45.google.com with SMTP id
- 956f58d0204a3-6679d88abdcso2880294d50.2
- for <amd-gfx@lists.freedesktop.org>; Sat, 22 Aug 2026 07:44:17 -0700 (PDT)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09B3010E3FA
+ for <amd-gfx@lists.freedesktop.org>; Sun, 23 Aug 2026 11:52:10 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-47f84023916so1799527f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 23 Aug 2026 04:52:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787409856; x=1788014656; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1787485928; x=1788090728; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=GuBzns6Nk4AG2WwKdhJ4OfWjcYTzd+l7DkPQrZDJpfg=;
- b=WKfS9gk1J3ZyZsTAQoFxxWAgf4JSq6CZ+zwAPi2UPNrVpZ1snecV2bOsPNdzoPOACw
- 0vlgz+TEAEB534SQVUsJ3eseTD/2KadZGXPqltCqqz0glQrp8bsTP4989ZA1yWVGEHlV
- 59YLFTm9+kmyQ9z8PouIKZ9aISXtewwGd9DGhtPY9P1/155AmHkUazKxPdWrn+iMq0cj
- WaXvBLA2YoEr4x/5xFN5RmqKPuCDvhdBlOUrpF/sd4J39+SCPiJiHaWMTcWraB7WcF2K
- 0sPayfQ4ffDe2EHmGGh0o8BHzWfT8jrMjajPSPpVxt20Ou9hPCiY5G7h9+QqfIGEdxV6
- yAfA==
+ bh=OSPtUwy5dpHoeKHrqPLRAG3i1Kodm97L3d9KnmaS/Tw=;
+ b=RsTKWWeM//pfGckTETlC2HbwYviV0rl/pLBcK6e30vyDGs3XpVHV0k5s6x9/fe84Sb
+ gfCxeJuAZNTA5fujvWb8ZS0FDN+Q2bTILtJzQQ4UbqZHbR/GC9E269xPtLPkFkKO9A3w
+ iWAP1YMNINC5odfiIfXmvF+h52mGCGIqGPrXhigfJB41mme70rLgyK7/n789jpNmpvb9
+ /FVg2V6h9N7BVe0qVzQYbUkOefdotlPbsB2ECDC5SzFX0beFb+VzkFz/HrwHQQVeBBgv
+ tb6HKb/P7seyX1xfGxDybPhce63BlpK3JiZuLpMLHD3R9xAYA6TxFbBtpP7RqFHG6A4t
+ om3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787409856; x=1788014656;
+ d=1e100.net; s=20251104; t=1787485928; x=1788090728;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=GuBzns6Nk4AG2WwKdhJ4OfWjcYTzd+l7DkPQrZDJpfg=;
- b=gCnQxSShrKB13CqRrOT47/QNY7Qwyg569Gbk5OZszBKBhO98QmSDD/GcS5FrW3KWyo
- aRwZwgFp+wqHBMfXU2WZQVctu4ULSlwwi6AMXq4Z8bFYeBOsScFWSbs0kYARaCI8KhPJ
- vGoDFP6IOo7G5CbKZouJ4FmxKcdaBBtnnS4nH7lSgKxftFKtICVQzZOykQMKJ9W0+bFB
- hzfaTEdW2Sup8FbwdG/7SeKLKPOzePngQYrqGV/Agx45exxF3NryxpP/Ph91vTZacfQz
- 69ncXq/uc2rewoPUjDZqOSVjY/pnsGcMqSn0AcZC9JOaUM7KjyL6KgQkBkhiV4gkJNsa
- qMQw==
-X-Gm-Message-State: AFuF++lOCN9V7MS9h8IUDP7dnJ8caPoFmiitgrMXDG7wbL1azcVcoOQJ
- X1wNEg5qYR5J7GJW6KZvVo/5d8cvU3PziOFJ5DeLUGWY/8PG/NFRArap9FSil9Y8Efw=
-X-Gm-Gg: AR+sD128NlVq1q/1ZzEIzY27iiJ7xjqsH4yVwH0pX9fPxxI4UHRHlNxw7SgIbAaW7bN
- +tgX/HtQOHCSTperRLDGjMC8Tx4jn884CVZcK7oO/qNtvwAWtudnzZ9estqBjP/3sBTwgAPaEFG
- NOhKzt3Eku1zxZptoeXjZxoMH2MDvgsrds3Sel800uVXz93GeUeOQwUl1BZhOJ8wmay39Prp/hf
- 1iOFzYTY0jg5wc1wR2yvdL6H8cYRfVQcay6/JOyWD2stsNiNWuSi4mQyXYC8gzt40OIv0OlTULt
- nnEqBRXFqTRPG7D1c9q8mGfihnoXCI3qRscuDZI+wsxqqTmWhVje/41WA4NO3zV9ifM3EUHPUm3
- x08sPH9ke8FLe9UmrY+N/Z1qAzJNAaSBO+0xmOVMWdVsRJ3RuvyyaEqpn1eUNHxiOe7ZzsxaEpq
- b0XYXCrx2T5trYGr+8E42Ai5xoI7SMa8hgVcOUw4qgISdRlTOTDxsdJh9UHJ46HmzqprMcKT1lB
- HjeJMNKCXlaqHDm9brd2RaFOWgGCk48CJ5MoHGON5eUBMZidtsqvYODjBeBE/RbMtDCMQ==
-X-Received: by 2002:a05:690e:190a:b0:666:541f:6355 with SMTP id
- 956f58d0204a3-66ce4b2064cmr5028683d50.35.1787409856021; 
- Sat, 22 Aug 2026 07:44:16 -0700 (PDT)
-Received: from DigitalOasis.tail29fcbc.ts.net
- (104-182-93-176.lightspeed.brhmal.sbcglobal.net. [104.182.93.176])
+ bh=OSPtUwy5dpHoeKHrqPLRAG3i1Kodm97L3d9KnmaS/Tw=;
+ b=Nl2Ixv0Qcl/lZ2/NFeTYOimjR1Xgvl0ASvOUYChkjL1MnT5ERBEs/CKqz03EC4SAAi
+ mF9EXq5OV8HN+MqoehVppvct7GUXKQKPRe1Ns8/kRoDL4ufDaSZLDbFMQrWdoM1+F5nV
+ bLOMn4wuAup/pn67HR42hp2pCAgblWxAaUAYifvlr3TCRGJ+RNs9ecIcPlRPfVeAmEGL
+ t7jKKITCqjvW2+OnGjJILOcsQe1snOFr+qwwt4sG5gb2rYhXYc0HcGFRnXFhuYZAlc4s
+ SGd7vBOqiEZdBbiYtwbQd/0zDlb0/+kRUoMgmlPJvmVYjvQezlrPun20aK9U3daJhrN2
+ 9GLw==
+X-Gm-Message-State: AFuF++nXzWtvCLU2t5Rk5odsZWMpdkKBrPLfsusKXoB4MYh0DGieFK3s
+ UCZdRrYNq3k445qSQ5zuvr48F54WZDk9fyRAXuXd+ecx24oGIO3zGsKRXTGJaMfSIWLOlzlX
+X-Gm-Gg: AR+sD13l60CxAJExeoG8bFL3tMYn/DgU1dvy52dKIh/hX+HhjHLi/q/VCyGt/UmOR/r
+ 9c28hIvrzMhEzC24TxGQqcTdkZgsFCpE++qZIrX+EHGp0dbqPcaHSFJL6pDBDAfWrEhV1rx/a7Z
+ 1C4zTz1vvKVm/kcsEUMw4Xzhv+jbnijrFcL4mILMLUoR8LMVx5cQ0DTecwYWDd4T5TWa7r2cDEt
+ HWGOzclVF2icmwUSSALV7W+isWxptdsowafzIaurSrkK553+CdahCZmPGMSt0lyNXy+CkkMcTHM
+ 6cGBuAwkUafeWA48B6mJTMVDSomWoeLcwvXRvEinDMPPtzdlx9fXTO5WRC/dA0cB8ztqeeRGSdw
+ h4PrA34W49P6GeHqMZy21liXFd+9NIIP2uvLlBK0dVQwDU4QXH0C7vWlJTEGFLm2dIaaZQmq4fC
+ RSvxNkXtNMSiWeAG7/28xk1GljCgCzdIzryNv9MgKOESscqt3vpPf4GcnCtevUh7u7lDOTh019h
+ W7jgp8Jw7g8q0V+czlUAegNkH2heeaZ
+X-Received: by 2002:a5d:64c6:0:b0:47f:8f8f:db74 with SMTP id
+ ffacd0b85a97d-482c0b87e35mr22132720f8f.12.1787485927942; 
+ Sun, 23 Aug 2026 04:52:07 -0700 (PDT)
+Received: from cachyos-x8664 ([2a01:e0a:899:6110:90de:8744:7ad5:471e])
  by smtp.gmail.com with ESMTPSA id
- 956f58d0204a3-66cf46460aesm925429d50.6.2026.08.22.07.44.15
+ ffacd0b85a97d-482c9bfd865sm4682738f8f.22.2026.08.23.04.52.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 22 Aug 2026 07:44:15 -0700 (PDT)
-From: Bocaj Gnuoy <bocajgnuoy@gmail.com>
+ Sun, 23 Aug 2026 04:52:06 -0700 (PDT)
+From: Julien Le Bourg <julien.lebourg8@gmail.com>
 To: amd-gfx@lists.freedesktop.org
-Cc: Felix.Kuehling@amd.com, alexander.deucher@amd.com,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- oded.gabbay@gmail.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Bocaj Gnuoy <bocajgnuoy@gmail.com>
-Subject: [PATCH v2] drm/amdkfd: don't leak BOs when process teardown can't
- unmap them
-Date: Sat, 22 Aug 2026 09:44:02 -0500
-Message-ID: <20260822144402.929677-1-bocajgnuoy@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, Wayne Lin <Wayne.Lin@amd.com>,
+ Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Austin Zheng <austin.zheng@amd.com>, Jun Lei <jun.lei@amd.com>,
+ Julien Le Bourg <julien.lebourg8@gmail.com>
+Subject: [PATCH v2] drm/amd/display: Restore self-refresh fallback in DCN21
+ bandwidth validation
+Date: Sun, 23 Aug 2026 13:52:00 +0200
+Message-ID: <20260823115200.12502-1-julien.lebourg8@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260822142521.899098-1-bocajgnuoy@gmail.com>
-References: <20260822142521.899098-1-bocajgnuoy@gmail.com>
+In-Reply-To: <20260822091715.6692-1-julien.lebourg8@gmail.com>
+References: <20260822091715.6692-1-julien.lebourg8@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Sun, 23 Aug 2026 09:28:04 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,304 +92,142 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-kfd_process_device_free_bos() discards the return value of both
-amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu() and
-amdgpu_amdkfd_gpuvm_free_memory_of_gpu(), then drops the idr handle
-unconditionally.  That is fine as long as the free succeeds, but the unmap
-has to validate the page-table BOs first (vm_validate_pt_pd_bos()), and
-that allocates.  When the process is dying *because* memory is exhausted -
-e.g. GTT pinned up to amdgpu.gttsize by a compute client that then aborted
-on ENOMEM - the unmap fails with "failed to validate PT BOs",
-mem->mapped_to_gpu_memory stays non-zero, and
-amdgpu_amdkfd_gpuvm_free_memory_of_gpu() bails out with -EBUSY before it
-removes the BO from process_info->kfd_bo_list.  The handle is dropped
-anyway, so nothing will ever free that kgd_mem again.
+[Why]
+Commit b96150a70696 ("drm/amd/display: Should support p-state under
+dcn21") calls dcn21_fast_validate_bw() with allow_self_refresh_only
+false. The second dml_get_voltage_level() pass, which retries with
+dm_allow_self_refresh when no p-state capable voltage level exists,
+is therefore never taken.
 
-The consequences are worse than a leak.  drm_release() ->
-amdgpu_vm_fini() -> amdgpu_amdkfd_gpuvm_destroy_cb() then trips
+That fallback is the only way some short-vblank eDP timings can
+validate. The AUO 1920x1080@360 panel on the ASUS ROG Strix G733QSA
+(Cezanne, DCN 2.1) runs at 800.01 MHz with vtotal 1111: 31 lines of
+vblank, about 77 us, too short for a DRAM p-state. It now fails
+dml_get_voltage_level(), dcn21_validate_bandwidth() returns
+DC_NOT_SUPPORTED, and the driver keeps 1920x1080@60 only:
 
-  WARN_ON(!list_empty(&process_info->kfd_bo_list));
-  WARN_ON(!list_empty(&process_info->userptr_inval_list));
+  [drm] Mode Validation Warning: Unknown Status failed validation.
+  create_validate_stream_for_sink: Unhandled validation failure 24
+  Rejected mode: "1920x1080": 360 800010 ... 1095 1111 (ERROR)
 
-and frees process_info regardless, while the leaked BO stays in TTM's
-eviction LRU with bo_vas pointing into the just-freed amdgpu_vm.  A
-subsequent amdgpu_gem_create_ioctl() that forces TTM eviction can then walk
-into it and spin in amdgpu_vm_bo_move() -> _raw_spin_lock(), which produces
-repeating rcu_preempt self-detected stalls, blocks reclaim-related work
-(__lru_add_drain_all()) and eventually makes the machine unusable - within
-about ten minutes here.  A recoverable ENOMEM becomes an unrecoverable
-hang.
+This is a regression versus v6.18, where 360 Hz was enumerated and
+usable.
 
-Note the free path itself does not allocate - it reserves the BO, detaches
-the attachments and drops the references - so it can complete even when the
-unmap could not.  Give amdgpu_amdkfd_gpuvm_free_memory_of_gpu() a @force
-flag and set it on the teardown callers, which have no later chance to try
-again.  The -EBUSY guard is kept for the ioctl paths, where userspace can
-still unmap and retry, and where kfd_ioctl_free_memory_of_gpu() already
-leaves the handle in place on failure.
+That commit dropped the fallback to work around a flip_done timeout
+under MPO. atomic_check (DC_VALIDATE_MODE_ONLY) and commit_tail
+(DC_VALIDATE_MODE_AND_PROGRAMMING) were observing different
+soc.sr_exit_time_us / soc.sr_enter_plus_exit_time_us, so a configuration
+could pass check and fail in commit_tail. Passing true again without
+fixing that mismatch would bring the timeout back.
 
-Reported on: RX 6900 XT (gfx1030), amdgpu 3.64.0, kernel 7.1.6/7.1.8,
-booted with amdgpu.gttsize=4096.  The failing allocation was on the Navi 21
-at 0000:06:00.0, which enumerates as ROCm0; a gfx1100 is also present in
-the same box but was not the device that ran out.
+[How]
+calculate_wm_set_for_vlevel() overlays three DML soc latencies with
+each watermark range entry:
 
-Tooling disclosure, per Documentation/process/generated-content.rst: this
-bug was diagnosed and this patch written with the assistance of Claude Code
-(claude-opus-5) in a single interactive session. The input was a kernel
-trace captured on the reporting host - two WARNs out of
-amdgpu_amdkfd_gpuvm_destroy_cb() during an aborting client's teardown,
-followed by an unrecoverable deadlock in the TTM eviction path in the next
-process to allocate - together with the request to find the cause and, if
-possible, fix it. The assistant read the KFD BO lifecycle in the v7.1.8 and
-v7.2 sources, identified the -EBUSY early return as the point at which the
-BO is stranded on the process_info lists, and wrote both the diff and this
-changelog. The diff was then rebased onto amd-staging-drm-next and the
-call-site audit redone against that tree: one prototype, one definition and
-eight call sites, all converted. The rebase caught a real miss - the tree
-has gained kfd_process_free_gpuvm_map() alongside kfd_process_free_gpuvm(),
-and the original hunk's trailing context matched the wrong one of the two.
-Both are teardown-only (kfd_process_destroy_pdds() and the create_process()
-error unwind), so both take force=true. checkpatch.pl was the only
-additional analysis tool used.
+	dml->soc.dram_clock_change_latency_us = table_entry->pstate_latency_us;
+	dml->soc.sr_exit_time_us = table_entry->sr_exit_time_us;
+	dml->soc.sr_enter_plus_exit_time_us = table_entry->sr_enter_plus_exit_time_us;
 
-Tested on a RX 6900 XT + RX 7900 XTX box, kernel 7.2.0-1-cachyos, booted
-with amdgpu.gttsize=4096 so the GTT wall is reachable. A HIP-linked client
-(llama.cpp with both the HIP and Vulkan backends present) was made to pin
-host memory up to the 4 GiB cap and die on the resulting ENOMEM. Same
-kernel version, same cap, same workload, same binary either side; the
-patch is the only variable:
+and restores only dram_clock_change_latency_us. The stutter latencies
+keep the last entry (WM set A) in context->bw_ctx.dml. Watermarks run
+only for DC_VALIDATE_MODE_AND_PROGRAMMING, so the leak is written into
+dc->current_state at commit_tail. atomic_check validates
+dm_state->context with MODE_ONLY and never computes watermarks, so the
+two copies of soc can disagree on the next full update, which copies
+current_state and re-validates.
 
-                              unpatched   patched
-  peak GTT                      4.00 GiB   4.00 GiB
-  "failed to validate PT BOs"         34         36
-  exit                           139/SEGV   139/SEGV
-  teardown WARNs                       2          0
-  "Force-freeing BO VA"                0          9
+Snapshot both stutter latencies in dcn21_validate_bandwidth_fp() and
+restore them after dcn21_calculate_wm() and
+dcn20_calculate_dlg_params(). The DCN21 DLG path
+(dml21_rq_dlg_get_dlg_reg()) still reads soc.sr_enter_plus_exit_time_us
+while computing Lwait, so restoring afterwards keeps DLG reading the
+same latencies as today; only the leak into dc->current_state goes
+away.
 
-Both sides died the same way, on SIGSEGV, so the difference is in teardown
-and not in how the client failed.  The force-free count of 9 matched the 9
-KFD allocations an earlier kprobe run measured for this client, consistent
-with all of those allocations being reclaimed.
+With check and commit_tail now using the bounding-box latencies, pass
+allow_self_refresh_only true again. Modes that can p-state still
+succeed on the first pass; the fallback is taken only when no p-state
+capable voltage level exists.
 
-End to end: on the unpatched kernel, relaunching the same workload after
-that abort is what hangs the machine - the new client's
-amdgpu_gem_create_ioctl walks the eviction LRU into the orphaned object.
-With the patch, a second run under heavier pressure (1904 "failed to
-validate PT BOs", 35 force-freed BOs) again left zero WARNs, and the
-relaunch then loaded in 12 seconds and served normally instead of
-deadlocking. GTT returned to its 0.05 GiB idle baseline afterwards, so the
-memory is genuinely reclaimed rather than merely not deadlocking. Across
-four runs the client died variously on SIGABRT and SIGSEGV; the leak
-tracked memory exhaustion at teardown, never the signal.
+dcn301_fpu.c has the same helper and the same restore gap. Left alone;
+I cannot test DCN 3.01.
 
-Note the WARNs that fire vary between runs: the originally reported crash
-tripped :1608 and :1610 (kfd_bo_list, userptr_inval_list), while this
-reproduction tripped :1608 and :1609 (kfd_bo_list, userptr_valid_list).
-Both are the same skipped list_del_init(&mem->validate_list) - that node
-serves whichever list the BO currently sits on, so the leak is
-list-agnostic. The client also died on SIGSEGV rather than the abort seen
-originally; the leak depends on memory being exhausted at teardown, not on
-how the process died, which is consistent with SIGKILL alone never
-reproducing it.
+Tested on ASUS ROG Strix G733QSA (Cezanne, DCN 2.1): 1920x1080@360 is
+enumerated and in daily use on a kernel built with this change. The
+original MPO flip_done timeout is not reproduced here; that path is
+reasoned from the code.
 
-Limitations, per Documentation/process/coding-assistants.rst step 8:
-- The deadlock itself was reproduced on the unpatched kernel, but its stack
-  trace was not captured: the jammed workqueue takes journald down with it,
-  so nothing reaches disk. Capturing it needs netconsole or a serial
-  console. The teardown WARNs, which are the direct measure of the leak,
-  are captured in full.
-- The claim that the deadlocked spinlock lives inside the leaked object
-  still rests on address arithmetic (lock at the WARNed structure + 0x30).
-  Confirming the offset needs a debug build, which has not been done.
-- Verification is single-box: one gfx1100 + gfx1030 machine, one kernel
-  version.
-
-The -EBUSY guard itself dates to commit a46a2cd103a8 ("drm/amdgpu: Add
-GPUVM memory management functions for KFD") and is correct for the ioctl
-path. The leak became reachable only once a caller started dropping the
-last handle regardless of the return value.
-
-Fixes: 52b29d73340d ("drm/amdkfd: Add per-process IDR for buffer handles")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5672
-Assisted-by: Claude:claude-opus-5 checkpatch
-Signed-off-by: Bocaj Gnuoy <bocajgnuoy@gmail.com>
+Fixes: b96150a70696 ("drm/amd/display: Should support p-state under dcn21")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5628
+Cc: Wayne Lin <Wayne.Lin@amd.com>
+Cc: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Julien Le Bourg <julien.lebourg8@gmail.com>
 ---
-
 v2:
- - fix Assisted-by tag format per Documentation/process/coding-assistants.rst
-   (v1 used a malformed 'LLM checkpatch' form)
- - drop self-applied Tested-by; the testing is described in the changelog
- - reword the comment on the forced path: what happens is attachment/VA
-   teardown via kfd_mem_detach(), not the page-table unmap that failed
- - no functional change
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h    |  2 +-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  | 27 ++++++++++++++++---
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c      |  9 ++++---
- drivers/gpu/drm/amd/amdkfd/kfd_process.c      | 21 +++++++++++----
- 4 files changed, 45 insertions(+), 14 deletions(-)
+ - Fix the soc stutter-latency leak that b96150a70696 worked around,
+   then restore the fallback. v1 only flipped the flag and would have
+   reintroduced the MPO flip_done timeout. Reported by the Sashiko
+   review bot on v1.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-index 1b7dc0d3963b..4ad843105443 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
-@@ -326,7 +326,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
- 		uint64_t *offset, uint32_t flags, bool criu_resume);
- int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
- 		struct amdgpu_device *adev, struct kgd_mem *mem, void *drm_priv,
--		uint64_t *size);
-+		uint64_t *size, bool force);
- int amdgpu_amdkfd_gpuvm_map_memory_to_gpu(struct amdgpu_device *adev,
- 					  struct kgd_mem *mem, void *drm_priv);
- int amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-index 1e71829e0fc6..aee2edbf1ec8 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c
-@@ -1901,7 +1901,7 @@ int amdgpu_amdkfd_gpuvm_alloc_memory_of_gpu(
- 
- int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
- 		struct amdgpu_device *adev, struct kgd_mem *mem, void *drm_priv,
--		uint64_t *size)
-+		uint64_t *size, bool force)
+v1: https://lore.kernel.org/amd-gfx/20260822091715.6692-1-julien.lebourg8@gmail.com/
+
+ .../drm/amd/display/dc/dml/dcn20/dcn20_fpu.c  | 25 ++++++++++++++++++-
+ 1 file changed, 24 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+index e82f2d531211..3697a3139552 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn20/dcn20_fpu.c
+@@ -2321,6 +2321,8 @@ bool dcn21_validate_bandwidth_fp(struct dc *dc, struct dc_state *context,
+ 				 enum dc_validate_mode validate_mode, display_e2e_pipe_params_st *pipes)
  {
- 	struct amdkfd_process_info *process_info = mem->process_info;
- 	unsigned long bo_size = mem->bo->tbo.base.size;
-@@ -1922,9 +1922,28 @@ int amdgpu_amdkfd_gpuvm_free_memory_of_gpu(
- 	 */
+ 	bool out = false;
++	double sr_exit_time_us;
++	double sr_enter_plus_exit_time_us;
  
- 	if (mapped_to_gpu_memory > 0) {
--		pr_debug("BO VA 0x%llx size 0x%lx is still mapped.\n",
--				mem->va, bo_size);
--		return -EBUSY;
-+		/*
-+		 * Refusing to free a mapped BO is only meaningful while the
-+		 * process can still unmap it. On process teardown (@force)
-+		 * there is no such chance: the caller drops the last handle
-+		 * to @mem regardless, so bailing out here leaks the BO onto
-+		 * process_info->kfd_bo_list / userptr_inval_list. Those lists
-+		 * are then destroyed non-empty in
-+		 * amdgpu_amdkfd_gpuvm_destroy_cb(), leaving a BO in TTM's
-+		 * eviction LRU whose bo_vas point into the freed amdgpu_vm.
-+		 * A subsequent client that triggers eviction can then spin in
-+		 * amdgpu_vm_bo_move(). Drop the attachments instead: the
-+		 * kfd_mem_detach() calls below release the bo_va references
-+		 * without needing the page-table update that just failed, and
-+		 * the VM is torn down right after us anyway.
-+		 */
-+		if (!force) {
-+			pr_debug("BO VA 0x%llx size 0x%lx is still mapped.\n",
-+				 mem->va, bo_size);
-+			return -EBUSY;
-+		}
-+		pr_warn("Force-freeing BO VA 0x%llx size 0x%lx still mapped %u time(s)\n",
-+			mem->va, bo_size, mapped_to_gpu_memory);
+ 	BW_VAL_TRACE_SETUP();
+ 
+@@ -2336,7 +2338,8 @@ bool dcn21_validate_bandwidth_fp(struct dc *dc, struct dc_state *context,
+ 	/*Unsafe due to current pipe merge and split logic*/
+ 	ASSERT(context != dc->current_state);
+ 
+-	out = dcn21_fast_validate_bw(dc, context, pipes, &pipe_cnt, pipe_split_from, &vlevel, validate_mode, false);
++	out = dcn21_fast_validate_bw(dc, context, pipes, &pipe_cnt, pipe_split_from,
++				     &vlevel, validate_mode, true);
+ 
+ 	if (pipe_cnt == 0)
+ 		goto validate_out;
+@@ -2351,9 +2354,29 @@ bool dcn21_validate_bandwidth_fp(struct dc *dc, struct dc_state *context,
+ 		goto validate_out;
  	}
  
- 	/* At this point the BO is guaranteed to be freed, so unpin the
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 6fd18488d5cf..0121c6dc77b3 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -1219,7 +1219,7 @@ static int kfd_ioctl_alloc_memory_of_gpu(struct file *filep,
++	/*
++	 * calculate_wm_set_for_vlevel() overrides the DML soc stutter
++	 * latencies with the values of each watermark range entry, but only
++	 * restores dram_clock_change_latency_us. Snapshot the two stutter
++	 * latencies and put them back once the watermark and DLG parameters
++	 * have been computed, so the override cannot leak into
++	 * dc->current_state. A later atomic_check() duplicates that state,
++	 * and validating against mutated latencies is what makes
++	 * atomic_check() and atomic_commit_tail() disagree.
++	 *
++	 * Restoring after dcn20_calculate_dlg_params() keeps the DLG
++	 * computation reading the same latencies as before, so this only
++	 * removes the leak.
++	 */
++	sr_exit_time_us = context->bw_ctx.dml.soc.sr_exit_time_us;
++	sr_enter_plus_exit_time_us = context->bw_ctx.dml.soc.sr_enter_plus_exit_time_us;
++
+ 	dcn21_calculate_wm(dc, context, pipes, &pipe_cnt, pipe_split_from, vlevel, validate_mode);
+ 	dcn20_calculate_dlg_params(dc, context, pipes, pipe_cnt, vlevel);
  
- err_free:
- 	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(dev->adev, (struct kgd_mem *)mem,
--					       pdd->drm_priv, NULL);
-+					       pdd->drm_priv, NULL, false);
- err_unlock:
- err_pdd:
- err_large_bar:
-@@ -1262,7 +1262,8 @@ static int kfd_ioctl_free_memory_of_gpu(struct file *filep,
- 	}
++	context->bw_ctx.dml.soc.sr_exit_time_us = sr_exit_time_us;
++	context->bw_ctx.dml.soc.sr_enter_plus_exit_time_us = sr_enter_plus_exit_time_us;
++
+ 	BW_VAL_TRACE_END_WATERMARKS();
  
- 	ret = amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev,
--				(struct kgd_mem *)mem, pdd->drm_priv, &size);
-+				(struct kgd_mem *)mem, pdd->drm_priv, &size,
-+				false);
- 
- 	/* If freeing the buffer failed, leave the handle in place for
- 	 * clean-up during process tear-down.
-@@ -1618,7 +1619,7 @@ static int kfd_ioctl_import_dmabuf(struct file *filep,
- 
- err_free:
- 	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev, (struct kgd_mem *)mem,
--					       pdd->drm_priv, NULL);
-+					       pdd->drm_priv, NULL, false);
- err_unlock:
- 	mutex_unlock(&p->mutex);
- 	return r;
-@@ -2483,7 +2484,7 @@ static int criu_restore_memory_of_gpu(struct kfd_process_device *pdd,
- 	if (idr_handle < 0) {
- 		pr_err("Could not allocate idr\n");
- 		amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev, *kgd_mem, pdd->drm_priv,
--						       NULL);
-+						       NULL, false);
- 		return -ENOMEM;
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-index 0a7c1900da95..6d5126aa6fe7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-@@ -743,7 +743,7 @@ static void kfd_process_free_gpuvm(struct kgd_mem *mem,
- 
- 	amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(dev->adev, mem, pdd->drm_priv);
- 	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(dev->adev, mem, pdd->drm_priv,
--					       NULL);
-+					       NULL, true);
- }
- 
- static void kfd_process_free_gpuvm_map(struct kgd_mem *mem,
-@@ -759,7 +759,7 @@ static void kfd_process_free_gpuvm_map(struct kgd_mem *mem,
- 
- 	amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(dev->adev, mem, pdd->drm_priv);
- 	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(dev->adev, mem, pdd->drm_priv,
--					       NULL);
-+					       NULL, true);
- }
- 
- /* kfd_process_alloc_gpuvm - Allocate GPU VM for the KFD process
-@@ -814,7 +814,7 @@ static int kfd_process_alloc_gpuvm(struct kfd_process_device *pdd,
- 
- err_map_mem:
- 	amdgpu_amdkfd_gpuvm_free_memory_of_gpu(kdev->adev, *mem, pdd->drm_priv,
--					       NULL);
-+					       NULL, false);
- err_alloc_mem:
- 	*mem = NULL;
- 	*kptr = NULL;
-@@ -1119,18 +1119,29 @@ static void kfd_process_device_free_bos(struct kfd_process_device *pdd)
- 	 * local memory object
- 	 */
- 	idr_for_each_entry(&pdd->alloc_idr, mem, id) {
-+		int r;
- 
- 		for (i = 0; i < p->n_pdds; i++) {
- 			struct kfd_process_device *peer_pdd = p->pdds[i];
- 
- 			if (!peer_pdd->drm_priv)
- 				continue;
-+			/*
-+			 * This can fail under memory pressure: unmapping has
-+			 * to validate the page-table BOs first. Ignore it and
-+			 * force the free below - the handle is dropped either
-+			 * way, so a failed free would leak the BO onto the
-+			 * process_info lists and poison the eviction LRU.
-+			 */
- 			amdgpu_amdkfd_gpuvm_unmap_memory_from_gpu(
- 				peer_pdd->dev->adev, mem, peer_pdd->drm_priv);
- 		}
- 
--		amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev, mem,
--						       pdd->drm_priv, NULL);
-+		r = amdgpu_amdkfd_gpuvm_free_memory_of_gpu(pdd->dev->adev, mem,
-+							   pdd->drm_priv, NULL,
-+							   true);
-+		if (r)
-+			pr_err("Failed to free BO on process teardown: %d\n", r);
- 		kfd_process_device_remove_obj_handle(pdd, id);
- 	}
- }
+ 	goto validate_out;
 -- 
 2.55.0
 
