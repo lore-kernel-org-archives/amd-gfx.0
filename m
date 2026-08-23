@@ -4,125 +4,87 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BBC7EC5DF94
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2026 07:39:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3D3FC5DF94
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2026 07:56:53 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 56D7210E36E;
-	Mon, 24 Aug 2026 07:39:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D802610E0DF;
+	Mon, 24 Aug 2026 07:56:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="OwV56bb+";
+	dkim=pass (2048-bit key; secure) header.d=adec.dev header.i=@adec.dev header.b="XAwT1Pmw";
 	dkim-atps=neutral
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010020.outbound.protection.outlook.com [52.101.61.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BCE810E36E
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2026 07:39:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iHOwcF7j3iIVDpq6jA8OO0W574X6U18JbhrmHVD1zcED9jsUh3M1Y2lCd8w+vtfvRY/+wCX1g3fP2g5BN1s7P6r5oz4bNL380ZeNK2BbP4B4AKigdicv9TqUrDF6LUYDQ0gIUFIEvibAD4DhqejiB9wuBuOpdmfFvdwHfymPVboEJvN6oRpPNFAqADf3NPG3dAlDdEzzXos1DDr6mFK3dZFdZtqZQnkpfMdcpTSodLggKcHJZ3pQ7jpckQJBci7nUHWl8m+XTQOICCww204IwvIi3k9hWBsy5UriSrmm8Zizl10hTUdMIKys9POWWRrPZkf0d+nfos20qG39tlVGTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=V+y6xFVtf3ncs01OuhZZozd7z98Qw6yK5a3YjFX/ypc=;
- b=b8Cs1L06dz4E7oqUbnI9am+CPQ5XyFSsoNJIKYMsPXuvQaJTiR7V7Qy/YFGQYS9/W4pvQ6geHlpbv4bPqe2YHPRS5RHU/hg3g1xYtM00JqXpiHEukk57XMMSYQb4qm74GtC1XCGHRVLnUN72ft01Wo/0/5CjxH+X/QEdFfiKZStWrIN4u+aDf9Uw0xG//U8hWd02xznzW7o7mOGi31LI3dtG+NuGCE2k9htp+VAnp3f2lprX9HxrCeFrWjV89R6omKoaVEi1rx+NjZju1jTpKeqHyX+U76gKy2x+9aHM6y10IBngB53qUEYdXjpgfjj1B5q82vQQyuA+R2bxqDe3NA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=V+y6xFVtf3ncs01OuhZZozd7z98Qw6yK5a3YjFX/ypc=;
- b=OwV56bb+DuAjaQzMHT9Htg+fwV/zTptsPQPWBRT7r3t52jwrHE9014yBg0sqJ3MwcCOWDaDST1zNwjqEo+TPVawWiWMHgNvJ5t45L9/gvKs0UzrAjXwAeBW7Y0diLx2k440D2AhRJ8O+dC9ce1uK/ae7O2IPhzh6zhUAr7HPdWY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by PH7PR12MB7140.namprd12.prod.outlook.com (2603:10b6:510:200::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
- 2026 07:39:26 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Mon, 24 Aug 2026
- 07:39:26 +0000
-Message-ID: <39ce25a7-c20b-4513-9ac1-3b636e3af6a5@amd.com>
-Date: Mon, 24 Aug 2026 09:39:22 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] drm/amdgpu: Add TLB flush after MES user queue
- unmap
-To: Priya Hosur <Priya.Hosur@amd.com>, amd-gfx@lists.freedesktop.org,
- Alexander.Deucher@amd.com, Sunil.Khatri@amd.com, Felix.Kuehling@amd.com,
- Shaoyun.Liu@amd.com, Lijo.Lazar@amd.com, Mario.Limonciello@amd.com
-Cc: Pratik.Vishwakarma@amd.com, Veerabadhran.Gopalakrishnan@amd.com
-References: <20260814161841.5906-1-Priya.Hosur@amd.com>
- <20260814161841.5906-3-Priya.Hosur@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260814161841.5906-3-Priya.Hosur@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0034.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c7::13) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CE23510E00A
+ for <amd-gfx@lists.freedesktop.org>; Sun, 23 Aug 2026 15:05:29 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-471eeac43bfso2124771f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Sun, 23 Aug 2026 08:05:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787497528; cv=none;
+ d=google.com; s=arc-20260327;
+ b=rZBmgrFuCzpvtyOeTU5XSXnVqMNJn0PfGqO+peXIUyYt8RSNmVehm/ZU+SLL+WTrM3
+ PClSPTdregqA4iuHsPo3OFjsz40PWQqQ1btS0OZK5xBNvD2A5Am/7mO8uq5VgpzKVr/6
+ doRm+rsfbKW8FaWVuHa7iP8/S2OP2llWCK5QOcwsz/5H3NtuOKBICt1egApy31LvcW64
+ CKWTBR1cJDeSfAGA8krBKu+B6jeed6R0jk3kHWF+lXEcRWr6kJk+993kOTDjaXblZZa+
+ 0VNKkDNkl28N/V01oqXIm8WHEH+Tut3lOe569mSXxs2F8N+TwErD4nE8q3cC0J8iLvfi
+ sSNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=bqy0Z5gt95vgJXQYSwWz6emMp7N4CHp0JpDga+1MlxY=;
+ fh=UOs4AE4qjGd21zFslyBEqQZetRrW593aa1+yYb021Fo=;
+ b=Fk3g6AyGwuOO812S3JOkvQECnxcrBmybTAWqyCwo5FVFJwRnLlW4Sg4irRl0yCh7Uf
+ sO8rlWF2bYR5NlroNV4XxzOy3MaQ1lUE9jbpGvajc+IARHdiMzLCjiJjuhSab3PuFpUb
+ q2YbbxKY7ozWSHfv2LHcpuuSHHM+gSbOhW6WLRc4RT06DU4FBEcWHsIoF84BnS9/QtW6
+ WPSHHtb4+BcEl9OKP6BEtuP1iEScGowZ0B/hBSaHrzwsSEQC1KMcyqQS8K02IILtYDLt
+ EodJc6aqOX1Ys5Uho5vYL0nVwMPYrs9Yf3aI4DPyvt5okrEPk25KyRKvRMBHi0xOcxnp
+ vw+Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=adec.dev; s=google; t=1787497528; x=1788102328; darn=lists.freedesktop.org; 
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=bqy0Z5gt95vgJXQYSwWz6emMp7N4CHp0JpDga+1MlxY=;
+ b=XAwT1PmwFhxmRR7eMM/UIxc42ZqlPj+eUQH8buJncPpAtE0X0A6NaOVPoZ3CDl2NFr
+ AnC9+VkLYNzIL1QQhu6hcyEBQ73zAF1VA/8X4157spkIXujJ+G/G8ejHr9e6+Bkln8Rr
+ /jhBb/nimn3FYbHZPeZNGpcRb0m7pYt39t8DY8ouS+EZKbgdI2GJFQLeS3CznbWzwQby
+ 5YuFGa89APo+Y0mlRPRTxp3wQs8vS/6wT5H1chnnGIgKVNLL0bwFKHz9yvR8Fka3udmV
+ MUlKQ1Y9Or7MHErSfSxy1EosYZxRbUVisRTpBrofUPMQaDdR2aMUvQTFnzCgsitvoX6b
+ v2hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787497528; x=1788102328;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=bqy0Z5gt95vgJXQYSwWz6emMp7N4CHp0JpDga+1MlxY=;
+ b=hoKUSiphzcxEwPxecYlw3KMvr9PDIrOQ8tkuATK1kqjZPKC7daUd8QfwC5VL0XiyGf
+ X7cosU98aEGWHG2/1lbRAxtXkd9+txy9rmfQol9vNaneN1xQ7t8DGs+ot8ORFrtMlAUK
+ jHWGysLCHlRPAgHr+sOEv5QTqXVvV5yl7jLTAQv3+9UG8e8qRu3m/2WFWwTSBe46BRha
+ jwlNX4n/WF79w9h4pbkwx5UKttLqAQRf/T9niueouoGDDRe9L1m6CftBwrAm1AhAizib
+ QtzuziEFERayZXrnTSYxOMb5ZlQBtIR4eG43Hzi7oJgwd4QYfoKgsgrkbEDO0vJaf1tP
+ wMOQ==
+X-Gm-Message-State: AFuF++l/5URhVE63kXJoP9xZKuZx+4EZqgpuwqvtNzjRNzySGSDqXC1q
+ YFX0BAlQxaKNYTXLbNuwbCc0FdWLJXk4wRP7/K17rDCQkgxePGZURqGODd2HbXNYBw4ECbiplCS
+ qbXP+bg5esr82ixQ+qJVR8EPSWaTDrY/aeJ5HikHD8KpCQWXmpCchGPcPLw==
+X-Gm-Gg: AR+sD10fD2GrwpFjf5IOvedpnJURn/MwKcG43snA/NwitGkUj1DGH5JXnx4R+5yd9lz
+ N2jx/vaaMOc4vzH2MjT6QhfPSuzMVFMKArzHWIagOu63ZvxlV7hjH4MXuFDAgIQ6wqfV2P/G0kF
+ oTz5HM+X6tKhbkOdpsrZabH2p5XBuGK4nAGFfdWxm6fW093VwmIvmweiOF3ytr1f9HnhsIKKSLe
+ po7GLNpSkNJY26iakjYKUj0LUXH243XttfA0YoKvQYOeT1AV4bqQA6WLZvRS1zeI/SFiqoIisth
+ ZdkCMXoD5oiQp9SHsWBMSjm50H5OOw6UoJNUJaJf43eFWphMOvBmoF7JitLxN4eMykyO7mXdl8C
+ H
+X-Received: by 2002:adf:e18c:0:b0:47f:9283:1fb3 with SMTP id
+ ffacd0b85a97d-482c810c17bmr12151252f8f.0.1787497527825; Sun, 23 Aug 2026
+ 08:05:27 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB7140:EE_
-X-MS-Office365-Filtering-Correlation-Id: 35b6f9b3-6206-4eea-45dc-08df01b2d2c2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|56012099006|10067099003|22082099003|4143699003|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: XGUBQmZ6pPicg9w9eaZg18CRk8H21uE+3GQilygMRMAjkXRXLLWHO5OSagO5IFIBzzlzdpc/RXNPFAGSeUxQiQSdJH4BftJSczH8jfbGH5YiyHh2JeAuXkp3z0tQt4MOisRDN71MWM+D54qGjWu5Yvvz+IXTBig5rT0IfVRFlqI0XeExqqrQTUQIqkX5VT3HU/3TY+1er7m/I7p07a3TcCOwr28stwMxlGJaPmZMeUOwqYwcDS8rOxtFRoUuOrsMh+BPD0RpSnNOhfNv6k5+UyLnMK/yRJOtsVQFevR1rRPJG8dPMk3L4EWyC2Hr21Hxn9fGn0+2Oy45JN1flzaFf/LWeSmWZiG+cM7XY6nwy2plFpA+f+F0lIWygGfC9LKwCS8SIVFljvsDv6hUA7nad2DHVV8BeKS0p0VQEerpKgKnuMdCittDNBkMgK7DlWBUifktKh38TA2jKT7k8WZiQjVv5L3EUMUFjT0Si3Ua7ldmIxwttNnAB5U92j7Zmwe2P7z87Le0drfausyIcMxuo+OQtoTgpX20lkm5S9/tVd7Py2gmfzEZ98M95p/PDW4Ad+JaCQMEOOSzgSVHDQWrXe7k3Gpa+puXfP9qNaqM4+6flYI06lUN9gWjkj7aQu7cpiVVabk5L1jefGgAAEwlZR9jqhuuCmNQj3MWsQl+9A4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(56012099006)(10067099003)(22082099003)(4143699003)(11063799006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b1orOHJoQ1RmdlpVMmRUNCtIcldneGJTdU5OVHBYS3ZLNjVoZE9oNnU2WGU5?=
- =?utf-8?B?bnBQbmdJdVFhaVNybkx4NGJtSi84VEpuTTV2VFN3NmczTko3L0cxZkEzRGgw?=
- =?utf-8?B?ckp6L2hpK0JhMHdicGFPRWNLVXMzMFQvRHRqcDQ0VzA3dGNvbkVXY2EwWWZF?=
- =?utf-8?B?UkpuSnJ5aUlVOFh4OUdFc2VoVzZVWWJMeGc2cEtwQkhtQzh0YWpwekxZUTE3?=
- =?utf-8?B?a2xuSkprSjN5RUFTVHMzYXMyczJJVkJyaUhvS0ttemFaTjBsVzhSY2I3T3VT?=
- =?utf-8?B?c3FFemJYaDRHOXdoMm0weVdmZkVLVjQvRkNUWFQ2ZWVRaG9icDdVU2FUclhC?=
- =?utf-8?B?L3N2Q2xSd1E4OThza1pSaUsyWCtMZ0JpQkFPMUZ4bzBPR3IxZmZpYzdNalVO?=
- =?utf-8?B?U3R5NWxRSktrVURqditnbXVieDJBdGdVcDV4V0JvU2p6QkljUm02UDBVVW1C?=
- =?utf-8?B?VUhLMW8zOWZ1OTVTNDlSeXFMcmFsSXY3MHB4bjdlNFAzbGRySVhMYTNzdWg2?=
- =?utf-8?B?WXMxbWpuUkNwS2h5elJSMGVHSElFK1hZVTdrSXZpMEF6dzI2cy92RGlaYXk2?=
- =?utf-8?B?WGdyazUrSEhYVGtpV0ZWNUVnc3JLQVk0dHd2Y0FETzF3YytvMy82TWMzRmZD?=
- =?utf-8?B?MHBwOExyVXVCcWZoQzRLRjVLdytaL2JsNXFINktNWDJDUUdEK01za290dnp5?=
- =?utf-8?B?WEY2L2prbHdLRFFuaW50MEVsbXhjbEJrTXQyYXd0R3kxUlNsbWNmZXdiYTFN?=
- =?utf-8?B?WWc1Z0xyenZxT0dJSTQrcXNQZEM0c3htZ25rWUlFTjM5bjBuQnZ0eWFnQmRF?=
- =?utf-8?B?aFEvYjczcUg4ay9pdmpQUnlaR0JvR0xiZTg2MWV0L082c3FSaXEyU29MUnhn?=
- =?utf-8?B?OG5sbWhxKzBoY1lIRytpd3hqM1ljTXovaVZBOHB2am9GVk9FQW5nem42dUJ4?=
- =?utf-8?B?Ny8wMFBtRHkwRnZiZU5Ed1NONklrMDVvWEZ2aG9HU21rWkNIY2puM1MrYWIw?=
- =?utf-8?B?bGlkOEVZT1p4b2lOSDlXTlNIeFhMNzVoc3pob1pDVjJHWDE3K1RUV20zMGRZ?=
- =?utf-8?B?SHB4VEUvcSt1RVdSODE3WUdSNHZTenlSb0wwRk5wSVo4L0ZOODcyTUkwZWll?=
- =?utf-8?B?SGF1dnhHd2o1MnZrSVZacnJwS21qM2NuZlhmcHd6cUVYUmcvQWZmYUVqem5w?=
- =?utf-8?B?K1dzd0tkeDdOWTVOT0U3Q2ZCb05yVHV2R1dRY2wrd3VDODUxOHVTWUN2K0NZ?=
- =?utf-8?B?ZFZtRHdZVWt4SmU4OTVUVklNaklhSHRyTnpTcUNoYXRJajhvVnBTSzV2R3M1?=
- =?utf-8?B?VHQ2bnd0b2hVNWMwd25DYXlDUytyVDl2eTRQZ2sxWmRTU2NTRWJzQ3R5aElM?=
- =?utf-8?B?ZFdaU3haOEZpR1REM0JJRUc2TWJtSldkK01LMnFPRVJxcjZnaG5kb3dVU2pz?=
- =?utf-8?B?dlM3bXRjcXRJU0ovVW11b05qUE5aSDFJSHAvZkJKVERQWVlLcFh3ak9zY01h?=
- =?utf-8?B?OVJaYlVYK3duRTdLS0psYjlzQ3A3N0ZyN2VRNGY4d0xmY3ljb2c5alhNTGpi?=
- =?utf-8?B?VTBVcHlXQ1hYMERpVGpVWXY0RGdpRVZ4UTJvOHZFYnowdE01VFhkejQwRGgw?=
- =?utf-8?B?K3NZYXdyYmF4bGN3VFY0ZE5NM3pxbUJnLzFaTUZINGJtY1pab2R0YUg4RUNL?=
- =?utf-8?B?WWp4NXN1cXRKc2I2M0NYdTRIaC9Ta2lwYTA1d0d0LzlqblhFMmJ0Qjc5eHhJ?=
- =?utf-8?B?VHc1YWdCdE5BRXVoZVIxUnFvWHlxa3pxM25mdDlGcTljSzNaTXVndzNUdXRB?=
- =?utf-8?B?d0RtQ3VYK1VIVGsrRkIrSWQwcnRHV3dBV29jc2tyVUtmYTUyL0IyaUNWWWU4?=
- =?utf-8?B?REpXZ2FaSXB6MEJRRTJWd3Vnc2MxTjhSR1I2OFp4YWhHUUVNNG14N1JSMUdM?=
- =?utf-8?B?bXBrUWd3amxCemE0dlNOM1FSemlkOEFGTHRIU3BybmlpKzBZcEVyR2t3dU5P?=
- =?utf-8?B?ODdELzZuUHA5RGhsMFRCL2FwemFIRmRJR3dLUWlRTlIxeXlpazhJRHJ5VUg1?=
- =?utf-8?B?QU9LRE40Z2FJOTNFVGZlV3N4dmVpMndObEFWSDd3Wm5QMitLemlLVVdhL01L?=
- =?utf-8?B?ZGJHTnIyaVY3VkFtYmFvbUxoUjhYd0l6RU11VXBwckdDRDdPQTh2cHhScnM0?=
- =?utf-8?B?RjZBa0hES0RSbHZaa1hmME1BdUxVSWd5U2E4NldVN2o1T1ViTE1PUHFjK0Vv?=
- =?utf-8?B?elpYbjBqcXFxMjkrRGI3aHlKZ0RRVnEycmtoTFBqcjhUWkZTODZLZURVZ0NU?=
- =?utf-8?Q?pdWhVBwhIxhAKWAzLu?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35b6f9b3-6206-4eea-45dc-08df01b2d2c2
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 07:39:26.5127 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OcV0HhltCZkSy3wS/u7GguR+vtBx5xC0DBRQjjHWreaGN7cT8Vu0fuda2k3WTkLw
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7140
+From: Kevin Hake <kevin@adec.dev>
+Date: Sun, 23 Aug 2026 08:05:16 -0700
+X-Gm-Features: AcwNN1U0GLbdISq-KdUC6arnYooRAMN4VFXNrQEVjBvWBCrGfjI6oO9bw8E8cFI
+Message-ID: <CA+9SDS166EhN-DAFNqatoJ84sY2-MMESY=1BXenHAr9CubK=wA@mail.gmail.com>
+Subject: [drm/amd #3549] Navi 33 idle sclk latch: repro, analysis,
+ userspace workaround
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com
+Content-Type: multipart/alternative; boundary="0000000000002f07d00659b83398"
+X-Mailman-Approved-At: Mon, 24 Aug 2026 07:56:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,44 +99,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/14/26 18:18, Priya Hosur wrote:
-> Similar to the KFD fix, MES does not perform heavy-weight TLB
-> invalidation after unmapping user queues. Add
-> amdgpu_gmc_flush_gpu_tlb_pasid() after MES unmap succeeds in
-> amdgpu_userq_unmap_helper() to ensure in-flight memory accesses
-> complete before memory is freed or migrated.
-> 
-> Change-Id: I94fe2c84547723b6b73816ce8d727a54bd773a6a
-> Signed-off-by: Priya Hosur <Priya.Hosur@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> index 6d3ed55e9ab4..9fcf15d69b7b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-> @@ -375,6 +375,12 @@ static int amdgpu_userq_unmap_helper(struct amdgpu_usermode_queue *queue)
->  		} else {
->  			trace_amdgpu_userq_state_changed(queue, AMDGPU_USERQ_STATE_UNMAPPED);
->  			queue->state = AMDGPU_USERQ_STATE_UNMAPPED;
-> +			/*
-> +			 * Heavy-weight TLB flush after MES unmaps queue to ensure
-> +			 * in-flight memory accesses complete before memory is freed/migrated.
-> +			 * MES does not do this automatically unlike HWS.
-> +			 */
-> +			amdgpu_gmc_flush_gpu_tlb_pasid(adev, queue->vm->pasid, 2, true, 0);
+--0000000000002f07d00659b83398
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Absolutely clear NAK to this.
+Hi all,
 
-The MES *must* guarantee that in flight memory accesses are completed before it unmaps the queue or otherwise we run into massive problems.
+Follow-up to drm/amd issue #3549 ("AMD GPU usage peaks with system in idle =
+=E2=80=94
+Radeon RX 7600 XT"), where I posted a root-cause analysis and reproducer
+a few weeks ago (note 3586398). The thread's been quiet, so I'm summarizing
+here in case it's useful to whoever owns PMFW/swsmu for SMU 13.0.7.
 
-Flushing out any VM changes by invalidating the TLB doesn't change anything on that.
+Behavior (RX 7600 XT / Navi 33, kernels 6.x=E2=80=937.1, likely any DE (tho=
+ I'm on
+Plasma w/Wayland) or bare TTY):
 
-Regards,
-Christian.
+  - With the gfx job stream verifiably empty, a single tiny job submitted
+    while sclk is at 0 (deep sleep) latches sclk at max (~2990 MHz, ~115 W)
+    indefinitely. A second completed gfx job clears it. So at true idle the
+    card toggles between 0 and max on every stray job, and can sit at max
+    for an hour with the screen off.
+  - Light sustained load (video, a compositor, radeontop) masks it, which
+    is why the earlier "monitoring tools toggle gfxoff" hypothesis looked
+    plausible. It reproduces on demand from a TTY with nothing polling.
+  - Umio's finding that disabling GFXOFF via ppfeaturemask stops the spikes
+    is consistent with this model: without GFXOFF there is no "single job
+    from deep sleep" transition to mis-handle.
 
->  		}
->  	}
->  
+How I measured:
 
+  - Job stream: a private ftrace instance on amdgpu_cs_ioctl /
+    amdgpu_sched_run_job / drm_sched_job_done, cross-checked against fdinfo
+    drm-engine counters and debugfs amdgpu_fence_info, so I could prove the
+    kernel submitted nothing while clocks moved.
+  - Clock: sampling the firmware's gpu_metrics (v1.3) at 1 kHz, matched to
+    the driver's 1 ms refresh of that table, to catch the ramp edges.
+  - Stimulus: a minimal compute dispatch with a held context (no setup/
+    teardown jobs), and later a one-packet PM4 NOP via libdrm =E2=80=94 eit=
+her one
+    toggles the latch.
+
+Everything points at the firmware's clock selection rather than the driver.
+Since PMFW can't be patched from outside, I published a small userspace
+workaround: a C daemon over libdrm/render node that submits one PM4 NOP
+when it sees sclk latched (same binary is the manual reproducer):
+
+  https://github.com/KevinHake/amdgpu-unstick
+
+Scripts, logs, and an asciinema demo are attached to the issue. If a
+narrower repro would help (specific firmware versions, mesa-free path,
+other kernels), tell me what you need and I'll run it.
+
+Thanks,
+Kevin Hake
+
+--0000000000002f07d00659b83398
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div><br clear=3D"all"></div><div><div dir=3D"ltr" class=
+=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr">Hi=
+ all,<br><br>Follow-up to drm/amd issue #3549 (&quot;AMD GPU usage peaks wi=
+th system in idle =E2=80=94<br>Radeon RX 7600 XT&quot;), where I posted a r=
+oot-cause analysis and reproducer<br>a few weeks ago (note 3586398). The th=
+read&#39;s been quiet, so I&#39;m summarizing<br>here in case it&#39;s usef=
+ul to whoever owns PMFW/swsmu for SMU 13.0.7.<br><br>Behavior (RX 7600 XT /=
+ Navi 33, kernels 6.x=E2=80=937.1, likely any DE (tho I&#39;m on Plasma w/W=
+ayland) or bare TTY):<br><br>=C2=A0 - With the gfx job stream verifiably em=
+pty, a single tiny job submitted<br>=C2=A0 =C2=A0 while sclk is at 0 (deep =
+sleep) latches sclk at max (~2990 MHz, ~115 W)<br>=C2=A0 =C2=A0 indefinitel=
+y. A second completed gfx job clears it. So at true idle the<br>=C2=A0 =C2=
+=A0 card toggles between 0 and max on every stray job, and can sit at max<b=
+r>=C2=A0 =C2=A0 for an hour with the screen off.<br>=C2=A0 - Light sustaine=
+d load (video, a compositor, radeontop) masks it, which<br>=C2=A0 =C2=A0 is=
+ why the earlier &quot;monitoring tools toggle gfxoff&quot; hypothesis look=
+ed<br>=C2=A0 =C2=A0 plausible. It reproduces on demand from a TTY with noth=
+ing polling.<br>=C2=A0 - Umio&#39;s finding that disabling GFXOFF via ppfea=
+turemask stops the spikes<br>=C2=A0 =C2=A0 is consistent with this model: w=
+ithout GFXOFF there is no &quot;single job<br>=C2=A0 =C2=A0 from deep sleep=
+&quot; transition to mis-handle.<br><br>How I measured:<br><br>=C2=A0 - Job=
+ stream: a private ftrace instance on amdgpu_cs_ioctl /<br>=C2=A0 =C2=A0 am=
+dgpu_sched_run_job / drm_sched_job_done, cross-checked against fdinfo<br>=
+=C2=A0 =C2=A0 drm-engine counters and debugfs amdgpu_fence_info, so I could=
+ prove the<br>=C2=A0 =C2=A0 kernel submitted nothing while clocks moved.<br=
+>=C2=A0 - Clock: sampling the firmware&#39;s gpu_metrics (v1.3) at 1 kHz, m=
+atched to<br>=C2=A0 =C2=A0 the driver&#39;s 1 ms refresh of that table, to =
+catch the ramp edges.<br>=C2=A0 - Stimulus: a minimal compute dispatch with=
+ a held context (no setup/<br>=C2=A0 =C2=A0 teardown jobs), and later a one=
+-packet PM4 NOP via libdrm =E2=80=94 either one<br>=C2=A0 =C2=A0 toggles th=
+e latch.<br><br>Everything points at the firmware&#39;s clock selection rat=
+her than the driver.<br>Since PMFW can&#39;t be patched from outside, I pub=
+lished a small userspace<br>workaround: a C daemon over libdrm/render node =
+that submits one PM4 NOP<br>when it sees sclk latched (same binary is the m=
+anual reproducer):<br><br>=C2=A0 <a href=3D"https://github.com/KevinHake/am=
+dgpu-unstick">https://github.com/KevinHake/amdgpu-unstick</a><br><br>Script=
+s, logs, and an asciinema demo are attached to the issue. If a<br>narrower =
+repro would help (specific firmware versions, mesa-free path,<br>other kern=
+els), tell me what you need and I&#39;ll run it.<br><br>Thanks,<br>Kevin Ha=
+ke</div></div></div></div>
+
+--0000000000002f07d00659b83398--
