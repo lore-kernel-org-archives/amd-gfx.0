@@ -4,81 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1169AC5DF81
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2026 15:35:55 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D1DA1C61CE3
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2026 17:02:32 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F152210E55D;
-	Mon, 24 Aug 2026 15:35:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E49A10E161;
+	Mon, 24 Aug 2026 17:02:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KHa+RDi5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZZmqRsbP";
 	dkim-atps=neutral
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6CB0B10E55D
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2026 15:35:51 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-c197e7e4e94so648050666b.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2026 08:35:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787585750; x=1788190550; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=MBR6d94THkkReePXuJjZ6x5N9bPpPVrN1tis5l/KU/8=;
- b=KHa+RDi5p2kv/YY4C6zeiX9N72DHo3H9USdzWXv8BZ/LdM4ZsfPjmWVRqAcJxYhgmt
- t3CLQ9zC/zINzg/XFbc3EN56mDggoO5RxUfTR5sqiR+LF3alqEAYRLgwL6Yzyd9CmZ6H
- zjTI028+fWWL4n5CPseaGLu89jgsy+T05oYvJHKJee5c+hFVEqRWK9QXaFuryr/k+9hW
- D+dmicg7kWZqDFwXi/rw+JWUjeb/LLy5NyPqH4h8cTmY/hG2G02vOHf/f5YD4CRP49ES
- nbc6RFDj3oE0srHD/pHuAvqd5el5IzMLiZORkKMGN94CU3eeczSblxVzSCVWNL9ACE2M
- 2Qzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787585750; x=1788190550;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=MBR6d94THkkReePXuJjZ6x5N9bPpPVrN1tis5l/KU/8=;
- b=fi0vjvW/9cZb3SexSGyEE1nOnoLP9KMZqkyTQwMYZeyJ5ayERdbaKKDt6aICeaPWwT
- AODHnfYFk2iy2d05A2rnGB3kapv8LpyoNNFtuGrQojyV140IjO3Zf6KLaw2vfmbl7Viu
- Yvi5HazmNEbmkoC0rwEmnemb7uWlfsk96o6fbjaWU6xIq6iaiYmQfxKi5pl+PMvjHB33
- eMEESwC/UGTYTiykbdKKMQk36Ql3tBOMyiop/s3BFHzpwXrz01F38Ty3GRd6Wszez3+l
- +tdEb/90RgPhI1gXIYZuOqtc4WEq1qDuKMTBKd3sutBCnV0P3v2/o+f+4EdvlJKt4CFO
- Y/oQ==
-X-Gm-Message-State: AFuF++nCzXGwjxRyuc0VtAiI53A8h5SO9kOHae86x0e6mKqj5/uVP/Ao
- h9wjPyNmbGa2xNoux/2QcsrgCDVR0vX1RVS+NSurAvW0Z7L5PxNfub3AquaJZA4B1uoYBg==
-X-Gm-Gg: AR+sD11Ozz40pk7sqxMauen+C2aqZ5hKVRr8gg+RWoFr7qRiZiXMEHlrjq0wptoZQ3J
- NYiYCLOyG9qVgazpxwHyYs3NqZolG5pkmHQRmWmwWLq6Dg5+35X7/iatcTW5VPs3SJ2yCc4DUT+
- 5yQtFefbdEuo1c9AXVkUByHu4xGdqMsBZUnKnQt87tSG7FPg4M7bA+jzWQqGPAcUJQEfPyTtJ5A
- v/PIJV7rtyPN/0BNPMrKAA45OypOi0ekA7S2lQYBN9U1EwiW77Inba5OVL6rL4lA6YNV8k0kRQ7
- kpcnwut2OL69vVtilRTmB0fwCWtVburC/KuUfWl+7Ej4yHZcBm51gfBfyG7cdquT2vbPBlB+wp/
- cm0YznD/wKmhjm/oinWvxPVRvS5LZsxNBnWqHVq+Gp+z2At27vNcXFqBFcZjiVgG9l9/ABr3yJe
- EWdQr804Xwhq/JluxzMXjrX3G2E3rhq+wi/Cg96ncyiIYzWFzo20z+iZXG8nHbi+UOxB91QKdHF
- yRD0Bw3hhXvs/5il3hKeCbujRY3OcA/o0WQuBObC9r34X8kxGHMsCZ27rbpyJl4gyHLuTQWpImv
- SMXlUXmD5i/0Kh335lY0hQxK0zq+K8EJ6wjj0FGYNQ==
-X-Received: by 2002:a17:907:94d0:b0:c24:8a09:8195 with SMTP id
- a640c23a62f3a-c249238cd91mr1833789266b.3.1787585749547; 
- Mon, 24 Aug 2026 08:35:49 -0700 (PDT)
-Received: from horsehead.monster-haddock.ts.net
- (p548c9e2a.dip0.t-ipconnect.de. [84.140.158.42])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c249606a8edsm1298978666b.6.2026.08.24.08.35.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Aug 2026 08:35:48 -0700 (PDT)
-From: Denis Pisarev <pisarevden@gmail.com>
-To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, christian.koenig@amd.com,
- mario.limonciello@amd.com, ionut_n2001@yahoo.com,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Denis Pisarev <pisarevden@gmail.com>
-Subject: [RFC PATCH v3 1/1] drm/amdgpu: fall back to MMIO TLB invalidation
- when KIQ is unresponsive
-Date: Mon, 24 Aug 2026 17:35:42 +0200
-Message-ID: <20260824153542.491012-2-pisarevden@gmail.com>
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012054.outbound.protection.outlook.com [40.107.209.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 90E7710E15F;
+ Mon, 24 Aug 2026 17:02:29 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=p91rLRu6d6FaYRa/b30MN4iTPa95Kq+kJW6nRiz6iLVObzT/nF90EuF+J7u4E7KOouT1NRzZfi+sGJCAG/pI7dlfA671JKz/ErJNucSMgIzFRz7xu1m991yFfTreRx5NVnwrSFAs/F698aFyzOOUlQGGFkEBEVT5dmnCpf6Y2wrRiTbEPupfdDmZs6lkV0a/DfZ9QNBpu5Gv6YQDFzD2QOI2Jo1mKtlJaOYLw1oZ7GcNH80PtPSFXuBKnrPP/mWLBPt63qfNwv2BpOTBD7sG2UnjBf21TdR3i7JBkZ5RXDJVllxW5Te89AU3jivHZtCrl9SmmsYAWk+XwmGsHjaLlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Jb3zLypAvIWzOf5qDemufjTpSyjWSAXVWQCFTkOmQ+Q=;
+ b=WOuoUP3VM2bLMdAYbc+VBWrFnldivdqAbStVTiIHgdwQGpDT+77itgsNzHRMBj2wQ7fcG3G9SeL/mNNa11DmqcparQBl2wgQD6jUSWGbdEUzOz8Sq+3izd45wSx5+TXJAmeVjCokN8uA4v63WDGW+yrRK3KEEt85jEnPaeuWVOQsyQrQj2Iga0kofxXuFOov8Og6VHidozwztY4cnFTHm4okBb9obaovpFoTuqaUJfToeDuzl5G8dRkcYrHpZSWcGWL+ljoTkjdEFEsvqMORE1kDE8rbpojShma+/2ApiagFeUnZJKLcxPcXSR0NGMxHxHzdxAbCI6LwiRDSexPSbw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Jb3zLypAvIWzOf5qDemufjTpSyjWSAXVWQCFTkOmQ+Q=;
+ b=ZZmqRsbPG5bjsUitx9mQGdarwoFUT6RP9KSczx51y89MXXdoFM08KVkfBuhLmppBXel9lpkEH0jybPfAQGFmyvYcY+RBiCBaKD41XVdU3mSZDadaT7B8OAy1sdzEEy+d9EHGhQQgLkuTv8S9sMpeBwvaZamX4UO6NFLsGlZpMTQ=
+Received: from SJ0PR03CA0371.namprd03.prod.outlook.com (2603:10b6:a03:3a1::16)
+ by CY5PR12MB6429.namprd12.prod.outlook.com (2603:10b6:930:3b::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
+ 2026 17:02:22 +0000
+Received: from SJ5PEPF000001D3.namprd05.prod.outlook.com
+ (2603:10b6:a03:3a1:cafe::5) by SJ0PR03CA0371.outlook.office365.com
+ (2603:10b6:a03:3a1::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.12 via Frontend Transport; Mon,
+ 24 Aug 2026 17:02:19 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ5PEPF000001D3.mail.protection.outlook.com (10.167.242.55) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Mon, 24 Aug 2026 17:02:18 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 24 Aug
+ 2026 12:02:15 -0500
+Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Mon, 24 Aug 2026 12:02:15 -0500
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
+ <Felix.Kuehling@amd.com>
+CC: Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH V2 0/3] Add UALink infrastructure series 2
+Date: Mon, 24 Aug 2026 13:01:59 -0400
+Message-ID: <20260824170202.1764463-1-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260824153542.491012-1-pisarevden@gmail.com>
-References: <20260819185349.29407-1-pisarevden@gmail.com>
- <20260824153542.491012-1-pisarevden@gmail.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D3:EE_|CY5PR12MB6429:EE_
+X-MS-Office365-Filtering-Correlation-Id: 145a511a-2581-4aea-560e-08df020174c5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|10067099003|56012099006|5023799004|11063799006|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info: agoFxDG7NrdPyRnfx1jnTxZtWRZ9uXN92n5zW6JiKrq7VVqFiU3n+dFX6ore5sXq0UkaUTwqiJ70egm/GoMaLbdJlON6rpbCosrJQwA6nCaqD0KawuWvD4nvP6ReE+Uiprkf29+O2VB3GCLRYrJPl1bFtCs3PRh5Svj3C0c1Z/01b3ArrOb7tanI0VkBKywX325ZIWOZIPOpLzgqKeV6RDfj1PoMPrds9g2q6FTfXb/LsfJUp/3YBB1dHfuvdTYVcjLS0nA134jOzdryXStMoGOJUfhR5uFMF581AM+H/JrVtU/3Qrc4vv0JYypVivhS2IkfsREgqzONBQNVpVgUNx7W3UbgdiwA8nHBRetWdzEaeKr6GLC1Flblyoh/iKzqQD7+vEqp/9RI2fvs8Aefr+wHWOa6eNRYLbUCBeNiNve1Rdv8/7vu32fhRTKptk3EYOkrUCzAgNvsjNst6T1LfqHJ/xGuwoit1/vmf4l8cfRgB5QXM4C+6UHjJi9m5a2yh4IZG9uxDXGOM/wCB6Uz8TUqYnQDoZ5eoiV/3W+vHj/mIdrxHySGhChfL8wRQIVrt9RiOESpDEwWIEgILMStdVZExiX4sFDJU0g3ujGbxDKExox3zYuRudiAyOEabKnMHs7daJspx/Xk6G0bh4EsY0sT7FOn6I6zXSGEHRC2QCA=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(10067099003)(56012099006)(5023799004)(11063799006)(6133799003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: uIUYSMrRt3kjY6Shos0UPgRfEVH1s7deXpDK9/GjvQY4IFZ9BccTpXjh0P/nC5LAu2XZtmH0hpVw7a+SJ8J2EJ5W2OL5LmYmTMzjFUhfpkILvlQ0Yq5pR0c4QrBSX4pna0UOnCBQjI0IWtfk0HdUU9qyNMFBNKjLgIBJDBGbxmEXeDzrY/FbjtwHp8hze2+e20BvdqMH6Xcn6WJXblpAL0xoOJYVVY/u0k7jvmlqmRHWPnSPKXqHgbmU9M5Xydx6k7Wixie3nec8rxQvQk1mfIvidLXEJo36xVciVy3q+1xc9IhBdPtjkrbsL5nISPomWZrEWwLiMqcyQ6bMDiwLP+29QYjkx6N0FuBWuMecVFbHbNthtKf8jHC3a7nq13okaMww8fzqjX3Pn9lJlXNYY9zchlvwPGfH3KSj4HZVd5kFpL7P7ZoBMb6LIO1z8trP
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 17:02:18.5876 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 145a511a-2581-4aea-560e-08df020174c5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D3.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6429
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,352 +108,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-After resume from S4 (hibernation) on gmc_v9 parts with GFXOFF
-(observed on Cezanne / Ryzen 7 PRO 5850U, kernel 7.1.8), KIQ-based TLB
-flushes start failing at the moment of the thaw and keep failing for
-hours of normal desktop use:
+This adds the core infrastructure for supporting UALink (Ultra Accelerator Link)
+connected scale up pods. I've split this into two series, one to add the core
+infrastructure, and one to expose the new IOCTL interface and add the
+documentation to avoid spamming the larger audience with the implemenation
+defails.  This is the second series.
 
-  amdgpu 0000:07:00.0: failed to write reg 28b4 wait reg 28c6
-  amdgpu 0000:07:00.0: failed to write reg 1a6f4 wait reg 1a706
+The first series can be found here:
+https://lists.freedesktop.org/archives/amd-gfx/2026-August/151200.html
 
-(80-140 errors/hour measured over 9+ hours; bugzilla 219492). The KIQ
-ring stays sched.ready throughout, so readiness does not reflect the
-state of the hardware in this failure mode.
+Both series can be accessed via this git branch:
+https://gitlab.freedesktop.org/agd5f/linux/-/commits/ualink?ref_type=heads
 
-Two problems follow from the current code: every failed flush burns
-the full ~5 s KIQ retry window before erroring out (desktop-wide
-sluggishness), and the invalidation is then silently dropped (stale
-TLBs - correctness).
+This implements UALoE (UALink over Ethernet). An overview of the complete
+solution can be found here:
+https://www.amd.com/en/products/rackscale-solutions/helios.html
 
-Make the failure observable and self-healing:
+Overview
 
-- amdgpu_gmc_fw_reg_write_reg_wait() returns 0/-ETIME, propagates MES
-  errors, and counts consecutive failures per KIQ instance
+Connected GPUs in a pod can directly access the remove memory on another
+GPU over UALink.  Unlike RMDA, there is no copy involved; it is direct
+loads/stores over the fabric.  Shared memory can only be accessed by
+a remote GPU if the memory was exported and the importer has been authorized.
+For the memory to be shared, it must be part of a unified physical
+address space shared between nodes.  This address space is called NPA (Nework
+Physical Address) space.  This address space is partitioned between
+the GPUs so that each GPU has it's own segment of the address space in which
+to export its memory.  Each GPU maintains a dedicated set of page tables
+for their NPA space similar to GPUVM.
 
-- gmc_v9_0_flush_gpu_tlb() falls back to gmc_v9_0_flush_gpu_tlb_mmio()
-  (the former pre-KIQ MMIO code, extracted into a helper with irqsave
-  locking since it is reachable at runtime) when the KIQ submit fails,
-  so the invalidation is no longer dropped
+Exported memory is pinned.  This is similar to how dma-bufs in VRAM are pinned
+for P2P access.  Remote TLB shootdowns from the exporter are used when the
+exported memory is freed in order to remove access by remote GPUs.
 
-- after AMDGPU_KIQ_FLUSH_MAX_FAIL (3) consecutive failures the KIQ
-  path is skipped entirely for bare metal process context, so wedged
-  systems stop paying the 5 s retry window per flush
+To access remote memory, the driver can map NPA addresses into its per
+process GPUVM page tables just like local memory.  Applications use
+opaque handles to represent remote memory.  GPUs in a pod communicate
+with eachother directly to exchange NPA addresses between importers
+and exporters.  If a node goes offline or is reset, their peers will
+clean up any remaining refrences that are lost when that happens.
 
-- the MMIO fallback holds the GC block awake with
-  amdgpu_gfx_off_ctrl() across the direct register access (it may
-  sleep, hence process context only) and is restricted to bare metal;
-  SR-IOV VFs and interrupt contexts never take it - they keep
-  attempting KIQ exactly as before this patch, with failures logged,
-  because they have no MMIO alternative
+User interface
 
-- the counter resets on every success and in gmc_v9_0_hw_fini(); every
-  suspend/resume cycle re-arms the KIQ path; nothing is disabled
-  proactively
+Export Memory
 
-Known limitation / open question: a KIQ command that already timed out
-stays queued in the ring; if the ring recovers late it could emit a
-duplicate invalidation concurrently with a CPU MMIO flush. The
-invalidation engine serializes requests internally, so the expected
-worst case is a lost flush request caught by the existing ACK timeout
-("Timeout waiting for VM flush ACK!") rather than silent corruption;
-once latched this path submits no new KIQ commands, bounding the
-window. Reviewer input on whether a fence (or a dedicated invalidate
-engine for the MMIO path) is required would be welcome.
+To export memory, a handle must be created for an allocation
+that can be shared with another node in the pod.  To do this
+the exporter calls the GEM UALink IOCTL with the GEM handle
+to the buffer it wants to export.  The IOCTL returns a
+unique handle which can be shared with the remote host.
 
-Changes since v2 (sashiko-bot review):
-- VFs and IRQ contexts are no longer silently dropped once the latch
-  is set: they keep submitting to KIQ with per-failure logging,
-  matching pre-patch behavior exactly; the latch now only reroutes
-  bare metal process context to MMIO
+Import Memory
 
-Changes since v1 (sashiko-bot review):
-- hold GFXOFF off around runtime MMIO access (was: unguarded)
-- per-KIQ-instance failure counter instead of a global one
-- invalidate_lock taken irqsave in the extracted MMIO helper
-- MES path errors propagated instead of hardcoded success
-- threshold warning no longer promises a fallback gmc_v10/v11/v12 do
-  not implement
+To import the memory, the handle from the remote node must be converted
+from a unique handle to a local GEM object which represents the local reference
+to the NPA space on the importer.  If the memory has already been
+imported, it just returns a new reference to the existing object.  If not,
+the importer queries the exporter to get the NPA address.  Once it has that
+the importer can create a dma-buf to represent the NPA space used by the
+allocation and that is returned to the application.
 
-gmc_v10/v11/v12 call sites are unchanged and compile-safe (int return
-used as statement). The sibling PASID path
-(amdgpu_gmc_flush_gpu_tlb_pasid) already has an -ETIME/MMIO split;
-this brings the per-VMID path in line with it.
+Proposed Userspace
+https://github.com/ROCm/rocm-systems/blob/35959f8e1260c7cee3e51a740e320be3856ee4ff/projects/rocr-runtime/libhsakmt/src/memory.c#L971
+https://github.com/ROCm/rocm-systems/blob/35959f8e1260c7cee3e51a740e320be3856ee4ff/projects/rocr-runtime/libhsakmt/src/memory.c#L1036
 
-Root-cause note: with GFXOFF held off across the S4 cycle (debugfs
-amdgpu_gfxoff), zero errors occur across resume and 30 min of use vs
-~70-140 in the control arm; the wedge forms in the S4 resume window
-while GFXOFF is allowed, consistent with the existing semaphore
-workaround comment in gmc_v9_0.c.
+V2: Update the documentation per Felix' feedback.  Clarify that exported memory
+is pinned.
 
-Signed-off-by: Denis Pisarev <pisarevden@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu.h     |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |   2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c |  18 ++--
- drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |   2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 123 +++++++++++++++++++-----
- 5 files changed, 114 insertions(+), 33 deletions(-)
+Alex Deucher (1):
+  Documentation: add initial UALink Documentation
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-index 7b09410d6..cd5d9e56e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-@@ -360,6 +360,8 @@ enum amdgpu_kiq_irq {
- #define MAX_KIQ_REG_WAIT       5000 /* in usecs, 5ms */
- #define MAX_KIQ_REG_BAILOUT_INTERVAL   5 /* in msecs, 5ms */
- #define MAX_KIQ_REG_TRY 1000
-+/* consecutive KIQ TLB flush failures before falling back to MMIO */
-+#define AMDGPU_KIQ_FLUSH_MAX_FAIL 3
- 
- /*
-  * BIOS.
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-index 54c1eb9c4..e2aceb99c 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h
-@@ -167,6 +167,8 @@ struct amdgpu_kiq {
- 	struct amdgpu_irq_src	irq;
- 	const struct kiq_pm4_funcs *pmf;
- 	void			*mqd_backup;
-+	/* consecutive TLB flush reg access failures on this instance */
-+	atomic_t		flush_failures;
- };
- 
- /*
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-index 5d6149ba7..49d3d6651 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-@@ -874,7 +874,7 @@ int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
- 	return r;
- }
- 
--void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
-+int amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
- 				      uint32_t reg0, uint32_t reg1,
- 				      uint32_t ref, uint32_t mask,
- 				      uint32_t xcc_inst)
-@@ -886,9 +886,8 @@ void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
- 	uint32_t seq;
- 
- 	if (adev->mes.ring[MES_PIPE_INST(xcc_inst, 0)].sched.ready) {
--		amdgpu_mes_reg_write_reg_wait(adev, reg0, reg1,
--					      ref, mask, xcc_inst);
--		return;
-+		return amdgpu_mes_reg_write_reg_wait(adev, reg0, reg1,
-+						     ref, mask, xcc_inst);
- 	}
- 
- 	spin_lock_irqsave(&kiq->ring_lock, flags);
-@@ -919,13 +918,20 @@ void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
- 	if (cnt > MAX_KIQ_REG_TRY)
- 		goto failed_kiq;
- 
--	return;
-+	atomic_set(&adev->gfx.kiq[xcc_inst].flush_failures, 0);
-+	return 0;
- 
- failed_undo:
- 	amdgpu_ring_undo(ring);
- 	spin_unlock_irqrestore(&kiq->ring_lock, flags);
- failed_kiq:
--	dev_err(adev->dev, "failed to write reg %x wait reg %x\n", reg0, reg1);
-+	if (atomic_inc_return(&adev->gfx.kiq[xcc_inst].flush_failures) ==
-+			AMDGPU_KIQ_FLUSH_MAX_FAIL)
-+		dev_warn(adev->dev,
-+			 "KIQ reg access keeps failing, MMIO fallback recommended\n");
-+	dev_err_ratelimited(adev->dev,
-+			    "failed to write reg %x wait reg %x\n", reg0, reg1);
-+	return -ETIME;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-index ddb0d500e..303e0ee98 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h
-@@ -447,7 +447,7 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- int amdgpu_gmc_flush_gpu_tlb_pasid(struct amdgpu_device *adev, uint16_t pasid,
- 				   uint32_t flush_type, bool all_hub,
- 				   uint32_t inst);
--void amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
-+int amdgpu_gmc_fw_reg_write_reg_wait(struct amdgpu_device *adev,
- 				      uint32_t reg0, uint32_t reg1,
- 				      uint32_t ref, uint32_t mask,
- 				      uint32_t xcc_inst);
-diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-index 8a5c44810..3f04a25b1 100644
---- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-@@ -764,27 +764,28 @@ static bool gmc_v9_0_get_atc_vmid_pasid_mapping_info(struct amdgpu_device *adev,
-  */
- 
- /**
-- * gmc_v9_0_flush_gpu_tlb - tlb flush with certain type
-+ * gmc_v9_0_flush_gpu_tlb_mmio - tlb flush via direct MMIO
-  *
-  * @adev: amdgpu_device pointer
-+ * @hub: vmhub to flush
-  * @vmid: vm instance to flush
-  * @vmhub: which hub to flush
-- * @flush_type: the flush type
-+ * @inv_req: invalidation request payload
-  *
-- * Flush the TLB for the requested page table using certain type.
-+ * Direct CPU access to the invalidation engine. Callers must ensure
-+ * the target block cannot power gate across the access (GFXOFF needs
-+ * to be held off at runtime) and must hold no other locks.
-  */
--static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
--					uint32_t vmhub, uint32_t flush_type)
-+static void gmc_v9_0_flush_gpu_tlb_mmio(struct amdgpu_device *adev,
-+					struct amdgpu_vmhub *hub,
-+					uint32_t vmid, uint32_t vmhub,
-+					u32 inv_req)
- {
- 	bool use_semaphore = gmc_v9_0_use_invalidate_semaphore(adev, vmhub);
--	u32 j, inv_req, tmp, sem, req, ack, inst;
- 	const unsigned int eng = 17;
--	struct amdgpu_vmhub *hub;
--
--	BUG_ON(vmhub >= AMDGPU_MAX_VMHUBS);
-+	unsigned long flags;
-+	u32 j, tmp, sem, req, ack, inst;
- 
--	hub = &adev->vmhub[vmhub];
--	inv_req = gmc_v9_0_get_invalidate_req(vmid, flush_type);
- 	sem = hub->vm_inv_eng0_sem + hub->eng_distance * eng;
- 	req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
- 	ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
-@@ -794,21 +795,8 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- 	else
- 		inst = vmhub;
- 
--	/* This is necessary for SRIOV as well as for GFXOFF to function
--	 * properly under bare metal
--	 */
--	if (adev->gfx.kiq[inst].ring.sched.ready &&
--	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
--		uint32_t req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
--		uint32_t ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
--
--		amdgpu_gmc_fw_reg_write_reg_wait(adev, req, ack, inv_req,
--						 1 << vmid, inst);
--		return;
--	}
--
- 	/* This path is needed before KIQ/MES/GFXOFF are set up */
--	spin_lock(&adev->gmc.invalidate_lock);
-+	spin_lock_irqsave(&adev->gmc.invalidate_lock, flags);
- 
- 	/*
- 	 * It may lose gpuvm invalidate acknowldege state across power-gating
-@@ -870,7 +858,7 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- 			WREG32_SOC15_IP_NO_KIQ(GC, sem, 0, GET_INST(GC, inst));
- 	}
- 
--	spin_unlock(&adev->gmc.invalidate_lock);
-+	spin_unlock_irqrestore(&adev->gmc.invalidate_lock, flags);
- 
- 	if (j < adev->usec_timeout)
- 		return;
-@@ -878,6 +866,82 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
- 	DRM_ERROR("Timeout waiting for VM flush ACK!\n");
- }
- 
-+/**
-+ * gmc_v9_0_flush_gpu_tlb - tlb flush with certain type
-+ *
-+ * @adev: amdgpu_device pointer
-+ * @vmid: vm instance to flush
-+ * @vmhub: which hub to flush
-+ * @flush_type: the flush type
-+ *
-+ * Flush the TLB for the requested page table using certain type.
-+ */
-+static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
-+					uint32_t vmhub, uint32_t flush_type)
-+{
-+	u32 inv_req, inst;
-+	const unsigned int eng = 17;
-+	struct amdgpu_vmhub *hub;
-+	bool latched, can_mmio;
-+
-+	BUG_ON(vmhub >= AMDGPU_MAX_VMHUBS);
-+
-+	hub = &adev->vmhub[vmhub];
-+	inv_req = gmc_v9_0_get_invalidate_req(vmid, flush_type);
-+
-+	if (vmhub >= AMDGPU_MMHUB0(0))
-+		inst = 0;
-+	else
-+		inst = vmhub;
-+
-+	latched = atomic_read(&adev->gfx.kiq[inst].flush_failures) >=
-+			AMDGPU_KIQ_FLUSH_MAX_FAIL;
-+	/* Direct register access requires process context (holding
-+	 * GFXOFF off may sleep) and bare metal (VFs lack the
-+	 * privileges for direct GMC invalidation writes)
-+	 */
-+	can_mmio = !in_interrupt() && !amdgpu_sriov_vf(adev);
-+
-+	/* This is necessary for SRIOV as well as for GFXOFF to function
-+	 * properly under bare metal
-+	 */
-+	if (adev->gfx.kiq[inst].ring.sched.ready &&
-+	    (amdgpu_sriov_runtime(adev) || !amdgpu_sriov_vf(adev))) {
-+		uint32_t req = hub->vm_inv_eng0_req + hub->eng_distance * eng;
-+		uint32_t ack = hub->vm_inv_eng0_ack + hub->eng_distance * eng;
-+
-+		/* Once latched, KIQ is only attempted by callers that have
-+		 * no MMIO alternative (IRQ context, VFs); bare metal
-+		 * process context goes straight to the MMIO fallback
-+		 */
-+		if (!latched || !can_mmio) {
-+			if (!amdgpu_gmc_fw_reg_write_reg_wait(adev, req, ack,
-+							      inv_req,
-+							      1 << vmid, inst))
-+				return;
-+			/* KIQ submit failed; error already logged above */
-+		}
-+
-+		/*
-+		 * MMIO fallback: the invalidation must not be silently
-+		 * dropped when KIQ is unresponsive.
-+		 */
-+		if (can_mmio) {
-+			amdgpu_gfx_off_ctrl(adev, false);
-+			gmc_v9_0_flush_gpu_tlb_mmio(adev, hub, vmid, vmhub,
-+						    inv_req);
-+			amdgpu_gfx_off_ctrl(adev, true);
-+		}
-+		/* IRQ context / VF: flush dropped as before this patch;
-+		 * the failure was logged in
-+		 * amdgpu_gmc_fw_reg_write_reg_wait()
-+		 */
-+		return;
-+	}
-+
-+	gmc_v9_0_flush_gpu_tlb_mmio(adev, hub, vmid, vmhub, inv_req);
-+}
-+
- /**
-  * gmc_v9_0_flush_gpu_tlb_pasid - tlb flush via pasid
-  *
-@@ -2237,6 +2301,13 @@ static void gmc_v9_0_gart_disable(struct amdgpu_device *adev)
- static int gmc_v9_0_hw_fini(struct amdgpu_ip_block *ip_block)
- {
- 	struct amdgpu_device *adev = ip_block->adev;
-+	int i;
-+
-+	/* KIQ instances are re-initialized on the next resume; re-arm
-+	 * the MMIO fallback logic
-+	 */
-+	for (i = 0; i < AMDGPU_MAX_GC_INSTANCES; i++)
-+		atomic_set(&adev->gfx.kiq[i].flush_failures, 0);
- 
- 	gmc_v9_0_gart_disable(adev);
- 
+Mukul Joshi (2):
+  drm/gem: Add callback for when handle count goes to 0
+  drm/amdgpu: Add ioctl infra for exporting/importing UALink handles
+
+ Documentation/gpu/amdgpu/index.rst         |  1 +
+ Documentation/gpu/amdgpu/ualink.rst        | 75 ++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    |  9 +++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 44 +++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h |  2 +
+ drivers/gpu/drm/drm_gem.c                  |  5 +-
+ include/drm/drm_gem.h                      | 11 ++++
+ include/uapi/drm/amdgpu_drm.h              | 30 +++++++++
+ 9 files changed, 178 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/gpu/amdgpu/ualink.rst
+
 -- 
 2.55.0
 
