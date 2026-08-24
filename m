@@ -4,109 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 74E74C5DF81
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2026 12:59:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B3C9C5DF9B
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2026 13:28:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1168E10E7BE;
-	Mon, 24 Aug 2026 12:59:12 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1B60910E400;
+	Mon, 24 Aug 2026 13:28:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="b4nMG6oI";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="R8q1M4c+";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="aBIRFlP6";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="+QrvSpZB";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="M22CWJPS";
 	dkim-atps=neutral
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8F16310E7B0;
- Mon, 24 Aug 2026 12:59:10 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0CB6F1F45F;
- Mon, 24 Aug 2026 12:52:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787575936; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vDSmxFASz+fkrhZzUl77TDXseYfLE5/RPWlWXgBn8tc=;
- b=b4nMG6oIR8iSZpPaxrfQN5El39KyJKWOEUkCl5OpvExfqATh7u37VIHqx0UpbT7dzcyHEG
- K4vV6RD0Om6GKZQcrBs5K9EaY1FzQuFh/Z+sKJHf9sG+PpMbTK8DDGWc9XOTG4yc4dS5Re
- PklyOhYU70PfsEeeipUqnvzVv3RqA6c=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787575936;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vDSmxFASz+fkrhZzUl77TDXseYfLE5/RPWlWXgBn8tc=;
- b=R8q1M4c+MTfap+bhVzUARZPw+Ip5Cx2kFP2H4j43ky/kG30qAYU0IK3vKqihQHuDtZz/tm
- 35RFhgjyy1dy8RAQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
- t=1787575932; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vDSmxFASz+fkrhZzUl77TDXseYfLE5/RPWlWXgBn8tc=;
- b=aBIRFlP6paT4N3trcB0wPfhixBBoQsU36F61Y0v/hO7DXQYNDSa9zd5H7K7ncQxcr9tPsi
- xvzYmMOVBJh2p8VBqzHj4FE1LiGmN/AMxW4zUs6eqVfFlY/oEK9aQGNq61pEKImaPkzmbc
- Ceu8+9dRXR4/fdalXZJnU5QaNM/Lyzo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
- s=susede2_ed25519; t=1787575932;
- h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
- mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=vDSmxFASz+fkrhZzUl77TDXseYfLE5/RPWlWXgBn8tc=;
- b=+QrvSpZBbEhaJ/Ac1pHKNBtWLjVml1HSeW+8DbrU/qF0mIG/CYkefnNqcpB6FMAUIZxejZ
- LWyBVGsREBZCYsBg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 8768513331;
- Mon, 24 Aug 2026 12:52:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id MLvbH3s+jGpyNwAAD6G6ig
- (envelope-from <tzimmermann@suse.de>); Mon, 24 Aug 2026 12:52:11 +0000
-From: Thomas Zimmermann <tzimmermann@suse.de>
-To: jfalempe@redhat.com, javierm@redhat.com, airlied@gmail.com,
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- geert@linux-m68k.org, rdunlap@infradead.org
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, rust-for-linux@vger.kernel.org,
- linux-hyperv@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, nouveau@lists.freedesktop.org,
- linux-renesas-soc@vger.kernel.org, virtualization@lists.linux.dev,
- sashiko-reviews@lists.linux.dev, Thomas Zimmermann <tzimmermann@suse.de>
-Subject: [PATCH v2 11/13] drm/panic: Internalize panic locking in DRM core and
- helpers
-Date: Mon, 24 Aug 2026 14:43:42 +0200
-Message-ID: <20260824125201.218863-12-tzimmermann@suse.de>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260824125201.218863-1-tzimmermann@suse.de>
-References: <20260824125201.218863-1-tzimmermann@suse.de>
-MIME-Version: 1.0
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012052.outbound.protection.outlook.com [52.101.43.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BAD6510E400
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2026 13:28:25 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QPMemdJrgulohM9DA0rA57pDYAbmpxq/x6CH0ZT/xaLjcIv4+81PdKOQsvUf+HOIXo5Mao5WpgHgjAq0ihUdO1ObK69g0S84+nDdHJj9GXSjtUxFRHluR77t8A9y4oF5Y9QU6IlHrKeEOogrYmJ67lsADiIp5TnB4aYtmlhRqriXPFM+CRAV+b6Ig9znbL0H6NXs2PwAD0ooMMe6qEZ0JqFmYVha9aFj385pCwj5hN4yKBvTFxJJARDHwW5BaCREU8mXeKtw1Zn+DCOnfRxixvI5IjNa5aKmuXu0p9L1iaXGfm5WMgHJGYn6Y6KqrknJt6+KpfdAx38vDkEy1S/U4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mypja0S9aooA4Q1RQAccwq9mY0MXQGAapej31Xyzb2M=;
+ b=m/Vdil/0n2ZVPkgyVFW2BcReSbz/nmGnc366PnUdVo4+m7ii2YJ91LSxgQxkHpawqYzG8y+G5UlGO7s6EG41uaianAgP2IW/0jVvTkus1Fsx0A5bY94gEfUBvwQ475M5GftaYNfF4Xpkp6VZNEk67/Azffa9XWyZW+Z/plOPGqbow7zq3GWKZQH0QSJ0bszHKfbDZsDlSRC0nPsDsvtYn2ZLV4L7h6kcRcwI7SWCUnITeDDf7CYqdnYJLqt+3TRB4Yz5v0T5xquFi5JQ+jMgBv+kwrLTOhUX6HTD+YkKxZzwf/7KwlnvKDpJoJG0ADfwUTV6rcF/8DF5kd47ThK+eQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mypja0S9aooA4Q1RQAccwq9mY0MXQGAapej31Xyzb2M=;
+ b=M22CWJPSr/9bMD0VlbZa4un/paEOvPPlspCsd8p0coyUAYVJ8tnT4jn5TI+qxJOZHnewFTdTIamkP8onWuT3wBiqNYBOM+BQ+w3qNPvFvpaY5jzW4/daDBf10Cg5kEoK3rJ7Wth+KJsAcsnuuS7vouxl1jgqwSi0c2bY0/+Vrtw=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA0PR12MB8930.namprd12.prod.outlook.com (2603:10b6:208:481::22)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Mon, 24 Aug
+ 2026 13:28:22 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Mon, 24 Aug 2026
+ 13:28:22 +0000
+Message-ID: <2c38545e-abf1-4acd-9175-b6a86807e582@amd.com>
+Date: Mon, 24 Aug 2026 15:28:20 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu/userq: lock and validate wptr BOs before
+ reading their GPU offset on restore
+To: Jesse Zhang <Jesse.Zhang@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Alexander.Deucher@amd.com, prike.liang@amd.com,
+ Sunil Khatri <sunil.khatri@amd.com>
+References: <20260817070538.2490815-1-Jesse.Zhang@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260817070538.2490815-1-Jesse.Zhang@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-7.30 / 50.00]; REPLY(-4.00)[];
- BAYES_HAM(-3.00)[100.00%]; MID_CONTAINS_FROM(1.00)[];
- NEURAL_HAM_LONG(-1.00)[-1.000];
- NEURAL_HAM_SHORT(-0.20)[-0.999]; MIME_GOOD(-0.10)[text/plain];
- RCPT_COUNT_TWELVE(0.00)[22]; RCVD_VIA_SMTP_AUTH(0.00)[];
- MIME_TRACE(0.00)[0:+]; TO_DN_SOME(0.00)[]; ARC_NA(0.00)[];
- FREEMAIL_TO(0.00)[redhat.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,linux-m68k.org,infradead.org];
- FREEMAIL_ENVRCPT(0.00)[gmail.com];
- DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
- FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
- R_RATELIMIT(0.00)[to_ip_from(RLqirfcw6gnbcr9a9yhi49fhi6)];
- RCVD_TLS_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
- TO_MATCH_ENVRCPT_ALL(0.00)[];
- DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:email, suse.de:mid,
- imap1.dmz-prg2.suse.org:helo, gitlab.freedesktop.org:url]
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0092.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9b::16) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB8930:EE_
+X-MS-Office365-Filtering-Correlation-Id: 29e712e0-77ff-4e52-30ac-08df01e39137
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|23010399003|376014|56012099006|10067099003|6133799003|22082099003|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: 9HDP32PQQspypfyzglWYuB4C5d05F1b5OBhlW9VJ01bOwUsjTL8DTeBtB5l3NJsLyA/6pXzFLAlw3SEXPofurM3tsPooqDUMSLvBJ2DCf/4u+fuhgN8GoVBQ6pHklGgIoV72DbEKQwTAo9blXvla+SexYxHxEtg6In1E5qcK2pSbp0C5ghkeE3bRwemsE6Ai0PbCCx9K4Gk5jfr+Q5SFR35Cu8n+q5dnImeGodrB5x87CbN5ttUVvMhnXCqSIBj8bYlmlgh1N4lsK55BE4fVkxIGzU+Dbl036kKqFe05CnKta7Z2qbW9a86YNkmi+qIMp65xLAOTLuyfsp5R100rQbQ+QKeKJaXYqbZ8Y8UKogGWmBI2lJZ2Jh86SYPw5r8udqbGhidsJ5xDelq6ZC/iuC+FEAg1ASnQkBa6pIeHC42BPW0HJi8RAKwqzAo5WdH8clKH07S2k5zeORSp5PDwqRyo5skBFuovgnhkOFLiVYLbm90WUEi5mleQkYu+T05Vp7VOPKseWvZ9XPfx9sAQrm4ZkWRbx/RGeFcrZRhsE/OnQL8lqCT63ANQyUn4vnyiIRyrBC9LQM5EDPzD1E/9lTrTBvNpUnOgUCV91DWcYuRTVAKo7J2F8UQpXASzqEe0TZGj9n7sd8BgHPh+PRLOXi1Bzdnu+6ZMRkMHVd7q+Ec=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(56012099006)(10067099003)(6133799003)(22082099003)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cDFFQ3lLdHNYTDZxSGxUZjZVWGpYTkNXNFNlQjJScHlDQUVFNlc5ems2b3pi?=
+ =?utf-8?B?cVZMdSt4cTFEczJtZ3lnUHloK0plem82S005TWh4UjlOdURrT1FZN3BsNXR5?=
+ =?utf-8?B?RkMxYk93bFdHckNtK0VPK1gwaFlBdUJRT2duVytpQ0M5eEJjR1J6N1RhREtn?=
+ =?utf-8?B?amRoZk4vTFlRZjBOUUtHY3QxcHJBaWgvUWorUVZLSTJnc2lhSmJYRlRmenJD?=
+ =?utf-8?B?NWFZNERmdWdDNUdrQmt3NG9ScmJLK2lSVHo2TTlvejcwbGoxbUt5MVRFcWta?=
+ =?utf-8?B?QkFUdGJWcnJVWnJUcGdsd29kZC9jTGVjZ05DTW00aHhyczJ0Y2FIT1dkUXFh?=
+ =?utf-8?B?NXlTM3haME9QT0Y0alBKRTJ2MzBUZ3NjcDBBZlMrVmFOa2o0Z2s4aGRYS0py?=
+ =?utf-8?B?Sm5sTUNjbzhUc1RHWGZoZnVGdHZMNXo4Q3FMdWw2UENoRUFPUUlHWEIzSEox?=
+ =?utf-8?B?VEo2UHVJRGV0N1UvbXhLM0dyUzRQSTM5REJrVUZNSVB6aDdJN0NmRXoySU4w?=
+ =?utf-8?B?YnhhN0FlaWxXUkV6ZGxVWTJPWC9WN21KTm8yblNYZ2dFSmxGQ2RsTDBIUTJl?=
+ =?utf-8?B?Qyt1Z3hXMlVudUF5bDFibHlQNnBzRlJNV3M0bHFTS2tuYlJYaytzbHVYZmFq?=
+ =?utf-8?B?M3BOS00xWEd6UUlrRTdBdnEvMVFUSEJZWUVvejNyUXo1dnZkaW9BcUl4bnN1?=
+ =?utf-8?B?UWl0QnE5NmdTZUZKOHlrVGEwNDllbzRkY01XRkRDSm1Uc2Y3RVp3bnJ2VzJn?=
+ =?utf-8?B?U2Rpbk10OGJ2ZFhSRWhiUFBsTm4wVHpOUmRlQllNdno1bXk4R2RzMGthZU1G?=
+ =?utf-8?B?dkFqekphMkhkeTQySEo4bXQ0czY4QmxoaVBVeG1MNm5rMEZiaEQvMk5DVkhw?=
+ =?utf-8?B?RjF2ai93OTM3WTIycEduRTBJRzhmcytncVdrNmdRMGFFKy9JQlFMbmo0THJr?=
+ =?utf-8?B?UmIrMTQvQTBEcDNFQUdRa2hsb3pJL0V4Q21yVHNLb2kvdkdwOUVtdDFqeU11?=
+ =?utf-8?B?Y0V2VWg0Z2pRaTh1RUdrUjByLzI2UHkxcFdoL0xxZk9qVEZybXltNWdKR3ZP?=
+ =?utf-8?B?YXdsenJDMWRUTWRvbnZrWXZETkplcnM4V3NDanJOb2JiM1dsU3RiUkdtdlo1?=
+ =?utf-8?B?WG5scVZ0dHNhMWlMMCtiTjEzMkkvYU4wZVhFdEF2V1pJYndabHFKZnZuVHR3?=
+ =?utf-8?B?MmNPU0NiSlpyS2V5K1pLWlNpWEhiYm9RZjVaSzZEYzBTL3hwckMzWDl1QjlJ?=
+ =?utf-8?B?Zk1NSmsrZXplSzRSQkpHQXhlczE1d25VZ1g4MGFPa2ZYMU5nYk0yN2lzS3U2?=
+ =?utf-8?B?N25LV3JJK3JIMUI2ZXE1OURLRlRqdmcxdGJ5YUQ4VXk4a0p3dGNFZlhXQmV5?=
+ =?utf-8?B?WHNxM0NjNzVNV1JvM3lhQlJJZTRtYmtKVFZUK0ptTmJHbEJhZkFZRzhBTU1x?=
+ =?utf-8?B?TTRGN1JHeVdJa0t2N0F6ZXZwSnp0U3RUM0pKUlp3d0pIRTVpQkRaWTNNV2VL?=
+ =?utf-8?B?SzZOQjlYWWI5R29HWnZXMWFENFBYSWVGbmw0cW1xUFZMNnZyMlFTYjFpRzZm?=
+ =?utf-8?B?cG9scWVDcmlxRzdMWGpZa0UrRFdvSmNGZlNVSFI1UUFGRnlvVTE3QS82bUc2?=
+ =?utf-8?B?Rk9PQlllYXJ3U09NVGNIZjdpNC8vay9TRE9nS05xb2VvZ1l0bGg2Z0Y2OUNT?=
+ =?utf-8?B?QzkwUHc3QTZDWXlkdmdCc1l1N25CeC9HeDR6WmpkUGZ5N2ZyazZoaU5rVEx3?=
+ =?utf-8?B?WWNVTUpGYk1SV04wcjJUSVkrVGd6Z21jUDJwV203eWVCOGVQOVJzS05lWGhM?=
+ =?utf-8?B?SEs4NnVtUFZ2REk4UUVJbmx3NW5hby9JajZEUllWRGxWSHp5Q2huQ3JVRFpZ?=
+ =?utf-8?B?Y2pWUDQzc0VQUmFFbHZoVGcyVzRkVkRiQU14VDdobWR1L1RrcGZGb1RjYi9W?=
+ =?utf-8?B?VDF2QkVFcmFNbHdWM3I5UnBHc3dFTnIxb215UDZpa3JYcGl6RldaMEdhTjRK?=
+ =?utf-8?B?N2FSUHFKMmJWSEpaR3p4VU0zbEJIT3VDTCtnRTZvR0xJeVNiYzMrNmtDK0R1?=
+ =?utf-8?B?Zzl6aGV0amYrSml3eUNIc2dld0ovbmtsMjh1OHpMS3BCWmlqakU4QVZwRzhL?=
+ =?utf-8?B?YklkRmpUamtIYUlRcHBsYWc0VUNEb3B1ZGQvVFo2UzRpdGprWERMS0VVV1FI?=
+ =?utf-8?B?cjBNMVlraTh3eUl3RjNaOHBhY3NRVElRc1RnM0t5TlZyaUg1UldGZ1U3dnp5?=
+ =?utf-8?B?T3kyNWlPWmM5RDlIY0ExbmV2SmR6RlpvYkFyQ2llRlFHWEkvd0pzNGFHbTVp?=
+ =?utf-8?Q?c//RzyZN57Ev/Uk+FS?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 29e712e0-77ff-4e52-30ac-08df01e39137
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 13:28:22.0042 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AN/XmgXouvGit9X2WIecz1R0mq9a51AM7A1Oim1to7EDRranGQAUxleHcvgWnPvO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8930
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,260 +135,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-None of the DRM drivers handles panic locking. Declare the interfaces
-in an internal header file. Move the trylock required during the panic
-into the DRM core's sources.
 
-Signed-off-by: Thomas Zimmermann <tzimmermann@suse.de>
----
- Documentation/gpu/drm-kms.rst        |  3 ++
- MAINTAINERS                          |  3 +-
- drivers/gpu/drm/drm_atomic_helper.c  |  2 +-
- drivers/gpu/drm/drm_drv.c            |  2 +-
- drivers/gpu/drm/drm_panic.c          |  4 ++
- drivers/gpu/drm/drm_panic_internal.h | 55 +++++++++++++++++++++++
- include/drm/drm_panic.h              | 65 ----------------------------
- 7 files changed, 66 insertions(+), 68 deletions(-)
- create mode 100644 drivers/gpu/drm/drm_panic_internal.h
 
-diff --git a/Documentation/gpu/drm-kms.rst b/Documentation/gpu/drm-kms.rst
-index 0dd440a14946..8988fd64369b 100644
---- a/Documentation/gpu/drm-kms.rst
-+++ b/Documentation/gpu/drm-kms.rst
-@@ -421,6 +421,9 @@ Plane Panic Functions Reference
- .. kernel-doc:: include/drm/drm_panic.h
-    :internal:
- 
-+.. kernel-doc:: drivers/gpu/drm/drm_panic_internal.h
-+   :internal:
-+
- .. kernel-doc:: drivers/gpu/drm/drm_panic.c
-    :export:
- 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 472c5c48729d..f3dfdd9314bd 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9018,7 +9018,8 @@ S:	Supported
- T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	drivers/gpu/drm/drm_draw.c
- F:	drivers/gpu/drm/drm_draw_internal.h
--F:	drivers/gpu/drm/drm_panic*.c
-+F:	drivers/gpu/drm/drm_panic.c
-+F:	drivers/gpu/drm/drm_panic_internal.h
- F:	drivers/gpu/drm/tests/drm_panic_test.c
- F:	include/drm/drm_panic.h
- F:	include/drm/drm_panic_helper.h
-diff --git a/drivers/gpu/drm/drm_atomic_helper.c b/drivers/gpu/drm/drm_atomic_helper.c
-index 285aac3554df..af3934df3313 100644
---- a/drivers/gpu/drm/drm_atomic_helper.c
-+++ b/drivers/gpu/drm/drm_atomic_helper.c
-@@ -41,7 +41,6 @@
- #include <drm/drm_drv.h>
- #include <drm/drm_framebuffer.h>
- #include <drm/drm_gem_atomic_helper.h>
--#include <drm/drm_panic.h>
- #include <drm/drm_print.h>
- #include <drm/drm_self_refresh_helper.h>
- #include <drm/drm_vblank.h>
-@@ -49,6 +48,7 @@
- 
- #include "drm_crtc_helper_internal.h"
- #include "drm_crtc_internal.h"
-+#include "drm_panic_internal.h"
- 
- /**
-  * DOC: overview
-diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
-index c808958a2188..02ff02931515 100644
---- a/drivers/gpu/drm/drm_drv.c
-+++ b/drivers/gpu/drm/drm_drv.c
-@@ -50,13 +50,13 @@
- #include <drm/drm_file.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_mode_object.h>
--#include <drm/drm_panic.h>
- #include <drm/drm_print.h>
- #include <drm/drm_privacy_screen_machine.h>
- #include <drm/drm_ras_genl_family.h>
- 
- #include "drm_crtc_internal.h"
- #include "drm_internal.h"
-+#include "drm_panic_internal.h"
- 
- MODULE_AUTHOR("Gareth Hughes, Leif Delgass, José Fonseca, Jon Smirl");
- MODULE_DESCRIPTION("DRM shared core routines");
-diff --git a/drivers/gpu/drm/drm_panic.c b/drivers/gpu/drm/drm_panic.c
-index 0fe9a0d67db3..9a6e3704bf09 100644
---- a/drivers/gpu/drm/drm_panic.c
-+++ b/drivers/gpu/drm/drm_panic.c
-@@ -35,6 +35,7 @@
- 
- #include "drm_crtc_internal.h"
- #include "drm_draw_internal.h"
-+#include "drm_panic_internal.h"
- 
- MODULE_AUTHOR("Jocelyn Falempe");
- MODULE_DESCRIPTION("DRM panic handler");
-@@ -976,6 +977,9 @@ int drm_plane_helper_display_panic_screen(struct drm_plane *plane, const char *d
- }
- EXPORT_SYMBOL(drm_plane_helper_display_panic_screen);
- 
-+#define drm_panic_trylock(dev, flags) \
-+	raw_spin_trylock_irqsave(&(dev)->mode_config.panic_lock, flags)
-+
- static void drm_panic_display_panic_screen(struct drm_plane *plane, const char *description)
- {
- #if defined(CONFIG_DRM_PANIC_FOREGROUND_COLOR)
-diff --git a/drivers/gpu/drm/drm_panic_internal.h b/drivers/gpu/drm/drm_panic_internal.h
-new file mode 100644
-index 000000000000..c68d64c56e15
---- /dev/null
-+++ b/drivers/gpu/drm/drm_panic_internal.h
-@@ -0,0 +1,55 @@
-+/* SPDX-License-Identifier: GPL-2.0 or MIT */
-+
-+/*
-+ * Copyright (c) 2024 Intel
-+ * Copyright (c) 2024 Red Hat
-+ */
-+
-+#ifndef __DRM_PANIC_INTERNAL_H__
-+#define __DRM_PANIC_INTERNAL_H__
-+
-+#include <linux/spinlock.h>
-+
-+struct drm_device;
-+
-+#ifdef CONFIG_DRM_PANIC
-+
-+/**
-+ * drm_panic_lock - protect panic printing relevant state
-+ * @dev: struct drm_device
-+ * @flags: unsigned long irq flags you need to pass to the unlock() counterpart
-+ *
-+ * This function must be called to protect software and hardware state that the
-+ * panic printing code must be able to rely on. The protected sections must be
-+ * as small as possible. It uses the irqsave/irqrestore variant, and can be
-+ * called from irq handler. Examples include:
-+ *
-+ * - Access to peek/poke or other similar registers, if that is the way the
-+ *   driver prints the pixels into the scanout buffer at panic time.
-+ *
-+ * - Updates to pointers like &drm_plane.state, allowing the panic handler to
-+ *   safely deference these. This is done in drm_atomic_helper_swap_state().
-+ *
-+ * - An state that isn't invariant and that the driver must be able to access
-+ *   during panic printing.
-+ */
-+#define drm_panic_lock(dev, flags) \
-+	raw_spin_lock_irqsave(&(dev)->mode_config.panic_lock, flags)
-+
-+/**
-+ * drm_panic_unlock - end of the panic printing critical section
-+ * @dev: struct drm_device
-+ * @flags: irq flags that were returned when acquiring the lock
-+ *
-+ * Unlocks the raw spinlock acquired by either drm_panic_lock() or
-+ * drm_panic_trylock().
-+ */
-+#define drm_panic_unlock(dev, flags) \
-+	raw_spin_unlock_irqrestore(&(dev)->mode_config.panic_lock, flags)
-+
-+#else
-+static inline void drm_panic_lock(struct drm_device *dev, unsigned long flags) {}
-+static inline void drm_panic_unlock(struct drm_device *dev, unsigned long flags) {}
-+#endif
-+
-+#endif /* __DRM_PANIC_INTERNAL_H__ */
-diff --git a/include/drm/drm_panic.h b/include/drm/drm_panic.h
-index 430df536de14..99572b7eeab9 100644
---- a/include/drm/drm_panic.h
-+++ b/include/drm/drm_panic.h
-@@ -8,11 +8,9 @@
- #ifndef __DRM_PANIC_H__
- #define __DRM_PANIC_H__
- 
--#include <linux/module.h>
- #include <linux/types.h>
- #include <linux/iosys-map.h>
- 
--#include <drm/drm_device.h>
- #include <drm/drm_fourcc.h>
- 
- struct page;
-@@ -85,71 +83,8 @@ struct drm_scanout_buffer {
- 	 * set_pixel()
- 	 */
- 	void *private;
--
- };
- 
--#ifdef CONFIG_DRM_PANIC
--
--/**
-- * drm_panic_trylock - try to enter the panic printing critical section
-- * @dev: struct drm_device
-- * @flags: unsigned long irq flags you need to pass to the unlock() counterpart
-- *
-- * The panic-printing code calls this function. The panic printing attempt must
-- * be aborted if the trylock fails.
-- *
-- * Return:
-- * %0 when failing to acquire the raw spinlock, nonzero on success.
-- */
--#define drm_panic_trylock(dev, flags) \
--	raw_spin_trylock_irqsave(&(dev)->mode_config.panic_lock, flags)
--
--/**
-- * drm_panic_lock - protect panic printing relevant state
-- * @dev: struct drm_device
-- * @flags: unsigned long irq flags you need to pass to the unlock() counterpart
-- *
-- * This function must be called to protect software and hardware state that the
-- * panic printing code must be able to rely on. The protected sections must be
-- * as small as possible. It uses the irqsave/irqrestore variant, and can be
-- * called from irq handler. Examples include:
-- *
-- * - Access to peek/poke or other similar registers, if that is the way the
-- *   driver prints the pixels into the scanout buffer at panic time.
-- *
-- * - Updates to pointers like &drm_plane.state, allowing the panic handler to
-- *   safely deference these. This is done in drm_atomic_helper_swap_state().
-- *
-- * - An state that isn't invariant and that the driver must be able to access
-- *   during panic printing.
-- */
--
--#define drm_panic_lock(dev, flags) \
--	raw_spin_lock_irqsave(&(dev)->mode_config.panic_lock, flags)
--
--/**
-- * drm_panic_unlock - end of the panic printing critical section
-- * @dev: struct drm_device
-- * @flags: irq flags that were returned when acquiring the lock
-- *
-- * Unlocks the raw spinlock acquired by either drm_panic_lock() or
-- * drm_panic_trylock().
-- */
--#define drm_panic_unlock(dev, flags) \
--	raw_spin_unlock_irqrestore(&(dev)->mode_config.panic_lock, flags)
--
--#else
--
--static inline bool drm_panic_trylock(struct drm_device *dev, unsigned long flags)
--{
--	return true;
--}
--
--static inline void drm_panic_lock(struct drm_device *dev, unsigned long flags) {}
--static inline void drm_panic_unlock(struct drm_device *dev, unsigned long flags) {}
--
--#endif
--
- #if defined(CONFIG_DRM_PANIC_SCREEN_QR_CODE)
- size_t drm_panic_qr_max_data_size(u8 version, size_t url_len);
- 
--- 
-2.55.0
+On 8/17/26 09:05, Jesse Zhang wrote:
+> On resume, amdgpu_userq_vm_validate_and_restore_queue() updates each queue's
+> wptr GPU address via amdgpu_bo_gpu_offset().
+> 
+> WPTR BOs are VM-mapped, but each BO has its own reservation object and is not
+> implicitly covered by the VM validation path here. This can leave offset reads
+> without proper BO locking/placement state and trigger WARN_ONs.
+>   ------------[ cut here ]------------
+>   WARNING: amdgpu_object.c:1486 at amdgpu_bo_gpu_offset+0x75/0xa0 [amdgpu], CPU#3: kworker/3:1/116
+>   Workqueue: events amdgpu_userq_restore_worker [amdgpu]
+>   RIP: 0010:amdgpu_bo_gpu_offset+0x75/0xa0 [amdgpu]
+>   Call Trace:
+>    <TASK>
+>    amdgpu_userq_vm_validate_and_restore_queue+0x629/0x960 [amdgpu]
+>    amdgpu_userq_restore_worker+0xa6/0x180 [amdgpu]
+>    process_scheduled_works+0xa6/0x460
+>    worker_thread+0x13c/0x290
+>    kthread+0xfb/0x140
+>    ret_from_fork+0x1b6/0x2b0
+>    ret_from_fork_asm+0x1a/0x30
+>    </TASK>
+>   ---[ end trace 0000000000000000 ]---
+>   ------------[ cut here ]------------
+>   WARNING: amdgpu_object.c:1485 at amdgpu_bo_gpu_offset+0x9a/0xa0 [amdgpu], CPU#2: kworker/2:1/127
+>   Workqueue: events amdgpu_userq_restore_worker [amdgpu]
+>   RIP: 0010:amdgpu_bo_gpu_offset+0x9a/0xa0 [amdgpu]
+> 
+> Add each queue's WPTR BO to the drm_exec ww context and validate it to its
+> allowed placement before the later offset update.
+> 
+> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 24 +++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> index 17cc48d87c4d..ab8fc14a235b 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -1054,6 +1054,30 @@ amdgpu_userq_vm_validate_and_restore_queue(struct amdgpu_userq_mgr *uq_mgr)
+>  		drm_exec_retry_on_contention(&exec);
+>  		if (unlikely(ret))
+>  			goto unlock_all;
+> +
+> +		/*
+> +		 * WPTR BOs are VM-mapped, but each BO has its own reservation
+> +		 * object. Lock them into this drm_exec ww context so the later
+> +		 * amdgpu_bo_gpu_offset() reads are done with the BO resv locked.
+> +		 */
+> +		xa_for_each(&uq_mgr->userq_xa, tmp_key, queue) {
+> +			struct ttm_operation_ctx wptr_ctx = { false, false };
+> +
+> +			bo = queue->wptr_obj.obj;
+> +			if (!bo)
+> +				continue;
+> +
+> +			ret = drm_exec_prepare_obj(&exec, &bo->tbo.base,
+> +						   TTM_NUM_MOVE_FENCES + 1);
+> +			drm_exec_retry_on_contention(&exec);
+> +			if (unlikely(ret))
+> +				goto unlock_all;
+> +
+> +			amdgpu_bo_placement_from_domain(bo, bo->allowed_domains);
+> +			ret = ttm_bo_validate(&bo->tbo, &bo->placement, &wptr_ctx);
+> +			if (unlikely(ret))
+> +				goto unlock_all;
+> +		}
+
+Mhm, something is very wrong here and that is clearly not the right solution.
+
+At this point all BOs which are part of the VM should already be locked and validated and that include the WPTR BOs.
+
+So you are just working around a bug somewhere else.
+
+Regards,
+Christian.
+
+>  	}
+>  
+>  	if (invalidated) {
 
