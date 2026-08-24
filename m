@@ -4,25 +4,26 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D888CC5DF9C
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 04:23:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CB2E4C5DF81
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 04:26:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6D14110E5DF;
-	Tue, 25 Aug 2026 04:23:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2D85C10E8A3;
+	Tue, 25 Aug 2026 04:26:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="L9f/mnqo";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FokDdju5";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010008.outbound.protection.outlook.com [52.101.201.8])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A098C10E112
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Aug 2026 04:23:07 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013049.outbound.protection.outlook.com
+ [40.107.201.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E164910E8A3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Aug 2026 04:25:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Qf+LVAEAJJwM7XxNv0YSa9SCFS0yGwzVWvr6d+hUq9KuycYDxJpchXKhJ/eEA7wCx2HzBABads+2dOvIAwA/FXRVjzdJ8Ky5Ca/arHqqdp1RpXexTm8Vymx6IytIkAwZ7mG8ADU6FAsb2XQ3PG/fNVhFfleqagckqzz8UE4PHBb3pyurEsKIsi6V77mIZw/D27xI0Y71MHxPP002bC135xlG5XH2l1q74A5dpHfPfQz+sBUkN3I5H919NdP8bk00UDMkoTXNixdc43+Znx1JyzxeHV7OT+Iw9o2jS5Bo2+FSd5okRxmkTza5yCpmmYeKxFvY4+rR4DwmDfpge6hJHg==
+ b=ivDXE1H6K3maFg/Z1O7W39X+Eh0MwxSXRsy+tjQEMGlKTxPMPQdYBM6ICzHrEl3ggX4iMhvdkqSLerMu5NmD8jXPv6V64fTKepBCOCq5KcsMv3trBgLLmLRfzCZ+nkCot1Jbuabto9ZXdNwWcV1RLE6yDKWamC9IGmcOLGr91bmauSj8APH3IRm+kqGzxuBir9yC1y1i1spZmGS2zCdlv05FEsRITqXLQc23oanttAC7wq7Vkxs3hC2hiCmi6H4Uhz4fpjJSPfOR1WIacVY27E6NkUbqiMUPeIgyMT3gMYwZ5SzOyxs4qv9kgkP38CXPcCxwwl5kogGl/gytyF8x4g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=1jM7lPlP866l1Efx/vcBO0MRZy1PC5kHhIWpcxZDf4w=;
- b=TCIlCxO+C7kpqNRes1+Aq9Gq/lddQ7BWkdWskQLRyB4g1IXHMsmxJvyj6A8oLPnlRqO+7mBoBxqFmOu/zeErgHF2QHuz/b4vf4P+J5aVzPIisJ3rNn62AsCjgZvk/VuW6czspEdrXpwZKF2YHwKaoYUImhzRd1E4l3kJMOjAUywV+BwvyKVCYayiaYyZtIlYhZEO0KQrN8yx8EetuLeCe20JOzKtPSf31n6rNGSCRtbA8Aug9si/6I6E/rlz/OopPspaB8SchitJBPYdef9Zahf2Ei1ZlrM5RGl6rd1kqsNSBzM+KzuLn4UomgTAd9mHpAlYcPFwzZfTzZyZ4cilvQ==
+ bh=SUWaLaVsphx+eUlTnyiYBwprxnt1fJdL5qoAF/2mg40=;
+ b=qGGm7xNGRkUzZNGWvKnN/2Q2o/p0KfGBBY1ESZ5bPPOOYqueTNPciQvAfCw/nycXae/a0Zsc4vUhef40mm6pABwZlDxi39DSaqSdaIQCknwk53sLy27iajC/cXW7+sqzW3D1o4l+puUzb3ELZRXxC7SxqemmAxRh2XHZT/57VxXHMAVSYJz4NoluDvxX10Bg4GpDewCs2xaFOwix7nWvvgvF+hAYm1V40Er4mlV+5M6huwY1iTYOtonz+6+yHuT5LCb51s5ij46Q7hm1vghKD8C+InJ1wbIYQp4XtBOtgN2t3BGkKedhLXq+H2t4zRfVXSPXt+zCDcivIHky9zD95Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 149.199.90.133) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=quarantine sp=quarantine pct=100)
@@ -30,41 +31,42 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=1jM7lPlP866l1Efx/vcBO0MRZy1PC5kHhIWpcxZDf4w=;
- b=L9f/mnqofFYoIJfxEf7+A82krLZhlfKtmjO7Bs4Lc/FplKAYRCMk45AuuHnmV1gMhj44/6QB0OsH8ImFxMhExPZMF7OVjb4vuiG9W3HfZSVcRYqSZaRiQ6m9cb8z9ZhvOvd05Kfn17aVaHeSLrpo3y41yuQpsMngDz0WbFrO0OY=
-Received: from BN9PR03CA0873.namprd03.prod.outlook.com (2603:10b6:408:13c::8)
- by SA1PR12MB7442.namprd12.prod.outlook.com (2603:10b6:806:2b5::15)
+ bh=SUWaLaVsphx+eUlTnyiYBwprxnt1fJdL5qoAF/2mg40=;
+ b=FokDdju5u4g/+FGFYv2NdiUsE2OP/TQkYeYtE2txDEWOxgpYxaIDRwKflc26gbGlUyd4UHHs69C5DFIoivfPgiZnQvjQfSlB0vgxRB4In9ys6IfUBDCPQetsLdmvSlSltiX8lpb65UEf6YzaR0kdHbIplhYEwJQ52+50/kFlJnM=
+Received: from BN0PR04CA0074.namprd04.prod.outlook.com (2603:10b6:408:ea::19)
+ by SN7PR12MB8002.namprd12.prod.outlook.com (2603:10b6:806:34b::10)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Tue, 25 Aug
- 2026 04:23:03 +0000
-Received: from BN1PEPF00005FFE.namprd05.prod.outlook.com
- (2603:10b6:408:13c:cafe::41) by BN9PR03CA0873.outlook.office365.com
- (2603:10b6:408:13c::8) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 04:25:54 +0000
+Received: from BL02EPF0002992D.namprd02.prod.outlook.com
+ (2603:10b6:408:ea:cafe::90) by BN0PR04CA0074.outlook.office365.com
+ (2603:10b6:408:ea::19) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.12 via Frontend Transport; Tue,
- 25 Aug 2026 04:23:03 +0000
+ 25 Aug 2026 04:25:54 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=quarantine header.from=amd.com;
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 149.199.90.133 as permitted sender)
 Received: from satlexmb08.amd.com (149.199.90.133) by
- BN1PEPF00005FFE.mail.protection.outlook.com (10.167.243.230) with Microsoft
+ BL02EPF0002992D.mail.protection.outlook.com (10.167.249.58) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Tue, 25 Aug 2026 04:23:03 +0000
+ 15.21.360.3 via Frontend Transport; Tue, 25 Aug 2026 04:25:53 +0000
 Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 24 Aug
- 2026 18:30:53 -0500
+ 2026 18:30:57 -0500
 Received: from AB350-desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Mon, 24 Aug 2026 18:30:52 -0500
+ Transport; Mon, 24 Aug 2026 18:30:55 -0500
 From: <vitaly.prosyak@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: <christian.koenig@amd.com>, <alexander.deucher@amd.com>, Vitaly Prosyak
  <vitaly.prosyak@amd.com>, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH 3/5] drm/amdgpu: take reset lock after halt_activities
-Date: Mon, 24 Aug 2026 19:30:03 -0400
-Message-ID: <20260824233040.125300-4-vitaly.prosyak@amd.com>
+Subject: [PATCH 5/5] drm/amdgpu: move drm_client_dev_resume outside
+ reset_domain->sem
+Date: Mon, 24 Aug 2026 19:30:05 -0400
+Message-ID: <20260824233040.125300-6-vitaly.prosyak@amd.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260824233040.125300-1-vitaly.prosyak@amd.com>
 References: <20260824233040.125300-1-vitaly.prosyak@amd.com>
@@ -73,30 +75,30 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00005FFE:EE_|SA1PR12MB7442:EE_
-X-MS-Office365-Filtering-Correlation-Id: 749fd34a-a4bd-4882-d6bb-08df02608e0a
+X-MS-TrafficTypeDiagnostic: BL02EPF0002992D:EE_|SN7PR12MB8002:EE_
+X-MS-Office365-Filtering-Correlation-Id: b68e70c4-0256-4040-bdb1-08df0260f3c7
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|376014|1800799024|82310400026|23010399003|10067099003|56012099006|6133799003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: sGomsZ6u1w9yvBbDoZafoZ3hPMqCpVq/G821JpruKHO/RDTNkEHPe6b3RDfO/F0sjj5EWbB8P4qWZn99Qrb0qmTCKm3h7pAxmpd749+YmCfhygu90GEwGopzom2P3IEnnOF75MEEMmVg4A8tgqOGQD/qikB1HuYRyslyUmJk03pr6KWL4GjYCd9sDh/QKXY858cNyvATV8GePN1TDUYyQIR2KNFiiU6R4YJHXGuCwqg/wMNwdZIfIleOdJ1ggtmDoYtp0uIo0vny634jubuCnt3lSq9qm1U9TZsBQN44nb9odMIl160X/wS+t2CxPxLz/LMIywrkLTe8DNKNEhniEfuFHNip+u/0lsX248v9d+VAkhCK5fMV09SMByYF1njhs9kYoR368Dv1GPmqveoPSKsE08vnBbDV2hLxE3psL/xKvbZPl4uKQLsiDplBc8UNsn7gXrL27ON8wrloTkZycwKe9/26z2b03VkRHCnaCzNZQ13RWhJWeKNMLL/LfxEAWK7/dAp9CyJjE5I6iRbj8kaLW435FIXU309ikcBhYOdE/NNnvI3Glmz+DI5tkGD714liKoHOM7u3ezBGl7bwg+E+1PbyMJZ/uAcdHMVXzXArbQ8PfvMPayfK1Hr3MFxWjfhZv9tnH0oWB4uq1cbbm0hMF4AsNOW42tH16IBwHVlPNsJaVyvcB0W60JTTBRqHhmw4sAjloKp234OIOsvZGw==
+ ARA:13230040|1800799024|36860700016|376014|82310400026|23010399003|22082099003|18002099003|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info: ihUUJrYrgTWRvV4YU5KB8S/rZrMxLh0ZZsIh9Y41dh9BQenhR3Km5T7CkpMYwLBGp2c0CIh/vhMJBtpWMyGqqm+KIzZ1swpiw/vIfLyTWELn2rBWIzlFhBM4l6qqJAKDH8vviD5khukkPFyvYP83WMYShJS2fZeQ40JH8dkw/qcTlf+KiaP6GyKE3r6CwZglgAOcuETFDlCKdzScjqVrgp3fP4Vxyc/i7Ts45grfcfomOD6Vm1paFH3XNf/eaa9YJmuRtXMKFqDGsppU9Gd7ZtqyPR7gGItswZ9HfXJa06QL5tEHfquV8WfMM1nzz6SXk/ZdCF+Wqk8urR8V4p/QvMNsbCIc9x0idBAh4Pwr47Yi4ZErbQs3Br447P5hrnmDhSOoaNKhRIzVQGwfCPZ4df2+SyoLObrH8SimeVCljYqcwBM8Q9TWsNHCcCwWlLe5OudE7anElYtNFzvrryW8QtWxBoefvaNgcm06u4cJDqJVR2BfTL6pxMIR7XYuzG3500ZMPeA4UyjWTjcmAsFSfG6FxhJ+dQNwyvxIRJ9FT+UQmTHUsrcxXZQ2a7FmLOeObMsMbIzDFtFL8svAQrBVjxMJGSKse6MO/opsJpcr9KL4l/UvmV0aBXrQxCNO5Dv0L5SneehrIzwp5uCMUtznSdR8JswISwzlGwgO8GT+Lv3kMtJug9A3nTAtpVrNZw/AIVgQLybwyfXFyjcXOsD8nA==
 X-Forefront-Antispam-Report: CIP:149.199.90.133; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:unknown-90-133.xilinx.com;
  CAT:NONE;
- SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(23010399003)(10067099003)(56012099006)(6133799003)(11063799006)(18002099003)(22082099003);
+ SFS:(13230040)(1800799024)(36860700016)(376014)(82310400026)(23010399003)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: c5e+WuaG94kzKDMlVeQKXy/P+3d/6n7P5dro/8apqiLOADxWvJZ0XHrposuSxrLEiZoFud7eKiBMUqrpkHFKWzaTYebLeFlMuDTqSSn79H13PFDNJrLzq0bppfIfO24Ju9PC68Y1teR9Kx81biB+aNZ6TXLLpBHxCTZgVbihRyzGIHV5qpAyW9TyDow+yaJwAZP1QRzVyXcK20ot7Ere8nnQ3ug5hYbPMsUHkalq7bwSWuNI/Yvtz9y9zKPZAj6HuqayPiP9HAYTf4DxMpoJXtZs71/SLZzfPQ68qFG9lTO/pfyvv7B6dGQCf3BJYxpJcAOGikYqYdUu9vXltTsE2CZVKy6m9cpVy7phvSYOPnpvE1qFF1L42uyd8/iNKVa1/0yiTY7romrIbj8j2E9JEtHu6TbsFxVjxRKJg7B0fJp+AtSdFabQWhx/idox0f2E
+X-MS-Exchange-AntiSpam-MessageData-0: TslV2IKZHi+0BOaG3cOxUDf++KMzGfEEMsqju7CUEqpv+MI9VR4IbN668nsl+dj7fIoevF7qNlxWOpF+QlhAn1cMHyW+5A3AILDl3TIyFGezz7/aJ4/POCLJvinCyOk43Hb2mbHjzG5it+V2HFgI5VZpISGGwlVFPUcCekmRVxam4Hy/IABT01tsFX+IAuKWwDCjDfGZR5E2Z1npIGErtBMiJvGn82dPyGQDviTJ4qWk2nHtbp97qgiO8obdxurTB7BySXcsIE+zBom6hVkI7JbAbjFPnxhgVqJHAduTvb0LjTcCOYEzyFFBifOAY5/kiAC0MybKH0XDhDPlfENTt+coogZ5HEFAuIi0oxGMhrveCQu5kwOsy0UkSVGG1srl5EUW6SovMAWwtV07DZgglqwssCGUeoeIoW+UuyJvNLhhsgZNwcb6F2WUW/2tY6D2
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 04:23:03.1263 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 749fd34a-a4bd-4882-d6bb-08df02608e0a
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 04:25:53.8349 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b68e70c4-0256-4040-bdb1-08df0260f3c7
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[149.199.90.133];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN1PEPF00005FFE.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL02EPF0002992D.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7442
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8002
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,63 +115,60 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Vitaly Prosyak <vitaly.prosyak@amd.com>
 
-halt_activities() calls drm_client_dev_suspend() which takes
-clientlist_mutex. The userq restore path establishes the ordering:
+drm_client_dev_resume() acquires clientlist_mutex. Calling it inside
+amdgpu_device_reinit_after_reset() while reset_domain->sem is held
+violates the same ordering fixed on the suspend side:
 
   clientlist_mutex -> userq_mutex -> reset_domain->sem
 
-Taking reset_domain->sem before halt_activities() inverts
-clientlist_mutex -> reset_domain->sem and triggers:
-
   WARNING: possible circular locking dependency detected
   kworker/u128:0 is trying to acquire lock:
-    (&dev->clientlist_mutex), at: drm_client_dev_suspend+0x2d/0xf0
+    (&dev->clientlist_mutex), at: drm_client_dev_resume+0x2d/0x120
   but task is already holding lock:
     (&reset_domain->sem), at: amdgpu_device_lock_reset_domain+0x1c/0x30 [amdgpu]
   Chain exists of:
     &dev->clientlist_mutex --> &userq_mgr->userq_mutex --> &reset_domain->sem
 
-Move amdgpu_device_recovery_get_reset_lock() to after halt_activities().
+Move drm_client_dev_resume() to after
+amdgpu_device_recovery_put_reset_lock() in amdgpu_device_gpu_recover().
 
 Cc: Christian Koenig <christian.koenig@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>
 Cc: Sunil Khatri <sunil.khatri@amd.com>
 Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index d7640da9f6de..c248d589f755 100644
+index c248d589f755..30e8b1963204 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -5786,19 +5786,23 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
- 	/* Cannot be called after locking reset domain */
- 	amdgpu_ras_pre_reset(adev, &device_list);
+@@ -5210,8 +5210,6 @@ int amdgpu_device_reinit_after_reset(struct amdgpu_reset_context *reset_context)
+ 				if (r)
+ 					goto out;
  
--	/* We need to lock reset domain only once both for XGMI and single device */
--	amdgpu_device_recovery_get_reset_lock(adev, &device_list);
+-				drm_client_dev_resume(adev_to_drm(tmp_adev));
 -
- 	/* unmap all the mappings of doorbell and framebuffer to prevent user space from
- 	 * accessing them
- 	 */
- 	unmap_mapping_range(adev->ddev.anon_inode->i_mapping, 0, 0, 1);
- 	amdgpu_amdkfd_clear_kfd_mapping(adev);
- 
-+	/* Halt activities before taking reset lock to avoid circular dependency:
-+	 * halt_activities -> drm_client_dev_suspend -> dc_lock, while display
-+	 * IRQ path holds dc_lock and tries to acquire reset_domain->sem.
+ 				/*
+ 				 * The GPU enters bad state once faulty pages
+ 				 * by ECC has reached the threshold, and ras
+@@ -5826,6 +5824,15 @@ int amdgpu_device_gpu_recover(struct amdgpu_device *adev,
+ 	amdgpu_device_gpu_resume(adev, &device_list, need_emergency_restart);
+ reset_unlock:
+ 	amdgpu_device_recovery_put_reset_lock(adev, &device_list);
++	/* Resume DRM clients after releasing reset lock: clientlist_mutex
++	 * must be taken before reset_domain->sem in lock ordering.
 +	 */
- 	amdgpu_device_halt_activities(adev, job, reset_context, &device_list,
- 				      hive, need_emergency_restart);
- 	if (need_emergency_restart)
- 		goto skip_sched_resume;
++	if (!need_emergency_restart && !r) {
++		struct amdgpu_device *tmp_adev;
 +
-+	/* Take reset lock after halt_activities to avoid AB-BA deadlock */
-+	amdgpu_device_recovery_get_reset_lock(adev, &device_list);
- 	/*
- 	 * Must check guilty signal here since after this point all old
- 	 * HW fences are force signaled.
++		list_for_each_entry(tmp_adev, &device_list, reset_list)
++			drm_client_dev_resume(adev_to_drm(tmp_adev));
++	}
+ 	amdgpu_ras_post_reset(adev, &device_list);
+ end_reset:
+ 	if (hive) {
 -- 
 2.54.0
 
