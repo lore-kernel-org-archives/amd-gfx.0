@@ -4,100 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 98D18C5DF9C
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2026 17:02:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0B178C5DF9C
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2026 18:22:17 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F29610E7FF;
-	Mon, 24 Aug 2026 17:02:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9678810E586;
+	Mon, 24 Aug 2026 18:22:16 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="r05u2F8T";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="XhAc5PpQ";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011029.outbound.protection.outlook.com [52.101.52.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68DB310E800;
- Mon, 24 Aug 2026 17:02:40 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010006.outbound.protection.outlook.com
+ [52.101.193.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1011E10E585
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2026 18:22:15 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yEdy5NJtfMiz0pCf3vpAvmRqH07VM9e3n18LtVDnfNiEuBgvYweaVc7jT4hr5xX92EajLscYoBz20EMSMre5YQTrZZGwTVVf5QfSQ0iiRy4/ILSIcfnlqEwanwGrD+C6erEVyo9bp/vZBZKdlAup3XlnxfMBopahhItMd5prVrXr16VgqRt0qK+mUrfaySiY8rfmR1WAH9lgrK5svwJ624rC4WynV54I+/bAXpYv4cHtzo1jbsNi/6agcrZ4h7hoOS4u/V0pNWF6VLxtK1oh31Wi9aK56PfXrrTmWvvPJ1dl8p3EnD/k1xuOTpavYqG67wqDdDvKcLT4VZAvouiSPQ==
+ b=tuMKVw9T0uhrazmsvZcCj1NLGZcNFvdn9VMX98P/ZMlf9xZ37gVhftvMGg7VKoWVkDuNST5r0dDkeKn/e9Ry8/42ZeGIehO7gUaoVwY5HtAz/gmQ3SASgE4T3nI2lWQJ4YqauUDUo401Zv8o1Y4G8I+XZs94Y1KEGrTqF04ukMOPBENCyhsn66EjfOM8HvuHmC++gnndEnjMPSIGsg0LLzlC/vJpLjsm4zZhT1UP3tiSI3pU+QA+xOdDs9dOuenmJP4BQGCNVyWiJiwN/IKJu/SMFX/1QC4+Aqbu95vzslLQTaaDpgNLxQnVFF8ABh3BSAnWidq7AfjmHQHwt/icbg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yPHL4FLMtyw1R0AgizUpq/ikj+Nak9DgTRjUf4JnP64=;
- b=I/yYUjVNAujXi2wsMU7HvhJYnpKgXnEMoJsLvlfivIFrU6/jIXu2kEU0HCmWuYRZ1tvlfop8U8dwj2rRGGH+IzA9V3Ik9sNJHsTyWkdI1YkQIVZQO+wVgkq6ALnDMxC4WxYN4VuGxU+jwYLRfluLHg9uUDx+H1oO4jEbdAe63VPPApM3ZFMNNsmc54OEb7R5S9BP7jXWSA+loQ+ZbYMacoM1Ae0P8rWCT/udof6DXCTNRN5/44QjcAHvv2rFHf1T8H75uZOkoDGw3l/Dz8mVTza1W3ShLIeIP0kCNLjctm18qmwbGvGXL7A4Qz/Hngb/p0p16qzLhAldHMYewucoMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
+ bh=mGeVafeJYVuDAkrt92AAQv5G0EuBWyYdiWRBxLajqLg=;
+ b=nvCBNrvr6alrUhh/3cfQUVxT8RoAXymsc/Sqf0Ee3Ttebw7v/e7eX9n4NF879ixP//gjRYzqsqZ40n3XbYQB/3OO0WqvBIMJVoQlPjfAI0beFMPmcjIt1rXu3xUgxSESykau+/xGmQyKw/g20fF30voIuOeZg5k3Y5ij1PQmc/EkhJtVsNT/eb2t72VX6IOFX3+ZJg1hxPlPTjsbUAsD6L6rlyyRcoRgRISQaD1WY2bHjuRb3bi7+WDZ3hmrTszTS3VliZIqI1ow1Rf/rKhIzW4BuYsVgM35rfJjJ7Alt7rqiQQsKhkeuKj2TprPCbU06ppEwxT/iwpBKTwiVJi9kQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yPHL4FLMtyw1R0AgizUpq/ikj+Nak9DgTRjUf4JnP64=;
- b=r05u2F8TweWfRCgXMbXZzDfrAd3/wyJiSvxkxpKFnrKKyP7zamtJp8TcCCd9GUcu4Qs2b58djgH6m1ZRn/aog8EwrywFPDnAH4dRfqY7TOnaYm9A+qHMhKRRu6vd8W0a8qY0wyfPYv+9Gmg9gBoKlcmBIHqdYW8QKltItSiiM+k=
-Received: from SJ0PR03CA0363.namprd03.prod.outlook.com (2603:10b6:a03:3a1::8)
- by SJ1PR12MB6361.namprd12.prod.outlook.com (2603:10b6:a03:455::14)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=mGeVafeJYVuDAkrt92AAQv5G0EuBWyYdiWRBxLajqLg=;
+ b=XhAc5PpQDgFKUwfhok6CsjAj3uFWQGm85KLQI1/6hh7jVe+o4ik7OsmDshLYFJa7k2n3OhOTlIC+L1WRWKj3M2VbGyP8/mPIWFWukL2OHGr5e80ruB2qH/1gFztzk25JQ29c0pQaJNQdD5IUOYAiXpNkyu6v5fTFVro6kAOKwEc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS0PR12MB8443.namprd12.prod.outlook.com (2603:10b6:8:126::14) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
- 2026 17:02:28 +0000
-Received: from SJ5PEPF000001D3.namprd05.prod.outlook.com
- (2603:10b6:a03:3a1:cafe::12) by SJ0PR03CA0363.outlook.office365.com
- (2603:10b6:a03:3a1::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.12 via Frontend Transport; Mon,
- 24 Aug 2026 17:02:26 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001D3.mail.protection.outlook.com (10.167.242.55) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Mon, 24 Aug 2026 17:02:26 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 24 Aug
- 2026 12:02:22 -0500
-Received: from p8.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Mon, 24 Aug 2026 12:02:21 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <Felix.Kuehling@amd.com>
-CC: Mukul Joshi <mukul.joshi@amd.com>, Horatio Zhang <hongkun.zhang@amd.com>, 
- Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 2/3] drm/amdgpu: Add ioctl infra for exporting/importing
- UALink handles
-Date: Mon, 24 Aug 2026 13:02:01 -0400
-Message-ID: <20260824170202.1764463-3-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260824170202.1764463-1-alexander.deucher@amd.com>
-References: <20260824170202.1764463-1-alexander.deucher@amd.com>
+ 2026 18:22:10 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Mon, 24 Aug 2026
+ 18:22:10 +0000
+Message-ID: <9cd28902-569f-49ee-8a3d-9909f9b0f46e@amd.com>
+Date: Mon, 24 Aug 2026 20:22:06 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/amdgpu: avoid force-completing uninitialized UVD
+ rings
+To: Bob Zhou <bobzhou2@amd.com>, amd-gfx@lists.freedesktop.org,
+ Alexander.Deucher@amd.com, frank.min@amd.com
+References: <20260819064313.3609274-1-bobzhou2@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260819064313.3609274-1-bobzhou2@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BL1PR13CA0425.namprd13.prod.outlook.com
+ (2603:10b6:208:2c3::10) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D3:EE_|SJ1PR12MB6361:EE_
-X-MS-Office365-Filtering-Correlation-Id: afa86155-f5c6-4826-da85-08df02017980
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB8443:EE_
+X-MS-Office365-Filtering-Correlation-Id: 857b2595-0725-4156-fc9f-08df020c9c96
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|10067099003|11063799006|56012099006|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info: LyhYbueqqQIvjd9AC2D1F+UzfTO1kx9OdBxY/fH8+tNJgtPcazrUAJYmcqJfcmZir3iUaX9wG7ir5r3y9wVPBbiP1OyW6Z9vt704fPeEQih/ZE3DSeRXaVXfsoWN3ct0pBuaa38sxEvw0TzIupKUnZxEACtIfKC/Ao3mkEc/7mqLS3fXnSRc0CnuG+CagwRiDHL52l3pJEnS4ks6/03WIP/pup0P5G61FGNiO2f5tu126fZPNlSFGuw6CLnrZ12iQh/L+9hgsRyKAsijGg59kZXzoSXa0H3AHlhwTXZyEA3odoszxDcw7H3CBWuoFN5t0gRMMzyq8PNl69X9MMVrLQPHdH6LsJ6Ky3HfPPji3yO70ekFi4GusUDHkvI+Fz9hIV/ufjdPu4LrOgTThjpg+Mi/RxyD5g0JlguSrN7YEmPe9oA8y7mIgFI8dQ0GAnXWkfrR8xfpno8x3+j0BX472F1Q4OzxR1rM3tRZbzxbjpdAD3RoKVRwu0m+EBLAYY7RGrxiFios6IYLZPz1GJhUt4ZWNkFheZbsO4PYQ5lG34hMHfwjeIIhrCZQ+u5XYoVGNfi7sLUmo5SEsXtZ9R8jdY6RLFrTZxz2dNaoWTUIgknYRPdAbrpKSh9mhMWvp69VwFO9by2w9frzlIi9Zl59OoO5tZb1kugnhOqlCCkXfcQ=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003)(3023799007);
+ ARA:13230040|376014|23010399003|366016|1800799024|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 1Y6EDGRx7Kh76ZfAMYDaK7oyDga4yXHHGRuFXWvZWDPUYOOuhIittjRq7YYshLC1+jwGLjU1XpkG5WR/2E3f9zZGxYL18K1AnwKznoZkDbNhy8/7yJYt8KCe6Kd7/zRsQXH92aToqGO7vHiZpd2HTZVDQmMGAkLT7n64nHvzJMSaxW+v466m9/yvKXaApIUS3NwCh0YUVoHKOEMh2Q7aEohBsvD9gWGam2zyrai7h9zhBqfxMIVKO8KPJHd+MVBvD/Lz7FQHBwKfiZxmquHCTl5fuDDKs+j9lFsHQ6twovE+dyUv8SaCBaWd7FnN5LNoH3eLi9UHfpCzOPekb4D65AF856XlkozQyLWa40mIo4xu6vkahqtg/xlpb3db1klBxTEK/tDsNiW2HXPjBCieVRNUVkLQOGJYY66SH5tmXfKfZQ0eDUDKa3cpNm8lBpFcSfQeU20xuujdJzLvVO+Zb21QZ48op2IgK1seAE0h7Ek+UkDV9zURLnAFtB+iM7Zu+T6vLmap8y1bmRDMFGzK0QWx+E3Z44bQBVVFAy0XDZPu2UZHziWiJs4oJSdYC7/wIF43nry6q3en8Ah7SD3VQ9z28vo1jJ50DLWyGSprZ0aHpuQ66tDiSfY2kNfmqd9CRh8BHdsxd2pnGZ8bxyDM+Egoe0kujBnrdQ3AzEDCpcw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(366016)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: hTJhhf/vzeUIK+sH1bMFXVE1iuk23p84u3+9A/LVDZDv0KgKPWZtIocYi9VBpq6t7gcbHOyA/FsX3ug0uFQ0cq4gKt31o2JV3k8dgvq0XuYY97BjFWG7zLx9yobURo6Y8O02QmONoIacFD80HL3SxkQgOMcQOLxxx6r8EhmjvZwkK5rBrZ+qYhZJBogrnIqLFqdcMbyfLnyeV0aFAmfHdnkwHAUForyL98WKnIAOgGasWTIkm6n/uTi13LpDcVuC+JEV6PsJ6V8bVqimAxHK6abwQ1ypAAQUT1/NqSQt4Pr9IxFfuTMhFi4gLQQ2iN2jwnnZ23YqBdDh10bBhnl57mrT4WMpiQtUWe77ws0MsD78aCPMNzA7YPPz2vR31VdENo/3imSzq/55EgW8kso2PPILmQajzZGguzewKxUWEMNrLQCNEPTaMe3b5x6HPosO
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VTAxdEI0TnpJb3hiMVYyK2pjOFM1cGZhWnBpVjQ2NUxjZTVYQU82VjFhSVRh?=
+ =?utf-8?B?VGpjYnpoNXJzOHI2TE1WY29MQU52QzFRZGV6VlNFNVk1Ny92MDBrd29UeC90?=
+ =?utf-8?B?dWdQd1B4YytGL3hVWEhmM0prUzdOVU5aa3RQaGIzazZOUHdUUjJTaDE1SHMw?=
+ =?utf-8?B?UzJPbmgxSktkVE8rdkNEQjBueDBBQTZWcGsxOXFDQ2lySklyUnNKMUdXelcy?=
+ =?utf-8?B?WTdPMlM2bnRKT3dvMGRnUHBCbmo3RWdRUEJyL01LS04xclJyU2pSMFV1em0r?=
+ =?utf-8?B?cnBYdmNyWldhcFI1bHRpRXowR1RBMVF5c3YzamJJUlhENGt2KzhnN3RHSFVo?=
+ =?utf-8?B?Yk96M2ptRE9XMTYwRm5HYmxCRVJEZDlYakVCUDh5RnJYc0tQN0dSNHF4clcx?=
+ =?utf-8?B?UmphQ2Z5WDFEaFFZc2U3QmtQS2JpcXhpNEFpdHFodnNkemprZW05bGh1VWor?=
+ =?utf-8?B?ZEdMM1FiR240REVyMmg4RmlOVUFMd1UvWUIyNzRJdlNIdFpYamtMSlBtNVg1?=
+ =?utf-8?B?eS93NFJjUVV6OE51UlFXRVMrNjdGMWd6OW43K0dsVFBpaEF5WGFTRFhkclFk?=
+ =?utf-8?B?c2plT3pXZ1hseE45QXJWa0wyMG5JTllhTVRwMzFrOEVUTlRmdElwV2x6cGk3?=
+ =?utf-8?B?RGtKTk95anpzM2JacnhmdlRLSVN5eVREMWhBZjVPWlM3TFU1VGNTVDNPbkZ1?=
+ =?utf-8?B?TElybTBjdDhSbVFBUENhWi93MUFYN1BCYko4cWZ1M3A1MWduMWZyVThSb20x?=
+ =?utf-8?B?UmswNVlNbnpOSmhaL00ybFdGZEZuTFNMNlJpb00wbjdnRzdNRW9IOG9DRGVO?=
+ =?utf-8?B?WW9OZzVvSkN2RHpyVDQxQmk1K3ZSOHA3ektNVGtRb1FhVkROeUFJQUdXV1BS?=
+ =?utf-8?B?a1BQcyswZlg5QWQ4cDFTWS9tRm5uNDlYWnF3bDYzYi8wZVp3Z0tsUFM1R1lu?=
+ =?utf-8?B?dXhsRVFQVVl5RTlGd2hHaXMydk9HaVh6dm94UHludGtVVmFoaWdOdXVOekVD?=
+ =?utf-8?B?ZnJneXJQRGIwb1JJZWtSY0tzeUdnWUVTVmhndG9GbUhjR1ZrV3V0cEpxTHVD?=
+ =?utf-8?B?M29OWFVESDJkNVFjUXVWdklXNjdObzdmbndTMjgvZ09NdEVjZ09hT3czekRX?=
+ =?utf-8?B?bmhTMThrTCtpS08yR2hUT3dHc1hpWktDa1hnNFpRbi8zcWpTa0k3NmtEQ0xH?=
+ =?utf-8?B?VG5qSTUxYmNqcWt0STl5c0R5T0kvTjBUVG5WN1dRdTZhZTVEUEJlQ2hnU2hn?=
+ =?utf-8?B?RmJsN2dRdHpXQjVpNkREVDVWcmswTUwrN3Q0M3JkOFRDNURRM0prRTJxcm15?=
+ =?utf-8?B?WklwSEFDaUxkdDBiWXZYYzhnWTliZkJvMDdmMTZSQk9GOGtyZG9lTS9NempP?=
+ =?utf-8?B?cmM3citud3l2UzV5dTA5VjZmeVRuSU5EL3BBUFFTSSszekM4SWVlNnltUzdi?=
+ =?utf-8?B?V09LcE10blhHRlJmcEovZEpPUWg5d2V1ZnR2ZWRqNEZyUmFqaThEcisyMnRO?=
+ =?utf-8?B?b1pYUGVSQTZhUHA4V0hOYWVzMHRRQUdNbVpSTTVJN3FyMVFnVlJES05zTW1Y?=
+ =?utf-8?B?Tm5ZeEJpbVBnbk92QnBmZC95TUtmbmtQRGpJb1NaVHRlK3ljSFFPSFhGR1B2?=
+ =?utf-8?B?L00rYyt1bHRyR1U0SW9XamZqR3FvdEFhVnVFS3dTNURLNVdkSkk1UUVwY1Q1?=
+ =?utf-8?B?U2J2SWttc0tOSnNLb3l5UGY1K1ZGWmpXMkUxRUFmMDIrbGtWcW04S3M1TVdk?=
+ =?utf-8?B?bTNlOFVLSmRtVXBoQ3EyUlp6TUYxcTZDV2IxUExzUFcxUTdhQkw4OXJybVgz?=
+ =?utf-8?B?L1pXeGhPYXRudWJoZER6L3ZxZWZmbmVFQk41TW5CMGdNeEF6cGJVR3J1aHdJ?=
+ =?utf-8?B?cTl3V2s3L3k0SlVYSXN0dTdHWCtPWjliN1dhd3U5aXRzcEgwanBFQlVuSG0x?=
+ =?utf-8?B?ZzJKSS8zcXkxR3pZNFB6cmNPY3V4RVhxaldiRk5rODYybVBwTDNZV1dDcFpW?=
+ =?utf-8?B?Qlp0Tk5IRU9vcVZKalBRUyt0R0tMdnBJa1lBM1c0elZsemtOcC9rRmpmMGh6?=
+ =?utf-8?B?eVRBcHQ3SFgzZnZLeXFyakIvZENjTC9aSU05T210cWR0ZEx0a0pJZVZ0YitP?=
+ =?utf-8?B?SFdRcU00bk0xbDA5Z1RPSWM4REZyUEVGRVlaanQ1R1JmMmdNd2hQNVZJbG45?=
+ =?utf-8?B?TWVaNWtybnE1VTcxM2NUbGQyME0zUVFjeSs1QzM5OWFKNndiNG5JUVdiT3NZ?=
+ =?utf-8?B?aGRSVUQ5TG9BN2dYcjcwK254eU1nOXBFNnhTVmFJSVpUR0ZJclpzOVg2Wlhw?=
+ =?utf-8?Q?q3SrWorCToehoDso4R?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 17:02:26.5353 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: afa86155-f5c6-4826-da85-08df02017980
+X-MS-Exchange-CrossTenant-Network-Message-Id: 857b2595-0725-4156-fc9f-08df020c9c96
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 18:22:10.3057 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D3.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6361
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7Rxs0trMtN5J3e3j7iM1KW8KuLJm+UomRzUAfRPQB/1OBYDDVTylXBhUY72omJs4
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB8443
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,171 +135,39 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mukul Joshi <mukul.joshi@amd.com>
 
-Add the ioctl infrastructure to support exporting and importing BOs
-to facilitate NPA based memory sharing across GPUs in a rack scale
-setup.
 
-Proposed userspace:
-https://github.com/ROCm/rocm-systems/blob/35959f8e1260c7cee3e51a740e320be3856ee4ff/projects/rocr-runtime/libhsakmt/src/memory.c#L971
-https://github.com/ROCm/rocm-systems/blob/35959f8e1260c7cee3e51a740e320be3856ee4ff/projects/rocr-runtime/libhsakmt/src/memory.c#L1036
+On 8/19/26 08:43, Bob Zhou wrote:
+> uvd_v7_0_sw_init() does not initialize the UVD decode ring for an
+> SR-IOV VF. However, amdgpu_uvd_resume() unconditionally force-completes
+> the decode ring when restoring its fence sequence.
+> 
+> Skip fence completion when the fence driver is not initialized.
+> 
+> Fixes: 043f2271e2d0 ("drm/amdgpu: mark force completed fences with -ECANCELED")
+> Signed-off-by: Bob Zhou <bobzhou2@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> index 228a405a94c4f..ecd7caa95d4b2 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c
+> @@ -517,7 +517,8 @@ int amdgpu_uvd_resume(struct amdgpu_device *adev)
+>  			}
+>  			memset_io(ptr, 0, size);
+>  			/* to restore uvd fence seq */
+> -			amdgpu_fence_driver_force_completion(&adev->uvd.inst[i].ring, NULL);
+> +			if (adev->uvd.inst[i].ring.fence_drv.initialized)
+> +				amdgpu_fence_driver_force_completion(&adev->uvd.inst[i].ring, NULL);
 
-v2: Move the ioctl wire-up to the end of the series.
+That check should potentially be inside amdgpu_fence_driver_force_completion(), apart from that it looks good to me.
 
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
-Signed-off-by: Horatio Zhang <hongkun.zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 44 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h |  2 +
- include/uapi/drm/amdgpu_drm.h              | 30 +++++++++++++++
- 4 files changed, 78 insertions(+)
+Regards,
+Christian.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 04b21e456fbc0..25430ff39a6c0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -54,6 +54,7 @@
- #include "amdgpu_userq.h"
- #include "amdgpu_userq_fence.h"
- #include "../amdxcp/amdgpu_xcp_drv.h"
-+#include "amdgpu_ualink.h"
- 
- /*
-  * KMS wrapper.
-@@ -3119,6 +3120,7 @@ const struct drm_ioctl_desc amdgpu_ioctls_kms[] = {
- 	DRM_IOCTL_DEF_DRV(AMDGPU_USERQ_WAIT, amdgpu_userq_wait_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_GEM_LIST_HANDLES, amdgpu_gem_list_handles_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
- 	DRM_IOCTL_DEF_DRV(AMDGPU_PROC_OPTIONS, amdgpu_proc_options_ioctl, DRM_AUTH|DRM_RENDER_ALLOW),
-+	DRM_IOCTL_DEF_DRV(AMDGPU_UALINK_HANDLE, amdgpu_gem_ualink_handle_ioctl, DRM_AUTH|DRM_RENDER_ALLOW)
- };
- 
- static const struct drm_driver amdgpu_kms_driver = {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 402d8941fb045..63374c6b9ebd5 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -3963,6 +3963,50 @@ int amdgpu_ualink_export_handle(struct drm_device *dev, struct drm_file *filp,
- 	return r;
- }
- 
-+int amdgpu_gem_ualink_handle_ioctl(struct drm_device *dev, void *data,
-+				   struct drm_file *filp)
-+{
-+	union drm_amdgpu_ualink_handle *args = data;
-+	struct amdgpu_device *adev = drm_to_adev(dev);
-+	struct amdgpu_ualink_handle handle = {};
-+	u32 gem_handle;
-+	int r, fd = -1;
-+
-+	if (adev->ualink.info->accel_state !=
-+	    AMDGPU_UALINK_ACCEL_STATE_ACTIVE) {
-+		dev_err(adev->dev,
-+			"ualink device is not in active state in vpod\n");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	/* The input and output members of the ioctl argument alias each other.
-+	 * Latch every input field before invoking the handlers, and only write
-+	 * the output fields afterwards.
-+	 */
-+	switch (args->in.op) {
-+	case DRM_AMDGPU_UALINK_HANDLE_OP_EXPORT:
-+		gem_handle = args->in.gem_handle;
-+		r = amdgpu_ualink_export_handle(dev, filp, gem_handle, &handle);
-+		if (!r) {
-+			args->out.export_ualink_handle[0] = handle.handle_lo;
-+			args->out.export_ualink_handle[1] = handle.handle_hi;
-+		}
-+		break;
-+	case DRM_AMDGPU_UALINK_HANDLE_OP_IMPORT:
-+		handle.handle_lo = args->in.import_ualink_handle[0];
-+		handle.handle_hi = args->in.import_ualink_handle[1];
-+		r = amdgpu_ualink_import_handle(dev, &handle, &fd);
-+		if (!r)
-+			args->out.import_dmabuf_handle = fd;
-+		break;
-+	default:
-+		r = -EINVAL;
-+		break;
-+	}
-+
-+	return r;
-+}
-+
- int amdgpu_ualink_manager_start(struct amdgpu_device *adev)
- {
- 	int i, r;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-index 63710b484c6a5..9908d3a277172 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-@@ -409,6 +409,8 @@ int amdgpu_ualink_export_handle(struct drm_device *dev, struct drm_file *filp,
- int amdgpu_ualink_import_handle(struct drm_device *dev,
- 				const struct amdgpu_ualink_handle *ualink_handle,
- 				int *fd_out);
-+int amdgpu_gem_ualink_handle_ioctl(struct drm_device *dev, void *data,
-+				   struct drm_file *filp);
- void amdgpu_ualink_revoke_exported_memory(struct amdgpu_bo *bo);
- 
- int ualink_ip_hw_init(struct amdgpu_ip_block *ip_block);
-diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdgpu_drm.h
-index d6d5402a1e789..0e8115673d8d2 100644
---- a/include/uapi/drm/amdgpu_drm.h
-+++ b/include/uapi/drm/amdgpu_drm.h
-@@ -59,6 +59,7 @@ extern "C" {
- #define DRM_AMDGPU_USERQ_WAIT		0x18
- #define DRM_AMDGPU_GEM_LIST_HANDLES	0x19
- #define DRM_AMDGPU_PROC_OPTIONS		0x1A
-+#define DRM_AMDGPU_UALINK_HANDLE	0x1B
- 
- #define DRM_IOCTL_AMDGPU_GEM_CREATE	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_CREATE, union drm_amdgpu_gem_create)
- #define DRM_IOCTL_AMDGPU_GEM_MMAP	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_MMAP, union drm_amdgpu_gem_mmap)
-@@ -81,6 +82,7 @@ extern "C" {
- #define DRM_IOCTL_AMDGPU_USERQ_WAIT	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_USERQ_WAIT, struct drm_amdgpu_userq_wait)
- #define DRM_IOCTL_AMDGPU_GEM_LIST_HANDLES DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_GEM_LIST_HANDLES, struct drm_amdgpu_gem_list_handles)
- #define DRM_IOCTL_AMDGPU_PROC_OPTIONS	DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_PROC_OPTIONS, struct drm_amdgpu_proc_options)
-+#define DRM_IOCTL_AMDGPU_UALINK_HANDLE DRM_IOWR(DRM_COMMAND_BASE + DRM_AMDGPU_UALINK_HANDLE, union drm_amdgpu_ualink_handle)
- 
- /**
-  * DOC: memory domains
-@@ -1705,6 +1707,34 @@ struct drm_amdgpu_proc_options {
- 	} kfd_sigbus_delay;
- };
- 
-+#define DRM_AMDGPU_UALINK_HANDLE_OP_EXPORT		0
-+#define DRM_AMDGPU_UALINK_HANDLE_OP_IMPORT		1
-+
-+struct drm_amdgpu_ualink_handle_in {
-+	/* Export or import */
-+	__u32 op;
-+	/* For future use, no flags defined so far */
-+	__u32 flags;
-+	union {
-+		/* GEM handle of the BO to export */
-+		__u32 gem_handle;
-+		/* UALink handle to import */
-+		__u64 import_ualink_handle[2];
-+	};
-+};
-+
-+union drm_amdgpu_ualink_handle_out {
-+	/* Exported UALink handle */
-+	__u64 export_ualink_handle[2];
-+	/** DMABuf representing the imported UALink handle */
-+	__u32 import_dmabuf_handle;
-+};
-+
-+union drm_amdgpu_ualink_handle {
-+	struct drm_amdgpu_ualink_handle_in in;
-+	union drm_amdgpu_ualink_handle_out out;
-+};
-+
- #if defined(__cplusplus)
- }
- #endif
--- 
-2.55.0
+>  		}
+>  	}
+>  	return 0;
 
