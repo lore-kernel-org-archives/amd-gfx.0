@@ -4,123 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFE41C5DF8C
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2026 02:54:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5147C5DF81
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2026 06:39:43 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 308A810E04C;
-	Mon, 24 Aug 2026 02:54:31 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2BE7210E0B8;
+	Mon, 24 Aug 2026 06:39:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ye+oGENl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="FuGdpXeT";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010003.outbound.protection.outlook.com [52.101.56.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0640010E04C
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2026 02:54:28 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012020.outbound.protection.outlook.com
+ [40.93.195.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 96D9210E0B8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2026 06:39:41 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vHLHsKqOPPZ87aek7JTicnePmj6UUkeNWegdfap8qiWJGl6zgFOhvSo66u2PgvVIEg/QFzBEOkwEZ+VjHAr27Y5O8zwXF15v/OTkHNdadMFZ9j0nY/c4t0zfORGGQU21iaNEUWILxI7k0nVm8QQHN8yy4Bx+Z4mQcgWO0oQJzA/GzHIHD3Uo203+zvWWW/0MMZHRz2rIQRog4co0qB+BiIix/yAbGnkATfs/KXOm7wGoqeGtiWwcPsibxuv5bjDWVs5AH+gudEi/HPIk6/NDgbFI03hH5X33gtOyBaS3OzKG1KXOkoUJGjQoaGp9nDd6D3tpxE3vTSVOZIhfCFif0w==
+ b=b6TggNbdDfgqiwE9M2CF7YB/IFN7DDOa6Dl2kqRweIOCKQGdQkR/w7GGCN5og6gKUv8H+xcfx7KycfPytCDyyNk5svNth6lP6dUCm0FadDU/+pbnA4v6y2a1KuVXdd72ky8DhaNSKJ5n17fHcRFWnvC/OSF7gJA/iad5h+U+m3WFPyTJZcDa+WBcjuaDdXZVTTdU0Q4ZZWx+2ooreoFHX+HEzHnUpAyi2Adz/tbSh1bd/GDNDPVUUUXdnu0vPA/xwQUOZz4NEsqVQcH+hGkdg16pdrXHXZGAQA0PKvCxCbi1Z+p09/mXgQCff6koVzn9p3g7WlfA1nFDKmqLcby6XA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wD9kDQxQWTlKtLS2NIvJqZNOM6TIEliZB0srjSHyE2Q=;
- b=FGsxbIDooEAQ93kGRP4PRGU0SV8Ji8inOCK95araHoxirGFqYutGtc4Z41THfkt7VPggr/i9U/q9H+8543IEyR/m1s3neQV1Z7AI3QEOXAevaN51UcnWtRQaMiOFycWqFnJmAOjlO0l9HjemGYfNXRw/nE/A2F8QFWIoeWrqULTrGZDcATVBrUAGiGmfjhEIc2LKwRsBsi43xuFwckIrYCsXACpJnDEAJ+hw37rlxg9XwkFJ616j5BmJ2s0pkd95vR4IV8qjs+pm6lJgXhci1nxFPTdfWQbcjBhDeN9vEyY4hCtX5TqByRZ8SG101MtfahKBU014YOiC+miDq3JkiA==
+ bh=7DhJFhIdcRblLfqg++dT/187EN/7M8Q8U0TI4jgMDew=;
+ b=uTKG+DlODeEGcgXa0SWLpqT+oQcyjrDd/J9OynTqqRMQDMCZ+s5KRYhVQsGDBh4YKS31c0P4/voOkAB/1gPtU4oswfq7NiCZkewgBhWiqUgQjgY+MN8XlU3GIBPXJXwDV9qdFGFI7jUbbgjINyCTVLGvUKM0NeQId5aiCBy434jDUuldHrPNnQ2uF29bAPHj3CNZurBWoVvTtri6DVSFkrrE1h5fLLzQ/w/n9z2YZxtuWUxuYfVQgmSkq/uB3blybkbVCwIoDwzLncHPs7sYOLxUcdRnin1mdsYdR8+IOax4vLe25IzjztHDtvEJ03dYelwgK4qTigS0fWr0XF4SFA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wD9kDQxQWTlKtLS2NIvJqZNOM6TIEliZB0srjSHyE2Q=;
- b=ye+oGENliXd65MGcA/ZRKJAl0N6qkxuK7MgQs79R9CAoHe7lcSnGOy8h1AgHr3XzdyooTpg1rILyaY6qbNWt4lHWQdWBHy4B9d0614u5hdRNmK+kuJJTQzZvIelaDmvaqS8Rms0pyhmKTHB4IZu2RNE21fU0DSAyecWz9lovMO0=
-Received: from CY5PR12MB6345.namprd12.prod.outlook.com (2603:10b6:930:22::21)
- by SJ2PR12MB8133.namprd12.prod.outlook.com (2603:10b6:a03:4af::15)
+ bh=7DhJFhIdcRblLfqg++dT/187EN/7M8Q8U0TI4jgMDew=;
+ b=FuGdpXeT0r1dEHQxodnSNFOIimCk8dNN3gSfqBnHmfhneZ7KbXTdF6EsIWmVJQZDF7I3Ci2qhekN/JlF2SXY5X+lmowKHtZH/cNL0ZdyPU8PjoqpR2YXtlxu7IVLWqpGQcutrSzBzEosx5z/fttTr5dDz84xrmX8VtOjCrAS+WA=
+Received: from PH0PR12MB5420.namprd12.prod.outlook.com (2603:10b6:510:e8::18)
+ by LV3PR12MB9166.namprd12.prod.outlook.com (2603:10b6:408:19c::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Mon, 24 Aug
- 2026 02:54:25 +0000
-Received: from CY5PR12MB6345.namprd12.prod.outlook.com
- ([fe80::76ea:5e0e:c170:5dac]) by CY5PR12MB6345.namprd12.prod.outlook.com
- ([fe80::76ea:5e0e:c170:5dac%4]) with mapi id 15.21.0339.012; Mon, 24 Aug 2026
- 02:54:25 +0000
-From: "Liu, Xiang(Dean)" <Xiang.Liu@amd.com>
-To: "Zhou1, Tao" <Tao.Zhou1@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Zhang, Hawking" <Hawking.Zhang@amd.com>, "Yang, Stanley"
- <Stanley.Yang@amd.com>, "Chai, Thomas" <YiPeng.Chai@amd.com>
-Subject: Re: [PATCH 1/2] drm/amd/ras: tolerate an unsupported MCA debug mode
- control
-Thread-Topic: [PATCH 1/2] drm/amd/ras: tolerate an unsupported MCA debug mode
- control
-Thread-Index: AQHdMiC+JQREhAf/CUWELlkFHY3ZJ7asf+EAgAADPnA=
-Date: Mon, 24 Aug 2026 02:54:25 +0000
-Message-ID: <CY5PR12MB634519AC2518433F688B2C21FAA02@CY5PR12MB6345.namprd12.prod.outlook.com>
-References: <20260822102609.84913-1-xiang.liu@amd.com>
- <CYYPR12MB87297410AD7E8695546DF551B0A02@CYYPR12MB8729.namprd12.prod.outlook.com>
-In-Reply-To: <CYYPR12MB87297410AD7E8695546DF551B0A02@CYYPR12MB8729.namprd12.prod.outlook.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
+ 2026 06:39:37 +0000
+Received: from PH0PR12MB5420.namprd12.prod.outlook.com
+ ([fe80::17d6:3ce4:21e6:8c8d]) by PH0PR12MB5420.namprd12.prod.outlook.com
+ ([fe80::17d6:3ce4:21e6:8c8d%7]) with mapi id 15.21.0339.012; Mon, 24 Aug 2026
+ 06:39:36 +0000
+From: "YuanShang Mao (River)" <YuanShang.Mao@amd.com>
+To: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+CC: "Zhang, Tiantian (Celine)" <Tiantian.Zhang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Subject: RE: [PATCH] drm/amdkfd: mark queues as reset after a full GPU reset
+Thread-Topic: [PATCH] drm/amdkfd: mark queues as reset after a full GPU reset
+Thread-Index: AQHdMJJ6sAp4+FJoG0WIyvpypN/0+rasxHgw
+Date: Mon, 24 Aug 2026 06:39:36 +0000
+Message-ID: <PH0PR12MB5420452B1526CEBBF8EFF704E0A02@PH0PR12MB5420.namprd12.prod.outlook.com>
+References: <20260820105537.3138777-1-YuanShang.Mao@amd.com>
+In-Reply-To: <20260820105537.3138777-1-YuanShang.Mao@amd.com>
 Accept-Language: en-US
 Content-Language: en-US
+X-Mentions: Alexander.Deucher@amd.com
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
  MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-24T02:54:24.897Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-24T06:35:51.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY5PR12MB6345:EE_|SJ2PR12MB8133:EE_
-x-ms-office365-filtering-correlation-id: f6014d9d-82d2-4e04-44a5-08df018b01e7
+x-ms-traffictypediagnostic: PH0PR12MB5420:EE_|LV3PR12MB9166:EE_
+x-ms-office365-filtering-correlation-id: a626d82e-96a9-4794-94a6-08df01aa775b
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|366016|10086099003|22082099003|18002099003|18092099006|5023799004|11063799006|8096899003|38070700021|56012099006|4143699003|10067099003;
-x-microsoft-antispam-message-info: ufcsh2MSOjClGaynmQpp5vGloNKg63Hl2rexcA5IypxxBzFSteZCjsDpUTcbWZtqcu+Vmhe6GRBf9HK1mX7vFr3gaBkoVzPnMgxXNe8UL/OKkJeuwdNOoYiQL3H1x33qJkS98JUFdc97FbF8LwCyjJgrXvLZItTF1xl66V3KA7qznHNhmWnEsBO7nE6+XGqoCktdmTlqxhpHZE/GtPYUjJB+gEC8lmwfWX/+Jn+p5L/cM6812WM18DfmOoPcsstPSRdMUqPLaNd62Rgzv+p2VWs7B19T/d55lb4PMAAfGeWzkwW3NhexiTAQ4sG3RgGF+imQcl8KrbGIK4QtFcbuQeFPHjc8XNNq7LsuKjh72JXE/NZrvQDRrhraYMNz2yvku9VD7jIF8AMM4OjOWxxlW0bcgtD8J2iALuKVbKkRxcexxgsZE5IiZ/ppWIKnddLU0U7/8Z7eYzNOsIHANdUozLOSlomqEp+ZsGd5teGfplf5eRdsN3SF3WCn/RYsVDpMguGGXFn5UeTGWMxu70ie8EpqLzDt3E3ngFilAd13nNUk0T039piikFgV8LLEE0BdqWKMGtjFh4hv59nEYIMVzoyiK8gsPIdIF3aKnoxRBUZCd31dvWsuEJVnSxT8Ru1TClLHrKP9EPQWOPjSahlBCJEumJo5tIkX8RTA72QRwHrIDPoFTs099r4/1EV29VpKeQhS4EHm7JG6Sog/lloKPTiw7lRNIAkXMiymhI/V3Rk=
+ ARA:13230040|376014|23010399003|1800799024|366016|38070700021|6133799003|56012099006|10067099003|11063799006|18002099003|22082099003;
+x-microsoft-antispam-message-info: du4qsj3+8D6NP/w/ffx5uiNYrJMGvr/G9op53UHf5Udh/Daoxxj2d7Xh+dJ+efia7T/lB7ZhujNl70BsOvBRs2TRHBnTe8S9qJ91ocLJ4ZVBWzIgWWpSKzS14/SX0RqJuOZmFT2KD1ParjtDVSuc97m1pKtk044USrtA/PAr9+R5A4NT47E5DEQ1xhVf8dYU8g8+h2C9lszV4sv1jSs4ZecvlkCBglRtLwMSkYoRiGRzUP1omV7jz6Tnlwk8m/XH1A4a+cH9jlPTLdJgGWQBZGi3lV7NRPM9dMHEn59rV/ZKk0lxtVUhPD9utZcPpa2qZx4dqFziJeNSdWoTDO/fRYvsE4OpiNiznS2wtYKYpYtyeI0EsLucEGHQQL1IPdKWWTtxZLYkhi4tMr4YVgYlonp03GQ9vMx1xsAzI9ZXg8hJYPmFUotkV8xcisWEmr7WbwHlfSZD4KyP0b+Da0ggXrEv+BDWknm5sYA0t5I4c1azld83CtAYLjSXFDfIKxtefH2NxZdqcacmfhcdMyGnp1397oyuQYZW0KE/HEne0G636XI99T7ti2w89amQMPNtpEY9juFl3tXqnRwK6e4qWWIv8RoI1P5LRIy1l/bUkLOzUTtgTv7G2Vk+MW2GuAHa0QXxrVOi3RH0hzWMJYy8jtSPTl0N23jUO3KI3WpJSMvqf9JSEuyVviS+tNAS+4D9vLLOPFR9R6yoXFVy+COkH7H2JIwu/LamLuINc+6CqLs=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY5PR12MB6345.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(10086099003)(22082099003)(18002099003)(18092099006)(5023799004)(11063799006)(8096899003)(38070700021)(56012099006)(4143699003)(10067099003);
+ IPV:NLI; SFV:NSPM; H:PH0PR12MB5420.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(38070700021)(6133799003)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wiWTvpjGabW2nD4K7R1lP/2SFdBdG56EY8/pe+4b/eGQrV9GiH5R1td1P+JU?=
- =?us-ascii?Q?fWPYFWZ4tUsKFN1nYHhTgiTba4Xga4ArBuANQR+URlu3HJBOljtsJn0iyC23?=
- =?us-ascii?Q?ktC8fO69tzOb7gFTFhfuMu/HGZgaMAXvvADDHN1KRdhVmlWald923ZqNOAbo?=
- =?us-ascii?Q?ajadPvMeioxqmKOuJn6HyIbm6a88urX3EjtXsTeFcusgUmtjTIrkASwJVYqm?=
- =?us-ascii?Q?axSRz24js3v+qW/zpinh92eZkrBClqvR/qFTes89dx3lBsaXa3j7kx5nu4s5?=
- =?us-ascii?Q?w7EE+bAs3WJBm9S6/DI5tZOm7jmi051NI7VaepSIO2JH+IpSKfhVCbUwhSR5?=
- =?us-ascii?Q?FX0fyhVQGj7MsfjXwANi9Yz5jd1sy5Yfbi3WlKMev2g62YgP8NVI0XdaI0Jz?=
- =?us-ascii?Q?gb/c6IUZ7/cUv+ctF6oLFKq3FFon7KiF6S1PWWjPYW+29hCc2tj+RALarlUU?=
- =?us-ascii?Q?dWH+MZcuU3cdOhx7A9fH+C8DXx1wquMqwJPOlbQm4F4JnsdaE2u2LIW2TXY+?=
- =?us-ascii?Q?UcXryR2IvppY2GbCHWF9GxuAlv/dv+Li4JxmUK6vMbz8gMJbHUeWbrqVRBlT?=
- =?us-ascii?Q?X0igFdk/8ao4QdO7EnTzvA+eR8TPnr3X56oXwrBDplnJYhu8toMyNI5Izt7m?=
- =?us-ascii?Q?9tjx6fM5q1pwaaKcJXRyuvjHYq6tum5vuNNWGIXoSY3gWEEsL+j4sUiheBhh?=
- =?us-ascii?Q?p+87aH7VaWUib1LZ0tYG3I2xZ69ne3cjOPJkU7gBKROt+KSPBgg4nd8hr7FC?=
- =?us-ascii?Q?T6EAP/K9Va+M2rzbY4BDTM8nG8OknegwDBb/lmuNV9AsnMI2l2hUT2FeCnz6?=
- =?us-ascii?Q?jwYtVL/chjBvTSWUJMZt8bZPslq/ovpHGplj5ytYWHTBRkHxX/kAa2bFuNra?=
- =?us-ascii?Q?Chdw3Ty+L4UjyUZmkER9bM6x8Sg89Mk2LVVNtZRcpSEBUoxIaFaV9bL8VUYw?=
- =?us-ascii?Q?OZ9+FOiJq97mhmkWVLAUgy0WAYNTo15kC3/v18IiarAhW4SmFIAQ2znuw2TO?=
- =?us-ascii?Q?F8QbGuKS/gkCkctdozN4ukKDi2P9umAQDEXMa+oLwBxxACO9Yjk5yZGsxwSb?=
- =?us-ascii?Q?rMd5touLjp4UQMpM9+vIQFd9LPOQ26eSgeFBlOh6sjKm8PGGeeU9lggkxJot?=
- =?us-ascii?Q?ufOVki3To/GTiFllngIh4SD+dsTF3WXXN5kb+NZqFnWOn0bG/gmGyn2wdxb3?=
- =?us-ascii?Q?6p2xOEr+YYF+Bu96yAuOhg5CBtwLL/iDheuOTmVe3sYjXVefR7dNXayPLt+1?=
- =?us-ascii?Q?rihGhk2v7zx6RQaRXeFzz7i/x7exBhVJBM+buunVTUWtZb80dDJ8mNhTA+YB?=
- =?us-ascii?Q?sCVGNYD4YGwk4IWrFM2jc8DcaHFXjLrpXQodpCpmh0LaI8SzENP97LllK/c9?=
- =?us-ascii?Q?NKNkr3jdTr9mHh1bBbF0gLKsExDHFpUQjHTgXYdxPD4Z6TnI67rsgrVo89kb?=
- =?us-ascii?Q?WFr0mzLNQQbqRToklAD+z6fQDXRf3dxVZr6isGVJltknwa4RHlHDKKH54wEX?=
- =?us-ascii?Q?mN04QBjyrRznKbUpSyId0lYoC8zxStZ0igKktJF5wyMtzCpe8JacWiCP6+1O?=
- =?us-ascii?Q?BR8T3tkDSfnprSkrh8rurwCKec3znV30jw8dosWSD3fN9Z2efmFVsxxQ37wA?=
- =?us-ascii?Q?X4cpinLsqZU5DyECCDRcDDkhL5dH7/UQTjBzGdqmGONcKwlhK7ozOH0bqXAG?=
- =?us-ascii?Q?PTtRq1ja8QAoan96iKEzEv0CaUJwaYUySI6pIKRVLcmdO3W6?=
-Content-Type: multipart/alternative;
- boundary="_000_CY5PR12MB634519AC2518433F688B2C21FAA02CY5PR12MB6345namp_"
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?wSCkIcjBME6VskVPpc2b8cRNKuxvmVmIqHXtkByLR86Beuge5v0NjlcsPkoV?=
+ =?us-ascii?Q?iu66T6YKDJqBYX6/OP30PovwFViW+KhNGAC6YUxMhdmxWCvTPmNNYt6/3dTF?=
+ =?us-ascii?Q?f5rDYATO6c9EE8hIO6z43ZoX+8DK4DRo5tvwKrtlfRN7p/N+UdTw4iVp1S/4?=
+ =?us-ascii?Q?/ML5X1/BD+3E0Nh2G4b0QLer6ZjFAxSVRqThnEti/RUhRqzX7s7VlevU7di0?=
+ =?us-ascii?Q?Joeke92t5Gey79M5g9pGOVklWyPui7XKReHJ60RUWmGpuCpjMqQExxhaWOpo?=
+ =?us-ascii?Q?DGvRpheCQ9Pa9hxn8xoDsWPtcX0jA45uf+gzCDZ/C86s04KzH3tRP35AdQza?=
+ =?us-ascii?Q?EekEfrPGM0iGF1/o9x5KcwFTmSrdy0aX0skEFAYU4wPPRxfmURwxQ2Et9DMv?=
+ =?us-ascii?Q?w0idjqi/dIBoEKJdcbNHLZ1I5L3MPayXI4mC6HSiGqpwd8mGLnQmoAB+H8Dx?=
+ =?us-ascii?Q?RO7AWT3ER5nT4OdOa+gOrB1jDe1vdkaKW/v2jg2RI42F5UNKmNEgX32WJlPZ?=
+ =?us-ascii?Q?HDTRblIv1WYgJjl5ETCGiar0RqbyEKOQ2PorbA30ctt/gq+n4ft1gmy+E1DO?=
+ =?us-ascii?Q?qQ1x+HUcenQG/HZG2sM9A4TYENJ4NwYbxCYQraUBqh7WHE2lXn6Ydh8F0enw?=
+ =?us-ascii?Q?JzJD3wKNNNJJVNuSsE5/p67hL12rrewzXy4+U5UC7Lq91hKRzpgZRz7awTp3?=
+ =?us-ascii?Q?r0o4J20TGhadKl4bxfkNGrh/wyauCYDKgPAMyfmm8tU5pgO6u8kbNKKpag9K?=
+ =?us-ascii?Q?LHM4awEBoTsRV6Mxem5kc7fmxSeBzaWwlU5mG8Zsr41pV/5u/Da3EklO/FU4?=
+ =?us-ascii?Q?f/Cr8G3au7KmY6IH8Z9MgRWquuH9UYcpWC2WFDhdK/Y1kZvMcAZ7qXl91LeU?=
+ =?us-ascii?Q?Isb4BUFepMLJas3ejf3yD9WPCeQEZA1CBSDoN4IBpDQO7x4djXu85PJcv2DH?=
+ =?us-ascii?Q?O3YYoS3TTfcv07NksNFpDiuB/6WT6qRv9AGFbMj8kvwgk56Q8iRYJh6iyUNq?=
+ =?us-ascii?Q?QeDrYdKrKGdtrlrPR31Fczx07+IvG2lzGtkce/VyjS+FZgOaxl7BUBZN2ull?=
+ =?us-ascii?Q?iF0rsDuq2nRk0IOfr7z9cgy82Ivwr9mAPkWUlmzJunmyudTs45co9ORP1mG0?=
+ =?us-ascii?Q?VWaiobQeKkkUs3uE6anJCdzJGSuqMGK7+HCFyWvR0bvm4a30htI/3OP6wuhK?=
+ =?us-ascii?Q?k33sRhnzINb2WEf7AMsJwMWrpGWLSqpHkhHssmfG1gIDbLZrPfT+vjorNcJ/?=
+ =?us-ascii?Q?1XNWBOkYLHMIFjZkmIwdvCUhh9B1iesm/8RygCc32VE8gNfFYpAjRx7euiDc?=
+ =?us-ascii?Q?mjKktX5VDhRKFiXfqJl7hO2YUQNUBHkpIIwK0+NB5TNNOnAZiAc6RU/1via/?=
+ =?us-ascii?Q?BRXyLEwlMeFUafzb4g4sYYhu9Zk3zJS5qsRGDBR855tDEi4prU1UEBOkm+Yk?=
+ =?us-ascii?Q?A6B4EhbTTeonXDnkdel9OCM4VAFoZYorcNogJnyvods835AUsxEz4ahQuAY5?=
+ =?us-ascii?Q?7miSyVrfW3QzPlW+psXpiHNmNZiss/9NsqQsvhpa+Bj+Nk9Bc7i6zNDiK0gB?=
+ =?us-ascii?Q?ZrJDXLgywZecW4f+B01wkfVZBUy/8hHB1KLSyUccTMjgDOZ/XkJdtx4xr8Bk?=
+ =?us-ascii?Q?BIwgtkjYG95V+6wuOxgpelWm63e8wh96F9PjTha8ODHMyIhxT5Ukgaab5R0r?=
+ =?us-ascii?Q?O2x/VPvovt3DglUrTVT7hD0tNVIJUXsnVN+2ahCvEQk1ytFD?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 MIME-Version: 1.0
 X-OriginatorOrg: amd.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6345.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6014d9d-82d2-4e04-44a5-08df018b01e7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Aug 2026 02:54:25.3847 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB5420.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a626d82e-96a9-4794-94a6-08df01aa775b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Aug 2026 06:39:36.8356 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: xBI2SEtWE8fwsO5oX9f+Lh+yyBwncie5kJN3vu/ihoanSFHpqllT2ihYWO83vNe9ulC8Jk/BecYxrd6uwtjJ2w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8133
+X-MS-Exchange-CrossTenant-userprincipalname: XtlF9pH1hZX/fpi2C2nDb8khiVHg88MSY4wuuIrAQXFmZBoYN3EQMURbU0snSmtyKT1R5rNRHEY5dB2Him3UgQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9166
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,196 +133,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_CY5PR12MB634519AC2518433F688B2C21FAA02CY5PR12MB6345namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
 AMD General
 
-Sure, will improve it.
+@Deucher, Alexander Could you help review this patch?
 
-Best Regards,
+Thanks
+River
 
-Liu, Xiang
+-----Original Message-----
+From: YuanShang Mao (River) <YuanShang.Mao@amd.com>
+Sent: Thursday, August 20, 2026 6:56 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: YuanShang Mao (River) <YuanShang.Mao@amd.com>
+Subject: [PATCH] drm/amdkfd: mark queues as reset after a full GPU reset
 
-________________________________
-From: Zhou1, Tao <Tao.Zhou1@amd.com>
-Sent: Monday, August 24, 2026 10:41 AM
-To: Liu, Xiang(Dean) <Xiang.Liu@amd.com>; amd-gfx@lists.freedesktop.org <am=
-d-gfx@lists.freedesktop.org>
-Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Yang, Stanley <Stanley.Yang@amd=
-.com>; Chai, Thomas <YiPeng.Chai@amd.com>
-Subject: RE: [PATCH 1/2] drm/amd/ras: tolerate an unsupported MCA debug mod=
-e control
+From: Yuansheng Mao <yuansmao@amd.com>
 
-AMD General
+A full GPU reset reloads the MES firmware and wipes its queue table, but KF=
+D keeps the queue objects with is_reset left false.
+Pre-reset cleanup cannot fix this: it runs with the reset domain write lock=
+ held, so remove_queue_mes() fails with -EIO and the cleanup loops bail out=
+ early.
 
-> -----Original Message-----
-> From: Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-> Sent: Saturday, August 22, 2026 6:26 PM
-> To: amd-gfx@lists.freedesktop.org
-> Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhou1, Tao
-> <Tao.Zhou1@amd.com>; Yang, Stanley <Stanley.Yang@amd.com>; Chai, Thomas
-> <YiPeng.Chai@amd.com>; Liu, Xiang(Dean) <Xiang.Liu@amd.com>
-> Subject: [PATCH 1/2] drm/amd/ras: tolerate an unsupported MCA debug mode
-> control
->
-> ras_mp1_set_debug_mode() reports -EOPNOTSUPP where the control does not
-> exist, an SR-IOV guest among them. Treating that as fatal fails
-> ras_core_sw_init() and takes RAS down on every VF.
->
-> Nothing else in the MP1 block depends on it, so carry on.
-[Tao] you can also add this explanation as code comment, anyway, the series=
- is:
+When the process later exits, process_termination_cpsch() sends REMOVE_QUEU=
+E for doorbells MES no longer knows about. MES rejects them, remove_queue_m=
+es_on_reset_option() mistakes the rejection for a hung queue and ends up in=
+ kfd_hws_hang(), requesting another GPU reset. On SR-IOV that resets the wh=
+ole card, so one injected hang costs two resets and disturbs the other VFs.
 
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Observed on Navi32 SR-IOV with a compute workload running:
 
->
-> Signed-off-by: Xiang Liu <xiang.liu@amd.com>
-> ---
->  drivers/gpu/drm/amd/ras/core/ras_mp1.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/ras/core/ras_mp1.c
-> b/drivers/gpu/drm/amd/ras/core/ras_mp1.c
-> index 2452448806f6..781faf6a7529 100644
-> --- a/drivers/gpu/drm/amd/ras/core/ras_mp1.c
-> +++ b/drivers/gpu/drm/amd/ras/core/ras_mp1.c
-> @@ -203,12 +203,12 @@ int ras_mp1_sw_init(struct ras_core_context *ras_co=
-re)
->       mutex_init(&mp1->op_mutex);
->
->       ret =3D ras_mp1_set_debug_mode(ras_core, false);
-> -     if (ret) {
-> +     if (ret && ret !=3D -EOPNOTSUPP) {
->               mutex_destroy(&mp1->op_mutex);
->               return ret;
->       }
->
-> -     return ret;
-> +     return 0;
->  }
->
->  int ras_mp1_sw_fini(struct ras_core_context *ras_core)
-> --
-> 2.34.1
+  ring sdma1 timeout, signaled seq=3D239, emitted seq=3D240
+  GPU reset begin!. Source:  1
+  Failed to evict queue 2
+  GPU reset(1) succeeded!
+  [ ~34s later, when the killed process is reaped ]
+  failed to remove queue from MES, doorbell=3D0x1002
+  MES might be in unrecoverable state, issue a GPU reset
+  GPU reset begin!. Source:  3
 
+remove_queue_mes_on_reset_option() already skips queues with is_reset set, =
+but only the per-queue reset paths ever set it. Set it in kgd2kfd_post_rese=
+t() as well. Suspend/resume is unaffected:
+it goes through kgd2kfd_resume(), where queues are re-added to MES.
 
---_000_CY5PR12MB634519AC2518433F688B2C21FAA02CY5PR12MB6345namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+Signed-off-by: Yuansheng Mao <yuansmao@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_device.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-AMD General</div>
-<br>
-</div>
-<div class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; =
-background-color: rgb(255, 255, 255); margin: 0px; font-family: Calibri, He=
-lvetica, sans-serif; font-size: 11pt; color: black;">
-Sure, will improve it.</div>
-<p class=3D"elementToProof" style=3D"direction: ltr; text-align: left; text=
--indent: 0px; background-color: white; margin-top: 0px; margin-bottom: 0px;=
-">
-<span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt=
-; color: black;">Best Regards,</span></p>
-<p class=3D"elementToProof" style=3D"text-align: left; text-indent: 0px; ba=
-ckground-color: white; margin-top: 0px; margin-bottom: 0px;">
-<span style=3D"font-family: Calibri, Helvetica, sans-serif; font-size: 11pt=
-; color: rgb(36, 36, 36);">Liu, Xiang</span></p>
-<div class=3D"elementToProof" style=3D"font-family: Calibri, Helvetica, san=
-s-serif; font-size: 11pt; color: rgb(0, 0, 0);">
-<br>
-</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> Zhou1, Tao &lt;Tao.Zh=
-ou1@amd.com&gt;<br>
-<b>Sent:</b> Monday, August 24, 2026 10:41 AM<br>
-<b>To:</b> Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;; amd-gfx@lists.freede=
-sktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Yang, Stanley &lt;=
-Stanley.Yang@amd.com&gt;; Chai, Thomas &lt;YiPeng.Chai@amd.com&gt;<br>
-<b>Subject:</b> RE: [PATCH 1/2] drm/amd/ras: tolerate an unsupported MCA de=
-bug mode control</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font face=3D"Times New Roman" size=3D"3"><span=
- style=3D"font-size:12pt;"><a name=3D"BM_BEGIN"></a>
-<div><font size=3D"2"><span style=3D"font-size:11pt;">AMD General<br>
-<br>
-&gt; -----Original Message-----<br>
-&gt; From: Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt;<br>
-&gt; Sent: Saturday, August 22, 2026 6:26 PM<br>
-&gt; To: amd-gfx@lists.freedesktop.org<br>
-&gt; Cc: Zhang, Hawking &lt;Hawking.Zhang@amd.com&gt;; Zhou1, Tao<br>
-&gt; &lt;Tao.Zhou1@amd.com&gt;; Yang, Stanley &lt;Stanley.Yang@amd.com&gt;;=
- Chai, Thomas<br>
-&gt; &lt;YiPeng.Chai@amd.com&gt;; Liu, Xiang(Dean) &lt;Xiang.Liu@amd.com&gt=
-;<br>
-&gt; Subject: [PATCH 1/2] drm/amd/ras: tolerate an unsupported MCA debug mo=
-de<br>
-&gt; control<br>
-&gt;<br>
-&gt; ras_mp1_set_debug_mode() reports -EOPNOTSUPP where the control does no=
-t<br>
-&gt; exist, an SR-IOV guest among them. Treating that as fatal fails<br>
-&gt; ras_core_sw_init() and takes RAS down on every VF.<br>
-&gt;<br>
-&gt; Nothing else in the MP1 block depends on it, so carry on.<br>
-[Tao] you can also add this explanation as code comment, anyway, the series=
- is:<br>
-<br>
-Reviewed-by: Tao Zhou &lt;tao.zhou1@amd.com&gt;<br>
-<br>
-&gt;<br>
-&gt; Signed-off-by: Xiang Liu &lt;xiang.liu@amd.com&gt;<br>
-&gt; ---<br>
-&gt;&nbsp; drivers/gpu/drm/amd/ras/core/ras_mp1.c | 4 ++--<br>
-&gt;&nbsp; 1 file changed, 2 insertions(+), 2 deletions(-)<br>
-&gt;<br>
-&gt; diff --git a/drivers/gpu/drm/amd/ras/core/ras_mp1.c<br>
-&gt; b/drivers/gpu/drm/amd/ras/core/ras_mp1.c<br>
-&gt; index 2452448806f6..781faf6a7529 100644<br>
-&gt; --- a/drivers/gpu/drm/amd/ras/core/ras_mp1.c<br>
-&gt; +++ b/drivers/gpu/drm/amd/ras/core/ras_mp1.c<br>
-&gt; @@ -203,12 +203,12 @@ int ras_mp1_sw_init(struct ras_core_context *ras=
-_core)<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; mutex_init(&amp;mp1-&gt;op_mutex);=
-<br>
-&gt;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ret =3D ras_mp1_set_debug_mode(ras=
-_core, false);<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; if (ret) {<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; if (ret &amp;&amp; ret !=3D -EOPNOTSUPP) {<b=
-r>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; mutex_destroy(&amp;mp1-&gt;op_mutex);<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp=
-;&nbsp;&nbsp; return ret;<br>
-&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-&gt;<br>
-&gt; -&nbsp;&nbsp;&nbsp;&nbsp; return ret;<br>
-&gt; +&nbsp;&nbsp;&nbsp;&nbsp; return 0;<br>
-&gt;&nbsp; }<br>
-&gt;<br>
-&gt;&nbsp; int ras_mp1_sw_fini(struct ras_core_context *ras_core)<br>
-&gt; --<br>
-&gt; 2.34.1<br>
-<br>
-</span></font></div>
-</span></font></div>
-</body>
-</html>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device.c b/drivers/gpu/drm/amd/=
+amdkfd/kfd_device.c
+index 586e640f13dc..d326e41a8656 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device.c
+@@ -1033,6 +1033,27 @@ int kgd2kfd_post_reset(struct kfd_dev *kfd)
+        if (!kfd->init_complete)
+                return 0;
 
---_000_CY5PR12MB634519AC2518433F688B2C21FAA02CY5PR12MB6345namp_--
++       /*
++        * The reset wiped the MES queue table. Mark the queues as reset so
++        * that teardown does not try to remove them from MES again.
++        */
++       if (kfd->shared_resources.enable_mes) {
++               for (i =3D 0; i < kfd->num_nodes; i++) {
++                       struct device_queue_manager *dqm =3D kfd->nodes[i]-=
+>dqm;
++                       struct device_process_node *cur;
++                       struct qcm_process_device *qpd;
++                       struct queue *q;
++
++                       dqm_lock(dqm);
++                       list_for_each_entry(cur, &dqm->queues, list) {
++                               qpd =3D cur->qpd;
++                               list_for_each_entry(q, &qpd->queues_list, l=
+ist)
++                                       q->properties.is_reset =3D true;
++                       }
++                       dqm_unlock(dqm);
++               }
++       }
++
+        for (i =3D 0; i < kfd->num_nodes; i++) {
+                ret =3D kfd_resume(kfd->nodes[i]);
+                if (ret)
+--
+2.25.1
+
