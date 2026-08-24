@@ -4,86 +4,86 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C3D3FC5DF94
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2026 07:56:53 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7119AC5DF81
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2026 07:56:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D802610E0DF;
-	Mon, 24 Aug 2026 07:56:52 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E738B10E61A;
+	Mon, 24 Aug 2026 07:56:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=adec.dev header.i=@adec.dev header.b="XAwT1Pmw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e/DR28yI";
 	dkim-atps=neutral
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CE23510E00A
- for <amd-gfx@lists.freedesktop.org>; Sun, 23 Aug 2026 15:05:29 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-471eeac43bfso2124771f8f.3
- for <amd-gfx@lists.freedesktop.org>; Sun, 23 Aug 2026 08:05:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787497528; cv=none;
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0408F10E0C7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2026 07:22:53 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-499b57cf2f3so16969315e9.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2026 00:22:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787556171; cv=none;
  d=google.com; s=arc-20260327;
- b=rZBmgrFuCzpvtyOeTU5XSXnVqMNJn0PfGqO+peXIUyYt8RSNmVehm/ZU+SLL+WTrM3
- PClSPTdregqA4iuHsPo3OFjsz40PWQqQ1btS0OZK5xBNvD2A5Am/7mO8uq5VgpzKVr/6
- doRm+rsfbKW8FaWVuHa7iP8/S2OP2llWCK5QOcwsz/5H3NtuOKBICt1egApy31LvcW64
- CKWTBR1cJDeSfAGA8krBKu+B6jeed6R0jk3kHWF+lXEcRWr6kJk+993kOTDjaXblZZa+
- 0VNKkDNkl28N/V01oqXIm8WHEH+Tut3lOe569mSXxs2F8N+TwErD4nE8q3cC0J8iLvfi
- sSNQ==
+ b=BvQ+0x+QjmBWPr/aEGdiF7TOP/yEmBPn6WlK24ioFhswfRBW4u1nQ+ZTEn2JHGE7m3
+ 1eCv/Kxv6mR0Di4C1gI+s8TJRRoUC+Txn7OSA+H/W9gFhbNojXhkD7jGHZDXBOY1RVrl
+ +duSAKeTHHxrRzKbH8vJwp/qAc+3s5l1lE38H1BmgRDuxQRl3aq7HfyhBU/BQ5xzpWba
+ VxR3YpQrTi9bkLpdr60v7nzjhzwnH0ouXtMCKfkV8adzvcdCL+Q1evYCiO5+FdRTVS4h
+ IBAdjwc3pemy5B69Ht5nzNL3XszyHl2mkotIgvlFW76hv8NCuiqQt4dULEJw1voZwMto
+ KApA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=bqy0Z5gt95vgJXQYSwWz6emMp7N4CHp0JpDga+1MlxY=;
- fh=UOs4AE4qjGd21zFslyBEqQZetRrW593aa1+yYb021Fo=;
- b=Fk3g6AyGwuOO812S3JOkvQECnxcrBmybTAWqyCwo5FVFJwRnLlW4Sg4irRl0yCh7Uf
- sO8rlWF2bYR5NlroNV4XxzOy3MaQ1lUE9jbpGvajc+IARHdiMzLCjiJjuhSab3PuFpUb
- q2YbbxKY7ozWSHfv2LHcpuuSHHM+gSbOhW6WLRc4RT06DU4FBEcWHsIoF84BnS9/QtW6
- WPSHHtb4+BcEl9OKP6BEtuP1iEScGowZ0B/hBSaHrzwsSEQC1KMcyqQS8K02IILtYDLt
- EodJc6aqOX1Ys5Uho5vYL0nVwMPYrs9Yf3aI4DPyvt5okrEPk25KyRKvRMBHi0xOcxnp
- vw+Q==; darn=lists.freedesktop.org
+ bh=fTwAXzwEroGRnFaFDuQgzHLGJ55DUd2hD43uQnL4NWw=;
+ fh=LYN8rUkjKrk8P/z4hxTLJgSk8ZFtrFPhcLjEY5H8VoM=;
+ b=TnBlkBuO86/oWEv6tjS+fHPrW99XvNgDDKMU1+g4Jz+Qm96wntnpx21Cv69noiklCV
+ wy+Cj7c/B+McRIzPNmVzpM0B6WCwcEN9+mripbP0Od7hHPVwQ1yiN0ig94rfV6AOtPdx
+ z9Srug9Gz/AVTV15QYe5LCF5O8V/chcVtRyz19A3Nvxhrd7iRjFHI8+ArJV0YYsETxba
+ L/KXzWe5M4Zg1qPVfIZ79NSOrsZsk2pc4oJNUgPSK99aMAtn0a+o/BZw6cJy8NQE27jH
+ IqtCBR8IA3JyNHKt+P3Jr609QY64RXRVNkhBRNPiuB99q1aNY8plPitbJvRnHrFVZ3yL
+ rXLQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=adec.dev; s=google; t=1787497528; x=1788102328; darn=lists.freedesktop.org; 
+ d=gmail.com; s=20251104; t=1787556171; x=1788160971; darn=lists.freedesktop.org;
  h=content-type:cc:to:subject:message-id:date:from:mime-version:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=bqy0Z5gt95vgJXQYSwWz6emMp7N4CHp0JpDga+1MlxY=;
- b=XAwT1PmwFhxmRR7eMM/UIxc42ZqlPj+eUQH8buJncPpAtE0X0A6NaOVPoZ3CDl2NFr
- AnC9+VkLYNzIL1QQhu6hcyEBQ73zAF1VA/8X4157spkIXujJ+G/G8ejHr9e6+Bkln8Rr
- /jhBb/nimn3FYbHZPeZNGpcRb0m7pYt39t8DY8ouS+EZKbgdI2GJFQLeS3CznbWzwQby
- 5YuFGa89APo+Y0mlRPRTxp3wQs8vS/6wT5H1chnnGIgKVNLL0bwFKHz9yvR8Fka3udmV
- MUlKQ1Y9Or7MHErSfSxy1EosYZxRbUVisRTpBrofUPMQaDdR2aMUvQTFnzCgsitvoX6b
- v2hg==
+ bh=fTwAXzwEroGRnFaFDuQgzHLGJ55DUd2hD43uQnL4NWw=;
+ b=e/DR28yI6RvvSEezkvayz3Yu70cl7aLZJlps2zRd94xoD2+cSgw9MdKHSmvFNOsyDe
+ Zh75F2Iz+0tvoXTCD7k5IHadY27q3XzhwvAsPqQ9zi6sJ6lGmOsHx5s4BWQgGqrqgXfN
+ GyfkHuPhJD4PDRu/ZH4s2BUFnB8JohhpsweHmoi9l3EhBF0q4HML6Wk+5MwlnbYkp/Ui
+ enjaBXYBIbHTxIMMuP/t96KGFaJjIGYFidcj8uICR93rKosM/pebZYeiVTelfNmQhz/q
+ IewV10XBYtcx5pENz+Sp1BSTdHS2kHAND8xm+DOiov54Zx8ql2kJnF4apABXPJaKxIia
+ oZPg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787497528; x=1788102328;
+ d=1e100.net; s=20251104; t=1787556171; x=1788160971;
  h=content-type:cc:to:subject:message-id:date:from:mime-version
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to:content-type;
- bh=bqy0Z5gt95vgJXQYSwWz6emMp7N4CHp0JpDga+1MlxY=;
- b=hoKUSiphzcxEwPxecYlw3KMvr9PDIrOQ8tkuATK1kqjZPKC7daUd8QfwC5VL0XiyGf
- X7cosU98aEGWHG2/1lbRAxtXkd9+txy9rmfQol9vNaneN1xQ7t8DGs+ot8ORFrtMlAUK
- jHWGysLCHlRPAgHr+sOEv5QTqXVvV5yl7jLTAQv3+9UG8e8qRu3m/2WFWwTSBe46BRha
- jwlNX4n/WF79w9h4pbkwx5UKttLqAQRf/T9niueouoGDDRe9L1m6CftBwrAm1AhAizib
- QtzuziEFERayZXrnTSYxOMb5ZlQBtIR4eG43Hzi7oJgwd4QYfoKgsgrkbEDO0vJaf1tP
- wMOQ==
-X-Gm-Message-State: AFuF++l/5URhVE63kXJoP9xZKuZx+4EZqgpuwqvtNzjRNzySGSDqXC1q
- YFX0BAlQxaKNYTXLbNuwbCc0FdWLJXk4wRP7/K17rDCQkgxePGZURqGODd2HbXNYBw4ECbiplCS
- qbXP+bg5esr82ixQ+qJVR8EPSWaTDrY/aeJ5HikHD8KpCQWXmpCchGPcPLw==
-X-Gm-Gg: AR+sD10fD2GrwpFjf5IOvedpnJURn/MwKcG43snA/NwitGkUj1DGH5JXnx4R+5yd9lz
- N2jx/vaaMOc4vzH2MjT6QhfPSuzMVFMKArzHWIagOu63ZvxlV7hjH4MXuFDAgIQ6wqfV2P/G0kF
- oTz5HM+X6tKhbkOdpsrZabH2p5XBuGK4nAGFfdWxm6fW093VwmIvmweiOF3ytr1f9HnhsIKKSLe
- po7GLNpSkNJY26iakjYKUj0LUXH243XttfA0YoKvQYOeT1AV4bqQA6WLZvRS1zeI/SFiqoIisth
- ZdkCMXoD5oiQp9SHsWBMSjm50H5OOw6UoJNUJaJf43eFWphMOvBmoF7JitLxN4eMykyO7mXdl8C
- H
-X-Received: by 2002:adf:e18c:0:b0:47f:9283:1fb3 with SMTP id
- ffacd0b85a97d-482c810c17bmr12151252f8f.0.1787497527825; Sun, 23 Aug 2026
- 08:05:27 -0700 (PDT)
+ bh=fTwAXzwEroGRnFaFDuQgzHLGJ55DUd2hD43uQnL4NWw=;
+ b=f1Bihdm4HcnKBBAbQDgKeeD0U/sn5gGvqo09j4aaqKeC45021TFkvJt+57ILKIehI1
+ CKK4GlR+WbibmWjsl9QvvjS4OW4kS1s5m/Ndihe2w7zcIo+hSr5kL6+3G/CdjHNP5tnI
+ 6wPD/DIlDHTkJGsVd/+DhY8Yx0DcouQpIMhZzqtBTRwQTKVgc/w9NVbjySIZuYOcokOE
+ aGyCguf6pvj2LgZwSRepd4i1UocdNqGV3WAinMAjj1NNaX/WANRJX4VHNmipz78S2Gvd
+ VROHpUQw+JWASb1I/5mupgXCZzujj63iVWTEAhvsmT4EjLADh0MZ4ZdLm+HRm9kCqT5W
+ KUCg==
+X-Gm-Message-State: AFuF++lv8CMOBzny6PckRlzVdXTX9LgbMFviPRKrIgzvq8q2lkkCypzz
+ UGLH3QPiGXFCs1QVz2J4G3nhQJi3Eg5L9j6EqJUE3avydnBrK9BeFdurOigQkOwyQ17/9I/B+t6
+ PfMIF9smBbvC+Zsg4WtXLtQWFX4AMAFHnGfTk
+X-Gm-Gg: AR+sD13VTijNo8yuSjguddXXnlwKluPDReKAEFoQfm1CimzRRflLFxBpQN5+k3G9jY3
+ 4H8n7MF+1Opax3i3yJq78zgpFJf0+PfKYd+Lfs4aehcXYnEvKVqPuRbCZ5ax5vXlVLS5fVVsi2s
+ Rl0Lpq7c+2tUoq8SUQ1LCwYPfqwr4ICM99f9s6bVwLTjE3oOG005crU9CVddbenS44Zqiu8AtxB
+ zvqAUt8gOIkvdu+aUM5OBAPy6G2udPpRWIbdx4emWxjBXQ6fWSnkULTdCDSV2zs3SLILvtoFjCv
+ K5q6vv+JlTXUnhLR6ZiAvWv8HrLw/4JSEXeN2ufTzraz07w2rcAglQ==
+X-Received: by 2002:a05:600d:644a:10b0:499:bdf1:de07 with SMTP id
+ 5b1f17b1804b1-499bdf1de10mr137644995e9.5.1787556171178; Mon, 24 Aug 2026
+ 00:22:51 -0700 (PDT)
 MIME-Version: 1.0
-From: Kevin Hake <kevin@adec.dev>
-Date: Sun, 23 Aug 2026 08:05:16 -0700
-X-Gm-Features: AcwNN1U0GLbdISq-KdUC6arnYooRAMN4VFXNrQEVjBvWBCrGfjI6oO9bw8E8cFI
-Message-ID: <CA+9SDS166EhN-DAFNqatoJ84sY2-MMESY=1BXenHAr9CubK=wA@mail.gmail.com>
-Subject: [drm/amd #3549] Navi 33 idle sclk latch: repro, analysis,
- userspace workaround
+From: Abdulaziz Al-Mutairi <abdulazizalmkw@gmail.com>
+Date: Mon, 24 Aug 2026 10:22:40 +0300
+X-Gm-Features: AcwNN1UaD6hJv00Qs3xLv57zwU-l6VJ32zbRPdVNnyi3tAOlkpvyT1X8ljlmW_Q
+Message-ID: <CAGUR40bXYXppUrJM=1aSa4SyecHN0bpzRSEofxHeD2wDYDzOxw@mail.gmail.com>
+Subject: =?UTF-8?Q?Strix_Halo_gfx1151_=28ASUS_GZ302EA=29=3A_PSP_hw=5Finit_fails?=
+ =?UTF-8?Q?_on_one_unit_=E2=80=94_mmhub_fault_from_MP0_during_TMR_setup_=28drm=2F?=
+ =?UTF-8?Q?amd_issue_=235679=29?=
 To: amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com
-Content-Type: multipart/alternative; boundary="0000000000002f07d00659b83398"
+Cc: alexander.deucher@amd.com, christian.koenig@amd.com
+Content-Type: multipart/alternative; boundary="00000000000099646e0659c5da0d"
 X-Mailman-Approved-At: Mon, 24 Aug 2026 07:56:52 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -99,104 +99,99 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---0000000000002f07d00659b83398
+--00000000000099646e0659c5da0d
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi all,
+Hi,
 
-Follow-up to drm/amd issue #3549 ("AMD GPU usage peaks with system in idle =
+I filed https://gitlab.freedesktop.org/drm/amd/-/issues/5679 a couple of
+days
+ago and wanted to flag it here since it may be interesting to whoever owns
+the
+PSP init path on gfx1151.
+
+Short version: on my ASUS ROG Flow Z13 GZ302EA (Ryzen AI MAX+ 395 / Radeon
+8060S), amdgpu has never initialized. The PSP itself raises a memory fault
+while setting up its Trusted Memory Region, and hw_init of the psp block
+fails. The exact sequence, identical on every attempt:
+
+  amdgpu 0000:65:00.0: [mmhub] page fault ... Faulty UTCL2 client ID: MP0
+(0x6)
+  amdgpu 0000:65:00.0: amdgpu: psp gfx command ID_LOAD_TOC(0x20) failed and
+response status is (0x0)
+  amdgpu 0000:65:00.0: amdgpu: PSP tmr init failed!
+  amdgpu 0000:65:00.0: amdgpu: hw_init of IP block <psp> failed -22
+
+On top of that, the cleanup path then hits a vcn_v4_0_5_sw_fini Oops with
+IRQs
+disabled, which can hard-hang the machine. nomodeset is the only stable
+state.
+
+What makes it interesting: Windows 11 + Adrenalin works perfectly on the
+same
+unit, and at least one other GZ302EA on the same BIOS (.311) reportedly
+boots
+Linux fine =E2=80=94 so this smells like per-unit PSP/firmware state rather=
+ than a
+generic driver bug. I reproduced it across 5 kernels (6.18 LTS through 7.2 =
 =E2=80=94
-Radeon RX 7600 XT"), where I posted a root-cause analysis and reproducer
-a few weeks ago (note 3586398). The thread's been quiet, so I'm summarizing
-here in case it's useful to whoever owns PMFW/swsmu for SMU 13.0.7.
+newer ones actually fail earlier), a BIOS re-flash via EZ Flash, live USB,
+and
+every relevant module parameter I could find. Full 837-line dmesg of the
+manual modprobe sequence is attached to the issue.
 
-Behavior (RX 7600 XT / Navi 33, kernels 6.x=E2=80=937.1, likely any DE (tho=
- I'm on
-Plasma w/Wayland) or bare TTY):
+Two questions I couldn't answer from the outside:
 
-  - With the gfx job stream verifiably empty, a single tiny job submitted
-    while sclk is at 0 (deep sleep) latches sclk at max (~2990 MHz, ~115 W)
-    indefinitely. A second completed gfx job clears it. So at true idle the
-    card toggles between 0 and max on every stray job, and can sit at max
-    for an hour with the screen off.
-  - Light sustained load (video, a compositor, radeontop) masks it, which
-    is why the earlier "monitoring tools toggle gfxoff" hypothesis looked
-    plausible. It reproduces on demand from a TTY with nothing polling.
-  - Umio's finding that disabling GFXOFF via ppfeaturemask stops the spikes
-    is consistent with this model: without GFXOFF there is no "single job
-    from deep sleep" transition to mis-handle.
+1. Is there any way to dump or reset the PSP NVRAM/state on Strix Halo from
+   the OS or BIOS? (The firmware setup variables include an ASUS
+   "AsusClearPspNvram" knob I have not touched yet =E2=80=94 is that path
+known/safe?)
+2. Is there an expected TMR base/size on this platform that the BIOS might
+be
+   misprogramming on some units?
 
-How I measured:
-
-  - Job stream: a private ftrace instance on amdgpu_cs_ioctl /
-    amdgpu_sched_run_job / drm_sched_job_done, cross-checked against fdinfo
-    drm-engine counters and debugfs amdgpu_fence_info, so I could prove the
-    kernel submitted nothing while clocks moved.
-  - Clock: sampling the firmware's gpu_metrics (v1.3) at 1 kHz, matched to
-    the driver's 1 ms refresh of that table, to catch the ramp edges.
-  - Stimulus: a minimal compute dispatch with a held context (no setup/
-    teardown jobs), and later a one-packet PM4 NOP via libdrm =E2=80=94 eit=
-her one
-    toggles the latch.
-
-Everything points at the firmware's clock selection rather than the driver.
-Since PMFW can't be patched from outside, I published a small userspace
-workaround: a C daemon over libdrm/render node that submits one PM4 NOP
-when it sees sclk latched (same binary is the manual reproducer):
-
-  https://github.com/KevinHake/amdgpu-unstick
-
-Scripts, logs, and an asciinema demo are attached to the issue. If a
-narrower repro would help (specific firmware versions, mesa-free path,
-other kernels), tell me what you need and I'll run it.
+The machine is set up for safe remote testing (SSH from a second laptop,
+amdgpu blacklisted at boot), so I'm happy to try patches or dump anything
+useful.
 
 Thanks,
-Kevin Hake
+Abdulaziz AlMutairi
 
---0000000000002f07d00659b83398
+--00000000000099646e0659c5da0d
 Content-Type: text/html; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-<div dir=3D"ltr"><div><br clear=3D"all"></div><div><div dir=3D"ltr" class=
-=3D"gmail_signature" data-smartmail=3D"gmail_signature"><div dir=3D"ltr">Hi=
- all,<br><br>Follow-up to drm/amd issue #3549 (&quot;AMD GPU usage peaks wi=
-th system in idle =E2=80=94<br>Radeon RX 7600 XT&quot;), where I posted a r=
-oot-cause analysis and reproducer<br>a few weeks ago (note 3586398). The th=
-read&#39;s been quiet, so I&#39;m summarizing<br>here in case it&#39;s usef=
-ul to whoever owns PMFW/swsmu for SMU 13.0.7.<br><br>Behavior (RX 7600 XT /=
- Navi 33, kernels 6.x=E2=80=937.1, likely any DE (tho I&#39;m on Plasma w/W=
-ayland) or bare TTY):<br><br>=C2=A0 - With the gfx job stream verifiably em=
-pty, a single tiny job submitted<br>=C2=A0 =C2=A0 while sclk is at 0 (deep =
-sleep) latches sclk at max (~2990 MHz, ~115 W)<br>=C2=A0 =C2=A0 indefinitel=
-y. A second completed gfx job clears it. So at true idle the<br>=C2=A0 =C2=
-=A0 card toggles between 0 and max on every stray job, and can sit at max<b=
-r>=C2=A0 =C2=A0 for an hour with the screen off.<br>=C2=A0 - Light sustaine=
-d load (video, a compositor, radeontop) masks it, which<br>=C2=A0 =C2=A0 is=
- why the earlier &quot;monitoring tools toggle gfxoff&quot; hypothesis look=
-ed<br>=C2=A0 =C2=A0 plausible. It reproduces on demand from a TTY with noth=
-ing polling.<br>=C2=A0 - Umio&#39;s finding that disabling GFXOFF via ppfea=
-turemask stops the spikes<br>=C2=A0 =C2=A0 is consistent with this model: w=
-ithout GFXOFF there is no &quot;single job<br>=C2=A0 =C2=A0 from deep sleep=
-&quot; transition to mis-handle.<br><br>How I measured:<br><br>=C2=A0 - Job=
- stream: a private ftrace instance on amdgpu_cs_ioctl /<br>=C2=A0 =C2=A0 am=
-dgpu_sched_run_job / drm_sched_job_done, cross-checked against fdinfo<br>=
-=C2=A0 =C2=A0 drm-engine counters and debugfs amdgpu_fence_info, so I could=
- prove the<br>=C2=A0 =C2=A0 kernel submitted nothing while clocks moved.<br=
->=C2=A0 - Clock: sampling the firmware&#39;s gpu_metrics (v1.3) at 1 kHz, m=
-atched to<br>=C2=A0 =C2=A0 the driver&#39;s 1 ms refresh of that table, to =
-catch the ramp edges.<br>=C2=A0 - Stimulus: a minimal compute dispatch with=
- a held context (no setup/<br>=C2=A0 =C2=A0 teardown jobs), and later a one=
--packet PM4 NOP via libdrm =E2=80=94 either one<br>=C2=A0 =C2=A0 toggles th=
-e latch.<br><br>Everything points at the firmware&#39;s clock selection rat=
-her than the driver.<br>Since PMFW can&#39;t be patched from outside, I pub=
-lished a small userspace<br>workaround: a C daemon over libdrm/render node =
-that submits one PM4 NOP<br>when it sees sclk latched (same binary is the m=
-anual reproducer):<br><br>=C2=A0 <a href=3D"https://github.com/KevinHake/am=
-dgpu-unstick">https://github.com/KevinHake/amdgpu-unstick</a><br><br>Script=
-s, logs, and an asciinema demo are attached to the issue. If a<br>narrower =
-repro would help (specific firmware versions, mesa-free path,<br>other kern=
-els), tell me what you need and I&#39;ll run it.<br><br>Thanks,<br>Kevin Ha=
-ke</div></div></div></div>
+<div dir=3D"ltr">Hi,<br><br>I filed <a href=3D"https://gitlab.freedesktop.o=
+rg/drm/amd/-/issues/5679">https://gitlab.freedesktop.org/drm/amd/-/issues/5=
+679</a> a couple of days<br>ago and wanted to flag it here since it may be =
+interesting to whoever owns the<br>PSP init path on gfx1151.<br><br>Short v=
+ersion: on my ASUS ROG Flow Z13 GZ302EA (Ryzen AI MAX+ 395 / Radeon<br>8060=
+S), amdgpu has never initialized. The PSP itself raises a memory fault<br>w=
+hile setting up its Trusted Memory Region, and hw_init of the psp block<br>=
+fails. The exact sequence, identical on every attempt:<br><br>=C2=A0 amdgpu=
+ 0000:65:00.0: [mmhub] page fault ... Faulty UTCL2 client ID: MP0 (0x6)<br>=
+=C2=A0 amdgpu 0000:65:00.0: amdgpu: psp gfx command ID_LOAD_TOC(0x20) faile=
+d and response status is (0x0)<br>=C2=A0 amdgpu 0000:65:00.0: amdgpu: PSP t=
+mr init failed!<br>=C2=A0 amdgpu 0000:65:00.0: amdgpu: hw_init of IP block =
+&lt;psp&gt; failed -22<br><br>On top of that, the cleanup path then hits a =
+vcn_v4_0_5_sw_fini Oops with IRQs<br>disabled, which can hard-hang the mach=
+ine. nomodeset is the only stable state.<br><br>What makes it interesting: =
+Windows 11 + Adrenalin works perfectly on the same<br>unit, and at least on=
+e other GZ302EA on the same BIOS (.311) reportedly boots<br>Linux fine =E2=
+=80=94 so this smells like per-unit PSP/firmware state rather than a<br>gen=
+eric driver bug. I reproduced it across 5 kernels (6.18 LTS through 7.2 =E2=
+=80=94<br>newer ones actually fail earlier), a BIOS re-flash via EZ Flash, =
+live USB, and<br>every relevant module parameter I could find. Full 837-lin=
+e dmesg of the<br>manual modprobe sequence is attached to the issue.<br><br=
+>Two questions I couldn&#39;t answer from the outside:<br><br>1. Is there a=
+ny way to dump or reset the PSP NVRAM/state on Strix Halo from<br>=C2=A0 =
+=C2=A0the OS or BIOS? (The firmware setup variables include an ASUS<br>=C2=
+=A0 =C2=A0&quot;AsusClearPspNvram&quot; knob I have not touched yet =E2=80=
+=94 is that path known/safe?)<br>2. Is there an expected TMR base/size on t=
+his platform that the BIOS might be<br>=C2=A0 =C2=A0misprogramming on some =
+units?<br><br>The machine is set up for safe remote testing (SSH from a sec=
+ond laptop,<br>amdgpu blacklisted at boot), so I&#39;m happy to try patches=
+ or dump anything<br>useful.<br><br>Thanks,<br>Abdulaziz AlMutairi</div>
 
---0000000000002f07d00659b83398--
+--00000000000099646e0659c5da0d--
