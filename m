@@ -4,77 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0DD9BC5DF9C
-	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2026 19:54:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6DE68C5DF81
+	for <amd-gfx@archiver.kernel.org>; Mon, 24 Aug 2026 19:59:42 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9B3B210E190;
-	Mon, 24 Aug 2026 19:54:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C062910E654;
+	Mon, 24 Aug 2026 19:59:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="eKAep9Op";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Bf8g5DJj";
 	dkim-atps=neutral
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED3CC10E190
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2026 19:54:26 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-c167aa9500dso598966866b.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2026 12:54:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787601265; x=1788206065; darn=lists.freedesktop.org;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Hxvdx4txbbv/8ZSMg0yHCgDVIvaQhuzkC7iU4t4hZyQ=;
- b=eKAep9OpcBdIiVqs2LCcWeX8S9jag64+IKTLQMc6k+Cl09OeKG0FbRcM6HgZFraM+S
- m9WYhvqrOoXwvbjl0DbwpBzrx+2k9VpGvpoMtaeiHheAZ/gGOltLLO5HDK3MTbXvIqDO
- MA9EE4Xq5iW9tXAWgYsSkLVv61LIKnDpnqcbBty6xlOYE3/8I1vx7QtPreU45F+mVS1n
- 0TjOhebCsjJX4dq/FWUxaThidcPJOzbZ8uYNOQ60aLAqsZtgiPTbY5TdsJKeZXs7Q3q8
- BPcKeqGd/guaJ3R508+doggwRyZr10U6dZbp16WSqaYENo9GMZqBZzBHqWg7/tUYv0c4
- 1psw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787601265; x=1788206065;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Hxvdx4txbbv/8ZSMg0yHCgDVIvaQhuzkC7iU4t4hZyQ=;
- b=F7RCxSmzvsaSVLJAm0aNAHwH2eRim0fZ7SyGmFv4VQ0vDt8zIIxc4GfZQEaASaimQ0
- w4y6/1EkkAsxVIoKxdYyWgZ6Yo3BFdjINTr/6KTYs4BUsn3aJT7galByJm1lswNpjDi8
- Hgb7Jt574FzPFslIdp7QtOuf4+ywa7QbY/i+6hkcECrryk5DKcZuHKNu8iPSwiv2z0b5
- BZ/17crbe+H1/dvkDTERs5OwPbPtnQ14Orm6OI/k7uI3ZYqC14QP+Bim3mMVbb4ZfXQb
- d5E+keua2V1Xeo2COHbq/HJ5AHdiFg0E38NP+ypZbJH1YsKTLE6gcAoz+iGGePoddzrf
- FtWA==
-X-Gm-Message-State: AFuF++nb9re41ULHkc3HMVUSpp8OHb5NazDsr1FjouJCs7Jur9AgxLD0
- 44w7izMqVndSznOibWDx0jDyytgCUC/dlCRZjwkzuNpvt4QkAT03O86O
-X-Gm-Gg: AR+sD1166D05EvTIxyTSaTbOg8iIfzhcZGpovQYKz9FSgsZ4WqyJEWADGAgVJO50Fv3
- bmD9SXhL5feD2T36LBlqhXtquj9Qj0/JFgLx/K8qIVGV6ZE9bKjILj8lotp1RC2uotbVvPVxUM/
- 6Q2ww19ZmfYEEKGedcSRoFk//D9KyHMr6tVV6UQSkBUfdk4e3+PCGvxKPG4ubseyqgReEvyis4j
- krbyqH6SAwBfde6nmnwAX55Y6j1su4rF9Pstcobx3F9zF7Zeq9KresKI8xqNURGfqWOCbls6b5j
- qsyhQPZB7ssPxw8tCvvv+0cbB+SOoDyMbSRtLDgcjpgDdZDt8vUIzub/TIrSQLlRhXJeOmSxUkp
- jxv2OZCPkKwKlcDp6JHPP0zcCrWeSQbO1YQ34yBrt2RTJmQ/gGidDsr62MIJdrHk19YoW5KRbjD
- U/r14I8lTlaq6LP1wLqlY2IyOjQxmTRosLvWwsh4lVoA/53AhuNm1K5DO/dPeoVMYdPsCom00In
- quW+F77mfrGRT19ltVnxys6L+oQ4BMz4SfFRKCmsRrDcw==
-X-Received: by 2002:a17:907:b048:20b0:c20:1c9c:b36f with SMTP id
- a640c23a62f3a-c246a4b154amr2287380566b.8.1787601264909; 
- Mon, 24 Aug 2026 12:54:24 -0700 (PDT)
-Received: from timur-hyperion.localnet (5E1B960C.dsl.pool.telekom.hu.
- [94.27.150.12]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c249629a901sm1574464966b.25.2026.08.24.12.54.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Aug 2026 12:54:24 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: Petr Belyaev <upcfrost@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
-Subject: Re: [PATCH] drm/amd/pm/smu7: Don't send VddC_Request on CI
-Date: Mon, 24 Aug 2026 21:54:23 +0200
-Message-ID: <1yPzq_47RDeA43NJ6QXmAg@gmail.com>
-In-Reply-To: <CAKzDyZvprPt9QmsDuuqVcvisz1KLKMfmWQrpMtcUWnXeOn8MEA@mail.gmail.com>
-References: <20260824144714.182835-1-upcfrost@gmail.com>
- <GoS-FsT8QACGf_8gWuUlnQ@gmail.com>
- <CAKzDyZvprPt9QmsDuuqVcvisz1KLKMfmWQrpMtcUWnXeOn8MEA@mail.gmail.com>
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012057.outbound.protection.outlook.com [40.107.209.57])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EADB10E654;
+ Mon, 24 Aug 2026 19:59:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lSPfcbSSwF9Hmu6QGPXJDgUzSQ5BEXNY4EamXSssYMMYu3OsnLws/oEQ6YQYz98sOsH+q+INT8gzh2U/v/uhpcf97qmq0Vz7zj/ilykBHbOgl5buNMbtgwFlqlyIHd+24TByenVMK4Ite3Gl5B8jROcDk2gWgHNMgLyNjFZnOuZxDGHQuJXwpE2wX1V5Q/lM45tvQ69c2dwElIYK7NIxUmMf/mA17UtPwGQ0dPMJIUlkDg9Pt/guuBZOzPCzNrFlR6V498q4FlE0rNrhTWTcTKbYpHWk66cowDFsht7QgKuKCHXn2dDhlHGu1yGxIqc+d32GvYKIxhEqIvzOXmPAnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xKpSvLv6J9+xua0E7MjQhQlyeKPTWhZmDw5o4c5fht4=;
+ b=N+uGGoy5D3TODGSqt8GCSTZOkJMATehuEHKq6YILN1y6t/1fXF5Bss4Q05yA/6lZBNTf1TnWds7FMEqPax+6crzcBjOjwkYQbwsF9IuOzE5ZYGBhvIRvEt0J/EZcXOKoqgXvdIBqUvnxNgwFT2ulUtNzhyKbP8j7ObbyLHK/KuAKJbhuqnsMLBqouYixhxJO0O77tvugyTZYBc97RZW4uD+x8HXmfHxq5eufN9j9xZrJyo+6BTRvObjuKBHeuWwfaR2dTfIjkLNYwTNwWDlwLbDtyBoksci02gP4juVtSQFOlbkY4e/GGtLZG7uR+O3Zrqqi5D60VYRhF1fDn70C/Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xKpSvLv6J9+xua0E7MjQhQlyeKPTWhZmDw5o4c5fht4=;
+ b=Bf8g5DJjX6FrTKMhNQyQXdQ4I6EZzi+mIUt/91UVqwndWPWdL8C0AzhLeXmiaVmf7bJ7rJNdD9pS0rO12KDoS0CgAa1leS+z5VfqARTglW+sghW1f1/d1l2bdk1HId1c7bjLkQzcxQ6M721jtPPEvKe/qExKmxOACBHWDjXr+DY=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
+ by IA1PR12MB6353.namprd12.prod.outlook.com (2603:10b6:208:3e3::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
+ 2026 19:59:37 +0000
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0339.012; Mon, 24 Aug 2026
+ 19:59:36 +0000
+Message-ID: <239158bc-3060-4a9e-916d-86baf2031d36@amd.com>
+Date: Mon, 24 Aug 2026 15:59:33 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 4/4] drm/amd/display: Enable HDMI ALLM for Gaming-VRR
+To: Fangzhi Zuo <jerry.zuo@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>,
+ daniel@fooishbar.org
+References: <20260811003921.1398292-1-jerry.zuo@amd.com>
+ <20260814164344.3098143-1-jerry.zuo@amd.com>
+ <20260814164344.3098143-5-jerry.zuo@amd.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20260814164344.3098143-5-jerry.zuo@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBP288CA0016.CANP288.PROD.OUTLOOK.COM
+ (2603:10b6:c01:6a::15) To SJ0PR12MB7007.namprd12.prod.outlook.com
+ (2603:10b6:a03:486::8)
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|IA1PR12MB6353:EE_
+X-MS-Office365-Filtering-Correlation-Id: 714f1b18-6c59-47ed-b2f2-08df021a395d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|23010399003|376014|56012099006|10067099003|22082099003|11063799006|4143699003|18002099003;
+X-Microsoft-Antispam-Message-Info: hIsXYpROR9KqVt29se5C5ohVQzQe7+uX7+tN666MDU1wXXsogRFq8KGIi/W1EdkQ8Z4P5IAyvsDj94GjaMXAPZSNIg7o1LRCyHsnqYyIaLNLSn/ZXvQ3raFKt5fF94bAIw589phaSy3c7tYBClgN9sBWOIzwQwiTrwf9DsZM4Vfhfd7VJkoeGUZ7+/y3q2fvC5YB80MVuxCl6jwIdVk93pYXj/DpO4Vzis1R8/mVJ77BPacU99fjpwShEhs5SyZejCLLsVQp6/vGRqMNRq/ZPp9o822PbiZbCT7jL6RPVuOK6U8ZlUmR6FWAzWMNTVGIz5mjcFQOpaHtv2oYJx3NNqH9Cg/vrbn/T9Ug/xBWnwlezDHbjADV/CzWiOHqJKpUIdhhwp21DiEDXy6S95OT8GvRxKrFqNmMwW1QlJ3tAfnyZucU0qbZb8dtDEF79wvXdWblK/ynMdCLwv+OoTL4rvbuZ4O+OIhy18nlJFDzwDxqGT8CDVW0kQm2C1o7oKgkkpecI1kGLcXs7PkwV9zSFEz+uyXPvJhtZ82QGKIFPsWaXMBXNDOGqlx1B7RkkUsRyfbB8c0Bfr+uboYza0lxHP+INBU3otvwQzaHGf5dL5PswGy4ovDt8AN3JcWwLtTKNGHvv3R1fg93yldj8rUjsc9FQo4reP3Y6aMmbN1Kb18=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(56012099006)(10067099003)(22082099003)(11063799006)(4143699003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QTFJVlJDa1I3Rjl2bkV3VWY3bFI1MzhRSkJPREhLYmpVT0pHS05vWWhlZzVL?=
+ =?utf-8?B?NmswUmxmS0NDSGxjQnlNM0ZnWHlUbEk4UC94YkVMZVovVm1rYzRXK0prUVp0?=
+ =?utf-8?B?akI0bURxQkpsTHlvcGZSdWw0VEtwdFErZ0dUODdQSHlXbVdCblQ1UE5rTi92?=
+ =?utf-8?B?ZkxQY2hqV3ZoWlRtWkZmY3Fyb0huTWZ0RlM1d3I2dStxVWNFbXk4NDNaMHc0?=
+ =?utf-8?B?aE1pcTRDR2phWlJDT3VaS1dsS0hHMVFZbG90a3I0VTB1T3pEQnVzSmVteU9i?=
+ =?utf-8?B?a3NKb21NWGRUc2JBNHlLcXlXUmdvVlYxRGRDeEZDWGc1Ujd0UlA2VWtCdmdC?=
+ =?utf-8?B?aE9WWWRLenZBcWY3R1BmWEx2Q0xTemhYZGN1MXJ6YWMwUzg1STdFTUtncWl3?=
+ =?utf-8?B?UC9mRWhxQ1RaU0JMTUF2N1FnN3E4VFFZWkVpRy8yT3BPSm0rZ3lHamVLMzlv?=
+ =?utf-8?B?K0laaGpveE5HcVFhSlVQYzV4RENUb0FLVURuVlBzZ1MxUW9JTDkyVCtnQzNy?=
+ =?utf-8?B?MUlHNGg2WjZBc2hUYXdMRWEzRjZIbVV3OSs4b2FKWVVvUUM2NDdtV0hZaERE?=
+ =?utf-8?B?Uzd3aVF6SEI1d0FRcGl3NW5uQW9NMW5iY0FIcE5FaWEyR1owNjQ5ZUJ4ckxJ?=
+ =?utf-8?B?QU94dytBSTM5emo5L1JDMWU3ZlBWdlFWUElKVkxYYXFuK3BRQTl0M21BaHZM?=
+ =?utf-8?B?OUx3NXVYOW9IN2pRdDNGa1pVdk8rOFFydE1jTTFBY25XYlVRTVhXZHZoRHhP?=
+ =?utf-8?B?SjhQQ2VkTjJraHZLWUdyV2w3L1FaU3NYUFlxUVhOSUpTQkhEakVnMXpoQTRT?=
+ =?utf-8?B?ZVFFbnptMmpiUkJ6U05JRmc3ZzdTS3Q0eVZ6amdqcWNjYTVwdHpiajJreXA1?=
+ =?utf-8?B?dHQxeFZ0SWF4Q0pwdmVJbUZ3M0Vuc3ZZeGRFRFh0Q2tkeW11OE1xSDdUQjlB?=
+ =?utf-8?B?MG5BUEVMVzZKOWMxMzZkY2IyUGJXTjd3Q2JlbHQwemVtMEJ1SzE5ck85QVRj?=
+ =?utf-8?B?aFFWVXFGbXRsY0ZiU2FLRVh0dmN2S1V4MUVtREZ5RzBiZ0dyaFMzWkR5MHVX?=
+ =?utf-8?B?RThocFdQMkdEa0N6ZXdXSFlud0VDaXJHeXJZdDhZTDZ3amh1TCtPUStaaDZ4?=
+ =?utf-8?B?YkxGMG90NWtiNnZXTGVBdDhPVHRPY01QNUtjNm1hMUl3bUU1czUrOVdPOURD?=
+ =?utf-8?B?bXdtWTcrMzhHUzkya3ZGL3hWdWZIazROb0ZRcDZyNlF5MExFdVZxcjFjcmYx?=
+ =?utf-8?B?RE1aY0pKckd1a1dXWXZWTDhoYnBXYWZYZ1lGazN4WmdFc2VhYmpFWEx5NThL?=
+ =?utf-8?B?cEhjNWIyK002dG9YbEFrV2hEUHQvUjczNmxPUmhhV2Vkc2RZTjVLcUhDWkYx?=
+ =?utf-8?B?SjhOMXczSDI3Y0F0L2FJbW1IK2VqNGlJYjREdllhRmFCYncxL003YlZaRk40?=
+ =?utf-8?B?REltaFJsZ21hOXhxdWE0YXpEYmxaU3Bpd3lhbGd3OWdvTC95dmRFeUxyNG51?=
+ =?utf-8?B?U3RCaDNONU94bXM5RFRVTnhNa2hYcngwYUE2MEw4Q3o5VHN1Ky93SnJaSTY2?=
+ =?utf-8?B?NURJNmtNay9YckpvNEd4Vjl6Y1o5dzNJVVRUZTJVZ0xlZ1g3SUQ5MERyVzV3?=
+ =?utf-8?B?d0JVazdDdmtCcGVrR1UyUkNZRGZqT2RkZ21lVnZSSHJuT3JMUkkxM1E0azh6?=
+ =?utf-8?B?ak1YNTVhalJMWHZwWVdxeHRsanpFR0NMcCthQ2RLVnVlRCtvd0lPVFdlYXhY?=
+ =?utf-8?B?OWdvZ1hXaFp0K0hvbTRuSEJXVHMxTmp0N0xIUlZDT1luODJhVFJYTVZQdkdh?=
+ =?utf-8?B?VGNNVEJ5WFMwSFdreHdYYXBaN2RoL0NndlZSYmhudkhaM1B1c2x3YnZwcFBl?=
+ =?utf-8?B?czZpRWIrdXJ0dk53ZHN2eVJxUDRLdkx3bW9Gb2hUOThtbjNSelBNT0M0OE5U?=
+ =?utf-8?B?SVVOdTRUbk9xcForOVovZGNQcWg3b1Y5Q3hjeVYySU93eVFrL2xXN3JjeHJG?=
+ =?utf-8?B?b0gvTmlGekNXYndpSUFXSzVDMkxrMTROOHhValNaanlZaEhXTzk1Z3ZUdlpp?=
+ =?utf-8?B?cVVnaG9hUVFMczhSYnczcDQvNzh4dGRseVpMelNzTXEwSHVMNWUrR3MxVGEw?=
+ =?utf-8?B?aldITmtIVVlyL1A5VmVGZThVR0Via0w1M0VCdllCSUo0WHl0UWVZeVRCV1lD?=
+ =?utf-8?B?am0xTVpYcmFzYkZpek43eFdacTBJTUo0VS92eFczLys0OWJqWlh2VGdRUHNO?=
+ =?utf-8?B?SGhvaXUyMVhNZmZHSmJ0U1Iza3BOeVZLY09RUGk2b0p6VndVdzRDZis1TzFK?=
+ =?utf-8?B?TFBUeVR1dEJqQk1TYXF5SDlEVE56bE40RkU1aWVVS1NpVkp4WnRyUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 714f1b18-6c59-47ed-b2f2-08df021a395d
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 19:59:36.7050 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yq16bTnCbwFIS9sxGA++NAaG3k7/3IbCtB6AYZsr7ObFFNrjMwfgljfhiKI/HQ3riTaN/V5WiFL20C8mFGz8aw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6353
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,87 +137,92 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Monday, August 24, 2026 6:11:48=E2=80=AFPM Central European Summer Time =
-Petr=20
-Belyaev wrote:
-> Hi,
->=20
-> You're right, and I withdraw the patch - hadn't considered that gating
-> it off would regress the systems it was added for.
-> Apologies also for the M380 claim; I thought it was VI from the commit
-> message rather than checking.
-
-Unfortunately, it is difficult to find information about which graphics car=
-d uses=20
-which GPU exactly, and the information online (Wikipedia, Techpowerup) is=20
-sometimes wrong.
-
-> To reproduce:
-> Stock 6.18.41, Bonaire XTX 1002:6658 rev 00 (XFX 1682:7260), VBIOS
-> 113-260XT-HY12832-D5-2G-10, SMC firmware 11.35.0 from bonaire_smc.bin.
-> DC is not enabled here (amdgpu.dc left at the default).
-> I'm getting roughly 40 "failed to send message 15f ret is 0" messages
-> per boot, ~1.9s each.
-> gitlab: https://gitlab.freedesktop.org/drm/amd/-/work_items/5678
-
-Thank you Petr. Let's continue the conversation on the GitLab.
-
->=20
-> On Mon, Aug 24, 2026 at 5:07=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof=
-@gmail.com>=20
-wrote:
-> > On Monday, August 24, 2026 4:47:14=E2=80=AFPM Central European Summer T=
-ime Petr
-> >=20
-> > Belyaev wrote:
-> > > smu7_upload_dpm_level_enable_mask() calls
-> > > smu7_apply_minimum_dce_voltage_request() unconditionally, which sends
-> > > PPSMC_MSG_VddC_Request to the SMC. CI SMC firmware does not implement
-> > > that message: it is only defined in smu7_ppsmc.h, tonga_ppsmc.h and
-> > > fiji_ppsmc.h, and there is no CI equivalent. The SMC therefore never
-> > > writes SMC_RESP, PHM_WAIT_FIELD_UNEQUAL() spins until it gives up, and
-> > > every call burns the full ~1.9s response timeout.
-> >=20
-> > Hi,
-> >=20
-> > I'm sorry but this is wrong.
-> > I added the VDDC request specifically to solve an issue with a Bonaire
-> > GPU.
-> > That system will boot into a black screen without requesting a high eno=
-ugh
-> > voltage for the display engine. This patch would regress that.
-> >=20
-> > > Nothing downstream notices, because ci_send_msg_to_smc() returns 0
-> > > regardless of the outcome. The only effects are the delay and
-> > >=20
-> > >   amdgpu: failed to send message 15f ret is 0
-> > >=20
-> > > in dmesg. On a Radeon R7 260X (BONAIRE, 1002:6658) this is 40 messages
-> > > per boot: 32 during the boot-time modeset, which becomes ~59s of blank
-> > > screen, and 8 more on every DPMS wake, adding ~15s before the display
-> > > comes back.
-> >=20
-> > How do you reproduce this issue, and on which kernel version?
-> > I've tested this patch on two different Bonaire chips and a Hawaii chip,
-> > and haven't seen this error message. In fact I am running an R9 390X
-> > right now and I don't see this error message in my logs.
-> >=20
-> > > Commit 0138610c1413 ("drm/amd/pm/smu7: Fix SMU7 voltage dependency on
-> > > display clock") extended this feature to CI, which the previous
-> > > implementation had deliberately excluded -- the old call site was
-> > > guarded by pp_table_version =3D=3D PP_TABLE_V1 with an adjacent comme=
-nt
-> > > reading "TO DO for v0 iceland and Ci". That commit was verified on a
-> > > Radeon R9 M380, which is VI, so the CI path went untested.
-> >=20
-> > The CI path definitely did not go untested.
-> > R9 M380 is Bonaire (it's in an old iMac).
-> > You can see all the details here:
-> > https://gitlab.freedesktop.org/drm/amd/-/work_items/3425#note_3338643
-> >=20
-> > Best regards,
-> > Timur
 
 
+On 2026-08-14 12:43, Fangzhi Zuo wrote:
+> why:
+> HDMI 2.1 Auto Low-Latency Mode (ALLM) lets a Source request the Sink's
+> low-latency mode through the HF-VSIF. HDMI 2.1 Section 7.6.6 requires
+> that when Gaming-VRR is enabled (VRR_EN=1) and the Sink advertises ALLM
+> in the SCDS, the Source shall transmit the HF-VSIF and set ALLM_Mode=1.
+> amdgpu never set ALLM_Mode, so this requirement was not met.
+> 
+> how:
+> - In update_freesync_state_on_stream(), set ALLM_Mode=1 in the HF-VSIF
+>   when Gaming-VRR is active (vrr state ACTIVE_VARIABLE/ACTIVE_FIXED,
+>   i.e. VRR_EN=1) and the sink advertises ALLM, per HDMI 2.1 Section
+>   7.6.6, and push the updated HF-VSIF (vsp_infopacket) as a stream
+>   update.
+> 
+> ALLM is driven only by the mandatory Gaming-VRR case.
+> 
+> Signed-off-by: Fangzhi Zuo <Jerry.Zuo@amd.com>
 
+Reviewed-by: Harry Wentland <harry.wentland@amd.com>
+
+Harry
+
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  5 +++-
+>  .../display/amdgpu_dm/amdgpu_dm_freesync.c    | 29 +++++++++++++++++++
+>  2 files changed, 33 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index 567bf04979ee..ff0db0cb9880 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -4029,9 +4029,12 @@ static void amdgpu_dm_commit_planes(struct drm_atomic_commit *state,
+>  		}
+>  
+>  		if (acrtc_state->stream) {
+> -			if (acrtc_state->freesync_vrr_info_changed)
+> +			if (acrtc_state->freesync_vrr_info_changed) {
+>  				bundle->stream_update.vrr_infopacket =
+>  					&acrtc_state->stream->vrr_infopacket;
+> +				bundle->stream_update.vsp_infopacket =
+> +					&acrtc_state->stream->vsp_infopacket;
+> +			}
+>  		}
+>  	}
+>  
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+> index 382c339b67b1..63d10cb7f5ed 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+> @@ -252,6 +252,35 @@ void amdgpu_dm_update_freesync_state_on_stream(
+>  	new_stream->vrr_infopacket = vrr_infopacket;
+>  	new_stream->allow_freesync = mod_freesync_get_freesync_enabled(&vrr_params);
+>  
+> +	/*
+> +	 * HDMI ALLM: when Gaming-VRR is active (VRR_EN=1) and the sink
+> +	 * advertises ALLM in the SCDS, the Source shall transmit the HF-VSIF
+> +	 * with ALLM_Mode=1 (HDMI 2.1 Section 7.6.6).
+> +	 */
+> +	if (new_stream->signal == SIGNAL_TYPE_HDMI_TYPE_A ||
+> +	    new_stream->signal == SIGNAL_TYPE_HDMI_FRL) {
+> +		struct dc_info_packet vsp_infopacket = {0};
+> +		bool sink_allm = aconn && aconn->base.display_info.hdmi.allm;
+> +		bool allm = sink_allm &&
+> +			(vrr_params.state == VRR_STATE_ACTIVE_VARIABLE ||
+> +			 vrr_params.state == VRR_STATE_ACTIVE_FIXED);
+> +		bool allm_changed;
+> +
+> +		mod_build_hf_vsif_infopacket(new_stream, &vsp_infopacket, allm, allm);
+> +
+> +		allm_changed = memcmp(&new_stream->vsp_infopacket, &vsp_infopacket,
+> +				      sizeof(vsp_infopacket)) != 0;
+> +		new_crtc_state->freesync_vrr_info_changed |= allm_changed;
+> +		new_stream->vsp_infopacket = vsp_infopacket;
+> +
+> +		if (allm_changed)
+> +			drm_dbg_driver(adev_to_drm(adev),
+> +				       "ALLM: flip on crtc=%u: sink_allm=%d vrr_state=%d -> ALLM_Mode=%d\n",
+> +				    new_crtc_state->base.crtc->base.id,
+> +				    sink_allm,
+> +				    vrr_params.state, allm);
+> +	}
+> +
+>  	if (new_crtc_state->freesync_vrr_info_changed)
+>  		drm_dbg_kms(adev_to_drm(adev), "VRR packet update: crtc=%u enabled=%d state=%d",
+>  			      new_crtc_state->base.crtc->base.id,
 
