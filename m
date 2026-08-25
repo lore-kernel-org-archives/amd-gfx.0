@@ -4,92 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 50485C61DC2
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 13:01:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B04CEC61DBE
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 13:19:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CFCF110EA4D;
-	Tue, 25 Aug 2026 13:01:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A3BD10EA54;
+	Tue, 25 Aug 2026 13:19:46 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="tFyrfcud";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iEhHAq2l";
 	dkim-atps=neutral
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com
- [209.85.222.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 989FA10E158
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2026 16:12:26 +0000 (UTC)
-Received: by mail-ua1-f41.google.com with SMTP id
- a1e0cc1a2514c-97c367c9f12so706247241.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 24 Aug 2026 09:12:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787587945; cv=none;
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
+ [209.85.167.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2FEBE10EA54
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Aug 2026 13:19:45 +0000 (UTC)
+Received: by mail-oi1-f175.google.com with SMTP id
+ 5614622812f47-4b21f09ec76so3391362b6e.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Aug 2026 06:19:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787663984; cv=none;
  d=google.com; s=arc-20260327;
- b=qPlOsugDTH98N8uxC7eEAoceCfKP38vy2ztLcWmiIeAqhDsFAtfyReLWb/rAMZhNhs
- 4lg+AxYUAGEdjYcc4FqZQDdT1PoCoMi/BBHyPPAEnzl2geT0Ak9WOTIGzQGf9IUG4BLI
- mOJjFUINvIuT81Ty+kIQTl+iBEsPSvDdio5OZ84c8x02N5zWSDiq7e0QHy9moE3TyW79
- VkyoSgFNxMmlV4iVb2n6cZgCmJfQ5WcQ0pGjLzUSHC830FIQkLV0FwuL8A6PiP4wlwgy
- qRbZgywZgk0yP7qXDR+Nx33JZJouTmRt4qpUFqd5GoNtx6301lrTB8XZMi6yvd4nkpgR
- LQbg==
+ b=CutBv/+8bqMLkJ7iSLH8jx5QkuGY90NS/6mTZz9MgZZ/8ZRiMzqp6gdcaGHsHeIXFM
+ QTH6Z2SGkUDSLElhW6v9ct7ehKlgGOAemFyfkn+MT8UxwshnuXwbTs46t2KSjx1UwggR
+ Ctlam4/0p4QrouP+gP4I62zkg5CVorPg1m8/gcYzVu7u8L83EiCKfm/C6NgkR7YWiqi+
+ XlTrUz5W1kEh55S+J1ZRNJJ+R2+wJP5zzr8pzn3ctTzyxmONR3uhqFcTz5z22t+L1MGp
+ HEh0GcLswjndqNJ14OyDK/Eq62KXGMXss+x9n4/NuXGC2bn0zI3dm/3T6URTXh6gw1sa
+ X60w==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=O5GnI96d1qijyPnPxxxKVYgXnMY884SeT2oB81A5aAA=;
- fh=XWndytK1AXNvQHbQqkNJk0zut13GhNr5NTBq+ckZAx4=;
- b=jWOpmhkCMVSl6uaHx5QkSwzUUmKkgv3Vnhjl0/i/Zkld56cQCm78YE+Ya/w3s0Qy4c
- BCwkYWLaesMiPasAFTOZSx+Iw72PjHFrlzwRhJWBIhahXCP9V2YAFGMkLDvQQfTCRcDp
- ii80xeCuaYkm/gwNhViS6+Ial+YHJyzGBPE0sjQ1pO7+X2s8jcEHyBwhdR7c68vMwDje
- tlizd6JTOb4b35qKeYa1Mz/gisXWXgUIH7Wh8JGCcOvmyn5pAPT2ABxHyP6a/T3lMwVj
- 52r9l0ylqA1r8ErkwJh/+IUHLFqSZKTu9PWnx8RM05lb53mDwMvpD3TdwTW8eKHaAJbn
- 4U6Q==; darn=lists.freedesktop.org
+ bh=ryafxuN2NVDXET22ji86N975MiFgQobw58o1y8zRykE=;
+ fh=CYmaTaAXeqbiip67ekBAOi+0zWMZ3iCM59HjjCmteFI=;
+ b=s6hrxi4MIK20XkHFEmD+kxs9I3XWY+gzLM/gdP1Pf2B3fSLNdCywBmzowZt3IzJdUg
+ sDax6Y5lD6J/VHDeb63ywo9E2q5O0Oh6pvUH8toXe6Oe51b/xk5uQJosdmJ04D4m23TG
+ wE4jCJHJQrRdcPpqWA7nOFpe8gdAIgn9c6ytuEXUshf+WRRF671wVsIYNz2GCq9nbuEU
+ 5Tj38zOqKsQSXsa0KO+OWHhroJdFWekgb5aZTlAn8SAqL+mZKq7tjNNB/11v9pihtYGz
+ WqhVzj6kXW53jTJhUt3ghqpeQZvCg7a2OlY8Mk69/O/RRbgx2SIZZ1Jk/4LLrnWVWodR
+ EXiQ==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787587945; x=1788192745; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1787663984; x=1788268784; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=O5GnI96d1qijyPnPxxxKVYgXnMY884SeT2oB81A5aAA=;
- b=tFyrfcudEd3zD3toIdOvQg1y2PRRDCwomGOs59lqt3zU5jW6qvtFX1yTdQ8gmtYELh
- 4CU1nAwBcT/PCopBaC+lbzFKulsmKBn/OQOJZ2VRvUw8a0QhPj9SMMJG9H63Wb6xqrH2
- bYv7dDwRQr4PN9fLSnk5pwFLh7ntqnyGOohl2TiRK6L9dH14OBI1eSExoOE03wprIL3t
- Oy6kjyKM3BSALInV4x6Qa7AT3bMSsM0uTrD2h8+Kpf6hwKwvyWYbvzkkfn8hRUFkIB0p
- aN2V8p8U7ExjJ2IeIPm+qgBUwKduL/XeM7BGbnabNLc8iX4r4M+zNrk1AZdgP9kiodsG
- 1ETQ==
+ bh=ryafxuN2NVDXET22ji86N975MiFgQobw58o1y8zRykE=;
+ b=iEhHAq2lU+s8e84cRXuab68vg+F66cUm4UYkAS7IqNdKSSHcmvdvvrTJONBLEzERth
+ SvaK1prNT6tX5g/rJfOmWL2asxZXE6shVerFuok2MmxHDIBOgGJLW8MlOwBJv9Frknrq
+ uW08EOQbBOfpiFZu8mCzoHCZIzznphpTt6raGt/9YmSh5fg4wemYkY90Q4rjJxVzZ3Rd
+ u4+HJmQVurfnNSonwCKRY2qRmyCPde5LbNuuaSvlOsum4V2j8rbMJaBJBtuPFTNsbA7f
+ wODuh3i7YSdyjc/jkw8ZqQzRrWmGtbZgUffAhSbMMxKaqkIAFujHY0m9ACQHCPvRvtid
+ kNxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787587945; x=1788192745;
+ d=1e100.net; s=20251104; t=1787663984; x=1788268784;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=O5GnI96d1qijyPnPxxxKVYgXnMY884SeT2oB81A5aAA=;
- b=dW1y7BMb6MtZJw8jl5Nz6Z6JHjLFuk/FwfwXTiUZpppc8I0bOm1Z1Y0nyQ666KMss5
- A2kIrrulKI9IlnIALEpLGQcWcAJBUlJi1BEktZAZfw8TtOYxFOkT0ckFfhmVblZCkDyy
- lsk5Z9f848kbTb8gF+O8UBPDb+sPDNAmfgB6K4DCaRtOfiAd6y4ZKPO04dn07LVYCbs8
- IBprmNnmhed5hVN06LkzS1n6JTBnriGNqGM9eTqdF0NVooHxJIB0tU8NBKLzBfjdX1e+
- p9NGtQN2m5T/afJ6i2AXnFiRwatxY56bzBSe6dWl7oSrPNVz3d2/iYSoig4lHuDMLqoY
- NXCA==
-X-Gm-Message-State: AFuF++mJfBnYsJFSOa+KvSk7Kp3Qni3rXnJtWLej3pi7iXNyUIjdxZQU
- mazmr6b34a6iirHhU+XU/oFBkQI3cv7x4cV2Pw5utCc+KFqx5naW8kr99g1n6sKLyRMRdW0DX2j
- 1Gl8gfyBI7yTlJ25gHT6l6EB+UlqaFA==
-X-Gm-Gg: AR+sD11eda4ng4lYiIOzHbSWuC/QDWE31VPqa0u2ot+FXFL/bAHkOrZziFOnRctTqAf
- 2EswEfV4MRCDKVYTE1DKBlG9lx/i7c3gfmQVecivblB0C5iSd3loRQfVJ8/WoRJu9AEtfSUYRR9
- 6vRG34G834TUJ+4SOWh0p1gFan6C7IlG4QGKrWxAqp+8LMOrM5+ZHrXLFkBxO0CCynxyJEHR40d
- nRhTKKEvvxJvxfW+7DHNK2jHOJ7o65RYH9FLqHlcI+gPnkNJsLVumlXLFUsa2GwqFVCWzJCD9kA
- 0+EJ9Qpvf7ipBIyx7CulA6ayYIj0wUJR+p92yvtwqEdKu0aYdiBBGg==
-X-Received: by 2002:a05:6102:f12:b0:77b:54f9:7713 with SMTP id
- ada2fe7eead31-77b54f988acmr6381591137.7.1787587945139; Mon, 24 Aug 2026
- 09:12:25 -0700 (PDT)
+ bh=ryafxuN2NVDXET22ji86N975MiFgQobw58o1y8zRykE=;
+ b=qmywCCFVNkBY84q3oczVxEELMtkOvkUXBAiSJ/42i/sZC/sRrcxP5MgcOGWglE/+pR
+ stDDNbBX4WCVGwweHI+uNS2j97wWs3TcrqQhQaf5ii2on/M6pOB5z/oraG+glIEJSNna
+ quQ7/+jO+1IqfoP0jHBgf5nVR850DU2gYtY82kcFHbx7H8LhKNTzft17EH2K3Sd3UeXZ
+ 4iRwJcz83HURxAWfzUWdAQv1bc+fyFnxOUj6H7ga2RdfQvzHR9TqbPUBKN4nnG14E9tR
+ 5GmNjmYodZyQFdHEEItyW/84JgGLBuzkJxfS4NM0yq6elu+b0Z6bbzs5KyiBD87V7STC
+ mADQ==
+X-Gm-Message-State: AFuF++mV7zOyexyAjo9WgnHj+XswJLGd3lGRRZaQPT0d5DknqEetCKIH
+ dlnN+VIU9DdQ2e+AAxVnFYYQ/HduWrqM95S8ncGODb9f1GKfhqKf73ubx249YEZLRtZeq1Q6r5R
+ o6g/VwohuzexrEqXyZUhSSXwJL4OJO3M=
+X-Gm-Gg: AR+sD11UW/QP5T8CtZTJvwWeZjnUAsD7ckq6pEse7wYFB8R/BMon6mIXWSJzdA+j6ar
+ 1fBNXclZjw6FdhQJM02r4lsFiXRPTurCDJW994186wtiLPaVB9084PiY897vKv6oceqYBYwFVg4
+ 2H/eP4XlHmgq4DG0gtumdRUwXoG/W01IdzWdVLYlSMi2o1Cw6fhDfqFmYIxhWkQPHRV6MfYIJER
+ usPbEOdjaAFryMwiyKDW7lrnuj1YG5PDXhmyI5R0rAztJ/zDgOU1CVC6Ut5YjY/dTuLgB1EptNa
+ lT2uNoc2VOXj6pBjPPIfpK+iOWAiZRim+LedUxXRv+Hk25Fe/jJMwUPgeMcqrXD9O9J3pTRqyeR
+ oyqIx554t8TIeJ3X6jxvi5ZS1JRlbaQ==
+X-Received: by 2002:a05:6808:1a20:b0:4a4:934:b316 with SMTP id
+ 5614622812f47-4b350905f5dmr5794481b6e.21.1787663984073; Tue, 25 Aug 2026
+ 06:19:44 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260824144714.182835-1-upcfrost@gmail.com>
- <GoS-FsT8QACGf_8gWuUlnQ@gmail.com>
-In-Reply-To: <GoS-FsT8QACGf_8gWuUlnQ@gmail.com>
-From: Petr Belyaev <upcfrost@gmail.com>
-Date: Mon, 24 Aug 2026 18:11:48 +0200
-X-Gm-Features: AcwNN1Vo8lMfh8JWfdrnofmMIRAeZH5hC4umrRrCvaJtayr5IuuYkxj2rPWDX0Y
-Message-ID: <CAKzDyZvprPt9QmsDuuqVcvisz1KLKMfmWQrpMtcUWnXeOn8MEA@mail.gmail.com>
-Subject: Re: [PATCH] drm/amd/pm/smu7: Don't send VddC_Request on CI
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com
+References: <20260819185349.29407-1-pisarevden@gmail.com>
+ <20260824153542.491012-1-pisarevden@gmail.com>
+ <CADnq5_MEb72btY3NtbEVgZm=H_7OV6k1xC_t5YXVM_ONrZ2b3A@mail.gmail.com>
+In-Reply-To: <CADnq5_MEb72btY3NtbEVgZm=H_7OV6k1xC_t5YXVM_ONrZ2b3A@mail.gmail.com>
+From: Denis Pisarev <pisarevden@gmail.com>
+Date: Tue, 25 Aug 2026 15:19:07 +0200
+X-Gm-Features: AcwNN1W4Y2xRJrtZsVnUMey6eN7OnoZecn67lO3We9LtCVc1fE306t9_w-6Tonc
+Message-ID: <CAMpx=TVt=iHo-Tj=3yFv+E0PKxMf+e-GO7oeMZMhLJCm4kKD_w@mail.gmail.com>
+Subject: Re: [RFC PATCH v3 0/1] drm/amdgpu: MMIO TLB invalidation fallback
+ when KIQ is wedged after S4 resume
+To: Alex Deucher <alexdeucher@gmail.com>
+Cc: amd-gfx@lists.freedesktop.org, alexander.deucher@amd.com, 
+ christian.koenig@amd.com, mario.limonciello@amd.com, ionut_n2001@yahoo.com, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Tue, 25 Aug 2026 13:01:27 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,85 +108,97 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Hi Christian, Alex,
 
-You're right, and I withdraw the patch - hadn't considered that gating
-it off would regress the systems it was added for.
-Apologies also for the M380 claim; I thought it was VI from the commit
-message rather than checking.
+Understood regarding the fallback - dropping that approach. A working
+KIQ after S4 resume is the real fix.
 
-To reproduce:
-Stock 6.18.41, Bonaire XTX 1002:6658 rev 00 (XFX 1682:7260), VBIOS
-113-260XT-HY12832-D5-2G-10, SMC firmware 11.35.0 from bonaire_smc.bin.
-DC is not enabled here (amdgpu.dc left at the default).
-I'm getting roughly 40 "failed to send message 15f ret is 0" messages
-per boot, ~1.9s each.
-gitlab: https://gitlab.freedesktop.org/drm/amd/-/work_items/5678
+Regarding GFXOFF, I agree that a gated-off CP/ME/KIQ would also fail
+the ring test, which aligns with the data. The ring test passes upon
+resuming and sched.ready is set; however, the write-reg/wait-ack
+handshake begins to fail during runtime, starting in the same second
+as the thaw and persisting for hours (80-140 errors per hour, measured
+over 9+ hours). So the KIQ initialises fine, but then stops completing
+those packets.
 
-One more observation: Your MCLK DPM quirk does fire on this card - i
-see the msg 'disabling MCLK DPM on quirky ASIC' in dmesg.
+The GFXOFF attribution comes from a single-variable experiment only:
+same workload, one hibernation cycle each. GFXOFF held off across the
+whole S4 cycle (disabled before hibernating and verified to be still
+off after resuming): zero errors. Also zero errors over 15 minutes
+after re-enabling it post-resuming. Plain S3 suspend never triggers
+it. This is merely a correlation; I cannot prove that it is a
+mechanism. The existing semaphore workaround comment in gmc_v9_0.c
+about losing invalidate acknowledge state across power-gating cycles
+appears to be relevant, but I cannot prove that. I am happy to run
+whatever tracing is required to identify the mechanism from the
+affected machine (RLC/ME state, gfx_off_state sampled at the time of
+failure, KIQ fence timestamps and register dumps).
 
-Would be happy to test anything that might solve the problem.
+Thanks,
+Denis
 
-Best regards,
-Petr
-
-
-On Mon, Aug 24, 2026 at 5:07=E2=80=AFPM Timur Krist=C3=B3f <timur.kristof@g=
-mail.com> wrote:
+On Mon, 24 Aug 2026 at 20:31, Alex Deucher <alexdeucher@gmail.com> wrote:
 >
-> On Monday, August 24, 2026 4:47:14=E2=80=AFPM Central European Summer Tim=
-e Petr
-> Belyaev wrote:
-> > smu7_upload_dpm_level_enable_mask() calls
-> > smu7_apply_minimum_dce_voltage_request() unconditionally, which sends
-> > PPSMC_MSG_VddC_Request to the SMC. CI SMC firmware does not implement
-> > that message: it is only defined in smu7_ppsmc.h, tonga_ppsmc.h and
-> > fiji_ppsmc.h, and there is no CI equivalent. The SMC therefore never
-> > writes SMC_RESP, PHM_WAIT_FIELD_UNEQUAL() spins until it gives up, and
-> > every call burns the full ~1.9s response timeout.
->
-> Hi,
->
-> I'm sorry but this is wrong.
-> I added the VDDC request specifically to solve an issue with a Bonaire GP=
-U.
-> That system will boot into a black screen without requesting a high enoug=
-h
-> voltage for the display engine. This patch would regress that.
->
+> On Mon, Aug 24, 2026 at 12:30=E2=80=AFPM Denis Pisarev <pisarevden@gmail.=
+com> wrote:
 > >
-> > Nothing downstream notices, because ci_send_msg_to_smc() returns 0
-> > regardless of the outcome. The only effects are the delay and
+> > Hi,
 > >
-> >   amdgpu: failed to send message 15f ret is 0
+> > v3 addresses the two findings from the sashiko-bot review of v2.
+> > Failure data and trigger isolation are unchanged (bugzilla 219492):
+> > S4 resume on Cezanne (gmc_v9, GFXOFF) wedges KIQ TLB flushes at
+> > 80-140/hour for 9+ hours with sched.ready true throughout; holding
+> > GFXOFF off across the S4 cycle produces zero errors.
 > >
-> > in dmesg. On a Radeon R7 260X (BONAIRE, 1002:6658) this is 40 messages
-> > per boot: 32 during the boot-time modeset, which becomes ~59s of blank
-> > screen, and 8 more on every DPMS wake, adding ~15s before the display
-> > comes back.
->
-> How do you reproduce this issue, and on which kernel version?
-> I've tested this patch on two different Bonaire chips and a Hawaii chip, =
-and
-> haven't seen this error message. In fact I am running an R9 390X right no=
-w and
-> I don't see this error message in my logs.
->
+> > 1. [High] "VFs and interrupt contexts silently drop TLB flushes once
+> >    the threshold is reached" - correct, and fixed. In v3 the latch
+> >    only reroutes bare metal process context to MMIO. VFs and IRQ
+> >    contexts keep submitting to KIQ exactly as before this patch, with
+> >    per-failure logging, because they have no MMIO alternative; there
+> >    is no longer any code path that drops a flush without attempting
+> >    and logging.
 > >
-> > Commit 0138610c1413 ("drm/amd/pm/smu7: Fix SMU7 voltage dependency on
-> > display clock") extended this feature to CI, which the previous
-> > implementation had deliberately excluded -- the old call site was
-> > guarded by pp_table_version =3D=3D PP_TABLE_V1 with an adjacent comment
-> > reading "TO DO for v0 iceland and Ci". That commit was verified on a
-> > Radeon R9 M380, which is VI, so the CI path went untested.
+> > 2. [High] "KIQ and MMIO race on the same invalidation engine if KIQ
+> >    recovers" - this remains the documented open question; no code
+> >    change in v3. Our analysis: once latched, this path submits no new
+> >    KIQ commands, so the exposure is limited to already-queued stale
+> >    commands and the recovery transition window. The engine serializes
+> >    requests internally, so the realistic worst case is a lost flush
+> >    request caught by the existing ACK timeout ("Timeout waiting for VM
+> >    flush ACK!"), not silent state corruption. If maintainers consider
+> >    a fence necessary (or a dedicated invalidate engine for the MMIO
+> >    path), guidance on the preferred mechanism would be welcome.
+> >
+> > Full patch history: v1 (initial fallback+counter), v2 (GFXOFF hold,
+> > per-instance counter, irqsave, VF/IRQ restrictions, MES error
+> > propagation) - all from bot review; v3 (this one) fixes the VF/IRQ
+> > drop regression the bot found in v2.
+> >
+> > Also still open from the cover letters: the alternative direction of
+> > fixing the S4 resume ordering itself (RLC/ME vs GFXOFF) instead of a
+> > runtime fallback. Happy to run tracing on the affected hardware.
+> >
 >
-> The CI path definitely did not go untested.
-> R9 M380 is Bonaire (it's in an old iMac).
-> You can see all the details here:
-> https://gitlab.freedesktop.org/drm/amd/-/work_items/3425#note_3338643
+> If that's a problem, that should be fixed.  That said, did you have
+> any success with the branch I proposed?
 >
-> Best regards,
-> Timur
+> Alex
 >
->
+> > Patch 1/1 follows.
+> >
+> > Denis Pisarev
+> >
+> > Denis Pisarev (1):
+> >   drm/amdgpu: fall back to MMIO TLB invalidation when KIQ is
+> >     unresponsive
+> >
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu.h     |   2 +
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h |   2 +
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c |  18 ++--
+> >  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h |   2 +-
+> >  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c   | 123 +++++++++++++++++++-----
+> >  5 files changed, 114 insertions(+), 33 deletions(-)
+> >
+> > --
+> > 2.55.0
+> >
