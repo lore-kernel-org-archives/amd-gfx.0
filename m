@@ -4,102 +4,91 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CCF89C61DC2
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 15:36:02 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 060BAC61DBE
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 15:36:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4B15710EA7F;
-	Tue, 25 Aug 2026 15:36:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9107210EACA;
+	Tue, 25 Aug 2026 15:36:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UAH367IP";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="f0NwN9lZ";
 	dkim-atps=neutral
-Received: from CH5PR02CU005.outbound.protection.outlook.com
- (mail-northcentralusazon11012004.outbound.protection.outlook.com
- [40.107.200.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A24A510EA7F
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Aug 2026 15:36:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=D7XZr+Re/RW0xHeZah5HPBZeF87rmbz5tAYQAMbG4S6kDvaaPbbYmj3PGmDRKB4NZIzrP4yqTTal2mRcjNuL8/9ka7RrMLwwQpBk+1WmrY9jSS9vrk8qk6K6jQpeoHOVKnjvmewdIK9P3iO5NvOLdMyNgPbb0p9ZDuDnF2xqh3WVSWfnANmd34CFZ4xyE+GZQsKD7mylIF6GmqgP8HC426luzcZMXlDtF6f6MtrzGPfaytOJFoosW8Tu8fiuJcGxaCsUHFEHuAkdJra6vh0Si7zJr9XMz6nxBPsXwuF3t8ZIL8UPb/J2rq/tLj/mdNPxS8FS860VOENqmWnVRdDktQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xE8chTthEjORl+isKkQcd7MvrKAljBnDekswjJAweKY=;
- b=JPSA7aregMwACNmj8DF6t5swJCF/HwgiJHtUD9fbL6iFOV4+ihwrjYdiatCkgYGyL004uvTjLG3P6cO8IMFbVyzw9m0quxhKgkFh3Mk+LTM5Yr8o1ysAn5Afw6F8aCnOzOEl64fSD1DRNKRCpF+p3OS2SqRi319f8cYq8cwQMPBPKjln2Jp+hjT3uvIrXkrVLoTP9a2xUPlLM0qiJEN257BWXzgyl2wOk5ODGbljquUHpNnRefPL84qoyIZ1a5rlFLmjb43KKArpGsdngUcCoj5XjBnYNcdbNajOmnfjJMCW5zN+HGxG+pfIr7N1UQqUVQ5QXBDxTuWNFEzlbGnXBg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 149.199.90.133) smtp.rcpttodomain=lists.freedesktop.org
- smtp.mailfrom=amd.com; dmarc=fail (p=quarantine sp=quarantine pct=100)
- action=quarantine header.from=amd.com; dkim=none (message not signed);
- arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xE8chTthEjORl+isKkQcd7MvrKAljBnDekswjJAweKY=;
- b=UAH367IP8fzTfZIyWgdQrvwISwVrwz9TLa4z2whye33Kk/ytFdzlldP4xCb7BlBWqCh9KdFb0N/h+npPKdyMQN3dRYHhRDEq71FARfcgPJzHiFC76oUQclm7ZVoZHPkSA4Qgx0LXc++LmegjCzuhk0nb7iNFhxsOvRqdLDTaVhk=
-Received: from MN0P220CA0001.NAMP220.PROD.OUTLOOK.COM (2603:10b6:208:52e::29)
- by SJ0PR12MB6990.namprd12.prod.outlook.com (2603:10b6:a03:449::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 25 Aug
- 2026 15:35:50 +0000
-Received: from BL6PEPF00020E66.namprd04.prod.outlook.com
- (2603:10b6:208:52e:cafe::95) by MN0P220CA0001.outlook.office365.com
- (2603:10b6:208:52e::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.7 via Frontend Transport; Tue, 25
- Aug 2026 15:35:45 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=quarantine header.from=amd.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- amd.com discourages use of 149.199.90.133 as permitted sender)
-Received: from satlexmb08.amd.com (149.199.90.133) by
- BL6PEPF00020E66.mail.protection.outlook.com (10.167.249.27) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Tue, 25 Aug 2026 15:35:44 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 25 Aug
- 2026 10:35:42 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 25 Aug
- 2026 10:35:42 -0500
-Received: from hwentlanryzen (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Tue, 25 Aug 2026 10:35:41 -0500
-From: Harry Wentland <harry.wentland@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>
-Subject: [PATCH] drm/amd/display: pull colorops into state when recreating a
- plane
-Date: Tue, 25 Aug 2026 11:35:39 -0400
-Message-ID: <20260825153539.213495-1-harry.wentland@amd.com>
-X-Mailer: git-send-email 2.55.0
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2E7D310EACA
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Aug 2026 15:36:32 +0000 (UTC)
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-2cf49dc28ccso6620445ad.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Aug 2026 08:36:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787672192; cv=none;
+ d=google.com; s=arc-20260327;
+ b=D1yx1roa8iKipernK/uvjqnGys2POcCHOMXixw/umdQGKwe3N+hrhkE7GvlO99AnrI
+ BCN16X/oNiqpXTwZnysmg44q2+FNNJlvSvjI3/DrezbgijvFlZflYTJs+hYXg2k14N0M
+ +iNqKBrUcMI8dFIZt6sF1zEFeVw4AqsxRkEyderRV3hzPyx/O6otFX4Qk3MJuhMW//89
+ AB++LODLBxiNjxrVy1rswRF4plM8e195shdLhrLYkdVb6J1R9oZgGga4LF+1jbseaT5l
+ BCjOsY01dN+uZKMP4TdnFv9HdjbEMvpY5ISPw4Pf7TEyfUMVFOzdF2OPOL5OhmXNLiu/
+ fpXQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=/2J95Po7AEWPPv9EZLHrd6vFi/tH8XCddSmZD/Qvyq8=;
+ fh=IY98SR0cNO93Tj0qH750yd04bAXFkNbDKtBTzSqo1Bw=;
+ b=UgpFlAInVGm7tH3S1u5ybHiO0vEfdcUCaHH78z5/aDZICEniWFParZM+GeQb3nMiqk
+ isd34XYeVDahgvyS1PreijvaH/vu64D/kK+QLBuvxVU6/11wPzC3QcLMwEYFPmScl4oi
+ 6s/YRRtc5FrjPC3IFsUhb6xUvqwsXwa1NIhanuHZ+R0WJSs7878JZolHrD5QXl6mZtb1
+ 81I3sFnA1jNy8oG2JntySony1lFTI4b5He4KNPxhN707Fo2OJcWxaE5xU97Y++VtNg9D
+ H3/08G9EeK4c1Uxxg4fuzTWuQOsv3rPfr/vLZ4WcGwPXIAGQ5JLi3e8BfXYW/cN71xl5
+ kb5Q==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787672192; x=1788276992; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=/2J95Po7AEWPPv9EZLHrd6vFi/tH8XCddSmZD/Qvyq8=;
+ b=f0NwN9lZknAZgCT7aiVTZviDYqqKtXxht3FQuRJBvaKnWTvqC2LWcpd4jN8jA/ryvu
+ /PbtsoosdARSp82QJTeVdONqNlVVLcVQRoySy+iB81FHeva4x3wYGxRJM7YyWpQDAzRa
+ t9FlcSZJwIelSM2g5FFZWrq68gCKYkSTTPiw6upGuOEdnRt4iopwCezXh9gCdkm2ZAK1
+ +zRkvKbvE0HJwJSrPsTYJQIif9FnJnBSo/JH5GOPx8UOhRO40swHomKAdSO9Qhkjakjt
+ dXdvlZVK98xQvTfaLG8ehfdSJpZ/Esrpu6ihI6RlIkIMdF7FvL7BeHoUY0MuvYsR8Nwr
+ h/bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787672192; x=1788276992;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=/2J95Po7AEWPPv9EZLHrd6vFi/tH8XCddSmZD/Qvyq8=;
+ b=UtM2EMHsvebEg2p4QD7UK1V3unEIRfyp43dy4VFYp8j1lcYJv+fM9Nm2Mey93ETnKH
+ T68GQCMBu2YJ0+YIdBvSOlTcxDvP/jcjxZtpLkkUC9TjqzqUfWB0dFzbqhqk5yypQmo0
+ erYiJcLI32dO3bOrPpA2LpkiljT5eLin9F3ACma0/FkXBgX/k/2507AYLFLhvvrqGp/r
+ 0E4qqIAbNh6T13DKTzKxzI3gVZ2zxUZYDUFZXgsAUldvOzLaCJPPRfrbn+09vA0qxOt7
+ rII3IjcGIcFaIAPJPCDjVXwr3IJQ1vhzRXs2vUCXDc4WjGdQB4G5AgX7pCLMH+Zk3oDQ
+ DWaA==
+X-Gm-Message-State: AFuF++ltpT+YsrA7AlUvc9smuuAItYbSCpodM8Nk9lpHTHpFaV2QA0i6
+ OHY8CdTR8B6s+8LUAFlvH3JYtD7AlBHqHM/kB++/GOYKreYg/wZzbumvuYgJUPB9elIP+p0OJ3t
+ bURQetxZzWikEgbWUrXPjD7dGsG3N1D4=
+X-Gm-Gg: AR+sD112M18vIVzq9iLpX+p9QLZKeT4Mpere3Ic0XqvY6ft0jUh6SmdK+I42UNhZxvs
+ T5dEUxbiEVpF066EX7qgiSHGImBnyyft1xAgnQexuojss4aveLfq1oFb82wvoADfONlafZqMGKx
+ sk70m9nCg74qisdmsAJkR9KWYIruna/bYLFkI+HJcty5/aRHYiMl2VN3LT8S3szfApE2umgx0m8
+ ZzmFiErOZgWQZaKWTjz1DnZwSxXloMYXlmx3KCA3utlTQwXoIvxSEMUqiqQoAo6YHYo+9xq+DeY
+ 9lZJ/ZjgK0MocXGAlk7dV015UgTsfYbUb7/DPCp7K9KNxEkgafv8zC8y2gRZnqqD9OJiu1teS7G
+ jppLzPKsDvU+Zx+emUNrTs4M5IY+SsG0=
+X-Received: by 2002:a17:902:f709:b0:2c9:d298:6c0a with SMTP id
+ d9443c01a7336-2d64b047823mr333624385ad.2.1787672191437; Tue, 25 Aug 2026
+ 08:36:31 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E66:EE_|SJ0PR12MB6990:EE_
-X-MS-Office365-Filtering-Correlation-Id: a454c57d-8c8d-4ad3-fa52-08df02be876e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|23010399003|1800799024|82310400026|56012099006|10067099003|11063799006|5023799004|18002099003;
-X-Microsoft-Antispam-Message-Info: W41C9UMt+bj4OVAK3h6aqfuo+jh0PnGTwB19ioNKgaNL+yUelnKHNNMl1tfUk9vebDEgiVmi3CedHjybc05b84veUZDc5Al54rRHNw0oi6T3i7oMctdfTTZkm/o47cmvFbsMj8dj0EQ17QkMVlAv9L7OcLyU0H+32weBKh6Gst1oWuOehYseeV915vij0U2+Vi9Tgd5gYgEXjudoxc3Pa0iZK7DN945+1DBadMTshf50aTVqc6t5TERsLpRje0hTsWzArvn1emoX4NhzZLxCBBetzcbidiJosDJSfNufp1jYlRxqEh39m3FA5c5VU1uJHtx7c5P3HWFHC27a3th42wpCxpXDSCVIy58IA4P0/Wx/bpNr1/nZ35/N1yc7qibu71904qjinnQmAFmL9RqcP6glZD3uro29cYuEybxsu2Ko034MQPcK0xn58C+pG8tvezOAwG4E+Ej8Jya3SqE9B80D8+6xgZCjKqGYecZJDx0FliTnDMObrftfyd0JVMn2SHW7FyP+jHXIOfF7rP2o2q2kqNVFPnG/j+DBorCR8/Wg4lxI3b163AwjT9DgMouutu7vPfPglpmQpCJOgkNWIbJvFkG9s7CksdUXjaJnU6OwVS0p6/s1p+8SXufmEmhD8v5WIrUsFXTOuE5ea8CWKhefGeOFK+PJ5gmzXatIt2rnGJYIcBNSVLW81gfOoDkUzLcUj51v3OWq5/DgDWZgPA==
-X-Forefront-Antispam-Report: CIP:149.199.90.133; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:unknown-90-133.xilinx.com;
- CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(23010399003)(1800799024)(82310400026)(56012099006)(10067099003)(11063799006)(5023799004)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 9SsXxr/9ARy4YUIqtRD/HeBQasrIIDgEUKFaZCSAhlmPJWnaA5Ks1/AYCmn+T9IyfGmYSwSG/fSWPJFZIdZHfzUQp0H5KqllnBaBuHDur2EVpgq5qvM53+SJVoBq14smMrobRmkjqWu73zxLyeRawJSxOrjkFDXPZwCaPe5vOOtUkMBMSgYk0MEW6OX0F/A8QkApA0ZEOZrr3+YtaJdaFS3TBUmDXEflGpo1IeDHpveBxHmtEWS+h7SQhovhvYdgM7ZQCvoFtBkSdByrkIzG09yVZw3QxZYur0d5p1bM8uYzLmpb41Pgdun4XtlB1VW+mdZ4Sl6qCL4i3G5KUD6mXF7OJd/5CE5WabWxQ+k8JsFrsXRV9oUQooGFsqlnUdyOvX2hCNzZvwDvetKWNXPG+s/17/aA5nAoHpMFXV/fY2/OwF0vT23oH8BILogPSYg5
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 15:35:44.7930 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a454c57d-8c8d-4ad3-fa52-08df02be876e
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[149.199.90.133];
- Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00020E66.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB6990
+References: <20260824221352.1793542-1-alexander.deucher@amd.com>
+In-Reply-To: <20260824221352.1793542-1-alexander.deucher@amd.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 25 Aug 2026 11:36:19 -0400
+X-Gm-Features: AcwNN1WZJQ5dg7QXja89iEQIVYAsRvPx-iavAfBKqZMntcpX8mICHJApOX-gB6w
+Message-ID: <CADnq5_MvKATHdjOzzgVLvdUG2j4=V+wddkuY=ApDOYEDmTzJHg@mail.gmail.com>
+Subject: Re: [PATCH 00/30] Rework GPU TLB invalidation
+To: Alex Deucher <alexander.deucher@amd.com>
+Cc: amd-gfx@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,55 +103,98 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-When should_reset_plane() forces a plane's dc_plane_state to be
-recreated (e.g. on every ALLOW_MODESET commit on DCN < 3.2),
-fill_dc_plane_attributes() re-derives the plane's color pipeline from
-the DRM colorop states. The per-stage helpers look up each colorop
-with for_each_new_colorop_in_state(), which only iterates colorops
-attached to the current commit. If userspace didn't touch color in
-that commit the colorops are absent, so the fixed matrix (YUV->RGB),
-shaper, 3D LUT and regamma all silently fall back to bypass. This
-corrupts the plane's colors - e.g. an HDR P010 video losing its
-color-space conversion - until the pipeline happens to be re-committed.
+On Mon, Aug 24, 2026 at 6:20=E2=80=AFPM Alex Deucher <alexander.deucher@amd=
+.com> wrote:
+>
+> GMC 9-12 use KIQ or MES for TLB invalidations to avoid using MMIO which w=
+ould
+> require disallowing GFXOFF.  KIQ and MES are management queues however an=
+d if
+> they hang, they cannot be recovered by a queue reset since they are the
+> mechanisms which handle queue resets.  Since using KIQ or MES will exit G=
+FXOFF
+> anyway, explicitly disallow it on the MMIO path and use that. Next, switc=
+h to
+> using SDMA for TLB invalidations.  SDMA 4.4.x and newer have special pack=
+ets
+> specifically for this purpose.  If SDMA hangs while doing the invalidatio=
+n for
+> some reason, it's easier to reset the SDMA queue than KIQ or MES.  Finall=
+y,
+> most of the TLB invalidation code between GMC 9 through 12 was identical,=
+ so
+> move it to common GMC helpers and remove the IP specific code.  If the SM=
+DA
+> and MMIO pathes prove to be stable, the KIQ pathes can be removed in the =
+future
+> to further simplify things. SDMA 4.x could also be updated to support PAS=
+ID
+> invalidation via SDMA using either the new packet (SDMA 4.4.x) or via
+> REG_WRITE/REG_WAIT packets (SDMA 4.0.x).
 
-[How]
-When recreating a plane that has an active color_pipeline, call
-drm_atomic_add_affected_colorops() so the plane's colorops are pulled
-into the commit and the derivation sees the current pipeline instead
-of defaulting every stage to bypass. This mirrors what the core
-already does on a modeset via drm_atomic_add_affected_planes().
+Some older gfxhubs and mmhubs will also need this patch:
+https://gitlab.freedesktop.org/agd5f/linux/-/commit/a1f1823a8ecd80bee660244=
+def5f20179926fe8c
 
-Assisted-by: Copilot:claude-opus-4.8
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
----
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+Updated patches with that included here:
+https://gitlab.freedesktop.org/agd5f/linux/-/commits/tlb_inv_rework?ref_typ=
+e=3Dheads
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 49f1a22f2888..4ee677f5b8b7 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6337,6 +6337,19 @@ static int dm_update_plane_state(struct dc *dc,
- 		if (ret)
- 			goto out;
- 
-+		/*
-+		 * Recreating the plane re-derives its DC color pipeline from the
-+		 * colorop states in this commit. Pull the plane's colorops in so
-+		 * the derivation sees the current pipeline; otherwise every stage
-+		 * silently defaults to bypass (dropping YUV->RGB, shaper, 3D LUT
-+		 * and regamma) when userspace didn't touch color in this commit.
-+		 */
-+		if (new_plane_state->color_pipeline) {
-+			ret = drm_atomic_add_affected_colorops(state, plane);
-+			if (ret)
-+				goto out;
-+		}
-+
- 		WARN_ON(dm_new_plane_state->dc_state);
- 
- 		dc_new_plane_state = dc_create_plane_state(dc);
--- 
-2.55.0
+Alex
 
+
+>
+>
+> Alex Deucher (30):
+>   drm/amdgpu/gmc9: disallow gfxoff around TLB flushes
+>   drm/amdgpu/gmc10: disallow gfxoff around TLB flushes
+>   drm/amdgpu/gmc11: disallow gfxoff around TLB flushes
+>   drm/amdgpu/gmc12: disallow gfxoff around TLB flushes
+>   drm/amdgpu: add a gmc flag for using MMIO for TLB flush
+>   drm/amdgpu/gmc9: use MMIO for TLB flushes
+>   drm/amdgpu/gmc10: use MMIO for TLB flushes
+>   drm/amdgpu/gmc11: use MMIO for TLB flushes
+>   drm/amdgpu/gmc12: use MMIO for TLB flushes
+>   drm/amdgpu: add a buffer funcs callback for TLB invalidation
+>   drm/amdgpu/sdma5.0: add tlb invalidation buffer func callback
+>   drm/amdgpu/sdma5.2: add tlb invalidation buffer func callback
+>   drm/amdgpu/sdma6: add tlb invalidation buffer func callback
+>   drm/amdgpu/sdma7: add tlb invalidation buffer func callback
+>   drm/amdgpu: simplify amdgpu_gmc_flush_gpu_tlb()
+>   drm/amdgpu: add tlb invalidation method enum
+>   drm/amdgpu: plumb tlb inv method in amdgpu_gmc_flush_gpu_tlb_gart()
+>   drm/amdgpu: uplevel reset check in amdgpu_gmc_flush_gpu_tlb_gart()
+>   drm/amdgpu/gmc: add new callback to lookup vmid to pasid mapping
+>   drm/amdgpu: add a gmc callback for the inv semaphore
+>   drm/amdgpu/gmc: rework pasid flushing
+>   drm/amdgpu/gmc9: use SDMA for gart TLB invalidation
+>   drm/amdgpu/gmc10: use SDMA for gart TLB invalidation
+>   drm/amdgpu/gmc11: use SDMA for gart TLB invalidation
+>   drm/amdgpu/gmc12: use SDMA for gart TLB invalidation
+>   drm/amdgpu/gmc10: use SDMA for pasid TLB invalidation
+>   drm/amdgpu/gmc11: use SDMA for pasid TLB invalidation
+>   drm/amdgpu/gmc12: use MES or SDMA for pasid TLB invalidation
+>   drm/amdgpu/gmc12: drop MES tlb inv in gmc callbacks
+>   drm/amdgpu/gmc: add helpers for various tlb inv functions
+>
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c |   2 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c  | 486 +++++++++++++++++++----
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  |  33 +-
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  18 +
+>  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   |   2 +
+>  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   | 202 +---------
+>  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c   | 207 +---------
+>  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c   | 250 ++----------
+>  drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c   | 225 +----------
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c    | 114 +-----
+>  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c   |   4 +
+>  drivers/gpu/drm/amd/amdgpu/mes_v12_1.c   |   4 +
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   |  49 +++
+>  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   |  49 +++
+>  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   |  49 +++
+>  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   |  48 +++
+>  16 files changed, 747 insertions(+), 995 deletions(-)
+>
+> --
+> 2.55.0
+>
