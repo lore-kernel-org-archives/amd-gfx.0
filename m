@@ -4,98 +4,140 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C570C5DF94
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 07:54:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7000BC5DF94
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 08:04:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 07BDE10E14E;
-	Tue, 25 Aug 2026 07:54:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE98110E934;
+	Tue, 25 Aug 2026 08:04:26 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Kvb1wOKf";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="GtZ7A56A";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2IOcNjl4";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="mT02T1rm";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="rMuFyHjb";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012062.outbound.protection.outlook.com [40.107.209.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 88E9710E14E
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Aug 2026 07:54:21 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=m6dgwXtEyg2oO+Q+oIC/CCEeGubNz5XpkwHLmDgiUZzcL6o6cRZHgLkPl1OKGgBfwvmI7N072PoAoloImssXIH8DIoQihPVYtVMdvybtDudb+tJdwzrV/wDQmS/D52rM5B892KZfydHX1B2jFHiW9b6ZwHcWdGl1UOd3WJy7k5niK+ojIq9cej6uhMo669wsIwUuhCr31L+VdKO6laJpSugJbuZU8OY1wvCx9vSFsr9Ti2vkKhEY30bZVgvv3oC29tBgzztMjxLXW0aRUmezvzQd3D6VX6wmbEOk1Vmc+T+HDTpgJ7yK2bncL3+i2Q22osWab5H8mtalrGguYg8s0A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hvdSgT3sbcBsJYlWyCFxmGxI7f/Aix/Vmv/VIXGagh8=;
- b=J+uZoxmqxh40xQa3iHKLMM85lQVdbCfYPXP9f7N5KZpy6cPR1Yir0AQZI6aKX7uZQhrVELd8wq/lNAlH/S03M4tVQC9QuKYCmen2IEXSaus1rn5qmVjxMOHCEmo+kIqfueO9QDJ4XzFItsAavXWrac2Cfm92HaWWj5kGShUNr2kZi0tBBWGMq502lqs9VKt/o1fGiO7kZiv9qqQBzaXWiIRx5YX9C6jI9/b7V79R+RQkF3R1tMaDvWzgei84ynMCtU3xwXcn/w0mO5gdPD5b8Dy8fnaAJMy/t9gMg/y99hU8HQN1RLbKXojSCSWvhGyV1tkCI1OEmxXjlnNVjhX/Fg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 149.199.90.133) smtp.rcpttodomain=lists.freedesktop.org
- smtp.mailfrom=amd.com; dmarc=fail (p=quarantine sp=quarantine pct=100)
- action=quarantine header.from=amd.com; dkim=none (message not signed);
- arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hvdSgT3sbcBsJYlWyCFxmGxI7f/Aix/Vmv/VIXGagh8=;
- b=Kvb1wOKfkPmio+12QX0gYmP9DrkVYJNb71WmHuIZLulE4Mla1Vvw36bUQHWIho8XDLH8dOoHiX70QcmeziNX1/+s3uL39+s4IysXgx/ltTD7ouTNmpz47zZKzA/+/fn/QSsm71OMEGIXyx008d2OTdcg7cQAh/LyDiu4i0MeTck=
-Received: from MW4PR03CA0164.namprd03.prod.outlook.com (2603:10b6:303:8d::19)
- by LV2PR12MB999095.namprd12.prod.outlook.com (2603:10b6:408:353::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Tue, 25 Aug
- 2026 07:54:17 +0000
-Received: from MWH0EPF000A6732.namprd04.prod.outlook.com
- (2603:10b6:303:8d:cafe::4a) by MW4PR03CA0164.outlook.office365.com
- (2603:10b6:303:8d::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.12 via Frontend Transport; Tue,
- 25 Aug 2026 07:54:17 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
- 149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=quarantine header.from=amd.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- amd.com discourages use of 149.199.90.133 as permitted sender)
-Received: from satlexmb07.amd.com (149.199.90.133) by
- MWH0EPF000A6732.mail.protection.outlook.com (10.167.249.24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Tue, 25 Aug 2026 07:54:16 +0000
-Received: from yifan.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 25 Aug
- 2026 02:54:07 -0500
-From: Yifan Zhang <yifan1.zhang@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
- <Perry.Yuan@amd.com>, Prerona Ghosh <Prerona.Ghosh@amd.com>, Yifan Zhang
- <yifan1.zhang@amd.com>
-Subject: [PATCH v5] drm/amdgpu: bind BOs when the eviction fence is attached
-Date: Tue, 25 Aug 2026 15:53:46 +0800
-Message-ID: <20260825075346.536983-1-yifan1.zhang@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E13E910E934;
+ Tue, 25 Aug 2026 08:04:25 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2054F1F7B4;
+ Tue, 25 Aug 2026 08:03:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787644989; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6QbiygY5iShhauvkTuo+8pW+HCymPbATkAPpp9mm6Y8=;
+ b=GtZ7A56AXk533T7hb0WZlDenwwyYIcxvWDAs0Si4OGZzLL/NIE9PDLF8DUrOoX9Md9ZT2V
+ xKJ6cpoAgsEVneICh41847FlpLbIKHOxxG0uQZaAfrppeR8MqUT797j2o5K4lcE+Kf4s4L
+ 0luN4ESGlQioXnnd+4Oaeh52jryCUUY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787644989;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6QbiygY5iShhauvkTuo+8pW+HCymPbATkAPpp9mm6Y8=;
+ b=2IOcNjl4+1CM/av9PHv7NyYlQiP4vcSZunXERPDaqTmkqOtQFFcW5rh2M3pM7SyJ7/aCUI
+ sYqAZnY5iX/VeZBw==
+Authentication-Results: smtp-out2.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=mT02T1rm;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=rMuFyHjb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1787644985; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6QbiygY5iShhauvkTuo+8pW+HCymPbATkAPpp9mm6Y8=;
+ b=mT02T1rm6QVnTaCmbaJHQDo/i21HMFLNigdnFOfbbc5UDvKzAFMQPub5OYsbynemTdtjjt
+ p36NnQ7kRzh5hwTQtprrmNirDBqAZNYcA8z1Ddkrh8/bQfQGCH9JSUOEw93VlCTRB/gGoz
+ fQEpYUmmyHJP7KtjK58Rv/sioXk9fYI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1787644985;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=6QbiygY5iShhauvkTuo+8pW+HCymPbATkAPpp9mm6Y8=;
+ b=rMuFyHjbvzB2V4bhNUn/pQmlitoeC6NY/WoSQ0YVX93NQHd9bYTX98xWN5xY+Ct0IQHLro
+ uCWK2kvlFCVCqaBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 959A713332;
+ Tue, 25 Aug 2026 08:03:04 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id kQfPHThMjWracwAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Tue, 25 Aug 2026 08:03:04 +0000
+Message-ID: <778c33e1-8391-48d0-bef4-97298e06d43d@suse.de>
+Date: Tue, 25 Aug 2026 10:03:04 +0200
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/7] vga_switcheroo, drm: Push fbcon handling into DRM
+ clients
+To: lukas@wunner.de, jfalempe@redhat.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+ jani.nikula@linux.intel.com, joonas.lahtinen@linux.intel.com,
+ rodrigo.vivi@intel.com, tursulin@ursulin.net, lyude@redhat.com,
+ dakr@kernel.org, deller@gmx.de
+Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, sashiko-reviews@lists.linux.dev
+References: <20260709092215.168172-1-tzimmermann@suse.de>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260709092215.168172-1-tzimmermann@suse.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A6732:EE_|LV2PR12MB999095:EE_
-X-MS-Office365-Filtering-Correlation-Id: 566184bb-ecdf-49a7-0e36-08df027e0ffa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|376014|23010399003|82310400026|10067099003|56012099006|11063799006|5023799004|18002099003;
-X-Microsoft-Antispam-Message-Info: 466n2SoRDTvl7pMc5ytGosZNFFlp9notQFsrBBxJ+lzcbngyOECYUM+1zYDy5AZKrSa+vOI+a4EvlfgeIsSHH1gK6MEkUsCsa9+ENDjDLsXuajF+PLLZDefzRvA7wTuMQ0i2TPOiLs4H5fmPSjwdMPgORvaEnlBOkcK2lulu270VT/QrVLxVeKp2bx14EFdH7xqjv/GcpL5DupSmOgPc1qYwyhZIfl1UrT+OhxbkBvGNJQTEN4aUkyHnYk8NbsSwJvA5jS0KK/Wo1z4Iz50ePP/JNkAihbqOAF/qZnUfVwoktj/VB/luQuRciejBRtT3V7OS8ir9zJHiUTMF95X8aY/ap9h2BpUMZ0o9r9BOyj9vF31GLZC2SDeXhIfwEHih9qCRSqquvms7BI5d+w25AMYIfoZevcf350PilsbEc+yg9y7xI9tkp3zFN/0DXzLIey4ug5Qlf/DmaDyqA4+aeGeBWHxVMUO5+9Dy1PL4aUQCYjRqbSS9KhG1MWML9Z0+Q3xvkx/ZWikqjInbypE13JUboh1RdgVCrxdHpUXO4s1f2m5tkbUiElSyHlwhN7ehD2MGoIFjlLWlGRL/rXR1lE6y0uJSqljYjikrXULnvHidBlwVggi6e6GLdkTzEUgOFYagcyaNfFQ5X70Wgg6ku76ljKVGb0PWNsRNHl2kZPpwaXdMLkx5dWjfxUKyNP9TgUEB/NlT59D4JGshK/tAwg==
-X-Forefront-Antispam-Report: CIP:149.199.90.133; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:unknown-90-133.xilinx.com;
- CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(376014)(23010399003)(82310400026)(10067099003)(56012099006)(11063799006)(5023799004)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: dXhPdK68r9brE62dHaKukogBVyeaiL4vN1Ae730rjBRpXXpiglZt7lwLl1msJ89XolVP06yBeeTxcuKLivfgpd81Ik+SbVz6ZDbt2AVuO96FsNMspXZkZ4ynxswEYejrUTU0p9ZEd6RAEM1Qd6uU3dceoq96f5u7tmM+/Cr5zOofONaiJR7rfj3BQKJ5wFI1bGzorY5SGc0KJO2X8+nKeBNwap4OFEF/ec6BJawMqLx5UUqWBWYL9x09oQ8uCe0xclLg+aiKUP8zWXQZknoDuHY3RetnKHCFYyDY58X8bvN0PXe/W+PCoxiW6Hg51o1yx06r9quezXRzKLLeL9SbyT+SyqDltb4q0JibPuvXnkctTrJoQqaRrG6tLLQnmm5sRanJlfXAQ1mgVT54eys+iTVwgQffiQ4F1p7V7lPDiKdSKivobP5B74wcN6TlZ/yy
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 07:54:16.5718 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 566184bb-ecdf-49a7-0e36-08df027e0ffa
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[149.199.90.133];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000A6732.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV2PR12MB999095
+X-Spamd-Result: default: False [-4.51 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[];
+ RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com,gmx.de];
+ RCVD_VIA_SMTP_AUTH(0.00)[];
+ FREEMAIL_TO(0.00)[wunner.de,redhat.com,amd.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,intel.com,ursulin.net,gmx.de];
+ MIME_TRACE(0.00)[0:+]; ARC_NA(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:mid,suse.de:dkim];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[21]; RCVD_TLS_ALL(0.00)[];
+ TO_DN_NONE(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; DKIM_TRACE(0.00)[suse.de:+]
+X-Rspamd-Queue-Id: 2054F1F7B4
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,83 +152,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Prerona Ghosh <Prerona.Ghosh@amd.com>
+gentle ping for a review from the DRM side
 
-DMA-buf imports are created in TTM_PL_SYSTEM and land on the VM idle
-list, so nothing binds them for a VM using user queues: amdgpu_vm_validate()
-and amdgpu_userq_bo_validate() skip idle BOs, and amdgpu_cs never runs.
-AMDGPU_GEM_VA then programs PTEs without AMDGPU_PTE_VALID and the first
-GPU access faults.
+Am 09.07.26 um 11:15 schrieb Thomas Zimmermann:
+> Vga_switcheroo currently invokes fb_switch_outputs() to inform fbcon
+> about switching of the physical outputs among framebuffer devices. But
+> new DRM clients to not use fbdev/fbcon and might require their own
+> vga_switcheroo support. Let's strictly separate them from each other.
+>
+> Remove fbdev/fbcon from vga_switcheroo. Introduce a pre_switch callback
+> for vga_switcheroo clients to do the fbcon update. Allows for removing
+> all direct interactions between vga_switcheroo and fbdev/fbcon.
+>
+> There are only four drivers that support vga_switcheroo: amdgpu,
+> radeon, i915 and nouveau. Update each of them with the new callback.
+> When vga_switcheroo now invokes pre_switch, each DRM driver forwards
+> to aquire_outputs and lets the DRM clients handle the new outputs.
+>
+> At the same time, push the fbcon update into DRM's client for fbdev
+> emulation. Do this with the new DRM client callback acquire_outputs,
+> so that other clients can have their own handling of vga_switcheroo.
+>
+> Also replace the existing reprobe hook with post_switch for symetry.
+> For nouveau, this is merely a rename of the helper function. The other
+> drivers dor not implement reprobe.
+>
+> Tested with radeon on a notebook with Radeon HD 4225 and HD 5430.
+>
+> v2:
+> - implement all of pre_switch in a single commit to avoid possible
+>    deadlock in intermediate state (Sashiko)
+> - fix erroneous docs (Sashiko)
+>
+> Thomas Zimmermann (7):
+>    drm/edid: Include <linux/fb.h>
+>    drm/client: Add acquire_outputs callback; implement for fbdev
+>      emulation
+>    vga_switcheroo: Add pre_switch callback to client ops
+>    vga_switcheroo: Add post_switch callback to client ops
+>    drm: Implement struct vga_switcheroo_client_ops.pre_switch
+>    drm: Implement vga_switcheroo_client_ops.post_switch
+>    vga-switcheroo: Remove unused interfaces
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  9 ++++-
+>   drivers/gpu/drm/clients/drm_fbdev_client.c | 23 ++++++++----
+>   drivers/gpu/drm/drm_client_event.c         | 18 ++++++++++
+>   drivers/gpu/drm/drm_edid.c                 |  1 +
+>   drivers/gpu/drm/i915/i915_switcheroo.c     | 11 +++++-
+>   drivers/gpu/drm/nouveau/nouveau_vga.c      | 28 +++++++++------
+>   drivers/gpu/drm/radeon/radeon_device.c     |  9 ++++-
+>   drivers/gpu/vga/vga_switcheroo.c           | 41 +++++-----------------
+>   drivers/video/fbdev/core/fbcon.c           |  8 -----
+>   include/drm/drm_client.h                   | 14 ++++++++
+>   include/drm/drm_client_event.h             |  3 ++
+>   include/linux/vga_switcheroo.h             | 29 ++++++++-------
+>   12 files changed, 121 insertions(+), 73 deletions(-)
+>
+>
+> base-commit: 88c6be63ac7e9238c7791977d3f496ce6623afe4
 
-amdgpu_evf_mgr_attach_fence() is the right place to fix this, but it only
-validated while the eviction fence was unsignaled. At amdgpu_gem_object_open()
-time the fence is still the permanently signaled stub installed by
-amdgpu_evf_mgr_init(); a real fence only appears after amdgpu_evf_mgr_rearm().
-Natively created BOs hide the bug because amdgpu_bo_create() already
-validated them.
-
-Validate imported BOs even when the fence is signaled, and unwind the
-bo_va if that fails.
-
-v3: validate inside amdgpu_gem_object_open (Christian)
-v4: fix amdgpu_evf_mgr_attach_fence itself instead (Christian)
-v5: restrict the extra validation to imports so that resident and pinned
-    BOs are not migrated or failed on every GEM open
-
-Signed-off-by: Prerona Ghosh <Prerona.Ghosh@amd.com>
-Signed-off-by: Yifan Zhang <yifan1.zhang@amd.com>
-Assisted-by: Claude:claude-opus-5.0
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c | 11 ++++++++---
- drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c            |  9 ++++++++-
- 2 files changed, 16 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-index 4c5e38dea4c2..c2f9380511a3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_eviction_fence.c
-@@ -101,11 +101,16 @@ int amdgpu_evf_mgr_attach_fence(struct amdgpu_eviction_fence_mgr *evf_mgr,
- 	struct dma_resv *resv = bo->tbo.base.resv;
- 	int ret;
- 
--	if (!dma_fence_is_signaled(ev_fence)) {
--
-+	/*
-+	 * Imports are created in TTM_PL_SYSTEM and this is the only place a VM
-+	 * using user queues binds them, so validate those even when the fence
-+	 * is already signaled.
-+	 */
-+	if (!dma_fence_is_signaled(ev_fence) ||
-+	    drm_gem_is_imported(&bo->tbo.base)) {
- 		amdgpu_bo_placement_from_domain(bo, bo->allowed_domains);
- 		ret = ttm_bo_validate(&bo->tbo, &bo->placement, &ctx);
--		if (!ret)
-+		if (!ret && !dma_fence_is_signaled(ev_fence))
- 			dma_resv_add_fence(resv, ev_fence,
- 					   DMA_RESV_USAGE_BOOKKEEP);
- 	} else {
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-index f754a4a3a1c2..3118b3036564 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-@@ -264,9 +264,16 @@ static int amdgpu_gem_object_open(struct drm_gem_object *obj,
- 	bo_va = amdgpu_vm_bo_find(vm, abo);
- 	if (!bo_va) {
- 		bo_va = amdgpu_vm_bo_add(adev, vm, abo);
-+		if (!bo_va) {
-+			r = -ENOMEM;
-+			goto out_unlock;
-+		}
-+
- 		r = amdgpu_evf_mgr_attach_fence(&fpriv->evf_mgr, abo);
--		if (r)
-+		if (r) {
-+			amdgpu_vm_bo_del(adev, bo_va);
- 			goto out_unlock;
-+		}
- 	} else {
- 		++bo_va->ref_count;
- 	}
 -- 
-2.43.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
