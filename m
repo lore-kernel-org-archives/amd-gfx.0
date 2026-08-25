@@ -4,125 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 213FDC61DBD
-	for <amd-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 21:23:10 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3C2EFC61DB9
+	for <amd-gfx@archiver.kernel.org>; Tue, 25 Aug 2026 21:24:56 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A224310E1A7;
-	Tue, 25 Aug 2026 21:23:09 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B0B8410E603;
+	Tue, 25 Aug 2026 21:24:55 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="uILx0nHn";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="dpvoEyg7";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010000.outbound.protection.outlook.com [52.101.201.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F0ED10E1A7
- for <amd-gfx@lists.freedesktop.org>; Tue, 25 Aug 2026 21:23:08 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tKZex9xLERLPRXmJxX35Wp+5dzXSfY1dEJkvGaw81YLiRc2PwpHOkUxsO03GS0IFdP8MoFzTq1wg1wFuYlfAVWO1zaMg/QLeCbV6gvgmb/DOJ0+acfRb/r36iJTp7irknHVBQCz4yrEajb23w0wVkl0ZcPWjbjZYcG3JzjkIYtEMUSQJN8OzR1ERzuoEIpDInpg0vAk47jRv9rEozQLcF0tSQPnQ9rYAlActOI0Jfk2Um/kBHpQ8AGGKe10vFIbnA96hC5uv/rIdacmMLkbCKR/I1VNAbHGfTHggOn4Jv+kE5xCORU4fqROZC1quTWqbDUpACPjz+l+T63T/auCjWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bmEcBHPU8mz9MMXDWw6aglbxUrahVl46m/xbxT6Z/Oc=;
- b=JxYcOxRC1jVOzYWDmwy/ZFdfu/xEx7XSUAQUvi4R1mVn8LQ7dmSAhHOuD+ACRScVxYBQpMp+OKZtZZ1SADXIiyB1rjEq7tLbfsJsyNxySGsUkETLct2YorMKD+ZXWP9wm9HSjdvT0dZcy6G/4IaYqr98vsh45P0LQHFrgzBPTFXIMO5KD2Bu/gpn4hjD5lwlKk5WZk+XalywkFS/1YESXBdRRbFWk1bnZG9fBDZlaoZwmnuQaSQiA2BxWDETK+L/x4ojhha8l+4dvydPBYbgFSaMvsRWVgMud+9eoOQyRpA8t+CJhyRQovySuldanOBkosIFSqr5uEvun0fNoJiEwg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bmEcBHPU8mz9MMXDWw6aglbxUrahVl46m/xbxT6Z/Oc=;
- b=uILx0nHnSCpkAT6T8BtPU47GUYCXozYhGo8fr9RfIMtpVSZrx2/bjH1/XP7BDtiDnmO6hUijHBwHRwc+xkw7PBvdaoKXwcN5eUigEwFYdoYL0wfi7z23bRk8UoqE6alZ4yP/jyc+PFXE2e6wbmP6nSA/Ix10LmLIj/bHM8UliBI=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com (2603:10b6:510:1cb::21)
- by CY5PR12MB6153.namprd12.prod.outlook.com (2603:10b6:930:27::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Tue, 25 Aug
- 2026 21:23:05 +0000
-Received: from PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000]) by PH8PR12MB6914.namprd12.prod.outlook.com
- ([fe80::2893:177a:72b0:6000%7]) with mapi id 15.21.0315.012; Tue, 25 Aug 2026
- 21:23:05 +0000
-Message-ID: <bf88db52-6b66-4731-9750-943cfd64e0a4@amd.com>
-Date: Tue, 25 Aug 2026 16:23:00 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] drm/amd/display: stabilize DCN35 ODM and DSC
- sequencing
-To: Mauricio Bellon <mauriciobellon@gmail.com>, amd-gfx@lists.freedesktop.org
-Cc: Wayne Lin <Wayne.Lin@amd.com>, Mauricio Bellon <mbellon@lenovo.com>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>, christian.koenig@amd.com
-References: <20260825211819.100210-1-mauriciobellon@gmail.com>
-Content-Language: en-US
-From: Mario Limonciello <mario.limonciello@amd.com>
-In-Reply-To: <20260825211819.100210-1-mauriciobellon@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: CH3P220CA0004.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:610:1e8::28) To PH8PR12MB6914.namprd12.prod.outlook.com
- (2603:10b6:510:1cb::21)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A10AC10E64A
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Aug 2026 21:24:54 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-c1671ec8692so26887766b.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 25 Aug 2026 14:24:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787693093; x=1788297893; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=pwy9tP+PnAQKttwIkPiCEGglGcdL28/hF8XnKtMukdw=;
+ b=dpvoEyg7ld2K+sPl7vCbpEU+/8p/tx71Ny6wYkTeTKHNwt/f9YHlPyMSCrRGitHPWk
+ k406kCBbpKtPe4tBs8S6d9BlZm5NG4KfaGtGP3UAY6dHoWfSpo+ZI9qAp05rG4Dx9L8J
+ S9ny5RPZQlaW81amZ+cExFpBnQyyMEf1zvnOkuGSVN2+zBHvNFfrJFWDSzMxlP0kRnr3
+ rsZxJrUEH42K2F1AwCk8lMugnzZPiQZGbB9JpZJrI9aDFBhoJCdFg0WNNpsUfvGb/kBR
+ C/l59Dl4RtxUBruikU+ZUPpxBDy7gN1+Xg1Yzyvu5TnEkKysHA0eoMyTgjuMjEazfsaS
+ YTQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787693093; x=1788297893;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=pwy9tP+PnAQKttwIkPiCEGglGcdL28/hF8XnKtMukdw=;
+ b=Y+/aOLGvgRfXEeqm+pd/lbZ8LJZV36R3n7vq/LuFu+yVgmc585l8WWZOA2Tzj39IlG
+ WFOfVseArHQJPlBDx3RMRRITQDKFrHkJf88d8a4Zn7wcOUZq6K8HevPHBJLVMe6MCvEn
+ NtTmjpV5p+ozz1HAixTppzoDDlIMoSBWYd0OED7T2Dz72eEPdBWWjwfqmwdxfss6kNXm
+ f0kJRBVwCkK+OF3n21E3HCGxD+FF+TIloYmJHIHcYUqzHfFY+L4YAhW/muEgW/5xeu9s
+ 2IBIlSvS2QfGILyA0FrGcZOMAKaxaQuV6QijYInt7GSmOoZF/pUCTqZmEMlwMJQlU7+k
+ Jejw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp3zQ8L7xW13alQzG899nLPFzBXyrzW5U2z/jFa6KuqSG+L8HQgRygTJyl6m/Mvl4FUOtWb32zY@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kvz3T8Am7H2rK2jUgwKjbgTK90lRM4JEBe0NXeklKgD/8I0DCV
+ TsaywlJSgmg0M5kCKAM7JpHwsctgF6jbDwEVdj3vjprH7Hw8u4Iwr6XY
+X-Gm-Gg: AR+sD13ZhV9WNbEY5/Tcp9D+7A8dJnV72GjRknprenvDt/NHuIV5z0C4QA03bOHuPz4
+ Y7+o/vFXiCmtjLeCHlJX3VTfmkQ1GnoQetbXZliKKd28UKGExBGszm42TJTOMLmaldLts4S8eut
+ pFE87sHJI+Fxk7fkFlMQSYLnqwIA37MstiinHiFRxBF0RbFRI7+G4Yo+yvVJhU9QeS0Nzd/1I0r
+ xuNbMt7j42flHSQVFU78HuXLK72FKC99s7HwNPHcLJJE2IiDCFhGOI4egPniunEZUxkUHP+LAy3
+ ncky1TQtI5o1wDpmdXxiAu4nO5KKRP/3XlPGyjJFgAQjMSNBXnw43BBXtIuZp2mvH+lQoBfkMBn
+ GOeYXaDbD/dmpys95YZjEKQDPTH/u/5oD++os+EGwI3XhMJ9FH0cxDmmyWWnEvtyZavqXLc0jWV
+ Y07fQaVWyVlWgySie4Fi1BICUb3FcSm8JrmAnlV0ydESMsWxBZLi+NX0FlIgsphetRCIwdRHpsW
+ W7tNfoQJx6claSlMMY8RZDsnAqx4qG9i0hi/rADyUPpKmXLnCav9W6nF5ed
+X-Received: by 2002:a17:907:1b23:b0:c16:4df6:176b with SMTP id
+ a640c23a62f3a-c250c6751bamr144503066b.20.1787693092403; 
+ Tue, 25 Aug 2026 14:24:52 -0700 (PDT)
+Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c250bbc5c02sm85136366b.61.2026.08.25.14.24.50
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 25 Aug 2026 14:24:51 -0700 (PDT)
+From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+To: mwen@igalia.com, airlied@gmail.com, alexander.deucher@amd.com,
+ christian.koenig@amd.com, daniels@collabora.com, harry.wentland@amd.com,
+ leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, pekka.paalanen@collabora.com, siqueira@igalia.com,
+ sunpeng.li@amd.com, tzimmermann@suse.de
+Cc: alex.hung@amd.com, Daniel.Wheeler@amd.com, kernel-dev@igalia.com,
+ lyude@redhat.com, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: Re: [PATCH v3 0/3] drm/atomic-state-helper: fixes for blend-mode-prop
+ warning
+Date: Wed, 26 Aug 2026 02:24:49 +0500
+Message-ID: <20260825212449.48288-1-mikhail.v.gavrilov@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260813143605.106104-1-mwen@igalia.com>
+References: <20260813143605.106104-1-mwen@igalia.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB6914:EE_|CY5PR12MB6153:EE_
-X-MS-Office365-Filtering-Correlation-Id: cb06a48e-311b-4f52-e79b-08df02ef0cf6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|366016|376014|23010399003|22082099003|18002099003|13003099007|3023799007|10067099003|56012099006|5023799004|11063799006|6133799003;
-X-Microsoft-Antispam-Message-Info: 15jnWDathF1/dqmhLoaPer/PEbewzkqSCt63Y/7gdDGxaXAphZSxmCa1RiRtV4mQ2j2S/ItfphL+ahJvtwF5+j+DnU1frQfuRoBXYYfM9d1j5+vjjl0sTLr0G3uHq+UbLVC0mBsc0sAVokfq5wRyqPghi0+3ef6FJZTx7vfoBCu6z9Aqms6GDMjTJmX5YW6LwxOBpUXFCA2auTnEZ9CkWuSI155renU3cYxAZcuM/HukOXbOuIlSjNYBL0nB5Egwt7myiNPtdGfJaVK/36h56Lun5oWaOH0Ifo7F1u8J1CuygC6MCpbPAd1W6DirCcnnughdMN2SeA2PWSbs9h0ZRVfRzzWec9xLI+Rz9lQ4z+wsCpOhCexIb41WUOxbyR0Kl+3qf+6POiS/GPT4/YUeXiLq+lLsduTne4hQCvaSUsW++N3KBJBJcYqAf2edQukkA5/2WILEy+1mqBQr7bMWpdtwJpI5AC22kIaceUNH4udzTDXQKTgQXHbkZ+5JtwRoeIwwz8gxgiC0DM+mDPac/TBcMs54B9hzGxO2Q7mt7jsObOPF+E1ehEnXvJVl8zDuEUzLLBmN7VJKWDhasjV4pD71wG8TGymlqoGb42mZKuW1VaI5gZlH+P27ZsuLcDNb
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH8PR12MB6914.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(22082099003)(18002099003)(13003099007)(3023799007)(10067099003)(56012099006)(5023799004)(11063799006)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SDBKenJCQ3FwN29mL1pCSWx0ZHFQTURwcThJcUczd0FHRld0aDlNamtsWWxu?=
- =?utf-8?B?V0doanYxaTJBUE82MXBCYzlvdUpLOVZPdWRKakE1SXIrWVk4TGhtM0hsQWox?=
- =?utf-8?B?YlJzbzJhZlE3cU9saVk5MDljQ1VrTzRkNWpNdUU2NFFNNmhYNDFBNnpqOEdm?=
- =?utf-8?B?QmMrbHdQemdXUVoybDgraGI2YStLaG1DdDZsVlhjM0Q2dWRVOWM3enpIZU91?=
- =?utf-8?B?QXdnc2Rob2VvK2tJUWRaYkE3K3pCaHJzREhBVSt3aDhNdVlleWYvR2hQYk5X?=
- =?utf-8?B?Q255VjdTNFQydE9oejJncnNHNm1nTjFpTTJ1SkNHRm9KRnlZcHJLV0doMFRS?=
- =?utf-8?B?b0J5UXN6U0tmcmNPYmkzRGZrN05wZVV3K3YydG1yUmxpUk1WNEVlWExvZE9W?=
- =?utf-8?B?MEgyZXVUMWxORHFCOUFybXV0MXYyQnlwQkkxQkg4aDh5c0JENVJQVUpQazZK?=
- =?utf-8?B?bjVYRVlBTE5qbERPVmticzV6MVl5VzV1SW5tODhGVk5KN09YMDQrMkdnRTBG?=
- =?utf-8?B?UGZibnZQSWpUZXdoK1AxYmVPaVk1RzJZQVgrWjIxbTRaa2NHc1RDTUpIRXA0?=
- =?utf-8?B?d0dudzZWcUx1TmV4QWRYRS9qUkdkemlENDNLdVRYRlJZZ2dNUzdIZ3ZUZFhs?=
- =?utf-8?B?WDI2UlYvMTRCRGpvTEh2UlFTL2dsUXdJYmhoRDhZVytkL0lMWU5hTEljMGh2?=
- =?utf-8?B?eE5wRWlVTGQ2YmxMb005ZDFyWGFDOWgySnRGbjJwR1BFMEd2TklkdXoxL1Zu?=
- =?utf-8?B?L1pqdDF3UjlPYlpJV2c1TkhBT0xaMENkdFBFSE1UakgvZGo3Ni9uK2NmVTRI?=
- =?utf-8?B?RnlIVXhCVWdsam94eG1sRkdkdEJaWGQ3aWRtbkZsYkZyOTJiMlZMczVrQUox?=
- =?utf-8?B?YXA1b3hma3p1Q0kyNENoVmJCdjUrRWFBcm5DZDhsMm9hSHNRRGNrNDlwMm01?=
- =?utf-8?B?cUJVcUpLYVUwZitZQTdSNkNHR1VYT2ZETWx4andqWXBTRXUzT1RJZGtpQzAz?=
- =?utf-8?B?ZmRFRUt6S3RtOVhzdVI1dHpMQmNaQUlTS0hzcXd6Z294ejB6bWViT2w4aTBN?=
- =?utf-8?B?ZmxnZnZrZGd2ZlhYbDROZnRnMUx5dTI1WVMzWTM2Z3BGWmlSdkFOSktVaEgr?=
- =?utf-8?B?WXdwR2NCZnFVMFdYRit2RU4rSmEwWTdmSm1aQXJqVlk2Yi96Ykp3UTFiN0N2?=
- =?utf-8?B?SWxpUWJ4dnZOU0c1SklRSE9QSmVoL1pVZEl6MEdGZnJtbmNXOGgybGFEcWl5?=
- =?utf-8?B?ZjI5N1p2cEtKbjAwSjZOWVZaU1BtY0VFSEtZMGNJYXlxVGE0SWpsQkdnVWEr?=
- =?utf-8?B?aDNZcVhEUHFaRnhid2ZrbHUrZG85OG9qUWRkS3RDeXovRHNvN3NIY2NoaUlu?=
- =?utf-8?B?S05PTTdEWU1GaFl3NFRVRGFSVFNOODc0THZ6VDhjSmRHQUcxcUlCaG5FSzdM?=
- =?utf-8?B?OW9vT3pwbjU2dFJ2UFREdHFwVWxXc2R0SVFiWjE5enJKOTJFQ0pKdjIvR0Vx?=
- =?utf-8?B?Wm1DUmlQN1lGS0ZKbzhndzgwWE9XeDE1ckZQSkxiNXF1Ym9Ram9TeTV1SFFW?=
- =?utf-8?B?U01MQ0RnM2x6KzEySFJQUWl4ZXRkTVBRSDM1eEpJN0xoNXUxZlByanBTQWpD?=
- =?utf-8?B?Q2hkcWVHV2NNQWRETXlnV0pzbitKdlN5UkpCTmNJMFpIYWJjVm1yaUs0WVVD?=
- =?utf-8?B?NDRZdGUrTS9DSit2MW96aXVLNVprUjFRYUh2TXdGNVV0ME91VkZaUmV4SFor?=
- =?utf-8?B?Yk9nTzVzUTBLcHM3QXFLSkI3UDJxUE94RU1kMWpQa2dOSklvR09LS2h3U0lR?=
- =?utf-8?B?MCtHamI5SWVFZVlSMGh3U0IxY2NBNWhsaG91TWVZWGN5bk1lcys0NTdEanNh?=
- =?utf-8?B?TVVsUWV1ZGlGdVBlbXdxZ2c2aHVmTkhPSEpCZzl2RzhVLzNCdGEveWtBeHpm?=
- =?utf-8?B?QlJrSHNMSFJvdEpXUlpqOHhINUtiSFRJRTFwSmdPMUZuc3F6SjRaRFpySW5O?=
- =?utf-8?B?YWhVMXhDbkE5eVRFN2doQmM0cUhSeGhJRkV0MEFZTlZDRG5VekZNZHlzMDdT?=
- =?utf-8?B?R2hCeWZ0WVpyWEsrVDVQMVVzdmpzUGh4OHkwN3NoSGFzZGlCdE1EQ2ZRVFU0?=
- =?utf-8?B?NTJmRUYrSERaTW1EYnBleTBuRm1id1RnRFNiaUhtSEpCTDdlMTRYeHY5UDZT?=
- =?utf-8?B?MWt1VUIyTWV3YzdWWXpRYXpDQ3d4aDNsd1BsTmlrTkRTQ0hSLzNaSUsxQ2NG?=
- =?utf-8?B?V2JscEJGT2J3NCt2WDJhRzZBMHJ2ZXJaZVY0L2JheXJtY3d3UmJ6RDdBenFB?=
- =?utf-8?B?QStaQUpkRzdLM205RVNtQ0pnQUliZmR5eVdRdFF5cGdaQkRJaURMUT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb06a48e-311b-4f52-e79b-08df02ef0cf6
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB6914.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 21:23:04.9311 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 14ssJeSgeFlUq7lIZtgTkZzXZxniz9yoVIFyffntWTaJSEBvo/Dp0+46CdcWy48JXjI2XnKd7U3CcODrgHGApQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6153
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,66 +95,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/25/26 4:18 PM, Mauricio Bellon wrote:
-> From: Mauricio Bellon <mbellon@lenovo.com>
-> 
-> Two related direct DisplayPort failures occur on DCN35 with a
-> high-refresh DSC stream using two-way ODM. A normal transition from
-> 4K120 to 4K144 can commit successfully but produce no visible output.
-> After 4K144 is working, a long-pulse hotplug can reconstruct the same
-> stream but leave the monitor black.
-> 
-> The first patch stabilizes the DCN35 ODM update. It exposes the missing
-> ODM double-buffer pending-clear callback, keeps the horizontal timing
-> divider under manual control while programming the ODM topology, waits
-> for the update to complete, and restores the timing-derived target
-> manual mode.
-> 
-> The second patch enables sink DSC before source DSC in the DPMS-on
-> pre-enable path and removes the later redundant sink DSC enablement.
-> 
-> The complete series was built and booted as
-> 7.1.0-bellon18-amd-final+ on a Lenovo ThinkPad X13 Gen 6 AMD with a
-> Krackan Point Radeon 840M and Corsair Xeneon 32UHD144 connected directly
-> through USB-C DP Alt Mode SST.
-> 
-> The following scenarios all produced stable visible output:
-> 
-> - 4K144 initial modeset
-> - 4K120 to 4K144
-> - 4K144 to 4K120 to 4K144
-> - 4K144 long-pulse unplug/replug
-> - repeated 4K144 unplug/replug cycles
-> 
-> This series covers the direct-SST modeset and hotplug reconstruction
-> failures. It does not claim to address the separate DPIA/MST warning
-> observed through the USB4 dock.
-> 
-> The commits retain my Lenovo author and Signed-off-by address. This
-> submission is sent through my personal Gmail account because Lenovo
-> email is not compatible with git send-email.
-> 
-> Bug report:
-> https://gitlab.freedesktop.org/drm/amd/-/issues/5033
+Hi,
 
-Thanks for the submission.  If there ends up being any changes to it, I 
-would suggest adding to both the code commits:
+On current mainline every boot on my machine produces this at amdgpu probe:
 
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5033
+  [PLANE:44:plane-0] pixel format with alpha exposed but blend mode not setup
+  WARNING: drivers/gpu/drm/drm_mode_config.c:872 at drm_mode_config_validate+0xa16/0x13b0
 
-No need to spin for now, whoever reviews and accepts this can add that 
-when committing.
+16 times per boot: 8 per GPU, on the 4 primary and 4 cursor planes of each of
+the two cards in this box. I bisected it to 860e748bddcc ("drm: ensure blend
+mode supported if pixel format with alpha exposed") and confirmed it by
+reverting that commit, before I found this series.
 
-> 
-> Mauricio Bellon (2):
->    drm/amd/display: stabilize DCN35 ODM update sequencing
->    drm/amd/display: enable sink DSC before source DSC
-> 
->   .../amd/display/dc/hwss/dcn35/dcn35_hwseq.c   | 20 +++++++++++++++++--
->   .../gpu/drm/amd/display/dc/link/link_dpms.c   |  5 +++--
->   .../amd/display/dc/optc/dcn35/dcn35_optc.c    |  2 ++
->   3 files changed, 23 insertions(+), 4 deletions(-)
-> 
-> 
-> base-commit: 232bf7d5453df6cc0d877a1003f9aa172e9750de
+With all three patches of this series applied the warnings are gone.
 
+Base: 66498c75b4f8, kernel 7.2.0-66498c75b4f8+ #154, KASAN and lockdep enabled.
+Hardware:
+  0000:03:00.0 Navi 31 (0x1002:0x744C), DCN 3.2
+  0000:0f:00.0 Raphael iGPU (0x1002:0x164E), DCN 3.1.5
+
+After booting into a normal desktop session:
+  dmesg | grep -c 'blend mode not setup'      -> 0
+  dmesg | grep -c 'drm_mode_config_validate'  -> 0
+  drm_info | grep -c 'pixel blend mode'       -> 20
+
+i.e. all 10 planes on each GPU (4 primary, 2 overlay, 4 cursor) now expose the
+property. No WARNING, no UBSAN and no lockdep report anywhere in the buffer.
+
+What I did not cover: I have no DCE hardware, so patch 3/3 is untested; and
+since PREMULTI is present in the blend caps of every plane here, the property
+default lookup added by 1/3 resolves to the same value that was hardcoded
+before, so that path is exercised only in its trivial case.
+
+Tested-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+
+One question about routing: 860e748bddcc landed in the 7.3 merge window, so
+this is a merge-window regression - it was never in a release, and no stable
+backport is involved. But the fix should still make 7.3 rather than wait for
+the 7.4 merge window: right now every amdgpu machine on mainline hits this at
+probe. 271e90eb5f9f ("drm: use drm_warn() in
+validate_blend_mode_for_alpha_formats()") is already in drm-misc-next-fixes,
+while this series is in neither linux-next nor amd-staging-drm-next. Could it
+go the same way - drm-misc-next-fixes while the window is open, drm-fixes
+after -rc1 - instead of through amd-staging-drm-next, which is aimed at 7.4
+now? Splitting it looks wrong anyway: 3/3 gives DCE planes a property with
+PIXEL_NONE only, which needs 1/3 to not end up with PREMULTI in the default
+state.
+
+-- 
+Thanks,
+Mikhail
