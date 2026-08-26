@@ -4,27 +4,27 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99ED1C61DBD
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 17:55:38 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 632F9C5DF97
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 17:58:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F23610EC06;
-	Wed, 26 Aug 2026 17:55:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E262310E8E5;
+	Wed, 26 Aug 2026 17:58:50 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.217.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 164D110EB09
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 17:55:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1BB6410E8DA
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 17:58:48 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 67QHtS9O558639; Wed, 26 Aug 2026 23:25:28 +0530
+ 67QHwiON560026; Wed, 26 Aug 2026 23:28:44 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 67QHtRR0558638;
- Wed, 26 Aug 2026 23:25:27 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 67QHwiGn560025;
+ Wed, 26 Aug 2026 23:28:44 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v1 1/2] drm/amdgpu/userq: use fence_val instead or rptr
-Date: Wed, 26 Aug 2026 23:25:21 +0530
-Message-Id: <20260826175522.558594-1-sunil.khatri@amd.com>
+Subject: [PATCH v2 1/2] drm/amdgpu/userq: use fence_val instead or rptr
+Date: Wed, 26 Aug 2026 23:28:40 +0530
+Message-Id: <20260826175841.559992-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
