@@ -4,25 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3497CC5DF97
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 23:28:07 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EADE6C61DBE
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 23:28:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9DB8810EE55;
-	Wed, 26 Aug 2026 23:28:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4793F10EE56;
+	Wed, 26 Aug 2026 23:28:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xnVkDvmQ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vGA/YKqR";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011062.outbound.protection.outlook.com [52.101.52.62])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0179010EE55
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 23:28:04 +0000 (UTC)
+Received: from DM5PR21CU001.outbound.protection.outlook.com
+ (mail-centralusazon11011047.outbound.protection.outlook.com [52.101.62.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA1D610EE56
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 23:28:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rwg/bKgVsrbYHS4RTm62WCzSdE9MxfBQXidEZlU6+erfJ6k/uWyJkT9EELNCI6lWTgClFBQR7dg1sYO9o3ZPcQNhYCPHKqUOgwT8Jup1nWepRxpaID+81p02953eX8YxerS6kf6zn6DjxpK+XlwMCNkZ8z44LXPlJuVChvhUZOIuLVyPzY+LQZJ9wfpIQSvKHCU2dTQaVS0hH4ddjSHraUJMh0mZNESWUro/RcFkcoxkWXuTOkdaIBUzrbG/gjq7ACW4pccunZSk3YgoDWQZm5c44/3GCeOEV+cwfTkdcuOLOItF6HRn4tTLbgEq1jaYh+/KjFWjsSiNQzRWCBMTmg==
+ b=URR9lL3vZjulJab5EKbJjHTKEeMpVA4ECe7Uwt5B6p1c8RukzGwxjZ+dUA7QH6b4eE4RBljPuY4p6QXVj3kSZjPaigr/kpU1xNoQDTuo45gxOBgGf97CyPFFCbX+thrFNDrvyzpLdxcivbd1dCRsR8ZQjhi8qBK1uxXleKlTnd1ACv/XroL66KJc+2K1oOwLQiMQrcLxzqdniqtnRwUmIHe/frcxU3nd02GIUbtYMjJP/G7fpfcCGSrF6lyzb/jd+BHazlQZEYo0Su+kn4hceihuekMg3DKu1HeL18OwB/bYkinYJwJM90a/gACmuEYvn7fyQFvNbygcUaeSCx9RPg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cFkgtG8VugrtrO+XqfMyYejBVXi63H9wYxWkftUPO7s=;
- b=Jdjtc4G2HqwCEGBvJhZUdzWwcwLhzZJHsInq0/zCSNfjiYALBgsxT2ZSNYOunUsNqhoED2/yQeRPh5brmHWTPMVMf1bmROGYqCsp0BnZN6M8t42dEANC944VXn/GKdHD9Rd1zR4WblTbNOUmIT8bzhS2sEp7A/e3PMmn0TbTYOVAinZPQ5zXrJlZ+b5F88mCvGavnW5kg8jlYLlf3jE31bsN/CN0QFTsnnA7ZRJMcqpNaeY/l1/OB3B0uExB7CBlS1sDxgaBusTddsgoR1EjY40amC4/mpvft5SuNp0jqQ9S7BgbXT6lUd6DjAfjsqEx8ovnZgW5wCFOPPPDTkIXfg==
+ bh=EVa+/71oiHqVlHoERwaXrfk4dh2lLVJQ5T1esrLHdE8=;
+ b=eFEgLo/3eAbv2uze0UgpJSIL2Uu4a0OfREezywHVezIDiFgsozemAA2aryUQdBFrOTMdITC5+nId1GUFlTfunUD6Y8m4fMsVjjHz2MBZTqtFlAHJC8TU5AmHKqs0eMa4vY0UZnEb00vm5N6ztdajv1VYusUb+W1ZorGx5uVDfhLz04X5Rdsc733bqEtXPe7t5tohYVZpI+nU5Rb3qfEKWAKyzqSCJvPe8TcN2ZBf8JpOLiMohFyTbQWukRbV5O544cAK2wQcZlOSKrNyggR8zd1MmjVxkGq9dS5AE4KV1GmflrN5bRg/wn44b+95SsAagJLwbNLE7yqpSLXEE4zJhg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 149.199.90.133) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=quarantine sp=quarantine pct=100)
@@ -30,31 +30,31 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cFkgtG8VugrtrO+XqfMyYejBVXi63H9wYxWkftUPO7s=;
- b=xnVkDvmQktdV8KhXG8Rdk8HnvfNLAPGyFgIrEX3LMYN3/sXAP72wcd/VtPSal5yrjkwnewO/84Sh1UYzwoYUL+1ocVFHovhQbdClqebKX3v/l9F1BQOF4+r3tMcUTX6xsQa7KBB43+UrxQu9AVEvUbwsLLb2mpgnPmYKwibo04U=
-Received: from SN7PR18CA0013.namprd18.prod.outlook.com (2603:10b6:806:f3::31)
- by PH7PR12MB9066.namprd12.prod.outlook.com (2603:10b6:510:1f6::5)
+ bh=EVa+/71oiHqVlHoERwaXrfk4dh2lLVJQ5T1esrLHdE8=;
+ b=vGA/YKqR/bxfTX5YkMEEFi8kgAQZUJVjfzJey9rCmUsERu5L5+FAWzIAPQAz9E73dm2RcsfQ4Zny1nVcoVm76mHE2tzdECzjzCImwNUaiO3RYw6gwKQX5/lfv9PK1HriAcEDrIs526hczRCd438d1GJ88hsMF8T5YRbkcyJiC0o=
+Received: from SN7PR18CA0028.namprd18.prod.outlook.com (2603:10b6:806:f3::11)
+ by IA0PR12MB7529.namprd12.prod.outlook.com (2603:10b6:208:431::18)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Wed, 26 Aug
- 2026 23:27:54 +0000
-Received: from SN1PEPF000397B5.namprd05.prod.outlook.com
- (2603:10b6:806:f3:cafe::12) by SN7PR18CA0013.outlook.office365.com
- (2603:10b6:806:f3::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.8 via Frontend Transport; Wed, 26
- Aug 2026 23:27:53 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Wed, 26 Aug
+ 2026 23:28:14 +0000
+Received: from SN1PEPF000397AF.namprd05.prod.outlook.com
+ (2603:10b6:806:f3:cafe::90) by SN7PR18CA0028.outlook.office365.com
+ (2603:10b6:806:f3::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.7 via Frontend Transport; Wed, 26
+ Aug 2026 23:28:13 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=quarantine header.from=amd.com;
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 149.199.90.133 as permitted sender)
 Received: from satlexmb07.amd.com (149.199.90.133) by
- SN1PEPF000397B5.mail.protection.outlook.com (10.167.248.59) with Microsoft
+ SN1PEPF000397AF.mail.protection.outlook.com (10.167.248.53) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 23:27:53 +0000
+ 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 23:28:13 +0000
 Received: from localhost.localdomain (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
- 2026 18:27:48 -0500
+ 2026 18:28:06 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,9 +64,9 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 36/59] drm/amd/display: Test PSR dirty rectangle filling
-Date: Wed, 26 Aug 2026 17:05:07 -0600
-Message-ID: <20260826231519.881949-37-alex.hung@amd.com>
+Subject: [PATCH 37/59] drm/amd/display: Test plane reset decision
+Date: Wed, 26 Aug 2026 17:05:08 -0600
+Message-ID: <20260826231519.881949-38-alex.hung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260826231519.881949-1-alex.hung@amd.com>
 References: <20260826231519.881949-1-alex.hung@amd.com>
@@ -78,30 +78,30 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B5:EE_|PH7PR12MB9066:EE_
-X-MS-Office365-Filtering-Correlation-Id: c07cae2d-a8a5-412b-dda7-08df03c9a730
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397AF:EE_|IA0PR12MB7529:EE_
+X-MS-Office365-Filtering-Correlation-Id: 208517e2-ec51-462a-5d47-08df03c9b31c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|23010399003|36860700016|5023799004|11063799006|10067099003|56012099006|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: Fh6OQ97K+QG+UlKUTtkMfOWytVlrDZWcIYloA5N1CFwX6OGE6hhKEbWY79C+5EtmwPB/v2N2Yw6v2tInytdumlQoeafuKxQT00UP373FdpvnfvwYX+d+sxrIJcaf1jwjkGUehAcL0cKIXQmoTDvwcloWArrGW8qY0fcWKUvpFI/gZijbh7QYjxAXljxfBQAOwTBlUrQcgb2ApwFMNQX+JCOBkiY3mjw/deczcF7Dw2WNJVYDHLpAXUGjOSpoQw1PTSsXi82Wz0/2hqY8rfgJxVE+WMxHMipfavtb817sZMH3z2m0piwOgNZVOHRbu7yhvKxNAQBpPnvu58miAhi/JQhuaJOZisJ+X/+P4kkIQc5CQ1gKtNtg0x5RF0kNwVg768N5OSGFXq9ry+WXTHI5o8J4msfBU9vhGa3X+/rZ4op9zoG5rRLa7ksDdihg7ngP1NEnOG92GFh4G/G5Y6cHX+cQchP27qWSWdhlFoHa+/f7w91ibJCrT9FCxjg3V+UL9NjTh9Q3HEaQAmETzf3iDAWZLrnauf4ouosC677IBYolhs80YBW33Zs7SK2evT+oXoOt0N3JABW5f2eqxgX7PiZ10OqkGmf+UH1XEJzX8TDyPsD4Yt5YFzJM08jvLTxn7gcOCLAo6i6U/jF632CeUUZWLO+tORSaL8KbvsfxF6cahuaovNumUDNSn5Co/FkmeJfbNGlg8R4u9OuGjR+7IQ==
+ ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|56012099006|10067099003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: nw5zsuIfJTAnnh+NiVI7DGJO5xrF+q4pw18Y2ysWy8ulE773HlrXKUDTvRD993tmU3yTLHYoe8k9y/7Y4r3ehh0cQJQh0A8cYQI6F2VWk3SpBfjAZSsdmutMMVkhUghm6b3VWW2I2TI6HDsvc7Wcnbwku3YyP9xSNXQMPmAB+QK5iLNFSUF16lG0yCd7dw8tDWit7uMzop91bFBlVMig5X5QPlnQ7dKx8fY6zGwaFI0qkZJ4xBO/x7ZJXvzRPyP74nxYJqnjHz8Zd3fQdDIMtURCYT76rF0BAZ9dDA1Q8rLX6m3bPGitRkRcJ/zFK/fAm531x1TN1hnrUsVm6RFWynf6BjYudKwLTst//czB7UJc7hvHRqYBl9iae64JISgdYj60Yk4EDNPWgVZVQ3jrSxfowl6bByvSgRn+MBOHzpBsbAhSog2h9Kxwk1Wa3lwlhePTBhGvAf81KhhGtsNRQtR6KjYYIxZogJwqY3Q3M/YhP9icTFXIvksxVkyva3614P4BfgTS4kdp0rX0pUlKh+ybKujzy9TJiVeQSJ7E8Xo1+gTm1eyjuheGS2kCfewBarLWM0VceKPqkPNg9e/+QgZJffkGi6BEBafISXAcT8O1GXF3shXM2k+nssrxF0GgCW5dm7f7qgwH+3v+I0jEe+MZpILnEmAY31sxpmtoxt+wGq+3514I/mAO8uLUSTkQFQ1OX2m1OSKzt796uayhGA==
 X-Forefront-Antispam-Report: CIP:149.199.90.133; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:unknown-90-133.xilinx.com;
  CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(23010399003)(36860700016)(5023799004)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003)(3023799007);
+ SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: lAfteYYeSfPer6sB4hNQb3CuhDWDhjZhfwxHZPBoMu0EfhgrrfA9VoObAInEwC5LtJpHSjvQpyjQ3Iq/LZIwVjKj+Pjtn/VgjOHnw2xPxrp4SXmIVowgyJh8lmdjtTeULQAdJUqcNh8KR4yUxm5xNVLGvd4KVSrpBFUdbHDYlSzaZBb4cK5BDgBF9PWk//UT5P/IYsZzLxWocwipWeOYaRe3S+GYR1pBadZ+ZvJUoPtoBRp9CshQF7mByYgP765I7YO+pJmG9gKY4OtuaCVEQmmBwap6trhteU4lf68O6jVEV5MNYW5j5X3rba4hU8gK1SaAG/i5byNZoq03J2FvC1DcWNtKKzDopuK9h8pNq5Ac7pYrQP0dka6oF4cK6RmEYoAIaGUgNkCoYK1GcB1CbcZc0ZRtOb5OsUNmy29NvpXa8RkJmtETOp2iok2THCty
+X-MS-Exchange-AntiSpam-MessageData-0: 6ABYLx8I0r5zGhPSZ2K+ZJBiRenlClnIERMkWnqF8+TpZiQ7SecLmvSe5tP3I9drrSAa4evV28v4wWSNfE+AF2yoGk0XBsN2QdwVHkWYxDLlZzfurYoHSvjcKxTzdDbvEQcwrt31cEUqVFBdkNlR/5qLNRn7EFUBwCEui+6uYLv9kEDNczNJxpwR/g3gzhUKWjricFe3gE8atBbh7tjT9mvUHSBmU32Iz4UmT3t8l91D3Bo3X07V1bIuNc9vt2DZ1p3X3/0OpYKe7DuqsF+YLU/Ex6TiC46n78BhpcfmcpxsjBASJzAAqzujFVwHAP7PrHSb7fIYkiNNxlDk1dRspuxQe2HwQbhH5zcrsiAt1h+ieYB9jROZx9uhgbRthhp7mVo2Z9uxzHGpTDZ3bOsmzAfodfOyXASGzNZGH08azIyIhyhqfEAiBUXwfCgrK7UN
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 23:27:53.6942 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c07cae2d-a8a5-412b-dda7-08df03c9a730
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 23:28:13.6972 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 208517e2-ec51-462a-5d47-08df03c9b31c
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[149.199.90.133];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B5.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397AF.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9066
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7529
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,438 +117,592 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [WHAT]
-Add KUnit tests for fill_dc_dirty_rects() covering the cursor plane
-bypass, the full frame update fallbacks taken on rotation, on a
-damage-unaware client, on ignored damage clips, on exceeding
-DC_MAX_DIRTY_RECTS and on PSR SU in auto damage mode, the verbatim copy of
-damage clips, and the MPO paths for a moved plane, a flipped plane, stable
-clips and clips that overflow together with the bounding boxes.
+Add KUnit tests for should_reset_plane() covering the pre-DCN3.2 modeset
+hack, a writeback commit, a plane moved between CRTCs, a plane outside the
+context, a missing new CRTC state, a cursor mode switch, color management,
+z-order, modeset, and the fast update baseline.
+
+Also cover the cross-plane loop: cursor planes and planes on other CRTCs
+are skipped, while a moved plane, source or destination size, rotation,
+blend mode, alpha, colorspace, transfer function, pixel format and
+modifier changes each force a reset, and a plane missing one framebuffer
+is skipped.
 
 Assisted-by: Copilot:Claude-Opus-5 GPT-5.6-Sol
 Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  15 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   8 +
- .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 349 ++++++++++++++++++
- 3 files changed, 365 insertions(+), 7 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   9 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   4 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 509 ++++++++++++++++++
+ 3 files changed, 518 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 70f50fa17366..17425791e0ee 100644
+index 17425791e0ee..8db18d7cf49f 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3147,13 +3147,13 @@ static inline void fill_dc_dirty_rect(struct drm_plane *plane,
-  * implicitly provide damage clips without any client support via the plane
-  * bounds.
-  */
--static void fill_dc_dirty_rects(struct drm_plane *plane,
--				struct drm_plane_state *old_plane_state,
--				struct drm_plane_state *new_plane_state,
--				struct drm_crtc_state *crtc_state,
--				struct dc_flip_addrs *flip_addrs,
--				bool is_psr_su,
--				bool *dirty_regions_changed)
-+STATIC_IFN_KUNIT void fill_dc_dirty_rects(struct drm_plane *plane,
-+					  struct drm_plane_state *old_plane_state,
-+					  struct drm_plane_state *new_plane_state,
-+					  struct drm_crtc_state *crtc_state,
-+					  struct dc_flip_addrs *flip_addrs,
-+					  bool is_psr_su,
-+					  bool *dirty_regions_changed)
- {
- 	struct dm_crtc_state *dm_crtc_state = to_dm_crtc_state(crtc_state);
- 	struct rect *dirty_rects = flip_addrs->dirty_rects;
-@@ -3259,6 +3259,7 @@ static void fill_dc_dirty_rects(struct drm_plane *plane,
- 			   dm_crtc_state->base.mode.crtc_vdisplay,
- 			   &flip_addrs->dirty_rect_count, true);
+@@ -5632,10 +5632,10 @@ static int dm_update_crtc_state(struct amdgpu_display_manager *dm,
+ 	return ret;
  }
-+EXPORT_IF_KUNIT(fill_dc_dirty_rects);
  
- static int dm_update_mst_vcpi_slots_for_dsc(struct drm_atomic_commit *state,
- 					    struct dc_state *dc_state,
+-static bool should_reset_plane(struct drm_atomic_commit *state,
+-			       struct drm_plane *plane,
+-			       struct drm_plane_state *old_plane_state,
+-			       struct drm_plane_state *new_plane_state)
++STATIC_IFN_KUNIT bool should_reset_plane(struct drm_atomic_commit *state,
++					 struct drm_plane *plane,
++					 struct drm_plane_state *old_plane_state,
++					 struct drm_plane_state *new_plane_state)
+ {
+ 	struct drm_plane *other;
+ 	struct drm_plane_state *old_other_state, *new_other_state;
+@@ -5795,6 +5795,7 @@ static bool should_reset_plane(struct drm_atomic_commit *state,
+ 
+ 	return false;
+ }
++EXPORT_IF_KUNIT(should_reset_plane);
+ 
+ static int dm_update_plane_state(struct dc *dc,
+ 				 struct drm_atomic_commit *state,
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index ca19977cf788..2e3ad13b773a 100644
+index 2e3ad13b773a..0151913336b7 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -1172,6 +1172,14 @@ struct dm_atomic_state *dm_atomic_get_new_state(struct drm_atomic_commit *state)
- struct drm_private_state *dm_atomic_duplicate_state(struct drm_private_obj *obj);
- void dm_atomic_destroy_state(struct drm_private_obj *obj,
- 			     struct drm_private_state *state);
-+struct dc_flip_addrs;
-+void fill_dc_dirty_rects(struct drm_plane *plane,
-+			 struct drm_plane_state *old_plane_state,
-+			 struct drm_plane_state *new_plane_state,
-+			 struct drm_crtc_state *crtc_state,
-+			 struct dc_flip_addrs *flip_addrs,
-+			 bool is_psr_su,
-+			 bool *dirty_regions_changed);
- void dm_update_pflip_irq_state(struct amdgpu_device *adev,
- 			       struct amdgpu_crtc *acrtc);
- void amdgpu_dm_commit_cursors(struct drm_atomic_commit *state);
+@@ -1192,6 +1192,10 @@ void dm_arm_vblank_event(struct amdgpu_crtc *acrtc,
+ void dm_arm_vblank_event_pre_programming(struct amdgpu_crtc *acrtc,
+ 					 struct dm_crtc_state *acrtc_state,
+ 					 bool pflip_update, bool cursor_update);
++bool should_reset_plane(struct drm_atomic_commit *state,
++			struct drm_plane *plane,
++			struct drm_plane_state *old_plane_state,
++			struct drm_plane_state *new_plane_state);
+ int add_affected_mst_dsc_crtcs(struct drm_atomic_commit *state,
+ 			       struct drm_crtc *crtc);
+ bool amdgpu_dm_crtc_mem_type_changed(struct drm_device *dev,
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-index 0c57b3cc47fe..f5f2b063b355 100644
+index f5f2b063b355..799cd3867a77 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-@@ -1937,6 +1937,343 @@ static void dm_test_mem_type_changed_different_domain(struct kunit *test)
- 							       ctx->crtc_state));
+@@ -2274,6 +2274,491 @@ static void dm_test_dirty_rects_mpo_overflow_ffu(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].width, 1920);
  }
  
-+/* Tests for fill_dc_dirty_rects() */
++/* Tests for should_reset_plane() */
 +
-+struct dm_test_dirty_ctx {
++struct dm_test_reset_plane_ctx {
 +	struct amdgpu_device *adev;
++	struct drm_atomic_commit *state;
++	struct drm_crtc *crtc;
 +	struct drm_plane *plane;
 +	struct drm_plane_state *old_plane_state;
 +	struct drm_plane_state *new_plane_state;
-+	struct dm_crtc_state *crtc_state;
-+	struct dc_flip_addrs *flip_addrs;
-+	bool dirty_regions_changed;
++	struct dm_crtc_state *old_crtc_state;
++	struct dm_crtc_state *new_crtc_state;
++	struct drm_plane *other;
++	struct dm_plane_state *other_old;
++	struct dm_plane_state *other_new;
 +};
 +
-+static struct dm_test_dirty_ctx *dm_test_dirty_ctx_alloc(struct kunit *test)
++/*
++ * Build a fast-update baseline: a DCN 3.2 device with one plane bound to an
++ * unchanged CRTC, so should_reset_plane() runs to the end and returns false.
++ */
++static struct dm_test_reset_plane_ctx *
++dm_test_reset_plane_ctx_alloc(struct kunit *test)
 +{
-+	struct dm_test_dirty_ctx *ctx;
++	struct dm_test_reset_plane_ctx *ctx;
 +
 +	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
 +	KUNIT_ASSERT_NOT_NULL(test, ctx);
 +
 +	ctx->adev = dm_kunit_alloc_adev(test);
-+	ctx->plane = drm_kunit_helper_create_primary_plane(test, &ctx->adev->ddev,
-+							   NULL, NULL, NULL, 0, NULL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->plane);
-+	drm_plane_enable_fb_damage_clips(ctx->plane);
++	ctx->adev->ip_versions[DCE_HWIP][0] = IP_VERSION(3, 2, 0);
++	ctx->adev->reset_domain = kunit_kzalloc(test,
++						sizeof(*ctx->adev->reset_domain),
++						GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->adev->reset_domain);
++
++	ctx->state = dm_test_alloc_commit(test, ctx->adev);
++	ctx->crtc = kunit_kzalloc(test, sizeof(*ctx->crtc), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->crtc);
++	ctx->plane = kunit_kzalloc(test, sizeof(*ctx->plane), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->plane);
 +	ctx->old_plane_state = kunit_kzalloc(test, sizeof(*ctx->old_plane_state),
 +					     GFP_KERNEL);
 +	KUNIT_ASSERT_NOT_NULL(test, ctx->old_plane_state);
 +	ctx->new_plane_state = kunit_kzalloc(test, sizeof(*ctx->new_plane_state),
 +					     GFP_KERNEL);
 +	KUNIT_ASSERT_NOT_NULL(test, ctx->new_plane_state);
-+	ctx->crtc_state = kunit_kzalloc(test, sizeof(*ctx->crtc_state), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->crtc_state);
-+	ctx->flip_addrs = kunit_kzalloc(test, sizeof(*ctx->flip_addrs), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->flip_addrs);
++	ctx->old_crtc_state = kunit_kzalloc(test, sizeof(*ctx->old_crtc_state),
++					    GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->old_crtc_state);
++	ctx->new_crtc_state = kunit_kzalloc(test, sizeof(*ctx->new_crtc_state),
++					    GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->new_crtc_state);
++	ctx->state->crtcs = kunit_kzalloc(test, sizeof(*ctx->state->crtcs),
++					  GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->state->crtcs);
 +
++	ctx->plane->dev = &ctx->adev->ddev;
 +	ctx->plane->type = DRM_PLANE_TYPE_PRIMARY;
-+	ctx->new_plane_state->plane = ctx->plane;
-+	ctx->new_plane_state->rotation = DRM_MODE_ROTATE_0;
-+	ctx->old_plane_state->plane = ctx->plane;
-+	ctx->crtc_state->base.mode.crtc_hdisplay = 1920;
-+	ctx->crtc_state->base.mode.crtc_vdisplay = 1080;
++	ctx->old_plane_state->crtc = ctx->crtc;
++	ctx->new_plane_state->crtc = ctx->crtc;
++	ctx->state->crtcs[0].ptr = ctx->crtc;
++	ctx->state->crtcs[0].old_state = &ctx->old_crtc_state->base;
++	ctx->state->crtcs[0].new_state = &ctx->new_crtc_state->base;
 +
 +	return ctx;
 +}
 +
-+static void dm_test_fill_dirty_rects(struct dm_test_dirty_ctx *ctx, bool is_psr_su)
++static bool dm_test_should_reset_plane(struct dm_test_reset_plane_ctx *ctx)
 +{
-+	fill_dc_dirty_rects(ctx->plane, ctx->old_plane_state,
-+			    ctx->new_plane_state, &ctx->crtc_state->base,
-+			    ctx->flip_addrs, is_psr_su,
-+			    &ctx->dirty_regions_changed);
++	return should_reset_plane(ctx->state, ctx->plane, ctx->old_plane_state,
++				  ctx->new_plane_state);
++}
++
++/**
++ * dm_test_reset_plane_pre_dcn32_modeset - Test pre-DCN3.2 modesets always reset
++ * @test: The KUnit test context
++ */
++static void dm_test_reset_plane_pre_dcn32_modeset(struct kunit *test)
++{
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
++
++	ctx->adev->ip_versions[DCE_HWIP][0] = IP_VERSION(3, 1, 2);
++	ctx->state->allow_modeset = true;
++
++	KUNIT_EXPECT_TRUE(test, dm_test_should_reset_plane(ctx));
 +}
 +
 +/*
-+ * Attach @count damage clips to the new plane state. The blob is only ever
-+ * read through drm_plane_get_damage_clips(), so a bare blob is enough.
++ * Add a connector of @type to the commit so should_reset_plane() walks its
++ * writeback check.
 + */
-+static struct drm_mode_rect *dm_test_add_damage_clips(struct kunit *test,
-+						      struct drm_plane_state *state,
-+						      unsigned int count)
++static struct drm_connector_state *
++dm_test_reset_plane_add_connector(struct kunit *test,
++				  struct dm_test_reset_plane_ctx *ctx, int type)
 +{
-+	struct drm_property_blob *blob;
-+	struct drm_mode_rect *clips;
++	struct drm_connector_state *conn_state;
++	struct drm_connector *connector;
 +
-+	blob = kunit_kzalloc(test, sizeof(*blob), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, blob);
-+	clips = kunit_kcalloc(test, count, sizeof(*clips), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, clips);
++	connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, connector);
++	conn_state = kunit_kzalloc(test, sizeof(*conn_state), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, conn_state);
++	ctx->state->connectors = kunit_kzalloc(test,
++					       sizeof(*ctx->state->connectors),
++					       GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->state->connectors);
 +
-+	blob->length = count * sizeof(*clips);
-+	blob->data = clips;
-+	state->fb_damage_clips = blob;
++	connector->connector_type = type;
++	ctx->state->num_connector = 1;
++	ctx->state->connectors[0].ptr = connector;
++	ctx->state->connectors[0].new_state = conn_state;
 +
-+	return clips;
++	return conn_state;
 +}
 +
 +/**
-+ * dm_test_dirty_rects_cursor_plane - Test cursor planes are left to their own path
++ * dm_test_reset_plane_writeback_job - Test a writeback commit resets planes
 + * @test: The KUnit test context
 + */
-+static void dm_test_dirty_rects_cursor_plane(struct kunit *test)
++static void dm_test_reset_plane_writeback_job(struct kunit *test)
 +{
-+	struct dm_test_dirty_ctx *ctx = dm_test_dirty_ctx_alloc(test);
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
++	struct drm_connector_state *conn_state;
++
++	conn_state = dm_test_reset_plane_add_connector(test, ctx,
++						       DRM_MODE_CONNECTOR_WRITEBACK);
++	conn_state->writeback_job = kunit_kzalloc(test,
++						  sizeof(*conn_state->writeback_job),
++						  GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, conn_state->writeback_job);
++
++	KUNIT_EXPECT_TRUE(test, dm_test_should_reset_plane(ctx));
++}
++
++/**
++ * dm_test_reset_plane_crtc_changed - Test moving a plane between CRTCs resets it
++ * @test: The KUnit test context
++ */
++static void dm_test_reset_plane_crtc_changed(struct kunit *test)
++{
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
++
++	ctx->old_plane_state->crtc = NULL;
++
++	KUNIT_EXPECT_TRUE(test, dm_test_should_reset_plane(ctx));
++}
++
++/**
++ * dm_test_reset_plane_not_in_context - Test a plane outside the context is not reset
++ * @test: The KUnit test context
++ */
++static void dm_test_reset_plane_not_in_context(struct kunit *test)
++{
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
++
++	ctx->old_plane_state->crtc = NULL;
++	ctx->new_plane_state->crtc = NULL;
++
++	KUNIT_EXPECT_FALSE(test, dm_test_should_reset_plane(ctx));
++}
++
++/**
++ * dm_test_reset_plane_no_new_crtc_state - Test a missing new CRTC state resets the plane
++ * @test: The KUnit test context
++ */
++static void dm_test_reset_plane_no_new_crtc_state(struct kunit *test)
++{
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
++
++	ctx->state->crtcs[0].new_state = NULL;
++
++	KUNIT_EXPECT_TRUE(test, dm_test_should_reset_plane(ctx));
++}
++
++/**
++ * dm_test_reset_plane_cursor_mode_changed - Test a cursor mode switch resets the plane
++ * @test: The KUnit test context
++ */
++static void dm_test_reset_plane_cursor_mode_changed(struct kunit *test)
++{
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
 +
 +	ctx->plane->type = DRM_PLANE_TYPE_CURSOR;
++	ctx->old_crtc_state->cursor_mode = DM_CURSOR_NATIVE_MODE;
++	ctx->new_crtc_state->cursor_mode = DM_CURSOR_OVERLAY_MODE;
 +
-+	dm_test_fill_dirty_rects(ctx, true);
-+
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rect_count, 0U);
++	KUNIT_EXPECT_TRUE(test, dm_test_should_reset_plane(ctx));
 +}
 +
 +/**
-+ * dm_test_dirty_rects_rotation_ffu - Test a rotated plane falls back to full frame update
++ * dm_test_reset_plane_color_mgmt_changed - Test a degamma change resets the plane
 + * @test: The KUnit test context
 + */
-+static void dm_test_dirty_rects_rotation_ffu(struct kunit *test)
++static void dm_test_reset_plane_color_mgmt_changed(struct kunit *test)
 +{
-+	struct dm_test_dirty_ctx *ctx = dm_test_dirty_ctx_alloc(test);
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
 +
-+	ctx->new_plane_state->rotation = DRM_MODE_ROTATE_90;
++	ctx->new_crtc_state->base.color_mgmt_changed = true;
 +
-+	dm_test_fill_dirty_rects(ctx, true);
-+
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rect_count, 1U);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].x, 0);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].y, 0);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].width, 1920);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].height, 1080);
++	KUNIT_EXPECT_TRUE(test, dm_test_should_reset_plane(ctx));
 +}
 +
 +/**
-+ * dm_test_dirty_rects_no_clips_ffu - Test a damage-unaware client gets a full frame update
++ * dm_test_reset_plane_zpos_changed - Test a z-order change resets the plane
 + * @test: The KUnit test context
 + */
-+static void dm_test_dirty_rects_no_clips_ffu(struct kunit *test)
++static void dm_test_reset_plane_zpos_changed(struct kunit *test)
 +{
-+	struct dm_test_dirty_ctx *ctx = dm_test_dirty_ctx_alloc(test);
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
 +
-+	dm_test_fill_dirty_rects(ctx, true);
++	ctx->old_plane_state->normalized_zpos = 0;
++	ctx->new_plane_state->normalized_zpos = 1;
 +
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rect_count, 1U);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].width, 1920);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].height, 1080);
++	KUNIT_EXPECT_TRUE(test, dm_test_should_reset_plane(ctx));
 +}
 +
 +/**
-+ * dm_test_dirty_rects_ignored_damage_clips - Test ignored damage clips force a full update
++ * dm_test_reset_plane_modeset - Test a CRTC modeset resets the plane
 + * @test: The KUnit test context
 + */
-+static void dm_test_dirty_rects_ignored_damage_clips(struct kunit *test)
++static void dm_test_reset_plane_modeset(struct kunit *test)
 +{
-+	struct dm_test_dirty_ctx *ctx = dm_test_dirty_ctx_alloc(test);
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
 +
-+	dm_test_add_damage_clips(test, ctx->new_plane_state, 1);
-+	ctx->new_plane_state->ignore_damage_clips = true;
++	ctx->new_crtc_state->base.mode_changed = true;
 +
-+	dm_test_fill_dirty_rects(ctx, true);
-+
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rect_count, 1U);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].width, 1920);
++	KUNIT_EXPECT_TRUE(test, dm_test_should_reset_plane(ctx));
 +}
 +
 +/**
-+ * dm_test_dirty_rects_too_many_clips_ffu - Test exceeding DC_MAX_DIRTY_RECTS falls back
++ * dm_test_reset_plane_fast_update - Test an unchanged plane stays on the fast path
 + * @test: The KUnit test context
 + */
-+static void dm_test_dirty_rects_too_many_clips_ffu(struct kunit *test)
++static void dm_test_reset_plane_fast_update(struct kunit *test)
 +{
-+	struct dm_test_dirty_ctx *ctx = dm_test_dirty_ctx_alloc(test);
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
 +
-+	dm_test_add_damage_clips(test, ctx->new_plane_state,
-+				 DC_MAX_DIRTY_RECTS + 1);
-+
-+	dm_test_fill_dirty_rects(ctx, false);
-+
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rect_count, 1U);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].width, 1920);
++	KUNIT_EXPECT_FALSE(test, dm_test_should_reset_plane(ctx));
 +}
 +
 +/**
-+ * dm_test_dirty_rects_damage_clips - Test damage clips are copied verbatim
++ * dm_test_reset_plane_skips_non_writeback - Test non-writeback connectors are skipped
 + * @test: The KUnit test context
 + */
-+static void dm_test_dirty_rects_damage_clips(struct kunit *test)
++static void dm_test_reset_plane_skips_non_writeback(struct kunit *test)
 +{
-+	struct dm_test_dirty_ctx *ctx = dm_test_dirty_ctx_alloc(test);
-+	struct drm_mode_rect *clips;
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
 +
-+	clips = dm_test_add_damage_clips(test, ctx->new_plane_state, 2);
-+	clips[0].x1 = 10;
-+	clips[0].y1 = 20;
-+	clips[0].x2 = 40;
-+	clips[0].y2 = 60;
-+	clips[1].x1 = 100;
-+	clips[1].y1 = 200;
-+	clips[1].x2 = 150;
-+	clips[1].y2 = 260;
++	dm_test_reset_plane_add_connector(test, ctx,
++					  DRM_MODE_CONNECTOR_DisplayPort);
 +
-+	dm_test_fill_dirty_rects(ctx, false);
++	KUNIT_EXPECT_FALSE(test, dm_test_should_reset_plane(ctx));
++}
 +
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rect_count, 2U);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].x, 10);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].y, 20);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].width, 30);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].height, 40);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[1].x, 100);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[1].width, 50);
-+	KUNIT_EXPECT_FALSE(test, ctx->dirty_regions_changed);
++/*
++ * Add a second plane to the commit so should_reset_plane() walks its
++ * cross-plane loop. Both states start identical and bound to the same CRTC, so
++ * each test only has to perturb the one field it cares about.
++ */
++static void dm_test_reset_plane_add_other(struct kunit *test,
++					  struct dm_test_reset_plane_ctx *ctx)
++{
++	ctx->other = kunit_kzalloc(test, sizeof(*ctx->other), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->other);
++	ctx->other_old = kunit_kzalloc(test, sizeof(*ctx->other_old), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->other_old);
++	ctx->other_new = kunit_kzalloc(test, sizeof(*ctx->other_new), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->other_new);
++	ctx->state->planes = kunit_kzalloc(test, sizeof(*ctx->state->planes),
++					   GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->state->planes);
++
++	ctx->other->type = DRM_PLANE_TYPE_PRIMARY;
++	ctx->other_old->base.crtc = ctx->crtc;
++	ctx->other_new->base.crtc = ctx->crtc;
++
++	ctx->adev->ddev.mode_config.num_total_plane = 1;
++	ctx->state->planes[0].ptr = ctx->other;
++	ctx->state->planes[0].old_state = &ctx->other_old->base;
++	ctx->state->planes[0].new_state = &ctx->other_new->base;
 +}
 +
 +/**
-+ * dm_test_dirty_rects_mpo_bb_changed - Test MPO adds both plane bounding boxes
++ * dm_test_reset_plane_other_cursor_skipped - Test other cursor planes are ignored
 + * @test: The KUnit test context
 + */
-+static void dm_test_dirty_rects_mpo_bb_changed(struct kunit *test)
++static void dm_test_reset_plane_other_cursor_skipped(struct kunit *test)
 +{
-+	struct dm_test_dirty_ctx *ctx = dm_test_dirty_ctx_alloc(test);
-+	struct drm_framebuffer *fb;
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
 +
-+	fb = kunit_kzalloc(test, sizeof(*fb), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, fb);
++	dm_test_reset_plane_add_other(test, ctx);
++	ctx->other->type = DRM_PLANE_TYPE_CURSOR;
++	ctx->other_new->base.rotation = DRM_MODE_ROTATE_90;
 +
-+	ctx->crtc_state->mpo_requested = true;
-+	ctx->old_plane_state->fb = fb;
-+	ctx->new_plane_state->fb = fb;
-+	ctx->old_plane_state->crtc_x = 0;
-+	ctx->old_plane_state->crtc_y = 0;
-+	ctx->old_plane_state->crtc_w = 640;
-+	ctx->old_plane_state->crtc_h = 480;
-+	ctx->new_plane_state->crtc_x = 100;
-+	ctx->new_plane_state->crtc_y = 50;
-+	ctx->new_plane_state->crtc_w = 800;
-+	ctx->new_plane_state->crtc_h = 600;
-+
-+	dm_test_fill_dirty_rects(ctx, true);
-+
-+	KUNIT_EXPECT_TRUE(test, ctx->dirty_regions_changed);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rect_count, 2U);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].x, 100);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].width, 800);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[1].x, 0);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[1].width, 640);
++	KUNIT_EXPECT_FALSE(test, dm_test_should_reset_plane(ctx));
 +}
 +
 +/**
-+ * dm_test_dirty_rects_mpo_fb_changed - Test MPO flips add the new plane bounding box
++ * dm_test_reset_plane_other_crtc_skipped - Test planes on other CRTCs are ignored
 + * @test: The KUnit test context
 + */
-+static void dm_test_dirty_rects_mpo_fb_changed(struct kunit *test)
++static void dm_test_reset_plane_other_crtc_skipped(struct kunit *test)
 +{
-+	struct dm_test_dirty_ctx *ctx = dm_test_dirty_ctx_alloc(test);
-+	struct drm_framebuffer *old_fb;
-+	struct drm_framebuffer *new_fb;
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
 +
-+	old_fb = kunit_kzalloc(test, sizeof(*old_fb), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, old_fb);
-+	new_fb = kunit_kzalloc(test, sizeof(*new_fb), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, new_fb);
++	dm_test_reset_plane_add_other(test, ctx);
++	ctx->other_old->base.crtc = NULL;
++	ctx->other_new->base.crtc = NULL;
++	ctx->other_new->base.rotation = DRM_MODE_ROTATE_90;
 +
-+	old_fb->base.id = 1;
-+	new_fb->base.id = 2;
-+	ctx->crtc_state->mpo_requested = true;
-+	ctx->old_plane_state->fb = old_fb;
-+	ctx->new_plane_state->fb = new_fb;
-+	ctx->new_plane_state->crtc_w = 800;
-+	ctx->new_plane_state->crtc_h = 600;
-+	ctx->old_plane_state->crtc_w = 800;
-+	ctx->old_plane_state->crtc_h = 600;
-+
-+	dm_test_fill_dirty_rects(ctx, true);
-+
-+	KUNIT_EXPECT_FALSE(test, ctx->dirty_regions_changed);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rect_count, 1U);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].width, 800);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].height, 600);
++	KUNIT_EXPECT_FALSE(test, dm_test_should_reset_plane(ctx));
 +}
 +
 +/**
-+ * dm_test_dirty_rects_psr_su_ffu - Test PSR SU ignores clips in auto damage mode
++ * dm_test_reset_plane_other_crtc_moved - Test moving another plane forces a reset
 + * @test: The KUnit test context
 + */
-+static void dm_test_dirty_rects_psr_su_ffu(struct kunit *test)
++static void dm_test_reset_plane_other_crtc_moved(struct kunit *test)
 +{
-+	struct dm_test_dirty_ctx *ctx = dm_test_dirty_ctx_alloc(test);
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
 +
-+	dm_test_add_damage_clips(test, ctx->new_plane_state, 1);
++	dm_test_reset_plane_add_other(test, ctx);
++	ctx->other_old->base.crtc = NULL;
 +
-+	dm_test_fill_dirty_rects(ctx, true);
-+
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rect_count, 1U);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].width, 1920);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].height, 1080);
++	KUNIT_EXPECT_TRUE(test, dm_test_should_reset_plane(ctx));
 +}
 +
 +/**
-+ * dm_test_dirty_rects_mpo_clips - Test MPO copies damage clips when the box is stable
++ * dm_test_reset_plane_other_scaling - Test src/dst size changes force a reset
 + * @test: The KUnit test context
 + */
-+static void dm_test_dirty_rects_mpo_clips(struct kunit *test)
++static void dm_test_reset_plane_other_scaling(struct kunit *test)
 +{
-+	struct dm_test_dirty_ctx *ctx = dm_test_dirty_ctx_alloc(test);
-+	struct drm_mode_rect *clips;
-+	struct drm_framebuffer *fb;
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
 +
-+	fb = kunit_kzalloc(test, sizeof(*fb), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, fb);
++	dm_test_reset_plane_add_other(test, ctx);
++	ctx->other_new->base.src_w = 1 << 16;
 +
-+	clips = dm_test_add_damage_clips(test, ctx->new_plane_state, 2);
-+	clips[0].x1 = 5;
-+	clips[0].y1 = 6;
-+	clips[0].x2 = 25;
-+	clips[0].y2 = 36;
-+	clips[1].x1 = 50;
-+	clips[1].y1 = 60;
-+	clips[1].x2 = 90;
-+	clips[1].y2 = 110;
-+
-+	ctx->crtc_state->mpo_requested = true;
-+	ctx->old_plane_state->fb = fb;
-+	ctx->new_plane_state->fb = fb;
-+
-+	dm_test_fill_dirty_rects(ctx, false);
-+
-+	KUNIT_EXPECT_FALSE(test, ctx->dirty_regions_changed);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rect_count, 2U);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].x, 5);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].width, 20);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[1].x, 50);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[1].height, 50);
++	KUNIT_EXPECT_TRUE(test, dm_test_should_reset_plane(ctx));
 +}
 +
 +/**
-+ * dm_test_dirty_rects_mpo_overflow_ffu - Test MPO falls back when clips plus boxes overflow
++ * dm_test_reset_plane_other_rotation - Test rotation changes force a reset
 + * @test: The KUnit test context
 + */
-+static void dm_test_dirty_rects_mpo_overflow_ffu(struct kunit *test)
++static void dm_test_reset_plane_other_rotation(struct kunit *test)
 +{
-+	struct dm_test_dirty_ctx *ctx = dm_test_dirty_ctx_alloc(test);
-+	struct drm_framebuffer *fb;
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
 +
-+	fb = kunit_kzalloc(test, sizeof(*fb), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, fb);
++	dm_test_reset_plane_add_other(test, ctx);
++	ctx->other_new->base.rotation = DRM_MODE_ROTATE_180;
 +
-+	dm_test_add_damage_clips(test, ctx->new_plane_state, 2);
++	KUNIT_EXPECT_TRUE(test, dm_test_should_reset_plane(ctx));
++}
 +
-+	ctx->crtc_state->mpo_requested = true;
-+	ctx->old_plane_state->fb = fb;
-+	ctx->new_plane_state->fb = fb;
-+	ctx->new_plane_state->crtc_x = 100;
++/**
++ * dm_test_reset_plane_other_blending - Test blend mode changes force a reset
++ * @test: The KUnit test context
++ */
++static void dm_test_reset_plane_other_blending(struct kunit *test)
++{
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
 +
-+	dm_test_fill_dirty_rects(ctx, false);
++	dm_test_reset_plane_add_other(test, ctx);
++	ctx->other_new->base.pixel_blend_mode = DRM_MODE_BLEND_COVERAGE;
 +
-+	KUNIT_EXPECT_TRUE(test, ctx->dirty_regions_changed);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rect_count, 1U);
-+	KUNIT_EXPECT_EQ(test, ctx->flip_addrs->dirty_rects[0].width, 1920);
++	KUNIT_EXPECT_TRUE(test, dm_test_should_reset_plane(ctx));
++}
++
++/**
++ * dm_test_reset_plane_other_alpha - Test alpha changes force a reset
++ * @test: The KUnit test context
++ */
++static void dm_test_reset_plane_other_alpha(struct kunit *test)
++{
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
++
++	dm_test_reset_plane_add_other(test, ctx);
++	ctx->other_new->base.alpha = DRM_BLEND_ALPHA_OPAQUE;
++	ctx->other_old->base.alpha = DRM_BLEND_ALPHA_OPAQUE / 2;
++
++	KUNIT_EXPECT_TRUE(test, dm_test_should_reset_plane(ctx));
++}
++
++/**
++ * dm_test_reset_plane_other_colorspace - Test colorspace changes force a reset
++ * @test: The KUnit test context
++ */
++static void dm_test_reset_plane_other_colorspace(struct kunit *test)
++{
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
++
++	dm_test_reset_plane_add_other(test, ctx);
++	ctx->other_new->base.color_encoding = DRM_COLOR_YCBCR_BT2020;
++
++	KUNIT_EXPECT_TRUE(test, dm_test_should_reset_plane(ctx));
++}
++
++/**
++ * dm_test_reset_plane_other_hdr_mult - Test transfer function changes force a reset
++ * @test: The KUnit test context
++ */
++static void dm_test_reset_plane_other_hdr_mult(struct kunit *test)
++{
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
++
++	dm_test_reset_plane_add_other(test, ctx);
++	ctx->other_new->hdr_mult = 1;
++
++	KUNIT_EXPECT_TRUE(test, dm_test_should_reset_plane(ctx));
++}
++
++/**
++ * dm_test_reset_plane_other_no_fb - Test planes without framebuffers are skipped
++ * @test: The KUnit test context
++ */
++static void dm_test_reset_plane_other_no_fb(struct kunit *test)
++{
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
++
++	dm_test_reset_plane_add_other(test, ctx);
++	ctx->other_new->base.fb = kunit_kzalloc(test,
++						sizeof(*ctx->other_new->base.fb),
++						GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->other_new->base.fb);
++
++	KUNIT_EXPECT_FALSE(test, dm_test_should_reset_plane(ctx));
++}
++
++/*
++ * Give the second plane a matching pair of framebuffers. should_reset_plane()
++ * casts them to amdgpu_framebuffer, so both are allocated as such.
++ */
++static void dm_test_reset_plane_add_other_fbs(struct kunit *test,
++					      struct dm_test_reset_plane_ctx *ctx)
++{
++	struct amdgpu_framebuffer *old_afb, *new_afb;
++	struct drm_format_info *format;
++
++	format = kunit_kzalloc(test, sizeof(*format), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, format);
++	old_afb = kunit_kzalloc(test, sizeof(*old_afb), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, old_afb);
++	new_afb = kunit_kzalloc(test, sizeof(*new_afb), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, new_afb);
++
++	old_afb->base.format = format;
++	new_afb->base.format = format;
++	ctx->other_old->base.fb = &old_afb->base;
++	ctx->other_new->base.fb = &new_afb->base;
++}
++
++/**
++ * dm_test_reset_plane_other_format - Test pixel format changes force a reset
++ * @test: The KUnit test context
++ */
++static void dm_test_reset_plane_other_format(struct kunit *test)
++{
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
++	struct drm_format_info *new_format;
++
++	dm_test_reset_plane_add_other(test, ctx);
++	dm_test_reset_plane_add_other_fbs(test, ctx);
++	new_format = kunit_kzalloc(test, sizeof(*new_format), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, new_format);
++	ctx->other_new->base.fb->format = new_format;
++
++	KUNIT_EXPECT_TRUE(test, dm_test_should_reset_plane(ctx));
++}
++
++/**
++ * dm_test_reset_plane_other_modifier - Test tiling/DCC changes force a reset
++ * @test: The KUnit test context
++ */
++static void dm_test_reset_plane_other_modifier(struct kunit *test)
++{
++	struct dm_test_reset_plane_ctx *ctx = dm_test_reset_plane_ctx_alloc(test);
++
++	dm_test_reset_plane_add_other(test, ctx);
++	dm_test_reset_plane_add_other_fbs(test, ctx);
++	ctx->other_new->base.fb->modifier = 1;
++
++	KUNIT_EXPECT_TRUE(test, dm_test_should_reset_plane(ctx));
 +}
 +
  static struct kunit_case amdgpu_dm_tests[] = {
  	/* Simple DM callbacks */
  	KUNIT_CASE(dm_test_wait_for_idle),
-@@ -2038,6 +2375,18 @@ static struct kunit_case amdgpu_dm_tests[] = {
- 	KUNIT_CASE(dm_test_mem_type_changed_missing_state),
- 	KUNIT_CASE(dm_test_mem_type_changed_same_domain),
- 	KUNIT_CASE(dm_test_mem_type_changed_different_domain),
-+	/* fill_dc_dirty_rects */
-+	KUNIT_CASE(dm_test_dirty_rects_cursor_plane),
-+	KUNIT_CASE(dm_test_dirty_rects_rotation_ffu),
-+	KUNIT_CASE(dm_test_dirty_rects_no_clips_ffu),
-+	KUNIT_CASE(dm_test_dirty_rects_ignored_damage_clips),
-+	KUNIT_CASE(dm_test_dirty_rects_too_many_clips_ffu),
-+	KUNIT_CASE(dm_test_dirty_rects_damage_clips),
-+	KUNIT_CASE(dm_test_dirty_rects_mpo_bb_changed),
-+	KUNIT_CASE(dm_test_dirty_rects_mpo_fb_changed),
-+	KUNIT_CASE(dm_test_dirty_rects_psr_su_ffu),
-+	KUNIT_CASE(dm_test_dirty_rects_mpo_clips),
-+	KUNIT_CASE(dm_test_dirty_rects_mpo_overflow_ffu),
+@@ -2387,6 +2872,30 @@ static struct kunit_case amdgpu_dm_tests[] = {
+ 	KUNIT_CASE(dm_test_dirty_rects_psr_su_ffu),
+ 	KUNIT_CASE(dm_test_dirty_rects_mpo_clips),
+ 	KUNIT_CASE(dm_test_dirty_rects_mpo_overflow_ffu),
++	/* should_reset_plane */
++	KUNIT_CASE(dm_test_reset_plane_pre_dcn32_modeset),
++	KUNIT_CASE(dm_test_reset_plane_writeback_job),
++	KUNIT_CASE(dm_test_reset_plane_crtc_changed),
++	KUNIT_CASE(dm_test_reset_plane_not_in_context),
++	KUNIT_CASE(dm_test_reset_plane_no_new_crtc_state),
++	KUNIT_CASE(dm_test_reset_plane_cursor_mode_changed),
++	KUNIT_CASE(dm_test_reset_plane_color_mgmt_changed),
++	KUNIT_CASE(dm_test_reset_plane_zpos_changed),
++	KUNIT_CASE(dm_test_reset_plane_modeset),
++	KUNIT_CASE(dm_test_reset_plane_fast_update),
++	KUNIT_CASE(dm_test_reset_plane_skips_non_writeback),
++	KUNIT_CASE(dm_test_reset_plane_other_cursor_skipped),
++	KUNIT_CASE(dm_test_reset_plane_other_crtc_skipped),
++	KUNIT_CASE(dm_test_reset_plane_other_crtc_moved),
++	KUNIT_CASE(dm_test_reset_plane_other_scaling),
++	KUNIT_CASE(dm_test_reset_plane_other_rotation),
++	KUNIT_CASE(dm_test_reset_plane_other_blending),
++	KUNIT_CASE(dm_test_reset_plane_other_alpha),
++	KUNIT_CASE(dm_test_reset_plane_other_colorspace),
++	KUNIT_CASE(dm_test_reset_plane_other_hdr_mult),
++	KUNIT_CASE(dm_test_reset_plane_other_no_fb),
++	KUNIT_CASE(dm_test_reset_plane_other_format),
++	KUNIT_CASE(dm_test_reset_plane_other_modifier),
  	{}
  };
  
