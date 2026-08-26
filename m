@@ -4,50 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 703C9C61DD3
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 12:47:36 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 6668CC61DC7
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 12:47:35 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD84E10EFF4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 873BA10EFFC;
 	Thu, 27 Aug 2026 12:47:34 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NANCi/AR";
+	dkim=pass (2048-bit key; unprotected) header.d=imm0nv1nhtv.is-a.dev header.i=@imm0nv1nhtv.is-a.dev header.b="tD8HLVET";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE92B10E88D;
- Wed, 26 Aug 2026 13:24:12 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1DEF2601E9;
- Wed, 26 Aug 2026 13:24:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FF1C1F00A3D;
- Wed, 26 Aug 2026 13:24:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
- s=korg; t=1787750651;
- bh=Cqd5rlsTxLaedU9aEgEh2zTTHv2aryvw/tfpqEpns7M=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=NANCi/ARJj0kpSlQWpB06NKXifUcRwurJI4/eytsCGqntcl7nIx33U0nHQaA5wHjU
- v4WIpIyoKOE+7CZAta5JzftUI9NHRhIfYkSi/zkDqfujmKktt8jMK7oCN8UquhS+gj
- CtzZLR7hc2eDAtxumBaj0oZ2031GxhEZwviG8ihU=
-Date: Wed, 26 Aug 2026 15:24:10 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: "Dr. David Alan Gilbert" <linux@treblig.org>
-Cc: Alex Deucher <alexdeucher@gmail.com>, alexander.deucher@amd.com,
- christian.koenig@amd.com, harry.wentland@amd.com,
- sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org,
- airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/4] drm/amdgpu: Remove is_idle method
-Message-ID: <2026082651-collected-algebra-26c8@gregkh>
-References: <20260815180033.8958-1-linux@treblig.org>
- <CADnq5_PgZx7aDGFD5pPQ=1MvF9_N_omVojNiDQFHjs0Tqasv+A@mail.gmail.com>
- <2026082644-monetize-tingling-0abd@gregkh>
- <CADnq5_N0AxaDZswgEQ7BEcKw8mF2hnSbAQp-w9U2Fy-MaEw8Rg@mail.gmail.com>
- <2026082654-gangrene-support-8541@gregkh>
- <ao7l2qRUJpomS6Bw@gallifrey>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ao7l2qRUJpomS6Bw@gallifrey>
+Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30A0410E10D
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 20:45:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=lark2602131731; d=imm0nv1nhtv.is-a.dev; t=1787777106;
+ h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=bQkE0sp1250wEmpHG0fFU1uyDKyKi32y1d4HaaoYnpE=;
+ b=tD8HLVET4ZuqyWfqkhTP7joZUg5k6z5THi86/hEvhE4KKxCuk5QSjKwNQ0Cp0+TTevfl8W
+ upAF2Lrq6k4vIGpD5uwGaWD2FSHzzXJoMtQIXK5UZykRy85pg2zDb8olBBtSOvwf72Fa1W
+ tdmQbxpCLgcjrWURr4AjzjuHHZJ2ZujWPDf0lzTh5bcAS8eyHi+ZQoNZmX3oHp+S1WpwmA
+ BF1UDXwjmbh7U5pRNztex61cT4vGZbSGD/IxnzjOMz1DPqQKMPPDgD07IPBwpo3IUHW1dL
+ 3fpncCP70fgMPXwAQyoF+mqmqHLq2h3ZLx5aBwDJnMPCCiZyWlkhB/6NR4gQUQ==
+Content-Transfer-Encoding: 7bit
+Received: from Neptune-PC.kiko-royal.ts.net ([58.186.164.158]) by
+ smtp.larksuite.com with ESMTPS; Wed, 26 Aug 2026 20:45:05 +0000
+In-Reply-To: <20260826204457.4666-1-neptune@imm0nv1nhtv.is-a.dev>
+Message-Id: <20260826204457.4666-2-neptune@imm0nv1nhtv.is-a.dev>
+X-Lms-Return-Path: <lba+26a8f5052+3907d6+lists.freedesktop.org+neptune@imm0nv1nhtv.is-a.dev>
+To: "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, 
+ "Alex Deucher" <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+Date: Thu, 27 Aug 2026 03:44:57 +0700
+Mime-Version: 1.0
+References: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev>
+ <20260826204457.4666-1-neptune@imm0nv1nhtv.is-a.dev>
+Content-Type: text/plain; charset=UTF-8
+Cc: "Rodrigo Siqueira" <siqueira@igalia.com>, 
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, 
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, 
+ <linux-kernel@vger.kernel.org>, 
+ "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
+From: "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
+Subject: [PATCH v2 2/2] drm/amd/display: close DDC on I2C engine setup failure
+X-Original-From: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
+X-Mailer: git-send-email 2.47.3
 X-Mailman-Approved-At: Thu, 27 Aug 2026 12:47:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,27 +63,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Wed, Aug 26, 2026 at 01:10:50PM +0000, Dr. David Alan Gilbert wrote:
-> * Greg KH (gregkh@linuxfoundation.org) wrote:
-> > On Wed, Aug 26, 2026 at 08:45:29AM -0400, Alex Deucher wrote:
-> > > On Wed, Aug 26, 2026 at 6:21 AM Greg KH <gregkh@linuxfoundation.org> wrote:
-> > > >
-> > > > On Mon, Aug 17, 2026 at 11:27:41AM -0400, Alex Deucher wrote:
-> > > > > Applied.  Thanks.
-> > > >
-> > > > Any hints on where this was applied and if it will get to Linus "soon"?
-> > > 
-> > > It will show up in drm-next after the merge window closes. 7.4 material.
-> > 
-> > Sorry, but this is hitting me now, pre 7.3-rc1.  Booting and getting a
-> > zillion kernel warnings isn't ok, that's a regression.  Please get this
-> > merged sooner than that.
-> 
-> Hey? This patch doesn't fix anything - it's purely dead code.
-> My comment about the log errors I saw were about the head of drm-next
-> I tested on, not about this patch.
+acquire_i2c_hw_engine() opens the DDC pins before setting up the
+hardware engine. If setup_engine() fails, the error path releases the
+engine but leaves the DDC pins open and the engine's DDC pointer set.
 
-Ah, my fault, my search found that and assumed this thread was the fix
-for that.  Nevermind :)
+Subsequent attempts to open the pins then return
+GPIO_RESULT_ALREADY_OPENED, preventing further I2C transfers, EDID
+reads and hotplug detection on that port until reboot.
 
-greg k-h
+Mirror the normal teardown path by closing the DDC pins and clearing
+the pointer after releasing the engine.
+
+Assisted-by: Codex:gpt-5
+Signed-off-by: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
+---
+ drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
+index 05892ab4529f..e7a05494abab 100644
+--- a/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
++++ b/drivers/gpu/drm/amd/display/dc/dce/dce_i2c_hw.c
+@@ -485,6 +485,8 @@ struct dce_i2c_hw *acquire_i2c_hw_engine(
+ 
+ 	if (!setup_engine(dce_i2c_hw)) {
+ 		release_engine(dce_i2c_hw);
++		dal_ddc_close(dce_i2c_hw->ddc);
++		dce_i2c_hw->ddc = NULL;
+ 		return NULL;
+ 	}
+ 
+-- 
+2.47.3
