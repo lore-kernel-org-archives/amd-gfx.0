@@ -4,26 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9295C61DBE
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 23:27:19 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 09C9EC61DBE
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 23:27:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3453010EE53;
-	Wed, 26 Aug 2026 23:27:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CC2210EE54;
+	Wed, 26 Aug 2026 23:27:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aQRLlmI/";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="z3IlEImS";
 	dkim-atps=neutral
-Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013046.outbound.protection.outlook.com
- [40.107.201.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A9D9D10EE53
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 23:27:18 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012033.outbound.protection.outlook.com [40.107.209.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CA2610EE54
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 23:27:48 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZjbKRW5pab9uBhSnprRztMnzy15/4WNug9y8q6Vb5KkAfElQ2YYBAWqA0hz5fJrA6MnK5tssC6t56+aJqYhZdL5IREEy2+CLEk4e5c7mFqHm9LFt20uQy/8KN3oNAR/BtEh1ELbsFs9JwZ9RiJ7kEouZS3uXRX1bM6tmSRW97/6nv1uMnaPpp/Rid6GzjQY/EameXd9yToSDQUfNZzW5cy1mT1v1bM6wHf3EwzO8J2bT9SRH1IISkFtLJZrvG5pY8IXjH3HZf/C7JuI8a0mwuGxB+Dit1/kSJU+2b3c2IlPe9fPE07iw3dqXo5jH7JelLzGWLWfD50JaSGjU5oscvw==
+ b=e8F2djShYfhm9w8f/Q62rJL613yTFOiSy95VJ7D5ZjofK0+PjmUZDgvboz5GaU9I9GGs2ZOwXCkUjSy03CoXDpUoWfRFCPFUltFum3CeknHy1xbyhVgd1qv6UHiD25MfaosKhM97VJRNwDfoXSIHE4Ker71f+Gls0cwk22xdFuVLEjkpPC8cZ6xYHEyRoIElpCm80bLPy3x43FpyLH1TSqSlApbRPvG1XDgAgAA1ptzboHDsnrzKeH4wWSeiNKxAN1gypeQWmxYc7erSwBIm4TCTioTWLlirJUfOtV/E1q9OuYQDWCRBibjXfRh6kzocEvTVULAVARersT1xwgzMMQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=73PW72FXXRb0Rn6PArDpJkjswBUgfGJ9j5KBNVr1fII=;
- b=qZMl49GOkh0Yhu/U5e9iILNiogXfjjVBLmdVMUzjXYobfMc2PGLhIkUfGEyVKAroQ/NLtjwKwqftFGuolbrbyrEeEPqT/N2Ni8659S7byTzLOTfSAKXMoZUh1vr3UKK5aw19CgfkL65F+SzSYrBLEaPFQbdDvYh9BazHMKQ7eBS2zou7TKtSGTdK4jgZbF53IbVGhMXksDxuCWuRNoN0F5QaTHmOPTrEfE2dcfDNd9SNhF2hcbdAXRIFJs9h/KIO9kXt8ODzysoMalYODSwqVRBHvDNkd9zZrSf57aN5WXcd6nvlPQDiViJGDS8YIn6ogg9n1Hi3ORRRYiynDz+D7w==
+ bh=ZB+eZ7net1nxsQrIN+hCcvUV5T/AOQBeHqB4CpolNV0=;
+ b=o3iy3pHg7uQkbVmwouVfzF/R9mZonMS8b8JXNG9sF0o2Ip7qFcBdixV/JcnnBpO0rD0on4a8DTDx8ePUonAGcphQq++k/yFTWqvLDR5mz0cj1uBWqobyYj0Gsa3k4wBa0l84PN/D2h6kd9N85PKdJP8+6P2MqWHHI0F0XWQZ+T9xvqAhtOYBU4JhiyDct9Kt2pS5qZZKN+9l8Lv7MkRyb810WxRPSaF7+DhtrKQdm9rcPsI9+ZGjifIRpR3ozf0//iKh+wrQD7gedz8uy5px3mS+qqUFFDortLBFyS/9v/pUJjxXuKUaX1RJNop+rSh6ZSapm/lziz1z886kmVSh2g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 149.199.90.133) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=quarantine sp=quarantine pct=100)
@@ -31,31 +30,31 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=73PW72FXXRb0Rn6PArDpJkjswBUgfGJ9j5KBNVr1fII=;
- b=aQRLlmI/vk3KkgRgOVrfjJS5kYdUQfbJ1sB0P5tLQdCQwq5KJKWkOVOIlz9Erd3fxeoiDA0LZcEnXtpRIl+cK9RTnsbHoS6R1B5jA99e7COkZrIErkErVg5zha3khQzh/DKRySd+OlkXL5YnNmmCMECyKmFvKY+ErErWruaWFRQ=
-Received: from PH8PR22CA0001.namprd22.prod.outlook.com (2603:10b6:510:2d1::16)
- by IA0PR12MB7700.namprd12.prod.outlook.com (2603:10b6:208:430::20)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=ZB+eZ7net1nxsQrIN+hCcvUV5T/AOQBeHqB4CpolNV0=;
+ b=z3IlEImSMCAvrwM1Zvnj3blD2RR+6RlT7arrZ2Y+r+FhJ8/5qDz9lNdybVNgqTwgRhZ/HIyHfhNo64la7XKXnfAgrGifd987FJ4FUkxrFtnHpOmUWo7J3x8BlsvkU7dwMo175TIyUjoHpHyimTbZX7pDceMnkwFkylGh01GA5Oo=
+Received: from SN7PR04CA0227.namprd04.prod.outlook.com (2603:10b6:806:127::22)
+ by DM4PR12MB6181.namprd12.prod.outlook.com (2603:10b6:8:a9::22) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Wed, 26 Aug
- 2026 23:27:11 +0000
-Received: from SN1PEPF000397B3.namprd05.prod.outlook.com
- (2603:10b6:510:2d1:cafe::32) by PH8PR22CA0001.outlook.office365.com
- (2603:10b6:510:2d1::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Wed,
- 26 Aug 2026 23:27:09 +0000
+ 2026 23:27:36 +0000
+Received: from SN1PEPF000397B2.namprd05.prod.outlook.com
+ (2603:10b6:806:127:cafe::70) by SN7PR04CA0227.outlook.office365.com
+ (2603:10b6:806:127::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.8 via Frontend Transport; Wed, 26
+ Aug 2026 23:27:35 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=quarantine header.from=amd.com;
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 149.199.90.133 as permitted sender)
 Received: from satlexmb07.amd.com (149.199.90.133) by
- SN1PEPF000397B3.mail.protection.outlook.com (10.167.248.57) with Microsoft
+ SN1PEPF000397B2.mail.protection.outlook.com (10.167.248.56) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 23:27:08 +0000
+ 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 23:27:35 +0000
 Received: from localhost.localdomain (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
- 2026 18:27:02 -0500
+ 2026 18:27:30 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -65,9 +64,10 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
  <Chen-Yu.Chen@amd.com>, Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
-Subject: [PATCH 34/59] drm/amd/display: Test page flip interrupt state update
-Date: Wed, 26 Aug 2026 17:05:05 -0600
-Message-ID: <20260826231519.881949-35-alex.hung@amd.com>
+Subject: [PATCH 35/59] drm/amd/display: Test CRTC memory domain change
+ detection
+Date: Wed, 26 Aug 2026 17:05:06 -0600
+Message-ID: <20260826231519.881949-36-alex.hung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260826231519.881949-1-alex.hung@amd.com>
 References: <20260826231519.881949-1-alex.hung@amd.com>
@@ -79,30 +79,30 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF000397B3:EE_|IA0PR12MB7700:EE_
-X-MS-Office365-Filtering-Correlation-Id: cb527ed3-be07-4ce6-686a-08df03c98c47
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B2:EE_|DM4PR12MB6181:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1dd84d29-13a4-4f53-baa0-08df03c99c63
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|376014|82310400026|23010399003|56012099006|10067099003|11063799006|5023799004|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: DeSUCSSJ5VGS2Hy0rHHdut4ymUcecB3ts4LpftkTRSr5tmK9kjvbwxF4/Jx3cB6AEnXEUhu3Vz44i4UHS0+B9XObHMYP9WvH1kaeSPGIqOL9PCjAoCSV/Gp1OCDW3dxnFlEyaJfLmQOAM0xZ+fosjfvXDbDMRxM7lcnCGtgBaWuEPhLMTc+c5ymxhWrvWU+OgPWV8DYbLFeRIABWf7IFLKofWysMCL4IqKVmaj0CPkqMDVWS3dt+QRdiuj3VRYMTPxgDUZETQF43u1ZILeQr7dPuCtromzzIK4OUD5OcLm6VxaNWl489uBkYcvcryb21nGtHszScRc7Raf4CLlJKy1JDkVdQTVs+0xMMRLb1PbFWhHL9NSJu44CWVURind1h6mcAZOjEbviMDsdVEE/nZZUsWEcGXKnw4eYb4r07lSfFyvEYKbY4pA63fsj2jSAA3JdV/iip+QBYDHOSGpvW9zOnt330l+aZXHMh8qLu9Gn6eH2Rnbia2W321RE3RutJE1AH4TFU1/zDMEyUEUpXjUK/OmHXU+R3X30/dkhxdx4y+8JCB1HN3pCyd82rbAL8OgA5JUy+/BvWOJQvzJSBXE+2DoZtcHYIagadLgAspr0emQprh86zNu62HLWd/we7f4Vj26Eo4MKq69k8bU5FkaYNpDsO0Nx2N3d7cU/NIMWjhYE42bXSTYR9q1ku89Tf+3RA9pV77jtxXvJO/nEGgQ==
+ ARA:13230040|82310400026|36860700016|23010399003|376014|1800799024|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: wpsJ7zSbeev+EDV9dcYoIJoii1dJmVCueL2/OxYaxCpqTbJNejSlZqH1TCqsGbhZYq1SznjtETD1Q3Eo1O6sNHSdcRtRpjEo0UBHvuguYuvsUZta0XFCxFsu4+Kh0UqjtJoFIZpA5ISMHgnczN8VxRMyIUCvMNakFl/m6ue0wGC3zd+Le3fA7f9n2lZZcsxWA8TLggGBQ9mXqSLJN88j9con01bKeFzRR30askd8jKF17tBU7WCpeC36228tZXwez3795ngnq5IABXH4CKo2gt21DiO0+rWFK2IykzyAgEYYk5BAdV5WVvHBZz/CBKRSva0PQ14I6NS4iRe1J74l7G26l9KQ68g3g13yhr+6ELLV5WABVSbsOAfmS0BwSwR6bQ9wjSqUPTbsg8tXtflGEff7jvpfoue6WHppNkRQ3wLzNy94MJq27ubvp3hW7VwbIgr2bgL7ZZMG5MoGl1cjxXOuGDOfjInnkeoYhXzmdZsKMgeE9g4KHpIwuR8WyUd8qFnj6BBGI7+O44HA9sMTE+75z1f9RhQzpNrtsNyhJQFjvAbqkPhRwWxMQBvtmgWeZuQpAIBoSsCoDxQ8506pZ4g5pNUgXkl/n0C/gD2VSiXzs7rFjs7UpqHqREft1ZWDHwVTywUbdzBHJRdmKCM8UxA7J2TWvlpaDx9H2FmoXe5/q3MvkXd8gBOx6L96x4JcA2qHpn76y/jFcCvlpCgD/w==
 X-Forefront-Antispam-Report: CIP:149.199.90.133; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:unknown-90-133.xilinx.com;
  CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(23010399003)(56012099006)(10067099003)(11063799006)(5023799004)(18002099003)(22082099003);
+ SFS:(13230040)(82310400026)(36860700016)(23010399003)(376014)(1800799024)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 0OiHlMkjr22fReX0o2sT6EeeVec7UZ/7kdGVZr1fZGNK0zvtouYZkjbY/vtstnkXQHZQbhohFl0rxzBC9xBeDmnAhyrGITFaC1rS6ssQ5jfICR9a7JqFcLn1MosEVfqk5zEApl1ty6G/Wv/U6iv3K7FW7cHFmtDsw2Pb7RH8gNDOmh74BBEQ61t/PcmerSFJdXgZAaJfWVmmpibDbeU0jmFIQUgAA1fehfLJ6jer9dRC8YY+Q2xQ7dMWYoiDd5iurL+77tm32CMeYaynjXtjHUSxXa9V10VBJEykEVm9cBDv/GEzEzGjNl4UaIbM6isFWsR7w3m0cltmRngxQwDBhII322UVnVeAIZeYJxMjFPx0dN8gL8lxvFhgq4ihWQxEPP6htn5yl2B1A28rfsIpUKOkC3xrebanTQLlywXUCQPSQA1YAVd5XgQzDCPCTqGU
+X-MS-Exchange-AntiSpam-MessageData-0: EDrPcu+Ih2dGyqO6P+ell7FiNO5abesHgB9Xx6oo6ypU01apnwEoEr2aQTE39oFH9AMXwQ4bCAC5G4XM/qNK1v2+p0cHznX9jRJ10wAQOK7EawtQUx0Ch4Bd4b0Xi8ONeqq22L+ak+abYgZxXnxveLYNlwuD7q/2xj5WZq9br1f9YuCBqVU5EgHAn4S7J7ULj5YOrs9JfgvCkQuY6b+ondS2VSvOwHCPTD2gcMr+RbaH1ibfgGTFZuQ0wQISKNpjCKCITS4zlfrpLdlorsL2+gNo4AE3MkI1cM7v6xVYyF3XKHKC/F1fojB63l+hUQL1HFfD2lCwFNxybt0X8JNUQRFHCvlcZoXxN6EO0HrKUZtffRgFP4Gp3PsQBSwGOwAuRwmqW4RMszjRGQ5tITc+nqhIQ1a9Mz4Is9H4HKeP2KUczlPRQ2RNE7NyeR6qh5tl
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 23:27:08.5784 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cb527ed3-be07-4ce6-686a-08df03c98c47
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 23:27:35.6076 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1dd84d29-13a4-4f53-baa0-08df03c99c63
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[149.199.90.133];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B3.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B2.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7700
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6181
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,153 +118,215 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 [WHAT]
-Add KUnit tests for dm_update_pflip_irq_state() covering DCN, where there
-is nothing to reapply, and DCE, where the current interrupt state is
-reapplied to the pageflip source.
+Add KUnit tests for amdgpu_dm_crtc_mem_type_changed() covering an empty
+plane mask, a plane missing one of its states, framebuffers in the same
+memory domain, and a framebuffer migrated between domains.
 
 [HOW]
-Add a spy for the pageflip IRQ source. amdgpu_irq_update() always
-dispatches through src->funcs->set(), which needs a registered IH ring on
-real hardware, so the spy records the requested type and state instead.
+Back the framebuffers with fake buffer objects carrying a TTM resource, so
+get_mem_type() resolves a memory domain without a live TTM device.
 
 Assisted-by: Copilot:Claude-Opus-5 GPT-5.6-Sol
 Reviewed-by: Bhawanpreet Lakha <bhawanpreet.lakha@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |  5 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |  2 +
- .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 78 +++++++++++++++++++
- 3 files changed, 83 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   7 +-
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   3 +
+ .../display/amdgpu_dm/tests/amdgpu_dm_test.c  | 138 ++++++++++++++++++
+ 3 files changed, 145 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 1eb2f0973aac..4650b5f09c08 100644
+index 4650b5f09c08..70f50fa17366 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -3419,8 +3419,8 @@ static void manage_dm_interrupts(struct amdgpu_device *adev,
- 	}
+@@ -6044,9 +6044,9 @@ STATIC_IFN_KUNIT int add_affected_mst_dsc_crtcs(struct drm_atomic_commit *state,
  }
+ EXPORT_IF_KUNIT(add_affected_mst_dsc_crtcs);
  
--static void dm_update_pflip_irq_state(struct amdgpu_device *adev,
--				      struct amdgpu_crtc *acrtc)
-+STATIC_IFN_KUNIT void dm_update_pflip_irq_state(struct amdgpu_device *adev,
-+						struct amdgpu_crtc *acrtc)
+-static bool amdgpu_dm_crtc_mem_type_changed(struct drm_device *dev,
+-					    struct drm_atomic_commit *state,
+-					    struct drm_crtc_state *crtc_state)
++STATIC_IFN_KUNIT bool amdgpu_dm_crtc_mem_type_changed(struct drm_device *dev,
++						      struct drm_atomic_commit *state,
++						      struct drm_crtc_state *crtc_state)
  {
- 	int irq_type =
- 		amdgpu_display_crtc_idx_to_irq_type(adev, acrtc->crtc_id);
-@@ -3435,6 +3435,7 @@ static void dm_update_pflip_irq_state(struct amdgpu_device *adev,
- 	 */
- 	amdgpu_irq_update(adev, &adev->pageflip_irq, irq_type);
- }
-+EXPORT_IF_KUNIT(dm_update_pflip_irq_state);
+ 	struct drm_plane *plane;
+ 	struct drm_plane_state *new_plane_state, *old_plane_state;
+@@ -6065,6 +6065,7 @@ static bool amdgpu_dm_crtc_mem_type_changed(struct drm_device *dev,
  
- STATIC_IFN_KUNIT bool
- is_scaling_state_different(const struct dm_connector_state *dm_state,
+ 	return false;
+ }
++EXPORT_IF_KUNIT(amdgpu_dm_crtc_mem_type_changed);
+ 
+ /**
+  * amdgpu_dm_atomic_check() - Atomic check implementation for AMDgpu DM.
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-index e4b67a0b98c3..c22266f534e3 100644
+index c22266f534e3..ca19977cf788 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h
-@@ -1172,6 +1172,8 @@ struct dm_atomic_state *dm_atomic_get_new_state(struct drm_atomic_commit *state)
- struct drm_private_state *dm_atomic_duplicate_state(struct drm_private_obj *obj);
- void dm_atomic_destroy_state(struct drm_private_obj *obj,
- 			     struct drm_private_state *state);
-+void dm_update_pflip_irq_state(struct amdgpu_device *adev,
-+			       struct amdgpu_crtc *acrtc);
- void amdgpu_dm_commit_cursors(struct drm_atomic_commit *state);
- void amdgpu_dm_update_cursor(struct drm_plane *plane,
- 			     struct drm_plane_state *old_plane_state,
+@@ -1186,6 +1186,9 @@ void dm_arm_vblank_event_pre_programming(struct amdgpu_crtc *acrtc,
+ 					 bool pflip_update, bool cursor_update);
+ int add_affected_mst_dsc_crtcs(struct drm_atomic_commit *state,
+ 			       struct drm_crtc *crtc);
++bool amdgpu_dm_crtc_mem_type_changed(struct drm_device *dev,
++				     struct drm_atomic_commit *state,
++				     struct drm_crtc_state *crtc_state);
+ int dm_plane_layer_index_cmp(const void *a, const void *b);
+ int fill_plane_color_attributes(const struct drm_plane_state *plane_state,
+ 				const enum surface_pixel_format format,
 diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-index 648db4a58509..845638fed223 100644
+index 845638fed223..0c57b3cc47fe 100644
 --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
 +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_test.c
-@@ -1729,6 +1729,81 @@ static void dm_test_arm_vblank_event_cursor(struct kunit *test)
- 			(int)AMDGPU_FLIP_NONE);
+@@ -1804,6 +1804,139 @@ static void dm_test_update_pflip_irq_state_dce(struct kunit *test)
+ 			(int)AMDGPU_IRQ_STATE_DISABLE);
  }
  
-+/**
-+ * dm_test_update_pflip_irq_state_dcn - Test DCN skips the GRPH_PFLIP reapply
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_update_pflip_irq_state_dcn(struct kunit *test)
-+{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct amdgpu_crtc *acrtc;
++/* Tests for amdgpu_dm_crtc_mem_type_changed() */
 +
-+	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, acrtc);
-+
-+	adev->mode_info.num_crtc = 1;
-+	adev->ip_versions[DCE_HWIP][0] = IP_VERSION(3, 2, 0);
-+
-+	dm_update_pflip_irq_state(adev, acrtc);
-+}
++struct dm_test_mem_type_ctx {
++	struct amdgpu_device *adev;
++	struct drm_atomic_commit *state;
++	struct drm_crtc_state *crtc_state;
++	struct drm_plane *plane;
++	struct drm_plane_state *old_plane_state;
++	struct drm_plane_state *new_plane_state;
++};
 +
 +/*
-+ * Spy for the pageflip IRQ source: amdgpu_irq_update() always dispatches
-+ * through src->funcs->set(), which needs a registered IH ring on real
-+ * hardware. Recording the requested state instead keeps the DCE reapply path
-+ * reachable and observable.
++ * Register a single plane on the CRTC's plane mask. get_mem_type() walks
++ * fb->obj[0] back to an amdgpu_bo, so the framebuffers are backed by fake
++ * buffer objects with a TTM resource instead of a live TTM device.
 + */
-+struct dm_test_irq_spy {
-+	unsigned int set_count;
-+	unsigned int last_type;
-+	enum amdgpu_interrupt_state last_state;
-+};
-+
-+static struct dm_test_irq_spy dm_test_irq_spy_data;
-+
-+static int dm_test_irq_set(struct amdgpu_device *adev,
-+			   struct amdgpu_irq_src *src, unsigned int type,
-+			   enum amdgpu_interrupt_state state)
++static struct drm_framebuffer *dm_test_alloc_fb(struct kunit *test,
++						u32 mem_type)
 +{
-+	dm_test_irq_spy_data.set_count++;
-+	dm_test_irq_spy_data.last_type = type;
-+	dm_test_irq_spy_data.last_state = state;
++	struct drm_framebuffer *fb;
++	struct ttm_resource *res;
++	struct amdgpu_bo *abo;
 +
-+	return 0;
++	fb = kunit_kzalloc(test, sizeof(*fb), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, fb);
++	abo = kunit_kzalloc(test, sizeof(*abo), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, abo);
++	res = kunit_kzalloc(test, sizeof(*res), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, res);
++
++	res->mem_type = mem_type;
++	abo->tbo.resource = res;
++	fb->obj[0] = &abo->tbo.base;
++
++	return fb;
 +}
 +
-+static const struct amdgpu_irq_src_funcs dm_test_irq_funcs = {
-+	.set = dm_test_irq_set,
-+};
++static struct dm_test_mem_type_ctx *dm_test_mem_type_ctx_alloc(struct kunit *test)
++{
++	struct dm_test_mem_type_ctx *ctx;
++
++	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx);
++
++	ctx->adev = dm_kunit_alloc_adev(test);
++	ctx->state = dm_test_alloc_commit(test, ctx->adev);
++	ctx->crtc_state = kunit_kzalloc(test, sizeof(*ctx->crtc_state), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->crtc_state);
++	ctx->plane = drm_kunit_helper_create_primary_plane(test, &ctx->adev->ddev,
++							   NULL, NULL, NULL, 0, NULL);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->plane);
++	ctx->old_plane_state = kunit_kzalloc(test, sizeof(*ctx->old_plane_state),
++					     GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->old_plane_state);
++	ctx->new_plane_state = kunit_kzalloc(test, sizeof(*ctx->new_plane_state),
++					     GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->new_plane_state);
++	ctx->state->planes = kunit_kcalloc(test, ctx->plane->index + 1,
++					   sizeof(*ctx->state->planes), GFP_KERNEL);
++	KUNIT_ASSERT_NOT_NULL(test, ctx->state->planes);
++
++	ctx->crtc_state->plane_mask = drm_plane_mask(ctx->plane);
++	ctx->state->planes[ctx->plane->index].ptr = ctx->plane;
++
++	return ctx;
++}
 +
 +/**
-+ * dm_test_update_pflip_irq_state_dce - Test DCE reapplies the GRPH_PFLIP state
++ * dm_test_mem_type_changed_no_planes - Test an empty plane mask reports no change
 + * @test: The KUnit test context
 + */
-+static void dm_test_update_pflip_irq_state_dce(struct kunit *test)
++static void dm_test_mem_type_changed_no_planes(struct kunit *test)
 +{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct amdgpu_crtc *acrtc;
++	struct dm_test_mem_type_ctx *ctx = dm_test_mem_type_ctx_alloc(test);
 +
-+	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, acrtc);
++	ctx->crtc_state->plane_mask = 0;
 +
-+	memset(&dm_test_irq_spy_data, 0, sizeof(dm_test_irq_spy_data));
-+	adev->mode_info.num_crtc = 2;
-+	adev->ip_versions[DCE_HWIP][0] = 0;
-+	adev->pageflip_irq.funcs = &dm_test_irq_funcs;
-+	acrtc->crtc_id = 1;
-+	spin_lock_init(&adev->irq.lock);
++	KUNIT_EXPECT_FALSE(test, amdgpu_dm_crtc_mem_type_changed(&ctx->adev->ddev,
++								ctx->state,
++								ctx->crtc_state));
++}
 +
-+	dm_update_pflip_irq_state(adev, acrtc);
++/**
++ * dm_test_mem_type_changed_missing_state - Test a plane without both states is skipped
++ * @test: The KUnit test context
++ */
++static void dm_test_mem_type_changed_missing_state(struct kunit *test)
++{
++	struct dm_test_mem_type_ctx *ctx = dm_test_mem_type_ctx_alloc(test);
 +
-+	KUNIT_EXPECT_EQ(test, dm_test_irq_spy_data.set_count, 1U);
-+	KUNIT_EXPECT_EQ(test, dm_test_irq_spy_data.last_type,
-+			(unsigned int)AMDGPU_CRTC_IRQ_VBLANK2);
-+	KUNIT_EXPECT_EQ(test, (int)dm_test_irq_spy_data.last_state,
-+			(int)AMDGPU_IRQ_STATE_DISABLE);
++	ctx->state->planes[ctx->plane->index].new_state = ctx->new_plane_state;
++
++	KUNIT_EXPECT_FALSE(test, amdgpu_dm_crtc_mem_type_changed(&ctx->adev->ddev,
++								ctx->state,
++								ctx->crtc_state));
++}
++
++/**
++ * dm_test_mem_type_changed_same_domain - Test identical memory domains report no change
++ * @test: The KUnit test context
++ */
++static void dm_test_mem_type_changed_same_domain(struct kunit *test)
++{
++	struct dm_test_mem_type_ctx *ctx = dm_test_mem_type_ctx_alloc(test);
++
++	ctx->old_plane_state->fb = dm_test_alloc_fb(test, TTM_PL_VRAM);
++	ctx->new_plane_state->fb = dm_test_alloc_fb(test, TTM_PL_VRAM);
++	ctx->state->planes[ctx->plane->index].old_state = ctx->old_plane_state;
++	ctx->state->planes[ctx->plane->index].new_state = ctx->new_plane_state;
++
++	KUNIT_EXPECT_FALSE(test, amdgpu_dm_crtc_mem_type_changed(&ctx->adev->ddev,
++								ctx->state,
++								ctx->crtc_state));
++}
++
++/**
++ * dm_test_mem_type_changed_different_domain - Test a domain migration is detected
++ * @test: The KUnit test context
++ */
++static void dm_test_mem_type_changed_different_domain(struct kunit *test)
++{
++	struct dm_test_mem_type_ctx *ctx = dm_test_mem_type_ctx_alloc(test);
++
++	ctx->old_plane_state->fb = dm_test_alloc_fb(test, TTM_PL_TT);
++	ctx->new_plane_state->fb = dm_test_alloc_fb(test, TTM_PL_VRAM);
++	ctx->state->planes[ctx->plane->index].old_state = ctx->old_plane_state;
++	ctx->state->planes[ctx->plane->index].new_state = ctx->new_plane_state;
++
++	KUNIT_EXPECT_TRUE(test, amdgpu_dm_crtc_mem_type_changed(&ctx->adev->ddev,
++							       ctx->state,
++							       ctx->crtc_state));
 +}
 +
  static struct kunit_case amdgpu_dm_tests[] = {
  	/* Simple DM callbacks */
  	KUNIT_CASE(dm_test_wait_for_idle),
-@@ -1822,6 +1897,9 @@ static struct kunit_case amdgpu_dm_tests[] = {
- 	KUNIT_CASE(dm_test_arm_vblank_pre_programming_no_event),
- 	KUNIT_CASE(dm_test_arm_vblank_pre_programming_no_planes),
- 	KUNIT_CASE(dm_test_arm_vblank_pre_programming_update),
-+	/* dm_update_pflip_irq_state */
-+	KUNIT_CASE(dm_test_update_pflip_irq_state_dcn),
-+	KUNIT_CASE(dm_test_update_pflip_irq_state_dce),
+@@ -1900,6 +2033,11 @@ static struct kunit_case amdgpu_dm_tests[] = {
+ 	/* dm_update_pflip_irq_state */
+ 	KUNIT_CASE(dm_test_update_pflip_irq_state_dcn),
+ 	KUNIT_CASE(dm_test_update_pflip_irq_state_dce),
++	/* amdgpu_dm_crtc_mem_type_changed */
++	KUNIT_CASE(dm_test_mem_type_changed_no_planes),
++	KUNIT_CASE(dm_test_mem_type_changed_missing_state),
++	KUNIT_CASE(dm_test_mem_type_changed_same_domain),
++	KUNIT_CASE(dm_test_mem_type_changed_different_domain),
  	{}
  };
  
