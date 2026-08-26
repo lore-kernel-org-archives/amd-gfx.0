@@ -4,124 +4,50 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8C0E1C61DC2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E25D5C61DC6
 	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 12:47:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EB1DF10EFF1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id E0E6310E32D;
 	Thu, 27 Aug 2026 12:47:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="jepzJ9LG";
+	dkim=pass (2048-bit key; unprotected) header.d=imm0nv1nhtv.is-a.dev header.i=@imm0nv1nhtv.is-a.dev header.b="eewEQgEN";
 	dkim-atps=neutral
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 229DC10E2B2
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 14:20:15 +0000 (UTC)
-Received: by mail-pg1-f174.google.com with SMTP id
- 41be03b00d2f7-cc1c8d4a959so481832a12.3
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 07:20:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787754014; x=1788358814; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=/1XUCO5ehW6HIK1UxtZ/MdhG2zZvli3B4/DG5Oizxoc=;
- b=jepzJ9LGLn1kCWL+ayrUhIGycRvU0QUkaZHG63CHpCo6MPItwRbGB1LdJegsvxPFBu
- eYTXn/vgPkdLFX0wMFoJo1EugBb7UtmR4keWjbbX4Ai3XXUySKkXtaL1zFijWcE4OSgh
- /bJp38mK7jtn6oTEjRw+mVnh38Zzt3LUnpADVXomSb5JTYhkdjw6bZN0WkIF1dMfEYry
- nyrX3/B2O80ffospLU1N3fc9Gm7FIbCGgKNTY4GsZwFfaYQGXx+ehRIz2+3oyrBVGxe9
- KqLtkEJTIcQCgOHk+SrfDHNcZyjM3g4/pyrs/3+u0VguMQMOj6pljOe5O2bOWil3Wj1i
- bPag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787754014; x=1788358814;
- h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=/1XUCO5ehW6HIK1UxtZ/MdhG2zZvli3B4/DG5Oizxoc=;
- b=AOw1a1v3qXuP31xBtXJRHU/B3WWeG8V2Sz8MnMUcUtPEPPVjpgVX5eE4hlsqfhlIRr
- TE4CgrDbgNP5dNhk6YOKMgi6zE+UYK/S+AUmEv+ZBQcvUbt16tawmbYCIk1dUPP19XSo
- wEQQ4X4VfLIrLLF3AglEhInhDvJNidPONeW2bPSA7QQRt+Muu/gCruzLbGU0gpEgrDQL
- 307x3LYzZUeph+9uqASqdoNi1ej93kI2rBhVfLLPaONvOgNhd7HJrfkezh7RPF4JYwDo
- pAZ0cv7SY0HBhzGc3MbYXk9mkNwVlaqyqxyNyB7yKQavlWQH7DG7SYQtKpJ56txIXbkb
- pLCg==
-X-Gm-Message-State: AFuF++ltHOwpZ4A9LccCfSZ2OWW2oq7bDFB9qncgN5zSXJF/icGY9QLl
- NusghussfOTf14VYaC9bdlUyhMDIN0LjpvJ+HMqgA1zAT6Y066+raZJx
-X-Gm-Gg: AR+sD12J9ik+xPFqNp6O9qqueOY+cyWsEax9oH7RWCTrWkbXs+dEeG6GP2P8WMCrEZH
- Fy/C8y94+90/YR9LKFjrtHeWn6ikZJwFDCtOuwjjoAM6a9jMOyEghWKECHEMjSkODfQykoPsl7p
- DwrOl6FdRwcyGdzQhW1h61qXLhDFGeiSL3WjmgivvXvtp05f6cnfbSQVtmzDJUAUUyhlZtzJSg3
- gF9FkiVBcpGffGaP9RPa+IksO4dl9MsONxCI6WHwo8geZAlXqxHnnG4oYLgg6qeIjiJ8uJwqVf0
- qwSRzYQW1S7ZCOKWzfSNIDH5kjpmaMKHhVG7Axoz3jD7si5uLEYJd1hSVBrSpjgjVb9brnflRCJ
- v0eeh6SmayC0RpE3o/w7J7ugO2HPZ8kLIf/4KmpS2YokPFwDYkHFSd2TslOzznjRnPU6CU2nXPl
- oJ7MS7KLEK51Etu56BoQMN7OqLNGUFgPEMPyne94LZTZYd66ycCvKPNQ/lLUY8nElJ67QMlJFXc
- XNvvNyAA3Cfyl7iZOnFqJT2BxQDbW0nEMtmHg==
-X-Received: by 2002:a17:90a:d2c6:b0:38e:5c6:4db9 with SMTP id
- 98e67ed59e1d1-3966d3dafb9mr16370184a91.11.1787754014381; 
- Wed, 26 Aug 2026 07:20:14 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5?
- ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3283d60bf36sm9592172eec.2.2026.08.26.07.20.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Aug 2026 07:20:13 -0700 (PDT)
-Message-ID: <7532cd0d-6f9d-4278-9216-5d9aea92fa16@roeck-us.net>
-Date: Wed, 26 Aug 2026 07:20:11 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] treewide: fix spelling of "overridden"
-To: Linlin Yang <yanglinlin@kylinos.cn>, linux-kernel@vger.kernel.org
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-hwmon@vger.kernel.org, linux-mmc@vger.kernel.org,
- netdev@vger.kernel.org, linux-scsi@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-fbdev@vger.kernel.org
-References: <20260826083715.625136-1-yanglinlin@kylinos.cn>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260826083715.625136-1-yanglinlin@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Received: from sg-2-5.ptr.blmpb.com (sg-2-5.ptr.blmpb.com [71.18.227.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0DD2410E012
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 20:45:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=lark2602131731; d=imm0nv1nhtv.is-a.dev; t=1787777103;
+ h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=g06uOZVXmJELdMYnWTo6U5rOWHksszgpcnk9cEV3ZX0=;
+ b=eewEQgENQEXOzRayiziHt+wLoRLu7w0v84BDoCalPC5vjn9dGpSuCzHgZ6VQIT6aq+QRKi
+ UtEze2CpZS84DMSJIdIs/98ZOoPc0o8nR7rN/L2fR4ZcJ7cm9EFZnHfg2Cr8/Feki+nfeR
+ Ax/f6QG5upm/s/EbboxLArzFwxNjutS31tsT+hhzoYZpIAZ5CXpkmsZ48bKlpvBtjGzFVd
+ UJ+IzWiROosP5I4ivOFk4I73jwScBeh9V/CNxfAtYcWgQPpoLs/7mSkwlpodwoqtqD1405
+ V/cVhlLgXauzshYD37GHS6bZlsNlremhD69mQgplTqehpjEzvVn41/tIuwYIFQ==
+From: "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
+Date: Thu, 27 Aug 2026 03:44:56 +0700
+Message-Id: <20260826204457.4666-1-neptune@imm0nv1nhtv.is-a.dev>
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26a8f504f+770e10+lists.freedesktop.org+neptune@imm0nv1nhtv.is-a.dev>
+Subject: [PATCH v2 1/2] drm/amd/display: skip receiver power control without
+ AUX
+Received: from Neptune-PC.kiko-royal.ts.net ([58.186.164.158]) by
+ smtp.larksuite.com with ESMTPS; Wed, 26 Aug 2026 20:45:02 +0000
+In-Reply-To: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev>
+Cc: "Rodrigo Siqueira" <siqueira@igalia.com>, 
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, 
+ <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, 
+ <linux-kernel@vger.kernel.org>, 
+ "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
+References: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev>
+X-Original-From: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
 Content-Transfer-Encoding: 7bit
+To: "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, 
+ "Alex Deucher" <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+X-Mailer: git-send-email 2.47.3
+Content-Type: text/plain; charset=UTF-8
 X-Mailman-Approved-At: Thu, 27 Aug 2026 12:47:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -137,24 +63,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/26/26 01:37, Linlin Yang wrote:
-> Fix misspelling of "overridden" (missing a 'd') in comments across
-> multiple drivers.  The correct spelling "overridden" is already used
-> 292 times in the same drivers/ directory.
-> 
-> All occurrences are in comments only, no functional change.
-> 
-> Signed-off-by: Linlin Yang <yanglinlin@kylinos.cn>
-> ---
->   .../gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c    | 2 +-
->   .../gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c    | 2 +-
->   .../amd/display/dc/link/protocols/link_edp_panel_control.c    | 4 ++--
->   drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c               | 2 +-
->   drivers/gpu/drm/msm/registers/gen_header.py                   | 2 +-
->   drivers/gpu/drm/nouveau/nouveau_bios.c                        | 2 +-
->   drivers/hwmon/abituguru.c                                     | 2 +-
+Passive DP to TMDS dongles do not provide a DP receiver and use native
+GPIO I2C rather than AUX. The normal link PHY and stream blanking paths
+nevertheless try to write DP_SET_POWER, causing the DP helpers to retry
+a transaction that cannot succeed 32 times before giving up.
 
-I would expect this to be a separate patch to even consider applying it.
+Gate the receiver-power calls in dp_enable_link_phy(),
+dp_disable_link_phy() and link_blank_dp_stream() on the post-detection
+aux_mode state. Keep dpcd_write_rx_power_ctrl() unchanged because early
+DP detection calls it before aux_mode is initialized, and active dongles
+may require the receiver power-up before DPCD reads.
 
-Guenter
+On an Oland GPU with a passive DP to HDMI to DVI chain, this reduced
+boot-time "DP AUX transfer fail" messages from 32 to 0. The EDID
+remained 256 bytes and the display continued to use its native
+1600x900 mode.
 
+Assisted-by: Claude:claude-opus-5
+Assisted-by: Codex:gpt-5
+Signed-off-by: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
+---
+
+Notes (amdgpu-followups-v2):
+    v2:
+    - Move the aux_mode check out of dpcd_write_rx_power_ctrl() so early
+      detection can still power active dongles before reading DPCD.
+    - Gate receiver-power writes at the normal PHY and stream-blanking call
+      sites.
+    - Retest the revised placement on the affected Oland system.
+    
+    v1: https://lore.kernel.org/r/20260826193602.6441-1-neptune@imm0nv1nhtv.is-a.dev
+
+ drivers/gpu/drm/amd/display/dc/link/link_dpms.c        |  6 ++++--
+ .../drm/amd/display/dc/link/protocols/link_dp_phy.c    | 10 ++++++----
+ 2 files changed, 10 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+index 48b086d15ab0..81d63e1aab53 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
++++ b/drivers/gpu/drm/amd/display/dc/link/link_dpms.c
+@@ -146,8 +146,10 @@ void link_blank_dp_stream(struct dc_link *link, bool hw_init)
+ 				}
+ 		}
+ 
+-		if (((!dc->is_switch_in_progress_dest) && ((!link->wa_flags.dp_keep_receiver_powered) || hw_init)) &&
+-			(link->type != dc_connection_none))
++		if (link->aux_mode &&
++		    !dc->is_switch_in_progress_dest &&
++		    (!link->wa_flags.dp_keep_receiver_powered || hw_init) &&
++		    link->type != dc_connection_none)
+ 			dpcd_write_rx_power_ctrl(link, false);
+ 	}
+ }
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
+index 49521ac4b0e8..24f09bdcab51 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
+@@ -65,7 +65,8 @@ void dp_enable_link_phy(
+ 	link->cur_link_settings = *link_settings;
+ 	link->dc->hwss.enable_dp_link_output(link, link_res, signal,
+ 			clock_source, link_settings);
+-	dpcd_write_rx_power_ctrl(link, true);
++	if (link->aux_mode)
++		dpcd_write_rx_power_ctrl(link, true);
+ }
+ 
+ void dp_disable_link_phy(struct dc_link *link,
+@@ -74,9 +75,10 @@ void dp_disable_link_phy(struct dc_link *link,
+ {
+ 	struct dc  *dc = link->ctx->dc;
+ 
+-	if (!link->wa_flags.dp_keep_receiver_powered &&
+-			!link->skip_implict_edp_power_control &&
+-			link->type != dc_connection_none)
++	if (link->aux_mode &&
++	    !link->wa_flags.dp_keep_receiver_powered &&
++	    !link->skip_implict_edp_power_control &&
++	    link->type != dc_connection_none)
+ 		dpcd_write_rx_power_ctrl(link, false);
+ 
+ 	dc->hwss.disable_link_output(link, link_res, signal);
+-- 
+2.47.3
