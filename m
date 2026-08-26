@@ -4,26 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E191C61DBE
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 23:19:57 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 658E6C5DF97
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 23:20:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A51310EE38;
-	Wed, 26 Aug 2026 23:19:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D3FE910EE3A;
+	Wed, 26 Aug 2026 23:20:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="kRJlFdoS";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="PuUAQg38";
 	dkim-atps=neutral
-Received: from SN4PR2101CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11012041.outbound.protection.outlook.com
- [40.93.195.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0D25610EE38
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 23:19:55 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010018.outbound.protection.outlook.com [52.101.56.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DE3210EE3A
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 23:20:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Oms0VBmqJJIcpWOOG3TQAp6u0aH5DHKa8dr+GNrc3bXGF+Eo+gtIl4CJyf8FGUk2IGKOu7cnaH68x0qzoWFVXq02iNV8tChg5bf/jZnXK6avXrv5BB2JwtqcRqxW6ZsntAnjJ3uNJrzgpqPhi1Ri/JWWSIbsjvLqRZgjBF+qGiNA2HN7lWugkVjnqI5nBBge8m3EL2fOgt3qFsUb9IEDys2Yecrhi8c/z24eVA8xJbDSWRp83HzdasvH7gYMCjjXe2ECS/ae0mMywRp2d69L9ENKS47Y764JOR2w6ZCJQijmNUh3ClsLWduBwWNC98ayLNteWhpZk7nG6R3yvqub5w==
+ b=qfVYy+Bh3FsVTXrsDGQg4dnqnHebLFVmXjRJLZlb5Ixlg16lUx8Ocg6dICb3YjCJowlwjT2ywm8UvdKR6ZW6bEe340c/kCitVM1qxzf/2brN9XNgRNNHx5FOzXASkB7PPBjXFHwCfAdtxhBGCbQh9/+aaaze6zNK6Nysx/snTCQxZKfgfxQbPFjWtmkCf/UIOBYrnEfFRakspvI5dCDskxGjxFAVOEPkhMEMtJ3jcjy51mgq3Id+XpaNLyV2B1+tlkKUTHdJwqy1lcYuhF0ROo6YATBjEDpzRCJYB6g34DtfvIODFaGATIyfe78YRzQpKcKKbe5W2o23veDZAchj+g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XPwEx4GvsCDDQXOyzWkXL9LgHteJTy+AHb1tI48BlR4=;
- b=MClQdZ55oBpQBsJmNB9Ew/QHQd331MUZZxIwtI7eaCvlS+EUxmaW2utMzw+r9OHxH3H9R+YHidNfzwpUfCT2nI5A4t1zKMsgUdGTA2EpOVj4xYO2bv2i7YMQz4R0h7xxzvV6xRe1/D5a5N3pTtywzqR0nSudTNVWTGBI+UH9r+sV9J+GII/EhfgCabgxe6xoCdObsYK7scddr0c/sV21SnYqm95dBT+w6NV5oxMuFGWoXMBLxFioLb28bpFIIlGlaWkFrM78bGZhjg7SBP1ndT6xpEGKypSHfAd3DEaje2vcpUb0VeS3rQWzRDClDWS/q6Qz3PVQQMEVs5lSbtrejQ==
+ bh=YQGjzmHMPqo/wAKHVnRm5hwwfIOlAVV6a2XcX2lZCjs=;
+ b=ACtzUdwqSMV/k/w/Zkc2Qql31BrOZXsmCNRxuLBs7/U9FzEUiO2CYawzG4Ps4jDJRMVF89eUVXS3NwrGhkmgPtrA4fuERtN7n6hbiEdHsNa/ejB+ImA/W3So9TXAGMGkQh6sYOiGZ1syCOKLWcWCOnGjvDq3BIiIAEIQNE1Omfb9TLVpBDp6yWexTZNCV/YROfipBti/ytOwDdasJ7js+y3y3nSXQVQJ/g8+53MsesWZWNDeQR5wiKPRD2BV29LZeWvZcuaxN6HpNO1sLh5J+Hyk0lGEO3h5nVtQMTEYP3c3/1o3lID9OgCnLRIVYMgo/D+hINGnxFgPVdJvrRjGLQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 149.199.90.133) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=quarantine sp=quarantine pct=100)
@@ -31,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XPwEx4GvsCDDQXOyzWkXL9LgHteJTy+AHb1tI48BlR4=;
- b=kRJlFdoSHNECXjR6W727Bb58v9tIBwJlKNVdw5Q3O0nRcV3BpEUTPKfiSwTjWTIKV9IPxEjgWbNItiPCRE2IuBiMj1mA/42BpjF411bzz8AU98hBZPe3G28gTGBt2anJIh3M+TNw2/XCeYac9ajllpJynCKzynVUsyKm6u8wnNQ=
-Received: from DS1P221CA0008.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:451::7) by
- IA1PR12MB7662.namprd12.prod.outlook.com (2603:10b6:208:425::20) with
+ bh=YQGjzmHMPqo/wAKHVnRm5hwwfIOlAVV6a2XcX2lZCjs=;
+ b=PuUAQg38rrMjBheKGbaPPR78V79UkqzQ+QhIOQ0T/lqPJq30CYAUmSnKAX/hpht05aYn0epD8Oq1osdffr2BFO0EBekEVeqOKy0YcyOTHhS/giH1egaJiIWmLNHIUxpnxSDeZ7tZDT3Wke/l/DWcDVa9/RG8N0uOYbcYC5DI5ps=
+Received: from DS1P221CA0011.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:451::11) by
+ IA0PR12MB8862.namprd12.prod.outlook.com (2603:10b6:208:48e::16) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Wed, 26 Aug
- 2026 23:19:42 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
+ 2026 23:19:59 +0000
 Received: from CY4PEPF0000FCC2.namprd03.prod.outlook.com
- (2603:10b6:8:451:cafe::66) by DS1P221CA0008.outlook.office365.com
- (2603:10b6:8:451::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.9 via Frontend Transport; Wed, 26
- Aug 2026 23:19:41 +0000
+ (2603:10b6:8:451:cafe::e) by DS1P221CA0011.outlook.office365.com
+ (2603:10b6:8:451::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Wed,
+ 26 Aug 2026 23:19:59 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=quarantine header.from=amd.com;
@@ -51,11 +50,11 @@ Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
 Received: from satlexmb07.amd.com (149.199.90.133) by
  CY4PEPF0000FCC2.mail.protection.outlook.com (10.167.242.104) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 23:19:41 +0000
+ 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 23:19:59 +0000
 Received: from localhost.localdomain (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
- 2026 18:19:35 -0500
+ 2026 18:19:54 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -64,12 +63,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Alvin Lee <Alvin.Lee2@amd.com>, Taimur Hassan
- <syed.hassan@amd.com>
-Subject: [PATCH 11/59] drm/amd/display: Fix DPP PRE_GAM register offset on
- DCN60
-Date: Wed, 26 Aug 2026 17:04:42 -0600
-Message-ID: <20260826231519.881949-12-alex.hung@amd.com>
+ <Chen-Yu.Chen@amd.com>, Tomasz Siemek <tomasz.siemek@amd.com>, Ilya Bakoulin
+ <ilya.bakoulin@amd.com>
+Subject: [PATCH 12/59] drm/amd/display: Move cursor SDR white level
+ calculation out of hwss executor
+Date: Wed, 26 Aug 2026 17:04:43 -0600
+Message-ID: <20260826231519.881949-13-alex.hung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260826231519.881949-1-alex.hung@amd.com>
 References: <20260826231519.881949-1-alex.hung@amd.com>
@@ -81,30 +80,30 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC2:EE_|IA1PR12MB7662:EE_
-X-MS-Office365-Filtering-Correlation-Id: a042dca6-0de5-4227-5f06-08df03c881b0
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC2:EE_|IA0PR12MB8862:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8e7a77a-5b78-439e-37ad-08df03c88c3f
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700016|23010399003|56012099006|10067099003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Apjwzqt5sTil7YKJ5s2c140cU9O9diZQS2lg+h27yv2E8hesiZO1fKSDALDl3gIPtElxOtn90m6AnApKrPJ6CL/WfbAYRBiq4sQSWXANyqNYfUWvYa6XVvxR/WenZWI8sSDj4s3Qzb/86S2WJo30DL7iI4BEWgVQRsRWsbKUMY5HPHBWllNrDdhDKNYjopG6Mn7erPyBfqI1cHr58gQODIsFF48vUiWkLwVDlqKYK3qsBJsA61mZQuGEo3TIgwvo2z3yeyIM9qtT/tVSe8G4N6aP1BNW0S1RfgVExeIcroNHUaYdWlZ2zVi5TBCVgQmr9n/QmYEs7iICYaDc/uz6DSqMqWebfvBdhCXLDoJvlJ3OCnS0Nrlx7hDp405Zmf3wBAvEfCh0v55AH3OxxO/5OvxwFOwAb1411EPTOXDMr7gITGhAHz7hScxRG6Rr8wZ26ri2XCTqEUK5iG+nG1duelb7Gjb/0f1yiRTnq75yV3TRBE6Oh5QHo3s7GN9ONBn+aFtB738/aoxS0y9qvH4pfgvJO8QgdbPMsxjdvGiBYLE4PO5DzXXNAmPuRJ3+3Cqgxztjd69MYpEZgEGkV5I7sHtt0kIetBdjngzcU01vSi1xa20FyQ+5j+rAWXUNFuUOzUMBaz+D3evYhs6xDs6Dlcflvx6LRwpg2TRAp1xvVpv2b82i1vk9FYiO4PTzLuS2JMXB1bvh+L8oZYZFwrn0vg==
+ ARA:13230040|36860700016|1800799024|376014|82310400026|23010399003|6133799003|3023799007|56012099006|10067099003|11063799006|5023799004|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: yJPLX//GrFLFfUL9GXpwZBv6BbCpNr8PwJRaahPyR+fbHMtqCfVdvL5UiE813q2vi2lQHQBKv9Xq3UNmyc+opujz/y2mXyPZ60RwFZJonC3sN9foGCh3PYnoVmbFubzCA53p1r/KBeX6GoLGaw8ulS0u6g+Yw3MJ9DuVLf3eMwsCnOnE9EXxfRvx7w9JxpL0NnpPG1kEv4c0jQunvDZCvJqmmHKAvF9R+mH0XxAODKsyesafIdquu+w8my7p/uW1YxZntewHI/nWY0A7xEx7yvmiNNT3UBeqhW3XGZbLy6YsP4j3w+hQ5CJUZlgTGAa/qlqER8sWjUcOPBSS5KhyQpxf5OyQ2UcIiYBO++0lxFjDJH5bjJaMmNjhD6SuKxCTca7O/uvC/WqpMxnw8pq4q+r1rnP57kysh0jr9PSspVec2lVS71tf+rFmNTJFfk4MbNOcSnwFoIB+l9f8xi2uLgTu1wvZN6n+HP3SFCE3lcylgI8y6uqEKzX+MPbEurgirfT6W+icnpYCuroHwqUY+C6j8DaRILwz+tm1a4QJNA731wl14/Yjo1kH2PtSJipK0grSTdx3oiez1Ca426pDYykBmFVUttu8a14R6ZLT7/1wTsfH3RoDKTw/SzIOqMiXh0mExJT07A+oXcWvryMoN0L4ay4Dcah2AAfKM5GGxMdp5+GawjYYPzdf4EiNV6RRSDS29ZNO4ie17/54id2fTA==
 X-Forefront-Antispam-Report: CIP:149.199.90.133; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:unknown-90-133.xilinx.com;
  CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(23010399003)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003);
+ SFS:(13230040)(36860700016)(1800799024)(376014)(82310400026)(23010399003)(6133799003)(3023799007)(56012099006)(10067099003)(11063799006)(5023799004)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: WHocwPQpCTrqIZ6QEkYNxvGmy2Q9LOV8d8g1aYtoyJ/SXPXrvegrl7WtGEc7sOocIx7WV5njKZK/QbzEyYQ9sAT0hmpF9ab0BYF6XnI/NHJ/L7tgchtvqzOZcVRWyaqET5+WsEuMqDT95fhfAFzY/q8DNM4wKxzPJZuCerCEL8BRISHaBvk6tLyGTGNmVILD60XX8Dmy4SJ4JPFxssA/sdcp+4p8/p4hv40WMqNMC+qpXRaup+JFhe+gDegMapBpF5by18jrvaua97br4UWQ2mVmA+LPwy8h9sGnajG4WIozMsir23JsUQqi8aT8fG29rkp1BxrRTfBgVYb9L9gqULXwkMwKElkyjwF6aqSjJ1GVHGv5nV3CkXGDtxkhq1JyeEkOk87/V6Mcq0Syy6rWmAIQHDU7z9zEr39lsCJpVMIOQdYJ+6YQtrU+VjG6/his
+X-MS-Exchange-AntiSpam-MessageData-0: +O73Pizn0cMGCWUwUKDYhU+eJPG7QHTcat82pHKgzqp6kr2GAyI8GUTWnIp1eleu/AggSulBrzr3/TMMHulbiexnC4/RBrOxovPSIV+HcoFKH+wFFfgDKCNpheGg3sbKS4YxLr4dxP7y0zQfkOa6Dj+28Kk4JqU+crkM+px/D0FNhRYYLNHpNxU+oqW28EsR0J9xBlyRjlQsCii3BU39izAcericfQsJldlwDa18wOwgARlSEVYf+x+dxBi6lruYLx3k9yFa8sINVzdKUZQkPRncsm4THYwaKSp23Mb8rMfIlAF7u91uHV7pWB/11WxLqZozUClCz3qY4AGZ+u9JCaPmISYENKIZPcrzL3aGXxa3jXkGmq9sM0VD9K1XnDz4nyRS14nt9A8raoj5mjoMC9o+hz+8R1u9mMJ4lwSTnNWzj8dxfeUPYzFOJcoU+vvR
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 23:19:41.3180 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a042dca6-0de5-4227-5f06-08df03c881b0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 23:19:59.0308 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8e7a77a-5b78-439e-37ad-08df03c88c3f
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[149.199.90.133];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCC2.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7662
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8862
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,94 +118,242 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Alvin Lee <Alvin.Lee2@amd.com>
+From: Tomasz Siemek <tomasz.siemek@amd.com>
 
 [WHY]
-dcn60 uses dpp50_set_pregam_state, which reads PRE_GAM through the
-dcn50_dpp_registers layout. PRE_GAM sat at a different offset in
-dcn50 (based on DCN401) vs dcn60 (based on DCN42), so the cast
-landed on the wrong register which causes the wrong address to be
-used
+Cursor SDR white level calculation is common across DCN generations
+and does not require an ASIC-specific HWSS implementation.
+Keeping it in the DCN10 HWSS extension duplicated generic policy
+in generation-specific code and made block sequence execution
+depend on mutable pipe context.
 
 [HOW]
-Rebase the DPP macro inheritance so PRE_GAM shares a common offset:
-DCN50 lists now inherit from DCN42, and DCN60 lists inherit from
-DCN50. The dcn60 struct layout is unchanged, so PRE_GAM aligns
-between the two and dpp50_set_pregam_state programs the correct
-address.
+Move cursor SDR white level calculation into dc_hw_sequencer. Store the
+calculated DPP cursor attributes in the block sequence so execution
+only invokes set_optional_cursor_attributes.
 
-Reviewed-by: Taimur Hassan <syed.hassan@amd.com>
-Signed-off-by: Alvin Lee <Alvin.Lee2@amd.com>
+Reviewed-by: Ilya Bakoulin <ilya.bakoulin@amd.com>
+Signed-off-by: Tomasz Siemek <tomasz.siemek@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dpp/dcn50/dcn50_dpp.h | 11 ++++++-----
- drivers/gpu/drm/amd/display/dc/dpp/dcn60/dcn60_dpp.h |  7 ++-----
- 2 files changed, 8 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/amd/display/dc/core/dc.c      |  3 +-
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c | 55 +++++++++++++------
+ .../amd/display/dc/hwss/dcn10/dcn10_hwseq.c   | 26 ++-------
+ .../amd/display/dc/hwss/dcn401/dcn401_hwseq.c |  3 +-
+ .../amd/display/dc/hwss/dcn50/dcn50_hwseq.c   |  3 +-
+ .../drm/amd/display/dc/hwss/hw_sequencer.h    |  7 ++-
+ 6 files changed, 51 insertions(+), 46 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn50/dcn50_dpp.h b/drivers/gpu/drm/amd/display/dc/dpp/dcn50/dcn50_dpp.h
-index efa76579dc9b..7f5d3fa6bbef 100644
---- a/drivers/gpu/drm/amd/display/dc/dpp/dcn50/dcn50_dpp.h
-+++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn50/dcn50_dpp.h
-@@ -11,28 +11,29 @@
- #include "dcn30/dcn30_dpp.h"
- #include "dcn32/dcn32_dpp.h"
- #include "dcn401/dcn401_dpp.h"
-+#include "dcn42/dcn42_dpp.h"
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
+index 1b9bcc3f0d2b..e40bad702f0f 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
+@@ -3957,8 +3957,7 @@ static void program_cursor_attributes_sequence(
+ 		hwss_add_set_cursor_attribute(seq_state, dc, tmp_pipe);
+ 		if (dc->ctx->dmub_srv)
+ 			hwss_add_send_update_cursor_info_to_dmu(seq_state, tmp_pipe, k);
+-		if (dc->hwss.set_cursor_sdr_white_level)
+-			hwss_add_set_cursor_sdr_white_level(seq_state, dc, tmp_pipe);
++		hwss_add_set_cursor_sdr_white_level(seq_state, tmp_pipe);
+ 		if (enable_cursor_offload && dc->hwss.update_cursor_offload_pipe)
+ 			hwss_add_update_cursor_offload_pipe(seq_state, dc, tmp_pipe);
+ 	}
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+index 47320ac01711..7ad30a1f2978 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+@@ -786,6 +786,29 @@ static void calc_vline_position(
+ 		ASSERT(0);
+ }
  
++struct dpp_cursor_attributes calc_sdr_cursor_attributes(struct pipe_ctx *pipe_ctx)
++{
++	uint32_t sdr_white_level = pipe_ctx->stream->cursor_attributes.sdr_white_level;
++	struct fixed31_32 multiplier;
++	struct dpp_cursor_attributes opt_attr = { 0 };
++	uint32_t hw_scale = 0x3c00; // 1.0 default multiplier
++	struct custom_float_format fmt;
++
++	fmt.exponenta_bits = 5;
++	fmt.mantissa_bits = 10;
++	fmt.sign = true;
++
++	if (sdr_white_level > 80) {
++		multiplier = dc_fixpt_from_fraction(sdr_white_level, 80);
++		convert_to_custom_float_format(multiplier, &fmt, &hw_scale);
++	}
++
++	opt_attr.scale = hw_scale;
++	opt_attr.bias = 0;
++
++	return opt_attr;
++}
++
+ // Function to check if any update flags are set
+ static bool get_pipe_update_bits_status(struct pipe_ctx *pipe, struct dc_plane_state *plane, struct dc_stream_state *stream)
+ {
+@@ -1183,6 +1206,7 @@ void hwss_build_fast_sequence(struct dc *dc,
+ 	struct pipe_ctx *current_mpc_pipe = NULL;
+ 	bool is_dmub_lock_required = false;
+ 	unsigned int i = 0;
++	struct block_sequence_state seq_state = { .steps = block_sequence, .num_steps = num_steps };
  
- #define TO_DCN50_DPP(dpp)\
- 	container_of(dpp, struct dcn50_dpp, base)
+ 	*num_steps = 0; // Initialize to 0
  
- #define DPP_REG_LIST_SH_MASK_DCN50_COMMON(mask_sh)\
--	DPP_REG_LIST_SH_MASK_DCN401_COMMON(mask_sh), \
-+	DPP_REG_LIST_SH_MASK_DCN42_COMMON(mask_sh), \
- 	TF_SF(CNVC_CFG0_PRE_GAM, PRE_GAM_MODE, mask_sh), \
- 	TF_SF(CNVC_CFG0_PRE_GAM, PRE_DEGAM_SELECT, mask_sh), \
- 	TF_SF(CNVC_CFG0_PRE_GAM, PRE_REGAM_SELECT, mask_sh)
+@@ -1341,11 +1365,7 @@ void hwss_build_fast_sequence(struct dc *dc,
+ 				(*num_steps)++;
+ 			}
  
- #define DPP_REG_FIELD_LIST_DCN50(type) \
--	DPP_REG_FIELD_LIST_DCN401(type); \
-+	DPP_REG_FIELD_LIST_DCN42(type); \
- 	type PRE_GAM_MODE; \
- 	type PRE_REGAM_SELECT
+-			block_sequence[*num_steps].params.set_cursor_sdr_white_level_params.dc = dc;
+-			block_sequence[*num_steps].params.set_cursor_sdr_white_level_params.pipe_ctx =
+-				current_pipe;
+-			block_sequence[*num_steps].func = SET_CURSOR_SDR_WHITE_LEVEL;
+-			(*num_steps)++;
++			hwss_add_set_cursor_sdr_white_level(&seq_state, current_pipe);
  
- #define DPP_REG_VARIABLE_LIST_DCN50 \
--	DPP_REG_VARIABLE_LIST_DCN401; \
--	uint32_t PRE_GAM;
-+	DPP_REG_VARIABLE_LIST_DCN42; \
-+	uint32_t PRE_GAM
+ 			if (enable_cursor_offload && dc->hwss.update_cursor_offload_pipe) {
+ 				block_sequence[*num_steps].params.update_cursor_offload_pipe_params.dc = dc;
+@@ -4385,11 +4405,10 @@ void hwss_set_cursor_position(union block_sequence_params *params)
  
- struct dcn50_dpp_registers {
--	DPP_REG_VARIABLE_LIST_DCN50
-+	DPP_REG_VARIABLE_LIST_DCN50;
+ void hwss_set_cursor_sdr_white_level(union block_sequence_params *params)
+ {
+-	struct dc *dc = params->set_cursor_sdr_white_level_params.dc;
+-	struct pipe_ctx *pipe_ctx = params->set_cursor_sdr_white_level_params.pipe_ctx;
++	struct dpp *dpp = params->set_cursor_sdr_white_level_params.dpp;
+ 
+-	if (dc && dc->hwss.set_cursor_sdr_white_level)
+-		dc->hwss.set_cursor_sdr_white_level(pipe_ctx);
++	if (dpp->funcs->set_optional_cursor_attributes)
++		dpp->funcs->set_optional_cursor_attributes(dpp, &params->set_cursor_sdr_white_level_params.attr);
+ }
+ 
+ void hwss_program_gamut_remap(struct pipe_ctx *pipe_ctx)
+@@ -5771,15 +5790,19 @@ void hwss_add_set_cursor_position(struct block_sequence_state *seq_state,
+ }
+ 
+ void hwss_add_set_cursor_sdr_white_level(struct block_sequence_state *seq_state,
+-		struct dc *dc,
+ 		struct pipe_ctx *pipe_ctx)
+ {
+-	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
+-		seq_state->steps[*seq_state->num_steps].func = SET_CURSOR_SDR_WHITE_LEVEL;
+-		seq_state->steps[*seq_state->num_steps].params.set_cursor_sdr_white_level_params.dc = dc;
+-		seq_state->steps[*seq_state->num_steps].params.set_cursor_sdr_white_level_params.pipe_ctx = pipe_ctx;
+-		(*seq_state->num_steps)++;
+-	}
++	struct dpp *dpp = pipe_ctx->plane_res.dpp;
++	struct dpp_cursor_attributes attr;
++
++	if (dpp && dpp->funcs->set_optional_cursor_attributes)
++		if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
++			attr = calc_sdr_cursor_attributes(pipe_ctx);
++			seq_state->steps[*seq_state->num_steps].func = SET_CURSOR_SDR_WHITE_LEVEL;
++			seq_state->steps[*seq_state->num_steps].params.set_cursor_sdr_white_level_params.dpp = dpp;
++			seq_state->steps[*seq_state->num_steps].params.set_cursor_sdr_white_level_params.attr = attr;
++			(*seq_state->num_steps)++;
++		}
+ }
+ 
+ void hwss_add_program_output_csc(struct block_sequence_state *seq_state,
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+index b1679791f903..1b0fc0853045 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn10/dcn10_hwseq.c
+@@ -3938,29 +3938,13 @@ void dcn10_set_cursor_attribute(struct pipe_ctx *pipe_ctx)
+ 
+ void dcn10_set_cursor_sdr_white_level(struct pipe_ctx *pipe_ctx)
+ {
+-	uint32_t sdr_white_level = pipe_ctx->stream->cursor_attributes.sdr_white_level;
+-	struct fixed31_32 multiplier;
+-	struct dpp_cursor_attributes opt_attr = { 0 };
+-	uint32_t hw_scale = 0x3c00; // 1.0 default multiplier
+-	struct custom_float_format fmt;
+-
+-	if (!pipe_ctx->plane_res.dpp->funcs->set_optional_cursor_attributes)
+-		return;
+-
+-	fmt.exponenta_bits = 5;
+-	fmt.mantissa_bits = 10;
+-	fmt.sign = true;
++	struct dpp *dpp = pipe_ctx->plane_res.dpp;
++	struct dpp_cursor_attributes attr;
+ 
+-	if (sdr_white_level > 80) {
+-		multiplier = dc_fixpt_from_fraction(sdr_white_level, 80);
+-		convert_to_custom_float_format(multiplier, &fmt, &hw_scale);
++	if (dpp && dpp->funcs->set_optional_cursor_attributes) {
++		attr = calc_sdr_cursor_attributes(pipe_ctx);
++		dpp->funcs->set_optional_cursor_attributes(dpp, &attr);
+ 	}
+-
+-	opt_attr.scale = hw_scale;
+-	opt_attr.bias = 0;
+-
+-	pipe_ctx->plane_res.dpp->funcs->set_optional_cursor_attributes(
+-			pipe_ctx->plane_res.dpp, &opt_attr);
+ }
+ 
+ /*
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+index 8e0ccc9d5819..7b089ae5c9c3 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn401/dcn401_hwseq.c
+@@ -3743,8 +3743,7 @@ void dcn401_update_dchubp_dpp_sequence(struct dc *dc,
+ 		hwss_add_set_cursor_position(seq_state, dc, pipe_ctx);
+ 
+ 		/* Step 16: Cursor SDR white level */
+-		if (dc->hwss.set_cursor_sdr_white_level)
+-			hwss_add_set_cursor_sdr_white_level(seq_state, dc, pipe_ctx);
++		hwss_add_set_cursor_sdr_white_level(seq_state, pipe_ctx);
+ 	}
+ 
+ 	/* Step 17: Gamut remap and output CSC */
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.c
+index a7f8fd03faea..c13d1ad8d000 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn50/dcn50_hwseq.c
+@@ -366,8 +366,7 @@ void dcn50_update_dchubp_dpp_sequence(struct dc *dc,
+ 		hwss_add_set_cursor_position(seq_state, dc, pipe_ctx);
+ 
+ 		/* Step 15: Cursor SDR white level */
+-		if (dc->hwss.set_cursor_sdr_white_level)
+-			hwss_add_set_cursor_sdr_white_level(seq_state, dc, pipe_ctx);
++		hwss_add_set_cursor_sdr_white_level(seq_state, pipe_ctx);
+ 	}
+ 
+ 	/* Step 16: Gamut remap and output CSC */
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+index 4f0d000eab94..83d9d699e929 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+@@ -872,8 +872,8 @@ struct set_cursor_position_params {
  };
  
- struct dcn50_dpp_shift {
-diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn60/dcn60_dpp.h b/drivers/gpu/drm/amd/display/dc/dpp/dcn60/dcn60_dpp.h
-index 96ff26a5ed65..a0cc57e79ff7 100644
---- a/drivers/gpu/drm/amd/display/dc/dpp/dcn60/dcn60_dpp.h
-+++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn60/dcn60_dpp.h
-@@ -414,9 +414,7 @@
- 	TF_SF(CNVC_CFG0_CNVC_UPSP_CLAMP, UPSP_CLAMP_MIN, mask_sh)
+ struct set_cursor_sdr_white_level_params {
+-	struct dc *dc;
+-	struct pipe_ctx *pipe_ctx;
++	struct dpp *dpp;
++	struct dpp_cursor_attributes attr;
+ };
  
- #define DPP_REG_FIELD_LIST_DCN60(type) \
--	DPP_REG_FIELD_LIST_DCN42(type); \
--	type PRE_GAM_MODE; \
--	type PRE_REGAM_SELECT; \
-+	DPP_REG_FIELD_LIST_DCN50(type); \
- 	type AUTOCAL_FRAC_MODE; \
- 	type SCL_BLACK_COLOR_RGB_Y; \
- 	type SCL_BLACK_COLOR_CBCR; \
-@@ -448,8 +446,7 @@
- 	type UPSP_CLAMP_MIN
+ struct program_output_csc_params {
+@@ -1802,6 +1802,8 @@ void set_drr_and_clear_adjust_pending(
+ 		struct dc_stream_state *stream,
+ 		struct drr_params *params);
  
- #define DPP_REG_VARIABLE_LIST_DCN60 \
--	DPP_REG_VARIABLE_LIST_DCN42; \
--	uint32_t PRE_GAM; \
-+	DPP_REG_VARIABLE_LIST_DCN50; \
- 	uint32_t SCL_BLACK_COLOR; \
- 	uint32_t UPSP_MODE; \
- 	uint32_t UPSP_V_COEF_P0; \
++struct dpp_cursor_attributes calc_sdr_cursor_attributes(struct pipe_ctx *pipe_ctx);
++
+ void hwss_execute_sequence(struct dc *dc,
+ 		struct block_sequence block_sequence[MAX_HWSS_BLOCK_SEQUENCE_SIZE],
+ 		int num_steps);
+@@ -2610,7 +2612,6 @@ void hwss_add_set_cursor_position(struct block_sequence_state *seq_state,
+ 		struct pipe_ctx *pipe_ctx);
+ 
+ void hwss_add_set_cursor_sdr_white_level(struct block_sequence_state *seq_state,
+-		struct dc *dc,
+ 		struct pipe_ctx *pipe_ctx);
+ 
+ void hwss_add_program_output_csc(struct block_sequence_state *seq_state,
 -- 
 2.43.0
 
