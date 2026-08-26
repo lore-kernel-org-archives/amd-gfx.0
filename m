@@ -4,51 +4,55 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C947C61DC7
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 12:47:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 11DD5C61DD3
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 12:47:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8F3E10EFEC;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EAD9810EFED;
 	Thu, 27 Aug 2026 12:47:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=imm0nv1nhtv.is-a.dev header.i=@imm0nv1nhtv.is-a.dev header.b="xXwDHC/l";
+	dkim=pass (2048-bit key; unprotected) header.d=treblig.org header.i=@treblig.org header.b="p/e1CLPZ";
 	dkim-atps=neutral
-X-Greylist: delayed 8966 seconds by postgrey-1.36 at gabe;
- Wed, 26 Aug 2026 19:36:13 UTC
-Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 359CD10EDC7
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 19:36:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=lark2602131731; d=imm0nv1nhtv.is-a.dev; t=1787772967;
- h=from:subject:mime-version:from:date:message-id:subject:to:cc:
- reply-to:content-type:mime-version:in-reply-to:message-id;
- bh=6m6/nVTkN2G1SyFXrOvB2/4l1QVTjAhGUBW3iigpQ0U=;
- b=xXwDHC/lI9wUDcOickNtgmclJ9sSYiCmwHK5xU7einvu66U3SsrJOT+V9wC7pDVTeA7iBw
- 1iRoThyg+mMzzg12uXM9UNdM6OyRxW8j9emLfaoZbBPjOGqRq2lxUOVZ/w9tKdSqfJsH3S
- NpgLykGftIq0WXNMYASmlQrFb7SbQMVFPt8YQXi510I+OkbRpAM24/MJ7/M6jqWWgpbmYh
- WYqLPb/BK0z07gCTlf6AYydlUwkB2wm/9JJ+8wrWvOkKljEUFgzCcg1gQ9cFjIMzqv3O8s
- AJWLLDGDuLYMTnJ2c7rSp4R49Enwp1JQJ4inmlKXZqBc2NUhAaKKW+st1iDVag==
-Content-Type: text/plain; charset=UTF-8
-To: "Harry Wentland" <harry.wentland@amd.com>, "Leo Li" <sunpeng.li@amd.com>, 
- "Alex Deucher" <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: "Rodrigo Siqueira" <siqueira@igalia.com>, 
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, 
- <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, 
- <linux-kernel@vger.kernel.org>, 
- "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
-Subject: [PATCH 1/2] drm/amd/display: skip receiver power control without AUX
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26a8f4027+79189d+lists.freedesktop.org+neptune@imm0nv1nhtv.is-a.dev>
-Content-Transfer-Encoding: 7bit
-From: "NepNep7601" <neptune@imm0nv1nhtv.is-a.dev>
-Date: Thu, 27 Aug 2026 02:36:01 +0700
-X-Mailer: git-send-email 2.47.3
-Received: from Neptune-PC.kiko-royal.ts.net ([58.186.164.158]) by
- smtp.larksuite.com with ESMTPS; Wed, 26 Aug 2026 19:36:06 +0000
-References: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev>
-X-Original-From: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
-Message-Id: <20260826193602.6441-1-neptune@imm0nv1nhtv.is-a.dev>
-In-Reply-To: <20260826170549.21985-1-neptune@imm0nv1nhtv.is-a.dev>
+X-Greylist: delayed 977 seconds by postgrey-1.36 at gabe;
+ Wed, 26 Aug 2026 13:27:10 UTC
+Received: from mx.treblig.org (mx.treblig.org [46.235.229.95])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DCEA210ECF0
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 13:27:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=treblig.org
+ ; s=bytemarkmx;
+ h=Content-Type:MIME-Version:Message-ID:Subject:From:Date:From
+ :Subject; bh=tRnztHud4pjjk8xSOgMv8kVQN9nuJzUsR1szd+RCmic=; b=p/e1CLPZX9o3k1P+
+ vckKD1ZJhqBOSmfW0/1GFIWjf5DJrkOFurKOQ5VkZ7OV5EdOYGZY0yH79B0b1lSVNOUcb3l6VRkxT
+ hVxSgLzzVm3qxLBXqGOXJhBwYvzUG9alhZZrWQVIStf9ZGscCjP8IJWzprf/Y7MhFDNP6hPStlItc
+ E5RC/Dxtz5ehw1XAFYh7vc0YarTE+pW8QtaGhCcc1BJEURCq/Ko8Tx46WoCXMbt7naSuANlFoGyTY
+ /Tz/TwgevCaFgxiQ/4fg/631cCInRm5apHWtRyPZUGvujYL1Xn8WbMxr2X8dQcv48bqalkhiuGwOW
+ /XrwFQxHndyOr98rTg==;
+Received: from dg by mx.treblig.org with local (Exim 4.98.2)
+ (envelope-from <dg@treblig.org>) id 1wzDP1-00000000Asb-0ABM;
+ Wed, 26 Aug 2026 13:10:51 +0000
+Date: Wed, 26 Aug 2026 13:10:50 +0000
+From: "Dr. David Alan Gilbert" <linux@treblig.org>
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: Alex Deucher <alexdeucher@gmail.com>, alexander.deucher@amd.com,
+ christian.koenig@amd.com, harry.wentland@amd.com,
+ sunpeng.li@amd.com, amd-gfx@lists.freedesktop.org,
+ airlied@gmail.com, simona@ffwll.ch, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/4] drm/amdgpu: Remove is_idle method
+Message-ID: <ao7l2qRUJpomS6Bw@gallifrey>
+References: <20260815180033.8958-1-linux@treblig.org>
+ <CADnq5_PgZx7aDGFD5pPQ=1MvF9_N_omVojNiDQFHjs0Tqasv+A@mail.gmail.com>
+ <2026082644-monetize-tingling-0abd@gregkh>
+ <CADnq5_N0AxaDZswgEQ7BEcKw8mF2hnSbAQp-w9U2Fy-MaEw8Rg@mail.gmail.com>
+ <2026082654-gangrene-support-8541@gregkh>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2026082654-gangrene-support-8541@gregkh>
+X-Chocolate: 70 percent or better cocoa solids preferably
+X-Operating-System: Linux/6.12.105+deb13-amd64 (x86_64)
+X-Uptime: 13:10:19 up 16:13,  3 users,  load average: 0.10, 0.04, 0.01
+User-Agent: Mutt/2.2.13 (2024-03-09)
 X-Mailman-Approved-At: Thu, 27 Aug 2026 12:47:25 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,43 +68,30 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Passive DP to TMDS dongles do not provide a DP receiver and use native
-GPIO I2C rather than AUX. dpcd_write_rx_power_ctrl() nevertheless tries
-to write DP_SET_POWER, causing the DP helpers to retry a transaction
-that cannot succeed 32 times before giving up.
+* Greg KH (gregkh@linuxfoundation.org) wrote:
+> On Wed, Aug 26, 2026 at 08:45:29AM -0400, Alex Deucher wrote:
+> > On Wed, Aug 26, 2026 at 6:21 AM Greg KH <gregkh@linuxfoundation.org> wrote:
+> > >
+> > > On Mon, Aug 17, 2026 at 11:27:41AM -0400, Alex Deucher wrote:
+> > > > Applied.  Thanks.
+> > >
+> > > Any hints on where this was applied and if it will get to Linus "soon"?
+> > 
+> > It will show up in drm-next after the merge window closes. 7.4 material.
+> 
+> Sorry, but this is hitting me now, pre 7.3-rc1.  Booting and getting a
+> zillion kernel warnings isn't ok, that's a regression.  Please get this
+> merged sooner than that.
 
-Skip receiver power control when the link is not using AUX mode.
+Hey? This patch doesn't fix anything - it's purely dead code.
+My comment about the log errors I saw were about the head of drm-next
+I tested on, not about this patch.
 
-On an Oland GPU with a passive DP to HDMI to DVI chain, this reduced
-boot-time "DP AUX transfer fail" messages from 32 to 0. The EDID
-remained 256 bytes and the display continued to use its native
-1600x900 mode.
+Dave
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: NepNep7601 <neptune@imm0nv1nhtv.is-a.dev>
----
- .../gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c  | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-index 49521ac4b0e8..7991531f6ef4 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_phy.c
-@@ -50,6 +50,15 @@ void dpcd_write_rx_power_ctrl(struct dc_link *link, bool on)
- 	if (link->sync_lt_in_progress)
- 		return;
- 
-+	/*
-+	 * A passive DP to TMDS dongle presents no DP receiver, so there is
-+	 * nothing to power up or down. The write can only fail, and the DP
-+	 * helpers retry it 32 times before giving up, which adds tens of
-+	 * milliseconds to link bring up.
-+	 */
-+	if (!link->aux_mode)
-+		return;
-+
- 	core_link_write_dpcd(link, DP_SET_POWER, &state,
- 						 sizeof(state));
- 
+> greg k-h
 -- 
-2.47.3
+ -----Open up your eyes, open up your mind, open up your code -------   
+/ Dr. David Alan Gilbert    |       Running GNU/Linux       | Happy  \ 
+\        dave @ treblig.org |                               | In Hex /
+ \ _________________________|_____ http://www.treblig.org   |_______/
