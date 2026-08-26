@@ -4,73 +4,48 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2C831C61DC2
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 12:46:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87ACEC61DCD
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 12:46:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B5EA10ECE7;
-	Wed, 26 Aug 2026 12:46:26 +0000 (UTC)
-Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=freenet.de header.i=@freenet.de header.b="UCXYE7kp";
-	dkim-atps=neutral
-Received: from mout.freenet.de (mout.freenet.de [194.97.212.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2016F10E208;
- Tue, 25 Aug 2026 18:57:22 +0000 (UTC)
-Received: from [2001:748:400:1319::5] (helo=sub7.mail.fnrz.de)
- by mout3.mail.fnrz.de with esmtpa (ID viktor.jaegerskuepper@freenet.de) (port
- 25) (Exim 4.98.2 #2) id 1wywKa-00000006T5j-0GWR;
- Tue, 25 Aug 2026 20:57:08 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=freenet.de; 
- s=mjaymdexmjqk;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID;
- bh=jWLurX8RVOGPG1caSR8Fkl3oQ3/zoLa88KPfYJlQTfI=; b=UCXYE7kpfeNJPzW6m6k9rtELhh
- +Pgw0QSewj14njJOsY5vfF5mcL5wmMO0lh9wkdivDol6N3lVI2EBuMzMs7QqH6ADCnWbdTgeMppg/
- VBaAf876jKdr28cLWqx/SrLAwQKQmmsIA9NDpU6ODgHt0px/hsAq8sCMs5hIfjCeZzirNXRNI80do
- ASfKTloBs5X5h0qpq4jmpIpt1yvDcjqaClj6I4bXVx1TKmQ5wOilnVnfn59C7fnTiRApOIEh30yfV
- qQ1wI5dnivCv1F9lD+65ZdJYB9eFfvaWbQ7Zb/ERd6M/4xAG9AVg50bma7K6MBTRL1dvQldu3rkyD
- nPieXtZg==;
-Authentication-Results: freenet.de;
- iprev=fail smtp.remote-ip=2a02:8071:a85:f020:3a1c:2bb:cc98:87a;
- auth=pass (PLAIN) smtp.auth=viktor.jaegerskuepper@freenet.de
-Received: from [2a02:8071:a85:f020:3a1c:2bb:cc98:87a] (port=41120
- helo=[127.0.0.1])
- by sub7.mail.fnrz.de with esmtpsa (ID viktor.jaegerskuepper@freenet.de)
- (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (port 465) (Exim
- 4.98.2 #2) id 1wywKZ-0000000BQrY-3iPD;
- Tue, 25 Aug 2026 20:57:07 +0200
-Message-ID: <fed3be9d-1115-4910-8153-0c2940cbfa9d@freenet.de>
-Date: Tue, 25 Aug 2026 20:56:59 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD2D610ECE4;
+	Wed, 26 Aug 2026 12:46:25 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A90A10EBF2;
+ Wed, 26 Aug 2026 08:37:32 +0000 (UTC)
+X-UUID: 5b4cb9eaa12911f19a56ed5b684f684d-20260826
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19, REQID:3271276e-ecaf-42b4-9819-320377205142, IP:0,
+ U
+ RL:0,TC:0,Content:-25,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:-25
+X-CID-META: VersionHash:7db8b62, CLOUDID:6c3636afc8496d9cf70cbed7c874e8f3,
+ BulkI
+ D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
+ il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
+ S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5b4cb9eaa12911f19a56ed5b684f684d-20260826
+X-User: yanglinlin@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <yanglinlin@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 1157170727; Wed, 26 Aug 2026 16:37:22 +0800
+From: Linlin Yang <yanglinlin@kylinos.cn>
+To: linux-kernel@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-hwmon@vger.kernel.org, linux-mmc@vger.kernel.org,
+ netdev@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-fbdev@vger.kernel.org,
+ Linlin Yang <yanglinlin@kylinos.cn>
+Subject: [PATCH] treewide: fix spelling of "overridden"
+Date: Wed, 26 Aug 2026 16:37:15 +0800
+Message-Id: <20260826083715.625136-1-yanglinlin@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] drm/amd/display: advertise PIXEL_NONE as blend
- mode for DCE generations
-To: Melissa Wen <mwen@igalia.com>, airlied@gmail.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, daniels@collabora.com,
- harry.wentland@amd.com, leandro.ribeiro@collabora.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- pekka.paalanen@collabora.com, simona@ffwll.ch, siqueira@igalia.com,
- sunpeng.li@amd.com, tzimmermann@suse.de
-Cc: Alex Hung <alex.hung@amd.com>, Daniel Wheeler <Daniel.Wheeler@amd.com>,
- kernel-dev@igalia.com, Lyude Paul <lyude@redhat.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Xaver Hugl <xaver.hugl@gmail.com>,
- =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?= <viktor_jaegerskuepper@freenet.de>
-References: <20260813143605.106104-1-mwen@igalia.com>
- <20260813143605.106104-4-mwen@igalia.com>
- <512414f0-ca55-435e-8ca3-7dbf48d0c114@freenet.de>
- <2b6f24cb-c387-4174-9e81-0a1a7ef42581@freenet.de>
- <6faf80d8-2972-44a9-93f7-39ffee0d1fec@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?=
- <viktor_jaegerskuepper@freenet.de>
-In-Reply-To: <6faf80d8-2972-44a9-93f7-39ffee0d1fec@igalia.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-FN-MUUID: 17876842277E30DB55B4B1O
-X-Scan-TS: Tue, 25 Aug 2026 20:57:07 +0200
 X-Mailman-Approved-At: Wed, 26 Aug 2026 12:46:21 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -86,92 +61,249 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/25/26 10:06, Melissa Wen wrote:
-> 
-> 
-> On 24/08/2026 23:02, Viktor Jägersküpper wrote:
->> On 8/24/26 22:38, Viktor Jägersküpper wrote:
->>> [ Adding Timur ]
->>>
->>> On 8/13/26 16:30, Melissa Wen wrote:
->>>> DCE can support PREMULTI and COVERAGE blend mode depending on its
->>>> generation, however current driver implementation either doesn't expose
->>>> more than primary and cursor plane, or doesn't program registers for
->>>> any
->>>> blend mode other than PIXEL_NONE. To fix the missing-blend-mode-prop
->>>> warning according to current DCE plane caps, create blend mode property
->>>> with PIXEL_NONE only for primary planes, instead of the DRM default
->>>> PREMULTI.
->>>>
->>>> Fixes: 860e748bddcc ("drm: ensure blend mode supported if pixel
->>>> format with alpha exposed")
->>>> Reviewed-by: Leandro Ribeiro <leandro.ribeiro@collabora.com>
->>>> Signed-off-by: Melissa Wen <mwen@igalia.com>
->>>>
->>>> ---
->>>> v3:
->>>> - fix indentation (Alex H)
->>>> ---
->>>>   .../amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 18 ++++++++++
->>>> +-------
->>>>   1 file changed, 11 insertions(+), 7 deletions(-)
->>>>
->>>> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
->>>> b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
->>>> index ab9bbe8ca333..3b5b6943b67d 100644
->>>> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
->>>> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
->>>> @@ -1923,14 +1923,18 @@ int amdgpu_dm_plane_init(struct
->>>> amdgpu_display_manager *dm,
->>>>       if (res)
->>>>           return res;
->>>>   -    /* TODO: Check which blend modes are supported in DCE-generation
->>>> -     * planes, i.e. DC_PLANE_TYPE_DCE_RGB/UNDERLAY and expose blend
->>>> mode
->>>> -     * property accordingly.
->>>> +    /* Blend mode support varies on DCE generations according to HW
->>>> caps
->>>> +     * and number of planes per CRTC. However, as current driver
->>>> +     * implementation only creates one primary and one cursor plane
->>>> per
->>>> +     * CRTC for DCE (overlay is only created if
->>>> +     * DC_PLANE_TYPE_DCN_UNIVERSAL), the primary plane blend mode
->>>> ends up
->>>> +     * being always PIXEL_NONE across DCE versions.
->>>>        */
->>>> -    if ((plane->type == DRM_PLANE_TYPE_OVERLAY ||
->>>> -         plane->type == DRM_PLANE_TYPE_PRIMARY) &&
->>>> -        plane_cap && plane_cap->per_pixel_alpha &&
->>>> -        plane_cap->type == DC_PLANE_TYPE_DCN_UNIVERSAL) {
->>>> +    if (plane_cap && plane_cap->type != DC_PLANE_TYPE_DCN_UNIVERSAL) {
->>>> +        drm_plane_create_blend_mode_property(plane,
->>>> BIT(DRM_MODE_BLEND_PIXEL_NONE));
->>>> +    } else if ((plane->type == DRM_PLANE_TYPE_OVERLAY ||
->>>> +            plane->type == DRM_PLANE_TYPE_PRIMARY) &&
->>>> +           plane_cap && plane_cap->per_pixel_alpha) {
->>>>           unsigned int blend_caps = BIT(DRM_MODE_BLEND_PIXEL_NONE) |
->>>>                         BIT(DRM_MODE_BLEND_PREMULTI) |
->>>>                         BIT(DRM_MODE_BLEND_COVERAGE);
->>> With this patch applied to the mainline kernel, my display freezes when
->>> Kwin is started (either by SDDM or by launching a KDE Plasma session).
->>> GDM and Gnome work fine. The journal doesn't have much information, it's
->>> mainly this:
-> 
-> I suspect KDE is not interpreting correctly the blend mode, but I think
-> we can
-> keep it working as before by adding PREMULTI. In the end there is no
-> overlay
-> plane for DCE, and PIXEL_NONE and PREMULTI are equivalent when one
-> primary is composed on top of a black background.
-> 
-> Can you replace this commit by the patch attached?
-> It might solve the issue as long as background continues being black.
-> I didn't apply it to drm-misc, so let me know how does this new patch works
-> on your side.
-The attached patch solves the issue, I tested both KDE/SDDM and
-Gnome/GDM, the warnings are gone as expected. You can add:
+Fix misspelling of "overridden" (missing a 'd') in comments across
+multiple drivers.  The correct spelling "overridden" is already used
+292 times in the same drivers/ directory.
 
-Tested-by: Viktor Jägersküpper <viktor_jaegerskuepper@freenet.de>
+All occurrences are in comments only, no functional change.
 
-Thanks,
-Viktor
+Signed-off-by: Linlin Yang <yanglinlin@kylinos.cn>
+---
+ .../gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c    | 2 +-
+ .../gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c    | 2 +-
+ .../amd/display/dc/link/protocols/link_edp_panel_control.c    | 4 ++--
+ drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c               | 2 +-
+ drivers/gpu/drm/msm/registers/gen_header.py                   | 2 +-
+ drivers/gpu/drm/nouveau/nouveau_bios.c                        | 2 +-
+ drivers/hwmon/abituguru.c                                     | 2 +-
+ drivers/mmc/core/block.c                                      | 2 +-
+ drivers/net/ethernet/broadcom/bnx2x/bnx2x_link.c              | 2 +-
+ drivers/net/ethernet/chelsio/cxgb4vf/sge.c                    | 2 +-
+ drivers/net/ethernet/freescale/fman/fman_memac.c              | 2 +-
+ drivers/net/ethernet/sfc/mcdi_pcol.h                          | 2 +-
+ drivers/scsi/aic7xxx/aic79xx_osm.c                            | 2 +-
+ drivers/scsi/sym53c8xx_2/sym53c8xx.h                          | 2 +-
+ drivers/spi/spi-omap2-mcspi.c                                 | 2 +-
+ drivers/video/fbdev/tridentfb.c                               | 2 +-
+ 16 files changed, 17 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
+index 33b5136f7ce3..75bdad22bf69 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn30/display_mode_vba_30.c
+@@ -1805,7 +1805,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+ 	v->DISPCLKWithRamping = 0;
+ 	v->DISPCLKWithoutRamping = 0;
+ 	v->GlobalDPPCLK = 0.0;
+-	/* DAL custom code: need to update ReturnBW in case min dcfclk is overriden */
++	/* DAL custom code: need to update ReturnBW in case min dcfclk is overridden */
+ 	v->IdealSDPPortBandwidthPerState[v->VoltageLevel][v->maxMpcComb] = dml_min3(
+ 			v->ReturnBusWidth * v->DCFCLK,
+ 			v->DRAMSpeedPerState[v->VoltageLevel] * v->NumberOfChannels * v->DRAMChannelWidth,
+diff --git a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+index 8064c4b3fd25..3f62ea493787 100644
+--- a/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
++++ b/drivers/gpu/drm/amd/display/dc/dml/dcn31/display_mode_vba_31.c
+@@ -2045,7 +2045,7 @@ static void DISPCLKDPPCLKDCFCLKDeepSleepPrefetchParametersWatermarksAndPerforman
+ 	v->DISPCLKWithRamping = 0;
+ 	v->DISPCLKWithoutRamping = 0;
+ 	v->GlobalDPPCLK = 0.0;
+-	/* DAL custom code: need to update ReturnBW in case min dcfclk is overriden */
++	/* DAL custom code: need to update ReturnBW in case min dcfclk is overridden */
+ 	{
+ 	double IdealFabricAndSDPPortBandwidthPerState = dml_min(
+ 			v->ReturnBusWidth * v->DCFCLKState[v->VoltageLevel][v->maxMpcComb],
+diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+index 16951a9550f2..d3fe6e024891 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
++++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_edp_panel_control.c
+@@ -108,7 +108,7 @@ enum dp_panel_mode dp_get_panel_mode(struct dc_link *link)
+ 			/* alternate scrambler reset is required for Travis
+ 			 * for the case when external chip does not
+ 			 * provide sink device id, alternate scrambler
+-			 * scheme will  be overriden later by querying
++			 * scheme will  be overridden later by querying
+ 			 * Encoder features
+ 			 */
+ 			if (strncmp(
+@@ -124,7 +124,7 @@ enum dp_panel_mode dp_get_panel_mode(struct dc_link *link)
+ 			/* alternate scrambler reset is required for NUTMEG
+ 			 * for the case when external chip does not provide
+ 			 * sink device id, alternate scrambler scheme will
+-			 * be overriden later by querying Encoder feature
++			 * be overridden later by querying Encoder feature
+ 			 */
+ 			if (strncmp(link->dpcd_caps.branch_dev_name,
+ 				DP_VGA_LVDS_CONVERTER_ID_3,
+diff --git a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+index 204375f1eff8..587d26c742cd 100644
+--- a/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
++++ b/drivers/gpu/drm/amd/display/dmub/src/dmub_srv.c
+@@ -584,7 +584,7 @@ static bool dmub_srv_hw_setup(struct dmub_srv *dmub, enum dmub_asic asic)
+ 		return false;
+ 	}
+ 
+-	/* set default inbox type if not overriden */
++	/* set default inbox type if not overridden */
+ 	if (dmub->inbox_type == DMUB_CMD_INTERFACE_DEFAULT) {
+ 		if (default_inbox_type != DMUB_CMD_INTERFACE_DEFAULT) {
+ 			/* use default inbox type as specified by DCN rev */
+diff --git a/drivers/gpu/drm/msm/registers/gen_header.py b/drivers/gpu/drm/msm/registers/gen_header.py
+index d3b56a9d84fb..d6bfb7b7d7b3 100644
+--- a/drivers/gpu/drm/msm/registers/gen_header.py
++++ b/drivers/gpu/drm/msm/registers/gen_header.py
+@@ -576,7 +576,7 @@ class Parser(object):
+             raise self.error(e)
+ 
+     def parse_varset(self, attrs):
+-        # Inherit the varset from the enclosing domain if not overriden:
++        # Inherit the varset from the enclosing domain if not overridden:
+         varset = self.current_varset
+         if "varset" in attrs:
+             varset = self.enums[attrs["varset"]]
+diff --git a/drivers/gpu/drm/nouveau/nouveau_bios.c b/drivers/gpu/drm/nouveau/nouveau_bios.c
+index 38032bb95826..10cd606d01b9 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_bios.c
++++ b/drivers/gpu/drm/nouveau/nouveau_bios.c
+@@ -323,7 +323,7 @@ get_fp_strap(struct drm_device *dev, struct nvbios *bios)
+ 	/*
+ 	 * The fp strap is normally dictated by the "User Strap" in
+ 	 * PEXTDEV_BOOT_0[20:16], but on BMP cards when bit 2 of the
+-	 * Internal_Flags struct at 0x48 is set, the user strap gets overriden
++	 * Internal_Flags struct at 0x48 is set, the user strap gets overridden
+ 	 * by the PCI subsystem ID during POST, but not before the previous user
+ 	 * strap has been committed to CR58 for CR57=0xf on head A, which may be
+ 	 * read and used instead
+diff --git a/drivers/hwmon/abituguru.c b/drivers/hwmon/abituguru.c
+index ba8c68ae4595..5accd463599c 100644
+--- a/drivers/hwmon/abituguru.c
++++ b/drivers/hwmon/abituguru.c
+@@ -475,7 +475,7 @@ abituguru_detect_bank1_sensor_type(struct abituguru_data *data,
+ 	u8 val, test_flag, buf[3];
+ 	int i, ret = -ENODEV; /* error is the most common used retval :| */
+ 
+-	/* If overriden by the user return the user selected type */
++	/* If overridden by the user return the user selected type */
+ 	if (bank1_types[sensor_addr] >= ABIT_UGURU_IN_SENSOR &&
+ 			bank1_types[sensor_addr] <= ABIT_UGURU_NC) {
+ 		ABIT_UGURU_DEBUG(2, "assuming sensor type %d for bank1 sensor "
+diff --git a/drivers/mmc/core/block.c b/drivers/mmc/core/block.c
+index e760d13ee325..a02bb2fee874 100644
+--- a/drivers/mmc/core/block.c
++++ b/drivers/mmc/core/block.c
+@@ -86,7 +86,7 @@ MODULE_ALIAS("mmc:block");
+ static DEFINE_MUTEX(block_mutex);
+ 
+ /*
+- * The defaults come from config options but can be overriden by module
++ * The defaults come from config options but can be overridden by module
+  * or bootarg options.
+  */
+ static int perdev_minors = CONFIG_MMC_BLOCK_MINORS;
+diff --git a/drivers/net/ethernet/broadcom/bnx2x/bnx2x_link.c b/drivers/net/ethernet/broadcom/bnx2x/bnx2x_link.c
+index ea310057fe3a..bc36d7578ce2 100644
+--- a/drivers/net/ethernet/broadcom/bnx2x/bnx2x_link.c
++++ b/drivers/net/ethernet/broadcom/bnx2x/bnx2x_link.c
+@@ -3743,7 +3743,7 @@ static void bnx2x_warpcore_enable_AN_KR(struct bnx2x_phy *phy,
+ 		{MDIO_WC_DEVAD, MDIO_WC_REG_CL72_USERB0_CL72_TX_FIR_TAP, 0},
+ 	};
+ 	DP(NETIF_MSG_LINK, "Enable Auto Negotiation for KR\n");
+-	/* Set to default registers that may be overriden by 10G force */
++	/* Set to default registers that may be overridden by 10G force */
+ 	for (i = 0; i < ARRAY_SIZE(reg_set); i++)
+ 		bnx2x_cl45_write(bp, phy, reg_set[i].devad, reg_set[i].reg,
+ 				 reg_set[i].val);
+diff --git a/drivers/net/ethernet/chelsio/cxgb4vf/sge.c b/drivers/net/ethernet/chelsio/cxgb4vf/sge.c
+index 31fab2415743..b4374ca1d653 100644
+--- a/drivers/net/ethernet/chelsio/cxgb4vf/sge.c
++++ b/drivers/net/ethernet/chelsio/cxgb4vf/sge.c
+@@ -2194,7 +2194,7 @@ static void __iomem *bar2_address(struct adapter *adapter,
+  *	@rspq: pointer to the new rxq's Response Queue to be filled in
+  *	@iqasynch: if 0, a normal rspq; if 1, an asynchronous event queue
+  *	@dev: the network device associated with the new rspq
+- *	@intr_dest: MSI-X vector index (overriden in MSI mode)
++ *	@intr_dest: MSI-X vector index (overridden in MSI mode)
+  *	@fl: pointer to the new rxq's Free List to be filled in
+  *	@hnd: the interrupt handler to invoke for the rspq
+  */
+diff --git a/drivers/net/ethernet/freescale/fman/fman_memac.c b/drivers/net/ethernet/freescale/fman/fman_memac.c
+index e2d8c58deef0..c1d588337751 100644
+--- a/drivers/net/ethernet/freescale/fman/fman_memac.c
++++ b/drivers/net/ethernet/freescale/fman/fman_memac.c
+@@ -1311,7 +1311,7 @@ int memac_initialization(struct mac_device *mac_dev,
+ 
+ 	/* Most boards should use MLO_AN_INBAND, but existing boards don't have
+ 	 * a managed property. Default to MLO_AN_INBAND rather than MLO_AN_PHY.
+-	 * Phylink will allow this to be overriden by a fixed link. We need to
++	 * Phylink will allow this to be overridden by a fixed link. We need to
+ 	 * be careful and not enable this if we are using MII or RGMII, since
+ 	 * those configurations modes don't use in-band autonegotiation.
+ 	 */
+diff --git a/drivers/net/ethernet/sfc/mcdi_pcol.h b/drivers/net/ethernet/sfc/mcdi_pcol.h
+index b9866e389e6d..9adfa058512f 100644
+--- a/drivers/net/ethernet/sfc/mcdi_pcol.h
++++ b/drivers/net/ethernet/sfc/mcdi_pcol.h
+@@ -13547,7 +13547,7 @@
+  * an ancestor of the current user (see MC_CMD_SET_VI_USER). Note that LL
+  * queues require this to be called after allocation but before initialisation
+  * of the queue. TLP options of a queue are fixed after queue is initialised,
+- * with the values set to current global value or they can be overriden using
++ * with the values set to current global value or they can be overridden using
+  * this command. At LL queue allocation, all overrides are cleared.
+  */
+ #define MC_CMD_SET_VI_TLP_PROCESSING 0xb1
+diff --git a/drivers/scsi/aic7xxx/aic79xx_osm.c b/drivers/scsi/aic7xxx/aic79xx_osm.c
+index feb1707feb7e..c9470f80626b 100644
+--- a/drivers/scsi/aic7xxx/aic79xx_osm.c
++++ b/drivers/scsi/aic7xxx/aic79xx_osm.c
+@@ -173,7 +173,7 @@ static adapter_tag_info_t aic79xx_tag_info[] =
+ 
+ /*
+  * The I/O cell on the chip is very configurable in respect to its analog
+- * characteristics.  Set the defaults here; they can be overriden with
++ * characteristics.  Set the defaults here; they can be overridden with
+  * the proper insmod parameters.
+  */
+ struct ahd_linux_iocell_opts
+diff --git a/drivers/scsi/sym53c8xx_2/sym53c8xx.h b/drivers/scsi/sym53c8xx_2/sym53c8xx.h
+index 11f5dc29aa59..8790f1315f75 100644
+--- a/drivers/scsi/sym53c8xx_2/sym53c8xx.h
++++ b/drivers/scsi/sym53c8xx_2/sym53c8xx.h
+@@ -128,7 +128,7 @@ struct sym_driver_setup {
+ /*
+  *  Initial setup.
+  *
+- *  Can be overriden at startup by a command line.
++ *  Can be overridden at startup by a command line.
+  */
+ #define SYM_LINUX_DRIVER_SETUP	{				\
+ 	.max_tag	= CONFIG_SCSI_SYM53C8XX_DEFAULT_TAGS,	\
+diff --git a/drivers/spi/spi-omap2-mcspi.c b/drivers/spi/spi-omap2-mcspi.c
+index a3355147f5de..90f3990e0060 100644
+--- a/drivers/spi/spi-omap2-mcspi.c
++++ b/drivers/spi/spi-omap2-mcspi.c
+@@ -1244,7 +1244,7 @@ static int omap2_mcspi_transfer_one(struct spi_controller *ctlr,
+ 		omap2_mcspi_set_fifo(spi, t, 0);
+ 
+ out:
+-	/* Restore defaults if they were overriden */
++	/* Restore defaults if they were overridden */
+ 	if (par_override) {
+ 		par_override = 0;
+ 		status = omap2_mcspi_setup_transfer(spi, NULL);
+diff --git a/drivers/video/fbdev/tridentfb.c b/drivers/video/fbdev/tridentfb.c
+index 9f055ba776c8..6501f6e2615a 100644
+--- a/drivers/video/fbdev/tridentfb.c
++++ b/drivers/video/fbdev/tridentfb.c
+@@ -58,7 +58,7 @@ static struct fb_fix_screeninfo tridentfb_fix = {
+ 	.accel = FB_ACCEL_NONE,
+ };
+ 
+-/* defaults which are normally overriden by user values */
++/* defaults which are normally overridden by user values */
+ 
+ /* video mode */
+ static char *mode_option;
+-- 
+2.25.1
+
