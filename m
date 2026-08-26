@@ -4,25 +4,25 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9C5ECC5DF97
-	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 23:18:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B71CC5DF97
+	for <amd-gfx@archiver.kernel.org>; Wed, 26 Aug 2026 23:18:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1C42810EE34;
-	Wed, 26 Aug 2026 23:18:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B940410EE35;
+	Wed, 26 Aug 2026 23:18:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0la4YOi0";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LMgKiD3J";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011005.outbound.protection.outlook.com [40.107.208.5])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44D6210EE34
- for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 23:18:13 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010023.outbound.protection.outlook.com [52.101.85.23])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9087910EE35
+ for <amd-gfx@lists.freedesktop.org>; Wed, 26 Aug 2026 23:18:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AmoGHwusoKnp1tAvMvUBDtzkKJWkF1ygk8jJ+5+5FZVSQ8eViToiOCCdEiN1TH28uEKxHJeX/Yr4b9XPymcSgexgoPfQdPLvrHRhpeIvOcfXWyKaDmbv3OvrVVP7coDshwuthFfi4b1S4nfFy3rVY3O6t3lEWAarBDoUVlWQhLkVFCyXnb0IEXmDcgrhdqn6VVS622cEK2Qwn8qtyVJnBnZTPei7k6Z3x5qzwMMXCZTucT+KLxRW1mIPVeEmy6++3CJI+JrE+sJCnn0pxfhobki1vYmwH/HHlPy4s2KG9UDHup+AqTKgkD79SN93GgMNs+Rt+U6rjr1O7jFpt1n3UQ==
+ b=jOIe2w1zynKoRxl4pKxB2K6jr/Gh7x8v7xH02OEOZgOE6Jfc8h3yFw5wSIkcwjHMKJ4U9GVuyYBriHUC8KHTP6g/yhFHYP2+W8mcb4MoWfIRCXufHBhcW32r3vRwMnSh9H+1UBIDHdQrZV3iUTHiEE0ruNBWzYGSbvGRp1zkkZDcPdFptLO2X5Gsp8ik+ZFVuUNDPkt3BlLfOvcx8Ji4VtJNdhNdVhNaG/CEMqc0kjgYqdeQQ4xCXdfrD9zMZMhBRCm2H5JtPsYD7TUeLt+OXOW8HAfEC9KRLFsMbbIYqV1zRCaD54WXC3TCWNy5B/O9oXLqodKNc/abBwcZt5VRzw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gDU4Nb5CuIP2IE4txldWHJwHB8PKg5ZkxYwwrVumj28=;
- b=tHa6Ade4D8TWSSTkqruho04rN8sQRTYmRhkz7GVj/sUKuOWiECh26DjTrM34X4e0EKOYzTWb7GonJXONt9JnbAJkRINdKWRGJ9P8XwskG8rYDIvGVWsyZrdgJsUy4q93v37I9rU2WFcEHMJQIefUzhAEdtxKThkJeXuo8ZbVDhVmgtNKuOI4Fnn1g71JHMFn1er12waTV+ZOmMapEJ9OVnYVtvUpcaM5exDQ3pmeuJmmAdnoPVTxHTuuKGAOXo3NyWumggITQq36aECRsV6N9mxxOSBdWUExIknLqF5PTW0/SQUUT5mMjlLPtOdh2Y/8hYowubgaousdF/4zQYW+xA==
+ bh=fg5YVnGOP15vql/iFbV3Cov8XrvTpULXnNYm3ovHAP8=;
+ b=fJidIvvK6AB6UQUREHqPpJKDdWkrN6q8ZoQCmmXJP92UQANPb0BePJnUuodIADOGdbRgYqDUr6uqjYsY/FTEFld/VFQL4zcM7XoxLYXp+EQQf8YggpP0YMmfA/R1RF7rI9vxWVzSqE+mQvmwLnUcaoqp9gZ8g1jP4UFIObv4dQCBNakZH4mxle3WHU29d18NOWNsEVtPme81jk3EiuBJsjAgDYGph3OMVucMnZ3B+VEqaAUerQuvXjttKDdxeaULR4oYqiRjp5UWjZaEbtRTQ5owu/fspDM0qrHVOdZx5l8BEM9Wxij+OxlS5pbN8rpG81UdTrQBR6+oLshjqIFTQA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  is 149.199.90.133) smtp.rcpttodomain=lists.freedesktop.org
  smtp.mailfrom=amd.com; dmarc=fail (p=quarantine sp=quarantine pct=100)
@@ -30,31 +30,31 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
  arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gDU4Nb5CuIP2IE4txldWHJwHB8PKg5ZkxYwwrVumj28=;
- b=0la4YOi0i6QWM8aBQoKv+D3YdRvhD6OsRV9OHeukjT0gypArEIzttWAhwsayAI8VVs21vAXytjEXykTKaOmeDUwCjVjkWWcygBFxDaaLL+CT+A6MC9EWPLeTrVjInsRtMCjNLuJZyq2fOf6wVLQfSbno7GPjWVzPQyeDnQjQDNM=
-Received: from CY8PR11CA0005.namprd11.prod.outlook.com (2603:10b6:930:48::18)
- by MW6PR12MB9000.namprd12.prod.outlook.com (2603:10b6:303:24b::11)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Wed, 26 Aug
- 2026 23:18:09 +0000
-Received: from CY4PEPF0000FCC5.namprd03.prod.outlook.com
- (2603:10b6:930:48:cafe::6d) by CY8PR11CA0005.outlook.office365.com
- (2603:10b6:930:48::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.9 via Frontend Transport; Wed, 26
- Aug 2026 23:18:09 +0000
+ bh=fg5YVnGOP15vql/iFbV3Cov8XrvTpULXnNYm3ovHAP8=;
+ b=LMgKiD3J9In/1bhYi7nGnrMOmQjMNVizDDPBmiWhUoWJUy9S5XKqt/sJehUPHhBWHOGEwQaOcaIhTgkzBj41/s1pj9in7YRiPl+U+JQK+zSbZY3XJ4g0XpJdK1XqxymmavPocP1fzMZD/SQQ4EaeofwnJ2++6TGmnZvL+x2/h/w=
+Received: from MN2PR15CA0047.namprd15.prod.outlook.com (2603:10b6:208:237::16)
+ by CH1PPF68E8581EB.namprd12.prod.outlook.com
+ (2603:10b6:61f:fc00::611) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Wed, 26 Aug
+ 2026 23:18:35 +0000
+Received: from BN3PEPF0000B06B.namprd21.prod.outlook.com
+ (2603:10b6:208:237:cafe::46) by MN2PR15CA0047.outlook.office365.com
+ (2603:10b6:208:237::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Wed,
+ 26 Aug 2026 23:18:35 +0000
 X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is
  149.199.90.133) smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=quarantine header.from=amd.com;
 Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
  amd.com discourages use of 149.199.90.133 as permitted sender)
 Received: from satlexmb07.amd.com (149.199.90.133) by
- CY4PEPF0000FCC5.mail.protection.outlook.com (10.167.242.107) with Microsoft
+ BN3PEPF0000B06B.mail.protection.outlook.com (10.167.243.70) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Wed, 26 Aug 2026 23:18:08 +0000
+ 15.21.382.0 via Frontend Transport; Wed, 26 Aug 2026 23:18:34 +0000
 Received: from localhost.localdomain (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 26 Aug
- 2026 18:18:02 -0500
+ 2026 18:18:22 -0500
 From: Alex Hung <alex.hung@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -63,13 +63,12 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Roman Li <Roman.Li@amd.com>, Mario Limonciello
- <mario.limonciello@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- <stable@vger.kernel.org>
-Subject: [PATCH 07/59] drm/amd/display: Set gpuvm min page size to 4K on
- dcn35/36
-Date: Wed, 26 Aug 2026 17:04:38 -0600
-Message-ID: <20260826231519.881949-8-alex.hung@amd.com>
+ <Chen-Yu.Chen@amd.com>, Samson Tam <Samson.Tam@amd.com>, Dave Airlie
+ <airlied@redhat.com>, Alvin Lee <alvin.lee2@amd.com>
+Subject: [PATCH 08/59] drm/amd/display: Move custom float structures from
+ opp.h to custom_float.h
+Date: Wed, 26 Aug 2026 17:04:39 -0600
+Message-ID: <20260826231519.881949-9-alex.hung@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260826231519.881949-1-alex.hung@amd.com>
 References: <20260826231519.881949-1-alex.hung@amd.com>
@@ -81,30 +80,30 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC5:EE_|MW6PR12MB9000:EE_
-X-MS-Office365-Filtering-Correlation-Id: e919fa4a-e850-4f9f-19e7-08df03c84a92
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B06B:EE_|CH1PPF68E8581EB:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7d87a14d-019a-406d-e88f-08df03c859e3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|30052699003|1800799024|82310400026|36860700016|22082099003|18002099003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: nz2FIsFmP4zZ1apuiZIA93x9BI/Li3JITz931SMzW6BjAYkqT7lGyMfxldjEtTjCnxhAdXr8+0q1hffQDHMU1i0FRBaFn3oLUV7DntRT+OQUNIWoM8NEM15hVf68ly/8NtMNIHaeJOoZZSrWznWCF76zkc2dfEB16I83SH1qJzTTq2kcEyAvgtb4NzGRZyj0kvRReiSnxRWhf2yWiCkQhpzdj9h/r5vElBAdqeP7w3WxvbJiDYQ1AeOsP9HHSzqFrAyO5+3k1yV3Fa3VyOf6TQuS7+qz5xewZy3sEQUfRdEAvuW3t1MBiu2+xZQ0WQ1p1gIx/x113KPruZLqjcgX0ZM631KOTOuzU7VFbV3VFn12t+F5O/q2XhTEce6j4MNad0JuRGfuENdQG6HSmNCNiy2eomWnqbZlJ41N38US/xp5MRNCBSZ8/z4IldnQTb+jHyAzykbdMS5FTKgEi8m/uIGQNy7ewYctBzzp7Ri1TLnb6a9+/jctxFG2ffzuF50ImXjAEkr4XHb/PIvSaUtgtE1WIjkVzcdzd6rwQSxB92UoY07ZGwKUa6wiHbML6jIcGdjTJMd1mUWf342zGCBhOQ51fHWRTA0PN6anw9e55qI7cy9ysbObvRNF/W+gRoRxG12EG2IWICoZaDxabGVDIXGsjEQ4NWh/HUj9Ztq/6ywZkOevSfbQ1JE0fYDlx3LCfbEOW8mZgfgyXELZltwtRA==
+ ARA:13230040|1800799024|82310400026|376014|23010399003|36860700016|11063799006|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: SHmjSQQTNw6fn9gvDbP1r948CMnM0sR5n4RRP4eftlF4bdyuu6Tw7xVU3Kfaz3YJyjNNRnujkkNMoue73wC0o3YpyLW4or6Fq6dR1yZCHwe1eFOSt0WKQsPX18skUAMp6TAORaq32qHJknQgy5/1KNNVNM7Jg3i178FR8EVE8Z5KPRX/ceYzaCAu9jYp3Z+9cKaziPKKJGxwIdQt2aAa1OH9Mj+3uEw2Z4t47ZvmRdc/RobLtXToDkoN8e/TqMLBelfIU0kf0x9Xi0GflOZe9CxyE3k9oXjroVTD3D8jpidlCxsKVMfihNOg85UaWpbrokoG+UWbDnl9JsseHcIFRQubI8WAziU6U59dOHaJCQzdOJx14mR0DEwEYM0jYVMbl+W2jMVBJA1I2YL/8Ni+hxsMEnnLWwRLWBiUqZD9l6H34q07an83FpGBzb9AnCHnCaXt+T9VzxrDmLxp/Zgqgn9aiOQudnS4RRsrrbDaKIAMszCusbK5FXXLFXL9a1sXMK3/mFw6aAv0BjmVR+DYArPwEw+bbBlZSczB4iDDi1lP3wZFsupKVUIakmo99vDTS11PDkhE3ORyRR3OTbWsy7Nqxwyq9KgRKw7ZnTEJUC5neo8QyNh80lOTM73BMBzZxgn3jr26Tzs4a9us4ilk/0XoMY+VL/Mz6kmQIIeeIF6scsks8YxnmDnRp837iuGT
 X-Forefront-Antispam-Report: CIP:149.199.90.133; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:unknown-90-133.xilinx.com;
  CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(30052699003)(1800799024)(82310400026)(36860700016)(22082099003)(18002099003)(11063799006)(56012099006)(10067099003);
+ SFS:(13230040)(1800799024)(82310400026)(376014)(23010399003)(36860700016)(11063799006)(10067099003)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: F6OqfXwkUjmJFuABQ08WmW8om2LLu86rLYDOxgLe6V75cGRqbJVJ6nj6/MiQYnDCdyNW9JXaROQ0+g4sOYFOykT3aclChCc/q/uuzzVQbfRMPNqeMOG5eKLUZEwjEaxgXjAJqylW3Zlz+1EibAyBuwdL2s0QxOG/JbsL5FSkBkkTJwd0t/sK6kHalG0n/vPrjS+bMf/KXJt+M62snu+G6FTvUoF/DKbgdFvdvWyBYXD2WjJ4V4RsIe6TOqM4idh25uK71CAdWCre9x0M1odD+1ue1HV1mRVDiHa/sBuG5VkU57gSs9POw5Zj/W9GAog80IIi8SXNJKP1QSk6L31fq9gW5BgskbDO5bgQ2Y/j+wcGSb8ZgOQziFXZSavA6xgNeC9A1G6ZB8GqLMyLhu/JNKi4Mc7CGW0GGIsWiwJB9GvEM9QE7wgzgVgr/6VkkgCL
+X-MS-Exchange-AntiSpam-MessageData-0: gKaVh4DgpZwoLZUP1Whd6e+Kx5MeOKaG3yCLxMfsZrYRg7Jee1c4af7YQ0eJQ+5Tg3Fw88dWtYN4wKKSehjMdmly++FRlQn0YpFmz01580MLuGrF2Db+v4+aaecJQ/Z8ROa8bvl9FYU2ZdlHgl7r0jjy9xsZBSPBxTC5r6fS1dGYacBGmZEB+3tPd5qpIwfP/vHQem1zp/tdGCWeGqMCHuM1CFkyAd9edLQWU3457lrog+ecMH/vJZqHSLU1JzWGyW+gsLuREKqe2a4lQqcS5uyyVuT2YwI09Q8o+PAt7fEeofY2vFaI7kIGzG0TQdyPVTJExTDKDZ9Awb14oTx78E4P3h4hD2k+52y4WMcFjiQuyyPzUvhL71OxPaNS66den7av1TqcWko4OrWaLfm+maPo/NokvDmAU2eivMNvnILiznDoiFPqDGz30RHI9fLS
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 23:18:08.8443 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e919fa4a-e850-4f9f-19e7-08df03c84a92
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 23:18:34.5075 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d87a14d-019a-406d-e88f-08df03c859e3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[149.199.90.133];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000FCC5.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B06B.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW6PR12MB9000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH1PPF68E8581EB
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,38 +118,90 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Roman Li <Roman.Li@amd.com>
+From: Samson Tam <Samson.Tam@amd.com>
 
 [WHY]
-Splash screen corruption on some 8K monitors.
+Currently it needs to include opp.h to access custom_float structures,
+which pulls in additional include files that are not necessary.
 
 [HOW]
-Set GPUVM min page size to 4K for DCN35/36 to use the correct DML2
-calculations, avoiding the corruption path observed during splash.
+Move custom_float structures to custom_float.h, and include this header in
+opp.h. Add only os_types.h and fixed31_32.h in custom_float.h
 
-Fixes: 115009d11ccf ("drm/amd/display: Add DCN35 DML2 support")
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Roman Li <Roman.Li@amd.com>
+Suggested-by: Dave Airlie <airlied@redhat.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Samson Tam <Samson.Tam@amd.com>
 Signed-off-by: Alex Hung <alex.hung@amd.com>
 ---
- drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../gpu/drm/amd/display/dc/inc/custom_float.h | 21 ++++++++++++++++---
+ drivers/gpu/drm/amd/display/dc/inc/hw/opp.h   | 14 +------------
+ 2 files changed, 19 insertions(+), 16 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
-index 166f10b8862f..c82886323a51 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml2_translation_helper.c
-@@ -301,6 +301,7 @@ void dml2_init_socbb_params(struct dml2_context *dml2, const struct dc *in_dc, s
- 		out->smn_latency_us = 2;
- 		out->dispclk_dppclk_vco_speed_mhz = 3600;
- 		out->pct_ideal_dram_bw_after_urgent_pixel_only = 65.0;
-+		out->gpuvm_min_page_size_kbytes = 4;
- 		break;
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/custom_float.h b/drivers/gpu/drm/amd/display/dc/inc/custom_float.h
+index f57239672216..897759a041e4 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/custom_float.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/custom_float.h
+@@ -26,10 +26,25 @@
+ #ifndef CUSTOM_FLOAT_H_
+ #define CUSTOM_FLOAT_H_
  
+-#include "bw_fixed.h"
+-#include "hw_shared.h"
+-#include "opp.h"
++#include "os_types.h"    /* uint32_t, bool */
++#include "fixed31_32.h"  /* struct fixed31_32 (used by value) */
  
++/*
++ * Moved here from opp.h so consumers of custom-float do not have to pull in the
++ * heavy opp.h
++ */
++struct custom_float_format {
++	uint32_t mantissa_bits;
++	uint32_t exponenta_bits;
++	bool sign;
++};
++
++struct custom_float_value {
++	uint32_t mantissa;
++	uint32_t exponenta;
++	uint32_t value;
++	bool negative;
++};
+ 
+ bool convert_to_custom_float_format(
+ 	struct fixed31_32 value,
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/hw/opp.h b/drivers/gpu/drm/amd/display/dc/inc/hw/opp.h
+index 73cc34ea7726..f2d16d88b0bc 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/hw/opp.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/hw/opp.h
+@@ -43,6 +43,7 @@
+ #define __DAL_OPP_H__
+ 
+ #include "hw_shared.h"
++#include "../custom_float.h"
+ #include "dc_hw_types.h"
+ #include "transform.h"
+ #include "mpc.h"
+@@ -142,19 +143,6 @@ enum channel_name {
+ 	CHANNEL_NAME_BLUE
+ };
+ 
+-struct custom_float_format {
+-	uint32_t mantissa_bits;
+-	uint32_t exponenta_bits;
+-	bool sign;
+-};
+-
+-struct custom_float_value {
+-	uint32_t mantissa;
+-	uint32_t exponenta;
+-	uint32_t value;
+-	bool negative;
+-};
+-
+ struct hw_x_point {
+ 	uint32_t custom_float_x;
+ 	struct fixed31_32 x;
 -- 
 2.43.0
 
