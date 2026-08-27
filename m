@@ -4,58 +4,76 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BF91EC61DC6
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2026 08:00:01 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB0E2C61DCD
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2026 08:00:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CEB4510F2BB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC4F310F2BC;
 	Fri, 28 Aug 2026 07:59:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="gEi596wQ";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="RMfmnweO";
+	dkim=pass (1024-bit key; unprotected) header.d=snu.ac.kr header.i=@snu.ac.kr header.b="OiipsV10";
 	dkim-atps=neutral
-X-Greylist: delayed 403 seconds by postgrey-1.36 at gabe;
- Thu, 27 Aug 2026 12:56:18 UTC
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5E39110E3F7
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 12:56:18 +0000 (UTC)
-Date: Thu, 27 Aug 2026 14:49:31 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020; t=1787834973;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Z4ZaNwIZuCYL9LjEf8eghMjYQgVWPixb3pgdYvUamCE=;
- b=gEi596wQKkfmM/4JLwZta+cGNhxRYntB8tlekzAR71E5nNYbdWMpfC4TmBYA0Fz1ILQCNk
- kdq5bTOe8GokWi+2/NQ77ePKnGXoShua8tVWBpPz7rOuzPlKssozV9EmXzOnSBjgvy4ccB
- NDJpezO3itOVBmbQ02U1i1rGWSCPS79fNtjtfSxfS4FpwO8oBotsane53Cb+Gqss3Nh/qy
- JIl4jhmXUUEQm0a1oorGWyJPdgJlmmFivNRHHCCEci1NWxAXC8ID+XMJJeCw1lRgeSMaf4
- TYdc2soDRlDTVd/6rg2oO3eWNmQWJt/1DFK5Co8sRaVs4+9O/7XlUw0IlcXjfA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
- s=2020e; t=1787834973;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=Z4ZaNwIZuCYL9LjEf8eghMjYQgVWPixb3pgdYvUamCE=;
- b=RMfmnweO0IpS1wz2Bya3EsDnIjAZZ4HMExwu/82UwkjhLlCkblOfQ847KCLhWN1j+KoGma
- Bx/F6R6OYCHO05Ag==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Bert Karwatzki <spasswolf@web.de>
-Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, amd-gfx@lists.freedesktop.org,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- Rafal Ostrowski <rafal.ostrowski@amd.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Thomas Gleixner <tglx@linutronix.de>
-Subject: Re: [PATCH v7.2-rc6] drm/amd/display: fix usage of
- DC_FPU_{BEGIN,END} with PREEMPT_RT
-Message-ID: <20260827124931.ocQEF6MW@linutronix.de>
-References: <202608061233.eufnR5Qm-lkp@intel.com>
- <20260807124944.154232-1-spasswolf@web.de>
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
+ [209.85.210.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0BF3510F0D0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 16:01:37 +0000 (UTC)
+Received: by mail-pf1-f180.google.com with SMTP id
+ d2e1a72fcca58-853c947bfefso1090916b3a.0
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 09:01:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=snu.ac.kr; s=google; t=1787846496; x=1788451296; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=7sryVqJwijt526l6++VdXSITZiFhPfcV5wF4kc67w4s=;
+ b=OiipsV10svfhMiovOn3v1SR0g35ovedJcRfO7N+pqqb5y1C7wbuMcM/GlqIyvel56Z
+ bD3vuscDp/ReQCx+L6SMxlJldRqjU6RMr76GlyA8SFPJfeFTJEOckJEjaF7MdDN0hXt5
+ qiOCNjqVa6Ul4MNuVJAIxMK8OU0NcaebjfPDY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787846496; x=1788451296;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=7sryVqJwijt526l6++VdXSITZiFhPfcV5wF4kc67w4s=;
+ b=eq7mWmh9T/k7/UTOwu3ENeDFbjiEUHgcwz6JNl2PKz/z+DY7QErXuyCL8hHIxrF3nl
+ DvoD15KRyohowBWQlUVAUHH43j/eYncnI/FQk/hN3nj/6+pgf3fdRaFF9ircCJrjCcm6
+ zgqbN3m7yqcsCMsVaxGnnhu3lR8KxYp/khuV8zu3ubLngIWRhAcq0/9EXQOPietgiCa1
+ gD312j73FlWq9xNzJ4v/6RT7UtTNVlNn36SZJ63eZ+xfnsoaW4CmWlHknyH1BDD5Wqn8
+ ljbvuS24Cpxp3iH0esKPHPtZQ7NrKN1kUJj/nTRhfAGtThmFrz9SpcoyOIaEpuRZxNvb
+ dj/w==
+X-Gm-Message-State: AFuF++mV2Jy0AJJVa7W+6+lIVgGbuuRQF4pgM44ZaFROgzGh73cj5nVW
+ fQGAUw3df03rERfxq/UzJ8v+FldVqCEuKx8PUvMEpO+hB2DMXYjTPq9bUeXOa94Pq5Y=
+X-Gm-Gg: AR+sD11sYc400YdE9ZiYQMogxSex0A2xd/opXYz6tGU15AmQpt6PuNwXefMy+8Ve89Y
+ XDj552nYCcXwsGBZhkOEt33Lc4Xprd0TWnKBWuBmprEs6qmaARHkwRPd1vYUnYeEIBWHHs3u5C7
+ hBjyHgtVgTxibVXxj3ONkAzZFBhgH2LJdj2TrJaXOo3P7Z3BbiWG3NfgAgzKktwbdbomZ2MgEqx
+ isVIvN7DGQdzlWcpyry9wgauBw0QekSVMsIR9EYGt0s/8oglU3a9Rdbq0945Le5y8dqX+w3eSOD
+ ivgfm2AsJ4oZDGxTLWguaPomykOmYRekBjYmb2iNdupGRShNiJ4Iz7QE+KgfJKY8w2AwhOCQ027
+ mYML82HNYy5qOUmHMUtMHfyjBJ/uTK5yXa9zizqQkPRyPqztegSXgkNOBMiMtk7Zo1xNpt8P3k5
+ 9B0/u2h+7VAnciisNPACvIC2GwfQv8g5b9C/+njf9/FVR2UsLCx4/ZD8Rqrw==
+X-Received: by 2002:a05:6a00:4fd0:b0:84b:9a69:156d with SMTP id
+ d2e1a72fcca58-8562543f74cmr429998b3a.0.1787846494915; 
+ Thu, 27 Aug 2026 09:01:34 -0700 (PDT)
+Received: from 1c1aead48890.. ([49.142.45.25])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8535a8bd941sm2178632b3a.18.2026.08.27.09.01.32
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 27 Aug 2026 09:01:34 -0700 (PDT)
+From: Seongjun Hong <hsj0512@snu.ac.kr>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ =?UTF-8?q?J=C3=A9r=C3=B4me=20Glisse?= <jglisse@redhat.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Seongjun Hong <hsj0512@snu.ac.kr>,
+ Sashiko AI Review <sashiko-bot@kernel.org>
+Subject: [PATCH] drm/radeon: fix double-free/UAF of ttm->sg on userptr pin
+ failure
+Date: Thu, 27 Aug 2026 16:01:22 +0000
+Message-ID: <20260827160124.679309-1-hsj0512@snu.ac.kr>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260827091532.340141F000E9@smtp.kernel.org>
+References: <20260827091532.340141F000E9@smtp.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260807124944.154232-1-spasswolf@web.de>
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 28 Aug 2026 07:59:57 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -71,28 +89,55 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026-08-07 14:49:42 [+0200], Bert Karwatzki wrote:
-> On PREEMPT_RT kernels kvzalloc_obj() can sleep because spin_lock is
-> converted to rt_mutex. dc_create_plane_state() can be called while
-> inside an FPU-guarded region, resuling in "scheduling while atomic"
-> errors on PREEMPT_RT kernels.
->  Fix this by calling kvzalloc_obj() with DC_RUN_WITH_PREEMPTION_ENABLED().
-> Also fix the error path in dc_create_stream_for_sink().
-> 
-> Fixes: 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC - Part 1")
-> Link: https://lore.kernel.org/lkml/20260723123449.6494-1-spasswolf@web.de/
-> Signed-off-by: Bert Karwatzki <spasswolf@web.de>
+If sg_alloc_table_from_pages() or dma_map_sgtable() fails inside
+radeon_ttm_tt_pin_userptr(), the error path frees ttm->sg with
+kfree(). But ttm->sg is not owned by this function - it is allocated
+once in radeon_ttm_tt_populate() and is only supposed to be freed by
+radeon_ttm_tt_unpopulate(), which persists across multiple bind/unbind
+cycles of the same ttm_tt.
 
-Thank you Bert. Got this somewhere in the meantime?
+kfree()'ing it here without resetting ttm->sg to NULL leaves a
+dangling pointer:
 
-Could the FPU regions with disabled preemption be limited to where we
-have actually have FPU usage in way that you don't have to worry when it
-is needed to use DC_RUN_WITH_PREEMPTION_ENABLED() and when not? Also the
-dc_fpu_begin()/ end() can nest and if they do the usage of
-DC_RUN_WITH_PREEMPTION_ENABLED() is futile, isn't it?
+ - radeon_ttm_tt_unpopulate() will kfree() the same pointer again
+   later, a double-free.
 
-The first usage kernel_fpu_begin() saves the FPU state to the user task.
-kernel_fpu_end() does not restore it. Therefore the subsequent
-invocation of kernel_fpu_begin() is cheaper.
+ - Anything that dereferences ttm->sg in the meantime (e.g. the
+   "!ttm->sg || !ttm->sg->sgl" check in
+   radeon_ttm_tt_unpin_userptr(), or a retried bind calling
+   sg_alloc_table_from_pages(ttm->sg, ...) again) is a
+   use-after-free.
 
-Sebastian
+Additionally, if sg_alloc_table_from_pages() succeeded but
+dma_map_sgtable() failed, kfree() only frees the struct sg_table
+header, not the sgl entries array it allocated internally, leaking
+that allocation.
+
+Use sg_free_table() instead, which releases only the sgl entries
+this function allocated and leaves the ttm->sg header intact for
+radeon_ttm_tt_unpopulate() to free later, matching the ownership the
+normal (non-error) unpin path already assumes.
+
+Fixes: f72a113a71ab ("drm/radeon: add userptr support v8")
+Reported-by: Sashiko AI Review <sashiko-bot@kernel.org>
+Signed-off-by: Seongjun Hong <hsj0512@snu.ac.kr>
+---
+ drivers/gpu/drm/radeon/radeon_ttm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/radeon/radeon_ttm.c b/drivers/gpu/drm/radeon/radeon_ttm.c
+index 22fc35a0e8d8..cbc0339cf127 100644
+--- a/drivers/gpu/drm/radeon/radeon_ttm.c
++++ b/drivers/gpu/drm/radeon/radeon_ttm.c
+@@ -374,7 +374,7 @@ static int radeon_ttm_tt_pin_userptr(struct ttm_device *bdev, struct ttm_tt *ttm
+ 	return 0;
+ 
+ release_sg:
+-	kfree(ttm->sg);
++	sg_free_table(ttm->sg);
+ 
+ release_pages:
+ 	unpin_user_pages(ttm->pages, pinned);
+-- 
+2.43.0
+
