@@ -4,43 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 64C7FC61DC4
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 15:14:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4B3E3C61DB9
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 15:19:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C738010E42E;
-	Thu, 27 Aug 2026 15:14:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9936A10E852;
+	Thu, 27 Aug 2026 15:19:54 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SpkYF3dJ";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="i4+R3/83";
 	dkim-atps=neutral
-Received: from BL2PR02CU003.outbound.protection.outlook.com
- (mail-eastusazon11011007.outbound.protection.outlook.com [52.101.52.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 26F4610E42E
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 15:14:09 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010056.outbound.protection.outlook.com [52.101.85.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8816810E852
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 15:19:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nk0H1glKx4wbN+joZjHp7msPXkndEgFfpeePS1MJ2iccDHAvOCxaGd8kwuQBlQaUI4S7eSJcK1sRqGxvIBjG2UfP1uOCIPOkU1JJANHDllXuO9E1XypJtUTwbVP8nY1pl4uRhbwM1g5vt5tU3lI4Dw+x77cSWdG0ibHT1ZQ8Ob0dHTYnlPHa6MP0PZSF5t3ffewcGMpiCphyHpYfALxP1w3JlMgmxeDMdPL9TQrE6Lx0asbXw68nHjPsSl04tc9p2pNPkVjSGNwURWKSzsMMEYQjIY/ECuNrdfzI0fSLJIHdUEgfe3OuOyox94tQFm3650pZS6rPvA8L9mXpUdwK1A==
+ b=rqDG9rv6je2PUQDouyC+a7WmTddQKQegSqM1arqOILJb6jN+8oLo1bns89Y3j+Hr6IizGZ0NkkHErzrPUdc+zgtCvjzwX7ncKene9aU+w+DKKyGrhTDBz5ZzPAAVH85OT/yve5+vOc4/GUjkZfHjO7pUecFv5cYcy+m9w+XtlEOU8iU/bHWkPsgLJmYesKfnL0NfzLA4D9kaInRZfUCimISjGJSgefnB92ADPmXnctJ20+RBW3bJ+e8odKcHM0GF6f+p1RJOFyG/+XGE3JcZB6uTp/BclwDvx/qOlnOqAzZANEr10RL9ovfPXrbwqbbnfJ82MExH8Uv/wbk0fmn2mw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QPyVMtCN/jjM8ebxQ4vkUjU4ZSp5NYZPLiNGaIykMB4=;
- b=VW39mpfFiuGH0LAfNwTq0WdZIYMB/xgwAU3vjthgq7zLNTrzQGy3trbVjI/ET1Gglvxax9d1sere4C4TPULr30xyrQkc7qMoBfr2SKqK5GL6MOeL5YCs111b58HC0dQ325/z5egx+2cwH/VfIi+uz2eRpg2dH6f+28burirW4nA/s3cbrvSWFwAAzwpVAUP77+np+JpblFogqSeWdzTN2VQRfv8DuvZUUcZZI/51nfjPl9aU9+y1oSIAXxa0LTo4dvQRpLpTooTCz8ArcEwBc0TWz6MG9tLGufkORpHkeHZjNapHjdbjGupGKeaNGmyeqMTJGl2pLiiw562PnO/BLQ==
+ bh=6YoXq2F5Q4OzqGoyMEYnYPjtAY+TJWaaOU/HE9qSHY0=;
+ b=desE4PjGw3FTeBCj/if4RseN8+4hITItIzW5luh+O9TkMwl+XqRCrjqZD4oi0EFuHu/i5PrmoQwIwqVIHc5LJbl2eJs/o8vy1Yi2fnXn4dj09oS2TdzkHmQFIS95pnDVDc6czFxFdrFccdBJ4DG8PA75vqE3cCGt8CkIlamrDSRA1iLKF5hpS6mAJYppS0/yi9cJFOR+y7biDdZBrnIAUt00sXSxlTYNt3f2Xqei9WmhY5e5tElvSK0D8/WbSLfyrdIAmbmaj6Ysz1wh9qxmP2gzoqS5+fkMUEChFYwIZD6r4wp5rCvLry/PHXVTvpVbaX0ueyZZr2f/Vx+vGyMJAw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QPyVMtCN/jjM8ebxQ4vkUjU4ZSp5NYZPLiNGaIykMB4=;
- b=SpkYF3dJEtmY+Oq4+a5+cY25IPL4K6YGWVH3Zn99JzMn5dgiLTOVsUUcx6v4nG3UAn9qthGKGwt8WX3md/SAkKvHxN3Ai0Ettvpwmmz8V+BoXMUO7HotIF4WyF2mAQgWun/H7ZW9ZMv1sdBOeNwXxRIjvlc4uIUiE4ceaqHZsZU=
-Received: from MW4P221CA0030.NAMP221.PROD.OUTLOOK.COM (2603:10b6:303:8b::35)
- by IA0PR12MB8896.namprd12.prod.outlook.com (2603:10b6:208:493::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Thu, 27 Aug
- 2026 15:14:03 +0000
-Received: from MWH0EPF000C618E.namprd02.prod.outlook.com
- (2603:10b6:303:8b:cafe::4a) by MW4P221CA0030.outlook.office365.com
- (2603:10b6:303:8b::35) with Microsoft SMTP Server (version=TLS1_3,
+ bh=6YoXq2F5Q4OzqGoyMEYnYPjtAY+TJWaaOU/HE9qSHY0=;
+ b=i4+R3/83hmq1IOBd8+8FERSn1gUpsZUiEtywBADt+AFwjhEXnAiN8g1oFB6G4kgOs57G/C1wbfKaGcmtedk8wLqn9BzJuZdU44e4SDWV0K82FiHg9PDeUxRPFqovvDQvntsPtHKdTW5o+f6YgrqxXGOc1bE5u8QlTpG4AWOxmCU=
+Received: from SA0PR11CA0157.namprd11.prod.outlook.com (2603:10b6:806:1bb::12)
+ by IA1PR12MB6385.namprd12.prod.outlook.com (2603:10b6:208:38b::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 15:19:47 +0000
+Received: from SN1PEPF000397B4.namprd05.prod.outlook.com
+ (2603:10b6:806:1bb:cafe::6a) by SA0PR11CA0157.outlook.office365.com
+ (2603:10b6:806:1bb::12) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Thu,
- 27 Aug 2026 15:14:03 +0000
+ 27 Aug 2026 15:19:47 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,21 +48,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- MWH0EPF000C618E.mail.protection.outlook.com (10.167.249.100) with Microsoft
+ SN1PEPF000397B4.mail.protection.outlook.com (10.167.248.58) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Thu, 27 Aug 2026 15:14:01 +0000
-Received: from eric-hp-elitebook-845-g7.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 27 Aug 2026 10:13:59 -0500
-From: Eric Huang <jinhuieric.huang@amd.com>
+ 15.21.360.3 via Frontend Transport; Thu, 27 Aug 2026 15:19:46 +0000
+Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 27 Aug
+ 2026 10:19:46 -0500
+From: Fangzhi Zuo <jerry.zuo@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: <Tishko.Araz@amd.com>, <mario.limonciello@amd.com>, Eric Huang
- <jinhuieric.huang@amd.com>
-Subject: [PATCH 2/2] drm/amdgpu: fix oversubscription timer for sr-iov
-Date: Thu, 27 Aug 2026 11:13:45 -0400
-Message-ID: <20260827151345.83133-1-jinhuieric.huang@amd.com>
-X-Mailer: git-send-email 2.43.0
+CC: Harry Wentland <harry.wentland@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>
+Subject: [PATCH] drm/amd/display: Enable HDMI FRL by default
+Date: Thu, 27 Aug 2026 11:19:49 -0400
+Message-ID: <20260827151949.1426104-1-jerry.zuo@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
@@ -71,29 +70,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000C618E:EE_|IA0PR12MB8896:EE_
-X-MS-Office365-Filtering-Correlation-Id: 64712873-aaee-4605-28d6-08df044dd39b
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B4:EE_|IA1PR12MB6385:EE_
+X-MS-Office365-Filtering-Correlation-Id: acd967a3-c378-4209-89f1-08df044ea151
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|36860700016|23010399003|1800799024|56012099006|10067099003|5023799004|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: IK1JDGHP/Tdx9UbiRTh73mKMEmZW1qERdUvmbnWXo2+30dMYusORfwT9GItatTa92KAYgkf6BQB31ngjA1zlEUN+QVSbTWIU9qllXXrz79rRZaH8S8DTdVBX3dqwtM/qDzTnKa2L605hpMmjWOLvBRrOtIsi9kUYDzo+dlQvi8pBZzc6QDBLUUwcFiLdbxjq6ixVj/TaU5a+BQmNJQhWBaImAlkwDtRsUXlHxiRW/g8Tue+dG1BLYsf82+W3KL1wiqfC5HZ/sOadKZAT6DGsrbHxpl/SyjVJbP/34yq+hjUREHpEK9KeyCq6RgW1Uftdp1DAAzaarJX10hagwWBVIUbeCnQYNSBlx+cB1w2as6vDYnLNKvu1l2CjkEG7UYbc7r86AgVih4bYhHKIrmLuRWndHUJswIZTKG2RCAI/Y2VZBer5bMPDV4Mr+945upHBoJhmV5Q5s9OkEfiAn6nyaqO+LJaavHh9fit9H1NOeGfRg9VjBNRPaHYOifIf5ygzJmuWpUcZ6+cWSVWh7cO0K0fFRwkE/DPWBhKVOqp7OJyhlFLoKFFKyApV9Bbv0/oBxGA9q3vUrscAntKHQaQ6j1D7z2RMv5zsVNgf7xGL29V67Z6GABemoAWDx93faAg+MOuw41fF4rPrQMWChpkvvMB3ufVY8jkVZMdLLC1gNovoyDLWJjV6jU1nTqOUEnuZSLDwEOotRwg7MOYfh8cukw==
+ ARA:13230040|82310400026|23010399003|376014|1800799024|36860700016|18002099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: OZUkHKIcZXSDBFCsVKvMNCKyqejkpKJ4Y9kbJJYo4BGQEeP8p+22ajG5JXwvf8+hSe9cYupYCXY/4LU5AHPmS7czqP4D+9JkCC3axy5EKKUER3Le09EKF7Y3xCWW7ZtT8j85L0reQHSeqkNriffl9ZvAmVop0RinfHegKb8tTI0E27Wg3EZU5WwZC+4utanxiZLcGhNe6B3PhgQkcwuD24nRDrvQrcBGGwcewE1clqL5W/gdOmMeUK5rRS8beahvwy8PyCA/veuNY2asZZfHUgAOAiZQsTTlYt3ktLBHQVkPlgCYWHMGp0ASk7sy0EB5r2yUszEG3pcreVKWuf1OcfYIUL5Ok9SyLdsz+vJsYwkS/D21lsQxLIaLJ53ffZENjCbCWYssAM9+Wu0NXkf3GqUHlg93bjOiHu6Xbin7wHT43NCRARn4eGL9ipZeAyDyfXt50zJWTNXC1w2TI/rBwCa5Kb9sUlwUzcEvl6UmbS1rpr0qMG+yoGlsyV66DT1PY0y4Ast4szQzqXuBYrjXIUiR4ilCK8dXnH6Ih/iNoRAx7P/BSRW1SKsQbfE6yt+rJES+J4OcxSUv4MQo28DAhdLixxfrthiE4JtgUGz4RhiLGiyzna7YGkNunIeyg+MXSV85/q/yQBwWsE/7WdDjGgjckacucyT3msnfyN9+v65qfX1oAESzyAstLr2aQN9z0Ve7w/gWcD6fga1STghphQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(36860700016)(23010399003)(1800799024)(56012099006)(10067099003)(5023799004)(11063799006)(18002099003);
+ SFS:(13230040)(82310400026)(23010399003)(376014)(1800799024)(36860700016)(18002099003)(56012099006)(11063799006)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ZQ55F+NbngWJRuL2iGU2c1ik2qrx4zfc6Tnx35PKHleAbbnWvCn40oy3NiKZLVldET3LWfDrMZY1wwzvqdh64szj5A5zkt30G3rH8zqyGkUgpP379VFyHORInFzZzyfHC0aXuNf5gd20tAdRoysBUC7LucotRdWymyFuOWC7G7Dw0IWsrXvqtOUUL12aX8TKnzQIQtwDHz7+hsJCErDqcfsmoAIfeHhJdjo7E702owAoGltmzIRljrMERvAnq1/NkBSWnCyC/RETVw+nNc2OawO39VEVVO1fPfztZvkZAcMhXgwYHVbe3OUtT7HpFO9aF1dyx6vzOaeTw/RySGufCXBpPITq7Wx4F1Jt/g2IbUBPl6Hcz3hmnwUl2gZQWNlav8UEyQf82GvRJb8mzMicPQu/WbedT5FiEJxlNh376on9lEfsG/1NWstM2ieKk09J
+X-MS-Exchange-AntiSpam-MessageData-0: dR66x9qIhE2dMGxB25QCtov70H0G3nrPPuLKGNKVHuOU3WIkBZZgzz5cw9/F5AZx7G//KRh7KwYvt9ZI/pUjxhVe1/h62gwEnBa76XvEaotudkJZvXor0vH6oM8NEEXbpnQHKSuaVbqbG9nidCxn42dkr6/7VjWE0JBVkxW/T41vstIq+DJ57V5/ERfOPtQKo5ePnqlkUXaigKvQmJ0M4/HSYmoXEYK5vtNqfIVq3myBm6dptsdtIaTEPZUUmdxT4SxnyPhKeni8XkgrPlEVsyLX7/w/uMAUQzqW2F0DM8AXjwrZQTxV5sknFy8sY6unmSJ2m9Yxq62f5fY1LTTDKo89l63erS4xY4D/VRvLPznr0fvrBKODtqiaRdhHybrKDe1KBduwYaqkgUY5+1GePpnYuJgAPYeRwHi90bIog0tUQtVqaOFKwHkA68wVoNN5
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 15:14:01.7716 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 64712873-aaee-4605-28d6-08df044dd39b
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 15:19:46.9600 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: acd967a3-c378-4209-89f1-08df044ea151
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: MWH0EPF000C618E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF000397B4.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8896
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6385
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,93 +107,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The KFD/userq software oversubscription-notify timers added to
-replace GFX11 MES firmware's oversubscription_timer call
-amdgpu_mes_notify_unmap_queue(), which takes mes->mutex_hidden,
-the same lock add/remove_hw_queue() use. Under SR-IOV this call
-can block up to 9s (vs 2.1s bare metal), so MES round-trip latency
-goes up (world-switch contention) it stalls re-mapping queues
-and times out KFDQMTest.AllCpQueues.
+FRL (Fixed Rate Link) was gated behind the DC_FRL_MASK feature flag,
+leaving it disabled unless a user explicitly opted in via the
+amdgpu.dcfeaturemask module parameter.
 
-Keep the firmware timer enabled for SR-IOV VFs and skip the
-software timers there; the issue this works around is bare-metal
-only.
+Invert the DC_FRL_MASK check so init_data.flags.enable_frl defaults to
+true, and repurpose the mask bit as an opt-out for users who need to
+fall back to TMDS-only signalling. Update the DC_FEATURE_MASK
+documentation accordingly.
 
-fixes: "drm/amdkfd: workaround 100% gpu usage issue for gfx11"
-
-Signed-off-by: Eric Huang <jinhuieric.huang@amd.com>
+Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c               |  6 ++++++
- drivers/gpu/drm/amd/amdgpu/mes_v11_0.c                |  9 +++++++++
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 11 +++++++++--
- 3 files changed, 24 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+ drivers/gpu/drm/amd/include/amd_shared.h          | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-index 5cf1bb1c2085..e5f8a81c3a3b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_mes.c
-@@ -1208,6 +1208,9 @@ static void amdgpu_mes_userq_notify_unmap_work_handler(struct work_struct *work)
-  */
- void amdgpu_mes_userq_queue_mapped(struct amdgpu_device *adev)
- {
-+	if (amdgpu_sriov_vf(adev))
-+		return;
-+
- 	if (!(amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(11, 0, 0) &&
- 	      amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(12, 0, 0)))
- 		return;
-@@ -1224,6 +1227,9 @@ void amdgpu_mes_userq_queue_mapped(struct amdgpu_device *adev)
-  */
- void amdgpu_mes_userq_queue_unmapped(struct amdgpu_device *adev)
- {
-+	if (amdgpu_sriov_vf(adev))
-+		return;
-+
- 	if (!(amdgpu_ip_version(adev, GC_HWIP, 0) >= IP_VERSION(11, 0, 0) &&
- 	      amdgpu_ip_version(adev, GC_HWIP, 0) < IP_VERSION(12, 0, 0)))
- 		return;
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-index 33ff1afd7c4c..c81e4b8616d0 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_v11_0.c
-@@ -1024,6 +1024,15 @@ static int mes_v11_0_set_hw_resources(struct amdgpu_mes *mes)
- 	mes_set_hw_res_pkt.use_different_vmid_compute = 1;
- 	mes_set_hw_res_pkt.enable_reg_active_poll = 1;
- 	mes_set_hw_res_pkt.enable_level_process_quantum_check = 1;
-+	/*
-+	 * Bare metal: disabled here, KFD arms a software replacement only
-+	 * while oversubscribed (see kfd_device_queue_manager.c). SR-IOV
-+	 * guests keep the firmware timer instead of the KFD-side one, since
-+	 * the notify round-trip is much slower under SR-IOV and would
-+	 * otherwise stall remapping queues.
-+	 */
-+	if (amdgpu_sriov_vf(adev))
-+		mes_set_hw_res_pkt.oversubscription_timer = 50;
- 	if (adev->mes.use_rs64mem)
- 		mes_set_hw_res_pkt.use_rs64mem_for_proc_gang_ctx = 1;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a27c1fa74994..bf5369cc8b13 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -555,7 +555,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 	if (amdgpu_dc_feature_mask & DC_DISABLE_LTTPR_DP2_0)
+ 		init_data.flags.allow_lttpr_non_transparent_mode.bits.DP2_0 = true;
  
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index b37aed34a72c..f37bfeeb4bf4 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -282,8 +282,15 @@ static int add_queue_mes(struct device_queue_manager *dqm, struct queue *q,
- 		return r;
- 	}
+-	if (amdgpu_dc_feature_mask & DC_FRL_MASK)
++	/* FRL is enabled by default; DC_FRL_MASK can be set to opt out. */
++	if (!(amdgpu_dc_feature_mask & DC_FRL_MASK))
+ 		init_data.flags.enable_frl = true;
  
--	/* GFX11: start notify timer only once when oversubscription begins */
--	if (KFD_GC_VERSION(dqm->dev) >= IP_VERSION(11, 0, 0) &&
-+	/*
-+	 * GFX11: start notify timer only once when oversubscription begins.
-+	 * Skip under SR-IOV: MES round-trips are far slower there, and this
-+	 * notify call shares mes->mutex_hidden with add/remove_hw_queue, so
-+	 * a slow notify can stall remapping queues. SR-IOV guests keep MES's
-+	 * own firmware oversubscription timer instead.
-+	 */
-+	if (!amdgpu_sriov_vf(adev) &&
-+	    KFD_GC_VERSION(dqm->dev) >= IP_VERSION(11, 0, 0) &&
- 	    KFD_GC_VERSION(dqm->dev) < IP_VERSION(12, 0, 0) &&
- 	    dqm->active_cp_queue_count > get_cp_queues_num(dqm))
- 		queue_delayed_work(system_wq, &dqm->notify_unmap_work,
+ 	init_data.flags.seamless_boot_edp_requested = false;
+diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+index e3baef809cd1..87eea3360450 100644
+--- a/drivers/gpu/drm/amd/include/amd_shared.h
++++ b/drivers/gpu/drm/amd/include/amd_shared.h
+@@ -287,7 +287,7 @@ enum DC_FEATURE_MASK {
+ 	 */
+ 	DC_REPLAY_MASK = (1 << 9),
+ 	/**
+-	 * @DC_FRL_MASK: (0x400) disabled by default
++	 * @DC_FRL_MASK: (0x400) enabled by default; set to disable FRL
+ 	 */
+ 	DC_FRL_MASK = (1 << 10),
+ };
 -- 
-2.43.0
+2.53.0
 
