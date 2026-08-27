@@ -4,82 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 045A7C61DD9
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 12:49:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D0760C61DC2
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 13:32:58 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 87E5C10F024;
-	Thu, 27 Aug 2026 12:49:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 40C1910F029;
+	Thu, 27 Aug 2026 13:32:58 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="YvwsvSB4";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="LufP1Ymv";
 	dkim-atps=neutral
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9853910F027
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 12:49:24 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-49554ebb87dso19626455e9.3
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 05:49:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787834963; x=1788439763; darn=lists.freedesktop.org;
- h=content-transfer-encoding:reply-to:content-type:mime-version
- :references:in-reply-to:message-id:date:subject:to:from:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=N8mDe5o2IhEvMzlea+bfmuWRPz0ePMPn3R+ho2zQsEc=;
- b=YvwsvSB4h/L2t5o2tucacfuwFd5v5bACPi70zyLLgyTLNygLcNDxMqO2n81mzBMhI+
- kRHvxUEzKo7RXpJxuH8VdRHPvIHr0vHy/W5RPPsylEfjwhdcH2zP8V6NujiHoWwuEcLY
- 8w1ofZDWq3YXhJegEEmFmXirU/MmDwn6h1FT8SVThUvUsYb87/mVnpgYGDtrHDiE5Fji
- C9aXNoQJWoUNg9GQOViPuHUMtFRCy9+a6NXYNF5GV0aw/hp7GURTX5P4xXWgkhSDYqZa
- KGi4IqcdnaPRdM/Kl2eO6gWj1uBlD00N7rQnQVU6tunZGy4dJHk0X1snMA9syIGJm5/t
- L35g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787834963; x=1788439763;
- h=content-transfer-encoding:reply-to:content-type:mime-version
- :references:in-reply-to:message-id:date:subject:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=N8mDe5o2IhEvMzlea+bfmuWRPz0ePMPn3R+ho2zQsEc=;
- b=mT6s3U17mdj9Ph477vqB/v/O/1UErh4CXyJGKSYzkCujIAfnHGxqvExpX/u/KGNNHT
- wNt1QdInf0JkiPvVjVwyIbqDU0Wyk32ROq3KQDYSuhF0clplTcZG4Z7snkcanlVK/zJt
- 2Cn9MYHevgLXoV7v+lrAjJTJ+CmBulHoxHeW2/P9bNKL/l365xq/zIWl2WtHLxYzUmh6
- 0aMjO1zq1p3wAsq66oxdUDuqwaB+EZ3dyMmjNacpjIhvs+rWfOMdoZLLbKYeZDRu5M8e
- y7E4umet+X1SuPPxo0wL+NZRasRkli5RoVjGzM6RzJ2jxQ9NbffgwqQt/FYL0vkN1OcI
- VMOg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoFy99nxN7q4iCNEYpeptW3BeZnmdyY6OyYlxhMeZWTUktglGteF3O7uGwxvSJ1FTlExYisKsMY@lists.freedesktop.org
-X-Gm-Message-State: AFuF++lTdHkkqdyrBiwY4OdUzsmHg2+aCS+PWuS168IJ6gMlCIBp+3l0
- g+keZCYLLy9PgsJL2HbdCB/8eAxXB55ojJIJ85dYTA8Sy82Uy5KyZrsY
-X-Gm-Gg: AR+sD11B5G6HfXvkHGZGWoPI/EjdeGl/8L9K1quUE+SxsyQcw8dxvG+6z53ZG2I520/
- ZgZG+IN1iS7frn7YxYhY2y55pVzTypq21uFLBEJHxMWtNOgAVIqQR93Yob7jZ5I+x3VoY+s1+sB
- ahSiRnb+4HU+H8wSBINqRi57u6dd/DXOIBJ+EpW235wUdz6ZJm+/i+T3QoMw0EwFnZB8W8EN+6K
- dc3HYJWAyCppeFZfhjl4Zz0vfXzphBbsLMCfYFqjiRmv3CW335rlA5CrdU7oB7ZlV7OiyUIrjD1
- s6M6lE1N6qvHcitmMIUiIjAdjDyouDQaE5obdX2gqvowWpSmOM5EOXAqZo1flBGy+FksCS39d2/
- Z0qmuA00LvXS47WCldEbqma+K6Oxr5yw8YVZoiPxJl6YZ4tOuF2TWg2aQxFAkWU03vkVCtT8Peh
- M6Tqhey4t0uq1Tje1x29qXyev7oRibq0fLdOH5eARAG5vR9BINvMZpGSCgChCaGshqNYKVzmgyf
- ujYKD2clXjO
-X-Received: by 2002:a05:600c:4592:b0:499:b402:6c0 with SMTP id
- 5b1f17b1804b1-499dc6eac3bmr170763485e9.3.1787834962697; 
- Thu, 27 Aug 2026 05:49:22 -0700 (PDT)
-Received: from able.fritz.box ([2a00:e180:1524:4300:a4b8:720e:f64f:4778])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49b465226d8sm52089985e9.0.2026.08.27.05.49.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Aug 2026 05:49:22 -0700 (PDT)
-From: "=?UTF-8?q?Christian=20K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>
-X-Google-Original-From: =?UTF-8?q?Christian=20K=C3=B6nig?=
- <christian.koenig@amd.com>
-To: thomas.hellstrom@linux.intel.com, dakr@kernel.org, ecourtney@nvidia.com,
- matthew.brost@intel.com, nat@pixelcluster.dev,
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
-Subject: [PATCH 09/10] drm/ttm/tests: Use dma_resv_alloc in test files
-Date: Thu, 27 Aug 2026 14:38:57 +0200
-Message-ID: <20260827124910.2245-10-christian.koenig@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260827124910.2245-1-christian.koenig@amd.com>
-References: <20260827124910.2245-1-christian.koenig@amd.com>
+Received: from BL0PR03CU003.outbound.protection.outlook.com
+ (mail-eastusazon11012055.outbound.protection.outlook.com [52.101.53.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D18EC10F029
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 13:32:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gluqB2HgLiU08JWldDI4dsmgGmwpf4WR+Xt8+2SgS+SdHu1jDuqbxYocJJRENBcEj1LlLQCB/UQzI82zP9hs1WXHwBPlQJBp60umH3oJIAQCFlhcVgGNTbyYiiWLvKLRxquHnfM3aa4n22Yb514OGEZv1GzNwXoCuHeS8FhLb+6P3mkNi6yucOCvHkvu0eGPUBnaNrrxU8XiZB6vAXQN8NKWWLErxi9m5MMdACMxOuX7lpUMW7LaOLjNIKUoGW9RCt0QwCT8sXb00v+aRgTNeic2FGMTYph0CzRzjDRfZNHKULGCHH5D8HZYKUGL2VDHM9HSt6ozpfX2R6fPfO3Dow==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wydQLMikPsWVSsh9S21IkxhbrMaBRdN79rte+lson7U=;
+ b=E3xzxYExEHHBHk1N/kIdupz34NF5UWf4n3wg8830ZhGFE5wNJjgfk50dGERuez0HW2M0cnWw9Xcdac8eiKvhh1eXYgbqryvx3uWOcYjHrG+xR5L7Fl1+v1va+pKAgMwAhC1v4D/fPnDNj45A/IaqjCK9Xvux28ajGa4Lh0+K5Tn6I+VoQ2zX8v8qs4C2PznDWpCZp1oUBIKGxIHbVqdaVIshl+GHQE8ktRPA7JqtCCphfqZ1KAPNY0tkmOgFJ5KVTPAUvWn0uhxri5CpzmKgHYKzNehYmwwO+ynslFq8JtyS/y+IqtdjMaAO7Mu+UXOQAEoGjs0G84Xn/oP8qbE+dw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wydQLMikPsWVSsh9S21IkxhbrMaBRdN79rte+lson7U=;
+ b=LufP1YmvxqdqjC2XKQezTKppyqulLMbCIiW4gXXAYLvF8moKxSIhKbGx1HcgQs2Kc8Dn4yrgpoGgmvsk/0K9H5fbEt9PrKIXSRlKip13RFFO8/hoSIiBrkMNSrw5oaXsNJ8jyPlLI2CWkPv/zZZDgArh/0emDQpqCHK9GZ7N5ws=
+Received: from PH7P223CA0016.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:338::23)
+ by CY8PR12MB7516.namprd12.prod.outlook.com (2603:10b6:930:94::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 13:32:48 +0000
+Received: from SN1PEPF00026369.namprd02.prod.outlook.com
+ (2603:10b6:510:338:cafe::71) by PH7P223CA0016.outlook.office365.com
+ (2603:10b6:510:338::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Thu,
+ 27 Aug 2026 13:32:48 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF00026369.mail.protection.outlook.com (10.167.241.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Thu, 27 Aug 2026 13:32:47 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 27 Aug 2026 08:32:46 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>
+CC: <amd-gfx@lists.freedesktop.org>, Srinivasan Shanmugam
+ <srinivasan.shanmugam@amd.com>
+Subject: [PATCH v2 0/2] drm: Add Common drm_user_fence helper and Convert XE
+Date: Thu, 27 Aug 2026 19:02:24 +0530
+Message-ID: <20260827133226.4076593-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00026369:EE_|CY8PR12MB7516:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5a7d47c2-8a5e-4adf-4935-08df043faf5c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|36860700016|23010399003|1800799024|56012099006|10067099003|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: QS7zNWAN4DjYDFlhxAg7s8y3+b61uJxPPj6G0ydhdprsjoQPAKVl/6//DiG47hIYSLr5X6OT/l3mWFeE8fuLyIpLVn5YHeFK9ZNTlE0x1CRqkamOnNRT5LYudqo43LqpQQqkge4bUwHm3bEZ/3gASIT9BqOrsnX1RkNyXUhU+mi1D3PsUlTmfTzGd/QQeuh8iN6EkqWo5v+DjPNlUs+DobCLflu6IsK2R/wUJzd2bwdhfy/OAoIwq1CSWfuh+uB27vkJLCU6QfaGslUl0yX+rVzFJ/6R1Kve6XpXbzk372xFD0RDOW8bMPSHFPX+Op+QrRDKQS+A3o8FdjqLrYGNXZSqb6yKlt469khcGbGeN8mgG4+uhFZJed5fY1Z3UjJizt3IditUcIcieW8xlLheO7HqX+sVKjxFsriGpqz/DFS1YnI3wT29D+aRwrI/sj3rB663LwlZ63lgouRiEa/TN3NKGQ6zfFGtKtiqYAyofEJwtAna999wTmsOWj17hYRVo3rwjavpIzp8i0QVC16cdhU2Mb2iarjmjIZduCS8uszK1SRAeSaGLTBSwVHBg9oVZ0/pzdr2aVapb46vYgVWOE+m7g+o8hz6XgYM4sH3LQRUmGYZJr8+Ctmj+qHO2lPI6zG+ySisJl5FvWoCXv1mY3UyZAgMs+WaQhcSZP0j+SiI4jMh6EzWctUVAgaDDkl1yddytcQB5S2zNGjn3swSQg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700016)(23010399003)(1800799024)(56012099006)(10067099003)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: XpVZQnn+slIWN/CG0Y/D2TBiKe/HVH+sol7fqbITXFYqMlKzHwoJ57LZwyaQYOr48lOSXhmRe1UEQuSslr5zfKEUMOzawXaJ5EbppJIxGmD+xjSrmUqTsFOJYfxzvS+JiaQmmyk946K4Q87/7z0s687x5TL/7SkYRylJWSgUV/dQNLv/EPAdtRNFDdRm2O1yFMSLT67qCsIv3y+rRyTLlpp6G19zTDSSBGjRaZ8fzV9Zd3o8JPWy9nW21OesQ69dmXg5uqMk59oBpuHfeYTdEBXwr4gQMYKxQJFICv4sz8WyUcj4EAAfii98i//NJirbNK7vA9q1NWTusNKiQd5TnX+156BUn/LlDk7L3i/PcudjIgT8CNgA+qXdBwakrGVwUpAi7ggCeo8Z2egc3MgBZ7oaRgjxVdx9qcVE/1ZGOOfnK0pi+V7BtQwXJquDbdZ+
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 13:32:47.9609 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5a7d47c2-8a5e-4adf-4935-08df043faf5c
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00026369.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7516
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,114 +106,64 @@ List-Post: <mailto:amd-gfx@lists.freedesktop.org>
 List-Help: <mailto:amd-gfx-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
  <mailto:amd-gfx-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: christian.koenig@amd.com
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Replace the remaining dma_resv_init usage in TTM test files with
-dma_resv_alloc(). This completes the migration away from embedded
-dma_resv structures to reference-counted dynamic allocation throughout
-the DRM subsystem.
+When a GPU dma-fence signals, drivers often need to access userspace
+memory from a kthread context — either to write a fence completion
+value to a userspace VA (XE) or to signal a per-queue eventfd (AMDGPU).
+Both require borrowing the process MM via kthread_use_mm(), and both
+use the same kref-managed dma-fence-callback-to-workqueue pattern.
 
-Changes in test files:
-- ttm_bo_validate_test.c: Convert stack-allocated resv to pointer and
-  use dma_resv_alloc() with proper cleanup via dma_resv_put()
-- ttm_bo_test.c: Replace kunit_kzalloc + dma_resv_init with direct
-  dma_resv_alloc() calls, add cleanup for external_resv
+Extracting this pattern into a shared DRM helper allows both XE and
+AMDGPU to use it instead of maintaining independent open-coded
+implementations.
 
-All test assertions updated to check for successful allocation. The
-tests now properly exercise the dynamic allocation path that production
-code uses.
+This series does exactly that:
 
-Signed-off-by: Christian König <christian.koenig@amd.com>
-Assisted-by: Claude:Sonnet 4
----
- drivers/gpu/drm/ttm/tests/ttm_bo_test.c          | 11 ++++-------
- drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c | 13 ++++++++-----
- 2 files changed, 12 insertions(+), 12 deletions(-)
+Patch 1 introduces drm_user_fence — an embeddable base structure with
+driver-supplied worker/destroy callbacks. The common code handles:
+ - process MM grab at init (mmgrab)
+ - dma-fence callback registration
+ - workqueue dispatch on fence signal
+ - mmget_not_zero/kthread_use_mm/mmput in the worker
+ - kref lifetime management
+ - cancellation via drm_user_fence_cancel() for safe driver teardown
 
-diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
-index 3aff1c427cd1..853024724af9 100644
---- a/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
-+++ b/drivers/gpu/drm/ttm/tests/ttm_bo_test.c
-@@ -339,14 +339,12 @@ static void ttm_bo_unreserve_bulk(struct kunit *test)
- 	ttm_dev = kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, ttm_dev);
- 
--	resv = kunit_kzalloc(test, sizeof(*resv), GFP_KERNEL);
--	KUNIT_ASSERT_NOT_NULL(test, resv);
--
- 	err = ttm_device_kunit_init(priv, ttm_dev, 0);
- 	KUNIT_ASSERT_EQ(test, err, 0);
- 	priv->ttm_dev = ttm_dev;
- 
--	dma_resv_init(resv);
-+	resv = dma_resv_alloc();
-+	KUNIT_ASSERT_NOT_NULL(test, resv);
- 
- 	bo1 = ttm_bo_kunit_init(test, test->priv, BO_SIZE, resv);
- 	bo2 = ttm_bo_kunit_init(test, test->priv, BO_SIZE, resv);
-@@ -441,11 +439,9 @@ static void ttm_bo_fini_shared_resv(struct kunit *test)
- 	KUNIT_ASSERT_EQ(test, err, 0);
- 	priv->ttm_dev = ttm_dev;
- 
--	external_resv = kunit_kzalloc(test, sizeof(*ttm_dev), GFP_KERNEL);
-+	external_resv = dma_resv_alloc();
- 	KUNIT_ASSERT_NOT_NULL(test, external_resv);
- 
--	dma_resv_init(external_resv);
--
- 	fence = kunit_kzalloc(test, sizeof(*fence), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, fence);
- 
-@@ -464,6 +460,7 @@ static void ttm_bo_fini_shared_resv(struct kunit *test)
- 	drm_gem_object_set_resv(&bo->base, external_resv);
- 
- 	ttm_bo_fini(bo);
-+	dma_resv_put(external_resv);
- }
- 
- static void ttm_bo_pin_basic(struct kunit *test)
-diff --git a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-index 6fc381a9d2da..4559352e7115 100644
---- a/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-+++ b/drivers/gpu/drm/ttm/tests/ttm_bo_validate_test.c
-@@ -201,7 +201,7 @@ static void ttm_bo_init_reserved_resv(struct kunit *test)
- 	struct ttm_placement *placement;
- 	struct ttm_buffer_object *bo;
- 	struct ttm_place *place;
--	struct dma_resv resv;
-+	struct dma_resv *resv;
- 	int err;
- 
- 	bo = kunit_kzalloc(test, sizeof(*bo), GFP_KERNEL);
-@@ -212,19 +212,22 @@ static void ttm_bo_init_reserved_resv(struct kunit *test)
- 
- 	err = drm_gem_private_object_init(priv->drm, &bo->base, size);
- 	KUNIT_ASSERT_EQ(test, err, 0);
--	dma_resv_init(&resv);
--	dma_resv_lock(&resv, NULL);
-+
-+	resv = dma_resv_alloc();
-+	KUNIT_ASSERT_NOT_NULL(test, resv);
-+	dma_resv_lock(resv, NULL);
- 
- 	err = ttm_bo_init_reserved(priv->ttm_dev, bo, bo_type, placement,
--				   PAGE_SIZE, &ctx, NULL, &resv,
-+				   PAGE_SIZE, &ctx, NULL, resv,
- 				   &dummy_ttm_bo_destroy);
- 	dma_resv_unlock(bo->base.resv);
- 
- 	KUNIT_EXPECT_EQ(test, err, 0);
--	KUNIT_EXPECT_PTR_EQ(test, bo->base.resv, &resv);
-+	KUNIT_EXPECT_PTR_EQ(test, bo->base.resv, resv);
- 
- 	ttm_resource_free(bo, &bo->resource);
- 	ttm_bo_fini(bo);
-+	dma_resv_put(resv);
- }
- 
- static void ttm_bo_validate_basic(struct kunit *test)
+Patch 2 converts XE to use the new helper. struct xe_user_fence embeds
+struct drm_user_fence as its base. XE-specific fields (xe_device pointer
+for ufence_wq wake-up, userspace VA, expected value, signalled flag)
+remain in the wrapper. No behavioral change is intended.
+
+A follow-on patch (not in this series) will wire AMDGPU's render-node
+EOP eventfd signaling path to the same helper.
+
+v2:
+ - Move INIT_WORK() to drm_user_fence_init() so the work_struct is
+   initialized once at object creation, fixing lockdep class divergence
+   caused by two different INIT_WORK() call sites. (Sashiko review)
+ - drm_user_fence_add_callback() now consumes the fence reference in
+   all paths: transferred to the callback on success, put immediately
+   on the already-signaled and error paths. Callers must not put the
+   fence after this call. (Sashiko review)
+ - Add drm_user_fence_cancel() to allow drivers to safely detach a
+   pending callback before context teardown, preventing use-after-free
+   when a foreign dma-fence signals after driver unload. (Sashiko review)
+ - Fix missing newline at end of new files.
+
+Srinivasan Shanmugam (2):
+  drm: Add common drm_user_fence helper
+  drm/xe: Convert xe_user_fence to drm_user_fence
+
+ drivers/gpu/drm/Makefile           |   1 +
+ drivers/gpu/drm/drm_user_fence.c   | 164 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_sync.c       | 112 ++++++++------------
+ drivers/gpu/drm/xe/xe_sync_types.h |   1 -
+ include/drm/drm_user_fence.h       |  71 +++++++++++++
+ 5 files changed, 280 insertions(+), 69 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_user_fence.c
+ create mode 100644 include/drm/drm_user_fence.h
+
 -- 
-2.43.0
+2.34.1
 
