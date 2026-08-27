@@ -4,61 +4,98 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19487C61DC4
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 22:14:46 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D421FC61DB9
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 22:25:47 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8E16210F07A;
-	Thu, 27 Aug 2026 22:14:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14F4C10E117;
+	Thu, 27 Aug 2026 22:25:47 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KY5K10js";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hAKAlX4u";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 42B3D10F07A
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 22:14:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1787868880; x=1819404880;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=0FJgbP6g3+qK4B5v4A9pqy/ZRTHo09o+plVMF583VTI=;
- b=KY5K10jsnP0AWPu5FfQFz7CzXN8vGzTa+3Pff4J6jdYxxeIwUfxKOZUN
- oGxEXWrGl7E3FMhq9wCH3MyLJuaO4abCRSXpkaCNeWlzEZjeMaRAFuf/f
- e0tcefQU5k1RaFMTV0HeoDTO42Bkm25ZaXeSh1IH1voULAVqc+4K2SqNw
- L9J01o42bshSsDJ7geoUQWIcdRESWTBrguSvNpl9i/gXoIeAMsUWWnMBd
- CWt+rpp4tTG2tZ9ekM7ZRt7JZCiW6HWomN+h219h2iS1DKH72Eb0KPZNS
- xoxXrBXK6JJhwbe3utc9p25UR+Wo76vrDPqYIC4QbhxZ3McGkpImzXAb0 Q==;
-X-CSE-ConnectionGUID: 0xjHwjEARF6/722ryd7Mxw==
-X-CSE-MsgGUID: 2BrXqeZpScqeFuQyVmCL/Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="75921820"
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; d="scan'208";a="75921820"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
- by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Aug 2026 15:14:37 -0700
-X-CSE-ConnectionGUID: xlG0FO5iSs6H/L9poYTi/w==
-X-CSE-MsgGUID: VE1PNoxkRu2L/RYvGnyZwg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; d="scan'208";a="266687940"
-Received: from lkp-server01.sh.intel.com (HELO 3532383e6126) ([10.239.97.150])
- by orviesa010.jf.intel.com with ESMTP; 27 Aug 2026 15:14:35 -0700
-Received: from kbuild by 3532383e6126 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1wziMi-00000000A5t-26AU;
- Thu, 27 Aug 2026 22:14:32 +0000
-Date: Fri, 28 Aug 2026 06:13:39 +0800
-From: kernel test robot <lkp@intel.com>
-To: Geramy Loveless <gloveless@jqluv.com>, linux-pci@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, bhelgaas@google.com,
- alexander.deucher@amd.com, ilpo.jarvinen@linux.intel.com,
- christian.koenig@amd.com, amd-gfx@lists.freedesktop.org,
- mario.limonciello@amd.com, nra3088@gmail.com, gloveless@jqluv.com
-Subject: Re: How to correctly reserve prefetchable bridge windows for large,
- resizable BARs behind PCIe switches (8x GPU, PEX890xx) - seeking guidance on
- upstreamable approach.
-Message-ID: <202608280629.PrwiaBTD-lkp@intel.com>
-References: <a2292dfb-2ee5-4988-ac67-c75dd3e97a4c@jqluv.com>
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010025.outbound.protection.outlook.com [52.101.85.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C6F3B10E117
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 22:25:45 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=W/gTCljnx+QuC/73bIwu3XjfreoRW52i2/RK1OyHCHu7aJI5/Y5ncU+N3BA3iSWmCg1Qy1R6HsTkkyuIt+ayBaqDoArfBgPLYmYUnRxtMyNMkZYD/9OpZM2CF2V4QgTqb01US8XRsjkWZOMkFxF32EUpdxfKaIB4CS5nr9uPfSxfnWSsEFJyFXB56h3iuK7Ch1zOGoVYT305xuisZSzuzcNsm5VeeWu1BrNb6zD3mT0xk4cX9vUS3vFzN8ZQQmILT57n5xakyPlN+0/eTURdqP7NgxUkgib8EfInw52qJ8tHSbytA/mCDdshm8IDK9fmMc5lMZLcIef3lQ8IHFJpzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KqdE17L17Hij+9jpmUWDQt7ps1lU/WQPPiBH6GnTxBk=;
+ b=P1bXlmF7ASNw8G6f9K2cg3Fju1RVQ70GrsautZvlXXtXMznQBCnCJIJoQ8etZH0ALAhZ9orhWsvAXAWLW2cgsd2tUzejeEe8fUWP2Hy4FeDVYmYkV51viTVdMbcZHlVfm5WY/huy89DJ01xyjT/DLMAPz/4bPZWnfU9bqDh+vFtIIwU3gYIMelzGkhuZNzu/bXx8vXWspVpIM/sARQiDFIEpfwm6xXNZtEf27UhOQRQUjlrAvFf/EmvWb6A+QmkbRtncA7CdglrVK53b1/QHrcH2eG7+HvuRltI85llyiEHedoRTxOXhHVsWb+MzQfxCYEPRkTETtg7hEk2Iey6egA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KqdE17L17Hij+9jpmUWDQt7ps1lU/WQPPiBH6GnTxBk=;
+ b=hAKAlX4u8ulHQXO80Y+rsgqvH53zBgN1g4Eo+8DvupRCSnHFdUTpTzYcPsBUBfrcwSAd76HMJyqOoZdNYKFaNxay6nmK7cHBj671M1AsGGPV6I+1L/R00Y6cvOdaoV25brC2/y9D6lwR0+/J2k3B+Z631gikP8ze9GV86DBi4BE=
+Received: from PH7PR13CA0001.namprd13.prod.outlook.com (2603:10b6:510:174::7)
+ by SA3PR12MB7974.namprd12.prod.outlook.com (2603:10b6:806:307::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 22:25:41 +0000
+Received: from CY4PEPF0000EDD4.namprd03.prod.outlook.com
+ (2603:10b6:510:174:cafe::50) by PH7PR13CA0001.outlook.office365.com
+ (2603:10b6:510:174::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.8 via Frontend Transport; Thu, 27
+ Aug 2026 22:25:41 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CY4PEPF0000EDD4.mail.protection.outlook.com (10.167.241.200) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Thu, 27 Aug 2026 22:25:40 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 27 Aug
+ 2026 17:25:40 -0500
+Received: from AB350-desktop.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Thu, 27 Aug 2026 17:25:39 -0500
+From: <vitaly.prosyak@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Vitaly Prosyak <vitaly.prosyak@amd.com>, Christian Koenig
+ <christian.koenig@amd.com>, Alex Deucher <alexander.deucher@amd.com>, "Sunil
+ Khatri" <sunil.khatri@amd.com>, Prike Liang <prike.liang@amd.com>
+Subject: [PATCH 1] drm/amdgpu: cancel hang_detect_work before taking
+ userq_mutex
+Date: Thu, 27 Aug 2026 18:25:23 -0400
+Message-ID: <20260827222531.127950-1-vitaly.prosyak@amd.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <a2292dfb-2ee5-4988-ac67-c75dd3e97a4c@jqluv.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EDD4:EE_|SA3PR12MB7974:EE_
+X-MS-Office365-Filtering-Correlation-Id: a9c3dfab-e7fd-4928-3b49-08df048a2099
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|23010399003|1800799024|376014|10067099003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: 3+sA4sTb86RHW/t17ck0PB+JinYxjemx7eD60v2So3X5+EbC5u8an4fJtu2VXJUvWJ7zEhl2ysXXlrDyNi1PylnP3K4n42cb7ycJXPy4VqBt0lxFjcTBtFOpJZuteVMkkr1b7QI4biLXz8emVcZ/8gnqiCgECS4+Fockw2YWSTXBrENely2ZIjsRoS5yPrzmSRoSgaR1Y3SqDiZwGqjwxfINw07aFpj44/rCJkOKbA8V0tJx7vtzHAG1YMofhJJhHsdhsI+Qm6BQHoX3lbG8pSHTrgouyItHb8A2qi+Y5udkh5cmi2h5SFbBY0huSwd1wMOZJOcpaU9I3rfiwN7ED0VkOHsOJg4zf4+pSpKJrkMvwLjkCK8S/XitJpEicdEmlQoxaUQbBoPAj5mNjZtOO4OAsgYcQe6YgiawZJy+qAcJvEVIq2jTbF9Ff/CJK2y5D+BzE3OCTBXGsaZaXm8FAW1XIZD2C7V0HZCdpb8s9EiWWXxc3wPPpo8JSOjSiNaSbXxM3j72RShAdyzdh8117jHRcFPbvVe83eEQbgMCD98Po6b6v0mRtFjU+H30hHeTC7bHW7uT6P0+/AKYqt7s3IctQxvC4C9NguzZJK5aeyAasppvl3zI6z9uu36Q3g9k7OiKRlpBC2MD11ih4uQjGpQ6EX2P82gayPfbrwyFQqZy8QEGE8azzz12xKDOVwxjqSVrgHYoAO3QjpSTHtaYjw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(23010399003)(1800799024)(376014)(10067099003)(18002099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: /td9kLH4KE7v20+76dkToWCk7RicJQcP4zXpYlU+3KEQwg/rUu+X+yxHUFFg0rLG12GQMUjeQRNT4uop3K6KX3jmiH6ZrtIi0q928Qy+cJPWPaD4BmZ53doP06YDjTOOoLhO0vAbmbecFRMsoKtePGxzNAKV7l+rwi9FGJA81bNAKM6HrOxkuTTLhWFICZfLiX2Qul4piN+FRymgDgXZ7QbvTGa0kbqh1EgD08+7uce6qauL60+pzKJsh7BIDqIfQ0GLPMKk6BfOjfZoAbXTUqyV1Lx1+IivJ6ccEk7KzArzth+mZcde1xOH+sY9RA9tXYD716o2i3srYm0lqbICEh44C8W7yaulaESrjeSSUFDVDhehDMvWRdF/JhVmfajzoSrsHCalWg44wV5z9nSbRxxFaGcz4+HP0Hcfos2Gp+ibr3uFt8tA+mhJVTT13d0N
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 22:25:40.7940 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9c3dfab-e7fd-4928-3b49-08df048a2099
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EDD4.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7974
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,88 +110,57 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Geramy,
+From: Vitaly Prosyak <vitaly.prosyak@amd.com>
 
-kernel test robot noticed the following build errors:
+cancel_delayed_work_sync() waits for any running work instance to finish.
+hang_detect_work takes userq_mutex during its run, so calling
+cancel_delayed_work_sync() inside userq_mutex in amdgpu_userq_destroy()
+risks deadlock:
 
-[auto build test ERROR on pci/next]
-[also build test ERROR on pci/for-linus linus/master next-20260826]
-[cannot apply to drm-misc/drm-misc-next v7.2]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+  amdgpu_userq_destroy holds userq_mutex
+  -> cancel_delayed_work_sync -> __flush_work (waits for work)
+  -> hang_detect_work (running) tries to acquire userq_mutex
+  -> DEADLOCK
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Geramy-Loveless/How-to-correctly-reserve-prefetchable-bridge-windows-for-large-resizable-BARs-behind-PCIe-switches-8x-GPU-PEX890xx-seeki/20260826-132218
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git next
-patch link:    https://lore.kernel.org/r/a2292dfb-2ee5-4988-ac67-c75dd3e97a4c%40jqluv.com
-patch subject: How to correctly reserve prefetchable bridge windows for large, resizable BARs behind PCIe switches (8x GPU, PEX890xx) - seeking guidance on upstreamable approach.
-config: i386-randconfig-015-20260827 (https://download.01.org/0day-ci/archive/20260828/202608280629.PrwiaBTD-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260828/202608280629.PrwiaBTD-lkp@intel.com/reproduce)
+  WARNING: possible circular locking dependency detected
+  amd_basic/3761 is trying to acquire lock:
+    (work_completion)(&(&queue->hang_detect_work)->work), at: __flush_work
+  but task is already holding lock:
+    (&userq_mgr->userq_mutex), at: amdgpu_userq_destroy+0x76/0x3e0 [amdgpu]
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608280629.PrwiaBTD-lkp@intel.com/
+Move the cancel before mutex_lock() to eliminate this dependency.
 
-All errors (new ones prefixed by >>):
+Cc: Christian Koenig <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Sunil Khatri <sunil.khatri@amd.com>
+Cc: Prike Liang <prike.liang@amd.com>
+Signed-off-by: Vitaly Prosyak <vitaly.prosyak@amd.com>
+Reviewed-by: Christian Koenig <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-   ld: drivers/pci/setup-res.o: in function `pci_align_resource':
->> drivers/pci/setup-res.c:289:(.text+0x92a): undefined reference to `__udivdi3'
->> ld: drivers/pci/setup-res.c:289:(.text+0x939): undefined reference to `__udivdi3'
-   ld: drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_dcn6.o: in function `dchub_v2_get_sop_total_available_bandwidth_KBps':
-   drivers/gpu/drm/amd/amdgpu/../display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h:71:(.text+0x61): undefined reference to `__udivdi3'
-   ld: drivers/gpu/drm/amd/amdgpu/../display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h:79:(.text+0x9d): undefined reference to `__udivdi3'
-   ld: drivers/gpu/drm/amd/amdgpu/../display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h:66:(.text+0xc0): undefined reference to `__udivdi3'
-   ld: drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_dcn6.o:drivers/gpu/drm/amd/amdgpu/../display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h:76: more undefined references to `__udivdi3' follow
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index 0a816b3c5ff9..52cd7d1c9f2b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -543,12 +543,15 @@ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_que
+ 	trace_amdgpu_userq_destroy_start(queue);
+ 
+ 	cancel_delayed_work_sync(&uq_mgr->resume_work);
++	/* Cancel before taking userq_mutex: cancel_delayed_work_sync() waits
++	 * for any running instance, which itself takes userq_mutex.
++	 */
++	cancel_delayed_work_sync(&queue->hang_detect_work);
+ 
+ 	mutex_lock(&uq_mgr->userq_mutex);
+ 	amdgpu_userq_wait_for_last_fence(queue);
+ 
+ 	amdgpu_userq_detach_doorbell(queue);
+-	cancel_delayed_work_sync(&queue->hang_detect_work);
+ 
+ #if defined(CONFIG_DEBUG_FS)
+ 	debugfs_remove_recursive(queue->debugfs_queue);
+-- 
+2.54.0
 
-
-vim +289 drivers/pci/setup-res.c
-
-   262	
-   263	/*
-   264	 * For mem bridge windows, try to relocate tail remainder space to space
-   265	 * before res->start if there's enough free space there. This enables
-   266	 * tighter packing for resources.
-   267	 */
-   268	resource_size_t pci_align_resource(struct pci_dev *dev,
-   269					   const struct resource *res,
-   270					   const struct resource *empty_res,
-   271					   resource_size_t size,
-   272					   resource_size_t align)
-   273	{
-   274		resource_size_t remainder, start_addr;
-   275	
-   276		if (!(res->flags & IORESOURCE_MEM))
-   277			return res->start;
-   278	
-   279		if (IS_ALIGNED(size, align))
-   280			return res->start;
-   281	
-   282		remainder = size - ALIGN_DOWN(size, align);
-   283		/*
-   284		 * A window holding several align-sized resources has one tail per
-   285		 * resource, but only the lowest can tuck below the first aligned
-   286		 * boundary; the rest sit above it. Relocate a single tail's worth.
-   287		 */
-   288		if (ALIGN_DOWN(size, align) > align)
- > 289			remainder /= ALIGN_DOWN(size, align) / align;
-   290		/* Don't mess with size that doesn't align with window size granularity */
-   291		if (!IS_ALIGNED(remainder, pci_min_window_alignment(dev->bus, res->flags)))
-   292			return res->start;
-   293		/* Try to place remainder that doesn't fill align before */
-   294		if (res->start < remainder)
-   295			return res->start;
-   296		start_addr = res->start - remainder;
-   297		if (empty_res->start > start_addr)
-   298			return res->start;
-   299	
-   300		pci_dbg(dev, "%pR: moving candidate start address below align to %llx\n",
-   301			res, (unsigned long long)start_addr);
-   302		return start_addr;
-   303	}
-   304	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
