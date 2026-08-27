@@ -4,104 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EECA4C61DB9
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 15:36:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 91057C61DC4
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 15:42:41 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6C737891B8;
-	Thu, 27 Aug 2026 15:36:50 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D59010E64E;
+	Thu, 27 Aug 2026 15:42:41 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="WwHttygE";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="zgZoH3Iz";
 	dkim-atps=neutral
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A5685891B8
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 15:36:49 +0000 (UTC)
-Received: by mail-pf1-f173.google.com with SMTP id
- d2e1a72fcca58-84e4efb18c9so13123b3a.0
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 08:36:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787845009; cv=none;
- d=google.com; s=arc-20260327;
- b=gMfMbpzhlJZReLbrvisBE1RYnYewfeO6u04+7ehaEQo0aIoEqmCmhn0LyGY7w4GplX
- VQ2arNQhEpFuznF1M2ThWoKvQl/BnPfCsjETvnrKmd5zp2hBCjfuJK6WNJxG09+4FCH9
- HxpFMrhKmaqgltbBINVx71xWsA3ErEU7HgbmIkG+3YlAb0Ae06Btohdd22xzy6gVZIoF
- GolDmBOfgYQpqrUv5oqLPVul9SsKefVb4po8PpaaSQQUjcv0bVhopztFbuHy/bS35IKq
- 2SDjvS1kHWBuf5McrQQTdXT2iVBl5HT8eFjq6hJUWlWPSQ+hCu8X6c4h1UVBawcOREBG
- WlVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=yUTUZ4snv7ay4iUiWOk4eA1NX3NVlv4dihabIUfvBFQ=;
- fh=gtPBvqqZQc9vu1W3SkLRDbKpZl/NHv3U7GLMyd+qIqo=;
- b=ZBTYcXtQMCTwQR1kk9ttSC05DNhhr8pFoxY+6oXVzsj8Yew9zAUZ+yhtXohsZ9A/TS
- 3WuxjWFL5hi9frY+ZM0UecxGaWtx1OZliVKKQyFxSFROkoxMJx/v5nkc7R8btRexUP/g
- YdksVZ527/0Mgitb7QRkJ30f9pvgjAJmT/4oYmHOruVAsQi7DeetEn2pUASUd/QY9E1W
- zKSeNrv8uH+FoH6qVRIu42QhTex1XXwq1cUCG7giTWRzLBJhtml2mQiJkm4fYkxgCryi
- ih6hQyTMOqL/EbOnRuHsHcACBdmIPumVPxx1Ig4jm2SUDknyzpUn1a00d56YYj3tjuWS
- 6aFg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787845009; x=1788449809; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=yUTUZ4snv7ay4iUiWOk4eA1NX3NVlv4dihabIUfvBFQ=;
- b=WwHttygErZZ27B7YcCimAnMYCD/JnQNLxSlvH5VjOvSrAC0dGQN56Bp1A3QqukTMhO
- SomD5kZXh0DLraxfAPvkiFoSPOCmZLY2si0GJuT/IW0A5zUHeHXxHXwDZDOUiD3WeLmP
- P+u1be85aAArqLvxHNnCOuLnF+v05W44Bp5SarRMxc/4DdZnWlTmWNEFugde5aTk/ZFV
- ePDcr6WhstmHKFVGCZhIoBW2P9ZamfMCzDUOf4iqo08XTBfzDjo6aedlGCw7jwoqHDG6
- 3LS9U0bOUnqxDiwQX9yT26y6CqzxSrswjLMOmXp33H2HyoSBZ3D4iiPrCiVYb1k/Eht6
- x1Jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787845009; x=1788449809;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=yUTUZ4snv7ay4iUiWOk4eA1NX3NVlv4dihabIUfvBFQ=;
- b=ekoDC6tCBM7msu7h/4Y6l/j36G9MJvsHkoLTaAXqpvq2BSTUT6LxBffM/ngWlsJieu
- WifmDM0JCutwU9NDAm3p1RK2HeQ/K8WOlkX7M96eEvB/GQC0pEg2XO6o2gAa4ZCOr6wr
- 00A/LuI+mED9oF/b5WPZCVALgR0G20+SB7X7TU/a+reKrkD5aDScosHBKb/HaZyvKalb
- +Eoewht9yWcfknw96tfsVKV7JbmDjCJOSChVSIJPZVg+ljFcfjeZAJfZutCBNlVY6aH3
- F747TXxFaH5/7mB+JKS5Mzze35/lOATrx6OMI7VeXl9uzD6tMnmcfxuz/8akhbOXYSMj
- jpNA==
-X-Forwarded-Encrypted: i=1;
- AHgh+RpMl8n1RCln3mhpH0R9MglY2sI3ij1mm9Xl1xQYcINZd7ybFMJvTaVHqNnVOWe+dtM/cyCVEFRK@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mK0yS+JBGGRt1Gy2yBdgG8CiQyNVyxZdquH12U/MqBjJHCnby1
- lsYOGX1bMy55Z4mo6bzZErqYS3bXDVBrTcDrb5RKqKlbiuTvPDV+m/lUCBhumJqcjgiyje7W3Lc
- DX+FsoM7K3LDuky4ol+hjx8G6OuD5/R3i1g==
-X-Gm-Gg: AR+sD12Scd4UC86yljlmIwcyKwKlKnSJcvKhqQxX18/JUkLNiCSEhYDDwVjNjcGJONh
- R9JUimKFFG1gZ3ePRKQLF6qqWc4OzMWZnMrM1IOFKfM6zmfQDx0yNTBlCyOKK4VPEqhm2pcPXFe
- zoQYn4CR2bwS2Sx4Rz6TXkTtc78uCDZ+FDSbxIK1OXBmlUynR2ZrB3B4avzoz8A+r5PUzgKsbrd
- 95rXltRsgNBrSfzJOCkhoo/GcqPNXV7YsiOa/Bg5r/Ed1MJmYD9BYbN96bWEP5lrq4mkLWrFhw5
- Wvg3mFPGdQL2FvQzVaoglFqmK0EsBoAelNTmTulcumduA1V38HQjy48OpdP6L7yVBtQPn3A/rPP
- QcHs6xqGfQI/H44wCKYC1kcCtSrzrv8s=
-X-Received: by 2002:a17:90b:4fcc:b0:36d:b30b:14ed with SMTP id
- 98e67ed59e1d1-396d0f70ba2mr31353a91.2.1787845008869; Thu, 27 Aug 2026
- 08:36:48 -0700 (PDT)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012048.outbound.protection.outlook.com [52.101.43.48])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9403510E64E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 15:42:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KHRmz1Aqv870JrD0hjJuTFWK2NfNczJiC0kxWoxda2j9t4eN2ftFigOmvC5PFnqNRhRVjo9LdXOFWQeirvr91crrQXWrQ2u7Su9a8u1HtEBJpXdOw1Ot6dTfa+YMvhT3kTLRYRbbrYzEQmeYJZ00/qyWjSk2+ALBs2YN3Yv/YBI5c47xu1fYSADczD+Tkuxakf9s8/RySqLRNv6/VJ3SIw6+hO2KzTS69zI3hODqH9xP0GOGruQM/OOKRX5Zle/MYi6dxx0PdTNZgbf/7SAZkVartY4u7NHvK5oofzMoPO7k49goM47UahRoiWBpCpCMAJMcw7O//fzb4Lf8L5j5vw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KwVRxFDTElv4duiNSqKYt2rG5u/1IthVEGeLc8xz9e0=;
+ b=PFQ2Zvnn53IYU0+ugiesoWiuL49DzKXGC1ZdwSZlro4uYxHWq8HBWpC3djJ0qTbiA66CU4NL1415e9hCwzA1Mk0x1Nm/qmUy8U7uCqwqUFr2CD950efF9u5eCfMUukyGy46/68YPHiz/aTvWXZicDdJBFnAWrJMTpYTQziVp3vmX67pWFMwiCt6D2QuLZ8snW+zaqleTYwCWYGLYgmDSjhTPl7BVIugthQCbAXBKDaukfBoL7rnkkxWi5PMGL5vKBgxwNoiBZGwIHiUPWiK8arCuvrE2OEaQ1cxHCHVWcWDx5sGzVO6+HLE9c04HLdy3G654Gde+XwTH/fue3SIfeQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KwVRxFDTElv4duiNSqKYt2rG5u/1IthVEGeLc8xz9e0=;
+ b=zgZoH3Iz2daJYKAiRKdM3EJE8psha3oBa3A1UBNUcynEcKdbF4NdgLPGhgbVVWeGh9MbtXh8aUrKGDkQjRwO5pztaqKvniCmvB6tNpMhMFOeCY/CH+Mrs+nOz8JmD//NXN9f49H8lj0tY6XwZaY+GAg2tlJD8k+zMiSEo2YXU00=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com (2603:10b6:a03:486::8)
+ by IA1PR12MB6410.namprd12.prod.outlook.com (2603:10b6:208:38a::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.6; Thu, 27 Aug
+ 2026 15:42:31 +0000
+Received: from SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a]) by SJ0PR12MB7007.namprd12.prod.outlook.com
+ ([fe80::6f95:c4a2:894d:9e8a%5]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 15:42:31 +0000
+Message-ID: <35040d67-4c2b-4ecf-94fe-85797bef8316@amd.com>
+Date: Thu, 27 Aug 2026 11:42:28 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Enable HDMI FRL by default
+To: Fangzhi Zuo <jerry.zuo@amd.com>, amd-gfx@lists.freedesktop.org
+References: <20260827151949.1426104-1-jerry.zuo@amd.com>
+Content-Language: en-US
+From: Harry Wentland <harry.wentland@amd.com>
+In-Reply-To: <20260827151949.1426104-1-jerry.zuo@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YT4PR01CA0446.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:10d::7) To SJ0PR12MB7007.namprd12.prod.outlook.com
+ (2603:10b6:a03:486::8)
 MIME-Version: 1.0
-References: <20260820045438.3974-1-yogesh.mohanmarimuthu@amd.com>
- <CADnq5_MNFZfbvkgQ6JYjBZOb5+E+kezXDphFHshaaw7h7yVk0w@mail.gmail.com>
- <CH0PR12MB52689AE98C9044860F3FB914FFA42@CH0PR12MB5268.namprd12.prod.outlook.com>
- <CADnq5_NL1vec9Xp=6EjUupmJb8DkkUu2dz44URLL5gf+f9bKxg@mail.gmail.com>
- <CH0PR12MB5268E3922230EB424FAEB36DFFA42@CH0PR12MB5268.namprd12.prod.outlook.com>
- <CADnq5_On3OffA8-eqe7wmuhxmqafw_hd-uWN_DTttefyt8ATVg@mail.gmail.com>
- <CH0PR12MB52681EA03CE63F6935D08047FFA32@CH0PR12MB5268.namprd12.prod.outlook.com>
- <66dffb9e-559c-406e-8d09-b3165020efed@amd.com>
-In-Reply-To: <66dffb9e-559c-406e-8d09-b3165020efed@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Thu, 27 Aug 2026 11:36:35 -0400
-X-Gm-Features: AcwNN1VlEbAT4mAn4wFMOAdOXM1LwaaE_Q5LKuKxQApxLvHnUtn2QOP3kJ0G53I
-Message-ID: <CADnq5_Oqhhsdsatex144-BmKFeyN_U5y1m5wK1pQuumoAE2o2Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu/userq: fix struct drm_amdgpu_info_device
- padding for 32bit compile
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: "Mohan Marimuthu, Yogesh" <Yogesh.Mohanmarimuthu@amd.com>, 
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, 
- "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Khatri,
- Sunil" <Sunil.Khatri@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB7007:EE_|IA1PR12MB6410:EE_
+X-MS-Office365-Filtering-Correlation-Id: e162f3b5-8a0b-4a18-5baf-08df0451ce62
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|376014|1800799024|10067099003|22082099003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: Ft9pmyjSSS7NIs4MBdN6+otoFo1o+KcB1Adn5kjioGTx2nXDVTPyVrSbRMBteBynKMtj07bpIForrU98UG4VLc++ne0vylx8r7cFO8leK+3uky1y52NJCV1bpZwXf4k1QIyfHNJckH9Z1JCHmtmdZx5SRwgffZa60XaayUK8grjefBa5B9J5oDQpeVfmXmPEZv/Wn4plfhkG2NbhCkqVu2qRpQw1dI0IUBOI0jEIf6i8t4KXepUS3QNzQsKl1HM6EibqRZGWYVz5xM/LtZ0G4Mfu1SHCekuZik4hrmLVFltfzm0KMVMl35pJVs+qxyboFqaD9Qb8ewLHSFCjad/vDA7q2KrugTTl0fIEiKPPwTg0N64cxszqN52tvX8OPLOcr0cV/V07u0qacJm6zhP5Gh4RPzO4eT0wgotMeRFXchLsGrYcJjAGH8QbBHXQ7a4+4bH98BOXEBro8HhIRm1XzQnEEmcKRN+7+L2l2lWTxWh4ivwaRdBbk+WQ32ihtBgYFgVyx5OAd7UF9UcTtGFndlb4Ol9/0YHFrg6dRAw2cGLVb8cp7+0RnfVkIqKzTJQ/AMAdmcMM6W+1SeQ+eltE+o8imU4bTqkCXJG+Cu99mGT0qD5JQ9jeDa6jCRq4p5oZAhf24m9cLn5si2DxZLiTCJQOnvMfOzAwOp8Zdd6VGXY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR12MB7007.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RlhraWdVbUU3S1hESjNaaEVBNmVDeURsMUlaVXlYMG9ZendrRTAxUVQ1VkVq?=
+ =?utf-8?B?dHU1ODlCYnZDRmNnTEFvQ2hldnBSZmFHVjdjZHIwcEEzQitoZXNEQS9qejlw?=
+ =?utf-8?B?MWVyVEtGckEwRGFWcVdydUdvK2c4YzFlRVZXVTZuZ1ZnSGx1M3hjOVRDN1ZS?=
+ =?utf-8?B?dkNYRlJOMjYyYXlqWkpNd0F4VGZnb2l4MTdPTDhsWkFJa3BIQXZpN3JEdmNM?=
+ =?utf-8?B?K2pvbTA5blVwTnlQS3VDNTFaejVWbVJzQ1c4aXNlM095TkM3em1TdFlzTmhV?=
+ =?utf-8?B?RCtBZndnTFB3dGorUXU5SUxHTnFuL1lodVJHYVl2WldZcWVBeXhXUjZ0bHMz?=
+ =?utf-8?B?NDQvRUFmNmhYWFVKV0R6ZUppMUsvMCtwa1o2b0VvRHlRK1FUSktldFo3Mkh1?=
+ =?utf-8?B?TGdRbjVvZE5vL1dURzd2bHpaN1FVYWpEYy9za3NsVUNEQmE0RDhSQWk3eER2?=
+ =?utf-8?B?ME5RR21weDVpcEpldUVUOHVwNXh0MldhaXl1L05PT2p6RUcyMXEzRU1iY00x?=
+ =?utf-8?B?VGNJcGVkSG1QY1RQSkExeTd5UDBmUDRZeUxoOWZqdGVzWVAzVEV5UnhRV0w2?=
+ =?utf-8?B?eVZZQ3R0U2g0TjBtS3lZWnBMaXU4UnJJZVphNkYyTE1aSi9DMzFKUURoMlZB?=
+ =?utf-8?B?UStNZFE1OVlxTkEza1JPWEtxeDQ4OUdEN1dRZFJwM2FwN0tuWUJ2RXVXSkJr?=
+ =?utf-8?B?TUtHUk56Z0VEbE9ZR2NOK0daaHBjTmxWSExzOGtoR1RQVVVZMDh6MkhaUzI0?=
+ =?utf-8?B?YXBFRnZjbXBtOWZobCtCdW4zd0FuSlBTQ3Vkd3dlUlZsN0UyTXJjNk9veGpR?=
+ =?utf-8?B?WHNIVXVtY0ZleUxldUQrbTJBc0wvRTJIaWl6T3BTdjhtVG9kM1VGcVo1U0x2?=
+ =?utf-8?B?OGNJemVVTGhwNXdvelU1aENVSVNuRDI1SEI1MlZQanJpSlBOK25tekRhd2RD?=
+ =?utf-8?B?YlRuVHlDK1RqWXJVTVgzaWZxWFVFS1hWV1AzUU1nbDlPYWFJclJNWjlZb3lB?=
+ =?utf-8?B?bFlNWXVHNzhjREhaNGdwV3hjZHp2ZDJFRFFXWkkrWHVLaDdrbHZlVlVOU095?=
+ =?utf-8?B?V3FzS1V2YnlPbTRWTHJxYkNyQkVnUWpkbVRPVGU2Vkl6RHJaWFpraUVYTWhU?=
+ =?utf-8?B?U0JoQWNJKzg5Z010SFlOMk1kQW9hZ3pGQmU4cS8yNE5wOG9ZZU00NWRza0Jy?=
+ =?utf-8?B?UzRpM3pFWEJLTGw0R3JYNzVkV3FUMTZteDlOYUJnR3RjK1ZCRzM2Z3gzOTJT?=
+ =?utf-8?B?ZlhXUE5qNEpxWWhtT2htWE9xUVlNVHlhT2htS1NIT2g0bHdqbHk2VDY2c0J5?=
+ =?utf-8?B?eHMxZUxvQVV3NXozZzRFa3psNkwxVHlqR1NIakRJSE9MOERQc09wbEd2dDFX?=
+ =?utf-8?B?MzRhcWRLOHdOT2RhZk53aDBNckl0aitTdlZORFVZMnVRWXVYcFZVa3VJdmtL?=
+ =?utf-8?B?SGtzdnV2dDR0aXA2REN2cUxaNVgvZGNDTUFMcGdDRWUwQjRhZlluUkVnZEVC?=
+ =?utf-8?B?NDVpM1BYcWpYTGJhc0Rqd3loZEVRR0kvMFNCdTRSOVkyREVsUFAraWwrSUdy?=
+ =?utf-8?B?Y1FYcHlHOEQwUW11ZWZvbVcxSFJqbEdXbTVZeWR6bFAweFF2VUdOU0tmWXJu?=
+ =?utf-8?B?S1grOWpTSlRMZHlLQnM5dEhyTkhkTlJnN1R4MCtnRWRaUWRrK2grd2prUmgx?=
+ =?utf-8?B?QzM0WEx4di85d1k3VVFVZmVJNnZwOVc0VGxtdGpNMU5NZEFZczlEUXhOc0R5?=
+ =?utf-8?B?SDM0TXg1S3BwZ3Q5Sk5rK2hJUGhFdnI0TlNGY3MzSmhnS0ZqUU5rZ0ZqdCto?=
+ =?utf-8?B?Qk90bVFSVHh1WkhrT3dvT2dYMzNpWVhwa2laamdWSjZnWHpYZWpjYU9rRzFr?=
+ =?utf-8?B?dXFlZFN6VjdTZldEREFGS0dNREhqNTFrMis2eURJQ3pqQUlqM1VnODF2a01Y?=
+ =?utf-8?B?U3lWb1B6KzZ0TmFVTTJNS3drSnk4ejhKaThYZWVEMzMrQ0o2azd6V29hT3FE?=
+ =?utf-8?B?WU1mNGlVNzRUWWJqbjZGaTBoTVcveWQwRVJsYXBOalNURGNxN3VrT01GYUp6?=
+ =?utf-8?B?STliVFNRY3lpRUFLNXdzWE9kR2Y0SWNiNTVLN2ZBU2VHakxHUmIxRUQyRlF0?=
+ =?utf-8?B?SCszWFhsZDBKODhUWFA2Z3ZvQXRlS2NtdGxPZWtIUWt0cWVqZnFGSDEwLy9L?=
+ =?utf-8?B?d3cyaG5Cb2NTbGVNTERsaFNWaitDZ1BEQ21KenJlT292OWI1cWVXS05velFZ?=
+ =?utf-8?B?R3JOUzNGOG5RaE90UnM3ZUlVUWpEVG15cWZGei9tRDNWdFVQVWplU0VxM29w?=
+ =?utf-8?B?QkJFYTByZUYrNCtEbFlIOUZaenFBQ2VEYmhDLytvWnVZWjg4dUNWUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e162f3b5-8a0b-4a18-5baf-08df0451ce62
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB7007.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 15:42:31.4693 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aymJmLN4gMnER2VxCZkTkA3bslOp4X+xiqfjyW5e7YEeuQUxyk7qHMKOi6KiqUlxFTqG8L1Aedv7Xdpm0NheUQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6410
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,208 +132,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-We discussed this today and currently today 32 bit kernel + 32 bit
-userspace and 64 bit kernel and 64 bit userspace work.  Mixed 64 bit
-kernel and 32 bit userspace is currently broken.  Since 32 bit kernel
-and userspace is probably pretty rare these days and the data affected
-by this is not critical, I think we can go ahead with this.  Please
-write this up in the commit message.
 
-Alex
 
-On Tue, Aug 25, 2026 at 4:17=E2=80=AFAM Christian K=C3=B6nig
-<christian.koenig@amd.com> wrote:
->
-> Hi guys,
->
-> if it looks like this means that the UAPI is broken since:
->
-> commit cf21e76a6005016474623a375ae2e90364a02168
-> Author: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com>
-> Date:   Tue Sep 24 17:53:25 2019 -0400
->
->     drm/amdgpu: return tcc_disabled_mask to userspace
->
->     UMDs need this for correct programming of harvested chips.
->
->     Signed-off-by: Marek Ol=C5=A1=C3=A1k <marek.olsak@amd.com>
->     Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
->     Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
->
-> It's just that nobody really noticed.
->
-> *sigh* this is exactly one of the reasons why I don't wanted to extend th=
-e drm_amdgpu_info_device structure. If I'm not completely mistaken we have =
-messed things up massively now.
->
-> This currently works with 32bit kernels / 32bit userspace and 64bit kerne=
-l / 64bit userspace, but breaks as soon as you have 64bit kernel / 32bit us=
-erspace combination.
->
-> We have now the choice to apply this patch and essentially break 32bit ke=
-rnel and 32bit userspace combination or use some other hacky workaround.
->
-> Alex and Yogesh let's discuss that on my Thursday meeting.
->
-> Regards,
-> Christian.
->
-> On 8/21/26 05:51, Mohan Marimuthu, Yogesh wrote:
-> > AMD General
-> >
-> > Hi Alex,
-> >
-> > With 32bit Kernel + patch and older userspace will be broken. It will n=
-eed userspace to be recompiled.
-> > The current situation is "64bit Kernel + 32bit userspace" already broke=
-n. It can be said that the current Kernel "struct drm_amdgpu_info_device" i=
-s broken.
-> >
-> > Though "64bit Kernel + 32bit userspace" is already broken but it has no=
-t been noticed until now, it was noticed with userq_ip_mask variable retuni=
-ng zero.
-> >
-> > I think we have only two options,
-> >
-> >  1.
-> >     Probably "32bit Kernel + 32bit UMD" combination is not used and hen=
-ce picking this patch might not trigger any compatibility issue.
-> >  2.
-> >     Create AMDGPU_INFO_DEV_INFO_2 version 2 for DRM_AMDGPU_INFO ioctl t=
-o pass the fixed data structure, but this would keep the older structure th=
-at is already broken still broken.
-> >
-> >
-> > Thank you,
-> > Yogesh
-> >
-> > -----------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
--------------------
-> > *From:* Alex Deucher <alexdeucher@gmail.com>
-> > *Sent:* Thursday, August 20, 2026 11:00 PM
-> > *To:* Mohan Marimuthu, Yogesh <Yogesh.Mohanmarimuthu@amd.com>
-> > *Cc:* amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; De=
-ucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.=
-Koenig@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>
-> > *Subject:* Re: [PATCH] drm/amdgpu/userq: fix struct drm_amdgpu_info_dev=
-ice padding for 32bit compile
-> >
-> > On Thu, Aug 20, 2026 at 11:28=E2=80=AFAM Mohan Marimuthu, Yogesh
-> > <Yogesh.Mohanmarimuthu@amd.com> wrote:
-> >>
-> >> AMD General
-> >>
-> >> Hi Alex,
-> >>
-> >> I am not changing the layout.
-> >>
-> >> For 64 bit gcc, default alignment for __u64 is 8bytes.
-> >> For 32 bit gcc, default alignment for __u64 is 4bytes.
-> >>
-> >> For 32 bit gcc, I have manually padded 4bytes so that it is 8bytes ali=
-gned for __u64. This will make 64bit kernel compatible with 32bit mesa comp=
-iled using gcc.
-> >>
-> >
-> > Won't this break 32 bit kernels?
-> >
-> > Alex
-> >
-> >> Thank you,
-> >> Yogesh
-> >>
-> >> ________________________________
-> >> From: Alex Deucher <alexdeucher@gmail.com>
-> >> Sent: Thursday, August 20, 2026 8:51 PM
-> >> To: Mohan Marimuthu, Yogesh <Yogesh.Mohanmarimuthu@amd.com>
-> >> Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; Deu=
-cher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian.K=
-oenig@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>
-> >> Subject: Re: [PATCH] drm/amdgpu/userq: fix struct drm_amdgpu_info_devi=
-ce padding for 32bit compile
-> >>
-> >> On Thu, Aug 20, 2026 at 11:18=E2=80=AFAM Mohan Marimuthu, Yogesh
-> >> <Yogesh.Mohanmarimuthu@amd.com> wrote:
-> >> >
-> >> > AMD General
-> >> >
-> >> > Hi Alex,
-> >> >
-> >> > In 32bit mesa, I did not get the correct userq_ip_mask value.
-> >> > I checked for variable alignment and tcc_disabled_mask was not on 8 =
-byte alignment. This patch fixes it.
-> >> >
-> >> > Can you please tell how it would break UAPI. What did I miss.
-> >>
-> >> You are changing the layout of the structure that existing apps expect=
-.
-> >>
-> >> Alex
-> >>
-> >> >
-> >> > Thank you,
-> >> > Yogesh
-> >> >
-> >> > ________________________________
-> >> > From: Alex Deucher <alexdeucher@gmail.com>
-> >> > Sent: Thursday, August 20, 2026 7:23 PM
-> >> > To: Mohan Marimuthu, Yogesh <Yogesh.Mohanmarimuthu@amd.com>
-> >> > Cc: amd-gfx@lists.freedesktop.org <amd-gfx@lists.freedesktop.org>; D=
-eucher, Alexander <Alexander.Deucher@amd.com>; Koenig, Christian <Christian=
-.Koenig@amd.com>; Khatri, Sunil <Sunil.Khatri@amd.com>
-> >> > Subject: Re: [PATCH] drm/amdgpu/userq: fix struct drm_amdgpu_info_de=
-vice padding for 32bit compile
-> >> >
-> >> > On Thu, Aug 20, 2026 at 12:55=E2=80=AFAM Yogesh Mohan Marimuthu
-> >> > <yogesh.mohanmarimuthu@amd.com> wrote:
-> >> > >
-> >> > > need to pad before __u64 tcc_disabled_mask variable.
-> >> > >
-> >> > > Signed-off-by: Yogesh Mohan Marimuthu <yogesh.mohanmarimuthu@amd.c=
-om>
-> >> >
-> >> > This will break UAPI.
-> >> >
-> >> > Alex
-> >> >
-> >> > > ---
-> >> > >  include/uapi/drm/amdgpu_drm.h | 2 +-
-> >> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >> > >
-> >> > > diff --git a/include/uapi/drm/amdgpu_drm.h b/include/uapi/drm/amdg=
-pu_drm.h
-> >> > > index 0a113529b..5beef3eaa 100644
-> >> > > --- a/include/uapi/drm/amdgpu_drm.h
-> >> > > +++ b/include/uapi/drm/amdgpu_drm.h
-> >> > > @@ -1517,6 +1517,7 @@ struct drm_amdgpu_info_device {
-> >> > >         __u64 high_va_max;
-> >> > >         /* gfx10 pa_sc_tile_steering_override */
-> >> > >         __u32 pa_sc_tile_steering_override;
-> >> > > +       __u32 pad;
-> >> > >         /* disabled TCCs */
-> >> > >         __u64 tcc_disabled_mask;
-> >> > >         __u64 min_engine_clock;
-> >> > > @@ -1541,7 +1542,6 @@ struct drm_amdgpu_info_device {
-> >> > >         __u32 csa_alignment;
-> >> > >         /* Userq IP mask (1 << AMDGPU_HW_IP_*) */
-> >> > >         __u32 userq_ip_mask;
-> >> > > -       __u32 pad;
-> >> > >  };
-> >> > >
-> >> > >  struct drm_amdgpu_info_hw_ip {
-> >> > > --
-> >> > > 2.43.0
-> >> > >
->
+On 2026-08-27 11:19, Fangzhi Zuo wrote:
+> FRL (Fixed Rate Link) was gated behind the DC_FRL_MASK feature flag,
+> leaving it disabled unless a user explicitly opted in via the
+> amdgpu.dcfeaturemask module parameter.
+> 
+> Invert the DC_FRL_MASK check so init_data.flags.enable_frl defaults to
+> true, and repurpose the mask bit as an opt-out for users who need to
+> fall back to TMDS-only signalling. Update the DC_FEATURE_MASK
+> documentation accordingly.
+> 
+> Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+>  drivers/gpu/drm/amd/include/amd_shared.h          | 2 +-
+>  2 files changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index a27c1fa74994..bf5369cc8b13 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -555,7 +555,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+>  	if (amdgpu_dc_feature_mask & DC_DISABLE_LTTPR_DP2_0)
+>  		init_data.flags.allow_lttpr_non_transparent_mode.bits.DP2_0 = true;
+>  
+> -	if (amdgpu_dc_feature_mask & DC_FRL_MASK)
+> +	/* FRL is enabled by default; DC_FRL_MASK can be set to opt out. */
+> +	if (!(amdgpu_dc_feature_mask & DC_FRL_MASK))
+>  		init_data.flags.enable_frl = true;
+>  
+>  	init_data.flags.seamless_boot_edp_requested = false;
+> diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+> index e3baef809cd1..87eea3360450 100644
+> --- a/drivers/gpu/drm/amd/include/amd_shared.h
+> +++ b/drivers/gpu/drm/amd/include/amd_shared.h
+> @@ -287,7 +287,7 @@ enum DC_FEATURE_MASK {
+>  	 */
+>  	DC_REPLAY_MASK = (1 << 9),
+>  	/**
+> -	 * @DC_FRL_MASK: (0x400) disabled by default
+> +	 * @DC_FRL_MASK: (0x400) enabled by default; set to disable FRL
+
+I think it'd be better if we don't redefine what this mask means.
+I think this would be better:
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 53738b40c97f..9c2ff3e147d1 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -218,8 +218,9 @@ int amdgpu_smu_pptable_id = -1;
+  * DISABLE_FRACTIONAL_PWM (bit 2) disabled by default
+  * PSR (bit 3) disabled by default
+  * EDP NO POWER SEQUENCING (bit 4) disabled by default
++ * FRL (bit 10) enabled by default
+  */
+-uint amdgpu_dc_feature_mask = 2;
++uint amdgpu_dc_feature_mask = DC_MULTI_MON_PP_MCLK_SWITCH_MASK | DC_FRL_MASK;
+ uint amdgpu_dc_debug_mask;
+ uint amdgpu_dc_visual_confirm;
+ int amdgpu_async_gfx_ring = 1;
+
+Harry
+
+>  	 */
+>  	DC_FRL_MASK = (1 << 10),
+>  };
+
