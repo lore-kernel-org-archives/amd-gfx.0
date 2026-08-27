@@ -4,31 +4,95 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5A0E9C61DC2
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 14:09:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id EB216C61DC4
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 15:08:20 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E25FC10E520;
-	Thu, 27 Aug 2026 14:09:03 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (unknown [165.204.217.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 93EF310E520
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 14:09:01 +0000 (UTC)
-Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 67RE8pah908479; Thu, 27 Aug 2026 19:38:51 +0530
-Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 67RE8pmW908478;
- Thu, 27 Aug 2026 19:38:51 +0530
-From: Sunil Khatri <sunil.khatri@amd.com>
-To: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v1] drm/amdgpu: make amdgpu_vm_bo_lookup_mapping() take a raw
- address
-Date: Thu, 27 Aug 2026 19:38:50 +0530
-Message-Id: <20260827140850.908458-1-sunil.khatri@amd.com>
-X-Mailer: git-send-email 2.34.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3179010E2BD;
+	Thu, 27 Aug 2026 15:08:20 +0000 (UTC)
+Authentication-Results: gabe.freedesktop.org;
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="vqpjJc/f";
+	dkim-atps=neutral
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012000.outbound.protection.outlook.com [52.101.43.0])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D79610E2BD
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 15:08:19 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pcADGGQDlvdY3BOKpzVtO9aGx5/8+hbSh3VPZNdTZ4R4a6BK3FwD8nHr17tYoeyEySH5unY8yFI753l8zd7ijwbZu6j19HD30s+PZFxgJxn8Mt9QQS07PwmQpLhek7AWZQAfsn2mxm2lnDDX1nTWB+kCXxZ3EnpNjg0935jJOqsWE1HOOyLDFIzFoTpWredIEKO9PIYIW7J5lLQwS7vNH/Otp1extYpUPRwhSWngO8CKsEztc1k2H9QCnx2AXnCfsDO87lkhRVH9SFnAF8/dYVjmgN36/SHdrEsuu9xxwBhD9hUtcP3YahdasFT/L1wqsCgpuWd7fhge6F4098uwPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6YoXq2F5Q4OzqGoyMEYnYPjtAY+TJWaaOU/HE9qSHY0=;
+ b=Mfna4hFl3oPAagVTfIGBXPAGKxCqR9xpGbJtvubHNL2cW6ezYRZ4FtoH6LlL/Yv6GAwj4FzMhhl1fsTtCyFNeIfAz6lYsTfFBV9T/J4rCzNoJp9lD5EGJpWsOM4Js/II0Tvx4felIRdQUdNT/nHFS6esfoawGVsFlKAeHPSIpqIYI9NyHfLM47TwubbS+rOWbFycfHZE7nsHiEDyOu4L+12S6my6tdz9ncfK1n5UCli00iD9LIcdJit/KK+2Pxzkndm4TswnP6YyIdjfSbBH3F5QBu3kXR3+juSv9DMhvI0MiHajQbXWctEXy6kMsn76SQlrpK500ClFGX5jGkyJqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6YoXq2F5Q4OzqGoyMEYnYPjtAY+TJWaaOU/HE9qSHY0=;
+ b=vqpjJc/f+xApIfivTCOzLiF1D1oV1+8SXSI1tLTze4Rp+E3lehWb5RYq40RlSOB8i5Q7XkJtbtIJxC7JMuhSHPew/JxjAH1/EsD3TYSihNv60PK8PT9p829vRrbRBJkqEFJoyLpzNtmE5KEeMhVTqH8Jcza/fK6hPp5AjgRelLE=
+Received: from PH7PR17CA0034.namprd17.prod.outlook.com (2603:10b6:510:323::12)
+ by LV9PR12MB9830.namprd12.prod.outlook.com (2603:10b6:408:2ec::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 15:08:14 +0000
+Received: from SN1PEPF00036F42.namprd05.prod.outlook.com
+ (2603:10b6:510:323:cafe::50) by PH7PR17CA0034.outlook.office365.com
+ (2603:10b6:510:323::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Thu,
+ 27 Aug 2026 15:08:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF00036F42.mail.protection.outlook.com (10.167.248.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Thu, 27 Aug 2026 15:08:13 +0000
+Received: from jzuo.laptop (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 27 Aug
+ 2026 10:01:06 -0500
+From: Fangzhi Zuo <jerry.zuo@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Fangzhi Zuo <jerry.zuo@amd.com>
+Subject: [PATCH] drm/amd/display: Enable HDMI FRL by default
+Date: Thu, 27 Aug 2026 11:00:54 -0400
+Message-ID: <20260827150054.1426016-1-jerry.zuo@amd.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00036F42:EE_|LV9PR12MB9830:EE_
+X-MS-Office365-Filtering-Correlation-Id: 804b49e3-9d5f-47d1-cba0-08df044d03b3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|36860700016|1800799024|23010399003|56012099006|10067099003|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info: zPdhHJHQOXxzsTU7121ebbsoWxguzjshudRiZBfpfSX7tZM3mWPy3ZGnEUEgClPzOmpiE7Q8tb+iqF71yIGcOxcWg4QbiDhkVUm2626mSWJ53bPmdP2WJ3Jv993SOflg0pEDOgsf1WOqcPUDXqGeCVP/L6fX/udONdJ+jkRNnumhYakLpmWP+GFXriw5XpTPutXr5GwtWuApHDDuy3fq6w+iK/fsAJXaJQN6GcyXm8/FKCWxSSozqrGCUy4cCS5mGJ/t5aa7bqVrhlQdD3/4mHLgImIo3oDbDZDo/hTtO0IaKkb8gDmLUSvYhkd2mjiB60xYhzV0QIvqjAE1xPycN0zrmHKdny9qQegDCMwRRB5sNckwFRigH+p7fxP/VEGzLYD253xj7JhD9SndGn6nu6WkEpvA9gYOMBSYmgHhAjya76e1Q7FwTiGlsWdVxVqxkltMg8nW1sYoUeMtT629pMBBZd67RXqD6XKNx+ugZxGtDtH6m71lCj1GM1lKzWhpwEL+RN4zL+BXlqx52hMX98UqZxcHPbnu2BNWxHh0Z5sa2g0vz4YFSRhl4g9QSG+ZNuDpccKx4lX+LHq4i14IuCdo+IsWe4WmuXc4kox74DzVTbJZ1IZ91Qsi6s0jRnEwh9lBpDOeo05fr2JYC8kG5lNfnSWM2G9JGGrtppiDs0TC8FNYDqOUas5J4JZ+zLZTTj8IJuvth4fyCliE5liJqw==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(23010399003)(56012099006)(10067099003)(11063799006)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: rFOxztwvkxKYUEmq0KwVIZygVRqxDNU6io1+HrZMY8eWIhJlLam21C8nzZsY4Nb9JBLfdVpBRXEV92oDOsojXyy5sQ8V7tWxkYqcpl5kHIphy4Z8FWA0VCOa4UqwyRPG8mYQyanUkktIp+7pkbfAh8/VkBg40m+9Rkfk90XACHb0qv4m63hC5DDh7Da4mg2ZA49UWw1L1lmtkt+w2OzQVKC+XYehmZg/ItdElTyfbNF9AKWcXQ2Tk7Y0QevZwmOzPGEJG08Bg6thjiF4fvpBYf2N+he0rIGRWIG7SvnlcBezyZBK3bqhSmMwZ8EIGiDldMX2F64osgUlaLWIEPukmjPeLo5kM+s96OQm4SQPsFxAG0DhQh8NA8NOoXLpDmZru/afzS+O/VSul0gxSBw+3qkNAbRjsy+lzzUBIoaXi3bc24tLGeOBh55a6DIDRWdq
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 15:08:13.0662 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 804b49e3-9d5f-47d1-cba0-08df044d03b3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00036F42.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9830
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -43,180 +107,48 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_vm_bo_lookup_mapping() expected callers to pre-shift the
-address to a page frame number before calling in, unlike its sibling
-functions amdgpu_vm_bo_map() and amdgpu_vm_bo_replace_map(), which
-accept a raw address and shift internally. This inconsistency meant
-every caller had to duplicate the same shift to make it pfn and many
-place the shift is not AMDGPU_GPU_PAGE_SHIFT but normal PAGE_SHIFT too.
+FRL (Fixed Rate Link) was gated behind the DC_FRL_MASK feature flag,
+leaving it disabled unless a user explicitly opted in via the
+amdgpu.dcfeaturemask module parameter.
 
-Move the shift inside amdgpu_vm_bo_lookup_mapping() and update all
-callers to stop pre-shifting, so the function's calling convention
-matches its siblings.
+Invert the DC_FRL_MASK check so init_data.flags.enable_frl defaults to
+true, and repurpose the mask bit as an opt-out for users who need to
+fall back to TMDS-only signalling. Update the DC_FEATURE_MASK
+documentation accordingly.
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+Signed-off-by: Fangzhi Zuo <jerry.zuo@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c           |  2 --
- drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c |  8 +++-----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c        |  9 +++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c  |  2 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c           |  1 +
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c       |  2 +-
- drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c            |  2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_queue.c           | 10 +++++-----
- 8 files changed, 15 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+ drivers/gpu/drm/amd/include/amd_shared.h          | 2 +-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index e129ec46441e..87ccef153073 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -1809,8 +1809,6 @@ int amdgpu_cs_find_mapping(struct amdgpu_cs_parser *parser,
- 	struct amdgpu_bo_va_mapping *mapping;
- 	int i, r;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index a27c1fa74994..bf5369cc8b13 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -555,7 +555,8 @@ static int amdgpu_dm_init(struct amdgpu_device *adev)
+ 	if (amdgpu_dc_feature_mask & DC_DISABLE_LTTPR_DP2_0)
+ 		init_data.flags.allow_lttpr_non_transparent_mode.bits.DP2_0 = true;
  
--	addr /= AMDGPU_GPU_PAGE_SIZE;
--
- 	mapping = amdgpu_vm_bo_lookup_mapping(vm, addr);
- 	if (!mapping || !mapping->bo_va || !mapping->bo_va->base.bo)
- 		return -EINVAL;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-index 87e15e39eb30..76771ad30c41 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dev_coredump.c
-@@ -256,10 +256,9 @@ amdgpu_devcoredump_print_ibs(struct drm_printer *p,
- 			goto unlock;
+-	if (amdgpu_dc_feature_mask & DC_FRL_MASK)
++	/* FRL is enabled by default; DC_FRL_MASK can be set to opt out. */
++	if (!(amdgpu_dc_feature_mask & DC_FRL_MASK))
+ 		init_data.flags.enable_frl = true;
  
- 		for (int i = 0; i < coredump->num_ibs; i++) {
--			u64 pfn = (coredump->ibs[i].gpu_addr &
--				   AMDGPU_GMC_HOLE_MASK) / AMDGPU_GPU_PAGE_SIZE;
-+			u64 addr = coredump->ibs[i].gpu_addr & AMDGPU_GMC_HOLE_MASK;
- 
--			mapping = amdgpu_vm_bo_lookup_mapping(vm, pfn);
-+			mapping = amdgpu_vm_bo_lookup_mapping(vm, addr);
- 			if (!mapping)
- 				continue;
- 
-@@ -280,8 +279,7 @@ amdgpu_devcoredump_print_ibs(struct drm_printer *p,
- 			continue;
- 
- 		va_start = coredump->ibs[i].gpu_addr & AMDGPU_GMC_HOLE_MASK;
--		mapping = amdgpu_vm_bo_lookup_mapping(vm,
--						      va_start / AMDGPU_GPU_PAGE_SIZE);
-+		mapping = amdgpu_vm_bo_lookup_mapping(vm, va_start);
- 		if (!mapping)
- 			goto output_ib_content;
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 0a816b3c5ff9..62bf6b78a534 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -241,7 +241,6 @@ int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
- 	struct amdgpu_vm *vm = queue->vm;
- 	u64 start_addr;
- 	u64 end_addr;
--	u64 start_page;
- 
- 	/* Caller must hold vm->root.bo reservation */
- 	dma_resv_assert_held(queue->vm->root.bo->tbo.base.resv);
-@@ -253,16 +252,14 @@ int amdgpu_userq_input_va_validate(struct amdgpu_device *adev,
- 	if (check_add_overflow(start_addr, expected_size - 1, &end_addr))
- 		return -EINVAL;
- 
--	start_page = start_addr >> AMDGPU_GPU_PAGE_SHIFT;
--
--	va_map = amdgpu_vm_bo_lookup_mapping(vm, start_page);
-+	va_map = amdgpu_vm_bo_lookup_mapping(vm, start_addr);
- 	if (!va_map)
- 		return -EINVAL;
- 
--	/* Lookup guarantees start_page is mapped; ensure full span is covered. */
-+	/* Lookup guarantees start_addr is mapped; ensure full span is covered. */
- 	if ((end_addr >> AMDGPU_GPU_PAGE_SHIFT) <= va_map->last) {
- 		va_map->bo_va->userq_va_mapped = true;
--		*va_out = start_page;
-+		*va_out = start_addr;
- 		return 0;
- 	}
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-index cee5b0241196..5b936d12c55b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-@@ -385,7 +385,7 @@ static int amdgpu_userq_fence_read_wptr(struct amdgpu_device *adev,
- 		if (unlikely(ret))
- 			goto lock_error;
- 
--		mapping = amdgpu_vm_bo_lookup_mapping(queue->vm, addr >> PAGE_SHIFT);
-+		mapping = amdgpu_vm_bo_lookup_mapping(queue->vm, addr);
- 		if (!mapping) {
- 			ret = -EINVAL;
- 			goto lock_error;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-index 88249aa89ee3..c8d1f2624b1b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
-@@ -2165,6 +2165,7 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
- struct amdgpu_bo_va_mapping *amdgpu_vm_bo_lookup_mapping(struct amdgpu_vm *vm,
- 							 uint64_t addr)
- {
-+	addr /= AMDGPU_GPU_PAGE_SIZE;
- 	return amdgpu_vm_it_iter_first(&vm->va, addr, addr);
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-index 7f334f718cd8..46ebc002548d 100644
---- a/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-+++ b/drivers/gpu/drm/amd/amdgpu/mes_userqueue.c
-@@ -53,7 +53,7 @@ mes_userq_create_wptr_mapping(struct amdgpu_device *adev,
- 		if (unlikely(ret))
- 			goto fail_lock;
- 
--		wptr_mapping = amdgpu_vm_bo_lookup_mapping(vm, wptr >> PAGE_SHIFT);
-+		wptr_mapping = amdgpu_vm_bo_lookup_mapping(vm, wptr);
- 		if (!wptr_mapping) {
- 			ret = -EINVAL;
- 			goto fail_lock;
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-index 69976c8be034..72fd3022b606 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v1_0.c
-@@ -2064,7 +2064,7 @@ static int vcn_v1_0_validate_bo(struct amdgpu_cs_parser *parser,
- 		return -EINVAL;
- 	}
- 
--	mapping = amdgpu_vm_bo_lookup_mapping(vm, addr/AMDGPU_GPU_PAGE_SIZE);
-+	mapping = amdgpu_vm_bo_lookup_mapping(vm, addr);
- 	if (!mapping || !mapping->bo_va || !mapping->bo_va->base.bo)
- 		return -EINVAL;
- 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-index 15eeaaebbbcd..ae3e7c54014a 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_queue.c
-@@ -197,18 +197,18 @@ int kfd_queue_buffer_get(struct amdgpu_vm *vm, void __user *addr, struct amdgpu_
- 			 u64 expected_size)
- {
- 	struct amdgpu_bo_va_mapping *mapping;
--	u64 user_addr;
-+	u64 user_pfn;
- 	u64 size;
- 
--	user_addr = (u64)addr >> AMDGPU_GPU_PAGE_SHIFT;
- 	size = expected_size >> AMDGPU_GPU_PAGE_SHIFT;
- 
--	mapping = amdgpu_vm_bo_lookup_mapping(vm, user_addr);
-+	mapping = amdgpu_vm_bo_lookup_mapping(vm, (u64)(uintptr_t)addr);
- 	if (!mapping)
- 		goto out_err;
- 
--	if (user_addr != mapping->start ||
--	    (size != 0 && user_addr + size - 1 != mapping->last)) {
-+	user_pfn = (u64)(uintptr_t)addr >> AMDGPU_GPU_PAGE_SHIFT;
-+	if (user_pfn != mapping->start ||
-+	    (size != 0 && user_pfn + size - 1 != mapping->last)) {
- 		pr_debug("expected size 0x%llx not equal to mapping addr 0x%llx size 0x%llx\n",
- 			expected_size, mapping->start << AMDGPU_GPU_PAGE_SHIFT,
- 			(mapping->last - mapping->start + 1) << AMDGPU_GPU_PAGE_SHIFT);
+ 	init_data.flags.seamless_boot_edp_requested = false;
+diff --git a/drivers/gpu/drm/amd/include/amd_shared.h b/drivers/gpu/drm/amd/include/amd_shared.h
+index e3baef809cd1..87eea3360450 100644
+--- a/drivers/gpu/drm/amd/include/amd_shared.h
++++ b/drivers/gpu/drm/amd/include/amd_shared.h
+@@ -287,7 +287,7 @@ enum DC_FEATURE_MASK {
+ 	 */
+ 	DC_REPLAY_MASK = (1 << 9),
+ 	/**
+-	 * @DC_FRL_MASK: (0x400) disabled by default
++	 * @DC_FRL_MASK: (0x400) enabled by default; set to disable FRL
+ 	 */
+ 	DC_FRL_MASK = (1 << 10),
+ };
 -- 
-2.34.1
+2.53.0
 
