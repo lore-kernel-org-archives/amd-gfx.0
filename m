@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4EEECC61DC6
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 15:49:03 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 47CF1C61DC4
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 15:49:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8F1810E63F;
-	Thu, 27 Aug 2026 15:49:02 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C99A710EDCE;
+	Thu, 27 Aug 2026 15:49:05 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.217.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C3CBB10F0F0
- for <amd-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 15:48:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 911CF10E99E
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 15:49:04 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 67RFmrod1021083; Thu, 27 Aug 2026 21:18:53 +0530
+ 67RFmsid1021094; Thu, 27 Aug 2026 21:18:54 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 67RFmrvF1021082;
- Thu, 27 Aug 2026 21:18:53 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 67RFmsog1021093;
+ Thu, 27 Aug 2026 21:18:54 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v1 2/4] drm/amdgpu/userq: update the kernel docs for
- amdgpu_userq_fence_read_wptr
-Date: Thu, 27 Aug 2026 21:18:47 +0530
-Message-Id: <20260827154849.1021013-2-sunil.khatri@amd.com>
+Subject: [PATCH v1 3/4] drm/amdgpu: use AMDGPU_GPU_PAGE_SHIFT instead of
+ PAGE_SHIFT
+Date: Thu, 27 Aug 2026 21:18:48 +0530
+Message-Id: <20260827154849.1021013-3-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260827154849.1021013-1-sunil.khatri@amd.com>
 References: <20260827154849.1021013-1-sunil.khatri@amd.com>
@@ -45,26 +45,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-update the kernel docs for amdgpu_userq_fence_read_wptr.
+For different address types the variable PAGE_SHIFT might
+not work well and it's better to use the GPU specific one
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-index 5b936d12c55b..c270635c907b 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
-@@ -361,7 +361,7 @@ static const struct dma_fence_ops amdgpu_userq_fence_ops = {
-  *
-  * Read the wptr value from userq's MQD. The userq signal IOCTL
-  * creates a dma_fence for the shared buffers that expects the
-- * RPTR value written to seq64 memory >= WPTR.
-+ * fence_val written to seq64 fence address >= WPTR.
-  *
-  * Returns wptr value on success, error on failure.
-  */
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+index c8d1f2624b1b..dbdcd57e5b6b 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c
+@@ -2090,7 +2090,7 @@ int amdgpu_vm_bo_clear_mappings(struct amdgpu_device *adev,
+ 			after->start = eaddr + 1;
+ 			after->last = tmp->last;
+ 			after->offset = tmp->offset;
+-			after->offset += (after->start - tmp->start) << PAGE_SHIFT;
++			after->offset += (after->start - tmp->start) << AMDGPU_GPU_PAGE_SHIFT;
+ 			after->flags = tmp->flags;
+ 			after->bo_va = tmp->bo_va;
+ 			list_add(&after->list, &tmp->bo_va->invalids);
 -- 
 2.34.1
 
