@@ -4,96 +4,61 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F47CC61DC4
-	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 20:36:29 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 19487C61DC4
+	for <amd-gfx@archiver.kernel.org>; Thu, 27 Aug 2026 22:14:46 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4758A10F1B6;
-	Thu, 27 Aug 2026 20:36:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8E16210F07A;
+	Thu, 27 Aug 2026 22:14:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AiOfdoOU";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KY5K10js";
 	dkim-atps=neutral
-Received: from PH0PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11011000.outbound.protection.outlook.com [40.107.208.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DFB6F10F1B0;
- Thu, 27 Aug 2026 20:36:23 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cHkyLb/T9tJytujJsAJ5mDRS+Xl57nI6FMBaL4CoDt+E3TXJJOaMc0tBlhHRBuujQnskiqXZE1z3BayddNlqnfCbdSo7/O0rBmTJIjzts4MsC+HPmWfHiJ+DGoeYsvZv6dH04CntZh5lyk4hRUUVpUb9Bzvz5GoB46GVTiaWzcnsPGrb7zBtIBauFWIyj+zvJavWIMRf+0nUUYcURxamS7zf7eR509VKk7ed0dFOMg05nBGa0+ofiG5xQc6dwGBcLDj0n/6A/MJT+2LbasE9km4z69wQxVb981Ag/kARHceDV7kIf4jywGoesaMFI281XMsb3gsd5z6qh5/hj5mRKw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ESgm0Y+2dzv383T55NRgReWhgA74tdUq+zkNSDQGtis=;
- b=WeBsuXO4LOTYKLHb+uwQjkcS3V/jyE1HbHatavEMDzDQhvtr4ZK4Hj2xNI6iwy4/cnljj513W5xAcChfkd0UZMqDGBt58Z/lz+iZTdTGFwAxIRoLUhNq18KiTy2bFJrli4ePp3EhNiIN55s3n46mdeeKDer7jbfDi/nICPf9mcH4CcbGx59+ap9B5S1xDO1QBYICxY1B8t6oztZTkJ4m/iQw27rsFqKr+BtKzIoBu/tPQqfOMTNPrFv14j10K1J5oujT31KXLlmtKUjWTUgHA3zI5yCY9dQCVzDsbHU22oj2vW2w/pNMW2XpSA2nzVm0RBSsfKlPgcKSopCfjJROcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ESgm0Y+2dzv383T55NRgReWhgA74tdUq+zkNSDQGtis=;
- b=AiOfdoOUgz32d1eOn23Vohzc8pphwIHU/VIIGTx/269jqBA32xkdz4UAMM84byfjZ8Ml2asWev9H2+aPh0TfcFzuAHAc4a77re4qKH6GlkPps+97ZR8iVTR2urx7MAyRFn7ODVin8tdHMoB6RIGvi8hx6LNKH5NVteGwX7CNjt0=
-Received: from PH7P223CA0026.NAMP223.PROD.OUTLOOK.COM (2603:10b6:510:338::31)
- by CY5PR12MB6480.namprd12.prod.outlook.com (2603:10b6:930:33::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Thu, 27 Aug
- 2026 20:36:19 +0000
-Received: from SN1PEPF00026369.namprd02.prod.outlook.com
- (2603:10b6:510:338:cafe::30) by PH7P223CA0026.outlook.office365.com
- (2603:10b6:510:338::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.10 via Frontend Transport; Thu,
- 27 Aug 2026 20:36:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SN1PEPF00026369.mail.protection.outlook.com (10.167.241.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Thu, 27 Aug 2026 20:36:18 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 27 Aug
- 2026 15:36:18 -0500
-Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Thu, 27 Aug 2026 15:36:17 -0500
-From: Alex Deucher <alexander.deucher@amd.com>
-To: <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <airlied@gmail.com>, <simona.vetter@ffwll.ch>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [pull] amdgpu, amdkfd drm-next-7.3
-Date: Thu, 27 Aug 2026 16:36:09 -0400
-Message-ID: <20260827203610.3249084-1-alexander.deucher@amd.com>
-X-Mailer: git-send-email 2.55.0
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 42B3D10F07A
+ for <amd-gfx@lists.freedesktop.org>; Thu, 27 Aug 2026 22:14:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787868880; x=1819404880;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=0FJgbP6g3+qK4B5v4A9pqy/ZRTHo09o+plVMF583VTI=;
+ b=KY5K10jsnP0AWPu5FfQFz7CzXN8vGzTa+3Pff4J6jdYxxeIwUfxKOZUN
+ oGxEXWrGl7E3FMhq9wCH3MyLJuaO4abCRSXpkaCNeWlzEZjeMaRAFuf/f
+ e0tcefQU5k1RaFMTV0HeoDTO42Bkm25ZaXeSh1IH1voULAVqc+4K2SqNw
+ L9J01o42bshSsDJ7geoUQWIcdRESWTBrguSvNpl9i/gXoIeAMsUWWnMBd
+ CWt+rpp4tTG2tZ9ekM7ZRt7JZCiW6HWomN+h219h2iS1DKH72Eb0KPZNS
+ xoxXrBXK6JJhwbe3utc9p25UR+Wo76vrDPqYIC4QbhxZ3McGkpImzXAb0 Q==;
+X-CSE-ConnectionGUID: 0xjHwjEARF6/722ryd7Mxw==
+X-CSE-MsgGUID: 2BrXqeZpScqeFuQyVmCL/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="75921820"
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; d="scan'208";a="75921820"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Aug 2026 15:14:37 -0700
+X-CSE-ConnectionGUID: xlG0FO5iSs6H/L9poYTi/w==
+X-CSE-MsgGUID: VE1PNoxkRu2L/RYvGnyZwg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; d="scan'208";a="266687940"
+Received: from lkp-server01.sh.intel.com (HELO 3532383e6126) ([10.239.97.150])
+ by orviesa010.jf.intel.com with ESMTP; 27 Aug 2026 15:14:35 -0700
+Received: from kbuild by 3532383e6126 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1wziMi-00000000A5t-26AU;
+ Thu, 27 Aug 2026 22:14:32 +0000
+Date: Fri, 28 Aug 2026 06:13:39 +0800
+From: kernel test robot <lkp@intel.com>
+To: Geramy Loveless <gloveless@jqluv.com>, linux-pci@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, bhelgaas@google.com,
+ alexander.deucher@amd.com, ilpo.jarvinen@linux.intel.com,
+ christian.koenig@amd.com, amd-gfx@lists.freedesktop.org,
+ mario.limonciello@amd.com, nra3088@gmail.com, gloveless@jqluv.com
+Subject: Re: How to correctly reserve prefetchable bridge windows for large,
+ resizable BARs behind PCIe switches (8x GPU, PEX890xx) - seeking guidance on
+ upstreamable approach.
+Message-ID: <202608280629.PrwiaBTD-lkp@intel.com>
+References: <a2292dfb-2ee5-4988-ac67-c75dd3e97a4c@jqluv.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN1PEPF00026369:EE_|CY5PR12MB6480:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee596605-418f-4b13-221e-08df047ad927
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700016|23010399003|13003099007|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info: KNS/8Y2zkVNQlea8pI3besz/h4JAor+2WtExKWRAYw1MEC6sZ6WAHyRgMbQ/xIuieF6Y1r0rORkUOeYSvJGove7RXOGjYA2q1zze161iCamI9safWKtnRswPo2VSwt7IqrzBqs9+Hxdt0lRn3V/z28YEvdlZOXP73kQMwMQQqHOGqPqGiz+3WnzeUulpf2HriS3aY5yFeiN75vIVOUrEgbgc0jY2FlXuALOwKyT/0bFHtczDO8t1A5GJHWUG5YbMqC131F/NblimbR5s9rXWfcoi82NqFAgUOMiP0KNV9PmxwIKt2qoMRtkEj6GYrRGEUxm+YP/LV2tDksOPeRI1fTJRJZyP5cupcI+GvNCuDDaaYf9oGNw56s+5+UtcoCMX0vHzQCcd6l9bRVdm11IUrVyHDPoEdYhaS0WY9c1sLpj60aQuf9KN6ar6yxFT5arrKjL8g/URk1/DS7YP+wWWfDpxOzawE9jn74BT/UN3maK45Drh+Zv8ZHU13Ws7UIx94VphGJYf/1xnbgYCVGFsArLhLpZ99zqZTG1RJJUEW2T3cXUBKLPGb2DyTLcZTDTX5vQ9MA2JcRbHIfbIbvdMydNI03Kwbgpb764f2m9Hgl9l9ydcOmT0N02p+G8sYAFEBQbkkBQK2IM1c/sUTZNFig==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(23010399003)(13003099007)(10067099003)(56012099006)(11063799006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Hws77JC1fEa5+WXh4CVsG5R/TtSeTzPLJdX6Qk704A104uGPCap4VfiasVNlVFNRNpQ0ccuUTkhbW/7Sp22AeFJfj0f7PtQie1XD4xTIssjlJdhSQ8sM9xweIw+PVCisof0gM8KGfzMFzZ51GSeUQbANCA+HOwI7VoDkEZHBI0znzFEA+q+XKr89hDmBWSogxEiV3EIlsiOeAvwWMnvcCnAnj9mR33Ie6BOg7FnhlHSZOB1SOATQBcy+wviLNjsY4GfigUqC9mRhLA1UIG66Ed8dJPA152AqQP15Cerp3vZ0IhX3lCJmkn0VjKoaGsgcJwXoNIiMXU7//nii+8J98WTixfmB3T9rKD8hJjMJAejYPPtlS9RFjb/FLJ80SPyIcfpnu2H6CG5iJK+PdM2IMMG+QKAB8PmLxqjyJK6fhYP2+Tl3ol2RMnKBMM+uI2MC
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 20:36:18.4933 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee596605-418f-4b13-221e-08df047ad927
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF00026369.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6480
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <a2292dfb-2ee5-4988-ac67-c75dd3e97a4c@jqluv.com>
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,103 +73,88 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Dave, Simona,
+Hi Geramy,
 
-Fixes for 7.3.
+kernel test robot noticed the following build errors:
 
-The following changes since commit 1ff8d3e3165fd077faa4259fd232bdddcd30249f:
+[auto build test ERROR on pci/next]
+[also build test ERROR on pci/for-linus linus/master next-20260826]
+[cannot apply to drm-misc/drm-misc-next v7.2]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-  Merge tag 'drm-xe-next-fixes-2026-08-20' of https://gitlab.freedesktop.org/drm/xe/kernel into drm-next (2026-08-24 11:40:23 +1000)
+url:    https://github.com/intel-lab-lkp/linux/commits/Geramy-Loveless/How-to-correctly-reserve-prefetchable-bridge-windows-for-large-resizable-BARs-behind-PCIe-switches-8x-GPU-PEX890xx-seeki/20260826-132218
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git next
+patch link:    https://lore.kernel.org/r/a2292dfb-2ee5-4988-ac67-c75dd3e97a4c%40jqluv.com
+patch subject: How to correctly reserve prefetchable bridge windows for large, resizable BARs behind PCIe switches (8x GPU, PEX890xx) - seeking guidance on upstreamable approach.
+config: i386-randconfig-015-20260827 (https://download.01.org/0day-ci/archive/20260828/202608280629.PrwiaBTD-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260828/202608280629.PrwiaBTD-lkp@intel.com/reproduce)
 
-are available in the Git repository at:
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608280629.PrwiaBTD-lkp@intel.com/
 
-  https://gitlab.freedesktop.org/agd5f/linux.git tags/amd-drm-next-7.3-2026-08-27
+All errors (new ones prefixed by >>):
 
-for you to fetch changes up to 92a9eebd2a1f892fe482154d83f9f1626bc73d3b:
+   ld: drivers/pci/setup-res.o: in function `pci_align_resource':
+>> drivers/pci/setup-res.c:289:(.text+0x92a): undefined reference to `__udivdi3'
+>> ld: drivers/pci/setup-res.c:289:(.text+0x939): undefined reference to `__udivdi3'
+   ld: drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_dcn6.o: in function `dchub_v2_get_sop_total_available_bandwidth_KBps':
+   drivers/gpu/drm/amd/amdgpu/../display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h:71:(.text+0x61): undefined reference to `__udivdi3'
+   ld: drivers/gpu/drm/amd/amdgpu/../display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h:79:(.text+0x9d): undefined reference to `__udivdi3'
+   ld: drivers/gpu/drm/amd/amdgpu/../display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h:66:(.text+0xc0): undefined reference to `__udivdi3'
+   ld: drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_dcn6.o:drivers/gpu/drm/amd/amdgpu/../display/dc/dml2_0/dml21/inc/bounding_boxes/utm_qos_model_dchub_v2.h:76: more undefined references to `__udivdi3' follow
 
-  drm/amd/display: fix dc_lock leak on GPU reset error paths (2026-08-25 18:24:30 -0400)
 
-----------------------------------------------------------------
-amd-drm-next-7.3-2026-08-27:
+vim +289 drivers/pci/setup-res.c
 
-amdgpu:
-- MES fixes
-- Userq fixes
-- UVD fix
-- VCE 3 fix
-- Enforce isolation fix
-- HPD fix for VGA/LVDS
-- DML fix
-- DCN 6 fixes
-- DC gpu reset fix
+   262	
+   263	/*
+   264	 * For mem bridge windows, try to relocate tail remainder space to space
+   265	 * before res->start if there's enough free space there. This enables
+   266	 * tighter packing for resources.
+   267	 */
+   268	resource_size_t pci_align_resource(struct pci_dev *dev,
+   269					   const struct resource *res,
+   270					   const struct resource *empty_res,
+   271					   resource_size_t size,
+   272					   resource_size_t align)
+   273	{
+   274		resource_size_t remainder, start_addr;
+   275	
+   276		if (!(res->flags & IORESOURCE_MEM))
+   277			return res->start;
+   278	
+   279		if (IS_ALIGNED(size, align))
+   280			return res->start;
+   281	
+   282		remainder = size - ALIGN_DOWN(size, align);
+   283		/*
+   284		 * A window holding several align-sized resources has one tail per
+   285		 * resource, but only the lowest can tuck below the first aligned
+   286		 * boundary; the rest sit above it. Relocate a single tail's worth.
+   287		 */
+   288		if (ALIGN_DOWN(size, align) > align)
+ > 289			remainder /= ALIGN_DOWN(size, align) / align;
+   290		/* Don't mess with size that doesn't align with window size granularity */
+   291		if (!IS_ALIGNED(remainder, pci_min_window_alignment(dev->bus, res->flags)))
+   292			return res->start;
+   293		/* Try to place remainder that doesn't fill align before */
+   294		if (res->start < remainder)
+   295			return res->start;
+   296		start_addr = res->start - remainder;
+   297		if (empty_res->start > start_addr)
+   298			return res->start;
+   299	
+   300		pci_dbg(dev, "%pR: moving candidate start address below align to %llx\n",
+   301			res, (unsigned long long)start_addr);
+   302		return start_addr;
+   303	}
+   304	
 
-amdkfd:
-- CU occupancy for GFX 11
-- CU occupancy for GFX 12/12.1
-- Queue bounds checking fix
-- SVM fixes
-- CRIU bounds checking fix
-
-----------------------------------------------------------------
-Bob Zhou (1):
-      drm/amdgpu: avoid force-completing uninitialized UVD rings
-
-David Belanger (3):
-      drm/kfd: Add CU occupancy support to GFX11
-      drm/kfd: Add CU occupancy support to GFX12
-      drm/kfd: Add CU occupancy support to GFX12.1
-
-David Rosca (1):
-      drm/amdgpu: Fix VCE 3 ring align_mask
-
-Jesse Zhang (1):
-      drm/amdgpu/userq: lock and validate wptr BOs before reading their GPU offset on restore
-
-Linkai Gong (1):
-      drm/amd/display: fix dc_lock leak on GPU reset error paths
-
-Prike Liang (2):
-      drm/amdgpu/mes: fix the inconsistent indenting for mes_userq_map()
-      drm/amdgpu/userq: fix lock missing for userq fence error set
-
-Srinivasan Shanmugam (2):
-      drm/amd/display: Fix wrong bytes-per-pixel value for dml2_422_packed_10
-      drm/amd/display: Fix redundant GPUVMEnable checks in dcn6 flip schedule
-
-Sunday Clement (1):
-      drm/amdkfd: Reject zero-sized AQL queue allocations after size halving
-
-Timur Kristóf (2):
-      drm/amd/display: Fix HPD consideration for VGA/LVDS connectors on DCE
-      drm/amd/display: Log details when failing to register HPD IRQ
-
-Vladimir Marioukhine (1):
-      drm/amdkfd: guard against NULL restore_mqd in CRIU queue restore
-
-Xiang Liu (1):
-      drm/amdgpu: clamp the isolation index for rings outside a partition
-
-Xiaogang Chen (2):
-      drm/amdkfd: Fix error path at svm_migrate_copy_to_ram
-      drm/amdkfd: Fix the case that vm range is hole at svm_migrate_copy_to_vram
-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v11.c | 148 ++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12.c | 150 ++++++++++++++++++++-
- .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gfx_v12_1.c   | 150 ++++++++++++++++++++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c   |   7 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c         |   5 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c          |  24 ++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c    |  20 ++-
- drivers/gpu/drm/amd/amdgpu/amdgpu_uvd.c            |   3 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c             |   4 +-
- drivers/gpu/drm/amd/amdgpu/mes_userqueue.c         |   2 +-
- drivers/gpu/drm/amd/amdgpu/vce_v3_0.c              |   2 +-
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c           |   3 +-
- .../gpu/drm/amd/amdkfd/kfd_device_queue_manager.c  |  10 ++
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c           |  56 +++++---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c  |   6 +
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_irq.c  |   8 +-
- .../src/dml2_core/dml2_core_dcn5_calcs_dchub.c     |   4 +-
- .../src/dml2_core/dml2_core_dcn6_calcs_dchub.c     |  15 +--
- drivers/gpu/drm/amd/display/dc/link/link_factory.c |   2 +-
- 19 files changed, 569 insertions(+), 50 deletions(-)
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
