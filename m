@@ -4,55 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D03B6C61DE2
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 07:05:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F654C624D2
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 07:05:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4808A10E6C5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id DC62C10E6C0;
 	Mon, 31 Aug 2026 07:04:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; secure) header.d=sarx-technology.com header.i=narek@sarx-technology.com header.b="aXpNSIpx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V6QS1ABw";
 	dkim-atps=neutral
-X-Greylist: delayed 906 seconds by postgrey-1.36 at gabe;
- Fri, 28 Aug 2026 19:22:44 UTC
-Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8E0110E4E6;
- Fri, 28 Aug 2026 19:22:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1787944049; cv=none; d=zohomail.eu; s=zohoarc; 
- b=aDBlNgI+LxEsuMdiIq+7SapyFjtseiUlLSWJl4vrYExkXrX/2eI9QVU2nPAwQYGeZdnu9l1HOgrebF3zDLPhzp13UKkWLUrSTaOTaZZDI+RPY1Xs346pITR45uQHjt2VZxwflOetzElvzrHo4oDFVLHqr+xyQQLgFlCvYGAxVT8=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu;
- s=zohoarc; t=1787944049;
- h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=gUYYdleVR1v9SIJM9KGBpXqJIpkgjBCiNeo1NDaWFWE=; 
- b=SbwlzIjYqz8hhZ1SDav1mpV2mntpLzKaXFBR8kKkDhLjVs8YebZj+GUQrDmQBSG+D8kH6bLx3khaHBpsaxj5JCNn6Phne1goAHhm4ZTtDVqU9dhcd9Rq5W4eJOj+CGW/0uLNkyJgeP+cD/sGzii2D2huq0k6jjaotg7haiIOj2o=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
- dkim=pass  header.i=sarx-technology.com;
- spf=pass  smtp.mailfrom=narek@sarx-technology.com;
- dmarc=pass header.from=<narek@sarx-technology.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787944049; 
- s=zoho; d=sarx-technology.com; i=narek@sarx-technology.com;
- h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
- bh=gUYYdleVR1v9SIJM9KGBpXqJIpkgjBCiNeo1NDaWFWE=;
- b=aXpNSIpxn/EXKangzcBmZcEl6ovKKBAcgF6l/KGTEFbir64kkizkSz6swoQf7ePA
- lFHlRmYkGJoHBpYuCw1VzdjIK+1uTi4NDpqomCn3eeVVdiHuN7+ie7OO4L601HZaWvS
- Y2I24cYq772rcV7IC7Qd08U5qWz2iUJYvEzj4xhw=
-Received: by mx.zoho.eu with SMTPS id 1787944047881609.5959396225994;
- Fri, 28 Aug 2026 21:07:27 +0200 (CEST)
-From: Narek Sarkissian <narek@sarx-technology.com>
-To: superm1@kernel.org
-Cc: alex.hung@amd.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- harry.wentland@amd.com, kernel-dev@igalia.com, mario.limonciello@amd.com,
- mpearson-lenovo@squebb.ca, mwen@igalia.com, sunpeng.li@amd.com
-Subject: Re: [PATCH v8 5/5] drm/amd/display: Fetch the EDID from _DDC if
- available for eDP
-Date: Fri, 28 Aug 2026 20:07:27 +0100
-Message-ID: <20260828190727.58724-1-narek@sarx-technology.com>
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE61910E531
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 22:16:46 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-47f71156e1aso553359f8f.3
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 15:16:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787955405; x=1788560205; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=I+NVBt2+YV7TdDLoFYczsvx72Y9+mslXywiFQEZGZJM=;
+ b=V6QS1ABwgdB15332deQccVaYXrdVb5G1vmtgNUsVinLNKPRZs+doxRFSun6ULANqlC
+ vMVvJ80VFRBvGIO78RoT/ebnQD5Y+ACEjzJ2ilQ9fdkKm8t7D/82g0vp+0KfQrHeWnna
+ gMGkgvTsMAU2pK0mcy2cKpaF4MDIZLm6iJI24+1LeoDsOnVLz2V1hOA5qwaD9b5YsBjS
+ 4GznEwMCdEP1FkqGZnvfY1nNF336WSz1Scqn9I0Pd5/pCGrhUxenLhlMvXgA29uAb3MI
+ 0pFDVXYjLCLNLGOVr5ZGRXN9k++ETG6+z/CJ5BxMcw1ZoySN90mx38JoFV+FmpYbt/C3
+ jshg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787955405; x=1788560205;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=I+NVBt2+YV7TdDLoFYczsvx72Y9+mslXywiFQEZGZJM=;
+ b=X3QRc+2mTN0pvVY8AhG446bIkopWoA7ODomOzzBvmGptN4KVOphvp9cZc4e69917n1
+ 1cnAyVLmUPx73kWPiVej/a8uIiR0BIkBngcYxNuGQHIhOadlG3lLWbUgZsEjYmiHLogI
+ jAeN8ghDM8ca6iygE0i02NbbHaT/d25DFTqYXQIdAq1LE+/0zks+hgSUrGmLxjG1OOvC
+ AAlno30SPghEr4pTJixd30JGEvuDb2UP4bZf6UBUXwbAxEQN1KF7Eqab+igqO4/X9R9Y
+ NygKnpc0hnScbv0OKv/LZ0zxew+RddA0YSg3btlWD5TjiQb5E/9TdIip09IbbmmhoLvB
+ wVdg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBy4lWEPDIk9C39e0yPmb25FOTtf0iF97nydHApwIp3QmWMbDitptep7SUpr2/TNfSVThZik2YYv@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nQQwpj6HZUoVwBJBVNC2B+zML9yMoV7byKaR2Pql8ct9bZ2AaZ
+ DVmEAbRrpv01C1vpXdPrkCRHgr680z76uMIh4EqkdRS2Rpq0yzfPw7WB
+X-Gm-Gg: AYBFou36FJs5hWSCPgTcBTpk0Oei/BmNcUC34I36hZW4ZQN4AOCM4100CbTgGopiZbc
+ NDqJmstgdY2rO8rMkzRNqC3doBAADQuuO/AlQjs1aFcwnUKdBlLdz+GuSxYKL+F7t8ccPp612AD
+ vucZ/s7Hzna7PrWFR+7ShOc/bT0i4ymVg5bEqMh+c0jB5CS190t8hPDkbq5Y7hukRjQRSv+gM27
+ 4agnlfYFpGYCbHKVgeXFOvpApz1FpXFwvYx8B4DFymhCgtnImLeLLPleq9SC4ArdzjjCGISyJzJ
+ gJxZlANVRV3oCCUW0F73q1fYoZFNE/fD94xF7DAZeNRuzDuwKKp2jB4zWmISoI0cyTd1rlVrhKe
+ G8jd2X5zNOhAZ6YRmhtEFrKKY5xRRStRteXXO/rCnYi8Hdv/D+3p3XZ9f4rUXn/OosYochdnUri
+ E1riGdH1qNEklVydeqaMFbX5ffFVsuhaN1sY4E1oij/LvexkWcTF6TSJMeTtHMnsSeUm2uXgDyF
+ yOUhHCKZ8Q4jAIfzJDQb2Nx3UNmlFw3dhHloa2uMBTj0Vt2ixGd4M4XRPIwXkq6P6WIbSfN
+X-Received: by 2002:a05:6000:4a1e:b0:482:e658:bb8e with SMTP id
+ ffacd0b85a97d-482f79bf4f4mr17244716f8f.12.1787955405089; 
+ Fri, 28 Aug 2026 15:16:45 -0700 (PDT)
+Received: from drago.hgw.local ([2a00:1d34:ebf3:5500:6828:ce36:77ad:ae8c])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-482fbab3f16sm6361576f8f.1.2026.08.28.15.16.42
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Aug 2026 15:16:44 -0700 (PDT)
+From: Deniz Aydogan <denizaydogan1902@gmail.com>
+To: lizhi.hou@amd.com,
+	amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Deniz Aydogan <denizaydogan1902@gmail.com>
+Subject: [PATCH] accel/amdxdna: fix race condition in mailbox send path
+Date: Sat, 29 Aug 2026 01:16:41 +0300
+Message-ID: <20260828221641.10034-1-denizaydogan1902@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <fc3f474b-92bd-46b3-919a-dec8ea105b86@kernel.org>
-References: <fc3f474b-92bd-46b3-919a-dec8ea105b86@kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:04:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -68,45 +88,83 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Mario, Alex, Alexander,
+xdna_mailbox_send_msg() reads and writes x2i_tail without holding any
+lock. This is problematic because the DRM scheduler thread can submit
+jobs via aie2_execbuf() while the ioctl thread concurrently configures
+the same hardware context via aie2_config_cu().
 
-Following up on this patch (c6a837088bed) with a regression report on a
-different Lenovo model.
+Both paths eventually call xdna_mailbox_send_msg() which does:
 
-On a ThinkPad T14s Gen 3 (AMD Radeon 680M / Rembrandt, DCN 3.1.2), this
-change causes the internal eDP panel to be capped at 60Hz even though
-the panel natively supports 90Hz. dm_helpers_read_local_edid() finds
-an ACPI-provided EDID via _DDC and uses it unconditionally, but on
-this machine that ACPI blob is a stale/incomplete copy of the panel's
-real EDID: it encodes only a 60Hz detailed timing, while a live DP AUX
-read of the same panel (Samsung Display, ATNA40YK08-0) returns 90Hz as
-the native/preferred timing plus 60Hz as a secondary mode. Both DTDs
-share the same pixel clock and htotal, so the ACPI copy looks like it
-was deliberately downclocked rather than being a different display.
+    tail = mb_chann->x2i_tail;
+    ...
+    mailbox_set_tailptr(mb_chann, tail + mb_msg->pkg_size);
 
-dmesg confirms the code path taken:
+Without synchronization, concurrent writers can read the same tail value,
+overwrite each other's messages in the ring buffer, and write conflicting
+tail pointers to hardware.
 
-  amdgpu 0000:33:00.0: [drm] Using ACPI provided EDID for eDP-1
+Fix this by protecting the tail pointer manipulation with a spinlock
+that is held for the entire duration of mailbox_send_msg(). The lock
+is initialized in xdna_mailbox_alloc_channel() and acquired/released
+around the critical section in mailbox_send_msg().
 
-Booting with amdgpu.dcdebugmask=0x8000 (DC_DISABLE_ACPI_EDID) skips
-the ACPI EDID and forces the live AUX read, which correctly exposes
-90Hz and reports the panel's real vendor (Samsung) instead of Lenovo's
-ACPI-authored EDID (manufacturer/model LEN 16713).
+Fixes: 3ba13f5e7180 ("Merge tag 'devicetree-fixes-for-7.3-1'")
+Signed-off-by: Deniz Aydogan <denizaydogan1902@gmail.com>
+---
+ drivers/accel/amdxdna/amdxdna_mailbox.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-Full writeup with the EDID diff (byte-level comparison of the ACPI
-blob vs. the live-read panel EDID), environment details, and repro
-steps is here:
+diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
+index 271617347..337f89113 100644
+--- a/drivers/accel/amdxdna/amdxdna_mailbox.c
++++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
+@@ -60,6 +60,7 @@ struct mailbox_channel {
+ 	struct xarray			chan_xa;
+ 	u32				next_msgid;
+ 	u32				x2i_tail;
++	spinlock_t			lock;
+ 
+ 	/* Received msg related fields */
+ 	struct workqueue_struct		*work_q;
+@@ -203,8 +204,10 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, struct mailbox_msg *mb_msg)
+ 	u32 head, tail;
+ 	u32 start_addr;
+ 	u32 tmp_tail;
++	unsigned long flags;
+ 	int ret;
+ 
++	spin_lock_irqsave(&mb_chann->lock, flags);
+ 	head = mailbox_get_headptr(mb_chann, CHAN_RES_X2I);
+ 	tail = mb_chann->x2i_tail;
+ 	ringbuf_size = mailbox_get_ringbuf_size(mb_chann, CHAN_RES_X2I) - sizeof(u32);
+@@ -225,8 +228,10 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, struct mailbox_msg *mb_msg)
+ 		ret = read_poll_timeout(mailbox_get_headptr, head,
+ 					tmp_tail < head || tail >= head,
+ 					1, 100, false, mb_chann, CHAN_RES_X2I);
+-		if (ret)
++		if (ret) {
++			spin_unlock_irqrestore(&mb_chann->lock, flags);
+ 			return ret;
++		}
+ 
+ 		if (tail >= head)
+ 			goto check_again;
+@@ -240,6 +245,7 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, struct mailbox_msg *mb_msg)
+ 			    mb_msg->pkg.header.opcode,
+ 			    mb_msg->pkg.header.id);
+ 
++	spin_unlock_irqrestore(&mb_chann->lock, flags);
+ 	return 0;
+ }
+ 
+@@ -487,6 +493,7 @@ struct mailbox_channel *xdna_mailbox_alloc_channel(struct mailbox *mb)
+ 		goto free_chann;
+ 	}
+ 	mb_chann->mb = mb;
++	spin_lock_init(&mb_chann->lock);
+ 
+ 	return mb_chann;
+ 
+-- 
+2.55.0
 
-  https://gitlab.freedesktop.org/drm/amd/-/work_items/5710
-
-Since this same unconditional ACPI-EDID preference apparently fixes
-T14 Gen 4 but regresses T14s Gen 3, an unconditional preference in
-either direction doesn't seem to work for all eDP panels globally.
-Possible directions raised in the issue: fall back to ACPI only when
-the live AUX read fails (inverting current priority), prefer whichever
-source has more/higher-refresh timings, or gate the ACPI-EDID
-preference behind a DMI-based quirk table scoped to the models that
-actually need it.
-
-Thanks,
-Narek
