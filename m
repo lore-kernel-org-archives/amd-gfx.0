@@ -4,105 +4,59 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0108BC61DD3
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 06:08:04 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 02538C624A5
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 07:04:51 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1B62310E61D;
-	Mon, 31 Aug 2026 06:08:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7782110E622;
+	Mon, 31 Aug 2026 07:04:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="1iW5m/lw";
+	dkim=pass (2048-bit key; secure) header.d=linutronix.de header.i=@linutronix.de header.b="fSkxkPMb";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="DaWZaMUw";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013038.outbound.protection.outlook.com
- [40.93.196.38])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AE1910E610;
- Mon, 31 Aug 2026 06:07:59 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iZkjED7p41ll4kfADM1iyRK0C3/x1M9RbVzqXYI/Edw3rxMnPqL8X5x3qgWBvCcl45oodUKGWnh+PUe2k0pdqJhdBBDCph3Ram09Va7pkkHUpt5hCOfXrJhJoLbsId+8Khb3oYPRP4XF4vbIHeCuF7PMGhkyS5iGfKcxMdjaMj5qwjcuUVMqA4EHGWplko6hubpppCAphRoWLtb1Xu7VoGjt0CTvYy/9yjv1xo9DS4HvuS5OIwSfYBKo4gQloTmpwtwO/Tkw6EnKIOD6zGGgzMjmgL+nk5uh0MZJQiFseqQCNuaKs3cvJd0TmHJZoUb2y+L3xOywRqBDFrOxf7xL6A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=n366onUsD/kxQ+Ua0eL+8DZv1sWaMbjrB0GxiK6m7WI=;
- b=Y5/j2G9zZ1lWdwKWZmWIehNdjxoxU3FC8H89pPlm/xljf5CrH+Q9YQXa0yhVmkkt20TXLfXeCe4be6pIm0MGAgSW41oTP8mizYJ8+7cZk/32cMX4Fygg/crFjJDHCi8xm596nZu/TSmZH2+pXinmWgV/2wkpkzA2s+ifVodbkepWFbnP272RBdbj7eG3eOQ8UvmaLRkRSX8MYb8rlOhGyweQ5Off4zw3U7MdPsw6dj50FZzgs7fRpct9hBpUi4ZKtAEVScWkJPANT3QtLTvibcp3HyGBBU6X6vGFoxOrilNOHjUqNKBBIoSPuQsEEOL73fWx+Aw/UNLdPM14+bpskA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=n366onUsD/kxQ+Ua0eL+8DZv1sWaMbjrB0GxiK6m7WI=;
- b=1iW5m/lwU2u7oumbsmMC7EEN/H/y498OreXSEsGoM2vX7fE/deCLkSY+NFgOfFIQec/q6uCKstfKXYjeU46PD7Gl+J5XZojJHkb5iB0OUwjW3At1KisaTDmHhm3QpHBMcg1QlJBxzbRpnm02Y/vzBJ+fZMKdh3rQ9obh8QavAmQ=
-Received: from CH2PR16CA0019.namprd16.prod.outlook.com (2603:10b6:610:50::29)
- by DS4PR12MB9610.namprd12.prod.outlook.com (2603:10b6:8:277::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 06:07:53 +0000
-Received: from LV8PEPF0000005C.namprd02.prod.outlook.com
- (2603:10b6:610:50:cafe::80) by CH2PR16CA0019.outlook.office365.com
- (2603:10b6:610:50::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
- 31 Aug 2026 06:07:53 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- LV8PEPF0000005C.mail.protection.outlook.com (10.167.245.132) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 06:07:53 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
- 2026 01:07:52 -0500
-Received: from junhua-PC.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Mon, 31 Aug 2026 01:07:49 -0500
-From: Junhua Shen <Junhua.Shen@amd.com>
-To: <dri-devel@lists.freedesktop.org>, Matt Brost <matthew.brost@intel.com>,
- Francois Dugast <francois.dugast@intel.com>
-CC: Junhua Shen <Junhua.Shen@amd.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, <amd-gfx@lists.freedesktop.org>, "Alex
- Deucher" <alexander.deucher@amd.com>, Christian Koenig
- <christian.koenig@amd.com>, Huang Rui <ray.huang@amd.com>, Honglei Huang
- <Honglei1.Huang@amd.com>, Yiru Ma <Yiru.Ma@amd.com>
-Subject: [PATCH v2] drm/pagemap: fix page undercount for compound src entries
-Date: Mon, 31 Aug 2026 14:07:43 +0800
-Message-ID: <20260831060743.70024-1-Junhua.Shen@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260828083652.40855-1-Junhua.Shen@amd.com>
-References: <20260828083652.40855-1-Junhua.Shen@amd.com>
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64DDB10E44D
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 09:55:15 +0000 (UTC)
+Date: Fri, 28 Aug 2026 11:55:11 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020; t=1787910912;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=HfL4Lo4u9mCbo/tmoWJN+iDCB3yeeS2jnrmcd3fTXps=;
+ b=fSkxkPMbo207cmjv/vbHhPd1wtpBWn1vUFASAs4KQr4I+QSwfsgvKb+O3uKLW2OvaXQReP
+ VkEUCepmHO30eVxgs0lBVZnxv6JrIefLSBXT5KydWyezcRXU1pq46TGbF1HSGtDBPPr99A
+ 2nfYWZ7ehNDPEbMEdCkieEPZulV+1CagHXYuIT05RKfrLsLv+ivp3l/5JGe5Nub8wZk+li
+ Xda/r+fYYWOEhF8g1ZS4fjZyWrgT+5rrIyFL0JlCQYhw6RbIP/tWAxMvTlyhZ4qF8h3EtY
+ TQysGAWc7zEUNmJV/zzP/lYVYjtCtsX1CQ8a4AvYx4sMHXDoT0Zza8tvPaI1EA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+ s=2020e; t=1787910912;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ in-reply-to:in-reply-to:references:references;
+ bh=HfL4Lo4u9mCbo/tmoWJN+iDCB3yeeS2jnrmcd3fTXps=;
+ b=DaWZaMUwsTr2V0hzD3+LQ0nml7NJQd3XP8j/hrwD++N2PID7st9W1OrcmihxPzH2FXWs3o
+ C1Y2/KI9lJO5xEBw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Bert Karwatzki <spasswolf@web.de>
+Cc: linux-kernel@vger.kernel.org, linux-next@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, amd-gfx@lists.freedesktop.org,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ Rafal Ostrowski <rafal.ostrowski@amd.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ Thomas Gleixner <tglx@linutronix.de>
+Subject: Re: [PATCH v7.2-rc6] drm/amd/display: fix usage of
+ DC_FPU_{BEGIN,END} with PREEMPT_RT
+Message-ID: <20260828095511.zrVXJUrU@linutronix.de>
+References: <202608061233.eufnR5Qm-lkp@intel.com>
+ <20260807124944.154232-1-spasswolf@web.de>
+ <20260827124931.ocQEF6MW@linutronix.de>
+ <bd31938661f178abaa68d3958bacdc1ebb70ff5c.camel@web.de>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF0000005C:EE_|DS4PR12MB9610:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8624cb1d-6b84-4dcc-b840-08df0726317f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|82310400026|23010399003|376014|18002099003|22082099003|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info: OXUr0Ncg/+Anl/WtOA7LDQfRWULg6G0MoFFQZ8eZDPnIPihdqlS6/o0pu4FM3nRcG8v6PqFQm13ezRJXWX1nvydxl2nMXoux2RhM9senVAR2P1G9wCoYPt+YAsyvHf5E78yMoB9/yyNr1/HcLSi4zWebn3E5yg3sfjzstZO8wKkt4KKW8qLrItGa1407ZRFHxNoczPm0ynZhw9VhrLf4LRjQGtknODimh0TyHMYzUOfAdpsITadbH8h0qboMebcR8oRgU4O3fVMeXyqqaj+C66JNMDeX9BgFwxJj9LRe9fypRsFL8SqtzqyDTcUMKhOIRUfT5xz6oZvXp1yn/qt6Q5mf2ZJkTH4Tu/AzR2rtRmf3Wp60GqTwiM7+vKe0CYTSIsSALTig315+4rDESnQCVQJg8T966KOkFUuxwmBipQnkf8ssZZiSm/GOB1I0Dm5gBR2hJ8f0wun2/e1T+DudR+3zuo0uPbwAf+yMgVhjVDIXI3BttzWc9v2DQxL6XSyZpO2rqrGox7RQeObRrr254t8Xb7zOnmFcKxRKm4s6nhaq9V5cj7t/X0wCZPSr9t+ZCqw73ffsQuVI7uY+sFnxzrkNeQ9KdGtt+QvwEOAvEUVIAqAL/97Lq5edZ0V9Gbrco8dW3uVJDF1ce8YFt6WKxxelDqq38qUUH3a62IgVAmDN/jRod4dyL37quTHSvRdhdDwRJFLNWV2WORlAAS+zJw==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(376014)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: UcA2k0Hukd3moEAHMMFGkgAom0WVQ1k3sp8DaV7Rm0AeEyiSiQ/TrlQb3uR3rL347x1x8hjzxD6yJDg0t+Y5H+bsWAhuGOEzWb1a+r105JH/MoXnI0LPuv84+obCOqoC9khLYrAnb6ZTprVmjCxsvY0luoJE/TEt7mJM+7ZjR7vR8fTtFADjtwccDqHF21W8goyJvO0U9jVdfWBtP5gAPV3Jv+dAQyAmrXBufxa3jFRi0gxXW8eJxawnTjZD67B/0SbvMEW7wFWRhwKiHdbI4ljjL7EcKwEKZL0LcZ3EfPsOWjFKbstHH4GwV5liDx8UB0YdLwWla1un4qCXyFjzAYJ0yycztbujnzVKi297g9LbQkDOPwq+QOo09Lwe5wmBHCKfzzdhmo/CUfIVgS86dGy6lagvyzLFh/PvIFqHNZns0BPm2s7GyMLmqthoMDdh
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 06:07:53.0119 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8624cb1d-6b84-4dcc-b840-08df0726317f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: LV8PEPF0000005C.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS4PR12MB9610
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <bd31938661f178abaa68d3958bacdc1ebb70ff5c.camel@web.de>
+X-Mailman-Approved-At: Mon, 31 Aug 2026 07:04:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,129 +71,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-A migrate.src[] entry with MIGRATE_PFN_VALID=0 && MIGRATE_PFN_COMPOUND=1
-represents a compound (THP) source page, but migrate_pfn_to_page() returns
-NULL for it. Both accounting loops in drm_pagemap_migrate_to_devmem()
-derive the count from that NULL page and fall back to nr_pages = 1 instead
-of HPAGE_PMD_NR, undercounting migrated_pages and risking a spurious
--EBUSY in the final migration race check. drm_pagemap_cpages() already
-handles this case, so the open-coded sites disagree.
+On 2026-08-27 23:07:08 [+0200], Bert Karwatzki wrote:
+> Am Donnerstag, dem 27.08.2026 um 14:49 +0200 schrieb Sebastian Andrzej Siewior:
+> > On 2026-08-07 14:49:42 [+0200], Bert Karwatzki wrote:
+> > > On PREEMPT_RT kernels kvzalloc_obj() can sleep because spin_lock is
+> > > converted to rt_mutex. dc_create_plane_state() can be called while
+> > > inside an FPU-guarded region, resuling in "scheduling while atomic"
+> > > errors on PREEMPT_RT kernels.
+> > >  Fix this by calling kvzalloc_obj() with DC_RUN_WITH_PREEMPTION_ENABLED().
+> > > Also fix the error path in dc_create_stream_for_sink().
+> > > 
+> > > Fixes: 3539437f354b ("drm/amd/display: Move FPU Guards From DML To DC - Part 1")
+> > > Link: https://lore.kernel.org/lkml/20260723123449.6494-1-spasswolf@web.de/
+> > > Signed-off-by: Bert Karwatzki <spasswolf@web.de>
+> > 
+> > Thank you Bert. Got this somewhere in the meantime?
+> 
+> No, this is seems to be stuck somewhere ...
 
-Factor the decoding out into drm_pagemap_src_pfn_nr_pages() and use it in
-drm_pagemap_cpages() and both accounting loops of
-drm_pagemap_migrate_to_devmem(), so a COMPOUND-only entry is consistently
-counted as HPAGE_PMD_NR base pages.
+halp!
 
-Fixes: 192cb1f5cb16 ("drm/pagemap: Enable THP support for GPU memory migration")
-Signed-off-by: Junhua Shen <Junhua.Shen@amd.com>
-Reviewed-by: Francois Dugast <francois.dugast@intel.com>
----
-v2:
-- Reframe as a bug fix: a MIGRATE_PFN_VALID=0 && MIGRATE_PFN_COMPOUND=1
-  entry was undercounted as 1 base page instead of HPAGE_PMD_NR, risking a
-  spurious -EBUSY. Rewrite the commit message accordingly and add a Fixes
-  tag.
-- Add Reviewed-by: Francois Dugast.
-- No functional change to the diff since v1.
+> > 
+> > Could the FPU regions with disabled preemption be limited to where we
+> > have actually have FPU usage in way that you don't have to worry when it
+> > is needed to use DC_RUN_WITH_PREEMPTION_ENABLED() and when not? Also the
+> > dc_fpu_begin()/ end() can nest and if they do the usage of
+> > DC_RUN_WITH_PREEMPTION_ENABLED() is futile, isn't it?
+> > 
+> 
+> I'm not very familiar with the amd display engine, and it's a lot of code,
+> but there I think there's some room for improvement, e.g. dml2_destroy():
+> 
+> dml2_destroy is called from dc_state_free() from within DC_FP_{START,END}()
+> and then basically just calls vfree with DC_RUN_WITH_PREEMPTION_ENABLED().
+> (directly or through dml21_destroy()). Here both the DC_FP_*() tags and
+> DC_RUN_WITH_PREEMPTION_ENABLED() could be dropped I think (not tested, yet)
+> 
+> Regarding nesting DC_FP_*()s: When I was searching for the cause of the
+> kernel panics I monitored every DC_FP_{START,END}() with printk(), and I
+> don't think I encountered nesting (the logs are lost unfortunately)
 
- drivers/gpu/drm/drm_pagemap.c | 60 +++++++++++++++++++++++++----------
- 1 file changed, 43 insertions(+), 17 deletions(-)
+I am not saying it is nesting, just the START/STOP API is able to deal
+this. Otherwise kernel_fpu_being/end() could be used directly. And
+DC_RUN_WITH_PREEMPTION_ENABLED() is not able to deal with nesting.
 
-diff --git a/drivers/gpu/drm/drm_pagemap.c b/drivers/gpu/drm/drm_pagemap.c
-index 892b325fa99b..a31cc4f0af68 100644
---- a/drivers/gpu/drm/drm_pagemap.c
-+++ b/drivers/gpu/drm/drm_pagemap.c
-@@ -554,6 +554,37 @@ static int drm_pagemap_migrate_range(struct drm_pagemap_devmem *devmem,
- 	return ret;
- }
- 
-+/**
-+ * drm_pagemap_src_pfn_nr_pages() - Decode src entry and return base-page count
-+ * @src_pfn: Source migrate entry
-+ * @src_page: Optional decoded source page when MIGRATE_PFN_VALID is set
-+ *
-+ * Decode @src_pfn to compute how many base pages it represents: use folio
-+ * page count for valid entries, HPAGE_PMD_NR for COMPOUND-only entries,
-+ * otherwise 1.
-+ *
-+ * Return: Number of base pages represented by @src_pfn.
-+ */
-+static unsigned long drm_pagemap_src_pfn_nr_pages(unsigned long src_pfn,
-+						   struct page **src_page)
-+{
-+	struct page *page = NULL;
-+	unsigned long nr_pages = 1;
-+
-+	if (src_pfn & MIGRATE_PFN_VALID) {
-+		page = migrate_pfn_to_page(src_pfn);
-+		if (page)
-+			nr_pages = NR_PAGES(folio_order(page_folio(page)));
-+	} else if (src_pfn & MIGRATE_PFN_COMPOUND) {
-+		nr_pages = HPAGE_PMD_NR;
-+	}
-+
-+	if (src_page)
-+		*src_page = page;
-+
-+	return nr_pages;
-+}
-+
- /**
-  * drm_pagemap_cpages() - Count collected pages
-  * @migrate_pfn: Array of migrate_pfn entries to account
-@@ -570,20 +601,14 @@ static int drm_pagemap_cpages(unsigned long *migrate_pfn, unsigned long npages)
- 	unsigned long i, cpages = 0;
- 
- 	for (i = 0; i < npages;) {
--		struct page *page = migrate_pfn_to_page(migrate_pfn[i]);
--		struct folio *folio;
--		unsigned int order = 0;
-+		unsigned long src_pfn = migrate_pfn[i];
-+		struct page *page;
-+		unsigned long nr_pages = drm_pagemap_src_pfn_nr_pages(src_pfn, &page);
- 
--		if (page) {
--			folio = page_folio(page);
--			order = folio_order(folio);
--			cpages += NR_PAGES(order);
--		} else if (migrate_pfn[i] & MIGRATE_PFN_COMPOUND) {
--			order = HPAGE_PMD_ORDER;
--			cpages += NR_PAGES(order);
--		}
-+		if (page || (src_pfn & MIGRATE_PFN_COMPOUND))
-+			cpages += nr_pages;
- 
--		i += NR_PAGES(order);
-+		i += nr_pages;
- 	}
- 
- 	return cpages;
-@@ -703,8 +728,9 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
- 
- 	/* Count device-private pages to migrate */
- 	for (i = 0; i < npages;) {
--		struct page *src_page = migrate_pfn_to_page(migrate.src[i]);
--		unsigned long nr_pages = src_page ? NR_PAGES(folio_order(page_folio(src_page))) : 1;
-+		unsigned long src_pfn = migrate.src[i];
-+		struct page *src_page;
-+		unsigned long nr_pages = drm_pagemap_src_pfn_nr_pages(src_pfn, &src_page);
- 
- 		if (src_page && is_zone_device_page(src_page)) {
- 			if (page_pgmap(src_page) == pagemap)
-@@ -818,10 +844,10 @@ int drm_pagemap_migrate_to_devmem(struct drm_pagemap_devmem *devmem_allocation,
- 	migrate_vma_pages(&migrate);
- 
- 	for (i = 0; !err && i < npages;) {
--		struct page *page = migrate_pfn_to_page(migrate.src[i]);
--		unsigned long nr_pages = page ? NR_PAGES(folio_order(page_folio(page))) : 1;
-+		unsigned long src_pfn = migrate.src[i];
-+		unsigned long nr_pages = drm_pagemap_src_pfn_nr_pages(src_pfn, NULL);
- 
--		if (migrate.src[i] & MIGRATE_PFN_MIGRATE)
-+		if (src_pfn & MIGRATE_PFN_MIGRATE)
- 			migrated_pages += nr_pages;
- 
- 		i += nr_pages;
--- 
-2.34.1
+On PREEMPT_RT it could be bad for the max observed latency if this nests
+or has otherwise an unbound runtime. For crypto there an maximum amount
+of input data which can be processed within a single FPU disabled
+section. The "cheaper" second kernel_fpu_begin() makes it possible.
 
+> > The first usage kernel_fpu_begin() saves the FPU state to the user task.
+> > kernel_fpu_end() does not restore it. Therefore the subsequent
+> > invocation of kernel_fpu_begin() is cheaper.
+> > 
+> > Sebastian
+> 
+> Bert Karwatzki
+
+Sebastian
