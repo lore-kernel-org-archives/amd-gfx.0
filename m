@@ -4,64 +4,64 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 763B0C61DB9
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2026 11:41:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A9649C61DCB
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2026 11:41:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E15710F333;
-	Fri, 28 Aug 2026 11:41:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2463C10F347;
+	Fri, 28 Aug 2026 11:41:29 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LIITX36s";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QpVU3YVd";
 	dkim-atps=neutral
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
- [209.85.208.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0222710E510
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 11:41:19 +0000 (UTC)
-Received: by mail-ed1-f51.google.com with SMTP id
- 4fb4d7f45d1cf-69c600f76ccso1188650a12.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 04:41:19 -0700 (PDT)
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
+ [209.85.218.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 30D9710F347
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 11:41:27 +0000 (UTC)
+Received: by mail-ej1-f45.google.com with SMTP id
+ a640c23a62f3a-c250f28f1cdso126605466b.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 04:41:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787917278; x=1788522078; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1787917286; x=1788522086; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=t3LVeu0pOiF68MWyYgvZbM4Oc3IRVGtDXef/rxe55us=;
- b=LIITX36secTWTkU7w7GXct3295piPKxSMKnMcilL2yJvzfe1Jh2BEB+v0W+zsdbWhz
- udVZPC3mEf69hH7dEdUtejrorZ7UJWTkDm5KzXBPQwdJE5DDa0agnu05FmbQ784qWg2u
- VSWogTyT/sBNUCB3/0kY1MG4oNzgcyOzhTUcFoLhGJBijDhcNYg6OzB6mv6D6eNU/2Oz
- UcgSth1DMu9XNcOh8WN5Dzqrxi64gdRfv5BdGCR1onxy8O1es0enW5Bbegb6tpK3JcKF
- CNOcn7e2jBmmikvGDhs68Z/a2qzwiZTCRmLD72fsVar/C0DbNJybzyUVkHAtpwFTGNxv
- cvzw==
+ bh=8EjV4QotlCv+yS3qj41eFMdCQ+D3mFOTFoQOuQmtV+M=;
+ b=QpVU3YVdpfqvQDYR2X8b/AZ4zY4juaQ8SR2p0bOhSesXT7Esa4t+vYtNqhR7DiN3NJ
+ Sk0IVo23xDo2ATD4TLNEtXe+eVvs9dvoyjMWoNdQTIDNItLtzM5fnbzvJ/iSJ6dnyO5T
+ ajCuD6/yclqvwtKRmQQVg/b4fhdS6bbMv64D1f67ccjjApyeha+a6VRD40liPL59KcWc
+ HhSbE2TISeHXUAER38emmvNK+fQCTk2KdYqBqmLz4tO14Y4HKMwKsM+r6LHrzRG9XlUa
+ wmPstrGCsAQX3eytv+vMqSB+Ao1X+Hqerq8ZqMwWrNo7icFQ0h/tHyVPH80yAZGB80z0
+ SXgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787917278; x=1788522078;
+ d=1e100.net; s=20251104; t=1787917286; x=1788522086;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=t3LVeu0pOiF68MWyYgvZbM4Oc3IRVGtDXef/rxe55us=;
- b=hh6VrIO+eXEmQVTl1Zewl0i17YMAK6DevkdCb9gaWW3vLK+cPzFrMeaX2ZElRwSJ6y
- bqPfZee26etkOgcc+//1cXX32GrClorKHYxJ8/tu0JxKgC+td1Zu0rfLovj1X05SW9gQ
- 9tb4Xi0F+zUTFakLHAGIoCQkg9vYFEQYxM2TpunQ9DBQ8E/ZbO0yC3ngNyUPcAPGiC9O
- W9HENceb9HdRPRqWc7DixdDsTLNo9wkptJOW1FhbhinQxJ4Ewk7ZI+aB41jmdz+AFaRn
- HrX1zoGCzL38sxo9ZCUq0niCji56CPxoY43VyY5ulrpl6rogEKxLSBXJaZzabOeUSEGp
- s8xg==
-X-Gm-Message-State: AFuF++m22eFXUYe/5sRuus48gAfZEr3VPHCW0sGj+dBp85rIDS4RBhKU
- 3fLwZ/GOLUK5MkYH2DJw3aSS6eyC1U3AU2I+ehTR+dxHnesmpYXsN53o9LDy6bZ8
-X-Gm-Gg: AR+sD113GIugrMAG0UMg0UEhEv30gW0hh5p2V8GhgzKZscIrBncP3KDRuSHSdz95/Cq
- 3Wxs8jIO7yPxEVEaJHr3lJ5qW8zYdCRFmTcUsajJOeSiPnGa3HSUio6+4PntsoV73QjywPUEjan
- nxOT8q7zutxoyG67hns5yLa2jaMh++qRyke+y7w7NMFprDmX2rUD3+GOydITdos4I2QAntqt6iF
- RSmGOBoWAjr/s06/rA8dOyoa8Lk9ioDcG4VS+D7DZuKuA5GlbxRlX5+erC+sWSE7f7A2BFx/1rc
- oBPSlCBqCsyzoVm1lh+LSJLBBA5/U1CDnD3GgRHjpsoKnjJe3jxbiOZZYGQ4Bz8NPyQxVUg4FQ7
- C+ieo8MJo12D1ORIYGCLhi87O+k+vAQsxUGX8vlYl2wj9dxTVhAF3X2FWsY75BUBeN9LQzgNHqH
- rh7QKixUmO91bqfLzO29Ublf4Z9gCKdM8uSKoRaqDr1d+a3hVahSGvvuhweOoUl1rLP78BlWb5Z
- Lc5A7RCuAnGOxU2Fd9+8a662w==
-X-Received: by 2002:a17:906:fe4a:b0:c25:5d2:acf0 with SMTP id
- a640c23a62f3a-c2556c4611fmr414890966b.8.1787917278203; 
- Fri, 28 Aug 2026 04:41:18 -0700 (PDT)
+ bh=8EjV4QotlCv+yS3qj41eFMdCQ+D3mFOTFoQOuQmtV+M=;
+ b=fZqpDXkWTAJeTXHvQVdN9Tu3aBDYeNWvQdF7W4yUsP/u/PNJw6huKfqcjUrkRXTF+8
+ v5kov3SGVi/z44R1zjIKEeQfycxcENPhj83/ar48ooSNts/LNyuNT7oPbjd/HBTJWzqw
+ lQ63UZS706lFlGYMFmayCEHO5egYBI84xkk75LPKLzUURZ1f6bWl7JsVYVoWUOdnSq2o
+ a7QhORrrxXEoGsA4rMv9yawh8DLFRgfee8aXWGEbBSIqIp4Pp9FwiAYFGQpRXpQAFEgm
+ x9BtjI1gohAPKxvQI4F1OwPbTS4vQtFS4JECs5VUNY5c9jty+Vona8OZBRzGa/MygPIA
+ /OoQ==
+X-Gm-Message-State: AFuF++l/qVGWaeomqCoK7m22PW35Vcn5kxq96SMNMnIrSuW/N2tQryZO
+ t5M3KBpyoQmzNK0dTboGJjlqNsse1eyWvYITsslZKsTut03RfRDJ0Suvo/KnDke9
+X-Gm-Gg: AR+sD13aXK3EgEBxC0i0+/5qezOoUUkQagfSn8eIQ4/pqKSwz1cPghmdCOSlz546UEW
+ +AUWpONYMcYqo0+DL4QfNhA9WXsrKhQDSquR+y5EmeRgsSdBP8yyfWYhkxvudwwnRPZOkkwdUNM
+ gwaTw2rd2FKqmf1yfqCVRsdGylla2Hu0Cz9YaH54OZIcm3PrGqMqe8cFzsGJW2O4MxTlvGyko9I
+ ASsNqDI/9JkM+cBXuULkTwccrupa0EeijZbUdqbeDmpw8boQ0Y5Tj2JOlzrXXgk07R/vp5Fwv13
+ tq9XCtHnhp4ZpFA8M0xYOMha0xvAXL5bb4kpuHgTWws8739Bo2+hUUx/3Kb0y34qIAEf/0aQORP
+ siYAnTVKK2wqoq5gMnnupq2MtBaudismdwDuMc/8LKgW4DcEaBtOZwFZpgf7eU/fLinilJCAjj5
+ wGopmwPWWgrKqbF8sPdLZdbNrFeTj3tuhbd1g/6lGWdupDdCrYNSPynNcb10/WS1BmRhCNbEym/
+ yJRRfzd8zpJU6/NrKJNJuzuuA==
+X-Received: by 2002:a17:906:2099:b0:c25:64ea:4d70 with SMTP id
+ a640c23a62f3a-c2564ea50c7mr188809366b.1.1787917285583; 
+ Fri, 28 Aug 2026 04:41:25 -0700 (PDT)
 Received: from Timur-Hyperion (5E1B9A5E.dsl.pool.telekom.hu. [94.27.154.94])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c255ee288a4sm72549566b.16.2026.08.28.04.41.16
+ a640c23a62f3a-c255ee288a4sm72549566b.16.2026.08.28.04.41.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Aug 2026 04:41:17 -0700 (PDT)
+ Fri, 28 Aug 2026 04:41:25 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -73,10 +73,9 @@ To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  Siwei He <siwei.he@amd.com>, Philip Yang <philip.yang@amd.com>,
  Mukul Joshi <mukul.joshi@amd.com>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 01/11] drm/amdgpu: Respect noretry flag for retry faults on
- GFX12.1
-Date: Fri, 28 Aug 2026 13:41:03 +0200
-Message-ID: <20260828114113.13523-2-timur.kristof@gmail.com>
+Subject: [PATCH 06/11] drm/amdgpu/gmc11: Pass cam_index to retry fault handler
+Date: Fri, 28 Aug 2026 13:41:08 +0200
+Message-ID: <20260828114113.13523-7-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260828114113.13523-1-timur.kristof@gmail.com>
 References: <20260828114113.13523-1-timur.kristof@gmail.com>
@@ -97,32 +96,35 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-When retry faults are disabled (amdgpu.noretry=1),
-we should program the RETRY_PERMISSION_OR_INVALID_PAGE_FAULT
-bit to zero.
-
-Note that retry faults are enabled by default on GFX12.1
-so this just fixes the case when they are explicitly disabled.
+This is necessary if we want to make use of the filter CAM.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
-index 15d2a8ec55a6..7fa451b373fc 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfxhub_v12_1.c
-@@ -436,7 +436,7 @@ static void gfxhub_v12_1_xcc_setup_vmid_config(struct amdgpu_device *adev,
- 			/* Send no-retry XNACK on fault to suppress VM fault storm */
- 			tmp = REG_SET_FIELD(tmp, GCVM_CONTEXT1_CNTL,
- 					    RETRY_PERMISSION_OR_INVALID_PAGE_FAULT,
--					    1);
-+					    !adev->gmc.noretry);
- 			WREG32_SOC15_OFFSET(GC, GET_INST(GC, j), regGCVM_CONTEXT1_CNTL,
- 					    i * hub->ctx_distance, tmp);
- 			WREG32_SOC15_OFFSET(GC, GET_INST(GC, j),
+diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+index f454aff831b0..7fb97be16b7c 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c
+@@ -108,13 +108,16 @@ static int gmc_v11_0_process_interrupt(struct amdgpu_device *adev,
+ 	bool write_fault = !!(entry->src_data[1] &
+ 			      AMDGPU_GMC9_FAULT_SOURCE_DATA_WRITE);
+ 	uint32_t status = 0;
++	uint32_t cam_index;
+ 	u64 addr;
+ 
+ 	addr = (u64)entry->src_data[0] << 12;
+ 	addr |= ((u64)entry->src_data[1] & 0xf) << 44;
+ 
+ 	if (retry_fault) {
+-		int ret = amdgpu_gmc_handle_retry_fault(adev, entry, addr, 0, 0,
++		cam_index = entry->src_data[2] & 0x3ff;
++
++		int ret = amdgpu_gmc_handle_retry_fault(adev, entry, addr, cam_index, 0,
+ 							write_fault);
+ 		/* Returning 1 here also prevents sending the IV to the KFD */
+ 		if (ret == 1)
 -- 
 2.55.0
 
