@@ -4,125 +4,125 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C7DE3C61DDF
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2026 15:59:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B8D43C61DBD
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2026 16:00:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 12A9110F40C;
-	Fri, 28 Aug 2026 15:59:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 24D5910F40B;
+	Fri, 28 Aug 2026 16:00:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ezKqsmtu";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="0dGz9Dty";
 	dkim-atps=neutral
 Received: from CH4PR04CU002.outbound.protection.outlook.com
- (mail-northcentralusazon11013020.outbound.protection.outlook.com
- [40.107.201.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A41F410F40B
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 15:59:54 +0000 (UTC)
+ (mail-northcentralusazon11013066.outbound.protection.outlook.com
+ [40.107.201.66])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5FF6610F40B
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 15:59:57 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UA/ULOeJFKJFDuvYUiYTAVgyDTL06U9Qy/zR/pTL9OFHm9p3E6kTjl307M8ST7N7mtdKOWxHV5SjkSQAKaNllMWNoM0imOFZfMnBrxVEJGGfsP25TCabmBUzKgiq3qIaT0b/KKopM2AhxZ7sgHlkoU6GJdkUXvI6IrZkUvxZXmP6gfR7nUbef2SnPh6pgh6a5SQXx36HjJEwK1yujJhu0A1L6zXbB5yEB7PpSEJ+tfA5i+2fK0FxHxWDClLCdxaoa43vIZhlSZeN5iosWCFHdSlDC1TcinTyXwHQwo8L6eQnq31WLeeQvyhwmneP+3fJWrBGHIpJf7lv0h6qzARSRA==
+ b=K5/rkmKo9YVpHU6DB/RWpjHzbWc9dOCpHaBjjTV/BShcr6XGBQkrCDsLdEVr0wAdSaTugxe5arX+DL8F6IQspQIXDXHTCwtIygNIwvMpbm67UcCLLAlfTF0mN75/V5xkh0bEjwMe7we4tWZu+73M0T8wz+n5I9FEg3cZzXVg6BW6K0d8DJPrl7HRISq3h64KUDhcAvwrGdSgePkgRfNxdcfsI7wOpFMiijXRucSGFVwBAx4ofaOG3CWf2BMlJTBdFkO8MqAvo76QWIAHB/N1VHeP9yk86li2SY7Z530SLS8rm4Te3Olw2uSFd6fcq13mBxsKmrenyfR8gTTQYr2fRQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uZcsRuLLmvzQvWHR/FV1hHUFnvei3FEiXembWxPdhJY=;
- b=ecbNckhsK2n3VwO2DQxu7octDCeu2USf3nfXMTiJzU+Gsd/5GJVBp9c0Bvv3TSKPAbGaRZ9T3J2BLsTcWlHkp6kMNuA4yvRuH+RaAx/tvA69qbkXASAdlPDiVaHPpilFToaslm3hhz3reoi5pzLAAnox2YOZVYZ/F2PiyRR/amHXr0+81olL2bzL91MdhRAdVY9NfNnLKDMmWesA/eMnQl5kkdC1NKdeXyIjSNIbw3CgnHhbLuFZa1HGSLIhEBJOMMUbh2H1Tmyf+yzYCaEuwBpXFOSLzxMI5Rfbkpi/v+NVLcv9YClhu2P5/vFOAE6Cl3sqMX5y1ODJ/xp/ghYn1Q==
+ bh=S5IbD4sSSF2Py9v1k1eJ91BLX90eG8VC1LbHCl66s00=;
+ b=TX5nGnBRmvX6jxWucpZ7H2Dm0H2PxT76dzbJq/AVd0CIiO9Ww2Nk0yJq2cfoNqN/UNUsCW3B9atA2HUtXoyxFnaLF2mzkVwCkSGBDqgdTvYu2lJqBYQV8SBSPxtXfQeEFKk29bT/h7PIY5zTZ/CtCIofVnv8VEcjIiyC4jQByhGrmm2162vXDOLbAD0HSahP8KyL8biYGTTUgHoeWUmpRcfggtOmETH8lr4lu3G579FnKD5ztgXW+xtGBkllB7oqE7w24ZS7Ee43+VW3p3XDb7N8wxme/4qlUH7o0FYNWRYBCileoPIzp297XjdF8qXAYhv/afNmihHS3OJpmRdeNw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uZcsRuLLmvzQvWHR/FV1hHUFnvei3FEiXembWxPdhJY=;
- b=ezKqsmtuWqolyjLxQr6SG56hHHQ5TyMKZj9iw8y7pSfsuNyrBHrmPFGAEnOKGABUsohFYcAdzBdFY7ldPzTAe+CTI2/27DIv3GOKXJmrN7UTzLRvdkAJJnzH/fTaS0myyJ3svvsRMlJYQyXN8Ph/6GZcufTzY1rgm9rMGzv3AVw=
+ bh=S5IbD4sSSF2Py9v1k1eJ91BLX90eG8VC1LbHCl66s00=;
+ b=0dGz9DtymdnDG3cFVRbC859x72y0RV+I8mQ8+xs1VcSO1zjjMwfyNM81Iqr1kZrEVoqgAWXZ0X9j5NdaeZKesWEcd+b/Y1uFnoBTdCuEndr/m0q7NhhrTHaC90HODyPC9W6VVJ0pmXtcHZwsz/ec4WiT3mE3uTqOWB+KKD8imNo=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from CH2PR12MB9457.namprd12.prod.outlook.com (2603:10b6:610:27c::7)
  by MN2PR12MB4254.namprd12.prod.outlook.com (2603:10b6:208:1d0::17)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Fri, 28 Aug
- 2026 15:59:52 +0000
+ 2026 15:59:55 +0000
 Received: from CH2PR12MB9457.namprd12.prod.outlook.com
  ([fe80::85a8:1df:840a:cd4c]) by CH2PR12MB9457.namprd12.prod.outlook.com
  ([fe80::85a8:1df:840a:cd4c%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
- 15:59:52 +0000
+ 15:59:55 +0000
 Content-Type: multipart/alternative;
- boundary="------------g0MSvXvxWPwyzblItzFPgsDf"
-Message-ID: <2687ad99-61da-457f-9705-766bf48b2d04@amd.com>
-Date: Fri, 28 Aug 2026 23:59:48 +0800
+ boundary="------------dTxOZc5IXy77X3tA92x9PCHj"
+Message-ID: <fed314d0-c0af-466b-8025-76367d880964@amd.com>
+Date: Fri, 28 Aug 2026 23:59:52 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/10] drm/amdgpu: introduce
- amdgpu_lookup_queue_by_doorbell
+Subject: Re: [PATCH 03/10] drm/amdgpu/gfx11: hold userq refs in private fault
+ worker
 To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  Alexander.Deucher@amd.com, felix.kuehling@amd.com
 Cc: Ray.Huang@amd.com, amd-gfx@lists.freedesktop.org
 References: <20260828095349.9797-1-lingshan.zhu@amd.com>
- <20260828095349.9797-2-lingshan.zhu@amd.com>
- <bd072438-32ee-42bc-bc06-ae29775cc2a5@amd.com>
+ <20260828095349.9797-4-lingshan.zhu@amd.com>
+ <7d6223cc-4071-4ade-99c2-3a1acff50663@amd.com>
 Content-Language: en-US
 From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
-In-Reply-To: <bd072438-32ee-42bc-bc06-ae29775cc2a5@amd.com>
+In-Reply-To: <7d6223cc-4071-4ade-99c2-3a1acff50663@amd.com>
 X-ClientProxiedBy: TPYP295CA0034.TWNP295.PROD.OUTLOOK.COM
  (2603:1096:7d0:7::14) To CH2PR12MB9457.namprd12.prod.outlook.com
  (2603:10b6:610:27c::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: CH2PR12MB9457:EE_|MN2PR12MB4254:EE_
-X-MS-Office365-Filtering-Correlation-Id: 901a296a-53f9-4ced-eb24-08df051d653e
+X-MS-Office365-Filtering-Correlation-Id: 425784a3-731a-4f36-1f2f-08df051d66f2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|1800799024|376014|23010399003|366016|10067099003|56012099006|22082099003|18002099003|4143699003|11063799006|8096899003;
-X-Microsoft-Antispam-Message-Info: rSQDStV5+3bwf2LhEwmivmoiThYMfHlYBZyfB9bpABrtgujzCsjtzL2y+eMWOaDRGs88dj+fjR2qGrtVULHJX92zPWZHcRhxsjd/Hta2NYa2zVWjIiJH2vXVc7RsRTQP2ygRLsLDul3AfhTR0+ZUhpnooLVW5N0PHfMZDDcXX9OH7M8W9GUp8Qn0FXSmDD+rHIUMltbwqnC2Lxj/m/nRofJZRetjHZFOiV46bhN9cSSpFYya38WGYhRRNmIlQb/Ar0/b5QECHCnMsZ4oS+sMCLMcZNmXcIQJ8rfk5XrnIHkGOA7zaGs29LcW8NARgI8/j5LPJ67xLj4RGAfI00Ad8W1MldZScmnZBrGdVdlzAx1zTG8fVdSM02cWPsuMKiIo20itFv0ZkvyWL5UqVHof72E5IiBHpDyfn+bIFdfQfgNFfZDcRQjNNle1AcDPcUUJUsZGT6ta9hNPWbkjLJlMvNbKNj8gKC5rqp2fFFAXA2K7jOIQVQv6vkBO7S/bnfuzC0bCn+p0afusraNHG84JFkCYkyzp5HZPy7pQCS6ZcG49R9lX4Q6dqj9jxPdsFU5YH6RRtF1Rjhz3ft4zSUQwibM0U27S+TEDVs6sZ4himB8wYq54/X1N9wpicXScUdiOWsnXpaBUBQ0mQCN9hdF962KhmRY+JnyKDULiQgBhUZQ=
+X-Microsoft-Antispam-Message-Info: BonpjkwP/dXVqB8DejngclGI6Hg1gKQegUJlQ0TKJLjThMmnqKuigjZcvhvm3jE2kn/xdWMAyFjOiFi4jN96uXgLuVRqtIlsRTQn0PgaR+dNtSE2cHfFn0UFg06k6k4MWUDx93aP/5lEyiGIrxZkt8L8DNrwGxtQyBXDkrX2rrU5RBKP+rpk7jPI+d0RNmi9AH+fWrX4BYzVQQSmqmJ3qHsgTMOG7p9za+aoHtMt3dAgRRCFLSHO6l2WaGXJ/khoa9ZtXFn1IIzfITezHSb1MYd+fPdY2DAaRHoX4z2UgzZiNZXIb42EBueWoDAu2Z8MJeG5jFJaAAkyljgDQcOduLZSsdJwm33WHcFbv0oZrA2/5FL1DW4HxdUC9a0uW4MgfSm7ViHHIev4AVNDKwHhqwgc82tCHPgwcP1C1kvIkgcEr7pCOSKOK6cw8vWjlBV0YTHerr7DUfV20zQGi/jcD67swTi/9TkttRTZBqzvR9D7gNsQZERGFC78uAgXj3gDoU4/BcZSmyjxWIbZvwOxKGdk0IawgQ6HYBXUz/OT/V03JA4al0YDoDLnU63XeT3iG+8c1LGHE+D4mp4SF+NhD9x0Lu+qLG9TNeJtfIYMg4xi4ANWWMbkpM2+/KY4WDGuwl+Y7418jHvJpw6Y0DThasfJ+IEd6jXFvBsrSutBQdI=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:CH2PR12MB9457.namprd12.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(10067099003)(56012099006)(22082099003)(18002099003)(4143699003)(11063799006)(8096899003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?QzV3K21XYlJGUHJncTZqZDBGL0o5THlHTFdRRDgvRFQzSXhwYVZ6S1hCaXhU?=
- =?utf-8?B?Yzc3NDJ2c3EvYXgwTDQ2RTJOb3AzSHhidHptcFlHa3hmV3dNQWNqUDBSV2Y0?=
- =?utf-8?B?alJLSzB4Z29uVHFpcWkvN3U5MWdsK2ZmcEY0S0owdnF6QTZmTmFKLzZ3NVVz?=
- =?utf-8?B?TlNxTzZPd1FSVG5mdXo3b3IvckZJQWdvR2QzOU9QUlNqTFhxUkVUaUsyV1ht?=
- =?utf-8?B?REFSLzRaRGhpSzNBVXFJaVdaYTUrdEYzM2hQbXBzYUVlNGJQcS9zZHNwMUg2?=
- =?utf-8?B?d0Jac2ljZ0dDNEhjMXJ5WG1YV2JzZmpqamxKMWZMUkw4M05iQUNRSi9LaFYr?=
- =?utf-8?B?d1JmcXNQMTNwQm94ZC9NUVdQNERsVE9JRGNwdjF1bGFWSTFSLzZtUUxyN1Rl?=
- =?utf-8?B?bndFbGFPVXhJb3dXVWVReGp0WFNtWmp4blVUN0lrcW9HVkJyS3FBclF6am14?=
- =?utf-8?B?MXZXbDZjOTJvRjVldW5kMVhuRllRM0o5NXJJaXFUN3RHU2NZeGlMMG9VRHR2?=
- =?utf-8?B?SnRhWXE4U3gxZFVxZ3VBK0dKSkZIcnFDVUhDMk1SMC9OdGZhT3BWYUtiRSto?=
- =?utf-8?B?K0d4UXBvRkZEOGZaeVZrUjNhdFJZQ0tCRy9jZmJFWWRRMHBPTmowTTI4VXV6?=
- =?utf-8?B?bDJraStiQ2MvRE9GQzZMWFZxWnBYM0xBTndrNlRNaG9ER2pJQzQwbHRzQ2lN?=
- =?utf-8?B?YVBCMUJKbTRoQzcwbW9vUEZzZEd0Yk43cklTUjk5WGhTQTdsekF4azY5K0ta?=
- =?utf-8?B?UjJibDVJV2k4aWpPQmE0cTdNeEx5UGtXMndHR2w4Q0RGOTlXdkQrWCswK01Q?=
- =?utf-8?B?cmt2QzA0Q1ZDOHIvb1VLWDNuNzlVemZkWE55L1Q5WFhxYTFDMDd0MzEvNjBk?=
- =?utf-8?B?dVByb1dxU3VpK281MUZBblQ5andHYkw5RnFNemtraklZdjVGSm55YlpRMWpu?=
- =?utf-8?B?NjIycWNHaDdCT2pPZHFzeHh4R2Frb1ZCSUcrQktMZ2FQd1Eva2twTGZJb0Mv?=
- =?utf-8?B?bk9ad2NjcjBXdEQ2SE9SUmt2YUw2S2laMmdaVjNSTTJ6YkdNdTRDZTE1NlY0?=
- =?utf-8?B?dkJYNjIzQUlUalVCRnBjUm1NYXpWbzdtUFFMOFRYL0x2di96K2pVdkQ3eUUy?=
- =?utf-8?B?OVVKRys5dGdmeFFlWksxVldCaExXZCtFRHBvODgraHQ0YTJ0VU5zNzRVTGQy?=
- =?utf-8?B?a05rSmRtSGFLNGJDSDREM1ZuL3JyelpHSCtBVlp2ZlZIeGhWT29QaVFGTUpX?=
- =?utf-8?B?TWFlQmE3djFHRmhiV3JTYmxodk1QOWRENEJqaVJvcjEyTlNwUlRwWGMxV25u?=
- =?utf-8?B?TVJ4QU41T0MwcWowM05lSzErQnpyc2xaZ1I3cGFPREgrbkNjOTJwYnZmK2cv?=
- =?utf-8?B?QU81NEFSVHBYT1ZYY01Na21XYjdmMDNtMmFYSS9RWjBVUnR3MmJqWSsxUXZY?=
- =?utf-8?B?c2NkVEluVnhHcGszdm1tL093a1RHQmNpWjZOZG11UnplblJKVUZaZGFnMlNT?=
- =?utf-8?B?VzlEclB6dWFPclZkK094aCtlVlIxT3d6TndYNURHWUxLbExaSytMMjMyL01v?=
- =?utf-8?B?b2Fha3p1bWd0RTJyc1AycTgyL0pHbWNpZHBUV0dMcEZ4Zm1seElhRGtvcW52?=
- =?utf-8?B?NWxzbmRKZytaQk8yelllMTJ2MVhsTFhXVW9Cd0xvcUxmOWZvUkcraGJGUVlo?=
- =?utf-8?B?M2VIaG1qV0YzUVpKM0FrVWFCVisxSXMzQVo4R0VSalA0S0NvTncydEJxV0Fx?=
- =?utf-8?B?dElKNWNDbFZtazdUL2RtaHZsRnprMU9PZmZ5K2dTNXV3aHptOTB1WTNiamxp?=
- =?utf-8?B?b1dVQVAyUmd4WCs2bzV6YldVYmlacU9lb2t5MHNrdVpianVpTTBGMmtHNXZN?=
- =?utf-8?B?cWJ5L0hrcC9mZmlRRWVvV044VytZNG5RbmZUeWxaWTdLS1hTbHhPTmhub1p1?=
- =?utf-8?B?TmFrMFp6bkwzRmdLdjF6RDFmVmxQV0huMmovK1BXVHlRb0hTaC9MaWkyQlJE?=
- =?utf-8?B?cmxzanl3S3NlWUc3Ym5VbGxCRnA0N3huUmpYb0tDTVYyODJ4R2VGWmFRMW93?=
- =?utf-8?B?bTlid0pBS1o4dHQzbnBreHdwSlRpVnhFYzcwWDEwUGg2anRLUDl4RXNCZi84?=
- =?utf-8?B?RmJOUDNUWW9MUURDN0JPMnpJS0p2WjUxTmpGUTRKOGhDQXd3OHF2R0JiZHdP?=
- =?utf-8?B?QVIyTWIrNmRTbUNWU2dLcUVZTzd0QVZKOFFaQVFNU3dhbFRBWU00eHF2WkxY?=
- =?utf-8?B?TVNVVk5FcTdHUmFBODJvSEpVY2VBck05QytnTXFZQ2hCYjArMlQwclVwS01S?=
- =?utf-8?Q?XgzOG1N0DgxvIQ58Tn?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eFBna0I0ek13R3doZ1YvRzRZbVpZd0Q3ankwM0JMRmhHcDluVTlsL09lRjg5?=
+ =?utf-8?B?YklabHFsUmhDbjd2RUdSS2xjeUMzd3lmdUUwcEw4TXR0eFZwcVRCWVI4RGwz?=
+ =?utf-8?B?VG5yRVQ5bDZNTGtRcDFNU3JUZ2xYRnJQcWpkeWFNMmdDcHU5SnZTZkpIbDZH?=
+ =?utf-8?B?T3dLVEh2Qm5nQ2lNTjNoTWJMaXpNYXBQbk5jbm9zNE0vUXBnZ3RNZXN6bDMr?=
+ =?utf-8?B?TTdMVnE5b3BvMUdiVmx3ZXBISzdtSTMrSncyVlQxZm9hRk9kRlR5RVhsRUZm?=
+ =?utf-8?B?cmZOZEVPRllFaDVXSnNZWUwwOWFrdFFRRU5WZk8zQWpVVkZwREJKTVZIVi9P?=
+ =?utf-8?B?MzJMM0NNY1FzMWdlWWNRUDZNbGNJbFRsWHR3OGFGVnc5L09jL2R6OStIdVI4?=
+ =?utf-8?B?cUhvV0crTmNkOXNHNDU2WVNNZE5VYWhMTTlKQ20wTHBsWVZBdHRLbTFVVTh1?=
+ =?utf-8?B?NFJPbzJwL2hrRlRMZ0srNlB6MEVxUjk4UlNMaDJsbE9HYnF0S0Jvdk9Vc2Er?=
+ =?utf-8?B?VnBFNGRlRTg3RmRZNEhmZnF0cXVPRlJyQkxpU1VZSmg3ZG1Dd2xvN1VqSjA3?=
+ =?utf-8?B?TXlDRmhsSEp0RmRlektDTGQ3Q1VmZ1ArNVBhYXJzSks1RFVDZmgwdDU5R2Zo?=
+ =?utf-8?B?dFM0QlhQTXR3cDlOcUx3dG1uWEhnc25lcHpLZVVySVV6L3VJQ0ZjK0hBV205?=
+ =?utf-8?B?ZGZCNWxxbDllZ2Z0NjdpK1cwWG0zTXJqeHRiTEg4L0gxekJDaFJ3blcra2tt?=
+ =?utf-8?B?Vmt5eDVscWV0anUxL3RSdG4rZUtxWWFLWWJCVHZKZVhZdlJsNnVveS9tUlpD?=
+ =?utf-8?B?ODRYS1AyMlZyUVMwSzZYRFdsQUtHVXd2bU55WUIxZGZNSXNqcmZZd0hOL1Vi?=
+ =?utf-8?B?bEVjMFptN09mS2FXZ21EckFoZTRhU2gzcEhGUVE5eElRc3dMdmxCY20vbitV?=
+ =?utf-8?B?eEVRVTVmRVZ0NHJxdDZGQ2ZLMzZZU1ZNVUhyMG8zbVo1bWx1WS9JUU9DeEE1?=
+ =?utf-8?B?SXI2ZEpWb1lJMzNDaUE2UitQUFlJYXdhbVo3eS9UQWN2NVhaSm4vWnczVHhX?=
+ =?utf-8?B?Qi9yT1RiQjcxWFZFWk1xRURqcFdCV3N0M3dNQVlTeDRxTFNNdWw5M0diWmlv?=
+ =?utf-8?B?UGxFakxPUEt3MkdmUCtic0M1Sll5RVhRcEJ4REpCZ3FtbnZsQjBDNW9kYWRW?=
+ =?utf-8?B?Tk1hSGs0aUFIQjJhaHJUdDIxMWZYWE9KK0RBUVQyTTdvbmFjUFYreStsbURi?=
+ =?utf-8?B?ZmthYmpKNkh4WnJPb29wazhaNDV1UHBXS1RHczlKNTduMEpDWW83QU5BdDZJ?=
+ =?utf-8?B?Mm9oeEV2L2VkQnNiYSsrTGJLZGJIaWdCbHdwNWZDWDVZL1V5UkIva2oySU8r?=
+ =?utf-8?B?VFZsZTZLNHdqN0ZnZHdkMU02a3BVR1lRRmhZOHJRT0NnZFEyaXdueml5NWhL?=
+ =?utf-8?B?NUw3cG1JUTkzYURqTmk5RmtTUnRqa3ZBdFU2aDgwQTFJVTJMbGRMdGt2LzNs?=
+ =?utf-8?B?M1lPdmpwQ243dWtUY3p3bmJZclpjdEEwSHNDV3BQZEVZSVRLNUhRSG0vbnNj?=
+ =?utf-8?B?SEhPRXdvWjRHaUtnQXZRdE9Ybmc5L2UvYnF2eGJoblc0Tm1zYmY0T282M3lB?=
+ =?utf-8?B?dUpBZHFCekkvQnN1eldiaU41VE9GeUpXSDdQbERYNnBSTEtPRFJZY1BKMTkx?=
+ =?utf-8?B?eWxFazlnTTZsRHY2VVNXVzlWMU0vVmlKNG1SZHhxRkFpZG5xZGVLUW5Hdkgv?=
+ =?utf-8?B?UGFXaG5seG9MMUhnUnZTOHVSMnB4YnJxZUpDdTZ3T2F2Y1RhQkhsdUE1YWVF?=
+ =?utf-8?B?cG9RcGJ3UHBhTlZtVFUwT2NyR0paaVRXS0UzREtYd3dlMnlyMTJlRFFjQWxx?=
+ =?utf-8?B?S1UvYzBYcVlvK1FDUHZHWW1LSzRrM0VQS00rWWVDRkQzR1lxNUdvQktCSlVq?=
+ =?utf-8?B?ZnhpMUVWa242VHZGWGlVWjBxeFlKK1BPTmVGRlJyRnc0OFJXV3pKQW9uSjl6?=
+ =?utf-8?B?QmVqbGhBOTVOb0FpczUxNWQ5SWJ3ck55M01TNmVKMlB5RUI0TkJIZHlJZThR?=
+ =?utf-8?B?SitvZWk1Qk5VODNaSUNMYU56UXRRSDRndzlTTWNHZEg1NldJRjBnNWNEMUc1?=
+ =?utf-8?B?Mys1Vk1LUVBlQWtDc1FXam1EdkhMVkFUT2dmeXhLVHRESmNHMUMrQ2xLdUFH?=
+ =?utf-8?B?amExc2o3OFBEWDNXZ0QvNFVESHFiU04yWXVHekdkTFVmRVpybHR3NFlSNXAz?=
+ =?utf-8?B?R1BpUklxRzEvZ2lMWm9kS2R3V250VVVFRmlSeFhWR1l4NWYxdXlnUHN2d2FQ?=
+ =?utf-8?Q?U37aA8eIvaUVcAEh1F?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 901a296a-53f9-4ced-eb24-08df051d653e
+X-MS-Exchange-CrossTenant-Network-Message-Id: 425784a3-731a-4f36-1f2f-08df051d66f2
 X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB9457.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 15:59:52.2152 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 15:59:55.2987 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pj2aAiddoRkp2NxAfY/xxh3903+rguY5YrUmCyzvs/u30aoRzqji+UD9cT/JPqz06kYBMQy5ko1t33GEz7Z30w==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5fVrQflYTzNU+GBH6RYak/hUZmOau2ubBnPTfQK2w6OpZPKBfgy0J9rvk2zIdFbJIviqFqIrt0H87ruf+3t4/g==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4254
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -138,111 +138,74 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---------------g0MSvXvxWPwyzblItzFPgsDf
+--------------dTxOZc5IXy77X3tA92x9PCHj
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On 8/28/2026 9:08 PM, Christian König wrote:
+On 8/28/2026 9:11 PM, Christian König wrote:
 
 > On 8/28/26 11:53, Zhu Lingshan wrote:
->> This commit introduces a new helper
->> amdgpu_lookup_queue_by_doorbell which helps
->> look up a user queue with the given doorbell id
->> in a xarray.
+>> The GFX11 user queue private fault woker loads
+>> the relevnt user queue from the userq doorbell xarray.
+>> However it does not hold the spin_lock of the xarray
+>> when walking the xarray, and does not increase the
+>> kref of the user queue, so it races with queue
+>> destruction path and may run into an use-after-free
+>> userq problem.
 >>
->> This function takes a kref of the user space queue.
+>> This commit fixes this UAF problem by utilizing
+>> amdgpu_lookup_queue_by_doorbell helper, which
+>> properly hoding the xarray spin lock and the kref
+>> of the user queue.
+>>
+>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+>> ---
+>>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 7 +++++--
+>>  1 file changed, 5 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>> index a447562977ab..a063f86a8847 100644
+>> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+>> @@ -6733,9 +6733,12 @@ static void gfx_v11_0_userq_priv_fault_work(struct work_struct *work)
+>>  
+>>  		doorbell = (db_ctrl & CP_RB_DOORBELL_CONTROL__DOORBELL_OFFSET_MASK) >>
+>>  			   CP_RB_DOORBELL_CONTROL__DOORBELL_OFFSET__SHIFT;
+>> -		q = xa_load(&adev->userq_doorbell_xa, doorbell);
+>> -		if (q)
+>> +		q = amdgpu_lookup_queue_by_doorbell(&adev->userq_doorbell_xa,
+>> +						    doorbell);
+>> +		if (q) {
+>>  			amdgpu_userq_start_hang_detect_work(q);
+>> +			amdgpu_userq_put(q);
+>> +		}
+> This must just lock the XA irqsave, this code has been suggested like that before and been removed because it doesn't work correctly.\
 
-Hello Christian
+The xa spin lock is held in the helper amdgpu_lookup_queue_by_doorbell().
 
-Thanks for your comments.
+Please see patch 1:
 
-> Well absolutely clear NAK to the whole approach.
->
-> This is the nonsense Sunil and I have worked quite hard to remove and we certainly shouldn't repeat such mistakes.
->
-> When the userq needs to be used from interrupt context we need to hold the xa_lock_irqsave() or otherwise we don't have any guarantee that the userq, userq_mgr or associated fpriv went out of scope.
+38 +amdgpu_lookup_queue_by_doorbell(struct xarray *xa, u32 doorbell)
+ 39 +{
+ 40 +       struct amdgpu_usermode_queue *queue;
+ 41 +       unsigned long flags;
+ 42 +
+ 43 +       xa_lock_irqsave(xa, flags);
 
-Holding the spin lock by xa_lock_irqsave() can surely avoid racing with the destruction process, however, it does not apply to all scenarios, for example, you can not hold spin lock in mes_userq_reset_queue(),
-because it calls either amdgpu_mes_reset_queue_mmio or amdgpu_mes_reset_queue_mmio, both of them acquire the MES mutex through amdgpu_mes_lock.
 
-Another thing, out of the topic is, holding xa_lock does not guarantee fpriv/userq_mgr alive, for example, when drm_device->unplugged is true, all amdgpu teardown paths in amdgpu_drm_release are skipped,
-and the fpriv/userq_mgr is freed, no matter whether holding the xa spin lock.
-
-So IMHO since we have userq->kref, lets use it to maintain the lifecycle of the queues. 
-
->
-> Grabbing references from this side would obviously result in circle dependencies.
-
-I am not sure, we should use the lock/unlock and kref_put/get in pairs in sequence, can you name some circle dependencies or AB-BA lockings as examples?
 
 Thanks
 Lingshan
 
 >
-> Regards,
+> Please check the git history before suggesting bringing back a buggy approach.
+>
 > Christian.
 >
->> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
->> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 30 +++++++++++++++++++++++
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  2 ++
->>  2 files changed, 32 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> index 0a816b3c5ff9..e0639f844a8e 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
->> @@ -609,6 +609,36 @@ struct amdgpu_usermode_queue *amdgpu_userq_get(struct amdgpu_userq_mgr *uq_mgr,
->>  	return queue;
+>>  	}
 >>  }
 >>  
->> +/**
->> + * amdgpu_lookup_queue_by_doorbell - look up a user queue by doorbell
->> + * @xa: user queue XArray indexed by doorbell
->> + * @doorbell: doorbell index
->> + *
->> + * Return: A queue with the doorbell indexed, or NULL if no such a queue found.
->> + *
->> + * This function increases kref of the queue, the caller
->> + * must release the reference with amdgpu_userq_put().
->> + */
->> +struct amdgpu_usermode_queue *
->> +amdgpu_lookup_queue_by_doorbell(struct xarray *xa, u32 doorbell)
->> +{
->> +	struct amdgpu_usermode_queue *queue;
->> +	unsigned long flags;
->> +
->> +	xa_lock_irqsave(xa, flags);
->> +	queue = xa_load(xa, doorbell);
->> +	if (!queue)
->> +		goto out_unlock;
->> +
->> +	if (!kref_get_unless_zero(&queue->refcount))
->> +		queue = NULL;
->> +
->> +out_unlock:
->> +	xa_unlock_irqrestore(xa, flags);
->> +
->> +	return queue;
->> +}
->> +
->>  void amdgpu_userq_put(struct amdgpu_usermode_queue *queue)
->>  {
->>  	if (queue)
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
->> index 6412a7f7b6ef..8fc73862f64e 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
->> @@ -151,6 +151,8 @@ struct amdgpu_db_info {
->>  };
->>  
->>  struct amdgpu_usermode_queue *amdgpu_userq_get(struct amdgpu_userq_mgr *uq_mgr, u32 qid);
->> +struct amdgpu_usermode_queue *
->> +amdgpu_lookup_queue_by_doorbell(struct xarray *xa, u32 doorbell);
->>  void amdgpu_userq_put(struct amdgpu_usermode_queue *queue);
->>  
->>  int amdgpu_userq_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
---------------g0MSvXvxWPwyzblItzFPgsDf
+--------------dTxOZc5IXy77X3tA92x9PCHj
 Content-Type: text/html; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
@@ -250,116 +213,78 @@ Content-Transfer-Encoding: 8bit
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   </head>
   <body>
-    <pre>On 8/28/2026 9:08 PM, Christian König wrote:</pre>
-    <blockquote type="cite" cite="mid:bd072438-32ee-42bc-bc06-ae29775cc2a5@amd.com">
+    <pre class="moz-cite-prefix">On 8/28/2026 9:11 PM, Christian König wrote:
+</pre>
+    <blockquote type="cite" cite="mid:7d6223cc-4071-4ade-99c2-3a1acff50663@amd.com">
       <pre wrap="" class="moz-quote-pre">On 8/28/26 11:53, Zhu Lingshan wrote:
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">This commit introduces a new helper
-amdgpu_lookup_queue_by_doorbell which helps
-look up a user queue with the given doorbell id
-in a xarray.
+        <pre wrap="" class="moz-quote-pre">The GFX11 user queue private fault woker loads
+the relevnt user queue from the userq doorbell xarray.
+However it does not hold the spin_lock of the xarray
+when walking the xarray, and does not increase the
+kref of the user queue, so it races with queue
+destruction path and may run into an use-after-free
+userq problem.
 
-This function takes a kref of the user space queue.
+This commit fixes this UAF problem by utilizing
+amdgpu_lookup_queue_by_doorbell helper, which
+properly hoding the xarray spin lock and the kref
+of the user queue.
+
+Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index a447562977ab..a063f86a8847 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -6733,9 +6733,12 @@ static void gfx_v11_0_userq_priv_fault_work(struct work_struct *work)
+ 
+ 		doorbell = (db_ctrl &amp; CP_RB_DOORBELL_CONTROL__DOORBELL_OFFSET_MASK) &gt;&gt;
+ 			   CP_RB_DOORBELL_CONTROL__DOORBELL_OFFSET__SHIFT;
+-		q = xa_load(&amp;adev-&gt;userq_doorbell_xa, doorbell);
+-		if (q)
++		q = amdgpu_lookup_queue_by_doorbell(&amp;adev-&gt;userq_doorbell_xa,
++						    doorbell);
++		if (q) {
+ 			amdgpu_userq_start_hang_detect_work(q);
++			amdgpu_userq_put(q);
++		}
 </pre>
       </blockquote>
-    </blockquote>
-    <pre>Hello Christian
-
-Thanks for your comments.</pre>
-    <blockquote type="cite" cite="mid:bd072438-32ee-42bc-bc06-ae29775cc2a5@amd.com">
       <pre wrap="" class="moz-quote-pre">
-Well absolutely clear NAK to the whole approach.
-
-This is the nonsense Sunil and I have worked quite hard to remove and we certainly shouldn't repeat such mistakes.
-
-When the userq needs to be used from interrupt context we need to hold the xa_lock_irqsave() or otherwise we don't have any guarantee that the userq, userq_mgr or associated fpriv went out of scope.</pre>
+This must just lock the XA irqsave, this code has been suggested like that before and been removed because it doesn't work correctly.\</pre>
     </blockquote>
-    <pre>Holding the spin lock by xa_lock_irqsave() can surely avoid racing with the destruction process, however, it does not apply to all scenarios, for example, you can not hold spin lock in mes_userq_reset_queue(),
-because it calls either amdgpu_mes_reset_queue_mmio or amdgpu_mes_reset_queue_mmio, both of them acquire the MES mutex through amdgpu_mes_lock.
+    <pre>The xa spin lock is held in the helper amdgpu_lookup_queue_by_doorbell().
 
-Another thing, out of the topic is, holding xa_lock does not guarantee fpriv/userq_mgr alive, for example, when drm_device-&gt;unplugged is true, all amdgpu teardown paths in amdgpu_drm_release are skipped,
-and the fpriv/userq_mgr is freed, no matter whether holding the xa spin lock.
+Please see patch 1:
 
-So IMHO since we have userq-&gt;kref, lets use it to maintain the lifecycle of the queues. </pre>
-    <blockquote type="cite" cite="mid:bd072438-32ee-42bc-bc06-ae29775cc2a5@amd.com">
-      <pre wrap="" class="moz-quote-pre">
+38 +amdgpu_lookup_queue_by_doorbell(struct xarray *xa, u32 doorbell)
+ 39 +{
+ 40 +       struct amdgpu_usermode_queue *queue;
+ 41 +       unsigned long flags;
+ 42 +
+ 43 +       xa_lock_irqsave(xa, flags);
 
-Grabbing references from this side would obviously result in circle dependencies.</pre>
-    </blockquote>
-    <pre>I am not sure, we should use the lock/unlock and kref_put/get in pairs in sequence, can you name some circle dependencies or AB-BA lockings as examples?
+
 
 Thanks
 Lingshan</pre>
-    <blockquote type="cite" cite="mid:bd072438-32ee-42bc-bc06-ae29775cc2a5@amd.com">
+    <blockquote type="cite" cite="mid:7d6223cc-4071-4ade-99c2-3a1acff50663@amd.com">
       <pre wrap="" class="moz-quote-pre">
 
-Regards,
+Please check the git history before suggesting bringing back a buggy approach.
+
 Christian.
 
 </pre>
       <blockquote type="cite">
-        <pre wrap="" class="moz-quote-pre">
-Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 30 +++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  2 ++
- 2 files changed, 32 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 0a816b3c5ff9..e0639f844a8e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -609,6 +609,36 @@ struct amdgpu_usermode_queue *amdgpu_userq_get(struct amdgpu_userq_mgr *uq_mgr,
- 	return queue;
+        <pre wrap="" class="moz-quote-pre"> 	}
  }
  
-+/**
-+ * amdgpu_lookup_queue_by_doorbell - look up a user queue by doorbell
-+ * @xa: user queue XArray indexed by doorbell
-+ * @doorbell: doorbell index
-+ *
-+ * Return: A queue with the doorbell indexed, or NULL if no such a queue found.
-+ *
-+ * This function increases kref of the queue, the caller
-+ * must release the reference with amdgpu_userq_put().
-+ */
-+struct amdgpu_usermode_queue *
-+amdgpu_lookup_queue_by_doorbell(struct xarray *xa, u32 doorbell)
-+{
-+	struct amdgpu_usermode_queue *queue;
-+	unsigned long flags;
-+
-+	xa_lock_irqsave(xa, flags);
-+	queue = xa_load(xa, doorbell);
-+	if (!queue)
-+		goto out_unlock;
-+
-+	if (!kref_get_unless_zero(&amp;queue-&gt;refcount))
-+		queue = NULL;
-+
-+out_unlock:
-+	xa_unlock_irqrestore(xa, flags);
-+
-+	return queue;
-+}
-+
- void amdgpu_userq_put(struct amdgpu_usermode_queue *queue)
- {
- 	if (queue)
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-index 6412a7f7b6ef..8fc73862f64e 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
-@@ -151,6 +151,8 @@ struct amdgpu_db_info {
- };
- 
- struct amdgpu_usermode_queue *amdgpu_userq_get(struct amdgpu_userq_mgr *uq_mgr, u32 qid);
-+struct amdgpu_usermode_queue *
-+amdgpu_lookup_queue_by_doorbell(struct xarray *xa, u32 doorbell);
- void amdgpu_userq_put(struct amdgpu_usermode_queue *queue);
- 
- int amdgpu_userq_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
 </pre>
       </blockquote>
       <pre wrap="" class="moz-quote-pre">
@@ -368,4 +293,4 @@ index 6412a7f7b6ef..8fc73862f64e 100644
   </body>
 </html>
 
---------------g0MSvXvxWPwyzblItzFPgsDf--
+--------------dTxOZc5IXy77X3tA92x9PCHj--
