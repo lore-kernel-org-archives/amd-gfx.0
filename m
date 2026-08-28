@@ -4,82 +4,124 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D05FC61DD9
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2026 12:07:48 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id F107DC61DBD
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2026 13:08:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CA02E10F372;
-	Fri, 28 Aug 2026 12:07:47 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 57D4010E010;
+	Fri, 28 Aug 2026 13:08:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="PwuuNT+c";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hA2SAEZf";
 	dkim-atps=neutral
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com
- [209.85.218.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C9C910F36F
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 12:07:39 +0000 (UTC)
-Received: by mail-ej1-f51.google.com with SMTP id
- a640c23a62f3a-c250a2bc3b3so128853266b.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 05:07:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787918857; x=1788523657; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=BtPDnFD/wNqPKqQoXYCdftNBV1h086F3eB74129TCBI=;
- b=PwuuNT+cm3Xvtd5wLFJUlADCQ8oKCrhwC2sUVd/lnDJSEh0ZIp34CAXv8ca2JWYviw
- l9aPn12+MhseMN79oVWKQJvfUObSgnpsrZymBcsAHZx5Kncr8qMs+lVRZYhWFv4U4xtr
- ZmvPnm3xLgR15fOiG9VsLtzFn7ryAKb1aDRp3RvxhwRQtRHjHD6ydVZRuRDx71GJL4ET
- OTwwe7SURpj7iLBK1uR9L5SCwGn/KVpmiftd5XHygyKbLz/b559YoP+AhxYSpl5B5OLt
- URXE42NApE/Vd36cIb2vaHLaTN9iYQZMmd83tSuY7OmvZqHMF6Gn3yOZYAyKxioBE988
- XaGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787918857; x=1788523657;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=BtPDnFD/wNqPKqQoXYCdftNBV1h086F3eB74129TCBI=;
- b=e2MJsDxqHRSS76r9Zm0LVSgArczVOQjatH+DxTvEgTfbV5akqIyF888WB/McfnYwT7
- /HQz3xDDyyjqb2RLWbWAgtq/aufq7nv8ZvK5kuMsHX7fy9y0W9om9rNDBIrZnyimEH+S
- g6qBvrAAAxfxm/KCaF6VSocZ/hKse93H8eJHsTWM5GmGfX5khI9rwVuAyYwhl0HHaRPV
- V2I1ufatNaxeqA8cYmoBv2Wm4wxRKG7aaFS9hyCeSNvcmcJK+nue/qoRmU1YrmrY3Wi/
- x0EztEkqbfzdi5KnmiJO65YxDkhcVXmDkni4KdSKmY9YywdtWCIxxubCL0kNOwWJ2yzZ
- WiIw==
-X-Gm-Message-State: AFuF++mzYZhJgzSmKy/od6+LqnHJR8j7LCLJRn0wo0NiShQ5KZkhg7gj
- e81Xfohlje/G2PYpdSitCH/H/EBZhl7vyYF2NbZPAtafuwVavYw2fv9vBOxdzq2u
-X-Gm-Gg: AR+sD114cdNHADHyUfUGM1OdVOY7yRNDrYUeokO+hQZ9WFBAMt/yBf2c5c/5C1uZOFc
- xD4TAt9lk9j8qn/krXSimOPv0PptPWCKUqFJQS2/kNxLHo0c6vmQ5JYxihvKwl5mWxRVhnHBaZF
- KbyMDc6KfGS1/JHWl31nQGL70ERh/GUKXbHylkYC3i1JCAyqLiBtvYHFnZf8uYK4UDECzpcFKZv
- QRat5hV4YIgZoiwwNxtW0xPTzp3pl7nEitPnylRTQvM7kAnbkD+YIwSHQaS01iYD/pQAii6+Rer
- ZY5bOibnBoe2twKQOaGYljM+Js7iXQobmZjvQr6MI7cH8lm7e2WAvz/+hS/Ic/MwUZ1SVdoPHUR
- PwLUuy3dYitLlEJq9Ql/sxVeS2xjPp/aCNYkyH+ZbFEgdlRvH1y9y+Q3w6HcZI0fIr1whgXkRUw
- Skt2CAh0X9lyAcUMi3wz3Phj//gvnjTmj7DdGtRYF1p38kTW044TR6IG+5TUY3RJXTWqOSgrbxf
- xnXFZ4Cw3f10UEqUfyLsRRY
-X-Received: by 2002:a17:907:6d29:b0:c1f:9cdb:9965 with SMTP id
- a640c23a62f3a-c2556fb8aa8mr391472566b.2.1787918857351; 
- Fri, 28 Aug 2026 05:07:37 -0700 (PDT)
-Received: from Timur-Hyperion (5E1B9A5E.dsl.pool.telekom.hu. [94.27.154.94])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c255f29a9dfsm75364066b.63.2026.08.28.05.07.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Aug 2026 05:07:36 -0700 (PDT)
-From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>,
- =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>
-Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 3/5] drm/amdgpu/sdma: Move SDMA v5.x queue reset to common code
-Date: Fri, 28 Aug 2026 14:07:27 +0200
-Message-ID: <20260828120729.25908-4-timur.kristof@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260828120729.25908-1-timur.kristof@gmail.com>
-References: <20260828120729.25908-1-timur.kristof@gmail.com>
-MIME-Version: 1.0
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010025.outbound.protection.outlook.com [52.101.61.25])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 661CC10E010
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 13:08:44 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vzoSsfvpWgh517t/YVgBI/HhfFXYZAmL2/PYzjsLA6VGJScfuF3cHJoe534uEjPrzzUIYCEHYwKh1rJ1BYcFk3hmWwASoyLFhYwkJRi1Nbx7dDL3KT6HZUxQwaKvzfGsIuNPgY+K+PB0T+38e52i0caJuYJWXRHiWY3bYKViSlTQaKXTqmFSSn4CW47FxrgDm4nuxcxf2IZZVTxSfQ+RNTYEn3hzQysE+8t216Ldt79d6sB5JHRjNhtDtC5yLPqgNj2iWBVVQJkIE4l+uNaaAwlAXMKmhki95Xd3+4VjGsrgPfkOfC8gvYI8gU23Li8Ei3Xz5kWZZKNjWoJDV3AV1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ndX+G0OR3MneNxDRW2NH6QQ8pK/yK1mcKzTvdvp/f8s=;
+ b=FYH2iavo4FY456YZ2tM1f/2O9KCx8lArTrZ7p6UodVq/Kc1fhceG3WuTQxP4KgPUF7uogxAkXYjl5ipYUQIDRvegqOlcnnjruxfskxbqpL+JPGq8Y1wTtdqRhv0aoPK5zLdTAWQGYh7lL4T04K6hUIuPZvDRVb68tLDXUONH4JIqpcTravRfx1gQYt0CF1G1aGdPuoJ3+b1H8tBTCybAhH70F8DT5TzmukUW8bxl/Yppg4pi4lsUnBNZjWcEeFhECAExADhCf6vo0sPom6iuXN8GEhdaZRwqZ6Q5CuDJjAS6eBVaiZ0S9gfSTfQbYZz54stCwz7CoLS6lRZ71Jtlrg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ndX+G0OR3MneNxDRW2NH6QQ8pK/yK1mcKzTvdvp/f8s=;
+ b=hA2SAEZfm7hV6oF69eu/ClOQy2NoGZZyJK6LM9zTxkTx+6tczM8YVjihDhHnIutwdoB56XLF6X4BEloY/fM+fb7wVBya3FA15CEvZTmxBA6hA71lwkeLjfdyqlu/mxFjJ6h+iICO7Geh3UNT1XR5PpMbscwsF72IvpFjfgbLJR4=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by PH7PR12MB7114.namprd12.prod.outlook.com (2603:10b6:510:1ed::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Fri, 28 Aug
+ 2026 13:08:38 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Fri, 28 Aug 2026
+ 13:08:38 +0000
+Message-ID: <bd072438-32ee-42bc-bc06-ae29775cc2a5@amd.com>
+Date: Fri, 28 Aug 2026 15:08:32 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 01/10] drm/amdgpu: introduce
+ amdgpu_lookup_queue_by_doorbell
+To: Zhu Lingshan <lingshan.zhu@amd.com>, Alexander.Deucher@amd.com,
+ felix.kuehling@amd.com
+Cc: Ray.Huang@amd.com, amd-gfx@lists.freedesktop.org
+References: <20260828095349.9797-1-lingshan.zhu@amd.com>
+ <20260828095349.9797-2-lingshan.zhu@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260828095349.9797-2-lingshan.zhu@amd.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0376.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f7::19) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|PH7PR12MB7114:EE_
+X-MS-Office365-Filtering-Correlation-Id: 637f9bd8-1a80-4fa5-227f-08df0505793c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|1800799024|366016|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: pp+gNXEgUj9h35NuioCuT/dLYZ2AnBfHYVzHHvpOlKWnitvRKCOglP8VKmTtsgpAzrJ2XgR1ZO1QB2NHMXFtMXcBSRinDUHxLkxO2378ybUmtiMniEYsDJF2Zf2ohf10ZYR1cFWL5FSjPPzAlaC7OVeJKtK0XPiMqWJbMvR7BZJBGlFrMJ9CSRu/xxEeH5NmLEttduSNdCeFfzxJw8uqlOwH9Ol4JqQpZr8t+8OksA4I7tvh7hnXLsRGlo6gSaryFbNMquG26KwCeGydRG6/SMfo/FSljcJD3Y7LK9UKE2a3o5teb96pm46mpEub6G8D5I4d65hNJMMBND7XIMpzwIQIZtl4EIkUOUgnA45L1CoblV4BxJlxJJyrLXZT51CMKSiByPaOpVZkXotaxPF4XZIDkmMD/kWkRL3DukTZHt3T8MaqdoL/gRx9lmbxQg9PmogCoK75qFwjnwAamwI4aKxGyLNK7hVW0YNSdWzLH12j8JC5yhgo881w96mwCWqMl8Xagt3DgEg3pePpmgzTC2ci42TnPnXPfxDlcuSlTGLb7dRltyypVjI8i/tI64ulT4JLphsLgw+8dw7j1wKGUzsIN7PFP0wjr1VB76bB4BNhf8FMV/uQGE2xrQKcOOTBxd5AhkLqRBBGc7jAvwm0wga5odYxcqWm5q2P5Bq6Y54=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cnBLdzloTzNiUWcvQithK2dqM2tGcW1sQWdTSTZ6UE0vSUFKVFhDY1RHTDFz?=
+ =?utf-8?B?RVRzQThPaVBwZ0E1S2hIS3B3QVh1ZFU5UTBxcWZCZTFoNWk2cXpjRFhzMW1I?=
+ =?utf-8?B?N3N6NVQ2b094bVF0Mkl3RlM3cVNlSXM4S0I5MHU3TmxSNm8vTWFBdUE1VFQ5?=
+ =?utf-8?B?YnFMMFJqSU01SWJzUUVHQmVGcGRQT2RYUHk4RWhSNFFLV2o2dkJBVlA4dkRJ?=
+ =?utf-8?B?bFR3RThGaTRDWXllZUwxY2FYMm9CbUYwd2lpeUxJbTViSnN1WWFTbHY3N2Fz?=
+ =?utf-8?B?aTNHY0JmdDNreW80R25FaUVLS3dpV0UxMUYyL3BmNkZFOUhSdDFZazQxdGVY?=
+ =?utf-8?B?SGZCRGd1cGttR0oyWk1yVWRaOEVhaVArTk5lb2I3V0tTcFBaV0piK29KdEk2?=
+ =?utf-8?B?RVg1d3pNUUFOTmV4aW5ZMm9ibFY5czQ0b2x5L205YnRhVjdvaGFxQldTNnlH?=
+ =?utf-8?B?dFBTOW93M3FIdzhYWlhPVThaM241d1V2eG1XWkhERjVLVVY3Nkk1Tmt0cUEx?=
+ =?utf-8?B?OU4vQzJ1N0hXbmJrd0V5QVpMczFkK09zQjNZVjhhZDkwVXA5eGdIL0VINWJh?=
+ =?utf-8?B?QUdtdGhBblJKa2J1UFhualZUUTF1aW5PNllzdFlwanl0a1hhbFlJRTRiWWpT?=
+ =?utf-8?B?SVBHZGNCYXovZHVsVWUzSmNoZklwNjdycVhwdGVWeUFZQytHNnJ1c08yR0tp?=
+ =?utf-8?B?WFBKUGwwZDBMeDRmRlpTblJJY0RLUHB4WXRBTnBXN2FGK0hoUlJWZFF6YThQ?=
+ =?utf-8?B?N0lrZWRlMVR3clBpTVh6RG9QM3RsVU4veGdEK3VlT0wzZTcwZVozODQ1WTVh?=
+ =?utf-8?B?WkdRWDFSUHNVa3BjSzVhY1RNVXA3Qk9LVTVZY0FSWGZ6OFp4VGdSSUlVRWJz?=
+ =?utf-8?B?Q2J2RWFEenQ2Tzdaa3hYazdOWldXVlc5Zno5dzdWWEMybTc1UG5MU1ZSQlRN?=
+ =?utf-8?B?QU5YK3RoMjVDaVJUeFZIT0g1ekMrSzUrQnJQRzVmVjUxUlppMnF4Y054dUNG?=
+ =?utf-8?B?dkF2cEhDTUdEeFhsWkEwZTVxVnhQZTlPVHRsU1paamhWaThlWTd1UWNrREdH?=
+ =?utf-8?B?R3RGcUY1a0FJbnRTQnpPcUlkbWNJdER1S2JYSWgvRGxaVDBuUlY4N253SmxB?=
+ =?utf-8?B?UkxXeFdZdEFxcjc1NkRWNmhzSE85am5WWnc1VU92NEM0akVzRlNyN0lFOFlE?=
+ =?utf-8?B?M0xPSWhCUWgyaXAraC9yQW1kODRvdWVCU1MxdE5LRGhGbUtyRERIalRBYm91?=
+ =?utf-8?B?UHhRNzZMWU9HWDhJRnJjUWhudzZCZ1pSVTZkcitrS2huYXVOZFNyZGVETTBn?=
+ =?utf-8?B?QVBTeXpmZW8rMDM3NnErSGd0cVlSWVhFZ3cvblo4YlYxNHFvNkE3RkVuT3JK?=
+ =?utf-8?B?bjEvbDVlZWZsRndKanJiNFFlT00vcGhPK09GT0NMamp3eW4rUmFBQ0lWODl1?=
+ =?utf-8?B?NlZWWGx3SnRYTFVUYlBhRzQ1S0xOMXV3SkwyMDdEKysxbDRNVlNxblpPM2V3?=
+ =?utf-8?B?aUFvYmZ3ZzhMWUhuQlZpZ1luMVZ0ODU0aHBEQjl5SEl0eEpJOWZoNGxiZ1E3?=
+ =?utf-8?B?RkRRMk5CVS9iUnU4RWx3UzdwRHlmZUZsOWc1TmhUTWM4Q09XZ29SMkg4akZG?=
+ =?utf-8?B?cUJ5STFlZThUa3JBbjVmRGV1dzZlOEV3dkVjWDhycjNmV3BzbTFzTWpGVi8y?=
+ =?utf-8?B?Tmp5UXY3cVdrRXpFUHowSnliZ3hpb3ZoMlFTaUhtOFI2RG41SC9FR0NhL3do?=
+ =?utf-8?B?cGFOVVFIQldEMW9LRmdlMGNIVjlrUGphd3NJdWYrcmRVRnpVcXVpZ0JZamsx?=
+ =?utf-8?B?Uk5vRWg3S2hHYUdJY1pvZ0ZBMHh6N0hnOVJlSmx4cnJjQmFxelV5TUFVVXl4?=
+ =?utf-8?B?dk9ldlZKUzJTQlc3VkI3TC9oUG1Od3poYUVsQVZTaUhSY2Z5blZEM2FrQ0c3?=
+ =?utf-8?B?YkVaVTljbG9PelNIOHQ2eUgwUUU2VlpodUJTZUkzK1lSREltK1lNcGhrb3dE?=
+ =?utf-8?B?K0swWG94OWxXbSt4TXV5aXN3dTJiR1JDWXRsUUMrZjc0Zk1nb3dkaVdNRllX?=
+ =?utf-8?B?eEZsQUZWcWFTQUk0NEU5TFZWamk3UmxnWU5mR3N2dkFmcDRDN2svQzdMRDRY?=
+ =?utf-8?B?TkRQdFRkQ2ZDMmljYkl2aG5aMVFCbnB5NU5zbWxIY2RMVXY5RjRIKzE5VTZn?=
+ =?utf-8?B?WkNYY3NLWlhia1FQNXVxT05iZ0NBWVZtYnF3SUxlTE9IMkFHelUvUkFxZDFZ?=
+ =?utf-8?B?YlE5bTdVM2thZzVESlA5N3NSbUZ5MjVWR3ZvZlNMRDVpRy9HNnJWc2IvUStu?=
+ =?utf-8?Q?tDC7k13Z8agkL9FwTK?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 637f9bd8-1a80-4fa5-227f-08df0505793c
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 13:08:38.0594 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sZ8HAaV65fsj2NiY9T7AX3x6gAc8ZgxJdvMlAwGA9iBx+r4Uyr69oVanihffB8zO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7114
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,164 +136,84 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The code was exactly the same between SDMA v5.0 and v5.2
-furthermore the exact same implementation can be shared
-between all SDMA versions that don't use MES.
+On 8/28/26 11:53, Zhu Lingshan wrote:
+> This commit introduces a new helper
+> amdgpu_lookup_queue_by_doorbell which helps
+> look up a user queue with the given doorbell id
+> in a xarray.
+> 
+> This function takes a kref of the user space queue.
 
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 37 ++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  4 +++
- drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   | 25 +---------------
- drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   | 25 +---------------
- 4 files changed, 43 insertions(+), 48 deletions(-)
+Well absolutely clear NAK to the whole approach.
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-index 66f278f77f71..9eebd8380834 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
-@@ -635,3 +635,40 @@ int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instance_id,
- 
- 	return ret;
- }
-+
-+/**
-+ * amdgpu_sdma_reset_queue_legacy() - Reset legacy SDMA queue after timeout (without MES)
-+ *
-+ * @ring: Pointer to the ring of the SDMA queue
-+ * @vmid: VMID of the timed out job
-+ * @timedout_fence: Fence of the timed out job
-+ *
-+ * Common implementation for resetting SDMA queues without MES (legacy).
-+ * This relies on the proper amdgpu_sdma_funcs to be set up
-+ * for the given ring.
-+ *
-+ * Applicable to SDMA versions that don't rely on the MES yet,
-+ * that is all versions up to SDMA v5.x and older.
-+ */
-+int amdgpu_sdma_reset_queue_legacy(struct amdgpu_ring *ring,
-+				   unsigned int vmid,
-+				   struct amdgpu_fence *timedout_fence)
-+{
-+	struct amdgpu_device *adev = ring->adev;
-+	int r;
-+
-+	if (ring->me >= adev->sdma.num_instances) {
-+		dev_err(adev->dev, "sdma instance not found\n");
-+		return -EINVAL;
-+	}
-+
-+	amdgpu_ring_reset_helper_begin(ring, timedout_fence);
-+
-+	amdgpu_amdkfd_suspend(adev, true);
-+	r = amdgpu_sdma_reset_engine(adev, ring->me, true);
-+	amdgpu_amdkfd_resume(adev, true);
-+	if (r)
-+		return r;
-+
-+	return amdgpu_ring_reset_helper_end(ring, timedout_fence);
-+}
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-index 4f4e56022c97..7c4e145ca0c1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h
-@@ -160,6 +160,10 @@ struct amdgpu_buffer_funcs {
- int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instance_id,
- 			     bool caller_handles_kernel_queues);
- 
-+int amdgpu_sdma_reset_queue_legacy(struct amdgpu_ring *ring,
-+				   unsigned int vmid,
-+				   struct amdgpu_fence *timedout_fence);
-+
- #define amdgpu_emit_copy_buffer(adev, ib, s, d, b, t) (adev)->mman.buffer_funcs->emit_copy_buffer((ib),  (s), (d), (b), (t))
- #define amdgpu_emit_fill_buffer(adev, ib, s, d, b) (adev)->mman.buffer_funcs->emit_fill_buffer((ib), (s), (d), (b))
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-index 0da54c335822..76f8765fb175 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c
-@@ -1518,29 +1518,6 @@ static int sdma_v5_0_wait_for_idle(struct amdgpu_ip_block *ip_block)
- 	return -ETIMEDOUT;
- }
- 
--static int sdma_v5_0_reset_queue(struct amdgpu_ring *ring,
--				 unsigned int vmid,
--				 struct amdgpu_fence *timedout_fence)
--{
--	struct amdgpu_device *adev = ring->adev;
--	int r;
--
--	if (ring->me >= adev->sdma.num_instances) {
--		dev_err(adev->dev, "sdma instance not found\n");
--		return -EINVAL;
--	}
--
--	amdgpu_ring_reset_helper_begin(ring, timedout_fence);
--
--	amdgpu_amdkfd_suspend(adev, true);
--	r = amdgpu_sdma_reset_engine(adev, ring->me, true);
--	amdgpu_amdkfd_resume(adev, true);
--	if (r)
--		return r;
--
--	return amdgpu_ring_reset_helper_end(ring, timedout_fence);
--}
--
- static int sdma_v5_0_stop_queue(struct amdgpu_ring *ring)
- {
- 	u32 f32_cntl, freeze, cntl, stat1_reg;
-@@ -1936,7 +1913,7 @@ static const struct amdgpu_ring_funcs sdma_v5_0_ring_funcs = {
- 	.emit_reg_write_reg_wait = sdma_v5_0_ring_emit_reg_write_reg_wait,
- 	.init_cond_exec = sdma_v5_0_ring_init_cond_exec,
- 	.preempt_ib = sdma_v5_0_ring_preempt_ib,
--	.reset = sdma_v5_0_reset_queue,
-+	.reset = amdgpu_sdma_reset_queue_legacy,
- };
- 
- static void sdma_v5_0_set_ring_funcs(struct amdgpu_device *adev)
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-index 5543e381dcca..e7f4b74f27b4 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c
-@@ -1436,29 +1436,6 @@ static int sdma_v5_2_wait_for_idle(struct amdgpu_ip_block *ip_block)
- 	return -ETIMEDOUT;
- }
- 
--static int sdma_v5_2_reset_queue(struct amdgpu_ring *ring,
--				 unsigned int vmid,
--				 struct amdgpu_fence *timedout_fence)
--{
--	struct amdgpu_device *adev = ring->adev;
--	int r;
--
--	if (ring->me >= adev->sdma.num_instances) {
--		dev_err(adev->dev, "sdma instance not found\n");
--		return -EINVAL;
--	}
--
--	amdgpu_ring_reset_helper_begin(ring, timedout_fence);
--
--	amdgpu_amdkfd_suspend(adev, true);
--	r = amdgpu_sdma_reset_engine(adev, ring->me, true);
--	amdgpu_amdkfd_resume(adev, true);
--	if (r)
--		return r;
--
--	return amdgpu_ring_reset_helper_end(ring, timedout_fence);
--}
--
- static int sdma_v5_2_stop_queue(struct amdgpu_ring *ring)
- {
- 	u32 f32_cntl, freeze, cntl, stat1_reg;
-@@ -1951,7 +1928,7 @@ static const struct amdgpu_ring_funcs sdma_v5_2_ring_funcs = {
- 	.emit_reg_write_reg_wait = sdma_v5_2_ring_emit_reg_write_reg_wait,
- 	.init_cond_exec = sdma_v5_2_ring_init_cond_exec,
- 	.preempt_ib = sdma_v5_2_ring_preempt_ib,
--	.reset = sdma_v5_2_reset_queue,
-+	.reset = amdgpu_sdma_reset_queue_legacy,
- };
- 
- static void sdma_v5_2_set_ring_funcs(struct amdgpu_device *adev)
--- 
-2.55.0
+This is the nonsense Sunil and I have worked quite hard to remove and we certainly shouldn't repeat such mistakes.
+
+When the userq needs to be used from interrupt context we need to hold the xa_lock_irqsave() or otherwise we don't have any guarantee that the userq, userq_mgr or associated fpriv went out of scope.
+
+Grabbing references from this side would obviously result in circle dependencies.
+
+Regards,
+Christian.
+
+> 
+> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 30 +++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  2 ++
+>  2 files changed, 32 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> index 0a816b3c5ff9..e0639f844a8e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+> @@ -609,6 +609,36 @@ struct amdgpu_usermode_queue *amdgpu_userq_get(struct amdgpu_userq_mgr *uq_mgr,
+>  	return queue;
+>  }
+>  
+> +/**
+> + * amdgpu_lookup_queue_by_doorbell - look up a user queue by doorbell
+> + * @xa: user queue XArray indexed by doorbell
+> + * @doorbell: doorbell index
+> + *
+> + * Return: A queue with the doorbell indexed, or NULL if no such a queue found.
+> + *
+> + * This function increases kref of the queue, the caller
+> + * must release the reference with amdgpu_userq_put().
+> + */
+> +struct amdgpu_usermode_queue *
+> +amdgpu_lookup_queue_by_doorbell(struct xarray *xa, u32 doorbell)
+> +{
+> +	struct amdgpu_usermode_queue *queue;
+> +	unsigned long flags;
+> +
+> +	xa_lock_irqsave(xa, flags);
+> +	queue = xa_load(xa, doorbell);
+> +	if (!queue)
+> +		goto out_unlock;
+> +
+> +	if (!kref_get_unless_zero(&queue->refcount))
+> +		queue = NULL;
+> +
+> +out_unlock:
+> +	xa_unlock_irqrestore(xa, flags);
+> +
+> +	return queue;
+> +}
+> +
+>  void amdgpu_userq_put(struct amdgpu_usermode_queue *queue)
+>  {
+>  	if (queue)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+> index 6412a7f7b6ef..8fc73862f64e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+> @@ -151,6 +151,8 @@ struct amdgpu_db_info {
+>  };
+>  
+>  struct amdgpu_usermode_queue *amdgpu_userq_get(struct amdgpu_userq_mgr *uq_mgr, u32 qid);
+> +struct amdgpu_usermode_queue *
+> +amdgpu_lookup_queue_by_doorbell(struct xarray *xa, u32 doorbell);
+>  void amdgpu_userq_put(struct amdgpu_usermode_queue *queue);
+>  
+>  int amdgpu_userq_ioctl(struct drm_device *dev, void *data, struct drm_file *filp);
 
