@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30CDEC61DB9
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2026 09:53:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AD96C61DB9
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2026 09:53:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9838410E299;
-	Fri, 28 Aug 2026 09:53:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1AAE410E367;
+	Fri, 28 Aug 2026 09:53:57 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ILXYGkRp";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="VoQyFX3h";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012011.outbound.protection.outlook.com [52.101.53.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 54B8910E282
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 09:53:52 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013018.outbound.protection.outlook.com
+ [40.107.201.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BB3510E367
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 09:53:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C22UCrmBaX3D5N5/o919MbQAezG9Pw3FrD3rMF62S3lKvAHaLB6Cugjvw5LGlhXCauIkHVgjPYR0OlyjZ4HnFP8ymmkg7yGcn24fwTXJHlnsGnMuT2uRtr0eXt9/WGF5WjY8IrDAyMwDdSFHw9QaAE2z4ELsT3MLwnPotndNL3/ITbvC+3XDrGXTOZ5gNNWWSZsCSq6pxkG2KZ/GurPi/PZCLGxZRV4A+2X8EhPyHccYjUmdsiZCsmi8FNxm50Jx+YIALYjlpmeFKdHi30LWzm9U6Be+OuGW8xKSFV0YkGZ5A6vVToKMe/obN5qTz2c3gPsjb7WDaN1mZi2eSGISjg==
+ b=p+frNojqUtWuOxOqyRV5DEZMMWPLyeY1rI8HpXjUmreyB7YIF1bTnTe92Rc9cRDGRsd5In8wefBZBTdpv5MLdXShUma/VtQ4bKiJGHlz7YveFWWW/0HeOT0WEYgFojyvIjsbiL6qW4TImi6elsy+Vd25+Vr06GNnY59N6r+WlEs8H8aXTUkSQAyhVI2LKgaOpJ+oTbIeRP0ptEA5F/oX4WOFcQYHD0ZZKGSPazjbILODI5gY7N+8DDqSv/5Tr2lX9q2v6dabMOYGXZYcKNaGWVmBlPK63G4JqqaVkulpllSmbZsOr1H8C6ZWjaj/myhWdHqTlSB3CodveoXr3IVh3A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+I1dI3NugWPUdvrf4Ar7J4LsfKmJQiJh2NWKpeRUORY=;
- b=xShf/hXHyPophemLH/7x2NOrp9FN32HbkISiQ1Kc65dJawqLAT2onlErBvW7WvrboAPGbtiSMNPNrKlO4WnCeTTEFYm38LPNOat3K64VdyqUqPIvCZhIsU8w6Yu/0aMxF7dQfCIgX1sds/kmZ0KnXxgAZGQW5Imn72hP3DE4OTdlAahcU9L2RdRxUl8IeO/lCiaqmdEXvyuYJu7OyaD0rhqewk14KR6fKHj4bkoLwfeVz10U37cdd1dtlL4GqYR2eVcwavMAfqYNizajJ421Vv4+qauTc6gJ3wQzfSMfveAUTmfITwOsGaoZZmUGW48gmjO9X7VnL19STXj4mxJwPQ==
+ bh=xFpTTnd/l+iyCzaqQuyYDiC8HxF0aIuDekomdOxdWU0=;
+ b=knIjnbdjFHq2xBSxbX40LlCwc5OQ/gDe32b4XHJMeOK+dSwikRWY9TiUkPOVNhJFAlt8qwXFisf6NUZRgBJhf/+jKA06yxS6qWE2XdR2/2LXfHepQh1T8mJ3lsfI0vncdOYC5pm8UuH4lEAxfoFJySTokkLvW4RqydsJcH1whLsgIi9oh7TwvJWUU0GL02OP2MOPQQ1zq/O0UwSfSrFV/KjxhZWFz/zgxkvt/CfrvIYWyOzZJZciPnhnPiWiFxaO9pMiEo4HkyQiTwL3+5dv4Rd3n2nFnMwJNU6GADiDGTKIengeSNMRABInbAYwOZ44nS7C6/7qbGuMOU0Pw1zl7g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+I1dI3NugWPUdvrf4Ar7J4LsfKmJQiJh2NWKpeRUORY=;
- b=ILXYGkRpms5AhAy0Ya38Q8z3WN2x20lG3i+cYfjeXrXWsvoIqb4R3ADKIyVq6m2UW2KmIfMXmd0iMWogej/HB/Adb1TFlLmZLePXq6tGzQg8ZYg8MJYO2zujI3D7FO3mwblTKZqE+KYoU4bkto/RvP7U2Cm8SEAVaVvTGVbEhBk=
-Received: from DS1P221CA0024.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:242::14) by
- DS7PR12MB6263.namprd12.prod.outlook.com (2603:10b6:8:95::17) with
+ bh=xFpTTnd/l+iyCzaqQuyYDiC8HxF0aIuDekomdOxdWU0=;
+ b=VoQyFX3hUkvsZYXw9h59SpGGZFlTZNEnubrya8mVF7dipoJn90TnMJuXDaQi7OkvChuXsG98bgSlxl6mn1HAnSRSS4RsjKFLYmDGoKKTuetH/9/az6huXyQZZQJfWM+mcXDc9PZQ2RA9Rj1xFYET76M0eELMIaXwhC22EUuEWmw=
+Received: from DS1P221CA0021.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:242::12) by
+ MW4PR12MB7014.namprd12.prod.outlook.com (2603:10b6:303:218::8) with
  Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.10; Fri, 28 Aug 2026 09:53:48 +0000
+ 15.21.360.11; Fri, 28 Aug 2026 09:53:45 +0000
 Received: from DS1PEPF00017096.namprd05.prod.outlook.com
- (2603:10b6:8:242:cafe::2) by DS1P221CA0024.outlook.office365.com
- (2603:10b6:8:242::14) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10b6:8:242:cafe::7a) by DS1P221CA0021.outlook.office365.com
+ (2603:10b6:8:242::12) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.11 via Frontend Transport; Fri,
- 28 Aug 2026 09:53:48 +0000
+ 28 Aug 2026 09:53:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -50,20 +51,20 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb07.amd.com (165.204.84.17) by
  DS1PEPF00017096.mail.protection.outlook.com (10.167.18.100) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Fri, 28 Aug 2026 09:53:47 +0000
+ 15.21.382.8 via Frontend Transport; Fri, 28 Aug 2026 09:53:44 +0000
 Received: from ubuntu.amd.com (10.180.168.240) by satlexmb07.amd.com
  (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 28 Aug
- 2026 04:53:45 -0500
+ 2026 04:53:41 -0500
 From: Zhu Lingshan <lingshan.zhu@amd.com>
 To: <Alexander.Deucher@amd.com>, <Christian.Koenig@amd.com>,
  <felix.kuehling@amd.com>
 CC: <Ray.Huang@amd.com>, <amd-gfx@lists.freedesktop.org>, Zhu Lingshan
  <lingshan.zhu@amd.com>
-Subject: [PATCH 04/10] drm/amdgpu/gfx12: hold userq refs in private fault
- worker
-Date: Fri, 28 Aug 2026 17:53:43 +0800
-Message-ID: <20260828095349.9797-5-lingshan.zhu@amd.com>
+Subject: [PATCH 02/10] drm/amdgpu: keep the userq manager alive as long as its
+ queues
+Date: Fri, 28 Aug 2026 17:53:41 +0800
+Message-ID: <20260828095349.9797-3-lingshan.zhu@amd.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260828095349.9797-1-lingshan.zhu@amd.com>
 References: <20260828095349.9797-1-lingshan.zhu@amd.com>
@@ -75,29 +76,29 @@ X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS1PEPF00017096:EE_|DS7PR12MB6263:EE_
-X-MS-Office365-Filtering-Correlation-Id: 80d425dd-815e-4782-fa7f-08df04ea41a1
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017096:EE_|MW4PR12MB7014:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0b77b3ef-f7a4-4238-9f8b-08df04ea3f62
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|36860700016|82310400026|1800799024|10067099003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: UMJksxe/kQjVnjpHmuYCdWep6FXO98cFWQ8pmiqPDfMmV4HTsgs4AXCsRK6dkcJa7Z41SGERGp1/WXjltiQ9YPqXfU97vdXd90SMftD8kh3Z9n++R+frrgs/Shj0wlMz7LgDTZ/5dyQ0B6XkyMFS1Klk4rOZkaoMY6NQ8p5/eymAyIKoKX2mgWcA1f9br2J4kV1eoV5K6l7f23erM09/8Tx69UlZif6WuiLtU6vKsqF6fsLILK46rSTYbFPcrnAyFhL7V2GtuVb4BI0i6eUUVAAol/E+f4FzmsVQk+uBXVGNmU4X+Z+CHFdkFkatvyIpEVwR6jZHk6BcMGLFFgv3cEor5PDd0tHispDKaukwCVceIogDcseVlvC/G/P7G63+KcsbIi1G1YPfEVPhmac5695btGuvzIxTbi5nLMXAJRTYYH7LTDMB/KniG6Yp41nvqcEHV+OOKBtFjWpHKvA+4wquR56V88BxMXNV/xLAlqFKhjqyogSQwDdG2TaC/ojt0eqUfZEzinBNskZw0DlwRfL4Urwu6oJqSVcLKP9dVYm6zdNwX0S0DvZq01ePhsNNMVq8kScIXcZ8ebw1ZKMCQuTmYYuQQgBU8ynQ6HW7PVf5hZP1hx090Q81KNpyiH1FlxFFPP+JM7V9q0p1u+vkBvE2v3EkZIA5VtWnxKXSBe2lGIrHUPirUx9annu/d5DlDafS+dsR8Ni02vhgV8djXA==
+ ARA:13230040|376014|23010399003|36860700016|82310400026|1800799024|10067099003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: HI3/h4WdSCXWkBWCWL5tKL59PUC2bRKTARY+BQ9y/fRPYw61Gr7BMjaWSGNEjELAxBy1DaHKTobYqfV6UksYbs94IQus+BdepD2bMaTXOPkLhSDyjtr3NAR3B69T3U2CMkRz/IWMihU65hmdyjDhripJe6EdQhEc2KVj9RT/pU0hQ1VtMzo8mYZrHOfIaSiikXA57S+8VgNy8EVluRl8P5aar1JCrRdE21QhhSdB+yim/BTEQV4isbEA+qj7uvvtBxpXrDk7rAuboTTKF8D5Naj6q/BGMN4ZnHBeo4OssfGrfEBwBDMFEy56aIpR7p0KR0YTAS8vaH2Zg+hgXxzygk73XNBTX6pXkTo3vHi5VCWgTIghCEJqPvQC40tv+sbiYu1oT4QsGKxkvZT6F77YopwbX8s3+3kIQwVc6R4ynqPFef5sLkh/9i+Z3d8vK+QSs6y59nXvSheeeHjzxXYoCDkT0v1RHb6YfvBK7wt6vJ2GTd7vaTrntJI3cKv20JGcFvFxIJngK/NS8NBIcdfERyrSOkwlpwjeQSHdHpkuCO1RL41rM+5EzR8o2fWGxUuqTw1TzXvxuPGLy2fayvOLlTiIx/bcEx75/m+Sv2MAPoLCI5I/SlJge3dky6P/QcIQbeX6CkEPcg7t5NdL0KUFdu2Nm1xw5OaBe+f7Pq30m5xCiQf2MzKI7JXrgmi3S3JoVDRC9X1RfybE0aU1ArtLmg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(36860700016)(82310400026)(1800799024)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
+ SFS:(13230040)(376014)(23010399003)(36860700016)(82310400026)(1800799024)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: I7r4KMCKzezB6B62bVwhXe7MJSXKP7s/uzXNQhMoFOr9i0raHaKiylPvizf4ekBCP9EIqt79+uMzamxSqx+U7A1O8ETrqxufLyyotTNXt+Oty4K2yoyjn0oJOHVPYCIkr/vJPr8r95Aa3+ZtdB23q/VEEfMkaKRGGkwG81U/WVWIboHbHsETLv8XWOF9ph3aNqYTr9zHDIXu5P5wKPX7uHOm8ckTO9KiyuoYKuXvE2JUZpEm7ylIrBYkIRC7iabymflrjKyg73jkVtmr7HOG/c1Dw4vX9NXPRz6trr8YRoBT9mjVt9sJIkO3die7MOEC0+VP/RZMhfECMsx0a8agOrGr/VCCKmlvzMDjw8cOmvQa6BgrKaB2Tq+D02JtLXBe2k1DwLQHe1sDGKnxbkxv18+27R+9949C1LiYJ+xhOnZTHHtBf6g2yoyaQ44Llm0q
+X-MS-Exchange-AntiSpam-MessageData-0: ib2qjjB7lBjFIQS23je5DswrEnK5LcCVEnrrk+0wcHteIZV9UrtbpEra2KeJqY+KgQdD3oCjexak5MXH6+JkSeVMBPKHKy8ghd/XNgQ4FBpK0BC/YdF55tW0sN5VyI6OaVboApuSEMmv0GcawubKq0YsGRn5x1Yo+ztJMHGXYdOYYI5PQGX8uw93beAFWnRv1gBSMSf55k4pS0TshtsjlMwncff58wob5rvXL6dyLnQHufbh0p/T//pB/7vspeO2fdkKM0ZqZtI5lo6Jygy3DbMfBC9quXMvvo4cW5Gc1KnXulDboah3t1Ve0snykd19LO5DEIttRkSdhO5elfiJ1nkNw2NyPKXNrm67WxGjMAR2SThbSpmw3YylSjEgPFUMbA6eYBdK8uUPoF5JKyNlHrPHXee2SG/vty+YNLb5eIIcadsoHupjQuBIPA57uygn
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 09:53:47.9167 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 80d425dd-815e-4782-fa7f-08df04ea41a1
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 09:53:44.1435 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0b77b3ef-f7a4-4238-9f8b-08df04ea3f62
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: DS1PEPF00017096.namprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6263
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB7014
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,43 +113,127 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The GFX12 user queue private fault woker loads
-the relevnt user queue from the userq doorbell xarray.
-However it does not hold the spin_lock of the xarray
-when walking the xarray, and does not increase the
-kref of the user queue, so it races with queue
-destruction path and may run into an use-after-free
-userq problem.
+The life cycle of a user queue is managed by its
+kref. However when destroy a userq manager,
+the kref_put of its queues in amdgpu_userq_mgr_fini
+may not be the last put, therefore the queues
+could be still alive after the userq manager
+has been destroyed, resulting in
+userq->userq_mgr use-after-free issues.
 
-This commit fixes this UAF problem by utilizing
-amdgpu_lookup_queue_by_doorbell helper, which
-properly hoding the xarray spin lock and the kref
-of the user queue.
+This commit fixes this problem by introduce a new
+counter refs representing for the number of its queues,
+and only free the userq_manager when refs == 0
 
 Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 30 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  9 +++++++
+ 2 files changed, 39 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index fdfee88e41e3..b6ae15066205 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -5070,9 +5070,12 @@ static void gfx_v12_0_userq_priv_fault_work(struct work_struct *work)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index e0639f844a8e..f398986a61a5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -27,6 +27,7 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/overflow.h>
+ #include <drm/drm_drv.h>
++#include <linux/wait_bit.h>
  
- 		doorbell = (db_ctrl & CP_RB_DOORBELL_CONTROL__DOORBELL_OFFSET_MASK) >>
- 			   CP_RB_DOORBELL_CONTROL__DOORBELL_OFFSET__SHIFT;
--		q = xa_load(&adev->userq_doorbell_xa, doorbell);
--		if (q)
-+		q = amdgpu_lookup_queue_by_doorbell(&adev->userq_doorbell_xa,
-+						    doorbell);
-+		if (q) {
- 			amdgpu_userq_start_hang_detect_work(q);
-+			amdgpu_userq_put(q);
-+		}
- 	}
+ #include "amdgpu.h"
+ #include "amdgpu_reset.h"
+@@ -533,6 +534,17 @@ amdgpu_userq_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
+ 	return r;
  }
  
++static void amdgpu_userq_mgr_inc_refs(struct amdgpu_userq_mgr *uq_mgr)
++{
++	atomic_inc(&uq_mgr->refs);
++}
++
++static void amdgpu_userq_mgr_dec_refs(struct amdgpu_userq_mgr *uq_mgr)
++{
++	if (atomic_dec_and_test(&uq_mgr->refs))
++		wake_up_var(&uq_mgr->refs);
++}
++
+ static int
+ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_queue *queue)
+ {
+@@ -594,6 +606,8 @@ static void amdgpu_userq_kref_destroy(struct kref *kref)
+ 	r = amdgpu_userq_destroy(uq_mgr, queue);
+ 	if (r)
+ 		drm_file_err(uq_mgr->file, "Failed to destroy usermode queue %d\n", r);
++
++	amdgpu_userq_mgr_dec_refs(uq_mgr);
+ }
+ 
+ struct amdgpu_usermode_queue *amdgpu_userq_get(struct amdgpu_userq_mgr *uq_mgr, u32 qid)
+@@ -707,6 +721,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	queue->xcp_id = (fpriv->xcp_id != AMDGPU_XCP_NO_PARTITION) ?
+ 				fpriv->xcp_id : 0;
+ 	queue->userq_mgr = uq_mgr;
++	amdgpu_userq_mgr_inc_refs(uq_mgr);
+ 	INIT_DELAYED_WORK(&queue->hang_detect_work,
+ 			  amdgpu_userq_hang_detect_work);
+ 
+@@ -819,6 +834,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ free_queue:
+ 	trace_amdgpu_userq_create_end(queue, r);
+ 	kfree(queue);
++	amdgpu_userq_mgr_dec_refs(uq_mgr);
+ err_pm_runtime:
+ 	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+ 	return r;
+@@ -1331,6 +1347,7 @@ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *f
+ {
+ 	mutex_init(&userq_mgr->userq_mutex);
+ 	xa_init_flags(&userq_mgr->userq_xa, XA_FLAGS_ALLOC);
++	atomic_set(&userq_mgr->refs, 0);
+ 	userq_mgr->adev = adev;
+ 	userq_mgr->file = file_priv;
+ 	userq_mgr->proc_ctx_allocated = false;
+@@ -1380,6 +1397,19 @@ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr)
+ 		amdgpu_userq_put(queue);
+ 	}
+ 
++	/*
++	 * The above amdgpu_userq_put() may not be the last put
++	 * of the kref of a user queue, therefore there could
++	 * be some queues still alive even when the userq manager
++	 * has been destroyed. This wait_evet() blocks
++	 * amdgpu_userq_mgr_fini(), so keep userq_mgr alive
++	 * while any queues holding it.
++	 *
++	 * This prevents queue->userq_mgr use-after-free issues.
++	 */
++	wait_var_event(&userq_mgr->refs,
++		       !atomic_read_acquire(&userq_mgr->refs));
++
+ 	xa_destroy(&userq_mgr->userq_xa);
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+index 8fc73862f64e..a13d8d4dd5c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+@@ -126,6 +126,15 @@ struct amdgpu_userq_mgr {
+ 	 */
+ 	struct xarray			userq_xa;
+ 	struct mutex			userq_mutex;
++
++	/**
++	 * @refs:
++	 *
++	 * Each queue increases this counter when join this manager,
++	 * and decreases it when leave this manager.
++	 */
++	atomic_t			refs;
++
+ 	struct amdgpu_device		*adev;
+ 	struct delayed_work		resume_work;
+ 	struct drm_file			*file;
 -- 
 2.53.0
 
