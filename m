@@ -4,81 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DEE17C61DD7
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2026 11:41:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59BB6C61DCB
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2026 12:07:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4462310F365;
-	Fri, 28 Aug 2026 11:41:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AD2AA10E4D0;
+	Fri, 28 Aug 2026 12:07:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="e/BfyNas";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NbzlMLUF";
 	dkim-atps=neutral
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4068010F34D
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 11:41:33 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-c250a2bc3b3so126074166b.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 04:41:33 -0700 (PDT)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
+ [209.85.218.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F03010E00F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 12:07:35 +0000 (UTC)
+Received: by mail-ej1-f50.google.com with SMTP id
+ a640c23a62f3a-c2022323c37so137062966b.0
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 05:07:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787917292; x=1788522092; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=dyXXTcYmbHIHLJT4ADyb1lhamE3C9aXEyjHVkuAarfk=;
- b=e/BfyNasFBRqv1dy/rs0wsEnkOYjp7r8vx0VFVMGvypKDSt66qFaLJov4qCgfBDaaQ
- XJ6JYU+SCVU3IElHqPYsfoZ8AdUrCxKenEmHSYRXZVweIZQuaOQJ5NFZ6CPctP1UUsD4
- ejlkeDai7L/mv05UaJ6NVpzm0e9qI5QySYw0IcWS6LSZkLruJO0SRfwJovCsPEzjBFRD
- Y/NKk7iCvQxAPnR2uQLto6MmW6E0Iz+JJjyOZnIsaq8TbpT5soPVdVDxPMgWB3+hfVMf
- b/TiqIhfGD7BLby6SVSW/OiHML9yg44Ftx/3QqfWASRGN1ewtjQRrlVciNAxNcbF5Oo4
- 8WCA==
+ d=gmail.com; s=20251104; t=1787918854; x=1788523654; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=YQptJskLN+bhXYN8LRtMhM0AusLcVVY3UbBc0utTO2k=;
+ b=NbzlMLUFZBeJIQpt6LN6vGlP8ze2KPFW2ACwvTfyXGI1IOdvbEq01PCkxBefQ30BJA
+ gdHKM0qO4KRekaEP9jUzSyGCgJDkmDjWRtAxGxuGF00TO+1wBPxbOeCe59UT6MFgWsOc
+ FNqpdHc+NripDaiNDkk7U+RFskdodEoG9Zlf2YtAVu8RFYJfA09ywDbux+ufq2NKQ8X9
+ DmloeTxjtYdZh4Cq4jF9euW0IfNqCrsHTv26tLi1JiD660yq8YFPfDCkjx+Z90rWdiWn
+ GraR9MkUKC5O2Y1lmblBT0JtrF8iThzUGyOIRQDMHEBG/IFCYKwx3D0CimXSI6lbm4Qc
+ JVeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787917292; x=1788522092;
- h=content-transfer-encoding:content-type:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=dyXXTcYmbHIHLJT4ADyb1lhamE3C9aXEyjHVkuAarfk=;
- b=LnyHXbY6Y3g2AwuxJeFPEWTuX4fciLegLussEO7LRnDh5DNCJ87mX7/kEj1wTj51dx
- A25KA+6t5EgIv7Encr/7s5ZmnRoFvuWsX4W1/AoH+5D5yezaD1qIJ7110Kv7Nyvkiu+p
- aKMWUUSPDdqGqR1Ip8NaF/1knD/yAJRZSbdycQboEl0wxRM5tXf80dcXuESgW5RjHg6Q
- xmzBnmyoBCOjDqkq+vBA628tpWa29YKDzvO9AYbwQieIzxTUIblf4EGx3cJCDvDrRfCX
- 2Vdpa0ZGPyOh3gOZ376jCRmrNEgD5znvm5ELgrIuw2cp+yKhQ30unPDs5/3YXA4U+AxR
- louw==
-X-Gm-Message-State: AFuF++nFX5H0JC69F+r5rxnmnbvO7kQkhOZYOHnE6zS62cAP1zwo7cMW
- c5tax/UtRC5rrM4aa5fbjUSurrwkGjTV6yOYc2e8hLZqaB+221OCgaFne/apj0ud
-X-Gm-Gg: AR+sD13HznHJlh+AtBWVIK2eBxf2mPynfhWMZvhcUoH3bElguz3rcfhybSzED01xD01
- jjYAXQxLu4DRQmVuZ5FaVr2naUS7d995STXfSrpR0vt0pKdE4kSx6T35g1z9Oqx77pvfQXz5ECC
- w6TdkinK8MYCfZU3BlO5lFEH039fMZienxE8HjJ9SgtwsVOM8o7J96wAXKNsriDyjPH3wkp2Ir7
- cyFBRMoV3XdU98BVAUaiCEhkxKIHxu7u5gbXjwoxGe9WuGXfErdJ5wyPpZO5YMhzMfQP5FbCt+h
- vTobkH8zcHeKawU6QaXXiegFzbth5pGOY98EoS1lst9TMoVxlQb6xTXXjAk7CBI2dO5ER1fB5U/
- P7/a/R3JxxAisX8aJjKo39dIZnbk/rHhWmaTFwt1BhH0LZfMIIDyhZtR0CepeNiuJVJLulsedlS
- s4urwBQlAJjrUZLWmMT7aC0DxXomTCoUm2jU3mrpa0f4DhaIj9zZD2brFsDlwBGerZYZKcQjnbI
- 1yAPOFQLnsN7xZvCSrE52/9
-X-Received: by 2002:a17:907:e1ca:20b0:c25:57d9:e67d with SMTP id
- a640c23a62f3a-c2557d9e901mr297601566b.13.1787917291538; 
- Fri, 28 Aug 2026 04:41:31 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1787918854; x=1788523654;
+ h=content-transfer-encoding:content-type:mime-version:message-id:date
+ :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=YQptJskLN+bhXYN8LRtMhM0AusLcVVY3UbBc0utTO2k=;
+ b=Kz7MwsO4KtkFTxW5UwOLay8ebWgZQJoWmKI4S+gslDRlmjEMYEslvC1dPBLORRLTk4
+ vuUtAN7WUurqeyE52H8v+p3ti/pd3v+Qth6ocS/CfZ1YEq6au1zfL/oNeiStPyxEyXDG
+ ehcJxJc74BfhTHb0GoesVk0WS7Kt7TXl865zozp5mfssHJK38T5+w3ZuW888KOV/Yn5r
+ lW+PwSDk4P8qS0AUxyKBWtHvjZ9IZSYcD/m7+9ko/xelgXeWdVfL2+tR2YOrXXOxl+sB
+ AvewvI368yAlym6ZFRAw4AiZkIw5OFD3S01KwwVmV2wC/hnIDA4cpvSxyRzwSjuoL1jN
+ 4XCg==
+X-Gm-Message-State: AFuF++nVVCroaYYUw83p1zKOs19gotG8r/OHOFsamjaa9wh4b1jnlH0/
+ hdDkwrS2j/yomWrz1ehpQt5qitbwFaU/4bSMd61s3KGZiFst51up5vJxsl4OtQvM
+X-Gm-Gg: AR+sD102bGEsAhQcN2eNRhAunJjDhJUjngoJdfYv/tR7Fjok2TfWqAH1npBrtAS/TC+
+ Q/h79PzXf6pCc27CDJVQAYVoTdkPZTdh+aoT8mTdbLhP5bjrd6Bewb3U6tEtUW7BFElFiW2rfkN
+ ejSyCJ9Xx5ZGPU5s4Xb1j1eCXXMcTLaTTvhtekk/F0vvnddA5Q2S9+8xwN84nFYOeXxLPfhN3wF
+ vAnUm5POnUrsBIfFSPv4iuq/BhIN+hoQSfaqATbFL9BsDnnv5W4EH8wQbkaWMNFfyjRN/VBURHQ
+ fRyWwUYwt0z8bkiioYgoi4pif9Otqqr+SEf56RVfoL/A+wCYNpTD1TmGz9NpCzhp5+w1I5yrym7
+ vIa7EsHwCToIK3ZEWk5kx6iQMa80zYoKTPCm7qU+JGeWzlN8YbeKoJoxNLfrGc5etlwgyaTyLFw
+ WyseWjB8FeyjZHYKw30xJQuVvFhw8BbtF1kHR/odxGu3SYVpPOsdRw5UkWBoM4DlHtX3fKEX+XM
+ C7Oddfz4CrnVYJTDJFGAIjl
+X-Received: by 2002:a17:906:478c:b0:c25:4b3e:ff24 with SMTP id
+ a640c23a62f3a-c25571312b1mr445248266b.10.1787918853600; 
+ Fri, 28 Aug 2026 05:07:33 -0700 (PDT)
 Received: from Timur-Hyperion (5E1B9A5E.dsl.pool.telekom.hu. [94.27.154.94])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c255ee288a4sm72549566b.16.2026.08.28.04.41.30
+ a640c23a62f3a-c255f29a9dfsm75364066b.63.2026.08.28.05.07.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Aug 2026 04:41:31 -0700 (PDT)
+ Fri, 28 Aug 2026 05:07:33 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Natalie Vock <natalie.vock@gmx.de>, Amir Shetaia <Amir.Shetaia@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
  =?UTF-8?q?Marek=20Ol=C5=A1=C3=A1k?= <maraeo@gmail.com>,
  Mario Limonciello <mario.limonciello@amd.com>,
  Tvrtko Ursulin <tursulin@ursulin.net>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>,
- Siwei He <siwei.he@amd.com>, Philip Yang <philip.yang@amd.com>,
- Mukul Joshi <mukul.joshi@amd.com>
+ Felix Kuehling <Felix.Kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 10/11] drm/amdgpu/ih6.0: Enable retry CAM on Navi 3 dGPUs
-Date: Fri, 28 Aug 2026 13:41:12 +0200
-Message-ID: <20260828114113.13523-11-timur.kristof@gmail.com>
+Subject: [PATCH 0/5] drm/amdgpu/sdma: Improve existing SDMA queue resets
+Date: Fri, 28 Aug 2026 14:07:24 +0200
+Message-ID: <20260828120729.25908-1-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260828114113.13523-1-timur.kristof@gmail.com>
-References: <20260828114113.13523-1-timur.kristof@gmail.com>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
@@ -96,79 +90,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The retry CAM can filter interrupts which occur repeatedly,
-such as page fault interrupts when retry faults are enabled.
-This makes processing those interrupts much more efficient,
-because the CPU won't have to deal with processing the same
-interrupt repeatedly.
+Improve SDMA queue reset for SDMA v4.4.2, v5.0, v5.2
+and also moves some functionality from backend-specific
+code to common code in the amdgpu_sdma.c file.
 
-Enable the doorbell for the retry CAM.
+This prepares for implementing SDMA queue resets
+on more generations, as the same logic can be shared
+with all SDMA HW generations that don't use the MES.
+The actual queue reset implementations for various
+older SDMA versions will come in subsequent patch series
+after this one is accepted.
 
-Also change the doorbell range to actually enable the
-doorbell for the retry CAM.
+Timur Kristóf (5):
+  drm/amdgpu/sdma: Clear SDMA rings after reset before starting them
+  drm/amdgpu/sdma: Remove unimplemented soft_reset() for SDMA and SI DMA
+  drm/amdgpu/sdma: Move SDMA v5.x queue reset to common code
+  drm/amdgpu/sdma: Use common SDMA legacy queue reset on SDMA v4.4.2
+  drm/amdgpu/sdma: In legacy queue reset function, check if KFD is
+    initialized
 
-Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/ih_v6_0.c   | 25 +++++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c |  2 +-
- 2 files changed, 26 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 54 ++++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  4 ++
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_0.c   |  8 ----
+ drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 26 +-----------
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   | 33 +--------------
+ drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   | 25 +----------
+ drivers/gpu/drm/amd/amdgpu/si_dma.c      |  7 ---
+ 7 files changed, 62 insertions(+), 95 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-index 4470df45b7ea..d6554add485c 100644
---- a/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/ih_v6_0.c
-@@ -307,6 +307,16 @@ static int ih_v6_0_enable_ring(struct amdgpu_device *adev,
- 	return 0;
- }
- 
-+static uint32_t ih_v6_0_setup_retry_doorbell(u32 doorbell_index)
-+{
-+	u32 val = 0;
-+
-+	val = REG_SET_FIELD(val, IH_DOORBELL_RPTR, OFFSET, doorbell_index);
-+	val = REG_SET_FIELD(val, IH_DOORBELL_RPTR, ENABLE, 1);
-+
-+	return val;
-+}
-+
- /**
-  * ih_v6_0_irq_init - init and enable the interrupt ring
-  *
-@@ -392,6 +402,21 @@ static int ih_v6_0_irq_init(struct amdgpu_device *adev)
- 
- 	pci_set_master(adev->pdev);
- 
-+	if (!(adev->flags & AMD_IS_APU)) {
-+		/* Allocate the doorbell for IH Retry CAM */
-+		adev->irq.retry_cam_doorbell_index = (adev->doorbell_index.ih + 2) << 1;
-+		WREG32_SOC15(OSSSYS, 0, regIH_DOORBELL_RETRY_CAM,
-+			     ih_v6_0_setup_retry_doorbell(adev->irq.retry_cam_doorbell_index));
-+
-+		/* Enable IH Retry CAM */
-+		tmp = RREG32_SOC15(OSSSYS, 0, regIH_RETRY_INT_CAM_CNTL);
-+		tmp = REG_SET_FIELD(tmp, IH_RETRY_INT_CAM_CNTL, ENABLE, 1);
-+		tmp = REG_SET_FIELD(tmp, IH_RETRY_INT_CAM_CNTL, CAM_SIZE, 0xF);
-+		WREG32_SOC15(OSSSYS, 0, regIH_RETRY_INT_CAM_CNTL, tmp);
-+
-+		adev->irq.retry_cam_enabled = true;
-+	}
-+
- 	/* enable interrupts */
- 	ret = ih_v6_0_toggle_interrupts(adev, true);
- 	if (ret)
-diff --git a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-index f89e5f40e1a5..a66e3073aed8 100644
---- a/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-+++ b/drivers/gpu/drm/amd/amdgpu/nbio_v4_3.c
-@@ -199,7 +199,7 @@ static void nbio_v4_3_ih_doorbell_range(struct amdgpu_device *adev,
- 		ih_doorbell_range = REG_SET_FIELD(ih_doorbell_range,
- 						  S2A_DOORBELL_ENTRY_1_CTRL,
- 						  S2A_DOORBELL_PORT1_RANGE_SIZE,
--						  2);
-+						  8);
- 		ih_doorbell_range = REG_SET_FIELD(ih_doorbell_range,
- 						  S2A_DOORBELL_ENTRY_1_CTRL,
- 						  S2A_DOORBELL_PORT1_AWADDR_31_28_VALUE,
 -- 
 2.55.0
 
