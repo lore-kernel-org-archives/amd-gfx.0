@@ -4,79 +4,65 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F139C61DE2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12840C624C8
 	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 07:04:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5449E10E6B7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 46EF510E6B3;
 	Mon, 31 Aug 2026 07:04:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fB/vEzlk";
+	dkim=pass (1024-bit key; secure) header.d=sarx-technology.com header.i=narek@sarx-technology.com header.b="IryDQvY0";
 	dkim-atps=neutral
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
- [209.85.221.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A7FD310E0DC
- for <amd-gfx@lists.freedesktop.org>; Sat, 29 Aug 2026 08:56:49 +0000 (UTC)
-Received: by mail-wr1-f41.google.com with SMTP id
- ffacd0b85a97d-482e257a23aso990060f8f.0
- for <amd-gfx@lists.freedesktop.org>; Sat, 29 Aug 2026 01:56:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787993808; x=1788598608; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=B2/Zp6NA4HAJ1jDSITO8e+fRzaCcgFllUHQXoAMtqoM=;
- b=fB/vEzlk9BRAh45Tlq/8O1QPXaWF5Netx2t2SsxOJ1TNOPoiAI8QtNS4S5cwXKY3oA
- j8RfFUxMGxKHquktNTCnU7fZ6q2NkFpg+BKgkC982AgqqSz5jr5GQPD+ncDeuLTHikko
- 2rrzU32AoiXTWPQd7kx51gklbt2n3trk65tCjPplQlQxsouBO64nWcHNtcrWRjDUKHjc
- YqXDm+QsHgMzzQqNvGDDXKC2XWQN+mEWbiGqZZKLAGhJkeo2V7oFL673DPy0msXsZc4X
- Fjc8zy5BcYJsPLx8Dv+mTwu8N/wKw5UWBdabXxz95o2okNr1vPDhF/sT5TV8aCEKoI/A
- QMmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787993808; x=1788598608;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=B2/Zp6NA4HAJ1jDSITO8e+fRzaCcgFllUHQXoAMtqoM=;
- b=Z4TA0zasfKcGqyD3U6zV3QO+JPYI/mz9HIa+fRtrNabAbGpcSdUZlD/TON7FYs5ZYv
- vQ3mMBKl1e9GZD5PniHVRbBecYHlYisNXV0KN3VNDb0T4hbDrQPlZaemwSIOEwggKVln
- sIdEbV0w8953LAU+UTqbBRIuCsNmHeDpA6BHxavjnFSx3w82Gvj1W6a+wkpvB4VSN2gN
- k4/yMcVYPDU4BGt/nP9PFYvfUkE+VBw1SGJt4IgafFav5Bmg4QRwx4qGhZbXq169GizG
- gXyIWZpIpepenJ9+7JkWanJ2+aLFCrDzHDlnfaEEFX94SjjW5YBKSMiMHLGKrWZisoy/
- e8yw==
-X-Forwarded-Encrypted: i=1;
- AKwUvBz1ECRlyqPSTeGq5Dpq2t4RHYMfOCVu/d4cyNPSLcpdNOeiycTxLJFStYDotW4plpUk4dUwCb7U@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mkiV2TDUOPSvphWH9bYIOFME6wOgY+j8/y82CgR4+uTSULdajF
- sM8AbVhdJsiZgfg9uU6+acqV9jh+w0+gnHFIf0Zd3JDc89CCJ7HCDWgX
-X-Gm-Gg: AYBFou3+p6gOaAYFNScrJ5+WS/kj+n+0aMi3GuNQOHPNq7TRE9IdG1/9t9m+87uDoUd
- aWQi88r9Y0IlneoNRIfbBMC5ZIaAdZmO4c/HS2TMOu0sDZwQWFSHs8fu1Cjq/Sdq6+EH4MKL5G4
- v6bq9KIBiqx0M/DIBqRjikDqX7bmE8+FBcQJPxlMLVW657JOIWBzuwcbqPdwaK9SgCN8x90TOTF
- lM0qLqMVXSeksPBvBjF8t/+iIE1TxJFdoKV31BBqvU5ThCZRp8byVH5/tkqAh7HXlLhPsG6z6Oy
- sFb2ZCw2qcL5plEZudoVFfa5lXOoHSiNEpGn1ws9Uq56ZYX9Jb4MB70wbshUjecOdl78Aut6fII
- tuvWbyQKqfrmDH/iS57vlM6/AlygltWuPkq9JT0q8PQ/aQQpyizBuZ8iGKQ9IUHJsZJCjgA5w+I
- wjzidYsUGRueyh/sqjU4ZGWc0I149vALyZWQGWiZO0/EmzlT/DShjp11TK/fhY/emgXStTmamWF
- WjblBpNQQp7g2vFa2IBa688AWeaCW9HMp42BUl+fk4kziBeXLStMow8Kcetgpr/fRoS3U+v
-X-Received: by 2002:a05:6000:481a:b0:47f:f43e:f0cd with SMTP id
- ffacd0b85a97d-482f7977a45mr20810773f8f.4.1787993807937; 
- Sat, 29 Aug 2026 01:56:47 -0700 (PDT)
-Received: from drago.hgw.local ([2a00:1d34:e90c:f900:e29d:3a79:ac40:9edd])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-482fbb28276sm10109373f8f.29.2026.08.29.01.56.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 29 Aug 2026 01:56:47 -0700 (PDT)
-From: Deniz Aydogan <denizaydogan1902@gmail.com>
-To: lizhi.hou@amd.com,
-	amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Deniz Aydogan <denizaydogan1902@gmail.com>
-Subject: [PATCH v2] accel/amdxdna: fix NULL deref and GEM object leak in error
- paths
-Date: Sat, 29 Aug 2026 11:56:44 +0300
-Message-ID: <20260829085644.38103-1-denizaydogan1902@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260829080016.10002-1-denizaydogan1902@gmail.com>
-References: <20260829080016.10002-1-denizaydogan1902@gmail.com>
+Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2B32A10E4E6;
+ Fri, 28 Aug 2026 19:34:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1787945647; cv=none; d=zohomail.eu; s=zohoarc; 
+ b=Prl3KqvUe94hPQhFMyZR2ohzNlRY+NMKEet4EaPRXqXJzbAIui5xCHfHGFebOFCcFigdPlq4s0ibEDCNlNZJ+9iZNzV9akDiJbE/iawoE4UBZ9z37nqZLYN5H1u8kK3p8g2mAfRwHW2f/Erp4eKoYdS3u7/PgKMXqkjYyo4eTaM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu;
+ s=zohoarc; t=1787945647;
+ h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=HuoqYonIsPZolvOKXDRvu4HreYMdzphwL4wr0PNcGs4=; 
+ b=XuuHJfdZHw3wTD5Q0K0+A0KEIDwTItXPKp8GQz8XotvA90ZjcZ0gALA1e5A5ZnLDjdwOI4UENFNYM70YkMMr3kR92r27W4bPndMzaqfafuyuTISY3rYyAIdI1H4YKp8O467+xZJSJgxRFAc9jJZDa3QJAG6hgNwfMstF5risGxc=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+ dkim=pass  header.i=sarx-technology.com;
+ spf=pass  smtp.mailfrom=narek@sarx-technology.com;
+ dmarc=pass header.from=<narek@sarx-technology.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1787945647; 
+ s=zoho; d=sarx-technology.com; i=narek@sarx-technology.com;
+ h=Date:Date:From:From:To:To:Cc:Cc:Message-Id:Message-Id:In-Reply-To:Subject:Subject:MIME-Version:Content-Type:Reply-To;
+ bh=HuoqYonIsPZolvOKXDRvu4HreYMdzphwL4wr0PNcGs4=;
+ b=IryDQvY0I6+5YWWr9ehh3k42GibBNNksES+M/FwMCWu9P+c4N6Fot5NWyFkkS2Pl
+ GxLquz0/SFT5TZpFWqjD4my3Dmvnb0StYzqNHv/CbFENU2I3blpnA3u1ow/VouwyZ0K
+ NMlYEHNphPfMHTDPYUjTwZiGAmuDuI8MALTt26SM=
+Received: from mail.zoho.eu by mx.zoho.eu
+ with SMTP id 1787945647079278.54520443696674;
+ Fri, 28 Aug 2026 21:34:07 +0200 (CEST)
+Received: from mail.zoho.eu by mx.zoho.eu
+ with SMTP id 1787945614973839.9586840032872;
+ Fri, 28 Aug 2026 21:33:34 +0200 (CEST)
+Date: Fri, 28 Aug 2026 20:33:34 +0100
+From: Narek Sarkissian <narek@sarx-technology.com>
+To: "Mark Pearson" <mpearson-lenovo@squebb.ca>
+Cc: "Mario Limonciello" <superm1@kernel.org>, "Alex Hung" <alex.hung@amd.com>,
+ "Alexander Deucher" <alexander.deucher@amd.com>,
+ "amd-gfx" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel" <dri-devel@lists.freedesktop.org>,
+ "harry.wentland" <harry.wentland@amd.com>,
+ "kernel-dev" <kernel-dev@igalia.com>,
+ "Limonciello,  Mario" <mario.limonciello@amd.com>,
+ "Melissa Wen" <mwen@igalia.com>, "sunpeng.li" <sunpeng.li@amd.com>
+Message-Id: <1a049dcfe50.2ad3d36e1436838.6779838858967113270@sarx-technology.com>
+In-Reply-To: <47be5869-69c3-4066-bcc2-738b838219fc@app.fastmail.com>
+References: <fc3f474b-92bd-46b3-919a-dec8ea105b86@kernel.org>
+ <20260828190727.58724-1-narek@sarx-technology.com>
+ <47be5869-69c3-4066-bcc2-738b838219fc@app.fastmail.com>
+Subject: Re: [PATCH v8 5/5] drm/amd/display: Fetch the EDID from _DDC if
+ available for eDP
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/alternative; 
+ boundary="----=_Part_4443178_633772278.1787945614928"
+Importance: Medium
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:04:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,61 +78,238 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdxdna_cmd_submit() does not set job->cmd_bo for internal driver
-commands that pass AMDXDNA_INVALID_BO_HANDLE. When such a job hits
-an error or completes normally, both the submit error path and
-amdxdna_sched_job_cleanup() call amdxdna_gem_put_obj(job->cmd_bo)
-unconditionally, dereferencing NULL.
+------=_Part_4443178_633772278.1787945614928
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
 
-Separately, amdxdna_cmd_set_error() acquires a GEM reference via
-amdxdna_gem_get_obj() when handling a chained command, but leaks it
-when the subsequent amdxdna_gem_vmap() returns NULL.
+Mark,
 
-Guard all three amdxdna_gem_put_obj(job->cmd_bo) call sites with a
-NULL check and release the GEM reference on vmap failure.
 
-Fixes: 3ba13f5e7180 ("Merge tag 'devicetree-fixes-for-7.3-1'")
-Signed-off-by: Deniz Aydogan <denizaydogan1902@gmail.com>
----
- drivers/accel/amdxdna/amdxdna_ctx.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-index 31a414c3f..a806702ec 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.c
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-@@ -183,8 +183,10 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
- 		if (!abo)
- 			return -EINVAL;
- 		cmd = amdxdna_gem_vmap(abo);
--		if (!cmd)
-+		if (!cmd) {
-+			amdxdna_gem_put_obj(abo);
- 			return -ENOMEM;
-+		}
- 	}
+> I think this is working as designed.
+
+>
+
+> I'll try to find our internal ticket with the details (my memory is a
+
+> bit rusty and this is a few years old now), but as I recall they saw
+
+> issues with Windows testing with 90Hz and so limited the panel to
+
+> 60Hz - using the BIOS EDID to do this. Linux is just following the
+
+> 'manufacturer recommendation'.
+
+>
+
+> If you're not seeing issues, then overriding it to use the panel
+
+> EDID is fine, but just be aware that the 90Hz did not pass Lenovo QA.
+
+
+
+Thanks for the context, that's useful to know, and no, I'm not seeing
+
+any issues running at 90Hz so far.
+
+
+
+The reason I wanted to flag it rather than just quietly carry the
+
+override locally: this same laptop ran 90Hz without any problems for
+
+about four years across several Ubuntu-based distros (XFCE and KDE
+
+sessions) on older kernels. It was only after switching to an
+
+Arch-based distro with a kernel new enough to carry this patch that I
+
+dropped to 60Hz, and it took a fair amount of EDID diffing to work out
+
+why. So whatever QA issue prompted limiting this panel to 60Hz in the
+
+BIOS EDID, it doesn't seem to have been hit by years of real-world use
+
+at 90Hz on this unit under Linux, for whatever that's worth as a data
+
+point.
+
+
+
+Given that, I don't think this needs a behaviour change on your end,
+
+just wanted it on record for anyone else who hits the same "why did my
+
+refresh rate drop after a kernel/distro update" confusion and finds
+
+the ticket. I'll add a note with this context to the GitLab issue.
+
+
+
+Thanks again for the quick response.
+
+
+
+Narek
+
+
+
+
+
+
+
+
+
+
+
+From: Mark Pearson <mpearson-lenovo@squebb.ca>
+To: "Narek Sarkissian"<narek@sarx-technology.com>, "Mario Limonciello"<superm1@kernel.org>
+Cc: "Alex Hung"<alex.hung@amd.com>, "Alexander Deucher"<alexander.deucher@amd.com>, <amd-gfx@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>, <harry.wentland@amd.com>, <kernel-dev@igalia.com>, "Limonciello,  Mario"<mario.limonciello@amd.com>, "Melissa Wen"<mwen@igalia.com>, <sunpeng.li@amd.com>
+Date: Fri, 28 Aug 2026 20:19:14 +0100
+Subject: Re: [PATCH v8 5/5] drm/amd/display: Fetch the EDID from _DDC if available for eDP
+
+
+
+Hi Narek 
  
- 	memset(cmd->data, 0xff, abo->mem.size - sizeof(*cmd));
-@@ -575,7 +577,8 @@ void amdxdna_sched_job_cleanup(struct amdxdna_sched_job *job)
- 	trace_amdxdna_debug_point(job->hwctx->name, job->seq, "job release");
- 	amdxdna_pm_suspend_put(job->hwctx->client->xdna);
- 	amdxdna_arg_bos_put(job);
--	amdxdna_gem_put_obj(job->cmd_bo);
-+	if (job->cmd_bo)
-+		amdxdna_gem_put_obj(job->cmd_bo);
- 	dma_fence_put(job->fence);
- 	mmdrop(job->mm);
- }
-@@ -676,7 +679,8 @@ int amdxdna_cmd_submit(struct amdxdna_client *client,
- put_bos:
- 	amdxdna_arg_bos_put(job);
- cmd_put:
--	amdxdna_gem_put_obj(job->cmd_bo);
-+	if (job->cmd_bo)
-+		amdxdna_gem_put_obj(job->cmd_bo);
- free_job:
- 	if (job->mm)
- 		mmdrop(job->mm);
--- 
-2.55.0
+On Fri, Aug 28, 2026, at 3:07 PM, Narek Sarkissian wrote: 
+> Hi Mario, Alex, Alexander, 
+> 
+> Following up on this patch (c6a837088bed) with a regression report on a 
+> different Lenovo model. 
+> 
+> On a ThinkPad T14s Gen 3 (AMD Radeon 680M / Rembrandt, DCN 3.1.2), this 
+> change causes the internal eDP panel to be capped at 60Hz even though 
+> the panel natively supports 90Hz. dm_helpers_read_local_edid() finds 
+> an ACPI-provided EDID via _DDC and uses it unconditionally, but on 
+> this machine that ACPI blob is a stale/incomplete copy of the panel's 
+> real EDID: it encodes only a 60Hz detailed timing, while a live DP AUX 
+> read of the same panel (Samsung Display, ATNA40YK08-0) returns 90Hz as 
+> the native/preferred timing plus 60Hz as a secondary mode. Both DTDs 
+> share the same pixel clock and htotal, so the ACPI copy looks like it 
+> was deliberately downclocked rather than being a different display. 
+> 
+> dmesg confirms the code path taken: 
+> 
+>   amdgpu 0000:33:00.0: [drm] Using ACPI provided EDID for eDP-1 
+> 
+> Booting with amdgpu.dcdebugmask=0x8000 (DC_DISABLE_ACPI_EDID) skips 
+> the ACPI EDID and forces the live AUX read, which correctly exposes 
+> 90Hz and reports the panel's real vendor (Samsung) instead of Lenovo's 
+> ACPI-authored EDID (manufacturer/model LEN 16713). 
+> 
+> Full writeup with the EDID diff (byte-level comparison of the ACPI 
+> blob vs. the live-read panel EDID), environment details, and repro 
+> steps is here: 
+> 
+> https://gitlab.freedesktop.org/drm/amd/-/work_items/5710  
+> 
+> Since this same unconditional ACPI-EDID preference apparently fixes 
+> T14 Gen 4 but regresses T14s Gen 3, an unconditional preference in 
+> either direction doesn't seem to work for all eDP panels globally. 
+> Possible directions raised in the issue: fall back to ACPI only when 
+> the live AUX read fails (inverting current priority), prefer whichever 
+> source has more/higher-refresh timings, or gate the ACPI-EDID 
+> preference behind a DMI-based quirk table scoped to the models that 
+> actually need it. 
+> 
+I think this is working as designed. 
+ 
+I'll try to find our internal ticket with the details (my memory is a bit rusty and this is a few years old now), but as I recall they saw issues with Windows testing with 90Hz and so limited the panel to 60Hz - using the BIOS EDID to do this. Linux is just following the 'manufacturer recommendation'. 
+ 
+If you're not seeing issues, then overriding it to use the panel EDID is fine, but just be aware that the 90Hz did not pass Lenovo QA. 
+ 
+Mark
+------=_Part_4443178_633772278.1787945614928
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head>=
+<meta content=3D"text/html;charset=3DUTF-8" http-equiv=3D"Content-Type"></h=
+ead><body ><div style=3D"font-family: Verdana, Arial, Helvetica, sans-serif=
+; font-size: 10pt;"><div>Mark,<br></div><div><br></div><div>&gt; I think th=
+is is working as designed.<br></div><div>&gt;<br></div><div>&gt; I'll try t=
+o find our internal ticket with the details (my memory is a<br></div><div>&=
+gt; bit rusty and this is a few years old now), but as I recall they saw<br=
+></div><div>&gt; issues with Windows testing with 90Hz and so limited the p=
+anel to<br></div><div>&gt; 60Hz - using the BIOS EDID to do this. Linux is =
+just following the<br></div><div>&gt; 'manufacturer recommendation'.<br></d=
+iv><div>&gt;<br></div><div>&gt; If you're not seeing issues, then overridin=
+g it to use the panel<br></div><div>&gt; EDID is fine, but just be aware th=
+at the 90Hz did not pass Lenovo QA.<br></div><div><br></div><div>Thanks for=
+ the context, that's useful to know, and no, I'm not seeing<br></div><div>a=
+ny issues running at 90Hz so far.<br></div><div><br></div><div>The reason I=
+ wanted to flag it rather than just quietly carry the<br></div><div>overrid=
+e locally: this same laptop ran 90Hz without any problems for<br></div><div=
+>about four years across several Ubuntu-based distros (XFCE and KDE<br></di=
+v><div>sessions) on older kernels. It was only after switching to an<br></d=
+iv><div>Arch-based distro with a kernel new enough to carry this patch that=
+ I<br></div><div>dropped to 60Hz, and it took a fair amount of EDID diffing=
+ to work out<br></div><div>why. So whatever QA issue prompted limiting this=
+ panel to 60Hz in the<br></div><div>BIOS EDID, it doesn't seem to have been=
+ hit by years of real-world use<br></div><div>at 90Hz on this unit under Li=
+nux, for whatever that's worth as a data<br></div><div>point.<br></div><div=
+><br></div><div>Given that, I don't think this needs a behaviour change on =
+your end,<br></div><div>just wanted it on record for anyone else who hits t=
+he same "why did my<br></div><div>refresh rate drop after a kernel/distro u=
+pdate" confusion and finds<br></div><div>the ticket. I'll add a note with t=
+his context to the GitLab issue.<br></div><div><br></div><div>Thanks again =
+for the quick response.<br></div><div><br></div><div>Narek<br></div><div><b=
+r></div><div id=3D"Zm-_Id_-Sgn" data-sigid=3D"619332000000337007" data-zblu=
+epencil-ignore=3D"true"><br></div><div><br></div><div class=3D"zmail_extra_=
+hr" style=3D"border-top: 1px solid rgb(204, 204, 204); height: 0px; margin-=
+top: 10px; margin-bottom: 10px; line-height: 0px;"><br></div><div class=3D"=
+zmail_extra" data-zbluepencil-ignore=3D"true"><div><br></div><div id=3D"Zm-=
+_Id_-Sgn1">From: Mark Pearson &lt;mpearson-lenovo@squebb.ca&gt;<br>To: "Nar=
+ek Sarkissian"&lt;narek@sarx-technology.com&gt;, "Mario Limonciello"&lt;sup=
+erm1@kernel.org&gt;<br>Cc: "Alex Hung"&lt;alex.hung@amd.com&gt;, "Alexander=
+ Deucher"&lt;alexander.deucher@amd.com&gt;, &lt;amd-gfx@lists.freedesktop.o=
+rg&gt;, &lt;dri-devel@lists.freedesktop.org&gt;, &lt;harry.wentland@amd.com=
+&gt;, &lt;kernel-dev@igalia.com&gt;, "Limonciello,  Mario"&lt;mario.limonci=
+ello@amd.com&gt;, "Melissa Wen"&lt;mwen@igalia.com&gt;, &lt;sunpeng.li@amd.=
+com&gt;<br>Date: Fri, 28 Aug 2026 20:19:14 +0100<br>Subject: Re: [PATCH v8 =
+5/5] drm/amd/display: Fetch the EDID from _DDC if available for eDP<br></di=
+v><div><br></div><blockquote style=3D"margin: 0px;" id=3D"blockquote_zmail"=
+><div>Hi Narek <br> <br>On Fri, Aug 28, 2026, at 3:07 PM, Narek Sarkissian =
+wrote: <br>&gt; Hi Mario, Alex, Alexander, <br>&gt; <br>&gt; Following up o=
+n this patch (c6a837088bed) with a regression report on a <br>&gt; differen=
+t Lenovo model. <br>&gt; <br>&gt; On a ThinkPad T14s Gen 3 (AMD Radeon 680M=
+ / Rembrandt, DCN 3.1.2), this <br>&gt; change causes the internal eDP pane=
+l to be capped at 60Hz even though <br>&gt; the panel natively supports 90H=
+z. dm_helpers_read_local_edid() finds <br>&gt; an ACPI-provided EDID via _D=
+DC and uses it unconditionally, but on <br>&gt; this machine that ACPI blob=
+ is a stale/incomplete copy of the panel's <br>&gt; real EDID: it encodes o=
+nly a 60Hz detailed timing, while a live DP AUX <br>&gt; read of the same p=
+anel (Samsung Display, ATNA40YK08-0) returns 90Hz as <br>&gt; the native/pr=
+eferred timing plus 60Hz as a secondary mode. Both DTDs <br>&gt; share the =
+same pixel clock and htotal, so the ACPI copy looks like it <br>&gt; was de=
+liberately downclocked rather than being a different display. <br>&gt; <br>=
+&gt; dmesg confirms the code path taken: <br>&gt; <br>&gt;   amdgpu 0000:33=
+:00.0: [drm] Using ACPI provided EDID for eDP-1 <br>&gt; <br>&gt; Booting w=
+ith amdgpu.dcdebugmask=3D0x8000 (DC_DISABLE_ACPI_EDID) skips <br>&gt; the A=
+CPI EDID and forces the live AUX read, which correctly exposes <br>&gt; 90H=
+z and reports the panel's real vendor (Samsung) instead of Lenovo's <br>&gt=
+; ACPI-authored EDID (manufacturer/model LEN 16713). <br>&gt; <br>&gt; Full=
+ writeup with the EDID diff (byte-level comparison of the ACPI <br>&gt; blo=
+b vs. the live-read panel EDID), environment details, and repro <br>&gt; st=
+eps is here: <br>&gt; <br>&gt; <a href=3D"https://gitlab.freedesktop.org/dr=
+m/amd/-/work_items/5710" target=3D"_blank">https://gitlab.freedesktop.org/d=
+rm/amd/-/work_items/5710</a> <br>&gt; <br>&gt; Since this same unconditiona=
+l ACPI-EDID preference apparently fixes <br>&gt; T14 Gen 4 but regresses T1=
+4s Gen 3, an unconditional preference in <br>&gt; either direction doesn't =
+seem to work for all eDP panels globally. <br>&gt; Possible directions rais=
+ed in the issue: fall back to ACPI only when <br>&gt; the live AUX read fai=
+ls (inverting current priority), prefer whichever <br>&gt; source has more/=
+higher-refresh timings, or gate the ACPI-EDID <br>&gt; preference behind a =
+DMI-based quirk table scoped to the models that <br>&gt; actually need it. =
+<br>&gt; <br>I think this is working as designed. <br> <br>I'll try to find=
+ our internal ticket with the details (my memory is a bit rusty and this is=
+ a few years old now), but as I recall they saw issues with Windows testing=
+ with 90Hz and so limited the panel to 60Hz - using the BIOS EDID to do thi=
+s. Linux is just following the 'manufacturer recommendation'. <br> <br>If y=
+ou're not seeing issues, then overriding it to use the panel EDID is fine, =
+but just be aware that the 90Hz did not pass Lenovo QA. <br> <br>Mark <br><=
+/div></blockquote></div><div><br></div></div><br></body></html>
+------=_Part_4443178_633772278.1787945614928--
+
 
