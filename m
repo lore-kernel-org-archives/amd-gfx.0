@@ -4,92 +4,75 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B061DC624A5
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 07:04:54 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A7D73C624C6
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 07:04:55 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C580210E652;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BA56C10E625;
 	Mon, 31 Aug 2026 07:04:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=permerror (0-bit key) header.d=squebb.ca header.i=@squebb.ca header.b="oy1N6mij";
-	dkim=permerror (0-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ox3Ae7/L";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="KWpDJZpV";
 	dkim-atps=neutral
-X-Greylist: delayed 403 seconds by postgrey-1.36 at gabe;
- Fri, 28 Aug 2026 19:26:18 UTC
-Received: from fhigh-a5-smtp.messagingengine.com
- (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D99A410E42B;
- Fri, 28 Aug 2026 19:26:18 +0000 (UTC)
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
- by mailfhigh.phl.internal (Postfix) with ESMTP id B67F11400036;
- Fri, 28 Aug 2026 15:19:34 -0400 (EDT)
-Received: from phl-imap-09 ([10.202.2.99])
- by phl-compute-02.internal (MEProxy); Fri, 28 Aug 2026 15:19:34 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
- :cc:content-transfer-encoding:content-type:content-type:date
- :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to; s=fm1; t=1787944774;
- x=1788031174; bh=8UrWGTVAYCPbHsFpypcrxdz98q19yOUxOWoIeRYoPPg=; b=
- oy1N6mijDar0IP19gbbnP2pqex/L0lk48IGWfq9sGYitAbZqYDUBelLgxTdrIw6x
- yW0kZS5Wi747KSoOi9xl56bb84E6UYBei3qtEivA/QAEldaBUW5B/nVDGviyQFVG
- DtNMEFG+R3pkmnZxlYkTfFtG2hS9YaIg/mOuBOt9G5hyvl1J0EswQ1BYfi1Hf1Ah
- PeWDliX6KdHFmv/V7T7HWVtewOhN61dzX/F3TaMe0v4iLGpDjTqQlz2JUlid1omx
- Ghsmuj8v5yzHPyK8G582Ry0MTnNSAkH2NYSVQmycMyxIOuhuaPsybaQjEGwTM+An
- cdgVp4W37IZNmPknGvL7KA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- messagingengine.com; h=cc:cc:content-transfer-encoding
- :content-type:content-type:date:date:feedback-id:feedback-id
- :from:from:in-reply-to:in-reply-to:message-id:mime-version
- :references:reply-to:subject:subject:to:to:x-me-proxy
- :x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787944774; x=
- 1788031174; bh=8UrWGTVAYCPbHsFpypcrxdz98q19yOUxOWoIeRYoPPg=; b=O
- x3Ae7/Lp4V/c/yyErWvgnU7gGpsthtOcqz6LzZWUi2ThMeiWEVn7r1RKXf2AOVH/
- lWLhP++M0d4q4UK6ds/joKGClf4kclAtoHM6wbKgXI6n6JJ8MSMrNEElcMoyye1o
- BeKq1TSE1jEs+owVL+CDyOl4FsOcPe3JSdlesXqu3ebBqjGDrS/R0awrgB5+hR5r
- KDBogeFzDPB4l6MN0FYgqzgjhtHuNS2tVKjtN6Q7tHBF88x2cWTvWWgO1Lfkdw3J
- Wh3QGvvZFeuVE0txSMWQ3O1MaNlKvT9skGBHXY6oA4ri4dasiSIq4Sxpd3YXh76P
- 6Du4N7T+u6dnaM9ln6HhA==
-X-ME-Sender: <xms:Rt-Rao5hrPXJ6hvua06iEkf6KrPhCodnaMFvOcOjMHeIi9MaF8bGbw>
- <xme:Rt-RakvxgWjyeL7JbC7IYlYmMLe-09mzPHMqa_GzGyjmgF0yKmPhe0y4MZQepdNXo
- 8eFj2WckGPLFqf-ovh5KCtqixsDNdUSFeUOxSiRyC0qhM-vxs0uROc>
-X-ME-Proxy-Cause: dmFkZTGUliR0QyWBaMTSf5t4yQCBmBNl0fitsyVb6bxaqJD+aPUq/dkwZ93sRqftcQX/qQ
- aEdRxIfnWayxm6V7AbnJj3HUma/2MGhY8fAJSI9Me7kmz1LUqQWmo9K4FdIcqwUvvVmXSf
- S7iY5soVIGa4I20+jmzS3g35XQ6k+NaNg4IhTSarFBMIw9o858+XmSBe1Hi3kKR2L6NWh6
- HExgG+Wuwqul4PQATWz0hQfg3cnD2SZ6FVLfdz6JoqZxwl3IAGzcE3adSGLWpcu2o/4B/+
- RNS4VInzCGx9bDCrsDTZF8/Mx+s0Wm2pUpOTygksjVn7eTgztdO1c199bLYSmb8s5TjLgZ
- MJiTFUhNMT66lEBQ5vgjtYmvk8E8OuB0EzDWYmSFet5vXT3UqqTdZn+KMWaHNlsaqBsJKa
- tIGogVWokg9DBBFn03Dryd6P9ETXUD3kAcy0O9WsIXMCbqP3VQCkMIpF21Auw+FiYvht90
- do6/1WlNquF+2ECc8/6o1fT+kL2cmYE3QGXlDJAk3W+Tkzvs/LLkehx5O/qPoSsfY85Nq3
- 9dbyZoxS61M4kzB/crzf8FRXzkhyPLkNZ2uolWgw7ZpofKYUjjxdUzM7w2Ojic3dfrwHzt
- UGMYuZBTNgu6wY8cqMNCeOJHgDhoL+fi286GJ9avnE+qgQBe3VR8a40HVutw
-X-ME-Proxy: <xmx:Rt-RaieAvDaRHhoRkKAn1Q5bjaEhXAiezGP2zv06NFoEgZa4_Hd23g>
- <xmx:Rt-RaoFtPpZQJhK0DfyL4Uudsok5Gh-Yw3eTFg4OMA067uInXZXBaw>
- <xmx:Rt-Ragihra9rSuXZKTK-_-_sCdrJk1gDzScYv7LvQUPgFWVxJjEBfg>
- <xmx:Rt-Rak0rLOwTVLH2IKYPjghXmlgjWPMVwJJy-NsiJsS9EWCybvTTBQ>
- <xmx:Rt-RatWkFIQWLLYdvvMOssSuhegLfa7n6V96m--pnqSyePo0VhSPqp29>
-Feedback-ID: ibe194615:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
- id 4A7953020086; Fri, 28 Aug 2026 15:19:34 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ECE0E10E03F
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 21:24:09 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-49b8eeb3ff2so10179085e9.2
+ for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 14:24:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787952248; x=1788557048; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=tDbfWy3mJvr3iFz1oWIhMN0E9yCNJZGzu22x+0wJipk=;
+ b=KWpDJZpVmD6nah/3um6vIWrjpC0rqMOyiBlD0jmskX/2hy5mBm7LoM3BlJ4n1EZpUN
+ qh1YEdUsCXVofPFtcbsHGwqyx3reDjIIV/1Q1BDrN6biKCig3tOG91t6NxABRWJGTsBl
+ fQ4YtOkj4+Rmkmn56MH1fEjahrbFHj3L0rhRW6iPI6usEVuYTMegfsWn7xUpctB72nvG
+ n62IywfjxK9e79a6N01YXiDXkMvpPZS1BVXuYRhcTzu7V+tSwLcoFPHompArYfyFnXwh
+ JmWr7X2Lhgh8hkXT5wQaNxEODonQyhq+LrkALo82PMK3zDTMrTK4XDrNEQ2m5nSyp6ip
+ RkGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787952248; x=1788557048;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=tDbfWy3mJvr3iFz1oWIhMN0E9yCNJZGzu22x+0wJipk=;
+ b=GqFMzm1MlRs+gIQAqkIlvyWTZp7K544miTtjVRxXUzmWtVrSWSSVtmAD6s1BF8LKMm
+ JvIHXPZtcKUyxnYnpkVlNnUF/PNogZpXtCk0ywGjz5aADKxmJ568mJC9/A5Zf2CI7lwO
+ vWi+wR+unjPl1KsfeVAjz1xtoMZnCX/ULEfL6MJVeU0qf36zAb/AjqBngMOBStIbUf0V
+ Zd/fWgtTwlv7Djdu8XtZPlMPPyV4nCer8BFT2WaB9miWPo/5ZkUXYqPvG0bKT2qQxmaH
+ 8WcDn0GmXk/KrQFPgqQinmYQ3f0Sli8tO5n5DlNbgGV4u2g9sXRSjt9CXIPnfzgHc3G1
+ upBg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RroeBjoCDLGC2fc9bxgSIMO4L3PG1xAhQBSsE3ke+ZMGP/V2ZDR1Hr5Qj3QhtKG/wfx39Yv6Lra@lists.freedesktop.org
+X-Gm-Message-State: AFuF++n6M6eNGI6pIgNFDMne/HWxGsQ24LVvZUmrzwjy5Wp8p5y8OUTt
+ LQ7RXr3eR+tehub23UPf7emjHHMsiBVUpGzgfYmFy8XFFLrjpT/qtEH4
+X-Gm-Gg: AR+sD13yVbaSUWkO4l5gcnXJwk4f6RMsfiFfNhNB8fZpBIzFwr+vCHT83yuhtR+ECNf
+ sY/CsnwV/TvIL5GWnCs3m8R11CoV3IK6zQ8jK7/a0g4eavsfFCuLxwLug28pZDGYMaST0SjcvpY
+ qFI+Y7D4ErmGYe/gezDrKXmv8TkFTE4YNTnlhIbduTPhBISYNUozXvIa4FBHCQiDknz4zgt9GII
+ Mdpa6CZcR6a9wlmu+abacE6SYIGh94rpDwVlfFcQc3zusAIXPxb+s0c7ebtcgYBYWTkYor8AXP7
+ kgUQizojePZO35otClMRENcSI2TqON+n4HfT5XQxNgMyprcOclTmrucgOe/rSh/VI+3JUK9pnjU
+ /QbXUO9pj7Kh4NiOr9vXU89X4Rtw89WB60MmMv2V1Y6H+sSqUFVKKd63g5Kxbrd4uwIirHPFiqv
+ ABsyMXmmMjkxV6DkA/SohgqWXR/khXyRNVa9a+/ny8Zx9JHJAGs+Ki1BXj+QvTQkHilA4W2HrvY
+ oepG3YtHY/7HNTW3KMmdM4vOrboQCUy62Zv1zqQGLGdWXdxKmRuYXvH+wt1RQ==
+X-Received: by 2002:a05:600c:314f:b0:499:4e47:eaf2 with SMTP id
+ 5b1f17b1804b1-49b91c38bcfmr136182665e9.6.1787952248132; 
+ Fri, 28 Aug 2026 14:24:08 -0700 (PDT)
+Received: from drago.hgw.local ([2a00:1d34:ebf3:5500:6828:ce36:77ad:ae8c])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49b91728319sm86367475e9.12.2026.08.28.14.24.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 28 Aug 2026 14:24:07 -0700 (PDT)
+From: Deniz Aydogan <denizaydogan1902@gmail.com>
+To: lizhi.hou@amd.com,
+	amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Deniz Aydogan <denizaydogan1902@gmail.com>
+Subject: [PATCH] accel/amdxdna: fix double-free on mailbox channel stop
+Date: Sat, 29 Aug 2026 00:24:05 +0300
+Message-ID: <20260828212405.13124-1-denizaydogan1902@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-X-ThreadId: AFiiAAqIAeUF
-Date: Fri, 28 Aug 2026 15:19:14 -0400
-From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
-To: "Narek Sarkissian" <narek@sarx-technology.com>,
- "Mario Limonciello" <superm1@kernel.org>
-Cc: "Alex Hung" <alex.hung@amd.com>,
- "Alexander Deucher" <alexander.deucher@amd.com>,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- harry.wentland@amd.com, kernel-dev@igalia.com,
- "Limonciello, Mario" <mario.limonciello@amd.com>,
- "Melissa Wen" <mwen@igalia.com>, sunpeng.li@amd.com
-Message-Id: <47be5869-69c3-4066-bcc2-738b838219fc@app.fastmail.com>
-In-Reply-To: <20260828190727.58724-1-narek@sarx-technology.com>
-References: <fc3f474b-92bd-46b3-919a-dec8ea105b86@kernel.org>
- <20260828190727.58724-1-narek@sarx-technology.com>
-Subject: Re: [PATCH v8 5/5] drm/amd/display: Fetch the EDID from _DDC if
- available for eDP
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:04:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -105,53 +88,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi Narek
+mailbox_release_msg() frees the message with kfree() but does not
+remove it from the xarray. The stop function uses two loops to walk
+pending entries in cyclic order, but since released entries remain in
+the xarray, overlapping ranges cause the same entry to be freed twice.
 
-On Fri, Aug 28, 2026, at 3:07 PM, Narek Sarkissian wrote:
-> Hi Mario, Alex, Alexander,
->
-> Following up on this patch (c6a837088bed) with a regression report on a
-> different Lenovo model.
->
-> On a ThinkPad T14s Gen 3 (AMD Radeon 680M / Rembrandt, DCN 3.1.2), this
-> change causes the internal eDP panel to be capped at 60Hz even though
-> the panel natively supports 90Hz. dm_helpers_read_local_edid() finds
-> an ACPI-provided EDID via _DDC and uses it unconditionally, but on
-> this machine that ACPI blob is a stale/incomplete copy of the panel's
-> real EDID: it encodes only a 60Hz detailed timing, while a live DP AUX
-> read of the same panel (Samsung Display, ATNA40YK08-0) returns 90Hz as
-> the native/preferred timing plus 60Hz as a secondary mode. Both DTDs
-> share the same pixel clock and htotal, so the ACPI copy looks like it
-> was deliberately downclocked rather than being a different display.
->
-> dmesg confirms the code path taken:
->
->   amdgpu 0000:33:00.0: [drm] Using ACPI provided EDID for eDP-1
->
-> Booting with amdgpu.dcdebugmask=0x8000 (DC_DISABLE_ACPI_EDID) skips
-> the ACPI EDID and forces the live AUX read, which correctly exposes
-> 90Hz and reports the panel's real vendor (Samsung) instead of Lenovo's
-> ACPI-authored EDID (manufacturer/model LEN 16713).
->
-> Full writeup with the EDID diff (byte-level comparison of the ACPI
-> blob vs. the live-read panel EDID), environment details, and repro
-> steps is here:
->
->   https://gitlab.freedesktop.org/drm/amd/-/work_items/5710
->
-> Since this same unconditional ACPI-EDID preference apparently fixes
-> T14 Gen 4 but regresses T14s Gen 3, an unconditional preference in
-> either direction doesn't seem to work for all eDP panels globally.
-> Possible directions raised in the issue: fall back to ACPI only when
-> the live AUX read fails (inverting current priority), prefer whichever
-> source has more/higher-refresh timings, or gate the ACPI-EDID
-> preference behind a DMI-based quirk table scoped to the models that
-> actually need it.
->
-I think this is working as designed.
+In particular, when next_msgid is 0 (the initial value after kzalloc),
+xa_for_each_start() covers all entries from index 0 onward, and
+xa_for_each_range() with max=(u32)(0 - 1) = U32_MAX also covers all
+entries. Every pending message gets double-freed.
 
-I'll try to find our internal ticket with the details (my memory is a bit rusty and this is a few years old now), but as I recall they saw issues with Windows testing with 90Hz and so limited the panel to 60Hz - using the BIOS EDID to do this. Linux is just following the 'manufacturer recommendation'.
+Use xa_for_each() to iterate all remaining entries exactly once.
+At this point the IRQ is already freed and the workqueue is drained,
+so traversal order does not matter.
 
-If you're not seeing issues, then overriding it to use the panel EDID is fine, but just be aware that the 90Hz did not pass Lenovo QA.
+Fixes: 3ba13f5e7180 ("Merge tag 'devicetree-fixes-for-7.3-1'")
+Signed-off-by: Deniz Aydogan <denizaydogan1902@gmail.com>
+---
+ drivers/accel/amdxdna/amdxdna_mailbox.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Mark
+diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
+index cc8865f4e..271617347 100644
+--- a/drivers/accel/amdxdna/amdxdna_mailbox.c
++++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
+@@ -556,9 +556,7 @@ void xdna_mailbox_stop_channel(struct mailbox_channel *mb_chann)
+ 	drain_workqueue(mb_chann->work_q);
+ 
+ 	/* We can clean up and release resources */
+-	xa_for_each_start(&mb_chann->chan_xa, msg_id, mb_msg, mb_chann->next_msgid)
+-		mailbox_release_msg(mb_chann, mb_msg);
+-	xa_for_each_range(&mb_chann->chan_xa, msg_id, mb_msg, 0, mb_chann->next_msgid - 1)
++	xa_for_each(&mb_chann->chan_xa, msg_id, mb_msg)
+ 		mailbox_release_msg(mb_chann, mb_msg);
+ 	xa_destroy(&mb_chann->chan_xa);
+ 
+-- 
+2.55.0
+
