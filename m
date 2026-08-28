@@ -4,94 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30E4FC61DBD
-	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2026 19:16:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 00898C61DD9
+	for <amd-gfx@archiver.kernel.org>; Fri, 28 Aug 2026 19:18:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 84C2010E055;
-	Fri, 28 Aug 2026 19:16:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 574BA10E4C7;
+	Fri, 28 Aug 2026 19:18:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="M9o10dP1";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="A6wcZiql";
 	dkim-atps=neutral
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9C64D10E055
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 19:16:53 +0000 (UTC)
-Received: by mail-pj1-f43.google.com with SMTP id
- 98e67ed59e1d1-396a50ce17bso130871a91.0
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 12:16:53 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787944613; cv=none;
- d=google.com; s=arc-20260327;
- b=QiN3ZiRVfb+sYsXHlZl4uDfVk+lZrO8Z74uJbk/yXCqjgVt5H/Aa1VUAXP7iDDn3Bk
- 9nib7W3Yw84geJ9P1dIE6aIwDhUOxe2RDZqBjLO9ofU6LY57HoqF4qf3O+RU02pUtTzP
- Q6jLrvfsE5IideZPp2xCY8Sb/TCCfZ3bgco+057zvh9lgaOnnEwGXsNaMLQHE4V1u35N
- jEyREHWle1nWIaFlqfBElVqiEXsMZa3UK55oeXdgxs/qQ8OmVxcPd23pC8YHKJ03Z0M9
- 21Gno8hz4TCW8NwzLyqsSgSkW85N6sp/tbL0bDB0aH9UJlK+QovCN0uo/OAroRdQ7pys
- gVVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=el5oMcYmAlVrz5tsyA9X+T+Y9iDv8qPFv8NZQixqwcM=;
- fh=pVXkSRI4iWxMX2nwzh6GHNF3uSMfA8RBUzqfkxIWt8U=;
- b=ra+yWOvi/G2BIH/iQknu7ZOhOGwDR0pY7lkB9UeBvN8gsNo/ss0i6cj03NR0ZFsxkB
- AI3g5DEb+FsSBhwJM5yd26816HD3cZLlA/wuT+nNT//zK7b6Aw091YnP9A1kSHcTNU47
- sfMs1K1OxMXtLeK7Dk1x04jTDl6cY+6vMsWQSCpOTxcrng6HAdXh0m1cW2bYJHZ9TGt9
- ncNupsem0MM8Pmy2jWgINLGoQTPlCmXS1OV8ZE99Iq4eJsloJd01xeBCuae6GQiJ5y1z
- YiTshvxVHy5HOJCB/qQTfabKCEeng3HrGFTETRKQVTzn+3opfxSBt4DYuvIb+QkX4Oy+
- ZbcQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787944613; x=1788549413; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=el5oMcYmAlVrz5tsyA9X+T+Y9iDv8qPFv8NZQixqwcM=;
- b=M9o10dP1SKURJ//WB1K47JrWrD5qH5ImNUnQI7Lh0JPiN2fJDFQiuC3C6aLE4XlnTO
- L5C5VPQ98B8XJl0YsOLbnPMfS/8sIli62ZknhRz00wd/OOUMes75GvBiVQQ0+c8Q6tJw
- m41yPIv3bvQDl4Q/2FDCgYZI13UKN3iU9nrC4fSF3m0jCRRB+DnqqQuJCToM4DSW0gJy
- FvqpAnVjJaZ8TX6TQek+psLnhhdP58HSRMJ8nm/0w/AoH/QT6QmBAiiE1QzkIGA4s89w
- /lC7oIGzDisZJux4evOI0wZqmphSscn2GdhydTm6lDaXYauw5G+fE0+vdJFtxdrK6glW
- dmIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787944613; x=1788549413;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=el5oMcYmAlVrz5tsyA9X+T+Y9iDv8qPFv8NZQixqwcM=;
- b=dq/lK6ifjzoxNb1jIx9H/64r9LUh4mZSLzfc3uAvqcMep4US2uh1vu4cLgBGdwe8jM
- Eghrf6dfJA6MLI5HoQW4GwbKxhz3s5keTj3vgR+VlehTTdNooYTWpvCyHomxjHU8wrFc
- HC7yNKY8WM6reZnSB7g9UWDsz7psK7MhMaiyRVpmEJ1nYJhMaZ2QoSRNTZrBZfDh98u9
- iKygsEMwT1DpOXNXfhdkwGqq/98w6fK3OU9uNdPJUIjoSYGZ69Z+ShXaTYPmH2x2ue+3
- d8Nr6V9GhQM9wheYryGd6oEaVEy/bZstQ8YqQ3QQxDNaKElOvObOCTD0lwLHpUClOILT
- GXFg==
-X-Gm-Message-State: AFuF++kv3yxSa7q4qQPpuml/62fFqFmhn8+geXtP0xmCPT777Q+Eoy18
- T/ZB8ERKY+Uc57IfRDozvSulOLyGJFsepeMQzdlSQeHFRY3+cZuHUCBw3xydSO3zZnr6S+NF02/
- EezqiZCDfzX1Ky6IZmPv4V2fkp52rLoc=
-X-Gm-Gg: AYBFou16/TtKWz521AgAYkzI1rsYfdwxMKAzds1s1LoODXBcQK8ZllqVt1+lKCp4qFy
- VeN145S417tcdFjvIJdmdTiMsB5nbkB8T8MDnrE7aAclv931dxZ6Wwt7mQR80DymlDTyUD4UL13
- h8x3LTPVKmJUzjPagORQLuzO6/D/hBAk9FFFL1kysWjKDlDW2SvnrtjY8HCMwIuKJgFr3TjDGZV
- GJnYBTZhKsNRn3FD9M0yCsGpsZedWLAzxIhGHvfnLKyAHdqekS22kosE/M8xVg+H2LP5t1HLjHi
- +tnUoZnInCBU51OiiuAjR6gR36Sfj1lUeMdqjafoTUSwIekYrrGGQrio4vc/T2Ckd/2hXCh3L5Y
- iYYu5eW7aQ9yFwuVLgyk+klwb84zx9jY=
-X-Received: by 2002:a17:90b:4d88:b0:38e:480b:99a5 with SMTP id
- 98e67ed59e1d1-396d0f7d73bmr8505500a91.2.1787944612910; Fri, 28 Aug 2026
- 12:16:52 -0700 (PDT)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D674C10E087;
+ Fri, 28 Aug 2026 19:18:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1787944693; x=1819480693;
+ h=date:from:to:cc:subject:message-id:references:
+ in-reply-to:mime-version;
+ bh=yDqrD3RkfaZW1dM33xXMd7sgHBief0xvJljsCEd5yo4=;
+ b=A6wcZiqlPyr4NWWiTNx10kA/+C1rfsmcFXIDOQTgpX6qAOiAEzE0/wIf
+ DEUAJW3LlPHPKEl8uLUIlLWf0tImIGNUbvXEPPtvBV8kDOvFMLBkc9hKN
+ mmQ/b6LRlzfni+6g0ncR+ZraR6smqZPCrSiLpJFrHYpqLfe2XlBDLgLxd
+ TLiHHcYtvDYSf0xQPVXVrKcbiHThTAJ767K3HJmx/gwTXybDq4aXFvHfw
+ XD23X5gzslBcqhiiO5TqsSa1v/B67XJ/bfrDinREdu2q6PI3RZbcoo1+b
+ nGEqpdzHBFTZv/EctCt3uZoR27J/i8DOlnR8bAWMp/mE3yewhqBzFwHrK g==;
+X-CSE-ConnectionGUID: XpJgFpx9QmKNrRjnhGMisQ==
+X-CSE-MsgGUID: n49+mUWySRKYmNA1J2+TsA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="88221524"
+X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; d="scan'208";a="88221524"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2026 12:18:12 -0700
+X-CSE-ConnectionGUID: BqAGkU9XQTaH+OrpcXKuDA==
+X-CSE-MsgGUID: 9LoB+5GYToedmA5M809eDg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; d="scan'208";a="265001138"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 28 Aug 2026 12:18:12 -0700
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 28 Aug 2026 12:18:11 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Fri, 28 Aug 2026 12:18:11 -0700
+Received: from DM1PR04CU001.outbound.protection.outlook.com (52.101.61.62) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Fri, 28 Aug 2026 12:18:11 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jCEPXp+vY/bqIFkNkc400sgeLXEqxfUEOO9J+zX4DJnJd1m1PZUZ0hLBrAazWd6rbmEKNWJpCyOZ0++kAfMQVcS90jWYHTuH93/EvmkxPR/E7wC3+144Am/m+0e08+SwqM37ubr0p8QxzG0+9r2MpkcF8EQ/k2AooggoOGe0oHyNSLbkQpb1dmK0DMwt5L14qsiTOjKzVOpyAh+EPvuzN9wbUy1dZAvXjTEotCp8/6bTU6IJzCYwDwB/UJ4uS61rTo/BbJHue1Xq6fy/ffwYnuv0sVco0SYJffb7e/dsfKr6ZM8/3JtuVVOIX2rw57soO2bujSJuO3XyVbiPO7zHcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ulXAsont9X4ATcKV7F/eQFIQ/bkDD2IBFRPv2kb3fL8=;
+ b=ITfk85VFNgOiHp3Q/fBXz4oQD8sf5TTzYJs+l4usjWlyFC+bsvXadQPFIFDcvt3MFnF8Tdlt6zsUy2Of6FZMa806cvd9KFRDM+9qS9DO+FcWnd/aTzxblIzmwazsLF9SJ7yGoYbtLTxQdirkVYdROG81h5F3R2XsoKSq1Ny/zq/wKvucvu4MrlVHpwaFsJJ4rFu1iePwu0rRwjm30AR0vbn6GrSU9tkA2yJPdE4nJ1A8gj1RUSQ/iiruo8Nk/9sps0sks+hItv04aJf/aBaTw4DlYV7iOlCd1DtALSrSIY0X8jcI50EdIDRUlb6jyLvhypr4azqfVjH09DDeN4mDEQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
+ by LV8PR11MB8487.namprd11.prod.outlook.com (2603:10b6:408:1ed::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Fri, 28 Aug
+ 2026 19:18:06 +0000
+Received: from PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
+ ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0360.008; Fri, 28 Aug 2026
+ 19:18:00 +0000
+Date: Fri, 28 Aug 2026 12:17:57 -0700
+From: Matthew Brost <matthew.brost@intel.com>
+To: Danilo Krummrich <dakr@kernel.org>
+CC: Christian =?iso-8859-1?Q?K=F6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ <christian.koenig@amd.com>, <thomas.hellstrom@linux.intel.com>,
+ <ecourtney@nvidia.com>, <nat@pixelcluster.dev>,
+ <dri-devel@lists.freedesktop.org>, <intel-gfx@lists.freedesktop.org>,
+ <intel-xe@lists.freedesktop.org>, <amd-gfx@lists.freedesktop.org>
+Subject: Re: [PATCH 01/10] dma-buf: Add reference counting to dma_resv
+Message-ID: <apHe5YcWWiZF4i2Z@gsse-cloud1.jf.intel.com>
+References: <20260827124910.2245-1-christian.koenig@amd.com>
+ <20260827124910.2245-2-christian.koenig@amd.com>
+ <DL0SABOU2QO9.20AA8OP9CXXA5@kernel.org>
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <DL0SABOU2QO9.20AA8OP9CXXA5@kernel.org>
+X-ClientProxiedBy: MW4P223CA0025.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:303:80::30) To PH7PR11MB6522.namprd11.prod.outlook.com
+ (2603:10b6:510:212::12)
 MIME-Version: 1.0
-References: <20260828041537.3464782-1-Jesse.Zhang@amd.com>
- <20260828041537.3464782-3-Jesse.Zhang@amd.com>
-In-Reply-To: <20260828041537.3464782-3-Jesse.Zhang@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Fri, 28 Aug 2026 15:16:39 -0400
-X-Gm-Features: AcwNN1USAy4o2HoQDmgKEEzCBZhCcgDT0CtVH2j__rLr_YsQRltufRsQyx_SjpU
-Message-ID: <CADnq5_OrH3pSwu5sAs5KOCtN7JGPdZj33o63wFxR0SsqWjkXXw@mail.gmail.com>
-Subject: Re: [PATCH v2 03/10] drm/amdgpu/gfx11: implement compute and GFX
- update_mqd
-To: Jesse Zhang <Jesse.Zhang@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com, 
- Christian Koenig <christian.koenig@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|LV8PR11MB8487:EE_
+X-MS-Office365-Filtering-Correlation-Id: ee9b443b-8b14-47b7-741d-08df05391309
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|1800799024|23010399003|366016|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: H8fiK7/Zb6TQcFu7A+G2OvXsr9A+Yr5RvJGZqgoZ+HM+Pajuu7M7LYTRvY5o1buJiV3iDLgeM9LH/J51Oup14AuDMyCG8Q7KXbe2Ul8EMOvHUHhc+8fMwFBcftK3rBnboaMg/0SwIFxeK/iYuiWzYnrLPmIjMYmoSunvcnTWwZmd2wJ39ZcaLdQ/WIrQQuaP8yzV4fUd5MB7pZDg51wp0eaCSDAzbhmOF1wYmHJJl4qPFcUdDofcbFcsuDpOHNF1KNq3oKDZVagUPF4ddIsph9pWNIFPK1Mz0+16HGmp1ZnzWcerJWxnsKWn3OWqWAgSBKfELkOYiPuRnio0WFFVNOT8csz3M5fjZKs32AkXwV9Mdpvlp0ugE/yLriwpYALFbQFoAUNoOqs7T5FiOlKPC4NbToGRUxZTsd3Kl6IDbBx3syYMyO+tz1VrCN5I55WZvnaFixXNmmMHtGgtpuN8GqDqR4W1N++UulpaYZWTK4fS3TlMrm+fXTJEoQnLTnFbV6bR8vsr7l8zH3Ow0OpPNk489SgJCs0e9q9NKq3jnNg5jIDnfptFXN0gcLDArIH5BYh3JiYdhuHvXvcYCqVCFlD4+iu+rti0ZBZLZnq5G6fDOnIdCcI4UDCmKt7zg4FQ
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?OIRB+swl+UmIRlvmYIl2t2Lstv0OOtsX56fOfxDtyXn44wesLB/zhW4WBhvo?=
+ =?us-ascii?Q?K0rqcI1GpDgENAgnUQXIIhlg8SgS8uO4OczTOyXIxXI79eimBg057C1O0sgB?=
+ =?us-ascii?Q?DfvEgBfs41LaqHg37wlsqH3p3GOGWz616wZzLfMvBGejKOrtiEIVxtMcxtK1?=
+ =?us-ascii?Q?QeItzjdUz3N5Utx/ce/MwSnFIQwXBD6fuRRSgBfY/k46yEIz1rL6brG4XMWY?=
+ =?us-ascii?Q?lKCV8sYgtJGDjhci4YkmrMhJmaFL7bypmsMEC7j6x1/FYO5k0uS5ioSU5TL0?=
+ =?us-ascii?Q?ikhtwPgjaLEIzbzBPVwctgC5pIv3cxCGJ0Mvd9UOeBImE9zsWiDkQGxlzHRb?=
+ =?us-ascii?Q?RLpPH+2SMLZr4awHo6szgGn5TXd8DMua2rbbFf31GAd5GaXifdBdUnATPbnn?=
+ =?us-ascii?Q?1mbXRDD2cIx66hLcdQK3RvdNwM774SmCcAatZgdGOtBH7262SDDdlDkHAX/N?=
+ =?us-ascii?Q?FJUsEJYSN0aehG/nkdB4XEdSZRSnOM9qPljgIBZvfcInv5UMI65J7E4SSgkO?=
+ =?us-ascii?Q?IWhH3XTZT9wVugP68rng5G3B9L3DjQG3w6z+wga0Jj+qWOZJ47C04S5tHs8B?=
+ =?us-ascii?Q?StX6ZSjrM3TYpzPm5YPyuN6fr/GCVLzfxrOsGsBtT/WEwOq6wgdj6ghtP6wc?=
+ =?us-ascii?Q?g5xiuns3RsdKN5waprBl7iroxkueE2jaukmU0FOb2PNRQg0zH4iI0vbw7yru?=
+ =?us-ascii?Q?AHH8mAcMNCxjY9QSMTw/MpiQkjooaHJrEYDJbYb7YEVp6HFUhB4B6C+xwS8V?=
+ =?us-ascii?Q?/97I8KNI20meg+tmUjduJEcyue5ccOX/rpp1Y64zLFgC0oqHyMRydMJdO75D?=
+ =?us-ascii?Q?OxBImTBsdZiuOkp/gRfb44vovbW2V6f+zLSf68DpjmkKG0hHQu0VPCswQQON?=
+ =?us-ascii?Q?ogSy7B4hF5Q/Zs+Q7NrwH0wIPYha4RsX/lj+f1FJ3qhozuvJrqCqS8WAxkVK?=
+ =?us-ascii?Q?D0le/upIybZXYjLf7jweiUYKt/nsJKI+HvDVrbBnI4JiMyn3VVdPYcRUR/yt?=
+ =?us-ascii?Q?Quh2p43HZdk5GfwYi6kcR53JOmSWFTUUKD3VKKtCTHF2E610TbFVOavY1lnU?=
+ =?us-ascii?Q?O8Q2ffnrWF7dt/+koO/JzURYI0GQwpzunJB0uwt9QFh8WtZfHAI9RQ1/vV4F?=
+ =?us-ascii?Q?x7RKicj6FjUA3AsOU/P+gYDziEJROgEHivPLGZrjdpvbxR5BNjZ63IG/E2Gv?=
+ =?us-ascii?Q?9x1G0JT7TBXmwz0C3VcQgERzqMi0tV0zi+e7BHtIjJCh3i2L3QQ/aePBaDOt?=
+ =?us-ascii?Q?nouN7/q4pnklFd/d8cRs7Q6Gf3WDzCAP0M509yFOU1aqQtM7lzVSuHHQlKp1?=
+ =?us-ascii?Q?hcnE/XjvJT2lRxO3zodtJ2NC6m8ld0Ih9l53SaJ3liFbCyBHxLOFKPgGeDRT?=
+ =?us-ascii?Q?AM7oAe6ci0j4I3tueE4Oi7YEhHF52xFWnqOPR6hGkKQaDFuQDhUAXjOFdVqQ?=
+ =?us-ascii?Q?rX3GxsUO1aMusVwRgMFaVoh0S1p5MzoY3D5AontvYU9buWfuzF+Z+NNHo7E9?=
+ =?us-ascii?Q?VjW8oLiPDTUX5JT7HmCA4mFh+M/UxLbz0j+80HSKBdheKBH9rGTP3vK2cScs?=
+ =?us-ascii?Q?MbdP26RL5pVCM3ozaQoNFkF8RqIz2ggi0hk62FPj8cut+jB2q0vNdoWHp+p/?=
+ =?us-ascii?Q?Q4EOtBCnnSN20JYCzKKmZt8TN0BVKRp3biJwFqlmluCHxTn5Sfi5RzdEhDhX?=
+ =?us-ascii?Q?NGJQKE6Wq0AttJrlIETUYq0Jm3umCKDl8CnbYV+46YjsU7jg3ZDwZt6Wnuk6?=
+ =?us-ascii?Q?Eb2D/Jx96A=3D=3D?=
+X-Exchange-RoutingPolicyChecked: IGX47VLRpRX593nbX0n9N2cJp8TX1IPNpr63IG7RSyZ8DzNmaqZctRWzF0CXlLZBS2A0z6CTDpM+9Ezm43ELOn5RpB29QF/gEKlJPGRtUOV3Dlo/Rw39VTCu14v0dQATNIKV59+/oYf88391benU0gjY+c88xW6XMEfGK8RWZ/w3uI5oVpbSvNKSUSpojVp3cgOe2yLH/etu2XR5ytBJBbYHzG/9oBn37ljNf+xJrKs18Fb8tZ9+Q+W2yWJQjaS+VTsihUgJoKxFT+0uAvqmO2Vn4pSMHs3HdmbTFzxrAyIlME6OVea4jl3KZwsORpLyYUSWdUFXKYX9Z4l7Rfl9FQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee9b443b-8b14-47b7-741d-08df05391309
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Aug 2026 19:18:00.3044 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 7Q0SNFPJ36vLFmEu4xO1rC4gCaZXgtmD3RthgkIJGGSvAZpnBFPV2u+WDwGEpbmT/IU4RtOpwROfQAGA4+J/lg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR11MB8487
+X-OriginatorOrg: intel.com
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,116 +162,34 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Fri, Aug 28, 2026 at 12:25=E2=80=AFAM Jesse Zhang <Jesse.Zhang@amd.com> =
-wrote:
->
-> Implement the update_mqd callback for gfx11 compute and GFX user queues.
-> Save the read pointer, re-run init_mqd to rebuild the HQD, then restore
-> the saved read pointer and forward the write pointer to the user wptr, so
-> a re-enabled queue resumes at the first un-consumed packet rather than
-> replaying the ring from 0.
->
-> v2: rebuild the HQD via init_mqd and save/restore the rptr, matching the
->     SDMA update_mqd style, instead of patching individual MQD fields in
->     place. Keeps all update_mqd callbacks consistent.
->
-> Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-> Suggested-by: Alexander Deucher <Alexander.Deucher@amd.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 44 ++++++++++++++++++++++++++
->  1 file changed, 44 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
-/amdgpu/gfx_v11_0.c
-> index a447562977ab..1feb7c9ee5c6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -4256,6 +4256,26 @@ static int gfx_v11_0_gfx_mqd_init(struct amdgpu_de=
-vice *adev, void *m,
->         return 0;
->  }
->
-> +/*
-> + * GFX update_mqd: init_mqd resets the ring rptr/wptr, so re-run it to r=
-ebuild
-> + * the HQD, then restore the saved rptr and forward the user wptr.
-> + */
-> +static int gfx_v11_0_gfx_mqd_update(struct amdgpu_device *adev, void *m,
-> +                                   struct amdgpu_mqd_prop *prop,
-> +                                   u64 user_wptr)
-> +{
-> +       struct v11_gfx_mqd *mqd =3D m;
-> +       u32 saved_rptr =3D mqd->cp_gfx_hqd_rptr;
-> +
-> +       gfx_v11_0_gfx_mqd_init(adev, mqd, prop);
-> +
-> +       mqd->cp_gfx_hqd_rptr =3D saved_rptr;
-> +       mqd->cp_gfx_hqd_wptr =3D lower_32_bits(user_wptr);
-> +       mqd->cp_gfx_hqd_wptr_hi =3D upper_32_bits(user_wptr);
+On Fri, Aug 28, 2026 at 08:21:17PM +0200, Danilo Krummrich wrote:
+> On Thu Aug 27, 2026 at 2:38 PM CEST, =?UTF-8?q?Christian=20K=C3=B6nig?= wrote:
+> > This provides clearer ownership semantics and makes the code more
+> > maintainable by removing the embedded allocation hack.
+> 
+> Again, fundamentally disagree; please see [1] for details and reasons.
+> 
 
-This seems fragile.  Rather than doing it this way, can we just use
-mqd_init() as is and add a new
-prop->modify flag?  Then we can use that in init_mqd to skip state
-that should be retained from the MQD.
+I think Christian is doing this incrementally rather than as a single
+change across the tree. The last patch [2] in the series removes
+`dma_resv_init` and the `allocated` flag. I believe that was the main
+concern, and it appears to be addressed now.
 
-Alex
+I'm taking the series for a spin now, as our CI [3] had trouble applying
+this patch. I'll let you know what my testing shows.
 
-> +
-> +       return 0;
-> +}
-> +
->  static int gfx_v11_0_kgq_init_queue(struct amdgpu_ring *ring)
->  {
->         struct amdgpu_device *adev =3D ring->adev;
-> @@ -4477,6 +4497,26 @@ static int gfx_v11_0_compute_mqd_init(struct amdgp=
-u_device *adev, void *m,
->         return 0;
->  }
->
-> +/*
-> + * Compute update_mqd: init_mqd resets the ring rptr/wptr, so re-run it =
-to
-> + * rebuild the HQD, then restore the saved rptr and forward the user wpt=
-r.
-> + */
-> +static int gfx_v11_0_compute_mqd_update(struct amdgpu_device *adev, void=
- *m,
-> +                                       struct amdgpu_mqd_prop *prop,
-> +                                       u64 user_wptr)
-> +{
-> +       struct v11_compute_mqd *mqd =3D m;
-> +       u32 saved_rptr =3D mqd->cp_hqd_pq_rptr;
-> +
-> +       gfx_v11_0_compute_mqd_init(adev, mqd, prop);
-> +
-> +       mqd->cp_hqd_pq_rptr =3D saved_rptr;
-> +       mqd->cp_hqd_pq_wptr_lo =3D lower_32_bits(user_wptr);
-> +       mqd->cp_hqd_pq_wptr_hi =3D upper_32_bits(user_wptr);
-> +
-> +       return 0;
-> +}
-> +
->  static int gfx_v11_0_kiq_init_register(struct amdgpu_ring *ring)
->  {
->         struct amdgpu_device *adev =3D ring->adev;
-> @@ -7271,11 +7311,15 @@ static void gfx_v11_0_set_mqd_funcs(struct amdgpu=
-_device *adev)
->                 sizeof(struct v11_gfx_mqd);
->         adev->mqds[AMDGPU_HW_IP_GFX].init_mqd =3D
->                 gfx_v11_0_gfx_mqd_init;
-> +       adev->mqds[AMDGPU_HW_IP_GFX].update_mqd =3D
-> +               gfx_v11_0_gfx_mqd_update;
->         /* set compute eng mqd */
->         adev->mqds[AMDGPU_HW_IP_COMPUTE].mqd_size =3D
->                 sizeof(struct v11_compute_mqd);
->         adev->mqds[AMDGPU_HW_IP_COMPUTE].init_mqd =3D
->                 gfx_v11_0_compute_mqd_init;
-> +       adev->mqds[AMDGPU_HW_IP_COMPUTE].update_mqd =3D
-> +               gfx_v11_0_compute_mqd_update;
->  }
->
->  static void gfx_v11_0_set_user_wgp_inactive_bitmap_per_sh(struct amdgpu_=
-device *adev,
-> --
-> 2.49.0
->
+[2] https://patchwork.freedesktop.org/patch/748868/?series=172875&rev=1
+[3] https://patchwork.freedesktop.org/series/172873/
+
+> Besides that, I don't really know what to expect from the series. The cover
+> letter says "Refcounting dma_resv v2", yet there's no changelog telling people
+> what has changed since v1. On the other hand, none of the patches has a v2
+> prefix, so what is it?
+
+Yes, change logs / cover-letter would help as Danilo likely could have
+spotted the above change.
+
+Matt
+
+> 
+> [1] https://lore.kernel.org/all/DJVRML4G11GZ.Z7FTZH7I1LZN@kernel.org/
