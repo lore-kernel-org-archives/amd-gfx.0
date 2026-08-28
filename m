@@ -4,75 +4,57 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3F654C624D2
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8B571C624D1
 	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 07:05:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC62C10E6C0;
-	Mon, 31 Aug 2026 07:04:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D461510E6A9;
+	Mon, 31 Aug 2026 07:04:51 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="V6QS1ABw";
+	dkim=pass (2048-bit key; unprotected) header.d=igalia.com header.i=@igalia.com header.b="JWldRtxR";
 	dkim-atps=neutral
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BE61910E531
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 22:16:46 +0000 (UTC)
-Received: by mail-wr1-f51.google.com with SMTP id
- ffacd0b85a97d-47f71156e1aso553359f8f.3
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 15:16:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787955405; x=1788560205; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=I+NVBt2+YV7TdDLoFYczsvx72Y9+mslXywiFQEZGZJM=;
- b=V6QS1ABwgdB15332deQccVaYXrdVb5G1vmtgNUsVinLNKPRZs+doxRFSun6ULANqlC
- vMVvJ80VFRBvGIO78RoT/ebnQD5Y+ACEjzJ2ilQ9fdkKm8t7D/82g0vp+0KfQrHeWnna
- gMGkgvTsMAU2pK0mcy2cKpaF4MDIZLm6iJI24+1LeoDsOnVLz2V1hOA5qwaD9b5YsBjS
- 4GznEwMCdEP1FkqGZnvfY1nNF336WSz1Scqn9I0Pd5/pCGrhUxenLhlMvXgA29uAb3MI
- 0pFDVXYjLCLNLGOVr5ZGRXN9k++ETG6+z/CJ5BxMcw1ZoySN90mx38JoFV+FmpYbt/C3
- jshg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787955405; x=1788560205;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=I+NVBt2+YV7TdDLoFYczsvx72Y9+mslXywiFQEZGZJM=;
- b=X3QRc+2mTN0pvVY8AhG446bIkopWoA7ODomOzzBvmGptN4KVOphvp9cZc4e69917n1
- 1cnAyVLmUPx73kWPiVej/a8uIiR0BIkBngcYxNuGQHIhOadlG3lLWbUgZsEjYmiHLogI
- jAeN8ghDM8ca6iygE0i02NbbHaT/d25DFTqYXQIdAq1LE+/0zks+hgSUrGmLxjG1OOvC
- AAlno30SPghEr4pTJixd30JGEvuDb2UP4bZf6UBUXwbAxEQN1KF7Eqab+igqO4/X9R9Y
- NygKnpc0hnScbv0OKv/LZ0zxew+RddA0YSg3btlWD5TjiQb5E/9TdIip09IbbmmhoLvB
- wVdg==
-X-Forwarded-Encrypted: i=1;
- AKwUvBy4lWEPDIk9C39e0yPmb25FOTtf0iF97nydHApwIp3QmWMbDitptep7SUpr2/TNfSVThZik2YYv@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nQQwpj6HZUoVwBJBVNC2B+zML9yMoV7byKaR2Pql8ct9bZ2AaZ
- DVmEAbRrpv01C1vpXdPrkCRHgr680z76uMIh4EqkdRS2Rpq0yzfPw7WB
-X-Gm-Gg: AYBFou36FJs5hWSCPgTcBTpk0Oei/BmNcUC34I36hZW4ZQN4AOCM4100CbTgGopiZbc
- NDqJmstgdY2rO8rMkzRNqC3doBAADQuuO/AlQjs1aFcwnUKdBlLdz+GuSxYKL+F7t8ccPp612AD
- vucZ/s7Hzna7PrWFR+7ShOc/bT0i4ymVg5bEqMh+c0jB5CS190t8hPDkbq5Y7hukRjQRSv+gM27
- 4agnlfYFpGYCbHKVgeXFOvpApz1FpXFwvYx8B4DFymhCgtnImLeLLPleq9SC4ArdzjjCGISyJzJ
- gJxZlANVRV3oCCUW0F73q1fYoZFNE/fD94xF7DAZeNRuzDuwKKp2jB4zWmISoI0cyTd1rlVrhKe
- G8jd2X5zNOhAZ6YRmhtEFrKKY5xRRStRteXXO/rCnYi8Hdv/D+3p3XZ9f4rUXn/OosYochdnUri
- E1riGdH1qNEklVydeqaMFbX5ffFVsuhaN1sY4E1oij/LvexkWcTF6TSJMeTtHMnsSeUm2uXgDyF
- yOUhHCKZ8Q4jAIfzJDQb2Nx3UNmlFw3dhHloa2uMBTj0Vt2ixGd4M4XRPIwXkq6P6WIbSfN
-X-Received: by 2002:a05:6000:4a1e:b0:482:e658:bb8e with SMTP id
- ffacd0b85a97d-482f79bf4f4mr17244716f8f.12.1787955405089; 
- Fri, 28 Aug 2026 15:16:45 -0700 (PDT)
-Received: from drago.hgw.local ([2a00:1d34:ebf3:5500:6828:ce36:77ad:ae8c])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-482fbab3f16sm6361576f8f.1.2026.08.28.15.16.42
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Aug 2026 15:16:44 -0700 (PDT)
-From: Deniz Aydogan <denizaydogan1902@gmail.com>
-To: lizhi.hou@amd.com,
-	amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Deniz Aydogan <denizaydogan1902@gmail.com>
-Subject: [PATCH] accel/amdxdna: fix race condition in mailbox send path
-Date: Sat, 29 Aug 2026 01:16:41 +0300
-Message-ID: <20260828221641.10034-1-denizaydogan1902@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0423010E237;
+ Fri, 28 Aug 2026 10:48:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+ Subject:Cc:To:From:Date:From:Reply-To;
+ bh=EPUkeekr+NdH9Da1Q0+Tpm7Tj1ijd4zYuumEIrswkTg=; b=JWldRtxRG/+1o9zuT5IHIQCWC/
+ 26iezNR4ue04QKooYxvWP1VNZSefPn1owLWoWH0dpcgSi+gHzIJWz5Jm+rOj5RhxQ5/PCMsYWjdqK
+ 4B9xt+GRS4KWyaj5x6GkiwyKV3pIu+jY+wqw1kjfcxKA+OAiILfjF/Vjeop+DOsvYwZ02nJ+ei2xQ
+ I8cJqmVYba7FbY+hqkmw2jSknThKSyJEcUnYlXyFdSH0ccfd/bvnFQ0cT5Jnjq9UzCKV99R1wYQlL
+ e/H68Uk6wPe9xThlbXXlet8Mqq67enO+UxNx78dranHULv6hCa5lScIApmt+aR6Rck6q+V9bnNrA1
+ laNW+OTg==;
+Received: from 179-125-75-211-dinamico.pombonet.net.br ([179.125.75.211]
+ helo=quatroqueijos.cascardo.eti.br)
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+ id 1wzu8N-00Aoa7-3e; Fri, 28 Aug 2026 12:48:31 +0200
+Date: Fri, 28 Aug 2026 07:48:24 -0300
+From: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+To: Tvrtko Ursulin <tursulin@ursulin.net>
+Cc: igt-dev@lists.freedesktop.org, siqueira@igalia.com,
+ dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org,
+ Christian Koenig <christian.koenig@amd.com>,
+ maarten.lankhorst@linux.intel.com,
+ Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+ Kamil Konieczny <kamil.konieczny@linux.intel.com>,
+ Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
+ Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ Natalie Vock <natalie.vock@gmx.de>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, kernel-dev@igalia.com
+Subject: Re: [PATCH i-g-t v5 4/7] lib/xe: Introduce dmem driver and implement
+ Xe support
+Message-ID: <apFneOggwhqZWsIJ@quatroqueijos.cascardo.eti.br>
+References: <20260723194313.2748143-1-cascardo@igalia.com>
+ <20260723194313.2748143-5-cascardo@igalia.com>
+ <92009e34-6467-4a78-a3fc-32a39b381f55@ursulin.net>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <92009e34-6467-4a78-a3fc-32a39b381f55@ursulin.net>
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:04:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -88,83 +70,290 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-xdna_mailbox_send_msg() reads and writes x2i_tail without holding any
-lock. This is problematic because the DRM scheduler thread can submit
-jobs via aie2_execbuf() while the ioctl thread concurrently configures
-the same hardware context via aie2_config_cu().
+On Thu, Aug 13, 2026 at 02:13:53PM +0100, Tvrtko Ursulin wrote:
+> 
+> On 23/07/2026 20:43, Thadeu Lima de Souza Cascardo wrote:
+> > In order to be reuse the same dmem tests with multiple drivers, we need to
+> > abstract a few operations. That includes getting the region name, and
+> > allocating and releasing VRAM. As there is some initialization also when
+> > multiple allocations are done, also provide init and deinit functions.
+> > 
+> > The Xe implementation was based on the original operations from
+> > xe_cgroups.c written by Thomas Hellström. However, instead of doing a
+> > deferred backing, followed by a bind, it does a simple non-deferred GEM
+> > object creation on the VRAM region.
+> > 
+> > Signed-off-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> > ---
+> >   lib/igt_dmem_driver.h |  24 ++++++++
+> >   lib/meson.build       |   1 +
+> >   lib/xe/xe_dmem.c      | 139 ++++++++++++++++++++++++++++++++++++++++++
+> >   3 files changed, 164 insertions(+)
+> >   create mode 100644 lib/igt_dmem_driver.h
+> >   create mode 100644 lib/xe/xe_dmem.c
+> > 
+> > diff --git a/lib/igt_dmem_driver.h b/lib/igt_dmem_driver.h
+> > new file mode 100644
+> > index 000000000000..2f4a4673ab16
+> > --- /dev/null
+> > +++ b/lib/igt_dmem_driver.h
+> > @@ -0,0 +1,24 @@
+> > +// SPDX-License-Identifier: MIT
+> > +/*
+> > + * Copyright 2026 Valve Corporation
+> > + * Authors:
+> > + *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> > + */
+> > +
+> > +#ifndef __IGT_DMEM_DRIVER_H__
+> > +#define __IGT_DMEM_DRIVER_H__
+> > +
+> > +#include <stdlib.h>
+> > +
+> > +struct igt_dmem_driver {
+> > +	const char *name;
+> > +	char * (*get_region_name)(int fd);
+> > +	int (*init)(void **ctx, int fd, int max_bo);
+> > +	void (*deinit)(void *ctx);
+> > +	int (*allocate_vram)(void *ctx, int n_bo, size_t len);
+> > +	void (*free_vram)(void *ctx, int n_bo);
+> 
+> I expect IGT maintainers might ask for kerneldoc for these.
+> 
 
-Both paths eventually call xdna_mailbox_send_msg() which does:
+Will do that in the next version, thanks for pointing that out.
 
-    tail = mb_chann->x2i_tail;
-    ...
-    mailbox_set_tailptr(mb_chann, tail + mb_msg->pkg_size);
+> > +};
+> > +
+> > +extern const struct igt_dmem_driver xe_dmem_driver;
+> > +
+> > +#endif
+> > diff --git a/lib/meson.build b/lib/meson.build
+> > index 868220408f8c..012802475de0 100644
+> > --- a/lib/meson.build
+> > +++ b/lib/meson.build
+> > @@ -126,6 +126,7 @@ lib_sources = [
+> >   	'igt_msm.c',
+> >   	'igt_dsc.c',
+> >   	'igt_hook.c',
+> > +	'xe/xe_dmem.c',
+> >   	'xe/xe_gt.c',
+> >   	'xe/xe_ioctl.c',
+> >   	'xe/xe_legacy.c',
+> > diff --git a/lib/xe/xe_dmem.c b/lib/xe/xe_dmem.c
+> > new file mode 100644
+> > index 000000000000..1dec8cf8b0a1
+> > --- /dev/null
+> > +++ b/lib/xe/xe_dmem.c
+> > @@ -0,0 +1,139 @@
+> > +// SPDX-License-Identifier: MIT
+> > +/*
+> > + * Copyright 2026 Valve Corporation
+> > + * Authors:
+> > + *  Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
+> > + */
+> > +
+> > +#include <errno.h>
+> > +
+> > +#include "igt.h"
+> > +#include "igt_cgroup.h"
+> > +#include "igt_dmem_driver.h"
+> > +#include "xe_drm.h"
+> > +#include "xe/xe_ioctl.h"
+> > +#include "xe/xe_query.h"
+> > +
+> > +static char * xe_dmem_get_region_name(int fd)
+> > +{
+> > +	uint64_t vram_region = 0;
+> > +	uint64_t region;
+> > +	char *cg_region;
+> > +
+> > +	/* Find first VRAM region */
+> > +	xe_for_each_mem_region(fd, all_memory_regions(fd), region) {
+> > +		if (xe_region_class(fd, region) == DRM_XE_MEM_REGION_CLASS_VRAM) {
+> > +			vram_region = region;
+> > +			break;
+> > +		}
+> > +	}
+> 
+> FWIW it looks like that from here..
+> 
+> > +	if (!vram_region)
+> > +		return NULL;
+> > +
+> > +	cg_region = xe_cgroup_region_name(fd, vram_region);
+> > +
+> > +	return cg_region;
+> 
+> .. to here could be simplified as return xe_cgroup_region_name(...), given
+> the helper returns NULL for non-VRAM regions. Or even return straight from
+> the above loop instead of the break. Up to you which of the three options
+> you prefer, just thinking out loud.
+> 
 
-Without synchronization, concurrent writers can read the same tail value,
-overwrite each other's messages in the ring buffer, and write conflicting
-tail pointers to hardware.
+Thanks, I will consider which one of those to use.
 
-Fix this by protecting the tail pointer manipulation with a spinlock
-that is held for the entire duration of mailbox_send_msg(). The lock
-is initialized in xdna_mailbox_alloc_channel() and acquired/released
-around the critical section in mailbox_send_msg().
+> > +}
+> > +
+> > +struct xe_bo {
+> > +	uint32_t handle;
+> > +	size_t len;
+> > +};
+> > +
+> > +struct xe_dmem_ctx {
+> > +	int fd;
+> > +	struct xe_bo *bos;
+> > +	uint64_t vram_region;
+> > +	int max_bo;
+> > +};
+> > +
+> > +static int xe_dmem_init(void **ctx, int fd, int max_bo)
+> > +{
+> > +	struct xe_dmem_ctx *xe_ctx;
+> > +	uint64_t region;
+> > +
+> > +	xe_ctx = malloc(sizeof(*xe_ctx));
+> > +	if (!xe_ctx)
+> > +		return -ENOMEM;
+> > +
+> > +	xe_ctx->bos = calloc(max_bo, sizeof(xe_ctx->bos[0]));
+> > +	if (!xe_ctx->bos)
+> > +		goto out;
+> > +	memset(xe_ctx->bos, 0, max_bo * sizeof(xe_ctx->bos[0]));
+> 
+> calloc already zeroes the memory.
+> 
 
-Fixes: 3ba13f5e7180 ("Merge tag 'devicetree-fixes-for-7.3-1'")
-Signed-off-by: Deniz Aydogan <denizaydogan1902@gmail.com>
----
- drivers/accel/amdxdna/amdxdna_mailbox.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+Ack.
 
-diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
-index 271617347..337f89113 100644
---- a/drivers/accel/amdxdna/amdxdna_mailbox.c
-+++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
-@@ -60,6 +60,7 @@ struct mailbox_channel {
- 	struct xarray			chan_xa;
- 	u32				next_msgid;
- 	u32				x2i_tail;
-+	spinlock_t			lock;
- 
- 	/* Received msg related fields */
- 	struct workqueue_struct		*work_q;
-@@ -203,8 +204,10 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, struct mailbox_msg *mb_msg)
- 	u32 head, tail;
- 	u32 start_addr;
- 	u32 tmp_tail;
-+	unsigned long flags;
- 	int ret;
- 
-+	spin_lock_irqsave(&mb_chann->lock, flags);
- 	head = mailbox_get_headptr(mb_chann, CHAN_RES_X2I);
- 	tail = mb_chann->x2i_tail;
- 	ringbuf_size = mailbox_get_ringbuf_size(mb_chann, CHAN_RES_X2I) - sizeof(u32);
-@@ -225,8 +228,10 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, struct mailbox_msg *mb_msg)
- 		ret = read_poll_timeout(mailbox_get_headptr, head,
- 					tmp_tail < head || tail >= head,
- 					1, 100, false, mb_chann, CHAN_RES_X2I);
--		if (ret)
-+		if (ret) {
-+			spin_unlock_irqrestore(&mb_chann->lock, flags);
- 			return ret;
-+		}
- 
- 		if (tail >= head)
- 			goto check_again;
-@@ -240,6 +245,7 @@ mailbox_send_msg(struct mailbox_channel *mb_chann, struct mailbox_msg *mb_msg)
- 			    mb_msg->pkg.header.opcode,
- 			    mb_msg->pkg.header.id);
- 
-+	spin_unlock_irqrestore(&mb_chann->lock, flags);
- 	return 0;
- }
- 
-@@ -487,6 +493,7 @@ struct mailbox_channel *xdna_mailbox_alloc_channel(struct mailbox *mb)
- 		goto free_chann;
- 	}
- 	mb_chann->mb = mb;
-+	spin_lock_init(&mb_chann->lock);
- 
- 	return mb_chann;
- 
--- 
-2.55.0
+> > +	xe_ctx->max_bo = max_bo;
+> 
+> Could the need for max_bo input parameter be avoided if the arrays were
+> allocated in chunks and grown? More complex implementation but a simpler
+> API.
+> 
 
+I will see how that looks like and how it affects the callers. Hopefully,
+it makes it more simple and fix one or two of the clunkiness in the
+callers. Let me check.
+
+> > +
+> > +	xe_ctx->vram_region = 0;
+> > +	/* Find first VRAM region */
+> > +	xe_for_each_mem_region(fd, all_memory_regions(fd), region) {
+> > +		if (xe_region_class(fd, region) == DRM_XE_MEM_REGION_CLASS_VRAM) {
+> > +			xe_ctx->vram_region = region;
+> > +			break;
+> > +		}
+> > +	}
+> > +	if (!xe_ctx->vram_region)
+> > +		goto out;
+> > +
+> > +	xe_ctx->fd = fd;
+> > +
+> > +	*ctx = xe_ctx;
+> > +
+> > +	return 0;
+> > +
+> > +out:
+> > +	if (xe_ctx->bos)
+> > +		free(xe_ctx->bos);
+> > +	free(xe_ctx);
+> > +
+> > +	return -ENOMEM;
+> > +}
+> > +
+> > +static void xe_dmem_deinit(void *ctx)
+> > +{
+> > +	struct xe_dmem_ctx *xe_ctx = ctx;
+> > +
+> > +	free(xe_ctx->bos);
+> > +	free(xe_ctx);
+> 
+> Handle cleanup is not desirable?
+> 
+
+That is done by free_vram. I will try and do it here too, in case there is
+anyone left.
+
+> > +}
+> > +
+> > +static int xe_dmem_allocate_vram(void *ctx, int n_bo, size_t len)
+> 
+> Is the last patch in the series the only user of this API? I am thinking
+> whether the n_bo input parameter is required and it wouldn't be simpler to
+> just return a handle (or null) and grow the internal count. Ie. is there a
+> use case for callers to precisely need to control "allocate/free at this
+> index"?
+> 
+
+There is also the dmem_max branch, which was the original user of the API.
+Specifically, the case where we want to trigger eviction by allocating one
+extra BO required a revision of the API or the initialization site, at
+least. Perhaps just doing the dynamic allocation will fix all. IIRC, there
+is no sparse allocation, so we could skip n_bo entirely.
+
+> > +{
+> > +	struct xe_dmem_ctx *xe_ctx = ctx;
+> > +	uint32_t handle;
+> > +	int err;
+> > +
+> > +	if (n_bo >= xe_ctx->max_bo)
+> > +		return -ENOMEM;
+> 
+> If the max_bo approach remains, I'd be tempted to igt_assert here since it
+> is a test writer error to hit it.
+> 
+> Also, return error if a valid handle is already at the requested index?
+> 
+> > +
+> > +	err = __xe_bo_create(xe_ctx->fd, 0, len, xe_ctx->vram_region, 0,
+> > +			     NULL, &handle);
+> > +	if (err)
+> > +		goto out;
+> > +
+> > +	xe_ctx->bos[n_bo].handle = handle;
+> > +	xe_ctx->bos[n_bo].len = len;
+> > +
+> > +out:
+> > +	return err;
+> > +}
+> > +
+> > +static void xe_dmem_free_vram(void *ctx, int n_bo)
+> > +{
+> > +	struct xe_dmem_ctx *xe_ctx = ctx;
+> > +	size_t len;
+> > +	if (n_bo >= xe_ctx->max_bo)
+> > +		return;
+> 
+> Same assert or not comment as above.
+> 
+> > +	len = xe_ctx->bos[n_bo].len;
+> > +	if (len) {
+> > +		gem_close(xe_ctx->fd, xe_ctx->bos[n_bo].handle);
+> > +		xe_ctx->bos[n_bo].len = 0;
+> > +	}
+> 
+> It looks like the len local is superflous and handle also needs clearing.
+
+Right. I think when we used the VM API, it was needed, and not anymore.
+
+> 
+> > +}
+> > +
+> > +const struct igt_dmem_driver xe_dmem_driver = {
+> > +	.name = "xe",
+> > +	.get_region_name = xe_dmem_get_region_name,
+> > +	.init = xe_dmem_init,
+> > +	.deinit = xe_dmem_deinit,
+> > +	.allocate_vram = xe_dmem_allocate_vram,
+> > +	.free_vram = xe_dmem_free_vram,
+> > +};
+> 
+> Regards,
+> 
+> Tvrtko
+> 
+
+Thanks.
+Cascardo.
