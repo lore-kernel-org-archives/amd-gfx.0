@@ -4,79 +4,79 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5BA84C624C2
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 07:04:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8F139C61DE2
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 07:04:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C930610E6A7;
-	Mon, 31 Aug 2026 07:04:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5449E10E6B7;
+	Mon, 31 Aug 2026 07:04:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; secure) header.d=freenet.de header.i=@freenet.de header.b="iZSutd/T";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="fB/vEzlk";
 	dkim-atps=neutral
-X-Greylist: delayed 318 seconds by postgrey-1.36 at gabe;
- Fri, 28 Aug 2026 12:20:20 UTC
-Received: from mout.freenet.de (mout.freenet.de [194.97.204.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DCFF10E3FA;
- Fri, 28 Aug 2026 12:20:20 +0000 (UTC)
-Received: from [2001:748:400:2319::3] (helo=sub2.mail.fnrz.de)
- by mout5.mail.fnrz.de with esmtpa (ID viktor.jaegerskuepper@freenet.de) (port
- 25) (Exim 4.98.2 #2) id 1wzvTs-00000008RKJ-2bwl;
- Fri, 28 Aug 2026 14:14:48 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=freenet.de; 
- s=mjaymdexmjqk;
- h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
- References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID;
- bh=W3jS18jhU+PbPJF3OtPf1V1jSHY7+JgKo9ahDNrABJQ=; b=iZSutd/TDl13uYe5llZlM1e/CE
- nTJ8n2goknxpff3lWQwUJ+fqt+sQzmauMwEBmzsJCgSiy0CpXMTQvSMY9eF33zv/lbgLRX4r9opUJ
- feMR9z7sdpwrntQ/KWPowUZm6s3p7oavkIiwnFD063I5YH3SPcsk9ZUFjYJghJFBVwk6oES8vN6T6
- 8c8z18mUWBU4jLcKSnbQOTKX0+RhGF8XwhMRETgz/nPmsJpJ0TZQTEkcZcMLG2q1qfd5ysZCROq6l
- 49caeFpOb8Qct6sx+saff4HQrSYxGinT+NWsbhFZCUbPjeNyU7+dzj7Y4pQ8arkpiKpKE1YViYa0f
- OOwdGneA==;
-Authentication-Results: freenet.de;
- iprev=pass (p200300f9df039f3750a2f981e028cbfd.dip0.t-ipconnect.de)
- smtp.remote-ip=2003:f9:df03:9f37:50a2:f981:e028:cbfd; 
- auth=pass (PLAIN) smtp.auth=viktor.jaegerskuepper@freenet.de
-Received: from p200300f9df039f3750a2f981e028cbfd.dip0.t-ipconnect.de
- ([2003:f9:df03:9f37:50a2:f981:e028:cbfd]:36680 helo=[127.0.0.1])
- by sub2.mail.fnrz.de with esmtpsa (ID viktor.jaegerskuepper@freenet.de)
- (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (port 465) (Exim
- 4.98.2 #2) id 1wzvTs-00000003sEQ-1nN9;
- Fri, 28 Aug 2026 14:14:48 +0200
-Message-ID: <572f78a8-1b09-4275-bca7-0ae8703776d0@freenet.de>
-Date: Fri, 28 Aug 2026 14:19:18 +0200
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com
+ [209.85.221.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A7FD310E0DC
+ for <amd-gfx@lists.freedesktop.org>; Sat, 29 Aug 2026 08:56:49 +0000 (UTC)
+Received: by mail-wr1-f41.google.com with SMTP id
+ ffacd0b85a97d-482e257a23aso990060f8f.0
+ for <amd-gfx@lists.freedesktop.org>; Sat, 29 Aug 2026 01:56:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1787993808; x=1788598608; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=B2/Zp6NA4HAJ1jDSITO8e+fRzaCcgFllUHQXoAMtqoM=;
+ b=fB/vEzlk9BRAh45Tlq/8O1QPXaWF5Netx2t2SsxOJ1TNOPoiAI8QtNS4S5cwXKY3oA
+ j8RfFUxMGxKHquktNTCnU7fZ6q2NkFpg+BKgkC982AgqqSz5jr5GQPD+ncDeuLTHikko
+ 2rrzU32AoiXTWPQd7kx51gklbt2n3trk65tCjPplQlQxsouBO64nWcHNtcrWRjDUKHjc
+ YqXDm+QsHgMzzQqNvGDDXKC2XWQN+mEWbiGqZZKLAGhJkeo2V7oFL673DPy0msXsZc4X
+ Fjc8zy5BcYJsPLx8Dv+mTwu8N/wKw5UWBdabXxz95o2okNr1vPDhF/sT5TV8aCEKoI/A
+ QMmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787993808; x=1788598608;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=B2/Zp6NA4HAJ1jDSITO8e+fRzaCcgFllUHQXoAMtqoM=;
+ b=Z4TA0zasfKcGqyD3U6zV3QO+JPYI/mz9HIa+fRtrNabAbGpcSdUZlD/TON7FYs5ZYv
+ vQ3mMBKl1e9GZD5PniHVRbBecYHlYisNXV0KN3VNDb0T4hbDrQPlZaemwSIOEwggKVln
+ sIdEbV0w8953LAU+UTqbBRIuCsNmHeDpA6BHxavjnFSx3w82Gvj1W6a+wkpvB4VSN2gN
+ k4/yMcVYPDU4BGt/nP9PFYvfUkE+VBw1SGJt4IgafFav5Bmg4QRwx4qGhZbXq169GizG
+ gXyIWZpIpepenJ9+7JkWanJ2+aLFCrDzHDlnfaEEFX94SjjW5YBKSMiMHLGKrWZisoy/
+ e8yw==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBz1ECRlyqPSTeGq5Dpq2t4RHYMfOCVu/d4cyNPSLcpdNOeiycTxLJFStYDotW4plpUk4dUwCb7U@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mkiV2TDUOPSvphWH9bYIOFME6wOgY+j8/y82CgR4+uTSULdajF
+ sM8AbVhdJsiZgfg9uU6+acqV9jh+w0+gnHFIf0Zd3JDc89CCJ7HCDWgX
+X-Gm-Gg: AYBFou3+p6gOaAYFNScrJ5+WS/kj+n+0aMi3GuNQOHPNq7TRE9IdG1/9t9m+87uDoUd
+ aWQi88r9Y0IlneoNRIfbBMC5ZIaAdZmO4c/HS2TMOu0sDZwQWFSHs8fu1Cjq/Sdq6+EH4MKL5G4
+ v6bq9KIBiqx0M/DIBqRjikDqX7bmE8+FBcQJPxlMLVW657JOIWBzuwcbqPdwaK9SgCN8x90TOTF
+ lM0qLqMVXSeksPBvBjF8t/+iIE1TxJFdoKV31BBqvU5ThCZRp8byVH5/tkqAh7HXlLhPsG6z6Oy
+ sFb2ZCw2qcL5plEZudoVFfa5lXOoHSiNEpGn1ws9Uq56ZYX9Jb4MB70wbshUjecOdl78Aut6fII
+ tuvWbyQKqfrmDH/iS57vlM6/AlygltWuPkq9JT0q8PQ/aQQpyizBuZ8iGKQ9IUHJsZJCjgA5w+I
+ wjzidYsUGRueyh/sqjU4ZGWc0I149vALyZWQGWiZO0/EmzlT/DShjp11TK/fhY/emgXStTmamWF
+ WjblBpNQQp7g2vFa2IBa688AWeaCW9HMp42BUl+fk4kziBeXLStMow8Kcetgpr/fRoS3U+v
+X-Received: by 2002:a05:6000:481a:b0:47f:f43e:f0cd with SMTP id
+ ffacd0b85a97d-482f7977a45mr20810773f8f.4.1787993807937; 
+ Sat, 29 Aug 2026 01:56:47 -0700 (PDT)
+Received: from drago.hgw.local ([2a00:1d34:e90c:f900:e29d:3a79:ac40:9edd])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-482fbb28276sm10109373f8f.29.2026.08.29.01.56.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 29 Aug 2026 01:56:47 -0700 (PDT)
+From: Deniz Aydogan <denizaydogan1902@gmail.com>
+To: lizhi.hou@amd.com,
+	amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Deniz Aydogan <denizaydogan1902@gmail.com>
+Subject: [PATCH v2] accel/amdxdna: fix NULL deref and GEM object leak in error
+ paths
+Date: Sat, 29 Aug 2026 11:56:44 +0300
+Message-ID: <20260829085644.38103-1-denizaydogan1902@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260829080016.10002-1-denizaydogan1902@gmail.com>
+References: <20260829080016.10002-1-denizaydogan1902@gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/3] drm/atomic-state-helper: fixes for blend-mode-prop
- warning
-Content-Language: en-US
-To: Thorsten Leemhuis <regressions@leemhuis.info>,
- Melissa Wen <mwen@igalia.com>, Alex Deucher <alexdeucher@gmail.com>
-Cc: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- daniels@collabora.com, harry.wentland@amd.com,
- leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, pekka.paalanen@collabora.com, simona@ffwll.ch,
- siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de,
- Alex Hung <alex.hung@amd.com>, Daniel Wheeler <Daniel.Wheeler@amd.com>,
- kernel-dev@igalia.com, Lyude Paul <lyude@redhat.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Greg KH <gregkh@linuxfoundation.org>,
- Linux kernel regressions list <regressions@lists.linux.dev>,
- =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?= <viktor_jaegerskuepper@freenet.de>
-References: <20260826104143.39077-1-mwen@igalia.com>
- <CADnq5_MEBLriK_M_atX6FKR5618fiB5DmAWOvxE_e+6nd5FdDg@mail.gmail.com>
- <83bef197-dfbc-44a5-b9d8-6e0c44488793@igalia.com>
- <6dda204d-2c12-4442-9893-6449b5ce51c9@igalia.com>
- <9d5fa2bf-d9e4-4c6a-a9ca-8abf14ad894e@leemhuis.info>
-From: =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?=
- <viktor_jaegerskuepper@freenet.de>
-In-Reply-To: <9d5fa2bf-d9e4-4c6a-a9ca-8abf14ad894e@leemhuis.info>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-FN-MUUID: 1787919288BFDEC7C3E20FO
-X-Scan-TS: Fri, 28 Aug 2026 14:14:48 +0200
 X-Mailman-Approved-At: Mon, 31 Aug 2026 07:04:50 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -92,54 +92,61 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/28/26 09:22, Thorsten Leemhuis wrote:
-> On 8/27/26 19:14, Melissa Wen wrote:
->> On 27/08/2026 18:37, Melissa Wen wrote:
->>> On 27/08/2026 15:34, Alex Deucher wrote:
->>>> On Wed, Aug 26, 2026 at 7:20 AM Melissa Wen <mwen@igalia.com> wrote:
->>>>> PREMULTI was the default DRM blend mode until 9813e158d13d
->>>>> ("drm/drm_blend: allow blend mode property without PREMULTI")
->>>>> introduced
->>>>> the possibility of exposing the blend mode property without PREMULTI
->>>>> being supported. However, __drm_atomic_helper_plane_state_init() still
->>>>> resets pixel_blend_mode to PREMULTI (hardcoded), ignoring the supported
->>>>> mode in this property. In the same series, 860e748bddcc ("drm: ensure
->>>>> blend mode supported if pixel format with alpha exposed") starts
->>>>> warning
->>>>> drivers that supports alpha formats in a given planes but doesn't
->>>>> support blend mode property, which includes AMD primary and cursor
->>>>> planes.
->> [...]
->>>> I presume you are planning to apply this directly to drm-misc for 7.3?
->>>
->>> Right, I'll apply to drm-misc-fixes, just doing it now.
->>
->> Or not now. I have to wait for -rc1.
->> I'll keep it on my radar.
-> Hmmm, that sounds like these fixes will miss -rc1. But wouldn't it be
-> good to get them included there, as they afaik (please correct me if I'm
-> wrong, is easy to mix something up from the outside!) the warnings that
-> Greg described as ""It's not good to boot and have a bunch of warnings
-> already happening, resulting in a "tainted" kernel before I have the
-> chance to break anything manually myself...""[1], as more people then
-> will likely encounter this (and then waste time on bisecting an issue
-> known for weeks for which a fix exists).
-> 
-> Ciao, Thorsten
-> 
-> [1]
-> https://lore.kernel.org/all/2026082651-spinning-cornbread-33ba@gregkh/
+amdxdna_cmd_submit() does not set job->cmd_bo for internal driver
+commands that pass AMDXDNA_INVALID_BO_HANDLE. When such a job hits
+an error or completes normally, both the submit error path and
+amdxdna_sched_job_cleanup() call amdxdna_gem_put_obj(job->cmd_bo)
+unconditionally, dereferencing NULL.
 
-If I understand correctly, the *actual* fix (for all affected drivers)
-will make it into 7.3-rc1, see this answer to my question:
-https://lore.kernel.org/dri-devel/20260826-brave-nyala-of-elevation-d23aea@houat/
+Separately, amdxdna_cmd_set_error() acquires a GEM reference via
+amdxdna_gem_get_obj() when handling a chained command, but leaks it
+when the subsequent amdxdna_gem_vmap() returns NULL.
 
-This fix is queued in drm-next:
-https://gitlab.freedesktop.org/drm/kernel/-/commit/271e90eb5f9ff34951647e5ed33c1775eebcca50
+Guard all three amdxdna_gem_put_obj(job->cmd_bo) call sites with a
+NULL check and release the GEM reference on vmap failure.
 
-It seems the drm-next branch is used for fixes arriving during the
-merge window, which might be confusing for outsiders.
+Fixes: 3ba13f5e7180 ("Merge tag 'devicetree-fixes-for-7.3-1'")
+Signed-off-by: Deniz Aydogan <denizaydogan1902@gmail.com>
+---
+ drivers/accel/amdxdna/amdxdna_ctx.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-I hope that clears up the confusion.
+diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
+index 31a414c3f..a806702ec 100644
+--- a/drivers/accel/amdxdna/amdxdna_ctx.c
++++ b/drivers/accel/amdxdna/amdxdna_ctx.c
+@@ -183,8 +183,10 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
+ 		if (!abo)
+ 			return -EINVAL;
+ 		cmd = amdxdna_gem_vmap(abo);
+-		if (!cmd)
++		if (!cmd) {
++			amdxdna_gem_put_obj(abo);
+ 			return -ENOMEM;
++		}
+ 	}
+ 
+ 	memset(cmd->data, 0xff, abo->mem.size - sizeof(*cmd));
+@@ -575,7 +577,8 @@ void amdxdna_sched_job_cleanup(struct amdxdna_sched_job *job)
+ 	trace_amdxdna_debug_point(job->hwctx->name, job->seq, "job release");
+ 	amdxdna_pm_suspend_put(job->hwctx->client->xdna);
+ 	amdxdna_arg_bos_put(job);
+-	amdxdna_gem_put_obj(job->cmd_bo);
++	if (job->cmd_bo)
++		amdxdna_gem_put_obj(job->cmd_bo);
+ 	dma_fence_put(job->fence);
+ 	mmdrop(job->mm);
+ }
+@@ -676,7 +679,8 @@ int amdxdna_cmd_submit(struct amdxdna_client *client,
+ put_bos:
+ 	amdxdna_arg_bos_put(job);
+ cmd_put:
+-	amdxdna_gem_put_obj(job->cmd_bo);
++	if (job->cmd_bo)
++		amdxdna_gem_put_obj(job->cmd_bo);
+ free_job:
+ 	if (job->mm)
+ 		mmdrop(job->mm);
+-- 
+2.55.0
 
-Viktor
