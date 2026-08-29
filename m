@@ -4,78 +4,80 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 01F35C61DCB
-	for <amd-gfx@archiver.kernel.org>; Sat, 29 Aug 2026 01:05:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FFF3C61DCB
+	for <amd-gfx@archiver.kernel.org>; Sat, 29 Aug 2026 08:59:50 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 174F210F08C;
-	Sat, 29 Aug 2026 01:05:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6E04110E0DC;
+	Sat, 29 Aug 2026 08:59:49 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="iPPzFT1N";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="QjTFuIoA";
 	dkim-atps=neutral
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BC6C210E0A0
- for <amd-gfx@lists.freedesktop.org>; Sat, 29 Aug 2026 01:05:30 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-c1712a04ddaso237944266b.2
- for <amd-gfx@lists.freedesktop.org>; Fri, 28 Aug 2026 18:05:30 -0700 (PDT)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8203C10E0DD
+ for <amd-gfx@lists.freedesktop.org>; Sat, 29 Aug 2026 08:59:48 +0000 (UTC)
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-c1600d040e4so288853566b.1
+ for <amd-gfx@lists.freedesktop.org>; Sat, 29 Aug 2026 01:59:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1787965529; x=1788570329; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=zA5kSADrAaVAB+/2hR/f9WTYy/x0O4VhWpKvkd8WRIQ=;
- b=iPPzFT1N1CmeiMlrFPg9pZB0PvpiIwJbgrsZ8nXQkdfZiCrDrbx6M+5FNxdVkR2p2E
- hR/QrW1PuktSDgolhzUig07XgDnnYvA71Q0LnCj3iRsTb8pbral/pMnBmgC2jOUk8yMC
- YRoEFFMJ/UR6v9IKwDAtPvpR7Bit3LtaF9MUWc+kyt+DogNpAdsu7Ni9qjPFgYH4yV1Z
- DQBPIfj+iH1T4ap/wTceG9isXz65UuTrX/+Rgu362BmPF285lg0KnhvtEUp1EOB0o3ge
- 0yPhIlq+QX0fhw3W5cS3fpX8PVVWsqhoyruX9UtdVsPH6WwS+KkvErMTuPiPUqUoOKTx
- Mbew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1787965529; x=1788570329;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20251104; t=1787993987; x=1788598787; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=zA5kSADrAaVAB+/2hR/f9WTYy/x0O4VhWpKvkd8WRIQ=;
- b=Qiogs47gXMkhTTAVGApzQyEB16cWD4aQBf/NiDzeome8UhCSe37MpngPy/koo6flrm
- pbc8ImAdwJ+t7Gv6yw/wuikcB48ooKzDIitC5Vxu8MrQ5kvc5nULL6VR2+ZacLT1xVhj
- wSaidVJJ/849XsgM/38Zj4/GohgCKplccfwmvY9UjHPtUflOURX5/dOZX/w/IjBI96pH
- Fj7Fd4ZhMKqiu6nq4+TUBFto8fvVM2aC8QoM1JUuj+WWOYGTQ3bzaWXXjJ2vmK5pUfXq
- 5bZUQXjcdnsDXWHY9Pxbn3L93662u0Ior5z77CzFmOcqjCfARsWz9RY7lxNvqLfbaNtf
- gTPQ==
+ bh=ibYckuXaq6TGpx88vTI/hlaavXq79ydxG55neiNaehY=;
+ b=QjTFuIoAJzhLBtmdujjlJ9BcSaGAKHyv3UBFT+M8eWAewRbrW/uU0q/DcXwpc8ku9r
+ gNeDIafO5S90Q2SPbOqQMZ508Fz2vzMcgJF82kbvsg6Ua7hSbsj6OE+uJF6OAi3acLAe
+ fWJJdn/AZ26tciQ1X2zsArFrcuk74Wtg95BKlRPxxZMoJdB9SBMo5sH9lT1BBqBerPnw
+ meWCnEcRUqh5KWdLQXJnY1XxbzqzqqjXInvxxFeMPxB7leMr4YYRK/71JelwBoDV5jGz
+ CTOm2DtwSzxSECsTgYMaZwMvL5trH2Yt0fgKnotdXe2/Qlku7rJNHa+WvdTmBsBRPPtq
+ E+lQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1787993987; x=1788598787;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=ibYckuXaq6TGpx88vTI/hlaavXq79ydxG55neiNaehY=;
+ b=HtaPrhXs9drHWQAWp6P5/PDDN/DgejzApr2O8UlfRbU0r7h/HImLGseyUP61anezgX
+ qM5B02qG0qmbQmGu1OU5AhQeFMTBENxDr0eF2Fh/ca0eo9HnvKFyOMtY+kf247CsiSy0
+ aclodsjWZBnzxix5WX/mpxGIcWsnvQZygfKCQv2Ayjb1ZuTXBnE0aNseTcxAyPXs+ZOR
+ h/X+pZMqeoWn1bPl+3Tj4nne/A2zYK9KjHzMZ/aQx5srHhEzqhg2afWq8tDVYISmQ9Iu
+ G/zE0LFZcbybK8Ka3C4/x0sxAwKoepBMnMARA4U4GmLJbK2LOZi8bm8ywFgDnQT+pwbv
+ j5rA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rryblwesnf84UnqrQzyQtlV+p36j0Dp7QChl+3rlBcBh9UPkJz+XgHFLgkfucSkRrqJuSseYr6b@lists.freedesktop.org
-X-Gm-Message-State: AFuF++ncm5lv1xQ0O5Sm1YhtMfE+lTVrQ+bQ/u+s4O5CgYVSwIxLmT4x
- kLwgbxe5lV7/EGar4m2XQDtxWe9dmfFNvxc6bEKULBgZOGlIEYFaPIKV
-X-Gm-Gg: AR+sD10v9EDGo2lL8vw1QBvZ8sLONhjYbSBb9ZhrfgbtdbQJhOswAYxvduzRFjiTLB7
- UBgX5nCodDNDeQ8nctB+sOkSh2y424ySe5PU6tHt4GaFAe5tPiLkA2D92PfvqCrnuDjpOnmELC2
- MuHfiKBRn1MSb7VZvrV9PJlAp+7He0wIf9Mirqif+wob8CjgssRaw1kPwdH744GVmMkOVPBBj7/
- rgARyhJ7cb7/G3Kfx7gSeZQctiBLtm73EjBP5ueFvm0k90R16aaDD6ySuIx2xBH0riBqe/CqsZ4
- xqCWOe+BhFJw5m7Z7pKXf6+WLzinbJjPZjYLocxfZEuis0uU2BVScMZfBxAXa/z2HO1geLhRptm
- Ka3854/0w/0D6QxpbtS4viNIyEwZIQUsOJOnkC4oAe46Cxm9u1UlN3bq/5sNIVw/7+OZs26cdb0
- qNcZb/qO6jBTAamA9ACslXBxypjovEgs1byC4qaJoA37U10EGtZiWb+L9s+ksF+AnKZEOus14Xm
- JL8Gy2HRPGKnPyoOyLpyOwSLlykgy2wVyJR8hj9tOi5tP13e4z3S0innxR0
-X-Received: by 2002:a17:907:94c1:b0:c25:6230:dfcd with SMTP id
- a640c23a62f3a-c256230e4d2mr524252866b.15.1787965528961; 
- Fri, 28 Aug 2026 18:05:28 -0700 (PDT)
+ AHgh+RoZPK8JquqCK8I7uyi8WyyvDyrM7g7oIjR+wDTudn9i7d6C4bM+bAk/x15apk9F4cSfrn3bf4i6@lists.freedesktop.org
+X-Gm-Message-State: AFuF++kQTk/7vwrLfGRscZydA4p3H+NA2+CsNyjww1Zio/WeysjKHWmj
+ p74jhCXTjphNQfVG7NXUMGUM1l79g7fj8GRHJgwk8mF6PxaL+B8gQTZP
+X-Gm-Gg: AYBFou0+3ogMbF4Janw40zn/bntxhbHF058d8Kqh20JIZUgyLWi/jObJiSL8VW/Cmul
+ UUYHn6AI5NIl++wZW4aZOtp6G/dXsidKmV5QhcjtgIXIMKuObPk7eqvYKWBillTpR8zrot2Myp7
+ 6TDPdjl5cdbjTGuTL+86AfV++bcUzLXmJYymfTkZffsB2V2JhVHSkPDeU/a/6mCO/6PkDW6Lm9p
+ uaX3QGEz893t4iFrApK0EGrhSlplEjrWDpGAFDNxE68vcYEztKxzwuzaJiFfId4w0NjQnH0LfSV
+ vL/JJ9fV7HbohAOQlFCBY47n7TbLXCG9hjibpC/fcVVlv7hv/hMycS+SKQFRARFeTdO6yHU/a0n
+ aBtW8kvtJmu4yscaWlnFrxcsGhHiqTpgsGppuGDDOV6N9R+6ZievUT8eicuWkvh9dCP5fI+TH8N
+ g5qB5B80B6A1/qb2eeevPZWx2cRAfu/DVJgTjD5OZLsJaDR90nm2StTYG6vwMsVRp2gwys1qnlk
+ BhKPTN2kN0eaKOW2mawuFYLdO4M7jNPUr9drknL9XkmI6Vof9lS3UrPCWKo
+X-Received: by 2002:a17:906:9f8c:b0:c25:833d:3839 with SMTP id
+ a640c23a62f3a-c25833d3ad7mr25284766b.15.1787993986608; 
+ Sat, 29 Aug 2026 01:59:46 -0700 (PDT)
 Received: from localhost ([188.234.148.119]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c255f1b28ebsm141649666b.29.2026.08.28.18.05.26
+ a640c23a62f3a-c255f273e8bsm180812366b.62.2026.08.29.01.59.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 28 Aug 2026 18:05:28 -0700 (PDT)
+ Sat, 29 Aug 2026 01:59:46 -0700 (PDT)
 From: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
 To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
  Alex Deucher <alexander.deucher@amd.com>
-Cc: Fangzhi Zuo <Jerry.Zuo@amd.com>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- George Zhang <george.zhang@amd.com>,
+Cc: Wayne Lin <Wayne.Lin@amd.com>, ChiaHsuan Chung <chiahsuan.chung@amd.com>,
+ Roman Li <roman.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, regressions@lists.linux.dev
-Subject: [REGRESSION 7.3] drm/amd/display: single-frame scanout corruption on
- DCN32 at 120 Hz since a637a140ab86
-Date: Sat, 29 Aug 2026 06:05:25 +0500
-Message-ID: <20260829010525.29935-1-mikhail.v.gavrilov@gmail.com>
+ linux-kernel@vger.kernel.org, sashiko-bot@kernel.org,
+ Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Subject: [PATCH v2] drm/amd/display: add missing CRC engine 1 registers and
+ masks for DCN3.2
+Date: Sat, 29 Aug 2026 13:59:41 +0500
+Message-ID: <20260829085941.106318-1-mikhail.v.gavrilov@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260829004608.25252-1-mikhail.v.gavrilov@gmail.com>
+References: <20260829004608.25252-1-mikhail.v.gavrilov@gmail.com>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -92,173 +94,112 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Hi,
+Opening the CRTC CRC debugfs file on a DCN3.2 card triggers a WARN from
+dc_helper.c on the first attempt after boot:
 
-Since the 7.3 merge window my desktop shows a band of pixel noise flashing
-across the screen at random on a 3840x2160@120 display driven by an
-RX 7900 XTX (Navi 31, DCN32).  Each occurrence lasts exactly one frame -
-8.3 ms - which is why it reads as a flicker rather than as corruption.  It
-is frequent enough to be painful to look at during ordinary work.
+  WARNING: drivers/gpu/drm/amd/amdgpu/../display/dc/dc_helper.c:53 at
+  set_reg_field_values.isra.0+0x30d/0x730 [amdgpu], CPU#1: cat/58468
 
-The band is not new.  It existed before, rarely enough to ignore, and back
-then a modeset (switching to 60 Hz and back) cleared it for a while.  What
-changed this merge window is that it became roughly two orders of magnitude
-more frequent, and the modeset workaround stopped helping.
+Reproducer, on a fresh boot - the ASSERT is WARN_ON_ONCE, so it only fires
+once per boot:
 
-What I would like is help finding the underlying bug.  I am not asking for a
-revert: reverting the commit below does not fix the artefact, it only takes
-the rate back down to what it was before.  I could not work out how the
-commit leads to the symptom, so most of this mail is measurements and a list
-of mechanisms I was able to rule out.
+  echo crtc > /sys/kernel/debug/dri/<dev>/crtc-0/crc/control
+  cat /sys/kernel/debug/dri/<dev>/crtc-0/crc/data > /dev/null
 
-A photo of the screen, taken with a phone because the artefact never appears
-in a screenshot:
+The WARN comes from the open(), not from the write to control:
+crtc_crc_open() -> amdgpu_dm_crtc_set_crc_source() ->
+amdgpu_dm_crtc_configure_crc_source() -> dc_stream_configure_crc() ->
+optc1_configure_crc() -> generic_reg_update_ex() -> ASSERT(mask != 0).
 
-  https://gitlab.freedesktop.org/drm/amd/-/work_items/5714
+Since commit ef45aaf73717 ("drm/amd/display: Configure all CRC engines in
+pipe CRC source path") the pipe CRC source path iterates every CRC engine,
+so crc_eng_inst = 1 now reaches optc1_configure_crc().  Its case 1 programs
+OTG_CRC1_WINDOWA/WINDOWB_X/Y_CONTROL before enabling the engine, but DCN3.2
+has neither the register entries nor the field masks for those four
+registers, so the masks are zero and the ASSERT fires.
 
+Engine 1 needs three sets of definitions to be usable: the enable bit,
+the window registers that optc1_configure_crc() programs, and the data
+registers that optc1_get_crc() reads back.  DCN3.2 has only the first,
+added by commit c79354d12cb2 ("drm/amd/display: Fix CRC engine 1
+enable/disable on DCN3.1.2+").  As a result engine 1 is enabled with its
+windows never programmed, and a read through optc1_get_crc() case 1 would
+address OTG_CRC1_DATA_RG and OTG_CRC1_DATA_B at MMIO offset 0.
 
-Measuring it
-------------
+Add the remaining two sets.  All six registers exist in hardware -
+regOTG0_OTG_CRC1_WINDOWA_X_CONTROL is at 0x1b6f and
+regOTG0_OTG_CRC1_DATA_RG at 0x1b73 in dcn_3_2_0_offset.h, with their
+field masks in dcn_3_2_0_sh_mask.h.
 
-The artefact is invisible to screen capture but visible to the CRTC CRC
-engine.  A frame in which it occurs has a CRC triple that differs from its
-neighbours while the neighbours are byte-identical to each other: displayed
-content did not change, but one scanned-out frame did.  A torn readback
-cannot produce that, because inside such a window the adjacent frames are
-identical and there is nothing to mix.
+Note that making case 1 return false instead would break CRC capture on
+DCN3.2 entirely: the caller in amdgpu_dm_crtc_configure_crc_source() does
+"ret = -EINVAL; goto unlock" on failure, so a card that warns but works
+today would stop working.
 
-The colour band moves all three CRC registers.  Single-frame content
-flicker in grey areas moves only CRC1 (Y), because on this YCbCr link the
-chroma of an achromatic region is unchanged.  That gives a built-in control:
-the CRC1-only population is content, not corruption, and its rate should not
-depend on the kernel.
+The same entries are missing for DCN2.0, DCN3.0 and DCN3.1.  I have no such
+hardware and have not touched them.
 
-All figures below are per *eligible* frame - frames where the quiet window
-existed - so runs against differently busy screens stay comparable.
+Fixes: ef45aaf73717 ("drm/amd/display: Configure all CRC engines in pipe CRC source path")
+Signed-off-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+Tested-by: Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>
+---
 
+v2: also add the CRC1 data registers and masks (OTG_CRC1_DATA_RG,
+    OTG_CRC1_DATA_B), spotted by Sashiko AI review.  Engine 1 needs all
+    three sets to be usable, and v1 supplied only the windows.
+    Note that ordinary CRC capture through crtc-N/crc/data reads engine 0
+    only (hardcoded in amdgpu_dm_crc.c); the engine 1 readout path is
+    reached from the secure display code, which I am not able to exercise.
 
-The regression
---------------
+The six added SRI_ARR lines follow the space indentation used by every
+line of the surrounding macro, hence the six checkpatch "no spaces at the
+start of a line" warnings.  Using tabs there would misalign them against
+their neighbours.  The added SF lines in dcn32_optc.h are tab indented,
+matching that file.
 
-I bisected the change in frequency to
+ .../gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h    | 11 +++++++++++
+ .../amd/display/dc/resource/dcn32/dcn32_resource.h    |  6 ++++++
+ 2 files changed, 17 insertions(+)
 
-  commit a637a140ab86 ("drm/amd/display: Allocate DCN32/1 dmub memory to GTT")
+diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h
+index 60c01ec28b65..492760779226 100644
+--- a/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h
++++ b/drivers/gpu/drm/amd/display/dc/optc/dcn32/dcn32_optc.h
+@@ -146,6 +146,17 @@
+ 	SF(OTG0_OTG_CRC0_WINDOWB_X_CONTROL, OTG_CRC0_WINDOWB_X_END, mask_sh),\
+ 	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_START, mask_sh),\
+ 	SF(OTG0_OTG_CRC0_WINDOWB_Y_CONTROL, OTG_CRC0_WINDOWB_Y_END, mask_sh),\
++	SF(OTG0_OTG_CRC1_DATA_RG, CRC1_R_CR, mask_sh),\
++	SF(OTG0_OTG_CRC1_DATA_RG, CRC1_G_Y, mask_sh),\
++	SF(OTG0_OTG_CRC1_DATA_B, CRC1_B_CB, mask_sh),\
++	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_START, mask_sh),\
++	SF(OTG0_OTG_CRC1_WINDOWA_X_CONTROL, OTG_CRC1_WINDOWA_X_END, mask_sh),\
++	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_START, mask_sh),\
++	SF(OTG0_OTG_CRC1_WINDOWA_Y_CONTROL, OTG_CRC1_WINDOWA_Y_END, mask_sh),\
++	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_START, mask_sh),\
++	SF(OTG0_OTG_CRC1_WINDOWB_X_CONTROL, OTG_CRC1_WINDOWB_X_END, mask_sh),\
++	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_START, mask_sh),\
++	SF(OTG0_OTG_CRC1_WINDOWB_Y_CONTROL, OTG_CRC1_WINDOWB_Y_END, mask_sh),\
+ 	SF(OTG0_OTG_TRIGA_MANUAL_TRIG, OTG_TRIGA_MANUAL_TRIG, mask_sh),\
+ 	SF(GSL_SOURCE_SELECT, GSL0_READY_SOURCE_SEL, mask_sh),\
+ 	SF(GSL_SOURCE_SELECT, GSL1_READY_SOURCE_SEL, mask_sh),\
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
+index 68e7140f1505..fa8cc89cb3f7 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn32/dcn32_resource.h
+@@ -1054,6 +1054,12 @@ unsigned int dcn32_get_max_hw_cursor_size(const struct dc *dc,
+       SRI_ARR(OTG_CRC0_WINDOWA_Y_CONTROL, OTG, inst),                          \
+       SRI_ARR(OTG_CRC0_WINDOWB_X_CONTROL, OTG, inst),                          \
+       SRI_ARR(OTG_CRC0_WINDOWB_Y_CONTROL, OTG, inst),                          \
++      SRI_ARR(OTG_CRC1_DATA_RG, OTG, inst),                                    \
++      SRI_ARR(OTG_CRC1_DATA_B, OTG, inst),                                     \
++      SRI_ARR(OTG_CRC1_WINDOWA_X_CONTROL, OTG, inst),                          \
++      SRI_ARR(OTG_CRC1_WINDOWA_Y_CONTROL, OTG, inst),                          \
++      SRI_ARR(OTG_CRC1_WINDOWB_X_CONTROL, OTG, inst),                          \
++      SRI_ARR(OTG_CRC1_WINDOWB_Y_CONTROL, OTG, inst),                          \
+       SR_ARR(GSL_SOURCE_SELECT, inst),                                         \
+       SRI_ARR(OTG_TRIGA_MANUAL_TRIG, OTG, inst),                               \
+       SRI_ARR(OTG_GLOBAL_CONTROL1, OTG, inst),                                 \
+-- 
+2.55.0
 
-Each bisect step was judged by eye over a kernel build's worth of ordinary
-desktop use at 120 Hz.  That is a weak criterion for a probabilistic bug, so
-I re-tested the endpoints with the CRC detector instead.  Both runs were
-ordinary desktop work, same machine, same display, no modeset before either
-run:
-
-                              a637a140ab86      a637a140ab86
-                                reverted           present
-  observation                    8.06 h            6.43 h
-  eligible frames              1,621,663         1,382,934
-  events, all three CRCs              12               924
-    per 1000 eligible               0.0074            0.6681
-  events, CRC1 only (control)         30                32
-    per 1000 eligible               0.0185            0.0231
-
-The artefact signature is 90x more frequent.  The content-flicker control is
-flat at 1.25x, so the detector, the screen activity and the sensitivity were
-comparable across the two runs.
-
-The composition changes too: with the commit reverted, 24% of detected
-events are all-three; with it present, 94% are.
-
-
-Refresh rate
-------------
-
-  4K120, YCbCr 4:2:0, 8 bpc, TMDS 594 MHz   artefact present
-  4K100, YCbCr 4:2:0, 8 bpc, TMDS 495 MHz   artefact present
-  4K60,  YCbCr 4:4:4, 8 bpc, TMDS 594 MHz   0 events in 70,691 eligible
-  4K60,  YCbCr 4:2:0, 12 bpc (forced)       0 events in 1,290,588 eligible
-
-The last row was measured with force_yuv_pixel_format=4 to separate refresh
-rate from chroma subsampling, since the two change together on this display.
-At 60 Hz with the same 4:2:0 encoding that shows the artefact at 120 Hz,
-1.29 million eligible frames produced nothing.  Link bandwidth is not the
-variable either: 594 MHz appears in a configuration that shows the artefact
-and in one that does not.
-
-So the dependency is on frame rate.
-
-
-What I could rule out
----------------------
-
-Twenty DTN snapshots taken within seconds of confirmed events, on the kernel
-with the commit reverted:
-
-  - HUBP underflow and OTG underflow read 0 in all twenty.
-  - dcfclk, dispclk, dppclk and fclk are identical in all twenty; no clock
-    transition happens near an event.
-  - vmax = vmin = 2249 with both select bits set, in all twenty: DRR is armed
-    but pinned to nominal, so no vblank stretching is available.
-  - The watermark sets, including dram_clk_change, are identical throughout.
-
-Caveat: the snapshots are taken seconds after the event, so a momentary
-transition would be missed.  But vmax = vmin and the identical watermark
-sets are configuration, not instantaneous state.
-
-Reading the commit, the buffer is pinned by amdgpu_bo_create_kernel(), so
-TTM eviction is not a factor either.  What the commit moves out of VRAM is
-every DMUB FB window at once - instruction constants, stack, BSS data,
-VBIOS, mailbox, trace buffer, firmware state, scratch, IB, shared state,
-LSDMA buffer and cursor offload.  I do not know how that leads to a single
-corrupted scanout frame; that is the part I am hoping someone from DC can
-see.
-
-Two details from the diff that I am not able to judge myself.
-
-AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS is still set unconditionally in
-amdgpu_bo_create_reserved(), and with the domain now GTT-only it no longer
-does anything.
-
-The commit immediately before this one in the same file is 5b69770e945c
-("drm/amd/display: Generalize DMUB memory flushes from host"), which adds a
-dmub_srv context parameter to the flush helper; the Linux implementation
-still ignores it and remains the generic read-back loop. That helper is
-called on scratch_mem_fb, on ib_mem_gart and on inst_fb during backdoor
-load. Before a637a140ab86 the remaining windows sat in VRAM; now all twelve
-are in system memory. Is that flush coverage still sufficient for the
-windows that moved? I am asking, not claiming - I do not know the coherency
-model for these buffers well enough to say.
-
-The commit's own comment says the restriction to DCN32/321 is temporary and
-that it will be made general to other dGPUs later, which is why I would
-rather this were understood before it spreads.
-
-
-Configuration
--------------
-
-  GPU        : AMD Radeon RX 7900 XTX (Navi 31, DCN32), 1002:744c rev c8
-  iGPU       : Raphael 1002:164e, bound to amdgpu, drives no display
-  Board      : ASUS ROG STRIX B650E-I GAMING WIFI, BIOS 3854 04/03/2026
-  CPU        : AMD Ryzen 9 7950X
-  Display    : LG OLED42C3 (42" OLED TV), HDMI, 3840x2160@120
-  Timing     : 3840 4016 4104 4400  2160 2168 2178 2250, 1188000 kHz
-  Encoding   : YCbCr 4:2:0 8 bpc at 120/100 Hz, YCbCr 4:4:4 8 bpc at 60 Hz
-  FreeSync   : enabled, range 40-120, reported FIXED by the display
-  DSC        : off
-  Kernel     : 7.2.0-66498c75b4f8-with-fixes-v1-m62-quirk+
-  Userspace  : Fedora Rawhide, GNOME on Wayland
-
-The kernel is tainted W: opening the CRTC CRC debugfs file triggers a
-WARN in dc_helper.c on DCN32.  That is a separate bug in the same merge
-window, with a patch already posted:
-
-  https://lore.kernel.org/all/20260829004608.25252-1-mikhail.v.gavrilov@gmail.com/
-
-It does not affect CRC0, which is what the measurements above use.
-
-Both the capture tool and the raw logs are available if they would help.
-
-Thanks,
-Mikhail Gavrilov
-
-#regzbot introduced: a637a140ab86
-#regzbot title: drm/amd/display: single-frame scanout corruption on DCN32 at 120 Hz
-#regzbot link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5714
