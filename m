@@ -4,53 +4,123 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14C31C624A4
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:52:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9FD35C624C6
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 14:14:00 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AF8B10E8FD;
-	Mon, 31 Aug 2026 13:52:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1696110E8E8;
+	Mon, 31 Aug 2026 14:14:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j/AIbJ83";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hZXI7OLc";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70B6510E8FD;
- Mon, 31 Aug 2026 13:52:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 57FD1434A6;
- Mon, 31 Aug 2026 13:52:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDA921F00A3D;
- Mon, 31 Aug 2026 13:52:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184339;
- bh=QQjJUuwqF3dl/BsR9mTs4/kOQd2wo43GQXcvfc26Dc8=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=j/AIbJ83WoxEzQsG+uHKBnqX7EmB84bQrNan1Ni9YU+/3HbXlycJpafC/5dRJQXwo
- zIByS93zfUNf27JjTMHKWh2xcJy6sFQxNnC7AZLx7bfhgZawkeqlukwRQy1oPv4obS
- G/zNLMoX1RVLzfPM5ZaIEF558e4aKZaH4o38+iM7ROCeNBPBwXRdEyKQ3bZf2lqvmI
- kgHHs3G+1CzUNlJGkyLlfQYGNDifDeP3SxPdSChjmfSZ3aL6Z1ewx7meHg3dyoOsfG
- Rsl4Y58Yr8aB4eghvVropM7ykRpxDxCEroSMM1L3lTx7bJlb/WZVtnkvz/2GGC2pb3
- ZhdF7oskK5lpA==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: David Francis <David.Francis@amd.com>,
- Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.1] drm/amdkfd: Check bounds on allocate_doorbell
-Date: Mon, 31 Aug 2026 09:31:03 -0400
-Message-ID: <20260831133314.4125787-635-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
-MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010020.outbound.protection.outlook.com [52.101.201.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AD2C10E8E8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 14:13:58 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=kcT9D5p5nlGHHkjODjypm0bsChMEzQ4RKsaNYxJmT4OcbHpbMsOM+4oFi1jWBs12tr3ed/GKsW0Z3XLa3A3Y7Cb/45i9O0ou2MP1Yo2SeWsxFGOb1mok73EGe+5UbpJHKnekZSFQz3cUcVcfRZCmvzwBpxH+DR7G/cJ4puKZwIw9NSi/kNn/NVK6BFDtka2yZnSC88sE1m7O9UtZ+6kJOH0RcROnHHPpC+I44fBO/s2tt4GhcDFrU5D6KxEqch3NVqfEr0actUo122kPktg1sCiStSQ/cKPy8ZqyXz/2rd3kiNW77V0SxEJ8D6iWvpQkKi/YMzZ6P4G8LxBk69eb/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=q17pgDNy4w/zpASzXkAUrjiH5MOzj0lH18Gi/lXw/cY=;
+ b=unlZZRmjuJw31FxAEEepcTcpDcxm76BxJSDO1B15hRWHQSUHJepVt4H5vSqE6vr4eV/zVoFFLcN+j7GIUC15WHvPIvEMqJjMK7cnqJBNL0mUDC01VtK3OiHGz8kYS1e2HCeeS/i7PN3iymxv4xlfDaqgMvf89viGlVu8w6+DEv8haUk1YMT20DkSjcYfAjmbRjyRxMMpSK7CGbyt4xb1sAp5iuSsHOEmfbjqvwcUcpc68i1S5LnamjlUdp5QmMV0+0mha4vX7Vn4otxcawR6G7/w2elLJ8K6huSD0rdZv0fVIiKQNx2hr1qNdHnCc5zkykRCCanpHZJBM1MsfFrkFQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=q17pgDNy4w/zpASzXkAUrjiH5MOzj0lH18Gi/lXw/cY=;
+ b=hZXI7OLc5JSgUbKBUN++dMKyHZyt/OKuAHBbn5sLMyVQCExNK3xJfSQ228dzrZXPnktXIOhl2rsMzxdUFNAwnmJ4dh9Uuewct6KYGc90tJJnvMuxFQNIpl9+4bl29Gfn4yQAf0QAhINnE8iB25vtZ78wDtCyUhQYsPWThyuokDQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CY5PR12MB6347.namprd12.prod.outlook.com (2603:10b6:930:20::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 14:13:54 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Mon, 31 Aug 2026
+ 14:13:54 +0000
+Message-ID: <a52c7428-0d2b-4314-bcfa-a1e939b74591@amd.com>
+Date: Mon, 31 Aug 2026 16:13:50 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] drm/amdgpu: skip the VMID 0 flush for VRAM
+ clear-on-release
+To: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, timur.kristof@gmail.com, stable@vger.kernel.org
+References: <20260831122841.42160-1-Arunpravin.PaneerSelvam@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260831122841.42160-1-Arunpravin.PaneerSelvam@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR0P281CA0190.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:ab::15) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY5PR12MB6347:EE_
+X-MS-Office365-Filtering-Correlation-Id: 719bd7ab-6d5d-4eae-d8f9-08df076a16f1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|1800799024|366016|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: U06iyQBJgL5NhyMVroOBi1/6sx4PESaorP10klINyId03RqFI08WmAdCci2yVXzMECWyw4PvpQcouB96fwvH75Pq6CG+0e0PLN8UQtg6lke4jyTcxSo3hK5SI+0cNlAkLOdIJwFJ3lB1KJKgLKjebtlgS9ipH14D+kaCX5Ff5cGi4qgGpyM2Vncx4zoTZl26He1Xe2Esxs0W0+g5V1h/0mvWm6fEyP3l/ajM1w0KjOXl3KSrjY7Bn/lF3+pWK4vMT8/TrR/RoznbaX42DmxWNsW+DeuJNFOa50cgwnkCj+aOzhkYqEibHZNZXGOYYnKoczENvDFf8pUtk+YJhOmRrCkGwp/7rgzQYf9ImFU8V6lGboeZKXYW7cnwCYj0ETWm/WIh3/Utcv8vCLUyCxe9/JYmLIz7SQtT1V/h0TLKOjv/GAyOjeTREMjaLnBPMI7HAw7A4PCssOoe6/X+7+AdYwSBnBlfUUSO5U6a5yZDaJLo0G9zgQv1/Qo5XEOUVxnK3yHyA5P9wXD6xhI+Ez4QFdFxH+O8YkldYZXS1TWyyZM7Wq0nOq0faSo4xPdrDAcAEt0NqzahH/52LlugnFt1mJLdgSaWYYArHC04nEZmVqY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Ri9JckkyUkh3RWl3TlhMQmNoMDhCRlA4Z2hsS2NEOWs1bGxQbTRUSlBicEF1?=
+ =?utf-8?B?UmFMajFiMUpaMC90UjdpalRlTXVOMXJJY3orZTM2UndDeXpRcGpJd01aamEw?=
+ =?utf-8?B?Y0ZkN25hQklOOUZOdjlvR2xlenZrSFlJK0Jqd3JlaEFUSjZ5T3Y5QWwyTE1s?=
+ =?utf-8?B?RmgwRkRqL0xNdW1LV0dVbFcrK3U0dzgyWVkzQzhQeko1RUNpcm5WWXhTZ0RR?=
+ =?utf-8?B?WVRXbkRrVjE3cVNCQWVoR0szQjBqT0tPbm9CTkFGWFU0cW1ZUzRna0tCZm8r?=
+ =?utf-8?B?QlJlbGJHdmtyajZnS1F6Z3pNaG1LeURpb0RtRUJnWSsxNklLeFp0QXNzVDZy?=
+ =?utf-8?B?WmZLQUNXZlBCcWVDZlowN0ZuWm9QS1BSbThIN2ptcDdSS0ZheldsVzQ2ZXBx?=
+ =?utf-8?B?aWRRSDRSZStkblBFZnRoSHBpS1N5ZVNjUWRWMXFULzd3U3Y2VjNiUGljODlh?=
+ =?utf-8?B?aWhLUC9GRnJ3RFcrL1pxS0l6N1hMcWZ5dHc4T0hLaDhWTVhrV0xJeUsrUEdF?=
+ =?utf-8?B?TUxiS1ZDS3kyQnk4azUvRFZLeVpVdGg2dnEyVktLMXFRbEhrWXRpdXl3WlNT?=
+ =?utf-8?B?cWp1cnhnNDlwRW5sdHZtZzEwY0dxWitvVkROeFJHU1JWVUVscnJKaEFOdEhH?=
+ =?utf-8?B?RzJ2dDVrS1R3Vk1qL2I1WFltV3RWRWhTN0R0S3d4d09nYjlUVFBNZGlVZ1A5?=
+ =?utf-8?B?UTlHVXRScnVjM1dtM0E2dXArUmo2Q0FUaUhmMVRadmNFVmdvb0tmdmpHWmhQ?=
+ =?utf-8?B?cUg4RDU0Ni8vSjdrUTdRbVVFU2ZsdFFPMXpHUWhoRUFqbG5DVkhXZ0hyTWgw?=
+ =?utf-8?B?ZG1UVjBJYUtLcS93d3VHa2RocGYzem91VVZZamZBSG1uZ2EzUXByUEllRkxy?=
+ =?utf-8?B?VmcxNUQ0ZnNod2N0bm9mQUxGZFArQkxwRWhDSldnd25yRTQ0cXhsZzJkdXlh?=
+ =?utf-8?B?RlU3alVGRW9uRlMybmVOcVZ5Um0xYTJ2ZjdsQmc4VjV1SjR1eHU2b1dNUFYz?=
+ =?utf-8?B?OTVQMzlpL0E4WUR1NjBXVzFjQzIrMm9UeDJ0RHQ4RVJFTk5WSzZuSUVEY0tL?=
+ =?utf-8?B?MWszWTFBd1ArU1FnLy9KS0NNeWlwcGp0d2tYWEw5Ujk1azNZd3oydVh1eE1G?=
+ =?utf-8?B?S05tem9Td3hIbGlLcUhFa2JESDh6STcvV0hEeXkrNmFFWnBtMExiSTdGdloy?=
+ =?utf-8?B?RzRtVk9BakdTd0hmZ0ZvMitJaTE3S0JSYTA4YjN0aXROelg2dFI2MWR6MDF6?=
+ =?utf-8?B?L0twd2pwVGRaZVAzUWdvTDF2Q0ROemFyTThURHFGUnQzd3VNdHFndnFpaWZw?=
+ =?utf-8?B?OGRQNW5DaU9jMUFRVzhhSGMray83cFNqMHQ2UkkyRjlYSXdneFdaZzd1TnZ4?=
+ =?utf-8?B?ckFNQkxwMitnLzZneWtnaklmUVI2M0pxbGpzM0FtMDBKS0tuT2pobXBNUmhR?=
+ =?utf-8?B?NWZmU2RUN0lRTnFzNHpvMHQ2ajVvRktPN3kzbk8rWWFSRG81TGNySVlMakdu?=
+ =?utf-8?B?V2hwYUpXNHdxaG5od0lEVlZVWTArQzhqTUtCWDRpMG5QU3dmY3NFc0x2RDJQ?=
+ =?utf-8?B?aTNwQnlSQnhwcFpjWStHOSt1dHVxelpOaHF3WU95WFpHeS9CUlVid2U1a21L?=
+ =?utf-8?B?aFpWRU1YZ2VaNWxHbDBUMUpJMG5Fc2F3c3lxc1FUaVdURjVPaWM5aHBNR1Q3?=
+ =?utf-8?B?SGZTZFZlNlArZ2tXWWI3b2lNU0N6MG8xQitBeXl2RmpnU09BUEFkNlJXeHow?=
+ =?utf-8?B?TENVTWpoc05GWkJHWkxFSVRnZk04K1BiQkxZY3NROWFLZzZ1dkFOZm90UENJ?=
+ =?utf-8?B?eFROMEtKcXFUSDJhcFA4NFc5U0ZGS01jRUd5Qi8xcXdYRDRRMDVHY3A4OTRy?=
+ =?utf-8?B?RzlrS2IyaGdxSjFkN1o5V0J1dURrRHBPVWs1cFRyYUt4TGtIV0Q2YitlRzF6?=
+ =?utf-8?B?Vm03cjNyK0FHSnoyS1hFNDRyU3FvMXE3K0JJcjJGM1NiUy9QQ3d6cnlscHQz?=
+ =?utf-8?B?d0dVUzdicDYwbjJ0UjZWWEk2OHhBWGNXZmtPREduVFhjeGdFSDhQMUcyMWNT?=
+ =?utf-8?B?bUNYVTR6VlJSRDZKbXBWWUdjQ2xOa3V1Qkw1SWlHd01WQ01QWmo5c1kxNk9K?=
+ =?utf-8?B?WDExQ1U2d3pFMk8zYnBRNlIvSm1yMEpxLzNKMVRScmlvZW1nMGYrZTFFcFpO?=
+ =?utf-8?B?U282Yk5xUGp6OEd0WWNFSXpYNkZ4STF6cHhueThuVFpGMytnQkM0VXArcGIv?=
+ =?utf-8?B?V2hBQzZnRjg2YkM2MHdETDhQV3lYdlQ4TVNDRXErLy8yb0FkMWpCNUJValNH?=
+ =?utf-8?Q?w6wNK9ldOmd4pSEN8g?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 719bd7ab-6d5d-4eae-d8f9-08df076a16f1
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 14:13:54.4371 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: naWrXR15fV/W8NYmJmUK+n1KsssdSWHwlxGwwbqGrTwE/t7fpsJaOHuiCaZ1J45j
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6347
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,380 +135,122 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: David Francis <David.Francis@amd.com>
-
-[ Upstream commit 1f087bb8cf9e8797633da35c85435e557ef74d06 ]
-
-allocated_doorbell has an option to set the doorbell id
-to a specific value (used by CRIU). This value was not
-bounds checked.
-
-Check to confirm it's less than KFD_MAX_NUM_OF_QUEUES_PER_PROCESS.
-
-Signed-off-by: David Francis <David.Francis@amd.com>
-Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-# Stable Backport Analysis: `drm/amdkfd: Check bounds on
-allocate_doorbell`
-
-**Local tree:** Linux 6.18.43 (`git describe HEAD` →
-`v6.18.43-1-gc7f0dac02d232`)
-
----
-
-## PHASE 1: COMMIT MESSAGE FORENSICS
-
-### Step 1.1: Subject Line
-**Record:** `[drm/amdkfd]` `[Check]` — Add bounds validation on doorbell
-ID during CRIU restore allocation in `allocate_doorbell()`.
-
-### Step 1.2: Commit Tags
-**Record:**
-| Tag | Value |
-|-----|-------|
-| Signed-off-by | David Francis \<David.Francis@amd.com\> |
-| Reviewed-by | Harish Kasiviswanathan
-\<Harish.Kasiviswanathan@amd.com\> |
-| Signed-off-by | Alex Deucher \<alexander.deucher@amd.com\>
-(committer/maintainer) |
-| Fixes: | None |
-| Reported-by: | None |
-| Cc: stable | None (expected for manual review) |
-| Link: | None |
-
-Notable: Reviewed by AMD colleague; committed by subsystem maintainer.
-No syzbot or user bug reports.
-
-### Step 1.3: Commit Body Analysis
-**Record:**
-- **Bug:** `allocate_doorbell()` accepts a user-specified doorbell ID
-  via `restore_id` (CRIU restore path) without validating it is within
-  `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS`.
-- **Symptom:** Out-of-bounds `__test_and_set_bit()` on
-  `qpd->doorbell_bitmap` → kernel memory corruption or crash.
-- **Root cause:** CRIU restore copies `doorbell_id` from userspace
-  (`kfd_criu_queue_priv_data`) and passes it directly to
-  `allocate_doorbell()` with no upper-bound check.
-- **Version info:** None in commit message.
-
-### Step 1.4: Hidden Bug Fix Detection
-**Record:** Not disguised — explicitly a missing bounds check. Same
-class of bug as the parallel event-restore fix in `kfd_events.c` (`if
-(*restore_id >= KFD_SIGNAL_EVENT_LIMIT)`).
-
----
-
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: Change Inventory
-**Record:**
-| File | Changes |
-|------|---------|
-| `drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c` | +3 lines |
-
-- **Function modified:** `allocate_doorbell()`
-- **Scope:** Single-file, surgical fix (3 lines added)
-
-### Step 2.2: Code Flow Change
-**Record:**
-- **Hunk (CP queues on SOC15, `restore_id` path):**
-  - **Before:** `__test_and_set_bit(*restore_id, qpd->doorbell_bitmap)`
-    called with no validation.
-  - **After:** Return `-EINVAL` if `*restore_id >=
-    KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` (1024) before the bit operation.
-- **Affected path:** CRIU queue restore on SOC15+ compute (CP) queues
-  only.
-
-### Step 2.3: Bug Mechanism
-**Record:**
-- **Category:** Buffer out-of-bounds / memory safety.
-- **Mechanism:** `qpd->doorbell_bitmap` is allocated with
-  `bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS, GFP_KERNEL)` (1024
-  bits). An out-of-range `restore_id` causes `__test_and_set_bit()` to
-  write beyond the allocation.
-
-### Step 2.4: Fix Quality
-**Record:**
-- Obviously correct; mirrors existing pattern in
-  `allocate_event_notification_slot()`.
-- Minimal, no unrelated changes.
-- Low regression risk: only rejects invalid IDs that should never
-  succeed.
-- No API or behavioral changes for valid inputs.
-
----
-
-## PHASE 3: GIT HISTORY INVESTIGATION
-
-### Step 3.1: Blame
-**Record:** Buggy `restore_id` path is present in this tree at lines
-474–479. Git blame in this stable checkout is unreliable (squashed
-history), but the vulnerable code is confirmed present.
-
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no `Fixes:` tag.
-
-### Step 3.3: Related File History
-**Record:**
-- Commit on `master`: `a1d4b228e3dc5` (May 19, 2026), cherry-picked from
-  `1f087bb8cf9e`.
-- Part of a 2-patch series; patch 2/2 (`6dc2c49a70519` on master) fixes
-  the same class of bug for `allocate_sdma_queue()` — separate,
-  standalone fix.
-- Fix is **not** in the local 6.18.43 tree.
-
-### Step 3.4: Author Context
-**Record:** David Francis (AMD). Reviewed by Harish Kasiviswanathan;
-committed by Alex Deucher (amdgpu/amdkfd maintainer).
-
-### Step 3.5: Dependencies
-**Record:** Standalone. No prerequisite commits. Applies cleanly to the
-local tree.
-
----
-
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
-
-### Step 4.1: Original Discussion
-**Record:**
-- **URL:** https://patch.msgid.link/20260512192824.3682569-1-
-  David.Francis@amd.com
-- **Series:** v1 only (no further revisions via `b4 dig -a`)
-- **Review feedback:** No stable nominations, NAKs, or substantive
-  objections found in the mbox thread.
-
-### Step 4.2: Reviewers
-**Record:** CC'd to `amd-gfx@lists.freedesktop.org`. Reviewed-by on
-commit.
-
-### Step 4.3: Bug Reports
-**Record:** N/A — no external bug report or syzbot link.
-
-### Step 4.4: Related Patches
-**Record:** Patch 2/2 bounds-checks `restore_sdma_id` in
-`allocate_sdma_queue()`. Same bug class; also missing in this tree.
-Independent backport candidate.
-
-### Step 4.5: Stable List History
-**Record:** Not searched; no stable-list discussion found in mbox.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1: Key Functions
-**Record:** `allocate_doorbell()` — only function modified.
-
-### Step 5.2: Callers
-**Record:**
-- `create_queue_nocpsch()` → `allocate_doorbell(qpd, q, qd ?
-  &qd->doorbell_id : NULL)` (line 670)
-- `create_queue_cpsch()` → same pattern (line 1991)
-- Both reached from `pqm_create_queue()` → `kfd_criu_restore_queue()`
-  during CRIU restore
-
-### Step 5.3: Callees
-**Record:** `__test_and_set_bit()`, `find_first_zero_bit()`,
-`set_bit()`, `amdgpu_doorbell_index_on_bar()`.
-
-### Step 5.4: Call Chain / Reachability
-**Record:**
-```
-userspace AMDKFD_IOC_CRIU_OP (restore)
-  → criu_restore() → criu_restore_objects()
-  → kfd_criu_restore_queue() [copy_from_user q_data including
-doorbell_id]
-  → pqm_create_queue(..., q_data, ...)
-  → create_queue_*() → allocate_doorbell(..., &qd->doorbell_id)
-```
-Reachable from userspace via CRIU restore ioctl. Requires
-`CAP_CHECKPOINT_RESTORE` or `CAP_SYS_ADMIN` (see `kfd_chardev.c` lines
-3332–3337).
-
-### Step 5.5: Similar Patterns
-**Record:** `kfd_events.c:110` already bounds-checks `*restore_id >=
-KFD_SIGNAL_EVENT_LIMIT` for CRIU event restore. This commit closes the
-same gap for doorbells.
-
----
-
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
-
-### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** Lines 474–479 in `kfd_device_queue_manager.c` lack
-the bounds check. CRIU support (`kfd_criu_restore_queue`,
-`AMDKFD_IOC_CRIU_OP`) is present. `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` is
-1024.
-
-### Step 6.2: Backport Complications
-**Record:** Clean apply expected — 3-line addition with no conflicts.
-File structure matches mainline.
-
-### Step 6.3: Related Fixes Already Present?
-**Record:** No. `git show master:a1d4b228e3dc5` has the fix; local HEAD
-does not. SDMA bounds fix (patch 2/2) is also absent.
-
----
-
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
-
-### Step 7.1: Subsystem Criticality
-**Record:** `drivers/gpu/drm/amd/amdkfd` — AMDGPU KFD compute driver.
-**IMPORTANT** (GPU compute users; not core kernel, but widely deployed
-on AMD hardware).
-
-### Step 7.2: Subsystem Activity
-**Record:** Active — CRIU support and related hardening commits exist on
-master for this subsystem.
-
----
-
-## PHASE 8: IMPACT AND RISK ASSESSMENT
-
-### Step 8.1: Who Is Affected
-**Record:** Users of AMDGPU KFD with CRIU checkpoint/restore on SOC15+
-hardware (CP compute queues). Narrow feature set, but real production
-use (containers, HPC migration).
-
-### Step 8.2: Trigger Conditions
-**Record:**
-- CRIU restore with `doorbell_id >= 1024` in checkpoint private data.
-- Requires privileged capability (`CAP_CHECKPOINT_RESTORE` or
-  `CAP_SYS_ADMIN`).
-- Corrupted or malicious checkpoint image during restore can trigger it.
-- Not triggerable by unprivileged users directly.
-
-### Step 8.3: Failure Mode Severity
-**Record:** Out-of-bounds kernel heap write via `__test_and_set_bit()` →
-memory corruption, potential kernel oops/panic. **Severity: HIGH**
-(memory corruption); mitigated by privileged-only ioctl path.
-
-### Step 8.4: Risk-Benefit
-**Record:**
-| | Assessment |
-|--|------------|
-| **Benefit** | Prevents kernel memory corruption on CRIU restore;
-defense-in-depth for untrusted checkpoint data |
-| **Risk** | Very low — 3-line bounds check, no behavior change for
-valid IDs |
-| **Ratio** | Favorable |
-
----
-
-## PHASE 9: FINAL SYNTHESIS
-
-### Step 9.1: Evidence Summary
-
-**FOR backport:**
-- Real out-of-bounds bitmap access bug
-- Kernel memory corruption possible
-- Fix is minimal, obviously correct, maintainer-reviewed
-- Buggy code and CRIU infrastructure exist in 6.18.43
-- Matches existing bounds-check pattern in `kfd_events.c`
-- Standalone, clean apply
-
-**AGAINST backport:**
-- CRIU is a niche feature
-- Requires privileged capability (not unprivileged attack surface)
-- No user reports or syzbot findings
-- Patch 2/2 (SDMA) addresses a related gap but is separate
-
-**Unresolved:** None affecting the decision.
-
-### Step 9.2: Stable Rules Checklist
-| Criterion | Result |
-|-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — trivial bounds check;
-Reviewed-by present |
-| 2. Fixes a real bug? | **PASS** — OOB `__test_and_set_bit()` on
-1024-bit bitmap |
-| 3. Important issue? | **PASS** — memory corruption (HIGH, privileged
-path) |
-| 4. Small and contained? | **PASS** — 3 lines, one function |
-| 5. No new features/APIs? | **PASS** |
-| 6. Can apply to local tree? | **PASS** — code present, fix absent |
-
-### Step 9.3: Exception Categories
-**Record:** None (not a device ID, quirk, DT, build, or docs fix).
-Qualifies as a standard memory-safety bug fix.
-
-### Step 9.4: Decision Rationale
-
-For Linux **6.18.43**, the vulnerable CRIU restore path exists, the fix
-is absent, and the patch prevents out-of-bounds kernel memory writes
-from userspace-supplied `doorbell_id` values. Although CRIU restore
-requires elevated privileges, stable trees routinely take such defense-
-in-depth fixes — especially when they mirror an existing pattern
-(`kfd_events.c`) and are three lines with no regression risk for valid
-inputs.
-
-**Note:** Patch 2/2 (`Check bounds for allocate_sdma_queue
-restore_sdma_id`) fixes the same bug class for SDMA queues and is also
-absent from this tree; it should be evaluated separately.
-
----
-
-## Verification
-
-- **[Phase 1]** Parsed commit message and tags from user query and `git
-  show a1d4b228e3dc5`
-- **[Phase 1]** No Fixes:/Reported-by:/Cc: stable tags
-- **[Phase 2]** Diff analysis: +3 lines in `allocate_doorbell()` before
-  `__test_and_set_bit()`
-- **[Phase 3]** `git describe HEAD`: v6.18.43; `make kernelversion`
-  equivalent from Makefile: 6.18.43
-- **[Phase 3]** `git show a1d4b228e3dc5`: commit exists on master, not
-  in HEAD
-- **[Phase 3]** `b4 dig -c a1d4b228e3dc5`: found lore thread at
-  patch.msgid.link/20260512192824.3682569-1
-- **[Phase 3]** `b4 dig -a`: v1 only, no further revisions
-- **[Phase 3]** `b4 dig -w`: CC'd amd-gfx@lists.freedesktop.org
-- **[Phase 4]** `b4 dig -m /tmp/doorbell_thread.mbox`: patch 2/2 content
-  retrieved; no stable Cc in thread
-- **[Phase 5]** Grep callers: `allocate_doorbell` called from
-  `create_queue_nocpsch` and `create_queue_cpsch` with
-  `&qd->doorbell_id`
-- **[Phase 5]** Traced CRIU path: `kfd_criu_restore_queue` →
-  `pqm_create_queue` → `allocate_doorbell`
-- **[Phase 5]** `kfd_events.c:110`: confirmed analogous bounds check
-  exists for event restore
-- **[Phase 6]** Read local `kfd_device_queue_manager.c:474-479`: bounds
-  check **missing**
-- **[Phase 6]** `kfd_doorbell.c:259`: `doorbell_bitmap` allocated with
-  `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` (1024)
-- **[Phase 6]** `kfd_priv.h:97`: `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` =
-  1024
-- **[Phase 6]** `kfd_chardev.c:3332-3337`: CRIU ioctl requires
-  `CAP_CHECKPOINT_RESTORE` or `CAP_SYS_ADMIN`
-- **[Phase 6]** CRIU infrastructure confirmed present
-  (`kfd_criu_restore_queue`, `AMDKFD_IOC_CRIU_OP`)
-- **[Phase 8]** Failure mode: OOB bit operation → memory corruption;
-  privileged ioctl mitigates unprivileged exploitability
-
-**YES**
-
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 2f8df95382bc3..d9f09f25911a7 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -472,6 +472,9 @@ static int allocate_doorbell(struct qcm_process_device *qpd,
- 	} else {
- 		/* For CP queues on SOC15 */
- 		if (restore_id) {
-+			if (*restore_id >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS)
-+				return -EINVAL;
-+
- 			/* make sure that ID is free  */
- 			if (__test_and_set_bit(*restore_id, qpd->doorbell_bitmap))
- 				return -EINVAL;
--- 
-2.53.0
+On 8/31/26 14:28, Arunpravin Paneer Selvam wrote:
+> Clear-on-release only runs on VRAM, which amdgpu_ttm_map_buffer() reaches
+> via its direct MC address without programming a GART window, yet the wipe
+> still forces a VMID 0 flush. On GFX11 (e.g. Navi33) that spurious SDMA
+> flush can wedge the engine; only flush when a GART window is actually used.
+> 
+> v2: Let amdgpu_ttm_map_buffer() return whether the VMID 0 flush is needed,
+>     and drive the clear and copy paths from that. (Christian)
+> 
+> Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5413
+> Cc: stable@vger.kernel.org
+> Cc: Christian König <christian.koenig@amd.com>
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 22 ++++++++++++++++------
+>  1 file changed, 16 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> index 6c07cee8e8777..e0bdd95c64de8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -190,6 +190,8 @@ amdgpu_ttm_job_submit(struct amdgpu_device *adev, struct amdgpu_ttm_buffer_entit
+>   * @tmz: if we should setup a TMZ enabled mapping
+>   * @size: in number of bytes to map, out number of bytes mapped
+>   * @addr: resulting address inside the MC address space
+> + * @vm_needs_flush: out, set true if a GART window was programmed (VMID 0 flush
+> + *		    needed) or false for a direct address; may be NULL
+
+Does that really needs to be NULL for any use case? I would just make it mandatory for simplicity.
+
+Apart from that looks good to me,
+Christian.
+
+>   *
+>   * Setup one of the GART windows to access a specific piece of memory or return
+>   * the physical address for local memory.
+> @@ -199,7 +201,8 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+>  				 struct ttm_resource *mem,
+>  				 struct amdgpu_res_cursor *mm_cur,
+>  				 unsigned int window,
+> -				 bool tmz, uint64_t *size, uint64_t *addr)
+> +				 bool tmz, uint64_t *size, uint64_t *addr,
+> +				 bool *vm_needs_flush)
+>  {
+>  	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
+>  	unsigned int offset, num_pages, num_dw, num_bytes;
+> @@ -220,9 +223,14 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
+>  	if (!tmz && mem->start != AMDGPU_BO_INVALID_OFFSET) {
+>  		*addr = amdgpu_ttm_domain_start(adev, mem->mem_type) +
+>  			mm_cur->start;
+> +		if (vm_needs_flush)
+> +			*vm_needs_flush = false;
+>  		return 0;
+>  	}
+>  
+> +	/* A GART window is programmed below, so its VMID 0 TLB needs a flush */
+> +	if (vm_needs_flush)
+> +		*vm_needs_flush = true;
+>  
+>  	/*
+>  	 * If start begins at an offset inside the page, then adjust the size
+> @@ -322,6 +330,7 @@ static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
+>  	while (src_mm.remaining) {
+>  		uint64_t from, to, cur_size, tiling_flags;
+>  		uint32_t num_type, data_format, max_com, write_compress_disable;
+> +		bool src_vm_flush, dst_vm_flush;
+>  		struct dma_fence *next;
+>  
+>  		/* Never copy more than 256MiB at once to avoid a timeout */
+> @@ -329,12 +338,12 @@ static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
+>  
+>  		/* Map src to window 0 and dst to window 1. */
+>  		r = amdgpu_ttm_map_buffer(entity, src->bo, src->mem, &src_mm,
+> -					  0, tmz, &cur_size, &from);
+> +					  0, tmz, &cur_size, &from, &src_vm_flush);
+>  		if (r)
+>  			goto error;
+>  
+>  		r = amdgpu_ttm_map_buffer(entity, dst->bo, dst->mem, &dst_mm,
+> -					  1, tmz, &cur_size, &to);
+> +					  1, tmz, &cur_size, &to, &dst_vm_flush);
+>  		if (r)
+>  			goto error;
+>  
+> @@ -362,7 +371,7 @@ static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
+>  		}
+>  
+>  		r = amdgpu_copy_buffer(adev, entity, from, to, cur_size, resv,
+> -				       &next, true, copy_flags);
+> +				       &next, src_vm_flush || dst_vm_flush, copy_flags);
+>  		if (r)
+>  			goto error;
+>  
+> @@ -2578,6 +2587,7 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_ttm_buffer_entity *entity,
+>  	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
+>  	struct dma_fence *fence = NULL;
+>  	struct amdgpu_res_cursor dst;
+> +	bool vm_needs_flush = false;
+>  	int r;
+>  
+>  	if (!entity)
+> @@ -2599,13 +2609,13 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_ttm_buffer_entity *entity,
+>  		cur_size = min(dst.size, 256ULL << 20);
+>  
+>  		r = amdgpu_ttm_map_buffer(entity, &bo->tbo, bo->tbo.resource, &dst,
+> -					  0, false, &cur_size, &to);
+> +					  0, false, &cur_size, &to, &vm_needs_flush);
+>  		if (r)
+>  			goto error;
+>  
+>  		r = amdgpu_ttm_fill_mem(adev, entity,
+>  					0, to, cur_size, resv,
+> -					&next, true, k_job_id);
+> +					&next, vm_needs_flush, k_job_id);
+>  		if (r)
+>  			goto error;
+>  
 
