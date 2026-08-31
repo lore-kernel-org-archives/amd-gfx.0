@@ -4,44 +4,43 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9AC63C61DD3
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 18:28:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id CF2CCC61DFD
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 18:28:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2F81710E1DE;
-	Mon, 31 Aug 2026 18:28:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4297310E763;
+	Mon, 31 Aug 2026 18:28:27 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="aHcDJzU6";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="tMoTv37B";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010066.outbound.protection.outlook.com
- [52.101.193.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 889FB10E1AE
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 18:28:21 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010013.outbound.protection.outlook.com [52.101.85.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D62E10E4CA
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 18:28:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BUG7p1qte/RdEfUCW7hcKCFCLi3ziZy/KxKMFb5otfjw8bsMW39sr0LlBPjP6nUJ1b9qfbRBofxYlv2rb+4wGCo91VgJMGLwrtpa4UF0pvjBcqfAUj8rgBAuWJErJfS/fwjD2Sd5py/PJOJlXhke1gsfnhyP/12ToePhTZtIVdEIQaaVPHMJn/+gvFhFpD5wA2Zzi+7KuTwKawyyP1tkZxF8zuWGLflaVCosAtZPmVnTM86bCm+hz4xisLuS2rs6KtlYs9uTDyF0zbklrjIyzSN0s4YIs8KO6kbSkdwsRfH9tVDGCy8wGwLUxfH98DIGJIQTtljW1mV5iiKIOoZZzQ==
+ b=SWt8dQOyTJrSVsWCgbHac6CXMz+EsL4RaVn681yDN5YOr2N5kMK/L5l/uOtpim1uNXQ3HmWBRukBkXoq6mSP5jxShKI7+X7rkfBpS/lKJD25HP4tBMHBFcgYUDPokiuq5e+4ERjPQvdVCey6C5+E+aks4HhTIeMQqdm2etbRtcDjTL7uRjU08QXVz0iokxmrE5evE0fP9vdwyjkCY3Pgv8HCF+DRPL/vg6O2B1uyae0dOVVS36RWcy8G6EV3aG9Zj7avkt4+Sl6Z+v0yiv1iJ5W6RtNsq9FtQJe+u1/KOh/p3c1MxK76TPfCxvxXzueBPRcnVz8MPZPdE0YIaK6Ypw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YAbU+ewmb0aArPmkNcMW8jJoDmWqbczRgdKbIW9E5uE=;
- b=abE2KhhwOtwTNjGatJlnYwtrVIpBUsAc4VFqzWIdmEelWUE91pkysKtKKY2V0WH5InzSsxFJA2meuPDfhA9+Rmji7sTVwCwYRJgGDHMTT93awKjwapuKtM97rfmz7O9EUZN/Wmt0VLI6aZKSaDo37vFT0Em0kXmGm79VpYgs2uFRBdhR3eUHrn5PmpQUS1sHH3ENr2kDeZ6nPYAAlf1XMyMJQXTyM4lEu3omRX7h4DouzqzBAFN/AovmAPx2cso8rV9uO+zYBnaF2rmJxGY6L0ptxtmBYMXK5+LjU57MazHuoNUW0ze/hil98B21CdxEt2OuQwWKOTQNAKbm68m7xw==
+ bh=/Z0/UUGxTtFRXbjXQJEiZ30hBemJhwnjr3p9zBL2W/g=;
+ b=fbahUUwVwu/mqlTR3OYXCphYFUVpJJgr+7M0kNEv0S8Fkj7UFhz05KbzRQZaIv/qIcFc2wdVIFvlqeFmzZXljxL8yIlL5zo9XjnY/bwUaxxwZsJXbI15UrnXW+1SDCSe8oTZT6FnSqfEQlAbO4Y7y3ezZVNPfIStvt3ozR+tBB0YS/8nFxAXSyMRje1jJKY5E43fBnqjOlE3Ong3VqZEZVJyrFUTEvOFV+7w1O1D6DoAzeEZe+tHDN4DbwuR7a5CrVh4XPtzGxgGGdCYcW+9QRaZU2SIDMCfF1uERHiqeapcBfkb0b08NdcQKaeZKPMVnWkfS6tP+YV13XSOloGpWw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YAbU+ewmb0aArPmkNcMW8jJoDmWqbczRgdKbIW9E5uE=;
- b=aHcDJzU65wehu8h3P6GuQf6bxdnYV/G3j//y8Ol2WY7WKQxLvNR/P34r5n7wwv72s7F5BqR42Q26R9m+3Tm7/3tsech15nkwnCYc0TSFgi0AZ+YDWjEjvskQNkzAZJtNAm6IHdboquJv9bZYn4WQ4niz0I1QgfNu1bqzpykSWQw=
-Received: from PH1PEPF0001330B.namprd07.prod.outlook.com (2603:10b6:518:1::1a)
- by IA1PR12MB7712.namprd12.prod.outlook.com (2603:10b6:208:420::9)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=/Z0/UUGxTtFRXbjXQJEiZ30hBemJhwnjr3p9zBL2W/g=;
+ b=tMoTv37BgZ50LAXubhXFkc+FzyXwuHf4TIZGvYq8g+KinLaMQdHhITJSiG55UOb4GqjVWJnUg6pvTrq2M1wPy6ORSLnVzs8GEV5rOMbgukFcJ1b/1+ecjF48dS/zt0wc9BUjU06q8+/TAo3oc0D1wj1RXSbXu/PmmFOynCZv71o=
+Received: from PH1PEPF0001330F.namprd07.prod.outlook.com (2603:10b6:518:1::a)
+ by IA0PPF002462CFE.namprd12.prod.outlook.com
+ (2603:10b6:20f:fc04::bc4) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 18:28:13 +0000
+ 2026 18:28:16 +0000
 Received: from SA2PEPF00001507.namprd04.prod.outlook.com
- (2a01:111:f403:c801::2) by PH1PEPF0001330B.outlook.office365.com
+ (2a01:111:f403:c801::2) by PH1PEPF0001330F.outlook.office365.com
  (2603:1036:903:47::9) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
- 31 Aug 2026 18:28:10 +0000
+ 31 Aug 2026 18:28:14 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,49 +50,57 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
 Received: from satlexmb08.amd.com (165.204.84.17) by
  SA2PEPF00001507.mail.protection.outlook.com (10.167.242.39) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 18:28:10 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 18:28:14 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
- 2026 13:28:06 -0500
+ 2026 13:28:07 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
+ 2026 13:28:07 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
  Transport; Mon, 31 Aug 2026 13:28:06 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH V2 00/95] Add UALink infrastructure series 1
-Date: Mon, 31 Aug 2026 14:26:19 -0400
-Message-ID: <20260831182754.1089811-1-alexander.deucher@amd.com>
+CC: Lijo Lazar <lijo.lazar@amd.com>, Mukul Joshi <mukul.joshi@amd.com>, "Felix
+ Kuehling" <felix.kuehling@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH 01/95] drm/amdgpu: Add psp ualink command interfaces
+Date: Mon, 31 Aug 2026 14:26:20 -0400
+Message-ID: <20260831182754.1089811-2-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260831182754.1089811-1-alexander.deucher@amd.com>
+References: <20260831182754.1089811-1-alexander.deucher@amd.com>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF00001507:EE_|IA1PR12MB7712:EE_
-X-MS-Office365-Filtering-Correlation-Id: ea3e0cc7-5b31-4dc3-2658-08df078d9c75
+X-MS-TrafficTypeDiagnostic: SA2PEPF00001507:EE_|IA0PPF002462CFE:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3c68f664-74f0-4246-ff83-08df078d9eca
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|56012099006|10067099003|11063799006|5023799004|6133799003|3023799007|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info: TNduC43b5OJg/uVhlBSHxe2dP0Xtj81gPb4heUxN5aMD2OgNA2V+K+/I7hJjh/pftKrYNV9Dd7+W+gAPkouPQLq97KXwhUZ4N/SerxZnrkqiycFcvbAdP4lKfedASmefAebE9N0SkVNrN/r1Xef+qLzWPZPK3VZsTs1ArWiCq//i/wCMznuBIZlEW6P6xEerI+L+Js6LCpmoIkloqn0dknrWaVguJ41PIKaWPcCdHlsVdBi2nfYVNU6RI9PolODy7m0HFof3Bjb7r4QJYtH+QWz4hV5Onoyk5Jkml0DgE6QN7jJxCJiFpxbO571PtmXv7mElnkjv8fBMDDlxpYoOYj2/n99GiQfpQ9VdVP2TTlFj9zp+vFZvpLEC4FvsDSgEZsi7UsPUaFZC5yfv9KpvQXj+WaSHqAkiOItwzlwkij8n/taUhlDDb2RxA/x4Ss701bdaiUYomt6LL3KrcjJHgenMIoJnxsC4Ex0mljvPpdq+PWaGgXkTIviok6xJOO10PU36jWR1NfmwQ7AYtniKf6PPjvU+VO6SSLezon3bVGG8xhzOj3pIhZ1yZ/8qwYnsFQKcI5/XlwE2H01mZy/nGc0SnPlFpm56WhU7GwDXEyHZWlLgmtk5G6PEDO9R8QXq2cc8NSA/1Beonry8foHkBCw0zGts3aGSjsR2niChX8Q=
+ ARA:13230040|1800799024|376014|36860700016|23010399003|82310400026|56012099006|10067099003|11063799006|6133799003|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: biuMxRbD5svXcF0/y6ggjX7pNm5V0nDzcFdVmwaCAUprYecaY9amOipbhGDlcp2Y8j9ti0LfB9O1eFW0oYNEHr/6DFdox5YJZTwql9meSotjRUQQ3JcVoO9ZT32VEy1MBHB88rTjlgwfr6Uoq8GK21vvWx+ggsBM2Fix2teLS1LBfMl/pao30HhhA6TdVU60mjmwq768HQ/nYaxeNfHl1g1qijPXI5wRa1V/PmFKmxYiMWPkb86D4dFHWxCdco9EXj7AuLjAJp0JOAJikh8fnCNakV7GHf5MqiH0s20+m9s4doOfDcvwv0+iCxXyOJkwCqRGpfjnR/8utaOBY4suDpZlIvvb8kUkHjkmq6HmC5/8HwmXNenS9CMZ5rNFTsAnzgP/yZE+Vq5uvtgGNDNM8F5ftsp7x9nUBWFMWFK+yr4TFSqfdOgoaw/IYM7QZjLjZ/t6B+pbpqVApRkXaC/ZV+qBgNR7zYU0o2XApCYkFdSW4B/C9AqyqxH0HFD0Kb52G4xFP0W8Glg4w1KVYGEOjCySnMZTwWi1tpGs+KrMEhCyFaMzgvyolj4Y+LcPhv8PSm/BGkksM1+O+m/bo9BhRxZYzuju+uDFEFTfEaMyc7P6WM1xArWiaE+U2dl/wKWQOl8QtB0pClA48me3z8EuFUYDfZLm2iPI/8zHrHFqxmP2Ehst6Xx4CvAnAeS1ltfWbMfF0cCT+C5mmje6GNvsXA==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(56012099006)(10067099003)(11063799006)(5023799004)(6133799003)(3023799007)(18002099003)(13003099007);
+ SFS:(13230040)(1800799024)(376014)(36860700016)(23010399003)(82310400026)(56012099006)(10067099003)(11063799006)(6133799003)(3023799007)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: E6kWpSoPruvn05cQFxpLQlMVSPck9/YN5lGlpds004OP/RL10CG9Vi3kbwE71QDNLlxcHERDIiAOCBC9KXEemv7GjsNOfBY0D5STYYa+C5WoTtpNuj3BIPOhdzjFMgDHc18unN0epuHcWrDUtqwPW+izvaFwUfLZXvaKA7kB4OavtOUm/e7c99gcj6wrm6WAYADGlZoIKZzfLb/DNCqSCGN7iLKI2B1Q2VLbz7jGANTOA3GQsWLfitu8gw5x3zi8FgCk4rB1ijyVXyFFQx3ehDrhOUUm1eAH+nwvZ2vjmrfNWZboCUOxxbDKmWXACD3nwR5TWQTfJEUgiy8vpYr2dkkr0rICZGqFuaxttPgkU3/nIKqpQp6+lx78hMUCWuhLd3nc8sohlMsX3epgxnyjyhb9MMZGkoMxRJXw2/tvk05l1vjEPcKw807OqUOJMMxZ
+X-MS-Exchange-AntiSpam-MessageData-0: Fz2GDgxgUYakIFDdbScN3Cg0lE+KkZgdxd5IEysP2YVqeEnkA35ALgEHzH+2Ed6/Xfmi6VylvDmRKg1qH2U5cOdIqPpiMd9eeptmB0QlVPiJ8oHwZx+V+DViMEQ/Gx0z9lMdptF/6daApwhGECJ91vhnvKnYm5yfKNB0LvF65afqP5Gg8RwlzKVZ72GmGXFvUWI+6TzJUDkCLjALjuNpchpz5W+FMQVUFFLeksU/pOV8HVxqc1l7tezsWvptGHH5hzbaJEwMxkwELoMeUYmO191qsE9eBGIJjAl679ICKkQdUUuQmbgMfKK65367BKOWLzHGq/b1goUr52xp7+9r/RoTDPVmwhs1EVaxk1K0Qij5bFy5a5o0k9CaoJeWr4Sfzp13DDFjw+lZ2nlWoRM6LgGwuShPXtXo+FRf/9jJq4Mf93uEdyalAcTCTeQvCF32
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 18:28:10.5985 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ea3e0cc7-5b31-4dc3-2658-08df078d9c75
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 18:28:14.5164 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3c68f664-74f0-4246-ff83-08df078d9eca
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
 X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF00001507.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB7712
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PPF002462CFE
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,246 +115,190 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-This adds the core infrastructure for supporting UALink (Ultra Accelerator Link)
-connected scale up pods. I've split this into two series, one to add the core
-infrastructure, and one to expose the new IOCTL interface and add the
-documentation to avoid spamming the larger audience with the implemenation
-defails.  This is the first series.
+From: Lijo Lazar <lijo.lazar@amd.com>
 
-This implements UALoE (UALink over Ethernet). An overview of the complete
-solution can be found here:
-https://www.amd.com/en/products/rackscale-solutions/helios.html
+Add asp ualink command/response structures
 
-Overview
+Signed-off-by: Lijo Lazar <lijo.lazar@amd.com>
+Reviewed-by: Mukul Joshi <mukul.joshi@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h | 126 ++++++++++++++++++++++++
+ 1 file changed, 126 insertions(+)
 
-Connected GPUs in a pod can directly access the remove memory on another
-GPU over UALink.  Unlike RMDA, there is no copy involved; it is direct
-loads/stores over the fabric.  Shared memory can only be accessed by
-a remote GPU if the memory was exported and the importer has been authorized.
-For the memory to be shared, it must be part of a unified physical
-address space shared between nodes.  This address space is called NPA (Nework
-Physical Address) space.  This address space is partitioned between
-the GPUs so that each GPU has it's own segment of the address space in which
-to export its memory.  Each GPU maintains a dedicated set of page tables
-for their NPA space similar to GPUVM.
-
-Exported memory is pinned.  This is similar to how dma-bufs in VRAM are pinned
-for P2P access.  Remote TLB shootdowns from the exporter are used when the
-exported memory is freed in order to remove access by remote GPUs.
-
-To access remote memory, the driver can map NPA addresses into its per
-process GPUVM page tables just like local memory.  Applications use
-opaque handles to represent remote memory.  GPUs in a pod communicate
-with eachother directly to exchange NPA addresses between importers
-and exporters.  If a node goes offline or is reset, their peers will
-clean up any remaining refrences that are lost when that happens.
-
-User interface
-
-Export Memory
-
-To export memory, a handle must be created for an allocation
-that can be shared with another node in the pod.  To do this
-the exporter calls the GEM UALink IOCTL with the GEM handle
-to the buffer it wants to export.  The IOCTL returns a
-unique handle which can be shared with the remote host.
-
-Import Memory
-
-To import the memory, the handle from the remote node must be converted
-from a unique handle to a local GEM object which represents the local reference
-to the NPA space on the importer.  If the memory has already been
-imported, it just returns a new reference to the existing object.  If not,
-the importer queries the exporter to get the NPA address.  Once it has that
-the importer can create a dma-buf to represent the NPA space used by the
-allocation and that is returned to the application.
-
-This and the series 2 patches can be found here:
-https://gitlab.freedesktop.org/agd5f/linux/-/commits/ualink?ref_type=heads
-
-V2:
-- #ifdef the sysfs ualink configuration API.  It will be configured via
-out of band tooling.  This code will be dropped in the near future.
-- fix 32 bit build
-
-Alex Sierra (1):
-  drm/amdgpu: log remote memory MTYPE for GC 12.1.0
-
-Felix Kuehling (17):
-  drm/amdgpu: Add sysfs API for UALink information
-  drm/amdgpu: Add sysfs API for UALink physical pod setup
-  drm/amdgpu: Add sysfs API for UALink virtual pod config
-  drm/amdgpu: Add sysfs API for UALink station configuration
-  drm/amdgpu: Implement PSP cmd UAL_GET_CONFIG
-  drm/amdgpu: Query initial UALink config from PSP
-  drm/amdgpu: Implement PSP cmd UAL_SET_PPOD_CONFIG
-  drm/amdgpu: Set physical pod configuration to PSP
-  drm/amdgpu: Implement PSP cmd UAL_SET_VPOD_CONFIG
-  drm/amdgpu: Set virtual pod configuration to PSP
-  drm/amdgpu: Implement PSP cmd UAL_SET_STATION_CONFIG
-  drm/amdgpu: Set UALink station config to PSP
-  drm/amdgpu: Implement PSP cmd UAL_SET_NPA_CONFIG
-  drm/amdgpu: Enable/disable NPA address translation using PSP
-  drm/amdgpu: Prevent double-free of drm_exec
-  drm/amdgpu: Pin page tables in NPA VMs
-  drm/amdgpu: Initialize NPA PT/PDs to noretry
-
-Gangliang Xie (1):
-  drm/amdgpu: add handler for nHT error
-
-Harish Kasiviswanathan (2):
-  drm/amdgpu: Add helper function to check psp xgmi ta
-  drm/amdgpu: Add ual_config_state to ual_get_config
-
-Jinzhou Su (1):
-  drm/amdgpu: Fix NULL pointer issue during ualink init
-
-Le Ma (1):
-  drm/amdgpu: extend PSP command polling sleep range
-
-Lijo Lazar (15):
-  drm/amdgpu: Add psp ualink command interfaces
-  drm/amdgpu: Fetch asp ualink interface version
-  drm/amdgpu: Separate out ualink init sequences
-  drm/amdgpu: Add ualink as separate ip block
-  drm/admgpu: Seggregate ualink nht messaging
-  drm/amdgpu: Assign accel state based on ASP config
-  drm/amdgpu: Drop duplicate vpod check functions
-  drm/amdgpu: Add support to send ASP completion
-  drm/amdgpu: Add handlers for ualink notifications
-  drm/amdgpu: Improve ualink state transitions
-  drm/amdgpu: Use uniform logic for inband/sideband
-  drm/amdgpu: Add name for ualink ip block
-  drm/amdgpu: Move ualink ip version related changes
-  drm/amdgpu: Add hw_fini for ualink
-  drm/amdgpu: Expose ualink info under each xcp
-
-Mukul Joshi (42):
-  drm/amdgpu: Add UALink manager core infrastructure
-  drm/amdgpu: Add a new NPA Address space
-  drm/amdgpu: Add address allocator for NPA addresses
-  drm/amdgpu: Initialize VM for NPA addr management
-  drm/amdgpu: Rework VMID reservation logic
-  drm/amdgpu: Reserve VMID for NPA VM
-  drm/amdgpu: Use reserved VMID for NPA VM
-  drm/amdgpu: Enable UALink Manager when pod becomes active
-  drm/amdgpu: Create a drm client for UALink NPA BOs
-  drm/amdgpu: Control NPA DMA-buf importing
-  drm/amdgpu: Add ualink handle to BOs
-  drm/amdgpu: Implement UALink handle export
-  drm/amdgpu: Add connection state management
-  drm/amdgpu: Implement UALink handle import ioctl
-  drm/amdgpu: Implement mechanism to revoke exported memory
-  drm/amdgpu: lock UALink import invalidation via drm_exec
-  drm/amdgpu: Cleanup exported UALink handles
-  drm/amdgpu: Cleanup imported UALink handles
-  drm/amdgpu: Handle connection reset
-  drm/amdgpu: Setup PTE mappings for NPA addresses
-  drm/amdgpu: Add handling for remote interrupts
-  drm/amdgpu: Send TLB shootdown on exported memory unmap
-  drm/amdgpu: Handle local GPUs in UALink import
-  drm/amdgpu: Add debugfs to drop UALink protocol messages
-  drm/amdgpu: Temporarily disable sending remote TLB shootdowns
-  drm/amdgpu: Temporarily Flush TLB on NPA mapping always
-  drm/amdgpu: fix NPA-RELEASE race in UALink exporter cleanup
-  drm/amdgpu: initialize UALink importer node list head
-  drm/amdgpu: Fix initialization flags for UALink XAs
-  drm/amdgpu: fix dma_buf leak in UALink exporter cleanup
-  drm/amdgpu: Fix uninitialized fence in UALink NPA unmap
-  drm/amdgpu: Use vm->last_update fence in UALink NPA unmap paths
-  drm/amdgpu: always use MTYPE_UC for remote memory on GFX 12.1
-  drm/amdkfd: program compute MQD coherent_aql_mtype on GFX 12.1
-  drm/amdgpu: Fix GART and SDMA entity leak on vPod reconfiguration
-  drm/amdgpu: Add UALink diagnostic logging for vpod commit/activation
-  drm/amdgpu: Handle UALink vPod reconfiguration while ACTIVE
-  drm/amdgpu: Cleanup UALink XA entries on manager stop
-  drm/amdgpu: Handle concurrent UALINK handle import race
-  drm/amdgpu: create UALink NPA import BO directly in the NPA domain
-  drm/amdgpu: add mtype_remote module parameter
-  drm/amdgpu: Honor mtype overrides for NPA remote memory
-
-Philip Yang (15):
-  drm/amdgpu: Fix UALink vPod double-activation
-  drm/amdgpu: Add UALink remote state structures and API declarations
-  drm/amdgpu: Add UALink NPA address layout helpers
-  drm/amdgpu: Add UALink NPA address computation for ring buffers
-  drm/amdgpu: Add UALink NPA VM mapping for ring buffers
-  drm/amdgpu: Add UALink SDMA scheduler entities
-  drm/amdgpu: Add UALink GART helpers for NPA address access
-  drm/amdgpu: Add UALink ring buffer allocation and firmware init
-  drm/amdgpu: Add UALink remote command packets and SDMA dispatch
-  drm/amdgpu: Add UALink firmware writeback address configuration
-  drm/amdgpu: Add UALink cross-GPU TLB shootdown and remote interrupt
-  drm/amdgpu: Add UALink software init, teardown, and reset
-  drm/amdgpu: Add UALink IH ring and enable interrupt
-  drm/amdgpu: UALink use LSDMA to send remote interrupt command
-  drm/amdgpu: Increase UALink soft ring size
-
- drivers/gpu/drm/amd/amdgpu/Makefile           |    3 +
- drivers/gpu/drm/amd/amdgpu/amdgpu.h           |    5 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c   |   14 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |    2 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c |   21 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c   |    5 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |    7 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_gfx.h       |    1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.c       |   33 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ids.h       |   27 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ih.h        |    1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ip.c        |    1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c       |   17 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_irq.h       |    7 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |   11 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.h    |    5 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c       |  280 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h       |   27 +
- .../gpu/drm/amd/amdgpu/amdgpu_res_cursor.h    |    1 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |   17 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |    4 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c    | 6222 +++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h    |  425 ++
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        |   44 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |    4 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c     |   29 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.c       |    6 +
- drivers/gpu/drm/amd/amdgpu/amdgpu_xcp.h       |    7 +
- drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c        |    2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c        |    2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c        |    2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c        |   51 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v7_0.c         |    2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v8_0.c         |    2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_0.c         |    2 +-
- drivers/gpu/drm/amd/amdgpu/gfx_v9_4_3.c       |    2 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |    4 +
- drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |    5 +
- drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        |   26 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c        |   98 +-
- drivers/gpu/drm/amd/amdgpu/gmc_v12_1.h        |    1 +
- drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |    6 +
- drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |    6 +
- drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |    6 +
- drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |    6 +
- drivers/gpu/drm/amd/amdgpu/ih_v7_0.c          |    8 +
- drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h       |  162 +
- drivers/gpu/drm/amd/amdgpu/psp_v15_0_8.c      |   48 +-
- drivers/gpu/drm/amd/amdgpu/soc_v1_0.c         |    6 -
- drivers/gpu/drm/amd/amdgpu/ualink_v1_0.c      |  143 +
- drivers/gpu/drm/amd/amdgpu/ualink_v1_0.h      |   30 +
- .../drm/amd/amdkfd/kfd_mqd_manager_v12_1.c    |    7 +
- drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |    8 +-
- drivers/gpu/drm/amd/include/amd_shared.h      |    2 +
- .../ivsrcid/mpnht/irqsrcs_mpnht_15_0.h        |   30 +
- drivers/gpu/drm/amd/include/v12_structs.h     |    2 +-
- include/drm/ttm/ttm_resource.h                |    2 +-
- include/uapi/drm/amdgpu_drm.h                 |    6 +
- 58 files changed, 7834 insertions(+), 69 deletions(-)
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
- create mode 100644 drivers/gpu/drm/amd/amdgpu/ualink_v1_0.c
- create mode 100644 drivers/gpu/drm/amd/amdgpu/ualink_v1_0.h
- create mode 100644 drivers/gpu/drm/amd/include/ivsrcid/mpnht/irqsrcs_mpnht_15_0.h
-
+diff --git a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
+index ad618b78685f6..6bcc04109d4cb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
++++ b/drivers/gpu/drm/amd/amdgpu/psp_gfx_if.h
+@@ -53,6 +53,13 @@ enum psp_gfx_crtl_cmd_id
+     GFX_CTRL_CMD_ID_MAX             = 0x000F0000,   /* max command ID */
+ };
+ 
++typedef enum
++{
++    GFX_CTRL_ADDR_TYPE_AUTO_DETECT = 0,
++    GFX_CTRL_ADDR_TYPE_SYS_PHY_ADDR,
++    GFX_CTRL_ADDR_TYPE_GPU_PHY_ADDR,
++    GFX_CTRL_ADDR_TYPE_GPU_VIRT_ADDR
++}  GFX_CTRL_ADDR_TYPE;
+ 
+ /*-----------------------------------------------------------------------------
+     NOTE:   All physical addresses used in this interface are actually
+@@ -110,6 +117,13 @@ enum psp_gfx_cmd_id
+     GFX_CMD_ID_PERF_HW            = 0x0000004C,   /* performance monitor */
+     GFX_CMD_ID_FB_FW_RESERV_ADDR  = 0x00000050,  /* Query FW reservation addr */
+     GFX_CMD_ID_FB_FW_RESERV_EXT_ADDR = 0x00000051,  /* Query FW reservation extended addr */
++    GFX_CMD_ID_UAL_GET_INTERFACE_VER = 0x00000053,  /* Get UAL interface version */
++    GFX_CMD_ID_UAL_GET_CONFIG        = 0x00000054,  /* Get UAL full config */
++    GFX_CMD_ID_UAL_SET_PPOD_CONFIG   = 0x00000055,  /* Set UAL config */
++    GFX_CMD_ID_UAL_SET_VPOD_CONFIG   = 0x00000056,  /* Set UAL vPod config */
++    GFX_CMD_ID_UAL_SET_STATION_CONFIG= 0x00000057,  /* Set UAL Station config */
++    GFX_CMD_ID_UAL_SET_NPA_CONFIG    = 0x00000059,  /* Set UAL NPA config and VMID */
++    GFX_CMD_ID_UAL_SEND_COMPLETION   = 0x0000005A,  /* Ack from driver after UAL config completion */
+     GFX_CMD_ID_SET_MMHUB_ECO_SEC_LEVEL = 0x0000005D,  /* Set MMHUB ECO sec lvls on VCN block */
+ };
+ 
+@@ -382,6 +396,100 @@ struct psp_gfx_cmd_req_perf_hw {
+ 	uint32_t pref_format2;
+ };
+ 
++#define PSP_GFX_MAX_LOCAL_GPUS_UAL_V1   16       /* max gpu per local node */
++#define PSP_GFX_UAL_MAX_STATIONS_V1     64       /* max UALink stations */
++#define PSP_GFX_UAL_MAX_ACC_BIT_MASK    32       /* max accelerator bit mask 32*32 */
++
++enum psp_gfx_ual_npa_address_mode
++{
++    PSP_GFX_UAL_NPA_ADDRESS_MODE_SOURCE_ALIASING = 0,
++    PSP_GFX_UAL_NPA_ADDRESS_MODE_SOURCE_IDENTIFICATION = 1,
++    PSP_GFX_UAL_NPA_ADDRESS_MODE_MAX
++};
++
++enum psp_gfx_ual_ports_per_station
++{
++    PSP_GFX_UAL_PPS_1 = 1,    // 1x 800Gbps
++    PSP_GFX_UAL_PPS_2 = 2,    // 2x 400Gbps
++    PSP_GFX_UAL_PPS_4 = 4     // 4x 200Gbps
++};
++
++enum psp_gfx_ual_link_type
++{
++    PSP_GFX_UALOE = 0,
++    PSP_GFX_UALLINK = 1,
++    PSP_GFX_UALMAX
++};
++
++struct psp_gfx_cmd_set_ppod_config_ual_v1
++{
++    uint32_t accelerator_id;     // Accelerator ID
++    uint8_t  ppod_id[16];        // Physical Pod ID
++    uint32_t ppod_size;          // number of gpu in physical pod
++    uint32_t bandwidth;          // Bandwidth
++    uint32_t latency;            // Latency
++    uint32_t local_accelerators[PSP_GFX_MAX_LOCAL_GPUS_UAL_V1]; // local accelerator list, sorted in socket-id order
++};
++
++struct psp_gfx_cmd_set_vpod_config_ual_v1
++{
++    uint32_t vpod_id;                       // vPod ID
++    uint32_t vpod_size;                     // number of gpu in virtual pod
++    uint32_t vpod_active_accelerators[PSP_GFX_UAL_MAX_ACC_BIT_MASK];  // accelerator ID list in each vPOD
++    enum psp_gfx_ual_npa_address_mode addr_mode; // NPA Addressing Mode
++};
++
++struct psp_gfx_cmd_station_config_ual_v1
++{
++    /* Number of valid stations in this configuration
++     * Only lane_en_bitmap[0..n_stations-1] will be processed.
++     */
++    uint8_t num_stations;
++    /* Station configuration flags
++     *
++     * Bit [3:0]: PortPerStation (PPS) - 1, 2, or 4
++     * Bit [7:4]: Reserved
++     */
++    uint8_t station_flag;
++    uint8_t reserved[2]; /* Future use / alignment padding */
++    /* Bitmap of enabled lanes for each station
++     * in logical station order.
++     */
++    uint8_t lane_en_bitmap[PSP_GFX_UAL_MAX_STATIONS_V1];
++};
++
++struct psp_gfx_cmd_get_config_ual_v1
++{
++    uint32_t ual_cfg_addr_hi;               // UAL Config Buffer Address Hi
++    uint32_t ual_cfg_addr_lo;               // UAL Config Buffer Address Lo
++    uint32_t ual_cfg_size;                  // UAL Config Buffer Size
++    GFX_CTRL_ADDR_TYPE addr_type;    // Buffer Address Type
++};
++
++struct psp_gfx_get_config_ual_v1 {
++    enum psp_gfx_ual_link_type link_type;
++    uint32_t accelerator_id;
++    uint8_t ppod_id[16];
++    uint32_t ppod_size;
++    uint32_t bandwidth;
++    uint32_t latency;
++    uint32_t vpod_id;
++    uint32_t vpod_size;
++    uint32_t vpod_active_accelerators[PSP_GFX_UAL_MAX_ACC_BIT_MASK];
++    enum psp_gfx_ual_npa_address_mode addr_mode;
++};
++
++struct psp_gfx_cmd_send_completion_ual_v1
++{
++    uint32_t cmd_id;
++    uint32_t status;
++};
++
++struct psp_gfx_cmd_set_npa_config_ual_v1 {
++    uint32_t vmid;
++    uint32_t enable_npa_translation;
++};
++
+ /* All GFX ring buffer commands. */
+ union psp_gfx_commands
+ {
+@@ -399,6 +507,12 @@ union psp_gfx_commands
+     struct psp_gfx_cmd_config_sq_perfmon config_sq_perfmon;
+     struct psp_gfx_cmd_fb_memory_part cmd_memory_part;
+     struct psp_gfx_cmd_req_perf_hw     cmd_req_perf_hw;
++    struct psp_gfx_cmd_get_config_ual_v1    cmd_get_config_ual;
++    struct psp_gfx_cmd_set_ppod_config_ual_v1 cmd_set_ppod_config_ual;
++    struct psp_gfx_cmd_set_vpod_config_ual_v1 cmd_set_vpod_config_ual;
++    struct psp_gfx_cmd_station_config_ual_v1  cmd_set_station_config_ual;
++    struct psp_gfx_cmd_send_completion_ual_v1 cmd_send_completion_ual;
++    struct psp_gfx_cmd_set_npa_config_ual_v1  cmd_set_npa_config_ual;
+ };
+ 
+ struct psp_gfx_uresp_reserved
+@@ -432,6 +546,16 @@ struct psp_gfx_uresp_perf_hw {
+ 	uint32_t pref_format2;
+ };
+ 
++struct psp_gfx_uresp_get_intf_ver_ual
++{
++    uint32_t intf_ver; /* [31:16] major version, [15:0] minor version */
++};
++
++struct psp_gfx_uresp_get_config_ual_v1
++{
++    uint32_t resp_size;
++};
++
+ /* Union of command-specific responses for GPCOM ring. */
+ union psp_gfx_uresp {
+ 	struct psp_gfx_uresp_reserved		reserved;
+@@ -439,6 +563,8 @@ union psp_gfx_uresp {
+ 	struct psp_gfx_uresp_fwar_db_info	fwar_db_info;
+ 	struct psp_gfx_uresp_fw_reserve_info	fw_reserve_info;
+ 	struct psp_gfx_uresp_perf_hw		perf_hw_info;
++	struct psp_gfx_uresp_get_config_ual_v1  get_config_ual;
++	struct psp_gfx_uresp_get_intf_ver_ual   get_intf_ver_ual;
+ };
+ 
+ /* Structure of GFX Response buffer.
 -- 
 2.55.0
 
