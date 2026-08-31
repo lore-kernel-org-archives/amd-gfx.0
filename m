@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9F00C624A4
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:51:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 14C31C624A4
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:52:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21CA510E8F3;
-	Mon, 31 Aug 2026 13:51:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6AF8B10E8FD;
+	Mon, 31 Aug 2026 13:52:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mL+Xn4m1";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="j/AIbJ83";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2DADE10E8F3;
- Mon, 31 Aug 2026 13:51:12 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70B6510E8FD;
+ Mon, 31 Aug 2026 13:52:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id BAAE7416DF;
- Mon, 31 Aug 2026 13:51:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C32B11F00ACA;
- Mon, 31 Aug 2026 13:51:09 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 57FD1434A6;
+ Mon, 31 Aug 2026 13:52:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDA921F00A3D;
+ Mon, 31 Aug 2026 13:52:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184271;
- bh=Hh6DQaCHIq2VUuDkhUO0gcrJbuyGoDL/mV794VKwMu4=;
+ s=k20260515; t=1788184339;
+ bh=QQjJUuwqF3dl/BsR9mTs4/kOQd2wo43GQXcvfc26Dc8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=mL+Xn4m1+gkOd88nkgLpWhrg4UBoifPG28j23XtsoA0qGCa6t69LimlS/2qdyjBuI
- hoxAKOFr4EfTX/JvVfm6R6BBJT9j2i3Nij/MQRdG1aGrA3+S+hOQWAgV7yW0Y+mHF4
- z4FFzyOodsPb4nBuc1SFdar/jH0/Q8MTZT+zCqU6uLJexZMTkggQsSFQhnEa7TqBP6
- 0qeLBL1Pi0XpCyPFZCZv2d0JXRJUto946BDBmY5h4byChVsZYwkAFSRPkMlXu4X2+3
- eul4g9bV6b5yD7OTLxrPznlDmerOLBjhZ1Ep6x9TVkX97EBmEdHiJlz8VSH0FU8niV
- 9AhgAbdh7zhzw==
+ b=j/AIbJ83WoxEzQsG+uHKBnqX7EmB84bQrNan1Ni9YU+/3HbXlycJpafC/5dRJQXwo
+ zIByS93zfUNf27JjTMHKWh2xcJy6sFQxNnC7AZLx7bfhgZawkeqlukwRQy1oPv4obS
+ G/zNLMoX1RVLzfPM5ZaIEF558e4aKZaH4o38+iM7ROCeNBPBwXRdEyKQ3bZf2lqvmI
+ kgHHs3G+1CzUNlJGkyLlfQYGNDifDeP3SxPdSChjmfSZ3aL6Z1ewx7meHg3dyoOsfG
+ Rsl4Y58Yr8aB4eghvVropM7ykRpxDxCEroSMM1L3lTx7bJlb/WZVtnkvz/2GGC2pb3
+ ZhdF7oskK5lpA==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Sunil Khatri <sunil.khatri@amd.com>,
+Cc: David Francis <David.Francis@amd.com>,
+ Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: use atomic operation to achieve
- lockless serialization
-Date: Mon, 31 Aug 2026 09:30:21 -0400
-Message-ID: <20260831133314.4125787-593-sashal@kernel.org>
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.1] drm/amdkfd: Check bounds on allocate_doorbell
+Date: Mon, 31 Aug 2026 09:31:03 -0400
+Message-ID: <20260831133314.4125787-635-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -65,422 +65,380 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sunil Khatri <sunil.khatri@amd.com>
+From: David Francis <David.Francis@amd.com>
 
-[ Upstream commit 4d50a14d346141e03a7c3905e496d91e048bc30c ]
+[ Upstream commit 1f087bb8cf9e8797633da35c85435e557ef74d06 ]
 
-In amdgpu_seq64_alloc there is a possibility that two difference cores
-from two separate NODES can try to and could get the same free slot.
-So this fixes that race here using atomic test_and_set clear operations.
+allocated_doorbell has an option to set the doorbell id
+to a specific value (used by CRIU). This value was not
+bounds checked.
 
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Check to confirm it's less than KFD_MAX_NUM_OF_QUEUES_PER_PROCESS.
+
+Signed-off-by: David Francis <David.Francis@amd.com>
+Reviewed-by: Harish Kasiviswanathan <Harish.Kasiviswanathan@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/amdgpu: use atomic operation to achieve
-lockless serialization`
+# Stable Backport Analysis: `drm/amdkfd: Check bounds on
+allocate_doorbell`
 
-**Local tree:** `v6.18.43` (`VERSION = 6`, `PATCHLEVEL = 18`, `SUBLEVEL
-= 43`)
+**Local tree:** Linux 6.18.43 (`git describe HEAD` →
+`v6.18.43-1-gc7f0dac02d232`)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: Subject line
-**Record:** `[drm/amdgpu]` — action verb implied **fix** (race) — use
-atomic bitops in `amdgpu_seq64_alloc`/`amdgpu_seq64_free` for lockless
-serialization of the seq64 slot bitmap.
+### Step 1.1: Subject Line
+**Record:** `[drm/amdkfd]` `[Check]` — Add bounds validation on doorbell
+ID during CRIU restore allocation in `allocate_doorbell()`.
 
-### Step 1.2: Tags
+### Step 1.2: Commit Tags
 **Record:**
 | Tag | Value |
 |-----|-------|
-| Signed-off-by | Sunil Khatri `<sunil.khatri@amd.com>` |
-| Reviewed-by | Alex Deucher `<alexander.deucher@amd.com>` |
-| Signed-off-by | Alex Deucher `<alexander.deucher@amd.com>` |
+| Signed-off-by | David Francis \<David.Francis@amd.com\> |
+| Reviewed-by | Harish Kasiviswanathan
+\<Harish.Kasiviswanathan@amd.com\> |
+| Signed-off-by | Alex Deucher \<alexander.deucher@amd.com\>
+(committer/maintainer) |
+| Fixes: | None |
+| Reported-by: | None |
+| Cc: stable | None (expected for manual review) |
+| Link: | None |
 
-**Notable patterns:** Maintainer review from Alex Deucher (amdgpu co-
-maintainer). No `Fixes:`, `Reported-by:`, `Cc: stable`, or syzbot tags
-(expected for manual review).
+Notable: Reviewed by AMD colleague; committed by subsystem maintainer.
+No syzbot or user bug reports.
 
-### Step 1.3: Body analysis
+### Step 1.3: Commit Body Analysis
 **Record:**
-- **Bug described:** In `amdgpu_seq64_alloc`, two CPU cores on separate
-  nodes can race and obtain the same free seq64 slot.
-- **Symptom/failure mode:** Duplicate slot assignment → two user-queue
-  fence drivers share the same 64-bit fence memory location → broken GPU
-  synchronization.
-- **Root cause (author):** Non-atomic `find_first_zero_bit` +
-  `__set_bit` is not safe under concurrent access; fix uses
-  `test_and_set_bit` loop and `clear_bit`.
+- **Bug:** `allocate_doorbell()` accepts a user-specified doorbell ID
+  via `restore_id` (CRIU restore path) without validating it is within
+  `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS`.
+- **Symptom:** Out-of-bounds `__test_and_set_bit()` on
+  `qpd->doorbell_bitmap` → kernel memory corruption or crash.
+- **Root cause:** CRIU restore copies `doorbell_id` from userspace
+  (`kfd_criu_queue_priv_data`) and passes it directly to
+  `allocate_doorbell()` with no upper-bound check.
 - **Version info:** None in commit message.
 
-### Step 1.4: Hidden bug fix?
-**Record:** Yes — explicitly a race-condition fix, not cosmetic cleanup.
-Replacing `__set_bit`/`__clear_bit` with atomic
-`test_and_set_bit`/`clear_bit` is the standard kernel pattern for
-concurrently accessed bitmaps (`Documentation/atomic_bitops.txt`).
+### Step 1.4: Hidden Bug Fix Detection
+**Record:** Not disguised — explicitly a missing bounds check. Same
+class of bug as the parallel event-restore fix in `kfd_events.c` (`if
+(*restore_id >= KFD_SIGNAL_EVENT_LIMIT)`).
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Inventory
+### Step 2.1: Change Inventory
 **Record:**
-- **File:** `drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c` (+8 / −5, 1
-  file)
-- **Functions modified:** `amdgpu_seq64_alloc()`, `amdgpu_seq64_free()`
-- **Scope:** Single-file surgical fix
+| File | Changes |
+|------|---------|
+| `drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c` | +3 lines |
 
-### Step 2.2: Code flow per hunk
+- **Function modified:** `allocate_doorbell()`
+- **Scope:** Single-file, surgical fix (3 lines added)
 
-**Hunk 1 — `amdgpu_seq64_alloc`:**
-- **Before:** `find_first_zero_bit` → early `-ENOSPC` → unconditional
-  `__set_bit`
-- **After:** Loop: `find_first_zero_bit` → `-ENOSPC` if full →
-  `test_and_set_bit`; break only if bit was previously clear (successful
-  claim); otherwise retry
-- **Path affected:** Normal allocation path for seq64 fence slots
+### Step 2.2: Code Flow Change
+**Record:**
+- **Hunk (CP queues on SOC15, `restore_id` path):**
+  - **Before:** `__test_and_set_bit(*restore_id, qpd->doorbell_bitmap)`
+    called with no validation.
+  - **After:** Return `-EINVAL` if `*restore_id >=
+    KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` (1024) before the bit operation.
+- **Affected path:** CRIU queue restore on SOC15+ compute (CP) queues
+  only.
 
-**Hunk 2 — `amdgpu_seq64_free`:**
-- **Before:** `__clear_bit` (non-atomic)
-- **After:** `clear_bit` (atomic)
-- **Path affected:** Slot release on fence-driver teardown
+### Step 2.3: Bug Mechanism
+**Record:**
+- **Category:** Buffer out-of-bounds / memory safety.
+- **Mechanism:** `qpd->doorbell_bitmap` is allocated with
+  `bitmap_zalloc(KFD_MAX_NUM_OF_QUEUES_PER_PROCESS, GFP_KERNEL)` (1024
+  bits). An out-of-range `restore_id` causes `__test_and_set_bit()` to
+  write beyond the allocation.
 
-### Step 2.3: Bug mechanism
-**Record:** **Category:** Race condition / incorrect non-atomic bitmap
-access.
-
-**Mechanism:** `__set_bit`/`__clear_bit` are explicitly non-atomic per
-`Documentation/atomic_bitops.txt`. Concurrent alloc and free on
-`adev->seq64.used` without atomic ops can corrupt the bitmap or allow a
-TOCTOU between `find_first_zero_bit` and bit claim when another CPU
-concurrently modifies the same bitmap.
-
-### Step 2.4: Fix quality
-**Record:** Fix is obviously correct — standard `test_and_set_bit`
-allocator loop. Minimal, no API changes. Low regression risk; loop may
-spin under contention but pool has 262144 slots
-(`AMDGPU_MAX_SEQ64_SLOTS`), so retry pressure is low.
+### Step 2.4: Fix Quality
+**Record:**
+- Obviously correct; mirrors existing pattern in
+  `allocate_event_notification_slot()`.
+- Minimal, no unrelated changes.
+- Low regression risk: only rejects invalid IDs that should never
+  succeed.
+- No API or behavioral changes for valid inputs.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
 ### Step 3.1: Blame
-**Record:** `amdgpu_seq64_alloc`/`free` bitmap logic introduced in
-commit `a112b91dd6349` (stable-tree import). Buggy
-`__set_bit`/`__clear_bit` pattern present in current `v6.18.43` tree at
-lines 178–182 and 208.
+**Record:** Buggy `restore_id` path is present in this tree at lines
+474–479. Git blame in this stable checkout is unreliable (squashed
+history), but the vulnerable code is confirmed present.
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no `Fixes:` tag in commit message.
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no `Fixes:` tag.
 
-### Step 3.3: Related file history
-**Record:** `amdgpu_seq64.c` exists in this tree with the pre-fix code.
-Fix commit is **not yet applied** (no `test_and_set_bit` in local file).
-This stable tree's git history is flattened through bulk imports,
-limiting per-file history granularity.
+### Step 3.3: Related File History
+**Record:**
+- Commit on `master`: `a1d4b228e3dc5` (May 19, 2026), cherry-picked from
+  `1f087bb8cf9e`.
+- Part of a 2-patch series; patch 2/2 (`6dc2c49a70519` on master) fixes
+  the same class of bug for `allocate_sdma_queue()` — separate,
+  standalone fix.
+- Fix is **not** in the local 6.18.43 tree.
 
-### Step 3.4: Author commits
-**Record:** No commits by Sunil Khatri found in this stable checkout's
-`git log`. Author is an AMD developer; patch reviewed by amdgpu
-maintainer Alex Deucher.
+### Step 3.4: Author Context
+**Record:** David Francis (AMD). Reviewed by Harish Kasiviswanathan;
+committed by Alex Deucher (amdgpu/amdkfd maintainer).
 
 ### Step 3.5: Dependencies
-**Record:** Standalone — no series markers, no prerequisite commits.
-Applies directly to existing `amdgpu_seq64.c`.
+**Record:** Standalone. No prerequisite commits. Applies cleanly to the
+local tree.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original discussion
+### Step 4.1: Original Discussion
 **Record:**
-- **URL:** https://lists.freedesktop.org/archives/amd-
-  gfx/2026-May/144553.html (v1 submission, May 14 2026)
-- **Series revisions:** v1 only (no v2/v3 found)
-- **Reviewer feedback:** Christian König questioned why concurrent calls
-  are possible: *"Why can those functions be called in concurrent from
-  multiple threads?"* (https://lists.freedesktop.org/archives/amd-
-  gfx/2026-May/144650.html)
-- **Maintainer response:** Alex Deucher gave `Reviewed-by`
-  (https://lists.freedesktop.org/archives/amd-gfx/2026-May/144599.html)
-- **Stable nominations:** None found in thread
-- **NAKs:** None; question raised but patch still reviewed positively by
-  maintainer
+- **URL:** https://patch.msgid.link/20260512192824.3682569-1-
+  David.Francis@amd.com
+- **Series:** v1 only (no further revisions via `b4 dig -a`)
+- **Review feedback:** No stable nominations, NAKs, or substantive
+  objections found in the mbox thread.
 
-`b4 dig -c <hash>` could not be run — fix commit hash not present in
-this checkout.
+### Step 4.2: Reviewers
+**Record:** CC'd to `amd-gfx@lists.freedesktop.org`. Reviewed-by on
+commit.
 
-### Step 4.2: Reviewers (b4 -w equivalent via lore)
-**Record:** Patch submitted to amd-gfx list; reviewed by Alex Deucher
-(subsystem maintainer). Christian König (also amdgpu maintainer) raised
-concurrency question.
+### Step 4.3: Bug Reports
+**Record:** N/A — no external bug report or syzbot link.
 
-### Step 4.3: Bug report
-**Record:** No external bug report, syzbot link, or crash trace.
-Theoretical/concurrency-analysis fix from driver developer.
+### Step 4.4: Related Patches
+**Record:** Patch 2/2 bounds-checks `restore_sdma_id` in
+`allocate_sdma_queue()`. Same bug class; also missing in this tree.
+Independent backport candidate.
 
-### Step 4.4: Related patches
-**Record:** Standalone 1/1 patch, not part of a series.
-
-### Step 4.5: Stable list
-**Record:** Not searched on lore.kernel.org (blocked by bot protection).
-No stable discussion found on freedesktop amd-gfx thread.
+### Step 4.5: Stable List History
+**Record:** Not searched; no stable-list discussion found in mbox.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 5.1: Key functions
-**Record:** `amdgpu_seq64_alloc()`, `amdgpu_seq64_free()`
+### Step 5.1: Key Functions
+**Record:** `allocate_doorbell()` — only function modified.
 
 ### Step 5.2: Callers
 **Record:**
-| Function | Callers | Context |
-|----------|---------|---------|
-| `amdgpu_seq64_alloc` | `amdgpu_userq_fence_driver_alloc()` only |
-Called from `amdgpu_userq_create()` during `AMDGPU_USERQ_OP_CREATE`
-ioctl |
-| `amdgpu_seq64_free` | `amdgpu_userq_fence_driver_alloc()` error path;
-`amdgpu_userq_fence_driver_destroy()` via `kref_put` | Destroy path from
-queue teardown / refcount drop |
-
-`amdgpu_userq_create()` holds `adev->userq_mutex` during alloc (line
-518). `amdgpu_userq_destroy()` holds only per-client
-`uq_mgr->userq_mutex`, **not** `adev->userq_mutex` (lines 394–420).
-Therefore alloc and free **can run concurrently** from different DRM
-clients/processes.
+- `create_queue_nocpsch()` → `allocate_doorbell(qpd, q, qd ?
+  &qd->doorbell_id : NULL)` (line 670)
+- `create_queue_cpsch()` → same pattern (line 1991)
+- Both reached from `pqm_create_queue()` → `kfd_criu_restore_queue()`
+  during CRIU restore
 
 ### Step 5.3: Callees
-**Record:** `find_first_zero_bit`, `test_and_set_bit`/`__set_bit`,
-`clear_bit`/`__clear_bit`, `amdgpu_seq64_get_va_base()`
+**Record:** `__test_and_set_bit()`, `find_first_zero_bit()`,
+`set_bit()`, `amdgpu_doorbell_index_on_bar()`.
 
-### Step 5.4: Reachability
-**Record:** Reachable from userspace via DRM ioctl
-`AMDGPU_USERQ_OP_CREATE` / destroy on GPUs with user-mode queue support
-(gfx11, gfx12, SDMA v6/v7 in this tree). Multi-process GPU compute
-workloads are a realistic trigger.
+### Step 5.4: Call Chain / Reachability
+**Record:**
+```
+userspace AMDKFD_IOC_CRIU_OP (restore)
+  → criu_restore() → criu_restore_objects()
+  → kfd_criu_restore_queue() [copy_from_user q_data including
+doorbell_id]
+  → pqm_create_queue(..., q_data, ...)
+  → create_queue_*() → allocate_doorbell(..., &qd->doorbell_id)
+```
+Reachable from userspace via CRIU restore ioctl. Requires
+`CAP_CHECKPOINT_RESTORE` or `CAP_SYS_ADMIN` (see `kfd_chardev.c` lines
+3332–3337).
 
-### Step 5.5: Similar patterns
-**Record:** Kernel bitmap allocators universally use `test_and_set_bit`
-loops for concurrent access. Non-atomic `__set_bit` is only valid when
-caller holds exclusive access.
+### Step 5.5: Similar Patterns
+**Record:** `kfd_events.c:110` already bounds-checks `*restore_id >=
+KFD_SIGNAL_EVENT_LIMIT` for CRIU event restore. This commit closes the
+same gap for doorbells.
 
 ---
 
 ## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
 
-### Step 6.1: Buggy code exists?
-**Record:** **Yes.** Current `v6.18.43` tree has the buggy code:
+### Step 6.1: Buggy Code Present?
+**Record:** **Yes.** Lines 474–479 in `kfd_device_queue_manager.c` lack
+the bounds check. CRIU support (`kfd_criu_restore_queue`,
+`AMDKFD_IOC_CRIU_OP`) is present. `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` is
+1024.
 
-```178:182:drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-        bit_pos = find_first_zero_bit(adev->seq64.used,
-adev->seq64.num_sem);
-        if (bit_pos >= adev->seq64.num_sem)
-                return -ENOSPC;
+### Step 6.2: Backport Complications
+**Record:** Clean apply expected — 3-line addition with no conflicts.
+File structure matches mainline.
 
-        __set_bit(bit_pos, adev->seq64.used);
-```
-
-```207:208:drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-        if (bit_pos < adev->seq64.num_sem)
-                __clear_bit(bit_pos, adev->seq64.used);
-```
-
-`amdgpu_seq64_init()` is called during GMC hw init; user-mode queues are
-wired on modern ASICs.
-
-### Step 6.2: Backport complications
-**Record:** **Clean apply expected** — identical file and function
-structure; no conflicts detected. 8-line change.
-
-### Step 6.3: Related fixes already present?
-**Record:** **No** — `test_and_set_bit` not present in `amdgpu_seq64.c`;
-fix not yet in tree.
+### Step 6.3: Related Fixes Already Present?
+**Record:** No. `git show master:a1d4b228e3dc5` has the fix; local HEAD
+does not. SDMA bounds fix (patch 2/2) is also absent.
 
 ---
 
 ## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-### Step 7.1: Subsystem criticality
-**Record:** `drivers/gpu/drm/amd/amdgpu` — **IMPORTANT** (AMD GPU
-driver). Affects user-mode queue fence synchronization on supported
-hardware.
+### Step 7.1: Subsystem Criticality
+**Record:** `drivers/gpu/drm/amd/amdkfd` — AMDGPU KFD compute driver.
+**IMPORTANT** (GPU compute users; not core kernel, but widely deployed
+on AMD hardware).
 
-### Step 7.2: Subsystem activity
-**Record:** Actively developed; user-mode queues and seq64 are
-relatively recent features present in this 6.18.y tree.
+### Step 7.2: Subsystem Activity
+**Record:** Active — CRIU support and related hardening commits exist on
+master for this subsystem.
 
 ---
 
 ## PHASE 8: IMPACT AND RISK ASSESSMENT
 
-### Step 8.1: Who is affected
-**Record:** Users of AMDGPU user-mode queues on gfx11/gfx12/SDMA-capable
-GPUs running multi-process compute (ROCm, etc.). Config-dependent on
-hardware with `userq_funcs` populated.
+### Step 8.1: Who Is Affected
+**Record:** Users of AMDGPU KFD with CRIU checkpoint/restore on SOC15+
+hardware (CP compute queues). Narrow feature set, but real production
+use (containers, HPC migration).
 
-### Step 8.2: Trigger conditions
-**Record:** Concurrent queue create (alloc under `adev->userq_mutex`)
-and queue destroy/fence-driver teardown (free without
-`adev->userq_mutex`) from different processes, potentially on different
-CPU/NUMA nodes. Realistic in multi-tenant GPU workloads. Unprivileged
-users can trigger via DRM ioctls (subject to device access permissions).
-
-### Step 8.3: Failure mode severity
-**Record:** Duplicate seq64 slot → two fence drivers alias the same
-64-bit memory → **HIGH** severity: GPU synchronization corruption,
-possible compute wrong-results or GPU hangs. Not a typical kernel oops,
-but serious functional corruption.
-
-### Step 8.4: Risk-benefit
+### Step 8.2: Trigger Conditions
 **Record:**
-- **Benefit:** HIGH for affected userq users — prevents fence memory
-  aliasing
-- **Risk:** VERY LOW — 8-line, idiomatic atomic bitmap fix, maintainer-
-  reviewed
-- **Ratio:** Strong benefit, minimal risk
+- CRIU restore with `doorbell_id >= 1024` in checkpoint private data.
+- Requires privileged capability (`CAP_CHECKPOINT_RESTORE` or
+  `CAP_SYS_ADMIN`).
+- Corrupted or malicious checkpoint image during restore can trigger it.
+- Not triggerable by unprivileged users directly.
+
+### Step 8.3: Failure Mode Severity
+**Record:** Out-of-bounds kernel heap write via `__test_and_set_bit()` →
+memory corruption, potential kernel oops/panic. **Severity: HIGH**
+(memory corruption); mitigated by privileged-only ioctl path.
+
+### Step 8.4: Risk-Benefit
+**Record:**
+| | Assessment |
+|--|------------|
+| **Benefit** | Prevents kernel memory corruption on CRIU restore;
+defense-in-depth for untrusted checkpoint data |
+| **Risk** | Very low — 3-line bounds check, no behavior change for
+valid IDs |
+| **Ratio** | Favorable |
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence summary
+### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Real concurrent alloc/free paths verified (asymmetric mutex coverage)
-- Non-atomic `__set_bit`/`__clear_bit` violate kernel bitmap concurrency
-  rules
-- Standard, obviously-correct fix pattern
-- Small, single-file, no new APIs
-- Reviewed by amdgpu maintainer Alex Deucher
-- Buggy code confirmed present in `v6.18.43`; fix not yet applied
-- User-mode queues active on modern AMD GPUs in this tree
+- Real out-of-bounds bitmap access bug
+- Kernel memory corruption possible
+- Fix is minimal, obviously correct, maintainer-reviewed
+- Buggy code and CRIU infrastructure exist in 6.18.43
+- Matches existing bounds-check pattern in `kfd_events.c`
+- Standalone, clean apply
 
 **AGAINST backport:**
-- No crash report or syzbot reproduction
-- Christian König questioned whether concurrency is possible (though
-  code analysis shows alloc/free overlap is real; two simultaneous
-  allocs are mutex-serialized)
-- Affects only user-mode queue users, not all amdgpu users
+- CRIU is a niche feature
+- Requires privileged capability (not unprivileged attack surface)
+- No user reports or syzbot findings
+- Patch 2/2 (SDMA) addresses a related gap but is separate
 
-**Unresolved:** Author's reply to Christian König's thread question not
-found; exact "two nodes both allocating" scenario may be overstated, but
-alloc/free concurrency is verified.
+**Unresolved:** None affecting the decision.
 
-### Step 9.2: Stable rules checklist
+### Step 9.2: Stable Rules Checklist
 | Criterion | Result |
 |-----------|--------|
-| 1. Obviously correct and tested? | **PASS** — idiomatic atomic bitmap
-fix; maintainer Reviewed-by; no runtime test cited |
-| 2. Fixes a real bug affecting users? | **PASS** — concurrent bitmap
-access verified in code paths |
-| 3. Important issue? | **PASS** — HIGH: fence memory aliasing, GPU sync
-corruption |
-| 4. Small and contained? | **PASS** — 8 lines, 1 file |
-| 5. No new features/APIs? | **PASS** — internal implementation change
-only |
-| 6. Can apply to local tree? | **PASS** — clean apply to existing
-`amdgpu_seq64.c` |
+| 1. Obviously correct and tested? | **PASS** — trivial bounds check;
+Reviewed-by present |
+| 2. Fixes a real bug? | **PASS** — OOB `__test_and_set_bit()` on
+1024-bit bitmap |
+| 3. Important issue? | **PASS** — memory corruption (HIGH, privileged
+path) |
+| 4. Small and contained? | **PASS** — 3 lines, one function |
+| 5. No new features/APIs? | **PASS** |
+| 6. Can apply to local tree? | **PASS** — code present, fix absent |
 
-### Step 9.3: Exception categories
+### Step 9.3: Exception Categories
 **Record:** None (not a device ID, quirk, DT, build, or docs fix).
-Standard race-condition bug fix.
+Qualifies as a standard memory-safety bug fix.
 
-### Step 9.4: Decision rationale
-The commit fixes a genuine race in the seq64 slot allocator. While
-`amdgpu_userq_create()` serializes allocations via `adev->userq_mutex`,
-`amdgpu_seq64_free()` runs from fence-driver destruction without that
-lock — `amdgpu_userq_destroy()` only takes the per-client mutex.
-Concurrent alloc and free on the shared `adev->seq64.used` bitmap with
-non-atomic `__set_bit`/`__clear_bit` is incorrect and can corrupt slot
-tracking. The fix is minimal, maintainer-reviewed, and applies cleanly
-to this `v6.18.43` tree where the buggy code is present and user-mode
-queues are supported.
+### Step 9.4: Decision Rationale
+
+For Linux **6.18.43**, the vulnerable CRIU restore path exists, the fix
+is absent, and the patch prevents out-of-bounds kernel memory writes
+from userspace-supplied `doorbell_id` values. Although CRIU restore
+requires elevated privileges, stable trees routinely take such defense-
+in-depth fixes — especially when they mirror an existing pattern
+(`kfd_events.c`) and are three lines with no regression risk for valid
+inputs.
+
+**Note:** Patch 2/2 (`Check bounds for allocate_sdma_queue
+restore_sdma_id`) fixes the same bug class for SDMA queues and is also
+absent from this tree; it should be evaluated separately.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags (SOB, Reviewed-by Alex Deucher), body;
-  no Fixes/Reported-by/Cc:stable
-- [Phase 2] Diff: 8 insertions, 5 deletions in `amdgpu_seq64_alloc` and
-  `amdgpu_seq64_free`
-- [Phase 3] `git describe HEAD`: `v6.18.43`; blame shows buggy
-  `__set_bit`/`__clear_bit` in current tree
-- [Phase 3] `git log --grep` for commit subject: not found in tree (not
-  yet merged)
-- [Phase 4] Lore: v1 at https://lists.freedesktop.org/archives/amd-
-  gfx/2026-May/144553.html; Reviewed-by at 144599.html; Christian König
-  question at 144650.html
-- [Phase 4] b4 dig by hash: N/A — commit not in checkout
-- [Phase 5] `grep amdgpu_seq64_alloc`: single caller in
-  `amdgpu_userq_fence.c`
-- [Phase 5] `grep amdgpu_seq64_free`: error path +
-  `amdgpu_userq_fence_driver_destroy`
-- [Phase 5] Read `amdgpu_userq.c`: create holds `adev->userq_mutex`
-  (518); destroy does not (394–420)
-- [Phase 5] Read `amdgpu_userq_fence.c`: destroy → `kref_put` →
-  `amdgpu_seq64_free`
-- [Phase 6] Confirmed buggy code at lines 178–182, 208; no
-  `test_and_set_bit` present
-- [Phase 6] `amdgpu_seq64_init` present in `amdgpu_device.c` GMC init
-  path
-- [Phase 6] Userq support on gfx11/gfx12/SDMA via `userq_funcs`
-  assignment verified
-- [Phase 8] `AMDGPU_MAX_SEQ64_SLOTS` = 2MiB/8 = 262144 slots per
-  `amdgpu_seq64.h`
-- [Phase 8] `Documentation/atomic_bitops.txt`: `__` prefixed bitops are
-  non-atomic
-- UNVERIFIED: Author's reply to Christian König's concurrency question
-  (not found in fetched threads)
-- UNVERIFIED: Whether fix commit SHA exists on mainline (not in this
-  stable checkout)
+- **[Phase 1]** Parsed commit message and tags from user query and `git
+  show a1d4b228e3dc5`
+- **[Phase 1]** No Fixes:/Reported-by:/Cc: stable tags
+- **[Phase 2]** Diff analysis: +3 lines in `allocate_doorbell()` before
+  `__test_and_set_bit()`
+- **[Phase 3]** `git describe HEAD`: v6.18.43; `make kernelversion`
+  equivalent from Makefile: 6.18.43
+- **[Phase 3]** `git show a1d4b228e3dc5`: commit exists on master, not
+  in HEAD
+- **[Phase 3]** `b4 dig -c a1d4b228e3dc5`: found lore thread at
+  patch.msgid.link/20260512192824.3682569-1
+- **[Phase 3]** `b4 dig -a`: v1 only, no further revisions
+- **[Phase 3]** `b4 dig -w`: CC'd amd-gfx@lists.freedesktop.org
+- **[Phase 4]** `b4 dig -m /tmp/doorbell_thread.mbox`: patch 2/2 content
+  retrieved; no stable Cc in thread
+- **[Phase 5]** Grep callers: `allocate_doorbell` called from
+  `create_queue_nocpsch` and `create_queue_cpsch` with
+  `&qd->doorbell_id`
+- **[Phase 5]** Traced CRIU path: `kfd_criu_restore_queue` →
+  `pqm_create_queue` → `allocate_doorbell`
+- **[Phase 5]** `kfd_events.c:110`: confirmed analogous bounds check
+  exists for event restore
+- **[Phase 6]** Read local `kfd_device_queue_manager.c:474-479`: bounds
+  check **missing**
+- **[Phase 6]** `kfd_doorbell.c:259`: `doorbell_bitmap` allocated with
+  `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` (1024)
+- **[Phase 6]** `kfd_priv.h:97`: `KFD_MAX_NUM_OF_QUEUES_PER_PROCESS` =
+  1024
+- **[Phase 6]** `kfd_chardev.c:3332-3337`: CRIU ioctl requires
+  `CAP_CHECKPOINT_RESTORE` or `CAP_SYS_ADMIN`
+- **[Phase 6]** CRIU infrastructure confirmed present
+  (`kfd_criu_restore_queue`, `AMDKFD_IOC_CRIU_OP`)
+- **[Phase 8]** Failure mode: OOB bit operation → memory corruption;
+  privileged ioctl mitigates unprivileged exploitability
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-index a0b479d5fff19..f4be192235889 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
-@@ -175,11 +175,14 @@ int amdgpu_seq64_alloc(struct amdgpu_device *adev, u64 *va,
- {
- 	unsigned long bit_pos;
- 
--	bit_pos = find_first_zero_bit(adev->seq64.used, adev->seq64.num_sem);
--	if (bit_pos >= adev->seq64.num_sem)
--		return -ENOSPC;
-+	for (;;) {
-+		bit_pos = find_first_zero_bit(adev->seq64.used, adev->seq64.num_sem);
-+		if (bit_pos >= adev->seq64.num_sem)
-+			return -ENOSPC;
- 
--	__set_bit(bit_pos, adev->seq64.used);
-+		if (!test_and_set_bit(bit_pos, adev->seq64.used))
-+			break;
-+	}
- 
- 	*va = bit_pos * sizeof(u64) + amdgpu_seq64_get_va_base(adev);
- 
-@@ -205,7 +208,7 @@ void amdgpu_seq64_free(struct amdgpu_device *adev, u64 va)
- 
- 	bit_pos = (va - amdgpu_seq64_get_va_base(adev)) / sizeof(u64);
- 	if (bit_pos < adev->seq64.num_sem)
--		__clear_bit(bit_pos, adev->seq64.used);
-+		clear_bit(bit_pos, adev->seq64.used);
- }
- 
- /**
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 2f8df95382bc3..d9f09f25911a7 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -472,6 +472,9 @@ static int allocate_doorbell(struct qcm_process_device *qpd,
+ 	} else {
+ 		/* For CP queues on SOC15 */
+ 		if (restore_id) {
++			if (*restore_id >= KFD_MAX_NUM_OF_QUEUES_PER_PROCESS)
++				return -EINVAL;
++
+ 			/* make sure that ID is free  */
+ 			if (__test_and_set_bit(*restore_id, qpd->doorbell_bitmap))
+ 				return -EINVAL;
 -- 
 2.53.0
 
