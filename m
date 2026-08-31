@@ -4,57 +4,100 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 99E70C624A4
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 16:19:21 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7ED19C61DD3
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 16:27:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 174F310E9D0;
-	Mon, 31 Aug 2026 16:19:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 13E8E10E28C;
+	Mon, 31 Aug 2026 16:27:01 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="WVIaRQyG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="HPQ/QLi/";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9181D10E9D0;
- Mon, 31 Aug 2026 16:19:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 763D043B86;
- Mon, 31 Aug 2026 16:19:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C658A1F000E9;
- Mon, 31 Aug 2026 16:19:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788193159;
- bh=zd4ANdjXNDith8D757dJVvUVaxz7Ox5RlsUoIEkFS84=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=WVIaRQyG9OCCzyHUId4E5rYIS5SH1Qu2idmQ1DaI0Vc93AyzwwzPuIP0fqllv1KDc
- LRQMIJz6hG6tWkUMiz73AF5r/XckegSu8m41mZuxvT+f/opdwSxRMsv+YlNIydTz3c
- yE1r3hDobqmZamo/tEDljeq2FA5FknuHr2JwRIGUuWmDoYnapDYaWB4A1DwPa/USPM
- 6qnKcCWcq274Zrn1vpEbcGVdwhYL19DzsQo0IAJK6wsXySX1h+qEs6Gz7o0kQlOYpF
- bRtfncXAQo+YJ13i5lXmImitu6bpKX9k0FG3u+OQZF59hftBznoT2H1JX0Lzc1OWHp
- HWBUOijiA0t5A==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Mon, 31 Aug 2026 18:17:41 +0200
-Subject: [PATCH v3 25/40] drm/amdgpu_dm: Convert to atomic_create_state
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010029.outbound.protection.outlook.com
+ [52.101.193.29])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E261210E28C
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 16:26:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vWjI2dYc+bWtbGgCUpcQQsvaquv+LZMrqSxOQmLI3w9wm2ge/9KFKmadqOJlgtibMAPVXyHtBbsfaGTg3ZGQYAU0ARVyVfMp6IHFFeJK8JLyumUua/VU239FhgidIh9FsRn1rXNPOr6Gk7WN3EImm3thUAaTAzSSqnhf7NXZzhEajYyYcWMNZCVqpS/z3pS2MnnjTtZKvsvxxoexontGwxMRa0Uod6NSRaVMzk29IkTjKzU7mQkuy1CyGCHpHlAcy4Etc8lieIhTiSeyTy4t7niwd4KYl53H1uduTDRreVIv4BqsN+niBFC23a4bzm7kWUTORJZ7J2IAYv8Y4VLhhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=du3XntTm7JY1uzcG8LUt1GsfH9El/fja71lQoq8gdEs=;
+ b=tMWjfqUdqHMxz2kXDrodC6CqFtWwpvnlBjxmetAYOi1Alcxyw6zbkhBY4imjLCuoDkHkPEHEWZ4oOJ5Udxxld+a+hGyT6AcVOQXTqUaPn8G5G2lcaOy1h1GUjleEGmARKs00/mOGwxLObyy828udlB0DawH/ldHJW8USLFdBSKY5NhZz0nzJcIzJPNxssek6yiH0Z+PtIWsgyDCwC6VbI2QnYn37EHNr6gj94aGkk0l5eLFQAAWiqN7clbB+X0SE+JPDyXWS2TdcY3za9CIwFiBCglvHW11XDltn95xybYjXhOioSG7UKK/KM04zD+Toqn8Mf7sCNi7bGO1nrSJ5zg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=du3XntTm7JY1uzcG8LUt1GsfH9El/fja71lQoq8gdEs=;
+ b=HPQ/QLi/pEtdcZS3/5HkWGfXDfDZW27qwinog8yuY7M3tER5LAhEy/Hv1cweSFz5Xo6ItdpzY2pb/qYl5MMrgHz68w7gu4WWxO+gpMcIiPBZM6hCZUqV4cQWtWtCAou8uLhE8dtC5DShvfpQqwxjpfcodo9J5yeoMnlo9KaC3fc=
+Received: from SJ0PR05CA0203.namprd05.prod.outlook.com (2603:10b6:a03:330::28)
+ by PH7PR12MB6491.namprd12.prod.outlook.com (2603:10b6:510:1f4::14)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 16:26:55 +0000
+Received: from SJ1PEPF000023D0.namprd02.prod.outlook.com
+ (2603:10b6:a03:330:cafe::67) by SJ0PR05CA0203.outlook.office365.com
+ (2603:10b6:a03:330::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.9 via Frontend Transport; Mon, 31
+ Aug 2026 16:26:55 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000023D0.mail.protection.outlook.com (10.167.244.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 16:26:55 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
+ 2026 11:26:54 -0500
+Received: from [10.254.92.68] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Mon, 31 Aug 2026 11:26:54 -0500
+Message-ID: <547d5fc9-5a46-4097-87f8-a1ca2ec26df1@amd.com>
+Date: Mon, 31 Aug 2026 12:26:48 -0400
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amd/display: Fix cursor disable with horizontally
+ split planes
+To: Yuling Li <yulingli@amd.com>, <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Yuling Li <Yuling.Li@amd.com>
+References: <20260831072841.2302952-1-yulingli@amd.com>
+Content-Language: en-US
+From: Leo Li <sunpeng.li@amd.com>
+In-Reply-To: <20260831072841.2302952-1-yulingli@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-drm-no-more-plane-reset-v3-25-1877c7aa57b3@kernel.org>
-References: <20260831-drm-no-more-plane-reset-v3-0-1877c7aa57b3@kernel.org>
-In-Reply-To: <20260831-drm-no-more-plane-reset-v3-0-1877c7aa57b3@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Maxime Ripard <mripard@kernel.org>, 
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org, 
- christian.koenig@amd.com, harry.wentland@amd.com, siqueira@igalia.com, 
- sunpeng.li@amd.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=13079; i=mripard@kernel.org;
- h=from:subject:message-id; bh=nSi/pOoXyQ6Id9goJRjNAT3goOSxZCeg/q0PRScaFqY=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDFlTV0o/rFL/t8/v/P5HXe/kmdfL3n9Yft0h323/9mjpp
- rfuydn+HVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiLEWMdVa/6ho4o3ZL3jtT
- MH259kMPhddeN8OTz9dL8O3eX/g68vwrgYf30ip7Ixu8Pid+iF4wk7G+VMluCotnR9zUnvBr87Z
- wrPnUdutY5C8BmWvPJ1kfOHV26eHtCcw1JzaFaoYo3MzVX6IFAA==
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000023D0:EE_|PH7PR12MB6491:EE_
+X-MS-Office365-Filtering-Correlation-Id: bc563254-468d-474a-bc3d-08df077cabf7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|42112799006|23010399003|36860700016|82310400026|376014|1800799024|56012099006|10067099003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: A0CX987YVugZ2GpptK/cKKE+szAsWk+4neHDIPrwj14JyvkPHqhNYgzx1if1NA3eSkDLk5BmR02YX33hGRJK93hMy6suF6fAPraOY4AubDzKUsc5v+SjC2DDD5GZ3fcS0X85PEXCVDafN7EoI7Arg8IzHtG2BVs0DOlLmrBPCxZxWjKWDYUTtt0IkoxkjWLDGcAROZCo8l3BJ32oUi3bWGgX8vdPicT6tcYeLHAEMLcKN8Tp+wUoiA2JPddFGGc9o+ZC6DtEGxZ1ijjWh6ZMWVfYWEdtWBCliukYjYSR/51clnIwK4bRGjjdm8rTvjo1yMOBUSV4C4d3NWBfkucD1ifnSFe9TNjQGXgi9utimLAF4J49v08sasHo+OwKTlBDmxUJP9JOqIMmiF75+HRtzaLX06c3r5UDtgveXB26XcjVWf6e8cdLrW6NuFFLj2vHbK6oBAH3rjgqFHpvCBrk50jZ7f8KkpXYKmlgz56sfoyBBz53wh4txuTQpCdT5AspmIyV/tSeBhz2/dG/juLLHTaln2ghfZq05N+4arrRc4x7k9VNJJJifZgfQpwYZr/B9g5/+jBm0GPMRCQQvNt9187Bt9v/T/xp8EAwuYKjxOQlha7RcxAUqbeGCNPB8/pfmrtgP6UqrEfVAa7GARsd3cI/DmOpQqGCGfNJW3o7Ae6PLbYYnLo7T+mIDFB7syL+aQ+6mmJ0bpBt0hHt3acyNQ==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(42112799006)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: kHWPwo2eaRHn/bpqBISyD8sH5vLmg61cP/s5sik7XJnSfsJLhdmCJy97b/Ei0FiEQXjDHH+mpzGc8uQ6QVUD2e0nAh3InGYULC7YqV7PYloQw/fzOqWDxXHEZtz8dQtNdgP1V67qT3UswE+O6weSIqOOTcw2954Ed9Yg7RkH+gcP4SACErDSNKN3i3AqwOisJm0Fbob4NqcbxRd92q3VIt5PyC0Ch4mSIdjHrPHQMMGpb3MuhpECv3DsWnH3cYqZnz7HDTvvgsZsCL+pxuZjzdPHsE6XXL7Fh/QLKTAWa6dWvnA1VkeKOz349GEaM+5Jh1FELtHKQbEWU33Dp1dB6ftgSpnt41Qait5FzhK8FqyFgK+QcjFDuL8MNzpxTv2hRh3yyO9dG6F/VW8bUVovYEv2NqJ/p2xAy4SJiMdXf89kJ2PBCE2wOAKiDNf0AxGi
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 16:26:55.1103 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc563254-468d-474a-bc3d-08df077cabf7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF000023D0.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6491
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,448 +112,70 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The plane reset implementation creates a custom state
-subclass, but only initializes a pristine state without resetting any
-hardware. This is equivalent to what atomic_create_state expects.
-Convert to it.
 
-The conversion was done using the following Coccinelle semantic patch:
 
-@@
-identifier funcs;
-symbol drm_atomic_helper_plane_reset;
-symbol drm_atomic_helper_plane_create_state;
-@@
+On 2026-08-31 03:28, Yuling Li wrote:
+> From: Yuling Li <Yuling.Li@amd.com>
+> 
+> [WHY]
+> resource_can_pipe_disable_cursor() disables the hardware cursor on a
+> pipe when a higher layer fully covers that pipe's recout, to avoid
+> double-cursor and scaling artifacts.
+> 
+> When merging pipe-split halves of the same overlay layer, the inner
+> loop walks every pipe above the current one and looks for siblings
+> sharing test_pipe's layer_index. Because test_pipe itself satisfies
+> that condition, it can be treated as its own split partner. That
+> incorrectly doubles r2.width and makes the covering check succeed even
+> when the overlay does not fully contain the underlying pipe.
+> 
+> On horizontally split or multi-quadrant layouts this causes the cursor
+> to disappear over overlay regions while input/coordinate mapping remains
+> correct.
+> 
+> [HOW]
+> Skip test_pipe when searching for a pipe-split sibling on the same
+> layer, so only the other half of the split plane is merged into r2.
+> 
+> Signed-off-by: Yuling Li <yulingli@amd.com>
+> ---
+>  drivers/gpu/drm/amd/display/dc/core/dc_resource.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> index ac558e715b72..7bbbe118e365 100644
+> --- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> +++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+> @@ -1801,7 +1801,10 @@ bool resource_can_pipe_disable_cursor(struct pipe_ctx *pipe_ctx)
+>  		 * pipe-split, merge together per same height.
+>  		 */
+>  		for (split_pipe = pipe_ctx->top_pipe; split_pipe;
+> -		     split_pipe = split_pipe->top_pipe)
+> +		     split_pipe = split_pipe->top_pipe) {
 
-struct drm_plane_funcs funcs = {
-  ...,
-- .reset = drm_atomic_helper_plane_reset,
-+ .atomic_create_state = drm_atomic_helper_plane_create_state,
-  ...,
-};
+Nit: add a newline here.
 
-@match_struct_reset@
-identifier funcs, reset_func;
-@@
-struct drm_plane_funcs funcs = {
-    ...,
-    .reset = reset_func,
-    ...,
-};
+Otherwise, it makes sense to me: 
 
-@reset_uses_helpers depends on match_struct_reset@
-identifier match_struct_reset.reset_func;
-@@
+Reviewed-by: Leo Li <sunpeng.li@amd.com>
 
- void reset_func(...)
- {
- 	<+...
-(
- 	__drm_atomic_helper_plane_reset(...);
-|
-	__drm_gem_reset_shadow_plane(...);
-)
- 	...+>
- }
+Curious, what was the specific use case where you saw the cursor disappearing? Which compositor/app?
 
-@match_struct_destroy@
-identifier funcs, destroy_func;
-@@
-struct drm_plane_funcs funcs = {
-    ...,
-    .atomic_destroy_state = destroy_func,
-    ...,
-};
+Thanks,
+Leo
 
-@script:python renamed_func@
-old_name << match_struct_reset.reset_func;
-new_name;
-@@
-if old_name.endswith("_reset"):
-    coccinelle.new_name = old_name.replace("_reset", "_create_state")
-else:
-    coccinelle.new_name = old_name
-
-@update_struct depends on match_struct_reset && reset_uses_helpers@
-identifier match_struct_reset.funcs, match_struct_reset.reset_func;
-identifier renamed_func.new_name;
-@@
-struct drm_plane_funcs funcs = {
-    ...,
--   .reset = reset_func,
-+   .atomic_create_state = new_name,
-    ...,
-};
-
-@drop_destroy depends on update_struct && match_struct_destroy@
-identifier match_struct_reset.reset_func;
-identifier match_struct_destroy.destroy_func;
-identifier container_func;
-identifier P;
-symbol drm_atomic_helper_plane_destroy_state;
-symbol __drm_atomic_helper_plane_destroy_state;
-@@
-
- void reset_func(struct drm_plane *P)
- {
- 	...
-(
--	if (P->state) {
-- 		<+...
-(
--		drm_atomic_helper_plane_destroy_state(P, P->state);
-|
--		__drm_atomic_helper_plane_destroy_state(P->state);
-|
--		P->funcs->atomic_destroy_state(P, P->state);
-|
--		destroy_func(P, P->state);
-)
-- 		...+>
-- 	}
-|
--	drm_WARN_ON_ONCE(P->dev, P->state);
-|
--	WARN_ON(P->state);
-)
- 	...
-(
--	kfree(P->state);
-|
--	kfree(container_func(P->state));
-|
- 	// kfree is optional
-)
-(
--	P->state = NULL;
-|
- 	// plane->state clearing is optional
-)
- 	...
- }
-
-@drop_destroy_mtk depends on update_struct@
-identifier P;
-symbol __drm_atomic_helper_plane_destroy_state;
-symbol to_mtk_plane_state;
-@@
-
- void mtk_plane_reset(struct drm_plane *P)
- {
- 	...
--	if (P->state) {
--		__drm_atomic_helper_plane_destroy_state(P->state);
--		...
--	} else {
- 		...
--	}
- 	...
- }
-
-@transform_nv50_wndw depends on update_struct@
-identifier S;
-@@
-
- void nv50_wndw_reset(...)
- {
- 	...
--	if (WARN_ON(!(S = kzalloc_obj(*S))))
-+	S = kzalloc_obj(*S);
-+	if (WARN_ON(!S))
- 		return;
- 	...
- }
-
-@transform_kzalloc depends on update_struct@
-identifier match_struct_reset.reset_func;
-identifier P, S;
-statement ST;
-statement list STL;
-@@
-
- void reset_func(struct drm_plane *P)
- {
- 	<...
- 	S = kzalloc_obj(*S);
-(
--	if (S)
--	{
--		STL
--	}
-+	if (!S) return;
-+
-+	STL
-|
--	if (S) ST
-+	if (!S) return;
-+
-+	ST
-)
-	...>
- }
-
-@transform_body depends on update_struct@
-identifier match_struct_reset.reset_func;
-identifier renamed_func.new_name;
-identifier S, P;
-expression PS;
-@@
-- void reset_func(struct drm_plane *P)
-+ struct drm_plane_state *new_name(struct drm_plane *P)
-{
-	...
- 	S = kzalloc_obj(*S);
-	...
-(
- 	if (!S) {
-		...
--		return;
-+		return ERR_PTR(-ENOMEM);
- 	}
-|
- 	if (WARN_ON(!S)) {
-		...
--		return;
-+		return ERR_PTR(-ENOMEM);
- 	}
-|
- 	if (S == NULL) {
- 		...
--		return;
-+		return ERR_PTR(-ENOMEM);
- 	}
-)
-	...
-(
--	__drm_atomic_helper_plane_reset(P, PS);
-+	__drm_atomic_helper_plane_state_init(PS, P);
-|
--	__drm_gem_reset_shadow_plane(P, PS);
-+	__drm_gem_shadow_plane_state_init(P, PS);
-)
-	...
-}
-
-@update_early_return depends on update_struct@
-identifier match_struct_reset.reset_func;
-identifier renamed_func.new_name;
-identifier P;
-expression PS;
-@@
- struct drm_plane_state *new_name(struct drm_plane *P)
-{
-	<+...
--	return;
-+	return ERR_PTR(-EINVAL);
-	...+>
-}
-
-@update_return_plane depends on update_struct@
-identifier match_struct_reset.reset_func;
-identifier renamed_func.new_name;
-identifier P;
-expression PS;
-@@
- struct drm_plane_state *new_name(struct drm_plane *P)
-{
-	...
- 	__drm_atomic_helper_plane_state_init(PS, P);
-	...
-+
-+	return PS;
-}
-
-@update_return_shadow depends on update_struct@
-identifier renamed_func.new_name;
-identifier P;
-expression PS;
-@@
- struct drm_plane_state *new_name(struct drm_plane *P)
-{
-	...
- 	__drm_gem_shadow_plane_state_init(P, PS);
-	...
-+
-+	return &PS->base;
-}
-
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
-Cc: alexander.deucher@amd.com
-Cc: amd-gfx@lists.freedesktop.org
-Cc: christian.koenig@amd.com
-Cc: harry.wentland@amd.com
-Cc: siqueira@igalia.com
-Cc: sunpeng.li@amd.com
----
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c    | 28 ++++++++++++--------
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h    |  2 +-
- .../display/amdgpu_dm/tests/amdgpu_dm_plane_test.c | 30 ++++++++--------------
- 3 files changed, 29 insertions(+), 31 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-index 824ef3ce5de0..f9655f534d3b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.c
-@@ -1786,28 +1786,27 @@ static const struct drm_plane_helper_funcs dm_primary_plane_helper_funcs = {
- 	.atomic_async_update = amdgpu_dm_plane_atomic_async_update,
- 	.get_scanout_buffer = amdgpu_display_get_scanout_buffer,
- 	.panic_flush = amdgpu_dm_plane_panic_flush,
- };
- 
--STATIC_IFN_KUNIT void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane)
-+STATIC_IFN_KUNIT struct drm_plane_state *amdgpu_dm_plane_drm_plane_create_state(struct drm_plane *plane)
- {
- 	struct dm_plane_state *amdgpu_state;
- 
- 	amdgpu_state = kzalloc_obj(*amdgpu_state);
- 	if (!amdgpu_state)
--		return;
-+		return ERR_PTR(-ENOMEM);
- 
--	if (plane->state)
--		plane->funcs->atomic_destroy_state(plane, plane->state);
--
--	__drm_atomic_helper_plane_reset(plane, &amdgpu_state->base);
-+	__drm_atomic_helper_plane_state_init(&amdgpu_state->base, plane);
- 	amdgpu_state->degamma_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
- 	amdgpu_state->hdr_mult = AMDGPU_HDR_MULT_DEFAULT;
- 	amdgpu_state->shaper_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
- 	amdgpu_state->blend_tf = AMDGPU_TRANSFER_FUNCTION_DEFAULT;
-+
-+	return &amdgpu_state->base;
- }
--EXPORT_IF_KUNIT(amdgpu_dm_plane_drm_plane_reset);
-+EXPORT_IF_KUNIT(amdgpu_dm_plane_drm_plane_create_state);
- 
- STATIC_IFN_KUNIT struct drm_plane_state *
- amdgpu_dm_plane_drm_plane_duplicate_state(struct drm_plane *plane)
- {
- 	struct dm_plane_state *dm_plane_state, *old_dm_plane_state;
-@@ -2166,11 +2165,11 @@ dm_plane_init_colorops(struct drm_plane *plane)
- 
- static const struct drm_plane_funcs dm_plane_funcs = {
- 	.update_plane	= drm_atomic_helper_update_plane,
- 	.disable_plane	= drm_atomic_helper_disable_plane,
- 	.destroy	= drm_plane_helper_destroy,
--	.reset = amdgpu_dm_plane_drm_plane_reset,
-+	.atomic_create_state = amdgpu_dm_plane_drm_plane_create_state,
- 	.atomic_duplicate_state = amdgpu_dm_plane_drm_plane_duplicate_state,
- 	.atomic_destroy_state = amdgpu_dm_plane_drm_plane_destroy_state,
- 	.format_mod_supported = amdgpu_dm_plane_format_mod_supported,
- 	.format_mod_supported_async = amdgpu_dm_plane_format_mod_supported,
- #ifdef AMD_PRIVATE_COLOR
-@@ -2276,13 +2275,20 @@ int amdgpu_dm_plane_init(struct amdgpu_display_manager *dm,
- 	res = dm_plane_init_colorops(plane);
- 	if (res)
- 		return res;
- #endif
- 
--	/* Create (reset) the plane state */
--	if (plane->funcs->reset)
--		plane->funcs->reset(plane);
-+	/* Create the plane state */
-+	if (plane->funcs->atomic_create_state) {
-+		struct drm_plane_state *plane_state;
-+
-+		plane_state = plane->funcs->atomic_create_state(plane);
-+		if (IS_ERR(plane_state))
-+			return PTR_ERR(plane_state);
-+
-+		plane->state = plane_state;
-+	}
- 
- 	return 0;
- }
- 
- bool amdgpu_dm_plane_is_video_format(uint32_t format)
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-index 092ade738ce9..6aaea290206d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_plane.h
-@@ -115,11 +115,11 @@ void amdgpu_dm_plane_get_min_max_dc_plane_scaling(struct drm_device *dev,
- int amdgpu_dm_plane_atomic_async_check(struct drm_plane *plane,
- 				       struct drm_atomic_commit *state, bool flip);
- int amdgpu_dm_plane_atomic_check(struct drm_plane *plane,
- 				 struct drm_atomic_commit *state);
- void amdgpu_dm_plane_panic_flush(struct drm_plane *plane);
--void amdgpu_dm_plane_drm_plane_reset(struct drm_plane *plane);
-+struct drm_plane_state *amdgpu_dm_plane_drm_plane_create_state(struct drm_plane *plane);
- struct drm_plane_state *amdgpu_dm_plane_drm_plane_duplicate_state(struct drm_plane *plane);
- void amdgpu_dm_plane_drm_plane_destroy_state(struct drm_plane *plane,
- 					     struct drm_plane_state *state);
- void amdgpu_dm_plane_add_modifier_dedup(uint64_t **mods, uint64_t *size,
- 					uint64_t *cap, uint64_t mod);
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-index ba97092c7bb8..ab425ee14f30 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_plane_test.c
-@@ -2922,40 +2922,32 @@ static void dm_test_panic_flush_no_dc_state(struct kunit *test)
- static const struct drm_plane_funcs dm_test_plane_reset_funcs = {
- 	.atomic_destroy_state = amdgpu_dm_plane_drm_plane_destroy_state,
- };
- 
- /**
-- * dm_test_plane_reset_initializes_state() - Verify reset installs default state.
-+ * dm_test_plane_create_state_initializes_state() - Verify create_state allocates default state.
-  * @test: KUnit test context.
-  *
-- * Verify amdgpu_dm_plane_drm_plane_reset() destroys the existing plane state,
-- * allocates a fresh dm_plane_state, and initializes the AMD-specific transfer
-- * function and HDR multiplier defaults.
-+ * Verify amdgpu_dm_plane_drm_plane_create_state() allocates a fresh
-+ * dm_plane_state, and initializes the AMD-specific transfer function and HDR
-+ * multiplier defaults.
-  */
--static void dm_test_plane_reset_initializes_state(struct kunit *test)
-+static void dm_test_plane_create_state_initializes_state(struct kunit *test)
- {
--	struct dm_plane_state *old_state;
-+	struct drm_plane_state *plane_state;
- 	struct dm_plane_state *new_state;
- 	struct drm_plane *plane;
- 
- 	plane = kunit_kzalloc(test, sizeof(*plane), GFP_KERNEL);
- 	KUNIT_ASSERT_NOT_NULL(test, plane);
- 
--	/*
--	 * Provide an existing state plus a funcs table so reset exercises the
--	 * destroy-existing-state path. The destroy hook frees this state, so it
--	 * must be a plain (non-KUnit-managed) allocation.
--	 */
--	old_state = kzalloc(sizeof(*old_state), GFP_KERNEL);
--	KUNIT_ASSERT_NOT_NULL(test, old_state);
- 	plane->funcs = &dm_test_plane_reset_funcs;
--	plane->state = &old_state->base;
- 
--	amdgpu_dm_plane_drm_plane_reset(plane);
-+	plane_state = amdgpu_dm_plane_drm_plane_create_state(plane);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, plane_state);
- 
--	KUNIT_ASSERT_NOT_NULL(test, plane->state);
--	new_state = to_dm_plane_state(plane->state);
-+	new_state = to_dm_plane_state(plane_state);
- 	KUNIT_EXPECT_EQ(test, new_state->degamma_tf, AMDGPU_TRANSFER_FUNCTION_DEFAULT);
- 	KUNIT_EXPECT_EQ(test, new_state->hdr_mult, AMDGPU_HDR_MULT_DEFAULT);
- 	KUNIT_EXPECT_EQ(test, new_state->shaper_tf, AMDGPU_TRANSFER_FUNCTION_DEFAULT);
- 	KUNIT_EXPECT_EQ(test, new_state->blend_tf, AMDGPU_TRANSFER_FUNCTION_DEFAULT);
- 
-@@ -3096,12 +3088,12 @@ static struct kunit_case amdgpu_dm_plane_test_cases[] = {
- 	KUNIT_CASE(dm_test_atomic_check_helper_failure),
- 	KUNIT_CASE(dm_test_atomic_check_color_pipeline_conflict),
- 	KUNIT_CASE(dm_test_atomic_check_scaling_failure),
- 	/* amdgpu_dm_plane_panic_flush() */
- 	KUNIT_CASE(dm_test_panic_flush_no_dc_state),
--	/* amdgpu_dm_plane_drm_plane_reset() */
--	KUNIT_CASE(dm_test_plane_reset_initializes_state),
-+	/* amdgpu_dm_plane_drm_plane_create_state() */
-+	KUNIT_CASE(dm_test_plane_create_state_initializes_state),
- 	/* amdgpu_dm_plane_drm_plane_duplicate_state() */
- 	KUNIT_CASE(dm_test_plane_duplicate_state_copies_fields),
- 	/* amdgpu_dm_plane_drm_plane_destroy_state() */
- 	KUNIT_CASE(dm_test_plane_destroy_state_minimal),
- 	/* amdgpu_dm_plane_add_modifier() */
-
--- 
-2.55.0
+> +			if (split_pipe == test_pipe)
+> +				continue;
+> +
+>  			if (split_pipe->plane_state->layer_index == test_pipe->plane_state->layer_index) {
+>  				struct rect r2_half;
+>  
+> @@ -1813,6 +1816,7 @@ bool resource_can_pipe_disable_cursor(struct pipe_ctx *pipe_ctx)
+>  				r2_bottom = min(r2_bottom, r2_half.y + r2_half.height);
+>  				break;
+>  			}
+> +		}
+>  
+>  		if (r1.x >= r2.x && r1.y >= r2.y && r1_right <= r2_right && r1_bottom <= r2_bottom)
+>  			return true;
 
