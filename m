@@ -4,85 +4,133 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97091C624CF
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 07:59:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 26CC5C624D2
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 07:59:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6515E10EBB1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C5E3110EBC8;
 	Tue,  1 Sep 2026 07:59:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ppBahKxx";
+	dkim=pass (2048-bit key; unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.b="Wvr4TpYc";
+	dkim=pass (2048-bit key; unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QMjHVEmz";
 	dkim-atps=neutral
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com
- [209.85.219.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EB13110E8C7
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 13:47:28 +0000 (UTC)
-Received: by mail-qv1-f42.google.com with SMTP id
- 6a1803df08f44-90cd1012479so35764616d6.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 06:47:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788184048; cv=none;
- d=google.com; s=arc-20260327;
- b=ZpuOMFt1loFB7uxtyjg7uJ3TImvnc7QmEWVCEuznrds3s5+nIV1673F5eGjIwa/17u
- 1Lx4/Ys3wDFS5EfKoI2E5VaDoqVb/wR7wZWVzpo0yuXplMZqaUtMa2Y3GM6k9EtmLgE2
- iSdNUxSjxwrewAAMTvb42glM5iwes4pgPQYLI6fQ3PhqQljfNQb2LswCzVWK5EJdKxh0
- iOy1/vYrKgMwI1MO5vE/uDpH2rAXODE60Z+4Wu3LSF0hk/kgf2wbdEUtEdydXj6aYhoH
- JeDCrWD+8+exjf50mdjTt927TavOxN/IQ+pBs0yv0Xg/zdsuQqFonhRavqqARSeOUU9O
- M5dA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
- bh=cFSV9KhWwH8UTBQ/C/MspQ/RwmMPKmn69329QrcNpjg=;
- fh=MDXE10nGoCDgvUSXMaMflaO6KszhysLuc71Ky5lF0Q0=;
- b=DPT+A2KXZJK+ZwOsED/3D8J8UeG1+C5KjoUzAzikFuMhMdQSHiFOPVFgtDFg/KuGkV
- ahMskvNmkLxNbN18Shx605I0Igm+JPOwHN6XzvJjn0RjpiTql7ijUfTfeNoisNUcoKVW
- OVGkZN/+VZM8OjLLCuif1TyjbsFlfCG5kq4duJHfjEZyZG9M3B0XAWayRexEQv/b6fh4
- t/xkHnzGu78oNMj5Bwp1P6an7Whnvbjd4QO+9tXQfaVKpCKbNr+G78rq3JV8l/swOKfR
- h1WcslHM8cTtM5jo4+T1xWEUz7XzfgHIxNtWx+OxnLe1KMBbuqX0Wq+1qBN/qLibaRdm
- fumQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D3F4510E33B
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 20:59:34 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 67VIXvja336792
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 20:59:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 5eH2tkoqrxEkiPHG70y7OV/Rv6ro3jsgF0WXE4qtlyo=; b=Wvr4TpYcqqNSNW/c
+ 7MbI/noBMgaCUGPiX4RNjBSbAAlI6cOG626h8HzDCimzMCq5DR6dyRBuef3EKvWJ
+ pmyeItpWbagjmktj0sQR6TmfTyhz4Dz29ufjJuG9MXRO+8V2/zrD4bGQCfC3APBw
+ hwOiP1+IW8UwARVGAPJMqbMy2QKLnpPNKMrcQVuTLITjDisdbqmvph7Fm3vAyImW
+ e9Vxp5snkUtEuHev9TE+JQA+XS6pKAnAsKEegcI+Hzf/cHJElkii+UrFnGPWRrOh
+ gCXzQJj3Zg5Cx7jUdlKC11q5LIuyIRQ7DYidKoga5yvTGmSj/rYaFXi0krGH/xVc
+ IKwn2w==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gd6h938fj-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 20:59:33 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-9375d92d8cdso711288685a.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 13:59:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788184048; x=1788788848; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:mime-version:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=cFSV9KhWwH8UTBQ/C/MspQ/RwmMPKmn69329QrcNpjg=;
- b=ppBahKxxYaHPHOlS5qfRbO5gdoHVTlwolbcnLhXFDwW0/GwNtAIZhTIn0IrSIRC6ag
- GYi8616Pz1KwEvY6gpa1hrMIMRqBVR9HWVsGMdvELCkZ20zy3c2yRCeTv1sBYznt7BgB
- xRK0RFgslDAX+JL4YEDxsw4MKUklBJD/zj/1WY1160z+/J2CbcfFpzcxfbnOp0yvmeqW
- TebvZp1m2k0oE+XUplpfEEaIPouRkJBohl0RHhnVdlhR5+MDrvUkreuLPLK8YsWjkSOm
- BDmxgoDorA7E/sfOKXL9euryKTn0KYtxhD2SGZLQdOYRK/BB0hV+efoOidG7iHVMeYfz
- 5Wmw==
+ d=oss.qualcomm.com; s=google; t=1788209973; x=1788814773;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :references:cc:to:subject:from:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=5eH2tkoqrxEkiPHG70y7OV/Rv6ro3jsgF0WXE4qtlyo=;
+ b=QMjHVEmzllHG9ePlZJkwEtyUGkuj2tv8ltNjxwD5V0oQP9BUUckI9Ewj58fiq2iTwW
+ ujcZPRk/tsl31thKuBW1QQE9rsQIdPbeEadQtt5288EaZCFrRBD9qS06NYRHPdad6XIR
+ y571glQUWGmwEucdnT3F13vHGz90eY249kMBOxff7/ojFmRYauYgDoixT5ZGeDNzsYRs
+ 8otHrUwfslkTFbMXNSNf9PDtRMILUHZwvqw235E0sVHS4AWYMQYeCu2KOFHFyQDOnca1
+ yiV4rwvSi4wXCasleG7JFnSDE27LZ+JDwaKK9yKUBvPPE0ObsLHhz/Eyz7GFhkqjGAD6
+ k2mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788184048; x=1788788848;
- h=content-type:cc:to:subject:message-id:date:from:mime-version
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=cFSV9KhWwH8UTBQ/C/MspQ/RwmMPKmn69329QrcNpjg=;
- b=J+McPG8fp20UMFm//vEJyVSYwpGtHUlSHEC6d+lD2wITqBEvh9IcwMOrbxWzN/9u47
- VSqOCo/Q6sGWsgW7tcLAGxnS+hfyb8xLHtfTUArR/XKeSQuuH9wpX6rqWCEFt3rkwHDH
- ESW/YGVbAa2cO9m8T2W3quemQFRbdKDqF8h0T4gnTCSGk49ISYn5lYoPZaRoTKeDf/hJ
- p8CgQrX/iOeYtyaGjNn3oa89dd8Lp0qvRQnWrfehyIwKHXwlv+Ap+Ub/ReX41uKi6VH3
- uK+wixVPo8jFPqdgbbMe6ua7kNPH29SDomywzkwarWbe9herHa+YJW4m7KwjGzB36qAj
- Jnvg==
-X-Gm-Message-State: AFuF++n/r2dxsp0EE7NzREZjX2R7A3v1Y0uO3rppCVY3h1RCqGSjRw/H
- kPJxNk80jJLs2nhcGpf7vcAvO+2R8wbyHww5h8eLmaoToclilcBSaIZONe+n/K3fZYSRM2bcsG5
- 7XpoxPZZ1YTHqg68tMGndsogo30opntdegCo=
-X-Gm-Gg: AR+sD10YYGu+EJm60s+eUylkKtzUGXYNTjT4feduj3Wo1s8iegD39LDN+Zjr7kEyVMt
- xdXSkiCsme+ILOazgPVdQ5Up8yelA1mXyt0ujwFn8PQMP66MEkcrYFnkou4zwR2la9AfeyGKQ38
- boI7lGeR52aSylrDAN8Fm/ZIzlRSihFJLnpD4zbCy8lqfYhp/yinedFJRHvL1O7h4he/zF79xny
- N3SU61TAX5TkTfs6UZejZOBbDzoQTikRCMuc+rV9hKsqBgeBNS9OMTAvHC97OtP7772FMwV1HH3
- hIZ87ClRaSl1Enraui3bXDeD0PclOH/qNff7E8gBdvqq
-X-Received: by 2002:ad4:5c46:0:b0:8fe:57d4:69cd with SMTP id
- 6a1803df08f44-90e87197c3amr94853606d6.14.1788184047385; Mon, 31 Aug 2026
- 06:47:27 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1788209973; x=1788814773;
+ h=content-transfer-encoding:content-type:in-reply-to:content-language
+ :references:cc:to:subject:from:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=5eH2tkoqrxEkiPHG70y7OV/Rv6ro3jsgF0WXE4qtlyo=;
+ b=n1OEn8ShnTe2RZafCVDUPIET8frB2EYt1sp4/A2qL4iawFy3kZsVOuuJyK2ifJjF4w
+ e1p0g8datg8/8feNgbAJvJ6EF6RCCJHsvYjg9FH8XYwIaUnmpSb6gq327/r0Q9qtCNco
+ CrE4tRTiekVxlNFW0uc5D0zdmUDs0kB0wfSfIISm2mXAwm9wbgtkEPrt4kQkxKg6Bm7D
+ 8MjITHv5PDkmoNi0G75F4HNTZNfi/yTO7vE7IypiIXva5Nc3f0uIDKni1K5VVVxfXHMM
+ 6xBHgQfnbuh+j5D09SInIAQfDYDXH1JA0egde74fzwA0Uzye6HDa5s8iVU2AcgoLMX/L
+ 09BA==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Ro6IG0ouhJNLhD+uwKMfIxJvku/ajjth4CbbCBGabWRx7YrhrWSEalNAB/uTmpxKTiLRGGWVUPm@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lntG1WuqGpBVnoTy3QpuiMko6UgEfv0/zn7gGul4O895pkIiRm
+ 6AeMDukUZoQMnJO+LyArLJYUDcIQzrzSsOH5GiZatH+WsS/cZG8Z770eMxgxdGdUhWtvLxRbG+S
+ C+CpUeyzTJuLQo0So5pcAOM8AkDFGSSdKuCt6UeuEcOQ7iwK+7cfcH4TGHKO5fm34JOgp
+X-Gm-Gg: AR+sD12qBOGacKV5MVypnMR7szuUshk9/r+bEZuPTh3xwS+2ImyTgTTm+6rfCn32sd7
+ 04iV8ZKtwKaicX+q2IaYOO0TUTmfMTLxGBZ8N7YC9jAbC6Rjr84Y5qWrbUfTiOVPRgUTozKoFAW
+ 9vwesLpmpi4M76N2HExS9+3PphBaWiDC+CuS5ekbCObSIU0AKh2GaxbflfK3zvBnYG37SoMM052
+ iBiweT0pzSPRZ5B5qe/Z8oWtplxFvoXfWaQi+DJZPzufj3YkGuZr9QK6NneM75/zHwkS7ZJyOZh
+ ryBAQmpZM+9zL8AmbZB5c6xnZBGF3djqobFXffpADBLX77bWZbrmDMCyQv4iZ8kyR1KqloAXeIy
+ I1u/GMXS1FriiCYaFesHsMHFvok2uaWuDnYedUg==
+X-Received: by 2002:a05:620a:44d3:b0:937:75cd:4627 with SMTP id
+ af79cd13be357-9391395431fmr3175556085a.32.1788209973212; 
+ Mon, 31 Aug 2026 13:59:33 -0700 (PDT)
+X-Received: by 2002:a05:620a:44d3:b0:937:75cd:4627 with SMTP id
+ af79cd13be357-9391395431fmr3175550185a.32.1788209972753; 
+ Mon, 31 Aug 2026 13:59:32 -0700 (PDT)
+Received: from [192.168.0.183] ([80.233.33.41])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-48442d6eafesm277031f8f.24.2026.08.31.13.59.31
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 31 Aug 2026 13:59:32 -0700 (PDT)
+Message-ID: <da6868f1-1f9c-47a2-ac48-88dd160ae3e3@oss.qualcomm.com>
+Date: Mon, 31 Aug 2026 21:59:30 +0100
 MIME-Version: 1.0
-From: Robson Candido dos Santos Alves <robsonalves.us@gmail.com>
-Date: Mon, 31 Aug 2026 10:46:50 -0300
-X-Gm-Features: AcwNN1XiVRIDsV5MvmN1_ctjQnb_kUYK7ID-dXE41cp2gLJaxtcLOJ1RhzUegpg
-Message-ID: <CANkdJ2VvJQSBzyOq=LgSW1=Z8-YiN_r9Py2iJ0UJDo55+dbfuA@mail.gmail.com>
-Subject: [REGRESSION] amdgpu: "pixel format with alpha exposed but blend mode
- not setup" warnings introduced in v7.3-rc1
-To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
-Cc: regressions@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+Subject: Re: [PATCH 04/10] drm/gem: Convert drm_gem_private_object_init to
+ return error code
+To: christian.koenig@amd.com
+Cc: matthew.brost@intel.com, thomas.hellstrom@linux.intel.com, dakr@kernel.org,
+ ecourtney@nvidia.com, nat@pixelcluster.dev,
+ dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org
+References: <20260827124910.2245-1-christian.koenig@amd.com>
+ <20260827124910.2245-5-christian.koenig@amd.com>
+Content-Language: en-US
+In-Reply-To: <20260827124910.2245-5-christian.koenig@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=W6UIkxWk c=1 sm=1 tr=0 ts=6a95eb35 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=le/gl0x2G5+ma5yo0zCuxQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=KEyuISjlM5fmf-MbB58A:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: nLgbnp2SL1wLFwrmS9ygrzoz_pQfQZHM
+X-Proofpoint-GUID: nLgbnp2SL1wLFwrmS9ygrzoz_pQfQZHM
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODMxMDE4MSBTYWx0ZWRfX82XCaOCk1qZa
+ 3kuecE0LYi/d4i56mbVsNBLukvYxcYYig99dmc4ctxcfDbjKEUBFjIRmKdWDKWQiz7Q0lKlTGwD
+ SuJPgAlnIwOuI6I9uXKLqpkbhAfebeM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMxMDE4MSBTYWx0ZWRfX8SMx4vPYVMcN
+ 4XlO4J6po5iaF0AOe6gdHA13xpH9pEop45KPEORDKWkCnqfvExTyfnRglfpLJID9jsXGnhCWlG2
+ B9gYBC++C5+vl8dYYwn/8Il4D0JiNUgOmzUu55Ueo+6eZB2WVbYlEyKvWDWHtX/oAzItr6XVKSS
+ l0J0ohYLgxTq+uQa1r+7EyTqKeUYrb91rIs518cs2xgV4FywAt7gHuFzIaHv/08TRcmPd+KGec3
+ sKDWbydyIbdbWqLFDQGIBR13AVsfwcvpT0JOrtGxs9jNw1Bg/OTBc1tB+3FDIgc7nlgxEWKLTrK
+ gliM9FdM2eyCOZjT6ENAh/RQ9EAQRcOVPOPGmfPDhggjMJ2p+wWJD8U7ThHLEBuBPRwMl5ILFFC
+ QLqRGTH9XdetmFUAGbX15gk1m/+9VHVbvoLbQfjYfQrc+89AILOpIRIRRt4WBKxwC5WVHWRPAOU
+ QuNoPcKoU2j87ox997A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-31_06,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 bulkscore=0
+ clxscore=1011 phishscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608310181
 X-Mailman-Approved-At: Tue, 01 Sep 2026 07:59:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,51 +146,32 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-#regzbot introduced: v7.2.2..v7.3-rc1
-#regzbot title: amdgpu: "pixel format with alpha exposed but blend
-mode not setup" warnings on Renoir/Barcelo
-
-Hi,
-
-After updating from kernel v7.2.2 to v7.3-rc1, several DRM plane
-warnings regarding unset blend modes for pixel formats with alpha
-channels started appearing in dmesg during initialization.
-
-Good Version:
-- Kernel: 7.2.2-070202-generic
-- Display Core: v3.2.384
-- Result: Driver initializes cleanly without plane/blend mode warnings.
-
-Bad Version:
-- Kernel: 7.3.0-070300rc1-generic
-- Display Core: v3.2.392
-- Result: Driver emits the following warnings in dmesg:
-
-[drm] [PLANE:44:plane-0] pixel format with alpha exposed but blend
-mode not setup. Please fix.
-[drm] [PLANE:51:plane-1] pixel format with alpha exposed but blend
-mode not setup. Please fix.
-[drm] [PLANE:58:plane-2] pixel format with alpha exposed but blend
-mode not setup. Please fix.
-[drm] [PLANE:65:plane-3] pixel format with alpha exposed but blend
-mode not setup. Please fix.
-[drm] [PLANE:99:plane-7] pixel format with alpha exposed but blend
-mode not setup. Please fix.
-[drm] [PLANE:104:plane-8] pixel format with alpha exposed but blend
-mode not setup. Please fix.
-[drm] [PLANE:109:plane-9] pixel format with alpha exposed but blend
-mode not setup. Please fix.
-[drm] [PLANE:114:plane-10] pixel format with alpha exposed but blend
-mode not setup. Please fix.
-
-Hardware / Environment:
-- Hardware: AMD Renoir / Barcelo APU (DCN 2.1)
-- CPU Scaling Driver: amd-pstate-epp
-- Kernel cmdline: BOOT_IMAGE=/boot/vmlinuz-...
-root=UUID=87f96fe9-4a93-4725-95bb-dd53087bb7a8 ro quiet splash
-crashkernel=2G-4G:320M,4G-32G:512M,32G-64G:1024M,64G-128G:2048M,128G-:4096M
-
-Let me know if further logs or tests are needed.
-
-Best regards,
-Robson
+> diff --git a/drivers/gpu/drm/i915/gvt/dmabuf.c b/drivers/gpu/drm/i915/gvt/dmabuf.c
+> index 8a1d6c5636c2..5b198162c588 100644
+> --- a/drivers/gpu/drm/i915/gvt/dmabuf.c
+> +++ b/drivers/gpu/drm/i915/gvt/dmabuf.c
+> @@ -202,13 +202,19 @@ static struct drm_i915_gem_object *vgpu_create_gem(struct drm_device *dev,
+>  	static struct lock_class_key lock_class;
+>  	struct drm_i915_private *dev_priv = to_i915(dev);
+>  	struct drm_i915_gem_object *obj;
+> +	int ret;
+>  
+>  	obj = i915_gem_object_alloc();
+>  	if (obj == NULL)
+>  		return NULL;
+>  
+> -	drm_gem_private_object_init(dev, &obj->base,
+> +	ret = drm_gem_private_object_init(dev, &obj->base,
+>  		roundup(info->size, PAGE_SIZE));
+> +	if (ret) {
+> +		i915_gem_object_free(obj);
+Building on v7.2 with DRM_I915_GVT enabled will result in modpost undefined symbol error.
+Exporting i915_gem_object_free() in I915_GVT namespace (drivers/gpu/drm/i915/intel_gvt.c)
+should fix it.
+> +		return NULL;
+> +	}
+> +
+>  	i915_gem_object_init(obj, &intel_vgpu_gem_ops, &lock_class, 0);
+>  	i915_gem_object_set_readonly(obj);
+Thanks,
+Youssef
