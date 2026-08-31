@@ -4,52 +4,52 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1EC3BC624C6
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:44:34 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 51305C624C6
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:45:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7E82910E89D;
-	Mon, 31 Aug 2026 13:44:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C763910E8A3;
+	Mon, 31 Aug 2026 13:45:05 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RrNnvBr5";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="RmVkmSc2";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3FC3810E89D;
- Mon, 31 Aug 2026 13:44:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DA0F210E8A3;
+ Mon, 31 Aug 2026 13:45:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 276B343F11;
- Mon, 31 Aug 2026 13:44:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABDCA1F00A3E;
- Mon, 31 Aug 2026 13:44:30 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 993BC40B56;
+ Mon, 31 Aug 2026 13:45:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4641F00ADB;
+ Mon, 31 Aug 2026 13:45:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183872;
- bh=XrswinvKlteXXsU1UUGMT4NTv9PprhYDQw1IswwUcS8=;
+ s=k20260515; t=1788183904;
+ bh=hmK0RXrnJ268dKPF54g8Nt8vjQBqRHmDylIKk4zmaz8=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=RrNnvBr5mEbzF9Q50Kvr3k9rdeRmQ30PtmQzo2LSicvP00T5TAgCnoCH1cCxV6afp
- LHWdsGnZgcDkjXHRHjW8acaqMF3t8OzMrdZMtsIhSUIeukJO4GTmsROw2YWM8BYUxV
- JJrEbn/hkpL841z26ZM8XJDFxT6rze2pNG96wFWUX/uylmDU7ZiFLdEhpyA5JSJgtQ
- w9joExCQvynGEiYXK0XOK60UnnSnJOuOpBeiTH85KERO1TvIBg5bqwGaVcuIcl7v9i
- 3xOW+DaaTRqjVu20sBOu4Qyl+96wyXZzMpadOCb0gdGaO7e7BmyjG5KOKOLOrGk3l1
- aslU7tliKmYPw==
+ b=RmVkmSc2y6MNai0L9Xbnpp70RYSkFBkSiP9S08H4llqewDTMJ2D8uy9hI3wclsXPE
+ 8DiHdvVXVsKZNxmipmiZRvJ6QuVQU/7JBMw+6bFeHR6M3/8jQ+PPnIsbEXZw/U/xSl
+ F5hKft9k9sJULaqsaI+vhG2HtXCi6iX0qDxct6000ME3zR6HHtY0wImc+5kGEAO6rH
+ 3NbxPmiu9d68wc3gdhhJSaVSCuThF0rlARdz3WNNm142/3M+wu69wzOABXAGhwBZaz
+ rW4smGzkli+Skk9Ae1MPcxM7LA0GhmalqrPDoJZTfMPKUwF+tXxnpKO3EyWiz1G5qH
+ gfKrBWWhnhY9w==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Sunil Khatri <sunil.khatri@amd.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+Cc: YiPeng Chai <YiPeng.Chai@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdgpu/userq: pin mqd and fw object bo to
- avoid eviction
-Date: Mon, 31 Aug 2026 09:26:21 -0400
-Message-ID: <20260831133314.4125787-353-sashal@kernel.org>
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: check and drop invalid bad page
+ records
+Date: Mon, 31 Aug 2026 09:26:40 -0400
+Message-ID: <20260831133314.4125787-372-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,405 +65,443 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Sunil Khatri <sunil.khatri@amd.com>
+From: YiPeng Chai <YiPeng.Chai@amd.com>
 
-[ Upstream commit a3bbf32a336939a1d21b9561f8e53333b684b7ef ]
+[ Upstream commit 3999aa4a04a04167d70bfe4dc3ba239257e5b5df ]
 
-mqd and fw objects are queue core objects which should remain
-valid and never be unmapped and evicted for user queues to work
-properly.
+Check and drop invalid bad page records.
 
-During eviction if these buffers are evicted the hw continue to
-use the invalid addresses and caused page faults and system hung.
-
-Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
+Signed-off-by: YiPeng Chai <YiPeng.Chai@amd.com>
+Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/amdgpu/userq: pin mqd and fw object bo
-to avoid eviction`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** Linux **6.18.43** (`git describe HEAD` →
-`v6.18.43-1-gc7f0dac02d232`, `make kernelversion` → `6.18.43`)
+**Step 1.1 — Subject line**
 
-**Upstream commit:** `a3bbf32a336939a1d21b9561f8e53333b684b7ef` (not
-present in this tree)
+Record: `[drm/amdgpu]` `[check]` — validate and discard invalid RAS
+EEPROM bad-page records before they are applied to VRAM reservation /
+in-kernel bad-page tables.
 
----
+**Step 1.2 — Tags**
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+Record:
+- Signed-off-by: YiPeng Chai \<YiPeng.Chai@amd.com\> (author)
+- Reviewed-by: Tao Zhou \<tao.zhou1@amd.com\> (AMD RAS reviewer; also
+  author of prior range-check work in this tree)
+- Signed-off-by: Alex Deucher \<alexander.deucher@amd.com\> (amdgpu
+  maintainer)
+- No Fixes:, Reported-by:, Link:, Cc: stable@vger.kernel.org, Tested-
+  by:, or Acked-by:
 
-### Step 1.1: Parse the subject line
-**Record:** `[drm/amdgpu/userq]` — implicit **fix** (prevent eviction) —
-**pin MQD and firmware-object BOs so they are not evicted while user
-queues are active**.
+Notable: reviewed by subsystem expert; no public bug report in the
+commit message.
 
-### Step 1.2: Parse all commit message tags
-**Record:**
-- **Fixes:** — none (expected for manual review)
-- **Reported-by:** — none
-- **Tested-by:** — none
-- **Reviewed-by:** Christian König `<christian.koenig@amd.com>`
-- **Acked-by:** — none
-- **Link:** — none
-- **Cc: stable@vger.kernel.org:** — none (not a negative signal)
-- **Signed-off-by:** Sunil Khatri (author), Alex Deucher (maintainer
-  merge)
-- **Notable:** Reviewed-by from AMDGPU subsystem maintainer; no
-  syzbot/reporter tags
+**Step 1.3 — Body**
 
-### Step 1.3: Analyze commit body
-**Record:**
-- **Bug:** MQD and firmware context objects are core user-queue state;
-  they must stay mapped and valid for the lifetime of an active queue.
-- **Symptom:** Under eviction (memory pressure), these BOs can be
-  evicted while hardware still references their GPU addresses → GPU page
-  faults → **system hang**.
-- **Root cause (author):** Objects were created as kernel BOs in GTT but
-  were not pinned, unlike other queue-critical objects.
-- **Version info:** None in the message.
+Record:
+- Bug description: EEPROM / RAS bad-page records may contain
+  `retired_page` values outside usable VRAM.
+- Symptom/failure mode: not spelled out in the message; code adds
+  `dev_warn()` and refuses to process out-of-range records.
+- Version info: none in message.
+- Root cause (from code): validation used `mc_vram_size` in some paths
+  (commit `2b17c240e8cd9`, already in 6.18.y), but reservation and
+  restore still lacked checks against `real_vram_size`, which can be
+  smaller than `mc_vram_size` when `amdgpu_vram_limit` is set
+  (`amdgpu_gmc_vram_location()` in `amdgpu_gmc.c`).
 
-### Step 1.4: Detect hidden bug fixes
-**Record:** Not disguised as cleanup — this is an explicit stability
-fix. Pinning prevents TTM eviction of BOs the GPU firmware still uses.
+**Step 1.4 — Hidden bug fix?**
+
+Record: **Yes.** Despite the terse message, this is a defensive
+correctness fix: it prevents out-of-range PFNs from reaching
+`amdgpu_ras_reserve_page()` → `amdgpu_vram_mgr_reserve_range()` and adds
+a batch guard in `__amdgpu_ras_restore_bad_pages()` on EEPROM load.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory the changes
-**Record:**
-- **File:** `drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c` (+10 / −3)
-- **Functions modified:** `amdgpu_userq_create_object()`,
-  `amdgpu_userq_destroy_object()`
-- **Scope:** Single-file surgical fix
+**Step 2.1 — Inventory**
 
-### Step 2.2: Code flow change (per hunk)
-**Record:**
-- **Hunk 1 (`create_object`):** Before → reserve BO, alloc GART, kmap.
-  After → **pin BO first**, then GART/kmap; error paths goto `unpin_bo`
-  before `unresv`.
-- **Hunk 2 (`destroy_object`):** Before → kunmap + unref. After → kunmap
-  + **unpin** + unref.
-- **Paths affected:** Queue object creation/destruction for MQD and
-  firmware context objects.
+Record:
+- File: `drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c` (+22 lines net)
+- Functions: new `__check_record_in_range()`; modified
+  `__amdgpu_ras_restore_bad_pages()`, `amdgpu_ras_reserve_page()`
+- Scope: single-file, surgical
 
-### Step 2.3: Bug mechanism
-**Record:** **Memory safety / resource lifetime bug.** MQD
-(`queue->mqd`) and firmware context (`queue->fw_obj`) BOs created via
-`amdgpu_userq_create_object()` were evictable. Doorbell objects in the
-same file were already pinned (`amdgpu_bo_pin(...,
-AMDGPU_GEM_DOMAIN_DOORBELL)` at line 331). MQD/fw objects were an
-oversight.
+**Step 2.2 — Code flow**
 
-### Step 2.4: Fix quality
-**Record:**
-- **Obviously correct:** Mirrors existing doorbell pinning pattern in
-  the same file.
-- **Minimal:** 10 lines, proper error-path cleanup (`unpin_bo` label).
-- **Regression risk:** Low — pinning is standard for BOs hardware must
-  keep resident; unpin on destroy balances pin on create.
-- **Reviewer note:** Christian König suggested eviction-fence
-  association as a future improvement but gave **Reviewed-by** for
-  pinning as an immediate fix.
+Record:
+- Hunk 1 (`__check_record_in_range`): before — no upfront validation of
+  EEPROM batch; after — if any `retired_page >= real_vram_size >>
+  page_shift`, warn and return false.
+- Hunk 2 (`__amdgpu_ras_restore_bad_pages`): before — processes all
+  records; after — if batch check fails, return 0 immediately (drop
+  entire batch).
+- Hunk 3 (`amdgpu_ras_reserve_page`): before — only critical-address
+  check, then buddy reservation; after — early return with warning for
+  PFN beyond `real_vram_size`.
 
----
+**Step 2.3 — Bug mechanism**
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+Record:
+- Category: **logic / bounds validation** (prevents invalid VRAM
+  reservations and inconsistent bad-page state).
+- Mechanism: corrupt or stale EEPROM entries (or entries beyond
+  `real_vram_size` after VRAM limiting) could reach VRAM buddy allocator
+  reservation. Existing `amdgpu_ras_check_bad_page_unlock()` (6.18.y)
+  validates against `mc_vram_size`, not `real_vram_size`.
+  `amdgpu_ras_reserve_page()` had no upper-bound check at all and is
+  called directly from `umc_v12_0.c` on ECC error paths.
 
-### Step 3.1: Blame changed lines
-**Record:** `amdgpu_userq_create_object()` / `destroy_object()` present
-in `7b923c78b50d2` (v6.18.43 tag) **without** pinning. `amdgpu_userq.c`
-also exists in `v6.17` and `v6.18` tags. Bug predates the fix commit.
+**Step 2.4 — Fix quality**
 
-### Step 3.2: Follow Fixes: tag
-**Record:** N/A — no `Fixes:` tag.
-
-### Step 3.3: File history for related changes
-**Record:** Patch is **v2 2/2** in series with `drm/amdgpu/userq: use
-drm_exec in amdgpu_userq_fence_read_wptr` (patch 1/2, different file:
-`amdgpu_userq_fence.c`). **This patch is standalone** — no dependency on
-patch 1/2.
-
-### Step 3.4: Author's other commits
-**Record:** Sunil Khatri is an active AMDGPU userq contributor (multiple
-userq fixes in drm tree). Alex Deucher merged; Christian König reviewed.
-
-### Step 3.5: Prerequisites
-**Record:** No prerequisites. `amdgpu_bo_pin()` / `amdgpu_bo_unpin()`
-exist in this tree (`amdgpu_object.c`). `git show a3bbf32... | git apply
---check` succeeds on current checkout.
+Record: Fix is minimal and obviously correct for bounds checking.
+Regression risk is low. One nuance: if **any** record in a batch is out
+of range, **all** records are dropped (conservative, not per-record
+filtering). No deadlock or API change.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 3: Git History Investigation
 
-### Step 4.1: Original patch discussion
-**Record:**
-- **b4 dig -c a3bbf32a336939a1d21b9561f8e53333b684b7ef:**
-  https://patch.msgid.link/20260508103910.2442183-2-sunil.khatri@amd.com
-- **b4 dig -a:** v1 single patch, v2 two-patch series; committed version
-  matches v2 2/2
-- **Reviewer feedback:** Christian König: "We should probably use the
-  eviction fence instead of pinning, but that can come in a later patch
-  set." → **Reviewed-by for now.** Author agreed pinning is acceptable
-  interim fix.
+**Step 3.1 — Blame**
 
-### Step 4.2: Reviewers
-**Record:** **b4 dig -w:** To/CC: Sunil Khatri, Alex Deucher, Christian
-König, amd-gfx@lists.freedesktop.org — appropriate maintainer coverage.
+Record:
+- `amdgpu_ras_reserve_page()` introduced by YiPeng Chai (2024-03-29),
+  present since before 6.18.y.
+- `__amdgpu_ras_restore_bad_pages()` core loop from 2025-02-24; related
+  fixes by Tao Zhou (July 2025).
+- Target commit `3999aa4a04a04` dated 2026-05-12; **not** in current
+  tree (6.18.44).
 
-### Step 4.3: Bug report
-**Record:** No external bug report or syzbot link. Hang described in
-commit message and patch submission; no stack trace provided.
+**Step 3.2 — Fixes: tag**
 
-### Step 4.4: Related patches
-**Record:** Patch 1/2 (drm_exec locking in fence read) is independent.
-Not required for this fix.
+Record: N/A — no Fixes: tag.
 
-### Step 4.5: Stable mailing list
-**Record:** Not searched on lore stable (Anubis blocked direct lore
-fetch). No explicit stable nomination found in accessible amd-gfx
-thread.
+**Step 3.3 — Related commits**
 
----
+Record:
+- `2b17c240e8cd9` — "add range check for RAS bad page address" — **IN
+  6.18.y**; checks `mc_vram_size` in
+  `amdgpu_ras_check_bad_page_unlock()`.
+- `0b7f78caeffa5` — "Move ras data alloc before bad page check" — **IN
+  6.18.y**; fixed NULL deref in sysfs bad-pages read when EEPROM had
+  only invalid entries.
+- `0028b86b52f76` — "mark invalid records with U64_MAX" — **NOT in
+  6.18.y** (mainline only).
+- `3fc96f60b61ce` — critical-address check in
+  `amdgpu_ras_reserve_page()` — **IN 6.18.y**.
+- This commit is standalone (not part of a numbered series).
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+**Step 3.4 — Author context**
 
-### Step 5.1: Key functions
-**Record:** `amdgpu_userq_create_object()`,
-`amdgpu_userq_destroy_object()`
+Record: YiPeng Chai is a regular amdgpu/RAS contributor (reserve_page
+author, critical-address work). Tao Zhou reviewed and authored the prior
+range-check commit.
 
-### Step 5.2: Callers
-**Record:** `mes_userqueue.c`:
-- `mes_userq_create_ctx_space()` → `amdgpu_userq_create_object(uq_mgr,
-  &queue->fw_obj, ...)` (fw context)
-- MQD setup → `amdgpu_userq_create_object(uq_mgr, &queue->mqd, ...)`
-  (line 266)
-- Destroy paths call `amdgpu_userq_destroy_object()` for both objects
+**Step 3.5 — Dependencies**
 
-### Step 5.3: Callees
-**Record:** `amdgpu_bo_create`, `amdgpu_bo_reserve`,
-**`amdgpu_bo_pin`**, `amdgpu_ttm_alloc_gart`, `amdgpu_bo_kmap`,
-`amdgpu_bo_kunmap`, **`amdgpu_bo_unpin`**, `amdgpu_bo_unref`
-
-### Step 5.4: Call chain / reachability
-**Record:**
-`userspace DRM_IOCTL_AMDGPU_USERQ (CREATE)` → `amdgpu_userq_ioctl()` →
-`amdgpu_userq_create()` → MES userq setup →
-`amdgpu_userq_create_object()` for MQD/fw_obj.
-
-**Reachable from userspace** by processes with DRM render access on
-supported AMDGPU hardware (GFX11+ with MES userq support). Trigger
-requires active user queues plus memory eviction pressure.
-
-### Step 5.5: Similar patterns
-**Record:** Doorbell pinning already done in
-`amdgpu_userq_get_doorbell_index()` (line 331). Fix aligns MQD/fw_obj
-with that established pattern.
+Record: No prerequisites. Patch applies cleanly to 6.18.y (`git apply
+--check` succeeded). Uses `adev->gmc.real_vram_size` and
+`AMDGPU_GPU_PAGE_SHIFT`, both present in this tree.
 
 ---
 
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
+## Phase 4: Mailing List and External Research
 
-### Step 6.1: Does buggy code exist?
-**Record:** **YES.** At `7b923c78b50d2` and current HEAD,
-`amdgpu_userq_create_object()` has no `amdgpu_bo_pin()`; only doorbell
-path pins. Fix commit `a3bbf32` is **not** an ancestor of HEAD (`merge-
-base --is-ancestor` returned 1).
+**Step 4.1 — Original discussion**
 
-### Step 6.2: Backport complications
-**Record:** **Clean apply** — `git apply --check` passes with no
-conflicts. Line numbers differ slightly from upstream diff (487 vs 243)
-but context matches.
+Record: `b4 dig -c 3999aa4a04a04` — **no lore match found**. Phase not
+fully applicable.
 
-### Step 6.3: Related fixes already present?
-**Record:** No equivalent pinning for MQD/fw_obj found. Doorbell pinning
-present; this fix completes the pattern.
+**Step 4.2 — Reviewers**
 
----
+Record: `b4 dig -w` not run (no thread found). Reviewed-by Tao Zhou and
+Signed-off-by Alex Deucher verified from `git show`.
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+**Step 4.3 — Bug report**
 
-### Step 7.1: Subsystem criticality
-**Record:** **drivers/gpu/drm/amd/amdgpu** — IMPORTANT (AMD GPU users;
-not universal core kernel, but affects all userq users on supported
-hardware).
+Record: N/A — no Reported-by/Link tags; no public thread found.
 
-### Step 7.2: Subsystem activity
-**Record:** Userq subsystem actively developed in 6.18.y (multiple
-userq-related stable fixes in drm-fixes stream). Feature is present and
-enabled via existing IOCTL path.
+**Step 4.4 — Related series**
+
+Record: Related mainline-only work (`U64_MAX` invalid-record marking)
+not in 6.18.y; this commit is independently useful without it.
+
+**Step 4.5 — Stable list**
+
+Record: Not searched (no lore thread to anchor a stable@ query). Related
+NULL-deref fix (`0b7f78caeffa5`) was already backported to 6.18.y,
+showing this problem class is stable-worthy.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## Phase 5: Code Semantic Analysis
 
-### Step 8.1: Who is affected
-**Record:** Users of **AMDGPU user mode queues** on hardware where
-`userq_funcs` is registered (GFX11/GFX12, SDMA v6/v7, etc.). Config:
-`CONFIG_DRM_AMDGPU` with userq-capable ASIC.
+**Step 5.1 — Key functions**
 
-### Step 8.2: Trigger conditions
-**Record:** Create user queues via `DRM_AMDGPU_USERQ`, then
-**VRAM/memory pressure triggers TTM eviction** while queues are active.
-Not every boot — requires memory pressure plus active userq workloads.
-Triggerable by unprivileged render-capable processes.
+Record: `__check_record_in_range()`, `__amdgpu_ras_restore_bad_pages()`,
+`amdgpu_ras_reserve_page()`.
 
-### Step 8.3: Failure mode severity
-**Record:** GPU page faults from stale MQD/fw addresses → **system
-hang**. Severity: **CRITICAL**.
+**Step 5.2 — Callers**
 
-### Step 8.4: Risk-benefit
-**Record:**
-- **Benefit:** HIGH for userq users — prevents GPU hangs under memory
-  pressure
-- **Risk:** LOW — 10-line change, established pin/unpin API, reviewed by
-  maintainer
-- **Ratio:** Strong benefit, minimal risk
+Record:
+- `__amdgpu_ras_restore_bad_pages()` ← `amdgpu_ras_add_bad_pages()` ←
+  `amdgpu_ras_load_bad_pages()` (boot/RAS init EEPROM load) and runtime
+  UMC error paths.
+- `amdgpu_ras_reserve_page()` ← `__amdgpu_ras_restore_bad_pages()` and
+  `umc_v12_0.c` ECC handler (line 609).
+
+**Step 5.3 — Callees**
+
+Record: `amdgpu_vram_mgr_reserve_range()`,
+`amdgpu_vram_mgr_query_page_status()`, `dev_warn()`,
+`amdgpu_ras_check_critical_address()`.
+
+**Step 5.4 — Reachability**
+
+Record: Triggered on boot when RAS EEPROM has records
+(`amdgpu_ras_load_bad_pages()` during RAS init) and at runtime on UMC
+ECC events. Requires `CONFIG_DRM_AMDGPU` + RAS-capable AMD hardware
+(datacenter/workstation GPUs). Not a generic syscall path, but real
+production hardware.
+
+**Step 5.5 — Similar patterns**
+
+Record: `2b17c240e8cd9` added `mc_vram_size` checks in
+`amdgpu_ras_check_bad_page_unlock()`. This commit closes the
+`real_vram_size` gap and protects the direct `amdgpu_ras_reserve_page()`
+entry point. In 6.18.y, `__amdgpu_ras_restore_bad_pages()` still uses
+`if (amdgpu_ras_check_bad_page_unlock(...))` as a boolean despite the
+function returning `int` (-EINVAL/0/1), which can mishandle `-EINVAL`
+(truthy) without adding a record — another reason upfront validation
+helps.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 6: Cross-Reference Against Local Tree (6.18.44)
 
-### Step 9.1: Evidence compile
+**Step 6.1 — Buggy code present?**
 
-**FOR backport:**
-- Fixes real system hang (page faults → hang) under eviction
-- Small, surgical, reviewed by Christian König, merged by Alex Deucher
-- Mirrors existing doorbell pinning in same file
-- Applies cleanly to 6.18.43
-- Buggy code confirmed present in this tree
-- Standalone — no series dependency
+Record: **Yes.** Local tree is `v6.18.44` on `stable/linux-6.18.y`.
+`__check_record_in_range()` and the `amdgpu_ras_reserve_page()` bounds
+guard are absent. `amdgpu_ras_reserve_page()` at lines 5366–5383 has
+only the critical-address check, no `real_vram_size` upper bound.
 
-**AGAINST backport:**
-- Userq is a relatively new feature (not all stable users enable it)
-- Pinning is acknowledged as interim; eviction-fence integration
-  preferred long-term
-- No syzbot/reporter — harder to quantify frequency
-- Affects driver-specific path, not core kernel
+**Step 6.2 — Backport complications**
 
-**Unresolved:** Exact reproduction rate in production; no public CVE or
-bugzilla reference.
+Record: **Clean apply** verified. No structural conflicts with 6.18.y
+`amdgpu_ras.c`.
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** — pattern matches doorbell
-   pinning; reviewed by maintainer
-2. Fixes real bug affecting users? **PASS** — hang under eviction with
-   active user queues
-3. Important issue? **PASS** — CRITICAL (system hang)
-4. Small and contained? **PASS** — 1 file, +10/−3
-5. No new features/APIs? **PASS** — lifecycle fix only
-6. Can apply to local tree? **PASS** — clean apply verified
+**Step 6.3 — Related fixes already present?**
 
-### Step 9.3: Exception categories
-**Record:** None (not device ID, quirk, DT, build, or docs). Standard
-bug fix.
+Record: Partial coverage from `2b17c240e8cd9` (`mc_vram_size` in
+`amdgpu_ras_check_bad_page_unlock`) and `0b7f78caeffa5` (NULL deref on
+all-invalid EEPROM). This commit's `real_vram_size` checks and
+`amdgpu_ras_reserve_page()` guard are **not** already present.
 
-### Step 9.4: Decision rationale
+---
 
-For **Linux 6.18.y**, the userq infrastructure is present and the bug is
-real: MQD and firmware context BOs can be evicted while hardware still
-references them, causing hangs. The fix is minimal, maintainer-reviewed,
-follows an existing pattern in the same file, and applies cleanly. While
-userq affects a subset of AMDGPU users, a system hang under memory
-pressure meets stable criteria for important fixes.
+## Phase 7: Subsystem Context
+
+**Step 7.1 — Subsystem / criticality**
+
+Record: `drivers/gpu/drm/amd/amdgpu` — RAS (Reliability, Availability,
+Serviceability) / VRAM error handling. **IMPORTANT** for AMD enterprise
+GPU users; not core-kernel-wide.
+
+**Step 7.2 — Activity**
+
+Record: Active subsystem in 6.18.y (multiple RAS fixes in recent history
+on `amdgpu_ras.c`).
+
+---
+
+## Phase 8: Impact and Risk
+
+**Step 8.1 — Who is affected**
+
+Record: Users of AMD GPUs with RAS page retirement enabled, especially
+MI-series / CDNA / Instinct and other ECC-capable cards loading bad-page
+records from EEPROM at boot or on UMC errors.
+
+**Step 8.2 — Trigger conditions**
+
+Record: Corrupt, migrated, or out-of-date EEPROM bad-page records; or
+`real_vram_size < mc_vram_size` via `amdgpu_vram_limit`. Uncommon but
+plausible on long-lived server GPUs. Not unprivileged-triggerable
+directly; tied to hardware error state / EEPROM content.
+
+**Step 8.3 — Failure mode severity**
+
+Record: Without fix: attempted reservation of out-of-range VRAM
+(`amdgpu_vram_mgr_reserve_range()` may fail silently in
+`amdgpu_vram_mgr_do_reserve()`), inconsistent bad-page counts (related
+NULL-deref class already hit stable), potential RAS tracking corruption.
+Severity: **MEDIUM-HIGH** for affected hardware (reliability feature
+breakage, possible oops in related paths already seen and fixed
+separately).
+
+**Step 8.4 — Risk/benefit**
+
+Record:
+- Benefit: **MEDIUM-HIGH** for RAS users — prevents invalid VRAM
+  reservations and drops clearly bad EEPROM batches.
+- Risk: **LOW** — ~22 lines, warn-and-skip semantics, reviewed by AMD.
+- Ratio: favorable for backport.
+
+---
+
+## Phase 9: Final Synthesis
+
+**Step 9.1 — Evidence**
+
+FOR:
+- Real bounds-validation gap in 6.18.y (`real_vram_size` vs
+  `mc_vram_size`).
+- `amdgpu_ras_reserve_page()` unguarded; called from runtime ECC path.
+- EEPROM restore path lacks batch validation.
+- Small, reviewed, applies cleanly.
+- Same RAS/EEPROM invalid-record problem class already warranted stable
+  fixes (NULL deref in `0b7f78caeffa5`).
+
+AGAINST:
+- Sparse commit message (no explicit crash report).
+- Niche hardware (RAS-enabled AMD GPUs only).
+- Drops entire batch if any record is invalid (conservative).
+- Partial overlap with `2b17c240e8cd9` (but does not fully subsume this
+  fix).
+
+UNRESOLVED:
+- No lore thread or user bug report found.
+- Exact user-visible failure without this patch on 6.18.y not reproduced
+  here (inferred from code paths and related fixes).
+
+**Step 9.2 — Stable rules checklist**
+
+1. Obviously correct and tested? **PASS** — straightforward bounds
+   checks; Reviewed-by from AMD; no Tested-by.
+2. Fixes a real bug? **PASS** — prevents out-of-range VRAM reservations
+   and invalid EEPROM restore.
+3. Important issue? **PASS** — MEDIUM-HIGH for RAS/enterprise GPU
+   reliability; related crash class already backported.
+4. Small and contained? **PASS** — single file, ~22 lines.
+5. No new features/APIs? **PASS** — validation only.
+6. Can apply to local tree? **PASS** — clean apply verified.
+
+**Step 9.3 — Exception category**
+
+Record: N/A (not device ID, quirk, DT, build, or docs).
+
+**Step 9.4 — Decision rationale**
+
+For the **6.18.y** tree checked out here, this commit closes a real
+validation hole in amdgpu RAS bad-page handling. The tree already has
+partial protection (`mc_vram_size` checks) and a related NULL-deref fix,
+but still lacks `real_vram_size` validation and an
+`amdgpu_ras_reserve_page()` guard. The fix is small, low-risk, and
+targets production RAS hardware where EEPROM corruption or VRAM limiting
+can produce out-of-range records.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from provided commit message
-  and `git show a3bbf32`
-- **[Phase 1]** Reviewed-by: Christian König; Signed-off-by: Sunil
-  Khatri, Alex Deucher
-- **[Phase 2]** Diff: +10/−3 in `amdgpu_userq.c`;
-  `create_object`/`destroy_object` modified
-- **[Phase 2]** Confirmed doorbell already pinned at line 331 in local
-  tree
-- **[Phase 3]** `git describe` / `make kernelversion`: 6.18.43
-- **[Phase 3]** `git merge-base --is-ancestor a3bbf32 7b923c78b50d2`:
-  NOT in tree (exit 1)
-- **[Phase 3]** `git show 7b923c78b50d2:...amdgpu_userq.c`:
-  create_object lacks pin
-- **[Phase 3]** `git apply --check` on upstream patch: clean apply
-- **[Phase 3]** `git show v6.18:...amdgpu_userq.c | grep amdgpu_bo_pin`:
-  only doorbell pin
-- **[Phase 3]** `git show v6.17:...amdgpu_userq.c`: file exists (982
-  lines)
-- **[Phase 4]** `b4 dig -c a3bbf32`: lore URL found
-- **[Phase 4]** `b4 dig -a`: v1/v2 series; v2 2/2 is committed version
-- **[Phase 4]** `b4 dig -w`: Alex Deucher, Christian König CC'd
-- **[Phase 4]** spinics.net msg143086: König Reviewed-by; eviction-fence
-  noted as future work
-- **[Phase 5]** Grep callers: `mes_userqueue.c` uses create_object for
-  `fw_obj` and `mqd`
-- **[Phase 5]** IOCTL path: `DRM_IOCTL_AMDGPU_USERQ` in `amdgpu_drv.c`
-- **[Phase 6]** Buggy code at HEAD lines 243–303: no pin in
-  create_object
-- **[Phase 6]** Eviction path: `amdgpu_eviction_fence.c` →
-  `amdgpu_userq_evict()` exists but does not pin MQD/fw BOs
-- **[Phase 8]** Failure mode: page faults + system hang per commit
-  message
+- [Phase 1] `git show 3999aa4a04a04` — parsed subject, tags, body
+- [Phase 2] Diff from user query + `git show 3999aa4a04a04` — 22-line
+  change in `amdgpu_ras.c`
+- [Phase 3] `git describe HEAD` → v6.18.44; `git merge-base --is-
+  ancestor 3999aa4a04a04 HEAD` → NOT IN TREE; `2b17c240e8cd9` → IN TREE
+- [Phase 3] `git log --oneline -20 --
+  drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c` — related RAS history
+- [Phase 3] `git show 2b17c240e8cd9`, `0b7f78caeffa5`, `0028b86b52f76` —
+  related commits examined
+- [Phase 3] `git blame` on restore loop and `amdgpu_ras_reserve_page`
+- [Phase 4] `b4 dig -c 3999aa4a04a04` — no lore match
+- [Phase 5] `Grep` callers of `amdgpu_ras_reserve_page`,
+  `__amdgpu_ras_restore_bad_pages`
+- [Phase 5] Read `umc_v12_0.c:609`, `amdgpu_vram_mgr.c:298-327`,
+  `amdgpu_gmc.c:217-222`
+- [Phase 6] `Grep` for `__check_record_in_range` — not in tree
+- [Phase 6] `git show 3999aa4a04a04 --format= --
+  drivers/.../amdgpu_ras.c | git apply --check` — clean apply
+- [Phase 6] Read current `amdgpu_ras_reserve_page()` at lines 5366–5383
+  — no range guard
+- [Phase 8] Confirmed `real_vram_size` can be reduced below
+  `mc_vram_size` via `amdgpu_vram_limit` in `amdgpu_gmc_vram_location()`
 
-**YES**
+**YES**The background git searches finished and matched what we already
+had:
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+- **`3999aa4a04a04`** — `drm/amdgpu: check and drop invalid bad page
+  records` (the commit under review)
+- **`2b17c240e8cd9`** — earlier related fix, `drm/amdgpu: add range
+  check for RAS bad page address`, already in **6.18.44**
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-index 7e3175f82a20d..0f4281c9aea2f 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
-@@ -270,16 +270,20 @@ int amdgpu_userq_create_object(struct amdgpu_userq_mgr *uq_mgr,
- 		goto free_obj;
- 	}
- 
-+	r = amdgpu_bo_pin(userq_obj->obj, AMDGPU_GEM_DOMAIN_GTT);
-+	if (r)
-+		goto unresv;
-+
- 	r = amdgpu_ttm_alloc_gart(&(userq_obj->obj)->tbo);
- 	if (r) {
- 		drm_file_err(uq_mgr->file, "Failed to alloc GART for userqueue object (%d)", r);
--		goto unresv;
-+		goto unpin_bo;
- 	}
- 
- 	r = amdgpu_bo_kmap(userq_obj->obj, &userq_obj->cpu_ptr);
- 	if (r) {
- 		drm_file_err(uq_mgr->file, "Failed to map BO for userqueue (%d)", r);
--		goto unresv;
-+		goto unpin_bo;
- 	}
- 
- 	userq_obj->gpu_addr = amdgpu_bo_gpu_offset(userq_obj->obj);
-@@ -287,11 +291,13 @@ int amdgpu_userq_create_object(struct amdgpu_userq_mgr *uq_mgr,
- 	memset(userq_obj->cpu_ptr, 0, size);
- 	return 0;
- 
-+unpin_bo:
-+	amdgpu_bo_unpin(userq_obj->obj);
- unresv:
- 	amdgpu_bo_unreserve(userq_obj->obj);
--
- free_obj:
- 	amdgpu_bo_unref(&userq_obj->obj);
-+
- 	return r;
+That confirms the new commit is on master but not in this stable tree,
+while only partial protection exists today. The backport recommendation
+stands: **YES** for **6.18.y**.
+
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c | 27 +++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+index 9df691364a18c..4c1a65fffede7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+@@ -2884,6 +2884,25 @@ static int amdgpu_ras_mca2pa(struct amdgpu_device *adev,
+ 		return  -EINVAL;
  }
  
-@@ -299,6 +305,7 @@ void amdgpu_userq_destroy_object(struct amdgpu_userq_mgr *uq_mgr,
- 				 struct amdgpu_userq_obj *userq_obj)
++static bool __check_record_in_range(struct amdgpu_device *adev,
++			struct eeprom_table_record *bps, int count)
++{
++	int i;
++
++	for (i = 0; i < count; i++) {
++		if (bps[i].retired_page >=
++			(adev->gmc.real_vram_size >> AMDGPU_GPU_PAGE_SHIFT)) {
++			dev_warn(adev->dev,
++				"Recorded address out of range: 0x%llx, 0x%llx, 0x%x, 0x%x\n",
++				bps[i].address, bps[i].retired_page,
++				bps[i].mem_channel, bps[i].mcumc_id);
++			return false;
++		}
++	}
++
++	return true;
++}
++
+ static int __amdgpu_ras_restore_bad_pages(struct amdgpu_device *adev,
+ 					struct eeprom_table_record *bps, int count)
  {
- 	amdgpu_bo_kunmap(userq_obj->obj);
-+	amdgpu_bo_unpin(userq_obj->obj);
- 	amdgpu_bo_unref(&userq_obj->obj);
- }
+@@ -2891,6 +2910,9 @@ static int __amdgpu_ras_restore_bad_pages(struct amdgpu_device *adev,
+ 	struct amdgpu_ras *con = amdgpu_ras_get_context(adev);
+ 	struct ras_err_handler_data *data = con->eh_data;
+ 
++	if (!__check_record_in_range(adev, bps, count))
++		return 0;
++
+ 	for (j = 0; j < count; j++) {
+ 		if (!data->space_left &&
+ 		    amdgpu_ras_realloc_eh_data_space(adev, data, 256)) {
+@@ -5370,6 +5392,11 @@ int amdgpu_ras_reserve_page(struct amdgpu_device *adev, uint64_t pfn)
+ 	uint64_t start = pfn << AMDGPU_GPU_PAGE_SHIFT;
+ 	int ret = 0;
+ 
++	if (pfn >= (adev->gmc.real_vram_size >> AMDGPU_GPU_PAGE_SHIFT)) {
++		dev_warn(adev->dev, "Ignoring out-of-range bad page 0x%llx", start);
++		return 0;
++	}
++
+ 	if (amdgpu_ras_check_critical_address(adev, start))
+ 		return 0;
  
 -- 
 2.53.0
