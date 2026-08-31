@@ -4,94 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 87A87C624D0
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 17:02:37 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1016C624C6
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 17:38:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F3DAB10E2F8;
-	Mon, 31 Aug 2026 17:02:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 83D6310E31A;
+	Mon, 31 Aug 2026 17:38:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="REXcaEXz";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ztxfHLcI";
 	dkim-atps=neutral
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D541610E2F8
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 17:02:34 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-384c94c9423so444319a91.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 10:02:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788195754; cv=none;
- d=google.com; s=arc-20260327;
- b=ToNL1nPooolnQukT3DSKRTg82ZH2pNwsGdOEfhNqP6Piw1QwPLhYYtmd1CZYkK2cnd
- Jercu2xoFbtHN2a6VN6gMHclSzE5NfAPzZwYC8AT5i8nFjVDT1LHKv4YNssrfOK3mnOq
- vboY/3lgzRnNCieyML+HusAcryDwmn+09KkKCm6ryScdk0PbFyk51+siiEI/Or1eyPYR
- dEYzNUaiwpp/xPTaYkEkizrlQZh4Jqmq59L1W1dzlnxV6Ng06QOoWrjvGAE/fx/6VWXP
- L7cd47KEdWF1tj79x8wV1qb7r6Bl0HONMAtmR6LquU6AM/R7xe7eA3s5gZjWclqB58j0
- bmFA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=ydVbTgToiXg8lfdc+6VerVJTyD3t94BF8aF7LaDqtDQ=;
- fh=R1ORUM3nj1k0Dk6Ofo6CkqM9I9Y5fwVJFMv87r6Ht+o=;
- b=lQIe/6C2FumT2AKF6t8QYwQm0ae4I5gs5+IHauM/upUZi3iUW2KbjN4lQ7XxnBZOCn
- f6RQ5OOjIh9IHCV/qAOmsZLokksNj2DpIugBO+F9RoCKGBg90wb3JJgSk6RdIFl8pHNw
- yV1AMg0TAOXv4HbVv6aj9GKeW4/nYztJmVsqDW2QXo2oav2K/AmSSMhsHCHWszPYhEel
- XNt2Nbpjw7jXhLQDUxAuYM06OeDahvDhbynXuoEGqQGNiOtwssVw7+rEeZSU6cg2+fAD
- mkS6BF/GoXpWlKnIed7FdpyidOPEi2PhgXIQ5NtEM5jh3AXRyQlzQgDTy6ABPrMBZwTE
- Nmeg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788195754; x=1788800554; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ydVbTgToiXg8lfdc+6VerVJTyD3t94BF8aF7LaDqtDQ=;
- b=REXcaEXzou+jbPhbn45F9wCw0cRYwk6GQWvPtyRVvVS20tHePVSX6aioElwdb1MIk4
- zji5PcaHeGxLwAJlBtmlFN3aa7hoq7v/5Rpuw4JozzCy3ynwKz/7qGtfbRp35U9mdraF
- FW39ojpJN/Je8UEmRmFV0ZyQc1f1Osi/Wsl753k6VygZ95s1XO6JfT7aQLiEfrPtA681
- wuuXdCU4cgPGp6SU6lqAapk4LIE2a/kZJ9P6hzB6PUrQW8I4Eap6NBeUIr9880S1yeHW
- GlPJDcjFplhKE2VBb7VnLTlHSAnBwK/CPeOsoBPvYdrR8WsWmdz6dVvr76je4Xsw2The
- W/Pw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788195754; x=1788800554;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ydVbTgToiXg8lfdc+6VerVJTyD3t94BF8aF7LaDqtDQ=;
- b=r4Yz07vQWxVUL3Mlmg5sYCDy+7u6sQBcbwLOmWLiCQcVo9FajOMsmMLy4ALF9Mxzy2
- a1Q9UAme2Gw1MlGeK+dyZyWSX7FuiVk1KvQAA0+Zo7TpvcPuRZLzVUDuEgVHt888SqkN
- KRN0+FmyhPCbKNorLzuED0axcEvFXaKHgSR55TJgknhcgjxHQBh8gwxNiXn/XeZRKZRT
- F0QDxyXhPp7yWVxls6RRJc9SSW5YdgerHTYxDJ30BwLaE2Nj8Y+mRiAeJB6EgEi3HiT5
- TuJ5bbNVI1KAbUOWikzg7nexOmf2PtEAktZnNp2z43j6xr6kVKOEpZ8S/i46rhinwUKn
- aitg==
-X-Forwarded-Encrypted: i=1;
- AKwUvByfc3w8dve4qCYWajoAN/P33AB/xRip8TcmZBlHtD0NZUlqbTBr3euK1KSwAhDfwhrsJSJLKlTA@lists.freedesktop.org
-X-Gm-Message-State: AFuF++l9lBNdlkenVLi1U2hAPhIMyJdBGDsOl4nuTam3Qo5e6wSroenX
- MCINE7YKH+DoMwx5nLLLhUy3/8GHCzdXSPNCESjrqftozRLgh65+wkpflF/fFXn/BUfX81DEocX
- PIAl/a2VSBUcycZEHfoVHJrrh5qRQSkbfEw==
-X-Gm-Gg: AYBFou1aBQz3eXX6wyH7nZTXBu09QvriQXMbiPPKNR8MwHUeHuce7aOyqr/0FcUtV2c
- cxRqypKP5mLu9gaygPiyEe2ZOjBFlMhChGfO94x0qWS1O+a2UWm9/mbY54UHm72uhURdiV/yew4
- +LGj4a+By2MP4xz4R2ztdEsBBq18XatZsj3WrXb26oPZ9+LKvBPNEP+uRVACPsmtWkeQ35niD9l
- 3iAxD9d+/JZ9uuW+dlSqgK8g++GXW+ksqQrqbDTQAfAcrwXQ8RuAuKKChaz94eu2LEehdxIQ9nZ
- dxGfFGdu9kdqq9u+Jzzu/MINqWMRE4qyAbPOLo+WjGUqOs8wkLzjJDl0yzv7uqA4bugFfrL6Lyy
- rlt+g+06kfwLmdWhulqEOm5C/3XmTUXs=
-X-Received: by 2002:a17:90b:3c82:b0:398:a2e4:c784 with SMTP id
- 98e67ed59e1d1-398ba95da1bmr15142926a91.1.1788195754054; Mon, 31 Aug 2026
- 10:02:34 -0700 (PDT)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013008.outbound.protection.outlook.com
+ [40.93.201.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AAFD110E31A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 17:38:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NsjEgthqAhQGObTFO+8oWVzqoyYh7wdQ9mbDpla0ZgMgsspw9dVCuOnz79hKGW0TqgPAtX1qW6Qy2u5bhTqSIAEELUyNUsfywAUUmetQgp0pcTDAwmObaX2SUIKDWiEUOlUoLTj2KxpWTFX6fizCkr5zAkpqKuxhCMBK/Jx0FuRt3e9HB0yujkPh9sF2hLk+ctbhLngTvT1e6zh1JLkBKZjpBzfyu4Oa2rlhDHHFKxJyMdkQEWFaH9c7eOuESClss5U+OsZtRYCvxqxZA9XwPtyxXDJkdA8N+dogJvDoYTJj9UhLzgGt6vuIYvLRwvI0EY5j4AztkW/D+TuIfnHrVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=GICYtZbfCaGDanZKgdSB4hY4mUeqG5WOx/3x/EC3LnI=;
+ b=w2mitC+wFqzgDfoV2eZ56bF9vZI8jn7HiBItMrq9k0BPXV8tW7uGFApQQqULoMWiQcTLjekXRUNJU88bNcUjdHohehj6Y82OUZg3NAoPHM/qloTe4fSKZ8qDk+b1I9jwm0fAgv2rEL9Il4K4Rcr2LRbM4hfTctSk7lVwOGfUX62CLEUfd/I2NRkjYoa1/JAAqhpxO+VcjQK+BSjnhqoBH9abR4WthI8eRgoNCuVbu1ARz+/XsGaCxmtEqyk7hPFACJ0d67VB+rA9QbQ/Pu94+vgeqmR1iePwORe3ISm24gwzpLM0kpajliAluumlLiOXUo9o80ag74p4D4FwZsSOPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=GICYtZbfCaGDanZKgdSB4hY4mUeqG5WOx/3x/EC3LnI=;
+ b=ztxfHLcIUMuhoA1sRkBtiNqkesw2CgqX7Q3lw0s2q025HHxUdih17cX4AAb6431UySsa6OG/SFgtHnMhmbgY5klzTTmsyRSzVbrfGDCPGkmblQqxnZffM5yGdwC1Z0I8YhJqGk+HxVWg/bRq5I28kq8gxRik0R0awaFNFAIFsU0=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ2PR12MB8158.namprd12.prod.outlook.com (2603:10b6:a03:4f7::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 17:38:19 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Mon, 31 Aug 2026
+ 17:38:19 +0000
+Message-ID: <4c038fea-910b-4b7d-b0ca-2b6775d778ee@amd.com>
+Date: Mon, 31 Aug 2026 19:38:15 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdgpu: skip the VMID 0 flush for VRAM
+ clear-on-release
+To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
+Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ stable@vger.kernel.org
+References: <20260828044734.135460-1-Arunpravin.PaneerSelvam@amd.com>
+ <voa7PnOgTa6oSIPH4Hu9jQ@gmail.com>
+ <03347904-e0ee-42ef-a40a-478309a2ba33@amd.com>
+ <UJ9MXKXkSh6txd43wHcgSg@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <UJ9MXKXkSh6txd43wHcgSg@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0020.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:c9::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 MIME-Version: 1.0
-References: <20260831152701.1162137-1-Kanala.RamalingeswaraReddy@amd.com>
-In-Reply-To: <20260831152701.1162137-1-Kanala.RamalingeswaraReddy@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 31 Aug 2026 13:02:20 -0400
-X-Gm-Features: AcwNN1UO4YMUXw-lyMJlc2voIjQr1OGXX0etM-lm-dKGH6q8zKoy5DGl4abf1Pw
-Message-ID: <CADnq5_PvpFBFmRmOCMz-D78JupxgmmRaKivG0y7m2mXF1XSDxQ@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Skip accessing psp rum time db for APUs
-To: Kanala Ramalingeswara Reddy <Kanala.RamalingeswaraReddy@amd.com>
-Cc: Alexander.Deucher@amd.com, amd-gfx@lists.freedesktop.org, 
- Pratik.Vishwakarma@amd.com, Veerabadhran.Gopalakrishnan@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ2PR12MB8158:EE_
+X-MS-Office365-Filtering-Correlation-Id: e83700e3-1d22-4f84-9ec2-08df0786a559
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|23010399003|366016|4143699003|10067099003|11063799006|6133799003|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info: ajYtctLaPhOokfZUGDIQFFqLvbhFlM7pU6jAm4ctsfJzBvk1L9v8xdoKfHeJ9DJFnV6TBuUHCkTyDdZlRlFtQLiDW3IIjfDs3dGR5vANeUrxWAnMnMqTRvoTdXSXxsdGpTybRKiNjXd2DVkovt4qPLrewXQTfk+QevjjQXwNctwyMSNpiYocXpajlK1Q5ynGGhO9Viv25KK0z0c2PoMSRNAtWjf822CA4mm8zlBZ2JaTIi6pYZJwKwkYpoBn/B/Texp3glxe029Yqoh7M938RYJiM3Fxs4a5UGhYpmolDzUM8wzviDVnt0XtMTiBXzs54q6nzAy3sVDuwfXDACOgcDH+Ufme1kU6tP8lG/cmSb+ZO1Ct5FReNFitniylv3cFiIk5QEZQzYjLYHwWAp5DQPqozP1KzvcX4lXRVEKcahcIY267e5eTCXh8MgRc+jvuWUtNUxPJ/qkjHUGC1CDEZD0QbbPEYBLQvZMj0Sg/hXkUNbp3lCggFaBthkLeror0fymOJP+dsQxbr6EjmUDAhUEIo1zBc3NxbLkmbDSlpjAAsXsLBvf+qJQOwZ0SMiyjodfudKb0c4550VgKdzdYREdKK1ViIX63/iWJKw9rapyxmBkA++M/XeG6Hhnm/y57DE1PTHkts8C6pAEjLYbPfYrT2iJzHtq8Bq1O41lvi58=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(4143699003)(10067099003)(11063799006)(6133799003)(22082099003)(18002099003)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SmNxcTFCaDFjRnhUY0tCNCtkSlQrN2M0enJ0OTQ1TFZLcVd0ZDVRbGFpczR2?=
+ =?utf-8?B?SDRLR1Jsdnd6WnJVQ0wyU3pDVDByVXczaWY5S0owcWNYai9XWFpRc1k2M0JR?=
+ =?utf-8?B?RzZ0aVpRL0JwaGVBQW8vMzZYWkQ3dGlYdzRhQVhmdUZIWFlqOFJSSlRLYkVH?=
+ =?utf-8?B?SXJITjFwZk5GNERjQkVpWGJyeC9WL0ZVUncyRnI5Wmh0TzZLNWp2QStwUUhI?=
+ =?utf-8?B?Z0Q5VjBrNmhKS1JXK0M4U1A3UHYzSWErcjBpRWVvcWpVWUdzeXNnWi9jREhX?=
+ =?utf-8?B?cVhNcGhpVVpJZm1aNzV1b1NFVWxOL3hlVm1rMVE3UmlNUHBVR3p1bVd1RVdL?=
+ =?utf-8?B?MVY2THMwcDlKNjdiT3MwUFN2YWRsYjZEaThYakkxa09DaFZjbFYweWxiOXdu?=
+ =?utf-8?B?bi9mbEZsenp5Q04yZ2Jad1hyNnRlOGhxcU1nb0Q0YmFZL1lpZXRFd1dBR3M3?=
+ =?utf-8?B?dmQ4QTFZNW5CL296Z29HSmRHUjJ0QTRwcHhKdXhlNGhlY1VLZ2NFNWxXQVRE?=
+ =?utf-8?B?YjRiWG9CSFBPSTJHNm9LZm1wMFRUZXJPZHNIdXBpQnRieE5BSDZ6RjA2NHUz?=
+ =?utf-8?B?aWxpcjVtUTRseUVGeWwrVGlad0h5SnhyWkw0aC8zVnYyZ1pYdzZ1VUVGN0Za?=
+ =?utf-8?B?Qk9SVDJNTmdHcytCaVRzZWdWSk8xZTc1OGNaK2dZSG1iZVNmRUNqbHhNK1ZP?=
+ =?utf-8?B?K01RWVluM1hsbUJyOHhJRFVHb1NvYjNSc3VTeC8xVTNWa3l2dGIyRFBzVksy?=
+ =?utf-8?B?akluTUoxWnVMM2pieFNBNnhxdTdMMWttRWMzTnBOUzYzbHoyb0JxZGxpUWlB?=
+ =?utf-8?B?Y2cyeVJmRzQrUTlRR29rcU9tMEZoazhJWFAxMjhBZytWWk9nM1NGck44K2Jx?=
+ =?utf-8?B?QVFDaFJUOEF2QUE0ODlxS3pIYVRQaG0vUGZERDR4dU1aMWtPN2p2NXFVWlk1?=
+ =?utf-8?B?WEFreldUZjJwMTF2NzVpSGk0cUlRbGYrUDVDYm9CNkNaViswUFc3NWYrd0Vi?=
+ =?utf-8?B?S3hwV1lxSmVwV1BsZDhDejZERU9KL0luWU5laHBVTURZK1R0OS9kYzA5SkJR?=
+ =?utf-8?B?Wmo5MktMclBERzYrL3BlR2cycXVwWXNyUEdHa0JDeXV3aVg3eFhiUk1XY01P?=
+ =?utf-8?B?K1hCWXQybU5nK3J6LytaRFpaaVRpRFY0Z1c2eVJaTE0wS0l5dTVnWFF4c1ZP?=
+ =?utf-8?B?VFRrbjFONFpBK0MvYUdleFM1eE1tdnB6ZkhyU2xMRUZiNVJ4S0lBQWVwMkpK?=
+ =?utf-8?B?R1JEeUVvemZZRmtjd01ydlRwN0ptT3IxMm9uRnQxSEduVTNLYWJwQzhHUUhE?=
+ =?utf-8?B?SWNCZXFlTStTRTQvM21jTkdUV3B5aUpnbFMwa1hnSVpFYzZaQ29GZlhRTjV5?=
+ =?utf-8?B?NnNuTC93WURVODJRTThqcE9wUVpLNEpncVB0ZFllTDhnb0Q2SnhseEc4a052?=
+ =?utf-8?B?dmJ4b1g3cWdUV2o1eE1wMHhZKzF1NTNCSzJIUisvQ3Y1TUY4VHB6eUh0M2E0?=
+ =?utf-8?B?RmVrMWVoSVJjQnIyblJtMWpSSCsvaGlhNGhXZjNITFZ4RHhEU0dEcEJlejBP?=
+ =?utf-8?B?by9YcVpvTk1TOGlJeS9yY2NtUFNiTlQzczMvUUMzZENUVCtQMUZIWmZNdVRP?=
+ =?utf-8?B?TUVkT1AyVUJJazRUUGloZUs0UjQ0MkVaTmpiK1pCd0NIKzZhektHQkxpTmdW?=
+ =?utf-8?B?L0xQcWxHL0lkUm1idXhXNjRGcHV3bS91QXlZS3hVL2FlSXZVNlhSTHc2Mm9N?=
+ =?utf-8?B?d09Tb3RQejhiTi9kNHRlR2NSZlBwTm9kTkVyRlQ0NVRkTzlodEp0WXlNb3Zr?=
+ =?utf-8?B?bG5PZEJMV2s3Q1JYNEo0bzVqbWlpWmhtd0hoWmY5akpTeWJEVDltNXhkVCtO?=
+ =?utf-8?B?MGJsbXNtTGp5YStkYmRGekRtQ1pZMjkyRkt6T2lXVGNvTktkYWxlK01saWNC?=
+ =?utf-8?B?eExxL2FjYXJ4Y2dCbnFvZ3VKM00rYVFtdlRKazRJWVYxb3F2SVd3Z3h4c0Ex?=
+ =?utf-8?B?dGZCZUUxWWFNZHgwOHI5djVEMnByeG5BVmw5UU5MUEs2NncyRDg2Q0k0cVMw?=
+ =?utf-8?B?ekxHeGJUOGJRTFZwa291QmJNU3FkVU81ZU95Mmk3L2xJd2ZvZnBIL1kvTlR4?=
+ =?utf-8?B?cUtZS0Y1MkN5NWE4Qm11Y2ZibnJXeGhkTEFoTGVpVUhKZHBHSXNETlpJazFU?=
+ =?utf-8?B?MzFMOC9ON3RoWUFTcGsxbW83MXpKbXphdDJ5dDVGUjlRQzJmLzY0dmNDTHVB?=
+ =?utf-8?B?YTJkYzZucDdNdUxlWGx3enp0RFZvdC9uK1FtYStHOVhiQzI3N05XbWpJaE95?=
+ =?utf-8?Q?NsdRRk7AEk3Zy8zHgk?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e83700e3-1d22-4f84-9ec2-08df0786a559
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 17:38:19.4481 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2EfFWmav2fyWJfVYDDeoR6htJOLz0X7ZQucdIKoXL9pqf0OSxbO9iGzJxmRy3312
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8158
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,44 +140,46 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 31, 2026 at 12:05=E2=80=AFPM Kanala Ramalingeswara Reddy
-<Kanala.RamalingeswaraReddy@amd.com> wrote:
->
-> Psp runtime DB is for dGPUs only.
->
-> Signed-off-by: Kanala Ramalingeswara Reddy <Kanala.RamalingeswaraReddy@am=
-d.com>
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/am=
-d/amdgpu/amdgpu_psp.c
-> index a0f6df5067e6..62d906ede42a 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-> @@ -398,6 +398,13 @@ static bool psp_get_runtime_db_entry(struct amdgpu_d=
-evice *adev,
->         bool ret =3D false;
->         int i;
->
-> +       if (adev->flags & AMD_IS_APU) {
+On 8/31/26 14:30, Timur Kristóf wrote:
+...
+>>>> only flush when a GART window is actually used.
+>>>
+>>> Does that mean that there is still a risk of the wedge when the GART
+>>> windows are used?
+>>
+>> Yes, and that is actually not limited to the GART windows. It looks like
+>> every time we map something into any VM it can happen that the SDMA crashes
+>> when there are concurrent operations ongoing.
+> 
+> Would it help to set
+> adev->vm_manager.concurrent_flush = false
+> until the problem is figured out?
 
-You can drop the parens around this.  With that fixed:
-Acked-by: Alex Deucher <alexander.deucher@amd.com>
+That came to my mind as well, but I don't think that this would help in this situation.
 
-> +               /*
-> +                * Runtime DB is for dGPUs only.
-> +                */
-> +               return false;
-> +       }
-> +
->         if (amdgpu_ip_version(adev, MP0_HWIP, 0) =3D=3D IP_VERSION(13, 0,=
- 6) ||
->             amdgpu_ip_version(adev, MP0_HWIP, 0) =3D=3D IP_VERSION(13, 0,=
- 12) ||
->             amdgpu_ip_version(adev, MP0_HWIP, 0) =3D=3D IP_VERSION(13, 0,=
- 14) ||
-> --
-> 2.53.0
->
+> Or can the crash also happen when the VM is not concurrently flushed?
+
+As far as we understand now that problem can happen whenever any VMID is flushed and the SDMA not idle.
+
+> By the way, is this the same issue as the Navi 1 sdma_invalidation_workaround 
+> or is that completely different?
+
+It indeed looks very similar to me as well. Maybe the fix they came up with for Navi 1x was never 100% correct and now instead of accessing random addresses the SDMA just hangs.
+
+Anyway this is a serious HW problem and we need a proper fix ASAP.
+
+Regards,
+Christian.
+
+> 
+>> It's just that the GART flushes triggered by the SDMA made that scenario
+>> much more likely than anything else.
+>>> Can you remind me when/why we need the GART windows exactly?
+>>
+>> Basically every time we want to copy something from system memory to VRAM
+>> with the kernel.
+> 
+> Understood. Thanks for explaining!
+> 
+> Best regards,
+> Tim
