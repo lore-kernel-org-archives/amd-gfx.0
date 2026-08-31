@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 39019C624C6
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:50:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id B9F00C624A4
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:51:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 721E710E8F1;
-	Mon, 31 Aug 2026 13:50:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 21CA510E8F3;
+	Mon, 31 Aug 2026 13:51:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="UVDyH7S4";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="mL+Xn4m1";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A568310E8F0;
- Mon, 31 Aug 2026 13:50:30 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2DADE10E8F3;
+ Mon, 31 Aug 2026 13:51:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8CDEE41202;
- Mon, 31 Aug 2026 13:50:30 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FD341F000E9;
- Mon, 31 Aug 2026 13:50:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BAAE7416DF;
+ Mon, 31 Aug 2026 13:51:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C32B11F00ACA;
+ Mon, 31 Aug 2026 13:51:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184230;
- bh=sjVdUiYm/8x5tYlhDT8FvYcN+SUMyrkrpfK0H0O87Pg=;
+ s=k20260515; t=1788184271;
+ bh=Hh6DQaCHIq2VUuDkhUO0gcrJbuyGoDL/mV794VKwMu4=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=UVDyH7S4HimQgAMFQ647ux6SXxlYFlO8kw/avMXXasP1ZSG9jpohq27rFQ4y3UtVa
- d8vl+p7q+zRn852aevtEMGEYjjxoWOndCfPLmUJ5G69GLFG2FkaNcXizv51eTChJXs
- MOddhp+OG4D3/TjdjAhLZJRcnDLg+pXBNdmfY0ruYO9Q8oXcduitwyeCUp/pBuyTZf
- QNR9iwiKdM1YcqQGeOwkf741MfqCNBvjxV3X4LBKq4ButYtgSjpSPL/VlbVZaqH4oZ
- C1GVp7tbPDp3BknhQqGDow+iCMqmrJo1vyvrAvr/OjZswA1+zFx+sRLb1eOSLrGbJN
- 7kxIeP/w3RXvw==
+ b=mL+Xn4m1+gkOd88nkgLpWhrg4UBoifPG28j23XtsoA0qGCa6t69LimlS/2qdyjBuI
+ hoxAKOFr4EfTX/JvVfm6R6BBJT9j2i3Nij/MQRdG1aGrA3+S+hOQWAgV7yW0Y+mHF4
+ z4FFzyOodsPb4nBuc1SFdar/jH0/Q8MTZT+zCqU6uLJexZMTkggQsSFQhnEa7TqBP6
+ 0qeLBL1Pi0XpCyPFZCZv2d0JXRJUto946BDBmY5h4byChVsZYwkAFSRPkMlXu4X2+3
+ eul4g9bV6b5yD7OTLxrPznlDmerOLBjhZ1Ep6x9TVkX97EBmEdHiJlz8VSH0FU8niV
+ 9AhgAbdh7zhzw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Candice Li <candice.li@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+Cc: Sunil Khatri <sunil.khatri@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
  christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
  amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: Bound GPIO I2C table entry count
- from VBIOS
-Date: Mon, 31 Aug 2026 09:29:57 -0400
-Message-ID: <20260831133314.4125787-569-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: use atomic operation to achieve
+ lockless serialization
+Date: Mon, 31 Aug 2026 09:30:21 -0400
+Message-ID: <20260831133314.4125787-593-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -65,480 +65,422 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Candice Li <candice.li@amd.com>
+From: Sunil Khatri <sunil.khatri@amd.com>
 
-[ Upstream commit a99cd231cd924b7160fecb9fb3a94b801522323b ]
+[ Upstream commit 4d50a14d346141e03a7c3905e496d91e048bc30c ]
 
-Reject undersized tables and cap the derived entry count
-to AMDGPU_MAX_I2C_BUS so we do not overrun adev->i2c_bus[]
-or walk an absurd number of entries on corrupt size fields.
+In amdgpu_seq64_alloc there is a possibility that two difference cores
+from two separate NODES can try to and could get the same free slot.
+So this fixes that race here using atomic test_and_set clear operations.
 
-Signed-off-by: Candice Li <candice.li@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `drm/amdgpu: use atomic operation to achieve
+lockless serialization`
 
-**Step 1.1 — Subject line**
-
-Record: `[drm/amdgpu]` `[Bound]` — Bound/cap GPIO I2C table entry count
-parsed from VBIOS atom data tables.
-
-**Step 1.2 — Tags**
-
-Record:
-- `Signed-off-by: Candice Li <candice.li@amd.com>` (author)
-- `Reviewed-by: Tao Zhou <tao.zhou1@amd.com>`
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (amdgpu
-  maintainer)
-- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`, or
-  `Tested-by:` tags
-- Notable: maintainer sign-off and AMD review, but no fuzzer/user report
-
-**Step 1.3 — Body analysis**
-
-Record:
-- **Bug:** VBIOS-reported GPIO I2C table `size` is trusted without
-  validation; entry count is derived unchecked.
-- **Symptoms:** Can overrun `adev->i2c_bus[]` (fixed size 16) and walk
-  an excessive number of entries on corrupt/undersized size fields.
-- **Root cause:** `num_indices = (size - header) / entry_size` with no
-  lower/upper bound; `amdgpu_atom_parse_data_header()` only reads a
-  16-bit size from the BIOS image and does not validate it.
-- **Version info:** None in the message.
-
-**Step 1.4 — Hidden bug fix?**
-
-Record: **Yes.** Despite no “fix” in the subject, this is a defensive
-bounds-check fix for out-of-bounds array indexing and unbounded
-iteration on corrupt VBIOS metadata.
+**Local tree:** `v6.18.43` (`VERSION = 6`, `PATCHLEVEL = 18`, `SUBLEVEL
+= 43`)
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 2.1 — Inventory**
+### Step 1.1: Subject line
+**Record:** `[drm/amdgpu]` — action verb implied **fix** (race) — use
+atomic bitops in `amdgpu_seq64_alloc`/`amdgpu_seq64_free` for lockless
+serialization of the seq64 slot bitmap.
 
-Record:
-- **File:** `drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c` (+18 / -6)
-- **Functions modified:** new helper
-  `amdgpu_atombios_gpio_i2c_num_entries()`; callers
-  `amdgpu_atombios_lookup_i2c_gpio()`, `amdgpu_atombios_i2c_init()`,
-  `amdgpu_atombios_oem_i2c_init()`
-- **Scope:** Single-file, surgical fix
+### Step 1.2: Tags
+**Record:**
+| Tag | Value |
+|-----|-------|
+| Signed-off-by | Sunil Khatri `<sunil.khatri@amd.com>` |
+| Reviewed-by | Alex Deucher `<alexander.deucher@amd.com>` |
+| Signed-off-by | Alex Deucher `<alexander.deucher@amd.com>` |
 
-**Step 2.2 — Code flow per hunk**
+**Notable patterns:** Maintainer review from Alex Deucher (amdgpu co-
+maintainer). No `Fixes:`, `Reported-by:`, `Cc: stable`, or syzbot tags
+(expected for manual review).
 
-Record:
-- **New helper:** If `size < sizeof(ATOM_COMMON_TABLE_HEADER)` → return
-  0; else compute `bytes / sizeof(ATOM_GPIO_I2C_ASSIGMENT)` capped at
-  `AMDGPU_MAX_I2C_BUS` (16).
-- **Before:** Three sites computed `num_indices` directly from unchecked
-  `size`.
-- **After:** All three use the bounded helper.
-- **Paths affected:**
-  - `amdgpu_atombios_i2c_init()` — probe-time I2C bus creation; indexes
-    `adev->i2c_bus[i]`
-  - `amdgpu_atombios_oem_i2c_init()` — Polaris OEM I2C path; same
-    indexing
-  - `amdgpu_atombios_lookup_i2c_gpio()` — encoder/router DDC lookup;
-    walks GPIO entries by pointer
+### Step 1.3: Body analysis
+**Record:**
+- **Bug described:** In `amdgpu_seq64_alloc`, two CPU cores on separate
+  nodes can race and obtain the same free seq64 slot.
+- **Symptom/failure mode:** Duplicate slot assignment → two user-queue
+  fence drivers share the same 64-bit fence memory location → broken GPU
+  synchronization.
+- **Root cause (author):** Non-atomic `find_first_zero_bit` +
+  `__set_bit` is not safe under concurrent access; fix uses
+  `test_and_set_bit` loop and `clear_bit`.
+- **Version info:** None in commit message.
 
-**Step 2.3 — Bug mechanism**
-
-Record: **Buffer overflow / out-of-bounds access + unbounded loop**
-
-1. **Undersized `size` (< 4 bytes):** `(uint16_t)size - sizeof(header)`
-   underflows in unsigned arithmetic → enormous `num_indices` (e.g.
-   65534/entry_size ≈ thousands).
-2. **Oversized/corrupt `size`:** `num_indices` can exceed
-   `AMDGPU_MAX_I2C_BUS` (16). In `amdgpu_atombios_i2c_init()` /
-   `oem_i2c_init()`, loop index `i` is used as `adev->i2c_bus[i]` →
-   **write past end of 16-element pointer array**.
-3. **GPIO pointer walk:** Uncapped iteration reads past the actual VBIOS
-   table region.
-
-**Step 2.4 — Fix quality**
-
-Record:
-- Fix is minimal, obviously correct, and matches driver limits
-  (`AMDGPU_MAX_I2C_BUS == 16`, `ATOM_MAX_SUPPORTED_DEVICE == 16`).
-- Does not validate `size` against total BIOS image length (unlike the
-  related `drm/amd/display` fix), but still eliminates the array overrun
-  and caps iteration.
-- **Regression risk:** Very low. Legitimate tables with ≤16 entries
-  behave identically; undersized tables fail closed (0 entries) instead
-  of crashing.
+### Step 1.4: Hidden bug fix?
+**Record:** Yes — explicitly a race-condition fix, not cosmetic cleanup.
+Replacing `__set_bit`/`__clear_bit` with atomic
+`test_and_set_bit`/`clear_bit` is the standard kernel pattern for
+concurrently accessed bitmaps (`Documentation/atomic_bitops.txt`).
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 2: DIFF ANALYSIS
 
-**Step 3.1 — Blame**
+### Step 2.1: Inventory
+**Record:**
+- **File:** `drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c` (+8 / −5, 1
+  file)
+- **Functions modified:** `amdgpu_seq64_alloc()`, `amdgpu_seq64_free()`
+- **Scope:** Single-file surgical fix
 
-Record: Buggy `num_indices` calculation introduced in `d38ceaf99ed01`
-(“drm/amdgpu: add core driver (v4)”, Alex Deucher, 2015-04-20). Present
-throughout the life of amdgpu in this tree.
+### Step 2.2: Code flow per hunk
 
-**Step 3.2 — Fixes: tag**
+**Hunk 1 — `amdgpu_seq64_alloc`:**
+- **Before:** `find_first_zero_bit` → early `-ENOSPC` → unconditional
+  `__set_bit`
+- **After:** Loop: `find_first_zero_bit` → `-ENOSPC` if full →
+  `test_and_set_bit`; break only if bit was previously clear (successful
+  claim); otherwise retry
+- **Path affected:** Normal allocation path for seq64 fence slots
 
-Record: N/A — no `Fixes:` tag in commit message.
+**Hunk 2 — `amdgpu_seq64_free`:**
+- **Before:** `__clear_bit` (non-atomic)
+- **After:** `clear_bit` (atomic)
+- **Path affected:** Slot release on fence-driver teardown
 
-**Step 3.3 — Related file history**
+### Step 2.3: Bug mechanism
+**Record:** **Category:** Race condition / incorrect non-atomic bitmap
+access.
 
-Record:
-- `20f48be63d1ad` added `amdgpu_atombios_oem_i2c_init()` with the same
-  unchecked pattern.
-- No prior bounds-check fix for GPIO I2C tables in this tree.
-- Fix commit `a99cd231cd92` is **not** present locally
-  (`amdgpu_atombios_gpio_i2c_num_entries` not found).
+**Mechanism:** `__set_bit`/`__clear_bit` are explicitly non-atomic per
+`Documentation/atomic_bitops.txt`. Concurrent alloc and free on
+`adev->seq64.used` without atomic ops can corrupt the bitmap or allow a
+TOCTOU between `find_first_zero_bit` and bit claim when another CPU
+concurrently modifies the same bitmap.
 
-**Step 3.4 — Author context**
-
-Record: Candice Li has other amdgpu commits in this tree (RAS, SMU,
-etc.). Patch reviewed by Tao Zhou and signed off by Alex Deucher.
-
-**Step 3.5 — Dependencies**
-
-Record: Mailing-list submission is **[PATCH 3/4]** in a hardening
-series, but this patch is **standalone**:
-- Patch 1/4: RAS CPER buffer bounds (different files)
-- Patch 2/4: ATOM command table nesting depth (different code)
-- Patch 4/4: PSP fw_pri_buf validation (different code)
-
-No prerequisite commits needed for this hunk to apply and function.
-
----
-
-## Phase 4: Mailing List and External Research
-
-**Step 4.1 — Original discussion**
-
-Record:
-- `b4 dig -c a99cd231cd924b7160fecb9fb3a94b801522323b` → no lore match
-  (thread on freedesktop.org, not lore).
-- Verified at https://lists.freedesktop.org/archives/amd-
-  gfx/2026-May/144648.html
-- Series: [PATCH 3/4], May 18 2026
-- No stable nomination found in the thread
-- No NAKs observed in fetched content
-
-**Step 4.2 — Reviewers**
-
-Record: CC list includes Hawking Zhang, Tao Zhou, Stanley Yang, Thomas
-Chai. `Reviewed-by: Tao Zhou`. `Signed-off-by: Alex Deucher`.
-
-**Step 4.3 — Bug reports**
-
-Record: None. No syzbot, bugzilla, or user crash reports referenced.
-
-**Step 4.4 — Related patches**
-
-Record: Related hardening in same series (RAS, ATOM nesting, PSP).
-Separate mainline commit `86d2b20644b` (“drm/amd/display: Validate GPIO
-pin LUT table size before iterating”) addresses the same class of VBIOS
-table parsing bug in the display BIOS parser and was nominated with `Cc:
-stable@vger.kernel.org`.
-
-**Step 4.5 — Stable list**
-
-Record: No stable-list discussion found for this specific patch (lore
-blocked by bot protection; freedesktop thread has no stable CC).
+### Step 2.4: Fix quality
+**Record:** Fix is obviously correct — standard `test_and_set_bit`
+allocator loop. Minimal, no API changes. Low regression risk; loop may
+spin under contention but pool has 262144 slots
+(`AMDGPU_MAX_SEQ64_SLOTS`), so retry pressure is low.
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 5.1 — Key functions**
+### Step 3.1: Blame
+**Record:** `amdgpu_seq64_alloc`/`free` bitmap logic introduced in
+commit `a112b91dd6349` (stable-tree import). Buggy
+`__set_bit`/`__clear_bit` pattern present in current `v6.18.43` tree at
+lines 178–182 and 208.
 
-Record: `amdgpu_atombios_gpio_i2c_num_entries()`,
-`amdgpu_atombios_lookup_i2c_gpio()`, `amdgpu_atombios_i2c_init()`,
-`amdgpu_atombios_oem_i2c_init()`.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no `Fixes:` tag in commit message.
 
-**Step 5.2 — Callers**
+### Step 3.3: Related file history
+**Record:** `amdgpu_seq64.c` exists in this tree with the pre-fix code.
+Fix commit is **not yet applied** (no `test_and_set_bit` in local file).
+This stable tree's git history is flattened through bulk imports,
+limiting per-file history granularity.
 
-Record:
-- `amdgpu_atombios_i2c_init()` ← `amdgpu_i2c_init()` in `amdgpu_i2c.c`
-- `amdgpu_atombios_oem_i2c_init()` ← `amdgpu_i2c_init()` (Polaris chips
-  with DC)
-- `amdgpu_i2c_init()` ← `amdgpu_device.c` during device init when
-  `adev->bios` present and `!adev->is_atom_fw`
-- `amdgpu_atombios_lookup_i2c_gpio()` ← `amdgpu_atombios.c`
-  encoder/router parsing (DDC/I2C routing during display setup)
+### Step 3.4: Author commits
+**Record:** No commits by Sunil Khatri found in this stable checkout's
+`git log`. Author is an AMD developer; patch reviewed by amdgpu
+maintainer Alex Deucher.
 
-**Step 5.3 — Callees**
-
-Record: `amdgpu_atom_parse_data_header()`,
-`amdgpu_atombios_get_bus_rec_for_i2c_gpio()`, `amdgpu_i2c_create()`,
-`min_t()`.
-
-**Step 5.4 — Reachability**
-
-Record:
-- **Probe path:** `amdgpu_i2c_init()` runs during GPU driver
-  initialization for legacy atombios (non-atom-fw) GPUs — common on pre-
-  GCN/older hardware and Polaris OEM path.
-- **Display path:** `amdgpu_atombios_lookup_i2c_gpio()` runs during
-  encoder/connector parsing — broader reach on atom-bios GPUs.
-- **Userspace trigger:** Not a direct syscall path; triggered by GPU
-  probe with VBIOS present. Corrupt/malicious VBIOS (flash corruption or
-  reflashing) can trigger it at module load / GPU init. Unprivileged
-  users cannot typically rewrite GPU VBIOS without root/hardware access.
-
-**Step 5.5 — Similar patterns**
-
-Record: Same unchecked `(size - header) / struct_size` pattern exists
-elsewhere in `amdgpu_atombios.c` (e.g. spread-spectrum tables at lines
-929+), but this commit does not touch those — scoped to GPIO I2C only. A
-related display-side GPIO LUT bounds fix exists upstream.
+### Step 3.5: Dependencies
+**Record:** Standalone — no series markers, no prerequisite commits.
+Applies directly to existing `amdgpu_seq64.c`.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree (v6.18.44)
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 6.1 — Buggy code present?**
+### Step 4.1: Original discussion
+**Record:**
+- **URL:** https://lists.freedesktop.org/archives/amd-
+  gfx/2026-May/144553.html (v1 submission, May 14 2026)
+- **Series revisions:** v1 only (no v2/v3 found)
+- **Reviewer feedback:** Christian König questioned why concurrent calls
+  are possible: *"Why can those functions be called in concurrent from
+  multiple threads?"* (https://lists.freedesktop.org/archives/amd-
+  gfx/2026-May/144650.html)
+- **Maintainer response:** Alex Deucher gave `Reviewed-by`
+  (https://lists.freedesktop.org/archives/amd-gfx/2026-May/144599.html)
+- **Stable nominations:** None found in thread
+- **NAKs:** None; question raised but patch still reviewed positively by
+  maintainer
 
-Record: **Yes.** Local tree is `v6.18.44` (Makefile: 6.18.44). All three
-unchecked `num_indices` calculations exist at lines 99–100, 130–131, and
-161–162 of `amdgpu_atombios.c`. `adev->i2c_bus[AMDGPU_MAX_I2C_BUS]` is
-defined in `amdgpu.h` with `AMDGPU_MAX_I2C_BUS = 16`. Bug dates to
-original amdgpu import (2015).
+`b4 dig -c <hash>` could not be run — fix commit hash not present in
+this checkout.
 
-**Step 6.2 — Backport complications**
+### Step 4.2: Reviewers (b4 -w equivalent via lore)
+**Record:** Patch submitted to amd-gfx list; reviewed by Alex Deucher
+(subsystem maintainer). Christian König (also amdgpu maintainer) raised
+concurrency question.
 
-Record: **Clean apply expected.** File structure and includes match the
-patch context (`bif/bif_4_1_d.h` present, same three call sites). No
-conflicting fix already applied.
+### Step 4.3: Bug report
+**Record:** No external bug report, syzbot link, or crash trace.
+Theoretical/concurrency-analysis fix from driver developer.
 
-**Step 6.3 — Related fixes already present?**
+### Step 4.4: Related patches
+**Record:** Standalone 1/1 patch, not part of a series.
 
-Record: **None** for GPIO I2C table bounding.
-`amdgpu_atombios_gpio_i2c_num_entries` does not exist in tree.
-
----
-
-## Phase 7: Subsystem and Maintainer Context
-
-**Step 7.1 — Subsystem**
-
-Record: `drm/amdgpu` display/GPU driver — **IMPORTANT** subsystem
-(widely deployed AMD GPU driver).
-
-**Step 7.2 — Activity**
-
-Record: File actively maintained; recent commits include OEM I2C
-support, vbios interfaces, PM cleanups.
-
----
-
-## Phase 8: Impact and Risk Assessment
-
-**Step 8.1 — Who is affected**
-
-Record: AMD GPU users on the legacy atombios path (`!adev->is_atom_fw`)
-during I2C init; additionally any GPU using atom-bios encoder routing
-that calls `amdgpu_atombios_lookup_i2c_gpio()`. Config-specific to
-`CONFIG_DRM_AMDGPU` with affected hardware.
-
-**Step 8.2 — Trigger conditions**
-
-Record:
-- Corrupt or malicious VBIOS with invalid GPIO I2C table `size` field
-- Undersized table (`size < 4`) or oversized entry count (`> 16`)
-- **Likelihood:** Low for legitimate factory VBIOS; non-zero for flash
-  corruption, bad flashing, or adversarial VBIOS
-- **Unprivileged direct trigger:** Unlikely without ability to modify
-  GPU VBIOS
-
-**Step 8.3 — Failure mode severity**
-
-Record:
-- `amdgpu_atombios_i2c_init()` / `oem_i2c_init()`: **out-of-bounds
-  write** to `adev->i2c_bus[]` → heap corruption, kernel oops, possible
-  security impact — **CRITICAL/HIGH**
-- All three functions: **out-of-bounds read** past VBIOS mapping, very
-  long loops → probe hang/oops — **HIGH**
-- Undersized table: previously could loop thousands of times instead of
-  zero — **HIGH** (boot hang)
-
-**Step 8.4 — Risk vs benefit**
-
-Record:
-- **Benefit:** Prevents kernel crash/corruption during GPU probe on
-  corrupt VBIOS; aligns with AMD’s own hardening series and similar
-  stable-nominated display fix.
-- **Risk:** Minimal — 15-line helper, caps at existing hardware limit of
-  16 buses.
-- **Ratio:** High benefit, very low risk.
+### Step 4.5: Stable list
+**Record:** Not searched on lore.kernel.org (blocked by bot protection).
+No stable discussion found on freedesktop amd-gfx thread.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 9.1 — Evidence compile**
+### Step 5.1: Key functions
+**Record:** `amdgpu_seq64_alloc()`, `amdgpu_seq64_free()`
+
+### Step 5.2: Callers
+**Record:**
+| Function | Callers | Context |
+|----------|---------|---------|
+| `amdgpu_seq64_alloc` | `amdgpu_userq_fence_driver_alloc()` only |
+Called from `amdgpu_userq_create()` during `AMDGPU_USERQ_OP_CREATE`
+ioctl |
+| `amdgpu_seq64_free` | `amdgpu_userq_fence_driver_alloc()` error path;
+`amdgpu_userq_fence_driver_destroy()` via `kref_put` | Destroy path from
+queue teardown / refcount drop |
+
+`amdgpu_userq_create()` holds `adev->userq_mutex` during alloc (line
+518). `amdgpu_userq_destroy()` holds only per-client
+`uq_mgr->userq_mutex`, **not** `adev->userq_mutex` (lines 394–420).
+Therefore alloc and free **can run concurrently** from different DRM
+clients/processes.
+
+### Step 5.3: Callees
+**Record:** `find_first_zero_bit`, `test_and_set_bit`/`__set_bit`,
+`clear_bit`/`__clear_bit`, `amdgpu_seq64_get_va_base()`
+
+### Step 5.4: Reachability
+**Record:** Reachable from userspace via DRM ioctl
+`AMDGPU_USERQ_OP_CREATE` / destroy on GPUs with user-mode queue support
+(gfx11, gfx12, SDMA v6/v7 in this tree). Multi-process GPU compute
+workloads are a realistic trigger.
+
+### Step 5.5: Similar patterns
+**Record:** Kernel bitmap allocators universally use `test_and_set_bit`
+loops for concurrent access. Non-atomic `__set_bit` is only valid when
+caller holds exclusive access.
+
+---
+
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
+
+### Step 6.1: Buggy code exists?
+**Record:** **Yes.** Current `v6.18.43` tree has the buggy code:
+
+```178:182:drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
+        bit_pos = find_first_zero_bit(adev->seq64.used,
+adev->seq64.num_sem);
+        if (bit_pos >= adev->seq64.num_sem)
+                return -ENOSPC;
+
+        __set_bit(bit_pos, adev->seq64.used);
+```
+
+```207:208:drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
+        if (bit_pos < adev->seq64.num_sem)
+                __clear_bit(bit_pos, adev->seq64.used);
+```
+
+`amdgpu_seq64_init()` is called during GMC hw init; user-mode queues are
+wired on modern ASICs.
+
+### Step 6.2: Backport complications
+**Record:** **Clean apply expected** — identical file and function
+structure; no conflicts detected. 8-line change.
+
+### Step 6.3: Related fixes already present?
+**Record:** **No** — `test_and_set_bit` not present in `amdgpu_seq64.c`;
+fix not yet in tree.
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: Subsystem criticality
+**Record:** `drivers/gpu/drm/amd/amdgpu` — **IMPORTANT** (AMD GPU
+driver). Affects user-mode queue fence synchronization on supported
+hardware.
+
+### Step 7.2: Subsystem activity
+**Record:** Actively developed; user-mode queues and seq64 are
+relatively recent features present in this 6.18.y tree.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who is affected
+**Record:** Users of AMDGPU user-mode queues on gfx11/gfx12/SDMA-capable
+GPUs running multi-process compute (ROCm, etc.). Config-dependent on
+hardware with `userq_funcs` populated.
+
+### Step 8.2: Trigger conditions
+**Record:** Concurrent queue create (alloc under `adev->userq_mutex`)
+and queue destroy/fence-driver teardown (free without
+`adev->userq_mutex`) from different processes, potentially on different
+CPU/NUMA nodes. Realistic in multi-tenant GPU workloads. Unprivileged
+users can trigger via DRM ioctls (subject to device access permissions).
+
+### Step 8.3: Failure mode severity
+**Record:** Duplicate seq64 slot → two fence drivers alias the same
+64-bit memory → **HIGH** severity: GPU synchronization corruption,
+possible compute wrong-results or GPU hangs. Not a typical kernel oops,
+but serious functional corruption.
+
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** HIGH for affected userq users — prevents fence memory
+  aliasing
+- **Risk:** VERY LOW — 8-line, idiomatic atomic bitmap fix, maintainer-
+  reviewed
+- **Ratio:** Strong benefit, minimal risk
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence summary
 
 **FOR backport:**
-- Real OOB write to `adev->i2c_bus[i]` when `i >= 16`
-- Real OOB read / unbounded loop on corrupt `size`
-- Small, maintainer-reviewed, obviously correct
-- Bug present since 2015 in this tree
-- Same vulnerability class as a related fix already nominated for stable
-  (display GPIO LUT)
-- Applies cleanly to v6.18.44
+- Real concurrent alloc/free paths verified (asymmetric mutex coverage)
+- Non-atomic `__set_bit`/`__clear_bit` violate kernel bitmap concurrency
+  rules
+- Standard, obviously-correct fix pattern
+- Small, single-file, no new APIs
+- Reviewed by amdgpu maintainer Alex Deucher
+- Buggy code confirmed present in `v6.18.43`; fix not yet applied
+- User-mode queues active on modern AMD GPUs in this tree
 
 **AGAINST backport:**
-- No user bug report or syzbot reproduction
-- Requires corrupt/malicious VBIOS — uncommon trigger
-- Fix does not validate `size` against total BIOS image length (partial
-  mitigation only)
-- Part of a 4-patch hardening series (though this patch is independent)
+- No crash report or syzbot reproduction
+- Christian König questioned whether concurrency is possible (though
+  code analysis shows alloc/free overlap is real; two simultaneous
+  allocs are mutex-serialized)
+- Affects only user-mode queue users, not all amdgpu users
 
-**Unresolved:** No runtime crash report confirming field failure on
-production systems.
+**Unresolved:** Author's reply to Christian König's thread question not
+found; exact "two nodes both allocating" scenario may be overstated, but
+alloc/free concurrency is verified.
 
-**Step 9.2 — Stable rules checklist**
+### Step 9.2: Stable rules checklist
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — idiomatic atomic bitmap
+fix; maintainer Reviewed-by; no runtime test cited |
+| 2. Fixes a real bug affecting users? | **PASS** — concurrent bitmap
+access verified in code paths |
+| 3. Important issue? | **PASS** — HIGH: fence memory aliasing, GPU sync
+corruption |
+| 4. Small and contained? | **PASS** — 8 lines, 1 file |
+| 5. No new features/APIs? | **PASS** — internal implementation change
+only |
+| 6. Can apply to local tree? | **PASS** — clean apply to existing
+`amdgpu_seq64.c` |
 
-1. Obviously correct and tested? **PASS** — logic is straightforward;
-   reviewed by AMD engineer and maintainer. No runtime test tag.
-2. Fixes a real bug? **PASS** — verified OOB array indexing and
-   unbounded iteration in source.
-3. Important issue? **PASS** — OOB write during driver probe
-   (crash/corruption potential).
-4. Small and contained? **PASS** — 18 lines added, one file, three call
-   sites.
-5. No new features/APIs? **PASS** — defensive bounds only.
-6. Can apply to local tree? **PASS** — buggy code confirmed present;
-   patch not yet applied; clean apply expected.
+### Step 9.3: Exception categories
+**Record:** None (not a device ID, quirk, DT, build, or docs fix).
+Standard race-condition bug fix.
 
-**Step 9.3 — Exception category**
-
-Record: Not a device-ID/quirk/DT/build/docs exception — standard bug-
-fix/hardening.
-
-**Step 9.4 — Decision rationale**
-
-For **this** tree (v6.18.44), the unchecked VBIOS size parsing is a
-long-standing defect that can cause out-of-bounds writes to a kernel
-array during GPU initialization. The fix is minimal, self-contained,
-maintainer-approved, and matches established stable practice for amdgpu
-VBIOS table hardening. The lack of a user report is outweighed by the
-severity of the failure mode and the negligible regression risk.
+### Step 9.4: Decision rationale
+The commit fixes a genuine race in the seq64 slot allocator. While
+`amdgpu_userq_create()` serializes allocations via `adev->userq_mutex`,
+`amdgpu_seq64_free()` runs from fence-driver destruction without that
+lock — `amdgpu_userq_destroy()` only takes the per-client mutex.
+Concurrent alloc and free on the shared `adev->seq64.used` bitmap with
+non-atomic `__set_bit`/`__clear_bit` is incorrect and can corrupt slot
+tracking. The fix is minimal, maintainer-reviewed, and applies cleanly
+to this `v6.18.43` tree where the buggy code is present and user-mode
+queues are supported.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags, body from provided commit message
-- [Phase 2] Diff analysis: verified +18/-6 in `amdgpu_atombios.c`, three
-  call sites, new helper function
-- [Phase 2] Read current `amdgpu_atombios.c` lines 82–175: confirmed
-  unchecked `num_indices` pattern
-- [Phase 2] Read `amdgpu.h`: `i2c_bus[AMDGPU_MAX_I2C_BUS]` with
-  `AMDGPU_MAX_I2C_BUS = 16`
-- [Phase 2] Read `atom.c` `amdgpu_atom_parse_data_header()`: `size` from
-  `CU16(idx)`, no bounds validation
-- [Phase 3] `git blame`: buggy lines from `d38ceaf99ed01` (2015-04-20)
-- [Phase 3] `git show d38ceaf99ed01`: original amdgpu core driver import
-- [Phase 3] `grep amdgpu_atombios_gpio_i2c_num_entries`: not in tree
-  (fix absent)
-- [Phase 3] Verified patch 3/4 is standalone; patches 1–2 are unrelated
-  subsystems (freedesktop.org)
-- [Phase 4] `b4 dig -c a99cd23...`: no lore match
-- [Phase 4] WebFetch freedesktop.org amd-gfx May 2026: confirmed [PATCH
-  3/4] content
-- [Phase 4] Web search: mainline SHA
-  `a99cd231cd924b7160fecb9fb3a94b801522323b`; related display fix
-  `86d2b20` with `Cc: stable`
-- [Phase 5] `grep` callers: `amdgpu_i2c_init` → `amdgpu_device.c:4771`;
-  lookup used in encoder parsing
-- [Phase 5] Read `amdgpu_i2c.c:218–235`: init paths for legacy and
-  Polaris OEM
-- [Phase 5] Read `amdgpu_device.c:4753–4772`: called when `adev->bios &&
-  !adev->is_atom_fw`
-- [Phase 6] `git describe HEAD`: `v6.18.44`; Makefile confirms 6.18.44
-- [Phase 6] Buggy code confirmed at lines 99, 130, 161 in local tree
-- [Phase 6] `ATOM_MAX_SUPPORTED_DEVICE` = 16 (`atombios.h`), matches
-  `AMDGPU_MAX_I2C_BUS`
-- [Phase 7/8] Assessed subsystem criticality and failure modes from
-  verified call paths
-- UNVERIFIED: No end-user crash report for this specific GPIO I2C issue
-- UNVERIFIED: Whether undersized-table underflow has been observed in
-  the field
+- [Phase 1] Parsed subject, tags (SOB, Reviewed-by Alex Deucher), body;
+  no Fixes/Reported-by/Cc:stable
+- [Phase 2] Diff: 8 insertions, 5 deletions in `amdgpu_seq64_alloc` and
+  `amdgpu_seq64_free`
+- [Phase 3] `git describe HEAD`: `v6.18.43`; blame shows buggy
+  `__set_bit`/`__clear_bit` in current tree
+- [Phase 3] `git log --grep` for commit subject: not found in tree (not
+  yet merged)
+- [Phase 4] Lore: v1 at https://lists.freedesktop.org/archives/amd-
+  gfx/2026-May/144553.html; Reviewed-by at 144599.html; Christian König
+  question at 144650.html
+- [Phase 4] b4 dig by hash: N/A — commit not in checkout
+- [Phase 5] `grep amdgpu_seq64_alloc`: single caller in
+  `amdgpu_userq_fence.c`
+- [Phase 5] `grep amdgpu_seq64_free`: error path +
+  `amdgpu_userq_fence_driver_destroy`
+- [Phase 5] Read `amdgpu_userq.c`: create holds `adev->userq_mutex`
+  (518); destroy does not (394–420)
+- [Phase 5] Read `amdgpu_userq_fence.c`: destroy → `kref_put` →
+  `amdgpu_seq64_free`
+- [Phase 6] Confirmed buggy code at lines 178–182, 208; no
+  `test_and_set_bit` present
+- [Phase 6] `amdgpu_seq64_init` present in `amdgpu_device.c` GMC init
+  path
+- [Phase 6] Userq support on gfx11/gfx12/SDMA via `userq_funcs`
+  assignment verified
+- [Phase 8] `AMDGPU_MAX_SEQ64_SLOTS` = 2MiB/8 = 262144 slots per
+  `amdgpu_seq64.h`
+- [Phase 8] `Documentation/atomic_bitops.txt`: `__` prefixed bitops are
+  non-atomic
+- UNVERIFIED: Author's reply to Christian König's concurrency question
+  (not found in fetched threads)
+- UNVERIFIED: Whether fix commit SHA exists on mainline (not in this
+  stable checkout)
 
-**YES**The background search finished: the **Bound GPIO I2C** fix is
-**not** in this tree (`v6.18.44`). Candice Li’s other amdgpu work is
-present, but `amdgpu_atombios_gpio_i2c_num_entries()` is missing and the
-unchecked `num_indices` logic is still at lines 99, 130, and 161 of
-`amdgpu_atombios.c`.
+**YES**
 
-**Verdict from the analysis:** backport **YES** — small, standalone
-bounds-check fix that prevents OOB writes to `adev->i2c_bus[]` and
-unbounded VBIOS table walks on corrupt GPIO I2C table sizes during GPU
-init.
+ drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c | 24 +++++++++++++++-----
- 1 file changed, 18 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-index 763f2b8dcf13a..b8f7e3a18d324 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_atombios.c
-@@ -36,6 +36,21 @@
- #include "atombios_encoders.h"
- #include "bif/bif_4_1_d.h"
- 
-+/* VBIOS-reported table size is unchecked against the image; cap iterations and
-+ * adev->i2c_bus[] indexing to AMDGPU_MAX_I2C_BUS.
-+ */
-+static int amdgpu_atombios_gpio_i2c_num_entries(uint16_t size)
-+{
-+	u32 bytes;
-+
-+	if (size < sizeof(ATOM_COMMON_TABLE_HEADER))
-+		return 0;
-+
-+	bytes = size - sizeof(ATOM_COMMON_TABLE_HEADER);
-+	return (int)min_t(u32, bytes / sizeof(ATOM_GPIO_I2C_ASSIGMENT),
-+			  AMDGPU_MAX_I2C_BUS);
-+}
-+
- static struct amdgpu_i2c_bus_rec amdgpu_atombios_get_bus_rec_for_i2c_gpio(ATOM_GPIO_I2C_ASSIGMENT *gpio)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
+index a0b479d5fff19..f4be192235889 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_seq64.c
+@@ -175,11 +175,14 @@ int amdgpu_seq64_alloc(struct amdgpu_device *adev, u64 *va,
  {
- 	struct amdgpu_i2c_bus_rec i2c;
-@@ -96,8 +111,7 @@ struct amdgpu_i2c_bus_rec amdgpu_atombios_lookup_i2c_gpio(struct amdgpu_device *
- 	if (amdgpu_atom_parse_data_header(ctx, index, &size, NULL, NULL, &data_offset)) {
- 		i2c_info = (struct _ATOM_GPIO_I2C_INFO *)(ctx->bios + data_offset);
+ 	unsigned long bit_pos;
  
--		num_indices = (size - sizeof(ATOM_COMMON_TABLE_HEADER)) /
--			sizeof(ATOM_GPIO_I2C_ASSIGMENT);
-+		num_indices = amdgpu_atombios_gpio_i2c_num_entries(size);
+-	bit_pos = find_first_zero_bit(adev->seq64.used, adev->seq64.num_sem);
+-	if (bit_pos >= adev->seq64.num_sem)
+-		return -ENOSPC;
++	for (;;) {
++		bit_pos = find_first_zero_bit(adev->seq64.used, adev->seq64.num_sem);
++		if (bit_pos >= adev->seq64.num_sem)
++			return -ENOSPC;
  
- 		gpio = &i2c_info->asGPIO_Info[0];
- 		for (i = 0; i < num_indices; i++) {
-@@ -127,8 +141,7 @@ void amdgpu_atombios_i2c_init(struct amdgpu_device *adev)
- 	if (amdgpu_atom_parse_data_header(ctx, index, &size, NULL, NULL, &data_offset)) {
- 		i2c_info = (struct _ATOM_GPIO_I2C_INFO *)(ctx->bios + data_offset);
+-	__set_bit(bit_pos, adev->seq64.used);
++		if (!test_and_set_bit(bit_pos, adev->seq64.used))
++			break;
++	}
  
--		num_indices = (size - sizeof(ATOM_COMMON_TABLE_HEADER)) /
--			sizeof(ATOM_GPIO_I2C_ASSIGMENT);
-+		num_indices = amdgpu_atombios_gpio_i2c_num_entries(size);
+ 	*va = bit_pos * sizeof(u64) + amdgpu_seq64_get_va_base(adev);
  
- 		gpio = &i2c_info->asGPIO_Info[0];
- 		for (i = 0; i < num_indices; i++) {
-@@ -158,8 +171,7 @@ void amdgpu_atombios_oem_i2c_init(struct amdgpu_device *adev, u8 i2c_id)
- 	if (amdgpu_atom_parse_data_header(ctx, index, &size, NULL, NULL, &data_offset)) {
- 		i2c_info = (struct _ATOM_GPIO_I2C_INFO *)(ctx->bios + data_offset);
+@@ -205,7 +208,7 @@ void amdgpu_seq64_free(struct amdgpu_device *adev, u64 va)
  
--		num_indices = (size - sizeof(ATOM_COMMON_TABLE_HEADER)) /
--			sizeof(ATOM_GPIO_I2C_ASSIGMENT);
-+		num_indices = amdgpu_atombios_gpio_i2c_num_entries(size);
+ 	bit_pos = (va - amdgpu_seq64_get_va_base(adev)) / sizeof(u64);
+ 	if (bit_pos < adev->seq64.num_sem)
+-		__clear_bit(bit_pos, adev->seq64.used);
++		clear_bit(bit_pos, adev->seq64.used);
+ }
  
- 		gpio = &i2c_info->asGPIO_Info[0];
- 		for (i = 0; i < num_indices; i++) {
+ /**
 -- 
 2.53.0
 
