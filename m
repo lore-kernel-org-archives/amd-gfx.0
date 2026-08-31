@@ -4,91 +4,90 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id C67A5C624A5
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 15:12:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8265DC624A5
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 15:12:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 37ADD10E211;
-	Mon, 31 Aug 2026 15:12:05 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0195010E93C;
+	Mon, 31 Aug 2026 15:12:44 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="p1mD17yx";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="N5LVXYtg";
 	dkim-atps=neutral
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
- [209.85.215.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0227A10E211
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 15:12:03 +0000 (UTC)
-Received: by mail-pg1-f181.google.com with SMTP id
- 41be03b00d2f7-cc1cb48db3eso390362a12.3
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 08:12:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788189123; cv=none;
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DBC2010E936
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 15:12:42 +0000 (UTC)
+Received: by mail-pj1-f41.google.com with SMTP id
+ 98e67ed59e1d1-396affa9420so566341a91.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 08:12:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788189162; cv=none;
  d=google.com; s=arc-20260327;
- b=eDAqeAmC7Do/4fgGPeSqFYCH9VayoWuT5ZfZOPfb6w35lL0YmFFiO/TdUv3LbjD/tr
- Wg4N1655X76j5Z68hxw9YrLRblzTEBKZiV7SWIvjkcEvAIZ3J4ANqs7Lart1lPvE9Xnn
- RsegJcSnIk1bLbiJlPLk2lg+diebGIAY3wMhQR7+ENhw2/qTlRpIbyMMQzJQGJWbA9n2
- R8lJnoyU2NjqpiTbm4hjLAFmtqvglrEsGEhOq+bAiTDZTW7Kv6/Mm4gMipDdqtD55d1j
- Pn1S20MU3jb+7+CLVKXQC4oM9HFUIbwFa3GuHT6MdTAzDSnIV9Q+0xgRzX8L3YfwKM0B
- Wyng==
+ b=UP4haBd44llsfF8t4Gd2AVNfUQEv5mM4YDwUdmmKUsUogW9o13iXHRao4av+iOjZ63
+ BteV+AitwCgsVm9NpxM9clC/e/vvXtkTTnq3Hz70kWTlLLxyxxr8Y+PeH2zZtEXhp1/H
+ muJL8D81Kp7W5MRPUTfBoZCeL7aec0Wy3huCbngaj2HIAVmYasM0jj7TH9lr82vjP4JP
+ NPqKxecvXyivhT04CNXAboF16cFSQbSz9FwVt/W5Dt5uFh/rhEDHnJ7RdAV/QHipOlc1
+ L9u7IXwlEMPS53ek+08IFNBUDDK9/lLmNhn6m6uAOk4/woIe36woZ/37drY1bnyQ2KK0
+ awpg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=bU/p4LQuVp49PubOCZU3/XcXzDJhNDNay2ZcTvCxHKE=;
- fh=o+xcdZqtsV+hweoMyXx7yDR29gwxAAHiM1joBJOFz+Q=;
- b=SUhlFYYs4CUwMrymXnrja3+1TE/P85jJfDObpTv5uW6EL+oWdNIBrwCMBLX9ADKOFD
- 1PUjBNxq67MzJH4WJLAwyjLLXEmLHkC10wvrK3ahOt9+pWzjWVEzHzx24tDYqWHNJl4i
- QaW5uVwbFjx57NLlH95oB08HQF93DVyPnSQxh152+SKaYeY+SZOgkuGmxWyfAtTtgS77
- yyA5tORBUyGihgVl0APE+K1wsplIgnVTVbNI3nT+UnT5yXfzIIGcOufW7YdqmIR9d/bl
- ud4hqCV9qnPEs9VX9QYHuE3OgAu4+0Z+SplUmCdXdWuzzvrbsTcNm2NuC2OfW2bGd0rV
- FLRg==; darn=lists.freedesktop.org
+ bh=KNz2F5FL3X+97FKxlWbX688M3EAfnkieJCDZE187FV4=;
+ fh=zEahUIOi7n4dSdyIGg557basUx0OAfQiRFwjBKA9ayQ=;
+ b=oyyzzuYjS5TMIRkSnL9cPtX5dt5r60Crv7W4PUJgKOEQdaGMTf9VLv3vqggUH3csR5
+ o8q41Oh8ArwVXwWeBQtTrclIUmd8cVOud8xzBGLUbZD5WOMHB5lDG1DlQsX++YoECiS/
+ s4cLdwOa6i4UBK4PAi1elZn9wDy/pzYiE4etQXTvUrrzIO9BjxoRcUgikn7h4GJ7tgZi
+ GGN4uupJbK1C79+RCVsMi0+KRFnurU8EQKHGkdz5iotq89rq9bSZHEWHOCRRcNTBhW0Q
+ lrC79hbFpZD+mtC2k4pbWyhUDriZuXHFJVuNqQtrKo0RKDhZTGmnUJeUZVnHkrA2J69r
+ fChg==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788189123; x=1788793923; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788189162; x=1788793962; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=bU/p4LQuVp49PubOCZU3/XcXzDJhNDNay2ZcTvCxHKE=;
- b=p1mD17yxTUSEh5AWsarNHMlQEoQZGOQCLQo/Mx7tEmg7iyFudhLBKYtpkB1DOaeSGM
- GBhJ1ZPqLpTOIlkU4uzs9o+tp80n3qh0a6dF/6sXduNj+1stMhhjgRaPLoP8wXuq/bZo
- 0rXSRFqhNcEMl1Uru78BDIQrFbpdu0SvftrwVReRItb62mBN2kY8YiHp4SGcW7VA8nXm
- K2P3hem0xBsv/XL/QQJGgP/ewSHXZ2d1xpYsOe6j6CJyZAqKIqyFcyfoq+OQCN8XP3XN
- 77MUB212ymv6U/0/IEW3QE8jl3Hfbx0TAv5YIoKcLT+/r4N9cIOokKH8FwkkbQavEqME
- AivA==
+ bh=KNz2F5FL3X+97FKxlWbX688M3EAfnkieJCDZE187FV4=;
+ b=N5LVXYtg+eL7qwiYZuGr/ldkM9HifkjPS7xfr+kmyyjnv3GCqX27f5/9eDCyQIfTWk
+ eFOIHncTktF6DHNI9fVLtnuLndv3lOIpgKl9OP89GQUMnaQH5iT2ok2mBHipQmHX54fP
+ IpZp4zvei/lg1pn2fUZYIhBMyD/ztZbuHuX1cAzB3OsEfzvfFTLFcgxxyTg7hZReCNrw
+ HGMC8MTtZdXYQtUuzr+EGpYrJGOmPay7dUz4kdUPLEy75KUwfUR7ivTvI03vw/s4ywgI
+ Qp5uFN0WiQcctwAm7rHFY6uWN7inzgDBRh8RZ/JpnyCjuxOZXdDrH6fwq3WNmgFuSJGd
+ pA3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788189123; x=1788793923;
+ d=1e100.net; s=20251104; t=1788189162; x=1788793962;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=bU/p4LQuVp49PubOCZU3/XcXzDJhNDNay2ZcTvCxHKE=;
- b=PVwsnCYq/3amhdonmuWgMxl4BtzT+EtesIVpqjx9/nyUrQwVWYEb6ZVwvizseRCFbN
- UwOvd5WROlcm9cUp6SlEloFNk9jgDG2S+CUigHECqg21VwxY6QjOnFz0oBhkDTfPbEjg
- nFU0f3cnr4oeh6tW+oP8KWcqsUUjON3blovpHw85AAnOEUG5qnAnloJCrKIVwURvaJKh
- F3pemSlurpiadyMcEyccArO73cMTg9cTPtnDVyUpBGPt26xoONYdBKWAwT/aSuO8av4N
- ukKk++Dzhx9i2GDJpX7Q4uyp9L9+LXeu7riwV7z+khlRMhyLaA4bkQMPGQ1C/s2G3Qv1
- qQzw==
+ bh=KNz2F5FL3X+97FKxlWbX688M3EAfnkieJCDZE187FV4=;
+ b=ZbbSlX/U+/Wp3ubuH7emz6HVv537h8NSQWvscQU4rkOkEBTkGo0KizioDC6+uyYWkt
+ K0x2yn0sG4HgxwsMinKkb698aX1BjGYKR4x3HbRpTHo1gLwjYHO2Hpw06qdQZ+K0n7Z2
+ Te59xkQn1cEEc9EKxyAwvz17gWqZZVPYQIuiI2Fm/pk/OB12UuSHCq5nBAhw3aCA2YEf
+ c7yYMwIWN0Ibc6wtQ4Bx5pxOzKk+gYauVQTt/G7mso+wuJ34bA9a36Eq/6k29n8VHw9Q
+ mMvbZwGSitoOLN1/aGd40rDLJgxVSLHuzS9raAqBp2VLKoky1E1Ze8TgRL1o9+Cdna29
+ ioGQ==
 X-Forwarded-Encrypted: i=1;
- AKwUvBwdDPvd1cDq3dMD3scmaPUijvFCfXLTfgB9DFaIpeJqIZWUPE+xbu9e8GVQRb5vbhQY13GWEFQF@lists.freedesktop.org
-X-Gm-Message-State: AFuF++npXO7ktPfumNN1Yyh+c0yq/wP0mPjvVXaEDfsEX8Oyn7RBlxjt
- YLNYhC0h7luiRCaeNonTBs42EA+h9oxVgdDgJf9d+7IcmGBzUHwN1pS2i25onqNp4yOBLd1F/Wg
- mGTNIKq2Ez34kDA8ISV8C7tQRenop5WciRw==
-X-Gm-Gg: AYBFou2PM1mgkwdDvAKOd0bjTHumNeCJQbo0EqFS9I655LDfkaIe2julbcZmagpZpB9
- KGPOIBvBKzyuEmvsvomT69DeZmmJd24dC5qFUzeFIKQYf/X0+UgFuv3aIA9mmZs8KOKKSRU/9JW
- AJ2cDCPTAPLO7j2+dLwRqRxKO8d2kxDZdQLngKufCbQ3/t5eeMXHdwMhRv6osvMRuGq+FxWCeGT
- heg2HIZv9zLI4cSyRNub+gs7ZQEzosx2DSBRJbMvTQR4gYPJ+L5jPa12Ba24PL0Ucvn5gFMPVy8
- eodK2aLP3X+/YIOliD/kdQq16GpNPQl/reOJelG91B7dA3X8v8lqVV+B+SKNYGNo4zFgjPi9OhP
- b/cYl6p518SZPtJc08Oz5/eJQzxukTjY=
-X-Received: by 2002:a17:90b:3e50:b0:398:bac0:238d with SMTP id
- 98e67ed59e1d1-398bac026a5mr13798473a91.5.1788189123270; Mon, 31 Aug 2026
- 08:12:03 -0700 (PDT)
+ AKwUvBykS1pQU+s3MENJzG2PV5hVt3LZ7AolO+lawP/Qi57pbUATltYsv4I1Ew/eAH+l3V23Q7Ub8JqQ@lists.freedesktop.org
+X-Gm-Message-State: AFuF++me+/jUTsGiFi3awYENaa6nIg1rRMt+2mupzO6/Q5nCkQWr43nS
+ vdRY2Dfglle/ZazxIHK0ZWmH/v5EdYUji+ZFVRDkuzJKYfv7Iyi/YYUyX6F4pp1SIbM5cYL0OPF
+ v1ctAPoA8D844xa2rSwgysDxS16g0NwI=
+X-Gm-Gg: AYBFou1Z0zFFYpA0GRTYVGUyTaIWhRQkowDQy15sfqm6xvxZ5siqxfrhn121xs9rTH6
+ L6jlZYzWPF5NPu7WuykPBMuTSe1oZCUh8Q8+sfMArD5a3CRM11bFsmAj8b+vKFgaxy2SxTTr5b5
+ pfBwVomNb3U6VU0NGvGdWt4klCyU4jEiyBcNZzI2hXahybHGrY7SW0WD/QdjiN86I9Wfv9vPcuo
+ B4wrpzjY+KcL3b0mTvTpjGTs/RqmVIUVFDBrQaO5Eq61sWOCg0KrjRbZEAxGyY3s+TuMjDFmzhy
+ ZAXQETgu8Ox8C5kGTb2gbRn6M1asEqi6bPK8L250RrbAN005TR451RLL79mVcSkdcCu039+PZxO
+ XxTfV6f32vPb1FsIVmEV2CB7Sa+Rkvek=
+X-Received: by 2002:a17:90b:4fc5:b0:396:63a8:699b with SMTP id
+ 98e67ed59e1d1-398ba94e732mr14505544a91.1.1788189162213; Mon, 31 Aug 2026
+ 08:12:42 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260831150211.1486154-1-sunil.khatri@amd.com>
- <20260831150211.1486154-3-sunil.khatri@amd.com>
-In-Reply-To: <20260831150211.1486154-3-sunil.khatri@amd.com>
+In-Reply-To: <20260831150211.1486154-1-sunil.khatri@amd.com>
 From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 31 Aug 2026 11:11:51 -0400
-X-Gm-Features: AcwNN1WBk3gUMGBXX6fUXwJCrg-lCKSyC2W9yahylHp4nECBDMOrYiIyqmjye5o
-Message-ID: <CADnq5_PnhBHs_aSjLKP+DDz_0DUUUJTjvq8+d257hzGfdNsxxw@mail.gmail.com>
-Subject: Re: [PATCH v1 3/3] drm/amdgpu: add the fw check for gfx11 missing ips
- for uq
+Date: Mon, 31 Aug 2026 11:12:30 -0400
+X-Gm-Features: AcwNN1V2yltu9bjviHXJSmP_xwEeQNWpuWJriUypNt7tqns6Sur8CAC60yGsd58
+Message-ID: <CADnq5_Mz1KrT70mLEbJ4EqikmFGGRiJLXXEWF++pfu2LQC+wQQ@mail.gmail.com>
+Subject: Re: [PATCH v1 1/3] drm/amdgpu: update the fw version for gfx11
+ userqueues
 To: Sunil Khatri <sunil.khatri@amd.com>
 Cc: Alex Deucher <alexander.deucher@amd.com>, 
  =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
@@ -109,40 +108,38 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Patches 1 and 2:
+Acked-by: Alex Deucher <alexander.deucher@amd.com>
+
 On Mon, Aug 31, 2026 at 11:02=E2=80=AFAM Sunil Khatri <sunil.khatri@amd.com=
 > wrote:
 >
-> Add the proper checks for some of the gfx11 variant IP's
-> for firmware support of userqueues.
+> Update to the latest stable fw versions where userqueues
+> is working as it is expected with major fixes.
 >
 > Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>  drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 >
 > diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd=
 /amdgpu/gfx_v11_0.c
-> index 2c160ec9dc57..ca142c69cc28 100644
+> index d704ce328e6e..2c160ec9dc57 100644
 > --- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
 > +++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
-> @@ -1670,7 +1670,11 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_bloc=
-k *ip_block)
->         case IP_VERSION(11, 5, 2):
->         case IP_VERSION(11, 5, 3):
->                 /* add firmware version checks here */
-> -               if (0 && !adev->gfx.disable_uq) {
-> +               if (!adev->gfx.disable_uq &&
+> @@ -1655,10 +1655,10 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_blo=
+ck *ip_block)
+>         case IP_VERSION(11, 0, 2):
+>         case IP_VERSION(11, 0, 3):
+>                 if (!adev->gfx.disable_uq &&
+> -                   adev->gfx.me_fw_version  >=3D 2420 &&
+> -                   adev->gfx.pfp_fw_version >=3D 2580 &&
+> -                   adev->gfx.mec_fw_version >=3D 2650 &&
+> -                   adev->mes.fw_version[0] >=3D 120) {
 > +                   adev->gfx.me_fw_version  >=3D 3090 &&
 > +                   adev->gfx.pfp_fw_version >=3D 3190 &&
 > +                   adev->gfx.mec_fw_version >=3D 3450 &&
 > +                   adev->mes.fw_version[0] >=3D 147) {
-
-We should verify this on all of these APUs first.  I'm not sure if the
-fixes have landed for phoenix parts yet.  We may need to split the
-checks for stix vs phx depending on the firmware versions.
-
-Alex
-
 >                         adev->userq_funcs[AMDGPU_HW_IP_GFX] =3D &userq_me=
 s_funcs;
 >                         adev->userq_funcs[AMDGPU_HW_IP_COMPUTE] =3D &user=
