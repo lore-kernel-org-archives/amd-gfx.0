@@ -4,125 +4,127 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0E961C61DD3
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 12:13:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E0C85C61DD3
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 12:21:48 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5289B10E1EE;
-	Mon, 31 Aug 2026 12:13:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4B37C10E298;
+	Mon, 31 Aug 2026 12:21:48 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="TF+tY/MW";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="RVHj+aXw";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012009.outbound.protection.outlook.com [40.107.209.9])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3F25110E1EE
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 12:13:55 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010003.outbound.protection.outlook.com [52.101.61.3])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9153F10E365
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 12:21:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iNVhLHT1ScMv2fU5mk/u1I3HMsY7c4inak7bM8Q9RHZX3jgGekNP/l1Gf9QYy8qpvytPkqMDNQUg20Xi+Yo0rTW/ofCzg70XsBGhj4Gn7KPITlCZfrOqXFhQChayw3ChSWehVRoAixifd2GE1pycBwQOCbhGc4EOFS4wSlh7H9WqCAfwS16VbS4FdN3NsjJcJg39Swe1q1lpmhvBh3pXxJSeJYqzLnga/Zzel7CYuHhTWlT0juWn8XBf2GCLiTvP1TJ46Ku9s5319RQaN5W17d33dcWSDS0gQ7Fayi9pZEgo2stm8/YkJfZRpuO1lmQ9Z88Gk4+Bl8gyBuBvzpZnhw==
+ b=Yg5PUmEZ4VGalVz2XbrFC3cf+29XnSmEmf2N7v76iHJp+r/8PCH52ddGNa4qY9axixZQycuCliukl1Bea4BQUI2UtGApB7sA6HTzBApQw7tY4MZWLkOADAo/41ITLZxsjpkU6SnDZ+/WFBy0Htu0IRgSZ1n8ERbYNDIrRHCS6BhczCMC8WREHH2kQ234HpU9nhPjQCpk1rvgMNFs+AfWGfMVg+jykqDHA82l/nRKGx85zMT4vjQSe2L1Fm3GMeDVjxkizrzlcSRR83z40JJWxLvg8TPtFnCXKK5HFilg9U76sguRjy7MpcjhBW1M/iNdW67FC1DSM7fJjo93CewuPQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eq9sZaN/m0xUHg/P0x6sITCkpAqlmV2UiarkxlasIqQ=;
- b=cq66nEdFxovRSU1z3p6rmSDiVTR39GOFo5Nuxivc+aM8X+W2/9Ec0IzoCnSouUMkIuvUAcVEcFLBL0o2AYirXW/JMaEiyexJYyFfQtzHWDLeE29fGjufReceYM666bUSItn4AAXoi7PQ+aLZqgmmVU0634uI1v4Puz97UA3T91V9FigPZvO6Z5Bc+ndmpSQp2CEfmgwAM0an9IsYlb5d2rNblhPDic6wEQSh75PA2+GLeB2cM2uSaycAP3NliIR0UieEKMH1tByGL1/xhoQq3PMrZxQZfKZi8FYYItAtlFUgAcc+z9njd9cOtPiHgir+N/mq1GS2ldvC8eoReQu3kA==
+ bh=FHNSdrNq82JFermsOuUrhVziIZU1YtpPuvtWS0CmziE=;
+ b=OlFDf5o9u079z2hpsJD1pZo/7nTRju/BivwSIb/Q6pHI3x0OuvLyHaCubJu7QvSx69DWocqkLeuP0zUgxaWb8ksz5UxPAqrlj1ghvtSrdcVGlAMxdWhSNARHtJOCpzu1pWpxxCFKZoS1SbKQdAtdMpeCQuHteeenSKVPM4SCbMHpPV0WJGt2fHSloqcWVKhi2UCU1SnqjMNLZUBA5Wpe1TtKh/22OSWmBF2D4jMpeBHK+IEEInHLlNqtHs2zpsaifeLdvcfsBuJghp/sarzaay0UQhIwydb+EQO6GO+mhIsFcevJHY7eXz+PahQOnWhXGGcBubPXJablVIBu+nn9aA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eq9sZaN/m0xUHg/P0x6sITCkpAqlmV2UiarkxlasIqQ=;
- b=TF+tY/MW/OkfsAxdWzb29hdvw3Y6vfXCzGn+kyomLUdknd1Qa95Tx+T6Zm8rk+usfj3icGo4ECGTSf+hL5RK/Wd1KRZN63Oo27SCGjjspUSVI3+jqc/fPtoMftM734yu+LShXwFIDVLWMQHCnUCBQ+UfyLcajrZIFCFTrtO8m00=
+ bh=FHNSdrNq82JFermsOuUrhVziIZU1YtpPuvtWS0CmziE=;
+ b=RVHj+aXw0gZYaCvWa7zr47UpscBR1xsPC+0fsF5vbXqZnzj1WSt4bqczfXwt6rI71MgyyRZamwnQtj9QPixAfm+7DCc2uk5gBHvwdkDUQBxMXmN55BTpapU+XraQZhEHfNMar0IFaVON6RSXkbqMtGByYp2INaU1soI98KmgTq0=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS7PR12MB5984.namprd12.prod.outlook.com (2603:10b6:8:7f::18) with
- Microsoft SMTP Server (version=TLS1_2,
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
+ by CH3PR12MB9252.namprd12.prod.outlook.com (2603:10b6:610:1ba::9)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 12:13:51 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Mon, 31 Aug 2026
- 12:13:50 +0000
-Message-ID: <03347904-e0ee-42ef-a40a-478309a2ba33@amd.com>
-Date: Mon, 31 Aug 2026 14:13:47 +0200
+ 2026 12:21:42 +0000
+Received: from SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
+ ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 12:21:42 +0000
+Message-ID: <0a3293bd-317c-4bf8-8fca-395f7a1435cb@amd.com>
+Date: Mon, 31 Aug 2026 17:51:36 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdgpu: skip the VMID 0 flush for VRAM
- clear-on-release
-To: =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- alexander.deucher@amd.com, amd-gfx@lists.freedesktop.org
-Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- stable@vger.kernel.org
-References: <20260828044734.135460-1-Arunpravin.PaneerSelvam@amd.com>
- <voa7PnOgTa6oSIPH4Hu9jQ@gmail.com>
+Subject: Re: [PATCH 0/7] drm/amd/pm: stage OD reset until commit
+To: "Wang, Kevin" <Kevin.Wang@amd.com>,
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
+Cc: "Deucher, Alexander" <Alexander.Deucher@amd.com>,
+ "Zhang, Hawking" <Hawking.Zhang@amd.com>,
+ "Feng, Kenneth" <Kenneth.Feng@amd.com>
+References: <20260831043507.523599-1-kevin.wang@amd.com>
+ <6041b95a-ac8c-4410-97cb-8eca51d20d50@amd.com>
+ <0e34543c-4802-4023-befa-480b5452d92b@amd.com>
+ <BN9PR12MB5211F46FDD421E130B99248793A92@BN9PR12MB5211.namprd12.prod.outlook.com>
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <voa7PnOgTa6oSIPH4Hu9jQ@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+From: "Lazar, Lijo" <lijo.lazar@amd.com>
+In-Reply-To: <BN9PR12MB5211F46FDD421E130B99248793A92@BN9PR12MB5211.namprd12.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR5P281CA0014.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f2::7) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+X-ClientProxiedBy: MA5PR01CA0228.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1f4::7) To SA0PR12MB7091.namprd12.prod.outlook.com
+ (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS7PR12MB5984:EE_
-X-MS-Office365-Filtering-Correlation-Id: e64a0fbb-787d-4871-1620-08df07595133
+X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|CH3PR12MB9252:EE_
+X-MS-Office365-Filtering-Correlation-Id: d46a9f82-c855-4ce6-dbf8-08df075a6a22
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|1800799024|366016|6133799003|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: MsHqaDcT5eGgY1aQgw/2ZtHfWYJo1lgVwSQbMcb4BmnPU4Gu7pzd/X4ohhy7Pf8vd0f6P8NRAX5f6MLjiYqw6f4Ps1wPggu3L0MDmnnsFYJ3DkMmzCRl5GPrQQV+IhRtky7GpHoZKxHeXM5AM86/KcO27dE4UrjK2JarTWgz0dUb8dfg7XZ3E6xGyjV0sWgIDKpU+OFq3ISPLaVc8PlBkFkYqmLc4c2kTFz6/xwlcjR/GEBEuT+hpEsOZ8vbYI5m+Lm/S9mpD1QTF+txo3QC9ZxnyV4bDHX95xckWPt2tpxzDk+RQ3H0QnLfMwme3V0cisrSjX0ci4xp+ZsVXt+jkFSGz7Zgz+V4oEpwvLjCNUVfwDtXYVm8VuCJk7bA7KxiK5LYp+coUVfqqpBJ5LMar9cS7V6gOnyFtd2bJ0x3d72IUyUgbtKb2IcfTo69sso+RRMoSxHViL59S69Cp6WfKO1r+LairFGTXc76G325l4nAaxR5ws1t+0wxmr42FuGOt5On5/2fOYR7w3HeOrBrYhrBbBbI+OkHlkfxpq/d5gNmuSkblVdix4PUeuNFVuTSs4r4Dt5annbxo471MvRwFLhllg1z3q9QCZCH9xSY3JDkK6eexvQccro1Kd/abvIkyXadYmX+uEGPmeCWu5JyUjAckCYu5jgMIivRW3nT0mI=
+ ARA:13230040|376014|1800799024|23010399003|366016|6133799003|3023799007|10067099003|56012099006|4143699003|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: /nwpZFJibCyph4lmmvpd7PDQrnJkIpoy8dQ1iylS8nXpkWsXFZV+FJjSbkZMdExE+5ub6EIdVrstvwLSgZZyYJrSS1tbUahD0MwUv3/Mof3v3qPfy9BxXnixLmR9qymt496JV0GsdtjzxifHkbyOomAmXI5PNnDE3NxuGQg3K/CWbCx0p5N/KPhe1O10yNgYge1Oxj5O+3YmEYjPtoRXYWs4ZBGobf3WqhkLemil3J3lLsQqTyCSyAeKVaIhajtzvTkYyJH5qy8pya6eac+L9valKgx+qJXCSxLl+GK6gt+hX4zO3WO8qd+tM9Km71Kdw4mg3mDsbgpa8rKVCzaBBXn3Kbb8nr/mfuEbYZ4EHH9tlzbvVeJQxfwVyZIOKUtAwAFZ4B2W3H8W+HcPpfVTklQgWLAK8ooW7OIZ3OReJg2/zeW1kd270vOVYabctl6MeymrH2bcQtacGV1GLEGCNXcMjv/9mhKKUciHzRlg55TIAVZIH8iCRL9JwSjJVbTQ+7lFgEoQ/D6wFPjb1nIHfe7CHyEjPVj+wwsZ9q7ij3soN38DQxFXHuHuni8lCE7ASUz2mAEIJlyftBF8OKEiZvw5RsSIIOtoGiKseWGvMsk=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(6133799003)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(6133799003)(3023799007)(10067099003)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?U1I5ektGNkRWYWEwTzRubUQ2WW5QcmxxR0tJY2lRaVdHVGlpNkFxMHNLcXdE?=
- =?utf-8?B?VC9QZ1hLQmpHY21wZHZQaWdLQ2RwejByWjIvclF0amdpRHMzSDZmbWNVdXE3?=
- =?utf-8?B?T1F3aWVrUEZqS1ZEZlZsTHREVWxaVy9iVi91eHpKV0hhSml4aWR1aUpmTnJE?=
- =?utf-8?B?Mi92SVlpWHg3RFZKWUlyQzg5L2J4R04zVC90Q0t1RmloODBVbjBhbjE3KzNS?=
- =?utf-8?B?MHNQWjhzaThQeUNXN0RZTWFHbkpaT1Zoa1FsSVVNNnBQdHNTalphSW9oejl5?=
- =?utf-8?B?V3hZS0lxS2lCb3Y2Yk1NRFlONTJxL3hsek1DZWVxWW1YZmJQaHg1MTY4QVJT?=
- =?utf-8?B?SDQ3Q3hSQ2dzQzVUTDZhc1RYSExBTjIrdkttN1NTZEo2VWNCd0xwUVE0b2t5?=
- =?utf-8?B?VUpPeHpsL0UvRUZMTzNFQk5La2dlNFZQUzhGU0NSdFkxOCtBcUFyZUp2NWRB?=
- =?utf-8?B?KzZhM3Zqa0t0T3RtSzdKaWdISEptQURUT1dlRHhkNlpkbE9yZDJTQnZtYll3?=
- =?utf-8?B?L21kL1U3TncvcFpoRFBCWXUwbkpQcHlEcURCeGtxcSsreVh6R1F5c2IzSnRr?=
- =?utf-8?B?K2dPMkxCNkFPRTRhR0xYTW5IKzh6NWpVeVBVbTJCOWljTExUN1ZhRVppcnhz?=
- =?utf-8?B?TE5ZajU2bnUwZlRWQ1habEZnc2U0T1B2a3VIY0RnSU9Ia1I4WXZOQzgrNkV3?=
- =?utf-8?B?ck9JMUJOemNYMU9NeFdOdnByV296TnJKRlpJcUExanFPaUh4c2VrM1VneFkw?=
- =?utf-8?B?dUJSMUdnK05IUTdLNXFrV3VsWldOWFlZdmxnSHQwMFE1eU1qTXBtbFRKZVJl?=
- =?utf-8?B?RlUreGVUb2NPbFp4R3FMeVBMNmxjWUVlSFNMYlUxZnE4Z3E5Wk1UQ1o5U0xF?=
- =?utf-8?B?Tm50U1BGa2xuQWxaZGxuZk52b0ljejJDdlh6cElwUXNnK3VmTmhZemVYbUhK?=
- =?utf-8?B?eFUveDU2bHZlam84Rlh3QmYrbTRUVmNCQ1krS1UzeERheXdUdEdQOGhTbUdq?=
- =?utf-8?B?UHQ2aVBzakh2RFVaRWFCQVBDVmQrZThCWTdzWUFjdEpUcEg0QjRkVjVXdXBw?=
- =?utf-8?B?YkZTbUpvSTBtU1NYUG5wQlk4Nm90bjZCcmRhUlRlbUdkNGxMdDZwYmJBVXFu?=
- =?utf-8?B?Q3RnQVlQQm5abmxpbWRicnBPK1ArZmxLNmJMRGZKZUhhVWh6bGJOamsxdVQ1?=
- =?utf-8?B?NjFQYWlSWEVOdFdadHVxV1hVcVk2WnBISlFMZlhsZGJoakxrNWhLY0NDd2ww?=
- =?utf-8?B?NzdsVThUV2cwQnRHVUV5R0VtS3JIeWJGNStKOCs3WTZsVEJ0NERaWStJOXdk?=
- =?utf-8?B?Y00zZzdqVmhZVGVTWDhLMXdCTkk4VDlKL2pDNHdxOERsQ0RWVHZPVUFMdkNV?=
- =?utf-8?B?d24wd1EyRFpyU1diNHUrZzViK2VsOHZIcHUybzg4RWh6YlJwYnJ0OGx5TTlt?=
- =?utf-8?B?aUlteWU0QlhGYjBNMnZCOHRIV3hIb0hvMUdQR0ZqTjlhVDB2WnJMcFB4NzQr?=
- =?utf-8?B?Z2lQRXZOV1FzTmlGTURtd3BEQ0tQeU0wVERWSFJhbWNUSG9RL29DbXlaOVRG?=
- =?utf-8?B?RFgzUFBabFNqNEtqZVA2Umt3SU9kREJRQm96U0VlaS9ITzNjeWs1Y25CcEJw?=
- =?utf-8?B?RXJGSjkwYXRSQ20rR2s3aXZ2aW8yU3MwMWxJQWRhWGVLS2NMVjJZa0pkUHNJ?=
- =?utf-8?B?T2pZVmRMRHh4MlRRZ29naGU4NFVINmdlMUw2MHZpRklHQVRqSndOVHdpTFBh?=
- =?utf-8?B?SXUyZHRxRDU1Q2orenFReThSL3ZvMjdoaVgxWHE0KzdwUThkMTVKZ0Mya2hu?=
- =?utf-8?B?QThKSExSbzFrYWJTVURUamFmZjRzb0hQcUMxV3MvaHJMUkp0VHM4UzFmK09B?=
- =?utf-8?B?RWFPL0JGajU5UjZua1llai9UVHN3a2QyVDRra2NCTFMvMXFaMUNwWTFwdlF3?=
- =?utf-8?B?VkJqS1hwZStES3V2U1lLWThPZ2tOM0dMQk4xd2FjN2h0THZuUm4wYkF2VFla?=
- =?utf-8?B?bUIrLzJXdEw4dnUzZFpHWWVnS055cjNLQU94Wnd4SWRNZTdqcXVkc0V4REVR?=
- =?utf-8?B?VDI1WWhHcHZhaEJPYWJGQitCWjhzK21uY3BzMkRKYlRreks0cXlpcE9lWHJh?=
- =?utf-8?B?WnZnSzI1NzVOaFVlVE9sVjlHbk03ZXI5UmIrRkd1ZnIzYS9NWjExaUxrQ2Iv?=
- =?utf-8?B?THNQeURlN3VEM2g5K2QyMUJrajFLVGllMlBzMy9Va1BYN3ZoTllrRS9aU1lL?=
- =?utf-8?B?ZXkydmk4ZGRTMGlhdzc3d3hFZk9rUFM3ZEwzRzRIRlRobnF0a2Z0elNiYTN3?=
- =?utf-8?Q?WV3t7Rop8V8U0QnZL8?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OEZWcHpPVDdGVkVMMDIrNkQ2S2tvZjNoZ014aE5DWjVYL2ZrcXpCMEt2a2o3?=
+ =?utf-8?B?eHFOMWMvZ0xMbnREbU52SkcwakZhUHpWVnZUZmVFVWJyeFdOZ0p1TnIvQ0p6?=
+ =?utf-8?B?L0VIZUxWQ005aHJyeW9FdFJ4OVZCdERtZE5FcktPYmNJdDRKclQyNWhrWndC?=
+ =?utf-8?B?V1dTNTdjVjdNU0doWlZqT21hcjZabjkrSHV5SUtoRFF1T2hRaEYzd0dRSk11?=
+ =?utf-8?B?Nkc3VndZZUQvUEJiK3ZjdmJnZElOTFZNUHB1eld1dzB6Rjc4VVhQRnlSSXRM?=
+ =?utf-8?B?eDk0blhlVXBNa1B3TUNlbmZlYk9Keko3dXMrSVA4QTNvMEdHZkNyaU5hNXJB?=
+ =?utf-8?B?S3Y5RjgvZDByK1Z6QytqVUpiWi9JOVJmb0IydzRsdUpWTjh3bjJhUGJGZWFx?=
+ =?utf-8?B?a1pJbXhlSW80UWxLNllwUFM1eUlOR2FNSWlQY3BlR3JoRU41dkhrSFMwQmNi?=
+ =?utf-8?B?VGwray9Ibmd0SE5zYWJ0Tm11eCtEdTNsdUtlSFJpWWN2Q0Z0My9jVTZNcmxV?=
+ =?utf-8?B?WGY5Y09obWhOL2ZhRXN1RUdZZnhucWxoQ3JzeS9rVjZGajhVSDQ4ZXVxYnhi?=
+ =?utf-8?B?Nk5KSWp3bXA5L21ZYXdpa3pZQ3FCYTBCTjNReERFVVdDZVhuemRvWkJXVk01?=
+ =?utf-8?B?Wm5SZThWd0Y2MVQ3dUdrVWJmNzdBVXUvd2l4RnFycGNmNDZzZTdxNndGSUJv?=
+ =?utf-8?B?Vlk0N3g3TDc3TWRQVXZlbXhHSEFmbGtQRFAwQmE2WTZlbkFyVklvYVBIRjJP?=
+ =?utf-8?B?MG5pVFhPalV5Znl5MXBXdWhhSTRDQXlkcWttZmdOTzRCUlNQcGZBb25IVnRr?=
+ =?utf-8?B?dnljZFozOFZ2Wk1kYjRKWjZDalc5c2dRMlBVdjhNYXl5alhFcFBtWm15aW10?=
+ =?utf-8?B?aW5wQ0s4QVlpNk0wTlpQTTYzck9qNDYwU0xCQmJQRGlURXRJN0sveEFYMTdx?=
+ =?utf-8?B?QVhsMDdpdFR6SkhiY0UrYkJDc2Z3bm1xWGFkTmRNVC9pbk4xWjBMR01aUWMv?=
+ =?utf-8?B?K3RWaGxzVTZWNnR2ckdyM0htbGNkY2duSyt5dWpiS3pGMnpic09TQXhsOGdO?=
+ =?utf-8?B?QlhqU0F6WnFzd25Pdk1sdFozVWMwZE00YmtZYWtpY1ZjSlFOWVd1c2NNVlZs?=
+ =?utf-8?B?RWFvR1lRZXR4YUpHalkvcU9NOXpFSTFsWkp2SHFSNDdZN0ZIZ1dxSDZTUE56?=
+ =?utf-8?B?ajliZHNJbWFjWTVXRmlsWXN2QVlzRm02cThmM2NlaGF6aUxZL0tBbDl4bDJp?=
+ =?utf-8?B?VHZtRWUwV3djYUU3eUVCUjd3ZCtJSEs0QXp2Qm9zdlNTS0NXY0U0c1BSaWtP?=
+ =?utf-8?B?MnlaYlBnMmYyQU1qT0JMVDVIa252eFRBY1VmM3oxQ0xXSm44RTM2N2NpRVZR?=
+ =?utf-8?B?aVBGcEo3dUxNeXlSZmdkTU1BN3ZRdjMvQ3RLZGlQZ1pCVkwxVzNKQldLSXRM?=
+ =?utf-8?B?Y2xjQS9aSU41RWJpcnV1MmZrZC9NeFllbzQ2MloyNitXS1dMODg2ZTVIY25y?=
+ =?utf-8?B?T0NqN2lCYkU0QTU5Y2RLRTNUaGt3L0g3NnZ0YlJjZGJQSW9QQ2hXSDNrQytl?=
+ =?utf-8?B?V09wZmNEYnd4cW9TTjM0em5uWTdaUHh0VVVGNnA1ejRIYUljckZIOTlWcDlM?=
+ =?utf-8?B?Z2JlNStiRmhzS1lzdFBrcEFHSng5WXRBQTJPTTdHc3E5SklqSjk0WTBMQWdp?=
+ =?utf-8?B?Q2tmdE83ZHNkRzdOMnVTbXh4THlyS2lYcGpzR3hPNjJSemd6a2x4UXZ6L25y?=
+ =?utf-8?B?cUxRQ0dxWmE3eUlQT2w2TEptejhlNXN6QlErTFY4dnBrQ0JGelA1OHB1ejJX?=
+ =?utf-8?B?bncwWlBmZVNCTHBidnBjLzNIbXJuV0hSNG04R0pWOFZ1SU9kZmMvNnBSeHJH?=
+ =?utf-8?B?S2pzdnVCK2xPYjNibUpxaVBTZjVlUWZTSm5IQS9HOEd6QWRDRFl0NnNmOSt0?=
+ =?utf-8?B?WUUzWHpTYWF2eEFrR1lXZ2FpYm9VY0ZYSlJ2cnpEZ1Vkc1lWbHYrUVo0NnQz?=
+ =?utf-8?B?U3ZuZzZoMnVOQlFuZDA2bjdYY1d6WlJKd3hqT1NGOWtMbHZUSzliSWZzY0Vj?=
+ =?utf-8?B?OWp1WDdNelFQOHhyMXdXNHBQSVJwQVQ2L1dHY05IYnI1T3cvNFBWaGprVjBr?=
+ =?utf-8?B?eFFScGVpWmYxUlNsdGU2SEYxMzdyOHVvRjBrcjZYaWI4ZmExSFNHbjBnTGha?=
+ =?utf-8?B?cElmdHJ0Ly8yTUlPYnlSTGExNFlMa3UrUjZsaGpid0FrNlRvNm5ibjdoLzEy?=
+ =?utf-8?B?TGdDK2R6YmRTd3VXWit3cGxvaFlUK3hOcGZzY2dqc1lwUzFJWitDRVlOeG1p?=
+ =?utf-8?Q?v/j2OKzoLKOeeFULLI?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e64a0fbb-787d-4871-1620-08df07595133
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d46a9f82-c855-4ce6-dbf8-08df075a6a22
+X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 12:13:50.7205 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 12:21:42.1293 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: EP61L2JWJCFvSkq6gw4qmI0jM8vUGDQsJZx9/6qMrN2+LVgtp++cGAh9BM+UWJHh
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5984
+X-MS-Exchange-CrossTenant-UserPrincipalName: oQEe+ipNhwOkTmYpMUD+FvsAXV+y0jHD2tf/aloVKf9Xm2xTujAh2Eos8u4sTjcR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB9252
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,103 +139,131 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/31/26 13:39, Timur Kristóf wrote:
-> On 2026. augusztus 28., péntek 6:47:34 közép-európai nyári idő Arunpravin 
-> Paneer Selvam wrote:
->> Clear-on-release only runs on VRAM, which amdgpu_ttm_map_buffer() reaches
->> via its direct MC address without programming a GART window, yet the wipe
->> still forces a VMID 0 flush.
+
+
+On 31-Aug-26 5:36 PM, Wang, Kevin wrote:
+> AMD General
 > 
-> Makes sense.
-> We don't need the VM flush when we are not changing the page tables.
-> 
-> I agree with the patch, just would like to ask a few questions to better 
-> understand the underlying problem:
-> 
->> On GFX11 (e.g. Navi33) that spurious SDMA
->> flush can wedge the engine
-> 
-> What is happening when the SDMA engine is wedged?
-
-As far as Arun has investigate the UTCL1 request queue (which is part of the memory interface of the SDMA) is in a deadlock, but we haven't quite figured out why yet.
-
-> Can it be recovered by an 
-> SDMA queue reset?
-
-Most likely no. The UTCL1 is the translation and memory request queue between SDMA and the core memory hub. To reset that one you need to reset both ends and the core memory hub usually needs a full ASIC reset for that.
-
-> Is it just a hang, or can it cause other issues such as page faults?
-
-Good question we honestly don't know at this point. The HW guys need to find the root cause first.
->> only flush when a GART window is actually used.
-> 
-> Does that mean that there is still a risk of the wedge when the GART windows 
-> are used?
-
-Yes, and that is actually not limited to the GART windows. It looks like every time we map something into any VM it can happen that the SDMA crashes when there are concurrent operations ongoing. 
-
-It's just that the GART flushes triggered by the SDMA made that scenario much more likely than anything else.
-
-> Can you remind me when/why we need the GART windows exactly?
-
-Basically every time we want to copy something from system memory to VRAM with the kernel.
-
-Regards,
-Christian.
-
-> 
->> Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
->> Cc: stable@vger.kernel.org
->> Cc: Christian König <christian.koenig@amd.com>
->> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-> 
-> Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
-> 
-> Thanks and best regards,
-> Timur
-> 
->> ---
->>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 5 ++++-
->>  1 file changed, 4 insertions(+), 1 deletion(-)
+>> -----Original Message-----
+>> From: Lazar, Lijo <Lijo.Lazar@amd.com>
+>> Sent: Monday, August 31, 2026 7:06 PM
+>> To: Wang, Kevin <Kevin.Wang@amd.com>; amd-gfx@lists.freedesktop.org
+>> Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking
+>> <Hawking.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
+>> Subject: Re: [PATCH 0/7] drm/amd/pm: stage OD reset until commit
 >>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c index
->> 6c07cee8e8777..2e6c98c2f1efa 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> @@ -2578,6 +2578,7 @@ int amdgpu_ttm_clear_buffer(struct
->> amdgpu_ttm_buffer_entity *entity, struct amdgpu_device *adev =
->> amdgpu_ttm_adev(bo->tbo.bdev);
->>  	struct dma_fence *fence = NULL;
->>  	struct amdgpu_res_cursor dst;
->> +	bool vm_needs_flush;
->>  	int r;
 >>
->>  	if (!entity)
->> @@ -2585,6 +2586,8 @@ int amdgpu_ttm_clear_buffer(struct
->> amdgpu_ttm_buffer_entity *entity,
 >>
->>  	amdgpu_res_first(bo->tbo.resource, 0, amdgpu_bo_size(bo), &dst);
+>> On 31-Aug-26 4:25 PM, Lazar, Lijo wrote:
+>>>
+>>>
+>>> On 31-Aug-26 10:05 AM, Kevin Wang wrote:
+>>>> [Some people who received this message don't often get email from
+>>>> kevin.wang@amd.com. Learn why this is important at https://aka.ms/
+>>>> LearnAboutSenderIdentification ]
+>>>>
+>>>> The pp_od_clk_voltage interface exposes a staged OverDrive workflow:
+>>>> users edit clock, voltage, and power settings, then write "c" to
+>>>> commit them to the SMU.
+>>>>
+>>>> However, PP_OD_RESTORE_DEFAULT_TABLE does not follow this workflow
+>> on
+>>>> every SMU version. Some backends restore their cached settings and
+>>>> wait for "c", while others upload the reset table or send
+>>>> frequency-limit commands directly from "r". As a result, the same
+>>>> userspace sequence has different hardware effects across ASICs.
+>>>>
+>>>> For example:
+>>>>
+>>>> - SMU 14.0.0 and SMU 13.0.5 stage reset limits until "c".
+>>>> - SMU 14.0.2 and SMU 13.0.6 apply reset values immediately.
+>>>> - Navi10 stages the boot OD table, while Vega20 reads the current SMU
+>>>>     table instead of restoring the saved defaults.
+>>>>
+>>>> This series makes "r" restore default values only in driver-side
+>>>> staging state. "c" remains the sole operation that uploads an OD
+>>>> table or sends frequency-limit commands to PMFW.
+>>>>
+>>>> This gives pp_od_clk_voltage one consistent transaction model:
+>>>>
+>>>>     edit/reset -> staged driver state -> commit
+>>>
+>>> Reset should be reset to defaults and shouldn't require extra commit.
+>>> This breaks existing userspace for SMU 13.0.6.
+>>>
 >>
->> +	vm_needs_flush = bo->tbo.resource->start == 
-> AMDGPU_BO_INVALID_OFFSET;
->> +
->>  	mutex_lock(&entity->lock);
->>  	while (dst.remaining) {
->>  		struct dma_fence *next;
->> @@ -2605,7 +2608,7 @@ int amdgpu_ttm_clear_buffer(struct
->> amdgpu_ttm_buffer_entity *entity,
+>> I see that this breaks existing userspace for almost all of it. SMU
+>> 13.0.2 also resets to the default clocks immediately, while others use a
+>> fallthrough logic to commit the changes immediately.applied.
 >>
->>  		r = amdgpu_ttm_fill_mem(adev, entity,
->>  					0, to, cur_size, resv,
->> -					&next, true, 
-> k_job_id);
->> +					&next, vm_needs_flush, 
-> k_job_id);
->>  		if (r)
->>  			goto error;
+>> This behavior needs to be kept as it is.
 > 
+> This behavior change is intentional, and these patch‑series introduces a unified transactional model for pp_od_clk_voltage:
+> - `r` restores defaults within driver cache.
+> - only `c` commits settings to PMFW.
+> The existing immediate‑reset paths are ASIC‑specific inconsistencies.
+> SMU 13.0.2 pushes default clock limits directly, whereas other backends achieve equivalent results via the commit path.
+> This series unifies both under PowerPlay’s staged‑reset model.
+> Btw, user space desiring immediate reset shall issue `"r"` followed by `"c"`.
 > 
+
+This is what breaks existing userspace.
+
+Only SMU 14.0.0/13.0.5/Navi10 are not resetting to default clocks with 
+'r' operation. The documentation also gives the impression that 'r' 
+doesn't require a commit.
+
+"If you want to reset to the default power levels, write “r” (reset) to 
+the file to reset them"
+
+The patch should be to correct the non-conforming ones rather than 
+enforcing a 'c' operation to reset.
+
+Thanks,
+Lijo
+> Best Regards,
+> Kevin
 > 
+>>
+>> Thanks,
+>> Lijo
+>>
+>>
+>>> Thanks,
+>>> Lijo
+>>>
+>>>>
+>>
+>>>> It also permits userspace to reset a staged configuration, adjust one
+>>>> or more settings, and submit the final configuration with one commit,
+>> without temporarily applying an intermediate default configuration.
+>>>>
+>>>> Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5690
+>>>>
+>>>> Kevin Wang (7):
+>>>>     drm/amd/pm: stage od reset for smu 11.0.7
+>>>>     drm/amd/pm: stage od reset for smu 13.0.2
+>>>>     drm/amd/pm: stage od reset for smu 13.0.0/13.0.7
+>>>>     drm/amd/pm: stage od reset for smu 13.0.6
+>>>>     drm/amd/pm: stage od reset for smu 14.0.2
+>>>>     drm/amd/pm: stage od reset for smu 15.0.8
+>>>>     drm/amd/pm: stage od reset for smu vega20
+>>>>
+>>>>    .../drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c | 75
+>> ++++++++++++++--
+>>>>    .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  2 +-
+>>>>    .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 15 +---
+>>>>    .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  2 +-
+>>>>    .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 85
+>>>> ++++++++++---------
+>>>>    .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |  2 +-
+>>>>    .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  |  2 +-
+>>>>    .../drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c  | 50 ++++++-----
+>>>>    8 files changed, 145 insertions(+), 88 deletions(-)
+>>>>
+>>>> --
+>>>> 2.55.0
+>>>>
+>>>
 > 
 
