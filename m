@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 427B2C624D0
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 21:06:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D4582C624D7
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 21:06:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 589C210EA2E;
-	Mon, 31 Aug 2026 21:06:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 75A9510EB1F;
+	Mon, 31 Aug 2026 21:06:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="T61NFd4Z";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="SsTexeg6";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011006.outbound.protection.outlook.com [52.101.62.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A2C3910EA2E;
- Mon, 31 Aug 2026 21:06:06 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013033.outbound.protection.outlook.com
+ [40.107.201.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 73FCA10EB19;
+ Mon, 31 Aug 2026 21:06:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GVJ8ff5AIW9vJlyQNNTt+a3NiIowfETeeF2LuI5woIAPBtm9LKjrou36f96oaY2G3Ct3+/2I4GzNY0dSmSUs27EXXG8wjK5MT5CCuGoyZWwv3jv0330x6SaUyXOWDqydkDYb/ZAFgMQ9TsUv7Lc7a3PV7EbX+nU3Xza4/r+IqJDT9h6kYaSVuz1deSnN2Whxed4JXYNy7fyg7zRT4OpYdWw5LsM5zIEty/PDzM/VkLDHYj3xK6YCMONhtjUBpaxm+Cz572Je9zsL6V1BhrVVPfNNlGgG1n0J1JkuFyjQgjoQrBFWxi00f/XzUYygSS+e2hAdcOH3zW/jwwn4dn9jxg==
+ b=CkWqf5NxV3/bA3CKCV6NYTYZ9nULoVCk7qE0xHMuyMbc/Js44i9Erl9ry5BcaqKz55bQyVs+IYrrQv/VdY2i62vaYUsZy9pVryKrRq8ZOMN2fgvg5OPoB7LgVw69+IPTJotcbTZ3LZ/GI++PgBMQC+XaxU8UfvmiS+EpxkzsXmxNpUxKlQRGjhazkV3wdn/+FivBN4eMN0kcL+XmxdeHOcCD0BpzMI8g3Vs3Ekl+opKS71D3je/oy4JoSLyrmvCpppufNwh9VsB+gnOG/U3/7ghuRcubZHh12n+Wc/2W38SNOA9Q7IeioaJ7D8tyWfGr7NXOrLID3xs9C0rEKWaUng==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Z/6HZA7vteqHpcjg7FyGTk07CDXLJ3gQoRlrtCpACZo=;
- b=wfb4D6dMAPaSmfkcQz+03WkRgsgZJuQ3PtY+MQLLhjMWZZo2vtFQkn5Pknxkpiw0jhB8qyWII8j9UQadgB49Db1ZaVcqanR/NXyGBUJPFApz9df++5gIPJutEtIvEPgy2i7Jr7UNhN6U5u7iMMTeWryG6aqURWWnwcNjsUJ0MoF4pKdWEUwCbNFkLTRnIyttPqT363X0W5WavAfAZogG17vV0+YxVDfhZO4F2NLjCpkvARKoJWj0tUWcDF/okB7AMw/RDmRRqqv5w+jFX+vzLEvatrxCypp9CdgdYePITy7Ww/2+pJY3CUjocsALoxakSG9q6sN6iP67yGb586EovQ==
+ bh=tuR39l//eSsUelrdRamkE6Ec+i1NxAFb8MiN1pXdcYY=;
+ b=D5lVG+Nuv8GRWOnqiBUkQfNy3C/Lnp16+yXo7yjJJ4RZ/3WrzL49alNt4xf/eiOmrP2HhD0YEh5B0xe4eI/RJB/nYghwb2KHXeicu9Xe+J2wMQ66KUZAOBHcbme4/TLgiOdYIK3bTilX44soNjGJmEvTvZFw2Kp6RL0ACK1+veRLSco6aHuMah3pCQgZFYKw4zDbE04mp2qEsaux8isF+kEGuTNTNwRNIUZ//hc3K3a+HylfNEdmUxsahqVauBn20tdgK3z/6CSkWZtgIH4FWreoHJm1gouLJtjhl4Kie2FjfF8/iTwwWCwb0xWt48F6Z2T14XUIGXzmbZc8j63C8g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Z/6HZA7vteqHpcjg7FyGTk07CDXLJ3gQoRlrtCpACZo=;
- b=T61NFd4Z+X8qoHHCImTCLJemhwNRJfnVM1h6C1NVeVl4qtr4JkxrJA1BbOQLkpTCQiwOg6lRlDWFMvYbZItbdBMgmRcpcorydG5v+aHHgCdl/R8QdqZswfOPCxtY1jB4DU8FSrbmPRbrO+OyEBzbO2BYt8Ki9XLu7+QYIXTJeH4=
-Received: from BN0PR02CA0018.namprd02.prod.outlook.com (2603:10b6:408:e4::23)
- by PH7PR12MB7329.namprd12.prod.outlook.com (2603:10b6:510:20c::18)
+ bh=tuR39l//eSsUelrdRamkE6Ec+i1NxAFb8MiN1pXdcYY=;
+ b=SsTexeg6vjKovwFlK1l41U7ZcTvsvUDyx4vNAOLseg4E041fcao9j0l+oLQDWIF6TmRink16X3nFer85X77y+0cJYao2QnaSlypHzO3bjxeBYR08x2k4DcMIe6n0e8IYPdYE+oC7KDeaK2dYk8T0qtQviFvvvCECOOC68M4mwC8=
+Received: from BN9P222CA0027.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::32)
+ by MN2PR12MB4301.namprd12.prod.outlook.com (2603:10b6:208:1d4::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 21:06:00 +0000
-Received: from BN2PEPF00004FBC.namprd04.prod.outlook.com
- (2603:10b6:408:e4:cafe::26) by BN0PR02CA0018.outlook.office365.com
- (2603:10b6:408:e4::23) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 21:06:04 +0000
+Received: from BN2PEPF00004FBA.namprd04.prod.outlook.com
+ (2603:10b6:408:10c:cafe::4b) by BN9P222CA0027.outlook.office365.com
+ (2603:10b6:408:10c::32) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
- 31 Aug 2026 21:06:00 +0000
+ 31 Aug 2026 21:06:04 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,13 +49,13 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
 Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF00004FBC.mail.protection.outlook.com (10.167.243.182) with Microsoft
+ BN2PEPF00004FBA.mail.protection.outlook.com (10.167.243.180) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 21:06:00 +0000
+ 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 21:06:04 +0000
 Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
  satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 31 Aug 2026 16:05:58 -0500
+ 15.2.2562.46; Mon, 31 Aug 2026 16:06:03 -0500
 From: Mario Limonciello <mario.limonciello@amd.com>
 To: <dri-devel@lists.freedesktop.org>, <harry.wentland@amd.com>, Simona Vetter
  <simona@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>, "Maarten
@@ -67,10 +68,10 @@ CC: Xaver Hugl <xaver.hugl@gmail.com>, <amd-gfx@lists.freedesktop.org>, "open
  I915 DRIVERS" <intel-xe@lists.freedesktop.org>, Hans de Goede
  <hansg@kernel.org>, Mario Limonciello <mario.limonciello@amd.com>, "Mario
  Limonciello" <superm1@kernel.org>
-Subject: [PATCH v7 06/12] drm/amd/display: Pass up errors reading actual
- brightness
-Date: Mon, 31 Aug 2026 16:05:25 -0500
-Message-ID: <20260831210531.2334221-7-mario.limonciello@amd.com>
+Subject: [PATCH v7 09/12] drm/bridge: auto-link panel backlight in bridge
+ connector
+Date: Mon, 31 Aug 2026 16:05:28 -0500
+Message-ID: <20260831210531.2334221-10-mario.limonciello@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260831210531.2334221-1-mario.limonciello@amd.com>
 References: <20260831210531.2334221-1-mario.limonciello@amd.com>
@@ -82,29 +83,29 @@ X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
  (10.181.42.216)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBC:EE_|PH7PR12MB7329:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb8f0c47-6e06-4002-2f1f-08df07a3a8d0
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBA:EE_|MN2PR12MB4301:EE_
+X-MS-Office365-Filtering-Correlation-Id: 00e12b95-7e71-4d88-a02b-08df07a3ab67
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|376014|36860700016|23010399003|82310400026|56012099006|10067099003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: T1/lJJi0Gvp5LFWfhdmWNEi37izsz4ndfTMiJGqMRpebN8ToRMXtvpGEZQQa33wuxSpHurw3Nei1SbnoBuh1+bL/BierZvNU3bssr3q1oEAHIE2cVvjUkOx1G4AvdLADAWKpVEVz28WubRQpOXsFZaqTioTfu6A7sFi/nWFUD96nMgCxekePuIqwzhpIH3cN4aiwXBfSTb+nuoKOXeicX59jhWcgUnZJLHh5DVGXMJiefPh+Ys86Ra2V2fx8umk8KxbBFIHmkMlGgP43XyH1EzESJDgtLF0LhfQynVOZQqUGLPVqWp1JluN3AA7vS9AbNmFWXx+s8bbGvSLlFEqylXn+UXFgbwZv8//5Hc5kHfOHuxRPzM9/L3jL7atS3mw3hYUWI7V49EoiidtnK7rrHhRS8basDAVFkyj+TWl2Poupj2MmZEO0mRrmCAfvCW6+WmZCB/vKjHkntZ/r6oxPc95MHyt7Y04o2PBMHxqM5IT/BH9ji50BuyrctxFVGSp1vbqzoFekIM1T5AqQbbuOWDakRjV8zDq+6/lH4KSdSH2HCKSRIjl17ykDOPE1On8r2zo6jNX5nw1lf/+YlRB1IvK/mOL6s3Qj+RGnSxzCd3QtE3MncHyTd0piou5RBSmgmz7QCJ1K1R3NMiSCvbJDpGihx4w9Hr9owRQ3XpQc8AP2elPYfP4v6ZgWjx2urYpxnW6qazmhEZ+lcw608uRJFg==
+ ARA:13230040|82310400026|7416014|1800799024|36860700016|23010399003|376014|56012099006|10067099003|11063799006|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: rEl9nMhvvTgDbEnNp7FuOyXXcbAVyxzmx+gdh2jF+d6S+c/MO9nRyQGY1az02YDjeqP46QgB3c266VRmU85SLQSdDhLLnlA6MSauyXOGHG8NZbeR0u7TkukIU91eZ9n2OvteQCs/sqbj6Id0WeK4yHgJk/KX8xscjmdy93HBYqBF4eCmge/ZoHCQ6A+jYudC7PI7P3Aq3d0g6w8d3a/fs+23fR9kLBxFi/RVs6UMQNTkQmhIUIfEA8JQe5UJaAb8ililFZoQzlw946+wUeaMBTwoxxYWoCniKEtwvov3aa5mlDnf6XNvb+xOpHxI5bFIgHA6hrxi/+ujDknLxL/PQiBulBmEHRnjH8yng3jC7VbWlVncaYuwAaCW+PogYcjyZ+OYZRYfaTVkBPrOyXRBCddexYJ9SXxVlvBOa1/0XZ18O57fKfU6IRfOZnNXA+G9qn2CNMQ8pTfaZOBkD707LcWC1H1AF5zIx64K0BZFnBRbmfND5dGpOZzW92Y51kJcBOaIyjUnPeUObE5YhaJ7tzBHZd3jLNQ9UevL7U8k+3+bh4+cv8xDMrI1/8EeSwWQp0xjVgt/OoYviuuY/LshtiM85LAg4bOukmkOom5bWOtnbg/HoDdq/kaXG89aYSVkmZ+IjNbT1t2JbSSv4Bs14JpwiqsvToh1VSaDYXDvVzkK5kxVNzbf3GqzJH5T+AClXKFDwSUTFTctVYLrHTi6gg==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(376014)(36860700016)(23010399003)(82310400026)(56012099006)(10067099003)(11063799006)(22082099003)(18002099003);
+ SFS:(13230040)(82310400026)(7416014)(1800799024)(36860700016)(23010399003)(376014)(56012099006)(10067099003)(11063799006)(6133799003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Q8U79qiqWUr2uVOjjpbasdQsJx5SDFb8OwKNULFKE8RiAESS9JebsrTqSJi9BDm27hO+c4IY90FGwGHwCPe9OoGCwanTHnxLE+aey0+PzchKjZ2WSUkM01R5Kt31n0s8iRw63Q4hTvlH6cP4hLexdM3lFHdscQSKGOHT0dEv13s+CoCFidwDMHAOLH3BRjFOrh+L3dH2rJ1CNDZNFXenFDDmOS+mQ5IIWh4uBPu6KTg0fCqtfxHXh9TQ9KsnI1iiGzNaaFalLR5FCIpEwlJ2QpxG3cs30Kp8U7fwmV41vdA78/MATwn9CR/X8pCDKXmEgV7S5VEmgPIYYRj9PzwHMcPTOHeNuRIUx7Nh0z4wXrBTdmGbl1GqhV9cTcYsmLmBKJT2vHq2Kn7bTneVF14USDU7xF2K1j12eoSDx7sdqpOvO0t6Pwk6O0ZT0MxQhsmo
+X-MS-Exchange-AntiSpam-MessageData-0: 57IIszCenkOIC82pIuctqJ2IeWK6P7f/t4gRCAh7QJj0M3LnIyO+xVZ4zx/46UG/U8rbnzv/PY6y4jFG/z4AoY3/dixEdvzBtfJ4AxzH6aO5BP97w5VcQ257YX1ymO3W+leMKA9m1AIx/YbIqoh5IcsXJWGpZvXu0ir233NfvBLoQk1yCSyLO9h5uPiI6JZ+231RVM+1tcBXtMXgpgEcX0Fv9jmV9YP8uyX2hnYvZNPHiPsOT8yAPmkZ6EALvPVSOxwAHNrbkDkLsZcBFJG/8E2F5uiL4KWkB4uPuppI2xW9IPIFG27aHYGgmZeJBTTX5zySG3DsTin8iX/eSkX+EWmcShy20DbFI/Y7pkcqWMF/jUH5rtGVu4SIxYsZTm19+p0BryGcs4TtYdETqKX/64sBaxFRtbGDt/kwxGlLrqYcUlLOqucGa4+J9ql1qqnw
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 21:06:00.2760 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb8f0c47-6e06-4002-2f1f-08df07a3a8d0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 21:06:04.6232 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00e12b95-7e71-4d88-a02b-08df07a3ab67
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBC.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BN2PEPF00004FBA.namprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7329
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4301
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,93 +120,86 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-[Why]
-If the DC API fails to return actual brightness when backlight control
-API requests it, then the wrong value may be returned.
-
-[How]
-Change return type of amdgpu_dm_backlight_get_level() to an integer
-and pass an error code up to the caller.
+Link a panel's backlight_device to the bridge connector so
+luminance-aware clients can drive it through the LUMINANCE property.
 
 Signed-off-by: Mario Limonciello (AMD) <superm1@kernel.org>
 ---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c   | 11 ++++++++---
- .../drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h   |  2 +-
- .../amdgpu_dm/tests/amdgpu_dm_backlight_test.c        |  4 ++--
- 3 files changed, 11 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/bridge/panel.c                 | 15 +++++++++++++++
+ drivers/gpu/drm/display/drm_bridge_connector.c | 11 ++++++++++-
+ include/drm/drm_bridge.h                       |  1 +
+ 3 files changed, 26 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-index e61bbc310f33c..fb2aaf0178c2b 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.c
-@@ -363,7 +363,7 @@ int amdgpu_dm_backlight_update_status(struct backlight_device *bd)
- EXPORT_IF_KUNIT(amdgpu_dm_backlight_update_status);
+diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/panel.c
+index 02388a3de626e..36005e10494d3 100644
+--- a/drivers/gpu/drm/bridge/panel.c
++++ b/drivers/gpu/drm/bridge/panel.c
+@@ -233,6 +233,21 @@ bool drm_bridge_is_panel(const struct drm_bridge *bridge)
+ }
+ EXPORT_SYMBOL(drm_bridge_is_panel);
  
- STATIC_IFN_KUNIT
--u32 amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm, int bl_idx)
-+int amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm, int bl_idx)
- {
- 	int ret;
- 	struct amdgpu_dm_backlight_caps caps;
-@@ -376,7 +376,7 @@ u32 amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm, int bl_idx)
- 		u32 avg, peak;
- 
- 		if (!dc_link_get_backlight_level_nits(link, &avg, &peak))
--			return dm->brightness[bl_idx];
-+			return -EINVAL;
- 		return convert_brightness_to_user(&caps, avg);
- 	}
- 
-@@ -394,8 +394,13 @@ int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd)
- {
- 	struct amdgpu_display_manager *dm = bl_get_data(bd);
- 	int i = amdgpu_dm_backlight_get_device_index(dm, bd);
-+	int ret;
++/**
++ * drm_panel_bridge_to_panel - get the drm_panel wrapped by a panel bridge
++ * @bridge: the panel bridge
++ *
++ * Returns the &drm_panel wrapped by @bridge, or NULL if @bridge is not a
++ * panel bridge.
++ */
++struct drm_panel *drm_panel_bridge_to_panel(struct drm_bridge *bridge)
++{
++	if (!drm_bridge_is_panel(bridge))
++		return NULL;
++	return drm_bridge_to_panel_bridge(bridge)->panel;
++}
++EXPORT_SYMBOL(drm_panel_bridge_to_panel);
 +
-+	ret = amdgpu_dm_backlight_get_level(dm, i);
-+	if (ret < 0)
-+		return dm->brightness[i];
- 
--	return amdgpu_dm_backlight_get_level(dm, i);
-+	return ret;
- }
- EXPORT_IF_KUNIT(amdgpu_dm_backlight_get_brightness);
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-index 07b75064847c7..72f1c8d861c8c 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_backlight.h
-@@ -56,7 +56,7 @@ extern const struct attribute_group amdgpu_group;
- struct dc_stream_state *dm_find_stream_with_link(struct amdgpu_display_manager *dm,
- 						 struct dc_link *link);
- int amdgpu_dm_backlight_update_status(struct backlight_device *bd);
--u32 amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm, int bl_idx);
-+int amdgpu_dm_backlight_get_level(struct amdgpu_display_manager *dm, int bl_idx);
- int amdgpu_dm_backlight_get_brightness(struct backlight_device *bd);
- ssize_t panel_power_savings_show(struct device *device,
- 				 struct device_attribute *attr,
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-index 7ca17f803f9d7..e03173d4e5bd8 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.c
-@@ -382,7 +382,7 @@ static void dm_test_backlight_get_level_pwm_error(struct kunit *test)
- 	dm->brightness[0] = 4321;
- 	dm->backlight_link[0] = link;
- 
--	KUNIT_EXPECT_EQ(test, amdgpu_dm_backlight_get_level(dm, 0), 4321U);
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_backlight_get_level(dm, 0), -EINVAL);
- }
- 
  /**
-@@ -424,7 +424,7 @@ static void dm_test_backlight_get_level_aux_error(struct kunit *test)
- 	caps->caps_valid = true;
- 	caps->aux_support = true;
+  * drm_panel_bridge_add - Creates a &drm_bridge and &drm_connector that
+  * just calls the appropriate functions from &drm_panel.
+diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu/drm/display/drm_bridge_connector.c
+index 8b54069fa53a4..d4b4e59cea51c 100644
+--- a/drivers/gpu/drm/display/drm_bridge_connector.c
++++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+@@ -11,7 +11,9 @@
+ #include <linux/slab.h>
  
--	KUNIT_EXPECT_EQ(test, amdgpu_dm_backlight_get_level(dm, 0), 6789U);
-+	KUNIT_EXPECT_EQ(test, amdgpu_dm_backlight_get_level(dm, 0), -EINVAL);
- }
+ #include <drm/drm_atomic_state_helper.h>
++#include <drm/drm_backlight.h>
+ #include <drm/drm_bridge.h>
++#include <drm/drm_panel.h>
+ #include <drm/drm_bridge_connector.h>
+ #include <drm/drm_connector.h>
+ #include <drm/drm_device.h>
+@@ -1082,9 +1084,16 @@ struct drm_connector *drm_bridge_connector_init(struct drm_device *drm,
+ 		connector->polled = DRM_CONNECTOR_POLL_CONNECT
+ 				  | DRM_CONNECTOR_POLL_DISCONNECT;
  
- /**
+-	if (panel_bridge)
++	if (panel_bridge) {
++		struct drm_panel *panel;
++
+ 		drm_panel_bridge_set_orientation(connector, panel_bridge);
+ 
++		panel = drm_panel_bridge_to_panel(panel_bridge);
++		if (panel && panel->backlight)
++			drm_backlight_link(connector, panel->backlight);
++	}
++
+ 	if (support_hdcp && IS_REACHABLE(CONFIG_DRM_DISPLAY_HELPER) &&
+ 	    IS_ENABLED(CONFIG_DRM_DISPLAY_HDCP_HELPER))
+ 		drm_connector_attach_content_protection_property(connector, true);
+diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
+index 58fff047f43b6..ce1fc8695b455 100644
+--- a/include/drm/drm_bridge.h
++++ b/include/drm/drm_bridge.h
+@@ -1475,6 +1475,7 @@ void drm_bridge_hpd_notify(struct drm_bridge *bridge,
+ 
+ #ifdef CONFIG_DRM_PANEL_BRIDGE
+ bool drm_bridge_is_panel(const struct drm_bridge *bridge);
++struct drm_panel *drm_panel_bridge_to_panel(struct drm_bridge *bridge);
+ struct drm_bridge *drm_panel_bridge_add(struct drm_panel *panel);
+ struct drm_bridge *drm_panel_bridge_add_typed(struct drm_panel *panel,
+ 					      u32 connector_type);
 -- 
 2.43.0
 
