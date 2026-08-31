@@ -4,53 +4,81 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 30444C624A4
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:35:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 377BAC624A4
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:35:16 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8AA5810E851;
-	Mon, 31 Aug 2026 13:35:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A957E10E85A;
+	Mon, 31 Aug 2026 13:35:15 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ipncZ0eF";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="LZp8HrlG";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B3F910E851;
- Mon, 31 Aug 2026 13:35:06 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D26BA60215;
- Mon, 31 Aug 2026 13:35:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2938A1F00A3D;
- Mon, 31 Aug 2026 13:35:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183305;
- bh=001UyezUgqzBgR+joQcEPUm7bTKh8njlpvoggf2sAd0=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ipncZ0eF45ZkS6hZ41WTwFVBfPGhYcl8HoedRWmuhL0EIQTwLIny7Uv1ohup2IvvL
- pSv8VBzOHhzx3J6H/dsZf8Ys5azdqz2jRz5+bzy2K3cBmyoVdDXHPP9MifzMNpTHei
- 98bmruotPjIwVMolYvTaU4rUgPoxtFFd2cdvDpd1pv2q5Z0eOPR2HSFRKlUakLcX2C
- v0yhCYNjrYVH4Br2YNyRlBB3fGWIqsJB2N9V6lBn1879qjkXV7zjxUeVhjkFURTNQ4
- QwY5pdu3bob1iMb3w6xqVDNYLWuRQ6QXPxX2UQgogq5vql0o/RX8IPvhpvgb8aBnE0
- Y0HtoSBaH/T9g==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Candice Li <candice.li@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amdgpu: validate RAS EEPROM tbl_size before
- record count
-Date: Mon, 31 Aug 2026 09:21:37 -0400
-Message-ID: <20260831133314.4125787-69-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F009A10E85A
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 13:35:14 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-c2531f453eeso535808266b.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 06:35:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788183313; x=1788788113; darn=lists.freedesktop.org;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=AlPRm+hvhQgi2x1KLA+phsQE2yTD0m72zobSh9ptdrs=;
+ b=LZp8HrlGmbutbwktErnHI2nwTVOLWwd7sV5FVTBmV3LGt7X9K4dCEOtDqGVfSmFBEI
+ KLTAt3XJkyYVcE+dh7ATFA+30obh9VFoqQ2x3XXl1AiY0yrXmzcMeLOgEYoIHxVfx1tT
+ 3Eks13bE2S4w8D42KZI/0b5bmbqdtsycoZnaLUzoadZeLYk8hxpaNcxUoU6MWXRnBdg1
+ 9jCLYut7TZiv4dYVfatONzIUOe/Vq40wR6DFk0Kl1DDw+DuACkYq4Gd0KUQjwc2nOYK6
+ jNuNclik23NmC+LyugW4nieFLFiiB0CrzNx4zRRBfHTNKvcmh9mHXosX4mBMpfBMpIoF
+ RLEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788183313; x=1788788113;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=AlPRm+hvhQgi2x1KLA+phsQE2yTD0m72zobSh9ptdrs=;
+ b=EGn/lAUIACzRMvFTTbQLtKrVSJM+Ttj5jFgiZV8dHnnuhr90Ce5S4eofYTe79PR9bL
+ W0/Z1tBZRHj54WAHBO4LYHG4cM9B/a8MgNPnxaF1slKPYxQlQHuo/cVY2Y6C043xXFAn
+ IAlT+T0t8yntCVtXDslc8BR0N/6cby398YFs56O1CXuio2/+6T4Yjs+UqpLpn/5YDGQP
+ sSFLJIxRRP/6YT/bDaPV7ZGNr4wAX5EQGtaPlUbOQVIHnAOMe0211yT19/ktt/yRU8Dm
+ DFsOTB+mpuskwg62p5ds8R1DGHu8KYMDAqvmmNYfJ/S6djPEPVqqyG5F7oTEg4aLDltJ
+ YGpQ==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqsOKwA3nGuqzm1264wgvx1pID8x2/UW3TZwqh7YcA4cNXijuqaG3bm41dyoqhcZeSvzWgIPX96@lists.freedesktop.org
+X-Gm-Message-State: AFuF++lSu5PQiNuMn6XWL6t8NCYAxeaC2a6pljYD+eBdU/80ih5A2987
+ ZlxxGnd6/auS23ckMAKp4aN8Qt5F0RBL1PfZQrr9q30OSd5t9dA3G6Lp
+X-Gm-Gg: AR+sD13HF1l59NicnOe9dioK7fSA+EdCWEgkOiMzTI+6FzX6D85+pYvgcsp28E6g03O
+ hRb+uP4JGo+r5Pd+0gU6VDtmATmO47Oez8V2wWTOW38E4JPa1Kd4xarkiN6EfA40Fgu4YKuTiwY
+ /QoeXMsULbsFOA7iZQanhQIyaULSUSL4vktV/9E2jZoyiN4EQa+b9oEl8VZHeU63OHK6sF0uWiC
+ wAbHcFcc6DwlyDAjpdkHALDOHQ62Gpl7FyHylnRbne6Nehm86jwXGbXefRrmVVb3Nj4daDkd9AH
+ ETR+Yk6/dwt25/AvHASLIYV7o5I6xQ1k4w2Zt0EAZZkkFfNo/JgGXBIN/hjtVVd1TCs1gmSbvcq
+ lpkqp91rfSrFjZhdPEZbF48P2JHEqgcrd0A6E2jzE4cHFC9sneShCjl20x1jt2fsVyk61lu2VuM
+ radRAMWNzWkb90KoEIavMNo/q43o9OFli0O6vdnztE5e+RibFTnW5/7KS6dnhB+RCk0XQVVtS9G
+ XEc5PQerpy54OHbCAusSQs+NNeoXMLE7U3F
+X-Received: by 2002:a17:907:73cd:b0:c24:b11a:470f with SMTP id
+ a640c23a62f3a-c25b39d698cmr47469566b.0.1788183312971; 
+ Mon, 31 Aug 2026 06:35:12 -0700 (PDT)
+Received: from timur-hyperion.localnet (5E1B9A5E.dsl.pool.telekom.hu.
+ [94.27.154.94]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c255f1b1fdasm456873266b.37.2026.08.31.06.35.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 31 Aug 2026 06:35:11 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: christian.koenig@amd.com, amd-gfx@lists.freedesktop.org,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Cc: alexander.deucher@amd.com,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH v2] drm/amdgpu: skip the VMID 0 flush for VRAM
+ clear-on-release
+Date: Mon, 31 Aug 2026 15:35:11 +0200
+Message-ID: <SGE410JQTUO82TOt1oxM1w@gmail.com>
+In-Reply-To: <20260831122841.42160-1-Arunpravin.PaneerSelvam@amd.com>
+References: <20260831122841.42160-1-Arunpravin.PaneerSelvam@amd.com>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,409 +93,152 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Candice Li <candice.li@amd.com>
+On Monday, August 31, 2026 2:28:41=E2=80=AFPM Central European Summer Time =
+Arunpravin=20
+Paneer Selvam wrote:
+> Clear-on-release only runs on VRAM, which amdgpu_ttm_map_buffer() reaches
+> via its direct MC address without programming a GART window, yet the wipe
+> still forces a VMID 0 flush. On GFX11 (e.g. Navi33) that spurious SDMA
+> flush can wedge the engine; only flush when a GART window is actually use=
+d.
+>=20
+> v2: Let amdgpu_ttm_map_buffer() return whether the VMID 0 flush is needed,
+>     and drive the clear and copy paths from that. (Christian)
+>=20
+> Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5413
+> Cc: stable@vger.kernel.org
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+
+Looks good, thank you!
+
+Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 22 ++++++++++++++++------
+>  1 file changed, 16 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c index
+> 6c07cee8e8777..e0bdd95c64de8 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -190,6 +190,8 @@ amdgpu_ttm_job_submit(struct amdgpu_device *adev, str=
+uct
+> amdgpu_ttm_buffer_entit * @tmz: if we should setup a TMZ enabled mapping
+>   * @size: in number of bytes to map, out number of bytes mapped
+>   * @addr: resulting address inside the MC address space
+> + * @vm_needs_flush: out, set true if a GART window was programmed (VMID 0
+> flush + *		    needed) or false for a direct address; may be NULL
+>   *
+>   * Setup one of the GART windows to access a specific piece of memory or
+> return * the physical address for local memory.
+> @@ -199,7 +201,8 @@ static int amdgpu_ttm_map_buffer(struct
+> amdgpu_ttm_buffer_entity *entity, struct ttm_resource *mem,
+>  				 struct amdgpu_res_cursor=20
+*mm_cur,
+>  				 unsigned int window,
+> -				 bool tmz, uint64_t *size,=20
+uint64_t *addr)
+> +				 bool tmz, uint64_t *size,=20
+uint64_t *addr,
+> +				 bool *vm_needs_flush)
+>  {
+>  	struct amdgpu_device *adev =3D amdgpu_ttm_adev(bo->bdev);
+>  	unsigned int offset, num_pages, num_dw, num_bytes;
+> @@ -220,9 +223,14 @@ static int amdgpu_ttm_map_buffer(struct
+> amdgpu_ttm_buffer_entity *entity, if (!tmz && mem->start !=3D
+> AMDGPU_BO_INVALID_OFFSET) {
+>  		*addr =3D amdgpu_ttm_domain_start(adev, mem->mem_type) +
+>  			mm_cur->start;
+> +		if (vm_needs_flush)
+> +			*vm_needs_flush =3D false;
+>  		return 0;
+>  	}
+>=20
+> +	/* A GART window is programmed below, so its VMID 0 TLB needs a=20
+flush */
+> +	if (vm_needs_flush)
+> +		*vm_needs_flush =3D true;
+>=20
+>  	/*
+>  	 * If start begins at an offset inside the page, then adjust the=20
+size
+> @@ -322,6 +330,7 @@ static int amdgpu_ttm_copy_mem_to_mem(struct
+> amdgpu_device *adev, while (src_mm.remaining) {
+>  		uint64_t from, to, cur_size, tiling_flags;
+>  		uint32_t num_type, data_format, max_com,=20
+write_compress_disable;
+> +		bool src_vm_flush, dst_vm_flush;
+>  		struct dma_fence *next;
+>=20
+>  		/* Never copy more than 256MiB at once to avoid a=20
+timeout */
+> @@ -329,12 +338,12 @@ static int amdgpu_ttm_copy_mem_to_mem(struct
+> amdgpu_device *adev,
+>=20
+>  		/* Map src to window 0 and dst to window 1. */
+>  		r =3D amdgpu_ttm_map_buffer(entity, src->bo, src->mem,=20
+&src_mm,
+> -					  0, tmz, &cur_size,=20
+&from);
+> +					  0, tmz, &cur_size,=20
+&from, &src_vm_flush);
+>  		if (r)
+>  			goto error;
+>=20
+>  		r =3D amdgpu_ttm_map_buffer(entity, dst->bo, dst->mem,=20
+&dst_mm,
+> -					  1, tmz, &cur_size,=20
+&to);
+> +					  1, tmz, &cur_size,=20
+&to, &dst_vm_flush);
+>  		if (r)
+>  			goto error;
+>=20
+> @@ -362,7 +371,7 @@ static int amdgpu_ttm_copy_mem_to_mem(struct
+> amdgpu_device *adev, }
+>=20
+>  		r =3D amdgpu_copy_buffer(adev, entity, from, to, cur_size,=20
+resv,
+> -				       &next, true, copy_flags);
+> +				       &next, src_vm_flush ||=20
+dst_vm_flush, copy_flags);
+>  		if (r)
+>  			goto error;
+>=20
+> @@ -2578,6 +2587,7 @@ int amdgpu_ttm_clear_buffer(struct
+> amdgpu_ttm_buffer_entity *entity, struct amdgpu_device *adev =3D
+> amdgpu_ttm_adev(bo->tbo.bdev);
+>  	struct dma_fence *fence =3D NULL;
+>  	struct amdgpu_res_cursor dst;
+> +	bool vm_needs_flush =3D false;
+>  	int r;
+>=20
+>  	if (!entity)
+> @@ -2599,13 +2609,13 @@ int amdgpu_ttm_clear_buffer(struct
+> amdgpu_ttm_buffer_entity *entity, cur_size =3D min(dst.size, 256ULL << 20=
+);
+>=20
+>  		r =3D amdgpu_ttm_map_buffer(entity, &bo->tbo, bo-
+>tbo.resource, &dst,
+> -					  0, false, &cur_size,=20
+&to);
+> +					  0, false, &cur_size,=20
+&to, &vm_needs_flush);
+>  		if (r)
+>  			goto error;
+>=20
+>  		r =3D amdgpu_ttm_fill_mem(adev, entity,
+>  					0, to, cur_size, resv,
+> -					&next, true,=20
+k_job_id);
+> +					&next, vm_needs_flush,=20
+k_job_id);
+>  		if (r)
+>  			goto error;
 
-[ Upstream commit c83e4a45ff9a0b7aa1c48246102009a99ccef11b ]
 
-Corrupt EEPROM data can set tbl_size below the table header size.
-Guard the RAS_NUM_RECS macros against undersized tbl_size and reset
-the table during init when tbl_size is below the minimum for the table
-version instead of trusting the header.
 
-Signed-off-by: Candice Li <candice.li@amd.com>
-Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
-
-LLM Generated explanations, may be completely bogus:
-
-## Phase 1: Commit Message Forensics
-
-### Step 1.1: Subject Line
-**Record:** `[drm/amdgpu]` `[validate]` — Validate RAS EEPROM `tbl_size`
-before computing record count from the EEPROM table header.
-
-### Step 1.2: Commit Message Tags
-**Record:**
-- **Signed-off-by:** Candice Li `<candice.li@amd.com>` (author)
-- **Reviewed-by:** Hawking Zhang `<Hawking.Zhang@amd.com>`
-- **Signed-off-by:** Alex Deucher `<alexander.deucher@amd.com>`
-  (drm/amdgpu maintainer)
-- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`,
-  `Tested-by:`, or syzbot tags
-- Notable absence: no fuzzer or user bug report; maintainer-reviewed
-  driver fix only
-
-### Step 1.3: Commit Body Analysis
-**Record:**
-- **Bug:** Corrupt EEPROM can set `tbl_size` below the minimum size for
-  the table version (20 bytes for V1, 276 bytes for V2.1/V3).
-- **Symptom:** `RAS_NUM_RECS` / `RAS_NUM_RECS_V2_1` perform unsigned
-  subtraction on undersized `tbl_size`, producing incorrect record
-  counts; driver should not trust the header.
-- **Fix approach:** Guard macros to return 0 on undersized `tbl_size`;
-  during `amdgpu_ras_eeprom_init()`, detect undersized `tbl_size` and
-  reset the table via `amdgpu_ras_eeprom_reset_table()` instead of
-  proceeding.
-- **Root cause:** Missing minimum-size validation before using
-  `tbl_size` in record-count arithmetic.
-
-### Step 1.4: Hidden Bug Fix Detection
-**Record:** Yes — described as validation, but it is a real correctness
-bug fix. Undersized `tbl_size` causes unsigned underflow in
-`RAS_NUM_RECS*` macros. The init-path change converts a permanent init
-failure (`-EINVAL`, EEPROM marked invalid) into self-healing table
-reset, matching the existing invalid-header recovery pattern.
-
----
-
-## Phase 2: Diff Analysis
-
-### Step 2.1: Change Inventory
-**Record:**
-- **File:** `drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c` only
-- **Scope:** ~20 lines changed (macro guards + two init checks)
-- **Functions/macros modified:** `RAS_NUM_RECS`, `RAS_NUM_RECS_V2_1`,
-  `amdgpu_ras_eeprom_init()`
-- **Classification:** Single-file surgical fix
-
-### Step 2.2: Code Flow Change
-**Record:**
-- **Macro hunks:** Before — unconditional `(tbl_size - header_size) /
-  record_size` (unsigned underflow when `tbl_size` too small). After —
-  return `0u` if below minimum, else compute normally.
-- **V2.1/V3 init hunk:** Before — compute `ras_num_recs` immediately.
-  After — if `tbl_size < 276`, log error and reset table.
-- **V1 init hunk:** Before — compute immediately. After — if `tbl_size <
-  20`, log error and reset table.
-- **Path affected:** Driver init on GPUs with RAS EEPROM support (probe-
-  time `amdgpu_ras_eeprom_init()`).
-
-### Step 2.3: Bug Mechanism
-**Record:**
-- **Category:** Memory safety / logic correctness (unsigned arithmetic
-  on corrupt data)
-- **Mechanism:** `tbl_size` is `uint32_t`. When `tbl_size <
-  RAS_TABLE_HEADER_SIZE` (V1) or `< RAS_TABLE_HEADER_SIZE +
-  RAS_TABLE_V2_1_INFO_SIZE` (V2.1/V3), subtraction wraps to a very large
-  value. Commit 5df0d6addb7e9’s `ras_num_recs > ras_max_record_count`
-  check catches this and returns `-EINVAL`, but EEPROM stays permanently
-  disabled. This commit adds explicit minimum-size validation and auto-
-  recovery.
-
-### Step 2.4: Fix Quality
-**Record:** Obviously correct and minimal. Mirrors `6ffc6e056febb`
-(“Reset RAS table if header is invalid”). Low regression risk: only
-triggers on already-corrupt EEPROM headers; reset path is well-tested.
-No API changes.
-
----
-
-## Phase 3: Git History Investigation
-
-### Step 3.1: Blame
-**Record:**
-- `RAS_NUM_RECS` introduced in `63d4c081a556a` (2021-04-06, “Optimize
-  EEPROM RAS table I/O”)
-- `RAS_NUM_RECS_V2_1` introduced in `65183faec89f3e` (2023-05-30, “Add
-  RAS table v2.1 macro definition”)
-- Buggy unsigned arithmetic present since those commits; this tree is
-  **v6.18.44**
-
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no `Fixes:` tag in commit message.
-
-### Step 3.3: Related File History
-**Record:** Related validation commits already in this tree:
-- `5df0d6addb7e9` — “Add basic validation for RAS header” (max record
-  count check)
-- `6ffc6e056febb` — “Reset RAS table if header is invalid”
-- `660261df61fb7` — “refine eeprom data check” (checksum on unload)
-- `89232d0db3ca9` — “return when ras table checksum is error”
-Standalone fix; not part of a numbered series.
-
-### Step 3.4: Author Context
-**Record:** Candice Li is an AMD contributor. Related validation work by
-Lijo Lazar and ganglxie in the same file. Alex Deucher (maintainer)
-signed off.
-
-### Step 3.5: Dependencies
-**Record:** Requires `RAS_NUM_RECS_V2_1`,
-`amdgpu_ras_eeprom_reset_table()`, and the version switch in init — all
-present in v6.18.44. User diff shows HBM3E context from newer mainline;
-that block is **not** in this tree and is **not** part of the patch
-hunks. Applies standalone to 6.18.44 init switch.
-
----
-
-## Phase 4: Mailing List and External Research
-
-### Step 4.1: Original Discussion
-**Record:** Commit hash not in this checkout; `b4 dig -c` could not
-match. Lore search blocked by Anubis bot protection. **UNVERIFIED:**
-full mailing-list review thread.
-
-### Step 4.2: Reviewers
-**Record:** **UNVERIFIED** via b4. Commit message shows Reviewed-by
-Hawking Zhang (AMD) and Signed-off-by Alex Deucher (maintainer).
-
-### Step 4.3: Bug Reports
-**Record:** N/A — no `Reported-by:` or `Link:` tags.
-
-### Step 4.4: Related Patches
-**Record:** Part of ongoing amdgpu RAS EEPROM validation hardening;
-prior related commits are already in v6.18.44.
-
-### Step 4.5: Stable List History
-**Record:** **UNVERIFIED** — could not search lore stable archive.
-
----
-
-## Phase 5: Code Semantic Analysis
-
-### Step 5.1: Key Functions
-**Record:** `RAS_NUM_RECS`, `RAS_NUM_RECS_V2_1`,
-`amdgpu_ras_eeprom_init()`
-
-### Step 5.2: Callers
-**Record:** `amdgpu_ras_eeprom_init()` called from
-`amdgpu_ras_init_badpage_info()` in `amdgpu_ras.c:3590`, which runs
-during GPU RAS initialization at probe. Affects VEGA20, Arcturus, Sienna
-Cichlid, Aldebaran, and other RAS-EEPROM-capable dGPUs per
-`__is_ras_eeprom_supported()`.
-
-### Step 5.3: Callees
-**Record:** On undersized `tbl_size`, calls
-`amdgpu_ras_eeprom_reset_table()` which rewrites a valid header to
-EEPROM via I2C.
-
-### Step 5.4: Reachability
-**Record:** Triggered at every boot on affected hardware when EEPROM
-`tbl_size` is corrupt. Not userspace-triggerable directly, but affects
-all boots on affected systems. Corrupt EEPROM is a realistic
-hardware/partial-write scenario on datacenter GPUs.
-
-### Step 5.5: Similar Patterns
-**Record:** Same recovery pattern as `6ffc6e056febb` for invalid header
-magic. Complements `5df0d6addb7e9` max-record validation.
-
----
-
-## Phase 6: Cross-Reference Against Local Tree (v6.18.44)
-
-### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** Current tree at lines 145–150 has unguarded
-`RAS_NUM_RECS` macros; `amdgpu_ras_eeprom_init()` at lines 1415–1432
-lacks `tbl_size` minimum checks. Bug present since 2021/2023; partial
-mitigation since `5df0d6addb7e9` (Mar 2025).
-
-### Step 6.2: Backport Complications
-**Record:** Expected **clean apply** — init switch structure matches; no
-HBM3E block in 6.18.44 that would conflict. Only line-number offset
-differs; context-based apply should work.
-
-### Step 6.3: Related Fixes Already Present?
-**Record:** Max record count validation (`5df0d6addb7e9`) and invalid-
-header reset (`6ffc6e056febb`) are present. **This specific `tbl_size`
-minimum validation is NOT present.**
-
----
-
-## Phase 7: Subsystem Context
-
-### Step 7.1: Subsystem and Criticality
-**Record:** `drivers/gpu/drm/amd/amdgpu` — **IMPORTANT** (AMD
-datacenter/enterprise GPU RAS reliability; not universal but critical
-for affected hardware).
-
-### Step 7.2: Subsystem Activity
-**Record:** Actively maintained — 4 EEPROM-related commits in recent
-file history on this tree.
-
----
-
-## Phase 8: Impact and Risk Assessment
-
-### Step 8.1: Who Is Affected
-**Record:** Users of AMD GPUs with RAS EEPROM support (VEGA20, Arcturus,
-MI-series, RDNA/CDNA dGPUs with HBM RAS). Config: `CONFIG_DRM_AMDGPU`
-with supported ASICs.
-
-### Step 8.2: Trigger Conditions
-**Record:** Corrupt EEPROM `tbl_size` field on boot. Uncommon but
-realistic (wear, partial write, hardware glitch). Not unprivileged-
-triggerable; hardware/firmware corruption path.
-
-### Step 8.3: Failure Mode Severity
-**Record:**
-- **Without fix:** Undersized `tbl_size` → unsigned underflow →
-  `ras_num_recs > ras_max_record_count` → `-EINVAL` → `is_eeprom_valid =
-  false` every boot. GPU runs but RAS EEPROM bad-page tracking is
-  permanently disabled until manual intervention. Verified: all
-  `tbl_size < 20` (V1) and `tbl_size < 276` (V2.1) underflow cases
-  produce record counts above max (Python verification).
-- **With fix:** Table auto-reset; RAS EEPROM functionality restored.
-- **Severity:** **MEDIUM-HIGH** for affected datacenter hardware
-  (operational RAS degradation, not kernel crash). No OOM path because
-  `amdgpu_ras_load_bad_pages()` is gated on `is_eeprom_valid` (line
-  3600).
-
-### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit:** Self-healing corrupt EEPROM; defense-in-depth on macros;
-  consistent with existing reset-on-corruption policy.
-- **Risk:** Very low — ~20 lines, only error/corruption path, uses
-  existing reset function.
-- **Ratio:** Moderate benefit, very low risk. Worth backporting given
-  prior similar fixes already in 6.18.y.
-
----
-
-## Phase 9: Final Synthesis
-
-### Step 9.1: Evidence Summary
-
-**FOR backport:**
-- Fixes real corrupt-EEPROM bug (unsigned underflow + incorrect trust of
-  header)
-- Auto-recovery instead of permanent EEPROM disable on every boot
-- Small, surgical, maintainer-reviewed
-- Prerequisites present in v6.18.44
-- Consistent with already-backported validation series (`5df0d6`,
-  `6ffc6e`, `660261`, `89232d`)
-- Affects production RAS-capable AMD GPUs
-
-**AGAINST backport:**
-- Existing max-record check already prevents huge `kcalloc` / OOM (since
-  Mar 2025)
-- No crash, deadlock, or security exploit demonstrated
-- No user/syzbot report
-- Primary improvement is operational recovery, not crash prevention
-- Lore review unverified
-
-**UNRESOLVED:** Mailing-list discussion and stable-list nomination
-history.
-
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — logic is straightforward;
-   reviewed by AMD engineer and maintainer (no runtime test tag).
-2. Fixes real bug affecting users? **PASS** — corrupt EEPROM leaves RAS
-   tracking disabled on every boot on affected hardware.
-3. Important issue? **PASS (MEDIUM-HIGH)** — datacenter RAS reliability
-   degradation on supported GPUs; not a kernel crash but materially
-   impacts production GPU health tracking.
-4. Small and contained? **PASS** — one file, ~20 lines.
-5. No new features/APIs? **PASS** — validation and recovery only.
-6. Can apply to local tree? **PASS** — code exists; patch should apply
-   cleanly to v6.18.44.
-
-### Step 9.3: Exception Categories
-**Record:** Hardware workaround for corrupt EEPROM data on existing RAS-
-EEPROM driver — analogous to quirk/validation exception category.
-
-### Step 9.4: Decision Rationale
-
-This commit completes the RAS EEPROM validation work already present in
-v6.18.44. While the max-record check added in `5df0d6addb7e9` prevents
-the worst outcome (huge allocation), corrupt undersized `tbl_size` still
-causes permanent EEPROM init failure on every boot. The fix follows the
-established pattern of resetting corrupt tables rather than leaving the
-driver in a degraded state. It is small, obviously correct, low-risk,
-and relevant to this tree’s existing amdgpu RAS EEPROM code.
-
----
-
-## Verification
-
-- **[Phase 1]** Parsed commit message: subject, tags (SOB, Reviewed-by,
-  no Fixes/Reported-by/Link)
-- **[Phase 2]** Diff analysis: 1 file, macro guards + 2 init checks in
-  `amdgpu_ras_eeprom_init()`
-- **[Phase 3]** `git describe HEAD`: v6.18.44
-- **[Phase 3]** `git blame` lines 145–150: macros from 63d4c081a556a
-  (2021), 65183faec89f3e (2023)
-- **[Phase 3]** `git log -15 -- amdgpu_ras_eeprom.c`: related validation
-  commits present
-- **[Phase 3]** `git show 5df0d6addb7e9`: added max record count
-  validation
-- **[Phase 3]** `git show 6ffc6e056febb`: reset on invalid header magic
-- **[Phase 3]** `git merge-base --is-ancestor`: 5df0d6 and 65183fa both
-  in tree
-- **[Phase 4]** `b4 dig`: no commit hash available in tree — no match
-- **[Phase 4]** lore.kernel.org fetch: blocked by Anubis —
-  **UNVERIFIED**
-- **[Phase 5]** `grep amdgpu_ras_eeprom_init`: caller at
-  `amdgpu_ras.c:3590`
-- **[Phase 5]** `grep RAS_NUM_RECS`: only used in
-  `amdgpu_ras_eeprom_init()`
-- **[Phase 5]** `grep is_eeprom_valid`: gates
-  `amdgpu_ras_load_bad_pages` at line 3600
-- **[Phase 6]** Read current `amdgpu_ras_eeprom.c` lines 145–150,
-  1415–1444: buggy code confirmed present
-- **[Phase 6]** Python verification: all `tbl_size < 20` (V1) and
-  `tbl_size < 276` (V2.1) underflow cases produce record counts > max —
-  existing check returns `-EINVAL`
-- **[Phase 8]** Read `amdgpu_ras_init_badpage_info()`: `is_eeprom_valid
-  = !ret`; load gated on validity
-- **[Phase 8]** `tbl_size` type confirmed `uint32_t` in
-  `amdgpu_ras_eeprom.h:51`
-
-**YES**
-
- .../gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c    | 26 +++++++++++++++----
- 1 file changed, 21 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-index 652aa085b6263..51382d604b1f0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ras_eeprom.c
-@@ -142,12 +142,15 @@
- #define RAS_RI_TO_AI(_C, _I) (((_I) + (_C)->ras_fri) % \
- 			      (_C)->ras_max_record_count)
- 
--#define RAS_NUM_RECS(_tbl_hdr)  (((_tbl_hdr)->tbl_size - \
--				  RAS_TABLE_HEADER_SIZE) / RAS_TABLE_RECORD_SIZE)
-+#define RAS_NUM_RECS(_tbl_hdr) \
-+	(((_tbl_hdr)->tbl_size < RAS_TABLE_HEADER_SIZE) ? 0u : \
-+	 (((_tbl_hdr)->tbl_size - RAS_TABLE_HEADER_SIZE) / RAS_TABLE_RECORD_SIZE))
- 
--#define RAS_NUM_RECS_V2_1(_tbl_hdr)  (((_tbl_hdr)->tbl_size - \
--				       RAS_TABLE_HEADER_SIZE - \
--				       RAS_TABLE_V2_1_INFO_SIZE) / RAS_TABLE_RECORD_SIZE)
-+#define RAS_NUM_RECS_V2_1(_tbl_hdr) \
-+	(((_tbl_hdr)->tbl_size < RAS_TABLE_HEADER_SIZE + \
-+	  RAS_TABLE_V2_1_INFO_SIZE) ? 0u : \
-+	 (((_tbl_hdr)->tbl_size - RAS_TABLE_HEADER_SIZE - \
-+	   RAS_TABLE_V2_1_INFO_SIZE) / RAS_TABLE_RECORD_SIZE))
- 
- #define to_amdgpu_device(x) ((container_of(x, struct amdgpu_ras, eeprom_control))->adev)
- 
-@@ -1415,11 +1418,24 @@ int amdgpu_ras_eeprom_init(struct amdgpu_ras_eeprom_control *control)
- 	switch (hdr->version) {
- 	case RAS_TABLE_VER_V2_1:
- 	case RAS_TABLE_VER_V3:
-+		if (hdr->tbl_size < RAS_TABLE_HEADER_SIZE + RAS_TABLE_V2_1_INFO_SIZE) {
-+			dev_err(adev->dev,
-+				"RAS header invalid, tbl_size %u smaller than minimum %u, resetting table\n",
-+				hdr->tbl_size,
-+				RAS_TABLE_HEADER_SIZE + RAS_TABLE_V2_1_INFO_SIZE);
-+			return amdgpu_ras_eeprom_reset_table(control);
-+		}
- 		control->ras_num_recs = RAS_NUM_RECS_V2_1(hdr);
- 		control->ras_record_offset = RAS_RECORD_START_V2_1;
- 		control->ras_max_record_count = RAS_MAX_RECORD_COUNT_V2_1;
- 		break;
- 	case RAS_TABLE_VER_V1:
-+		if (hdr->tbl_size < RAS_TABLE_HEADER_SIZE) {
-+			dev_err(adev->dev,
-+				"RAS header invalid, tbl_size %u smaller than minimum %u, resetting table\n",
-+				hdr->tbl_size, RAS_TABLE_HEADER_SIZE);
-+			return amdgpu_ras_eeprom_reset_table(control);
-+		}
- 		control->ras_num_recs = RAS_NUM_RECS(hdr);
- 		control->ras_record_offset = RAS_RECORD_START;
- 		control->ras_max_record_count = RAS_MAX_RECORD_COUNT;
--- 
-2.53.0
 
