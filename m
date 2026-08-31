@@ -4,27 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63AB4C624C6
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 15:02:23 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3ADC9C624A5
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 15:02:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B75F610E2B4;
-	Mon, 31 Aug 2026 15:02:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEA1510E2CA;
+	Mon, 31 Aug 2026 15:02:26 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.217.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A1D9210E2B4
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CDA910E20A
  for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 15:02:20 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 67VF2F2N1486199; Mon, 31 Aug 2026 20:32:15 +0530
+ 67VF2F7d1486204; Mon, 31 Aug 2026 20:32:15 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 67VF2F8C1486198;
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 67VF2Fef1486203;
  Mon, 31 Aug 2026 20:32:15 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
-Subject: [PATCH v1 2/3] drm/amdgpu: update the fw version for gfx12 userqueues
-Date: Mon, 31 Aug 2026 20:32:10 +0530
-Message-Id: <20260831150211.1486154-2-sunil.khatri@amd.com>
+Subject: [PATCH v1 3/3] drm/amdgpu: add the fw check for gfx11 missing ips for
+ uq
+Date: Mon, 31 Aug 2026 20:32:11 +0530
+Message-Id: <20260831150211.1486154-3-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260831150211.1486154-1-sunil.khatri@amd.com>
 References: <20260831150211.1486154-1-sunil.khatri@amd.com>
@@ -44,26 +45,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Update to the latest stable fw versions where userqueues
-is working as it is expected with major fixes.
+Add the proper checks for some of the gfx11 variant IP's
+for firmware support of userqueues.
 
 Signed-off-by: Sunil Khatri <sunil.khatri@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-index df8d36be613a..4d5f14a37be3 100644
---- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_0.c
-@@ -1440,10 +1440,10 @@ static int gfx_v12_0_sw_init(struct amdgpu_ip_block *ip_block)
- 	case IP_VERSION(12, 0, 0):
- 	case IP_VERSION(12, 0, 1):
- 		if (!adev->gfx.disable_uq &&
--		    adev->gfx.me_fw_version  >= 2780 &&
--		    adev->gfx.pfp_fw_version >= 2840 &&
--		    adev->gfx.mec_fw_version >= 3050 &&
--		    adev->mes.fw_version[0] >= 123) {
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+index 2c160ec9dc57..ca142c69cc28 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v11_0.c
+@@ -1670,7 +1670,11 @@ static int gfx_v11_0_sw_init(struct amdgpu_ip_block *ip_block)
+ 	case IP_VERSION(11, 5, 2):
+ 	case IP_VERSION(11, 5, 3):
+ 		/* add firmware version checks here */
+-		if (0 && !adev->gfx.disable_uq) {
++		if (!adev->gfx.disable_uq &&
 +		    adev->gfx.me_fw_version  >= 3090 &&
 +		    adev->gfx.pfp_fw_version >= 3190 &&
 +		    adev->gfx.mec_fw_version >= 3450 &&
