@@ -4,83 +4,84 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id BFBD8C624C6
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 07:59:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8D889C624D1
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 07:59:29 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D10D710EBC9;
-	Tue,  1 Sep 2026 07:59:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DE7810EBCC;
+	Tue,  1 Sep 2026 07:59:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.b="RdZn1JNZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IvDtza9u";
 	dkim-atps=neutral
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
- [188.68.61.107])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 131CD10E3A2;
- Tue,  1 Sep 2026 07:12:12 +0000 (UTC)
-Received: from mors-relay-8405.netcup.net (localhost [127.0.0.1])
- by mors-relay-8405.netcup.net (Postfix) with ESMTPS id 4hYxrB0cxPz77cg;
- Tue,  1 Sep 2026 09:12:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
- s=key2; t=1788246730;
- bh=bFqnooYeLxItmVyTi+VjmkJK7/U5SX2f8k+G+sYOw7U=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=RdZn1JNZaS/plDUYICVDzv3eI6ewKGdfTEcLrx4AJKjn2uWfZAHJNBE/1/4gg62oJ
- F45xazGyzosHxlkXexwndyXCYGykFlX3CU92/woOh3V8Q2eTuKtF0iwdmr5IhqNI/y
- o4ZjtfK6rZM24vpeOPgyw5SfbMo5W04LPTZo5w4YpOhKsLNPNbxBpEbCygPJJ5rwPf
- 5kUzkpEO/FSuKPGVv7IRw4RSosP+JcHBiQ1t6X3e9xx+rRxO9I/iEhtdpqL08URz2u
- nCZloZjajUBtWNxm4E6ZjdnV4AY1c6f8g4cs9+29n0qSymNtdjz1sigskv8y8hrwAY
- XztBpJDzdPnXA==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
- by mors-relay-8405.netcup.net (Postfix) with ESMTPS id 4hYxr96zgQz774g;
- Tue,  1 Sep 2026 09:12:09 +0200 (CEST)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
- SHA256) (No client certificate requested)
- by policy02-mors.netcup.net (Postfix) with ESMTPS id 4hYxr73GXXz8sbC;
- Tue,  1 Sep 2026 09:12:07 +0200 (CEST)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
- [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
- by mxe9fb.netcup.net (Postfix) with ESMTPSA id EE4C05F98C;
- Tue,  1 Sep 2026 09:12:05 +0200 (CEST)
-Authentication-Results: mxe9fb;
- spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
- smtp.mailfrom=regressions@leemhuis.info
- smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <722d96c4-8938-4da4-9eb4-2af50b9d8b26@leemhuis.info>
-Date: Tue, 1 Sep 2026 09:12:04 +0200
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
+ [209.85.216.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 669D110E1C1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 22:01:22 +0000 (UTC)
+Received: by mail-pj1-f50.google.com with SMTP id
+ 98e67ed59e1d1-383b4a3755fso317505a91.3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 15:01:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788213682; x=1788818482; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=KlAZtR3bxWbXU1u47EK486WJOcGonf0Fz4yohZ71G40=;
+ b=IvDtza9umQB7ANifAdiM6fTD1WKnkVI6LEuy1SM1/M1hFj7epD7o84tD3UBOWxa0Ux
+ AJrmLrJdT1B9nmMNlYCzp1/njhoqzXPOW3+dAL4jTTPPa3UwJW8mEYL3KrShOQBQKuPV
+ 4MVj+I3PiLLhLl5PvpMQx3JZD6vUovsPh7PjBAhXQ/Q6EQZq5j1pymv7Q5Sc817nhv1x
+ 5l/s+AB6TC39ewGWjirPODCTmz/k6i/6Ol6UwKxPog8PkPZdi+FF0Wc7NYvHADivM5vU
+ vyxd1kOkUozSFkZZf3erq1ILx3hApjK5QjgjME6UAY7xfk94Ix1I4cG6kclYFBORMJ0r
+ t3fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788213682; x=1788818482;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=KlAZtR3bxWbXU1u47EK486WJOcGonf0Fz4yohZ71G40=;
+ b=PQ0NdBG8iZdbbdfh/audllPiy9YYVdHQqb/KeWOgDtajKlsT7uB6kC4tde/I9q0vRx
+ WNyfppVh37/pEs6WrtbX5bi0Oq/Qk1xB87jJc3NIHd2wGxFNfuPf64Z+Xylo28dk21Ti
+ t+oNXeofutXqbuqhyC+4CkAahvdQr+59M2yYoKQpg6hyBcQL1yVYpp5TGPkqYM4UOyUt
+ ErQTa3iswCN0rwhiR4eNuGEX7qJTysyEHEBwXnJ0goZtFp9mgAOvFvmHhQtQIAUKmpgR
+ uImlJKOr74edYqSdkaTCIs/xXUhJJyugW0GldaCSMS2j/aAfEXLLRfpVRXd7e/POuwSJ
+ sMNA==
+X-Gm-Message-State: AFuF++nRbs0/9hPSNaI3p/T9lTnG2slmIQEXYK1N5LMWJpNqj9oikvwd
+ 9OgrdtiRZb4KS2Xo+CgJxb1Jz2KCBhclpF00YCthJYK+6IVIvS3/Jwpg
+X-Gm-Gg: AYBFou1OuCoojEyU63Cbl66dBMZQ8ikbA5s+tANZPooW/JPjVDrJ1SSsDjORikQwtpk
+ VTzJAVpJL+2aTzlyo+4TT/L0IBxSe0+qPbErfk4e/p4fVWS6KFiP+UDowQ3CJO3AjE2bjlkv4s+
+ fvIA2/n4NoHa0hc0zqAFz4GhAH4lHZJ/CO6KmayAajuebD6Rg4C91RMoPfE9wp037YN7CnJg/k2
+ b/wiegXKizrhDokHCaYeWFzul9ATB3+02/g5aiG18LtBJV3+up7z26wfcDcW9qVbnFuB26F39dc
+ 4hGXS1qdFPg0sV1GAtYMLfMt73prAbIJTDTiwoikBEaJjGQoN+52WU04fV3vw+741DZIyGE7iVM
+ keDFZA+eKOJz37EQaTWMgzLiFql6CtGsiO1eQH+w2uq9zChG0PVgU+2NdYa0qSnRKqx0v5nxOx1
+ SNvNvoQNC/QTR4P1H5k4YUvZwbjO1KF1vKP2Z46TVibM40ERVqYt5ppNdYgRBKms2LIGUUZqCgL
+ NxDp1/zSWkhg/J++ibpluZ8DRwdMP/zisylsDw8x0v6HmWBSkjVq74E/VSigkf7Sw==
+X-Received: by 2002:a17:90a:114f:b0:398:9be5:b41e with SMTP id
+ 98e67ed59e1d1-3989be5b50emr19697772a91.25.1788213681696; 
+ Mon, 31 Aug 2026 15:01:21 -0700 (PDT)
+Received: from [192.168.0.158]
+ (108-228-232-20.lightspeed.sndgca.sbcglobal.net. [108.228.232.20])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-32874498f9esm29322712eec.20.2026.08.31.15.01.19
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 31 Aug 2026 15:01:20 -0700 (PDT)
+Message-ID: <8d6ae98b-945f-402a-a7eb-c35c0efae46a@gmail.com>
+Date: Mon, 31 Aug 2026 15:01:18 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/3] drm/atomic-state-helper: fixes for blend-mode-prop
- warning
-To: =?UTF-8?B?VmlrdG9yIErDpGdlcnNrw7xwcGVy?=
- <viktor_jaegerskuepper@freenet.de>, Melissa Wen <mwen@igalia.com>,
- Alex Deucher <alexdeucher@gmail.com>
-Cc: airlied@gmail.com, alexander.deucher@amd.com, christian.koenig@amd.com,
- daniels@collabora.com, harry.wentland@amd.com,
- leandro.ribeiro@collabora.com, maarten.lankhorst@linux.intel.com,
- mripard@kernel.org, pekka.paalanen@collabora.com, simona@ffwll.ch,
- siqueira@igalia.com, sunpeng.li@amd.com, tzimmermann@suse.de,
- Alex Hung <alex.hung@amd.com>, Daniel Wheeler <Daniel.Wheeler@amd.com>,
- kernel-dev@igalia.com, Lyude Paul <lyude@redhat.com>,
- =?UTF-8?Q?Timur_Krist=C3=B3f?= <timur.kristof@gmail.com>,
- Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
- Xaver Hugl <xaver.hugl@gmail.com>, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, Greg KH <gregkh@linuxfoundation.org>,
- Linux kernel regressions list <regressions@lists.linux.dev>
-References: <20260826104143.39077-1-mwen@igalia.com>
- <CADnq5_MEBLriK_M_atX6FKR5618fiB5DmAWOvxE_e+6nd5FdDg@mail.gmail.com>
- <83bef197-dfbc-44a5-b9d8-6e0c44488793@igalia.com>
- <6dda204d-2c12-4442-9893-6449b5ce51c9@igalia.com>
- <9d5fa2bf-d9e4-4c6a-a9ca-8abf14ad894e@leemhuis.info>
- <572f78a8-1b09-4275-bca7-0ae8703776d0@freenet.de>
-From: Thorsten Leemhuis <regressions@leemhuis.info>
-Content-Language: de-DE, en-US
-In-Reply-To: <572f78a8-1b09-4275-bca7-0ae8703776d0@freenet.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-PPP-Message-ID: <178824672705.2729861.15661692697990796102@mxe9fb.netcup.net>
-X-NC-CID: Se4neMb5CJgzgYpC9HT4NO0celnOKaVNt5I5gbo1kA9qJUznsgM=
+Subject: Re: [PATCH 0/2] IOMMU Performance Optimization support
+To: Mario Limonciello <mario.limonciello@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Joerg Roedel <joro@8bytes.org>
+Cc: amd-gfx@lists.freedesktop.org,
+ Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>,
+ Vasant Hegde <vasant.hegde@amd.com>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ "open list:AMD IOMMU (AMD-VI)" <iommu@lists.linux.dev>,
+ Jatin Kataria <jkataria@netflix.com>, Boqun Feng <boqunf@netflix.com>
+References: <20260831055108.1893285-1-mario.limonciello@amd.com>
+Content-Language: en-US
+From: "Derek J. Clark" <derekjohn.clark@gmail.com>
+In-Reply-To: <20260831055108.1893285-1-mario.limonciello@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Mailman-Approved-At: Tue, 01 Sep 2026 07:59:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -96,67 +97,60 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/28/26 14:19, Viktor Jägersküpper wrote:
-> On 8/28/26 09:22, Thorsten Leemhuis wrote:
->> On 8/27/26 19:14, Melissa Wen wrote:
->>> On 27/08/2026 18:37, Melissa Wen wrote:
->>>> On 27/08/2026 15:34, Alex Deucher wrote:
->>>>> On Wed, Aug 26, 2026 at 7:20 AM Melissa Wen <mwen@igalia.com> wrote:
->>>>>> PREMULTI was the default DRM blend mode until 9813e158d13d
->>>>>> ("drm/drm_blend: allow blend mode property without PREMULTI")
->>>>>> introduced
->>>>>> the possibility of exposing the blend mode property without PREMULTI
->>>>>> being supported. However, __drm_atomic_helper_plane_state_init() still
->>>>>> resets pixel_blend_mode to PREMULTI (hardcoded), ignoring the supported
->>>>>> mode in this property. In the same series, 860e748bddcc ("drm: ensure
->>>>>> blend mode supported if pixel format with alpha exposed") starts
->>>>>> warning
->>>>>> drivers that supports alpha formats in a given planes but doesn't
->>>>>> support blend mode property, which includes AMD primary and cursor
->>>>>> planes.
->>> [...]
->>>>> I presume you are planning to apply this directly to drm-misc for 7.3?
->>>>
->>>> Right, I'll apply to drm-misc-fixes, just doing it now.
->>>
->>> Or not now. I have to wait for -rc1.
->>> I'll keep it on my radar.
->> Hmmm, that sounds like these fixes will miss -rc1. But wouldn't it be
->> good to get them included there, as they afaik (please correct me if I'm
->> wrong, is easy to mix something up from the outside!) the warnings that
->> Greg described as ""It's not good to boot and have a bunch of warnings
->> already happening, resulting in a "tainted" kernel before I have the
->> chance to break anything manually myself...""[1], as more people then
->> will likely encounter this (and then waste time on bisecting an issue
->> known for weeks for which a fix exists).
->>
->> [1]
->> https://lore.kernel.org/all/2026082651-spinning-cornbread-33ba@gregkh/
-> 
-> If I understand correctly, the *actual* fix (for all affected drivers)
-> will make it into 7.3-rc1, see this answer to my question:
-> https://lore.kernel.org/dri-devel/20260826-brave-nyala-of-elevation-d23aea@houat/
+
+On 8/30/26 22:51, Mario Limonciello wrote:
+> Add support for the AMD IOMMU Performance Optimization (PerfOpt)
+> feature as defined in the AMD I/O Virtualization Technology (IOMMU)
+> Specification, Section 3.4.9 (MMIO Offset 016Ch).
 >
-> This fix is queued in drm-next:
-> https://gitlab.freedesktop.org/drm/kernel/-/commit/271e90eb5f9ff34951647e5ed33c1775eebcca50
+> This feature allows privileged integrated I/O devices (GPUs) to bypass
+> the IOMMU when directly accessing system memory.  The IOMMU only
+> enforces the IR/IW permission bits without GPA->SPA translations.
+>
+> Drivers will opt into this behavior, and enable amdgpu to turn this
+> feature on when an integrated GPU is already in identity mode.
+> If a user prefers to keep it always off (even with identity mode)
+> there is also a module parameter to force it off.
+>
+> Mario Limonciello (2):
+>    iommu/amd: Add PerfOpt IOMMU performance optimization support
+>    drm/amdgpu: Enable PerfOpt IOMMU perf optimization when GPU in
+>      identity domain
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu.h        |   1 +
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  41 ++++
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    |  12 ++
+>   drivers/iommu/amd/amd_iommu.h              |   3 +
+>   drivers/iommu/amd/amd_iommu_types.h        |   7 +
+>   drivers/iommu/amd/init.c                   |  43 +++++
+>   drivers/iommu/amd/iommu.c                  | 214 +++++++++++++++++++++
+>   include/linux/amd-iommu.h                  |  11 ++
+>   8 files changed, 332 insertions(+)
 
-Ahh, yeah, many thx, I had see this downgrade to drm_warn() (which made
-it to -rc1, yeah \o/), but had not made the right connections. :-/
+Hi Mario,
 
-FWIW, even with that done there is now one amdgpu regression report
-about this already post-rc1:
-https://lore.kernel.org/all/CANkdJ2VvJQSBzyOq=LgSW1=Z8-YiN_r9Py2iJ0UJDo55+dbfuA@mail.gmail.com/
 
-"""
-[...] After updating from kernel v7.2.2 to v7.3-rc1, several DRM plane
-warnings regarding unset blend modes for pixel formats with alpha
-channels started appearing in dmesg during initialization.
+The Legion Go 2 has a significant performance degradation when IOMMU is 
+ON and VRAM is set to auto in the BIOS. I applied these to linux-next 
+and compared to 7.2 neptune on the Legion Go 2 and got the following 
+results:
+Game: Avowed
+With patches:
 
-[drm] [PLANE:44:plane-0] pixel format with alpha exposed but blend
-mode not setup. Please fix. [...]
-"""
+Go 2| Vram: 2GB, IOMMU: Off, FPS: 35-40, Frame Time: consistent
+Go 2| Vram: 2GB, IOMMU: On, FPS: 35-40, Frame Time: consistent
+Go 2| Vram: Auto, IOMMU: Off, FPS: 35-40, Frame Time: consistent
+Go 2| Vram: Auto, IOMMU: On, FPS: 35-40, Frame Time: consistent
 
-Will reply there now. Wondering if we need to do something about that if
-more reports like that show up, but let's wait if that's the case.
+Without Patches:
 
-Ciao, Thorsten
+Go 2| Vram: 2GB, IOMMU: Off, FPS: 35-40, Frame Time: consistent
+Go 2| Vram: 2GB, IOMMU: On, FPS: 35-40, Frame Time: consistent
+Go 2| Vram: Auto, IOMMU: Off, FPS: 35-40, Frame Time: consistent
+Go 2| Vram: Auto, IOMMU: On, FPS: 20, Frame Time: inconsistent
+
+Overall, this seems to fix the performance issue with IOMMU when BIOS is 
+in the factory default setting.
+
+Tested-by: Derek J. Clark <derekjohn.clark@gmail.com>
+
