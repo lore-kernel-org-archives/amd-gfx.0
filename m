@@ -4,139 +4,62 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AFD5C624C6
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 07:59:24 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 168FEC624CF
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 07:59:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0C43810EBA4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 659FB10EBC1;
 	Tue,  1 Sep 2026 07:59:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Fa7a1Q3Y";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="F5O2x/q+";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D54310E858;
- Mon, 31 Aug 2026 13:36:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 9A17F60215;
- Mon, 31 Aug 2026 13:36:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 016D61F000E9;
- Mon, 31 Aug 2026 13:36:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183394;
- bh=3d2wE4iPk/eSRIKBUJMr1Vert2gthTCrW2UXhnx95p4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Fa7a1Q3YoUsfdoMvZbQAiBxdeh/TNaAy2cWmN+gHJtD0G5fAKj07cg5+8PsqlLHGz
- A1PAQuTvFk3cBiBuBnU9BX06M7lLnfqiM9pOLnHs/A2YOWF6hTp4V8VTsE2c/GmSFo
- URF1s+nDBwrxxWO45AdqLpYaq6wzMJThp7iMOVVQEGXgXFPN8CtiP/WnqMUZqdnyKW
- EQDpd7/10qJ2kUHSiXAJKr/GRWQLdNSiDsyIUkC44uOO8x+JESPpssnyKwOnT03CZH
- 1TMqMRafZA0VRWtpwFEEpq9yiXTseAFhl04jX5wKhiXF3DXtIzYeLnD80tcC/prJs1
- YmW1jKy9yiPhA==
-Date: Mon, 31 Aug 2026 15:36:29 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: dri-devel@lists.freedesktop.org, Janne Grunau <j@jannau.net>, 
- Sasha Finkelstein <k@chaosmail.tech>, asahi@lists.linux.dev, 
- Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, 
- amd-gfx@lists.freedesktop.org, Liviu Dudau <liviu.dudau@arm.com>, 
- Russell King <linux@armlinux.org.uk>, Alim Akhtar <alim.akhtar@samsung.com>, 
- Inki Dae <inki.dae@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
- Kyungmin Park <kyungmin.park@samsung.com>,
- Peter Griffin <peter.griffin@linaro.org>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org, 
- Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>, 
- Ruben Wauters <rubenru09@aol.com>, Tian Tao <tiantao6@hisilicon.com>, 
- Xinwei Kong <kong.kongxinwei@hisilicon.com>,
- Yongbang Shi <shiyongbang@huawei.com>, 
- John Stultz <jstultz@google.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Xinliang Liu <xinliang.liu@linaro.org>, Yongqin Liu <yongqin.liu@linaro.org>, 
- Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
- Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
- Fabio Estevam <festevam@gmail.com>, 
- Frank Li <Frank.Li@nxp.com>, Liu Ying <victor.liu@nxp.com>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev, 
- Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
- Lucas Stach <l.stach@pengutronix.de>, 
- Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org, 
- Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
- Paul Kocialkowski <paulk@sys-base.io>, 
- Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-amlogic@lists.infradead.org, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Dmitry Baryshkov <lumag@kernel.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- freedreno@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, Marek Vasut <marex@denx.de>,
- Dave Airlie <airlied@redhat.com>, 
- Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org, 
- virtualization@lists.linux.dev, Geert Uytterhoeven <geert+renesas@glider.be>, 
- linux-renesas-soc@vger.kernel.org,
- Marcus Folkesson <marcus.folkesson@gmail.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, 
- Orson Zhai <orsonzhai@gmail.com>, Alain Volmat <alain.volmat@foss.st.com>, 
- Raphael Gallais-Pou <rgallaispou@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
- Yannick Fertre <yannick.fertre@foss.st.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
- linux-sunxi@lists.linux.dev, Jyri Sarha <jyri.sarha@iki.fi>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Aditya Garg <gargaditya08@proton.me>, 
- Aun-Ali Zaidi <admin@kodeit.net>, LiangCheng Wang <zaq14760@gmail.com>, 
- Alex Lanzano <lanzano.alex@gmail.com>, Hans de Goede <hansg@kernel.org>, 
- Icenowy Zheng <zhengxingda@iscas.ac.cn>, Chia-I Wu <olvaffe@gmail.com>, 
- Dmitry Osipenko <dmitry.osipenko@collabora.com>,
- Gurchetan Singh <gurchetansingh@chromium.org>, 
- Michal Simek <michal.simek@amd.com>,
- Javier Martinez Canillas <javierm@redhat.com>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>, Jocelyn Falempe <jfalempe@redhat.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
- Dharma Balasubiramani <dharma.b@microchip.com>,
- Manikandan Muralidharan <manikandan.m@microchip.com>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Huacai Chen <chenhuacai@kernel.org>, Jianmin Lv <lvjianmin@loongson.cn>, 
- Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Xi Ruoyao <xry111@xry111.site>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
- Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Magnus Damm <magnus.damm@gmail.com>,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Biju Das <biju.das.jz@bp.renesas.com>,
- Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Sandy Huang <hjc@rock-chips.com>, 
- linux-rockchip@lists.infradead.org, Iker Pedrosa <ikerpedrosam@gmail.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>,
- Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org, 
- =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Haneen Mohammed <hamohammed.sa@gmail.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <melissa.srw@gmail.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Zack Rusin <zack.rusin@broadcom.com>
-Subject: Re: [PATCH 00/70] drm/crtc: Convert all drivers to
- atomic_create_state and remove reset
-Message-ID: <apWDRq8YOTwvGuSf@houat>
-References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 02B6810EA63
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 18:47:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788202068; x=1819738068;
+ h=from:date:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=SbC85oh43xK1cq/2ldnnTnGpw2ddhsw9CYnzDkYxAds=;
+ b=F5O2x/q+5ZorcLUxwin77jfZBj0QpugvJVOIqg5x2hCjp6VIjhB0MKiL
+ fe7NscYQJ2VVhBvUQwAyrzV5rV5foNfFue9GXL07wlHHK7pSbIIxAjVWo
+ /W0qM5yMAfw58kNH60kUTMZWy7mikKesfgaPUYv7Zaf/VkpqMZjSGcL0w
+ bXV/SfCyKADwOuxBHm9X/4+a+ie7iUR8R0QKI3CAQsFUbpgM8gYP43D4r
+ ZrdVJ4XviYpRQOP3hVtVIDuxnec7DOdwpz8OFqXZlji7TNxmzE9JOUuWb
+ EmAWFtmKTdDskaUJEc02fgsXgeQcwXsemN37eEcYXVdCudySbqFtupXXX Q==;
+X-CSE-ConnectionGUID: 6ZTnTVONRcyFGORUwvSIkg==
+X-CSE-MsgGUID: CjibMGpJRtSnNQd3UGfBPA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88742422"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="88742422"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 11:47:47 -0700
+X-CSE-ConnectionGUID: QoeNdtnTThOlEpqDltVbiQ==
+X-CSE-MsgGUID: 4NjnaTqCQ92FjParRuNGiw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="267066138"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.121])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 11:47:44 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 31 Aug 2026 21:47:41 +0300 (EEST)
+To: Geramy Loveless <gloveless@jqluv.com>
+cc: Bjorn Helgaas <bhelgaas@google.com>, alexander.deucher@amd.com, 
+ amd-gfx@lists.freedesktop.org, mario.limonciello@amd.com, 
+ nra3088@gmail.com, 
+ =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
+ meiling.leung@embeddedllm.com, linux-pci@vger.kernel.org, 
+ LKML <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] PCI: Reserve prefetchable window headroom for Resizable
+ BARs
+In-Reply-To: <7771e88e-9cdf-4415-97ac-69d15c015d1e@jqluv.com>
+Message-ID: <034f9ce3-3c50-b0f2-8ac7-e6180242de00@linux.intel.com>
+References: <39e09dd8-f73e-4dc2-ba36-8a9228516d26@jqluv.com>
+ <fba65262-5490-4d60-d06d-9badaafc7e17@linux.intel.com>
+ <7771e88e-9cdf-4415-97ac-69d15c015d1e@jqluv.com>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="eainbiqt42xdkeio"
-Content-Disposition: inline
-In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
+Content-Type: multipart/mixed; boundary="8323328-1847860086-1788202061=:2637"
 X-Mailman-Approved-At: Tue, 01 Sep 2026 07:59:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -152,57 +75,156 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
---eainbiqt42xdkeio
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 00/70] drm/crtc: Convert all drivers to
- atomic_create_state and remove reset
-MIME-Version: 1.0
+--8323328-1847860086-1788202061=:2637
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-On Fri, Aug 21, 2026 at 04:38:36PM +0200, Maxime Ripard wrote:
-> This is a follow-up to the plane reset removal series, and part of a
-> larger effort to remove the reset hook from all KMS objects.
+On Mon, 31 Aug 2026, Geramy Loveless wrote:
+
 >=20
-> The CRTC reset hook is overloaded: it is called both at probe time to
-> create the initial software state and during suspend/resume to reset
-> hardware and software state. These two roles have different
-> requirements, and the reset hook is not fallible, making error
-> handling difficult for the initial state allocation path.
+> On 8/31/26 9:31 AM, Ilpo J=C3=A4rvinen wrote:
+> > On Fri, 28 Aug 2026, Geramy Loveless wrote:
+> >
+> >> Firmware typically sizes prefetchable bridge windows for the boot-time
+> >> BAR size. Behind a fixed (non-hotplug) PCIe switch fabric, there is th=
+en
+> >> no room for a driver to grow a Resizable BAR afterwards: every window
+> >> from the leaf up to the root is sized for the small BAR, so
+> >> pci_resize_resource() fails with -ENOSPC.=20
+> >>
+> >> Furthermore, a small prefetchable BAR (e.g., a 2 MiB doorbell) sharing=
+ a=20
+> >> bridge's single prefetchable window with a much larger one (e.g., a 32=
+ GiB=20
+> >> VRAM BAR) pushes the required window size past the large BAR's alignme=
+nt.=20
+> >> Because bridge windows round up to a power of two,
+> > Do they??? In which kernel version I must ask??
+> I'm sorry this was in reference to a prior patch I made, **ignore**
+> >
+> >> this forces a massive=20
+> >> alignment waste (e.g., 32 GiB + 2 MiB rounds up to a 64 GiB window,=20
+> >> wasting ~32 GiB per GPU).
+> > The largest I've seen is 32GB + half of that. And that's not with the=
+=20
+> > latest kernel.
 >=20
-> While reset has the semantics to reset both the software and hardware
-> state, the vast majority of implementations and all the helpers only
-> reset the software state, making them equivalent to
-> atomic_create_state in practice. The atomic_create_state hook makes
-> this explicit: it only allocates and initializes a pristine state
-> without any side effect, and returns the state pointer or an ERR_PTR
-> on failure.
->=20
-> This series converts all CRTC drivers tree-wide from the reset hook to
-> atomic_create_state, then removes the reset hook from struct
-> drm_crtc_funcs entirely. Two drivers (tilcdc and loongson) had actual
-> hardware reset logic mixed into their reset hook; those are moved to
-> CRTC creation instead. The conversions were done using a combination of
-> Coccinelle semantic patches and manual adjustments.
->=20
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> This is in reference to when there are two R9700s on one switch basically=
+=2E
+> As far as my understanding currently how it works is that when there are =
+two GPUs they both have a BAR0, BAR2, and BAR5 the BAR5 goes onto the 32-bi=
+t window.
+> Bar 0 and 2 don't go onto the second window by default as they could over=
+fill it of course, bar 0 would not fit period, and 2 might which is the cas=
+e I took.=C2=A0
+> This allows BAR 0 on (GPU 0) in leaf 0 on window 0 to align as a multiple=
+ of 32G like it I guess has to? This is how I understand it, so if R9700 ha=
+s 32G on, bar0, leaf 0, window 0, and share the same window as GPU 1 then w=
+e have to pad the space between GPU0 BARs on window 0 by 32G, meaning BAR2 =
+really is also using 32G, its not possible or at least right now its not po=
+ssible to move BAR2 to the end of all the allocations it doesnt fit the sta=
+ndards? Keep in mind this is not my specialty here I am trying my best to u=
+nderstand and solve the issue at hand.
 
+With the empty space in between, your 64GB calculation would indeed be=20
+true, but that wasn't what you said because you made an inaccurate claim=20
+about window sizes being power of two in case of 32G+2M.
 
-Applied patches 1,3-14,16-28,31-41,43,45-49,52-62,64-68 to drm-misc-next
+(I suppose we're generally in agreement here but just ended up discussion=
+=20
+on finer details and the interpretation of those details.)
 
-Maxime
+> >> This patch solves both issues to enable ReBAR on cascaded switch fabri=
+cs:
+> >>
+> >> 1. Reserve Headroom:=20
+> >> Reserve prefetchable window headroom for the maximum size of each=20
+> >> downstream Resizable BAR during the bridge sizing pass. The device BAR=
+=20
+> >> and hardware ReBAR are left at their boot size to prevent tearing down=
+=20
+> >> firmware-loaded state (e.g., AMD R9700 PSP) before the driver binds.
+> > ... reorganizing ...
+> >
+> >> Fallback / Alignment logic:
+> >> If the 32-bit space is exhausted, small BARs remain in the prefetchabl=
+e=20
+> >> window. The alignment logic gracefully handles this by rounding the br=
+idge=20
+> >> window up to the next power of two (e.g., growing to 64 GiB to fit a 3=
+2 GiB=20
+> >> BAR + BAR2) to maintain PCIe compatibility, ensuring sibling GPUs land=
+ in=20
+> >> properly aligned slots.
+> >>
+> >> Reserving is safe by default: __assign_resources_sorted() satisfies al=
+l
+> >> required resources first. Use pci=3Dno_rebar_reserve and pci=3Dno_bar_=
+demote=20
+> >> to restore previous behaviours.
+> >
+> > And how does this fallback, if the largest size doesn't fit? What are t=
+he=20
+> > failure modes?
+>
+> So if the smaller bars under 16M don't fit in the 32-bit addressable=20
+> space the fallback mode is to do as I said above to your prior comment,=
+=20
+> basically put.=20
+> Don't move the 2M BAR2 over to the 32-bit addressable space / window and=
+=20
+> instead fallback to aligning the prior window by the size of the GPUs=20
+> memory space as I understand it, when you have gpu0 and gpu1 both=20
+> requiring 32GB their address has to be a multiple of their allocation=20
+> size? meaning we get 32G for BAR0 and 32G for BAR2 even though BAR2 only=
+=20
+> needs 2M because its not aligned to allow GPU1 to be on a aligned space?
 
---eainbiqt42xdkeio
-Content-Type: application/pgp-signature; name="signature.asc"
+I'm more referring to the case where the big ReBARs cannot be assigned as=
+=20
+space runs out or some other BAR fails to assign because ReBAR took "too=20
+much", and the numerous ripple effects from that. When that happens in=20
+some system for something important breaking something, you'd have to=20
+solve that problem too or this change gets reverted...
 
------BEGIN PGP SIGNATURE-----
+> > It's correct that the sizing decision should be done in pbus_size_mem()=
+=20
+> > but it must not result in breaking things which a naive approach like=
+=20
+> > this will surely do.
+> >
+> > Without proper fallbacks done, there will be too much breakage it's a=
+=20
+> > showstopper for a naive patch like this.
+> >
+> > Basically, what we'd want to do is try with the largest size, then redu=
+ce=20
+> > it one step at a time (because it's 2^n -> 2^(n-1) even one step saves=
+=20
+> > quite much so one might not need to reduce that many steps). But also, =
+in=20
+> > some IOV enabled cases the oversubscription of the space is very=20
+> > substantial and you'd still want to maximize the BAR sizes to what is=
+=20
+> > allowed by the available space.
+> >
+> > Fallback is hard to implement, because sizing and assignment are quite =
+far=20
+> > from each other codewise and there are no structures to carry informati=
+on=20
+> > over to the next retry phase.
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCapWDXQAKCRAnX84Zoj2+
-dtnDAYDvbcHtYOX7CuJCyNGSb99Ed+Livj62dMg0nsp864oeIMVzqxGBJIKgPp8Z
-RCHnUyUBfAxvXYJDr3LaH94QifMoTvJPOgPapZRwWXp6VAygmOgZF8WFxC9cEp2h
-0/QjaJymHA==
-=mCUP
------END PGP SIGNATURE-----
+=2E..And that's why there should be proper fallback so that failing one=20
+assignment somewhere middle will not result in failure in the end.
 
---eainbiqt42xdkeio--
+Basically, my own plan is for the algorithm to try smaller sizes until all=
+=20
+things fit. And all that retry logic is far from simple.
+
+--=20
+ i.
+
+--8323328-1847860086-1788202061=:2637--
