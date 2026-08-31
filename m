@@ -4,125 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3A0B3C624A5
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 07:49:56 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1CE0CC624A5
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 08:09:57 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8FF0C10E280;
-	Mon, 31 Aug 2026 07:49:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 81BF910E6E8;
+	Mon, 31 Aug 2026 08:09:56 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="v8hZtRJt";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="H4F8uaVm";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010044.outbound.protection.outlook.com [52.101.56.44])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0CB8310E280
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 07:49:54 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012061.outbound.protection.outlook.com [40.107.209.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C481310E6E8
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 08:09:55 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=b4obetpSTBnM0UwWQRvwzL4yHb/dGjCcGlMa4w3XbKMw+LLI1TXpuklBWlawPuGz87VUzsxp1eOhOH0CmsAENptRauWpTgYkpGoForPo5iYgsFsFupiLGOWiMYCE2A54tne6pIQSEQabkse+EITmS75VFpN/VgT8OSjmx0AK+uoarL50I16hbttQEk3NjGG3WSEROcAz73sYQkM6nQ5zmhI9hBlKarWZfCn0UUiQMlqP5nrEai3/CF4SyUNxDL4IUBP9KAg8l/v7JNXHNB4CINXYNMb9GbEyV2kZsxmkobsd1HTBG9cTT6Noydgysq4430ld1K/KGOfjZeL8VKSeFA==
+ b=VlUpP0uy7KPaMHAmO5jmXFNqvWYEkxyQjniPMblGw+yQJaRxoqhOhXN/WmqOQ+h/SXulS7ErxXOuUjVBVZG59GJeQJ3vn1OLzGjLq3t66MomOHPzZGcGaCoCMxnKd2xVThWk3iMp1cs+e0biiraDM3mUnonP6b5gc41ZnOdaEtGHgwUxaAZ1znFiRljgFFVo8JKIXVJiMCYKsLhRW+8yyzUdPj85MuTdWuohGkzHPTkJtJbmHGKAOf1pBVoeXKoXw7P6w7tHSLU4FfyffvT1gY+h+N0U7GdjWrxOr0+EIQeUDUnDV2t6u2sMUbU0kpFuVOvtbPf8wTDVLnt4mUTYug==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FBdKIKO6z/9LVS5qwiSAAH6hFSfChMd6t83X9CKwleI=;
- b=HTJ5WAru270Gt3CJ7r/FYqpZmKiCtxKkW8Sc2qafsDTzslfDwjCLuULL3qQDzsqgDOjSuo2N37RHU9ht4Kxkj1gR82ABkExqf/5V2H2fcvitavoNs6PwEGSsgMLWqGj11Dtvdnf7o71AzZgFRzYz710bi86Jte2RC47R+/QFyQEJnXiMyamd0izQqijaDEDPN/GZSB1xLCQrhnQsX5l8Qe5XLf6EI1jtUHErIkZLLHqZW7pNe/kpkoZbPcibs54WNWHPZeRjBwA75oswT4pnpSLyJaTG6GGfT6GmbHYgAMGP9I5Sx3N6i6TwJhrfekilMk5myZLWZUkz5AQDokCduQ==
+ bh=X49lqwnh4o2S8xDfCSgnOQzWQxGGtvzxhTSrvQyloho=;
+ b=zVt2GZyBBZlLUt8+Abck7kkg4uppXGXSPK5Ir8o3eZMhLLwNTIna3fXWWwoJCcgzcQQinmsndLZINuwBTa69wBUuz7axuwJULF2g3cwyLipMedwagfMtoZubthjXj3R9rsmNq76bTQ0QDmxukM3uD1zKKHwzG/EK7Et8CdQVAmKFvOiOyHjWp7M40KwTJUiy676KUp3b+fkPjsq+bGkFtRbk8u4qsdWYlZJVX1rk8uhJtJEe+OrGvozMZtIYk9D+yWi6y7EoYVqeCqHsXmd7VWRLOPdL3/tRtGvtbjdA/g/7+XO94rcuN1fH/RGtp9jAiGGQvIgpr2ecA9HNr1ZADw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FBdKIKO6z/9LVS5qwiSAAH6hFSfChMd6t83X9CKwleI=;
- b=v8hZtRJtGmD5CEO4cpQ9KsqSkjtt1MilJhJV/Pjp/OQNwcK7EcGCRReeL9M9NQVPlwr8CgC0WaWhUk522Ktac3YP5iABTlGd4d4lqh5mpSIEieMNO9FjpdRSnIuNMvkWG7ux+knVRoee9gwuiS2qTYpV22x14+n6tHXsChRKHlo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB8945.namprd12.prod.outlook.com (2603:10b6:806:375::14)
+ bh=X49lqwnh4o2S8xDfCSgnOQzWQxGGtvzxhTSrvQyloho=;
+ b=H4F8uaVmsONC6d3DP006k0hXKHtVXwZ4leop2/cGmsQOConKWbsSxMwY9Bcib6lnY68aCqz3K4AxLotIzho8TrIYBAAUnLis4UV/XNLNjzHO0DiFDXL/+uMChAxhmXkO9bbwtlgT+34UBXRxQW/8kpmof/bcsnv4TaWx8ATaoao=
+Received: from MW4PR12MB6803.namprd12.prod.outlook.com (2603:10b6:303:20e::10)
+ by SA1PR12MB7101.namprd12.prod.outlook.com (2603:10b6:806:29d::16)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 07:49:44 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Mon, 31 Aug 2026
- 07:49:44 +0000
-Message-ID: <d4c3ea40-d92a-49c4-ab2c-925fc70c4bb9@amd.com>
-Date: Mon, 31 Aug 2026 09:49:39 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] PCI: Reserve prefetchable window headroom for Resizable
- BARs
-To: Geramy Loveless <gloveless@jqluv.com>, Bjorn Helgaas <bhelgaas@google.com>
-Cc: alexander.deucher@amd.com, ilpo.jarvinen@linux.intel.com,
- amd-gfx@lists.freedesktop.org, mario.limonciello@amd.com, nra3088@gmail.com,
- meiling.leung@embeddedllm.com, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <39e09dd8-f73e-4dc2-ba36-8a9228516d26@jqluv.com>
+ 2026 08:09:51 +0000
+Received: from MW4PR12MB6803.namprd12.prod.outlook.com
+ ([fe80::c193:ef2e:260f:dcfd]) by MW4PR12MB6803.namprd12.prod.outlook.com
+ ([fe80::c193:ef2e:260f:dcfd%6]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 08:09:51 +0000
+From: "Feng, Kenneth" <Kenneth.Feng@amd.com>
+To: "Wang, Kevin" <Kevin.Wang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Deucher, Alexander" <Alexander.Deucher@amd.com>, "Zhang, Hawking"
+ <Hawking.Zhang@amd.com>
+Subject: RE: [PATCH 0/7] drm/amd/pm: stage OD reset until commit
+Thread-Topic: [PATCH 0/7] drm/amd/pm: stage OD reset until commit
+Thread-Index: AQHdOQIkJ9AjL5zwL0KzN17mKPT+NLa3zbjg
+Date: Mon, 31 Aug 2026 08:09:51 +0000
+Message-ID: <MW4PR12MB680329990EAECAA7EF692FF78EA92@MW4PR12MB6803.namprd12.prod.outlook.com>
+References: <20260831043507.523599-1-kevin.wang@amd.com>
+In-Reply-To: <20260831043507.523599-1-kevin.wang@amd.com>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <39e09dd8-f73e-4dc2-ba36-8a9228516d26@jqluv.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0048.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:cc::15) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB8945:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1927b06b-cfa6-4c64-5866-08df07346bd1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|366016|56012099006|10067099003|11063799006|5023799004|6133799003|3023799007|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: YJhOLFOMr+qe+oFjEGpnB5Ko6B5Hxw/rlblf75TJ19tJ9rWnSLS1Zp8lDGFCCGRDLaJck/A/Gy+5v1qYSoVCO4lezAPyGB/nSvPw8ePZ3KulcVnI1hkU/azKwc6fY7CGLnJODLISqFZ6DoajRlztY80ErT2Bxm+nlJurg/vI3KwpamtVTUT4voOesJwzyz4zjEIxhIDXNfiuAuynz0N/Cw3g0RbCfGNRgFdbcM2WD9ncnip5DuRy9KMS2S8rU/X1WZbJvrJ/SeUVKRLFUpVufV57CO4FXzwNweqJ2QIxArS7DHiA5jpvF0BoQxY+BNkUZOMzej70N9xQ6KCcE3hZ7BfgZMaKCOL7EE22JlDpATRbhyyfMb2BkUqFGd9WB7+ZmTVFN8GPhhnNvTqGOVk1RbRTcWeGmOZF8JujRsRnAlrsqODeSkF0ixucEVUdhUk49tGJZvzHUXUYDlCiSi2q3k1gvInRpEYwpS42FPldAoZnqIyJCBfFJoWQvEl5zx4uBmAT9p+PmEalj61AnYdJKiOxazkn/7NvPoxdv73znzDZMt0xfUsdKrDTnbb/ObiywQmNbqJfI+lnOaBxkT3X4XEtox3PrCOqSQD+sLSx1/WWX1ehAm/crWUsOIfAtax4UjvQg0KSV34xBdGCFxDzrkAPwffDqbWiyG3WZvmrLyY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(56012099006)(10067099003)(11063799006)(5023799004)(6133799003)(3023799007)(18002099003)(22082099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-31T08:08:12.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MW4PR12MB6803:EE_|SA1PR12MB7101:EE_
+x-ms-office365-filtering-correlation-id: 1c7fc4f9-1683-483f-f954-08df07373b9d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|23010399003|366016|1800799024|376014|10067099003|6133799003|3023799007|18002099003|22082099003|56012099006|11063799006|38070700021;
+x-microsoft-antispam-message-info: gL2O11tb/CnmOzmLEZX5SiGUknVzSo1t12MmiaRa6g7epKZDXBxXvMMzvTUVMmo94g63HLGiZ9ql95Dt69ZynpSlsGidxda4CMn4lqCZxb7uwyimEPgovuzXEzQe0MLQDZLu6ksSvW7PZPZ6WD7uFJO7jAj1i7zbckbhiVrxT86lMD73Mr0qZS+Pj/fTPCXk441tpMuWRYNkumQXfqLy5bkoESKkPQ1RH/+O58Y4cjNRrngVzb0Spe2xqVQFLHY3ZeHUWvePwpwquFrN/8OGxco9OxgU8WNCzKLn/OD0x0nyg7cV1loW0utFRo6psmq07WlEePqiU9OPY/1Exw0PwERb3Ba1VNrc6hVZj18NiqQQ3TE+RaEBi5VN+/jASYji0SwTjX/hqxl3w1KrL8uINVdd66UEUIKvaFlSyQFkMr9BmFlD97dmBKVfVfl5e6DpQTLtVY0LhlQrsbKnkEd6s8DlzayLgsiHNKv5WMvBIb94XY204GhE0Dl8N9FFNTgB0o3UCLjmniPX1yUjNAPp1LoDOm7kdj1/GroOR7kiSjUniONXwHw/vpIoRWL8ueaDK0DJuZfufK7fDK+7Un9lHmH8Mtcmia2HXqXsQAWKs42WQl5Imq7JH2JaQgUVnAx6WaiDVEFc8GDlfoiy6msOaALLK7QiPV2euRvlqqKJ8Mk=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6803.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(10067099003)(6133799003)(3023799007)(18002099003)(22082099003)(56012099006)(11063799006)(38070700021);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cDNWK0F2dTZpNkd4ajRQeE4rWlZXTVVzSmtSMVZGdDlhdDNlUWpseEVET1J5?=
- =?utf-8?B?d3FYNXk3b1A4MmsvZzRZa05iWUdGN1M0NjVUOHpCMFdjcFlFTEJvSkU5cVFt?=
- =?utf-8?B?bGx0UU1hdmtpK25kdi9FZTllZmU1THR0RHdGcEYxKzhScHQxc2Z6MGhZN3p3?=
- =?utf-8?B?N2tqRFVSaXhKQ0Jib0pTNnBWWFp6QzJKdThaRmthWjJZN1pnRTBNQjlHNSs3?=
- =?utf-8?B?MXhzUzdDN3BiNU9peE9xY0p3OGJSbCs2eGxnN3lBRUVWSjU5TUwwbElUMXZj?=
- =?utf-8?B?U2J2ZENieElGR1JuVWpTUDlmbnQ0R3VnRGVvY1orQW5sSEVDeFNBVkcycEJz?=
- =?utf-8?B?Q3RWa0NUbkhNVG0wOWUzV3dpNm5DUTFHczE2a1V1aGpjc1RjMmJOZHd3aUtn?=
- =?utf-8?B?cmx0NkxZUERqUWRzaUNlQldGUkx0aDFVTW16dHE1M0NXYTdtQU0zaFRacUha?=
- =?utf-8?B?WWVJRExDRitZZ1VTbjhzcDd2dTRyM2dzZlRpSmlPVllIeURKVUhlRThSWW44?=
- =?utf-8?B?eXpBUDVyKytzY1RhWHJKOVZVTm9pQWZ0VUpRb1hYTndEWXFQRTlOMXpNNk5p?=
- =?utf-8?B?WVpaTEJzbEh5V2JJVzhiN1A4cTc0c1R2TEhxSjQ1b3lVOThBUFhKZHdVSXUy?=
- =?utf-8?B?OHE3UmxkMkpnZmNUbGJMdWcwNnE4QjBnZ1ZNV1AzdFdjTnQ3NThrZGxVQUNM?=
- =?utf-8?B?SWNXdXMxUWxRSnErK2VIUCsvUjR4bW5ENDBZdHJUNFBSVUxsL08xVUhvVzJS?=
- =?utf-8?B?SEhIQzE0dFRJaXRVcmhVdUxXWXJzQlNqNVJnODl3dVRkRUExd01UL2djYXNp?=
- =?utf-8?B?bFBaM3p0V3hxTzJreUFKVk5UeWJZemJYQU9ZUzhtUkZsOFViaHRWazBBcHZo?=
- =?utf-8?B?RW94RGpyZEdsQWZlc21XNWlpQmNmVzlyUW1HSWRpY3Q1RXhrMUtRMUNaR25Y?=
- =?utf-8?B?bFZmZGw3QmpKYVlVTmRQZHFJazdDVWYybXJJclQ4RFNwWVhrRGQyTmd3MnFX?=
- =?utf-8?B?Q2ZDeFh6V1V4MVJQSmRXWVVsUE04RTM0ckNYd3FrZW1XLzNSdjlPc3lvZ2cx?=
- =?utf-8?B?WnBkTjA4NHFrdHVhLzUzVVVLSTBwUnpjTU82WWY2cWhaYmwvTW1GVW9zay82?=
- =?utf-8?B?RkVZLytmRUp0L3lvbFJUTEZtYmpQaDF6N0R5NGY2b3pBMUtzVC9qeldCVUZD?=
- =?utf-8?B?K3JKMG13MWJ6L1hya2dxSHhDcXhHSnhCU3RCN0dyRlpDcG41MEU2UzJtcmxU?=
- =?utf-8?B?MnhwaVg2d1VkSkhyd0M4QzJ6Y01xRThhM2ZmMS9VNTdEa21RcXVPWGRTUHFp?=
- =?utf-8?B?Y0lKWWxIeHVtSXhvNVloU0hUQ1llQ0IydjdTNnhPSWw2Tk02TFhwa2xWYWF2?=
- =?utf-8?B?eWw1QmFlSEpQcS9OZGtZVzI3R2k0aTl6Mlh1Q2FSaHhuWDMyb2R5NDkrNlAv?=
- =?utf-8?B?RFd0SzlBYlNFckJFeG1pcnlTSGwxK0Rpc2lud0FWbEU0UGhKN01vRVd5YXlj?=
- =?utf-8?B?Mnh0bWxFeUtuTnpCSjBWQmxxZlNlektyZWVxbXlZTEhUdGhycnBiNU8rN1pV?=
- =?utf-8?B?STJkaUljN0p5TEdoRWQ2ZUExdTJ1MFNIUDRTM1BXbDJpL1prY2dVNnliNm1s?=
- =?utf-8?B?N0h0cWNXekM2WnRoUC9sRmptS2ZHSDh1S1RwaVFaZW9WUkgxK0JGa0lGRmM4?=
- =?utf-8?B?TEErTUdDMWVHT1ZHVHA3bk5hdTFQZWprV0MvK2NQUld0TjN1OG9OQ0V4MzRV?=
- =?utf-8?B?bWZEN1FhUTVuVU4xSUV0NkFuZS9nVUdCSnNyQllPTC9HVytlWlB0K2dSQWky?=
- =?utf-8?B?cHptT2s1bnV1OEpMYys1ZzlxdXRUeXJHQ0tBMitHdGxka0wwSkxMRUdtcytJ?=
- =?utf-8?B?c1N2LzlxTGNIQ2VVSW00ZVcyNEZMK1FyMlFMc051T0hndVI2ZmJlczlrS2Fh?=
- =?utf-8?B?WXZZelVJdnRYbko0NDc0TjFDbUh6bUp6VjNJQ1k5bkNBSkNsbzR3cmZjd1dw?=
- =?utf-8?B?ZlZVQjZwVlF0L2E1dTRVY3pYdXlPYVhaYWxoYUVDWDdUb0lVQU03ZFRwS25K?=
- =?utf-8?B?VGFEbmsvbnFtSGtWOGM1UGFtRnNxOWw4Ukd3UDdsOXhaekdkYUdkWXRIajJp?=
- =?utf-8?B?NWxZUUVLMDF3dVFUVDMwemZMUW9Vdko4c3dhZ3dZSUNrWjZsUFdQTHRiYWI3?=
- =?utf-8?B?NE1PSk80RkFNOEtvSzVGMU00aTVyRlBXT3U5OUFoN1doQU1tNXhQd2h0Tlgr?=
- =?utf-8?B?QUpZdDJSSWpxTDJ0Q1lkaFlqSUQ2OTcxK3dvYThMdUVvNWxDV1I3Z1JGOWJv?=
- =?utf-8?Q?F6kBztbhjfDTFDHPiN?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?O8Ym5FiGTttig4U1zcCeQ68zic22hw4JeYQI1VDd0j1gTiIl9kC0hO1o28Ed?=
+ =?us-ascii?Q?r/MDXQPMX4d7jiknow7Erd0jSQMD6JOHYaOxK7ijQX2rKeCx1XjB0wUfcfxW?=
+ =?us-ascii?Q?B/r7iGd+RYLlqxYsX9NENtU1JF3JMwkVZ23r+VwKVVC0PPrMIFQSGSbxT6H+?=
+ =?us-ascii?Q?meVBdYYs4VDb0JnSrmUvgEnJfAyQ+ci9vDEtPK2K98idwkxHjkU9vyO2LbC/?=
+ =?us-ascii?Q?WxV3UK0rSfcUrJm5NcKMU6Md183q/ZQ8AVGPvoftlMQ7qNw/tLMqk0NdYu9F?=
+ =?us-ascii?Q?Q8tGe/tE6ACkoczIESeN1CZW+JCkBVypy6Mv3oAnec1ryv9jH3cxQBOLtkii?=
+ =?us-ascii?Q?8HVLd7N1mB9JKO43MqahH+sCfzQuD/Hot96ACRlcCAEn+UQ0aEVZWitAwoH/?=
+ =?us-ascii?Q?33Lz/LeDLWXr8UEAnVF4M3s2I8he3moVQNOYr7UvAe5NSrwDmvcUAvkz+ugU?=
+ =?us-ascii?Q?ERO8gId0auoV9Bpo2HvJfIxMkwBsNzXryh2k1Lb00VaKCA+pth3bFemmI9FK?=
+ =?us-ascii?Q?ffu8SH5LakNKja36njlDwwfgKA8BFRYiPefZeayLo2hgBkx+y1xzvKJXtzIR?=
+ =?us-ascii?Q?JR+uHJ2PMpvjJP1Zl15LiNs4ckbJDnk3mZeMu/cq5foYVCJAl1aMBvyN1tm9?=
+ =?us-ascii?Q?MA6zHEnW18e/2gDzNWI6IXTn3Bv+nrmSRZDmTrzFUAAd2hGYQ8j999H9gyth?=
+ =?us-ascii?Q?mGt7eMuYWbEr2uY3eZ7mUnjoObbXyzUS9n/Psc2JJU71Whvi1XlGaPKGP+AY?=
+ =?us-ascii?Q?s5e2hv3KQ9zBFDQ0tRdEUKohexxgGVWt2uDvXzfzJ0ckgjiXPTyW6gC8xvUI?=
+ =?us-ascii?Q?aDjNpHMhedtyUx0dZNNX27bluYF9XhU4+/T51VOCqB53QpuRCVFX0yxkrkdH?=
+ =?us-ascii?Q?tmYBw/ZLQecNV/b5TQI58ATxEy0XTp/BmiW4GCPWRDOQO1jxspO12tk8ex5c?=
+ =?us-ascii?Q?OIdMC9vNIgN0cr6DD99Hi540m5dsk5j/PGhdSzgndMTDPuq0fVZL2bbdBLm8?=
+ =?us-ascii?Q?cgrdzTkHCoiAc9YQk3R+jwd5RkjfDW2nbC86au7qL9PB8oYT2bBc3hdirNBK?=
+ =?us-ascii?Q?7QetielD8ZpbIRKYw+d4SvbFuueumuS1FbmVZ69QfcGJdIVIL/kH3MBDofeb?=
+ =?us-ascii?Q?s8SBIMyWRmjyCjSvheGOCDeJOdpKCf7AIlXUsOXvLL55A5w0TFLVK9YIpGdr?=
+ =?us-ascii?Q?Vi7HiPYnpJi2dcWeFQcpl1Y2V00tUVvroKUSDPR+49fzYWuxqCht+XTkKNce?=
+ =?us-ascii?Q?hX2Nyo5uT0Saqup0lEBxrNK21VSkxL0eyNbTC29IHRfg4gNMgJG7uuYjm5/8?=
+ =?us-ascii?Q?1TGrK4gNlIqXiCcPVTNCrchPD6wFbWYlsnkV3xrC+61Jydv4gUaGRTErIzNP?=
+ =?us-ascii?Q?gy7khvXP98Y+ykJfwo2iURNdLEROMDjhXUInbY+co2E4toRMIPNtJ0HWuRzw?=
+ =?us-ascii?Q?xukaAmHZrCI5KEKeVjjJBQ32uQx0ZcqBJskeDy6zMVFn1J2o6ubqppw1L3Sm?=
+ =?us-ascii?Q?43bQzOOIdzT6yS3EnV9iVB5368TwQz2jYsCA9db9MwoP6333bI3cS278K4Rs?=
+ =?us-ascii?Q?OX7znsvCAkJUG7maA1/c2wCg/rcROdEQuL+1Nh5Ua7yMd9lGwN2/cr5cSsW4?=
+ =?us-ascii?Q?iFyV1Gnzysc3o4k5OUJ6gDQC98UfcTQ4h1I8wKHnvOCOp44qKO3A29ZFzRsv?=
+ =?us-ascii?Q?fdxefIYVEVQzfB6Y6CvXin5qurKxZjID6eF6dizqy+idu1ds?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1927b06b-cfa6-4c64-5866-08df07346bd1
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 07:49:43.9505 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Xr8wBFLcbyQxDlK1n2UOXg3HmSVBoFXklS6R4R88yMM9C+piVOLfSMJvp0O1ow3u
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8945
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6803.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c7fc4f9-1683-483f-f954-08df07373b9d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2026 08:09:51.4324 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: NfYighWuMP2j8gobL3UxPa4CgyoP1dxL9ZpdvAzXrEVfbh4qBnY/KFzyqUuDGAXZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7101
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,345 +132,71 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 8/28/26 23:37, Geramy Loveless wrote:
-> Firmware typically sizes prefetchable bridge windows for the boot-time
-> BAR size. Behind a fixed (non-hotplug) PCIe switch fabric, there is then
-> no room for a driver to grow a Resizable BAR afterwards: every window
-> from the leaf up to the root is sized for the small BAR, so
-> pci_resize_resource() fails with -ENOSPC. 
-> 
-> Furthermore, a small prefetchable BAR (e.g., a 2 MiB doorbell) sharing a 
-> bridge's single prefetchable window with a much larger one (e.g., a 32 GiB 
-> VRAM BAR) pushes the required window size past the large BAR's alignment. 
-> Because bridge windows round up to a power of two, this forces a massive 
-> alignment waste (e.g., 32 GiB + 2 MiB rounds up to a 64 GiB window, 
-> wasting ~32 GiB per GPU).
-> 
-> This patch solves both issues to enable ReBAR on cascaded switch fabrics:
-> 
-> 1. Reserve Headroom: 
-> Reserve prefetchable window headroom for the maximum size of each 
-> downstream Resizable BAR during the bridge sizing pass. The device BAR 
-> and hardware ReBAR are left at their boot size to prevent tearing down 
-> firmware-loaded state (e.g., AMD R9700 PSP) before the driver binds.
+AMD General
 
-Yeah that was suggested before but that is clearly not something you can do in common code.
+The uclk setting when uclk dpm is disabled looks redundant, other than that=
+,
+Series is Reviewed-by: Kenneth Feng <kenneth.feng@amd.com>
 
-The ReBAR fields often doesn't reflect the actual needed space but rather the maximum the HW address logic can resolve.
+-----Original Message-----
+From: Wang, Kevin <Kevin.Wang@amd.com>
+Sent: Monday, August 31, 2026 12:35 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Deucher, Alexander <Alexander.Deucher@amd.com>; Zhang, Hawking <Hawking=
+.Zhang@amd.com>; Feng, Kenneth <Kenneth.Feng@amd.com>
+Subject: [PATCH 0/7] drm/amd/pm: stage OD reset until commit
 
-So what you end up with is allocating multiple TiB for a window which just needs few GiB, sometimes even completely overflowing the 64bit address space made available by the root complex.
-> 2. Pack Oversized Windows (BAR Demotion): 
-> The PCI-to-PCI Bridge spec (r1.2, sec 3.2.5) permits a prefetchable BAR 
-> to be assigned from the non-prefetchable window. By clearing the PREFETCH 
-> flag on small control BARs during enumeration, they are placed below 4 GiB. 
-> The prefetchable window is then cleanly sized to the large BAR alone.
+The pp_od_clk_voltage interface exposes a staged OverDrive workflow:
+users edit clock, voltage, and power settings, then write "c" to commit the=
+m to the SMU.
 
-Interesting hack, shouldn't really matter for AMD GPUs but that is something more on the heuristic side.
+However, PP_OD_RESTORE_DEFAULT_TABLE does not follow this workflow on every=
+ SMU version. Some backends restore their cached settings and wait for "c",=
+ while others upload the reset table or send frequency-limit commands direc=
+tly from "r". As a result, the same userspace sequence has different hardwa=
+re effects across ASICs.
 
-A perfectly valid trick which is done by BIOS implementations but what the Linux PCI subsystem still hasn't learned are back to back allocations, e.g. something like this:
+For example:
 
-BAR0 32 GiB of GPU #1
-BAR1 2	MiB of GPU #1
+- SMU 14.0.0 and SMU 13.0.5 stage reset limits until "c".
+- SMU 14.0.2 and SMU 13.0.6 apply reset values immediately.
+- Navi10 stages the boot OD table, while Vega20 reads the current SMU
+  table instead of restoring the saved defaults.
 
-BAR1 2	MiB of GPU #2
-BAR0 32 GiB of GPU #2
+This series makes "r" restore default values only in driver-side staging st=
+ate. "c" remains the sole operation that uploads an OD table or sends frequ=
+ency-limit commands to PMFW.
 
-BAR0 32 GiB of GPU #3
-...
+This gives pp_od_clk_voltage one consistent transaction model:
 
-I strongly suggest to implement that one first and see if it helps with your use case.
+  edit/reset -> staged driver state -> commit
+                                                                           =
+                                                                           =
+                                                                           =
+               It also permits userspace to reset a staged configuration, a=
+djust one or more settings, and submit the final configuration with one com=
+mit, without temporarily applying an intermediate default configuration.
 
-Regards,
-Christian.
+Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5690
 
-> 
-> Why this is safe for 32-bit (< 4G) MMIO space:
-> To prevent exhausting legacy < 4G space, demotion is strictly bounded. It 
-> only triggers beside a massive prefetchable BAR (>= 64 MiB), and the demoted 
-> BAR is strictly capped at 16 MiB (PCI_BAR_PACK_CAP). Even on an 8x GPU 
-> system, this consumes at most 128 MiB of < 4G space. 
-> 
-> Fallback / Alignment logic:
-> If the 32-bit space is exhausted, small BARs remain in the prefetchable 
-> window. The alignment logic gracefully handles this by rounding the bridge 
-> window up to the next power of two (e.g., growing to 64 GiB to fit a 32 GiB 
-> BAR + BAR2) to maintain PCIe compatibility, ensuring sibling GPUs land in 
-> properly aligned slots.
-> 
-> Reserving is safe by default: __assign_resources_sorted() satisfies all
-> required resources first. Use pci=no_rebar_reserve and pci=no_bar_demote 
-> to restore previous behaviours.
-> 
-> Testing Context:
-> - ASUS K14PG-D24
-> - 2x EPYC 9354
-> - 8x Radeon AI PRO R9700 (Navi 48, 1002:7551)
-> - Broadcom PEX890xx switches
-> - Kernel base: 45c13f3f9e3b (tested with SEV-SNP passthrough=1)
-> 
-> Signed-off-by: Geramy Loveless <gloveless@jqluv.com>
-> ---
->  .../admin-guide/kernel-parameters.txt         |   8 ++
->  drivers/pci/pci.c                             |  10 ++
->  drivers/pci/pci.h                             |   1 +
->  drivers/pci/setup-bus.c                       | 118 ++++++++++++++++++
->  4 files changed, 137 insertions(+)
-> 
-> diff --git a/Documentation/admin-guide/kernel-parameters.txt
-> b/Documentation/admin-guide/kernel-parameters.txt
-> index 37006fc3eac3..82d2b340fb98 100644
-> --- a/Documentation/admin-guide/kernel-parameters.txt
-> +++ b/Documentation/admin-guide/kernel-parameters.txt
-> @@ -5246,6 +5246,14 @@ Kernel parameters
->  		hpbussize=nn	The minimum amount of additional bus numbers
->  				reserved for buses below a hotplug bridge.
->  				Default is 1.
-> +		no_rebar_reserve	Do not reserve prefetchable bridge-window
-> +				space for the maximum size of downstream Resizable
-> +				BARs. By default such space is reserved so a driver
-> +				can grow a BAR later (e.g. GPU VRAM BAR) even behind
-> +				fixed PCIe switch fabrics that firmware sized for the
-> +				boot-time BAR; the device BAR is left at its boot size
-> +				for the driver to resize and only bridge windows are
-> +				enlarged. Use this to restore the old behaviour.
->  		realloc=	Enable/disable reallocating PCI bridge resources
->  				if allocations done by BIOS are too small to
->  				accommodate resources required by all child
-> diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-> index b2879a6be5f8..c9901b15432a 100644
-> --- a/drivers/pci/pci.c
-> +++ b/drivers/pci/pci.c
-> @@ -120,6 +120,14 @@ unsigned long pci_hotplug_mmio_pref_size =
-> DEFAULT_HOTPLUG_MMIO_PREF_SIZE;
->  #define DEFAULT_HOTPLUG_BUS_SIZE	1
->  unsigned long pci_hotplug_bus_size = DEFAULT_HOTPLUG_BUS_SIZE;
-> 
-> +/*
-> + * Prefetchable bridge-window headroom is reserved for the maximum size of
-> + * downstream Resizable BARs by default, so a driver can grow one later
-> + * (e.g. amdgpu VRAM BAR) even behind fixed PCIe switch fabrics.
-> + * pci=no_rebar_reserve disables this.
-> + */
-> +bool pci_rebar_no_reserve;
-> +
-> 
->  /* PCIe MPS/MRRS strategy; can be overridden by kernel command-line
-> param */
->  enum pcie_bus_config_types pcie_bus_config = PCIE_BUS_DEFAULT;
-> @@ -6840,6 +6848,8 @@ static int __init pci_setup(char *str)
->  					simple_strtoul(str + 10, &str, 0);
->  				if (pci_hotplug_bus_size > 0xff)
->  					pci_hotplug_bus_size = DEFAULT_HOTPLUG_BUS_SIZE;
-> +			} else if (!strncmp(str, "no_rebar_reserve", 16)) {
-> +				pci_rebar_no_reserve = true;
->  			} else if (!strncmp(str, "pcie_bus_tune_off", 17)) {
->  				pcie_bus_config = PCIE_BUS_TUNE_OFF;
->  			} else if (!strncmp(str, "pcie_bus_safe", 13)) {
-> diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-> index ba3c3fddddc2..6eddcb492425 100644
-> --- a/drivers/pci/pci.h
-> +++ b/drivers/pci/pci.h
-> @@ -409,6 +409,7 @@ extern unsigned long pci_hotplug_io_size;
->  extern unsigned long pci_hotplug_mmio_size;
->  extern unsigned long pci_hotplug_mmio_pref_size;
->  extern unsigned long pci_hotplug_bus_size;
-> +extern bool pci_rebar_no_reserve;
-> 
->  static inline bool pci_is_cardbus_bridge(struct pci_dev *dev)
->  {
-> diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-> index e8c94aa1d3c1..aa02b8454269 100644
-> --- a/drivers/pci/setup-bus.c
-> +++ b/drivers/pci/setup-bus.c
-> @@ -19,6 +19,7 @@
->  #include <linux/bug.h>
->  #include <linux/init.h>
->  #include <linux/kernel.h>
-> +#include <linux/log2.h>
->  #include <linux/minmax.h>
->  #include <linux/module.h>
->  #include <linux/pci.h>
-> @@ -1258,6 +1259,53 @@ static bool pbus_size_mem_optional(struct pci_dev
-> *dev, int resno,
->  	return true;
->  }
-> 
-> +/*
-> + * pci_rebar_reserve_size - prefetchable window headroom to reserve for
-> a BAR
-> + *
-> + * Reserve enough prefetchable window space to later grow @resno of @dev to
-> + * its maximum Resizable BAR size. This is done for every ReBAR-capable
-> device
-> + * by default (disable with pci=no_rebar_reserve). Only the optional
-> (add_size)
-> + * part of the enclosing window is inflated here; the device BAR
-> resource and
-> + * the hardware ReBAR are left at their boot size, so the driver still
-> performs
-> + * the actual resize into the reserved window. Reserving the window up
-> front
-> + * avoids -ENOSPC in pci_resize_resource() on fixed switch fabrics, where a
-> + * window shared with a sibling's still-assigned BAR cannot be released and
-> + * regrown at resize time.
-> + *
-> + * The reservation is strictly optional: __assign_resources_sorted()
-> satisfies
-> + * all required resources first and only then places add_size on leftover
-> + * space, so reserving by default cannot make a required BAR or window
-> fail.
-> + *
-> + * Return the extra bytes to reserve and raise *add_align to the BAR's
-> + * alignment so the reserved space can actually hold the grown BAR.
-> + */
-> +static resource_size_t pci_rebar_reserve_size(struct pci_dev *dev, int
-> resno,
-> +					      resource_size_t *add_align)
-> +{
-> +	struct resource *res = pci_resource_n(dev, resno);
-> +	resource_size_t max_size, cur_size;
-> +	int max;
-> +
-> +	if (pci_rebar_no_reserve || resno >= PCI_STD_NUM_BARS)
-> +		return 0;
-> +
-> +	if ((res->flags & (IORESOURCE_MEM_64 | IORESOURCE_PREFETCH)) !=
-> +	    (IORESOURCE_MEM_64 | IORESOURCE_PREFETCH))
-> +		return 0;
-> +
-> +	max = pci_rebar_get_max_size(dev, resno);
-> +	if (max < 0)
-> +		return 0;
-> +
-> +	max_size = pci_rebar_size_to_bytes(max);
-> +	cur_size = resource_size(res);
-> +	if (max_size <= cur_size)
-> +		return 0;
-> +
-> +	*add_align = max(*add_align, max_size);
-> +	return max_size - cur_size;
-> +}
-> +
->  /**
->   * pbus_size_mem() - Size the memory window of a given bus
->   *
-> @@ -1285,6 +1333,7 @@ static void pbus_size_mem(struct pci_bus *bus,
-> struct resource *b_res,
->  	int order, max_order;
->  	resource_size_t children_add_size = 0;
->  	resource_size_t add_align = 0;
-> +	resource_size_t rebar_align = 0;
-> 
->  	if (!b_res)
->  		return;
-> @@ -1343,15 +1392,29 @@ static void pbus_size_mem(struct pci_bus *bus,
-> struct resource *b_res,
->  				aligns[order] += align;
->  			if (order > max_order)
->  				max_order = order;
-> +
-> +			size += pci_rebar_reserve_size(dev, i, &rebar_align);
->  		}
->  	}
-> 
->  	win_align = pci_min_window_alignment(bus, b_res->flags);
->  	min_align = calculate_head_align(aligns, max_order);
->  	min_align = max(min_align, win_align);
-> +	min_align = max(min_align, rebar_align);
->  	size0 = calculate_memsize(size, realloc_head ? 0 : add_size,
->  				  0, win_align);
-> 
-> +	/*
-> +	 * A window that reserves ReBAR headroom is larger than its own
-> +	 * alignment (e.g. 32 GiB BAR + doorbell => 33 GiB > 32 GiB). The
-> +	 * parent only reserves alignment padding for a child window when
-> +	 * its size <= its alignment, so round such a window's alignment up
-> +	 * to a power of two >= its size; sibling 32 GiB BARs behind one
-> +	 * switch then each land in a properly aligned slot.
-> +	 */
-> +	if (rebar_align && size0)
-> +		min_align = max(min_align, roundup_pow_of_two(size0));
-> +
->  	if (size0) {
->  		resource_set_range(b_res, min_align, size0);
->  		b_res->flags &= ~IORESOURCE_DISABLED;
-> @@ -2179,6 +2242,52 @@ static void pci_prepare_next_assign_round(struct
-> list_head *fail_head,
->   * Second and later try will clear small leaf bridge res.
->   * Will stop till to the max depth if can not find good one.
->   */
-> +/*
-> + * Release the 64-bit prefetchable BARs of resizable-BAR display
-> devices so the
-> + * windows enclosing them empty out and can be re-sized. The BAR *size*
-> is left
-> + * untouched (only released and re-placed), so the hardware ReBAR is never
-> + * programmed here - the driver still owns the actual resize.
-> + */
-> +static int pci_release_rebar_bars_cb(struct pci_dev *dev, void *data)
-> +{
-> +	struct resource *r;
-> +	unsigned int i;
-> +
-> +	if ((dev->class >> 16) != PCI_BASE_CLASS_DISPLAY)
-> +		return 0;
-> +	if (pci_rebar_get_max_size(dev, 0) <= pci_rebar_get_current_size(dev, 0))
-> +		return 0;
-> +	pci_dev_for_each_resource(dev, r, i) {
-> +		if (i >= PCI_BRIDGE_RESOURCES)
-> +			break;
-> +		if (r->parent && (r->flags & IORESOURCE_MEM_64) &&
-> +		    (r->flags & IORESOURCE_PREFETCH))
-> +			pci_release_resource(dev, i);
-> +	}
-> +	return 0;
-> +}
-> +
-> +/*
-> + * Release the now-empty prefetchable bridge windows bottom-up so the
-> sizing
-> + * pass re-sizes them (with pci_rebar_pref_reserve() reservation) to
-> fit the
-> + * BARs a driver will later grow.
-> + */
-> +static void pci_release_rebar_windows(struct pci_bus *bus)
-> +{
-> +	struct pci_dev *dev;
-> +	struct resource *w;
-> +
-> +	list_for_each_entry(dev, &bus->devices, bus_list)
-> +		if (dev->subordinate)
-> +			pci_release_rebar_windows(dev->subordinate);
-> +
-> +	if (!bus->self)
-> +		return;
-> +	w = &bus->self->resource[PCI_BRIDGE_PREF_MEM_WINDOW];
-> +	if (w->parent && (w->flags & IORESOURCE_MEM_64) && !w->child)
-> +		pci_release_resource(bus->self, PCI_BRIDGE_PREF_MEM_WINDOW);
-> +}
-> +
->  void pci_assign_unassigned_root_bus_resources(struct pci_bus *bus)
->  {
->  	LIST_HEAD(realloc_head);
-> @@ -2190,6 +2299,15 @@ void
-> pci_assign_unassigned_root_bus_resources(struct pci_bus *bus)
->  	int pci_try_num = 1;
->  	enum enable_type enable_local;
-> 
-> +	/*
-> +	 * Release resizable device BARs and their prefetchable windows so the
-> +	 * sizing pass re-sizes those windows large enough
-> (pci_rebar_pref_reserve)
-> +	 * for the BARs a driver will later grow. Only released and re-placed
-> - the
-> +	 * BAR size is left untouched, so the hardware ReBAR is never programmed.
-> +	 */
-> +	pci_walk_bus(bus, pci_release_rebar_bars_cb, NULL);
-> +	pci_release_rebar_windows(bus);
-> +
->  	/* Don't realloc if asked to do so */
->  	enable_local = pci_realloc_detect(bus, pci_realloc_enable);
->  	if (pci_realloc_enabled(enable_local)) {
-> 
-> base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
+Kevin Wang (7):
+  drm/amd/pm: stage od reset for smu 11.0.7
+  drm/amd/pm: stage od reset for smu 13.0.2
+  drm/amd/pm: stage od reset for smu 13.0.0/13.0.7
+  drm/amd/pm: stage od reset for smu 13.0.6
+  drm/amd/pm: stage od reset for smu 14.0.2
+  drm/amd/pm: stage od reset for smu 15.0.8
+  drm/amd/pm: stage od reset for smu vega20
+
+ .../drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c | 75 ++++++++++++++--
+ .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  2 +-
+ .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 15 +---
+ .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  2 +-  .../drm/amd/pm/swsm=
+u/smu13/smu_v13_0_6_ppt.c  | 85 ++++++++++---------  .../drm/amd/pm/swsmu/s=
+mu13/smu_v13_0_7_ppt.c  |  2 +-  .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt=
+.c  |  2 +-  .../drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c  | 50 ++++++-----
+ 8 files changed, 145 insertions(+), 88 deletions(-)
+
+--
+2.55.0
 
