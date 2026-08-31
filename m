@@ -4,52 +4,53 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 65974C624C6
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:43:31 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 12646C624CF
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:44:31 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8DBE810E896;
-	Mon, 31 Aug 2026 13:43:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 566D810E89C;
+	Mon, 31 Aug 2026 13:44:30 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bf6xtnwA";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Bx+aaz9n";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8816710E894;
- Mon, 31 Aug 2026 13:43:29 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D934D10E89B;
+ Mon, 31 Aug 2026 13:44:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id F2B0360238;
- Mon, 31 Aug 2026 13:43:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 524111F00ACA;
- Mon, 31 Aug 2026 13:43:27 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 94A60408A9;
+ Mon, 31 Aug 2026 13:44:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1CCC1F00ADE;
+ Mon, 31 Aug 2026 13:44:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183808;
- bh=psClh4hrb8WRXaHOA+7YUWMNqjmF3EMw8eZUp8Sw7rg=;
+ s=k20260515; t=1788183868;
+ bh=pf4ekvd+NEY5JRo6Eblbsd81JMP2cKd6vW/zi5iBGsQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=Bf6xtnwAnfmYBHQ5hL9567+brZWCaeyYC0j+PVuJPOnA3SYNUFSE6mwDpP+cuZJlE
- SY/1q8wiJUf+8boJ7QZLiLMWC9AA1DXFzE7tbCUyTXk2SgbS9e7b2O7DEEdvp9O8Ly
- 9/55sUZ2KZziCaiUomJ14iqyqkQbYYYcAiIAUz1WTJ4EPoHDjj3UMVnTqJhFu23uBa
- O6QuuX2WUDDaQR9bN1aHctZuEm+mBUlx++/rsWNMl03/ka5VrwPYNmwrPyGMXxaGB6
- 59F/hQWOk2+lvcmN/051wwmshK3Z2h2Ecu5EKih5MfIko6rEXaCSLTAoa1yL1iHypm
- KRtsyCYezrmYA==
+ b=Bx+aaz9nHhkBpGa5xWfv3n7LQ7ysIEkP0sOVQagFKPcxUNiAXHJSWoZvBCZ/cEqe7
+ N5ebTjqc3ODCICDFVpp+D8Wc/Ktqzzp3XgHUFU5A54rlSLvSSuhWyYs5w6ZSPA3B31
+ SLWQs4LXM2ZRq9vRUzcPM+q/QE+7v8Cv3qD0Mpo4FRti3TrTLJmvBydu3A6RFSb6Og
+ ff78H6GmJLhKuP397owtGivchW753jAIiyWwwfxCtI6a2/vhltSCurnGSiLodh5NfI
+ UzIJtLc07vJhgLg4LAhnwbJyORK1JJeGajJy8j9kZKjToiTx6ZrCNBkB+lO/IjFCt5
+ 2UwGg1zWOlI5g==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Xiang Liu <xiang.liu@amd.com>, "Stanley.Yang" <Stanley.Yang@amd.com>,
- Tao Zhou <tao.zhou1@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Sasha Levin <sashal@kernel.org>, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amd/ras: reset CPER ring on corrupt entry
- size
-Date: Mon, 31 Aug 2026 09:25:45 -0400
-Message-ID: <20260831133314.4125787-317-sashal@kernel.org>
+Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.6] drm/amdgpu: Use system unbound workqueue for
+ soft IH ring
+Date: Mon, 31 Aug 2026 09:26:19 -0400
+Message-ID: <20260831133314.4125787-351-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 X-stable: review
 X-Patchwork-Hint: Ignore
 X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -65,409 +66,371 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Xiang Liu <xiang.liu@amd.com>
+From: Timur Kristóf <timur.kristof@gmail.com>
 
-[ Upstream commit 4d695e66d7027a0c78302e47ac76293675fbbb4d ]
+[ Upstream commit ba2977dcce72127986fbad76c4c67f134e2f69ae ]
 
-When CPER ring overflow handling advances the read pointer, it trusts the
-parsed entry size from the current ring contents. Corrupt CPER data can
-produce an entry size that does not advance rptr after dword conversion
-and pointer masking.
+Allow the kernel to dispatch the soft IH work on other CPUs.
 
-In that case the recovery loop keeps testing the same location while
-holding the CPER ring mutex. This can hang the worker that is writing the
-next CPER record.
+Otherwise it can happen that the soft IH ring fills up
+before it actually starts processing anything, which
+can easily happen with retry page faults, in which case
+the CP repeatedly spams the CPU with a lot of interrupts.
 
-Detect a no-progress rptr update and reset the CPER ring to an empty
-state instead. This drops the corrupt contents and lets the writer leave
-the recovery path without spinning.
+This significantly improves retry page fault handling on
+GPUs that don't have the filter CAM and must rely on
+software based filtering.
 
-Signed-off-by: Xiang Liu <xiang.liu@amd.com>
-Reviewed-by: Stanley.Yang <Stanley.Yang@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Reviewed-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 3cdff3c8b93c2834977224d9c2b201fc334dd184)
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: drm/amdgpu: Use system unbound workqueue for
+soft IH ring
 
-**Step 1.1 — Subject line**
-Record: `[drm/amd/ras] [reset] reset CPER ring on corrupt entry size` —
-subsystem is AMDGPU RAS/CPER; action is a defensive recovery/reset in
-response to corrupt data.
-
-**Step 1.2 — Tags**
-Record:
-- `Signed-off-by: Xiang Liu <xiang.liu@amd.com>` (author)
-- `Reviewed-by: Stanley.Yang <Stanley.Yang@amd.com>`
-- `Reviewed-by: Tao Zhou <tao.zhou1@amd.com>`
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (maintainer)
-- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`, or
-  `Tested-by:` tags
-- Notable: AMD subsystem reviewers and maintainer sign-off; no syzbot or
-  user bug report
-
-**Step 1.3 — Body analysis**
-Record:
-- **Bug:** On CPER ring overflow, the recovery loop advances `rptr`
-  using parsed entry sizes from ring contents. Corrupt CPER data can
-  yield an entry size that does not advance `rptr` after dword
-  conversion and masking.
-- **Symptom:** Recovery loop spins forever at the same location while
-  holding `cper.ring_lock`, hanging the worker writing the next CPER
-  record.
-- **Fix:** Detect no-progress `rptr` updates and reset the ring to empty
-  rather than spinning.
-- **Root cause:** Trusting corrupt in-ring metadata during overflow
-  recovery.
-
-**Step 1.4 — Hidden bug fix?**
-Record: Yes. Despite “reset” wording, this is a hang/deadlock-class bug
-fix in error-recovery code, not a feature addition.
+**Local tree:** `v6.18.44` (Makefile: 6.18.44)
+**Fix commit:** `3cdff3c8b93c` (on `linux-next/master`, **not** an
+ancestor of current HEAD — bug still present locally)
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 2.1 — Inventory**
-Record:
-- File: `drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c` (+12 net lines)
-- Function modified: `amdgpu_cper_ring_write()`
-- Scope: single-file, surgical fix in overflow recovery path
+### Step 1.1: Parse subject line
+**Record:** `[drm/amdgpu]` — no explicit verb; implied **fix/improve** —
+**Use system unbound workqueue for soft IH ring**
 
-**Step 2.2 — Code flow per hunk**
-Record:
-- **Before:** `rptr += (ent_sz >> 2); rptr &= ring->ptr_mask;` always
-  runs; if `ent_sz` is 0, <4, or a multiple of ring circumference,
-  `rptr` may not move.
-- **After:** Compute `next_rptr` only when `ent_sz >= sizeof(u32)`; if
-  `next_rptr == rptr`, reset ring (`rptr = wptr`, update `count_dw`,
-  `goto out_unlock`); otherwise advance normally.
-- **Path affected:** CPER ring overflow recovery inside
-  `amdgpu_cper_ring_write()`, while `ring_lock` is held.
+### Step 1.2: Parse commit message tags
+**Record:**
+- **Reviewed-by:** Tvrtko Ursulin \<tvrtko.ursulin@igalia.com\>
+- **Signed-off-by:** Timur Kristóf, Alex Deucher
+- **No** Fixes:, Reported-by:, Tested-by:, Acked-by:, Link:, Cc:
+  stable@vger.kernel.org
+- Notable: Reviewed-by from Igalia amdgpu contributor; no syzbot/user
+  bug report
 
-**Step 2.3 — Bug mechanism**
-Record:
-- Category: logic/correctness bug → infinite loop with mutex held (soft
-  hang)
-- Mechanism: corrupt `record_length` or garbage between headers can make
-  `(rptr + (ent_sz >> 2)) & ptr_mask == rptr`; old code never exits the
-  `do { ... } while (!amdgpu_cper_is_hdr(...))` loop
+### Step 1.3: Analyze commit body
+**Record:**
+- **Bug:** Soft IH ring can fill before its work item runs; CP floods
+  the CPU with interrupts during retry page faults.
+- **Symptom:** Soft IH ring overflow / interrupt storm; degraded or
+  broken retry page fault handling on GPUs without hardware filter CAM
+  (software filtering only).
+- **Root cause (author):** `schedule_work()` dispatches on a CPU-bound
+  workqueue; work stays pinned on the IRQ CPU and cannot run while that
+  CPU is saturated with interrupts.
+- **Fix:** `queue_work(system_unbound_wq, ...)` allows processing on
+  another CPU.
+- **Version info:** None in message.
 
-**Step 2.4 — Fix quality**
-Record:
-- Fix is minimal and obviously correct: no-progress detection is
-  standard for ring-buffer parsers
-- Recovery (drop corrupt contents, reset pointers) is preferable to
-  infinite spin
-- Low regression risk: only triggers on already-corrupt overflow state
-- Trade-off: loses corrupt CPER records, but that is acceptable vs.
-  permanent hang
+### Step 1.4: Detect hidden bug fixes
+**Record:** **Yes — functional bug fix disguised as scheduling
+improvement.** Ring fill-up before processing means dropped interrupt
+vectors and failed page-fault handling, not merely slower performance.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 2: DIFF ANALYSIS
 
-**Step 3.1 — Blame**
-Record: Overflow recovery loop introduced in `a6d9d192903ea`
-(“drm/amdgpu: add data write function for CPER ring”, 2025-01-22).
-Present in this tree at lines 507–515. First appeared in tag `v6.15`.
+### Step 2.1: Inventory changes
+**Record:**
+- **Files:** `drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c` (+1 / −1)
+- **Function:** `amdgpu_irq_delegate()`
+- **Scope:** Single-file, single-line surgical fix
 
-**Step 3.2 — Fixes: tag**
-Record: Not applicable — no `Fixes:` tag in commit message.
+### Step 2.2: Code flow change
+**Record:**
+- **Before:** `schedule_work(&adev->irq.ih_soft_work)` → queues on
+  `system_wq` (CPU-bound).
+- **After:** `queue_work(system_unbound_wq, &adev->irq.ih_soft_work)` →
+  can run on any CPU.
+- **Path:** Called from `amdgpu_irq_delegate()` after writing an IV to
+  the soft IH ring; triggered during retry page faults on GPUs using
+  software filtering (gmc_v9/v10/v11/v12).
 
-**Step 3.3 — Related file history**
-Record: Related prior fix `d6f9bbce18762` (“Fix computation for remain
-size of CPER ring”) already in this tree; it fixed a *different*
-infinite-loop cause in the same function. `8e0d1edb5c167` added missing
-lock protection and was nominated for stable (`Cc:
-stable@vger.kernel.org`). CPER subsystem landed starting `92d5d2a09de16`
-in v6.15.
+### Step 2.3: Bug mechanism
+**Record:**
+- **Category:** Logic / scheduling deadlock (interrupt storm + work
+  starvation).
+- **Mechanism:** IRQ handler delegates to soft IH ring and schedules
+  bound work on the same CPU. Under retry page-fault storms, IRQs keep
+  arriving before work runs; `amdgpu_ih_ring_write()` can reach `wptr ==
+  rptr` and stop advancing the write pointer — IVs are written but not
+  committed/processed.
 
-**Step 3.4 — Author context**
-Record: Xiang Liu authored multiple CPER fixes including `d6f9bbce18762`
-(same infinite-loop class). Reviews from AMD RAS engineers and
-maintainer Alex Deucher.
-
-**Step 3.5 — Dependencies**
-Record: Standalone fix; no series markers, no prerequisite commits
-referenced. Assumes existing `amdgpu_cper_ring_write()` overflow path —
-present in this tree.
-
----
-
-## Phase 4: Mailing List and External Research
-
-**Step 4.1 — Original discussion**
-Record: `b4 dig -c d5e59c24d907d` failed (commit not in local history).
-`b4 shazam` found no matching message-id. lore.kernel.org search blocked
-by bot protection. **UNVERIFIED:** full review-thread content.
-
-**Step 4.2 — Reviewers**
-Record: **UNVERIFIED** via `b4 dig -w` (commit hash unavailable
-locally). Commit message lists Stanley.Yang, Tao Zhou, Alex Deucher.
-
-**Step 4.3 — Bug report**
-Record: Not applicable — no `Reported-by:` or `Link:` tags.
-
-**Step 4.4 — Related patches**
-Record: Complements `d6f9bbce18762` (already in tree) which fixed
-another overflow infinite-loop cause. This patch addresses corrupt-
-entry-size no-progress separately.
-
-**Step 4.5 — Stable list history**
-Record: **UNVERIFIED** — lore stable search inaccessible. Prior CPER
-lock fix `8e0d1edb5c167` was explicitly CC'd to stable.
+### Step 2.4: Fix quality
+**Record:**
+- **Quality:** Obviously correct; mirrors existing amdgpu usage of
+  `system_unbound_wq` in `amdgpu_reset.c`, `amdgpu_device.c`,
+  `aldebaran.c`.
+- **Regression risk:** Very low. `queue_work()` deduplicates already-
+  queued work; same `work_struct` and handler unchanged.
+- **No API, lock-order, or structural changes.**
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 5.1 — Key functions**
-Record: `amdgpu_cper_ring_write()` (modified); uses
-`amdgpu_cper_ring_get_ent_sz()`, `amdgpu_cper_is_hdr()`.
+### Step 3.1: Blame changed lines
+**Record:**
+- `amdgpu_irq_delegate()` introduced in `26f32a377eedd` (Oct 2020,
+  Christian König) — soft IH infrastructure.
+- `schedule_work()` line dates to that same commit; present in this tree
+  since 6.18 base.
+- Bug has existed since soft IH ring was added (~5.10+ era).
 
-**Step 5.2 — Callers**
-Record: `amdgpu_cper_ring_write()` called from:
-- `amdgpu_cper_generate_ue_record()` — uncorrectable GPU errors
-- `amdgpu_cper_generate_bp_threshold_record()` — bad-page threshold
-  (also from `amdgpu_ras_eeprom.c`)
-- `amdgpu_cper_generate_ce_records()` — corrected errors
-- `amdgpu_virt.c` — SR-IOV guest CPER dump path
+### Step 3.2: Follow Fixes: tag
+**Record:** N/A — no Fixes: tag.
 
-All are RAS/error-reporting paths on ACA-enabled or SR-IOV CPER-enabled
-devices.
+### Step 3.3: Related file history
+**Record:**
+- Related: `bf80d34b6c58a` "Increase soft IH ring size" (symptom
+  mitigation, not root cause).
+- `318e431b306e9` "Enable IH retry CAM on GFX9" — hardware path; this
+  fix targets GPUs **without** retry CAM.
+- Part of series `[PATCH 3/3]` but **standalone** — patches 1/3 and 2/3
+  touch different concerns (ih6.1 version, HW register access).
 
-**Step 5.3 — Callees**
-Record: `mutex_lock/unlock(&ring->adev->cper.ring_lock)`,
-`amdgpu_cper_ring_get_ent_sz()`, `memcpy()`, pointer masking.
+### Step 3.4: Author context
+**Record:** Timur Kristóf — active amdgpu contributor; Alex Deucher
+merged. Tvrtko Ursulin reviewed.
 
-**Step 5.4 — Reachability**
-Record: Triggered when CPER ring overflows during error-record writes.
-Call chain: ACA bank update (`aca_banks_update` →
-`aca_banks_generate_cper` → `amdgpu_cper_generate_*` →
-`amdgpu_cper_ring_write`). Reachable during real GPU RAS events — the
-same conditions that fill the CPER ring. Not a syscall path, but
-triggered by hardware error handling that must not hang.
-
-**Step 5.5 — Similar patterns**
-Record: Prior fix `d6f9bbce18762` explicitly described “unbreakable
-while cycle when CPER ring overflow” in the same function — same bug
-class, different root cause.
+### Step 3.5: Dependencies
+**Record:** **No dependencies.** One-line change; `system_unbound_wq` is
+a core kernel symbol. Applies cleanly to current `amdgpu_irq.c`.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 6.1 — Buggy code present?**
-Record: **Yes.** Local tree is `v6.18.44` (Makefile: 6.18.44). Buggy
-code at `amdgpu_cper.c:510-511` (`rptr += (ent_sz >> 2)` without no-
-progress check). CPER code is an ancestor of HEAD; first CPER commits
-tagged `v6.15`.
+### Step 4.1: Original discussion
+**Record:**
+- **b4 dig URL:** https://patch.msgid.link/20260513170849.27061-4-
+  timur.kristof@gmail.com
+- **Series:** v1 only (May 13, 2026); committed version matches
+  submission.
+- **Review:** Reviewed-by: Tvrtko Ursulin in thread.
+- **No** stable@vger nomination, NAKs, or objections found in mbox.
 
-**Step 6.2 — Backport complications**
-Record: Expected **clean apply with possible minor fuzz** — the
-`amdgpu_cper_ring_write()` hunk matches this tree exactly; upstream diff
-context in `amdgpu_cper_ring_get_ent_sz()` differs slightly (local uses
-inline `chdr` check vs. `amdgpu_cper_is_hdr()` in upstream diff), but
-the fix hunk is independent.
+### Step 4.2: Reviewers
+**Record:** CC'd: amd-gfx, Alex Deucher, Christian König, Marek Olšák,
+Natalie Vock, Melissa Wen, amir.shetaia@amd.com.
 
-**Step 6.3 — Related fixes already present?**
-Record: `d6f9bbce18762` (different overflow loop fix) and
-`8e0d1edb5c167` (lock fix) are in tree. This specific corrupt-entry-size
-hang is **not** yet fixed.
+### Step 4.3: Bug report
+**Record:** No external bug report or syzbot link. Issue identified by
+developer from retry page-fault behavior.
 
----
+### Step 4.4: Related patches
+**Record:** Same series includes patch 2/3 "Don't perturb HW registers
+when accessing soft IH ring" — separate fix, not required for this one.
 
-## Phase 7: Subsystem and Maintainer Context
-
-**Step 7.1 — Subsystem criticality**
-Record: `drivers/gpu/drm/amd/amdgpu` — IMPORTANT (AMD GPU RAS/CPER error
-reporting). Not universal like mm/net, but critical for affected AMD GPU
-users with ACA/RAS enabled.
-
-**Step 7.2 — Activity**
-Record: CPER code is actively developed (20 commits on `amdgpu_cper.c`);
-subsystem is new (v6.15+) and still receiving bug fixes.
+### Step 4.5: Stable list history
+**Record:** Not searched separately; no stable nomination in patch
+thread. Not a negative signal per instructions.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 8.1 — Who is affected**
-Record: AMD GPU systems with CPER enabled (`amdgpu_aca_is_enabled()` or
-`amdgpu_sriov_ras_cper_en()`). Config/driver-specific, but includes
-production RAS workloads and SR-IOV hosts.
+### Step 5.1: Key functions
+**Record:** `amdgpu_irq_delegate()`, `amdgpu_irq_handle_ih_soft()`,
+`amdgpu_ih_ring_write()`, `amdgpu_ih_process()`
 
-**Step 8.2 — Trigger conditions**
-Record: CPER ring overflow **and** corrupt/non-advancing entry size in
-ring buffer. Plausible when the ring already contains damaged data from
-hardware errors or partial overwrites. Not everyday, but realistic in
-the exact failure mode CPER exists to handle.
+### Step 5.2: Callers of `amdgpu_irq_delegate()`
+**Record:** Called from retry-fault paths in:
+- `gmc_v9_0.c` (lines 589, 611)
+- `gmc_v10_0.c` (line 128)
+- `gmc_v11_0.c` (line 127)
+- `gmc_v12_0.c` (line 120)
 
-**Step 8.3 — Failure mode severity**
-Record: **CRITICAL** — infinite loop with `cper.ring_lock` held; CPER
-writer thread/worker hangs permanently; subsequent CPER records cannot
-be written; RAS error logging stalls during hardware fault scenarios.
+Triggered when `entry->ih == &adev->irq.ih` during retry page faults.
 
-**Step 8.4 — Risk/benefit**
-Record:
-- **Benefit:** HIGH — prevents permanent hang in RAS error path during
-  overflow recovery
-- **Risk:** LOW — ~15 lines, defensive reset only on detected no-
-  progress, reviewed by AMD maintainers
-- **Ratio:** Strong benefit, minimal risk
+### Step 5.3: Callees
+**Record:** `amdgpu_ih_ring_write()` writes IV to soft ring; work
+handler calls `amdgpu_ih_process()` → `amdgpu_irq_dispatch()` → GMC
+fault handler → `amdgpu_vm_handle_fault()`.
+
+### Step 5.4: Reachability
+**Record:**
+- **Call chain:** HW IRQ → `amdgpu_irq_handler` → IH processing → GMC
+  fault handler → `amdgpu_irq_delegate` → work scheduling.
+- **Reachable:** Yes — normal GPU compute/HMM/SVM page-fault path on
+  Navi/Vega/GFX9+ without hardware retry CAM.
+- Only `vega20_ih.c` sets `retry_cam_enabled = true`; all other soft-IH
+  GPUs use software filtering path.
+
+### Step 5.5: Similar patterns
+**Record:** amdgpu already uses `queue_work(system_unbound_wq, ...)` for
+reset/XGMI work to avoid CPU pinning — same rationale.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
 
-**Step 9.1 — Evidence compile**
+### Step 6.1: Buggy code in tree?
+**Record:** **Yes.** `amdgpu_irq.c:515` still has
+`schedule_work(&adev->irq.ih_soft_work)`. Soft IH infrastructure present
+since 2020; retry page-fault delegation paths present in
+gmc_v9/v10/v11/v12.
 
-FOR backport:
-- Real infinite-loop hang with mutex held
-- Affects RAS error reporting on AMD GPUs with CPER
-- Small, surgical, obviously correct fix
-- Buggy code present since v6.15, present in this v6.18.44 tree
-- Prior related infinite-loop fix already backported-worthy and in tree
-- AMD reviewer + maintainer sign-off
+### Step 6.2: Backport complications
+**Record:** **Clean apply expected** — identical one-line substitution
+at same location. No structural divergence in this function vs. linux-
+next.
 
-AGAINST backport:
-- No syzbot/user bug report (weaker impact evidence, but mechanism is
-  clear)
-- Only affects CPER-enabled AMD GPUs (narrower audience)
-- Lore review thread not verified
+### Step 6.3: Related fixes already present?
+**Record:** `bf80d34b6c58a` (increase soft IH ring size) is present —
+mitigates but does not fix scheduling starvation. This fix is **not**
+yet in 6.18.44.
 
-UNRESOLVED:
-- Full mailing-list review discussion
-- Whether any reviewer explicitly nominated for stable
+---
 
-**Step 9.2 — Stable rules checklist**
-1. Obviously correct and tested? **PASS** — logic is clear; reviewed by
-   AMD engineers; no Tested-by
-2. Fixes a real bug? **PASS** — infinite loop on corrupt overflow
-   recovery
-3. Important issue? **PASS** — worker hang during RAS error handling
-   (CRITICAL)
-4. Small and contained? **PASS** — one file, ~15 lines
-5. No new features/APIs? **PASS** — defensive recovery only
-6. Can apply to local tree? **PASS** — target code exists; fix hunk
-   matches
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
 
-**Step 9.3 — Exception categories**
-Record: Not a device-ID/quirk/DT/docs/build fix. Qualifies as a critical
-bug fix on its own merits.
+### Step 7.1: Subsystem criticality
+**Record:** **drivers/gpu/drm/amd/amdgpu** — IMPORTANT. Affects AMD GPU
+users on compute and graphics workloads with recoverable page faults.
 
-**Step 9.4 — Decision rationale**
-For this **v6.18.44** tree, the AMDGPU CPER ring overflow recovery code
-exists and contains the described infinite-loop bug. The fix prevents a
-permanent hang in RAS error logging when corrupt ring data prevents
-`rptr` advancement — exactly the scenario CPER is meant to survive. The
-patch is small, self-contained, and follows the same pattern as the
-already-merged `d6f9bbce18762` overflow-loop fix.
+### Step 7.2: Subsystem activity
+**Record:** Actively developed; interrupt and page-fault paths receive
+frequent fixes in this tree.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who is affected
+**Record:** AMD GPU users on ASICs with soft IH ring and **without**
+hardware retry CAM (most Navi, Vega10, GFX9, etc. — everything except
+Vega20 in this tree). Config: `CONFIG_DRM_AMDGPU`.
+
+### Step 8.2: Trigger conditions
+**Record:**
+- **When:** Retry page-fault storms (GPU compute, HMM, large sparse
+  mappings).
+- **Likelihood:** Can occur under normal heavy GPU workloads, not exotic
+  edge case.
+- **Unprivileged trigger:** Indirectly yes — userspace GPU workloads
+  trigger page faults.
+
+### Step 8.3: Failure mode severity
+**Record:**
+- Soft IH ring overflow → dropped interrupt vectors → page faults not
+  handled.
+- Interrupt storm → CPU saturation, possible soft lockup.
+- GPU hang / application failure on affected workloads.
+- **Severity: HIGH** (functional breakage + system responsiveness
+  impact; not proven kernel panic but can cause hangs).
+
+### Step 8.4: Risk-benefit
+**Record:**
+- **Benefit:** HIGH for affected AMD GPU users — restores correct retry
+  page-fault handling.
+- **Risk:** VERY LOW — one-line, established pattern, reviewed.
+- **Ratio:** Strong benefit, minimal risk.
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence summary
+
+**FOR backport:**
+- Fixes real scheduling starvation bug causing soft IH ring overflow.
+- Affects common AMD GPUs (Navi, Vega10, GFX9, etc.) on retry page
+  faults.
+- Can cause interrupt storms and broken page-fault recovery.
+- One-line, obviously correct, reviewed.
+- Bug present since 2020; code exists in 6.18.44.
+- Standalone, no dependencies.
+
+**AGAINST backport:**
+- No user bug report or syzbot confirmation (developer-found).
+- Patch 3/3 of a series (but functionally independent).
+- Framed as "improves" handling — but mechanism is ring overflow /
+  dropped IVs.
+
+**Unresolved:** No quantitative data on how often users hit this in
+production.
+
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** — reviewed, logical fix,
+   established amdgpu pattern.
+2. Fixes real bug affecting users? **PASS** — ring overflow and
+   interrupt storm on retry page faults.
+3. Important issue? **PASS** — HIGH: GPU hangs, CPU saturation, dropped
+   fault handling.
+4. Small and contained? **PASS** — 1 line, 1 file.
+5. No new features/APIs? **PASS**.
+6. Can apply to local tree? **PASS** — buggy code present; clean apply.
+
+### Step 9.3: Exception categories
+**Record:** None (not device ID, quirk, DT, build, or docs). Standard
+bug fix.
+
+### Step 9.4: Decision rationale
+
+For **6.18.y**, the soft IH ring and retry page-fault delegation code
+are present and still use CPU-bound `schedule_work()`. Under retry page-
+fault load on GPUs without hardware filter CAM, the soft IH work cannot
+run on the IRQ-saturated CPU, the ring fills, IVs are dropped, and the
+system can be flooded with interrupts. Switching to `system_unbound_wq`
+is a minimal, reviewed fix already used elsewhere in amdgpu. This meets
+stable criteria: real bug, important user impact, tiny contained change,
+no new APIs.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit message and tags from user-provided diff
-- [Phase 2] Analyzed diff: `amdgpu_cper_ring_write()` overflow loop
-  change
-- [Phase 3] `git describe HEAD` → `v6.18.44`; Makefile confirms 6.18.44
-- [Phase 3] `git blame -L 507,516` → buggy loop from `a6d9d192903ea`
-  (2025-01-22)
-- [Phase 3] `git tag --contains 92d5d2a09de16` → CPER introduced in
-  `v6.15`
-- [Phase 3] `git show d6f9bbce18762` → related prior infinite-loop fix
-  in same function, already in tree
-- [Phase 3] `git log --oneline -20 -- amdgpu_cper.c` → CPER subsystem
-  history reviewed
-- [Phase 4] `b4 dig -c d5e59c24d907d` → no match (commit not in local
-  repo)
-- [Phase 4] `b4 shazam -s 'reset CPER ring on corrupt entry size'` →
-  message-id not known
-- [Phase 4] lore.kernel.org fetch → blocked by Anubis bot protection
-- [Phase 4] Workspace `*.mbx` grep → no matching thread found
-- [Phase 5] `grep amdgpu_cper_ring_write` → 4 call sites in
-  `amdgpu_cper.c`, `amdgpu_virt.c`
-- [Phase 5] Traced `aca_banks_update` → `aca_banks_generate_cper` →
-  `amdgpu_cper_generate_*` → `amdgpu_cper_ring_write`
-- [Phase 6] Read `amdgpu_cper.c:466-521` → buggy code confirmed present,
-  fix absent
-- [Phase 6] `git merge-base --is-ancestor 4d614ce8ffd75 HEAD` → CPER
-  ring code is in this tree
-- [Phase 6] Patch apply via `git apply --check` → failed on upstream
-  context mismatch in unrelated hunk; target `amdgpu_cper_ring_write()`
-  hunk verified identical by direct file read
-- [Phase 7] `amdgpu_cper_init()` requires `amdgpu_aca_is_enabled()` or
-  `amdgpu_sriov_ras_cper_en()` — verified in source
-- [Phase 8] Confirmed mutex held across infinite loop (`mutex_lock` at
-  line 481, loop at 507-515, `mutex_unlock` at 520)
-
-**YES**The background search finished: the fix commit **is not in this
-tree** (`v6.18.44`). `git log --grep='reset CPER ring'` and
-`--grep='corrupt entry size'` found nothing; Xiang Liu’s other CPER
-commits (including `d6f9bbce18762`, a related overflow infinite-loop
-fix) are present, but not this one.
-
-The buggy overflow-recovery loop is still in `amdgpu_cper.c` at lines
-510–511. This patch should be backported here: it prevents an infinite
-spin with `cper.ring_lock` held when corrupt CPER ring data doesn’t
-advance `rptr` during overflow recovery — a hang in the RAS error-
-reporting path on ACA/SR-IOV CPER-enabled AMD GPUs.
+- **[Phase 1]** Parsed subject, tags, body; no Fixes:/Reported-
+  by:/syzbot.
+- **[Phase 2]** Diff: 1-line change in `amdgpu_irq_delegate()`; read
+  `amdgpu_ih_ring_write()` overflow behavior (lines 162–169).
+- **[Phase 3]** `git describe HEAD` → v6.18.44; `git blame` →
+  `26f32a377eedd` (2020); `git merge-base --is-ancestor` → fix NOT in
+  HEAD.
+- **[Phase 3]** Related commits: `bf80d34b6c58a`, `318e431b306e9`,
+  `26f32a377eedd`.
+- **[Phase 4]** `b4 dig -c 3cdff3c` → lore URL; `b4 dig -a` → v1 series;
+  `b4 dig -w` → maintainers CC'd; mbox → Reviewed-by Tvrtko Ursulin, no
+  stable/NAK.
+- **[Phase 5]** `grep amdgpu_irq_delegate` → 4 GMC files; `grep
+  retry_cam_enabled` → only `vega20_ih.c` sets true.
+- **[Phase 5]** Read `gmc_v9_0.c:583–621`, `gmc_v10_0.c:115–137`,
+  `amdgpu_ih.c:150–169`, `amdgpu_irq.c:510–516`.
+- **[Phase 5]** `grep system_unbound_wq` in amdgpu → prior usage in
+  reset/device code.
+- **[Phase 6]** Confirmed `schedule_work` at `amdgpu_irq.c:515` in
+  current tree.
+- **[Phase 6]** Fix commit only on `linux-next/master`, not ancestor of
+  HEAD.
+- **[Phase 8]** Assessed severity from ring-overflow + interrupt-storm
+  mechanism in code.
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-index 425a3e5643608..2694facb06c73 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cper.c
-@@ -465,7 +465,7 @@ static u32 amdgpu_cper_ring_get_ent_sz(struct amdgpu_ring *ring, u64 pos)
- 
- void amdgpu_cper_ring_write(struct amdgpu_ring *ring, void *src, int count)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+index 8d7f97eed5a90..ccc378233bc5a 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_irq.c
+@@ -512,7 +512,7 @@ void amdgpu_irq_delegate(struct amdgpu_device *adev,
+ 			 unsigned int num_dw)
  {
--	u64 pos, wptr_old, rptr;
-+	u64 pos, wptr_old, rptr, next_rptr;
- 	int rec_cnt_dw = count >> 2;
- 	u32 chunk, ent_sz;
- 	u8 *s = (u8 *)src;
-@@ -506,9 +506,19 @@ void amdgpu_cper_ring_write(struct amdgpu_ring *ring, void *src, int count)
- 
- 		do {
- 			ent_sz = amdgpu_cper_ring_get_ent_sz(ring, pos);
--
--			rptr += (ent_sz >> 2);
--			rptr &= ring->ptr_mask;
-+			next_rptr = rptr;
-+			if (ent_sz >= sizeof(u32))
-+				next_rptr = (rptr + (ent_sz >> 2)) & ring->ptr_mask;
-+
-+			if (next_rptr == rptr) {
-+				/* Corrupt entry size, reset the ring to avoid an infinite loop. */
-+				rptr = ring->wptr;
-+				*ring->rptr_cpu_addr = rptr;
-+				ring->count_dw = (ring->ring_size - 4) >> 2;
-+				goto out_unlock;
-+			}
-+
-+			rptr = next_rptr;
- 			*ring->rptr_cpu_addr = rptr;
- 
- 			pos = rptr;
-@@ -517,6 +527,8 @@ void amdgpu_cper_ring_write(struct amdgpu_ring *ring, void *src, int count)
- 
- 	if (ring->count_dw >= rec_cnt_dw)
- 		ring->count_dw -= rec_cnt_dw;
-+
-+out_unlock:
- 	mutex_unlock(&ring->adev->cper.ring_lock);
+ 	amdgpu_ih_ring_write(adev, &adev->irq.ih_soft, entry->iv_entry, num_dw);
+-	schedule_work(&adev->irq.ih_soft_work);
++	queue_work(system_unbound_wq, &adev->irq.ih_soft_work);
  }
  
+ /**
 -- 
 2.53.0
 
