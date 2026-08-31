@@ -4,103 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id A59A8C61DD3
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 21:28:30 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 63311C61DFD
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 21:49:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1482010EB11;
-	Mon, 31 Aug 2026 21:28:30 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96EA210E327;
+	Mon, 31 Aug 2026 21:49:24 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="gPFCNXq5";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Ji0tkAxp";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010025.outbound.protection.outlook.com [52.101.201.25])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CACBC10E10E;
- Mon, 31 Aug 2026 21:28:28 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010034.outbound.protection.outlook.com
+ [40.93.198.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 45C1610E327
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 21:49:23 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=c6hLcAhcmDi6iU4QM9pTQbbW6uOtvkteWCrsYIu4HMO6tbILySS1/phzAzXkU9ZwXgbW3bZodN4MLO2Qz03141k/EMmgGCmQx8pN+V7au/Tt8Ab2Hk55P5bXQtlYx/dFE5j5SV5vWSStZWMlJUC6vsn1xpojAgMJhVchC2S3kFo/uWyNWWxb+qO2WybWymjWmWQmcUlV8P5hVMlShphjgoS4oRCskt1g38nt0YAjNw7r+CI9c1WTaGcRjdIP9fX7UmKR3FjPk3dxiCj4IX5lVpFsj8MEDr7nioUSplVR0WuZZVQ+R5XR6MLQc2cC2Skb2cJK1W+1GazjSTFKUoNeDg==
+ b=DURAZInfqLW8DKfle1a+J+ovT5Oo6iNbYqlMKHskwCZhSVTGK1wDczTOuMxqao6VFis/Mmu9fU77YTDOiuOuhZVR9EivBBbRUD8r1igqImhhJTCXDotxu7OAbCI5fmyBG67OuZJ+HJMsjHoxyJn9edcbONLyNhFC6qeRHX02B/5dwMlzvzcOe6/A+IOudzys1DyZm2ybHWZxvClOXtWMU7P5Oa6IsuzMY9HRPfw3kCGlD02xVVugjdAKdDzT0cmI9N/5agM/pm/xkvQNHQN5hoUPa/5UAHwpqud5GanaRuVoGhv4QzE8ry5+s3c8IK53O1XKvO6Wx5KFFwL0uouJMw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Hkf+tPK1fNZVek09wSlO+cz892FhRoagZwNjMQMFK0g=;
- b=h77kD4HA7RCAJQOO6X0JIKx29lMRL5CPdbVY1GvnmV834GrrvU+/0q9nXN3iDwO2FAjrRHQ2vVX5cGcGjvTvZFS1QwstDwEO0glG2PXx9RO+kOyhZ0Mrsh0fSi/K69eIZUbzlJXWdBO02bJjXYJfqxyLtbeOyEKlaowuzrR4eA5S7Q/8EQfQU+ONv+KwoBnpg+hkHABLp2/rPGcZ4NlBKVEhnjvOhi7+tTaDLXRYcBR/ugUu1oupIZZMP5FS5tJbc8g49gZkkUgL1q9L3qBxjKcRQxp6HEx2+xgmAOd9XuGcaGEVTWnrFDMThKn4uOzmOZ6LVKEWnyhNXCztvzJuug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gmail.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
+ bh=TXfcQRqWeY8nyg4g+YwBQpARP4a5TtVs4UAmw3sVy04=;
+ b=NF/4kA9sXyVkdWNcR/JQUw13azDg0QLv5un+YDjq7et/4zxtCVtQqeSw38VwJg4QxhDavY5v0YnsmvLmNkojMI9fD+29F9lxJnzS7NiZgncpvKoDFiGwulilDGxTnR8YoEcEI6ePLjkUBwEk3BfyxnsWFtBf5mVQyIJlo4916Ndyf0ueVXkIRIK0eOhub768i3bGGkziwrqzNu+NAOQLROq800fLk+TUTWdvA2mP2xAnqIVA6LEvMSJi0qEGN3ILkQ6c+/8bMVEtjAfs/SOy6Rdk2ob3Q9pd0r2mZBJ8JPSicnM9UEzOefLU6gwqZ3FudnrzYMuADXoQx+49ju7ugg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Hkf+tPK1fNZVek09wSlO+cz892FhRoagZwNjMQMFK0g=;
- b=gPFCNXq5EcPb+kojA8igA92+XQXnznNLHXbwQBuwatENYncowbqy0Iw2wfm1BUQj96LSzDNDkUoYqCmmUtPozhyD20MZhxY0XtJW5VcNLhlFYfFODw33qW6o++6Y0qKtwc9OZvTvUS/vkrhQxEbEP8lF/pVOEqCh+rT0kzhhCfA=
-Received: from BY1P220CA0050.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59e::12)
- by DS7PR12MB8290.namprd12.prod.outlook.com (2603:10b6:8:d8::15) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=TXfcQRqWeY8nyg4g+YwBQpARP4a5TtVs4UAmw3sVy04=;
+ b=Ji0tkAxpaBev1dv53dfW7fsdCjM2kSRa0mP83EmaCTyZI0UOyGvWUpP32lmSjYVveVmz6NbTGCLEUFw9UNZWjYtmR0mZoDzhZLZFeig6aIOIcq6qX/MjWBXH+eF5+zfamysMwZJqPfYrs3urqjeMp81dlmxq08zrs3yNilA11YM=
+Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
+ by MN2PR12MB4288.namprd12.prod.outlook.com (2603:10b6:208:1d2::22)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 21:28:25 +0000
-Received: from SJ1PEPF00002323.namprd03.prod.outlook.com
- (2603:10b6:a03:59e:cafe::3f) by BY1P220CA0050.outlook.office365.com
- (2603:10b6:a03:59e::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
- 31 Aug 2026 21:28:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00002323.mail.protection.outlook.com (10.167.242.85) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 21:28:25 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
- 2026 16:28:21 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
- 2026 16:28:22 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Mon, 31 Aug 2026 16:28:21 -0500
-Message-ID: <7c533a4d-233f-f884-e79b-59d47c0555da@amd.com>
-Date: Mon, 31 Aug 2026 14:28:15 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH] accel/amdxdna: fix double-free on mailbox channel stop
+ 2026 21:49:19 +0000
+Received: from BN9PR12MB5146.namprd12.prod.outlook.com
+ ([fe80::535a:591e:27f6:c23]) by BN9PR12MB5146.namprd12.prod.outlook.com
+ ([fe80::535a:591e:27f6:c23%3]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 21:49:18 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: "Limonciello, Mario" <Mario.Limonciello@amd.com>, Joerg Roedel
+ <joro@8bytes.org>
+CC: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "Suthikulpanit, Suravee" <Suravee.Suthikulpanit@amd.com>, "Hegde, Vasant"
+ <Vasant.Hegde@amd.com>, Will Deacon <will@kernel.org>, Robin Murphy
+ <robin.murphy@arm.com>, "open list:AMD IOMMU (AMD-VI)"
+ <iommu@lists.linux.dev>, Jatin Kataria <jkataria@netflix.com>, Boqun Feng
+ <boqunf@netflix.com>
+Subject: RE: [PATCH 2/2] drm/amdgpu: Enable PerfOpt IOMMU perf optimization
+ when GPU in identity domain
+Thread-Topic: [PATCH 2/2] drm/amdgpu: Enable PerfOpt IOMMU perf optimization
+ when GPU in identity domain
+Thread-Index: AQHdOQzG5ayngCAlkEeBN38K5oHz8ba4sZZw
+Date: Mon, 31 Aug 2026 21:49:18 +0000
+Message-ID: <BN9PR12MB5146AEF96DBF667749B61205F7A92@BN9PR12MB5146.namprd12.prod.outlook.com>
+References: <20260831055108.1893285-1-mario.limonciello@amd.com>
+ <20260831055108.1893285-3-mario.limonciello@amd.com>
+In-Reply-To: <20260831055108.1893285-3-mario.limonciello@amd.com>
+Accept-Language: en-US
 Content-Language: en-US
-To: Deniz Aydogan <denizaydogan1902@gmail.com>, <amd-gfx@lists.freedesktop.org>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-References: <20260828212405.13124-1-denizaydogan1902@gmail.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20260828212405.13124-1-denizaydogan1902@gmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002323:EE_|DS7PR12MB8290:EE_
-X-MS-Office365-Filtering-Correlation-Id: ddc105a0-2620-4ef8-cff2-08df07a6ca78
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|82310400026|376014|36860700016|22082099003|18002099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: /cV3kIW011UXOMSXmW5G6lpaHXYWjJAG6QzyWjrerfytLx3uN0d3ZTE2/isHf8DBBTKGCj6PNcd4lfEA1YaavWM206ozB7W+CmWp1NknT6LcjoYvN07+y+3TopXPefkpq6UJZ7pYHswdCAA7w0aX0lCLsZOVlySSJOFT1gHkHcO6QOHplqTIpJWQhLcBaKFQHhFyEqzXUM1CBGUwk1jAHdPVlebL6B5JQhSdJnp8hIOYZC1btdaayqLUDizYocekCZO8/82DjErIj+th9bBZQqO0O1VeWc4ByfzE8PGvknZIBsANsv07cnOi2n+UrJLDdZJFeZfccd79J47EN7tM3i90UZ1Hig1BHH/987pmp6Sbw05r3IFtUAXaKLrl56ANVi/ph32l3TtAt46J0mFXPQ4S76gJUzdJ5POvTffDMUrzhZMIDpY+RA2X61doL6JvYWV4WXBKb8cCEFCALnsJY32ffKWCJA6d2qc1ATaB6VfQjh7XjANePCzcFTFhKBTD01FXB+Flg6K+tb5qeZmkb1ylYlUmIuolGuKjnIJ0y9DFZGCB/TzJIUMHTgUFEHo7Vv3KErRTcw6FLfniNiYxeQZUH9mbpRHNEBmb/gZzf8rmQJf1JnTU0Sfsvxfp+Qskg59Q+a47TfyI9cpRKDMixUaKCLbRmVSXUbxMkA2Z4fnGNIJaGMwewRAbVY9NqUWYpJ0Fi28ypS9HWjFe7RDJOA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(82310400026)(376014)(36860700016)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-08-31T21:44:10.0000000Z;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
+ v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|MN2PR12MB4288:EE_
+x-ms-office365-filtering-correlation-id: 0702c630-d3f5-4b31-3d89-08df07a9b58d
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|23010399003|1800799024|366016|38070700021|11063799006|10067099003|4143699003|22082099003|18002099003|56012099006|3023799007;
+x-microsoft-antispam-message-info: UTnudyyiX/By2TDKGHqHme6qCuRs9G0vsNADsNU8jLJG69blhN22V2R1JDuWo5ssTp50J5NTN1dLoB+Cr+D1TEEso9gXyMcOIrQ08PBthyFYG2eRYLsJA0LaHn3gdXcmCJfwiuWcITBslVT5CPaB3SiPch7I3lVnGqUtxLImfFREGe/2p7NtYxOwwPoK4gnaBMDQVmBSgGTh4Xf2ut6BJ24+k+E4BoZ1wSCbgYkAHA7C34A37xHYtWzy2KBfCqSorQmdKeGfNQXQkLyFi8BFEE4pzkJo8HrHn04ivDTVPxfOBZwBAaTnFxtG/veHQhBZ2VAWyGL22DoK6P9BKLgqH+IKH8t2416VB9xqxf5bcdHUqZZmcaZsL6p45HjZhKuoiQpbkW8/6VdUIejDfHuTTW2bTDbyPM4ZJAj/oumx4Zg7JwVyAtp5oFZbEhnolJhk92AXybHx/5lGD6lvh8xqzmgKzClFjYDkqu66uuf6zXZWXcIMhVImjXaVdShrLXnWIV984KfGS7X7Xyl3VqLpdVJXJIDBPKbLzV0sjqHYvDMBvtBkYv1J6uuN9MfGu77duSMc8FDii+YS4yRFkbIRh1dC999NJ91HwFhUsc8u7nGI5iU6LrRSCL7zaQFTMEG8EDVWXw2nCgXHWlxq9OIEK1IM6pouLfdosO0cMpl8NuJt/Ar5fzemuHFmyzbsY6SnbgZlWTc5uUJCvQBSf5x8LPvVaCqPpK22eHq3pdZNPY0=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(38070700021)(11063799006)(10067099003)(4143699003)(22082099003)(18002099003)(56012099006)(3023799007);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: FjmsPslrblurJkbpbiTnusaJgKBluBh7wqeNvbKHiPfz0gFpOrin5S//0WedfJciftAtrtTPQxdFxMfVgt4rD+8HnV/44Sz20ECFayTYwE4b0fuF81SOooZbtPQFALdCQmpDqmWh8YKMW5Gp/D/pL7Ihai1cdvIhdeRBPld2Xags1ceodKLD51L+8+0VB5CE9/ST5jkZ65oixK5BDCMMAitgVutsTbwzQBp8+LeegZq+NAgIZLHzITfkVpYzwiPqM2aySH9ZBp8vSTZbZHhAs0KZJRRd8rL0JhJvp6uaotEO2vgiz755RcUptmop4k9T6MlhAQtEHXVy3pS/zqofu9IWBruoNQRgqhkEc4fDb+jhZt7A1ThxmkzqLI/LLcwBN16687FdE0VDTIN8V1EjjMTwZElMiHsEQy9ER70f79tuoIDmoJfvvL6u4l6nrHaG
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?8ERHo6AM4hEkjTxdzBjvsswSIOd9qxxrs2pPwmv8jHkEQ9p5PnqcItk06ISr?=
+ =?us-ascii?Q?gLDRO3Hw6sXIPXLrQ8VFgTNv8l7evtmALUeW7aM8RClZuVnsQ7caUf+1Ffdg?=
+ =?us-ascii?Q?2suA7Fva/EKiem/UXw9HgMTZTCxqojK6rkGvvkYRVhJGXpoLnWhlvG33Fzy2?=
+ =?us-ascii?Q?8Cy7yhCDvww/2x66sIIKXfoaFGZD1WCnet9+x+p2LuUud8j6iSkRXI4PBCa0?=
+ =?us-ascii?Q?MtTwKc3dP67Wq6amyirfP7UG9UnNaYUCFITselEffSc5Ydm3NsW7eyPqsxWu?=
+ =?us-ascii?Q?07VLT9tGOin1btBQgZVrnohOQgGeYuWoov0cfvbICm6Red2kOf6LIEVg4Rns?=
+ =?us-ascii?Q?Hk+RYDAdQLTQp/RX+FVXY1lfzdyfcBwJnzpF+q48EjZ/dyn9bulfTLy071OY?=
+ =?us-ascii?Q?ClUIfVoUhCOPf+xDXqAoe+MT806DVT1KSVNo7Dwfm/kqd/P2q1pEYTN+DK/h?=
+ =?us-ascii?Q?tN6Hh/CwKdX6G7PGYU9/4OXkhTExNq6GszVOJJoF786p7XL8E8lUvY85QwjI?=
+ =?us-ascii?Q?Mm78Q6emscNsOjSQrdoSMMrg3HzUaexVugJ8j0vXJpQh0Ptyi+/9cb2ARJLK?=
+ =?us-ascii?Q?qYJsduT+8X4gAnW0RJ52FM+fcOjigKx9+YDBu1xljCGLFBOketW+odWvzbQu?=
+ =?us-ascii?Q?eMNe/HO6h8cfynNhVkW2eJzc57ZTKHvqa+xm8cd+kSOCzMYRj+uUNfprwLTd?=
+ =?us-ascii?Q?P0+1BvTue2mosM9GWakbt25fYN1PLS2hpycNE3IRhthIQJDk2rHnbFbszsxj?=
+ =?us-ascii?Q?H02xi+6zySMe+8i3DMe8jCnpkfD3QFsR2YuawKAyoo2A6jJQNOhu5SWa9OQ+?=
+ =?us-ascii?Q?SXpailDGhLoIOWz+VQFaD+sm5MJiPH2qZmjzX7lUkBz8S4ONJooRaqZufj4t?=
+ =?us-ascii?Q?blyt/bGQ0y208b1P7VEZidbJ8iMuu/KTr/HICVeOrXlk+Pym/PNbQOlhQM7J?=
+ =?us-ascii?Q?Y882omkXe1fmohGoXV246p+/7aV9+cOwjUVR1Y6+PbHiKvT7zFsS4oBcLMGA?=
+ =?us-ascii?Q?XlSyygGwwyvM4jUnhYb9n8tQC6ZWSOYbM6n2Lkx0T0taWQ8Kpyw5szt1vox7?=
+ =?us-ascii?Q?xaF6M39dUNhZ3Uc+p+e+6KvDNhHD9fuPx0AfBMOPTZLmy5HzeYEIvofHOUwf?=
+ =?us-ascii?Q?k6u7xYub2U2Qfqs0S42BeaZsbjVBYJ/u0x1L6oHBBrGqXzvhCbe5VBmVmBsR?=
+ =?us-ascii?Q?zLSA2tM+fcf1AIUW8iVBletAMTUQ0NsTc2X/9RHP2fMlbovyVc1FWCZHr8Hj?=
+ =?us-ascii?Q?DMnqJS4cvr96OqpnMNJO8KVjfRVFidZte96tYPlYXTysSpbkWz/4smXNcNXQ?=
+ =?us-ascii?Q?GBUV46foH4gU3UCOgG2wnnY1bThLuIAyIpWFWEXEUGOHf6hm3RyX5WmxklG7?=
+ =?us-ascii?Q?RWDCLCcIL+73CfCODP3UcfRtBnlsR7QmiciyKVM5RyMPllDYlffP+gUjqofn?=
+ =?us-ascii?Q?KP61wJUdJLYpXfJz1wKixGM0ePCNrDQ+z0yCwhGxOlc9I8rvgoLJWlksV8Da?=
+ =?us-ascii?Q?QBdwXwijjE+WohPucHBmpzR6Fcx8OeBBc7KUZYnKf6Bt+NepYGZ7tkwra78N?=
+ =?us-ascii?Q?qhsahqm3VVZEqv4V5BhysI+hh/qSVvo/9eWrWO1XYYNMhOzzZpJ6dwJGUn9v?=
+ =?us-ascii?Q?oup5a46x5BYIBJJn71pvhgv8VeKsY4/uwUAbWduMQXr4E2a4PUKgRqFfppET?=
+ =?us-ascii?Q?a8rxDnxagAEVUd8hR/jdeoQquGJC1gOnqZ6IjbPgKx81xMk6?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 21:28:25.1511 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ddc105a0-2620-4ef8-cff2-08df07a6ca78
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PEPF00002323.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8290
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0702c630-d3f5-4b31-3d89-08df07a9b58d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2026 21:49:18.6451 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Q8Ax7es0oEOY1s53K8xLJqU58ymDcM0TV6alLszATa0WqlSUgWQI3aBDanQ2+Qa7kASu3bUU9JmfVdwWuoKgUg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4288
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,56 +140,213 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
+Public
 
-On 8/28/26 14:24, Deniz Aydogan wrote:
-> mailbox_release_msg() frees the message with kfree() but does not
-> remove it from the xarray. The stop function uses two loops to walk
-> pending entries in cyclic order, but since released entries remain in
-> the xarray, overlapping ranges cause the same entry to be freed twice.
+> -----Original Message-----
+> From: Limonciello, Mario <Mario.Limonciello@amd.com>
+> Sent: Monday, August 31, 2026 1:51 AM
+> To: Deucher, Alexander <Alexander.Deucher@amd.com>; Joerg Roedel
+> <joro@8bytes.org>
+> Cc: amd-gfx@lists.freedesktop.org; Suthikulpanit, Suravee
+> <Suravee.Suthikulpanit@amd.com>; Hegde, Vasant
+> <Vasant.Hegde@amd.com>; Will Deacon <will@kernel.org>; Robin Murphy
+> <robin.murphy@arm.com>; open list:AMD IOMMU (AMD-VI)
+> <iommu@lists.linux.dev>; Jatin Kataria <jkataria@netflix.com>; Boqun Feng
+> <boqunf@netflix.com>; Limonciello, Mario <Mario.Limonciello@amd.com>
+> Subject: [PATCH 2/2] drm/amdgpu: Enable PerfOpt IOMMU perf optimization
+> when GPU in identity domain
 >
-> In particular, when next_msgid is 0 (the initial value after kzalloc),
-> xa_for_each_start() covers all entries from index 0 onward, and
-> xa_for_each_range() with max=(u32)(0 - 1) = U32_MAX also covers all
-> entries. Every pending message gets double-freed.
+> Enable PerfOpt via amd_iommu_enable_perfopt() when the GPU's
+> iommu_perfopt module parameter is enabled (default 1) and the GPU resides
+> in the identity domain. The identity domain means the GPU is already
+> performing direct DMA with the IOMMU only enforcing IR/IW permission bits
+> -- no GPA->SPA translations.
 >
-> Use xa_for_each() to iterate all remaining entries exactly once.
-> At this point the IRQ is already freed and the workqueue is drained,
-> so traversal order does not matter.
+> amd_iommu_enable_perfopt() clears ATS, PRI, PASID and SVA for the device.
+> This is safe in identity domain because DTE[I]=3D0 means the IOMMU alread=
+y
+> returns target abort for ATS requests from this peripheral and the GPU
+> manages its own TLB.
 >
-> Fixes: 3ba13f5e7180 ("Merge tag 'devicetree-fixes-for-7.3-1'")
-> Signed-off-by: Deniz Aydogan <denizaydogan1902@gmail.com>
+> PerfOpt is a soft, optional latency optimization: failing to arm it (for =
+example on
+> an IOMMU that does not implement the feature, which returns
+> -ENODEV) must not be fatal, so probe and resume warn and continue rather
+> than aborting.
+>
+> PERF_OPT_EN is a per-IOMMU control shared by all devices behind that
+> IOMMU; the IOMMU driver reference counts it so that on systems where
+> multiple devices share one IOMMU, one GPU's teardown does not clear the b=
+it
+> while a peer still requires it.
+>
+> Arming PerfOpt trades IOMMU DMA containment for lower DMA latency. This
+> is enabled by default for GPUs in the identity domain as a deliberate,
+> documented policy and can be disabled with iommu_perfopt=3D0.
+>
+> The AMD IOMMU spec indicates this is only supported on integrated GPUs so
+> check explicitly for AMD_IS_APU (which is set by
+> amdgpu_device_ip_early_init()).
+>
+> PerfOpt is disabled during GPU init teardown and restored on resume.
+>
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 > ---
->   drivers/accel/amdxdna/amdxdna_mailbox.c | 4 +---
->   1 file changed, 1 insertion(+), 3 deletions(-)
+>  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  1 +
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 41
+> ++++++++++++++++++++++
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c    | 12 +++++++
+>  3 files changed, 54 insertions(+)
 >
-> diff --git a/drivers/accel/amdxdna/amdxdna_mailbox.c b/drivers/accel/amdxdna/amdxdna_mailbox.c
-> index cc8865f4e..271617347 100644
-> --- a/drivers/accel/amdxdna/amdxdna_mailbox.c
-> +++ b/drivers/accel/amdxdna/amdxdna_mailbox.c
-> @@ -556,9 +556,7 @@ void xdna_mailbox_stop_channel(struct mailbox_channel *mb_chann)
->   	drain_workqueue(mb_chann->work_q);
->   
->   	/* We can clean up and release resources */
-> -	xa_for_each_start(&mb_chann->chan_xa, msg_id, mb_msg, mb_chann->next_msgid)
-> -		mailbox_release_msg(mb_chann, mb_msg);
-> -	xa_for_each_range(&mb_chann->chan_xa, msg_id, mb_msg, 0, mb_chann->next_msgid - 1)
-> +	xa_for_each(&mb_chann->chan_xa, msg_id, mb_msg)
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> index 7974f9b7944f3..930a78db7132e 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
+> @@ -156,6 +156,7 @@ struct amdgpu_watchdog_timer {
+>   * Modules parameters.
+>   */
+>  extern int amdgpu_modeset;
+> +extern int amdgpu_iommu_perfopt;
+>  extern unsigned int amdgpu_vram_limit;
+>  extern int amdgpu_vis_vram_limit;
+>  extern int amdgpu_gart_size;
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> index 44bed0ba64a37..75c74c72a52ea 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
+> @@ -33,6 +33,7 @@
+>  #include <linux/console.h>
+>  #include <linux/slab.h>
+>  #include <linux/iommu.h>
+> +#include <linux/amd-iommu.h>
+>  #include <linux/pci.h>
+>  #include <linux/pci-p2pdma.h>
+>  #include <linux/apple-gmux.h>
+> @@ -3752,6 +3753,17 @@
+> amdgpu_device_should_register_switcheroo(struct amdgpu_device *adev,
+> bool px)
+>                      apple_gmux_detect(NULL, NULL)));  }
+>
+> +static inline bool amdgpu_device_identity(struct amdgpu_device *adev) {
+> +     struct pci_dev *pdev =3D adev->pdev;
+> +     struct iommu_domain *domain =3D
+> iommu_get_domain_for_dev(&pdev->dev);
+> +
+> +     if (!domain)
+> +             return false;
+> +
+> +     return domain->type =3D=3D IOMMU_DOMAIN_IDENTITY; }
+> +
+>  /**
+>   * amdgpu_device_init - initialize the driver
+>   *
+> @@ -3958,6 +3970,18 @@ int amdgpu_device_init(struct amdgpu_device
+> *adev,
+>       if (r)
+>               return r;
+>
+> +     if (amdgpu_iommu_perfopt !=3D 0 &&
+> +         amdgpu_device_identity(adev) &&
+> +         adev->flags & AMD_IS_APU) {
+> +             int perfopt_ret =3D amd_iommu_enable_perfopt(pdev);
+> +
+> +             /* Optional optimization; a failure to arm it must not abor=
+t
+> probe. */
+> +             if (perfopt_ret)
+> +                     dev_warn(adev->dev,
+> +                              "Failed to enable IOMMU PerfOpt (%d);
+> continuing without it\n",
+> +                              perfopt_ret);
+> +     }
+> +
+>       /*
+>        * No need to remove conflicting FBs for non-display class devices.
+>        * This prevents the sysfb from being freed accidently.
+> @@ -4327,6 +4351,9 @@ void amdgpu_device_fini_hw(struct
+> amdgpu_device *adev)
+>
+>       amdgpu_gart_dummy_page_fini(adev);
+>
+> +     if (amdgpu_iommu_perfopt !=3D 0)
+> +             amd_iommu_disable_perfopt(adev->pdev);
+> +
+>       if (pci_dev_is_disconnected(adev->pdev))
+>               amdgpu_device_unmap_mmio(adev);
+>
+> @@ -4692,6 +4719,20 @@ int amdgpu_device_resume(struct drm_device
+> *dev, bool notify_clients)
+>       if (dev->switch_power_state =3D=3D DRM_SWITCH_POWER_OFF)
+>               return 0;
+>
+> +     if (amdgpu_iommu_perfopt !=3D 0 && amdgpu_device_identity(adev)) {
+> +             int perfopt_ret =3D amd_iommu_enable_perfopt(adev->pdev);
+> +
+> +             /*
+> +              * Must not return on failure: a bare return would leak the
+> +              * SR-IOV VF exclusive-mode acquisition taken above (releas=
+ed
+> +              * via the exit: path).
+> +              */
+> +             if (perfopt_ret)
+> +                     dev_warn(adev->dev,
+> +                              "Failed to enable IOMMU PerfOpt (%d);
+> continuing without it\n",
+> +                              perfopt_ret);
+> +     }
+> +
+>       if (adev->in_s0ix)
+>               amdgpu_dpm_gfx_state_change(adev,
+> sGpuChangeState_D0Entry);
+>
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> index 5b08afde37baf..26ba7852e1ceb 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+> @@ -185,6 +185,7 @@ char *amdgpu_disable_cu;  char
+> *amdgpu_virtual_display;  int amdgpu_enforce_isolation =3D -1;  int
+> amdgpu_modeset =3D -1;
+> +int amdgpu_iommu_perfopt =3D 1;
+>
+>  /* Specifies the default granularity for SVM, used in buffer
+>   * migration and restoration of backing memory when handling @@ -392,6
+> +393,17 @@ module_param_named(fw_load_type, amdgpu_fw_load_type,
+> int, 0444);  MODULE_PARM_DESC(aspm, "ASPM support (1 =3D enable, 0 =3D
+> disable, -1 =3D auto)");  module_param_named(aspm, amdgpu_aspm, int,
+> 0444);
+>
+> +/**
+> + * DOC: iommu_perfopt (int)
+> + * Control the AMD IOMMU PerfOpt DMA-latency optimization
+> + * (0 =3D disable; 1 =3D enable on APU devices in identity domain).
+> + * This arms the IOMMU PerfOpt control (IOMMU spec, MMIO Offset
+> 016Ch,
+> +EFR PerfOptSup / PerfOptEn)
+> + * Arming it disables ATS, PRI, PASID and SVA for the GPU and removes
+> +IOMMU DMA containment for it,
+> + * trading isolation for lower DMA latency.
+> + */
+> +MODULE_PARM_DESC(iommu_perfopt, "Control IOMMU PerfOpt DMA-
+> latency
+> +optimization (1 =3D enable on APU devices in identity domain, 0 =3D
+> +disable)"); module_param_named(iommu_perfopt,
+> amdgpu_iommu_perfopt,
+> +int, 0444);
 
-The msg need to be released in sequence. And I would suggest to release 
-msgid in mailbox_release_msg()
+For consistency with the other driver parameters, I would make the default =
+-1 (auto) and have auto enable for APU devices.  That way we can add 1 as a=
+n option later if we want to add a way to force it on in certain scenarios.
 
-@@ -192,6 +192,7 @@ static void mailbox_release_msg(struct 
-mailbox_channel *mb_chann,
-                mb_msg->pkg.header.id, mb_msg->pkg.header.opcode);
-         if (mb_msg->notify_cb)
-                 mb_msg->notify_cb(mb_msg->handle, NULL, 0);
-+       mailbox_release_msgid(mb_chann, mb_msg->pkg.header.id);
-         kfree(mb_msg);
+Akex
 
-Thanks,
+> +
+>  /**
+>   * DOC: runpm (int)
+>   * Override for runtime power management control for dGPUs. The amdgpu
+> driver can dynamically power down
+> --
+> 2.43.0
 
-Lizhi
-
->   		mailbox_release_msg(mb_chann, mb_msg);
->   	xa_destroy(&mb_chann->chan_xa);
->   
