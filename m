@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E1898C624A4
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:35:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D749CC624A4
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:38:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5967410E853;
-	Mon, 31 Aug 2026 13:35:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4192510E85F;
+	Mon, 31 Aug 2026 13:38:13 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="dFbThb0B";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f6Kduyzx";
 	dkim-atps=neutral
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 50B2510E853;
- Mon, 31 Aug 2026 13:35:58 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95DC710E85E;
+ Mon, 31 Aug 2026 13:38:11 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id DC9A84006B;
- Mon, 31 Aug 2026 13:35:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67E5B1F00A3D;
- Mon, 31 Aug 2026 13:35:56 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B4848601FD;
+ Mon, 31 Aug 2026 13:38:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8C041F00A3E;
+ Mon, 31 Aug 2026 13:38:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183357;
- bh=NN7rC/PhgdwP3YFrA5lqFCbYg474YP6A3Jrw20xnmco=;
+ s=k20260515; t=1788183490;
+ bh=OwyQs7/xmQtiE48ERpgIMcjpcG+CGJsvatd3D6VjQYE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=dFbThb0BzNbtfwLP4RvGl5sW6ilc7qfsgetg3xEgtTBiGbkPzYdgSWpH/QCzOqcxM
- bGru6krumtnj6jFwypEksxOsYFSEKfT2SA6A8+OQQ+fgb5w7xGwVP6H6rPUugxhP/5
- as5DR7vIFLbX5A9FjcC8f1lzZQOcdrk3e2JnHexBkRVE04i5MF6poFokLPRgtGWNUp
- Ca3YoRtfEXphxTSI7kPDgOW+WweenF8y3iqaajxeqw08fr0Buuw/PC46xmr2HTd/uo
- lQOxVDdd31m8HV1TjqJHuIciytMde5l+DfPjwJzhemo5z9dIhOF1U0naGVAF0DX2Pt
- rtuJlyP4VtEHg==
+ b=f6KduyzxCUe+tEgSMVuBeTUINKpebs2sxPJdXss1IZLaA1zb/wjU6HCSlbN4tDE4G
+ /8DB8hV1pVNPBVI1KDlVpVIvZAAvez1AZhRavInno8h8PezxCL5JPMjrYRAFzfe1kN
+ 0RXqWvFLqWqKsp+PtGlwGeauueLl9dFR/H+9UVNrBSz7NcKGtdfWVgNcVH5IEdH1rH
+ vgMGIMa16FaBx9gZkfCTW6ogH/SVEk5Tq+oO3FW5FEgV5iQdSYjmsfHwZ4cyV2A4Qi
+ qIZ5JnkZbuOlaEUl+b+zATWrSNbFth0rj4AUyvAa+PnL4oSIsEnowfemdBdFmO/oZL
+ cQ9UdXQWdmuoQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Xiang Liu <xiang.liu@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+Cc: Ilya Bakoulin <Ilya.Bakoulin@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
+ Ray Wu <ray.wu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amd/ras: Fix CPER ring debugfs read overflow
-Date: Mon, 31 Aug 2026 09:22:08 -0400
-Message-ID: <20260831133314.4125787-100-sashal@kernel.org>
+ harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18] drm/amd/display: Avoid DPMS-on for phantom stream
+Date: Mon, 31 Aug 2026 09:22:35 -0400
+Message-ID: <20260831133314.4125787-127-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -64,432 +65,339 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Xiang Liu <xiang.liu@amd.com>
+From: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
 
-[ Upstream commit 1e40ef87ffdc291e05ccdade8b9170cc9c1c4249 ]
+[ Upstream commit 10f5f9c0ef32d08b228bfee3684b62f36f395852 ]
 
-The legacy CPER debugfs reader can reach the payload path without a
-valid pointer snapshot. The remaining user byte count is also treated as
-the ring occupancy in dwords, so reads past the header can copy more than
-requested.
+[Why & How]
+Calling dc_update_planes_and_stream separately for stream and its
+phantom stream causes a NULL pointer dereference, since the phantom is
+destroyed on the first call.
 
-Take the CPER lock before sampling pointers. Resample rptr/wptr for
-payload reads, bound the payload copy by available dwords and the
-remaining user size, and advance the file position for each dword copied.
+Skip the call for phantom streams.
 
-Signed-off-by: Xiang Liu <xiang.liu@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
+Signed-off-by: Ray Wu <ray.wu@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: drm/amd/ras: Fix CPER ring debugfs read
-overflow
+# Stable Backport Analysis: `drm/amd/display: Avoid DPMS-on for phantom
+stream`
 
-**Local tree:** Linux 6.18.43 (`git describe HEAD` →
-`v6.18.43-1-gc7f0dac02d232`, Makefile `6.18.43`)
+**Local tree:** `stable/linux-6.18.y` at **v6.18.44** (`git describe
+HEAD` / `make kernelversion` → 6.18.44)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-**Step 1.1 — Subject line**
-Record: `[drm/amd/ras]` `[Fix]` — fixes a buffer-overflow / bounds bug
-in the legacy CPER ring debugfs reader (`amdgpu_debugfs_ring_read`).
+### Step 1.1: Subject line
+**Record:** `[drm/amd/display]` `[Avoid]` — Skip DPMS-on stream updates
+for phantom (SubVP) streams during DP link-training automation to
+prevent a NULL pointer dereference.
 
-**Step 1.2 — Tags**
-Record:
-- `Signed-off-by: Xiang Liu <xiang.liu@amd.com>` (author)
-- `Reviewed-by: Tao Zhou <tao.zhou1@amd.com>`
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (drm/amdgpu
-  maintainer)
-- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`,
-  `Tested-by:`
-- Cherry-pick object in repo notes `(cherry picked from commit
-  1e40ef87ffdc291e05ccdade8b9170cc9c1c4249)`
+### Step 1.2: Tags
+**Record:**
+- **Reviewed-by:** Alvin Lee \<alvin.lee2@amd.com\>
+- **Tested-by:** Daniel Wheeler \<daniel.wheeler@amd.com\>
+- **Signed-off-by:** Ilya Bakoulin, Ray Wu, Alex Deucher (maintainer)
+- **No** Fixes:, Reported-by:, Link:, Cc: stable@vger.kernel.org
+- Notable: Reviewed and tested by AMD display engineers; Alex Deucher
+  acked (subsystem maintainer).
 
-**Step 1.3 — Body analysis**
-Record:
-- **Bug:** Legacy CPER debugfs reader can enter the payload path without
-  a valid rptr/wptr snapshot; user byte count (`size`) is overwritten
-  with ring occupancy in dwords, so reads past the 12-byte header can
-  copy more data than the user requested.
-- **Symptom:** User buffer overflow on `read()` of
-  `/sys/kernel/debug/dri/*/amdgpu_ring_cper`; also uninitialized pointer
-  use and missing lock coverage on payload-only reads (`*pos >= 12`).
-- **Root cause (author):** Lock taken only inside `if (*pos < 12)`;
-  `early[]` not populated when skipping header; `size` repurposed as
-  dword count; wrong wrap size (`ring_size` bytes vs dword indices);
-  `*pos` not advanced in CPER payload loop.
+### Step 1.3: Body analysis
+**Record:**
+- **Bug:** Calling `dc_update_planes_and_stream()` separately for a real
+  stream and its paired phantom stream causes a NULL pointer
+  dereference.
+- **Symptom:** Kernel oops / crash in the display driver during DP link
+  retrain automation.
+- **Root cause (author):** The phantom stream is destroyed on the first
+  `dc_update_planes_and_stream()` call; a second call uses a stale/freed
+  pointer.
+- **Fix:** Skip phantom streams when building the list of streams to
+  update with DPMS-on.
 
-**Step 1.4 — Hidden bug fix?**
-Record: No — explicitly labeled and described as an overflow fix.
+### Step 1.4: Hidden bug fix?
+**Record:** No — this is an explicit NULL-deref fix, not disguised
+cleanup.
 
 ---
 
 ## PHASE 2: DIFF ANALYSIS
 
-**Step 2.1 — Inventory**
-Record:
-- 1 file: `drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c` (+21 / −8 in the
-  cherry-pick object `6bbede02dc62`)
-- Function modified: `amdgpu_debugfs_ring_read()`
-- Scope: single-file surgical fix (the user-provided diff also shows
-  `amdgpu_ras_cper_debugfs_read` changes, but those are **not** in
-  commit `6bbede02dc62` nor in this tree)
+### Step 2.1: Inventory
+**Record:**
+- **File:**
+  `drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c` (+2
+  lines)
+- **Function:** `dp_retrain_link_dp_test()`
+- **Scope:** Single-file, surgical fix (2 lines added)
 
-**Step 2.2 — Code flow changes**
+### Step 2.2: Code flow change
+**Record:**
+- **Before:** Loop over `state->streams[i]` on the link caches every
+  stream (including phantoms), then calls
+  `dc_update_planes_and_stream()` for each.
+- **After:** Streams with `is_phantom == true` are skipped during
+  caching; only real streams get DPMS-on updates.
+- **Path affected:** DP link retrain / compliance-test automation error
+  path in `dp_retrain_link_dp_test()`.
 
-| Hunk | Before | After |
-|------|--------|-------|
-| Lock scope | `mutex_lock` only inside `if (*pos < 12)` | Lock held for
-entire CPER read path |
-| Payload entry with `*pos >= 12` | `early[0/1]` never set; unlock
-without lock | Resample rptr/wptr under lock |
-| Copy bound | `size = ring occupancy` (dwords), ignoring user request |
-`read_dw = min(avail_dw, size >> 2)` |
-| Wrap calc | `ring->ring_size` (bytes) | `ring->buf_mask + 1` (dwords)
-|
-| Position | `*pos` not updated in CPER payload loop | `*pos += 4` per
-dword |
+### Step 2.3: Bug mechanism
+**Record:**
+- **Category:** NULL pointer dereference (memory safety)
+- **Mechanism:** `dc_update_planes_and_stream()` with
+  `stream_update->dpms_off` forces `UPDATE_TYPE_FULL` (verified in
+  `check_update_surfaces_for_stream()` at lines 2966–2996 of `dc.c`).
+  Full updates call `dc_state_remove_phantom_streams_and_planes()` and
+  `dc_state_release_phantom_streams_and_planes()` (lines 3529–3530 of
+  `dc.c`), freeing phantom streams. The second loop iteration still
+  holds a cached phantom pointer → NULL deref.
 
-**Step 2.3 — Bug mechanism**
-Record: **Buffer overflow / out-of-bounds user copy** + **uninitialized
-stack data** + **mutex imbalance** + **logic error** (wrong units,
-missing file position advance).
-
-Verified in current HEAD (`amdgpu_ring.c` lines 511–568):
-
-```511:568:drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-        if (*pos < 12) {
-                if (ring->funcs->type == AMDGPU_RING_TYPE_CPER)
-                        mutex_lock(&ring->adev->cper.ring_lock);
-                // early[0..2] populated here only
-                ...
-        }
-        ...
-        } else {
-                p = early[0];   // uninitialized if *pos >= 12 at entry
-                ...
-                        size = (early[1] - early[0]);  // overwrites
-user's byte count
-                ...
-                while (size) {   // may copy far more than user
-requested
-                        ...
-                        size--;
-                        // *pos not advanced
-                }
-        }
-out:
-        if (ring->funcs->type == AMDGPU_RING_TYPE_CPER)
-                mutex_unlock(...);  // unlock even when lock was never
-taken
-```
-
-**Step 2.4 — Fix quality**
-Record: Obviously correct, minimal, no API changes. Low regression risk
-— only affects CPER ring debugfs reads. Reviewed by AMD RAS engineer and
-merged by amdgpu maintainer.
+### Step 2.4: Fix quality
+**Record:**
+- Fix is obviously correct and minimal.
+- Matches existing convention: `resource_log_pipe_topology_update()`
+  already skips `is_phantom` streams (`dc_resource.c:2419`).
+- Regression risk: very low — phantom streams should not receive
+  independent DPMS-on updates.
+- No API or structural changes.
 
 ---
 
 ## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 3.1 — Blame**
-Record: Current buggy function attributed to merge `5d324e5159d9e`
-(6.18-rc8 era). Shallow stable history prevents tracing the original
-CPER introduction commit; `amdgpu_cper.c` and CPER ring debugfs support
-are present in this tree.
+### Step 3.1: Blame
+**Record:**
+- Buggy loop introduced by **f5b69101f956f** (2025-07-17): "Cache
+  streams targeting link when performing LT automation"
+- That commit is an ancestor of v6.18.0 and of current HEAD.
+- `is_phantom` on `struct dc_stream_state` dates to **012a04b1d6af6**
+  (2023-11-21).
 
-**Step 3.2 — Fixes: tag**
-Record: N/A — no `Fixes:` tag.
+### Step 3.2: Fixes: tag
+**Record:** N/A — no Fixes: tag in commit message.
 
-**Step 3.3 — Related file history**
-Record: `git log --oneline -20 --
-drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c` shows only merge commit in
-this shallow tree. AUTOSel nomination exists: `[PATCH AUTOSEL 7.0-6.18]
-drm/amd/ras: Fix CPER ring debugfs read overflow`.
+### Step 3.3: Related file history
+**Record:**
+- **f5b69101f956f** — introduced stream caching loop (root of this bug
+  pattern)
+- **89939cf252d80** (2025-09-29) — different NULL-deref fix in same
+  function: cache `dc` from `link->dc` instead of stale
+  `state->clk_mgr->ctx->dc` after first stream update. Already in
+  6.18.44 but does **not** fix the phantom-stream issue.
+- Fix commit **10f5f9c0ef32d** (upstream) / **56337aae2421b** (stable
+  candidate) is **not** in 6.18.44.
+- Standalone fix; not part of a multi-patch series.
 
-**Step 3.4 — Author context**
-Record: Xiang Liu (AMD). Reviewed by Tao Zhou (AMD RAS). Acked by Alex
-Deucher (amdgpu maintainer).
+### Step 3.4: Author context
+**Record:** Ilya Bakoulin is an active AMD display contributor (link/DP
+fixes). Alex Deucher is amdgpu/drm maintainer.
 
-**Step 3.5 — Dependencies**
-Record: Standalone. `git cherry-pick --no-commit 6bbede02dc62` auto-
-merges cleanly on HEAD (21 insertions, 8 deletions, 1 file only). No
-prerequisite commits required.
+### Step 3.5: Dependencies
+**Record:**
+- Requires `is_phantom` field — present in this tree
+  (`dc_stream.h:313`).
+- Requires stream-caching loop from f5b69101 — present in this tree.
+- Cherry-pick of upstream **10f5f9c0ef32d** auto-merges cleanly against
+  6.18.44 (verified).
+- **Standalone:** PASS.
 
 ---
 
 ## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Step 4.1 — Original discussion**
-Record: `b4 dig -c 6bbede02dc62` →
-https://patch.msgid.link/20260507140004.244348-1-xiang.liu@amd.com
-Single v1 patch, no NAKs found. Tao Zhou replied with `Reviewed-by`.
-
-**Step 4.2 — Reviewers**
-Record: `b4 dig -w`: To/Cc included `amd-gfx@lists.freedesktop.org`,
-Hawking Zhang, Tao Zhou (AMD).
-
-**Step 4.3 — Bug reports**
-Record: No syzbot, bugzilla, or user crash reports. Issue identified by
-code review / internal analysis.
-
-**Step 4.4 — Series context**
-Record: Standalone 1-patch series. AUTOSel 6.18 nomination confirms
-stable relevance for this series.
-
-**Step 4.5 — Stable list**
-Record: AUTOSel 7.0-6.18 patch explicitly targets this stable series
-(web search confirmed).
+### Step 4.1–4.5
+**Record:**
+- `b4 dig -c 10f5f9c0ef32d`: no lore match found.
+- lore.kernel.org fetch: 403 Forbidden (bot protection).
+- **UNVERIFIED:** No mailing-list thread or stable-list discussion
+  retrieved.
+- Tags show AMD internal review (Reviewed-by, Tested-by) and maintainer
+  sign-off.
 
 ---
 
 ## PHASE 5: CODE SEMANTIC ANALYSIS
 
-**Step 5.1 — Key functions**
-Record: `amdgpu_debugfs_ring_read()`, called from debugfs
-`file_operations.read`.
+### Step 5.1: Key functions
+**Record:** `dp_retrain_link_dp_test()` modified; calls
+`dc_update_planes_and_stream()`.
 
-**Step 5.2 — Callers**
-Record: `amdgpu_debugfs_ring_fops.read` → debugfs file
-`amdgpu_ring_<name>` created in `amdgpu_debugfs_ring_init()`. CPER ring
-named `"cper"` → `/sys/kernel/debug/dri/<card>/amdgpu_ring_cper`.
+### Step 5.2: Callers
+**Record:**
+- `dp_test_send_link_training()` → `dp_handle_automated_test()` (DP
+  compliance test / link-training automation)
+- `dp_set_preferred_training_settings()` path at line 991 (preferred
+  link settings retrain during normal DP operation)
 
-**Step 5.3 — Callees**
-Record: `mutex_lock/unlock`, `amdgpu_ring_get_rptr/wptr`, `put_user`,
-ring buffer indexing.
+### Step 5.3: Callees
+**Record:** `dc_update_planes_and_stream()` →
+`update_planes_and_stream_v3/v2()` → phantom removal on FULL updates.
 
-**Step 5.4 — Reachability**
-Record: Reachable via `read()` syscall on debugfs (requires
-`CONFIG_DEBUG_FS`, debugfs mounted, typically `CAP_SYS_ADMIN`).
-Triggered on any CPER ring read where `*pos >= 12` (normal after first
-12-byte header) or partial reads.
+### Step 5.4: Reachability
+**Record:**
+- Trigger requires SubVP/MALL phantom streams on a DP link (`is_phantom
+  == true`).
+- Triggered during DP link retrain (compliance testing or preferred-
+  settings retrain).
+- Not a direct unprivileged syscall path, but reachable during normal
+  display hotplug/link-rate changes on AMD GPUs with SubVP enabled.
+- Config: `CONFIG_DRM_AMD_DC` (common on AMD systems).
 
-**Step 5.5 — Similar patterns**
-Record: Non-CPER ring path in same function correctly bounds by
-`ring->ring_size + 12` and advances `*pos`; CPER path was the outlier.
-
----
-
-## PHASE 6: CROSS-REFERENCING AGAINST LOCAL TREE
-
-**Step 6.1 — Buggy code present?**
-Record: **YES** — verified in HEAD at `amdgpu_ring.c:497–576`. CPER
-subsystem present (`amdgpu_cper.c`, `amdgpu_cper_init()` in
-`amdgpu_device.c:3310`). Fix commit `6bbede02dc62` is **not** an
-ancestor of HEAD.
-
-**Step 6.2 — Backport complications**
-Record: **Clean apply** — cherry-pick test succeeded with no conflicts.
-
-**Step 6.3 — Related fixes already present?**
-Record: **No** — `git diff HEAD 6bbede02dc62 --
-drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c` shows only the intended fix
-hunks when cherry-picked; HEAD still has buggy code.
+### Step 5.5: Similar patterns
+**Record:** `dc_resource.c:2419` skips phantom streams in topology
+logging — same semantic rule applied here.
 
 ---
 
-## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.44)
 
-**Step 7.1 — Subsystem**
-Record: `drivers/gpu/drm/amd/amdgpu` — GPU driver, RAS/CPER debug path.
-Criticality: **PERIPHERAL** (AMD GPU + debugfs + CPER/RAS enabled).
+### Step 6.1: Buggy code present?
+**Record:** **YES.** Lines 145–148 of `link_dp_cts.c` cache all link
+streams without phantom skip. Bug present since v6.18.0 (f5b69101 is
+ancestor of v6.18).
 
-**Step 7.2 — Activity**
-Record: Active development; CPER support is relatively recent (mainline
-~6.15+ per external references).
+### Step 6.2: Backport complications
+**Record:** Clean apply — cherry-pick test succeeded with auto-merge.
+Only contextual difference from upstream is the already-applied `struct
+dc *dc = link->dc` from 89939cf; phantom skip is independent.
+
+### Step 6.3: Related fixes already present?
+**Record:** 89939cf fixes a **different** NULL deref in the same
+function (stale `dc` context). Phantom-stream NULL deref remains unfixed
+in 6.18.44.
 
 ---
 
-## PHASE 8: IMPACT AND RISK ASSESSMENT
+## PHASE 7: SUBSYSTEM CONTEXT
 
-**Step 8.1 — Who is affected**
-Record: Systems with AMDGPU, `CONFIG_DEBUG_FS`, CPER ring initialized
-(ACA or SR-IOV RAS CPER enabled), and a privileged user reading the CPER
-ring debugfs file.
+### Step 7.1: Subsystem / criticality
+**Record:** `drivers/gpu/drm/amd/display` — **IMPORTANT** (AMD GPU
+display driver; crash on affected hardware configs).
 
-**Step 8.2 — Trigger conditions**
-Record: Common on second/subsequent `read()` calls (after 12-byte
-header). Requires debugfs access (typically root). Not triggerable by
-unprivileged users under default permissions (debugfs `0444` but debugfs
-mount is root-only on most distros).
+### Step 7.2: Activity
+**Record:** Actively maintained; multiple recent fixes in
+`link_dp_cts.c` on this branch.
 
-**Step 8.3 — Failure mode severity**
-Record:
-- User buffer overflow via `put_user` beyond requested `size` → **HIGH**
-  (memory safety)
-- `mutex_unlock` without `mutex_lock` when `*pos >= 12` → **HIGH**
-  (lockdep WARN / potential corruption in debug builds)
-- Uninitialized `early[]` → **MEDIUM-HIGH** (undefined behavior,
-  possible kernel data leak to userspace)
-- Overall: **HIGH** for memory safety; practical exploitability reduced
-  by privileged-only access
+---
 
-**Step 8.4 — Risk vs benefit**
-Record:
-- **Benefit:** Prevents user buffer overflow, fixes mutex imbalance,
-  corrects CPER debugfs semantics — **moderate** (narrow audience but
-  real bugs)
-- **Risk:** Very low — 21-line surgical change, reviewed, clean apply
-- **Ratio:** Benefit outweighs risk
+## PHASE 8: IMPACT AND RISK
+
+### Step 8.1: Who is affected
+**Record:** AMD GPU users with SubVP/MALL phantom streams on a
+DisplayPort link during link retrain or DP compliance-test automation.
+
+### Step 8.2: Trigger conditions
+**Record:**
+- SubVP phantom stream active on the DP link
+- DP link retrain via `dp_retrain_link_dp_test()`
+- Moderately rare compared to general kernel paths, but real on modern
+  AMD APUs/laptops with power-saving display features
+
+### Step 8.3: Failure mode
+**Record:** NULL pointer dereference → kernel oops. **Severity: HIGH**
+(system crash when triggered).
+
+### Step 8.4: Risk vs benefit
+**Record:**
+- **Benefit:** Prevents kernel crash on a real, reproducible code path;
+  2-line fix.
+- **Risk:** Very low — aligns with existing phantom-skip patterns
+  elsewhere.
+- **Ratio:** Favorable for stable backport.
 
 ---
 
 ## PHASE 9: FINAL SYNTHESIS
 
-**Step 9.1 — Evidence summary**
+### Step 9.1: Evidence summary
 
-| FOR | AGAINST |
-|-----|---------|
-| Real user buffer overflow | Debugfs-only path |
-| Mutex unlock-without-lock bug | Requires `CONFIG_DEBUG_FS` |
-| Uninitialized stack variable use | Admin/privileged access typically
-required |
-| Small, reviewed, maintainer-acked fix | No syzbot/user crash reports |
-| Applies cleanly to 6.18.43 | Affects narrow hardware/config subset |
-| AUTOSel nominated for 6.18.y | |
-| Buggy code confirmed in this tree | |
+**FOR backport:**
+- Fixes verified NULL pointer dereference
+- Small (2 lines), obviously correct
+- Buggy code confirmed in 6.18.44 since v6.18.0
+- Applies cleanly
+- Reviewed, tested, maintainer-signed
+- Complements but does not duplicate existing 89939cf fix
 
-**Step 9.2 — Stable rules checklist**
-1. Obviously correct and tested? **PASS** — reviewed by AMD engineer +
-   amdgpu maintainer; logic verified against buggy code
-2. Fixes a real bug? **PASS** — confirmed overflow, mutex bug,
-   uninitialized data
-3. Important issue? **PASS** — memory safety / buffer overflow (severity
-   tempered by privileged-only access)
-4. Small and contained? **PASS** — 1 file, ~29 lines
+**AGAINST backport:**
+- Narrow trigger (SubVP + DP link retrain)
+- No public bug report or syzbot trace in commit message
+
+**UNRESOLVED:**
+- Mailing-list discussion (b4/lore unavailable)
+
+### Step 9.2: Stable rules checklist
+1. Obviously correct and tested? **PASS** (code review + Tested-by)
+2. Fixes real bug affecting users? **PASS** (NULL deref on real path)
+3. Important issue? **PASS** (kernel crash — HIGH severity when
+   triggered)
+4. Small and contained? **PASS** (2 lines, 1 file)
 5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** — cherry-pick tested clean
+6. Can apply to local tree? **PASS** (verified cherry-pick)
 
-**Step 9.3 — Exception category**
-Record: N/A (not device ID, quirk, DT, build, or docs fix — standard bug
-fix).
+### Step 9.3: Exception categories
+**Record:** None — standard bug fix.
 
-**Step 9.4 — Decision rationale**
-This fix addresses a genuine memory-safety bug in the CPER ring debugfs
-reader that exists in Linux 6.18.43. The overflow is reachable on
-ordinary multi-read patterns once the 12-byte header has been consumed.
-While the path requires debugfs and typically root access, stable trees
-routinely accept such fixes when they prevent kernel-to-userspace buffer
-overruns and mutex imbalances. The patch is minimal, reviewed, applies
-cleanly, and has been AUTOSel-nominated for 6.18.y.
+### Step 9.4: Decision rationale
+This commit fixes a real NULL pointer dereference in the 6.18.y tree.
+The buggy stream-caching loop has been present since v6.18.0; the fix is
+not yet in 6.18.44. The existing 89939cf fix addresses a separate stale-
+context NULL deref in the same function. The phantom-stream skip is
+minimal, follows established conventions, applies cleanly, and prevents
+a kernel oops on AMD systems using SubVP during DP link retrain.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags (Reviewed-by Tao Zhou, SOB Alex
-  Deucher); no Fixes/Reported-by/Link
-- [Phase 1] Identified overflow, uninitialized pointers, lock scope as
-  described bugs
-- [Phase 2] Read `amdgpu_ring.c:497–576` — confirmed all four bug
-  mechanisms in HEAD
-- [Phase 2] Cherry-pick object `6bbede02dc62` changes only
-  `amdgpu_debugfs_ring_read` (+21/−8)
-- [Phase 3] `git describe HEAD` → v6.18.43; `make kernelversion`
-  equivalent → 6.18.43
-- [Phase 3] `git merge-base --is-ancestor 6bbede02dc62 HEAD` → NOT
-  ancestor (fix not yet applied)
-- [Phase 3] `git cherry-pick --no-commit 6bbede02dc62` → clean auto-
-  merge on `amdgpu_ring.c`
-- [Phase 3] `git show 5d324e5159d9e:...amdgpu_ring.c` lines 545–575 →
-  buggy CPER path present at 6.18 base
-- [Phase 4] `b4 dig -c 6bbede02dc62` →
-  https://patch.msgid.link/20260507140004.244348-1-xiang.liu@amd.com
-- [Phase 4] `b4 dig -a` → single v1 revision only
-- [Phase 4] `b4 dig -w` → amd-gfx list, Hawking Zhang, Tao Zhou CC'd
-- [Phase 4] Freedesktop archive — Tao Zhou Reviewed-by, no NAKs
-- [Phase 4] Web search — AUTOSel 7.0-6.18 nomination found
-- [Phase 5] `grep amdgpu_debugfs_ring_fops` → debugfs read entry point
-  at `amdgpu_ring.c:592–595`
-- [Phase 5] `amdgpu_debugfs_ring_init()` creates `amdgpu_ring_cper`
-  debugfs file at line 648–656
-- [Phase 6] `amdgpu_cper_init` present in `amdgpu_device.c:3310`;
-  `amdgpu_cper.c` exists
-- [Phase 6] No `amdgpu_uniras_enabled` or `amdgpu_ras_cper_debugfs_read`
-  in this tree (not needed for fix)
-- [Phase 8] Failure modes verified by code inspection: overflow, mutex
-  imbalance, uninitialized `early[]`
+- **[Phase 1]** Parsed commit message and tags from user-provided diff
+  and `git show 10f5f9c0ef32d`
+- **[Phase 2]** Read `link_dp_cts.c:65-157`, `dc.c:2927-2996`,
+  `dc.c:3526-3530`, `dc_state.c:916-956`
+- **[Phase 3]** `git blame -L 145,148 link_dp_cts.c` → f5b69101f956f
+- **[Phase 3]** `git log --oneline` on `link_dp_cts.c` → f5b69101,
+  89939cf present; phantom fix absent
+- **[Phase 3]** `git merge-base --is-ancestor f5b69101 HEAD` → in tree;
+  `10f5f9c0ef32d` → NOT in tree
+- **[Phase 3]** `git merge-base --is-ancestor f5b69101 v6.18` → buggy
+  code in v6.18.0
+- **[Phase 4]** `b4 dig -c 10f5f9c0ef32d` → no match; lore fetch → 403
+- **[Phase 5]** `grep dp_retrain_link_dp_test` → callers at lines 185,
+  601, 991
+- **[Phase 5]** `grep is_phantom` → field exists in `dc_stream.h:313`;
+  skip pattern in `dc_resource.c:2419`
+- **[Phase 6]** `git describe HEAD` → v6.18.44; buggy code confirmed at
+  lines 145-148 without phantom skip
+- **[Phase 6]** Cherry-pick test of 10f5f9c0ef32d → auto-merge success
+- **[Phase 8]** Failure mode: NULL deref on second
+  `dc_update_planes_and_stream()` call after phantom freed
 
 **YES**
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c | 29 +++++++++++++++++-------
- 1 file changed, 21 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index 304564ec2f59a..431cc39ea0178 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -498,8 +498,9 @@ static ssize_t amdgpu_debugfs_ring_read(struct file *f, char __user *buf,
- 					size_t size, loff_t *pos)
- {
- 	struct amdgpu_ring *ring = file_inode(f)->i_private;
--	uint32_t value, result, early[3];
-+	u32 value, result, early[3] = { 0 };
- 	uint64_t p;
-+	u32 avail_dw, start_dw, read_dw;
- 	loff_t i;
- 	int r;
- 
-@@ -508,10 +509,10 @@ static ssize_t amdgpu_debugfs_ring_read(struct file *f, char __user *buf,
- 
- 	result = 0;
- 
--	if (*pos < 12) {
--		if (ring->funcs->type == AMDGPU_RING_TYPE_CPER)
--			mutex_lock(&ring->adev->cper.ring_lock);
-+	if (ring->funcs->type == AMDGPU_RING_TYPE_CPER)
-+		mutex_lock(&ring->adev->cper.ring_lock);
- 
-+	if (*pos < 12) {
- 		early[0] = amdgpu_ring_get_rptr(ring) & ring->buf_mask;
- 		early[1] = amdgpu_ring_get_wptr(ring) & ring->buf_mask;
- 		early[2] = ring->wptr & ring->buf_mask;
-@@ -543,13 +544,24 @@ static ssize_t amdgpu_debugfs_ring_read(struct file *f, char __user *buf,
- 			*pos += 4;
- 		}
- 	} else {
-+		early[0] = amdgpu_ring_get_rptr(ring) & ring->buf_mask;
-+		early[1] = amdgpu_ring_get_wptr(ring) & ring->buf_mask;
-+
- 		p = early[0];
- 		if (early[0] <= early[1])
--			size = (early[1] - early[0]);
-+			avail_dw = early[1] - early[0];
- 		else
--			size = ring->ring_size - (early[0] - early[1]);
-+			avail_dw = ring->buf_mask + 1 - (early[0] - early[1]);
- 
--		while (size) {
-+		start_dw = (*pos > 12) ? ((*pos - 12) >> 2) : 0;
-+		if (start_dw >= avail_dw)
-+			goto out;
-+
-+		p = (p + start_dw) & ring->ptr_mask;
-+		avail_dw -= start_dw;
-+		read_dw = min_t(u32, avail_dw, size >> 2);
-+
-+		while (read_dw) {
- 			if (p == early[1])
- 				goto out;
- 
-@@ -562,9 +574,10 @@ static ssize_t amdgpu_debugfs_ring_read(struct file *f, char __user *buf,
- 
- 			buf += 4;
- 			result += 4;
--			size--;
-+			read_dw--;
- 			p++;
- 			p &= ring->ptr_mask;
-+			*pos += 4;
- 		}
+diff --git a/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c b/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c
+index 2676ae9f6fe83..5f70793b8372e 100644
+--- a/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c
++++ b/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c
+@@ -143,6 +143,8 @@ static void dp_retrain_link_dp_test(struct dc_link *link,
+ 	// Set DPMS on with stream update
+ 	// Cache all streams on current link since dc_update_planes_and_stream might kill current_state
+ 	for (i = 0; i < MAX_PIPES; i++) {
++		if (state->streams[i] && state->streams[i]->is_phantom)
++			continue;
+ 		if (state->streams[i] && state->streams[i]->link && state->streams[i]->link == link)
+ 			streams_on_link[num_streams_on_link++] = state->streams[i];
  	}
- 
 -- 
 2.53.0
 
