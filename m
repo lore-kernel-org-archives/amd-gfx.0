@@ -4,67 +4,69 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id ECE3BC61DFD
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 18:29:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4E9FEC624D5
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 18:29:28 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEBD110EA6E;
-	Mon, 31 Aug 2026 18:29:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 43F8C10EA76;
+	Mon, 31 Aug 2026 18:29:23 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="EkK5d+8b";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="JTWrVWem";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012024.outbound.protection.outlook.com [52.101.43.24])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D9A3110EA66
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 18:28:58 +0000 (UTC)
+Received: from CH1PR05CU001.outbound.protection.outlook.com
+ (mail-northcentralusazon11010049.outbound.protection.outlook.com
+ [52.101.193.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F41F10E50F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 18:28:46 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pkl1WJCPIM6ebtV/afjsNee4ubqLya6fgOGTmobJMVvfjhLWDba7mwLjDMwAEK6XRSNMBUtNPwk/qI0/X3qbKVTcC6RaVvejocVgX3EY/NGIjzWZTXNVmiwYMdE6++SqjYNeLJIcP36RljF/tDAt4xb7PfDGPOTQ+/+ipZVilDQ3irMsrZwxJBW/m3k7KflbB4tVm39IJjkXCyqk1cnseImmblQndNR8jgCS7BbkK4V8PSwaLCU3P/qNHBdm6jh9Pd39zVBbXZknf2RMgiGTHwdAmjINO6dbtv7jX9FFw925IIBtgr1/rajExwN3j9/jRiEawvfejW+yanDN/QiHsA==
+ b=A1AMkTqz/kuWWYLceogikkKaJ8lx+wNM6BfnpQF31EcL3nPY7lMBRVajOH60NeumTeUFokP3Zie5aJi9peVYMKpFtKF6mQOZsnAyD29bMaWMAaG4uD2VNIz7cofljU8E6++zPNPkLzCO0lgWZZ84jRmFsbU/Gi+Ng0jPL1GVaeLesd4KjXIx27GXsAQPxf0LR1V1XFx89r1tVh3xFHY3gxE2N0A4HAGIiCQbGVbB/Djr9PjfSgTN0Ol+5w4Vy0rwdYue8B8HOTHKl+IOx7rC6+1ecCW1TF6m0zvMnQO9r473qx+c3inP4PhlB/GQz5e3tRFF7txCgHFM7HOTFI67yA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=66UWUFAlwGvkXWYa5cejL/TSOuiss/U8BV2jco7tDIs=;
- b=mPB9mHhJ01U3iEyUnpovp7QT8OoD3mOph2fcFbkSB9Hw0LnnWXGVI2rA76z+C3e03MQ2rLzbJlUh+MHdCuMIOMmqfR04O3v9Ka68TqpviBiM7W5NHSfcCUxglgnSsIzk92ibxwFfHrbj91Z0nVoRWQjSXFUMh+/lWCGx1VXmAzVN6QTqQEVSsvQJWtZtSUJAb6wZkvNY30Sr3j7XzRpUGjN3JyTBbbliIruKmNDGcKWC2gHhvGrcaI/0+yGWDGd7TC6s3C0QTVZMLoBPWefZWc72pg2saEtGWGyPwRcDFTBWz+1JkC1X1qzs1RsHtb9Y4CrvmfIpNCmuj9Joe8CEJA==
+ bh=gGJCKDRzwzePUKl06cd3bW3shDjHC1glm2b22NxHLIU=;
+ b=jMpLgrgkXBMDXG9B2KZAAoYS/gjo+Dli0hvRnOeivkMPAHN0T2+9Du4ub1AfSZfFMRzEYyG4P5J36KpiFjVscrYvM6TeyfQf7upyLHRbeie0pA6AJi9O6FAAqTQNFAV4zOiy9oZMsYQeWhQz8m2eB3Mo/SM4Ga5s8Qkw0cVs6ou7esnUYdQQ0Uw8c9ebKZKFJSuZmphMIN9J5CFED1DGr+RQIAsl2eEoTShv9bVCGa279yJvNYMYg3QD3NhpaNqmew0+JqDbwtgQUKaH4EfN9xy/FfJpOBuLwqDgzO3zC/rYYfsTS0HipoUeqmvfzLR1tFih/0mWPE96HK+3f9YVFw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=66UWUFAlwGvkXWYa5cejL/TSOuiss/U8BV2jco7tDIs=;
- b=EkK5d+8bvFRv0yauyUiS1Rn2itojNsNlAsHn0F4jPqmMsSe0sWEbJJBluFtIFfcOMnBRwDEfBbme8txiWWyEn/4RIj0rzGRXm1pYM4fseRMGJCOe8770zS8dzYylM/YmlBDz4JJHXmJviKbIdAugZnzPR8DRsGPZNJ+7k+V8zj0=
-Received: from BN9PR03CA0140.namprd03.prod.outlook.com (2603:10b6:408:fe::25)
- by DS0PR12MB6461.namprd12.prod.outlook.com (2603:10b6:8:c7::22) with
- Microsoft SMTP Server (version=TLS1_2,
+ bh=gGJCKDRzwzePUKl06cd3bW3shDjHC1glm2b22NxHLIU=;
+ b=JTWrVWem2iARKtwSooXGWzenoUvejOjLEDdQtocrWSt1HTPvticSIk6Ffc1lc+YTwCqIGYt04pLhllwrYj56BDdB9XGCXnLmKMYsFBxeqJmi+3s7dsMx0OMI3aAGmVR5MehfQ6DydOx7IfpiCKbzwmjp/1mvlWVBF6ngAG8pu7U=
+Received: from CH5P220CA0009.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::11)
+ by CH9PR12MB384484.namprd12.prod.outlook.com (2603:10b6:610:310::22)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 18:28:52 +0000
-Received: from BN3PEPF0000B072.namprd04.prod.outlook.com
- (2603:10b6:408:fe:cafe::66) by BN9PR03CA0140.outlook.office365.com
- (2603:10b6:408:fe::25) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 18:28:43 +0000
+Received: from BL6PEPF0001AB71.namprd02.prod.outlook.com
+ (2603:10b6:610:1ef:cafe::20) by CH5P220CA0009.outlook.office365.com
+ (2603:10b6:610:1ef::11) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
- 31 Aug 2026 18:28:52 +0000
+ 31 Aug 2026 18:28:43 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B072.mail.protection.outlook.com (10.167.243.117) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL6PEPF0001AB71.mail.protection.outlook.com (10.167.242.164) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 18:28:52 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 18:28:43 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
- 2026 13:28:36 -0500
+ 2026 13:28:31 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Mon, 31 Aug 2026 13:28:36 -0500
+ Transport; Mon, 31 Aug 2026 13:28:30 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling
+CC: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling
  <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 48/95] drm/amdgpu: Add connection state management
-Date: Mon, 31 Aug 2026 14:27:07 -0400
-Message-ID: <20260831182754.1089811-49-alexander.deucher@amd.com>
+Subject: [PATCH 39/95] drm/amdgpu: Add UALink firmware writeback address
+ configuration
+Date: Mon, 31 Aug 2026 14:26:58 -0400
+Message-ID: <20260831182754.1089811-40-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831182754.1089811-1-alexander.deucher@amd.com>
 References: <20260831182754.1089811-1-alexander.deucher@amd.com>
@@ -73,29 +75,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B072:EE_|DS0PR12MB6461:EE_
-X-MS-Office365-Filtering-Correlation-Id: 639a2790-6eea-4cdb-56d0-08df078db584
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB71:EE_|CH9PR12MB384484:EE_
+X-MS-Office365-Filtering-Correlation-Id: acac8e9f-a18e-4331-da94-08df078dafe8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|82310400026|36860700016|56012099006|10067099003|11063799006|6133799003|3023799007|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: +L2YGI0jtiknTJzCoRid2xAUc8Vqt5KGFVw7uKT4aHpA3YopZGwWY6u8txVviruXhfrkiC9OWhTeL6uYppGh8OBUByUdHcBKqPja1PhpkUydFqGY1FAMRokSsfpJFfg8LUTNfLUrnQXs+I0MUjUwLg4mcfs0nvqVGBGwcOV3IL52/ffr/EkzN+nVemx8dnGM+iB79JL2bU1bK4TjvyFYhlLFqnWEqKUQb35U5NB9ekBdQfTrAEqRN/xeOMcJoARL95SMw0lgirt516inoacNguFUbDyY+rPY9oGssIbtZYxGLhv/VMDHwGY+Je1gHzVgrn+rxkeBZXoDF3BWW/knjJgKeXx4RrqTJpFFvVkrKwpD2qakhRCSqVqBYB0NGb4lFLfGnHDDHBRxk+aqrymwtqYvztHjvwTtNJtQZmZm40s7ImXXmuTI1iZdXMlSb+ufZ4B1lFkZQaMxSkhENAZW2HZul/ipK8L06jPRe8jNSsX0cXlwoIzAPlThpn2hZ0r9DrAtU8/5TT5K6ordi21LVrl149C0S6C/Ke0io6LWDN9Didpc9SWdVHdA1nfTjA/f6PWXA3xeMn2H+Y8Gkc+pzan7SJ/azvx06cX1eLoRc0+wRd3z6q2V9PZQs1pKk8H7752wBGBOMGHJdnRhRZHyUacDjqYlgM7aP8qgC0PIUKs809A6DpXYexk2bvty6IvwhjNfxgRRW8IPygggqzGWkA==
+ ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|10067099003|56012099006|6133799003|18002099003|22082099003|11063799006;
+X-Microsoft-Antispam-Message-Info: RjuAuMCz7BdSooA6KzoGAQYbTSU1K3Fbn8vkdC3ksMusErvPyLtss6Xvv190w7PW4yO96+ImpexshWnmz/VD2aXUwE0nk2O3xReGraTuKZseRYlXPSN1r+6Av8EqiHzS51t6FD2gVzX0TWYuxsegpB8pQvHG3yOahx3nLjvlB+d0uFerLEOQvG5MidyKqzmu0Ep0vCAOyocqhxSph5QHNu3jwT8JuGT71SgSnh8JVSYoGV1+XnBg6YjMDTeaFC6bINY5RVjSh4ntSmshGEsVGCgxdYtgTgjn9TnFTOPzSDXIyUwgNxtHAxYornG3twf1PJ84PWmCMJbF34ejw/gudfzbnkU2O7Okx7Off/Srh8KlMSth8z79mVgohUKAiYQx8bE15gMJ6pjPVbBB+4P8beyW95m9jNT96dJ8ei51D3wAurMzHFk8eOxRFh4+xG+VUPN9jlGfu0o7BAM0PkJ83FPBeB0c3yfn8rAtQg490Vv5e9KPqha6cQaX1lbat8iE/bJJpzaDFNZvijI8rAngSos/FiG6fd2OVLxRuoBD74uKZvh3c//GuuKAdwXLCNtznHs0/y6Ir1TTrQq1z6CWm5384oNZ3743mYfarsEnEou5GJ7y1BLahJNRLSqqzVx0IerubeYqtaYqufyDnGi3fKQNgrajlcZvmt+ZltjKDiQwj+PBGtvslBSgPu8ubFleW1yKEBEsd/VbBFAb4ijp+A==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(82310400026)(36860700016)(56012099006)(10067099003)(11063799006)(6133799003)(3023799007)(22082099003)(18002099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(10067099003)(56012099006)(6133799003)(18002099003)(22082099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ieC0qJE2J5G3oJl5lginkyAnx4jV242zlMOvES0/3efqAdyiVBSg0bJagvdsHwoXuoJoOsPHaGtTkJsS3S0Jzq5ddjpxkqulIo3lUGW6GHwG7vX875GEv1muKcgki6RaaWpUXDGgzyqA5vKu0RaG6pQRbHiXV0BPJsqrYbtQTM+OGI0wL/GL3K5Unx23j7/4CBZXPbdBaeQ2TPkC/5UJbN5BIAbBHvr0BotmzbBQz4xCpLANZMH/r3OLRJc+Q9x1/0JjqOxMxZvSNF4/zVIf/JkY6rbxP/TOQpRdsQlBaxKkTs3nMSET0pEZk9HEdliKymCifIwfc/S9FW4syCdP76v5wXWdJ8GFpGqgduZAy3lUI65WNwbiFwVqEdUj/eVxl5R4Ye2D6ACjtfo69eVsqu4kvaQNeXmRYUzkbTplae8czHh1Dr+7rXk1SmxnRg4F
+X-MS-Exchange-AntiSpam-MessageData-0: kFzWDv38yiuXGDla176fc9kWuWpsy3ckZjuiLX3NzAt53N4dV6jQqatkrA1KIVI9gx1gsXLZOYn33zJlrEQvvNu+oP9/jjFmWRpdvh/Vrd7VgGYcuzFIGPnT1wAvcgRNo81aDf4ks6MlxrGPQPCEuVeM4MChLi2kI0uNcgmsHrH5XNbGHy1w+bkZe4Dj1CVOgfnaisKnM7wbJKqt0T7afv7d2T4hn/9WlvP3nnjdP9fVl5e2pl7rUGbY+gSBqoJHyxbDq9iQ5rIKWsvzULwvWu3wobYsPbLnqgaRNdeRvxFQ/EbIWW7LdllJGruYy3cqsBx8b598v8dHV9v6noVvrZPtjCEo0BTMkkFXGV9vQ29Pk21mGH6C1j2KUQXuruIVa0elhkGkOcabx2ETpGHrYNYSJDxXRjNp9hpadt+bXhn97VDKwI1HOWxBsv3f4t2d
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 18:28:52.6635 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 639a2790-6eea-4cdb-56d0-08df078db584
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 18:28:43.2519 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: acac8e9f-a18e-4331-da94-08df078dafe8
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B072.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB71.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6461
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH9PR12MB384484
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,296 +112,104 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mukul Joshi <mukul.joshi@amd.com>
+From: Philip Yang <Philip.Yang@amd.com>
 
-Add functions for managing connection state between GPUs
-before import/export of ualink handles occurs.
-These functions handle the lifecycle of connections between
-GPUs,including handling GPU resets, in the NPA-based memory
-sharing model.
+Compute the writeback buffer addresses for a ring, send a configuration
+command to firmware, and mark the ring ready on acknowledgement.
+Configuration is deferred to first use.
 
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 227 +++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h |  13 +-
- 2 files changed, 239 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 70 ++++++++++++++++++++++
+ 1 file changed, 70 insertions(+)
 
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index fb698c15af909..45f17ce514493 100644
+index 58bb506785c27..831e8e8e45fbf 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -32,6 +32,10 @@
- #include <linux/sysfs.h>
- #include <linux/string.h>
+@@ -1338,6 +1338,9 @@ struct amdgpu_ualink_ring {
+ 	struct drm_mm_node mm_node_wptr;
+ 	struct drm_mm_node mm_node_doorbell;
  
-+static int amdgpu_ualink_remote_interrupt(struct amdgpu_device *adev,
-+				u32 remote_accel_id, u32 dw0, u32 dw1,
-+				u32 dw2, u32 dw3);
++	/* seq, complete status write back cpu address */
++	struct amdgpu_ualink_wb *wb_cpu;
 +
- static const struct drm_client_funcs ualink_client_funcs = {
- 	.unregister	= drm_client_release,
+ 	/* true if fw write back address updated successfully */
+ 	bool ready;
  };
-@@ -1252,6 +1256,229 @@ static void amdgpu_generate_ualink_handle(struct amdgpu_device *adev,
- 		handle->handle_hi, handle->handle_lo);
+@@ -2699,3 +2702,70 @@ static int amdgpu_ualink_send_command(struct amdgpu_device *adev,
+ 	return r;
  }
  
-+static int amdgpu_ualink_send_hello_ack_msg(struct amdgpu_device *adev,
-+					    u32 remote_acc_id)
++static void amdgpu_ualink_get_wb_addr(struct amdgpu_device *adev,
++				      u32 remote_accel_id,
++				      struct amdgpu_ualink_wb **wb_cpu,
++				      u64 *wb_npa, u32 type)
 +{
-+	dev_dbg(adev->dev, "SEND HELLO-ACK: HELLO-ACK message to remote AccId:%u\n",
-+		remote_acc_id);
-+	return amdgpu_ualink_remote_interrupt(adev, remote_acc_id,
-+		AMDGPU_UALINK_HELLO_ACK_MSG,
-+		0, 0, 0);
-+}
++	struct amdgpu_ualink_remote *remote = to_remote(adev);
++	u32 accel_id = ualink_accel_id(adev);
++	u32 rb_size = AMDGPU_GPU_PAGE_ALIGN(2 * AMDGPU_UALINK_RB_SIZE);
++	u64 wb, npa;
++	u32 offset = 0;
 +
-+static int amdgpu_ualink_send_hello_msg(struct amdgpu_device *adev,
-+					u32 remote_acc_id)
-+{
-+	u32 dw0;
-+
-+	dw0 = AMDGPU_UALINK_HELLO_MSG;
-+	dw0 |= (remote_acc_id << AMDGPU_UALINK_HELLO_MSG_RECV_ACCID_SHIFT);
-+	dw0 |= (adev->ualink.info->ppod.accel_id <<
-+		AMDGPU_UALINK_HELLO_MSG_SENDER_ACCID_SHIFT);
-+
-+	dev_dbg(adev->dev, "SEND HELLO: HELLO message to remote AccId:%u\n",
-+		remote_acc_id);
-+	return amdgpu_ualink_remote_interrupt(adev, remote_acc_id, dw0, 0,
-+					      0, 0);
-+}
-+
-+static u32 amdgpu_ualink_check_conn_ready(struct amdgpu_device *adev,
-+					  u32 remote_acc_id, u32 gen_count)
-+{
-+	struct amdgpu_ualink_connection *conn_state;
-+	u32 current_gen_count = 0;
-+
-+	conn_state = &adev->ualink.conn_state[remote_acc_id];
-+
-+	/* Check if the connection is established. */
-+	mutex_lock(&conn_state->lock);
-+	if ((conn_state->state == AMDGPU_UALINK_CONN_ESTABLISHED) &&
-+	    (!gen_count || conn_state->generation_count == gen_count))
-+		current_gen_count = conn_state->generation_count;
-+	mutex_unlock(&conn_state->lock);
-+
-+	return current_gen_count;
-+}
-+
-+static void amdgpu_ualink_process_hello_ack_msg(struct amdgpu_device *adev,
-+					       u32 sender_acc_id)
-+{
-+	struct amdgpu_ualink_connection *conn_state;
-+
-+	if (sender_acc_id >= AMDGPU_UALINK_ACCEL_MAX) {
-+		dev_err(adev->dev,
-+			"HELLO-ACK: sender AccId out of range:%u\n",
-+			sender_acc_id);
-+		return;
-+	}
-+
-+	conn_state = &adev->ualink.conn_state[sender_acc_id];
-+
-+	/* If we are in IN_PROGRESS state, then transition the connection
-+	 * state to established and signal that the HELLO ACK is received.
-+	 * Otherwise, ignore the HELLO ACK.
-+	 */
-+	mutex_lock(&conn_state->lock);
-+
-+	if (conn_state->state == AMDGPU_UALINK_CONN_IN_PROGRESS) {
-+		conn_state->state = AMDGPU_UALINK_CONN_ESTABLISHED;
-+		conn_state->generation_count++;
-+		complete(&conn_state->hello_done);
++	if (ualink_addr_mode(adev) == AMDGPU_UALINK_ADDR_MODE_SOURCE_IDENT) {
++		wb = (u64)remote->rb_cpu_addr + rb_size * remote->num_accel;
++		npa = amdgpu_ualink_npa_addr(adev, RB_TYPE_TAILPTR,
++					     remote_accel_id, accel_id);
 +	} else {
-+		dev_dbg(adev->dev,
-+			"HELLO-ACK: already connected, ignoring from AccId:%u\n",
-+			sender_acc_id);
++		wb = (u64)remote->rptr_cpu_addr;
++		npa = remote->rptr_npa;
++		npa |= (u64)accel_id << AMDGPU_UALINK_GART_NPA_ADDR_GPUID_SHIFT;
 +	}
-+	mutex_unlock(&conn_state->lock);
++
++	if (type == RB_TYPE_TLB_INV)
++		offset = ualink_tlb_wb_offset(adev, remote_accel_id);
++	else if (type == RB_TYPE_REMOTE_INTERRUPT)
++		offset = ualink_wb_offset(adev, remote_accel_id);
++
++	*wb_cpu = (struct amdgpu_ualink_wb *)(wb + offset);
++	if (wb_npa)
++		*wb_npa = npa + offset;
++
++	dev_dbg(adev->dev, "source %d remote %d wb npa 0x%llx\n", accel_id,
++		remote_accel_id, npa + offset);
 +}
 +
-+static void amdgpu_ualink_process_hello_msg(struct amdgpu_device *adev,
-+					   u32 receiver_acc_id,
-+					   u32 sender_acc_id,
-+					   u32 src_acc_id)
++static int amdgpu_ualink_update_wb_address(struct amdgpu_device *adev,
++					   u32 remote_accel_id, u32 ring_type)
 +{
-+	struct amdgpu_ualink_connection *conn_state;
++	struct amdgpu_ualink_remote *remote = to_remote(adev);
++	struct amdgpu_ualink_peer *peer;
++	struct amdgpu_ualink_ring *ring;
++	struct amdgpu_ualink_wb *wb_cpu;
++	u64 wb_npa;
 +	int r;
 +
-+	if (receiver_acc_id != adev->ualink.info->ppod.accel_id) {
-+		dev_err(adev->dev,
-+			"HELLO: receiver AccId mismatch got:%u self:%u\n",
-+			receiver_acc_id, adev->ualink.info->ppod.accel_id);
-+		return;
++	peer = &remote->peer[remote_accel_id];
++	if (ring_type == RB_TYPE_REMOTE_INTERRUPT)
++		ring = &peer->interrupt;
++	else if (ring_type == RB_TYPE_TLB_INV)
++		ring = &peer->shootdown;
++	else
++		return -EINVAL;
++
++	amdgpu_ualink_get_wb_addr(adev, remote_accel_id, &wb_cpu, &wb_npa,
++				  ring_type);
++
++	r = amdgpu_ualink_send_command(adev, remote_accel_id, ring, wb_cpu,
++				       amdgpu_ualink_emit_update_wb_addr,
++				       upper_32_bits(wb_npa),
++				       lower_32_bits(wb_npa),
++				       0, 0);
++	if (!r) {
++		ring->wb_cpu = wb_cpu;
++		ring->ready = true;
 +	}
-+
-+	/* src_acc_id is the AccId received in IH cookie. Confirm it
-+	 * matches with the sender AccId.
-+	 */
-+	if (sender_acc_id != src_acc_id) {
-+		dev_err(adev->dev,
-+			"HELLO: sender AccId mismatch sender:%u IH cookie:%u\n",
-+			sender_acc_id, src_acc_id);
-+		return;
-+	}
-+
-+	if (sender_acc_id >= AMDGPU_UALINK_ACCEL_MAX) {
-+		dev_err(adev->dev,
-+			"HELLO: sender AccId out of range:%u\n",
-+			sender_acc_id);
-+		return;
-+	}
-+
-+	conn_state = &adev->ualink.conn_state[sender_acc_id];
-+
-+	/* Check if connection is already established. If yes, then receiving HELLO msg
-+	 * triggers a reset handling scenario.
-+	 * If the connection is not ready, and we receive a HELLO msg, then
-+	 * transition the state to PENDING.
-+	 * Otherwise, leave it IN_PROGRESS.
-+	 */
-+	mutex_lock(&conn_state->lock);
-+	if (conn_state->state != AMDGPU_UALINK_CONN_ESTABLISHED) {
-+		if (conn_state->state == AMDGPU_UALINK_CONN_NOT_READY)
-+			conn_state->state = AMDGPU_UALINK_CONN_PENDING;
-+		/* otherwise, leave it IN_PROGRESS to signal the completion below */
-+		mutex_unlock(&conn_state->lock);
-+	} else {
-+		/* Set the connection state back to In Progress and revoke
-+		 * all exports and release all imports corresponding to the
-+		 * sender GPU. Added in later patches.
-+		 */
-+		conn_state->state = AMDGPU_UALINK_CONN_PENDING;
-+		mutex_unlock(&conn_state->lock);
-+	}
-+
-+	r = amdgpu_ualink_send_hello_ack_msg(adev, sender_acc_id);
-+	if (r)
-+		dev_err(adev->dev, "HELLO-ACK: send failed to remote AccId:%u\n",
-+			sender_acc_id);
-+
-+	mutex_lock(&conn_state->lock);
-+	if (r) {
-+		conn_state->state = AMDGPU_UALINK_CONN_NOT_READY;
-+	} else {
-+		/* If we are in IN_PROGRESS state and we receivied the HELLO message,
-+		 * upon receiving the HELLO message, transition the state to ESTABLISHED
-+		 * and signal the completion.
-+		 */
-+		if (conn_state->state == AMDGPU_UALINK_CONN_IN_PROGRESS)
-+			complete(&conn_state->hello_done);
-+		conn_state->state = AMDGPU_UALINK_CONN_ESTABLISHED;
-+		conn_state->generation_count++;
-+	}
-+	mutex_unlock(&conn_state->lock);
-+}
-+
-+static int amdgpu_ualink_setup_connection(struct amdgpu_device *adev,
-+					  u32 remote_acc_id)
-+{
-+	struct amdgpu_ualink_connection *conn_state;
-+	int r;
-+
-+	conn_state = &adev->ualink.conn_state[remote_acc_id];
-+
-+	/* Connection state management goes through different states.
-+	 * The states are:
-+	 * - NOT_READY: The connection is not ready.
-+	 * - IN_PROGRESS: GPU sent HELLO message and is waiting for the HELLO_ACK.
-+	 * - PENDING: GPU received HELLO message and is in the process of sending
-+	 *            the HELLO_ACK.
-+	 * - ESTABLISHED: The connection is established.
-+	 */
-+
-+	/* Grab the lock and check if connection establishment was
-+	 * already done by another thread.
-+	 */
-+	mutex_lock(&conn_state->lock);
-+	if (conn_state->state == AMDGPU_UALINK_CONN_ESTABLISHED) {
-+		r = 0;
-+		goto out;
-+	} else if (conn_state->state == AMDGPU_UALINK_CONN_IN_PROGRESS ||
-+		   conn_state->state == AMDGPU_UALINK_CONN_PENDING) {
-+		r = -EAGAIN;
-+		goto out;
-+	}
-+
-+	conn_state->state = AMDGPU_UALINK_CONN_IN_PROGRESS;
-+	mutex_unlock(&conn_state->lock);
-+
-+	/* Send HELLO message */
-+	r = amdgpu_ualink_send_hello_msg(adev, remote_acc_id);
-+	if (r) {
-+		dev_warn(adev->dev,
-+			"HELLO: Send failed to remote AccId:%u\n",
-+			remote_acc_id);
-+		goto reset_state;
-+	}
-+
-+	/* Wait for the HELLO_ACK to come back */
-+	/* complete(conn_state->hello_done) should be called from the IRQ
-+	 * handler when the HELLO_ACK is received.
-+	 */
-+	r = wait_for_completion_interruptible_timeout(&conn_state->hello_done,
-+				msecs_to_jiffies(AMDGPU_UALINK_RESP_TIMEOUT));
-+	if (r == -ERESTARTSYS) {
-+		dev_err_ratelimited(adev->dev,
-+			"HELLO-ACK: interrupted by signal\n");
-+		goto reset_state;
-+	} else if (r == 0) {
-+		dev_warn(adev->dev,
-+			"HELLO-ACK: Timeout from remote AccId:%u\n",
-+			remote_acc_id);
-+		r = -ETIMEDOUT;
-+		goto reset_state;
-+	}
-+
-+	return 0;
-+
-+reset_state:
-+	mutex_lock(&conn_state->lock);
-+	conn_state->state = AMDGPU_UALINK_CONN_NOT_READY;
-+out:
-+	mutex_unlock(&conn_state->lock);
-+
 +	return r;
 +}
 +
- static void amdgpu_ualink_exp_cleanup_worker(struct work_struct *work)
- {
- }
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-index 4efb0ece4d113..2ea01874554f3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-@@ -35,12 +35,23 @@ struct amdgpu_device;
- #define AMDGPU_UALINK_LOCAL_ACCELS_MAX 8
- #define AMDGPU_UALINK_STATIONS_MAX 64
- 
-+#define AMDGPU_UALINK_RESP_TIMEOUT			5000 /* 5s timeout */
-+
- #define AMDGPU_UALINK_HANDLE_ACCID_MASK			GENMASK_ULL(9, 0)
-+#define AMDGPU_UALINK_HELLO_MSG_RECV_ACCID_SHIFT	10
-+#define AMDGPU_UALINK_HELLO_MSG_SENDER_ACCID_SHIFT	20
-+
-+enum AMDGPU_UALINK_PROTOCOL_MESSAGES {
-+	AMDGPU_UALINK_HELLO_MSG				= 1,
-+	AMDGPU_UALINK_HELLO_ACK_MSG			= 2,
-+	AMDGPU_UALINK_MAX_PROTOCOL_MSG
-+};
- 
- enum amdgpu_ualink_conn_state {
- 	AMDGPU_UALINK_CONN_NOT_READY			= 0,
- 	AMDGPU_UALINK_CONN_IN_PROGRESS			= 1,
--	AMDGPU_UALINK_CONN_ESTABLISHED			= 2
-+	AMDGPU_UALINK_CONN_PENDING			= 2,
-+	AMDGPU_UALINK_CONN_ESTABLISHED			= 3
- };
- 
- enum amdgpu_ualink_type {
 -- 
 2.55.0
 
