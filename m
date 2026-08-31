@@ -4,121 +4,120 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 82A86C61DE2
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 10:51:20 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9252BC61DD3
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 10:55:54 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 171E589E47;
-	Mon, 31 Aug 2026 10:51:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4EB6C8826D;
+	Mon, 31 Aug 2026 10:55:52 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="Znc2e3KP";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="GmrVmjuX";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010006.outbound.protection.outlook.com [52.101.201.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EA75A89E47
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 10:51:18 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012027.outbound.protection.outlook.com [52.101.48.27])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 79C9810E277
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 10:55:50 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bvT0RzFZmWfDuxAsUN2xNln/uYJYsS1iOpSHrEP7UCsikCCZsoVrxJNnDmO8mBLSpsItjOSukbOUPbwR10xj9mjGNVFAqhvt5EBh8fDCBSlf6XMgKKYlHtVLIhryVZ0Unv5oC6JRFtiqcBb6pChtyOBnEtD77q+3jReXK59++zKXC7TavkD6Qq1R7eC2sxrM7FCi29ey0r+4yNPpxmCg6PZxE18UB0pc/7c4eUzjxRdJXYD8i8pnqiho8KaEX70AbxuXRBW9jt5QOoCc/c/UDFoXw5SKOT0F8rztMrIXePRLGCLojxsm/hYXwksS1K4iOqESBJGH1v5eYV3zOnQTYA==
+ b=QTJmd/v282RT/eqeEY4ZFcfEvBp76PODSszqwAAOwdJZiGIn3SeKreQxVs/ZbHhH2L8BXaS2rVE2EKxSe9PlSJdUhbp8LjSSlv2dtlAbQSZe6G3ikBW/4YalVybNDdwfravSDm1FFzs3BmsisHJ4pqdr36JI3X1pgovOu8xNMZQSqyMuH5npasQ69RJKrqO9e1xWBAhKVL+KwFYWfDtQKTFdXni2iP3iJ251xayfQ5JSZDU4JZeoWgu7G8mYbmLJrFrJ6pb547cexwQoEVu36xatlyos0G7ebVZBw9BIlQlx12zLCno+7R+XShcqqz4CZHr5p8XHVWt3mNJlUkn5Qg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rkqt5ME19w6c/T/TKMk0xKUMWM+SvuAvYpRSVadD99E=;
- b=YMvg7+5SOFXaxuryzZEwNKSvwdpT/9jYEPAIfBbXjej0Tt4e6b13fHABFy3p/Feq/FziFuUJgfKv1cdF/qTFJxdUtj1oL4aY3bKIlnJRld59Nb2BxWu4fngY2vf51abnWReDLjczHrjEZ2z1LMa0QJyoOKYl+M3IkTNNwnGjE3rcXB6ILnFNzJXV41om2LZR30cdKmDRAYPcBC7kEJoMFAi/WXmeGDmzPnTKACI3KL9Q/Yt4mGIuEiQnDNOX6WtOMUtn5qbZLwQ0vKVq4plTELMPgGEN+pRtX+KaF1wrnaBQtqGrt6kVnNW39NKKCYPd2qDFHEr51M6XbhE/wxrprQ==
+ bh=kuv0ejzsDq7fQ1wrq2kRryzNAYweBcVmKahHRvMKdOE=;
+ b=FiSEIgAfyCAOp8GiOrEu72P/Pco1gRnYPtPoozMAko9hvplHSV9VX1Q0haUc3d9HzqXT9572fTeClBGZwIcGdGq1vc/kj/1PgMMpFDwbnjK6dSiS+5L3AKLyfvOFtgX6IGrLIVJVfutf5FRywtxtKbnyONAr3Y6EjMWim/StYDzWGqY90pdq6xa+eqwY7HQAVOtNfVIJILhcFNq3J/Y0w3yX4Pzzb9ZSBpOMws1Rc2t/zul4VRenu+lvoLyP656qSiAwNZZSZW67LdFI7d/WCfDvZ4pElkGtHFOo2+JiDiYB+XYRuzmmw2N16f+IszUZtLjdGCyj7H5r2+6oSFfhMg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rkqt5ME19w6c/T/TKMk0xKUMWM+SvuAvYpRSVadD99E=;
- b=Znc2e3KPFoeZDla11S+V68DAhtbGtteO0v48KvXLlusxVOzU+osQEJyH6bbduF9bRBvGYFlTabPUoGRou7Qthuir4VhEkBfw/11RjzggUyoTcsreBJvmoDbqGYyFlYEZrfeTa5GGBSTTXMvS8RAR8sJHHdk7MsJGue27pbs8hDA=
+ bh=kuv0ejzsDq7fQ1wrq2kRryzNAYweBcVmKahHRvMKdOE=;
+ b=GmrVmjuXTaW1h1vSOGEInFHFkciu56gNN2G1axnmwW+/Aie0MqcjAd+cRSCzTspYnNKhLmiMDHhVek2uCwcttF9CFcv6PCZAUMkhKef5mm7yLbJ9IbRKjA2RZHINVR3P0j72goRwrVeCbEJtYsja3BL2IHXUSVvjxnCE+MVY3CI=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com (2603:10b6:806:2d5::17)
  by PH7PR12MB6907.namprd12.prod.outlook.com (2603:10b6:510:1b9::18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 10:51:14 +0000
+ 2026 10:55:46 +0000
 Received: from SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc]) by SA0PR12MB7091.namprd12.prod.outlook.com
  ([fe80::ec33:1213:cfd8:63bc%6]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
- 10:51:14 +0000
-Message-ID: <f5d6e979-3bec-489b-8809-654dc87fbd67@amd.com>
-Date: Mon, 31 Aug 2026 16:21:09 +0530
+ 10:55:46 +0000
+Message-ID: <6041b95a-ac8c-4410-97cb-8eca51d20d50@amd.com>
+Date: Mon, 31 Aug 2026 16:25:41 +0530
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/7] drm/amd/pm: stage od reset for smu 13.0.6
+Subject: Re: [PATCH 0/7] drm/amd/pm: stage OD reset until commit
 To: Kevin Wang <kevin.wang@amd.com>, amd-gfx@lists.freedesktop.org
 Cc: alexander.deucher@amd.com, hawking.zhang@amd.com, kenneth.feng@amd.com
 References: <20260831043507.523599-1-kevin.wang@amd.com>
- <20260831043507.523599-5-kevin.wang@amd.com>
 Content-Language: en-US
 From: "Lazar, Lijo" <lijo.lazar@amd.com>
-In-Reply-To: <20260831043507.523599-5-kevin.wang@amd.com>
+In-Reply-To: <20260831043507.523599-1-kevin.wang@amd.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA1PR01CA0172.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:d::16) To SA0PR12MB7091.namprd12.prod.outlook.com
+X-ClientProxiedBy: MA1PR01CA0174.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:d::12) To SA0PR12MB7091.namprd12.prod.outlook.com
  (2603:10b6:806:2d5::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SA0PR12MB7091:EE_|PH7PR12MB6907:EE_
-X-MS-Office365-Filtering-Correlation-Id: 98a1d400-6f52-4cac-d252-08df074dc733
+X-MS-Office365-Filtering-Correlation-Id: 78a52db3-76bc-40a8-3065-08df074e68f9
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|366016|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: sb1++6XSRvsmhQhhkpr2hMLlUZwqituPoAVQtY6PHk6vHaRpk+ywOPh5oGsvcDgwBlqOOSM7LAAkOGb6pQrettft+jDB77/udAX2llxcXP8YKlepKkzG4gl/JRv8UzxLIbukZTkLvcrsp3d5TK/OAON16zFq31O2dvePjPU3u0TGrBjnaM3JhU75Sk+oOZPqe+/CdzqYp357RcgoSbkNoKeb2x8cx0qPTPR1q/p/5JH+iSTAYPHpHMCBOo7n4l6ev4d6dMVcH9hlfEcNv/X6ufPEAlO085YyOOCI9nFqAc4QZLvHfl3Q/CSW90ap0HqqpVba2NLBz3x3qSNvIrYjWe94rllmC6SQ9NqL1MnZYFs+FV3ZTOldu99jSG0Sm1UPT1uYYXy32eRB5FTT9Q7zb9PXWQUS5mDzCM+Zeu/9TNrfPNgiqgCuizDAvDSx84GXL6Li6B+XKwPMptKoIISXLoZ1iXYfLzozJV0NkheGfxUXevalLgfKGqXEZZsfEFk7VU1FZfgQ1C5xI5PFg+G37euIegMMn7qmgvDymO/Xw48gbDCO5rGujeiVyXUlHcAgGHmaAOgnyl1NVjtjp+OrYQtgE6hCB64dAA3/uUZZsUpIQ9y6YCGkiNBT/yHY3iDxKY5MvHrIrbbe3vj1WnyntytaP4MXajf8lJXsdVcCNZY=
+ ARA:13230040|376014|1800799024|23010399003|366016|6133799003|3023799007|10067099003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: HoGDxo//isK0QbHofUfrsNX8ldJqCBbCLk1CuKlXraMQpIDaR1WhAZUtFtV3r4qZESdqyqmv2VlGwZ4RyLWlJoiGlVowY5C9NTs/qH5aAHUJI0jT79BqvdGOn1R2UCXCfCONnQSe5B6glxU6m69k9ErZxSRpzp+eH8MsPDvdSSlXgdIBYx/IkAlp+k8lyW2bjs06idX894VFWf6BG4izJmhLnlQLZ4MEIjJW6dfu0m6GNj7Osy+5h9sYqjfaIiZqW4LaEAFVOYlb/l+WAsxQ+0MgFNWMj1X4aLOJgp3KVNN03O/B/vs4E8n3Drg5RR9g1L96idCYburRhwjysrCLnCFbKNTFEtiPAHBfawOeF2UOMlKYmaDx7rY/w1vjY5vi3vxWjctVUigwyRnM64FTJCoCN4XDmHRdaPofu3zj5TBt4AMKioHYgH6b5MnVga/f35xWkBFUFO1kkXj+G2qgdFhac1jYGmBOBBvNyrcJQjJDSTHY2w+oWhzEjxL782i9vC4ZRiGJGeL5tiu6dMb8vAGNsYt0cAD2dSeDSSiFhKFs+AjOd5fPnWEKvwP1cpoCKyo9Unn2ZLWAo9nGkZ4CJ4BrM/gwT7o101gvUZQdUow=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SA0PR12MB7091.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);
+ SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(6133799003)(3023799007)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?TDZvcWwwUm1oVHd3amRWZ2tUVWxUWlRzejdueCsvaEo5eHYyRzd2ODhFaWdu?=
- =?utf-8?B?bzhmVlBMc25wREg4c1J6cnV5RmE0eUQrT0czLzd5SlBtbFV4dStGZ3FvVWJr?=
- =?utf-8?B?bkdWcXdvREZ6RWluN3BqcE1IMlJVZndMQWdSWUEzQnJyY3VJVjEzZlE0TWRh?=
- =?utf-8?B?VmtBMm9xblIwRHFjRzh4a3NjL0tManZYbmJVcTQvcTJVQy9mRnVlNUQvTUlh?=
- =?utf-8?B?TGVCS1FFeTMvaXVWOTM4UkRRTjRvRGJUZUU1Z2lWWm92Y0hEY2lPVFY5M3JB?=
- =?utf-8?B?bjFuN3NZc2dGdlFlSUtmYWY1WEJlQ1JpRGJhclRyY0IvMjgwNjYva3FkVE55?=
- =?utf-8?B?VzNjbFp2R2gvUGdncVhIOUdDMEdLamJ2a2JlTXVFZTV6cUxwUnVYWUNyamlF?=
- =?utf-8?B?cjgrZFFlZ29PUWkxU0poOUFPbVNXbVg3WEtKV1FjTGhzampTQnc1cG02NndT?=
- =?utf-8?B?aEpGYTBJcHhiTlVlQTNsaVcyNVR2NEVDTlpreEJCYzc4cU9pZzN4NjdoaGNN?=
- =?utf-8?B?dWpEMWp0Z0xIWUlxZUJMdG5TWVhaVnduOTJOTm8vRzVkZ1FpRUc1amR5MEln?=
- =?utf-8?B?MVJwWDVBMXJtTlNqNE5IMXptY1pzN0tHK3h0dHRCQWpQU29tUzNoYWhkZTFS?=
- =?utf-8?B?OERab3JvMEY1Y0dCUXNUN3RXUmtmZVYraXZPMW9XaTNBdTRwMVJVc211VzZW?=
- =?utf-8?B?WjhveVNiS3VBQXdhQUNQaURNemRtTUNHWjFEb2JMMDM3TFZMNnNRR1ppcEJw?=
- =?utf-8?B?dnpyZlN5a1VIUHRqZ3d3UmQxWHZGb0cyV0w5UkRybmpJak52aU5BTDFmOEQz?=
- =?utf-8?B?amdFZGdtb2dYNUJVeUEvcDZlM29nYmVsWVBmMm1wUWlQR3dra1VIbzN4amNx?=
- =?utf-8?B?T2ZKUVNXVE1LTU5TaWVDVEw0MlFDMkwwMGtGMXhFVlEvbHFqMTBMRGdMY3BT?=
- =?utf-8?B?SDU5WEx1OVVIZmQyU0tCbTNLUmlvd2xIeHBzS2tmdWcxRHVEWnE3Q3Q3M01P?=
- =?utf-8?B?ZnNSZC9BcDhrL1FIQWs5Z3ZsYks5OUdjeDJPNXpJQTRYeDdKYXBnRllVVFgz?=
- =?utf-8?B?a1BmTlBSSllSUDNDeUx0UEQ1VVJlUzRWWEsyWlZaeWlnNWZxRG1MTGpUeElp?=
- =?utf-8?B?T3YvalZZbWlBTk5hdmVNNDBiYUNlZEc1TVB5YjRTeUs4bzRvWDh0dDl4dmhW?=
- =?utf-8?B?RVE1SzRGVDk1RmpNUWowYlhYa2tGTTEvc2x0Z011QzN4SHpDRmoyUVExRWt4?=
- =?utf-8?B?OTk4N1ErU1dTdm04RXhhei85Y3M5ZjhJSGhEVnFMSmdwWCtma2QxNW1BKy8w?=
- =?utf-8?B?UHc3RnV4QU1ncXlya1pVVTNMMWdUT1NhMXBDcHNHenVPT3JDUmNDUDBWY1FM?=
- =?utf-8?B?ZWxWaG9qMjBmSGJQUXNKeEZieXFtVi9GNEx0WWV3bW1wemNZbnloU01XcE43?=
- =?utf-8?B?dnE3eTBHd3dnTU5LTjB2RVNrc1lJTUw2ejc4NlJKU09UUDduOVA5QU9rWHBI?=
- =?utf-8?B?cEZuYkNlRHI4bFBrRFMvbGhRclpOUTF0a3owUlJXTVhSMG9nZVJ5bG1LYWRE?=
- =?utf-8?B?THg2bHNVV0lvWnpKTFVzcGI2V0pQczZ0c0VXK2dzVEZIdEpDazJvTEFVMnc3?=
- =?utf-8?B?cEQwQ0V2RTY5UEV4YU5oeXh2dThua2ZlQWRtL241QVJEY0dMV3B5UVEzVWZ0?=
- =?utf-8?B?LzNZSXhLUGJJZFhWZ2FrZFVDcXI0bE9OZmZWNGZtVDIyMjVITTVsTTlWYTRJ?=
- =?utf-8?B?YkN4MlgzTjVlREdMZXBjTFZlSlV1dzljc3EwaUdlZ1U1T3dwa1ErRmNGNUUv?=
- =?utf-8?B?RytjdXYzcWQwNW5aSTVsYzRpNlMxQjF2N2xoMlJhcURZSzlZQTFreWNXN0t1?=
- =?utf-8?B?R3JGL0JuS3RiWkRxeHdackNoV05pdlBheUNhd3NKZDlYaXpubXBLdHFObVB6?=
- =?utf-8?B?Lzd1TzJGUXdNSGNoUHgwcFlIZTJBdGVSaXJVMUoxeWJ3OU5vQ0N1T2g0M3l4?=
- =?utf-8?B?cUdjT3dFckwzc1ZzcDlMZG9mZXJZRm1DT1RpWUpMZUxVUXJJSytpTW5RTWk3?=
- =?utf-8?B?WlRaR2p2R0U1TG5NSlE5VVl1Y0NtN1FmYXNGQkRhQTNXL3YyRjhXSkNrZEo5?=
- =?utf-8?B?SVJHaEZDK3owSndGV3N4UldBWWo0QXBua1M3ZG9HWmxIbm96M29qNWlmUzVn?=
- =?utf-8?B?VEdIRmdSUjJLMVNhWDNOY1l3R2dIZXowNDU4L2tIZTd6VG1lVFJDL2x2blg0?=
- =?utf-8?B?eUJTL3dwMUJodzZXdUx1TTVnajFBcjAwTkhFN0hUaENldlRqT2tTRWxaYzFm?=
- =?utf-8?Q?/oBlgeDmCODaPTYVx2?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aFB3TUNGcUpZeFFSRG1FNlVFdjlseWdEMVJFS0ZGbjdFeXVvUXhLQS9seVhy?=
+ =?utf-8?B?SkNLejVldkZPL2g1NUVlRG9xazlUZ2xURHpiZm5kU3YzSDRJbnMxTVVwSS9P?=
+ =?utf-8?B?L1pNQVFUS1ZhM2NwWlBUalFkT085NVA3anBZSUN1RFlMT21FdFRoclRLaGMz?=
+ =?utf-8?B?ZVZJNWdnVmRHbHFDc3hPRXlQU1JMbzBFU1B0cU5PcHlteVJ2dDVuekw4N0Ny?=
+ =?utf-8?B?YVBwajYvVTN5Q1llOHltZ2w1c0J4YTEzMVhJd0lqZ1NrZzdDNityNmJ0WUty?=
+ =?utf-8?B?S0gvbWo1dHk2QlM5UEh3ZU5nMWo3c3duNTRtcjRqR0c0bEVrcDBtSVZmb1Rx?=
+ =?utf-8?B?R09qVGk1MDEvclppQkpHMG15cFhrZEFDbDNWMjQzRVdMRmlaRWRBQ1Vpa3pY?=
+ =?utf-8?B?bksvZy9WYmRKbWpkR0g2VGlCSy9zZ1hPQWhvcW9VVThxMVVycTU0TDdBU0Yr?=
+ =?utf-8?B?RU9peG9SRGUxUXB3cmh0WCtjTjVTMGc2ZFV4OUIvUzZuYndzMHN2akloQzRL?=
+ =?utf-8?B?dTVhK1Rmd29rQWlqOWJGMzBtQlprT0lybUkrL2Y1TEJ0SUFnZGxXK1FSOW9I?=
+ =?utf-8?B?UGVHZUo3Y1lKaEErQW8vcDFQMEYvZzNQMmUyMVZHcW5mQmxKSkZTRkNjb2lt?=
+ =?utf-8?B?a3F0QnBnaFlPcHIzM1V5dGxRT1RzWlJWb0JUUWRlU0Q3Vnh4NXZYWVVRZnRB?=
+ =?utf-8?B?UWtLZ3BaOHRUdmJmTTQyQmJQK0gvelh6ZlVvZUdLdm9taWk5ZjkxbC9sQUpz?=
+ =?utf-8?B?KzgvQ2pzNmYyL09yRWFRZnB5YzJYZnV2OXpmWW9seVc3SDVlamVMNkVPeWl4?=
+ =?utf-8?B?blptQXY3Z3ZYbDNUOXgyWUdGVzFHZzNLbDRYSmpBUUhLbDVsdlN0MGovSkRK?=
+ =?utf-8?B?QVBCNTBIRHREQjZZU3AyS2lieEF5QURoa2FobndvVjVuV1JXdWlNMEhHQ2J3?=
+ =?utf-8?B?MWQ3WWdrNE1CTHRPRW1qTVJNUlRXL0daZlNiM3FqK3o3Rno3YzdKNTRBSTZV?=
+ =?utf-8?B?eUxMRVNsUUp3R1gvSkU3TzJBNjhIZHYyUkRXQ1FQaThtOXJIbnV5dkpRYXBa?=
+ =?utf-8?B?TUVOVmxZb1BNRE9BMkJtZ0N1dkdGTXJ4MVpSSXNFa1FiWE8yQVA4NzRvOWNl?=
+ =?utf-8?B?aC9FczgyUldQalBldHZYWTFxUUtFVmk2bGhTMUl1TXFEVzc0OXFGTzA1YmJl?=
+ =?utf-8?B?K21NS3p1eEE1cmlyUm40cy9od2duV2hJUHB4QjRxd1dPUytDSVZWVExHL01j?=
+ =?utf-8?B?L2tLNk5EVzNSRlRqaWZSSUxROXhHaTBaZ2tPR3lQb3lwVy82TVYwYmVSOVJR?=
+ =?utf-8?B?enVBdzI2TmsvTXJWVDVlWWxyaUZ5SmZJV0g0MU1ERmw0Rkt0VzM2UG9JUjA1?=
+ =?utf-8?B?L0JRbnZHbFlyaFJXMmRhb3ZhTEVyekpEWkd0ckxxbXpmRXVtQ3J5SDFDMHhz?=
+ =?utf-8?B?NWRLRVBZRTBzbXVtNWkvaDI5Myt3YmI0SksvVW10bXRScmpMMlF2cXR3cjFL?=
+ =?utf-8?B?bDlHLzZ1S0ZrZGNBNGtGSHNnekJvTytydEpNKzAxeDczVDRteTZhblAwallE?=
+ =?utf-8?B?amdCU2xralpiSFR1WEhBd2tOR3FLSkRxc2M2M2lVSG83bVVIdXQwWmJHMS9p?=
+ =?utf-8?B?Uzl6ald0SFBnQnRoc1ZWTzBuUGFSZlJ6NDBlWlNDekFubHoyenI3SWRmbitE?=
+ =?utf-8?B?Mlh2TXBXeis3dDBvbmhGQkdUTk9ORFNpamkzb3BDMm9Nek9BbUdyYUxGdnk5?=
+ =?utf-8?B?dUt4RHk0bldObHNPZExHc1FIZjNsMmlHLzF0Z3FSNWdQeG5US1pObm83cGMw?=
+ =?utf-8?B?TFhITFhvM0lCTkZvZm9mQThmcEQyVWNSK2VxYWtuUlFmMkZqVGFzRGpMWVRE?=
+ =?utf-8?B?T3Vvam83YXl6aHIrTEovWThxYXBTR0MzR21aUnVEWGRjUnR1SWxrWUY5UGM2?=
+ =?utf-8?B?VXVNaHFUckNFZmh3WW9tc05wcG1hNjF1VGpnall1dUh2RG9nMEFaY25TdXdm?=
+ =?utf-8?B?cUlPVFlrYzRGbmVEUGNNMlcxdkdMa3JEOGcvSEhSRmFzcEpFYlRUb00rR3lW?=
+ =?utf-8?B?ZFpMaVdwRjE0aHBBbUNVdHhaU2RvQTJMbHdUbGc4R2gyZnoybUp6MWYydzRB?=
+ =?utf-8?B?c29FN3pBTVdoS0g1OThNN3F2dDFYemxKZFJiZm54ZnVhVTNhQmRIUU5GOVc0?=
+ =?utf-8?B?ckpNaXNDaE1lSlhRY3pkNjZzMy9VUXNKek9BZC82Uml4SUNzL3hXT1RMZ2Z2?=
+ =?utf-8?B?OG1JSzQ0bnVSSCtCL3hNMk1QeEIydTJvSXpIK21YZVZyME00anZONko5TUh0?=
+ =?utf-8?Q?j+5UZNkUDNCppZp6NU?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 98a1d400-6f52-4cac-d252-08df074dc733
+X-MS-Exchange-CrossTenant-Network-Message-Id: 78a52db3-76bc-40a8-3065-08df074e68f9
 X-MS-Exchange-CrossTenant-AuthSource: SA0PR12MB7091.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 10:51:14.7198 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 10:55:46.1104 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 0nQjbCVnibCf0IGKNvsMAoIMqsK5nm2YOsW1rbOhHeR2NduiZX46Jjkh/aN2Y93f
+X-MS-Exchange-CrossTenant-UserPrincipalName: K2JglmEv/LIr5K/dYALehhL4D+sdWM4WKuzLHp1EctAogLeVZafwgCeFtUajqlBJ
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6907
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -139,158 +138,62 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 On 31-Aug-26 10:05 AM, Kevin Wang wrote:
 > [Some people who received this message don't often get email from kevin.wang@amd.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
 > 
-> SMU 13.0.6 applies default GFXCLK, UCLK, and FCLK ranges directly from
-> PP_OD_RESTORE_DEFAULT_TABLE. This bypasses the staged OD transaction.
+> The pp_od_clk_voltage interface exposes a staged OverDrive workflow:
+> users edit clock, voltage, and power settings, then write "c" to
+> commit them to the SMU.
 > 
-> Stage defaults through one helper and let c submit them. Gate UCLK and
-> FCLK staging and commit on their DPM features, and require the UCLK
-> firmware capability before staging or submitting its limit.
+> However, PP_OD_RESTORE_DEFAULT_TABLE does not follow this workflow on
+> every SMU version. Some backends restore their cached settings and wait
+> for "c", while others upload the reset table or send frequency-limit
+> commands directly from "r". As a result, the same userspace sequence
+> has different hardware effects across ASICs.
 > 
-> Signed-off-by: Kevin Wang <kevin.wang@amd.com>
-> ---
->   .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 85 ++++++++++---------
->   1 file changed, 44 insertions(+), 41 deletions(-)
+> For example:
 > 
-> diff --git a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> index 4dec3a93cb3d..169e38db629d 100644
-> --- a/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> +++ b/drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c
-> @@ -2130,14 +2130,45 @@ static int smu_v13_0_6_set_soft_freq_limited_range(struct smu_context *smu,
->          return ret;
->   }
+> - SMU 14.0.0 and SMU 13.0.5 stage reset limits until "c".
+> - SMU 14.0.2 and SMU 13.0.6 apply reset values immediately.
+> - Navi10 stages the boot OD table, while Vega20 reads the current SMU
+>    table instead of restoring the saved defaults.
 > 
-> +static void smu_v13_0_6_stage_default_dpm_limits(struct smu_context *smu)
-> +{
-> +       struct smu_dpm_context *smu_dpm = &smu->smu_dpm;
-> +       struct smu_13_0_dpm_context *dpm_context = smu_dpm->dpm_context;
-> +       struct smu_umd_pstate_table *pstate_table = &smu->pstate_table;
-> +
-> +       pstate_table->gfxclk_pstate.custom.min =
-> +               SMU_DPM_TABLE_MIN(&dpm_context->dpm_tables.gfx_table);
-> +       pstate_table->gfxclk_pstate.custom.max =
-> +               SMU_DPM_TABLE_MAX(&dpm_context->dpm_tables.gfx_table);
-> +
-> +       if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT) &&
-> +           smu_v13_0_6_cap_supported(smu, SMU_CAP(SET_UCLK_MAX))) {
-> +               pstate_table->uclk_pstate.custom.min =
-> +                       SMU_DPM_TABLE_MIN(&dpm_context->dpm_tables.uclk_table);
-> +               pstate_table->uclk_pstate.custom.max =
-> +                       SMU_DPM_TABLE_MAX(&dpm_context->dpm_tables.uclk_table);
-> +       } else {
-> +               pstate_table->uclk_pstate.custom.min = 0;
-> +               pstate_table->uclk_pstate.custom.max = 0;
-> +       }
-> +
-> +       if (smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_FCLK_BIT)) {
-> +               pstate_table->fclk_pstate.custom.min =
-> +                       SMU_DPM_TABLE_MIN(&dpm_context->dpm_tables.fclk_table);
-> +               pstate_table->fclk_pstate.custom.max =
-> +                       SMU_DPM_TABLE_MAX(&dpm_context->dpm_tables.fclk_table);
-> +       } else {
-> +               pstate_table->fclk_pstate.custom.min = 0;
-> +               pstate_table->fclk_pstate.custom.max = 0;
-> +       }
-> +}
+> This series makes "r" restore default values only in driver-side
+> staging state. "c" remains the sole operation that uploads an OD table
+> or sends frequency-limit commands to PMFW.
+> 
+> This gives pp_od_clk_voltage one consistent transaction model:
+> 
+>    edit/reset -> staged driver state -> commit
 
-The default values shouldn't be put as custom min/max limits. The custom 
-limits will keep non-zero values to indicate any custom limit is set or 
-not. It's not used to keep the default limits.
-> +
->   static int smu_v13_0_6_usr_edit_dpm_table(struct smu_context *smu,
->                                            enum PP_OD_DPM_TABLE_COMMAND type,
->                                            long input[], uint32_t size)
->   {
->          struct smu_dpm_context *smu_dpm = &(smu->smu_dpm);
->          struct smu_13_0_dpm_context *dpm_context = smu_dpm->dpm_context;
-> -       struct smu_dpm_table *uclk_table = &dpm_context->dpm_tables.uclk_table;
-> -       struct smu_dpm_table *fclk_table = &dpm_context->dpm_tables.fclk_table;
->          struct smu_umd_pstate_table *pstate_table = &smu->pstate_table;
->          uint32_t min_clk;
->          uint32_t max_clk;
-> @@ -2258,42 +2289,8 @@ static int smu_v13_0_6_usr_edit_dpm_table(struct smu_context *smu,
->                          dev_err(smu->adev->dev,
->                                  "Input parameter number not correct\n");
->                          return -EINVAL;
-> -               } else {
-> -                       /* Use the default frequencies for manual and determinism mode */
-> -                       min_clk = SMU_DPM_TABLE_MIN(
-> -                               &dpm_context->dpm_tables.gfx_table);
-> -                       max_clk = SMU_DPM_TABLE_MAX(
-> -                               &dpm_context->dpm_tables.gfx_table);
-> -
-> -                       ret = smu_v13_0_6_set_soft_freq_limited_range(
-> -                               smu, SMU_GFXCLK, min_clk, max_clk, false);
-> -
-> -                       if (ret)
-> -                               return ret;
-> -
-> -                       if (SMU_DPM_TABLE_MAX(uclk_table) !=
-> -                           pstate_table->uclk_pstate.curr.max) {
-> -                               min_clk = SMU_DPM_TABLE_MIN(&dpm_context->dpm_tables.uclk_table);
-> -                               max_clk = SMU_DPM_TABLE_MAX(&dpm_context->dpm_tables.uclk_table);
-> -                               ret = smu_v13_0_6_set_soft_freq_limited_range(smu,
-> -                                                                             SMU_UCLK, min_clk,
-> -                                                                             max_clk, false);
-> -                               if (ret)
-> -                                       return ret;
-> -                       }
-> -
-> -                       if (SMU_DPM_TABLE_MAX(fclk_table) !=
-> -                           pstate_table->fclk_pstate.curr.max) {
-> -                               max_clk = SMU_DPM_TABLE_MAX(&dpm_context->dpm_tables.fclk_table);
-> -                               min_clk = SMU_DPM_TABLE_MIN(&dpm_context->dpm_tables.fclk_table);
-> -                               ret = smu_v13_0_6_set_soft_freq_limited_range(smu,
-> -                                                                             SMU_FCLK, min_clk,
-> -                                                                             max_clk, false);
-> -                               if (ret)
-> -                                       return ret;
-> -                       }
-> -                       smu_v13_0_reset_custom_level(smu);
->                  }
-> +               smu_v13_0_6_stage_default_dpm_limits(smu);
->                  break;
->          case PP_OD_COMMIT_DPM_TABLE:
->                  if (size != 0) {
-> @@ -2318,8 +2315,10 @@ static int smu_v13_0_6_usr_edit_dpm_table(struct smu_context *smu,
->                          if (ret)
->                                  return ret;
-> 
-> -                       if (pstate_table->fclk_pstate.custom.max) {
-> -                               min_clk = pstate_table->fclk_pstate.curr.min;
-> +                       if (pstate_table->fclk_pstate.custom.max &&
-> +                           smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_FCLK_BIT)) {
-> +                               min_clk = pstate_table->fclk_pstate.custom.min ?:
-> +                                       pstate_table->fclk_pstate.curr.min;
-
-This is intentional to always enforce the min limit, there is no custom 
-min limit allowed for FCLK.
-
->                                  max_clk = pstate_table->fclk_pstate.custom.max;
->                                  ret = smu_v13_0_6_set_soft_freq_limited_range(smu,
->                                                                                SMU_FCLK, min_clk,
-> @@ -2328,10 +2327,14 @@ static int smu_v13_0_6_usr_edit_dpm_table(struct smu_context *smu,
->                                          return ret;
->                          }
-> 
-> -                       if (!pstate_table->uclk_pstate.custom.max)
-> +                       if (!pstate_table->uclk_pstate.custom.max ||
-> +                           !smu_cmn_feature_is_enabled(smu, SMU_FEATURE_DPM_UCLK_BIT) ||
-> +                           !smu_v13_0_6_cap_supported(smu,
-> +                                                            SMU_CAP(SET_UCLK_MAX)))
->                                  return 0;
-> 
-> -                       min_clk = pstate_table->uclk_pstate.curr.min;
-> +                       min_clk = pstate_table->uclk_pstate.custom.min ?:
-
-Same here, there is no custom min allowed for UCLK.
+Reset should be reset to defaults and shouldn't require extra commit. 
+This breaks existing userspace for SMU 13.0.6.
 
 Thanks,
 Lijo
 
-> +                               pstate_table->uclk_pstate.curr.min;
->                          max_clk = pstate_table->uclk_pstate.custom.max;
->                          return smu_v13_0_6_set_soft_freq_limited_range(
->                                  smu, SMU_UCLK, min_clk, max_clk, false);
+>                                                                                                                                                                                                                                                  It also permits userspace to reset a staged configuration, adjust one
+> or more settings, and submit the final configuration with one commit,
+> without temporarily applying an intermediate default configuration.
+> 
+> Link: https://gitlab.freedesktop.org/drm/amd/-/work_items/5690
+> 
+> Kevin Wang (7):
+>    drm/amd/pm: stage od reset for smu 11.0.7
+>    drm/amd/pm: stage od reset for smu 13.0.2
+>    drm/amd/pm: stage od reset for smu 13.0.0/13.0.7
+>    drm/amd/pm: stage od reset for smu 13.0.6
+>    drm/amd/pm: stage od reset for smu 14.0.2
+>    drm/amd/pm: stage od reset for smu 15.0.8
+>    drm/amd/pm: stage od reset for smu vega20
+> 
+>   .../drm/amd/pm/powerplay/hwmgr/vega20_hwmgr.c | 75 ++++++++++++++--
+>   .../amd/pm/swsmu/smu11/sienna_cichlid_ppt.c   |  2 +-
+>   .../drm/amd/pm/swsmu/smu13/aldebaran_ppt.c    | 15 +---
+>   .../drm/amd/pm/swsmu/smu13/smu_v13_0_0_ppt.c  |  2 +-
+>   .../drm/amd/pm/swsmu/smu13/smu_v13_0_6_ppt.c  | 85 ++++++++++---------
+>   .../drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c  |  2 +-
+>   .../drm/amd/pm/swsmu/smu14/smu_v14_0_2_ppt.c  |  2 +-
+>   .../drm/amd/pm/swsmu/smu15/smu_v15_0_8_ppt.c  | 50 ++++++-----
+>   8 files changed, 145 insertions(+), 88 deletions(-)
+> 
 > --
 > 2.55.0
 > 
