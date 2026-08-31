@@ -4,83 +4,121 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D28ACC61DE2
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 11:39:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A5627C61DE2
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 12:01:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3E85F10E2B3;
-	Mon, 31 Aug 2026 11:39:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1521F10E802;
+	Mon, 31 Aug 2026 12:01:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pKqj9G1a";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="IcyLG2a4";
 	dkim-atps=neutral
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
- [209.85.218.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D8DB310E2B3
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 11:39:43 +0000 (UTC)
-Received: by mail-ej1-f43.google.com with SMTP id
- a640c23a62f3a-c1c52d920b8so410329766b.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 04:39:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788176382; x=1788781182; darn=lists.freedesktop.org;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=GSaKvfCewxq1tw/MPDZ73QfEYniPUyq5xZzUvs3KI9Q=;
- b=pKqj9G1aL03V8wla/gmiaGd9fGK6O6usMVhQ7MOCLgD23/oJLM+KOGU4dC9rtKPT76
- +hoTXnYROFTjA98nVVBLEs1LlPJqa6hhYtBU1+spGiFODA3XSQJPs9lBQa2eZBvKWENv
- PKtS8v4vgKTm6pcAPg+A80sCdl6a0XEm0DCSs/KsR8BfxIJEt3palCo3zXxz/u0hmT7m
- uimG+cjZKYavnH867U53Jqtxe6G5JEeYThzKliJSwfYwClAv4OBUDdo822juKNxsZLcC
- 2VEL/nQu0svyavugZnMczN8XPm64M1zA4K81oL1NRBIL+1IQm4qvzaj0kSLwKjxgdi14
- rCuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788176382; x=1788781182;
- h=content-type:content-transfer-encoding:mime-version:references
- :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=GSaKvfCewxq1tw/MPDZ73QfEYniPUyq5xZzUvs3KI9Q=;
- b=lGCNd7lkRfgbCGQtG5NqQCIuo7xFNIkaUYYpxjVL2K+5EJkeqI/O45d8ypaYtXcifu
- 9F4pZmwTCPhh9uzRIDwD5P7LDIK0TFy7QhI9NXKTzsNX61PX1uEfrbL7GfmM0l07UV9P
- TYD0USa8baloJo4TgvkkRhZG5wBKI6R345IKcCcgJJqGbFxmGvZC9cHiKwN4K2+6XJ7Q
- xzdB61soYUStD61F//bSoMCmjQm3hnHV23YPEcLXxlTSLYrqqYN7vq+9DAQXV4O8IeWK
- XmKcikRewAqbvy9tp9zK++r+tilbO5fLgT76Cbedmf7LY/MqnSQwmLDrC8qNzXLd6n4x
- sBlw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RoyaDdC8kkDpac1l4u+qgKa7DBHJcFcBV1VUnQiuWMmRHVtaNRgfhxCkl3bYklhg0/z4o7pRBmW@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mP/qVLlmQhrW8hUGuaSRc5g86yCNbJ87DSbiHaeDpasKC6QWwB
- fGB/1b6zR+SefzQAYHj0Ae7LDgU7sG3JZLRJW7nsLT2vfKSbA1Zlw3c8
-X-Gm-Gg: AR+sD11fEq7sJNH834ykYxF0vjMynCfok9ya6oGG1hHfAGXOCs9hPxzAJpbOiwJv67B
- Fqf0yMSNPebkXjbKsq25FTxJJqH94LeW52rcQyykySpzPXSLCN0KBolQmjp3bIryg74ndlMgvn8
- 1t/c8LhIcCSOpZ4MAefNx7I4coem3JwCwfB70sJq73jnDqkvShiZElgE4e4pKTkyHl9+EnCVsp2
- tkyZwtp33Gw7S8Y8eEcN3+nYNfPYQj4wvbTOFQn6sL2Kj10K6PPxWWfQSIQegbZt6O+JC9MFh0G
- Nm8eM3rpok0c/rru2DDFYnfprUitY/tQh6jwqPhb6dZf86oiCXIOEHRgKAysCC1Trq9zLH1Iqr3
- MenoQDiP2GLbwtrOCekFMxaZzPDl6bSnvFzeDwJgOceXtCFWNcsjv4FMBAZm3qcY31i/UBHViQM
- 3JwvoyhD6hF1+mTqM0h/Mn3GoulpkXrQZfaWfr8no7OGPoyrrUwTZMhpRqLhgMvh3f5YeRPb0qM
- r3jFq0nN0uaMrfhN2Aw2QdqMSJsG+SfmIR4i6IW/8TN8FUx+O4BEiU9JSlqbxe4Y9GABfWi/sRC
-X-Received: by 2002:a17:907:9618:b0:c24:457b:86fc with SMTP id
- a640c23a62f3a-c25571d3b0dmr1534052066b.21.1788176382007; 
- Mon, 31 Aug 2026 04:39:42 -0700 (PDT)
-Received: from timur-max.localnet
- (20014C4E24D8F2005AA4D4F91F46DAE7.dsl.pool.telekom.hu.
- [2001:4c4e:24d8:f200:5aa4:d4f9:1f46:dae7])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c255ee75a36sm413076466b.28.2026.08.31.04.39.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 31 Aug 2026 04:39:41 -0700 (PDT)
-From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
-To: christian.koenig@amd.com, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org
-Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
- stable@vger.kernel.org,
- Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: skip the VMID 0 flush for VRAM
- clear-on-release
-Date: Mon, 31 Aug 2026 13:39:40 +0200
-Message-ID: <voa7PnOgTa6oSIPH4Hu9jQ@gmail.com>
-In-Reply-To: <20260828044734.135460-1-Arunpravin.PaneerSelvam@amd.com>
-References: <20260828044734.135460-1-Arunpravin.PaneerSelvam@amd.com>
-MIME-Version: 1.0
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010004.outbound.protection.outlook.com
+ [40.93.198.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 17CFA10E802
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 12:01:42 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lvCNKdN04wJk6HDCug5TGf4V8jKDyHVnqHLIoStkOunPNz1b1YcSywbTcIQo6JzAu47wYyj8hr7jlXs9EvnPDv6hKPjWuab6gyfxpVQRVHS1ZPYZ4BoSAswpLGFgUlNaxJ7GcqXIzmTeUFtGQWjLUE1iWvXmxyb5+IN9QtzB833yDblCq/K5ckoi3JgRtppSozUvDhqqTpwNV/M2WHze0/oG1apxcFk0lSo1czI/zf9zTZecE51+shvKNXQxBEFo4yebDXviNJwtV0eDTGF2uqmRvAlF/muwwb5fmNtHY0pI+TX+8gxAyy2o/NjDXeZEOI51zZdg3wHCH9WyYe2xlg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mdpZJ43OWS9bOVmsOjHKzmolbbFD7fktuYTwgmuV4Ds=;
+ b=Rw7Drbp62etadcPWk1J9wBtlZnAggefn7hAC8YlXW1+c6DnZmkOaPULWvjyosJE8pRPPA1qv4qhv178772AMmsJqn/xI5euOiYZJr7xo/CGOLlZyeGIxDbkO78M5N80fmXen/yctN4evasr+O1Jmru7/5twjGKlRTHliXYSzeagXrTpM+Nefh5d771GAbAKmxTXZes39cWimuatOIuXEIKui+P61FY453q6KXrULrkAP78xQZOFZIdpyOJux10Y/ZATd6mB/uHc6UsEyiRB18cw93xDD01YfGg1cmn6VcIBsvBuJRffgIRbB3FhqCx6zgeD4UNb0B7Nn4xdPX7zDzA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mdpZJ43OWS9bOVmsOjHKzmolbbFD7fktuYTwgmuV4Ds=;
+ b=IcyLG2a40fnQpMTE66RrwKWfh7fLtY7s8hjRc4qfn4UXY4Ne+HBJB4iLrFy3EBANfvp7J1HcQTj5idl4bcFiT81dVnHndcE4BmwqV7ph6gOjaMupBpgY0liaOeoiJLvGltrkP5ni/tC13tW4ep7vi9s6VV0Lx92MylRDVavrxD0=
+Received: from BN7PPFFF39339DD.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::6eb) by DM4PR12MB6327.namprd12.prod.outlook.com
+ (2603:10b6:8:a2::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
+ 2026 12:01:32 +0000
+Received: from BN7PPFFF39339DD.namprd12.prod.outlook.com
+ ([fe80::4c6e:70e3:2347:8cbf]) by BN7PPFFF39339DD.namprd12.prod.outlook.com
+ ([fe80::4c6e:70e3:2347:8cbf%6]) with mapi id 15.21.0360.008; Mon, 31 Aug 2026
+ 12:01:31 +0000
+From: "Zhang, Hawking" <Hawking.Zhang@amd.com>
+To: "Zhang, Horatio" <Hongkun.Zhang@amd.com>, "amd-gfx@lists.freedesktop.org"
+ <amd-gfx@lists.freedesktop.org>
+CC: "Zhang, Morris" <Shiwu.Zhang@amd.com>, "Zhang, Horatio"
+ <Hongkun.Zhang@amd.com>
+Subject: RE: [PATCH] drm/amdgpu: skip IMU microcode request for GC 12.1
+Thread-Topic: [PATCH] drm/amdgpu: skip IMU microcode request for GC 12.1
+Thread-Index: AQHdOShkS3iNAOQKlEONc6nvQn7iIba4DccA
+Date: Mon, 31 Aug 2026 12:01:31 +0000
+Message-ID: <BN7PPFFF39339DD4F2C037469B49218FD43FCA92@BN7PPFFF39339DD.namprd12.prod.outlook.com>
+References: <20260831090909.30544-1-hongkun.zhang@amd.com>
+In-Reply-To: <20260831090909.30544-1-hongkun.zhang@amd.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-08-31T11:58:33.0000000Z;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD General
+ v26; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;
+ MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN7PPFFF39339DD:EE_|DM4PR12MB6327:EE_
+x-ms-office365-filtering-correlation-id: ed40a741-a3d9-49a3-b28f-08df075798b1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|376014|23010399003|1800799024|366016|38070700021|10067099003|11063799006|56012099006|18002099003|22082099003;
+x-microsoft-antispam-message-info: fKGsIewuz2ANr44SneNyUoqvTWkWG9/20hXatYMQ3r6eARJuSp9me+AIqIK3NxkKs4OL2ItJLWSyc1PSeiKJM/mi2x18FlogpIwB0+1jzASz3r9i4jYVsP72PbuLEr0uZwlwg431NE4UQAqkhm+u/AIsTDmv83P0kDybfVKL88S8T3BvVJUYUVyL5jsoM1MS01thRbRx4Ca7ixhMixcflHlUnnqHAXLmTRRwD1utfLaSKaXJDCzeKkqzuDBwhO4KURuISDOwaC51W6chTALPpdNCAGQ+kWhG399K5cFwmioL8L6O2fgCd0qClBQ7oF2ZnDalt4duzw7FV0b1fR9cr01X/KtQPTA9WGOGBfk0KevCRBX550Lf7tVpEVYoJmCi/W8BjQ37FCR+CMdDPLRvuf/DAXJF3GEhSjW44n1PZDlgjuaIaTf71uAPeLNngGKicEgBSeTzJPKVJmyQNNYzNMOIHWrctWsqdgciW/yFJqIko9tq9nY4wvwW6qsS+LQOfud9n5bOP28XyflCWzfVavt8a7CQOVPNmot4L2ToMM68Med03QXCygqTMdbUug2nHPW3wNFF3j4z5wTy+kIVZTcJPavGkDykWi6WwmJWk3lQEnJvvJ7aIftxK/5mVxvCrthwvscGdQiC+sdxmgBWjtqnRD0qx/hAH2uyqGFXhYGbUt+rS8m/+zDrfCaHf/Drh3D37yCJW/CwQjdPgBrHcb8KXOv/k/eLZWI7fn0YYK8=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN7PPFFF39339DD.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(38070700021)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?XQQiq2m2F28r7OgsVmbFfxOjRWLfrNkQbN+Nw+Ra7KxN8Xw/z6eGu7s1Z+X1?=
+ =?us-ascii?Q?Ov9UzPNJQVf5D2/rivJ4FSNiwrrpwq6o+ylDulrWM6KL33jXndvGHi221LPG?=
+ =?us-ascii?Q?Pph35ACCEEgoAUkTEwN77y+G+Y0JYn9svVHTH2rJ16g8RNgB2tt0WKZ3VNg6?=
+ =?us-ascii?Q?lXLlcrpK11w9+8bF8RhxvB5RhsBH3ZokEAY29TglhA4NSbmKrEQ+ZpvLnpT7?=
+ =?us-ascii?Q?2mif1K9JKkKmUpiubZx13iRRhvQdqKuU5uf4hHU6zAicCGWnN7Vy5c/ybL84?=
+ =?us-ascii?Q?VHgJB2hMmIvlkeCsSQsn1SOxhh8kGUPL/eecDPS3rg5SxXYQX2yk5Opr26Wk?=
+ =?us-ascii?Q?MHIhpM6iYGoQsDgzea/kz0Qwqd1DiMVWG100iGT7L3Y7mzzFiBYHEaiPkSNj?=
+ =?us-ascii?Q?5xbKBUOg6sx8YniIE53jHg5f5YDH9uTgvxSxQeCEBua0sKgy+SCfrosFiqZy?=
+ =?us-ascii?Q?eREJYe46Yv+oD/Jr4aNWu4V7XIkwDi7A4JH4JPUFi8xxNspXHu72Bep1xcLw?=
+ =?us-ascii?Q?x+LqytcaqtouGllaJvcHn3y/b83QNGSlPIZBD5etVbQ23Csm1s8s1wCjvdZN?=
+ =?us-ascii?Q?VeOoXgalz/NR5L7aS+ROw5Zy2AoMlkZpR9WDd6gl0sS/APCGUdZ9aiwFIQ1P?=
+ =?us-ascii?Q?nC89KjUKPYDJPhwPSTsv3IbfEu5d00Yk2jR7L2gCO5GqMhPKBCoinUbIdI/9?=
+ =?us-ascii?Q?mPBSbVvjRR6DdaPMSIKLU8SmKrcXdWQkxdKSMJ7yc7TnEsMKFhkikD77MYfz?=
+ =?us-ascii?Q?ytQ3HvXJ0+WlkfVcZwdVuie0UQ7yZEo3HkVH4xvp7ZP/7LsEz0wZHsIa+xl6?=
+ =?us-ascii?Q?pRS3AM/GXTVY/irm3dTtK2MiP6PmZmJmYPN60g4qm/ghNAwt61jP+8CEsWZi?=
+ =?us-ascii?Q?3Qc081tjBAE5QTyYE6BrfyyKYVZoI42OiqK2b2OGvKDddVphgki65QRewVCQ?=
+ =?us-ascii?Q?ujlYgK1x8J7g7HTf/g4pI6JTTT6tgOA6GmfxgfJP0udmTMvnHapHDhoTT2OU?=
+ =?us-ascii?Q?qAnKN6JbMboEMv85y6vR5i/FCrxNSX3oVe1Gbwbs0plAoQypINBcv8Gvv4sj?=
+ =?us-ascii?Q?gnAcUA71s1QlXDbNCp1qBUWn0T/5+SEIXICOhJ62Sh+KZ5y2aVY7ulygxOOu?=
+ =?us-ascii?Q?yKJrGQxma2sV/xi71Z6LnmkLaqQ12P0zFWuiY5KqTceyxEpwKVfx0KplDqN/?=
+ =?us-ascii?Q?s19Ti5VRKRNar7slJiVqO5YvxPGDc4cNZZJzKkvHIa6D7UyI/bSlqR4wb/Vq?=
+ =?us-ascii?Q?i3+cPX97xExOGH5VdLsor3MjfReXmzn40Z2Q6KnY3S3K7J/tH4JXARxU9Mi0?=
+ =?us-ascii?Q?FJDhCA4dsZnaIde7ZO9Q7tXs5scXIc7Y1VO0KLc0Lmq75rdYbx03bRQ7QNHl?=
+ =?us-ascii?Q?P3Vao5ZFQR327x5GN8yRMijTA2KPdg6//vUsL5oM2a3g9RSGikTrVG0uzJyj?=
+ =?us-ascii?Q?JmOYbH7MKEiigziNOExcp0//Dl2HnPgc1d6ChRlmXee/UiZw8bHg76rWS9lu?=
+ =?us-ascii?Q?1f7pc0W+Z1MKSmQoAqWuMuNYsrRuBxsY+nZYVF28L4keoxu6qO0wrCdqOQgK?=
+ =?us-ascii?Q?m6fplvXvusN9/PLd4tccmZoPVNTORoK2jXh49GwrAsGsDfVI67Ki34lhtKFu?=
+ =?us-ascii?Q?xERsI7YZjDcPZz4pluPqD0IUQKQSJbqsg5R7iDWSUhU3ZLhUxWYwiSsgGLMe?=
+ =?us-ascii?Q?itgOIDhbaej8qo3bSJZCZj2PfvU3kwbVtPVk+/TAiJsmZ8G7?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPFFF39339DD.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed40a741-a3d9-49a3-b28f-08df075798b1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Aug 2026 12:01:31.5121 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: pE+cDXwlndSK5Jc/rRhiibLde01/tAwR8cv5zmo6IIO7jSmFibz8hkVcEof7UoA92V3UI3eudTjx8/bgJN6g1Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR12MB6327
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,85 +133,53 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 2026. augusztus 28., p=C3=A9ntek 6:47:34 k=C3=B6z=C3=A9p-eur=C3=B3pai ny=
-=C3=A1ri id=C5=91 Arunpravin=20
-Paneer Selvam wrote:
-> Clear-on-release only runs on VRAM, which amdgpu_ttm_map_buffer() reaches
-> via its direct MC address without programming a GART window, yet the wipe
-> still forces a VMID 0 flush.
+AMD General
 
-Makes sense.
-We don't need the VM flush when we are not changing the page tables.
+Feel free to remove MODULE_FIRMWARE("amdgpu/gc_12_1_0_imu.bin");
 
-I agree with the patch, just would like to ask a few questions to better=20
-understand the underlying problem:
+With that fixed, the patch is
 
-> On GFX11 (e.g. Navi33) that spurious SDMA
-> flush can wedge the engine
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 
-What is happening when the SDMA engine is wedged? Can it be recovered by an=
-=20
-SDMA queue reset? Is it just a hang, or can it cause other issues such as p=
-age=20
-faults?
+Regards,
+Hawking
 
-> only flush when a GART window is actually used.
+-----Original Message-----
+From: Horatio Zhang <hongkun.zhang@amd.com>
+Sent: Monday, August 31, 2026 5:09 PM
+To: amd-gfx@lists.freedesktop.org
+Cc: Zhang, Hawking <Hawking.Zhang@amd.com>; Zhang, Morris <Shiwu.Zhang@amd.=
+com>; Zhang, Horatio <Hongkun.Zhang@amd.com>
+Subject: [PATCH] drm/amdgpu: skip IMU microcode request for GC 12.1
 
-Does that mean that there is still a risk of the wedge when the GART window=
-s=20
-are used? Can you remind me when/why we need the GART windows exactly?
+vBIOS has the support of IMU firmware. Requesting it now fails and aborts G=
+PU init:
 
-> Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
-> Cc: stable@vger.kernel.org
-> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
-> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+  amdgpu 0001:01:00.0: early_init of IP block <gfx_v12_1> failed -19
+  amdgpu 0001:01:00.0: Fatal error during GPU init
 
-Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+Signed-off-by: Horatio Zhang <hongkun.zhang@amd.com>
+---
+ drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Thanks and best regards,
-Timur
+diff --git a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c b/drivers/gpu/drm/amd/a=
+mdgpu/gfx_v12_1.c
+index 82ac39239d78..db06360873eb 100644
+--- a/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
++++ b/drivers/gpu/drm/amd/amdgpu/gfx_v12_1.c
+@@ -581,7 +581,8 @@ static int gfx_v12_1_init_microcode(struct amdgpu_devic=
+e *adev)
+        adev->gfx.mec2_fw =3D NULL;
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c index
-> 6c07cee8e8777..2e6c98c2f1efa 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-> @@ -2578,6 +2578,7 @@ int amdgpu_ttm_clear_buffer(struct
-> amdgpu_ttm_buffer_entity *entity, struct amdgpu_device *adev =3D
-> amdgpu_ttm_adev(bo->tbo.bdev);
->  	struct dma_fence *fence =3D NULL;
->  	struct amdgpu_res_cursor dst;
-> +	bool vm_needs_flush;
->  	int r;
->=20
->  	if (!entity)
-> @@ -2585,6 +2586,8 @@ int amdgpu_ttm_clear_buffer(struct
-> amdgpu_ttm_buffer_entity *entity,
->=20
->  	amdgpu_res_first(bo->tbo.resource, 0, amdgpu_bo_size(bo), &dst);
->=20
-> +	vm_needs_flush =3D bo->tbo.resource->start =3D=3D=20
-AMDGPU_BO_INVALID_OFFSET;
-> +
->  	mutex_lock(&entity->lock);
->  	while (dst.remaining) {
->  		struct dma_fence *next;
-> @@ -2605,7 +2608,7 @@ int amdgpu_ttm_clear_buffer(struct
-> amdgpu_ttm_buffer_entity *entity,
->=20
->  		r =3D amdgpu_ttm_fill_mem(adev, entity,
->  					0, to, cur_size, resv,
-> -					&next, true,=20
-k_job_id);
-> +					&next, vm_needs_flush,=20
-k_job_id);
->  		if (r)
->  			goto error;
-
-
-
+        if (adev->gfx.imu.funcs) {
+-               if (adev->gfx.imu.funcs->init_microcode) {
++               if (adev->gfx.imu.funcs->init_microcode &&
++                   adev->firmware.load_type !=3D AMDGPU_FW_LOAD_PSP) {
+                        err =3D adev->gfx.imu.funcs->init_microcode(adev);
+                        if (err)
+                                dev_err(adev->dev, "Failed to load imu firm=
+ware!\n");
+--
+2.43.0
 
