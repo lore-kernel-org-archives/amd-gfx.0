@@ -4,44 +4,45 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9F9C8C624A4
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:34:16 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id C941FC624A4
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:35:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1A6F010E843;
-	Mon, 31 Aug 2026 13:34:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 235A310E84D;
+	Mon, 31 Aug 2026 13:35:04 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ooD4djly";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="ZIiwXdfn";
 	dkim-atps=neutral
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9047B10E83D;
- Mon, 31 Aug 2026 13:34:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5C77210E84D;
+ Mon, 31 Aug 2026 13:35:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2C0BD4179B;
- Mon, 31 Aug 2026 13:34:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0EFD1F00ACA;
- Mon, 31 Aug 2026 13:34:12 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 41F7B43CA3;
+ Mon, 31 Aug 2026 13:35:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4754D1F00A3F;
+ Mon, 31 Aug 2026 13:35:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183254;
- bh=/Q79X5Xn+tg1UZxAIgYhgAna65OpGpoajZyd4LCaADw=;
+ s=k20260515; t=1788183302;
+ bh=+rzxmqvMLiTzDYyaBHgsvbWHJ8M1I8wwtkBuvaPp0EA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=ooD4djlyqAt3nWkmqMgPM8/He6nbwvRxTQU0Kg1273mJ2IFfO26pa4h74ESML1v+I
- OtpBVb1leIQHgGlcbFJMpQdzyT0MmfLvpnXN05Zk8X9vCfb41eDmp4rI4XieyHvh3C
- F29fVMEPNqJGL4FRBXFYrsCGDLtz7KUxS72wnVN5HTHwqlL8V1roSDDpvHXcybYlvi
- F5HJexi8RDTBBbENo/DmRrcIYmxeHnQuQlFUxOgfADtzcwW+Khf0nB0DtTKksypwzl
- 6vIojdr2zIlcJ+xJCHLum/+ED34l+SBznclQSWcjV7O/edPCSE/DjZ246T+6oi+CoE
- aRU+vkDFVSzig==
+ b=ZIiwXdfnJ3FQlD0c+xAVLwF3PThDPtTBlU+2MDAcppTUMJP+t+by+tS26cZGSCRGM
+ g/fi6GySKPS8Jynb+yfc8W5WM0p6ODlA5o/AXVz44Z1l+Cgj1IWOR9akKdb/KxU5w8
+ y9mbj6V+SWvITjUrR0OW8TLP0I88RppUt5h0xIrssAAw2Rc/DsYn0DYSkNA+oGhA64
+ 1nNIMjYf/drR2t40bSj4vUNaRvKdCcd9DO91SNE0K+EIr28OSxosbM/UPqECelVsOC
+ sz4j4dGsfh+VtfJgaocGlXbdt74xXHAxp2PwCwZKK6kUEE+XRzZ7Ypous1B8RjAotW
+ vOEq6X2R3FuXQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Candice Li <candice.li@amd.com>, Tao Zhou <tao.zhou1@amd.com>,
+Cc: Samson Tam <Samson.Tam@amd.com>, Charlene Liu <charlene.liu@amd.com>,
+ Ray Wu <ray.wu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch,
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] drm/amdgpu: validate and share PSP
- fw_pri_buf copies via psp_copy_fw
-Date: Mon, 31 Aug 2026 09:21:06 -0400
-Message-ID: <20260831133314.4125787-38-sashal@kernel.org>
+ harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
+ airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH AUTOSEL 6.18-6.12] drm/amd/display: Check for sharpening case
+ when calculating max vtaps for scaler
+Date: Mon, 31 Aug 2026 09:21:35 -0400
+Message-ID: <20260831133314.4125787-67-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -65,618 +66,347 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Candice Li <candice.li@amd.com>
+From: Samson Tam <Samson.Tam@amd.com>
 
-[ Upstream commit d1f9f5839bd785a3a06335a01d53282e80f8e5fa ]
+[ Upstream commit 4d8cfd570386eb0b6cb8aa0ca9e9db60a0404337 ]
 
-Change psp_copy_fw from void to int: return -ENODEV when drm_dev_enter
-fails, and -EINVAL when the image size is zero or larger than the
-1 MiB PSP private buffer.
+[Why & How]
+- calc_lb_num_partitions has check when scaler is not enabled to use
+ larger LB in calculations for max vtaps based on viewport being 1:1
+- however, scaler is forced on when sharpening is enabled, so need
+ to consider this in check
+- taps is predetermined in spl_get_optimal_number_of_taps prior to
+ calc_lb_num_partitions.  Add check for taps not 1 to handle
+ sharpening case
 
-Replace open-coded memset/memcpy into fw_pri_buf with psp_copy_fw.
-
-Signed-off-by: Candice Li <candice.li@amd.com>
-Reviewed-by: Tao Zhou <tao.zhou1@amd.com>
+Reviewed-by: Charlene Liu <charlene.liu@amd.com>
+Signed-off-by: Samson Tam <Samson.Tam@amd.com>
+Signed-off-by: Ray Wu <ray.wu@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/amdgpu: validate and share PSP
-fw_pri_buf copies via psp_copy_fw`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** `v6.18.44` (`stable/linux-6.18.y`)
-**Upstream commit:** `d1f9f5839bd78` (not yet in this tree)
+**Step 1.1 — Subject line**
+Record: `[drm/amd/display]` `[Check]` — verify sharpening when computing
+max vertical taps for the DCN401 scaler line-buffer partition
+calculation.
 
----
+**Step 1.2 — Tags**
+Record:
+- `Reviewed-by: Charlene Liu <charlene.liu@amd.com>`
+- `Signed-off-by: Samson Tam <Samson.Tam@amd.com>`
+- `Signed-off-by: Ray Wu <ray.wu@amd.com>`
+- `Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>`
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>`
+- No `Fixes:`, `Reported-by:`, `Link:`, or `Cc: stable@vger.kernel.org`
+  (expected for manual review)
+- Notable: AMD internal review + `Tested-by` from AMD QA; no syzbot or
+  public bug report
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+**Step 1.3 — Body analysis**
+Record:
+- **Bug:** `dscl401_spl_calc_lb_num_partitions()` treats a 1:1 viewport
+  as “scaler disabled” and uses an inflated line-buffer (LB) size for
+  max-vtap math, but sharpening forces the scaler on at 1:1.
+- **Symptom:** Overestimated max vertical taps → scaler programmed
+  beyond real LB capacity → display corruption/underflow risk on DCN401
+  with sharpening at native resolution.
+- **Root cause:** `spl_get_optimal_number_of_taps()` sets `taps > 1`
+  before calling `spl_calc_lb_num_partitions()`, but the LB-size branch
+  only checked viewport 1:1, not taps.
+- **Version info:** None in the message.
 
-### Step 1.1: Subject Line
-**Record:** `[drm/amdgpu]` `[validate]` — Add size validation and error
-propagation to `psp_copy_fw`, consolidating open-coded `fw_pri_buf`
-copies.
-
-### Step 1.2: Tags
-**Record:**
-- `Signed-off-by: Candice Li <candice.li@amd.com>` (author)
-- `Reviewed-by: Tao Zhou <tao.zhou1@amd.com>`
-- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (subsystem
-  maintainer)
-- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`,
-  `Tested-by:`
-
-Notable: AMD maintainer review and merge; no fuzzer or user bug report.
-
-### Step 1.3: Body Analysis
-**Record:**
-- **Bug:** `psp_copy_fw()` silently returns on `drm_dev_enter()`
-  failure; `memcpy()` into `fw_pri_buf` has no bounds check against the
-  1 MiB (`PSP_1_MEG`) buffer.
-- **Symptom:** Callers proceed as if the copy succeeded — PSP commands
-  may run with stale/empty buffer data, or a heap buffer overflow occurs
-  if `bin_size > PSP_1_MEG`.
-- **Root cause:** `psp_copy_fw` was `void` with no size validation;
-  several PSP version files duplicated `memset`/`memcpy` without checks.
-- **Fix:** Return `-ENODEV` / `-EINVAL`; propagate errors to all
-  callers; route all copies through `psp_copy_fw`.
-
-### Step 1.4: Hidden Bug Fix?
-**Record:** Yes. Despite "validate and share" wording, this is a real
-memory-safety and error-handling bug fix, not cosmetic cleanup.
+**Step 1.4 — Hidden bug fix?**
+Record: Yes. Despite no “fix” in the subject, this is a hardware-
+programming correctness bug in the display scaler path, not a cleanup.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory
-**Record:**
-- 8 files: `amdgpu_psp.c` (+32/-7 net), `amdgpu_psp.h` (+1/-1),
-  `psp_v3_1.c`, `psp_v11_0.c`, `psp_v12_0.c`, `psp_v13_0.c`,
-  `psp_v13_0_4.c`, `psp_v14_0.c`
-- Total: +62 / -38 lines
-- Functions: `psp_copy_fw`, `psp_load_toc`, `psp_rl_load`,
-  `psp_ta_load`, plus bootloader load helpers in PSP version files
-- **Scope:** Multi-file but mechanical; single-subsystem surgical fix
+**Step 2.1 — Inventory**
+Record:
+- 1 file: `drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c` (+6 /
+  −2)
+- Function: `dscl401_spl_calc_lb_num_partitions()`
+- Scope: single-file, surgical (two conditionals in two `lb_config`
+  branches)
 
-### Step 2.2: Code Flow Changes
-**Record:**
-| Hunk | Before | After |
-|------|--------|-------|
-| `psp_copy_fw` | `void`; silent return on `drm_dev_enter` fail;
-unchecked `memcpy` | `int`; returns `-ENODEV`/`-EINVAL`; validates `0 <
-bin_size <= PSP_1_MEG` |
-| `psp_load_toc`, `psp_rl_load`, `psp_ta_load` | Ignored `psp_copy_fw`
-result | Check return; release cmd buf and abort on error |
-| `psp_v11_0`–`psp_v14_0` bootloader paths | Open-coded
-`memset`/`memcpy` or ignored `psp_copy_fw` return | Use `psp_copy_fw`
-with error propagation |
+**Step 2.2 — Code flow change**
+Record:
+- **Before:** `viewport.width == h_active && viewport.height ==
+  v_active` → use enlarged LB constants (e.g. `970+1290+1170` vs
+  `970+1290+484`).
+- **After:** Same enlarged LB only when viewport is 1:1 **and** `h_taps
+  == 1 && v_taps == 1` (scaler truly off).
+- **Path:** `spl_get_optimal_number_of_taps()` →
+  `spl_calc_lb_num_partitions()` →
+  `dscl401_spl_calc_lb_num_partitions()` during mode/plane setup on
+  DCN401.
 
-### Step 2.3: Bug Mechanism
-**Record:**
-- **Category:** Memory safety (buffer overflow) + logic bug (ignored
-  error path)
-- **Mechanism:** `fw_pri_buf` is allocated at exactly `PSP_1_MEG`
-  (verified at `amdgpu_psp.c:508`). `is_psp_fw_valid()` only checks
-  `size_bytes != 0` (`amdgpu_psp.c:4179-4181`). `memcpy(psp->fw_pri_buf,
-  start_addr, bin_size)` with `bin_size > PSP_1_MEG` overflows the 1 MiB
-  kernel buffer. On `drm_dev_enter` failure, callers previously
-  submitted PSP commands believing the copy succeeded.
+**Step 2.3 — Bug mechanism**
+Record: **Logic / hardware correctness fix.**
+When sharpening is enabled at 1:1, taps are already 6 (EASF path) before
+LB calculation, but the old code still assumed scaler-off and inflated
+LB size by ~25% (RGB) or ~55% (YUV420), inflating `num_part_y` and
+`max_taps_y`.
 
-### Step 2.4: Fix Quality
-**Record:** Obviously correct. Mirrors existing TA validation
-(`ta_bin_len > PSP_1_MEG` in `amdgpu_psp_ta.c:169`). Minimal regression
-risk; error paths properly release acquired resources.
+**Step 2.4 — Fix quality**
+Record: Obviously correct and minimal. Uses taps already set before the
+LB call as the scaler-enabled indicator. Low regression risk; only
+narrows the enlarged-LB fast path.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
-### Step 3.1: Blame
-**Record:** `psp_copy_fw` introduced in `f89f8c6bafd06` (May 2021,
-"Guard against write accesses after device removal"). `drm_dev_enter`
-guard added then; silent `return` on failure is the latent bug. Code
-present in 6.18.44.
+**Step 3.1 — Blame**
+Record: Buggy viewport-only check introduced in `70839da636050` (“Add
+new DCN401 sources”, 2024-04-26). Present in v6.18.44.
 
-### Step 3.2: Fixes Tag
-**Record:** N/A — no `Fixes:` tag.
+**Step 3.2 — Fixes: tag**
+Record: N/A — no `Fixes:` tag.
 
-### Step 3.3: Related File History
-**Record:** Related prior fix `c99769bceab4e` ("Validate TA binary
-size", 2023) is already in 6.18.44 — validates userspace TA loads
-against `PSP_1_MEG`. This commit extends the same constraint to kernel
-firmware copy paths. Standalone; not part of a multi-patch series.
+**Step 3.3 — Related file history**
+Record: DCN401 added in `70839da636050`; ISHARP for DCN401 in
+`2998bccfa4197` (2024-05-29). Related DCN401 corruption fix:
+`5d74be8c3a941` (YUV color corruption). Standalone one-commit fix.
 
-### Step 3.4: Author Context
-**Record:** Candice Li is an active AMD amdgpu contributor. Alex Deucher
-(maintainer) committed the merge.
+**Step 3.4 — Author context**
+Record: Samson Tam is an active AMD display contributor; same author as
+`5d74be8c3a941`.
 
-### Step 3.5: Dependencies
-**Record:** No prerequisites. All touched files and `psp_copy_fw` exist
-in 6.18.44. Cherry-pick test: applies cleanly (exit 0).
+**Step 3.5 — Dependencies**
+Record: None. Only needs `scl_data->taps` fields already used in this
+tree. `git apply --check` on mainline commit `4d8cfd570386e` succeeds
+cleanly.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
-### Step 4.1: Patch Discussion
-**Record:** `b4 dig -c d1f9f5839bd78` — no lore match found. Patch
-likely merged via GitLab/Freedesktop rather than public lore thread.
+**Step 4.1 — Original discussion**
+Record: `b4 dig -c 4d8cfd570386e` found no lore.kernel.org match (likely
+direct AMD/DRM tree path). lore.kernel.org search blocked by Anubis.
 
-### Step 4.2: Reviewers
-**Record:** `b4 dig -w` not run (no lore match). Commit message confirms
-`Reviewed-by: Tao Zhou` and `Signed-off-by: Alex Deucher`.
+**Step 4.2 — Reviewers**
+Record: `b4 dig -w` also found nothing. Commit has `Reviewed-by`
+(Charlene Liu), `Tested-by` (Daniel Wheeler), and Alex Deucher as
+committer.
 
-### Step 4.3: Bug Report
-**Record:** N/A — no `Reported-by:` or `Link:` tags. No syzbot report.
+**Step 4.3 — Bug report**
+Record: N/A — no `Reported-by:` or `Link:` tags.
 
-### Step 4.4: Related Patches
-**Record:** `c99769bceab4e` (TA size validation) is the directly related
-prior fix, already in this tree.
+**Step 4.4 — Series context**
+Record: Standalone; not part of a multi-patch series.
 
-### Step 4.5: Stable List History
-**Record:** lore.kernel.org search blocked (Anubis bot protection). No
-stable-list discussion found.
-
----
-
-## PHASE 5: CODE SEMANTIC ANALYSIS
-
-### Step 5.1: Key Functions
-**Record:** `psp_copy_fw`, `psp_load_toc`, `psp_rl_load`, `psp_ta_load`,
-`psp_v*_bootloader_load_*`
-
-### Step 5.2: Callers
-**Record:** `psp_copy_fw` called from PSP init/bootloader paths
-(`psp_v3_1`, `psp_v11_0`, `psp_v12_0`, `psp_v13_0`, `psp_v13_0_4`,
-`psp_v14_0`) and from `psp_load_toc`, `psp_ta_load` during GPU
-probe/initialization. All AMD GPU users with PSP enabled hit these paths
-at driver load.
-
-### Step 5.3: Callees
-**Record:** `drm_dev_enter/exit`, `memset`, `memcpy`, `dev_err` —
-operates on `psp->fw_pri_buf` (1 MiB BO-mapped buffer).
-
-### Step 5.4: Reachability
-**Record:** Triggered during GPU probe/init (every boot with amdgpu).
-Not a direct syscall path, but universal for amdgpu hardware. Overflow
-requires `size_bytes > PSP_1_MEG` from firmware header parsing;
-`drm_dev_enter` failure occurs during device teardown concurrent with
-PSP operations.
-
-### Step 5.5: Similar Patterns
-**Record:** Userspace TA path already validates `ta_bin_len > PSP_1_MEG`
-(`amdgpu_psp_ta.c:169`). Kernel paths in `psp_v13_0.c`, `psp_v14_0.c`,
-`psp_v13_0_4.c`, and `psp_rl_load` still use unchecked `memcpy` —
-exactly what this fix addresses.
+**Step 4.5 — Stable list history**
+Record: Not searched successfully on lore (bot protection). No evidence
+of prior stable rejection.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
+## Phase 5: Code Semantic Analysis
 
-### Step 6.1: Buggy Code Present?
-**Record:** Yes. In 6.18.44, `psp_copy_fw` is still `void` with
-unchecked `memcpy` (`amdgpu_psp.c:4157-4168`). Open-coded unchecked
-copies exist in `psp_v13_0.c:268-271`, `psp_v14_0.c:143-146`,
-`psp_v13_0_4.c`, and `psp_rl_load` (`amdgpu_psp.c:1162-1163`). Bug
-present since 2021.
+**Step 5.1 — Key functions**
+Record: `dscl401_spl_calc_lb_num_partitions()`, called via SPL callbacks
+from `spl_get_optimal_number_of_taps()`.
 
-### Step 6.2: Backport Complications
-**Record:** Clean apply confirmed via test cherry-pick. No conflicts
-expected.
+**Step 5.2 — Callers**
+Record:
+- `spl_get_optimal_number_of_taps()` (dc_spl.c:1033)
+- `spl_calculate_number_of_taps()` → `spl_calculate_scaler_params()` —
+  display mode/plane configuration on DCN401
 
-### Step 6.3: Related Fixes Already Present?
-**Record:** TA userspace validation (`c99769bceab4e`) is in tree. The
-kernel-path validation this commit adds is not.
+**Step 5.3 — Callees**
+Record: Arithmetic on LB memory constants; sets `num_part_y` /
+`num_part_c` used to derive `max_taps_y` / `max_taps_c`.
 
----
+**Step 5.4 — Reachability**
+Record: Reachable on normal display use when DCN401 + adaptive
+sharpening (ISHARP) at 1:1 scaling. Userspace can enable sharpening via
+amdgpu display stack; not an obscure debug-only path.
 
-## PHASE 7: SUBSYSTEM CONTEXT
-
-### Step 7.1: Subsystem
-**Record:** `drivers/gpu/drm/amd/amdgpu` — GPU driver (IMPORTANT).
-Affects all AMD GPU users with PSP firmware loading.
-
-### Step 7.2: Activity
-**Record:** Actively maintained; PSP v13/v14 support added in recent
-6.18 development.
+**Step 5.5 — Similar patterns**
+Record: `dscl32_spl_calc_lb_num_partitions()` has the same viewport-only
+check without taps check, but this commit targets DCN401 only.
+`dscl401_calc_lb_num_partitions()` (non-SPL) unchanged; SPL path is the
+sharpening path (`use_spl`).
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## Phase 6: Cross-Reference Against Local Tree (v6.18.44)
 
-### Step 8.1: Who Is Affected
-**Record:** All amdgpu users during GPU initialization (driver-specific,
-but broad within AMD GPU deployments).
+**Step 6.1 — Buggy code present?**
+Record: **Yes.**
+`drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c` lines 391–406
+lack the taps check. Fix commit `4d8cfd570386e` is **not** in this tree
+(`git merge-base --is-ancestor` fails).
 
-### Step 8.2: Trigger Conditions
-**Record:**
-- **Overflow:** Corrupt/malformed firmware header with `size_bytes >
-  0x100000`, or internal bug setting oversized `size_bytes`.
-  Unprivileged users cannot directly trigger kernel firmware path;
-  requires bad firmware on disk.
-- **drm_dev_enter failure:** Device removal/teardown racing with PSP
-  firmware load (uncommon but realistic).
+**Step 6.2 — Backport complications**
+Record: Clean apply verified (`git show 4d8cfd570386e | git apply
+--check`). No conflicts expected.
 
-### Step 8.3: Failure Mode Severity
-**Record:**
-- Buffer overflow → heap corruption, kernel oops/panic — **CRITICAL**
-- Silent copy failure → PSP commands with stale data, init failure or
-  hardware hang — **HIGH**
-
-### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit:** HIGH — closes a real overflow window; consistent with
-  existing TA validation; proper error propagation
-- **Risk:** LOW — small, mechanical, reviewed by AMD maintainer, applies
-  cleanly
-- **Ratio:** Strongly favors backport
+**Step 6.3 — Related fixes already present?**
+Record: No equivalent taps check. DCN401 and ISHARP support are both
+present.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 7: Subsystem and Maintainer Context
 
-### Step 9.1: Evidence Summary
+**Step 7.1 — Subsystem**
+Record: `drivers/gpu/drm/amd/display` — AMDGPU display (DCN401 DPP
+scaler). Criticality: **IMPORTANT** (display output for DCN401 hardware
+users).
 
-**FOR:**
-- Fixes potential heap buffer overflow (memory safety)
-- Fixes silent error on `drm_dev_enter` failure
-- Extends validation already applied to userspace TA path
-  (`c99769bceab4e`, in tree)
-- Small (+62/-38), obviously correct, AMD-reviewed
-- Applies cleanly to 6.18.44
-- All affected code exists in this tree
+**Step 7.2 — Activity**
+Record: Actively maintained; multiple DCN401 fixes in this tree (NULL
+deref, color corruption, signal checks).
 
-**AGAINST:**
-- No user report, syzbot, or CVE
-- Normal AMD firmware sizes are well under 1 MiB; overflow requires
-  corrupt firmware or parsing bug
-- Primarily defense-in-depth on init path
+---
 
-**UNRESOLVED:**
-- No public lore discussion found
-- No production crash report documented
+## Phase 8: Impact and Risk Assessment
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — simple bounds check; AMD
-   internal review
-2. Fixes a real bug? **PASS** — unchecked `memcpy` into fixed 1 MiB
-   buffer
-3. Important issue? **PASS** — buffer overflow (CRITICAL class)
-4. Small and contained? **PASS** — 8 files, ~100 lines, single subsystem
-5. No new features/APIs? **PASS** — validation and error propagation
-   only
-6. Can apply to local tree? **PASS** — clean cherry-pick confirmed
+**Step 8.1 — Who is affected**
+Record: Users of DCN401-based AMD GPUs (discrete/APU) on 6.18.y with
+adaptive sharpening at native (1:1) resolution. Driver-specific, not
+universal.
 
-### Step 9.3: Exception Category
-**Record:** None of the automatic exception categories apply; this is a
-standard memory-safety bug fix.
+**Step 8.2 — Trigger conditions**
+Record: DCN401 + sharpening enabled + 1:1 viewport. Common for desktop
+use at native panel resolution with sharpening on. Unprivileged users
+can trigger via normal display configuration.
 
-### Step 9.4: Decision Rationale
+**Step 8.3 — Failure mode severity**
+Record: Incorrect max-vtap calculation → scaler programmed beyond LB
+capacity → **display corruption / underflow** (MEDIUM–HIGH for affected
+hardware; not a kernel oops, but user-visible and similar to accepted
+DCN401 corruption fixes).
 
-This commit closes a genuine memory-safety hole: `fw_pri_buf` is exactly
-1 MiB, but multiple kernel firmware copy paths perform unchecked
-`memcpy` based on `size_bytes` from firmware headers, with
-`is_psp_fw_valid()` only rejecting zero size. The driver already
-validates the same 1 MiB limit for userspace-loaded TA binaries — this
-brings kernel paths to the same standard. The `drm_dev_enter` error
-propagation fix prevents PSP command submission after a failed copy
-during device teardown.
+**Step 8.4 — Risk/benefit**
+Record:
+- **Benefit:** MEDIUM–HIGH for DCN401 + sharpening users
+- **Risk:** VERY LOW (8-line logic fix, tested, reviewed)
+- **Ratio:** Favorable for backport
 
-While no crash has been reported, buffer overflow fixes are explicitly
-stable-worthy, the change is small and low-risk, and it applies cleanly
-to 6.18.44.
+---
+
+## Phase 9: Final Synthesis
+
+**Step 9.1 — Evidence**
+
+*For backport:*
+- Real bug in v6.18.44 DCN401 SPL scaler LB calculation
+- Causes overestimated max vtaps when sharpening forces scaler at 1:1
+- Small, reviewed, tested, applies cleanly
+- Precedent: `5d74be8c3a941` (DCN401 display corruption) is already in
+  this tree
+- DCN401 + ISHARP both present since 2024
+
+*Against backport:*
+- No public bug report or syzbot finding
+- Narrow hardware/feature scope (DCN401 + sharpening at 1:1)
+- Display corruption, not documented kernel crash
+- No lore discussion found
+
+*Unresolved:*
+- No public user reports found
+- Exact visual failure modes not documented in the commit message
+
+**Step 9.2 — Stable rules checklist**
+1. Obviously correct and tested? **PASS** — logic matches commit
+   explanation; `Tested-by` + `Reviewed-by`
+2. Fixes a real user-affecting bug? **PASS** — incorrect HW scaler
+   config on reachable path
+3. Important issue? **PASS** — display corruption on affected hardware
+   (same class as prior DCN401 stable fix)
+4. Small and contained? **PASS** — 8 lines, one function, one file
+5. No new features/APIs? **PASS** — correctness fix only
+6. Can apply to local tree? **PASS** — verified clean apply
+
+**Step 9.3 — Exception category**
+Record: Hardware workaround / driver correctness fix for existing DCN401
+hardware support (not a new device ID).
+
+**Step 9.4 — Decision rationale**
+For **linux-6.18.y (v6.18.44)**: the buggy code exists, prerequisites
+(DCN401, ISHARP, SPL) are present, the fix is minimal and low-risk, and
+it prevents display corruption on a real use case (sharpening at native
+resolution). This matches the class of AMDGPU display corruption fixes
+already carried in this stable tree.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed commit `d1f9f5839bd78` message and tags from `git
+- [Phase 1] Parsed commit `4d8cfd570386e` message and tags from `git
   show`
-- [Phase 2] Analyzed full diff; confirmed `PSP_1_MEG = 0x100000` in
-  `amdgpu_psp.h:37`
-- [Phase 2] Verified `fw_pri_buf` allocated at `PSP_1_MEG`
-  (`amdgpu_psp.c:508-513`)
-- [Phase 2] Verified `is_psp_fw_valid()` only checks non-zero
-  (`amdgpu_psp.c:4179-4181`)
-- [Phase 2] Found unchecked `memcpy` in `psp_v13_0.c:271`,
-  `psp_v14_0.c:146`, `psp_rl_load` (`amdgpu_psp.c:1162-1163`)
-- [Phase 3] `git blame`: `psp_copy_fw` from `f89f8c6bafd06` (May 2021)
-- [Phase 3] Related fix `c99769bceab4e` confirmed in tree via `git
-  merge-base --is-ancestor`
-- [Phase 3] Cherry-pick test: `git cherry-pick --no-commit
-  d1f9f5839bd78` — clean apply (exit 0)
-- [Phase 4] `b4 dig -c d1f9f5839bd78` — no lore match
-- [Phase 4] lore.kernel.org fetch — blocked by Anubis
-- [Phase 5] `grep psp_copy_fw`: 14 call sites across 7 files in tree
-- [Phase 5] TA validation at `amdgpu_psp_ta.c:169` confirmed
-- [Phase 6] `git describe HEAD` → `v6.18.44`
-- [Phase 6] Buggy `void psp_copy_fw` confirmed present at
-  `amdgpu_psp.c:4157`
-- [Phase 6] Commit not in tree: present on `origin/master`, absent from
-  `stable/linux-6.18.y`
-- [Phase 8] Failure modes assessed from code flow analysis
+- [Phase 2] Read diff and current `dcn401_dpp.c` lines 357–428;
+  confirmed missing taps check
+- [Phase 2] Traced `spl_get_optimal_number_of_taps()` at
+  dc_spl.c:1006–1034 — taps set before LB calc
+- [Phase 2] Read sharpening logic at dc_spl.c:1121–1140 and
+  dml21_translation_helper.c:558–563
+- [Phase 3] `git blame` lines 390–416 → `70839da636050` (2024-04-26)
+- [Phase 3] `git log -S "use increased LB size..."` → introduced with
+  DCN401
+- [Phase 3] `2998bccfa4197` ISHARP support confirmed ancestor of HEAD
+- [Phase 3] `git show 4d8cfd570386e | git apply --check` → clean apply
+- [Phase 4] `b4 dig -c 4d8cfd570386e` → no lore match
+- [Phase 4] `b4 dig -c 4d8cfd570386e -w` and `-a` → no results
+- [Phase 4] lore.kernel.org WebFetch → blocked by Anubis
+- [Phase 5] Grep callers: `spl_get_optimal_number_of_taps` →
+  `spl_calculate_number_of_taps` → display setup
+- [Phase 6] `git describe HEAD` → v6.18.44
+- [Phase 6] `git merge-base --is-ancestor 4d8cfd570386e HEAD` → fix NOT
+  in tree
+- [Phase 6] Buggy viewport-only conditions confirmed at lines 391–392
+  and 405–406
+- [Phase 7] `git log --grep=dcn401` shows active DCN401 maintenance
+  including `5d74be8c3a941`
+- [Phase 8] Quantified LB overestimate: 3430 vs 2744 (RGB), 5770 vs 3712
+  (YUV420)
 
-**YES**The background `git log` search for `psp_copy_fw` and "validate
-and share PSP fw_pri_buf" finished with no matches in this tree —
-expected, since `d1f9f5839bd78` is on mainline but not in `v6.18.44`
-yet.
+**YES**
 
-That lines up with the earlier analysis: the unchecked `memcpy` paths
-are still present here, and the fix applies cleanly. Verdict remains
-**YES** for backport.
+ drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c  | 32 ++++++++++++++++++------
- drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h  |  2 +-
- drivers/gpu/drm/amd/amdgpu/psp_v11_0.c   |  8 ++++--
- drivers/gpu/drm/amd/amdgpu/psp_v12_0.c   |  8 ++++--
- drivers/gpu/drm/amd/amdgpu/psp_v13_0.c   | 14 +++++------
- drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c | 14 +++++------
- drivers/gpu/drm/amd/amdgpu/psp_v14_0.c   | 14 +++++------
- drivers/gpu/drm/amd/amdgpu/psp_v3_1.c    |  8 ++++--
- 8 files changed, 62 insertions(+), 38 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-index 5f7aa840b2151..9f3581ce492f3 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.c
-@@ -832,7 +832,11 @@ static int psp_load_toc(struct psp_context *psp,
- 	struct psp_gfx_cmd_resp *cmd = acquire_psp_cmd_buf(psp);
- 
- 	/* Copy toc to psp firmware private buffer */
--	psp_copy_fw(psp, psp->toc.start_addr, psp->toc.size_bytes);
-+	ret = psp_copy_fw(psp, psp->toc.start_addr, psp->toc.size_bytes);
-+	if (ret) {
-+		release_psp_cmd_buf(psp);
-+		return ret;
-+	}
- 
- 	psp_prep_load_toc_cmd_buf(cmd, psp->fw_pri_mc_addr, psp->toc.size_bytes);
- 
-@@ -1159,8 +1163,11 @@ static int psp_rl_load(struct amdgpu_device *adev)
- 
- 	cmd = acquire_psp_cmd_buf(psp);
- 
--	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
--	memcpy(psp->fw_pri_buf, psp->rl.start_addr, psp->rl.size_bytes);
-+	ret = psp_copy_fw(psp, psp->rl.start_addr, psp->rl.size_bytes);
-+	if (ret) {
-+		release_psp_cmd_buf(psp);
-+		return ret;
-+	}
- 
- 	cmd->cmd_id = GFX_CMD_ID_LOAD_IP_FW;
- 	cmd->cmd.cmd_load_ip_fw.fw_phy_addr_lo = lower_32_bits(psp->fw_pri_mc_addr);
-@@ -1383,8 +1390,12 @@ int psp_ta_load(struct psp_context *psp, struct ta_context *context)
- 
- 	cmd = acquire_psp_cmd_buf(psp);
- 
--	psp_copy_fw(psp, context->bin_desc.start_addr,
--		    context->bin_desc.size_bytes);
-+	ret = psp_copy_fw(psp, context->bin_desc.start_addr,
-+			  context->bin_desc.size_bytes);
-+	if (ret) {
-+		release_psp_cmd_buf(psp);
-+		return ret;
-+	}
- 
- 	if (amdgpu_virt_xgmi_migrate_enabled(psp->adev) &&
- 		context->mem_context.shared_bo)
-@@ -4154,17 +4165,24 @@ static ssize_t psp_usbc_pd_fw_sysfs_write(struct device *dev,
- 	return count;
- }
- 
--void psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size)
-+int psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size)
- {
- 	int idx;
- 
- 	if (!drm_dev_enter(adev_to_drm(psp->adev), &idx))
--		return;
-+		return -ENODEV;
-+
-+	if (!bin_size || bin_size > PSP_1_MEG) {
-+		dev_err(psp->adev->dev, "PSP firmware is invalid\n");
-+		drm_dev_exit(idx);
-+		return -EINVAL;
-+	}
- 
- 	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
- 	memcpy(psp->fw_pri_buf, start_addr, bin_size);
- 
- 	drm_dev_exit(idx);
-+	return 0;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-index 237b624aa51ca..c3a5940e311aa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_psp.h
-@@ -605,7 +605,7 @@ int psp_get_fw_attestation_records_addr(struct psp_context *psp,
- int psp_update_fw_reservation(struct psp_context *psp);
- int psp_load_fw_list(struct psp_context *psp,
- 		     struct amdgpu_firmware_info **ucode_list, int ucode_count);
--void psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size);
-+int psp_copy_fw(struct psp_context *psp, uint8_t *start_addr, uint32_t bin_size);
- 
- int psp_spatial_partition(struct psp_context *psp, int mode);
- int psp_memory_partition(struct psp_context *psp, int mode);
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-index 27d883fda5fa9..6f131f4b81134 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v11_0.c
-@@ -217,7 +217,9 @@ static int psp_v11_0_bootloader_load_component(struct psp_context  	*psp,
- 		return ret;
- 
- 	/* Copy PSP System Driver binary to memory */
--	psp_copy_fw(psp, bin_desc->start_addr, bin_desc->size_bytes);
-+	ret = psp_copy_fw(psp, bin_desc->start_addr, bin_desc->size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the sys driver to bootloader */
- 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
-@@ -263,7 +265,9 @@ static int psp_v11_0_bootloader_load_sos(struct psp_context *psp)
- 		return ret;
- 
- 	/* Copy Secure OS binary to PSP memory */
--	psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
-+	ret = psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the PSP secure OS to bootloader */
- 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-index 4c6450d62299a..80ba57cce3916 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v12_0.c
-@@ -87,7 +87,9 @@ static int psp_v12_0_bootloader_load_sysdrv(struct psp_context *psp)
- 		return ret;
- 
- 	/* Copy PSP System Driver binary to memory */
--	psp_copy_fw(psp, psp->sys.start_addr, psp->sys.size_bytes);
-+	ret = psp_copy_fw(psp, psp->sys.start_addr, psp->sys.size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the sys driver to bootloader */
- 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
-@@ -123,7 +125,9 @@ static int psp_v12_0_bootloader_load_sos(struct psp_context *psp)
- 		return ret;
- 
- 	/* Copy Secure OS binary to PSP memory */
--	psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
-+	ret = psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the PSP secure OS to bootloader */
- 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-index af4a7d7c4abd8..8100930e47eb1 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0.c
-@@ -265,10 +265,9 @@ static int psp_v13_0_bootloader_load_component(struct psp_context  	*psp,
- 	if (ret)
- 		return ret;
- 
--	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
--
--	/* Copy PSP KDB binary to memory */
--	memcpy(psp->fw_pri_buf, bin_desc->start_addr, bin_desc->size_bytes);
-+	ret = psp_copy_fw(psp, bin_desc->start_addr, bin_desc->size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the PSP KDB to bootloader */
- 	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_36,
-@@ -347,10 +346,9 @@ static int psp_v13_0_bootloader_load_sos(struct psp_context *psp)
- 	if (ret)
- 		return ret;
- 
--	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
--
--	/* Copy Secure OS binary to PSP memory */
--	memcpy(psp->fw_pri_buf, psp->sos.start_addr, psp->sos.size_bytes);
-+	ret = psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the PSP secure OS to bootloader */
- 	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_36,
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c b/drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c
-index 5f39a2edcc956..3d5e26b3fa00a 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v13_0_4.c
-@@ -105,10 +105,9 @@ static int psp_v13_0_4_bootloader_load_component(struct psp_context  	*psp,
- 	if (ret)
- 		return ret;
- 
--	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
--
--	/* Copy PSP KDB binary to memory */
--	memcpy(psp->fw_pri_buf, bin_desc->start_addr, bin_desc->size_bytes);
-+	ret = psp_copy_fw(psp, bin_desc->start_addr, bin_desc->size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the PSP KDB to bootloader */
- 	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_36,
-@@ -168,10 +167,9 @@ static int psp_v13_0_4_bootloader_load_sos(struct psp_context *psp)
- 	if (ret)
- 		return ret;
- 
--	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
--
--	/* Copy Secure OS binary to PSP memory */
--	memcpy(psp->fw_pri_buf, psp->sos.start_addr, psp->sos.size_bytes);
-+	ret = psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the PSP secure OS to bootloader */
- 	WREG32_SOC15(MP0, 0, regMP0_SMN_C2PMSG_36,
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c b/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c
-index 38dfc5c19f2a7..040a61aefa866 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v14_0.c
-@@ -140,10 +140,9 @@ static int psp_v14_0_bootloader_load_component(struct psp_context  	*psp,
- 	if (ret)
- 		return ret;
- 
--	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
--
--	/* Copy PSP KDB binary to memory */
--	memcpy(psp->fw_pri_buf, bin_desc->start_addr, bin_desc->size_bytes);
-+	ret = psp_copy_fw(psp, bin_desc->start_addr, bin_desc->size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the PSP KDB to bootloader */
- 	WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_36,
-@@ -214,10 +213,9 @@ static int psp_v14_0_bootloader_load_sos(struct psp_context *psp)
- 	if (ret)
- 		return ret;
- 
--	memset(psp->fw_pri_buf, 0, PSP_1_MEG);
--
--	/* Copy Secure OS binary to PSP memory */
--	memcpy(psp->fw_pri_buf, psp->sos.start_addr, psp->sos.size_bytes);
-+	ret = psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the PSP secure OS to bootloader */
- 	WREG32_SOC15(MP0, 0, regMPASP_SMN_C2PMSG_36,
-diff --git a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-index 833830bc3e2e3..409f097f4c524 100644
---- a/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-+++ b/drivers/gpu/drm/amd/amdgpu/psp_v3_1.c
-@@ -96,7 +96,9 @@ static int psp_v3_1_bootloader_load_sysdrv(struct psp_context *psp)
- 		return ret;
- 
- 	/* Copy PSP System Driver binary to memory */
--	psp_copy_fw(psp, psp->sys.start_addr, psp->sys.size_bytes);
-+	ret = psp_copy_fw(psp, psp->sys.start_addr, psp->sys.size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the sys driver to bootloader */
- 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
-@@ -135,7 +137,9 @@ static int psp_v3_1_bootloader_load_sos(struct psp_context *psp)
- 		return ret;
- 
- 	/* Copy Secure OS binary to PSP memory */
--	psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
-+	ret = psp_copy_fw(psp, psp->sos.start_addr, psp->sos.size_bytes);
-+	if (ret)
-+		return ret;
- 
- 	/* Provide the PSP secure OS to bootloader */
- 	WREG32_SOC15(MP0, 0, mmMP0_SMN_C2PMSG_36,
+diff --git a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c
+index b62bbadb0d440..029f59a58c780 100644
+--- a/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c
++++ b/drivers/gpu/drm/amd/display/dc/dpp/dcn401/dcn401_dpp.c
+@@ -389,9 +389,11 @@ void dscl401_spl_calc_lb_num_partitions(
+ 		lb_memory_size_a = 1290;
+ 	} else if (lb_config == LB_MEMORY_CONFIG_3) {
+ 		if (scl_data->viewport.width  == scl_data->h_active &&
+-			scl_data->viewport.height == scl_data->v_active) {
++			scl_data->viewport.height == scl_data->v_active &&
++			scl_data->taps.h_taps == 1 && scl_data->taps.v_taps == 1) {
+ 			/* 420 mode: luma using all 3 mem from Y, plus 3rd mem from Cr and Cb */
+ 			/* use increased LB size for calculation only if Scaler not enabled */
++			/* Scaler is forced on when sharpening is on. Add check for taps = 1 */
+ 			lb_memory_size = 970 + 1290 + 1170 + 1170 + 1170;
+ 			lb_memory_size_c = 970 + 1290;
+ 			lb_memory_size_a = 970 + 1290 + 1170;
+@@ -403,8 +405,10 @@ void dscl401_spl_calc_lb_num_partitions(
+ 		}
+ 	} else {
+ 		if (scl_data->viewport.width  == scl_data->h_active &&
+-			scl_data->viewport.height == scl_data->v_active) {
++			scl_data->viewport.height == scl_data->v_active &&
++			scl_data->taps.h_taps == 1 && scl_data->taps.v_taps == 1) {
+ 			/* use increased LB size for calculation only if Scaler not enabled */
++			/* Scaler is forced on when sharpening is on. Add check for taps = 1 */
+ 			lb_memory_size = 970 + 1290 + 1170;
+ 			lb_memory_size_c = 970 + 1290 + 1170;
+ 			lb_memory_size_a = 970 + 1290 + 1170;
 -- 
 2.53.0
 
