@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4DECC624D3
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 18:29:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45138C61DFD
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 18:29:23 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 190D610EA69;
-	Mon, 31 Aug 2026 18:29:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59FF210EA6B;
+	Mon, 31 Aug 2026 18:29:22 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ibxIVmKs";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="AE7qLTkz";
 	dkim-atps=neutral
-Received: from PH8PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11012063.outbound.protection.outlook.com [40.107.209.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6E19110EA67
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 18:29:05 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012061.outbound.protection.outlook.com
+ [40.93.195.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EBCC10E50F
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 18:28:52 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nRt8vVN3GWfuAHln4Q50tKK2BkCRNQgrVmJ4sQMd6WeWU6d0RLLAKu1QPQsd4pgGuabRmOfzFznyT0K/DfnNAjTHz3OAyOZ8i/56wZ+WZFfXar5SZc8JCIKVMLh4k5XGxcTzeBXkRs4gdDFBYROym+WuNK13LqbqUyIbwzv2jKN6LAphnnGeTWIGaRo+Eux4SDy2GD65loz1RGpKdbm2EBvRG6cRv9WFvtE0saRU/EHyYF5ZJdEoDrR5wPsuHbwypAgLZwZQWnFPZDfXhPYfPG/Kv5Ew6PU8bArLZJeXlSo/eEtjrMy4IWye3GBAbM5ZlvuymmizgbmL1B54yNguYA==
+ b=K731gGO7otbcYfngXoIyqsXKdy61vzsygO7TGr6bMmHU4hucdADuqOJ3xXH4KuFa9NMuMj8TNJUYMo75S5TPwLa/ldwSlARrhoB47iPYDhaeLSOmeEHbO/Wv/+Ybf08rpNdRhlsZGtWNpKrxv6O/DMhDMcIhZVBj8+auKIU3A4kTkmAM5ZJnxmTziM0+MS7QTrsXBlTQbvax8ms9Ki/7n9AqeuVjD65XiuQdxaNUzMMjsM89vCI/hdeDAD0EaJTAURY9dBjuQLTnNzgOYOpsmPd6XGeBltjiDf2Rxqp0g+Jt6+tb+o2dVJD4wcVLlwWO0rZMc/k3gPv3SakuA7XX7g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vvN3PqeuvvTTUmDO+qexio6gEHQMwrlnqJhPzJDs/38=;
- b=Phrkp5G8YgAhbhKGf2mvt0yEY+dOsoX5zKKWRi2BtwWNiN+p4TEmCEeAgHIHqPeqyCZQfdi/NmKhHh1JWSMlzmHUvc7b6+AM8efNfxdVzIkl/z1EUAnglxoliHjzoxiCNceYutB/Vd/CElcfE3+XQVCnqPnTqh+ReswOj9wt8xpHYcbQDSsStMi42Kru/4a5ATCrnhejtPZO24HOY068joZt9dt05zt/wonIMNHS1QJYVjWWLL8oi42z4LdJmW/DFXgFSzzLDNB32/esfEBM34VPldjkWbuydi9fLQM3DEztWtnRttT9jSvbuXTQkYrxAiJpxp3M/usbYQixmBI5EA==
+ bh=jhOxR5LMGsIAoqU2GNuJGOgGlMIFQ9buT6baKjY+ano=;
+ b=e2PX4n6qJHK8lLcva7lFJYoNUE+sP/ZGPS+E8MOaJYXp7/Sq7aDRLpIqaBITIoD37DX3b33jszE79y7VNySLtfLutAPNV/OsF+xh0gxOJDerlulc444f/vwCCPDs8TWrO2iRcuftg32Lfh/yN+9cmqArEWvVT5dlWfVCWCbSagQtDg6CNT/p/slCo5aDv8vaVQkBAmklq/A+BT2Ou4RmxxkfzMG3Keexnx8NeRio5lBBf6CtPvCqgfF3cX4UavFp0r1ncUAEISqNaCsUixg37UzwFEMd/EhpPilImOtCmN8VaXN5Wll2mDqWMZTZkzKFhRRGo2NCfQ2hmwYHkOwOZQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vvN3PqeuvvTTUmDO+qexio6gEHQMwrlnqJhPzJDs/38=;
- b=ibxIVmKs6XoghKEkeTySAfJzzerxJUBTw6DkfgJ40z6sBhrcR+Z7k/Es6p7ysqHqkJXyus3dGyshVCn27hutNpMsRNIh0o28QQ2TTdmKcSAqsYEtJE0BVeoScrkimXyP8U1ELk7NZQMDeMMJsnOBQeN+KoYXQiDtUx3B3I2FHsU=
-Received: from CH0PR04CA0116.namprd04.prod.outlook.com (2603:10b6:610:75::31)
- by PH7PR12MB7841.namprd12.prod.outlook.com (2603:10b6:510:273::22)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=jhOxR5LMGsIAoqU2GNuJGOgGlMIFQ9buT6baKjY+ano=;
+ b=AE7qLTkz144s9GcrrRWGqFxZ/dLgE9355oH81jgcTvN20LNhH6WyyD4muPNd2uUBkANBBz20kr/blSYrjR/zmgJgTXvz8/NKsa9TiigzCmmEl14k5ySSdfwfNPA5/g5U2gI4G4ibRyWDwNZUfpoGWTVw0uYFpJqCwQD3Vu1r70Y=
+Received: from CH5P220CA0004.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1ef::16)
+ by DS0PR12MB6415.namprd12.prod.outlook.com (2603:10b6:8:cc::14) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 18:29:00 +0000
-Received: from BL6PEPF0001AB76.namprd02.prod.outlook.com
- (2603:10b6:610:75:cafe::33) by CH0PR04CA0116.outlook.office365.com
- (2603:10b6:610:75::31) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 18:28:44 +0000
+Received: from BL6PEPF0001AB71.namprd02.prod.outlook.com
+ (2603:10b6:610:1ef:cafe::a9) by CH5P220CA0004.outlook.office365.com
+ (2603:10b6:610:1ef::16) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
- 31 Aug 2026 18:28:59 +0000
+ 31 Aug 2026 18:28:44 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,27 +49,24 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- BL6PEPF0001AB76.mail.protection.outlook.com (10.167.242.169) with Microsoft
+ BL6PEPF0001AB71.mail.protection.outlook.com (10.167.242.164) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 18:28:59 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 18:28:44 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
- 2026 13:28:44 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
- 2026 13:28:44 -0500
+ 2026 13:28:31 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Mon, 31 Aug 2026 13:28:43 -0500
+ Transport; Mon, 31 Aug 2026 13:28:31 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
-CC: Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling
+CC: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling
  <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 59/95] drm/amdgpu: Add debugfs to drop UALink protocol messages
-Date: Mon, 31 Aug 2026 14:27:18 -0400
-Message-ID: <20260831182754.1089811-60-alexander.deucher@amd.com>
+Subject: [PATCH 40/95] drm/amdgpu: Add UALink cross-GPU TLB shootdown and
+ remote interrupt
+Date: Mon, 31 Aug 2026 14:26:59 -0400
+Message-ID: <20260831182754.1089811-41-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831182754.1089811-1-alexander.deucher@amd.com>
 References: <20260831182754.1089811-1-alexander.deucher@amd.com>
@@ -77,29 +75,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB76:EE_|PH7PR12MB7841:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7efda0e3-cd23-4198-d6df-08df078db9c6
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB71:EE_|DS0PR12MB6415:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19bd8491-2c10-403a-d37f-08df078db0b3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|1800799024|36860700016|23010399003|376014|6133799003|22082099003|18002099003|56012099006|3023799007|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info: Iz6/DsRHCKNSkyJ5zS3Nh4fGYR7vVFYy4303L8mkDKqs4rYdAXw9EgryDj5X3eiw4JuScmrovjkPAb1oRaCA8o9m9i56PKlNfM0IEhiiA1uYuSrjaPw54kp91gAlN1kWh22Us9Gc81GU2UYM0T8TAijACgh6ADoiBRbMqTCVJ9eiAxu8bTDunUuTM508RBJYGYY/AQa3LYVlHbqbOqa94MFvkbO4kuNFXIQvLxUi/W7cKbULzLsBA/Sla/AzEODXo1AqNWih3Zg7fXRlawVdYKzlMQebWA0wB9t2id34MLp+o7qu0pb/QF32UsUexVtVCv8rcAALDOmwDhrouNl0AvTagDr2OrIHp+vvoKm7XntOqCREFJAm6e8T5yTUzILL+tMRZLIKA9HTM8t4kp8RwAiLJ3+BcJiiTLmZtP4+n0Hmunt7/m7DvM1rlOQ7Tvmsm/XmSfb5GnSMGPqIaJqWEXNu9a5FBYnwIplhZeR8fopObWk6jAKg2iwvJByfkM29MTyqv7ws1EgXWTCC0zTAQq6hpSZiL5T8NlTxtaStCk+GT6rOyCBdWGsYHslTmTfyZdxeDHOpVTbqhq9ee9tyU6hlU3aSeSu0ctVVCDpapv+AO7uW0S21uvVOaSWo4YsGAEuYS/dwV03hLPe1wTmGc1/g8iV+ZwRVelmjCOIcv1aH5DQoFsdd6aXYqWIueqA7h/VMEASawMtgU2E+u02GvQ==
+ ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|6133799003|56012099006|10067099003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: 54w0U6PlxCGMBdSBMu/PldebqKUqVsb3IapI/SLiyGRjiSVeRf/ocwknYO8jt5+Z4OghlWfBP1Gq6sRQeyp+9Nbw05NExOdpmGlD91U97gKP/HJAydSHZ//ipN9KV+McdvNsWLMvPcZqM++rmgf4jBUxfizSKJhZcre8hXzmaSu87/xxDO44yh8EV+6FxWGMVzfVwlDyFTZVVJkAVrYr9nnd2tXLyhoBHqA51wDbH7JvN1LJ2W4/SJCtWniA4mfLmIybXOCcvF2Kczp/NftVx+rk4LV7/4NbWa5gsRvYHRXNifGsIfDXYF0DBAQ8OMgXHgkRivhbIAQHAMBnHwL1Gk9Lx+tixOoqzqNVHLQwwlA4xC1F48MdvnxeQdKgtCSIw+SxFg1UXW/rbYdez9bdSdZQt22YNGyvvG9SRZv9HLWMxhD3hv33e89Twb5WzEfDz8fQzjJzLidlb0GH5ME2XmAFbzpysihmoXXWaMgogkcB9jdOLbbikzxAQ8TbjByoku6iOlxFxi6ZihokhsfNglQxIFU7vkVI+0La35UdNIYMzJALoNHprVQK9IORfX4aFr+GXmxult4YxWhASko3hd0OAI9iizCgd+SL+6/Uh4vb9V13YBfAlDYIDv9hieGtZkzOpvYU5EZRH2H/PkznChOkA+SV8aakcWOJ0gLsL9UPHTz/IUYTnsSIlEylWUnGFT+CjDDZnJiw9I+AbEtxRw==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(1800799024)(36860700016)(23010399003)(376014)(6133799003)(22082099003)(18002099003)(56012099006)(3023799007)(10067099003)(11063799006);
+ SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(6133799003)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: chtarZZ0LuVhuMTHR5seO3pOfA5IsIq3i2eKtjU3AIFyivrnOrh5K5cAI/frA61eMp0bPAarrrP5Kb87Ls28RVtlApsWKClT4CsYlA4U8fKF9S1zmTRAjNm+rkJjr7XlSVDdC7I6Cm+ucot/Dm6L4LycdQz/MftJhlAioAwvJ+WN83Ho7wMs6+cLI1uqm6ap8DTyK60Togd3uYzW66rSsPR+PMR9t1AUsR6GAjgfCqhADGVyFPJTnB+OZqdkNZrRzClpSmurnh2xaFo+d5/7Vv3CW5oOm3f9cAOiffFFR9WCGRb6flNUHB5WWuJAmGFN3cNFZIFHMW2Zk4qK4g8zibt8YEDgzsUWae/Uk1BvVc5CUQvqRI0mVGkb7r4HUXgirAfWdmXddFJQewSTeNU17cCfSF9/lej7dj7nn2VB3X0W0BuMAn1wWN9sUy879CXD
+X-MS-Exchange-AntiSpam-MessageData-0: is5Hj49eUCW6Y39QKrHnfSwGkB54ZtPKfMSBB9SAhK62BDiJdQ3BJhaVTFfEJVtmtPyrY/ZThCTiMAeYRgGCaXfEBLeapuJKEiPqS+gPQsrcpu+yuc+bWJJjlVgTS/D5zUGacFLAp4aiUWGwn5bqAdXRBvlz0aFnJhqSsOJ1cH3BK55AxK5jgJOjd4NBqc/+/qsi2xGDoLiB0pwwCglqXV2cWrZrRAPcF6R0/tkqL/YtJFOIP23HjPc5v1D6tF3CMR0THajwPuAZc9YSiqKgj+HQ/YLo/d/NMPDxKpfAdISl8U+I1uaSP17Q5fI5qtqdJXcLDHzBQQubNn1ZQAx6CROdLEqqZbpf7/IThicnzdVJcuBK2Z1YARLkrXwc2PWcfBNaWl46fjuNboC39s/cBd+LduDhlvehIq7lyr54nxsdD//M1YNF5WtVQVs1mXFF
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 18:28:59.8062 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7efda0e3-cd23-4198-d6df-08df078db9c6
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 18:28:44.5821 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19bd8491-2c10-403a-d37f-08df078db0b3
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB76.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB71.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7841
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6415
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,114 +112,271 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Mukul Joshi <mukul.joshi@amd.com>
+From: Philip Yang <Philip.Yang@amd.com>
 
-Introduce a debugfs-controlled bitmap, amdgpu_ualink_drop_msg_bitmap,
-where each bit corresponds to a value from
-enum AMDGPU_UALINK_PROTOCOL_MESSAGES (e.g. NPA-REQ, NPA-RSP, NPA-FAIL,
-NPA-REVOKE, NPA-RELEASE).
+Expose the two public send operations for remote TLB invalidation and
+remote interrupt delivery. Set up per-peer GART entries covering ring
+buffers, write pointer pages, and doorbells for every active remote GPU.
 
-When a bit is set, the next incoming message of that type is dropped
-in amdgpu_ualink_process_irq() and the bit is atomically cleared via
-test_and_clear_bit(), so subsequent incoming messages are processed
-normally. This allows exercising the UALink connection reset and
-recovery paths (NPA-RSP timeout on the importer, retransmit/teardown
-on the exporter, etc.) by injecting a single packet loss from
-userspace, e.g.:
-
-    # drop one NPA-REQ
-    echo 0x08 > /sys/kernel/debug/dri/0/amdgpu_ualink_drop_msg_bitmap
-    # drop one NPA-RSP
-    echo 0x10 > /sys/kernel/debug/dri/0/amdgpu_ualink_drop_msg_bitmap
-
-The bitmap lives in struct amdgpu_ualink_mgr and is exposed via
-debugfs_create_ulong() next to the existing amdgpu_ualink_test entry.
-
-Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
 Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 14 ++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c  | 13 +++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h  | 16 ++++++++++++++++
- 3 files changed, 43 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 244 +++++++++++++++++++++
+ 1 file changed, 244 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-index 132d054900b5b..d80fe17556dab 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
-@@ -2229,6 +2229,20 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
- 	debugfs_create_file("amdgpu_benchmark", 0200, root, adev,
- 			    &amdgpu_benchmark_fops);
- 
-+	/* Debug-only: bitmap of incoming UALink protocol messages to drop.
-+	 * Each bit position corresponds to an enum AMDGPU_UALINK_PROTOCOL_MESSAGES
-+	 * value. Setting a bit causes exactly one matching incoming packet to be
-+	 * dropped, after which the bit auto-clears and traffic resumes. Used to
-+	 * exercise the connection reset paths.
-+	 *
-+	 * Examples (drop one NPA-REQ):
-+	 *   echo 0x8  > /sys/kernel/debug/dri/0/amdgpu_ualink_drop_msg_bitmap
-+	 * (drop one NPA-RSP):
-+	 *   echo 0x10 > /sys/kernel/debug/dri/0/amdgpu_ualink_drop_msg_bitmap
-+	 */
-+	debugfs_create_ulong("amdgpu_ualink_drop_msg_bitmap", 0600, root,
-+			     &adev->ualink.drop_msg_bitmap);
-+
- 	adev->debugfs_vbios_blob.data = adev->bios;
- 	adev->debugfs_vbios_blob.size = adev->bios_size;
- 	debugfs_create_blob("amdgpu_vbios", 0444, root,
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index e21c48212f0a4..4e49ff0be6e35 100644
+index 831e8e8e45fbf..e749f304efb76 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -5394,6 +5394,19 @@ static int amdgpu_ualink_process_irq(struct amdgpu_device *adev,
- 	dev_dbg(adev->dev, "Got MSG: remote acc_id %u msg_type %u\n",
- 		src_acc_id, msg_type);
+@@ -2769,3 +2769,247 @@ static int amdgpu_ualink_update_wb_address(struct amdgpu_device *adev,
+ 	return r;
+ }
  
-+	/* Debug hook: if the bit corresponding to this msg_type is set in
-+	 * drop_msg_bitmap, drop this single packet and clear the bit so that
-+	 * any subsequent incoming messages are processed normally. Used to
-+	 * exercise the connection reset/recovery paths via debugfs.
-+	 */
-+	if (msg_type < BITS_PER_LONG &&
-+	    test_and_clear_bit(msg_type, &adev->ualink.drop_msg_bitmap)) {
-+		dev_warn(adev->dev,
-+			 "DROP MSG (debugfs): src acc_id %u msg_type %u dw[0-3] 0x%x 0x%x 0x%x 0x%x\n",
-+			 src_acc_id, msg_type, dw0, dw1, dw2, dw3);
-+		return handled;
++/**
++ * amdgpu_ualink_remote_shootdown - Send a remote TLB invalidation request
++ * @adev: amdgpu device pointer
++ * @remote_accel_id: accelerator ID of the remote GPU to shootdown
++ * @addr: page-aligned address to invalidate
++ * @size_in_pages: number of pages to invalidate, 0 to invalidate entire TLB
++ * @flush_type: type of TLB flush to perform
++ *
++ * Sends a remote TLB shootdown command to the specified peer GPU via the
++ * UALink ring buffer. The address and size are translated using the S-field
++ * encoding before being written to the ring.
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++static int amdgpu_ualink_remote_shootdown(struct amdgpu_device *adev,
++				   u32 remote_accel_id, u64 addr,
++				   u32 size_in_pages, u32 flush_type)
++{
++	struct amdgpu_ualink_remote *remote = to_remote(adev);
++	struct amdgpu_ualink_peer *peer;
++	struct amdgpu_ualink_ring *ring;
++	int r;
++
++	peer = &remote->peer[remote_accel_id];
++	ring = &peer->shootdown;
++	if (!ring->ready) {
++		dev_dbg(adev->dev, "accel_id %u ring not ready\n", remote_accel_id);
++		r = amdgpu_ualink_update_wb_address(adev, remote_accel_id,
++						    RB_TYPE_TLB_INV);
++		if (r)
++			return r;
 +	}
 +
- 	switch (msg_type) {
- 	case AMDGPU_UALINK_HELLO_MSG:
- 		receiver_acc_id = (dw0 >> AMDGPU_UALINK_HELLO_MSG_RECV_ACCID_SHIFT) &
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-index fa116ef44cb50..d4d4ca0199dc7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-@@ -342,6 +342,22 @@ struct amdgpu_ualink_mgr {
- 
- 	/* Sequence number to track the need for TLB flushes */
- 	atomic64_t last_flushed_tlb_seq;
++	r = amdgpu_ualink_send_command(adev, remote_accel_id, ring, ring->wb_cpu,
++				       amdgpu_ualink_emit_shootdown,
++				       flush_type, upper_32_bits(addr),
++				       lower_32_bits(addr), size_in_pages);
++	return r;
++}
 +
-+	/* Debug-only: bitmap of incoming UALink protocol messages to drop.
-+	 *
-+	 * Each bit position corresponds to a value from
-+	 * enum AMDGPU_UALINK_PROTOCOL_MESSAGES:
-+	 *   BIT(AMDGPU_UALINK_NPA_REQ_MSG) drops one incoming NPA-REQ.
-+	 *   BIT(AMDGPU_UALINK_NPA_RSP_MSG) drops one incoming NPA-RSP.
-+	 *
-+	 *   On reception of a message whose corresponding bit is set, the bit
-+	 *   is atomically cleared and the message is silently dropped. This
-+	 *   means at most one packet per set bit is dropped; any further
-+	 *   incoming packets of the same type are processed normally. This is
-+	 *   intended to exercise the connection reset / recovery paths from a
-+	 *   debugfs handle.
-+	 */
-+	unsigned long drop_msg_bitmap;
- };
- 
- int amdgpu_ualink_init_interrupt(struct amdgpu_device *adev);
++/**
++ * amdgpu_ualink_remote_interrupt - Send a remote interrupt to a peer GPU
++ * @adev: amdgpu device pointer
++ * @remote_accel_id: accelerator ID of the remote GPU to interrupt
++ * @dw0: IH context ID dword 0
++ * @dw1: IH context ID dword 1
++ * @dw2: IH context ID dword 2
++ * @dw3: IH context ID dword 3
++ *
++ * Sends a remote interrupt command to the specified peer GPU via the
++ * UALink ring buffer. The four context ID dwords are delivered to the
++ * remote GPU's interrupt handler.
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++static int amdgpu_ualink_remote_interrupt(struct amdgpu_device *adev,
++				   u32 remote_accel_id, u32 dw0, u32 dw1,
++				   u32 dw2, u32 dw3)
++{
++	struct amdgpu_ualink_remote *remote = to_remote(adev);
++	struct amdgpu_ualink_peer *peer;
++	struct amdgpu_ualink_ring *ring;
++	int r;
++
++	peer = &remote->peer[remote_accel_id];
++	ring = &peer->interrupt;
++	if (!ring->ready) {
++		dev_dbg(adev->dev, "accel_id %u ring not ready\n", remote_accel_id);
++		r = amdgpu_ualink_update_wb_address(adev, remote_accel_id,
++						    RB_TYPE_REMOTE_INTERRUPT);
++		if (r)
++			return r;
++	}
++
++	r = amdgpu_ualink_send_command(adev, remote_accel_id, ring, ring->wb_cpu,
++				       amdgpu_ualink_emit_interrupt,
++				       dw0, dw1, dw2, dw3);
++	return r;
++}
++
++/**
++ * amdgpu_ualink_peer_remote_init - Initialize remote peer GPU connections
++ * @adev: amdgpu device pointer
++ *
++ * Sets up ring buffers, GART mappings, and control structures for
++ * communicating with remote GPUs in the fabric.
++ *
++ * Return: 0 on success, negative error code on failure
++ */
++static int amdgpu_ualink_peer_remote_init(struct amdgpu_device *adev)
++{
++	u32 rb_pages = AMDGPU_UALINK_RB_SIZE >> AMDGPU_GPU_PAGE_SHIFT;
++	struct amdgpu_ualink_remote *remote = to_remote(adev);
++	struct amdgpu_bo *bo = remote->ring_bo;
++	struct amdgpu_ualink_peer *peer;
++	struct amdgpu_ualink_ring *interrupt;
++	struct amdgpu_ualink_ring *shootdown;
++	u32 src_accel_id = ualink_accel_id(adev);
++	u32 dst_accel_id;
++	u64 npa, flags;
++	int r = 0;
++
++	/* NPA mapping PTE flags VSCT = 0011 */
++	flags = amdgpu_ttm_tt_pte_flags(adev, bo->tbo.ttm, bo->tbo.resource);
++	flags |= AMDGPU_PTE_SNOOPED | AMDGPU_PTE_PRT_GFX12 | AMDGPU_PTE_BUS_ATOMICS;
++	flags &= ~AMDGPU_PTE_VALID;
++	/* PTE.X=0 turn off RPC checks for RBs, wptr and doorbell NPA address */
++	flags &= ~AMDGPU_PTE_EXECUTABLE;
++
++	dev_dbg(adev->dev, "src_accel_id %u gart mapping flags 0x%llx\n",
++		src_accel_id, flags);
++
++	for_each_set_bit(dst_accel_id, remote->active_accel_bits, AMDGPU_UALINK_ACCEL_MAX) {
++		if (dst_accel_id == src_accel_id)
++			continue;
++
++		dev_dbg(adev->dev, "peer_remote to dst_accel_id %u\n", dst_accel_id);
++
++		peer = &remote->peer[dst_accel_id];
++		mutex_init(&peer->lock);
++
++		interrupt = &peer->interrupt;
++		shootdown = &peer->shootdown;
++
++		/* ring buffer npa gart mapping */
++		npa = amdgpu_ualink_gart_npa_addr(adev, RB_TYPE_REMOTE_INTERRUPT,
++						   src_accel_id, dst_accel_id);
++		r = amdgpu_ualink_gart_map(adev, rb_pages, npa, &interrupt->mm_node_rb, flags);
++		if (r)
++			break;
++		interrupt->rb_npa_gart = adev->gmc.gart_start +
++					 (interrupt->mm_node_rb.start << AMDGPU_GPU_PAGE_SHIFT);
++
++		dev_dbg(adev->dev, "rb npa 0x%llx mapped on gart 0x%llx\n",
++			npa, interrupt->rb_npa_gart);
++
++		/* tlb invalidate ring buffer npa gart mapping */
++		npa = amdgpu_ualink_gart_npa_addr(adev, RB_TYPE_TLB_INV, src_accel_id,
++						  dst_accel_id);
++		r = amdgpu_ualink_gart_map(adev, rb_pages, npa, &shootdown->mm_node_rb, flags);
++		if (r)
++			break;
++		shootdown->rb_npa_gart = adev->gmc.gart_start +
++					 (shootdown->mm_node_rb.start << AMDGPU_GPU_PAGE_SHIFT);
++
++		dev_dbg(adev->dev, "tlb rb npa 0x%llx mapped on gart 0x%llx\n",
++			npa, shootdown->rb_npa_gart);
++
++		/* wptr npa gart mapping */
++		npa = amdgpu_ualink_gart_npa_addr(adev, RB_TYPE_TAILPTR, src_accel_id,
++						  dst_accel_id);
++		r = amdgpu_ualink_gart_map(adev, 1, npa, &interrupt->mm_node_wptr, flags);
++		if (r)
++			break;
++
++		interrupt->wptr_npa_gart = adev->gmc.gart_start +
++					   (interrupt->mm_node_wptr.start << AMDGPU_GPU_PAGE_SHIFT)
++					    + ualink_wptr_offset(adev, src_accel_id);
++		shootdown->wptr_npa_gart = adev->gmc.gart_start +
++					   (interrupt->mm_node_wptr.start << AMDGPU_GPU_PAGE_SHIFT)
++					    + ualink_tlb_wptr_offset(adev, src_accel_id);
++
++		dev_dbg(adev->dev, "rb wptr npa 0x%llx on gart 0x%llx, tlb wptr on gart 0x%llx\n",
++			npa, interrupt->wptr_npa_gart, shootdown->wptr_npa_gart);
++
++		/*
++		 * doorbell npa gart mapping, doorbell NPA address coding
++		 *
++		 * ReqAddr[51:40] = 0xFFF
++		 * ReqAddr[39:30] = GPU accel_id
++		 * ReqAddr[29:12] = 18'h00000
++		 * ReqAddr[11:8]  = Random value
++		 * ReqAddr[7:6]   = PMI Index
++		 *     0 - PMI0 Remote Interrupt
++		 *     1 - PMI1 Remote TLB Shootdown
++		 * ReqAddr[5:0]   = 6'h0
++		 */
++		npa = 0xFFFUL << 40 | (u64)dst_accel_id << 30;
++		r = amdgpu_ualink_gart_map(adev, 1, npa, &interrupt->mm_node_doorbell, flags);
++		if (r)
++			break;
++
++		interrupt->doorbell_npa_gart = adev->gmc.gart_start +
++			(interrupt->mm_node_doorbell.start << AMDGPU_GPU_PAGE_SHIFT);
++
++		dev_dbg(adev->dev, "rb doorbell npa 0x%llx mapped on gart 0x%llx\n",
++			npa, interrupt->doorbell_npa_gart);
++
++		shootdown->doorbell_npa_gart = adev->gmc.gart_start+
++			(interrupt->mm_node_doorbell.start << AMDGPU_GPU_PAGE_SHIFT) + (1 << 6);
++
++		dev_dbg(adev->dev, "tlb doorbell npa 0x%llx mapped on gart 0x%llx\n",
++			npa, shootdown->doorbell_npa_gart);
++
++		interrupt->rb_size = AMDGPU_UALINK_RB_SIZE / 64;
++		interrupt->wptr = 0;
++		interrupt->rptr = 0;
++		interrupt->seq = 0;
++
++		shootdown->rb_size = AMDGPU_UALINK_RB_SIZE / 64;
++		shootdown->wptr = 0;
++		shootdown->rptr = 0;
++		shootdown->seq = 0;
++	}
++
++	dev_dbg(adev->dev, "peer remote init done r=%d\n", r);
++	return r;
++}
++
++/**
++ * amdgpu_ualink_peer_remote_fini - Clean up remote peer GPU connections
++ * @adev: amdgpu device pointer
++ *
++ * Unmaps GART entries and frees resources for remote GPU communication.
++ */
++static void amdgpu_ualink_peer_remote_fini(struct amdgpu_device *adev)
++{
++	u32 rb_pages = AMDGPU_UALINK_RB_SIZE >> AMDGPU_GPU_PAGE_SHIFT;
++	struct amdgpu_ualink_remote *remote = to_remote(adev);
++	u32 src_accel_id = ualink_accel_id(adev);
++	u32 dst_accel_id;
++	struct amdgpu_ualink_peer *peer;
++	struct amdgpu_ualink_ring *ring;
++
++	dev_dbg(adev->dev, "src_accel_id %u\n", src_accel_id);
++
++	for_each_set_bit(dst_accel_id, remote->active_accel_bits, AMDGPU_UALINK_ACCEL_MAX) {
++		dev_dbg(adev->dev, "dst_accel_id %u\n", dst_accel_id);
++		if (dst_accel_id == src_accel_id)
++			continue;
++
++		peer = &remote->peer[dst_accel_id];
++		mutex_destroy(&peer->lock);
++
++		ring = &peer->interrupt;
++		amdgpu_ualink_gart_unmap(adev, rb_pages, &ring->mm_node_rb);
++		amdgpu_ualink_gart_unmap(adev, 1, &ring->mm_node_wptr);
++		amdgpu_ualink_gart_unmap(adev, 1, &ring->mm_node_doorbell);
++
++		ring = &peer->shootdown;
++		amdgpu_ualink_gart_unmap(adev, rb_pages, &ring->mm_node_rb);
++	}
++}
++
 -- 
 2.55.0
 
