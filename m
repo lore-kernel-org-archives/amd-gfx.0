@@ -4,45 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id EEBD3C624C6
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:50:17 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 481CAC624A4
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:50:22 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 628E710E8E2;
-	Mon, 31 Aug 2026 13:50:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 39A5910E8EE;
+	Mon, 31 Aug 2026 13:50:21 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="TTiAIGfP";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="FSRDZkSZ";
 	dkim-atps=neutral
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED0C910E8E2;
- Mon, 31 Aug 2026 13:50:15 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF54310E8E2;
+ Mon, 31 Aug 2026 13:50:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 309C260207;
+ by sea.source.kernel.org (Postfix) with ESMTP id B518341202;
+ Mon, 31 Aug 2026 13:50:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A14A1F00ACA;
  Mon, 31 Aug 2026 13:50:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6427E1F00ACF;
- Mon, 31 Aug 2026 13:50:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788184214;
- bh=X5JSczIqqrXgLmX9GdYXKaTc+21EA5Z4/dPe2QB8BoU=;
+ s=k20260515; t=1788184216;
+ bh=z1mN8Wwr8AifXzMeBKomArG90ftuqMTyG0a2XRVDaKM=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=TTiAIGfPPRTZ8/JPHmhoWUrWlY8AR/pds2Bxsg9RoPikORVEKGmQE0Mw+ywZPxMhh
- XT6uNOHJ/vtp1lbikRqs1HuAFLToEEEOI+HDOOqo0ifBkE2oI4bOjFDZrZppGTLZgG
- JlgWhLONLHlW8GSjC3IouJBjHJ5mDeADN7+uUUD5XnezOpZGfYrNqcvEZoFfYRZjb+
- U67CJx/Nc9bNNCSbXyoMHoKiteg+c308XzU7FBvVUii8pdtQVtIFwx7hUyhA8YCVlR
- dRsnzOPHtUQrI2yxfM+HM69cOKYb+PcgiwVLWsWQgEEI4uN9SPOSg0S23iMNmqv5Dr
- AGR6Mx7eC6bnw==
+ b=FSRDZkSZPvRmN+HiFZtwfYFdk18Z9dGphWd4WZ9cmIL8SXe/fpHZ7ABeiyYvf4VbM
+ Dxqf4SgzdxSwwX3Wr4i5JtQATAkqkYOFOUMdxC2KdFGhkTSMkI7RkA2LIZLlSFfhNB
+ pXAbrnK6tATGPRASymedde8GYpviD652+JOrEdHnT7xAS0u1nJr7vPS6VHjKM0bYBe
+ eW0KyRKjjgyfuMu5GS7fjeNjUctwtS40kCn6dqnogjQOabc4BEkzo0/WDyz1IUdsHz
+ xJ7O2s3ZHK9gI7nKb0WDpCMw7DE9aaKByMoUD+eS5PqfHwDZicMSBrvXvZm7Sb4kDi
+ 9Fd+y+ULzjA8g==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Ovidiu Bunea <ovidiu.bunea@amd.com>, Wenjing Liu <wenjing.liu@amd.com>,
- James Lin <pinglei.lin@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
- Sasha Levin <sashal@kernel.org>, harry.wentland@amd.com,
- sunpeng.li@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+Cc: Candice Li <candice.li@amd.com>, Hawking Zhang <Hawking.Zhang@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
+ kenneth.feng@amd.com, christian.koenig@amd.com, airlied@gmail.com,
  simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] drm/amd/display: Find link encoder for
- flexible DIG mapping cases
-Date: Mon, 31 Aug 2026 09:29:48 -0400
-Message-ID: <20260831133314.4125787-560-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18] drm/amdgpu/pm: fix SmartShift bias sysfs store
+ PM refcount on parse error
+Date: Mon, 31 Aug 2026 09:29:49 -0400
+Message-ID: <20260831133314.4125787-561-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -66,364 +65,450 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ovidiu Bunea <ovidiu.bunea@amd.com>
+From: Candice Li <candice.li@amd.com>
 
-[ Upstream commit 74ef54e656e7006cfc215e960b0cf2720a7a3d48 ]
+[ Upstream commit a4b0c3f5d2287997876d8f711a40d3c0418458d8 ]
 
-[why & how]
-link->link_enc can only be used to identify the link's link encoder
-when the link is not permitted to use flexible link encoder
-assignments.
+Return the parse error before acquiring PM access.
 
-Use the correct function for identifying link encoder and add
-function pointer guards before calling them.
-
-Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
-Signed-off-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
-Signed-off-by: James Lin <pinglei.lin@amd.com>
+Signed-off-by: Candice Li <candice.li@amd.com>
+Reviewed-by: Hawking Zhang <Hawking.Zhang@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: drm/amdgpu/pm: fix SmartShift bias sysfs
+store PM refcount on parse error
 
-**Step 1.1 — Subject line**
-Record: `[drm/amd/display]` `[Find]` — Correct link-encoder lookup in
-`power_down_encoders()` for flexible DIG mapping.
+**Local tree:** `stable/linux-6.18.y` at **v6.18.44** (`make
+kernelversion` = 6.18.44)
 
-**Step 1.2 — Tags**
-Record:
-- Reviewed-by: Wenjing Liu \<wenjing.liu@amd.com\>
-- Signed-off-by: Ovidiu Bunea, James Lin, Alex Deucher
+---
+
+## PHASE 1: COMMIT MESSAGE FORENSICS
+
+### Step 1.1: Subject Line
+**Record:** `[drm/amdgpu/pm]` `[fix]` — Corrects SmartShift bias sysfs
+store handler so PM runtime refcount is not touched on `kstrtoint()`
+parse failure.
+
+### Step 1.2: Tags
+**Record:**
+- **Signed-off-by:** Candice Li \<candice.li@amd.com\> (author)
+- **Reviewed-by:** Hawking Zhang \<Hawking.Zhang@amd.com\> (AMD
+  reviewer)
+- **Signed-off-by:** Alex Deucher \<alexander.deucher@amd.com\>
+  (drm/amdgpu maintainer)
 - No Fixes:, Reported-by:, Tested-by:, Link:, or Cc: stable tags
+- Notable: maintainer-reviewed AMD driver fix; no syzbot/fuzzer report
 
-**Step 1.3 — Body**
-Record:
-- Bug: `link->link_enc` is only valid when the link does not use
-  flexible link-encoder assignment.
-- Symptom: Wrong encoder used (or dereferenced) during encoder power-
-  down.
-- Root cause: `power_down_encoders()` used `link->link_enc` instead of
-  the dynamic lookup API.
-- Fix: Use `link_enc_cfg_get_link_enc(link)` and guard function pointers
-  before calling them.
+### Step 1.3: Body Analysis
+**Record:**
+- **Bug:** On invalid sysfs input, `amdgpu_set_smartshift_bias()` calls
+  `amdgpu_pm_put_access()` without a matching `amdgpu_pm_get_access()`.
+- **Symptom:** Runtime PM usage-count underflow; kernel emits `Runtime
+  PM usage count underflow!` via `dev_warn()`.
+- **Root cause (author):** Parse error should be returned before
+  acquiring PM access.
+- **Version info:** None in message; bug introduced in this tree by
+  commit `55aa33c3fe3876` (Feb 2025 refactor).
 
-**Step 1.4 — Hidden bug fix?**
-Record: Yes. Although the subject does not say "fix", the body and diff
-clearly address incorrect encoder identification and missing NULL guards
-— a real correctness/crash bug, not cleanup.
-
----
-
-## Phase 2: Diff Analysis
-
-**Step 2.1 — Inventory**
-Record:
-- File: `drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c` (+7
-  / -5)
-- Function: `power_down_encoders()`
-- Scope: Single-file, surgical fix
-
-**Step 2.2 — Code flow**
-Record:
-- Hunk 1: `link->link_enc` → `link_enc_cfg_get_link_enc(link)` — uses
-  dynamically assigned encoder for flexible-mapping links.
-- Hunk 2: `disable_output` only called when `link_enc` is non-NULL.
-- Hunk 3: FEC disable wrapped in checks for `link_enc`,
-  `fec_set_enable`, and `fec_set_ready`.
-
-**Step 2.3 — Bug mechanism**
-Record:
-- Category: Logic/correctness + NULL pointer dereference.
-- For `is_dig_mapping_flexible` links (USB4/DPIA), `link->link_enc` is
-  not the assigned encoder; DPIA link construction even has `/* TODO:
-  Create link encoder */` and never sets `link->link_enc`.
-- FEC disable added by commit `5f0c5775d4eeb` calls
-  `link_enc->funcs->...` without NULL checks on a potentially NULL/wrong
-  encoder.
-
-**Step 2.4 — Fix quality**
-Record: Obviously correct; matches the pattern already used at line 1163
-in the same file and throughout the DC subsystem. Minimal regression
-risk — for non-flexible links, `link_enc_cfg_get_link_enc()` returns
-`link->link_enc`.
+### Step 1.4: Hidden Bug Fix?
+**Record:** No — this is an explicit refcount/PM pairing bug fix, not
+disguised cleanup.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 2: DIFF ANALYSIS
 
-**Step 3.1 — Blame**
-Record: Lines 1734–1748 introduced/modified by `5f0c5775d4eeb` ("Disable
-FEC when powering down encoders", Jan 2026). Earlier
-`power_down_encoders()` structure dates to `19eef1d98eeda`. The FEC
-addition created the vulnerable path in this tree.
+### Step 2.1: Change Inventory
+**Record:**
+- **File:** `drivers/gpu/drm/amd/pm/amdgpu_pm.c` (+3 / −5)
+- **Function:** `amdgpu_set_smartshift_bias()` only
+- **Scope:** Single-file, surgical fix in one sysfs store handler
 
-**Step 3.2 — Fixes: tag**
-Record: N/A — no Fixes: tag present.
+### Step 2.2: Code Flow Change
 
-**Step 3.3 — Related file history**
-Record: FEC commit `5f0c5775d4eeb` (upstream `8cee62904caf9`) is in this
-6.18.y tree and is the direct prerequisite/introducer of the buggy code.
-`link_enc_cfg_get_link_enc()` and `is_dig_mapping_flexible`
-infrastructure are present.
+**Before (buggy code in v6.18.44):**
 
-**Step 3.4 — Author context**
-Record: Ovidiu Bunea also authored the FEC power-down commit. Alex
-Deucher is AMD DRM maintainer. Patch is standalone within a 17-patch AMD
-DC batch series.
+```1865:1886:drivers/gpu/drm/amd/pm/amdgpu_pm.c
+        r = kstrtoint(buf, 10, &bias);
+        if (r)
+                goto out;
 
-**Step 3.5 — Dependencies**
-Record: No code dependencies on other patches in the series. Uses
-existing `link_enc_cfg_get_link_enc()` from `link_enc_cfg.h`, which is
-already included in `dce110_hwseq.c`. Standalone backport.
+        r = amdgpu_pm_get_access(adev);
+        if (r < 0)
+                return r;
+        // ... clamp bias, set amdgpu_smartshift_bias ...
+out:
+        amdgpu_pm_put_access(adev);
 
----
+        return r;
+```
 
-## Phase 4: Mailing List and External Research
+**After (fixed):**
+- Parse error → `return r` immediately (no PM access)
+- Success path → `get_access` → work → `put_access` → `return count`
 
-**Step 4.1 — Original discussion**
-Record: [PATCH 12/17] on amd-gfx, Apr 29 2026 —
-https://lists.freedesktop.org/archives/amd-gfx/2026-April/143792.html.
-Part of "DC Patches May 4 2026" series
-(https://lists.freedesktop.org/archives/amd-gfx/2026-April/143780.html).
-No replies or stable nominations found in the thread.
+**Record:**
+- **Hunk 1:** `kstrtoint` failure: `goto out` + spurious `put_access` →
+  early `return r`
+- **Hunk 2:** Success path: remove `out:` label; always `return count`
+  after balanced get/put
+- **Affected path:** Sysfs store error path on invalid input; normal
+  path unchanged
 
-**Step 4.2 — Reviewers**
-Record: Reviewed-by Wenjing Liu (AMD display). Signed-off-by Alex
-Deucher (maintainer). `b4 dig -c 8cee62904caf9` found no lore match for
-the related FEC commit.
+### Step 2.3: Bug Mechanism
+**Record:**
+- **Category:** Reference counting / resource management bug
+- **Mechanism:** Commit `55aa33c3fe3876` moved `kstrtoint()` before
+  `amdgpu_pm_get_access()` but kept the `out:` label that
+  unconditionally calls `amdgpu_pm_put_access()`. On parse failure,
+  `pm_runtime_put_autosuspend()` runs without a prior
+  `pm_runtime_resume_and_get()`, triggering `rpm_drop_usage_count()`
+  underflow handling:
 
-**Step 4.3 — Bug report**
-Record: No external bug report. Related FEC commit describes "no light
-up" when FEC disable targets the wrong DIG encoder — same underlying
-class of failure.
+```1079:1095:drivers/base/power/runtime.c
+static int rpm_drop_usage_count(struct device *dev)
+{
+        int ret;
 
-**Step 4.4 — Series context**
-Record: Patch 12/17 in a 17-patch AMD internal batch (121 files total).
-This patch alone touches one function in one file and is independent of
-the larger series changes.
+        ret = atomic_sub_return(1, &dev->power.usage_count);
+        if (ret >= 0)
+                return ret;
+        // ...
+        atomic_inc(&dev->power.usage_count);
+        dev_warn(dev, "Runtime PM usage count underflow!\n");
+        return -EINVAL;
+}
+```
 
-**Step 4.5 — Stable list**
-Record: lore.kernel.org/stable search blocked by bot protection; no
-stable discussion found.
-
----
-
-## Phase 5: Code Semantic Analysis
-
-**Step 5.1 — Key functions**
-Record: `power_down_encoders()`, `link_enc_cfg_get_link_enc()`,
-`dce110_power_down()`.
-
-**Step 5.2 — Callers**
-Record: `power_down_encoders()` ← `power_down_all_hw_blocks()` ← display
-mode-commit path (~line 2013) and `dce110_power_down()` (~line 2678).
-`dce110_power_down` is the `.power_down` hook for all DCN generations
-(dcn10 through dcn401).
-
-**Step 5.3 — Callees**
-Record: `link_enc_cfg_get_link_enc()`, `blank_dp_stream()`,
-`disable_output()`, `fec_set_enable()`, `fec_set_ready()`.
-
-**Step 5.4 — Reachability**
-Record: Triggered on display mode changes, suspend/resume, and DC power-
-down — common user-visible paths. Affects systems with USB4/DPIA or
-other flexible DIG-mapping links.
-
-**Step 5.5 — Similar patterns**
-Record: Same file line 1163, `link_dp_phy.c` lines 149–187, and many
-other DC paths already use `link_enc_cfg_get_link_enc()` with NULL
-guards. `power_down_encoders()` was an outlier.
+### Step 2.4: Fix Quality
+**Record:**
+- Obviously correct: matches the pattern used by other sysfs stores in
+  the same file (e.g. `amdgpu_set_pp_force_performance_level()` at lines
+  388–408)
+- Minimal, no unrelated changes
+- Regression risk: very low; only reorders error handling on the parse-
+  failure path
+- No API or behavior change on the success path
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree (6.18.43)
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-**Step 6.1 — Buggy code present?**
-Record: Yes. Current tree at lines 1734–1748 still uses `link->link_enc`
-without NULL guards. `is_dig_mapping_flexible`,
-`link_enc_cfg_get_link_enc()`, and FEC power-down code are all present.
+### Step 3.1: Blame
+**Record:**
+- `amdgpu_set_smartshift_bias()` introduced in `30d95a37f46d1`
+  (2021-05-30, v5.13 era)
+- Original code called `pm_runtime_get_sync()` **before** `kstrtoint()`,
+  so `goto out` + `put` was correct
+- Bug introduced in `55aa33c3fe3876` (2025-02-04, Lijo Lazar) — "Add
+  APIs for device access checks"
+- Blame confirms lines 1865–1867 (`kstrtoint` + `goto out`) from
+  original commit; lines 1869–1871, 1884 (`get_access`/`put_access`)
+  from refactor commit
 
-**Step 6.2 — Backport difficulty**
-Record: Clean apply expected. `link_enc_cfg.h` already included; no
-structural conflicts.
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no Fixes: tag present.
 
-**Step 6.3 — Related fixes already present?**
-Record: FEC power-down commit `5f0c5775d4eeb` is present; this follow-up
-fix is not.
+### Step 3.3: Related File History
+**Record:**
+- `55aa33c3fe3876` — large PM access API refactor (616-line change in
+  this file)
+- `494c1432542b3` — earlier SmartShift consistency work
+- Fix is standalone; not part of a required multi-commit dependency for
+  this function
+- Patch submitted as **[PATCH 2/8]** in a series, but this hunk is self-
+  contained
 
----
+### Step 3.4: Author Context
+**Record:**
+- Candice Li: AMD engineer, regular amdgpu contributor
+- Lijo Lazar: authored the refactor that introduced the bug
+- Alex Deucher (maintainer) signed off on the fix
 
-## Phase 7: Subsystem Context
-
-**Step 7.1 — Subsystem/criticality**
-Record: `drivers/gpu/drm/amd/display` — IMPORTANT (AMD GPU display
-driver, affects display output on affected hardware).
-
-**Step 7.2 — Activity**
-Record: Actively maintained; recent FEC power-down commit in this tree.
-
----
-
-## Phase 8: Impact and Risk Assessment
-
-**Step 8.1 — Who is affected**
-Record: AMD GPU users with flexible DIG link-encoder mapping (USB4/DPIA
-links confirmed; `is_dig_mapping_flexible` set in `construct_dpia()`).
-All DCN-based AMD GPUs use `dce110_power_down`.
-
-**Step 8.2 — Trigger conditions**
-Record: Display power-down during mode changes, suspend/resume, or DC
-teardown when FEC was enabled or a flexible-mapping link needs encoder
-operations. Moderately common on affected hardware.
-
-**Step 8.3 — Failure mode**
-Record:
-- Wrong encoder → FEC not disabled on correct DIG → display fails to
-  light up (documented in related FEC commit).
-- NULL `link_enc` on DPIA links → kernel oops from
-  `link_enc->funcs->...`.
-- Severity: HIGH (display failure or crash).
-
-**Step 8.4 — Risk/benefit**
-Record: Benefit HIGH for affected hardware. Risk LOW — 12-line change,
-follows established API, backward-compatible for fixed-mapping links.
+### Step 3.5: Dependencies
+**Record:** No prerequisites. Fix applies cleanly to current v6.18.44
+code; `amdgpu_pm_get_access()`/`amdgpu_pm_put_access()` already exist in
+this tree.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-**Evidence FOR backport:**
-- Fixes real display bug and potential NULL dereference
-- Small, surgical, obviously correct
-- Prerequisites (`link_enc_cfg_get_link_enc`, FEC power-down) exist in
-  6.18.y
-- Reviewed by AMD display engineer; signed off by maintainer
-- Follow-up to an already-backported FEC fix (`5f0c5775d4eeb`)
-- Matches established patterns throughout the same subsystem
+### Step 4.1: Original Discussion
+**Record:**
+- `b4 dig -c a4b0c3f5d2287`: **no match** (patch on freedesktop.org amd-
+  gfx, not lore.kernel.org)
+- Fetched: https://lists.freedesktop.org/archives/amd-
+  gfx/2026-May/145516.html
+- Part of 8-patch series by Candice Li (2026-05-28)
+- No explicit stable nomination found in thread
+- No NAKs observed in fetched content
 
-**Evidence AGAINST:**
-- Only affects flexible DIG-mapping hardware (primarily USB4/DPIA), not
-  all AMD users
-- Part of a large AMD batch series (but this patch is self-contained)
+### Step 4.2: Reviewers
+**Record:** CC'd Hawking Zhang, Tao Zhou, Stanley Yang, Thomas Chai;
+Reviewed-by Hawking Zhang; Signed-off-by Alex Deucher
 
-**Stable rules checklist:**
-1. Obviously correct and tested? **PASS** (code review by AMD; pattern
-   used elsewhere; no runtime test tag)
-2. Fixes a real bug? **PASS**
-3. Important issue? **PASS** (display failure / possible oops)
-4. Small and contained? **PASS** (one function, one file)
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS**
+### Step 4.3: Bug Report
+**Record:** No external bug report, syzbot link, or user Reported-by.
+Bug identified by code inspection during related PM cleanup work.
 
-**Exception category:** Not applicable (hardware quirk/workaround
-category does not apply; this is a driver logic fix).
+### Step 4.4: Series Context
+**Record:** Patch 2/8 in series covering OD index validation, this
+refcount fix, RAS EEPROM validation, etc. This fix is independent of
+patches 1 and 3–8.
+
+### Step 4.5: Stable List History
+**Record:** lore.kernel.org/stable search blocked (bot protection). No
+stable-list discussion found via other sources.
 
 ---
 
-## Problem Summary
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-Commit `5f0c5775d4eeb` added FEC disable logic to
-`power_down_encoders()` using `link->link_enc` directly. For links with
-flexible DIG encoder assignment, that field is not the currently
-assigned encoder — and for USB4/DPIA links it is never created at all
-(`construct_dpia()` has a "TODO: Create link encoder" comment). The
-result is either operating on the wrong hardware block (display does not
-light up) or dereferencing NULL (kernel oops). This commit corrects the
-lookup and adds the guards that other DC code paths already use.
+### Step 5.1: Key Functions
+**Record:** `amdgpu_set_smartshift_bias()`, `amdgpu_pm_get_access()`,
+`amdgpu_pm_put_access()`
 
-For the 6.18.y tree specifically: the buggy code and all prerequisites
-are present, the FEC fix is already backported, and this small follow-up
-completes that fix for flexible-mapping cases.
+### Step 5.2: Callers
+**Record:** `amdgpu_set_smartshift_bias` is registered as the `.store`
+callback for `smartshift_bias` via
+`AMDGPU_DEVICE_ATTR_RW(smartshift_bias, ...)` at line 2544. Invoked when
+root (or privileged user) writes to
+`/sys/class/drm/card*/device/smartshift_bias`.
+
+### Step 5.3: Callees
+**Record:**
+- `kstrtoint()` — input parsing
+- `amdgpu_pm_get_access()` → `amdgpu_pm_dev_state_check()` +
+  `pm_runtime_resume_and_get()`
+- `amdgpu_pm_put_access()` → `pm_runtime_mark_last_busy()` +
+  `pm_runtime_put_autosuspend()`
+
+### Step 5.4: Reachability
+**Record:**
+- Reachable from userspace via sysfs write (requires root/privileged
+  access)
+- Only exposed on SmartShift-capable hardware (`ss_bias_attr_update()`
+  gates visibility)
+- Trigger: writing non-integer value, e.g. `echo abc >
+  .../smartshift_bias`
+
+### Step 5.5: Similar Patterns
+**Record:** `amdgpu_set_smartshift_bias` is the **only** sysfs store in
+this file that parses input (`kstrtoint`) before `get_access` while
+retaining a `goto out` that unconditionally calls `put_access`. Other
+`goto out` usages (gpu metrics, temp metrics, fan control) all occur
+**after** successful `get_access`.
+
+---
+
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE
+
+### Step 6.1: Buggy Code Present?
+**Record:** **YES.** Buggy code confirmed at lines 1865–1886 in
+v6.18.44. Introduced by `55aa33c3fe3876`, present since v6.18-rc1.
+
+### Step 6.2: Backport Complications
+**Record:** Clean apply expected. Current tree matches the diff base
+exactly. No conflicting changes in this function since the refactor.
+
+### Step 6.3: Fix Already Present?
+**Record:** **NO.** Fix commit `a4b0c3f5d2287` exists in the repo object
+database but is **not** an ancestor of HEAD (v6.18.44).
+
+---
+
+## PHASE 7: SUBSYSTEM AND MAINTAINER CONTEXT
+
+### Step 7.1: Subsystem Criticality
+**Record:** `drivers/gpu/drm/amd/pm` — **IMPORTANT** (AMD GPU power
+management; affects laptop SmartShift systems)
+
+### Step 7.2: Subsystem Activity
+**Record:** Actively maintained; recent stable commits in this file
+include torn gpu metrics reads, scpm read-only attrs, sysfs cleanup
+fixes.
+
+---
+
+## PHASE 8: IMPACT AND RISK ASSESSMENT
+
+### Step 8.1: Who Is Affected
+**Record:** AMD SmartShift 2.0 laptop users (APU + dGPU power sharing)
+who write to `smartshift_bias` sysfs. Narrow hardware scope, but real
+production systems.
+
+### Step 8.2: Trigger Conditions
+**Record:**
+- Invalid integer written to `smartshift_bias` sysfs
+- Requires root/privileged sysfs write access
+- Unlikely in normal use; plausible via scripting error or manual
+  experimentation
+- Not security-relevant (privileged access required)
+
+### Step 8.3: Failure Mode Severity
+**Record:**
+- **Failure:** Runtime PM usage-count underflow warning;
+  `pm_runtime_mark_last_busy()` called spuriously
+- **Severity:** **MEDIUM** — no crash, panic, or data corruption; kernel
+  catches underflow and restores counter, but PM accounting is briefly
+  wrong and a `dev_warn` is emitted. Repeated triggers could affect
+  suspend/resume behavior.
+
+### Step 8.4: Risk-Benefit
+**Record:**
+- **Benefit:** MEDIUM — fixes real refcount bug on an error path in
+  production driver code present since 6.18.0
+- **Risk:** VERY LOW — 3-line logic change, maintainer-reviewed, matches
+  established patterns in the same file
+- **Ratio:** Benefit outweighs risk
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+### Step 9.1: Evidence Summary
+
+**FOR backport:**
+- Real refcount bug introduced by `55aa33c3fe3876` refactor, present in
+  v6.18.44
+- Obviously correct, minimal fix (3 insertions, 5 deletions)
+- Maintainer-reviewed and signed off by Alex Deucher
+- Matches error-handling pattern used elsewhere in `amdgpu_pm.c`
+- Reference counting bugs in PM paths are standard stable material
+
+**AGAINST backport:**
+- Only triggered by invalid sysfs input (root-only)
+- Limited to SmartShift-capable AMD hardware
+- Failure mode is WARN + counter correction, not crash/corruption
+- No user reports or fuzzer findings
+
+**Unresolved:** No stable-list nomination found; no user-reported
+instances.
+
+### Step 9.2: Stable Rules Checklist
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — logic is clear;
+Reviewed-by from AMD; no Tested-by |
+| 2. Fixes a real bug affecting users? | **PASS** — refcount imbalance
+on parse-error path |
+| 3. Important issue? | **PASS** (borderline) — runtime PM underflow;
+MEDIUM severity |
+| 4. Small and contained? | **PASS** — 8 lines net, one function |
+| 5. No new features/APIs? | **PASS** |
+| 6. Can apply to local tree? | **PASS** — buggy code present; clean
+apply |
+
+### Step 9.3: Exception Categories
+**Record:** None applicable (not device ID, quirk, DT, build, or docs
+fix).
+
+### Step 9.4: Decision Rationale
+
+This is a clear bug introduced in v6.18 by the PM access API refactor
+(`55aa33c3fe3876`). The original SmartShift bias handler correctly
+acquired runtime PM before parsing; the refactor inverted that order but
+left the unconditional `out:` cleanup, breaking get/put pairing. The fix
+restores correct refcount semantics with zero functional change on the
+success path.
+
+While the trigger is narrow (invalid sysfs write on SmartShift hardware)
+and the failure mode is a caught underflow warning rather than a crash,
+reference-count bugs in GPU runtime PM are appropriate for stable
+backport: the fix is trivial, obviously correct, maintainer-approved,
+and the buggy code is present throughout the 6.18.y series.
 
 ---
 
 ## Verification
 
 - [Phase 1] Parsed commit message and tags from user-provided diff and
-  lore page
-- [Phase 2] Read current `power_down_encoders()` at lines 1728–1753 in
-  `dce110_hwseq.c`
-- [Phase 3] `git blame -L 1734,1748`: FEC commit `5f0c5775d4eeb`
-  introduced vulnerable lines
-- [Phase 3] `git show 5f0c5775d4eeb` and `git show 8cee62904caf9`: FEC
-  commit present in tree
-- [Phase 3] `git log --oneline -5 -- dce110_hwseq.c`: confirmed FEC
-  commit is most recent change to this function
-- [Phase 4] Fetched amd-gfx lore pages for patch 12/17 and series cover
-  letter
-- [Phase 4] `b4 dig -c 8cee62904caf9`: no lore match (tool limitation,
-  not analysis blocker)
-- [Phase 5] `grep
-  power_down_encoders/power_down_all_hw_blocks/dce110_power_down`:
-  traced call chain
-- [Phase 5] `grep link_enc_cfg_get_link_enc`: confirmed widespread use
-  of correct API in subsystem
-- [Phase 5] Read `construct_dpia()` in `link_factory.c` lines 760–827:
-  DPIA links set `is_dig_mapping_flexible = true`, no `link_enc` created
-- [Phase 5] Read `link_enc_cfg_get_link_enc()` in `dc_link_enc_cfg.c`
-  lines 550–568: flexible vs fixed logic verified
-- [Phase 5] Read `dp_set_fec_enable()` in `link_dp_phy.c` lines 180–188:
-  NULL guard pattern confirmed
-- [Phase 6] `git describe HEAD`: v6.18.43-1-gc7f0dac02d232 (6.18.y
-  stable tree)
-- [Phase 6] Confirmed fix not yet applied (line 1734 still uses
-  `link->link_enc`)
-- [Phase 6] Confirmed `link_enc_cfg.h` included at line 49 of
-  `dce110_hwseq.c`
-- [Phase 6] `grep .power_down = dce110_power_down`: all DCN init files
-  use this path
-- [Phase 8] Read FEC commit message: "no light up" failure mode
-  documented for wrong DIG encoder
+  mailing list
+- [Phase 2] Read current `amdgpu_set_smartshift_bias()` at lines
+  1856–1887 in v6.18.44; confirmed buggy get/put pairing
+- [Phase 2] Read `rpm_drop_usage_count()` at lines 1079–1095; confirmed
+  underflow warning behavior
+- [Phase 3] `git blame -L 1856,1887`: bug introduced by
+  `55aa33c3fe3876`, original function by `30d95a37f46d1`
+- [Phase 3] `git show 55aa33c3fe3876`: confirmed refactor moved
+  `kstrtoint` before `get_access` while keeping `goto out`
+- [Phase 3] `git show 30d95a37f46d1`: original code had
+  `pm_runtime_get_sync` before `kstrtoint` (correct pairing)
+- [Phase 3] `git merge-base --is-ancestor 55aa33c3fe3876 HEAD`: buggy
+  commit IS in v6.18.44
+- [Phase 3] `git tag --contains 55aa33c3fe3876`: present since v6.18-rc1
+- [Phase 4] `b4 dig -c a4b0c3f5d2287`: no lore match (patch on
+  freedesktop.org)
+- [Phase 4] Fetched https://lists.freedesktop.org/archives/amd-
+  gfx/2026-May/145516.html: confirmed patch content and series context
+- [Phase 5] Grep for `goto out` in `amdgpu_pm.c`: only smartshift_bias
+  has parse-before-get with unconditional put at `out`
+- [Phase 5] Confirmed `AMDGPU_DEVICE_ATTR_RW(smartshift_bias)`
+  registration at line 2544
+- [Phase 6] `git describe HEAD` = v6.18.44; `make kernelversion` =
+  6.18.44
+- [Phase 6] `git merge-base --is-ancestor a4b0c3f5d2287 HEAD`: fix NOT
+  in current tree
+- [Phase 6] Compared current code to provided diff: exact match, clean
+  apply expected
+- [Phase 8] Confirmed failure mode via `rpm_drop_usage_count` underflow
+  path
+- [UNVERIFIED] No runtime test of actual sysfs write triggering the
+  warning
 
-**YES****Verdict: YES** — this commit should be backported to the 6.18.y
-tree.
+**YES**The background searches finished and match the earlier analysis:
 
-It fixes a real bug in `power_down_encoders()` where `link->link_enc` is
-used directly instead of `link_enc_cfg_get_link_enc()`. On flexible DIG-
-mapping links (notably USB4/DPIA), that can mean the wrong encoder is
-targeted or a NULL pointer is dereferenced during power-down — causing
-display failures or a kernel oops. The fix is small, self-contained, and
-the prerequisite FEC power-down commit (`5f0c5775d4eeb`) is already in
-this tree.
+- The fix exists in the repo as `a4b0c3f5d2287` / `b9dcdc6fd5e2d`, but
+  it is **not** in the current `stable/linux-6.18.y` checkout at
+  v6.18.44.
+- The buggy code from `55aa33c3fe3876` **is** present in this tree.
 
- .../drm/amd/display/dc/hwss/dce110/dce110_hwseq.c    | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+Verdict remains **YES** for backporting to this 6.18.y tree.
 
-diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-index 8f86177de48dc..0841b1d0b7775 100644
---- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-+++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
-@@ -1731,20 +1731,22 @@ static void power_down_encoders(struct dc *dc)
+ drivers/gpu/drm/amd/pm/amdgpu_pm.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/amdgpu_pm.c b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+index 94c534c1d0bed..d253b974223c6 100644
+--- a/drivers/gpu/drm/amd/pm/amdgpu_pm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_pm.c
+@@ -1859,12 +1859,12 @@ static ssize_t amdgpu_set_smartshift_bias(struct device *dev,
+ {
+ 	struct drm_device *ddev = dev_get_drvdata(dev);
+ 	struct amdgpu_device *adev = drm_to_adev(ddev);
+-	int r = 0;
++	int r;
+ 	int bias = 0;
  
- 	for (i = 0; i < dc->link_count; i++) {
- 		struct dc_link *link = dc->links[i];
--		struct link_encoder *link_enc = link->link_enc;
-+		struct link_encoder *link_enc = link_enc_cfg_get_link_enc(link);
- 		enum signal_type signal = link->connector_signal;
+ 	r = kstrtoint(buf, 10, &bias);
+ 	if (r)
+-		goto out;
++		return r;
  
- 		dc->link_srv->blank_dp_stream(link, false);
- 		if (signal != SIGNAL_TYPE_EDP)
- 			signal = SIGNAL_TYPE_NONE;
+ 	r = amdgpu_pm_get_access(adev);
+ 	if (r < 0)
+@@ -1876,14 +1876,12 @@ static ssize_t amdgpu_set_smartshift_bias(struct device *dev,
+ 		bias = AMDGPU_SMARTSHIFT_MIN_BIAS;
  
--		if (link->ep_type == DISPLAY_ENDPOINT_PHY)
-+		if (link->ep_type == DISPLAY_ENDPOINT_PHY && link_enc)
- 			link_enc->funcs->disable_output(link_enc, signal);
+ 	amdgpu_smartshift_bias = bias;
+-	r = count;
  
- 		if (link->fec_state == dc_link_fec_enabled) {
--			link_enc->funcs->fec_set_enable(link_enc, false);
--			link_enc->funcs->fec_set_ready(link_enc, false);
--			link->fec_state = dc_link_fec_not_ready;
-+			if (link_enc && link_enc->funcs->fec_set_enable && link_enc->funcs->fec_set_ready) {
-+				link_enc->funcs->fec_set_enable(link_enc, false);
-+				link_enc->funcs->fec_set_ready(link_enc, false);
-+				link->fec_state = dc_link_fec_not_ready;
-+			}
- 		}
+ 	/* TODO: update bias level with SMU message */
  
- 		link->link_status.link_active = false;
+-out:
+ 	amdgpu_pm_put_access(adev);
+ 
+-	return r;
++	return count;
+ }
+ 
+ static int ss_power_attr_update(struct amdgpu_device *adev, struct amdgpu_device_attr *attr,
 -- 
 2.53.0
 
