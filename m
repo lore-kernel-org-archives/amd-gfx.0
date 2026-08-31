@@ -4,62 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id DB0A0C61DD3
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 07:59:25 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DE9EC61DD6
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 07:59:26 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 71C3A10EBC5;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7402710EBC6;
 	Tue,  1 Sep 2026 07:59:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="KPFa9duw";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ehFYVI/F";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E07F10E637
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 18:32:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788201180; x=1819737180;
- h=from:date:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=qhsge+/69E4jNcWl7mZmEyCtLeMfahz3yWtH0cXD0tc=;
- b=KPFa9duwaYRhiy7P24d5TLPuD+MHXm21B6wyuqLjhYgEHlLIMZh50E7b
- y5vOOfCIiIfJMLF+0nc47w89uX4+6CL2RKynMD/konp+/7QtE4026IPjp
- 1pEjfki/UcMD9PMdZR8Ma4OF2tZDIUP0FRNmgnlWuP5JchfNZS0qPP/8H
- TITKTPuNA0/8EQW+VtiCgqpubLWCHOl99rkgUD8o1faX8MfG/tZRq4lyO
- FsOPm3HVs/gcgh8/Ov7Yp8taYOHdjHOZMIZ6gHlv7XTSSeUY6kxEcQzWq
- b57W7uxFrKwBnRyTsmVYqZHZrd8bhE35CqC56AgDm6NsQkmgwK037wiCR A==;
-X-CSE-ConnectionGUID: Z35hGF8cTLyCykBF19v7zA==
-X-CSE-MsgGUID: 7YazbvL1T4qDp/GzybG7WQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88667384"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="88667384"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 11:33:00 -0700
-X-CSE-ConnectionGUID: Vkz1x03HQ5+hjPCvMPu67g==
-X-CSE-MsgGUID: f6oTpFKnRCqEacANzmAPrQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="293708209"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.244.121])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 11:32:54 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 31 Aug 2026 21:32:51 +0300 (EEST)
-To: Geramy Loveless <gloveless@jqluv.com>
-cc: =?ISO-8859-15?Q?Christian_K=F6nig?= <christian.koenig@amd.com>, 
- Bjorn Helgaas <bhelgaas@google.com>, alexander.deucher@amd.com, 
- amd-gfx@lists.freedesktop.org, mario.limonciello@amd.com, 
- nra3088@gmail.com, meiling.leung@embeddedllm.com, 
- linux-pci@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] PCI: Reserve prefetchable window headroom for Resizable
- BARs
-In-Reply-To: <1eb85efc-43f4-4929-8390-467308522236@jqluv.com>
-Message-ID: <7366a0bc-360b-0667-ee94-af839374dfed@linux.intel.com>
-References: <39e09dd8-f73e-4dc2-ba36-8a9228516d26@jqluv.com>
- <d4c3ea40-d92a-49c4-ab2c-925fc70c4bb9@amd.com>
- <d6c56ff3-0b83-4d2e-7e6f-f3e65a284341@linux.intel.com>
- <1eb85efc-43f4-4929-8390-467308522236@jqluv.com>
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 24FE510EA63
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 18:49:09 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4921eed3fa2so36295205e9.0
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 11:49:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788202147; x=1788806947; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=mBRYrm7iZ0lt9Y/BYEBnIT0kCPY+bCfIH1rb2I4FEiI=;
+ b=ehFYVI/FWmAcyS2CyaHWvUy/rN7u34eOJzXdGPn3xPZ7abJCzRHl9KsqsgDwuIuuH9
+ 1CDPPQ58RefuUpTQpIpoXfsAOiXOJwfH1NwVthI3JY4yn4HtwUhzHaUyHvtQcmHWVsaw
+ EbUHLuWbfPW6dPn53hAsawy2+fOIUbSebzMjP2B1LYv7mJHvVEBS60dupYOTUn1moOlq
+ MuWRn+EXSwGpsJHAmBE2bzQdtsmIDjzKUyLV/h5/+ntyBiOq/+qEeBMa5mcEy3wl7Jhd
+ Vb+J2fwpawu+Yc4RssePZcXEYMbiP2YpmFfxQLwuNj1yhoVpjlpTfZjOfdd6YNAZzHH+
+ Nphw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788202147; x=1788806947;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=mBRYrm7iZ0lt9Y/BYEBnIT0kCPY+bCfIH1rb2I4FEiI=;
+ b=C08rlUtw9y9NFH4m/EnNo23y0ymOzZFFUJOFGt6hpzYCg5HOuqnzE8rb6t24CbjcpM
+ vmz2K+lPsR/7+PQPvf/eAS56rYjfxFiuX4luTvJt87I51Gs4fBkCpZQ/AjlrLJQAhjs7
+ Pir2nJP7guyanBl9bpshxS1tkU+ai86JSkqWVQT7FVx0pjj0s/qxslh5x0FC+GwwKaeN
+ mvVeSoV+nd89vTjsCjK/e+Twxx5P5U7J4K/6wT7/TaTGqdq77tK5WePexMakV2bpmavC
+ 0QwOak4rzhDTMwO58O9HKKJPC4M9m8PlxwAI2LqIhFFOXr5jGIkyqUJvnRHkWIFVJqDc
+ hbDw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RqwmiunB4I4oe5YIjl0eiFGji7/atW/W3mlNbDASgEaA4reofFiC6aokQ9PaYWaZkn9x00P6EdM@lists.freedesktop.org
+X-Gm-Message-State: AFuF++nNSmUdSTpLs7T/FoK9g4YI3Oa7AROhoAdAH69AzMcmV6B4Qi0a
+ zhbFzgVlBKnPDA/N4IGSLMej3Y7qsGgbpvRLCNVwAThJhwlhFAbd30Me
+X-Gm-Gg: AR+sD10bxw/QlHrT2FKJCAFEQWHNXqVzvT+S7+mnKElyhiTzBb2WSE+MevxV7RTg49G
+ h52lPntgdpszAm9vYfWMKGMAPmEmDmcnqnSx1Vn9dNVaIjgeVRHe2hq0PYyvtB1+IQueZA2kPtW
+ dLzF2o9c+/d+BjwV/rqRKZKp8dmSWxkPimx0P4O/lKTDsyazqVYtC698yFT4iVj0RQSykL5XBUQ
+ CB+CCzERm7mNrogd0Kvzfa7sQKAKzm14vUK24ad4zbih9Pb4tA24Jzps9VnvW88aBfkd2N1+xT+
+ qEoYxdT3MeOac4EUmXRtn19mzC7fIj1nWdAXmV2XFpl/a3Gilq52NsPDxh/4us0IjgM6CVpYRsw
+ SKW0v3jatCyFu29qwHii7EA+f3akQIOoX+MJ64lYM6riMtmPYBtcJyKkYWrHZ4et7kA/WWqKlUs
+ 06cyWKnlR/3TdUqdgntYAHaAB7NC/MMj/B1Xc4wZn/+PaLDLMHyh650d1NjpMyEHFrj61I9diuK
+ Mq9dzBZdrscJOvu+5/DD/4Fz2EQhtz/pa5wds/ymqKkSnWtcAddD89JQXHWG4bgre3fau7WA1sU
+ xgG1PULDb8NAbOE+uuyU0aEqL2kb4LK899rMcFFfi1dSYB4=
+X-Received: by 2002:a05:600c:6b08:b0:498:952:e276 with SMTP id
+ 5b1f17b1804b1-49cdc41f98fmr34974615e9.8.1788202147210; 
+ Mon, 31 Aug 2026 11:49:07 -0700 (PDT)
+Received: from [192.168.168.11] (a109-50-200-65.cpe.netcabo.pt.
+ [109.50.200.65]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-49cdce171c3sm12201185e9.8.2026.08.31.11.49.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 31 Aug 2026 11:49:06 -0700 (PDT)
+Message-ID: <c42ced8f-5e3a-42c9-ade4-d357575114ca@gmail.com>
+Date: Mon, 31 Aug 2026 19:49:05 +0100
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-633456053-1788201171=:2637"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 0/4] HDMI 2.1 VRR and ALLM support
+To: Fangzhi Zuo <jerry.zuo@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
+ =?UTF-8?Q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>,
+ daniel@fooishbar.org
+References: <20260811003921.1398292-1-jerry.zuo@amd.com>
+ <20260814164344.3098143-1-jerry.zuo@amd.com>
+Content-Language: en-US
+From: Adolfo <adolfotregosa@gmail.com>
+In-Reply-To: <20260814164344.3098143-1-jerry.zuo@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 01 Sep 2026 07:59:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -75,112 +96,67 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+I patched kernel 7.3-rc1, and I have KDE's Adaptive Sync property set to 
+Automatic (Always makes the display gamma flicker). VRR itself is only 
+engaged when entering a game.
 
---8323328-633456053-1788201171=:2637
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+My display (an LG C1 connected through an Onkyo RZ70 AVR) shows "fixed" 
+when VRR is not active. While this seems logical, it causes the display 
+to go blank every time I enter or exit a game, or, even worse, when I 
+alt-tab while in a game.
 
-On Mon, 31 Aug 2026, Geramy Loveless wrote:
-> On 8/31/26 9:58 AM, Ilpo J=C3=A4rvinen wrote:
-> > On Mon, 31 Aug 2026, Christian K=C3=B6nig wrote:
-> >
-> >> On 8/28/26 23:37, Geramy Loveless wrote:
-> >>> Firmware typically sizes prefetchable bridge windows for the boot-tim=
-e
-> >>> BAR size. Behind a fixed (non-hotplug) PCIe switch fabric, there is t=
-hen
-> >>> no room for a driver to grow a Resizable BAR afterwards: every window
-> >>> from the leaf up to the root is sized for the small BAR, so
-> >>> pci_resize_resource() fails with -ENOSPC.=20
-> >>>
-> >>> Furthermore, a small prefetchable BAR (e.g., a 2 MiB doorbell) sharin=
-g a=20
-> >>> bridge's single prefetchable window with a much larger one (e.g., a 3=
-2 GiB=20
-> >>> VRAM BAR) pushes the required window size past the large BAR's alignm=
-ent.=20
-> >>> Because bridge windows round up to a power of two, this forces a mass=
-ive=20
-> >>> alignment waste (e.g., 32 GiB + 2 MiB rounds up to a 64 GiB window,=
-=20
-> >>> wasting ~32 GiB per GPU).
-> >>>
-> >>> This patch solves both issues to enable ReBAR on cascaded switch fabr=
-ics:
-> >>>
-> >>> 1. Reserve Headroom:=20
-> >>> Reserve prefetchable window headroom for the maximum size of each=20
-> >>> downstream Resizable BAR during the bridge sizing pass. The device BA=
-R=20
-> >>> and hardware ReBAR are left at their boot size to prevent tearing dow=
-n=20
-> >>> firmware-loaded state (e.g., AMD R9700 PSP) before the driver binds.
-> >> Yeah that was suggested before but that is clearly not something you c=
-an=20
-> >> do in common code.
-> >>
-> >> The ReBAR fields often doesn't reflect the actual needed space but=20
-> >> rather the maximum the HW address logic can resolve.
-> >>
-> >> So what you end up with is allocating multiple TiB for a window which=
-=20
-> >> just needs few GiB, sometimes even completely overflowing the 64bit=20
-> >> address space made available by the root complex.
->=20
-> Yeah I could imagine that would be bad, hence I tried to compact the=20
-> 64-bit space as well. As far as I understand PCI/PCIe standards its=20
-> making this patch difficult.=20
+In my case, I can have periods of up to 10 seconds with no image while 
+the devices in the HDMI chain disagree with each other, and sometimes I 
+lose the image completely.
 
-No compacting will save you in some cases. There are setups with many GPUs=
-=20
-and with VF BARs, the space requirement to fit full-sized ReBARs is way=20
-beyond what the root bus resource can hold. Where's your fallback for such=
-=20
-cases? What are the failure modes of that fallback?
+A kernel parameter to force VRR to always be enabled should be 
+available. This would prevent these signal-switching problems, and it is 
+how "FreeSync" actually works and also with the unofficial kernel 
+patches for AMD HDMI 2.1 + VRR on kernel 7.2.
 
-> Christian I'm not sure if you could share these reference documents but=
-=20
-> that probably would be a better start for me to look at before I update=
-=20
-> the patch or make changes, also I need to wait for a review on the last=
-=20
-> patch I submitted too, so that leaves me with some time to review some=20
-> standards if you know specifically where to look, if not thats fine too.
->=20
-> > Yes. A naive approach to (only) go to the max ReBAR allows just doesn't=
-=20
-> > work well enough to be usable in general case.
+There is also some evidence that keeping VRR active can avoid the 
+mode-switch behavior seen on some TVs when VRR is enabled or disabled.
+
+On 14/08/2026 17:43, Fangzhi Zuo wrote:
+> This series adds HDMI 2.1 gaming support to amdgpu: Variable Refresh Rate
+> (VRR) derived from the HDMI Forum VSDB (HF-VSDB), and Auto Low-Latency
+> Mode (ALLM). It builds on a drm/edid patch that parses the HF-VSDB gaming
+> capabilities into struct drm_hdmi_info.
 >
-> I did not know the max would report above the amount is actually needed=
-=20
-> because of vendors decisions in the cards, that's interesting.=20
-
-Not just that, using too large size has ripple effects on other resources=
-=20
-in the system, and those failures are hard to correct (your code doesn't=20
-even try to do that).
-
-> > A general algorithm to pick the largests fitting sizes for ReBARs is st=
-ill=20
-> > under works, a few steps away still, and more if I discover more=20
-> > challenges I need address before I can take that final step.
+>    - Patch 1 reports FreeSync from the AMD VSDB (existing mechanism).
+>    - Patch 2 (drm/edid) parses the HF-VSDB VRR range and ALLM bit.
+>    - Patch 3 enables VRR from the HF-VSDB when the AMD VSDB has no range.
+>    - Patch 4 signals ALLM_Mode in the HF-VSIF when Gaming-VRR is active.
 >
-> So then I would assume instead of doing the "hack" i'm having to use I=20
-> would change it to your new algorithm?
-
-Assuming you meant we apply this kind of naive approach first and later=20
-changing to the new algorithm, the problem with that approach is this
-"hack" must not break working setups either, but it surely would. If it=20
-does break things, the change will just end up reverted. And that end=20
-result is same as not doing the "hack" at all.
-
-It's not enough it doesn't break your setup. It generally must not break=20
-any setup, which is unfortunately very very high bar.
-
-
---=20
- i.
-
---8323328-633456053-1788201171=:2637--
+> v1: https://lore.kernel.org/amd-gfx/20260730171754.704049-1-jerry.zuo@amd.com/
+> v2: https://lore.kernel.org/amd-gfx/20260806205449.16806-1-jerry.zuo@amd.com/
+> v3: https://lore.kernel.org/amd-gfx/20260811003921.1398292-1-jerry.zuo@amd.com/
+>
+> Changes since v3:
+>    - Drop the content-type based ALLM heuristic. ALLM_Mode is now set only
+>      for the mandatory Gaming-VRR case (VRR_EN=1 with a sink that advertises
+>      ALLM), per HDMI 2.1 Section 7.6.6; it is no longer derived from the
+>      content type.
+>
+> Changes since v2:
+>    - Fix coding-style issues in the VTEM info-packet code.
+>
+> Fangzhi Zuo (3):
+>    drm/amd/display: Add 2.1 FreeSync support for AMD VSDB EDID Block
+>    drm/amd/display: Add HDMI 2.1 VRR support from HF-VSDB
+>    drm/amd/display: Enable HDMI ALLM for Gaming-VRR
+>
+> Tomasz Pakuła (1):
+>    drm/edid: parse HDMI 2.1 gaming (ALLM/VRR) capabilities from HF-VSDB
+>
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   5 +-
+>   .../display/amdgpu_dm/amdgpu_dm_connector.c   |  71 +++++++++++-
+>   .../display/amdgpu_dm/amdgpu_dm_freesync.c    |  41 +++++++
+>   .../amd/display/modules/inc/mod_info_packet.h |   4 +
+>   .../display/modules/info_packet/info_packet.c | 109 ++++++++++++++++++
+>   drivers/gpu/drm/drm_edid.c                    |  42 +++++++
+>   include/drm/drm_connector.h                   |  47 ++++++++
+>   7 files changed, 317 insertions(+), 2 deletions(-)
+>
+>
+> base-commit: de2622bbc20276eaaaafa8fdbd374ace1ced28dc
