@@ -4,44 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D749CC624A4
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:38:13 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7CE30C624CF
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:39:04 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4192510E85F;
-	Mon, 31 Aug 2026 13:38:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68CFF10E86D;
+	Mon, 31 Aug 2026 13:39:03 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="f6Kduyzx";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="VrlesS+S";
 	dkim-atps=neutral
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 95DC710E85E;
- Mon, 31 Aug 2026 13:38:11 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 619EF10E867;
+ Mon, 31 Aug 2026 13:39:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B4848601FD;
- Mon, 31 Aug 2026 13:38:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8C041F00A3E;
- Mon, 31 Aug 2026 13:38:08 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A79F460237;
+ Mon, 31 Aug 2026 13:39:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D1451F00A3F;
+ Mon, 31 Aug 2026 13:39:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1788183490;
- bh=OwyQs7/xmQtiE48ERpgIMcjpcG+CGJsvatd3D6VjQYE=;
+ s=k20260515; t=1788183541;
+ bh=MarN4AraKuRVOJPKbh8zqsJjzOiy10fIeHb6tsohb+k=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=f6KduyzxCUe+tEgSMVuBeTUINKpebs2sxPJdXss1IZLaA1zb/wjU6HCSlbN4tDE4G
- /8DB8hV1pVNPBVI1KDlVpVIvZAAvez1AZhRavInno8h8PezxCL5JPMjrYRAFzfe1kN
- 0RXqWvFLqWqKsp+PtGlwGeauueLl9dFR/H+9UVNrBSz7NcKGtdfWVgNcVH5IEdH1rH
- vgMGIMa16FaBx9gZkfCTW6ogH/SVEk5Tq+oO3FW5FEgV5iQdSYjmsfHwZ4cyV2A4Qi
- qIZ5JnkZbuOlaEUl+b+zATWrSNbFth0rj4AUyvAa+PnL4oSIsEnowfemdBdFmO/oZL
- cQ9UdXQWdmuoQ==
+ b=VrlesS+SfoS/09Oc/rvl/pOuiaVCDRkAW2iJDbkrcw2qhM73PS9M/XBL/ozY3y2oI
+ 0QnYNIJvHERVXoXMY3IPGMBbIVxCo1vZv4P864hs0cBH1s59hB4rv6sWhTWVbK0iIw
+ 90tTunl3fEDBrzHO/w5sOQUVNZNpII8koUZABtZcytr4BbcdPvDxqQ8CJQvP0LR6Oh
+ 8eJSRlRnVPWQNHtVbFwinQZ7Xve19QwLAcTpyrksmvgcXfbpVUCJ0AShsF+iyDT6DX
+ ANHa8WSeiiYDC/4UeicMFFZ65uG2nxQdrnie7Kkpq0UXne1JufaiowuK6zluTtnyNb
+ V04PTRDZDZugQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Ilya Bakoulin <Ilya.Bakoulin@amd.com>, Alvin Lee <alvin.lee2@amd.com>,
- Ray Wu <ray.wu@amd.com>, Daniel Wheeler <daniel.wheeler@amd.com>,
+Cc: Xiaogang Chen <xiaogang.chen@amd.com>,
  Alex Deucher <alexander.deucher@amd.com>, Sasha Levin <sashal@kernel.org>,
- harry.wentland@amd.com, sunpeng.li@amd.com, christian.koenig@amd.com,
- airlied@gmail.com, simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
+ Felix.Kuehling@amd.com, christian.koenig@amd.com, airlied@gmail.com,
+ simona@ffwll.ch, amd-gfx@lists.freedesktop.org,
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] drm/amd/display: Avoid DPMS-on for phantom stream
-Date: Mon, 31 Aug 2026 09:22:35 -0400
-Message-ID: <20260831133314.4125787-127-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.6] drm/amdkfd: Let driver decide buffer size at
+ AMDKFD_IOC_GET_DMABUF_INFO ioctl
+Date: Mon, 31 Aug 2026 09:23:06 -0400
+Message-ID: <20260831133314.4125787-158-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -65,339 +65,476 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
+From: Xiaogang Chen <xiaogang.chen@amd.com>
 
-[ Upstream commit 10f5f9c0ef32d08b228bfee3684b62f36f395852 ]
+[ Upstream commit 8242a8d9d7194d5ef8a8b38a5621ca0966a3ec15 ]
 
-[Why & How]
-Calling dc_update_planes_and_stream separately for stream and its
-phantom stream causes a NULL pointer dereference, since the phantom is
-destroyed on the first call.
+amdkfd driver needs allocate buffer to return bo metadata to user space. The
+buffer size is controlled by user currently. It is a potential security issue
+that hostile value (e.g. 2 GiB) lets any render-group user trigger order-MAX
+allocation/OOM in kernel context.
 
-Skip the call for phantom streams.
+This patch first finds bo metadata size. If the size is smaller than user
+provided value drive can safely allocate buffer in kernel space and copy to
+user space buffer. If not, driver will let user know, not allocate and copy.
+User will redo with new buffer in user space.
 
-Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
-Signed-off-by: Ilya Bakoulin <Ilya.Bakoulin@amd.com>
-Signed-off-by: Ray Wu <ray.wu@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+This patch lets driver decide buffer allocation size to avoid potential hostile
+size from user space.
+
+Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit f54ce9e8cbd3abe0eda3a285f54dc4f572fe589a)
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `drm/amd/display: Avoid DPMS-on for phantom
-stream`
+## Phase 1: Commit Message Forensics
 
-**Local tree:** `stable/linux-6.18.y` at **v6.18.44** (`git describe
-HEAD` / `make kernelversion` → 6.18.44)
+**Step 1.1 — Subject line**
 
----
+Record: `[drm/amdkfd]` `[Let driver decide]` — ioctl security hardening
+for `AMDKFD_IOC_GET_DMABUF_INFO` so the kernel no longer allocates based
+on user-supplied buffer size.
 
-## PHASE 1: COMMIT MESSAGE FORENSICS
+**Step 1.2 — Tags**
 
-### Step 1.1: Subject line
-**Record:** `[drm/amd/display]` `[Avoid]` — Skip DPMS-on stream updates
-for phantom (SubVP) streams during DP link-training automation to
-prevent a NULL pointer dereference.
+Record:
+- `Signed-off-by: Xiaogang Chen <xiaogang.chen@amd.com>` (author)
+- `Reviewed-by: Alex Deucher <alexander.deucher@amd.com>` (AMD DRM
+  maintainer)
+- `Signed-off-by: Alex Deucher <alexander.deucher@amd.com>` (committer)
+- No `Fixes:`, `Reported-by:`, `Link:`, `Cc: stable@vger.kernel.org`,
+  `Tested-by:`, or `Acked-by:`
 
-### Step 1.2: Tags
-**Record:**
-- **Reviewed-by:** Alvin Lee \<alvin.lee2@amd.com\>
-- **Tested-by:** Daniel Wheeler \<daniel.wheeler@amd.com\>
-- **Signed-off-by:** Ilya Bakoulin, Ray Wu, Alex Deucher (maintainer)
-- **No** Fixes:, Reported-by:, Link:, Cc: stable@vger.kernel.org
-- Notable: Reviewed and tested by AMD display engineers; Alex Deucher
-  acked (subsystem maintainer).
+Notable: maintainer review only; no fuzzer or user bug report cited.
 
-### Step 1.3: Body analysis
-**Record:**
-- **Bug:** Calling `dc_update_planes_and_stream()` separately for a real
-  stream and its paired phantom stream causes a NULL pointer
-  dereference.
-- **Symptom:** Kernel oops / crash in the display driver during DP link
-  retrain automation.
-- **Root cause (author):** The phantom stream is destroyed on the first
-  `dc_update_planes_and_stream()` call; a second call uses a stale/freed
-  pointer.
-- **Fix:** Skip phantom streams when building the list of streams to
-  update with DPMS-on.
+**Step 1.3 — Body analysis**
 
-### Step 1.4: Hidden bug fix?
-**Record:** No — this is an explicit NULL-deref fix, not disguised
-cleanup.
+Record:
+- **Bug:** `kfd_ioctl_get_dmabuf_info()` allocates a kernel buffer with
+  `kzalloc(args->metadata_size, GFP_KERNEL)` where `metadata_size` is
+  fully user-controlled.
+- **Symptom:** A render-group user can pass a hostile size (e.g. 2 GiB)
+  and force large kernel allocations → OOM / denial of service.
+- **Root cause:** Allocation size is driven by userspace, not by actual
+  BO metadata size.
+- **Fix approach:** Query actual metadata size first via
+  `amdgpu_bo_get_metadata()` with `buffer=NULL`; allocate only
+  `*metadata_size` bytes (bounded by driver data); reject with `-EINVAL`
+  if user buffer is too small.
+- **Version info:** None in message.
 
----
+**Step 1.4 — Hidden bug fix?**
 
-## PHASE 2: DIFF ANALYSIS
-
-### Step 2.1: Inventory
-**Record:**
-- **File:**
-  `drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c` (+2
-  lines)
-- **Function:** `dp_retrain_link_dp_test()`
-- **Scope:** Single-file, surgical fix (2 lines added)
-
-### Step 2.2: Code flow change
-**Record:**
-- **Before:** Loop over `state->streams[i]` on the link caches every
-  stream (including phantoms), then calls
-  `dc_update_planes_and_stream()` for each.
-- **After:** Streams with `is_phantom == true` are skipped during
-  caching; only real streams get DPMS-on updates.
-- **Path affected:** DP link retrain / compliance-test automation error
-  path in `dp_retrain_link_dp_test()`.
-
-### Step 2.3: Bug mechanism
-**Record:**
-- **Category:** NULL pointer dereference (memory safety)
-- **Mechanism:** `dc_update_planes_and_stream()` with
-  `stream_update->dpms_off` forces `UPDATE_TYPE_FULL` (verified in
-  `check_update_surfaces_for_stream()` at lines 2966–2996 of `dc.c`).
-  Full updates call `dc_state_remove_phantom_streams_and_planes()` and
-  `dc_state_release_phantom_streams_and_planes()` (lines 3529–3530 of
-  `dc.c`), freeing phantom streams. The second loop iteration still
-  holds a cached phantom pointer → NULL deref.
-
-### Step 2.4: Fix quality
-**Record:**
-- Fix is obviously correct and minimal.
-- Matches existing convention: `resource_log_pipe_topology_update()`
-  already skips `is_phantom` streams (`dc_resource.c:2419`).
-- Regression risk: very low — phantom streams should not receive
-  independent DPMS-on updates.
-- No API or structural changes.
+Record: **Yes.** Although not labeled “fix”, this is a classic user-
+controlled kernel allocation / DoS hardening pattern, same class as
+other KFD ioctl validation fixes already in stable.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 2: Diff Analysis
 
-### Step 3.1: Blame
-**Record:**
-- Buggy loop introduced by **f5b69101f956f** (2025-07-17): "Cache
-  streams targeting link when performing LT automation"
-- That commit is an ancestor of v6.18.0 and of current HEAD.
-- `is_phantom` on `struct dc_stream_state` dates to **012a04b1d6af6**
-  (2023-11-21).
+**Step 2.1 — Inventory**
 
-### Step 3.2: Fixes: tag
-**Record:** N/A — no Fixes: tag in commit message.
+Record:
+- `drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c`: +15 / -3
+- `drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h`: signature change (1
+  line)
+- `drivers/gpu/drm/amd/amdkfd/kfd_chardev.c`: +2 / -8
+- **Functions:** `amdgpu_amdkfd_get_dmabuf_info()`,
+  `kfd_ioctl_get_dmabuf_info()`
+- **Scope:** Single-subsystem, 3-file surgical fix (~22 insertions, ~13
+  deletions)
 
-### Step 3.3: Related file history
-**Record:**
-- **f5b69101f956f** — introduced stream caching loop (root of this bug
-  pattern)
-- **89939cf252d80** (2025-09-29) — different NULL-deref fix in same
-  function: cache `dc` from `link->dc` instead of stale
-  `state->clk_mgr->ctx->dc` after first stream update. Already in
-  6.18.44 but does **not** fix the phantom-stream issue.
-- Fix commit **10f5f9c0ef32d** (upstream) / **56337aae2421b** (stable
-  candidate) is **not** in 6.18.44.
-- Standalone fix; not part of a multi-patch series.
+**Step 2.2 — Code flow per hunk**
 
-### Step 3.4: Author context
-**Record:** Ilya Bakoulin is an active AMD display contributor (link/DP
-fixes). Alex Deucher is amdgpu/drm maintainer.
+Record:
+1. **`kfd_chardev.c`:** Before → `kzalloc(args->metadata_size)` when
+   `metadata_ptr` set. After → no user-size allocation; passes
+   `&metadata_buffer` to helper; copies only if both kernel buffer and
+   `metadata_ptr` are set.
+2. **`amdgpu_amdkfd.c`:** Before → passes user buffer directly to
+   `amdgpu_bo_get_metadata()`. After → queries size with `buffer=NULL`,
+   allocates `kzalloc(*metadata_size)` only when `*metadata_size <=
+   buffer_size`, else `-EINVAL`.
+3. **`amdgpu_amdkfd.h`:** `metadata_buffer` parameter becomes `void **`
+   so callee can allocate and return buffer pointer.
 
-### Step 3.5: Dependencies
-**Record:**
-- Requires `is_phantom` field — present in this tree
-  (`dc_stream.h:313`).
-- Requires stream-caching loop from f5b69101 — present in this tree.
-- Cherry-pick of upstream **10f5f9c0ef32d** auto-merges cleanly against
-  6.18.44 (verified).
-- **Standalone:** PASS.
+**Step 2.3 — Bug mechanism**
 
----
+Record: **Memory safety / DoS via user-controlled allocation size.**
+Category: unvalidated userspace size passed to `kzalloc()` in ioctl
+handler. Fix caps kernel allocation to actual BO metadata size (small,
+driver-controlled).
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+**Step 2.4 — Fix quality**
 
-### Step 4.1–4.5
-**Record:**
-- `b4 dig -c 10f5f9c0ef32d`: no lore match found.
-- lore.kernel.org fetch: 403 Forbidden (bot protection).
-- **UNVERIFIED:** No mailing-list thread or stable-list discussion
-  retrieved.
-- Tags show AMD internal review (Reviewed-by, Tested-by) and maintainer
-  sign-off.
+Record: **Obviously correct** for the stated problem. Minimal, focused
+change. Minor concern: on `kzalloc()` failure the fix returns `-ENOMEM`
+directly without `goto out_put`, leaking a `dma_buf` reference — rare
+path, does not undermine the security fix. No API or UAPI structure
+changes.
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 3: Git History Investigation
 
-### Step 5.1: Key functions
-**Record:** `dp_retrain_link_dp_test()` modified; calls
-`dc_update_planes_and_stream()`.
+**Step 3.1 — Blame**
 
-### Step 5.2: Callers
-**Record:**
-- `dp_test_send_link_training()` → `dp_handle_automated_test()` (DP
-  compliance test / link-training automation)
-- `dp_set_preferred_training_settings()` path at line 991 (preferred
-  link settings retrain during normal DP operation)
+Record: Vulnerable `kzalloc(args->metadata_size, ...)` introduced in
+`1dde0ea95b782` (Felix Kuehling, 2018-11-20) — “drm/amdkfd: Add DMABuf
+import functionality”. Bug present since v4.20 era; definitely present
+in this 6.18.44 tree.
 
-### Step 5.3: Callees
-**Record:** `dc_update_planes_and_stream()` →
-`update_planes_and_stream_v3/v2()` → phantom removal on FULL updates.
+**Step 3.2 — Fixes: tag**
 
-### Step 5.4: Reachability
-**Record:**
-- Trigger requires SubVP/MALL phantom streams on a DP link (`is_phantom
-  == true`).
-- Triggered during DP link retrain (compliance testing or preferred-
-  settings retrain).
-- Not a direct unprivileged syscall path, but reachable during normal
-  display hotplug/link-rate changes on AMD GPUs with SubVP enabled.
-- Config: `CONFIG_DRM_AMD_DC` (common on AMD systems).
+Record: N/A — no `Fixes:` tag.
 
-### Step 5.5: Similar patterns
-**Record:** `dc_resource.c:2419` skips phantom streams in topology
-logging — same semantic rule applied here.
+**Step 3.3 — Related file history**
 
----
+Record: Related stable-style KFD ioctl hardening already in this tree:
+- `db9530a9873a7` — “drm/amdkfd: validate SVM ioctl nattr against buffer
+  size” (cherry-picked to stable by Greg K-H)
+- `9e52212aff8ed` — missing authorization check fix
+- `6156c101e5f08` — `memdup_user` replacing `kzalloc` + `copy_from_user`
 
-## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.44)
+Standalone fix; not part of a multi-patch series.
 
-### Step 6.1: Buggy code present?
-**Record:** **YES.** Lines 145–148 of `link_dp_cts.c` cache all link
-streams without phantom skip. Bug present since v6.18.0 (f5b69101 is
-ancestor of v6.18).
+**Step 3.4 — Author context**
 
-### Step 6.2: Backport complications
-**Record:** Clean apply — cherry-pick test succeeded with auto-merge.
-Only contextual difference from upstream is the already-applied `struct
-dc *dc = link->dc` from 89939cf; phantom skip is independent.
+Record: Xiaogang Chen is an AMD contributor (recent KFD/amdgpu commits).
+Alex Deucher reviewed and committed — strong subsystem credibility.
 
-### Step 6.3: Related fixes already present?
-**Record:** 89939cf fixes a **different** NULL deref in the same
-function (stale `dc` context). Phantom-stream NULL deref remains unfixed
-in 6.18.44.
+**Step 3.5 — Dependencies**
+
+Record: **None.** Uses existing `amdgpu_bo_get_metadata()` NULL-buffer
+query path (supported since that function was written). Only caller of
+`amdgpu_amdkfd_get_dmabuf_info()` is `kfd_ioctl_get_dmabuf_info()`. `git
+apply --check` passes cleanly on this tree.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## Phase 4: Mailing List and External Research
 
-### Step 7.1: Subsystem / criticality
-**Record:** `drivers/gpu/drm/amd/display` — **IMPORTANT** (AMD GPU
-display driver; crash on affected hardware configs).
+**Step 4.1 — Original discussion**
 
-### Step 7.2: Activity
-**Record:** Actively maintained; multiple recent fixes in
-`link_dp_cts.c` on this branch.
+Record: `b4 dig -c f54ce9e8cbd3` — **no match found** on
+lore.kernel.org. Manual lore search blocked (Anubis bot protection).
+Phase partially N/A.
 
----
+**Step 4.2 — Reviewers from b4 -w**
 
-## PHASE 8: IMPACT AND RISK
+Record: N/A (b4 found nothing).
 
-### Step 8.1: Who is affected
-**Record:** AMD GPU users with SubVP/MALL phantom streams on a
-DisplayPort link during link retrain or DP compliance-test automation.
+**Step 4.3 — Bug report**
 
-### Step 8.2: Trigger conditions
-**Record:**
-- SubVP phantom stream active on the DP link
-- DP link retrain via `dp_retrain_link_dp_test()`
-- Moderately rare compared to general kernel paths, but real on modern
-  AMD APUs/laptops with power-saving display features
+Record: N/A — no `Reported-by:` or `Link:` tags.
 
-### Step 8.3: Failure mode
-**Record:** NULL pointer dereference → kernel oops. **Severity: HIGH**
-(system crash when triggered).
+**Step 4.4 — Related patches**
 
-### Step 8.4: Risk vs benefit
-**Record:**
-- **Benefit:** Prevents kernel crash on a real, reproducible code path;
-  2-line fix.
-- **Risk:** Very low — aligns with existing phantom-skip patterns
-  elsewhere.
-- **Ratio:** Favorable for stable backport.
+Record: Same subsystem pattern as `db9530a9873a7` (user-controlled ioctl
+sizing). No series dependency.
+
+**Step 4.5 — Stable list**
+
+Record: Could not search lore stable archive (bot protection). However,
+analogous KFD ioctl validation was already accepted into this 6.18.y
+tree (`db9530a9873a7`).
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 5: Code Semantic Analysis
 
-### Step 9.1: Evidence summary
+**Step 5.1 — Key functions**
+
+Record: `kfd_ioctl_get_dmabuf_info()`,
+`amdgpu_amdkfd_get_dmabuf_info()`, `amdgpu_bo_get_metadata()`.
+
+**Step 5.2 — Callers**
+
+Record: `kfd_ioctl_get_dmabuf_info()` registered as
+`AMDKFD_IOC_GET_DMABUF_INFO` ioctl handler (render-node accessible).
+`amdgpu_amdkfd_get_dmabuf_info()` called only from that ioctl path.
+
+**Step 5.3 — Callees**
+
+Record: `dma_buf_get/put`, `amdgpu_bo_get_metadata()`, `kzalloc/kfree`,
+`copy_to_user`, `kfd_devcgroup_check_permission()`.
+
+**Step 5.4 — Reachability**
+
+Record: **Userspace-reachable** via `/dev/kfd` ioctl from processes with
+render-node access (`kfd_devcgroup_check_permission()` checks
+`DEVCG_ACC_READ|WRITE` on DRM render minor). Attacker needs render-group
+membership and a valid amdgpu dmabuf fd — realistic on desktop/container
+ROCm/GPU compute setups.
+
+**Step 5.5 — Similar patterns**
+
+Record: Same anti-pattern fixed elsewhere in KFD (`db9530a9873a7` for
+SVM ioctl). Confirms subsystem maintainers treat user-controlled ioctl
+allocation sizes as security issues.
+
+---
+
+## Phase 6: Cross-Reference Against Local Tree
+
+**Step 6.1 — Buggy code present?**
+
+Record: **Yes.** Local tree is **Linux 6.18.44** (`git describe HEAD` →
+`v6.18.44-1-g2736c32da98b9`). Commit `f54ce9e8cbd3` is **not** an
+ancestor of HEAD. Vulnerable code confirmed at
+`kfd_chardev.c:1527-1530`:
+
+```1527:1531:drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+        if (args->metadata_ptr) {
+                metadata_buffer = kzalloc(args->metadata_size,
+GFP_KERNEL);
+                if (!metadata_buffer)
+                        return -ENOMEM;
+        }
+```
+
+**Step 6.2 — Backport complications**
+
+Record: **Clean apply** — `git show f54ce9e8cbd3 | git apply --check`
+succeeds with no conflicts.
+
+**Step 6.3 — Related fixes already present?**
+
+Record: No duplicate fix for this ioctl. Related KFD ioctl validation
+fixes exist (`db9530a9873a7`) but not for `GET_DMABUF_INFO`.
+
+---
+
+## Phase 7: Subsystem and Maintainer Context
+
+**Step 7.1 — Subsystem criticality**
+
+Record: `drivers/gpu/drm/amd/amdkfd` — **IMPORTANT** (AMD GPU compute /
+ROCm users; not universal core kernel, but widely deployed on AMD
+systems with `CONFIG_DRM_AMDGPU`).
+
+**Step 7.2 — Activity**
+
+Record: Actively maintained — 20 recent commits on `kfd_chardev.c`
+including multiple security/validation fixes in 2026.
+
+---
+
+## Phase 8: Impact and Risk Assessment
+
+**Step 8.1 — Who is affected**
+
+Record: Users of AMD KFD/ROCm with amdgpu (`CONFIG_DRM_AMDGPU=y/m`). Any
+process in the GPU render group on multi-user or containerized systems.
+
+**Step 8.2 — Trigger conditions**
+
+Record: Call `AMDKFD_IOC_GET_DMABUF_INFO` with `metadata_ptr != 0` and
+large `metadata_size` (e.g. 2 GiB). **Likelihood:** trivial for
+authorized render-group users. **Unprivileged:** requires render-node
+access (not fully unprivileged, but local DoS from less-privileged GPU
+users is a recognized security concern).
+
+**Step 8.3 — Failure mode severity**
+
+Record: **Kernel OOM / memory exhaustion DoS** — **HIGH** severity
+(system-wide impact possible). Not data corruption or privilege
+escalation, but a reproducible resource exhaustion attack from userspace
+ioctl.
+
+**Step 8.4 — Risk vs benefit**
+
+Record:
+- **Benefit:** HIGH — closes long-standing (since 2018) user-controlled
+  kernel allocation hole
+- **Risk:** LOW — ~35-line change, reviewed by maintainer, applies
+  cleanly, no UAPI changes
+- **Ratio:** Strong benefit, low risk
+
+---
+
+## Phase 9: Final Synthesis
+
+**Step 9.1 — Evidence summary**
 
 **FOR backport:**
-- Fixes verified NULL pointer dereference
-- Small (2 lines), obviously correct
-- Buggy code confirmed in 6.18.44 since v6.18.0
+- Real security issue: user-controlled `kzalloc()` size in ioctl
+- DoS / OOM impact on systems with AMD GPU compute
+- Bug present in this 6.18.44 tree since 2018
+- Small, surgical, maintainer-reviewed fix
 - Applies cleanly
-- Reviewed, tested, maintainer-signed
-- Complements but does not duplicate existing 89939cf fix
+- Same class of fix already accepted in this tree (`db9530a9873a7`)
+- `amdgpu_bo_get_metadata()` already supports size-only query with
+  `buffer=NULL`
 
 **AGAINST backport:**
-- Narrow trigger (SubVP + DP link retrain)
-- No public bug report or syzbot trace in commit message
+- Requires render-group access (not arbitrary unprivileged user) —
+  reduces universality but not severity for multi-tenant GPU systems
+- Minor `dma_buf` leak on `ENOMEM` in the fix itself (rare)
+- No external bug report or syzbot confirmation
 
-**UNRESOLVED:**
-- Mailing-list discussion (b4/lore unavailable)
+**Unresolved:** Lore discussion and stable-list nomination could not be
+retrieved.
 
-### Step 9.2: Stable rules checklist
-1. Obviously correct and tested? **PASS** (code review + Tested-by)
-2. Fixes real bug affecting users? **PASS** (NULL deref on real path)
-3. Important issue? **PASS** (kernel crash — HIGH severity when
-   triggered)
-4. Small and contained? **PASS** (2 lines, 1 file)
-5. No new features/APIs? **PASS**
-6. Can apply to local tree? **PASS** (verified cherry-pick)
+**Step 9.2 — Stable rules checklist**
 
-### Step 9.3: Exception categories
-**Record:** None — standard bug fix.
+| Criterion | Result |
+|-----------|--------|
+| 1. Obviously correct and tested? | **PASS** — logic is clear;
+Reviewed-by maintainer; no Tested-by |
+| 2. Fixes real bug affecting users? | **PASS** — user-controlled kernel
+allocation DoS |
+| 3. Important issue? | **PASS** — HIGH (OOM DoS from ioctl) |
+| 4. Small and contained? | **PASS** — 3 files, ~35 lines |
+| 5. No new features/APIs? | **PASS** — same ioctl, hardened allocation
+|
+| 6. Can apply to local tree? | **PASS** — clean `git apply --check` |
 
-### Step 9.4: Decision rationale
-This commit fixes a real NULL pointer dereference in the 6.18.y tree.
-The buggy stream-caching loop has been present since v6.18.0; the fix is
-not yet in 6.18.44. The existing 89939cf fix addresses a separate stale-
-context NULL deref in the same function. The phantom-stream skip is
-minimal, follows established conventions, applies cleanly, and prevents
-a kernel oops on AMD systems using SubVP during DP link retrain.
+**Step 9.3 — Exception category**
+
+Record: Security hardening of existing ioctl (not device ID, quirk, DT,
+build, or docs exception — standard security bug fix).
+
+**Step 9.4 — Decision rationale**
+
+This commit fixes a long-standing vulnerability where any render-group
+user can force arbitrarily large kernel allocations via
+`AMDKFD_IOC_GET_DMABUF_INFO`. The buggy code exists in the local 6.18.44
+tree, the fix is small and maintainer-reviewed, it applies cleanly, and
+the same subsystem has already accepted analogous ioctl validation fixes
+for stable. The fix bounds kernel allocation to actual BO metadata size
+(driver-controlled, typically small), eliminating the OOM attack vector.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed commit message and tags from user-provided diff
-  and `git show 10f5f9c0ef32d`
-- **[Phase 2]** Read `link_dp_cts.c:65-157`, `dc.c:2927-2996`,
-  `dc.c:3526-3530`, `dc_state.c:916-956`
-- **[Phase 3]** `git blame -L 145,148 link_dp_cts.c` → f5b69101f956f
-- **[Phase 3]** `git log --oneline` on `link_dp_cts.c` → f5b69101,
-  89939cf present; phantom fix absent
-- **[Phase 3]** `git merge-base --is-ancestor f5b69101 HEAD` → in tree;
-  `10f5f9c0ef32d` → NOT in tree
-- **[Phase 3]** `git merge-base --is-ancestor f5b69101 v6.18` → buggy
-  code in v6.18.0
-- **[Phase 4]** `b4 dig -c 10f5f9c0ef32d` → no match; lore fetch → 403
-- **[Phase 5]** `grep dp_retrain_link_dp_test` → callers at lines 185,
-  601, 991
-- **[Phase 5]** `grep is_phantom` → field exists in `dc_stream.h:313`;
-  skip pattern in `dc_resource.c:2419`
-- **[Phase 6]** `git describe HEAD` → v6.18.44; buggy code confirmed at
-  lines 145-148 without phantom skip
-- **[Phase 6]** Cherry-pick test of 10f5f9c0ef32d → auto-merge success
-- **[Phase 8]** Failure mode: NULL deref on second
-  `dc_update_planes_and_stream()` call after phantom freed
+- [Phase 1] Parsed commit `f54ce9e8cbd3` message: security issue, user-
+  controlled allocation, Reviewed-by Alex Deucher
+- [Phase 2] Full diff reviewed: 3 files, `kzalloc` moved from user size
+  to `*metadata_size`
+- [Phase 2] Read `amdgpu_bo_get_metadata()`: supports `buffer=NULL` +
+  `metadata_size` out-param (`amdgpu_object.c:1227-1233`)
+- [Phase 3] `git blame` lines 1527-1531 → `1dde0ea95b782` (2018-11-20)
+- [Phase 3] `git log -S kfd_ioctl_get_dmabuf_info` → introduced in
+  `1dde0ea95b782`
+- [Phase 3] `git log --oneline -20 -- kfd_chardev.c` → related stable
+  fix `db9530a9873a7` present
+- [Phase 3] `grep amdgpu_amdkfd_get_dmabuf_info` → single caller in
+  `kfd_chardev.c`
+- [Phase 3] `git apply --check` → patch applies cleanly
+- [Phase 4] `b4 dig -c f54ce9e8cbd3` → no lore match
+- [Phase 4] lore.kernel.org manual fetch → blocked by Anubis (UNVERIFIED
+  for list discussion)
+- [Phase 5] Read `kfd_devcgroup_check_permission()` → render-node cgroup
+  check (`kfd_priv.h:1564-1576`)
+- [Phase 5] Confirmed ioctl registration at `kfd_chardev.c:3232-3233`
+- [Phase 6] `git describe HEAD` → v6.18.44; `make kernelversion` →
+  6.18.44
+- [Phase 6] `git merge-base --is-ancestor f54ce9e8cbd3 HEAD` → commit
+  NOT in tree
+- [Phase 6] Read current `kfd_chardev.c:1527-1530` → vulnerable code
+  present
+- [Phase 8] Assessed failure mode: OOM DoS, HIGH severity for GPU multi-
+  tenant scenarios
 
 **YES**
 
- drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 23 ++++++++++++++++++----
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h |  2 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_chardev.c   | 10 ++--------
+ 3 files changed, 22 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c b/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c
-index 2676ae9f6fe83..5f70793b8372e 100644
---- a/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/accessories/link_dp_cts.c
-@@ -143,6 +143,8 @@ static void dp_retrain_link_dp_test(struct dc_link *link,
- 	// Set DPMS on with stream update
- 	// Cache all streams on current link since dc_update_planes_and_stream might kill current_state
- 	for (i = 0; i < MAX_PIPES; i++) {
-+		if (state->streams[i] && state->streams[i]->is_phantom)
-+			continue;
- 		if (state->streams[i] && state->streams[i]->link && state->streams[i]->link == link)
- 			streams_on_link[num_streams_on_link++] = state->streams[i];
- 	}
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index 1ec26be82f30e..5e8d0d6b55ab6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -528,7 +528,7 @@ uint32_t amdgpu_amdkfd_get_max_engine_clock_in_mhz(struct amdgpu_device *adev)
+ 
+ int amdgpu_amdkfd_get_dmabuf_info(struct amdgpu_device *adev, int dma_buf_fd,
+ 				  struct amdgpu_device **dmabuf_adev,
+-				  uint64_t *bo_size, void *metadata_buffer,
++				  uint64_t *bo_size, void **metadata_buffer,
+ 				  size_t buffer_size, uint32_t *metadata_size,
+ 				  uint32_t *flags, int8_t *xcp_id)
+ {
+@@ -563,9 +563,24 @@ int amdgpu_amdkfd_get_dmabuf_info(struct amdgpu_device *adev, int dma_buf_fd,
+ 		*dmabuf_adev = adev;
+ 	if (bo_size)
+ 		*bo_size = amdgpu_bo_size(bo);
+-	if (metadata_buffer)
+-		r = amdgpu_bo_get_metadata(bo, metadata_buffer, buffer_size,
+-					   metadata_size, &metadata_flags);
++	if (metadata_buffer) {
++		/* first get metadata_size by buffer = NULL */
++		r = amdgpu_bo_get_metadata(bo, NULL, 0,
++					   metadata_size, NULL);
++
++		/* user buf_size is bigger than bo metadata_size
++		 * allocate a buf at kernel space and copy */
++		if (*metadata_size <= buffer_size) {
++			*metadata_buffer = kzalloc(*metadata_size, GFP_KERNEL);
++
++			if (!*metadata_buffer)
++				return -ENOMEM;
++
++			r = amdgpu_bo_get_metadata(bo, *metadata_buffer, *metadata_size,
++						   NULL, &metadata_flags);
++		} else
++			r = -EINVAL;
++	}
+ 	if (flags) {
+ 		*flags = (bo->preferred_domains & AMDGPU_GEM_DOMAIN_VRAM) ?
+ 				KFD_IOC_ALLOC_MEM_FLAGS_VRAM
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+index 9e120c934cc17..c59b5d9cd36b6 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.h
+@@ -255,7 +255,7 @@ uint64_t amdgpu_amdkfd_get_gpu_clock_counter(struct amdgpu_device *adev);
+ uint32_t amdgpu_amdkfd_get_max_engine_clock_in_mhz(struct amdgpu_device *adev);
+ int amdgpu_amdkfd_get_dmabuf_info(struct amdgpu_device *adev, int dma_buf_fd,
+ 				  struct amdgpu_device **dmabuf_adev,
+-				  uint64_t *bo_size, void *metadata_buffer,
++				  uint64_t *bo_size, void **metadata_buffer,
+ 				  size_t buffer_size, uint32_t *metadata_size,
+ 				  uint32_t *flags, int8_t *xcp_id);
+ int amdgpu_amdkfd_get_pcie_bandwidth_mbytes(struct amdgpu_device *adev, bool is_min);
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+index d3190c3bb1aee..d220cf60375ba 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
+@@ -1524,16 +1524,10 @@ static int kfd_ioctl_get_dmabuf_info(struct file *filep,
+ 	if (!dev)
+ 		return -EINVAL;
+ 
+-	if (args->metadata_ptr) {
+-		metadata_buffer = kzalloc(args->metadata_size, GFP_KERNEL);
+-		if (!metadata_buffer)
+-			return -ENOMEM;
+-	}
+-
+ 	/* Get dmabuf info from KGD */
+ 	r = amdgpu_amdkfd_get_dmabuf_info(dev->adev, args->dmabuf_fd,
+ 					  &dmabuf_adev, &args->size,
+-					  metadata_buffer, args->metadata_size,
++					  &metadata_buffer, args->metadata_size,
+ 					  &args->metadata_size, &flags, &xcp_id);
+ 	if (r)
+ 		goto exit;
+@@ -1545,7 +1539,7 @@ static int kfd_ioctl_get_dmabuf_info(struct file *filep,
+ 	args->flags = flags;
+ 
+ 	/* Copy metadata buffer to user mode */
+-	if (metadata_buffer) {
++	if (metadata_buffer && args->metadata_ptr) {
+ 		r = copy_to_user((void __user *)args->metadata_ptr,
+ 				 metadata_buffer, args->metadata_size);
+ 		if (r != 0)
 -- 
 2.53.0
 
