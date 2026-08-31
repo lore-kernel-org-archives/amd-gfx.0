@@ -4,87 +4,139 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9BBD3C61DD3
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 07:59:22 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 0AFD5C624C6
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 07:59:24 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8C9810EB98;
-	Tue,  1 Sep 2026 07:59:19 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C43810EBA4;
+	Tue,  1 Sep 2026 07:59:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=jqluv-com.20251104.gappssmtp.com header.i=@jqluv-com.20251104.gappssmtp.com header.b="pIn4LI+k";
+	dkim=pass (2048-bit key; unprotected) header.d=kernel.org header.i=@kernel.org header.b="Fa7a1Q3Y";
 	dkim-atps=neutral
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D1D2A10E31F
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 17:40:25 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-cc149372c14so27607a12.1
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 10:40:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=jqluv-com.20251104.gappssmtp.com; s=20251104; t=1788198025; x=1788802825;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=WjaxOHCPvPzW43GNi0GeYzSiLY3JZN8VKBHl2ac4GZc=;
- b=pIn4LI+kDtTA3TS6pgJWJxEWqE4EVHdv9f3acn+HX2ZnSvab6rBvTMW6SDXwVV4roB
- dPZ5TsPrgjywO5hyICKCZdwMSSYcpJRGLzn/7zVKujLG17sp6Fcgx7kCs2KPCmQ96IFr
- XflblfX3YcVhyKNipJziWfhURv0VXJzW+RFY//NhSDZ/aedyi3pdBNG+PBK7qakqAmTp
- 2zcpQ2GV3oy+W4GLoPSelZEdFnAUSbhnZAU5Ztp3Qbd4SL5up+fqnJeQOQvn3q9D+py6
- aAVNzjo2SSaMtWbt0RBxgf6o1UrsDPdkPNXjwpVq0LDJgk8ZMhqiy735l8BJFxFi2fZ8
- xeNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788198025; x=1788802825;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=WjaxOHCPvPzW43GNi0GeYzSiLY3JZN8VKBHl2ac4GZc=;
- b=S1oDjE6ZMcOdBUbZBEYIzYORvOvJ/q985im7YIe+GzpuI5AhTQ/r8PMIe+PateASSS
- Q1nJ9Xa3W+WA6hz3RHVl43yg2TvDGSTLK4+4g3f7QRpatLcpHTADkxa89gn8Fa5WHHbh
- q/84cPxRMAirxVUUihqdJ3zTOaZwDFA63ZOABuqOsIEVVcRBbyowszropkiVfg7MgYS1
- EcS1x93Up8nCZn+aOK8HVnui5pgxk/iu0007NSEXRM6qccTvu6ENQeuvFwH1HgycDfDc
- kuvTOCAoU/i+fU2lRQLX7W7xSnNGZbxpYAcP4GhWv4YZmEMjGFP5HWc7/TMx7ZMRzlha
- yzMA==
-X-Forwarded-Encrypted: i=1;
- AKwUvBxW8eh+M9TpjAKm4bh2wh7YBeSyXewgCyTAX6mijZiqk3dEq67UoQRI7du4wB1f8r/ae89Ysp5d@lists.freedesktop.org
-X-Gm-Message-State: AFuF++kR453vtznBcnptSfGDUMh7LpDJwvGqOu+Iu13GhpuoFJHnhII3
- R1LNDOM6JKm7RrvTa1VXr6tQkkx9Ru4qOOU/nAZF7S6CWWbBjhFju5bS8qnV3FuAnSc=
-X-Gm-Gg: AYBFou2znyu2BsGEkak5KAIXyVeNxakNLQAS8OnLEhEnLuYKu3u8/ghOeVKizAMKR3c
- rAo0K8yMPTI+3s0mEMAyzWYVsShJQalayGrDkwL2T4EiA4X8HwM05wEgGOYMtyUBmm4R0pv466J
- aA7mm1jtaU1O8p+iPgdUUQ30LBFjW0YNNf6EaUNuFJvjbV6184obtdJVH3TbAmaH6ci1AEFsaA+
- qWlToQ8uz0KpgC1O82ToKfTcOsdS0g1/Owz11euj8yh6at0QFFNohCMukzthaBvr80NPFGHZDvX
- kI7qs7MwE+D93m+gvd/7+gUIe9pZ5SueYDeY7f9bQ+v96CZMo+4RR3z7dhKLMdmZAcQPmGhawj4
- lp8Z95xa1gVzjXttlW3ION+QfFDvPcznGcEM1FDwfMNrJjLUBiy6xTmmbuJSzXKZdHI5LupN8zI
- ii3am5B+EwMjMc60h7vbT12SeENX/AZoEVcP7P3MyaiOT54s5/xotczOdABYlsZNHbUCcNCHNlJ
- /E1aSyE1S7IyRTaiXnDdK9WY2K2Kk10pJkpivIMTLwyoRRRzH/I5jp0Mg==
-X-Received: by 2002:a17:90b:1a8a:b0:398:9bd1:3211 with SMTP id
- 98e67ed59e1d1-3989bd135cbmr26619288a91.18.1788198023095; 
- Mon, 31 Aug 2026 10:40:23 -0700 (PDT)
-Received: from ?IPV6:2601:201:8000:f750:8c16:d636:dd01:2749?
- ([2601:201:8000:f750:8c16:d636:dd01:2749])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-3286f9595bbsm35876826eec.14.2026.08.31.10.40.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Aug 2026 10:40:22 -0700 (PDT)
-Message-ID: <7771e88e-9cdf-4415-97ac-69d15c015d1e@jqluv.com>
-Date: Mon, 31 Aug 2026 10:40:20 -0700
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D54310E858;
+ Mon, 31 Aug 2026 13:36:35 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9A17F60215;
+ Mon, 31 Aug 2026 13:36:34 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 016D61F000E9;
+ Mon, 31 Aug 2026 13:36:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1788183394;
+ bh=3d2wE4iPk/eSRIKBUJMr1Vert2gthTCrW2UXhnx95p4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=Fa7a1Q3YoUsfdoMvZbQAiBxdeh/TNaAy2cWmN+gHJtD0G5fAKj07cg5+8PsqlLHGz
+ A1PAQuTvFk3cBiBuBnU9BX06M7lLnfqiM9pOLnHs/A2YOWF6hTp4V8VTsE2c/GmSFo
+ URF1s+nDBwrxxWO45AdqLpYaq6wzMJThp7iMOVVQEGXgXFPN8CtiP/WnqMUZqdnyKW
+ EQDpd7/10qJ2kUHSiXAJKr/GRWQLdNSiDsyIUkC44uOO8x+JESPpssnyKwOnT03CZH
+ 1TMqMRafZA0VRWtpwFEEpq9yiXTseAFhl04jX5wKhiXF3DXtIzYeLnD80tcC/prJs1
+ YmW1jKy9yiPhA==
+Date: Mon, 31 Aug 2026 15:36:29 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, Janne Grunau <j@jannau.net>, 
+ Sasha Finkelstein <k@chaosmail.tech>, asahi@lists.linux.dev, 
+ Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, 
+ amd-gfx@lists.freedesktop.org, Liviu Dudau <liviu.dudau@arm.com>, 
+ Russell King <linux@armlinux.org.uk>, Alim Akhtar <alim.akhtar@samsung.com>, 
+ Inki Dae <inki.dae@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Kyungmin Park <kyungmin.park@samsung.com>,
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>, linux-samsung-soc@vger.kernel.org, 
+ Alison Wang <alison.wang@nxp.com>, Stefan Agner <stefan@agner.ch>, 
+ Ruben Wauters <rubenru09@aol.com>, Tian Tao <tiantao6@hisilicon.com>, 
+ Xinwei Kong <kong.kongxinwei@hisilicon.com>,
+ Yongbang Shi <shiyongbang@huawei.com>, 
+ John Stultz <jstultz@google.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Xinliang Liu <xinliang.liu@linaro.org>, Yongqin Liu <yongqin.liu@linaro.org>, 
+ Dexuan Cui <decui@microsoft.com>, Long Li <longli@microsoft.com>, 
+ Saurabh Sengar <ssengar@linux.microsoft.com>, linux-hyperv@vger.kernel.org,
+ Fabio Estevam <festevam@gmail.com>, 
+ Frank Li <Frank.Li@nxp.com>, Liu Ying <victor.liu@nxp.com>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, imx@lists.linux.dev, 
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Lucas Stach <l.stach@pengutronix.de>, 
+ Paul Cercueil <paul@crapouillou.net>, linux-mips@vger.kernel.org, 
+ Anitha Chrisanthus <anitha.chrisanthus@intel.com>,
+ Paul Kocialkowski <paulk@sys-base.io>, 
+ Jerome Brunet <jbrunet@baylibre.com>, Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-amlogic@lists.infradead.org, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
+ freedreno@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, Marek Vasut <marex@denx.de>,
+ Dave Airlie <airlied@redhat.com>, 
+ Gerd Hoffmann <kraxel@redhat.com>, spice-devel@lists.freedesktop.org, 
+ virtualization@lists.linux.dev, Geert Uytterhoeven <geert+renesas@glider.be>, 
+ linux-renesas-soc@vger.kernel.org,
+ Marcus Folkesson <marcus.folkesson@gmail.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, 
+ Orson Zhai <orsonzhai@gmail.com>, Alain Volmat <alain.volmat@foss.st.com>, 
+ Raphael Gallais-Pou <rgallaispou@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Philippe Cornu <philippe.cornu@foss.st.com>, 
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, 
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+ linux-sunxi@lists.linux.dev, Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Aditya Garg <gargaditya08@proton.me>, 
+ Aun-Ali Zaidi <admin@kodeit.net>, LiangCheng Wang <zaq14760@gmail.com>, 
+ Alex Lanzano <lanzano.alex@gmail.com>, Hans de Goede <hansg@kernel.org>, 
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>, Chia-I Wu <olvaffe@gmail.com>, 
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ Gurchetan Singh <gurchetansingh@chromium.org>, 
+ Michal Simek <michal.simek@amd.com>,
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
+ Rodrigo Siqueira <siqueira@igalia.com>, Jocelyn Falempe <jfalempe@redhat.com>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Dharma Balasubiramani <dharma.b@microchip.com>,
+ Manikandan Muralidharan <manikandan.m@microchip.com>, 
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Huacai Chen <chenhuacai@kernel.org>, Jianmin Lv <lvjianmin@loongson.cn>, 
+ Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>, 
+ Xi Ruoyao <xry111@xry111.site>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Lyude Paul <lyude@redhat.com>, nouveau@lists.freedesktop.org, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Magnus Damm <magnus.damm@gmail.com>,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Biju Das <biju.das.jz@bp.renesas.com>,
+ Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Sandy Huang <hjc@rock-chips.com>, 
+ linux-rockchip@lists.infradead.org, Iker Pedrosa <ikerpedrosam@gmail.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>,
+ Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org, 
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>, 
+ Louis Chauvet <louis.chauvet@bootlin.com>, Melissa Wen <melissa.srw@gmail.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+ Zack Rusin <zack.rusin@broadcom.com>
+Subject: Re: [PATCH 00/70] drm/crtc: Convert all drivers to
+ atomic_create_state and remove reset
+Message-ID: <apWDRq8YOTwvGuSf@houat>
+References: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] PCI: Reserve prefetchable window headroom for Resizable
- BARs
-To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, alexander.deucher@amd.com,
- amd-gfx@lists.freedesktop.org, mario.limonciello@amd.com, nra3088@gmail.com,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- meiling.leung@embeddedllm.com, linux-pci@vger.kernel.org,
- LKML <linux-kernel@vger.kernel.org>
-References: <39e09dd8-f73e-4dc2-ba36-8a9228516d26@jqluv.com>
- <fba65262-5490-4d60-d06d-9badaafc7e17@linux.intel.com>
-Content-Language: en-US
-From: Geramy Loveless <gloveless@jqluv.com>
-In-Reply-To: <fba65262-5490-4d60-d06d-9badaafc7e17@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="eainbiqt42xdkeio"
+Content-Disposition: inline
+In-Reply-To: <20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org>
 X-Mailman-Approved-At: Tue, 01 Sep 2026 07:59:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -101,119 +153,56 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 
-On 8/31/26 9:31 AM, Ilpo Järvinen wrote:
-> On Fri, 28 Aug 2026, Geramy Loveless wrote:
->
->> Firmware typically sizes prefetchable bridge windows for the boot-time
->> BAR size. Behind a fixed (non-hotplug) PCIe switch fabric, there is then
->> no room for a driver to grow a Resizable BAR afterwards: every window
->> from the leaf up to the root is sized for the small BAR, so
->> pci_resize_resource() fails with -ENOSPC. 
->>
->> Furthermore, a small prefetchable BAR (e.g., a 2 MiB doorbell) sharing a 
->> bridge's single prefetchable window with a much larger one (e.g., a 32 GiB 
->> VRAM BAR) pushes the required window size past the large BAR's alignment. 
->> Because bridge windows round up to a power of two,
-> Do they??? In which kernel version I must ask??
-I'm sorry this was in reference to a prior patch I made, **ignore**
->
->> this forces a massive 
->> alignment waste (e.g., 32 GiB + 2 MiB rounds up to a 64 GiB window, 
->> wasting ~32 GiB per GPU).
-> The largest I've seen is 32GB + half of that. And that's not with the 
-> latest kernel.
+--eainbiqt42xdkeio
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 00/70] drm/crtc: Convert all drivers to
+ atomic_create_state and remove reset
+MIME-Version: 1.0
 
-This is in reference to when there are two R9700s on one switch basically.
-As far as my understanding currently how it works is that when there are two GPUs they both have a BAR0, BAR2, and BAR5 the BAR5 goes onto the 32-bit window.
-Bar 0 and 2 don't go onto the second window by default as they could overfill it of course, bar 0 would not fit period, and 2 might which is the case I took. 
-This allows BAR 0 on (GPU 0) in leaf 0 on window 0 to align as a multiple of 32G like it I guess has to? This is how I understand it, so if R9700 has 32G on, bar0, leaf 0, window 0, and share the same window as GPU 1 then we have to pad the space between GPU0 BARs on window 0 by 32G, meaning BAR2 really is also using 32G, its not possible or at least right now its not possible to move BAR2 to the end of all the allocations it doesnt fit the standards? Keep in mind this is not my specialty here I am trying my best to understand and solve the issue at hand.
+On Fri, Aug 21, 2026 at 04:38:36PM +0200, Maxime Ripard wrote:
+> This is a follow-up to the plane reset removal series, and part of a
+> larger effort to remove the reset hook from all KMS objects.
+>=20
+> The CRTC reset hook is overloaded: it is called both at probe time to
+> create the initial software state and during suspend/resume to reset
+> hardware and software state. These two roles have different
+> requirements, and the reset hook is not fallible, making error
+> handling difficult for the initial state allocation path.
+>=20
+> While reset has the semantics to reset both the software and hardware
+> state, the vast majority of implementations and all the helpers only
+> reset the software state, making them equivalent to
+> atomic_create_state in practice. The atomic_create_state hook makes
+> this explicit: it only allocates and initializes a pristine state
+> without any side effect, and returns the state pointer or an ERR_PTR
+> on failure.
+>=20
+> This series converts all CRTC drivers tree-wide from the reset hook to
+> atomic_create_state, then removes the reset hook from struct
+> drm_crtc_funcs entirely. Two drivers (tilcdc and loongson) had actual
+> hardware reset logic mixed into their reset hook; those are moved to
+> CRTC creation instead. The conversions were done using a combination of
+> Coccinelle semantic patches and manual adjustments.
+>=20
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
->
->> This patch solves both issues to enable ReBAR on cascaded switch fabrics:
->>
->> 1. Reserve Headroom: 
->> Reserve prefetchable window headroom for the maximum size of each 
->> downstream Resizable BAR during the bridge sizing pass. The device BAR 
->> and hardware ReBAR are left at their boot size to prevent tearing down 
->> firmware-loaded state (e.g., AMD R9700 PSP) before the driver binds.
-> ... reorganizing ...
->
->> Fallback / Alignment logic:
->> If the 32-bit space is exhausted, small BARs remain in the prefetchable 
->> window. The alignment logic gracefully handles this by rounding the bridge 
->> window up to the next power of two (e.g., growing to 64 GiB to fit a 32 GiB 
->> BAR + BAR2) to maintain PCIe compatibility, ensuring sibling GPUs land in 
->> properly aligned slots.
->>
->> Reserving is safe by default: __assign_resources_sorted() satisfies all
->> required resources first. Use pci=no_rebar_reserve and pci=no_bar_demote 
->> to restore previous behaviours.
-> And how does this fallback, if the largest size doesn't fit? What are the 
-> failure modes?
-So if the smaller bars under 16M don't fit in the 32-bit addressable space the fallback mode is to do as I said above to your prior comment, basically put.
-Don't move the 2M BAR2 over to the 32-bit addressable space / window and instead fallback to aligning the prior window by the size of the GPUs memory space as I understand it, when you have gpu0 and gpu1 both requiring 32GB their address has to be a multiple of their allocation size? meaning we get 32G for BAR0 and 32G for BAR2 even though BAR2 only needs 2M because its not aligned to allow GPU1 to be on a aligned space?
->
-> It's correct that the sizing decision should be done in pbus_size_mem() 
-> but it must not result in breaking things which a naive approach like 
-> this will surely do.
->
-> Without proper fallbacks done, there will be too much breakage it's a 
-> showstopper for a naive patch like this.
->
-> Basically, what we'd want to do is try with the largest size, then reduce 
-> it one step at a time (because it's 2^n -> 2^(n-1) even one step saves 
-> quite much so one might not need to reduce that many steps). But also, in 
-> some IOV enabled cases the oversubscription of the space is very 
-> substantial and you'd still want to maximize the BAR sizes to what is 
-> allowed by the available space.
->
-> Fallback is hard to implement, because sizing and assignment are quite far 
-> from each other codewise and there are no structures to carry information 
-> over to the next retry phase.
->
->> 2. Pack Oversized Windows (BAR Demotion): 
->> The PCI-to-PCI Bridge spec (r1.2, sec 3.2.5) permits a prefetchable BAR 
->> to be assigned from the non-prefetchable window. By clearing the PREFETCH 
->> flag on small control BARs during enumeration, they are placed below 4 GiB. 
->> The prefetchable window is then cleanly sized to the large BAR alone.
->>
->> Why this is safe for 32-bit (< 4G) MMIO space:
->> To prevent exhausting legacy < 4G space, demotion is strictly bounded. It 
->> only triggers beside a massive prefetchable BAR (>= 64 MiB), and the demoted 
->> BAR is strictly capped at 16 MiB (PCI_BAR_PACK_CAP). Even on an 8x GPU 
->> system, this consumes at most 128 MiB of < 4G space.  
-> I'm not entirely sure I agree with this, at least it shouldn't be the 
-> default configuration.
-That's okay I believe, it probably is not the default case anyhow.
->
-> This would also break setups where the GPU has large BARs that do not 
-> share the alignment.
->
-> It might be workable as very targetted instruction to put a particular BAR 
-> into non-prefetchable window. For that, one needs to write a parser for 
-> giving them on cmdline though but that might end up being generally 
-> useful for avoiding some hotplug cannot-predict-the-future problems 
-> (the current memsize controls are too coarse-grained to be useful in many 
-> hotplug scenarios).
->
->
-> A somewhat related problem currently is that more and more devices are 
-> taking the liberty of not setting PREFETCH because recent PCIe spec made 
-> the bridge window difference be 32/64-bit based. This results in very 
-> suboptimal placement for such BARs.
->
->
-> BTW, why you're not sending the patches as a proper series but merging 
-> them into a single email??? It makes things harder for the reviewers. :-(
 
-Yes that was an accident actually, I was using command line tools to build the patch file and had done that by accident.
-Technically these patches where fully related but my tree is split in the fixes, I had to rebase it this is why I submitted multiple versions.
-I do have a new version which resolves a few problems / use cases I appreciate you taking the time to review this work.
+Applied patches 1,3-14,16-28,31-41,43,45-49,52-62,64-68 to drm-misc-next
 
->
->
-> Also, I note you sent multiple versions within a day. Please give some 
-> time for commenting the first version. You should also list the changes 
-> you've made in each version (the patch history).
-I had noticed my first patch was split and realized how difficult that would of been to review. So I resubmitted the patch as one instead of two because they both technically depend on each other and thats not how it would get merged anyways because then the window compression feature would be missing, ie. not a huge fan of resource waste. Then I submitted another one generalizing the patch a bit more so it fit use cases without breaking other machines. I will in the future try to do patch submission better and appreciate your patience, I will also make sure follow-up patch versions are summarizing the changes made between the prior one and next one, thank you!
->
+Maxime
+
+--eainbiqt42xdkeio
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCapWDXQAKCRAnX84Zoj2+
+dtnDAYDvbcHtYOX7CuJCyNGSb99Ed+Livj62dMg0nsp864oeIMVzqxGBJIKgPp8Z
+RCHnUyUBfAxvXYJDr3LaH94QifMoTvJPOgPapZRwWXp6VAygmOgZF8WFxC9cEp2h
+0/QjaJymHA==
+=mCUP
+-----END PGP SIGNATURE-----
+
+--eainbiqt42xdkeio--
