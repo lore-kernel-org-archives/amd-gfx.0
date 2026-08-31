@@ -4,72 +4,85 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20B96C624D1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 97091C624CF
 	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 07:59:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8046410EBC7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6515E10EBB1;
 	Tue,  1 Sep 2026 07:59:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CskD5+OK";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ppBahKxx";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6570C10E3A5
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 07:26:26 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-38ea87caafeso630007a91.3
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Sep 2026 00:26:26 -0700 (PDT)
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com
+ [209.85.219.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EB13110E8C7
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 13:47:28 +0000 (UTC)
+Received: by mail-qv1-f42.google.com with SMTP id
+ 6a1803df08f44-90cd1012479so35764616d6.1
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 06:47:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788184048; cv=none;
+ d=google.com; s=arc-20260327;
+ b=ZpuOMFt1loFB7uxtyjg7uJ3TImvnc7QmEWVCEuznrds3s5+nIV1673F5eGjIwa/17u
+ 1Lx4/Ys3wDFS5EfKoI2E5VaDoqVb/wR7wZWVzpo0yuXplMZqaUtMa2Y3GM6k9EtmLgE2
+ iSdNUxSjxwrewAAMTvb42glM5iwes4pgPQYLI6fQ3PhqQljfNQb2LswCzVWK5EJdKxh0
+ iOy1/vYrKgMwI1MO5vE/uDpH2rAXODE60Z+4Wu3LSF0hk/kgf2wbdEUtEdydXj6aYhoH
+ JeDCrWD+8+exjf50mdjTt927TavOxN/IQ+pBs0yv0Xg/zdsuQqFonhRavqqARSeOUU9O
+ M5dA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=cFSV9KhWwH8UTBQ/C/MspQ/RwmMPKmn69329QrcNpjg=;
+ fh=MDXE10nGoCDgvUSXMaMflaO6KszhysLuc71Ky5lF0Q0=;
+ b=DPT+A2KXZJK+ZwOsED/3D8J8UeG1+C5KjoUzAzikFuMhMdQSHiFOPVFgtDFg/KuGkV
+ ahMskvNmkLxNbN18Shx605I0Igm+JPOwHN6XzvJjn0RjpiTql7ijUfTfeNoisNUcoKVW
+ OVGkZN/+VZM8OjLLCuif1TyjbsFlfCG5kq4duJHfjEZyZG9M3B0XAWayRexEQv/b6fh4
+ t/xkHnzGu78oNMj5Bwp1P6an7Whnvbjd4QO+9tXQfaVKpCKbNr+G78rq3JV8l/swOKfR
+ h1WcslHM8cTtM5jo4+T1xWEUz7XzfgHIxNtWx+OxnLe1KMBbuqX0Wq+1qBN/qLibaRdm
+ fumQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788247586; x=1788852386; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=N0EL/pf1f3ThtoFU4Hf1cFodrWTG5punvyNZKF7Nskc=;
- b=CskD5+OKxKakCz29ip09+XiA3ginEgsALUvtu+KW1OAeMots+bnz6gDUEBkH70lqLX
- 7ug9G1e+CCkzn+7ikmJIiK7teEiJl/rh8cu00XxMmumoAqkF7gpwKB/VxZplfGFT8FZH
- e6c1I4ma6iQpxlTYDHz9mrJ9NlE3kApCmv9SXkp1Ae3OObWKVtEIPra7sN8XYE1usJWH
- upKUoEFdxNmEaQEY6KsWqH09jwRQV+RjM5tOk2ra+dMf/6jvyniZnbThsYDqPbk1YcEK
- v+BMgpx4V2V5Ty2d2wogai7IdKM6e5JmkWVijfqq+d95fvHKfkGlm4IvPU5aAxIOMWRm
- 6VmQ==
+ d=gmail.com; s=20251104; t=1788184048; x=1788788848; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=cFSV9KhWwH8UTBQ/C/MspQ/RwmMPKmn69329QrcNpjg=;
+ b=ppBahKxxYaHPHOlS5qfRbO5gdoHVTlwolbcnLhXFDwW0/GwNtAIZhTIn0IrSIRC6ag
+ GYi8616Pz1KwEvY6gpa1hrMIMRqBVR9HWVsGMdvELCkZ20zy3c2yRCeTv1sBYznt7BgB
+ xRK0RFgslDAX+JL4YEDxsw4MKUklBJD/zj/1WY1160z+/J2CbcfFpzcxfbnOp0yvmeqW
+ TebvZp1m2k0oE+XUplpfEEaIPouRkJBohl0RHhnVdlhR5+MDrvUkreuLPLK8YsWjkSOm
+ BDmxgoDorA7E/sfOKXL9euryKTn0KYtxhD2SGZLQdOYRK/BB0hV+efoOidG7iHVMeYfz
+ 5Wmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788247586; x=1788852386;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=N0EL/pf1f3ThtoFU4Hf1cFodrWTG5punvyNZKF7Nskc=;
- b=euYeoMLcX3o602eXvyNKA02ZTwQXayfSxzs2mASv53wiEuYLObta0Y7soRiBoeeqU6
- RVKifZpcJ/WQ1ASMMi1kPGbujsSgI9OUrnV7ed61h0stjzzX/B6mXLniJ41N/otaZaRV
- TDtYCzx4OQ2fiRd49QzutN273sy66EpjKzjTsG7umJxA7QZKd1yjGz3EryXfbXidNmG+
- tSc59lSFvH4d2ehjgFQ2NRvPO29J6AwSA96btEhIqWwgUtGq9meQFkMeEjK1feel1s7N
- kTWVPiHa6pNlrLHF3HDmTPVRjUUUdQNWB8Spq+Y+eD0pSRIm4m8E0hWFlE4MgKkbR2Nu
- rMaw==
-X-Gm-Message-State: AFuF++nM/DB2OApGK4NcfmUGvqF+7PDyZ7KBW4KXVnDv9uaCJge7yyc2
- tLZg58zkSQsFpEA3u6P8ZVXJ57WlNLdZYb7rQqSjVXbju0jDYIQp1xDZ
-X-Gm-Gg: AYBFou16EzWs4milENQZ7qsBTJNBFUmKPzgRNIZGrzq3B0tUhQY9RgfGVYygXSVWgJH
- lFInnN0AmWlRWDLUIwc17zbA1Y2ANDxs4svgQfuyHjJ7GdCoXW7I4J4LpbpeJncqYt/ooqThwD+
- L1ssYBg1FKicCGkaMHvpq4YAc0uskiuQxrUMoJH5wCd54wZr0ZDVc+d0Z+VzHHe9nDU7aviVX5F
- Kys9pubYPk2bYzZp+Y2QUMB/v3d23ZuEXiOmEwUzZ+jdMSmYE1D+IXEL3N1BbakeSRPz9O4cRg8
- H6mUTle7PeuewKHC+X2pUZfo3FM1QsTNITn9epU78fDQgkbJAtAqBNZEryR4yGlQhwqkN3vrFNG
- 5t8PSLnNxPkmtU65d9O/2nMnN3kUwNE8kcGeNKkLxf3ZwRGldyD0lVLP10UrvtCrDZu62FWYYnu
- 9Bb+1D37PYzepXLQ5qIMP9LY+8Z2lFPPupP2hZKvVRFhHfvpdHfNk656g3oYV6ePkSskxo
-X-Received: by 2002:a17:90b:2c88:b0:396:b98b:a3c2 with SMTP id
- 98e67ed59e1d1-396d0f52a0amr51476456a91.8.1788247583735; 
- Tue, 01 Sep 2026 00:26:23 -0700 (PDT)
-Received: from i386.168.1.127 ([2402:a00:163:2ce9:6882:91b7:8e79:7958])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-142e0dc898dsm32895480c88.9.2026.09.01.00.26.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Sep 2026 00:26:23 -0700 (PDT)
-From: Hrushiraj Gandhi <hrushirajg23@gmail.com>
-To: Felix.Kuehling@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Hrushiraj Gandhi <hrushirajg23@gmail.com>
-Subject: [PATCH] drm/amdkfd: use kzalloc_objs() instead of kzalloc() with
- multiply
-Date: Tue,  1 Sep 2026 12:56:14 +0530
-Message-ID: <20260901072615.522925-1-hrushirajg23@gmail.com>
-X-Mailer: git-send-email 2.47.3
+ d=1e100.net; s=20251104; t=1788184048; x=1788788848;
+ h=content-type:cc:to:subject:message-id:date:from:mime-version
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=cFSV9KhWwH8UTBQ/C/MspQ/RwmMPKmn69329QrcNpjg=;
+ b=J+McPG8fp20UMFm//vEJyVSYwpGtHUlSHEC6d+lD2wITqBEvh9IcwMOrbxWzN/9u47
+ VSqOCo/Q6sGWsgW7tcLAGxnS+hfyb8xLHtfTUArR/XKeSQuuH9wpX6rqWCEFt3rkwHDH
+ ESW/YGVbAa2cO9m8T2W3quemQFRbdKDqF8h0T4gnTCSGk49ISYn5lYoPZaRoTKeDf/hJ
+ p8CgQrX/iOeYtyaGjNn3oa89dd8Lp0qvRQnWrfehyIwKHXwlv+Ap+Ub/ReX41uKi6VH3
+ uK+wixVPo8jFPqdgbbMe6ua7kNPH29SDomywzkwarWbe9herHa+YJW4m7KwjGzB36qAj
+ Jnvg==
+X-Gm-Message-State: AFuF++n/r2dxsp0EE7NzREZjX2R7A3v1Y0uO3rppCVY3h1RCqGSjRw/H
+ kPJxNk80jJLs2nhcGpf7vcAvO+2R8wbyHww5h8eLmaoToclilcBSaIZONe+n/K3fZYSRM2bcsG5
+ 7XpoxPZZ1YTHqg68tMGndsogo30opntdegCo=
+X-Gm-Gg: AR+sD10YYGu+EJm60s+eUylkKtzUGXYNTjT4feduj3Wo1s8iegD39LDN+Zjr7kEyVMt
+ xdXSkiCsme+ILOazgPVdQ5Up8yelA1mXyt0ujwFn8PQMP66MEkcrYFnkou4zwR2la9AfeyGKQ38
+ boI7lGeR52aSylrDAN8Fm/ZIzlRSihFJLnpD4zbCy8lqfYhp/yinedFJRHvL1O7h4he/zF79xny
+ N3SU61TAX5TkTfs6UZejZOBbDzoQTikRCMuc+rV9hKsqBgeBNS9OMTAvHC97OtP7772FMwV1HH3
+ hIZ87ClRaSl1Enraui3bXDeD0PclOH/qNff7E8gBdvqq
+X-Received: by 2002:ad4:5c46:0:b0:8fe:57d4:69cd with SMTP id
+ 6a1803df08f44-90e87197c3amr94853606d6.14.1788184047385; Mon, 31 Aug 2026
+ 06:47:27 -0700 (PDT)
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Robson Candido dos Santos Alves <robsonalves.us@gmail.com>
+Date: Mon, 31 Aug 2026 10:46:50 -0300
+X-Gm-Features: AcwNN1XiVRIDsV5MvmN1_ctjQnb_kUYK7ID-dXE41cp2gLJaxtcLOJ1RhzUegpg
+Message-ID: <CANkdJ2VvJQSBzyOq=LgSW1=Z8-YiN_r9Py2iJ0UJDo55+dbfuA@mail.gmail.com>
+Subject: [REGRESSION] amdgpu: "pixel format with alpha exposed but blend mode
+ not setup" warnings introduced in v7.3-rc1
+To: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: regressions@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Tue, 01 Sep 2026 07:59:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -85,49 +98,51 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-dqm->detect_hang_info, dqm->hung_db_array and dqm->hqd_info are all
-allocated with a hand-computed count * sizeof(TYPE) size. If count
-were ever attacker- or firmware-influenced and large enough, the
-multiply could wrap size_t and produce a too-small allocation that
-the code then writes count-many elements into.
+#regzbot introduced: v7.2.2..v7.3-rc1
+#regzbot title: amdgpu: "pixel format with alpha exposed but blend
+mode not setup" warnings on Renoir/Barcelo
 
-kzalloc_objs() computes the same size via size_mul(), which saturates
-to SIZE_MAX on overflow instead of wrapping, so the allocation itself
-fails cleanly (already handled here via the existing NULL checks)
-rather than silently succeeding undersized.
+Hi,
 
-dqm->detect_hang_info_size is left as-is since it is also used later
-for a memset() call; only the allocation itself is converted.
+After updating from kernel v7.2.2 to v7.3-rc1, several DRM plane
+warnings regarding unset blend modes for pixel formats with alpha
+channels started appearing in dmesg during initialization.
 
-No functional change in the non-overflowing case.
+Good Version:
+- Kernel: 7.2.2-070202-generic
+- Display Core: v3.2.384
+- Result: Driver initializes cleanly without plane/blend mode warnings.
 
-Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
----
- drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 8 +++-----
- 1 file changed, 3 insertions(+), 5 deletions(-)
+Bad Version:
+- Kernel: 7.3.0-070300rc1-generic
+- Display Core: v3.2.392
+- Result: Driver emits the following warnings in dmesg:
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-index 67137679a901..5aa42fd5bb49 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
-@@ -2013,17 +2013,15 @@ static int start_cpsch(struct device_queue_manager *dqm)
- 			      NUM_XCC(dqm->dev->xcc_mask);
- 
- 	dqm->detect_hang_info_size = num_hw_queue_slots * sizeof(struct dqm_detect_hang_info);
--	dqm->detect_hang_info = kzalloc(dqm->detect_hang_info_size, GFP_KERNEL);
-+	dqm->detect_hang_info = kzalloc_objs(*dqm->detect_hang_info, num_hw_queue_slots);
- 
- 	if (!dqm->detect_hang_info) {
- 		retval = -ENOMEM;
- 		goto fail_detect_hang_buffer;
- 	}
- 
--	dqm->hung_db_array = kzalloc(hung_array_size * sizeof(u32), GFP_KERNEL);
--	dqm->hqd_info = kzalloc(
--		hqd_info_size * sizeof(struct amdgpu_mes_hung_queue_hqd_info),
--		GFP_KERNEL);
-+	dqm->hung_db_array = kzalloc_objs(*dqm->hung_db_array, hung_array_size);
-+	dqm->hqd_info = kzalloc_objs(*dqm->hqd_info, hqd_info_size);
- 
- 	dqm_unlock(dqm);
- 
+[drm] [PLANE:44:plane-0] pixel format with alpha exposed but blend
+mode not setup. Please fix.
+[drm] [PLANE:51:plane-1] pixel format with alpha exposed but blend
+mode not setup. Please fix.
+[drm] [PLANE:58:plane-2] pixel format with alpha exposed but blend
+mode not setup. Please fix.
+[drm] [PLANE:65:plane-3] pixel format with alpha exposed but blend
+mode not setup. Please fix.
+[drm] [PLANE:99:plane-7] pixel format with alpha exposed but blend
+mode not setup. Please fix.
+[drm] [PLANE:104:plane-8] pixel format with alpha exposed but blend
+mode not setup. Please fix.
+[drm] [PLANE:109:plane-9] pixel format with alpha exposed but blend
+mode not setup. Please fix.
+[drm] [PLANE:114:plane-10] pixel format with alpha exposed but blend
+mode not setup. Please fix.
+
+Hardware / Environment:
+- Hardware: AMD Renoir / Barcelo APU (DCN 2.1)
+- CPU Scaling Driver: amd-pstate-epp
+- Kernel cmdline: BOOT_IMAGE=/boot/vmlinuz-...
+root=UUID=87f96fe9-4a93-4725-95bb-dd53087bb7a8 ro quiet splash
+crashkernel=2G-4G:320M,4G-32G:512M,32G-64G:1024M,64G-128G:2048M,128G-:4096M
+
+Let me know if further logs or tests are needed.
+
+Best regards,
+Robson
