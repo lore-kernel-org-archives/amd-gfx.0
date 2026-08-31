@@ -4,101 +4,83 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AF969C61DD3
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 11:26:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id D28ACC61DE2
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 11:39:45 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 25AD510E00D;
-	Mon, 31 Aug 2026 11:26:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3E85F10E2B3;
+	Mon, 31 Aug 2026 11:39:45 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="o0pjuSel";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="pKqj9G1a";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010071.outbound.protection.outlook.com [52.101.201.71])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3516610E00D
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 11:26:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=O8kjjTRz2LzGc7rU+vlfIp0ACuSvadoPxBd18ZdplXRSlrw7rFOjjmZPSS/M7OQaix+OiXobftcQRS67Abx+1B/DruXsBrMI4kHeV5XrWWhQWXA/KYyP+VwOKCvKJhYm20dv7bQR4gTx7NRIHY8hz2xx4L/KnDFfoNo40CK9mcsmoB1zbP7X0TQFDhGLdZI6lLSYkmtWme4ZQ61CKFKcQ1nxWw5ofFHhRiABihNw4VR9ndMM6eEQtYq3ryU/bp5+Z5yA0NVgY7SWYdYsr/2csbSLklJ1jd7f32R+qnqD/py31AnPb92XXnXorr4pV+XY3KBnQDEejmnShS8pCKQG5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C7xnSxK0KJoILduThJAZLfvi++FsjmG2lFBfW/EWwk4=;
- b=aZMidt/Q1/kVerFNRe01O95joJcj4817k5KWcrfJUvN2KNwCU88pdF+YOCo0LkcwJ3Xw8ZY1Sjfvh5qjXoYzpqZ5uWBfgKe4GOFN9DGMQ/OYRcfrMXC1BaCHr6n8S2DfPyPpwdUxJH9s4HbSM9BkTQSAfl4Vx+l+zXeDWDZO+5pWdOCp6tHtXg8+rNv410npEycRj2IqP9IY29bHLMgy6HxB2rj6+CQG2Zc92uajoA4aEhe+phGkxLyzEu8fmOAJ+/IRWUwoHJBIliv8IuF/YI0M+wMR4cSH+czDMgoppaDw8xbVgDnNeXi8iPl/mMh30dNM6c7vN94KgbqNCBAVsg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C7xnSxK0KJoILduThJAZLfvi++FsjmG2lFBfW/EWwk4=;
- b=o0pjuSel+5MocZIotA+4cVXeSgq+SLIyx4DcR4LPdU9mqr4XH9+HHGr/QSK2o4Ar3XUg0irilWu7kauMUp+OKP5evV6cQNWlzsCHYPFtg7SOgWeEiapA7UWv5MmLzLYtHY1eJNcfJXmZOaRQ9FRCJCPawkpduG5zbnrH5MeFmCM=
-Received: from DS7PR06CA0051.namprd06.prod.outlook.com (2603:10b6:8:54::21) by
- SA3PR12MB7807.namprd12.prod.outlook.com (2603:10b6:806:304::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 11:26:32 +0000
-Received: from DS2PEPF00003441.namprd04.prod.outlook.com
- (2603:10b6:8:54:cafe::36) by DS7PR06CA0051.outlook.office365.com
- (2603:10b6:8:54::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
- 31 Aug 2026 11:26:32 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- DS2PEPF00003441.mail.protection.outlook.com (10.167.17.68) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 11:26:31 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
- 2026 06:26:31 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
- 2026 06:26:30 -0500
-Received: from chengjya-System-Product-Name.amd.com (10.180.168.240) by
- satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46
- via Frontend Transport; Mon, 31 Aug 2026 06:26:29 -0500
-From: Chengjun Yao <Chengjun.Yao@amd.com>
-To: <alexander.deucher@amd.com>, <Yuliang.Shi@amd.com>
-CC: <amd-gfx@lists.freedesktop.org>, <christian.koenig@amd.com>,
- <asad.kamal@amd.com>, <andrey.grodzovsky@amd.com>, Chengjun Yao
- <Chengjun.Yao@amd.com>
-Subject: [PATCH] drm/amdgpu: fix rmmio iounmap skipped on device removal
-Date: Mon, 31 Aug 2026 19:26:23 +0800
-Message-ID: <20260831112623.1475796-1-Chengjun.Yao@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D8DB310E2B3
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 11:39:43 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-c1c52d920b8so410329766b.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 04:39:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788176382; x=1788781182; darn=lists.freedesktop.org;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=GSaKvfCewxq1tw/MPDZ73QfEYniPUyq5xZzUvs3KI9Q=;
+ b=pKqj9G1aL03V8wla/gmiaGd9fGK6O6usMVhQ7MOCLgD23/oJLM+KOGU4dC9rtKPT76
+ +hoTXnYROFTjA98nVVBLEs1LlPJqa6hhYtBU1+spGiFODA3XSQJPs9lBQa2eZBvKWENv
+ PKtS8v4vgKTm6pcAPg+A80sCdl6a0XEm0DCSs/KsR8BfxIJEt3palCo3zXxz/u0hmT7m
+ uimG+cjZKYavnH867U53Jqtxe6G5JEeYThzKliJSwfYwClAv4OBUDdo822juKNxsZLcC
+ 2VEL/nQu0svyavugZnMczN8XPm64M1zA4K81oL1NRBIL+1IQm4qvzaj0kSLwKjxgdi14
+ rCuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788176382; x=1788781182;
+ h=content-type:content-transfer-encoding:mime-version:references
+ :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=GSaKvfCewxq1tw/MPDZ73QfEYniPUyq5xZzUvs3KI9Q=;
+ b=lGCNd7lkRfgbCGQtG5NqQCIuo7xFNIkaUYYpxjVL2K+5EJkeqI/O45d8ypaYtXcifu
+ 9F4pZmwTCPhh9uzRIDwD5P7LDIK0TFy7QhI9NXKTzsNX61PX1uEfrbL7GfmM0l07UV9P
+ TYD0USa8baloJo4TgvkkRhZG5wBKI6R345IKcCcgJJqGbFxmGvZC9cHiKwN4K2+6XJ7Q
+ xzdB61soYUStD61F//bSoMCmjQm3hnHV23YPEcLXxlTSLYrqqYN7vq+9DAQXV4O8IeWK
+ XmKcikRewAqbvy9tp9zK++r+tilbO5fLgT76Cbedmf7LY/MqnSQwmLDrC8qNzXLd6n4x
+ sBlw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoyaDdC8kkDpac1l4u+qgKa7DBHJcFcBV1VUnQiuWMmRHVtaNRgfhxCkl3bYklhg0/z4o7pRBmW@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mP/qVLlmQhrW8hUGuaSRc5g86yCNbJ87DSbiHaeDpasKC6QWwB
+ fGB/1b6zR+SefzQAYHj0Ae7LDgU7sG3JZLRJW7nsLT2vfKSbA1Zlw3c8
+X-Gm-Gg: AR+sD11fEq7sJNH834ykYxF0vjMynCfok9ya6oGG1hHfAGXOCs9hPxzAJpbOiwJv67B
+ Fqf0yMSNPebkXjbKsq25FTxJJqH94LeW52rcQyykySpzPXSLCN0KBolQmjp3bIryg74ndlMgvn8
+ 1t/c8LhIcCSOpZ4MAefNx7I4coem3JwCwfB70sJq73jnDqkvShiZElgE4e4pKTkyHl9+EnCVsp2
+ tkyZwtp33Gw7S8Y8eEcN3+nYNfPYQj4wvbTOFQn6sL2Kj10K6PPxWWfQSIQegbZt6O+JC9MFh0G
+ Nm8eM3rpok0c/rru2DDFYnfprUitY/tQh6jwqPhb6dZf86oiCXIOEHRgKAysCC1Trq9zLH1Iqr3
+ MenoQDiP2GLbwtrOCekFMxaZzPDl6bSnvFzeDwJgOceXtCFWNcsjv4FMBAZm3qcY31i/UBHViQM
+ 3JwvoyhD6hF1+mTqM0h/Mn3GoulpkXrQZfaWfr8no7OGPoyrrUwTZMhpRqLhgMvh3f5YeRPb0qM
+ r3jFq0nN0uaMrfhN2Aw2QdqMSJsG+SfmIR4i6IW/8TN8FUx+O4BEiU9JSlqbxe4Y9GABfWi/sRC
+X-Received: by 2002:a17:907:9618:b0:c24:457b:86fc with SMTP id
+ a640c23a62f3a-c25571d3b0dmr1534052066b.21.1788176382007; 
+ Mon, 31 Aug 2026 04:39:42 -0700 (PDT)
+Received: from timur-max.localnet
+ (20014C4E24D8F2005AA4D4F91F46DAE7.dsl.pool.telekom.hu.
+ [2001:4c4e:24d8:f200:5aa4:d4f9:1f46:dae7])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c255ee75a36sm413076466b.28.2026.08.31.04.39.40
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 31 Aug 2026 04:39:41 -0700 (PDT)
+From: Timur =?UTF-8?B?S3Jpc3TDs2Y=?= <timur.kristof@gmail.com>
+To: christian.koenig@amd.com, alexander.deucher@amd.com,
+ amd-gfx@lists.freedesktop.org
+Cc: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>,
+ stable@vger.kernel.org,
+ Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+Subject: Re: [PATCH] drm/amdgpu: skip the VMID 0 flush for VRAM
+ clear-on-release
+Date: Mon, 31 Aug 2026 13:39:40 +0200
+Message-ID: <voa7PnOgTa6oSIPH4Hu9jQ@gmail.com>
+In-Reply-To: <20260828044734.135460-1-Arunpravin.PaneerSelvam@amd.com>
+References: <20260828044734.135460-1-Arunpravin.PaneerSelvam@amd.com>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF00003441:EE_|SA3PR12MB7807:EE_
-X-MS-Office365-Filtering-Correlation-Id: 553852f2-cfeb-478f-7ff2-08df0752b51d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info: JuOxPlqkpeoXNvXbsluQlWopoRmdOt9GF2z9SC4VFXJoK8LY10T/A2HDkQHmI/KmdFiuCpmNn2AYYivKtoTPhv5HvDHUgGlOQ4wJwN8B13IJTHa9YNWnmd+ZRqqV6+o/YP+7kHpqa50RddaSiK2h4b0rmQ0UIKJQm72SeoxP1A4zqLRhppD85fSgGKIIvHqX39QUafqvz7Lgz8UE9kBRhIKqlfQT7u7Rm/OGF6dEpSqk9GUb1yHQnbck2U5wlSCjSzJczjJ3DWsdej5tpyPrTxcq7HZdvzWWnXAOJaKYDroqx8t6/Ci7eOO03S7OItCUqp8seBHesrHJREJFfhVC/cAN7BCsNCFhp0V78ft6y2niNNt7PG8RTgKNrnVYAL0pnS4LrDb0ZEaKSC+oNuvecjkYavYOLgzfk7uHJ2mmyRwiZdnypMhs2xtECmGdDXJKJvsEHClsn/VllY1iMJ1AYKEFBQ8tw4FU7J5sCGk7m4IbgsH0bO/kt3vBT6ud+kkD5ANxE8qM+zsFEgsD5ktKUZcn1sx2zxK8ZDO0aL+N+zeN4zD9C83d1NMQTDThWXQi9p2I8T/M3yzTf0IbUWgqfJqRNepACvf4JmP1p3Hw69q/VBCluW29jilmVG8fq3hbmVONvozLsBYlmBne6ZrwC5QgNQ/07q3V/t6wQ9pipG9YYB/70wmkPpuwTLs40jwWoDV/OusFEv9K3lPKL5894w==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(10067099003)(11063799006)(56012099006)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Kw2VZW5X5NtlfBLd6QqU3eQ9qBWNLCheNFhrOZ5VYvt1YN/u7O+iI8sc0UTZ+TFi6+1vHAU6orBLy2fFCyWZVPnR1sm+7+ZhNsgQSs8GGVdMmkZSkwHZpRtinPprKWOg1u+IRr46DIphEJQBsownrIOHntjCahasZ/UDpSu4fbh7tTEPqSfnoMzZoJ966WtZSeZYOOvk7zBdb7pzDx/D1kTUDBCqT7Vx/IQdYTOD6QOV/wTK5fMEJael67Wxjb+alF6gQHjWW5cS28y3iIn54TdjGcsd04sRggUk2oFESQYg9MVWipl/WwBPzVAkSN/kJDIokjTKGEyTODViJMPNi6ADzjkUuT/McO/7F4qSSA8wCPOKPuICQfoTxUfjyi7XpY3y1kH6xBBRlhMCEiX1BXXak6p9EMmdeAANWTRhXeJzoilD5MnyHx3EVOvlF6RI
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 11:26:31.6755 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 553852f2-cfeb-478f-7ff2-08df0752b51d
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: DS2PEPF00003441.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB7807
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,47 +95,85 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-amdgpu_pci_remove() calls drm_dev_unplug() before fini_sw(), so
-drm_dev_enter() is already false there and the iounmap() guarded by it
-is skipped. This .remove path runs on both hot-unplug and plain rmmod,
-so the 512KB rmmio BAR leaks one mapping per unload/reload.
+On 2026. augusztus 28., p=C3=A9ntek 6:47:34 k=C3=B6z=C3=A9p-eur=C3=B3pai ny=
+=C3=A1ri id=C5=91 Arunpravin=20
+Paneer Selvam wrote:
+> Clear-on-release only runs on VRAM, which amdgpu_ttm_map_buffer() reaches
+> via its direct MC address without programming a GART window, yet the wipe
+> still forces a VMID 0 flush.
 
-Unmap rmmio unconditionally (guard only on non-NULL) and drop the now
-unused idx.
+Makes sense.
+We don't need the VM flush when we are not changing the page tables.
 
-Fixes: 62d5f9f7110a ("drm/amdgpu: Unmap MMIO mappings when device is not unplugged")
-Signed-off-by: Chengjun Yao <Chengjun.Yao@amd.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+I agree with the patch, just would like to ask a few questions to better=20
+understand the underlying problem:
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-index 18cfa2dbcc2dc..c175c29040274 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-@@ -4343,7 +4343,7 @@ void amdgpu_device_fini_hw(struct amdgpu_device *adev)
- 
- void amdgpu_device_fini_sw(struct amdgpu_device *adev)
- {
--	int i, idx;
-+	int i;
- 	bool px;
- 
- 	amdgpu_device_ip_fini(adev);
-@@ -4385,11 +4385,10 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
- 	if ((adev->pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA)
- 		vga_client_unregister(adev->pdev);
- 
--	if (drm_dev_enter(adev_to_drm(adev), &idx)) {
--
-+	/* Unmap rmmio unconditionally; drm_dev_enter() is false after unplug */
-+	if (adev->rmmio) {
- 		iounmap(adev->rmmio);
- 		adev->rmmio = NULL;
--		drm_dev_exit(idx);
- 	}
- 
- 	if (IS_ENABLED(CONFIG_PERF_EVENTS))
--- 
-2.43.0
+> On GFX11 (e.g. Navi33) that spurious SDMA
+> flush can wedge the engine
+
+What is happening when the SDMA engine is wedged? Can it be recovered by an=
+=20
+SDMA queue reset? Is it just a hang, or can it cause other issues such as p=
+age=20
+faults?
+
+> only flush when a GART window is actually used.
+
+Does that mean that there is still a risk of the wedge when the GART window=
+s=20
+are used? Can you remind me when/why we need the GART windows exactly?
+
+> Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
+> Cc: stable@vger.kernel.org
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
+
+Reviewed-by: Timur Krist=C3=B3f <timur.kristof@gmail.com>
+
+Thanks and best regards,
+Timur
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c index
+> 6c07cee8e8777..2e6c98c2f1efa 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
+> @@ -2578,6 +2578,7 @@ int amdgpu_ttm_clear_buffer(struct
+> amdgpu_ttm_buffer_entity *entity, struct amdgpu_device *adev =3D
+> amdgpu_ttm_adev(bo->tbo.bdev);
+>  	struct dma_fence *fence =3D NULL;
+>  	struct amdgpu_res_cursor dst;
+> +	bool vm_needs_flush;
+>  	int r;
+>=20
+>  	if (!entity)
+> @@ -2585,6 +2586,8 @@ int amdgpu_ttm_clear_buffer(struct
+> amdgpu_ttm_buffer_entity *entity,
+>=20
+>  	amdgpu_res_first(bo->tbo.resource, 0, amdgpu_bo_size(bo), &dst);
+>=20
+> +	vm_needs_flush =3D bo->tbo.resource->start =3D=3D=20
+AMDGPU_BO_INVALID_OFFSET;
+> +
+>  	mutex_lock(&entity->lock);
+>  	while (dst.remaining) {
+>  		struct dma_fence *next;
+> @@ -2605,7 +2608,7 @@ int amdgpu_ttm_clear_buffer(struct
+> amdgpu_ttm_buffer_entity *entity,
+>=20
+>  		r =3D amdgpu_ttm_fill_mem(adev, entity,
+>  					0, to, cur_size, resv,
+> -					&next, true,=20
+k_job_id);
+> +					&next, vm_needs_flush,=20
+k_job_id);
+>  		if (r)
+>  			goto error;
+
+
+
 
