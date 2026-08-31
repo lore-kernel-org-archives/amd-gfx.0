@@ -4,97 +4,70 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 45FB1C624A4
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:01:05 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 505FAC624C6
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 13:22:38 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B2F7710E1D3;
-	Mon, 31 Aug 2026 13:01:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BAE3910E116;
+	Mon, 31 Aug 2026 13:22:37 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="w8AZ52IH";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="bmGaYkWX";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013006.outbound.protection.outlook.com
- [40.93.196.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27C2810E1D3
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 13:01:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YC4QcmgniOgIDGlQbq5hAwp6R2SFMepOQvMzB/OxQTtdJs6OnPkTEl5CYX0GXr1OybJcxf8EMEmL0qwPd5SiCcl+GRt5aS+ust4jg31l+xfhj6UxGE7S1/FO80QL88zQLCq51wQ/Wn/PC0L1E5+R3YK7Cg5FEOmFMGPZRUHpRFvj9oLEd9L1ZMroGuDhgG7ngjYnurGjxuJLMym2zAMPGQGKHQSL5Yu8XkVfX0V/v9M3aEa+KvQnBaNBg3lP2q7R7LKmEf6ZYA6Z2AAC6Ynl6onThShqOJ47Z5lzfFZs0Vfw2hODdxH1zc5D5Fp5SK/DIhuPjvrllGPMlXhFNbxh2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=R2tJWmNzqNR4FNq6YY9y0oA8KxdNquF9L6/yuLE7JYQ=;
- b=iSSvAYcyrQdvfX+g7zkZwa+6xP335rX7iM4JgyXraugcc6gONLxgENdXRf788e2XbIkyc3QZ+4rVOm2yxdLQEiZ6jrwwgmQiGWZvVCMqN25dPOx0eXqFi6/o//x5GpZeKwgVSzHy3Yjq9gByF796VSNPQhn6vUziauU7csGWinWupYpSDt+QRf+SFg0uAl1oDBCcFDmJOjbWHdaohe6PVYz6/aIduhNEMZyh3qHjdp9uATVZKpqhm6tyhlyH1A0W34GVe2p08wIUETTnYh5lirvuXTh53I1ohmj7Wi2Xi1JzahGzJ7Jxj3wXK4mQ6zM2Ng3bjyerub1l3j3TPJvYQg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=R2tJWmNzqNR4FNq6YY9y0oA8KxdNquF9L6/yuLE7JYQ=;
- b=w8AZ52IHUCYuvQu+6y4VWpz7cz8QoEzfZLCAaV2pvz3RPw+1K6lAiO+Qcs12IBfnyYLH0gA5EjPpzXV37A8b4pGCRwJfqTFezfKQC9rQTN3UMv2Ityw6jpWz7cDxMhKba8pm+NAQEDjaDRXRflpT34pjVmlFARfuPqm9+vu7ZPQ=
-Received: from SN7PR04CA0175.namprd04.prod.outlook.com (2603:10b6:806:125::30)
- by DS5PPFF8845FFFB.namprd12.prod.outlook.com (2603:10b6:f:fc00::66a)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 13:01:00 +0000
-Received: from SA2PEPF0000150A.namprd04.prod.outlook.com
- (2603:10b6:806:125:cafe::16) by SN7PR04CA0175.outlook.office365.com
- (2603:10b6:806:125::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
- 31 Aug 2026 13:01:00 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SA2PEPF0000150A.mail.protection.outlook.com (10.167.242.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 13:01:00 +0000
-Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
- satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 31 Aug 2026 08:00:58 -0500
-From: Mario Limonciello <mario.limonciello@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Mario Limonciello <mario.limonciello@amd.com>
-Subject: [PATCH] drm/amdkfd: fix scope of mqd_mgr dereference in
- pqm_debugfs_mqds
-Date: Mon, 31 Aug 2026 08:00:51 -0500
-Message-ID: <20260831130051.2031435-1-mario.limonciello@amd.com>
-X-Mailer: git-send-email 2.43.0
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D248C10E7EB;
+ Mon, 31 Aug 2026 12:40:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788180035; x=1819716035;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=gMHDOQFK8cFHhTqRVnSQ8VkRu9LC8o2oJEBdHC89wgI=;
+ b=bmGaYkWXdg+LMQ4P1EIxzTbcu3s0DevkfMRUzl/rbPTbEOg1PwmIlAfr
+ Rs7vx8FGMZdiQJdHnIls1iaae+95RINoYjo19wqVbObFVSSStz/+HYf47
+ 6oGCAfErk7/2XhQwfSFj2rzIX90H/WeiE9ti/z8fNrs61tp2NpXpBvK3Q
+ tLymgw5gScElsvvYn2+q5sLaJrtMjUskQvKJ7Alojphfp6+qnU3IJhzlB
+ 9JTMTOH1KmI366E1tggMiTxea2XWDRYTW12cWAwgTaizOqkClyMTj5YaM
+ rMTBiqi7r9/imoQcSJmy3tmPy7C8NpaDnfU5XGf/IG50i3fx3nVwGn8Ef g==;
+X-CSE-ConnectionGUID: BUxWfuZ2QtObpxYqGf4ryQ==
+X-CSE-MsgGUID: WfgLHAasSu2lmc7Z8KI/gQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88348522"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="88348522"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 05:40:35 -0700
+X-CSE-ConnectionGUID: avQH6mskQXOtYXmkTNMJrQ==
+X-CSE-MsgGUID: CUxohwINScmcLgCPUbz8QA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; d="scan'208";a="272978170"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO [10.245.244.41])
+ ([10.245.244.41])
+ by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 31 Aug 2026 05:40:31 -0700
+Message-ID: <f9088335650f61364384d279d30210d99513f08e.camel@linux.intel.com>
+Subject: Re: [PATCH v5 0/4] drm: Add common drm_work_fence/drm_user_fence
+ helpers and convert XE
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: "SHANMUGAM, SRINIVASAN" <SRINIVASAN.SHANMUGAM@amd.com>, Matthew Brost	
+ <matthew.brost@intel.com>, "Koenig, Christian" <Christian.Koenig@amd.com>, 
+ "Deucher, Alexander" <Alexander.Deucher@amd.com>
+Cc: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>, Mika
+ Kuoppala <mika.kuoppala@linux.intel.com>, Maarten Lankhorst
+ <maarten.lankhorst@linux.intel.com>,  "dri-devel@lists.freedesktop.org"	
+ <dri-devel@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"	
+ <intel-xe@lists.freedesktop.org>
+Date: Mon, 31 Aug 2026 14:40:29 +0200
+In-Reply-To: <IA0PR12MB82085C11DA7C77450210BE1F90A92@IA0PR12MB8208.namprd12.prod.outlook.com>
+References: <20260827062142.4038272-1-srinivasan.shanmugam@amd.com>
+ <20260831054154.107602-1-srinivasan.shanmugam@amd.com>
+ <772d17307920288d82c55518322d2b65686fcd25.camel@linux.intel.com>
+ <IA0PR12MB8208B09EDCF4E0D77B58299290A92@IA0PR12MB8208.namprd12.prod.outlook.com>
+ <8278316a3ed83374568103f509d64d71aab8fa32.camel@linux.intel.com>
+ <IA0PR12MB82085C11DA7C77450210BE1F90A92@IA0PR12MB8208.namprd12.prod.outlook.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-Originating-IP: [10.180.168.240]
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF0000150A:EE_|DS5PPFF8845FFFB:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4fabe748-bec1-48f4-839c-08df075fe7db
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|6133799003|18002099003|56012099006|3023799007|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info: g2nRZuxg7l9TnjhupAqnPmwVFoBWVLJXPQlRg70IvQ65Tsx5u9Jc2LcSjH/+hvv2ObmwFYfAMpaG8Fr3AL9AU563RGFXc72FZmsRs74XNi10r5U3RMoFluMgzJd2s7HUBVfk2C5qbaDH3mtXEUIktdoX0Nb7SVQrbQe6Rk4n1E4faELcwVk4uqi0jQB+ecSccgQcqypMHxnZG2SblwVc/LllaVp3K8oPMVwf0NGmHID1GSZAcbnJ96cDGmabh2UFkHm+rYhLfx3qFpK9Uq/AF7rno0XlEnFMsFE5AIwd60haH4t80H+3YRoW286DdZWWcW/HfFcb0UNR+c42ZRQATddWaF/lvOEZ0CWkCkD6dM5+EUT4MEAhkLCoNaC/pzqbr0DBYbuF2mOQcImxjuqV8/Z6ChgllqCLUAtHQY/Ra/EX9P/0cFu7f1KNrC41LFbWIv2BuoYXH2kX2en8vJUTzdt+HtzxcMdIsxlfIKDVfz24rqkz09c72t2fFtiZ3TQgPkBc2cEd6msWXPx2Po96g/oV64v0TEkGXRv8FD+yRpbHtyMKaOr3IELxAIIszpQd03O/5g0+eA365+EUECw4rJ6gXCzDLhWA6Syr2SURlYfVbDL7yxrytDiU5afG5fqnDVDfROq3Dc5zG3NpALrkJA==
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(6133799003)(18002099003)(56012099006)(3023799007)(11063799006)(10067099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: Fskxh8S5DLes6dsBouTes5BhujvprR7+pTC/VEoCh7HkkgenbJskmLoB6XMlle04oO7g6O6saLCN6Xg2sKq56Hj4Iwtp0/gNV9mka6OraGZMxQi6zhysgxZQWC+j3nPXePvEXtkbccpL90+u51C3RyTdEmswDkZdWyjOYEFCBzGKrNtDt67OoDRQxfmawTM+O1hleoZSrvweJwjKaE8uLOIeq3Jreu+Lfm+vM3MdmAd7eIZ7Bm0WAkNhmsHEGfzQO2WK/rg1huPN7tLVEV4KfFy8A/xFf9uqExWN6cxi34ludXiW0Dh6GZhSj89blZ/oWRGjSfKwTCu9X/HE/h0b5tGhjORwhc1dTJCaKoaNv9hGeYaadhFGXgYrOGhWfz8XXC4VXNSYywiCzaGYBc25XX7QTT6aPHndRs0sl+jLijkd5qbSy4EO37VZvo8b29A8
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 13:01:00.2792 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4fabe748-bec1-48f4-839c-08df075fe7db
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SA2PEPF0000150A.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFF8845FFFB
+X-Mailman-Approved-At: Mon, 31 Aug 2026 13:22:37 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,76 +82,165 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Reading /sys/kernel/debug/kfd/mqds while a process holds an active KFD
-queue triggers a NULL pointer dereference because the for loop that
-calls mqd_mgr->debugfs_show_mqd() is incorrectly placed outside the
-if (pqn->q) block that initializes mqd_mgr.
+On Mon, 2026-08-31 at 12:36 +0000, SHANMUGAM, SRINIVASAN wrote:
+> AMD General
+>=20
+> > -----Original Message-----
+> > From: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> > Sent: Monday, August 31, 2026 5:52 PM
+> > To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
+> > Matthew Brost <matthew.brost@intel.com>; Koenig, Christian
+> > <Christian.Koenig@amd.com>; Deucher, Alexander
+> > <Alexander.Deucher@amd.com>
+> > Cc: amd-gfx@lists.freedesktop.org; Mika Kuoppala
+> > <mika.kuoppala@linux.intel.com>; Maarten Lankhorst
+> > <maarten.lankhorst@linux.intel.com>;
+> > dri-devel@lists.freedesktop.org; intel-
+> > xe@lists.freedesktop.org
+> > Subject: Re: [PATCH v5 0/4] drm: Add common
+> > drm_work_fence/drm_user_fence
+> > helpers and convert XE
+> >=20
+> > On Mon, 2026-08-31 at 11:13 +0000, SHANMUGAM, SRINIVASAN wrote:
+> > > AMD General
+> > >=20
+> > > > -----Original Message-----
+> > > > From: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> > > > Sent: Monday, August 31, 2026 3:46 PM
+> > > > To: SHANMUGAM, SRINIVASAN <SRINIVASAN.SHANMUGAM@amd.com>;
+> > Matthew
+> > > > Brost <matthew.brost@intel.com>; Koenig, Christian
+> > > > <Christian.Koenig@amd.com>; Deucher, Alexander
+> > > > <Alexander.Deucher@amd.com>
+> > > > Cc: amd-gfx@lists.freedesktop.org; Mika Kuoppala
+> > > > <mika.kuoppala@linux.intel.com>; Maarten Lankhorst
+> > > > <maarten.lankhorst@linux.intel.com>;
+> > > > dri-devel@lists.freedesktop.org; intel-
+> > > > xe@lists.freedesktop.org
+> > > > Subject: Re: [PATCH v5 0/4] drm: Add common
+> > > > drm_work_fence/drm_user_fence helpers and convert XE
+> > > >=20
+> > > > On Mon, 2026-08-31 at 11:11 +0530, Srinivasan Shanmugam wrote:
+> > > > > When a GPU dma-fence signals, drivers often need to perform
+> > > > > work
+> > > > > that cannot run in IRQ context. This pattern is currently
+> > > > > open-coded in multiple drivers.
+> > > > >=20
+> > > > > This series introduces two layered helpers:
+> > > > >=20
+> > > > > Patch 1 introduces drm_work_fence =E2=80=94 a generic embeddable =
+base
+> > > > > structure that handles the dma-fence-callback-to-workqueue
+> > > > > pattern.
+> > > > > Any driver needing deferred fence work can use this directly.
+> > > > >=20
+> > > > > Patch 2 introduces drm_user_fence =E2=80=94 a thin layer on top o=
+f
+> > > > > drm_work_fence that adds kthread_use_mm() support for drivers
+> > > > > that
+> > > > > need to access userspace memory when a fence signals.
+> > > > >=20
+> > > > > Patch 3 converts XE to use drm_user_fence. XE continues to
+> > > > > write a
+> > > > > fence completion value to a userspace VA using the new
+> > > > > helper.
+> > > > >=20
+> > > > > Patch 4 adds optional per-signal compare functionality to
+> > > > > drm_user_fence.
+> > > > > When cmp_addr is set, the worker is called only if the value
+> > > > > at
+> > > > > cmp_addr satisfies the configured comparison. This enables
+> > > > > AMDGPU's EOP eventfd per-signal filtering without open-coding
+> > > > > the
+> > > > > read+compare
+> > > > > pattern.
+> > > > >=20
+> > > > > A follow-on patch (not in this series) will wire AMDGPU's
+> > > > > render-
+> > > > > node EOP eventfd signaling path to drm_work_fence.
+> > > > >=20
+> > > > > v5:
+> > > > > =C2=A0- Split drm_user_fence into drm_work_fence (generic) and
+> > > > > drm_user_fence
+> > > > > =C2=A0=C2=A0 (MM-borrowing subclass) per Matthew Brost's suggesti=
+on.
+> > > > > =C2=A0- Add per-signal compare functionality
+> > > > > (drm_user_fence_set_compare())
+> > > > > =C2=A0=C2=A0 per Christian K=C3=B6nig's suggestion.
+> > > > > =C2=A0- Use mmput_async() instead of mmput() to avoid potential
+> > > > > deadlock in
+> > > > > =C2=A0=C2=A0 MMU notifier release path. (Sashiko review)
+> > > > >=20
+> > > > > Suggested-by: Matthew Brost <matthew.brost@intel.com>
+> > > > > Suggested-by: Christian K=C3=B6nig <christian.koenig@amd.com>
+> > > > > Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+> > > > > Cc: Thomas Hellstr=C3=B6m <thomas.hellstrom@linux.intel.com>
+> > > > > Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> > > > > Cc: dri-devel@lists.freedesktop.org
+> > > > > Cc: intel-xe@lists.freedesktop.org
+> > > > > Cc: amd-gfx@lists.freedesktop.org
+> > > >=20
+> > > > I think the get_user() and put_user() of 64-bit values in drm
+> > > > (driver
+> > > > common) code is not safe for typical use-cases on 32-bit
+> > > > systems.
+> > > > For xe we
+> > > > officially don't (yet at least) support 32-bit systems so hence
+> > > > the
+> > > > code is a bit sloppy but for drm helpers I'm not sure we can
+> > > > get
+> > > > away with this. At least not without some form of warning or
+> > > > assert.
+> > > >=20
+> > > > I think to make 32-bit systems 64-bit user-fence safe, we would
+> > > > need
+> > > > to user
+> > > > pin_user_pages() combined with cmpxchg64() and a similar
+> > > > cmpxchg
+> > > > operation on the user-space side.
+> > >=20
+> > > Hi Thomas,
+> > >=20
+> > > Thanks for the review.
+> > >=20
+> > > For the 32-bit safety concern on get_user() of u64 values =E2=80=94 s=
+ince
+> > > no
+> > > current GPU driver supports 32-bit user fences (XE explicitly
+> > > excludes
+> > > 32-bit, and AMDGPU targets modern hardware), would adding a
+> > > BUILD_BUG_ON or IS_ENABLED(CONFIG_64BIT) guard in
+> > > drm_user_fence_set_compare() be acceptable for now?
+> > >=20
+> > > If a 32-bit driver ever needs this in the future, we can follow
+> > > up
+> > > with pin_user_pages() + cmpxchg64() for proper atomic access.
+> > >=20
+> > > Does that approach work for you?
+> >=20
+> > Xe supports building on 32-bit but not running. Can we use a
+> > drm_WARN_ON_ONCE(!IS_ENABLED(CONFIG_64BIT)) or similar somewhere?
+> > Perhaps that was your second suggestion?
+>=20
+> Hi Thomas,
+>=20
+> Yes, that matches our suggestion. We will add:
+>=20
+> =C2=A0=C2=A0=C2=A0 WARN_ON_ONCE(!IS_ENABLED(CONFIG_64BIT));
+>=20
+> in drm_user_fence_set_compare(). We cannot use drm_WARN_ON_ONCE()
+> since drm_user_fence has no struct drm_device * reference.
+>=20
+> Is plain WARN_ON_ONCE acceptable, or should we add a drm_device
+> pointer to drm_user_fence_set_compare() to use drm_WARN_ON_ONCE()?
 
-The queue list can contain entries where pqn->q is NULL (kernel queues
-where only pqn->kq is valid). In the original code:
+For this purpose, IMO WARN_ON_ONCE() is fine. Not sure if drm has a
+general recommendation to add a device pointer, though.
 
-  if (pqn->q) {
-      ...
-      mqd_mgr = q->device->dqm->mqd_mgrs[mqd_type];
-      size = mqd_mgr->mqd_stride(...);
-  }
+Thanks,
+Thomas
 
-  for (xcc = 0; xcc < num_xccs; xcc++) {  // WRONG: outside if block
-      mqd = q->mqd + size * xcc;
-      r = mqd_mgr->debugfs_show_mqd(m, mqd);
-  }
 
-When iterating over a queue node where pqn->q is NULL:
-1. The if (pqn->q) block is skipped
-2. mqd_mgr remains uninitialized (NULL from declaration)
-3. The for loop executes anyway
-4. mqd_mgr->debugfs_show_mqd(m, mqd) dereferences NULL
-
-The crash manifests as:
-
-  BUG: kernel NULL pointer dereference, address: 0000000000000000
-  #PF: supervisor instruction fetch in kernel mode
-  RIP: 0010:0x0
-  Call Trace:
-   pqm_debugfs_mqds+0x10c/0x1d0 [amdgpu]
-   kfd_debugfs_mqds_by_process+0x9b/0x110 [amdgpu]
-   seq_read_iter+0x132/0x4b0
-   ...
-
-Fix by moving the for loop inside the if (pqn->q) block, so mqd_mgr
-and related variables are only used when properly initialized.
-
-Cc: stable@vger.kernel.org
-Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5689
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
----
- .../gpu/drm/amd/amdkfd/kfd_process_queue_manager.c   | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 9e607098c3a09..fb2d8ad9c2c5e 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-@@ -1170,13 +1170,13 @@ int pqm_debugfs_mqds(struct seq_file *m, void *data)
- 			mqd_mgr = q->device->dqm->mqd_mgrs[mqd_type];
- 			size = mqd_mgr->mqd_stride(mqd_mgr,
- 							&q->properties);
--		}
- 
--		for (xcc = 0; xcc < num_xccs; xcc++) {
--			mqd = q->mqd + size * xcc;
--			r = mqd_mgr->debugfs_show_mqd(m, mqd);
--			if (r != 0)
--				break;
-+			for (xcc = 0; xcc < num_xccs; xcc++) {
-+				mqd = q->mqd + size * xcc;
-+				r = mqd_mgr->debugfs_show_mqd(m, mqd);
-+				if (r != 0)
-+					break;
-+			}
- 		}
- 	}
- 
--- 
-2.43.0
-
+>=20
+> Thanks,
+> Srini
