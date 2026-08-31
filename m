@@ -4,71 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 4251CC624D1
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E4DECC624D3
 	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 18:29:14 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1555710EA70;
-	Mon, 31 Aug 2026 18:29:13 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 190D610EA69;
+	Mon, 31 Aug 2026 18:29:14 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xWgCGmJA";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ibxIVmKs";
 	dkim-atps=neutral
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011003.outbound.protection.outlook.com [52.101.62.3])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3970610E50F
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 18:28:44 +0000 (UTC)
+Received: from PH8PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11012063.outbound.protection.outlook.com [40.107.209.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6E19110EA67
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 18:29:05 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JglOr2FxwIkLU7vy+/UAKnaQE+X1IaIX/OBp9vTi9Swu0MxZpryOQHmbabaOdmqSIOkVGYWzRkuV1i7QC3omJKKpbuZwtQ/XgREHCgFexOs9WW4BDgKIwuHKUaRbvG0ZvuCwmuVswx9IyJNgqwFZc62N06o1QCKBP2u8pW+AZgHOCTB7Eq66oX8DwaRk35zSwiz9OTTuLAJkC8mRRthIaAu8ulTQ2K1IInP6vYffywJSTnayoVVVW24L5/1FLYZibl870C4qdkZIFTRKk9dFQs5qZQ/MFHCTqzadlO5SnYMpOIOg2o8qsMuRgFemmy1J9N/cv5172phCqDrMFW+P7Q==
+ b=nRt8vVN3GWfuAHln4Q50tKK2BkCRNQgrVmJ4sQMd6WeWU6d0RLLAKu1QPQsd4pgGuabRmOfzFznyT0K/DfnNAjTHz3OAyOZ8i/56wZ+WZFfXar5SZc8JCIKVMLh4k5XGxcTzeBXkRs4gdDFBYROym+WuNK13LqbqUyIbwzv2jKN6LAphnnGeTWIGaRo+Eux4SDy2GD65loz1RGpKdbm2EBvRG6cRv9WFvtE0saRU/EHyYF5ZJdEoDrR5wPsuHbwypAgLZwZQWnFPZDfXhPYfPG/Kv5Ew6PU8bArLZJeXlSo/eEtjrMy4IWye3GBAbM5ZlvuymmizgbmL1B54yNguYA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pGPx5RjaGBK//F4Kt/KbjEXIRiTqxg7mtlf85OSXRPE=;
- b=HO4yKpgnpAkZ8oCYR61yZhbTJ12PsEJq1RoQeYol3DL0GavbwXJxmkImZsI/NNRHJ54mbIVjNiugwb8AotNV8L/ttfQ7WpSGFi1+zbnEpSnYyw/w2MGjD4ZVdc8UDe8LUGxxMAeyEauLNG5PNCha8XBpKKhA9UDYsQrmMUy5qTxuHMQ5N5GxHvk3ADgdEtDJgSZJvXiQhDwn82qONkulbJWBk1H4ynfOikLIOCy4D9gaCvSr3pp1/L+gxWlrBt7XbF8rOeOhX1rbfJu3y1QFkuLQUFR+t9IJ7DxBinVzlh3TwJmgwBM+t2WposCRvB880RFTVEDwJsLIP7vIj2iJPA==
+ bh=vvN3PqeuvvTTUmDO+qexio6gEHQMwrlnqJhPzJDs/38=;
+ b=Phrkp5G8YgAhbhKGf2mvt0yEY+dOsoX5zKKWRi2BtwWNiN+p4TEmCEeAgHIHqPeqyCZQfdi/NmKhHh1JWSMlzmHUvc7b6+AM8efNfxdVzIkl/z1EUAnglxoliHjzoxiCNceYutB/Vd/CElcfE3+XQVCnqPnTqh+ReswOj9wt8xpHYcbQDSsStMi42Kru/4a5ATCrnhejtPZO24HOY068joZt9dt05zt/wonIMNHS1QJYVjWWLL8oi42z4LdJmW/DFXgFSzzLDNB32/esfEBM34VPldjkWbuydi9fLQM3DEztWtnRttT9jSvbuXTQkYrxAiJpxp3M/usbYQixmBI5EA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pGPx5RjaGBK//F4Kt/KbjEXIRiTqxg7mtlf85OSXRPE=;
- b=xWgCGmJAXuUCGv0zbZt/pY+XDkVKKzkmACXi2vx9kjC4mSi3rsDj/xIhItPyN3IPSRQNpVoWsPbkpvw2omTU4p2rTfOnFDd9lUHyt4g5LXr8dfVIjf74kTotYt129shgX0p+uvvCdiuJ1aVxKKMVLYVQZlAbr9P5Z2HbB4tFm3U=
-Received: from BN9PR03CA0135.namprd03.prod.outlook.com (2603:10b6:408:fe::20)
- by MW3PR12MB4410.namprd12.prod.outlook.com (2603:10b6:303:5b::24)
+ bh=vvN3PqeuvvTTUmDO+qexio6gEHQMwrlnqJhPzJDs/38=;
+ b=ibxIVmKs6XoghKEkeTySAfJzzerxJUBTw6DkfgJ40z6sBhrcR+Z7k/Es6p7ysqHqkJXyus3dGyshVCn27hutNpMsRNIh0o28QQ2TTdmKcSAqsYEtJE0BVeoScrkimXyP8U1ELk7NZQMDeMMJsnOBQeN+KoYXQiDtUx3B3I2FHsU=
+Received: from CH0PR04CA0116.namprd04.prod.outlook.com (2603:10b6:610:75::31)
+ by PH7PR12MB7841.namprd12.prod.outlook.com (2603:10b6:510:273::22)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Mon, 31 Aug
- 2026 18:28:38 +0000
-Received: from BN3PEPF0000B072.namprd04.prod.outlook.com
- (2603:10b6:408:fe:cafe::7f) by BN9PR03CA0135.outlook.office365.com
- (2603:10b6:408:fe::20) with Microsoft SMTP Server (version=TLS1_3,
+ 2026 18:29:00 +0000
+Received: from BL6PEPF0001AB76.namprd02.prod.outlook.com
+ (2603:10b6:610:75:cafe::33) by CH0PR04CA0116.outlook.office365.com
+ (2603:10b6:610:75::31) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Mon,
- 31 Aug 2026 18:28:38 +0000
+ 31 Aug 2026 18:28:59 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
 Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN3PEPF0000B072.mail.protection.outlook.com (10.167.243.117) with Microsoft
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL6PEPF0001AB76.mail.protection.outlook.com (10.167.242.169) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 18:28:38 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.382.8 via Frontend Transport; Mon, 31 Aug 2026 18:28:59 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
- 2026 13:28:21 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 13:28:44 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 31 Aug
- 2026 13:28:21 -0500
+ 2026 13:28:44 -0500
 Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Mon, 31 Aug 2026 13:28:21 -0500
+ Transport; Mon, 31 Aug 2026 13:28:43 -0500
 From: Alex Deucher <alexander.deucher@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Mukul Joshi <mukul.joshi@amd.com>, Felix Kuehling
  <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 24/95] drm/amdgpu: Add address allocator for NPA addresses
-Date: Mon, 31 Aug 2026 14:26:43 -0400
-Message-ID: <20260831182754.1089811-25-alexander.deucher@amd.com>
+Subject: [PATCH 59/95] drm/amdgpu: Add debugfs to drop UALink protocol messages
+Date: Mon, 31 Aug 2026 14:27:18 -0400
+Message-ID: <20260831182754.1089811-60-alexander.deucher@amd.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260831182754.1089811-1-alexander.deucher@amd.com>
 References: <20260831182754.1089811-1-alexander.deucher@amd.com>
@@ -77,29 +77,29 @@ Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B072:EE_|MW3PR12MB4410:EE_
-X-MS-Office365-Filtering-Correlation-Id: 52a90275-cd1d-4283-be05-08df078dad00
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB76:EE_|PH7PR12MB7841:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7efda0e3-cd23-4198-d6df-08df078db9c6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|23010399003|82310400026|36860700016|1800799024|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: kzVslJFMrkZ/C5VUHflAuYeXLZxFOUatY9QswqXQUN6/jY+Jue7gk5gNBToTXk/Cav9Fdqu2ymM+IhOWXf+GkhllRMdFBKsXPE8yIc1JyPAU4cIJM73XF0FtHWYDyCbcENdp0nfwM0atf/gwScwqll0aAskYnrC/kl9pT2o4bpfpsbdSOR5zVlxcECBQ6QpEs/SWY0n/B83crm/Xons8H6fRozblJKAH9PCox//axMv4fdsbAMU3rpxZo0Y/xTm1E7QzFGgjOmRRz/N0/8UtGdUjymNdKJNOPVjLfhpPwhpcFEt0yo2LmStJqa/Sw5ukL4QsokojUKEV8WMcMJUNv15Y2m7cl3XqNL0VLXS6sj7DbR6e46MDQMjdHY+1CXz3E4mMCpBaRSrfMUYgR8xytjhIQA2g4VcmDj9xLcTrK3cFjRf6/JQj/wc+QW/scLo7bMY1X7ymCbTcbOX5SW4RIDYx8/PlrAelM3uDzWRd3z8e4U9BrHOEJYEELHd+5HNsC5+VpX6UOJC3FbsRD3QmetIA9+p6+FLSX01wVWTJDZX4eUeunlPvkbUHCov/hOX6qwbvPOGgzTXC6zJIE4gm7Mea2U8s6UeaiZAThAzsXBjk0xwiMjYM9pUfikx3TONi3jPmUShcw3NVB4j1cOO32niJcCfV0uzEgsNYNZIxOTdbCW1pGH9r3FBIeAtpz309Pa/9Gn/ykDY02wAXoeOWSg==
+ ARA:13230040|82310400026|1800799024|36860700016|23010399003|376014|6133799003|22082099003|18002099003|56012099006|3023799007|10067099003|11063799006;
+X-Microsoft-Antispam-Message-Info: Iz6/DsRHCKNSkyJ5zS3Nh4fGYR7vVFYy4303L8mkDKqs4rYdAXw9EgryDj5X3eiw4JuScmrovjkPAb1oRaCA8o9m9i56PKlNfM0IEhiiA1uYuSrjaPw54kp91gAlN1kWh22Us9Gc81GU2UYM0T8TAijACgh6ADoiBRbMqTCVJ9eiAxu8bTDunUuTM508RBJYGYY/AQa3LYVlHbqbOqa94MFvkbO4kuNFXIQvLxUi/W7cKbULzLsBA/Sla/AzEODXo1AqNWih3Zg7fXRlawVdYKzlMQebWA0wB9t2id34MLp+o7qu0pb/QF32UsUexVtVCv8rcAALDOmwDhrouNl0AvTagDr2OrIHp+vvoKm7XntOqCREFJAm6e8T5yTUzILL+tMRZLIKA9HTM8t4kp8RwAiLJ3+BcJiiTLmZtP4+n0Hmunt7/m7DvM1rlOQ7Tvmsm/XmSfb5GnSMGPqIaJqWEXNu9a5FBYnwIplhZeR8fopObWk6jAKg2iwvJByfkM29MTyqv7ws1EgXWTCC0zTAQq6hpSZiL5T8NlTxtaStCk+GT6rOyCBdWGsYHslTmTfyZdxeDHOpVTbqhq9ee9tyU6hlU3aSeSu0ctVVCDpapv+AO7uW0S21uvVOaSWo4YsGAEuYS/dwV03hLPe1wTmGc1/g8iV+ZwRVelmjCOIcv1aH5DQoFsdd6aXYqWIueqA7h/VMEASawMtgU2E+u02GvQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(23010399003)(82310400026)(36860700016)(1800799024)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(1800799024)(36860700016)(23010399003)(376014)(6133799003)(22082099003)(18002099003)(56012099006)(3023799007)(10067099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: B4gtVSk9jfmHFthK9YjAiyAOlNg0Y6kS4Vfi/fLNnG1dFAlPuHXmZhQak5XuSDH6ST0UsrEOIkW5VOWO1551KSEV2srbVg2BddC2OFY7MNLcVKlLnwRZgwOv6M2rva4LRLA1YkADTixec46+9Nid4YXVta0xBxpOiNAvn3VgSXPq8YXZXCE42clwX1eGDrnfX0JT5H4WhZOoJCSfDJaVEtFanBA7HgKl3USjFwEESD12Ft7SXSA7ZYZ7WbV41Uj5tZoGdJTy25FNAgHVII7mOefSVlRsgs/hF8/6UOaIYQSR3wMvonxHlecVOW9dKUNLtQbdGPyfv5clH08g8QELjGd7uN6GSqHVc1DgwF9x2UvtJCiWJLz8Cs0h7+JS5EHtyT71Q18Or39xU6mp3+nw+IkHy/WjPOmCQmazkKd9pu69gUfY8ekRd8G+wdJy/tqU
+X-MS-Exchange-AntiSpam-MessageData-0: chtarZZ0LuVhuMTHR5seO3pOfA5IsIq3i2eKtjU3AIFyivrnOrh5K5cAI/frA61eMp0bPAarrrP5Kb87Ls28RVtlApsWKClT4CsYlA4U8fKF9S1zmTRAjNm+rkJjr7XlSVDdC7I6Cm+ucot/Dm6L4LycdQz/MftJhlAioAwvJ+WN83Ho7wMs6+cLI1uqm6ap8DTyK60Togd3uYzW66rSsPR+PMR9t1AUsR6GAjgfCqhADGVyFPJTnB+OZqdkNZrRzClpSmurnh2xaFo+d5/7Vv3CW5oOm3f9cAOiffFFR9WCGRb6flNUHB5WWuJAmGFN3cNFZIFHMW2Zk4qK4g8zibt8YEDgzsUWae/Uk1BvVc5CUQvqRI0mVGkb7r4HUXgirAfWdmXddFJQewSTeNU17cCfSF9/lej7dj7nn2VB3X0W0BuMAn1wWN9sUy879CXD
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 18:28:38.3751 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 52a90275-cd1d-4283-be05-08df078dad00
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Aug 2026 18:28:59.8062 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7efda0e3-cd23-4198-d6df-08df078db9c6
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: BN3PEPF0000B072.namprd04.prod.outlook.com
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF0001AB76.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4410
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7841
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,164 +116,112 @@ Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 From: Mukul Joshi <mukul.joshi@amd.com>
 
-Add a address allocator, which uses DRM MM, for allocating and
-deallocating NPA addresses for BOs exported/imported in a rack-scale
-setup.
+Introduce a debugfs-controlled bitmap, amdgpu_ualink_drop_msg_bitmap,
+where each bit corresponds to a value from
+enum AMDGPU_UALINK_PROTOCOL_MESSAGES (e.g. NPA-REQ, NPA-RSP, NPA-FAIL,
+NPA-REVOKE, NPA-RELEASE).
+
+When a bit is set, the next incoming message of that type is dropped
+in amdgpu_ualink_process_irq() and the bit is atomically cleared via
+test_and_clear_bit(), so subsequent incoming messages are processed
+normally. This allows exercising the UALink connection reset and
+recovery paths (NPA-RSP timeout on the importer, retransmit/teardown
+on the exporter, etc.) by injecting a single packet loss from
+userspace, e.g.:
+
+    # drop one NPA-REQ
+    echo 0x08 > /sys/kernel/debug/dri/0/amdgpu_ualink_drop_msg_bitmap
+    # drop one NPA-RSP
+    echo 0x10 > /sys/kernel/debug/dri/0/amdgpu_ualink_drop_msg_bitmap
+
+The bitmap lives in struct amdgpu_ualink_mgr and is exposed via
+debugfs_create_ulong() next to the existing amdgpu_ualink_test entry.
 
 Signed-off-by: Mukul Joshi <mukul.joshi@amd.com>
 Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 86 ++++++++++++++++++++++
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h | 10 +++
- 2 files changed, 96 insertions(+)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c | 14 ++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c  | 13 +++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h  | 16 ++++++++++++++++
+ 3 files changed, 43 insertions(+)
 
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+index 132d054900b5b..d80fe17556dab 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_debugfs.c
+@@ -2229,6 +2229,20 @@ int amdgpu_debugfs_init(struct amdgpu_device *adev)
+ 	debugfs_create_file("amdgpu_benchmark", 0200, root, adev,
+ 			    &amdgpu_benchmark_fops);
+ 
++	/* Debug-only: bitmap of incoming UALink protocol messages to drop.
++	 * Each bit position corresponds to an enum AMDGPU_UALINK_PROTOCOL_MESSAGES
++	 * value. Setting a bit causes exactly one matching incoming packet to be
++	 * dropped, after which the bit auto-clears and traffic resumes. Used to
++	 * exercise the connection reset paths.
++	 *
++	 * Examples (drop one NPA-REQ):
++	 *   echo 0x8  > /sys/kernel/debug/dri/0/amdgpu_ualink_drop_msg_bitmap
++	 * (drop one NPA-RSP):
++	 *   echo 0x10 > /sys/kernel/debug/dri/0/amdgpu_ualink_drop_msg_bitmap
++	 */
++	debugfs_create_ulong("amdgpu_ualink_drop_msg_bitmap", 0600, root,
++			     &adev->ualink.drop_msg_bitmap);
++
+ 	adev->debugfs_vbios_blob.data = adev->bios;
+ 	adev->debugfs_vbios_blob.size = adev->bios_size;
+ 	debugfs_create_blob("amdgpu_vbios", 0444, root,
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-index 76aec9eaa59fe..4582299d96c4f 100644
+index e21c48212f0a4..4e49ff0be6e35 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -23,6 +23,7 @@
-  */
+@@ -5394,6 +5394,19 @@ static int amdgpu_ualink_process_irq(struct amdgpu_device *adev,
+ 	dev_dbg(adev->dev, "Got MSG: remote acc_id %u msg_type %u\n",
+ 		src_acc_id, msg_type);
  
- #include <linux/xarray.h>
-+#include <drm/drm_mm.h>
- #include "amdgpu.h"
- #include "amdgpu_ualink.h"
- #include "amdgpu_xgmi.h"
-@@ -1070,6 +1071,87 @@ void amdgpu_ualink_sysfs_fini(struct amdgpu_device *adev)
- 	}
- }
- 
-+static int amdgpu_ualink_npa_alloc_va(struct amdgpu_device *adev,
-+			       struct drm_mm_node *mm_node,
-+			       u64 va, u64 range_start,
-+			       u64 range_end, int size)
-+{
-+	struct amdgpu_ualink_npa_mm *npa_mm = &adev->ualink.npa_mm;
-+	u64 alignment = 0;
-+	int ret;
-+
-+	mutex_lock(&npa_mm->mm_lock);
-+	if (va) {
-+		mm_node->start = va;
-+		mm_node->size = size;
-+		ret = drm_mm_reserve_node(&npa_mm->mm, mm_node);
-+	} else {
-+		if (!range_start && !range_end) {
-+			range_start = npa_mm->va_start;
-+			range_end = npa_mm->va_start + npa_mm->va_size;
-+		}
-+
-+		/* If size is greater than 2MB (or 512 pages),
-+		 * align it to 2MB (or 512 pages) granularity.
-+		 */
-+		if (size >= 0x200)
-+			alignment = 0x200;
-+
-+		ret = drm_mm_insert_node_in_range(&npa_mm->mm, mm_node, size,
-+						  alignment, 0, range_start,
-+						  range_end, 0);
-+	}
-+	mutex_unlock(&npa_mm->mm_lock);
-+
-+	if (ret)
-+		dev_err(adev->dev, "Failed to allocate NPA address\n");
-+
-+	return ret;
-+}
-+
-+static void amdgpu_ualink_npa_free_va(struct amdgpu_device *adev,
-+			       struct drm_mm_node *mm_node)
-+{
-+	struct amdgpu_ualink_npa_mm *npa_mm = &adev->ualink.npa_mm;
-+
-+	mutex_lock(&npa_mm->mm_lock);
-+	drm_mm_remove_node(mm_node);
-+	mutex_unlock(&npa_mm->mm_lock);
-+}
-+
-+static void amdgpu_ualink_npa_mm_init(struct amdgpu_device *adev)
-+{
-+	struct amdgpu_ualink_npa_mm *npa_mm = &adev->ualink.npa_mm;
-+	u32 addr_mode = adev->ualink.info->vpod.addr_mode;
-+	u64 va_size;
-+
-+	mutex_init(&npa_mm->mm_lock);
-+
-+	if (addr_mode == AMDGPU_UALINK_ADDR_MODE_SOURCE_IDENT) {
-+		/* 51 bit address space in Source-Identification mode.
-+		 * 39 bits in page granularity.
-+		 */
-+		npa_mm->va_start = 0;
-+		va_size = GENMASK_ULL(38, 0);
-+	} else {
-+		/* 41 bit address space in Source-Alias mode.
-+		 * 29 bits in page granularity.
-+		 */
-+		/* First 8MB is reserved for Metadata NPAs */
-+		npa_mm->va_start = 0x800;
-+		va_size = GENMASK_ULL(28, 0);
++	/* Debug hook: if the bit corresponding to this msg_type is set in
++	 * drop_msg_bitmap, drop this single packet and clear the bit so that
++	 * any subsequent incoming messages are processed normally. Used to
++	 * exercise the connection reset/recovery paths via debugfs.
++	 */
++	if (msg_type < BITS_PER_LONG &&
++	    test_and_clear_bit(msg_type, &adev->ualink.drop_msg_bitmap)) {
++		dev_warn(adev->dev,
++			 "DROP MSG (debugfs): src acc_id %u msg_type %u dw[0-3] 0x%x 0x%x 0x%x 0x%x\n",
++			 src_acc_id, msg_type, dw0, dw1, dw2, dw3);
++		return handled;
 +	}
 +
-+	npa_mm->va_size = va_size - npa_mm->va_start;
-+	drm_mm_init(&npa_mm->mm, npa_mm->va_start, npa_mm->va_size);
-+}
-+
-+static void amdgpu_ualink_npa_mm_fini(struct amdgpu_device *adev)
-+{
-+	mutex_destroy(&adev->ualink.npa_mm.mm_lock);
-+	drm_mm_takedown(&adev->ualink.npa_mm.mm);
-+}
-+
- int amdgpu_ualink_manager_start(struct amdgpu_device *adev)
- {
- 	int i, r;
-@@ -1092,6 +1174,8 @@ int amdgpu_ualink_manager_start(struct amdgpu_device *adev)
- 		INIT_LIST_HEAD(&adev->ualink.imp_handles_list[i]);
- 	}
- 
-+	amdgpu_ualink_npa_mm_init(adev);
-+
- 	return 0;
- }
- 
-@@ -1099,6 +1183,8 @@ void amdgpu_ualink_manager_stop(struct amdgpu_device *adev)
- {
- 	int i;
- 
-+	amdgpu_ualink_npa_mm_fini(adev);
-+
- 	xa_destroy(&adev->ualink.exp_xa);
- 	xa_destroy(&adev->ualink.imp_xa);
- 	xa_destroy(&adev->ualink.handle_invalid_xa);
+ 	switch (msg_type) {
+ 	case AMDGPU_UALINK_HELLO_MSG:
+ 		receiver_acc_id = (dw0 >> AMDGPU_UALINK_HELLO_MSG_RECV_ACCID_SHIFT) &
 diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-index 4b3e1f3af3333..a056d89d163ba 100644
+index fa116ef44cb50..d4d4ca0199dc7 100644
 --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
 +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.h
-@@ -125,6 +125,13 @@ struct amdgpu_ualink_station_config {
- };
- #define to_ualink_station_config(ko) container_of(ko, struct amdgpu_ualink_station_config, kobj)
+@@ -342,6 +342,22 @@ struct amdgpu_ualink_mgr {
  
-+struct amdgpu_ualink_npa_mm {
-+	struct drm_mm			mm;
-+	u64				va_start;
-+	u64				va_size;
-+	struct mutex			mm_lock;
-+};
+ 	/* Sequence number to track the need for TLB flushes */
+ 	atomic64_t last_flushed_tlb_seq;
 +
- struct amdgpu_ualink_connection {
- 	struct completion hello_done;
- 	struct mutex lock;
-@@ -164,6 +171,9 @@ struct amdgpu_ualink_mgr {
- 
- 	/* WQ to manage revocation of exported memory. */
- 	struct workqueue_struct *npa_wq;
-+
-+	/* Memory-manager for managing NPA address space. */
-+	struct amdgpu_ualink_npa_mm npa_mm;
++	/* Debug-only: bitmap of incoming UALink protocol messages to drop.
++	 *
++	 * Each bit position corresponds to a value from
++	 * enum AMDGPU_UALINK_PROTOCOL_MESSAGES:
++	 *   BIT(AMDGPU_UALINK_NPA_REQ_MSG) drops one incoming NPA-REQ.
++	 *   BIT(AMDGPU_UALINK_NPA_RSP_MSG) drops one incoming NPA-RSP.
++	 *
++	 *   On reception of a message whose corresponding bit is set, the bit
++	 *   is atomically cleared and the message is silently dropped. This
++	 *   means at most one packet per set bit is dropped; any further
++	 *   incoming packets of the same type are processed normally. This is
++	 *   intended to exercise the connection reset / recovery paths from a
++	 *   debugfs handle.
++	 */
++	unsigned long drop_msg_bitmap;
  };
  
- int amdgpu_ualink_sysfs_init(struct amdgpu_device *adev);
+ int amdgpu_ualink_init_interrupt(struct amdgpu_device *adev);
 -- 
 2.55.0
 
