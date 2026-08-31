@@ -4,92 +4,72 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FE99C61DFD
-	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 18:47:43 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5D141C61DFD
+	for <amd-gfx@archiver.kernel.org>; Mon, 31 Aug 2026 19:49:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A7CE010E55E;
-	Mon, 31 Aug 2026 18:47:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CA9E810EADB;
+	Mon, 31 Aug 2026 19:49:43 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="sVoCOYYB";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="gwQHUIGb";
 	dkim-atps=neutral
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CA27B10E55E
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 18:47:41 +0000 (UTC)
-Received: by mail-pj1-f47.google.com with SMTP id
- 98e67ed59e1d1-396afefb35bso496910a91.2
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 11:47:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788202061; cv=none;
- d=google.com; s=arc-20260327;
- b=aJ2PALWaaBjfYHE+JqzCkH+LQPJ8G943Bj3P3k5FisHKRd6EWYiW4LfK4RBd3aZy/5
- 6W+vOdIM0ssvm367XJp7oL502KbCallmM6PJ3tsWlSPj8JrSxmWxM6RUyu6DQuFgg01o
- dhg0ZmH8XdApwifupKfG8qwJXpy1Jnnty6MX5n2Ei0fkfhd1HRZX8F2AAJJjNU/ual3c
- R8npg5EWaCYN40S5vX9EOeQ8olEDe1WkY7IYi50YCH+DnJIZ7lC/A58QAx87CPM3Xxdv
- A9HqBvuwxvn40tiYAkeC+0/Vw3DpZ+ULCkx5Sdb/vKbfq5XNZSl5YtEYbEW1QRVR/XAg
- ehyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=3Ha99R2bTFpGHkNbrwTi9GV1Xb+ybK3budtBsLGnfUU=;
- fh=/pQqhhcgyDQSojRB63JcFSOdY/brWlux2efOQZLNdeY=;
- b=Fk4UZiQXy6hPN4/EA9PPh7IkI3NBmnjiWUif6x4nh7rZgBSb2RBjRNWrtJL6hG7diM
- yDTPQ6Zueu1OIOjzKmUwYUdtCeqGxVifrvAB86x1PeSIu7Af4Bw+N4B3Pb60DqqC5bEK
- DCqdumxAbFkrgiaYNbe179RPXhL+eqlcwyzancRuEBcG+5qskmq0hShTSwsuOwAgX679
- zvLG8cHW3/ymvuG+XdrfMWhFfWoP6uQeHc9vAr56YXnq6BWPMifG3UnX4VRJG0RAGQg6
- cHINxEcO2nnR8+yoFBhWVWmC1Uiod589WVvD42OTXkgwwdMBD4Lf3hx9xJ2eC6Zj+cMG
- SS1A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
+ [209.85.218.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CAA810EADB
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 19:49:42 +0000 (UTC)
+Received: by mail-ej1-f42.google.com with SMTP id
+ a640c23a62f3a-c250a2bc3b3so11853766b.2
+ for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 12:49:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788202061; x=1788806861; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=3Ha99R2bTFpGHkNbrwTi9GV1Xb+ybK3budtBsLGnfUU=;
- b=sVoCOYYBc64ZctMCZXlvBSD1/NR9+cZ4yAhg+6bCcg4oxiAKH2nxliSfDz5EVMTD6t
- YLgHz0uGt2Ke0HXl/2m/ApLLVpH8U0SHQ2E7R9BsgMlxdmd01iDMuzI/NxOs2SCE5fe3
- sumCSXK/b6ZMF2oYpWoJ6qtWor2V56r6XUBm5i/smulyEZJ2av1QYpsBXIlawTZM5woD
- 7alNf8ZChaa1bA3lqA8eQb1+Wsc2E7cUDGeA2k95znhFnSe4zktSIvcbYmuPJn60vwKs
- Ab5EKHVEzgKlBEwdlaf+RyTL4JjgIo8GdBy5bpTfXwydT5SDiJTMwofahnFtwLUE9vbE
- 4dzw==
+ d=gmail.com; s=20251104; t=1788205781; x=1788810581; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=aiO2fK2x5TPIWYb6bMn+ph4f/a9tQnQbtffTFep6tBE=;
+ b=gwQHUIGbu4BHC9/pojOt4F7kMFP8k6vlLLnFkyR0LOQ7zORMkeau+4sth3dMJHSsG+
+ EsRPnFGhX+3xEExNLNjlskOgycNzDZIzI3fVzK4J3VreoHZMAqSN07cJz7gMQTxbC/kV
+ gLBdNZ/DUTagy2GqA1l3jT2+66raMFUT/LDfL69RplEdOrZKT+ySyDycR4V3ubA+7lHv
+ 7O1ooobBuKdnonymF8lpJAX8QFea19t7GNn8en//FMNm4B7H/gtYG0H8CF1yYGW7qPrT
+ 3t4nCRv7MuxkqZeAyNsmPJ2jWaj4rVsBk1CXrNDQfDEYLRtEBTTUB7pyRmoVb3OKRIma
+ j6pA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788202061; x=1788806861;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=3Ha99R2bTFpGHkNbrwTi9GV1Xb+ybK3budtBsLGnfUU=;
- b=JWv5Gh6GAkIr14pAyXKDKJtTej+NFa1b4Mow3/abpsD4wZvfm7uZIw1zRBKBZ8fKhf
- csoGHXmZOn1s91DkfphBjSwftUHyqxU3Oa2AZLw8pizWu7IC99nMRJkaXqP185xxE+D5
- cbYHrswzaD0/2Y7VcGSy2qK+Nig5bMEtnynL8Wl157rxxdhptaJTat4ATpFETlGulWfy
- JCTclIRZK1e2gx/bi6+eLIBTcGW6jyDCmSMMDXbKp/NLQeaZrWdixEEm8ZQdJyIUuoWv
- lFI6IBGp1M6vBeSQ1PuO7OFTlx0Alyp44/ABlM/FsNE2gwQV33h/tImNxxb6HKR6HgAL
- F5YA==
-X-Gm-Message-State: AFuF++mxzS/5GXL8c3wpj15fu7C++8hTXYq1wIC/qFrbdj6bBK9cdZsN
- hwF0jjtXSAXfD7MRA6JzntvBpjGq4BQS3cWTOCHIpv6sa1PpfOBYZJOMKDURzjKDJY+MFsi3ivB
- oGXU1Db+0vZEHAhPOIkWha8+WYLbJU7WBcQ==
-X-Gm-Gg: AYBFou3oVOhqUihAy1bgo/CA1LsM/hz+KkoTqAkdb8FgGtKHVPWA7Z1MlQdwmxvkgWz
- CjtfdGgG5vrBJV8yT8JEVQoVr0MSlm1HKgN20r6562I4bOzEKwYAuUZCe23T3mmU6GGucR2VtR4
- hcauY8/lFOy1FbYXBcTAkVqhnHMuf8HPq1gfLMs/IbK3OUQzlib7deHf9+5lt0wV4Mf64Oe3dK8
- U9gH/TyHV2DpHbIwCWn+mhAXdfhdtbfpvvUwmhcpCyqfTRsXcsxPP53d767VJupQ5i72Gtsivf4
- 3r+pphFR54HAiNE2z5RWteKb+wfAvv+sbdk4d3M+OwAgAejRe8Jx1HBHoJNKvjHjrUnFaN6jze/
- yhH4YTcjAQh78+x9AQ/RBBKOrvve8keA=
-X-Received: by 2002:a17:90a:d40d:b0:38e:ab3f:2c99 with SMTP id
- 98e67ed59e1d1-398bac21022mr15283953a91.2.1788202061207; Mon, 31 Aug 2026
- 11:47:41 -0700 (PDT)
+ d=1e100.net; s=20251104; t=1788205781; x=1788810581;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=aiO2fK2x5TPIWYb6bMn+ph4f/a9tQnQbtffTFep6tBE=;
+ b=tSXEUbu2BgyMa6/L1v8W1iRMT5qzyhWtDYmx8jDSc8cghp6B3RPDKQ2g8/BFs5uKcB
+ zUaBwQdrkIw6MomaMro1hSrG6mGdskI96LzRA53r4eZg8/C3FKL1FTG9tXhjuNCu7fjS
+ jc8rvXo32BrFq1ZlU+zqNALKhHlMCnVRBVvCPx8lGTJ/wPHyG6TtbxlUZOvo8QxLjlQ2
+ 1Ts+ihpw5Aas4kZculBdTz2ZE7WaRY+bIvsxm8wiuqJUyC9Z/+HHQKPRn0jEBh3tNyjw
+ 5UIfT5AitL9wXYKasG/zfJu+l6OgrOmJPcqLiYllMtPS7P18zHxnV4x9BlOQNccvpzBK
+ gyUg==
+X-Gm-Message-State: AFuF++kHxyP2HC1xE4mutL9eS9vzRAQKv6Q2UykFsdiWjT9H4PHC9VSs
+ l5hINZ2XVvHf5fzIIIid4WfPKKa4vAKwA8DtCRAzyEMQr8hE+ZBTZx/SJPTLXdk3
+X-Gm-Gg: AR+sD11wz1GnXQP2HOnGqhEqEh5x5M0uh3Yaf6aBRQAr+JVCAOisfKn087gh70E5dS4
+ fNanVV8y6koixvvIlJlR3TZXsewqRCAfuuMzOZYSgU3h8EqDmgozlEII9GeF1cJFZIQ4krhgkM1
+ pj448bEg5MAW2hdIhXR5j4CDvab0Z+VdzATAMQnu0GgcZ+tzj56ssupnobOuiuS7MUneKArYHQj
+ gAsGR2BnDMtneLPacl981X1BPjqx/Nu9NBlALlxtzZ6827OwjQpWNcvwXjIxROeOpKHlgxcu7qI
+ c1j2X+RJFQ0XARmVRMuXJHoITT0vLYltvuDoE0G+87mV1jfvgf6zt+ZrjSbh/6dO97YA5bRkMPf
+ hVykhMSOlbVqzTR/yHi/BJBdLuj7VuXgtkpCGKEPHi0gVK/2cz9QAV1Q03I+zgEIiuNbnveDLOJ
+ RnYs4PahdZVcg725BWBQtFqD2hVrGcFqnT+tFJsXMxBFBwjE2Hose1XlrEcXw174CydpprJwHER
+ 1x3q3f2DDvNkNmAbcrnRA+q+LSCzMIOJLtfG3Y9kdD8NeIOkg==
+X-Received: by 2002:a17:907:d2a:b0:c24:c250:a6b5 with SMTP id
+ a640c23a62f3a-c2557200b60mr1764359866b.12.1788205780581; 
+ Mon, 31 Aug 2026 12:49:40 -0700 (PDT)
+Received: from office-omarchy.localdomain (89-64-240-222.dynamic.play.pl.
+ [89.64.240.222]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c255f1facbcsm473200066b.44.2026.08.31.12.49.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 31 Aug 2026 12:49:40 -0700 (PDT)
+From: Dennis Thomsen <dennis.fich.thomsen@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: alexander.deucher@amd.com, harry.wentland@amd.com, sunpeng.li@amd.com,
+ Dennis Thomsen <dennis.fich.thomsen@gmail.com>
+Subject: [PATCH] drm/amd/display: Guard NULL DDC pins in dal_ddc_open
+Date: Mon, 31 Aug 2026 21:49:26 +0200
+Message-ID: <20260831194926.274044-1-dennis.fich.thomsen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-References: <24915fec-468c-48f6-85cc-da7b008b937f@rawbw.com>
-In-Reply-To: <24915fec-468c-48f6-85cc-da7b008b937f@rawbw.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 31 Aug 2026 14:47:29 -0400
-X-Gm-Features: AcwNN1UqiMbjG7oXGw4ZEH7tAVwNs_Lh8XhGT4dDmSC-EZR6x_9RkVdJCt0i1MA
-Message-ID: <CADnq5_MAeEZbqsb9-0_7PsDQNgcoHaaUfiNX7Duz2of4+nBubg@mail.gmail.com>
-Subject: Re: error messages "[drm] Fence fallback timer expired on ring
- gfx_0.0.0" are printed after which Xorg becomes unusable
-To: Yuri <yuri@rawbw.com>
-Cc: amd-gfx@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,22 +84,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Mon, Aug 31, 2026 at 3:04=E2=80=AFAM Yuri <yuri@rawbw.com> wrote:
->
-> On FreeBSD 15 the amdgpu kernel module built from sources from
-> https://github.com/ROCm/amdgpu prints fence fallback messages after
-> which Xorg becomes extremely slow.
->
-> More details are in this GitHub issue:
-> https://github.com/ROCm/amdgpu/issues/229
->
-> Googling reveals that a lot of linux users also have the same problem.
->
->
-> Is there a fix for this bug?
->
+[Why]
+dal_gpio_open_ex() can return GPIO_RESULT_OK while leaving gpio->pin
+NULL: a concurrent HPD vs display power-down race closes the pin after
+the open succeeds and before FROM_HW_GPIO_PIN(). dal_ddc_open() then
+dereferences pin_clock->pin->store.en (NULL+0x28) and the kworker dies
+with IRQs off, hard-wedging the machine.
 
-Most likely interrupts are not getting delivered on your system for some re=
-ason.
+Observed on Radeon 890M (DCN 3.5, Strix/Kraken) after DPMS-off when the
+DP sinks drop their links.
 
-Alex
+[How]
+If either pin is NULL after a successful open, close what was opened
+and return GPIO_RESULT_OPEN_FAILED so AUX fails instead of oopsing.
+
+This does not serialize HPD detect against DPMS-off; it only stops the
+NULL deref turning that race into a hang.
+
+Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5716
+
+Signed-off-by: Dennis T. <dennis.fich.thomsen@gmail.com>
+---
+ drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c b/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
+index 95f8b7c7d657..af66978590a8 100644
+--- a/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
++++ b/drivers/gpu/drm/amd/display/dc/gpio/gpio_service.c
+@@ -577,6 +577,13 @@ enum gpio_result dal_ddc_open(
+ 		goto failure;
+ 	}
+ 
++	if (!ddc->pin_data->pin || !ddc->pin_clock->pin) {
++		BREAK_TO_DEBUGGER();
++		result = GPIO_RESULT_OPEN_FAILED;
++		dal_gpio_close(ddc->pin_clock);
++		goto failure;
++	}
++
+ 	/* DDC clock and data pins should belong
+ 	 * to the same DDC block id,
+ 	 * we use the data pin to set the pad mode. */
+-- 
+2.55.0
