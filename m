@@ -4,125 +4,96 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 2FF0EC624D5
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 17:35:27 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 9B064C61DD3
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 17:48:21 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACF8710EE00;
-	Tue,  1 Sep 2026 17:35:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0212310EE0A;
+	Tue,  1 Sep 2026 17:48:18 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="2jR9VaKZ";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="VfAp2OdX";
 	dkim-atps=neutral
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010063.outbound.protection.outlook.com
- [52.101.193.63])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4113F10EE00
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 17:35:25 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=M1GLn6oQNfh0oZ6ZJ/c8Gh8p2tYjSFlMTUsx6l54CammCQQ2XVM5+AoXhOliywkHbLNg55f0tPDfLAbXSbFDiBijBbgdBSDRhZkbs30gfuW/5oh/znQQlShHR8mXepgbXlcINN5LDQQopN2yv9CMSiJoJXw6v+W3DNNlOCtoQAg52L/y8pNQiTGbDSpbKl3oDk3DV9lEyu2EF83PzPeivT5KdfJ14fhncd+8QpkVUVCrf8if/1RHvUJxAz2PBTWnQ/OEJqvdjmops2jZGaa2I2l3HI3r9YIOl0//xzoWmMvZ+xILm5Qmuq7Ilzy78AFlwAY3xAia1u10V4QvSBv2rQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Eyk476kikLrA3RWV80hOXoY/bRbZg3eTIbIu+5FE56s=;
- b=afrURUMasABWagr4Wc8+v+XErujm+IBDlpt2q+lRsbWuFdUc871WCZ9G9uCe63N2OZqWM6EY8iUb4tkH62wf4Ggm7XEhrwOcmoxXxsSLvL3/UelxczlP/sGZX3ffQlDYFaaJHeB7/eRy3VeJx8pKsmPS0rg+IZ2QvydF9NRCNRljEJheG2Qn5npMCrOj9vVvBjqNDLq9D+O15xVmTDhgnS/hmoiYsDIeJ4MddAnWPAOvk4YU484vKms0vehwwQr7Ji/OdrkkCe0LsdqnPAhqAuAWV7PtsbV7tjRcCcAoQgR83ttyN+CRXacHkgnCux57rRUuAYaosQ39GBQFbW4vYw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Eyk476kikLrA3RWV80hOXoY/bRbZg3eTIbIu+5FE56s=;
- b=2jR9VaKZu8jN52TwPoz3goFRFRkSVG8yRz+4f4Wuibmaeqs45vrJ9CuI3bOuHrL0j0yEXhgbN6PHnPUUxQjMTyIREbjeBBczHl6i4huAMlCoJkaNNTwaRYN1ovsIN6WZt5CoVodQXSdrz4DODtqfYVk8GKTuKEVmwqBY0ha6+po=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com (2603:10b6:5:38a::18)
- by DS0PR12MB999080.namprd12.prod.outlook.com (2603:10b6:8:2fe::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 17:35:20 +0000
-Received: from DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d]) by DM4PR12MB5039.namprd12.prod.outlook.com
- ([fe80::762:6408:ca99:701d%3]) with mapi id 15.21.0382.007; Tue, 1 Sep 2026
- 17:35:20 +0000
-Message-ID: <77c82527-961c-4ffa-8447-f51d19111bbd@amd.com>
-Date: Tue, 1 Sep 2026 23:05:15 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] drm/amdgpu: skip the VMID 0 flush for VRAM
- clear-on-release
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- amd-gfx@lists.freedesktop.org
-Cc: alexander.deucher@amd.com, timur.kristof@gmail.com, stable@vger.kernel.org
-References: <20260901095100.79673-1-Arunpravin.PaneerSelvam@amd.com>
- <8c1e54fc-037a-4940-8243-b9912e675da9@amd.com>
-Content-Language: en-US
-From: Arunpravin Paneer Selvam <arunpravin.paneerselvam@amd.com>
-In-Reply-To: <8c1e54fc-037a-4940-8243-b9912e675da9@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0133.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d2::7) To DM4PR12MB5039.namprd12.prod.outlook.com
- (2603:10b6:5:38a::18)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7047A10E401
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 17:48:16 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-396afefb35bso11904a91.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Sep 2026 10:48:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788284896; cv=none;
+ d=google.com; s=arc-20260327;
+ b=F07dC45NjOymrvDWYEpB6PLFFeGrpoB6sv1uftIOoyZAfQ8MPlY00iMhmtlIm/HI0U
+ gmbHTq4WAVlE/GrQWaXuk4PhC2Kmg7pMp8ImkFArZV7CJrn2gbYO3nPMdpOJK3y102gx
+ UL4VVXMxtwQzR01+x4/CjkduKTAxRVrp95kZMUXhiLyqcOy/N5LAyM8PeCGgcSybUsLm
+ UBUYooDO+K00Y409nv9je9nqecBreHVD+vYWPuLHAZoYWVeHcwM1T5dnbF4tg0188uhT
+ GoOfNQ/h+aP21ajwy5IVgvA+e8xfXYCUTAQJYTvhxjehLYHJ5ON1bHQZJAAlPYPUCjz7
+ evFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=dcj2MbPf+/703LfWlGvVkcF5hM4WvaFgdE71pfXNPtQ=;
+ fh=4GoCfpys1SoAXsdpX3FIQ98QqY81gymXQU3GJ1GAKSo=;
+ b=BKBQm9Yc4KT8JHYBF+63rL2i3PK2QpjiPZHNnGioUdHiwRx4bFKVMsRAy0fGC/jL8T
+ fdsexnMNqYpMQ2jyIk0tlO549pGh0K+c2O1syUquWr8wUyNSRjQc0rsgRd01CNQJMlrL
+ EOupTQFj1cileU3aZ5XWRf+H56OPa3z07cRNnFsZb1F9a/wjHZKHFRB9nIzgME+CrTPR
+ j0LWXt+gpmJPbc9Hv4Jt8H91PRmmCSUL1lwREe5nBbxPezqk4SwVgfDKdU6YQHLsHKlT
+ S26sNwOQgWQBDC+H926VaVFRJa+LOprvNufqmF+Z5OfX7TpgfjLI5M/cDGe64xwlXfLq
+ r8xw==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788284896; x=1788889696; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=dcj2MbPf+/703LfWlGvVkcF5hM4WvaFgdE71pfXNPtQ=;
+ b=VfAp2OdXOox8O51ZqlxCMlqiQWsD3q8xJHlU823ulQuviCQ3Z2BuuVsgcnIs1ULfOw
+ bLhjCRMFT8MrwFUiQgQO1l57SRhzOdrhkNYOnAWmYJVSo18cf075BxGI6SLpfIwf/1fw
+ ErBX/wS1Yw7Y4NgcEEyh3m0YM9D1CgeSUIYSBLpxMXXDNnWyGfIFEYumlPcWk616leCx
+ TUkDKprYgAM4ORHhBS43DqCCqHCnnCregHEsa0GOppCwa4e79s9eZpFr6h+ekmdrM6d9
+ O7PLnX8XWJom2IRGJPnIq0YxIgUy0RCzDKxhemihL7o8GTvG58tf9H1xXj04TIrpUuoW
+ HN/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788284896; x=1788889696;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=dcj2MbPf+/703LfWlGvVkcF5hM4WvaFgdE71pfXNPtQ=;
+ b=kpASN+mQtCOrtBtmb9tyTanW71D5il9QTfYfJBvvdNZ6q6osbwEXH0yt/Vetv5ikrw
+ oBhuWEwUAPo7szRjdoechEkgFGoV6f9AHcsY75/rBeKLllKQfN7mDnpDJ3eNoaCBgvxW
+ DTbLxHe5ZaUv35Jt5UJ/QGDXC4qeisUbAMS+F3aUcEBUB30QkmsZtkOyIMvLrsNKWr1z
+ HsPxQow6SE7tZAhDIklTgI4Lddp1yOSc748uC1ThScsC63zeuui/0hP7F3l0nawfQ7RT
+ cmy8FnlOzEBjC1MG4R4ZpbPfkolqLMxGEKd8Sy8TiBMnudetSXLSTAIB8hmML+kBO+p/
+ Kyvg==
+X-Forwarded-Encrypted: i=1;
+ AKwUvBwDwdlRjZ6U6OaRTBs4skG0D3GlH4RmL7yws44TUhY8ia3y8huU1hGJis53E4RHp6y7Fg9uSDFN@lists.freedesktop.org
+X-Gm-Message-State: AFuF++m/HXszEHuQ8xyqSYqI1GG5Itgl/gODCeKOQODBuf+AAOIX/qKt
+ 3geID3fkJ03lda3jdUaVwDimE5npM3ieaQ3iYC1VCBsWnL39XSSi3kBcs2uzi4/QtygvXbxxaIS
+ IiSr4irkz/2DIvekMdzT05rzN0YIiWDo=
+X-Gm-Gg: AYBFou2ONtwgJ0pX11Io2UGswSFB3WtcDf3mOkc2n1RRcZdWbb9BEn7Bm3LzYWPvh0d
+ yLJ9tAR0Adf2B1tOm3UTbDTicTNOQ0HAAoFshZ4DmKiIv2s31gG77y8hgIgI5b0A0yJ9mLA5LgU
+ iMc67WS/RAV3ELUzW4GCokl58zltQ74lBRFsY+me+NRIUXtlVem3bJTQ1QV263HGnvMHNfWMI4J
+ TwpJdIbHLcA5Y5xGEEnsVNoKSDSoAW0DNyEsbjBx3Gm5SmSB1w1JEhZmW02ftXLbhWU3kOn9RdB
+ vMsJHFrCt62s/aIroshQA+xBL86P66j9fK5K2SuwbRRsKZYy/wMGiy1UZ0q3O5heNS3WRzW7q4u
+ beOPuM1+Bc7o5FC2fTcL4e8sMvzFdPniD
+X-Received: by 2002:a17:90a:ec85:b0:398:bad2:c0f with SMTP id
+ 98e67ed59e1d1-398bad20e7bmr20530963a91.5.1788284895589; Tue, 01 Sep 2026
+ 10:48:15 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR12MB5039:EE_|DS0PR12MB999080:EE_
-X-MS-Office365-Filtering-Correlation-Id: 23013579-06e8-4fe0-0814-08df084f6545
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|6133799003|56012099006|10067099003|4143699003|11063799006|3023799007|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: fnvGqF4STWS/qH5TCPQUouqDNsbBSwoTFLeAYOtzYchpM1ezkvk5YYuJYfCQdfuQcoSIicPEVEtjnFBp+ISR/TV/SOkWx10j6Tj4J7v1REGEghw+Ct/hGdTKUXI+vecQfulSOeerJsdeTdjE2+VPkZfwgd0mUP1i1bu0yE6ORLXiU5oi1fDujZ2i31h9nSCR+UkKQ+e1NzLM5URVlmfQzew/MLbQ/h52A49fG9bpkMaMMQMmx18AZoRaTBsrMeheIt2ZH3MRlyAaoXXAxr9icKF3dAi4ErF6X5nyXkeFSFDnbb9icc2hrBgHDrSRhv72bqueQ82wEgzm1FKqdWFLEZeTF46Z08nTpM6fDqu1y2KBdGyjmBajPqDG5eviWcCNV1l8tHTjPbGerr4iZIrTVdRyM//Ptv/3QClv7Ayn1uPvW1gg4puC6yzYQ9x8q8PJwvw0PBTdPO7W0w0VTL1AVd5n0raxvzGWV05gjllYTaaiBAPJWgOdTZPFt0/SOIzS7zabn7fY1apK8laTSQUW5NgtZkQ3PH2k9G+EX50cm6F41pwMj8u1R4BfTmtlCj9CcSN5J197hHzMR7ZGIipCjyRYzO1H5T5QTJ7VQjhuhYk=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4PR12MB5039.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(6133799003)(56012099006)(10067099003)(4143699003)(11063799006)(3023799007)(22082099003)(18002099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?b09NQTdpckI0c0NxSGZPWDgxYWRXdnI3T1FuUDJFaUw4R3VQaFl0Rk40TXB5?=
- =?utf-8?B?QVc4UUxGeENnV2dRcGtWTGdaS1pkem43cWk4K2p5azdTTEZrenVJcmtmV0w1?=
- =?utf-8?B?eEhVUCswNkxuZG5xMFJTQllmYkdOdUtvQm5XeFlPSDVHenF0VGFGcjM2U3h1?=
- =?utf-8?B?cnVTNlNRdk9GWFBjbGF1Z0NYVHdpSnNtZjF2TUg0YWQwcisrMzMrblFJNkcx?=
- =?utf-8?B?S2ZLYmNLSUM2YSt3Q0JLQ0pRNXgxMUpPa2xoei93ajQyUVh3N2c3R0ttWm93?=
- =?utf-8?B?UWhOSU15MkFkTW1BVEZ2WUxLdGJvRzIwaDdFMlhkMWd4QzZmOHNDK2kyakpj?=
- =?utf-8?B?c2J5eWw3dk16Q2NkbGVaeG9xV1VVMGNUd2UzdjdmWFNOdkREYWkxeXFkU2lm?=
- =?utf-8?B?Z3hKb2tqRDZheEVGaktRUlhxZk9tZjZ1ZzUvMnlSMEl3WHBLMWthUDlFS0lP?=
- =?utf-8?B?aS9RL1NJM1FWQ1dHdGZrUzBSSnhJejhlQkh5eEFVZ3RXaW5aVXk1RXh3QjAy?=
- =?utf-8?B?Mkt2Q003QUpUWlhMYmZ4MXc2VjhJZ0RvNlZiT3ByNDdyOERBVGZCZktWS2NJ?=
- =?utf-8?B?ellWdEJJdUxFczRSR01JNGRJWU5IejlpOWswSVJvSzZ3b0tuNGNndkJIZDYv?=
- =?utf-8?B?cFJ3UFFzTVNjRTQzaTlOWnVXRmNZMkhoRnN6M1dweHRWQU4xT0ZFblJuVmNM?=
- =?utf-8?B?R2ZBQlFVNUwva0FBbitpTjlCZUFTMXlXb1ZmZG8xeVlMazNYNXZpUHR3VmtZ?=
- =?utf-8?B?QWMrSTNKb2d5TDBJQ1ZZdjB0dDdiMStuN21TZ3ozek00YlIrUnBxMG9OemRo?=
- =?utf-8?B?SjQvUEJHLy9DY1hFbk1BQjNsVTNXWnBNRUo2a1Z0ZVloa1pxQXJqV3ZSc3Zx?=
- =?utf-8?B?bUlJNk54c2N2a2FhQjRZaldDeTloVE9FMTVRVFJrQ0owSzR5NVV6WUdVUHdl?=
- =?utf-8?B?RkF0RkNjMFF0YU9LT29KVEQ3ajdVemI1cUZLMVE1WFZZazhhZmk3Y1FvdFF3?=
- =?utf-8?B?Mzl3TGwzOEZvNlBzOG9HLzRMUEtYRnorOGhUekg2S3QxWmNnM1lPTEZicjlW?=
- =?utf-8?B?YzJZZGFSYVRINyt2ckJqTXRURDFJdThBRDZ2RDh3Q045OHFSYnQvNmlFL3Jk?=
- =?utf-8?B?QjVSUlNvS0ZtdDNTWGZHZTFmSU10MmQ4OUlhbklmNDU1c3l1TWdYYThRNVcw?=
- =?utf-8?B?ZmFoMGFmOGo5cjYrbXB1Wkg1b2hneUFnZmhWWDE4VDBnN0UvRCs5RDdSTVdo?=
- =?utf-8?B?NVlvdjd6NDdOeEJadExWU1NmTWN2RXBQRjVOdFBMNmF5Z1lqSnVxcld0UUpY?=
- =?utf-8?B?OTRyUWhMb3h4UG0yYmJYY2pWV1ZpN3VMYmpPaEVseThVNjNLbWc3bGJpYkdK?=
- =?utf-8?B?dVBNaEhWVnhGODd1N2NkOFlNeC9TZFFoQlYzQk5BTGFLQ2lBdktNMFNVMWRx?=
- =?utf-8?B?V2dDYjRpdVVjY1BzeFp2R1hCemdZVjFjd1IvOVc5K1JFWlJzQXU5cDk2b1F6?=
- =?utf-8?B?VnBtTGIwZVNOZVZ1N3Qvb3F5S0tLUVd6K3dlak9CVytxcDNTNFpHUFNxczVH?=
- =?utf-8?B?T01aVExVLzhCTmhoUVgxY2E1SzJHYlkrMXRZWUhjT2oweEdvUmh3OHZiczBM?=
- =?utf-8?B?NTEreWEyV0U0TWpja1Z6QmVLM1FZNVNMak15MGJ6Rk5XM29UZ1BkMW9Kbi9B?=
- =?utf-8?B?WEg2clhnTnRENFhCSXArQzNsWi9yQlpWaTQzOFhLellyZUMzTVJvZGpBUG5v?=
- =?utf-8?B?NVdXUHhtTXMyTGNYSjB0aStwOHo0VkVQaDRtWERuSFIzYWpnWXNkQVI1WnNa?=
- =?utf-8?B?U0ZsaWg1bFNKOEVWTzdMMTNyQTNhQnk0cmZTUVpNaWl4aGg5M1VEcVJiT003?=
- =?utf-8?B?VHpRanRGRkJNZ3BBK0ZlWWpnQ0hxMjBHajZZOXFyVHJPSXE2WUM4c2JHS0Vo?=
- =?utf-8?B?N0tReU5RTnc4Qmg3RGxQb0VCRlFWd0Y3VmFtSWhPT2M5cEFGWmJLcC9NYUht?=
- =?utf-8?B?RTU4N3h3MWZRMkJ4L09Rejg2NVNnUm5uWll5WWxiL0RubW44NlpCY3ZQSmc2?=
- =?utf-8?B?N09TK2YvZ1hTNGIxVWE2UC94blVGQjczYm94UXR5WlVqclI5TUd6WEF4T3g3?=
- =?utf-8?B?Wk9ZT24rQ3Z1NE55Z0RFbnZlYWlaWlBOamlNL0RaejNpWTVlWmhJeFlINHZ5?=
- =?utf-8?B?eG44ZEZSZ0ZnQmNHR0FITFlETGtkcko5NEZBOENUSHVIMUtNOEJzRytnWGpD?=
- =?utf-8?B?SDMwR1FqVjB4bTJ0RTFPbk53K3ZsbUpBVlFvWEw2VllxRndGT2NVVUdBb1dQ?=
- =?utf-8?Q?3+ft4Req3DryYJzz26?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 23013579-06e8-4fe0-0814-08df084f6545
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR12MB5039.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 17:35:20.7673 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: w+9h4X/uoAbMbo8oCzILZPFjdT4Pmj1q0xEaKy3yKw1xJ0AQcfilgvtl3ZRLjjYdKhtKVL1qcziaHgwdbdauzA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999080
+References: <20260901072615.522925-1-hrushirajg23@gmail.com>
+In-Reply-To: <20260901072615.522925-1-hrushirajg23@gmail.com>
+From: Alex Deucher <alexdeucher@gmail.com>
+Date: Tue, 1 Sep 2026 13:48:04 -0400
+X-Gm-Features: AcwNN1WcS_X7Oe_rNMCrlpJl5NTeoyfqRDXOQdKoSI1aY_8E3V62TAx7S1S3eZM
+Message-ID: <CADnq5_MM-_7FAWo9PLyZzJOHfck_Ya2_vWEGFm4uGTQp446SUQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amdkfd: use kzalloc_objs() instead of kzalloc() with
+ multiply
+To: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+Cc: Felix.Kuehling@amd.com, alexander.deucher@amd.com, 
+ christian.koenig@amd.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,134 +108,65 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-
-
-On 9/1/2026 3:22 PM, Christian König wrote:
+On Tue, Sep 1, 2026 at 3:59=E2=80=AFAM Hrushiraj Gandhi <hrushirajg23@gmail=
+.com> wrote:
 >
-> On 9/1/26 11:51, Arunpravin Paneer Selvam wrote:
->> Clear-on-release only runs on VRAM, which amdgpu_ttm_map_buffer() reaches
->> via its direct MC address without programming a GART window, yet the wipe
->> still forces a VMID 0 flush. On GFX11 (e.g. Navi33) that spurious SDMA
->> flush can wedge the engine; only flush when a GART window is actually used.
->>
->> v2: Let amdgpu_ttm_map_buffer() return whether the VMID 0 flush is needed,
->>      and drive the clear and copy paths from that. (Christian)
->> v3: Make the vm_needs_flush output parameter mandatory instead of
->>      allowing NULL. (Christian)
->>
->> Fixes: a68c7eaa7a8f ("drm/amdgpu: Enable clear page functionality")
->> Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5413
->> Cc: stable@vger.kernel.org
->> Cc: Christian König <christian.koenig@amd.com>
->> Signed-off-by: Arunpravin Paneer Selvam <Arunpravin.PaneerSelvam@amd.com>
->> Reviewed-by: Timur Kristóf <timur.kristof@gmail.com>
-> Reviewed-by: Christian König <christian.koenig@amd.com>
+> dqm->detect_hang_info, dqm->hung_db_array and dqm->hqd_info are all
+> allocated with a hand-computed count * sizeof(TYPE) size. If count
+> were ever attacker- or firmware-influenced and large enough, the
+> multiply could wrap size_t and produce a too-small allocation that
+> the code then writes count-many elements into.
 >
-> Any news on the HW bug? If not please ping people again or we need to escalate this.
-I have shared the latest register dump with the firmware team for 
-further analysis.
-I will continue to follow up and keep you updated on any findings.
+> kzalloc_objs() computes the same size via size_mul(), which saturates
+> to SIZE_MAX on overflow instead of wrapping, so the allocation itself
+> fails cleanly (already handled here via the existing NULL checks)
+> rather than silently succeeding undersized.
+>
+> dqm->detect_hang_info_size is left as-is since it is also used later
+> for a memset() call; only the allocation itself is converted.
+>
+> No functional change in the non-overflowing case.
+>
+> Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+> ---
+>  drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 8 +++-----
+>  1 file changed, 3 insertions(+), 5 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/driv=
+ers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> index 67137679a901..5aa42fd5bb49 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+> @@ -2013,17 +2013,15 @@ static int start_cpsch(struct device_queue_manage=
+r *dqm)
+>                               NUM_XCC(dqm->dev->xcc_mask);
+>
+>         dqm->detect_hang_info_size =3D num_hw_queue_slots * sizeof(struct=
+ dqm_detect_hang_info);
 
-Thanks,
-Arun.
->
-> Thanks,
-> Christian.
->
->> ---
->>   drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c | 20 ++++++++++++++------
->>   1 file changed, 14 insertions(+), 6 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> index 6c07cee8e8777..bddecdd64f084 100644
->> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
->> @@ -190,6 +190,8 @@ amdgpu_ttm_job_submit(struct amdgpu_device *adev, struct amdgpu_ttm_buffer_entit
->>    * @tmz: if we should setup a TMZ enabled mapping
->>    * @size: in number of bytes to map, out number of bytes mapped
->>    * @addr: resulting address inside the MC address space
->> + * @vm_needs_flush: out, set true if a GART window was programmed (VMID 0 flush
->> + *		    needed) or false for a direct address
->>    *
->>    * Setup one of the GART windows to access a specific piece of memory or return
->>    * the physical address for local memory.
->> @@ -199,7 +201,8 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
->>   				 struct ttm_resource *mem,
->>   				 struct amdgpu_res_cursor *mm_cur,
->>   				 unsigned int window,
->> -				 bool tmz, uint64_t *size, uint64_t *addr)
->> +				 bool tmz, uint64_t *size, uint64_t *addr,
->> +				 bool *vm_needs_flush)
->>   {
->>   	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
->>   	unsigned int offset, num_pages, num_dw, num_bytes;
->> @@ -220,9 +223,12 @@ static int amdgpu_ttm_map_buffer(struct amdgpu_ttm_buffer_entity *entity,
->>   	if (!tmz && mem->start != AMDGPU_BO_INVALID_OFFSET) {
->>   		*addr = amdgpu_ttm_domain_start(adev, mem->mem_type) +
->>   			mm_cur->start;
->> +		*vm_needs_flush = false;
->>   		return 0;
->>   	}
->>   
->> +	/* A GART window is programmed below, so its VMID 0 TLB needs a flush */
->> +	*vm_needs_flush = true;
->>   
->>   	/*
->>   	 * If start begins at an offset inside the page, then adjust the size
->> @@ -322,6 +328,7 @@ static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
->>   	while (src_mm.remaining) {
->>   		uint64_t from, to, cur_size, tiling_flags;
->>   		uint32_t num_type, data_format, max_com, write_compress_disable;
->> +		bool src_vm_flush, dst_vm_flush;
->>   		struct dma_fence *next;
->>   
->>   		/* Never copy more than 256MiB at once to avoid a timeout */
->> @@ -329,12 +336,12 @@ static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
->>   
->>   		/* Map src to window 0 and dst to window 1. */
->>   		r = amdgpu_ttm_map_buffer(entity, src->bo, src->mem, &src_mm,
->> -					  0, tmz, &cur_size, &from);
->> +					  0, tmz, &cur_size, &from, &src_vm_flush);
->>   		if (r)
->>   			goto error;
->>   
->>   		r = amdgpu_ttm_map_buffer(entity, dst->bo, dst->mem, &dst_mm,
->> -					  1, tmz, &cur_size, &to);
->> +					  1, tmz, &cur_size, &to, &dst_vm_flush);
->>   		if (r)
->>   			goto error;
->>   
->> @@ -362,7 +369,7 @@ static int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
->>   		}
->>   
->>   		r = amdgpu_copy_buffer(adev, entity, from, to, cur_size, resv,
->> -				       &next, true, copy_flags);
->> +				       &next, src_vm_flush || dst_vm_flush, copy_flags);
->>   		if (r)
->>   			goto error;
->>   
->> @@ -2578,6 +2585,7 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_ttm_buffer_entity *entity,
->>   	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
->>   	struct dma_fence *fence = NULL;
->>   	struct amdgpu_res_cursor dst;
->> +	bool vm_needs_flush = false;
->>   	int r;
->>   
->>   	if (!entity)
->> @@ -2599,13 +2607,13 @@ int amdgpu_ttm_clear_buffer(struct amdgpu_ttm_buffer_entity *entity,
->>   		cur_size = min(dst.size, 256ULL << 20);
->>   
->>   		r = amdgpu_ttm_map_buffer(entity, &bo->tbo, bo->tbo.resource, &dst,
->> -					  0, false, &cur_size, &to);
->> +					  0, false, &cur_size, &to, &vm_needs_flush);
->>   		if (r)
->>   			goto error;
->>   
->>   		r = amdgpu_ttm_fill_mem(adev, entity,
->>   					0, to, cur_size, resv,
->> -					&next, true, k_job_id);
->> +					&next, vm_needs_flush, k_job_id);
->>   		if (r)
->>   			goto error;
->>   
+Can you fix this calculation to check for an overflow while you are at it?
 
+Alex
+
+> -       dqm->detect_hang_info =3D kzalloc(dqm->detect_hang_info_size, GFP=
+_KERNEL);
+> +       dqm->detect_hang_info =3D kzalloc_objs(*dqm->detect_hang_info, nu=
+m_hw_queue_slots);
+>
+>         if (!dqm->detect_hang_info) {
+>                 retval =3D -ENOMEM;
+>                 goto fail_detect_hang_buffer;
+>         }
+>
+> -       dqm->hung_db_array =3D kzalloc(hung_array_size * sizeof(u32), GFP=
+_KERNEL);
+> -       dqm->hqd_info =3D kzalloc(
+> -               hqd_info_size * sizeof(struct amdgpu_mes_hung_queue_hqd_i=
+nfo),
+> -               GFP_KERNEL);
+> +       dqm->hung_db_array =3D kzalloc_objs(*dqm->hung_db_array, hung_arr=
+ay_size);
+> +       dqm->hqd_info =3D kzalloc_objs(*dqm->hqd_info, hqd_info_size);
+>
+>         dqm_unlock(dqm);
+>
