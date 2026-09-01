@@ -4,48 +4,92 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 55E00C79F81
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:34:59 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 395AFC79F83
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:35:01 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C11A410F442;
-	Thu,  3 Sep 2026 07:34:51 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8F0AC10F43D;
+	Thu,  3 Sep 2026 07:34:53 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=empyreal.works header.i=@empyreal.works header.b="hcq4Vk/r";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="NPLNc+rj";
 	dkim-atps=neutral
-Received: from mail-244118.protonmail.ch (mail-244118.protonmail.ch
- [109.224.244.118])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AE16C10E083
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 22:31:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
- s=protonmail2; t=1788388305; x=1788647505;
- bh=dRtdEAVL2Ew7vpUjfnO+W+NQQEDviU+G2yXawYufdXY=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=hcq4Vk/rRU9nsFX9SxgJYVEpXJOVjDFCST+fjDF6HaEnpmO7jVy9tWOEq72WZa7J2
- de4inH4WvKpKLLSYAQ+0bu4l7CiRycMpbTNphkqepeNniSYEyVtQlAeIR7QNRu7eFo
- eSfw67ZKOZy9N+YKbhwWQ1j1Kz0W8MBVKSq8ZifidgYym9833wOOdgSyOldRVR7ihr
- NnTPXwU9+XB9IiX2eVcEUNP5fBk2JxLsxxM/lfkmw++I2sAPTJjWNvKIQDigmAAxkP
- 4X6p0r7dm8Sax+h6nDtJJKTSq/dGRhW9PPyhmfoVHNnA42dpfev4Ioh88x30wckupv
- R7ZJn3RdcbNNQ==
-Date: Wed, 02 Sep 2026 22:31:39 +0000
-To: amd-gfx@lists.freedesktop.org
-From: Andrei Rusu de Castro <arc@empyreal.works>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com,
- mario.limonciello@amd.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com
-Subject: [PATCH v2 2/4] drm/amd/display: test custom brightness with non-zero
- minimum
-Message-ID: <c1cc1cf115297688aa0919e04748c1d66ecc4907.1788388049.git.arc@empyreal.works>
-In-Reply-To: <cover.1788388049.git.arc@empyreal.works>
-References: <20260902-brightness-cover-abf809f2@empyreal.works>
- <cover.1788388049.git.arc@empyreal.works>
-Feedback-ID: 182420409:user:proton
-X-Pm-Message-ID: 6fc27ab12e38c899fb5068e3afb2f90262e9bfa2
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
+ [209.85.219.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D010A10EC92
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 11:26:38 +0000 (UTC)
+Received: by mail-qv1-f54.google.com with SMTP id
+ 6a1803df08f44-90e828b309eso32339416d6.1
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Sep 2026 04:26:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788261998; cv=none;
+ d=google.com; s=arc-20260327;
+ b=squGxKWDICWxlDFiJDYoX2K3G8LWpb1Yt6HPQ9k9N4GZcbnVUOsy156+9mLZLA31nF
+ 3kpbbwpjSvub9jltccHz5a7vZ5mMTK/XtqXSvd3m0YeBjd2LoyDw0K3XjNjv+q9qncuw
+ 52WYlmUSNzTShvWuPXu3bUibSPKOfs/yT9CDtePphm6E3bzzkGafyU8OJCF8vMO7NQ8L
+ YZz4PdUrlRqrearpyn429I1OuD0rpZ+Ghy0p/7Duf8RFegvp5jNqstyX6sdg6Fnd/vQs
+ Bwlz/SwDwUZ1L6LEbs0hAprlvFzV31Al7c7dCeUeCoyoDYw7Q9l+KQfc5MDfBcwoph1x
+ HlEg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=giTslEtXGSQwPV9RRaIioNPE/e48tpcU8ObIsZM9aC8=;
+ fh=Y+HHpbqm04TUfQSQw44e2FGRktaZ18HQAC88jumeIFs=;
+ b=by6cFOkxTUGEzKMddwqFraLuyikRKwPT3RzqiDCGPD/WILrFAuOafdTrXmDt0I16tV
+ JAF9hIIRnbvXGnBt5EttYb5/5pJh3+eiT/koyyd3rtMNE6MLZUaCIWvv8UKMl6C72zyA
+ LEOWdZeBMDVvwv/NDhdeV8XVlbs/8snYTYvyHxWc+WhYJtF4IKqb5bF0ql0Z/QcUShcw
+ /dd6IRIBBD8GtcvBFJOiihwYTazpClJuF8utvgTMe35l07bRXYAkm4HqaFYras4+abX3
+ NQkMg1aNOQgQYx9XY1aFlspe7zldnpz7/wUd4yfVeV6Ggx149RVlU32Fsc/k8+E0Y6bv
+ SimQ==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788261998; x=1788866798; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=giTslEtXGSQwPV9RRaIioNPE/e48tpcU8ObIsZM9aC8=;
+ b=NPLNc+rjJRiIlPs46Ctijb84vLQzItKM39ZWNSwue+A03FLY+WwrwEN2qeQlZ5iJFJ
+ W86FRk6vOKs27hPL5ZisEdFL47UHd7DtGT7G+qo4XFYrZO7bbVZ+hT0VD3JM/WdidxsU
+ 3e0m7CEU68E2wE4oqSxUsmQ97yarMJUkO/iXFs+/TVBo4VbnP/P4VjIQMTJ6qigE7VI0
+ JXmi3/08LBynJtiqoYwd1/ko5Nm5Ak6ltj1d/B25YhIsgG1JAcE1IW8a4W7I/FrUANVj
+ JVsUYEeYYZrsxKoL7mFP5ADPnpmq1JN/A+ZgS+F69u6fsbL2mgrCfBk5wnGfHeApCONw
+ ZRug==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788261998; x=1788866798;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=giTslEtXGSQwPV9RRaIioNPE/e48tpcU8ObIsZM9aC8=;
+ b=eMmaJC2WH8n0UN6ASh6PvFfIN+8npE3ZGckFiV7ZbusMwpBvMRe1OsnW8wNUD80q0i
+ SOj/HdoM1BrwyFzvQr0PEtoMZDE+OMU2++0ZMbqfJkz9rai6ox3DN7NLEoFDop7ZIXz6
+ gksensiwPDoGRDYauREZtF7bflvQJiJt19/UJhEWIC9dDeD9/Fkybg2D7eFoK2kH+uAe
+ PJuCljb5NNK8m+dauY62cG8BFuWuBZ9p4XaPo/Y7fvkVzGPl/Ozj5n6mXhjsFpORPx+G
+ 4GY9pmljfRFxpNoXwWm4VAvxjl90zA9XReBxszSfnNMd88zgxNJIoeZt8PcFi3QguhdU
+ PRMA==
+X-Gm-Message-State: AFuF++lcMJ/orXhSXRhkefjZ7439l1P2XLSrZd3Fm315U9GDzPZ3/B+O
+ r42o8NSa7U/hXkEPJB7exkAU14M9LVNg46mHGYrqrEM1qXi/X4bXXZbK5MyXDb8bGxmfyqJzIUl
+ WPws7YRFRy7jALBR+m9PRanllpvp4Ng==
+X-Gm-Gg: AR+sD10MlWgVDIM9Gk0OcBasKPNZuaY+a1bbpek6k7iN0S1zxAlHHaVaT47tQlQVb2Q
+ ctg0e9xO9UBRrkjgEw4Vicq1lYBl7Qiy+bnmHWhytzKFi9DnwwFjJ2yWF/7YLgpMy2iRqUCSBaT
+ d8rsV0YHYwFhEe+BvYrRiaOLO2p7G/0E5JcO/fU83NEeoSzyv0tDzOYWuAm9OLdIl5bdjNCFgpu
+ iEPk9trL6WPwsMySW7njLKIs89LU6+e+sxeuEYBacP+NB2aF3HpfxWduOdW3j209a8oC5MASYtH
+ r4kV4S97lOhIq9OUuVbkSLFAAie6yabZg3lOYs51X2sK
+X-Received: by 2002:a05:620a:440b:b0:939:5551:1e09 with SMTP id
+ af79cd13be357-9395551236emr206040185a.29.1788261997538; Tue, 01 Sep 2026
+ 04:26:37 -0700 (PDT)
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <CANkdJ2VvJQSBzyOq=LgSW1=Z8-YiN_r9Py2iJ0UJDo55+dbfuA@mail.gmail.com>
+ <83f89e11-b265-4d12-97c0-f158e0b5b82d@leemhuis.info>
+In-Reply-To: <83f89e11-b265-4d12-97c0-f158e0b5b82d@leemhuis.info>
+From: Robson Candido dos Santos Alves <robsonalves.us@gmail.com>
+Date: Tue, 1 Sep 2026 08:26:00 -0300
+X-Gm-Features: AcwNN1UAl4fHdpkC9IMZ4Sd1yE0VyhaIPoDKzGW1bUu8pkc_c8sFdn5XOcj-MY8
+Message-ID: <CANkdJ2Xv-RrTGYt-YyBH4ShE+h05tj_J4ipw5s9X8UdLd1HnWA@mail.gmail.com>
+Subject: Re: [REGRESSION] amdgpu: "pixel format with alpha exposed but blend
+ mode not setup" warnings introduced in v7.3-rc1
+To: Thorsten Leemhuis <regressions@leemhuis.info>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ regressions@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:34:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -62,358 +106,47 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-The existing custom-curve tests use min_input_signal =3D=3D 0. In that
-configuration the firmware minimum is zero and an extra [0..max] to
-[min..max] conversion is an identity, so the output-side double scaling
-cannot be observed.
+Hi Thorsten,
 
-Add a curve using the default non-zero PWM minimum. Cover the helper's
-userspace-domain result, zero and maximum endpoints, interpolation,
-monotonicity, range bounds, zero round-trip, agreement with the linear
-path at zero, and the unchanged no-curve path.
+Thank you for the quick check and for linking the fixing patch set!
 
-Six of the nine new cases fail against the pre-fix arithmetic. The other
-three retain endpoint and linear-path invariants around the repair.
+Good to know the warning is safe to ignore. I will keep an eye on the
+series and test it once it lands.
 
-The cases were verified under UML KUnit.
+Best regards,
+Robson
 
-Assisted-by: LLM
-Signed-off-by: Andrei Rusu de Castro <arc@empyreal.works>
----
- .../tests/amdgpu_dm_backlight_test.c          | 264 ++++++++++++++++++
- 1 file changed, 264 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backligh=
-t_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_=
-test.c
-index 1fb171fdbc3c..a6fa052a8272 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
-c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_backlight_test.=
-c
-@@ -1398,6 +1398,261 @@ static void dm_test_brightness_from_user_with_curve=
-(struct kunit *test)
- =09amdgpu_dm_set_dc_debug_mask(saved_mask);
- }
-=20
-+/*
-+ * The custom curve cases above all use min_input_signal =3D=3D 0.  There =
-the
-+ * firmware minimum is zero and the [0..max] to [min..max] span is the ide=
-ntity,
-+ * so an extra application of that mapping cannot be observed.  The cases =
-below
-+ * use the default firmware range instead, where min is 0x101 * 12 =3D=3D =
-3084 and
-+ * max is 0x101 * 255 =3D=3D 65535.
-+ */
-+static void dm_test_curve_caps_init(struct amdgpu_dm_backlight_caps *caps)
-+{
-+=09caps->aux_support =3D false;
-+=09caps->min_input_signal =3D AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
-+=09caps->max_input_signal =3D AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
-+=09caps->data_points =3D 3;
-+=09caps->luminance_data[0].input_signal =3D 50;
-+=09caps->luminance_data[0].luminance =3D 20;
-+=09caps->luminance_data[1].input_signal =3D 128;
-+=09caps->luminance_data[1].luminance =3D 50;
-+=09caps->luminance_data[2].input_signal =3D 255;
-+=09caps->luminance_data[2].luminance =3D 100;
-+}
-+
-+/**
-+ * dm_test_custom_brightness_user_domain - Curve output is a userspace val=
-ue
-+ * @test: The KUnit test context
-+ *
-+ * convert_custom_brightness() reshapes a value inside the userspace [0..m=
-ax]
-+ * domain.  Its caller owns the single conversion to the firmware [min..ma=
-x]
-+ * domain, so the firmware minimum must not appear in this result.
-+ */
-+static void dm_test_custom_brightness_user_domain(struct kunit *test)
-+{
-+=09struct amdgpu_dm_backlight_caps caps =3D {};
-+=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
-+=09unsigned int min, max;
-+=09u32 brightness;
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
-CURVE);
-+=09dm_test_curve_caps_init(&caps);
-+=09get_brightness_range(&caps, &min, &max);
-+
-+=09/* Zero stays zero; it is not lifted to the firmware minimum here. */
-+=09brightness =3D 0;
-+=09convert_custom_brightness(&caps, max, &brightness);
-+=09KUNIT_EXPECT_EQ(test, brightness, (u32)0);
-+
-+=09/* The top of the curve stays inside the userspace range. */
-+=09brightness =3D max;
-+=09convert_custom_brightness(&caps, max, &brightness);
-+=09KUNIT_EXPECT_LE(test, brightness, (u32)max);
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask);
-+}
-+
-+/**
-+ * dm_test_curve_from_user_zero_is_min - Zero maps to the firmware minimum
-+ * @test: The KUnit test context
-+ *
-+ * Zero is the darkest level userspace can ask for and must reach the dark=
-est
-+ * level the firmware accepts.
-+ */
-+static void dm_test_curve_from_user_zero_is_min(struct kunit *test)
-+{
-+=09struct amdgpu_dm_backlight_caps caps =3D {};
-+=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
-+=09unsigned int min, max;
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
-CURVE);
-+=09dm_test_curve_caps_init(&caps);
-+=09get_brightness_range(&caps, &min, &max);
-+
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 0), (u32)min)=
-;
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask);
-+}
-+
-+/**
-+ * dm_test_curve_from_user_matches_linear_at_zero - Curve keeps the lower =
-endpoint
-+ * @test: The KUnit test context
-+ *
-+ * The curve reshapes the interior of the range.  It does not move either
-+ * endpoint, so the curved and linear paths must agree at zero.
-+ */
-+static void dm_test_curve_from_user_matches_linear_at_zero(struct kunit *t=
-est)
-+{
-+=09struct amdgpu_dm_backlight_caps caps =3D {};
-+=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
-+=09u32 with_curve, without_curve;
-+
-+=09dm_test_curve_caps_init(&caps);
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
-CURVE);
-+=09with_curve =3D convert_brightness_from_user(&caps, 0);
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask | DC_DISABLE_CUSTOM_BRIGHTNESS_C=
-URVE);
-+=09without_curve =3D convert_brightness_from_user(&caps, 0);
-+
-+=09KUNIT_EXPECT_EQ(test, with_curve, without_curve);
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask);
-+}
-+
-+/**
-+ * dm_test_curve_from_user_round_trip_zero - Zero survives a conversion ro=
-und trip
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_curve_from_user_round_trip_zero(struct kunit *test)
-+{
-+=09struct amdgpu_dm_backlight_caps caps =3D {};
-+=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
-+=09u32 level;
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
-CURVE);
-+=09dm_test_curve_caps_init(&caps);
-+
-+=09level =3D convert_brightness_from_user(&caps, 0);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_to_user(&caps, level), (u32)0)=
-;
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask);
-+}
-+
-+/**
-+ * dm_test_curve_from_user_interpolation - Interpolated point with a non-z=
-ero min
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_curve_from_user_interpolation(struct kunit *test)
-+{
-+=09struct amdgpu_dm_backlight_caps caps =3D {};
-+=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
-CURVE);
-+=09dm_test_curve_caps_init(&caps);
-+
-+=09/*
-+=09 * scale_input_to_fw(65535, 25700) =3D DIV_ROUND_CLOSEST(25700 * 255, 6=
-5535)
-+=09 * =3D 100, which falls between the (50, 20) and (128, 50) points:
-+=09 *   lum =3D 20 + DIV_ROUND_CLOSEST((50 - 20) * (100 - 50), 128 - 50) =
-=3D 39
-+=09 * The curved firmware level is DIV_ROUND_CLOSEST(39 * 100, 101) =3D 39=
-,
-+=09 * which is DIV_ROUND_CLOSEST(39 * 65535, 255) =3D 10023 in the userspa=
-ce
-+=09 * domain and 3084 + DIV_ROUND_CLOSEST(62451 * 10023, 65535) =3D 12635
-+=09 * once converted to the firmware domain.
-+=09 */
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 25700), (u32)=
-12635);
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask);
-+}
-+
-+/**
-+ * dm_test_curve_from_user_max - The top of the range stays inside the ran=
-ge
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_curve_from_user_max(struct kunit *test)
-+{
-+=09struct amdgpu_dm_backlight_caps caps =3D {};
-+=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
-+=09unsigned int min, max;
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
-CURVE);
-+=09dm_test_curve_caps_init(&caps);
-+=09get_brightness_range(&caps, &min, &max);
-+
-+=09/*
-+=09 * scale_input_to_fw(65535, 65535) =3D 255 matches the last point exact=
-ly,
-+=09 * so lum =3D 100 and the curved firmware level is
-+=09 * DIV_ROUND_CLOSEST(100 * 255, 101) =3D 252.  That is
-+=09 * DIV_ROUND_CLOSEST(252 * 65535, 255) =3D 64764 in the userspace domai=
-n
-+=09 * and 3084 + DIV_ROUND_CLOSEST(62451 * 64764, 65535) =3D 64800 in the
-+=09 * firmware domain.
-+=09 */
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, max), (u32)64=
-800);
-+=09KUNIT_EXPECT_LE(test, convert_brightness_from_user(&caps, max), (u32)ma=
-x);
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask);
-+}
-+
-+/**
-+ * dm_test_curve_from_user_monotonic - A rising curve gives a rising level
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_curve_from_user_monotonic(struct kunit *test)
-+{
-+=09struct amdgpu_dm_backlight_caps caps =3D {};
-+=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
-+=09unsigned int min, max, i;
-+=09u32 previous =3D 0;
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
-CURVE);
-+=09dm_test_curve_caps_init(&caps);
-+=09get_brightness_range(&caps, &min, &max);
-+
-+=09for (i =3D 0; i <=3D max; i +=3D 1023) {
-+=09=09u32 level =3D convert_brightness_from_user(&caps, i);
-+
-+=09=09KUNIT_ASSERT_GE(test, level, previous);
-+=09=09previous =3D level;
-+=09}
-+
-+=09KUNIT_EXPECT_GE(test, convert_brightness_from_user(&caps, max), previou=
-s);
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask);
-+}
-+
-+/**
-+ * dm_test_curve_from_user_within_range - Curved levels never leave [min..=
-max]
-+ * @test: The KUnit test context
-+ *
-+ * The firmware level is programmed through a 16-bit path, so a converted =
-value
-+ * above max would wrap and darken the panel.
-+ */
-+static void dm_test_curve_from_user_within_range(struct kunit *test)
-+{
-+=09struct amdgpu_dm_backlight_caps caps =3D {};
-+=09uint saved_mask =3D amdgpu_dm_get_dc_debug_mask();
-+=09unsigned int min, max, i;
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask & ~DC_DISABLE_CUSTOM_BRIGHTNESS_=
-CURVE);
-+=09dm_test_curve_caps_init(&caps);
-+=09get_brightness_range(&caps, &min, &max);
-+
-+=09for (i =3D 0; i <=3D max; i +=3D 1023) {
-+=09=09u32 level =3D convert_brightness_from_user(&caps, i);
-+
-+=09=09KUNIT_ASSERT_GE(test, level, (u32)min);
-+=09=09KUNIT_ASSERT_LE(test, level, (u32)max);
-+=09}
-+
-+=09KUNIT_EXPECT_LE(test, convert_brightness_from_user(&caps, max), (u32)ma=
-x);
-+
-+=09amdgpu_dm_set_dc_debug_mask(saved_mask);
-+}
-+
-+/**
-+ * dm_test_from_user_no_curve_unchanged - The linear path is untouched
-+ * @test: The KUnit test context
-+ *
-+ * Without luminance data the conversion is the plain
-+ * min + DIV_ROUND_CLOSEST((max - min) * brightness, max) mapping.
-+ */
-+static void dm_test_from_user_no_curve_unchanged(struct kunit *test)
-+{
-+=09struct amdgpu_dm_backlight_caps caps =3D {};
-+=09unsigned int min, max;
-+
-+=09caps.aux_support =3D false;
-+=09caps.min_input_signal =3D AMDGPU_DM_DEFAULT_MIN_BACKLIGHT;
-+=09caps.max_input_signal =3D AMDGPU_DM_DEFAULT_MAX_BACKLIGHT;
-+=09caps.data_points =3D 0;
-+
-+=09get_brightness_range(&caps, &min, &max);
-+
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 0), (u32)3084=
-);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 16383), (u32)=
-18696);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, 32767), (u32)=
-34309);
-+=09KUNIT_EXPECT_EQ(test, convert_brightness_from_user(&caps, max), (u32)65=
-535);
-+}
-+
- /**
-  * dm_test_brightness_range_zero_signals - Test Brightness range with zero=
- min and max signals
-  * @test: The KUnit test context
-@@ -1955,6 +2210,15 @@ static struct kunit_case dm_backlight_test_cases[] =
-=3D {
- =09KUNIT_CASE(dm_test_brightness_to_user_above_max),
- =09KUNIT_CASE(dm_test_brightness_from_user_midrange),
- =09KUNIT_CASE(dm_test_brightness_from_user_with_curve),
-+=09KUNIT_CASE(dm_test_custom_brightness_user_domain),
-+=09KUNIT_CASE(dm_test_curve_from_user_zero_is_min),
-+=09KUNIT_CASE(dm_test_curve_from_user_matches_linear_at_zero),
-+=09KUNIT_CASE(dm_test_curve_from_user_round_trip_zero),
-+=09KUNIT_CASE(dm_test_curve_from_user_interpolation),
-+=09KUNIT_CASE(dm_test_curve_from_user_max),
-+=09KUNIT_CASE(dm_test_curve_from_user_monotonic),
-+=09KUNIT_CASE(dm_test_curve_from_user_within_range),
-+=09KUNIT_CASE(dm_test_from_user_no_curve_unchanged),
- =09KUNIT_CASE(dm_test_brightness_range_zero_signals),
- =09/* amdgpu_dm_backlight_fill_props */
- =09KUNIT_CASE(dm_test_backlight_fill_props_ac_linear),
---=20
-2.54.0
-
-
+Em ter., 1 de set. de 2026 =C3=A0s 04:16, Thorsten Leemhuis
+<regressions@leemhuis.info> escreveu:
+>
+> On 8/31/26 15:46, Robson Candido dos Santos Alves wrote:
+> >
+> > After updating from kernel v7.2.2 to v7.3-rc1, several DRM plane
+> > warnings regarding unset blend modes for pixel formats with alpha
+> > channels started appearing in dmesg during initialization.
+> >
+> > Good Version:
+> > - Kernel: 7.2.2-070202-generic
+> > - Display Core: v3.2.384
+> > - Result: Driver initializes cleanly without plane/blend mode warnings.
+> >
+> > Bad Version:
+> > - Kernel: 7.3.0-070300rc1-generic
+> > - Display Core: v3.2.392
+> > - Result: Driver emits the following warnings in dmesg:
+> >
+> > [drm] [PLANE:44:plane-0] pixel format with alpha exposed but blend
+> > mode not setup. Please fix.
+> Thx for the report. Not my area of expertise, but I guess that is caused
+> by 9813e158d13d ("drm/drm_blend: allow blend mode property without
+> PREMULTI") and will be fixed by the patch set "drm/atomic-state-helper:
+> fixes for blend-mode-prop warning":
+> https://lore.kernel.org/all/20260826104143.39077-1-mwen@igalia.com/
+>
+> That patches are afaics scheduled for inclusion in 7.4 -- but afaik the
+> the warning is safe to ignore.
+>
+> Ciao, Thorsten
+>
+> #regzbot introduced: 9813e158d13d
+>
