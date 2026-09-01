@@ -4,82 +4,71 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 8DE9EC61DD6
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 07:59:26 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 20B96C624D1
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 07:59:27 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7402710EBC6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8046410EBC7;
 	Tue,  1 Sep 2026 07:59:20 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="ehFYVI/F";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="CskD5+OK";
 	dkim-atps=neutral
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24FE510EA63
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 18:49:09 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4921eed3fa2so36295205e9.0
- for <amd-gfx@lists.freedesktop.org>; Mon, 31 Aug 2026 11:49:09 -0700 (PDT)
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6570C10E3A5
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 07:26:26 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-38ea87caafeso630007a91.3
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Sep 2026 00:26:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788202147; x=1788806947; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=mBRYrm7iZ0lt9Y/BYEBnIT0kCPY+bCfIH1rb2I4FEiI=;
- b=ehFYVI/FWmAcyS2CyaHWvUy/rN7u34eOJzXdGPn3xPZ7abJCzRHl9KsqsgDwuIuuH9
- 1CDPPQ58RefuUpTQpIpoXfsAOiXOJwfH1NwVthI3JY4yn4HtwUhzHaUyHvtQcmHWVsaw
- EbUHLuWbfPW6dPn53hAsawy2+fOIUbSebzMjP2B1LYv7mJHvVEBS60dupYOTUn1moOlq
- MuWRn+EXSwGpsJHAmBE2bzQdtsmIDjzKUyLV/h5/+ntyBiOq/+qEeBMa5mcEy3wl7Jhd
- Vb+J2fwpawu+Yc4RssePZcXEYMbiP2YpmFfxQLwuNj1yhoVpjlpTfZjOfdd6YNAZzHH+
- Nphw==
+ d=gmail.com; s=20251104; t=1788247586; x=1788852386; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=N0EL/pf1f3ThtoFU4Hf1cFodrWTG5punvyNZKF7Nskc=;
+ b=CskD5+OKxKakCz29ip09+XiA3ginEgsALUvtu+KW1OAeMots+bnz6gDUEBkH70lqLX
+ 7ug9G1e+CCkzn+7ikmJIiK7teEiJl/rh8cu00XxMmumoAqkF7gpwKB/VxZplfGFT8FZH
+ e6c1I4ma6iQpxlTYDHz9mrJ9NlE3kApCmv9SXkp1Ae3OObWKVtEIPra7sN8XYE1usJWH
+ upKUoEFdxNmEaQEY6KsWqH09jwRQV+RjM5tOk2ra+dMf/6jvyniZnbThsYDqPbk1YcEK
+ v+BMgpx4V2V5Ty2d2wogai7IdKM6e5JmkWVijfqq+d95fvHKfkGlm4IvPU5aAxIOMWRm
+ 6VmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788202147; x=1788806947;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20251104; t=1788247586; x=1788852386;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=mBRYrm7iZ0lt9Y/BYEBnIT0kCPY+bCfIH1rb2I4FEiI=;
- b=C08rlUtw9y9NFH4m/EnNo23y0ymOzZFFUJOFGt6hpzYCg5HOuqnzE8rb6t24CbjcpM
- vmz2K+lPsR/7+PQPvf/eAS56rYjfxFiuX4luTvJt87I51Gs4fBkCpZQ/AjlrLJQAhjs7
- Pir2nJP7guyanBl9bpshxS1tkU+ai86JSkqWVQT7FVx0pjj0s/qxslh5x0FC+GwwKaeN
- mvVeSoV+nd89vTjsCjK/e+Twxx5P5U7J4K/6wT7/TaTGqdq77tK5WePexMakV2bpmavC
- 0QwOak4rzhDTMwO58O9HKKJPC4M9m8PlxwAI2LqIhFFOXr5jGIkyqUJvnRHkWIFVJqDc
- hbDw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqwmiunB4I4oe5YIjl0eiFGji7/atW/W3mlNbDASgEaA4reofFiC6aokQ9PaYWaZkn9x00P6EdM@lists.freedesktop.org
-X-Gm-Message-State: AFuF++nNSmUdSTpLs7T/FoK9g4YI3Oa7AROhoAdAH69AzMcmV6B4Qi0a
- zhbFzgVlBKnPDA/N4IGSLMej3Y7qsGgbpvRLCNVwAThJhwlhFAbd30Me
-X-Gm-Gg: AR+sD10bxw/QlHrT2FKJCAFEQWHNXqVzvT+S7+mnKElyhiTzBb2WSE+MevxV7RTg49G
- h52lPntgdpszAm9vYfWMKGMAPmEmDmcnqnSx1Vn9dNVaIjgeVRHe2hq0PYyvtB1+IQueZA2kPtW
- dLzF2o9c+/d+BjwV/rqRKZKp8dmSWxkPimx0P4O/lKTDsyazqVYtC698yFT4iVj0RQSykL5XBUQ
- CB+CCzERm7mNrogd0Kvzfa7sQKAKzm14vUK24ad4zbih9Pb4tA24Jzps9VnvW88aBfkd2N1+xT+
- qEoYxdT3MeOac4EUmXRtn19mzC7fIj1nWdAXmV2XFpl/a3Gilq52NsPDxh/4us0IjgM6CVpYRsw
- SKW0v3jatCyFu29qwHii7EA+f3akQIOoX+MJ64lYM6riMtmPYBtcJyKkYWrHZ4et7kA/WWqKlUs
- 06cyWKnlR/3TdUqdgntYAHaAB7NC/MMj/B1Xc4wZn/+PaLDLMHyh650d1NjpMyEHFrj61I9diuK
- Mq9dzBZdrscJOvu+5/DD/4Fz2EQhtz/pa5wds/ymqKkSnWtcAddD89JQXHWG4bgre3fau7WA1sU
- xgG1PULDb8NAbOE+uuyU0aEqL2kb4LK899rMcFFfi1dSYB4=
-X-Received: by 2002:a05:600c:6b08:b0:498:952:e276 with SMTP id
- 5b1f17b1804b1-49cdc41f98fmr34974615e9.8.1788202147210; 
- Mon, 31 Aug 2026 11:49:07 -0700 (PDT)
-Received: from [192.168.168.11] (a109-50-200-65.cpe.netcabo.pt.
- [109.50.200.65]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49cdce171c3sm12201185e9.8.2026.08.31.11.49.06
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 31 Aug 2026 11:49:06 -0700 (PDT)
-Message-ID: <c42ced8f-5e3a-42c9-ade4-d357575114ca@gmail.com>
-Date: Mon, 31 Aug 2026 19:49:05 +0100
+ bh=N0EL/pf1f3ThtoFU4Hf1cFodrWTG5punvyNZKF7Nskc=;
+ b=euYeoMLcX3o602eXvyNKA02ZTwQXayfSxzs2mASv53wiEuYLObta0Y7soRiBoeeqU6
+ RVKifZpcJ/WQ1ASMMi1kPGbujsSgI9OUrnV7ed61h0stjzzX/B6mXLniJ41N/otaZaRV
+ TDtYCzx4OQ2fiRd49QzutN273sy66EpjKzjTsG7umJxA7QZKd1yjGz3EryXfbXidNmG+
+ tSc59lSFvH4d2ehjgFQ2NRvPO29J6AwSA96btEhIqWwgUtGq9meQFkMeEjK1feel1s7N
+ kTWVPiHa6pNlrLHF3HDmTPVRjUUUdQNWB8Spq+Y+eD0pSRIm4m8E0hWFlE4MgKkbR2Nu
+ rMaw==
+X-Gm-Message-State: AFuF++nM/DB2OApGK4NcfmUGvqF+7PDyZ7KBW4KXVnDv9uaCJge7yyc2
+ tLZg58zkSQsFpEA3u6P8ZVXJ57WlNLdZYb7rQqSjVXbju0jDYIQp1xDZ
+X-Gm-Gg: AYBFou16EzWs4milENQZ7qsBTJNBFUmKPzgRNIZGrzq3B0tUhQY9RgfGVYygXSVWgJH
+ lFInnN0AmWlRWDLUIwc17zbA1Y2ANDxs4svgQfuyHjJ7GdCoXW7I4J4LpbpeJncqYt/ooqThwD+
+ L1ssYBg1FKicCGkaMHvpq4YAc0uskiuQxrUMoJH5wCd54wZr0ZDVc+d0Z+VzHHe9nDU7aviVX5F
+ Kys9pubYPk2bYzZp+Y2QUMB/v3d23ZuEXiOmEwUzZ+jdMSmYE1D+IXEL3N1BbakeSRPz9O4cRg8
+ H6mUTle7PeuewKHC+X2pUZfo3FM1QsTNITn9epU78fDQgkbJAtAqBNZEryR4yGlQhwqkN3vrFNG
+ 5t8PSLnNxPkmtU65d9O/2nMnN3kUwNE8kcGeNKkLxf3ZwRGldyD0lVLP10UrvtCrDZu62FWYYnu
+ 9Bb+1D37PYzepXLQ5qIMP9LY+8Z2lFPPupP2hZKvVRFhHfvpdHfNk656g3oYV6ePkSskxo
+X-Received: by 2002:a17:90b:2c88:b0:396:b98b:a3c2 with SMTP id
+ 98e67ed59e1d1-396d0f52a0amr51476456a91.8.1788247583735; 
+ Tue, 01 Sep 2026 00:26:23 -0700 (PDT)
+Received: from i386.168.1.127 ([2402:a00:163:2ce9:6882:91b7:8e79:7958])
+ by smtp.gmail.com with ESMTPSA id
+ a92af1059eb24-142e0dc898dsm32895480c88.9.2026.09.01.00.26.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Sep 2026 00:26:23 -0700 (PDT)
+From: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+To: Felix.Kuehling@amd.com, alexander.deucher@amd.com, christian.koenig@amd.com
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Hrushiraj Gandhi <hrushirajg23@gmail.com>
+Subject: [PATCH] drm/amdkfd: use kzalloc_objs() instead of kzalloc() with
+ multiply
+Date: Tue,  1 Sep 2026 12:56:14 +0530
+Message-ID: <20260901072615.522925-1-hrushirajg23@gmail.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/4] HDMI 2.1 VRR and ALLM support
-To: Fangzhi Zuo <jerry.zuo@amd.com>, amd-gfx@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>, 
- =?UTF-8?Q?Tomasz_Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>,
- daniel@fooishbar.org
-References: <20260811003921.1398292-1-jerry.zuo@amd.com>
- <20260814164344.3098143-1-jerry.zuo@amd.com>
-Content-Language: en-US
-From: Adolfo <adolfotregosa@gmail.com>
-In-Reply-To: <20260814164344.3098143-1-jerry.zuo@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Tue, 01 Sep 2026 07:59:19 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
@@ -96,67 +85,49 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-I patched kernel 7.3-rc1, and I have KDE's Adaptive Sync property set to 
-Automatic (Always makes the display gamma flicker). VRR itself is only 
-engaged when entering a game.
+dqm->detect_hang_info, dqm->hung_db_array and dqm->hqd_info are all
+allocated with a hand-computed count * sizeof(TYPE) size. If count
+were ever attacker- or firmware-influenced and large enough, the
+multiply could wrap size_t and produce a too-small allocation that
+the code then writes count-many elements into.
 
-My display (an LG C1 connected through an Onkyo RZ70 AVR) shows "fixed" 
-when VRR is not active. While this seems logical, it causes the display 
-to go blank every time I enter or exit a game, or, even worse, when I 
-alt-tab while in a game.
+kzalloc_objs() computes the same size via size_mul(), which saturates
+to SIZE_MAX on overflow instead of wrapping, so the allocation itself
+fails cleanly (already handled here via the existing NULL checks)
+rather than silently succeeding undersized.
 
-In my case, I can have periods of up to 10 seconds with no image while 
-the devices in the HDMI chain disagree with each other, and sometimes I 
-lose the image completely.
+dqm->detect_hang_info_size is left as-is since it is also used later
+for a memset() call; only the allocation itself is converted.
 
-A kernel parameter to force VRR to always be enabled should be 
-available. This would prevent these signal-switching problems, and it is 
-how "FreeSync" actually works and also with the unofficial kernel 
-patches for AMD HDMI 2.1 + VRR on kernel 7.2.
+No functional change in the non-overflowing case.
 
-There is also some evidence that keeping VRR active can avoid the 
-mode-switch behavior seen on some TVs when VRR is enabled or disabled.
+Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-On 14/08/2026 17:43, Fangzhi Zuo wrote:
-> This series adds HDMI 2.1 gaming support to amdgpu: Variable Refresh Rate
-> (VRR) derived from the HDMI Forum VSDB (HF-VSDB), and Auto Low-Latency
-> Mode (ALLM). It builds on a drm/edid patch that parses the HF-VSDB gaming
-> capabilities into struct drm_hdmi_info.
->
->    - Patch 1 reports FreeSync from the AMD VSDB (existing mechanism).
->    - Patch 2 (drm/edid) parses the HF-VSDB VRR range and ALLM bit.
->    - Patch 3 enables VRR from the HF-VSDB when the AMD VSDB has no range.
->    - Patch 4 signals ALLM_Mode in the HF-VSIF when Gaming-VRR is active.
->
-> v1: https://lore.kernel.org/amd-gfx/20260730171754.704049-1-jerry.zuo@amd.com/
-> v2: https://lore.kernel.org/amd-gfx/20260806205449.16806-1-jerry.zuo@amd.com/
-> v3: https://lore.kernel.org/amd-gfx/20260811003921.1398292-1-jerry.zuo@amd.com/
->
-> Changes since v3:
->    - Drop the content-type based ALLM heuristic. ALLM_Mode is now set only
->      for the mandatory Gaming-VRR case (VRR_EN=1 with a sink that advertises
->      ALLM), per HDMI 2.1 Section 7.6.6; it is no longer derived from the
->      content type.
->
-> Changes since v2:
->    - Fix coding-style issues in the VTEM info-packet code.
->
-> Fangzhi Zuo (3):
->    drm/amd/display: Add 2.1 FreeSync support for AMD VSDB EDID Block
->    drm/amd/display: Add HDMI 2.1 VRR support from HF-VSDB
->    drm/amd/display: Enable HDMI ALLM for Gaming-VRR
->
-> Tomasz Pakuła (1):
->    drm/edid: parse HDMI 2.1 gaming (ALLM/VRR) capabilities from HF-VSDB
->
->   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   5 +-
->   .../display/amdgpu_dm/amdgpu_dm_connector.c   |  71 +++++++++++-
->   .../display/amdgpu_dm/amdgpu_dm_freesync.c    |  41 +++++++
->   .../amd/display/modules/inc/mod_info_packet.h |   4 +
->   .../display/modules/info_packet/info_packet.c | 109 ++++++++++++++++++
->   drivers/gpu/drm/drm_edid.c                    |  42 +++++++
->   include/drm/drm_connector.h                   |  47 ++++++++
->   7 files changed, 317 insertions(+), 2 deletions(-)
->
->
-> base-commit: de2622bbc20276eaaaafa8fdbd374ace1ced28dc
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+index 67137679a901..5aa42fd5bb49 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_device_queue_manager.c
+@@ -2013,17 +2013,15 @@ static int start_cpsch(struct device_queue_manager *dqm)
+ 			      NUM_XCC(dqm->dev->xcc_mask);
+ 
+ 	dqm->detect_hang_info_size = num_hw_queue_slots * sizeof(struct dqm_detect_hang_info);
+-	dqm->detect_hang_info = kzalloc(dqm->detect_hang_info_size, GFP_KERNEL);
++	dqm->detect_hang_info = kzalloc_objs(*dqm->detect_hang_info, num_hw_queue_slots);
+ 
+ 	if (!dqm->detect_hang_info) {
+ 		retval = -ENOMEM;
+ 		goto fail_detect_hang_buffer;
+ 	}
+ 
+-	dqm->hung_db_array = kzalloc(hung_array_size * sizeof(u32), GFP_KERNEL);
+-	dqm->hqd_info = kzalloc(
+-		hqd_info_size * sizeof(struct amdgpu_mes_hung_queue_hqd_info),
+-		GFP_KERNEL);
++	dqm->hung_db_array = kzalloc_objs(*dqm->hung_db_array, hung_array_size);
++	dqm->hqd_info = kzalloc_objs(*dqm->hqd_info, hqd_info_size);
+ 
+ 	dqm_unlock(dqm);
+ 
