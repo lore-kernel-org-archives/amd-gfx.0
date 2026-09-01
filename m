@@ -4,154 +4,128 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 90F0EC624CF
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 01:23:44 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id E57C8C61DFD
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 03:06:08 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DA20A10E2DB;
-	Tue,  1 Sep 2026 01:23:43 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 832A110E351;
+	Tue,  1 Sep 2026 03:06:08 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="JSGGkiLf";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="BzFJ0inq";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F40B110E030;
- Tue,  1 Sep 2026 01:23:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788225822; x=1819761822;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=0Wc8Wc67zKTp3a0r5jSkocrwqfRpF9xB0j6gGuqTMpQ=;
- b=JSGGkiLfWlJk+QFYNSxRAuvNlsS1wU8BYg3AsqfCLD9+PbFHqAYqhyJ1
- 5efnjq3q5l1ugrH3jAfeWAp1udJ/Bg3YN0TpZUaCAIToqzECbaCjNSc+V
- 6qTygO2MT/q/+Xq31eDHGqtWq/FeG2ronTObE7Jb0lDYCtrPFq4GGeZ+m
- NpJv2f6zB3QvThOTVuDU1OX/qWFEBqMK40vTtYy+X2on3XLvL6JVkKovX
- tHGcKPa3pvNj93yv+nFEAG/4Qm5TX2DsDoWqInQsKcAm7Nuu7GLE0fhyh
- gvQgU9LFIR2QpSD6JMK6Kiy2h8YzWwIBo/X6ReeMtHYst+M1R1jtMTsM2 g==;
-X-CSE-ConnectionGUID: CfBxN5T2Qb2K+pmWG5cHDg==
-X-CSE-MsgGUID: QAAfLo7iSnqr9HZYIu3thA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="88652560"
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; d="scan'208";a="88652560"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 18:23:41 -0700
-X-CSE-ConnectionGUID: IJq4rAK+Q4m3EdrUbKiDVw==
-X-CSE-MsgGUID: 26feUmhPReia42ELmjomHQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; d="scan'208";a="264659336"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
- by fmviesa006.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 31 Aug 2026 18:23:41 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 31 Aug 2026 18:23:41 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Mon, 31 Aug 2026 18:23:41 -0700
-Received: from MW6PR02CU001.outbound.protection.outlook.com (52.101.48.33) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Mon, 31 Aug 2026 18:23:40 -0700
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013001.outbound.protection.outlook.com
+ [40.93.196.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6F21110E351
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 03:06:07 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dSFFjWT9qMbWKxazvnTCKmBi0emi+kTBXjJj7BLwkTEtKbaPwm+ZwbbPHp/s4ANZy22VsI474f7PPBmW9+Nq+uc8ozF40spF2WPBvMsxH+lgc43Iatz+uEC+b1NrzSImXJvPHxU0Rg8XGIZWjbLTxh7ZjUIbqlN8YvC1ngq76EIPSdV+MbSOqkBs/JNzkdA4T53zYp1yWE7p7mGDljDsYd7bE5UFgIHbPCTJygVnWDv58rqaujQl74EsOxI7eLz0RMSi8E1+GrvoX6ZX935F+39i8BhJHQ6Zl7YANNn/B3h5wVXosqtFbsUiJxJbBpYkDiF6x/FZSgo6umFfgbSdkw==
+ b=VCITYV2+uAfP1KFzUhr2FoEfQ7vXZFSaF/US4YKOecyw5oAsDg87Vz1rR95iD5uSMdjBzZZjenZQBk1njsae2XZzEGeNuworlw+wHjSQkiiPfDuLHqwCrFNbDH87HVFH2rIJ+EQvAKtrFa07lBcvge7z9v1fLJn5vLp1nF+Szdx2n4jVGkOpg6lc7qtzMjv8ILiv82vZG/NMb671uvbEGrvlXSNbrqjBb74vknmvAvEDQPxOhDFf1O8p3C74QkKe7rvjXchiMZdv4UtBqrHvABOJaE9t82WQMC4x+P+F7B5fxBvItO0OtXmIklzMpvnVR2MLtdaHbZZIoDRU5Fx/CQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SY9CQs+ps3CGqZTcVFnDI6hIahn84X22jZEmED+5Jpo=;
- b=tLZOqCmUyLLtOaBTyM2mvj/ux1DoRxTI711hhldTQd0RZGN/ESv3Wr8juSEWxWsP7NaZQsxKl+pT4Wi5sDZlAbwvlDlIaDMXCDpWKS5ZvNbnYoK6tsOKTM2FIbGwZ3csYtWUGFsuL3KhNBdOKjf1KxQYp6NBZKMG+ckMlBi0LTgP3DdW6Up9c52dn9AQnLK4a6QhlLP7NZvA7iCxrOoXV0BJ0A6R0tDI6juK0ZAy0EKH/cuZlKFS8zpELV7fp35V26aaW1n1Tld+QDKg2J+eSGpx48odA4+RSgexZY1x8FiL3lvLcFN357g13RnLwTwwBdgR8LTnxdB+CkMR1wGfSw==
+ bh=5eD08f3sF/0X56aLKafB+gBDIj5TSRc9C9kYN/Tqflk=;
+ b=LMX+5y4h72M1ComCtn6vILQkHe7csmOJbglVNNfD5a1IGT48ry+A5lPKW5USxRKtqvqufeZwMvCjlnoJ3fusiOf/j24elHjLdMiMzdDM1+6cPHoxcjuWcojhgwsA/Dlbs+lrXbgzbcm6e2cdtRyfmKLq/2s34fH/pKxreJ6qtxIzy/n/BgOaHT9uJ6o1hY8Ebv/TqzwN+W1yXw4QH0b78IK2T026uV65qsCsF0m3TXSvXS6qX50BVTiqwQmmRf43KHw2+uDW4yYEbNzYMuA1MViQqiIgfNBBclSsTJVDcZsAF/uCHs5VnHryAQxS794Gw6dLcpKK85ZHikpKe6pX3A==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5eD08f3sF/0X56aLKafB+gBDIj5TSRc9C9kYN/Tqflk=;
+ b=BzFJ0inqDbDowPrc5ISqQr+1KR56fm3gSGNlFpbbd637QnDLJHK5TVTbHLYaWjQhIFKT2bNCT+6PSwVlBkN5CFH3dRRH/ALwERTpsqju5MAeSvRqY7uRy9WTi8dl8JLJbWfVL4iX2bsJaiHzFvFaT4c2Lpo6q6DpKeODSrokqWM=
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com (2603:10b6:510:212::12)
- by DS0PR11MB8081.namprd11.prod.outlook.com (2603:10b6:8:15c::10) with
- Microsoft SMTP Server (version=TLS1_2,
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CH2PR12MB9457.namprd12.prod.outlook.com (2603:10b6:610:27c::7)
+ by DS6PR12MB765380.namprd12.prod.outlook.com (2603:10b6:8:411::20)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 01:23:36 +0000
-Received: from PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c]) by PH7PR11MB6522.namprd11.prod.outlook.com
- ([fe80::e0c5:6cd8:6e67:dc0c%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 01:23:30 +0000
-Date: Mon, 31 Aug 2026 18:23:27 -0700
-From: Matthew Brost <matthew.brost@intel.com>
-To: "Huang, Honglei" <honghuan@amd.com>
-CC: <sima@ffwll.ch>, <rodrigo.vivi@intel.com>,
- <thomas.hellstrom@linux.intel.com>, <dakr@kernel.org>,
- <intel-xe@lists.freedesktop.org>, <aliceryhl@google.com>,
- <Alexander.Deucher@amd.com>, <Felix.Kuehling@amd.com>,
- <Christian.Koenig@amd.com>, <Ray.Huang@amd.com>, <Lingshan.Zhu@amd.com>,
- <Junhua.Shen@amd.com>, <Yiru.Ma@amd.com>, <amd-gfx@lists.freedesktop.org>,
- <dri-devel@lists.freedesktop.org>
-Subject: Re: [RFC PATCH v1 1/5] drm/gpusvm: extract drm_gpusvm_hmm_fault()
- helper
-Message-ID: <apYpDwBsczVHXGik@gsse-cloud1.jf.intel.com>
-References: <20260827071449.520398-1-honghuan@amd.com>
- <20260827071449.520398-2-honghuan@amd.com>
- <ao/nrkOMOllUKqyG@gsse-cloud1.jf.intel.com>
- <bcdc465f-2f83-4fc0-93e6-ed94b076989c@amd.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <bcdc465f-2f83-4fc0-93e6-ed94b076989c@amd.com>
-X-ClientProxiedBy: MW4P220CA0005.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:303:115::10) To PH7PR11MB6522.namprd11.prod.outlook.com
- (2603:10b6:510:212::12)
+ 2026 03:06:04 +0000
+Received: from CH2PR12MB9457.namprd12.prod.outlook.com
+ ([fe80::85a8:1df:840a:cd4c]) by CH2PR12MB9457.namprd12.prod.outlook.com
+ ([fe80::85a8:1df:840a:cd4c%4]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 03:06:04 +0000
+Content-Type: multipart/alternative;
+ boundary="------------kCgd35baixXSRtaZzFImBpps"
+Message-ID: <2ec575e1-658a-4f05-9185-1c2283c5f522@amd.com>
+Date: Tue, 1 Sep 2026 11:06:00 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/10] drm/amdgpu: keep the userq manager alive as long as
+ its queues
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alexander.Deucher@amd.com, felix.kuehling@amd.com
+Cc: Ray.Huang@amd.com, amd-gfx@lists.freedesktop.org
+References: <20260828095349.9797-1-lingshan.zhu@amd.com>
+ <20260828095349.9797-3-lingshan.zhu@amd.com>
+ <18014f3c-5e0f-4ed7-b278-590cf60dfe03@amd.com>
+ <7f53ac18-ecb5-4eaa-8692-67b9237447b2@amd.com>
+ <847308aa-e4cb-405f-9e9c-dda3e4d28eef@amd.com>
+Content-Language: en-US
+From: "Zhu, Lingshan" <lingshan.zhu@amd.com>
+In-Reply-To: <847308aa-e4cb-405f-9e9c-dda3e4d28eef@amd.com>
+X-ClientProxiedBy: TY4P301CA0016.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:2b1::19) To CH2PR12MB9457.namprd12.prod.outlook.com
+ (2603:10b6:610:27c::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR11MB6522:EE_|DS0PR11MB8081:EE_
-X-MS-Office365-Filtering-Correlation-Id: 45a947ed-2241-4356-54f4-08df07c7a1ab
+X-MS-TrafficTypeDiagnostic: CH2PR12MB9457:EE_|DS6PR12MB765380:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8674ac4c-0d96-41b4-8479-08df07d5f5a5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|23010399003|366016|13003099007|10067099003|11063799006|4143699003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: btJnx5YCYsZSDLzh+KkUUq6znO7f7yIgahSB4H7EeK2BWTj/mqCoAs8ML/svM5z8NBwfDpy5kI4o1L3ON5nvKVxR6Ey7UdfuRxjzm1fmiThvEGMqiCw9PGeahvPAhSEU4RbxA68t4Bu8qmKqjcrUHQyMw0nFr4Oeypyk9qI3CqIDW3Bv/UWLGCluO4fb2FhFX6yJruVOC2gyexZDwt9RBSApQmD9uukEOik75HCEd9FHqcDVl/kkmPNPT6uVI9DbITodzXhs3TLl8vvbXlNL2wRGaHVacRRApkCPQWdDCjlTFlhPGPM56DW9TMWf9cSWGrSjDq+n9tbceDiNpqzANOleae61WV/V037zaft1RxcZNhTsgG6aY+HYajj3/+OARpR1gGKPVnUyeQ7rX2JmuC5Doskym6byxszBzO17xd4nTvvEHwU+UcGgjhoMI3Qiuk/pJS3AqCP1jrBFVTqdzFJlicwEI9yHtuzg341joeyFQOYK9Rp5MlaYPwlCkzsCzLQTexsroSycSpAhTmBW1CbL5Tb6zezWIBBrNndxBPHvE4NkNROS2Nr4smt/VQZfxo8C3mA2mGiq/jeyMVmH54QT9EoS4r5vo6kC+++ZdJU=
+ ARA:13230040|1800799024|23010399003|366016|376014|6133799003|18002099003|22082099003|11063799006|56012099006|8096899003|5023799004|10067099003|4143699003;
+X-Microsoft-Antispam-Message-Info: V7o8yz7j+vd9OjdZDSTUBG8n/ZOzI9n2mpfOQFljgdTSZAzOkuYT2wFwir8ovGrLmbV4+uslDQ41+P5kcaRm60hi/HDBCjlMypHh04IAcLlAyZsSHIwvZxmpsOJUCG9jWMBnZSlWK9qoEB/1AqCyNeooTK4dbjhrP15kzUGbohXdCvwjY5ZJvUU1wUMgLoXuFGKRHFwi3d/uiFHV3K+F0SMpvqdqzKEoXvYkuJHj5gz1QPjIUtg9FtW5RpwvqhpqhPQG34pROfA6ABatktFTVPU/xKUg+xB2+jm9QtOY3QZh+YJLU/9xRondVYzillmJcXKC5hBN3Ls+aQGdjsITJY5d2oAuQf+cLyaAliqqRtA2TbjGsOw1ffvJxYXZK3pvGW6b22OOw0AVZsIYeKXjRD7Lk6yepY0HEfseDDDsip6JvSLVnePU/rfLbeQWV+52wdg10Q/M1micdaOl9/xm2y8yysvJ6j05DTv0VTbEoZpoeZZW/fps+toveGN6ckaqeEy2IUQyzKDzf8fOZtIpHKtLyeM1jlolo44Ydzdof2lbwOG+qyl8sONWF2F9jntryv+jV4AODfbSZs7C/5LHERyalwbS5c2oi7FkD2v39U7xC+eger5qxKn/UmtEUU7mUWAzDRB8W2urFVVrFszowSA4GCYUQYpr/6tTboWotWg=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR11MB6522.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(23010399003)(366016)(13003099007)(10067099003)(11063799006)(4143699003)(56012099006)(18002099003)(22082099003);
+ IPV:NLI; SFV:NSPM; H:CH2PR12MB9457.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(6133799003)(18002099003)(22082099003)(11063799006)(56012099006)(8096899003)(5023799004)(10067099003)(4143699003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?kOTO2b5X8wsWSqnzGI6oP8U6o42ezt5xSgb4txnMYtXl9TeMjpfl2HeqAg9r?=
- =?us-ascii?Q?PmANGSg5PRUw05w8cMt/zZZ7HGXiYLBlzwu1ghcV2JozztBrAoa6ssfzLpr2?=
- =?us-ascii?Q?TY58M+14HQ0zbbRWzQIyi7Wg3Xdw6CVwuhWSctzLFCNbQLBUJEJ4P2jAVhAE?=
- =?us-ascii?Q?Do6ypZzAk4BWMshbBcRUuImNsDhmCVqwhZjbJZMH2QCJDTe5Kj0DLPhTcd1a?=
- =?us-ascii?Q?nB4xVlpJQqWWPk2K/cxvAS/3Be41cTEFcShdOWUAKKgB6T9NUDSn7jAI7tws?=
- =?us-ascii?Q?TzQuZSLIIwGerZXKxaHBC/nmLzpuaXaPV4XZva7nDtj0bmTvaanXKRWPYhI2?=
- =?us-ascii?Q?rtTTveEDIZf6n7wB6ew2hKkJocN2UhvinPJ+6Ad3u+3SzxvQV0PUiX3F+B4F?=
- =?us-ascii?Q?70wDnDUGtS80Zy74W7JZNms5c7TZVYAAgeEiSM0a8IhkELzSTMe2VMVk1iLr?=
- =?us-ascii?Q?2Ko07wi9KSS1PoP0fbEDqRiGlaBkyi7E2fPlRbKxso1Sn8v/7aSpX59zRIfB?=
- =?us-ascii?Q?8v404UE4RkdSzwi5nN135rebI4b41Gam+EeMu5IjIvZ5Lmsd5DEFFnMHBlZ4?=
- =?us-ascii?Q?OjUqXSXr4W05elhhdmi3DX19aPiQ8uPemvTiYvcyMd/FJmB3JWjYeYIYdiCD?=
- =?us-ascii?Q?Wr2H97mwxLD+wMMoNuaTKqYpaLJwRHkIzKtKoX3umzj/Fch9V3R46dcbvP5D?=
- =?us-ascii?Q?QI79sE36SyRYJOsKrtBMoXqJom4g7wOER9O2cX+pB37oV7I7M3V26nSBhP9H?=
- =?us-ascii?Q?XTeQFeGtRJu4NDIpkDxNgfc+bi2NlUll4e5dqzQu0RN3objg5bSvMbAY3bpH?=
- =?us-ascii?Q?GV9CdenEKXvk0tkHlwUQACXmkRT86IVXX2AhSZlD96uGQXhduRD8lh7b+KN7?=
- =?us-ascii?Q?DvI7HnqohRSbGviOZwYAUSuR41EesdImQsMS3p/9JozfvG4FUV2kbxlDycfo?=
- =?us-ascii?Q?tHewfhB6V690at9Kq1taNEiZfqYaTSKvsy8yOFBlMePXZXMmaIZy+ckW8Bir?=
- =?us-ascii?Q?UipEE+U/inoGzjDKkd+Ezf7euHtFDKJrRUlybgIcS+8HwFaUL85Zhcu4RX14?=
- =?us-ascii?Q?KReknJ0Y16aJou1hKONQAVE9y2uqe99o11a09lydppJUmazdvgltb5LC357q?=
- =?us-ascii?Q?cFR5q25DajSij+hsoI6oCU+pi3VyiKGOanEhDO0I1O7OahplsZBVLiWdl/di?=
- =?us-ascii?Q?pDHga95StQafBRohhgwD+pisymr50MrjHeQpweq8vyVKR8OnCJnweTKH+T/W?=
- =?us-ascii?Q?yNpkuXv+9OzfBj1HO79px0Jf/6dE4C929nEvM/7dpLFJzfzTOg4lS7NL4LtX?=
- =?us-ascii?Q?4zTZ3oUWRCiqN65spHrIAsKVE6iu3E68Aka78SA0VhhcYi+y4WsSJUw3d2sQ?=
- =?us-ascii?Q?GgjfV2yvsG6/G5BLGoXO4k7wM9EnrMEwc1nph/E9qMFMV9ancFPgO2ZbkXrd?=
- =?us-ascii?Q?YxnwSuZWhHcQXmYLF8tfTbDZKowQzsVU5GbVm5qcgeNQSIis68CKAGGXY3nM?=
- =?us-ascii?Q?pGLoIn93dATSRRabX8SsQhEQ/D4j6or6Mlzs3noeQlaoz5ctPs4RWhlgj2aZ?=
- =?us-ascii?Q?QXMFB43qm1xUSjxTmeByNqnABPCJY3Rc/ePkRoWNQFYSN24JFx1GH8qjniW2?=
- =?us-ascii?Q?ISllZYXG2Tbsh81acwK2iFLMGr7JaXuGZ2W6Xi9Y4BHyV0YiMrw4RDwMkQsZ?=
- =?us-ascii?Q?foqicP/p+P0LDbYKawewNW5A9eFCxP7Zvk7OowMeCE8aYSY51wmQeqeHV7f3?=
- =?us-ascii?Q?XDX1c4BL7zqmZY54T51su+JcMFD72YM=3D?=
-X-Exchange-RoutingPolicyChecked: t/DMwIkGLyntVVNtcRSaQfEzLRDbZFfV8PLeBVDVG26T6li3gJ2azMT0AEP2vEFRyUybBzKq2r+YEfjbHN6jTKaf1k8mG1YjWvMhPIxViNsiheMJrI8VIIztDbA9Aqe/m87e/IkK32Y0k9c8eTWBTeLrMheBQIl1M2HJWwvAAItCDyEiRdwQz6tIjWHwx08zA/3PAHVZ9eKlOqvhyNgzHIx9bNWxDv9J1VlPUDoKgv0cJjVqgbHQuzHDUcjivI824SlmET+is8JZmJdR8oSYx6XP2vUTjoYxwGtZXzThP75IjNVcFGDswsfZ0sUNWIMVdvW4M+vg7WCLwel+ch91kw==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 45a947ed-2241-4356-54f4-08df07c7a1ab
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR11MB6522.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cWpRYm5UMjdhRXhjTkxUOXh4Q0JWTDAxL2RidUkxOG9EWnB0Wjc0Ujg3Kzh5?=
+ =?utf-8?B?ZkVTWDdIeGlENGdJcEl6Mi84clo3YTk5eXYrOWlhU3dTNGJERnRFNTA1NU41?=
+ =?utf-8?B?UUR3ZFBYUU9CTk1NcVVQZHNkSGtUMml1ZFlGZFVUU2VxNFFrbjBiNmhUN3V1?=
+ =?utf-8?B?Q2Fzbnd2dFcyL3drbDRSK2w4S2dYUHpSZlpRQUQ3aEQyM3JCdzRXVXlKVUp0?=
+ =?utf-8?B?YWowcUtBdmRLTVJGUEtUME5hQy9aQnFYWEx0aTgybFlCL0JnT2QrdENwbjY4?=
+ =?utf-8?B?M090MnZNaDhYTWk0SDdIdzJnMWtkaytWS1lnMW1DNVhvOE1NaWc0WExlZlFR?=
+ =?utf-8?B?VHN1WlRrVTF0RFI2bHU1R1FHdDR4QUhwb3o4dXl5elNrMUpDempRUkZoSzZz?=
+ =?utf-8?B?QmFndXI0Q0NmWkZLbXNGYktTK3pyNms2UVhEZXpBYnV2UURoc2sxUVN1Z1dU?=
+ =?utf-8?B?WkN5dHRLbXhlajdKQW5RKy9yRjVaQkw1dUxKRWlpNk1vS2FFTXk0STRwNG9j?=
+ =?utf-8?B?OTVGcitCU0xqWUlNMmlmVTdFeU9YYWorVUloZ3hUb3JUYlB5cWlUZ1B3Tmdw?=
+ =?utf-8?B?MUxObWR0Qzl3ZHpRMXlqdWVFUmJwaCsyMTNLMGFQNW5ZYm5lTkh5T1dxY1ly?=
+ =?utf-8?B?VDBZdUJQRmk5enMyWm1Ic3hjSktEeG5EbXhNZ1E4NkFveVpXZktKT2E0MVIw?=
+ =?utf-8?B?bWFZUVg4RmdQV3gwcHlHZERobENBSFBuSllNTklQeURiWmNqS0daZ0JLYzAz?=
+ =?utf-8?B?T0pnV1IyS09IcWc1SmdaY2hWRzNRQUpTdWsvOU5XNWw5S3RXbEJJVFZpb3ky?=
+ =?utf-8?B?WFJNVkNCZjh4Sm15M2duRERFaEdpMGFlZXJpWnV1ZjRvc2xPRlp1L2tjNzhG?=
+ =?utf-8?B?SmJ2SEpxWlludUcyQ3hadVc0bURrdWRNaXhyVWpHVU94V3daeHYreHNKRnU5?=
+ =?utf-8?B?YXhpVUFpQUJhTEFkNlUvY3hjQlUzNGFMeW56aUxMNEppZzlDSEN4NE9haUlJ?=
+ =?utf-8?B?RUlFbEIxdVRxbXFFWWZEeTIxd3lubzlRblBZRlM1Y3d5RncxeEdqRWJkL25a?=
+ =?utf-8?B?cHlRTEhGRk01RWQ1bWpZelNRUUZ6RGFHaXE4YW5aODYrT3U0WnVqMlUwR0cz?=
+ =?utf-8?B?a2JJaFh0SUZKSlVLNnNuOW51bUhMeDA3M1hxNm5McDRKdVJUVzZic2kxRHEr?=
+ =?utf-8?B?QXN6NnhNTVRHT0JkaFNUWXQzYTJ4ZUN0cEIyYzRWZC95ek9JR0lqWXdUempo?=
+ =?utf-8?B?TWhnZmdNL21xY2cwRzlhYzd2ZlJWUUo0T0ZQd05mQ2dkRmc5ZG9tVmRweFUr?=
+ =?utf-8?B?Yyt0UEdqZUVYQlo1VTdKWW8ybWZGRjl4RkIxYVg3NzEyQm0xM1JSLytiZEZD?=
+ =?utf-8?B?WWpVdkw3YVRmbXhMNXc5Q3IwaGZzVDVlaHdiZU95MmszWkhIWlVqTkc2eUc3?=
+ =?utf-8?B?SURSS2hSR0NuN3d2NUhaV3JWMnFhSk9hYVRiajR4bFJrQ0pMSzFWY29Cd3ll?=
+ =?utf-8?B?Q1gwQWNxbjAyc04yekJTK0tYMnJpaWZCL0JMVG9rdXhRZDFKVEdpMXl4ekF6?=
+ =?utf-8?B?cHpIbXEreUJCNHZLeE5uTjFpYnoxeS9XT0hnWmc5cFVwdUpMbUZpcGVUWjEv?=
+ =?utf-8?B?Y2MvQ2NNODNuVWQ0YzBmRVB4U25kRFRhZzZscEZwYzdjUHh1RWJ6amZJT2tQ?=
+ =?utf-8?B?R1IvWFVJMkhSTkhhdkhCaTNhaElxbkE5bmdzY3J1TVNDcTR4bXIvNWUzYkNQ?=
+ =?utf-8?B?UFY2bGRpc1lTZ2N3cUg0eFFsVXh4dUhCTC9rWU5DT1NEekZtVzQ3d2l6L1lS?=
+ =?utf-8?B?MEpiVkJ4N2xGNG9OVnYyMHU2cjdiNEtXVitCRDBNMEdhREV6N2MrQnhBRmpT?=
+ =?utf-8?B?elh4WlQvaU9ITUZNM3ZEeWFrbzdIR21DamdwWVZTQjl2KzZ5SzA4RG9taVpt?=
+ =?utf-8?B?ekh6R0Q2aHpKaDI5Q2IxakMxSUJSS1dqRkEwNFBTWkl0NEh5cjJIUWpITmZG?=
+ =?utf-8?B?NUFpaFU4eTBHb25FV2dmRkg2OWpHWGx6UFovQzJUUUVHRGtxQWp5YVpId0ho?=
+ =?utf-8?B?dUVFZkt1OEtnYnFQTkc0dG1BNWxoRnBHL0Z5Tzk3SmRUcUVETkxQU0ZwWUI0?=
+ =?utf-8?B?eDdoa2oyQ2xQUmY2RHlGOEx2Rmc0YzE2SWY1RExlOFpROWk5Yldvdy9ieE9R?=
+ =?utf-8?B?YVRSM3dpTTZEcWI3S0pwZ1FIN3h3SWljMDg5a2JINXdSNjQ4UTNYNmxXVGRR?=
+ =?utf-8?B?YnpjcGgwaDd6NHpDZEV0MkxNN1R4bXFOY09QVUlQdm9jNE5nSGFrQTlHYUZy?=
+ =?utf-8?B?UjJJbWg4T05IS29hajRmWE45UWtYeS9iZGJ1Z2NIV2VDampvK0J1QT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8674ac4c-0d96-41b4-8479-08df07d5f5a5
+X-MS-Exchange-CrossTenant-AuthSource: CH2PR12MB9457.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 01:23:30.4540 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 03:06:04.3796 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UOZYJna+O9RUBxmLGGQM7t+G0MGDPoxITAIeXg0V+KXO4I5GjtBOf3RB4IFEos0ia6Ab63dMyt/GIQghdtaA7Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB8081
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9HR3Pi29kZB66SP/DXfsN1OrIGGJZXa585HUx5P14udB08rY3A/044dgqfAdJTEjL7Q4kJo2T80BrKqqzPjK3A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB765380
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,142 +140,388 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Thu, Aug 27, 2026 at 05:02:43PM +0800, Huang, Honglei wrote:
-> 
-> 
-> On 8/27/2026 3:30 PM, Matthew Brost wrote:
-> > On Thu, Aug 27, 2026 at 03:14:45PM +0800, Honglei Huang wrote:
-> > > Make the HMM fault step of drm_gpusvm_get_pages(), including its -EBUSY
-> > > retry loop, into a helper drm_gpusvm_hmm_fault(). The existing logic of
-> > > the public drm_gpusvm_get_pages() is not changed, only relocated, so
-> > > there is no functional change. Keeping the retry loop in common code
-> > > also means drivers never have to open-code their own fault/retry loop.
-> > > 
-> > > A single fault can later be shared by several drm_gpusvm_pages instances
-> > > that mirror the same CPU range. This prepares get_pages() to split the
-> > > shared MM-level fault from the per-device DMA mapping. No functional
-> > > change intended.
-> > > 
-> > 
-> > I think you might want to just wait on this until Sunday for this
-> > series. I think this patch [1] is in the core MM tree so when drm-tip
-> > moves to 7.3.rc1, Sunday, we will have a version of this helper to core
-> > MM used in gpusvm.
-> 
-> Got it, will wait until Sunday. Thanks for the information.
-> 
+--------------kCgd35baixXSRtaZzFImBpps
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-It looks like the core MM helpers have landed in drm-tip [2] but not
-gpusvm bits.
+On 8/29/2026 12:26 AM, Christian König wrote:
 
-If it isn't too much trouble can you pull in version of [3] at the base
-of this series, credit Stanislav as the author, and then rebase this
-series on top?
+> On 8/28/26 17:59, Zhu, Lingshan wrote:
+>> On 8/28/2026 9:09 PM, Christian König wrote:
+>>
+>>> On 8/28/26 11:53, Zhu Lingshan wrote:
+>>>> The life cycle of a user queue is managed by its
+>>>> kref. However when destroy a userq manager,
+>>>> the kref_put of its queues in amdgpu_userq_mgr_fini
+>>>> may not be the last put, therefore the queues
+>>>> could be still alive after the userq manager
+>>>> has been destroyed, resulting in
+>>>> userq->userq_mgr use-after-free issues.
+>>>>
+>>>> This commit fixes this problem by introduce a new
+>>>> counter refs representing for the number of its queues,
+>>>> and only free the userq_manager when refs == 0
+>>> Clear NAK to that one as well, this is just nonsense.
+>> It could be better to have some explanations.
+>>
+>> I am not sure how to guarantee the put_kref in amdgpu_userq_mgr_fini
+>> is the last put and result in kref == 0, if not the last one,
+>> there can be userq->userq_mgr UAF bugs.
+> The rules are actually pretty simple:
+>
+> The reference is for keeping the userq alive while IOCTLs happen. And IOCTL can only happen while the file and therefor the fpriv, userq_mgr etc... are still alive.
+>
+> What can potentially be is that we also need to grab a reference from a work item, but in this case the fpriv/userq_mgr cleanup functions just need to cancel and wait for the work to finish.
+>
+> There should *never* be a reference grabbed from interrupt context, explicitely because releasing that reference is also not possible from interrupt context. Instead xa_lock_irqsave() needs to be used to make sure that the userq stays alive while the interrupt processing happens.
 
-We can then merge all of this together into drm-tip.
+To protect a user queue from unexpected free and use-after-free, we either use xa_lock or the kref. 
+Please note, currently the xa lock can work only because the user queue destruction routine also acquires the xa lock, and this is not always true.
 
-Matt
+However in some code paths, none of kref or xa_lock are employed, for example, in mes_userq_reset_queue, its just xa_for_each, no locking, no kref.
+That is the problem this series intends to fix (UAF issues, racing with the destroyer).
 
-[2] 121170831228 mm/hmm: add hmm_range_fault_unlocked_timeout() for mmap lock-drop support
-[3] https://lore.freedesktop.org/nouveau/20260722-hmm-v10-v1-6-606464dd601a@gmail.com/T/#m68f663ce3e802d7692363c70e6364569134cd6c7
+And I believe we should choose kref rather than xa lock, the reasons:
+1) in some code paths, like  mes_userq_reset_queue, amdgpu_userq_stop_sched_for_enforce_isolation and amdgpu_userq_start_sched_for_enforce_isolation,
+they all acquire a mutex, may sleep, so can not use xa lock in such routines
+2) xa lock is for the XArray, it serializes the access to the queues, means when lock the xarray, only one thread can process one queue, it is a performance degradation.
+3) xa lock is a spin lock, so don't hold it for long time while processing a queue.
+4) since the struct kref is embedded in user queue, it introduces a new destruction process of the queue, which is invoked when kref == 0,
+so we should take kref in every routine that process the queue to avoid UAF.
 
+So this patch is a prepare for the following patches, after fixing the user queue UAF issues, there would be more code paths get and put the kref to protect the queues,
+therefore, the put in amdgpu_userq_mgr_fini may not be the last put, and amdgpu_userq_mgr_fini destroys the userq manager, resulting in userq->userq_mgr use-after-free,
+that is why we need this improvement.
+
+Thanks
+Lingshan
+
+>
 > Regards,
-> Honglei
-> 
-> > 
-> > Matt
-> > 
-> > [1] https://lore.freedesktop.org/nouveau/20260722-hmm-v10-v1-6-606464dd601a@gmail.com/T/#m68f663ce3e802d7692363c70e6364569134cd6c7
-> > 
-> > > Suggested-by: Matthew Brost <matthew.brost@intel.com>
-> > > Signed-off-by: Honglei Huang <honghuan@amd.com>
-> > > ---
-> > >   drivers/gpu/drm/drm_gpusvm.c | 67 ++++++++++++++++++++++++------------
-> > >   1 file changed, 45 insertions(+), 22 deletions(-)
-> > > 
-> > > diff --git a/drivers/gpu/drm/drm_gpusvm.c b/drivers/gpu/drm/drm_gpusvm.c
-> > > index fcfe635bc195..507ef6f0a60e 100644
-> > > --- a/drivers/gpu/drm/drm_gpusvm.c
-> > > +++ b/drivers/gpu/drm/drm_gpusvm.c
-> > > @@ -1442,6 +1442,50 @@ static bool drm_gpusvm_pages_valid_unlocked(struct drm_gpusvm *gpusvm,
-> > >   	return pages_valid;
-> > >   }
-> > > +/**
-> > > + * drm_gpusvm_hmm_fault() - Run the shared HMM fault for a CPU range
-> > > + * @gpusvm: Pointer to the GPU SVM structure
-> > > + * @mm: The mm corresponding to the CPU range
-> > > + * @hmm_range: The hmm_range to fault.
-> > > + * @pfns: The pfn array to populate (size @npages)
-> > > + * @timeout: jiffies deadline for the -EBUSY retry loop
-> > > + *
-> > > + * Fault the CPU pages of the range into @pfns. This is the MM level step.
-> > > + *
-> > > + * Return: 0 on success, negative error code on failure.
-> > > + */
-> > > +static int drm_gpusvm_hmm_fault(struct drm_gpusvm *gpusvm,
-> > > +				struct mm_struct *mm,
-> > > +				struct hmm_range *hmm_range,
-> > > +				unsigned long *pfns,
-> > > +				unsigned long timeout)
-> > > +{
-> > > +	int err;
-> > > +
-> > > +	if (!mmget_not_zero(mm))
-> > > +		return -EFAULT;
-> > > +
-> > > +	hmm_range->hmm_pfns = pfns;
-> > > +	while (true) {
-> > > +		mmap_read_lock(mm);
-> > > +		err = hmm_range_fault(hmm_range);
-> > > +		mmap_read_unlock(mm);
-> > > +
-> > > +		if (err == -EBUSY) {
-> > > +			if (time_after(jiffies, timeout))
-> > > +				break;
-> > > +
-> > > +			hmm_range->notifier_seq =
-> > > +				mmu_interval_read_begin(hmm_range->notifier);
-> > > +			continue;
-> > > +		}
-> > > +		break;
-> > > +	}
-> > > +	mmput(mm);
-> > > +
-> > > +	return err;
-> > > +}
-> > > +
-> > >   /**
-> > >    * drm_gpusvm_get_pages() - Get pages and populate GPU SVM pages struct
-> > >    * @gpusvm: Pointer to the GPU SVM structure
-> > > @@ -1503,28 +1547,7 @@ int drm_gpusvm_get_pages(struct drm_gpusvm *gpusvm,
-> > >   	if (!pfns)
-> > >   		return -ENOMEM;
-> > > -	if (!mmget_not_zero(mm)) {
-> > > -		err = -EFAULT;
-> > > -		goto err_free;
-> > > -	}
-> > > -
-> > > -	hmm_range.hmm_pfns = pfns;
-> > > -	while (true) {
-> > > -		mmap_read_lock(mm);
-> > > -		err = hmm_range_fault(&hmm_range);
-> > > -		mmap_read_unlock(mm);
-> > > -
-> > > -		if (err == -EBUSY) {
-> > > -			if (time_after(jiffies, timeout))
-> > > -				break;
-> > > -
-> > > -			hmm_range.notifier_seq =
-> > > -				mmu_interval_read_begin(notifier);
-> > > -			continue;
-> > > -		}
-> > > -		break;
-> > > -	}
-> > > -	mmput(mm);
-> > > +	err = drm_gpusvm_hmm_fault(gpusvm, mm, &hmm_range, pfns, timeout);
-> > >   	if (err)
-> > >   		goto err_free;
-> > > -- 
-> > > 2.34.1
-> > > 
-> 
+> Christian.
+>
+>> Thanks
+>> Lingshan
+>>
+>>> Christian.
+>>>
+>>>> Signed-off-by: Zhu Lingshan <lingshan.zhu@amd.com>
+>>>> ---
+>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 30 +++++++++++++++++++++++
+>>>>  drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  9 +++++++
+>>>>  2 files changed, 39 insertions(+)
+>>>>
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>>>> index e0639f844a8e..f398986a61a5 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+>>>> @@ -27,6 +27,7 @@
+>>>>  #include <linux/pm_runtime.h>
+>>>>  #include <linux/overflow.h>
+>>>>  #include <drm/drm_drv.h>
+>>>> +#include <linux/wait_bit.h>
+>>>>  
+>>>>  #include "amdgpu.h"
+>>>>  #include "amdgpu_reset.h"
+>>>> @@ -533,6 +534,17 @@ amdgpu_userq_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
+>>>>  	return r;
+>>>>  }
+>>>>  
+>>>> +static void amdgpu_userq_mgr_inc_refs(struct amdgpu_userq_mgr *uq_mgr)
+>>>> +{
+>>>> +	atomic_inc(&uq_mgr->refs);
+>>>> +}
+>>>> +
+>>>> +static void amdgpu_userq_mgr_dec_refs(struct amdgpu_userq_mgr *uq_mgr)
+>>>> +{
+>>>> +	if (atomic_dec_and_test(&uq_mgr->refs))
+>>>> +		wake_up_var(&uq_mgr->refs);
+>>>> +}
+>>>> +
+>>>>  static int
+>>>>  amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_queue *queue)
+>>>>  {
+>>>> @@ -594,6 +606,8 @@ static void amdgpu_userq_kref_destroy(struct kref *kref)
+>>>>  	r = amdgpu_userq_destroy(uq_mgr, queue);
+>>>>  	if (r)
+>>>>  		drm_file_err(uq_mgr->file, "Failed to destroy usermode queue %d\n", r);
+>>>> +
+>>>> +	amdgpu_userq_mgr_dec_refs(uq_mgr);
+>>>>  }
+>>>>  
+>>>>  struct amdgpu_usermode_queue *amdgpu_userq_get(struct amdgpu_userq_mgr *uq_mgr, u32 qid)
+>>>> @@ -707,6 +721,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+>>>>  	queue->xcp_id = (fpriv->xcp_id != AMDGPU_XCP_NO_PARTITION) ?
+>>>>  				fpriv->xcp_id : 0;
+>>>>  	queue->userq_mgr = uq_mgr;
+>>>> +	amdgpu_userq_mgr_inc_refs(uq_mgr);
+>>>>  	INIT_DELAYED_WORK(&queue->hang_detect_work,
+>>>>  			  amdgpu_userq_hang_detect_work);
+>>>>  
+>>>> @@ -819,6 +834,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+>>>>  free_queue:
+>>>>  	trace_amdgpu_userq_create_end(queue, r);
+>>>>  	kfree(queue);
+>>>> +	amdgpu_userq_mgr_dec_refs(uq_mgr);
+>>>>  err_pm_runtime:
+>>>>  	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+>>>>  	return r;
+>>>> @@ -1331,6 +1347,7 @@ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *f
+>>>>  {
+>>>>  	mutex_init(&userq_mgr->userq_mutex);
+>>>>  	xa_init_flags(&userq_mgr->userq_xa, XA_FLAGS_ALLOC);
+>>>> +	atomic_set(&userq_mgr->refs, 0);
+>>>>  	userq_mgr->adev = adev;
+>>>>  	userq_mgr->file = file_priv;
+>>>>  	userq_mgr->proc_ctx_allocated = false;
+>>>> @@ -1380,6 +1397,19 @@ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr)
+>>>>  		amdgpu_userq_put(queue);
+>>>>  	}
+>>>>  
+>>>> +	/*
+>>>> +	 * The above amdgpu_userq_put() may not be the last put
+>>>> +	 * of the kref of a user queue, therefore there could
+>>>> +	 * be some queues still alive even when the userq manager
+>>>> +	 * has been destroyed. This wait_evet() blocks
+>>>> +	 * amdgpu_userq_mgr_fini(), so keep userq_mgr alive
+>>>> +	 * while any queues holding it.
+>>>> +	 *
+>>>> +	 * This prevents queue->userq_mgr use-after-free issues.
+>>>> +	 */
+>>>> +	wait_var_event(&userq_mgr->refs,
+>>>> +		       !atomic_read_acquire(&userq_mgr->refs));
+>>>> +
+>>>>  	xa_destroy(&userq_mgr->userq_xa);
+>>>>  
+>>>>  	/*
+>>>> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+>>>> index 8fc73862f64e..a13d8d4dd5c7 100644
+>>>> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+>>>> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+>>>> @@ -126,6 +126,15 @@ struct amdgpu_userq_mgr {
+>>>>  	 */
+>>>>  	struct xarray			userq_xa;
+>>>>  	struct mutex			userq_mutex;
+>>>> +
+>>>> +	/**
+>>>> +	 * @refs:
+>>>> +	 *
+>>>> +	 * Each queue increases this counter when join this manager,
+>>>> +	 * and decreases it when leave this manager.
+>>>> +	 */
+>>>> +	atomic_t			refs;
+>>>> +
+>>>>  	struct amdgpu_device		*adev;
+>>>>  	struct delayed_work		resume_work;
+>>>>  	struct drm_file			*file;
+--------------kCgd35baixXSRtaZzFImBpps
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <pre>On 8/29/2026 12:26 AM, Christian König wrote:</pre>
+    <blockquote type="cite" cite="mid:847308aa-e4cb-405f-9e9c-dda3e4d28eef@amd.com">
+      <pre wrap="" class="moz-quote-pre">On 8/28/26 17:59, Zhu, Lingshan wrote:
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">On 8/28/2026 9:09 PM, Christian König wrote:
+
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">On 8/28/26 11:53, Zhu Lingshan wrote:
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">The life cycle of a user queue is managed by its
+kref. However when destroy a userq manager,
+the kref_put of its queues in amdgpu_userq_mgr_fini
+may not be the last put, therefore the queues
+could be still alive after the userq manager
+has been destroyed, resulting in
+userq-&gt;userq_mgr use-after-free issues.
+
+This commit fixes this problem by introduce a new
+counter refs representing for the number of its queues,
+and only free the userq_manager when refs == 0
+</pre>
+          </blockquote>
+          <pre wrap="" class="moz-quote-pre">Clear NAK to that one as well, this is just nonsense.
+</pre>
+        </blockquote>
+        <pre wrap="" class="moz-quote-pre">
+It could be better to have some explanations.
+
+I am not sure how to guarantee the put_kref in amdgpu_userq_mgr_fini
+is the last put and result in kref == 0, if not the last one,
+there can be userq-&gt;userq_mgr UAF bugs.
+</pre>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+The rules are actually pretty simple:
+
+The reference is for keeping the userq alive while IOCTLs happen. And IOCTL can only happen while the file and therefor the fpriv, userq_mgr etc... are still alive.
+
+What can potentially be is that we also need to grab a reference from a work item, but in this case the fpriv/userq_mgr cleanup functions just need to cancel and wait for the work to finish.
+
+There should *never* be a reference grabbed from interrupt context, explicitely because releasing that reference is also not possible from interrupt context. Instead xa_lock_irqsave() needs to be used to make sure that the userq stays alive while the interrupt processing happens.</pre>
+    </blockquote>
+    <pre>To protect a user queue from unexpected free and use-after-free, we either use xa_lock or the kref. 
+Please note, currently the xa lock can work only because the user queue destruction routine also acquires the xa lock, and this is not always true.
+
+However in some code paths, none of kref or xa_lock are employed, for example, in mes_userq_reset_queue, its just xa_for_each, no locking, no kref.
+That is the problem this series intends to fix (UAF issues, racing with the destroyer).
+
+And I believe we should choose kref rather than xa lock, the reasons:
+1) in some code paths, like  mes_userq_reset_queue, amdgpu_userq_stop_sched_for_enforce_isolation and amdgpu_userq_start_sched_for_enforce_isolation,
+they all acquire a mutex, may sleep, so can not use xa lock in such routines
+2) xa lock is for the XArray, it serializes the access to the queues, means when lock the xarray, only one thread can process one queue, it is a performance degradation.
+3) xa lock is a spin lock, so don't hold it for long time while processing a queue.
+4) since the struct kref is embedded in user queue, it introduces a new destruction process of the queue, which is invoked when kref == 0,
+so we should take kref in every routine that process the queue to avoid UAF.
+
+So this patch is a prepare for the following patches, after fixing the user queue UAF issues, there would be more code paths get and put the kref to protect the queues,
+therefore, the put in amdgpu_userq_mgr_fini may not be the last put, and amdgpu_userq_mgr_fini destroys the userq manager, resulting in userq-&gt;userq_mgr use-after-free,
+that is why we need this improvement.
+
+Thanks
+Lingshan</pre>
+    <blockquote type="cite" cite="mid:847308aa-e4cb-405f-9e9c-dda3e4d28eef@amd.com">
+      <pre wrap="" class="moz-quote-pre">
+
+Regards,
+Christian.
+
+</pre>
+      <blockquote type="cite">
+        <pre wrap="" class="moz-quote-pre">
+Thanks
+Lingshan
+
+</pre>
+        <blockquote type="cite">
+          <pre wrap="" class="moz-quote-pre">Christian.
+
+</pre>
+          <blockquote type="cite">
+            <pre wrap="" class="moz-quote-pre">Signed-off-by: Zhu Lingshan <a class="moz-txt-link-rfc2396E" href="mailto:lingshan.zhu@amd.com">&lt;lingshan.zhu@amd.com&gt;</a>
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c | 30 +++++++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h |  9 +++++++
+ 2 files changed, 39 insertions(+)
+
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+index e0639f844a8e..f398986a61a5 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c
+@@ -27,6 +27,7 @@
+ #include &lt;linux/pm_runtime.h&gt;
+ #include &lt;linux/overflow.h&gt;
+ #include &lt;drm/drm_drv.h&gt;
++#include &lt;linux/wait_bit.h&gt;
+ 
+ #include &quot;amdgpu.h&quot;
+ #include &quot;amdgpu_reset.h&quot;
+@@ -533,6 +534,17 @@ amdgpu_userq_get_doorbell_index(struct amdgpu_userq_mgr *uq_mgr,
+ 	return r;
+ }
+ 
++static void amdgpu_userq_mgr_inc_refs(struct amdgpu_userq_mgr *uq_mgr)
++{
++	atomic_inc(&amp;uq_mgr-&gt;refs);
++}
++
++static void amdgpu_userq_mgr_dec_refs(struct amdgpu_userq_mgr *uq_mgr)
++{
++	if (atomic_dec_and_test(&amp;uq_mgr-&gt;refs))
++		wake_up_var(&amp;uq_mgr-&gt;refs);
++}
++
+ static int
+ amdgpu_userq_destroy(struct amdgpu_userq_mgr *uq_mgr, struct amdgpu_usermode_queue *queue)
+ {
+@@ -594,6 +606,8 @@ static void amdgpu_userq_kref_destroy(struct kref *kref)
+ 	r = amdgpu_userq_destroy(uq_mgr, queue);
+ 	if (r)
+ 		drm_file_err(uq_mgr-&gt;file, &quot;Failed to destroy usermode queue %d\n&quot;, r);
++
++	amdgpu_userq_mgr_dec_refs(uq_mgr);
+ }
+ 
+ struct amdgpu_usermode_queue *amdgpu_userq_get(struct amdgpu_userq_mgr *uq_mgr, u32 qid)
+@@ -707,6 +721,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ 	queue-&gt;xcp_id = (fpriv-&gt;xcp_id != AMDGPU_XCP_NO_PARTITION) ?
+ 				fpriv-&gt;xcp_id : 0;
+ 	queue-&gt;userq_mgr = uq_mgr;
++	amdgpu_userq_mgr_inc_refs(uq_mgr);
+ 	INIT_DELAYED_WORK(&amp;queue-&gt;hang_detect_work,
+ 			  amdgpu_userq_hang_detect_work);
+ 
+@@ -819,6 +834,7 @@ amdgpu_userq_create(struct drm_file *filp, union drm_amdgpu_userq *args)
+ free_queue:
+ 	trace_amdgpu_userq_create_end(queue, r);
+ 	kfree(queue);
++	amdgpu_userq_mgr_dec_refs(uq_mgr);
+ err_pm_runtime:
+ 	pm_runtime_put_autosuspend(adev_to_drm(adev)-&gt;dev);
+ 	return r;
+@@ -1331,6 +1347,7 @@ int amdgpu_userq_mgr_init(struct amdgpu_userq_mgr *userq_mgr, struct drm_file *f
+ {
+ 	mutex_init(&amp;userq_mgr-&gt;userq_mutex);
+ 	xa_init_flags(&amp;userq_mgr-&gt;userq_xa, XA_FLAGS_ALLOC);
++	atomic_set(&amp;userq_mgr-&gt;refs, 0);
+ 	userq_mgr-&gt;adev = adev;
+ 	userq_mgr-&gt;file = file_priv;
+ 	userq_mgr-&gt;proc_ctx_allocated = false;
+@@ -1380,6 +1397,19 @@ void amdgpu_userq_mgr_fini(struct amdgpu_userq_mgr *userq_mgr)
+ 		amdgpu_userq_put(queue);
+ 	}
+ 
++	/*
++	 * The above amdgpu_userq_put() may not be the last put
++	 * of the kref of a user queue, therefore there could
++	 * be some queues still alive even when the userq manager
++	 * has been destroyed. This wait_evet() blocks
++	 * amdgpu_userq_mgr_fini(), so keep userq_mgr alive
++	 * while any queues holding it.
++	 *
++	 * This prevents queue-&gt;userq_mgr use-after-free issues.
++	 */
++	wait_var_event(&amp;userq_mgr-&gt;refs,
++		       !atomic_read_acquire(&amp;userq_mgr-&gt;refs));
++
+ 	xa_destroy(&amp;userq_mgr-&gt;userq_xa);
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+index 8fc73862f64e..a13d8d4dd5c7 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq.h
+@@ -126,6 +126,15 @@ struct amdgpu_userq_mgr {
+ 	 */
+ 	struct xarray			userq_xa;
+ 	struct mutex			userq_mutex;
++
++	/**
++	 * @refs:
++	 *
++	 * Each queue increases this counter when join this manager,
++	 * and decreases it when leave this manager.
++	 */
++	atomic_t			refs;
++
+ 	struct amdgpu_device		*adev;
+ 	struct delayed_work		resume_work;
+ 	struct drm_file			*file;
+</pre>
+          </blockquote>
+        </blockquote>
+      </blockquote>
+      <pre wrap="" class="moz-quote-pre">
+</pre>
+    </blockquote>
+  </body>
+</html>
+
+--------------kCgd35baixXSRtaZzFImBpps--
