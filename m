@@ -4,28 +4,28 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id CAD9DC61DD3
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 11:27:32 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A104AC624CF
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 11:31:06 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4252C10E18A;
-	Tue,  1 Sep 2026 11:27:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A9F810E3DF;
+	Tue,  1 Sep 2026 11:31:06 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (unknown [165.204.217.251])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1863D10E18A
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 11:27:29 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0D5CE10E3DF
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 11:31:04 +0000 (UTC)
 Received: from rtg-sunil-navi33.amd.com (localhost [127.0.0.1])
  by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Debian-22ubuntu3) with ESMTP id
- 681BROgI1834879; Tue, 1 Sep 2026 16:57:24 +0530
+ 681BV29X1836408; Tue, 1 Sep 2026 17:01:02 +0530
 Received: (from sunil@localhost)
- by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 681BROkG1834878;
- Tue, 1 Sep 2026 16:57:24 +0530
+ by rtg-sunil-navi33.amd.com (8.15.2/8.15.2/Submit) id 681BV2661836407;
+ Tue, 1 Sep 2026 17:01:02 +0530
 From: Sunil Khatri <sunil.khatri@amd.com>
 To: Alex Deucher <alexander.deucher@amd.com>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: amd-gfx@lists.freedesktop.org, Sunil Khatri <sunil.khatri@amd.com>
 Subject: [PATCH] drm/amdgpu/userq: dont overwrite the error of subsequent map
  call
-Date: Tue,  1 Sep 2026 16:57:23 +0530
-Message-Id: <20260901112723.1834853-1-sunil.khatri@amd.com>
+Date: Tue,  1 Sep 2026 17:00:53 +0530
+Message-Id: <20260901113053.1836346-1-sunil.khatri@amd.com>
 X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
