@@ -4,67 +4,51 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06230C624A4
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:35:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 35D13C624DE
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:35:13 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2175C10F43F;
-	Thu,  3 Sep 2026 07:35:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F6F310F447;
+	Thu,  3 Sep 2026 07:35:12 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XQW567dQ";
+	dkim=pass (1024-bit key; unprotected) header.d=collabora.com header.i=mark.filion@collabora.com header.b="E8LzgajA";
 	dkim-atps=neutral
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6B0B910E486;
- Wed,  2 Sep 2026 09:27:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1788341240; x=1819877240;
- h=from:date:to:cc:subject:in-reply-to:message-id:
- references:mime-version;
- bh=KPrDvW0fnoXM/spnF4ccGetBZU62mAAZhQ0Hguq+iaE=;
- b=XQW567dQqeWtAIeq2pTJ4EzAD67PN31TaopyWUd+iASC85fTw0EXHS55
- 6gQRRzRxQrfz5OiWvM1Aq5ljh5nuJNCWgLZoGkcLTE9EdfiZsxm4EPOHA
- /ELzdIYWKNInAmNrc5Zu3lmG3S5KGlDx32CBJUusekqg4O3c+k3Ep9ktv
- h/A92vmQiedTpCu1kJ+UrVMLaDa4+Q2aRysO0ecF4ifGqbSTd5eTSyTvm
- tI1K3sr+N/3p7kuO4KB2vam2Ty9NhiiuyYe0WuNUDWq3oDGpg47ssHeeG
- QGeIHob0qUKQf0kGrO9Y8sGenSKHdxpCh+VdguNXXxkuq3Bw3hH8LfkQ/ A==;
-X-CSE-ConnectionGUID: fUP1VBmnQ2CQYsCCUwPbdw==
-X-CSE-MsgGUID: fgdjAyDVQpOnRmre6dVGzA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="114336702"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="114336702"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2026 02:27:20 -0700
-X-CSE-ConnectionGUID: bQypmes+TVyLHiesV3Df/A==
-X-CSE-MsgGUID: uAFY43MYR6eU1d4FFI5Nkw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="263207963"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.185])
- by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Sep 2026 02:27:13 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 2 Sep 2026 12:27:09 +0300 (EEST)
-To: Armin Wolf <W_Armin@gmx.de>
-cc: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
- LKML <linux-kernel@vger.kernel.org>, linux@weissschuh.net, 
- "Rafael J. Wysocki" <rafael@kernel.org>, lenb@kernel.org, 
- linux-acpi@vger.kernel.org, alexander.deucher@amd.com, 
- christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, 
- amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com, 
- mripard@kernel.org, tzimmermann@suse.de, jani.nikula@linux.intel.com, 
- joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com, 
- tursulin@ursulin.net, intel-gfx@lists.freedesktop.org, 
- matthew.brost@intel.com, thomas.hellstrom@linux.intel.com, 
- intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH v3 0/3] platform/wmi: Add aarch64 support
-In-Reply-To: <46bd3385-4bd8-4a98-8ef3-57c29d00361c@gmx.de>
-Message-ID: <c8445c2e-6799-7856-610c-0742248e1c07@linux.intel.com>
-References: <20260724025959.142826-1-W_Armin@gmx.de>
- <59aadf0f-953c-4b7c-8c92-9dd9bc4f89de@gmx.de>
- <46bd3385-4bd8-4a98-8ef3-57c29d00361c@gmx.de>
+X-Greylist: delayed 2704 seconds by postgrey-1.36 at gabe;
+ Tue, 01 Sep 2026 20:42:03 UTC
+Received: from sender4-op-o16.zoho.com (sender4-op-o16.zoho.com
+ [136.143.188.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A960410E555
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 20:42:03 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1788292618; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=SZfXuGcuK3qZmfGz0nXRAVJShDB+pelcGo3tq7Z+KqnxqI1tTZTNlQuvxynqRdcwUlTapZez0kBhogEHRmbSX8cHK7/GsEFVq9X5a72qnJtf1oYpWsjqEigGh1tNxXzcc0FAu8mr0KiHpnZcX8gcy/PjHNGDJpzr+OCnUOr8cAs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1788292618;
+ h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc;
+ bh=/qHEHJKZk4x+utXQVy6Oy+Uc44nyD4jHGrqzfQUFDl4=; 
+ b=d4LNM2KzeAAU7f7K9XNstw8lEeBMUHD4l/qNpssD7jp/aJm8fAzC5jLPvsRor2iMhgLrzrUr6I6VoEUg/vRIjHaRpi+IJ2eaAdnwDtkyAitjimx8qMvWzIZax6xepMIpRB3Mbdn53Rj2YRH8L2faWg50MYLjQYEj3s9CPNZcb1I=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=mark.filion@collabora.com;
+ dmarc=pass header.from=<mark.filion@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788292618; 
+ s=zohomail; d=collabora.com; i=mark.filion@collabora.com;
+ h=Message-ID:Subject:Subject:From:From:To:To:Date:Date:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To:Cc;
+ bh=/qHEHJKZk4x+utXQVy6Oy+Uc44nyD4jHGrqzfQUFDl4=;
+ b=E8LzgajAQEufpn0gbD0NrtuFOf0WmrVL76g7/kUu4MiRJXARMuuGswDVHyXe21+O
+ WW74yrpPq7vi7GvZPLmgFnHafyWbm7pwf4GPz3TSRMcdAxc6TKCwGDdbHlZOJWq34L5
+ ptbsKmuRcdZzOnu9xj37a5uLpvJYVSy5Hq+Q1pCE=
+Received: by mx.zohomail.com with SMTPS id 1788292616797740.7937852299198;
+ Tue, 1 Sep 2026 12:56:56 -0700 (PDT)
+Message-ID: <f7b51ac3c5656e1bb4b62d6c8e078159c438057c.camel@collabora.com>
+Subject: XDC 2026: Full schedule now available
+From: Mark Filion <mark.filion@collabora.com>
+To: amd-gfx@lists.freedesktop.org
+Date: Tue, 01 Sep 2026 15:56:55 -0400
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44app2) 
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-507380628-1788341229=:1183"
+X-ZohoMailClient: External
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:34:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -80,59 +64,27 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hello everyone,
 
---8323328-507380628-1788341229=:1183
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Only a few weeks to go before XDC 2026 kicks off in Toronto, Canada!
 
-On Tue, 1 Sep 2026, Armin Wolf wrote:
+The full schedule of talks is now available! Check out the schedule to
+start planning which talks you don't want to miss.
 
-> Am 07.08.26 um 23:03 schrieb Armin Wolf:
->=20
-> > Am 24.07.26 um 04:59 schrieb Armin Wolf:
-> >=20
-> > > The aarch64-laptops project found out that some Windows-on-Arm
-> > > notebooks contain WMI-ACPI mapping devices (PNP0C14) that work
-> > > exactly like on x86. Those devices however are currently not
-> > > supported by the WMI driver core due to only supporting x86.
-> > >=20
-> > > The first patch removes this restriction and allows the WMI
-> > > driver core to run on all architectures that support ACPI.
-> > > The second patch updates the acpi-video driver to take advantage
-> > > of the improved support for architectures other than x86, and
-> > > the last patch enables the generic WMI BMOF driver to support
-> > > aarch64 as well.
-> > >=20
-> > > All patches have been tested on a ACPI-based aarch64 VM and
-> > > work just fine.
-> >=20
-> > Any thoughts about this series from the GPU driver people?
-> >=20
-> > Thanks,
-> > Armin Wolf=20
->=20
-> Can i assume that the silence means "looks fine to me"?
+https://xdc2026.x.org
 
-Hi,
+The CfP has also reopened for Lightning Talks, Workshops, Meetings &
+Hacking Sessions. Submissions are welcome, though acceptance is subject
+to available time in the schedule.
 
-Those subjects may be too generic for the GPU people to realize we're=20
-waiting for their Acks.
+https://indico.freedesktop.org/event/12/abstracts/
 
-I suggest you send non-ML email (private) with a more descriptive subject=
-=20
-to the relevant maintainers asking for them to take look at this series=20
-(I'd have done that myself later this week but you can do it as well).
-Such an email is more likely to be caught in their radar.
+If you are planning to attend, please make sure to register.
+Registration is free, and helps us plan for catering, evening events,
+and nametags.
 
-> > > Armin Wolf (3):
-> > > =C2=A0=C2=A0 platform/wmi: Remove dependency on CONFIG_X86
-> > > =C2=A0=C2=A0 ACPI: video: Remove CONFIG_X86 handling from nvidia_wmi_=
-ec_supported()
-> > > =C2=A0=C2=A0 platform/x86: wmi-bmof: Move to generic WMI code
+https://indico.freedesktop.org/event/12/registrations/
 
---=20
- i.
+Best,
 
---8323328-507380628-1788341229=:1183--
+Mark
