@@ -4,120 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id AC533C624D4
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 14:23:28 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1D553C61DD6
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 15:56:34 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2278710E48B;
-	Tue,  1 Sep 2026 14:23:28 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9A8A810E513;
+	Tue,  1 Sep 2026 15:56:33 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="dnQXH5Tl";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="pdioBnhd";
 	dkim-atps=neutral
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010015.outbound.protection.outlook.com [52.101.56.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D0F5710E48B
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 14:23:26 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012063.outbound.protection.outlook.com [52.101.48.63])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C173010E16A
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 15:56:31 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nOMFCfUYROddhiwjn4mv/H429RJMY1gJrbj12k9EplCW+yLgLJv3rjPOn3H2xGZG6FuKBVIoaTyJlLzgEZtwb2ly3B86o+pe6b7Cg8xwrua99jkmkbN5xkCg7oQdrCpTsN2iC8gqmqslroZkPCY5LhhjSRafDE1NDfk1Fao/MP6yv/BzCgnDNaO0PwM81ijD7qBYdB6c6t1515YqHFrh9Ci9zgnbhuElgdJcg7N2vcGcFVe5ssdvq/aTSClttIWxAYvLWXawtCMNBUy5797YXL+N7EC12/X+DUCteMYDkoETVtRVcia1YWFNUU28SWIHAFssqYdthHYN/4ZJlByA/A==
+ b=Lwt3SphoQUylnbA6NNhdtDij/WcwE2Qt7l4Qdkor3ANQ59RutgyAwNKkq6HWhBhz9Kjrvnx33F2caIfCwC+0AMTlteI7cgdo4cfnb7rkB732EwJYso/k6O77Tz8KPlV6VsCNQqY5qQkPkK2JrqboDipHzn8bzgLJawl3URhYTXTiWbt/8j/uyn8i9/2Ekn4i7qV80cMz+zQ70O1GSWuG4t2Hw0tvRy4a4idYJJTvAUpgG57pHHxblRFex0vCIYNQ7dn363kGMBA1Awaq3vt/0Zz5P7MFtBp8T7ye0UPj5Xqh7M8UtmfBZToL4YoL6KHK1WdeuQ+ZU5Jhwf3QGhGUUg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BEVEbdniYH6DBM/taJk4wPJQvPnUqGfpu0bLrScUoBg=;
- b=nUsxBj4v3z9k5ho7wOWE3kr+bYae/kCioJqNvHV7r96GKL7h4QjUx9wpMqTaq9Al3+kBvUozVd5/UkUW10IOc48Nv0DbaZf0z78zu47p/bV1irZ5VRX6gQ3V+K0T/rgWjs3LE+vpAvRWY+nhAgsARHNwe/TuvQ9kvk8vPqaPESJznF7DGCz7sZVosrEG50cv5QRO2lejPLv9WeAD7IoAmAcYBEDAcXI/P81NZoMNYi94Tu9v4ouxuMpA7yTBvugDOcpV6RwrLQ/ptyYF2iYeg5yNJTPHbe8+rs4CY3y+zSTCFZapyL+7Bo1ObeXBSR0nHGtGqQE/JL3EZQfzHphYRA==
+ bh=AqGHvzsSzX7xv+P28tdhGod2mMDDTzDDy8XmpjTU7aE=;
+ b=HZfivnu0UD8yP0Vxn34koVW4OxSpKAiF8W+2cSFr5UbctLEaqokyi5hP9kHIN/n3o7RaVUzSC4GLJSopg2cz3UaLOxhKuEcYKFW8Ctca93ZDFemOEGcN1RS7YrNcQ+1a0ggW4zAGQXOJ/xC1VdR8jwJ8hMHYKpwMRPH5b0puXUL3oppZh8CEdAQFVd/J9W3kuyiBmPwKBDixrNt5lbwPSLz3vdHyRKzRZ1F5FjmkNnv69R+ht+y2QI5AFJTFwfhrxeRGAPZoqdYmCoWtsksCHAhU1PkDQo59ZHvk1Yn+JQb8pSpZ8qeyaBi6zVwfJ+IGckwV410SgA799Kx4lSn1qQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BEVEbdniYH6DBM/taJk4wPJQvPnUqGfpu0bLrScUoBg=;
- b=dnQXH5TlavGjqNuhiVCZk1fQiS/tmCB/NxF4xo+79u//tDS1c03D2pk2N+LBKnIHcbMVtjIxbrlO7srw8cedNZfkmJph3HPV53Ge8HiVfE5MsKYbddmVJ8hE4aHoqagdJKDYGOZvu12t2jBnDTCzttfCZnmeH1EaY+YeKV+/Qcg=
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
- by DS7PR12MB6167.namprd12.prod.outlook.com (2603:10b6:8:98::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 14:23:23 +0000
-Received: from BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23]) by BN9PR12MB5146.namprd12.prod.outlook.com
- ([fe80::535a:591e:27f6:c23%3]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
- 14:23:22 +0000
-From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
-To: "LIPSKI, IVAN" <IVAN.LIPSKI@amd.com>, "amd-gfx@lists.freedesktop.org"
- <amd-gfx@lists.freedesktop.org>
-CC: "Yang, Philip" <Philip.Yang@amd.com>, "Kuehling, Felix"
- <Felix.Kuehling@amd.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix UALink build errors on 32-bit builds
-Thread-Topic: [PATCH] drm/amdgpu: Fix UALink build errors on 32-bit builds
-Thread-Index: AQHdOhyipl3s6xfh5k24HWqV2sPsfba5xpkz
-Date: Tue, 1 Sep 2026 14:23:22 +0000
-Message-ID: <BN9PR12MB5146B193E70BC8E8CC0EECE0F7A82@BN9PR12MB5146.namprd12.prod.outlook.com>
-References: <20260901141727.196585-1-IVAN.LIPSKI@amd.com>
-In-Reply-To: <20260901141727.196585-1-IVAN.LIPSKI@amd.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-09-01T14:23:22.320Z;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General; MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=1;
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard; 
-authentication-results: dkim=none (message not signed)
+ bh=AqGHvzsSzX7xv+P28tdhGod2mMDDTzDDy8XmpjTU7aE=;
+ b=pdioBnhdiSvfZoowsPvo7EdnQfZE5pp3sejQnmI00utJ35+NCsypJR/8qK/KC3SBQKpLUzThgEenJGHpCLPHsrvzcI+XY5h65SKz4FP7zkEweIujNLdd3x4OjPrKgjV0W+rtGP+xv2V1wxeNTVtqCXIeYKJ8wjYmtAdFFv1rbQw=
+Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|DS7PR12MB6167:EE_
-x-ms-office365-filtering-correlation-id: 07798a7e-a952-4b63-7a86-08df08349443
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;
- ARA:13230040|1800799024|376014|23010399003|366016|56012099006|10067099003|11063799006|6133799003|22082099003|18002099003|8096899003|38070700021;
-x-microsoft-antispam-message-info: EX85I5NxCXAvpWqRD2SWE4fdZhglpJQNXK2Bo33FP/gd+9rAyDrHyUj3PUQ9N0wQmAidam5wSzZe+J2fwA5xxaO7mUM38jFM3Wq9ZEotWLZ0QUXA9r3zTOBO7ZNrZc+rQyXKd6vfjYpDXW79Fzu6AEpnJ+dRCOMIX3uj+VxpBn7g1OMIOOKI0mkiVLM4Hgdm/btA0xWTGuBWcTuAEavFUWXBplIOGFPxxForz613ISsYIhlhWlsY6P+4LmwGAerXG2C3tvVNQWVRVlQUqFwAe3y7mZfD2HcRNZXLRZUeg4dFI4zCiHy2efKoIEG9T0Lt2RAd8a1saHyurdwmRTWZ43FzvVzdwf6/j8+jLckamzj5mY2L2qDQMBzaxlrLhUPCq0cr4mZ/K3Y2dPPEZBq4pAY9DN+cjVKwDEILuqWECxqGKOl1PyoLfAvNRvsL8TCd/bsOHRrUkrPNqmh2ZFaOiTsAMrskLGez05AUhKxiR3lwfmfOf4yjLxkiz9IatGNbTP1jbwt0zKG+Zv4JUv2rfIKWRS7OHe1NVfx6ptbHwwqlIsmTlN687s0cf/q44yeW0i6ThajdjFzkzONURKcKFKdpDbokCiTeNlZDml+TbDCCDZ5NFecqNrlIblevArAHaxJzVyzPuU9356cVbk9rNqfLoGKlU/NwJhp0HZgpj7GmivTJ9UhBGuBUx3v3beaaA4skx+IRlW3Twg8YjH8g9M5dOLok1R14S8eZ1TFml7E=
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BN9PR12MB5146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(56012099006)(10067099003)(11063799006)(6133799003)(22082099003)(18002099003)(8096899003)(38070700021);
- DIR:OUT; SFP:1101; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?bRbUP/cnNC3hMS8BgRXzt2bxtQIUh65S+So4QdtDgkIRsRjLRDo6OAVXUnqy?=
- =?us-ascii?Q?l2qd9qIssxyhkRxi7naGnbGm7Q15mgmHP2bd19MQUFpvHGyNT/IDUTv2BlkH?=
- =?us-ascii?Q?rd2mklCwEcqv21q00yDgaRNJ8VQB/pTW8icPcxpr2ylC4JXUYpZrNL5to3zL?=
- =?us-ascii?Q?CWYrqpuhOqbTyuaQiXt1rANhgGp03Zm0IXLHVXYwV3FJprqCrUkAeyw9ErWq?=
- =?us-ascii?Q?u/ETQ1Lze6JvZ3EeYHFaN7fClE82LlAQRqWhhkJ43OEqE7AiFZ5G2r3+RtoM?=
- =?us-ascii?Q?d5+7rHYucfFbxp+T49E2XJs4nU9dLwvxjvePrZQx6zqJfifG23ZV6hIO5fYR?=
- =?us-ascii?Q?sg4eGj5Mh+cGVgiaobZZw8g906ZqoVTsQs3Tg3p2E6nGVPQS1Mq3hdpPRnlb?=
- =?us-ascii?Q?Gz3MgkBU8mPov1zk5SegT5/6AfUuVk4l/XpyzOpm55vG9c9HXI1AaDaK5ZUk?=
- =?us-ascii?Q?RAs068vjwjVOg+9f9SfRtWYampzsGCguuiD9QG5GL/Jt4i85M+j/NVZHqXqi?=
- =?us-ascii?Q?VZTKUJB8gGjQzRD8cL8k0OcVZRIhvfWYGZlrFa5fN9eujgj+itqKYNmOc8yz?=
- =?us-ascii?Q?2M601976hgV9vdfrbmrvEn7db3Z5r8NNTJ7x7q7/BQ1ItA0YNveJZcK1JnNo?=
- =?us-ascii?Q?kHCiWaCMqi61CEQhjU2mf9GTvXAvvk+93S2DxsyzAHTVNEYuBIlC04WWUomv?=
- =?us-ascii?Q?VoTP8YpmkUwrMwymXB107VSBl7Mgj13uzYO/lsb8QCeAy6Ynst0BLSFHEbvD?=
- =?us-ascii?Q?adB+KIXV84Jmfu++GvLMbegPiCOZp/xR5MBU6rJMf80Go3pGCTU/mh0EytgK?=
- =?us-ascii?Q?Mf8hh5Q8EkqXu+bufVsIhtN0BQIrroqnz4iwZwY5nkJNhDKuacWrGJ/vjKn6?=
- =?us-ascii?Q?8oIIRMes6Pf8LyLxBJKZhMbxjv/O1to4i6kXt2tgCO89bYxK9L/28MdjyrjG?=
- =?us-ascii?Q?pWsN35c70hWqWIlr+y53auxx88/6DopSK97ZE+rPeuUkqXmgOG3Gmesv56iB?=
- =?us-ascii?Q?XTgWolAQXeVSjZgHkprXA1LcTwOi/4P7zQd1eDEMhFDhm75ynsL98+l3dA9N?=
- =?us-ascii?Q?9WaY1196DWA07f9aDDCjkb6X7Frz0C42USrBcDUYmKOcKXL9b3+wlfN3qpPR?=
- =?us-ascii?Q?7NN63VYMHUKjUxDRZvDfDV4fanKrOOAHUUqme9i/Tz6Vb/lpqc3v5yefvCdX?=
- =?us-ascii?Q?iT29iRWNNyWkFoNw7quRtdaaEZRIX3XFC+3CuSVJHXMz9G2DHXchQzbqxuDH?=
- =?us-ascii?Q?ZKO3ieZgwbuYDAoqYVQvTLKSxlCL1HINII8to0CwwbFUgOVcFdNwOcXyUiWI?=
- =?us-ascii?Q?j3JQX8SOw2ldfwF276GYliJrhg7Pg+GYW4XT77R+E/uSizw17b1gXitiSxcR?=
- =?us-ascii?Q?PzE/zmHHlVyJQ38NlBCQ0UIbIZQZ2EUuP2toJbBKQQizLJnid74S42lH4jlk?=
- =?us-ascii?Q?fzii33jRF36l8zyhdyGlIlE/hA+Bie88zqqtEVd7raMtttMNMGHyCAANXehA?=
- =?us-ascii?Q?vBN282g6TujRFCJTN8o+6wuEUMbnaS9jUJw8xLgvsah7s2bQieL4nBVwNgsN?=
- =?us-ascii?Q?jmgW8fJnwrFdfi/XVaduBphOmH/wwMeWpwVTgTwZawjfzpId8zGakkUBxM+h?=
- =?us-ascii?Q?Fs/vm8G/MBJIo9RzPXBzSwkDgBk6K0iHbqJMP/GNzOKAFj2TK6WU7OoGvlko?=
- =?us-ascii?Q?NnaqTT/zLTyjLlmRYLSwlm3V9zddkuX/F30Wfn8zi8BfbCRA?=
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607) by CH3PR12MB7692.namprd12.prod.outlook.com
+ (2603:10b6:610:145::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
+ 2026 15:56:26 +0000
+Received: from BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943]) by BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ ([fe80::3f44:4881:3c5a:943%3]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 15:56:26 +0000
 Content-Type: multipart/alternative;
- boundary="_000_BN9PR12MB5146B193E70BC8E8CC0EECE0F7A82BN9PR12MB5146namp_"
+ boundary="------------UoK80vzYEz3qdHE3f5w0iy0q"
+Message-ID: <813dc7e9-d7f3-4d8d-a641-7873e4c9a32d@amd.com>
+Date: Tue, 1 Sep 2026 11:56:26 -0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/amdkfd: skip migration when the fault window is
+ already in VRAM
+To: William Palacek <William.Palacek@amd.com>, amd-gfx@lists.freedesktop.org
+Cc: Harish.Kasiviswanathan@amd.com, kent.russell@amd.com
+References: <20260901124516.357959-1-William.Palacek@amd.com>
+Content-Language: en-US
+From: "Kuehling, Felix" <felix.kuehling@amd.com>
+In-Reply-To: <20260901124516.357959-1-William.Palacek@amd.com>
+X-ClientProxiedBy: YT4PR01CA0102.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:d7::26) To BN7PPF5F16C5C9C.namprd12.prod.outlook.com
+ (2603:10b6:40f:fc02::607)
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PPF5F16C5C9C:EE_|CH3PR12MB7692:EE_
+X-MS-Office365-Filtering-Correlation-Id: 129fc019-aa51-4b98-b795-08df08419436
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|366016|1800799024|376014|6133799003|22082099003|18002099003|10067099003|8096899003|5023799004|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: gqcnnUMCngo4MsSFl6eYT3VzOicWzN9EImPkpNkmZbbhU4d74dKoOsagQYV1XW2NtfVjDzLHf64GKQLkekBh2HCYN3VXqH+on4KltIP+KjWrzVz6eDgFt1sOFm78H8TXkYu3hd1anZ0V2fi1xrVu9IfQrMIAZi415Yb2lBQeNWU1RMKNU4htCUhwbz5gNRgiuzVGp6BLeUWi/gjNLBJsJ7pyFiASs/O0asp6i84i6zi1ky7nHoJWNysOIQXGUyidBV9zCIrMyQ0VUZaj3UYwEbdgAUjcW39O1Gp76MxEX6Lu0+wvd6Xa1+6VLytn9SaPu/xaYzyFzSBCIk3CeDyRVALLpcVfwEI8UkQKLUI/yOOG1UsiNMqDEALogRh5wIoAcFl6cKO+ZOAK0IU1CUg2pjYFTe1GGZ1ymRg6LEeZvFPMz5qvsI2CXBRqfuFBi/IRgyfhaY9Ne9fLihWNUm7Gon/3QqFM6Rj6qcvnLouWYYjxSNZYJosRbcMtPSH4OybuQNVsASOn1iA0RpDQ8OX8+C/+ippslb6YczIwgopDmNPAEZYkIhMtfVGyBbut/O+m6iOemIpw50j9sqwNIQify6wg2v9zDGHYtOBw4dKs7y9nUdz+u+U5zaicF/JSCG/EK1ZsxjdpWKEdt9a+yXpPNfYls88noiRyAQ+oPLYoLuM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN7PPF5F16C5C9C.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(6133799003)(22082099003)(18002099003)(10067099003)(8096899003)(5023799004)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SUdNUFFaeFlZdGpXOW9YNlJiQWNMVmVybWRRbGZYNlhGZ0tIc2x6cy9vRDNw?=
+ =?utf-8?B?MWc4cFViN3E0RHQzV2lsWXFMN0Q3ZGJrWnRrN2F5ZWJpZkYyTlE5aldUYnl5?=
+ =?utf-8?B?Q01NOEZzYlZ4akpxRDY4TzdNcS9jeHYwTXdNeGtIMkd1SlNOY0NJSCt3TXMy?=
+ =?utf-8?B?aDBKTytFeXJkMXZFQUlCMU5pMWIxOFowU2gwRWRiUjVyWVlER3ZTN2wzdzNz?=
+ =?utf-8?B?QUFwcDhHWVRrOGtxa1dTYi9pcUJCKzE4YW1tVm52bWw0WXBwTGNKOHR6SjMz?=
+ =?utf-8?B?WmZ2TlBJdjdCaDNSS3R2TWVzM05rTjhnVm1NVGNTWGt6T0VXOGF1SlB6SFkw?=
+ =?utf-8?B?b0RMV2Y0bkFxelNFSkk4SFhzSC80RHo3VEUxdVVCbDJHd3R5WmZnai9RdW9m?=
+ =?utf-8?B?RzE2cmQ3amZTSHdzOTIzS1V1a3c4TnJKeXZjV2c0NVJNS3JINHdsNmQ3dGVs?=
+ =?utf-8?B?cGpvL055eE8wOUFza3hhTElRSEV2QXFsUFY3U2t4QjJiczJ3bkYwQ05PRDQx?=
+ =?utf-8?B?Q3FTTHF4cEZyL2lCZWw5MG1pdGFEdm15dFU0cWNxN0RxWFJSUUVJREF0VDI5?=
+ =?utf-8?B?UUMxOFlaSUJQVXQwaUtZeTRNMlh1Zm5vQ0krWlRGSGw2MXZsNW1XWnpVVlRp?=
+ =?utf-8?B?eU5WbkNSQS9UanJ3U1VZUkFndFBxQjRoSkdyWDRpTFBsaGlUbTFiaGRZSTBo?=
+ =?utf-8?B?Qkxwb0ZQUUtkSk1XWGp5SGxlRXkrOWhzb01YVTlheUNkb0ZzS3kxeTZ4dlNn?=
+ =?utf-8?B?dHFJK2dLSE9JZjVNTFo5cEk5L2VBblRTcTlLdXkrTXBES1p3TTN5ZHZrdWN1?=
+ =?utf-8?B?STZyYVpFWDc1alRWVWIwY2kzdHFzSk9tcmtOTHczZ3BNVVlEYVpBOUVnT05k?=
+ =?utf-8?B?YnRWVDNwb29aZnhHTGpGZ0RpY2VzU0poanBFcnRXNUprTXhjREZwc3lPdGNW?=
+ =?utf-8?B?eDA1b2daUThqTnliZDBKNlJDdktyenVZSUN0Yjd3TmppRlJDdXZTVTdWOFBl?=
+ =?utf-8?B?eGsrK1FlSkE3a2phSmYreDJNcFYzaVNzUjVhemppUEhxa0FCNlBEK2svY3l0?=
+ =?utf-8?B?OUgwR2Y3L3Z1QW0rK0NKQzljZXZ4MHFnZUhwbldBWFRjYlg1YlZ0aVVwcGFS?=
+ =?utf-8?B?TFA3QWxnSVJxUWVzUU0vOE8xVFZlTlJidXYxQVBWVUZrTFZST0VtaFdjTEl1?=
+ =?utf-8?B?dFc1ZXVVSFJXWlZ3R00ydXd1QWFKQ29oNlZuRmxDV0tmVWw1M0YvZDJMcmJ1?=
+ =?utf-8?B?Y0FNemdXWXE5V1k0VlRjNU1QV0JkcFJteVM1R28zWVpyaTRNYUZVdUdBOXp5?=
+ =?utf-8?B?L2Jxc3FnODgyUEhRcWFUaVFHTXVhUmhzTWhnYjVCNUZCSnlOSHllWkl1RCs4?=
+ =?utf-8?B?YzVjOXN0TytmQ2IzTDgyRGRaWlZqcktsVXJveUZjbzhDdE5rNVBXZ2cxcmNT?=
+ =?utf-8?B?Zlp2UDRGZnIrdElncFBnazBOSk90MlZMRnJVMmVUdjBwTmt4Y1JpR2ZwN1N1?=
+ =?utf-8?B?bm53WCt6aVJOU1VacU1rUW40RjVoRS9GTC9FWXZxOXVpWVIzdk5mdFRmMk1G?=
+ =?utf-8?B?N2tKZUVXSFVNOTh4QU02YnIzTEFRM3dvTVArLzNmSGRreHpNQzBaL1ZYbVlE?=
+ =?utf-8?B?TEZEQVdrZUdNUjlWYWQ1N1lrajZXZTVGRllXcHRUSURpY2w4RWJCVGZoVFZI?=
+ =?utf-8?B?SlhoM0lNZjZBNDNSTnVGVGdvd2dpTkdtSEgrSUFuMW5PbXBONmNxbGJ2WTFv?=
+ =?utf-8?B?SmpRREFHYitpa2tGdUNFNXI4ZUhNT01FVmZxYkpyYVFWeHJwSGZlaTZPdUkw?=
+ =?utf-8?B?bHhXRW4wbGc1bWZ4SWxqY251TldIcXZ2TmUzdGxhZkNBeTFRaGlNZHZPV0xs?=
+ =?utf-8?B?TG4yZ3hWa0owTDFWbitQMnBqakNndURSRUNDSGhvYkRjNkhsZ25vZEx6REFn?=
+ =?utf-8?B?WjhSWWR4R2xzYjZQQzErNE5JREtvN1NUWEZTc0ZiSFNTNVJLcDlQNm1HM0Vx?=
+ =?utf-8?B?cGxyb2NFMlZDY0dNcGVYbzhubEpaQUVKSGQrcVMwMldiTVFkK01ITE5JZUZl?=
+ =?utf-8?B?ZXRMWHA0NlpTR2JZeDhjamhvcGdVM045aTdSZGZId050UVdGYjdwcE9veWNx?=
+ =?utf-8?B?VnZEeFM0enlBZThIbUN3Z0hoUGZMRnRiZUE2N3RVSDZsWkRVRTRDY29iRkM1?=
+ =?utf-8?B?SW9pNUtPMGNpZm53WkVaWHZPQnpWRWhUNTlDNGxDdXFYUUlzLzh0aUlidmJw?=
+ =?utf-8?B?NHVJTERhQVpsQ2xmOE1UOXpkZjFkekVxSHA4Ym8vWnpPV0c1RlRuMDJoa2Rj?=
+ =?utf-8?B?citrME5mN29jSERVWGg3M0V0U0FlNFdTRldrSXliY1RGVTNkUDB3dz09?=
 X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 129fc019-aa51-4b98-b795-08df08419436
+X-MS-Exchange-CrossTenant-AuthSource: BN7PPF5F16C5C9C.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 07798a7e-a952-4b63-7a86-08df08349443
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Sep 2026 14:23:22.8548 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bSwT/abOSzWBSGO+rWuU2vcKQD5LWHSgshDHWzn5J3HFib3VSauazyYBY5HwBw6t3SotPAuTjpBX/uDDEq40EA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB6167
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 15:56:26.4327 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4ZrppMvFrMjckEOSGH37EcfjJra/DbGqfGDEl5RHDQaPAdH83tSXLhEf4KIC/CqzgP7+pfouqeSBpG+NMh8Tbg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7692
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,234 +134,357 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
---_000_BN9PR12MB5146B193E70BC8E8CC0EECE0F7A82BN9PR12MB5146namp_
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+--------------UoK80vzYEz3qdHE3f5w0iy0q
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-AMD General
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
-________________________________
-From: IVAN.LIPSKI@amd.com <IVAN.LIPSKI@amd.com>
-Sent: Tuesday, September 1, 2026 10:17 AM
-To: Deucher, Alexander <Alexander.Deucher@amd.com>; amd-gfx@lists.freedeskt=
-op.org <amd-gfx@lists.freedesktop.org>
-Cc: Yang, Philip <Philip.Yang@amd.com>; Kuehling, Felix <Felix.Kuehling@amd=
-.com>; LIPSKI, IVAN <IVAN.LIPSKI@amd.com>
-Subject: [PATCH] drm/amdgpu: Fix UALink build errors on 32-bit builds
+On 2026-09-01 08:45, William Palacek wrote:
+> svm_migrate_vma_to_vram() is called for windows that are already fully
+> resident in the target GPU's VRAM. migrate_vma_setup() raises an MMU
+> notifier invalidate before it can discover there is nothing to collect,
+> and with retry faults enabled svm_range_cpu_invalidate_pagetables()
+> special cases only MMU_NOTIFY_UNMAP, so MMU_NOTIFY_MIGRATE is handled by
+> its default arm, reaching svm_range_evict() and then
+> svm_range_unmap_from_gpus().
+>
+> The attempt therefore drops the window's GPU mapping and then returns
+> having migrated nothing, so the next fault on that window is escalated
+> into another migration instead of being satisfied by mapping alone.
+>
+> Measured on MI300X (gfx942, SPX/NPS1, xnack+) under an HMM
+> oversubscription workload, 96 to 97% of to-VRAM migration attempts
+> collected zero pages, and the driver unmapped a window roughly 35 times
+> for every migration that moved data.
+>
+> Test whether every page of the faulting window is already resident in
+> this node's VRAM and return early if it is. prange->actual_loc alone is
+> not sufficient: since commit a546a2768440 ("drm/amdkfd: Use partial
+> migrations/mapping for GPU/CPU page faults in SVM") migration is per
+> window, so a range can report actual_loc == best_loc while part of it has
+> been evicted back to system memory. 3.3% of attempts were in exactly that
+> state and did have pages to move, so the per-page test is required rather
+> than the scalar alone. Instrumented over 100000 attempts on an earlier
+> run against a different driver build, the per-page test never skipped one
+> that had pages to move.
+>
+> With this applied the fault driven phase of that workload falls from 270
+> to 348 s down to 45 to 48 s, and page_in at the end of that phase is 46.2
+> to 48.0M pages against 44.1 to 45.7M unpatched, so the same or more data
+> is moved. Unmaps per productive migration fall from about 35 to about 2.
+> Retry fault counts do not fall in any arm, so this is not a refault loop;
+> what changes is how often a fault escalates into a migration.
+>
+> The scan is bounded by the migration window, one granule on the fault
+> path and the whole range on the prefetch path. That is the same order as
+> the migrate_vma_setup() walk it avoids, and it returns at the first page
+> that is not resident, so the worst case is one extra pass over a range
+> that then migrates normally.
+>
+> Signed-off-by: William Palacek<William.Palacek@amd.com>
+> ---
+>   drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 65 ++++++++++++++++++++++++
+>   1 file changed, 65 insertions(+)
+>
+> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> index c3411dacdf55..40fc21d18587 100644
+> --- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+> @@ -384,6 +384,52 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
+>   	return r;
+>   }
+>   
+> +/* Is every page of [start, end) already resident in the VRAM of @node?
+> + *
+> + * prange->actual_loc is a per-range scalar and is not sufficient on its own.
+> + * Since commit a546a2768440 ("drm/amdkfd: Use partial migrations/mapping for
+> + * GPU/CPU page faults in SVM") migration is per window, so a range can report
+> + * actual_loc == best_loc while parts of it have been evicted back to system
+> + * memory. On a gfx942 oversubscription workload 3.3% of migration attempts
+> + * were on windows in exactly that state and did have pages to move, so the
+> + * per-page test below is needed rather than the scalar alone.
+> + *
+> + * SVM_RANGE_VRAM_DOMAIN records "some device VRAM", not which device, which
+> + * is why the actual_loc comparison is kept as well.
+> + *
+> + * Called with prange->migrate_mutex held.
 
-From: Ivan Lipski <ivan.lipski@amd.com>
+I'm OK with a long explanation in the commit description. But for the 
+code comment I'd prefer to keep it more concise:
 
-[Why&How]
-Building the UALink code on x86-32 (ARCH=3Di386) triggers -Werror failures
-due to pointer/integer width mismatches:
+Check if a range of addresses is already resident in VRAM to avoid 
+unnecessary migrations that would trigger MMU notifiers causing the 
+range to be unmapped and faulted again unnecessarily.
 
-- In amdgpu_ualink_get_wb_addr(), casting the void * CPU addresses
-  (rb_cpu_addr/rptr_cpu_addr) to u64 causes a pointer-to-int-cast and
-  int-to-pointer-cast warning where pointers are 32-bit. Use uintptr_t
-  for the writeback address so it matches pointer width on both 32- and
-  64-bit targets.
 
-- In amdgpu_ualink_peer_remote_init(), the doorbell NPA constant
-  '0xFFFUL << 40' overflows on 32-bit where unsigned long is 32-bit,
-  triggering a shift-count-overflow warning. Use a ULL literal so the
-  constant is 64-bit on all architectures.
+> + */
+> +static bool
+> +svm_range_window_resident(struct kfd_node *node, struct svm_range *prange,
+> +			  u64 start, u64 end)
+> +{
+> +	struct kfd_process *p = container_of(prange->svms, struct kfd_process, svms);
+> +	unsigned long i, offset, wpages;
+> +	dma_addr_t *addr;
+> +	uint32_t gpuid;
+> +	int32_t gpuidx;
+> +
+> +	if (kfd_process_gpuid_from_node(p, node, &gpuid, &gpuidx))
+> +		return false;
+> +	if (prange->actual_loc != gpuid)
+> +		return false;
+> +
+> +	addr = prange->dma_addr[gpuidx];
+> +	if (!addr)
+> +		return false;
+> +
+> +	offset = (start >> PAGE_SHIFT) - prange->start;
+> +	wpages = (end - start) >> PAGE_SHIFT;
+> +	if (offset + wpages > prange->npages)
+> +		return false;
 
-No functional change on 64-bit.
+I believe this case shouldn't happen in practice. If it did, then 
+returning false here would be conservatively correct but may result in 
+unnecessary migration attempts.
 
-Assisted-by: Copilot:Claude-Opus-4.8
-Signed-off-by: Ivan Lipski <ivan.lipski@amd.com>
+If you wanted to be really sure, you'd also need to protect against a 
+negative offset (or integer underflow). I think a more robust approach 
+would be to adjust the bounds properly to fit within prange:
+
+	start = max(start >> PAGE_SHIFT, prange->start);
+	end = min(end >> PAGE_SHIFT, prange->end);
+	offset = start - prange->start;
+	npages = end - start;
+
+
+> +
+> +	for (i = offset; i < offset + wpages; i++)
+> +		if (!(addr[i] & SVM_RANGE_VRAM_DOMAIN))
+> +			return false;
+> +
+> +	return true;
+> +}
+> +
+>   static long
+>   svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
+>   			struct vm_area_struct *vma, u64 start,
+> @@ -401,6 +447,25 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
+>   	void *buf;
+>   	int r = -ENOMEM;
+>   
+> +	/* Every page of this window is already in this node's VRAM, so
+> +	 * migrate_vma_setup() below can collect nothing. It issues the
+> +	 * MMU-notifier invalidate before discovering that, and with retry
+> +	 * faults enabled that lands in svm_range_cpu_invalidate_pagetables(),
+> +	 * which special cases only MMU_NOTIFY_UNMAP, so MMU_NOTIFY_MIGRATE is
+> +	 * handled by its default arm, reaching svm_range_evict() and
+> +	 * svm_range_unmap_from_gpus(). The attempt therefore tears this
+> +	 * window's GPU mapping down and then finds nothing to move, so the
+> +	 * next fault on it is escalated back into migration instead of being
+> +	 * satisfied by mapping alone.
+> +	 *
+> +	 * On a gfx942 oversubscription workload such attempts were 96 to 97%
+> +	 * of all to-VRAM migrations, and the driver unmapped a window roughly
+> +	 * 35 times per migration that moved data, against about 2 with this
+> +	 * guard.
+> +	 */
+
+Again, I'd prefer a shorter comment here:
+
+Avoid unnecessary migrations and MMU notifiers if all the data is 
+already resident in VRAM.
+
+Regards,
+   Felix
+
+
+> +	if (svm_range_window_resident(node, prange, start, end))
+> +		return 0;
+> +
+>   	memset(&migrate, 0, sizeof(migrate));
+>   	migrate.vma = vma;
+>   	migrate.start = start;
+--------------UoK80vzYEz3qdHE3f5w0iy0q
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+<!DOCTYPE html><html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body>
+    <p><br>
+    </p>
+    <div class="moz-cite-prefix">On 2026-09-01 08:45, William Palacek
+      wrote:<br>
+    </div>
+    <blockquote type="cite" cite="mid:20260901124516.357959-1-William.Palacek@amd.com">
+      <pre wrap="" class="moz-quote-pre">svm_migrate_vma_to_vram() is called for windows that are already fully
+resident in the target GPU's VRAM. migrate_vma_setup() raises an MMU
+notifier invalidate before it can discover there is nothing to collect,
+and with retry faults enabled svm_range_cpu_invalidate_pagetables()
+special cases only MMU_NOTIFY_UNMAP, so MMU_NOTIFY_MIGRATE is handled by
+its default arm, reaching svm_range_evict() and then
+svm_range_unmap_from_gpus().
+
+The attempt therefore drops the window's GPU mapping and then returns
+having migrated nothing, so the next fault on that window is escalated
+into another migration instead of being satisfied by mapping alone.
+
+Measured on MI300X (gfx942, SPX/NPS1, xnack+) under an HMM
+oversubscription workload, 96 to 97% of to-VRAM migration attempts
+collected zero pages, and the driver unmapped a window roughly 35 times
+for every migration that moved data.
+
+Test whether every page of the faulting window is already resident in
+this node's VRAM and return early if it is. prange-&gt;actual_loc alone is
+not sufficient: since commit a546a2768440 (&quot;drm/amdkfd: Use partial
+migrations/mapping for GPU/CPU page faults in SVM&quot;) migration is per
+window, so a range can report actual_loc == best_loc while part of it has
+been evicted back to system memory. 3.3% of attempts were in exactly that
+state and did have pages to move, so the per-page test is required rather
+than the scalar alone. Instrumented over 100000 attempts on an earlier
+run against a different driver build, the per-page test never skipped one
+that had pages to move.
+
+With this applied the fault driven phase of that workload falls from 270
+to 348 s down to 45 to 48 s, and page_in at the end of that phase is 46.2
+to 48.0M pages against 44.1 to 45.7M unpatched, so the same or more data
+is moved. Unmaps per productive migration fall from about 35 to about 2.
+Retry fault counts do not fall in any arm, so this is not a refault loop;
+what changes is how often a fault escalates into a migration.
+
+The scan is bounded by the migration window, one granule on the fault
+path and the whole range on the prefetch path. That is the same order as
+the migrate_vma_setup() walk it avoids, and it returns at the first page
+that is not resident, so the worst case is one extra pass over a range
+that then migrates normally.
+
+Signed-off-by: William Palacek <a class="moz-txt-link-rfc2396E" href="mailto:William.Palacek@amd.com">&lt;William.Palacek@amd.com&gt;</a>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 65 ++++++++++++++++++++++++
+ 1 file changed, 65 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_ualink.c
-index f82bc9a9d083..ad8cc95e6cfa 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c
-@@ -5674,15 +5674,16 @@ static void amdgpu_ualink_get_wb_addr(struct amdgpu=
-_device *adev,
-         struct amdgpu_ualink_remote *remote =3D to_remote(adev);
-         u32 accel_id =3D ualink_accel_id(adev);
-         u32 rb_size =3D AMDGPU_GPU_PAGE_ALIGN(2 * AMDGPU_UALINK_RB_SIZE);
--       u64 wb, npa;
-+       uintptr_t wb;
-+       u64 npa;
-         u32 offset =3D 0;
-
-         if (ualink_addr_mode(adev) =3D=3D AMDGPU_UALINK_ADDR_MODE_SOURCE_I=
-DENT) {
--               wb =3D (u64)remote->rb_cpu_addr + rb_size * remote->num_acc=
-el;
-+               wb =3D (uintptr_t)remote->rb_cpu_addr + rb_size * remote->n=
-um_accel;
-                 npa =3D amdgpu_ualink_npa_addr(adev, RB_TYPE_TAILPTR,
-                                              remote_accel_id, accel_id);
-         } else {
--               wb =3D (u64)remote->rptr_cpu_addr;
-+               wb =3D (uintptr_t)remote->rptr_cpu_addr;
-                 npa =3D remote->rptr_npa;
-                 npa |=3D (u64)accel_id << AMDGPU_UALINK_GART_NPA_ADDR_GPUI=
-D_SHIFT;
-         }
-@@ -5914,7 +5915,7 @@ static int amdgpu_ualink_peer_remote_init(struct amdg=
-pu_device *adev)
-                  *     1 - PMI1 Remote TLB Shootdown
-                  * ReqAddr[5:0]   =3D 6'h0
-                  */
--               npa =3D 0xFFFUL << 40 | (u64)dst_accel_id << 30;
-+               npa =3D 0xFFFULL << 40 | (u64)dst_accel_id << 30;
-                 r =3D amdgpu_ualink_gart_map(adev, 1, npa, &interrupt->mm_=
-node_doorbell, flags);
-                 if (r)
-                         break;
---
-2.43.0
-
-
---_000_BN9PR12MB5146B193E70BC8E8CC0EECE0F7A82BN9PR12MB5146namp_
-Content-Type: text/html; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
-
-<html>
-<head>
-<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dus-ascii"=
->
-<style type=3D"text/css" style=3D"display:none;"> P {margin-top:0;margin-bo=
-ttom:0;} </style>
-</head>
-<body dir=3D"ltr">
-<div>
-<div style=3D"font-family: Calibri; text-align: left; color: rgb(0, 0, 255)=
-; margin-left: 5pt; font-size: 10pt;">
-AMD General</div>
-<br>
-</div>
-<div style=3D"font-family: Aptos, Aptos_EmbeddedFont, Aptos_MSFontService, =
-Calibri, Helvetica, sans-serif; font-size: 12pt; color: rgb(0, 0, 0);" clas=
-s=3D"elementToProof">
-Reviewed-by: Alex Deucher &lt;alexander.deucher@amd.com&gt;</div>
-<div id=3D"appendonsend"></div>
-<hr style=3D"display:inline-block;width:98%" tabindex=3D"-1">
-<div id=3D"divRplyFwdMsg" dir=3D"ltr"><font face=3D"Calibri, sans-serif" st=
-yle=3D"font-size:11pt" color=3D"#000000"><b>From:</b> IVAN.LIPSKI@amd.com &=
-lt;IVAN.LIPSKI@amd.com&gt;<br>
-<b>Sent:</b> Tuesday, September 1, 2026 10:17 AM<br>
-<b>To:</b> Deucher, Alexander &lt;Alexander.Deucher@amd.com&gt;; amd-gfx@li=
-sts.freedesktop.org &lt;amd-gfx@lists.freedesktop.org&gt;<br>
-<b>Cc:</b> Yang, Philip &lt;Philip.Yang@amd.com&gt;; Kuehling, Felix &lt;Fe=
-lix.Kuehling@amd.com&gt;; LIPSKI, IVAN &lt;IVAN.LIPSKI@amd.com&gt;<br>
-<b>Subject:</b> [PATCH] drm/amdgpu: Fix UALink build errors on 32-bit build=
-s</font>
-<div>&nbsp;</div>
-</div>
-<div class=3D"BodyFragment"><font size=3D"2"><span style=3D"font-size:11pt;=
-">
-<div class=3D"PlainText">From: Ivan Lipski &lt;ivan.lipski@amd.com&gt;<br>
-<br>
-[Why&amp;How]<br>
-Building the UALink code on x86-32 (ARCH=3Di386) triggers -Werror failures<=
-br>
-due to pointer/integer width mismatches:<br>
-<br>
-- In amdgpu_ualink_get_wb_addr(), casting the void * CPU addresses<br>
-&nbsp; (rb_cpu_addr/rptr_cpu_addr) to u64 causes a pointer-to-int-cast and<=
-br>
-&nbsp; int-to-pointer-cast warning where pointers are 32-bit. Use uintptr_t=
-<br>
-&nbsp; for the writeback address so it matches pointer width on both 32- an=
-d<br>
-&nbsp; 64-bit targets.<br>
-<br>
-- In amdgpu_ualink_peer_remote_init(), the doorbell NPA constant<br>
-&nbsp; '0xFFFUL &lt;&lt; 40' overflows on 32-bit where unsigned long is 32-=
-bit,<br>
-&nbsp; triggering a shift-count-overflow warning. Use a ULL literal so the<=
-br>
-&nbsp; constant is 64-bit on all architectures.<br>
-<br>
-No functional change on 64-bit.<br>
-<br>
-Assisted-by: Copilot:Claude-Opus-4.8<br>
-Signed-off-by: Ivan Lipski &lt;ivan.lipski@amd.com&gt;<br>
----<br>
-&nbsp;drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c | 9 +++++----<br>
-&nbsp;1 file changed, 5 insertions(+), 4 deletions(-)<br>
-<br>
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c b/drivers/gpu/drm/a=
-md/amdgpu/amdgpu_ualink.c<br>
-index f82bc9a9d083..ad8cc95e6cfa 100644<br>
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c<br>
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c<br>
-@@ -5674,15 +5674,16 @@ static void amdgpu_ualink_get_wb_addr(struct amdgpu=
-_device *adev,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; struct amdgpu_ualink_remot=
-e *remote =3D to_remote(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 accel_id =3D ualink_ac=
-cel_id(adev);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 rb_size =3D AMDGPU_GPU=
-_PAGE_ALIGN(2 * AMDGPU_UALINK_RB_SIZE);<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 wb, npa;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uintptr_t wb;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u64 npa;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; u32 offset =3D 0;<br>
-&nbsp;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (ualink_addr_mode(adev)=
- =3D=3D AMDGPU_UALINK_ADDR_MODE_SOURCE_IDENT) {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; wb =3D (u64)remote-&gt;rb_cpu_addr + rb_size * remote-&gt;num_ac=
-cel;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; wb =3D (uintptr_t)remote-&gt;rb_cpu_addr + rb_size * remote-&gt;=
-num_accel;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; npa =3D amdgpu_ualink_npa_addr(adev, RB_TYPE_TAILPTR,=
-<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; remote_accel_id, accel_id);<b=
-r>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; wb =3D (u64)remote-&gt;rptr_cpu_addr;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; wb =3D (uintptr_t)remote-&gt;rptr_cpu_addr;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; npa =3D remote-&gt;rptr_npa;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; npa |=3D (u64)accel_id &lt;&lt; AMDGPU_UALINK_GART_NP=
-A_ADDR_GPUID_SHIFT;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
-@@ -5914,7 +5915,7 @@ static int amdgpu_ualink_peer_remote_init(struct amdg=
-pu_device *adev)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; *&nbsp;&nbsp;&nbsp;&nbsp; 1 - PMI1 Remote TLB S=
-hootdown<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; * ReqAddr[5:0]&nbsp;&nbsp; =3D 6'h0<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp; */<br>
--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; npa =3D 0xFFFUL &lt;&lt; 40 | (u64)dst_accel_id &lt;&lt; 30;<br>
-+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&n=
-bsp;&nbsp; npa =3D 0xFFFULL &lt;&lt; 40 | (u64)dst_accel_id &lt;&lt; 30;<br=
->
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; r =3D amdgpu_ualink_gart_map(adev, 1, npa, &amp;inter=
-rupt-&gt;mm_node_doorbell, flags);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp; if (r)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nb=
-sp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break=
-;<br>
--- <br>
-2.43.0<br>
-<br>
-</div>
-</span></font></div>
-</body>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index c3411dacdf55..40fc21d18587 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -384,6 +384,52 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
+ 	return r;
+ }
+ 
++/* Is every page of [start, end) already resident in the VRAM of @node?
++ *
++ * prange-&gt;actual_loc is a per-range scalar and is not sufficient on its own.
++ * Since commit a546a2768440 (&quot;drm/amdkfd: Use partial migrations/mapping for
++ * GPU/CPU page faults in SVM&quot;) migration is per window, so a range can report
++ * actual_loc == best_loc while parts of it have been evicted back to system
++ * memory. On a gfx942 oversubscription workload 3.3% of migration attempts
++ * were on windows in exactly that state and did have pages to move, so the
++ * per-page test below is needed rather than the scalar alone.
++ *
++ * SVM_RANGE_VRAM_DOMAIN records &quot;some device VRAM&quot;, not which device, which
++ * is why the actual_loc comparison is kept as well.
++ *
++ * Called with prange-&gt;migrate_mutex held.</pre>
+    </blockquote>
+    <p>I'm OK with a long explanation in the commit description. But for
+      the code comment I'd prefer to keep it more concise:</p>
+    <p>Check if a range of addresses is already resident in VRAM to
+      avoid unnecessary migrations that would trigger MMU notifiers
+      causing the range to be unmapped and faulted again unnecessarily.</p>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:20260901124516.357959-1-William.Palacek@amd.com">
+      <pre wrap="" class="moz-quote-pre">
++ */
++static bool
++svm_range_window_resident(struct kfd_node *node, struct svm_range *prange,
++			  u64 start, u64 end)
++{
++	struct kfd_process *p = container_of(prange-&gt;svms, struct kfd_process, svms);
++	unsigned long i, offset, wpages;
++	dma_addr_t *addr;
++	uint32_t gpuid;
++	int32_t gpuidx;
++
++	if (kfd_process_gpuid_from_node(p, node, &amp;gpuid, &amp;gpuidx))
++		return false;
++	if (prange-&gt;actual_loc != gpuid)
++		return false;
++
++	addr = prange-&gt;dma_addr[gpuidx];
++	if (!addr)
++		return false;
++
++	offset = (start &gt;&gt; PAGE_SHIFT) - prange-&gt;start;
++	wpages = (end - start) &gt;&gt; PAGE_SHIFT;
++	if (offset + wpages &gt; prange-&gt;npages)
++		return false;</pre>
+    </blockquote>
+    <p>I believe this case shouldn't happen in practice. If it did, then
+      returning false here would be conservatively correct but may
+      result in unnecessary migration attempts.</p>
+    <p>If you wanted to be really sure, you'd also need to protect
+      against a negative offset (or integer underflow). I think a more
+      robust approach would be to adjust the bounds properly to fit
+      within prange:</p>
+    <pre>	start = max(start &gt;&gt; PAGE_SHIFT, prange-&gt;start);
+	end = min(end &gt;&gt; PAGE_SHIFT, prange-&gt;end);
+	offset = start - prange-&gt;start;
+	npages = end - start;</pre>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:20260901124516.357959-1-William.Palacek@amd.com">
+      <pre wrap="" class="moz-quote-pre">
++
++	for (i = offset; i &lt; offset + wpages; i++)
++		if (!(addr[i] &amp; SVM_RANGE_VRAM_DOMAIN))
++			return false;
++
++	return true;
++}
++
+ static long
+ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
+ 			struct vm_area_struct *vma, u64 start,
+@@ -401,6 +447,25 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
+ 	void *buf;
+ 	int r = -ENOMEM;
+ 
++	/* Every page of this window is already in this node's VRAM, so
++	 * migrate_vma_setup() below can collect nothing. It issues the
++	 * MMU-notifier invalidate before discovering that, and with retry
++	 * faults enabled that lands in svm_range_cpu_invalidate_pagetables(),
++	 * which special cases only MMU_NOTIFY_UNMAP, so MMU_NOTIFY_MIGRATE is
++	 * handled by its default arm, reaching svm_range_evict() and
++	 * svm_range_unmap_from_gpus(). The attempt therefore tears this
++	 * window's GPU mapping down and then finds nothing to move, so the
++	 * next fault on it is escalated back into migration instead of being
++	 * satisfied by mapping alone.
++	 *
++	 * On a gfx942 oversubscription workload such attempts were 96 to 97%
++	 * of all to-VRAM migrations, and the driver unmapped a window roughly
++	 * 35 times per migration that moved data, against about 2 with this
++	 * guard.
++	 */</pre>
+    </blockquote>
+    <p>Again, I'd prefer a shorter comment here:</p>
+    <p>Avoid unnecessary migrations and MMU notifiers if all the data is
+      already resident in VRAM.</p>
+    <p>Regards,<br>
+      &nbsp; Felix</p>
+    <p><br>
+    </p>
+    <blockquote type="cite" cite="mid:20260901124516.357959-1-William.Palacek@amd.com">
+      <pre wrap="" class="moz-quote-pre">
++	if (svm_range_window_resident(node, prange, start, end))
++		return 0;
++
+ 	memset(&amp;migrate, 0, sizeof(migrate));
+ 	migrate.vma = vma;
+ 	migrate.start = start;
+</pre>
+    </blockquote>
+  </body>
 </html>
 
---_000_BN9PR12MB5146B193E70BC8E8CC0EECE0F7A82BN9PR12MB5146namp_--
+--------------UoK80vzYEz3qdHE3f5w0iy0q--
