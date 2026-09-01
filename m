@@ -4,74 +4,74 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 1AD3BC61DD3
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 08:41:35 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 34D5DC624CF
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 08:41:37 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7A8BD10E491;
-	Tue,  1 Sep 2026 08:41:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9251C10E5C0;
+	Tue,  1 Sep 2026 08:41:36 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="IkXqfzB7";
+	dkim=pass (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="qM+Q3K/2";
 	dkim-atps=neutral
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
- [209.85.128.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 932BC10E3C7
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 08:41:31 +0000 (UTC)
-Received: by mail-wm1-f42.google.com with SMTP id
- 5b1f17b1804b1-49b8e527d63so6680915e9.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Sep 2026 01:41:31 -0700 (PDT)
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
+ [209.85.128.52])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 700C810E3D4
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 08:41:34 +0000 (UTC)
+Received: by mail-wm1-f52.google.com with SMTP id
+ 5b1f17b1804b1-49b965570d7so7008045e9.0
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Sep 2026 01:41:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788252090; x=1788856890; darn=lists.freedesktop.org;
+ d=gmail.com; s=20251104; t=1788252093; x=1788856893; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=dWo4zxexQG3BFmY0lNSf+g/GCUJ+1+Tx9VaU1GZ4oBw=;
- b=IkXqfzB7NBAYYi7J9fCROYNfek0v6rRQpujkB23n5O7H3tRyqzLymk+E64xSh41pv1
- ymDa5JC/NWGkUn19tDHojqsXrVnXJXZgqPL1zxNG58mX3bAlOjmQvaqWWBn8HuFFT7gV
- u+5Qvq8R6GFt1cfdj5TtRYnB3AqTnf4vqys4Wyei328F8YRn8U9IVhIUo/6to4nccUuo
- RHO78xhMbkHpTj94zPw+UbDLKPZ4nfj8bi5BEjNL1WUgEbBugwr9XcIBqaJqgRNR/5Am
- 0vZTIzMSJ9c1aTiJ6kr8X1Zr7vux8Wj7McN6nPBByH8tw7W4gGtTzsgyISF4vTEO78Nb
- xWPQ==
+ bh=cIPe2iDx1q04AOuThkTiqVbSHD6gJz+15yfxxKXnVIw=;
+ b=qM+Q3K/2ppXo3qma+cBT8rYV+E24cNEOacuElfq9w2hYOQM9AwzVN4xpMyCrzzdYfs
+ 6c0yfk3GPupQuCHb1v4rYWEYrXKfj0Qbrp6Yl1Mqj6hSUMeAK+yVxVL60YHtID95Mbfi
+ pOgJwv0Y8hTd64mU4EAc17hdpF+eKFv0UNTT96/QYCQkEwElDz+NcsUFrI0dduZvtXwR
+ M7EzYOymJGvsd4HTSZIuHN1yuMPmq0K7lUWr9eXK5lQVTrqkXeuTv6Fzn57MdlFVa1la
+ rnJa6bljEgqtUdUT+8T1Tp7wM0q0pade/Cs4m/NBaQCMmdDWfB/T76TtlZtPRHMx9LCo
+ 3LPw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788252090; x=1788856890;
+ d=1e100.net; s=20251104; t=1788252093; x=1788856893;
  h=content-transfer-encoding:content-type:mime-version:references
  :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=dWo4zxexQG3BFmY0lNSf+g/GCUJ+1+Tx9VaU1GZ4oBw=;
- b=GgtoU0UDFWuH7NiTIzCu3R8f8yPwdeH1CiOgmFEANV1FvjsPmZZiBA0czxI5mReRnl
- 5OEJeNdUnQdd5W+pSvss+dPWWA3be1JNHsXeszXzF4owOI3Z+KOr7l/x1zFbflEVZDNA
- bbxRletlFY51iGckAH8Y8NLbdVugUBgsGMsGREwzOCkhPi3XwTTbshB4jygoEvkiFTOS
- /tq8W8xle7LDJFQbOgMijo4fRSSJEwaXa8xwzY4bfBpz1ncw3WPUuSwzKQBMnxGznBuL
- KoyW0iiuXzZ7PvvihQZIHo4rv3jroVNoz5JX8vdMmDL6H4orMU4MmIfLO5bTP+yFdbL8
- sZpQ==
-X-Gm-Message-State: AFuF++lNNNRdABooZ5Q7y0vgQ2AdepPc1kY7hCUDw2NsPvdG5v4HYN7D
- uvNiqGCGcHHUX4ckLDtdMIzvdgTrHk74dS14eVLrtvkyEhvyo6fBb3ugOpV9E+50Ucw=
-X-Gm-Gg: AR+sD13TEWtLtt8fi7EfKwVR3BZEXD5Lf2gZKukp9s2oF4Kll2TN6aIgum2fhwVlwdK
- V0QvngbO+uZNKaF4yTWJJDcVxYhw3KAqxyuz8n8Jt7QjOUCZww8bnmNl1YvvWzRcUroRkvVcf+B
- g6Ez0EvzT6k+1fXnBtpyxeYMhW1IOOuUdjuYcnkFPEV9oP5ZxjTduMaKSlcbMU8zfl3jvto+dM4
- 8Fherp8ihCWaMZxiSksUFWUpPdcQYsWP1Tx4SW1nhDhkWb6AkZPntw4v1xnhr/3RXn5YtwgANnQ
- RBP7Wy6KhPgw5wHgPgD2oa+K16aSFlvtrk75cesodYxUUVCX9//h7EYHLlXCL+6142FGkiNAyiS
- mqWiPaDMHeWQCWVy+6fJcRv4rldnQwbSjuxlJqZeprRL3D4oMwDVrNwwCpOc58HNFiIwj4EFLqZ
- nK19ahPliLBA1erqPSvpRud9n1YOKHsRmmbawh/sAKT5LvP6nEn0UoV2cnhhU5zyq0V9Yw+UF92
- +nxOMPzCoD5TS9MwKfSXsQ=
-X-Received: by 2002:a05:600c:354b:b0:495:4d88:e630 with SMTP id
- 5b1f17b1804b1-49b91c4fb4amr475210015e9.10.1788252089513; 
- Tue, 01 Sep 2026 01:41:29 -0700 (PDT)
+ bh=cIPe2iDx1q04AOuThkTiqVbSHD6gJz+15yfxxKXnVIw=;
+ b=iTvCxzbf6a6lzQlxl+zl1VG2XmkDefQii7K7OTyTYqghxCyB2NMRXkUJOjSLFwK9NM
+ Am5Pj8CUDJuhxsrJx9aylaFquIEtqknCIrx3fwUamtSMbQ8Csrg69zMYVvJZEoxQXzXz
+ wjRU8VSgbb6yjtxHEbf1zqyjOXLIx7fFEJXXqMj1SfZ31jKMnQts/aClznOCHNeKw4L9
+ rTci1uFUx8FqYXNjtK+XeZh5p7W/UGeeso9P7gmnVyqtmm8GCvsPUtY2PCXxhasx/hkw
+ uxB/+3P+ghy2CFiojjaCKpW8Bif9TcuC2OVwJKyklWvFFxteMAbVxY1m78cg7oXiFSdW
+ jgiQ==
+X-Gm-Message-State: AFuF++l82VXcckxkGNK9f5HLkE6N9xMTMHQmZt6mQ4qLxNB/OfpYIXyB
+ xSv+t/mfMT5iKSVWdhPe03SSUFQqWQxhqkgLvzdJjLDaEyOOgy58j1VeblIuMjXA8NI=
+X-Gm-Gg: AR+sD11fiCmtLWHwcvKk9NZE82HFfxuph465KCV8N53fz5Z/UjmDhIE6TVGOpKWwqw8
+ fPPeYh1O4Y49nNtENZyWS52q9QY8+Tdyl+lIK6cjrN8KhuQYC9yLaOet2oot64IrodyGQY/5Klp
+ EE6mcOgqA4eJvuJw3omjYx/SV/9+4F1z4ZqX7LvQx/B2xgkLa8eOBlrVh0j+439GE4WhH9Mv6vM
+ J6R+vBfLJSf/XKJnRFSTmTMeVweJnWA+sC7nE61A6kTGxSAVqL0ae4rHr/6EqEYMx+MHCxnYzNl
+ cbvEopcuxEU4ImYQF8vo2weipIWzIm9j4NB++3fyaNOMYfNxV+zizmiFVnFSwob8UGR/esdB1S6
+ 8o+J5PsZyfe/lZjHJHqHZfXPglvw/IZFg7gvZgZ7g30apwsb6mu2Rq7xKciyXeYPP3kDIEAqU7N
+ vBFZPammTTzQQAuecwAIoUFAYFLKPa7voDIjVwXB4nvqK9Lz5pqUah0f7XnKQlclXtcBlvCUG5V
+ JHtFoLF1XiBlVhpk4/IdlT5uO4yzbsJwxw=
+X-Received: by 2002:a05:600c:6096:b0:49c:cfad:90c1 with SMTP id
+ 5b1f17b1804b1-49ccfad9180mr361631495e9.14.1788252092659; 
+ Tue, 01 Sep 2026 01:41:32 -0700 (PDT)
 Received: from Timur-Max (athedsl-4457084.home.otenet.gr. [79.129.242.108])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-49cdce08b8esm47139235e9.3.2026.09.01.01.41.28
+ 5b1f17b1804b1-49cdce08b8esm47139235e9.3.2026.09.01.01.41.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Sep 2026 01:41:29 -0700 (PDT)
+ Tue, 01 Sep 2026 01:41:32 -0700 (PDT)
 From: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
 To: amd-gfx@lists.freedesktop.org, Alexander.Deucher@amd.com,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Natalie Vock <natalie.vock@gmx.de>, Tvrtko Ursulin <tursulin@ursulin.net>,
  Felix Kuehling <Felix.Kuehling@amd.com>, Lijo Lazar <lijo.lazar@amd.com>
 Cc: =?UTF-8?q?Timur=20Krist=C3=B3f?= <timur.kristof@gmail.com>
-Subject: [PATCH 3/8] drm/amdgpu/sdma: Fix executing duplicate commands after
- recovery on SDMA v4.4.2
-Date: Tue,  1 Sep 2026 10:41:10 +0200
-Message-ID: <20260901084115.262457-4-timur.kristof@gmail.com>
+Subject: [PATCH 5/8] drm/amdgpu/sdma: Clear SDMA rings after reset before
+ starting them
+Date: Tue,  1 Sep 2026 10:41:12 +0200
+Message-ID: <20260901084115.262457-6-timur.kristof@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260901084115.262457-1-timur.kristof@gmail.com>
 References: <20260901084115.262457-1-timur.kristof@gmail.com>
@@ -92,217 +92,41 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-SDMA v4.4.2 had a custom recovery implementation that
-tried to keep ring contents and restore the rptr after
-an SDMA soft reset. Later it was changed to use the
-more common amdgpu_sdma_reset_engine() implementation.
+The ring contains commands that were emitted before the reset.
+These need to be cleared to make sure the HW doesn't execute
+them, because they are garbage at this point.
 
-Currently, SDMA v4.4.2 may execute some commands twice
-after a recovery:
-
-1. From the old ring buffer contents at the restored rptr
-2. From the contents restored by amdgpu_sdma_reset_engine()
-   that calls the ring reset helper functions.
-
-Fix that by removing the code that restores rptr.
-This is not needed anymore because amdgpu_sdma_reset_engine()
-already saves and restores the contents of both the SDMA gfx
-and paging rings, so there is no need to do anything extra.
+Note that the ring reset helpers will re-emit the commands
+that are necessary after the reset.
 
 Signed-off-by: Timur Kristóf <timur.kristof@gmail.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c |  2 -
- drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h |  2 -
- drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c | 76 +++++-------------------
- 3 files changed, 14 insertions(+), 66 deletions(-)
+ drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-index 686c92e96025..132ca5ce3a6d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.c
-@@ -347,8 +347,6 @@ int amdgpu_ring_init(struct amdgpu_device *adev, struct amdgpu_ring *ring,
- 	ring->buf_mask = (ring->ring_size / 4) - 1;
- 	ring->ptr_mask = ring->funcs->support_64bit_ptrs ?
- 		0xffffffffffffffff : ring->buf_mask;
--	/*  Initialize cached_rptr to 0 */
--	ring->cached_rptr = 0;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+index fbac732f3e01..66f278f77f71 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.c
+@@ -593,6 +593,18 @@ int amdgpu_sdma_reset_engine(struct amdgpu_device *adev, uint32_t instance_id,
+ 		goto exit;
+ 	}
  
- 	if (!ring->ring_backup) {
- 		ring->ring_backup = kvzalloc(ring->ring_size, GFP_KERNEL);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-index 015623b8fd05..5af539a89ba7 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ring.h
-@@ -423,8 +423,6 @@ struct amdgpu_ring {
- 
- 	bool            is_sw_ring;
- 	unsigned int    entry_index;
--	/* store the cached rptr to restore after reset */
--	uint64_t cached_rptr;
- };
- 
- #define amdgpu_ring_parse_cs(r, p, job, ib) ((r)->funcs->parse_cs((p), (job), (ib)))
-diff --git a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-index 06b4bd8fca00..890513d7c18f 100644
---- a/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/sdma_v4_4_2.c
-@@ -660,12 +660,11 @@ static uint32_t sdma_v4_4_2_rb_cntl(struct amdgpu_ring *ring, uint32_t rb_cntl)
-  *
-  * @adev: amdgpu_device pointer
-  * @i: instance to resume
-- * @restore: used to restore wptr when restart
-  *
-  * Set up the gfx DMA ring buffers and enable them.
-  * Returns 0 for success, error for failure.
-  */
--static void sdma_v4_4_2_gfx_resume(struct amdgpu_device *adev, unsigned int i, bool restore)
-+static void sdma_v4_4_2_gfx_resume(struct amdgpu_device *adev, unsigned int i)
- {
- 	struct amdgpu_ring *ring = &adev->sdma.instance[i].ring;
- 	u32 rb_cntl, ib_cntl, wptr_poll_cntl;
-@@ -673,7 +672,6 @@ static void sdma_v4_4_2_gfx_resume(struct amdgpu_device *adev, unsigned int i, b
- 	u32 doorbell;
- 	u32 doorbell_offset;
- 	u64 wptr_gpu_addr;
--	u64 rwptr;
- 
- 	wb_offset = (ring->rptr_offs * 4);
- 
-@@ -693,32 +691,16 @@ static void sdma_v4_4_2_gfx_resume(struct amdgpu_device *adev, unsigned int i, b
- 	WREG32_SDMA(i, regSDMA_GFX_RB_BASE, ring->gpu_addr >> 8);
- 	WREG32_SDMA(i, regSDMA_GFX_RB_BASE_HI, ring->gpu_addr >> 40);
- 
--	if (!restore)
--		ring->wptr = 0;
-+	ring->wptr = 0;
- 
- 	/* before programing wptr to a less value, need set minor_ptr_update first */
- 	WREG32_SDMA(i, regSDMA_GFX_MINOR_PTR_UPDATE, 1);
- 
--	/* For the guilty queue, set RPTR to the current wptr to skip bad commands,
--	 * It is not a guilty queue, restore cache_rptr and continue execution.
--	 */
--	if (adev->sdma.instance[i].gfx_guilty)
--		rwptr = ring->wptr;
--	else
--		rwptr = ring->cached_rptr;
--
- 	/* Initialize the ring buffer's read and write pointers */
--	if (restore) {
--		WREG32_SDMA(i, regSDMA_GFX_RB_RPTR, lower_32_bits(rwptr << 2));
--		WREG32_SDMA(i, regSDMA_GFX_RB_RPTR_HI, upper_32_bits(rwptr << 2));
--		WREG32_SDMA(i, regSDMA_GFX_RB_WPTR, lower_32_bits(rwptr << 2));
--		WREG32_SDMA(i, regSDMA_GFX_RB_WPTR_HI, upper_32_bits(rwptr << 2));
--	} else {
--		WREG32_SDMA(i, regSDMA_GFX_RB_RPTR, 0);
--		WREG32_SDMA(i, regSDMA_GFX_RB_RPTR_HI, 0);
--		WREG32_SDMA(i, regSDMA_GFX_RB_WPTR, 0);
--		WREG32_SDMA(i, regSDMA_GFX_RB_WPTR_HI, 0);
--	}
-+	WREG32_SDMA(i, regSDMA_GFX_RB_RPTR, 0);
-+	WREG32_SDMA(i, regSDMA_GFX_RB_RPTR_HI, 0);
-+	WREG32_SDMA(i, regSDMA_GFX_RB_WPTR, 0);
-+	WREG32_SDMA(i, regSDMA_GFX_RB_WPTR_HI, 0);
- 
- 	doorbell = RREG32_SDMA(i, regSDMA_GFX_DOORBELL);
- 	doorbell_offset = RREG32_SDMA(i, regSDMA_GFX_DOORBELL_OFFSET);
-@@ -771,7 +753,7 @@ static void sdma_v4_4_2_gfx_resume(struct amdgpu_device *adev, unsigned int i, b
-  * Set up the page DMA ring buffers and enable them.
-  * Returns 0 for success, error for failure.
-  */
--static void sdma_v4_4_2_page_resume(struct amdgpu_device *adev, unsigned int i, bool restore)
-+static void sdma_v4_4_2_page_resume(struct amdgpu_device *adev, unsigned int i)
- {
- 	struct amdgpu_ring *ring = &adev->sdma.instance[i].page;
- 	u32 rb_cntl, ib_cntl, wptr_poll_cntl;
-@@ -779,7 +761,6 @@ static void sdma_v4_4_2_page_resume(struct amdgpu_device *adev, unsigned int i,
- 	u32 doorbell;
- 	u32 doorbell_offset;
- 	u64 wptr_gpu_addr;
--	u64 rwptr;
- 
- 	wb_offset = (ring->rptr_offs * 4);
- 
-@@ -787,26 +768,11 @@ static void sdma_v4_4_2_page_resume(struct amdgpu_device *adev, unsigned int i,
- 	rb_cntl = sdma_v4_4_2_rb_cntl(ring, rb_cntl);
- 	WREG32_SDMA(i, regSDMA_PAGE_RB_CNTL, rb_cntl);
- 
--	/* For the guilty queue, set RPTR to the current wptr to skip bad commands,
--	 * It is not a guilty queue, restore cache_rptr and continue execution.
--	 */
--	if (adev->sdma.instance[i].page_guilty)
--		rwptr = ring->wptr;
--	else
--		rwptr = ring->cached_rptr;
--
- 	/* Initialize the ring buffer's read and write pointers */
--	if (restore) {
--		WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR, lower_32_bits(rwptr << 2));
--		WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR_HI, upper_32_bits(rwptr << 2));
--		WREG32_SDMA(i, regSDMA_PAGE_RB_WPTR, lower_32_bits(rwptr << 2));
--		WREG32_SDMA(i, regSDMA_PAGE_RB_WPTR_HI, upper_32_bits(rwptr << 2));
--	} else {
--		WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR, 0);
--		WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR_HI, 0);
--		WREG32_SDMA(i, regSDMA_PAGE_RB_WPTR, 0);
--		WREG32_SDMA(i, regSDMA_PAGE_RB_WPTR_HI, 0);
--	}
-+	WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR, 0);
-+	WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR_HI, 0);
-+	WREG32_SDMA(i, regSDMA_PAGE_RB_WPTR, 0);
-+	WREG32_SDMA(i, regSDMA_PAGE_RB_WPTR_HI, 0);
- 
- 	/* set the wb address whether it's enabled or not */
- 	WREG32_SDMA(i, regSDMA_PAGE_RB_RPTR_ADDR_HI,
-@@ -820,8 +786,7 @@ static void sdma_v4_4_2_page_resume(struct amdgpu_device *adev, unsigned int i,
- 	WREG32_SDMA(i, regSDMA_PAGE_RB_BASE, ring->gpu_addr >> 8);
- 	WREG32_SDMA(i, regSDMA_PAGE_RB_BASE_HI, ring->gpu_addr >> 40);
- 
--	if (!restore)
--		ring->wptr = 0;
-+	ring->wptr = 0;
- 
- 	/* before programing wptr to a less value, need set minor_ptr_update first */
- 	WREG32_SDMA(i, regSDMA_PAGE_MINOR_PTR_UPDATE, 1);
-@@ -959,9 +924,9 @@ static int sdma_v4_4_2_inst_start(struct amdgpu_device *adev,
- 		uint32_t temp;
- 
- 		WREG32_SDMA(i, regSDMA_SEM_WAIT_FAIL_TIMER_CNTL, 0);
--		sdma_v4_4_2_gfx_resume(adev, i, restore);
-+		sdma_v4_4_2_gfx_resume(adev, i);
++	amdgpu_ring_clear_ring(gfx_ring);
++	gfx_ring->wptr = 0;
++	atomic64_set((atomic64_t *)gfx_ring->wptr_cpu_addr, 0);
++	atomic64_set((atomic64_t *)gfx_ring->rptr_cpu_addr, 0);
++
++	if (adev->sdma.has_page_queue) {
++		amdgpu_ring_clear_ring(page_ring);
++		page_ring->wptr = 0;
++		atomic64_set((atomic64_t *)page_ring->wptr_cpu_addr, 0);
++		atomic64_set((atomic64_t *)page_ring->rptr_cpu_addr, 0);
++	}
++
+ 	if (sdma_instance->funcs->start_kernel_queue) {
+ 		sdma_instance->funcs->start_kernel_queue(gfx_ring);
  		if (adev->sdma.has_page_queue)
--			sdma_v4_4_2_page_resume(adev, i, restore);
-+			sdma_v4_4_2_page_resume(adev, i);
- 
- 		/* set utc l1 enable flag always to 1 */
- 		temp = RREG32_SDMA(i, regSDMA_CNTL);
-@@ -1640,7 +1605,6 @@ static int sdma_v4_4_2_stop_queue(struct amdgpu_ring *ring)
- 	struct amdgpu_device *adev = ring->adev;
- 	u32 instance_id = ring->me;
- 	u32 inst_mask;
--	uint64_t rptr;
- 
- 	if (amdgpu_sriov_vf(adev))
- 		return -EINVAL;
-@@ -1652,18 +1616,6 @@ static int sdma_v4_4_2_stop_queue(struct amdgpu_ring *ring)
- 		adev->sdma.instance[instance_id].page_guilty =
- 			sdma_v4_4_2_is_queue_selected(adev, instance_id, true);
- 
--	/* Cache the rptr before reset, after the reset,
--	* all of the registers will be reset to 0
--	*/
--	rptr = amdgpu_ring_get_rptr(ring);
--	ring->cached_rptr = rptr;
--	/* Cache the rptr for the page queue if it exists */
--	if (adev->sdma.has_page_queue) {
--		struct amdgpu_ring *page_ring = &adev->sdma.instance[instance_id].page;
--		rptr = amdgpu_ring_get_rptr(page_ring);
--		page_ring->cached_rptr = rptr;
--	}
--
- 	/* stop queue */
- 	inst_mask = 1 << ring->me;
- 	sdma_v4_4_2_inst_gfx_stop(adev, inst_mask);
 -- 
 2.55.0
 
