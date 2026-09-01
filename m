@@ -4,122 +4,97 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 3FD9AC61DD3
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 16:45:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 805EDC61DD3
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 16:54:25 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD76210E406;
-	Tue,  1 Sep 2026 16:45:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 02BDA10E426;
+	Tue,  1 Sep 2026 16:54:25 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="n3S4gEjG";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="UCvcqgNe";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012006.outbound.protection.outlook.com [52.101.53.6])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8CC3410E406
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 16:45:37 +0000 (UTC)
+Received: from BYAPR05CU005.outbound.protection.outlook.com
+ (mail-westusazon11010061.outbound.protection.outlook.com [52.101.85.61])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 602BA10E426
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 16:54:24 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mbNqy1TDpK6ou+h5KLfE1pSqCg+/4AFnC7cRn5tH04zBf1HkXSLn12WhM8LOSUDUwdI2BQp+MnyvCDI+aEttsOQr+UJDr0y9IoYoDTA5pYBxZMedtw8r7hHGneqdldP4FZh/oVRU8U68ABV3Rj8ffbc+WnB/gFvbZc0YC4JUHsBlvVUcRUbNE4MclM6epbokBndHY31C7OYhq5EiyIFjpqxxlgahEvhjpBa3FXyS4zVyXck98yJLiYBr7RYJA863U+VUc68jeFaLsG3ogRcjKKs2AgO7lV5D0KVfQV0FFT54sfy4IOntGMGK52gj5VIItfESqrfbAkvpnnFDocr76Q==
+ b=VQzRwwoQQV4+QdUFWTE8/X02+iCh8vnFZy2Nqx05VQh4ETuRNcbn1ENaaEvXdFs7wLTncM7O4Z8BnfynwNWVm/DzzhNTMlstE97qL7BOlUgUn6v9Y+oF3oQDdLfDq6hrdkJAcCI2B609zgfBXeNiilKa74/QdWT016Kx2dxObklNpTVwPWCsuups4PF5C+AnPdU1usPcOx3IDLJQSy999CuMVOzkU3pkDmc5DNPuXAFV/3MST/D4ybRJDXVlja3Nrj1BQyZ6U4r/RDdrFgYOp4dDHs6ExosXb0bdSbT1qqkrdRcjdl+H85t/7jcfWjTHBbEeo4x/cely9BDVNR4A8Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=uPqk6i3LmTmJRzyXMvvkvzIe44b/OWsWRJDVxxDna7Y=;
- b=YyzrATGhwL7EBTtRihJg7STvxGWv7ZiLSblv9I0Y8jrEAMzUMwXj1+zsQanpg5u8Rfmof9Q/HxgqHV350/+f+rKWd/vtbfzuTC9QDHR1M3Olx7QGYScRsED7CDxhIb8KIc1p02n+YeQb3244h2H/0gl+v4+/HcRdGaGsyU6yiF/Ug9RQzTn+aP26MdJn7gMTxhA/Ao83zohOxJR9SIIfkrN/yLwuM/OlzltjpG8JSxErmYbgvKTX3CS0XKBqQsEmv0BYcmWl3xVBVrgfaR1zkIeM8+XRzHH2Ue0J2xQi+Y2aJvR06RunrcT5S7qJi8ExkY0x3trYYEOoN/rSTg6HUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
+ bh=DYvn0XoXLmMoftNegl/7KwUnSEWRqZAEyWcUPcoBHv0=;
+ b=kJaymCik0WW0dKgNoCWTK37LfZ2b+JZ+tzotnjwS+OaJhE+DBEfuRgYVRNg+M9Ujz4Ga1lo1NxIJAJwa26CYLZPj/ZlAJlcYvygJQIsWx21KkitgIup2z3B54iEP38EffjS480JpQPdjOZCFX25tSeC45meW3EuCB+9/qBeECUYmMyMyYiqO3uZNa5GWCPchrpn3Nz2p+FgcnkZFLmzjwRXFgA1Ox/JRu+B+dnvwxO/VN5c1oEV052N4TwKcpNFy5SXKuv2GZjRWfBbKSy+cXZ8PvZXwTA1sZsRdS2/tRlUoOsaf/huGxgIbSal8ALAMOIyx7IbiVeZF5PdrkMpNCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=uPqk6i3LmTmJRzyXMvvkvzIe44b/OWsWRJDVxxDna7Y=;
- b=n3S4gEjGta9KxyX9iGoL8rTm77H8p2xSk3ChVxhscqHGYL9ilFUMJDbmAirJ3TeOe1CsmtrgYCmg0PdZm24DQZ+9i2r3qtNxEc9p9Q0g+cMNsDnU4IUn3aQkQ2tJSDHNiIjSNirbIB5YDW9H4bvvaTcF+CXEQiA7C2VQ0z25leE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY3PR12MB9629.namprd12.prod.outlook.com (2603:10b6:930:101::9)
- by PH7PR12MB9202.namprd12.prod.outlook.com (2603:10b6:510:2ef::6)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=DYvn0XoXLmMoftNegl/7KwUnSEWRqZAEyWcUPcoBHv0=;
+ b=UCvcqgNeNTdtnYKtiGOh8pKPDVP2MM9U9XY7otxhp6+wB3AJuOadqEVKNYAxx15VkokRrq6mf7fP7vySib4vi9hJRK/f3itGBRIm94v/XC5ElYiWR2WlIEOYuyYDfQROtTL9aOqYVfICDAQ9CQy0nIW1oqi9SAVL1SJP/UZsIlw=
+Received: from DS7PR03CA0120.namprd03.prod.outlook.com (2603:10b6:5:3b7::35)
+ by BN7PPF62A0C9A68.namprd12.prod.outlook.com (2603:10b6:40f:fc02::6d2) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 16:45:33 +0000
-Received: from CY3PR12MB9629.namprd12.prod.outlook.com
- ([fe80::3d72:a3a9:e4ab:4afa]) by CY3PR12MB9629.namprd12.prod.outlook.com
- ([fe80::3d72:a3a9:e4ab:4afa%4]) with mapi id 15.21.0382.007; Tue, 1 Sep 2026
- 16:45:31 +0000
-Message-ID: <037a59c6-f698-443b-9fe0-5fdcc23e9084@amd.com>
-Date: Tue, 1 Sep 2026 11:45:30 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Fix TCP XNACK scoreboard reset race
-To: "Russell, Kent" <Kent.Russell@amd.com>, "Ba, Gang" <Gang.Ba@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20260831205059.1803721-1-Gang.Ba@amd.com>
- <BL1PR12MB5898416E809BE5392EA63D9A85A82@BL1PR12MB5898.namprd12.prod.outlook.com>
-Content-Language: en-US
-From: Jay Cornwall <jay.cornwall@amd.com>
-In-Reply-To: <BL1PR12MB5898416E809BE5392EA63D9A85A82@BL1PR12MB5898.namprd12.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DS3P221CA0005.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:8:45e::15) To CY3PR12MB9629.namprd12.prod.outlook.com
- (2603:10b6:930:101::9)
+ 2026 16:54:19 +0000
+Received: from SN1PEPF0002BA51.namprd03.prod.outlook.com
+ (2603:10b6:5:3b7:cafe::75) by DS7PR03CA0120.outlook.office365.com
+ (2603:10b6:5:3b7::35) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Tue, 1
+ Sep 2026 16:54:18 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF0002BA51.mail.protection.outlook.com (10.167.242.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Tue, 1 Sep 2026 16:54:17 +0000
+Received: from alysaliu-dev.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 1 Sep
+ 2026 11:54:15 -0500
+From: William Palacek <William.Palacek@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: <felix.kuehling@amd.com>, <Harish.Kasiviswanathan@amd.com>,
+ <kent.russell@amd.com>, <William.Palacek@amd.com>
+Subject: [PATCH v2] drm/amdkfd: skip migration when the fault window is
+ already in VRAM
+Date: Tue, 1 Sep 2026 12:54:00 -0400
+Message-ID: <20260901165400.16262-1-William.Palacek@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Originating-IP: [10.180.168.240]
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY3PR12MB9629:EE_|PH7PR12MB9202:EE_
-X-MS-Office365-Filtering-Correlation-Id: 179c63b9-d8f3-47ef-a2cb-08df08486fa2
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002BA51:EE_|BN7PPF62A0C9A68:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2d0c1e0f-a018-4ff5-d1d0-08df0849a95e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|366016|23010399003|56012099006|10067099003|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: IC3+nk0cHqIdphMbcfeTgPa4E6tV2YjrHCtqIclzvlz0E9d2Wvgws0og0DMlA++22SAQk3DCEInTX+ssAURH53Lgw0vSrd8R8IsU0LmS4yim13WBt1q2krUQsy5oJNBuGe+Q0qDiwWqpWv1VmA7bUKNXs2lWPWgFZUEeSmY5g/CBDAhHnJVaY2jRvuAAC1sXt4uDx36shB7SPkXyQwKPz3tIjCUqTPUXZnfjkST0mCKR3C9qMHAPDtxpt9h042pqZUbnYfMNpsmfU7qwQYTHZCSOLa2Vnt7IeF9c7AotRTSXrd9KdaovzYbXvuA/tE1wUDUDqGnAEi9LmcxV4Vgi4OhQJXxLG/pbeEAZuiPx8CLT2PScVGfMB2WwMGJdKrEsexySlN7B0Nr99CFbHkzMPLJD1rwC60u7Pax9TBDXfzzqFfz4wqltDdpjWGhRHE+sPOmWeo0nERwe/p5fUolyEWy5uqecYNTj4cjAzWzfknHJouqeU4iXhF330EnB/4IkT+E946CscWfNmDtcdbMmHkDboIHVCaM+qiUQoko8eR6e0lVtU4IL5+JP6M8aJRUv/xRwOyLKmaxYQAeKYThoZEPHK7ogrL8wFDoLZJzjR28YdJKyyc99w8SKJUFYQn5lRgW7GJEeLa0Yh47/SWK2Y149BJItIc4XsBRnN6Vt6aw=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY3PR12MB9629.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(56012099006)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003);
+ ARA:13230040|82310400026|376014|23010399003|36860700016|1800799024|6133799003|18002099003|56012099006|11063799006|5023799004|10067099003;
+X-Microsoft-Antispam-Message-Info: OYmpN6VgYOeskcg2hd8noAgwqv6IL22vIX0sXymzd5QHFL+bgAdCsMLkRNdTPo2Ssvh499ZpBngLn765DKXE+n+Ton60jE4dJQ9zHQcDtIH+lqixsldRD+dU9O3iqDTASjRVTHURL40N54yZ1CW9oMzkj0Map6GYVI2YSQeZmfqK/2PzwBagTuVDEPGQAnCONrh0rSlPCX1yL62QLCS7dwvT9cY3AO/GqQPNMJO1q9XKZp7p32TTryZnj94xzdvUd4qyezjirt7iajnXT1fNjcmXfyNZnoal4pp5qm6QKLPM70WVdvLuq4n4ypG8FUl6cbEh3gJQYNd7NeBsZbDt1QlJJt0/1mnzWd9yOTGLCj4Xu0fxl2sD7mRm9YVuOWw1AMmHkjG7fjZ9QehhK+RrMqghkusjpJNQhD9hFJbMGBSWFns2g4k8KYgUpBvgZME6SAyK75FbEOm9khXD5EqDzPZPa41m6LG4/nsct4HZMRPwD9sqU2/Ktamr+luF4MRN+lhWZSocBy6s8FgSoVtl8QfkKQJ391CyBeJArBmLvHMV46Li1J4QzB/u7qWY+WhMWAEPrHv9YvfUh5B1djL+12uVjgGXm5Q330P7BA5k2SIRiuRxIQpy/czGuzdp5WN1PHYbonoCu4FcL1+U/NUS7JEjB1udDCmw9432t/7lsJdlE9810wfR6IyjBZ7yArC9I0GIHyqoe8GfL1rpQu2s7g==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(23010399003)(36860700016)(1800799024)(6133799003)(18002099003)(56012099006)(11063799006)(5023799004)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?eTdpbC9aTmlNVDg4T0RoU1lPc0JrdWVnZVk3QThFL25sdnZsSkxlRFpzL0VV?=
- =?utf-8?B?V2U0eEdHUWpPb2d0V0FTMTN1R05LNHVSYThrUWlBS05maE42Tm5aYlBnaHdq?=
- =?utf-8?B?NGlCcGJJVmc2dXhOc2V3ZkFNeUlHbUsvZUNNT0ZZQ1VvbmVBNGhFVUFSbmRT?=
- =?utf-8?B?QzRadXlxaGFiUDhPNlZGWmE3cVFYYnJiWmd5TFo0a3M4MDNLaXNoQ1BEMWVD?=
- =?utf-8?B?QVV4TXVSS3RaNStwNFhhQkQyeWI1WGNIY1ozdGVNWVpKS0c5Nnl0aDB5TWhH?=
- =?utf-8?B?djNYWmVsM2RwUnhQd3BRYlFzV0UreDVGK0dhSW96SE0zYWFwTXE5d3lWaGFz?=
- =?utf-8?B?YWIrN1pkMnRuRmZUVXovdmYzTFBnOWlQN2hTeHdUNFNreE9NQW9LTGFFQ2hS?=
- =?utf-8?B?NFVYeVZ1dFdHRElhT0xhM2I1cm1pa3htQ20ydk9BaUcxSzZxVmp2YkNWdzFP?=
- =?utf-8?B?dERPS1RNVHJDODhYSTdDTlFGUVhJZGxHWndNWnBGQkp3czkvNXF0cGZDcTR6?=
- =?utf-8?B?SXU2M3RGRzJGU3liQUxQVC9TZG5nYkpLS1hrdGxWRXRSOHFOeWcyZ21uSE41?=
- =?utf-8?B?VU8vaTlOWGpCRFRFcFF1cjNSK1hYYVhYelVaRHJTQnV1R0hQV2dhZVFDbktI?=
- =?utf-8?B?WjBwdXl2RTJFN2Y2S1ZVdEpkUDVqeWUyOTNDVjR5aVhhUDFCRko2V0p3MnNN?=
- =?utf-8?B?SmsxSFVqaVh4c0tKYm5iRGZYTjYzWUxFZXVuK2VuYmhQZllRcDlUdU0yWGkv?=
- =?utf-8?B?Uis0eCszSFdpdzdrL1NkU0xlUGUxbVVteWJSbzFDdW12ajJOcjJ0N1kxWlFZ?=
- =?utf-8?B?emN1bzBocER6UHFUOVlWSHF0dE5zcmt1WU1PT0kxSG9iRUd4bDM1ZEgwTGxM?=
- =?utf-8?B?cHZ1YXBvV0xrNTNRMHNVSkp5VUY5aW5JRGR6aDdIUWZobEswL3Q5VTNHRk5k?=
- =?utf-8?B?SnNWZ3JzZUlOdWxGNEF2U0xKT0JQN3ByT1lNL3ZPVENuelBJVVJZNndIcnZL?=
- =?utf-8?B?WEd4ZDFLZkFzQklVYi9rT2dmTHlpenhXQk11QjlCSStrZ1FhYVovZ1dBUmNF?=
- =?utf-8?B?L2xZempSeWR2OCtpNUZhQ0QzMXMvRzRreUNJcE00Wks1aS9SOUlWcFdrSGNU?=
- =?utf-8?B?dXlvdWc5MW5CZThSYm1JNW1xL1h3eWRyZzdqMWxoT0dvNDVKZUFKWnp4aGlu?=
- =?utf-8?B?MGNyU0g4TlJVN1lQMFZ6ajV1RjZlZ05tYXYwck1nbU9mc2Ziai9wOTJPb213?=
- =?utf-8?B?WW15VGN4YXZtS1pib1Myek4wS1BoZFZtS1VYWjNDQXY5NU1YUEZHbnkrVnVQ?=
- =?utf-8?B?VXRuNDhqVSthKzRYTEE2QUNwRGVZL0dtSjF3Z1AxU1dnY0c1eW9UZ2huRXhN?=
- =?utf-8?B?LzBFVlRtSFNkMXlnd1NzK1Z0QnBEbU1YOUxDRC9DeVNoWlp1bHNqNWhNVXFD?=
- =?utf-8?B?N0JxS2RRUkkwaGFaTUFuUUoxYXQwL3JMTWswZjVMdkFnMzBuSTJtemdGU1Az?=
- =?utf-8?B?NTFROHZPN0RUbzlSeU51cnJta0F4WTZFd2ZBdkFwNUdGSlcxQjVmbUNDVUF5?=
- =?utf-8?B?TURTWmFTaW9rTkswKy80dGhwdkpDaFMwL3NDTnUyVHRjRmtUTTRYWE5ZSXVm?=
- =?utf-8?B?VEhDMzdOZnVTbmZpUlF3RDAzZjU1RWNnWDFuWHJFZ3FuSVVSVDF5cDNYY2xI?=
- =?utf-8?B?cmwvSS9YTnVjLzFzSkJUSlArbWRBMHdXUS90U1picDQwSlp1YjlwNFdGcURi?=
- =?utf-8?B?d0VGaWM5eDN4T0hZOTBsUnBNc1FiYmV2Z2UveHRPK1ZsS0V6RjNKUVhOVU5L?=
- =?utf-8?B?eG5WZnFtOHRuYno2OW5oOTJDTU9nejVneDFoOWwyekJlak9rTDQxRnp0RzR3?=
- =?utf-8?B?U2s0RTlMWXFaVGlVc0x4eFdmenJxYWFBWkxtZ0ZkZDQ1UXkyTnFEV3ROOUI0?=
- =?utf-8?B?a1dwTW1mZGZHOEwzeDV4UDlqY0tJMlA3amVxaTZBaHlaL0R2bHlVd0JMQjYw?=
- =?utf-8?B?T1prZnpzbENPaFRuMEJlMTZucFMyYnJTb0RabzdGUEQzYTBrVnk2aGcrQVlp?=
- =?utf-8?B?aWViSnN2bjQ0Ni9xNXJvQXRibk85OURhTVBOYkVTS0VKbFo4UEhhc0kwQ2pa?=
- =?utf-8?B?b1IyUXhoMFh3V0QyM21hVFJmZlRoZmI0eEhNNmhhUkJnQ20vUkxrWkpublFC?=
- =?utf-8?B?OXhZUkdPc0VEaVFYeGkxaTl2aGFJQWU4cUZuaENjR2dBYmoyOW96ZzBzSUxQ?=
- =?utf-8?B?ZTg1aFhka3lzVzJOdURwQ2dOR2lxajlnYmtSU1pwd2lNZFlXaGVXVmpqTXBT?=
- =?utf-8?B?NFVBRFlzQnNVRXREdG1IU3ZEMmcwNDNiUVo1dkJDU3BWcisydDg1Zz09?=
+X-MS-Exchange-AntiSpam-MessageData-0: 5u2/xjGyKdMNMSiySdw5qx0SvUh7dVsNSiKyfXGsGchEllYgG1eL+WzuiPK+MwAh7Xz55W5xj3bz22EGEczw3Gs5esd6YIc4oepPTAr+vhLSAb9bqDJYHJxVoH1l7EO4a5y1KGWK6VTYPYip+TPIVqI8ow4p4y2ah0dm1GT3A+Wg1tG1g4qx7nk8aQ91yRqLuCTaDU3F2wq87+aDZvyqeB08dANVpF6AFbOc7R41Cl4ghCnd8Rmi95gS13pPfIq/hOGrxGXhOY2yCF3YIelGEK5agnVUCm6D+kXkmquw/TH3jR/doeD3vyQjnR3YFhP0sD//h25ZjZArIQWvGaE2pVsw4sws/lWWNdaD2VljndpEBpVq+Z0ZnrhrJ1EBq5imeSsDwl7B6FDtrdEK39RZ13D4/E9MUXL6ObpGbNzguTt0pjwQREu1aQTzPFEH1TME
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 179c63b9-d8f3-47ef-a2cb-08df08486fa2
-X-MS-Exchange-CrossTenant-AuthSource: CY3PR12MB9629.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 16:45:31.7258 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 16:54:17.6780 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d0c1e0f-a018-4ff5-d1d0-08df0849a95e
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 41OhoA0vJvoA1J9bgIb7pxKhk3Z3mUe24VCwSfeD6SCSwWPitaCJXtHc560cDO+9Hz9s6CobwMEcJJn+6lNT6A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9202
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: SN1PEPF0002BA51.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN7PPF62A0C9A68
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,45 +109,124 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/1/2026 08:04, Russell, Kent wrote:
+svm_migrate_vma_to_vram() is called for windows that are already fully
+resident in the target GPU's VRAM. migrate_vma_setup() raises an MMU
+notifier invalidate before it can discover there is nothing to collect,
+and with retry faults enabled svm_range_cpu_invalidate_pagetables()
+special cases only MMU_NOTIFY_UNMAP, so MMU_NOTIFY_MIGRATE is handled by
+its default arm, reaching svm_range_evict() and then
+svm_range_unmap_from_gpus().
 
->> +     .hqd_gfx_cleaner = kgd_gfx_v9_cleaner
+The attempt therefore drops the window's GPU mapping and then returns
+having migrated nothing, so the next fault on that window is escalated
+into another migration instead of being satisfied by mapping alone.
 
-Prefer a name like fault_cleaner. This is not related to a HQD.
+Measured on MI300X (gfx942, SPX/NPS1, xnack+) under an HMM
+oversubscription workload, 96 to 97% of to-VRAM migration attempts
+collected zero pages, and the driver unmapped a window roughly 35 times
+for every migration that moved data.
 
->> +void kgd_gfx_v9_cleaner(struct amdgpu_device *adev)
->> +{
->> +     gfx_v9_4_2_shader_cleaner_workarounds(adev);
+Test whether every page of the faulting window is already resident in
+this node's VRAM and return early if it is. prange->actual_loc alone is
+not sufficient: since commit a546a2768440 ("drm/amdkfd: Use partial
+migrations/mapping for GPU/CPU page faults in SVM") migration is per
+window, so a range can report actual_loc == best_loc while part of it has
+been evicted back to system memory. 3.3% of attempts were in exactly that
+state and did have pages to move, so the per-page test is required rather
+than the scalar alone. Instrumented over 100000 attempts on an earlier
+run against a different driver build, the per-page test never skipped one
+that had pages to move.
 
-Similarly, fault_cleaner.
+The actual_loc comparison is kept alongside the per-page test because
+SVM_RANGE_VRAM_DOMAIN records only that a page is in some device's VRAM,
+not which device's.
 
->> +static void gfx942_workaround_cleaner(struct kfd_node *dev, uint16_t pasid)
+With this applied the fault driven phase of that workload falls from 270
+to 348 s down to 45 to 48 s, across 9 patched and 7 unpatched runs with
+no overlap at either oversubscription factor tested. page_in at the end
+of that phase does not fall with it: 44.5 to 48.3M pages patched against
+44.1 to 49.7M unpatched at factor 1.10, and 46.2 to 48.0M against 44.1 to
+45.7M at factor 1.02. Those ranges overlap at 1.10, so the claim is that
+no data is stranded, not that more moves. Unmaps per productive migration
+fall from about 35 to about 2. Retry fault counts do not fall in any arm,
+so this is not a refault loop; what changes is how often a fault
+escalates into a migration.
 
-Similarly, fault_cleaner
+The scan is bounded by the migration window, one granule on the fault
+path and the whole range on the prefetch path. That is the same order as
+the migrate_vma_setup() walk it avoids, and it returns at the first page
+that is not resident, so the worst case is one extra pass over a range
+that then migrates normally.
 
->> +     /* Run the GFX cleaner workaround on the faulting device.
->> +      * Only run once per page fault (evicted == 1 after first evict).
->> +      */
->> +     pdd = kfd_get_process_device_data(dev, p);
->> +     if (pdd) {
->> +             /* Only call cleaner once per page fault. Run the workaround
->> +              * only on the first eviction (evicted == 1 after evict above).
->> +              */
->> +             dqm = pdd->dev->dqm;
->> +             dqm_lock(dqm);
->> +             if (pdd->qpd.evicted == 1 && dqm->dev->kfd2kgd-
->>> hqd_gfx_cleaner)
->> +                     dqm->dev->kfd2kgd->hqd_gfx_cleaner(dqm->dev-
->>> adev);
->> +             dqm_unlock(dqm);
->> +     }
->> +
->> +     /* Restore all process devices after workaround completes */
+Signed-off-by: William Palacek <William.Palacek@amd.com>
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_migrate.c | 46 ++++++++++++++++++++++++
+ 1 file changed, 46 insertions(+)
 
-I'm not sure that we want to do this. Once a process faults there is no 
-recovery path for its queues. If we restore them then other waves may 
-cause further faults, leading us back here.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+index c3411dacdf55..e91d0115cbba 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
+@@ -384,6 +384,46 @@ svm_migrate_copy_to_vram(struct kfd_node *node, struct svm_range *prange,
+ 	return r;
+ }
+ 
++/* Check if a range of addresses is already resident in VRAM to avoid
++ * unnecessary migrations that would trigger MMU notifiers causing the range
++ * to be unmapped and faulted again unnecessarily.
++ *
++ * Called with prange->migrate_mutex held.
++ */
++static bool
++svm_range_window_resident(struct kfd_node *node, struct svm_range *prange,
++			  u64 start, u64 end)
++{
++	struct kfd_process *p = container_of(prange->svms, struct kfd_process, svms);
++	unsigned long i, offset, npages;
++	dma_addr_t *addr;
++	uint32_t gpuid;
++	int32_t gpuidx;
++
++	if (kfd_process_gpuid_from_node(p, node, &gpuid, &gpuidx))
++		return false;
++	if (prange->actual_loc != gpuid)
++		return false;
++
++	addr = prange->dma_addr[gpuidx];
++	if (!addr)
++		return false;
++
++	start = max(start >> PAGE_SHIFT, prange->start);
++	end = min(end >> PAGE_SHIFT, prange->last + 1);
++	if (end <= start)
++		return false;
++
++	offset = start - prange->start;
++	npages = end - start;
++
++	for (i = offset; i < offset + npages; i++)
++		if (!(addr[i] & SVM_RANGE_VRAM_DOMAIN))
++			return false;
++
++	return true;
++}
++
+ static long
+ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
+ 			struct vm_area_struct *vma, u64 start,
+@@ -401,6 +441,12 @@ svm_migrate_vma_to_vram(struct kfd_node *node, struct svm_range *prange,
+ 	void *buf;
+ 	int r = -ENOMEM;
+ 
++	/* Avoid unnecessary migrations and MMU notifiers if all the data is
++	 * already resident in VRAM.
++	 */
++	if (svm_range_window_resident(node, prange, start, end))
++		return 0;
++
+ 	memset(&migrate, 0, sizeof(migrate));
+ 	migrate.vma = vma;
+ 	migrate.start = start;
+-- 
+2.34.1
 
-Similarly, if the workqueue contains pipelined fault interrupts we don't 
-want to do this multiple times. Perhaps check pdd->qpd.evicted before 
-evicting queues and only run the workaround if (evicted == 0).
