@@ -4,125 +4,141 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id B4BA2C61DD6
-	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 21:04:33 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id A8D1AC61DD6
+	for <amd-gfx@archiver.kernel.org>; Tue,  1 Sep 2026 21:31:02 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 03A6B10EAE6;
-	Tue,  1 Sep 2026 21:04:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7585F10EF48;
+	Tue,  1 Sep 2026 21:31:00 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="xv2jTt/9";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="hn8Hp4lB";
 	dkim-atps=neutral
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012026.outbound.protection.outlook.com [52.101.53.26])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 876B010EAE6
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 21:04:32 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011050.outbound.protection.outlook.com [52.101.57.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5755810EF2C;
+ Tue,  1 Sep 2026 21:30:59 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GJCca+lfFB9r17a8waLqrJZ+a8qgM77vlEVSARn3Z1C3f34eRJqAaGf/4DxRPuTrDOJexIVnBJ/cpKclHqr73V+fJMRmmS805NGrxfmHfxyEwL0kuuUNeot/hVpemnFadWP/JM0vO89uzjwI653eIQpU3cd02zws6aqf36NVGKuDDW1xt0eeEvSgjiTGKQ3sBz+hUo6J4vHdh95++rL6atEQnochXBGvRdVla7701f8SGC/ZeUe792+Ru++phLqxCRFns1d69ortWDjtsjpT0i745oWk2LidSIeYeE3Rjmigii6XGbrReCShTzKtt4RClC9gnFB7WVxA9Dfjr3DIJw==
+ b=M5gso6t9LC4VSn7ZTccacSd6ZSrB867ucdyMv/QQilRB4vk+lQIAmBBKPnhlz+JpC6prlvwGx+WF/q3GLwzeCSy3cNIaI83QvP2NALVpJLhUu6d3W8aZIqhNHh2jU+p1CBsIQ4pd7lg5LFi+2S2BK7QU+4LiilhCz2mgmYr6PN0OUTX3BYh5Pt91MZ7pTEzavDfGm/MSM7er6tgAYjFrh38M3QA5Jltdl1mYAKkdxQvdmV+uLCarBQeY6tl5F2Et/mnAcYkFwwjrZC5xrjWNszFjw1BQVWN7iy2Vqbkd4wQWCkmYfdSyWuqMDTP7SkfItoPP1gtTgM6cnjPAfjQi/Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9UOxEKROtH159qqXnp1ZHgdpM/v2zWxZx1SO8cuz1Tk=;
- b=sG/t0xIzPqrS5NyLk7NNOjL4P4jIWwULUbWkE2dGU4/vE/Ma4YZ7GRaEL7jvbR3p+B78QoKJuCCqICJ3PRWqvWE+iXMoKBxFN+JUhFT3uML5WWOgooqmTh2LYDxHzSssUoVlZVibqrIxnjGyX/6+0AJ9+0CcoKRARyal1zGJoCKfavSs9U9aud/U2CZNEEJ35QRiqhKsfc+Nskv7TPAi+cyIVh1PjhP/IjKHVSmFV7SgWJhDNLzRIAlEAPuUqZJdD3Co5CkwsuHqRljZOHt2bmlVmtFSn5kFq9df8arLrxQ7eotExMYUV/IofY0F3beNi4TIsl75JNCQhKSOkeQjdg==
+ bh=ZgGLdRhyLQMxAhjokcjoWtXnTElFzEgg8U5j86E/SgU=;
+ b=S/M9ZoEU/BrSXRn/VQxjvkY2QOMkl9oSt5/yACY2OXpP5wGLwLpg63jEAzrp3AUp3HerJTAKy7XpgV6oWoJISp2rsyay+2jfGe/O1wn2mY1YhHhmpwLq8adOOTqeaOCSO/r6K/s+cww2u5q4WUQNJTymR7PQgrYkr7jac0ESH1gL2mLUZPRT2pTA1AnMntyPzlX7jnRRNupMEMoHr72Nio6HtmNBQncMuJmrpEAe3elis3v9RI/bRyoggZZvrPwf6vuNVedhTpMEz0qZiypNYT4dr9kO9YKv2F+fNEEjY48hGakefwcoMThI5cSQ4l5Y9pYrA5/6c6lpM/IbcueFlA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9UOxEKROtH159qqXnp1ZHgdpM/v2zWxZx1SO8cuz1Tk=;
- b=xv2jTt/9yup8imdK3ajXXOXQv2ciRYR15PPFXsJwRFiJ3y51quQXrdfBF9Yu5Png89XkXWR60rTBUaZt1LRgDZqFTXTpTNOGoqK+HpSnMLvEXRo4ZuKi8U+6ChQyHsFjwj74wLPi3fF7OO3h06lAnVhYdImUJmhTdAPNWq3GD74=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY3PR12MB9629.namprd12.prod.outlook.com (2603:10b6:930:101::9)
- by PH0PR12MB7079.namprd12.prod.outlook.com (2603:10b6:510:21d::8)
+ bh=ZgGLdRhyLQMxAhjokcjoWtXnTElFzEgg8U5j86E/SgU=;
+ b=hn8Hp4lBt9dSY8M9CmxSHctRixR9p9BExJsURiV+TS3XdW0QLpAtHmi/xb7lTh2drGWBt7RjALnx0PmJ7IBg9nVWky+0fVl9h3UxqWTa5KbZE6OIKsptN9fnPoDGkbhG0ABhW4IYxmUXpHSgtVIFxiFckxqdV89kOOh/TdM5B0c=
+Received: from BN9PR12MB5146.namprd12.prod.outlook.com (2603:10b6:408:137::16)
+ by SA3PR12MB9131.namprd12.prod.outlook.com (2603:10b6:806:395::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Tue, 1 Sep
- 2026 21:04:29 +0000
-Received: from CY3PR12MB9629.namprd12.prod.outlook.com
- ([fe80::3d72:a3a9:e4ab:4afa]) by CY3PR12MB9629.namprd12.prod.outlook.com
- ([fe80::3d72:a3a9:e4ab:4afa%4]) with mapi id 15.21.0382.007; Tue, 1 Sep 2026
- 21:04:29 +0000
-Message-ID: <6ba4f403-9001-47fa-b25f-3f4a81ae3077@amd.com>
-Date: Tue, 1 Sep 2026 16:04:27 -0500
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amdkfd: Fix TCP XNACK scoreboard reset race
-To: Gang Ba <gaba@amd.com>, "Russell, Kent" <Kent.Russell@amd.com>,
- "Ba, Gang" <Gang.Ba@amd.com>,
- "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-References: <20260831205059.1803721-1-Gang.Ba@amd.com>
- <BL1PR12MB5898416E809BE5392EA63D9A85A82@BL1PR12MB5898.namprd12.prod.outlook.com>
- <037a59c6-f698-443b-9fe0-5fdcc23e9084@amd.com>
- <9a353fc4-6947-4a5b-bb37-ee6e17529ede@amd.com>
+ 2026 21:30:54 +0000
+Received: from BN9PR12MB5146.namprd12.prod.outlook.com
+ ([fe80::535a:591e:27f6:c23]) by BN9PR12MB5146.namprd12.prod.outlook.com
+ ([fe80::535a:591e:27f6:c23%3]) with mapi id 15.21.0360.008; Tue, 1 Sep 2026
+ 21:30:50 +0000
+From: "Deucher, Alexander" <Alexander.Deucher@amd.com>
+To: Armin Wolf <W_Armin@gmx.de>, "hansg@kernel.org" <hansg@kernel.org>,
+ "ilpo.jarvinen@linux.intel.com" <ilpo.jarvinen@linux.intel.com>
+CC: "platform-driver-x86@vger.kernel.org"
+ <platform-driver-x86@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux@weissschuh.net"
+ <linux@weissschuh.net>, "rafael@kernel.org" <rafael@kernel.org>,
+ "lenb@kernel.org" <lenb@kernel.org>, "linux-acpi@vger.kernel.org"
+ <linux-acpi@vger.kernel.org>, "Koenig, Christian" <Christian.Koenig@amd.com>, 
+ "airlied@gmail.com" <airlied@gmail.com>, "simona@ffwll.ch" <simona@ffwll.ch>, 
+ "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>,
+ "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "patrik.r.jakobsson@gmail.com" <patrik.r.jakobsson@gmail.com>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "mripard@kernel.org" <mripard@kernel.org>, "tzimmermann@suse.de"
+ <tzimmermann@suse.de>, "jani.nikula@linux.intel.com"
+ <jani.nikula@linux.intel.com>, "joonas.lahtinen@linux.intel.com"
+ <joonas.lahtinen@linux.intel.com>, "rodrigo.vivi@intel.com"
+ <rodrigo.vivi@intel.com>, "tursulin@ursulin.net" <tursulin@ursulin.net>,
+ "intel-gfx@lists.freedesktop.org" <intel-gfx@lists.freedesktop.org>,
+ "matthew.brost@intel.com" <matthew.brost@intel.com>,
+ "thomas.hellstrom@linux.intel.com" <thomas.hellstrom@linux.intel.com>,
+ "intel-xe@lists.freedesktop.org" <intel-xe@lists.freedesktop.org>
+Subject: RE: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
+ nvidia_wmi_ec_supported()
+Thread-Topic: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
+ nvidia_wmi_ec_supported()
+Thread-Index: AQHdGxicLMRYOjDhTUW2+FI64yGRP7a6e5WA
+Date: Tue, 1 Sep 2026 21:30:50 +0000
+Message-ID: <BN9PR12MB514668975E87D570F50B2D91F7A82@BN9PR12MB5146.namprd12.prod.outlook.com>
+References: <20260724025959.142826-1-W_Armin@gmx.de>
+ <20260724025959.142826-3-W_Armin@gmx.de>
+In-Reply-To: <20260724025959.142826-3-W_Armin@gmx.de>
+Accept-Language: en-US
 Content-Language: en-US
-From: Jay Cornwall <jay.cornwall@amd.com>
-In-Reply-To: <9a353fc4-6947-4a5b-bb37-ee6e17529ede@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SN7PR04CA0085.namprd04.prod.outlook.com
- (2603:10b6:806:121::30) To CY3PR12MB9629.namprd12.prod.outlook.com
- (2603:10b6:930:101::9)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY3PR12MB9629:EE_|PH0PR12MB7079:EE_
-X-MS-Office365-Filtering-Correlation-Id: 97549668-5442-45ca-1668-08df086c9cc4
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|23010399003|366016|10067099003|56012099006|11063799006|6133799003|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: Hd+UWwyXb3TCupwTKABMNtfoyiuQwQZiEfDneRtRgThiH2q0fX4U92tE7/Mwt3s5okJleVaGqJSMp2OiwGjken0hTHqIrPISv+GSlG9i766raV9o3WVf8JZf78s3nuqYywAhESRml1wHGK6hZPbYkl13iJjS8RpHVft6Pgg3RG4so16pP0qXjaPViybEFjYlLHIUQBasu9h1ImPTipTJ+1EIzTjGlWF3h6wlc08nmbNJ5J+i5R47QSHWinsxsAj4qrXzp9yfncjqfuZ8cWz6fcDtC5EARah7WoEpd8vTFRWeedJaHqkeWUyA1KuHhFBwgrjqycHr0muMLYK9397rCYCd1rzSmuDbfF/c2Hhji53udG9eWPh4sZW1sojWkobXbnXoRj9RIHUeWK+JlQo03J/bOHrxoCccyhlfEq75v4PyT18P1Zq1pGLR0UWYYXOfg5BuOy/nwLK7xZSxO/XhayZdHHanN6jjk6CrFIYrDGYxzDlDqBH5hNi4/uYD2IvMgCzhMQ/WFc1062ZRykexrKbK5gi1IdSIXQdkqJOl4GnXy7gjZkLeld9gUOj2kXAC4v6zqqf16MOTIKCi6D4FkU4065Pmgi3UlbsaeDMqB+0VYn6db1o1awL/AtyvgwV/BFNeajUBIPLv29r7rfmSOukndXEmIOUhJCOs9K4fir4=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:CY3PR12MB9629.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(23010399003)(366016)(10067099003)(56012099006)(11063799006)(6133799003)(4143699003)(18002099003)(22082099003);
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Enabled=True;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_SetDate=2026-09-01T21:29:02.0000000Z;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Name=AMD Public
+ v26; MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_ContentBits=3;
+ MSIP_Label_2d0b1989-8fc8-4a69-bcac-d46889461ba5_Method=Privileged
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BN9PR12MB5146:EE_|SA3PR12MB9131:EE_
+x-ms-office365-filtering-correlation-id: 7eab1ffc-d3a2-4274-a742-08df08704b8c
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|376014|7416014|366016|23010399003|10067099003|4143699003|56012099006|11063799006|38070700021|18002099003|22082099003;
+x-microsoft-antispam-message-info: Jv8NAfTTQLbWOVZkZiwfCDjka7PxDF3pGr+9F92/ga3m5a0ddaL68yJ6tXjKBksuDSst33eUB934yH6Unx2ak8ucixXQRlmD7XrNHD8XngVwbKKxol23Y1xmeUnCiewXcU6W4PTnMaJ5tbxZobrDpisamRycZO/cftJFJbGkVqpMfZ/rXYTTpj6vC9HBztgqVFaNHNAFHDigH91d+1AdQXjpe6wsMgcsUXgWJ7zGhksU6bwh6SOJHQPQknntfxeDWodqwJRCfMBWlvR4yIfxY19rGvb6fURwV/Cn66Rl04aHkOyCFJpTMk/UbgDC32XZdFj6q7DUr6q6dDwialJwupb3C0AZolMXJ6XFmqj2O9yJy8EpI38xIu32T4t1Oo6+JtsmB/5+PuuARC8jxUVvWC6pA99x8yJ7d0thbvwd6xK3S+LIOwaeB79hw6NNgVLQm/j5Lx4acQnhzbToNmct1CiHvdiLIzfg0OriN/+E1PEc/vQFiHvxeEtI3y4QYPBLh4UarkSrCzfY4LIFXmNXr0Bf2LQdVDFUQVJovBSiGFsT2AwO4BgzLyU0ffQMFgel5Co9+PXiBXEXfVw0MAl9zAqSuag8uvHCjReHePFWd9upsN58jarhu6CbB+S6fu11lO8y8k7pRSeECUDkzm387iGKjzQwNUnrVWGpLtsh1hNPiGTr7ESIvUrFXCMY2caTrLwLLDf1eqbzCUVVLHY77imaTj/WDrGfT29Jsd97Yek=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN9PR12MB5146.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(10067099003)(4143699003)(56012099006)(11063799006)(38070700021)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OTlJd2pjY2F6cHp2T214NDNUZ3ZlREM0ekM5M2NoRmhORmtnY3hDUkxXdjJZ?=
- =?utf-8?B?ZjlOS25JSk5oVjF4UTcvNFZ1Z1hzRDRYa0F0RUlwNXRvOFZVN0l3WHZIdzlL?=
- =?utf-8?B?bys2RENLaFQzbVI5cEJES2xSZDM3OEMzQmtGVTEvenRyVDEwTnpnTXZqUmFI?=
- =?utf-8?B?SWcrQlFyam1HUjhZcnZDSy81QitYU2ZaQXZWUXd4Ky9DTis5QjA2dTY2N055?=
- =?utf-8?B?TmtIN281ZDVhcXVJWittUjBKU3g2dmR1T281bWFDWW1scEFudVdHQVlnT2dz?=
- =?utf-8?B?VHVlTllkSW9jUFBzS1FJeU1hRzVmQzBBUlJZVXZHK0lTQzlBVGp6UFZvVmIy?=
- =?utf-8?B?ZVNERVBYMWU4em0wTk1GQkxUYU5UcFdHSm8xSVZGL0YvbXE2UXNHazkxUTdV?=
- =?utf-8?B?NnlPNGx3VW1GNjdOYkN0NVFKTFlkM3lITVdsSkRZbzBscENCT3kxTlFNcnhr?=
- =?utf-8?B?SFozYU9YWWkwMEQrWlFTNGcrUmpKblZnN3JqbFVocFgzZFFEK24vZkd1NllO?=
- =?utf-8?B?SGpERTdOY2ZSMmc2aWVGd3dSWjJHQlpDSjRMRzd5TThTRUVEa3ZZNU5KR0My?=
- =?utf-8?B?UkN3VmJDL3hHN2lsUUozY1grekJSZWFZZzJYZ2szL1M5alFjdU5VZmRodHFP?=
- =?utf-8?B?cGxNMTIyZXpBSHpPMGJWcDJKVkJtRlR2OWovMUV4U0NKOU9jckNkeGQyZnQw?=
- =?utf-8?B?Y24wVmpTeVVQMGRzaWxLejlUTTZuT0xiMC8rNTdDRnhzTjdoaVZteEV0ODlj?=
- =?utf-8?B?dkVCSHVqcWlrUUZoelVEUWltcGdTbjQ2aldNaXFTdThtOE9xaDVvNzBjekl1?=
- =?utf-8?B?OFNTaU90RFRGSHA4OElNYWQ0b1BjTzV4blBUbWNueUFrL2lYazN5aGtwTzAy?=
- =?utf-8?B?b2diYnpDY1J1em5ZaFJ2RkxBdGlrU0hSS1p0WnRyMFpqVktKYW1pTTZHY3d4?=
- =?utf-8?B?M3hQU2Q4dHNHbnF3bXo1clVMSU9POFJOejZKbzVGYkJqN2lHVEVFSXFRN0hs?=
- =?utf-8?B?eVorbmlUS1FhVU5lRUFvTVdpd2FRRVNCVmtXQ056c2dVa2p1Wk0xdTZGV2E5?=
- =?utf-8?B?TFBVU1JXOTlVTU41NEs0ZnBaQ2ZVSEIvZUJJSm1FWnBtc0I3dXNTdWxkRGl1?=
- =?utf-8?B?ai9VcUx4Zis2dmJiWGh6MllTNTIvM2xHUG5XdnBIWnZoTERQWTRheW4ybDZi?=
- =?utf-8?B?WTVPTEpiTkc5WE5KQk1BTFk4RlAzdFM0eHJId05YdHI2dDU5WElaK0FVZVVS?=
- =?utf-8?B?Q2NUOFZMQ0s3bHM1bmRZVCsyam91QXF5R2RieS8zMzlPdllyMndDTlpiL0ZV?=
- =?utf-8?B?WXFTN29iWG8rR2J1a0RRTFZFL2JlQ0d3aVpyeW5MckZLeU9QcWUzU0hISzJK?=
- =?utf-8?B?TjFyTXZrbFkzRE9nZUNOREZqNThpdGxtUDFqUnIwQXRpU3FWa0dBeGkzaUNm?=
- =?utf-8?B?WUFwMERmRFhXcUJ0czJXYVl6ZFo5aVR3b2IyWWZja1pTa29LQ2QyQmxQcEZs?=
- =?utf-8?B?VGN6L3RaMVdOYnoxUmRiMW45QVZwQm1VakJRWGc2WVpOZ1JzUlM4TmQ3MHl5?=
- =?utf-8?B?enB0anp4d1ZDcWdRS21zeGQ0OHZNL3E0eU9ScWkrUCtTQm53d2VNOTBWenVs?=
- =?utf-8?B?QzJRMlhLZERiYnlyMkhKMkEwUGdtVTRhVmhlRTh4Y3FlOFVRbnlrWjhJUmZn?=
- =?utf-8?B?Vng2eDJ3T1dreHMvWHUwOHpXRHB5eWZ2dTc2aGVleHZURGRPZE45ZHkwRm9Y?=
- =?utf-8?B?aEJKRnJQbU85c0RwL1JGWGhsbTFGemp4Wkg5ZjNGRU8vcEkwNXMzN1BOUldD?=
- =?utf-8?B?WnNmYk4rRmhnNW9Wbk1tOTgxWnRHYmQvMTR0dGkzSU9qN0graEwyMnp5Q2JQ?=
- =?utf-8?B?UzM5TUJlcm8zUXE1TURiOHJmQUhWamU1eTNTV3M1bVpIWkFJS3l0UjlLQUo5?=
- =?utf-8?B?bS9BdWUrU1U5bS84Q0hIbmVyRWl2d05OcTZadVIzVGIzdDNWQmsvTmhLVmhY?=
- =?utf-8?B?T3lRK3llanM4eDFHdzRBRjdxTFZhcnJ1d3VXRUpMMExLRnU3NmJoeVhoSnVV?=
- =?utf-8?B?RjBURnI1UklXdWg1b1FwdHVEdWVwZzZoNzVZZitCSEd2UTZFQjZxMnhkSFNE?=
- =?utf-8?B?amVKVks5ODE2QWlPRnAwc2c5OFk0ajhKeENUdmcrR0gwUml6Sjd4N3NQNEpG?=
- =?utf-8?B?dE8rdzNmd2ZpNUwzQzg0ZjJHSUl4eXppM2lBN2JXd1pOQTI0VktDdm1odG8w?=
- =?utf-8?B?YjlMTER1di81Mitsb2NWZ1VkS2Y0WGNQOUJhNUpZdXlqRHJXbGs2S3hOK1Ax?=
- =?utf-8?B?MWFNRmZPd3BsRVBZdlhPakhlci9MOE9FQW1WN0hZcDB5RzdxazJzZz09?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?eN8H+ew9AoDBSl4RlYvs/ViDRwH3soSirvLJhjycrxVEMD9QjNNF0WRab+JD?=
+ =?us-ascii?Q?a7FpmtvVy1hfji7SvQsapiP91YBom90ZPadkCES+H0IMXRUlk7BC7wGB7+ES?=
+ =?us-ascii?Q?zzauMA2RucZTweWxijzzHQnAW9eVVA8vcxMhgpN2MU/Ef1TuHSLd1ns8vPEi?=
+ =?us-ascii?Q?NdcOObem9TNm3cg2IWkBih9C4Ai+7ylSob8cte14S7GADa53jDeWz9f+brHj?=
+ =?us-ascii?Q?wgJ+FGETpEAWIY50RcTxcIDKhbf58C279zrcPBVYwew2Qldd3StJ4rzdhu99?=
+ =?us-ascii?Q?yqiBs+/Sfa3LEVz/Lkj6o8Gimc8EJrJbu2ijAZhvwnmn9s0p9VubmvdORRPn?=
+ =?us-ascii?Q?yq/7BK3exs3ZqMilDgHNgE6FexsfNlV0qWiEI1g7MGUkhuJCa8Myvw6LfP1u?=
+ =?us-ascii?Q?KdeiTq5hRDagrFcnKd/hZjhZeQKsZMHtqdxJ4bv4N0gzmOp3wckFun5ciUZ+?=
+ =?us-ascii?Q?xJRQiTfGD8mqEaBhYbJgEpgsEKF0H0V+wPfnBenWKRicaR9dQtTLd7H9/Bv6?=
+ =?us-ascii?Q?6w2pVfQeSuia5eho+PRSZNz8V41Jg7/a2tXO9cptHDi0X9ycQelsdl6YWxgs?=
+ =?us-ascii?Q?2ggUWzTWnsRT2ja+5zimJny6K2UDWpnwTy2UEej1+GLYBP/nG+gvj1/kOHQi?=
+ =?us-ascii?Q?wyNJDKP3Gxy8jYFTiFNPdcJsh50cpzLdLcsm2tzh0ZnKIyzNbt6/P3LErO46?=
+ =?us-ascii?Q?k8T+owiPryisTNhT8ffHNXxOjJu1kdR1djXtOj5oxYDD3PPl/OVRw6lsUs+p?=
+ =?us-ascii?Q?lNU1wpDR5K9+xUMf6ZL4zXMZXp8vj+76br4iGjhjDLZrKoaTzAd3Cqh8C6Y2?=
+ =?us-ascii?Q?YgVz2gp6FReY+7WQ7hLvnf85wT62xnUKWi5yD5Ssasyvt8MFdUzBPXil4K1p?=
+ =?us-ascii?Q?eU2e8rZZBeYKpk7eYs4ionlAylq7C40Y9ycd8m85iFt/KISZxSCQFGtg7CyH?=
+ =?us-ascii?Q?9+Dzz6fD6SK7XUv5TPlXzCPYRVRLXoXwPZvNlp5hKGARMZgVRsXt/YnUlLT4?=
+ =?us-ascii?Q?8QQ3ItAU2H4tLd4ZOYPYcOf86Dpb30PgiGI4rVcBLzqcCzJ5tA8VyGnNbxRZ?=
+ =?us-ascii?Q?HCUC3CpB2VRwBKn3iMEbJNBnHsR9ciL4sagz22D2PCihkWEgbZjqn/hdbOW7?=
+ =?us-ascii?Q?gdbJhSCXGV6oLnd4B+kKoichuuu/H1IZ2l4vLoVKJ4kGHsT3rnDTqxrMz5Iy?=
+ =?us-ascii?Q?6M1gGzWlGa/qQyJY1HVmFfZG91bBcQPwXdZ6tYe3oo1tUbDhlbLR64JaZiSO?=
+ =?us-ascii?Q?+hhC8JmTnMUPFUKnhG1Ov9FqBwpvEuRlFn1F9u6STvPceV1xFWyf09/kpMbX?=
+ =?us-ascii?Q?mioi3/TtINUNTf9g55/MkkMdL/XtlQ68Htn6bYQ7rX+RwZd/vJF21fSwv5R0?=
+ =?us-ascii?Q?mXpvXwEag1ENgw6pTDsJXtkK4bB3ZT358zhZqUxOTy8W/Ob4kwPV4TCtsr1q?=
+ =?us-ascii?Q?Ve1z5JbMuBiZWJMhLhzIDKF0OedapZox3RkLgamtf1M3q9MvLKNrTpdMCf4v?=
+ =?us-ascii?Q?0CAFOYqq5pOehaajvJWnTurSO1w46xLEaUEr+0gRGCMqY1GdIVExTNxM9esF?=
+ =?us-ascii?Q?DrSfTzOJ0NWTjZMnAkNBL+1menij8jIEaL0VT9q4J18mXQWs1rGK01P5pGDs?=
+ =?us-ascii?Q?URKMhI1MHnR1rr7imIssPEp1F2YDM8aZZcNV7K2AtR/vXW1nfOXlWwPfCC83?=
+ =?us-ascii?Q?jVuu39GUaLmtSvmrOWmOlux81aj56a0TBETz6WVGTHHJhpew?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 97549668-5442-45ca-1668-08df086c9cc4
-X-MS-Exchange-CrossTenant-AuthSource: CY3PR12MB9629.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Sep 2026 21:04:29.3779 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: x8LQvvUbJRsILaeLqA7PursQ5zsIsGOcT994nPtgrP9Fpfcc0DMSXeEd1hYmRS7r0OLJZoJWTXelxHCI5jc5Pw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7079
+X-MS-Exchange-CrossTenant-AuthSource: BN9PR12MB5146.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7eab1ffc-d3a2-4274-a742-08df08704b8c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Sep 2026 21:30:50.6214 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1m65ySK5MJp7RMslnbKRVPjmOexrSll+gjJbsTgKbRzWQCdYm9ArFQ1SbwK6R/W2AakA/8CsMf1IA+pCCz5AcA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB9131
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,29 +153,185 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/1/2026 15:17, Gang Ba wrote:
+Public
 
->> I'm not sure that we want to do this. Once a process faults there is 
->> no recovery path for its queues. If we restore them then other waves 
->> may cause further faults, leading us back here.
->>
->> Similarly, if the workqueue contains pipelined fault interrupts we 
->> don't want to do this multiple times. Perhaps check pdd->qpd.evicted 
->> before evicting queues and only run the workaround if (evicted == 0).
+> -----Original Message-----
+> From: Armin Wolf <W_Armin@gmx.de>
+> Sent: Thursday, July 23, 2026 11:00 PM
+> To: hansg@kernel.org; ilpo.jarvinen@linux.intel.com
+> Cc: platform-driver-x86@vger.kernel.org; linux-kernel@vger.kernel.org;
+> linux@weissschuh.net; rafael@kernel.org; lenb@kernel.org; linux-
+> acpi@vger.kernel.org; Deucher, Alexander <Alexander.Deucher@amd.com>;
+> Koenig, Christian <Christian.Koenig@amd.com>; airlied@gmail.com;
+> simona@ffwll.ch; amd-gfx@lists.freedesktop.org; dri-
+> devel@lists.freedesktop.org; patrik.r.jakobsson@gmail.com;
+> maarten.lankhorst@linux.intel.com; mripard@kernel.org;
+> tzimmermann@suse.de; jani.nikula@linux.intel.com;
+> joonas.lahtinen@linux.intel.com; rodrigo.vivi@intel.com;
+> tursulin@ursulin.net; intel-gfx@lists.freedesktop.org;
+> matthew.brost@intel.com; thomas.hellstrom@linux.intel.com; intel-
+> xe@lists.freedesktop.org
+> Subject: [PATCH v3 2/3] ACPI: video: Remove CONFIG_X86 handling from
+> nvidia_wmi_ec_supported()
+>
+> The WMI-ACPI driver now supports architectures other than x86.
+> Remove the CONFIG_X86 handling from video-detect and the associated
+> drivers to simplify the resulting code.
+>
+> Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+> Signed-off-by: Armin Wolf <W_Armin@gmx.de>
+> ---
+>  drivers/acpi/Kconfig               | 2 +-
+>  drivers/acpi/video_detect.c        | 8 --------
+>  drivers/gpu/drm/amd/amdgpu/Kconfig | 4 +---
+>  drivers/gpu/drm/gma500/Kconfig     | 1 -
+>  drivers/gpu/drm/i915/Kconfig       | 1 -
+>  drivers/gpu/drm/radeon/Kconfig     | 4 +---
+>  drivers/gpu/drm/xe/Kconfig         | 5 ++---
+>  drivers/platform/loongarch/Kconfig | 1 +
+>  8 files changed, 6 insertions(+), 20 deletions(-)
+>
+> diff --git a/drivers/acpi/Kconfig b/drivers/acpi/Kconfig index
+> f165d14cf61a..cc1e58fa664b 100644
+> --- a/drivers/acpi/Kconfig
+> +++ b/drivers/acpi/Kconfig
+> @@ -224,7 +224,7 @@ config ACPI_VIDEO
+>       tristate "Video"
+>       depends on BACKLIGHT_CLASS_DEVICE
+>       depends on INPUT
+> -     depends on ACPI_WMI || !X86
+> +     depends on ACPI_WMI
+>       select THERMAL
+>       help
+>         This driver implements the ACPI Extensions For Display Adapters d=
+iff
+> --git a/drivers/acpi/video_detect.c b/drivers/acpi/video_detect.c index
+> 458efa4fe9d4..af9280b244f1 100644
+> --- a/drivers/acpi/video_detect.c
+> +++ b/drivers/acpi/video_detect.c
+> @@ -82,8 +82,6 @@ find_video(acpi_handle handle, u32 lvl, void *context,
+> void **rv)
+>       return AE_OK;
+>  }
+>
+> -/* This depends on ACPI_WMI which is X86 only */ -#ifdef CONFIG_X86
+> static bool nvidia_wmi_ec_supported(void)  {
+>       struct wmi_brightness_args args =3D {
+> @@ -105,12 +103,6 @@ static bool nvidia_wmi_ec_supported(void)
+>        */
+>       return args.ret =3D=3D WMI_BRIGHTNESS_SOURCE_EC;  } -#else -static =
+bool
+> nvidia_wmi_ec_supported(void) -{
+> -     return false;
+> -}
+> -#endif
+>
+>  /* Force to use vendor driver when the ACPI device is known to be
+>   * buggy */
+> diff --git a/drivers/gpu/drm/amd/amdgpu/Kconfig
+> b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> index 12e4a41bf1f0..50305630f533 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/Kconfig
+> +++ b/drivers/gpu/drm/amd/amdgpu/Kconfig
+> @@ -30,9 +30,7 @@ config DRM_AMDGPU
+>       # ACPI_VIDEO's dependencies must also be selected.
+>       select INPUT if ACPI
+>       select ACPI_VIDEO if ACPI
+> -     # On x86 ACPI_VIDEO also needs ACPI_WMI
+> -     select X86_PLATFORM_DEVICES if ACPI && X86
 
-> The eviction and restoration functions feature built-in concurrency 
-> protection. If an eviction process is already underway, the function 
-> automatically bypasses the operation.
-> 
-> The function utilizes the "evicted" value (which can be updated to 
-> |pdd->qpd.evicted <= 1|) to prevent multiple concurrent executions of 
-> the cleaner function.
+The change below makes sense, but this one looks like it should remain unle=
+ss X86_PLATFORM_DEVICES is handled some other way?
 
-I don't think this addresses my comment above. We do not want to restore 
-the process after evicting it. The sequence I'd propose is:
+Alex
 
-- On the first fault within a process only (discarding all subsequent 
-faults):
-- Evict queues, if not already evicted
-- Run cleaner
-- Leave queues evicted
+> -     select ACPI_WMI if ACPI && X86
+> +     select ACPI_WMI if ACPI
+>       help
+>         Choose this option if you have a recent AMD Radeon graphics card.
+>
+> diff --git a/drivers/gpu/drm/gma500/Kconfig
+> b/drivers/gpu/drm/gma500/Kconfig index a2acaa699dd5..dc4c56638819
+> 100644
+> --- a/drivers/gpu/drm/gma500/Kconfig
+> +++ b/drivers/gpu/drm/gma500/Kconfig
+> @@ -11,7 +11,6 @@ config DRM_GMA500
+>       select ACPI_VIDEO if ACPI
+>       select BACKLIGHT_CLASS_DEVICE if ACPI
+>       select INPUT if ACPI
+> -     select X86_PLATFORM_DEVICES if ACPI
+>       select ACPI_WMI if ACPI
+>       help
+>         Say yes for an experimental 2D KMS framebuffer driver for the dif=
+f --
+> git a/drivers/gpu/drm/i915/Kconfig b/drivers/gpu/drm/i915/Kconfig index
+> 5e939004b646..71426b9c91f0 100644
+> --- a/drivers/gpu/drm/i915/Kconfig
+> +++ b/drivers/gpu/drm/i915/Kconfig
+> @@ -28,7 +28,6 @@ config DRM_I915
+>       # but for select to work, need to select ACPI_VIDEO's dependencies,
+> ick
+>       select BACKLIGHT_CLASS_DEVICE if ACPI
+>       select INPUT if ACPI
+> -     select X86_PLATFORM_DEVICES if ACPI
+>       select ACPI_WMI if ACPI
+>       select ACPI_VIDEO if ACPI
+>       select SYNC_FILE
+> diff --git a/drivers/gpu/drm/radeon/Kconfig
+> b/drivers/gpu/drm/radeon/Kconfig index c479f0c0dd5c..3cd70aef770e
+> 100644
+> --- a/drivers/gpu/drm/radeon/Kconfig
+> +++ b/drivers/gpu/drm/radeon/Kconfig
+> @@ -25,9 +25,7 @@ config DRM_RADEON
+>       # ACPI_VIDEO's dependencies must also be selected.
+>       select INPUT if ACPI
+>       select ACPI_VIDEO if ACPI
+> -     # On x86 ACPI_VIDEO also needs ACPI_WMI
+> -     select X86_PLATFORM_DEVICES if ACPI && X86
+> -     select ACPI_WMI if ACPI && X86
+> +     select ACPI_WMI if ACPI
+>       help
+>         Choose this option if you have an ATI Radeon graphics card.  Ther=
+e
+>         are both PCI and AGP versions.  You don't need to choose this to =
+diff -
+> -git a/drivers/gpu/drm/xe/Kconfig b/drivers/gpu/drm/xe/Kconfig index
+> 4d7dcaff2b91..502c7b3c1f16 100644
+> --- a/drivers/gpu/drm/xe/Kconfig
+> +++ b/drivers/gpu/drm/xe/Kconfig
+> @@ -4,7 +4,6 @@ config DRM_XE
+>       depends on DRM && PCI
+>       depends on KUNIT || !KUNIT
+>       depends on INTEL_VSEC || !INTEL_VSEC
+> -     depends on X86_PLATFORM_DEVICES || !(X86 && ACPI)
+>       depends on PAGE_SIZE_4KB || COMPILE_TEST || BROKEN
+>       select INTERVAL_TREE
+>       # we need shmfs for the swappable backing store, and in particular
+> @@ -29,8 +28,8 @@ config DRM_XE
+>       # but for select to work, need to select ACPI_VIDEO's dependencies,
+> ick
+>       select BACKLIGHT_CLASS_DEVICE if ACPI
+>       select INPUT if ACPI
+> -     select ACPI_VIDEO if X86 && ACPI
+> -     select ACPI_WMI if X86 && ACPI
+> +     select ACPI_VIDEO if ACPI
+> +     select ACPI_WMI if ACPI
+>       select SYNC_FILE
+>       select CRC32
+>       select SND_HDA_I915 if SND_HDA_CORE
+> diff --git a/drivers/platform/loongarch/Kconfig
+> b/drivers/platform/loongarch/Kconfig
+> index 447528797d07..db7833842142 100644
+> --- a/drivers/platform/loongarch/Kconfig
+> +++ b/drivers/platform/loongarch/Kconfig
+> @@ -23,6 +23,7 @@ config LOONGSON_LAPTOP
+>       depends on INPUT
+>       depends on MACH_LOONGSON64
+>       select ACPI_VIDEO
+> +     select ACPI_WMI
+>       select INPUT_SPARSEKMAP
+>       default y
+>       help
+> --
+> 2.39.5
+
