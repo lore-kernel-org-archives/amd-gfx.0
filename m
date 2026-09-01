@@ -4,50 +4,82 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 7C940C624D4
-	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:35:11 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32649C624DB
+	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:35:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF0F010F43A;
-	Thu,  3 Sep 2026 07:35:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3EBE910F440;
+	Thu,  3 Sep 2026 07:35:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (2048-bit key; unprotected) header.d=empyreal.works header.i=@empyreal.works header.b="CjkTfUyH";
+	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R+AJT3oI";
 	dkim-atps=neutral
-X-Greylist: delayed 35948 seconds by postgrey-1.36 at gabe;
- Wed, 02 Sep 2026 22:31:12 UTC
-Received: from mail-24421.protonmail.ch (mail-24421.protonmail.ch
- [109.224.244.21])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1076710E083
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 22:31:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=empyreal.works;
- s=protonmail2; t=1788388269; x=1788647469;
- bh=eTuXow2RDpv5lP3+8l+Zj7LsJOisvJ24M6HDGUFAuqU=;
- h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
- Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
- Message-ID:BIMI-Selector;
- b=CjkTfUyH2TOXBqe36p/R8NHvZmmty34pxSIVSB+4tFPnSxmG6o0F3J6WpnWFIQWUB
- vqXpcITquxoeNrUqHZQfJVuInkdOVjotz2LN7zGFV7UCqkgPWUY1rr2W1QQz3mRHXh
- m6ctLowQIRWhJoCXDY5S7Jt1NKU2FAXhErEuvpjzPNJq0/sHwEVCmBPCGhks56kUuM
- 0PZsUdkkDOCsx/GbmMw3Z8sN5zJXsjSwVLZPPrkL8Ri2L70BC7zVHAuXpZPsbhyYoN
- ji5/yF33DgCaTwNckFlT98K5rlvRciPFQJFyVIaanytrMH6GmrM6uGAIvuPgp8wtRw
- H+F+/k8svBrDg==
-Date: Wed, 02 Sep 2026 22:31:03 +0000
-To: amd-gfx@lists.freedesktop.org
-From: Andrei Rusu de Castro <arc@empyreal.works>
-Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com,
- alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com,
- simona@ffwll.ch, alex.hung@amd.com, roman.li@amd.com,
- mario.limonciello@amd.com, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, chen-yu.chen@amd.com, ray.wu@amd.com
-Subject: [PATCH v2 0/4] drm/amd/display: fix brightness ownership through
- power module
-Message-ID: <cover.1788388049.git.arc@empyreal.works>
-In-Reply-To: <20260902-brightness-cover-abf809f2@empyreal.works>
-References: <20260902-brightness-cover-abf809f2@empyreal.works>
-Feedback-ID: 182420409:user:proton
-X-Pm-Message-ID: 16ac18dfe530b3eb205388d0b49a1f373a909ae2
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
+ [209.85.218.54])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DB9DA10EED5
+ for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 19:28:08 +0000 (UTC)
+Received: by mail-ej1-f54.google.com with SMTP id
+ a640c23a62f3a-c15b51ba80dso1653666b.2
+ for <amd-gfx@lists.freedesktop.org>; Tue, 01 Sep 2026 12:28:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1788290887; x=1788895687; darn=lists.freedesktop.org;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :disposition-notification-to:references:in-reply-to:date:cc:to:from
+ :subject:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=JTuffngLp6NHCRIvBVVHOhPBP9shIWiSyWJB5rJizD4=;
+ b=R+AJT3oIf/J5ukckqBa+3TENAp19PmDf6GgXfwC3z0+dYCYb0XVAhrkIWRte/9pq17
+ +Tcb1ZkWAmNM5RiAYkmpnXdTYspxakD0vGfwdbghOVjeegYFD5MhzDbsCjXSiKNV9+oL
+ yJ2lR63hSj17HMXD+IxJrFDuN0lIixlYsEgGhAmoKpTM4VfePqUQMQxDSVvNcsGnjXpK
+ pkxT8Xzey5VY82jAKFJoLFIHHaUUt2PBfuaa0lyy2PC34m18s9G+0zX+4T+E4quDUx5U
+ qLLtU6KHOSFi5jdbMUsVx/o/nqs2xXlup+wcvsPyjg5R3YCIqVAv3SLsAsQNdeLXfiIC
+ GAuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1788290887; x=1788895687;
+ h=mime-version:user-agent:content-transfer-encoding:content-type
+ :disposition-notification-to:references:in-reply-to:date:cc:to:from
+ :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=JTuffngLp6NHCRIvBVVHOhPBP9shIWiSyWJB5rJizD4=;
+ b=cPaOtKluKlPp6DnfVMoAARHXDtIUCeRNpuecangyHTDDyNLSqqK0GkQFEeO6ZDngE0
+ 6I/X0F5mQteyUNZLq2HNQ2l1ZQJei79u00coOaqpggK5DCDeHq1BxkmE7zSXO6YONIHh
+ yeQgQ+FhMmvf60SPmSaraRKwqlVmzI2DPClrDlPipeQrY8Fzqm6tsfaJgDG1IVRWjlBp
+ /wT517wKbnsleKMJQ92FE+bL5EHZkpJRKI+psg1hhJZgfizUaMEwaNI7T9ZAGckGRDkZ
+ D5PZyCAzVwLWLvQGgKHUrUrHuI+mbNBFE51o7IaiHD1ZwJZaK5LNKyQ/U+FsgDFVWhUI
+ ygmg==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrZyB5+RF+k8u09FFi0VsJmkS4ZH9hMwGowuVGSfkjwPNcS9/pyXb3/u3Gz642U4+PYDqCjl82H@lists.freedesktop.org
+X-Gm-Message-State: AFuF++mVaJCp94c14TEGHXdWFQUDb/ZVP5FqTRt9C+Suu5lC5SrgVeja
+ lRB1XwC72M0izTSAFd7Pxs79c7MaD7cSrW2GjR4xrv3fbFIWUOvZlafiOneQSQ==
+X-Gm-Gg: AR+sD10skzus/i0yaVqEGEZxYQw4wq7iRIKwfeazUzeXWo6qqTtXUtpsFIuXOoxPk26
+ 179kp0bxppY+8jPrDKbpE2j23S5zflcgA3YkUTXC4LmCiGCCM5SSFh+da+1pdOp6z+5lxFGIoWw
+ ml0X05+D4IEadGmSg00032IqLtVtssLLqjLiLIcGGa0Wu00UxR3QO25taMezP7F+BvZXfdfNPCL
+ rZWGY+bUt4B9a75gJiFaMluwJeyQ0W64dGTwzjc5Eaz36cZafybLQLND06rtWZLpQsdBPBjG90/
+ U5FVE0ZGrWs47a8T5BbDu/92OMY1Y151tnblSOZVM9wbWWtsNTRZlfUVgswKPTaqvQWrHjal761
+ Va+YaW3/0KjY4OqXKz6VsnCjusUIEoGrAAd7uzZR/5B2/EdeW/sQU7wVINwFZDIxJGf0+kELIya
+ zemoF2Goccj6Lgw4F19fezhB4QSw7JKEXuTI/sbZ6yDJP6oLrAgvZ14bNyn1suHK7/IK87Gud8A
+ dhRXiPXJe07uEikH8VL7rDxFamPHDHB27Kav/cX+JaZrZ1G
+X-Received: by 2002:a17:906:ef05:b0:c20:c5f4:e19f with SMTP id
+ a640c23a62f3a-c255746474cmr1136558866b.4.1788290886866; 
+ Tue, 01 Sep 2026 12:28:06 -0700 (PDT)
+Received: from [192.168.1.239] (87-205-5-123.static.ip.netia.com.pl.
+ [87.205.5.123]) by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-c25d002e542sm15212566b.14.2026.09.01.12.28.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 01 Sep 2026 12:28:06 -0700 (PDT)
+Message-ID: <9480a7c15ccc389120246a1403ea1860f5f05b56.camel@gmail.com>
+Subject: Re: [PATCH v1 1/3] drm: Add passive_vrr properties for
+ passive/desktop VRR
+From: Tomasz =?UTF-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: Fangzhi Zuo <jerry.zuo@amd.com>, adolfotregosa@gmail.com, 
+ harry.wentland@amd.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Date: Tue, 01 Sep 2026 21:28:04 +0200
+In-Reply-To: <20260901191251.2653684-2-jerry.zuo@amd.com>
+References: <20260901191251.2653684-1-jerry.zuo@amd.com>
+ <20260901191251.2653684-2-jerry.zuo@amd.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 
+MIME-Version: 1.0
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:34:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -63,100 +95,24 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-Linux passes PWM eDP brightness through two owners. The display manager
-maps the request into the firmware range and applies the ATIF custom
-curve. The power module then derives a percentage from that hardware
-value and applies the same curve and range again. A non-zero firmware
-minimum consequently prevents zero from reaching the panel minimum.
-The split also leaves the custom-curve disable policy and final source
-brightness mask attached to the wrong owner.
+On Tue, 2026-09-01 at 15:12 -0400, Fangzhi Zuo wrote:
+> Add the PASSIVE_VRR_DISABLED atomic CRTC property
 
-Patch 1 keeps pre-power-module custom-curve output in the userspace
-domain, which also fixes affected stable kernels. Patch 2 covers that
-conversion with a non-zero firmware minimum. Patch 3 passes zero-anchored
-millipercent into the power module and keeps AUX millinits unmasked until
-the final AMD AUX or effective PWM handoff. Patch 4 covers ordinary PWM,
-forced PWM, AMD-AUX fallback, true AUX, live and replay callbacks,
-multiple panels, endpoints, interior values, clamping, and invalid
-ranges.
+Michel D=C3=A4nzer already commented on this:
+https://lore.kernel.org/amd-gfx/c6a852ae-4edf-4336-9f2a-448c296cc045@mailbo=
+x.org/
 
-GPT-5.6 Sol Fast assisted with issue investigation, source and history
-analysis, patch and test development, review-response analysis,
-submission preparation, and consolidation of the working context. A
-separate tool-enabled Claude Opus 5 review audited the complete final
-diff with direct access to the source tree, build environment, KUnit
-harness, logs, and relevant hardware records. Objective verification
-included strict checkpatch, a clean UML KUnit build and execution of the
-configured DRM test set, an exhaustive C reproduction of every EDID
-luminance-byte combination, and source tracing through the DRM commit
-worker and hardware callbacks.
+"Having a negation term like "disabled" in the property name can be
+confusing (as it involves double negation when the property value is 0)
+and is better avoided."
 
-The human contributor reviewed the final behavior and evidence, directly
-performed and observed the physical hardware QA, and explicitly approved
-the exact tested series for submission. The quirked OLED path, VESA AUX
-panel, pre-DCN3.1 hardware, and hardware mode-change replay on a quirked
-panel remain untested physically because no matching panel is available.
+To this day, I'm not sure how to better handle this, without the driver
+just forcing VRR on it's own. Consequently, this will enforce ALLM so
+probably there is a benefit to leaving this configurable and somehow
+default for HDMI.
 
-Changes in v2:
+IDK, smarter people can probably deal with this, just wanted to forward
+the comments I received previously.
 
-- rebase onto current Linux master 89a312991dc6;
-- retain mathematical AUX millinits until the hardware handoff;
-- apply the panel mask immediately before live and replay AMD AUX writes,
-  or after PWM derivation when the effective handoff is PWM;
-- add a composition regression whose input distinguishes intermediate
-  masking from final-only masking;
-- capture and verify the live AMD AUX, VESA AUX, and mode-change callback
-  values;
-- credit the Sashiko finding and add the documented LLM assistance
-  trailer.
-
-Sashiko also reported two pre-existing potential issues. Both were
-checked without changing this series. The DRM nonblocking commit tail
-runs from system_dfl_wq in sleepable process context, so taking dc_lock
-there is valid. The EDID parser and AMD fallback were exhausted across
-all 65,536 max_fall/min_cll byte combinations: consumed AUX ranges were
-always min 1 and max 50 through 12544, with no equal or inverted range.
-
-The final candidate passed all 2,036 configured UML KUnit tests,
-including 88 AMD backlight cases. Each patch passes strict checkpatch
-with zero errors, warnings, or checks, excluding only commit lookup
-diagnostics caused by the shallow source checkout. The production AMD
-display objects also compile with KUnit disabled and W=3D1.
-
-The v2 physical PWM sweep on a Strix Halo panel captured both hardware
-endpoints and restoration:
-
-  requested 655   -> actual 0
-  requested 65535 -> actual 65535
-  restored requested 20119 -> actual 11597
-
-The operator reported normal panel behavior through the sweep. No kernel
-fault followed. This panel has brightness_mask =3D=3D 0, so it validates th=
-e
-shared path but not the quirked OLED hardware path. The existing
-LUT-unaware hardware readback inverse remains unchanged.
-
-Andrei Rusu de Castro (4):
-  drm/amd/display: keep custom brightness curve in userspace domain
-  drm/amd/display: test custom brightness with non-zero minimum
-  drm/amd/display: pass userspace brightness to power module
-  drm/amd/display: test power module brightness input domain
-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c |   6 +-
- .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.h |   2 +-
- .../display/amdgpu_dm/amdgpu_dm_backlight.c   |  57 +-
- .../display/amdgpu_dm/amdgpu_dm_backlight.h   |   5 +-
- .../amd/display/amdgpu_dm/amdgpu_dm_trace.h   |   3 +-
- .../tests/amdgpu_dm_backlight_test.c          | 622 +++++++++++++++++-
- .../drm/amd/display/modules/inc/mod_power.h   |   1 +
- .../gpu/drm/amd/display/modules/power/power.c |   2 +
- .../drm/amd/display/modules/power/power_abm.c |  55 +-
- .../amd/display/modules/power/power_helpers.h |  14 +
- 10 files changed, 721 insertions(+), 46 deletions(-)
-
-
-base-commit: 89a312991dc6e638a36adc43ccb91dbc25504c04
---=20
-2.54.0
-
-
+On windows, AMD driver just doesn't care and forces VRR signaling all
+the time, without a way to disable it.
