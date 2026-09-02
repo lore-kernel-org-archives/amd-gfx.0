@@ -4,43 +4,44 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 08BDCC61DFD
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 05:09:00 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 123E1C61DFD
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 05:09:11 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7536F10EFDB;
-	Wed,  2 Sep 2026 05:08:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8CBD610EFD6;
+	Wed,  2 Sep 2026 05:09:10 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="4e+mUUSO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="sjj+tkbQ";
 	dkim-atps=neutral
-Received: from PH7PR06CU001.outbound.protection.outlook.com
- (mail-westus3azon11010064.outbound.protection.outlook.com [52.101.201.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A917D10EFDB
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 05:08:58 +0000 (UTC)
+Received: from CY3PR05CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11013040.outbound.protection.outlook.com
+ [40.93.201.40])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1DBA710EFD6
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 05:09:09 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lkqKlQCcu/I+QkTG7pT6S5TgmUB08c0V3IDGrQKjtJTMeeVt7Tv1STEMZNDhX76WLzQp8tMAExcKTEWLYeH1C4Ez5cESeIiV7zjqtfiWcXSQtbeHTQcBR7VPE0t21IKo3T5beVEQirWk07NnZ57AILEfSNbXj7g4ChU4Tn5IcbkebdC+UUVmgH45au4DD75G6+1Xn8RZd4arfFhhqUVmQ0jO7iNPwBRJXwbIPIRoC35XOVogCpn5oIXK+sUfjayFwZcQ6aGWCzmKzFeT1i5lrUjtoFVWixqegD6Ukd2gMrx4QIgKVPfAcrGOBwq84okn304yU+Gt7jCrgrMva6Rrbw==
+ b=YDE740vFyoKlK3XspfOKXNNAsE56siQdgzDbaHnFriF8RgCWb08pfD8mAzZ+TVbvBDRnsNrcfwgNQeKeofEi9Finz3hibhskLCA3kJl2VC1dtBV0l8CCs53/FE4buwJQU9gZzK/t6uaCnrXYbIXgFRM0PVNosMzb4v/zIV+nw/kI+5VUGSQiSGrMh3grQSb2j/pmXSYkS9mqMIlxtZIhhHEAPg6cS0YucVsHcqI331OCvpW+SocquU0xHkL6/YEQUAmjC7awNJmEJwL7uPpF8K6ig2GCSZjCYsIOBHAbVwDYKDzlaFVF5kTeEHaBmtVukUo8Ipb+jQ8CtZJVAEBdyw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=re0uAJGbAwTRwo/ynBkfKt/SpWYfofyf4GkJYItMpJY=;
- b=viREM8L5/Waxfy/08Eu5l6pvv+stND7JoLGZBPDwYNOAq1sHCAsexOSHbdV2SH6EONNqD4JmblIFUvyZuV3H+cZFLaZ6e/iZROl470cicC5S6EsIjkr5ShPYu3t0piSIEGseubnRAOnmqMwKzrizcwTz3JhfidDLUzTD4e8ip2AWhQNLat58H+8RgJS58XaOjynBX3N8iKdw78thv5tEMsz6OdlSuu9KtnPMNd6KzstR2nquFf6fp6KYFQ59fU/3TcAUSMp2vvVyWv1KGb+RlREeVCdxQDFsd/YrLnJUiXNmkjZ1AYm2s0ZWlm8BsnlFbcuJvMYA2HrWHEzFJzEi2g==
+ bh=lvmyG/bK6MpR2lTnNAELiLIm7atEG5FPltLeFZt9Rlg=;
+ b=juEZFgdT7J1AQPZUOd4t9UodzgH9L5fp3fKYUUablUltzsApA09K+zM6p1gynpFb+8o5k1BdqPRHN3ADvYUwIDTlOxRVIVUDL6+hDKP0RZya2WBBnoMBtxM4vElITVLFfwPeoxmV7gOlBstQfHmo7pNYGcSjU5pxFIq+VrCrXH+q21j++nyHWjz45KRtH6t4qpBBHWI+GsqREN0iN6zAE0s2M5tOtPT11LiheJHA6nZxmDUa9O+TM5lHwcty8nSGvu26Y5P5SOHvqZ8KyxMYzoB+oy8rEepE0JmjijJ5AdvypM61FTWCXOi0J6+waQY0E9Q1CcwXNLStRpMBWqQq7w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com; 
  dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
  header.from=amd.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=re0uAJGbAwTRwo/ynBkfKt/SpWYfofyf4GkJYItMpJY=;
- b=4e+mUUSOri9q22i6bluUT7eyQvaZL8Gx/9Zx3bWBMePSGbTKFCRmWGnnea4iEU7xvW1fTQ687d+9hhpv4s44VI/FT0hJxtlUgmfXU2aFmhCNc3oWAOHXhDlLeO/ocs7IKwB8qDj43HoUPdUvlX5huwhKUAOIR2jIcsd55vKUkkw=
-Received: from BN0PR10CA0020.namprd10.prod.outlook.com (2603:10b6:408:143::11)
- by IA1PR12MB9524.namprd12.prod.outlook.com (2603:10b6:208:596::14)
+ bh=lvmyG/bK6MpR2lTnNAELiLIm7atEG5FPltLeFZt9Rlg=;
+ b=sjj+tkbQD6ZrlVbVfaLdrfRZhQ1SOj3U8x+dYPATrZK107Lurs4lUWm4FmVQClGXDNom/lLy6FCid8YkO6I6yijolp3HO9UK8u6ZgMCgwBjmuUBSvss+qMRHdnb/efvVEXOSQNIp9xQyQgUDEoTvbUFNk69ISYpBzZoD1qriYgw=
+Received: from BN9PR03CA0056.namprd03.prod.outlook.com (2603:10b6:408:fb::31)
+ by MW3PR12MB4361.namprd12.prod.outlook.com (2603:10b6:303:5a::15)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 05:08:52 +0000
-Received: from LV8PEPF00000069.namprd03.prod.outlook.com
- (2603:10b6:408:143:cafe::a3) by BN0PR10CA0020.outlook.office365.com
- (2603:10b6:408:143::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Wed, 2
- Sep 2026 05:08:52 +0000
+ 2026 05:09:02 +0000
+Received: from LV8PEPF00000068.namprd03.prod.outlook.com
+ (2603:10b6:408:fb:cafe::19) by BN9PR03CA0056.outlook.office365.com
+ (2603:10b6:408:fb::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.13 via Frontend Transport; Wed, 2
+ Sep 2026 05:09:01 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -48,16 +49,16 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- LV8PEPF00000069.mail.protection.outlook.com (10.167.248.42) with Microsoft
+ LV8PEPF00000068.mail.protection.outlook.com (10.167.248.41) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 05:08:52 +0000
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 05:09:01 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 00:08:52 -0500
+ 2026 00:09:01 -0500
 Received: from ray-Ubuntu.amd.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Wed, 2 Sep 2026 00:08:43 -0500
+ Transport; Wed, 2 Sep 2026 00:08:52 -0500
 From: Ray Wu <ray.wu@amd.com>
 To: <amd-gfx@lists.freedesktop.org>
 CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
@@ -66,43 +67,43 @@ CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
  Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
  <Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
  <alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
- <Chen-Yu.Chen@amd.com>, Austin Zheng <Austin.Zheng@amd.com>, Dillon Varone
- <dillon.varone@amd.com>, Ray Wu <ray.wu@amd.com>
-Subject: [PATCH 30/40] drm/amd/display: Update Urgent Burst Calculation To
- Account For Unbounded Requests
-Date: Wed, 2 Sep 2026 12:58:52 +0800
-Message-ID: <20260902050411.3473916-31-ray.wu@amd.com>
+ <Chen-Yu.Chen@amd.com>, Wenjing Liu <wenjing.liu@amd.com>, Alvin Lee
+ <alvin.lee2@amd.com>, Ray Wu <ray.wu@amd.com>
+Subject: [PATCH 31/40] drm/amd/display: Add stressed peak bandwidth probe with
+ DMA contention
+Date: Wed, 2 Sep 2026 12:58:53 +0800
+Message-ID: <20260902050411.3473916-32-ray.wu@amd.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260902050411.3473916-1-ray.wu@amd.com>
 References: <20260902050411.3473916-1-ray.wu@amd.com>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV8PEPF00000069:EE_|IA1PR12MB9524:EE_
-X-MS-Office365-Filtering-Correlation-Id: db3289aa-e4a9-4b58-25c2-08df08b04813
+X-MS-TrafficTypeDiagnostic: LV8PEPF00000068:EE_|MW3PR12MB4361:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8884c4ad-62c5-47c1-838f-08df08b04d81
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|23010399003|376014|1800799024|82310400026|30052699003|11063799006|5023799004|10067099003|56012099006|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: zMI+/eJr+nQLghT75LZcozSe330gsX+O2KYwxC0LIp00PVGEB8AT3ceI5Q6M5O4/7EjsRT3TWVMKdJcffabgPlWy1vuExo/X6y9aplH5LXR2sEFj4bGngxvNSxIM7JLYznT5I7inRFQ++7AhIq3jZZSbjR13d7xqw5u3WCyu/CI3HeLM1lkFpffUJT3vT5m1jJdQENHOjWXjylJwCrPaZqFHbY10yzPMlcldbRIchd8EkcdRfGQrg6PWAc+vhxxIrahikAa6DCEWfpFGlKybJU+0p1FyxRCYYoh4NWZLZAkIBN/yL1xcqXNgPX33u6t0ToUcAIRHINKsRuT1P8wXY3dTxQsWjKyb1FLZavhf35jjxiRtMHlOY0zN3sHDdlL6jamgfVc+yYnJ9y/qKL2g8loqSk+55QgAdOFqV7ZaUvv1jPErX66aB04yKPr0Ufmlc+UqfcFxuy2T3ixA1rRu+9i5omvX7exVxLPceMODa5zf1WS7fTbK36cvQRnCd2TuB8tEr+nFhuJdTosREOeD/uDOnUO64fPowWPQ56UJFexE6GXYTu8wQSTdoDtkr+LJK/Vj5duIUlA7c0XTQNrnvh2aQO2R+2hg3won1G3uc35PyjPJ0L3+bKfeHpxLv220Afl5BYR1ZH/bclf2o7xZNMsNtIeOI3ZWZk79kGYqcPqJE8PKGgJFd9sf75KP2R8FsEX1/Gp6upNpA6j51TKOXQ==
+ ARA:13230040|36860700016|376014|1800799024|23010399003|82310400026|6133799003|3023799007|10067099003|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: FG6KjI1DDtiRmPNVWfVLaiNH9xVfYdZJBOrQmhrqLTijpmsitMAeru243rFvMa0/UifG6cMoOKfJuXGKMbPxZZyaLtTwCwgjFwqhhNhj27Dqm5B9sd6/WvaHDY6/4FUKfEwWhXLleytKEQfHo/p6c7DRa4q74Xi9aBn3BUroHBkvwGkJ5dQYsI/ARpQqBjoPeLmLyofcdPE80EK32gCSessjvPEV34QMLHEwu8GMLLKQA+MiBHgixP7fMvDpcrQ0rNEAzKxmNzwWewl7ilzR+ZXy+pU6qTI1csnDLQLWSTHKo6Nr9A9r9OjJj7sVnkJXDN+jINUX0yIvt3sFJqVwNUtqGgAVrhCaPRBUf6EiObjUTrmT6UgNvTUKhmbSJV9eWjT3RG/IeCE6X2nw6RY1inA5klY/W1k0QHMywV/M4DyMIvSg19qRVZHnK4NGn+v+z2XsPxodpWFr0iBxFDcSaAOYKysQGEMpi0wOQYsoKbZabmFes4ysc2oxJDP21ZG91hLNt7L9+FQSaAJZtLw9/cg1jTQjf3oZWOdLL9kzmo0GUnWIuU9P4eOm4HqpRNQVDYk346B2Rg5h71mvYpu1ySyxRBbZ5M/B+4S0JkS+MNTM/5hZctLL9gibEDUV7vgRkm4VPKQuwus0HwODyfMFTctts3S9FXkLVtDLZ3hxJkwYm5jT/CjKNMZSEXXkC2t49Nea1VZ+oFPK5HBBM0oqTQ==
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(23010399003)(376014)(1800799024)(82310400026)(30052699003)(11063799006)(5023799004)(10067099003)(56012099006)(22082099003)(18002099003)(3023799007);
+ SFS:(13230040)(36860700016)(376014)(1800799024)(23010399003)(82310400026)(6133799003)(3023799007)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: MnrcgNEmYETGgjAzASHmnQsmn94bJXwJ9pfn3mMN7PbyQ9eVK2MwE13dkcGeunkxJXNFK8GFs0Pqf375vVdx6ZpZK7UIjMB3pnQciP5jOdHSD9cs0O3YeRI98CisUHh/AdnxL7VWQsh/bZsaWD5Eey++BLVtHN/fMH+qCRMcm7DpsPjyR3uEVQYm4gF/ftRv+K+LPQp217AxPY9qKf0zhCl03pHtq36uo2at0QZ2PsdqWq564xi6w2+ic/G6lxQgoFhtmbqzcutqkqs/2K0Ax7o90UME6g7IMMimFWcCC4HomDady6v4sq+nlFbO2S7efUmOoZAdyRZl36y0EpETG/7FIYT8unktEifteyWt512e2rmv3pi4GXyRC4B/HjZBo9K+FbD5TLdeMcrWoAplXAMuDYfzm5fC6FfkhluhpS4YQQlLHvGGk+bhZ9OiNexF
+X-MS-Exchange-AntiSpam-MessageData-0: aV5d39seV5A6bq/i+6mWqg6EsLMhzHqu1eDOtTGhsYuuzqQDzEObtQ0N+/z5ZNBPaY4Q5VgMHVo9XyzpkNjxZWHy4moPpgnmWlG0AqwoWdTD9ZnYHQS2MQ8SW/VFEMzBTGEMPSP8t264tKU3QLMUbJqd36z6azI4dpjCdIyF1Ze4R34XM33OSa0qmdx7H0Zg6RDKWj9CpmHPMIDLaU5EMN4cR0PIHY/uTC+9W2tvIIjLR9WWyjqTI11SbrL6M5lmLxr51BElb7+t0jeA7iuvJNsV/lyxL3vq1XbCgDKPqXRjNyBRz2CVsEqNwUBQd0Y4eVuWLCrIWIUZnDuP1wqJab8qcmeVnaS4n1/zs0HNSkGTr7JRNtPS89xHcHHPKjnn6N8H3PXZQ53ulpG7wShBBxll9jKBAbfZJ8ysUpwwQ7GEDbY6CYLcXGVV1RRdGy0e
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 05:08:52.5946 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: db3289aa-e4a9-4b58-25c2-08df08b04813
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 05:09:01.7071 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8884c4ad-62c5-47c1-838f-08df08b04d81
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: LV8PEPF00000069.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: LV8PEPF00000068.namprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9524
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW3PR12MB4361
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,269 +118,385 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-From: Austin Zheng <Austin.Zheng@amd.com>
+From: Wenjing Liu <wenjing.liu@amd.com>
 
-[Why & How]
-dcn5_calculate_urgent_burst_factor function is aware of unbounded
-request mode making the buffer larger
+[Why]
+Peak-bandwidth-under-contention validation currently needs an
+external tool to manufacture memory contention while querying
+peak bandwidth. Expose this as an explicit probe variant so the
+driver can generate that contention itself.
 
-Reviewed-by: Dillon Varone <dillon.varone@amd.com>
-Signed-off-by: Austin Zheng <Austin.Zheng@amd.com>
+[How]
+Add a new probe type that builds the same gated perfmon sequence
+as the plain peak-BW probe, with a DMA copy of the current
+surface into a scratch buffer inserted before the measurement
+window to synthesize a competing memory client. Move the scratch
+buffer fields onto the base resource pool struct instead of an
+ASIC-specific subclass, and reject the probe with a new status
+code when the buffer was never allocated. Also fixes a stack-
+corruption bug where a local variable's address was captured by
+a deferred callback and used after the local went out of scope,
+and a missing NULL check on a similar output parameter used by
+an early-return path.
+
+Reviewed-by: Alvin Lee <alvin.lee2@amd.com>
+Signed-off-by: Wenjing Liu <wenjing.liu@amd.com>
 Signed-off-by: Ray Wu <ray.wu@amd.com>
 ---
- .../amd/display/dc/dml2_0/dml21/inc/dml_top_types.h  | 12 ++++++++++++
- .../dc/dml2_0/dml21/src/dml2_cga/dml2_cga_dcn6.c     |  4 +++-
- .../dml21/src/dml2_core/dml2_core_dcn4_calcs.c       |  4 ++++
- .../dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.c |  7 ++++++-
- .../dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.h |  2 ++
- .../dml2_core_dcn5_funcs_mode_programming.c          |  4 ++++
- .../dml2_core/dml2_core_dcn5_funcs_mode_support.c    |  4 ++++
- .../dml2_core_dcn6_funcs_mode_programming.c          |  2 ++
- .../dml2_core/dml2_core_dcn6_funcs_mode_support.c    |  4 ++++
- .../dml21/src/dml2_core/dml2_core_shared_types.h     |  1 +
- .../dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_dcn6.c |  5 +++++
- .../dml21/src/inc/dml2_internal_shared_types.h       |  2 ++
- 12 files changed, 49 insertions(+), 2 deletions(-)
+ .../gpu/drm/amd/display/dc/core/dc_debug.c    |  2 ++
+ .../drm/amd/display/dc/core/dc_hw_sequencer.c | 29 +++++++++++++++++++
+ .../gpu/drm/amd/display/dc/core/dc_resource.c |  4 +++
+ drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
+ drivers/gpu/drm/amd/display/dc/dc_probe.h     |  1 +
+ .../display/dc/hubbub/dcn60/dcn60_hubbub.c    |  3 +-
+ .../amd/display/dc/hwss/dcn60/dcn60_hwseq.c   | 26 +++++++++++++++--
+ .../drm/amd/display/dc/hwss/hw_sequencer.h    | 14 +++++++++
+ .../gpu/drm/amd/display/dc/inc/core_status.h  |  2 ++
+ .../gpu/drm/amd/display/dc/inc/core_types.h   |  9 ++++++
+ .../dc/resource/dcn60/dcn60_resource.c        | 19 ++++++++++++
+ 11 files changed, 106 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/dml_top_types.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/dml_top_types.h
-index c241ecaf4d7a..5e056839aaf7 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/dml_top_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/inc/dml_top_types.h
-@@ -380,6 +380,10 @@ struct dml2_mode_support_info {
- 	bool temp_read_or_ppt_support;
- 	bool qos_bandwidth_support;
- 	bool dcfclk_support;
-+	bool alternate_channel_size_support;
-+	bool EnoughUrgentLatencyHidingSupport;
-+	bool DSCSlicesODMModeSupported;
-+	bool HActiveForDSCSupported;
- }; // dml2_mode_support_info
- 
- struct dml2_memory_path_latency {
-@@ -544,6 +548,14 @@ struct dml2_display_cfg_programming {
- 			double max_active_fclk_change_latency_supported;
- 			unsigned int min_return_latency_in_dcfclk;
- 
-+			struct {
-+				struct {
-+					double sdp_bw_mbps;
-+					double dram_bw_mbps;
-+					double dram_vm_only_bw_mbps;
-+				} sys_active;
-+			} non_urg_bw_available;
-+
- 			struct {
- 				struct {
- 					double sdp_bw_mbps;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_cga/dml2_cga_dcn6.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_cga/dml2_cga_dcn6.c
-index 8c3dd030e775..43ee8a0b21b3 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_cga/dml2_cga_dcn6.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_cga/dml2_cga_dcn6.c
-@@ -56,7 +56,9 @@ static double cga_dcn6_adjust_to_dfs_clock_value_mhz(const struct dml2_clock_gra
- 	double vco_divider;
- 	double adjusted_clock_mhz;
- 
--	DML_ASSERT_MSG(adjuster->dispclk_dppclk_vco_speed_mhz > 1, "invalid dispclk_dppclk_vco_speed_mhz value!\n");
-+	if (adjuster->dispclk_dppclk_vco_speed_mhz == 0.0)
-+		return clk_mhz;
-+
- 	if (clk_mhz == 0)
- 		/* There are cases when a clock is not needed */
- 		return 0;
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-index 64417736a4d9..4f5c95648834 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn4_calcs.c
-@@ -357,6 +357,8 @@ dml_get_var_func(svp_prefetch_urg_bw_available_sdp, double, mode_lib->mp.urg_ban
- dml_get_var_func(svp_prefetch_urg_bw_available_dram, double, mode_lib->mp.urg_bandwidth_available[dml2_core_internal_soc_state_svp_prefetch][dml2_core_internal_bw_dram]);
- dml_get_var_func(svp_prefetch_urg_bw_available_dram_vm_only, double, mode_lib->mp.urg_bandwidth_available_vm_only[dml2_core_internal_soc_state_svp_prefetch]);
- 
-+dml_get_var_func(sys_active_non_urg_bw_available_sdp, double, mode_lib->mp.non_urg_bandwidth_available[dml2_core_internal_soc_state_sys_active][dml2_core_internal_bw_sdp]);
-+
- dml_get_var_func(urgent_latency, double, mode_lib->mp.UrgentLatency);
- dml_get_var_func(max_urgent_latency_us, double, mode_lib->ms.support.max_urgent_latency_us);
- dml_get_var_func(max_non_urgent_latency_us, double, mode_lib->ms.support.max_non_urgent_latency_us);
-@@ -13350,6 +13352,8 @@ void dml2_core_calcs_get_informative(const struct dml2_core_internal_display_mod
- 	out->informative.qos.urg_bw_available.svp_prefetch.dram_bw_mbps = dml_get_svp_prefetch_urg_bw_available_dram(mode_lib);
- 	out->informative.qos.urg_bw_available.svp_prefetch.dram_vm_only_bw_mbps = dml_get_svp_prefetch_urg_bw_available_dram_vm_only(mode_lib);
- 
-+	out->informative.qos.non_urg_bw_available.sys_active.sdp_bw_mbps = dml_get_sys_active_non_urg_bw_available_sdp(mode_lib);
-+
- 	out->informative.qos.urg_bw_required.sys_active.sdp_bw_mbps = dml_get_sys_active_urg_bw_required_sdp(mode_lib);
- 	out->informative.qos.urg_bw_required.sys_active.dram_bw_mbps = dml_get_sys_active_urg_bw_required_dram(mode_lib);
- 	out->informative.qos.urg_bw_required.svp_prefetch.sdp_bw_mbps = dml_get_svp_prefetch_urg_bw_required_sdp(mode_lib);
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.c
-index 09047661a411..f00a45f87101 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.c
-@@ -1811,6 +1811,9 @@ void dcn5_calculate_urgent_burst_factor(
- 		double VRatioC,
- 		double BytePerPixelInDETY,
- 		double BytePerPixelInDETC,
-+		bool UnboundedRequestEnabled,
-+		unsigned int CompressedBufferSizeInkByte,
-+
- 		unsigned int DETBufferSizeY,
- 		unsigned int DETBufferSizeC,
- 		// Output
-@@ -1837,7 +1840,9 @@ void dcn5_calculate_urgent_burst_factor(
- 	DML_LOG_VERBOSE("DML::%s: LineTime = %f\n", __func__, LineTime);
- 	DML_ASSERT(VRatio > 0);
- 
--	LinesInDETLuma = DETBufferSizeY / BytePerPixelInDETY / swath_width_luma_ub;
-+	unsigned int EffectiveBufferY = DETBufferSizeY + (UnboundedRequestEnabled ? CompressedBufferSizeInkByte * 1024 : 0);
-+
-+	LinesInDETLuma = EffectiveBufferY / BytePerPixelInDETY / swath_width_luma_ub;
- 
- 	DETBufferSizeInTimeLuma = math_floor2(LinesInDETLuma, SwathHeightY) * LineTime / VRatio;
- 	if (DETBufferSizeInTimeLuma - UrgentLatency <= 0) {
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.h
-index d4869571db9d..7b5268e100ed 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_calcs_dchub.h
-@@ -103,6 +103,8 @@ void dcn5_calculate_urgent_burst_factor(
- 		double VRatioC,
- 		double BytePerPixelInDETY,
- 		double BytePerPixelInDETC,
-+		bool UnboundedRequestEnabled,
-+		unsigned int CompressedBufferSizeInkByte,
- 		unsigned int DETBufferSizeY,
- 		unsigned int DETBufferSizeC,
- 		// Output
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_funcs_mode_programming.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_funcs_mode_programming.c
-index 297e21e7c68d..d7a48ca44b68 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_funcs_mode_programming.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_funcs_mode_programming.c
-@@ -592,6 +592,8 @@ static bool dcn5_mode_programming(struct dml2_core_calcs_mode_programming_ex *in
- 			display_cfg->plane_descriptors[k].composition.scaler_info.plane1.v_ratio,
- 			mode_lib->mp.BytePerPixelInDETY[k],
- 			mode_lib->mp.BytePerPixelInDETC[k],
-+			mode_lib->mp.UnboundedRequestEnabled,
-+			mode_lib->mp.CompressedBufferSizeInkByte,
- 			mode_lib->mp.DETBufferSizeY[k],
- 			mode_lib->mp.DETBufferSizeC[k],
- 
-@@ -801,6 +803,8 @@ static bool dcn5_mode_programming(struct dml2_core_calcs_mode_programming_ex *in
- 					mode_lib->mp.VRatioPrefetchC[k],
- 					mode_lib->mp.BytePerPixelInDETY[k],
- 					mode_lib->mp.BytePerPixelInDETC[k],
-+					mode_lib->mp.UnboundedRequestEnabled,
-+					mode_lib->mp.CompressedBufferSizeInkByte,
- 					mode_lib->mp.DETBufferSizeY[k],
- 					mode_lib->mp.DETBufferSizeC[k],
- 					/* Output */
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_funcs_mode_support.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_funcs_mode_support.c
-index fde2e0ad2529..09519f0f2251 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_funcs_mode_support.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn5_funcs_mode_support.c
-@@ -1547,6 +1547,8 @@ static void dcn5_ms_calculate_det_buffer_time_value_urgent_burst_factor_and_urge
- 				plane->composition.scaler_info.plane1.v_ratio,
- 				mode_lib->ms.BytePerPixelInDETY[k],
- 				mode_lib->ms.BytePerPixelInDETC[k],
-+				mode_lib->ms.UnboundedRequestEnabled,
-+				mode_lib->ms.CompressedBufferSizeInkByte,
- 				mode_lib->ms.DETBufferSizeY[k],
- 				mode_lib->ms.DETBufferSizeC[k],
- 
-@@ -2095,6 +2097,8 @@ static void dcn5_ms_calculate_urgent_burst_factor_for_prefetch(
- 				mode_lib->ms.VRatioPreC[k],
- 				mode_lib->ms.BytePerPixelInDETY[k],
- 				mode_lib->ms.BytePerPixelInDETC[k],
-+				mode_lib->ms.UnboundedRequestEnabled,
-+				mode_lib->ms.CompressedBufferSizeInkByte,
- 				mode_lib->ms.DETBufferSizeY[k],
- 				mode_lib->ms.DETBufferSizeC[k],
- 				/* Output */
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_programming.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_programming.c
-index 39f0cd14ca3e..00194c608f8b 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_programming.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_programming.c
-@@ -1110,6 +1110,8 @@ static void dcn6_mp_initialize_from_solution(struct dml2_core_internal_mode_prog
- 	outputs->min_available_urgent_bandwidth_MBps = solution->validation_result.mode_support.bandwidth_upper_bound.dcn5.urgent_bandwidth_kbps / 1000.0;
- 	**outputs->urg_bandwidth_available = math_min2(solution->sop_constraint.dcn5.min_available_urgent_bandwidth_KBps / 1000.0,
- 		outputs->Dcfclk * utm_soc_bb->urgent_sdp_derate_percent / 100.0 * utm_soc_bb->return_bus_width_bytes);
-+	**outputs->non_urg_bandwidth_available = math_min2(solution->sop_constraint.dcn5.min_available_non_urgent_bandwidth_KBps / 1000.0,
-+		outputs->Dcfclk * utm_soc_bb->nominal_sdp_derate_percent / 100.0 * utm_soc_bb->return_bus_width_bytes);
- 
- 	outputs->UrgentLatency = solution->sop_constraint.dcn5.latency.dcn5.urgent_ramp;
- 	outputs->TripToMemory = math_max2(solution->sop_constraint.dcn5.latency.dcn5.urgent_ramp,
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c
-index de81815f098a..166022bb3096 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_dcn6_funcs_mode_support.c
-@@ -2140,6 +2140,8 @@ static void dcn6_ms_calculate_det_buffer_time_value_urgent_burst_factor_and_urge
- 				plane->composition.scaler_info.plane1.v_ratio,
- 				inputs->BytePerPixelInDETY[k],
- 				inputs->BytePerPixelInDETC[k],
-+				inputs->UnboundedRequestEnabled,
-+				inputs->CompressedBufferSizeInkByte,
- 				inputs->DETBufferSizeY[k],
- 				inputs->DETBufferSizeC[k],
- 
-@@ -3030,6 +3032,8 @@ static void dcn6_ms_calculate_urgent_burst_factor_for_prefetch(
- 				inputs->VRatioPreC[k],
- 				inputs->BytePerPixelInDETY[k],
- 				inputs->BytePerPixelInDETC[k],
-+				inputs->UnboundedRequestEnabled,
-+				inputs->CompressedBufferSizeInkByte,
- 				inputs->DETBufferSizeY[k],
- 				inputs->DETBufferSizeC[k],
- 				/* Output */
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h
-index 289ed250f477..9eabee1fc001 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_core/dml2_core_shared_types.h
-@@ -1070,6 +1070,7 @@ struct dml2_core_internal_mode_program {
- 	double urg_bandwidth_available[dml2_core_internal_soc_state_max][dml2_core_internal_bw_max];
- 	double urg_bandwidth_available_vm_only[dml2_core_internal_soc_state_max]; // the min of sdp bw and dram_vm_only bw, sdp has no different derate for vm/non-vm traffic etc.
- 	double urg_bandwidth_available_pixel_and_vm[dml2_core_internal_soc_state_max]; // the min of sdp bw and dram_pixel_and_vm bw, sdp has no different derate for vm/non-vm etc.
-+	double non_urg_bandwidth_available[dml2_core_internal_soc_state_max][dml2_core_internal_bw_max];
- 
- 	double dcc_dram_bw_nom_overhead_factor_p0[DML2_MAX_PLANES];
- 	double dcc_dram_bw_nom_overhead_factor_p1[DML2_MAX_PLANES];
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_dcn6.c b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_dcn6.c
-index 937205f1f086..67722c45c224 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_dcn6.c
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/dml2_utm_soc_bb/dml2_utm_soc_bb_dcn6.c
-@@ -32,6 +32,8 @@ static void dcn6_sop_table_get_sop_constraint_at_index(const struct dml2_sop_tab
- 	constraint->dcn5.latency.dcn5.avg_req_latency_non_urg = dchub->latencies[index].avg_req_latency_non_urg_ps / 1000000.0;
- 	constraint->dcn5.latency.dcn5.df_response_time_us = dchub->latencies[index].df_response_time_ps / 1000000.0;
- 	constraint->dcn5.min_available_urgent_bandwidth_KBps = table->sop_min_available_urgent_bandwidths_KBps[index];
-+	constraint->dcn5.min_available_non_urgent_bandwidth_KBps = table->sop_min_available_non_urgent_bandwidths_KBps[index];
-+
- 	constraint->dcn5.min_sop_index = index;
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
+index 2933b660e3d7..f3348e0cb1d6 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_debug.c
+@@ -274,6 +274,8 @@ char *dc_status_to_str(enum dc_status status)
+ 		return "HW Cursor not supported";
+ 	case DC_FAIL_DP_TUNNEL_BW_VALIDATE:
+ 		return "Fail DP Tunnel BW validation";
++	case DC_NO_DRAM_BUFFER_RESOURCE:
++		return "No DRAM buffer resource";
+ 	case DC_ERROR_UNEXPECTED:
+ 		return "Unexpected error";
+ 	default:
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+index de1772f75293..b54466e4f42b 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_hw_sequencer.c
+@@ -1797,6 +1797,9 @@ void hwss_execute_sequence(struct dc *dc,
+ 		case DMUB_SEND_DMCUB_CMD:
+ 			hwss_send_dmcub_cmd(params);
+ 			break;
++		case LSDMA_SEND_PIO_COPY:
++			hwss_lsdma_send_pio_copy(params);
++			break;
+ 		case DMUB_SUBVP_SAVE_SURF_ADDR:
+ 			hwss_subvp_save_surf_addr(params);
+ 			break;
+@@ -2670,6 +2673,17 @@ void hwss_send_dmcub_cmd(union block_sequence_params *params)
+ 	dc_wake_and_execute_dmub_cmd(ctx, cmd, wait_type);
  }
  
-@@ -134,6 +136,9 @@ static void dml2_utm_soc_bb_dcn6_build_sop_table(struct dml2_sop_table *table,
- 		table->sop_min_available_urgent_bandwidths_KBps[i] = (uint32_t) math_floor(
- 				total_available_bandwidth.urgent_bandwidth_KBps
- 				* (utm_soc_bb->qos_model.dchub_v2->min_urgent_utm_budget_percent / 100.0));
-+		table->sop_min_available_non_urgent_bandwidths_KBps[i] = (uint32_t)math_floor(
-+			total_available_bandwidth.nominal_bandwidth_KBps
-+			* (utm_soc_bb->qos_model.dchub_v2->min_nominal_utm_budget_percent / 100.0));
++void hwss_lsdma_send_pio_copy(union block_sequence_params *params)
++{
++	struct dc_dmub_srv *dc_dmub_srv = params->lsdma_send_pio_copy_params.dc_dmub_srv;
++	uint64_t src_addr = params->lsdma_send_pio_copy_params.src_addr;
++	uint64_t dst_addr = params->lsdma_send_pio_copy_params.dst_addr;
++	uint32_t byte_count = params->lsdma_send_pio_copy_params.byte_count;
++	uint32_t overlap_disable = params->lsdma_send_pio_copy_params.overlap_disable;
++
++	dmub_lsdma_send_pio_copy_command(dc_dmub_srv, src_addr, dst_addr, byte_count, overlap_disable);
++}
++
+ /*
+  * Helper function to add TG program global sync to block sequence
+  */
+@@ -5214,6 +5228,21 @@ void hwss_add_hubbub_perfmon_arm_out_of_order_bw(struct block_sequence_state *se
+ 	}
+ }
+ 
++void hwss_add_lsdma_send_pio_copy(struct block_sequence_state *seq_state,
++		struct dc_dmub_srv *dc_dmub_srv, uint64_t src_addr, uint64_t dst_addr,
++		uint32_t byte_count, uint32_t overlap_disable)
++{
++	if (*seq_state->num_steps < MAX_HWSS_BLOCK_SEQUENCE_SIZE) {
++		seq_state->steps[*seq_state->num_steps].func = LSDMA_SEND_PIO_COPY;
++		seq_state->steps[*seq_state->num_steps].params.lsdma_send_pio_copy_params.dc_dmub_srv = dc_dmub_srv;
++		seq_state->steps[*seq_state->num_steps].params.lsdma_send_pio_copy_params.src_addr = src_addr;
++		seq_state->steps[*seq_state->num_steps].params.lsdma_send_pio_copy_params.dst_addr = dst_addr;
++		seq_state->steps[*seq_state->num_steps].params.lsdma_send_pio_copy_params.byte_count = byte_count;
++		seq_state->steps[*seq_state->num_steps].params.lsdma_send_pio_copy_params.overlap_disable = overlap_disable;
++		(*seq_state->num_steps)++;
++	}
++}
++
+ void hwss_add_hubbub_perfmon_start_out_of_order_bw(struct block_sequence_state *seq_state,
+ 		struct hubbub *hubbub)
+ {
+diff --git a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+index ac558e715b72..8e7a42fd3cd3 100644
+--- a/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/core/dc_resource.c
+@@ -4470,6 +4470,10 @@ enum dc_status resource_validate_probe_set(struct dc *dc,
+ 
+ 		if (probes[i].scope.type != DC_PROBE_SCOPE_GLOBAL)
+ 			return DC_NOT_SUPPORTED;
++
++		if (probes[i].type == DC_PROBE_PEAK_MEM_BW_STRESSED &&
++				!dc->res_pool->lsdma_scratch.buffer)
++			return DC_NO_DRAM_BUFFER_RESOURCE;
  	}
  
- 	DML_ASSERT_MSG(table->model->sop_count > 0, "qos_model must contain at least 1 sop\n");
-diff --git a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/inc/dml2_internal_shared_types.h b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/inc/dml2_internal_shared_types.h
-index 4289f7f998ff..077e4480575a 100644
---- a/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/inc/dml2_internal_shared_types.h
-+++ b/drivers/gpu/drm/amd/display/dc/dml2_0/dml21/src/inc/dml2_internal_shared_types.h
-@@ -87,6 +87,7 @@ struct dml2_sop_constraint {
- 			struct dml2_memory_path_latency latency;
- 			struct dml2_soc_operating_point clocks;
- 			double min_available_urgent_bandwidth_KBps; // minimum guaranteed urgent bandwidth at active
-+			double min_available_non_urgent_bandwidth_KBps; // minimum guaranteed nominal bandwidth at active
- 		} dcn5;
- 	};
+ 	return DC_OK;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index 4b85727aaff9..f7511580e36f 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -584,6 +584,7 @@ struct dc_config {
+ 	bool forced_clocks;
+ 	union allow_lttpr_non_transparent_mode allow_lttpr_non_transparent_mode;
+ 	bool multi_mon_pp_mclk_switch;
++	bool lsdma_peak_bw_contention_support;
+ 	bool disable_dmcu;
+ 	bool allow_4to1MPC;
+ 	bool enable_windowed_mpo_odm;
+diff --git a/drivers/gpu/drm/amd/display/dc/dc_probe.h b/drivers/gpu/drm/amd/display/dc/dc_probe.h
+index ebf33b162b63..52bffbebf7ad 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc_probe.h
++++ b/drivers/gpu/drm/amd/display/dc/dc_probe.h
+@@ -20,6 +20,7 @@ enum dc_probe_type {
+ 	DC_PROBE_URGENT_RAMP_LATENCY,
+ 	DC_PROBE_URGENT_ASSERTION_COUNT,
+ 	DC_PROBE_PREFETCH_DATA_SIZE,
++	DC_PROBE_PEAK_MEM_BW_STRESSED, /* peak BW under synthetic memory contention */
  };
-@@ -95,6 +96,7 @@ struct dml2_sop_table {
- 	bool is_initialized;
- 	const struct utm_qos_model *model;
- 	uint32_t sop_min_available_urgent_bandwidths_KBps[MAX_UTM_SOP_COUNT];
-+	uint32_t sop_min_available_non_urgent_bandwidths_KBps[MAX_UTM_SOP_COUNT];
- 	uint32_t sop_optimal_dcfclks_khz[MAX_UTM_SOP_COUNT];
- 	unsigned int (*get_highest_sop_index)(const struct dml2_sop_table *sop_table);
- 	void (*get_sop_constraint_at_index)(const struct dml2_sop_table *sop_table, unsigned int index, struct dml2_sop_constraint *constraint);
+ 
+ /**
+diff --git a/drivers/gpu/drm/amd/display/dc/hubbub/dcn60/dcn60_hubbub.c b/drivers/gpu/drm/amd/display/dc/hubbub/dcn60/dcn60_hubbub.c
+index f1e6b2a1000d..0169ffcd9343 100644
+--- a/drivers/gpu/drm/amd/display/dc/hubbub/dcn60/dcn60_hubbub.c
++++ b/drivers/gpu/drm/amd/display/dc/hubbub/dcn60/dcn60_hubbub.c
+@@ -1713,7 +1713,8 @@ static uint32_t hubbub60_perfmon_get_in_order_bandwidth_mbps(
+ 		return 0;
+ 
+ 	measuring_duration_ns = count4 * 1000 / refclk_mhz;
+-	*duration_ns = measuring_duration_ns;
++	if (duration_ns)
++		*duration_ns = measuring_duration_ns;
+ 	if (min_duration_ns > measuring_duration_ns)
+ 		return 0;
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c
+index 8ee9791b2c46..0e6526e92544 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dcn60/dcn60_hwseq.c
+@@ -893,7 +893,6 @@ static void dcn60_build_hubbub_perfmon_sequence(
+ 	uint32_t refclk_mhz = dc->res_pool->ref_clocks.dchub_ref_clock_inKhz / 1000;
+ 	struct timing_generator *ref_tg = dcn60_get_ref_tg_for_hubbub_probe(context);
+ 	struct block_sequence_state seq_state = { .steps = block_sequence, .num_steps = num_steps };
+-	uint32_t duration_ns = 0;
+ 
+ 	if (!hubbub || !hubbub->funcs || !hubbub->funcs->perfmon.reset)
+ 		return;
+@@ -910,6 +909,7 @@ static void dcn60_build_hubbub_perfmon_sequence(
+ 
+ 	switch (probe->type) {
+ 	case DC_PROBE_PEAK_MEM_BW:
++	case DC_PROBE_PEAK_MEM_BW_STRESSED:
+ 		/* Start at the vblank edge and stop at the next vactive so the counter
+ 		 * spans exactly one prefetch window, capturing prefetch traffic only. */
+ 		if (!hubbub->funcs->perfmon.arm_measuring_out_of_order_bandwidth ||
+@@ -919,12 +919,30 @@ static void dcn60_build_hubbub_perfmon_sequence(
+ 
+ 		hwss_add_hubbub_perfmon_reset(&seq_state, hubbub);
+ 		hwss_add_hubbub_perfmon_arm_out_of_order_bw(&seq_state, hubbub);
++
++		if (probe->type == DC_PROBE_PEAK_MEM_BW_STRESSED) {
++			struct dc_plane_state *plane = (context->stream_status[0].plane_count > 0) ?
++					context->stream_status[0].plane_states[0] : NULL;
++
++			if (dc->res_pool->lsdma_scratch.buffer && plane) {
++				unsigned int surface_bytes = plane->plane_size.surface_pitch *
++						plane->plane_size.surface_size.height;
++				unsigned int copy_bytes = (surface_bytes < dc->res_pool->lsdma_scratch.size) ?
++						surface_bytes : dc->res_pool->lsdma_scratch.size;
++
++				hwss_add_lsdma_send_pio_copy(&seq_state, dc->ctx->dmub_srv,
++						(uint64_t)plane->address.grph.addr.quad_part,
++						(uint64_t)dc->res_pool->lsdma_scratch.pa,
++						copy_bytes, /* overlap_disable */ 1);
++			}
++		}
++
+ 		hwss_add_tg_wait_for_state(&seq_state, ref_tg, CRTC_STATE_VACTIVE);
+ 		hwss_add_tg_wait_for_state(&seq_state, ref_tg, CRTC_STATE_VBLANK);
+ 		hwss_add_hubbub_perfmon_start_out_of_order_bw(&seq_state, hubbub);
+ 		hwss_add_tg_wait_for_state(&seq_state, ref_tg, CRTC_STATE_VACTIVE);
+ 		hwss_add_hubbub_perfmon_get_out_of_order_bw(&seq_state, hubbub,
+-				refclk_mhz, &status->u.bandwidth_mbps, &duration_ns);
++				refclk_mhz, &status->u.bandwidth_mbps, NULL);
+ 		break;
+ 
+ 	case DC_PROBE_AVG_MEM_BW:
+@@ -941,7 +959,7 @@ static void dcn60_build_hubbub_perfmon_sequence(
+ 		hwss_add_tg_wait_for_state(&seq_state, ref_tg, CRTC_STATE_VACTIVE);
+ 		hwss_add_tg_wait_for_state(&seq_state, ref_tg, CRTC_STATE_VBLANK);
+ 		hwss_add_hubbub_perfmon_get_in_order_bw(&seq_state, hubbub,
+-				refclk_mhz, 0, &status->u.bandwidth_mbps, &duration_ns);
++				refclk_mhz, 0, &status->u.bandwidth_mbps, NULL);
+ 		break;
+ 
+ 	case DC_PROBE_MEM_LATENCY:
+@@ -1006,6 +1024,7 @@ static void dcn60_update_probe_status(struct dc_probe_status *status)
+ {
+ 	switch (status->type) {
+ 	case DC_PROBE_PEAK_MEM_BW:
++	case DC_PROBE_PEAK_MEM_BW_STRESSED:
+ 	case DC_PROBE_AVG_MEM_BW:
+ 		/* Zero bandwidth means the counter did not fire — treat as invalid. */
+ 		status->valid = (status->u.bandwidth_mbps != 0);
+@@ -1029,6 +1048,7 @@ static bool is_probe_measurement_type_for_hubbub(enum dc_probe_type type)
+ {
+ 	switch (type) {
+ 	case DC_PROBE_PEAK_MEM_BW:
++	case DC_PROBE_PEAK_MEM_BW_STRESSED:
+ 	case DC_PROBE_AVG_MEM_BW:
+ 	case DC_PROBE_MEM_LATENCY:
+ 	case DC_PROBE_URGENT_ASSERTION_COUNT:
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+index 3f9eda74fb1b..f75e34a09dca 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
++++ b/drivers/gpu/drm/amd/display/dc/hwss/hw_sequencer.h
+@@ -142,6 +142,14 @@ struct send_dmcub_cmd_params {
+ 	enum dm_dmub_wait_type wait_type;
+ };
+ 
++struct lsdma_send_pio_copy_params {
++	struct dc_dmub_srv *dc_dmub_srv;
++	uint64_t src_addr;
++	uint64_t dst_addr;
++	uint32_t byte_count;
++	uint32_t overlap_disable;
++};
++
+ struct setup_dpp_params {
+ 	struct pipe_ctx *pipe_ctx;
+ };
+@@ -1058,6 +1066,7 @@ union block_sequence_params {
+ 	struct update_info_frame_params update_info_frame_params;
+ 	struct program_manual_trigger_params program_manual_trigger_params;
+ 	struct send_dmcub_cmd_params send_dmcub_cmd_params;
++	struct lsdma_send_pio_copy_params lsdma_send_pio_copy_params;
+ 	struct setup_dpp_params setup_dpp_params;
+ 	struct program_bias_and_scale_params program_bias_and_scale_params;
+ 	struct set_output_transfer_func_params set_output_transfer_func_params;
+@@ -1236,6 +1245,7 @@ enum block_sequence_func {
+ 	HUBP_SET_DMDATA_ATTRIBUTES,
+ 	OPTC_PROGRAM_MANUAL_TRIGGER,
+ 	DMUB_SEND_DMCUB_CMD,
++	LSDMA_SEND_PIO_COPY,
+ 	DPP_SETUP_DPP,
+ 	DPP_PROGRAM_BIAS_AND_SCALE,
+ 	DPP_SET_OUTPUT_TRANSFER_FUNC,
+@@ -1847,6 +1857,7 @@ void hwss_process_outstanding_hw_updates(struct dc *dc,
+ 		struct dc_state *dc_context);
+ 
+ void hwss_send_dmcub_cmd(union block_sequence_params *params);
++void hwss_lsdma_send_pio_copy(union block_sequence_params *params);
+ 
+ void hwss_program_manual_trigger(union block_sequence_params *params);
+ 
+@@ -2205,6 +2216,9 @@ void hwss_add_dmub_send_dmcub_cmd(struct block_sequence_state *seq_state,
+ void hwss_add_dmub_subvp_save_surf_addr(struct block_sequence_state *seq_state,
+ 		struct dc_dmub_srv *dc_dmub_srv, struct dc_plane_address *addr, uint8_t subvp_index);
+ 
++void hwss_add_lsdma_send_pio_copy(struct block_sequence_state *seq_state,
++		struct dc_dmub_srv *dc_dmub_srv, uint64_t src_addr, uint64_t dst_addr,
++		uint32_t byte_count, uint32_t overlap_disable);
+ void hwss_add_hubp_wait_pipe_read_start(struct block_sequence_state *seq_state,
+ 		struct hubp *hubp);
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_status.h b/drivers/gpu/drm/amd/display/dc/inc/core_status.h
+index 1a17e727ed04..69215d0e8f46 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/core_status.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/core_status.h
+@@ -72,6 +72,8 @@ enum dc_status {
+ 	/// Handshake failed, programming aborted, DCN may be in inconsistent state.
+ 	DC_DPMS_FAILED_INCOMPLETE = 33,
+ 
++	DC_NO_DRAM_BUFFER_RESOURCE = 34,
++
+ 	DC_ERROR_UNEXPECTED = -1
+ };
+ 
+diff --git a/drivers/gpu/drm/amd/display/dc/inc/core_types.h b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+index b18d607fb222..d2cca2c97a41 100644
+--- a/drivers/gpu/drm/amd/display/dc/inc/core_types.h
++++ b/drivers/gpu/drm/amd/display/dc/inc/core_types.h
+@@ -247,6 +247,8 @@ struct audio_support{
+ #define NO_UNDERLAY_PIPE -1
+ 
+ struct resource_pool {
++	struct dc_context *ctx;
++
+ 	struct mem_input *mis[MAX_PIPES];
+ 	struct hubp *hubps[MAX_PIPES];
+ 	struct input_pixel_processor *ipps[MAX_PIPES];
+@@ -264,6 +266,13 @@ struct resource_pool {
+ 	struct dce_i2c_sw *sw_i2cs[MAX_PIPES];
+ 	bool i2c_hw_buffer_in_use;
+ 
++	/* LSDMA scratch memory. buffer is NULL when not allocated. */
++	struct {
++		void *buffer;
++		long long pa;
++		unsigned int size;
++	} lsdma_scratch;
++
+ 	struct dwbc *dwbc[MAX_DWB_PIPES];
+ 	struct mcif_wb *mcif_wb[MAX_DWB_PIPES];
+ 	struct {
+diff --git a/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
+index b52d2179532e..534adb1e0ba6 100644
+--- a/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
++++ b/drivers/gpu/drm/amd/display/dc/resource/dcn60/dcn60_resource.c
+@@ -3,6 +3,7 @@
+ // Copyright 2024 Advanced Micro Devices, Inc.
+ 
+ #include "dm_services.h"
++#include "dm_helpers.h"
+ #include "dc.h"
+ 
+ #include "dcn32/dcn32_init.h"
+@@ -84,6 +85,8 @@
+ #include "dml2_wrapper/dml2_wrapper.h"
+ #include "dml2_wrapper/dml21_wrapper/dml21_wrapper.h"
+ 
++#define LSDMA_CONTENTION_BUFFER_SIZE (64 * 1024 * 1024)
++
+ #define DC_LOGGER_INIT(logger)
+ 
+ /* begin *********************
+@@ -1627,6 +1630,12 @@ static void dcn60_resource_destruct(struct dcn60_resource_pool *pool)
+ {
+ 	unsigned int i;
+ 
++	if (pool->base.lsdma_scratch.buffer) {
++		dm_helpers_free_gpu_mem(pool->base.ctx,
++				DC_MEM_ALLOC_TYPE_GART, pool->base.lsdma_scratch.buffer);
++		pool->base.lsdma_scratch.buffer = NULL;
++	}
++
+ 	for (i = 0; i < pool->base.stream_enc_count; i++) {
+ 		if (pool->base.stream_enc[i] != NULL) {
+ 			if (pool->base.stream_enc[i]->vpg != NULL) {
+@@ -2043,6 +2052,16 @@ static bool dcn60_resource_construct(
+ 	dc->caps.utm_support = true;
+ 	dc->caps.max_v_total = (1 << 15) - 1;
+ 
++	pool->base.ctx = ctx;
++
++	if (dc->config.lsdma_peak_bw_contention_support) {
++		pool->base.lsdma_scratch.buffer = dm_helpers_allocate_gpu_mem(ctx,
++				DC_MEM_ALLOC_TYPE_GART, LSDMA_CONTENTION_BUFFER_SIZE,
++				&pool->base.lsdma_scratch.pa);
++		if (pool->base.lsdma_scratch.buffer)
++			pool->base.lsdma_scratch.size = LSDMA_CONTENTION_BUFFER_SIZE;
++	}
++
+ 	if (ASICREV_IS_GC_12_0_1_A0(dc->ctx->asic_id.hw_internal_rev))
+ 		dc->caps.dcc_plane_width_limit = 7680;
+ 
 -- 
 2.43.0
 
