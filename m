@@ -4,122 +4,150 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59578C61DFD
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 07:10:39 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 5B5B6C624D4
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 07:12:03 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D0C4210F02B;
-	Wed,  2 Sep 2026 07:10:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8B4110E463;
+	Wed,  2 Sep 2026 07:12:02 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZET5lbK3";
+	dkim=pass (1024-bit key; unprotected) header.d=suse.de header.i=@suse.de header.b="sxEbE6aL";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="2FJqRFOM";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="HafhIEjf";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="La9YgtCa";
 	dkim-atps=neutral
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013016.outbound.protection.outlook.com
- [40.93.196.16])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3124210F02B
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 07:10:37 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Rds+xVBswGUlzDL3QwZRj0kLlyAYseEY7qdR1tLNZdikU+ZRY2a45sK17dYvKkx9noewS8t/Hf5SjZiGaZ/r9JFzt+/8OBiXsex8WaclETzvGfG3P6tafjI5dIsuPbMFv/OCif/c2HPjqPsyPhcJgj/ocTBZlIyCqd1lPeiQuavTSEHop/zawDhUrkEf5uSxLh4aBmcIu5u5GQG2ceWQ1Ihvq8n88esj61AYAby0VifAaFBtWWzeh3K83sUJGZiwO38RSDWN8/bJoHoUuaBMWOTvYtWQ/ryGmpGOKRHQUkVjHUrVYBP0EYQCYycKVlgVtvRS/ydzqIsCKr41gIGVeA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qOJ7at33189NYXITt/qToeS2cAks7o2C0w6iUJ/xV/k=;
- b=x/CNDo//eRwMxIscXDoQ3KSHRxRXSerggZnL6scOTREEcIT3s6OheBbAHaeCO1AXXzPDzf3Ujx4UeOG3CQ41DaoolrKGnM7Vm97wvijfIeKpMMyX1Xo7WUE0UXe6pyPRqQqhuYxeKse2FvuOvnrrbMwia8M4Fp02mMgEdouyjjkIsyPlIJNkzojv3kCi/oX8f2acWDL6p3sqx/GvSSOCeYTU0KVFmkU4vlMHbBSEap/jedh7hgT3w6tkQEKSUpLh1pYeDHOv78MhhhRlPkcawb75z2b6N28dkPc6fEpDEcCu4E7YcIqMytCNSaYHPiSN485kwUHnaYOCcEN5jQx1uQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qOJ7at33189NYXITt/qToeS2cAks7o2C0w6iUJ/xV/k=;
- b=ZET5lbK34lzDoMHcrXdoCQ1edB3T8WFc9bi8VQOESfzL6KlNsR2HGoFdj0jaOJZcLn3ZUMZdEVa0w8UJRlZ4YzPlAnyX3yXQSDciJRPXBUfUnNv5sgmP+65//SBJRDcHezfsnsiLfXAizDpyl9FnEIIx9AqygNu1MNjKDMuIuGU=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by DS0PR12MB999289.namprd12.prod.outlook.com (2603:10b6:8:424::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Wed, 2 Sep
- 2026 07:10:32 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Wed, 2 Sep 2026
- 07:10:32 +0000
-Message-ID: <e9266cee-bf04-4076-8e63-5f1fd497f929@amd.com>
-Date: Wed, 2 Sep 2026 09:10:29 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 01/31] drm/amdgpu/gmc9: disallow gfxoff around TLB flushes
-To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
-References: <20260901201034.2960437-1-alexander.deucher@amd.com>
- <20260901201034.2960437-2-alexander.deucher@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260901201034.2960437-2-alexander.deucher@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR15CA0059.namprd15.prod.outlook.com
- (2603:10b6:208:237::28) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C944810E463;
+ Wed,  2 Sep 2026 07:12:00 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org
+ [IPv6:2a07:de40:b281:104:10:150:64:97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 02CFB21E41;
+ Wed,  2 Sep 2026 07:11:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1788333115; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=59OLglZdllYKmlv7gAPKZYW3ffj6PV5vGZK7KTBTC/w=;
+ b=sxEbE6aLw1h1F+0zA7kdoK2d+tQejyfkOsM3xVbvRRabG+UJPSq9q+rB1OGI3MWizG00/Z
+ AJG1jlvCzxhN+zmk0jWmAiyA4O7T1DEvDun3XJyGYoy2vEnx1eywInKoNkUw0ZiaoWxl77
+ /twJd989yyvtJq8YihnIOqDxGWHUiXY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1788333115;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=59OLglZdllYKmlv7gAPKZYW3ffj6PV5vGZK7KTBTC/w=;
+ b=2FJqRFOMUlXUGzExmDjZKFF6m2KLzUsG08bsDot32jSHHq0KRpXKG6hlOSD2hIiNuPeCTp
+ ibeHp3QruXMBC2AA==
+Authentication-Results: smtp-out1.suse.de;
+ dkim=pass header.d=suse.de header.s=susede2_rsa header.b=HafhIEjf;
+ dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=La9YgtCa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1788333111; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=59OLglZdllYKmlv7gAPKZYW3ffj6PV5vGZK7KTBTC/w=;
+ b=HafhIEjfR/0/2xNEvZ0T9NfR6k8/h1Gk4eCxGSasEPHVOoX3jg9Kg4D94qHZm2QB1WseLQ
+ wg4uy/sHSgVDJGFQOvuwTBty5RX5Z+/s5KpO+XtqQAiEOKwWWb6/Qj/xrK5qCnBgGT4yac
+ OhfqRtfFFVCLJByLgpHLPgjPFeJG+ro=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1788333111;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=59OLglZdllYKmlv7gAPKZYW3ffj6PV5vGZK7KTBTC/w=;
+ b=La9YgtCas/0V6IMSVPLa23/xT+vXryZg5+kh1pkhZz5WIqEVeSW48MfJh411T5WgfteI6b
+ Q80x2PoOMPLBhlCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4063B13736;
+ Wed,  2 Sep 2026 07:11:50 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id e4BcDjbMl2o9WAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 02 Sep 2026 07:11:50 +0000
+Message-ID: <effc093c-646d-451a-aa9a-4ee0334d75ae@suse.de>
+Date: Wed, 2 Sep 2026 09:11:49 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB999289:EE_
-X-MS-Office365-Filtering-Correlation-Id: c1bd5daa-acc4-48b8-b012-08df08c146f3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|23010399003|366016|376014|10067099003|18002099003|22082099003|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: KOQzxnpukwnUPLbCvoqNDMiSVhrkuSNow8ipHz84eB4147N2j3Q5r08W5KR0An2dc8plj8U6pai76utv/imNGqaK8huBEwgSO+b81f81o7sVfxieeli/DeNSJcc+PuaSHZwyIpAHSHveVeCH2qVDsbxsLINp1ZydFZItCMOwz4qYIL9KrkpEHEW+WSfnpxahd+vWOM1VR2xrzmRHPuIbDq4k0XbA9HUwKJZcxGxtmXez6eb0aqUnLozw6BUTUHpqCqPqHpDyTpKEQ7Q+75zRWg11olDPi6MsJNAUxJU0k5MxWsjI9KaW2I1xOCVmBo3zi8kShFUKQ86RI5NATZQZN8U4okHXzaVVVMtNWtU0Sywob9M4LbS8oqnWdmmGutY9995svwpFJ93Wme+gqIQLb1oKIu+ETiiofzRlaJfFLAq0tIDCG0SDYR2wxUoHDsxwxNpotjTwp5y16gBhGiphVPucIKAk9YxUpkrMkmTRjAmOlVwr5SLyNySHvElfgokBWazN16x4oQRvtaeJqBakojsb48HAqo8BIeOYoJQ9WwZGNtIcgiKAq0C8sdPHaargUBTeJz/umLZLdLENCNl14ULFnfqmvSOKj7v1SGrEA1KWLpsrjjgWXhjX6J/Doqg+0wlV4RFiwViRu6M32319/cV2g2ymOsyVE/UxPrxXZVs=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c25CUExKd3ZYN0xWK0ZvNmdMTjhGMFV6eGIrZGY1Yzh2RGxrbTN3VFNnZ0sx?=
- =?utf-8?B?bklxTFBHNStDbm8rOUVHSGRyaEJEM2FHMmNlU0h3MVZpSThXQjM2RmE5S3pk?=
- =?utf-8?B?MEZYaWJPQlQ3WGRHa3pIYThGWFZ3SVJvQzVTWTNmL0pkWkgzdjVlSUJ0QUY1?=
- =?utf-8?B?aHF6WHlyVzUwTVpKdDRkWE5ZT3J6SU9TZVhnMTR4RkRsNUJjSCttalExeDkz?=
- =?utf-8?B?VlcyWFUvYm9rZzdBbSsrcTJ6dkY4Zmk0Mis0K1ZRMXVJTVJQd3NHWUZva0t6?=
- =?utf-8?B?WFZDY0phbGZkN0hta3UrZ0w4YnJRRUM4bDVJME1ZRXlDYmtRRTdWZmhvbmdu?=
- =?utf-8?B?RWw5SlUrMFRkc0hxdnpIRnlwQ1BlZVBCdkFmcjBUT3Z4U1JPKzF0UHNnTmo2?=
- =?utf-8?B?TGpDS2EvVm9ROHp4d0w0cjBoVkRIVjd1bTJCdm1oU3I3bkdZUlBKTVE1VlFK?=
- =?utf-8?B?TjlzZlN5UFAzK0owQzVxMDJOYjhITElnd0lOM2xhK2JqVEVZd3BJSzJ6ZUN2?=
- =?utf-8?B?a0xzWXZNU0JOQUdnMklpODV4VjBLWUFWT0VjYndOUmZnK3dsb0pZTFprcU0y?=
- =?utf-8?B?YVJHSVhzUjJNdVVROUhXWFlOd3JJalZQWkNkdlcraEJDQ2QrV0VvcEI2NDhJ?=
- =?utf-8?B?U014aWw3KzgrY1hpZnp6R3ZOQnprdXZqMUNHWTJPREpRVkdVWEZvUDJ4YkZI?=
- =?utf-8?B?b3NaWTdyRlZHNnBTTkYzWTg5RFJrTnkrcHNiT0VJSmFNcFk0TDhPSmZNVlF4?=
- =?utf-8?B?clJHbVhhZXdnWmxrUEgwWEZ1UVQySU5BUUp1NlZBSWhJNW1sRndQRGxjQ1FD?=
- =?utf-8?B?VW92aGsxelZxNHRMeFV1MCtkc0FiYm1KZXJOWXI5TGZ5U2w2bXVLTFM1c2FY?=
- =?utf-8?B?Y0lFejNjUjArcit4c1dwWHFZQ2FNckdyM2VLTUcreEJQUDJSRDFxZFRIVkhv?=
- =?utf-8?B?NEk3OUp5YTZVWStUM3BwTE1RQk9YemZRd0xFTFVrSmo3d1FzZUdCWHRCUnZI?=
- =?utf-8?B?djROdWZvZVBCUlBaZTZ1QWFqQ3RtalNjNHM2WXlJQTFBL0tEY1MwZDE3ZVpB?=
- =?utf-8?B?b3cxbjRzSzIrTCtSR3ZHNC81Y0dQcnQ3Mzk1RUpDaEk4SVcySFZoMEVJVFFs?=
- =?utf-8?B?ellTaGQxM0ZMTysxUlIvVlIzYTBuU0ZvSk52eW54Y1dwYTNLUkh4bHZPa1Z5?=
- =?utf-8?B?TUt6QkYyV0ZNU0hFWitYZ3FIZFlrWEE1OGIyRDB1Rmkwcys4Y1BEZkdzZ2xv?=
- =?utf-8?B?amMwekkvcUl2WlQ5T0cyck00YzJSZ1FOTmc2SlVFeUNiZTVMNi9LYXZTNVdy?=
- =?utf-8?B?MDBlLzVsY0JLWTZPOFNQOXBGREZjTm01Qi9QLzlpbmhvZHcyVUhwODVwdFdx?=
- =?utf-8?B?bTRXRG5TMkpWN2p4czhqVkFxSERaVGM4MEx0Zm9zUGdNNW1pMlJBSmJyU1cz?=
- =?utf-8?B?RUx2OEp1Mm9ndGhSQ2lhTlJxcTd1MGVOOFhmUEpjdDNEbmJXVWVhdVN3Y2k3?=
- =?utf-8?B?dTlaSlg1KzFOZE5BT3ZOWWlJcE01bDUzanNwMzgyS0lsMWdIWk5OcDQ2N3U1?=
- =?utf-8?B?UGFGWWxpalpUSXY4U2V5YWRBZks5dU9vYjJETkhsZy9qODVtVGRZR3FCTFlm?=
- =?utf-8?B?VXA5aU1Ya1plSVM1UGVlN25OSm5nN1NZVENGa21leER5YnVRb21TS3RCVExH?=
- =?utf-8?B?Yk5yVkFRNDJYVjM4UktON1FyNGozV2oyRUI3WEU0UnlyNVVFcVF6UXhJL1pR?=
- =?utf-8?B?ZXlQYnh4c3NzeWVlK2dhV2Nmc1RydUliTVRiRS9PeWJ6MVVkcFJLdEF3Z09z?=
- =?utf-8?B?VFlYSkExSW1zVlRBR2xWcndyT2VDRjdKMU0xNkExTnNGSHZ1OW1BeXMzUytC?=
- =?utf-8?B?aFIyM1BBTmNsZVhYRkh5OVhRWmdRdUh6MTN5dWNQMWRIRGY3YXcvQnZVQU12?=
- =?utf-8?B?QVJPbG1lZDFaU3YrT3E5RE9oa1ZTWWZMQmVGUm9Zc0xzMUhkdGVnU3o2elhl?=
- =?utf-8?B?UWFBS3FTSWxCVnZpdkd0VkZrWHhBWXNSd0w2R1Z6bHZwRUNMV09FMTFxa1B3?=
- =?utf-8?B?QWZybDhrTFJKZUVEUlMxblhWRGNVaHBYM0NXL2laajlscklDSkhKNlVac1hK?=
- =?utf-8?B?MnFCSGo2OVR6MEdGd0poN2Fjcm50cFZBRTMydUdmTW9GMTltZUpvTFd5bFo2?=
- =?utf-8?B?TXZLaEwwbVJDSlFZd2g1RmVsSkh0bFBZWWtVY0NnS0VZL2hwamJzT2lBYmlW?=
- =?utf-8?B?ZUk4TUdpdHNQZEdXZjU2aGxlY1NBdkt3NTFURkcwbGZXT3BCbGU1OXVUdWdi?=
- =?utf-8?Q?5MqmDUblSq3R6gsW4M?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1bd5daa-acc4-48b8-b012-08df08c146f3
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 07:10:32.3597 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IoMt7r5mqghSAoxJYFy6r6kTBgy3rnzC97S7UmYx/DyzyZauhBELPSoDaVhSiFA2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999289
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/13] drm/crtc: Convert all drivers to
+ atomic_create_state and remove reset
+To: Maxime Ripard <mripard@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org,
+ Paul Kocialkowski <paulk@sys-base.io>, Jyri Sarha <jyri.sarha@iki.fi>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>, Huacai Chen <chenhuacai@kernel.org>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>, Jianmin Lv <lvjianmin@loongson.cn>,
+ Mingcong Bai <jeffbai@aosc.io>, Qianhai Wu <wuqianhai@loongson.cn>,
+ Xi Ruoyao <xry111@xry111.site>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Iker Pedrosa
+ <ikerpedrosam@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260831-drm-no-more-crtc-reset-v2-0-4500d49a337f@kernel.org>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <20260831-drm-no-more-crtc-reset-v2-0-4500d49a337f@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 02CFB21E41
+X-Spamd-Result: default: False [-3.01 / 50.00]; BAYES_HAM(-3.00)[100.00%];
+ SUSPICIOUS_RECIPS(1.50)[]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ MX_GOOD(-0.01)[]; TAGGED_RCPT(0.00)[];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; RCVD_TLS_ALL(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; ARC_NA(0.00)[];
+ RCPT_COUNT_TWELVE(0.00)[26]; MIME_TRACE(0.00)[0:+];
+ FREEMAIL_TO(0.00)[kernel.org,linux.intel.com,gmail.com,ffwll.ch];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ FROM_HAS_DN(0.00)[];
+ FREEMAIL_CC(0.00)[lists.freedesktop.org,amd.com,sys-base.io,iki.fi,ideasonboard.com,igalia.com,kernel.org,iscas.ac.cn,loongson.cn,aosc.io,xry111.site,collabora.com,gmail.com,pengutronix.de,oss.qualcomm.com];
+ TO_DN_SOME(0.00)[]; FROM_EQ_ENVFROM(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:url];
+ RCVD_COUNT_TWO(0.00)[2]; DKIM_TRACE(0.00)[suse.de:+]
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,49 +162,93 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On 9/1/26 22:10, Alex Deucher wrote:
-> We need to disallow gfxoff if we touch GC MMIO registers.
-> At the moment we use KIQ or MES for TLB flushes so
-> no intended functional change.
+Hi Maxime,
 
-One reason to use the KIQ for TLB invalidation was to avoid enabling/disabling GFXOFF all the time.
+I've gone over the remaining patches again and it all looks good now.
 
-So this change here might work around GFXOFF issues, but that only hides the problems we have with GFXOFF and doesn't fix them.
+Best regards
+Thomas
 
-The same is true for all other generations.
-
-Regards,
-Christian.
-
-> 
-> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Am 31.08.26 um 17:34 schrieb Maxime Ripard:
+> This is a follow-up to the plane reset removal series, and part of a
+> larger effort to remove the reset hook from all KMS objects.
+>
+> The CRTC reset hook is overloaded: it is called both at probe time to
+> create the initial software state and during suspend/resume to reset
+> hardware and software state. These two roles have different
+> requirements, and the reset hook is not fallible, making error
+> handling difficult for the initial state allocation path.
+>
+> While reset has the semantics to reset both the software and hardware
+> state, the vast majority of implementations and all the helpers only
+> reset the software state, making them equivalent to
+> atomic_create_state in practice. The atomic_create_state hook makes
+> this explicit: it only allocates and initializes a pristine state
+> without any side effect, and returns the state pointer or an ERR_PTR
+> on failure.
+>
+> This series converts all CRTC drivers tree-wide from the reset hook to
+> atomic_create_state, then removes the reset hook from struct
+> drm_crtc_funcs entirely. Two drivers (tilcdc and loongson) had actual
+> hardware reset logic mixed into their reset hook; those are moved to
+> CRTC creation instead. The conversions were done using a combination of
+> Coccinelle semantic patches and manual adjustments.
+>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
 > ---
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 7 +++++++
->  1 file changed, 7 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> index b46b87291c512..80f1cf1f21736 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
-> @@ -808,6 +808,10 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
->  		return;
->  	}
->  
-> +	/* disabllow gfxoff when we invalidate */
-> +	if (vmhub < AMDGPU_MMHUB0(0))
-> +		amdgpu_gfx_off_ctrl(adev, false);
-> +
->  	/* This path is needed before KIQ/MES/GFXOFF are set up */
->  	spin_lock(&adev->gmc.invalidate_lock);
->  
-> @@ -873,6 +877,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
->  
->  	spin_unlock(&adev->gmc.invalidate_lock);
->  
-> +	if (vmhub < AMDGPU_MMHUB0(0))
-> +		amdgpu_gfx_off_ctrl(adev, true);
-> +
->  	if (j < adev->usec_timeout)
->  		return;
->  
+> Changes in v2:
+> - Fix indentation in logicvc
+> - Fix hardware reset at probe and suspend for loonsoon and tilcldc
+> - Fix state creation for amdgpu
+> - Rebase on current drm-misc-next
+> - Fix commit message for st7920
+> - Fix merge conflict for mediatek
+> - Link to v1: https://lore.kernel.org/r/20260821-drm-no-more-crtc-reset-v1-0-fb793475c05a@kernel.org
+>
+> ---
+> Maxime Ripard (13):
+>        drm/crtc: Introduce hw_reset helper hook
+>        drm/amdgpu: vkms: Switch to drm_atomic_helper_crtc_create_state
+>        drm/logicvc: Switch to drm_atomic_helper_crtc_create_state
+>        drm/tilcdc: Move hardware reset to CRTC creation
+>        drm/tilcdc: Switch to drm_atomic_helper_crtc_create_state
+>        drm/atomic-helper: Remove drm_atomic_helper_crtc_reset
+>        drm/amdgpu: dm: Convert to atomic_create_state
+>        drm/loongson: Move hardware reset to CRTC creation
+>        drm/loongson: Convert to atomic_create_state
+>        drm/mediatek: Convert to atomic_create_state
+>        drm/sitronix: st7920: Convert to atomic_create_state
+>        drm/atomic-helper: Remove __drm_atomic_helper_crtc_reset
+>        drm/crtc: Remove reset
+>
+>   drivers/gpu/drm/amd/amdgpu/amdgpu_vkms.c           |  2 +-
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.c | 28 +++++++++-----
+>   .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_crtc.h |  2 +-
+>   .../display/amdgpu_dm/tests/amdgpu_dm_crtc_test.c  | 20 +++++-----
+>   drivers/gpu/drm/drm_atomic_state_helper.c          | 45 ----------------------
+>   drivers/gpu/drm/drm_mode_config.c                  | 17 ++++++--
+>   drivers/gpu/drm/logicvc/logicvc_crtc.c             |  2 +-
+>   drivers/gpu/drm/loongson/lsdc_crtc.c               | 30 ++++++++-------
+>   drivers/gpu/drm/mediatek/mtk_crtc.c                | 18 ++++-----
+>   drivers/gpu/drm/sitronix/st7920.c                  | 12 +++---
+>   drivers/gpu/drm/tilcdc/tilcdc_crtc.c               |  7 ++--
+>   drivers/gpu/drm/tilcdc/tilcdc_drv.c                |  2 +
+>   include/drm/drm_atomic_state_helper.h              |  3 --
+>   include/drm/drm_crtc.h                             | 12 ------
+>   include/drm/drm_modeset_helper_vtables.h           | 14 +++++++
+>   15 files changed, 94 insertions(+), 120 deletions(-)
+> ---
+> base-commit: 07c66ce1e6446f5cc6a4ace99a8d46880f45c527
+> change-id: 20260709-drm-no-more-crtc-reset-14a4d5bc8d41
+>
+> Best regards,
+
+-- 
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
+
 
