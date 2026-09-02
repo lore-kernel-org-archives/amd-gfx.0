@@ -4,82 +4,67 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id 32649C624DB
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 06230C624A4
 	for <amd-gfx@archiver.kernel.org>; Thu,  3 Sep 2026 07:35:12 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3EBE910F440;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2175C10F43F;
 	Thu,  3 Sep 2026 07:35:11 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=fail reason="signature verification failed" (2048-bit key; unprotected) header.d=gmail.com header.i=@gmail.com header.b="R+AJT3oI";
+	dkim=pass (2048-bit key; unprotected) header.d=intel.com header.i=@intel.com header.b="XQW567dQ";
 	dkim-atps=neutral
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DB9DA10EED5
- for <amd-gfx@lists.freedesktop.org>; Tue,  1 Sep 2026 19:28:08 +0000 (UTC)
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-c15b51ba80dso1653666b.2
- for <amd-gfx@lists.freedesktop.org>; Tue, 01 Sep 2026 12:28:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1788290887; x=1788895687; darn=lists.freedesktop.org;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :disposition-notification-to:references:in-reply-to:date:cc:to:from
- :subject:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=JTuffngLp6NHCRIvBVVHOhPBP9shIWiSyWJB5rJizD4=;
- b=R+AJT3oIf/J5ukckqBa+3TENAp19PmDf6GgXfwC3z0+dYCYb0XVAhrkIWRte/9pq17
- +Tcb1ZkWAmNM5RiAYkmpnXdTYspxakD0vGfwdbghOVjeegYFD5MhzDbsCjXSiKNV9+oL
- yJ2lR63hSj17HMXD+IxJrFDuN0lIixlYsEgGhAmoKpTM4VfePqUQMQxDSVvNcsGnjXpK
- pkxT8Xzey5VY82jAKFJoLFIHHaUUt2PBfuaa0lyy2PC34m18s9G+0zX+4T+E4quDUx5U
- qLLtU6KHOSFi5jdbMUsVx/o/nqs2xXlup+wcvsPyjg5R3YCIqVAv3SLsAsQNdeLXfiIC
- GAuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1788290887; x=1788895687;
- h=mime-version:user-agent:content-transfer-encoding:content-type
- :disposition-notification-to:references:in-reply-to:date:cc:to:from
- :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=JTuffngLp6NHCRIvBVVHOhPBP9shIWiSyWJB5rJizD4=;
- b=cPaOtKluKlPp6DnfVMoAARHXDtIUCeRNpuecangyHTDDyNLSqqK0GkQFEeO6ZDngE0
- 6I/X0F5mQteyUNZLq2HNQ2l1ZQJei79u00coOaqpggK5DCDeHq1BxkmE7zSXO6YONIHh
- yeQgQ+FhMmvf60SPmSaraRKwqlVmzI2DPClrDlPipeQrY8Fzqm6tsfaJgDG1IVRWjlBp
- /wT517wKbnsleKMJQ92FE+bL5EHZkpJRKI+psg1hhJZgfizUaMEwaNI7T9ZAGckGRDkZ
- D5PZyCAzVwLWLvQGgKHUrUrHuI+mbNBFE51o7IaiHD1ZwJZaK5LNKyQ/U+FsgDFVWhUI
- ygmg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrZyB5+RF+k8u09FFi0VsJmkS4ZH9hMwGowuVGSfkjwPNcS9/pyXb3/u3Gz642U4+PYDqCjl82H@lists.freedesktop.org
-X-Gm-Message-State: AFuF++mVaJCp94c14TEGHXdWFQUDb/ZVP5FqTRt9C+Suu5lC5SrgVeja
- lRB1XwC72M0izTSAFd7Pxs79c7MaD7cSrW2GjR4xrv3fbFIWUOvZlafiOneQSQ==
-X-Gm-Gg: AR+sD10skzus/i0yaVqEGEZxYQw4wq7iRIKwfeazUzeXWo6qqTtXUtpsFIuXOoxPk26
- 179kp0bxppY+8jPrDKbpE2j23S5zflcgA3YkUTXC4LmCiGCCM5SSFh+da+1pdOp6z+5lxFGIoWw
- ml0X05+D4IEadGmSg00032IqLtVtssLLqjLiLIcGGa0Wu00UxR3QO25taMezP7F+BvZXfdfNPCL
- rZWGY+bUt4B9a75gJiFaMluwJeyQ0W64dGTwzjc5Eaz36cZafybLQLND06rtWZLpQsdBPBjG90/
- U5FVE0ZGrWs47a8T5BbDu/92OMY1Y151tnblSOZVM9wbWWtsNTRZlfUVgswKPTaqvQWrHjal761
- Va+YaW3/0KjY4OqXKz6VsnCjusUIEoGrAAd7uzZR/5B2/EdeW/sQU7wVINwFZDIxJGf0+kELIya
- zemoF2Goccj6Lgw4F19fezhB4QSw7JKEXuTI/sbZ6yDJP6oLrAgvZ14bNyn1suHK7/IK87Gud8A
- dhRXiPXJe07uEikH8VL7rDxFamPHDHB27Kav/cX+JaZrZ1G
-X-Received: by 2002:a17:906:ef05:b0:c20:c5f4:e19f with SMTP id
- a640c23a62f3a-c255746474cmr1136558866b.4.1788290886866; 
- Tue, 01 Sep 2026 12:28:06 -0700 (PDT)
-Received: from [192.168.1.239] (87-205-5-123.static.ip.netia.com.pl.
- [87.205.5.123]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c25d002e542sm15212566b.14.2026.09.01.12.28.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 01 Sep 2026 12:28:06 -0700 (PDT)
-Message-ID: <9480a7c15ccc389120246a1403ea1860f5f05b56.camel@gmail.com>
-Subject: Re: [PATCH v1 1/3] drm: Add passive_vrr properties for
- passive/desktop VRR
-From: Tomasz =?UTF-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-To: Fangzhi Zuo <jerry.zuo@amd.com>, adolfotregosa@gmail.com, 
- harry.wentland@amd.com, amd-gfx@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Date: Tue, 01 Sep 2026 21:28:04 +0200
-In-Reply-To: <20260901191251.2653684-2-jerry.zuo@amd.com>
-References: <20260901191251.2653684-1-jerry.zuo@amd.com>
- <20260901191251.2653684-2-jerry.zuo@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6B0B910E486;
+ Wed,  2 Sep 2026 09:27:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1788341240; x=1819877240;
+ h=from:date:to:cc:subject:in-reply-to:message-id:
+ references:mime-version;
+ bh=KPrDvW0fnoXM/spnF4ccGetBZU62mAAZhQ0Hguq+iaE=;
+ b=XQW567dQqeWtAIeq2pTJ4EzAD67PN31TaopyWUd+iASC85fTw0EXHS55
+ 6gQRRzRxQrfz5OiWvM1Aq5ljh5nuJNCWgLZoGkcLTE9EdfiZsxm4EPOHA
+ /ELzdIYWKNInAmNrc5Zu3lmG3S5KGlDx32CBJUusekqg4O3c+k3Ep9ktv
+ h/A92vmQiedTpCu1kJ+UrVMLaDa4+Q2aRysO0ecF4ifGqbSTd5eTSyTvm
+ tI1K3sr+N/3p7kuO4KB2vam2Ty9NhiiuyYe0WuNUDWq3oDGpg47ssHeeG
+ QGeIHob0qUKQf0kGrO9Y8sGenSKHdxpCh+VdguNXXxkuq3Bw3hH8LfkQ/ A==;
+X-CSE-ConnectionGUID: fUP1VBmnQ2CQYsCCUwPbdw==
+X-CSE-MsgGUID: fgdjAyDVQpOnRmre6dVGzA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="114336702"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="114336702"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2026 02:27:20 -0700
+X-CSE-ConnectionGUID: bQypmes+TVyLHiesV3Df/A==
+X-CSE-MsgGUID: uAFY43MYR6eU1d4FFI5Nkw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; d="scan'208";a="263207963"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.185])
+ by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Sep 2026 02:27:13 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 2 Sep 2026 12:27:09 +0300 (EEST)
+To: Armin Wolf <W_Armin@gmx.de>
+cc: Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org, 
+ LKML <linux-kernel@vger.kernel.org>, linux@weissschuh.net, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, lenb@kernel.org, 
+ linux-acpi@vger.kernel.org, alexander.deucher@amd.com, 
+ christian.koenig@amd.com, airlied@gmail.com, simona@ffwll.ch, 
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ patrik.r.jakobsson@gmail.com, maarten.lankhorst@linux.intel.com, 
+ mripard@kernel.org, tzimmermann@suse.de, jani.nikula@linux.intel.com, 
+ joonas.lahtinen@linux.intel.com, rodrigo.vivi@intel.com, 
+ tursulin@ursulin.net, intel-gfx@lists.freedesktop.org, 
+ matthew.brost@intel.com, thomas.hellstrom@linux.intel.com, 
+ intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH v3 0/3] platform/wmi: Add aarch64 support
+In-Reply-To: <46bd3385-4bd8-4a98-8ef3-57c29d00361c@gmx.de>
+Message-ID: <c8445c2e-6799-7856-610c-0742248e1c07@linux.intel.com>
+References: <20260724025959.142826-1-W_Armin@gmx.de>
+ <59aadf0f-953c-4b7c-8c92-9dd9bc4f89de@gmx.de>
+ <46bd3385-4bd8-4a98-8ef3-57c29d00361c@gmx.de>
 MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="8323328-507380628-1788341229=:1183"
 X-Mailman-Approved-At: Thu, 03 Sep 2026 07:34:48 +0000
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -95,24 +80,59 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/amd-gfx>,
 Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
-On Tue, 2026-09-01 at 15:12 -0400, Fangzhi Zuo wrote:
-> Add the PASSIVE_VRR_DISABLED atomic CRTC property
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-Michel D=C3=A4nzer already commented on this:
-https://lore.kernel.org/amd-gfx/c6a852ae-4edf-4336-9f2a-448c296cc045@mailbo=
-x.org/
+--8323328-507380628-1788341229=:1183
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-"Having a negation term like "disabled" in the property name can be
-confusing (as it involves double negation when the property value is 0)
-and is better avoided."
+On Tue, 1 Sep 2026, Armin Wolf wrote:
 
-To this day, I'm not sure how to better handle this, without the driver
-just forcing VRR on it's own. Consequently, this will enforce ALLM so
-probably there is a benefit to leaving this configurable and somehow
-default for HDMI.
+> Am 07.08.26 um 23:03 schrieb Armin Wolf:
+>=20
+> > Am 24.07.26 um 04:59 schrieb Armin Wolf:
+> >=20
+> > > The aarch64-laptops project found out that some Windows-on-Arm
+> > > notebooks contain WMI-ACPI mapping devices (PNP0C14) that work
+> > > exactly like on x86. Those devices however are currently not
+> > > supported by the WMI driver core due to only supporting x86.
+> > >=20
+> > > The first patch removes this restriction and allows the WMI
+> > > driver core to run on all architectures that support ACPI.
+> > > The second patch updates the acpi-video driver to take advantage
+> > > of the improved support for architectures other than x86, and
+> > > the last patch enables the generic WMI BMOF driver to support
+> > > aarch64 as well.
+> > >=20
+> > > All patches have been tested on a ACPI-based aarch64 VM and
+> > > work just fine.
+> >=20
+> > Any thoughts about this series from the GPU driver people?
+> >=20
+> > Thanks,
+> > Armin Wolf=20
+>=20
+> Can i assume that the silence means "looks fine to me"?
 
-IDK, smarter people can probably deal with this, just wanted to forward
-the comments I received previously.
+Hi,
 
-On windows, AMD driver just doesn't care and forces VRR signaling all
-the time, without a way to disable it.
+Those subjects may be too generic for the GPU people to realize we're=20
+waiting for their Acks.
+
+I suggest you send non-ML email (private) with a more descriptive subject=
+=20
+to the relevant maintainers asking for them to take look at this series=20
+(I'd have done that myself later this week but you can do it as well).
+Such an email is more likely to be caught in their radar.
+
+> > > Armin Wolf (3):
+> > > =C2=A0=C2=A0 platform/wmi: Remove dependency on CONFIG_X86
+> > > =C2=A0=C2=A0 ACPI: video: Remove CONFIG_X86 handling from nvidia_wmi_=
+ec_supported()
+> > > =C2=A0=C2=A0 platform/x86: wmi-bmof: Move to generic WMI code
+
+--=20
+ i.
+
+--8323328-507380628-1788341229=:1183--
