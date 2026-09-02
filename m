@@ -4,120 +4,122 @@ X-Spam-Checker-Version: SpamAssassin 3.4.0 (2014-02-07) on
 Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.lore.kernel.org (Postfix) with ESMTPS id D842EC61DFD
-	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 07:07:45 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTPS id 59578C61DFD
+	for <amd-gfx@archiver.kernel.org>; Wed,  2 Sep 2026 07:10:39 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4ECCB10F022;
-	Wed,  2 Sep 2026 07:07:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D0C4210F02B;
+	Wed,  2 Sep 2026 07:10:38 +0000 (UTC)
 Authentication-Results: gabe.freedesktop.org;
-	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="X9JwfTKO";
+	dkim=pass (1024-bit key; unprotected) header.d=amd.com header.i=@amd.com header.b="ZET5lbK3";
 	dkim-atps=neutral
-Received: from SJ2PR03CU001.outbound.protection.outlook.com
- (mail-westusazon11012029.outbound.protection.outlook.com [52.101.43.29])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6A05D10F022
- for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 07:07:44 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013016.outbound.protection.outlook.com
+ [40.93.196.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3124210F02B
+ for <amd-gfx@lists.freedesktop.org>; Wed,  2 Sep 2026 07:10:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NufidSne/5PHUZ4uz9JFcwPuZXi9dJ91vGhaC0on9Z6suDR/noYoPDs21lQTKBtOS4ODTutH2MKDGDsxM7dDB3FxWSHoL0ZUQc+xoXXhXNdDjE1rNs4LVc8l2+SRHocGaJJxQb2KKrUofqN4SQQ3QKJw/+EbmH4ryJnxhkAtNnb8JqKgdHJOBaaAy2GxMdZFK0iRLI0spHYLt2KtOuagn7PBoVO/2q/DNMNpieHt5DNM4yzTWRkY6gj5DJ9Q2Nlws9Y6wRNpquWM2fJXSqF6PAXRL1ePQxZz8sJY6jKMV9iWkNJoJGsi64+lUQJbupoadc+81TzcM84T9VixC0MneQ==
+ b=Rds+xVBswGUlzDL3QwZRj0kLlyAYseEY7qdR1tLNZdikU+ZRY2a45sK17dYvKkx9noewS8t/Hf5SjZiGaZ/r9JFzt+/8OBiXsex8WaclETzvGfG3P6tafjI5dIsuPbMFv/OCif/c2HPjqPsyPhcJgj/ocTBZlIyCqd1lPeiQuavTSEHop/zawDhUrkEf5uSxLh4aBmcIu5u5GQG2ceWQ1Ihvq8n88esj61AYAby0VifAaFBtWWzeh3K83sUJGZiwO38RSDWN8/bJoHoUuaBMWOTvYtWQ/ryGmpGOKRHQUkVjHUrVYBP0EYQCYycKVlgVtvRS/ydzqIsCKr41gIGVeA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OmH7t1EQicSGI4TERnzAvW4DOjpphV8cZbWiZDzTJCo=;
- b=ygx3E/v16UlvuOfHLjHMEe/I/uujzv5FWTPyQTZI7b/XlfUTpfQ94FT0a16b1w3jsr7GpnZijDeM0dfQAp88r9lATOTbu+oO8oLrVd0DjF+MgYkDKPlyFAg9eUpvstP9B5sOZbN2EYVEaodxHgNeyNv1GjWNUJ0aLz3LA/1ENd/JLvpmpKuZhdFGiNXUH1+YmAgY0aRrukznGCLNL2bvP4SvAIOHiBeGKw3nW4uO/FD2ea2SbftMbOg7/ePZsp+NHXDUk3fZ7Tf8T1MlrmGUPsxGA8sY8UCE5zaGoVQEY4i2n/mPBqvq0N8B7b8m5SxMHCrbrTRK6VV2PGjnfKVotw==
+ bh=qOJ7at33189NYXITt/qToeS2cAks7o2C0w6iUJ/xV/k=;
+ b=x/CNDo//eRwMxIscXDoQ3KSHRxRXSerggZnL6scOTREEcIT3s6OheBbAHaeCO1AXXzPDzf3Ujx4UeOG3CQ41DaoolrKGnM7Vm97wvijfIeKpMMyX1Xo7WUE0UXe6pyPRqQqhuYxeKse2FvuOvnrrbMwia8M4Fp02mMgEdouyjjkIsyPlIJNkzojv3kCi/oX8f2acWDL6p3sqx/GvSSOCeYTU0KVFmkU4vlMHbBSEap/jedh7hgT3w6tkQEKSUpLh1pYeDHOv78MhhhRlPkcawb75z2b6N28dkPc6fEpDEcCu4E7YcIqMytCNSaYHPiSN485kwUHnaYOCcEN5jQx1uQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OmH7t1EQicSGI4TERnzAvW4DOjpphV8cZbWiZDzTJCo=;
- b=X9JwfTKOvznyrfSW6uC16tQi9gw9PC3hjMTLhKQoU+CN2JlwAe/gwSN/Alf///IEn3jG81AwPvhtnpz0qJ5wHk9YwPZiU46ST0TbmvOK4Y4o+iyIH7Ec4KdXLyHac6fvgOyEhwof5KDkxRD1yPnay9fnWNlGQi3fjiAEyZgp+Fc=
+ bh=qOJ7at33189NYXITt/qToeS2cAks7o2C0w6iUJ/xV/k=;
+ b=ZET5lbK34lzDoMHcrXdoCQ1edB3T8WFc9bi8VQOESfzL6KlNsR2HGoFdj0jaOJZcLn3ZUMZdEVa0w8UJRlZ4YzPlAnyX3yXQSDciJRPXBUfUnNv5sgmP+65//SBJRDcHezfsnsiLfXAizDpyl9FnEIIx9AqygNu1MNjKDMuIuGU=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by IA0PR12MB8302.namprd12.prod.outlook.com (2603:10b6:208:40f::20)
+ by DS0PR12MB999289.namprd12.prod.outlook.com (2603:10b6:8:424::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 07:07:42 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Wed, 2 Sep
+ 2026 07:10:32 +0000
 Received: from PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
  ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Wed, 2 Sep 2026
- 07:07:41 +0000
-Message-ID: <05e8a019-903c-4249-9c82-11dce0403aea@amd.com>
-Date: Wed, 2 Sep 2026 09:07:39 +0200
+ 07:10:32 +0000
+Message-ID: <e9266cee-bf04-4076-8e63-5f1fd497f929@amd.com>
+Date: Wed, 2 Sep 2026 09:10:29 +0200
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 00/31] Rework GPU TLB invalidation
+Subject: Re: [PATCH 01/31] drm/amdgpu/gmc9: disallow gfxoff around TLB flushes
 To: Alex Deucher <alexander.deucher@amd.com>, amd-gfx@lists.freedesktop.org
 References: <20260901201034.2960437-1-alexander.deucher@amd.com>
+ <20260901201034.2960437-2-alexander.deucher@amd.com>
 Content-Language: en-US
 From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260901201034.2960437-1-alexander.deucher@amd.com>
+In-Reply-To: <20260901201034.2960437-2-alexander.deucher@amd.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MN2PR22CA0021.namprd22.prod.outlook.com
- (2603:10b6:208:238::26) To PH7PR12MB5685.namprd12.prod.outlook.com
+X-ClientProxiedBy: MN2PR15CA0059.namprd15.prod.outlook.com
+ (2603:10b6:208:237::28) To PH7PR12MB5685.namprd12.prod.outlook.com
  (2603:10b6:510:13c::22)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB8302:EE_
-X-MS-Office365-Filtering-Correlation-Id: 446d1827-08e1-41fb-0dfb-08df08c0e158
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS0PR12MB999289:EE_
+X-MS-Office365-Filtering-Correlation-Id: c1bd5daa-acc4-48b8-b012-08df08c146f3
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|376014|6133799003|22082099003|18002099003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info: xDFjAS0QVrrnjp9ewGXt62eH1RbI0o0VKX/XfXBiNWyBrgFutgvrW5rG7j5e7ntK8d2EeRQbS9uXVlPkb90g5GRFDpsJYeitaNTNC+f+mHmahT1hzHWeQ8P9vF9c5pRtus/INQbZdZYiHj6Q6a5RoITLnQ3/urjMB56MHSZbHu2xNLUXBldjWiWJzRfrINJuzbrwD5vy7vMS2HH1eSszBpuqR7wcpkE6xapunXncSE4thv5EjtZ2wq66NFxjrWfNLvDzGlSvR3Xox6fV3sgvl/6baMDh0LFQNTJ9k9Akgi4OOsHHX9/8WxdlZw+4nVjM944ZJYXb2xJiac2pl/CtONvpaTCFGUZJ+5mmLdoxu2uAkeMXnzn2NzMkSMhVnl5Ym21Zye/BTps5pL9kBuszhHNIlcXeGvjttlxfmM9fcWWpPxIJW4l1Ov31YqJGhPmulH/KuGGPw/x+lPXkL/pE/YEiEEKbRe3W3QRi+WM6xztvjf1lZWXRBkMMotf9oLnb9l8w7pzVwCM6uv3gIx87G0iPxfz93mFkq8DtyQjxuqb/5yN5e1upbi8DjyeuDTwV+OT7tiQu4T26v9CTEcb4PJkj5UdaowpRG0+nGynRYie21w1PvQPmQBcIm9P9FLmU
+ ARA:13230040|1800799024|23010399003|366016|376014|10067099003|18002099003|22082099003|56012099006|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info: KOQzxnpukwnUPLbCvoqNDMiSVhrkuSNow8ipHz84eB4147N2j3Q5r08W5KR0An2dc8plj8U6pai76utv/imNGqaK8huBEwgSO+b81f81o7sVfxieeli/DeNSJcc+PuaSHZwyIpAHSHveVeCH2qVDsbxsLINp1ZydFZItCMOwz4qYIL9KrkpEHEW+WSfnpxahd+vWOM1VR2xrzmRHPuIbDq4k0XbA9HUwKJZcxGxtmXez6eb0aqUnLozw6BUTUHpqCqPqHpDyTpKEQ7Q+75zRWg11olDPi6MsJNAUxJU0k5MxWsjI9KaW2I1xOCVmBo3zi8kShFUKQ86RI5NATZQZN8U4okHXzaVVVMtNWtU0Sywob9M4LbS8oqnWdmmGutY9995svwpFJ93Wme+gqIQLb1oKIu+ETiiofzRlaJfFLAq0tIDCG0SDYR2wxUoHDsxwxNpotjTwp5y16gBhGiphVPucIKAk9YxUpkrMkmTRjAmOlVwr5SLyNySHvElfgokBWazN16x4oQRvtaeJqBakojsb48HAqo8BIeOYoJQ9WwZGNtIcgiKAq0C8sdPHaargUBTeJz/umLZLdLENCNl14ULFnfqmvSOKj7v1SGrEA1KWLpsrjjgWXhjX6J/Doqg+0wlV4RFiwViRu6M32319/cV2g2ymOsyVE/UxPrxXZVs=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(6133799003)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006);
+ SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?elg4aWVkWU50aENPM0p0WmRvV0tVQ1BUbC9yVThpaUF2N1NFYXB5VWhQa3B2?=
- =?utf-8?B?MXBVU1cwOXoyQTZlV3JUSSs0L2x0Q1A1ZWdzMFE3N2piN1F3NzVFZnVvVEtI?=
- =?utf-8?B?d0pPOGtMOW5WTGJ1SVVucG5Tak9udHZEMkUxa3lhdTZtZHBMTTVvbkRNOC9v?=
- =?utf-8?B?WkNIL29CajQ5ZGFSbEJ5QzJIWlMwNDRVbWdDak5US1lCLzI0cmJHaTNja0tF?=
- =?utf-8?B?bUZBam9obVg5eG4rL2tDTUlXVHZFUGRyczgydFZnSzdRd0JDSzdqZXlxYVpY?=
- =?utf-8?B?dm9pV3haVEJhcXdmQzBVZThCVlBYUGZJbTNIWnVWdysxQWRKY21yQnZPSVRV?=
- =?utf-8?B?NWY0UGJRZmp3M2N6STZVS2EwMUVVcm9TWVE5dmNSc0Q1OHRrQlp6ZHhWTUJ6?=
- =?utf-8?B?WEZ6cFlGL1h1ckY1ZzhYRkw2NHQ4NW1FQ01ZRXJuVkMrTnJ6dUcyNXhtV0Fu?=
- =?utf-8?B?M1hRbHZKS2FRK3hQNXI2T2ZEdVdIVFZpV0hDeDRUTTFzTFo3enQrSVgyYmJD?=
- =?utf-8?B?S2lMTzhyUjFnRDRUbTgzMkZOUCt4eWF3Q3l5YmMzTmRqMXlySmM3VTMwcXZQ?=
- =?utf-8?B?ZXg1ZzVjNnE1anptcDdNeEZYSTlTcWJtOEFySEdqWnNHWFpocTI4UjlINkNQ?=
- =?utf-8?B?S1BqZFUyMlRTQTh2WlJ0N2xiL3lFd1M1b2NSL3BUdUxOZ2h2L3pxZURmQ2dS?=
- =?utf-8?B?S00wenpiZHBQbmp4V2pwL2hsMGVOMkRpaHRoM29NVWRDL0tYVHN1VUc2anMx?=
- =?utf-8?B?MExibWxRaVN4UzlxOHJOSldXRUJ6MkVJM0lpY055ejJyb0FGaFVEZEJlZ1ky?=
- =?utf-8?B?MlgyNTZMKzdERlVTaGgyMEFHNm55bGRvYmN1Z21wWlJndEZISFpQQWUzUXZQ?=
- =?utf-8?B?RXUyNDBIcXRINGhxZnUyaTAxd0ZUWU9IOEVNc0NVb0h3TXloOWdtazVtZDVP?=
- =?utf-8?B?cUZuZDFkMWsxVEJUVzR0Slc4TUwxamxXODU1Uko2M0MxWXZNMFJLTE11MW1B?=
- =?utf-8?B?eng4WEIyd0ZCRVFjZHRiL2hrdmtrNkljVlkzYUVXUkpldjlTYTVpNjZCbzhG?=
- =?utf-8?B?MDFtbDVOblNyNFhIL0MwQ3FGY2lRQUF3UUZtcVl1OXJpenJ0M3JiR285OTVx?=
- =?utf-8?B?VTIza2VidXBVNUxJYkdoYWZzRDZvbzNnaC9qaitvOEZINGxtZXJRSFp0UWp5?=
- =?utf-8?B?bjdnR29PU0RtaXlBb01MRXl1ODdNT2lCYmRiUCtDYjhqTm1QTWpnYTB6OVdl?=
- =?utf-8?B?bnhuVEMvZWkrdlQvZWV6aEdXVDFUQkpBd0NiOGVLWHBWUEpvQ1JnRzN2d0p5?=
- =?utf-8?B?NmorWitBUlFBQ1EyZTRVdDJLVHdwZkUvNE1iZHhNSUtZK0JZMDlVcGpzTFRK?=
- =?utf-8?B?dmR5RTgzaG5oWVhFWlVtTXU3VnYrakRjdXNpNTlVWTREWTdSbXRMdjVaTnVl?=
- =?utf-8?B?U2xBUEdHTVEzaEJvamx2UWkrSHZXL1BDWDFvTkVSa0JtN3ZjYUxIaTBIY1Av?=
- =?utf-8?B?cGE1Tm16WGcrMmFaMGZrYXlPbWdsV1gremh4c2tnREJWcXV5dWVTdU9BRkF3?=
- =?utf-8?B?R2prOFBlOE0rZnVvYmFyMVJhTXQ1RHY1Y0R3bURvT2dxM1NuY01qUk5uRjZk?=
- =?utf-8?B?UkU2Y2szMXF1NjdCQ3hmcGgxbG44STlLN05vRERaNGxNSHN2RjEwZXBscTZB?=
- =?utf-8?B?NjZSdFd3ZWhPS2c4ZitwZ0RvMGJYUXhBVXhXWXNPR1lBeHFNc1FMWnAzeksr?=
- =?utf-8?B?Qk9aWmV5KzNPTGJXa0g0eXl5dHArWUZwc3daQzFmRGgrdXJndy9SWEU4NE8v?=
- =?utf-8?B?ZFZQWHF6aHZSMlI0dG1COCt4NDJCdDg2V0lYd3NjWmJPNVI5emVJaHpXTTF2?=
- =?utf-8?B?dU9Cb052MXhrb1ZxT1lVSE5yY0tNRldaQnJTSGxyNlBkT0ZadkNzdzAvSDZR?=
- =?utf-8?B?Q1BpOWZrQnBjeVp1QnBZSEhiWXZMUFM5VFNDelhmYXlobFlwYktoZnJzcTVT?=
- =?utf-8?B?WXNPWEdTeWV3aU4rVEJUWW5Db3dVbXZHdGdVT0NXMSttWHJZQnVrTjMxc1la?=
- =?utf-8?B?RzVTRnNrTUdnckRGMGlXR2tDOWI3QlVVbEg4Q2wwbytJYi9hMjArTkRBRlJu?=
- =?utf-8?B?cE1MRmx1V25WQzZkbDk0Q1FLWUpidGtuNTFmQkY0UGpjRWhCTzVLN3ovWmFV?=
- =?utf-8?B?QWhnOUtZdGpmbm5xT3dkTG9BNjdvQ3RPN3ZCdzdNQXBaeURMemJaNTdyTWpX?=
- =?utf-8?B?Y1VMU0hSMTF0dXpTT05uNExhOUJPUlpseVdjVENQdGFRU2U5MCtqMTZGdDBM?=
- =?utf-8?Q?nZlxBjPyo9o0oPrVnN?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c25CUExKd3ZYN0xWK0ZvNmdMTjhGMFV6eGIrZGY1Yzh2RGxrbTN3VFNnZ0sx?=
+ =?utf-8?B?bklxTFBHNStDbm8rOUVHSGRyaEJEM2FHMmNlU0h3MVZpSThXQjM2RmE5S3pk?=
+ =?utf-8?B?MEZYaWJPQlQ3WGRHa3pIYThGWFZ3SVJvQzVTWTNmL0pkWkgzdjVlSUJ0QUY1?=
+ =?utf-8?B?aHF6WHlyVzUwTVpKdDRkWE5ZT3J6SU9TZVhnMTR4RkRsNUJjSCttalExeDkz?=
+ =?utf-8?B?VlcyWFUvYm9rZzdBbSsrcTJ6dkY4Zmk0Mis0K1ZRMXVJTVJQd3NHWUZva0t6?=
+ =?utf-8?B?WFZDY0phbGZkN0hta3UrZ0w4YnJRRUM4bDVJME1ZRXlDYmtRRTdWZmhvbmdu?=
+ =?utf-8?B?RWw5SlUrMFRkc0hxdnpIRnlwQ1BlZVBCdkFmcjBUT3Z4U1JPKzF0UHNnTmo2?=
+ =?utf-8?B?TGpDS2EvVm9ROHp4d0w0cjBoVkRIVjd1bTJCdm1oU3I3bkdZUlBKTVE1VlFK?=
+ =?utf-8?B?TjlzZlN5UFAzK0owQzVxMDJOYjhITElnd0lOM2xhK2JqVEVZd3BJSzJ6ZUN2?=
+ =?utf-8?B?a0xzWXZNU0JOQUdnMklpODV4VjBLWUFWT0VjYndOUmZnK3dsb0pZTFprcU0y?=
+ =?utf-8?B?YVJHSVhzUjJNdVVROUhXWFlOd3JJalZQWkNkdlcraEJDQ2QrV0VvcEI2NDhJ?=
+ =?utf-8?B?U014aWw3KzgrY1hpZnp6R3ZOQnprdXZqMUNHWTJPREpRVkdVWEZvUDJ4YkZI?=
+ =?utf-8?B?b3NaWTdyRlZHNnBTTkYzWTg5RFJrTnkrcHNiT0VJSmFNcFk0TDhPSmZNVlF4?=
+ =?utf-8?B?clJHbVhhZXdnWmxrUEgwWEZ1UVQySU5BUUp1NlZBSWhJNW1sRndQRGxjQ1FD?=
+ =?utf-8?B?VW92aGsxelZxNHRMeFV1MCtkc0FiYm1KZXJOWXI5TGZ5U2w2bXVLTFM1c2FY?=
+ =?utf-8?B?Y0lFejNjUjArcit4c1dwWHFZQ2FNckdyM2VLTUcreEJQUDJSRDFxZFRIVkhv?=
+ =?utf-8?B?NEk3OUp5YTZVWStUM3BwTE1RQk9YemZRd0xFTFVrSmo3d1FzZUdCWHRCUnZI?=
+ =?utf-8?B?djROdWZvZVBCUlBaZTZ1QWFqQ3RtalNjNHM2WXlJQTFBL0tEY1MwZDE3ZVpB?=
+ =?utf-8?B?b3cxbjRzSzIrTCtSR3ZHNC81Y0dQcnQ3Mzk1RUpDaEk4SVcySFZoMEVJVFFs?=
+ =?utf-8?B?ellTaGQxM0ZMTysxUlIvVlIzYTBuU0ZvSk52eW54Y1dwYTNLUkh4bHZPa1Z5?=
+ =?utf-8?B?TUt6QkYyV0ZNU0hFWitYZ3FIZFlrWEE1OGIyRDB1Rmkwcys4Y1BEZkdzZ2xv?=
+ =?utf-8?B?amMwekkvcUl2WlQ5T0cyck00YzJSZ1FOTmc2SlVFeUNiZTVMNi9LYXZTNVdy?=
+ =?utf-8?B?MDBlLzVsY0JLWTZPOFNQOXBGREZjTm01Qi9QLzlpbmhvZHcyVUhwODVwdFdx?=
+ =?utf-8?B?bTRXRG5TMkpWN2p4czhqVkFxSERaVGM4MEx0Zm9zUGdNNW1pMlJBSmJyU1cz?=
+ =?utf-8?B?RUx2OEp1Mm9ndGhSQ2lhTlJxcTd1MGVOOFhmUEpjdDNEbmJXVWVhdVN3Y2k3?=
+ =?utf-8?B?dTlaSlg1KzFOZE5BT3ZOWWlJcE01bDUzanNwMzgyS0lsMWdIWk5OcDQ2N3U1?=
+ =?utf-8?B?UGFGWWxpalpUSXY4U2V5YWRBZks5dU9vYjJETkhsZy9qODVtVGRZR3FCTFlm?=
+ =?utf-8?B?VXA5aU1Ya1plSVM1UGVlN25OSm5nN1NZVENGa21leER5YnVRb21TS3RCVExH?=
+ =?utf-8?B?Yk5yVkFRNDJYVjM4UktON1FyNGozV2oyRUI3WEU0UnlyNVVFcVF6UXhJL1pR?=
+ =?utf-8?B?ZXlQYnh4c3NzeWVlK2dhV2Nmc1RydUliTVRiRS9PeWJ6MVVkcFJLdEF3Z09z?=
+ =?utf-8?B?VFlYSkExSW1zVlRBR2xWcndyT2VDRjdKMU0xNkExTnNGSHZ1OW1BeXMzUytC?=
+ =?utf-8?B?aFIyM1BBTmNsZVhYRkh5OVhRWmdRdUh6MTN5dWNQMWRIRGY3YXcvQnZVQU12?=
+ =?utf-8?B?QVJPbG1lZDFaU3YrT3E5RE9oa1ZTWWZMQmVGUm9Zc0xzMUhkdGVnU3o2elhl?=
+ =?utf-8?B?UWFBS3FTSWxCVnZpdkd0VkZrWHhBWXNSd0w2R1Z6bHZwRUNMV09FMTFxa1B3?=
+ =?utf-8?B?QWZybDhrTFJKZUVEUlMxblhWRGNVaHBYM0NXL2laajlscklDSkhKNlVac1hK?=
+ =?utf-8?B?MnFCSGo2OVR6MEdGd0poN2Fjcm50cFZBRTMydUdmTW9GMTltZUpvTFd5bFo2?=
+ =?utf-8?B?TXZLaEwwbVJDSlFZd2g1RmVsSkh0bFBZWWtVY0NnS0VZL2hwamJzT2lBYmlW?=
+ =?utf-8?B?ZUk4TUdpdHNQZEdXZjU2aGxlY1NBdkt3NTFURkcwbGZXT3BCbGU1OXVUdWdi?=
+ =?utf-8?Q?5MqmDUblSq3R6gsW4M?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 446d1827-08e1-41fb-0dfb-08df08c0e158
+X-MS-Exchange-CrossTenant-Network-Message-Id: c1bd5daa-acc4-48b8-b012-08df08c146f3
 X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 07:07:41.8998 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 07:10:32.3597 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: OEM7XjJXlRnqPatAx9twBbI06EOs8XQSaC4mTMqREwkjMWK2WVrC8seU7mqmBrIS
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8302
+X-MS-Exchange-CrossTenant-UserPrincipalName: IoMt7r5mqghSAoxJYFy6r6kTBgy3rnzC97S7UmYx/DyzyZauhBELPSoDaVhSiFA2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999289
 X-BeenThere: amd-gfx@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,93 +135,48 @@ Errors-To: amd-gfx-bounces@lists.freedesktop.org
 Sender: "amd-gfx" <amd-gfx-bounces@lists.freedesktop.org>
 
 On 9/1/26 22:10, Alex Deucher wrote:
-> GMC 9-12 use KIQ or MES for TLB invalidations to avoid using MMIO which would
-> require disallowing GFXOFF.  KIQ and MES are management queues however and if
-> they hang, they cannot be recovered by a queue reset since they are the
-> mechanisms which handle queue resets.  Since using KIQ or MES will exit GFXOFF
-> anyway, explicitly disallow it on the MMIO path and use that. Next, switch to
-> using SDMA for TLB invalidations.  SDMA 4.4.x and newer have special packets
-> specifically for this purpose.
+> We need to disallow gfxoff if we touch GC MMIO registers.
+> At the moment we use KIQ or MES for TLB flushes so
+> no intended functional change.
 
-That packet was just introduced to work around SRIOV issues and proved to cause stability issues as well.
+One reason to use the KIQ for TLB invalidation was to avoid enabling/disabling GFXOFF all the time.
 
-Since Arun now found that on basically all Navi generations the SDMA can hang while doing a TLB invalidation I have to clearly NAK this approach.
+So this change here might work around GFXOFF issues, but that only hides the problems we have with GFXOFF and doesn't fix them.
 
-In the long run we should do the TLB invalidations on newer HW completely with the MES, the SDMA was always just a workaround we should not push forward.
+The same is true for all other generations.
 
 Regards,
 Christian.
 
-> If SDMA hangs while doing the invalidation for
-> some reason, it's easier to reset the SDMA queue than KIQ or MES.  Finally,
-> most of the TLB invalidation code between GMC 9 through 12 was identical, so
-> move it to common GMC helpers and remove the IP specific code.  If the SMDA
-> and MMIO pathes prove to be stable, the KIQ pathes can be removed in the future
-> to further simplify things. SDMA 4.x could also be updated to support PASID
-> invalidation via SDMA using either the new packet (SDMA 4.4.x) or via
-> REG_WRITE/REG_WAIT packets (SDMA 4.0.x).
 > 
-> Code is available on this branch as well:
-> https://gitlab.freedesktop.org/agd5f/linux/-/commits/tlb_inv_rework?ref_type=heads
+> Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+> ---
+>  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
 > 
-> V2:
-> - Add missing hub callbacks in gmc9 hubs
-> 
-> Alex Deucher (31):
->   drm/amdgpu/gmc9: disallow gfxoff around TLB flushes
->   drm/amdgpu/gmc10: disallow gfxoff around TLB flushes
->   drm/amdgpu/gmc11: disallow gfxoff around TLB flushes
->   drm/amdgpu/gmc12: disallow gfxoff around TLB flushes
->   drm/amdgpu/gmc9: set vmhub funcs for gfxhub and mmhub
->   drm/amdgpu: add a gmc flag for using MMIO for TLB flush
->   drm/amdgpu/gmc9: use MMIO for TLB flushes
->   drm/amdgpu/gmc10: use MMIO for TLB flushes
->   drm/amdgpu/gmc11: use MMIO for TLB flushes
->   drm/amdgpu/gmc12: use MMIO for TLB flushes
->   drm/amdgpu: add a buffer funcs callback for TLB invalidation
->   drm/amdgpu/sdma5.0: add tlb invalidation buffer func callback
->   drm/amdgpu/sdma5.2: add tlb invalidation buffer func callback
->   drm/amdgpu/sdma6: add tlb invalidation buffer func callback
->   drm/amdgpu/sdma7: add tlb invalidation buffer func callback
->   drm/amdgpu: simplify amdgpu_gmc_flush_gpu_tlb()
->   drm/amdgpu: add tlb invalidation method enum
->   drm/amdgpu: plumb tlb inv method in amdgpu_gmc_flush_gpu_tlb_gart()
->   drm/amdgpu: uplevel reset check in amdgpu_gmc_flush_gpu_tlb_gart()
->   drm/amdgpu/gmc: add new callback to lookup vmid to pasid mapping
->   drm/amdgpu: add a gmc callback for the inv semaphore
->   drm/amdgpu/gmc: rework pasid flushing
->   drm/amdgpu/gmc9: use SDMA for gart TLB invalidation
->   drm/amdgpu/gmc10: use SDMA for gart TLB invalidation
->   drm/amdgpu/gmc11: use SDMA for gart TLB invalidation
->   drm/amdgpu/gmc12: use SDMA for gart TLB invalidation
->   drm/amdgpu/gmc10: use SDMA for pasid TLB invalidation
->   drm/amdgpu/gmc11: use SDMA for pasid TLB invalidation
->   drm/amdgpu/gmc12: use MES or SDMA for pasid TLB invalidation
->   drm/amdgpu/gmc12: drop MES tlb inv in gmc callbacks
->   drm/amdgpu/gmc: add helpers for various tlb inv functions
-> 
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gart.c |   2 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c  | 486 +++++++++++++++++++----
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h  |  33 +-
->  drivers/gpu/drm/amd/amdgpu/amdgpu_sdma.h |  18 +
->  drivers/gpu/drm/amd/amdgpu/gfx_v10_0.c   |   2 +
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v1_0.c |  33 ++
->  drivers/gpu/drm/amd/amdgpu/gfxhub_v1_2.c |  33 ++
->  drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c   | 202 +---------
->  drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c   | 207 +---------
->  drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c   | 250 ++----------
->  drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c   | 225 +----------
->  drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c    | 135 ++-----
->  drivers/gpu/drm/amd/amdgpu/mes_v12_0.c   |   4 +
->  drivers/gpu/drm/amd/amdgpu/mes_v12_1.c   |   4 +
->  drivers/gpu/drm/amd/amdgpu/mmhub_v1_0.c  |  33 ++
->  drivers/gpu/drm/amd/amdgpu/mmhub_v1_7.c  |  32 ++
->  drivers/gpu/drm/amd/amdgpu/mmhub_v1_8.c  |  32 ++
->  drivers/gpu/drm/amd/amdgpu/mmhub_v9_4.c  |  32 ++
->  drivers/gpu/drm/amd/amdgpu/sdma_v5_0.c   |  49 +++
->  drivers/gpu/drm/amd/amdgpu/sdma_v5_2.c   |  49 +++
->  drivers/gpu/drm/amd/amdgpu/sdma_v6_0.c   |  49 +++
->  drivers/gpu/drm/amd/amdgpu/sdma_v7_0.c   |  48 +++
->  22 files changed, 943 insertions(+), 1015 deletions(-)
-> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> index b46b87291c512..80f1cf1f21736 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c
+> @@ -808,6 +808,10 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>  		return;
+>  	}
+>  
+> +	/* disabllow gfxoff when we invalidate */
+> +	if (vmhub < AMDGPU_MMHUB0(0))
+> +		amdgpu_gfx_off_ctrl(adev, false);
+> +
+>  	/* This path is needed before KIQ/MES/GFXOFF are set up */
+>  	spin_lock(&adev->gmc.invalidate_lock);
+>  
+> @@ -873,6 +877,9 @@ static void gmc_v9_0_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
+>  
+>  	spin_unlock(&adev->gmc.invalidate_lock);
+>  
+> +	if (vmhub < AMDGPU_MMHUB0(0))
+> +		amdgpu_gfx_off_ctrl(adev, true);
+> +
+>  	if (j < adev->usec_timeout)
+>  		return;
+>  
 
